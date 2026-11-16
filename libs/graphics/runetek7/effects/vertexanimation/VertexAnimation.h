@@ -1,162 +1,107 @@
 // libs/graphics/runetek7/effects/vertexanimation/VertexAnimation.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class VertexAnimation {
     public:
-        GetBoneTransforms() const;
+        void GetBoneTransforms() const;
         shared_ptr GetAnimationStateProvider() const;
-        VertexAnimation(VertexAnimation&&);
-        VertexAnimation(VertexAnimation const&);
+        VertexAnimation(VertexAnimation&& vertexAnimation);
+        VertexAnimation(const VertexAnimation& vertexAnimation);
         bool GetAnimatesTransparency() const;
         void ClearAnimationStateProvider();
-        void SetAnimationStateProvider(shared_ptr<AnimationStateProvider> const&);
-        void SetMaxSize(unsigned int, unsigned int, unsigned int);
-        void SetShaderConstants(render::RenderContext&, Shader&) const;
-        void DeferredUpdateAnimation(
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const*,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const*,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const*,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const*);
-        ulong DetermineHasTransparentLabels(
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&)
-            const;
-        void UpdateAnimation(
-            ThreadPool&, unsigned int,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const*,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const*,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const*,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const*,
-            Array<LabelData, eastl::allocator> const&, math::Matrix44T<float> const&);
+        void SetAnimationStateProvider(const shared_ptr<AnimationStateProvider>& animationStateProvider);
+        void SetMaxSize(unsigned int arg1, unsigned int arg2, unsigned int arg3);
+        void SetShaderConstants(render::RenderContext& renderContext, Shader& shader) const;
+        void DeferredUpdateAnimation(const eastl::vector_map<unsigned short, unsigned short>* arg1,
+                                     const eastl::vector_map<unsigned short, unsigned short>* arg2,
+                                     const eastl::vector_map<unsigned short, unsigned short>* arg3,
+                                     const eastl::vector_map<unsigned short, unsigned short>* arg4);
+        unsigned long
+        DetermineHasTransparentLabels(const eastl::vector_map<unsigned short, unsigned short>& arg1) const;
+        void UpdateAnimation(ThreadPool& threadPool, unsigned int arg2,
+                             const eastl::vector_map<unsigned short, unsigned short>* arg3,
+                             const eastl::vector_map<unsigned short, unsigned short>* arg4,
+                             const eastl::vector_map<unsigned short, unsigned short>* arg5,
+                             const eastl::vector_map<unsigned short, unsigned short>* arg6,
+                             const Array<LabelData>& labelDatas, const math::Matrix44T<float>& matrix44);
         void EndUpdateAnimation();
         VertexAnimation();
         ~VertexAnimation();
 
-        // data members, from how the methods use this: 76 bytes
-        char _unknown_0[48];
-        shared_ptr m_animationStateProvider; // offset 48
-        uint field_64;                       // offset 64
-        uint field_68;                       // offset 68
-        undefined1 field_72;                 // offset 72
-        char _unknown_73[3];
+    private:
+        uint8_t _unknown_0[48];
+        shared_ptr m_animationStateProvider;
+        unsigned int field_64;
+        unsigned int field_68;
+        uint8_t field_72;
+        uint8_t _unknown_73[3];
     };
 
-    // 0x10080d6b0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // VertexAnimation::VertexAnimation(VertexAnimation&&): jumps straight to the base-object constructor
-
-    // 0x10080da00, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // VertexAnimation::VertexAnimation(VertexAnimation const&): jumps straight to the base-object constructor
-
-    // 0x10082dba0, 80 bytes, base-object constructor, inline, placed by class name
-    // VertexAnimation::VertexAnimation(VertexAnimation&&)
-    void VertexAnimation::VertexAnimation(VertexAnimation* param_1) {
-        uint uVar1;
-
-        new (this) VertexTransformData(param_1);
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)m_animationStateProvider,
-            (shared_ptr*)param_1->m_animationStateProvider);
-        field_72 = param_1->field_72;
-        uVar1 = param_1->field_68;
-        field_64 = param_1->field_64;
+    // 0x10082dba0
+    VertexAnimation::VertexAnimation(VertexAnimation&& vertexAnimation) : VertexTransformData(vertexAnimation) {
+        m_animationStateProvider->shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
+            vertexAnimation.m_animationStateProvider);
+        field_72 = vertexAnimation.field_72;
+        unsigned int uVar1 = vertexAnimation.field_68;
+        field_64 = vertexAnimation.field_64;
         field_68 = uVar1;
     }
 
-    // 0x10082dd60, 80 bytes, base-object constructor, inline, placed by class name
-    // VertexAnimation::VertexAnimation(VertexAnimation const&)
-    void VertexAnimation::VertexAnimation(VertexAnimation* param_1) {
-        uint uVar1;
-
-        new (this) VertexTransformData(param_1);
-        new (m_animationStateProvider, (shared_ptr*)param_1->m_animationStateProvider)
-            shared_ptr<oldscape::dash3d::Decor>();
-        field_72 = param_1->field_72;
-        uVar1 = param_1->field_68;
-        field_64 = param_1->field_64;
+    // 0x10082dd60
+    VertexAnimation::VertexAnimation(const VertexAnimation& vertexAnimation)
+        : VertexTransformData(vertexAnimation), m_animationStateProvider(vertexAnimation.m_animationStateProvider),
+          field_72(vertexAnimation.field_72) {
+        unsigned int uVar1 = vertexAnimation.field_68;
+        field_64 = vertexAnimation.field_64;
         field_68 = uVar1;
     }
 
-    // 0x10082de70, 64 bytes, inline, placed by class name
-    // VertexAnimation::GetAnimatesTransparency() const
-    bool VertexAnimation::GetAnimatesTransparency() {
-        long* plVar3;
+    // 0x10082de70
+    bool VertexAnimation::GetAnimatesTransparency() const {
+        long* plVar2;
 
         if (m_animationStateProvider->operator_cast_to_bool()) {
-            plVar3 = (long*)shared_ptr<AnimationStateProvider>::operator->(
-                (shared_ptr<AnimationStateProvider>*)m_animationStateProvider);
-            if ((**(code**)(*plVar3 + 48))(plVar3) != '\0') {
+            plVar2 = (long*)(*m_animationStateProvider).operator->();
+            if ((**(void (**)(...))(*plVar2 + 48))(plVar2)) {
                 return field_72 != '\0';
             }
         }
         return false;
     }
 
-    // 0x10082e160, 16 bytes, inline, placed by class name
-    // VertexAnimation::ClearAnimationStateProvider()
+    // 0x10082e160
     void VertexAnimation::ClearAnimationStateProvider() {
-        shared_ptr<AnimationStateProvider>::reset();
+        m_animationStateProvider->reset();
     }
 
-    // 0x1008669c0, 16 bytes, inline, placed by class name
-    // VertexAnimation::SetAnimationStateProvider(shared_ptr<AnimationStateProvider> const&)
-    void VertexAnimation::SetAnimationStateProvider(shared_ptr* param_1) {
-        shared_ptr<AnimationStateProvider>::operator=((shared_ptr<AnimationStateProvider>*)m_animationStateProvider,
-                                                      param_1);
+    // 0x1008669c0
+    void VertexAnimation::SetAnimationStateProvider(const shared_ptr<AnimationStateProvider>& animationStateProvider) {
+        *m_animationStateProvider = animationStateProvider;
     }
 
-    // 0x100866b00, 32 bytes, inline, placed by class name
-    // VertexAnimation::SetMaxSize(unsigned int, unsigned int, unsigned int)
-    void VertexAnimation::SetMaxSize(uint param_1, uint param_2, uint param_3) {
-        SetMaxSize((ulong)param_1, (ulong)(param_2 << 2), (ulong)(param_3 << 3));
+    // 0x100866b00
+    void VertexAnimation::SetMaxSize(unsigned int arg1, unsigned int arg2, unsigned int arg3) {
+        SetMaxSize((unsigned long)arg1, (unsigned long)(arg2 << 2), (unsigned long)(arg3 << 3));
     }
 
-    // 0x100989720, 16 bytes, complete-object constructor, inline, placed by class name
-    // VertexAnimation::VertexAnimation(): jumps straight to the base-object constructor
+    // 0x1009917b0
+    VertexAnimation::VertexAnimation() : VertexTransformData(), field_64(2147483647), field_68(0), field_72(0) {}
 
-    // 0x100989730, 16 bytes, complete-object destructor, inline, placed by class name
-    // VertexAnimation::~VertexAnimation(): jumps straight to the base-object destructor
-
-    // 0x1009917b0, 64 bytes, base-object constructor, inline, placed by class name
-    // VertexAnimation::VertexAnimation()
-    void VertexAnimation::VertexAnimation() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) VertexTransformData();
-        new (m_animationStateProvider, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_64 = 2147483647;
-        field_68 = 0;
-        field_72 = 0;
-    }
-
-    // 0x1009917f0, 48 bytes, base-object destructor, inline, placed by class name
-    // VertexAnimation::~VertexAnimation()
-    void VertexAnimation::~VertexAnimation() {
+    // 0x1009917f0
+    VertexAnimation::~VertexAnimation() {
         m_animationStateProvider->~shared_ptr();
-        ~VertexTransformData();
     }
 
 } // namespace jag::graphics
 
 namespace jag::math {
-    // 0x10080dd10, 64 bytes, inline, placed by debug map only (low confidence)
-    // frand(float, float)
-    float frand(float param_1, float param_2) {
-        int iVar1;
-
-        iVar1 = _rand();
-        return (param_2 - param_1) * 4.656613e-10 * (float)iVar1 + param_1;
+    // 0x10080dd10
+    float frand(float arg1, float arg2) {
+        int iVar1 = _rand();
+        return (arg2 - arg1) * 4.656613e-10 * (float)iVar1 + arg1;
     }
 
 } // namespace jag::math

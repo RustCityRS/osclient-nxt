@@ -1,6 +1,5 @@
 // libs/oldscape/rs2lib/worldmap/MapElement.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.oldscape.rs2lib
@@ -8,148 +7,136 @@
 namespace jag::oldscape::rs2lib::worldmap {
     class MapElement {
     public:
-        MapElement(CoordGrid const&, CoordGrid const&);
-        Contains(int, int);
-        ContainsSprite(int, int);
-        ContainsText(int, int);
+        MapElement(const CoordGrid& coordGrid1, const CoordGrid& coordGrid2);
+        uint32_t Contains(int arg1, int arg2);
+        bool ContainsSprite(int arg1, int arg2);
+        bool ContainsText(int arg1, int arg2);
         bool IsValid();
 
-        // data members, from how the methods use this: 44 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        char _unknown_8[24];
-        int field_32;        // offset 32
-        int field_36;        // offset 36
-        undefined1 field_40; // offset 40
-        char _unknown_41[3];
+    private:
+        uint8_t _unknown_8[24];
+        int field_32;
+        int field_36;
+        uint8_t field_40;
+        uint8_t _unknown_41[3];
     };
 
-    // 0x10020ba00, 64 bytes, base-object constructor, placed by class name
-    // MapElement::MapElement(CoordGrid const&, CoordGrid const&)
-    void MapElement::MapElement(CoordGrid* param_1, CoordGrid* param_2) {
+    // 0x10020ba00
+    MapElement::MapElement(const CoordGrid& coordGrid1, const CoordGrid& coordGrid2) {
         field_0 = PTR_vtable_100ee8ad0 + 16;
-        new (&field_8, param_2) rs2lib::CoordGrid();
-        new (&field_20, param_1) rs2lib::CoordGrid();
+        new (&field_8) rs2lib::CoordGrid(coordGrid2);
+        new (&field_20) rs2lib::CoordGrid(coordGrid1);
         field_40 = 0;
     }
 
-    // 0x10020ba40, 64 bytes, placed by class name
-    // MapElement::Contains(int, int)
-    undefined4 MapElement::Contains(int param_1, int param_2) {
-        char cVar1;
-        undefined4 uVar2;
-
-        cVar1 = ContainsSprite(this, param_1, param_2);
-        uVar2 = 1;
-        if (cVar1 == '\0') {
-            uVar2 = ContainsText(this, param_1, param_2);
+    // 0x10020ba40
+    uint32_t MapElement::Contains(int arg1, int arg2) {
+        bool cVar1 = ContainsSprite(arg1, arg2);
+        uint32_t uVar2 = 1;
+        if (!cVar1) {
+            uVar2 = ContainsText(arg1, arg2);
         }
         return uVar2;
     }
 
-    // 0x10020ba80, 304 bytes, placed by class name
-    // MapElement::ContainsSprite(int, int)
-    undefined8 MapElement::ContainsSprite(int param_1, int param_2) {
-        uint uVar1;
+    // 0x10020ba80
+    bool MapElement::ContainsSprite(int arg1, int arg2) {
+        unsigned int uVar1;
         int iVar3;
-        int iVar4;
-        long lVar5;
-        ulong uVar6;
-        ulong uVar7;
-        undefined8 uVar8;
+        MapElementType* pMVar4;
+        unsigned long uVar5;
+        unsigned long uVar6;
+        uint64_t uVar7;
 
-        if (IsValid(this) == '\0') {
-            uVar8 = 0;
+        if (IsValid() == '\0') {
+            uVar7 = 0;
         } else {
-            iVar3 = (**(code**)(field_0 + 8))(this);
-            lVar5 = configdecoder::MapElementType::List(iVar3);
-            iVar4 = (**(code**)(field_0 + 32))(this);
-            uVar6 = (**(code**)(field_0 + 40))(this);
-            iVar3 = *(int*)(lVar5 + 376);
-            if (iVar3 == 2) {
-                if (param_1 < field_32) {
-                    return 0;
-                }
-                if (field_32 + iVar4 <= param_1) {
-                    return 0;
-                }
-            } else if (iVar3 == 1) {
-                if (param_1 < field_32 - iVar4 / 2) {
-                    return 0;
-                }
-                if (field_32 + iVar4 / 2 < param_1) {
-                    return 0;
-                }
-            } else if (iVar3 == 0) {
-                if (field_32 < param_1) {
-                    return 0;
-                }
-                if (param_1 <= field_32 - iVar4) {
-                    return 0;
-                }
-            }
-            uVar1 = *(uint*)(lVar5 + 380);
-            uVar7 = (ulong)uVar1;
-            iVar3 = (int)uVar6;
+            iVar3 = (**(void (**)(...))(field_0 + 8))(this);
+            pMVar4 = configdecoder::MapElementType::List(iVar3);
+            iVar3 = (**(void (**)(...))(field_0 + 32))(this);
+            uVar5 = (**(void (**)(...))(field_0 + 40))(this);
+            uVar1 = pMVar4->field_376;
             if (uVar1 == 2) {
-                uVar7 = 0;
-                if (param_2 < field_36) {
+                if (arg1 < field_32) {
                     return 0;
                 }
-                if (field_36 + iVar3 <= param_2) {
+                if (field_32 + iVar3 <= arg1) {
                     return 0;
                 }
             } else if (uVar1 == 1) {
-                iVar3 = (int)(((uint)(uVar6 >> 31) & 1) + iVar3) >> 1;
-                uVar7 = 0;
-                if (param_2 < field_36 - iVar3) {
+                if (arg1 < field_32 - iVar3 / 2) {
                     return 0;
                 }
-                if (field_36 + iVar3 < param_2) {
+                if (field_32 + iVar3 / 2 < arg1) {
                     return 0;
                 }
             } else if (uVar1 == 0) {
-                uVar7 = 0;
-                if (field_36 < param_2) {
+                if (field_32 < arg1) {
                     return 0;
                 }
-                if (param_2 <= field_36 - iVar3) {
+                if (arg1 <= field_32 - iVar3) {
                     return 0;
                 }
             }
-            uVar8 = CONCAT71((int7)(uVar7 >> 8), 1);
+            uVar1 = pMVar4->field_380;
+            uVar6 = (unsigned long)uVar1;
+            iVar3 = (int)uVar5;
+            if (uVar1 == 2) {
+                uVar6 = 0;
+                if (arg2 < field_36) {
+                    return 0;
+                }
+                if (field_36 + iVar3 <= arg2) {
+                    return 0;
+                }
+            } else if (uVar1 == 1) {
+                iVar3 = (int)(((unsigned int)(uVar5 >> 31) & 1) + iVar3) >> 1;
+                uVar6 = 0;
+                if (arg2 < field_36 - iVar3) {
+                    return 0;
+                }
+                if (field_36 + iVar3 < arg2) {
+                    return 0;
+                }
+            } else if (uVar1 == 0) {
+                uVar6 = 0;
+                if (field_36 < arg2) {
+                    return 0;
+                }
+                if (arg2 <= field_36 - iVar3) {
+                    return 0;
+                }
+            }
+            uVar7 = (((uint64_t)((int64_t)(uVar6 >> 8)) << 8) | (uint8_t)1);
         }
-        return uVar8;
+        return uVar7;
     }
 
-    // 0x10020bbb0, 112 bytes, placed by class name
-    // MapElement::ContainsText(int, int)
-    undefined4 MapElement::ContainsText(int param_1, int param_2) {
+    // 0x10020bbb0
+    bool MapElement::ContainsText(int arg1, int arg2) {
         long lVar2;
         int iVar3;
 
-        if ((**(code**)(field_0 + 24))() != '\0') {
-            lVar2 = (**(code**)(field_0 + 16))(this);
+        if ((**(void (**)(...))(field_0 + 24))() != '\0') {
+            lVar2 = (**(void (**)(...))(field_0 + 16))(this);
             iVar3 = *(int*)(lVar2 + 32) / 2;
-            if (param_1 < field_32 - iVar3) {
+            if (arg1 < field_32 - iVar3) {
                 return 0;
             }
-            if (iVar3 + field_32 < param_1) {
+            if (iVar3 + field_32 < arg1) {
                 return 0;
             }
-            if (field_36 <= param_2) {
+            if (field_36 <= arg2) {
                 iVar3 = field_36 + *(int*)(lVar2 + 36);
-                return CONCAT31((int3)((uint)iVar3 >> 8), param_2 <= iVar3);
+                return arg2 <= iVar3;
             }
         }
         return 0;
     }
 
-    // 0x10020bc20, 32 bytes, placed by class name
-    // MapElement::IsValid()
+    // 0x10020bc20
     bool MapElement::IsValid() {
-        int iVar1;
-
-        iVar1 = (**(code**)(field_0 + 8))();
+        int iVar1 = (**(void (**)(...))(field_0 + 8))();
         return -1 < iVar1;
     }
 

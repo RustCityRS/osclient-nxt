@@ -1,38 +1,33 @@
 // libs/graphics/primitive/debugbasic/DebugLineRender.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class DebugLineRender {
     public:
-        DebugLineRender(int);
-        CreateRenderingResources();
+        DebugLineRender(int arg1);
+        uint8_t CreateRenderingResources();
         void DestroyRenderingResources();
-        void Render(render::RenderContext&, render::DrawCallState const&, ViewTransforms const&,
-                    eastl::vector<eastl::pair<DebugLine<DebugDataBasic> const*, float>, eastl::allocator> const&, bool);
+        void Render(render::RenderContext& renderContext, const render::DrawCallState& drawCallState,
+                    const ViewTransforms& viewTransforms,
+                    eastl::vector<eastl::pair<DebugLine<DebugDataBasic> const*, float>> const& pairs, bool arg5);
         void OnEndFrame();
         ~DebugLineRender();
 
-        // data members, from how the methods use this: 304 bytes
-        char _unknown_0[8];
-        ulong field_8;            // offset 8
-        PrimVertPosCol* field_16; // offset 16
-        char _unknown_24[88];
-        InputAssemblerState field_112; // offset 112
+    private:
+        uint8_t _unknown_0[8];
+        unsigned long field_8;
+        PrimVertPosCol* field_16;
+        uint8_t _unknown_24[88];
+        InputAssemblerState field_112;
     };
 
-    // 0x1009c9330, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // DebugLineRender::~DebugLineRender(): jumps straight to the base-object destructor
-
-    // 0x1009cd300, 96 bytes, base-object destructor, inline, placed by class name
-    // DebugLineRender::~DebugLineRender()
-    void DebugLineRender::~DebugLineRender() {
-        DestroyRenderingResources(this);
+    // 0x1009cd300
+    DebugLineRender::~DebugLineRender() {
+        DestroyRenderingResources();
         field_112->~InputAssemblerState();
-        (&field_24)->~DynamicBuffer();
-        ~Array();
+        field_24.~DynamicBuffer();
     }
 
 } // namespace jag

@@ -1,130 +1,94 @@
 // libs/game/runetek5/network/protocol/ServerProt_Shuffled.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
-// 0x1004aa360, 64 bytes, placed by debug map only (low confidence)
-// ___cxx_global_var_init.694
-void ___cxx_global_var_init_694() {
-    undefined* puVar1;
-
-    puVar1 = PTR_LOOK_100ee47d8;
+// 0x1004aa360
+void ___cxx_global_var_init_694(void) {
+    uint8_t* puVar1 = PTR_LOOK_100ee47d8;
     if (*PTR_LOOK_100ee47d8 == '\0') {
         new (PTR_LOOK_100ee66e0) jag::math::ColourHSL(0.0, 0.0, 1.0);
         *puVar1 = 1;
     }
 }
 
-// 0x1004aa3a0, 64 bytes, placed by debug map only (low confidence)
-// ___cxx_global_var_init.695
-void ___cxx_global_var_init_695() {
-    undefined* puVar1;
-
-    puVar1 = PTR_UP_100ee47c8;
+// 0x1004aa3a0
+void ___cxx_global_var_init_695(void) {
+    uint8_t* puVar1 = PTR_UP_100ee47c8;
     if (*PTR_UP_100ee47c8 == '\0') {
         new (PTR_UP_100ee66d0) jag::math::ColourHSL(0.0, 1.0, 0.0);
         *puVar1 = 1;
     }
 }
 
-// 0x1004aa3e0, 64 bytes, placed by debug map only (low confidence)
-// ___cxx_global_var_init.696
-void ___cxx_global_var_init_696() {
-    undefined* puVar1;
-
-    puVar1 = PTR_m_pSingleton_100ee4298;
+// 0x1004aa3e0
+void ___cxx_global_var_init_696(void) {
+    uint8_t* puVar1 = PTR_m_pSingleton_100ee4298;
     if (*PTR_m_pSingleton_100ee4298 == '\0') {
-        ___cxa_atexit(
-            std::unique_ptr<jag::ThreadPoolSingleton, std::default_delete<jag::ThreadPoolSingleton>>::~unique_ptr,
-            PTR_m_pSingleton_100ee5948, 4294967296);
+        ___cxa_atexit(std::unique_ptr<jag::ThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5948, 4294967296);
         *puVar1 = 1;
     }
 }
 
-// 0x1004aa420, 64 bytes, placed by debug map only (low confidence)
-// ___cxx_global_var_init.697
-void ___cxx_global_var_init_697() {
-    undefined* puVar1;
-
-    puVar1 = PTR_m_pSingleton_100ee42a0;
+// 0x1004aa420
+void ___cxx_global_var_init_697(void) {
+    uint8_t* puVar1 = PTR_m_pSingleton_100ee42a0;
     if (*PTR_m_pSingleton_100ee42a0 == '\0') {
-        ___cxa_atexit(std::unique_ptr<jag::ShaderThreadPoolSingleton,
-                                      std::default_delete<jag::ShaderThreadPoolSingleton>>::~unique_ptr,
-                      PTR_m_pSingleton_100ee5950, 4294967296);
+        ___cxa_atexit(std::unique_ptr<jag::ShaderThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5950,
+                      4294967296);
         *puVar1 = 1;
     }
 }
 
-// 0x1004aa460, 48 bytes, placed by debug map only (low confidence)
-// ___cxx_global_var_init.698
-void ___cxx_global_var_init_698() {
-    undefined* puVar1;
-
-    puVar1 = PTR_ZERO_100ee4790;
+// 0x1004aa460
+void ___cxx_global_var_init_698(void) {
+    uint8_t* puVar1 = PTR_ZERO_100ee4790;
     if (*PTR_ZERO_100ee4790 == '\0') {
-        new (PTR_ZERO_100ee6698) jag::math::Point<float>(0.0, 0.0);
+        new (PTR_ZERO_100ee6698) jag::math::Point(0.0, 0.0);
         *puVar1 = 1;
     }
 }
 
-// 0x1004aa490, 64 bytes, placed by debug map only (low confidence)
-// ___cxx_global_var_init.699
-void ___cxx_global_var_init_699() {
-    undefined* puVar1;
-
-    puVar1 = PTR_m_mutex_100ee4518;
+// 0x1004aa490
+void ___cxx_global_var_init_699(void) {
+    uint8_t* puVar1 = PTR_m_mutex_100ee4518;
     if (*PTR_m_mutex_100ee4518 == '\0') {
         ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5df0, 4294967296);
         *puVar1 = 1;
     }
 }
 
-// 0x1004aa4d0, 64 bytes, placed by debug map only (low confidence)
-// ___cxx_global_var_init.700
-void ___cxx_global_var_init_700() {
-    undefined* puVar1;
-
-    puVar1 = PTR_ZERO_100ee4800;
+// 0x1004aa4d0
+void ___cxx_global_var_init_700(void) {
+    uint8_t* puVar1 = PTR_ZERO_100ee4800;
     if (*PTR_ZERO_100ee4800 == '\0') {
         new (PTR_ZERO_100ee6708) ImVec4(0.0, 0.0, 0.0, 0.0);
         *puVar1 = 1;
     }
 }
 
-// 0x1004aa510, 64 bytes, placed by debug map only (low confidence)
-// ___cxx_global_var_init.701
-void ___cxx_global_var_init_701() {
-    undefined* puVar1;
-
-    puVar1 = PTR_m_pSingleton_100ee49c8;
+// 0x1004aa510
+void ___cxx_global_var_init_701(void) {
+    uint8_t* puVar1 = PTR_m_pSingleton_100ee49c8;
     if (*PTR_m_pSingleton_100ee49c8 == '\0') {
-        ___cxa_atexit(std::unique_ptr<jag::render::ShaderProgramManager,
-                                      std::default_delete<jag::render::ShaderProgramManager>>::~unique_ptr,
-                      PTR_m_pSingleton_100ee6c38, 4294967296);
+        ___cxa_atexit(std::unique_ptr<jag::render::ShaderProgramManager>::~unique_ptr, PTR_m_pSingleton_100ee6c38,
+                      4294967296);
         *puVar1 = 1;
     }
 }
 
-// 0x1004aa550, 64 bytes, placed by debug map only (low confidence)
-// ___cxx_global_var_init.702
-void ___cxx_global_var_init_702() {
-    undefined* puVar1;
-
-    puVar1 = PTR_m_pSingleton_100ee49d0;
+// 0x1004aa550
+void ___cxx_global_var_init_702(void) {
+    uint8_t* puVar1 = PTR_m_pSingleton_100ee49d0;
     if (*PTR_m_pSingleton_100ee49d0 == '\0') {
-        ___cxa_atexit(std::unique_ptr<jag::render::VertexDeclarationManager,
-                                      std::default_delete<jag::render::VertexDeclarationManager>>::~unique_ptr,
-                      PTR_m_pSingleton_100ee6c40, 4294967296);
+        ___cxa_atexit(std::unique_ptr<jag::render::VertexDeclarationManager>::~unique_ptr, PTR_m_pSingleton_100ee6c40,
+                      4294967296);
         *puVar1 = 1;
     }
 }
 
-// 0x1004aa590, 1784 bytes, placed by debug map only (low confidence)
-// __GLOBAL__sub_I_unity_32_cxx.cxx
-void __GLOBAL__sub_I_unity_32_cxx_cxx() {
-    undefined8 uVar1;
-
-    uVar1 = _objc_autoreleasePoolPush();
+// 0x1004aa590
+void __GLOBAL__sub_I_unity_32_cxx_cxx(void) {
+    uint64_t uVar1 = _objc_autoreleasePoolPush();
     ___cxx_global_var_init();
     ___cxx_global_var_init_8();
     ___cxx_global_var_init_19();

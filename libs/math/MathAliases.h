@@ -1,663 +1,499 @@
 // libs/math/MathAliases.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.oldscape.jagex3
 
 namespace jag::oldscape::dash3d {
-    // 0x1002edaa0, 80 bytes, placed by debug map only (low confidence)
-    // MayaPoseStateRSeven::GetLabelTransparencyDelta(unsigned long) const
-    undefined4 MayaPoseStateRSeven::GetLabelTransparencyDelta(ulong param_1) {
-        long lVar1;
-        long lVar2;
-        undefined4 uVar3;
-        int local_1c;
+    // 0x1002edaa0
+    uint32_t MayaPoseStateRSeven::GetLabelTransparencyDelta(unsigned long arg1) const {
+        uint32_t uVar3;
 
-        local_1c = (int)param_1;
-        lVar1 = (&field_72, &local_1c)->find();
-        lVar2 = (&field_72)->end();
+        long lVar1 = eastl::vector_map<int, int>::find(field_72);
+        long lVar2 = field_72.end();
         if (lVar1 == lVar2) {
             uVar3 = 0;
         } else {
-            uVar3 = *(undefined4*)(lVar1 + 4);
+            uVar3 = *(uint32_t*)(lVar1 + 4);
         }
         return uVar3;
     }
 
-    // 0x1002edaf0, 64 bytes, placed by debug map only (low confidence)
-    // MayaPoseStateRSeven::IsEqual(PoseStateRSeven const&) const
-    undefined4 MayaPoseStateRSeven::IsEqual(PoseStateRSeven* param_1) {
+    // 0x1002edaf0
+    bool MayaPoseStateRSeven::IsEqual(const PoseStateRSeven& poseStateRSeven) const {
         bool bVar1;
-        shared_ptr* extraout_RDX;
 
-        if ((param_1->GetPos() == 3) &&
-            (bVar1 = operator==((jag*)field_16, (shared_ptr*)&param_1->field_16, extraout_RDX), bVar1)) {
-            return CONCAT31((int3)((uint)field_32 >> 8), field_32 == *(int*)&param_1->field_32);
+        if ((poseStateRSeven.GetPos() == 3) && (bVar1 = *field_16 == poseStateRSeven.field_16, bVar1)) {
+            return field_32 == *(int*)&poseStateRSeven.field_32;
         }
         return 0;
     }
 
-    // 0x1002edbe0, 16 bytes, placed by debug map only (low confidence)
-    // operator==(PoseStateRSeven const&, PoseStateRSeven const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(PoseStateRSeven const&,
-   PoseStateRSeven const&) */
-
-    void operator==(PoseStateRSeven* param_1, PoseStateRSeven* param_2) {
-        (*(code*)param_1->field_0[3])();
+    // 0x1002edbe0
+    void operator==(const PoseStateRSeven& poseStateRSeven1, const PoseStateRSeven& poseStateRSeven2) {
+        (poseStateRSeven1._vptr->IsEqual)(poseStateRSeven1);
     }
 
-    // 0x1002edbf0, 16 bytes, placed by debug map only (low confidence)
-    // operator!=(PoseStateRSeven const&, PoseStateRSeven const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(PoseStateRSeven const&,
-   PoseStateRSeven const&) */
-
-    byte operator!=(PoseStateRSeven* param_1, PoseStateRSeven* param_2) {
-        return operator==(param_1, param_2) ^ 1;
+    // 0x1002edbf0
+    uint8_t operator!=(const PoseStateRSeven& poseStateRSeven1, const PoseStateRSeven& poseStateRSeven2) {
+        return poseStateRSeven1 == poseStateRSeven2 ^ 1;
     }
 
-    // 0x1002ee570, 128 bytes, placed by debug map only (low confidence)
-    // DashBasePoseStateRSeven::UpdateAnimationOrigin(eastl::vector<int, eastl::allocator> const&, jag::math::Vector3T<float>&, int, int, int) const
-    void DashBasePoseStateRSeven::UpdateAnimationOrigin(vector* param_1, Vector3T* param_2, int param_3, int param_4,
-                                                        int param_5) {
-        float fVar1;
-        ColourHSL local_58;
-        undefined8 local_48;
-        float local_40;
-        undefined8 local_38;
-        float local_30;
-
-        fVar1 = -(float)param_4;
-        new (&local_58) jag::math::ColourHSL((float)param_3, fVar1, (float)param_5);
-        local_38 = (*(code*)field_0[8])(this, param_1);
-        local_30 = fVar1;
-        local_48 = jag::math::operator+((Vector3T*)&local_38, (Vector3T*)&local_58);
-        local_40 = fVar1;
-        param_2->SetXYZ((Vector3T*)&local_48);
+    // 0x1002ee570
+    void DashBasePoseStateRSeven::UpdateAnimationOrigin(const eastl::vector<int>& arg1,
+                                                        jag::math::Vector3T<float>& vector3, int arg3, int arg4,
+                                                        int arg5) const {
+        float arg2 = -(float)arg4;
+        ColourHSL local_58((float)arg3, arg2, (float)arg5);
+        uint64_t local_38 = (uint64_t)CalculateMappedCentreOfLabels();
+        float local_30 = arg2;
+        uint64_t local_48 = local_38 + local_58;
+        float local_40 = arg2;
+        vector3.SetXYZ(local_48);
     }
 
-    // 0x1002ee5f0, 176 bytes, placed by debug map only (low confidence)
-    // DashBasePoseStateRSeven::UpdateFaceTransparency(eastl::vector<int, eastl::allocator> const&, int) const
-    void DashBasePoseStateRSeven::UpdateFaceTransparency(vector* param_1, int param_2) {
+    // 0x1002ee5f0
+    void DashBasePoseStateRSeven::UpdateFaceTransparency(const eastl::vector<int>& arg1, int arg2) const {
         int iVar1;
-        long lVar2;
         int* piVar3;
-        vector<EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        ulong uVar4;
-        Array<float, eastl::allocator>* this_01;
+        unsigned long uVar4;
+        Array<float>* this_01;
         float* pfVar5;
-        ulong uVar6;
+        unsigned long arg1_00;
 
-        lVar2 = param_1->size();
-        if (lVar2 != 0) {
-            uVar6 = 0;
+        if (arg1.size() != 0) {
+            arg1_00 = 0;
             do {
-                piVar3 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)param_1,
-                                                                                uVar6);
+                piVar3 = &arg1[arg1_00];
                 iVar1 = *piVar3;
-                this_00 = (vector<EntityHighlight*, BucketAllocatorEASTL>*)GetFaceTransparencyDeltas(this);
-                uVar4 = eastl::vector<EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-                if ((ulong)(long)iVar1 < uVar4) {
-                    this_01 = (Array<float, eastl::allocator>*)GetFaceTransparencyDeltas(this);
-                    pfVar5 = (float*)Array<float, eastl::allocator>::operator[](this_01, (long)iVar1);
-                    *pfVar5 = *pfVar5 - (float)(param_2 << 3) * 0.003921569;
+                uVar4 = ((vector<EntityHighlight*, BucketAllocatorEASTL>*)GetFaceTransparencyDeltas())->end();
+                if ((unsigned long)(long)iVar1 < uVar4) {
+                    this_01 = (Array<float>*)GetFaceTransparencyDeltas();
+                    pfVar5 = (float*)(*this_01)[(long)iVar1];
+                    *pfVar5 = *pfVar5 - (float)(arg2 << 3) * 0.003921569f;
                 }
-                uVar6 = uVar6 + 1;
-                uVar4 = param_1->size();
-            } while (uVar6 < uVar4);
+                arg1_00 = arg1_00 + 1;
+                uVar4 = arg1.size();
+            } while (arg1_00 < uVar4);
         }
     }
 
-    // 0x1002ee6a0, 448 bytes, placed by debug map only (low confidence)
-    // DashBasePoseStateRSeven::CalculateMappedCentreOfLabels(eastl::vector<int, eastl::allocator> const&) const
-    undefined8 DashBasePoseStateRSeven::CalculateMappedCentreOfLabels(vector* param_1) {
-        undefined8* puVar2;
-        int* piVar3;
-        int* piVar4;
-        Vector3T* pVVar5;
-        ulong uVar6;
-        vector<EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        ulong uVar7;
-        undefined1 local_d8[48];
-        undefined8 local_a8;
-        undefined8 local_70[2];
-        undefined8* local_58;
-        Matrix43T* local_50;
-        Array<jag::graphics::LabelData, eastl::allocator>* local_48;
-        undefined8 local_40;
-        undefined4 local_38;
-        uint local_34;
+    // 0x1002ee6a0
+    uint64_t DashBasePoseStateRSeven::CalculateMappedCentreOfLabels(const eastl::vector<int>& arg1) const {
+        Vector3T<float>* vector3;
+        unsigned long uVar4;
+        unsigned long arg1_00;
+        Matrix43T<float> local_d8;
+        ReturnValue local_a8;
+        uint64_t local_70[2];
+        uint64_t* local_58;
+        uint8_t* local_50;
+        Array<jag::graphics::LabelData>* local_48;
+        unsigned int local_34;
 
-        local_38 = *(undefined4*)(PTR_ZERO_100ee66e8 + 8);
-        local_40 = *(undefined8*)PTR_ZERO_100ee66e8;
-        puVar2 = (undefined8*)(&field_128)->end();
-        piVar3 = (int*)param_1->HeapBeginPtr();
-        piVar4 = (int*)param_1->end();
-        if (piVar3 == piVar4) {
+        uint32_t local_38 = *(uint32_t*)(PTR_ZERO_100ee66e8 + 8);
+        return local_40 = *(uint64_t*)PTR_ZERO_100ee66e8;
+        auto puVar1 = field_128.end();
+        auto piVar2 = arg1.HeapBeginPtr();
+        auto piVar3 = arg1.end();
+        if (piVar2 == piVar3) {
             local_34 = 0;
         } else {
-            local_48 = (Array<jag::graphics::LabelData, eastl::allocator>*)&field_144;
-            local_50 = (Matrix43T*)&field_80;
+            local_48 = (Array<jag::graphics::LabelData>*)&field_144;
+            local_50 = &field_80;
             local_34 = 0;
-            local_58 = puVar2;
+            local_58 = puVar1;
             do {
-                uVar7 = (ulong)*piVar3;
-                uVar6 = local_48->end();
-                if (uVar7 < uVar6) {
-                    this_00 = (vector<EntityHighlight*, BucketAllocatorEASTL>*)GetBonePositions(
-                        (DashBasePoseStateRSeven*)this);
-                    uVar6 = eastl::vector<EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-                    if (uVar7 < uVar6) {
-                        (*(code*)*((DashBasePoseStateRSeven*)this)->field_0)((Vector3T*)&local_a8,
-                                                                             (DashBasePoseStateRSeven*)this, uVar7);
-                        jag::math::operator*((math*)local_d8, (Matrix43T*)&local_a8, local_50);
-                        if (local_58 != (undefined8*)0) {
-                            (**(code**)*local_58)((Vector3T*)&local_a8, local_58, uVar7);
-                            jag::math::Matrix43T<float>::operator*=((Matrix43T<float>*)local_d8, (Matrix43T*)&local_a8);
+                arg1_00 = (unsigned long)*piVar2;
+                uVar4 = local_48->end();
+                if (arg1_00 < uVar4) {
+                    uVar4 = ((vector<EntityHighlight*, BucketAllocatorEASTL>*)GetBonePositions())->end();
+                    if (arg1_00 < uVar4) {
+                        GetBoneTransform(&local_a8, this, arg1_00);
+                        local_d8* local_a8;
+                        if (local_58 != nullptr) {
+                            (**(void (**)(...))*local_58)(&local_a8, local_58, arg1_00);
+                            local_d8 *= local_a8;
                         }
-                        pVVar5 =
-                            (Vector3T*)Array<jag::graphics::LabelData, eastl::allocator>::operator[](local_48, uVar7);
-                        local_70[0] = jag::math::operator*(pVVar5, (Matrix43T*)local_d8);
-                        local_a8 = jag::math::operator*((Vector3T*)local_70, (float)*(int*)(pVVar5 + 12));
-                        jag::math::Vector3T<float>::operator+=((Vector3T<float>*)&local_40, (Vector3T*)&local_a8);
-                        local_34 = local_34 + *(int*)(pVVar5 + 12);
+                        vector3 = (Vector3T<float>*)(*local_48)[arg1_00];
+                        local_70[0] = *vector3 * local_d8;
+                        local_a8[0] = (ReturnValue)(*((float)*(int*)(vector3 + 12))) * *local_70;
+                        local_40 += local_a8;
+                        local_34 = local_34 + *(int*)(vector3 + 12);
                     }
                 }
-                piVar3 = piVar3 + 1;
-            } while (piVar3 != piVar4);
+                piVar2 = piVar2 + 1;
+            } while (piVar2 != piVar3);
         }
         if (local_34 != 0) {
-            jag::math::Vector3T<float>::operator/=((Vector3T<float>*)&local_40, (float)local_34);
+            local_40 /= ((float)local_34);
         }
         return local_40;
     }
 
-    // 0x1002eeb70, 416 bytes, placed by debug map only (low confidence)
-    // DashBasePoseStateRSeven::LoadFromLabeledModel(ResolvedModel const&)
-    void DashBasePoseStateRSeven::LoadFromLabeledModel(ResolvedModel* param_1) {
-        int iVar1;
-        shared_ptr* psVar2;
-        TextureManager* this_00;
-        Array* pAVar3;
-        undefined1 local_e8[68];
-        int local_a4;
-        float local_a0[2];
-        function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                   eastl::vector<eastl::pair<unsigned short, unsigned short>,
-                                                 eastl::allocator>> const*(jag::graphics::GeometryBatch_const&)>
+    // 0x1002eeb70
+    void DashBasePoseStateRSeven::LoadFromLabeledModel(const ResolvedModel& resolvedModel) {
+        shared_ptr<PoseStateRSeven>* poseStateRSeven;
+        function<eastl::vector_map<unsigned short, unsigned short> const*(jag::graphics::GeometryBatch const&)>
             local_98[48];
-        function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                   eastl::vector<eastl::pair<unsigned short, unsigned short>,
-                                                 eastl::allocator>> const*(jag::graphics::GeometryBatch_const&)>
+        function<eastl::vector_map<unsigned short, unsigned short> const*(jag::graphics::GeometryBatch const&)>
             local_68[56];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_e8->GetLocalTransform();
-        jag::math::Matrix43T<float>::operator=((Matrix43T<float>*)&field_80, (Matrix44T*)local_e8);
-        psVar2 = (shared_ptr*)param_1->GetModel();
-        this_00 =
-            (TextureManager*)shared_ptr<jag::graphics::Model>::operator*((shared_ptr<jag::graphics::Model>*)psVar2);
-        pAVar3 = (Array*)this_00->GetTextureAtlasManager();
-        Array<jag::graphics::LabelData, eastl::allocator>::operator=(
-            (Array<jag::graphics::LabelData, eastl::allocator>*)&field_144, pAVar3);
-        weak_ptr<jag::graphics::Model>::operator=((weak_ptr<jag::graphics::Model>*)&field_56, psVar2);
-        psVar2 = (shared_ptr*)param_1->GetAnimationState();
-        shared_ptr<PoseStateRSeven>::operator=((shared_ptr<PoseStateRSeven>*)&field_128, psVar2);
-        std::function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                        eastl::vector<eastl::pair<unsigned short, unsigned short>,
-                                                      eastl::allocator>> const*(jag::graphics::GeometryBatch_const&)>::
-            function<DashBasePoseStateRSeven::LoadFromLabeledModel(ResolvedModel_const&)::__1, void>(local_68);
-        iVar1 = GetMaximumLabel(this_00, local_68);
-        std::function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                        eastl::vector<eastl::pair<unsigned short, unsigned short>,
-                                                      eastl::allocator>> const*(jag::graphics::GeometryBatch_const&)>::
-            ~function(local_68);
-        local_a4 = iVar1 + 1;
-        std::make_unique<Array<jag::math::Matrix43T<float>, eastl::allocator>, int&,
-                         jag::math::Matrix43T<float> const&>((int*)local_e8, (Matrix43T*)&local_a4);
-        std::unique_ptr<Array<jag::math::Matrix43T<float>, eastl::allocator>,
-                        std::default_delete<Array<jag::math::Matrix43T<float>, eastl::allocator>>>::
-        operator=((unique_ptr<Array<jag::math::Matrix43T<float>, eastl::allocator>,
-                              std::default_delete<Array<jag::math::Matrix43T<float>, eastl::allocator>>>*)&field_40,
-                  (unique_ptr*)local_e8);
-        local_e8->~unique_ptr();
-        std::function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                        eastl::vector<eastl::pair<unsigned short, unsigned short>,
-                                                      eastl::allocator>> const*(jag::graphics::GeometryBatch_const&)>::
-            function<DashBasePoseStateRSeven::LoadFromLabeledModel(ResolvedModel_const&)::__2, void>(local_98);
-        iVar1 = GetMaximumLabel(this_00, local_98);
-        std::function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                        eastl::vector<eastl::pair<unsigned short, unsigned short>,
-                                                      eastl::allocator>> const*(jag::graphics::GeometryBatch_const&)>::
-            ~function(local_98);
-        local_a0[1] = 0.0;
-        local_a0[0] = (float)(iVar1 + 1);
-        std::make_unique<Array<float, eastl::allocator>, int&, float>((int*)local_e8, local_a0);
-        std::unique_ptr<Array<float, eastl::allocator>, std::default_delete<Array<float, eastl::allocator>>>::operator=(
-            (unique_ptr<Array<float, eastl::allocator>, std::default_delete<Array<float, eastl::allocator>>>*)&field_48,
-            (unique_ptr*)local_e8);
-        local_e8->~unique_ptr();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        auto local_e8 = resolvedModel.GetLocalTransform();
+        field_80 = local_e8;
+        auto this_00 = resolvedModel.GetModel();
+        TextureManager* this_01 = (TextureManager*)**this_00;
+        auto labelDatas = this_01->GetTextureAtlasManager();
+        field_144 = *labelDatas;
+        (&field_56)->operator=(this_00);
+        poseStateRSeven = (shared_ptr<PoseStateRSeven>*)resolvedModel.GetAnimationState();
+        field_128 = *poseStateRSeven;
+        std::function<eastl::vector_map<unsigned short, unsigned short> const*(jag::graphics::GeometryBatch const&)>::
+            function<DashBasePoseStateRSeven::LoadFromLabeledModel(ResolvedModel const&)::__1, void>(
+                local_68, (__1*)poseStateRSeven);
+        int iVar1 = GetMaximumLabel((Model*)this_01, (function<eastl::vector_map<unsigned short, unsigned short> const *
+                                                               _(jag::graphics::GeometryBatch const&)>*)local_68);
+        int local_a4 = iVar1 + 1;
+        std::make_unique<Array<jag::math::Matrix43T<float>>, int&, jag::math::Matrix43T<float> const&>(local_e8,
+                                                                                                       local_a4);
+        ReturnValue* arg1 = &local_e8;
+        field_40 = local_e8;
+        std::function<eastl::vector_map<unsigned short, unsigned short> const*(jag::graphics::GeometryBatch const&)>::
+            function<DashBasePoseStateRSeven::LoadFromLabeledModel(ResolvedModel const&)::__2, void>(local_98,
+                                                                                                     (__2*)arg1);
+        iVar1 = GetMaximumLabel((Model*)this_01, (function<eastl::vector_map<unsigned short, unsigned short> const *
+                                                           _(jag::graphics::GeometryBatch const&)>*)local_98);
+        float local_9c = 0.0;
+        int local_a0 = iVar1 + 1;
+        local_e8 = std::make_unique<Array<float>, int&, float>(local_a0, local_9c);
+        field_48 = local_e8;
     }
 
-    // 0x1002eef20, 80 bytes, placed by debug map only (low confidence)
-    // GetMaximumLabel(jag::graphics::Model const&, std::function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const* (jag::graphics::GeometryBatch const&)>)
-    /* GetMaximumLabel(jag::graphics::Model const&,
-   std::function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>,
-   eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> >
-   const* (jag::graphics::GeometryBatch const&)>) */
+    // 0x1002eef20
+    void GetMaximumLabel(
+        const jag::graphics::Model& model,
+        std::function<eastl::vector_map<unsigned short, unsigned short> const*(jag::graphics::GeometryBatch const&)>
+            callback) {
+        unique_ptr<jag::graphics::GeometryBatchInstance,
+                   MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*
+            geometryBatchInstance1;
+        unique_ptr<jag::graphics::GeometryBatchInstance,
+                   MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*
+            geometryBatchInstance2;
+        __8* in_RCX;
 
-    void GetMaximumLabel(Model* param_1, undefined8 param_2) {
-        Layout* this;
-        undefined8 uVar1;
-        vector<EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        undefined8 uVar2;
-
-        this = (Layout*)param_1->GetBatchList();
-        uVar1 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                        eastl::allocator>>::Layout::HeapBeginPtr(this);
-        this_00 = (vector<EntityHighlight*, BucketAllocatorEASTL>*)param_1->GetBatchList();
-        uVar2 = eastl::vector<EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
+        auto layout = model.GetBatchList();
+        geometryBatchInstance1 =
+            (unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*)
+                layout->HeapBeginPtr();
+        auto this_00 = model.GetBatchList();
+        geometryBatchInstance2 =
+            (unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*)this_00->end();
         eastl::accumulate<
             std::unique_ptr<jag::graphics::GeometryBatchInstance,
                             MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter> const*,
             int,
-            GetMaximumLabel(jag::graphics::Model_const&,
-                            std::function<eastl::vector_map<
-                                unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                eastl::vector<eastl::pair<unsigned short, unsigned short>,
-                                              eastl::allocator>> const*(jag::graphics::GeometryBatch_const&)>)::__8>(
-            uVar1, uVar2, param_2);
+            GetMaximumLabel(*(jag::graphics::Model const&),
+                            std::function<eastl::vector_map<unsigned short, unsigned short> const*(
+                                jag::graphics::GeometryBatch const&)>)::__8>(
+            geometryBatchInstance1, geometryBatchInstance2, (int)callback, in_RCX);
     }
 
-    // 0x1002ef090, 112 bytes, placed by debug map only (low confidence)
-    // ChainedPoseStateRSeven::GetBoneTransform(unsigned long) const
-    ChainedPoseStateRSeven* ChainedPoseStateRSeven::GetBoneTransform(ulong param_1) {
-        undefined8* puVar1;
-        Matrix43T local_88[48];
-        Matrix43T local_58[48];
+    // 0x1002ef090
+    auto ChainedPoseStateRSeven::GetBoneTransform(unsigned long arg1) const {
+        auto result;
+        Matrix43T<float> local_88;
+        uint8_t local_58[48];
 
-        puVar1 = (undefined8*)shared_ptr<PoseStateRSeven>::operator->((shared_ptr<PoseStateRSeven>*)(param_1 + 16));
-        (**(code**)*puVar1)(local_88, puVar1);
-        puVar1 = (undefined8*)shared_ptr<PoseStateRSeven>::operator->((shared_ptr<PoseStateRSeven>*)(param_1 + 32));
-        (**(code**)*puVar1)(local_58, puVar1);
-        jag::math::operator*((math*)this, local_88, local_58);
-        return this;
+        uint64_t* puVar1 = (uint64_t*)(*field_16).operator->();
+        (**(void (**)(...))*puVar1)(&local_88, puVar1, arg1);
+        puVar1 = (uint64_t*)(*field_32).operator->();
+        (**(void (**)(...))*puVar1)(local_58, puVar1, arg1);
+        result* local_88;
+        return result;
     }
 
-    // 0x1002ef140, 128 bytes, placed by debug map only (low confidence)
-    // ChainedPoseStateRSeven::GetJointTransform(unsigned long) const
-    ChainedPoseStateRSeven* ChainedPoseStateRSeven::GetJointTransform(ulong param_1) {
-        long* plVar1;
-        Matrix43T local_88[48];
-        Matrix43T local_58[48];
+    // 0x1002ef140
+    auto ChainedPoseStateRSeven::GetJointTransform(unsigned long arg1) const {
+        auto result;
+        Matrix43T<float> local_88;
+        uint8_t local_58[48];
 
-        plVar1 = (long*)shared_ptr<PoseStateRSeven>::operator->((shared_ptr<PoseStateRSeven>*)(param_1 + 16));
-        (**(code**)(*plVar1 + 8))(local_88, plVar1);
-        plVar1 = (long*)shared_ptr<PoseStateRSeven>::operator->((shared_ptr<PoseStateRSeven>*)(param_1 + 32));
-        (**(code**)(*plVar1 + 8))(local_58, plVar1);
-        jag::math::operator*((math*)this, local_88, local_58);
-        return this;
+        long* plVar1 = (long*)(*field_16).operator->();
+        (**(void (**)(...))(*plVar1 + 8))(&local_88, plVar1, arg1);
+        plVar1 = (long*)(*field_32).operator->();
+        (**(void (**)(...))(*plVar1 + 8))(local_58, plVar1, arg1);
+        result* local_88;
+        return result;
     }
 
-    // 0x1002ef1c0, 96 bytes, placed by debug map only (low confidence)
-    // ChainedPoseStateRSeven::GetLabelTransparencyDelta(unsigned long) const
-    float ChainedPoseStateRSeven::GetLabelTransparencyDelta(ulong param_1) {
-        long* plVar1;
-        float fVar2;
-
-        plVar1 = (long*)shared_ptr<PoseStateRSeven>::operator->((shared_ptr<PoseStateRSeven>*)field_16);
-        fVar2 = (float)(**(code**)(*plVar1 + 16))(plVar1, param_1);
-        plVar1 = (long*)shared_ptr<PoseStateRSeven>::operator->((shared_ptr<PoseStateRSeven>*)field_32);
-        return (float)(**(code**)(*plVar1 + 16))(plVar1, param_1) + fVar2;
+    // 0x1002ef1c0
+    float ChainedPoseStateRSeven::GetLabelTransparencyDelta(unsigned long arg1) const {
+        long* plVar1 = (long*)(*field_16).operator->();
+        float fVar2 = (float)(**(void (**)(...))(*plVar1 + 16))(plVar1, arg1);
+        plVar1 = (long*)(*field_32).operator->();
+        return (float)(**(void (**)(...))(*plVar1 + 16))(plVar1, arg1) + fVar2;
     }
 
-    // 0x1002ef220, 128 bytes, placed by debug map only (low confidence)
-    // ChainedPoseStateRSeven::IsEqual(PoseStateRSeven const&) const
-    undefined8 ChainedPoseStateRSeven::IsEqual(PoseStateRSeven* param_1) {
+    // 0x1002ef220
+    bool ChainedPoseStateRSeven::IsEqual(const PoseStateRSeven& poseStateRSeven) const {
         PoseStateRSeven* pPVar3;
         PoseStateRSeven* pPVar4;
 
-        if (param_1->GetPos() == 0) {
-            pPVar3 = (PoseStateRSeven*)shared_ptr<PoseStateRSeven>::operator*((shared_ptr<PoseStateRSeven>*)field_16);
-            pPVar4 = (PoseStateRSeven*)shared_ptr<PoseStateRSeven>::operator*(
-                (shared_ptr<PoseStateRSeven>*)&param_1->field_16);
-            if (dash3d::operator==(pPVar3, pPVar4) != '\0') {
-                pPVar3 =
-                    (PoseStateRSeven*)shared_ptr<PoseStateRSeven>::operator*((shared_ptr<PoseStateRSeven>*)field_32);
-                pPVar4 = (PoseStateRSeven*)shared_ptr<PoseStateRSeven>::operator*(
-                    (shared_ptr<PoseStateRSeven>*)&param_1->field_32);
-                return dash3d::operator==(pPVar3, pPVar4);
+        if (poseStateRSeven.GetPos() == 0) {
+            pPVar3 = (PoseStateRSeven*)**field_16;
+            pPVar4 = (PoseStateRSeven*)poseStateRSeven.field_16;
+            if (*pPVar3 == *pPVar4 != '\0') {
+                pPVar3 = (PoseStateRSeven*)**field_32;
+                pPVar4 = (PoseStateRSeven*)poseStateRSeven.field_32;
+                return *pPVar3 == *pPVar4;
             }
         }
         return 0;
     }
 
-    // 0x1002ef2a0, 192 bytes, placed by debug map only (low confidence)
-    // PoseStateProviderRSeven::GetBoneTransforms(WrapArray<jag::math::Matrix43T<float> >&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&, jag::math::Matrix44T<float> const&) const
-    void PoseStateProviderRSeven::GetBoneTransforms(WrapArray* param_1, vector_map* param_2, vector_map* param_3,
-                                                    Matrix44T* param_4) {
-        function<jag::math::Matrix43T<float>(unsigned long)> local_98[48];
-        function<jag::math::Matrix43T<float>(unsigned long)> local_68[48];
-        long local_38;
+    // 0x1002ef2a0
+    void PoseStateProviderRSeven::GetBoneTransforms(WrapArray<jag::math::Matrix43T<float>>& wrapArray,
+                                                    const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                                    const eastl::vector_map<unsigned short, unsigned short>& arg3,
+                                                    const jag::math::Matrix44T<float>& matrix44) const {
+        PoseStateProviderRSeven local_98;
+        PoseStateProviderRSeven local_68;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
+        PoseStateProviderRSeven* pPVar1 = &local_68;
         std::function<jag::math::Matrix43T<float>(unsigned long)>::function<
-            PoseStateProviderRSeven::GetBoneTransforms(
-                WrapArray<jag::math::Matrix43T<float>>&,
-                eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-                eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-                jag::math::Matrix44T<float> const&) const ::__3,
-            void>(local_68, this);
-        GetTransforms();
-        std::function<jag::math::Matrix43T<float>(unsigned long)>::~function(local_68);
+            PoseStateProviderRSeven::GetBoneTransforms(WrapArray<jag::math::Matrix43T<float>>&,
+                                                       eastl::vector_map<unsigned short, unsigned short> const&,
+                                                       eastl::vector_map<unsigned short, unsigned short> const&,
+                                                       jag::math::Matrix44T<float> const&) const ::__3,
+            void>((function<jag::math::Matrix43T<float>(unsigned long)>*)&local_68, (__3*)this);
+        GetTransforms(pPVar1, wrapArray, arg2, (function<jag::math::Matrix43T<float> _(unsigned long)>*)&local_68);
+        pPVar1 = &local_98;
         std::function<jag::math::Matrix43T<float>(unsigned long)>::function<
-            PoseStateProviderRSeven::GetBoneTransforms(
-                WrapArray<jag::math::Matrix43T<float>>&,
-                eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-                eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-                jag::math::Matrix44T<float> const&) const ::__4,
-            void>(local_98, this);
-        GetTransforms();
-        std::function<jag::math::Matrix43T<float>(unsigned long)>::~function(local_98);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            PoseStateProviderRSeven::GetBoneTransforms(WrapArray<jag::math::Matrix43T<float>>&,
+                                                       eastl::vector_map<unsigned short, unsigned short> const&,
+                                                       eastl::vector_map<unsigned short, unsigned short> const&,
+                                                       jag::math::Matrix44T<float> const&) const ::__4,
+            void>((function<jag::math::Matrix43T<float>(unsigned long)>*)&local_98, (__4*)this);
+        GetTransforms(pPVar1, wrapArray, arg3, (function<jag::math::Matrix43T<float> _(unsigned long)>*)&local_98);
     }
 
-    // 0x1002ef360, 192 bytes, placed by debug map only (low confidence)
-    // PoseStateProviderRSeven::GetTransforms(WrapArray<jag::math::Matrix43T<float> >&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&, std::function<jag::math::Matrix43T<float> (unsigned long)>) const
-    /* PoseStateProviderRSeven::GetTransforms(WrapArray<jag::math::Matrix43T<float>
-   >&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>,
-   eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> >
-   const&, std::function<jag::math::Matrix43T<float> (unsigned long)>) const */
+    // 0x1002ef360
+    void
+    PoseStateProviderRSeven::GetTransforms(WrapArray<jag::math::Matrix43T<float>>& wrapArray,
+                                           const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                           std::function<jag::math::Matrix43T<float>(unsigned long)> callback) const {
+        unsigned short uVar1;
+        unsigned long uVar4;
+        Vector4T<float>* this_00;
+        ReturnValue local_68;
+        Vector3T<float> local_5c;
+        Vector3T<float> local_50;
+        Vector3T<float> local_44;
+        function<jag::math::Matrix43T<float> _(unsigned long)>* local_38;
 
-    void PoseStateProviderRSeven::GetTransforms(undefined8 param_1_00, Layout* param_1, Layout* param_2,
-                                                ulong param_4) {
-        ushort uVar1;
-        long lVar2;
-        long lVar3;
-        ulong uVar4;
-        Vector4T<float>* this;
-        function<jag::math::Matrix43T<float>(unsigned long)> local_68[12];
-        Vector3T local_5c[12];
-        Vector3T local_50[12];
-        Vector3T local_44[12];
-        ulong local_38;
-
-        local_38 = param_4;
-        lVar2 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(param_2);
-        lVar3 = param_2->end();
-        if (lVar2 != lVar3) {
+        local_38 = callback;
+        auto puVar2 = arg2.HeapBeginPtr();
+        auto puVar3 = arg2.end();
+        if (puVar2 != puVar3) {
             do {
-                uVar1 = *(ushort*)(lVar2 + 2);
-                uVar4 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(param_1);
+                uVar1 = puVar2[1];
+                uVar4 = wrapArray.HeapBeginPtr();
                 if (uVar1 < uVar4) {
-                    std::function<jag::math::Matrix43T<float>(unsigned long)>::operator()(local_68, local_38);
-                    this = (Vector4T<float>*)WrapArray<jag::math::Matrix43T<float>>::operator[](
-                        (WrapArray<jag::math::Matrix43T<float>>*)param_1, (ulong) * (ushort*)(lVar2 + 2));
-                    jag::math::Vector4T<float>::SetXYZ(this, (Vector3T*)local_68);
-                    jag::math::Vector4T<float>::SetXYZ(this + 12, local_5c);
-                    jag::math::Vector4T<float>::SetXYZ(this + 24, local_50);
-                    jag::math::Vector4T<float>::SetXYZ(this + 36, local_44);
+                    std::function<jag::math::Matrix43T<float>(unsigned long)>::operator()(
+                        &local_68, (function<jag::math::Matrix43T<float>(unsigned long)>*)local_38,
+                        (unsigned long)*puVar2);
+                    this_00 = (Vector4T<float>*)wrapArray[(unsigned long)puVar2[1]];
+                    this_00->SetXYZ(local_68);
+                    (this_00 + 12)->SetXYZ(local_5c);
+                    (this_00 + 24)->SetXYZ(local_50);
+                    (this_00 + 36)->SetXYZ(local_44);
                 }
-                lVar2 = lVar2 + 4;
-            } while (lVar2 != lVar3);
+                puVar2 = puVar2 + 2;
+            } while (puVar2 != puVar3);
         }
     }
 
-    // 0x1002ef6e0, 16 bytes, placed by debug map only (low confidence)
-    // PoseStateProviderRSeven::UpdateFromCurrentTime(Array<jag::graphics::LabelData, eastl::allocator> const&, jag::math::Matrix44T<float> const&)
-    void PoseStateProviderRSeven::UpdateFromCurrentTime(Array* param_1, Matrix44T* param_2) {}
+    // 0x1002ef6e0
+    void PoseStateProviderRSeven::UpdateFromCurrentTime(const Array<jag::graphics::LabelData>& labelDatas,
+                                                        const jag::math::Matrix44T<float>& matrix44) {}
 
-    // 0x1002ef6f0, 16 bytes, placed by debug map only (low confidence)
-    // PoseStateProviderRSeven::GetAnimatesTransparency() const
-    undefined1 PoseStateProviderRSeven::GetAnimatesTransparency() {
+    // 0x1002ef6f0
+    uint8_t PoseStateProviderRSeven::GetAnimatesTransparency() const {
         return 1;
     }
 
-    // 0x1002ef700, 16 bytes, placed by debug map only (low confidence)
-    // PoseStateProviderRSeven::GetAnimatedColourType() const
-    undefined8 PoseStateProviderRSeven::GetAnimatedColourType() {
+    // 0x1002ef700
+    uint64_t PoseStateProviderRSeven::GetAnimatedColourType() const {
         return 2;
     }
 
-    // 0x1002ef7b0, 128 bytes, placed by debug map only (low confidence)
-    // ShiftedLabelRangePoseStateRSeven::GetBoneTransform(unsigned long) const
-    ShiftedLabelRangePoseStateRSeven* ShiftedLabelRangePoseStateRSeven::GetBoneTransform(ulong param_1) {
-        undefined** ppuVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8* puVar7;
-        ulong in_RDX;
+    // 0x1002ef7b0
+    auto ShiftedLabelRangePoseStateRSeven::GetBoneTransform(unsigned long arg1) const {
+        auto result;
+        ReturnValue RVar1;
+        ReturnValue RVar2;
+        ReturnValue RVar3;
+        ReturnValue RVar4;
+        ReturnValue RVar5;
+        uint64_t* puVar6;
 
-        if ((in_RDX < *(ushort*)(param_1 + 32)) || (*(ushort*)(param_1 + 34) <= in_RDX)) {
-            ppuVar1 = *(undefined***)PTR_IDENTITY_100ee6720;
-            uVar2 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 8);
-            uVar3 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 16);
-            uVar4 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 24);
-            uVar5 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 32);
-            uVar6 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 40);
-            field_32 = (short)uVar5;
-            field_34 = (short)((ulong)uVar5 >> 16);
-            field_36 = (short)((ulong)uVar5 >> 32);
-            field_38 = (short)((ulong)uVar5 >> 48);
-            field_40 = (short)uVar6;
-            field_42 = (short)((ulong)uVar6 >> 16);
-            field_44 = (int)((ulong)uVar6 >> 32);
-            *(undefined8*)field_16 = uVar3;
-            *(undefined8*)(field_16 + 8) = uVar4;
-            field_0 = ppuVar1;
-            *(undefined8*)&field_8 = uVar2;
+        if ((arg1 < field_32) || (field_34 <= arg1)) {
+            RVar1 = *(ReturnValue*)PTR_IDENTITY_100ee6720;
+            RVar2 = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 8);
+            RVar3 = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 16);
+            RVar4 = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 24);
+            RVar5 = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 40);
+            &result[4] = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 32);
+            &result[5] = RVar5;
+            &result[2] = RVar3;
+            &result[3] = RVar4;
+            result = RVar1;
+            &result[1] = RVar2;
         } else {
-            puVar7 = (undefined8*)shared_ptr<PoseStateRSeven>::operator->((shared_ptr<PoseStateRSeven>*)(param_1 + 16));
-            (**(code**)*puVar7)(this, puVar7, in_RDX - *(ushort*)(param_1 + 32));
+            puVar6 = (uint64_t*)(*field_16).operator->();
+            (**(void (**)(...))*puVar6)(&result, puVar6, arg1 - field_32);
         }
-        return this;
+        return result;
     }
 
-    // 0x1002ef830, 128 bytes, placed by debug map only (low confidence)
-    // ShiftedLabelRangePoseStateRSeven::GetJointTransform(unsigned long) const
-    ShiftedLabelRangePoseStateRSeven* ShiftedLabelRangePoseStateRSeven::GetJointTransform(ulong param_1) {
-        undefined** ppuVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        long* plVar7;
-        ulong in_RDX;
+    // 0x1002ef830
+    auto ShiftedLabelRangePoseStateRSeven::GetJointTransform(unsigned long arg1) const {
+        auto result;
+        ReturnValue RVar1;
+        ReturnValue RVar2;
+        ReturnValue RVar3;
+        ReturnValue RVar4;
+        ReturnValue RVar5;
+        long* plVar6;
 
-        if ((in_RDX < *(ushort*)(param_1 + 36)) || (*(ushort*)(param_1 + 38) <= in_RDX)) {
-            ppuVar1 = *(undefined***)PTR_IDENTITY_100ee6720;
-            uVar2 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 8);
-            uVar3 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 16);
-            uVar4 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 24);
-            uVar5 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 32);
-            uVar6 = *(undefined8*)(PTR_IDENTITY_100ee6720 + 40);
-            field_32 = (short)uVar5;
-            field_34 = (short)((ulong)uVar5 >> 16);
-            field_36 = (short)((ulong)uVar5 >> 32);
-            field_38 = (short)((ulong)uVar5 >> 48);
-            field_40 = (short)uVar6;
-            field_42 = (short)((ulong)uVar6 >> 16);
-            field_44 = (int)((ulong)uVar6 >> 32);
-            *(undefined8*)field_16 = uVar3;
-            *(undefined8*)(field_16 + 8) = uVar4;
-            field_0 = ppuVar1;
-            *(undefined8*)&field_8 = uVar2;
+        if ((arg1 < field_36) || (field_38 <= arg1)) {
+            RVar1 = *(ReturnValue*)PTR_IDENTITY_100ee6720;
+            RVar2 = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 8);
+            RVar3 = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 16);
+            RVar4 = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 24);
+            RVar5 = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 40);
+            &result[4] = *(ReturnValue*)(PTR_IDENTITY_100ee6720 + 32);
+            &result[5] = RVar5;
+            &result[2] = RVar3;
+            &result[3] = RVar4;
+            result = RVar1;
+            &result[1] = RVar2;
         } else {
-            plVar7 = (long*)shared_ptr<PoseStateRSeven>::operator->((shared_ptr<PoseStateRSeven>*)(param_1 + 16));
-            (**(code**)(*plVar7 + 8))(this, plVar7, in_RDX - *(ushort*)(param_1 + 36));
+            plVar6 = (long*)(*field_16).operator->();
+            (**(void (**)(...))(*plVar6 + 8))(&result, plVar6, arg1 - field_36);
         }
-        return this;
+        return result;
     }
 
-    // 0x1002ef8b0, 80 bytes, placed by debug map only (low confidence)
-    // ShiftedLabelRangePoseStateRSeven::GetLabelTransparencyDelta(unsigned long) const
-    undefined8 ShiftedLabelRangePoseStateRSeven::GetLabelTransparencyDelta(ulong param_1) {
+    // 0x1002ef8b0
+    uint64_t ShiftedLabelRangePoseStateRSeven::GetLabelTransparencyDelta(unsigned long arg1) const {
         long* plVar1;
-        undefined8 uVar2;
 
-        uVar2 = 0;
-        if ((field_40 <= param_1) && (uVar2 = 0, param_1 < field_42)) {
-            plVar1 = (long*)shared_ptr<PoseStateRSeven>::operator->((shared_ptr<PoseStateRSeven>*)field_16);
-            uVar2 = (**(code**)(*plVar1 + 16))(plVar1, param_1 - field_40);
+        uint64_t uVar2 = 0;
+        if ((field_40 <= arg1) && (uVar2 = 0, arg1 < field_42)) {
+            plVar1 = (long*)(*field_16).operator->();
+            uVar2 = (**(void (**)(...))(*plVar1 + 16))(plVar1, arg1 - field_40);
         }
         return uVar2;
     }
 
-    // 0x1002ef900, 128 bytes, placed by debug map only (low confidence)
-    // ShiftedLabelRangePoseStateRSeven::IsEqual(PoseStateRSeven const&) const
-    undefined2 ShiftedLabelRangePoseStateRSeven::IsEqual(PoseStateRSeven* param_1) {
-        PoseStateRSeven* pPVar3;
-        PoseStateRSeven* pPVar4;
+    // 0x1002ef900
+    uint16_t ShiftedLabelRangePoseStateRSeven::IsEqual(const PoseStateRSeven& poseStateRSeven) const {
+        PoseStateRSeven* poseStateRSeven1;
+        PoseStateRSeven* poseStateRSeven2;
 
-        if (param_1->GetPos() == 4) {
-            pPVar3 = (PoseStateRSeven*)shared_ptr<PoseStateRSeven>::operator*((shared_ptr<PoseStateRSeven>*)field_16);
-            pPVar4 = (PoseStateRSeven*)shared_ptr<PoseStateRSeven>::operator*(
-                (shared_ptr<PoseStateRSeven>*)&param_1->field_16);
-            if ((((dash3d::operator==(pPVar3, pPVar4) != '\0') && (field_32 == *(ushort*)&param_1->field_32)) &&
-                 (field_34 == *(ushort*)((long)&param_1->field_32 + 2))) &&
-                (field_36 == *(ushort*)((long)&param_1->field_32 + 4))) {
-                return CONCAT11((char)(field_38 >> 8), field_38 == *(ushort*)((long)&param_1->field_32 + 6));
+        if (poseStateRSeven.GetPos() == 4) {
+            poseStateRSeven1 = (PoseStateRSeven*)**field_16;
+            poseStateRSeven2 = (PoseStateRSeven*)poseStateRSeven.field_16;
+            if ((((*poseStateRSeven1 == *poseStateRSeven2 != '\0') &&
+                  (field_32 == *(unsigned short*)&poseStateRSeven.field_32)) &&
+                 (field_34 == *(unsigned short*)((long)&poseStateRSeven.field_32 + 2))) &&
+                (field_36 == *(unsigned short*)((long)&poseStateRSeven.field_32 + 4))) {
+                return field_38 == *(unsigned short*)((long)&poseStateRSeven.field_32 + 6);
             }
         }
         return 0;
     }
 
-    // 0x1002ef980, 512 bytes, placed by debug map only (low confidence)
-    // MaskedDashPoseStateRSeven::InitializeFrameData()
+    // 0x1002ef980
     void MaskedDashPoseStateRSeven::InitializeFrameData() {
-        undefined1* this_00;
-        undefined4 uVar1;
+        vector<int>* this_00;
+        uint32_t uVar1;
+        int arg5;
         int iVar2;
-        char cVar3;
-        int iVar4;
-        Array<AnimFrame, eastl::allocator>* this_01;
-        shared_ptr<AnimBase>* this_02;
-        long lVar5;
-        Array<int, eastl::allocator>* this_03;
-        int* piVar6;
-        undefined4* puVar7;
-        ulong uVar8;
-        ulong uVar9;
-        ulong uVar10;
-        ulong uVar11;
-        undefined8 local_90;
-        undefined4 local_88;
-        undefined8 local_80;
-        Array<int, eastl::allocator>* local_78;
-        vector<eastl::vector<int, eastl::allocator>, eastl::allocator>* local_70;
-        Array<int, eastl::allocator>* local_68;
-        Array<int, eastl::allocator>* local_60;
-        Array<int, eastl::allocator>* local_58;
-        shared_ptr<AnimBase>* local_50;
-        undefined4 local_48;
-        undefined4 local_44;
-        vector<int, eastl::allocator>* local_40;
-        MaskedDashPoseStateRSeven* local_38;
+        bool cVar3;
+        int arg3;
+        uint32_t* puVar7;
+        unsigned long arg1;
+        unsigned long uVar8;
+        unsigned long arg1_00;
+        unsigned long arg1_01;
 
-        this_01 = (Array<AnimFrame, eastl::allocator>*)GetFrameSet();
-        iVar4 = GetFrame();
-        this_02 = (shared_ptr<AnimBase>*)Array<AnimFrame, eastl::allocator>::operator[](this_01, (long)iVar4);
-        lVar5 = shared_ptr<AnimBase>::operator*(this_02);
-        local_88 = *(undefined4*)(PTR_ZERO_100ee66e8 + 8);
-        local_90 = *(undefined8*)PTR_ZERO_100ee66e8;
-        local_38 = this;
-        this_03 = (Array<int, eastl::allocator>*)GetMask(this);
-        piVar6 = (int*)Array<int, eastl::allocator>::operator[](this_03, 0);
+        auto this_01 = GetFrameSet();
+        int iVar4 = GetFrame();
+        shared_ptr<AnimBase>* this_02 = (shared_ptr<AnimBase>*)(*this_01)[(long)iVar4];
+        long lVar5 = **this_02;
+        auto this_03 = GetMask();
+        int* piVar6 = (int*)(*this_03)[0];
         if (0 < *(int*)(this_02 + 16)) {
-            local_78 = (Array<int, eastl::allocator>*)(this_02 + 24);
-            this_00 = &local_38->field_168;
-            local_40 = (vector<int, eastl::allocator>*)(lVar5 + 8);
-            local_70 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)(lVar5 + 40);
-            local_68 = (Array<int, eastl::allocator>*)(this_02 + 48);
-            local_60 = (Array<int, eastl::allocator>*)(this_02 + 72);
-            local_58 = (Array<int, eastl::allocator>*)(this_02 + 96);
+            this_00 = (vector<int>*)(lVar5 + 8);
             iVar4 = *piVar6;
-            uVar9 = 1;
-            uVar11 = 0;
-            local_50 = this_02;
+            uVar8 = 1;
+            arg1_01 = 0;
             do {
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[](local_78, uVar11);
+                piVar6 = (int*)(*((this_02 + 24)))[arg1_01];
                 iVar2 = *piVar6;
-                uVar8 = (ulong)iVar2;
+                arg1 = (unsigned long)iVar2;
                 if (iVar4 < iVar2) {
-                    uVar10 = (long)(int)uVar9;
+                    arg1_00 = (long)(int)uVar8;
                     do {
-                        uVar9 = uVar10 + 1;
-                        piVar6 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00,
-                                                                                uVar10);
+                        uVar8 = arg1_00 + 1;
+                        piVar6 = &field_168[arg1_00];
                         iVar4 = *piVar6;
-                        uVar10 = uVar9;
+                        arg1_00 = uVar8;
                     } while (iVar4 < iVar2);
                 }
-                cVar3 = GetInvertMask(local_38);
-                if (((cVar3 != '\0') &&
-                     ((iVar2 == iVar4 ||
-                       (piVar6 = (int*)eastl::vector<int, eastl::allocator>::operator[](local_40, uVar8),
-                        *piVar6 == 0)))) ||
-                    ((cVar3 = GetInvertMask(local_38),
-                      cVar3 == '\0' &&
-                          ((iVar2 != iVar4 ||
-                            (piVar6 = (int*)eastl::vector<int, eastl::allocator>::operator[](local_40, uVar8),
-                             *piVar6 == 0)))))) {
-                    puVar7 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_40, uVar8);
-                    local_48 = *puVar7;
-                    local_80 = eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](
-                        local_70, uVar8);
-                    puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[](local_68, uVar11);
-                    local_44 = *puVar7;
-                    puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[](local_60, uVar11);
+                cVar3 = GetInvertMask();
+                if (((cVar3) && ((iVar2 == iVar4 || (piVar6 = (int*)(*this_00)[arg1], *piVar6 == 0)))) ||
+                    ((cVar3 = GetInvertMask(),
+                      !cVar3 && ((iVar2 != iVar4 || (piVar6 = (int*)(*this_00)[arg1], *piVar6 == 0)))))) {
+                    puVar7 = (uint32_t*)(*this_00)[arg1];
                     uVar1 = *puVar7;
-                    puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[](local_58, uVar11);
-                    (*(code*)local_38->field_0[4])(local_38, local_48, local_80, local_44, uVar1, *puVar7, &local_90);
+                    arg3 = (*((lVar5 + 40)))[arg1];
+                    piVar6 = (int*)(*((this_02 + 48)))[arg1_01];
+                    iVar2 = *piVar6;
+                    piVar6 = (int*)(*((this_02 + 72)))[arg1_01];
+                    arg5 = *piVar6;
+                    puVar7 = (uint32_t*)(*((this_02 + 96)))[arg1_01];
+                    ApplyAnimationTransform((int)this, (vector<int>*)uVar1, arg3, iVar2, arg5,
+                                            (Vector3T<float>*)*puVar7);
                 }
-                uVar11 = uVar11 + 1;
-            } while ((long)uVar11 < (long)*(int*)(local_50 + 16));
+                arg1_01 = arg1_01 + 1;
+            } while ((long)arg1_01 < (long)*(int*)(this_02 + 16));
         }
     }
 
-    // 0x1002efb80, 16 bytes, placed by debug map only (low confidence)
-    // MaskedDashPoseStateRSeven::GetMask() const
-    undefined1* MaskedDashPoseStateRSeven::GetMask() {
+    // 0x1002efb80
+    uint8_t* MaskedDashPoseStateRSeven::GetMask() const {
         return &field_168;
     }
 
-    // 0x1002efb90, 16 bytes, placed by debug map only (low confidence)
-    // MaskedDashPoseStateRSeven::GetInvertMask() const
-    undefined1 MaskedDashPoseStateRSeven::GetInvertMask() {
+    // 0x1002efb90
+    bool MaskedDashPoseStateRSeven::GetInvertMask() const {
         return m_invertMask;
     }
 
-    // 0x1002efba0, 96 bytes, placed by debug map only (low confidence)
-    // MaskedDashPoseStateRSeven::IsEqual(PoseStateRSeven const&) const
-    undefined8 MaskedDashPoseStateRSeven::IsEqual(PoseStateRSeven* param_1) {
-        char cVar1;
-        undefined8 uVar3;
+    // 0x1002efba0
+    bool MaskedDashPoseStateRSeven::IsEqual(const PoseStateRSeven& poseStateRSeven) const {
+        bool cVar1;
 
-        if (((param_1->GetPos() == 2) && (cVar1 = IsBaseEqual(param_1), cVar1 != '\0')) &&
-            (m_invertMask == (bool)*(char*)&param_1[4].field_0)) {
-            uVar3 = Array<unsigned int, eastl::allocator>::operator==(
-                (Array<unsigned int, eastl::allocator>*)&field_168, (Array*)&param_1[3].field_24);
-            return uVar3;
+        if (((poseStateRSeven.GetPos() == 2) && (cVar1 = IsBaseEqual(poseStateRSeven), cVar1)) &&
+            (m_invertMask == (bool)*(char*)&poseStateRSeven[4]._vptr)) {
+            return field_168 == poseStateRSeven[3].field_24;
         }
         return 0;
     }
@@ -665,283 +501,180 @@ namespace jag::oldscape::dash3d {
 } // namespace jag::oldscape::dash3d
 
 namespace jag::math {
-    // 0x1002ed8d0, 80 bytes, inline, placed by debug map only (low confidence)
-    // Matrix43T<float>::operator=(Matrix43T<float> const&)
-    /* graphics::ParticleVertexDataProxy<Vector3T<float>
-   >::TEMPNAMEPLACEHOLDERVALUE(graphics::ParticleVertexDataProxy<Vector3T<float> >
-   const&) */
-
-    ParticleVertexDataProxy<Vector3T<float>>*
-    graphics::ParticleVertexDataProxy<Vector3T<float>>::operator=(ParticleVertexDataProxy* param_1) {
-        long lVar1;
-
-        lVar1 = 0;
+    // 0x1002ed8d0
+    ParticleVertexDataProxy<Vector3T<float>>* Matrix43T<float>::operator=(const Matrix43T<float>& matrix43) {
+        long lVar1 = 0;
         do {
-            ((this + lVar1))->SetXYZ((Vector3T*)(param_1 + lVar1));
+            ((this + lVar1))->SetXYZ(*((matrix43 + lVar1)));
             lVar1 = lVar1 + 12;
         } while (lVar1 != 48);
         return this;
     }
 
-    // 0x1002ee190, 32 bytes, inline, placed by debug map only (low confidence)
-    // operator*(Matrix43T<float> const&, Matrix43T<float> const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(Matrix43T<float> const&,
-   Matrix43T<float> const&) */
-
-    math* operator*(Matrix43T* param_1, Matrix43T* param_2) {
-        MatrixMultSSE(param_1, param_2);
-        return this;
+    // 0x1002ee190
+    Matrix43T<float>* operator*(const Matrix43T<float>& matrix431, const Matrix43T<float>& matrix432) {
+        internal::MatrixMultSSE(matrix431, matrix432);
+        return matrix431;
     }
 
-    // 0x1002ee1b0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // Matrix43T<float>::Matrix43T(Matrix33T<float> const&, Vector3T<float> const&): jumps straight to the base-object constructor
-
-    // 0x1002ee1c0, 16 bytes, inline, placed by debug map only (low confidence)
-    // Matrix43T<float>::operator*=(Matrix43T<float> const&)
-    /* Matrix43T<float>::TEMPNAMEPLACEHOLDERVALUE(Matrix43T<float> const&) */
-
-    void Matrix43T<float>::operator*=(Matrix43T* param_1) {
-        internal::MatrixMultSSEInPlace((Matrix43T*)this, param_1);
+    // 0x1002ee1c0
+    void Matrix43T<float>::operator*=(const Matrix43T<float>& matrix43) {
+        internal::MatrixMultSSEInPlace(*this, matrix43);
     }
 
-    // 0x1002ee3f0, 160 bytes, inline, placed by debug map only (low confidence)
-    // Matrix33T<float> Matrix33RotationZ<float>(float)
-    math* Matrix33RotationZ<float>(float param_1) {
-        ColourHSL local_78;
-        ColourHSL local_68;
-        ColourHSL local_58;
-        undefined8 local_48;
-        float local_2c;
+    // 0x1002ee3f0
+    Matrix33T<float> Matrix33RotationZ<float>(float arg1) {
+        Matrix33T<float>* in_RDI;
+        uint64_t local_48;
 
-        local_48._0_4_ = param_1;
-        local_2c = (float)::cos(param_1);
+        local_48._0_4_ = arg1;
+        float local_2c = (float)::cos(arg1);
         local_48 = ::sin((float)local_48);
-        new (&local_78) ColourHSL(local_2c, (float)local_48, 0.0);
-        new (&local_68) ColourHSL(-(float)local_48, local_2c, 0.0);
-        new (&local_58) ColourHSL(0.0, 0.0, 1.0);
-        new (this) Matrix33T<float>((Vector3T*)&local_78, (Vector3T*)&local_68, (Vector3T*)&local_58);
-        return this;
+        ColourHSL local_78(local_2c, (float)local_48, 0.0);
+        ColourHSL local_68(-(float)local_48, local_2c, 0.0);
+        ColourHSL local_58(0.0, 0.0, 1.0);
+        new (in_RDI) Matrix33T<float>(local_78, local_68, local_58);
     }
 
-    // 0x1002ee490, 80 bytes, inline, placed by debug map only (low confidence)
-    // Matrix33T<float>::operator=(Matrix33T<float>&&)
-    /* Matrix33T<float>::TEMPNAMEPLACEHOLDERVALUE(Matrix33T<float> const&) */
-
-    Matrix33T<float>* Matrix33T<float>::operator=(Matrix33T* param_1) {
-        long lVar1;
-
-        lVar1 = 0;
+    // 0x1002ee490
+    Matrix33T<float>* Matrix33T<float>::operator=(Matrix33T<float>&& matrix33) {
+        long lVar1 = 0;
         do {
-            ((this + lVar1))->SetXYZ((Vector3T*)(param_1 + lVar1));
+            ((this + lVar1))->SetXYZ(*((matrix33 + lVar1)));
             lVar1 = lVar1 + 12;
         } while (lVar1 != 36);
         return this;
     }
 
-    // 0x1002ee4e0, 64 bytes, inline, placed by debug map only (low confidence)
-    // Matrix33T<float>::operator*=(Matrix33T<float> const&)
-    /* Matrix33T<float>::TEMPNAMEPLACEHOLDERVALUE(Matrix33T<float> const&) */
+    // 0x1002ee4e0
+    void Matrix33T<float>::operator*=(const Matrix33T<float>& matrix33) {
+        Matrix33T<float> local_40;
 
-    void Matrix33T<float>::operator*=(Matrix33T* param_1) {
-        Matrix33T local_40[40];
-
-        math::operator*(local_40, this);
-        operator=(this, local_40);
+        local_40** this;
+        operator=(this, &local_40);
     }
 
-    // 0x1002ee520, 80 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float> operator/<float>(Vector3T<float> const&, double)
-    /* Vector3T<float> TEMPNAMEPLACEHOLDERVALUE(Vector3T<float> const&,
-   double) */
+    // 0x1002ee520
+    Vector3T<float> operator/ <float>(const Vector3T<float>& vector3, double arg2) {
+        uint64_t uVar1;
 
-    undefined8 operator/(Vector3T* param_1, double param_2) {
-        undefined8 uVar1;
-        float fVar2;
-        ColourHSL local_18;
-
-        fVar2 = 1.0 / (float)param_2;
-        new (&local_18)
-            ColourHSL(*(float*)param_1 * fVar2, *(float*)(param_1 + 4) * fVar2, fVar2 * *(float*)(param_1 + 8));
+        float fVar2 = 1.0 / (float)arg2;
+        ColourHSL local_18(*(float*)vector3 * fVar2, *(float*)(vector3 + 4) * fVar2, fVar2 * *(float*)(vector3 + 8));
         uVar1._0_4_ = local_18.field_0;
         uVar1._4_4_ = local_18.field_4;
         return uVar1;
     }
 
-    // 0x1002ee8e0, 656 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float> operator*<float>(Vector3T<float> const&, Matrix43T<float> const&)
-    /* Vector3T<float> TEMPNAMEPLACEHOLDERVALUE(Vector3T<float> const&,
-   Matrix43T<float> const&) */
+    // 0x1002ee8e0
+    Vector3T<float> operator* <float>(const Vector3T<float>& vector3, const Matrix43T<float>& matrix43) {
+        uint64_t uVar5;
 
-    undefined8 operator*(Vector3T* param_1, Matrix43T* param_2) {
-        vector* pvVar1;
-        Layout* pLVar2;
-        float* pfVar3;
-        Vector2T<int>* pVVar4;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* pcVar5;
-        type* ptVar6;
-        undefined8 uVar7;
-        ColourHSL local_38;
-        float local_28;
-        float local_24;
-        float local_20;
-        float local_1c;
-
-        pvVar1 = param_1->SSOBeginPtr(param_2);
-        local_24 = *(float*)pvVar1;
-        ptVar6 = (type*)0;
-        pLVar2 = (Layout*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 0);
-        pvVar1 = eastl::string::Layout::SSOBeginPtr(pLVar2, ptVar6);
-        local_24 = local_24 * *(float*)pvVar1;
-        pfVar3 = (float*)param_1->y();
-        local_1c = *pfVar3;
-        ptVar6 = (type*)&DAT_00000001;
-        pLVar2 = (Layout*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 1);
-        pvVar1 = eastl::string::Layout::SSOBeginPtr(pLVar2, ptVar6);
-        local_1c = local_1c * *(float*)pvVar1 + local_24;
-        pfVar3 = (float*)param_1->second();
-        local_24 = *pfVar3;
-        ptVar6 = (type*)2;
-        pLVar2 = (Layout*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 2);
-        pvVar1 = eastl::string::Layout::SSOBeginPtr(pLVar2, ptVar6);
-        local_24 = local_24 * *(float*)pvVar1 + local_1c;
-        ptVar6 = (type*)3;
-        pLVar2 = (Layout*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 3);
-        pvVar1 = eastl::string::Layout::SSOBeginPtr(pLVar2, ptVar6);
-        local_24 = local_24 + *(float*)pvVar1;
-        pvVar1 = param_1->SSOBeginPtr(ptVar6);
-        local_1c = *(float*)pvVar1;
-        pVVar4 = (Vector2T<int>*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 0);
-        pfVar3 = (float*)pVVar4->y();
-        local_1c = local_1c * *pfVar3;
-        pfVar3 = (float*)param_1->y();
-        local_20 = *pfVar3;
-        pVVar4 = (Vector2T<int>*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 1);
-        pfVar3 = (float*)pVVar4->y();
-        local_20 = local_20 * *pfVar3 + local_1c;
-        pfVar3 = (float*)param_1->second();
-        local_1c = *pfVar3;
-        pVVar4 = (Vector2T<int>*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 2);
-        pfVar3 = (float*)pVVar4->y();
-        local_1c = local_1c * *pfVar3 + local_20;
-        ptVar6 = (type*)3;
-        pVVar4 = (Vector2T<int>*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 3);
-        pfVar3 = (float*)pVVar4->y();
-        local_1c = local_1c + *pfVar3;
-        pvVar1 = param_1->SSOBeginPtr(ptVar6);
-        local_20 = *(float*)pvVar1;
-        pcVar5 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 0);
-        pfVar3 =
-            (float*)eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(pcVar5);
-        local_20 = local_20 * *pfVar3;
-        pfVar3 = (float*)param_1->y();
-        local_28 = *pfVar3;
-        pcVar5 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 1);
-        pfVar3 =
-            (float*)eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(pcVar5);
-        local_28 = local_28 * *pfVar3 + local_20;
-        pfVar3 = (float*)param_1->second();
-        local_20 = *pfVar3;
-        pcVar5 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 2);
-        pfVar3 =
-            (float*)eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(pcVar5);
-        local_20 = local_20 * *pfVar3 + local_28;
-        pcVar5 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)Matrix43T<float>::operator[]((Matrix43T<float>*)param_2, 3);
-        pfVar3 =
-            (float*)eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(pcVar5);
-        new (&local_38) ColourHSL(local_24, local_1c, local_20 + *pfVar3);
-        uVar7._0_4_ = local_38.field_0;
-        uVar7._4_4_ = local_38.field_4;
-        return uVar7;
+        auto pfVar1 = vector3.SSOBeginPtr();
+        float local_24 = *pfVar1;
+        Layout* pLVar2 = &matrix43[0];
+        pfVar1 = (float*)pLVar2->SSOBeginPtr();
+        local_24 = local_24 * *pfVar1;
+        pfVar1 = (float*)vector3.y();
+        float local_1c = *pfVar1;
+        pLVar2 = &matrix43[1];
+        pfVar1 = (float*)pLVar2->SSOBeginPtr();
+        local_1c = local_1c * *pfVar1 + local_24;
+        pfVar1 = (float*)vector3.second();
+        local_24 = *pfVar1;
+        pLVar2 = &matrix43[2];
+        pfVar1 = (float*)pLVar2->SSOBeginPtr();
+        local_24 = local_24 * *pfVar1 + local_1c;
+        pLVar2 = &matrix43[3];
+        pfVar1 = (float*)pLVar2->SSOBeginPtr();
+        local_24 = local_24 + *pfVar1;
+        pfVar1 = (float*)vector3.SSOBeginPtr();
+        local_1c = *pfVar1;
+        Vector2T<int>* pVVar3 = &matrix43[0];
+        pfVar1 = (float*)pVVar3->y();
+        local_1c = local_1c * *pfVar1;
+        pfVar1 = (float*)vector3.y();
+        float local_20 = *pfVar1;
+        pVVar3 = &matrix43[1];
+        pfVar1 = (float*)pVVar3->y();
+        local_20 = local_20 * *pfVar1 + local_1c;
+        pfVar1 = (float*)vector3.second();
+        local_1c = *pfVar1;
+        pVVar3 = &matrix43[2];
+        pfVar1 = (float*)pVVar3->y();
+        local_1c = local_1c * *pfVar1 + local_20;
+        pVVar3 = &matrix43[3];
+        pfVar1 = (float*)pVVar3->y();
+        local_1c = local_1c + *pfVar1;
+        pfVar1 = (float*)vector3.SSOBeginPtr();
+        local_20 = *pfVar1;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* pcVar4 = &matrix43[0];
+        pfVar1 = (float*)pcVar4->second();
+        local_20 = local_20 * *pfVar1;
+        pfVar1 = (float*)vector3.y();
+        float local_28 = *pfVar1;
+        pcVar4 = &matrix43[1];
+        pfVar1 = (float*)pcVar4->second();
+        local_28 = local_28 * *pfVar1 + local_20;
+        pfVar1 = (float*)vector3.second();
+        local_20 = *pfVar1;
+        pcVar4 = &matrix43[2];
+        pfVar1 = (float*)pcVar4->second();
+        local_20 = local_20 * *pfVar1 + local_28;
+        pcVar4 = &matrix43[3];
+        pfVar1 = (float*)pcVar4->second();
+        ColourHSL local_38(local_24, local_1c, local_20 + *pfVar1);
+        uVar5._0_4_ = local_38.field_0;
+        uVar5._4_4_ = local_38.field_4;
+        return uVar5;
     }
 
-    // 0x1002eed10, 448 bytes, inline, placed by debug map only (low confidence)
-    // Matrix43T<float>::operator=(Matrix44T<float> const&)
-    /* Matrix43T<float>::TEMPNAMEPLACEHOLDERVALUE(Matrix44T<float> const&) */
-
-    Matrix43T<float>* Matrix43T<float>::operator=(Matrix44T* param_1) {
-        float fVar1;
-        float fVar2;
-        Layout* pLVar3;
-        vector* pvVar4;
-        Vector2T<int>* pVVar5;
-        float* pfVar6;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* pcVar7;
-        type* ptVar8;
-
-        ptVar8 = (type*)0;
-        pLVar3 = (Layout*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 0);
-        pvVar4 = eastl::string::Layout::SSOBeginPtr(pLVar3, ptVar8);
-        fVar1 = *(float*)pvVar4;
-        pVVar5 = (Vector2T<int>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 0);
-        pfVar6 = (float*)pVVar5->y();
-        fVar2 = *pfVar6;
-        pcVar7 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 0);
-        pfVar6 =
-            (float*)eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(pcVar7);
-        Set(fVar1, fVar2, *pfVar6);
-        ptVar8 = (type*)&DAT_00000001;
-        pLVar3 = (Layout*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 1);
-        pvVar4 = eastl::string::Layout::SSOBeginPtr(pLVar3, ptVar8);
-        fVar1 = *(float*)pvVar4;
-        pVVar5 = (Vector2T<int>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 1);
-        pfVar6 = (float*)pVVar5->y();
-        fVar2 = *pfVar6;
-        pcVar7 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 1);
-        pfVar6 =
-            (float*)eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(pcVar7);
-        ((this + 12))->Set(fVar1, fVar2, *pfVar6);
-        ptVar8 = (type*)2;
-        pLVar3 = (Layout*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 2);
-        pvVar4 = eastl::string::Layout::SSOBeginPtr(pLVar3, ptVar8);
-        fVar1 = *(float*)pvVar4;
-        pVVar5 = (Vector2T<int>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 2);
-        pfVar6 = (float*)pVVar5->y();
-        fVar2 = *pfVar6;
-        pcVar7 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 2);
-        pfVar6 =
-            (float*)eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(pcVar7);
-        ((this + 24))->Set(fVar1, fVar2, *pfVar6);
-        ptVar8 = (type*)3;
-        pLVar3 = (Layout*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 3);
-        pvVar4 = eastl::string::Layout::SSOBeginPtr(pLVar3, ptVar8);
-        fVar1 = *(float*)pvVar4;
-        pVVar5 = (Vector2T<int>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 3);
-        pfVar6 = (float*)pVVar5->y();
-        fVar2 = *pfVar6;
-        pcVar7 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 3);
-        pfVar6 =
-            (float*)eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(pcVar7);
-        ((this + 36))->Set(fVar1, fVar2, *pfVar6);
+    // 0x1002eed10
+    Matrix43T<float>* Matrix43T<float>::operator=(const Matrix44T<float>& matrix44) {
+        Layout* pLVar3 = &matrix44[0];
+        auto pfVar4 = pLVar3->SSOBeginPtr();
+        float fVar1 = *pfVar4;
+        Vector2T<int>* pVVar5 = &matrix44[0];
+        pfVar4 = (float*)pVVar5->y();
+        float fVar2 = *pfVar4;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* pcVar6 = &matrix44[0];
+        pfVar4 = (float*)pcVar6->second();
+        Set(fVar1, fVar2, *pfVar4);
+        pLVar3 = &matrix44[1];
+        pfVar4 = (float*)pLVar3->SSOBeginPtr();
+        fVar1 = *pfVar4;
+        pVVar5 = &matrix44[1];
+        pfVar4 = (float*)pVVar5->y();
+        fVar2 = *pfVar4;
+        pcVar6 = &matrix44[1];
+        pfVar4 = (float*)pcVar6->second();
+        ((this + 12))->Set(fVar1, fVar2, *pfVar4);
+        pLVar3 = &matrix44[2];
+        pfVar4 = (float*)pLVar3->SSOBeginPtr();
+        fVar1 = *pfVar4;
+        pVVar5 = &matrix44[2];
+        pfVar4 = (float*)pVVar5->y();
+        fVar2 = *pfVar4;
+        pcVar6 = &matrix44[2];
+        pfVar4 = (float*)pcVar6->second();
+        ((this + 24))->Set(fVar1, fVar2, *pfVar4);
+        pLVar3 = &matrix44[3];
+        pfVar4 = (float*)pLVar3->SSOBeginPtr();
+        fVar1 = *pfVar4;
+        pVVar5 = &matrix44[3];
+        pfVar4 = (float*)pVVar5->y();
+        fVar2 = *pfVar4;
+        pcVar6 = &matrix44[3];
+        pfVar4 = (float*)pcVar6->second();
+        ((this + 36))->Set(fVar1, fVar2, *pfVar4);
         return this;
     }
 
-    // 0x1002ef550, 48 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float>::operator*=(Matrix43T<float> const&)
-    /* Vector3T<float>::TEMPNAMEPLACEHOLDERVALUE(Matrix43T<float> const&) */
+    // 0x1002ef550
+    void Vector3T<float>::operator*=(const Matrix43T<float>& matrix43) {
+        uint64_t local_20[2];
 
-    void Vector3T<float>::operator*=(Matrix43T* param_1) {
-        undefined8 local_20[2];
-
-        local_20[0] = math::operator*((Vector3T*)this, param_1);
-        SetXYZ(local_20);
+        local_20[0] = *this matrix43;
+        SetXYZ(*local_20);
     }
 
 } // namespace jag::math

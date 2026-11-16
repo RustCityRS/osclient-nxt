@@ -1,89 +1,50 @@
 // libs/graphics/runetek7/particles/ParticleSOASort.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "ParticleSOASort.h"
 #include "Particle.h"
 
 namespace jag::graphics::helpers {
-    // 0x1007d0c30, 368 bytes, base-object constructor, placed by debug map only (low confidence)
-    // ParticleDataValueProxy::ParticleDataValueProxy(unsigned long, ParticleData*)
-    void ParticleDataValueProxy::ParticleDataValueProxy(ulong param_1, ParticleData* param_2) {
-        undefined8 uVar1;
-        undefined4* puVar2;
-        ParticleVertexDataProxy* pPVar3;
-        ParticleVertexData* pPVar4;
-        undefined8* puVar5;
+    // 0x1007d0c30
+    ParticleDataValueProxy::ParticleDataValueProxy(unsigned long arg1, ParticleData* particleData) {
+        ParticleVertexDataProxy<ParticleData::PositionTimeData>* particleVertexDataProxy;
+        ParticleVertexData<math::Vector2T<float> _>* particleVertexData;
 
-        ParticleVertexDataProxy<ParticleData::PositionTimeData>::ParticleVertexDataProxy<>(
-            (ParticleVertexDataProxy<ParticleData::PositionTimeData>*)&field_20);
+        field_20.ParticleVertexDataProxy<>();
         new (&field_84) ParticleVertexData<math::Vector2T<float>>();
-        ParticleVertexDataProxy<math::Vector3T<float>>::ParticleVertexDataProxy<>(
-            (ParticleVertexDataProxy<math::Vector3T<float>>*)&field_116);
-        ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>::ParticleVertexDataProxy<>(
-            (ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>*)&field_164);
-        ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>::ParticleVertexDataProxy<>(
-            (ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>*)&field_180);
-        ParticleVertexDataProxy<ParticleData::UVAnimationData>::ParticleVertexDataProxy<>(
-            (ParticleVertexDataProxy<ParticleData::UVAnimationData>*)&field_196);
-        puVar2 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)param_2, param_1);
+        field_116.ParticleVertexDataProxy<>();
+        field_164.ParticleVertexDataProxy<>();
+        field_180.ParticleVertexDataProxy<>();
+        field_196.ParticleVertexDataProxy<>();
+        uint32_t* puVar2 = (uint32_t*)(*particleData)[arg1];
         field_0 = *puVar2;
-        puVar2 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&param_2->field_24, param_1);
+        puVar2 = (uint32_t*)particleData->field_24[arg1];
         field_4 = *puVar2;
-        puVar2 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&param_2->field_48, param_1);
+        puVar2 = (uint32_t*)particleData->field_48[arg1];
         field_8 = *puVar2;
-        puVar2 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&param_2->field_72, param_1);
+        puVar2 = (uint32_t*)particleData->field_72[arg1];
         field_12 = *puVar2;
-        puVar2 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&param_2->field_96, param_1);
+        puVar2 = (uint32_t*)particleData->field_96[arg1];
         field_16 = *puVar2;
-        pPVar3 = (ParticleVertexDataProxy*)eastl::
-            vector<ParticleVertexDataProxy<ParticleData::PositionTimeData>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<ParticleData::PositionTimeData>, SafeBucketAllocatorEASTL>*)&param_2
-                    ->field_120,
-                param_1);
-        ParticleVertexDataProxy<ParticleData::PositionTimeData>::operator=(
-            (ParticleVertexDataProxy<ParticleData::PositionTimeData>*)&field_20, pPVar3);
-        pPVar4 = (ParticleVertexData*)
-            eastl::vector<ParticleVertexData<math::Vector2T<float>>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexData<math::Vector2T<float>>, SafeBucketAllocatorEASTL>*)&param_2->field_144,
-                param_1);
-        ParticleVertexData<math::Vector2T<float>>::operator=((ParticleVertexData<math::Vector2T<float>>*)&field_84,
-                                                             pPVar4);
-        pPVar3 = (ParticleVertexDataProxy*)
-            eastl::vector<ParticleVertexDataProxy<math::Vector3T<float>>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<math::Vector3T<float>>, SafeBucketAllocatorEASTL>*)&param_2->field_168,
-                param_1);
-        ParticleVertexDataProxy<math::Vector3T<float>>::operator=(
-            (ParticleVertexDataProxy<math::Vector3T<float>>*)&field_116, pPVar3);
-        puVar5 = (undefined8*)eastl::vector<ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>,
-                                            SafeBucketAllocatorEASTL>::
-        operator[]((vector<ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>,
-                           SafeBucketAllocatorEASTL>*)&param_2->field_192,
-                   param_1);
-        uVar1 = puVar5[1];
-        field_164 = *puVar5;
+        particleVertexDataProxy =
+            (ParticleVertexDataProxy<ParticleData::PositionTimeData>*)particleData->field_120[arg1];
+        field_20 = *particleVertexDataProxy;
+        particleVertexData = (ParticleVertexData<math::Vector2T<float> _>*)particleData->field_144[arg1];
+        field_84 = *particleVertexData;
+        Matrix43T<float>* matrix43 = &particleData->field_168[arg1];
+        field_116 = *matrix43;
+        uint64_t* puVar3 = &particleData->field_192[arg1];
+        uint64_t uVar1 = puVar3[1];
+        field_164 = *puVar3;
         field_172 = uVar1;
-        puVar5 = (undefined8*)
-            eastl::vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>, SafeBucketAllocatorEASTL>::
-            operator[]((vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>,
-                               SafeBucketAllocatorEASTL>*)&param_2->field_216,
-                       param_1);
-        uVar1 = puVar5[1];
-        field_180 = *puVar5;
+        puVar3 = &particleData->field_216[arg1];
+        uVar1 = puVar3[1];
+        field_180 = *puVar3;
         field_188 = uVar1;
-        puVar5 = (undefined8*)
-            eastl::vector<ParticleVertexDataProxy<ParticleData::UVAnimationData>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<ParticleData::UVAnimationData>, SafeBucketAllocatorEASTL>*)&param_2
-                    ->field_240,
-                param_1);
-        uVar1 = puVar5[1];
-        field_196 = *puVar5;
+        puVar3 = &particleData->field_240[arg1];
+        uVar1 = puVar3[1];
+        field_196 = *puVar3;
         field_204 = uVar1;
     }
 

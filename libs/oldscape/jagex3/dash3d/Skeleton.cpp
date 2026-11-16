@@ -1,152 +1,114 @@
 // libs/oldscape/jagex3/dash3d/Skeleton.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "Skeleton.h"
 
 namespace jag::oldscape::dash3d {
-    // 0x100d41cd0, 4 bytes, __const
-    Skeleton::LIGHTWEIGHT_JOINTS = 0;
+    // 0x100d41cd0
+    int32_t Skeleton::LIGHTWEIGHT_JOINTS = 0;
 
-    // 0x1016c60f0, 16 bytes, __common; set at startup by ___cxx_global_var_init.43
+    // 0x1016c60f0, set at startup by ___cxx_global_var_init.43
     shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> Skeleton::NULL_JOINT =
-        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>((_func_decltype_nullptr*)0);
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
 
-    // 0x1002ed6f0, 176 bytes, placed by class name and debug map
-    // Skeleton::Animate(graphics::animation::OldscapeAnimKeyFrameSet&, int, Array<bool, eastl::allocator> const&, bool)
-    void Skeleton::Animate(OldscapeAnimKeyFrameSet* param_1, int param_2, Array* param_3, bool param_4) {
+    // 0x1002ed6f0
+    void Skeleton::Animate(graphics::animation::OldscapeAnimKeyFrameSet& oldscapeAnimKeyFrameSet, int arg2,
+                           const Array<bool>& arg3, bool arg4) {
         char* pcVar1;
-        int iVar2;
-        char cVar3;
-        Array<shared_ptr<graphics::animation::OldscapeJoint>, eastl::allocator>* this_00;
-        shared_ptr<graphics::animation::OldscapeJoint>* psVar4;
-        shared_ptr<graphics::animation::OldscapeJoint>* this_01;
-        ulong uVar5;
+        int arg3_00;
+        unsigned long arg1;
 
-        this_00 = (Array<shared_ptr<graphics::animation::OldscapeJoint>, eastl::allocator>*)GetJoints(this);
-        this_01 = (shared_ptr<graphics::animation::OldscapeJoint>*)this_00->data();
-        psVar4 = (shared_ptr<graphics::animation::OldscapeJoint>*)this_00->end();
-        if (this_01 != psVar4) {
-            uVar5 = 0;
+        auto this_00 = GetJoints();
+        auto this_01 = this_00->data();
+        auto psVar3 = this_00->end();
+        if (this_01 != psVar3) {
+            arg1 = 0;
             do {
-                cVar3 = param_3->empty();
-                if ((cVar3 != '\0') || (pcVar1 = (char*)Array<bool, eastl::allocator>::operator[](
-                                            (Array<bool, eastl::allocator>*)param_3, uVar5),
-                                        (bool)*pcVar1 == param_4)) {
-                    iVar2 = shared_ptr<graphics::animation::OldscapeJoint>::operator*(this_01);
+                if ((arg3.empty() != '\0') || (pcVar1 = (char*)arg3[arg1], (bool)*pcVar1 == arg4)) {
+                    arg3_00 = **this_01;
                     graphics::animation::OldscapeAnimKeyFrameSet::SetJointLocal(
-                        (int)param_1, (OldscapeJoint*)(ulong)(uint)param_2, iVar2, (int)uVar5);
+                        (int)oldscapeAnimKeyFrameSet, *((OldscapeJoint*)(unsigned long)(unsigned int)arg2), arg3_00,
+                        (int)arg1);
                 }
-                uVar5 = uVar5 + 1;
+                arg1 = arg1 + 1;
                 this_01 = this_01 + 16;
-            } while (this_01 != psVar4);
+            } while (this_01 != psVar3);
         }
     }
 
-    // 0x1002ed7e0, 112 bytes, placed by class name and debug map
-    // Skeleton::Animate(graphics::animation::OldscapeAnimKeyFrameSet&, int)
-    void Skeleton::Animate(OldscapeAnimKeyFrameSet* param_1, int param_2) {
-        Array<bool, eastl::allocator> local_40[24];
+    // 0x1002ed7e0
+    void Skeleton::Animate(graphics::animation::OldscapeAnimKeyFrameSet& oldscapeAnimKeyFrameSet, int arg2) {
 
-        Array<bool, eastl::allocator>::Array(local_40);
-        Animate(this, param_1, param_2, (Array*)local_40, false);
-        local_40->~Array();
+        Array<bool> local_40;
+        Animate(oldscapeAnimKeyFrameSet, arg2, local_40, false);
     }
 
-    // 0x1002ed850, 48 bytes, placed by class name and debug map
-    // Skeleton::GetJoint(int)
-    undefined1* Skeleton::GetJoint(int param_1) {
-        int iVar1;
-        undefined1* puVar2;
+    // 0x1002ed850
+    uint8_t* Skeleton::GetJoint(int arg1) {
+        uint8_t* puVar2;
 
-        iVar1 = GetNumOfJoints(this);
-        if (param_1 < iVar1) {
-            puVar2 = (undefined1*)Array<shared_ptr<graphics::animation::OldscapeJoint>, eastl::allocator>::operator[](
-                (Array<shared_ptr<graphics::animation::OldscapeJoint>, eastl::allocator>*)this, (long)param_1);
+        int iVar1 = GetNumOfJoints();
+        if (arg1 < iVar1) {
+            puVar2 = (uint8_t*)(*this)[(long)arg1];
         } else {
             puVar2 = &NULL_JOINT;
         }
         return puVar2;
     }
 
-    // 0x1002edb90, 16 bytes, placed by class name
-    // Skeleton::GetNumOfJoints() const
-    void Skeleton::GetNumOfJoints() {
+    // 0x1002edb90
+    void Skeleton::GetNumOfJoints() const {
         end();
     }
 
-    // 0x1002f4950, 224 bytes, base-object constructor, placed by class name
-    // Skeleton::Skeleton(PacketJ<Array<unsigned char, eastl::allocator> >&, int)
-    void Skeleton::Skeleton(PacketJ* param_1, int param_2) {
-        byte bVar1;
-        long lVar2;
+    // 0x1002f4950
+    Skeleton::Skeleton(PacketJ<Array<unsigned char>>& packetJ, int arg2)
+        : Array<shared_ptr<graphics::animation::OldscapeJoint>>() {
         shared_ptr<graphics::animation::OldscapeJoint>* this_00;
-        ulong uVar3;
-        ulong uVar4;
-        shared_ptr local_40;
+        unsigned long uVar3;
+        unsigned long arg1;
+        ReturnValue local_40;
 
-        new (this) Array<shared_ptr<graphics::animation::OldscapeJoint>, eastl::allocator>();
-        set_max_size((long)param_2, 1);
-        bVar1 = param_1->g1();
-        field_24 = (uint)bVar1;
-        lVar2 = end();
-        if (lVar2 != 0) {
-            uVar4 = 0;
+        set_max_size((long)arg2, 1);
+        uint8_t bVar1 = packetJ.g1();
+        field_24 = (unsigned int)bVar1;
+        if (end() != 0) {
+            arg1 = 0;
             do {
-                make_shared<graphics::animation::OldscapeJoint, int&, PacketJ<Array<unsigned char, eastl::allocator>>&,
-                            bool const&>((jag*)&local_40, (int*)&field_24, param_1, (bool*)&LIGHTWEIGHT_JOINTS);
-                this_00 = (shared_ptr<graphics::animation::OldscapeJoint>*)
-                    Array<shared_ptr<graphics::animation::OldscapeJoint>, eastl::allocator>::operator[](
-                        (Array<shared_ptr<graphics::animation::OldscapeJoint>, eastl::allocator>*)this, uVar4);
-                shared_ptr<graphics::animation::OldscapeJoint>::operator=(this_00, &local_40);
-                local_40.~shared_ptr();
-                uVar4 = uVar4 + 1;
+                make_shared<graphics::animation::OldscapeJoint, int&, PacketJ<Array<unsigned char>>&, bool const&>(
+                    &local_40, (int*)&field_24, packetJ, (bool*)&LIGHTWEIGHT_JOINTS);
+                this_00 = (shared_ptr<graphics::animation::OldscapeJoint>*)(*this)[arg1];
+                *this_00 = local_40;
+                arg1 = arg1 + 1;
                 uVar3 = end();
-            } while (uVar4 < uVar3);
+            } while (arg1 < uVar3);
         }
-        BuildJointHierarchy(this);
+        BuildJointHierarchy();
     }
 
-    // 0x1002f4cf0, 128 bytes, placed by class name
-    // Skeleton::BuildJointHierarchy()
+    // 0x1002f4cf0
     void Skeleton::BuildJointHierarchy() {
-        shared_ptr<graphics::animation::OldscapeJoint>* this_00;
-        shared_ptr<graphics::animation::OldscapeJoint>* psVar1;
         int* piVar2;
-        shared_ptr* psVar3;
-        long lVar4;
+        shared_ptr<graphics::animation::OldscapeJoint>* oldscapeJoint;
+        long lVar3;
 
-        this_00 = (shared_ptr<graphics::animation::OldscapeJoint>*)data();
-        psVar1 = (shared_ptr<graphics::animation::OldscapeJoint>*)end();
+        auto this_00 = data();
+        auto psVar1 = end();
         for (; this_00 != psVar1; this_00 = this_00 + 16) {
-            piVar2 = (int*)shared_ptr<graphics::animation::OldscapeJoint>::operator->(this_00);
+            piVar2 = (int*)(*this_00).operator->();
             if (-1 < *piVar2) {
-                piVar2 = (int*)shared_ptr<graphics::animation::OldscapeJoint>::operator->(this_00);
-                psVar3 =
-                    (shared_ptr*)Array<shared_ptr<graphics::animation::OldscapeJoint>, eastl::allocator>::operator[](
-                        (Array<shared_ptr<graphics::animation::OldscapeJoint>, eastl::allocator>*)this, (long)*piVar2);
-                lVar4 = shared_ptr<graphics::animation::OldscapeJoint>::operator->(this_00);
-                shared_ptr<graphics::animation::OldscapeJoint>::operator=(
-                    (shared_ptr<graphics::animation::OldscapeJoint>*)(lVar4 + 8), psVar3);
+                piVar2 = (int*)(*this_00).operator->();
+                oldscapeJoint = (shared_ptr<graphics::animation::OldscapeJoint>*)(*this)[(long)*piVar2];
+                lVar3 = (*this_00).operator->();
+                (*((lVar3 + 8))) = *oldscapeJoint;
             }
         }
     }
 
-    // 0x1002f4d70, 16 bytes, complete-object constructor, placed by class name
-    // Skeleton::Skeleton(PacketJ<Array<unsigned char, eastl::allocator> >&, int): jumps straight to the base-object constructor
-
-    // 0x1002f4de0, 16 bytes, placed by class name
-    // Skeleton::GetJoints() const
-    Skeleton* Skeleton::GetJoints() {
+    // 0x1002f4de0
+    Skeleton* Skeleton::GetJoints() const {
         return this;
-    }
-
-    // 0x10033df80, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.43
-    void ___cxx_global_var_init_43() {
-        new (&Skeleton::NULL_JOINT) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        ___cxa_atexit(PTR__shared_ptr_100ee5538, &Skeleton::NULL_JOINT, 4294967296);
     }
 
 } // namespace jag::oldscape::dash3d

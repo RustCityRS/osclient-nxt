@@ -1,6 +1,5 @@
 // libs/hal/input/InputGestures_Tap.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.input
 
 namespace jag::input::gesture {
@@ -9,27 +8,27 @@ namespace jag::input::gesture {
     public:
         // virtual methods in vtable order
         virtual ~GestureTap();
-        virtual OnTouchDown(GestureManager*, unsigned long, float, float);
-        virtual OnTouchUp(GestureManager*, unsigned long, float, float);
-        OnTouchMove(GestureManager*, unsigned long, float, float);
+        virtual uint64_t OnTouchDown(GestureManager* arg1, unsigned long arg2, float arg3, float arg4);
+        virtual uint64_t OnTouchUp(GestureManager* gestureManager, unsigned long arg2, float arg3, float arg4);
+        uint64_t OnTouchMove(GestureManager* arg1, unsigned long arg2, float arg3, float arg4);
 
-        // data members, from how the methods use this: 17 bytes, the first 8 are Module
-        char _unknown_8[9];
+    private:
+        uint8_t _unknown_8[9];
     };
 
-    // 0x100ca14d0, 160 bytes, placed by debug map only (low confidence)
-    // GestureTap::OnTouchUp(GestureManager*, unsigned long, float, float)
-    undefined8 GestureTap::OnTouchUp(GestureManager* param_1, ulong param_2, float param_3, float param_4) {
-        ulong* puVar2;
-        ulonglong uVar3;
+    // 0x100ca14d0
+    uint64_t GestureTap::OnTouchUp(GestureManager* gestureManager, unsigned long arg2, float arg3, float arg4) {
+        TouchPoint* touchPoint;
+        unsigned long long uVar2;
+        float fVar3;
         float fVar4;
 
-        if ((((param_1->GetX() < 2) && (puVar2 = (ulong*)param_1->GetLastTouch(param_2), *puVar2 == param_2)) &&
-             (uVar3 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)param_1),
-              uVar3 - puVar2[2] < 181)) &&
-            (fVar4 = param_4 - *(float*)((long)puVar2 + 12),
-             fVar4 * fVar4 + (param_3 - *(float*)(puVar2 + 1)) * (param_3 - *(float*)(puVar2 + 1)) < 64.0)) {
-            Gesture<TouchPoint>::RunEvent((TouchPoint*)this);
+        if ((((gestureManager->GetX() < 2) &&
+              (touchPoint = (TouchPoint*)gestureManager->GetLastTouch(arg2), touchPoint->field_0 == arg2)) &&
+             (uVar2 = SystemTimer::GetTimeMS<std::chrono::steady_clock>(), uVar2 - touchPoint->field_16 < 181)) &&
+            (fVar4 = arg3 - touchPoint->field_8, fVar3 = arg4 - touchPoint->field_12,
+             fVar3 * fVar3 + fVar4 * fVar4 < 64.0)) {
+            RunEvent(*touchPoint);
             return 1;
         }
         return 0;

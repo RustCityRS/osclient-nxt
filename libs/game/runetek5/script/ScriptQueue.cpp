@@ -1,30 +1,26 @@
 // libs/game/runetek5/script/ScriptQueue.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "ScriptQueue.h"
 
 namespace jag::game {
-    // 0x1003b6560, 144 bytes, placed by class name and debug map
-    // ScriptQueue::AddScript(shared_ptr<ui::Component> const&, Hook const&, unsigned int, unsigned int)
-    ulonglong ScriptQueue::AddScript(shared_ptr* param_1, Hook* param_2, uint param_3, uint param_4) {
-        uint uVar1;
+    // 0x1003b6560
+    unsigned long long ScriptQueue::AddScript(const shared_ptr<ui::Component>& component, const Hook& hook,
+                                              unsigned int arg3, unsigned int arg4) {
+        unsigned int uVar1;
         char* this_00;
-        ulonglong local_18;
-        uint local_c;
 
-        local_c = param_3;
+        unsigned int local_c = arg3;
         if (field_44 != '\0') {
             this_00 = "!m_queueLocked";
             LogFatalError("!m_queueLocked",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/script/"
                           "ScriptQueue.cpp",
-                          12, 0, (char*)0);
-            /* WARNING: Subroutine does not return */
+                          12, 0, nullptr);
             this_00->~OptionStore();
         }
-        local_18 = field_32 + 1;
+        return local_18 = field_32 + 1;
         field_32 = local_18;
         if ((long)local_18 < 0) {
             local_18 = 0;
@@ -33,24 +29,16 @@ namespace jag::game {
         } else {
             uVar1 = field_40;
         }
-        if (uVar1 < param_4) {
-            local_c = param_3 + 1;
+        if (uVar1 < arg4) {
+            local_c = arg3 + 1;
         }
-        eastl::vector<ScriptQueue::QueuedScript, eastl::allocator>::emplace_back<
-            shared_ptr<ui::Component> const&, unsigned long long&, Hook_const&, unsigned int&>(
-            (vector<ScriptQueue::QueuedScript, eastl::allocator>*)this, param_1, &local_18, param_2, &local_c);
+        emplace_back<shared_ptr<ui::Component> const&, unsigned long long&, Hook const&, unsigned int&>(
+            component, local_18, hook, local_c);
         return local_18;
     }
 
-    // 0x1003b66c0, 240 bytes, placed by class name and debug map
-    // ScriptQueue::RemoveQueueID(unsigned long long)
-    bool ScriptQueue::RemoveQueueID(ulonglong param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        QueuedScript* pQVar3;
-        QueuedScript* pQVar4;
-        QueuedScript* pQVar5;
-        QueuedScript* pQVar6;
+    // 0x1003b66c0
+    bool ScriptQueue::RemoveQueueID(unsigned long long arg1) {
         char* this_00;
 
         if (field_44 != '\0') {
@@ -58,40 +46,33 @@ namespace jag::game {
             LogFatalError("!m_queueLocked",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/script/"
                           "ScriptQueue.cpp",
-                          32, 0, (char*)0);
-            /* WARNING: Subroutine does not return */
+                          32, 0, nullptr);
             this_00->~OptionStore();
         }
-        uVar1 = HeapBeginPtr();
-        uVar2 = end();
-        pQVar3 = eastl::find_if<ScriptQueue::QueuedScript_const*, unsigned long long->RemoveQueueID()::__0>(
-            uVar1, uVar2, param_1);
+        auto pQVar1 = HeapBeginPtr();
+        auto pQVar2 = end();
+        pQVar1 = eastl::find_if<ScriptQueue::QueuedScript const*, unsigned long long->RemoveQueueID()::__0>(
+            pQVar1, pQVar2, (__0*)arg1);
+        pQVar2 = (QueuedScript*)end();
+        auto pQVar3 = end();
+        erase(pQVar1, pQVar3);
+        pQVar3 = (QueuedScript*)HeapBeginPtr();
+        auto pQVar4 = end();
+        pQVar3 = eastl::find_if<ScriptQueue::QueuedScript const*, unsigned long long->RemoveQueueID()::__0>(
+            pQVar3, pQVar4, (__0*)arg1);
         pQVar4 = (QueuedScript*)end();
-        pQVar5 = (QueuedScript*)end();
-        erase(pQVar3, pQVar5);
-        uVar1 = HeapBeginPtr();
-        uVar2 = end();
-        pQVar5 = eastl::find_if<ScriptQueue::QueuedScript_const*, unsigned long long->RemoveQueueID()::__0>(
-            uVar1, uVar2, param_1);
-        pQVar6 = (QueuedScript*)end();
-        if (pQVar5 != pQVar6) {
-            /* WARNING: Subroutine does not return */
+        if (pQVar3 != pQVar4) {
             LogAssert(
                 "eastl::find_if(m_queuedScripts.cbegin(), m_queuedScripts.cend(), findFunc) == m_queuedScripts.cend()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/script/"
                 "ScriptQueue.cpp",
-                42, (char*)0);
+                42, nullptr);
         }
-        return pQVar3 != pQVar4;
+        return pQVar1 != pQVar2;
     }
 
-    // 0x1003b6880, 128 bytes, placed by class name and debug map
-    // ScriptQueue::RemoveAll(shared_ptr<ui::Component> const&)
-    void ScriptQueue::RemoveAll(shared_ptr* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        QueuedScript* pQVar3;
-        QueuedScript* pQVar4;
+    // 0x1003b6880
+    void ScriptQueue::RemoveAll(const shared_ptr<ui::Component>& component) {
         char* this_00;
 
         if (field_44 != '\0') {
@@ -99,99 +80,79 @@ namespace jag::game {
             LogFatalError("!m_queueLocked",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/script/"
                           "ScriptQueue.cpp",
-                          48, 0, (char*)0);
-            /* WARNING: Subroutine does not return */
+                          48, 0, nullptr);
             this_00->~OptionStore();
         }
-        uVar1 = HeapBeginPtr();
-        uVar2 = end();
-        pQVar3 = eastl::remove_if<ScriptQueue::QueuedScript*, (shared_ptr<ui::Component> const&)->RemoveAll()::__1>(
-            uVar1, uVar2, param_1);
-        pQVar4 = (QueuedScript*)end();
-        erase(pQVar3, pQVar4);
+        auto pQVar1 = HeapBeginPtr();
+        auto pQVar2 = end();
+        pQVar1 = eastl::remove_if<ScriptQueue::QueuedScript*, (shared_ptr<ui::Component> const&)->RemoveAll()::__1>(
+            pQVar1, pQVar2, (__1*)component);
+        pQVar2 = (QueuedScript*)end();
+        erase(pQVar1, pQVar2);
     }
 
-    // 0x1003b6940, 160 bytes, placed by class name and debug map
-    // ScriptQueue::RemoveScriptTypeID(shared_ptr<ui::Component> const&, unsigned int)
-    ulong ScriptQueue::RemoveScriptTypeID(shared_ptr* param_1, uint param_2) {
-        undefined4 in_EAX;
-        eastl* peVar1;
-        undefined8 uVar2;
-        QueuedScript* pQVar3;
-        QueuedScript* pQVar4;
-        QueuedScript* pQVar5;
+    // 0x1003b6940
+    unsigned long ScriptQueue::RemoveScriptTypeID(const shared_ptr<ui::Component>& component, unsigned int arg2) {
+        uint32_t in_EAX;
+        QueuedScript* queuedScript1;
+        QueuedScript* queuedScript2;
         char* this_00;
-        undefined8 in_R9;
-        undefined1 auStackY_a8[128];
+        uint64_t in_R9;
+        __2 a_StackY_a8[128];
 
         if (field_44 != '\0') {
             this_00 = "!m_queueLocked";
             LogFatalError("!m_queueLocked",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/script/"
                           "ScriptQueue.cpp",
-                          60, 0, (char*)0, in_R9, CONCAT44(param_2, in_EAX));
-            /* WARNING: Subroutine does not return */
+                          60, 0, nullptr, in_R9, (((uint64_t)arg2 << 32) | (uint32_t)in_EAX));
             this_00->~OptionStore();
         }
-        peVar1 = (eastl*)HeapBeginPtr();
-        uVar2 = end();
-        pQVar3 = eastl::remove_if<ScriptQueue::QueuedScript*,
+        queuedScript1 = (QueuedScript*)HeapBeginPtr();
+        auto pQVar1 = end();
+        pQVar1 = eastl::remove_if<ScriptQueue::QueuedScript*,
                                   (shared_ptr<ui::Component> const&)->RemoveScriptTypeID(unsigned int)::__2>(
-            peVar1, uVar2, auStackY_a8 + 132, param_1);
-        pQVar4 = (QueuedScript*)end();
-        pQVar5 = (QueuedScript*)end();
-        erase(pQVar3, pQVar5);
-        return CONCAT71((int7)((ulong)peVar1 >> 8), pQVar3 != pQVar4) & 4294967295;
+            queuedScript1, pQVar1, a_StackY_a8 + 132);
+        auto pQVar2 = end();
+        queuedScript2 = (QueuedScript*)end();
+        erase(pQVar1, queuedScript2);
+        return pQVar1 != pQVar2 & 4294967295;
     }
 
-    // 0x1003b6a30, 96 bytes, placed by class name and debug map
-    // ScriptQueue::HasQueueID(shared_ptr<ui::Component> const&, unsigned long long) const
-    bool ScriptQueue::HasQueueID(shared_ptr* param_1, ulonglong param_2) {
-        eastl* peVar1;
-        undefined8 uVar2;
-        QueuedScript* pQVar3;
-        QueuedScript* pQVar4;
-        ulonglong local_28;
-
-        local_28 = param_2;
-        peVar1 = (eastl*)HeapBeginPtr();
-        uVar2 = end();
-        pQVar3 = eastl::find_if<ScriptQueue::QueuedScript_const*,
+    // 0x1003b6a30
+    bool ScriptQueue::HasQueueID(const shared_ptr<ui::Component>& component, unsigned long long arg2) const {
+        unsigned long long local_28 = arg2;
+        auto pQVar1 = HeapBeginPtr();
+        auto pQVar2 = end();
+        pQVar1 = eastl::find_if<ScriptQueue::QueuedScript const*,
                                 (shared_ptr<ui::Component> const&)->HasQueueID(unsigned long long) const ::__3>(
-            peVar1, uVar2, &local_28, param_1);
-        pQVar4 = (QueuedScript*)end();
-        return pQVar3 != pQVar4;
+            pQVar1, pQVar2, (__3*)&local_28);
+        pQVar2 = (QueuedScript*)end();
+        return pQVar1 != pQVar2;
     }
 
-    // 0x1003b6af0, 64 bytes, placed by class name and debug map
-    // ScriptQueue::GetCount(shared_ptr<ui::Component> const&) const
-    void ScriptQueue::GetCount(shared_ptr* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
+    // 0x1003b6af0
+    void ScriptQueue::GetCount(const shared_ptr<ui::Component>& component) const {
+        QueuedScript* queuedScript1;
+        QueuedScript* queuedScript2;
 
-        uVar1 = HeapBeginPtr();
-        uVar2 = end();
-        std::count_if<ScriptQueue::QueuedScript_const*, (shared_ptr<ui::Component> const&)->GetCount() const ::__4>(
-            uVar1, uVar2, param_1);
+        queuedScript1 = (QueuedScript*)HeapBeginPtr();
+        queuedScript2 = (QueuedScript*)end();
+        std::count_if<ScriptQueue::QueuedScript const*, (shared_ptr<ui::Component> const&)->GetCount() const ::__4>(
+            queuedScript1, queuedScript2, (__4*)component);
     }
 
-    // 0x1003b6ba0, 64 bytes, placed by class name
-    // ScriptQueue::GetScriptTypeCount(shared_ptr<ui::Component> const&, unsigned int) const
-    void ScriptQueue::GetScriptTypeCount(shared_ptr* param_1, uint param_2) {
-        undefined4 in_EAX;
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 in_R8;
-        undefined8 in_R9;
-        undefined1 auStackY_a8[128];
-        undefined8 uVar3;
+    // 0x1003b6ba0
+    void ScriptQueue::GetScriptTypeCount(const shared_ptr<ui::Component>& component, unsigned int arg2) const {
+        QueuedScript* queuedScript1;
+        QueuedScript* queuedScript2;
+        __5 local_24;
 
-        uVar3 = CONCAT44(param_2, in_EAX);
-        uVar1 = HeapBeginPtr();
-        uVar2 = end();
-        std::count_if<ScriptQueue::QueuedScript_const*,
+        queuedScript1 = (QueuedScript*)HeapBeginPtr();
+        queuedScript2 = (QueuedScript*)end();
+        std::count_if<ScriptQueue::QueuedScript const*,
                       (shared_ptr<ui::Component> const&)->GetScriptTypeCount(unsigned int) const ::__5>(
-            uVar1, uVar2, auStackY_a8 + 132, param_1, in_R8, in_R9, uVar3);
+            queuedScript1, queuedScript2, &local_24);
     }
 
 } // namespace jag::game

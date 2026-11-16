@@ -1,240 +1,186 @@
 // libs/graphics/runetek7/renderer/renderpasses/DepthDownsamplePass.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "DepthDownsamplePass.h"
 
 namespace jag::graphics {
-    // 0x1007a5760, 272 bytes, base-object constructor, placed by class name
-    // DepthDownsamplePass::DepthDownsamplePass()
-    void DepthDownsamplePass::DepthDownsamplePass() {
-        undefined1* puVar1;
-        Desc local_70[6];
+    // 0x1007a5760
+    DepthDownsamplePass::DepthDownsamplePass() : FullscreenQuadPass(11), m_depthTexture(0) {
+        uint8_t local_70[72];
 
-        new (this) FullscreenQuadPass(11);
-        *(undefined***)field_0 = &PTR__DepthDownsamplePass_100f14110;
-        m_depthTexture = 0;
-        puVar1 = &field_632;
+        uint8_t* puVar1 = &field_632;
         new (puVar1) EffectList();
         new (&field_648) render::BlendState();
         m_combineWithPrevious = false;
         new (field_728) render::InputAssemblerState();
-        puVar1->Set(89, 0);
-        puVar1->Set(106, 1);
-        render::BlendState::Desc::Desc(local_70);
-        puVar1 = (undefined1*)std::array<render::RenderTargetBlendDesc, 2ul>::operator[]((ulong)&local_70[0].field_4);
+        puVar1->Set(89, false);
+        puVar1->Set(106, true);
+        new (local_70) render::BlendState::Desc();
+        puVar1 = (uint8_t*)(*((local_70 + 4)))[106];
         *puVar1 = 1;
-        *(undefined8*)(puVar1 + 4) = 4294967297;
-        *(undefined4*)(puVar1 + 12) = 32775;
-        *(undefined4*)(puVar1 + 24) = 32775;
-        (&field_648, local_70)->Create();
+        *(uint64_t*)(puVar1 + 4) = 4294967297;
+        *(uint32_t*)(puVar1 + 12) = 32775;
+        *(uint32_t*)(puVar1 + 24) = 32775;
+        field_648.Create(*local_70);
     }
 
-    // 0x1007a5880, 16 bytes, complete-object constructor, placed by class name
-    // DepthDownsamplePass::DepthDownsamplePass(): jumps straight to the base-object constructor
-
-    // 0x1007a5890, 64 bytes, base-object destructor, placed by class name
-    // DepthDownsamplePass::~DepthDownsamplePass()
-    void DepthDownsamplePass::~DepthDownsamplePass() {
-        *(undefined***)field_0 = &PTR__DepthDownsamplePass_100f14110;
+    // 0x1007a5890
+    DepthDownsamplePass::~DepthDownsamplePass() {
         field_728->~InputAssemblerState();
-        (&field_648)->~BlendState();
-        ~FullscreenQuadPass();
+        field_648.~BlendState();
     }
 
-    // 0x1007a58d0, 16 bytes, complete-object destructor, placed by class name
-    // DepthDownsamplePass::~DepthDownsamplePass(): jumps straight to the base-object destructor
-
-    // 0x1007a58e0, 32 bytes, deleting destructor, placed by class name
-    // DepthDownsamplePass::~DepthDownsamplePass()
-    void DepthDownsamplePass::~DepthDownsamplePass() {
-        ~DepthDownsamplePass(this);
-        operator_delete(this);
-    }
-
-    // 0x1007a5900, 1248 bytes, placed by class name
-    // DepthDownsamplePass::Render(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&)
-    void DepthDownsamplePass::Render(RT7Core* param_1, DrawCallState* param_2, EffectManager* param_3,
-                                     SceneViewData* param_4, DrawableQueue* param_5) {
-        uint uVar1;
-        Texture* pTVar2;
-        undefined8 uVar3;
-        RenderContext* pRVar4;
-        EffectManager* pEVar5;
-        char cVar6;
-        int iVar7;
-        OutputMergerState* pOVar8;
-        long lVar9;
-        Layout* this_00;
-        vector* this_01;
-        RenderTargets* pRVar10;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* pvVar11;
-        undefined8* puVar12;
-        uint* puVar13;
-        uint* puVar14;
-        Vector4T* pVVar15;
-        Viewport* pVVar16;
-        ShaderManager* pSVar17;
+    // 0x1007a5900
+    void DepthDownsamplePass::Render(RT7Core& rt7Core, const render::DrawCallState& drawCallState,
+                                     EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                     DrawableQueue& drawableQueue) {
+        unsigned int uVar1;
+        Texture* texture;
+        uint64_t uVar2;
+        RenderContext* renderContext;
+        int arg3;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* pvVar6;
+        uint64_t* puVar7;
+        unsigned int* puVar8;
+        unsigned int* puVar9;
+        compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* this_01;
+        long lVar10;
+        Viewport* viewport;
+        ShaderManager* pSVar11;
         shared_ptr<Shader>* this_02;
-        RenderPipelineState* pRVar18;
-        Shader* pSVar19;
-        ShaderProgram* pSVar20;
-        VertexBuffer* pVVar21;
-        HashedString* pHVar22;
-        long* plVar23;
+        RenderPipelineState* pRVar12;
+        Shader* pSVar13;
+        ShaderProgram* pSVar14;
+        VertexBuffer* vertexBuffer;
+        HashedString* pHVar15;
+        long* plVar16;
         RT7Core* this_03;
-        byte bVar24;
-        undefined1 auVar25[16];
-        EffectList EVar26;
-        ImVec4 local_100[16];
-        undefined1 local_f0[8];
+        uint8_t bVar17;
+        uint8_t auVar18[16];
+        ImVec4 local_100;
+        uint8_t local_f0[8];
         Data local_e8;
-        undefined8 uStack_c0;
-        Point<float> local_b8[8];
-        Point<float> local_b0[8];
-        SceneViewData* local_a8;
-        RT7Core* local_a0;
+        uint64_t uStack_c0;
+        Point<float> local_b8;
+        Point<float> local_b0;
         RenderContext* local_98;
-        uint* local_90;
-        DrawCallState local_88;
-        SunlightDirectLighting* local_58;
-        Point<float> local_50[16];
-        EffectManager* local_40;
-        byte local_31;
+        unsigned int* local_90;
+        FogEffect* local_58;
+        Point<float> local_50;
+        uint8_t local_31;
 
         if (m_depthTexture == 0) {
             return;
         }
-        new (&local_88) render::DrawCallState(param_2);
-        pOVar8 = (OutputMergerState*)local_88.GetOutputMergerState();
-        lVar9 = pOVar8->GetRenderTargets();
-        if (lVar9 != 0) {
-            this_00 = (Layout*)local_88.GetOutputMergerState();
-            this_01 = eastl::string::Layout::SSOBeginPtr(this_00, (type*)param_2);
-            cVar6 = this_01->empty();
-            if (cVar6 == '\0') {
-                local_a8 = param_4;
-                local_a0 = param_1;
-                local_40 = param_3;
-                pOVar8 = (OutputMergerState*)local_88.GetOutputMergerState();
-                pRVar10 = (RenderTargets*)pOVar8->GetRenderTargets();
-                pvVar11 = (vector<render::Texture*,
-                                  eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                              pRVar10->GetColourTargetTextures();
-                puVar12 = (undefined8*)eastl::vector<
-                    render::Texture*,
-                    eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](pvVar11, 0);
-                puVar13 = (uint*)(*puVar12)->second();
+        DrawCallState local_88(drawCallState);
+        auto pOVar4 = local_88.GetOutputMergerState();
+        auto pRVar5 = pOVar4->GetRenderTargets();
+        if (pRVar5 != nullptr) {
+            pOVar4 = local_88.GetOutputMergerState();
+            if (((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)pOVar4->SSOBeginPtr())
+                    ->empty() == '\0') {
+                pOVar4 = local_88.GetOutputMergerState();
+                pRVar5 = pOVar4->GetRenderTargets();
+                pvVar6 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                             pRVar5->GetColourTargetTextures();
+                puVar7 = (uint64_t*)(*pvVar6)[0];
+                puVar8 = (unsigned int*)(*puVar7)->second();
                 this_03 = (RT7Core*)m_depthTexture;
-                puVar14 = (uint*)this_03->second();
-                uVar1 = puVar13[3];
+                puVar9 = (unsigned int*)this_03->second();
+                uVar1 = puVar8[3];
                 local_31 = uVar1 == 21;
-                auVar25 = this_03->GetRenderContext();
-                local_98 = auVar25._0_8_;
-                FullscreenQuadPass::QuadBeginRender((DrawCallState*)this_03, (RenderContext*)&local_88, auVar25._8_8_);
+                auVar18 = this_03->GetRenderContext();
+                local_98 = auVar18._0_8_;
+                this_03->QuadBeginRender(local_88, *auVar18._8_8_, effectManager);
                 if (m_combineWithPrevious == false) {
-                    new ((local_f0 + 8)) math::Vector4T<float>(0.0);
-                    pOVar8 = (OutputMergerState*)local_88.GetOutputMergerState();
-                    pOVar8->SetClearFlags(1);
-                    pVVar15 = (Vector4T*)local_88.GetOutputMergerState();
-                    render::OutputMergerState::SetClearColours(pVVar15, (int)local_f0 + 8);
+                    new ((local_f0 + 8)) math::Vector4T(0.0);
+                    pOVar4 = local_88.GetOutputMergerState();
+                    pOVar4->SetClearFlags(1);
+                    pOVar4 = local_88.GetOutputMergerState();
+                    pOVar4->SetClearColours((local_f0 + 8), 1);
                 } else {
-                    auVar25 = local_88.GetRenderPipelineState();
-                    eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL,
-                                               2>::compressed_pair_imp(auVar25._0_8_, (EntityHighlight**)&field_648,
-                                                                       auVar25._8_8_);
+                    this_01 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
+                                  local_88.GetRenderPipelineState();
+                    eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>::
+                        compressed_pair_imp(this_01,
+                                            (PlayerDataComparator<oldscape::social::FriendChatUser>*)&field_648);
                 }
-                lVar9 = m_depthTexture->second();
-                (&field_632, 89, 1 < *(uint*)(lVar9 + 16))->Set();
-                local_90 = puVar13;
-                local_58 = EffectManager::GetEffect<SunlightDirectLighting>(local_40);
-                puVar12 = (undefined8*)local_58->GetDefaultValue();
-                local_e8._0_8_ = *puVar12;
-                local_e8._8_8_ = puVar12[1];
-                local_e8._16_8_ = puVar12[2];
-                local_e8._24_8_ = puVar12[3];
-                local_e8._32_8_ = puVar12[4];
-                uStack_c0 = puVar12[5];
-                pVVar16 = (Viewport*)eastl::vector<
-                    render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (vector<render::Viewport,
-                            eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>*)&local_a8
-                        ->field_432,
-                    0);
-                math::Point<float>::Point(local_50, (float)*puVar14, (float)puVar14[1]);
-                local_58->SetViewportLookupScale(pVVar16, local_50);
-                pEVar5 = local_40;
-                local_50 = (Point<float>[16])local_40->BuildShaderEffectList((EffectList*)&field_632);
-                bVar24 = uVar1 == 11 | local_31;
-                pSVar17 = (ShaderManager*)local_a0->GetShaderManager();
-                EVar26 = (EffectList)255;
-                this_02 = (shared_ptr<Shader>*)pSVar17->GetShader(bVar24 ^ 27, pEVar5, local_50,
-                                                                  (VertexDeclaration*)(field_0 + 16), 0);
-                pRVar4 = local_98;
-                pRVar18 = (RenderPipelineState*)local_88.GetRenderPipelineState();
-                pSVar19 = (Shader*)shared_ptr<Shader>::operator->(this_02);
-                pSVar20 = (ShaderProgram*)pSVar19->GetProgram();
-                pRVar18->SetShaderProgram(pSVar20);
-                pVVar21 = (VertexBuffer*)((field_0 + 112))->GetBoneIDMap();
-                (field_728, (VertexDeclaration*)(field_0 + 16), pVVar21)->SetVertexStreamData();
+                lVar10 = m_depthTexture->second();
+                field_632.Set(89, 1 < *(unsigned int*)(lVar10 + 16));
+                local_90 = puVar8;
+                local_58 = effectManager.GetEffect<SunlightDirectLighting>(106);
+                puVar7 = (uint64_t*)local_58->GetDefaultValue();
+                local_e8._0_8_ = *puVar7;
+                local_e8._8_8_ = puVar7[1];
+                local_e8._16_8_ = puVar7[2];
+                local_e8._24_8_ = puVar7[3];
+                local_e8._32_8_ = puVar7[4];
+                uStack_c0 = puVar7[5];
+                viewport = &sceneViewData->field_432[0];
+                local_50 = math::Point((float)*puVar9, (float)puVar9[1]);
+                local_58->SetViewportLookupScale(*viewport, local_50);
+                &local_50 = (Point<float>[16])effectManager.BuildShaderEffectList(field_632);
+                bVar17 = uVar1 == 11 | local_31;
+                pSVar11 = rt7Core.GetShaderManager();
+                this_02 = (shared_ptr<Shader>*)ShaderManager::GetShader(
+                    (ShaderType)pSVar11, *((EffectManager*)(unsigned long)(bVar17 ^ 27)), effectManager, local_50,
+                    (unsigned char)&field_16, 0);
+                renderContext = local_98;
+                pRVar12 = (RenderPipelineState*)local_88.GetRenderPipelineState();
+                pSVar13 = (Shader*)(*this_02).operator->();
+                pSVar14 = pSVar13->GetProgram();
+                pRVar12->SetShaderProgram(pSVar14);
+                vertexBuffer = (VertexBuffer*)field_112.GetBoneIDMap();
+                field_728->SetVertexStreamData(&field_16, vertexBuffer);
                 local_88.SetInputAssemblerState(field_728);
-                shared_ptr<Shader>::operator*(this_02);
-                EffectManager::SetShaderConstants((DrawCallState*)local_40, (RenderContext*)&local_88, (Shader*)pRVar4,
-                                                  EVar26);
-                pSVar19 = (Shader*)shared_ptr<Shader>::operator->(this_02);
-                pSVar20 = (ShaderProgram*)pSVar19->GetProgram();
-                pHVar22 = (HashedString*)graphics::operator*((graphics*)83);
-                pSVar20->SetShaderConstFloat2(pHVar22, 1.0 / (float)*local_90, 1.0 / (float)local_90[1]);
-                pRVar18 = (RenderPipelineState*)local_88.GetRenderPipelineState();
-                pTVar2 = (Texture*)m_depthTexture;
-                pHVar22 = (HashedString*)graphics::operator*((graphics*)107);
-                iVar7 = pSVar20->GetConstIndex(pHVar22);
-                lVar9 = pSVar20->Instance();
-                pRVar18->SetPSTextureSamplerPair(0, pTVar2, iVar7, (SamplerState*)(lVar9 + 80), false);
-                QuadEndRender(&local_88, pRVar4);
+                pSVar13 = (Shader*)**this_02;
+                effectManager.SetShaderConstants(local_88, *renderContext, *pSVar13, (EffectList)255);
+                pSVar13 = (Shader*)(*this_02).operator->();
+                pSVar14 = pSVar13->GetProgram();
+                pHVar15 = (HashedString*)graphics::operator*(83);
+                pSVar14->SetShaderConstFloat2(pHVar15, 1.0 / (float)*local_90, 1.0 / (float)local_90[1]);
+                pRVar12 = (RenderPipelineState*)local_88.GetRenderPipelineState();
+                texture = (Texture*)m_depthTexture;
+                pHVar15 = (HashedString*)graphics::operator*(107);
+                arg3 = pSVar14->GetConstIndex(*pHVar15);
+                lVar10 = pSVar14->Instance();
+                pRVar12->SetPSTextureSamplerPair(0, texture, arg3, (lVar10 + 80), false);
+                QuadEndRender(local_88, *renderContext);
                 if (OcclusionManager::m_ShowDownsampledGPUDepthBuffer != '\0') {
-                    plVar23 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-                    if (plVar23 != (long*)0) {
-                        pOVar8 = (OutputMergerState*)local_88.GetOutputMergerState();
-                        pRVar10 = (RenderTargets*)pOVar8->GetRenderTargets();
-                        pvVar11 = (vector<render::Texture*,
-                                          eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                      pRVar10->GetColourTargetTextures();
-                        puVar12 = (undefined8*)eastl::vector<
-                            render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                            eastl::allocator>>::operator[](pvVar11, 0);
-                        uVar3 = *puVar12;
-                        ImVec4::ImVec4(local_100, 0.6, 0.6, 0.4, 0.4);
-                        math::Point<float>::Point(local_b8, 0.0, 0.0);
-                        math::Point<float>::Point(local_b0, 1.0, 1.0);
+                    plVar16 = DebugPrimitiveCollectorBasic::GetCollector("");
+                    if (plVar16 != nullptr) {
+                        pOVar4 = local_88.GetOutputMergerState();
+                        pRVar5 = pOVar4->GetRenderTargets();
+                        pvVar6 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                                     pRVar5->GetColourTargetTextures();
+                        puVar7 = (uint64_t*)(*pvVar6)[0];
+                        uVar2 = *puVar7;
+                        local_100 = ImVec4(0.6, 0.6, 0.4, 0.4);
+                        local_b8 = math::Point(0.0, 0.0);
+                        local_b0 = math::Point(1.0, 1.0);
                         new (local_f0) oldscape::sidebars::SideBarData(-1, 0);
-                        (**(code**)(*plVar23 + 112))(plVar23, uVar3, local_100, local_b8, local_b0, 0, 0, 0,
-                                                     (SideBarData*)local_f0);
+                        (**(void (**)(...))(*plVar16 + 112))(plVar16, uVar2, &local_100, &local_b8, &local_b0, 0, 0, 0,
+                                                             (SideBarData*)local_f0);
                     }
                 }
-                local_58->SetData((Data*)(local_f0 + 8));
-                local_88.~DrawCallState();
+                local_58->SetData(*((local_f0 + 8)));
                 return;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("drawCallState.GetOutputMergerState().GetRenderTargets() && "
                   "!drawCallState.GetOutputMergerState().GetViewports().empty()",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/renderer/"
                   "renderpasses/DepthDownsamplePass.cpp",
-                  50, (char*)0);
+                  50, nullptr);
     }
 
-    // 0x1007a5de0, 16 bytes, placed by class name
-    // DepthDownsamplePass::CreateRenderingResources()
+    // 0x1007a5de0
     void DepthDownsamplePass::CreateRenderingResources() {
         CreateRenderingResources();
     }
 
-    // 0x1007a5e90, 48 bytes, placed by class name
-    // DepthDownsamplePass::DestroyRenderingResources()
+    // 0x1007a5e90
     void DepthDownsamplePass::DestroyRenderingResources() {
         DestroyRenderingResources();
         m_depthTexture = 0;

@@ -1,63 +1,46 @@
 // libs/oldscape/rs2lib/configdecoder/db/DBRowType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::configdecoder {
     class DBRowType {
     public:
-        GetDbTableId() const;
-        void Init(jagex3::Js5*);
-        DBRowType* List(int);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&);
+        uint32_t GetDbTableId() const;
+        void Init(jagex3::Js5* js5);
+        auto List(int arg1);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ);
         void ResetCache();
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&, int);
-        void GetColumnVarValue(unsigned int, unsigned int, unsigned int) const;
-        HasColumnVarValues(unsigned int) const;
-        void GetColumnVarValues(unsigned int) const;
-        void GetColumnVarType(unsigned int) const;
+        void Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2);
+        void GetColumnVarValue(unsigned int arg1, unsigned int arg2, unsigned int arg3) const;
+        bool HasColumnVarValues(unsigned int arg1) const;
+        void GetColumnVarValues(unsigned int arg1) const;
+        void GetColumnVarType(unsigned int arg1) const;
         DBRowType();
         ~DBRowType();
-        static /* 8 bytes */ m_pConfigClient;
-        static /* 5376 bytes */ m_recentUse;
+        static int64_t m_pConfigClient;
+        static LRUHashCache<DBRowType, 64ul, 65ul, false, unsigned long long> m_recentUse;
 
-        // data members, from how the methods use this: 56 bytes
-        char _unknown_0[8];
-        ulong field_8;   // offset 8
-        Array* field_16; // offset 16
-        char _unknown_24[24];
-        undefined4 m_dbTableId; // offset 48
-        char _unknown_52[4];
+    private:
+        uint8_t _unknown_0[8];
+        unsigned long field_8;
+        Array<game::VarValue>* field_16;
+        uint8_t _unknown_24[24];
+        uint32_t m_dbTableId;
+        uint8_t _unknown_52[4];
     };
 
-    // 0x1000b9a40, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // DBRowType::GetDbTableId() const
-    /* sound::PCMPlayer::AlreadyWritten() */
-
-    undefined4 sound::PCMPlayer::AlreadyWritten() {
+    // 0x1000b9a40
+    uint32_t DBRowType::GetDbTableId() const {
         return field_48;
     }
 
-    // 0x100253d00, 16 bytes, complete-object constructor, inline, placed by class name
-    // DBRowType::DBRowType(): jumps straight to the base-object constructor
+    // 0x100253d10
+    DBRowType::DBRowType() : Array<Array<game::VarValue>>() {}
 
-    // 0x100253d10, 48 bytes, base-object constructor, inline, placed by class name
-    // DBRowType::DBRowType()
-    void DBRowType::DBRowType() {
-        new (this) Array<Array<game::VarValue, eastl::allocator>, eastl::allocator>();
-        new (&field_24) Array<Array<ScriptVarType_const*, eastl::allocator>, eastl::allocator>();
-    }
-
-    // 0x100253f30, 16 bytes, complete-object destructor, inline, placed by class name
-    // DBRowType::~DBRowType(): jumps straight to the base-object destructor
-
-    // 0x100253f40, 48 bytes, base-object destructor, inline, placed by class name
-    // DBRowType::~DBRowType()
-    void DBRowType::~DBRowType() {
-        (&field_24)->~Array();
-        ~Array();
+    // 0x100253f40
+    DBRowType::~DBRowType() {
+        field_24.~Array();
     }
 
 } // namespace jag::oldscape::configdecoder

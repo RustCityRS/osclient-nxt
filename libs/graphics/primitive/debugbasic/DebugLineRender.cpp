@@ -1,106 +1,89 @@
 // libs/graphics/primitive/debugbasic/DebugLineRender.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics.primitive.debugbasic
 
 #include "DebugLineRender.h"
 
 namespace jag {
-    // 0x1009c4450, 144 bytes, base-object constructor, placed by class name and debug map
-    // DebugLineRender::DebugLineRender(int)
-    void DebugLineRender::DebugLineRender(int param_1) {
-        new (this) Array<PrimVertPosCol, eastl::allocator>();
-        new (&field_24) render::DynamicBuffer<render::VertexBuffer>();
-        new (field_112) render::InputAssemblerState();
-        set_max_size((long)(param_1 * 2), 0);
-        CreateRenderingResources(this);
+    // 0x1009c4450
+    DebugLineRender::DebugLineRender(int arg1) : Array<PrimVertPosCol>() {
+        set_max_size((long)(arg1 * 2), 0);
+        CreateRenderingResources();
     }
 
-    // 0x1009c44e0, 48 bytes, placed by class name and debug map
-    // DebugLineRender::CreateRenderingResources()
-    undefined1 DebugLineRender::CreateRenderingResources() {
-        new (field_112, 1) std::__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>();
-        (field_112, 1)->SetFlags();
+    // 0x1009c44e0
+    uint8_t DebugLineRender::CreateRenderingResources() {
+        new (field_112) std::__cxx_atomic_base_impl(1);
+        field_112->SetFlags(1);
         return 1;
     }
 
-    // 0x1009c4510, 16 bytes, complete-object constructor, placed by class name and debug map
-    // DebugLineRender::DebugLineRender(int): jumps straight to the base-object constructor
-
-    // 0x1009c4520, 48 bytes, placed by class name and debug map
-    // DebugLineRender::DestroyRenderingResources()
+    // 0x1009c4520
     void DebugLineRender::DestroyRenderingResources() {
-        (&field_24)->Destroy();
+        field_24.Destroy();
         field_112->Destroy();
     }
 
-    // 0x1009c4550, 496 bytes, placed by class name and debug map
-    // DebugLineRender::Render(render::RenderContext&, render::DrawCallState const&, ViewTransforms const&, eastl::vector<eastl::pair<DebugLine<DebugDataBasic> const*, float>, eastl::allocator> const&, bool)
-    void DebugLineRender::Render(RenderContext* param_1, DrawCallState* param_2, ViewTransforms* param_3,
-                                 vector* param_4, bool param_5) {
-        PrimVertPosCol* pPVar1;
-        void* pvVar2;
-        PrimitiveShaderFamily* pPVar3;
-        ShaderProgram* this;
-        RenderPipelineState* this_00;
-        VertexDeclaration* pVVar4;
-        VertexBuffer* pVVar5;
-        Matrix44T* pMVar6;
-        int iVar9;
-        long* plVar10;
-        long* plVar11;
-        undefined7 in_register_00000081;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_02;
-        ulong uVar12;
+    // 0x1009c4550
+    void DebugLineRender::Render(render::RenderContext& renderContext, const render::DrawCallState& drawCallState,
+                                 const ViewTransforms& viewTransforms,
+                                 eastl::vector<eastl::pair<DebugLine<DebugDataBasic> const*, float>> const& pairs,
+                                 bool arg5) {
+        int iVar2;
+        long* plVar3;
+        long* plVar4;
+        PrimVertPosCol* pPVar5;
+        void* arg3;
+        ShaderProgram* this_01;
+        VertexDeclaration* vertexDeclaration;
+        VertexBuffer* vertexBuffer;
+        Matrix44T<float>* matrix44;
+        uint64_t in_register_00000081;
+        unsigned long arg1;
         DrawCallState local_88;
         HashedString local_58;
 
-        this_02 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)CONCAT71(
-            in_register_00000081, param_5);
-        if (eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                this_02) == '\0') {
-            plVar11 = (long*)this_02->HeapBeginPtr();
-            plVar10 = (long*)this_02->end();
-            if (plVar11 != plVar10) {
-                uVar12 = 0;
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_04 =
+            (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)in_register_00000081
+                                                                                     << 8) |
+                                                                                    (uint8_t)arg5);
+        if (this_04->empty() == '\0') {
+            plVar3 = (long*)this_04->HeapBeginPtr();
+            plVar4 = (long*)this_04->end();
+            if (plVar3 != plVar4) {
+                arg1 = 0;
                 do {
-                    pPVar1 = (PrimVertPosCol*)Array<PrimVertPosCol, eastl::allocator>::operator[](
-                        (Array<PrimVertPosCol, eastl::allocator>*)param_1, uVar12);
-                    pPVar1->Set((Vector3T*)*plVar11, *(uint*)((Vector3T*)*plVar11 + 24));
-                    pPVar1 = (PrimVertPosCol*)Array<PrimVertPosCol, eastl::allocator>::operator[](
-                        (Array<PrimVertPosCol, eastl::allocator>*)param_1, uVar12 + 1);
-                    pPVar1->Set((Vector3T*)(*plVar11 + 12), *(uint*)(*plVar11 + 24));
-                    plVar11 = plVar11 + 2;
-                    uVar12 = uVar12 + 2;
-                } while (plVar11 != plVar10);
+                    pPVar5 = &renderContext[arg1];
+                    pPVar5->Set(*(*plVar3), *(unsigned int*)((Vector3T<float>*)*plVar3 + 24));
+                    pPVar5 = &renderContext[arg1 + 1];
+                    pPVar5->Set(*((*plVar3 + 12)), *(unsigned int*)(*plVar3 + 24));
+                    plVar3 = plVar3 + 2;
+                    arg1 = arg1 + 2;
+                } while (plVar3 != plVar4);
             }
-            iVar9 = this_02->size();
-            pvVar2 = (void*)param_1->data();
-            ((param_1->m_immediateContext + 8), 0, iVar9 * 56, pvVar2)->Update();
-            new (&local_88) render::DrawCallState(param_3);
-            pPVar3 = (PrimitiveShaderFamily*)local_88.Instance();
-            this = (ShaderProgram*)pPVar3->GetShaderProgram(1);
-            this_00 = (RenderPipelineState*)local_88.GetRenderPipelineState();
-            this_00->SetShaderProgram(this);
-            pVVar4 = (VertexDeclaration*)second();
-            pVVar5 = (VertexBuffer*)((param_1->m_immediateContext + 8))->CurrentBuffer();
-            ((param_1->m_immediateContext + 96), pVVar4, pVVar5)->SetVertexStreamData();
-            local_88.SetInputAssemblerState((InputAssemblerState*)(param_1->m_immediateContext + 96));
-            new (&local_58) HashedString("uWorldMat");
-            SetShaderConstMatrix4(&local_58, 1, PTR_IDENTITY_100ee6730, 1);
-            new (&local_58) HashedString("uViewProjMat");
-            pMVar6 = (Matrix44T*)param_4->GetImmediateThreadPool();
-            SetShaderConstMatrix4(&local_58, 1, pMVar6, 1);
-            iVar9 = this_02->size();
-            param_2->DrawPrimitives(&local_88, 1, 0, iVar9 * 2);
-            local_88.~DrawCallState();
+            iVar2 = this_04->size();
+            arg3 = (void*)renderContext.data();
+            ((renderContext.m_immediateContext + 8))->Update(0, iVar2 * 56, arg3);
+            local_88 = render::DrawCallState(viewTransforms);
+            this_01 = ((PrimitiveShaderFamily*)local_88.Instance())->GetShaderProgram(1);
+            ((RenderPipelineState*)local_88.GetRenderPipelineState())->SetShaderProgram(this_01);
+            vertexDeclaration = (VertexDeclaration*)this_01->second();
+            vertexBuffer = (VertexBuffer*)((renderContext.m_immediateContext + 8))->CurrentBuffer();
+            ((renderContext.m_immediateContext + 96))->SetVertexStreamData(vertexDeclaration, vertexBuffer);
+            local_88.SetInputAssemblerState((renderContext.m_immediateContext + 96));
+            local_58 = HashedString("uWorldMat");
+            this_01->SetShaderConstMatrix4(&local_58, 1, PTR_IDENTITY_100ee6730, 1);
+            local_58 = HashedString("uViewProjMat");
+            matrix44 = (Matrix44T<float>*)pairs.GetImmediateThreadPool();
+            this_01->SetShaderConstMatrix4(&local_58, 1, matrix44, 1);
+            iVar2 = this_04->size();
+            drawCallState.DrawPrimitives(local_88, 1, 0, iVar2 * 2);
         }
     }
 
-    // 0x1009c4790, 16 bytes, placed by class name and debug map
-    // DebugLineRender::OnEndFrame()
+    // 0x1009c4790
     void DebugLineRender::OnEndFrame() {
-        (&field_24)->RotateBuffers();
+        field_24.RotateBuffers();
     }
 
 } // namespace jag

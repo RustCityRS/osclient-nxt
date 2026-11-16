@@ -1,117 +1,106 @@
 // libs/hal/audio/AudioRenderer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.audio
 
 #include "AudioRenderer.h"
 
 namespace jag::hal::audio {
-    // 0x100f482b0, 64 bytes, __data
-    AudioRenderer::m_audioMutex = {
+    // 0x100f482b0
+    int32_t AudioRenderer::m_audioMutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f48350, 64 bytes, __data
-    AudioRenderer::m_voiceInstanceGuardMutex = {
+    // 0x100f48350
+    int32_t AudioRenderer::m_voiceInstanceGuardMutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x103bc2748, 8 bytes, __common; zero-initialised
-    AudioRenderer::m_outputBuffersIndex;
+    // 0x103bc2748
+    int64_t AudioRenderer::m_outputBuffersIndex;
 
-    // 0x103bc2750, 24 bytes, __common; zero-initialised
-    AudioRenderer::m_outputBuffers;
+    // 0x103bc2750
+    Array<std::unique_ptr<AudioBuffer>> AudioRenderer::m_outputBuffers;
 
-    // 0x103bc2768, 8 bytes, __common; zero-initialised
-    AudioRenderer::m_debugShowAudio;
+    // 0x103bc2768
+    int64_t AudioRenderer::m_debugShowAudio;
 
-    // 0x103bc2770, 92400 bytes, __common; set at startup by ___cxx_global_var_init.62
+    // 0x103bc2770, set at startup by ___cxx_global_var_init.62
     AudioRenderer::DebugData AudioRenderer::m_debugData = DebugData();
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    AudioRenderer::VerifyDefaultAudioDevice();
+    // 0x100009e70: AudioRenderer::VerifyDefaultAudioDevice() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    AudioRenderer::Pause();
+    // 0x100009e70: AudioRenderer::Pause() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    AudioRenderer::Resume();
+    // 0x100009e70: AudioRenderer::Resume() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    AudioSystemStartParams AudioRenderer::GetStartParams() const;
+    // 0x1000b9950: AudioRenderer::GetStartParams() const has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x100663fb0: the linker folded this into AudioRenderer::GetActiveDecoders() const, which has identical code
-    AudioRenderer::ActiveDecoderCount() const;
+    // 0x100663fb0: AudioRenderer::ActiveDecoderCount() const has the same machine code as AudioRenderer::GetActiveDecoders() const
 
-    // 0x100b8e320, 464 bytes, placed by class name and debug map
-    // AudioRenderer::RecordDebugValue(int, float)
-    void AudioRenderer::RecordDebugValue(int param_1, float param_2) {
+    // 0x100b8e320
+    void AudioRenderer::RecordDebugValue(int arg1, float arg2) {
         float* pfVar2;
-        fixed_list<float, 1920ul, true, eastl::allocator>* this;
-        list<float, eastl::fixed_node_allocator<24ul, 1920ul, 8ul, 0ul, true, eastl::allocator>>* plVar3;
+        fixed_list<float, 1920ul>* fixed_list;
+        list<float, eastl::fixed_node_allocator<24ul, 1920ul, 8ul, 0ul, true>>* plVar3;
         float* pfVar4;
-        float* pfVar5;
-        undefined4* puVar6;
-        array<float, 2ul>* paVar7;
-        float fVar9;
+        float* arg1_00;
+        uint32_t* puVar5;
+        array<float, 2ul>* paVar6;
+        unsigned long uVar7;
+        float fVar8;
 
         if (m_debugShowAudio != '\0') {
-            pfVar2 = (float*)std::array<float, 2ul>::operator[]((array<float, 2ul>*)&DAT_103bd9044, (ulong)param_1);
-            *pfVar2 = *pfVar2 + param_2;
-            pfVar2 = (float*)std::array<float, 2ul>::operator[]((array<float, 2ul>*)&DAT_103bd9054, (ulong)param_1);
-            fVar9 = (float)eastl::min<float>(param_2, *pfVar2);
-            *pfVar2 = fVar9;
-            pfVar2 = (float*)std::array<float, 2ul>::operator[]((array<float, 2ul>*)&DAT_103bd904c, (ulong)param_1);
-            fVar9 = (float)eastl::max_alt(param_2, *pfVar2);
-            *pfVar2 = fVar9;
-            if ((param_1 == 1) && (DAT_103bd9040 = DAT_103bd9040 + 1, DAT_103bd9040 == 480)) {
-                this = (fixed_list<float, 1920ul, true, eastl::allocator>*)
-                    std::array<eastl::fixed_list<float, 1920ul, true, eastl::allocator>, 2ul>::operator[](0);
-                if (eastl::fixed_list<float, 1920ul, true, eastl::allocator>::full(this) != '\0') {
-                    pop_back();
-                    plVar3 = (list<float, eastl::fixed_node_allocator<24ul, 1920ul, 8ul, 0ul, true, eastl::allocator>>*)
-                        std::array<eastl::fixed_list<float, 1920ul, true, eastl::allocator>, 2ul>::operator[](1);
-                    eastl::list<float, eastl::fixed_node_allocator<24ul, 1920ul, 8ul, 0ul, true,
-                                                                   eastl::allocator>>::pop_back(plVar3);
+            uVar7 = (unsigned long)arg1;
+            pfVar2 = &DAT_103bd9044[uVar7];
+            *pfVar2 = *pfVar2 + arg2;
+            pfVar2 = &DAT_103bd9054[uVar7];
+            fVar8 = (float)eastl::min<float>(arg2, *pfVar2);
+            *pfVar2 = fVar8;
+            pfVar2 = &DAT_103bd904c[uVar7];
+            fVar8 = (float)eastl::max_alt(arg2, *pfVar2);
+            *pfVar2 = fVar8;
+            if ((arg1 == 1) &&
+                (m_debugData.field_92368 = m_debugData.field_92368 + 1, m_debugData.field_92368 == 480)) {
+                fixed_list = &nullptr[uVar7];
+                if (fixed_list->full() != '\0') {
+                    fixed_list->pop_back();
+                    plVar3 = &DAT_00000001[uVar7];
+                    plVar3->pop_back();
                 }
-                pfVar2 = (float*)std::array<float, 2ul>::operator[]((array<float, 2ul>*)&DAT_103bd9044, 0);
-                paVar7 = (array<float, 2ul>*)&DAT_103bd904c;
+                pfVar2 = &DAT_103bd9044[0];
+                paVar6 = (array<float, 2ul>*)&DAT_103bd904c;
                 if (*pfVar2 <= 0.0 && *pfVar2 != 0.0) {
-                    paVar7 = (array<float, 2ul>*)&DAT_103bd9054;
+                    paVar6 = (array<float, 2ul>*)&DAT_103bd9054;
                 }
-                pfVar4 = (float*)std::array<float, 2ul>::operator[](paVar7, 0);
-                push_front(pfVar4);
-                pfVar4 = (float*)std::array<float, 2ul>::operator[]((array<float, 2ul>*)&DAT_103bd9044, 1);
-                paVar7 = (array<float, 2ul>*)&DAT_103bd904c;
+                pfVar4 = (float*)(*paVar6)[0];
+                fixed_list->push_front(*pfVar4);
+                uVar7 = 1;
+                pfVar4 = &DAT_103bd9044[1];
+                paVar6 = (array<float, 2ul>*)&DAT_103bd904c;
                 if (*pfVar4 <= 0.0 && *pfVar4 != 0.0) {
-                    paVar7 = (array<float, 2ul>*)&DAT_103bd9054;
+                    paVar6 = (array<float, 2ul>*)&DAT_103bd9054;
                 }
-                plVar3 = (list<float, eastl::fixed_node_allocator<24ul, 1920ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    std::array<eastl::fixed_list<float, 1920ul, true, eastl::allocator>, 2ul>::operator[](1);
-                pfVar5 = (float*)std::array<float, 2ul>::operator[](paVar7, 1);
-                eastl::list<float, eastl::fixed_node_allocator<24ul, 1920ul, 8ul, 0ul, true,
-                                                               eastl::allocator>>::push_front(plVar3, pfVar5);
+                plVar3 = &DAT_00000001[uVar7];
+                arg1_00 = (float*)(*paVar6)[1];
+                plVar3->push_front(*arg1_00);
                 *pfVar2 = 0.0;
                 *pfVar4 = 0.0;
-                puVar6 = (undefined4*)std::array<float, 2ul>::operator[]((array<float, 2ul>*)&DAT_103bd9054, 0);
-                *puVar6 = 0;
-                puVar6 = (undefined4*)std::array<float, 2ul>::operator[]((array<float, 2ul>*)&DAT_103bd9054, 1);
-                *puVar6 = 0;
-                puVar6 = (undefined4*)std::array<float, 2ul>::operator[]((array<float, 2ul>*)&DAT_103bd904c, 0);
-                *puVar6 = 0;
-                puVar6 = (undefined4*)std::array<float, 2ul>::operator[]((array<float, 2ul>*)&DAT_103bd904c, 1);
-                *puVar6 = 0;
-                DAT_103bd9040 = 0;
+                puVar5 = (uint32_t*)DAT_103bd9054[0];
+                *puVar5 = 0;
+                puVar5 = (uint32_t*)DAT_103bd9054[1];
+                *puVar5 = 0;
+                puVar5 = (uint32_t*)DAT_103bd904c[0];
+                *puVar5 = 0;
+                puVar5 = (uint32_t*)DAT_103bd904c[1];
+                *puVar5 = 0;
+                m_debugData.field_92368 = 0;
             }
         }
     }
 
-    // 0x100b8f650, 176 bytes, base-object constructor, placed by class name
-    // AudioRenderer::AudioRenderer()
-    void AudioRenderer::AudioRenderer() {
-        field_0 = &PTR__AudioRenderer_100f26890;
-        std::unique_ptr<AudioMixer, std::default_delete<AudioMixer>>::unique_ptr<true, void>(
-            (unique_ptr<AudioMixer, std::default_delete<AudioMixer>>*)&field_8);
+    // 0x100b8f650
+    AudioRenderer::AudioRenderer() {
+        field_8.unique_ptr<true, void>();
         new (m_startParams) AudioSystemStartParams();
         field_32 = 0;
         field_36 = 0;
@@ -119,207 +108,145 @@ namespace jag::hal::audio {
         new (&field_48) std::array<decoders::vorbis::VorbisDecoder, 6ul>();
         field_244 = 0;
         field_240 = 0;
-        std::atomic<int>::atomic((int)this + 248);
-        new (&field_256) eastl::vector<unsigned char, eastl::allocator>();
+        new (&field_248) std::atomic<int>(0);
+        new (&field_256) eastl::vector<unsigned char>();
     }
 
-    // 0x100b8f750, 16 bytes, complete-object constructor, placed by class name
-    // AudioRenderer::AudioRenderer(): jumps straight to the base-object constructor
-
-    // 0x100b8f760, 64 bytes, base-object destructor, placed by class name
-    // AudioRenderer::~AudioRenderer()
-    void AudioRenderer::~AudioRenderer() {
-        field_0 = &PTR__AudioRenderer_100f26890;
-        (&field_256)->~vector();
-        (&field_48)->~array();
-        (&field_8)->~unique_ptr();
+    // 0x100b8f760
+    AudioRenderer::~AudioRenderer() {
+        field_256.~vector();
+        field_48.~array();
+        field_8.~unique_ptr();
     }
 
-    // 0x100b8f7a0, 16 bytes, complete-object destructor, placed by class name
-    // AudioRenderer::~AudioRenderer(): jumps straight to the base-object destructor
+    // 0x100b8f7d0
+    uint64_t AudioRenderer::ClaimVoice(BussType bussType) {
+        uint64_t uVar2;
 
-    // 0x100b8f7b0, 32 bytes, deleting destructor, placed by class name
-    // AudioRenderer::~AudioRenderer()
-    void AudioRenderer::~AudioRenderer() {
-        ~AudioRenderer(this);
-        operator_delete(this);
-    }
-
-    // 0x100b8f7d0, 64 bytes, placed by class name
-    // AudioRenderer::ClaimVoice(BussType)
-    undefined8 AudioRenderer::ClaimVoice(undefined4 param_2) {
-        AudioMixer* pAVar2;
-        undefined8 uVar3;
-
-        if ((&field_8)->operator_cast_to_bool()) {
-            pAVar2 = (AudioMixer*)std::unique_ptr<AudioMixer, std::default_delete<AudioMixer>>::operator->(
-                (unique_ptr<AudioMixer, std::default_delete<AudioMixer>>*)&field_8);
-            uVar3 = pAVar2->ClaimVoice(param_2);
+        if ((&field_8)->operator_cast_to_bool() == '\0') {
+            uVar2 = 0;
         } else {
-            uVar3 = 0;
+            uVar2 = ((AudioMixer*)field_8.operator->())->ClaimVoice(bussType);
         }
-        return uVar3;
+        return uVar2;
     }
 
-    // 0x100b8f840, 288 bytes, placed by class name
-    // AudioRenderer::Init(AudioAPI*, AudioSystemStartParams const&)
-    undefined1 AudioRenderer::Init(AudioAPI* param_1, AudioSystemStartParams* param_2) {
-        undefined1* this_00;
-        AudioMixer* this_01;
-        AudioBuss* this_02;
-        unique_ptr* puVar1;
-        AudioBuffer* this_03;
-        undefined8 uVar2;
-        bool bVar3;
-        unique_ptr* puVar4;
-        undefined1 local_38[16];
+    // 0x100b8f840
+    uint64_t AudioRenderer::Init(AudioAPI* audioAPI, const AudioSystemStartParams& audioSystemStartParams) {
+        ReturnValue local_30;
 
-        uVar2 = param_2->field_8;
-        *(undefined8*)m_startParams = param_2->field_0;
-        *(undefined8*)(m_startParams + 8) = uVar2;
-        this_00 = &field_8;
-        local_38._0_8_ = param_1;
-        bVar3 = this_00->operator_cast_to_bool();
-        if (!bVar3) {
-            puVar4 = (unique_ptr*)(local_38 + 8);
-            std::make_unique<AudioMixer, AudioAPI*&, AudioSystemStartParams_const&>((AudioAPI**)puVar4,
-                                                                                    (AudioSystemStartParams*)local_38);
-            std::unique_ptr<AudioMixer, std::default_delete<AudioMixer>>::operator=(
-                (unique_ptr<AudioMixer, std::default_delete<AudioMixer>>*)this_00, puVar4);
-            puVar4->~unique_ptr();
+        uint64_t uVar1 = audioSystemStartParams.field_8;
+        *(uint64_t*)m_startParams = audioSystemStartParams.field_0;
+        *(uint64_t*)(m_startParams + 8) = uVar1;
+        uint8_t* this_00 = &field_8;
+        if (!(this_00->operator_cast_to_bool())) {
+            local_30 = std::make_unique<AudioMixer, AudioAPI*&, AudioSystemStartParams const&>(audioAPI,
+                                                                                               audioSystemStartParams);
+            *this_00 = local_30;
         }
-        eastl::vector<unsigned char, eastl::allocator>::resize((ulong)&field_256);
-        new ((local_38 + 8)) std::scoped_lock<std::mutex>((mutex*)&m_audioMutex);
-        this_01 = (AudioMixer*)std::unique_ptr<AudioMixer, std::default_delete<AudioMixer>>::operator->(
-            (unique_ptr<AudioMixer, std::default_delete<AudioMixer>>*)this_00);
-        this_02 = (AudioBuss*)this_01->GetMasterBuss();
-        this_02->ClearSamples();
-        puVar4 = (unique_ptr*)m_outputBuffers.data();
-        puVar1 = (unique_ptr*)m_outputBuffers.end();
-        for (; puVar4 != puVar1; puVar4 = puVar4 + 8) {
-            bVar3 = std::unique_ptr::operator_cast_to_bool(puVar4);
-            if (bVar3) {
-                this_03 = (AudioBuffer*)std::unique_ptr<AudioBuffer, std::default_delete<AudioBuffer>>::operator->(
-                    (unique_ptr<AudioBuffer, std::default_delete<AudioBuffer>>*)puVar4);
-                this_03->Reset(1, false);
+        field_256.resize((unsigned long)(unsigned int)(*(int*)((long)&audioSystemStartParams.field_8 + 4) << 2));
+        new (&local_30) std::scoped_lock(m_audioMutex);
+        (((AudioMixer*)(*this_00).operator->())->GetMasterBuss())->ClearSamples();
+        auto this_03 = m_outputBuffers.data();
+        auto puVar3 = m_outputBuffers.end();
+        for (; this_03 != puVar3; this_03 = this_03 + 8) {
+            if (std::unique_ptr::operator_cast_to_bool(this_03)) {
+                ((AudioBuffer*)(*this_03).operator->())->Reset(1, false);
             }
         }
-        ((local_38 + 8))->~scoped_lock();
         return 1;
     }
 
-    // 0x100b8f9f0, 96 bytes, placed by class name
-    // AudioRenderer::Shutdown()
+    // 0x100b8f9f0
     void AudioRenderer::Shutdown() {
-        undefined1* this_00;
-        AudioMixer* this_01;
-
         m_state = 3;
-        this_00 = &field_8;
-        if (this_00->operator_cast_to_bool()) {
-            this_01 = (AudioMixer*)std::unique_ptr<AudioMixer, std::default_delete<AudioMixer>>::operator->(
-                (unique_ptr<AudioMixer, std::default_delete<AudioMixer>>*)this_00);
-            this_01->ShutDown();
+        uint8_t* this_00 = &field_8;
+        if (this_00->operator_cast_to_bool() != '\0') {
+            ((AudioMixer*)(*this_00).operator->())->ShutDown();
         }
         field_32 = 0;
         m_outputBuffersIndex = 0;
-        this_00->reset(0);
+        this_00->reset(nullptr);
     }
 
-    // 0x100b8fa80, 16 bytes, placed by class name
-    // AudioRenderer::Update(float)
-    void AudioRenderer::Update(float param_1) {}
+    // 0x100b8fa80
+    void AudioRenderer::Update(float arg1) {}
 
-    // 0x100b8fa90, 144 bytes, placed by class name
-    // AudioRenderer::GetDecoder(AudioFormat const*)
-    undefined8 AudioRenderer::GetDecoder(AudioFormat* param_1) {
-        undefined8 uVar2;
-        ulong uVar3;
-        undefined1 local_31;
+    // 0x100b8fa90
+    uint64_t AudioRenderer::GetDecoder(const AudioFormat* audioFormat) {
+        memory_order in_ECX;
+        bool arg2;
+        bool local_31;
 
-        uVar3 = 0;
+        unsigned long arg1 = 0;
         do {
-            local_31 = 0;
-            uVar2 = std::array<std::atomic<bool>, 6ul>::operator[]((array<std::atomic<bool>, 6ul>*)&field_240, uVar3);
-            if (std::__atomic_base<bool, false>::compare_exchange_strong(uVar2, &local_31) != '\0') {
-                std::__atomic_base<int, true>::operator++((__atomic_base<int, true>*)&field_248);
-                uVar2 = std::array<decoders::vorbis::VorbisDecoder, 6ul>::operator[](
-                    (array<decoders::vorbis::VorbisDecoder, 6ul>*)&field_48, uVar3);
-                return uVar2;
+            local_31 = false;
+            if (((__atomic_base<bool, false>*)field_240[arg1])->compare_exchange_strong(local_31, arg2, in_ECX) !=
+                '\0') {
+                std::__atomic_base<int, true>::operator++();
+                return field_48[arg1];
             }
-            uVar3 = uVar3 + 1;
-        } while (uVar3 != 6);
+            arg1 = arg1 + 1;
+        } while (arg1 != 6);
         return 0;
     }
 
-    // 0x100b8fb60, 144 bytes, placed by class name
-    // AudioRenderer::FreeDecoder(decoders::AudioDecoder*)
-    void AudioRenderer::FreeDecoder(AudioDecoder* param_1) {
-        AudioDecoder* pAVar1;
-        atomic<bool>* this_00;
-        ulong uVar2;
-
-        pAVar1 = (AudioDecoder*)std::array<decoders::vorbis::VorbisDecoder, 6ul>::operator[](
-            (array<decoders::vorbis::VorbisDecoder, 6ul>*)&field_48, 0);
-        if ((param_1 < pAVar1) || (pAVar1 + 24 <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x100b8fb60
+    void AudioRenderer::FreeDecoder(decoders::AudioDecoder* audioDecoder) {
+        AudioDecoder* pAVar1 = &field_48[0];
+        if ((audioDecoder < pAVar1) || (pAVar1 + 24 <= audioDecoder)) {
             LogAssert(
                 "decoder >= &m_decoders[0] && uintptr_t(decoder) < uintptr_t(&m_decoders[0]) + sizeof(m_decoders)",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioRenderer.cpp", 97,
-                (char*)0);
+                nullptr);
         }
-        uVar2 = (ulong)((long)param_1 - (long)pAVar1) >> 5;
-        this_00 = (atomic<bool>*)std::array<std::atomic<bool>, 6ul>::operator[](
-            (array<std::atomic<bool>, 6ul>*)&field_240, uVar2);
-        std::atomic<bool>::operator=(this_00, SUB81(uVar2, 0));
-        std::__atomic_base<int, true>::operator--((__atomic_base<int, true>*)&field_248);
+        unsigned long arg1 = (unsigned long)((long)audioDecoder - (long)pAVar1) >> 5;
+        atomic<bool>* this_00 = &field_240[arg1];
+        *this_00 = ((uint8_t)arg1);
+        std::__atomic_base<int, true>::operator--();
     }
 
-    // 0x100b8fc10, 336 bytes, placed by class name
-    // AudioRenderer::InjectTestTone(AudioBuffer*, int)
-    void AudioRenderer::InjectTestTone(AudioBuffer* param_1, int param_2) {
-        double dVar1;
-        char cVar2;
-        uint uVar4;
-        uint uVar5;
-        uint uVar6;
-        double dVar7;
+    // 0x100b8fc10
+    void AudioRenderer::InjectTestTone(AudioBuffer* audioBuffer, int arg2) {
+        bool cVar3;
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        uint64_t extraout_var_01;
+        unsigned int arg3;
+        unsigned int arg1;
+        double dVar4;
 
-        dVar1 = InjectTestTone(AudioBuffer*, int)::x;
-        if ((*(code*)param_1->field_0[3])() == 0) {
-            uVar5 = 0;
+        double dVar1 = InjectTestTone(AudioBuffer*, int)::x;
+        uint8_t uVar2 = audioBuffer->NumberOfChannels();
+        if ((int)(((uint64_t)extraout_var << 8) | (uint8_t)uVar2) == 0) {
+            arg3 = 0;
         } else {
-            uVar6 = 0;
+            arg1 = 0;
             do {
                 InjectTestTone(AudioBuffer*, int)::x = dVar1;
-                uVar4 = (*(code*)param_1->field_0[5])(param_1);
-                cVar2 = param_1->CanWriteSample(uVar6, 0);
-                uVar5 = 0;
-                if (cVar2 != '\0') {
-                    uVar5 = 0;
+                uVar2 = audioBuffer->SampleRate();
+                cVar3 = audioBuffer->CanWriteSample(arg1, 0);
+                arg3 = 0;
+                if (cVar3) {
+                    arg3 = 0;
                     do {
-                        if ((-1 < param_2) && ((uint)param_2 <= uVar5))
+                        if ((-1 < arg2) && ((unsigned int)arg2 <= arg3))
                             break;
-                        dVar7 = (double)_sin(InjectTestTone(AudioBuffer*, int)::x * 6.283185307179586);
-                        param_1->WriteSample((float)(dVar7 * 0.9), uVar6, uVar5, true);
-                        dVar7 = InjectTestTone(AudioBuffer*, int)::x + 300.0 / (double)uVar4;
-                        InjectTestTone(AudioBuffer*, int)::x = (double)(~-(ulong)(1.0 < dVar7) & (ulong)dVar7);
-                        uVar5 = uVar5 + 1;
-                        cVar2 = param_1->CanWriteSample(uVar6, uVar5);
-                    } while (cVar2 != '\0');
+                        dVar4 = (double)_sin(InjectTestTone(AudioBuffer*, int)::x * 6.283185307179586);
+                        audioBuffer->WriteSample((float)(dVar4 * 0.9), arg1, arg3, true);
+                        dVar4 = InjectTestTone(AudioBuffer*, int)::x +
+                                300.0 / (double)((((uint64_t)extraout_var_01 << 8) | (uint8_t)uVar2) & 4294967295);
+                        InjectTestTone(AudioBuffer*, int)::x =
+                            (double)(~-(unsigned long)(1.0 < dVar4) & (unsigned long)dVar4);
+                        arg3 = arg3 + 1;
+                        cVar3 = audioBuffer->CanWriteSample(arg1, arg3);
+                    } while (cVar3);
                 }
-                uVar6 = uVar6 + 1;
-                uVar4 = (*(code*)param_1->field_0[3])(param_1);
-            } while (uVar6 < uVar4);
+                arg1 = arg1 + 1;
+                uVar2 = audioBuffer->NumberOfChannels();
+            } while (arg1 < (unsigned int)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar2));
         }
-        param_1->WroteSamples(uVar5);
-    }
-
-    // 0x100ba39e0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.62
-    void ___cxx_global_var_init_62() {
-        new (&AudioRenderer::m_debugData) AudioRenderer::DebugData();
-        ___cxa_atexit(PTR__DebugData_100ee64b0, &AudioRenderer::m_debugData, 4294967296);
+        audioBuffer->WroteSamples(arg3);
     }
 
 } // namespace jag::hal::audio

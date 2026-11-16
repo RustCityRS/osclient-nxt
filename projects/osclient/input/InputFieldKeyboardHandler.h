@@ -1,43 +1,31 @@
 // projects/osclient/input/InputFieldKeyboardHandler.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
 
 namespace jag::oldscape::dash3d {
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelLitImpl::IsForRSeven() const;
+    // 0x100029ea0: ModelLitImpl::IsForRSeven() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelLitImpl::IsClientLocAnim() const;
+    // 0x100029ea0: ModelLitImpl::IsClientLocAnim() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelLitImpl::IsUnlit() const;
+    // 0x100029ea0: ModelLitImpl::IsUnlit() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelRSevenLit::IsClientLocAnim() const;
+    // 0x100029ea0: ModelRSevenLit::IsClientLocAnim() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelRSevenLit::IsUnlit() const;
+    // 0x100029ea0: ModelRSevenLit::IsUnlit() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelUnlitImpl::IsForRSeven() const;
+    // 0x100029ea0: ModelUnlitImpl::IsForRSeven() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelUnlitImpl::IsClientLocAnim() const;
+    // 0x100029ea0: ModelUnlitImpl::IsClientLocAnim() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelUnlitImpl::IsLit() const;
+    // 0x100029ea0: ModelUnlitImpl::IsLit() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelRSevenUnlit::IsClientLocAnim() const;
+    // 0x100029ea0: ModelRSevenUnlit::IsClientLocAnim() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelRSevenUnlit::IsLit() const;
+    // 0x100029ea0: ModelRSevenUnlit::IsLit() const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    PointLightSource::GetUniqueID(unsigned long long&) const;
+    // 0x100029ea0: PointLightSource::GetUniqueID(unsigned long long&) const has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
 } // namespace jag::oldscape::dash3d
 
@@ -45,111 +33,84 @@ namespace jag::oldscape {
     class InputFieldKeyboardHandler {
     public:
         // virtual methods in vtable order
-        virtual KeyPressed(int, unsigned long long);
-        virtual void KeyRepeat(int, unsigned long long);
-        virtual KeyReleased(int, unsigned long long);
-        virtual KeyTyped(char16_t, unsigned long long);
-        virtual PointerPress(int, int, int, int, unsigned long long);
-        virtual ulong TextCommandReceived(int, unsigned long long);
-        virtual ResetState();
+        virtual uint32_t KeyPressed(int arg1, unsigned long long arg2);
+        virtual void KeyRepeat(int arg1, unsigned long long arg2);
+        virtual uint64_t KeyReleased(int arg1, unsigned long long arg2);
+        virtual uint32_t KeyTyped(char16_t arg1, unsigned long long arg2);
+        virtual uint64_t PointerPress(int arg1, int arg2, int arg3, int arg4, unsigned long long arg5);
+        virtual unsigned long TextCommandReceived(int arg1, unsigned long long arg2);
+        virtual void ResetState();
         virtual ~InputFieldKeyboardHandler();
         InputFieldKeyboardHandler();
-        void SetFocusedComponent(shared_ptr<rs2lib::IfType>);
+        void SetFocusedComponent(shared_ptr<rs2lib::IfType> ifType);
         void ClearFocusedComponent();
-        ulong HandleKeyDown(int);
-        HandleArrowKeyDown(rs2lib::InputField*, int);
-        KeysModified();
-        ModifierKeyPressed(int);
-        ModifierKeyReleased(int);
-        PointerDrag(int, int, int, unsigned long long);
-        WheelScroll(int, unsigned long long);
-        PointerCancel(int, int, unsigned long long);
-        bool PointerRelease(int, int, int, int, unsigned long long);
-        OnLowLevelMouseDown(int, int, int, int);
-        KeyboardInputFocusChange(int, unsigned long long);
-        MouseMove(int, int, unsigned long long);
-        InputFieldKeyboardHandler* GetFocusedComponent();
+        unsigned long HandleKeyDown(int arg1);
+        uint64_t HandleArrowKeyDown(rs2lib::InputField* inputField, int arg2);
+        uint8_t KeysModified();
+        uint64_t ModifierKeyPressed(int arg1);
+        uint64_t ModifierKeyReleased(int arg1);
+        uint64_t PointerDrag(int arg1, int arg2, int arg3, unsigned long long arg4);
+        uint64_t WheelScroll(int arg1, unsigned long long arg2);
+        uint64_t PointerCancel(int arg1, int arg2, unsigned long long arg3);
+        uint64_t PointerRelease(int arg1, int arg2, int arg3, int arg4, unsigned long long arg5);
+        uint64_t OnLowLevelMouseDown(int arg1, int arg2, int arg3, int arg4);
+        uint64_t KeyboardInputFocusChange(int arg1, unsigned long long arg2);
+        uint64_t MouseMove(int arg1, int arg2, unsigned long long arg3);
+        auto GetFocusedComponent();
 
-        // data members, from how the methods use this: 32 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        bool field_24;       // offset 24
-        undefined1 field_25; // offset 25
-        undefined1 field_26; // offset 26
-        char _unknown_27[5];
+    private:
+        uint8_t _unknown_8[16];
+        bool field_24;
+        uint8_t field_25;
+        uint8_t field_26;
+        uint8_t _unknown_27[5];
     };
 
-    // 0x100029ea0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
-    /* InputFieldKeyboardHandler::PointerRelease(int, int, int, int, unsigned long long)
-    */
-
-    bool InputFieldKeyboardHandler::PointerRelease(_func_void_TestResults_ptr_basic_string_ptr* param_1) {
-        return false;
+    // 0x100029ea0
+    uint64_t InputFieldKeyboardHandler::PointerPress(int arg1, int arg2, int arg3, int arg4, unsigned long long arg5) {
+        return 0;
     }
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    NoJs5ResourceProvider::EnsureArchiveLoadedIfAvailableOnDisk(Js5ArchiveSettings const&);
+    // 0x100029ea0: NoJs5ResourceProvider::EnsureArchiveLoadedIfAvailableOnDisk(Js5ArchiveSettings const&) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029eb0, 32 bytes, deleting destructor, inline, placed by class name
-    // InputFieldKeyboardHandler::~InputFieldKeyboardHandler()
-    void InputFieldKeyboardHandler::~InputFieldKeyboardHandler() {
-        ~InputFieldKeyboardHandler(this);
-        operator_delete(this);
+    // 0x10012a770
+    InputFieldKeyboardHandler::~InputFieldKeyboardHandler() {
+        field_8.~weak_ptr();
     }
 
-    // 0x1000c4b90, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // InputFieldKeyboardHandler::~InputFieldKeyboardHandler(): jumps straight to the base-object destructor
-
-    // 0x10012a770, 32 bytes, base-object destructor, inline, placed by class name
-    // InputFieldKeyboardHandler::~InputFieldKeyboardHandler()
-    void InputFieldKeyboardHandler::~InputFieldKeyboardHandler() {
-        field_0 = &PTR_KeyPressed_100ef0d90;
-        (&field_8)->~weak_ptr();
-    }
-
-    // 0x100195530, 32 bytes, inline, placed by class name
-    // InputFieldKeyboardHandler::GetFocusedComponent()
-    InputFieldKeyboardHandler* InputFieldKeyboardHandler::GetFocusedComponent() {
-        weak_ptr<rs2lib::IfType>::lock();
-        return this;
+    // 0x100195530
+    auto InputFieldKeyboardHandler::GetFocusedComponent() {
+        auto result;
+        result = field_8.lock();
+        return result;
     }
 
 } // namespace jag::oldscape
 
 namespace jag::input::gesture {
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    GestureTap::OnTouchDown(GestureManager*, unsigned long, float, float);
+    // 0x100029ea0: GestureTap::OnTouchDown(GestureManager*, unsigned long, float, float) has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    GestureTap::OnTouchMove(GestureManager*, unsigned long, float, float);
+    // 0x100029ea0: GestureTap::OnTouchMove(GestureManager*, unsigned long, float, float) has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    GestureDoubleTap::OnTouchDown(GestureManager*, unsigned long, float, float);
+    // 0x100029ea0: GestureDoubleTap::OnTouchDown(GestureManager*, unsigned long, float, float) has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    GestureDoubleTap::OnTouchMove(GestureManager*, unsigned long, float, float);
+    // 0x100029ea0: GestureDoubleTap::OnTouchMove(GestureManager*, unsigned long, float, float) has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
 } // namespace jag::input::gesture
 
 namespace jag::ui {
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ComponentSingleValueMultiOptionMixin::GetPreviousValue() const;
+    // 0x100029ea0: ComponentSingleValueMultiOptionMixin::GetPreviousValue() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ComponentSingleValueMultiOptionMixin::RequiresSeparatePreviousValueTrigger() const;
+    // 0x100029ea0: ComponentSingleValueMultiOptionMixin::RequiresSeparatePreviousValueTrigger() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
 } // namespace jag::ui
 
 namespace jag::game::option {
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    AntialiasingMode::GetDefault();
+    // 0x100029ea0: AntialiasingMode::GetDefault() has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
 } // namespace jag::game::option
 
 namespace jag::game {
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    BaseVarTypeInteger::GetSerialID() const;
+    // 0x100029ea0: BaseVarTypeInteger::GetSerialID() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
 } // namespace jag::game

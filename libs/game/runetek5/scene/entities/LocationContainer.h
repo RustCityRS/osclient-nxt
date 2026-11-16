@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/entities/LocationContainer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
@@ -11,335 +10,270 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~LocationContainer();
-        virtual IsVisibleEntity() const;
+        virtual bool IsVisibleEntity() const;
         virtual void GetLoadImportance() const;
         virtual float GetLoadProgress() const;
         virtual void Destruct();
-        GetDynamicChangedLocations() const;
-        GetDynamicMultiLocations() const;
+        uint8_t* GetDynamicChangedLocations() const;
+        uint8_t* GetDynamicMultiLocations() const;
         int GetMinGridX() const;
         int GetMinGridZ() const;
-        LocationContainer(ConfigProvider*, PlayerVarDomain*, graphics::GraphNode*, shared_ptr<World> const&, int, int,
-                          int, int, int, int, eastl::vector<shared_ptr<MapSquareLocation>, eastl::allocator> const&);
-        void PrepareLocationLists(eastl::vector<shared_ptr<MapSquareLocation>, eastl::allocator> const&);
-        OverlapsArea(int, int, int, int);
-        LodLevelToPriority(LODLevel);
-        LocationNeedsProcessing(MapSquareLocation const&) const;
-        byte CalculateLocationLOD(MapSquareLocation const&, LinkMap const&);
-        bool IsLocationIndoors(MapSquareLocation const&, LinkMap const&);
-        void UpdateLOD(StaticLocationLODContainer&, LODLevel);
-        void SetMultiLocState(int, int);
-        void IncrementMultiLocState(int);
+        LocationContainer(ConfigProvider* configProvider, PlayerVarDomain* playerVarDomain,
+                          graphics::GraphNode* graphNode, const shared_ptr<World>& world, int arg5, int arg6, int arg7,
+                          int arg8, int arg9, int arg10,
+                          const eastl::vector<shared_ptr<MapSquareLocation>>& mapSquareLocations);
+        void PrepareLocationLists(const eastl::vector<shared_ptr<MapSquareLocation>>& mapSquareLocations);
+        uint32_t OverlapsArea(int arg1, int arg2, int arg3, int arg4);
+        uint32_t LodLevelToPriority(LODLevel lodLevel);
+        uint64_t LocationNeedsProcessing(const MapSquareLocation& mapSquareLocation) const;
+        uint8_t CalculateLocationLOD(const MapSquareLocation& mapSquareLocation, const LinkMap& linkMap);
+        bool IsLocationIndoors(const MapSquareLocation& mapSquareLocation, const LinkMap& linkMap);
+        void UpdateLOD(StaticLocationLODContainer& staticLocationLODContainer, LODLevel lodLevel);
+        void SetMultiLocState(int arg1, int arg2);
+        void IncrementMultiLocState(int arg1);
         void IncrementAllMultiLocStates();
-        void Build(graphics::RT7Core&, Js5ResourceProvider&, ConfigProvider&, AssetBuilder&, int, bool, bool);
-        ulong BuildAllLocationsAtLOD(graphics::RT7Core&, AssetBuilder&, StaticLocationLODContainer&, AssetJobPriority,
-                                     LODLevel);
-        void BuildAllLocationsUncombined(StaticLocationLODContainer&);
-        void DestructAllBuiltLocationsAtLOD(LODLevel);
-        ulong BuildStaticUncombinableLocations(graphics::RT7Core&, Js5ResourceProvider&, ConfigProvider&, AssetBuilder&,
-                                               unsigned int);
-        ulong BuildDynamicLocations(eastl::vector<shared_ptr<Location>, eastl::allocator>&, graphics::RT7Core&,
-                                    Js5ResourceProvider&, ConfigProvider&, AssetBuilder&, unsigned int);
-        void BuildMultiLocations(graphics::RT7Core&, Js5ResourceProvider&, ConfigProvider&, AssetBuilder&,
-                                 unsigned int);
-        void LoadLocationModels(bool&, bool&, graphics::RT7Core&, AssetBuilder&,
-                                eastl::vector<LocationContainerLocation, eastl::allocator>&, AssetJobPriority,
-                                HeightMap const&, LinkMap const&);
-        long ChangeLocation(ChangeLocationRequest const&);
-        long FindLocation(ChangeLocationRequest const&, bool);
-        long UnhideCombinedLocationSection(ChangeLocationRequest const&);
-        bool DeleteUncombinedLocation(eastl::vector<shared_ptr<Location>, eastl::allocator>&,
-                                      ChangeLocationRequest const&, Location const*, bool);
-        void DeleteLocation(ChangeLocationRequest const&, Location const*);
-        HideLocation(ChangeLocationRequest const&);
-        ulong LocationsMatch(ChangeLocationRequest const&, shared_ptr<Location> const&, bool);
-        HideLocationLOD(ChangeLocationRequest const&, StaticLocationLODContainer&);
-        void HideLocations(LocShape);
-        void UnhideLocations(LocShape);
-        UnhideCombinedLocationSectionLOD(ChangeLocationRequest const&, StaticLocationLODContainer&);
-        ulong ResetLocation(ChangeLocationRequest const&);
-        void ResetArea(CoordFine const&, CoordFine const&);
-        void ResetAllChangedAreas(CoordFine const&, CoordFine const&);
-        void ResetLODArea(CoordFine const&, CoordFine const&, StaticLocationLODContainer&);
-        void ResetChangedAreasFromList(eastl::vector<shared_ptr<Location>, eastl::allocator> const&, CoordFine const&,
-                                       CoordFine const&);
-        long* AnimateLocation(ChangeLocationRequest const&);
-        shared_ptr* FindLocationInList(eastl::vector<shared_ptr<Location>, eastl::allocator> const&,
-                                       ChangeLocationRequest const&);
-        FindLocationInLOD(StaticLocationLODContainer&, ChangeLocationRequest const&);
-        long FindLocation(CoordGrid const&, int);
-        shared_ptr<Location>* FindLocationInList(eastl::vector<shared_ptr<Location>, eastl::allocator> const&,
-                                                 CoordGrid const&, int);
-        FindLocationInLOD(StaticLocationLODContainer&, CoordGrid const&, int);
-        FindLocationInLOD(StaticLocationLODContainer&, CoordGrid const&, LocShape);
+        void Build(graphics::RT7Core& rt7Core, Js5ResourceProvider& js5ResourceProvider, ConfigProvider& configProvider,
+                   AssetBuilder& assetBuilder, int arg5, bool arg6, bool arg7);
+        unsigned long BuildAllLocationsAtLOD(graphics::RT7Core& rt7Core, AssetBuilder& assetBuilder,
+                                             StaticLocationLODContainer& staticLocationLODContainer,
+                                             AssetJobPriority assetJobPriority, LODLevel lodLevel);
+        void BuildAllLocationsUncombined(StaticLocationLODContainer& staticLocationLODContainer);
+        void DestructAllBuiltLocationsAtLOD(LODLevel lodLevel);
+        unsigned long BuildStaticUncombinableLocations(graphics::RT7Core& rt7Core,
+                                                       Js5ResourceProvider& js5ResourceProvider,
+                                                       ConfigProvider& configProvider, AssetBuilder& assetBuilder,
+                                                       unsigned int arg5);
+        unsigned long BuildDynamicLocations(eastl::vector<shared_ptr<Location>>& locations, graphics::RT7Core& rt7Core,
+                                            Js5ResourceProvider& js5ResourceProvider, ConfigProvider& configProvider,
+                                            AssetBuilder& assetBuilder, unsigned int arg6);
+        void BuildMultiLocations(graphics::RT7Core& rt7Core, Js5ResourceProvider& js5ResourceProvider,
+                                 ConfigProvider& configProvider, AssetBuilder& assetBuilder, unsigned int arg5);
+        void LoadLocationModels(bool& arg1, bool& arg2, graphics::RT7Core& rt7Core, AssetBuilder& assetBuilder,
+                                eastl::vector<LocationContainerLocation>& locationContainerLocations,
+                                AssetJobPriority assetJobPriority, const HeightMap& heightMap, const LinkMap& linkMap);
+        long ChangeLocation(const ChangeLocationRequest& changeLocationRequest);
+        long FindLocation(const ChangeLocationRequest& changeLocationRequest, bool arg2);
+        long UnhideCombinedLocationSection(const ChangeLocationRequest& changeLocationRequest);
+        bool DeleteUncombinedLocation(eastl::vector<shared_ptr<Location>>& locations,
+                                      const ChangeLocationRequest& changeLocationRequest, const Location* location,
+                                      bool arg4);
+        void DeleteLocation(const ChangeLocationRequest& changeLocationRequest, const Location* location);
+        uint64_t HideLocation(const ChangeLocationRequest& changeLocationRequest);
+        unsigned long LocationsMatch(const ChangeLocationRequest& changeLocationRequest,
+                                     const shared_ptr<Location>& location, bool arg3);
+        uint64_t HideLocationLOD(const ChangeLocationRequest& changeLocationRequest,
+                                 StaticLocationLODContainer& staticLocationLODContainer);
+        void HideLocations(LocShape locShape);
+        void UnhideLocations(LocShape locShape);
+        uint64_t UnhideCombinedLocationSectionLOD(const ChangeLocationRequest& changeLocationRequest,
+                                                  StaticLocationLODContainer& staticLocationLODContainer);
+        unsigned long ResetLocation(const ChangeLocationRequest& changeLocationRequest);
+        void ResetArea(const CoordFine& coordFine1, const CoordFine& coordFine2);
+        void ResetAllChangedAreas(const CoordFine& coordFine1, const CoordFine& coordFine2);
+        void ResetLODArea(const CoordFine& coordFine1, const CoordFine& coordFine2,
+                          StaticLocationLODContainer& staticLocationLODContainer);
+        void ResetChangedAreasFromList(const eastl::vector<shared_ptr<Location>>& locations,
+                                       const CoordFine& coordFine1, const CoordFine& coordFine2);
+        long* AnimateLocation(const ChangeLocationRequest& changeLocationRequest);
+        shared_ptr<Location>* FindLocationInList(const eastl::vector<shared_ptr<Location>>& locations,
+                                                 const ChangeLocationRequest& changeLocationRequest);
+        uint64_t FindLocationInLOD(StaticLocationLODContainer& staticLocationLODContainer,
+                                   const ChangeLocationRequest& changeLocationRequest);
+        long FindLocation(const CoordGrid& coordGrid, int arg2);
+        shared_ptr<Location>* FindLocationInList(const eastl::vector<shared_ptr<Location>>& locations,
+                                                 const CoordGrid& coordGrid, int arg3);
+        uint64_t FindLocationInLOD(StaticLocationLODContainer& staticLocationLODContainer, const CoordGrid& coordGrid,
+                                   int arg3);
+        uint64_t FindLocationInLOD(StaticLocationLODContainer& staticLocationLODContainer, const CoordGrid& coordGrid,
+                                   LocShape locShape);
         bool StaticLocationTexturesReady() const;
         bool StaticLocationShadersReady() const;
-        ulong StaticUncombinableLocationsBuilt() const;
-        AllStaticLocationsReady() const;
-        HasLocations() const;
-        ulong IsHighPriority() const;
-        HasStartedBuild() const;
-        SetHasStartedBuild(bool);
+        unsigned long StaticUncombinableLocationsBuilt() const;
+        uint64_t AllStaticLocationsReady() const;
+        bool HasLocations() const;
+        unsigned long IsHighPriority() const;
+        bool HasStartedBuild() const;
+        void SetHasStartedBuild(bool arg1);
         int GetMapSquareX() const;
         int GetMapSquareZ() const;
         int GetGridSizeX() const;
         int GetGridSizeZ() const;
         ConfigProvider* GetConfigProvider() const;
-        static /* 8 bytes */ NullContainer;
+        static int64_t NullContainer;
 
-        // data members, from how the methods use this: 472 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined** field_8; // offset 8
-        char _unknown_16[48];
-        byte field_64;       // offset 64
-        undefined1 field_65; // offset 65
-        undefined1 field_66; // offset 66
-        bool field_67;       // offset 67
-        int field_68;        // offset 68
-        int field_72;        // offset 72
-        char _unknown_76[40];
-        undefined4 field_116; // offset 116
-        char _unknown_120[56];
-        shared_ptr field_176;              // offset 176
-        ConfigProvider* m_pConfigProvider; // offset 192
-        PlayerVarDomain* field_200;        // offset 200
-        byte field_208;                    // offset 208
-        char _unknown_209[3];
-        int m_mapSquareX;             // offset 212
-        int m_mapSquareZ;             // offset 216
-        int m_minGridX;               // offset 220
-        int m_minGridZ;               // offset 224
-        int field_228;                // offset 228
-        int field_232;                // offset 232
-        undefined1 m_hasStartedBuild; // offset 236
-        char _unknown_237[115];
-        ChangeLocationRequest field_352; // offset 352
+    private:
+        uint8_t** field_8;
+        uint8_t _unknown_16[48];
+        uint8_t field_64;
+        uint8_t field_65;
+        char field_66;
+        bool field_67;
+        int field_68;
+        int field_72;
+        uint8_t _unknown_76[40];
+        uint32_t field_116;
+        uint8_t _unknown_120[56];
+        shared_ptr field_176;
+        ConfigProvider* m_pConfigProvider;
+        PlayerVarDomain* field_200;
+        uint8_t field_208;
+        uint8_t _unknown_209[3];
+        int m_mapSquareX;
+        int m_mapSquareZ;
+        int m_minGridX;
+        int m_minGridZ;
+        int field_228;
+        int field_232;
+        uint8_t m_hasStartedBuild;
+        uint8_t _unknown_237[115];
+        ChangeLocationRequest field_352;
+        uint8_t _unknown_472[22212];
     };
 
     class LocationContainerLocation {
     public:
-        LocationContainerLocation(shared_ptr<MapSquareLocation> const&, signed char);
+        LocationContainerLocation(const shared_ptr<MapSquareLocation>& mapSquareLocation, signed char arg2);
         ~LocationContainerLocation();
         void ClearBuiltData();
-        LocationContainerLocation* operator=(LocationContainerLocation const&);
-        LocationContainerLocation(LocationContainerLocation const&);
-        LocationContainerLocation(LocationContainerLocation&&);
+        LocationContainerLocation* operator=(const LocationContainerLocation& locationContainerLocation);
+        LocationContainerLocation(const LocationContainerLocation& locationContainerLocation);
+        LocationContainerLocation(LocationContainerLocation&& locationContainerLocation);
 
-        // data members, from how the methods use this: 112 bytes
-        char _unknown_0[16];
-        ActiveComponent field_16; // offset 16
-        char _unknown_40[8];
-        undefined8 field_48; // offset 48
-        char _unknown_56[48];
-        undefined1 field_104; // offset 104
-        undefined1 field_105; // offset 105
-        char _unknown_106[6];
+    private:
+        uint8_t _unknown_0[16];
+        ActiveComponent field_16;
+        uint8_t _unknown_40[8];
+        uint64_t field_48;
+        uint8_t _unknown_56[48];
+        schar field_104;
+        uint8_t field_105;
+        uint8_t _unknown_106[6];
     };
 
     class StaticLocationLODContainer {
     public:
         StaticLocationLODContainer();
-        StaticLocationLODContainer* operator=(StaticLocationLODContainer const&);
+        StaticLocationLODContainer* operator=(const StaticLocationLODContainer& staticLocationLODContainer);
         ~StaticLocationLODContainer();
         void Destruct();
 
-        // data members, from how the methods use this: 88 bytes
-        char _unknown_0[32];
-        shared_ptr field_32; // offset 32
-        char _unknown_48[32];
-        undefined2 field_80; // offset 80
-        char _unknown_82[6];
+    private:
+        uint8_t _unknown_0[32];
+        shared_ptr field_32;
+        uint8_t _unknown_48[32];
+        uint16_t field_80;
+        uint8_t _unknown_82[6];
     };
 
-    // 0x1003c1fc0, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocationContainer::GetDynamicChangedLocations() const
-    /* graphics::Model::GetPointLightBounds() const */
-
-    undefined1* graphics::Model::GetPointLightBounds() {
+    // 0x1003c1fc0
+    uint8_t* LocationContainer::GetDynamicChangedLocations() const {
         return &field_320;
     }
 
-    // 0x1003c2100, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocationContainer::GetDynamicMultiLocations() const
-    /* ui::Component::GetSwipeConfig() */
-
-    undefined1* ui::Component::GetSwipeConfig() {
+    // 0x1003c2100
+    uint8_t* LocationContainer::GetDynamicMultiLocations() const {
         return &field_288;
     }
 
-    // 0x10040c270, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // StaticLocationLODContainer::StaticLocationLODContainer(): jumps straight to the base-object constructor
-
-    // 0x10040c2a0, 64 bytes, inline, placed by class header (inline)
-    // StaticLocationLODContainer::operator=(StaticLocationLODContainer const&)
-    /* StaticLocationLODContainer::TEMPNAMEPLACEHOLDERVALUE(StaticLocationLODContainer
-   const&) */
-
-    StaticLocationLODContainer* StaticLocationLODContainer::operator=(StaticLocationLODContainer* param_1) {
-        eastl::vector<LocationContainerLocation, eastl::allocator>::operator=(
-            (vector<LocationContainerLocation, eastl::allocator>*)this, (vector*)param_1);
-        shared_ptr<BuildCombinedLocationMain>::operator=((shared_ptr<BuildCombinedLocationMain>*)field_32,
-                                                         (shared_ptr*)param_1->field_32);
-        eastl::vector<shared_ptr<CombinedLocation>, eastl::allocator>::operator=(
-            (vector<shared_ptr<CombinedLocation>, eastl::allocator>*)&field_48, (vector*)&param_1->field_48);
-        field_80 = param_1->field_80;
+    // 0x10040c2a0
+    StaticLocationLODContainer*
+    StaticLocationLODContainer::operator=(const StaticLocationLODContainer& staticLocationLODContainer) {
+        *this = staticLocationLODContainer;
+        *field_32 = staticLocationLODContainer.field_32;
+        field_48 = staticLocationLODContainer.field_48;
+        field_80 = staticLocationLODContainer.field_80;
         return this;
     }
 
-    // 0x10040c2e0, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // StaticLocationLODContainer::~StaticLocationLODContainer(): jumps straight to the base-object destructor
-
-    // 0x10040c9e0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // LocationContainerLocation::LocationContainerLocation(shared_ptr<MapSquareLocation> const&, signed char): jumps straight to the base-object constructor
-
-    // 0x10040ca40, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // LocationContainerLocation::~LocationContainerLocation(): jumps straight to the base-object destructor
-
-    // 0x100414b00, 16 bytes, inline, placed by class name
-    // LocationContainer::HasStartedBuild() const
-    undefined1 LocationContainer::HasStartedBuild() {
+    // 0x100414b00
+    bool LocationContainer::HasStartedBuild() const {
         return m_hasStartedBuild;
     }
 
-    // 0x100414b10, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocationContainer::SetHasStartedBuild(bool)
-    /* Location::SetLocationLOD(LODLevel) */
-
-    void Location::SetLocationLOD(undefined1 param_2) {
-        m_locationLOD = param_2;
+    // 0x100414b10
+    void LocationContainer::SetHasStartedBuild(bool arg1) {
+        m_locationLOD = arg1;
     }
 
-    // 0x10041b580, 16 bytes, complete-object destructor, inline, placed by class name
-    // LocationContainer::~LocationContainer(): jumps straight to the base-object destructor
+    // 0x10041b7f0
+    StaticLocationLODContainer::StaticLocationLODContainer()
+        : eastl::vector<LocationContainerLocation>(), field_80(0) {}
 
-    // 0x10041b590, 32 bytes, deleting destructor, inline, placed by class name
-    // LocationContainer::~LocationContainer()
-    void LocationContainer::~LocationContainer() {
-        ~LocationContainer(this);
-        operator_delete(this);
-    }
-
-    // 0x10041b7f0, 96 bytes, base-object constructor, inline, placed by class header (inline)
-    // StaticLocationLODContainer::StaticLocationLODContainer()
-    void StaticLocationLODContainer::StaticLocationLODContainer() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) eastl::vector<LocationContainerLocation, eastl::allocator>();
-        new (field_32, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_48) eastl::vector<shared_ptr<CombinedLocation>, eastl::allocator>();
-        field_80 = 0;
-    }
-
-    // 0x10041be20, 80 bytes, inline, placed by class header (inline)
-    // LocationContainerLocation::operator=(LocationContainerLocation const&)
-    /* LocationContainerLocation::TEMPNAMEPLACEHOLDERVALUE(LocationContainerLocation
-   const&) */
-
-    LocationContainerLocation* LocationContainerLocation::operator=(LocationContainerLocation* param_1) {
-        undefined1 uVar1;
-
-        shared_ptr<MapSquareLocation>::operator=((shared_ptr<MapSquareLocation>*)this, (shared_ptr*)param_1);
-        BuildRequest<graphics::Model, BuildModelMain>::operator=(
-            (BuildRequest<graphics::Model, BuildModelMain>*)field_16, (BuildRequest*)param_1->field_16);
-        field_48 = param_1->field_48;
-        graphics::HillData::operator=((HillData*)&field_56, (HillData*)&param_1->field_56);
-        uVar1 = param_1->field_105;
-        field_104 = param_1->field_104;
+    // 0x10041be20
+    LocationContainerLocation*
+    LocationContainerLocation::operator=(const LocationContainerLocation& locationContainerLocation) {
+        *this = locationContainerLocation;
+        *field_16 = locationContainerLocation.field_16;
+        field_48 = locationContainerLocation.field_48;
+        field_56 = locationContainerLocation.field_56;
+        uint8_t uVar1 = locationContainerLocation.field_105;
+        field_104 = locationContainerLocation.field_104;
         field_105 = uVar1;
         return this;
     }
 
-    // 0x10041dc80, 128 bytes, base-object destructor, inline, placed by class name
-    // LocationContainer::~LocationContainer()
-    void LocationContainer::~LocationContainer() {
-        field_0 = &PTR__LocationContainer_100eff2d0;
+    // 0x10041dc80
+    LocationContainer::~LocationContainer() {
         field_8 = &PTR__LocationContainer_100eff410;
         ((field_352 + 32))->~array();
         field_352->~vector();
-        (&field_320)->~vector();
-        (&field_288)->~vector();
-        (&field_272)->~shared_ptr();
-        (&field_240)->~vector();
-        ~Entity();
+        field_320.~vector();
+        field_288.~vector();
+        field_272.~shared_ptr();
+        field_240.~vector();
     }
 
-    // 0x10041fe50, 112 bytes, inline, placed by class name
-    // LocationContainer::DeleteUncombinedLocation(eastl::vector<shared_ptr<Location>, eastl::allocator>&, ChangeLocationRequest const&, Location const*, bool)::$_0::operator()(shared_ptr<Location> const&) const
-    /* LocationContainer::DeleteUncombinedLocation(eastl::vector<shared_ptr<Location>,
-   eastl::allocator>&, ChangeLocationRequest const&, Location const*,
-   bool)::$_0::TEMPNAMEPLACEHOLDERVALUE(shared_ptr<Location> const&) const */
+    // 0x10041fe50
+    uint32_t
+    LocationContainer::DeleteUncombinedLocation(eastl::vector<shared_ptr<Location>>&, ChangeLocationRequest const&,
+                                                Location const*,
+                                                bool)::$_0::operator()(const shared_ptr<Location>& location) const {
+        uint32_t uVar2;
 
-    undefined4 LocationContainer::DeleteUncombinedLocation(eastl::vector<shared_ptr<Location>, eastl::allocator>&,
-                                                           ChangeLocationRequest_const&, Location_const*,
-                                                           bool)::$_0::operator()(shared_ptr* param_1) {
-        undefined4 uVar2;
-        long lVar3;
-        Location* this_00;
-
-        lVar3 = param_1->end();
-        if (lVar3 == **(long**)this) {
+        if (location.end() == **(long**)this) {
             uVar2 = 0;
         } else {
             uVar2 = 0;
-            if (LocationsMatch((LocationContainer*)param_1, *(ChangeLocationRequest**)(this + 16), param_1, false) !=
+            if (LocationsMatch((LocationContainer*)location, *(ChangeLocationRequest**)(this + 16), location, false) !=
                 '\0') {
                 if (**(char**)(this + 24) == '\0') {
                     uVar2 = 1;
                 } else {
-                    this_00 = (Location*)shared_ptr<Location>::operator->((shared_ptr<Location>*)param_1);
-                    uVar2 = this_00->IsStillBuilding();
+                    uVar2 = ((Location*)location.operator->())->IsStillBuilding();
                 }
             }
         }
         return uVar2;
     }
 
-    // 0x100444920, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocationContainer::GetMapSquareX() const
-    /* GraphicsDefaults::GetObjStackColourUnits() const */
-
-    undefined4 GraphicsDefaults::GetObjStackColourUnits() {
+    // 0x100444920
+    int LocationContainer::GetMapSquareX() const {
         return m_objStackColourUnits;
     }
 
-    // 0x100444930, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocationContainer::GetMapSquareZ() const
-    /* GraphicsDefaults::GetObjStackColourThousands() const */
-
-    undefined4 GraphicsDefaults::GetObjStackColourThousands() {
+    // 0x100444930
+    int LocationContainer::GetMapSquareZ() const {
         return m_objStackColourThousands;
     }
 
-    // 0x100444940, 32 bytes, inline, placed by class name
-    // LocationContainer::GetGridSizeX() const
-    int LocationContainer::GetGridSizeX() {
+    // 0x100444940
+    int LocationContainer::GetGridSizeX() const {
         return field_228 - m_minGridX;
     }
 
-    // 0x100444960, 32 bytes, inline, placed by class name
-    // LocationContainer::GetGridSizeZ() const
-    int LocationContainer::GetGridSizeZ() {
+    // 0x100444960
+    int LocationContainer::GetGridSizeZ() const {
         return field_232 - m_minGridZ;
     }
 
-    // 0x10064c760, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocationContainer::GetConfigProvider() const
-    /* graphics::Material::GetWrapU() const */
-
-    undefined* graphics::Material::GetWrapU() {
+    // 0x10064c760
+    ConfigProvider* LocationContainer::GetConfigProvider() const {
         return m_pWrapU;
     }
 
 } // namespace jag::game
 
 namespace jag::testframework {
-    // 0x1003c1fc0: the linker folded this into game::LocationContainer::GetDynamicChangedLocations() const, which has identical code
-    TestResultsWriter::GetResultsFormatted() const;
+    // 0x1003c1fc0: TestResultsWriter::GetResultsFormatted() const has the same machine code as game::LocationContainer::GetDynamicChangedLocations() const
 
 } // namespace jag::testframework

@@ -1,15 +1,13 @@
 // libs/oldscape/osrendercore/ShaderSourceData.code
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.osrendercore
 
 namespace jag::osrsgraphics {
-// 0x1001c0d40, 48 bytes, placed by debug map only (low confidence)
-// GetResourceFilename(ShaderResource)
-char * GetResourceFilename(uint param_1)
+// 0x1001c0d40
+char * GetResourceFilename(ShaderResource shaderResource)
 {
-  if (param_1 < 11) {
-    return (&PTR_s_UXVhZC5mcw___100ef71c0)[(int)param_1];
+  if (shaderResource < 11) {
+    return (&PTR_s_UXVhZC5mcw___100ef71c0)[shaderResource];
   }
   return "ResourceNotFound";
 }

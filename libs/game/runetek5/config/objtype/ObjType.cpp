@@ -1,55 +1,32 @@
 // libs/game/runetek5/config/objtype/ObjType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "ObjType.h"
 
 namespace jag::game {
-    // 0x1039bbbf8, 8 bytes, __common; zero-initialised
-    ObjType::m_lastType;
+    // 0x1039bbbf8
+    int64_t ObjType::m_lastType;
 
-    // 0x100106540: the linker folded this into oldscape::ClientInputHandler::GetKeysDown() const, which has identical code
-    ObjType::GetManAppearance() const;
+    // 0x100106540: ObjType::GetManAppearance() const has the same machine code as oldscape::ClientInputHandler::GetKeysDown() const
 
-    // 0x10031b0b0: the linker folded this into oldscape::dash3d::NXTRenderer::LogicThread_GetRenderCanvas(), which has identical code
-    long ObjType::GetCost() const;
+    // 0x10031b0b0: ObjType::GetCost() const has the same machine code as oldscape::dash3d::NXTRenderer::LogicThread_GetRenderCanvas()
 
-    // 0x10036db80: the linker folded this into graphics::GeometryBatchInstance::GetSourceModelExternalIndexList(), which has identical code
-    ObjType::GetRecolourDest() const;
+    // 0x10036db80: ObjType::GetRecolourDest() const has the same machine code as graphics::GeometryBatchInstance::GetSourceModelExternalIndexList()
 
-    // 0x1003dad60: the linker folded this into PathingEntity::GetAnimatedModel() const, which has identical code
-    ObjType::GetAngle2D() const;
+    // 0x1003dad60: ObjType::GetAngle2D() const has the same machine code as PathingEntity::GetAnimatedModel() const
 
-    // 0x10042f3e0: the linker folded this into LocType::GetVFXAttachmentsRawData() const, which has identical code
-    ObjType::GetOffset2D() const;
+    // 0x10042f3e0: ObjType::GetOffset2D() const has the same machine code as LocType::GetVFXAttachmentsRawData() const
 
-    // 0x1005056f0: the linker folded this into NPCType::GetRematerialDest() const, which has identical code
-    ObjType::GetWomanAppearance() const;
+    // 0x1005056f0: ObjType::GetWomanAppearance() const has the same machine code as NPCType::GetRematerialDest() const
 
-    // 0x100505ce0, 960 bytes, base-object constructor, placed by class name and debug map
-    // ObjType::ObjType(BaseTemplateConfigTypeList<ObjType>*, int)
-    void ObjType::ObjType(BaseTemplateConfigTypeList* param_1, int param_2) {
-        array* paVar1;
+    // 0x100505ce0
+    ObjType::ObjType(BaseTemplateConfigTypeList<ObjType>* baseTemplateConfigTypeList, int arg2)
+        : ConfigType<ObjType>(baseTemplateConfigTypeList, arg2), MakeSharedPool<ObjType, 96>(), m_members(0),
+          m_stackable(0), field_585(1), m_hasRandomPosition(0), m_cost(1) {
+        array<eastl::string, _6ul>* strs;
+        array<eastl::string, _5ul>* strs_00;
 
-        new (this) ConfigType<ObjType>(param_1, param_2);
-        new (this) MakeSharedPool<ObjType, 96>();
-        field_0 = &PTR__ObjType_100f03078;
-        new (&field_56) std::array<eastl::string, 6ul>();
-        new (&field_248) std::array<eastl::string, 5ul>();
-        new (&field_408) eastl::string();
-        new (&field_440) eastl::string();
-        new (&field_472) eastl::string();
-        m_members = 0;
-        new (&field_512) Array<int, eastl::allocator>();
-        new (&field_536) Array<int, eastl::allocator>();
-        new (&field_560) Array<int, eastl::allocator>();
-        m_stackable = 0;
-        field_585 = 1;
-        m_hasRandomPosition = 0;
-        m_cost = 1;
-        new (&field_600) Array<int, eastl::allocator>();
-        new (&field_624) Array<int, eastl::allocator>();
         m_team = '\0';
         m_isStockmarket = false;
         field_652 = 100;
@@ -61,21 +38,21 @@ namespace jag::game {
         field_664 = 65535;
         field_666 = 1;
         field_668 = 4294967295;
-        new (&field_672) Array<unsigned short, eastl::allocator>();
-        new (&field_696) Array<unsigned short, eastl::allocator>();
-        new (&field_720) Array<unsigned char, eastl::allocator>();
-        new (&field_744) Array<signed char, eastl::allocator>();
-        new (&field_768) Array<unsigned short, eastl::allocator>();
-        new (&field_792) Array<unsigned short, eastl::allocator>();
-        new (&field_816) Array<signed char, eastl::allocator>();
+        new (&field_672) Array<unsigned short>();
+        new (&field_696) Array<unsigned short>();
+        new (&field_720) Array<unsigned char>();
+        new (&field_744) Array<signed char>();
+        new (&field_768) Array<unsigned short>();
+        new (&field_792) Array<unsigned short>();
+        new (&field_816) Array<signed char>();
         field_840 = 0;
         field_842 = 0;
         field_844 = 0;
-        new (&field_848) math::Vector3T<int>();
+        new (&field_848) math::Vector3T();
         field_860 = 0;
         m_zoom2D = 2000;
-        new (&field_864) math::Vector3T<unsigned short>();
-        new (&field_872) math::Vector3T<int>();
+        new (&field_864) math::Vector3T();
+        new (&field_872) math::Vector3T();
         field_884 = 255;
         field_885 = 255;
         field_886 = 255;
@@ -91,124 +68,119 @@ namespace jag::game {
         field_966 = 65535;
         field_968 = 0;
         new (&field_976) eastl::string();
-        if (param_1 != (BaseTemplateConfigTypeList*)0) {
-            paVar1 = (array*)param_1->GetDefaultOps();
-            std::array<eastl::string, 6ul>::operator=((array<eastl::string, 6ul>*)&field_56, paVar1);
-            paVar1 = (array*)param_1->GetDefaultIops();
-            std::array<eastl::string, 5ul>::operator=((array<eastl::string, 5ul>*)&field_248, paVar1);
+        if (baseTemplateConfigTypeList != nullptr) {
+            strs = (array<eastl::string, _6ul>*)baseTemplateConfigTypeList->GetDefaultOps();
+            field_56 = *strs;
+            strs_00 = (array<eastl::string, _5ul>*)baseTemplateConfigTypeList->GetDefaultIops();
+            field_248 = *strs_00;
         }
     }
 
-    // 0x100506190, 16 bytes, complete-object constructor, placed by class name and debug map
-    // ObjType::ObjType(BaseTemplateConfigTypeList<ObjType>*, int): jumps straight to the base-object constructor
-
-    // 0x1005061a0, 3792 bytes, placed by class name and debug map
-    // ObjType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
-    undefined* ObjType::DecodeType(PacketT* param_1, uint param_2) {
-        undefined1* this_00;
-        uchar uVar1;
+    // 0x1005061a0
+    uint8_t* ObjType::DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2) {
+        uint8_t* this_00;
         char cVar2;
-        byte bVar3;
-        undefined1 uVar4;
-        ushort uVar5;
-        undefined2 uVar6;
-        undefined4 uVar7;
+        uint8_t bVar3;
+        uint8_t uVar4;
+        unsigned short uVar5;
+        uint16_t uVar6;
+        uint32_t uVar7;
         int iVar8;
         int* piVar9;
         int* piVar10;
-        basic_string* pbVar11;
-        undefined4* puVar12;
-        uint* puVar13;
-        undefined8 uVar14;
-        undefined1* puVar15;
-        undefined2* puVar16;
-        float* pfVar17;
-        long lVar18;
-        char* pcVar19;
-        uint uVar20;
-        char cVar21;
-        ulong uVar22;
-        ulong uVar23;
-        uint uVar24;
-        Vector3T<float>* this_01;
-        Array<int, eastl::allocator>* this_02;
-        __cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>* p_Var25;
-        MinimenuEntry* this_03;
-        ServerConnectionWorkItem* pSVar26;
-        Minimap* this_04;
-        StockPlayerOffer* this_05;
-        bool bVar27;
+        eastl::string* str;
+        uint32_t* puVar11;
+        unsigned int* puVar12;
+        uint8_t* puVar13;
+        uint16_t* puVar14;
+        float* pfVar15;
+        long lVar16;
+        char* pcVar17;
+        unsigned int uVar18;
+        char cVar19;
+        unsigned long uVar20;
+        unsigned long uVar21;
+        unsigned int uVar22;
+        Vector3T<float>* this_02;
+        Array<int>* this_03;
+        __cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>* this_04;
+        MinimenuEntry* this_05;
+        ServerConnectionWorkItem* this_06;
+        Minimap* this_07;
+        StockPlayerOffer* this_08;
+        bool bVar23;
         int local_40[2];
-        Array<unsigned short, eastl::allocator>* local_38;
+        Array<unsigned short>* local_38;
 
-        switch (param_2) {
+        switch (arg2) {
         case 1:
-            uVar7 = param_1->gSmart2or4s();
+            uVar7 = arg1.gSmart2or4s();
             field_668 = uVar7;
             break;
         case 2:
-            pbVar11 = (basic_string*)&field_408;
+            str = (eastl::string*)&field_408;
             goto LAB_100506b17;
         case 3:
-            pbVar11 = (basic_string*)&field_440;
+            str = (eastl::string*)&field_440;
             goto LAB_100506b17;
         case 4:
-            uVar6 = param_1->g2();
+            uVar6 = arg1.g2();
             m_zoom2D = uVar6;
             break;
         case 5:
-            uVar6 = param_1->g2();
-            uVar24 = 0;
+            uVar6 = arg1.g2();
+            uVar22 = 0;
             goto LAB_1005068b5;
         case 6:
-            uVar6 = param_1->g2();
-            uVar24 = 1;
+            uVar6 = arg1.g2();
+            uVar22 = 1;
             goto LAB_1005068b5;
         case 7:
-            uVar5 = param_1->g2();
-            puVar13 = (uint*)math::Vector3T<int>::operator[]((Vector3T<int>*)&field_872, 0);
-            *puVar13 = (uint)uVar5;
-            piVar9 = (int*)math::Vector3T<int>::operator[]((Vector3T<int>*)&field_872, 0);
+            uVar5 = arg1.g2();
+            puVar12 = &field_872[0];
+            *puVar12 = (unsigned int)uVar5;
+            piVar9 = &field_872[0];
             if (*piVar9 < 32768) {
-                m_lastType = param_2;
+                m_lastType = arg2;
                 return DataStatus::READY;
             }
-            uVar24 = 0;
+            uVar22 = 0;
             goto LAB_1005064f0;
         case 8:
-            uVar5 = param_1->g2();
-            puVar13 = (uint*)math::Vector3T<int>::operator[]((Vector3T<int>*)&field_872, 1);
-            *puVar13 = (uint)uVar5;
-            piVar9 = (int*)math::Vector3T<int>::operator[]((Vector3T<int>*)&field_872, 1);
+            uVar5 = arg1.g2();
+            puVar12 = &field_872[1];
+            *puVar12 = (unsigned int)uVar5;
+            piVar9 = &field_872[1];
             if (*piVar9 < 32768) {
-                m_lastType = param_2;
+                m_lastType = arg2;
                 return DataStatus::READY;
             }
-            uVar24 = 1;
+            uVar22 = 1;
         LAB_1005064f0:
-            piVar9 = (int*)math::Vector3T<int>::operator[]((Vector3T<int>*)&field_872, uVar24);
-            *piVar9 = *piVar9 + -65536;
+            piVar9 = (int*)field_872[uVar22];
+            *piVar9 = *piVar9 - 65536;
             break;
         default:
-            uVar14 = logger::default_logger();
-            logger::Logger::Log(uVar14, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
-                                "config/objtype/ObjType.cpp",
-                                357, "Unrecognised .obj config code: %u (Last type: %d)", param_2, m_lastType);
+            (logger::default_logger())
+                ->Log(false, 2,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
+                      "objtype/ObjType.cpp",
+                      357, "Unrecognised .obj config code: %u (Last type: %d)", (unsigned long)arg2,
+                      (unsigned long)m_lastType);
             break;
         case 11:
             m_stackable = 1;
             break;
         case 12:
-            iVar8 = param_1->g4s();
+            iVar8 = arg1.g4s();
             m_cost = (long)iVar8;
             break;
         case 13:
-            uVar4 = param_1->g1();
+            uVar4 = arg1.g1();
             field_884 = uVar4;
             break;
         case 14:
-            uVar4 = param_1->g1();
+            uVar4 = arg1.g1();
             field_885 = uVar4;
             break;
         case 15:
@@ -218,26 +190,25 @@ namespace jag::game {
             m_members = 1;
             break;
         case 23:
-            p_Var25 = (__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>*)&field_888;
+            this_04 = (__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>*)&field_888;
             goto LAB_1005065ba;
         case 24:
-            this_03 = (MinimenuEntry*)&field_888;
+            this_05 = (MinimenuEntry*)&field_888;
             goto LAB_1005065d8;
         case 25:
-            p_Var25 = (__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>*)&field_920;
+            this_04 = (__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>*)&field_920;
         LAB_1005065ba:
-            uVar7 = param_1->gSmart2or4s();
-            std::__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>::__cxx_atomic_base_impl(
-                p_Var25, uVar7);
+            iVar8 = arg1.gSmart2or4s();
+            new (this_04) std::__cxx_atomic_base_impl(iVar8);
             break;
         case 26:
-            this_03 = (MinimenuEntry*)&field_920;
+            this_05 = (MinimenuEntry*)&field_920;
         LAB_1005065d8:
-            iVar8 = param_1->gSmart2or4s();
-            this_03->SetZ(iVar8);
+            iVar8 = arg1.gSmart2or4s();
+            this_05->SetZ(iVar8);
             break;
         case 27:
-            uVar4 = param_1->g1();
+            uVar4 = arg1.g1();
             field_886 = uVar4;
             break;
         case 30:
@@ -245,210 +216,200 @@ namespace jag::game {
         case 32:
         case 33:
         case 34:
-            pbVar11 = (basic_string*)std::array<eastl::string, 6ul>::operator[]((array<eastl::string, 6ul>*)&field_56,
-                                                                                (ulong)(param_2 - 30));
+            str = &field_56[(unsigned long)(arg2 - 30)];
             goto LAB_100506b17;
         case 35:
         case 36:
         case 37:
         case 38:
         case 39:
-            pbVar11 = (basic_string*)std::array<eastl::string, 5ul>::operator[]((array<eastl::string, 5ul>*)&field_248,
-                                                                                (ulong)(param_2 - 35));
+            str = &field_248[(unsigned long)(arg2 - 35)];
             goto LAB_100506b17;
         case 40:
-            bVar3 = param_1->g1();
-            uVar22 = (ulong)bVar3;
-            (&field_672, uVar22, 0)->set_max_size();
-            (&field_696, uVar22, 0)->set_max_size();
+            bVar3 = arg1.g1();
+            uVar20 = (unsigned long)bVar3;
+            field_672.set_max_size(uVar20, 0);
+            field_696.set_max_size(uVar20, 0);
             if (bVar3 != 0) {
-                uVar23 = 0;
-                local_38 = (Array<unsigned short, eastl::allocator>*)uVar22;
+                uVar21 = 0;
+                local_38 = (Array<unsigned short>*)uVar20;
                 do {
-                    uVar6 = param_1->g2();
-                    puVar16 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                        (Array<unsigned short, eastl::allocator>*)&field_672, uVar23);
-                    *puVar16 = uVar6;
-                    uVar6 = param_1->g2();
-                    puVar16 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                        (Array<unsigned short, eastl::allocator>*)&field_696, uVar23);
-                    *puVar16 = uVar6;
-                    uVar23 = uVar23 + 1;
-                } while (local_38 != (Array<unsigned short, eastl::allocator>*)uVar23);
+                    uVar6 = arg1.g2();
+                    puVar14 = &field_672[uVar21];
+                    *puVar14 = uVar6;
+                    uVar6 = arg1.g2();
+                    puVar14 = &field_696[uVar21];
+                    *puVar14 = uVar6;
+                    uVar21 = uVar21 + 1;
+                } while (local_38 != (Array<unsigned short>*)uVar21);
             }
             break;
         case 41:
-            bVar3 = param_1->g1();
-            local_38 = (Array<unsigned short, eastl::allocator>*)&field_768;
-            uVar22 = (ulong)bVar3;
-            local_38->set_max_size(uVar22, 0);
-            (&field_792, uVar22, 0)->set_max_size();
+            bVar3 = arg1.g1();
+            local_38 = (Array<unsigned short>*)&field_768;
+            uVar20 = (unsigned long)bVar3;
+            local_38->set_max_size(uVar20, 0);
+            field_792.set_max_size(uVar20, 0);
             if (bVar3 != 0) {
-                uVar23 = 0;
+                uVar21 = 0;
                 do {
-                    uVar6 = param_1->g2();
-                    puVar16 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](local_38, uVar23);
-                    *puVar16 = uVar6;
-                    uVar6 = param_1->g2();
-                    puVar16 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                        (Array<unsigned short, eastl::allocator>*)&field_792, uVar23);
-                    *puVar16 = uVar6;
-                    uVar23 = uVar23 + 1;
-                } while (uVar22 != uVar23);
+                    uVar6 = arg1.g2();
+                    puVar14 = (uint16_t*)(*local_38)[uVar21];
+                    *puVar14 = uVar6;
+                    uVar6 = arg1.g2();
+                    puVar14 = &field_792[uVar21];
+                    *puVar14 = uVar6;
+                    uVar21 = uVar21 + 1;
+                } while (uVar20 != uVar21);
             }
             break;
         case 42:
-            bVar3 = param_1->g1();
-            (&field_720, (ulong)bVar3, 0)->set_max_size();
+            bVar3 = arg1.g1();
+            field_720.set_max_size((unsigned long)bVar3, 0);
             if (bVar3 != 0) {
-                uVar22 = 0;
+                uVar20 = 0;
                 do {
-                    uVar4 = param_1->g1();
-                    puVar15 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                        (Array<unsigned char, eastl::allocator>*)&field_720, uVar22);
-                    *puVar15 = uVar4;
-                    uVar22 = uVar22 + 1;
-                } while (bVar3 != uVar22);
+                    uVar4 = arg1.g1();
+                    puVar13 = &field_720[uVar20];
+                    *puVar13 = uVar4;
+                    uVar20 = uVar20 + 1;
+                } while (bVar3 != uVar20);
             }
             break;
         case 43:
-            uVar7 = param_1->g4();
+            uVar7 = arg1.g4();
             field_660 = uVar7;
             field_659 = 1;
             break;
         case 44:
-            uVar5 = param_1->g2();
-            local_38 = (Array<unsigned short, eastl::allocator>*)CONCAT44(local_38._4_4_, (uint)uVar5);
+            uVar5 = arg1.g2();
+            local_38 = (Array<unsigned short>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)((unsigned int)uVar5));
             if (uVar5 == 0) {
-                uVar24 = 0;
-            } else {
-                uVar24 = 0;
-                uVar20 = (uint)uVar5;
-                do {
-                    uVar24 = uVar24 + 1;
-                    bVar27 = 1 < uVar20;
-                    uVar20 = uVar20 >> 1;
-                } while (bVar27);
-            }
-            (&field_744, (ulong)uVar24, 0)->set_max_size();
-            if (uVar24 != 0) {
                 uVar22 = 0;
+            } else {
+                uVar22 = 0;
+                uVar18 = (unsigned int)uVar5;
+                do {
+                    uVar22 = uVar22 + 1;
+                    bVar23 = 1 < uVar18;
+                    uVar18 = uVar18 >> 1;
+                } while (bVar23);
+            }
+            field_744.set_max_size((unsigned long)uVar22, 0);
+            if (uVar22 != 0) {
+                uVar20 = 0;
                 cVar2 = '\0';
                 do {
-                    if (((uint)local_38._0_4_ >> ((uint)uVar22 & 31) & 1) == 0) {
-                        cVar21 = -1;
+                    if (((unsigned int)local_38._0_4_ >> ((unsigned int)uVar20 & 31) & 1) == 0) {
+                        cVar19 = -1;
                     } else {
                         if (cVar2 == '\x7f') {
-                            /* WARNING: Subroutine does not return */
                             LogAssert("active < std::numeric_limits<int8>::max()",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
                                       "runetek5/config/objtype/ObjType.cpp",
-                                      163, (char*)0);
+                                      163, nullptr);
                         }
-                        cVar21 = cVar2;
+                        cVar19 = cVar2;
                         cVar2 = cVar2 + '\x01';
                     }
-                    pcVar19 = (char*)Array<signed char, eastl::allocator>::operator[](
-                        (Array<signed char, eastl::allocator>*)&field_744, uVar22);
-                    *pcVar19 = cVar21;
-                    uVar22 = uVar22 + 1;
-                } while (uVar24 != uVar22);
+                    pcVar17 = &field_744[uVar20];
+                    *pcVar17 = cVar19;
+                    uVar20 = uVar20 + 1;
+                } while (uVar22 != uVar20);
             }
             break;
         case 45:
-            uVar5 = param_1->g2();
-            local_38 = (Array<unsigned short, eastl::allocator>*)CONCAT44(local_38._4_4_, (uint)uVar5);
+            uVar5 = arg1.g2();
+            local_38 = (Array<unsigned short>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)((unsigned int)uVar5));
             if (uVar5 == 0) {
-                uVar24 = 0;
-            } else {
-                uVar24 = 0;
-                uVar20 = (uint)uVar5;
-                do {
-                    uVar24 = uVar24 + 1;
-                    bVar27 = 1 < uVar20;
-                    uVar20 = uVar20 >> 1;
-                } while (bVar27);
-            }
-            (&field_816, (ulong)uVar24, 0)->set_max_size();
-            if (uVar24 != 0) {
                 uVar22 = 0;
+            } else {
+                uVar22 = 0;
+                uVar18 = (unsigned int)uVar5;
+                do {
+                    uVar22 = uVar22 + 1;
+                    bVar23 = 1 < uVar18;
+                    uVar18 = uVar18 >> 1;
+                } while (bVar23);
+            }
+            field_816.set_max_size((unsigned long)uVar22, 0);
+            if (uVar22 != 0) {
+                uVar20 = 0;
                 cVar2 = '\0';
                 do {
-                    if (((uint)local_38._0_4_ >> ((uint)uVar22 & 31) & 1) == 0) {
-                        cVar21 = -1;
+                    if (((unsigned int)local_38._0_4_ >> ((unsigned int)uVar20 & 31) & 1) == 0) {
+                        cVar19 = -1;
                     } else {
                         if (cVar2 == '\x7f') {
-                            /* WARNING: Subroutine does not return */
                             LogAssert("active < std::numeric_limits<int8>::max()",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
                                       "runetek5/config/objtype/ObjType.cpp",
-                                      189, (char*)0);
+                                      189, nullptr);
                         }
-                        cVar21 = cVar2;
+                        cVar19 = cVar2;
                         cVar2 = cVar2 + '\x01';
                     }
-                    pcVar19 = (char*)Array<signed char, eastl::allocator>::operator[](
-                        (Array<signed char, eastl::allocator>*)&field_816, uVar22);
-                    *pcVar19 = cVar21;
-                    uVar22 = uVar22 + 1;
-                } while (uVar24 != uVar22);
+                    pcVar17 = &field_816[uVar20];
+                    *pcVar17 = cVar19;
+                    uVar20 = uVar20 + 1;
+                } while (uVar22 != uVar20);
             }
             break;
         case 65:
             m_isStockmarket = true;
             break;
         case 69:
-            uVar7 = param_1->g4s();
+            uVar7 = arg1.g4s();
             field_652 = uVar7;
             break;
         case 78:
-            pSVar26 = (ServerConnectionWorkItem*)&field_888;
+            this_06 = (ServerConnectionWorkItem*)&field_888;
             goto LAB_100506822;
         case 79:
-            pSVar26 = (ServerConnectionWorkItem*)&field_920;
+            this_06 = (ServerConnectionWorkItem*)&field_920;
         LAB_100506822:
-            uVar7 = param_1->gSmart2or4s();
-            oldscape::ServerConnectionWorkItem::ServerConnectionWorkItem(pSVar26, uVar7);
+            iVar8 = arg1.gSmart2or4s();
+            new (this_06) oldscape::ServerConnectionWorkItem(iVar8);
             break;
         case 90:
-            this_04 = (Minimap*)&field_888;
+            this_07 = (Minimap*)&field_888;
             goto LAB_100506849;
         case 91:
-            this_04 = (Minimap*)&field_920;
+            this_07 = (Minimap*)&field_920;
         LAB_100506849:
-            iVar8 = param_1->gSmart2or4s();
-            this_04->SetLevel(iVar8);
+            iVar8 = arg1.gSmart2or4s();
+            this_07->SetLevel(iVar8);
             break;
         case 92:
-            this_05 = (StockPlayerOffer*)&field_888;
+            this_08 = (StockPlayerOffer*)&field_888;
             goto LAB_100506870;
         case 93:
-            this_05 = (StockPlayerOffer*)&field_920;
+            this_08 = (StockPlayerOffer*)&field_920;
         LAB_100506870:
-            iVar8 = param_1->gSmart2or4s();
-            this_05->SetCompletedCount(iVar8);
+            iVar8 = arg1.gSmart2or4s();
+            this_08->SetCompletedCount(iVar8);
             break;
         case 94:
-            uVar5 = param_1->g2();
+            uVar5 = arg1.g2();
             field_664 = uVar5;
             break;
         case 95:
-            uVar6 = param_1->g2();
-            uVar24 = 2;
+            uVar6 = arg1.g2();
+            uVar22 = 2;
         LAB_1005068b5:
-            puVar16 = (undefined2*)math::Vector3T<short>::operator[]((Vector3T<short>*)&field_864, uVar24);
-            *puVar16 = uVar6;
+            puVar14 = &field_864[uVar22];
+            *puVar14 = uVar6;
             break;
         case 96:
-            uVar4 = param_1->g1();
+            uVar4 = arg1.g1();
             field_657 = uVar4;
             break;
         case 97:
-            uVar5 = param_1->g2();
+            uVar5 = arg1.g2();
             field_952 = uVar5;
             break;
         case 98:
-            uVar5 = param_1->g2();
+            uVar5 = arg1.g2();
             field_954 = uVar5;
             break;
         case 100:
@@ -461,111 +422,108 @@ namespace jag::game {
         case 107:
         case 108:
         case 109:
-            puVar15 = &field_600;
-            lVar18 = puVar15->end();
-            if (lVar18 == 0) {
-                puVar15->set_max_size(10, 0);
+            puVar13 = &field_600;
+            lVar16 = puVar13->end();
+            if (lVar16 == 0) {
+                puVar13->set_max_size(10, 0);
                 this_00 = &field_624;
                 this_00->set_max_size(10, 0);
-                piVar9 = (int*)puVar15->data();
-                piVar10 = (int*)puVar15->end();
+                piVar9 = (int*)puVar13->data();
+                piVar10 = (int*)puVar13->end();
                 local_40[0] = 0;
-                std::fill<int*, int>(piVar9, piVar10, local_40);
+                std::fill<int*, int>(piVar9, piVar10, *local_40);
                 piVar9 = (int*)this_00->data();
                 piVar10 = (int*)this_00->end();
                 local_40[1] = 0;
-                std::fill<int*, int>(piVar9, piVar10, local_40 + 1);
+                std::fill<int*, int>(piVar9, piVar10, *(local_40 + 1));
             }
-            uVar5 = param_1->g2();
-            puVar13 = (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar15,
-                                                                      (ulong)(param_2 - 100));
-            *puVar13 = (uint)uVar5;
-            uVar5 = param_1->g2();
-            puVar13 = (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_624,
-                                                                      (ulong)(param_2 - 100));
-            *puVar13 = (uint)uVar5;
+            uVar5 = arg1.g2();
+            puVar12 = (unsigned int*)(*puVar13)[(unsigned long)(arg2 - 100)];
+            *puVar12 = (unsigned int)uVar5;
+            uVar5 = arg1.g2();
+            puVar12 = &field_624[(unsigned long)(arg2 - 100)];
+            *puVar12 = (unsigned int)uVar5;
             break;
         case 110:
         case 111:
         case 112:
             if (field_860 == '\0') {
-                (&field_848)->SetToOne();
+                field_848 = math::Vector3T<float>::SetToOne();
                 field_860 = 1;
             }
-            uVar5 = param_1->g2();
-            local_38 = (Array<unsigned short, eastl::allocator>*)CONCAT44(local_38._4_4_, (float)uVar5 * 0.0078125);
-            this_01 = (Vector3T<float>*)&field_848;
-            uVar24 = param_2 - 110;
+            uVar5 = arg1.g2();
+            local_38 =
+                (Array<unsigned short>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)((float)uVar5 * 0.0078125f));
+            this_02 = (Vector3T<float>*)&field_848;
+            uVar22 = arg2 - 110;
             goto LAB_100506a08;
         case 113:
-            cVar2 = param_1->g1s();
+            cVar2 = arg1.g1s();
             field_840 = (short)cVar2;
             break;
         case 114:
-            cVar2 = param_1->g1s();
+            cVar2 = arg1.g1s();
             field_842 = cVar2 * 5;
             break;
         case 115:
-            uVar1 = param_1->g1();
-            m_team = uVar1;
+            m_team = arg1.g1();
             break;
         case 121:
-            uVar5 = param_1->g2();
+            uVar5 = arg1.g2();
             field_956 = uVar5;
             break;
         case 122:
-            uVar5 = param_1->g2();
+            uVar5 = arg1.g2();
             field_958 = uVar5;
             break;
         case 125:
-            cVar2 = param_1->g1s();
-            this_01 = (Vector3T<float>*)&field_908;
+            cVar2 = arg1.g1s();
+            this_02 = (Vector3T<float>*)&field_908;
             goto LAB_1005069a9;
         case 126:
-            cVar2 = param_1->g1s();
-            this_01 = (Vector3T<float>*)&field_940;
+            cVar2 = arg1.g1s();
+            this_02 = (Vector3T<float>*)&field_940;
         LAB_1005069a9:
             local_38._0_4_ = (float)(int)cVar2;
-            pfVar17 = (float*)math::Vector3T<float>::operator[](this_01, 0);
-            *pfVar17 = local_38._0_4_;
-            cVar2 = param_1->g1s();
+            pfVar15 = (float*)(*this_02)[0];
+            *pfVar15 = local_38._0_4_;
+            cVar2 = arg1.g1s();
             local_38._0_4_ = (float)(int)cVar2;
-            pfVar17 = (float*)math::Vector3T<float>::operator[](this_01, 1);
-            *pfVar17 = local_38._0_4_;
-            cVar2 = param_1->g1s();
-            local_38 = (Array<unsigned short, eastl::allocator>*)CONCAT44(local_38._4_4_, (float)(int)cVar2);
-            uVar24 = 2;
+            pfVar15 = (float*)(*this_02)[1];
+            *pfVar15 = local_38._0_4_;
+            cVar2 = arg1.g1s();
+            local_38 = (Array<unsigned short>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)((float)(int)cVar2));
+            uVar22 = 2;
         LAB_100506a08:
-            puVar12 = (undefined4*)math::Vector3T<float>::operator[](this_01, uVar24);
-            *puVar12 = local_38._0_4_;
+            puVar11 = (uint32_t*)(*this_02)[uVar22];
+            *puVar11 = local_38._0_4_;
             break;
         case 131:
-            pbVar11 = (basic_string*)&field_472;
+            str = (eastl::string*)&field_472;
             goto LAB_100506b17;
         case 132:
-            bVar3 = param_1->g1();
-            (&field_560, (ulong)bVar3, 0)->set_max_size();
+            bVar3 = arg1.g1();
+            field_560.set_max_size((unsigned long)bVar3, 0);
             if (bVar3 != 0) {
-                uVar22 = 0;
+                uVar20 = 0;
                 do {
-                    uVar5 = param_1->g2();
-                    puVar13 = (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_560,
-                                                                              uVar22);
-                    *puVar13 = (uint)uVar5;
-                    uVar22 = uVar22 + 1;
-                } while (bVar3 != uVar22);
+                    uVar5 = arg1.g2();
+                    puVar12 = &field_560[uVar20];
+                    *puVar12 = (unsigned int)uVar5;
+                    uVar20 = uVar20 + 1;
+                } while (bVar3 != uVar20);
             }
             break;
         case 134:
-            uVar4 = param_1->g1();
+            uVar4 = arg1.g1();
             field_844 = uVar4;
             break;
         case 139:
-            uVar5 = param_1->g2();
+            uVar5 = arg1.g2();
             field_960 = uVar5;
             break;
         case 140:
-            uVar5 = param_1->g2();
+            uVar5 = arg1.g2();
             field_962 = uVar5;
             break;
         case 142:
@@ -573,41 +531,41 @@ namespace jag::game {
         case 144:
         case 145:
         case 146:
-            this_02 = (Array<int, eastl::allocator>*)&field_512;
-            lVar18 = this_02->end();
-            if (lVar18 == 0) {
-                uVar22 = 0;
-                this_02->set_max_size(6, 0);
+            this_03 = (Array<int>*)&field_512;
+            lVar16 = this_03->end();
+            if (lVar16 == 0) {
+                uVar20 = 0;
+                this_03->set_max_size(6, 0);
                 do {
-                    puVar12 = (undefined4*)Array<int, eastl::allocator>::operator[](this_02, uVar22);
-                    *puVar12 = 4294967295;
-                    uVar22 = uVar22 + 1;
-                } while (uVar22 != 6);
+                    puVar11 = (uint32_t*)(*this_03)[uVar20];
+                    *puVar11 = 4294967295;
+                    uVar20 = uVar20 + 1;
+                } while (uVar20 != 6);
             }
-            uVar5 = param_1->g2();
-            uVar24 = param_2 - 142;
+            uVar5 = arg1.g2();
+            uVar22 = arg2 - 142;
             goto LAB_10050639d;
         case 150:
         case 151:
         case 152:
         case 153:
         case 154:
-            this_02 = (Array<int, eastl::allocator>*)&field_536;
-            lVar18 = this_02->end();
-            if (lVar18 == 0) {
-                uVar22 = 0;
-                this_02->set_max_size(5, 0);
+            this_03 = (Array<int>*)&field_536;
+            lVar16 = this_03->end();
+            if (lVar16 == 0) {
+                uVar20 = 0;
+                this_03->set_max_size(5, 0);
                 do {
-                    puVar12 = (undefined4*)Array<int, eastl::allocator>::operator[](this_02, uVar22);
-                    *puVar12 = 4294967295;
-                    uVar22 = uVar22 + 1;
-                } while (uVar22 != 5);
+                    puVar11 = (uint32_t*)(*this_03)[uVar20];
+                    *puVar11 = 4294967295;
+                    uVar20 = uVar20 + 1;
+                } while (uVar20 != 5);
             }
-            uVar5 = param_1->g2();
-            uVar24 = param_2 - 150;
+            uVar5 = arg1.g2();
+            uVar22 = arg2 - 150;
         LAB_10050639d:
-            puVar13 = (uint*)Array<int, eastl::allocator>::operator[](this_02, (ulong)uVar24);
-            *puVar13 = (uint)uVar5;
+            puVar12 = (unsigned int*)(*this_03)[(unsigned long)uVar22];
+            *puVar12 = (unsigned int)uVar5;
             break;
         case 156:
             field_585 = 0;
@@ -616,22 +574,21 @@ namespace jag::game {
             m_hasRandomPosition = 1;
             break;
         case 161:
-            uVar5 = param_1->g2();
+            uVar5 = arg1.g2();
             field_964 = uVar5;
             break;
         case 162:
-            uVar5 = param_1->g2();
+            uVar5 = arg1.g2();
             field_966 = uVar5;
             break;
         case 163:
-            uVar6 = param_1->g2();
+            uVar6 = arg1.g2();
             field_968 = uVar6;
             break;
         case 164:
-            pbVar11 = (basic_string*)&field_976;
+            str = (eastl::string*)&field_976;
         LAB_100506b17:
-            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1, pbVar11, false);
+            arg1.gStringCP1252ToUTF8<eastl::string>(str, false);
             break;
         case 165:
             m_stackable = 2;
@@ -646,86 +603,65 @@ namespace jag::game {
             m_stackable = 0;
             break;
         case 181:
-            lVar18 = param_1->g8s();
-            m_cost = lVar18;
+            lVar16 = arg1.g8s();
+            m_cost = lVar16;
             break;
         case 249:
-            DecodeParams(param_1);
+            DecodeParams(arg1);
         }
-        m_lastType = param_2;
+        m_lastType = arg2;
         return DataStatus::READY;
     }
 
-    // 0x100507320, 32 bytes, placed by class name and debug map
-    // ObjType::PostDecode()
+    // 0x100507320
     void ObjType::PostDecode() {
         if (field_657 != '\0') {
             m_isTradeable = false;
         }
     }
 
-    // 0x100507340, 112 bytes, placed by class name and debug map
-    // ObjType::GetAppearance(bool, shared_ptr<ObjTypeCustomisation> const&)
-    void ObjType::GetAppearance(bool param_1, shared_ptr* param_2) {
-        bool bVar1;
-        Option<float>* this_00;
-        Layout* this_01;
-        undefined3 in_register_00000031;
-        int iVar2;
-        undefined4 in_register_00000034;
+    // 0x100507340
+    void ObjType::GetAppearance(bool arg1, const shared_ptr<ObjTypeCustomisation>& objTypeCustomisation) {
+        uint32_t in_register_00000031;
 
-        iVar2 = CONCAT31(in_register_00000031, param_1);
-        bVar1 = shared_ptr::operator_cast_to_bool(param_2);
-        if (CONCAT31(in_register_00000031, param_1) == 0) {
-            if (bVar1) {
-                this_01 =
-                    (Layout*)shared_ptr<ObjTypeCustomisation>::operator->((shared_ptr<ObjTypeCustomisation>*)param_2);
-                eastl::string::Layout::SSOBeginPtr(this_01, (type*)CONCAT44(in_register_00000034, iVar2));
+        bool cVar1 = objTypeCustomisation.operator_cast_to_bool();
+        if ((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1) == 0) {
+            if (!cVar1) {
+                GetManAppearance();
             } else {
-                GetManAppearance(this);
+                ((Layout*)objTypeCustomisation.operator->())->SSOBeginPtr();
             }
-        } else if (bVar1) {
-            this_00 = (Option<float>*)shared_ptr<ObjTypeCustomisation>::operator->(
-                (shared_ptr<ObjTypeCustomisation>*)param_2);
-            this_00->GetDefaultValue();
+        } else if (!cVar1) {
+            GetWomanAppearance();
         } else {
-            GetWomanAppearance(this);
+            ((Option<float>*)objTypeCustomisation.operator->())->GetDefaultValue();
         }
     }
 
-    // 0x1005073f0, 224 bytes, placed by class name and debug map
-    // ObjType::GetStackSizeAlt(long long)
-    ObjType* ObjType::GetStackSizeAlt(longlong param_1) {
-        long lVar1;
+    // 0x1005073f0
+    ObjType* ObjType::GetStackSizeAlt(long long arg1) {
         int* piVar2;
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
         ObjType* pOVar3;
-        ulong uVar4;
-        int iVar5;
+        unsigned long arg1_00;
+        int arg1_01;
 
-        lVar1 = (&field_600)->end();
-        if ((lVar1 != 0) && (1 < param_1)) {
-            iVar5 = -1;
-            uVar4 = 0;
+        if ((field_600.end() != 0) && (1 < arg1)) {
+            arg1_01 = -1;
+            arg1_00 = 0;
             do {
-                piVar2 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_624, uVar4);
-                if ((*piVar2 <= param_1) && (piVar2 = (int*)Array<int, eastl::allocator>::operator[](
-                                                 (Array<int, eastl::allocator>*)&field_624, uVar4),
-                                             *piVar2 != 0)) {
-                    piVar2 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_600,
-                                                                            uVar4);
-                    iVar5 = *piVar2;
+                piVar2 = &field_624[arg1_00];
+                if ((*piVar2 <= arg1) && (piVar2 = (int*)field_624[arg1_00], *piVar2 != 0)) {
+                    piVar2 = &field_600[arg1_00];
+                    arg1_01 = *piVar2;
                 }
-                uVar4 = uVar4 + 1;
-            } while (uVar4 != 10);
-            if (iVar5 != -1) {
-                this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(field_24, iVar5,
-                                                                                              (DataStatus**)0)
-                              ->List();
-                pOVar3 =
-                    (ObjType*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-                if (iVar5 != -1) {
+                arg1_00 = arg1_00 + 1;
+            } while (arg1_00 != 10);
+            if (arg1_01 != -1) {
+                this_00 =
+                    (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_24->List(arg1_01, nullptr);
+                pOVar3 = (ObjType*)this_00->end();
+                if (arg1_01 != -1) {
                     return pOVar3;
                 }
             }
@@ -733,327 +669,278 @@ namespace jag::game {
         return this;
     }
 
-    // 0x1005074d0, 2608 bytes, placed by class name and debug map
-    // ObjType::GetBodyModel(graphics::RT7Core*, AssetBuilder&, BuildRequest<graphics::Model, BuildModelMain>&, bool, shared_ptr<ObjTypeCustomisation> const&, unsigned short, shared_ptr<PlayerModel> const&)
-    undefined* ObjType::GetBodyModel(RT7Core* param_1, AssetBuilder* param_2, BuildRequest* param_3, bool param_4,
-                                     shared_ptr* param_5, ushort param_6, shared_ptr* param_7) {
-        undefined1* puVar1;
-        ObjTypeList* this_00;
-        bool bVar2;
+    // 0x1005074d0
+    uint8_t* ObjType::GetBodyModel(graphics::RT7Core* rt7Core, AssetBuilder& assetBuilder,
+                                   BuildRequest<graphics::Model, BuildModelMain>& buildRequest, bool arg4,
+                                   const shared_ptr<ObjTypeCustomisation>& objTypeCustomisation, unsigned short arg6,
+                                   const shared_ptr<PlayerModel>& playerModel) {
+        uint8_t* puVar1;
+        Js5ArchiveSettings* pJVar2;
         bool bVar3;
-        char cVar4;
-        byte bVar5;
-        byte bVar6;
-        int iVar7;
-        undefined4 uVar8;
-        PlayerModel* pPVar9;
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>* this_01;
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* this_02;
-        Js5ArchiveSettings* pJVar10;
+        char cVar5;
+        uint8_t bVar6;
+        uint8_t bVar7;
+        int iVar8;
+        uint32_t uVar9;
+        shared_ptr* this_03;
         Model* pMVar11;
-        CommandLine* this_03;
+        CommandLine* this_04;
         long lVar12;
-        Js5ArchiveSettings* pJVar13;
+        unsigned long uVar13;
         int* piVar14;
         long* plVar15;
-        undefined4* puVar16;
-        undefined* puVar17;
-        undefined** ppuVar18;
-        ulong uVar19;
-        ulong uVar20;
-        Vector3T* pVVar21;
-        Js5ResourceProvider* this_04;
-        uint* puVar22;
-        LoginManager* pLVar23;
-        Array<VarValue, eastl::allocator>* pAVar24;
-        GeometryBatch* pGVar25;
-        BuildModelMain* pBVar26;
-        Array* pAVar27;
-        WorldmapAreaMetadata* this_05;
-        Array* pAVar28;
-        Array* pAVar29;
-        MapArea* this_06;
-        vector* this_07;
-        bool bVar30;
-        shared_ptr* this_08;
-        BuildRequest* this_09;
-        Js5ArchiveSettings* pJVar31;
-        ObjType* pOVar32;
-        undefined1 local_160[72];
+        uint32_t* puVar16;
+        uint8_t* puVar17;
+        uint8_t** ppuVar18;
+        Vector3T<float>* vector3;
+        Js5ResourceProvider* this_05;
+        unsigned int* puVar19;
+        LoginManager* pLVar20;
+        Array<VarValue>* pAVar21;
+        GeometryBatch* pGVar22;
+        BuildModelMain* pBVar23;
+        Array<unsigned short>* pAVar24;
+        WorldmapAreaMetadata* this_06;
+        Array<unsigned char>* pAVar25;
+        Array<Array<unsigned short>>* pAVar26;
+        Array<Array<Array<unsigned short>>>* pAVar27;
+        MapArea* this_07;
+        shared_ptr<graphics::Model>* this_08;
+        bool bVar28;
+        shared_ptr<ObjTypeCustomisation>* this_09;
+        BuildRequest<graphics::Model, BuildModelMain>* this_10;
+        unsigned long uVar29;
+        ObjType* pOVar30;
+        PacketView local_160;
+        vector<math::Vector3T<float>> local_138;
         CommandLine* local_110;
-        RT7Core* local_108;
-        shared_ptr local_100;
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>* local_f0;
+        uint32_t local_100[4];
+        AssetLRUHashCache<graphics::Model, BuildModelMain, _100ul, _101ul, false>* local_f0;
         AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* local_e8;
-        vector<int, eastl::allocator> local_e0[32];
-        shared_ptr local_b0;
+        vector<int> local_e0;
+        shared_ptr<BuildModelMain> local_b0;
         ObjType* local_a0;
-        undefined* local_98;
-        ModelConstructedState local_8b;
-        bool local_8a;
-        bool local_89;
-        Js5ArchiveSettings local_88;
-        long local_38;
+        uint8_t* local_98;
+        bool local_8b;
+        uint8_t local_8a[2];
+        unsigned long long local_88[10];
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_00 = (ObjTypeList*)field_24;
-        local_108 = param_1;
-        pPVar9 = (PlayerModel*)shared_ptr<PlayerModel>::operator->((shared_ptr<PlayerModel>*)param_7);
-        this_01 = (AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>*)
-                      pPVar9->GetRecolouredModelsCache();
-        this_02 = (AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>*)this_00->GetModelCache();
-        bVar3 = operator!=(param_7, (_func_decltype_nullptr*)0);
-        if (bVar3) {
+        ObjTypeList* this_00 = (ObjTypeList*)field_24;
+        RT7Core* local_108 = rt7Core;
+        auto pPVar10 = playerModel.operator->();
+        auto this_01 = pPVar10->GetRecolouredModelsCache();
+        auto this_02 = this_00->GetModelCache();
+        bool bVar4 = playerModel != nullptr;
+        if (bVar4) {
             local_e8 = this_02;
             this_01->UpdateLoadingAssetList(5);
-            cVar4 = this_01->IsLoadingAsset((long)field_32);
-            if (cVar4 != '\0')
+            cVar5 = this_01->IsLoadingAsset((long)field_32);
+            if (cVar5)
                 goto LAB_1005077a0;
-            local_88._0_8_ = SEXT48(field_32);
-            pJVar31 = &local_88;
+            local_88[0] = (unsigned long long)field_32;
             local_f0 = this_01;
-            pJVar10 = (Js5ArchiveSettings*)LRUHashCache<graphics::Model, 100ul, 101ul, false, unsigned long long>::Find(
-                (ulonglong*)this_01);
-            bVar3 = pJVar10->operator_cast_to_bool();
-            if (bVar3) {
-                pMVar11 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pJVar10);
-                cVar4 = pMVar11->GetConstructedState();
-                if (cVar4 != '\x02') {
-                    /* WARNING: Subroutine does not return */
+            this_03 = (shared_ptr*)this_01->Find(*local_88);
+            cVar5 = shared_ptr::operator_cast_to_bool(this_03);
+            if (cVar5) {
+                pMVar11 = (Model*)(*this_03).operator->();
+                cVar5 = pMVar11->GetConstructedState();
+                if (cVar5 != '\x02') {
                     LogAssert("cachedModel->GetConstructedState() == graphics::ModelConstructedState::DATA_AND_MAT",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "config/objtype/ObjType.cpp",
-                              444, (char*)0);
+                              444, nullptr);
                 }
             LAB_100507661:
-                param_3->SetConstructedObj(pJVar10);
-                pJVar31 = pJVar10;
+                buildRequest.SetConstructedObj(*this_03);
             }
         LAB_100507670:
-            this_09 = param_3;
-            cVar4 = param_3->IsTaskDone();
-            if ((cVar4 == '\0') && (cVar4 = this_09->IsEmpty(), cVar4 == '\0'))
+            this_10 = buildRequest;
+            cVar5 = buildRequest.IsTaskDone();
+            if ((!cVar5) && (cVar5 = this_10->IsEmpty(), !cVar5))
                 goto LAB_1005077a0;
-            cVar4 = this_09->IsEmpty();
-            if (cVar4 != '\0') {
-                cVar4 = graphics::Model::IsReadyToConstruct(local_108);
-                if (cVar4 == '\0')
+            cVar5 = this_10->IsEmpty();
+            if (cVar5) {
+                cVar5 = graphics::Model::IsReadyToConstruct(local_108);
+                if (!cVar5)
                     goto LAB_1005077a0;
-                pJVar31 = (Js5ArchiveSettings*)(ulong)param_4;
-                this_03 = (CommandLine*)GetAppearance(this, param_4, param_5);
-                iVar7 = this_03->GetX();
-                if (iVar7 == -1) {
+                this_04 = (CommandLine*)GetAppearance(arg4, objTypeCustomisation);
+                iVar8 = this_04->GetX();
+                if (iVar8 == -1) {
                     local_98 = DataStatus::READY;
-                    bVar5 = 1;
+                    bVar6 = 1;
                 } else {
-                    eastl::vector<int, eastl::allocator>::vector(local_e0);
-                    eastl::vector<int, eastl::allocator>::reserve(local_e0, 3);
-                    uVar8 = this_03->GetX();
-                    local_88.m_archiveID = uVar8;
-                    pJVar31 = &local_88;
-                    eastl::vector<int, eastl::allocator>::push_back(local_e0, (int*)pJVar31);
-                    iVar7 = this_03->GetZ();
-                    if (iVar7 != -1) {
-                        uVar8 = this_03->GetZ();
-                        local_88.m_archiveID = uVar8;
-                        pJVar31 = &local_88;
-                        eastl::vector<int, eastl::allocator>::push_back(local_e0, (int*)pJVar31);
-                        iVar7 = this_03->GetPos();
-                        if (iVar7 != -1) {
-                            uVar8 = this_03->GetPos();
-                            local_88.m_archiveID = uVar8;
-                            pJVar31 = &local_88;
-                            eastl::vector<int, eastl::allocator>::push_back(local_e0, (int*)pJVar31);
+                    local_e0 = eastl::vector<int>();
+                    local_e0.reserve(3);
+                    uVar9 = this_04->GetX();
+                    local_88[0] = (((uint64_t)local_88[0]._4_4_ << 32) | (uint32_t)uVar9);
+                    local_e0.push_back(*local_88);
+                    iVar8 = this_04->GetZ();
+                    if (iVar8 != -1) {
+                        uVar9 = this_04->GetZ();
+                        local_88[0] = (((uint64_t)local_88[0]._4_4_ << 32) | (uint32_t)uVar9);
+                        local_e0.push_back(*local_88);
+                        iVar8 = this_04->GetPos();
+                        if (iVar8 != -1) {
+                            uVar9 = this_04->GetPos();
+                            local_88[0] = (((uint64_t)local_88[0]._4_4_ << 32) | (uint32_t)uVar9);
+                            local_e0.push_back(*local_88);
                         }
                     }
-                    local_110 = this_03;
+                    local_110 = this_04;
                     local_a0 = this;
-                    lVar12 = local_e0->size();
-                    local_89 = lVar12 != 0;
+                    lVar12 = local_e0.size();
+                    local_8a[1] = lVar12 != 0;
                     if (lVar12 == 0) {
-                        bVar30 = false;
-                        bVar3 = true;
+                        bVar28 = false;
+                        bVar4 = true;
                     } else {
-                        bVar3 = true;
-                        pJVar10 = (Js5ArchiveSettings*)0;
-                        bVar30 = false;
+                        bVar4 = true;
+                        uVar29 = 0;
+                        bVar28 = false;
                         do {
-                            pJVar31 = pJVar10;
-                            piVar14 = (int*)eastl::vector<int, eastl::allocator>::operator[](local_e0, (ulong)pJVar10);
-                            bVar2 = bVar3;
+                            piVar14 = &local_e0[uVar29];
+                            bVar3 = bVar4;
                             if (*piVar14 != -1) {
                                 plVar15 = (long*)local_a0->field_24->GetOutputType();
-                                pJVar31 = Js5Archive::JS5_MODELSRT7;
-                                puVar16 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_e0,
-                                                                                                        (ulong)pJVar10);
-                                puVar17 = (undefined*)(**(code**)(*plVar15 + 48))(plVar15, pJVar31, *puVar16, 0,
-                                                                                  Priority::HIGH, 1);
-                                bVar2 = false;
+                                pJVar2 = Js5Archive::JS5_MODELSRT7;
+                                puVar16 = &local_e0[uVar29];
+                                puVar17 = (uint8_t*)(**(void (**)(...))(*plVar15 + 48))(plVar15, pJVar2, *puVar16, 0,
+                                                                                        Priority::HIGH, 1);
+                                bVar3 = false;
                                 if (puVar17 != DataStatus::NOTLOADED) {
-                                    bVar2 = bVar3;
+                                    bVar3 = bVar4;
                                 }
-                                bVar30 = true;
+                                bVar28 = true;
                                 if (puVar17 == DataStatus::MISSING) {
                                     local_98 = DataStatus::MISSING;
                                     break;
                                 }
                             }
-                            bVar3 = bVar2;
-                            pJVar10 = (Js5ArchiveSettings*)((long)&pJVar10->m_archiveID + 1);
-                            pJVar13 = (Js5ArchiveSettings*)local_e0->size();
-                            local_89 = pJVar10 < pJVar13;
-                        } while (local_89);
+                            bVar4 = bVar3;
+                            uVar29 = uVar29 + 1;
+                            uVar13 = local_e0.size();
+                            local_8a[1] = uVar29 < uVar13;
+                        } while (local_8a[1]);
                     }
-                    bVar5 = 1;
-                    if ((local_89 & 1U) == 0) {
-                        if (bVar30) {
-                            if (bVar3) {
-                                new (&local_88) eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>();
-                                new ((local_160 + 40)) eastl::vector<math::Vector3T<float>, eastl::allocator>();
-                                pOVar32 = local_a0;
-                                uVar19 = local_e0->size();
-                                local_88.reserve(uVar19);
-                                uVar19 = local_e0->size();
-                                ((local_160 + 40))->reserve(uVar19);
-                                lVar12 = local_e0->size();
+                    bVar6 = 1;
+                    if ((local_8a[1] & 1) == 0) {
+                        if (bVar28) {
+                            if (bVar4) {
+                                new (local_88) eastl::fixed_vector<PacketView, 1ul>();
+                                local_138 = eastl::vector<math::Vector3T<float>>();
+                                pOVar30 = local_a0;
+                                uVar29 = local_e0.size();
+                                local_88->reserve(uVar29);
+                                uVar29 = local_e0.size();
+                                local_138.reserve(uVar29);
+                                lVar12 = local_e0.size();
                                 if (lVar12 != 0) {
-                                    uVar19 = 0;
+                                    uVar29 = 0;
                                     do {
-                                        piVar14 =
-                                            (int*)eastl::vector<int, eastl::allocator>::operator[](local_e0, uVar19);
+                                        piVar14 = &local_e0[uVar29];
                                         if (*piVar14 != -1) {
-                                            pVVar21 = (Vector3T*)local_110->GetOffset();
-                                            ((local_160 + 40))->push_back(pVVar21);
-                                            new (local_160) PacketView();
-                                            this_04 = (Js5ResourceProvider*)pOVar32->field_24->GetOutputType();
-                                            pJVar31 = Js5Archive::JS5_MODELSRT7;
-                                            puVar22 = (uint*)eastl::vector<int, eastl::allocator>::operator[](local_e0,
-                                                                                                              uVar19);
-                                            this_04->GetFile(local_160, pJVar31, *puVar22, 0, (Priority*)Priority::HIGH,
+                                            vector3 = (Vector3T<float>*)local_110->GetOffset();
+                                            local_138.push_back(*vector3);
+                                            local_160 = PacketView();
+                                            this_05 = (Js5ResourceProvider*)pOVar30->field_24->GetOutputType();
+                                            pJVar2 = Js5Archive::JS5_MODELSRT7;
+                                            puVar19 = &local_e0[uVar29];
+                                            this_05->GetFile(local_160, *pJVar2, *puVar19, 0, (Priority*)Priority::HIGH,
                                                              true, false, false);
-                                            eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>::push_back(
-                                                (PacketView*)&local_88);
-                                            local_160->~PacketView();
-                                            pOVar32 = local_a0;
+                                            local_88->push_back(local_160);
+                                            pOVar30 = local_a0;
                                         }
-                                        uVar19 = uVar19 + 1;
-                                        uVar20 = local_e0->size();
-                                    } while (uVar19 < uVar20);
+                                        uVar29 = uVar29 + 1;
+                                        uVar13 = local_e0.size();
+                                    } while (uVar29 < uVar13);
                                 }
-                                this_08 = param_5;
-                                bVar5 = 0;
-                                bVar3 = operator!=(param_5, (_func_decltype_nullptr*)0);
-                                if (bVar3) {
-                                    pLVar23 = (LoginManager*)shared_ptr<ObjTypeCustomisation>::operator->(
-                                        (shared_ptr<ObjTypeCustomisation>*)this_08);
-                                    pAVar24 =
-                                        (Array<VarValue, eastl::allocator>*)pLVar23->GetDevCredentialsOutputDirectory();
-                                    bVar5 = pAVar24->empty();
-                                    bVar5 = bVar5 ^ 1;
-                                    this_08 = param_5;
-                                }
+                                this_09 = objTypeCustomisation;
                                 bVar6 = 0;
-                                bVar3 = operator!=(this_08, (_func_decltype_nullptr*)0);
-                                if (bVar3) {
-                                    pGVar25 = (GeometryBatch*)shared_ptr<ObjTypeCustomisation>::operator->(
-                                        (shared_ptr<ObjTypeCustomisation>*)param_5);
-                                    pAVar24 = (Array<VarValue, eastl::allocator>*)pGVar25->GetBoneIDMap();
-                                    bVar6 = pAVar24->empty();
+                                bVar4 = objTypeCustomisation != nullptr;
+                                if (bVar4) {
+                                    pLVar20 = (LoginManager*)(*this_09).operator->();
+                                    pAVar21 = (Array<VarValue>*)pLVar20->GetDevCredentialsOutputDirectory();
+                                    bVar6 = pAVar21->empty();
                                     bVar6 = bVar6 ^ 1;
+                                    this_09 = objTypeCustomisation;
                                 }
-                                MakeSharedPool<graphics::Model, 3072>::MakeShared<>(
-                                    (shared_ptr*)local_160, (MakeSharedPool<graphics::Model, 3072>*)0);
-                                pMVar11 = (Model*)shared_ptr<graphics::Model>::operator->(
-                                    (shared_ptr<graphics::Model>*)local_160);
-                                pMVar11->SetSourceModelIDs(local_e0);
-                                local_100._0_4_ = 4096;
-                                local_8b = (ModelConstructedState)2;
-                                local_8a = true;
+                                bVar7 = 0;
+                                bVar4 = *this_09 != nullptr;
+                                if (bVar4) {
+                                    pGVar22 = (GeometryBatch*)objTypeCustomisation.operator->();
+                                    pAVar21 = (Array<VarValue>*)pGVar22->GetBoneIDMap();
+                                    bVar7 = pAVar21->empty();
+                                    bVar7 = bVar7 ^ 1;
+                                }
+                                MakeSharedPool<graphics::Model, 3072>::MakeShared<>();
+                                pMVar11 = (Model*)local_160.operator->();
+                                pMVar11->SetSourceModelIDs(&local_e0);
+                                local_100[0] = 4096;
+                                local_8b = true;
+                                local_8a[0] = 1;
                                 bucket_make_shared<BuildModelMain, int, graphics::ModelConstructedState, bool,
-                                                   graphics::RT7Core*&,
-                                                   eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>,
+                                                   graphics::RT7Core*&, eastl::fixed_vector<PacketView, 1ul>,
                                                    shared_ptr<graphics::Model>&>(
-                                    (jag*)&local_b0, (int*)&local_100, &local_8b, &local_8a, &local_108,
-                                    (fixed_vector*)&local_88, (shared_ptr*)local_160);
-                                pBVar26 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                    (shared_ptr<BuildModelMain>*)&local_b0);
-                                pBVar26->SetOffset((vector*)(local_160 + 40));
-                                if (bVar5 == 0) {
-                                    pBVar26 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    pBVar26->SetRecolor((Array*)&local_a0->field_672, (Array*)&local_a0->field_696);
+                                    &local_b0, (ModelConstructedState*)local_100, &local_8b, (RT7Core**)local_8a,
+                                    (fixed_vector<PacketView, _1ul>*)&local_108,
+                                    (shared_ptr<graphics::Model>*)local_88);
+                                pBVar23 = (BuildModelMain*)local_b0.operator->();
+                                pBVar23->SetOffset(local_138);
+                                if (bVar6 == 0) {
+                                    pBVar23 = (BuildModelMain*)local_b0.operator->();
+                                    pBVar23->SetRecolor(local_a0->field_672, local_a0->field_696);
                                 } else {
-                                    pBVar26 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    pLVar23 = (LoginManager*)shared_ptr<ObjTypeCustomisation>::operator->(
-                                        (shared_ptr<ObjTypeCustomisation>*)param_5);
+                                    pBVar23 = (BuildModelMain*)local_b0.operator->();
+                                    pLVar20 = (LoginManager*)objTypeCustomisation.operator->();
                                     puVar1 = &local_a0->field_672;
-                                    pAVar27 = (Array*)pLVar23->GetDevCredentialsOutputDirectory();
-                                    pBVar26->SetCustomRecolor(puVar1, pAVar27);
+                                    pAVar24 = (Array<unsigned short>*)pLVar20->GetDevCredentialsOutputDirectory();
+                                    pBVar23->SetCustomRecolor(*puVar1, *pAVar24);
                                 }
-                                if (bVar6 == 0) {
-                                    pBVar26 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    pBVar26->SetRematerial((Array*)&local_a0->field_768, (Array*)&local_a0->field_792);
+                                if (bVar7 == 0) {
+                                    pBVar23 = (BuildModelMain*)local_b0.operator->();
+                                    pBVar23->SetRematerial(local_a0->field_768, local_a0->field_792);
                                 } else {
-                                    pBVar26 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    pGVar25 = (GeometryBatch*)shared_ptr<ObjTypeCustomisation>::operator->(
-                                        (shared_ptr<ObjTypeCustomisation>*)param_5);
+                                    pBVar23 = (BuildModelMain*)local_b0.operator->();
+                                    pGVar22 = (GeometryBatch*)objTypeCustomisation.operator->();
                                     puVar1 = &local_a0->field_768;
-                                    pAVar27 = (Array*)pGVar25->GetBoneIDMap();
-                                    pBVar26->SetRematerial(puVar1, pAVar27);
+                                    pAVar24 = (Array<unsigned short>*)pGVar22->GetBoneIDMap();
+                                    pBVar23->SetRematerial(*puVar1, *pAVar24);
                                 }
-                                bVar3 = operator!=(param_7, (_func_decltype_nullptr*)0);
-                                if (bVar3) {
-                                    pBVar26 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    this_05 = (WorldmapAreaMetadata*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar27 = (Array*)this_05->GetOrigin();
-                                    pPVar9 = (PlayerModel*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar28 = (Array*)pPVar9->GetPlayerRecolSource();
-                                    pPVar9 = (PlayerModel*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar29 = (Array*)pPVar9->GetPlayerRecolDest();
-                                    pBVar26->SetPlayerRecolor(pAVar27, pAVar28, pAVar29);
-                                    pBVar26 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    this_06 = (MapArea*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar27 = (Array*)this_06->GetOrigin();
-                                    pPVar9 = (PlayerModel*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar28 = (Array*)pPVar9->GetPlayerRematSource();
-                                    pPVar9 = (PlayerModel*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar29 = (Array*)pPVar9->GetPlayerRematDest();
-                                    pBVar26->SetPlayerRematerial(pAVar27, pAVar28, pAVar29);
+                                bVar4 = playerModel != nullptr;
+                                if (bVar4) {
+                                    pBVar23 = (BuildModelMain*)local_b0.operator->();
+                                    this_06 = (WorldmapAreaMetadata*)playerModel.operator->();
+                                    pAVar25 = (Array<unsigned char>*)this_06->GetOrigin();
+                                    pPVar10 = (PlayerModel*)playerModel.operator->();
+                                    pAVar26 = pPVar10->GetPlayerRecolSource();
+                                    pPVar10 = (PlayerModel*)playerModel.operator->();
+                                    pAVar27 = pPVar10->GetPlayerRecolDest();
+                                    pBVar23->SetPlayerRecolor(*pAVar25, *pAVar26, *pAVar27);
+                                    pBVar23 = (BuildModelMain*)local_b0.operator->();
+                                    this_07 = (MapArea*)playerModel.operator->();
+                                    pAVar25 = (Array<unsigned char>*)this_07->GetOrigin();
+                                    pPVar10 = (PlayerModel*)playerModel.operator->();
+                                    pAVar26 = pPVar10->GetPlayerRematSource();
+                                    pPVar10 = (PlayerModel*)playerModel.operator->();
+                                    pAVar27 = pPVar10->GetPlayerRematDest();
+                                    pBVar23->SetPlayerRematerial(*pAVar25, *pAVar26, *pAVar27);
                                 }
-                                pBVar26 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                    (shared_ptr<BuildModelMain>*)&local_b0);
-                                pBVar26->SetAmbientAdjust(param_6 + local_a0->field_840);
-                                new (&local_100) shared_ptr<oldscape::dash3d::Decor>(&local_b0);
-                                param_2->SubmitJob(&local_100);
-                                local_100.~shared_ptr();
-                                bVar3 = operator!=(param_7, (_func_decltype_nullptr*)0);
-                                if (bVar3) {
-                                    local_f0->AddLoadingAsset((long)local_a0->field_32, &local_b0);
+                                pBVar23 = (BuildModelMain*)local_b0.operator->();
+                                pBVar23->SetAmbientAdjust(arg6 + local_a0->field_840);
+                                new (local_100) shared_ptr(&local_b0);
+                                assetBuilder.SubmitJob(*local_100);
+                                bVar4 = playerModel != nullptr;
+                                if (bVar4) {
+                                    local_f0->AddLoadingAsset((long)local_a0->field_32, local_b0);
                                 } else {
-                                    local_e8->AddLoadingAsset((long)local_a0->field_32, &local_b0);
+                                    local_e8->AddLoadingAsset((long)local_a0->field_32, local_b0);
                                 }
-                                pJVar31 = (Js5ArchiveSettings*)local_160;
-                                param_3->SetObjAndTask(pJVar31, &local_b0);
-                                bVar6 = param_3->IsTaskDone();
-                                bVar5 = bVar6 ^ 1;
-                                if (bVar6 == 0) {
+                                buildRequest.SetObjAndTask(local_160, local_b0);
+                                bVar7 = buildRequest.IsTaskDone();
+                                bVar6 = bVar7 ^ 1;
+                                if (bVar7 == 0) {
                                     local_98 = DataStatus::NOTLOADED;
                                 }
-                                local_b0.~shared_ptr();
-                                local_160->~shared_ptr();
-                                ((local_160 + 40))->~vector();
-                                local_88.~fixed_vector();
                                 goto LAB_100507dbb;
                             }
                             ppuVar18 = &DataStatus::NOTLOADED;
@@ -1063,44 +950,38 @@ namespace jag::game {
                         local_98 = *ppuVar18;
                     }
                 LAB_100507dbb:
-                    eastl::vector<int, eastl::allocator>::~vector(local_e0);
                 }
-                this_09 = param_3;
-                if (bVar5 != 0)
+                this_10 = buildRequest;
+                if (bVar6 != 0)
                     goto LAB_100507e1e;
             }
-            this_07 = this_09->SSOBeginPtr(pJVar31);
-            pMVar11 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_07);
-            cVar4 = pMVar11->GetConstructedState();
-            if (cVar4 != '\x02') {
-                /* WARNING: Subroutine does not return */
+            this_08 = (shared_ptr<graphics::Model>*)this_10->SSOBeginPtr();
+            pMVar11 = (Model*)(*this_08).operator->();
+            cVar5 = pMVar11->GetConstructedState();
+            if (cVar5 != '\x02') {
                 LogAssert("model.GetAsset()->GetConstructedState() == graphics::ModelConstructedState::DATA_AND_MAT",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                           "objtype/ObjType.cpp",
-                          599, (char*)0);
+                          599, nullptr);
             }
             ppuVar18 = &DataStatus::READY;
         } else {
             local_f0 = this_01;
             this_02->UpdateLoadingAssetList(5);
-            cVar4 = this_02->IsLoadingAsset((long)field_32);
-            if (cVar4 == '\0') {
-                local_88._0_8_ = SEXT48(field_32);
-                pJVar31 = &local_88;
+            cVar5 = this_02->IsLoadingAsset((long)field_32);
+            if (!cVar5) {
+                local_88[0] = (unsigned long long)field_32;
                 local_e8 = this_02;
-                pJVar10 =
-                    (Js5ArchiveSettings*)LRUHashCache<graphics::Model, 10ul, 11ul, false, unsigned long long>::Find(
-                        (ulonglong*)this_02);
-                bVar3 = pJVar10->operator_cast_to_bool();
-                if (bVar3) {
-                    pMVar11 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pJVar10);
-                    cVar4 = pMVar11->GetConstructedState();
-                    if (cVar4 != '\x02') {
-                        /* WARNING: Subroutine does not return */
+                this_03 = (shared_ptr*)this_02->Find(*local_88);
+                cVar5 = shared_ptr::operator_cast_to_bool(this_03);
+                if (cVar5) {
+                    pMVar11 = (Model*)(*this_03).operator->();
+                    cVar5 = pMVar11->GetConstructedState();
+                    if (cVar5 != '\x02') {
                         LogAssert("cachedModel->GetConstructedState() == graphics::ModelConstructedState::DATA_AND_MAT",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                                   "config/objtype/ObjType.cpp",
-                                  458, (char*)0);
+                                  458, nullptr);
                     }
                     goto LAB_100507661;
                 }
@@ -1111,618 +992,525 @@ namespace jag::game {
         }
         local_98 = *ppuVar18;
     LAB_100507e1e:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
         return local_98;
     }
 
-    // 0x1005084b0, 2144 bytes, placed by class name and debug map
-    // ObjType::GetHeadModel(graphics::RT7Core*, AssetBuilder&, BuildRequest<graphics::Model, BuildModelMain>&, bool, shared_ptr<ObjTypeCustomisation> const&, unsigned short, shared_ptr<PlayerModel> const&)
-    undefined* ObjType::GetHeadModel(RT7Core* param_1, AssetBuilder* param_2, BuildRequest* param_3, bool param_4,
-                                     shared_ptr* param_5, ushort param_6, shared_ptr* param_7) {
-        undefined1* puVar1;
-        bool bVar2;
-        char cVar3;
-        bool bVar4;
-        byte bVar5;
-        byte bVar6;
-        int iVar7;
-        Minimap* pMVar8;
-        long lVar9;
-        RT7Core* pRVar10;
-        int* piVar11;
-        long* plVar12;
-        undefined4* puVar13;
-        undefined* puVar14;
-        undefined** ppuVar15;
-        ulong uVar16;
-        ulong uVar17;
-        Vector3T* pVVar18;
+    // 0x1005084b0
+    uint8_t* ObjType::GetHeadModel(graphics::RT7Core* rt7Core, AssetBuilder& assetBuilder,
+                                   BuildRequest<graphics::Model, BuildModelMain>& buildRequest, bool arg4,
+                                   const shared_ptr<ObjTypeCustomisation>& objTypeCustomisation, unsigned short arg6,
+                                   const shared_ptr<PlayerModel>& playerModel) {
+        uint8_t* puVar1;
+        Js5ArchiveSettings* pJVar2;
+        bool bVar3;
+        bool bVar5;
+        uint8_t bVar6;
+        uint8_t bVar7;
+        int iVar8;
+        Minimap* pMVar9;
+        long lVar10;
+        unsigned long uVar11;
+        int* piVar12;
+        long* plVar13;
+        uint32_t* puVar14;
+        uint8_t* puVar15;
+        uint8_t** ppuVar16;
+        Vector3T<float>* vector3;
         Js5ResourceProvider* this_00;
-        uint* puVar19;
-        LoginManager* pLVar20;
-        Array<VarValue, eastl::allocator>* pAVar21;
-        GeometryBatch* pGVar22;
-        BuildModelMain* pBVar23;
-        Array* pAVar24;
+        unsigned int* puVar17;
+        LoginManager* pLVar18;
+        Array<VarValue>* pAVar19;
+        GeometryBatch* pGVar20;
+        BuildModelMain* pBVar21;
+        Array<unsigned short>* pAVar22;
         WorldmapAreaMetadata* this_01;
-        PlayerModel* pPVar25;
-        Array* pAVar26;
-        Array* pAVar27;
+        Array<unsigned char>* pAVar23;
+        PlayerModel* pPVar24;
+        Array<Array<unsigned short>>* pAVar25;
+        Array<Array<Array<unsigned short>>>* pAVar26;
         MapArea* this_02;
-        vector* this_03;
-        Model* pMVar28;
-        bool bVar29;
-        RT7Core* pRVar30;
-        shared_ptr* this_05;
-        vector<math::Vector3T<float>, eastl::allocator> local_150[32];
+        shared_ptr<graphics::Model>* this_03;
+        Model* pMVar27;
+        bool bVar28;
+        unsigned long uVar29;
+        shared_ptr<ObjTypeCustomisation>* midiPlayerMainThread;
+        vector<math::Vector3T<float>> local_150;
         PacketView local_130;
-        RT7Core* local_100;
-        vector<int, eastl::allocator> local_f8[32];
-        shared_ptr local_d8;
+        vector<int> local_f8;
+        uint32_t local_d8[4];
         Minimap* local_c0;
-        BuildRequest* local_b8;
-        shared_ptr local_b0;
-        ObjType* local_a0;
-        undefined* local_98;
-        ModelConstructedState local_8b;
-        bool local_8a;
-        bool local_89;
-        PacketView local_88[2];
-        Js5ArchiveSettings* local_38;
+        BuildRequest<graphics::Model, BuildModelMain>* local_b8;
+        shared_ptr<BuildModelMain> local_b0;
+        uint8_t* local_98;
+        bool local_8b;
+        uint64_t local_8a;
 
-        local_38 = *(Js5ArchiveSettings**)PTR____stack_chk_guard_100ee9d98;
-        local_100 = param_1;
-        local_a0 = this;
-        cVar3 = param_3->IsTaskDone();
-        if ((cVar3 == '\0') && (cVar3 = param_3->IsEmpty(), cVar3 == '\0')) {
+        RT7Core* local_100 = rt7Core;
+        ObjType* local_a0 = this;
+        char cVar4 = buildRequest.IsTaskDone();
+        if ((!cVar4) && (cVar4 = buildRequest.IsEmpty(), !cVar4)) {
         LAB_1005086c1:
-            ppuVar15 = &DataStatus::NOTLOADED;
+            ppuVar16 = &DataStatus::NOTLOADED;
         } else {
-            cVar3 = param_3->IsEmpty();
-            if (cVar3 != '\0') {
-                local_b8 = param_3;
-                cVar3 = graphics::Model::IsReadyToConstruct(local_100);
-                if (cVar3 == '\0')
+            cVar4 = buildRequest.IsEmpty();
+            if (cVar4) {
+                local_b8 = buildRequest;
+                cVar4 = graphics::Model::IsReadyToConstruct(local_100);
+                if (!cVar4)
                     goto LAB_1005086c1;
-                param_1 = (RT7Core*)(ulong)param_4;
-                pMVar8 = (Minimap*)GetAppearance(local_a0, param_4, param_5);
-                iVar7 = pMVar8->GetLevel();
-                if (iVar7 == -1) {
+                pMVar9 = (Minimap*)GetAppearance(local_a0, arg4, objTypeCustomisation);
+                iVar8 = pMVar9->GetLevel();
+                if (iVar8 == -1) {
                     local_98 = DataStatus::READY;
-                    bVar5 = 1;
+                    bVar6 = 1;
                 } else {
-                    eastl::vector<int, eastl::allocator>::vector(local_f8);
-                    eastl::vector<int, eastl::allocator>::reserve(local_f8, 2);
-                    local_88[0].field_0._0_4_ = pMVar8->GetLevel();
-                    param_1 = (RT7Core*)local_88;
-                    eastl::vector<int, eastl::allocator>::push_back(local_f8, (int*)param_1);
-                    iVar7 = pMVar8->GetMaxLineWidth();
-                    if (iVar7 != -1) {
-                        local_88[0].field_0._0_4_ = pMVar8->GetMaxLineWidth();
-                        param_1 = (RT7Core*)local_88;
-                        eastl::vector<int, eastl::allocator>::push_back(local_f8, (int*)param_1);
+                    local_f8 = eastl::vector<int>();
+                    local_f8.reserve(2);
+                    local_8a._2_4_ = pMVar9->GetLevel();
+                    local_f8.push_back(*((int*)((long)&local_8a + 2)));
+                    iVar8 = pMVar9->GetMaxLineWidth();
+                    if (iVar8 != -1) {
+                        local_8a._2_4_ = pMVar9->GetMaxLineWidth();
+                        local_f8.push_back(*((int*)((long)&local_8a + 2)));
                     }
-                    local_c0 = pMVar8;
-                    lVar9 = local_f8->size();
-                    local_89 = lVar9 != 0;
-                    if (lVar9 == 0) {
-                        bVar29 = false;
-                        bVar4 = true;
+                    local_c0 = pMVar9;
+                    lVar10 = local_f8.size();
+                    local_8a._1_1_ = lVar10 != 0;
+                    if (lVar10 == 0) {
+                        bVar28 = false;
+                        bVar5 = true;
                     } else {
-                        bVar4 = true;
-                        pRVar30 = (RT7Core*)0;
-                        bVar29 = false;
+                        bVar5 = true;
+                        uVar29 = 0;
+                        bVar28 = false;
                         do {
-                            param_1 = pRVar30;
-                            piVar11 = (int*)eastl::vector<int, eastl::allocator>::operator[](local_f8, (ulong)pRVar30);
-                            bVar2 = bVar4;
-                            if (*piVar11 != -1) {
-                                plVar12 = (long*)local_a0->field_24->GetOutputType();
-                                param_1 = Js5Archive::JS5_MODELSRT7;
-                                puVar13 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_f8,
-                                                                                                        (ulong)pRVar30);
-                                puVar14 = (undefined*)(**(code**)(*plVar12 + 48))(plVar12, param_1, *puVar13, 0,
-                                                                                  Priority::HIGH, 1);
-                                bVar2 = false;
-                                if (puVar14 != DataStatus::NOTLOADED) {
-                                    bVar2 = bVar4;
+                            piVar12 = &local_f8[uVar29];
+                            bVar3 = bVar5;
+                            if (*piVar12 != -1) {
+                                plVar13 = (long*)local_a0->field_24->GetOutputType();
+                                pJVar2 = Js5Archive::JS5_MODELSRT7;
+                                puVar14 = &local_f8[uVar29];
+                                puVar15 = (uint8_t*)(**(void (**)(...))(*plVar13 + 48))(plVar13, pJVar2, *puVar14, 0,
+                                                                                        Priority::HIGH, 1);
+                                bVar3 = false;
+                                if (puVar15 != DataStatus::NOTLOADED) {
+                                    bVar3 = bVar5;
                                 }
-                                bVar29 = true;
-                                if (puVar14 == DataStatus::MISSING) {
+                                bVar28 = true;
+                                if (puVar15 == DataStatus::MISSING) {
                                     local_98 = DataStatus::MISSING;
                                     break;
                                 }
                             }
-                            bVar4 = bVar2;
-                            pRVar30 = (RT7Core*)((long)&pRVar30->field_0 + 1);
-                            pRVar10 = (RT7Core*)local_f8->size();
-                            local_89 = pRVar30 < pRVar10;
-                        } while (local_89);
+                            bVar5 = bVar3;
+                            uVar29 = uVar29 + 1;
+                            uVar11 = local_f8.size();
+                            local_8a._1_1_ = uVar29 < uVar11;
+                        } while (local_8a._1_1_);
                     }
-                    bVar5 = 1;
-                    if ((local_89 & 1U) == 0) {
-                        if (bVar29) {
-                            if (bVar4) {
-                                new (local_88) eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>();
-                                eastl::vector<math::Vector3T<float>, eastl::allocator>::vector(local_150);
-                                pMVar8 = local_c0;
-                                this_05 = param_5;
-                                uVar16 = local_f8->size();
-                                local_88->reserve(uVar16);
-                                uVar16 = local_f8->size();
-                                eastl::vector<math::Vector3T<float>, eastl::allocator>::reserve(local_150, uVar16);
-                                lVar9 = local_f8->size();
-                                if (lVar9 != 0) {
-                                    uVar16 = 0;
+                    bVar6 = 1;
+                    if ((local_8a._1_1_ & 1) == 0) {
+                        if (bVar28) {
+                            if (bVar5) {
+                                new ((fixed_vector<PacketView, 1ul>*)((long)&local_8a + 2))
+                                    eastl::fixed_vector<PacketView, 1ul>();
+                                local_150 = eastl::vector<math::Vector3T<float>>();
+                                pMVar9 = local_c0;
+                                midiPlayerMainThread = objTypeCustomisation;
+                                uVar29 = local_f8.size();
+                                ((vector<PacketView,
+                                         eastl::fixed_vector_allocator<40ul, 1ul, 8ul, 0ul, true>>*)((long)&local_8a +
+                                                                                                     2))
+                                    ->reserve(uVar29);
+                                uVar29 = local_f8.size();
+                                local_150.reserve(uVar29);
+                                lVar10 = local_f8.size();
+                                if (lVar10 != 0) {
+                                    uVar29 = 0;
                                     do {
-                                        piVar11 =
-                                            (int*)eastl::vector<int, eastl::allocator>::operator[](local_f8, uVar16);
-                                        if (*piVar11 != -1) {
-                                            pVVar18 = (Vector3T*)pMVar8->GetOffset();
-                                            eastl::vector<math::Vector3T<float>, eastl::allocator>::push_back(local_150,
-                                                                                                              pVVar18);
-                                            new (&local_130) PacketView();
+                                        piVar12 = &local_f8[uVar29];
+                                        if (*piVar12 != -1) {
+                                            vector3 = (Vector3T<float>*)pMVar9->GetOffset();
+                                            local_150.push_back(*vector3);
+                                            local_130 = PacketView();
                                             this_00 = (Js5ResourceProvider*)local_a0->field_24->GetOutputType();
-                                            pRVar30 = Js5Archive::JS5_MODELSRT7;
-                                            puVar19 = (uint*)eastl::vector<int, eastl::allocator>::operator[](local_f8,
-                                                                                                              uVar16);
-                                            this_00->GetFile(&local_130, pRVar30, *puVar19, 0,
-                                                             (Priority*)Priority::HIGH, true, false, false);
-                                            eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>::push_back(
-                                                local_88);
-                                            local_130.~PacketView();
-                                            this_05 = param_5;
-                                            pMVar8 = local_c0;
+                                            pJVar2 = Js5Archive::JS5_MODELSRT7;
+                                            puVar17 = &local_f8[uVar29];
+                                            this_00->GetFile(local_130, *pJVar2, *puVar17, 0, (Priority*)Priority::HIGH,
+                                                             true, false, false);
+                                            ((fixed_vector<PacketView, 1ul>*)((long)&local_8a + 2))
+                                                ->push_back(local_130);
+                                            midiPlayerMainThread = objTypeCustomisation;
+                                            pMVar9 = local_c0;
                                         }
-                                        uVar16 = uVar16 + 1;
-                                        uVar17 = local_f8->size();
-                                    } while (uVar16 < uVar17);
-                                }
-                                bVar5 = 0;
-                                bVar4 = operator!=(this_05, (_func_decltype_nullptr*)0);
-                                if (bVar4) {
-                                    pLVar20 = (LoginManager*)shared_ptr<ObjTypeCustomisation>::operator->(
-                                        (shared_ptr<ObjTypeCustomisation>*)this_05);
-                                    pAVar21 =
-                                        (Array<VarValue, eastl::allocator>*)pLVar20->GetDevCredentialsOutputDirectory();
-                                    bVar5 = pAVar21->empty();
-                                    bVar5 = bVar5 ^ 1;
+                                        uVar29 = uVar29 + 1;
+                                        uVar11 = local_f8.size();
+                                    } while (uVar29 < uVar11);
                                 }
                                 bVar6 = 0;
-                                bVar4 = operator!=(this_05, (_func_decltype_nullptr*)0);
-                                if (bVar4) {
-                                    pGVar22 = (GeometryBatch*)shared_ptr<ObjTypeCustomisation>::operator->(
-                                        (shared_ptr<ObjTypeCustomisation>*)this_05);
-                                    pAVar21 = (Array<VarValue, eastl::allocator>*)pGVar22->GetBoneIDMap();
-                                    bVar6 = pAVar21->empty();
+                                bVar5 = *midiPlayerMainThread != nullptr;
+                                if (bVar5) {
+                                    pLVar18 = (LoginManager*)(*midiPlayerMainThread).operator->();
+                                    pAVar19 = (Array<VarValue>*)pLVar18->GetDevCredentialsOutputDirectory();
+                                    bVar6 = pAVar19->empty();
                                     bVar6 = bVar6 ^ 1;
                                 }
-                                MakeSharedPool<graphics::Model, 3072>::MakeShared<>(
-                                    (shared_ptr*)&local_130, (MakeSharedPool<graphics::Model, 3072>*)0);
-                                pMVar28 = (Model*)shared_ptr<graphics::Model>::operator->(
-                                    (shared_ptr<graphics::Model>*)&local_130);
-                                pMVar28->SetSourceModelIDs(local_f8);
-                                local_d8._0_4_ = 4096;
-                                local_8b = (ModelConstructedState)2;
-                                local_8a = true;
+                                bVar7 = 0;
+                                bVar5 = *midiPlayerMainThread != nullptr;
+                                if (bVar5) {
+                                    pGVar20 = (GeometryBatch*)(*midiPlayerMainThread).operator->();
+                                    pAVar19 = (Array<VarValue>*)pGVar20->GetBoneIDMap();
+                                    bVar7 = pAVar19->empty();
+                                    bVar7 = bVar7 ^ 1;
+                                }
+                                MakeSharedPool<graphics::Model, 3072>::MakeShared<>();
+                                pMVar27 = (Model*)local_130.operator->();
+                                pMVar27->SetSourceModelIDs(&local_f8);
+                                local_d8[0] = 4096;
+                                local_8b = true;
+                                local_8a._0_1_ = 1;
                                 bucket_make_shared<BuildModelMain, int, graphics::ModelConstructedState, bool,
-                                                   graphics::RT7Core*&,
-                                                   eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>,
+                                                   graphics::RT7Core*&, eastl::fixed_vector<PacketView, 1ul>,
                                                    shared_ptr<graphics::Model>&>(
-                                    (jag*)&local_b0, (int*)&local_d8, &local_8b, &local_8a, &local_100,
-                                    (fixed_vector*)local_88, (shared_ptr*)&local_130);
-                                pBVar23 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                    (shared_ptr<BuildModelMain>*)&local_b0);
-                                pBVar23->SetOffset(local_150);
-                                if (bVar5 == 0) {
-                                    pBVar23 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    pBVar23->SetRecolor((Array*)&local_a0->field_672, (Array*)&local_a0->field_696);
+                                    &local_b0, (ModelConstructedState*)local_d8, &local_8b, (RT7Core**)&local_8a,
+                                    (fixed_vector<PacketView, _1ul>*)&local_100,
+                                    (shared_ptr<graphics::Model>*)((long)&local_8a + 2));
+                                pBVar21 = (BuildModelMain*)local_b0.operator->();
+                                pBVar21->SetOffset(local_150);
+                                if (bVar6 == 0) {
+                                    pBVar21 = (BuildModelMain*)local_b0.operator->();
+                                    pBVar21->SetRecolor(local_a0->field_672, local_a0->field_696);
                                 } else {
-                                    pBVar23 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    pLVar20 = (LoginManager*)shared_ptr<ObjTypeCustomisation>::operator->(
-                                        (shared_ptr<ObjTypeCustomisation>*)this_05);
+                                    pBVar21 = (BuildModelMain*)local_b0.operator->();
+                                    pLVar18 = (LoginManager*)(*midiPlayerMainThread).operator->();
                                     puVar1 = &local_a0->field_672;
-                                    pAVar24 = (Array*)pLVar20->GetDevCredentialsOutputDirectory();
-                                    pBVar23->SetCustomRecolor(puVar1, pAVar24);
+                                    pAVar22 = (Array<unsigned short>*)pLVar18->GetDevCredentialsOutputDirectory();
+                                    pBVar21->SetCustomRecolor(*puVar1, *pAVar22);
                                 }
-                                if (bVar6 == 0) {
-                                    pBVar23 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    pBVar23->SetRematerial((Array*)&local_a0->field_768, (Array*)&local_a0->field_792);
+                                if (bVar7 == 0) {
+                                    pBVar21 = (BuildModelMain*)local_b0.operator->();
+                                    pBVar21->SetRematerial(local_a0->field_768, local_a0->field_792);
                                 } else {
-                                    pBVar23 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    pGVar22 = (GeometryBatch*)shared_ptr<ObjTypeCustomisation>::operator->(
-                                        (shared_ptr<ObjTypeCustomisation>*)this_05);
+                                    pBVar21 = (BuildModelMain*)local_b0.operator->();
+                                    pGVar20 = (GeometryBatch*)(*midiPlayerMainThread).operator->();
                                     puVar1 = &local_a0->field_768;
-                                    pAVar24 = (Array*)pGVar22->GetBoneIDMap();
-                                    pBVar23->SetRematerial(puVar1, pAVar24);
+                                    pAVar22 = (Array<unsigned short>*)pGVar20->GetBoneIDMap();
+                                    pBVar21->SetRematerial(*puVar1, *pAVar22);
                                 }
-                                bVar4 = operator!=(param_7, (_func_decltype_nullptr*)0);
-                                if (bVar4) {
-                                    pBVar23 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    this_01 = (WorldmapAreaMetadata*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar24 = (Array*)this_01->GetOrigin();
-                                    pPVar25 = (PlayerModel*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar26 = (Array*)pPVar25->GetPlayerRecolSource();
-                                    pPVar25 = (PlayerModel*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar27 = (Array*)pPVar25->GetPlayerRecolDest();
-                                    pBVar23->SetPlayerRecolor(pAVar24, pAVar26, pAVar27);
-                                    pBVar23 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                        (shared_ptr<BuildModelMain>*)&local_b0);
-                                    this_02 = (MapArea*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar24 = (Array*)this_02->GetOrigin();
-                                    pPVar25 = (PlayerModel*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar26 = (Array*)pPVar25->GetPlayerRematSource();
-                                    pPVar25 = (PlayerModel*)shared_ptr<PlayerModel>::operator->(
-                                        (shared_ptr<PlayerModel>*)param_7);
-                                    pAVar27 = (Array*)pPVar25->GetPlayerRematDest();
-                                    pBVar23->SetPlayerRematerial(pAVar24, pAVar26, pAVar27);
+                                bVar5 = playerModel != nullptr;
+                                if (bVar5) {
+                                    pBVar21 = (BuildModelMain*)local_b0.operator->();
+                                    this_01 = (WorldmapAreaMetadata*)playerModel.operator->();
+                                    pAVar23 = (Array<unsigned char>*)this_01->GetOrigin();
+                                    pPVar24 = (PlayerModel*)playerModel.operator->();
+                                    pAVar25 = pPVar24->GetPlayerRecolSource();
+                                    pPVar24 = (PlayerModel*)playerModel.operator->();
+                                    pAVar26 = pPVar24->GetPlayerRecolDest();
+                                    pBVar21->SetPlayerRecolor(*pAVar23, *pAVar25, *pAVar26);
+                                    pBVar21 = (BuildModelMain*)local_b0.operator->();
+                                    this_02 = (MapArea*)playerModel.operator->();
+                                    pAVar23 = (Array<unsigned char>*)this_02->GetOrigin();
+                                    pPVar24 = (PlayerModel*)playerModel.operator->();
+                                    pAVar25 = pPVar24->GetPlayerRematSource();
+                                    pPVar24 = (PlayerModel*)playerModel.operator->();
+                                    pAVar26 = pPVar24->GetPlayerRematDest();
+                                    pBVar21->SetPlayerRematerial(*pAVar23, *pAVar25, *pAVar26);
                                 }
-                                pBVar23 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(
-                                    (shared_ptr<BuildModelMain>*)&local_b0);
-                                pBVar23->SetAmbientAdjust(param_6 + local_a0->field_840);
-                                new (&local_d8) shared_ptr<oldscape::dash3d::Decor>(&local_b0);
-                                param_2->SubmitJob(&local_d8);
-                                local_d8.~shared_ptr();
-                                param_1 = (RT7Core*)&local_130;
-                                local_b8->SetObjAndTask(param_1, &local_b0);
-                                bVar6 = local_b8->IsTaskDone();
-                                bVar5 = bVar6 ^ 1;
-                                if (bVar6 == 0) {
+                                pBVar21 = (BuildModelMain*)local_b0.operator->();
+                                pBVar21->SetAmbientAdjust(arg6 + local_a0->field_840);
+                                new (local_d8) shared_ptr(&local_b0);
+                                assetBuilder.SubmitJob(*local_d8);
+                                local_b8->SetObjAndTask(local_130, local_b0);
+                                bVar7 = local_b8->IsTaskDone();
+                                bVar6 = bVar7 ^ 1;
+                                if (bVar7 == 0) {
                                     local_98 = DataStatus::NOTLOADED;
                                 }
-                                local_b0.~shared_ptr();
-                                local_130.~shared_ptr();
-                                eastl::vector<math::Vector3T<float>, eastl::allocator>::~vector(local_150);
-                                local_88->~fixed_vector();
+                                ((fixed_vector<PacketView, 1ul>*)((long)&local_8a + 2))->~fixed_vector();
                                 goto LAB_100508bd6;
                             }
-                            ppuVar15 = &DataStatus::NOTLOADED;
+                            ppuVar16 = &DataStatus::NOTLOADED;
                         } else {
-                            ppuVar15 = &DataStatus::READY;
+                            ppuVar16 = &DataStatus::READY;
                         }
-                        local_98 = *ppuVar15;
+                        local_98 = *ppuVar16;
                     }
                 LAB_100508bd6:
-                    eastl::vector<int, eastl::allocator>::~vector(local_f8);
                 }
-                param_3 = local_b8;
-                if (bVar5 != 0)
+                buildRequest = local_b8;
+                if (bVar6 != 0)
                     goto LAB_100508c39;
             }
-            this_03 = param_3->SSOBeginPtr(param_1);
-            pMVar28 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_03);
-            cVar3 = pMVar28->GetConstructedState();
-            if (cVar3 != '\x02') {
-                /* WARNING: Subroutine does not return */
+            this_03 = (shared_ptr<graphics::Model>*)buildRequest.SSOBeginPtr();
+            pMVar27 = (Model*)(*this_03).operator->();
+            cVar4 = pMVar27->GetConstructedState();
+            if (cVar4 != '\x02') {
                 LogAssert("model.GetAsset()->GetConstructedState() == graphics::ModelConstructedState::DATA_AND_MAT",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                           "objtype/ObjType.cpp",
-                          736, (char*)0);
+                          736, nullptr);
             }
-            ppuVar15 = &DataStatus::READY;
+            ppuVar16 = &DataStatus::READY;
         }
-        local_98 = *ppuVar15;
+        local_98 = *ppuVar16;
     LAB_100508c39:
-        if (*(Js5ArchiveSettings**)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
         return local_98;
     }
 
-    // 0x100508d10, 1504 bytes, placed by class name and debug map
-    // ObjType::GetModel(graphics::RT7Core*, AssetBuilder&, BuildRequest<graphics::Model, BuildModelMain>&, PlayerModel const*)
-    undefined* ObjType::GetModel(RT7Core* param_1, AssetBuilder* param_2, BuildRequest* param_3, PlayerModel* param_4) {
-        undefined2 uVar1;
-        ObjTypeList* this_00;
-        undefined* puVar2;
-        char cVar3;
-        bool bVar4;
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>* this_01;
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* this_02;
-        PacketView* this_03;
-        Model* pMVar5;
-        long* plVar6;
-        undefined* puVar7;
-        Js5ResourceProvider* this_04;
-        BuildModelMain* pBVar8;
-        Array* pAVar9;
-        Array* pAVar10;
-        vector* this_05;
-        undefined** ppuVar11;
-        PacketView* pPVar12;
-        undefined* puVar13;
+    // 0x100508d10
+    uint8_t* ObjType::GetModel(graphics::RT7Core* rt7Core, AssetBuilder& assetBuilder,
+                               BuildRequest<graphics::Model, BuildModelMain>& buildRequest,
+                               const PlayerModel* playerModel) {
+        uint8_t* puVar2;
+        bool cVar3;
+        shared_ptr* this_03;
+        Model* pMVar4;
+        long* plVar5;
+        uint8_t* puVar6;
+        BuildModelMain* pBVar7;
+        Array<Array<unsigned short>>* pAVar8;
+        Array<Array<Array<unsigned short>>>* pAVar9;
+        shared_ptr<graphics::Model>* this_05;
+        uint8_t** ppuVar10;
+        uint8_t* puVar11;
         PacketView local_118;
-        undefined1 local_e8[24];
-        shared_ptr local_d0;
+        shared_ptr<graphics::Model> local_e8;
+        uint32_t local_d0[4];
         AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* local_c0;
-        BuildRequest* local_b8;
+        BuildRequest<graphics::Model, BuildModelMain>* local_b8;
         BuildModelMain* local_b0;
-        Array* local_a8;
-        shared_ptr local_a0;
-        ModelConstructedState local_8a;
-        bool local_89;
-        PacketView local_88[2];
-        long local_38;
+        Array<unsigned char>* local_a8;
+        shared_ptr<BuildModelMain> local_a0;
+        bool local_8a;
+        uint8_t local_89;
+        unsigned long long local_88[10];
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_00 = (ObjTypeList*)field_24;
-        local_e8._16_8_ = param_1;
-        this_01 = (AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>*)
-                      param_4->GetRecolouredModelsCache();
-        this_02 = (AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>*)this_00->GetModelCache();
-        if (param_4 == (PlayerModel*)0) {
+        ObjTypeList* this_00 = (ObjTypeList*)field_24;
+        RT7Core* local_d8 = rt7Core;
+        auto this_01 = playerModel->GetRecolouredModelsCache();
+        auto this_02 = this_00->GetModelCache();
+        if (playerModel == nullptr) {
             this_02->UpdateLoadingAssetList(5);
             cVar3 = this_02->IsLoadingAsset((long)field_32);
-            if (cVar3 == '\0') {
-                local_88[0].field_0 = (long)field_32;
-                pPVar12 = local_88;
+            if (!cVar3) {
+                local_88[0] = (unsigned long long)field_32;
                 local_c0 = this_02;
-                this_03 = (PacketView*)LRUHashCache<graphics::Model, 10ul, 11ul, false, unsigned long long>::Find(
-                    (ulonglong*)this_02);
-                bVar4 = this_03->operator_cast_to_bool();
-                if (bVar4) {
-                    pMVar5 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_03);
-                    cVar3 = pMVar5->IsLoaded();
-                    if (cVar3 == '\0') {
-                        /* WARNING: Subroutine does not return */
+                this_03 = (shared_ptr*)this_02->Find(*local_88);
+                cVar3 = shared_ptr::operator_cast_to_bool(this_03);
+                if (cVar3) {
+                    pMVar4 = (Model*)(*this_03).operator->();
+                    cVar3 = pMVar4->IsLoaded();
+                    if (!cVar3) {
                         LogAssert("cachedModel->IsLoaded()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                                   "config/objtype/ObjType.cpp",
-                                  774, (char*)0);
+                                  774, nullptr);
                     }
                     goto LAB_100508e73;
                 }
                 goto LAB_100508e7e;
             }
         LAB_100509186:
-            ppuVar11 = &DataStatus::NOTLOADED;
+            ppuVar10 = &DataStatus::NOTLOADED;
         } else {
             local_c0 = this_02;
             this_01->UpdateLoadingAssetList(5);
             cVar3 = this_01->IsLoadingAsset((long)field_32);
-            if (cVar3 != '\0')
+            if (cVar3)
                 goto LAB_100509186;
-            local_88[0].field_0 = (long)field_32;
-            pPVar12 = local_88;
-            this_03 = (PacketView*)LRUHashCache<graphics::Model, 100ul, 101ul, false, unsigned long long>::Find(
-                (ulonglong*)this_01);
-            bVar4 = this_03->operator_cast_to_bool();
-            if (bVar4) {
-                pMVar5 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_03);
-                cVar3 = pMVar5->IsLoaded();
-                if (cVar3 == '\0') {
-                    /* WARNING: Subroutine does not return */
+            local_88[0] = (unsigned long long)field_32;
+            this_03 = (shared_ptr*)this_01->Find(*local_88);
+            cVar3 = shared_ptr::operator_cast_to_bool(this_03);
+            if (cVar3) {
+                pMVar4 = (Model*)(*this_03).operator->();
+                cVar3 = pMVar4->IsLoaded();
+                if (!cVar3) {
                     LogAssert("cachedModel->IsLoaded()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "config/objtype/ObjType.cpp",
-                              760, (char*)0);
+                              760, nullptr);
                 }
             LAB_100508e73:
-                param_3->SetConstructedObj(this_03);
-                pPVar12 = this_03;
+                buildRequest.SetConstructedObj(*this_03);
             }
         LAB_100508e7e:
-            cVar3 = param_3->IsTaskDone();
-            if ((cVar3 == '\0') && (cVar3 = param_3->IsEmpty(), cVar3 == '\0'))
+            cVar3 = buildRequest.IsTaskDone();
+            if ((!cVar3) && (cVar3 = buildRequest.IsEmpty(), !cVar3))
                 goto LAB_100509186;
-            cVar3 = param_3->IsEmpty();
-            if (cVar3 != '\0') {
-                local_b8 = param_3;
-                cVar3 = graphics::Model::IsReadyToConstruct((RT7Core*)local_e8._16_8_);
-                if (cVar3 == '\0')
+            cVar3 = buildRequest.IsEmpty();
+            if (cVar3) {
+                local_b8 = buildRequest;
+                cVar3 = graphics::Model::IsReadyToConstruct(local_d8);
+                if (!cVar3)
                     goto LAB_100509186;
-                plVar6 = (long*)field_24->GetOutputType();
-                puVar7 = (undefined*)(**(code**)(*plVar6 + 48))(plVar6, Js5Archive::JS5_MODELSRT7, field_668, 0,
-                                                                Priority::HIGH, 1);
+                plVar5 = (long*)field_24->GetOutputType();
+                puVar6 = (uint8_t*)(**(void (**)(...))(*plVar5 + 48))(plVar5, Js5Archive::JS5_MODELSRT7, field_668, 0,
+                                                                      Priority::HIGH, 1);
                 puVar2 = DataStatus::NOTLOADED;
-                puVar13 = DataStatus::MISSING;
-                if ((puVar7 == DataStatus::MISSING) ||
-                    (puVar13 = DataStatus::NOTLOADED, puVar7 == DataStatus::NOTLOADED))
+                puVar11 = DataStatus::MISSING;
+                if ((puVar6 == DataStatus::MISSING) ||
+                    (puVar11 = DataStatus::NOTLOADED, puVar6 == DataStatus::NOTLOADED))
                     goto LAB_100509254;
-                new (local_88) eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>();
-                new (&local_118) PacketView();
-                this_04 = (Js5ResourceProvider*)field_24->GetOutputType();
-                this_04->GetFile(&local_118, Js5Archive::JS5_MODELSRT7, field_668, 0, (Priority*)Priority::HIGH, true,
-                                 false, false);
-                pPVar12 = &local_118;
-                eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>::push_back(local_88);
-                MakeSharedPool<graphics::Model, 3072>::MakeShared<>((shared_ptr*)local_e8,
-                                                                    (MakeSharedPool<graphics::Model, 3072>*)pPVar12);
-                pMVar5 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)local_e8);
-                pMVar5->SetSourceModelIDs(field_668);
-                local_d0._0_4_ = 4096;
-                local_8a = (ModelConstructedState)4;
-                local_89 = true;
+                new (local_88) eastl::fixed_vector<PacketView, 1ul>();
+                local_118 = PacketView();
+                ((Js5ResourceProvider*)field_24->GetOutputType())
+                    ->GetFile(local_118, *(Js5Archive::JS5_MODELSRT7), field_668, 0, (Priority*)Priority::HIGH, true,
+                              false, false);
+                local_88->push_back(local_118);
+                MakeSharedPool<graphics::Model, 3072>::MakeShared<>();
+                pMVar4 = (Model*)local_e8.operator->();
+                pMVar4->SetSourceModelIDs(field_668);
+                local_d0[0] = 4096;
+                local_8a = true;
+                local_89 = 1;
                 bucket_make_shared<BuildModelMain, int, graphics::ModelConstructedState, bool, graphics::RT7Core*&,
-                                   eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>,
-                                   shared_ptr<graphics::Model>&>((jag*)&local_a0, (int*)(local_e8 + 24), &local_8a,
-                                                                 &local_89, (RT7Core**)(local_e8 + 16),
-                                                                 (fixed_vector*)local_88, (shared_ptr*)local_e8);
+                                   eastl::fixed_vector<PacketView, 1ul>, shared_ptr<graphics::Model>&>(
+                    &local_a0, (ModelConstructedState*)local_d0, &local_8a, (RT7Core**)&local_89,
+                    (fixed_vector<PacketView, _1ul>*)&local_d8, (shared_ptr<graphics::Model>*)local_88);
                 if (field_860 != '\0') {
-                    pBVar8 =
-                        (BuildModelMain*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)&local_a0);
-                    pBVar8->SetResize((Vector3T*)&field_848);
+                    pBVar7 = (BuildModelMain*)local_a0.operator->();
+                    pBVar7->SetResize(field_848);
                 }
-                pBVar8 =
-                    (BuildModelMain*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)&local_a0);
-                pBVar8->SetRecolor((Array*)&field_672, (Array*)&field_696);
-                pBVar8 =
-                    (BuildModelMain*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)&local_a0);
-                pBVar8->SetRematerial((Array*)&field_768, (Array*)&field_792);
-                if (param_4 != (PlayerModel*)0) {
-                    local_b0 =
-                        (BuildModelMain*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)&local_a0);
-                    local_a8 = (Array*)param_4->GetOrigin();
-                    pAVar9 = (Array*)param_4->GetPlayerRecolSource();
-                    pAVar10 = (Array*)param_4->GetPlayerRecolDest();
-                    local_b0->SetPlayerRecolor(local_a8, pAVar9, pAVar10);
-                    local_b0 =
-                        (BuildModelMain*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)&local_a0);
-                    local_a8 = (Array*)param_4->GetOrigin();
-                    pAVar9 = (Array*)param_4->GetPlayerRematSource();
-                    pAVar10 = (Array*)param_4->GetPlayerRematDest();
-                    local_b0->SetPlayerRematerial(local_a8, pAVar9, pAVar10);
+                pBVar7 = (BuildModelMain*)local_a0.operator->();
+                pBVar7->SetRecolor(field_672, field_696);
+                pBVar7 = (BuildModelMain*)local_a0.operator->();
+                pBVar7->SetRematerial(field_768, field_792);
+                if (playerModel != nullptr) {
+                    local_b0 = (BuildModelMain*)local_a0.operator->();
+                    local_a8 = (Array<unsigned char>*)playerModel->GetOrigin();
+                    pAVar8 = playerModel->GetPlayerRecolSource();
+                    pAVar9 = playerModel->GetPlayerRecolDest();
+                    local_b0->SetPlayerRecolor(*local_a8, *pAVar8, *pAVar9);
+                    local_b0 = (BuildModelMain*)local_a0.operator->();
+                    local_a8 = (Array<unsigned char>*)playerModel->GetOrigin();
+                    pAVar8 = playerModel->GetPlayerRematSource();
+                    pAVar9 = playerModel->GetPlayerRematDest();
+                    local_b0->SetPlayerRematerial(*local_a8, *pAVar8, *pAVar9);
                 }
-                pBVar8 =
-                    (BuildModelMain*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)&local_a0);
-                uVar1 = field_840;
-                pBVar8->SetAmbientAdjust(uVar1 + 64);
-                new ((local_e8 + 24)) shared_ptr<oldscape::dash3d::Decor>(&local_a0);
-                param_2->SubmitJob((shared_ptr*)(local_e8 + 24));
-                ((local_e8 + 24))->~shared_ptr();
-                if (param_4 == (PlayerModel*)0) {
-                    local_c0->AddLoadingAsset((long)field_32, &local_a0);
+                pBVar7 = (BuildModelMain*)local_a0.operator->();
+                pBVar7->SetAmbientAdjust(field_840 + 64);
+                new (local_d0) shared_ptr(&local_a0);
+                assetBuilder.SubmitJob(*local_d0);
+                if (playerModel == nullptr) {
+                    local_c0->AddLoadingAsset((long)field_32, local_a0);
                 } else {
-                    this_01->AddLoadingAsset((long)field_32, &local_a0);
+                    this_01->AddLoadingAsset((long)field_32, local_a0);
                 }
-                pPVar12 = (PacketView*)local_e8;
-                local_b8->SetObjAndTask(pPVar12, &local_a0);
+                local_b8->SetObjAndTask(local_e8, local_a0);
                 cVar3 = local_b8->IsTaskDone();
-                puVar13 = puVar2;
-                if (cVar3 == '\0') {
-                    puVar13 = DataStatus::NOTLOADED;
+                puVar11 = puVar2;
+                if (!cVar3) {
+                    puVar11 = DataStatus::NOTLOADED;
                 }
-                local_a0.~shared_ptr();
-                local_e8->~shared_ptr();
-                local_118.~PacketView();
-                local_88->~fixed_vector();
-                param_3 = local_b8;
-                if (cVar3 == '\0')
+                buildRequest = local_b8;
+                if (!cVar3)
                     goto LAB_100509254;
             }
-            this_05 = param_3->SSOBeginPtr(pPVar12);
-            pMVar5 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_05);
-            cVar3 = pMVar5->IsLoaded();
-            if (cVar3 == '\0') {
-                /* WARNING: Subroutine does not return */
+            this_05 = (shared_ptr<graphics::Model>*)buildRequest.SSOBeginPtr();
+            pMVar4 = (Model*)(*this_05).operator->();
+            cVar3 = pMVar4->IsLoaded();
+            if (!cVar3) {
                 LogAssert("model.GetAsset()->IsLoaded()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                           "objtype/ObjType.cpp",
-                          852, (char*)0);
+                          852, nullptr);
             }
-            ppuVar11 = &DataStatus::READY;
+            ppuVar10 = &DataStatus::READY;
         }
-        puVar13 = *ppuVar11;
+        puVar11 = *ppuVar10;
     LAB_100509254:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return puVar13;
+        return puVar11;
     }
 
-    // 0x100509370, 1168 bytes, placed by class name and debug map
-    // ObjType::SetupDerivedObject(DerivedObjType, shared_ptr<ObjType> const&, shared_ptr<ObjType> const&, char const*)
-    void ObjType::SetupDerivedObject(int param_2, shared_ptr<ObjType>* param_3, shared_ptr<ObjType>* param_4,
-                                     char* param_5) {
-        undefined1* this_00;
-        char* pcVar1;
+    // 0x100509370
+    void ObjType::SetupDerivedObject(DerivedObjType derivedObjType, const shared_ptr<ObjType>& objType1,
+                                     const shared_ptr<ObjType>& objType2, const char* str) {
+        uint8_t* this_00;
+        char* str_00;
         long lVar2;
-        long lVar3;
-        undefined8* puVar4;
-        eastl::string* pbVar5;
-        ulong uVar6;
-        shared_ptr<ObjType>* this_01;
-        undefined8 local_e8;
-        undefined8 uStack_e0;
-        undefined8 local_d8;
-        undefined8 uStack_d0;
-        undefined8 local_c8;
-        undefined8 uStack_c0;
-        undefined8 local_b8;
-        undefined8 uStack_b0;
-        undefined8 local_a8;
-        undefined8 uStack_a0;
-        undefined8 local_98;
-        undefined8 uStack_90;
-        undefined8 local_88;
-        undefined8 uStack_80;
-        undefined8 local_78;
-        undefined8 uStack_70;
-        undefined8 local_68;
-        undefined8 uStack_60;
-        undefined8 local_58;
-        undefined8 uStack_50;
-        eastl::string* local_40;
+        uint64_t* puVar3;
+        eastl::string* pbVar4;
+        unsigned long uVar5;
+        uint64_t local_e8;
+        uint64_t uStack_e0;
+        uint64_t local_d8;
+        uint64_t uStack_d0;
+        uint64_t local_c8;
+        uint64_t uStack_c0;
+        uint64_t local_b8;
+        uint64_t uStack_b0;
+        uint64_t local_a8;
+        uint64_t uStack_a0;
+        uint64_t local_98;
+        uint64_t uStack_90;
+        uint64_t local_88;
+        uint64_t uStack_80;
+        uint64_t local_78;
+        uint64_t uStack_70;
+        uint64_t local_68;
+        uint64_t uStack_60;
+        uint64_t local_58;
+        uint64_t uStack_50;
 
-        lVar2 = shared_ptr<ObjType>::operator->(param_3);
-        field_668 = *(undefined4*)(lVar2 + 668);
-        lVar2 = shared_ptr<ObjType>::operator->(param_3);
-        m_zoom2D = *(undefined2*)(lVar2 + 862);
-        lVar2 = shared_ptr<ObjType>::operator->(param_3);
-        math::Vector3T<short>::operator=((Vector3T<short>*)&field_864, (Vector3T*)(lVar2 + 864));
-        lVar2 = shared_ptr<ObjType>::operator->(param_3);
-        math::Vector3T<int>::operator=((Vector3T<int>*)&field_872, (Vector3T*)(lVar2 + 872));
-        lVar2 = shared_ptr<ObjType>::operator->(param_4);
-        local_40 = (eastl::string*)&field_408;
-        eastl::string::operator=(local_40, (basic_string*)(lVar2 + 408));
-        lVar2 = shared_ptr<ObjType>::operator->(param_4);
-        m_members = *(undefined1*)(lVar2 + 504);
-        this_01 = param_4;
-        if (param_2 == 0) {
-            this_01 = param_3;
+        long lVar1 = objType1.operator->();
+        field_668 = *(uint32_t*)(lVar1 + 668);
+        lVar1 = objType1.operator->();
+        m_zoom2D = *(uint16_t*)(lVar1 + 862);
+        lVar1 = objType1.operator->();
+        field_864 = (*((lVar1 + 864)));
+        lVar1 = objType1.operator->();
+        field_872 = (*((lVar1 + 872)));
+        lVar1 = objType2.operator->();
+        eastl::string* local_40 = (eastl::string*)&field_408;
+        *local_40 = ((lVar1 + 408));
+        lVar1 = objType2.operator->();
+        m_members = *(uint8_t*)(lVar1 + 504);
+        shared_ptr<ObjType>* this_01 = objType2;
+        if (derivedObjType == 0) {
+            this_01 = objType1;
         }
-        lVar2 = shared_ptr<ObjType>::operator->(this_01);
-        Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)&field_672,
-                                                           (Array*)(lVar2 + 672));
-        lVar2 = shared_ptr<ObjType>::operator->(this_01);
-        Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)&field_696,
-                                                           (Array*)(lVar2 + 696));
-        lVar2 = shared_ptr<ObjType>::operator->(this_01);
-        Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)&field_720,
-                                                          (Array*)(lVar2 + 720));
-        lVar2 = shared_ptr<ObjType>::operator->(this_01);
-        Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)&field_768,
-                                                           (Array*)(lVar2 + 768));
-        lVar2 = shared_ptr<ObjType>::operator->(this_01);
-        Array<unsigned short, eastl::allocator>::operator=((Array<unsigned short, eastl::allocator>*)&field_792,
-                                                           (Array*)(lVar2 + 792));
-        if (param_2 == 0) {
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            m_cost = *(long*)(lVar2 + 592);
+        lVar1 = (*this_01).operator->();
+        field_672 = (*((lVar1 + 672)));
+        lVar1 = (*this_01).operator->();
+        field_696 = (*((lVar1 + 696)));
+        lVar1 = (*this_01).operator->();
+        field_720 = (*((lVar1 + 720)));
+        lVar1 = (*this_01).operator->();
+        field_768 = (*((lVar1 + 768)));
+        lVar1 = (*this_01).operator->();
+        field_792 = (*((lVar1 + 792)));
+        if (derivedObjType == 0) {
+            lVar1 = objType2.operator->();
+            m_cost = *(long*)(lVar1 + 592);
             m_stackable = 1;
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            if (*(char*)(lVar2 + 658) == '\0') {
-                lVar2 = shared_ptr<ObjType>::operator->(param_4);
-                m_isTradeable = *(bool*)(lVar2 + 656);
+            lVar1 = objType2.operator->();
+            if (*(char*)(lVar1 + 658) == '\0') {
+                lVar1 = objType2.operator->();
+                m_isTradeable = *(bool*)(lVar1 + 656);
             } else {
                 m_isTradeable = false;
             }
-        } else if ((char)param_2 == '\x03') {
-            eastl::string::operator=(local_40, (basic_string*)&field_976);
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            lVar2 = *(long*)(lVar2 + 592);
-            lVar3 = shared_ptr<ObjType>::operator->(param_4);
-            uVar6 = 18446744073709551615;
-            if ((ulong) * (ushort*)(lVar3 + 968) != 65535) {
-                uVar6 = (ulong) * (ushort*)(lVar3 + 968);
+        } else if ((char)derivedObjType == '\x03') {
+            *local_40 = &field_976;
+            lVar1 = objType2.operator->();
+            lVar1 = *(long*)(lVar1 + 592);
+            lVar2 = objType2.operator->();
+            uVar5 = 18446744073709551615;
+            if ((unsigned long)*(unsigned short*)(lVar2 + 968) != 65535) {
+                uVar5 = (unsigned long)*(unsigned short*)(lVar2 + 968);
             }
-            m_cost = lVar2 / (long)uVar6;
+            m_cost = lVar1 / (long)uVar5;
             m_stackable = 1;
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            m_isStockmarket = *(bool*)(lVar2 + 649);
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            m_isTradeable = *(bool*)(lVar2 + 656);
-            lVar2 = shared_ptr<ObjType>::operator->(param_3);
-            field_664 = *(ushort*)(lVar2 + 664);
-            lVar2 = shared_ptr<ObjType>::operator->(param_3);
-            Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)&field_512, (Array*)(lVar2 + 512));
-            lVar2 = shared_ptr<ObjType>::operator->(param_3);
-            Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)&field_536, (Array*)(lVar2 + 536));
+            lVar1 = objType2.operator->();
+            m_isStockmarket = *(bool*)(lVar1 + 649);
+            lVar1 = objType2.operator->();
+            m_isTradeable = *(bool*)(lVar1 + 656);
+            lVar1 = objType1.operator->();
+            field_664 = *(unsigned short*)(lVar1 + 664);
+            lVar1 = objType1.operator->();
+            field_512 = (*((lVar1 + 512)));
+            lVar1 = objType1.operator->();
+            field_536 = (*((lVar1 + 536)));
             local_58 = 0;
             uStack_50 = 0;
             local_68 = 0;
@@ -1745,174 +1533,108 @@ namespace jag::game {
             uStack_e0 = 0;
             new (&local_e8) std::array<eastl::string, 5ul>();
             this_00 = &field_248;
-            std::array<eastl::string, 5ul>::operator=((array<eastl::string, 5ul>*)this_00, (array*)&local_e8);
-            local_e8.~array();
-            lVar2 = field_24->GetPriority();
-            puVar4 = (undefined8*)std::array<char const*, 7ul>::operator[](
-                (array<char const*, 7ul>*)&LocalisedText::SHARD_COMBINE_OP, (ulong) * (uint*)(lVar2 + 8));
-            pcVar1 = (char*)*puVar4;
-            pbVar5 = (eastl::string*)std::array<eastl::string, 5ul>::operator[]((array<eastl::string, 5ul>*)this_00, 0);
-            eastl::string::assign(pbVar5, pcVar1);
-            pbVar5 = (eastl::string*)std::array<eastl::string, 5ul>::operator[]((array<eastl::string, 5ul>*)this_00, 4);
-            eastl::string::assign(pbVar5, param_5);
+            *this_00 = local_e8;
+            lVar1 = field_24->GetPriority();
+            puVar3 = (uint64_t*)(*((
+                array<char const*, 7ul>*)&LocalisedText::SHARD_COMBINE_OP))[(unsigned long)*(unsigned int*)(lVar1 + 8)];
+            str_00 = (char*)*puVar3;
+            pbVar4 = (eastl::string*)(*this_00)[0];
+            eastl::string::assign(pbVar4, str_00);
+            pbVar4 = (eastl::string*)(*this_00)[4];
+            eastl::string::assign(pbVar4, str);
         } else {
             m_cost = 0;
             m_isTradeable = false;
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            m_stackable = *(undefined1*)(lVar2 + 584);
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            field_884 = *(undefined1*)(lVar2 + 884);
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            field_885 = *(undefined1*)(lVar2 + 885);
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            field_886 = *(undefined1*)(lVar2 + 886);
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            ObjAppearanceData::operator=((ObjAppearanceData*)&field_888, (ObjAppearanceData*)(lVar2 + 888));
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            ObjAppearanceData::operator=((ObjAppearanceData*)&field_920, (ObjAppearanceData*)(lVar2 + 920));
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            field_664 = *(ushort*)(lVar2 + 664);
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            m_team = *(uchar*)(lVar2 + 648);
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            std::array<eastl::string, 6ul>::operator=((array<eastl::string, 6ul>*)&field_56, (array*)(lVar2 + 56));
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            std::array<eastl::string, 5ul>::operator=((array<eastl::string, 5ul>*)&field_248, (array*)(lVar2 + 248));
-            pbVar5 =
-                (eastl::string*)std::array<eastl::string, 5ul>::operator[]((array<eastl::string, 5ul>*)&field_248, 4);
-            eastl::string::assign(pbVar5, param_5);
-            lVar2 = shared_ptr<ObjType>::operator->(param_4);
-            shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                         eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>::
-            operator=(
-                (shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                              eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>*)field_40,
-                (shared_ptr*)(lVar2 + 40));
+            lVar1 = objType2.operator->();
+            m_stackable = *(uint8_t*)(lVar1 + 584);
+            lVar1 = objType2.operator->();
+            field_884 = *(uint8_t*)(lVar1 + 884);
+            lVar1 = objType2.operator->();
+            field_885 = *(uint8_t*)(lVar1 + 885);
+            lVar1 = objType2.operator->();
+            field_886 = *(uint8_t*)(lVar1 + 886);
+            lVar1 = objType2.operator->();
+            field_888 = (*((lVar1 + 888)));
+            lVar1 = objType2.operator->();
+            field_920 = (*((lVar1 + 920)));
+            lVar1 = objType2.operator->();
+            field_664 = *(unsigned short*)(lVar1 + 664);
+            lVar1 = objType2.operator->();
+            m_team = *(unsigned char*)(lVar1 + 648);
+            lVar1 = objType2.operator->();
+            field_56 = (*((lVar1 + 56)));
+            lVar1 = objType2.operator->();
+            field_248 = (*((lVar1 + 248)));
+            pbVar4 = &field_248[4];
+            eastl::string::assign(pbVar4, str);
+            lVar1 = objType2.operator->();
+            *field_40 = (*((lVar1 + 40)));
             field_666 = 0;
         }
     }
 
-    // 0x1005098d0, 560 bytes, placed by class name and debug map
-    // ObjType::RemoveAutoDisabledParams(ConfigProvider const&)
-    undefined* ObjType::RemoveAutoDisabledParams(ConfigProvider* param_1) {
-        shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                     eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>* this_00;
-        bool bVar1;
-        bool bVar2;
-        char cVar3;
-        vector<DecodedTerrainTile, eastl::allocator>* this_01;
-        long lVar4;
-        vector_map* pvVar5;
+    // 0x1005098d0
+    uint8_t* ObjType::RemoveAutoDisabledParams(const ConfigProvider& configProvider) {
+        int arg1;
+        shared_ptr<eastl::vector_map<int, VarValue>>* this_00;
+        bool cVar2;
+        vector_map<int, VarValue>* arg1_00;
         Layout* this_02;
-        int* piVar6;
-        shared_ptr* psVar7;
-        ParamType* this_03;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_04;
-        undefined* puVar8;
-        undefined1* this_05;
+        int* piVar5;
+        shared_ptr<ParamType>* groundDecor;
+        uint8_t* puVar6;
         shared_ptr local_198;
-        ConfigProvider* local_188;
         int* local_180;
-        undefined* local_178;
-        shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                     eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>* local_170;
-        shared_ptr local_168[19];
-        long local_38;
+        uint8_t* local_178;
+        shared_ptr<eastl::vector_map<int, VarValue>>* local_170;
+        ScopedContainerElementEraser<eastl::vector_map<int, VarValue>, int> local_168;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_05 = field_40;
-        local_188 = param_1;
-        bVar1 = operator!=((shared_ptr*)this_05, (_func_decltype_nullptr*)0);
+        uint8_t* midiPlayerMainThread = field_40;
+        bool bVar1 = *midiPlayerMainThread != nullptr;
         if (bVar1) {
-            this_01 =
-                (vector<DecodedTerrainTile, eastl::allocator>*)
-                    shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                 eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>::
-                    operator->(
-                        (shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                      eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>*)
-                            this_05);
-            lVar4 = eastl::vector<DecodedTerrainTile, eastl::allocator>::size(this_01);
-            if (lVar4 != 0) {
-                pvVar5 = (vector_map*)
-                    shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                 eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>::
-                    operator*(
-                        (shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                      eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>*)
-                            this_05);
-                new (local_168) ScopedContainerElementEraser<
-                    eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                      eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>,
-                    int>(pvVar5);
-                local_170 =
-                    (shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                  eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>*)
-                        this_05;
-                this_02 = (Layout*)
-                    shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                 eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>::
-                    operator*(
-                        (shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                      eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>*)
-                            this_05);
-                piVar6 = (int*)eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                        eastl::allocator>>::Layout::HeapBeginPtr(this_02);
+            if (((vector<DecodedTerrainTile>*)(*midiPlayerMainThread).operator->())->size() != 0) {
+                arg1_00 = (vector_map<int, VarValue>*)**midiPlayerMainThread;
+                local_168 = ScopedContainerElementEraser<eastl::vector_map<int, VarValue>, int>(*arg1_00);
+                local_170 = (shared_ptr<eastl::vector_map<int, VarValue>>*)midiPlayerMainThread;
+                this_02 = (Layout*)**midiPlayerMainThread;
+                piVar5 = (int*)this_02->HeapBeginPtr();
                 local_180 = (int*)this_02->end();
-                bVar1 = piVar6 == local_180;
+                bVar1 = piVar5 == local_180;
                 if (!bVar1) {
                     do {
-                        psVar7 = ConfigProvider::GetConfig<ParamType>(local_188, *piVar6, (DataStatus**)0);
-                        new (&local_198) shared_ptr<oldscape::dash3d::Decor>(psVar7);
-                        bVar2 = shared_ptr::operator_cast_to_bool(&local_198);
-                        if (bVar2) {
-                            this_03 = (ParamType*)shared_ptr<ParamType>::operator->((shared_ptr<ParamType>*)&local_198);
-                            cVar3 = this_03->GetAutoDisable();
-                            if (cVar3 != '\0') {
-                                ScopedContainerElementEraser<
-                                    eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                      eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>,
-                                    int>::erase((int)local_168);
-                            }
-                        } else {
+                        arg1 = *piVar5;
+                        groundDecor = configProvider.GetConfig<ParamType>(arg1, nullptr);
+                        local_198 = shared_ptr(groundDecor);
+                        cVar2 = shared_ptr::operator_cast_to_bool(&local_198);
+                        if (!cVar2) {
                             local_178 = DataStatus::NOTLOADED;
+                        } else {
+                            if (((ParamType*)local_198.operator->())->GetAutoDisable() != '\0') {
+                                local_168.erase(arg1);
+                            }
                         }
-                        local_198.~shared_ptr();
-                        if (!bVar2)
+                        if (!cVar2)
                             break;
-                        piVar6 = piVar6 + 10;
-                        bVar1 = piVar6 == local_180;
+                        piVar5 = piVar5 + 10;
+                        bVar1 = piVar5 == local_180;
                     } while (!bVar1);
                 }
-                local_168->~ScopedContainerElementEraser();
                 this_00 = local_170;
-                puVar8 = local_178;
+                puVar6 = local_178;
                 if (!bVar1)
                     goto LAB_100509a8b;
-                this_04 =
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                        shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                     eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>::
-                        operator->(local_170);
-                cVar3 = eastl::vector<
-                    int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_04);
-                if (cVar3 != '\0') {
-                    new (local_168) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    shared_ptr<eastl::vector_map<int, VarValue, eastl::less<int>, eastl::allocator,
-                                                 eastl::vector<eastl::pair<int, VarValue>, eastl::allocator>>>::
-                    operator=(this_00, local_168);
-                    local_168->~shared_ptr();
+                cVar2 =
+                    ((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(*local_170).operator->())
+                        ->empty();
+                if (cVar2) {
+                    local_168 = shared_ptr();
+                    *this_00 = local_168;
                 }
             }
         }
-        puVar8 = DataStatus::READY;
+        puVar6 = DataStatus::READY;
     LAB_100509a8b:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return puVar8;
+        return puVar6;
     }
 
 } // namespace jag::game

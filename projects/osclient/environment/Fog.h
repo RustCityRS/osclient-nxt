@@ -1,39 +1,37 @@
 // projects/osclient/environment/Fog.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape {
     class Fog {
     public:
-        Enabled() const;
-        void SetEnabled(bool, unsigned long long);
-        FogDistance() const;
-        FogIntensity() const;
+        uint8_t Enabled() const;
+        void SetEnabled(bool arg1, unsigned long long arg2);
+        uint32_t FogDistance() const;
+        uint32_t FogIntensity() const;
         Fog();
-        void SetPixToolkit(graphics::NXTPixToolkit*);
-        void UpdateFog(unsigned long long);
-        void SetFogIntensity(int, unsigned long long);
-        void SetFogIntensity(float, unsigned long long);
-        void SetFogDistance(int, unsigned long long);
-        void SetFogDistance(float, unsigned long long);
-        void UpdateFogViaDrawDistance(int, unsigned long long);
+        void SetPixToolkit(graphics::NXTPixToolkit* nxtPixToolkit);
+        void UpdateFog(unsigned long long arg1);
+        void SetFogIntensity(int arg1, unsigned long long arg2);
+        void SetFogIntensity(float arg1, unsigned long long arg2);
+        void SetFogDistance(int arg1, unsigned long long arg2);
+        void SetFogDistance(float arg1, unsigned long long arg2);
+        void UpdateFogViaDrawDistance(int arg1, unsigned long long arg2);
 
-        // data members, from how the methods use this: 124 bytes
-        NXTPixToolkit* m_pPixToolkit; // offset 0
-        bool field_8;                 // offset 8
-        char _unknown_9[107];
-        uint field_116; // offset 116
-        char _unknown_120[4];
+    private:
+        NXTPixToolkit* m_pPixToolkit;
+        bool field_8;
+        uint8_t _unknown_9[107];
+        unsigned int field_116;
+        uint8_t _unknown_120[4];
     };
 
 } // namespace jag::oldscape
 
 namespace jag::math {
-    // 0x1000689d0, 32 bytes, inline, placed by debug map only (low confidence)
-    // double Log2<double>(double)
-    double Log2<double>(double param_1) {
+    // 0x1000689d0
+    double Log2<double>(double arg1) {
         return (double)_log() * 1.4426950408889634;
     }
 

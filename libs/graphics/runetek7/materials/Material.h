@@ -1,421 +1,363 @@
 // libs/graphics/runetek7/materials/Material.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class Material {
     public:
-        GetEnvironmentMaterialID() const;
-        IsValid() const;
-        uint GetSize() const;
-        GetMetalnessRoughnessMapSize() const;
+        uint32_t GetEnvironmentMaterialID() const;
+        bool IsValid() const;
+        unsigned int GetSize() const;
+        uint32_t GetMetalnessRoughnessMapSize() const;
         float GetSpecularExponent() const;
-        uint GetID() const;
-        GetMetalnessRoughnessMapID() const;
-        GetWrapV() const;
-        GetDiffuseMapID() const;
+        unsigned int GetID() const;
+        uint32_t GetMetalnessRoughnessMapID() const;
+        uint8_t* GetWrapV() const;
+        unsigned int GetDiffuseMapID() const;
         int GetAlphaTestThreshold() const;
-        GetViewportMapID() const;
-        GetHideFacesMode() const;
-        GetNormalEmissiveMapSize() const;
-        HasCubemap() const;
-        HasHighlighting() const;
-        GetViewportMapUVScaleAndAnim() const;
+        uint32_t GetViewportMapID() const;
+        uint8_t* GetHideFacesMode() const;
+        uint32_t GetNormalEmissiveMapSize() const;
+        bool HasCubemap() const;
+        bool HasHighlighting() const;
+        uint8_t* GetViewportMapUVScaleAndAnim() const;
         int GetDiffuseAlphaMapID() const;
-        GetHDRNormalMapID() const;
-        GetDiffuseAlphaMapSize() const;
+        uint32_t GetHDRNormalMapID() const;
+        uint32_t GetDiffuseAlphaMapSize() const;
         int GetEmissiveSourceColourARGB() const;
-        GetMaterialAnimationH() const;
+        uint32_t GetMaterialAnimationH() const;
         bool IsRT7() const;
-        char HasDiffuseMap() const;
+        bool HasDiffuseMap() const;
         float GetFresnelExponent() const;
-        GetDefaultNonMetalSpecular() const;
-        byte IsLegacyMaterial() const;
-        GetWrapU() const;
-        uint GetVertexColourStrengthAsWhiteness() const;
-        GetLegacyWhiteness() const;
-        GetLegacyBrightness() const;
-        ulong HasTextures() const;
+        uint32_t GetDefaultNonMetalSpecular() const;
+        bool IsLegacyMaterial() const;
+        uint8_t* GetWrapU() const;
+        unsigned int GetVertexColourStrengthAsWhiteness() const;
+        uint8_t GetLegacyWhiteness() const;
+        uint8_t GetLegacyBrightness() const;
+        unsigned long HasTextures() const;
         bool HasSpecularMap() const;
         bool HasEmissiveMap() const;
-        IsGlobalEnvironmentMapped() const;
-        IsUnlit() const;
-        IsShadowCaster() const;
-        IsShadowReceiver() const;
-        HasTransparencyCutout() const;
-        GetRefractionIndex() const;
-        GetRefractionDepthBias() const;
-        GetEmissiveScale() const;
-        GetNormalEmissiveMapID() const;
-        GetMaterialAnimationV() const;
-        GetRefractionAmount() const;
-        GetSpecularScale() const;
-        GetNormalScale() const;
+        bool IsGlobalEnvironmentMapped() const;
+        bool IsUnlit() const;
+        bool IsShadowCaster() const;
+        bool IsShadowReceiver() const;
+        bool HasTransparencyCutout() const;
+        uint32_t GetRefractionIndex() const;
+        uint32_t GetRefractionDepthBias() const;
+        uint32_t GetEmissiveScale() const;
+        uint32_t GetNormalEmissiveMapID() const;
+        uint32_t GetMaterialAnimationV() const;
+        uint32_t GetRefractionAmount() const;
+        uint32_t GetSpecularScale() const;
+        uint32_t GetNormalScale() const;
         bool HasEmissiveSourceColour() const;
-        GetAlphaMode() const;
-        GetBlendMode() const;
-        byte HasForcedTextures() const;
-        HasNormalMap() const;
-        HasHDRMap() const;
+        long GetAlphaMode() const;
+        unsigned long GetBlendMode() const;
+        bool HasForcedTextures() const;
+        bool HasNormalMap() const;
+        bool HasHDRMap() const;
         Material();
-        void Initialise(int, MaterialRaw const&);
-        void InitialiseDummy(bool);
-        void InitialiseLoading(bool);
+        void Initialise(int arg1, const MaterialRaw& materialRaw);
+        void InitialiseDummy(bool arg1);
+        void InitialiseLoading(bool arg1);
 
-        // data members, from how the methods use this: 216 bytes
-        undefined1 m_valid; // offset 0
-        char field_1;       // offset 1
-        char _unknown_2[2];
-        uint m_iD;                 // offset 4
-        uint m_size;               // offset 8
-        char m_hasDiffuseMap;      // offset 12
-        undefined1 m_hasNormalMap; // offset 13
-        undefined1 field_14;       // offset 14
-        undefined1 m_hasHDRMap;    // offset 15
-        char field_16;             // offset 16
-        bool m_hasEmissiveMap;     // offset 17
-        bool m_hasSpecularMap;     // offset 18
-        char _unknown_19[1];
-        undefined4 m_diffuseMapID;            // offset 20
-        undefined4 m_hDRNormalMapID;          // offset 24
-        undefined1 m_globalEnvironmentMapped; // offset 28
-        undefined1 field_29;                  // offset 29
-        char _unknown_30[2];
-        float m_specularExponent;               // offset 32
-        byte m_legacyMaterial;                  // offset 36
-        undefined1 m_legacyWhiteness;           // offset 37
-        undefined1 m_legacyBrightness;          // offset 38
-        char field_39;                          // offset 39
-        int m_diffuseAlphaMapID;                // offset 40
-        undefined4 m_normalEmissiveMapID;       // offset 44
-        undefined4 m_metalnessRoughnessMapID;   // offset 48
-        undefined4 m_diffuseAlphaMapSize;       // offset 52
-        undefined4 m_normalEmissiveMapSize;     // offset 56
-        undefined4 m_metalnessRoughnessMapSize; // offset 60
-        int m_emissiveSourceColourARGB;         // offset 64
-        undefined4 m_emissiveScale;             // offset 68
-        float m_fresnelExponent;                // offset 72
-        undefined4 m_defaultNonMetalSpecular;   // offset 76
-        float field_80;                         // offset 80
-        char _unknown_84[4];
-        undefined* m_pHideFacesMode;        // offset 88
-        undefined4 m_environmentMaterialID; // offset 96
-        undefined4 m_viewportMapID;         // offset 100
-        char _unknown_104[24];
-        undefined4 m_materialAnimationH;    // offset 128
-        undefined4 m_materialAnimationV;    // offset 132
-        undefined1 m_unlit;                 // offset 136
-        undefined1 m_shadowCaster;          // offset 137
-        undefined1 m_shadowReceiver;        // offset 138
-        byte m_hasForcedTextures;           // offset 139
-        undefined1 m_hasHighlighting;       // offset 140
-        undefined1 m_hasTransparencyCutout; // offset 141
-        char _unknown_142[2];
-        undefined4 m_specularScale;       // offset 144
-        undefined4 m_normalScale;         // offset 148
-        undefined4 m_refractionAmount;    // offset 152
-        undefined4 m_refractionIndex;     // offset 156
-        undefined4 m_refractionDepthBias; // offset 160
-        char _unknown_164[4];
-        undefined* m_blendMode;   // offset 168
-        undefined* m_alphaMode;   // offset 176
-        int m_alphaTestThreshold; // offset 184
-        char _unknown_188[4];
-        undefined* m_pWrapU;  // offset 192
-        undefined* m_pWrapV;  // offset 200
-        undefined4 field_208; // offset 208
-        char _unknown_212[4];
+    private:
+        uint8_t m_valid;
+        char field_1;
+        uint8_t _unknown_2[2];
+        unsigned int m_iD;
+        unsigned int m_size;
+        char m_hasDiffuseMap;
+        uint8_t m_hasNormalMap;
+        uint8_t field_14;
+        uint8_t m_hasHDRMap;
+        char field_16;
+        bool m_hasEmissiveMap;
+        bool m_hasSpecularMap;
+        uint8_t _unknown_19[1];
+        uint32_t m_diffuseMapID;
+        uint32_t m_hDRNormalMapID;
+        uint8_t m_globalEnvironmentMapped;
+        uint8_t field_29;
+        uint8_t _unknown_30[2];
+        float m_specularExponent;
+        uint8_t m_legacyMaterial;
+        uint8_t m_legacyWhiteness;
+        uint8_t m_legacyBrightness;
+        char field_39;
+        int m_diffuseAlphaMapID;
+        uint32_t m_normalEmissiveMapID;
+        uint32_t m_metalnessRoughnessMapID;
+        uint32_t m_diffuseAlphaMapSize;
+        uint32_t m_normalEmissiveMapSize;
+        uint32_t m_metalnessRoughnessMapSize;
+        int m_emissiveSourceColourARGB;
+        uint32_t m_emissiveScale;
+        float m_fresnelExponent;
+        uint32_t m_defaultNonMetalSpecular;
+        float field_80;
+        uint8_t _unknown_84[4];
+        uint8_t* m_pHideFacesMode;
+        uint32_t m_environmentMaterialID;
+        uint32_t m_viewportMapID;
+        uint8_t _unknown_104[24];
+        uint32_t m_materialAnimationH;
+        uint32_t m_materialAnimationV;
+        uint8_t m_unlit;
+        uint8_t m_shadowCaster;
+        uint8_t m_shadowReceiver;
+        uint8_t m_hasForcedTextures;
+        uint8_t m_hasHighlighting;
+        uint8_t m_hasTransparencyCutout;
+        uint8_t _unknown_142[2];
+        uint32_t m_specularScale;
+        uint32_t m_normalScale;
+        uint32_t m_refractionAmount;
+        uint32_t m_refractionIndex;
+        uint32_t m_refractionDepthBias;
+        uint8_t _unknown_164[4];
+        uint8_t* m_blendMode;
+        uint8_t* m_alphaMode;
+        int m_alphaTestThreshold;
+        uint8_t _unknown_188[4];
+        uint8_t* m_pWrapU;
+        uint8_t* m_pWrapV;
+        uint32_t field_208;
+        uint8_t _unknown_212[4];
     };
 
     class MaterialInfo {
     public:
-        MaterialInfo(int, std::array<int, 3ul> const&, std::array<unsigned int, 3ul> const&);
+        MaterialInfo(int arg1, const std::array<int, 3ul>& arg2, const std::array<unsigned int, 3ul>& arg3);
 
-        // data members, from how the methods use this: 32 bytes
-        int field_0;         // offset 0
-        undefined8 field_4;  // offset 4
-        undefined4 field_12; // offset 12
-        undefined8 field_16; // offset 16
-        undefined4 field_24; // offset 24
-        char _unknown_28[4];
+    private:
+        int field_0;
+        uint64_t field_4;
+        uint32_t field_12;
+        uint64_t field_16;
+        uint32_t field_24;
+        uint8_t _unknown_28[4];
     };
 
-    // 0x10062b9b0, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Material::IsLegacyMaterial() const
-    /* GeometryBatch::HasFaceTransparency() const */
-
-    byte GeometryBatch::HasFaceTransparency() {
+    // 0x10062b9b0
+    bool Material::IsLegacyMaterial() const {
         return m_hasFaceTransparency;
     }
 
-    // 0x10080ecf0, 48 bytes, inline, placed by class name
-    // Material::GetVertexColourStrengthAsWhiteness() const
-    uint Material::GetVertexColourStrengthAsWhiteness() {
+    // 0x10080ecf0
+    unsigned int Material::GetVertexColourStrengthAsWhiteness() const {
         return (int)(255.0 - field_80 * 255.0) & 255;
     }
 
-    // 0x10080ed20, 16 bytes, inline, placed by class name
-    // Material::GetLegacyWhiteness() const
-    undefined1 Material::GetLegacyWhiteness() {
+    // 0x10080ed20
+    uint8_t Material::GetLegacyWhiteness() const {
         return m_legacyWhiteness;
     }
 
-    // 0x10080ed30, 16 bytes, inline, placed by class name
-    // Material::GetLegacyBrightness() const
-    undefined1 Material::GetLegacyBrightness() {
+    // 0x10080ed30
+    uint8_t Material::GetLegacyBrightness() const {
         return m_legacyBrightness;
     }
 
-    // 0x10081c0f0, 112 bytes, inline, placed by class name
-    // Material::HasTextures() const
-    ulong Material::HasTextures() {
-        char cVar1;
+    // 0x10081c0f0
+    unsigned long Material::HasTextures() const {
         int iVar2;
-        uint uVar3;
-        undefined8 unaff_R14;
-        undefined7 uVar5;
-        ulong uVar4;
+        unsigned int uVar3;
+        uint64_t unaff_R14;
+        unsigned long uVar4;
 
-        cVar1 = IsRT7(this);
-        uVar5 = (undefined7)((ulong)unaff_R14 >> 8);
-        if (cVar1 == '\0') {
+        bool cVar1 = IsRT7();
+        uint64_t uVar5 = (uint64_t)((unsigned long)unaff_R14 >> 8);
+        if (!cVar1) {
             cVar1 = Ready();
-            uVar4 = CONCAT71(uVar5, 1);
-            if (cVar1 == '\0') {
+            uVar4 = (((uint64_t)uVar5 << 8) | (uint8_t)1);
+            if (!cVar1) {
                 cVar1 = IsWeighted();
-                if (cVar1 == '\0') {
-                    uVar3 = HasHDRMap(this);
-                    uVar4 = (ulong)uVar3;
+                if (!cVar1) {
+                    uVar3 = HasHDRMap();
+                    uVar4 = (unsigned long)uVar3;
                 }
             }
         } else {
             iVar2 = GetEndPosition();
-            uVar4 = CONCAT71(uVar5, 1);
+            uVar4 = (((uint64_t)uVar5 << 8) | (uint8_t)1);
             if (iVar2 == -1) {
-                iVar2 = GetNormalEmissiveMapID(this);
+                iVar2 = GetNormalEmissiveMapID();
                 if (iVar2 == -1) {
                     iVar2 = AlreadyWritten();
-                    uVar4 = CONCAT71(uVar5, iVar2 != -1);
+                    uVar4 = (((uint64_t)uVar5 << 8) | (uint8_t)(iVar2 != -1));
                 }
             }
         }
         return uVar4 & 4294967295;
     }
 
-    // 0x1008219e0, 16 bytes, inline, placed by class name
-    // Material::HasSpecularMap() const
-    undefined1 Material::HasSpecularMap() {
+    // 0x1008219e0
+    bool Material::HasSpecularMap() const {
         return m_hasSpecularMap;
     }
 
-    // 0x1008219f0, 16 bytes, inline, placed by class name
-    // Material::HasEmissiveMap() const
-    undefined1 Material::HasEmissiveMap() {
+    // 0x1008219f0
+    bool Material::HasEmissiveMap() const {
         return m_hasEmissiveMap;
     }
 
-    // 0x100821a00, 16 bytes, inline, placed by class name
-    // Material::IsGlobalEnvironmentMapped() const
-    undefined1 Material::IsGlobalEnvironmentMapped() {
+    // 0x100821a00
+    bool Material::IsGlobalEnvironmentMapped() const {
         return m_globalEnvironmentMapped;
     }
 
-    // 0x100821a10, 16 bytes, inline, placed by class name
-    // Material::IsUnlit() const
-    undefined1 Material::IsUnlit() {
+    // 0x100821a10
+    bool Material::IsUnlit() const {
         return m_unlit;
     }
 
-    // 0x100821a20, 16 bytes, inline, placed by class name
-    // Material::IsShadowCaster() const
-    undefined1 Material::IsShadowCaster() {
+    // 0x100821a20
+    bool Material::IsShadowCaster() const {
         return m_shadowCaster;
     }
 
-    // 0x100821a30, 16 bytes, inline, placed by class name
-    // Material::IsShadowReceiver() const
-    undefined1 Material::IsShadowReceiver() {
+    // 0x100821a30
+    bool Material::IsShadowReceiver() const {
         return m_shadowReceiver;
     }
 
-    // 0x100821a40, 16 bytes, inline, placed by class name
-    // Material::HasTransparencyCutout() const
-    undefined1 Material::HasTransparencyCutout() {
+    // 0x100821a40
+    bool Material::HasTransparencyCutout() const {
         return m_hasTransparencyCutout;
     }
 
-    // 0x100821a50, 16 bytes, inline, placed by class name
-    // Material::GetRefractionIndex() const
-    undefined4 Material::GetRefractionIndex() {
+    // 0x100821a50
+    uint32_t Material::GetRefractionIndex() const {
         return m_refractionIndex;
     }
 
-    // 0x100821a60, 16 bytes, inline, placed by class name
-    // Material::GetRefractionDepthBias() const
-    undefined4 Material::GetRefractionDepthBias() {
+    // 0x100821a60
+    uint32_t Material::GetRefractionDepthBias() const {
         return m_refractionDepthBias;
     }
 
-    // 0x10085f8f0, 16 bytes, inline, placed by class name
-    // Material::GetMaterialAnimationV() const
-    undefined4 Material::GetMaterialAnimationV() {
+    // 0x10085f8f0
+    uint32_t Material::GetMaterialAnimationV() const {
         return m_materialAnimationV;
     }
 
-    // 0x10085f920, 16 bytes, inline, placed by class name
-    // Material::GetRefractionAmount() const
-    undefined4 Material::GetRefractionAmount() {
+    // 0x10085f920
+    uint32_t Material::GetRefractionAmount() const {
         return m_refractionAmount;
     }
 
-    // 0x10085f940, 16 bytes, inline, placed by class name
-    // Material::GetSpecularScale() const
-    undefined4 Material::GetSpecularScale() {
+    // 0x10085f940
+    uint32_t Material::GetSpecularScale() const {
         return m_specularScale;
     }
 
-    // 0x10085f950, 16 bytes, inline, placed by class name
-    // Material::GetNormalScale() const
-    undefined4 Material::GetNormalScale() {
+    // 0x10085f950
+    uint32_t Material::GetNormalScale() const {
         return m_normalScale;
     }
 
-    // 0x10085f960, 16 bytes, inline, placed by class name
-    // Material::HasEmissiveSourceColour() const
-    bool Material::HasEmissiveSourceColour() {
+    // 0x10085f960
+    bool Material::HasEmissiveSourceColour() const {
         return m_emissiveSourceColourARGB != 0;
     }
 
-    // 0x100869a60, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Material::GetAlphaMode() const
-    /* AnimationParameters::GetLastUpdateTimeNS() const */
-
-    long AnimationParameters::GetLastUpdateTimeNS() {
+    // 0x100869a60
+    long Material::GetAlphaMode() const {
         return m_lastUpdateTimeNS;
     }
 
-    // 0x100869a70, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Material::GetBlendMode() const
-    /* AnimationParameters::GetStartTimeNS() const */
-
-    ulong AnimationParameters::GetStartTimeNS() {
+    // 0x100869a70
+    unsigned long Material::GetBlendMode() const {
         return m_startTimeNS;
     }
 
-    // 0x10086aac0, 48 bytes, base-object constructor, inline, placed by class header (inline)
-    // MaterialInfo::MaterialInfo(int, std::array<int, 3ul> const&, std::array<unsigned int, 3ul> const&)
-    /* MaterialInfo::MaterialInfo(int, std::array<int, 3ul> const&, std::array<unsigned
-   int, 3ul> const&) */
-
-    void MaterialInfo::MaterialInfo(int param_1, array* param_2, array* param_3) {
-        field_0 = param_1;
-        field_4 = *(undefined8*)param_2;
-        field_12 = *(undefined4*)(param_2 + 8);
-        field_16 = *(undefined8*)param_3;
-        field_24 = *(undefined4*)(param_3 + 8);
+    // 0x10086aac0
+    MaterialInfo::MaterialInfo(int arg1, const std::array<int, 3ul>& arg2, const std::array<unsigned int, 3ul>& arg3)
+        : field_0(arg1) {
+        field_4 = *(uint64_t*)arg2;
+        field_12 = *(uint32_t*)(arg2 + 8);
+        field_16 = *(uint64_t*)arg3;
+        field_24 = *(uint32_t*)(arg3 + 8);
     }
 
-    // 0x1008731f0, 16 bytes, inline, placed by class name
-    // Material::HasForcedTextures() const
-    byte Material::HasForcedTextures() {
+    // 0x1008731f0
+    bool Material::HasForcedTextures() const {
         return m_hasForcedTextures;
     }
 
-    // 0x100873200, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Material::HasNormalMap() const
-    /* AnimCurve::IsWeighted() const */
-
-    undefined1 AnimCurve::IsWeighted() {
+    // 0x100873200
+    bool Material::HasNormalMap() const {
         return m_weighted;
     }
 
-    // 0x100873210, 16 bytes, inline, placed by class name
-    // Material::HasHDRMap() const
-    undefined1 Material::HasHDRMap() {
+    // 0x100873210
+    bool Material::HasHDRMap() const {
         return m_hasHDRMap;
     }
 
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x10062d570, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<eastl::vector<eastl::vector<graphics::GridGroup, eastl::allocator>, eastl::allocator> >::type make_shared<eastl::vector<eastl::vector<graphics::GridGroup, eastl::allocator>, eastl::allocator>>()
-    jag* jag::make_shared<eastl::vector<eastl::vector<graphics::GridGroup, eastl::allocator>, eastl::allocator>>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10062d570
+    shared_ptr_if_not_array<eastl::vector<eastl::vector<graphics::GridGroup>>>::type
+    make_shared<eastl::vector<eastl::vector<graphics::GridGroup>>>() {
+        ref_counter_shared<eastl::vector<eastl::vector<graphics::GridGroup>> _>* ref_counter_shared;
         int local_2c;
-        vector* local_28[2];
+        vector<eastl::vector<graphics::GridGroup>>* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(64, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(64, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<eastl::vector<eastl::vector<graphics::GridGroup>>>::type result;
         } else {
-            local_28[0] =
-                placement_new<eastl::vector<eastl::vector<graphics::GridGroup, eastl::allocator>, eastl::allocator>>(
-                    (void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<eastl::vector<eastl::vector<graphics::GridGroup>>>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<
-                ref_counter_shared<
-                    eastl::vector<eastl::vector<graphics::GridGroup, eastl::allocator>, eastl::allocator>>,
-                int, eastl::vector<eastl::vector<graphics::GridGroup, eastl::allocator>, eastl::allocator>*&>(
-                pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            ref_counter_shared =
+                placement_new<ref_counter_shared<eastl::vector<eastl::vector<graphics::GridGroup>>>, int,
+                              eastl::vector<eastl::vector<graphics::GridGroup>>*&>(arg1, &local_2c, local_28);
+            ref_counter_shared->~AutoSingleton();
+            ref_counter_shared->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(ref_counter_shared, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10062d690, 160 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator> >::type make_shared<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>, int>(int&&)
-    jag*
-    make_shared<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>, int>(int* param_1) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10062d690
+    shared_ptr_if_not_array<eastl::vector<eastl::vector<unsigned char>>>::type
+    make_shared<eastl::vector<eastl::vector<unsigned char>>, int>(int&& arg1) {
+        ref_counter_shared<eastl::vector<eastl::vector<unsigned char>> _>* ref_counter_shared;
         int local_34;
-        vector* local_30[2];
+        vector<eastl::vector<unsigned char>>* local_30[2];
 
-        pvVar1 = (void*)aligned_alloc(64, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(64, 8);
+        if (arg1_00 == nullptr) {
+            shared_ptr_if_not_array<eastl::vector<eastl::vector<unsigned char>>>::type result;
         } else {
             local_30[0] =
-                placement_new<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>, int>(
-                    (void*)((long)pvVar1 + 32), param_1);
+                placement_new<eastl::vector<eastl::vector<unsigned char>>, int>((void*)((long)arg1_00 + 32), arg1);
             local_34 = 1;
-            prVar2 = placement_new<
-                ref_counter_shared<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-                int, eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>*&>(
-                pvVar1, &local_34, local_30);
-            prVar2->~AutoSingleton(local_30[0]);
-            prVar2->~AutoSingleton(local_30[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_30[0]);
+            ref_counter_shared =
+                placement_new<ref_counter_shared<eastl::vector<eastl::vector<unsigned char>>>, int,
+                              eastl::vector<eastl::vector<unsigned char>>*&>(arg1_00, &local_34, local_30);
+            ref_counter_shared->~AutoSingleton();
+            ref_counter_shared->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(ref_counter_shared, (unsigned long)local_30[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10062dc00, 64 bytes, inline, placed by debug map only (low confidence)
-    // bool ArrayValidPosition<eastl::vector<game::DecodedTerrainTile, eastl::allocator>, int>(eastl::vector<game::DecodedTerrainTile, eastl::allocator> const&, int const&)
-    bool ArrayValidPosition<eastl::vector<game::DecodedTerrainTile, eastl::allocator>, int>(vector* param_1,
-                                                                                            int* param_2) {
-        int iVar1;
-        bool bVar2;
-        ulong uVar3;
-        integral_constant local_20[8];
+    // 0x10062dc00
+    bool ArrayValidPosition<eastl::vector<game::DecodedTerrainTile>, int>(
+        const eastl::vector<game::DecodedTerrainTile>& decodedTerrainTiles, const int& arg2) {
+        unsigned long uVar3;
+        integral_constant<bool, true> local_20;
 
-        bVar2 = ArrayPositivePos<int>(param_2, local_20);
+        bool bVar2 = ArrayPositivePos<int>(arg2, &local_20);
         if (bVar2) {
-            iVar1 = *param_2;
-            uVar3 = param_1->size();
-            bVar2 = (ulong)(long)iVar1 < uVar3;
+            uVar3 = decodedTerrainTiles.size();
+            bVar2 = (unsigned long)(long)(int)arg2 < uVar3;
         } else {
             bVar2 = false;
         }

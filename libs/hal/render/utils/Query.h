@@ -1,6 +1,5 @@
 // libs/hal/render/utils/Query.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics
@@ -12,136 +11,112 @@ namespace jag::render {
         Query();
         void Begin();
         void End();
-        FetchResult64();
-        GetResult64() const;
-        Query(bool);
+        uint64_t FetchResult64();
+        uint64_t GetResult64() const;
+        Query(bool arg1);
         ~Query();
         void Destroy();
-        bool Create(QueryType);
+        bool Create(QueryType queryType);
         void KeepAlive() const;
-        GetNativeQueryType(QueryType);
-        ulong IsValid() const;
-        ulong IsActive() const;
-        FetchResult();
+        void GetNativeQueryType(QueryType queryType);
+        unsigned long IsValid() const;
+        unsigned long IsActive() const;
+        uint32_t FetchResult();
         void PrepareResult();
         void PrepareResult64();
-        ulong IsResultReady() const;
-        AdvanceWriteQuery();
-        GetReadQuery() const;
-        static /* 8 bytes */ m_simulatedEndDelayMs;
+        unsigned long IsResultReady() const;
+        uint32_t AdvanceWriteQuery();
+        uint32_t GetReadQuery() const;
+        static int64_t m_simulatedEndDelayMs;
 
-        // data members, from how the methods use this: 128 bytes
-        undefined4 field_0;     // offset 0
-        RenderResource field_4; // offset 4
-        char _unknown_5[19];
-        undefined1 field_24; // offset 24
-        char _unknown_25[3];
-        int field_28; // offset 28
-        char _unknown_32[8];
-        undefined1 field_40; // offset 40
-        char _unknown_41[55];
-        uint field_96; // offset 96
-        char _unknown_100[4];
-        undefined4 field_104; // offset 104
-        char _unknown_108[4];
-        char field_112; // offset 112
-        char field_113; // offset 113
-        char _unknown_114[14];
+    private:
+        uint32_t field_0;
+        RenderResource field_4;
+        uint8_t _unknown_5[19];
+        uint8_t field_24;
+        uint8_t _unknown_25[3];
+        int field_28;
+        uint8_t _unknown_32[64];
+        unsigned int field_96;
+        uint8_t _unknown_100[4];
+        uint32_t field_104;
+        uint8_t _unknown_108[4];
+        char field_112;
+        char field_113;
+        uint8_t _unknown_114[14];
     };
 
     class QueryView {
     public:
-        uint GetSubQueryCount() const;
+        unsigned int GetSubQueryCount() const;
         QueryView();
-        QueryView(shared_ptr<Query>*, unsigned int);
-        IsValid() const;
+        QueryView(shared_ptr<Query>* fastPool, unsigned int arg2);
+        bool IsValid() const;
         bool HasSubQueries() const;
-        void Begin(unsigned int);
-        void End(unsigned int);
+        void Begin(unsigned int arg1);
+        void End(unsigned int arg1);
 
-        // data members, from how the methods use this: 16 bytes
-        long field_0;         // offset 0
-        uint m_subQueryCount; // offset 8
-        char _unknown_12[4];
+    private:
+        long field_0;
+        unsigned int m_subQueryCount;
+        uint8_t _unknown_12[4];
     };
 
-    // 0x100815450, 16 bytes, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // QueryView::IsValid() const
-    /* BufferInterface::IsCreated() const */
-
-    bool BufferInterface::IsCreated() {
+    // 0x100815450
+    bool QueryView::IsValid() const {
         return m_nativeBuffer != 0;
     }
 
-    // 0x100815460, 16 bytes, inline, placed by debug map only (low confidence)
-    // QueryView::HasSubQueries() const
-    bool QueryView::HasSubQueries() {
+    // 0x100815460
+    bool QueryView::HasSubQueries() const {
         return 1 < m_subQueryCount;
     }
 
-    // 0x1008159a0, 16 bytes, inline, placed by class name and debug map
-    // Query::GetResult() const
-    void Query::GetResult() {
-        GetResult64(this);
+    // 0x1008159a0
+    void Query::GetResult() const {
+        GetResult64();
     }
 
-    // 0x100838b30, 16 bytes, complete-object constructor, inline, placed by class name
-    // Query::Query(): jumps straight to the base-object constructor
-
-    // 0x100bdb1a0, 64 bytes, inline, placed by class name
-    // Query::GetReadQuery() const
-    undefined4 Query::GetReadQuery() {
-        ulong uVar1;
-        undefined4* puVar2;
-        ulong uVar3;
-        ulong uVar4;
-
-        uVar4 = (ulong)(field_96 + 1);
-        uVar1 = (&field_40)->size();
-        uVar3 = 0;
-        if (uVar4 < uVar1) {
-            uVar3 = uVar4;
+    // 0x100bdb1a0
+    uint32_t Query::GetReadQuery() const {
+        unsigned long uVar3 = (unsigned long)(field_96 + 1);
+        unsigned long uVar1 = field_40.size();
+        unsigned long arg1 = 0;
+        if (uVar3 < uVar1) {
+            arg1 = uVar3;
         }
-        puVar2 = (undefined4*)eastl::vector<unsigned int,
-                                            eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>::
-        operator[](
-            (vector<unsigned int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>*)&field_40,
-            uVar3);
+        uint32_t* puVar2 = &field_40[arg1];
         return *puVar2;
     }
 
 } // namespace jag::render
 
-// 0x100815470, 16 bytes, placed by debug map only (low confidence)
-// ceil(float)
-void ceil(float param_1) {
+// 0x100815470
+void ceil(float arg1) {
     _ceilf();
 }
 
 namespace jag {
-    // 0x1008157b0, 160 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<render::Query>::type make_shared<render::Query>()
-    jag* make_shared<render::Query>() {
-        void* pvVar1;
-        ref_counter_base* prVar2;
+    // 0x1008157b0
+    shared_ptr_if_not_array<render::Query>::type make_shared<render::Query>() {
+        ref_counter_base* ref_counter_base;
         int local_2c;
         Query* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(216, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(216, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<render::Query>::type result;
         } else {
-            local_28[0] = placement_new<render::Query>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<render::Query>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = (ref_counter_base*)placement_new<ref_counter_shared<render::Query>, int, render::Query*&>(
-                pvVar1, &local_2c, local_28);
-            shared_ptr_do_enable_shared_from_this<render::Query>(prVar2, local_28[0], (enable_shared_type*)0);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            ref_counter_base =
+                (ref_counter_base*)placement_new<ref_counter_shared<render::Query>, int, render::Query*&>(
+                    arg1, &local_2c, local_28);
+            shared_ptr_do_enable_shared_from_this<render::Query>(ref_counter_base, local_28[0], nullptr);
+            ref_counter_base->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(ref_counter_base, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

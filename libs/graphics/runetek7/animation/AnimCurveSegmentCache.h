@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/animation/AnimCurveSegmentCache.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,184 +9,134 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~AnimCurveSegmentCache();
-        virtual void AllocateCache(eastl::vector<eastl::vector<AnimCurve, eastl::allocator>, eastl::allocator> const&);
+        virtual void AllocateCache(const eastl::vector<eastl::vector<AnimCurve>>& animCurvess);
         virtual void Reset();
-        virtual AnimCurveSegmentCache<BucketAllocatorEASTL>* GetCacheArrays();
+        virtual auto GetCacheArrays();
         AnimCurveSegmentCache();
-        AnimCurveSegmentCache(eastl::vector<eastl::vector<AnimCurve, eastl::allocator>, eastl::allocator> const&);
+        AnimCurveSegmentCache(const eastl::vector<eastl::vector<AnimCurve>>& animCurvess);
     };
 
     class AnimCurveSegmentCacheBase {
     public:
         // virtual methods in vtable order
         virtual ~AnimCurveSegmentCacheBase();
-        IsReady() const;
+        bool IsReady() const;
         AnimCurveSegmentCacheBase();
 
-        // data members, from how the methods use this: 9 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        char _unknown_8[1];
+    private:
+        uint8_t _unknown_8[1];
     };
 
     class AnimCurveSegmentCacheData {
     public:
         AnimCurveSegmentCacheData();
 
-        // data members, from how the methods use this: 48 bytes
-        undefined4 field_0; // offset 0
-        undefined1 field_4; // offset 4
-        char _unknown_5[3];
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
-        undefined8 field_40; // offset 40
+    private:
+        uint32_t field_0;
+        uint8_t field_4;
+        uint8_t _unknown_5[3];
+        uint64_t field_8;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
+        uint64_t field_40;
     };
 
-    // 0x1009656c0, 96 bytes, base-object constructor, inline, placed by class name and debug map
-    // AnimCurveSegmentCache<eastl::allocator>::AnimCurveSegmentCache()
-    void AnimCurveSegmentCache<eastl::allocator>::AnimCurveSegmentCache() {
-        new (this) AnimCurveSegmentCacheBase();
-        *(undefined**)this = PTR_vtable_100ee8828 + 16;
-        new ((this + 16)) Array<Array<AnimCurveSegmentCacheData, eastl::allocator>, eastl::allocator>();
-        new ((this + 40)) Array<WrapArray<AnimCurveSegmentCacheData>, eastl::allocator>();
+    // 0x1009656c0
+    AnimCurveSegmentCache<eastl::allocator>::AnimCurveSegmentCache() : AnimCurveSegmentCacheBase() {
+        new ((this + 2)) Array<Array<AnimCurveSegmentCacheData>>();
+        new ((this + 5)) Array<WrapArray<AnimCurveSegmentCacheData>>();
     }
 
-    // 0x100981cf0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // AnimCurveSegmentCacheData::AnimCurveSegmentCacheData(): jumps straight to the base-object constructor
-
-    // 0x100991c40, 16 bytes, complete-object destructor, inline, placed by class name
-    // AnimCurveSegmentCache<eastl::allocator>::~AnimCurveSegmentCache(): jumps straight to the base-object destructor
-
-    // 0x100991c50, 64 bytes, base-object destructor, inline, placed by class name
-    // AnimCurveSegmentCache<eastl::allocator>::~AnimCurveSegmentCache()
-    void AnimCurveSegmentCache<eastl::allocator>::~AnimCurveSegmentCache() {
-        *(undefined**)this = PTR_vtable_100ee8828 + 16;
-        ((this + 40))->~Array();
-        ((this + 16))->~Array();
-        ~AutoSingleton();
+    // 0x100991c50
+    AnimCurveSegmentCache<eastl::allocator>::~AnimCurveSegmentCache() {
+        ((this + 5))->~Array();
+        ((this + 2))->~Array();
     }
 
-    // 0x100991cb0, 32 bytes, deleting destructor, inline, placed by class name
-    // AnimCurveSegmentCache<eastl::allocator>::~AnimCurveSegmentCache()
-    void AnimCurveSegmentCache<eastl::allocator>::~AnimCurveSegmentCache() {
-        ~AnimCurveSegmentCache(this);
-        operator_delete(this);
-    }
-
-    // 0x100991e20, 160 bytes, inline, placed by class name
-    // AnimCurveSegmentCache<eastl::allocator>::Reset()
+    // 0x100991e20
     void AnimCurveSegmentCache<eastl::allocator>::Reset() {
-        Array* pAVar1;
-        Array* pAVar2;
-        Array<AnimCurveSegmentCacheData, eastl::allocator> local_40[24];
+        Array<AnimCurveSegmentCacheData>* animCurveSegmentCacheDatas;
+        Array<AnimCurveSegmentCacheData> local_40;
 
-        pAVar1 = (Array*)((this + 16))->data();
-        pAVar2 = (Array*)((this + 16))->end();
-        if (pAVar1 != pAVar2) {
+        animCurveSegmentCacheDatas = (Array<AnimCurveSegmentCacheData>*)((this + 2))->data();
+        Array<AnimCurveSegmentCacheData>* pAVar1 = (Array<AnimCurveSegmentCacheData>*)((this + 2))->end();
+        if (animCurveSegmentCacheDatas != pAVar1) {
             do {
-                Array<AnimCurveSegmentCacheData, eastl::allocator>::Array(local_40, pAVar1);
-                local_40->data();
-                local_40->end();
-                local_40->~Array();
-                pAVar1 = pAVar1 + 24;
-            } while (pAVar1 != pAVar2);
+                local_40 = Array<AnimCurveSegmentCacheData>(*animCurveSegmentCacheDatas);
+                local_40.data();
+                local_40.end();
+                animCurveSegmentCacheDatas = animCurveSegmentCacheDatas + 24;
+            } while (animCurveSegmentCacheDatas != pAVar1);
         }
-        this[8] = (AnimCurveSegmentCache<eastl::allocator>)0;
+        *(uint8_t*)&this[1]._vptr = 0;
     }
 
-    // 0x100991ec0, 32 bytes, inline, placed by class name
-    // AnimCurveSegmentCache<eastl::allocator>::GetCacheArrays()
-    /* AnimCurveSegmentCache<BucketAllocatorEASTL>::GetCacheArrays() */
-
-    AnimCurveSegmentCache<BucketAllocatorEASTL>* AnimCurveSegmentCache<BucketAllocatorEASTL>::GetCacheArrays() {
-        long in_RSI;
-
-        WrapArray<unsigned char const>::WrapArray<Array<unsigned char, eastl::allocator>>(
-            (WrapArray<unsigned char const>*)this, (Array*)(in_RSI + 40));
-        return this;
+    // 0x100991ec0
+    auto AnimCurveSegmentCache<eastl::allocator>::GetCacheArrays() {
+        auto result;
+        result.WrapArray<Array<unsigned char>>(*((this + 5)));
+        return result;
     }
 
-    // 0x1009a08d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // AnimCurveSegmentCache<BucketAllocatorEASTL>::AnimCurveSegmentCache(eastl::vector<eastl::vector<AnimCurve, eastl::allocator>, eastl::allocator> const&): jumps straight to the base-object constructor
-
-    // 0x1009a0960, 16 bytes, complete-object destructor, inline, placed by class name
-    // AnimCurveSegmentCache<BucketAllocatorEASTL>::~AnimCurveSegmentCache(): jumps straight to the base-object destructor
-
-    // 0x1009a0970, 128 bytes, base-object constructor, inline, placed by class name
-    // AnimCurveSegmentCache<BucketAllocatorEASTL>::AnimCurveSegmentCache(eastl::vector<eastl::vector<AnimCurve, eastl::allocator>, eastl::allocator> const&)
-    void AnimCurveSegmentCache<BucketAllocatorEASTL>::AnimCurveSegmentCache(vector* param_1) {
-        new (this) AnimCurveSegmentCacheBase();
-        *(undefined**)this = PTR_vtable_100ee8830 + 16;
-        new ((this + 16)) Array<Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL>, BucketAllocatorEASTL>();
-        new ((this + 40)) Array<WrapArray<AnimCurveSegmentCacheData>, BucketAllocatorEASTL>();
-        AllocateCache(this, param_1);
+    // 0x1009a0970
+    AnimCurveSegmentCache<BucketAllocatorEASTL>::AnimCurveSegmentCache(
+        const eastl::vector<eastl::vector<AnimCurve>>& animCurvess)
+        : AnimCurveSegmentCacheBase() {
+        new ((this + 2)) Array<Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL>, BucketAllocatorEASTL>();
+        new ((this + 5)) Array<WrapArray<AnimCurveSegmentCacheData>, BucketAllocatorEASTL>();
+        AllocateCache(this, animCurvess);
     }
 
-    // 0x1009a0ba0, 32 bytes, deleting destructor, inline, placed by class name
-    // AnimCurveSegmentCache<BucketAllocatorEASTL>::~AnimCurveSegmentCache()
-    void AnimCurveSegmentCache<BucketAllocatorEASTL>::~AnimCurveSegmentCache() {
-        ~AnimCurveSegmentCache(this);
-        operator_delete(this);
-    }
-
-    // 0x1009a0bc0, 160 bytes, inline, placed by class name
-    // AnimCurveSegmentCache<BucketAllocatorEASTL>::Reset()
+    // 0x1009a0bc0
     void AnimCurveSegmentCache<BucketAllocatorEASTL>::Reset() {
-        Array* pAVar1;
-        Array* pAVar2;
-        Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL> local_40[24];
+        Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL>* animCurveSegmentCacheDatas;
+        Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL> local_40;
 
-        pAVar1 = (Array*)((this + 16))->data();
-        pAVar2 = (Array*)((this + 16))->end();
-        if (pAVar1 != pAVar2) {
+        animCurveSegmentCacheDatas = (Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL>*)((this + 2))->data();
+        Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL>* pAVar1 =
+            (Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL>*)((this + 2))->end();
+        if (animCurveSegmentCacheDatas != pAVar1) {
             do {
-                Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL>::Array(local_40, pAVar1);
-                local_40->data();
-                local_40->end();
-                local_40->~Array();
-                pAVar1 = pAVar1 + 24;
-            } while (pAVar1 != pAVar2);
+                local_40 = Array<AnimCurveSegmentCacheData, BucketAllocatorEASTL>(*animCurveSegmentCacheDatas);
+                local_40.data();
+                local_40.end();
+                animCurveSegmentCacheDatas = animCurveSegmentCacheDatas + 24;
+            } while (animCurveSegmentCacheDatas != pAVar1);
         }
-        this[8] = (AnimCurveSegmentCache<BucketAllocatorEASTL>)0;
+        *(uint8_t*)&this[1]._vptr = 0;
     }
 
-    // 0x1009a1590, 64 bytes, base-object destructor, inline, placed by class name
-    // AnimCurveSegmentCache<BucketAllocatorEASTL>::~AnimCurveSegmentCache()
-    void AnimCurveSegmentCache<BucketAllocatorEASTL>::~AnimCurveSegmentCache() {
-        *(undefined**)this = PTR_vtable_100ee8830 + 16;
-        ((this + 40))->~Array();
-        ((this + 16))->~Array();
-        ~AutoSingleton();
+    // 0x1009a1590
+    AnimCurveSegmentCache<BucketAllocatorEASTL>::~AnimCurveSegmentCache() {
+        ((this + 5))->~Array();
+        ((this + 2))->~Array();
     }
 
 } // namespace jag::graphics
 
 namespace jag::fixedfunction {
-    // 0x100965fc0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // function<void (), 64ul, 16ul, (Methods)0>::function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)
-    void function<void(), 64ul, 16ul, (Methods)0>::function<
-        graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::__1, void>(
-        function<void(), 64ul, 16ul, (Methods)0>* this, __1* param_1) {
-        char* pcVar1;
-
-        *(undefined8*)this = 0;
-        pcVar1 = param_1[1].field_0;
-        *(char**)(this + 16) = param_1->field_0;
-        *(char**)(this + 24) = pcVar1;
-        *(code**)(this + 80) =
+    // 0x100965fc0
+    function<void(), 64ul, 16ul, (Methods)0>::function<
+        graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(
+        graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&& arg1) {
+        *(uint64_t*)this = 0;
+        long lVar1 = arg1.field_8;
+        *(VariableList**)(this + 16) = arg1.field_0;
+        *(long*)(this + 24) = lVar1;
+        *(void (**)(...))(this + 80) =
             function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(
                 (graphics::VariableList&)->InitialiseCallbackFunctions()::$_1&&)::{
             lambda(void*, void*) #1
         }
         ::__invoke;
-        *(code**)this =
+        *(void (**)(...))this =
             function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(
                 (graphics::VariableList&)->InitialiseCallbackFunctions()::$_1&&)::{
             lambda(void*) #1
         }
         ::__invoke;
-        *(code**)(this + 88) =
+        *(void (**)(...))(this + 88) =
             function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(
                 (graphics::VariableList&)->InitialiseCallbackFunctions()::$_1&&)::{
             lambda(void*) #2
@@ -195,77 +144,54 @@ namespace jag::fixedfunction {
         ::__invoke;
     }
 
-    // 0x100966000, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (), 64ul, 16ul, (Methods)0>::function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{lambda(void*, void*)#1}::__invoke(void*, void*)
-    /* __invoke(void*, void*) */
-
+    // 0x100966000
     void function<void(), 64ul, 16ul, (Methods)0>::function<
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{
         lambda(void*, void*) #1
     }
-    ::__invoke(void* param_1, void* param_2) {
-        operator()(param_1, param_2);
+    ::__invoke(void* arg1, void* arg2) {
+        operator()(this, arg1, arg2);
     }
 
-    // 0x100966010, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (), 64ul, 16ul, (Methods)0>::function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{lambda(void*, void*)#1}::operator()(void*, void*) const
-    /* function<void (), 64ul, 16ul,
-   (Methods)0>::function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1,
-   void>(graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{lambda(void*,
-   void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, void*) const */
-
+    // 0x100966010
     void function<void(), 64ul, 16ul, (Methods)0>::function<
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{
         lambda(void*, void*) #1
     }
-    ::operator()(void* param_1, void* param_2) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)((long)param_1 + 8);
-        *(undefined8*)param_2 = *(undefined8*)param_1;
-        *(undefined8*)((long)param_2 + 8) = uVar1;
+    ::operator()(void* arg1, void* arg2) const {
+        uint64_t uVar1 = *(uint64_t*)(this + 8);
+        *(uint64_t*)arg1 = *(uint64_t*)this;
+        *(uint64_t*)((long)arg1 + 8) = uVar1;
     }
 
-    // 0x100966020, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (), 64ul, 16ul, (Methods)0>::function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{lambda(void*)#1}::__invoke(void*)
-    /* __invoke(void*) */
-
+    // 0x100966020
     void function<void(), 64ul, 16ul, (Methods)0>::function<
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{
         lambda(void*) #1
     }
-    ::__invoke(void* param_1) {
-        operator()(this, param_1);
+    ::__invoke(void* arg1) {
+        operator()(this, arg1);
     }
 
-    // 0x100966030, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (), 64ul, 16ul, (Methods)0>::function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{lambda(void*)#1}::operator()(void*) const
-    /* function<void (), 64ul, 16ul,
-   (Methods)0>::function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1,
-   void>(graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{lambda(void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*)
-   const */
-
+    // 0x100966030
     void function<void(), 64ul, 16ul, (Methods)0>::function<
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{
         lambda(void*) #1
     }
-    ::operator()(void* param_1) {
+    ::operator()(void* arg1) const {
         (graphics::VariableList&)->InitialiseCallbackFunctions()::$_1::operator()((__1*)this);
     }
 
-    // 0x100966070, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (), 64ul, 16ul, (Methods)0>::function<graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{lambda(void*)#2}::__invoke(void*)
-    /* __invoke(void*) */
-
+    // 0x100966070
     void function<void(), 64ul, 16ul, (Methods)0>::function<
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1, void>(
         graphics::AnimationDescriptor::InitialiseCallbackFunctions(graphics::VariableList&)::$_1&&)::{
         lambda(void*) #2
     }
-    ::__invoke(void* param_1) {}
+    ::__invoke(void* arg1) {}
 
 } // namespace jag::fixedfunction

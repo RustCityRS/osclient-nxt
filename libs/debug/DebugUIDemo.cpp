@@ -1,49 +1,40 @@
 // libs/debug/DebugUIDemo.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.debug
 
 #include "DebugUIDemo.h"
 
 namespace jag::debug {
-    // 0x100720550, 80 bytes, placed by class name and debug map
-    // DebugUIDemo::DrawDebugMainMenu()
+    // 0x100720550
     void DebugUIDemo::DrawDebugMainMenu() {
         if (ImGui::BeginMenu("Debug", true) != '\0') {
-            ImGui::MenuItem("ImGui Demo", (char*)0, &field_9, true);
+            ImGui::MenuItem("ImGui Demo", nullptr, &field_9, true);
             ImGui::EndMenu();
         }
     }
 
-    // 0x1007205a0, 32 bytes, placed by class name and debug map
-    // DebugUIDemo::DrawDebug()
+    // 0x1007205a0
     void DebugUIDemo::DrawDebug() {
         if (field_9 != false) {
             ImGui::ShowDemoWindow(&field_9);
         }
     }
 
-    // 0x1007205c0, 176 bytes, placed by class name and debug map
-    // DebugUIDemo::Show()
+    // 0x1007205c0
     void DebugUIDemo::Show() {
-        DebugUIDemo* this;
-        DebugUIManager* pDVar1;
-        unique_ptr<DebugUIDemo, std::default_delete<DebugUIDemo>>* this_00;
-        unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>> local_28[8];
-        unique_ptr<DebugUIDemo, std::default_delete<DebugUIDemo>> local_20[8];
+        DebugUIDemo* debugUIDemo;
+        DebugUIManager* this_00;
+        unique_ptr<DebugUIElement> local_28;
+        unique_ptr<DebugUIDemo> local_20;
 
         if (Show()::registered == '\0') {
             Show()::registered = '\x01';
-            this = operator_new(16);
-            DebugUIDemo(this);
-            this_00 = local_20;
-            std::unique_ptr<DebugUIDemo, std::default_delete<DebugUIDemo>>::unique_ptr<true, void>(this_00, this);
-            pDVar1 = (DebugUIManager*)this_00->Instance();
-            std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>::unique_ptr<
-                DebugUIDemo, std::default_delete<DebugUIDemo>, void, void>(local_28, (unique_ptr*)local_20);
-            pDVar1->TransferOwnership(local_28);
-            std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>::~unique_ptr(local_28);
-            std::unique_ptr<DebugUIDemo, std::default_delete<DebugUIDemo>>::~unique_ptr(local_20);
+            debugUIDemo = (DebugUIDemo*)operator new(16);
+            DebugUIDemo(debugUIDemo);
+            &local_20->unique_ptr<true, void>(debugUIDemo);
+            this_00 = (DebugUIManager*)&local_20->Instance();
+            local_28.unique_ptr<DebugUIDemo, std::default_delete<DebugUIDemo>, void, void>(local_20);
+            this_00->TransferOwnership(&local_28);
         }
     }
 

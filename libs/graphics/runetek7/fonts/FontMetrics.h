@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/fonts/FontMetrics.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,226 +8,167 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~FontMetrics();
-        GetFontSheetPositions() const;
+        void GetFontSheetPositions() const;
         bool IsVectorFont() const;
-        GetFontSheetWidth() const;
-        GetFontSheetHeight() const;
-        uint GetSourcePackID() const;
-        GetFontSheetPosition(int) const;
-        byte GetMaxAscent() const;
-        byte GetMaxDescent() const;
-        uint GetBaseLine() const;
-        uint GetVerticalSpacing() const;
-        GetGlyphAdvance(int) const;
-        GetKerning(int, int) const;
+        uint16_t GetFontSheetWidth() const;
+        uint16_t GetFontSheetHeight() const;
+        unsigned int GetSourcePackID() const;
+        auto GetFontSheetPosition(int arg1) const;
+        uint8_t GetMaxAscent() const;
+        uint8_t GetMaxDescent() const;
+        unsigned int GetBaseLine() const;
+        unsigned int GetVerticalSpacing() const;
+        uint8_t GetGlyphAdvance(int arg1) const;
+        uint32_t GetKerning(int arg1, int arg2) const;
         char GetAscentDescentDelta() const;
-        void GetGlyphInfo(int) const;
-        byte GetUpperCaseAscent() const;
-        byte IsSpriteFont() const;
-        GetPixelSize() const;
+        void GetGlyphInfo(int arg1) const;
+        uint8_t GetUpperCaseAscent() const;
+        bool IsSpriteFont() const;
+        uint8_t GetPixelSize() const;
         FontMetrics();
         void Clear();
-        void LoadFromPacket(unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&);
-        void LoadVectorFontMetricsFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&);
-        void LoadSpriteFontMetricsFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&);
-        void UpdateFromVectorFontSource(VectorFontSource*);
-        void LoadComplexKerning(PacketT<Array<unsigned char, eastl::allocator>>&);
-        int CalculateSpriteKerning(std::array<Array<int, BucketAllocatorEASTL>, 256ul> const&,
-                                   std::array<Array<int, BucketAllocatorEASTL>, 256ul> const&,
-                                   eastl::fixed_vector<FontGlyphInfo, 256ul, true, eastl::allocator> const&,
-                                   unsigned long, unsigned long);
-        void SetCoreMetricData(unsigned int, eastl::fixed_vector<FontGlyphInfo, 256ul, true, eastl::allocator>&&,
-                               unsigned int, unsigned char, unsigned char, unsigned char, unsigned char);
-        ulong IsKerningComplex() const;
+        void LoadFromPacket(unsigned int arg1, PacketT<Array<unsigned char>>& arg2);
+        void LoadVectorFontMetricsFromPacket(PacketT<Array<unsigned char>>& arg1);
+        void LoadSpriteFontMetricsFromPacket(PacketT<Array<unsigned char>>& arg1);
+        void UpdateFromVectorFontSource(VectorFontSource* vectorFontSource);
+        void LoadComplexKerning(PacketT<Array<unsigned char>>& arg1);
+        int CalculateSpriteKerning(const std::array<Array<int>, 256ul>& arg1, const std::array<Array<int>, 256ul>& arg2,
+                                   const eastl::fixed_vector<FontGlyphInfo, 256ul>& fontGlyphInfos, unsigned long arg4,
+                                   unsigned long arg5);
+        void SetCoreMetricData(unsigned int arg1, eastl::fixed_vector<FontGlyphInfo, 256ul>&& fontGlyphInfos,
+                               unsigned int arg3, unsigned char arg4, unsigned char arg5, unsigned char arg6,
+                               unsigned char arg7);
+        unsigned long IsKerningComplex() const;
 
-        // data members, from how the methods use this: 13696 bytes
-        undefined** field_0;    // offset 0, vtable pointer
-        uint field_8;           // offset 8
-        uint field_12;          // offset 12
-        uint m_sourcePackID;    // offset 16
-        undefined1 m_pixelSize; // offset 20
-        char _unknown_21[12331];
-        undefined2 m_fontSheetWidth;  // offset 12352
-        undefined2 m_fontSheetHeight; // offset 12354
-        uint m_verticalSpacing;       // offset 12356
-        byte m_upperCaseAscent;       // offset 12360
-        byte field_12361;             // offset 12361
-        byte m_maxAscent;             // offset 12362
-        byte m_maxDescent;            // offset 12363
-        char _unknown_12364[1332];
+    private:
+        unsigned int field_8;
+        unsigned int field_12;
+        unsigned int m_sourcePackID;
+        uint8_t m_pixelSize;
+        uint8_t _unknown_21[12331];
+        uint16_t m_fontSheetWidth;
+        uint16_t m_fontSheetHeight;
+        unsigned int m_verticalSpacing;
+        uint8_t m_upperCaseAscent;
+        uint8_t field_12361;
+        uint8_t m_maxAscent;
+        uint8_t m_maxDescent;
+        uint8_t _unknown_12364[1332];
     };
 
-    // 0x1008df680, 64 bytes, inline, placed by class name and debug map
-    // FontMetrics::IsVectorFont() const
-    bool FontMetrics::IsVectorFont() {
+    // 0x1008df680
+    bool FontMetrics::IsVectorFont() const {
         if (field_8 == 3) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_fontSourceType != FontSourceType::INVALID",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/"
                       "FontMetrics.h",
-                      28, (char*)0);
+                      28, nullptr);
         }
         return field_8 == 2;
     }
 
-    // 0x1008dfb90, 16 bytes, inline, placed by class name
-    // FontMetrics::GetFontSheetWidth() const
-    undefined2 FontMetrics::GetFontSheetWidth() {
+    // 0x1008dfb90
+    uint16_t FontMetrics::GetFontSheetWidth() const {
         return m_fontSheetWidth;
     }
 
-    // 0x1008dfba0, 16 bytes, inline, placed by class name
-    // FontMetrics::GetFontSheetHeight() const
-    undefined2 FontMetrics::GetFontSheetHeight() {
+    // 0x1008dfba0
+    uint16_t FontMetrics::GetFontSheetHeight() const {
         return m_fontSheetHeight;
     }
 
-    // 0x1008dfbf0, 64 bytes, inline, placed by class name
-    // FontMetrics::GetSourcePackID() const
-    uint FontMetrics::GetSourcePackID() {
+    // 0x1008dfbf0
+    unsigned int FontMetrics::GetSourcePackID() const {
         if (field_8 == 3) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_fontSourceType != FontSourceType::INVALID",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/"
                       "FontMetrics.h",
-                      27, (char*)0);
+                      27, nullptr);
         }
         return m_sourcePackID;
     }
 
-    // 0x1008dfd40, 48 bytes, inline, placed by class name
-    // FontMetrics::GetFontSheetPosition(int) const
-    FontMetrics* FontMetrics::GetFontSheetPosition(int param_1) {
-        fixed_vector* pfVar1;
-        int in_EDX;
-        undefined4 in_register_00000034;
-
-        pfVar1 =
-            (fixed_vector*)eastl::vector<eastl::fixed_vector<unsigned short, 4ul, true, eastl::allocator>,
-                                         eastl::fixed_vector_allocator<48ul, 256ul, 8ul, 0ul, true, eastl::allocator>>::
-            operator[](
-                (vector<eastl::fixed_vector<unsigned short, 4ul, true, eastl::allocator>,
-                        eastl::fixed_vector_allocator<48ul, 256ul, 8ul, 0ul, true,
-                                                      eastl::allocator>>*)(CONCAT44(in_register_00000034, param_1) +
-                                                                           24),
-                (long)in_EDX);
-        new (this) eastl::fixed_vector<unsigned short, 4ul, true, eastl::allocator>(pfVar1);
-        return this;
+    // 0x1008dfd40
+    auto FontMetrics::GetFontSheetPosition(int arg1) const {
+        fixed_vector<unsigned short, _4ul>* arg1_00 = &field_24[(long)arg1];
+        return auto(*arg1_00);
     }
 
-    // 0x1008e02b0, 16 bytes, inline, placed by class name
-    // FontMetrics::GetMaxAscent() const
-    byte FontMetrics::GetMaxAscent() {
+    // 0x1008e02b0
+    uint8_t FontMetrics::GetMaxAscent() const {
         return m_maxAscent;
     }
 
-    // 0x1008e02c0, 16 bytes, inline, placed by class name
-    // FontMetrics::GetMaxDescent() const
-    byte FontMetrics::GetMaxDescent() {
+    // 0x1008e02c0
+    uint8_t FontMetrics::GetMaxDescent() const {
         return m_maxDescent;
     }
 
-    // 0x1008e02d0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // FontMetrics::GetBaseLine() const
-    /* FontMetrics::GetVerticalSpacing() const */
-
-    uint FontMetrics::GetVerticalSpacing() {
+    // 0x1008e02d0
+    unsigned int FontMetrics::GetBaseLine() const {
         return m_verticalSpacing;
     }
 
-    // 0x1008e3f30, 32 bytes, inline, placed by class name
-    // FontMetrics::GetGlyphAdvance(int) const
-    undefined1 FontMetrics::GetGlyphAdvance(int param_1) {
-        long lVar1;
-
-        lVar1 =
-            eastl::vector<FontGlyphInfo, eastl::fixed_vector_allocator<5ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-            operator[](
-                (vector<FontGlyphInfo,
-                        eastl::fixed_vector_allocator<5ul, 256ul, 1ul, 0ul, true, eastl::allocator>>*)&field_12368,
-                (long)param_1);
-        return *(undefined1*)(lVar1 + 2);
+    // 0x1008e3f30
+    uint8_t FontMetrics::GetGlyphAdvance(int arg1) const {
+        long lVar1 = field_12368[(long)arg1];
+        return *(uint8_t*)(lVar1 + 2);
     }
 
-    // 0x1008e3f50, 96 bytes, inline, placed by class name
-    // FontMetrics::GetKerning(int, int) const
-    undefined4 FontMetrics::GetKerning(int param_1, int param_2) {
-        char cVar1;
-        undefined4 uVar2;
-        vector<eastl::fixed_vector<int, 256ul, true, eastl::allocator>,
-               eastl::fixed_vector_allocator<1064ul, 256ul, 8ul, 0ul, true, eastl::allocator>>* this_00;
-        vector<int, eastl::fixed_vector_allocator<4ul, 256ul, 4ul, 0ul, true, eastl::allocator>>* this_01;
-        undefined4* puVar3;
+    // 0x1008e3f50
+    uint32_t FontMetrics::GetKerning(int arg1, int arg2) const {
+        vector<eastl::fixed_vector<int, 256ul>, eastl::fixed_vector_allocator<1064ul, 256ul, 8ul, 0ul, true>>* this_00;
+        vector<int, eastl::fixed_vector_allocator<4ul, 256ul, 4ul, 0ul, true>>* this_01;
+        uint32_t* puVar3;
 
-        cVar1 = IsKerningComplex(this);
-        uVar2 = 0;
-        if ((cVar1 != '\0') && (param_2 != -1)) {
-            this_00 = (vector<eastl::fixed_vector<int, 256ul, true, eastl::allocator>,
-                              eastl::fixed_vector_allocator<1064ul, 256ul, 8ul, 0ul, true, eastl::allocator>>*)
-                          std::unique_ptr<FontKerningData, std::default_delete<FontKerningData>>::operator->(
-                              (unique_ptr<FontKerningData, std::default_delete<FontKerningData>>*)&field_13688);
-            this_01 = (vector<int, eastl::fixed_vector_allocator<4ul, 256ul, 4ul, 0ul, true, eastl::allocator>>*)
-                eastl::vector<eastl::fixed_vector<int, 256ul, true, eastl::allocator>,
-                              eastl::fixed_vector_allocator<1064ul, 256ul, 8ul, 0ul, true,
-                                                            eastl::allocator>>::operator[](this_00, (long)param_2);
-            puVar3 = (undefined4*)eastl::
-                vector<int, eastl::fixed_vector_allocator<4ul, 256ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    this_01, (long)param_1);
+        bool cVar1 = IsKerningComplex();
+        uint32_t uVar2 = 0;
+        if ((cVar1) && (arg2 != -1)) {
+            this_00 =
+                (vector<eastl::fixed_vector<int, 256ul>, eastl::fixed_vector_allocator<1064ul, 256ul, 8ul, 0ul, true>>*)
+                    field_13688.operator->();
+            this_01 = (vector<int, eastl::fixed_vector_allocator<4ul, 256ul, 4ul, 0ul, true>>*)(*this_00)[(long)arg2];
+            puVar3 = (uint32_t*)(*this_01)[(long)arg1];
             uVar2 = *puVar3;
         }
         return uVar2;
     }
 
-    // 0x1008e56f0, 32 bytes, inline, placed by class name
-    // FontMetrics::GetAscentDescentDelta() const
-    char FontMetrics::GetAscentDescentDelta() {
+    // 0x1008e56f0
+    char FontMetrics::GetAscentDescentDelta() const {
         return m_maxAscent + m_maxDescent;
     }
 
-    // 0x1008e5730, 32 bytes, inline, placed by class name
-    // FontMetrics::GetGlyphInfo(int) const
-    void FontMetrics::GetGlyphInfo(int param_1) {
-        eastl::vector<FontGlyphInfo, eastl::fixed_vector_allocator<5ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-        operator[]((vector<FontGlyphInfo,
-                           eastl::fixed_vector_allocator<5ul, 256ul, 1ul, 0ul, true, eastl::allocator>>*)&field_12368,
-                   (long)param_1);
+    // 0x1008e5730
+    void FontMetrics::GetGlyphInfo(int arg1) const {
+        field_12368[(long)arg1];
     }
 
-    // 0x1008e5770, 16 bytes, inline, placed by class name
-    // FontMetrics::GetUpperCaseAscent() const
-    byte FontMetrics::GetUpperCaseAscent() {
+    // 0x1008e5770
+    uint8_t FontMetrics::GetUpperCaseAscent() const {
         return m_upperCaseAscent;
     }
 
-    // 0x1008e5ec0, 16 bytes, inline, placed by class name
-    // FontMetrics::IsSpriteFont() const
-    byte FontMetrics::IsSpriteFont() {
-        return IsVectorFont(this) ^ 1;
+    // 0x1008e5ec0
+    bool FontMetrics::IsSpriteFont() const {
+        return IsVectorFont() ^ 1;
     }
 
-    // 0x1008e6100, 16 bytes, inline, placed by class name
-    // FontMetrics::GetPixelSize() const
-    undefined1 FontMetrics::GetPixelSize() {
+    // 0x1008e6100
+    uint8_t FontMetrics::GetPixelSize() const {
         return m_pixelSize;
     }
 
-    // 0x1008fea70, 64 bytes, inline, placed by class name
-    // FontMetrics::IsKerningComplex() const
-    ulong FontMetrics::IsKerningComplex() {
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_00;
-        ulong uVar2;
+    // 0x1008fea70
+    unsigned long FontMetrics::IsKerningComplex() const {
+        unsigned long uVar2;
 
-        if ((&field_13688)->operator_cast_to_bool()) {
-            this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                          std::unique_ptr<FontKerningData, std::default_delete<FontKerningData>>::operator->(
-                              (unique_ptr<FontKerningData, std::default_delete<FontKerningData>>*)&field_13688);
-            uVar2 =
-                eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                    this_00);
-            uVar2 = uVar2 ^ 1;
-        } else {
+        if ((&field_13688)->operator_cast_to_bool() == '\0') {
             uVar2 = 0;
+        } else {
+            uVar2 = ((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)field_13688.operator->())
+                        ->empty();
+            uVar2 = uVar2 ^ 1;
         }
         return uVar2;
     }

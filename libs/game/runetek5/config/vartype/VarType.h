@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/vartype/VarType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
@@ -9,81 +8,54 @@ namespace jag::game {
     class DelayedVariable {
     public:
         DelayedVariable();
-        DelayedVariable(unsigned long long, bool);
+        DelayedVariable(unsigned long long arg1, bool arg2);
 
-        // data members, from how the methods use this: 9 bytes
-        ulonglong field_0; // offset 0
-        bool field_8;      // offset 8
+    private:
+        unsigned long long field_0;
+        bool field_8;
     };
 
     class VarType {
     public:
         // virtual methods in vtable order
         virtual ~VarType();
-        virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
+        virtual uint8_t* DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2);
         virtual void PostDecode();
-        LegacyDefaultValue() const;
+        uint8_t LegacyDefaultValue() const;
         long GetDataType() const;
         void GetDefaultValue() const;
-        VarType(BaseTemplateConfigTypeList<VarType>*, int);
+        VarType(BaseTemplateConfigTypeList<VarType>* baseTemplateConfigTypeList, int arg2);
 
-        // data members, from how the methods use this: 96 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        VarTypeList* field_24; // offset 24
-        int field_32;          // offset 32
-        char _unknown_36[20];
-        long* field_56;      // offset 56
-        long m_dataType;     // offset 64
-        undefined* field_72; // offset 72
-        undefined* field_80; // offset 80
-        uint field_88;       // offset 88
-        undefined1 field_92; // offset 92
-        char _unknown_93[3];
+    private:
+        uint8_t _unknown_8[16];
+        VarTypeList* field_24;
+        int field_32;
+        uint8_t _unknown_36[20];
+        long* field_56;
+        long m_dataType;
+        uint8_t* field_72;
+        uint8_t* field_80;
+        unsigned int field_88;
+        uint8_t field_92;
+        uint8_t _unknown_93[3];
     };
 
-    // 0x1001a3d70, 16 bytes, base-object destructor, inline, placed by class name and debug map
-    // VarType::~VarType()
-    void VarType::~VarType() {
-        ~ConfigType();
-    }
+    // 0x1001a3d70
+    VarType::~VarType() {}
 
-    // 0x1004c8dd0, 16 bytes, inline, placed by class name
-    // VarType::LegacyDefaultValue() const
-    undefined1 VarType::LegacyDefaultValue() {
+    // 0x1004c8dd0
+    uint8_t VarType::LegacyDefaultValue() const {
         return field_92;
     }
 
-    // 0x1004c8de0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // VarType::GetDataType() const
-    /* EnumType::GetOutputType() const */
-
-    undefined8 EnumType::GetOutputType() {
+    // 0x1004c8de0
+    long VarType::GetDataType() const {
         return m_outputType;
     }
 
-    // 0x1004c8de0: the linker folded this into VarType::GetDataType() const, which has identical code
-    Js5ResourceProvider* BaseConfigTypeList::GetResourceProvider() const;
+    // 0x1004c8de0: BaseConfigTypeList::GetResourceProvider() const has the same machine code as VarType::GetDataType() const
 
-    // 0x1004ce420, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // DelayedVariable::DelayedVariable(unsigned long long, bool): jumps straight to the base-object constructor
-
-    // 0x1004d1d10, 16 bytes, complete-object destructor, inline, placed by class name
-    // VarType::~VarType(): jumps straight to the base-object destructor
-
-    // 0x1004d1d20, 32 bytes, deleting destructor, inline, placed by class name
-    // VarType::~VarType()
-    void VarType::~VarType() {
-        ~VarType(this);
-        operator_delete(this);
-    }
-
-    // 0x1004d2ce0, 16 bytes, base-object constructor, inline, placed by class header (inline)
-    // DelayedVariable::DelayedVariable(unsigned long long, bool)
-    void DelayedVariable::DelayedVariable(ulonglong param_1, bool param_2) {
-        field_0 = param_1;
-        field_8 = param_2;
-    }
+    // 0x1004d2ce0
+    DelayedVariable::DelayedVariable(unsigned long long arg1, bool arg2) : field_0(arg1), field_8(arg2) {}
 
 } // namespace jag::game

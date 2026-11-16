@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/animation/asm/BlendTreeNodeDescriptor.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,21 +9,12 @@ namespace jag::graphics {
         // virtual methods in vtable order
         virtual ~BlendTreeNodeDescriptor();
         BlendTreeNodeDescriptor();
-        BlendTreeNodeDescriptor(BlendTreeNodeDescriptor const&);
-        unique_ptr<BlendTreeNodeDescriptor, std::default_delete<BlendTreeNodeDescriptor>>* FromJSON(Json::Value const&);
-        BlendTreeNodeDescriptor* FromPacket(PacketT<Array<unsigned char, eastl::allocator>>&);
-
-        // data members, from how the methods use this: 8 bytes
-        undefined* field_0; // offset 0, vtable pointer
+        BlendTreeNodeDescriptor(const BlendTreeNodeDescriptor& arg1);
+        unique_ptr<BlendTreeNodeDescriptor>* FromJSON(const Json::Value& value);
+        auto FromPacket(PacketT<Array<unsigned char>>& arg1);
     };
 
-    // 0x100954ec0, 32 bytes, base-object constructor, inline, placed by class name and debug map
-    // BlendTreeNodeDescriptor::BlendTreeNodeDescriptor()
-    /* BlendTreeNodeDescriptor::BlendTreeNodeDescriptor(BlendTreeNodeDescriptor
-   const&) */
-
-    void BlendTreeNodeDescriptor::BlendTreeNodeDescriptor(BlendTreeNodeDescriptor* param_1) {
-        field_0 = PTR_vtable_100ee8868 + 16;
-    }
+    // 0x100954ec0
+    BlendTreeNodeDescriptor::BlendTreeNodeDescriptor() {}
 
 } // namespace jag::graphics

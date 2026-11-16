@@ -1,139 +1,113 @@
 // libs/oldscape/jagex3/sound/wavecache.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::sound {
     class WaveCache {
     public:
-        GetJagFx(int, int, Array<int, eastl::allocator>&);
-        ulong HashAudioID(int, int, bool);
-        GetJagVorbis(int, int, Array<int, eastl::allocator>&);
-        GetJagVorbisLazy(int, int);
-        WaveCache* GetJagFx(char const*, char const*, Array<int, eastl::allocator>&);
-        WaveCache* GetJagVorbis(char const*, char const*, Array<int, eastl::allocator>&);
-        GetJagFx(int, Array<int, eastl::allocator>&, ErrorCapture&);
-        GetJagVorbis(int, Array<int, eastl::allocator>&, ErrorCapture&);
-        GetJagVorbisLazy(int, ErrorCapture&);
-        WaveCache* GetJagFx(char const*, Array<int, eastl::allocator>&);
-        WaveCache* GetJagVorbis(char const*, Array<int, eastl::allocator>&);
-        WaveCache(jagex3::Js5&, jagex3::Js5&);
+        auto GetJagFx(int arg1, int arg2, Array<int>& arg3);
+        unsigned long HashAudioID(int arg1, int arg2, bool arg3);
+        auto GetJagVorbis(int arg1, int arg2, Array<int>& arg3);
+        WaveCache* GetJagVorbisLazy(int arg1, int arg2);
+        auto GetJagFx(const char* str1, const char* str2, Array<int>& arg3);
+        auto GetJagVorbis(const char* str1, const char* str2, Array<int>& arg3);
+        auto GetJagFx(int arg1, Array<int>& arg2, ErrorCapture& errorCapture);
+        auto GetJagVorbis(int arg1, Array<int>& arg2, ErrorCapture& errorCapture);
+        LazyWave GetJagVorbisLazy(int arg1, ErrorCapture& errorCapture);
+        auto GetJagFx(const char* str, Array<int>& arg2);
+        auto GetJagVorbis(const char* str, Array<int>& arg2);
+        WaveCache(jagex3::Js5& js51, jagex3::Js5& js52);
         ~WaveCache();
-        WaveCache* GetJagFx(int, ErrorCapture&);
+        WaveCache* GetJagFx(int arg1, ErrorCapture& errorCapture);
 
-        // data members, from how the methods use this: 136 bytes
-        Js5* field_0; // offset 0
-        Js5* field_8; // offset 8
-        char _unknown_16[120];
+    private:
+        Js5* field_0;
+        Js5* field_8;
+        uint8_t _unknown_16[120];
     };
 
-    // 0x1002a87e0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // WaveCache::WaveCache(jagex3::Js5&, jagex3::Js5&): jumps straight to the base-object constructor
+    // 0x1002a87f0
+    WaveCache::WaveCache(jagex3::Js5& js51, jagex3::Js5& js52) : field_0(js51), field_8(js52) {
 
-    // 0x1002a87f0, 160 bytes, base-object constructor, inline, placed by class name and debug map
-    // WaveCache::WaveCache(jagex3::Js5&, jagex3::Js5&)
-    void WaveCache::WaveCache(Js5* param_1, Js5* param_2) {
-        allocator local_30[8];
-
-        field_0 = param_1;
-        field_8 = param_2;
-        eastl::allocator::allocator(local_30, "EASTL hash_map");
-        new (&field_16, local_30) eastl::hash_map<long long, shared_ptr<JagVorbis>, eastl::hash<long long>,
-                                                  eastl::equal_to<long long>, eastl::allocator, false>();
-        eastl::allocator::allocator(local_30, "EASTL hash_map");
-        new (&field_72, local_30) eastl::hash_map<long long, LazyWave, eastl::hash<long long>,
-                                                  eastl::equal_to<long long>, eastl::allocator, false>();
-        new (&field_128) Array<int, eastl::allocator>();
+        new (&field_16) eastl::hash_map<long long, shared_ptr<JagVorbis>>(local_30);
+        new (&field_72) eastl::hash_map<long long, LazyWave>(local_30);
+        new (&field_128) Array<int>();
     }
 
-    // 0x1002a8d00, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // WaveCache::~WaveCache(): jumps straight to the base-object destructor
-
-    // 0x1002a8d10, 64 bytes, base-object destructor, inline, placed by class name and debug map
-    // WaveCache::~WaveCache()
-    void WaveCache::~WaveCache() {
-        (&field_128)->~Array();
-        (&field_72)->~hash_map();
-        (&field_16)->~hash_map();
+    // 0x1002a8d10
+    WaveCache::~WaveCache() {
+        field_128.~Array();
+        field_72.~hash_map();
+        field_16.~hash_map();
     }
 
-    // 0x1002d8bc0, 48 bytes, inline, placed by class name
-    // WaveCache::GetJagFx(int, ErrorCapture&)
-    WaveCache* WaveCache::GetJagFx(int param_1, ErrorCapture* param_2) {
-        undefined4 in_register_00000034;
+    // 0x1002d8bc0
+    WaveCache* WaveCache::GetJagFx(int arg1, ErrorCapture& errorCapture) {
+        ErrorCapture* in_RCX;
+        uint32_t in_register_00000034;
 
-        GetJagFx(this, param_1, (Array*)param_2, (ErrorCapture*)(CONCAT44(in_register_00000034, param_1) + 128));
+        *this = ((WaveCache*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1))
+                    ->GetJagFx((int)errorCapture,
+                               (Array<int>*)((((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1) + 128), in_RCX);
         return this;
     }
 
 } // namespace jag::oldscape::sound
 
 namespace jag {
-    // 0x1002a8c60, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::sound::WaveCache>::ref_counter_shared(unsigned long, oldscape::sound::WaveCache*): jumps straight to the base-object constructor
+    // 0x1002a8c70
+    ref_counter_shared<oldscape::sound::WaveCache>::ref_counter_shared(unsigned long arg1,
+                                                                       oldscape::sound::WaveCache* waveCache)
+        : ref_counter_base() {}
 
-    // 0x1002a8c70, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::sound::WaveCache>::ref_counter_shared(unsigned long, oldscape::sound::WaveCache*)
-    void ref_counter_shared<oldscape::sound::WaveCache>::ref_counter_shared(ulong param_1, WaveCache* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7708 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(WaveCache**)(this + 24) = param_2;
-    }
-
-    // 0x1002a8cb0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::sound::WaveCache>::DeleteData()
+    // 0x1002a8cb0
     void ref_counter_shared<oldscape::sound::WaveCache>::DeleteData() {
-        ulong uVar1;
+        ref_counter_shared<oldscape::sound::WaveCache> _vtbl* prVar1;
         long lVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar2 = 0;
-                uVar1 = 0;
+                prVar1 = nullptr;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~WaveCache();
-                    uVar1 = uVar1 + 1;
+                    ((WaveCache*)((long)&(this[3]._vptr)->_dtor + lVar2))->~WaveCache();
+                    prVar1 = (ref_counter_shared<oldscape::sound::WaveCache> _vtbl*)((long)&prVar1->_dtor + 1);
                     lVar2 = lVar2 + 152;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (prVar1 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x1002a8dd0, 32 bytes, inline, placed by debug map only (low confidence)
-    // eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>, eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave> >* placement_new<eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>, eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave> >>(void*)
-    priority_queue* jag::placement_new<
-        eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
-                              eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>,
-                              eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>>(void* param_1) {
-        eastl::priority_queue<
-            oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
-            eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>,
-            eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>::priority_queue(param_1);
-        return param_1;
+    // 0x1002a8dd0
+    eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
+                          eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>*
+    placement_new<eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
+                                        eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>>(
+        void* arg1) {
+        new (arg1) eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
+                                         eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>();
+        return arg1;
     }
 
-    // 0x1002a8df0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>, eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave> > >* placement_new<ref_counter_shared<eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>, eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave> > >, int, eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>, eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave> >*&>(void*, int&&, eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>, eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave> >*&)
-    ref_counter_shared* jag::placement_new<
-        ref_counter_shared<eastl::priority_queue<
-            oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
-            eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>,
-            eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>>,
+    // 0x1002a8df0
+    ref_counter_shared<eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
+                                             eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>>*
+    placement_new<
+        ref_counter_shared<eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
+                                                 eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>>,
         int,
         eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
-                              eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>,
-                              eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>*&>(
-        void* param_1, int* param_2, priority_queue** param_3) {
-        ref_counter_shared<eastl::priority_queue<
-            oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
-            eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>,
-            eastl::less<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>>::ref_counter_shared(param_1,
-                                                                                                     (long)*param_2,
-                                                                                                     *param_3);
-        return param_1;
+                              eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>*&>(
+        void* arg1, int&& arg2,
+        eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
+                              eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>*& arg3) {
+        new (arg1) ref_counter_shared<
+            eastl::priority_queue<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave,
+                                  eastl::vector<oldscape::midi2::MidiPlayerMainThread::QueuedLazyWave>>>((long)*arg2,
+                                                                                                         arg3);
+        return arg1;
     }
 
 } // namespace jag

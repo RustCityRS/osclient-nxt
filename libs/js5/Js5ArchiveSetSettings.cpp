@@ -1,111 +1,78 @@
 // libs/js5/Js5ArchiveSetSettings.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.js5
 
 #include "Js5ArchiveSetSettings.h"
 
 namespace jag {
-    // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    uint Js5ArchiveSetSettings::GetMaxArchiveID() const;
+    // 0x1000b9960: Js5ArchiveSetSettings::GetMaxArchiveID() const has the same machine code as oldscape::ScriptVarType::GetID() const
 
-    // 0x1009de970, 96 bytes, base-object destructor, placed by class name and debug map
-    // Js5ArchiveSetSettings::~Js5ArchiveSetSettings()
-    void Js5ArchiveSetSettings::~Js5ArchiveSetSettings() {
-        Js5ArchiveSettings** ppJVar1;
-        Js5ArchiveSettings** ppJVar2;
-        undefined1* this_00;
-
-        this_00 = &field_8;
-        ppJVar1 = (Js5ArchiveSettings**)this_00->HeapBeginPtr();
-        ppJVar2 = (Js5ArchiveSettings**)this_00->end();
-        for (; ppJVar1 != ppJVar2; ppJVar1 = ppJVar1 + 1) {
-            safe_delete<Js5ArchiveSettings>(ppJVar1);
+    // 0x1009de970
+    Js5ArchiveSetSettings::~Js5ArchiveSetSettings() {
+        uint8_t* this_00 = &field_8;
+        auto arg1 = this_00->HeapBeginPtr();
+        auto ppMVar1 = this_00->end();
+        for (; arg1 != ppMVar1; arg1 = arg1 + 1) {
+            safe_delete<Js5ArchiveSettings>(arg1);
         }
         this_00->~vector();
     }
 
-    // 0x1009de9e0, 16 bytes, complete-object destructor, placed by class name and debug map
-    // Js5ArchiveSetSettings::~Js5ArchiveSetSettings(): jumps straight to the base-object destructor
-
-    // 0x1009de9f0, 16 bytes, placed by class name and debug map
-    // Js5ArchiveSetSettings::AddUpdateHandler()
+    // 0x1009de9f0
     void Js5ArchiveSetSettings::AddUpdateHandler() {}
 
-    // 0x1009dea00, 16 bytes, placed by class name and debug map
-    // Js5ArchiveSetSettings::ArchivesUpdated()
+    // 0x1009dea00
     void Js5ArchiveSetSettings::ArchivesUpdated() {}
 
-    // 0x1009dea10, 16 bytes, placed by class name and debug map
-    // Js5ArchiveSetSettings::SetDiskCacheSize(EnumDiskCacheSize)
-    void Js5ArchiveSetSettings::SetDiskCacheSize() {}
+    // 0x1009dea10
+    void Js5ArchiveSetSettings::SetDiskCacheSize(EnumDiskCacheSize enumDiskCacheSize) {}
 
-    // 0x1009dea20, 160 bytes, placed by class name and debug map
-    // Js5ArchiveSetSettings::Add(Js5ArchiveSettings&)
-    void Js5ArchiveSetSettings::Add(Js5ArchiveSettings* param_1) {
-        undefined1* this_00;
-        uint uVar1;
-        ulong uVar2;
-        long* plVar3;
-        undefined8* puVar4;
-        ulong uVar5;
-
-        uVar1 = param_1->GetX();
-        uVar5 = (ulong)uVar1;
-        this_00 = &field_8;
-        uVar2 = this_00->size();
-        if (uVar2 <= uVar5) {
-            eastl::vector<Js5ArchiveSettings*, eastl::allocator>::resize((ulong)this_00);
+    // 0x1009dea20
+    void Js5ArchiveSetSettings::Add(Js5ArchiveSettings& js5ArchiveSettings) {
+        unsigned int uVar1 = js5ArchiveSettings.GetX();
+        unsigned long arg1 = (unsigned long)uVar1;
+        uint8_t* this_00 = &field_8;
+        if (this_00->size() <= arg1) {
+            this_00->resize((unsigned long)(uVar1 + 1));
         }
-        plVar3 = (long*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-            (vector<Js5ArchiveSettings*, eastl::allocator>*)this_00, uVar5);
+        long* plVar3 = (long*)(*this_00)[arg1];
         if (*plVar3 != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "m_archiveIDArray[archiveID] == nullptr",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/Js5ArchiveSetSettings.cpp",
-                50, "Js5ArchiveSetSettings: Tried to add an archive with an ID already added: %d", (ulong)uVar1);
+                50, "Js5ArchiveSetSettings: Tried to add an archive with an ID already added: %d",
+                (unsigned long)uVar1);
         }
         if (m_maxArchiveID < uVar1) {
             m_maxArchiveID = uVar1;
         }
-        puVar4 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-            (vector<Js5ArchiveSettings*, eastl::allocator>*)this_00, uVar5);
-        *puVar4 = param_1;
+        uint64_t* puVar4 = (uint64_t*)(*this_00)[arg1];
+        *puVar4 = js5ArchiveSettings;
     }
 
-    // 0x1009deb50, 32 bytes, placed by class name and debug map
-    // Js5ArchiveSetSettings::GetStart(int&)
-    void Js5ArchiveSetSettings::GetStart(int* param_1) {
-        *param_1 = -1;
-        GetNext(this, param_1);
+    // 0x1009deb50
+    void Js5ArchiveSetSettings::GetStart(int& arg1) {
+        arg1 = -1;
+        GetNext(arg1);
     }
 
-    // 0x1009deb70, 96 bytes, placed by class name and debug map
-    // Js5ArchiveSetSettings::GetNext(int&)
-    undefined8 Js5ArchiveSetSettings::GetNext(int* param_1) {
-        ulong uVar1;
+    // 0x1009deb70
+    uint64_t Js5ArchiveSetSettings::GetNext(int& arg1) {
         long* plVar2;
-        undefined8* puVar3;
-        uint uVar4;
-        ulong uVar5;
-        undefined1* this_00;
+        unsigned int uVar4;
 
-        uVar5 = (ulong)(uint)*param_1;
-        this_00 = &field_8;
+        unsigned long arg1_00 = (unsigned long)(unsigned int)*arg1;
+        uint8_t* this_00 = &field_8;
         do {
-            uVar4 = (int)uVar5 + 1;
-            uVar5 = (ulong)uVar4;
-            uVar1 = this_00->size();
-            if (uVar1 <= uVar5) {
+            uVar4 = (int)arg1_00 + 1;
+            arg1_00 = (unsigned long)uVar4;
+            if (this_00->size() <= arg1_00) {
                 return 0;
             }
-            plVar2 = (long*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-                (vector<Js5ArchiveSettings*, eastl::allocator>*)this_00, uVar5);
+            plVar2 = (long*)(*this_00)[arg1_00];
         } while (*plVar2 == 0);
-        *param_1 = uVar4;
-        puVar3 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-            (vector<Js5ArchiveSettings*, eastl::allocator>*)this_00, uVar5);
+        arg1 = uVar4;
+        uint64_t* puVar3 = (uint64_t*)(*this_00)[arg1_00];
         return *puVar3;
     }
 

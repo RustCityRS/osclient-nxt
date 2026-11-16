@@ -1,97 +1,79 @@
 // libs/oldscape/rs2lib/configdecoder/HitmarkType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x100282880, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::HitmarkType>::ref_counter_shared(unsigned long, oldscape::configdecoder::HitmarkType*): jumps straight to the base-object constructor
+    // 0x100282890
+    ref_counter_shared<oldscape::configdecoder::HitmarkType>::ref_counter_shared(
+        unsigned long arg1, oldscape::configdecoder::HitmarkType* hitmarkType)
+        : ref_counter_base() {}
 
-    // 0x100282890, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::HitmarkType>::ref_counter_shared(unsigned long, oldscape::configdecoder::HitmarkType*)
-    void ref_counter_shared<oldscape::configdecoder::HitmarkType>::ref_counter_shared(ulong param_1,
-                                                                                      HitmarkType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee75d8 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(HitmarkType**)(this + 24) = param_2;
-    }
-
-    // 0x1002828d0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::HitmarkType>::DeleteData()
+    // 0x1002828d0
     void ref_counter_shared<oldscape::configdecoder::HitmarkType>::DeleteData() {
-        ulong uVar1;
+        ref_counter_shared<oldscape::configdecoder::HitmarkType> _vtbl* prVar1;
         long lVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar2 = 0;
-                uVar1 = 0;
+                prVar1 = nullptr;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~HitmarkType();
-                    uVar1 = uVar1 + 1;
+                    ((HitmarkType*)((long)&(this[3]._vptr)->_dtor + lVar2))->~HitmarkType();
+                    prVar1 =
+                        (ref_counter_shared<oldscape::configdecoder::HitmarkType> _vtbl*)((long)&prVar1->_dtor + 1);
                     lVar2 = lVar2 + 120;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (prVar1 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x100282fa0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::HuntType>* placement_new<ref_counter_shared_trivial<oldscape::configdecoder::HuntType>, int, oldscape::configdecoder::HuntType*&>(void*, int&&, oldscape::configdecoder::HuntType*&)
-    ref_counter_shared_trivial* jag::placement_new<ref_counter_shared_trivial<oldscape::configdecoder::HuntType>, int,
-                                                   oldscape::configdecoder::HuntType*&>(void* param_1, int* param_2,
-                                                                                        HuntType** param_3) {
-        ref_counter_shared_trivial<oldscape::configdecoder::HuntType>::ref_counter_shared_trivial(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100282fa0
+    ref_counter_shared_trivial<oldscape::configdecoder::HuntType>*
+    placement_new<ref_counter_shared_trivial<oldscape::configdecoder::HuntType>, int,
+                  oldscape::configdecoder::HuntType*&>(void* arg1, int&& arg2,
+                                                       oldscape::configdecoder::HuntType*& arg3) {
+        new (arg1) ref_counter_shared_trivial<oldscape::configdecoder::HuntType>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100282fc0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::HuntType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::HuntType*): jumps straight to the base-object constructor
+    // 0x100282fd0
+    ref_counter_shared_trivial<oldscape::configdecoder::HuntType>::ref_counter_shared_trivial(
+        unsigned long arg1, oldscape::configdecoder::HuntType* huntType)
+        : ref_counter_base() {}
 
-    // 0x100282fd0, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::HuntType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::HuntType*)
-    void ref_counter_shared_trivial<oldscape::configdecoder::HuntType>::ref_counter_shared_trivial(ulong param_1,
-                                                                                                   HuntType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7cd0 + 16;
+    // 0x100283680
+    oldscape::configdecoder::IdkType* placement_new<oldscape::configdecoder::IdkType>(void* arg1) {
+        *(uint64_t*)((long)arg1 + 128) = 0;
+        *(uint64_t*)((long)arg1 + 136) = 0;
+        *(uint64_t*)((long)arg1 + 112) = 0;
+        *(uint64_t*)((long)arg1 + 120) = 0;
+        *(uint64_t*)((long)arg1 + 96) = 0;
+        *(uint64_t*)((long)arg1 + 104) = 0;
+        *(uint64_t*)((long)arg1 + 80) = 0;
+        *(uint64_t*)((long)arg1 + 88) = 0;
+        *(uint64_t*)((long)arg1 + 64) = 0;
+        *(uint64_t*)((long)arg1 + 72) = 0;
+        *(uint64_t*)((long)arg1 + 48) = 0;
+        *(uint64_t*)((long)arg1 + 56) = 0;
+        *(uint64_t*)((long)arg1 + 32) = 0;
+        *(uint64_t*)((long)arg1 + 40) = 0;
+        *(uint64_t*)((long)arg1 + 16) = 0;
+        *(uint64_t*)((long)arg1 + 24) = 0;
+        *(uint64_t*)arg1 = 0;
+        *(uint64_t*)((long)arg1 + 8) = 0;
+        *(uint64_t*)((long)arg1 + 144) = 0;
+        new (arg1) oldscape::configdecoder::IdkType();
+        return arg1;
     }
 
-    // 0x100283680, 80 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::configdecoder::IdkType* placement_new<oldscape::configdecoder::IdkType>(void*)
-    IdkType* placement_new<oldscape::configdecoder::IdkType>(void* param_1) {
-        *(undefined8*)((long)param_1 + 128) = 0;
-        *(undefined8*)((long)param_1 + 136) = 0;
-        *(undefined8*)((long)param_1 + 112) = 0;
-        *(undefined8*)((long)param_1 + 120) = 0;
-        *(undefined8*)((long)param_1 + 96) = 0;
-        *(undefined8*)((long)param_1 + 104) = 0;
-        *(undefined8*)((long)param_1 + 80) = 0;
-        *(undefined8*)((long)param_1 + 88) = 0;
-        *(undefined8*)((long)param_1 + 64) = 0;
-        *(undefined8*)((long)param_1 + 72) = 0;
-        *(undefined8*)((long)param_1 + 48) = 0;
-        *(undefined8*)((long)param_1 + 56) = 0;
-        *(undefined8*)((long)param_1 + 32) = 0;
-        *(undefined8*)((long)param_1 + 40) = 0;
-        *(undefined8*)((long)param_1 + 16) = 0;
-        *(undefined8*)((long)param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)((long)param_1 + 8) = 0;
-        *(undefined8*)((long)param_1 + 144) = 0;
-        oldscape::configdecoder::IdkType::IdkType(param_1);
-        return param_1;
-    }
-
-    // 0x1002836d0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::IdkType>* placement_new<ref_counter_shared<oldscape::configdecoder::IdkType>, int, oldscape::configdecoder::IdkType*&>(void*, int&&, oldscape::configdecoder::IdkType*&)
-    ref_counter_shared*
-    jag::placement_new<ref_counter_shared<oldscape::configdecoder::IdkType>, int, oldscape::configdecoder::IdkType*&>(
-        void* param_1, int* param_2, IdkType** param_3) {
-        ref_counter_shared<oldscape::configdecoder::IdkType>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x1002836d0
+    ref_counter_shared<oldscape::configdecoder::IdkType>*
+    placement_new<ref_counter_shared<oldscape::configdecoder::IdkType>, int, oldscape::configdecoder::IdkType*&>(
+        void* arg1, int&& arg2, oldscape::configdecoder::IdkType*& arg3) {
+        new (arg1) ref_counter_shared<oldscape::configdecoder::IdkType>((long)*arg2, arg3);
+        return arg1;
     }
 
 } // namespace jag
@@ -99,86 +81,68 @@ namespace jag {
 namespace jag::oldscape::configdecoder {
     class HitmarkType {
     public:
-        void Init(jagex3::Js5*, jagex3::Js5*, jagex3::Js5*);
-        HitmarkType* List(int);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&, int);
-        GetMultiHitmark();
-        GetString(int);
-        GetIconSprite();
-        GetBackgroundSprite();
-        GetBackgroundLeftSprite();
-        GetBackgroundRightSprite();
-        GetFont();
+        void Init(jagex3::Js5* js51, jagex3::Js5* js52, jagex3::Js5* js53);
+        auto List(int arg1);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2);
+        auto GetMultiHitmark();
+        auto GetString(int arg1);
+        auto GetIconSprite();
+        auto GetBackgroundSprite();
+        auto GetBackgroundLeftSprite();
+        auto GetBackgroundRightSprite();
+        auto GetFont();
         void ResetCache();
         HitmarkType();
         ~HitmarkType();
-        static /* 8 bytes */ m_pConfigClient;
-        static /* 8 bytes */ m_pSprites;
-        static /* 8 bytes */ m_pFontMetrics;
-        static /* 8 bytes */ m_numDefinitions;
-        static /* 5376 bytes */ m_recentUse;
-        static LRUHashCache<graphics::Pix32, 64ul, 65ul, false, unsigned long long> /* 5376 bytes */
-            m_spriteCache; // = LRUHashCache<graphics::Pix32,64ul,65ul,false,unsigned long long>(64, "LRUHashCache")
-        static /* 1856 bytes */ m_fontCache;
-        static /* 8 bytes */ m_dataNotReady;
+        static int64_t m_pConfigClient;
+        static int64_t m_pSprites;
+        static int64_t m_pFontMetrics;
+        static int64_t m_numDefinitions;
+        static LRUHashCache<HitmarkType, 64ul, 65ul, false, unsigned long long> m_recentUse;
+        static LRUHashCache<graphics::Pix32, 64ul, 65ul, false, unsigned long long>
+            m_spriteCache; // = LRUHashCache<graphics::Pix32, 64ul, 65ul, false, unsigned long long>(64, "LRUHashCache")
+        static LRUHashCache<jstring::PixfontGeneric, 20ul, 21ul, false, unsigned long long> m_fontCache;
+        static int64_t m_dataNotReady;
 
-        // data members, from how the methods use this: 124 bytes
-        char _unknown_0[4];
-        undefined4 field_4;  // offset 4
-        undefined4 field_8;  // offset 8
-        uint field_12;       // offset 12
-        undefined4 field_16; // offset 16
-        undefined4 field_20; // offset 20
-        undefined4 field_24; // offset 24
-        undefined4 field_28; // offset 28
-        int field_32;        // offset 32
-        int field_36;        // offset 36
-        uint field_40;       // offset 40
-        char _unknown_44[36];
-        uint field_80; // offset 80
-        int field_84;  // offset 84
-        char _unknown_88[24];
-        uint field_112; // offset 112
-        uint field_116; // offset 116
-        char _unknown_120[4];
+    private:
+        uint8_t _unknown_0[4];
+        int field_4;
+        uint32_t field_8;
+        unsigned int field_12;
+        int field_16;
+        int field_20;
+        int field_24;
+        int field_28;
+        int field_32;
+        int field_36;
+        unsigned int field_40;
+        uint8_t _unknown_44[36];
+        unsigned int field_80;
+        int field_84;
+        uint8_t _unknown_88[24];
+        unsigned int field_112;
+        unsigned int field_116;
+        uint8_t _unknown_120[4];
     };
 
-    // 0x1002827d0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // HitmarkType::HitmarkType(): jumps straight to the base-object constructor
+    // 0x1002827e0
+    HitmarkType::HitmarkType()
+        : field_4(-1), field_8(16777215), field_12(70), field_16(-1), field_20(-1), field_24(-1), field_28(-1),
+          field_32(0), field_36(0), field_40(4294967295) {
 
-    // 0x1002827e0, 160 bytes, base-object constructor, inline, placed by class name and debug map
-    // HitmarkType::HitmarkType()
-    void HitmarkType::HitmarkType() {
-        allocator local_28[8];
-
-        field_4 = 4294967295;
-        field_8 = 16777215;
-        field_12 = 70;
-        field_16 = 4294967295;
-        field_20 = 4294967295;
-        field_24 = 4294967295;
-        field_28 = 4294967295;
-        field_32 = 0;
-        field_36 = 0;
-        field_40 = 4294967295;
-        eastl::allocator::allocator(local_28, "EASTL basic_string");
-        new (&field_48, "", local_28) eastl::string();
+        new (&field_48) eastl::string("");
         field_80 = 4294967295;
         field_84 = 0;
-        new (&field_88) Array<int, eastl::allocator>();
+        new (&field_88) Array<int>();
         field_112 = 4294967295;
         field_116 = 4294967295;
     }
 
-    // 0x100282920, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // HitmarkType::~HitmarkType(): jumps straight to the base-object destructor
-
-    // 0x100282930, 48 bytes, base-object destructor, inline, placed by class name and debug map
-    // HitmarkType::~HitmarkType()
-    void HitmarkType::~HitmarkType() {
-        (&field_88)->~Array();
-        (&field_48)->~basic_string();
+    // 0x100282930
+    HitmarkType::~HitmarkType() {
+        field_88.~Array();
+        field_48.~basic_string();
     }
 
 } // namespace jag::oldscape::configdecoder

@@ -1,189 +1,152 @@
 // libs/game/runetek5/clientoptions/options/ClientOptions_InterfaceScale.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x10060bda0, 64 bytes, inline, placed by debug map only (low confidence)
-    // PacketT<Array<unsigned char, BucketAllocatorEASTL> >::pStringNoConversion(char const*, bool)
-    void PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringNoConversion(
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>* this, char* param_1, bool param_2) {
-        size_t sVar1;
-
-        sVar1 = _strlen(param_1);
-        pStringNoConversion(this, param_1, sVar1, param_2);
+    // 0x10060bda0
+    void PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringNoConversion(const char* str, bool arg2) {
+        size_t arg2_00 = _strlen(str);
+        pStringNoConversion(this, str, arg2_00, arg2);
     }
 
-    // 0x10060c1c0, 240 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator> > >::gStringNoConversion(eastl::string&, bool)
-    size_t PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringNoConversion(
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* this, basic_string* param_1, bool param_2) {
-        char cVar1;
-        long lVar2;
-        char* pcVar3;
-        undefined8 uVar4;
-        size_t sVar5;
-        ulong uVar6;
-        undefined7 in_register_00000011;
+    // 0x10060c1c0
+    size_t PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringNoConversion(eastl::string& str, bool arg2) {
+        uint8_t bVar1;
+        uint8_t* pbVar3;
+        unsigned long uVar4;
+        uint64_t in_register_00000011;
 
-        if ((int)CONCAT71(in_register_00000011, param_2) != 0) {
-            uVar6 = *(ulong*)(this + 24);
-            *(ulong*)(this + 24) = uVar6 + 1;
-            pcVar3 = (char*)Array<unsigned char, eastl::allocator>::operator[](
-                (Array<unsigned char, eastl::allocator>*)this, uVar6);
-            cVar1 = *pcVar3;
-            if (cVar1 != '\0') {
-                uVar4 = logger::default_logger();
-                logger::Logger::Log(uVar4, 0, 2,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/bytepacking/"
-                                    "PacketMixins.inl",
-                                    485, "Bad version number in gStringNoConversion: %d", cVar1);
-                eastl::string::clear();
+        if ((int)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg2) != 0) {
+            uVar4 = *(unsigned long*)(this + 24);
+            *(unsigned long*)(this + 24) = uVar4 + 1;
+            pbVar3 = (uint8_t*)(*this)[uVar4];
+            bVar1 = *pbVar3;
+            if (bVar1 != 0) {
+                (logger::default_logger())
+                    ->Log(false, 2,
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/bytepacking/"
+                          "PacketMixins.inl",
+                          485, "Bad version number in gStringNoConversion: %d", (unsigned int)bVar1);
+                str.clear();
                 return 0;
             }
         }
-        pcVar3 = (char*)Array<unsigned char, eastl::allocator>::operator[](
-            (Array<unsigned char, eastl::allocator>*)this, *(ulong*)(this + 24));
-        sVar5 = _strlen(pcVar3);
-        lVar2 = *(long*)(this + 24);
-        uVar6 = end();
-        if (uVar6 < lVar2 + sVar5 + 1) {
-            /* WARNING: Subroutine does not return */
+        char* str_00 = (char*)(*this)[*(unsigned long*)(this + 24)];
+        size_t arg2_00 = _strlen(str_00);
+        long lVar2 = *(long*)(this + 24);
+        uVar4 = end();
+        if (uVar4 < lVar2 + arg2_00 + 1) {
             LogAssert(
                 "self->m_pos + len + 1 <= self->m_data.size()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/bytepacking/PacketMixins.inl",
-                493, (char*)0);
+                493, nullptr);
         }
-        param_1->assign(pcVar3, sVar5);
-        *(size_t*)(this + 24) = *(long*)(this + 24) + sVar5 + 1;
-        return sVar5;
+        str.assign(str_00, arg2_00);
+        *(size_t*)(this + 24) = *(long*)(this + 24) + arg2_00 + 1;
+        return arg2_00;
     }
 
-    // 0x10060f2b0, 32 bytes, inline, placed by debug map only (low confidence)
-    // WrapArray<char const* const> GetEnumValueNames<game::option::EnumAutoSetup>()
-    jag* GetEnumValueNames<game::option::EnumAutoSetup>() {
-        WrapArray<char const* const>::WrapArray<std::array<char const*, 7ul>>((WrapArray<char const* const>*)this,
-                                                                              (array*)PTR_VALUE_NAMES_100ee9cc8);
-        return this;
+    // 0x10060f2b0
+    WrapArray<char const* const> GetEnumValueNames<game::option::EnumAutoSetup>() {
+        WrapArray<char const* const> result;
+        result.WrapArray<std::array<char const*, 7ul>>(*PTR_VALUE_NAMES_100ee9cc8);
+        return result;
     }
 
-    // 0x10060f5d0, 32 bytes, inline, placed by debug map only (low confidence)
-    // WrapArray<char const* const> GetEnumValueNames<game::option::EnumBrightness>()
-    jag* GetEnumValueNames<game::option::EnumBrightness>() {
-        WrapArray<char const* const>::WrapArray<std::array<char const*, 5ul>>((WrapArray<char const* const>*)this,
-                                                                              (array*)PTR_VALUE_NAMES_100ee9cd0);
-        return this;
+    // 0x10060f5d0
+    WrapArray<char const* const> GetEnumValueNames<game::option::EnumBrightness>() {
+        WrapArray<char const* const> result;
+        result.WrapArray<std::array<char const*, 5ul>>(*PTR_VALUE_NAMES_100ee9cd0);
+        return result;
     }
 
-    // 0x10060f840, 32 bytes, inline, placed by debug map only (low confidence)
-    // WrapArray<char const* const> GetEnumValueNames<game::option::EnumOptionToggle>()
-    jag* GetEnumValueNames<game::option::EnumOptionToggle>() {
-        WrapArray<char const* const>::WrapArray<std::array<char const*, 2ul>>((WrapArray<char const* const>*)this,
-                                                                              (array*)PTR_VALUE_NAMES_100ee9ce8);
-        return this;
+    // 0x10060f840
+    WrapArray<char const* const> GetEnumValueNames<game::option::EnumOptionToggle>() {
+        WrapArray<char const* const> result;
+        result.WrapArray<std::array<char const*, 2ul>>(*PTR_VALUE_NAMES_100ee9ce8);
+        return result;
     }
 
-    // 0x10060fbe0, 32 bytes, inline, placed by debug map only (low confidence)
-    // WrapArray<char const* const> GetEnumValueNames<render::VSyncMode>()
-    jag* GetEnumValueNames<render::VSyncMode>() {
-        WrapArray<char const* const>::WrapArray<std::array<char const*, 5ul>>((WrapArray<char const* const>*)this,
-                                                                              (array*)PTR_VALUE_NAMES_100ee9d18);
-        return this;
+    // 0x10060fbe0
+    WrapArray<char const* const> GetEnumValueNames<render::VSyncMode>() {
+        WrapArray<char const* const> result;
+        result.WrapArray<std::array<char const*, 5ul>>(*PTR_VALUE_NAMES_100ee9d18);
+        return result;
     }
 
-    // 0x10060fec0, 32 bytes, inline, placed by debug map only (low confidence)
-    // WrapArray<char const* const> GetEnumValueNames<game::option::EnumRemoveRoof>()
-    jag* GetEnumValueNames<game::option::EnumRemoveRoof>() {
-        WrapArray<char const* const>::WrapArray<std::array<char const*, 4ul>>((WrapArray<char const* const>*)this,
-                                                                              (array*)PTR_VALUE_NAMES_100ee9cd8);
-        return this;
+    // 0x10060fec0
+    WrapArray<char const* const> GetEnumValueNames<game::option::EnumRemoveRoof>() {
+        WrapArray<char const* const> result;
+        result.WrapArray<std::array<char const*, 4ul>>(*PTR_VALUE_NAMES_100ee9cd8);
+        return result;
     }
 
 } // namespace jag
 
 namespace jag::math {
-    // 0x10060e270, 48 bytes, inline, placed by debug map only (low confidence)
-    // game::option::EnumAntialiasingMode Clamp<game::option::EnumAntialiasingMode>(game::option::EnumAntialiasingMode const&, game::option::EnumAntialiasingMode const&, game::option::EnumAntialiasingMode const&)
-    undefined4 Clamp<game::option::EnumAntialiasingMode>(EnumAntialiasingMode* param_1, EnumAntialiasingMode* param_2,
-                                                         EnumAntialiasingMode* param_3) {
-        EnumAntialiasingMode* pEVar1;
-        undefined4* puVar2;
-
-        pEVar1 = std::max<game::option::EnumAntialiasingMode>(param_2, param_1);
-        puVar2 = (undefined4*)std::min<game::option::EnumAntialiasingMode>(param_3, pEVar1);
-        return *puVar2;
+    // 0x10060e270
+    game::option::EnumAntialiasingMode
+    Clamp<game::option::EnumAntialiasingMode>(const game::option::EnumAntialiasingMode& enumAntialiasingMode1,
+                                              const game::option::EnumAntialiasingMode& enumAntialiasingMode2,
+                                              const game::option::EnumAntialiasingMode& enumAntialiasingMode3) {
+        auto pEVar1 = std::max<game::option::EnumAntialiasingMode>(enumAntialiasingMode2, enumAntialiasingMode1);
+        pEVar1 = std::min<game::option::EnumAntialiasingMode>(enumAntialiasingMode3, *pEVar1);
+        return *pEVar1;
     }
 
-    // 0x10060e2b0, 48 bytes, inline, placed by debug map only (low confidence)
-    // graphics::GraphicsQuality Clamp<graphics::GraphicsQuality>(graphics::GraphicsQuality const&, graphics::GraphicsQuality const&, graphics::GraphicsQuality const&)
-    undefined4 Clamp<graphics::GraphicsQuality>(GraphicsQuality* param_1, GraphicsQuality* param_2,
-                                                GraphicsQuality* param_3) {
-        GraphicsQuality* pGVar1;
-        undefined4* puVar2;
-
-        pGVar1 = std::max<graphics::GraphicsQuality>(param_2, param_1);
-        puVar2 = (undefined4*)std::min<graphics::GraphicsQuality>(param_3, pGVar1);
-        return *puVar2;
+    // 0x10060e2b0
+    graphics::GraphicsQuality Clamp<graphics::GraphicsQuality>(const graphics::GraphicsQuality& graphicsQuality1,
+                                                               const graphics::GraphicsQuality& graphicsQuality2,
+                                                               const graphics::GraphicsQuality& graphicsQuality3) {
+        auto pGVar1 = std::max<graphics::GraphicsQuality>(graphicsQuality2, graphicsQuality1);
+        pGVar1 = std::min<graphics::GraphicsQuality>(graphicsQuality3, *pGVar1);
+        return *pGVar1;
     }
 
-    // 0x10060e2e0, 48 bytes, inline, placed by debug map only (low confidence)
-    // game::option::EnumBloom Clamp<game::option::EnumBloom>(game::option::EnumBloom const&, game::option::EnumBloom const&, game::option::EnumBloom const&)
-    undefined4 Clamp<game::option::EnumBloom>(EnumBloom* param_1, EnumBloom* param_2, EnumBloom* param_3) {
-        EnumBloom* pEVar1;
-        undefined4* puVar2;
-
-        pEVar1 = std::max<game::option::EnumBloom>(param_2, param_1);
-        puVar2 = (undefined4*)std::min<game::option::EnumBloom>(param_3, pEVar1);
-        return *puVar2;
+    // 0x10060e2e0
+    game::option::EnumBloom Clamp<game::option::EnumBloom>(const game::option::EnumBloom& enumBloom1,
+                                                           const game::option::EnumBloom& enumBloom2,
+                                                           const game::option::EnumBloom& enumBloom3) {
+        auto pEVar1 = std::max<game::option::EnumBloom>(enumBloom2, enumBloom1);
+        pEVar1 = std::min<game::option::EnumBloom>(enumBloom3, *pEVar1);
+        return *pEVar1;
     }
 
-    // 0x10060e310, 48 bytes, inline, placed by debug map only (low confidence)
-    // graphics::SSAOPass::Mode Clamp<graphics::SSAOPass::Mode>(graphics::SSAOPass::Mode const&, graphics::SSAOPass::Mode const&, graphics::SSAOPass::Mode const&)
-    undefined4 Clamp<graphics::SSAOPass::Mode>(Mode* param_1, Mode* param_2, Mode* param_3) {
-        Mode* pMVar1;
-        undefined4* puVar2;
-
-        pMVar1 = std::max<graphics::SSAOPass::Mode>(param_2, param_1);
-        puVar2 = (undefined4*)std::min<graphics::SSAOPass::Mode>(param_3, pMVar1);
-        return *puVar2;
+    // 0x10060e310
+    graphics::SSAOPass::Mode Clamp<graphics::SSAOPass::Mode>(const graphics::SSAOPass::Mode& mode1,
+                                                             const graphics::SSAOPass::Mode& mode2,
+                                                             const graphics::SSAOPass::Mode& mode3) {
+        auto mode2_00 = std::max<graphics::SSAOPass::Mode>(mode2, mode1);
+        auto puVar1 = std::min<graphics::SSAOPass::Mode>(mode3, *mode2_00);
+        return *puVar1;
     }
 
-    // 0x10060e340, 48 bytes, inline, placed by debug map only (low confidence)
-    // game::option::EnumAnisotropicFiltering Clamp<game::option::EnumAnisotropicFiltering>(game::option::EnumAnisotropicFiltering const&, game::option::EnumAnisotropicFiltering const&, game::option::EnumAnisotropicFiltering const&)
-    undefined4 Clamp<game::option::EnumAnisotropicFiltering>(EnumAnisotropicFiltering* param_1,
-                                                             EnumAnisotropicFiltering* param_2,
-                                                             EnumAnisotropicFiltering* param_3) {
-        EnumAnisotropicFiltering* pEVar1;
-        undefined4* puVar2;
-
-        pEVar1 = std::max<game::option::EnumAnisotropicFiltering>(param_2, param_1);
-        puVar2 = (undefined4*)std::min<game::option::EnumAnisotropicFiltering>(param_3, pEVar1);
-        return *puVar2;
+    // 0x10060e340
+    game::option::EnumAnisotropicFiltering Clamp<game::option::EnumAnisotropicFiltering>(
+        const game::option::EnumAnisotropicFiltering& enumAnisotropicFiltering1,
+        const game::option::EnumAnisotropicFiltering& enumAnisotropicFiltering2,
+        const game::option::EnumAnisotropicFiltering& enumAnisotropicFiltering3) {
+        auto pEVar1 =
+            std::max<game::option::EnumAnisotropicFiltering>(enumAnisotropicFiltering2, enumAnisotropicFiltering1);
+        pEVar1 = std::min<game::option::EnumAnisotropicFiltering>(enumAnisotropicFiltering3, *pEVar1);
+        return *pEVar1;
     }
 
-    // 0x10060e370, 48 bytes, inline, placed by debug map only (low confidence)
-    // game::option::EnumParticleQualityLevel Clamp<game::option::EnumParticleQualityLevel>(game::option::EnumParticleQualityLevel const&, game::option::EnumParticleQualityLevel const&, game::option::EnumParticleQualityLevel const&)
-    undefined4 Clamp<game::option::EnumParticleQualityLevel>(EnumParticleQualityLevel* param_1,
-                                                             EnumParticleQualityLevel* param_2,
-                                                             EnumParticleQualityLevel* param_3) {
-        EnumParticleQualityLevel* pEVar1;
-        undefined4* puVar2;
-
-        pEVar1 = std::max<game::option::EnumParticleQualityLevel>(param_2, param_1);
-        puVar2 = (undefined4*)std::min<game::option::EnumParticleQualityLevel>(param_3, pEVar1);
-        return *puVar2;
+    // 0x10060e370
+    game::option::EnumParticleQualityLevel Clamp<game::option::EnumParticleQualityLevel>(
+        const game::option::EnumParticleQualityLevel& enumParticleQualityLevel1,
+        const game::option::EnumParticleQualityLevel& enumParticleQualityLevel2,
+        const game::option::EnumParticleQualityLevel& enumParticleQualityLevel3) {
+        auto pEVar1 =
+            std::max<game::option::EnumParticleQualityLevel>(enumParticleQualityLevel2, enumParticleQualityLevel1);
+        pEVar1 = std::min<game::option::EnumParticleQualityLevel>(enumParticleQualityLevel3, *pEVar1);
+        return *pEVar1;
     }
 
-    // 0x10060ebf0, 16 bytes, inline, placed by debug map only (low confidence)
-    // bool operator!=<double>(Vector3T<double> const&, Vector3T<double> const&)
-    /* bool TEMPNAMEPLACEHOLDERVALUE(Vector3T<double> const&,
-   Vector3T<double> const&) */
-
-    bool operator!=(Vector3T* param_1, Vector3T* param_2) {
-        bool bVar1;
-
-        bVar1 = operator==(param_1, param_2);
+    // 0x10060ebf0
+    bool operator!= <double>(const Vector3T<double>& vector31, const Vector3T<double>& vector32) {
+        bool bVar1 = vector31 == vector32;
         return !bVar1;
     }
 
@@ -194,32 +157,22 @@ namespace jag::game::option {
     public:
         // virtual methods in vtable order
         virtual ~InterfaceScale();
-        virtual GetDefault();
-        virtual void ApplySettingImpl(graphics::RT7Core&, graphics::EffectManager&, unsigned int);
-        InterfaceScale(graphics::RT7Core&, Settings&, char const*);
+        virtual uint64_t GetDefault();
+        virtual void ApplySettingImpl(graphics::RT7Core& rt7Core, graphics::EffectManager& effectManager,
+                                      unsigned int arg3);
+        InterfaceScale(graphics::RT7Core& rt7Core, Settings& settings, const char* str);
 
-        // data members, from how the methods use this: 193 bytes
-        undefined** field_0;    // offset 0, vtable pointer
-        undefined8 field_8;     // offset 8
-        undefined8 field_16;    // offset 16
-        undefined4 field_24;    // offset 24
-        undefined1 field_28[8]; // offset 28
-        undefined4 field_36;    // offset 36
-        char _unknown_40[153];
+    private:
+        Settings* field_8;
+        char* field_16;
+        uint32_t field_24;
+        Range<unsigned int>* field_28;
+        uint32_t field_36;
+        uint8_t _unknown_40[153];
     };
 
-    // 0x100609190, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // InterfaceScale::~InterfaceScale(): jumps straight to the base-object destructor
-
-    // 0x1006091f0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // AntialiasingMode::~AntialiasingMode(): jumps straight to the base-object destructor
-
-    // 0x100611170, 16 bytes, base-object destructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InterfaceScale::~InterfaceScale()
-    /* Option<unsigned int>::~Option() */
-
-    void Option<unsigned int>::~Option() {
+    // 0x100611170
+    InterfaceScale::~InterfaceScale() {
         ~Option(this);
     }
 

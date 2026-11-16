@@ -1,6 +1,5 @@
 // libs/game/runetek5/clientoptions/options/ClientOptions_ParticleQuality.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,37 +8,23 @@ namespace jag::game::option {
     public:
         // virtual methods in vtable order
         virtual ~ParticleQuality();
-        virtual GetDefault();
-        virtual DetermineBestSetting(perf::PerfModuleReporter const&) const;
-        virtual void ApplySettingImpl(graphics::RT7Core&, graphics::EffectManager&, EnumParticleQualityLevel);
-        ParticleQuality(graphics::RT7Core&, Settings&, char const*);
+        virtual uint64_t GetDefault();
+        virtual uint8_t DetermineBestSetting(const perf::PerfModuleReporter& perfModuleReporter) const;
+        virtual void ApplySettingImpl(graphics::RT7Core& rt7Core, graphics::EffectManager& effectManager,
+                                      EnumParticleQualityLevel enumParticleQualityLevel);
+        ParticleQuality(graphics::RT7Core& rt7Core, Settings& settings, const char* str);
 
-        // data members, from how the methods use this: 193 bytes
-        undefined** field_0;    // offset 0, vtable pointer
-        undefined8 field_8;     // offset 8
-        undefined8 field_16;    // offset 16
-        undefined4 field_24;    // offset 24
-        undefined1 field_28[8]; // offset 28
-        undefined4 field_36;    // offset 36
-        char _unknown_40[153];
+    private:
+        Settings* field_8;
+        char* field_16;
+        uint32_t field_24;
+        Range<EnumParticleQualityLevel>* field_28;
+        uint32_t field_36;
+        uint8_t _unknown_40[153];
     };
 
-    // 0x1005fe350, 32 bytes, deleting destructor, inline, placed by class name and debug map
-    // ParticleQuality::~ParticleQuality()
-    void ParticleQuality::~ParticleQuality() {
-        ~ParticleQuality(this);
-        operator_delete(this);
-    }
-
-    // 0x100609180, 16 bytes, complete-object destructor, inline, placed by class name
-    // ParticleQuality::~ParticleQuality(): jumps straight to the base-object destructor
-
-    // 0x100611040, 16 bytes, base-object destructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // ParticleQuality::~ParticleQuality()
-    /* Option<EnumParticleQualityLevel>::~Option() */
-
-    void Option<EnumParticleQualityLevel>::~Option() {
+    // 0x100611040
+    ParticleQuality::~ParticleQuality() {
         ~Option(this);
     }
 

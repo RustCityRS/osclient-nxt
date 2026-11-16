@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/gui/debug/DebugOverlayGraphSection.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,37 +9,34 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayGraphSection();
-        virtual void Draw(unsigned long long, int, int);
-        virtual void Update(unsigned long long);
-        virtual void SetHeight(int);
-        virtual void DrawTextString(eastl::fixed_string<char, 512, true, eastl::allocator> const&, int, int,
-                                    unsigned int, int, graphics::FontAlign);
+        virtual void Draw(unsigned long long arg1, int arg2, int arg3);
+        virtual void Update(unsigned long long arg1);
+        virtual void SetHeight(int arg1);
+        virtual void DrawTextString(const eastl::fixed_string<char, 512>& str, int arg2, int arg3, unsigned int arg4,
+                                    int arg5, graphics::FontAlign fontAlign);
         void ShowGraphs();
-        void RegisterGraphTweaks(tweak::Container&);
-        DebugOverlayGraphSection(DebugOverlay&, DebugOverlaySection::SectionType, bool, unsigned int, float);
-        void DrawGraph(int, int, unsigned long long);
-        static /* 4 bytes */ m_graphDuration; // = 15
-        static /* 4 bytes */ m_showGraphs;    // = 1
+        void RegisterGraphTweaks(tweak::Container& container);
+        DebugOverlayGraphSection(DebugOverlay& debugOverlay, DebugOverlaySection::SectionType sectionType, bool arg3,
+                                 unsigned int arg4, float arg5);
+        void DrawGraph(int arg1, int arg2, unsigned long long arg3);
+        static int32_t m_graphDuration; // = 15
+        static int32_t m_showGraphs;    // = 1
 
-        // data members, from how the methods use this: 98656 bytes, the first 132 are DebugOverlaySection
-        char _unknown_132[98508];
-        int field_98640; // offset 98640
-        char _unknown_98644[4];
-        ulonglong field_98648; // offset 98648
+    private:
+        uint8_t _unknown_132[98508];
+        int field_98640;
+        uint8_t _unknown_98644[4];
+        unsigned long long field_98648;
     };
 
-    // 0x1006020a0, 16 bytes, inline, placed by class name and debug map
-    // DebugOverlayGraphSection::ShowGraphs()
+    // 0x1006020a0
     void DebugOverlayGraphSection::ShowGraphs() {
         m_showGraphs = 1;
     }
 
-    // 0x1008fc140, 48 bytes, base-object destructor, inline, placed by class name
-    // DebugOverlayGraphSection::~DebugOverlayGraphSection()
-    void DebugOverlayGraphSection::~DebugOverlayGraphSection() {
-        field_0 = &PTR__OptionStore_100f18730;
-        field_128->~TimedGraph();
-        ~AutoSingleton();
+    // 0x1008fc140
+    DebugOverlayGraphSection::~DebugOverlayGraphSection() {
+        field_128.~TimedGraph();
     }
 
 } // namespace jag

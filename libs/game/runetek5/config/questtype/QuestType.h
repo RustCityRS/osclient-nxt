@@ -1,30 +1,29 @@
 // libs/game/runetek5/config/questtype/QuestType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class EnvSkySettings {
     public:
-        GetSkyModelRequest();
-        GetSkyBox() const;
-        uint GetSkyBoxID() const;
+        void GetSkyModelRequest();
+        void GetSkyBox() const;
+        unsigned int GetSkyBoxID() const;
         void SetDefaults();
-        EnvSkySettings(EnvSkySettings const&);
+        EnvSkySettings(const EnvSkySettings& envSkySettings);
         ~EnvSkySettings();
         EnvSkySettings();
-        void Set(PacketT<Array<unsigned char, eastl::allocator>>&);
-        void ApplyOverride(EnvironmentOverride const&);
-        void SetSkyBox(shared_ptr<SkyBoxType> const&);
-        bool operator==(EnvSkySettings const&) const;
-        ulong hash() const;
-        void SetSkyBoxID(int);
+        void Set(PacketT<Array<unsigned char>>& arg1);
+        void ApplyOverride(const EnvironmentOverride& environmentOverride);
+        void SetSkyBox(const shared_ptr<SkyBoxType>& skyBoxType);
+        bool operator==(const EnvSkySettings& envSkySettings) const;
+        unsigned long hash() const;
+        void SetSkyBoxID(int arg1);
 
-        // data members, from how the methods use this: 48 bytes
-        uint m_skyBoxID; // offset 0
-        char _unknown_4[20];
-        ActiveComponent field_24; // offset 24
+    private:
+        unsigned int m_skyBoxID;
+        uint8_t _unknown_4[20];
+        ActiveComponent field_24;
     };
 
     class QuestType {
@@ -34,62 +33,64 @@ namespace jag::game {
         class PrerequisiteVar;
         // virtual methods in vtable order
         virtual ~QuestType();
-        virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
+        virtual uint8_t* DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2);
         virtual void PostDecode();
-        uint GetQuestPoints() const;
-        bool StartedQuest(PlayerVarDomain&) const;
-        bool FinishedQuest(PlayerVarDomain&) const;
-        ulong CanStartQuest(PlayerVarDomain&, PlayerGameState const&, ModeAccountType const*) const;
-        bool CheckPreReqQuestPoints(PlayerVarDomain&) const;
-        bool CheckPreReqStat(PlayerGameState const&, unsigned int, ModeAccountType const*) const;
-        CheckPreReqQuest(PlayerVarDomain&, unsigned int) const;
-        bool CheckPreReqVarP(PlayerVarDomain&, unsigned int) const;
-        bool CheckPreReqVarBit(PlayerVarDomain&, unsigned int) const;
-        QuestType(BaseTemplateConfigTypeList<QuestType>*, int);
+        unsigned int GetQuestPoints() const;
+        bool StartedQuest(PlayerVarDomain& playerVarDomain) const;
+        bool FinishedQuest(PlayerVarDomain& playerVarDomain) const;
+        unsigned long CanStartQuest(PlayerVarDomain& playerVarDomain, const PlayerGameState& playerGameState,
+                                    const ModeAccountType* modeAccountType) const;
+        bool CheckPreReqQuestPoints(PlayerVarDomain& playerVarDomain) const;
+        bool CheckPreReqStat(const PlayerGameState& playerGameState, unsigned int arg2,
+                             const ModeAccountType* modeAccountType) const;
+        uint64_t CheckPreReqQuest(PlayerVarDomain& playerVarDomain, unsigned int arg2) const;
+        bool CheckPreReqVarP(PlayerVarDomain& playerVarDomain, unsigned int arg2) const;
+        bool CheckPreReqVarBit(PlayerVarDomain& playerVarDomain, unsigned int arg2) const;
+        QuestType(BaseTemplateConfigTypeList<QuestType>* baseTemplateConfigTypeList, int arg2);
 
-        // data members, from how the methods use this: 344 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        BaseTemplateConfigTypeList* field_24; // offset 24
-        int field_32;                         // offset 32
-        char _unknown_36[4];
-        shared_ptr field_40; // offset 40
-        char _unknown_56[112];
-        uint field_168;       // offset 168
-        uint field_172;       // offset 172
-        uint field_176;       // offset 176
-        undefined1 field_180; // offset 180
-        char _unknown_181[3];
-        uint m_questPoints; // offset 184
-        char _unknown_188[28];
-        CoordGrid field_216; // offset 216
-        char _unknown_232[48];
-        uint field_280; // offset 280
-        char _unknown_284[52];
-        undefined4 field_336; // offset 336
-        char _unknown_340[4];
+    private:
+        uint8_t _unknown_8[16];
+        BaseTemplateConfigTypeList<QuestType>* field_24;
+        int field_32;
+        uint8_t _unknown_36[4];
+        shared_ptr field_40;
+        uint8_t _unknown_56[112];
+        unsigned int field_168;
+        unsigned int field_172;
+        unsigned int field_176;
+        uint8_t field_180;
+        uint8_t _unknown_181[3];
+        unsigned int m_questPoints;
+        uint8_t _unknown_188[28];
+        CoordGrid field_216;
+        uint8_t _unknown_232[48];
+        unsigned int field_280;
+        uint8_t _unknown_284[52];
+        uint32_t field_336;
+        uint8_t _unknown_340[4];
     };
 
     class QuestType::MasterQuestVar {
     public:
-        uint GetEndState() const;
-        uint GetStartState() const;
-        uint GetID() const;
-        MasterQuestVar(int, int, int);
+        unsigned int GetEndState() const;
+        unsigned int GetStartState() const;
+        unsigned int GetID() const;
+        MasterQuestVar(int arg1, int arg2, int arg3);
+        MasterQuestVar(int waterNormalParamsEncoding, int waterNormalParamGroup, int arg3);
         MasterQuestVar();
 
-        // data members, from how the methods use this: 16 bytes
-        uint m_iD;         // offset 0
-        uint m_startState; // offset 4
-        uint m_endState;   // offset 8
-        char _unknown_12[4];
+    private:
+        unsigned int m_iD;
+        unsigned int m_startState;
+        unsigned int m_endState;
+        uint8_t _unknown_12[4];
     };
 
     class QuestType::PrerequisiteStat {
     public:
-        GetRequirement() const;
-        GetID() const;
-        PrerequisiteStat(int, unsigned int);
+        unsigned int GetRequirement() const;
+        unsigned int GetID() const;
+        PrerequisiteStat(int arg1, unsigned int arg2);
         PrerequisiteStat();
     };
 
@@ -99,268 +100,164 @@ namespace jag::game {
         int GetMin() const;
         int GetID() const;
         ~PrerequisiteVar();
-        PrerequisiteVar(int, int, int, char const*);
-        PrerequisiteVar* operator=(PrerequisiteVar&&);
-        PrerequisiteVar(PrerequisiteVar&&);
+        PrerequisiteVar(int arg1, int arg2, int arg3, const char* str);
+        PrerequisiteVar* operator=(PrerequisiteVar&& prerequisiteVar);
+        PrerequisiteVar(PrerequisiteVar&& prerequisiteVar);
         PrerequisiteVar();
 
-        // data members, from how the methods use this: 24 bytes
-        int m_iD;  // offset 0
-        int m_min; // offset 4
-        int m_max; // offset 8
-        char _unknown_12[12];
+    private:
+        int m_iD;
+        int m_min;
+        int m_max;
+        uint8_t _unknown_12[12];
     };
 
-    // 0x1004af6b0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // EnvSkySettings::EnvSkySettings(): jumps straight to the base-object constructor
-
-    // 0x1004af8d0, 32 bytes, inline, placed by class header (inline)
-    // EnvSkySettings::Set(PacketT<Array<unsigned char, eastl::allocator> >&)
-    void EnvSkySettings::Set(PacketT* param_1) {
-        short sVar1;
-
-        sVar1 = param_1->g2s();
+    // 0x1004af8d0
+    void EnvSkySettings::Set(PacketT<Array<unsigned char>>& arg1) {
+        short sVar1 = arg1.g2s();
         m_skyBoxID = (int)sVar1;
     }
 
-    // 0x1004afa00, 80 bytes, inline, placed by class header (inline)
-    // EnvSkySettings::ApplyOverride(EnvironmentOverride const&)
-    void EnvSkySettings::ApplyOverride(EnvironmentOverride* param_1) {
-        long lVar1;
-        int iVar3;
-
-        lVar1 = param_1->GetGLVertexBuffers();
-        if (((lVar1 + 12))->IsActive()) {
-            lVar1 = param_1->GetGLVertexBuffers();
-            iVar3 = ((lVar1 + 12))->GetX();
-            SetSkyBoxID(this, iVar3);
+    // 0x1004afa00
+    void EnvSkySettings::ApplyOverride(const EnvironmentOverride& environmentOverride) {
+        long lVar1 = environmentOverride.GetGLVertexBuffers();
+        if (((lVar1 + 12))->IsActive() != '\0') {
+            lVar1 = environmentOverride.GetGLVertexBuffers();
+            SetSkyBoxID(((lVar1 + 12))->GetX());
         }
     }
 
-    // 0x1004afc50, 16 bytes, inline, placed by class header (inline)
-    // EnvSkySettings::SetSkyBox(shared_ptr<SkyBoxType> const&)
-    void EnvSkySettings::SetSkyBox(shared_ptr* param_1) {
-        shared_ptr<SkyBoxType>::operator=((shared_ptr<SkyBoxType>*)&field_8, param_1);
+    // 0x1004afc50
+    void EnvSkySettings::SetSkyBox(const shared_ptr<SkyBoxType>& skyBoxType) {
+        field_8 = skyBoxType;
     }
 
-    // 0x1004aff40, 32 bytes, inline, placed by class header (inline)
-    // EnvSkySettings::operator==(EnvSkySettings const&) const
-    /* EnvSkySettings::TEMPNAMEPLACEHOLDERVALUE(EnvSkySettings const&) const */
-
-    bool EnvSkySettings::operator==(EnvSkySettings* param_1) {
-        shared_ptr* in_RDX;
-
-        if (m_skyBoxID == param_1->m_skyBoxID) {
-            return operator==((jag*)&field_8, (shared_ptr*)&param_1->field_8, in_RDX);
+    // 0x1004aff40
+    bool EnvSkySettings::operator==(const EnvSkySettings& envSkySettings) const {
+        if (m_skyBoxID == envSkySettings.m_skyBoxID) {
+            return field_8 == envSkySettings.field_8;
         }
         return false;
     }
 
-    // 0x1004b0070, 48 bytes, inline, placed by class header (inline)
-    // EnvSkySettings::hash() const
-    ulong EnvSkySettings::hash() {
-        ulong local_10;
+    // 0x1004b0070
+    unsigned long EnvSkySettings::hash() const {
 
-        local_10 = 0;
+        return local_10 = 0;
         hash_combine<int>(&local_10, (int*)this);
         return local_10;
     }
 
-    // 0x1004b07c0, 64 bytes, base-object constructor, inline, placed by class header (inline)
-    // EnvSkySettings::EnvSkySettings()
-    void EnvSkySettings::EnvSkySettings() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (&field_8, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x1004b07c0
+    EnvSkySettings::EnvSkySettings() {
+        new (&field_8) shared_ptr();
         new (field_24) BuildRequest<graphics::Model, BuildModelMain>();
-        SetDefaults(this);
+        SetDefaults();
     }
 
-    // 0x1004b0c80, 48 bytes, inline, placed by class header (inline)
-    // EnvSkySettings::SetSkyBoxID(int)
-    void EnvSkySettings::SetSkyBoxID(int param_1) {
-        m_skyBoxID = param_1;
-        shared_ptr<SkyBoxType>::reset();
+    // 0x1004b0c80
+    void EnvSkySettings::SetSkyBoxID(int arg1) {
+        m_skyBoxID = arg1;
+        field_8.reset();
         field_24->Clear();
     }
 
-    // 0x1004f4750, 16 bytes, complete-object constructor, inline, placed by class name
-    // QuestType::PrerequisiteVar::PrerequisiteVar(int, int, int, char const*): jumps straight to the base-object constructor
-
-    // 0x1004f47e0, 48 bytes, inline, placed by class name
-    // QuestType::PrerequisiteVar::operator=(QuestType::PrerequisiteVar&&)
-    /* QuestType::PrerequisiteVar::TEMPNAMEPLACEHOLDERVALUE(QuestType::PrerequisiteVar&&)
-    */
-
-    PrerequisiteVar* QuestType::PrerequisiteVar::operator=(PrerequisiteVar* param_1) {
-        int iVar1;
-
-        m_max = param_1->m_max;
-        iVar1 = param_1->m_min;
-        m_iD = param_1->m_iD;
+    // 0x1004f47e0
+    PrerequisiteVar* QuestType::PrerequisiteVar::operator=(QuestType::PrerequisiteVar&& prerequisiteVar) {
+        m_max = prerequisiteVar.m_max;
+        int iVar1 = prerequisiteVar.m_min;
+        m_iD = prerequisiteVar.m_iD;
         m_min = iVar1;
-        eastl::string::operator=((eastl::string*)&field_16, (basic_string*)&param_1->field_16);
+        field_16 = &prerequisiteVar.field_16;
         return this;
     }
 
-    // 0x1004f6b40, 32 bytes, deleting destructor, inline, placed by class name
-    // QuestType::~QuestType()
-    void QuestType::~QuestType() {
-        ~QuestType(this);
-        operator_delete(this);
+    // 0x1004f7020
+    QuestType::PrerequisiteVar::PrerequisiteVar(int arg1, int arg2, int arg3, const char* str)
+        : m_iD(arg1), m_min(arg2), m_max(arg3) {
+
+        new (&field_16) eastl::string(str);
     }
 
-    // 0x1004f7020, 80 bytes, base-object constructor, inline, placed by class name
-    // QuestType::PrerequisiteVar::PrerequisiteVar(int, int, int, char const*)
-    void QuestType::PrerequisiteVar::PrerequisiteVar(int param_1, int param_2, int param_3, char* param_4) {
-        allocator local_28[8];
+    // 0x1004fcd70
+    QuestType::PrerequisiteVar::PrerequisiteVar() : m_iD(-1) {}
 
-        m_iD = param_1;
-        m_min = param_2;
-        m_max = param_3;
-        eastl::allocator::allocator(local_28, "EASTL basic_string");
-        new (&field_16, param_4, local_28) eastl::string();
-    }
-
-    // 0x1004fcd50, 16 bytes, complete-object constructor, inline, placed by class name
-    // QuestType::PrerequisiteVar::PrerequisiteVar(QuestType::PrerequisiteVar&&): jumps straight to the base-object constructor
-
-    // 0x1004fcd60, 16 bytes, complete-object constructor, inline, placed by class name
-    // QuestType::PrerequisiteVar::PrerequisiteVar(): jumps straight to the base-object constructor
-
-    // 0x1004fcd70, 32 bytes, base-object constructor, inline, placed by class name
-    // QuestType::PrerequisiteVar::PrerequisiteVar()
-    void QuestType::PrerequisiteVar::PrerequisiteVar() {
-        m_iD = -1;
-        new (&field_16) eastl::string();
-    }
-
-    // 0x1004fcd90, 32 bytes, base-object constructor, inline, placed by class name
-    // QuestType::PrerequisiteVar::PrerequisiteVar(QuestType::PrerequisiteVar&&)
-    void QuestType::PrerequisiteVar::PrerequisiteVar(PrerequisiteVar* param_1) {
-        int iVar1;
-
-        m_max = param_1->m_max;
-        iVar1 = param_1->m_min;
-        m_iD = param_1->m_iD;
+    // 0x1004fcd90
+    QuestType::PrerequisiteVar::PrerequisiteVar(QuestType::PrerequisiteVar&& prerequisiteVar)
+        : m_max(prerequisiteVar.m_max) {
+        int iVar1 = prerequisiteVar.m_min;
+        m_iD = prerequisiteVar.m_iD;
         m_min = iVar1;
-        new (&field_16, (basic_string*)&param_1->field_16) eastl::string();
+        new (&field_16) eastl::string(prerequisiteVar.field_16);
     }
 
-    // 0x1005b98a0, 16 bytes, complete-object destructor, inline, placed by class name
-    // QuestType::~QuestType(): jumps straight to the base-object destructor
-
-    // 0x1005b98b0, 144 bytes, base-object destructor, inline, placed by class name
-    // QuestType::~QuestType()
-    void QuestType::~QuestType() {
-        field_0 = &PTR__QuestType_100f02bf0;
-        (&field_312)->~Array();
-        (&field_288)->~Array();
-        (&field_256)->~Array();
-        (&field_232)->~Array();
-        (&field_192)->~Array();
-        (&field_144)->~Array();
-        (&field_120)->~Array();
-        (&field_88)->~basic_string();
-        (&field_56)->~basic_string();
-        ~ConfigType();
+    // 0x1005b98b0
+    QuestType::~QuestType() {
+        field_312.~Array();
+        field_288.~Array();
+        field_256.~Array();
+        field_232.~Array();
+        field_192.~Array();
+        field_144.~Array();
+        field_120.~Array();
+        field_88.~basic_string();
+        field_56.~basic_string();
     }
 
-    // 0x1005b9dc0, 16 bytes, complete-object constructor, inline, placed by class name
-    // QuestType::QuestType(BaseTemplateConfigTypeList<QuestType>*, int): jumps straight to the base-object constructor
-
-    // 0x1005b9dd0, 416 bytes, base-object constructor, inline, placed by class name
-    // QuestType::QuestType(BaseTemplateConfigTypeList<QuestType>*, int)
-    void QuestType::QuestType(BaseTemplateConfigTypeList* param_1, int param_2) {
-        new (this) ConfigType<QuestType>(param_1, param_2);
-        new (this) MakeSharedPool<QuestType, 128>();
-        field_0 = &PTR__QuestType_100f02bf0;
-        new (&field_56) eastl::string();
-        new (&field_88) eastl::string();
-        new (&field_120) Array<QuestType::MasterQuestVar, eastl::allocator>();
-        new (&field_144) Array<QuestType::MasterQuestVar, eastl::allocator>();
-        field_168 = 4294967295;
-        m_questPoints = 0;
-        field_172 = 0;
-        field_176 = 0;
-        field_180 = 0;
-        new (&field_192) Array<CoordGrid, eastl::allocator>();
-        new (field_216) game::CoordGrid();
-        new (&field_232) Array<unsigned short, eastl::allocator>();
-        new (&field_256) Array<QuestType::PrerequisiteStat, eastl::allocator>();
-        field_280 = 0;
-        new (&field_288) Array<QuestType::PrerequisiteVar, eastl::allocator>();
-        new (&field_312) Array<QuestType::PrerequisiteVar, eastl::allocator>();
-        field_336 = 4294967295;
-    }
+    // 0x1005b9dd0
+    QuestType::QuestType(BaseTemplateConfigTypeList<QuestType>* baseTemplateConfigTypeList, int arg2)
+        : ConfigType<QuestType>(baseTemplateConfigTypeList, arg2), MakeSharedPool<QuestType, 128>(),
+          field_168(4294967295), m_questPoints(0), field_172(0), field_176(0), field_180(0), field_280(0),
+          field_336(4294967295) {}
 
 } // namespace jag::game
 
 namespace jag {
-    // 0x1004d90d0, 32 bytes, inline, placed by debug map only (low confidence)
-    // game::VarType* placement_new<game::VarType, game::BaseTemplateConfigTypeList<game::VarType>*&, int&>(void*, game::BaseTemplateConfigTypeList<game::VarType>*&, int&)
-    /* game::VarType* placement_new<game::VarType,
-   game::BaseTemplateConfigTypeList<game::VarType>*&, unsigned int&>(void*,
-   game::BaseTemplateConfigTypeList<game::VarType>*&, unsigned int&) */
-
-    VarType* jag::placement_new<game::VarType, game::BaseTemplateConfigTypeList<game::VarType>*&, unsigned int&>(
-        void* param_1, BaseTemplateConfigTypeList** param_2, uint* param_3) {
-        game::VarType::VarType(param_1, *param_2, *param_3);
-        return param_1;
+    // 0x1004d90d0
+    game::VarType* placement_new<game::VarType, game::BaseTemplateConfigTypeList<game::VarType>*&, int&>(
+        void* arg1, game::BaseTemplateConfigTypeList<game::VarType>*& arg2, int& arg3) {
+        new (arg1) game::VarType(arg2, arg3);
+        return arg1;
     }
 
-    // 0x1004d90f0, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504> >* placement_new<MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504> >, MakeSharedPool<game::VarType, 5504>::RefCounterAndData*&, game::VarType*>(void*, MakeSharedPool<game::VarType, 5504>::RefCounterAndData*&, game::VarType*&&)
-    MakeSharedPoolRefCounter*
-    jag::placement_new<MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>,
-                       MakeSharedPool<game::VarType, 5504>::RefCounterAndData*&, game::VarType*>(
-        void* param_1, RefCounterAndData** param_2, VarType** param_3) {
-        MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>::MakeSharedPoolRefCounter(
-            param_1, *param_2, *param_3);
-        return param_1;
+    // 0x1004d90f0
+    MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>*
+    placement_new<MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>,
+                  MakeSharedPool<game::VarType, 5504>::RefCounterAndData*&, game::VarType*>(
+        void* arg1, MakeSharedPool<game::VarType, 5504>::RefCounterAndData*& arg2, game::VarType*&& arg3) {
+        new (arg1) MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>(arg2, arg3);
+        return arg1;
     }
 
-    // 0x1004d9110, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<game::VarType>(ref_counter_base*, game::VarType*, game::VarType::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<game::VarType>(ref_counter_base* param_1, VarType* param_2,
-                                                              enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
+    // 0x1004d9110
+    void shared_ptr_do_enable_shared_from_this<game::VarType>(ref_counter_base* ref_counter_base,
+                                                              game::VarType* varType,
+                                                              game::VarType::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)varType);
+            local_38 = weak_ptr(local_48);
+            varType->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x1004d9200, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504> >::MakeSharedPoolRefCounter(void*, game::VarType*): jumps straight to the base-object constructor
-
-    // 0x1004d9210, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504> >::MakeSharedPoolRefCounter(void*, game::VarType*)
-    void MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>::MakeSharedPoolRefCounter(
-        MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>* this, void* param_1,
-        VarType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7b28 + 16;
-        *(void**)(this + 16) = param_1;
-        *(VarType**)(this + 24) = param_2;
+    // 0x1004d9210
+    MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>::MakeSharedPoolRefCounter(
+        void* arg1, game::VarType* varType)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7b28 + 16;
+        *(void**)(this + 16) = arg1;
+        *(VarType**)(this + 24) = varType;
     }
 
-    // 0x1004d9250, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504> >::DeleteSelf()
-    void MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>::DeleteSelf(
-        MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<game::VarType, 5504>::deallocate(pvVar1);
+    // 0x1004d9250
+    void MakeSharedPoolRefCounter<game::VarType, MakeSharedPool<game::VarType, 5504>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<game::VarType, 5504>::deallocate(arg1);
     }
 
 } // namespace jag

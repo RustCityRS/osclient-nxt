@@ -1,79 +1,59 @@
 // libs/game/runetek5/scene/DynamicPointLightManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class DynamicPointLightManager {
     public:
-        GetAffectedAABBs() const;
+        void GetAffectedAABBs() const;
         DynamicPointLightManager();
         ~DynamicPointLightManager();
         void ClearAffectedAABBs();
         int CreateLight();
-        void DestroyLight(int);
-        bool HasLight(int) const;
-        void AddAffectedAABB(math::AABB const&);
-        long GetLight(int) const;
-        void SetLight(int, CoordGrid const&, float, math::Vector3T<float> const&, int, int, float, float, float, float);
-        void SetLightPosition(int, int, math::Vector3T<float> const&);
+        void DestroyLight(int arg1);
+        bool HasLight(int arg1) const;
+        void AddAffectedAABB(const math::AABB& aabb);
+        long GetLight(int arg1) const;
+        void SetLight(int arg1, const CoordGrid& coordGrid, float arg3, const math::Vector3T<float>& vector3, int arg5,
+                      int arg6, float arg7, float arg8, float arg9, float arg10);
+        void SetLightPosition(int arg1, int arg2, const math::Vector3T<float>& vector3);
         void ClearLights();
-        void GetLightsInMapSquare(eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>&, int, int) const;
+        void GetLightsInMapSquare(eastl::vector<shared_ptr<StaticPointLight>>& staticPointLights, int arg2,
+                                  int arg3) const;
 
-        // data members, from how the methods use this: 80 bytes
-        ulong field_0; // offset 0
-        ulong field_8; // offset 8
-        char _unknown_16[56];
-        int field_72; // offset 72
-        char _unknown_76[4];
+    private:
+        unsigned long field_0;
+        unsigned long field_8;
+        uint8_t _unknown_16[56];
+        int field_72;
+        uint8_t _unknown_76[4];
     };
 
-    // 0x10043cde0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // DynamicPointLightManager::DynamicPointLightManager(): jumps straight to the base-object constructor
-
-    // 0x10043d090, 16 bytes, complete-object destructor, inline, placed by class name
-    // DynamicPointLightManager::~DynamicPointLightManager(): jumps straight to the base-object destructor
-
-    // 0x100445150, 16 bytes, inline, placed by class name
-    // DynamicPointLightManager::ClearAffectedAABBs()
+    // 0x100445150
     void DynamicPointLightManager::ClearAffectedAABBs() {
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        field_40.clear();
     }
 
-    // 0x10044b8a0, 64 bytes, base-object constructor, inline, placed by class name
-    // DynamicPointLightManager::DynamicPointLightManager()
-    void DynamicPointLightManager::DynamicPointLightManager() {
-        new (this) eastl::vector_map<int, shared_ptr<StaticPointLight>, eastl::less<int>, eastl::allocator,
-                                     eastl::vector<eastl::pair<int, shared_ptr<StaticPointLight>>, eastl::allocator>>();
-        new (&field_40) eastl::vector<math::AABB, eastl::allocator>();
-        field_72 = 0;
+    // 0x10044b8a0
+    DynamicPointLightManager::DynamicPointLightManager()
+        : eastl::vector_map<int, shared_ptr<StaticPointLight>>(), field_72(0) {}
+
+    // 0x10044c0b0
+    DynamicPointLightManager::~DynamicPointLightManager() {
+        field_40.~vector();
     }
 
-    // 0x10044c0b0, 48 bytes, base-object destructor, inline, placed by class name
-    // DynamicPointLightManager::~DynamicPointLightManager()
-    void DynamicPointLightManager::~DynamicPointLightManager() {
-        (&field_40)->~vector();
-        ~vector_map();
-    }
-
-    // 0x100498360, 64 bytes, inline, placed by class name
-    // DynamicPointLightManager::HasLight(int) const
-    bool DynamicPointLightManager::HasLight(int param_1) {
-        long lVar1;
-        long lVar2;
-        int local_1c;
-
-        local_1c = param_1;
-        lVar1 = find(&local_1c);
-        lVar2 = end();
+    // 0x100498360
+    bool DynamicPointLightManager::HasLight(int arg1) const {
+        long lVar1 = eastl::vector_map<int, shared_ptr<graphics::AnimationStateMachineProvider>>::find(*this);
+        long lVar2 = end();
         return lVar1 != lVar2;
     }
 
-    // 0x1004983a0, 16 bytes, inline, placed by class name
-    // DynamicPointLightManager::AddAffectedAABB(math::AABB const&)
-    void DynamicPointLightManager::AddAffectedAABB(AABB* param_1) {
-        (&field_40, param_1)->push_back();
+    // 0x1004983a0
+    void DynamicPointLightManager::AddAffectedAABB(const math::AABB& aabb) {
+        field_40.push_back(aabb);
     }
 
 } // namespace jag::game

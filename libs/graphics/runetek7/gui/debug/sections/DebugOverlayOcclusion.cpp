@@ -1,168 +1,130 @@
 // libs/graphics/runetek7/gui/debug/sections/DebugOverlayOcclusion.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "libs/graphics/runetek7/gui/debug/DebugOverlay.h"
 
 namespace jag {
-    // 0x100022b10: the linker folded this into oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    DebugOverlayOcclusion::~DebugOverlayOcclusion();
+    // 0x100022b10: DebugOverlayOcclusion::~DebugOverlayOcclusion() has the same machine code as oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption()
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    DebugOverlayOcclusion::~DebugOverlayOcclusion();
+    // 0x10002a770: DebugOverlayOcclusion::~DebugOverlayOcclusion() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10004a690: the linker folded this into oldscape::option::ScriptOption<bool, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    DebugOverlayOcclusion::~DebugOverlayOcclusion();
+    // 0x1008a6d10
+    DebugOverlayOcclusion::DebugOverlayOcclusion(const graphics::EffectManager& effectManager,
+                                                 DebugOverlay& debugOverlay, bool arg3)
+        : DebugOverlaySection(debugOverlay, 18, arg3), field_128(effectManager) {}
 
-    // 0x1008a6d10, 48 bytes, base-object constructor, placed by class name and debug map
-    // DebugOverlayOcclusion::DebugOverlayOcclusion(graphics::EffectManager const&, DebugOverlay&, bool)
-    void DebugOverlayOcclusion::DebugOverlayOcclusion(EffectManager* param_1, DebugOverlay* param_2, bool param_3) {
-        new (this) DebugOverlaySection(param_2, 18);
-        field_0 = &PTR__ScriptOption_100f180a0;
-        field_128 = param_1;
-    }
+    // 0x1008a6d50
+    void DebugOverlayOcclusion::Draw(unsigned long long arg1, int arg2, int arg3) {
+        unsigned int arg1_00;
+        unsigned int local_26c;
 
-    // 0x1008a6d40, 16 bytes, complete-object constructor, placed by class name and debug map
-    // DebugOverlayOcclusion::DebugOverlayOcclusion(graphics::EffectManager const&, DebugOverlay&, bool): jumps straight to the base-object constructor
-
-    // 0x1008a6d50, 1184 bytes, placed by class name and debug map
-    // DebugOverlayOcclusion::Draw(unsigned long long, int, int)
-    void DebugOverlayOcclusion::Draw(ulonglong param_1, int param_2, int param_3) {
-        char cVar1;
-        undefined4 uVar2;
-        uint uVar3;
-        uint uVar4;
-        int iVar5;
-        int iVar6;
-        uint uVar7;
-        int iVar8;
-        RT7Core* pRVar9;
-        NXTPixToolkit* pNVar10;
-        OcclusionManager* pOVar11;
-        OcclusionManager* pOVar12;
-        SceneRenderPass* this_00;
-        SunlightShadows* this_01;
-        NPCType* this_02;
-        long lVar13;
-        char* pcVar14;
-        uint local_26c;
-        Callstack local_268[35];
-        undefined8 local_38;
-
-        local_38 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        callstack::Callstack::Callstack(local_268);
-        new (&local_268[0].field_8) eastl::fixed_string<char, 512, true, eastl::allocator>();
-        pRVar9 = (RT7Core*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(field_8);
-        pNVar10 = (NXTPixToolkit*)pRVar9->GetGeometryPass();
-        pOVar11 = (OcclusionManager*)pNVar10->GetScreen();
-        pRVar9 = (RT7Core*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(field_8);
+        Callstack local_268;
+        new (&local_268[0].field_8) eastl::fixed_string<char, 512>();
+        auto pRVar9 = field_8->end();
+        auto pNVar10 = pRVar9->GetGeometryPass();
+        auto pOVar11 = pNVar10->GetScreen();
+        pRVar9 = (RT7Core*)field_8->end();
         pNVar10 = (NXTPixToolkit*)pRVar9->GetForwardLightingPass();
-        pOVar12 = (OcclusionManager*)pNVar10->GetScreen();
-        pRVar9 = (RT7Core*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(field_8);
-        this_00 = (SceneRenderPass*)pRVar9->GetGeometryPass();
-        cVar1 = this_00->GetOcclusionEnabled();
-        if (cVar1 != '\0') {
+        auto pOVar12 = pNVar10->GetScreen();
+        pRVar9 = (RT7Core*)field_8->end();
+        bool cVar1 = ((SceneRenderPass*)pRVar9->GetGeometryPass())->GetOcclusionEnabled();
+        if (cVar1) {
             pOVar12 = pOVar11;
         }
-        pcVar14 = "Forward";
-        if (cVar1 != '\0') {
+        char* pcVar14 = "Forward";
+        if (cVar1) {
             pcVar14 = "Geometry";
         }
-        uVar2 = pOVar12->GetCullingStatsAvgTotal();
-        uVar3 = pOVar12->GetCullingStatsAvgIn();
-        uVar4 = pOVar12->GetCullingStatsAvgPassed();
-        iVar5 = pOVar12->GetCullingStatsAvgTotal();
-        iVar6 = pOVar12->GetCullingStatsAvgPassed();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            &local_268[0].field_8, "%s Occlusion: Total %u, In: %u, Passed: %u, Culled: %u", pcVar14, uVar2,
-            (ulong)uVar3, (ulong)uVar4, iVar5 - iVar6);
-        callstack::Callstack::Callstack(local_268);
+        uint32_t uVar2 = pOVar12->GetCullingStatsAvgTotal();
+        unsigned int uVar3 = pOVar12->GetCullingStatsAvgIn();
+        unsigned int uVar4 = pOVar12->GetCullingStatsAvgPassed();
+        int iVar5 = pOVar12->GetCullingStatsAvgTotal();
+        int iVar6 = pOVar12->GetCullingStatsAvgPassed();
+        local_268[0].field_8.sprintf("%s Occlusion: Total %u, In: %u, Passed: %u, Culled: %u", pcVar14, uVar2,
+                                     (unsigned long)uVar3, (unsigned long)uVar4, iVar5 - iVar6);
+        local_268 = callstack::Callstack();
         iVar5 = pOVar12->GetCullingStatsAvgPassed();
         iVar6 = pOVar12->GetCullingStatsAvgTotal();
         uVar3 = pOVar12->GetCullingStatsAvgTotal();
-        local_268->SetRedGreenGradient(iVar5, iVar6, uVar3 >> 1);
-        uVar2 = local_268->GetX();
-        (*(code*)field_0[7])(this, &local_268[0].field_8, param_2, param_3, uVar2, 255, 2);
+        local_268 = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(iVar5, iVar6, uVar3 >> 1);
+        iVar5 = local_268.GetX();
+        DrawTextString((int)&local_268 + 8, arg2, arg3, iVar5, 255);
         iVar5 = field_112;
         field_108 = iVar5;
-        pRVar9 = (RT7Core*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(field_8);
+        pRVar9 = (RT7Core*)field_8->end();
         pNVar10 = (NXTPixToolkit*)pRVar9->GetWaterReflectionPass();
         pOVar12 = (OcclusionManager*)pNVar10->GetScreen();
         uVar3 = pOVar12->GetCullingStatsAvgTotal();
         uVar4 = pOVar12->GetCullingStatsAvgIn();
-        uVar7 = pOVar12->GetCullingStatsAvgPassed();
+        unsigned int uVar7 = pOVar12->GetCullingStatsAvgPassed();
         iVar6 = pOVar12->GetCullingStatsAvgTotal();
-        iVar8 = pOVar12->GetCullingStatsAvgPassed();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            &local_268[0].field_8, "Reflection Occlusion: Total %u, In: %u, Passed: %u, Culled: %u", (ulong)uVar3,
-            (ulong)uVar4, (ulong)uVar7, (ulong)(uint)(iVar6 - iVar8));
-        callstack::Callstack::Callstack(local_268);
+        int iVar8 = pOVar12->GetCullingStatsAvgPassed();
+        local_268[0].field_8.sprintf("Reflection Occlusion: Total %u, In: %u, Passed: %u, Culled: %u",
+                                     (unsigned long)uVar3, (unsigned long)uVar4, (unsigned long)uVar7,
+                                     (unsigned long)(unsigned int)(iVar6 - iVar8));
+        local_268 = callstack::Callstack();
         iVar6 = pOVar12->GetCullingStatsAvgPassed();
         iVar8 = pOVar12->GetCullingStatsAvgTotal();
         uVar3 = pOVar12->GetCullingStatsAvgTotal();
-        local_268->SetRedGreenGradient(iVar6, iVar8, uVar3 >> 1);
-        iVar5 = iVar5 + param_3;
-        uVar2 = local_268->GetX();
-        (*(code*)field_0[7])(this, &local_268[0].field_8, param_2, iVar5, uVar2, 255, 2);
-        iVar6 = field_112;
-        field_108 = field_108 + iVar6;
-        this_01 = (SunlightShadows*)graphics::EffectManager::GetEffect<graphics::PlanarReflection>(field_128, 30);
-        this_02 = (NPCType*)this_01->GetSunlightCsmManager();
-        lVar13 = this_02->GetHeadList();
+        local_268 = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(iVar6, iVar8, uVar3 >> 1);
+        uVar3 = iVar5 + arg3;
+        iVar5 = local_268.GetX();
+        DrawTextString((int)&local_268 + 8, arg2, uVar3, iVar5, 255);
+        iVar5 = field_112;
+        field_108 = field_108 + iVar5;
+        auto this_01 = field_128->GetEffect<graphics::PlanarReflection>(30);
+        auto this_02 = this_01->GetSunlightCsmManager();
+        long lVar13 = this_02->GetHeadList();
         if (*(int*)(lVar13 + 8) == 0) {
-            uVar3 = 0;
-            local_26c = 0;
             uVar4 = 0;
-        } else {
+            local_26c = 0;
             uVar7 = 0;
-            uVar4 = 0;
+        } else {
+            arg1_00 = 0;
+            uVar7 = 0;
             local_26c = 0;
-            uVar3 = 0;
+            uVar4 = 0;
             do {
-                pNVar10 = (NXTPixToolkit*)this_02->GetShadowMapCascade(uVar7);
-                if (pNVar10 == (NXTPixToolkit*)0) {
-                    /* WARNING: Subroutine does not return */
+                pNVar10 = (NXTPixToolkit*)this_02->GetShadowMapCascade(arg1_00);
+                if (pNVar10 == nullptr) {
                     LogAssert("pCascade",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/debug/sections/DebugOverlayOcclusion.cpp",
-                              72, (char*)0);
+                              72, nullptr);
                 }
                 pOVar12 = (OcclusionManager*)pNVar10->GetScreen();
-                iVar8 = pOVar12->GetCullingStatsAvgPassed();
-                uVar3 = uVar3 + iVar8;
+                iVar6 = pOVar12->GetCullingStatsAvgPassed();
+                uVar4 = uVar4 + iVar6;
                 pOVar12 = (OcclusionManager*)pNVar10->GetScreen();
-                iVar8 = pOVar12->GetCullingStatsAvgIn();
-                local_26c = local_26c + iVar8;
+                iVar6 = pOVar12->GetCullingStatsAvgIn();
+                local_26c = local_26c + iVar6;
                 pOVar12 = (OcclusionManager*)pNVar10->GetScreen();
-                iVar8 = pOVar12->GetCullingStatsAvgTotal();
-                uVar4 = uVar4 + iVar8;
-                uVar7 = uVar7 + 1;
+                iVar6 = pOVar12->GetCullingStatsAvgTotal();
+                uVar7 = uVar7 + iVar6;
+                arg1_00 = arg1_00 + 1;
                 lVar13 = this_02->GetHeadList();
-            } while (uVar7 < *(uint*)(lVar13 + 8));
+            } while (arg1_00 < *(unsigned int*)(lVar13 + 8));
         }
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            &local_268[0].field_8, "Shadow Occlusion: Total %u, In: %u, Passed: %u, Culled: %u", (ulong)uVar4,
-            (ulong)local_26c, (ulong)uVar3, (ulong)(uVar4 - uVar3));
-        callstack::Callstack::Callstack(local_268);
-        local_268->SetRedGreenGradient(uVar3, local_26c, local_26c >> 1);
-        uVar2 = local_268->GetX();
-        (*(code*)field_0[7])(this, &local_268[0].field_8, param_2, iVar6 + iVar5, uVar2, 255, 2);
+        local_268[0].field_8.sprintf("Shadow Occlusion: Total %u, In: %u, Passed: %u, Culled: %u", (unsigned long)uVar7,
+                                     (unsigned long)local_26c, (unsigned long)uVar4, (unsigned long)(uVar7 - uVar4));
+        local_268 = callstack::Callstack();
+        local_268 =
+            math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(uVar4, local_26c, local_26c >> 1);
+        iVar6 = local_268.GetX();
+        DrawTextString((int)&local_268 + 8, arg2, iVar5 + uVar3, iVar6, 255);
         field_108 = field_108 + field_112;
-        /* WARNING: Subroutine does not return */
         local_268[0].field_8.~fixed_string();
     }
 
-    // 0x1008a72d0, 16 bytes, placed by class name
-    // DebugOverlayOcclusion::Update(unsigned long long)
-    undefined1 DebugOverlayOcclusion::Update(ulonglong param_1) {
+    // 0x1008a72d0
+    uint8_t DebugOverlayOcclusion::Update(unsigned long long arg1) {
         return 1;
     }
 
-    // 0x1008a72e0, 32 bytes, placed by class name
-    // DebugOverlayOcclusion::RegisterTweakyVars(tweak::Container&)
-    void DebugOverlayOcclusion::RegisterTweakyVars(Container* param_1) {
-        param_1->AddCheckBox("Display Occlusion Info", &field_120);
+    // 0x1008a72e0
+    void DebugOverlayOcclusion::RegisterTweakyVars(tweak::Container& container) {
+        container.AddCheckBox("Display Occlusion Info", field_120);
     }
 
 } // namespace jag

@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/entities/Location.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,113 +10,117 @@ namespace jag::game {
         class VFXData;
         // virtual methods in vtable order
         virtual ~Location();
-        virtual IsAnimatable() const;
+        virtual bool IsAnimatable() const;
         virtual bool UsesTrianglePicking() const;
-        virtual UsesFastPickingTests() const;
-        virtual ulong PickTest(graphics::PickingHelper&);
-        virtual void MainLogic(graphics::RT7Core&, unsigned int, math::Matrix44T<float> const&);
-        virtual void GatherDrawableElements(graphics::DrawableQueue&, graphics::RT7Core&, math::Matrix44T<float> const&,
-                                            graphics::SceneViewData const&, graphics::EffectManager const&);
-        virtual void AddPickableEntity(World&, math::Matrix44T<float> const&);
+        virtual bool UsesFastPickingTests() const;
+        virtual unsigned long PickTest(graphics::PickingHelper& pickingHelper);
+        virtual void MainLogic(graphics::RT7Core& rt7Core, unsigned int arg2, const math::Matrix44T<float>& matrix44);
+        virtual void GatherDrawableElements(graphics::DrawableQueue& drawableQueue, graphics::RT7Core& rt7Core,
+                                            const math::Matrix44T<float>& matrix44,
+                                            const graphics::SceneViewData& sceneViewData,
+                                            const graphics::EffectManager& effectManager);
+        virtual void AddPickableEntity(World& world, const math::Matrix44T<float>& matrix44);
         virtual void Destruct();
-        virtual void NotifyInteracted(unsigned int);
-        virtual void NotifyMouseover(unsigned int);
-        virtual void NotifyPickable(unsigned int, bool, float);
-        virtual CanRender() const;
+        virtual void NotifyInteracted(unsigned int arg1);
+        virtual void NotifyMouseover(unsigned int arg1);
+        virtual void NotifyPickable(unsigned int arg1, bool arg2, float arg3);
+        virtual bool CanRender() const;
         virtual int GetID() const;
-        virtual void RequestOverrideAnimation(int, int, unsigned int, unsigned int);
+        virtual void RequestOverrideAnimation(int arg1, int arg2, unsigned int arg3, unsigned int arg4);
         virtual shared_ptr GetLocationType() const;
         virtual shared_ptr GetParentLocationType() const;
-        virtual GetShape() const;
-        virtual GetRotation90() const;
-        virtual GetTransform() const;
+        virtual uint8_t GetShape() const;
+        virtual uint8_t GetRotation90() const;
+        virtual math::RotTransScale GetTransform() const;
         virtual void GetLocationLength() const;
         virtual void GetLocationWidth() const;
         virtual int GetAttachedWallWidth() const;
-        virtual ulong UpdateAudio();
-        GetServerPosition() const;
+        virtual unsigned long UpdateAudio();
+        uint8_t* GetServerPosition() const;
         void GetParentTypeID();
-        void SetMultiLocState(int);
+        void SetMultiLocState(int arg1);
         void IncrementMultiLocIndex();
-        void SetPlayerVarDomain(PlayerVarDomain*, ConfigProvider*);
-        GetLocationLOD() const;
-        SetAttachedWallWidth(int);
-        IsHidden() const;
-        ulong IsStillBuilding() const;
-        void SetLocationLOD(LODLevel);
-        Location(graphics::GraphNode*, shared_ptr<World> const&, int, int, LocData const&, bool, bool, int, int, int,
-                 int, shared_ptr<graphics::Model> const&);
-        Location(graphics::GraphNode*, shared_ptr<World> const&, int, int, LocData const&, bool, bool, int, int, int,
-                 int, shared_ptr<ChangeLocationRequest> const&, shared_ptr<LocTypeCustomisation> const&);
-        Location(graphics::GraphNode*, shared_ptr<World> const&, int, int, LocData const&, bool, bool, int, int, int,
-                 int, int, int, bool);
+        void SetPlayerVarDomain(PlayerVarDomain* playerVarDomain, ConfigProvider* configProvider);
+        uint8_t GetLocationLOD() const;
+        void SetAttachedWallWidth(int arg1);
+        bool IsHidden() const;
+        unsigned long IsStillBuilding() const;
+        void SetLocationLOD(LODLevel arg1);
+        Location(graphics::GraphNode* graphNode, const shared_ptr<World>& world, int arg3, int arg4,
+                 const LocData& locData, bool arg6, bool arg7, int arg8, int arg9, int arg10, int arg11,
+                 const shared_ptr<graphics::Model>& model);
+        Location(graphics::GraphNode* graphNode, const shared_ptr<World>& world, int arg3, int arg4,
+                 const LocData& locData, bool arg6, bool arg7, int arg8, int arg9, int arg10, int arg11,
+                 const shared_ptr<ChangeLocationRequest>& changeLocationRequest,
+                 const shared_ptr<LocTypeCustomisation>& locTypeCustomisation);
+        Location(graphics::GraphNode* graphNode, const shared_ptr<World>& world, int arg3, int arg4,
+                 const LocData& locData, bool arg6, bool arg7, int arg8, int arg9, int arg10, int arg11, int arg12,
+                 int arg13, bool arg14);
         void Hide();
         void ClearAnimationState();
-        ulong UpdateHeightMap(HeightChangeType);
+        unsigned long UpdateHeightMap(HeightChangeType heightChangeType);
         void Unhide();
         void BeginPlayingDefaultAnimation();
-        GetDefaultAnimationToPlay() const;
+        uint64_t GetDefaultAnimationToPlay() const;
         void BeginPlayingOverrideAnimation();
-        ulong GetOverrideAnimationToPlay() const;
+        unsigned long GetOverrideAnimationToPlay() const;
         void ActivateRoofRemove();
         void DeactivateRoofRemove();
         void ClearJobResources();
-        void UpdateRandomSounds(unsigned int);
-        ulong NeedsAnimatedModel() const;
-        bool GetDefaultModel(AnimatedModelPair&, int);
-        ulong Build(graphics::RT7Core&, Js5ResourceProvider&, ConfigProvider&, AssetBuilder&, unsigned int,
-                    PlayerVarDomain*);
-        ulong BuildModel(graphics::RT7Core&, AssetBuilder&, int, int);
-        ulong BuildAnimatedModel(graphics::RT7Core&, ConfigProvider&, AssetBuilder&);
-        void BuildVFX(graphics::RT7Core&);
+        void UpdateRandomSounds(unsigned int arg1);
+        unsigned long NeedsAnimatedModel() const;
+        bool GetDefaultModel(AnimatedModelPair& animatedModelPair, int arg2);
+        unsigned long Build(graphics::RT7Core& rt7Core, Js5ResourceProvider& js5ResourceProvider,
+                            ConfigProvider& configProvider, AssetBuilder& assetBuilder, unsigned int arg5,
+                            PlayerVarDomain* playerVarDomain);
+        unsigned long BuildModel(graphics::RT7Core& rt7Core, AssetBuilder& assetBuilder, int arg3, int arg4);
+        unsigned long BuildAnimatedModel(graphics::RT7Core& rt7Core, ConfigProvider& configProvider,
+                                         AssetBuilder& assetBuilder);
+        void BuildVFX(graphics::RT7Core& rt7Core);
         void BlockFadeIn();
-        void UpdateLocalRenderEnv(graphics::Model&);
-        void UpdateHighlighting(unsigned int);
-        FilterRenderPasses(graphics::SceneViewData const&) const;
-        IsLocationRoofRemoved(graphics::SceneViewData const&);
-        void DebugPrimitiveOutput(graphics::SceneViewData const&) const;
-        IsLocationRoofRemovedSelective(RemoveRoof&, World const&);
-        IsLocationRoofRemovedNonSelective(graphics::SceneViewData const&, World&);
-        bool RepeatLastOverrideAnimationFrameWhenFinished(int) const;
-        GetHighlightType() const;
-        void SetIsWDDBothOffsetMember(bool);
-        void SetBuiltGridSize(int, int);
-        static /* 1 bytes */ m_ShowLocations; // = 1
-        static /* 1 bytes */ m_enableFadeIn;  // = 1
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullLocation;
-        static /* 1 bytes */ m_debugPrimitiveText;
-        static /* 1 bytes */ m_debugPrimitiveTextOnMouseover;
-        static /* 6 bytes */ m_debugPrimitiveAABBOnHighlight;
+        void UpdateLocalRenderEnv(graphics::Model& model);
+        void UpdateHighlighting(unsigned int arg1);
+        uint64_t FilterRenderPasses(const graphics::SceneViewData& sceneViewData) const;
+        bool IsLocationRoofRemoved(const graphics::SceneViewData& sceneViewData);
+        void DebugPrimitiveOutput(const graphics::SceneViewData& sceneViewData) const;
+        bool IsLocationRoofRemovedSelective(RemoveRoof& removeRoof, const World& world);
+        bool IsLocationRoofRemovedNonSelective(const graphics::SceneViewData& sceneViewData, World& world);
+        bool RepeatLastOverrideAnimationFrameWhenFinished(int arg1) const;
+        uint32_t GetHighlightType() const;
+        void SetIsWDDBothOffsetMember(bool arg1);
+        void SetBuiltGridSize(int arg1, int arg2);
+        static bool m_ShowLocations; // = 1
+        static bool m_enableFadeIn;  // = 1
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullLocation; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
+        static bool m_debugPrimitiveText;
+        static bool m_debugPrimitiveTextOnMouseover;
+        static int16_t m_debugPrimitiveAABBOnHighlight;
 
-        // data members, from how the methods use this: 856 bytes, the first 649 are CombinedLocation
-        char _unknown_649[23];
-        bool field_672; // offset 672
-        char _unknown_673[39];
-        undefined1 field_712; // offset 712
-        char _unknown_713[31];
-        undefined1 field_744; // offset 744
-        char _unknown_745[31];
-        shared_ptr field_776; // offset 776
-        char field_792;       // offset 792
-        char _unknown_793[3];
-        EntityHighlightState field_796; // offset 796
-        char _unknown_816[8];
-        int field_824;  // offset 824
-        int field_828;  // offset 828
-        uint field_832; // offset 832
-        uint field_836; // offset 836
-        uint field_840; // offset 840
-        char _unknown_844[12];
+    private:
+        uint8_t _unknown_649[23];
+        bool field_672;
+        uint8_t _unknown_673[103];
+        shared_ptr field_776;
+        char field_792;
+        uint8_t _unknown_793[3];
+        EntityHighlightState field_796;
+        uint8_t _unknown_816[8];
+        int field_824;
+        int field_828;
+        unsigned int field_832;
+        unsigned int field_836;
+        unsigned int field_840;
+        uint8_t _unknown_844[12];
     };
 
     class Location::VFXData {
     public:
         ~VFXData();
         VFXData();
-        VFXData(VFXData&&);
+        VFXData(VFXData&& vfxData);
 
-        // data members, from how the methods use this: 24 bytes
-        char _unknown_0[24];
+        uint8_t _unknown_0[24];
     };
 
     class LocationAudioProperties {
@@ -125,237 +128,171 @@ namespace jag::game {
         ~LocationAudioProperties();
         int GenerateBackgroundSoundRandomRate() const;
         LocationAudioProperties();
-        LocationAudioProperties(LocationAudioProperties&&);
-        LocationAudioProperties* operator=(LocationAudioProperties const&);
-        LocationAudioProperties(LocationAudioProperties const&);
+        LocationAudioProperties(LocationAudioProperties&& locationAudioProperties);
+        LocationAudioProperties* operator=(const LocationAudioProperties& locationAudioProperties);
+        LocationAudioProperties(const LocationAudioProperties& locationAudioProperties);
 
-        // data members, from how the methods use this: 80 bytes
-        undefined8 field_0;  // offset 0
-        undefined2 field_8;  // offset 8
-        undefined2 field_10; // offset 10
-        int field_12;        // offset 12
-        int field_16;        // offset 16
-        undefined1 field_20; // offset 20
-        char _unknown_21[27];
-        undefined8 field_48; // offset 48
-        undefined1 field_56; // offset 56
-        char _unknown_57[3];
-        undefined8 field_60; // offset 60
-        undefined4 field_68; // offset 68
-        undefined4 field_72; // offset 72
-        char _unknown_76[4];
+    private:
+        uint64_t field_0;
+        uint16_t field_8;
+        uint16_t field_10;
+        int field_12;
+        int field_16;
+        uint8_t field_20;
+        uint8_t _unknown_21[27];
+        uint64_t field_48;
+        uint8_t field_56;
+        uint8_t _unknown_57[3];
+        uint64_t field_60;
+        uint32_t field_68;
+        uint32_t field_72;
+        uint8_t _unknown_76[4];
     };
 
-    // 0x10040ce40, 32 bytes, inline, placed by class name and debug map
-    // Location::GetParentTypeID()
+    // 0x10040ce40
     void Location::GetParentTypeID() {
-        GameToken* this_00;
-
-        this_00 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_parentLocationType);
-        this_00->GetStatus();
+        ((GameToken*)(*m_parentLocationType).operator->())->GetStatus();
     }
 
-    // 0x10040ce60, 64 bytes, inline, placed by class name and debug map
-    // Location::SetMultiLocState(int)
-    void Location::SetMultiLocState(int param_1) {
-        LocType* this_00;
-
-        if (m_parentLocationType->operator_cast_to_bool()) {
-            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_parentLocationType);
-            this_00->SetMultiLocIndex(param_1);
+    // 0x10040ce60
+    void Location::SetMultiLocState(int arg1) {
+        if (m_parentLocationType->operator_cast_to_bool() != '\0') {
+            ((LocType*)(*m_parentLocationType).operator->())->SetMultiLocIndex(arg1);
         }
     }
 
-    // 0x10040cf20, 64 bytes, inline, placed by class name and debug map
-    // Location::IncrementMultiLocIndex()
+    // 0x10040cf20
     void Location::IncrementMultiLocIndex() {
-        LocType* this_00;
-
-        if (m_parentLocationType->operator_cast_to_bool()) {
-            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_parentLocationType);
-            this_00->IncrementMultiLocIndex();
+        if (m_parentLocationType->operator_cast_to_bool() != '\0') {
+            ((LocType*)(*m_parentLocationType).operator->())->IncrementMultiLocIndex();
         }
     }
 
-    // 0x10040e120, 32 bytes, inline, placed by class name and debug map
-    // Location::SetPlayerVarDomain(PlayerVarDomain*, ConfigProvider*)
-    void Location::SetPlayerVarDomain(PlayerVarDomain* param_1, ConfigProvider* param_2) {
-        m_pPlayerVarDomain = param_1;
-        field_216 = param_2;
+    // 0x10040e120
+    void Location::SetPlayerVarDomain(PlayerVarDomain* playerVarDomain, ConfigProvider* configProvider) {
+        m_pPlayerVarDomain = playerVarDomain;
+        field_216 = configProvider;
     }
 
-    // 0x10040e820, 48 bytes, inline, placed by debug map only (low confidence)
-    // LocationContainerLocation::ClearBuiltData()
+    // 0x10040e820
     void LocationContainerLocation::ClearBuiltData() {
         field_16->Clear();
-        (&field_56)->clear();
-        (&field_80)->clear();
+        field_56.clear();
+        field_80.clear();
         field_105 = 255;
     }
 
-    // 0x10040eb40, 16 bytes, inline, placed by class name and debug map
-    // Location::GetLocationLOD() const
-    undefined1 Location::GetLocationLOD() {
+    // 0x10040eb40
+    uint8_t Location::GetLocationLOD() const {
         return m_locationLOD;
     }
 
-    // 0x10040f420, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Location::SetAttachedWallWidth(int)
-    /* ui::Text::SetLinkObjType(int) */
-
-    void ui::Text::SetLinkObjType(int param_1) {
-        m_linkObjType = param_1;
+    // 0x10040f420
+    void Location::SetAttachedWallWidth(int arg1) {
+        m_linkObjType = arg1;
     }
 
-    // 0x10040f720, 16 bytes, inline, placed by class name
-    // Location::IsHidden() const
-    undefined1 Location::IsHidden() {
+    // 0x10040f720
+    bool Location::IsHidden() const {
         return m_hidden;
     }
 
-    // 0x100410d10, 96 bytes, inline, placed by class name
-    // Location::IsStillBuilding() const
-    ulong Location::IsStillBuilding() {
-        char cVar1;
-        bool bVar2;
-        vector* this_00;
-        Model* this_01;
-        undefined7 extraout_var;
-        type* in_RSI;
-        undefined8 unaff_R14;
-        ulong uVar3;
+    // 0x100410d10
+    unsigned long Location::IsStillBuilding() const {
+        unsigned int uVar2;
+        shared_ptr<graphics::Model>* this_00;
+        uint64_t unaff_R14;
 
-        cVar1 = (&field_680)->IsTaskDone();
-        uVar3 = CONCAT71((int7)((ulong)unaff_R14 >> 8), 1);
-        if (cVar1 != '\0') {
-            this_00 = (&field_680, in_RSI)->SSOBeginPtr();
-            this_01 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_00);
-            cVar1 = this_01->IsLoaded();
-            if (cVar1 != '\0') {
-                bVar2 = field_496->operator_cast_to_bool();
-                uVar3 = CONCAT71(extraout_var, bVar2) & 4294967295;
+        bool cVar1 = field_680.IsTaskDone();
+        unsigned long uVar3 = (((uint64_t)((int64_t)((unsigned long)unaff_R14 >> 8)) << 8) | (uint8_t)1);
+        if (cVar1) {
+            this_00 = (shared_ptr<graphics::Model>*)field_680.SSOBeginPtr();
+            cVar1 = ((Model*)(*this_00).operator->())->IsLoaded();
+            if (cVar1) {
+                uVar2 = field_496->operator_cast_to_bool();
+                uVar3 = (unsigned long)uVar2;
             }
         }
         return uVar3 & 4294967295;
     }
 
-    // 0x10042ead0, 16 bytes, inline, placed by class name
-    // Location::BlockFadeIn()
+    // 0x10042ead0
     void Location::BlockFadeIn() {
         field_237 = '\x01';
     }
 
-    // 0x100430ed0, 16 bytes, complete-object constructor, inline, placed by class name
-    // Location::VFXData::VFXData(): jumps straight to the base-object constructor
-
-    // 0x100431720, 32 bytes, inline, placed by class name
-    // Location::NotifyInteracted(unsigned int)
-    void Location::NotifyInteracted(uint param_1) {
-        EntityHighlightState::NotifyInteracted((int)this + 796);
+    // 0x100431720
+    void Location::NotifyInteracted(unsigned int arg1) {
+        field_796->NotifyInteracted(arg1);
     }
 
-    // 0x100431740, 32 bytes, inline, placed by class name
-    // Location::NotifyMouseover(unsigned int)
-    void Location::NotifyMouseover(uint param_1) {
-        new (field_796) oldscape::ServerConnectionWorkItem();
+    // 0x100431740
+    void Location::NotifyMouseover(unsigned int arg1) {
+        new (field_796) oldscape::ServerConnectionWorkItem(arg1);
     }
 
-    // 0x100431760, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Location::GetLocationType() const
-    /* MapSquare::GetMapSquarePointLights() */
-
-    undefined1* MapSquare::GetMapSquarePointLights() {
+    // 0x100431760
+    shared_ptr Location::GetLocationType() const {
         return m_mapSquarePointLights;
     }
 
-    // 0x100431770, 32 bytes, inline, placed by class name
-    // Location::GetShape() const
-    undefined1 Location::GetShape() {
+    // 0x100431770
+    uint8_t Location::GetShape() const {
         return field_352->GetShape();
     }
 
-    // 0x100431790, 32 bytes, inline, placed by class name
-    // Location::GetRotation90() const
-    undefined1 Location::GetRotation90() {
+    // 0x100431790
+    uint8_t Location::GetRotation90() const {
         return field_352->GetRot();
     }
 
-    // 0x1004317b0, 48 bytes, inline, placed by class name
-    // Location::GetTransform() const
-    Location* Location::GetTransform() {
-        RotTransScale* pRVar1;
-        long in_RSI;
+    // 0x1004317b0
+    math::RotTransScale Location::GetTransform() const {
+        RotTransScale* rotTransScale;
 
-        pRVar1 = (RotTransScale*)((in_RSI + 352))->y();
-        new (this) math::RotTransScale(pRVar1);
-        return this;
+        rotTransScale = (RotTransScale*)field_352->y();
+        return math::RotTransScale(*rotTransScale);
     }
 
-    // 0x1004317e0, 64 bytes, inline, placed by class name
-    // Location::GetLocationLength() const
-    void Location::GetLocationLength() {
-        LocType* pLVar1;
-        undefined1 uVar2;
-
-        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-        uVar2 = field_352->GetRot();
-        pLVar1->GetGridLength(uVar2);
+    // 0x1004317e0
+    void Location::GetLocationLength() const {
+        LocType* this_00 = (LocType*)(*m_locationType).operator->();
+        uint8_t bVar1 = field_352->GetRot();
+        this_00->GetGridLength((unsigned int)bVar1);
     }
 
-    // 0x100431820, 64 bytes, inline, placed by class name
-    // Location::GetLocationWidth() const
-    void Location::GetLocationWidth() {
-        LocType* pLVar1;
-        undefined1 uVar2;
-
-        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-        uVar2 = field_352->GetRot();
-        pLVar1->GetGridWidth(uVar2);
+    // 0x100431820
+    void Location::GetLocationWidth() const {
+        LocType* this_00 = (LocType*)(*m_locationType).operator->();
+        uint8_t bVar1 = field_352->GetRot();
+        this_00->GetGridWidth((unsigned int)bVar1);
     }
 
-    // 0x100431860, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Location::GetAttachedWallWidth() const
-    /* ui::Text::GetLinkObjType() const */
-
-    int ui::Text::GetLinkObjType() {
+    // 0x100431860
+    int Location::GetAttachedWallWidth() const {
         return m_linkObjType;
     }
 
-    // 0x100432420, 48 bytes, base-object constructor, inline, placed by class name
-    // Location::VFXData::VFXData()
-    void Location::VFXData::VFXData() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        new (&field_16, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x100432420
+    Location::VFXData::VFXData() : shared_ptr() {
+        new (&field_16) shared_ptr();
     }
 
-    // 0x10043a020, 16 bytes, complete-object constructor, inline, placed by class name
-    // Location::VFXData::VFXData(Location::VFXData&&): jumps straight to the base-object constructor
-
-    // 0x10043a0f0, 64 bytes, base-object constructor, inline, placed by class name
-    // Location::VFXData::VFXData(Location::VFXData&&)
-    void Location::VFXData::VFXData(VFXData* param_1) {
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, (shared_ptr*)param_1);
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)&field_16, (shared_ptr*)&param_1->field_16);
+    // 0x10043a0f0
+    Location::VFXData::VFXData(Location::VFXData&& vfxData) {
+        shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(vfxData);
+        field_16.shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(vfxData.field_16);
     }
 
-    // 0x10064c9e0, 16 bytes, inline, placed by class name
-    // Location::SetIsWDDBothOffsetMember(bool)
-    void Location::SetIsWDDBothOffsetMember(bool param_1) {
-        m_isWDDBothOffsetMember = param_1;
+    // 0x10064c9e0
+    void Location::SetIsWDDBothOffsetMember(bool arg1) {
+        m_isWDDBothOffsetMember = arg1;
     }
 
-    // 0x10064c9f0, 32 bytes, inline, placed by class name
-    // Location::SetBuiltGridSize(int, int)
-    void Location::SetBuiltGridSize(int param_1, int param_2) {
-        m_builtGridSize = param_1;
-        field_452 = param_2;
+    // 0x10064c9f0
+    void Location::SetBuiltGridSize(int arg1, int arg2) {
+        m_builtGridSize = arg1;
+        field_452 = arg2;
     }
 
 } // namespace jag::game
@@ -363,47 +300,49 @@ namespace jag::game {
 namespace jag::oldscape::rs2lib::worldmap {
     class LocationData {
     public:
-        LocationData(int, int, int);
-        void Set(int, int, int);
+        LocationData(int arg1, int arg2, int arg3);
+        void Set(int waterNormalParamsEncoding, int waterNormalParamGroup, int arg3);
+        LocationData(int waterNormalParamsEncoding, int waterNormalParamGroup, int arg3);
 
-        // data members, from how the methods use this: 16 bytes
-        int field_0; // offset 0
-        int field_4; // offset 4
-        int field_8; // offset 8
-        char _unknown_12[4];
+    private:
+        WaterNormalParamsEncoding field_0;
+        WaterNormalParamGroup field_4;
+        int field_8;
+        uint8_t _unknown_12[4];
     };
 
 } // namespace jag::oldscape::rs2lib::worldmap
 
 namespace jag {
-    // 0x10040e610, 208 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<game::BuildCombinedLocationMain>::type bucket_make_shared<game::BuildCombinedLocationMain, graphics::RT7Core&, int, game::LocationContainer*, eastl::vector<game::LocationContainerLocation, eastl::allocator>&, int&, int&, bool>(graphics::RT7Core&, int&&, game::LocationContainer*&&, eastl::vector<game::LocationContainerLocation, eastl::allocator>&, int&, int&, bool&&)
-    jag* jag::bucket_make_shared<game::BuildCombinedLocationMain, graphics::RT7Core&, int, game::LocationContainer*,
-                                 eastl::vector<game::LocationContainerLocation, eastl::allocator>&, int&, int&, bool>(
-        RT7Core* param_1, int* param_2, LocationContainer** param_3, vector* param_4, int* param_5, int* param_6,
-        bool* param_7) {
-        BucketRefCounter* pBVar1;
-        managed_ptr_counter_and_data* local_48;
+    // 0x10040e610
+    shared_ptr_if_not_array<game::BuildCombinedLocationMain>::type
+    bucket_make_shared<game::BuildCombinedLocationMain, graphics::RT7Core&, int, game::LocationContainer*,
+                       eastl::vector<game::LocationContainerLocation>&, int&, int&, bool>(
+        graphics::RT7Core& rt7Core, int&& arg2, game::LocationContainer*&& arg3,
+        eastl::vector<game::LocationContainerLocation>& locationContainerLocations, int& arg5, int& arg6, bool&& arg7) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        bool* in_stack_00000010;
         BuildCombinedLocationMain* local_40[2];
 
-        local_48 = (managed_ptr_counter_and_data*)BucketManager::Allocate(280, 0, 16);
-        if (local_48 == (managed_ptr_counter_and_data*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        auto local_48 = BucketManager::Allocate(280, 0, 16);
+        if (local_48 == nullptr) {
+            new (rt7Core) shared_ptr();
         } else {
             local_40[0] =
                 placement_new<game::BuildCombinedLocationMain, graphics::RT7Core&, int, game::LocationContainer*,
-                              eastl::vector<game::LocationContainerLocation, eastl::allocator>&, int&, int&, bool>(
-                    local_48 + 48, param_1, param_2, param_3, param_4, param_5, param_6, param_7);
-            pBVar1 = placement_new<BucketRefCounter<game::BuildCombinedLocationMain>,
-                                   managed_ptr_counter_and_data<BucketRefCounter<game::BuildCombinedLocationMain>,
-                                                                game::BuildCombinedLocationMain>*&,
-                                   game::BuildCombinedLocationMain*&>(local_48, &local_48, local_40);
-            pBVar1->~AutoSingleton(local_40[0]);
-            pBVar1->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(pBVar1, local_40[0]);
+                              eastl::vector<game::LocationContainerLocation>&, int&, int&, bool>(
+                    local_48 + 48, (RT7Core*)arg2, (int*)arg3, (LocationContainer**)locationContainerLocations,
+                    (vector<game::LocationContainerLocation>*)arg5, arg6, (int*)arg7, in_stack_00000010);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<BucketRefCounter<game::BuildCombinedLocationMain>,
+                              managed_ptr_counter_and_data<BucketRefCounter<game::BuildCombinedLocationMain>,
+                                                           game::BuildCombinedLocationMain>*&,
+                              game::BuildCombinedLocationMain*&>(local_48, &local_48, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (rt7Core) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return rt7Core;
     }
 
 } // namespace jag

@@ -1,6 +1,5 @@
 // libs/oldscape/osrendercore/rseven/MapRebuildHandler.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.osrendercore
 
 #include "MapRebuildHandler.h"
@@ -9,90 +8,74 @@
 #include "libs/oldscape/osrendercore/OSRenderCore.h"
 
 namespace jag::oldscape {
-    // 0x1001c3dd0, 32 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread_RSeven::GetEffectManager()
+    // 0x1001c3dd0
     void OSRenderCore_RenderThread_RSeven::GetEffectManager() {
-        RT7Core* this_00;
-
-        this_00 =
-            (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-        this_00->GetEffectManager();
+        ((RT7Core*)field_8.operator->())->GetEffectManager();
     }
 
-    // 0x1001c3df0, 32 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_LogicThread_RSeven::GetPostProcessConfig()
+    // 0x1001c3df0
     long OSRenderCore_LogicThread_RSeven::GetPostProcessConfig() {
-        return *(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19677832;
+        return *(long*)((long)&field_0 + *(long*)((long)field_0 - 24)) + 19677832;
     }
 
-    // 0x1001c3e10, 32 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_LogicThread_RSeven::GetSSAOParams()
+    // 0x1001c3e10
     long OSRenderCore_LogicThread_RSeven::GetSSAOParams() {
-        return *(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19678456;
+        return *(long*)((long)&field_0 + *(long*)((long)field_0 - 24)) + 19678456;
     }
 
-    // 0x1001c3e30, 32 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_LogicThread_RSeven::GetSunlightOptions()
+    // 0x1001c3e30
     long OSRenderCore_LogicThread_RSeven::GetSunlightOptions() {
-        return *(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19678676;
+        return *(long*)((long)&field_0 + *(long*)((long)field_0 - 24)) + 19678676;
     }
 
-    // 0x1001c3e50, 32 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_LogicThread_RSeven::GetVolumetricScatteringParams()
+    // 0x1001c3e50
     void OSRenderCore_LogicThread_RSeven::GetVolumetricScatteringParams() {
-        type* in_RSI;
-
-        ((*(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19678576), in_RSI)->SSOBeginPtr();
+        ((Layout*)(*(long*)((long)&field_0 + *(long*)((long)field_0 - 24)) + 19678576))->SSOBeginPtr();
     }
 
-    // 0x1001c3e70, 32 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_LogicThread_RSeven::GetVolumetricScatteringParamsMutable()
-    void OSRenderCore_LogicThread_RSeven::GetVolumetricScatteringParamsMutable() {
-        ((*(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19678576))->GetMutable();
+    // 0x1001c3e70
+    VolumetricScatteringParams* OSRenderCore_LogicThread_RSeven::GetVolumetricScatteringParamsMutable() {
+        return (VolumetricScatteringParams*)((MutationTracked<
+                                                 jag::graphics::
+                                                     VolumetricScatteringParams>*)(*(long*)((long)&field_0 +
+                                                                                            *(long*)((long)field_0 -
+                                                                                                     24)) +
+                                                                                   19678576))
+            ->GetMutable();
     }
 
-    // 0x1001c3ea0, 32 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_LogicThread_RSeven::GetLightScatteringParams()
+    // 0x1001c3ea0
     void OSRenderCore_LogicThread_RSeven::GetLightScatteringParams() {
-        type* in_RSI;
-
-        ((*(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19678504), in_RSI)->SSOBeginPtr();
+        ((Layout*)(*(long*)((long)&field_0 + *(long*)((long)field_0 - 24)) + 19678504))->SSOBeginPtr();
     }
 
-    // 0x1001c3ec0, 32 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_LogicThread_RSeven::GetLightScatteringParamsMutable()
-    void OSRenderCore_LogicThread_RSeven::GetLightScatteringParamsMutable() {
-        ((*(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19678504))->GetMutable();
+    // 0x1001c3ec0
+    SimpleScatteringParams* OSRenderCore_LogicThread_RSeven::GetLightScatteringParamsMutable() {
+        return (SimpleScatteringParams*)((MutationTracked<
+                                             jag::graphics::SimpleScatteringParams>*)(*(long*)((long)&field_0 +
+                                                                                               *(long*)((long)field_0 -
+                                                                                                        24)) +
+                                                                                      19678504))
+            ->GetMutable();
     }
 
-    // 0x1001c3ef0, 32 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_LogicThread_RSeven::GetEffectTransitionMilliseconds()
+    // 0x1001c3ef0
     long OSRenderCore_LogicThread_RSeven::GetEffectTransitionMilliseconds() {
-        return *(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19678672;
+        return *(long*)((long)&field_0 + *(long*)((long)field_0 - 24)) + 19678672;
     }
 
-    // 0x1001c4490, 128 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread_RSeven::UpdateGamma(float)
-    void OSRenderCore_RenderThread_RSeven::UpdateGamma(float param_1) {
+    // 0x1001c4490
+    void OSRenderCore_RenderThread_RSeven::UpdateGamma(float arg1) {
         RT7Core* pRVar1;
         TextureManager* pTVar2;
-        TextureAtlasManager* this_00;
 
-        if ((float)tdp.GetBrightpassThreshold() != param_1) {
-            tdp.SetWidth(param_1);
-            pRVar1 =
-                (RT7Core*)
-                    std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                        (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-            pTVar2 = (TextureManager*)pRVar1->GetTextureManager();
-            this_00 = (TextureAtlasManager*)pTVar2->GetTextureAtlasManager();
-            this_00->RebuildAtlases(true);
-            pRVar1 =
-                (RT7Core*)
-                    std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                        (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-            pTVar2 = (TextureManager*)pRVar1->GetTextureManager();
+        if ((float)tdp.GetBrightpassThreshold() != arg1) {
+            tdp.SetWidth(arg1);
+            pRVar1 = (RT7Core*)field_8.operator->();
+            pTVar2 = pRVar1->GetTextureManager();
+            ((TextureAtlasManager*)pTVar2->GetTextureAtlasManager())->RebuildAtlases(true);
+            pRVar1 = (RT7Core*)field_8.operator->();
+            pTVar2 = pRVar1->GetTextureManager();
             pTVar2->ClearCache();
         }
     }
@@ -100,292 +83,237 @@ namespace jag::oldscape {
 } // namespace jag::oldscape
 
 namespace jag::oldscape::rseven {
-    // 0x1001c3b70, 96 bytes, placed by debug map only (low confidence)
-    // MapRebuildHandler_RenderThread::HandleRebuild(MapRebuildResults&, jag::graphics::RT7Core&)
-    void MapRebuildHandler_RenderThread::HandleRebuild(MapRebuildResults* param_1, RT7Core* param_2) {
-        long lVar1;
-        MapRebuildSquare* pMVar2;
-        ulong uVar3;
-        ulong uVar4;
+    // 0x1001c3b70
+    void MapRebuildHandler_RenderThread::HandleRebuild(MapRebuildResults& mapRebuildResults,
+                                                       jag::graphics::RT7Core& rt7Core) {
+        MapRebuildSquare* mapRebuildSquare;
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = param_1->size();
-        if (lVar1 != 0) {
-            uVar4 = 0;
+        if (mapRebuildResults.size() != 0) {
+            arg1 = 0;
             do {
-                pMVar2 = (MapRebuildSquare*)eastl::vector<MapRebuildSquare, eastl::allocator>::operator[](
-                    (vector<MapRebuildSquare, eastl::allocator>*)param_1, uVar4);
-                RebuildSquareTerrain(pMVar2, param_2);
-                uVar4 = uVar4 + 1;
-                uVar3 = param_1->size();
-            } while (uVar4 < uVar3);
+                mapRebuildSquare = (MapRebuildSquare*)mapRebuildResults[arg1];
+                RebuildSquareTerrain(mapRebuildSquare, rt7Core);
+                arg1 = arg1 + 1;
+                uVar2 = mapRebuildResults.size();
+            } while (arg1 < uVar2);
         }
     }
 
-    // 0x1001c3da0, 48 bytes, placed by class name and debug map
-    // MapRebuildHandler::DeleteRebuildResults(MapRebuildResults*)
-    void MapRebuildHandler::DeleteRebuildResults(MapRebuildResults* param_1) {
-        if (param_1 != (MapRebuildResults*)0) {
-            param_1->~MapRebuildResults();
-            operator_delete(param_1);
+    // 0x1001c3da0
+    void MapRebuildHandler::DeleteRebuildResults(MapRebuildResults* mapRebuildResults) {
+        if (mapRebuildResults != nullptr) {
+            mapRebuildResults->~MapRebuildResults();
+            operator delete(mapRebuildResults);
         }
     }
 
-    // 0x1001c7850, 688 bytes, placed by __FILE__ string
-    // MapRebuildHandler_LogicThread::SumDetailedGroundColours(dash3d::Ground const&, jag::math::Vector3T<int>, jag::math::Vector4T<float>&, int&)
-    void MapRebuildHandler_LogicThread::SumDetailedGroundColours(undefined8 param_1_00, undefined8 param_2,
-                                                                 Ground* param_1, undefined8 param_4,
-                                                                 undefined4 param_5, QuaternionT<float>* param_6,
-                                                                 int* param_7) {
-        int iVar1;
-        int iVar2;
-        uint uVar5;
-        long lVar6;
-        long lVar7;
-        undefined4* puVar8;
-        int* piVar9;
-        ushort* puVar10;
-        ulong uVar11;
-        ulong uVar12;
-        vector<int, eastl::allocator>* this;
+    // 0x1001c7850
+    void MapRebuildHandler_LogicThread::SumDetailedGroundColours(const dash3d::Ground& ground,
+                                                                 jag::math::Vector3T<int> vector3,
+                                                                 jag::math::Vector4T<float>& vector4, int& arg4) {
+        int arg1;
+        unsigned int uVar3;
+        uint32_t* puVar6;
+        int* piVar7;
+        unsigned int* puVar8;
+        unsigned short* puVar9;
+        unsigned long uVar10;
+        unsigned long uVar11;
         LocationData local_e8;
-        undefined8 local_d8;
-        undefined8 uStack_d0;
-        undefined8 local_c8;
-        undefined4 local_c0;
-        vector<int, eastl::allocator>* local_b8;
-        vector<int, eastl::allocator>* local_b0;
-        vector<int, eastl::allocator>* local_a8;
-        int* local_a0;
-        ulong local_90;
-        vector<int, eastl::allocator>* local_88;
-        Ground* local_80;
-        vector<int, eastl::allocator>* local_70;
-        vector<int, eastl::allocator>* local_68;
-        vector<int, eastl::allocator>* local_60;
-        undefined4 local_58;
-        undefined4 local_54;
-        undefined4 local_50;
-        undefined4 local_48;
-        undefined4 local_44;
-        undefined4 local_40;
-        vector<unsigned int, eastl::allocator>* local_38;
+        Vector4T<float> local_d8;
+        vector<int>* local_b8;
+        vector<int>* local_b0;
+        vector<int>* local_a8;
+        unsigned long local_90;
+        vector<unsigned int>* local_78;
+        vector<int>* local_70;
+        vector<int>* local_68;
+        vector<int>* local_60;
+        uint32_t local_58;
+        uint32_t local_54;
+        uint32_t local_50;
+        uint32_t local_48;
+        uint32_t local_44;
+        uint32_t local_40;
 
-        this = (vector<int, eastl::allocator>*)&param_1->field_208;
-        local_c8 = param_4;
-        local_c0 = param_5;
-        local_a0 = param_7;
-        lVar6 = size();
-        local_38 = (vector<unsigned int, eastl::allocator>*)&param_1->field_240;
-        lVar7 = eastl::vector<unsigned int, eastl::allocator>::size(local_38);
-        if (lVar6 != lVar7) {
-            /* WARNING: Subroutine does not return */
+        uint32_t local_c0 = (uint32_t)vector3;
+        vector<int>* this_00 = (vector<int>*)&field_208;
+        int* local_a0 = arg4;
+        long lVar4 = this_00->size();
+        vector<unsigned int>* local_38 = (vector<unsigned int>*)&field_240;
+        long lVar5 = local_38->size();
+        if (lVar4 != lVar5) {
             LogAssert("ground.m_point1.size() == ground.m_point2.size()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                       "rseven/MapRebuildHandler.cpp",
-                      488, (char*)0);
+                      488, nullptr);
         }
-        lVar6 = eastl::vector<unsigned int, eastl::allocator>::size(local_38);
-        local_88 = (vector<int, eastl::allocator>*)&param_1->field_272;
-        lVar7 = local_88->size();
-        if (lVar6 != lVar7) {
-            /* WARNING: Subroutine does not return */
+        lVar4 = local_38->size();
+        vector<int>* local_88 = (vector<int>*)&field_272;
+        lVar5 = local_88->size();
+        if (lVar4 != lVar5) {
             LogAssert("ground.m_point2.size() == ground.m_point3.size()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                       "rseven/MapRebuildHandler.cpp",
-                      489, (char*)0);
+                      489, nullptr);
         }
-        lVar6 = size();
-        if (lVar6 != 0) {
-            local_70 = (vector<int, eastl::allocator>*)&param_1->field_104;
-            local_68 = (vector<int, eastl::allocator>*)&param_1->field_136;
-            local_60 = (vector<int, eastl::allocator>*)&param_1->field_168;
-            local_b8 = (vector<int, eastl::allocator>*)&param_1->field_8;
-            local_b0 = (vector<int, eastl::allocator>*)&param_1->field_40;
-            local_a8 = (vector<int, eastl::allocator>*)&param_1->field_72;
-            uVar12 = 0;
-            local_80 = param_1;
+        lVar4 = this_00->size();
+        if (lVar4 != 0) {
+            local_70 = (vector<int>*)&field_104;
+            local_68 = (vector<int>*)&field_136;
+            local_60 = (vector<int>*)&field_168;
+            local_b8 = (vector<int>*)&field_8;
+            local_b0 = (vector<int>*)&field_40;
+            local_a8 = (vector<int>*)(field_64 + 8);
+            uVar11 = 0;
+            local_78 = (vector<unsigned int>*)this_00;
             do {
-                if (IsGroundBlendable(param_1, (int)uVar12) != '\0') {
-                    puVar8 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](this, uVar12);
-                    local_58 = *puVar8;
-                    puVar8 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](
-                        (vector<int, eastl::allocator>*)local_38, uVar12);
-                    local_54 = *puVar8;
-                    puVar8 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_88, uVar12);
-                    local_50 = *puVar8;
-                    puVar8 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_70, uVar12);
-                    local_48 = *puVar8;
-                    puVar8 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_68, uVar12);
-                    local_44 = *puVar8;
-                    local_90 = uVar12;
-                    puVar8 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_60, uVar12);
-                    local_40 = *puVar8;
-                    uVar12 = 0;
+                if (IsGroundBlendable((Ground*)this, (int)uVar11) != '\0') {
+                    puVar6 = (uint32_t*)(*this_00)[uVar11];
+                    local_58 = *puVar6;
+                    puVar6 = (uint32_t*)(*local_38)[uVar11];
+                    local_54 = *puVar6;
+                    puVar6 = (uint32_t*)(*local_88)[uVar11];
+                    local_50 = *puVar6;
+                    puVar6 = (uint32_t*)(*local_70)[uVar11];
+                    local_48 = *puVar6;
+                    puVar6 = (uint32_t*)(*local_68)[uVar11];
+                    local_44 = *puVar6;
+                    local_90 = uVar11;
+                    puVar6 = (uint32_t*)(*local_60)[uVar11];
+                    local_40 = *puVar6;
+                    uVar11 = 0;
                     do {
-                        piVar9 = (int*)std::array<int, 3ul>::operator[]((array<int, 3ul>*)&local_58, uVar12);
-                        uVar11 = (ulong)*piVar9;
-                        piVar9 = (int*)eastl::vector<int, eastl::allocator>::operator[](local_b8, uVar11);
-                        iVar1 = *piVar9;
-                        piVar9 = (int*)eastl::vector<int, eastl::allocator>::operator[](local_b0, uVar11);
-                        iVar2 = *piVar9;
-                        piVar9 = (int*)eastl::vector<int, eastl::allocator>::operator[](local_a8, uVar11);
-                        new (&local_e8) rs2lib::worldmap::LocationData(iVar1, iVar2, *piVar9);
-                        if (jag::math::operator==((Vector3T*)&local_c8, (Vector3T*)&local_e8)) {
-                            puVar10 = (ushort*)std::array<int, 3ul>::operator[]((array<int, 3ul>*)&local_48, uVar12);
-                            uVar5 = jag::math::RunetekColour::HSLToRGB(*puVar10);
-                            local_d8 = jag::math::Colour4FromA8R8G8B8(uVar5);
-                            uStack_d0 = param_2;
-                            jag::math::QuaternionT<float>::operator+=(param_6, (QuaternionT*)&local_d8);
+                        piVar7 = &local_58[uVar11];
+                        uVar10 = (unsigned long)*piVar7;
+                        piVar7 = (int*)(*local_b8)[uVar10];
+                        arg1 = *piVar7;
+                        puVar8 = (unsigned int*)(*local_b0)[uVar10];
+                        uVar3 = *puVar8;
+                        puVar8 = (unsigned int*)(*local_a8)[uVar10];
+                        local_e8 = rs2lib::worldmap::LocationData(arg1, uVar3, *puVar8);
+                        if (ground == local_e8) {
+                            puVar9 = &local_48[uVar11];
+                            uVar3 = jag::math::RunetekColour::HSLToRGB(*puVar9);
+                            jag::math::Colour4FromA8R8G8B8(uVar3);
+                            vector4 += local_d8;
                             *local_a0 = *local_a0 + 1;
                         }
-                        uVar12 = uVar12 + 1;
-                    } while (uVar12 != 3);
-                    uVar12 = local_90;
-                    param_1 = local_80;
-                    this = (vector<int, eastl::allocator>*)(vector<unsigned int, eastl::allocator>*)this;
+                        uVar11 = uVar11 + 1;
+                    } while (uVar11 != 3);
+                    uVar11 = local_90;
+                    this = (MapRebuildHandler_LogicThread*)(Ground*)this;
+                    this_00 = (vector<int>*)local_78;
                 }
-                uVar12 = uVar12 + 1;
-                uVar11 = size();
-            } while (uVar12 < uVar11);
+                uVar11 = uVar11 + 1;
+                uVar10 = this_00->size();
+            } while (uVar11 < uVar10);
         }
     }
 
-    // 0x1001c7c20, 784 bytes, placed by __FILE__ string
-    // MapRebuildHandler_LogicThread::HandleRebuild(dash3d::world const&, rs2lib::CoordGrid const&, jagex3::Js5&)
-    void MapRebuildHandler_LogicThread::HandleRebuild(world* param_1, CoordGrid* param_2, Js5* param_3) {
+    // 0x1001c7c20
+    void MapRebuildHandler_LogicThread::HandleRebuild(const dash3d::world& world, const rs2lib::CoordGrid& coordGrid,
+                                                      jagex3::Js5& js5) {
         int iVar1;
-        uint uVar2;
-        bool bVar3;
-        MapRebuildResults* this;
-        long* plVar4;
-        long lVar5;
-        ulong uVar6;
+        bool cVar3;
         int* piVar7;
-        undefined8* puVar8;
+        uint64_t* puVar8;
         int* piVar9;
-        undefined* puVar10;
-        undefined8 extraout_RDX;
-        undefined8 extraout_RDX_00;
-        undefined1* puVar11;
-        undefined1 auVar13[16];
-        undefined1 auVar14[16];
-        hash_set<int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false> local_c8[56];
-        allocator local_90[24];
-        shared_ptr local_78;
-        MapRebuildResults* local_60;
-        hash local_58[16];
-        undefined8 local_48;
-        undefined8 local_40;
+        uint8_t* puVar10;
+        uint8_t auVar12[16];
+        ReturnValue local_90;
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> local_78;
+        hash<int> local_58;
+        equal_to<int> local_48;
         int local_34;
 
-        this = operator_new(160);
-        MapRebuildResults::MapRebuildResults(this);
-        *(uint*)(field_32 + 8) = param_2->m_z;
-        uVar2 = param_2->m_x;
-        *(uint*)(field_32 + 0) = param_2->m_level;
-        *(uint*)(field_32 + 4) = uVar2;
-        plVar4 = (long*)OSRenderCore_AudioThread::Instance();
-        lVar5 = (((long)plVar4 + *(long*)(*plVar4 + -24)))->HeapBeginPtr();
-        *(MapRebuildResults**)(lVar5 + 17563840) = this;
-        RebuildTerrain(param_1, param_2, this);
-        local_60 = this;
-        uVar6 = (&field_48)->size();
-        eastl::allocator::allocator(local_90, "EASTL hash_set");
-        eastl::hash_set<int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>::hash_set(
-            local_c8, uVar6, local_58, (equal_to*)&local_48, local_90);
-        local_58 =
-            (hash[16])eastl::hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator,
-                                       eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>,
-                                       eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                       eastl::prime_rehash_policy, false, true, true>::begin();
-        auVar13 = (&field_48)->end();
-        local_40 = auVar13._8_8_;
+        MapRebuildResults* mapRebuildResults = (MapRebuildResults*)operator new(160);
+        new (mapRebuildResults) MapRebuildResults();
+        *(unsigned int*)(mapRebuildResults->field_32 + 8) = coordGrid.m_z;
+        unsigned int uVar2 = coordGrid.m_x;
+        *(unsigned int*)(mapRebuildResults->field_32 + 0) = coordGrid.m_level;
+        *(unsigned int*)(mapRebuildResults->field_32 + 4) = uVar2;
+        auto plVar5 = OSRenderCore_AudioThread::Instance();
+        long lVar6 = ((Layout*)((long)plVar5 + *(long*)(*plVar5 - 24)))->HeapBeginPtr();
+        *(MapRebuildResults**)(lVar6 + 17563840) = mapRebuildResults;
+        RebuildTerrain(world, coordGrid, mapRebuildResults);
+        uint8_t* puVar11 = &mapRebuildResults->field_48;
+        MapRebuildResults* local_60 = mapRebuildResults;
+        unsigned long arg1 = puVar11->size();
+        hash_set<int> local_c8(arg1, local_58, local_48, local_90);
+        &local_58 = (hash<int>[16])puVar11->begin();
+        local_48._0_16_ = puVar11->end();
         while (true) {
-            local_48 = auVar13._0_8_;
-            bVar3 = eastl::operator!=((eastl*)local_58, (hashtable_iterator_base*)&local_48, auVar13._8_8_);
-            if (!bVar3)
+            cVar3 = local_58 != local_48;
+            if (!cVar3)
                 break;
-            piVar7 = (int*)local_58->HeapBeginPtr();
+            piVar7 = (int*)local_58.HeapBeginPtr();
             iVar1 = *piVar7;
             if (iVar1 == -1) {
-                new (&local_78) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+                local_78 = shared_ptr();
             } else {
-                puVar8 = (undefined8*)shared_ptr<dash3d::TextureProvider>::operator->(
-                    (shared_ptr<dash3d::TextureProvider>*)&dash3d::Pix3D::m_textureProvider);
-                (**(code**)*puVar8)(&local_78, puVar8, iVar1);
+                puVar8 = (uint64_t*)(*((shared_ptr<dash3d::TextureProvider>*)&dash3d::Pix3D::m_textureProvider))
+                             .operator->();
+                (**(void (**)(...))*puVar8)(&local_78, puVar8, iVar1);
             }
-            bVar3 = operator!=(&local_78, (_func_decltype_nullptr*)0);
-            if (bVar3) {
-                lVar5 = shared_ptr<dash3d::Texture>::operator->((shared_ptr<dash3d::Texture>*)&local_78);
-                piVar7 = (int*)((lVar5 + 56))->data();
-                piVar9 = (int*)((lVar5 + 56))->end();
+            if (local_78 != nullptr) {
+                lVar6 = local_78.operator->();
+                piVar7 = (int*)((lVar6 + 56))->data();
+                piVar9 = (int*)((lVar6 + 56))->end();
                 for (; piVar7 != piVar9; piVar7 = piVar7 + 1) {
                     local_34 = *piVar7;
                     eastl::hashtable<int, int, eastl::allocator, eastl::use_self<int>, eastl::equal_to<int>,
                                      eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, false, true>::insert((int*)local_90);
+                                     eastl::prime_rehash_policy, false, false, true>::insert(local_90);
                 }
             }
-            local_78.~shared_ptr();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>::operator++(
-                (hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>*)local_58);
-            auVar13._8_8_ = extraout_RDX;
-            auVar13._0_8_ = local_48;
+            ++local_58;
         }
-        auVar13 = eastl::hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator,
-                                   eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>,
-                                   eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                   eastl::prime_rehash_policy, false, true, true>::begin();
-        local_58 = (hash[16])auVar13;
-        auVar14 = local_c8->end();
-        local_40 = auVar14._8_8_;
+        auVar12 = local_c8.begin();
+        &local_58 = (hash<int>[16])auVar12;
+        auVar12 = local_c8.end();
         puVar11 = &local_60->field_104;
+        local_48._0_16_ = auVar12;
         while (true) {
-            local_48 = auVar14._0_8_;
-            bVar3 = eastl::operator!=((eastl*)local_58, (hashtable_iterator_base*)&local_48, auVar14._8_8_);
-            if (!bVar3) {
-                local_c8->~hash_map();
+            cVar3 = local_58 != local_48;
+            if (!cVar3) {
                 return;
             }
-            piVar7 = (int*)local_58->HeapBeginPtr();
+            piVar7 = (int*)local_58.HeapBeginPtr();
             local_34 = *piVar7;
-            new (&local_78) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(
-                (_func_decltype_nullptr*)(hashtable_iterator_base*)&local_48);
-            puVar10 = (undefined*)param_3->GetFile(&local_78, local_34);
+            local_78 = shared_ptr();
+            puVar10 = (uint8_t*)js5.GetFile(local_78, local_34);
             if (puVar10 != DataStatus::READY)
                 break;
             if (puVar10 == DataStatus::READY) {
                 eastl::hashtable<
-                    int, eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>>,
-                    eastl::allocator,
-                    eastl::use_first<
-                        eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>>>,
+                    int, eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char>>>>, eastl::allocator,
+                    eastl::use_first<eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char>>>>>,
                     eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                    eastl::prime_rehash_policy, false, true,
-                    true>::emplace<int&, shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>>((int*)local_90,
-                                                                                                      (shared_ptr*)
-                                                                                                          puVar11);
+                    eastl::prime_rehash_policy, false, true, true>::emplace<int&,
+                                                                            shared_ptr<PacketJ<Array<unsigned char>>>>(
+                    &local_90,
+                    (hashtable<int, eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char>>>>, eastl::allocator,
+                               eastl::use_first<eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char>>>>>,
+                               eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
+                               eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)puVar11,
+                    &local_34, &local_78);
             }
-            local_78.~shared_ptr();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>::operator++(
-                (hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>*)local_58);
-            auVar14._8_8_ = extraout_RDX_00;
-            auVar14._0_8_ = local_48;
+            ++local_58;
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("e == DataStatus::READY",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/rseven/"
                   "MapRebuildHandler.cpp",
-                  561, (char*)0);
+                  561, nullptr);
     }
 
 } // namespace jag::oldscape::rseven
 
 namespace jag::game {
-    // 0x1001c4510: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::Gamma() const, which has identical code
-    float EnvBloomSettings::GetBrightpassThreshold() const;
+    // 0x1001c4510: EnvBloomSettings::GetBrightpassThreshold() const has the same machine code as oldscape::rseven::OSRenderCore_TextureDataProvider::Gamma() const
 
-    // 0x1001c4510: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::Gamma() const, which has identical code
-    float Cutscene2DPlaybackState::GetPauseTimeSec() const;
+    // 0x1001c4510: Cutscene2DPlaybackState::GetPauseTimeSec() const has the same machine code as oldscape::rseven::OSRenderCore_TextureDataProvider::Gamma() const
 
 } // namespace jag::game

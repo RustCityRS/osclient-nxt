@@ -1,118 +1,100 @@
 // libs/graphics/runetek7/effects/EffectList.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "EffectList.h"
 
 namespace jag::graphics {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    EffectList::GetEnabledEffects() const;
+    // 0x100009ca0: EffectList::GetEnabledEffects() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100058100: the linker folded this into eastl::compressed_pair<eastl::ListNodeBase, BucketAllocatorEASTL>::compressed_pair(eastl::ListNodeBase const&, BucketAllocatorEASTL const&), which has identical code
-    EffectList::EffectList(eastl::bitset<121ul, unsigned long long> const&);
+    // 0x100058100: EffectList::EffectList(eastl::bitset<121ul, unsigned long long> const&) has the same machine code as eastl::compressed_pair<eastl::ListNodeBase, BucketAllocatorEASTL>::compressed_pair(eastl::ListNodeBase const&, BucketAllocatorEASTL const&)
 
-    // 0x100058110: the linker folded this into eastl::compressed_pair_imp<eastl::ListNodeBase, BucketAllocatorEASTL, 2>::compressed_pair_imp(eastl::ListNodeBase const&, BucketAllocatorEASTL const&), which has identical code
-    EffectList::EffectList(eastl::bitset<121ul, unsigned long long> const&);
+    // 0x100058110: EffectList::EffectList(eastl::bitset<121ul, unsigned long long> const&) has the same machine code as eastl::compressed_pair_imp<eastl::ListNodeBase, BucketAllocatorEASTL, 2>::compressed_pair_imp(eastl::ListNodeBase const&, BucketAllocatorEASTL const&)
 
-    // 0x10092a820, 128 bytes, placed by class name and debug map
-    // EffectList::Contains(EffectList const&) const
-    ulong EffectList::Contains(EffectList* param_1) {
-        char cVar1;
-        ulong uVar3;
-        uint uVar4;
-        undefined8 unaff_R12;
-        ulong uVar5;
-        bool bVar6;
+    // 0x10092a820
+    unsigned long EffectList::Contains(const EffectList& effectList) const {
+        bool cVar1;
+        unsigned long uVar3;
+        unsigned int uVar4;
+        unsigned long arg1;
 
-        bVar6 = eastl::bitset<121ul, unsigned long long>::size() != 0;
-        if (bVar6) {
+        bool bVar5 = size() != 0;
+        if (bVar5) {
             uVar4 = 1;
-            uVar5 = 0;
+            arg1 = 0;
             do {
-                cVar1 = param_1->test(uVar5);
-                if (cVar1 != '\0') {
-                    cVar1 = test(uVar5);
-                    if (cVar1 == '\0')
+                cVar1 = effectList.test(arg1);
+                if (cVar1) {
+                    cVar1 = test(arg1);
+                    if (!cVar1)
                         break;
                 }
-                uVar5 = (ulong)uVar4;
-                uVar3 = eastl::bitset<121ul, unsigned long long>::size();
+                arg1 = (unsigned long)uVar4;
+                uVar3 = size();
                 uVar4 = uVar4 + 1;
-                bVar6 = uVar5 < uVar3;
-            } while (uVar5 < uVar3);
+                bVar5 = arg1 < uVar3;
+            } while (arg1 < uVar3);
         }
-        return CONCAT71((int7)((ulong)unaff_R12 >> 8), ~bVar6) & 4294967041;
+        return ~bVar5 & 4294967041;
     }
 
-    // 0x10092a8b0, 112 bytes, placed by class name and debug map
-    // EffectList::GetEffectListHash() const
-    ulong EffectList::GetEffectListHash() {
-        ulong uVar2;
-        ulong uVar3;
-        ulong local_38;
-        ulong local_30;
+    // 0x10092a8b0
+    unsigned long EffectList::GetEffectListHash() const {
+        unsigned long uVar2;
+        unsigned long arg1;
+        unsigned long long local_38;
 
-        local_30 = 0;
-        if (eastl::bitset<121ul, unsigned long long>::size() != 0) {
-            uVar3 = 0;
+        return local_30 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                local_38 = DoGetWord(uVar3);
+                local_38 = DoGetWord(arg1);
                 hash_combine<unsigned long>(&local_30, &local_38);
-                uVar3 = uVar3 + 64;
-                uVar2 = eastl::bitset<121ul, unsigned long long>::size();
-            } while (uVar3 < uVar2);
+                arg1 = arg1 + 64;
+                uVar2 = size();
+            } while (arg1 < uVar2);
         }
         return local_30;
     }
 
-    // 0x10092a950, 192 bytes, placed by class name and debug map
-    // EffectList::AppendAsStringDefines(std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char> >&) const
-    /* EffectList::AppendAsStringDefines(std::basic_stringstream<char,
-   std::char_traits<char>, BucketAllocatorSTL<char> >&) const */
-
-    void EffectList::AppendAsStringDefines(basic_stringstream* param_1) {
+    // 0x10092a950
+    void EffectList::AppendAsStringDefines(
+        std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>& basic_stringstream) const {
         bool bVar1;
-        char cVar2;
-        ulong uVar4;
-        ostream* poVar5;
-        ostream* poVar6;
-        ulong uVar7;
+        unsigned long uVar4;
+        basic_ostream<char, std::char_traits<char> _>* pbVar5;
+        basic_ostream<char, std::char_traits<char> _>* basic_ostream;
+        unsigned long uVar6;
 
-        poVar6 = (ostream*)(param_1 + 16);
-        std::operator<<(poVar6, "\n/***************************************************/\n/***************** Effect "
-                                "Defines ******************/\n/***************************************************/\n");
-        if (eastl::bitset<121ul, unsigned long long>::size() != 0) {
+        basic_ostream = (basic_ostream<char, std::char_traits<char> _>*)(basic_stringstream + 16);
+        std::operator<<(basic_ostream,
+                        "\n/***************************************************/\n/***************** Effect Defines "
+                        "******************/\n/***************************************************/\n");
+        if (size() != 0) {
             uVar4 = 0;
-            uVar7 = 1;
+            uVar6 = 1;
             do {
-                cVar2 = test(uVar4);
-                if (cVar2 != '\0') {
-                    poVar5 = std::operator<<(poVar6, "#define ");
-                    poVar5 = std::operator<<(poVar5, (&EffectTypeStrings)[uVar4]);
-                    std::operator<<(poVar5, "\n");
+                if (test(uVar4) != '\0') {
+                    pbVar5 = std::operator<<(basic_ostream, "#define ");
+                    pbVar5 = std::operator<<(pbVar5, (&EffectTypeStrings)[uVar4]);
+                    std::operator<<(pbVar5, "\n");
                 }
-                uVar4 = eastl::bitset<121ul, unsigned long long>::size();
-                bVar1 = uVar7 < uVar4;
-                uVar4 = uVar7;
-                uVar7 = (ulong)((int)uVar7 + 1);
+                uVar4 = size();
+                bVar1 = uVar6 < uVar4;
+                uVar4 = uVar6;
+                uVar6 = (unsigned long)((int)uVar6 + 1);
             } while (bVar1);
         }
-        std::operator<<(poVar6, "\n/*************************************************/\n\n");
+        std::operator<<(basic_ostream, "\n/*************************************************/\n\n");
     }
 
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x10092a920, 48 bytes, inline, placed by debug map only (low confidence)
-    // void hash_combine<unsigned long long>(unsigned long&, unsigned long long const&)
-    /* void hash_combine<unsigned long>(unsigned long&, unsigned long const&) */
-
-    void hash_combine<unsigned long>(ulong* param_1, ulong* param_2) {
-        ulong uVar1;
-
-        uVar1 = *param_1;
-        *param_1 = (uVar1 >> 2) + uVar1 * 64 + *param_2 + 2654435769 ^ uVar1;
+    // 0x10092a920
+    void hash_combine<unsigned long long>(unsigned long& arg1, const unsigned long long& arg2) {
+        unsigned long uVar1 = arg1;
+        arg1 = (uVar1 >> 2) + uVar1 * 64 + arg2 + 2654435769 ^ uVar1;
     }
 
 } // namespace jag

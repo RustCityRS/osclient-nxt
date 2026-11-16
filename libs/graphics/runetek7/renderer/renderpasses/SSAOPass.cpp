@@ -1,687 +1,508 @@
 // libs/graphics/runetek7/renderer/renderpasses/SSAOPass.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "SSAOPass.h"
 
 namespace jag::graphics {
-    // 0x100f437a0, 64 bytes, __data
-    SSAOPass::m_SSAOModeNiceNames__ = {
+    // 0x100f437a0
+    int32_t SSAOPass::m_SSAOModeNiceNames__[16] = {
         0, 0, 14512292, 1, 1, 0, 14638297, 1, 2, 0, 14754932, 1, 3, 0, 14638305, 1,
     };
 
-    // 0x100f437e0, 4 bytes, __data
-    SSAOPass::m_SSAOMode = 1;
+    // 0x100f437e0
+    int32_t SSAOPass::m_SSAOMode = 1;
 
-    // 0x1039bd150, 16 bytes, __common; set at startup by ___cxx_global_var_init.81
+    // 0x1039bd150, set at startup by ___cxx_global_var_init.81
     StringEnum SSAOPass::m_SSAOModeNiceNames = StringEnum((StringEnumEntry*)&SSAOPass::m_SSAOModeNiceNames__, 4);
 
-    // 0x1007ac4a0, 352 bytes, base-object constructor, placed by class name and debug map
-    // SSAOPass::SSAOPass()
-    void SSAOPass::SSAOPass() {
-        undefined1* this_00;
-
-        FullscreenQuadPass::FullscreenQuadPass();
-        field_0 = &PTR__SSAOPass_100f14400;
-        m_pSSAOContext = (SSAOContext*)0;
-        new (field_632, (_func_decltype_nullptr*)12) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_648, (_func_decltype_nullptr*)12) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_672, "Texture2D") render::Texture2D();
-        new (&field_1184, "Texture2D") render::Texture2D();
-        this_00 = &field_1696;
+    // 0x1007ac4a0
+    SSAOPass::SSAOPass()
+        : FullscreenQuadPass(12), m_pSSAOContext(nullptr), field_672("Texture2D"), field_1184("Texture2D") {
+        uint8_t* this_00 = &field_1696;
         new (this_00) EffectList();
-        new (&field_1712) render::InputAssemblerState();
-        new (&field_1904) render::InputAssemblerState();
+        new (field_1712) render::InputAssemblerState();
+        new (field_1904) render::InputAssemblerState();
         this_00->Add(89);
         this_00->Add(114);
         this_00->Add(106);
-        (*(code*)field_0[8])(this);
+        CreateRenderingResources();
     }
 
-    // 0x1007ac600, 16 bytes, complete-object constructor, placed by class name and debug map
-    // SSAOPass::SSAOPass(): jumps straight to the base-object constructor
-
-    // 0x1007ac610, 112 bytes, base-object destructor, placed by class name and debug map
-    // SSAOPass::~SSAOPass()
-    void SSAOPass::~SSAOPass() {
-        field_0 = &PTR__SSAOPass_100f14400;
-        (&field_1904)->~InputAssemblerState();
-        (&field_1712)->~InputAssemblerState();
-        (&field_1184)->~Texture2D();
-        (&field_672)->~Texture2D();
+    // 0x1007ac610
+    SSAOPass::~SSAOPass() {
+        field_1904->~InputAssemblerState();
+        field_1712->~InputAssemblerState();
+        field_1184.~Texture2D();
+        field_672.~Texture2D();
         field_648->~shared_ptr();
         field_632->~shared_ptr();
-        ~FullscreenQuadPass();
     }
 
-    // 0x1007ac680, 16 bytes, complete-object destructor, placed by class name and debug map
-    // SSAOPass::~SSAOPass(): jumps straight to the base-object destructor
+    // 0x1007ac6b0
+    uint64_t SSAOPass::BeginPass(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                 EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                 const DrawableQueue& drawableQueue) {
+        RenderTargets* renderTargets;
 
-    // 0x1007ac690, 32 bytes, deleting destructor, placed by class name and debug map
-    // SSAOPass::~SSAOPass()
-    void SSAOPass::~SSAOPass() {
-        ~SSAOPass(this);
-        operator_delete(this);
-    }
-
-    // 0x1007ac6b0, 192 bytes, placed by class name and debug map
-    // SSAOPass::BeginPass(render::DrawCallState&, render::RenderContext&, EffectManager&, SceneViewData const&, DrawableQueue const&)
-    undefined8 SSAOPass::BeginPass(DrawCallState* param_1, RenderContext* param_2, EffectManager* param_3,
-                                   SceneViewData* param_4, DrawableQueue* param_5) {
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        Viewport* pVVar4;
-        OutputMergerState* this_00;
-        RenderTargets* pRVar5;
-
-        cVar1 = (&param_4->field_432)->empty();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = sceneViewData.field_432.empty();
+        if (cVar1) {
             LogAssert("!viewData.m_renderTargetViewports.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "renderer/renderpasses/SSAOPass.cpp",
-                      43, (char*)0);
+                      43, nullptr);
         }
-        bVar2 = field_648->operator_cast_to_bool();
-        if ((bVar2) && (bVar2 = field_632->operator_cast_to_bool(), bVar2)) {
-            uVar3 = (&param_4->field_432)->back();
-            pVVar4 = (Viewport*)param_1->GetOutputMergerState();
-            render::OutputMergerState::SetViewports(pVVar4, uVar3);
-            this_00 = (OutputMergerState*)param_1->GetOutputMergerState();
-            pRVar5 = (RenderTargets*)field_648->end();
-            this_00->SetRenderTargets(pRVar5);
-            return 1;
+        cVar1 = field_648->operator_cast_to_bool();
+        if ((!cVar1) || (cVar1 = field_632->operator_cast_to_bool(), !cVar1)) {
+            return 0;
         }
-        return 0;
+        auto viewport = sceneViewData.field_432.back();
+        auto pOVar2 = drawCallState.GetOutputMergerState();
+        pOVar2->SetViewports(viewport, 1);
+        pOVar2 = drawCallState.GetOutputMergerState();
+        renderTargets = (RenderTargets*)field_648->end();
+        pOVar2->SetRenderTargets(renderTargets);
+        return 1;
     }
 
-    // 0x1007ac770, 3248 bytes, placed by class name and debug map
-    // SSAOPass::Render(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&)
-    void SSAOPass::Render(RT7Core* param_1, DrawCallState* param_2, EffectManager* param_3, SceneViewData* param_4,
-                          DrawableQueue* param_5) {
-        undefined1* puVar1;
-        undefined1* this_00;
-        float fVar2;
-        RT7Core* pRVar3;
-        NXTPixToolkit* pNVar4;
-        bool bVar5;
-        char cVar6;
-        int iVar7;
-        RenderTargets* pRVar8;
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* this_01;
-        long lVar9;
-        Layout* pLVar10;
-        undefined8* puVar11;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* pvVar12;
-        uint* puVar13;
-        Viewport* pVVar14;
-        ShaderManager* pSVar15;
-        shared_ptr<Shader>* psVar16;
-        Shader* pSVar17;
-        ShaderProgram* pSVar18;
-        RenderPipelineState* pRVar19;
-        VertexBuffer* pVVar20;
-        HashedString* pHVar21;
+    // 0x1007ac770
+    void SSAOPass::Render(RT7Core& rt7Core, const render::DrawCallState& drawCallState, EffectManager& effectManager,
+                          const SceneViewData& sceneViewData, DrawableQueue& drawableQueue) {
+        uint8_t* puVar1;
+        uint8_t* this_00;
+        float arg2;
+        Texture* pTVar2;
+        RT7Core* effectList;
+        NXTPixToolkit* pNVar3;
+        int iVar5;
+        RenderTargets* pRVar6;
+        long lVar7;
+        Layout* pLVar8;
+        uint64_t* puVar9;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* pvVar10;
+        unsigned int* puVar11;
+        Viewport* pVVar12;
+        ShaderManager* pSVar13;
+        shared_ptr<Shader>* psVar14;
+        Shader* pSVar15;
+        ShaderProgram* pSVar16;
+        RenderPipelineState* pRVar17;
+        VertexBuffer* pVVar18;
+        HashedString* pHVar19;
         WorldmapAreaMetadata* this_02;
-        Matrix44T* pMVar22;
-        vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>* this_03;
-        vector* pvVar23;
-        float* pfVar24;
-        Texture* pTVar25;
+        Matrix44T<float>* pMVar20;
+        vector<render::Viewport, eastl::fixed_vector_allocator<24ul, _2ul, _4ul, _0ul, true> _>* this_03;
+        float* pfVar21;
         RenderTargets* this_04;
-        Texture* pTVar26;
-        Matrix44T* pMVar27;
-        MapArea* this_05;
-        undefined8 uVar28;
-        OutputMergerState* this_06;
-        RenderTargetsManager* this_07;
-        SceneViewData* extraout_RDX;
+        Texture* texture1;
+        Matrix44T<float>* matrix442;
+        char* str;
+        FullscreenQuadPass* pFVar22;
+        RenderContext* renderContext;
+        RenderContext* renderContext_00;
+        RenderContext* renderContext_01;
+        RenderContext* renderContext_02;
+        RenderContext* extraout_RDX;
         RenderContext* extraout_RDX_00;
-        SceneViewData* extraout_RDX_01;
-        RenderContext* extraout_RDX_02;
-        SceneViewData* extraout_RDX_03;
-        SceneViewData* extraout_RDX_04;
-        SceneViewData* pSVar29;
-        RenderContext* extraout_RDX_05;
-        undefined1* puVar30;
-        type* ptVar31;
-        RT7Core* pRVar32;
-        RenderContext* pRVar33;
-        DrawCallState* this_08;
-        shared_ptr<render::RenderTargets>* this_09;
-        undefined4 uVar34;
-        undefined4 uVar35;
-        undefined1 auVar36[16];
-        EffectList EVar37;
+        RenderContext* renderContext_03;
+        RenderContext* renderContext_04;
+        uint8_t* puVar24;
+        RT7Core* pRVar25;
+        shared_ptr<render::RenderTargets>* this_08;
+        bool bVar26;
+        uint32_t uVar27;
+        uint8_t auVar29[16];
+        EffectList EVar30;
         DrawCallState local_1a8;
-        undefined8 local_178;
-        undefined8 uStack_170;
-        undefined1 local_168[72];
+        uint64_t local_178;
+        uint64_t uStack_170;
+        uint8_t local_168[72];
         GeometryBatch* local_120;
         float local_118[6];
-        undefined1 local_100[76];
+        uint8_t local_100[76];
         float local_b4;
         VertexDeclaration* local_b0;
-        DrawCallState* local_a8;
-        vector* local_a0;
-        undefined1 local_98[32];
-        SunlightDirectLighting* local_78;
+        SceneViewData* local_a0;
+        uint8_t local_98[32];
+        FogEffect* local_78;
         RenderContext* local_70;
-        RT7Core* local_68;
         float local_5c;
         RenderContext* local_58;
         RT7Core* local_50;
         SSAOPass* local_48;
-        shared_ptr<render::RenderTargets>* local_40;
-        NXTPixToolkit* local_38;
 
-        local_40 = (shared_ptr<render::RenderTargets>*)field_648;
-        local_38 = (NXTPixToolkit*)param_4;
-        bVar5 = local_40->operator_cast_to_bool();
-        if (bVar5) {
+        shared_ptr<render::RenderTargets>* local_40 = (shared_ptr<render::RenderTargets>*)field_648;
+        SceneViewData* pSVar23 = (SceneViewData*)effectManager;
+        if (local_40->operator_cast_to_bool()) {
             puVar1 = field_632;
-            bVar5 = puVar1->operator_cast_to_bool();
-            if (bVar5) {
-                local_a8 = param_2;
-                local_50 = (RT7Core*)param_3;
-                cVar6 = (&field_1184)->IsCreated();
-                if (cVar6 != '\0') {
+            if (puVar1->operator_cast_to_bool()) {
+                local_50 = (RT7Core*)effectManager;
+                if (field_1184.IsCreated()) {
                     this_00 = &field_672;
-                    cVar6 = this_00->IsCreated();
-                    if (cVar6 != '\0') {
-                        puVar30 = &field_1696;
+                    if (this_00->IsCreated()) {
+                        puVar24 = &field_1696;
                         local_48 = this;
-                        pRVar8 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                            (shared_ptr<render::RenderTargets>*)puVar1);
-                        this_01 = (compressed_pair_imp<
-                                   eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                           eastl::allocator>>::Layout,
-                                   eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)
-                                      pRVar8->GetDepthStencilTargetTexture();
-                        lVar9 = eastl::compressed_pair_imp<
-                            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>,
-                            0>::second(this_01);
-                        puVar30->Set(89, 1 < *(uint*)(lVar9 + 16));
-                        local_98._24_8_ = puVar30;
-                        puVar30->Set(114, 0);
-                        ptVar31 = (type*)106;
-                        pRVar32 = local_50;
-                        local_78 = EffectManager::GetEffect<SunlightDirectLighting>();
-                        pNVar4 = local_38;
-                        auVar36._8_8_ = local_100._8_8_;
-                        auVar36._0_8_ = local_100._0_8_;
+                        pRVar6 = (RenderTargets*)(*puVar1).operator->();
+                        lVar7 = ((compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<
+                                                                                    1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                                                      eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>*)
+                                     pRVar6->GetDepthStencilTargetTexture())
+                                    ->second();
+                        puVar24->Set(89, 1 < *(unsigned int*)(lVar7 + 16));
+                        local_98._24_8_ = puVar24;
+                        puVar24->Set(114, false);
+                        pRVar25 = local_50;
+                        local_78 = local_50->GetEffect<SunlightDirectLighting>(106);
+                        pNVar3 = (NXTPixToolkit*)sceneViewData;
+                        auVar29._8_8_ = local_100._8_8_;
+                        auVar29._0_8_ = local_100._0_8_;
                         if (m_SSAOMode == 3) {
-                            pRVar8 = (RenderTargets*)local_48->m_pSSAOContext;
-                            if (pRVar8 != (RenderTargets*)0) {
-                                pTVar25 = (Texture*)shared_ptr<render::RenderTargets>::operator*(local_40);
-                                this_04 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                                    (shared_ptr<render::RenderTargets>*)puVar1);
-                                pTVar26 = (Texture*)this_04->GetDepthStencilTargetTexture();
-                                pMVar22 = (Matrix44T*)eastl::vector<
-                                    render::Viewport,
-                                    eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>::
-                                operator[](
-                                    (vector<render::Viewport,
-                                            eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                          eastl::allocator>>*)&local_38->field_432,
-                                    0);
-                                pMVar27 = (Matrix44T*)local_38->GetScreen();
-                                local_38->GetOrigin();
-                                SSAOContext::Render(pRVar8, pTVar25, pTVar26, (Viewport*)0, pMVar22, pMVar27);
+                            pTVar2 = local_48->m_pSSAOContext;
+                            if (pTVar2 != nullptr) {
+                                pRVar6 = (RenderTargets*)**local_40;
+                                this_04 = (RenderTargets*)(*puVar1).operator->();
+                                texture1 = (Texture*)this_04->GetDepthStencilTargetTexture();
+                                pVVar12 = (Viewport*)((NXTPixToolkit*)sceneViewData)->field_432[0];
+                                pMVar20 = (Matrix44T<float>*)((NXTPixToolkit*)sceneViewData)->GetScreen();
+                                matrix442 = (Matrix44T<float>*)((NXTPixToolkit*)sceneViewData)->GetOrigin();
+                                pTVar2->Render(*pRVar6, texture1, nullptr, *pVVar12, *pMVar20, *matrix442);
                             }
                         } else {
-                            local_68 = param_1;
                             if (m_SSAOMode == 2) {
-                                local_58 = (RenderContext*)pRVar32->GetRenderContext();
-                                pLVar10 = (Layout*)local_68->GetSSAOContext();
-                                local_a0 = eastl::string::Layout::SSOBeginPtr(pLVar10, ptVar31);
-                                puVar11 = (undefined8*)pNVar4->GetRenderTargets();
-                                pvVar12 = (vector<render::Texture*,
-                                                  eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                                eastl::allocator>>*)(*puVar11)
+                                local_58 = (RenderContext*)pRVar25->GetRenderContext();
+                                pLVar8 = (Layout*)rt7Core.GetSSAOContext();
+                                local_a0 = (SceneViewData*)pLVar8->SSOBeginPtr();
+                                puVar9 = (uint64_t*)pNVar3->GetRenderTargets();
+                                pvVar10 = (vector<render::Texture*,
+                                                  eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)(*puVar9)
                                               ->GetColourTargetTextures();
-                                puVar11 = (undefined8*)
-                                    eastl::vector<render::Texture*,
-                                                  eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                                eastl::allocator>>::operator[](pvVar12,
-                                                                                                               0);
-                                puVar13 = (uint*)(*puVar11)->second();
-                                local_168._64_8_ = &pNVar4->field_432;
-                                pVVar14 = (Viewport*)eastl::vector<
-                                    render::Viewport,
-                                    eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>::
-                                operator[](
-                                    (vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                                            eastl::allocator>>*)
-                                        local_168._64_8_,
-                                    0);
-                                new (&local_1a8) math::Point<float>((float)*puVar13, (float)puVar13[1]);
-                                local_78->SetViewportLookupScale(pVVar14, (Vector2T*)&local_1a8);
-                                pRVar33 = (RenderContext*)&local_1a8;
-                                new (&local_1a8) render::DrawCallState(local_a8);
-                                FullscreenQuadPass::QuadBeginRender((DrawCallState*)pRVar33, (RenderContext*)&local_1a8,
-                                                                    extraout_RDX_01);
-                                pRVar32 = local_50;
-                                local_100._0_16_ = local_50->BuildShaderEffectList(local_98._24_8_);
-                                pSVar15 = (ShaderManager*)local_68->GetShaderManager();
+                                puVar9 = (uint64_t*)(*pvVar10)[0];
+                                puVar11 = (unsigned int*)(*puVar9)->second();
+                                local_168._64_8_ = &pNVar3->field_432;
+                                pVVar12 = (Viewport*)(*local_168._64_8_)[0];
+                                local_1a8 = math::Point((float)*puVar11, (float)puVar11[1]);
+                                local_78->SetViewportLookupScale(*pVVar12, local_1a8);
+                                pFVar22 = (FullscreenQuadPass*)&local_1a8;
+                                local_1a8 = render::DrawCallState(drawCallState);
+                                pFVar22->QuadBeginRender(local_1a8, *renderContext_01, *pSVar23);
+                                pRVar25 = local_50;
+                                local_100._0_16_ = local_50->BuildShaderEffectList(*local_98._24_8_);
+                                pSVar13 = rt7Core.GetShaderManager();
                                 local_b0 = (VertexDeclaration*)&local_48->field_16;
-                                EVar37 = (EffectList)255;
-                                psVar16 = (shared_ptr<Shader>*)pSVar15->GetShader(20, pRVar32, local_100, local_b0, 0);
-                                pRVar19 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
-                                pSVar17 = (Shader*)shared_ptr<Shader>::operator->(psVar16);
-                                pSVar18 = (ShaderProgram*)pSVar17->GetProgram();
-                                pRVar19->SetShaderProgram(pSVar18);
-                                puVar1 = &local_48->field_1712;
+                                EVar30 = (EffectList)255;
+                                psVar14 = (shared_ptr<Shader>*)ShaderManager::GetShader(
+                                    (ShaderType)pSVar13, *20, *pRVar25, *local_100, (unsigned char)local_b0, 0);
+                                pRVar17 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
+                                pSVar15 = (Shader*)(*psVar14).operator->();
+                                pSVar16 = pSVar15->GetProgram();
+                                pRVar17->SetShaderProgram(pSVar16);
+                                puVar1 = local_48->field_1712;
                                 local_120 = (GeometryBatch*)&local_48->field_112;
-                                pVVar20 = (VertexBuffer*)local_120->GetBoneIDMap();
-                                puVar1->SetVertexStreamData(local_b0, pVVar20);
+                                pVVar18 = (VertexBuffer*)local_120->GetBoneIDMap();
+                                puVar1->SetVertexStreamData(local_b0, pVVar18);
                                 local_1a8.SetInputAssemblerState(puVar1);
-                                pSVar17 = (Shader*)shared_ptr<Shader>::operator->(psVar16);
-                                pSVar18 = (ShaderProgram*)pSVar17->GetProgram();
-                                shared_ptr<Shader>::operator*(psVar16);
-                                EffectManager::SetShaderConstants((DrawCallState*)local_50, (RenderContext*)&local_1a8,
-                                                                  (Shader*)local_58, EVar37);
-                                SetSharedState(local_48, &local_1a8, extraout_RDX_02, pSVar18,
-                                               (SceneViewData*)local_38);
-                                pRVar19 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
-                                pHVar21 = (HashedString*)graphics::operator*((graphics*)108);
-                                iVar7 = pSVar18->GetConstIndex(pHVar21);
-                                pRVar19->SetPSTextureSamplerPair(2, (Texture*)&field_1184, iVar7, (SamplerState*)0,
-                                                                 false);
-                                pHVar21 = (HashedString*)graphics::operator*((graphics*)99);
-                                fVar2 = *(float*)local_a0;
-                                pSVar18->SetShaderConstFloat4(pHVar21, fVar2, -1.0 / (fVar2 * fVar2),
-                                                              *(float*)(local_a0 + 4), *(float*)(local_a0 + 20));
-                                local_48->QuadEndRender(&local_1a8, local_58);
-                                this_08 = &local_1a8;
-                                this_08->~DrawCallState();
-                                if (local_a0[40] != (vector)0) {
-                                    this_05 = (MapArea*)this_08->Instance();
-                                    lVar9 = this_05->GetOrigin();
-                                    if (*(int*)(lVar9 + 84) < 4) {
-                                        /* WARNING: Subroutine does not return */
+                                pSVar15 = (Shader*)(*psVar14).operator->();
+                                pSVar16 = pSVar15->GetProgram();
+                                pSVar15 = (Shader*)**psVar14;
+                                local_50->SetShaderConstants(local_1a8, *local_58, *pSVar15, EVar30);
+                                SetSharedState(local_48, &local_1a8, renderContext_02, pSVar16,
+                                               (SceneViewData*)(NXTPixToolkit*)sceneViewData);
+                                pRVar17 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
+                                pHVar19 = (HashedString*)graphics::operator*(108);
+                                iVar5 = pSVar16->GetConstIndex(*pHVar19);
+                                pRVar17->SetPSTextureSamplerPair(2, &field_1184, iVar5, nullptr, false);
+                                pHVar19 = (HashedString*)graphics::operator*(99);
+                                arg2 = *(float*)local_a0;
+                                pSVar16->SetShaderConstFloat4(pHVar19, arg2, -1.0 / (arg2 * arg2),
+                                                              *(float*)&local_a0->field_4,
+                                                              *(float*)&local_a0->field_20);
+                                local_48->QuadEndRender(local_1a8, *local_58);
+                                if (local_a0->field_40 != '\0') {
+                                    lVar7 = ((MapArea*)local_1a8.Instance())->GetOrigin();
+                                    if (*(int*)(lVar7 + 84) < 4) {
                                         LogAssert("RenderDevice::Instance().GetDeviceCaps().m_MaxTextureOffset >= 4",
                                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
                                                   "libs/graphics/runetek7/renderer/renderpasses/SSAOPass.cpp",
-                                                  193, (char*)0);
+                                                  193, nullptr);
                                     }
-                                    uVar28 = local_68->GetRenderTargetsManager();
-                                    pRVar8 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(local_40);
-                                    pvVar12 =
-                                        (vector<render::Texture*, eastl::fixed_vector_allocator<
-                                                                      8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                            pRVar8->GetColourTargetTextures();
-                                    puVar11 = (undefined8*)eastl::vector<
-                                        render::Texture*,
-                                        eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                      eastl::allocator>>::operator[](pvVar12, 0);
-                                    puVar11 = (undefined8*)(*puVar11)->second();
-                                    local_1a8.m_pInputAssemblerState = (InputAssemblerState*)*puVar11;
-                                    local_1a8.m_pRenderPipelineState = (RenderPipelineState*)puVar11[1];
-                                    local_1a8.m_pOutputMergerState = (OutputMergerState*)puVar11[2];
-                                    local_1a8.field_24._0_8_ = puVar11[3];
-                                    local_1a8.field_24._8_8_ = puVar11[4];
-                                    local_1a8.field_24._16_8_ = puVar11[5];
-                                    local_178 = puVar11[6];
-                                    uStack_170 = puVar11[7];
+                                    str = (char*)rt7Core.GetRenderTargetsManager();
+                                    pRVar6 = (RenderTargets*)(*local_40).operator->();
+                                    pvVar10 = (vector<render::Texture*,
+                                                      eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                                                  pRVar6->GetColourTargetTextures();
+                                    puVar9 = (uint64_t*)(*pvVar10)[0];
+                                    puVar9 = (uint64_t*)(*puVar9)->second();
+                                    local_1a8.m_pInputAssemblerState = (InputAssemblerState*)*puVar9;
+                                    local_1a8.m_pRenderPipelineState = &puVar9[1];
+                                    local_1a8.m_pOutputMergerState = &puVar9[2];
+                                    local_1a8.field_24._0_8_ = puVar9[3];
+                                    local_1a8.field_24._8_8_ = puVar9[4];
+                                    local_1a8.field_24._16_8_ = puVar9[5];
+                                    local_178 = puVar9[6];
+                                    uStack_170 = puVar9[7];
                                     new (local_168) render::Texture::Desc();
                                     new (local_100) render::Texture::Desc();
-                                    local_70 = (RenderContext*)CONCAT44(local_70._4_4_, 1);
-                                    local_98->Register(uVar28, "SSAOBlur", 3553, (RenderContext*)&local_1a8, 1,
-                                                       local_100, 0, 1);
-                                    local_100._64_8_ = &local_48->field_1904;
+                                    local_70 = (RenderContext*)(((uint64_t)local_70._4_4_ << 32) | (uint32_t)1);
+                                    pSVar23 = (SceneViewData*)3553;
+                                    local_98->Register(str, 14638434, *3553, (int)&local_1a8, DAT_00000001,
+                                                       (unsigned int)(Desc*)local_100, false);
+                                    local_100._64_8_ = local_48->field_1904;
                                     do {
-                                        new (&local_1a8) render::DrawCallState(local_a8);
-                                        this_09 = local_40;
+                                        local_1a8 = render::DrawCallState(drawCallState);
+                                        this_08 = local_40;
                                         if ((int)local_70 == 0) {
-                                            this_09 = (shared_ptr<render::RenderTargets>*)local_98;
+                                            this_08 = (shared_ptr<render::RenderTargets>*)local_98;
                                         }
-                                        pRVar8 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(this_09);
-                                        pvVar12 =
-                                            (vector<render::Texture*, eastl::fixed_vector_allocator<
-                                                                          8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                                pRVar8->GetColourTargetTextures();
-                                        puVar11 = (undefined8*)eastl::vector<
-                                            render::Texture*,
-                                            eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                          eastl::allocator>>::operator[](pvVar12, 0);
-                                        puVar13 = (uint*)(*puVar11)->second();
-                                        pVVar14 = (Viewport*)eastl::vector<
-                                            render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                                            eastl::allocator>>::
-                                        operator[](
-                                            (vector<render::Viewport,
-                                                    eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                                  eastl::allocator>>*)local_168._64_8_,
-                                            0);
-                                        new (local_100) math::Point<float>((float)*puVar13, (float)puVar13[1]);
-                                        local_78->SetViewportLookupScale(pVVar14, local_100);
-                                        bVar5 = (int)local_70 == 0;
-                                        local_70 = (RenderContext*)CONCAT44(local_70._4_4_, (int)local_70 + -1);
-                                        if (bVar5) {
-                                            local_98._24_8_->Set(114, 1);
-                                            this_06 = (OutputMergerState*)local_1a8.GetOutputMergerState();
-                                            pRVar8 = (RenderTargets*)local_40->end();
-                                            this_06->SetRenderTargets(pRVar8);
-                                            pSVar29 = extraout_RDX_03;
+                                        pRVar6 = (RenderTargets*)(*this_08).operator->();
+                                        pvVar10 = (vector<render::Texture*,
+                                                          eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                                                      pRVar6->GetColourTargetTextures();
+                                        puVar9 = (uint64_t*)(*pvVar10)[0];
+                                        puVar11 = (unsigned int*)(*puVar9)->second();
+                                        pVVar12 = (Viewport*)(*local_168._64_8_)[0];
+                                        new (local_100) math::Point((float)*puVar11, (float)puVar11[1]);
+                                        local_78->SetViewportLookupScale(*pVVar12, *local_100);
+                                        bVar26 = (int)local_70 == 0;
+                                        local_70 = (RenderContext*)(((uint64_t)local_70._4_4_ << 32) |
+                                                                    (uint32_t)((int)local_70 - 1));
+                                        if (bVar26) {
+                                            local_98._24_8_->Set(114, true);
+                                            pFVar22 = (FullscreenQuadPass*)local_1a8.GetOutputMergerState();
+                                            pRVar6 = (RenderTargets*)local_40->end();
+                                            pFVar22->SetRenderTargets(pRVar6);
+                                            renderContext_03 = extraout_RDX;
                                         } else {
-                                            this_06 = (OutputMergerState*)local_1a8.GetOutputMergerState();
-                                            pRVar8 = (RenderTargets*)local_98->end();
-                                            this_06->SetRenderTargets(pRVar8);
-                                            pSVar29 = extraout_RDX_04;
+                                            pFVar22 = (FullscreenQuadPass*)local_1a8.GetOutputMergerState();
+                                            pRVar6 = (RenderTargets*)local_98->end();
+                                            pFVar22->SetRenderTargets(pRVar6);
+                                            renderContext_03 = extraout_RDX_00;
                                         }
-                                        FullscreenQuadPass::QuadBeginRender((DrawCallState*)this_06,
-                                                                            (RenderContext*)&local_1a8, pSVar29);
-                                        pRVar32 = local_50;
-                                        auVar36 = local_50->BuildShaderEffectList(local_98._24_8_);
-                                        local_100._0_16_ = auVar36;
-                                        pSVar15 = (ShaderManager*)local_68->GetShaderManager();
-                                        EVar37 = (EffectList)255;
-                                        psVar16 = (shared_ptr<Shader>*)pSVar15->GetShader(19, pRVar32, local_100,
-                                                                                          local_b0, 0);
-                                        pRVar19 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
-                                        pSVar17 = (Shader*)shared_ptr<Shader>::operator->(psVar16);
-                                        pSVar18 = (ShaderProgram*)pSVar17->GetProgram();
-                                        pRVar19->SetShaderProgram(pSVar18);
-                                        pVVar20 = (VertexBuffer*)local_120->GetBoneIDMap();
-                                        local_100._64_8_->SetVertexStreamData(local_b0, pVVar20);
+                                        pFVar22->QuadBeginRender(local_1a8, *renderContext_03, *pSVar23);
+                                        pRVar25 = local_50;
+                                        auVar29 = local_50->BuildShaderEffectList(*local_98._24_8_);
+                                        local_100._0_16_ = auVar29;
+                                        pSVar13 = rt7Core.GetShaderManager();
+                                        EVar30 = (EffectList)255;
+                                        psVar14 = (shared_ptr<Shader>*)ShaderManager::GetShader(
+                                            (ShaderType)pSVar13, *19, *pRVar25, *local_100, (unsigned char)local_b0, 0);
+                                        pRVar17 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
+                                        pSVar15 = (Shader*)(*psVar14).operator->();
+                                        pSVar16 = pSVar15->GetProgram();
+                                        pRVar17->SetShaderProgram(pSVar16);
+                                        pVVar18 = (VertexBuffer*)local_120->GetBoneIDMap();
+                                        local_100._64_8_->SetVertexStreamData(local_b0, pVVar18);
                                         local_1a8.SetInputAssemblerState(local_100._64_8_);
-                                        pSVar17 = (Shader*)shared_ptr<Shader>::operator->(psVar16);
-                                        pSVar18 = (ShaderProgram*)pSVar17->GetProgram();
-                                        shared_ptr<Shader>::operator*(psVar16);
-                                        EffectManager::SetShaderConstants((DrawCallState*)local_50,
-                                                                          (RenderContext*)&local_1a8, (Shader*)local_58,
-                                                                          EVar37);
-                                        SetSharedState(local_48, &local_1a8, extraout_RDX_05, pSVar18,
-                                                       (SceneViewData*)local_38);
-                                        pRVar19 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
-                                        pRVar8 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(this_09);
-                                        pvVar12 =
-                                            (vector<render::Texture*, eastl::fixed_vector_allocator<
-                                                                          8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                                pRVar8->GetColourTargetTextures();
-                                        puVar11 = (undefined8*)eastl::vector<
-                                            render::Texture*,
-                                            eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                          eastl::allocator>>::operator[](pvVar12, 0);
-                                        pTVar25 = (Texture*)*puVar11;
-                                        pHVar21 = (HashedString*)graphics::operator*((graphics*)110);
-                                        iVar7 = pSVar18->GetConstIndex(pHVar21);
-                                        pRVar19->SetPSTextureSamplerPair(2, pTVar25, iVar7, 0, false);
-                                        local_38->GetNearFarPlaneDistances(local_118, &local_5c);
-                                        pHVar21 = (HashedString*)graphics::operator*((graphics*)104);
-                                        pSVar18->SetShaderConstFloat4(pHVar21, local_5c * local_118[0],
+                                        pSVar15 = (Shader*)(*psVar14).operator->();
+                                        pSVar16 = pSVar15->GetProgram();
+                                        pSVar15 = (Shader*)**psVar14;
+                                        local_50->SetShaderConstants(local_1a8, *local_58, *pSVar15, EVar30);
+                                        SetSharedState(local_48, &local_1a8, renderContext_04, pSVar16,
+                                                       (SceneViewData*)(NXTPixToolkit*)sceneViewData);
+                                        pRVar17 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
+                                        pRVar6 = (RenderTargets*)(*this_08).operator->();
+                                        pvVar10 = (vector<render::Texture*,
+                                                          eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                                                      pRVar6->GetColourTargetTextures();
+                                        puVar9 = (uint64_t*)(*pvVar10)[0];
+                                        pTVar2 = (Texture*)*puVar9;
+                                        pHVar19 = (HashedString*)graphics::operator*(110);
+                                        iVar5 = pSVar16->GetConstIndex(*pHVar19);
+                                        pRVar17->SetPSTextureSamplerPair(2, pTVar2, iVar5, nullptr, false);
+                                        ((NXTPixToolkit*)sceneViewData)->GetNearFarPlaneDistances(*local_118, local_5c);
+                                        pHVar19 = (HashedString*)graphics::operator*(104);
+                                        pSVar23 = local_a0;
+                                        pSVar16->SetShaderConstFloat4(pHVar19, local_5c * local_118[0],
                                                                       local_118[0] - local_5c, local_5c,
-                                                                      *(float*)(local_a0 + 44));
-                                        local_48->QuadEndRender(&local_1a8, local_58);
-                                        local_1a8.~DrawCallState();
+                                                                      *(float*)&local_a0->field_44);
+                                        local_48->QuadEndRender(local_1a8, *local_58);
                                     } while ((int)local_70 == 0);
-                                    this_07 = (RenderTargetsManager*)local_68->GetRenderTargetsManager();
-                                    this_07->Unregister(local_98);
-                                    local_98->~shared_ptr();
+                                    ((RenderTargetsManager*)rt7Core.GetRenderTargetsManager())->Unregister(*local_98);
                                 }
                             } else {
-                                local_100._0_16_ = auVar36;
-                                local_98._0_8_ = (undefined**)CONCAT44(local_98._4_4_, local_98._0_4_);
+                                local_100._0_16_ = auVar29;
+                                local_98._0_8_ = (RenderTargetsManager_vtbl*)(((uint64_t)local_98._4_4_ << 32) |
+                                                                              (uint32_t)local_98._0_4_);
                                 if (m_SSAOMode == 1) {
-                                    local_70 = (RenderContext*)pRVar32->GetRenderContext();
-                                    pRVar32 = local_68;
-                                    pLVar10 = (Layout*)local_68->GetSSAOContext();
-                                    local_58 = (RenderContext*)eastl::string::Layout::SSOBeginPtr(pLVar10, ptVar31);
-                                    puVar11 = (undefined8*)pNVar4->GetRenderTargets();
-                                    pvVar12 = (vector<render::Texture*,
-                                                      eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                                    eastl::allocator>>*)(*puVar11)
-                                                  ->GetColourTargetTextures();
-                                    puVar11 = (undefined8*)eastl::vector<
-                                        render::Texture*,
-                                        eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                      eastl::allocator>>::operator[](pvVar12, 0);
-                                    puVar13 = (uint*)(*puVar11)->second();
-                                    pVVar14 = (Viewport*)eastl::vector<
-                                        render::Viewport,
-                                        eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>::
-                                    operator[](
-                                        (vector<render::Viewport,
-                                                eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                              eastl::allocator>>*)&pNVar4->field_432,
-                                        0);
-                                    new (&local_1a8) math::Point<float>((float)*puVar13, (float)puVar13[1]);
-                                    local_78->SetViewportLookupScale(pVVar14, (Vector2T*)&local_1a8);
-                                    pRVar33 = (RenderContext*)&local_1a8;
-                                    new (&local_1a8) render::DrawCallState(local_a8);
-                                    FullscreenQuadPass::QuadBeginRender((DrawCallState*)pRVar33,
-                                                                        (RenderContext*)&local_1a8, extraout_RDX);
-                                    pRVar3 = local_50;
-                                    local_100._0_16_ = local_50->BuildShaderEffectList(local_98._24_8_);
-                                    pSVar15 = (ShaderManager*)pRVar32->GetShaderManager();
+                                    local_70 = (RenderContext*)pRVar25->GetRenderContext();
+                                    pRVar25 = rt7Core;
+                                    pLVar8 = (Layout*)rt7Core.GetSSAOContext();
+                                    local_58 = (RenderContext*)pLVar8->SSOBeginPtr();
+                                    puVar9 = (uint64_t*)pNVar3->GetRenderTargets();
+                                    pvVar10 =
+                                        (vector<render::Texture*,
+                                                eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)(*puVar9)
+                                            ->GetColourTargetTextures();
+                                    puVar9 = (uint64_t*)(*pvVar10)[0];
+                                    puVar11 = (unsigned int*)(*puVar9)->second();
+                                    pVVar12 = &pNVar3->field_432[0];
+                                    local_1a8 = math::Point((float)*puVar11, (float)puVar11[1]);
+                                    local_78->SetViewportLookupScale(*pVVar12, local_1a8);
+                                    pFVar22 = (FullscreenQuadPass*)&local_1a8;
+                                    local_1a8 = render::DrawCallState(drawCallState);
+                                    pFVar22->QuadBeginRender(local_1a8, *renderContext, *pSVar23);
+                                    effectList = local_50;
+                                    local_100._0_16_ = local_50->BuildShaderEffectList(*local_98._24_8_);
+                                    pSVar13 = pRVar25->GetShaderManager();
                                     puVar1 = &local_48->field_16;
-                                    EVar37 = (EffectList)255;
-                                    psVar16 = (shared_ptr<Shader>*)pSVar15->GetShader(21, pRVar3, local_100, puVar1, 0);
-                                    pSVar17 = (Shader*)shared_ptr<Shader>::operator->(psVar16);
-                                    pSVar18 = (ShaderProgram*)pSVar17->GetProgram();
-                                    pRVar19 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
-                                    pRVar19->SetShaderProgram(pSVar18);
-                                    puVar30 = &local_48->field_1712;
-                                    pVVar20 = (VertexBuffer*)(&local_48->field_112)->GetBoneIDMap();
-                                    puVar30->SetVertexStreamData(puVar1, pVVar20);
-                                    local_1a8.SetInputAssemblerState(puVar30);
-                                    shared_ptr<Shader>::operator*(psVar16);
-                                    EffectManager::SetShaderConstants((DrawCallState*)local_50,
-                                                                      (RenderContext*)&local_1a8, (Shader*)local_70,
-                                                                      EVar37);
-                                    SetSharedState(local_48, &local_1a8, extraout_RDX_00, pSVar18,
-                                                   (SceneViewData*)local_38);
-                                    local_38->GetNearFarPlaneDistances(&local_5c, &local_b4);
+                                    EVar30 = (EffectList)255;
+                                    psVar14 = (shared_ptr<Shader>*)ShaderManager::GetShader(
+                                        (ShaderType)pSVar13, *21, *effectList, *local_100, (unsigned char)puVar1, 0);
+                                    pSVar15 = (Shader*)(*psVar14).operator->();
+                                    pSVar16 = pSVar15->GetProgram();
+                                    pRVar17 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
+                                    pRVar17->SetShaderProgram(pSVar16);
+                                    puVar24 = local_48->field_1712;
+                                    pVVar18 = (VertexBuffer*)local_48->field_112.GetBoneIDMap();
+                                    puVar24->SetVertexStreamData(puVar1, pVVar18);
+                                    local_1a8.SetInputAssemblerState(puVar24);
+                                    pSVar15 = (Shader*)**psVar14;
+                                    local_50->SetShaderConstants(local_1a8, *local_70, *pSVar15, EVar30);
+                                    SetSharedState(local_48, &local_1a8, renderContext_00, pSVar16,
+                                                   (SceneViewData*)(NXTPixToolkit*)sceneViewData);
+                                    ((NXTPixToolkit*)sceneViewData)->GetNearFarPlaneDistances(local_5c, local_b4);
                                     local_40._0_4_ = local_b4 - local_5c;
-                                    pHVar21 = (HashedString*)graphics::operator*((graphics*)100);
-                                    pSVar18->SetShaderConstFloat1(pHVar21, local_40._0_4_);
-                                    pHVar21 = (HashedString*)graphics::operator*((graphics*)101);
-                                    pSVar18->SetShaderConstFloat1(pHVar21, 4.0);
-                                    pHVar21 = (HashedString*)graphics::operator*((graphics*)102);
-                                    pSVar18->SetShaderConstFloat1(pHVar21, 10.0);
-                                    pHVar21 = (HashedString*)graphics::operator*((graphics*)109);
-                                    puVar13 = (uint*)this_00->second();
-                                    local_40._0_4_ = 1.0 / (float)*puVar13;
-                                    lVar9 = this_00->second();
-                                    pSVar18->SetShaderConstFloat2(pHVar21, local_40._0_4_,
-                                                                  1.0 / (float)*(uint*)(lVar9 + 4));
-                                    pRVar19 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
-                                    pHVar21 = (HashedString*)graphics::operator*((graphics*)108);
-                                    iVar7 = pSVar18->GetConstIndex(pHVar21);
-                                    ptVar31 = (type*)2;
-                                    pRVar19->SetPSTextureSamplerPair(2, this_00, iVar7, 0, false);
-                                    local_50 = (RT7Core*)CONCAT44(local_50._4_4_,
-                                                                  *(undefined4*)(local_58->m_immediateContext + 12));
-                                    uVar34._0_1_ = 0;
-                                    uVar34._1_3_ = 0;
-                                    uVar35 = 0;
+                                    pHVar19 = (HashedString*)graphics::operator*(100);
+                                    pSVar16->SetShaderConstFloat1(pHVar19, local_40._0_4_);
+                                    pHVar19 = (HashedString*)graphics::operator*(101);
+                                    pSVar16->SetShaderConstFloat1(pHVar19, 4.0);
+                                    pHVar19 = (HashedString*)graphics::operator*(102);
+                                    pSVar16->SetShaderConstFloat1(pHVar19, 10.0);
+                                    pHVar19 = (HashedString*)graphics::operator*(109);
+                                    puVar11 = (unsigned int*)this_00->second();
+                                    local_40._0_4_ = 1.0 / (float)*puVar11;
+                                    lVar7 = this_00->second();
+                                    pSVar16->SetShaderConstFloat2(pHVar19, local_40._0_4_,
+                                                                  1.0 / (float)*(unsigned int*)(lVar7 + 4));
+                                    pRVar17 = (RenderPipelineState*)local_1a8.GetRenderPipelineState();
+                                    pHVar19 = (HashedString*)graphics::operator*(108);
+                                    iVar5 = pSVar16->GetConstIndex(*pHVar19);
+                                    pRVar17->SetPSTextureSamplerPair(2, this_00, iVar5, nullptr, false);
+                                    local_50 = (RT7Core*)(((uint64_t)local_50._4_4_ << 32) |
+                                                          (uint32_t)(*(uint32_t*)(local_58->m_immediateContext + 12)));
+                                    uVar27._0_1_ = 0;
+                                    uVar27._1_3_ = 0;
                                     new (local_118) ImVec4(1.0, 0.0, -1.0, 1.0);
-                                    pNVar4 = local_38;
-                                    this_02 = (WorldmapAreaMetadata*)local_38->SSOBeginPtr(ptVar31);
-                                    pMVar22 = (Matrix44T*)this_02->GetOrigin();
-                                    local_98._0_8_ = math::operator*((Vector4T*)local_118, pMVar22);
-                                    local_98._8_4_ = uVar34;
-                                    local_98._12_4_ = uVar35;
-                                    this_03 =
-                                        (vector<render::Viewport, eastl::fixed_vector_allocator<
-                                                                      24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                            pNVar4->GetStaticChildren();
-                                    ptVar31 = (type*)0;
-                                    lVar9 = eastl::vector<
-                                        render::Viewport,
-                                        eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                      eastl::allocator>>::operator[](this_03, 0);
-                                    local_40._0_4_ = (float)*(int*)(lVar9 + 8) * local_50._0_4_;
-                                    pvVar23 = local_98->SSOBeginPtr(ptVar31);
-                                    local_40._0_4_ = local_40._0_4_ * *(float*)pvVar23;
-                                    pfVar24 = (float*)local_98->qw();
-                                    uVar34 = ::abs(local_40._0_4_ / *pfVar24);
-                                    local_40 = (shared_ptr<render::RenderTargets>*)CONCAT44(local_40._4_4_, uVar34);
-                                    pHVar21 = (HashedString*)graphics::operator*((graphics*)99);
-                                    pSVar18->SetShaderConstFloat4(
-                                        pHVar21, local_50._0_4_, *(float*)(local_58->m_immediateContext + 20),
+                                    pNVar3 = (NXTPixToolkit*)sceneViewData;
+                                    this_02 = (WorldmapAreaMetadata*)((NXTPixToolkit*)sceneViewData)->SSOBeginPtr();
+                                    pMVar20 = (Matrix44T<float>*)this_02->GetOrigin();
+                                    local_98._0_8_ = *local_118 * *pMVar20;
+                                    local_98._8_4_ = uVar27;
+                                    local_98._12_4_ = 0;
+                                    this_03 = pNVar3->GetStaticChildren();
+                                    lVar7 = (*this_03)[0];
+                                    local_40._0_4_ = (float)*(int*)(lVar7 + 8) * local_50._0_4_;
+                                    pfVar21 = (float*)local_98->SSOBeginPtr();
+                                    local_40._0_4_ = local_40._0_4_ * *pfVar21;
+                                    pfVar21 = (float*)local_98->qw();
+                                    uVar27 = ::abs(local_40._0_4_ / *pfVar21);
+                                    local_40 = (shared_ptr<render::RenderTargets>*)(((uint64_t)local_40._4_4_ << 32) |
+                                                                                    (uint32_t)uVar27);
+                                    pHVar19 = (HashedString*)graphics::operator*(99);
+                                    pSVar16->SetShaderConstFloat4(
+                                        pHVar19, local_50._0_4_, *(float*)(local_58->m_immediateContext + 20),
                                         *(float*)(local_58->m_immediateContext + 16),
                                         local_40._0_4_ * *(float*)(local_58->m_immediateContext + 8));
-                                    local_48->QuadEndRender(&local_1a8, local_70);
-                                    local_1a8.~DrawCallState();
+                                    local_48->QuadEndRender(local_1a8, *local_70);
                                 }
                             }
                         }
-                        pNVar4 = local_38;
-                        puVar11 = (undefined8*)local_38->GetRenderTargets();
-                        pvVar12 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                                          eastl::allocator>>*)(*puVar11)
+                        pNVar3 = (NXTPixToolkit*)sceneViewData;
+                        puVar9 = (uint64_t*)((NXTPixToolkit*)sceneViewData)->GetRenderTargets();
+                        pvVar10 = (vector<render::Texture*,
+                                          eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)(*puVar9)
                                       ->GetColourTargetTextures();
-                        puVar11 = (undefined8*)eastl::vector<
-                            render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                            eastl::allocator>>::operator[](pvVar12, 0);
-                        puVar13 = (uint*)(*puVar11)->second();
-                        pVVar14 = (Viewport*)
-                            eastl::vector<render::Viewport,
-                                          eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>::
-                            operator[](
-                                (vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                                        eastl::allocator>>*)&pNVar4
-                                    ->field_432,
-                                0);
-                        new (&local_1a8) math::Point<float>((float)*puVar13, (float)puVar13[1]);
-                        local_78->SetViewportLookupScale(pVVar14, (Vector2T*)&local_1a8);
+                        puVar9 = (uint64_t*)(*pvVar10)[0];
+                        puVar11 = (unsigned int*)(*puVar9)->second();
+                        pVVar12 = &pNVar3->field_432[0];
+                        local_1a8 = math::Point((float)*puVar11, (float)puVar11[1]);
+                        local_78->SetViewportLookupScale(*pVVar12, local_1a8);
                         return;
                     }
                 }
                 ClearSSAORT((RT7Core*)this);
-                /* WARNING: Subroutine does not return */
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                 "runetek7/renderer/renderpasses/SSAOPass.cpp",
-                                85, (char*)0);
+                                85, nullptr);
             }
             ClearSSAORT((RT7Core*)this);
         }
     }
 
-    // 0x1007ad420, 224 bytes, placed by class name and debug map
-    // SSAOPass::ClearSSAORT(RT7Core&)
-    void SSAOPass::ClearSSAORT(RT7Core* param_1) {
-        RenderContext* pRVar2;
-        RenderContext* this;
-        RenderTargets* pRVar3;
-        long lVar4;
-        RT7Core* this_00;
-        RT7Core* pRVar5;
+    // 0x1007ad420
+    void SSAOPass::ClearSSAORT(RT7Core& rt7Core) {
+        RenderTargets* renderTargets;
         RenderTargetsSaveRestore local_40;
-        ImVec4 local_28[16];
 
-        this_00 = (RT7Core*)(param_1->m_postProcessManager + 200);
-        pRVar5 = this_00;
-        if (!this_00->operator_cast_to_bool()) {
-            /* WARNING: Subroutine does not return */
+        RT7Core* this_00 = (RT7Core*)(rt7Core.m_postProcessManager + 200);
+        RT7Core* pRVar4 = this_00;
+        if (this_00->operator_cast_to_bool() == '\0') {
             LogAssert("m_SSAORT",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "renderer/renderpasses/SSAOPass.cpp",
-                      280, (char*)0);
+                      280, nullptr);
         }
-        pRVar2 = (RenderContext*)pRVar5->GetRenderContext();
-        pRVar5 = (RT7Core*)&local_40;
-        new (pRVar5) render::RenderTargetsSaveRestore(pRVar2);
-        this = (RenderContext*)pRVar5->GetRenderContext();
-        ImVec4::ImVec4(local_28, 1.0, 1.0, 1.0, 1.0);
-        pRVar3 = (RenderTargets*)this_00->end();
-        pRVar2 = this;
-        SetRenderTargets(pRVar3);
-        lVar4 = pRVar2->Instance();
-        SetBlendState((BlendState*)(lVar4 + 1524));
-        ClearRenderTargets(local_28, 1);
-        local_40.~RenderTargetsSaveRestore();
+        auto pRVar2 = pRVar4->GetRenderContext();
+        pRVar4 = (RT7Core*)&local_40;
+        new (pRVar4) render::RenderTargetsSaveRestore(*pRVar2);
+        auto renderContext = pRVar4->GetRenderContext();
+        ImVec4 local_28(1.0, 1.0, 1.0, 1.0);
+        renderTargets = (RenderTargets*)this_00->end();
+        pRVar2 = renderContext;
+        renderContext->SetRenderTargets(renderTargets);
+        long lVar3 = pRVar2->Instance();
+        renderContext->SetBlendState((lVar3 + 1524));
+        renderContext->ClearRenderTargets(&local_28, 1);
     }
 
-    // 0x1007ad500, 384 bytes, placed by class name and debug map
-    // SSAOPass::SetSharedState(render::DrawCallState&, render::RenderContext&, render::ShaderProgram const&, SceneViewData const&)
-    void SSAOPass::SetSharedState(DrawCallState* param_1, RenderContext* param_2, ShaderProgram* param_3,
-                                  SceneViewData* param_4) {
-        Texture* pTVar1;
-        HashedString* pHVar2;
-        Matrix44T* pMVar3;
-        RenderPipelineState* pRVar4;
-        RenderTargets* pRVar5;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_00;
-        int iVar6;
-        undefined8* puVar7;
-        Matrix44T local_78;
-        undefined8 uStack_40;
-
-        pHVar2 = (HashedString*)graphics::operator*((graphics*)9);
-        pMVar3 = (Matrix44T*)param_4->GetOrigin();
-        param_3->SetShaderConstMatrix4(pHVar2, 1, pMVar3, 1);
-        pHVar2 = (HashedString*)graphics::operator*((graphics*)4);
-        param_3->SetShaderConstMatrix4(pHVar2, 1, (Matrix44T*)&field_560, 1);
-        puVar7 = (undefined8*)param_4->GetOrigin();
-        local_78._0_8_ = *puVar7;
-        local_78._8_8_ = puVar7[1];
-        local_78._16_8_ = puVar7[2];
-        local_78._24_8_ = puVar7[3];
-        local_78._32_8_ = puVar7[4];
-        local_78._40_8_ = puVar7[5];
-        local_78._48_8_ = puVar7[6];
-        uStack_40 = puVar7[7];
-        local_78.Invert(0);
-        pHVar2 = (HashedString*)graphics::operator*((graphics*)11);
-        param_3->SetShaderConstMatrix4(pHVar2, 1, &local_78, 1);
-        pRVar4 = (RenderPipelineState*)param_1->GetRenderPipelineState();
-        pRVar5 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-            (shared_ptr<render::RenderTargets>*)field_632);
-        this_00 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                      pRVar5->GetColourTargetTextures();
-        puVar7 = (undefined8*)eastl::vector<
-            render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::back(this_00);
-        pTVar1 = (Texture*)*puVar7;
-        pHVar2 = (HashedString*)graphics::operator*((graphics*)106);
-        iVar6 = param_3->GetConstIndex(pHVar2);
-        pRVar4->SetPSTextureSamplerPair(0, pTVar1, iVar6, 0, true);
-        pRVar4 = (RenderPipelineState*)param_1->GetRenderPipelineState();
-        pRVar5 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-            (shared_ptr<render::RenderTargets>*)field_632);
-        pTVar1 = (Texture*)pRVar5->GetDepthStencilTargetTexture();
-        pHVar2 = (HashedString*)graphics::operator*((graphics*)107);
-        iVar6 = param_3->GetConstIndex(pHVar2);
-        pRVar4->SetPSTextureSamplerPair(1, pTVar1, iVar6, 0, false);
+    // 0x1007ad500
+    void SSAOPass::SetSharedState(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                  const render::ShaderProgram& shaderProgram, const SceneViewData& sceneViewData) {
+        auto pHVar2 = graphics::operator*(9);
+        auto matrix44 = sceneViewData.GetOrigin();
+        shaderProgram.SetShaderConstMatrix4(pHVar2, 1, matrix44, 1);
+        pHVar2 = (HashedString*)graphics::operator*(4);
+        shaderProgram.SetShaderConstMatrix4(pHVar2, 1, &field_560, 1);
+        auto pRVar3 = sceneViewData.GetOrigin();
+        ReturnValue local_78 = *pRVar3;
+        ReturnValue RStack_70 = pRVar3[1];
+        ReturnValue local_68 = pRVar3[2];
+        ReturnValue RStack_60 = pRVar3[3];
+        ReturnValue local_58 = pRVar3[4];
+        ReturnValue RStack_50 = pRVar3[5];
+        ReturnValue local_48 = pRVar3[6];
+        ReturnValue RStack_40 = pRVar3[7];
+        local_78 = math::Matrix44T<float>::Invert(nullptr);
+        pHVar2 = (HashedString*)graphics::operator*(11);
+        shaderProgram.SetShaderConstMatrix4(pHVar2, 1, &local_78, 1);
+        auto pRVar4 = drawCallState.GetRenderPipelineState();
+        RenderTargets* pRVar5 = (RenderTargets*)(*field_632).operator->();
+        auto this_00 = pRVar5->GetColourTargetTextures();
+        auto puVar6 = this_00->back();
+        Texture* pTVar7 = (Texture*)*puVar6;
+        pHVar2 = (HashedString*)graphics::operator*(106);
+        int iVar1 = shaderProgram.GetConstIndex(*pHVar2);
+        pRVar4->SetPSTextureSamplerPair(0, pTVar7, iVar1, nullptr, true);
+        pRVar4 = (RenderPipelineState*)drawCallState.GetRenderPipelineState();
+        pRVar5 = (RenderTargets*)(*field_632).operator->();
+        pTVar7 = (Texture*)pRVar5->GetDepthStencilTargetTexture();
+        pHVar2 = (HashedString*)graphics::operator*(107);
+        iVar1 = shaderProgram.GetConstIndex(*pHVar2);
+        pRVar4->SetPSTextureSamplerPair(1, pTVar7, iVar1, nullptr, false);
     }
 
-    // 0x1007ad6d0, 800 bytes, placed by class name and debug map
-    // SSAOPass::CreateRenderingResources()
+    // 0x1007ad6d0
     void SSAOPass::CreateRenderingResources() {
-        Random* this_00;
-        undefined1* puVar1;
-        byte bVar2;
-        byte bVar3;
         Layout* pLVar4;
-        vector* pvVar5;
-        undefined4* puVar6;
-        uchar* puVar7;
-        long lVar8;
-        type* ptVar9;
-        type* ptVar10;
-        Singleton<render::BuiltinStates>* pSVar11;
-        array<math::Vector3T<float>, 16ul> local_200[192];
-        array<math::Vector2T<float>, 16ul> local_140[128];
-        ResourceDataT<unsigned char const> local_c0[24];
-        ResourceDataT<unsigned char const> local_a8[24];
-        undefined1 local_90[72];
-        undefined4 local_48;
-        undefined4 local_44;
-        SSAOPass* local_40;
+        uint32_t* puVar5;
+        uint8_t local_90[72];
+        uint32_t local_48;
+        uint32_t local_44;
         float local_34;
 
-        local_40 = this;
+        SSAOPass* local_40 = this;
         CreateRenderingResources();
-        this_00 = (Random*)(local_90 + 64);
-        math::Random::Random(this_00, 123456789, 31415821);
+        Random* this_00 = (Random*)(local_90 + 64);
+        new (this_00) math::Random(123456789, 31415821);
         new (local_90) render::Texture::Desc();
         local_90._0_4_ = 4;
         local_90._4_4_ = 4;
@@ -689,143 +510,119 @@ namespace jag::graphics {
         local_90._36_4_ = 0;
         local_90._24_4_ = 0;
         local_90[32] = 0;
-        std::array<math::Vector3T<float>, 16ul>::array(local_200);
-        ptVar9 = (type*)0;
+        array<math::Vector3T<float>, 16ul> local_200;
+        unsigned long uVar8 = 0;
         do {
             local_34 = (float)this_00->FRand(1.0);
             local_48 = this_00->FRand(1.0);
-            local_34 = local_34 * 0.7853982;
+            local_34 = local_34 * 0.7853982f;
             local_44 = ::cos(local_34);
-            ptVar10 = ptVar9;
-            pLVar4 = (Layout*)std::array<math::Vector3T<float>, 16ul>::operator[](local_200, (ulong)ptVar9);
-            pvVar5 = eastl::string::Layout::SSOBeginPtr(pLVar4, ptVar10);
-            *(undefined4*)pvVar5 = local_44;
+            pLVar4 = &local_200[uVar8];
+            puVar5 = (uint32_t*)pLVar4->SSOBeginPtr();
+            *puVar5 = local_44;
             local_34 = (float)::sin(local_34);
-            puVar6 = (undefined4*)pLVar4->y();
-            *puVar6 = local_34;
-            puVar6 = (undefined4*)pLVar4->second();
-            *puVar6 = local_48;
-            ptVar9 = ptVar9 + 1;
-        } while (ptVar9 != (type*)16);
-        puVar7 = (uchar*)std::array<math::Vector3T<float>, 16ul>::operator[](local_200, 0);
-        render::ResourceDataT<unsigned char const>::ResourceDataT(local_c0, puVar7, 0, 0, false);
-        puVar1 = &local_40->field_1184;
-        pSVar11 = (Singleton<render::BuiltinStates>*)puVar1;
-        bVar2 = puVar1->Create(local_90, local_c0, 0);
-        lVar8 = pSVar11->Instance();
-        puVar1->SetSamplerState((SamplerState*)(lVar8 + 144), true);
+            puVar5 = (uint32_t*)pLVar4->y();
+            *puVar5 = local_34;
+            puVar5 = (uint32_t*)pLVar4->second();
+            *puVar5 = local_48;
+            uVar8 = uVar8 + 1;
+        } while (uVar8 != 16);
+        unsigned char* puVar6 = &local_200[0];
+        ResourceDataT<unsigned char const> local_c0(puVar6, 0, 0, false);
+        uint8_t* puVar1 = &local_40->field_1184;
+        Singleton<render::BuiltinStates>* pSVar9 = (Singleton<render::BuiltinStates>*)puVar1;
+        uint8_t bVar2 = puVar1->Create(*local_90, &local_c0, 0);
+        long lVar7 = pSVar9->Instance();
+        puVar1->SetSamplerState(*((lVar7 + 144)), true);
         local_90._0_4_ = 4;
         local_90._4_4_ = 4;
         local_90._12_4_ = 5;
         local_90._36_4_ = 0;
         local_90._24_4_ = 0;
         local_90[32] = 0;
-        std::array<math::Vector2T<float>, 16ul>::array(local_140);
-        ptVar9 = (type*)0;
+        array<math::Vector2T<float>, 16ul> local_140;
+        uVar8 = 0;
         do {
             local_34 = (float)((local_90 + 64))->FRand(1.0);
-            ptVar10 = ptVar9;
-            pLVar4 = (Layout*)std::array<math::Vector2T<float>, 16ul>::operator[](local_140, (ulong)ptVar9);
-            pvVar5 = eastl::string::Layout::SSOBeginPtr(pLVar4, ptVar10);
-            *(float*)pvVar5 = local_34;
+            pLVar4 = &local_140[uVar8];
+            puVar5 = (uint32_t*)pLVar4->SSOBeginPtr();
+            *puVar5 = local_34;
             local_34 = (float)((local_90 + 64))->FRand(1.0);
-            puVar6 = (undefined4*)pLVar4->y();
-            *puVar6 = local_34;
-            ptVar9 = ptVar9 + 1;
-        } while (ptVar9 != (type*)16);
-        puVar7 = (uchar*)std::array<math::Vector2T<float>, 16ul>::operator[](local_140, 0);
-        render::ResourceDataT<unsigned char const>::ResourceDataT(local_a8, puVar7, 0, 0, false);
+            puVar5 = (uint32_t*)pLVar4->y();
+            *puVar5 = local_34;
+            uVar8 = uVar8 + 1;
+        } while (uVar8 != 16);
+        puVar6 = &local_140[0];
+        ResourceDataT<unsigned char const> local_a8(puVar6, 0, 0, false);
         puVar1 = &local_40->field_672;
-        pSVar11 = (Singleton<render::BuiltinStates>*)puVar1;
-        bVar3 = puVar1->Create(local_90, local_a8, 0);
-        lVar8 = pSVar11->Instance();
-        puVar1->SetSamplerState((SamplerState*)(lVar8 + 144), true);
+        pSVar9 = (Singleton<render::BuiltinStates>*)puVar1;
+        uint8_t bVar3 = puVar1->Create(*local_90, &local_a8, 0);
+        lVar7 = pSVar9->Instance();
+        puVar1->SetSamplerState(*((lVar7 + 144)), true);
         if ((bVar2 & bVar3) == 0) {
-            (*(code*)local_40->field_0[9])();
-            /* WARNING: Subroutine does not return */
+            local_40->DestroyRenderingResources();
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "renderer/renderpasses/SSAOPass.cpp",
                             363, "Failed to set up SSAO pass.");
         }
-        local_a8->~ResourceDataT();
-        local_c0->~ResourceDataT();
     }
 
-    // 0x1007ada50, 80 bytes, placed by class name and debug map
-    // SSAOPass::DestroyRenderingResources()
+    // 0x1007ada50
     void SSAOPass::DestroyRenderingResources() {
         DestroyRenderingResources();
-        (&field_1184)->Destroy();
-        (&field_672)->Destroy();
-        (&field_1712)->Destroy();
-        (&field_1904)->Destroy();
+        field_1184.Destroy();
+        field_672.Destroy();
+        field_1712->Destroy();
+        field_1904->Destroy();
     }
 
-    // 0x1007adaa0, 256 bytes, placed by class name and debug map
-    // SSAOPass::RenderDebug(EffectManager&, DrawableQueue&)
-    void SSAOPass::RenderDebug(EffectManager* param_1, DrawableQueue* param_2) {
-        undefined8 uVar1;
-        char cVar2;
+    // 0x1007adaa0
+    void SSAOPass::RenderDebug(EffectManager& effectManager, DrawableQueue& drawableQueue) {
+        uint64_t uVar1;
         long* plVar3;
         RenderTargets* this_00;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_01;
-        undefined8* puVar4;
-        ImVec4 local_58[16];
-        Point<float> local_48[8];
-        Point<float> local_40[8];
-        undefined1 local_38[8];
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_01;
+        uint64_t* puVar4;
+        ImVec4 local_58;
+        Point<float> local_48;
+        Point<float> local_40;
+        uint8_t local_38[8];
 
-        cVar2 = param_1->IsEnabled();
-        if (cVar2 != '\0') {
-            plVar3 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar3 != (long*)0) {
-                this_00 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                    (shared_ptr<render::RenderTargets>*)field_648);
-                this_01 = (vector<render::Texture*,
-                                  eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
+        if (effectManager.IsEnabled(113) != '\0') {
+            plVar3 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar3 != nullptr) {
+                this_00 = (RenderTargets*)(*field_648).operator->();
+                this_01 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
                               this_00->GetColourTargetTextures();
-                puVar4 = (undefined8*)eastl::vector<
-                    render::Texture*,
-                    eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_01, 0);
+                puVar4 = (uint64_t*)(*this_01)[0];
                 uVar1 = *puVar4;
-                ImVec4::ImVec4(local_58, 0.0, 0.0, 0.5, 0.5);
-                math::Point<float>::Point(local_48, 0.0, 0.0);
-                math::Point<float>::Point(local_40, 1.0, 1.0);
+                local_58 = ImVec4(0.0, 0.0, 0.5, 0.5);
+                local_48 = math::Point(0.0, 0.0);
+                local_40 = math::Point(1.0, 1.0);
                 new (local_38) oldscape::sidebars::SideBarData(-65536, 0);
-                (**(code**)(*plVar3 + 112))(plVar3, uVar1, local_58, local_48, local_40, 0, 0, 0,
-                                            (SideBarData*)local_38);
+                (**(void (**)(...))(*plVar3 + 112))(plVar3, uVar1, &local_58, &local_48, &local_40, 0, 0, 0,
+                                                    (SideBarData*)local_38);
             }
         }
     }
 
-    // 0x1007ae2f0: the linker folded this into DepthDownsamplePass::SetDepthTexture(render::Texture const*), which has identical code
-    SSAOPass::SetSSAOContext(SSAOContext*);
-
-    // 0x1007c9050, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.81
-    void ___cxx_global_var_init_81() {
-        new (&SSAOPass::m_SSAOModeNiceNames) StringEnum((StringEnumEntry*)&SSAOPass::m_SSAOModeNiceNames__, 4);
-        ___cxa_atexit(StringEnum::~StringEnum, &SSAOPass::m_SSAOModeNiceNames, 4294967296);
-    }
+    // 0x1007ae2f0: SSAOPass::SetSSAOContext(SSAOContext*) has the same machine code as DepthDownsamplePass::SetDepthTexture(render::Texture const*)
 
 } // namespace jag::graphics
 
-// 0x1007ad680, 16 bytes, placed by neighbouring functions
-// abs(float)
-ulong abs(float param_1) {
-    undefined4 in_XMM0_Db;
+// 0x1007ad680
+unsigned long abs(float arg1) {
+    uint32_t in_XMM0_Db;
 
-    return CONCAT44(in_XMM0_Db, param_1) & 9223372034707292159;
+    return (((uint64_t)in_XMM0_Db << 32) | (uint32_t)arg1) & 9223372034707292159;
 }
 
-// 0x1007ada00, 16 bytes, placed by neighbouring functions
-// cos(float)
-void cos(float param_1) {
+// 0x1007ada00
+void cos(float arg1) {
     _cosf();
 }
 
-// 0x1007ada20, 16 bytes, placed by neighbouring functions
-// sin(float)
-void sin(float param_1) {
+// 0x1007ada20
+void sin(float arg1) {
     _sinf();
 }

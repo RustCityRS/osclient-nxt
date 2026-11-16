@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/lighting/shadowmapping/ShadowMapCommon.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,28 +8,22 @@ namespace jag {
     public:
         LightShadowParams();
 
-        // data members, from how the methods use this: 16 bytes
-        undefined1 field_0; // offset 0
-        char _unknown_1[3];
-        undefined4 field_4; // offset 4
-        undefined8 field_8; // offset 8
+    private:
+        uint8_t field_0;
+        uint8_t _unknown_1[3];
+        uint32_t field_4;
+        uint64_t field_8;
     };
-
-    // 0x1008ad920, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // LightShadowParams::LightShadowParams(): jumps straight to the base-object constructor
 
 } // namespace jag
 
 namespace jag::graphics {
-    // 0x1008ada70, 32 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ShadowCubeMapAtlasData::ShadowCubeMapAtlasData(graphicutils::TextureAtlasSlotPacker const&, std::array<graphicutils::TextureAtlasSlot2D, 6ul> const&, unsigned int, unsigned int, unsigned int, unsigned int)
-    /* ShadowCubeMapAtlasData::ShadowCubeMapAtlasData(graphicutils::TextureAtlasSlotPacker
-   const&, std::array<graphicutils::TextureAtlasSlot2D, 6ul> const&, unsigned int, unsigned
-   int, unsigned int, unsigned int) */
-
-    void ShadowCubeMapAtlasData::ShadowCubeMapAtlasData(TextureAtlasSlotPacker* param_1, array* param_2, uint param_3,
-                                                        uint param_4, uint param_5, uint param_6) {
-        ShadowCubeMapAtlasData(this, param_1, param_2, param_3, param_4, param_5, param_6);
+    // 0x1008ada70
+    ShadowCubeMapAtlasData::ShadowCubeMapAtlasData(
+        const graphicutils::TextureAtlasSlotPacker& textureAtlasSlotPacker,
+        const std::array<graphicutils::TextureAtlasSlot2D, 6ul>& textureAtlasSlot2Ds, unsigned int arg3,
+        unsigned int arg4, unsigned int arg5, unsigned int arg6) {
+        ShadowCubeMapAtlasData(textureAtlasSlotPacker, textureAtlasSlot2Ds, arg3, arg4, arg5, arg6);
     }
 
 } // namespace jag::graphics

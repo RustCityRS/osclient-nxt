@@ -1,109 +1,77 @@
 // libs/graphics/runetek7/water/WaterNormalMapParams.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class WaterNormalMapParams {
     public:
-        WaterNormalMapParams* operator=(WaterNormalMapParams const&);
+        WaterNormalMapParams* operator=(const WaterNormalMapParams& waterNormalMapParams);
         WaterNormalMapParams();
 
-        // data members, from how the methods use this: 40 bytes
-        undefined1 field_0; // offset 0
-        char _unknown_1[3];
-        undefined8 field_4;  // offset 4
-        undefined4 field_12; // offset 12
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
+    private:
+        uint8_t field_0;
+        uint8_t _unknown_1[3];
+        uint64_t field_4;
+        uint32_t field_12;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
     };
 
-    // 0x1004c6820, 64 bytes, inline, placed by class name and debug map
-    // WaterNormalMapParams::operator=(WaterNormalMapParams const&)
-    /* WaterNormalMapParams::TEMPNAMEPLACEHOLDERVALUE(WaterNormalMapParams
-   const&) */
-
-    WaterNormalMapParams* WaterNormalMapParams::operator=(WaterNormalMapParams* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)((long)&param_1->field_4 + 4);
-        *(undefined8*)this = *(undefined8*)param_1;
-        *(undefined8*)((long)&field_4 + 4) = uVar1;
-        math::Vector2T<float>::operator=((Vector2T<float>*)&field_16, (Vector2T*)&param_1->field_16);
-        math::Vector2T<float>::operator=((Vector2T<float>*)&field_24, (Vector2T*)&param_1->field_24);
-        field_32 = param_1->field_32;
+    // 0x1004c6820
+    WaterNormalMapParams* WaterNormalMapParams::operator=(const WaterNormalMapParams& waterNormalMapParams) {
+        uint64_t uVar1 = *(uint64_t*)((long)&waterNormalMapParams.field_4 + 4);
+        *(uint64_t*)this = *(uint64_t*)waterNormalMapParams;
+        *(uint64_t*)((long)&field_4 + 4) = uVar1;
+        field_16 = waterNormalMapParams.field_16;
+        field_24 = waterNormalMapParams.field_24;
+        field_32 = waterNormalMapParams.field_32;
         return this;
     }
 
-    // 0x1004c8f90, 16 bytes, complete-object constructor, inline, placed by class name
-    // WaterNormalMapParams::WaterNormalMapParams(): jumps straight to the base-object constructor
-
-    // 0x1004c8fa0, 80 bytes, base-object constructor, inline, placed by class name
-    // WaterNormalMapParams::WaterNormalMapParams()
-    void WaterNormalMapParams::WaterNormalMapParams() {
-        field_0 = 1;
-        field_4 = 4575657222473777152;
-        field_12 = 1056964608;
-        field_16 = *(undefined8*)PTR_ONE_100ee66a0;
-        field_24 = *(undefined8*)PTR_ZERO_100ee66a8;
+    // 0x1004c8fa0
+    WaterNormalMapParams::WaterNormalMapParams() : field_0(1), field_4(4575657222473777152), field_12(1056964608) {
+        field_16 = *(uint64_t*)PTR_ONE_100ee66a0;
+        field_24 = *(uint64_t*)PTR_ZERO_100ee66a8;
         field_32 = 0;
     }
 
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x1004c75b0, 16 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator> > >::gFloat()
-    void PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gFloat(
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* this) {
+    // 0x1004c75b0
+    void PacketReaderMixin<PacketT<Array<unsigned char>>>::gFloat() {
         gT<float>(this);
     }
 
-    // 0x1004c7a10, 96 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator> > >::g3()
-    uint PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::g3(
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* this) {
-        byte bVar1;
-        byte bVar2;
-        ulong uVar3;
-        byte* pbVar4;
-
-        uVar3 = *(ulong*)(this + 24);
-        *(ulong*)(this + 24) = uVar3 + 3;
-        pbVar4 = (byte*)Array<unsigned char, eastl::allocator>::operator[](
-            (Array<unsigned char, eastl::allocator>*)this, uVar3);
-        bVar1 = *pbVar4;
-        pbVar4 = (byte*)Array<unsigned char, eastl::allocator>::operator[](
-            (Array<unsigned char, eastl::allocator>*)this, *(long*)(this + 24) - 2);
-        bVar2 = *pbVar4;
-        pbVar4 = (byte*)Array<unsigned char, eastl::allocator>::operator[](
-            (Array<unsigned char, eastl::allocator>*)this, *(long*)(this + 24) - 1);
-        return (uint)*pbVar4 | (uint)bVar2 << 8 | (uint)bVar1 << 16;
+    // 0x1004c7a10
+    unsigned int PacketReaderMixin<PacketT<Array<unsigned char>>>::g3() {
+        unsigned long arg1 = *(unsigned long*)(this + 24);
+        *(unsigned long*)(this + 24) = arg1 + 3;
+        uint8_t* pbVar3 = (uint8_t*)(*this)[arg1];
+        uint8_t bVar1 = *pbVar3;
+        pbVar3 = (uint8_t*)(*this)[*(long*)(this + 24) - 2];
+        uint8_t bVar2 = *pbVar3;
+        pbVar3 = (uint8_t*)(*this)[*(long*)(this + 24) - 1];
+        return (unsigned int)*pbVar3 | (unsigned int)bVar2 << 8 | (unsigned int)bVar1 << 16;
     }
 
-    // 0x1004c7a70, 16 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator> > >::g2s()
-    int PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::g2s(
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* this) {
-        short sVar1;
-
-        sVar1 = gT<short>(this);
+    // 0x1004c7a70
+    int PacketReaderMixin<PacketT<Array<unsigned char>>>::g2s() {
+        short sVar1 = gT<short>(this);
         return (int)sVar1;
     }
 
 } // namespace jag
 
 namespace jag::math {
-    // 0x1004c68e0, 96 bytes, inline, placed by debug map only (low confidence)
-    // Colour3FromR8G8B8A8(unsigned int)
-    undefined8 Colour3FromR8G8B8A8(uint param_1) {
-        undefined8 uVar1;
-        ColourHSL local_18;
+    // 0x1004c68e0
+    void Colour3FromR8G8B8A8(unsigned int arg1) {
+        uint64_t uVar1;
 
-        new (&local_18) ColourHSL((float)(param_1 >> 24) * 0.003921569, (float)(param_1 >> 16 & 255) * 0.003921569,
-                                  (float)(param_1 >> 8 & 255) * 0.003921569);
+        ColourHSL local_18((float)(arg1 >> 24) * 0.003921569f, (float)(arg1 >> 16 & 255) * 0.003921569f,
+                           (float)(arg1 >> 8 & 255) * 0.003921569f);
         uVar1._0_4_ = local_18.field_0;
         uVar1._4_4_ = local_18.field_4;
         return uVar1;

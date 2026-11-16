@@ -1,182 +1,149 @@
 // libs/graphics/runetek7/model/GeometryBatchCombineHelper.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "GeometryBatchCombineHelper.h"
 
 namespace jag::graphics {
-    // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    int GeometryBatchCombineHelper::GetVertexCount() const;
+    // 0x100066b70: GeometryBatchCombineHelper::GetVertexCount() const has the same machine code as oldscape::widgets::Widget::GetTextColour() const
 
-    // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    int GeometryBatchCombineHelper::GetIndexCount() const;
+    // 0x1000e5d50: GeometryBatchCombineHelper::GetIndexCount() const has the same machine code as oldscape::rs2lib::CoordZoneSource::GetRotation() const
 
-    // 0x10080c800, 144 bytes, base-object constructor, placed by class name and debug map
-    // GeometryBatchCombineHelper::GeometryBatchCombineHelper(GeometryBatchInstance*, int, bool)
-    void GeometryBatchCombineHelper::GeometryBatchCombineHelper(GeometryBatchInstance* param_1, int param_2,
-                                                                bool param_3) {
-        field_0 = (GeometryBatchInstance*)0;
-        field_8 = false;
-        m_indexCount = 0;
-        m_vertexCount = 0;
-        field_20 = 1;
-        field_24 = 1;
-        field_32 = (GeometryBatchInstance*)0;
-        eastl::vector<GeometryBatchInstance_const*, BucketAllocatorEASTL>::vector();
-        Reset(this, param_1, param_2, param_3);
-        (&field_40, 256)->reserve();
+    // 0x10080c800
+    GeometryBatchCombineHelper::GeometryBatchCombineHelper(GeometryBatchInstance* geometryBatchInstance, int arg2,
+                                                           bool arg3)
+        : field_0(nullptr), field_8(false), m_indexCount(0), m_vertexCount(0), field_20(1), field_24(1),
+          field_32(nullptr) {
+        Reset(geometryBatchInstance, arg2, arg3);
+        field_40.reserve(256);
     }
 
-    // 0x10080c8a0, 192 bytes, placed by class name and debug map
-    // GeometryBatchCombineHelper::Reset(GeometryBatchInstance*, int, bool)
-    void GeometryBatchCombineHelper::Reset(GeometryBatchInstance* param_1, int param_2, bool param_3) {
+    // 0x10080c8a0
+    void GeometryBatchCombineHelper::Reset(GeometryBatchInstance* geometryBatchInstance, int arg2, bool arg3) {
         int iVar1;
         int iVar2;
-        GeometryBatch* this_00;
-        vector<unsigned int, eastl::allocator>* pvVar3;
+        GeometryBatchInstance* this_00;
+        vector<unsigned int>* pvVar3;
 
-        field_0 = param_1;
-        field_8 = param_3;
+        field_0 = geometryBatchInstance;
+        field_8 = arg3;
         m_indexCount = 0;
         m_vertexCount = 0;
         field_20 = 1;
         field_24 = 1;
-        if (param_1 != (GeometryBatchInstance*)0) {
-            this_00 = (GeometryBatch*)param_1->GetGeometryBatch();
+        if (geometryBatchInstance != nullptr) {
+            this_00 = (GeometryBatchInstance*)geometryBatchInstance->GetGeometryBatch();
             iVar1 = this_00->GetIndexCount();
             m_indexCount = m_indexCount + iVar1;
             iVar1 = this_00->GetVertexCount();
             m_vertexCount = m_vertexCount + iVar1;
             if (field_8 != false) {
-                pvVar3 = (vector<unsigned int, eastl::allocator>*)this_00->GetBoneIDMap();
-                iVar1 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar3);
-                pvVar3 = (vector<unsigned int, eastl::allocator>*)this_00->GetJointIDMap();
-                iVar2 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar3);
+                pvVar3 = (vector<unsigned int>*)this_00->GetBoneIDMap();
+                iVar1 = pvVar3->size();
+                pvVar3 = (vector<unsigned int>*)this_00->GetJointIDMap();
+                iVar2 = pvVar3->size();
                 field_20 = field_20 + iVar2 + iVar1;
-                pvVar3 = (vector<unsigned int, eastl::allocator>*)this_00->GetMaterial();
-                iVar1 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar3);
+                pvVar3 = (vector<unsigned int>*)this_00->GetMaterial();
+                iVar1 = pvVar3->size();
                 field_24 = field_24 + iVar1;
             }
         }
-        if (param_2 == -1) {
-            param_1 = (GeometryBatchInstance*)0;
+        if (arg2 == -1) {
+            geometryBatchInstance = nullptr;
         }
-        field_32 = param_1;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        field_32 = geometryBatchInstance;
+        field_40.clear();
     }
 
-    // 0x10080c9a0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // GeometryBatchCombineHelper::GeometryBatchCombineHelper(GeometryBatchInstance*, int, bool): jumps straight to the base-object constructor
-
-    // 0x10080c9b0, 192 bytes, placed by class name and debug map
-    // GeometryBatchCombineHelper::IsCombinableWith(GeometryBatchInstance const&) const
-    bool GeometryBatchCombineHelper::IsCombinableWith(GeometryBatchInstance* param_1) {
-        int iVar1;
-        uint uVar2;
-        uint uVar3;
-        byte bVar4;
-        byte bVar5;
-        bool bVar6;
-        int iVar7;
-        GeometryBatch* this_00;
-        GeometryBatch* this_01;
-        vector<unsigned int, eastl::allocator>* pvVar8;
+    // 0x10080c9b0
+    bool GeometryBatchCombineHelper::IsCombinableWith(const GeometryBatchInstance& geometryBatchInstance) const {
+        unsigned int uVar2;
+        unsigned int uVar3;
+        vector<unsigned int>* pvVar8;
         long lVar9;
         long lVar10;
 
-        this_00 = (GeometryBatch*)param_1->GetGeometryBatch();
-        iVar1 = m_indexCount;
-        iVar7 = this_00->GetIndexCount();
-        this_01 = (GeometryBatch*)field_0->GetGeometryBatch();
-        bVar4 = this_01->HasFaceTransparency();
-        bVar5 = this_00->HasFaceTransparency();
-        bVar6 = (bool)((bVar5 ^ bVar4 ^ 1) & (uint)(iVar7 + iVar1) < 65536);
+        auto this_00 = geometryBatchInstance.GetGeometryBatch();
+        int iVar1 = m_indexCount;
+        int iVar7 = this_00->GetIndexCount();
+        uint8_t bVar4 = ((GeometryBatch*)field_0->GetGeometryBatch())->HasFaceTransparency();
+        uint8_t bVar5 = this_00->HasFaceTransparency();
+        bool bVar6 = (bool)((bVar5 ^ bVar4 ^ 1) & (unsigned int)(iVar7 + iVar1) < 65536);
         if (bVar6 == true) {
             if (field_8 == false) {
                 bVar6 = true;
             } else {
                 uVar2 = field_20;
-                pvVar8 = (vector<unsigned int, eastl::allocator>*)this_00->GetBoneIDMap();
-                lVar9 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar8);
-                pvVar8 = (vector<unsigned int, eastl::allocator>*)this_00->GetJointIDMap();
-                lVar10 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar8);
+                pvVar8 = (vector<unsigned int>*)this_00->GetBoneIDMap();
+                lVar9 = pvVar8->size();
+                pvVar8 = (vector<unsigned int>*)this_00->GetJointIDMap();
+                lVar10 = pvVar8->size();
                 uVar3 = field_24;
-                pvVar8 = (vector<unsigned int, eastl::allocator>*)this_00->GetMaterial();
-                bVar6 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar8) + (ulong)uVar3 < 33 &&
-                        lVar10 + lVar9 + (ulong)uVar2 < 57;
+                pvVar8 = (vector<unsigned int>*)this_00->GetMaterial();
+                bVar6 = pvVar8->size() + (unsigned long)uVar3 < 33 && lVar10 + lVar9 + (unsigned long)uVar2 < 57;
             }
         }
         return bVar6;
     }
 
-    // 0x10080ca70, 288 bytes, placed by class name and debug map
-    // GeometryBatchCombineHelper::Combine(GeometryBatchInstance const&)
-    void GeometryBatchCombineHelper::Combine(GeometryBatchInstance* param_1) {
-        int iVar1;
-        uint uVar3;
-        GeometryBatch* this_00;
-        vector<unsigned int, eastl::allocator>* pvVar4;
-        GeometryBatchInstance* local_30;
+    // 0x10080ca70
+    void GeometryBatchCombineHelper::Combine(const GeometryBatchInstance& geometryBatchInstance) {
+        unsigned int uVar3;
+        vector<unsigned int>* pvVar4;
 
-        if (field_0 == (GeometryBatchInstance*)0) {
-            /* WARNING: Subroutine does not return */
+        if (field_0 == nullptr) {
             LogAssert("m_destGeometryBatchInstance != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/model/"
                       "GeometryBatchCombineHelper.cpp",
-                      65, (char*)0);
+                      65, nullptr);
         }
-        this_00 = (GeometryBatch*)param_1->GetGeometryBatch();
-        if (field_32 == (GeometryBatchInstance*)0) {
-            field_32 = param_1;
+        auto this_00 = geometryBatchInstance.GetGeometryBatch();
+        if (field_32 == nullptr) {
+            field_32 = geometryBatchInstance;
         }
-        iVar1 = this_00->GetIndexCount();
+        int iVar1 = this_00->GetIndexCount();
         m_indexCount = m_indexCount + iVar1;
         iVar1 = this_00->GetVertexCount();
         m_vertexCount = m_vertexCount + iVar1;
         if (field_8 != false) {
-            pvVar4 = (vector<unsigned int, eastl::allocator>*)this_00->GetBoneIDMap();
-            iVar1 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar4);
-            pvVar4 = (vector<unsigned int, eastl::allocator>*)this_00->GetJointIDMap();
-            uVar3 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar4) + iVar1 + field_20;
+            pvVar4 = (vector<unsigned int>*)this_00->GetBoneIDMap();
+            iVar1 = pvVar4->size();
+            pvVar4 = (vector<unsigned int>*)this_00->GetJointIDMap();
+            uVar3 = pvVar4->size() + iVar1 + field_20;
             field_20 = uVar3;
             if (56 < uVar3) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_combinedBoneCount <= AnimationConstants::MAX_BONES_IN_BATCH",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                           "model/GeometryBatchCombineHelper.cpp",
-                          76, (char*)0);
+                          76, nullptr);
             }
-            pvVar4 = (vector<unsigned int, eastl::allocator>*)this_00->GetMaterial();
-            iVar1 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar4);
+            pvVar4 = (vector<unsigned int>*)this_00->GetMaterial();
+            iVar1 = pvVar4->size();
             uVar3 = iVar1 + field_24;
             field_24 = uVar3;
             if (32 < uVar3) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_combinedLabelCount <= AnimationConstants::MAX_LABELS_IN_BATCH",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                           "model/GeometryBatchCombineHelper.cpp",
-                          78, (char*)0);
+                          78, nullptr);
             }
         }
-        local_30 = param_1;
-        (&field_40, &local_30)->push_back();
+        field_40.push_back(geometryBatchInstance);
     }
 
-    // 0x10080cbf0, 128 bytes, placed by class name and debug map
-    // GeometryBatchCombineHelper::FinishCombine()
+    // 0x10080cbf0
     void GeometryBatchCombineHelper::FinishCombine() {
-        undefined8* puVar1;
-        undefined8* puVar2;
+        uint64_t* puVar1;
+        uint64_t* puVar2;
 
-        if (field_0 != (GeometryBatchInstance*)0) {
-            (field_0, this)->Reserve();
-            puVar1 = (undefined8*)(&field_40)->HeapBeginPtr();
-            puVar2 = (undefined8*)(&field_40)->end();
+        if (field_0 != nullptr) {
+            field_0->Reserve(*this);
+            puVar1 = (uint64_t*)field_40.HeapBeginPtr();
+            puVar2 = (uint64_t*)field_40.end();
             for (; puVar1 != puVar2; puVar1 = puVar1 + 1) {
-                (field_0, (GeometryBatchInstance*)*puVar1, field_8)->Append();
+                field_0->Append(*(*puVar1), field_8);
             }
-            Reset(this, (GeometryBatchInstance*)0, -1, false);
+            Reset(nullptr, -1, false);
         }
     }
 

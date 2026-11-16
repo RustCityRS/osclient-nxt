@@ -1,18 +1,16 @@
 // libs/hal/input/osx/InputInc_OSX.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.input
 
 namespace jag::input {
-    // 0x100c9d2e0, 32 bytes, placed by debug map only (low confidence)
-    // Input::Update(float)
-    float Input::Update(float param_1) {
-        if (field_8 != (InputHandler*)0) {
-            param_1 = (float)gesture::GestureManager::Update();
+    // 0x100c9d2e0
+    float Input::Update(float arg1) {
+        if (field_8 != nullptr) {
+            arg1 = (float)field_8->field_2216.Update();
         }
-        return param_1;
+        return arg1;
     }
 
 } // namespace jag::input

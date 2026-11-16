@@ -1,86 +1,70 @@
 // projects/osclient/social/IgnoreList.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "IgnoreList.h"
 
 namespace jag::oldscape::social {
-    // 0x1000253a0, 816 bytes, placed by class name and debug map
-    // IgnoreList::ProcessUpdate(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&, int, ErrorCapture&)
-    void IgnoreList::ProcessUpdate(PacketJ* param_1, int param_2, ErrorCapture* param_3) {
+    // 0x1000253a0
+    void IgnoreList::ProcessUpdate(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>& packetJ, int arg2,
+                                   ErrorCapture& errorCapture) {
         IgnoreData* pIVar1;
-        byte bVar2;
-        char cVar3;
+        uint8_t bVar2;
         int iVar4;
         int iVar5;
-        ulong uVar6;
-        long lVar7;
+        unsigned long uVar6;
+        Client* pCVar7;
         FriendSystem* this_00;
-        basic_string* pbVar8;
-        IgnoreData* pIVar9;
-        IgnoreData* pIVar10;
-        bool bVar11;
+        eastl::string* str;
+        IgnoreData* ignoreData;
+        IgnoreData* ignoreData_00;
+        bool arg1;
         DisplayName local_f0;
         DisplayName local_b0;
         PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>> local_70[32];
-        ulong local_50;
-        ErrorCapture* local_48;
-        PacketJ* local_40;
-        byte local_31;
+        uint8_t local_31;
 
-        local_50 = (ulong)param_2;
-        local_48 = param_3;
-        local_40 = param_1;
+        unsigned long local_50 = (unsigned long)arg2;
+        ErrorCapture* local_48 = errorCapture;
+        PacketJ<Array<unsigned char, BucketAllocatorEASTL> _>* local_40 = packetJ;
         do {
-            uVar6 = param_1->size();
+            uVar6 = packetJ.size();
             if (local_50 <= uVar6) {
                 return;
             }
-            bVar2 = param_1->g1();
-            bVar11 = SUB81(param_1, 0);
+            bVar2 = packetJ.g1();
+            arg1 = (uint8_t)packetJ;
             if (bVar2 == 4) {
-                PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<
-                    eastl::string>((PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)&local_b0,
-                                   bVar11);
-                new (&local_f0) rs2lib::social::DisplayName(&local_b0, field_160);
-                local_b0.~basic_string();
-                cVar3 = local_f0.IsValid();
-                if (cVar3 == '\0') {
+                local_b0.gStringCP1252ToUTF8<eastl::string>(arg1);
+                local_f0 = rs2lib::social::DisplayName(local_b0, field_160);
+                if (!(local_f0.IsValid())) {
                     iVar5 = 1;
                     local_48->Raise("Name is not valid");
                 } else {
-                    lVar7 = Client::Instance();
-                    this_00 =
-                        (FriendSystem*)std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-                            (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(lVar7 + 52768));
-                    pbVar8 = (basic_string*)local_f0.GetDisplayName();
+                    pCVar7 = Client::Instance();
+                    this_00 = (FriendSystem*)pCVar7->field_52768.operator->();
+                    str = local_f0.GetDisplayName();
                     iVar5 = 2;
-                    this_00->DelIgnore(pbVar8, false);
+                    this_00->DelIgnore(*str, false);
                 }
             } else {
                 local_31 = bVar2;
+                local_b0.gStringCP1252ToUTF8<eastl::string>(arg1);
+                local_f0 = rs2lib::social::DisplayName(local_b0, field_160);
                 PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<
-                    eastl::string>((PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)&local_b0,
-                                   bVar11);
-                new (&local_f0) rs2lib::social::DisplayName(&local_b0, field_160);
-                local_b0.~basic_string();
+                    eastl::string>(local_70, arg1);
+                local_b0 = rs2lib::social::DisplayName(*local_70, field_160);
                 PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<
-                    eastl::string>(local_70, bVar11);
-                new (&local_b0) rs2lib::social::DisplayName(local_70, field_160);
-                local_70->~basic_string();
-                PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<
-                    eastl::string>(local_70, SUB81(local_40, 0));
-                cVar3 = local_f0.IsValid();
-                if (cVar3 == '\0') {
+                    eastl::string>(local_70, (uint8_t)local_40);
+                if (!(local_f0.IsValid())) {
                     iVar5 = 1;
                     local_48->Raise("Name is not valid");
-                    param_1 = local_40;
+                    packetJ = local_40;
                 } else {
-                    pIVar9 = (IgnoreData*)GetPlayerByCurrentDisplayName(&local_f0);
-                    param_1 = local_40;
+                    ignoreData = (IgnoreData*)GetPlayerByCurrentDisplayName(local_f0);
+                    packetJ = local_40;
                     if ((local_31 & 1) == 0) {
-                        if (pIVar9 != (IgnoreData*)0)
+                        if (ignoreData != nullptr)
                             goto LAB_1000255a5;
                     LAB_1000255de:
                         iVar4 = GetLevel();
@@ -88,34 +72,31 @@ namespace jag::oldscape::social {
                         if (399 < iVar4)
                             goto LAB_100025630;
                         iVar5 = GetLevel();
-                        pIVar9 = (IgnoreData*)AddPlayer(&local_f0, &local_b0);
-                        if (pIVar9 != (IgnoreData*)0) {
-                            pIVar9->field_168 = iVar5;
+                        ignoreData = (IgnoreData*)AddPlayer(local_f0, local_b0);
+                        if (ignoreData != nullptr) {
+                            ignoreData->field_168 = iVar5;
                         }
                     } else {
-                        pIVar10 = (IgnoreData*)GetPlayerByCurrentDisplayName(&local_b0);
-                        pIVar1 = pIVar9;
-                        if (((pIVar10 != (IgnoreData*)0) && (pIVar10 != pIVar9)) &&
-                            (pIVar1 = pIVar10, pIVar9 != (IgnoreData*)0)) {
-                            RemovePlayer(pIVar10);
-                            pIVar1 = pIVar9;
+                        ignoreData_00 = (IgnoreData*)GetPlayerByCurrentDisplayName(local_b0);
+                        pIVar1 = ignoreData;
+                        if (((ignoreData_00 != nullptr) && (ignoreData_00 != ignoreData)) &&
+                            (pIVar1 = ignoreData_00, ignoreData != nullptr)) {
+                            RemovePlayer(ignoreData_00);
+                            pIVar1 = ignoreData;
                         }
-                        pIVar9 = pIVar1;
-                        if (pIVar9 == (IgnoreData*)0)
+                        ignoreData = pIVar1;
+                        if (ignoreData == nullptr)
                             goto LAB_1000255de;
                     LAB_1000255a5:
-                        UpdatePlayerNames(pIVar9, &local_f0, &local_b0);
+                        UpdatePlayerNames(ignoreData, local_f0, local_b0);
                     }
                     iVar5 = 0;
-                    if (pIVar9 != (IgnoreData*)0) {
-                        eastl::string::operator=((eastl::string*)&pIVar9->field_136, (basic_string*)local_70);
+                    if (ignoreData != nullptr) {
+                        ignoreData->field_136 = local_70;
                     }
                 }
             LAB_100025630:
-                local_70->~basic_string();
-                local_b0.~pair();
             }
-            local_f0.~pair();
             if (iVar5 == 1) {
                 return;
             }

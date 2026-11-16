@@ -1,180 +1,145 @@
 // libs/jtl/allocator/PoolAllocator.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.jtl
 
 namespace jag {
     class PoolAllocator {
     public:
-        PoolAllocator(unsigned long, unsigned long, unsigned long);
+        PoolAllocator(unsigned long arg1, unsigned long arg2, unsigned long arg3);
         void Clear();
         ~PoolAllocator();
-        void Reserve(unsigned long);
-        void* Alloc(unsigned int*);
-        void Free(void*);
+        void Reserve(unsigned long arg1);
+        void* Alloc(unsigned int* arg1);
+        void Free(void* arg1);
 
-        // data members, from how the methods use this: 48 bytes
-        ulong field_0;       // offset 0
-        long field_8;        // offset 8
-        ulong field_16;      // offset 16
-        ulong field_24;      // offset 24
-        void* field_32;      // offset 32
-        undefined1 field_40; // offset 40
-        char _unknown_41[7];
+    private:
+        unsigned long field_0;
+        long field_8;
+        unsigned long field_16;
+        unsigned long field_24;
+        void* field_32;
+        uint8_t _unknown_40[8];
     };
 
-    // 0x100cbc5a0, 208 bytes, base-object constructor, placed by class name and debug map
-    // PoolAllocator::PoolAllocator(unsigned long, unsigned long, unsigned long)
-    void PoolAllocator::PoolAllocator(ulong param_1, ulong param_2, ulong param_3) {
-        ulong uVar2;
+    // 0x100cbc5a0
+    PoolAllocator::PoolAllocator(unsigned long arg1, unsigned long arg2, unsigned long arg3)
+        : field_0(arg1), field_8(0), field_16(arg3) {
         char* this_00;
-        allocator local_30[8];
 
-        field_0 = param_1;
-        field_8 = 0;
-        field_16 = param_3;
-        uVar2 = (param_2 + param_3) - 1;
-        uVar2 = uVar2 - uVar2 % param_3;
+        unsigned long uVar2 = (arg2 + arg3) - 1;
+        uVar2 = uVar2 - uVar2 % arg3;
         field_24 = uVar2;
-        field_32 = (void*)aligned_malloc(uVar2 * param_1, param_3);
-        eastl::allocator::allocator(local_30, "EASTL vector");
-        new (&field_40, param_1, local_30) eastl::vector<unsigned int, eastl::allocator>();
-        if (field_32 == (void*)0) {
+        field_32 = (void*)aligned_malloc(uVar2 * arg1, arg3);
+        new (&field_40) eastl::vector<unsigned int>(arg1, local_30);
+        if (field_32 == nullptr) {
             this_00 = "m_memoryBuffer != nullptr";
             LogFatalError(
                 "m_memoryBuffer != nullptr",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/PoolAllocator.cpp",
-                16, 0, "Failed to allocate %zu bytes", param_1 * field_24);
-            /* WARNING: Subroutine does not return */
+                16, 0, "Failed to allocate %zu bytes", arg1 * field_24);
             this_00->~OptionStore();
         }
-        Clear(this);
+        Clear();
     }
 
-    // 0x100cbc680, 112 bytes, placed by class name and debug map
-    // PoolAllocator::Clear()
+    // 0x100cbc680
     void PoolAllocator::Clear() {
-        ulong uVar1;
-        int* piVar2;
-        ulong uVar3;
-        int iVar4;
+        int* piVar1;
+        unsigned long arg1_00;
+        int iVar2;
 
-        uVar1 = field_0;
+        unsigned long arg1 = field_0;
         field_8 = 0;
-        eastl::vector<unsigned int, eastl::allocator>::resize((ulong)&field_40);
-        if (uVar1 != 0) {
-            iVar4 = (int)uVar1;
-            uVar3 = 0;
+        field_40.resize(arg1);
+        if (arg1 != 0) {
+            iVar2 = (int)arg1;
+            arg1_00 = 0;
             do {
-                iVar4 = iVar4 + -1;
-                piVar2 = (int*)eastl::vector<unsigned int, eastl::allocator>::operator[](
-                    (vector<unsigned int, eastl::allocator>*)&field_40, uVar3);
-                *piVar2 = iVar4;
-                uVar3 = uVar3 + 1;
-            } while (uVar3 != uVar1);
+                iVar2 = iVar2 - 1;
+                piVar1 = (int*)field_40[arg1_00];
+                *piVar1 = iVar2;
+                arg1_00 = arg1_00 + 1;
+            } while (arg1_00 != arg1);
         }
     }
 
-    // 0x100cbc6f0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // PoolAllocator::PoolAllocator(unsigned long, unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100cbc700, 48 bytes, base-object destructor, placed by class name and debug map
-    // PoolAllocator::~PoolAllocator()
-    void PoolAllocator::~PoolAllocator() {
+    // 0x100cbc700
+    PoolAllocator::~PoolAllocator() {
         _free(field_32);
-        (&field_40)->~vector();
+        field_40.~vector();
     }
 
-    // 0x100cbc730, 16 bytes, complete-object destructor, placed by class name and debug map
-    // PoolAllocator::~PoolAllocator(): jumps straight to the base-object destructor
-
-    // 0x100cbc740, 128 bytes, placed by class name and debug map
-    // PoolAllocator::Reserve(unsigned long)
-    void PoolAllocator::Reserve(ulong param_1) {
-        void* pvVar1;
+    // 0x100cbc740
+    void PoolAllocator::Reserve(unsigned long arg1) {
         char* this_00;
 
-        field_0 = param_1;
+        field_0 = arg1;
         _free(field_32);
-        pvVar1 = (void*)aligned_malloc(field_24 * param_1, field_16);
+        auto pvVar1 = aligned_malloc(field_24 * arg1, field_16);
         field_32 = pvVar1;
-        if (pvVar1 == (void*)0) {
+        if (pvVar1 == nullptr) {
             this_00 = "m_memoryBuffer != nullptr";
             LogFatalError(
                 "m_memoryBuffer != nullptr",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/PoolAllocator.cpp",
-                31, 0, "Failed to allocate %zu bytes", param_1 * field_24);
-            /* WARNING: Subroutine does not return */
+                31, 0, "Failed to allocate %zu bytes", arg1 * field_24);
             this_00->~OptionStore();
         }
-        eastl::vector<unsigned int, eastl::allocator>::resize((ulong)&field_40);
-        Clear(this);
+        field_40.resize(arg1);
+        Clear();
     }
 
-    // 0x100cbc810, 96 bytes, placed by class name and debug map
-    // PoolAllocator::Alloc(unsigned int*)
-    void* PoolAllocator::Alloc(uint* param_1) {
-        undefined1* this_00;
-        uint uVar1;
-        char cVar2;
-        uint* puVar3;
+    // 0x100cbc810
+    void* PoolAllocator::Alloc(unsigned int* arg1) {
+        unsigned int uVar1;
+        unsigned int* puVar3;
         void* pvVar4;
 
-        this_00 = &field_40;
-        cVar2 = this_00->empty();
-        if (cVar2 == '\0') {
-            puVar3 = (uint*)this_00->back();
+        uint8_t* this_00 = &field_40;
+        if (this_00->empty() == '\0') {
+            puVar3 = (unsigned int*)this_00->back();
             uVar1 = *puVar3;
             this_00->pop_back();
             field_8 = field_8 + 1;
-            if (param_1 != (uint*)0) {
-                *param_1 = uVar1;
+            if (arg1 != nullptr) {
+                *arg1 = uVar1;
             }
-            pvVar4 = (void*)(field_24 * (ulong)uVar1 + (long)field_32);
+            pvVar4 = (void*)(field_24 * (unsigned long)uVar1 + (long)field_32);
         } else {
-            pvVar4 = (void*)0;
+            pvVar4 = nullptr;
         }
         return pvVar4;
     }
 
-    // 0x100cbc8e0, 224 bytes, placed by class name and debug map
-    // PoolAllocator::Free(void*)
-    void PoolAllocator::Free(void* param_1) {
-        ulong uVar1;
-        uint local_1c;
-
-        if (param_1 < field_32) {
-            /* WARNING: Subroutine does not return */
+    // 0x100cbc8e0
+    void PoolAllocator::Free(void* arg1) {
+        if (arg1 < field_32) {
             LogAssert(
                 "ptr >= m_memoryBuffer",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/PoolAllocator.cpp",
-                59, (char*)0);
+                59, nullptr);
         }
-        if ((ulong)param_1 % field_16 != 0) {
-            /* WARNING: Subroutine does not return */
+        if ((unsigned long)arg1 % field_16 != 0) {
             LogAssert(
                 "reinterpret_cast<ptrdiff_t>(ptr) % m_alignment == 0",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/PoolAllocator.cpp",
-                60, (char*)0);
+                60, nullptr);
         }
         if (field_8 == 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "m_size > 0",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/PoolAllocator.cpp",
-                61, (char*)0);
+                61, nullptr);
         }
-        uVar1 = (ulong)((long)param_1 - (long)field_32) / field_24;
+        unsigned long uVar1 = (unsigned long)((long)arg1 - (long)field_32) / field_24;
         if (field_0 <= uVar1) {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "index < m_capacity",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/PoolAllocator.cpp",
-                63, (char*)0);
+                63, nullptr);
         }
-        field_8 = field_8 + -1;
-        local_1c = (uint)uVar1;
-        (&field_40, &local_1c)->push_back();
+        field_8 = field_8 - 1;
+        field_40.push_back((unsigned int)uVar1);
     }
 
 } // namespace jag

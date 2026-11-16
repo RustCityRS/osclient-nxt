@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/lighting/shadowmapping/PointLightSM.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,124 +9,104 @@ namespace jag::graphics {
         class ShaderConsts;
         // virtual methods in vtable order
         virtual ~PointLightSM();
-        GetParentPointLightSMManager();
-        GetShadowCubeMapLodAtlasData() const;
+        void GetParentPointLightSMManager();
+        uint8_t* GetShadowCubeMapLodAtlasData() const;
         int GetLODLevel() const;
-        GetShadowCubeMapFaceViewport(render::CubeFace) const;
-        void GetShadowCubeMapFacePass(render::CubeFace);
-        PointLightSM(Array<std::array<graphicutils::TextureAtlasSlot2D, 6ul>, BucketAllocatorEASTL> const&,
-                     PointLightSMManager*, unsigned long);
+        PointLightSM* GetShadowCubeMapFaceViewport(render::CubeFace cubeFace) const;
+        void GetShadowCubeMapFacePass(render::CubeFace cubeFace);
+        PointLightSM(const Array<std::array<graphicutils::TextureAtlasSlot2D, 6ul>>& textureAtlasSlot2Dss,
+                     PointLightSMManager* pointLightSMManager, unsigned long arg3);
         void Destroy();
-        void ComputeLinearLightLODLevel(math::Sphere const&, ViewTransforms const&, float);
+        void ComputeLinearLightLODLevel(const math::Sphere& sphere, const ViewTransforms& viewTransforms, float arg3);
         void GetLODLevels() const;
-        void SetLODLevel(int);
+        void SetLODLevel(int arg1);
         void ResetPasses();
-        void SetShadowParams(LightShadowParams const&);
-        void GetShaderConsts(ShaderConsts&, float, float) const;
+        void SetShadowParams(const LightShadowParams& lightShadowParams);
+        void GetShaderConsts(ShaderConsts& shaderConsts, float arg2, float arg3) const;
         int GetID() const;
-        GetShadowParams() const;
+        uint8_t* GetShadowParams() const;
 
-        // data members, from how the methods use this: 6892 bytes
-        undefined** field_0;          // offset 0, vtable pointer
-        PointLightSMManager* field_8; // offset 8
-        char _unknown_16[6848];
-        int m_lODLevel;            // offset 6864
-        int m_iD;                  // offset 6868
-        undefined1 m_shadowParams; // offset 6872
-        char _unknown_6873[3];
-        int field_6876; // offset 6876
-        char _unknown_6880[4];
-        float field_6884; // offset 6884
-        char _unknown_6888[4];
+    private:
+        PointLightSMManager* field_8;
+        uint8_t _unknown_16[6848];
+        int m_lODLevel;
+        int m_iD;
+        uint8_t m_shadowParams;
+        uint8_t _unknown_6873[3];
+        int field_6876;
+        uint8_t _unknown_6880[4];
+        float field_6884;
+        uint8_t _unknown_6888[4];
     };
 
     class PointLightSM::ShaderConsts {
     public:
         void Clear();
 
-        // data members, from how the methods use this: 56 bytes
-        undefined8 field_0; // offset 0
-        undefined8 field_8; // offset 8
-        char _unknown_16[40];
+    private:
+        ReturnValue field_0;
+        ReturnValue field_8;
+        uint8_t _unknown_16[40];
     };
 
-    // 0x10047dd60, 16 bytes, inline, placed by class name and debug map
-    // PointLightSM::GetLODLevel() const
-    int PointLightSM::GetLODLevel() {
+    // 0x10047dd60
+    int PointLightSM::GetLODLevel() const {
         return m_lODLevel;
     }
 
-    // 0x10047dd80, 160 bytes, inline, placed by class name and debug map
-    // PointLightSM::GetShadowCubeMapFaceViewport(render::CubeFace) const
-    PointLightSM* PointLightSM::GetShadowCubeMapFaceViewport(long param_2, undefined4 param_3) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-        int iVar4;
-        long lVar5;
-        Minimap* this_00;
+    // 0x10047dd80
+    PointLightSM* PointLightSM::GetShadowCubeMapFaceViewport(render::CubeFace cubeFace) const {
+        CubeFace in_EDX;
+        uint32_t in_register_00000034;
 
-        lVar5 = eastl::vector<ShadowCubeMapAtlasData, eastl::allocator>::operator[](
-            (vector<ShadowCubeMapAtlasData, eastl::allocator>*)(param_2 + 16), (long)*(int*)(param_2 + 6864));
-        iVar1 = render::GetCubeMapFaceIndex(param_3);
-        this_00 = (Minimap*)std::array<math::Rect<unsigned int>, 6ul>::operator[](
-            (array<math::Rect<unsigned int>, 6ul>*)(lVar5 + 60), (long)iVar1);
+        long lVar2 =
+            (*((vector<ShadowCubeMapAtlasData>*)((((uint64_t)in_register_00000034 << 32) | (uint32_t)cubeFace) + 16)))[(
+                long)*(int*)((((uint64_t)in_register_00000034 << 32) | (uint32_t)cubeFace) + 6864)];
+        int iVar1 = render::GetCubeMapFaceIndex(in_EDX);
+        Minimap* this_00 = (Minimap*)(*((lVar2 + 60)))[(long)iVar1];
         iVar1 = this_00->GetX();
-        iVar2 = this_00->GetZ();
-        iVar3 = this_00->GetPos();
-        iVar4 = this_00->GetLevel();
-        new (this) render::Viewport(iVar1, iVar2, iVar3, iVar4, 0.0, 1.0);
+        int arg2 = this_00->GetZ();
+        int arg3 = this_00->GetPos();
+        int arg4 = this_00->GetLevel();
+        new (this) render::Viewport(iVar1, arg2, arg3, arg4, 0.0, 1.0);
         return this;
     }
 
-    // 0x10047e130, 48 bytes, inline, placed by class name and debug map
-    // PointLightSM::GetShadowCubeMapFacePass(render::CubeFace)
-    void PointLightSM::GetShadowCubeMapFacePass(undefined4 param_2) {
-        int iVar1;
-
-        iVar1 = render::GetCubeMapFaceIndex(param_2);
-        std::array<PointLightSMPass, 6ul>::operator[]((array<PointLightSMPass, 6ul>*)&field_48, (long)iVar1);
+    // 0x10047e130
+    void PointLightSM::GetShadowCubeMapFacePass(render::CubeFace cubeFace) {
+        int iVar1 = render::GetCubeMapFaceIndex(cubeFace);
+        field_48[(long)iVar1];
     }
 
-    // 0x1008ae020, 16 bytes, inline, placed by class name
-    // PointLightSM::GetLODLevels() const
-    void PointLightSM::GetLODLevels() {
-        (&field_16)->size();
+    // 0x1008ae020
+    void PointLightSM::GetLODLevels() const {
+        field_16.size();
     }
 
-    // 0x1008af240, 16 bytes, inline, placed by class name
-    // PointLightSM::GetID() const
-    int PointLightSM::GetID() {
+    // 0x1008af240
+    int PointLightSM::GetID() const {
         return m_iD;
     }
 
-    // 0x1008b01e0, 16 bytes, inline, placed by class name
-    // PointLightSM::GetShadowParams() const
-    undefined1* PointLightSM::GetShadowParams() {
+    // 0x1008b01e0
+    uint8_t* PointLightSM::GetShadowParams() const {
         return &m_shadowParams;
     }
 
-    // 0x1009222e0, 112 bytes, inline, placed by class name
-    // PointLightSM::ShaderConsts::Clear()
+    // 0x1009222e0
     void PointLightSM::ShaderConsts::Clear() {
-        Vector4T<float>* this_00;
-        Vector4T<float>* pVVar1;
+        void result;
+        ReturnValue result;
 
-        SetToZero();
-        (&field_16)->SetToZero();
-        (&field_32)->SetToZero();
-        (&field_40)->SetToZero();
-        this_00 = (Vector4T<float>*)(&field_48)->begin();
-        pVVar1 = (Vector4T<float>*)(&field_48)->end();
-        for (; this_00 != pVVar1; this_00 = this_00 + 16) {
-            this_00->SetToZero();
+        *this = math::Vector4T<float>::SetToZero();
+        field_16 = math::Vector4T<float>::SetToZero();
+        field_32 = math::Vector2T<float>::SetToZero();
+        field_40 = math::Vector2T<float>::SetToZero();
+        &result = (ReturnValue*)std::array<math::Vector4T<float>, 6ul>::begin();
+        ReturnValue* pRVar1 = (ReturnValue*)std::array<math::Vector4T<float>, 6ul>::end();
+        for (; &result != pRVar1; &result = &result + 2) {
+            result = math::Vector4T<float>::SetToZero();
         }
     }
 
 } // namespace jag::graphics
-
-namespace jag::math {
-    // 0x10047dd70, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ColourStorage8888<ARGB8StorageLayout>::ColourStorage8888(Vector4T<float> const&): jumps straight to the base-object constructor
-
-} // namespace jag::math

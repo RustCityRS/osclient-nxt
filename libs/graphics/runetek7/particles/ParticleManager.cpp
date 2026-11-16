@@ -1,148 +1,102 @@
 // libs/graphics/runetek7/particles/ParticleManager.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "ParticleManager.h"
 #include "libs/graphics/runetek7/particles/modules/FlowModule.h"
 
 namespace jag::graphics {
-    // 0x100f43880, 4 bytes, __data
-    ParticleManager::m_freezeUpdates = 0;
+    // 0x100f43880
+    int32_t ParticleManager::m_freezeUpdates = 0;
 
-    // 0x100f43884, 4 bytes, __data
+    // 0x100f43884
     float ParticleManager::m_updateSpeedMultiplier = 1.0f;
 
-    // 0x100f44138, 12 bytes, __data
-    ParticleManager::m_enableMetrics = {1, 0, 0};
+    // 0x100f44138
+    int32_t ParticleManager::m_enableMetrics[3] = {1, 0, 0};
 
-    // 0x1001d2010: the linker folded this into oldscape::rseven::OSRenderCore_TextureDataProvider::GetSpritesArchive() const, which has identical code
-    ParticleManagerHeightProvider* ParticleManager::GetHeightProvider();
+    // 0x1001d2010: ParticleManager::GetHeightProvider() has the same machine code as oldscape::rseven::OSRenderCore_TextureDataProvider::GetSpritesArchive() const
 
-    // 0x1004491a0: the linker folded this into game::CombinedLocationSection::GetHighlightState(), which has identical code
-    ParticleManager::GetMetrics() const;
+    // 0x1004491a0: ParticleManager::GetMetrics() const has the same machine code as game::CombinedLocationSection::GetHighlightState()
 
-    // 0x10079a220: the linker folded this into ImGuiTabBarSection::ImGuiTabBarSection(), which has identical code
-    ParticleManager::Metrics::Metrics();
+    // 0x10079a220: ParticleManager::Metrics::Metrics() has the same machine code as ImGuiTabBarSection::ImGuiTabBarSection()
 
-    // 0x10079a220: the linker folded this into ImGuiTabBarSection::ImGuiTabBarSection(), which has identical code
-    TextureAtlasTextureMapping::TextureAtlasTextureMapping();
+    // 0x10079a220: TextureAtlasTextureMapping::TextureAtlasTextureMapping() has the same machine code as ImGuiTabBarSection::ImGuiTabBarSection()
 
-    // 0x10079a850: the linker folded this into ImGuiTabBarSection::ImGuiTabBarSection(), which has identical code
-    ParticleManager::Metrics::Metrics();
+    // 0x10079a850: ParticleManager::Metrics::Metrics() has the same machine code as ImGuiTabBarSection::ImGuiTabBarSection()
 
-    // 0x1007ce1f0, 432 bytes, base-object constructor, placed by class name and debug map
-    // ParticleManager::ParticleManager(IConfigProvider*, int, ThreadPool*)
-    void ParticleManager::ParticleManager(IConfigProvider* param_1, int param_2, ThreadPool* param_3) {
-        field_0 = param_1;
-        new (&field_8) ParticleRawLoader();
-        m_pHeightProvider = (ParticleManagerHeightProvider*)0;
-        new (&field_112) eastl::vector_map<
-            int, shared_ptr<ModularParticleSystemTemplate>, eastl::less<int>, eastl::allocator,
-            eastl::vector<eastl::pair<int, shared_ptr<ModularParticleSystemTemplate>>, eastl::allocator>>();
-        field_152 = 0;
-        new (&field_160) Array<ParticleEmitterTemplate, eastl::allocator>();
-        field_184 = 0;
-        new (&field_192) Array<ParticleEffectorTemplate, eastl::allocator>();
-        new (&field_216) eastl::vector<ParticleSystem*, eastl::allocator>();
-        new (&field_248) eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator>();
-        std::vector<std::future<void>, std::allocator<std::future<void>>>::vector();
-        field_304 = param_3;
-        new (&m_metrics) ImGuiTableColumnSortSpecs();
-        if (param_3 == (ThreadPool*)0) {
-            /* WARNING: Subroutine does not return */
+    // 0x1007ce1f0
+    ParticleManager::ParticleManager(IConfigProvider* iConfigProvider, int arg2, ThreadPool* threadPool)
+        : field_0(iConfigProvider), m_pHeightProvider(nullptr), field_152(0), field_184(0), field_304(threadPool) {
+        if (threadPool == nullptr) {
             LogAssert("pThreadPool",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "particles/ParticleManager.cpp",
-                      70, (char*)0);
+                      70, nullptr);
         }
-        if (param_1 == (IConfigProvider*)0) {
-            /* WARNING: Subroutine does not return */
+        if (iConfigProvider == nullptr) {
             LogAssert("configProvider",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "particles/ParticleManager.cpp",
-                      71, (char*)0);
+                      71, nullptr);
         }
-        if (0 < param_2) {
-            (&field_216, (long)param_2)->reserve();
-            (&field_248, (long)param_2)->reserve();
+        if (0 < arg2) {
+            field_216.reserve((long)arg2);
+            field_248.reserve((long)arg2);
         }
         particlemodules::Noise::PrecalculateNoise();
     }
 
-    // 0x1007ce570, 16 bytes, complete-object constructor, placed by class name
-    // ParticleManager::ParticleManager(IConfigProvider*, int, ThreadPool*): jumps straight to the base-object constructor
-
-    // 0x1007ce580, 256 bytes, base-object destructor, placed by class name
-    // ParticleManager::~ParticleManager()
-    void ParticleManager::~ParticleManager() {
-        char cVar1;
-
-        cVar1 = (&field_280)->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x1007ce580
+    ParticleManager::~ParticleManager() {
+        if (field_280.empty() == '\0') {
             LogAssert("m_pendingUpdateTasks.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "particles/ParticleManager.cpp",
-                      84, (char*)0);
+                      84, nullptr);
         }
-        Destroy(this);
-        (&field_280)->~vector();
-        (&field_248)->~vector();
-        (&field_216)->~vector();
-        (&field_192)->~Array();
-        (&field_160)->~Array();
-        (&field_112)->~vector_map();
-        (&field_8)->~ParticleRawLoader();
+        Destroy();
+        field_280.~vector();
+        field_248.~vector();
+        field_216.~vector();
+        field_192.~Array();
+        field_160.~Array();
+        field_8.~ParticleRawLoader();
     }
 
-    // 0x1007ce690, 48 bytes, placed by class name
-    // ParticleManager::Destroy()
+    // 0x1007ce690
     void ParticleManager::Destroy() {
-        DestroyRenderingResources(this);
-        (&field_8)->Destruct();
-        field_96 = (MaterialManager*)0;
+        DestroyRenderingResources();
+        field_8.Destruct();
+        field_96 = 0;
     }
 
-    // 0x1007ce6c0, 16 bytes, complete-object destructor, placed by class name
-    // ParticleManager::~ParticleManager(): jumps straight to the base-object destructor
+    // 0x1007ce6d0
+    void ParticleManager::Initialise(Js5ResourceProvider* js5ResourceProvider,
+                                     const Js5ArchiveSettings* js5ArchiveSettings1,
+                                     const Js5ArchiveSettings* js5ArchiveSettings2,
+                                     const MaterialManager* materialManager, int arg5, int arg6) {
+        uint32_t in_register_00000084;
+        unsigned int in_stack_00000008;
+        uint8_t local_70[72];
 
-    // 0x1007ce6d0, 160 bytes, placed by class name
-    // ParticleManager::Initialise(Js5ResourceProvider*, Js5ArchiveSettings const*, Js5ArchiveSettings const*, MaterialManager const*, int, int)
-    void ParticleManager::Initialise(Js5ResourceProvider* param_1, Js5ArchiveSettings* param_2,
-                                     Js5ArchiveSettings* param_3, MaterialManager* param_4, int param_5, int param_6) {
-        undefined1 local_70[72];
-        ParticleManager* local_28;
-
-        field_96 = param_4;
-        (&field_8, param_1, param_2, param_5, param_6)->Initialise();
-        (&field_112, 512)->reserve();
+        *(unsigned long*)&js5ResourceProvider->field_96 = (((uint64_t)in_register_00000084 << 32) | (uint32_t)arg5);
+        js5ResourceProvider->field_8->Initialise(js5ArchiveSettings1, js5ArchiveSettings2, arg6, in_stack_00000008);
+        js5ResourceProvider->field_112.reserve(512);
         new (local_70) ConfigDecoderInfo();
-        local_28 = this;
-        eastl::function<void(
-            unsigned int, unsigned int, unsigned int, unsigned int,
-            shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>> const&,
-            Array<shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>, eastl::allocator> const*)>::
-        operator=((function<void(unsigned int, unsigned int, unsigned int, unsigned int,
-                                 shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>> const&,
-                                 Array<shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>,
-                                       eastl::allocator> const*)>*)(local_70 + 8),
-                  (__3*)&local_28);
-        (**(code**)(field_0->field_0 + 16))(field_0, param_3, (ConfigDecoderInfo*)local_70);
-        CreateRenderingResources(this);
-        local_70->~ConfigDecoderInfo();
+        Js5ResourceProvider* local_28 = js5ResourceProvider;
+        (*((local_70 + 8))) = local_28;
+        (**(void (**)(...))(js5ResourceProvider->_vptr->_dtor + 16))(js5ResourceProvider->_vptr, materialManager,
+                                                                     (ConfigDecoderInfo*)local_70);
+        CreateRenderingResources((ParticleManager*)js5ResourceProvider);
     }
 
-    // 0x1007ce7c0, 160 bytes, placed by class name
-    // ParticleManager::CreateRenderingResources()
+    // 0x1007ce7c0
     void ParticleManager::CreateRenderingResources() {
-        long* plVar1;
-        long* plVar2;
-        AutoSingleton<ShaderThreadPoolSingleton> local_30[8];
+        AutoSingleton<ShaderThreadPoolSingleton> local_30;
 
-        local_30->~AutoSingleton("Particle_Manager");
-        plVar1 = (long*)(&field_216)->HeapBeginPtr();
-        plVar2 = (long*)(&field_216)->end();
+        auto plVar1 = field_216.HeapBeginPtr();
+        auto plVar2 = field_216.end();
         while (true) {
             if (plVar1 == plVar2) {
                 return;
@@ -151,23 +105,18 @@ namespace jag::graphics {
                 break;
             plVar1 = plVar1 + 1;
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("pSystem",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/particles/"
                   "ParticleManager.cpp",
-                  136, (char*)0);
+                  136, nullptr);
     }
 
-    // 0x1007ce860, 160 bytes, placed by class name
-    // ParticleManager::DestroyRenderingResources()
+    // 0x1007ce860
     void ParticleManager::DestroyRenderingResources() {
-        long* plVar1;
-        long* plVar2;
-        AutoSingleton<ShaderThreadPoolSingleton> local_30[8];
+        AutoSingleton<ShaderThreadPoolSingleton> local_30;
 
-        local_30->~AutoSingleton("Particle_Manager");
-        plVar1 = (long*)(&field_216)->HeapBeginPtr();
-        plVar2 = (long*)(&field_216)->end();
+        auto plVar1 = field_216.HeapBeginPtr();
+        auto plVar2 = field_216.end();
         while (true) {
             if (plVar1 == plVar2) {
                 return;
@@ -177,178 +126,146 @@ namespace jag::graphics {
             (*plVar1)->DestroyRenderingResources();
             plVar1 = plVar1 + 1;
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("pSystem",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/particles/"
                   "ParticleManager.cpp",
-                  147, (char*)0);
+                  147, nullptr);
     }
 
-    // 0x1007ce970, 160 bytes, placed by class name
-    // ParticleManager::WaitForParticleSystemUpdate()
+    // 0x1007ce970
     void ParticleManager::WaitForParticleSystemUpdate() {
         future<void>* this_00;
-        bool bVar1;
-        undefined1* this_01;
-        undefined8 local_38;
-        undefined8 local_30;
 
-        this_01 = &field_280;
-        local_38 = this_01->begin();
-        local_30 = this_01->end();
-        bVar1 = std::operator!=((__wrap_iter*)&local_38, (__wrap_iter*)&local_30);
+        uint64_t local_38 = field_280.begin();
+        uint64_t local_30 = field_280.end();
+        bool bVar1 = &local_38 != &local_30;
         if (bVar1) {
             do {
-                this_00 = (future<void>*)std::__wrap_iter<std::future<void>*>::operator*(
-                    (__wrap_iter<std::future<void>*>*)&local_38);
-                if (std::future<void>::valid(this_00) != '\0') {
-                    std::future<void>::wait();
+                this_00 = (future<void>*)*local_38;
+                if (this_00->valid() != '\0') {
+                    this_00->wait();
                 }
-                std::__wrap_iter<std::future<void>*>::operator++((__wrap_iter<std::future<void>*>*)&local_38);
-                bVar1 = std::operator!=((__wrap_iter*)&local_38, (__wrap_iter*)&local_30);
+                ++local_38;
+                bVar1 = &local_38 != &local_30;
             } while (bVar1);
         }
-        this_01->clear();
+        std::vector<std::future<void>>::clear();
     }
 
-    // 0x1007cea90, 496 bytes, placed by class name
-    // ParticleManager::UpdateParticleSystems(float)
-    void ParticleManager::UpdateParticleSystems(float param_1) {
-        undefined1* this_00;
-        undefined1* this_01;
-        ulong uVar1;
-        char cVar2;
-        undefined4 uVar3;
-        undefined8 uVar4;
-        ulong* puVar5;
-        undefined8 uVar6;
-        shared_ptr* psVar7;
-        shared_ptr* psVar8;
-        ulong local_48[2];
+    // 0x1007cea90
+    void ParticleManager::UpdateParticleSystems(float arg1) {
+        uint8_t* this_00;
+        uint8_t* this_01;
+        unsigned long arg2;
+        uint32_t uVar2;
+        Logger* pLVar3;
+        unsigned long* puVar4;
+        shared_ptr<ModularParticleSystem>* psVar5;
+        shared_ptr<ModularParticleSystem>* modularParticleSystem2;
+        uint8_t auVar6[16];
+        unsigned long local_48[2];
         float local_34;
 
         if (*PTR_m_freezeUpdates_100ee69c0 == '\0') {
-            local_34 = param_1 * *(float*)PTR_m_updateSpeedMultiplier_100ee69c8;
-            cVar2 = (&field_160)->empty();
-            if (cVar2 != '\0') {
-                cVar2 = (&field_192)->empty();
-                if (cVar2 != '\0') {
-                    cVar2 = (&field_8)->MainLogic();
-                    if (cVar2 != '\0') {
-                        cVar2 = field_96->MaterialsReady();
-                        if (cVar2 != '\0') {
-                            LoadEmitters(this);
-                            LoadEffectors(this);
-                            (&field_8)->Destruct();
-                            uVar4 = logger::default_logger();
-                            uVar3 = (&field_160)->end();
-                            logger::Logger::Log(uVar4, 0, 8,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                                "graphics/runetek7/particles/ParticleManager.cpp",
-                                                190, "ParticleManager: Loaded %u particle emitter templates from pack!",
-                                                uVar3);
-                            uVar4 = logger::default_logger();
-                            uVar3 = (&field_192)->end();
-                            logger::Logger::Log(
-                                uVar4, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/particles/ParticleManager.cpp",
-                                191, "ParticleManager: Loaded %u particle effector templates from pack!", uVar3);
+            local_34 = arg1 * *(float*)PTR_m_updateSpeedMultiplier_100ee69c8;
+            if (field_160.empty()) {
+                if (field_192.empty()) {
+                    if (field_8.MainLogic()) {
+                        if (field_96->MaterialsReady()) {
+                            LoadEmitters();
+                            LoadEffectors();
+                            field_8.Destruct();
+                            pLVar3 = logger::default_logger();
+                            uVar2 = field_160.end();
+                            pLVar3->Log(false, 8,
+                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
+                                        "graphics/runetek7/particles/ParticleManager.cpp",
+                                        190, "ParticleManager: Loaded %u particle emitter templates from pack!", uVar2);
+                            pLVar3 = logger::default_logger();
+                            uVar2 = field_192.end();
+                            pLVar3->Log(false, 8,
+                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
+                                        "graphics/runetek7/particles/ParticleManager.cpp",
+                                        191, "ParticleManager: Loaded %u particle effector templates from pack!",
+                                        uVar2);
                         }
                     }
                 }
             }
             local_48[0] = field_304->GetNumberOfThreads();
             local_48[1] = 4;
-            puVar5 = std::max<unsigned long>(local_48, local_48 + 1);
-            uVar1 = *puVar5;
+            puVar4 = std::max<unsigned long>(*local_48, *(local_48 + 1));
+            arg2 = *puVar4;
             this_00 = &field_280;
-            this_00->reserve(uVar1 * 2);
-            (anonymous namespace)::UpdateParticleSystemsImpl<eastl::vector<ParticleSystem*, eastl::allocator>>(
-                (vector*)this_00, uVar1, (vector*)&field_216, field_304, local_34);
+            this_00->reserve(arg2 * 2);
+            (anonymous namespace)::UpdateParticleSystemsImpl<eastl::vector<ParticleSystem*>>(
+                (vector<std::future<void>, std::allocator<std::future<void> _> _>*)this_00, arg2,
+                (vector<ParticleSystem*>*)&field_216, field_304, local_34);
             this_01 = &field_248;
-            uVar4 = this_01->HeapBeginPtr();
-            uVar6 = this_01->end();
-            psVar7 =
-                eastl::remove_if<shared_ptr<ModularParticleSystem>*, float->UpdateParticleSystems()::__4>(uVar4, uVar6);
-            psVar8 = (shared_ptr*)this_01->end();
-            this_01->erase(psVar7, psVar8);
-            (anonymous namespace)::UpdateParticleSystemsImpl<
-                eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator>>(
-                (vector*)this_00, uVar1, (vector*)this_01, field_304, local_34);
-            WaitForParticleSystemUpdate(this);
-            UpdateMetrics(this);
+            psVar5 = (shared_ptr<ModularParticleSystem>*)this_01->HeapBeginPtr();
+            auVar6 = this_01->end();
+            psVar5 = eastl::remove_if<shared_ptr<ModularParticleSystem>*, float->UpdateParticleSystems()::__4>(
+                psVar5, auVar6._0_8_, auVar6._8_8_);
+            modularParticleSystem2 = (shared_ptr<ModularParticleSystem>*)this_01->end();
+            this_01->erase(psVar5, modularParticleSystem2);
+            (anonymous namespace)::UpdateParticleSystemsImpl<eastl::vector<shared_ptr<ModularParticleSystem>>>(
+                (vector<std::future<void>, std::allocator<std::future<void> _> _>*)this_00, arg2,
+                (vector<shared_ptr<ModularParticleSystem>>*)this_01, field_304, local_34);
+            WaitForParticleSystemUpdate();
+            UpdateMetrics();
         }
     }
 
-    // 0x1007cec80, 176 bytes, placed by class name
-    // ParticleManager::LoadEmitters()
+    // 0x1007cec80
     void ParticleManager::LoadEmitters() {
-        uint uVar1;
-        Array<ParticleEmitterRaw, eastl::allocator>* this_00;
-        ParticleEmitterRaw* pPVar2;
-        ParticleEmitterTemplate* this_01;
-        ulong uVar3;
+        ParticleEmitterRaw* particleEmitterRaw;
+        unsigned long arg1;
 
-        uVar1 = (&field_8)->capacity();
-        field_152 = uVar1;
-        this_00 = (Array<ParticleEmitterRaw, eastl::allocator>*)(&field_8)->GetDefaultValue();
-        (&field_160, (ulong)field_152, 0)->set_max_size();
+        field_152 = field_8.capacity();
+        auto this_00 = field_8.GetDefaultValue();
+        field_160.set_max_size((unsigned long)field_152, 0);
         if (field_152 != 0) {
-            uVar3 = 0;
+            arg1 = 0;
             do {
-                pPVar2 = (ParticleEmitterRaw*)Array<ParticleEmitterRaw, eastl::allocator>::operator[](this_00, uVar3);
-                this_01 = (ParticleEmitterTemplate*)Array<ParticleEmitterTemplate, eastl::allocator>::operator[](
-                    (Array<ParticleEmitterTemplate, eastl::allocator>*)&field_160, uVar3);
-                this_01->Initialise((int)uVar3, pPVar2);
-                uVar3 = uVar3 + 1;
-            } while (uVar3 < field_152);
+                particleEmitterRaw = (ParticleEmitterRaw*)(*this_00)[arg1];
+                ((ParticleEmitterTemplate*)field_160[arg1])->Initialise((int)arg1, *particleEmitterRaw);
+                arg1 = arg1 + 1;
+            } while (arg1 < field_152);
         }
     }
 
-    // 0x1007ced30, 144 bytes, placed by class name
-    // ParticleManager::LoadEffectors()
+    // 0x1007ced30
     void ParticleManager::LoadEffectors() {
-        Array<ParticleEffectorRaw, eastl::allocator>* this_00;
-        ParticleEffectorRaw* pPVar1;
-        ParticleEffectorTemplate* this_01;
-        uint uVar2;
-        ulong uVar3;
+        ParticleEffectorRaw* particleEffectorRaw;
+        unsigned long arg1;
 
-        uVar2 = (&field_8)->GetTint();
-        this_00 = (Array<ParticleEffectorRaw, eastl::allocator>*)(&field_8)->GetDevCredentialsOutputDirectory();
-        (&field_192, (ulong)uVar2, 0)->set_max_size();
-        if (uVar2 != 0) {
-            uVar3 = 0;
+        unsigned int uVar1 = field_8.GetTint();
+        auto this_00 = field_8.GetDevCredentialsOutputDirectory();
+        field_192.set_max_size((unsigned long)uVar1, 0);
+        if (uVar1 != 0) {
+            arg1 = 0;
             do {
-                pPVar1 = (ParticleEffectorRaw*)Array<ParticleEffectorRaw, eastl::allocator>::operator[](this_00, uVar3);
-                this_01 = (ParticleEffectorTemplate*)Array<ParticleEffectorTemplate, eastl::allocator>::operator[](
-                    (Array<ParticleEffectorTemplate, eastl::allocator>*)&field_192, uVar3);
-                this_01->Initialise((int)uVar3, pPVar1);
-                uVar3 = uVar3 + 1;
-            } while (uVar2 != uVar3);
+                particleEffectorRaw = (ParticleEffectorRaw*)(*this_00)[arg1];
+                ((ParticleEffectorTemplate*)field_192[arg1])->Initialise((int)arg1, *particleEffectorRaw);
+                arg1 = arg1 + 1;
+            } while (uVar1 != arg1);
         }
     }
 
-    // 0x1007cf1c0, 400 bytes, placed by class name
-    // ParticleManager::UpdateMetrics()
+    // 0x1007cf1c0
     void ParticleManager::UpdateMetrics() {
-        undefined1* this_00;
-        undefined1* this_01;
-        undefined2 uVar1;
+        uint8_t* this_00;
+        uint8_t* this_01;
+        uint16_t uVar1;
         short sVar2;
         int iVar3;
-        undefined8* puVar4;
-        undefined8* puVar5;
+        uint64_t* puVar4;
+        uint64_t* puVar5;
         shared_ptr<ModularParticleSystem>* this_02;
         shared_ptr<ModularParticleSystem>* psVar6;
-        ModularParticleSystem* this_03;
         RT7Core* pRVar7;
-        vector<ModularParticleEmitter, eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true, eastl::allocator>>*
-            this_04;
         Layout* pLVar8;
         Layout* this_05;
-        vector<eastl::pair<int, int>, eastl::allocator>* this_06;
 
         if (*PTR_m_enableMetrics_100ee69b8 != '\0') {
             this_00 = &field_216;
@@ -360,8 +277,8 @@ namespace jag::graphics {
             field_316 = 0;
             field_318 = 0;
             field_320 = 0;
-            puVar4 = (undefined8*)this_00->HeapBeginPtr();
-            puVar5 = (undefined8*)this_00->end();
+            puVar4 = (uint64_t*)this_00->HeapBeginPtr();
+            puVar5 = (uint64_t*)this_00->end();
             for (; puVar4 != puVar5; puVar4 = puVar4 + 1) {
                 iVar3 = (*puVar4)->GetParticleCount();
                 field_320 = field_320 + iVar3;
@@ -369,269 +286,212 @@ namespace jag::graphics {
             this_02 = (shared_ptr<ModularParticleSystem>*)this_01->HeapBeginPtr();
             psVar6 = (shared_ptr<ModularParticleSystem>*)this_01->end();
             for (; this_02 != psVar6; this_02 = this_02 + 16) {
-                this_03 = (ModularParticleSystem*)shared_ptr<ModularParticleSystem>::operator->(this_02);
-                iVar3 = this_03->GetParticleCount();
+                iVar3 = ((ModularParticleSystem*)(*this_02).operator->())->GetParticleCount();
                 field_320 = field_320 + iVar3;
-                pRVar7 = (RT7Core*)shared_ptr<ModularParticleSystem>::operator->(this_02);
-                this_04 = (vector<ModularParticleEmitter,
-                                  eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true, eastl::allocator>>*)
-                              pRVar7->GetImmediateThreadPool();
-                sVar2 = eastl::vector<
-                    ModularParticleEmitter,
-                    eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true, eastl::allocator>>::size(this_04);
+                pRVar7 = (RT7Core*)(*this_02).operator->();
+                sVar2 = ((vector<ModularParticleEmitter, eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true>>*)
+                             pRVar7->GetImmediateThreadPool())
+                            ->size();
                 field_316 = field_316 + sVar2;
-                pRVar7 = (RT7Core*)shared_ptr<ModularParticleSystem>::operator->(this_02);
+                pRVar7 = (RT7Core*)(*this_02).operator->();
                 pLVar8 = (Layout*)pRVar7->GetImmediateThreadPool();
-                this_05 = (Layout*)eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                        eastl::allocator>>::Layout::HeapBeginPtr(pLVar8);
+                this_05 = (Layout*)pLVar8->HeapBeginPtr();
                 pLVar8 = (Layout*)pLVar8->end();
                 for (; this_05 != pLVar8; this_05 = this_05 + 320) {
-                    pRVar7 = (RT7Core*)eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                            eastl::allocator>>::Layout::HeapBeginPtr(this_05);
-                    this_06 = (vector<eastl::pair<int, int>, eastl::allocator>*)pRVar7->GetImmediateThreadPool();
-                    sVar2 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_06);
+                    pRVar7 = (RT7Core*)this_05->HeapBeginPtr();
+                    sVar2 = ((vector<eastl::pair<int, int>>*)pRVar7->GetImmediateThreadPool())->size();
                     field_318 = field_318 + sVar2;
                 }
             }
         }
     }
 
-    // 0x1007cf350, 176 bytes, placed by class name
-    // ParticleManager::GetModularParticleSystemTemplate(int) const
-    undefined1* ParticleManager::GetModularParticleSystemTemplate(int param_1) {
-        long lVar2;
-        long lVar3;
-        undefined1* puVar4;
-        undefined4 in_register_00000034;
-        _func_decltype_nullptr* p_Var5;
-        int local_1c;
-
-        p_Var5 = (_func_decltype_nullptr*)CONCAT44(in_register_00000034, param_1);
-        local_1c = param_1;
+    // 0x1007cf350
+    uint8_t* ParticleManager::GetModularParticleSystemTemplate(int arg1) const {
         if (GetModularParticleSystemTemplate(int)::missing == '\0') {
             if (___cxa_guard_acquire(&GetModularParticleSystemTemplate(int)::missing) != 0) {
-                new (&GetModularParticleSystemTemplate(int)::missing)
-                    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var5);
+                new ((shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>*)&GetModularParticleSystemTemplate(
+                    int)::missing) shared_ptr();
                 ___cxa_atexit(PTR__shared_ptr_100ee5388, &GetModularParticleSystemTemplate(int)::missing, 4294967296);
                 ___cxa_guard_release(&GetModularParticleSystemTemplate(int)::missing);
             }
         }
-        lVar2 = (&field_112, &local_1c)->find();
-        lVar3 = (&field_112)->end();
-        puVar4 = &GetModularParticleSystemTemplate(int)::missing;
+        long lVar2 = eastl::vector_map<int, shared_ptr<AnimationStateMachineProvider>>::find(field_112);
+        long lVar3 = field_112.end();
+        uint8_t* puVar4 = &GetModularParticleSystemTemplate(int)::missing;
         if (lVar2 != lVar3) {
-            puVar4 = (undefined1*)(lVar2 + 8);
+            puVar4 = (uint8_t*)(lVar2 + 8);
         }
         return puVar4;
     }
 
-    // 0x1007cf400, 80 bytes, placed by class name
-    // ParticleManager::FlushModularParticleSystems()
+    // 0x1007cf400
     void ParticleManager::FlushModularParticleSystems() {
-        char cVar1;
-
-        cVar1 = (&field_280)->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (field_280.empty() == '\0') {
             LogAssert("m_pendingUpdateTasks.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "particles/ParticleManager.cpp",
-                      224, (char*)0);
+                      224, nullptr);
         }
-        (&field_248)->clear();
+        field_248.clear();
     }
 
-    // 0x1007cf450, 160 bytes, placed by class name
-    // ParticleManager::RegisterSystem(ParticleSystem*)
-    void ParticleManager::RegisterSystem(ParticleSystem* param_1) {
-        function** ppfVar1;
-        function** ppfVar2;
-        undefined1* this_00;
-        ParticleSystem* local_20;
+    // 0x1007cf450
+    void ParticleManager::RegisterSystem(ParticleSystem* particleSystem) {
+        function<bool_(int, int, int, int)>** ppfVar1;
+        function<bool_(int, int, int, int)>** ppfVar2;
+        uint8_t* this_00;
 
-        local_20 = param_1;
-        if (param_1 == (ParticleSystem*)0) {
-            /* WARNING: Subroutine does not return */
+        ParticleSystem* local_20 = particleSystem;
+        if (particleSystem == nullptr) {
             LogAssert("pSystem",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "particles/ParticleManager.cpp",
-                      230, (char*)0);
+                      230, nullptr);
         }
-        if (param_1 != (ParticleSystem*)0) {
+        if (particleSystem != nullptr) {
             this_00 = &field_216;
-            ppfVar1 = (function**)this_00->HeapBeginPtr();
-            ppfVar2 = (function**)this_00->end();
+            ppfVar1 = (function<bool_(int, int, int, int)>**)this_00->HeapBeginPtr();
+            ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
             ppfVar1 = eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-                ppfVar1, ppfVar2, (function**)&local_20);
-            ppfVar2 = (function**)this_00->end();
+                ppfVar1, ppfVar2, local_20);
+            ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
             if (ppfVar1 == ppfVar2) {
-                this_00->push_back(&local_20);
+                this_00->push_back(local_20);
             }
         }
     }
 
-    // 0x1007cf540, 160 bytes, placed by class name
-    // ParticleManager::UnregisterSystem(ParticleSystem*)
-    void ParticleManager::UnregisterSystem(ParticleSystem* param_1) {
-        function** ppfVar1;
-        function** ppfVar2;
-        ParticleSystem** ppPVar3;
-        ParticleSystem** ppPVar4;
-        undefined1* this_00;
-        ParticleSystem* local_20;
+    // 0x1007cf540
+    void ParticleManager::UnregisterSystem(ParticleSystem* particleSystem) {
+        function<bool_(int, int, int, int)>** arg1;
+        function<bool_(int, int, int, int)>** arg2;
+        ParticleSystem** arg1_00;
+        ParticleSystem** ppPVar1;
+        uint8_t* this_00;
 
-        local_20 = param_1;
-        if (param_1 == (ParticleSystem*)0) {
-            /* WARNING: Subroutine does not return */
+        ParticleSystem* local_20 = particleSystem;
+        if (particleSystem == nullptr) {
             LogAssert("pSystem",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "particles/ParticleManager.cpp",
-                      243, (char*)0);
+                      243, nullptr);
         }
-        if (param_1 != (ParticleSystem*)0) {
+        if (particleSystem != nullptr) {
             this_00 = &field_216;
-            ppfVar1 = (function**)this_00->HeapBeginPtr();
-            ppfVar2 = (function**)this_00->end();
-            ppPVar3 = (ParticleSystem**)
+            arg1 = (function<bool_(int, int, int, int)>**)this_00->HeapBeginPtr();
+            arg2 = (function<bool_(int, int, int, int)>**)this_00->end();
+            arg1_00 = (ParticleSystem**)
                 eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-                    ppfVar1, ppfVar2, (function**)&local_20);
-            ppPVar4 = (ParticleSystem**)this_00->end();
-            if (ppPVar3 != ppPVar4) {
-                this_00->erase_unsorted(ppPVar3);
+                    arg1, arg2, local_20);
+            ppPVar1 = (ParticleSystem**)this_00->end();
+            if (arg1_00 != ppPVar1) {
+                this_00->erase_unsorted(arg1_00);
             }
         }
     }
 
-    // 0x1007cf630, 384 bytes, placed by class name
-    // ParticleManager::RegisterSystem(shared_ptr<VFXAttachmentInfo> const&)
-    ParticleManager* ParticleManager::RegisterSystem(shared_ptr* param_1) {
-        bool bVar1;
-        int iVar3;
-        undefined4 uVar4;
-        CoordMapSquare* pCVar5;
-        shared_ptr* this_00;
-        ModularParticleSystem* this_01;
-        undefined8 uVar6;
-        shared_ptr* in_RDX;
-        shared_ptr local_40;
+    // 0x1007cf630
+    auto ParticleManager::RegisterSystem(const shared_ptr<VFXAttachmentInfo>& vfxAttachmentInfo) {
+        uint32_t uVar3;
+        Logger* pLVar5;
+        ReturnValue local_40;
 
-        bVar1 = operator!=(in_RDX, (_func_decltype_nullptr*)0);
-        if (!bVar1) {
-            /* WARNING: Subroutine does not return */
+        if (!vfxAttachmentInfo != nullptr) {
             LogAssert("attachmentInfo != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "particles/ParticleManager.cpp",
-                      256, (char*)0);
+                      256, nullptr);
         }
-        pCVar5 = (CoordMapSquare*)shared_ptr<VFXAttachmentInfo>::operator->((shared_ptr<VFXAttachmentInfo>*)in_RDX);
-        iVar3 = pCVar5->GetX();
-        this_00 = (shared_ptr*)GetModularParticleSystemTemplate((ParticleManager*)param_1, iVar3);
-        bVar1 = shared_ptr::operator_cast_to_bool(this_00);
-        if (bVar1) {
-            make_shared<ModularParticleSystem, shared_ptr<ModularParticleSystemTemplate> const&,
-                        shared_ptr<VFXAttachmentInfo> const&>((jag*)&local_40, this_00, in_RDX);
-            this_01 = (ModularParticleSystem*)shared_ptr<ModularParticleSystem>::operator->(
-                (shared_ptr<ModularParticleSystem>*)&local_40);
-            if (this_01->InitEmitters() == '\0') {
-                uVar6 = logger::default_logger();
-                pCVar5 =
-                    (CoordMapSquare*)shared_ptr<VFXAttachmentInfo>::operator->((shared_ptr<VFXAttachmentInfo>*)in_RDX);
-                uVar4 = pCVar5->GetX();
-                logger::Logger::Log(uVar6, 0, 2,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                    "runetek7/particles/ParticleManager.cpp",
-                                    270, "Could not initialise particle system using template %u", uVar4);
-                new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            } else {
-                param_1[15].field_8.push_back(&local_40);
-                shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider,
-                                                                            void>(
-                    (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, &local_40);
-            }
-            local_40.~shared_ptr();
+        auto pCVar4 = vfxAttachmentInfo.operator->();
+        int arg1 = pCVar4->GetX();
+        auto this_00 = GetModularParticleSystemTemplate(arg1);
+        if (!(shared_ptr::operator_cast_to_bool(this_00))) {
+            pLVar5 = logger::default_logger();
+            pCVar4 = (CoordMapSquare*)vfxAttachmentInfo.operator->();
+            uVar3 = pCVar4->GetX();
+            pLVar5->Log(false, 2,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                        "particles/ParticleManager.cpp",
+                        276, "Missing particle system template %u", uVar3);
+            auto result;
         } else {
-            uVar6 = logger::default_logger();
-            pCVar5 = (CoordMapSquare*)shared_ptr<VFXAttachmentInfo>::operator->((shared_ptr<VFXAttachmentInfo>*)in_RDX);
-            uVar4 = pCVar5->GetX();
-            logger::Logger::Log(uVar6, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/particles/ParticleManager.cpp",
-                                276, "Missing particle system template %u", uVar4);
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
+            make_shared<ModularParticleSystem, shared_ptr<ModularParticleSystemTemplate> const&,
+                        shared_ptr<VFXAttachmentInfo> const&>(
+                &local_40, (shared_ptr<ModularParticleSystemTemplate>*)this_00, vfxAttachmentInfo);
+            if (!(((ModularParticleSystem*)local_40.operator->())->InitEmitters())) {
+                pLVar5 = logger::default_logger();
+                pCVar4 = (CoordMapSquare*)vfxAttachmentInfo.operator->();
+                uVar3 = pCVar4->GetX();
+                pLVar5->Log(false, 2,
+                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                            "particles/ParticleManager.cpp",
+                            270, "Could not initialise particle system using template %u", uVar3);
+                new (&result) shared_ptr();
+            } else {
+                field_248.push_back(local_40);
+                result.shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(local_40);
+            }
         }
-        return this;
+        return result;
     }
 
-    // 0x1007cfd60, 624 bytes, placed by class name
-    // ParticleManager::RegisterTweaks(tweak::ContainerGroup&)
-    void ParticleManager::RegisterTweaks(ContainerGroup* param_1) {
-        Container* pCVar1;
-        char* pcVar2;
-        undefined8* puVar3;
-        ulong uVar4;
-        allocator local_68[16];
-        undefined** local_58[4];
-        shared_ptr<tweak::Container> local_38[16];
+    // 0x1007cfd60
+    void ParticleManager::RegisterTweaks(tweak::ContainerGroup& containerGroup) {
+        uint64_t* puVar3;
+        Container_vtbl* local_58[4];
+        shared_ptr<tweak::Container> local_38;
 
-        eastl::allocator::allocator(local_68, "EASTL basic_string");
-        new (local_58) eastl::string("Particles", local_68);
-        (*(code*)param_1->field_0[30])(local_38, param_1, (eastl::string*)local_58);
-        local_58->~basic_string();
-        pCVar1 = (Container*)shared_ptr<tweak::Container>::operator->(local_38);
-        pCVar1->AddCheckBox("Enable frame interpolation", PTR_m_enableFrameInterpolation_100ee6a68);
-        pCVar1 = (Container*)shared_ptr<tweak::Container>::operator->(local_38);
-        pCVar1->AddCheckBox("Enable metrics ", PTR_m_enableMetrics_100ee69b8);
-        pCVar1 = (Container*)shared_ptr<tweak::Container>::operator->(local_38);
-        pCVar1->AddCheckBox("Freeze updates", PTR_m_freezeUpdates_100ee69c0);
-        pCVar1 = (Container*)shared_ptr<tweak::Container>::operator->(local_38);
-        local_58[0] = (undefined**)PTR_m_updateSpeedMultiplier_100ee69c8;
-        tweak::Container::AddSlider<float>(pCVar1, "Speed Multiplier", 0.01, 5.0, 0.01, (float**)local_58);
-        pCVar1 = (Container*)shared_ptr<tweak::Container>::operator->(local_38);
-        local_58[0] = (undefined**)PTR_m_particleCountMultiplier_100ee69d8;
-        tweak::Container::AddSlider<float>(pCVar1, "Spawn Multiplier", 0.01, 2.0, 0.01, (float**)local_58);
-        pcVar2 = (char*)shared_ptr<tweak::Container>::operator->(local_38);
+        new (local_58) eastl::string("Particles");
+        (containerGroup._vptr[7].Clear)(&local_38, containerGroup, (eastl::string*)local_58);
+        auto pCVar1 = local_38.operator->();
+        pCVar1->AddCheckBox("Enable frame interpolation", *PTR_m_enableFrameInterpolation_100ee6a68);
+        pCVar1 = (Container*)local_38.operator->();
+        pCVar1->AddCheckBox("Enable metrics ", *PTR_m_enableMetrics_100ee69b8);
+        pCVar1 = (Container*)local_38.operator->();
+        pCVar1->AddCheckBox("Freeze updates", *PTR_m_freezeUpdates_100ee69c0);
+        pCVar1 = (Container*)local_38.operator->();
+        local_58[0] = (Container_vtbl*)PTR_m_updateSpeedMultiplier_100ee69c8;
+        pCVar1->AddSlider<float>("Speed Multiplier", 0.01, 5.0, 0.01, *local_58);
+        pCVar1 = (Container*)local_38.operator->();
+        local_58[0] = (Container_vtbl*)PTR_m_particleCountMultiplier_100ee69d8;
+        pCVar1->AddSlider<float>("Spawn Multiplier", 0.01, 2.0, 0.01, *local_58);
+        auto pcVar2 = local_38.operator->();
         local_58->AddGroup(pcVar2);
-        uVar4 = 0;
+        array<char const*, 11ul>* paVar4 = (array<char const*, 11ul>*)0;
         do {
-            pCVar1 = (Container*)shared_ptr<tweak::Container>::operator->((shared_ptr<tweak::Container>*)local_58);
-            puVar3 = (undefined8*)std::array<char const*, 11ul>::operator[](uVar4);
-            pCVar1->AddCheckBox((char*)*puVar3, (bool*)(&particlemodules::Module::m_debugDisabled + uVar4));
-            uVar4 = uVar4 + 1;
-        } while (uVar4 != 11);
-        pcVar2 = (char*)shared_ptr<tweak::Container>::operator->(local_38);
-        local_68->AddGroup(pcVar2);
-        uVar4 = 0;
+            pCVar1 = (Container*)(*local_58).operator->();
+            puVar3 = (uint64_t*)(*paVar4)[(unsigned long)pcVar2];
+            pcVar2 = (char*)*puVar3;
+            pCVar1->AddCheckBox(pcVar2, *((paVar4 + 4355511161)));
+            paVar4 = paVar4 + 1;
+        } while (paVar4 != (array<char const*, 11ul>*)11);
+        pcVar2 = (char*)local_38.operator->();
+        local_68.AddGroup(pcVar2);
+        paVar4 = (array<char const*, 11ul>*)0;
         do {
-            pCVar1 = (Container*)shared_ptr<tweak::Container>::operator->((shared_ptr<tweak::Container>*)local_68);
-            puVar3 = (undefined8*)std::array<char const*, 11ul>::operator[](uVar4);
-            pCVar1->AddCheckBox((char*)*puVar3, (bool*)(&particlemodules::Module::m_debugRender + uVar4));
-            uVar4 = uVar4 + 1;
-        } while (uVar4 != 11);
-        local_68->~shared_ptr();
-        local_58->~shared_ptr();
-        local_38->~shared_ptr();
+            pCVar1 = (Container*)local_68.operator->();
+            puVar3 = (uint64_t*)(*paVar4)[(unsigned long)pcVar2];
+            pcVar2 = (char*)*puVar3;
+            pCVar1->AddCheckBox(pcVar2, *((paVar4 + 4355511172)));
+            paVar4 = paVar4 + 1;
+        } while (paVar4 != (array<char const*, 11ul>*)11);
     }
 
 } // namespace jag::graphics
 
 namespace jag::graphics::particlemodules {
-    // 0x1039bd390, 2097152 bytes, __common; zero-initialised
-    Noise::NOISE_TABLE;
+    // 0x1039bd390
+    std::array<double, _262144ul> Noise::NOISE_TABLE;
 
-    // 0x1007ce480, 144 bytes, placed by neighbouring functions
-    // Noise::PrecalculateNoise()
+    // 0x1007ce480
     void Noise::PrecalculateNoise() {
-        double* pdVar1;
-        double* pdVar2;
-        WrapArray<double> local_20[16];
+        WrapArray<double> local_20;
 
-        WrapArray<double>::WrapArray<std::array<double, 262144ul>>(local_20, (array*)&NOISE_TABLE);
-        math::GenerateSummedGradientNoise3d(4607182418800017408, 4607182418800017408, 4602678819172646912, local_20, 64,
-                                            8, 3);
-        pdVar1 = (double*)std::array<double, 262144ul>::begin();
-        pdVar2 = (double*)std::array<double, 262144ul>::end();
+        local_20.WrapArray<std::array<double, 262144ul>>(NOISE_TABLE);
+        math::GenerateSummedGradientNoise3d(&local_20, 64, 1.0, 1.0, 0.5, 8, 3);
+        double* pdVar1 = (double*)std::array<double, 262144ul>::begin();
+        double* pdVar2 = (double*)std::array<double, 262144ul>::end();
         for (; pdVar1 != pdVar2; pdVar1 = pdVar1 + 1) {
             *pdVar1 = *pdVar1 * 0.5 + 0.5;
         }

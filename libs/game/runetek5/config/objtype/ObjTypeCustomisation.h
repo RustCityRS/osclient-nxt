@@ -1,50 +1,36 @@
 // libs/game/runetek5/config/objtype/ObjTypeCustomisation.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class ObjTypeCustomisation {
     public:
-        GetManAppearance() const;
-        GetWomanAppearance() const;
-        GetRecolourDest() const;
-        GetRematerialDest() const;
-        operator==(ObjTypeCustomisation const&) const;
-        ObjTypeCustomisation(shared_ptr<ObjType> const&, PacketT<Array<unsigned char, BucketAllocatorEASTL>>&);
+        void GetManAppearance() const;
+        Option<float>* GetWomanAppearance() const;
+        uint8_t* GetRecolourDest() const;
+        uint8_t* GetRematerialDest() const;
+        uint64_t operator==(const ObjTypeCustomisation& objTypeCustomisation) const;
+        ObjTypeCustomisation(const shared_ptr<ObjType>& objType, PacketT<Array<unsigned char>>& arg2);
 
-        // data members, from how the methods use this: 26160 bytes
-        undefined4 field_0; // offset 0
-        int field_4;        // offset 4
-        undefined4 field_8; // offset 8
-        int field_12;       // offset 12
-        int field_16;       // offset 16
-        char _unknown_20[12];
-        Minimap field_32; // offset 32
+    private:
+        int field_0;
+        int field_4;
+        int field_8;
+        int field_12;
+        int field_16;
+        uint8_t _unknown_20[12];
+        Minimap field_32;
     };
 
-    // 0x100497c90, 96 bytes, inline, placed by class name and debug map
-    // ObjTypeCustomisation::operator==(ObjTypeCustomisation const&) const
-    /* ObjTypeCustomisation::TEMPNAMEPLACEHOLDERVALUE(ObjTypeCustomisation const&)
-   const */
-
-    undefined8 ObjTypeCustomisation::operator==(ObjTypeCustomisation* param_1) {
-        char cVar1;
-        undefined8 uVar2;
-
-        cVar1 = ObjAppearanceData::operator==((ObjAppearanceData*)this, (ObjAppearanceData*)param_1);
-        if (((cVar1 == '\0') || (cVar1 = ObjAppearanceData::operator==((ObjAppearanceData*)field_32,
-                                                                       (ObjAppearanceData*)param_1->field_32),
-                                 cVar1 == '\0')) ||
-            (cVar1 = Array<unsigned short, eastl::allocator>::operator==(
-                 (Array<unsigned short, eastl::allocator>*)(field_32 + 32), (Array*)(param_1->field_32 + 32)),
-             cVar1 == '\0')) {
+    // 0x100497c90
+    uint64_t ObjTypeCustomisation::operator==(const ObjTypeCustomisation& objTypeCustomisation) const {
+        bool cVar1 = *this == objTypeCustomisation;
+        if (((!cVar1) || (cVar1 = *field_32 == objTypeCustomisation.field_32, !cVar1)) ||
+            (cVar1 = (*((field_32 + 32))) == (*((objTypeCustomisation.field_32 + 32))), !cVar1)) {
             return 0;
         }
-        uVar2 = Array<unsigned short, eastl::allocator>::operator==(
-            (Array<unsigned short, eastl::allocator>*)(field_32 + 56), (Array*)(param_1->field_32 + 56));
-        return uVar2;
+        return (*((field_32 + 56))) == (*((objTypeCustomisation.field_32 + 56)));
     }
 
 } // namespace jag::game

@@ -1,122 +1,110 @@
 // libs/game/runetek5/map/MapAreaList.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "MapAreaList.h"
 
 namespace jag::game {
-    // 0x1004aea40, 32 bytes, base-object constructor, placed by class name and debug map
-    // MapAreaList::MapAreaList(Js5ResourceProvider*)
-    void MapAreaList::MapAreaList(Js5ResourceProvider* param_1) {
-        field_0 = param_1;
-        new (&field_8) Array<MapArea, eastl::allocator>();
-    }
+    // 0x1004aea40
+    MapAreaList::MapAreaList(Js5ResourceProvider* js5ResourceProvider) : field_0(js5ResourceProvider) {}
 
-    // 0x1004aea70, 16 bytes, complete-object constructor, placed by class name and debug map
-    // MapAreaList::MapAreaList(Js5ResourceProvider*): jumps straight to the base-object constructor
-
-    // 0x1004aea80, 1232 bytes, placed by class name and debug map
-    // MapAreaList::LoadData()
-    undefined* MapAreaList::LoadData() {
-        Js5ResourceProvider* pJVar1;
-        bool bVar2;
-        char cVar3;
-        uint uVar4;
-        undefined* puVar5;
-        undefined* puVar6;
-        uint* puVar7;
-        PacketT* pPVar8;
-        PacketT* pPVar9;
+    // 0x1004aea80
+    uint8_t* MapAreaList::LoadData() {
+        Js5ResourceProvider* js5ResourceProvider;
+        bool bVar1;
+        uint8_t uVar3;
+        unsigned int uVar4;
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        uint64_t extraout_var_01;
+        uint8_t* puVar5;
+        unsigned int* puVar6;
+        uint8_t* puVar7;
+        PacketT<Array<unsigned char> _>* arg3;
+        PacketT<Array<unsigned char> _>* arg4;
         MapArea* this_00;
-        ulong uVar10;
-        ulong uVar11;
-        undefined** ppuVar12;
-        MapArea* pMVar13;
-        uint uVar14;
-        MapArea* pMVar15;
+        Priority* pPVar8;
+        unsigned long uVar9;
+        uint8_t** ppuVar10;
+        unsigned int arg4_00;
         MapArea local_1f8;
-        vector local_a8[24];
-        vector local_90[24];
-        shared_ptr local_78;
-        shared_ptr<oldscape::RSevenDebugPresetProvider> local_68[16];
-        Array<MapArea, eastl::allocator>* local_58;
-        uint local_4c;
-        MapArea* local_40;
+        vector<unsigned int, BucketAllocatorEASTL> local_a8;
+        vector<unsigned int, BucketAllocatorEASTL> local_90;
+        shared_ptr<oldscape::RSevenDebugPresetProvider> local_78;
+        shared_ptr<oldscape::RSevenDebugPresetProvider> local_68;
+        unsigned int local_4c;
+        unsigned long local_40;
         Js5Index* local_38;
 
-        local_58 = (Array<MapArea, eastl::allocator>*)&field_8;
-        cVar3 = local_58->empty();
-        if (cVar3 == '\0') {
-            puVar6 = DataStatus::READY;
+        Array<MapArea>* local_58 = (Array<MapArea>*)&field_8;
+        bool cVar2 = local_58->empty();
+        if (!cVar2) {
+            puVar5 = DataStatus::READY;
         } else {
-            local_38 = (Js5Index*)0;
-            puVar5 = (undefined*)(*(code*)field_0->field_0[4])(field_0, &local_38, Js5Archive::JS5_WORLDMAPDATA);
-            puVar6 = DataStatus::NOTLOADED;
-            if (puVar5 != DataStatus::NOTLOADED) {
+            local_38 = nullptr;
+            uVar3 = (**(void (**)(...)) & ((Js5Index*)field_0->_vptr)->m_indexVersion)((Js5Index**)field_0,
+                                                                                       (Js5ArchiveSettings*)&local_38);
+            puVar5 = DataStatus::NOTLOADED;
+            if ((uint8_t*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar3) != DataStatus::NOTLOADED) {
                 uVar4 = local_38->GetFileCount(0);
-                eastl::vector<unsigned int, BucketAllocatorEASTL>::vector();
-                cVar3 = local_38->IsFileListContiguous(0);
-                if (cVar3 == '\0') {
+                local_90 = eastl::vector<unsigned int, BucketAllocatorEASTL>();
+                cVar2 = local_38->IsFileListContiguous(0);
+                if (!cVar2) {
                     local_38->GetFileList(local_90, 0);
                 }
                 local_4c = uVar4;
                 if (uVar4 == 0) {
-                    bVar2 = true;
+                    bVar1 = true;
                 } else {
-                    bVar2 = true;
-                    uVar11 = 0;
+                    bVar1 = true;
+                    uVar9 = 0;
                     do {
-                        cVar3 = local_90->empty();
-                        if (cVar3 == '\0') {
-                            puVar7 = (uint*)eastl::vector<unsigned int, BucketAllocatorEASTL>::operator[](
-                                (vector<unsigned int, BucketAllocatorEASTL>*)local_90, uVar11);
-                            uVar10 = (ulong)*puVar7;
+                        cVar2 = local_90.empty();
+                        if (!cVar2) {
+                            puVar6 = &local_90[uVar9];
+                            pPVar8 = (Priority*)(unsigned long)*puVar6;
                         } else {
-                            uVar10 = uVar11 & 4294967295;
+                            pPVar8 = (Priority*)(uVar9 & 4294967295);
                         }
-                        puVar6 = (undefined*)(*(code*)field_0->field_0[6])(field_0, Js5Archive::JS5_WORLDMAPDATA, 0,
-                                                                           uVar10, Priority::HIGH, 1);
-                        if (puVar6 != DataStatus::READY) {
-                            bVar2 = false;
+                        uVar3 = field_0->FileReady((unsigned int)Js5Archive::JS5_WORLDMAPDATA, 0, pPVar8,
+                                                   (uint8_t)(Priority::HIGH));
+                        if ((uint8_t*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar3) != DataStatus::READY) {
+                            bVar1 = false;
                         }
-                        uVar11 = uVar11 + 1;
-                    } while (uVar4 != uVar11);
+                        uVar9 = uVar9 + 1;
+                    } while (uVar4 != uVar9);
                 }
-                if (bVar2) {
-                    eastl::vector<unsigned int, BucketAllocatorEASTL>::vector();
+                if (bVar1) {
+                    local_a8 = eastl::vector<unsigned int, BucketAllocatorEASTL>();
                     uVar4 = local_38->GetFileCount(1);
-                    cVar3 = local_38->IsFileListContiguous(1);
-                    if (cVar3 == '\0') {
+                    cVar2 = local_38->IsFileListContiguous(1);
+                    if (!cVar2) {
                         local_38->GetFileList(local_a8, 1);
                     }
-                    local_40 = (MapArea*)CONCAT44(local_40._4_4_, uVar4);
-                    bVar2 = true;
+                    local_40 = (((uint64_t)local_40._4_4_ << 32) | (uint32_t)uVar4);
+                    bVar1 = true;
                     if (uVar4 != 0) {
-                        uVar11 = 0;
+                        uVar9 = 0;
                         do {
-                            cVar3 = local_a8->empty();
-                            if (cVar3 == '\0') {
-                                puVar7 = (uint*)eastl::vector<unsigned int, BucketAllocatorEASTL>::operator[](
-                                    (vector<unsigned int, BucketAllocatorEASTL>*)local_a8, uVar11);
-                                uVar10 = (ulong)*puVar7;
+                            cVar2 = local_a8.empty();
+                            if (!cVar2) {
+                                puVar6 = &local_a8[uVar9];
+                                pPVar8 = (Priority*)(unsigned long)*puVar6;
                             } else {
-                                uVar10 = uVar11 & 4294967295;
+                                pPVar8 = (Priority*)(uVar9 & 4294967295);
                             }
-                            puVar6 = (undefined*)(*(code*)field_0->field_0[6])(field_0, Js5Archive::JS5_WORLDMAPDATA, 1,
-                                                                               uVar10, Priority::HIGH, 1);
-                            if (puVar6 != DataStatus::READY) {
-                                bVar2 = false;
+                            uVar3 = field_0->FileReady((unsigned int)Js5Archive::JS5_WORLDMAPDATA, 1, pPVar8,
+                                                       (uint8_t)(Priority::HIGH));
+                            if ((uint8_t*)(((uint64_t)extraout_var_01 << 8) | (uint8_t)uVar3) != DataStatus::READY) {
+                                bVar1 = false;
                             }
-                            uVar11 = uVar11 + 1;
-                        } while (uVar4 != uVar11);
+                            uVar9 = uVar9 + 1;
+                        } while (uVar4 != uVar9);
                     }
                     uVar4 = local_4c;
-                    ppuVar12 = &DataStatus::NOTLOADED;
-                    if (bVar2) {
-                        pMVar13 = (MapArea*)(ulong)local_4c;
-                        if (local_4c != (uint)local_40) {
-                            /* WARNING: Subroutine does not return */
+                    ppuVar10 = &DataStatus::NOTLOADED;
+                    if (bVar1) {
+                        if (local_4c != (unsigned int)local_40) {
                             LogAssert("detailsFileCount == compositeMapsFileCount",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
                                       "runetek5/map/MapAreaList.cpp",
@@ -124,103 +112,76 @@ namespace jag::game {
                                       "MapAreaList.loadData - Details (%i) and Composite Maps (%i) lists should be the "
                                       "same length");
                         }
-                        local_40 = pMVar13;
-                        local_58->set_max_size((ulong)pMVar13, 0);
+                        local_40 = (unsigned long)local_4c;
+                        local_58->set_max_size((unsigned long)local_4c, 0);
                         if (uVar4 == 0) {
-                            ppuVar12 = &DataStatus::READY;
+                            ppuVar10 = &DataStatus::READY;
                         } else {
-                            pMVar15 = (MapArea*)0;
+                            uVar9 = 0;
                             do {
-                                cVar3 = local_90->empty();
-                                uVar4 = (uint)pMVar15;
-                                if (cVar3 == '\0') {
-                                    pMVar13 = pMVar15;
-                                    puVar7 = (uint*)eastl::vector<unsigned int, BucketAllocatorEASTL>::operator[](
-                                        (vector<unsigned int, BucketAllocatorEASTL>*)local_90, (ulong)pMVar15);
-                                    uVar14 = *puVar7;
+                                cVar2 = local_90.empty();
+                                uVar4 = (unsigned int)uVar9;
+                                if (!cVar2) {
+                                    puVar6 = &local_90[uVar9];
+                                    arg4_00 = *puVar6;
                                 } else {
-                                    uVar14 = uVar4;
+                                    arg4_00 = uVar4;
                                 }
-                                new (&local_78) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(pMVar13);
-                                new (local_68) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(pMVar13);
-                                puVar6 =
-                                    (undefined*)(((MapAreaList*)this)->field_0, &local_78, Js5Archive::JS5_WORLDMAPDATA,
-                                                 0, uVar14, (Priority*)Priority::HIGH, true, false, false)
-                                        ->GetFile();
-                                cVar3 = local_a8->empty();
-                                if (cVar3 == '\0') {
-                                    puVar7 = (uint*)eastl::vector<unsigned int, BucketAllocatorEASTL>::operator[](
-                                        (vector<unsigned int, BucketAllocatorEASTL>*)local_a8, (ulong)pMVar15);
-                                    uVar4 = *puVar7;
+                                local_78 = shared_ptr();
+                                local_68 = shared_ptr();
+                                puVar5 =
+                                    (uint8_t*)field_0->GetFile(local_78, *(Js5Archive::JS5_WORLDMAPDATA), 0, arg4_00,
+                                                               (Priority*)Priority::HIGH, true, false, false);
+                                cVar2 = local_a8.empty();
+                                if (!cVar2) {
+                                    puVar6 = &local_a8[uVar9];
+                                    uVar4 = *puVar6;
                                 }
-                                pMVar13 = (MapArea*)local_68;
-                                puVar5 = (undefined*)(((MapAreaList*)this)->field_0, (shared_ptr*)pMVar13,
-                                                      Js5Archive::JS5_WORLDMAPDATA, 1, uVar4, (Priority*)Priority::HIGH,
-                                                      true, false, false)
-                                             ->GetFile();
-                                if ((puVar6 == DataStatus::READY) && (puVar5 == DataStatus::READY)) {
-                                    pJVar1 = ((MapAreaList*)this)->field_0;
-                                    pPVar8 = (PacketT*)
-                                        shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator*(
-                                            (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_78);
-                                    pPVar9 = (PacketT*)
-                                        shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator*(
-                                            (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)local_68);
-                                    new (&local_1f8) MapArea(pJVar1, uVar14, pPVar8, pPVar9);
-                                    this_00 = (MapArea*)Array<MapArea, eastl::allocator>::operator[](local_58,
-                                                                                                     (ulong)pMVar15);
-                                    pMVar13 = &local_1f8;
-                                    MapArea::operator=(this_00, &local_1f8);
-                                    local_1f8.~MapArea();
+                                puVar7 = (uint8_t*)field_0->GetFile(local_68, *(Js5Archive::JS5_WORLDMAPDATA), 1, uVar4,
+                                                                    (Priority*)Priority::HIGH, true, false, false);
+                                if ((puVar5 == DataStatus::READY) && (puVar7 == DataStatus::READY)) {
+                                    js5ResourceProvider = field_0;
+                                    arg3 = (PacketT<Array<unsigned char> _>*)*local_78;
+                                    arg4 = (PacketT<Array<unsigned char> _>*)*local_68;
+                                    local_1f8 = MapArea(js5ResourceProvider, arg4_00, arg3, arg4);
+                                    this_00 = (MapArea*)(*local_58)[uVar9];
+                                    *this_00 = local_1f8;
                                 }
-                                ppuVar12 = &DataStatus::READY;
-                                local_68->~shared_ptr();
-                                local_78.~shared_ptr();
-                                pMVar15 = (MapArea*)((long)&pMVar15->field_0 + 1);
-                            } while (local_40 != pMVar15);
+                                ppuVar10 = &DataStatus::READY;
+                                uVar9 = uVar9 + 1;
+                            } while (local_40 != uVar9);
                         }
                     }
-                    puVar6 = *ppuVar12;
-                    local_a8->~vector();
+                    puVar5 = *ppuVar10;
                 } else {
-                    puVar6 = DataStatus::NOTLOADED;
+                    puVar5 = DataStatus::NOTLOADED;
                 }
-                local_90->~vector();
             }
         }
-        return puVar6;
+        return puVar5;
     }
 
-    // 0x1004af250, 192 bytes, placed by class name and debug map
-    // MapAreaList::GetAreasByCoordinate(eastl::vector<MapArea*, BucketAllocatorEASTL>&, CoordGrid const&)
-    void MapAreaList::GetAreasByCoordinate(vector* param_1, CoordGrid* param_2) {
-        char cVar1;
+    // 0x1004af250
+    void MapAreaList::GetAreasByCoordinate(eastl::vector<MapArea*, BucketAllocatorEASTL>& mapAreas,
+                                           const CoordGrid& coordGrid) {
         ObjTypeList* in_RAX;
-        ObjTypeList* this_00;
-        ObjTypeList* pOVar2;
-        undefined1* this_01;
-        ObjTypeList* local_38;
 
-        this_01 = &field_8;
-        local_38 = in_RAX;
-        cVar1 = this_01->empty();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+        uint8_t* this_01 = &field_8;
+        ObjTypeList* local_38 = in_RAX;
+        if (this_01->empty()) {
             LogAssert("!m_areaList.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/map/"
                       "MapAreaList.cpp",
-                      113, (char*)0);
+                      113, nullptr);
         }
-        this_00 = (ObjTypeList*)this_01->data();
-        pOVar2 = (ObjTypeList*)this_01->end();
+        auto this_00 = this_01->data();
+        auto pOVar2 = this_01->end();
         if (this_00 != pOVar2) {
             do {
-                cVar1 = this_00->IsMembersServer();
-                if (cVar1 != '\0') {
-                    cVar1 = this_00->ContainsSource(param_2);
-                    if (cVar1 != '\0') {
+                if (this_00->IsMembersServer()) {
+                    if (this_00->ContainsSource(coordGrid)) {
                         local_38 = this_00;
-                        param_1->push_back((MapArea**)&local_38);
+                        mapAreas.push_back(local_38);
                     }
                 }
                 this_00 = (ObjTypeList*)&this_00->field_336;
@@ -228,93 +189,73 @@ namespace jag::game {
         }
     }
 
-    // 0x1004af3a0, 176 bytes, placed by class name and debug map
-    // MapAreaList::GetAreaByCoordinate(CoordGrid const&)
-    ObjTypeList* MapAreaList::GetAreaByCoordinate(CoordGrid* param_1) {
-        char cVar1;
-        ObjTypeList* this_00;
-        ObjTypeList* pOVar2;
-        undefined1* this_01;
-
-        this_01 = &field_8;
-        cVar1 = this_01->empty();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x1004af3a0
+    MapArea* MapAreaList::GetAreaByCoordinate(const CoordGrid& coordGrid) {
+        uint8_t* this_01 = &field_8;
+        bool cVar1 = this_01->empty();
+        if (cVar1) {
             LogAssert("!m_areaList.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/map/"
                       "MapAreaList.cpp",
-                      127, (char*)0);
+                      127, nullptr);
         }
-        this_00 = (ObjTypeList*)this_01->data();
-        pOVar2 = (ObjTypeList*)this_01->end();
+        auto this_00 = this_01->data();
+        auto pOVar2 = this_01->end();
         while (true) {
             if (this_00 == pOVar2) {
-                return (ObjTypeList*)0;
+                return nullptr;
             }
             cVar1 = this_00->IsMembersServer();
-            if ((cVar1 != '\0') && (cVar1 = this_00->ContainsSource(param_1), cVar1 != '\0'))
+            if ((cVar1) && (cVar1 = this_00->ContainsSource(coordGrid), cVar1))
                 break;
             this_00 = (ObjTypeList*)&this_00->field_336;
+        }
+        return (MapArea*)this_00;
+    }
+
+    // 0x1004af450
+    NXTPixToolkit* MapAreaList::GetAreaByName(const eastl::string& str) {
+        basic_string<char, BucketAllocatorEASTL>* str_00;
+        value_type* value_type;
+
+        uint8_t* this_01 = &field_8;
+        if (this_01->empty() != '\0') {
+            LogAssert("!m_areaList.empty()",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/map/"
+                      "MapAreaList.cpp",
+                      142, nullptr);
+        }
+        auto this_00 = this_01->data();
+        auto pNVar3 = this_01->end();
+        while (true) {
+            if (this_00 == pNVar3) {
+                return nullptr;
+            }
+            str_00 = (basic_string<char, BucketAllocatorEASTL>*)this_00->GetScreen();
+            value_type = (value_type*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            if (*str_00 == *value_type)
+                break;
+            this_00 = (NXTPixToolkit*)(this_00->m_screen + 320);
         }
         return this_00;
     }
 
-    // 0x1004af450, 176 bytes, placed by class name and debug map
-    // MapAreaList::GetAreaByName(eastl::string const&)
-    NXTPixToolkit* MapAreaList::GetAreaByName(basic_string* param_1) {
-        NXTPixToolkit* this;
-        NXTPixToolkit* pNVar3;
-        basic_string* pbVar4;
-        value_type* pvVar5;
-        Array<VarValue, eastl::allocator>* this_00;
-
-        this_00 = (Array<VarValue, eastl::allocator>*)(param_1 + 8);
-        if (this_00->empty() != '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x1004af500
+    CommandLine* MapAreaList::GetAreaByID(int arg1) {
+        uint8_t* this_01 = &field_8;
+        if (this_01->empty() != '\0') {
             LogAssert("!m_areaList.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/map/"
                       "MapAreaList.cpp",
-                      142, (char*)0);
+                      157, nullptr);
         }
-        this = (NXTPixToolkit*)this_00->data();
-        pNVar3 = (NXTPixToolkit*)this_00->end();
-        while (true) {
-            if (this == pNVar3) {
-                return (NXTPixToolkit*)0;
-            }
-            pbVar4 = (basic_string*)GetScreen();
-            pvVar5 = (value_type*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            if (eastl::operator==(pbVar4, pvVar5))
-                break;
-            this = (NXTPixToolkit*)&field_336;
-        }
-        return this;
-    }
-
-    // 0x1004af500, 144 bytes, placed by class name and debug map
-    // MapAreaList::GetAreaByID(int)
-    CommandLine* MapAreaList::GetAreaByID(int param_1) {
-        char cVar1;
-        CommandLine* this_00;
-        CommandLine* pCVar3;
-        undefined1* this_01;
-
-        this_01 = &field_8;
-        cVar1 = this_01->empty();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
-            LogAssert("!m_areaList.empty()",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/map/"
-                      "MapAreaList.cpp",
-                      157, (char*)0);
-        }
-        this_00 = (CommandLine*)this_01->data();
-        pCVar3 = (CommandLine*)this_01->end();
+        auto this_00 = this_01->data();
+        auto pCVar3 = this_01->end();
         while (true) {
             if (this_00 == pCVar3) {
-                return (CommandLine*)0;
+                return nullptr;
             }
-            if (this_00->GetPos() == param_1)
+            if (this_00->GetPos() == arg1)
                 break;
             this_00 = (CommandLine*)&this_00[1].field_12;
         }

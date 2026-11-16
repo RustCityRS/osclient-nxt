@@ -1,6 +1,5 @@
 // libs/hal/audio/AudioRenderer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.oldscape.jagex3
@@ -12,42 +11,40 @@ namespace jag::hal::audio {
         class DebugData;
         // virtual methods in vtable order
         virtual ~AudioRenderer();
-        virtual Init(AudioAPI*, AudioSystemStartParams const&);
+        virtual uint64_t Init(AudioAPI* audioAPI, const AudioSystemStartParams& audioSystemStartParams);
         virtual void Shutdown();
-        virtual VerifyDefaultAudioDevice();
-        virtual void Update(float);
-        virtual GetDecoder(AudioFormat const*);
-        virtual void FreeDecoder(decoders::AudioDecoder*);
-        virtual GetActiveDecoders() const;
-        Pause();
-        Resume();
+        virtual void VerifyDefaultAudioDevice();
+        virtual void Update(float arg1);
+        virtual uint64_t GetDecoder(const AudioFormat* audioFormat);
+        virtual void FreeDecoder(decoders::AudioDecoder* audioDecoder);
+        virtual void GetActiveDecoders() const;
+        void Pause();
+        void Resume();
         AudioSystemStartParams GetStartParams() const;
-        void GetMixer() const;
+        AudioMixer* GetMixer() const;
         int GetState() const;
         void ActiveDecoderCount() const;
-        void RecordDebugValue(int, float);
+        void RecordDebugValue(int arg1, float arg2);
         AudioRenderer();
-        ClaimVoice(BussType);
-        void InjectTestTone(AudioBuffer*, int);
-        static /* 64 bytes */ m_audioMutex;              // initialised in its definition
-        static /* 64 bytes */ m_voiceInstanceGuardMutex; // initialised in its definition
-        static /* 8 bytes */ m_outputBuffersIndex;
-        static /* 24 bytes */ m_outputBuffers;
-        static /* 8 bytes */ m_debugShowAudio;
-        static DebugData /* 92400 bytes */ m_debugData; // = DebugData()
+        uint64_t ClaimVoice(BussType bussType);
+        void InjectTestTone(AudioBuffer* audioBuffer, int arg2);
+        static int32_t m_audioMutex[16];              // initialised in its definition
+        static int32_t m_voiceInstanceGuardMutex[16]; // initialised in its definition
+        static int64_t m_outputBuffersIndex;
+        static Array<std::unique_ptr<AudioBuffer>> m_outputBuffers;
+        static int64_t m_debugShowAudio;
+        static DebugData m_debugData; // = DebugData()
 
-        // data members, from how the methods use this: 264 bytes, the first 16 are Drawable
-        AudioSystemStartParams m_startParams; // offset 16
-        undefined4 field_32;                  // offset 32
-        undefined1 field_36;                  // offset 36
-        char _unknown_37[3];
-        int m_state; // offset 40
-        char _unknown_44[196];
-        undefined4 field_240; // offset 240
-        undefined2 field_244; // offset 244
-        char _unknown_246[10];
-        undefined1 field_256; // offset 256
-        char _unknown_257[7];
+    private:
+        AudioSystemStartParams m_startParams;
+        uint32_t field_32;
+        uint8_t field_36;
+        uint8_t _unknown_37[3];
+        int m_state;
+        uint8_t _unknown_44[196];
+        uint32_t field_240;
+        uint16_t field_244;
+        uint8_t _unknown_246[18];
     };
 
     class AudioRenderer::DebugData {
@@ -55,65 +52,41 @@ namespace jag::hal::audio {
         DebugData();
         ~DebugData();
 
-        // data members, from how the methods use this: 92376 bytes
-        char _unknown_0[92368];
-        undefined4 field_92368; // offset 92368
-        char _unknown_92372[4];
+    private:
+        uint8_t _unknown_0[92368];
+        uint32_t field_92368;
+        uint8_t _unknown_92372[4];
     };
 
-    // 0x1001c37d0, 16 bytes, inline, placed by class name and debug map
-    // AudioRenderer::GetMixer() const
-    void AudioRenderer::GetMixer() {
-        (&field_8)->get();
+    // 0x1001c37d0
+    AudioMixer* AudioRenderer::GetMixer() const {
+        return (AudioMixer*)field_8.get();
     }
 
-    // 0x100293ee0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // AudioRenderer::GetState() const
-    /* game::TcpConnectionMessageBase::GetEndPosition() const */
-
-    int game::TcpConnectionMessageBase::GetEndPosition() {
+    // 0x100293ee0
+    int AudioRenderer::GetState() const {
         return m_endPosition;
     }
 
-    // 0x100663fb0, 32 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // AudioRenderer::GetActiveDecoders() const
-    /* AudioRenderer::ActiveDecoderCount() const */
-
-    void AudioRenderer::ActiveDecoderCount() {
+    // 0x100663fb0
+    void AudioRenderer::GetActiveDecoders() const {
         (&field_248)->operator_cast_to_int();
     }
 
-    // 0x100b8fda0, 16 bytes, complete-object constructor, inline, placed by class name
-    // AudioRenderer::DebugData::DebugData(): jumps straight to the base-object constructor
+    // 0x100b979a0
+    AudioRenderer::DebugData::DebugData() : std::array<eastl::fixed_list<float, 1920ul>, 2ul>(), field_92368(0) {}
 
-    // 0x100b8fdb0, 16 bytes, complete-object destructor, inline, placed by class name
-    // AudioRenderer::DebugData::~DebugData(): jumps straight to the base-object destructor
-
-    // 0x100b979a0, 32 bytes, base-object constructor, inline, placed by class name
-    // AudioRenderer::DebugData::DebugData()
-    void AudioRenderer::DebugData::DebugData() {
-        new (this) std::array<eastl::fixed_list<float, 1920ul, true, eastl::allocator>, 2ul>();
-        field_92368 = 0;
-    }
-
-    // 0x100b97bc0, 16 bytes, base-object destructor, inline, placed by class name
-    // AudioRenderer::DebugData::~DebugData()
-    void AudioRenderer::DebugData::~DebugData() {
-        ~array();
-    }
+    // 0x100b97bc0
+    AudioRenderer::DebugData::~DebugData() {}
 
 } // namespace jag::hal::audio
 
 namespace jag::game {
-    // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    int TcpConnectionMessageBase::GetEndPosition() const;
+    // 0x100293ee0: TcpConnectionMessageBase::GetEndPosition() const has the same machine code as hal::audio::AudioRenderer::GetState() const
 
 } // namespace jag::game
 
 namespace jag::graphics {
-    // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    int ModularParticleSystemDrawable::GetViewportMapID() const;
+    // 0x100293ee0: ModularParticleSystemDrawable::GetViewportMapID() const has the same machine code as hal::audio::AudioRenderer::GetState() const
 
 } // namespace jag::graphics

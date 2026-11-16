@@ -1,121 +1,108 @@
 // libs/oldscape/jagex3/shared/prot/ClientMessage.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "ClientMessage.h"
 
 namespace jag::oldscape::shared {
-    // 0x1000bc090: the linker folded this into ServerMessage::ServerMessage(), which has identical code
-    ClientMessage::ClientMessage();
+    // 0x100126500: ClientMessage::ClientMessage() has the same machine code as ServerMessage::ServerMessage()
 
-    // 0x100126500: the linker folded this into ServerMessage::ServerMessage(), which has identical code
-    ClientMessage::ClientMessage();
+    // 0x100292da0
+    auto ClientMessage::MakeClientMessage(ClientProt::ID id, Isaac& isaac) {
+        auto result;
 
-    // 0x100292da0, 128 bytes, placed by class name and debug map
-    // ClientMessage::MakeClientMessage(ClientProt::ID, Isaac&)
-    ClientMessage* ClientMessage::MakeClientMessage(uint param_2, Isaac* param_3) {
-        undefined1* this_00;
-        int iVar1;
-
-        ClientMessage(this);
-        field_0 = param_2;
-        iVar1 = *(int*)(PTR_SIZES_100ee6b70 + (ulong)param_2 * 4);
-        field_4 = iVar1;
-        this_00 = &field_8;
-        GetOrCreatePacketMemory((PacketJ*)this_00, iVar1);
-        this_00->SetEnc(param_3);
-        this_00->pHead(param_2);
-        field_56 = 0;
-        return this;
+        ClientMessage(&result);
+        result = id;
+        int arg2 = *(int*)(PTR_SIZES_100ee6b70 + (unsigned long)id * 4);
+        *(int*)&result.field_4 = arg2;
+        SuperPacket* superPacket = (SuperPacket*)(&result + 1);
+        GetOrCreatePacketMemory((PacketJ<Array<unsigned char, BucketAllocatorEASTL> _>*)superPacket, arg2);
+        superPacket->SetEnc(isaac);
+        superPacket->pHead(id);
+        *(uint32_t*)(&result + 7) = 0;
+        return result;
     }
 
-    // 0x100292e20, 240 bytes, placed by class name and debug map
-    // ClientMessage::GetOrCreatePacketMemory(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&, int)
-    void ClientMessage::GetOrCreatePacketMemory(PacketJ* param_1, int param_2) {
+    // 0x100292e20
+    void ClientMessage::GetOrCreatePacketMemory(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>& packetJ,
+                                                int arg2) {
         bool bVar1;
-        char cVar2;
-        long* plVar3;
         int* piVar4;
-        ulong uVar5;
+        uint32_t in_register_00000034;
+        array<int, 3ul>* array;
 
-        plVar3 = (long*)OSRenderCore_AudioThread::Instance();
-        cVar2 = (((long)plVar3 + *(long*)(*plVar3 + -24)))->IsLogicThread();
-        if (cVar2 == '\0') {
-            /* WARNING: Subroutine does not return */
+        PacketJ<Array<unsigned char, BucketAllocatorEASTL> _>* arg1 =
+            (PacketJ<Array<unsigned char, BucketAllocatorEASTL> _>*)(((uint64_t)in_register_00000034 << 32) |
+                                                                     (uint32_t)arg2);
+        auto plVar3 = OSRenderCore_AudioThread::Instance();
+        bool cVar2 = ((OSRenderCore_LogicThread_Common*)((long)plVar3 + *(long*)(*plVar3 - 24)))->IsLogicThread();
+        if (!cVar2) {
             LogAssert("OSRenderCore_LogicThread::Instance().IsLogicThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/shared/"
                       "prot/ClientMessage.cpp",
-                      87, (char*)0);
+                      87, nullptr);
         }
-        if (param_2 == -1) {
-            uVar5 = 1;
+        if (arg2 == -1) {
+            array = (array<int, 3ul>*)&DAT_00000001;
             bVar1 = false;
-        } else if (param_2 == -2) {
-            uVar5 = 2;
+        } else if (arg2 == -2) {
+            array = (array<int, 3ul>*)2;
             bVar1 = true;
         } else {
             bVar1 = false;
-            piVar4 = (int*)std::array<int, 3ul>::operator[](0);
-            uVar5 = 0;
-            if (*piVar4 + -2 < param_2) {
-                piVar4 = (int*)std::array<int, 3ul>::operator[](1);
-                bVar1 = *piVar4 + -2 < param_2;
-                uVar5 = (ulong)bVar1 + 1;
+            piVar4 = &nullptr[(unsigned long)arg1];
+            array = nullptr;
+            if (*piVar4 - 2 < arg2) {
+                piVar4 = &DAT_00000001[(unsigned long)arg1];
+                bVar1 = *piVar4 - 2 < arg2;
+                array = (array<int, 3ul>*)((unsigned long)bVar1 + 1);
             }
         }
         if (!bVar1) {
-            cVar2 = ((&PacketPool::g_pools + uVar5 * 328))->Fetch(param_1);
-            if (cVar2 != '\0')
+            arg1 = packetJ;
+            cVar2 = ((PacketPool*)(&PacketPool::g_pools + (long)array * 328))->Fetch(packetJ);
+            if (cVar2)
                 goto LAB_100292ef2;
         }
-        piVar4 = (int*)std::array<int, 3ul>::operator[](uVar5);
-        param_1->Reserve((long)*piVar4);
+        piVar4 = (int*)(*array)[(unsigned long)arg1];
+        packetJ.Reserve((long)*piVar4);
     LAB_100292ef2:
-        param_1->SetPos(0);
+        packetJ.SetPos(0);
     }
 
-    // 0x100292fb0, 192 bytes, placed by class name and debug map
-    // ClientMessage::ReturnToPool(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&&)
-    void ClientMessage::ReturnToPool(PacketJ* param_1) {
-        char cVar1;
-        int iVar2;
-        long* plVar3;
-        int* piVar4;
-        PacketPool* this;
+    // 0x100292fb0
+    void ClientMessage::ReturnToPool(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&& packetJ) {
+        PacketPool* this_00;
 
-        plVar3 = (long*)OSRenderCore_AudioThread::Instance();
-        cVar1 = (((long)plVar3 + *(long*)(*plVar3 + -24)))->IsLogicThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        auto plVar3 = OSRenderCore_AudioThread::Instance();
+        if (((OSRenderCore_LogicThread_Common*)((long)plVar3 + *(long*)(*plVar3 - 24)))->IsLogicThread() == '\0') {
             LogAssert("OSRenderCore_LogicThread::Instance().IsLogicThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/shared/"
                       "prot/ClientMessage.cpp",
-                      128, (char*)0);
+                      128, nullptr);
         }
-        iVar2 = param_1->GetTextureAtlas();
-        piVar4 = (int*)std::array<int, 3ul>::operator[](0);
+        int iVar2 = GetTextureAtlas();
+        int* piVar4 = &nullptr[(unsigned long)packetJ];
         if (*piVar4 == iVar2) {
-            this = (PacketPool*)&PacketPool::g_pools;
+            this_00 = (PacketPool*)&PacketPool::g_pools;
         } else {
-            piVar4 = (int*)std::array<int, 3ul>::operator[](1);
+            piVar4 = &DAT_00000001[(unsigned long)packetJ];
             if (*piVar4 != iVar2) {
                 if (iVar2 == 0) {
                     return;
                 }
-                piVar4 = (int*)std::array<int, 3ul>::operator[](2);
+                piVar4 = (int*)(*2)[(unsigned long)packetJ];
                 if (*piVar4 != iVar2) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("sz == 0 || sz == PacketPool::SIZES[2]",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/"
                               "shared/prot/ClientMessage.cpp",
-                              141, (char*)0);
+                              141, nullptr);
                 }
                 return;
             }
-            this = (PacketPool*)&DAT_1016c1a58;
+            this_00 = (PacketPool*)&reinterpret_cast<const uint64_t*>(&g_pools)[41];
         }
-        Return(param_1);
+        this_00->Return(*this);
     }
 
 } // namespace jag::oldscape::shared

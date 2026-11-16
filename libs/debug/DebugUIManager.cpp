@@ -1,128 +1,96 @@
 // libs/debug/DebugUIManager.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.debug
 
 #include "DebugUIManager.h"
 
 namespace jag::debug {
-    // 0x100720690, 144 bytes, placed by class name and debug map
-    // DebugUIManager::TransferOwnership(std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement> >)
-    /* DebugUIManager::TransferOwnership(std::unique_ptr<DebugUIElement,
-   std::default_delete<DebugUIElement> >) */
+    // 0x100720690
+    void DebugUIManager::TransferOwnership(std::unique_ptr<DebugUIElement> debugUIElement) {
 
-    void DebugUIManager::TransferOwnership(unique_ptr* param_2) {
-        lock_guard<std::mutex> local_20[8];
-
-        if (!std::unique_ptr::operator_cast_to_bool(param_2)) {
-            /* WARNING: Subroutine does not return */
+        if (debugUIElement->operator_cast_to_bool() == '\0') {
             LogAssert("element",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      264, (char*)0);
+                      264, nullptr);
         }
-        std::lock_guard<std::mutex>::lock_guard(local_20, (mutex*)&field_3520);
-        eastl::vector<std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>, eastl::allocator>::
-            emplace_back<std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>>(
-                (vector<std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>,
-                        eastl::allocator>*)&field_3616,
-                param_2);
-        local_20->~lock_guard();
+        lock_guard<std::mutex> local_20(field_3520);
+        eastl::vector<std::unique_ptr<DebugUIElement>>::emplace_back<std::unique_ptr<DebugUIElement>>(
+            (vector<std::unique_ptr<DebugUIElement>>*)&field_3616, debugUIElement);
     }
 
-    // 0x1007207a0, 224 bytes, placed by class name
-    // DebugUIManager::Register(DebugUIElement*)
-    void DebugUIManager::Register(DebugUIElement* param_1) {
-        function** ppfVar1;
-        function** ppfVar2;
-        undefined1* this_00;
-        lock_guard<std::mutex> local_28[8];
-        DebugUIElement* local_20;
+    // 0x1007207a0
+    void DebugUIManager::Register(DebugUIElement* debugUIElement) {
+        function<bool_(int, int, int, int)>** ppfVar1;
+        function<bool_(int, int, int, int)>** ppfVar2;
 
-        local_20 = param_1;
-        if (param_1 == (DebugUIElement*)0) {
-            /* WARNING: Subroutine does not return */
+        DebugUIElement* local_20 = debugUIElement;
+        if (debugUIElement == nullptr) {
             LogAssert("element",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      274, (char*)0);
+                      274, nullptr);
         }
-        std::lock_guard<std::mutex>::lock_guard(local_28, (mutex*)&field_3520);
-        this_00 = &field_3584;
-        ppfVar1 = (function**)this_00->HeapBeginPtr();
-        ppfVar2 = (function**)this_00->end();
+        lock_guard<std::mutex> local_28(field_3520);
+        uint8_t* this_00 = &field_3584;
+        ppfVar1 = (function<bool_(int, int, int, int)>**)this_00->HeapBeginPtr();
+        ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
         ppfVar1 = eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-            ppfVar1, ppfVar2, (function**)&local_20);
-        ppfVar2 = (function**)this_00->end();
+            ppfVar1, ppfVar2, local_20);
+        ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
         if (ppfVar1 != ppfVar2) {
-            /* WARNING: Subroutine does not return */
             LogAssert("eastl::find(m_uiElements.begin(), m_uiElements.end(), element) == m_uiElements.end()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      277, (char*)0);
+                      277, nullptr);
         }
-        this_00->push_back(&local_20);
-        (**(code**)(local_20->field_0 + 40))(local_20, 1);
-        local_28->~lock_guard();
+        this_00->push_back(local_20);
+        local_20->NotifyDebugRegistration((uint8_t)local_20);
     }
 
-    // 0x1007208d0, 320 bytes, placed by class name
-    // DebugUIManager::Unregister(DebugUIElement*)
-    void DebugUIManager::Unregister(DebugUIElement* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        unique_ptr* puVar3;
-        unique_ptr* puVar4;
-        function** ppfVar5;
-        function** ppfVar6;
-        DebugUIElement** ppDVar7;
-        DebugUIElement** ppDVar8;
-        undefined1* puVar9;
-        lock_guard<std::mutex> local_30[8];
-        DebugUIElement* local_28;
+    // 0x1007208d0
+    void DebugUIManager::Unregister(DebugUIElement* debugUIElement) {
+        function<bool_(int, int, int, int)>** arg1;
+        function<bool_(int, int, int, int)>** arg2;
+        __0* in_RCX;
 
-        local_28 = param_1;
-        if (param_1 == (DebugUIElement*)0) {
-            /* WARNING: Subroutine does not return */
+        DebugUIElement* local_28 = debugUIElement;
+        if (debugUIElement == nullptr) {
             LogAssert("element",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      284, (char*)0);
+                      284, nullptr);
         }
-        std::lock_guard<std::mutex>::lock_guard(local_30, (mutex*)&field_3520);
-        puVar9 = &field_3616;
-        uVar1 = puVar9->HeapBeginPtr();
-        uVar2 = puVar9->end();
-        puVar3 = eastl::find<std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>*, DebugUIElement*,
-                             (DebugUIElement*)->Unregister()::__0>(uVar1, uVar2, &local_28);
-        puVar4 = (unique_ptr*)puVar9->end();
-        if (puVar3 != puVar4) {
-            /* WARNING: Subroutine does not return */
+        lock_guard<std::mutex> local_30(field_3520);
+        uint8_t* puVar4 = &field_3616;
+        auto puVar1 = puVar4->HeapBeginPtr();
+        auto puVar2 = puVar4->end();
+        puVar1 = eastl::find<std::unique_ptr<DebugUIElement>*, DebugUIElement*, (DebugUIElement*)->Unregister()::__0>(
+            puVar1, puVar2, &local_28, in_RCX);
+        puVar2 = (unique_ptr<DebugUIElement, std::default_delete<DebugUIElement> _>*)puVar4->end();
+        if (puVar1 != puVar2) {
             LogAssert("eastl::find(m_ownedUIElements.begin(), m_ownedUIElements.end(), element, ownedMatchFn) == "
                       "m_ownedUIElements.end()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      290, (char*)0);
+                      290, nullptr);
         }
-        puVar9 = &field_3584;
-        ppfVar5 = (function**)puVar9->HeapBeginPtr();
-        ppfVar6 = (function**)puVar9->end();
-        ppDVar7 = (DebugUIElement**)
-            eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-                ppfVar5, ppfVar6, (function**)&local_28);
-        ppDVar8 = (DebugUIElement**)puVar9->end();
-        if (ppDVar7 == ppDVar8) {
-            /* WARNING: Subroutine does not return */
+        puVar4 = &field_3584;
+        arg1 = (function<bool_(int, int, int, int)>**)puVar4->HeapBeginPtr();
+        arg2 = (function<bool_(int, int, int, int)>**)puVar4->end();
+        DebugUIElement** arg1_00 = (DebugUIElement**)
+            eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(arg1, arg2,
+                                                                                                             local_28);
+        auto ppDVar3 = puVar4->end();
+        if (arg1_00 == ppDVar3) {
             LogAssert("matchIt != m_uiElements.end()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      293, (char*)0);
+                      293, nullptr);
         }
-        puVar9->erase(ppDVar7);
-        (**(code**)(local_28->field_0 + 40))(local_28, 0);
-        local_30->~lock_guard();
+        puVar4->erase(arg1_00);
+        local_28->NotifyDebugRegistration((uint8_t)local_28);
     }
 
-    // 0x100720a10, 1376 bytes, placed by neighbouring functions
-    // KeyToImGuiKey(int)
-    undefined8 KeyToImGuiKey(int param_1) {
-        undefined8 uVar1;
+    // 0x100720a10
+    void KeyToImGuiKey(int arg1) {
+        uint64_t uVar1;
 
-        switch (param_1) {
+        switch (arg1) {
         case 0:
             return 546;
         case 1:
@@ -292,7 +260,7 @@ namespace jag::debug {
             return 590;
         default:
             uVar1 = 513;
-            switch (param_1) {
+            switch (arg1) {
             case 63232:
                 return 515;
             case 63233:
@@ -380,7 +348,7 @@ namespace jag::debug {
             case 63289:
                 return 597;
             default:
-                if (param_1 == 7331) {
+                if (arg1 == 7331) {
                     return 594;
                 }
             }
@@ -391,433 +359,332 @@ namespace jag::debug {
         }
     }
 
-    // 0x100720f70, 544 bytes, placed by class name
-    // DebugUIManager::CreateRenderingResources()
-    undefined4 DebugUIManager::CreateRenderingResources() {
-        undefined1* this_00;
-        Layout* this_01;
-        char cVar1;
-        int iVar2;
-        undefined4 uVar3;
-        long lVar4;
-        ImGuiStyle* this_02;
-        Texture2D* this_03;
-        ulong uVar5;
+    // 0x100720f70
+    uint32_t DebugUIManager::CreateRenderingResources() {
+        uint32_t uVar3;
+        VertexElementDesc* vertexElementDesc;
         VertexElementDesc local_100;
         VertexElementDesc local_d8;
         VertexElementDesc local_b0;
-        undefined1 local_88[64];
-        uchar* local_48;
-        uchar* local_30;
+        uint8_t local_88[64];
+        unsigned char* local_48;
+        unsigned char* local_30;
         int local_28;
         int local_24;
 
-        lVar4 = ImGui::GetIO();
-        *(undefined4*)(lVar4 + 80) = 1065353216;
-        this_02 = (ImGuiStyle*)ImGui::GetStyle();
-        ImGuiStyle::ScaleAllSizes(this_02, 1.0);
-        ImFontAtlas::GetTexDataAsRGBA32(*(ImFontAtlas**)(lVar4 + 72), &local_30, &local_28, &local_24, (int*)0);
-        new (&local_48) render::ResourceDataT<unsigned char const>(0, 0, 0, false);
+        auto pIVar4 = ImGui::GetIO();
+        *(uint32_t*)(pIVar4 + 80) = 1065353216;
+        ((ImGuiStyle*)ImGui::GetStyle())->ScaleAllSizes(1.0);
+        (*(ImFontAtlas**)(pIVar4 + 72))->GetTexDataAsRGBA32(&local_30, &local_28, &local_24, nullptr);
+        new (&local_48) render::ResourceDataT(nullptr, 0, 0, false);
         local_48 = local_30;
         new (local_88) render::Texture::Desc();
         local_88._0_4_ = local_28;
         local_88._4_4_ = local_24;
         local_88._12_4_ = 8;
-        make_shared<render::Texture2D, char const(&)[31]>((jag*)&local_100, "IMGUI Font");
-        this_00 = &field_3232;
-        shared_ptr<render::Texture2D>::operator=((shared_ptr<render::Texture2D>*)this_00, (shared_ptr*)&local_100);
-        local_100.~shared_ptr();
-        this_03 = (Texture2D*)shared_ptr<render::Texture2D>::operator->((shared_ptr<render::Texture2D>*)this_00);
-        cVar1 = this_03->Create(local_88, (ResourceDataT*)&local_48, 0);
-        if (cVar1 != '\0') {
-            this_01 = *(Layout**)(lVar4 + 72);
-            uVar5 = this_00->end();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::
-                Layout::SetHeapSize(this_01, uVar5);
-            new (&local_100) render::VertexElementDesc(0, "aVertexPosition2D", 1, 0, 0, 0);
-            new (&local_d8) render::VertexElementDesc(0, "aTextureUV", 1, 0, 5, 0);
-            new (&local_b0) render::VertexElementDesc(0, "aVertexColour", 12, 1, 10, 0);
-            uVar5 = local_100.data();
-            cVar1 = render::VertexDeclaration::Create((VertexElementDesc*)&field_3248, uVar5, (void*)3, 0);
-            if (cVar1 != '\0') {
-                iVar2 = (&field_3248, 0)->GetVertexStride();
-                if (iVar2 != 20) {
-                    /* WARNING: Subroutine does not return */
+        make_shared<render::Texture2D, char const(&)[31]>((ReturnValue*)&local_100, "IMGUI Font");
+        uint8_t* this_00 = &field_3232;
+        *this_00 = local_100;
+        if (((Texture2D*)(*this_00).operator->())->Create(*local_88, &local_48, 0)) {
+            *(Layout**)(pIVar4 + 72)->SetHeapSize((void*)this_00->end());
+            local_100 = render::VertexElementDesc(0, "aVertexPosition2D", 1, false, 0, 0);
+            local_d8 = render::VertexElementDesc(0, "aTextureUV", 1, false, 5, 0);
+            local_b0 = render::VertexElementDesc(0, "aVertexColour", 12, true, 10, 0);
+            vertexElementDesc = (VertexElementDesc*)local_100.data();
+            if (field_3248.Create(vertexElementDesc, 3, nullptr, 0)) {
+                if (field_3248.GetVertexStride(0) != 20) {
                     LogAssert("m_vertexDeclaration.GetVertexStride() == sizeof(Vertex)",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/"
                               "DebugUIManager.cpp",
-                              168, (char*)0);
+                              168, nullptr);
                 }
-                uVar3 = CreateShader(this);
+                uVar3 = CreateShader();
                 goto LAB_100721148;
             }
         }
         uVar3 = 0;
     LAB_100721148:
-        local_48.~ResourceDataT();
         return uVar3;
     }
 
-    // 0x100721240, 448 bytes, placed by class name
-    // DebugUIManager::CreateShader()
-    ulong DebugUIManager::CreateShader() {
-        char* pcVar1;
-        char* pcVar2;
-        VertexDeclaration* pVVar3;
-        long lVar4;
-        ostream* this_00;
-        undefined1 local_290[280];
-        undefined1 local_178[280];
-        basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>> local_60[24];
-        basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>> local_48[24];
-        shared_ptr local_30;
+    // 0x100721240
+    unsigned long DebugUIManager::CreateShader() {
+        basic_ostream<char, std::char_traits<char> _>* basic_ostream;
+        uint8_t local_290[280];
+        uint8_t local_178[280];
+        ReturnValue local_30;
 
         new (local_290) render::VertexShaderSourceStream(2, 2, 1, 1, 1, 1, 24);
         std::operator<<(
-            (ostream*)(local_290 + 16),
+            (basic_ostream<char, std::char_traits<char> _>*)(local_290 + 16),
             "\n            uniform mat4 uProjectionMatrix;\n\n            attribute vec2 aVertexPosition2D;\n          "
             "  attribute vec2 aTextureUV;\n            attribute vec4 aVertexColour;\n\n            out vec4 "
             "vColour;\n            out vec2 vUV;\n\n            void main()\n            {\n                vColour = "
             "aVertexColour.xyzw;\n                vUV = aTextureUV;\n\n                gl_Position = uProjectionMatrix "
             "* vec4(aVertexPosition2D, 1.0, 1.0);\n            }\n\n            ");
         new (local_178) render::PixelShaderSourceStream(1, 1, 1, 1, 1, 1, 24);
-        this_00 = (ostream*)(local_178 + 16);
-        std::operator<<(this_00,
+        basic_ostream = (basic_ostream<char, std::char_traits<char> _>*)(local_178 + 16);
+        std::operator<<(basic_ostream,
                         "\n            in vec4 vColour;\n            in vec2 vUV;\n\n            uniform sampler2D "
                         "uDiffuseMap;\n\n            void main()\n            {\n                gl_FragColor = "
                         "texture2D(uDiffuseMap, vUV) * vColour;\n            }\n\n            ");
-        pcVar1 = (char*)this_00->Instance();
-        std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_60);
-        pcVar2 = (char*)local_60->c_str();
-        std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_48);
-        pVVar3 = (VertexDeclaration*)local_48->c_str();
-        local_30.RegisterFromSourceString(pcVar1, pcVar2, pVVar3, (char)this + 176);
-        shared_ptr<render::ShaderProgram>::operator=((shared_ptr<render::ShaderProgram>*)field_3216, &local_30);
-        local_30.~shared_ptr();
-        local_48->~basic_string();
-        local_60->~basic_string();
-        lVar4 = field_3216->end();
-        local_178->~PixelShaderSourceStream();
-        local_290->~VertexShaderSourceStream();
-        return CONCAT71((int7)((ulong)pcVar2 >> 8), lVar4 != 0) & 4294967295;
+        auto this_00 = basic_ostream->Instance();
+        auto local_60 = local_290->str();
+        auto str1 = local_60.c_str();
+        auto local_48 = local_178->str();
+        auto str2 = local_48.c_str();
+        local_30.RegisterFromSourceString(this_00, str1, str2, &field_3248, '\x01');
+        *field_3216 = local_30;
+        long lVar1 = field_3216->end();
+        return lVar1 != 0 & 4294967295;
     }
 
-    // 0x100721400, 176 bytes, placed by class name
-    // DebugUIManager::NotifyFrameStart(float, int, int, math::Rect<int> const&)
-    void DebugUIManager::NotifyFrameStart(float param_1, int param_2, int param_3, Rect* param_4) {
-        int iVar1;
-        long lVar2;
-        undefined8 local_38;
-        float local_2c;
+    // 0x100721400
+    void DebugUIManager::NotifyFrameStart(float arg1, int arg2, int arg3, const math::Rect<int>& rect) {
+        uint64_t local_38;
 
-        local_2c = param_1;
-        lVar2 = ImGui::GetIO();
-        new (&local_38) math::Point<float>((float)param_2, (float)param_3);
-        *(undefined8*)(lVar2 + 8) = local_38;
-        *(float*)(lVar2 + 16) = local_2c;
-        iVar1 = param_4->GetX();
+        float local_2c = arg1;
+        auto pIVar2 = ImGui::GetIO();
+        new (&local_38) math::Point((float)arg2, (float)arg3);
+        *(uint64_t*)(pIVar2 + 8) = local_38;
+        *(float*)(pIVar2 + 16) = local_2c;
+        int iVar1 = rect.GetX();
         local_2c = (float)iVar1;
-        iVar1 = param_4->GetZ();
-        new (&local_38) math::Point<float>(local_2c, (float)iVar1);
-        lVar2 = ImGui::GetStyle();
-        *(undefined8*)(lVar2 + 176) = local_38;
+        iVar1 = rect.GetZ();
+        new (&local_38) math::Point(local_2c, (float)iVar1);
+        long lVar3 = ImGui::GetStyle();
+        *(uint64_t*)(lVar3 + 176) = local_38;
         ImGui::NewFrame();
         field_3652 = 1;
     }
 
-    // 0x1007214b0, 320 bytes, placed by class name
-    // DebugUIManager::MainDraw(render::RenderContext*, int, int)
-    void DebugUIManager::MainDraw(RenderContext* param_1, int param_2, int param_3) {
-        char cVar1;
-        undefined8* puVar2;
-        undefined8* puVar3;
-        ImDrawData* pIVar4;
+    // 0x1007214b0
+    void DebugUIManager::MainDraw(render::RenderContext* renderContext, int arg2, int arg3) {
+        bool cVar1;
+        uint64_t* puVar2;
+        uint64_t* puVar3;
         float extraout_XMM0_Db;
 
         if (field_3652 == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_frameStarted",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      197, (char*)0);
+                      197, nullptr);
         }
-        if ((field_3653 != '\0') && (cVar1 = ImGui::BeginMainMenuBar(), cVar1 != '\0')) {
-            puVar2 = (undefined8*)(&field_3584)->HeapBeginPtr();
-            puVar3 = (undefined8*)(&field_3584)->end();
+        if ((field_3653 != '\0') && (cVar1 = ImGui::BeginMainMenuBar(), cVar1)) {
+            puVar2 = (uint64_t*)field_3584.HeapBeginPtr();
+            puVar3 = (uint64_t*)field_3584.end();
             for (; puVar2 != puVar3; puVar2 = puVar2 + 1) {
-                (**(code**)(*(long*)*puVar2 + 16))();
+                (**(void (**)(...))(*(long*)*puVar2 + 16))();
             }
             ImGui::GetWindowSize();
             m_mainMenuHeight = (int)extraout_XMM0_Db;
             ImGui::EndMainMenuBar();
         }
-        puVar2 = (undefined8*)(&field_3584)->HeapBeginPtr();
-        puVar3 = (undefined8*)(&field_3584)->end();
+        puVar2 = (uint64_t*)field_3584.HeapBeginPtr();
+        puVar3 = (uint64_t*)field_3584.end();
         for (; puVar2 != puVar3; puVar2 = puVar2 + 1) {
-            (**(code**)(*(long*)*puVar2 + 24))();
+            (**(void (**)(...))(*(long*)*puVar2 + 24))();
         }
         ImGui::Render();
-        pIVar4 = (ImDrawData*)ImGui::GetDrawData();
-        if (param_1 == (RenderContext*)0) {
-            DeferToRenderThread(this, pIVar4);
+        auto imDrawData = ImGui::GetDrawData();
+        if (renderContext == nullptr) {
+            DeferToRenderThread(imDrawData);
         } else {
-            RenderImDrawData(this, param_1, param_2, param_3, pIVar4);
+            RenderImDrawData(renderContext, arg2, arg3, imDrawData);
         }
         field_3652 = 0;
     }
 
-    // 0x1007215f0, 1344 bytes, placed by class name
-    // DebugUIManager::RenderImDrawData(render::RenderContext*, int, int, ImDrawData*)
-    void DebugUIManager::RenderImDrawData(RenderContext* param_1, int param_2, int param_3, ImDrawData* param_4) {
-        undefined1* this_00;
+    // 0x1007215f0
+    void DebugUIManager::RenderImDrawData(render::RenderContext* renderContext, int arg2, int arg3,
+                                          ImDrawData* imDrawData) {
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01;
         DynamicBuffer<render::VertexBuffer>* this_02;
         DynamicBuffer<render::IndexBuffer>* this_03;
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_04;
-        DebugUIManager* pDVar1;
-        bool bVar2;
-        uint uVar3;
-        int iVar4;
-        undefined8* puVar5;
+        unsigned int arg2_00;
+        int iVar3;
         RenderPipelineState* this_05;
-        long lVar6;
-        OutputMergerState* this_06;
-        RenderTargets* pRVar7;
-        InputAssemblerState* this_07;
-        VertexBuffer* pVVar8;
-        RenderPipelineState* pRVar9;
-        ShaderProgram* pSVar10;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* this_08;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* pAVar11;
-        Rect* pRVar12;
-        Texture* pTVar13;
-        DrawCallState* this_09;
-        float fVar14;
-        undefined1 auVar15[16];
-        Matrix44T local_178;
-        WrapArray<unsigned char> local_130[16];
+        long lVar5;
+        OutputMergerState* pOVar6;
+        InputAssemblerState* this_06;
+        VertexBuffer* vertexBuffer;
+        RenderPipelineState* pRVar7;
+        ShaderProgram* pSVar8;
+        Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>* this_07;
+        Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>* pAVar9;
+        Texture* texture;
+        float fVar10;
         DrawCallState local_120;
         DrawCallState local_f0;
-        undefined1 local_c0[16];
+        uint8_t local_c0[16];
         HashedString local_b0;
-        undefined8* local_a0;
-        undefined8* local_98;
+        uint64_t* local_a0;
         DynamicBuffer<render::VertexBuffer>* local_90;
         DynamicBuffer<render::IndexBuffer>* local_88;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_80;
-        RenderContext* local_78;
         float local_6c;
-        float local_68;
         float local_64;
-        float local_60;
         float local_5c;
-        float local_58;
         float local_54;
         float local_50;
         float local_4c;
-        DebugUIManager* local_48;
-        int local_40;
-        int local_3c;
-        float local_38;
-        float local_34;
 
-        local_80 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_3216;
-        local_78 = param_1;
-        local_48 = this;
-        local_40 = param_3;
-        local_3c = param_2;
-        bVar2 = local_80->operator_cast_to_bool();
-        if (!bVar2) {
-            /* WARNING: Subroutine does not return */
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_80 =
+            (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_3216;
+        DebugUIManager* local_48 = this;
+        bool cVar2 = local_80->operator_cast_to_bool();
+        if (!cVar2) {
             LogAssert("m_shader",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      547, (char*)0);
+                      547, nullptr);
         }
-        bVar2 = (&local_48->field_3232)->operator_cast_to_bool();
-        pDVar1 = local_48;
-        if (!bVar2) {
-            /* WARNING: Subroutine does not return */
+        cVar2 = (&local_48->field_3232)->operator_cast_to_bool();
+        DebugUIManager* pDVar1 = local_48;
+        if (!cVar2) {
             LogAssert("m_fontTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      548, (char*)0);
+                      548, nullptr);
         }
-        this_00 = &local_48->field_3344;
+        uint8_t* this_00 = &local_48->field_3344;
         this_00->RotateBuffers();
-        (&pDVar1->field_3432)->RotateBuffers();
-        local_38 = (float)local_3c;
-        local_34 = (float)local_40;
-        new (&local_178) math::Matrix44T<float>();
-        math::Matrix44OrthographicLH<float>(0, local_38, local_34, 0, 1036831949, 1167867904, &local_178, 0);
-        WrapArray<unsigned char>::WrapArray(local_130, *(uchar**)(param_4 + 16), (long)*(int*)(param_4 + 4));
-        puVar5 = (undefined8*)local_130->end();
-        local_98 = (undefined8*)local_130->end();
-        if (puVar5 != local_98) {
+        pDVar1->field_3432.RotateBuffers();
+        Matrix44T<float> local_178;
+        math::Matrix44OrthographicLH<float>(local_178, 0.0, (float)arg2, (float)arg3, 0.0, 0.1, 5000.0, 0);
+        WrapArray<unsigned char> local_130(*(Particle**)(imDrawData + 16), (long)*(int*)(imDrawData + 4));
+        auto puVar4 = local_130.end();
+        auto local_98 = local_130.end();
+        if (puVar4 != local_98) {
             local_48 = (DebugUIManager*)&local_48->field_3248;
             local_90 = (DynamicBuffer<render::VertexBuffer>*)this_00;
             local_88 = (DynamicBuffer<render::IndexBuffer>*)&pDVar1->field_3432;
             do {
                 this_03 = local_88;
                 this_02 = local_90;
-                this_09 = &local_120;
-                this_01 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)*puVar5;
-                iVar4 = *(int*)(this_01 + 16);
-                local_a0 = puVar5;
+                this_01 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)*puVar4;
+                iVar3 = *(int*)(this_01 + 16);
+                local_a0 = puVar4;
                 local_90->Update(0, *(int*)(this_01 + 32) * 20, *(void**)(this_01 + 40));
-                this_03->Update(0, iVar4 * 2, *(void**)(this_01 + 24));
-                render::DrawCallState::DrawCallState(this_09);
-                this_05 = (RenderPipelineState*)this_09->GetRenderPipelineState();
-                auVar15 = this_09->Instance();
-                pRVar9 = this_05;
+                this_03->Update(0, iVar3 * 2, *(void**)(this_01 + 24));
+                local_120 = render::DrawCallState();
+                this_05 = (RenderPipelineState*)local_120.GetRenderPipelineState();
+                lVar5 = local_120.Instance();
+                pRVar7 = this_05;
                 new (this_05) eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>(
-                    (EntityHighlight**)(auVar15._0_8_ + 1676), auVar15._8_8_);
-                lVar6 = pRVar9->Instance();
-                pRVar9 = this_05;
-                this_05->SetHeapSize(lVar6 + 1080);
-                lVar6 = pRVar9->Instance();
-                this_05->SetRasteriserState((RasteriserState*)(lVar6 + 1308));
-                new (&local_f0) render::Viewport(0, 0, local_3c, local_40, 0.0, 1.0);
-                this_06 = (OutputMergerState*)local_120.GetOutputMergerState();
-                render::OutputMergerState::SetViewports((Viewport*)this_06, (uint)&local_f0);
-                pRVar7 = (RenderTargets*)local_78->GetBackBuffer();
-                this_06->SetRenderTargets(pRVar7);
-                this_07 = (InputAssemblerState*)local_120.GetInputAssemblerState();
-                pVVar8 = (VertexBuffer*)this_02->CurrentBuffer();
-                this_07->SetVertexStreamData(local_48, pVVar8);
-                uVar3 = this_03->CurrentBuffer();
-                render::InputAssemblerState::SetIndexBuffer((IndexBuffer*)this_07, uVar3);
-                pRVar9 = (RenderPipelineState*)local_120.GetRenderPipelineState();
+                    (lVar5 + 1676));
+                lVar5 = pRVar7->Instance();
+                pRVar7 = this_05;
+                this_05->SetHeapSize((lVar5 + 1080));
+                lVar5 = pRVar7->Instance();
+                this_05->SetRasteriserState((lVar5 + 1308));
+                local_f0 = render::Viewport(0, 0, arg2, arg3, 0.0, 1.0);
+                pOVar6 = local_120.GetOutputMergerState();
+                pOVar6->SetViewports(&local_f0, 1);
+                pOVar6->SetRenderTargets(renderContext->GetBackBuffer());
+                this_06 = (InputAssemblerState*)local_120.GetInputAssemblerState();
+                vertexBuffer = (VertexBuffer*)this_02->CurrentBuffer();
+                this_06->SetVertexStreamData(local_48, vertexBuffer);
+                arg2_00 = this_03->CurrentBuffer();
+                render::InputAssemblerState::SetIndexBuffer(this_06, arg2_00);
+                pRVar7 = (RenderPipelineState*)local_120.GetRenderPipelineState();
                 this_04 = local_80;
-                pSVar10 = (ShaderProgram*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-                    local_80);
-                pRVar9->SetShaderProgram(pSVar10);
-                pSVar10 = (ShaderProgram*)shared_ptr<render::ShaderProgram>::operator->(
-                    (shared_ptr<render::ShaderProgram>*)this_04);
+                pRVar7->SetShaderProgram((BlendMode*)local_80->end());
+                pSVar8 = (ShaderProgram*)(*this_04).operator->();
                 new (local_c0) HashedString("uProjectionMatrix");
-                pSVar10->SetShaderConstMatrix4(local_c0, 1, &local_178, 1);
-                this_08 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
-                                                 std::default_delete<LoadingScreenScript::AnimLayer>>,
-                                 eastl::allocator>*)
-                    eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_01);
-                pAVar11 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
-                                                 std::default_delete<LoadingScreenScript::AnimLayer>>,
-                                 eastl::allocator>*)this_01->end();
-                for (; this_08 != pAVar11; this_08 = this_08 + 56) {
-                    if ((*(float*)this_08 <= *(float*)(this_08 + 8) && *(float*)(this_08 + 8) != *(float*)this_08) &&
-                        (*(float*)(this_08 + 4) <= *(float*)(this_08 + 12) &&
-                         *(float*)(this_08 + 12) != *(float*)(this_08 + 4))) {
-                        new (&local_f0) render::DrawCallState(&local_120);
+                pSVar8->SetShaderConstMatrix4(local_c0, 1, &local_178, 1);
+                this_07 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)this_01->end();
+                pAVar9 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)this_01->end();
+                for (; this_07 != pAVar9; this_07 = this_07 + 56) {
+                    if ((*(float*)this_07 <= *(float*)(this_07 + 8) && *(float*)(this_07 + 8) != *(float*)this_07) &&
+                        (*(float*)(this_07 + 4) <= *(float*)(this_07 + 12) &&
+                         *(float*)(this_07 + 12) != *(float*)(this_07 + 4))) {
+                        local_f0 = render::DrawCallState(local_120);
                         local_b0.field_0._0_4_ = 0;
-                        local_54 = math::Clamp<float>((float*)this_08, (float*)(local_c0 + 16), &local_38);
-                        local_6c = local_34 - *(float*)(this_08 + 12);
-                        local_68 = 0.0;
-                        local_50 = math::Clamp<float>(&local_6c, &local_68, &local_34);
-                        local_64 = *(float*)(this_08 + 8) - *(float*)this_08;
-                        local_60 = 0.0;
-                        local_4c = math::Clamp<float>(&local_64, &local_60, &local_38);
-                        local_5c = *(float*)(this_08 + 12) - *(float*)(this_08 + 4);
-                        local_58 = 0.0;
-                        fVar14 = math::Clamp<float>(&local_5c, &local_58, &local_34);
+                        local_54 = math::Clamp<float>(*this_07, *((local_c0 + 16)), (float)arg2);
+                        local_6c = (float)arg3 - *(float*)(this_07 + 12);
+                        local_50 = math::Clamp<float>(local_6c, 0.0, (float)arg3);
+                        local_64 = *(float*)(this_07 + 8) - *(float*)this_07;
+                        local_4c = math::Clamp<float>(local_64, 0.0, (float)arg2);
+                        local_5c = *(float*)(this_07 + 12) - *(float*)(this_07 + 4);
+                        fVar10 = math::Clamp<float>(local_5c, 0.0, (float)arg3);
                         new (local_c0) oldscape::dash3d::GridRect((int)(long)local_54, (int)(long)local_50,
-                                                                  (int)(long)local_4c, (int)(long)fVar14);
-                        pRVar12 = (Rect*)local_f0.GetOutputMergerState();
-                        render::OutputMergerState::SetScissorRects(pRVar12, (uint)local_c0);
-                        pRVar9 = (RenderPipelineState*)local_f0.GetRenderPipelineState();
-                        pTVar13 = (Texture*)this_08->data();
-                        pSVar10 = (ShaderProgram*)shared_ptr<render::ShaderProgram>::operator->(
-                            (shared_ptr<render::ShaderProgram>*)local_80);
+                                                                  (int)(long)local_4c, (int)(long)fVar10);
+                        pOVar6 = local_f0.GetOutputMergerState();
+                        pOVar6->SetScissorRects(local_c0, 1);
+                        pRVar7 = (RenderPipelineState*)local_f0.GetRenderPipelineState();
+                        texture = (Texture*)this_07->data();
+                        pSVar8 = (ShaderProgram*)(*local_80).operator->();
                         new ((local_c0 + 16)) HashedString("uDiffuseMap");
-                        iVar4 = pSVar10->GetConstIndex((HashedString*)(local_c0 + 16));
-                        pRVar9->SetPSTextureSamplerPair(0, pTVar13, iVar4, 0, false);
-                        local_78->DrawIndexedPrimitives(&local_f0, 4, *(undefined4*)(this_08 + 32),
-                                                        *(undefined4*)(this_08 + 28));
-                        local_f0.~DrawCallState();
+                        iVar3 = pSVar8->GetConstIndex(*((local_c0 + 16)));
+                        pRVar7->SetPSTextureSamplerPair(0, texture, iVar3, nullptr, false);
+                        renderContext->DrawIndexedPrimitives(&local_f0, 4, *(unsigned int*)(this_07 + 32),
+                                                             *(unsigned int*)(this_07 + 28));
                     }
                 }
-                local_120.~DrawCallState();
-                puVar5 = local_a0 + 1;
-            } while (puVar5 != local_98);
+                puVar4 = local_a0 + 1;
+            } while (puVar4 != local_98);
         }
     }
 
-    // 0x100721b30, 384 bytes, placed by class name
-    // DebugUIManager::DeferToRenderThread(ImDrawData*)
-    void DebugUIManager::DeferToRenderThread(ImDrawData* param_1) {
-        uint uVar1;
-        undefined8 uVar2;
-        undefined1 auVar3[16];
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        void* pvVar8;
-        undefined8 uVar9;
-        ulong uVar10;
+    // 0x100721b30
+    void DebugUIManager::DeferToRenderThread(ImDrawData* imDrawData) {
+        uint8_t auVar3[16];
+        uint64_t uVar9;
         long lVar11;
-        undefined4 local_88;
-        undefined4 uStack_84;
-        undefined4 uStack_80;
-        undefined4 uStack_7c;
-        ImDrawData local_68[4];
         int local_64;
-        void* local_58;
-        lock_guard<std::mutex> local_38[8];
 
-        uVar4 = *(undefined8*)param_1;
-        uVar5 = *(undefined8*)(param_1 + 8);
-        uVar6 = *(undefined8*)(param_1 + 24);
-        uVar7 = *(undefined8*)(param_1 + 32);
-        uVar2 = *(undefined8*)(param_1 + 40);
-        uVar1 = *(uint*)(param_1 + 4);
+        uint64_t uVar4 = *(uint64_t*)imDrawData;
+        uint64_t uVar5 = *(uint64_t*)(imDrawData + 8);
+        uint64_t uVar6 = *(uint64_t*)(imDrawData + 24);
+        uint64_t uVar7 = *(uint64_t*)(imDrawData + 32);
+        uint64_t uVar2 = *(uint64_t*)(imDrawData + 40);
+        unsigned int uVar1 = *(unsigned int*)(imDrawData + 4);
         auVar3._8_8_ = 0;
         auVar3._0_8_ = (long)(int)uVar1;
-        uVar10 = 18446744073709551615;
-        if (SUB168(auVar3 * ZEXT816(8), 8) == 0) {
-            uVar10 = SUB168(auVar3 * ZEXT816(8), 0);
+        unsigned long uVar10 = 18446744073709551615;
+        if ((uint64_t)((auVar3 * (unsigned __int128)8) >> 64) == 0) {
+            uVar10 = (uint64_t)(auVar3 * (unsigned __int128)8);
         }
-        pvVar8 = operator_new__(uVar10);
+        auto pvVar8 = operator_new__(uVar10);
         if (0 < (long)(int)uVar1) {
             uVar10 = 0;
             do {
-                uVar9 = ImDrawList::CloneOutput(*(ImDrawList**)(*(long*)(param_1 + 16) + uVar10 * 8));
-                *(undefined8*)((long)pvVar8 + uVar10 * 8) = uVar9;
+                uVar9 = (*(ImDrawList**)(*(long*)(imDrawData + 16) + uVar10 * 8))->CloneOutput();
+                *(uint64_t*)((long)pvVar8 + uVar10 * 8) = uVar9;
                 uVar10 = uVar10 + 1;
             } while (uVar1 != uVar10);
         }
-        ImDrawData::ImDrawData(local_68);
-        local_58 = (void*)0;
-        std::lock_guard<std::mutex>::lock_guard(local_38, (mutex*)&field_3520);
-        if (field_16 != (void*)0) {
+        ImDrawData local_68;
+        void* local_58 = nullptr;
+        lock_guard<std::mutex> local_38(field_3520);
+        if (field_16 != nullptr) {
             local_64 = field_4;
             local_58 = field_16;
         }
         field_0 = (int)uVar4;
-        field_4 = (int)((ulong)uVar4 >> 32);
+        field_4 = (int)((unsigned long)uVar4 >> 32);
         field_8 = uVar5;
         field_16 = pvVar8;
-        local_88 = (undefined4)uVar6;
-        uStack_84 = (undefined4)((ulong)uVar6 >> 32);
-        uStack_80 = (undefined4)uVar7;
-        uStack_7c = (undefined4)((ulong)uVar7 >> 32);
+        uint32_t local_88 = (uint32_t)uVar6;
+        uint32_t uStack_84 = (uint32_t)((unsigned long)uVar6 >> 32);
+        uint32_t uStack_80 = (uint32_t)uVar7;
+        uint32_t uStack_7c = (uint32_t)((unsigned long)uVar7 >> 32);
         field_24 = local_88;
         field_28 = uStack_84;
         field_32 = uStack_80;
         field_36 = uStack_7c;
         field_40 = uVar2;
-        if (field_112 != (void*)0) {
-            if (local_58 != (void*)0) {
-                /* WARNING: Subroutine does not return */
+        if (field_112 != nullptr) {
+            if (local_58 != nullptr) {
                 LogAssert(
                     "toFree.CmdLists == nullptr",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                    677, (char*)0);
+                    677, nullptr);
             }
             local_58 = field_112;
             local_64 = field_100;
-            field_112 = (void*)0;
+            field_112 = nullptr;
         }
-        local_38->~lock_guard();
-        if (local_58 != (void*)0) {
+        if (local_58 != nullptr) {
             if (0 < local_64) {
                 lVar11 = 0;
                 do {
@@ -825,219 +692,166 @@ namespace jag::debug {
                     lVar11 = lVar11 + 1;
                 } while (lVar11 < local_64);
             }
-            if (local_58 != (void*)0) {
+            if (local_58 != nullptr) {
                 operator_delete__(local_58);
             }
         }
     }
 
-    // 0x100721cb0, 96 bytes, placed by class name
-    // DebugUIManager::MainLogic(bool)
-    void DebugUIManager::MainLogic(bool param_1) {
-        undefined8* puVar1;
-        undefined8* puVar2;
-
-        puVar1 = (undefined8*)(&field_3584)->HeapBeginPtr();
-        puVar2 = (undefined8*)(&field_3584)->end();
+    // 0x100721cb0
+    void DebugUIManager::MainLogic(bool arg1) {
+        auto puVar1 = field_3584.HeapBeginPtr();
+        auto puVar2 = field_3584.end();
         for (; puVar1 != puVar2; puVar1 = puVar1 + 1) {
-            (**(code**)(*(long*)*puVar1 + 32))((long*)*puVar1, param_1);
+            (**(void (**)(...))(*(long*)*puVar1 + 32))((long*)*puVar1, arg1);
         }
     }
 
-    // 0x100721d10, 304 bytes, placed by class name
-    // DebugUIManager::FlushOwnedUIElements()
+    // 0x100721d10
     void DebugUIManager::FlushOwnedUIElements() {
-        unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>* this_00;
-        unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>* puVar1;
         long* plVar2;
-        function** ppfVar3;
-        function** ppfVar4;
-        DebugUIElement** ppDVar5;
-        DebugUIElement** ppDVar6;
-        undefined1* puVar7;
-        function* local_48;
-        vector<std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>, eastl::allocator>* local_40;
-        lock_guard<std::mutex> local_38[8];
+        function<bool_(int, int, int, int)>** arg1;
+        function<bool_(int, int, int, int)>** arg2;
+        DebugUIElement** arg1_00;
+        DebugUIElement** ppDVar3;
+        function<bool_(int, int, int, int)>* local_48;
 
-        std::lock_guard<std::mutex>::lock_guard(local_38, (mutex*)&field_3520);
-        puVar7 = &field_3616;
-        this_00 = (unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>*)puVar7->HeapBeginPtr();
-        local_40 =
-            (vector<std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>, eastl::allocator>*)puVar7;
-        puVar1 = (unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>*)puVar7->end();
+        lock_guard<std::mutex> local_38(field_3520);
+        uint8_t* puVar4 = &field_3616;
+        auto this_00 = puVar4->HeapBeginPtr();
+        vector<std::unique_ptr<DebugUIElement>>* local_40 = (vector<std::unique_ptr<DebugUIElement>>*)puVar4;
+        auto puVar1 = puVar4->end();
         if (this_00 != puVar1) {
-            puVar7 = &field_3584;
+            puVar4 = &field_3584;
             do {
-                plVar2 =
-                    (long*)std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>::operator->(this_00);
-                (**(code**)(*plVar2 + 40))(plVar2, 0);
-                ppfVar3 = (function**)puVar7->HeapBeginPtr();
-                ppfVar4 = (function**)puVar7->end();
-                local_48 =
-                    (function*)std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>::get(this_00);
-                ppDVar5 = (DebugUIElement**)
+                plVar2 = (long*)(*this_00).operator->();
+                (**(void (**)(...))(*plVar2 + 40))(plVar2, 0);
+                arg1 = (function<bool_(int, int, int, int)>**)puVar4->HeapBeginPtr();
+                arg2 = (function<bool_(int, int, int, int)>**)puVar4->end();
+                local_48 = (function<bool_(int, int, int, int)>*)this_00->get();
+                arg1_00 = (DebugUIElement**)
                     eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-                        ppfVar3, ppfVar4, &local_48);
-                ppDVar6 = (DebugUIElement**)puVar7->end();
-                if (ppDVar5 == ppDVar6) {
-                    /* WARNING: Subroutine does not return */
+                        arg1, arg2, local_48);
+                ppDVar3 = (DebugUIElement**)puVar4->end();
+                if (arg1_00 == ppDVar3) {
                     LogAssert("matchIt != m_uiElements.end()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/"
                               "DebugUIManager.cpp",
-                              255, (char*)0);
+                              255, nullptr);
                 }
-                puVar7->erase(ppDVar5);
+                puVar4->erase(arg1_00);
                 this_00 = this_00 + 8;
             } while (this_00 != puVar1);
         }
-        eastl::vector<std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>, eastl::allocator>::clear(
-            local_40);
-        local_38->~lock_guard();
+        local_40->clear();
     }
 
-    // 0x100722030, 128 bytes, placed by class name
-    // DebugUIManager::RegisterInputHandler(input::Input*)
-    void DebugUIManager::RegisterInputHandler(Input* param_1) {
-        if (param_1 == (Input*)0) {
-            /* WARNING: Subroutine does not return */
+    // 0x100722030
+    void DebugUIManager::RegisterInputHandler(input::Input* input) {
+        if (input == nullptr) {
             LogAssert("inputHAL",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      301, (char*)0);
+                      301, nullptr);
         }
-        if (field_160 != param_1) {
-            UnregisterInputHandler(this);
-            field_160 = param_1;
-            param_1->RegisterInputHandler("0debugui", field_168);
+        if (field_160 != input) {
+            UnregisterInputHandler();
+            field_160 = input;
+            input->RegisterInputHandler("0debugui", &field_168);
         }
     }
 
-    // 0x1007220b0, 64 bytes, placed by class name
-    // DebugUIManager::UnregisterInputHandler()
+    // 0x1007220b0
     void DebugUIManager::UnregisterInputHandler() {
-        if (field_160 != (Input*)0) {
-            (field_160, "0debugui")->UnregisterInputHandler();
-            field_160 = (Input*)0;
+        if (field_160 != nullptr) {
+            field_160->UnregisterInputHandler("0debugui");
+            field_160 = nullptr;
         }
     }
 
-    // 0x1007220f0, 1408 bytes, base-object constructor, placed by class name
-    // DebugUIManager::DebugUIManager()
-    void DebugUIManager::DebugUIManager() {
-        undefined1* this_00;
-        undefined1* this_01;
-        undefined1* this_02;
-        undefined1* this_03;
-        undefined1* this_04;
-        undefined1* this_05;
-        undefined1* this_06;
-        undefined1* this_07;
-        undefined1* this_08;
-        undefined1* this_09;
-        undefined1* this_10;
-        undefined1* this_11;
-        undefined1* this_12;
-        undefined1* this_13;
-        undefined1* this_14;
-        undefined1* this_15;
-        undefined* puVar1;
-        _func_decltype_nullptr* in_RSI;
-        __1 local_a8[8];
-        __2 local_a0[8];
-        __3 local_98[8];
-        __4 local_90[8];
-        __5 local_88[8];
-        __6 local_80[8];
-        __7 local_78[8];
-        __8 local_70[8];
-        __9 local_68[8];
-        __10 local_60[8];
-        __11 local_58[8];
-        __12 local_50[8];
-        __13 local_48[8];
-        __14 local_40[16];
+    // 0x1007220f0
+    DebugUIManager::DebugUIManager() : AutoSingleton<DebugUIManager>(), ImDrawData() {
+        __1 local_a8;
+        __2 local_a0;
+        __3 local_98;
+        __4 local_90;
+        __5 local_88;
+        __6 local_80;
+        __7 local_78;
+        __8 local_70;
+        __9 local_68;
+        __10 local_60;
+        __11 local_58;
+        __12 local_50;
+        __13 local_48;
+        __14 local_40;
 
-        new (this) AutoSingleton<DebugUIManager>();
-        new (this) ImDrawData();
-        new (&field_48) ImDrawData();
-        new (&field_96) ImDrawData();
-        puVar1 = PTR_ZERO_100ee66e8;
-        field_152 = *(undefined4*)(PTR_ZERO_100ee66e8 + 8);
-        field_144 = *(undefined8*)puVar1;
-        field_160 = (Input*)0;
-        this_00 = field_168;
+        uint8_t* puVar1 = PTR_ZERO_100ee66e8;
+        field_152 = *(uint32_t*)(PTR_ZERO_100ee66e8 + 8);
+        field_144 = *(uint64_t*)puVar1;
+        field_160 = nullptr;
+        uint8_t* this_00 = &field_168;
         new (this_00) input::InputHandler();
-        this_01 = &field_2496;
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)this_01);
-        this_02 = &field_2544;
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)this_02);
-        this_03 = &field_2592;
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)this_03);
-        this_04 = &field_2640;
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)this_04);
-        this_05 = &field_2688;
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)this_05);
-        this_06 = &field_2736;
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)this_06);
-        this_07 = &field_2784;
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)this_07);
-        this_08 = &field_2832;
-        std::function<bool(float, float, float, float)>::function((function<bool(float, float, float, float)>*)this_08);
-        this_09 = &field_2880;
-        std::function<bool(int)>::function((function<bool(int)>*)this_09);
-        this_10 = &field_2928;
-        std::function<bool(int)>::function((function<bool(int)>*)this_10);
-        this_11 = &field_2976;
-        std::function<bool(int)>::function((function<bool(int)>*)this_11);
-        this_12 = &field_3024;
-        std::function<bool(unsigned long, float, float)>::function(
-            (function<bool(unsigned long, float, float)>*)this_12);
-        this_13 = &field_3072;
-        std::function<bool(unsigned long, float, float)>::function(
-            (function<bool(unsigned long, float, float)>*)this_13);
-        this_14 = &field_3120;
-        std::function<bool(unsigned long, float, float)>::function(
-            (function<bool(unsigned long, float, float)>*)this_14);
-        this_15 = &field_3168;
-        std::function<bool(unsigned long, float, float)>::function(
-            (function<bool(unsigned long, float, float)>*)this_15);
-        new (field_3216, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_3232, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        uint8_t* this_01 = &field_2496;
+        new (this_01) std::function<bool(float, float)>();
+        uint8_t* this_02 = &field_2544;
+        new (this_02) std::function<bool(float, float)>();
+        uint8_t* this_03 = &field_2592;
+        new (this_03) std::function<bool(float, float)>();
+        uint8_t* this_04 = &field_2640;
+        new (this_04) std::function<bool(float, float)>();
+        uint8_t* this_05 = &field_2688;
+        new (this_05) std::function<bool(float, float)>();
+        uint8_t* this_06 = &field_2736;
+        new (this_06) std::function<bool(float, float)>();
+        uint8_t* this_07 = &field_2784;
+        new (this_07) std::function<bool(float, float)>();
+        uint8_t* this_08 = &field_2832;
+        new (this_08) std::function<bool(float, float, float, float)>();
+        uint8_t* this_09 = &field_2880;
+        new (this_09) std::function<bool(int)>();
+        uint8_t* this_10 = &field_2928;
+        new (this_10) std::function<bool(int)>();
+        uint8_t* this_11 = &field_2976;
+        new (this_11) std::function<bool(int)>();
+        uint8_t* this_12 = &field_3024;
+        new (this_12) std::function<bool(unsigned long, float, float)>();
+        uint8_t* this_13 = &field_3072;
+        new (this_13) std::function<bool(unsigned long, float, float)>();
+        uint8_t* this_14 = &field_3120;
+        new (this_14) std::function<bool(unsigned long, float, float)>();
+        uint8_t* this_15 = &field_3168;
+        new (this_15) std::function<bool(unsigned long, float, float)>();
+        new (field_3216) shared_ptr();
+        new (&field_3232) shared_ptr();
         new (&field_3248) render::VertexDeclaration();
         new (&field_3344) render::DynamicBuffer<render::VertexBuffer>();
         new (&field_3432) render::DynamicBuffer<render::IndexBuffer>();
         new (&field_3520) std::mutex();
-        new (&field_3584) eastl::vector<DebugUIElement*, eastl::allocator>();
-        new (&field_3616)
-            eastl::vector<std::unique_ptr<DebugUIElement, std::default_delete<DebugUIElement>>, eastl::allocator>();
+        new (&field_3584) eastl::vector<DebugUIElement*>();
+        new (&field_3616) eastl::vector<std::unique_ptr<DebugUIElement>>();
         m_mainMenuHeight = 0;
         field_3652 = 0;
         field_3653 = 0;
-        if (ImGui::CreateContext((ImFontAtlas*)0) == 0) {
-            /* WARNING: Subroutine does not return */
+        if (ImGui::CreateContext(nullptr) == 0) {
             LogAssert("initOk",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      324, (char*)0);
+                      324, nullptr);
         }
-        std::function<bool(float, float)>::operator=((function<bool(float, float)>*)this_01, local_a8);
-        std::function<bool(float, float)>::operator=((function<bool(float, float)>*)this_02, local_a0);
-        std::function<bool(float, float)>::operator=((function<bool(float, float)>*)this_03, local_98);
-        std::function<bool(float, float)>::operator=((function<bool(float, float)>*)this_04, local_90);
-        std::function<bool(float, float)>::operator=((function<bool(float, float)>*)this_05, local_88);
-        std::function<bool(float, float)>::operator=((function<bool(float, float)>*)this_06, local_80);
-        std::function<bool(float, float)>::operator=((function<bool(float, float)>*)this_07, local_78);
-        std::function<bool(float, float, float, float)>::operator=((function<bool(float, float, float, float)>*)this_08,
-                                                                   local_70);
-        std::function<bool(int)>::operator=((function<bool(int)>*)this_09, local_68);
-        std::function<bool(int)>::operator=((function<bool(int)>*)this_10, local_60);
-        std::function<bool(int)>::operator=((function<bool(int)>*)this_11, local_58);
-        std::function<bool(unsigned long, float, float)>::operator=(
-            (function<bool(unsigned long, float, float)>*)this_12, local_50);
-        std::function<bool(unsigned long, float, float)>::operator=(
-            (function<bool(unsigned long, float, float)>*)this_13, local_48);
-        std::function<bool(unsigned long, float, float)>::operator=(
-            (function<bool(unsigned long, float, float)>*)this_14, local_40);
-        std::function<bool(unsigned long, float, float)>::operator=(
-            (function<bool(unsigned long, float, float)>*)this_15, (function*)this_14);
+        ((function<bool(float, float)>*)this_01)->operator=(&local_a8);
+        ((function<bool(float, float)>*)this_02)->operator=(&local_a0);
+        ((function<bool(float, float)>*)this_03)->operator=(&local_98);
+        ((function<bool(float, float)>*)this_04)->operator=(&local_90);
+        ((function<bool(float, float)>*)this_05)->operator=(&local_88);
+        ((function<bool(float, float)>*)this_06)->operator=(&local_80);
+        ((function<bool(float, float)>*)this_07)->operator=(&local_78);
+        ((function<bool(float, float, float, float)>*)this_08)->operator=(&local_70);
+        ((function<bool(int)>*)this_09)->operator=(&local_68);
+        ((function<bool(int)>*)this_10)->operator=(&local_60);
+        ((function<bool(int)>*)this_11)->operator=(&local_58);
+        *this_12 = local_50;
+        *this_13 = local_48;
+        *this_14 = local_40;
+        *this_15 = *this_14;
         this_00->RegisterLMouseDown(this_01);
         this_00->RegisterRMouseDown(this_02);
         this_00->RegisterMMouseDown(this_03);
@@ -1055,82 +869,62 @@ namespace jag::debug {
         this_00->RegisterTouchCanceled(this_15);
     }
 
-    // 0x100722d20, 16 bytes, complete-object constructor, placed by class name
-    // DebugUIManager::DebugUIManager(): jumps straight to the base-object constructor
-
-    // 0x100722d30, 960 bytes, base-object destructor, placed by class name
-    // DebugUIManager::~DebugUIManager()
-    void DebugUIManager::~DebugUIManager() {
-        undefined1* this_00;
-        char cVar1;
-
-        FlushOwnedUIElements(this);
-        cVar1 = (&field_3584)->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x100722d30
+    DebugUIManager::~DebugUIManager() {
+        FlushOwnedUIElements();
+        if (field_3584.empty() == '\0') {
             LogAssert("m_uiElements.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/debug/DebugUIManager.cpp",
-                      475, (char*)0);
+                      475, nullptr);
         }
-        UnregisterInputHandler(this);
-        this_00 = field_168;
-        this_00->UnregisterLMouseDown((function*)&field_2496);
-        this_00->UnregisterRMouseDown((function*)&field_2544);
-        this_00->UnregisterMMouseDown((function*)&field_2592);
-        this_00->UnregisterLMouseUp((function*)&field_2640);
-        this_00->UnregisterRMouseUp((function*)&field_2688);
-        this_00->UnregisterMMouseUp((function*)&field_2736);
-        this_00->UnregisterMouseMove((function*)&field_2784);
-        this_00->UnregisterMouseWheel((function*)&field_2832);
-        this_00->UnregisterKeyChar((function*)&field_2880);
-        this_00->UnregisterKeyDown((function*)&field_2928);
-        this_00->UnregisterKeyUp((function*)&field_2976);
-        this_00->UnregisterTouchDown((function*)&field_3024);
-        this_00->UnregisterTouchMove((function*)&field_3072);
-        this_00->UnregisterTouchUp((function*)&field_3120);
-        this_00->UnregisterTouchCanceled((function*)&field_3168);
-        (&field_3616)->~vector();
-        (&field_3584)->~vector();
+        UnregisterInputHandler();
+        uint8_t* this_00 = &field_168;
+        this_00->UnregisterLMouseDown(&field_2496);
+        this_00->UnregisterRMouseDown(&field_2544);
+        this_00->UnregisterMMouseDown(&field_2592);
+        this_00->UnregisterLMouseUp(&field_2640);
+        this_00->UnregisterRMouseUp(&field_2688);
+        this_00->UnregisterMMouseUp(&field_2736);
+        this_00->UnregisterMouseMove(&field_2784);
+        this_00->UnregisterMouseWheel(&field_2832);
+        this_00->UnregisterKeyChar(&field_2880);
+        this_00->UnregisterKeyDown(&field_2928);
+        this_00->UnregisterKeyUp(&field_2976);
+        this_00->UnregisterTouchDown(&field_3024);
+        this_00->UnregisterTouchMove(&field_3072);
+        this_00->UnregisterTouchUp(&field_3120);
+        this_00->UnregisterTouchCanceled(&field_3168);
+        field_3616.~vector();
+        field_3584.~vector();
         (&field_3520)->~mutex();
-        (&field_3432)->~DynamicBuffer();
-        (&field_3344)->~DynamicBuffer();
-        (&field_3248)->~VertexDeclaration();
-        (&field_3232)->~shared_ptr();
+        field_3432.~DynamicBuffer();
+        field_3344.~DynamicBuffer();
+        field_3248.~VertexDeclaration();
+        field_3232.~shared_ptr();
         field_3216->~shared_ptr();
-        std::function<bool(unsigned long, float, float)>::~function(
-            (function<bool(unsigned long, float, float)>*)&field_3168);
-        std::function<bool(unsigned long, float, float)>::~function(
-            (function<bool(unsigned long, float, float)>*)&field_3120);
-        std::function<bool(unsigned long, float, float)>::~function(
-            (function<bool(unsigned long, float, float)>*)&field_3072);
-        std::function<bool(unsigned long, float, float)>::~function(
-            (function<bool(unsigned long, float, float)>*)&field_3024);
-        std::function<bool(int)>::~function((function<bool(int)>*)&field_2976);
-        std::function<bool(int)>::~function((function<bool(int)>*)&field_2928);
-        std::function<bool(int)>::~function((function<bool(int)>*)&field_2880);
-        std::function<bool(float, float, float, float)>::~function(
-            (function<bool(float, float, float, float)>*)&field_2832);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_2784);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_2736);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_2688);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_2640);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_2592);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_2544);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_2496);
+        field_3168.~function();
+        field_3120.~function();
+        field_3072.~function();
+        field_3024.~function();
+        field_2976.~function();
+        field_2928.~function();
+        field_2880.~function();
+        field_2832.~function();
+        field_2784.~function();
+        field_2736.~function();
+        field_2688.~function();
+        field_2640.~function();
+        field_2592.~function();
+        field_2544.~function();
+        field_2496.~function();
         this_00->~InputHandler();
-        ~AutoSingleton();
     }
 
-    // 0x100723110, 16 bytes, complete-object destructor, placed by class name
-    // DebugUIManager::~DebugUIManager(): jumps straight to the base-object destructor
+    // 0x100723170
+    void DebugUIManager::Render(render::RenderContext* renderContext, int arg2, int arg3) {
 
-    // 0x100723170, 160 bytes, placed by class name
-    // DebugUIManager::Render(render::RenderContext*, int, int)
-    void DebugUIManager::Render(RenderContext* param_1, int param_2, int param_3) {
-        lock_guard<std::mutex> local_30[8];
-
-        std::lock_guard<std::mutex>::lock_guard(local_30, (mutex*)&field_3520);
-        if (field_16 != (void*)0) {
+        lock_guard<std::mutex> local_30(field_3520);
+        if (field_16 != nullptr) {
             field_112 = field_64;
             field_100 = field_52;
             field_48 = field_0;
@@ -1142,211 +936,124 @@ namespace jag::debug {
             field_80 = field_32;
             field_84 = field_36;
             field_88 = field_40;
-            field_16 = (void*)0;
+            field_16 = nullptr;
         }
-        local_30->~lock_guard();
-        if (field_64 != (void*)0) {
-            RenderImDrawData(this, param_1, param_2, param_3, (ImDrawData*)&field_48);
+        if (field_64 != nullptr) {
+            RenderImDrawData(renderContext, arg2, arg3, &field_48);
         }
     }
 
-    // 0x1007252a0, 80 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_1::operator()(float, float) const
-    /* DebugUIManager::DebugUIManager()::$_1::TEMPNAMEPLACEHOLDERVALUE(float, float) const
-    */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_1::operator()(float param_1, float param_2) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        ImGuiIO::AddMousePosEvent(this, param_1, param_2);
-        ImGuiIO::AddMouseButtonEvent(this, 0, true);
-        return this[200];
+    // 0x1007252a0
+    ImGuiIO DebugUIManager::DebugUIManager()::$_1::operator()(float arg1, float arg2) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddMousePosEvent(arg1, arg2);
+        this_00->AddMouseButtonEvent(0, true);
+        return this_00[200];
     }
 
-    // 0x100725c20, 80 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_2::operator()(float, float) const
-    /* DebugUIManager::DebugUIManager()::$_2::TEMPNAMEPLACEHOLDERVALUE(float, float) const
-    */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_2::operator()(float param_1, float param_2) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        ImGuiIO::AddMousePosEvent(this, param_1, param_2);
-        ImGuiIO::AddMouseButtonEvent(this, 1, true);
-        return this[200];
+    // 0x100725c20
+    ImGuiIO DebugUIManager::DebugUIManager()::$_2::operator()(float arg1, float arg2) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddMousePosEvent(arg1, arg2);
+        this_00->AddMouseButtonEvent(1, true);
+        return this_00[200];
     }
 
-    // 0x100726400, 80 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_3::operator()(float, float) const
-    /* DebugUIManager::DebugUIManager()::$_3::TEMPNAMEPLACEHOLDERVALUE(float, float) const
-    */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_3::operator()(float param_1, float param_2) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        ImGuiIO::AddMousePosEvent(this, param_1, param_2);
-        ImGuiIO::AddMouseButtonEvent(this, 2, true);
-        return this[200];
+    // 0x100726400
+    ImGuiIO DebugUIManager::DebugUIManager()::$_3::operator()(float arg1, float arg2) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddMousePosEvent(arg1, arg2);
+        this_00->AddMouseButtonEvent(2, true);
+        return this_00[200];
     }
 
-    // 0x100726be0, 80 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_4::operator()(float, float) const
-    /* DebugUIManager::DebugUIManager()::$_4::TEMPNAMEPLACEHOLDERVALUE(float, float) const
-    */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_4::operator()(float param_1, float param_2) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        ImGuiIO::AddMousePosEvent(this, param_1, param_2);
-        ImGuiIO::AddMouseButtonEvent(this, 0, false);
-        return this[200];
+    // 0x100726be0
+    ImGuiIO DebugUIManager::DebugUIManager()::$_4::operator()(float arg1, float arg2) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddMousePosEvent(arg1, arg2);
+        this_00->AddMouseButtonEvent(0, false);
+        return this_00[200];
     }
 
-    // 0x1007273c0, 80 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_5::operator()(float, float) const
-    /* DebugUIManager::DebugUIManager()::$_5::TEMPNAMEPLACEHOLDERVALUE(float, float) const
-    */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_5::operator()(float param_1, float param_2) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        ImGuiIO::AddMousePosEvent(this, param_1, param_2);
-        ImGuiIO::AddMouseButtonEvent(this, 1, false);
-        return this[200];
+    // 0x1007273c0
+    ImGuiIO DebugUIManager::DebugUIManager()::$_5::operator()(float arg1, float arg2) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddMousePosEvent(arg1, arg2);
+        this_00->AddMouseButtonEvent(1, false);
+        return this_00[200];
     }
 
-    // 0x100727ba0, 80 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_6::operator()(float, float) const
-    /* DebugUIManager::DebugUIManager()::$_6::TEMPNAMEPLACEHOLDERVALUE(float, float) const
-    */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_6::operator()(float param_1, float param_2) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        ImGuiIO::AddMousePosEvent(this, param_1, param_2);
-        ImGuiIO::AddMouseButtonEvent(this, 2, false);
-        return this[200];
+    // 0x100727ba0
+    ImGuiIO DebugUIManager::DebugUIManager()::$_6::operator()(float arg1, float arg2) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddMousePosEvent(arg1, arg2);
+        this_00->AddMouseButtonEvent(2, false);
+        return this_00[200];
     }
 
-    // 0x100728380, 64 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_7::operator()(float, float) const
-    /* DebugUIManager::DebugUIManager()::$_7::TEMPNAMEPLACEHOLDERVALUE(float, float) const
-    */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_7::operator()(float param_1, float param_2) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        ImGuiIO::AddMousePosEvent(this, param_1, param_2);
-        return this[200];
+    // 0x100728380
+    ImGuiIO DebugUIManager::DebugUIManager()::$_7::operator()(float arg1, float arg2) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddMousePosEvent(arg1, arg2);
+        return this_00[200];
     }
 
-    // 0x100728b90, 96 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_8::operator()(float, float, float, float) const
-    /* DebugUIManager::DebugUIManager()::$_8::TEMPNAMEPLACEHOLDERVALUE(float, float, float,
-   float) const */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_8::operator()(float param_1, float param_2, float param_3,
-                                                              float param_4) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        ImGuiIO::AddMousePosEvent(this, param_1, param_2);
-        ImGuiIO::AddMouseWheelEvent(this, param_3, param_4);
-        return this[200];
+    // 0x100728b90
+    ImGuiIO DebugUIManager::DebugUIManager()::$_8::operator()(float arg1, float arg2, float arg3, float arg4) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddMousePosEvent(arg1, arg2);
+        this_00->AddMouseWheelEvent(arg3, arg4);
+        return this_00[200];
     }
 
-    // 0x100729540, 48 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_9::operator()(int) const
-    /* DebugUIManager::DebugUIManager()::$_9::TEMPNAMEPLACEHOLDERVALUE(int) const */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_9::operator()(int param_1) {
-        ImGuiIO* this_00;
-
-        this_00 = (ImGuiIO*)ImGui::GetIO();
-        ImGuiIO::AddInputCharacter(this_00, (uint)this);
+    // 0x100729540
+    ImGuiIO DebugUIManager::DebugUIManager()::$_9::operator()(int arg1) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddInputCharacter((unsigned int)this);
         return this_00[201];
     }
 
-    // 0x100729e80, 64 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_10::operator()(int) const
-    /* DebugUIManager::DebugUIManager()::$_10::TEMPNAMEPLACEHOLDERVALUE(int) const */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_10::operator()(int param_1) {
-        ImGuiIO* this_00;
-        int iVar1;
-
-        this_00 = (ImGuiIO*)ImGui::GetIO();
-        iVar1 = KeyToImGuiKey((int)this);
-        ImGuiIO::AddKeyEvent(this_00, iVar1, true);
+    // 0x100729e80
+    ImGuiIO DebugUIManager::DebugUIManager()::$_10::operator()(int arg1) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddKeyEvent(KeyToImGuiKey((int)this), true);
         return this_00[201];
     }
 
-    // 0x10072a630, 64 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_11::operator()(int) const
-    /* DebugUIManager::DebugUIManager()::$_11::TEMPNAMEPLACEHOLDERVALUE(int) const */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_11::operator()(int param_1) {
-        ImGuiIO* this_00;
-        int iVar1;
-
-        this_00 = (ImGuiIO*)ImGui::GetIO();
-        iVar1 = KeyToImGuiKey((int)this);
-        ImGuiIO::AddKeyEvent(this_00, iVar1, false);
+    // 0x10072a630
+    ImGuiIO DebugUIManager::DebugUIManager()::$_11::operator()(int arg1) const {
+        auto this_00 = ImGui::GetIO();
+        this_00->AddKeyEvent(KeyToImGuiKey((int)this), false);
         return this_00[201];
     }
 
-    // 0x10072ae40, 96 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_12::operator()(unsigned long, float, float) const
-    /* DebugUIManager::DebugUIManager()::$_12::TEMPNAMEPLACEHOLDERVALUE(unsigned long,
-   float, float) const */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_12::operator()(ulong param_1, float param_2, float param_3) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        if (param_1 == 0) {
-            ImGuiIO::AddMousePosEvent(this, param_2, param_3);
-            ImGuiIO::AddMouseButtonEvent(this, 0, true);
+    // 0x10072ae40
+    ImGuiIO DebugUIManager::DebugUIManager()::$_12::operator()(unsigned long arg1, float arg2, float arg3) const {
+        auto this_00 = ImGui::GetIO();
+        if (this == nullptr) {
+            this_00->AddMousePosEvent(arg2, arg3);
+            this_00->AddMouseButtonEvent(0, true);
         }
-        return this[200];
+        return this_00[200];
     }
 
-    // 0x10072b7d0, 80 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_13::operator()(unsigned long, float, float) const
-    /* DebugUIManager::DebugUIManager()::$_13::TEMPNAMEPLACEHOLDERVALUE(unsigned long,
-   float, float) const */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_13::operator()(ulong param_1, float param_2, float param_3) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        if (param_1 == 0) {
-            ImGuiIO::AddMousePosEvent(this, param_2, param_3);
+    // 0x10072b7d0
+    ImGuiIO DebugUIManager::DebugUIManager()::$_13::operator()(unsigned long arg1, float arg2, float arg3) const {
+        auto this_00 = ImGui::GetIO();
+        if (this == nullptr) {
+            this_00->AddMousePosEvent(arg2, arg3);
         }
-        return this[200];
+        return this_00[200];
     }
 
-    // 0x10072bfb0, 96 bytes, placed by class name
-    // DebugUIManager::DebugUIManager()::$_14::operator()(unsigned long, float, float) const
-    /* DebugUIManager::DebugUIManager()::$_14::TEMPNAMEPLACEHOLDERVALUE(unsigned long,
-   float, float) const */
-
-    ImGuiIO DebugUIManager::DebugUIManager()::$_14::operator()(ulong param_1, float param_2, float param_3) {
-        ImGuiIO* this;
-
-        this = (ImGuiIO*)ImGui::GetIO();
-        if (param_1 == 0) {
-            ImGuiIO::AddMousePosEvent(this, param_2, param_3);
-            ImGuiIO::AddMouseButtonEvent(this, 0, false);
+    // 0x10072bfb0
+    ImGuiIO DebugUIManager::DebugUIManager()::$_14::operator()(unsigned long arg1, float arg2, float arg3) const {
+        auto this_00 = ImGui::GetIO();
+        if (this == nullptr) {
+            this_00->AddMousePosEvent(arg2, arg3);
+            this_00->AddMouseButtonEvent(0, false);
         }
-        return this[200];
+        return this_00[200];
     }
 
 } // namespace jag::debug

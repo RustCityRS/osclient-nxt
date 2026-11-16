@@ -1,74 +1,65 @@
 // libs/game/runetek5/camera/utils/SmoothRotation.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "SmoothRotation.h"
 
 namespace jag::math {
-    // 0x100023af0: the linker folded this into hal::Haptics::GetEnabled() const, which has identical code
-    SmoothRotation::IsActive() const;
+    // 0x100023af0: SmoothRotation::IsActive() const has the same machine code as hal::Haptics::GetEnabled() const
 
-    // 0x10014e180: the linker folded this into Vector2T<float>::y() const, which has identical code
-    SmoothRotation::GetCurrentRotation() const;
+    // 0x10014e180: SmoothRotation::GetCurrentRotation() const has the same machine code as Vector2T<float>::y() const
 
-    // 0x1001c2200: the linker folded this into oldscape::MutationTracked<graphics::SimpleScatteringParams>::IsDirty() const, which has identical code
-    bool SmoothRotation::IsTurningLeft() const;
+    // 0x1001c2200: SmoothRotation::IsTurningLeft() const has the same machine code as oldscape::MutationTracked<graphics::SimpleScatteringParams>::IsDirty() const
 
-    // 0x100607790, 272 bytes, placed by class name and debug map
-    // SmoothRotation::Set(Vector3T<float> const&, QuaternionT<float> const&, float, Vector3T<float> const&)
-    void SmoothRotation::Set(Vector3T* param_1, QuaternionT* param_2, float param_3, Vector3T* param_4) {
-        undefined1* this_00;
-        undefined1* this_01;
+    // 0x100607790
+    void SmoothRotation::Set(const Vector3T<float>& vector31, const QuaternionT<float>& quaternion, float arg3,
+                             const Vector3T<float>& vector32) {
+        uint8_t* this_00;
+        uint8_t* this_01;
         float fVar1;
         float fVar2;
         float* pfVar3;
         float fVar5;
 
-        Rect<float>::operator=((Rect<float>*)&field_20, (Rect*)param_2);
-        field_60 = param_3;
-        if (param_3 <= 0.0) {
-            Rect<float>::operator=((Rect<float>*)&field_36, (Rect*)param_2);
+        field_20 = quaternion;
+        field_60 = arg3;
+        if (arg3 <= 0.0) {
+            field_36 = quaternion;
             field_60 = 0.0;
         } else {
             this_00 = &field_80;
-            this_00->SetXYZ(param_4);
+            this_00->SetXYZ(vector32);
             this_01 = &field_68;
-            this_01->SetXYZ(param_1);
-            if (math::operator==((Vector3T*)this_00, (Vector3T*)this_01)) {
-                Rect<float>::operator=((Rect<float>*)&field_36, (Rect*)param_2);
+            this_01->SetXYZ(vector31);
+            if (*this_00 == *this_01) {
+                field_36 = quaternion;
             } else {
-                pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 0);
+                pfVar3 = (float*)(*this_00)[0];
                 fVar5 = *pfVar3;
-                pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_01, 0);
+                pfVar3 = (float*)(*this_01)[0];
                 fVar1 = *pfVar3;
-                pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 2);
+                pfVar3 = (float*)(*this_00)[2];
                 fVar2 = *pfVar3;
-                pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_01, 2);
+                pfVar3 = (float*)(*this_01)[2];
                 fVar5 = (float)conversion::JagAtan2(fVar5 - fVar1, fVar2 - *pfVar3);
-                RotationSetup(this, fVar5);
+                RotationSetup(fVar5);
             }
         }
     }
 
-    // 0x1006078a0, 224 bytes, placed by class name and debug map
-    // SmoothRotation::RotationSetup(float)
-    void SmoothRotation::RotationSetup(float param_1) {
-        float* pfVar1;
-        float fVar2;
-        undefined8 local_40[2];
-        float local_30;
-        float local_2c;
+    // 0x1006078a0
+    void SmoothRotation::RotationSetup(float arg1) {
+        uint64_t local_40[2];
 
-        local_2c = param_1;
-        local_40[0] = math::operator*((Vector3T*)&zAxis, (QuaternionT*)&field_20);
-        pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)local_40, 0);
-        local_30 = *pfVar1;
-        pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)local_40, 2);
-        fVar2 = (float)conversion::JagAtan2(local_30, *pfVar1);
+        float local_2c = arg1;
+        local_40[0] = zAxis * field_20;
+        float* pfVar1 = (float*)(*local_40)[0];
+        float local_30 = *pfVar1;
+        pfVar1 = (float*)(*local_40)[2];
+        float fVar2 = (float)conversion::JagAtan2(local_30, *pfVar1);
         local_2c = (float)conversion::PrincipleAngle(local_2c - fVar2);
-        (&field_36, (Vector3T*)PTR_UP_100ee66d0, local_2c)->FromAxisAngle();
-        QuaternionT<float>::operator*=((QuaternionT<float>*)&field_36, (QuaternionT*)&field_20);
+        field_36.FromAxisAngle(*PTR_UP_100ee66d0, local_2c);
+        field_36 *= &field_20;
         m_turningLeft = local_2c < 0.0;
         fVar2 = (float)::abs(local_2c / field_60);
         field_52 = fVar2;
@@ -76,144 +67,126 @@ namespace jag::math {
         m_active = 1;
     }
 
-    // 0x100607980, 112 bytes, placed by class name and debug map
-    // SmoothRotation::Set(QuaternionT<float> const&, float, float)
-    void SmoothRotation::Set(QuaternionT* param_1, float param_2, float param_3) {
-        Rect<float>::operator=((Rect<float>*)&field_20, (Rect*)param_1);
-        field_60 = param_2;
-        if (param_2 <= 0.0) {
-            Rect<float>::operator=((Rect<float>*)&field_36, (Rect*)param_1);
+    // 0x100607980
+    void SmoothRotation::Set(const QuaternionT<float>& quaternion, float arg2, float arg3) {
+        field_20 = quaternion;
+        field_60 = arg2;
+        if (arg2 <= 0.0) {
+            field_36 = quaternion;
             field_60 = 0.0;
         } else {
-            RotationSetup(this, param_3);
+            RotationSetup(arg3);
         }
     }
 
-    // 0x1006079f0, 96 bytes, placed by class name and debug map
-    // SmoothRotation::GetFinalRotationAsAngle() const
-    void SmoothRotation::GetFinalRotationAsAngle() {
-        float* pfVar1;
-        undefined8 local_20;
-        float local_14;
-
-        local_20 = math::operator*((Vector3T*)&zAxis, (QuaternionT*)&field_36);
-        pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&local_20, 0);
-        local_14 = *pfVar1;
-        pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)&local_20, 2);
+    // 0x1006079f0
+    void SmoothRotation::GetFinalRotationAsAngle() const {
+        uint64_t local_20 = zAxis * field_36;
+        float* pfVar1 = &local_20[0];
+        float local_14 = *pfVar1;
+        pfVar1 = &local_20[2];
         conversion::JagAtan2(local_14, *pfVar1);
     }
 
-    // 0x100607a60, 304 bytes, placed by class name and debug map
-    // SmoothRotation::RotateWithCheck(Vector3T<float> const&, Vector3T<float> const&, QuaternionT<float> const&)
-    void SmoothRotation::RotateWithCheck(Vector3T* param_1, Vector3T* param_2, QuaternionT* param_3) {
-        undefined1* this_00;
-        undefined1* this_01;
-        float* pfVar1;
-        bool bVar2;
-        float fVar3;
-        undefined8 local_58[2];
-        undefined8 local_48;
+    // 0x100607a60
+    void SmoothRotation::RotateWithCheck(const Vector3T<float>& vector31, const Vector3T<float>& vector32,
+                                         const QuaternionT<float>& quaternion) {
+        uint8_t* vector31_00;
+        uint8_t* vector32_00;
+        float* pfVar2;
+        uint64_t local_58[2];
+        uint64_t local_48;
         float local_3c;
-        QuaternionT* local_38;
 
-        local_38 = param_3;
+        QuaternionT<float>* local_38 = quaternion;
         if (0.0 < field_60) {
-            this_00 = &field_80;
-            this_01 = &field_68;
-            local_58[0] = math::operator-((Vector3T*)this_00, (Vector3T*)this_01);
-            local_48 = math::operator-(param_1, param_2);
-            bVar2 = math::operator!=((Vector3T*)local_58, (Vector3T*)&local_48);
-            if (bVar2) {
-                this_00->SetXYZ(param_1);
-                this_01->SetXYZ(param_2);
-                bVar2 = math::operator!=((Vector3T*)this_00, (Vector3T*)this_01);
-                if (bVar2) {
-                    Rect<float>::operator=((Rect<float>*)&field_20, (Rect*)local_38);
-                    pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 0);
-                    local_38._0_4_ = *pfVar1;
-                    pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_01, 0);
-                    local_38 = (QuaternionT*)CONCAT44(local_38._4_4_, local_38._0_4_ - *pfVar1);
-                    pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 2);
-                    local_3c = *pfVar1;
-                    pfVar1 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_01, 2);
-                    fVar3 = (float)conversion::JagAtan2(local_38._0_4_, local_3c - *pfVar1);
-                    RotationSetup(this, fVar3);
+            vector31_00 = &field_80;
+            vector32_00 = &field_68;
+            local_58[0] = *vector31_00 - *vector32_00;
+            local_48 = vector31 - vector32;
+            if (*local_58 != local_48) {
+                vector31_00->SetXYZ(vector31);
+                vector32_00->SetXYZ(vector32);
+                if (*vector31_00 != *vector32_00) {
+                    field_20 = *local_38;
+                    pfVar2 = (float*)(*vector31_00)[0];
+                    local_38._0_4_ = *pfVar2;
+                    pfVar2 = (float*)(*vector32_00)[0];
+                    local_38 =
+                        (QuaternionT<float>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)(local_38._0_4_ - *pfVar2));
+                    pfVar2 = (float*)(*vector31_00)[2];
+                    local_3c = *pfVar2;
+                    pfVar2 = (float*)(*vector32_00)[2];
+                    RotationSetup((float)conversion::JagAtan2(local_38._0_4_, local_3c - *pfVar2));
                 }
             }
         }
-        Rotate(this);
+        Rotate((ReturnValue*)this);
     }
 
-    // 0x100607b90, 128 bytes, placed by class name and debug map
-    // SmoothRotation::Rotate()
-    undefined1* SmoothRotation::Rotate() {
-        int iVar2;
-        undefined1* puVar3;
-        game* this_00;
-        float fVar4;
-        undefined1 local_28[16];
+    // 0x100607b90
+    auto SmoothRotation::Rotate() {
+        auto result;
+        int iVar1;
+        QuaternionT<float>* quaternion1;
+        float arg3;
+        QuaternionT<float> local_28;
 
-        if (IsFinished(this) == '\0') {
-            iVar2 = field_56 + 1;
-            field_56 = iVar2;
-            fVar4 = (float)iVar2 / field_52;
-            if (fVar4 <= 1.0) {
-                this_00 = (game*)local_28;
-                game::JagSlerp<QuaternionT<float>, float>(this_00, (QuaternionT*)&field_20, (QuaternionT*)&field_36,
-                                                          fVar4, 1e-06);
+        if (IsFinished(&result) == '\0') {
+            iVar1 = *(int*)(&result + 7);
+            *(int*)(&result + 7) = iVar1 + 1;
+            arg3 = (float)(iVar1 + 1) / *(float*) && result[6].field_4;
+            if (arg3 <= 1.0) {
+                quaternion1 = &local_28;
+                game::JagSlerp<QuaternionT<float>, float>(quaternion1, (QuaternionT<float>*) && result[2].field_4, arg3,
+                                                          1e-06);
             } else {
-                this_00 = (game*)&field_36;
+                quaternion1 = (QuaternionT<float>*) && result[4].field_4;
             }
-            Rect<float>::operator=((Rect<float>*)&field_4, (Rect*)this_00);
-            puVar3 = &field_4;
+            result.field_4 = *quaternion1;
         } else {
-            m_active = 0;
-            puVar3 = &field_36;
+            result = 0;
+            &result = &result + 4;
         }
-        return puVar3;
+        return (ReturnValue*)&result.field_4;
     }
 
-    // 0x100607c10, 240 bytes, placed by class name and debug map
-    // SmoothRotation::RotateWithCheck(Vector3T<float> const&, QuaternionT<float> const&)
-    void SmoothRotation::RotateWithCheck(Vector3T* param_1, QuaternionT* param_2) {
-        undefined1* this_00;
-        undefined1* this_01;
+    // 0x100607c10
+    void SmoothRotation::RotateWithCheck(const Vector3T<float>& vector3, const QuaternionT<float>& quaternion) {
+        uint8_t* vector31;
+        uint8_t* vector31_00;
         float fVar1;
         float fVar2;
-        float* pfVar3;
-        bool bVar4;
+        float* pfVar4;
         float fVar5;
 
         if (0.0 < field_60) {
-            this_00 = &field_68;
-            bVar4 = math::operator!=((Vector3T*)this_00, param_1);
-            if (bVar4) {
-                this_00->SetXYZ(param_1);
-                this_01 = &field_80;
-                bVar4 = math::operator!=((Vector3T*)this_01, (Vector3T*)this_00);
-                if (bVar4) {
-                    Rect<float>::operator=((Rect<float>*)&field_20, (Rect*)param_2);
-                    pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_01, 0);
-                    fVar5 = *pfVar3;
-                    pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 0);
-                    fVar1 = *pfVar3;
-                    pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_01, 2);
-                    fVar2 = *pfVar3;
-                    pfVar3 = (float*)Vector3T<float>::operator[]((Vector3T<float>*)this_00, 2);
-                    fVar5 = (float)conversion::JagAtan2(fVar5 - fVar1, fVar2 - *pfVar3);
-                    RotationSetup(this, fVar5);
+            vector31 = &field_68;
+            if (*vector31 != vector3) {
+                vector31->SetXYZ(vector3);
+                vector31_00 = &field_80;
+                if (*vector31_00 != *vector31) {
+                    field_20 = quaternion;
+                    pfVar4 = (float*)(*vector31_00)[0];
+                    fVar5 = *pfVar4;
+                    pfVar4 = (float*)(*vector31)[0];
+                    fVar1 = *pfVar4;
+                    pfVar4 = (float*)(*vector31_00)[2];
+                    fVar2 = *pfVar4;
+                    pfVar4 = (float*)(*vector31)[2];
+                    fVar5 = (float)conversion::JagAtan2(fVar5 - fVar1, fVar2 - *pfVar4);
+                    RotationSetup(fVar5);
                 }
             }
         }
-        Rotate(this);
+        Rotate((ReturnValue*)this);
     }
 
 } // namespace jag::math
 
-// 0x100607a50, 16 bytes, placed by neighbouring functions
-// abs(float)
-ulong abs(float param_1) {
-    undefined4 in_XMM0_Db;
+// 0x100607a50
+unsigned long abs(float arg1) {
+    uint32_t in_XMM0_Db;
 
-    return CONCAT44(in_XMM0_Db, param_1) & 9223372034707292159;
+    return (((uint64_t)in_XMM0_Db << 32) | (uint32_t)arg1) & 9223372034707292159;
 }

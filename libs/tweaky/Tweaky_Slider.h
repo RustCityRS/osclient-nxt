@@ -1,40 +1,33 @@
 // libs/tweaky/Tweaky_Slider.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::postprocess {
-    // 0x1007fe0f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ColourGradingBloomEffectConfig::ColourGradingBloomEffectConfig(ColourGradingBloomEffectConfig&&): jumps straight to the base-object constructor
-
-    // 0x1007fe100, 80 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ColourGradingBloomEffectConfig::ColourGradingBloomEffectConfig(ColourGradingBloomEffectConfig&&)
-    void ColourGradingBloomEffectConfig::ColourGradingBloomEffectConfig(ColourGradingBloomEffectConfig* param_1) {
-        undefined4 uVar1;
-        uint uVar2;
-
-        uVar1 = *(undefined4*)&param_1->field_0;
-        uVar2 = param_1->field_4;
-        *(undefined8*)((long)&field_4 + 1) = *(undefined8*)((long)&param_1->field_4 + 1);
-        *(undefined4*)&field_0 = uVar1;
-        field_4 = uVar2;
-        new (field_16, (ColourCorrectionConfig*)param_1->field_16) ColourCorrectionConfig();
-        _memcpy(&field_168, &param_1->field_168, 152);
+    // 0x1007fe100
+    ColourGradingBloomEffectConfig::ColourGradingBloomEffectConfig(
+        ColourGradingBloomEffectConfig&& colourGradingBloomEffectConfig) {
+        uint32_t uVar1 = *(uint32_t*)&colourGradingBloomEffectConfig.field_0;
+        BloomQuality BVar2 = colourGradingBloomEffectConfig.field_4;
+        *(uint64_t*)((long)&field_4 + 1) = *(uint64_t*)((long)&colourGradingBloomEffectConfig.field_4 + 1);
+        *(uint32_t*)&field_0 = uVar1;
+        field_4 = BVar2;
+        new (field_16) ColourCorrectionConfig(colourGradingBloomEffectConfig.field_16);
+        _memcpy(&field_168, &colourGradingBloomEffectConfig.field_168, 152);
     }
 
-    // 0x1007ff4e0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ColourGradingBloomEffectConfig::SetBloomQuality(BloomQuality)
-    void ColourGradingBloomEffectConfig::SetBloomQuality(uint param_2) {
-        undefined4 uVar1;
-        undefined4 uVar2;
+    // 0x1007ff4e0
+    void ColourGradingBloomEffectConfig::SetBloomQuality(BloomQuality bloomQuality) {
+        uint32_t uVar1;
+        uint32_t uVar2;
 
-        field_264 = param_2;
-        if (param_2 < 3) {
-            uVar1 = *(undefined4*)(&DAT_100d4ac30 + (long)(int)param_2 * 4);
-            uVar2 = *(undefined4*)(&DAT_100d4ac3c + (long)(int)param_2 * 4);
-            field_4 = param_2 + 3;
-            field_8 = param_2 + 1;
+        field_264 = bloomQuality;
+        if (bloomQuality < 3) {
+            uVar1 = *(uint32_t*)(&reinterpret_cast<const uint64_t*>(&DEF_EXPOSURE_SPEED_MUL)[2] +
+                                 (long)(int)bloomQuality * 4);
+            uVar2 = *(uint32_t*)(&DAT_100d4ac3c + (long)(int)bloomQuality * 4);
+            field_4 = bloomQuality + 3;
+            field_8 = bloomQuality + 1;
             field_304 = uVar1;
             field_308 = uVar2;
         }
@@ -48,74 +41,73 @@ namespace jag::tweak {
     public:
         // virtual methods in vtable order
         virtual ~Slider();
-        virtual void Draw(int, int);
-        virtual ulong GetControlSize(int&, int&);
-        virtual bool OnClick(float, float, bool);
-        virtual ulong OnMouseMove(float, float);
-        virtual OnMouseOver(float, float);
+        virtual void Draw(int arg1, int arg2);
+        virtual unsigned long GetControlSize(int& arg1, int& arg2);
+        virtual bool OnClick(float arg1, float arg2, bool arg3);
+        virtual unsigned long OnMouseMove(float arg1, float arg2);
+        virtual uint64_t OnMouseOver(float arg1, float arg2);
         virtual void InitDefault();
         virtual void ResetToDefault();
-        virtual LoadSettings(TweakSettingsValue const&);
-        virtual void SaveSettings(TweakSettingsValue&);
-        virtual void SetCurrentValue(float);
-        void SetSlider<unsigned int>(unsigned int);
-        void SetSlider<float>(float);
+        virtual uint8_t LoadSettings(const TweakSettingsValue& tweakSettingsValue);
+        virtual void SaveSettings(TweakSettingsValue& tweakSettingsValue);
+        virtual void SetCurrentValue(float arg1);
+        void SetSlider<unsigned int>(unsigned int arg1);
+        void SetSlider<float>(float arg1);
         float GetCurrentValue();
-        void SetSliderDiscrete<float>(float);
-        Slider(char const*, float, float, float);
-        HandleBoundsCheck(float, float);
+        void SetSliderDiscrete<float>(float arg1);
+        Slider(const char* str, float arg2, float arg3, float arg4);
+        uint32_t HandleBoundsCheck(float arg1, float arg2);
 
-        // data members, from how the methods use this: 551 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        int field_24;        // offset 24
-        undefined4 field_28; // offset 28
-        undefined4 field_32; // offset 32
-        int field_36;        // offset 36
-        int field_40;        // offset 40
-        char _unknown_44[92];
-        ulong field_136;      // offset 136
-        undefined8 field_144; // offset 144
-        char _unknown_152[8];
-        Event field_160; // offset 160
-        char _unknown_184[24];
-        bool field_208; // offset 208
-        char field_209; // offset 209
-        bool field_210; // offset 210
-        char _unknown_211[1];
-        float field_212; // offset 212
-        float field_216; // offset 216
-        int field_220;   // offset 220
-        float field_224; // offset 224
-        float field_228; // offset 228
-        int field_232;   // offset 232
-        int field_236;   // offset 236
-        int field_240;   // offset 240
-        int field_244;   // offset 244
-        int field_248;   // offset 248
-        int field_252;   // offset 252
-        int field_256;   // offset 256
-        int field_260;   // offset 260
-        int field_264;   // offset 264
-        int field_268;   // offset 268
-        int field_272;   // offset 272
-        int field_276;   // offset 276
-        int field_280;   // offset 280
-        char _unknown_284[220];
-        int field_504;        // offset 504
-        int field_508;        // offset 508
-        float m_currentValue; // offset 512
-        float field_516;      // offset 516
-        float field_520;      // offset 520
-        float field_524;      // offset 524
-        float field_528;      // offset 528
-        float field_532;      // offset 532
-        float field_536;      // offset 536
-        float field_540;      // offset 540
-        char _unknown_544[1];
-        undefined1 field_545; // offset 545
-        char field_546;       // offset 546
-        char _unknown_547[4];
+    private:
+        uint8_t _unknown_8[16];
+        int field_24;
+        int field_28;
+        Type field_32;
+        int field_36;
+        int field_40;
+        uint8_t _unknown_44[92];
+        unsigned long field_136;
+        uint64_t field_144;
+        uint8_t _unknown_152[8];
+        Event field_160;
+        uint8_t _unknown_184[24];
+        bool field_208;
+        char field_209;
+        bool field_210;
+        uint8_t _unknown_211[1];
+        float field_212;
+        float field_216;
+        int field_220;
+        float field_224;
+        float field_228;
+        int field_232;
+        int field_236;
+        int field_240;
+        int field_244;
+        int field_248;
+        int field_252;
+        int field_256;
+        int field_260;
+        int field_264;
+        int field_268;
+        int field_272;
+        int field_276;
+        unsigned int field_280;
+        uint8_t _unknown_284[220];
+        int field_504;
+        int field_508;
+        float m_currentValue;
+        float field_516;
+        float field_520;
+        float field_524;
+        float field_528;
+        float field_532;
+        float field_536;
+        float field_540;
+        uint8_t _unknown_544[1];
+        uint8_t field_545;
+        char field_546;
+        uint8_t _unknown_547[4];
     };
 
 } // namespace jag::tweak

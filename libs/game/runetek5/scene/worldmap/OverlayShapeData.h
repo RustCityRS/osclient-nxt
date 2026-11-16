@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/worldmap/OverlayShapeData.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
@@ -10,26 +9,18 @@ namespace jag::game {
     public:
         OverlayShapeData();
         void Generate();
-        void GetShapeData(unsigned int, unsigned int, unsigned int) const;
+        void GetShapeData(unsigned int arg1, unsigned int arg2, unsigned int arg3) const;
         ~OverlayShapeData();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
-    // 0x1003c6d30, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // OverlayShapeData::~OverlayShapeData(): jumps straight to the base-object destructor
-
-    // 0x1003d1c30, 16 bytes, base-object destructor, inline, placed by class name
-    // OverlayShapeData::~OverlayShapeData()
-    void OverlayShapeData::~OverlayShapeData() {
-        ~array();
-    }
+    // 0x1003d1c30
+    OverlayShapeData::~OverlayShapeData() {}
 
 } // namespace jag::game
 
-// 0x1003cbc70, 16 bytes, placed by debug map only (low confidence)
-// ceil(float)
-void ceil(float param_1) {
+// 0x1003cbc70
+void ceil(float arg1) {
     _ceilf();
 }

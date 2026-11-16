@@ -1,177 +1,156 @@
 // libs/graphics/runetek7/model/BillboardBatch.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class BillboardBatch {
     public:
-        GetAABB() const;
-        GetBoneIDMap();
-        GetBoneIDMap() const;
-        IsTransformed() const;
-        GetLabelIDMap();
-        GetLabelIDMap() const;
-        SetTransformed(bool);
-        GetVertexDataBuffer() const;
-        GetJointIDMap();
-        GetJointIDMap() const;
-        GetIndexBuffer() const;
-        GetBoneVertices() const;
+        void GetAABB() const;
+        unsigned short GetBoneIDMap();
+        unsigned short GetBoneIDMap() const;
+        void IsTransformed() const;
+        void GetLabelIDMap();
+        void GetLabelIDMap() const;
+        void SetTransformed(bool arg1);
+        uint8_t* GetVertexDataBuffer() const;
+        uint8_t* GetJointIDMap();
+        uint8_t* GetJointIDMap() const;
+        uint64_t* GetIndexBuffer() const;
+        uint8_t* GetBoneVertices() const;
         bool IsLowPrecision() const;
-        GetBillboardLabelIDMap();
-        GetBillboardLabelIDMap() const;
+        unsigned short* GetBillboardLabelIDMap();
+        unsigned short* GetBillboardLabelIDMap() const;
         BillboardBatch();
-        BillboardBatch(BillboardBatch&&);
-        BillboardBatch(BillboardBatch const&);
+        BillboardBatch(BillboardBatch&& billboardBatch);
+        BillboardBatch(const BillboardBatch& billboardBatch);
         ~BillboardBatch();
         void DestroyRenderingResources();
         void UpdateAABB();
-        void SetBillboardSize(int);
-        void LoadMeshFromModelRawRT7(PacketView&);
-        void BakeTextureMeta(unsigned int, unsigned int, ModelTextureMeta const&);
-        void BakeHSLColors(unsigned int, unsigned int);
-        void SortSections(
-            eastl::vector<SourceModelExternalIndexSection, eastl::allocator> const&,
-            eastl::vector<SourceModelExternalIndexSection, BucketAllocatorEASTL> const&,
-            eastl::multimap<unsigned char, unsigned long, eastl::less<unsigned char>, BucketAllocatorEASTL> const&);
-        CanSkipSortSections(eastl::vector<SourceModelExternalIndexSection, eastl::allocator> const&,
-                            eastl::multimap<unsigned char, unsigned long, eastl::less<unsigned char>,
-                                            BucketAllocatorEASTL> const&) const;
-        void Reserve(BillboardBatchCombineHelper const&);
-        void Assign(BillboardBatch const&);
-        void Append(BillboardBatch const&, bool);
+        void SetBillboardSize(int arg1);
+        void LoadMeshFromModelRawRT7(PacketView& packetView);
+        void BakeTextureMeta(unsigned int arg1, unsigned int arg2, const ModelTextureMeta& modelTextureMeta);
+        void BakeHSLColors(unsigned int arg1, unsigned int arg2);
+        void SortSections(const eastl::vector<SourceModelExternalIndexSection>& sourceModelExternalIndexSections1,
+                          const eastl::vector<SourceModelExternalIndexSection>& sourceModelExternalIndexSections2,
+                          const eastl::multimap<unsigned char, unsigned long>& multimap);
+        bool CanSkipSortSections(const eastl::vector<SourceModelExternalIndexSection>& sourceModelExternalIndexSections,
+                                 const eastl::multimap<unsigned char, unsigned long>& multimap) const;
+        void Reserve(const BillboardBatchCombineHelper& billboardBatchCombineHelper);
+        void Assign(const BillboardBatch& billboardBatch);
+        void Append(const BillboardBatch& billboardBatch, bool arg2);
         bool HasBones() const;
-        GetFaceLabelCount() const;
-        GetBillboardLabelCount() const;
-        void Transform(math::Matrix44T<float> const&);
-        void Translate(math::Vector3T<float> const&);
-        void Rotate(math::QuaternionT<float> const&, bool);
-        void Rotate90(Rotation90, bool);
-        void Scale(math::Vector3T<float> const&);
+        uint8_t GetFaceLabelCount() const;
+        uint8_t GetBillboardLabelCount() const;
+        void Transform(const math::Matrix44T<float>& matrix44);
+        void Translate(const math::Vector3T<float>& vector3);
+        void Rotate(const math::QuaternionT<float>& quaternion, bool arg2);
+        void Rotate90(Rotation90 rotation90, bool arg2);
+        void Scale(const math::Vector3T<float>& vector3);
         void MirrorZ();
-        void HillChange(graphics::HillChange, int, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL> const&,
-                        Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL> const&,
-                        LocationHelpers::LocationHillChangeData const&);
-        void Recolour(Array<unsigned short, eastl::allocator> const&, Array<unsigned short, eastl::allocator> const&);
-        void RecolourSingle(unsigned short, unsigned short);
-        void AmbientAdjust(unsigned short);
-        void TintAdjust(signed char, signed char, signed char, unsigned char);
+        void HillChange(graphics::HillChange arg1, int arg2, const Array<Array<int>>& arg3,
+                        const Array<Array<int>>& arg4, const LocationHelpers::LocationHillChangeData& arg5);
+        void Recolour(const Array<unsigned short>& arg1, const Array<unsigned short>& arg2);
+        void RecolourSingle(unsigned short arg1, unsigned short arg2);
+        void AmbientAdjust(unsigned short arg1);
+        void TintAdjust(signed char arg1, signed char arg2, signed char arg3, unsigned char arg4);
         void CreateRenderingResources();
         void GetIndexCount() const;
         void GetVertexCount() const;
-        byte GetBoneCount() const;
+        uint8_t GetBoneCount() const;
         bool HasJoints() const;
         InputAssemblerState GetForwardPassIAState() const;
 
-        // data members, from how the methods use this: 760 bytes
-        char _unknown_0[12];
-        undefined4 field_12; // offset 12
-        char _unknown_16[12];
-        float field_28;              // offset 28
-        undefined1 m_transformed;    // offset 32
-        undefined1 m_faceLabelCount; // offset 33
-        char _unknown_34[46];
-        byte m_boneCount; // offset 80
-        char _unknown_81[87];
-        undefined1 field_168; // offset 168
-        char _unknown_169[47];
-        undefined1 m_billboardLabelCount; // offset 216
-        char _unknown_217[47];
-        undefined1 field_264; // offset 264
-        char _unknown_265[31];
-        undefined1 field_296; // offset 296
-        char _unknown_297[31];
-        undefined1 field_328; // offset 328
-        char _unknown_329[63];
-        bool m_lowPrecision; // offset 392
-        char _unknown_393[175];
-        InputAssemblerState m_forwardPassIAState; // offset 568
+    private:
+        uint8_t _unknown_0[12];
+        uint32_t field_12;
+        uint8_t _unknown_16[12];
+        float field_28;
+        uint8_t m_transformed;
+        uint8_t m_faceLabelCount;
+        uint8_t _unknown_34[6];
+        unsigned short field_40;
+        uint8_t _unknown_42[38];
+        uint8_t m_boneCount;
+        uint8_t _unknown_81[7];
+        unsigned short m_boneIDMap;
+        uint8_t _unknown_90[78];
+        uint8_t field_168;
+        uint8_t _unknown_169[47];
+        uint8_t m_billboardLabelCount;
+        uint8_t _unknown_217[7];
+        unsigned short m_billboardLabelIDMap;
+        uint8_t _unknown_226[166];
+        bool m_lowPrecision;
+        uint8_t _unknown_393[175];
+        InputAssemblerState m_forwardPassIAState;
     };
 
-    // 0x100864ad0, 16 bytes, inline, placed by class name and debug map
-    // BillboardBatch::HasBones() const
-    bool BillboardBatch::HasBones() {
+    // 0x100864ad0
+    bool BillboardBatch::HasBones() const {
         return 1 < m_boneCount;
     }
 
-    // 0x100864ae0, 16 bytes, inline, placed by class name and debug map
-    // BillboardBatch::GetFaceLabelCount() const
-    undefined1 BillboardBatch::GetFaceLabelCount() {
+    // 0x100864ae0
+    uint8_t BillboardBatch::GetFaceLabelCount() const {
         return m_faceLabelCount;
     }
 
-    // 0x100864af0, 16 bytes, inline, placed by class name and debug map
-    // BillboardBatch::GetBillboardLabelCount() const
-    undefined1 BillboardBatch::GetBillboardLabelCount() {
+    // 0x100864af0
+    uint8_t BillboardBatch::GetBillboardLabelCount() const {
         return m_billboardLabelCount;
     }
 
-    // 0x100865580, 32 bytes, inline, placed by class name
-    // BillboardBatch::GetIndexCount() const
-    void BillboardBatch::GetIndexCount() {
-        (&field_264)->size();
+    // 0x100865580
+    void BillboardBatch::GetIndexCount() const {
+        field_264.size();
     }
 
-    // 0x100865a10, 32 bytes, inline, placed by class name
-    // BillboardBatch::GetVertexCount() const
-    void BillboardBatch::GetVertexCount() {
-        (&field_360)->size();
+    // 0x100865a10
+    void BillboardBatch::GetVertexCount() const {
+        field_360.size();
     }
 
-    // 0x100866b20, 16 bytes, inline, placed by class name
-    // BillboardBatch::GetBoneCount() const
-    byte BillboardBatch::GetBoneCount() {
+    // 0x100866b20
+    uint8_t BillboardBatch::GetBoneCount() const {
         return m_boneCount;
     }
 
-    // 0x100866fb0, 16 bytes, inline, placed by class name
-    // BillboardBatch::HasJoints() const
-    bool BillboardBatch::HasJoints() {
+    // 0x100866fb0
+    bool BillboardBatch::HasJoints() const {
         return field_168 != '\0';
     }
 
-    // 0x100869340, 16 bytes, inline, placed by class name
-    // BillboardBatch::GetForwardPassIAState() const
-    undefined1* BillboardBatch::GetForwardPassIAState() {
+    // 0x100869340
+    InputAssemblerState BillboardBatch::GetForwardPassIAState() const {
         return m_forwardPassIAState;
     }
 
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x100863200, 16 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketView>::g2LE()
-    ushort PacketReaderMixin<PacketView>::g2LE() {
+    // 0x100863200
+    unsigned short PacketReaderMixin<PacketView>::g2LE() {
         return gTLE<unsigned short>(this);
     }
 
-    // 0x1008632a0, 16 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketView>::gFloatLE()
+    // 0x1008632a0
     void PacketReaderMixin<PacketView>::gFloatLE() {
         gTLE<float>(this);
     }
 
-    // 0x1008632b0, 16 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketView>::g2sLE()
+    // 0x1008632b0
     int PacketReaderMixin<PacketView>::g2sLE() {
-        short sVar1;
-
-        sVar1 = gTLE<short>(this);
+        short sVar1 = gTLE<short>(this);
         return (int)sVar1;
     }
 
-    // 0x100863350, 32 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketView>::g1s()
+    // 0x100863350
     int PacketReaderMixin<PacketView>::g1s() {
-        ulong uVar1;
-        char* pcVar2;
-
-        uVar1 = *(ulong*)(this + 16);
-        *(ulong*)(this + 16) = uVar1 + 1;
-        pcVar2 = (char*)WrapArray<unsigned char const>::operator[]((WrapArray<unsigned char const>*)this, uVar1);
-        return (int)*pcVar2;
+        unsigned long arg1 = *(unsigned long*)(this + 16);
+        *(unsigned long*)(this + 16) = arg1 + 1;
+        char* pcVar1 = (char*)(*this)[arg1];
+        return (int)*pcVar1;
     }
 
 } // namespace jag

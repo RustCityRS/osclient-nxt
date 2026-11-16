@@ -1,6 +1,5 @@
 // libs/oldscape/clientlib/applicationcontext/DesktopApplicationContext.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,138 +9,104 @@ namespace jag::oldscape {
     public:
         // virtual methods in vtable order
         virtual DesktopApplicationContext* GetHomeDirectory();
-        virtual void InitAuthLibWrapper(eastl::string const&, eastl::string const&, eastl::string const&,
-                                        eastl::string const&, eastl::string const&);
-        virtual GetLocalStoragePath();
-        virtual CreateInputForm(input::InputForm::InputFormType);
-        virtual OpenURL(eastl::string const&, bool);
-        DesktopApplicationContext(std::unique_ptr<Steam, std::default_delete<Steam>>&);
+        virtual void InitAuthLibWrapper(const eastl::string& str1, const eastl::string& str2, const eastl::string& str3,
+                                        const eastl::string& str4, const eastl::string& str5);
+        virtual uint8_t* GetLocalStoragePath();
+        virtual uint8_t* CreateInputForm(input::InputForm::InputFormType inputFormType);
+        virtual uint64_t OpenURL(const eastl::string& str, bool arg2);
+        DesktopApplicationContext(std::unique_ptr<Steam>& steam);
         ~DesktopApplicationContext();
 
-        // data members, from how the methods use this: 96 bytes, the first 49 are ApplicationContext
-        char _unknown_49[39];
-        unique_ptr* field_88; // offset 88
+    private:
+        uint8_t _unknown_49[39];
+        unique_ptr<Steam>* field_88;
     };
 
-    // 0x10014cd40, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // DesktopApplicationContext::DesktopApplicationContext(std::unique_ptr<Steam, std::default_delete<Steam> >&): jumps straight to the base-object constructor
+    // 0x10014cd50
+    DesktopApplicationContext::DesktopApplicationContext(std::unique_ptr<Steam>& steam)
+        : ApplicationContext(), field_88(steam) {}
 
-    // 0x10014cd50, 80 bytes, base-object constructor, inline, placed by class name and debug map
-    // DesktopApplicationContext::DesktopApplicationContext(std::unique_ptr<Steam, std::default_delete<Steam> >&)
-    /* DesktopApplicationContext::DesktopApplicationContext(std::unique_ptr<Steam,
-   std::default_delete<Steam> >&) */
-
-    void DesktopApplicationContext::DesktopApplicationContext(unique_ptr* param_1) {
-        new (this) ApplicationContext();
-        field_0 = PTR_vtable_100ee8918 + 16;
-        new (&field_56) eastl::string();
-        field_88 = param_1;
-    }
-
-    // 0x10014ce80, 48 bytes, inline, placed by class name and debug map
-    // DesktopApplicationContext::GetHomeDirectory()
+    // 0x10014ce80
     DesktopApplicationContext* DesktopApplicationContext::GetHomeDirectory() {
-        Filename* pFVar1;
-
-        pFVar1 = (Filename*)GetUserFolder();
-        new (this) Filename(pFVar1);
+        auto filename = SystemPaths::GetUserFolder();
+        new (this) Filename(filename);
         return this;
     }
 
-    // 0x10014d150, 224 bytes, inline, placed by class name
-    // DesktopApplicationContext::InitAuthLibWrapper(eastl::string const&, eastl::string const&, eastl::string const&, eastl::string const&, eastl::string const&)
-    void DesktopApplicationContext::InitAuthLibWrapper(basic_string* param_1, basic_string* param_2,
-                                                       basic_string* param_3, basic_string* param_4,
-                                                       basic_string* param_5) {
-        unique_ptr* this_00;
-        SteamAuthLibWrapper* this_01;
+    // 0x10014d150
+    void DesktopApplicationContext::InitAuthLibWrapper(const eastl::string& str1, const eastl::string& str2,
+                                                       const eastl::string& str3, const eastl::string& str4,
+                                                       const eastl::string& str5) {
+        DesktopAuthLibWrapper* this_00;
 
-        this_00 = field_88;
-        if (std::operator!=(this_00, (_func_decltype_nullptr*)param_1)) {
-            std::unique_ptr<Steam, std::default_delete<Steam>>::operator->(
-                (unique_ptr<Steam, std::default_delete<Steam>>*)this_00);
+        unique_ptr<Steam, std::default_delete<Steam> _>* steam = field_88;
+        if (steam != str1) {
+            (*steam).operator->();
             if (Steam::IsSteamClient() != '\0') {
-                this_01 = operator_new(232);
-                auth::SteamAuthLibWrapper::SteamAuthLibWrapper(this_01, (ApplicationContext*)this, param_3, param_2,
-                                                               param_4, param_5, field_88);
+                this_00 = (DesktopAuthLibWrapper*)operator new(232);
+                new (this_00) auth::SteamAuthLibWrapper(this, str3, str2, str4, str5, *field_88);
                 goto LAB_10014d1ef;
             }
         }
-        this_01 = operator_new(232);
-        new (this_01) auth::DesktopAuthLibWrapper(this, param_1, param_2, param_4, param_5);
+        this_00 = (DesktopAuthLibWrapper*)operator new(232);
+        new (this_00) auth::DesktopAuthLibWrapper(this, str1, str2, str4, str5);
     LAB_10014d1ef:
-        (&field_24, (AuthLibWrapper*)this_01)->reset();
+        ((field_8 + 16))->reset(this_00);
     }
 
-    // 0x10014d240, 64 bytes, inline, placed by class name
-    // DesktopApplicationContext::GetLocalStoragePath()
-    undefined1* DesktopApplicationContext::GetLocalStoragePath() {
-        Filename* this_00;
-        undefined1* puVar2;
-        SystemPaths* this_01;
-
-        puVar2 = &field_56;
-        this_01 = (SystemPaths*)puVar2;
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() !=
-            '\0') {
-            this_00 = (Filename*)this_01->GetCacheFolder();
-            this_00->GetName(puVar2);
+    // 0x10014d240
+    uint8_t* DesktopApplicationContext::GetLocalStoragePath() {
+        uint8_t* this_01 = &field_56;
+        if (this_01->empty() != '\0') {
+            SystemPaths::GetCacheFolder()->GetName(*this_01);
         }
-        return puVar2;
+        return this_01;
     }
 
-    // 0x10014d290, 96 bytes, inline, placed by class name
-    // DesktopApplicationContext::CreateInputForm(input::InputForm::InputFormType)
-    undefined1* DesktopApplicationContext::CreateInputForm(undefined4 param_2) {
-        InputForm* pIVar1;
-
-        pIVar1 = operator_new(16);
-        input::InputForm::InputForm(pIVar1, param_2, this);
-        shared_ptr<input::InputForm>::reset<input::InputForm, void>((shared_ptr<input::InputForm>*)&field_8, pIVar1);
-        return &field_8;
+    // 0x10014d290
+    uint8_t* DesktopApplicationContext::CreateInputForm(input::InputForm::InputFormType inputFormType) {
+        InputForm* this_00 = (InputForm*)operator new(16);
+        new (this_00) oldscape::input::InputForm(inputFormType, *this);
+        field_8->reset<input::InputForm, void>(this_00);
+        return field_8;
     }
 
-    // 0x10014d330, 176 bytes, inline, placed by class name
-    // DesktopApplicationContext::OpenURL(eastl::string const&, bool)
-    undefined1 DesktopApplicationContext::OpenURL(basic_string* param_1, bool param_2) {
-        unique_ptr* this_00;
-        Steam* this_01;
-        unique_ptr<SteamOverlay, std::default_delete<SteamOverlay>>* this_02;
-        undefined8 uVar1;
-        undefined3 in_register_00000011;
-        eastl::string local_48[32];
+    // 0x10014d330
+    uint64_t DesktopApplicationContext::OpenURL(const eastl::string& str, bool arg2) {
+        unique_ptr<Steam, std::default_delete<Steam> _>* steam;
+        bool bVar1;
+        bool cVar2;
+        unique_ptr<SteamOverlay, std::default_delete<SteamOverlay> _>* this_01;
+        SteamOverlay* this_02;
+        uint32_t in_register_00000011;
+        int extraout_EDX;
+        int extraout_EDX_00;
+        eastl::string local_48;
 
-        if (CONCAT31(in_register_00000011, param_2) == 0) {
-            this_00 = field_88;
-            if (std::operator!=(this_00, (_func_decltype_nullptr*)param_1)) {
-                std::unique_ptr<Steam, std::default_delete<Steam>>::operator->(
-                    (unique_ptr<Steam, std::default_delete<Steam>>*)this_00);
-                if (Steam::IsSteamClient() != '\0') {
-                    this_01 = (Steam*)std::unique_ptr<Steam, std::default_delete<Steam>>::operator->(
-                        (unique_ptr<Steam, std::default_delete<Steam>>*)field_88);
-                    this_02 =
-                        (unique_ptr<SteamOverlay, std::default_delete<SteamOverlay>>*)this_01->GetSteamOverlayModule();
-                    uVar1 = std::unique_ptr<SteamOverlay, std::default_delete<SteamOverlay>>::operator->(this_02);
-                    eastl::string::basic_string(local_48, param_1);
-                    SteamOverlay::OpenBrowser(uVar1, local_48);
-                    eastl::string::~basic_string(local_48);
+        int iVar4 = (((uint32_t)in_register_00000011 << 8) | (uint8_t)arg2);
+        if (iVar4 == 0) {
+            steam = field_88;
+            bVar1 = steam != str;
+            iVar4 = extraout_EDX;
+            if (bVar1) {
+                (*steam).operator->();
+                cVar2 = Steam::IsSteamClient();
+                iVar4 = extraout_EDX_00;
+                if (cVar2) {
+                    this_01 = ((Steam*)(*field_88).operator->())->GetSteamOverlayModule();
+                    this_02 = (SteamOverlay*)(*this_01).operator->();
+                    local_48 = eastl::string(str);
+                    this_02->OpenBrowser(&local_48);
                     return 1;
                 }
             }
         }
-        return Web::OpenURL(param_1, param_2);
+        return str.OpenURL(*((eastl::string*)(unsigned long)arg2), (uint8_t)iVar4);
     }
 
-    // 0x10014df30, 16 bytes, complete-object destructor, inline, placed by class name
-    // DesktopApplicationContext::~DesktopApplicationContext(): jumps straight to the base-object destructor
-
-    // 0x10014df40, 48 bytes, base-object destructor, inline, placed by class name
-    // DesktopApplicationContext::~DesktopApplicationContext()
-    void DesktopApplicationContext::~DesktopApplicationContext() {
-        field_0 = PTR_vtable_100ee8918 + 16;
-        (&field_56)->~basic_string();
-        ~ApplicationContext();
+    // 0x10014df40
+    DesktopApplicationContext::~DesktopApplicationContext() {
+        field_56.~basic_string();
     }
 
 } // namespace jag::oldscape

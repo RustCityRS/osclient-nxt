@@ -1,6 +1,5 @@
 // projects/osclient/ServerConnection.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,61 +10,63 @@ namespace jag::oldscape {
         class LoginWorkItem;
         class MessageFromServerWorkItem;
         class MessageToServerWorkItem;
-        GetAverageBytesReceived();
+        uint64_t GetAverageBytesReceived();
         ServerConnection();
-        void BeginAsyncConnectionWork(std::unique_ptr<LoginState, std::default_delete<LoginState>>&&);
+        void BeginAsyncConnectionWork(std::unique_ptr<LoginState>&& loginState);
         void Close();
-        ConsumeUpdatedLoginState();
+        auto ConsumeUpdatedLoginState();
         void EndAndJoin();
-        GetConnectionState() const;
-        void SendClientMessage(shared::ClientMessage&&);
-        ulong AdvanceWorkerQueueToPacket();
-        ulong GetNextServerMessage(shared::ServerMessage&);
+        uint32_t GetConnectionState() const;
+        void SendClientMessage(shared::ClientMessage&& clientMessage);
+        unsigned long AdvanceWorkerQueueToPacket();
+        unsigned long GetNextServerMessage(shared::ServerMessage& serverMessage);
         void Reader_Run();
         int Writer_Login_GetLoginPackets();
-        uint Writer_Login_GetSecondResponse();
-        void Writer_EnsureLoginPacketSize(unsigned long);
-        uint Writer_DoProofOfWork(PacketT<Array<unsigned char, eastl::allocator>>&);
+        unsigned int Writer_Login_GetSecondResponse();
+        void Writer_EnsureLoginPacketSize(unsigned long arg1);
+        unsigned int Writer_DoProofOfWork(PacketT<Array<unsigned char>>& arg1);
         void Writer_ConnectAndLogin();
-        int Writer_SendClientMessage(shared::ClientMessage&);
+        int Writer_SendClientMessage(shared::ClientMessage& clientMessage);
         void Writer_Run();
         void IncrementNoTimeOutTickCounter();
         long GetTicksSinceNoTimeOutPacket() const;
         void ResetNoTimeOutTickCounter();
-        GetBytesReceived();
+        uint64_t GetBytesReceived();
         long GetBytesSent();
         ~ServerConnection();
-        GetOutgoingEncryption();
+        Isaac* GetOutgoingEncryption();
 
-        // data members, from how the methods use this: 4640 bytes
-        undefined8 field_0; // offset 0
-        char _unknown_8[16];
-        MessageToServerWorkItem* field_24; // offset 24
-        char _unknown_32[8];
-        Fence field_40; // offset 40
-        char _unknown_153[7];
-        undefined4 m_connectionState; // offset 160
-        char _unknown_164[212];
-        ServerConnectionWorkItem field_376; // offset 376
-        char _unknown_392[8];
-        ServerConnectionWorkItem field_400; // offset 400
-        WindowSavedPosition field_416;      // offset 416
-        WindowSavedPosition field_448;      // offset 448
-        char _unknown_480[4128];
-        undefined1 field_4608; // offset 4608
-        char _unknown_4609[7];
-        long m_bytesSent;                 // offset 4616
-        undefined8 m_bytesReceived;       // offset 4624
-        long m_ticksSinceNoTimeOutPacket; // offset 4632
+    private:
+        uint64_t field_0;
+        uint8_t _unknown_8[16];
+        ReturnValue* field_24;
+        uint8_t _unknown_32[8];
+        Fence field_40;
+        uint8_t _unknown_153[7];
+        uint32_t m_connectionState;
+        uint8_t _unknown_164[4];
+        uint8_t field_168;
+        uint8_t _unknown_169[207];
+        ServerConnectionWorkItem field_376;
+        uint8_t _unknown_392[8];
+        ServerConnectionWorkItem field_400;
+        WindowSavedPosition field_416;
+        WindowSavedPosition field_448;
+        uint8_t _unknown_480[4128];
+        uint8_t field_4608;
+        uint8_t _unknown_4609[7];
+        long m_bytesSent;
+        uint64_t m_bytesReceived;
+        long m_ticksSinceNoTimeOutPacket;
     };
 
     class ServerConnection::DisconnectedWorkItem {
     public:
         DisconnectedWorkItem();
 
-        // data members, from how the methods use this: 12 bytes
-        char _unknown_0[8];
-        undefined4 field_8; // offset 8
+    private:
+        uint8_t _unknown_0[8];
+        int field_8;
     };
 
     class ServerConnection::LoginWorkItem {
@@ -73,161 +74,108 @@ namespace jag::oldscape {
         LoginWorkItem();
         ~LoginWorkItem();
 
-        // data members, from how the methods use this: 24 bytes
-        char _unknown_0[8];
-        undefined4 field_8; // offset 8
-        char _unknown_12[12];
+    private:
+        uint8_t _unknown_0[8];
+        int field_8;
+        uint8_t _unknown_12[12];
     };
 
     class ServerConnection::MessageFromServerWorkItem {
     public:
         ~MessageFromServerWorkItem();
-        MessageFromServerWorkItem(shared::ServerMessage&&);
+        MessageFromServerWorkItem(shared::ServerMessage&& serverMessage);
 
-        // data members, from how the methods use this: 72 bytes
-        char _unknown_0[8];
-        undefined4 field_8; // offset 8
-        char _unknown_12[60];
+    private:
+        uint8_t _unknown_0[8];
+        int field_8;
+        uint8_t _unknown_12[60];
     };
 
     class ServerConnection::MessageToServerWorkItem {
     public:
         ~MessageToServerWorkItem();
-        MessageToServerWorkItem(shared::ClientMessage&&);
+        MessageToServerWorkItem(shared::ClientMessage&& clientMessage);
 
-        // data members, from how the methods use this: 80 bytes
-        char _unknown_0[8];
-        undefined4 field_8; // offset 8
-        char _unknown_12[68];
+    private:
+        uint8_t _unknown_0[8];
+        int field_8;
+        uint8_t _unknown_12[68];
     };
 
-    // 0x1000bb3a0, 16 bytes, complete-object constructor, inline, placed by class name
-    // ServerConnection::LoginWorkItem::LoginWorkItem(): jumps straight to the base-object constructor
-
-    // 0x1000bb3b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // ServerConnection::DisconnectedWorkItem::DisconnectedWorkItem(): jumps straight to the base-object constructor
-
-    // 0x1000bb3d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // ServerConnection::LoginWorkItem::~LoginWorkItem(): jumps straight to the base-object destructor
-
-    // 0x1000bb910, 16 bytes, complete-object destructor, inline, placed by class name
-    // ServerConnection::MessageFromServerWorkItem::~MessageFromServerWorkItem(): jumps straight to the base-object destructor
-
-    // 0x1000bb920, 16 bytes, complete-object destructor, inline, placed by class name
-    // ServerConnection::MessageToServerWorkItem::~MessageToServerWorkItem(): jumps straight to the base-object destructor
-
-    // 0x1000bb9b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // ServerConnection::MessageToServerWorkItem::MessageToServerWorkItem(shared::ClientMessage&&): jumps straight to the base-object constructor
-
-    // 0x1000bc110, 16 bytes, complete-object constructor, inline, placed by class name
-    // ServerConnection::MessageFromServerWorkItem::MessageFromServerWorkItem(shared::ServerMessage&&): jumps straight to the base-object constructor
-
-    // 0x1000e6080, 16 bytes, inline, placed by class name
-    // ServerConnection::IncrementNoTimeOutTickCounter()
+    // 0x1000e6080
     void ServerConnection::IncrementNoTimeOutTickCounter() {
         m_ticksSinceNoTimeOutPacket = m_ticksSinceNoTimeOutPacket + 1;
     }
 
-    // 0x1000e6090, 16 bytes, inline, placed by class name
-    // ServerConnection::GetTicksSinceNoTimeOutPacket() const
-    long ServerConnection::GetTicksSinceNoTimeOutPacket() {
+    // 0x1000e6090
+    long ServerConnection::GetTicksSinceNoTimeOutPacket() const {
         return m_ticksSinceNoTimeOutPacket;
     }
 
-    // 0x1000e60a0, 32 bytes, inline, placed by class name
-    // ServerConnection::ResetNoTimeOutTickCounter()
+    // 0x1000e60a0
     void ServerConnection::ResetNoTimeOutTickCounter() {
         m_ticksSinceNoTimeOutPacket = 0;
     }
 
-    // 0x100101850, 16 bytes, inline, placed by class name
-    // ServerConnection::GetBytesReceived()
-    undefined8 ServerConnection::GetBytesReceived() {
+    // 0x100101850
+    uint64_t ServerConnection::GetBytesReceived() {
         return m_bytesReceived;
     }
 
-    // 0x100101860, 16 bytes, inline, placed by class name
-    // ServerConnection::GetBytesSent()
+    // 0x100101860
     long ServerConnection::GetBytesSent() {
         return m_bytesSent;
     }
 
-    // 0x100126010, 48 bytes, base-object constructor, inline, placed by class name
-    // ServerConnection::LoginWorkItem::LoginWorkItem()
-    void ServerConnection::LoginWorkItem::LoginWorkItem() {
-        new (this) ServerConnectionWorkItem(1);
-        std::unique_ptr<LoginState, std::default_delete<LoginState>>::unique_ptr<true, void>(
-            (unique_ptr<LoginState, std::default_delete<LoginState>>*)&field_16);
+    // 0x100126010
+    ServerConnection::LoginWorkItem::LoginWorkItem() : ServerConnectionWorkItem(1) {
+        field_16.unique_ptr<true, void>();
     }
 
-    // 0x100126040, 16 bytes, base-object constructor, inline, placed by class name
-    // ServerConnection::DisconnectedWorkItem::DisconnectedWorkItem()
-    void ServerConnection::DisconnectedWorkItem::DisconnectedWorkItem() {
-        new (this) ServerConnectionWorkItem(4);
+    // 0x100126040
+    ServerConnection::DisconnectedWorkItem::DisconnectedWorkItem() : ServerConnectionWorkItem(4) {}
+
+    // 0x100126060
+    ServerConnection::LoginWorkItem::~LoginWorkItem() {
+        field_16.~unique_ptr();
     }
 
-    // 0x100126060, 16 bytes, base-object destructor, inline, placed by class name
-    // ServerConnection::LoginWorkItem::~LoginWorkItem()
-    void ServerConnection::LoginWorkItem::~LoginWorkItem() {
-        (&field_16)->~unique_ptr();
+    // 0x1001261a0
+    ServerConnection::MessageFromServerWorkItem::~MessageFromServerWorkItem() {
+        field_16.~ServerMessage();
     }
 
-    // 0x1001261a0, 16 bytes, base-object destructor, inline, placed by class name
-    // ServerConnection::MessageFromServerWorkItem::~MessageFromServerWorkItem()
-    void ServerConnection::MessageFromServerWorkItem::~MessageFromServerWorkItem() {
-        (&field_16)->~ServerMessage();
+    // 0x1001261b0
+    ServerConnection::MessageToServerWorkItem::~MessageToServerWorkItem() {
+        field_16.~ClientMessage();
     }
 
-    // 0x1001261b0, 16 bytes, base-object destructor, inline, placed by class name
-    // ServerConnection::MessageToServerWorkItem::~MessageToServerWorkItem()
-    void ServerConnection::MessageToServerWorkItem::~MessageToServerWorkItem() {
-        (&field_16)->~ClientMessage();
-    }
+    // 0x1001261c0
+    ServerConnection::MessageToServerWorkItem::MessageToServerWorkItem(shared::ClientMessage&& clientMessage)
+        : ServerConnectionWorkItem(2), field_16(clientMessage) {}
 
-    // 0x1001261c0, 48 bytes, base-object constructor, inline, placed by class name
-    // ServerConnection::MessageToServerWorkItem::MessageToServerWorkItem(shared::ClientMessage&&)
-    void ServerConnection::MessageToServerWorkItem::MessageToServerWorkItem(ClientMessage* param_1) {
-        new (this) ServerConnectionWorkItem(2);
-        new (&field_16, param_1) shared::ClientMessage();
-    }
+    // 0x1001265b0
+    ServerConnection::MessageFromServerWorkItem::MessageFromServerWorkItem(shared::ServerMessage&& serverMessage)
+        : ServerConnectionWorkItem(3), field_16(serverMessage) {}
 
-    // 0x1001265b0, 48 bytes, base-object constructor, inline, placed by class name
-    // ServerConnection::MessageFromServerWorkItem::MessageFromServerWorkItem(shared::ServerMessage&&)
-    void ServerConnection::MessageFromServerWorkItem::MessageFromServerWorkItem(ServerMessage* param_1) {
-        new (this) ServerConnectionWorkItem(3);
-        new (&field_16, param_1) shared::ServerMessage();
-    }
-
-    // 0x100135c00, 16 bytes, inline, placed by class name
-    // ServerConnection::BeginAsyncConnectionWork(std::unique_ptr<LoginState, std::default_delete<LoginState> >&&)::$_0::operator()() const
-    /* ServerConnection::BeginAsyncConnectionWork(std::unique_ptr<LoginState,
-   std::default_delete<LoginState> >&&)::$_0::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void ServerConnection::BeginAsyncConnectionWork(
-        std::unique_ptr<LoginState, std::default_delete<LoginState>>&&)::$_0::operator()() {
+    // 0x100135c00
+    void ServerConnection::BeginAsyncConnectionWork(std::unique_ptr<LoginState>&&)::$_0::operator()() const {
         Writer_Run(*(ServerConnection**)this);
     }
 
-    // 0x1001514e0, 16 bytes, complete-object destructor, inline, placed by class name
-    // ServerConnection::~ServerConnection(): jumps straight to the base-object destructor
-
-    // 0x1001514f0, 192 bytes, base-object destructor, inline, placed by class name
-    // ServerConnection::~ServerConnection()
-    void ServerConnection::~ServerConnection() {
-        EndAndJoin(this);
+    // 0x1001514f0
+    ServerConnection::~ServerConnection() {
+        EndAndJoin();
         field_448->~WindowSavedPosition();
         field_416->~WindowSavedPosition();
         field_376->~LoginWorkItem();
-        (&field_168)->~BufferedSocket();
         field_40->~Fence();
         (&field_8)->~thread();
-        ~thread();
     }
 
-    // 0x10017ca60, 16 bytes, inline, placed by class name
-    // ServerConnection::GetOutgoingEncryption()
-    undefined1* ServerConnection::GetOutgoingEncryption() {
-        return &field_2544;
+    // 0x10017ca60
+    Isaac* ServerConnection::GetOutgoingEncryption() {
+        return (Isaac*)&field_2544;
     }
 
 } // namespace jag::oldscape

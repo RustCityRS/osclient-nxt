@@ -1,72 +1,60 @@
 // libs/oldscape/rs2lib/configdecoder/FloType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::configdecoder {
     class FloType {
     public:
-        void Init(jagex3::Js5*);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&, int);
+        void Init(jagex3::Js5* js5);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2);
         void PostDecode();
-        List(int);
-        void GetHsl(int);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&, int, int);
+        int* List(int arg1);
+        void GetHsl(int arg1);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2, int arg3);
         FloType();
-        static /* 8 bytes */ m_pConfigClient;
-        static /* 32 bytes */ m_list;
-        static /* 8 bytes */ m_defaultWater;
+        static int64_t m_pConfigClient;
+        static vector<std::unique_ptr<FloType>> m_list;
+        static int64_t m_defaultWater;
 
-        // data members, from how the methods use this: 40 bytes
-        undefined4 field_0; // offset 0
-        uint field_4;       // offset 4
-        undefined1 field_8; // offset 8
-        char _unknown_9[3];
-        undefined4 field_12; // offset 12
-        int field_16;        // offset 16
-        int field_20;        // offset 20
-        int field_24;        // offset 24
-        undefined4 field_28; // offset 28
-        undefined8 field_32; // offset 32
+    private:
+        uint32_t field_0;
+        unsigned int field_4;
+        uint8_t field_8;
+        uint8_t _unknown_9[3];
+        uint32_t field_12;
+        int field_16;
+        int field_20;
+        int field_24;
+        uint32_t field_28;
+        uint64_t field_32;
     };
 
-    // 0x100280a90, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // FloType::FloType(): jumps straight to the base-object constructor
-
-    // 0x100280ab0, 32 bytes, base-object constructor, inline, placed by class name and debug map
-    // FloType::FloType()
-    void FloType::FloType() {
-        field_0 = 0;
-        field_4 = 4294967295;
-        field_8 = 1;
-        field_12 = 4294967295;
-    }
+    // 0x100280ab0
+    FloType::FloType() : field_0(0), field_4(4294967295), field_8(1), field_12(4294967295) {}
 
 } // namespace jag::oldscape::configdecoder
 
 namespace jag {
-    // 0x100281e30, 48 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::configdecoder::HeadbarType* placement_new<oldscape::configdecoder::HeadbarType>(void*)
-    HeadbarType* placement_new<oldscape::configdecoder::HeadbarType>(void* param_1) {
-        *(undefined8*)((long)param_1 + 32) = 0;
-        *(undefined8*)((long)param_1 + 40) = 0;
-        *(undefined8*)((long)param_1 + 16) = 0;
-        *(undefined8*)((long)param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)((long)param_1 + 8) = 0;
-        oldscape::configdecoder::HeadbarType::HeadbarType(param_1);
-        return param_1;
+    // 0x100281e30
+    oldscape::configdecoder::HeadbarType* placement_new<oldscape::configdecoder::HeadbarType>(void* arg1) {
+        *(uint64_t*)((long)arg1 + 32) = 0;
+        *(uint64_t*)((long)arg1 + 40) = 0;
+        *(uint64_t*)((long)arg1 + 16) = 0;
+        *(uint64_t*)((long)arg1 + 24) = 0;
+        *(uint64_t*)arg1 = 0;
+        *(uint64_t*)((long)arg1 + 8) = 0;
+        new (arg1) oldscape::configdecoder::HeadbarType();
+        return arg1;
     }
 
-    // 0x100281e60, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::HeadbarType>* placement_new<ref_counter_shared_trivial<oldscape::configdecoder::HeadbarType>, int, oldscape::configdecoder::HeadbarType*&>(void*, int&&, oldscape::configdecoder::HeadbarType*&)
-    ref_counter_shared_trivial*
-    jag::placement_new<ref_counter_shared_trivial<oldscape::configdecoder::HeadbarType>, int,
-                       oldscape::configdecoder::HeadbarType*&>(void* param_1, int* param_2, HeadbarType** param_3) {
-        ref_counter_shared_trivial<oldscape::configdecoder::HeadbarType>::ref_counter_shared_trivial(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100281e60
+    ref_counter_shared_trivial<oldscape::configdecoder::HeadbarType>*
+    placement_new<ref_counter_shared_trivial<oldscape::configdecoder::HeadbarType>, int,
+                  oldscape::configdecoder::HeadbarType*&>(void* arg1, int&& arg2,
+                                                          oldscape::configdecoder::HeadbarType*& arg3) {
+        new (arg1) ref_counter_shared_trivial<oldscape::configdecoder::HeadbarType>((long)*arg2, arg3);
+        return arg1;
     }
 
 } // namespace jag

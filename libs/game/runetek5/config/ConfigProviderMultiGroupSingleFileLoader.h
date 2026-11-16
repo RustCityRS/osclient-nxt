@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/ConfigProviderMultiGroupSingleFileLoader.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,41 +8,30 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~ConfigProviderMultiGroupSingleFileLoader();
-        virtual ulong Service();
-        ConfigProviderMultiGroupSingleFileLoader(
-            ConfigProvider*, Js5ResourceProvider*, Js5ArchiveSettings*,
-            Array<PacketT<Array<unsigned char, eastl::allocator>>, eastl::allocator>*);
-        ConfigProviderMultiGroupSingleFileLoader(ConfigProvider*, Js5ResourceProvider*, Js5ArchiveSettings*);
+        virtual unsigned long Service();
+        ConfigProviderMultiGroupSingleFileLoader(ConfigProvider* configProvider,
+                                                 Js5ResourceProvider* js5ResourceProvider,
+                                                 Js5ArchiveSettings* js5ArchiveSettings,
+                                                 Array<PacketT<Array<unsigned char>>>* arg4);
+        ConfigProviderMultiGroupSingleFileLoader(ConfigProvider* configProvider,
+                                                 Js5ResourceProvider* js5ResourceProvider,
+                                                 Js5ArchiveSettings* js5ArchiveSettings);
 
-        // data members, from how the methods use this: 72 bytes
-        undefined** field_0;           // offset 0, vtable pointer
-        ConfigProvider* field_8;       // offset 8
-        Js5ResourceProvider* field_16; // offset 16
-        Js5ArchiveSettings* field_24;  // offset 24
-        AnimationParameters* field_32; // offset 32
-        int field_40;                  // offset 40
-        int field_44;                  // offset 44
-        Array* field_48;               // offset 48
-        char* field_56;                // offset 56
-        char _unknown_64[8];
+    private:
+        ConfigProvider* field_8;
+        Js5ResourceProvider* field_16;
+        Js5ArchiveSettings* field_24;
+        AnimationParameters* field_32;
+        int field_40;
+        int field_44;
+        Array<PacketT<Array<unsigned char>>>* field_48;
+        char* field_56;
+        uint8_t _unknown_64[8];
     };
 
-    // 0x1005629a0, 16 bytes, complete-object destructor, inline, placed by class name
-    // ConfigProviderMultiGroupSingleFileLoader::~ConfigProviderMultiGroupSingleFileLoader(): jumps straight to the base-object destructor
-
-    // 0x1005629b0, 32 bytes, deleting destructor, inline, placed by class name
-    // ConfigProviderMultiGroupSingleFileLoader::~ConfigProviderMultiGroupSingleFileLoader()
-    void ConfigProviderMultiGroupSingleFileLoader::~ConfigProviderMultiGroupSingleFileLoader() {
-        ~ConfigProviderMultiGroupSingleFileLoader(this);
-        operator_delete(this);
-    }
-
-    // 0x100562a70, 48 bytes, base-object destructor, inline, placed by class name
-    // ConfigProviderMultiGroupSingleFileLoader::~ConfigProviderMultiGroupSingleFileLoader()
-    void ConfigProviderMultiGroupSingleFileLoader::~ConfigProviderMultiGroupSingleFileLoader() {
-        field_0 = &PTR__ConfigProviderMultiGroupSingleFileLoader_100f04488;
-        (&field_64)->~unique_ptr();
-        ~AutoSingleton();
+    // 0x100562a70
+    ConfigProviderMultiGroupSingleFileLoader::~ConfigProviderMultiGroupSingleFileLoader() {
+        field_64.~unique_ptr();
     }
 
 } // namespace jag::game

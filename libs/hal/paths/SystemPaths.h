@@ -1,136 +1,111 @@
 // libs/hal/paths/SystemPaths.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class SystemPaths {
     public:
-        GetDefaultUserFolder();
-        GetUserFolder();
-        GetUserPicturesFolder();
-        void RegisterPathChangeCallback(SystemPathsCallbackInterface*);
-        void UnregisterPathChangeCallback(SystemPathsCallbackInterface*);
-        GetCacheFolder();
+        Filename* GetDefaultUserFolder();
+        Filename* GetUserFolder();
+        Filename* GetUserPicturesFolder();
+        void RegisterPathChangeCallback(SystemPathsCallbackInterface* systemPathsCallbackInterface);
+        void UnregisterPathChangeCallback(SystemPathsCallbackInterface* systemPathsCallbackInterface);
+        Filename* GetCacheFolder();
         void Init();
-        void SetOverrideFolder(char const*);
-        void SetCacheFolder(char const*);
+        void SetOverrideFolder(const char* str);
+        void SetCacheFolder(const char* str);
         void CheckCacheFolder();
-        void RunCallbacks(Scope, Filename const&, Filename const&);
-        void SetUserFolder(char const*);
+        void RunCallbacks(Scope scope, const Filename& filename1, const Filename& filename2);
+        void SetUserFolder(const char* str);
         void CheckLauncherCFG();
         void GetInstanceUniqueLock();
-        SystemPaths* GetLockFilename();
-        GetDefaultCacheFolder();
+        Filename GetLockFilename();
+        void GetDefaultCacheFolder();
         int GetInstanceNumber();
         int GetInstanceCount();
-        ulong IsOnlyInstance();
+        unsigned long IsOnlyInstance();
         void InitImpl();
-        long GetFreeDiskSpace(Filename const&, Error*);
-        bool ChangeWorkingDirectory(Filename const&);
-        SystemPaths* GetApplicationFolder();
-        SystemPaths* GetFullApplicationPath();
-        static /* 4 bytes */ m_maxInstances;                      // = 16
-        static /* 4 bytes */ m_instanceNumber;                    // = -1
-        static Filename /* 304 bytes */ m_PathCacheFolder;        // = Filename()
-        static Filename /* 304 bytes */ m_PathUserFolder;         // = Filename()
-        static Filename /* 304 bytes */ m_PathDefaultCacheFolder; // = Filename()
-        static Filename /* 304 bytes */ m_PathDefaultUserFolder;  // = Filename()
-        static Filename /* 304 bytes */ m_PathPrivateFolder;      // = Filename()
-        static Filename /* 304 bytes */ m_PathUserPicturesFolder; // = Filename()
-        static Filename /* 304 bytes */ m_overrideFolder;         // = Filename()
-        static /* 1 bytes */ m_bInit;
-        static /* 1 bytes */ m_isLauncher;
-        static /* 6 bytes */ m_singleInstance;
-        static File /* 312 bytes */ m_lockFile; // = File()
-        static /* 48 bytes */ m_callbacks;
+        long GetFreeDiskSpace(const Filename& filename, Error* error);
+        uint64_t ChangeWorkingDirectory(const Filename& filename);
+        Filename GetApplicationFolder();
+        Filename GetFullApplicationPath();
+        static int32_t m_maxInstances;            // = 16
+        static int32_t m_instanceNumber;          // = -1
+        static Filename m_PathCacheFolder;        // = Filename()
+        static Filename m_PathUserFolder;         // = Filename()
+        static Filename m_PathDefaultCacheFolder; // = Filename()
+        static Filename m_PathDefaultUserFolder;  // = Filename()
+        static Filename m_PathPrivateFolder;      // = Filename()
+        static Filename m_PathUserPicturesFolder; // = Filename()
+        static Filename m_overrideFolder;         // = Filename()
+        static bool m_bInit;
+        static bool m_isLauncher;
+        static int16_t m_singleInstance;
+        static File m_lockFile; // = File()
+        static map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe>> m_callbacks;
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
     class SystemPathsCallbackInterface {
     public:
         // virtual methods in vtable order
-        virtual OnUserFolderChanged(Filename const&, Filename const&);
-        OnCacheFolderChanged(Filename const&, Filename const&);
+        virtual void OnUserFolderChanged(const Filename& arg1, const Filename& arg2);
+        void OnCacheFolderChanged(const Filename& arg1, const Filename& arg2);
         SystemPathsCallbackInterface();
-
-        // data members, from how the methods use this: 8 bytes
-        undefined* field_0; // offset 0, vtable pointer
     };
 
-    // 0x1000dd490, 32 bytes, inline, placed by class name and debug map
-    // SystemPaths::GetDefaultUserFolder()
-    undefined1* SystemPaths::GetDefaultUserFolder() {
-        Init(this);
-        return &m_PathDefaultUserFolder;
+    // 0x1000dd490
+    Filename* SystemPaths::GetDefaultUserFolder() {
+        Init();
+        return (Filename*)&m_PathDefaultUserFolder;
     }
 
-    // 0x10014d510, 32 bytes, inline, placed by class name
-    // SystemPaths::GetUserFolder()
-    undefined1* SystemPaths::GetUserFolder() {
-        Init(this);
-        return &m_PathUserFolder;
+    // 0x10014d510
+    Filename* SystemPaths::GetUserFolder() {
+        Init();
+        return (Filename*)&m_PathUserFolder;
     }
 
-    // 0x10014d530, 32 bytes, inline, placed by class name
-    // SystemPaths::GetUserPicturesFolder()
-    undefined1* SystemPaths::GetUserPicturesFolder() {
-        Init(this);
-        return &m_PathUserPicturesFolder;
+    // 0x10014d530
+    Filename* SystemPaths::GetUserPicturesFolder() {
+        Init();
+        return (Filename*)&m_PathUserPicturesFolder;
     }
 
-    // 0x1009e90c0, 32 bytes, base-object constructor, inline, placed by class header (inline)
-    // SystemPathsCallbackInterface::SystemPathsCallbackInterface()
-    void SystemPathsCallbackInterface::SystemPathsCallbackInterface() {
-        field_0 = PTR_vtable_100ee7d78 + 16;
+    // 0x1009e90c0
+    SystemPathsCallbackInterface::SystemPathsCallbackInterface() {}
+
+    // 0x1009e9250
+    void SystemPaths::RegisterPathChangeCallback(SystemPathsCallbackInterface* systemPathsCallbackInterface) {
+        m_callbacks.insert<SystemPathsCallbackInterface*&, void>(systemPathsCallbackInterface);
     }
 
-    // 0x1009e9250, 48 bytes, inline, placed by class name
-    // SystemPaths::RegisterPathChangeCallback(SystemPathsCallbackInterface*)
-    void SystemPaths::RegisterPathChangeCallback(SystemPathsCallbackInterface* param_1) {
-        SystemPathsCallbackInterface* local_10;
-
-        local_10 = param_1;
-        eastl::rbtree<SystemPathsCallbackInterface*, SystemPathsCallbackInterface*,
-                      eastl::less<SystemPathsCallbackInterface*>, eastl::allocator,
-                      eastl::use_self<SystemPathsCallbackInterface*>, false, true>::
-            insert<SystemPathsCallbackInterface*&, void>(
-                (rbtree<SystemPathsCallbackInterface*, SystemPathsCallbackInterface*,
-                        eastl::less<SystemPathsCallbackInterface*>, eastl::allocator,
-                        eastl::use_self<SystemPathsCallbackInterface*>, false, true>*)&m_callbacks,
-                &local_10);
+    // 0x1009e94a0
+    void SystemPaths::UnregisterPathChangeCallback(SystemPathsCallbackInterface* systemPathsCallbackInterface) {
+        eastl::set<SystemPathsCallbackInterface*>::erase(m_callbacks);
     }
 
-    // 0x1009e94a0, 48 bytes, inline, placed by class name
-    // SystemPaths::UnregisterPathChangeCallback(SystemPathsCallbackInterface*)
-    void SystemPaths::UnregisterPathChangeCallback(SystemPathsCallbackInterface* param_1) {
-        eastl::set<SystemPathsCallbackInterface*, eastl::less<SystemPathsCallbackInterface*>, eastl::allocator>::erase(
-            (SystemPathsCallbackInterface**)&m_callbacks);
+    // 0x1009eb0c0
+    Filename* SystemPaths::GetCacheFolder() {
+        Init();
+        return (Filename*)&m_PathCacheFolder;
     }
 
-    // 0x1009eb0c0, 32 bytes, inline, placed by class name
-    // SystemPaths::GetCacheFolder()
-    undefined1* SystemPaths::GetCacheFolder() {
-        Init(this);
-        return &m_PathCacheFolder;
-    }
-
-    // 0x1009f9210, 144 bytes, inline, placed by class name
-    // SystemPaths::Init()
+    // 0x1009f9210
     void SystemPaths::Init() {
-        char* pcVar2;
+        char* pcVar1;
 
         if (m_bInit == '\0') {
             InitImpl();
-            if (m_overrideFolder.GetName() != 0) {
-                pcVar2 = (char*)m_overrideFolder.GetName();
-                SetOverrideFolder(pcVar2);
+            pcVar1 = m_overrideFolder.GetName();
+            if (pcVar1 != nullptr) {
+                pcVar1 = m_overrideFolder.GetName();
+                SetOverrideFolder(pcVar1);
             }
-            Filename::operator=((Filename*)&m_PathDefaultCacheFolder, (Filename*)&m_PathCacheFolder);
-            Filename::operator=((Filename*)&m_PathDefaultUserFolder, (Filename*)&m_PathUserFolder);
+            m_PathDefaultCacheFolder = m_PathCacheFolder;
+            m_PathDefaultUserFolder = m_PathUserFolder;
             if (m_isLauncher == '\0') {
                 CheckLauncherCFG();
             }
@@ -139,28 +114,18 @@ namespace jag {
         }
     }
 
-    // 0x1009f92a0, 176 bytes, inline, placed by class name
-    // SystemPaths::SetOverrideFolder(char const*)
-    void SystemPaths::SetOverrideFolder(char* param_1) {
-        Filename local_148[19];
-        long local_18;
+    // 0x1009f92a0
+    void SystemPaths::SetOverrideFolder(const char* str) {
 
-        local_18 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        Filename::Filename(local_148, param_1);
-        Filename::operator=((Filename*)&m_PathCacheFolder, local_148);
-        Filename::operator=((Filename*)&m_PathPrivateFolder, local_148);
-        Filename::operator=((Filename*)&m_PathUserFolder, local_148);
-        local_148->~pair();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_18) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        Filename local_148(str);
+        m_PathCacheFolder = local_148;
+        m_PathPrivateFolder = local_148;
+        m_PathUserFolder = local_148;
     }
 
-    // 0x100ba46b0, 32 bytes, inline, placed by class name
-    // SystemPaths::GetDefaultCacheFolder()
-    undefined1* SystemPaths::GetDefaultCacheFolder() {
-        Init(this);
+    // 0x100ba46b0
+    void SystemPaths::GetDefaultCacheFolder() {
+        Init();
         return &m_PathDefaultCacheFolder;
     }
 

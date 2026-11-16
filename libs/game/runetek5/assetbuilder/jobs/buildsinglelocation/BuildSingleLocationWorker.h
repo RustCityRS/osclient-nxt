@@ -1,80 +1,68 @@
 // libs/game/runetek5/assetbuilder/jobs/buildsinglelocation/BuildSingleLocationWorker.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
 
 namespace jag {
-    // 0x100634360, 48 bytes, inline, placed by debug map only (low confidence)
-    // game::BuildSingleLocationRequestData* placement_new<game::BuildSingleLocationRequestData, shared_ptr<game::LocType> const&, shared_ptr<game::LocType> const&, shared_ptr<graphics::Model> const&, Rotation90&, int&, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL> >(void*, shared_ptr<game::LocType> const&, shared_ptr<game::LocType> const&, shared_ptr<graphics::Model> const&, Rotation90&, int&, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&&, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&&)
-    BuildSingleLocationRequestData*
-    jag::placement_new<game::BuildSingleLocationRequestData, shared_ptr<game::LocType> const&,
-                       shared_ptr<game::LocType> const&, shared_ptr<graphics::Model> const&, Rotation90&, int&,
-                       Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>,
-                       Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>>(
-        void* param_1, shared_ptr* param_2, shared_ptr* param_3, shared_ptr* param_4, Rotation90* param_5, int* param_6,
-        Array* param_7, Array* param_8) {
-        game::BuildSingleLocationRequestData::BuildSingleLocationRequestData();
-        return param_1;
+    // 0x100634360
+    game::BuildSingleLocationRequestData*
+    placement_new<game::BuildSingleLocationRequestData, shared_ptr<game::LocType> const&,
+                  shared_ptr<game::LocType> const&, shared_ptr<graphics::Model> const&, Rotation90&, int&,
+                  Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>,
+                  Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>>(
+        void* arg1, const shared_ptr<game::LocType>& locType1, const shared_ptr<game::LocType>& locType2,
+        const shared_ptr<graphics::Model>& model, Rotation90& rotation90, int& arg6,
+        Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&& arg7,
+        Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&& arg8) {
+        new (arg1) game::BuildSingleLocationRequestData(locType1, locType2, model,
+                                                        (unsigned int)(uint8_t)(char)*rotation90, arg6, arg7, arg8);
+        return arg1;
     }
 
-    // 0x100634390, 32 bytes, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildSingleLocationRequestData>* placement_new<BucketRefCounter<game::BuildSingleLocationRequestData>, managed_ptr_counter_and_data<BucketRefCounter<game::BuildSingleLocationRequestData>, game::BuildSingleLocationRequestData>*&, game::BuildSingleLocationRequestData*&>(void*, managed_ptr_counter_and_data<BucketRefCounter<game::BuildSingleLocationRequestData>, game::BuildSingleLocationRequestData>*&, game::BuildSingleLocationRequestData*&)
-    BucketRefCounter*
-    jag::placement_new<BucketRefCounter<game::BuildSingleLocationRequestData>,
-                       managed_ptr_counter_and_data<BucketRefCounter<game::BuildSingleLocationRequestData>,
-                                                    game::BuildSingleLocationRequestData>*&,
-                       game::BuildSingleLocationRequestData*&>(void* param_1, managed_ptr_counter_and_data** param_2,
-                                                               BuildSingleLocationRequestData** param_3) {
-        BucketRefCounter<game::BuildSingleLocationRequestData>::BucketRefCounter(param_1, *param_2, *param_3, 0);
-        return param_1;
+    // 0x100634390
+    BucketRefCounter<game::BuildSingleLocationRequestData>*
+    placement_new<BucketRefCounter<game::BuildSingleLocationRequestData>,
+                  managed_ptr_counter_and_data<BucketRefCounter<game::BuildSingleLocationRequestData>,
+                                               game::BuildSingleLocationRequestData>*&,
+                  game::BuildSingleLocationRequestData*&>(
+        void* arg1,
+        managed_ptr_counter_and_data<BucketRefCounter<game::BuildSingleLocationRequestData>,
+                                     game::BuildSingleLocationRequestData>*& arg2,
+        game::BuildSingleLocationRequestData*& arg3) {
+        new (arg1) BucketRefCounter<game::BuildSingleLocationRequestData>(arg2, arg3, 0);
+        return arg1;
     }
 
-    // 0x1006343b0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildSingleLocationRequestData>::BucketRefCounter(void*, game::BuildSingleLocationRequestData*, unsigned int): jumps straight to the base-object constructor
+    // 0x1006343c0
+    BucketRefCounter<game::BuildSingleLocationRequestData>::BucketRefCounter(
+        void* arg1, game::BuildSingleLocationRequestData* buildSingleLocationRequestData, unsigned int arg3)
+        : ref_counter_base() {}
 
-    // 0x1006343c0, 96 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildSingleLocationRequestData>::BucketRefCounter(void*, game::BuildSingleLocationRequestData*, unsigned int)
-    void BucketRefCounter<game::BuildSingleLocationRequestData>::BucketRefCounter(
-        void* param_1, BuildSingleLocationRequestData* param_2, uint param_3) {
-        undefined8 uVar1;
-
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7140 + 16;
-        *(void**)(this + 16) = param_1;
-        *(BuildSingleLocationRequestData**)(this + 24) = param_2;
-        uVar1 = this_thread::GetThreadID();
-        *(undefined8*)(this + 32) = uVar1;
-        *(uint*)(this + 40) = param_3;
-    }
-
-    // 0x100634420, 48 bytes, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildSingleLocationRequestData>::DeleteData()
+    // 0x100634420
     void BucketRefCounter<game::BuildSingleLocationRequestData>::DeleteData() {
-        if (*(BuildSingleLocationRequestData**)(this + 24) != (BuildSingleLocationRequestData*)0) {
-            (*(BuildSingleLocationRequestData**)(this + 24))->~BuildSingleLocationRequestData();
-            *(undefined8*)(this + 24) = 0;
+        if ((BuildSingleLocationRequestData*)this[3]._vptr != nullptr) {
+            this[3]._vptr->~BuildSingleLocationRequestData();
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x100634450, 96 bytes, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildSingleLocationRequestData>::DeleteSelf()
+    // 0x100634450
     void BucketRefCounter<game::BuildSingleLocationRequestData>::DeleteSelf() {
-        void* pvVar1;
+        BucketRefCounter<game::BuildSingleLocationRequestData> _vtbl* pBVar1;
 
-        if (*(int*)(this + 40) != 4) {
-            if (this_thread::GetThreadID() != *(long*)(this + 32)) {
-                /* WARNING: Subroutine does not return */
+        if (*(int*)&this[5]._vptr != 4) {
+            pBVar1 = (BucketRefCounter<game::BuildSingleLocationRequestData> _vtbl*)this_thread::GetThreadID();
+            if (pBVar1 != this[4]._vptr) {
                 LogAssert("this_thread::GetThreadID() == m_threadID",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/managed_ptr/"
                           "make_shared.h",
-                          237, (char*)0);
+                          237, nullptr);
             }
         }
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)(this);
-        BucketManager::DeAllocate(pvVar1);
+        pBVar1 = this[2]._vptr;
+        std::destroy_at(this);
+        BucketManager::DeAllocate(pBVar1);
     }
 
 } // namespace jag
@@ -84,88 +72,46 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~BuildSingleLocationWorker();
-        virtual GetWorkerJobType() const;
-        virtual Service(int);
+        virtual uint64_t GetWorkerJobType() const;
+        virtual uint8_t* Service(int arg1);
         BuildSingleLocationWorker();
 
-        // data members, from how the methods use this: 32 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        shared_ptr field_8;  // offset 8
-        char _unknown_24[8];
+    private:
+        shared_ptr field_8;
+        uint8_t _unknown_24[8];
     };
 
-    // 0x1006333d0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // BuildSingleLocationWorker::~BuildSingleLocationWorker(): jumps straight to the base-object destructor
-
-    // 0x1006333e0, 32 bytes, deleting destructor, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // BuildSingleLocationWorker::~BuildSingleLocationWorker()
-    /* BuildFunctionWorker::~BuildFunctionWorker() */
-
-    void BuildFunctionWorker::~BuildFunctionWorker() {
-        ~BuildFunctionWorker(this);
-        operator_delete(this);
+    // 0x100633920
+    LookatData::LookatData() {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
     }
 
-    // 0x100633920, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LookatData::LookatData()
-    /* eastl::DequeIterator<render::DynamicBuffer<render::VertexBuffer>::Buffer,
-   render::DynamicBuffer<render::VertexBuffer>::Buffer*,
-   render::DynamicBuffer<render::VertexBuffer>::Buffer&, 7u>::DequeIterator() */
-
-    void eastl::DequeIterator<
-        render::DynamicBuffer<render::VertexBuffer>::Buffer, render::DynamicBuffer<render::VertexBuffer>::Buffer*,
-        render::DynamicBuffer<render::VertexBuffer>::Buffer&,
-        7u>::DequeIterator(DequeIterator<render::DynamicBuffer<render::VertexBuffer>::Buffer,
-                                         render::DynamicBuffer<render::VertexBuffer>::Buffer*,
-                                         render::DynamicBuffer<render::VertexBuffer>::Buffer&, 7u>* this) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-    }
-
-    // 0x1006339a0, 16 bytes, base-object destructor, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // BuildSingleLocationWorker::~BuildSingleLocationWorker()
-    /* BuildFunctionWorker::~BuildFunctionWorker() */
-
-    void BuildFunctionWorker::~BuildFunctionWorker() {
-        ~AssetWorker();
-    }
+    // 0x1006339a0
+    BuildSingleLocationWorker::~BuildSingleLocationWorker() {}
 
 } // namespace jag::game
 
 namespace jag::graphics {
-    // 0x100633730, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // TerrainTextureMeta::TerrainTextureMeta()
-    /* ui::ServerActiveProperties::ServerActiveProperties() */
-
-    void ui::ServerActiveProperties::ServerActiveProperties() {
-        field_0 = 18446744069414584320;
-    }
+    // 0x100633730
+    TerrainTextureMeta::TerrainTextureMeta() : field_0(18446744069414584320) {}
 
 } // namespace jag::graphics
 
 namespace jag::ui {
-    // 0x100633730: the linker folded this into graphics::TerrainTextureMeta::TerrainTextureMeta(), which has identical code
-    ServerActiveProperties::ServerActiveProperties();
+    // 0x100633730: ServerActiveProperties::ServerActiveProperties() has the same machine code as graphics::TerrainTextureMeta::TerrainTextureMeta()
 
 } // namespace jag::ui
 
 namespace jag::math {
-    // 0x100633930, 48 bytes, inline, placed by debug map only (low confidence)
-    // QuaternionT<double>::operator=(QuaternionT<double> const&)
-    /* QuaternionT<double>::TEMPNAMEPLACEHOLDERVALUE(QuaternionT<double> const&)
-    */
-
-    QuaternionT<double>* QuaternionT<double>::operator=(QuaternionT* param_1) {
-        *(undefined8*)this = *(undefined8*)param_1;
-        *(undefined8*)(this + 8) = *(undefined8*)(param_1 + 8);
-        *(undefined8*)(this + 16) = *(undefined8*)(param_1 + 16);
-        *(undefined8*)(this + 24) = *(undefined8*)(param_1 + 24);
+    // 0x100633930
+    QuaternionT<double>* QuaternionT<double>::operator=(const QuaternionT<double>& quaternion) {
+        *(uint64_t*)this = *(uint64_t*)quaternion;
+        *(uint64_t*)(this + 8) = *(uint64_t*)(quaternion + 8);
+        *(uint64_t*)(this + 16) = *(uint64_t*)(quaternion + 16);
+        *(uint64_t*)(this + 24) = *(uint64_t*)(quaternion + 24);
         return this;
     }
 

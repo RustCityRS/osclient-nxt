@@ -1,163 +1,141 @@
 // libs/game/runetek5/config/defaults/WearposDefaults.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "WearposDefaults.h"
 
 namespace jag::game {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    WearposDefaults::GetWearposType() const;
+    // 0x100009ca0: WearposDefaults::GetWearposType() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100049810: the linker folded this into oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const, which has identical code
-    WearposDefaults::GetReplaceHeldLeftResetWearPos() const;
+    // 0x100049810: WearposDefaults::GetReplaceHeldLeftResetWearPos() const has the same machine code as oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const
 
-    // 0x100060710: the linker folded this into oldscape::widgets::ScrollBarWidget::GetThumbBounds() const, which has identical code
-    WearposDefaults::GetReplaceHeldRightResetWearPos() const;
+    // 0x100060710: WearposDefaults::GetReplaceHeldRightResetWearPos() const has the same machine code as oldscape::widgets::ScrollBarWidget::GetThumbBounds() const
 
-    // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
-    uint WearposDefaults::GetReplaceHeldRightWearPos() const;
+    // 0x100061e30: WearposDefaults::GetReplaceHeldRightWearPos() const has the same machine code as render::RenderStats::GetTriangleCount() const
 
-    // 0x1001be5d0: the linker folded this into graphics::SunlightOptions::GetShadowQuality() const, which has identical code
-    uint WearposDefaults::GetReplaceHeldLeftWearPos() const;
+    // 0x1001be5d0: WearposDefaults::GetReplaceHeldLeftWearPos() const has the same machine code as graphics::SunlightOptions::GetShadowQuality() const
 
-    // 0x10054ed70, 832 bytes, base-object constructor, placed by class name
-    // WearposDefaults::WearposDefaults(PacketT<Array<unsigned char, eastl::allocator> >&)
-    void WearposDefaults::WearposDefaults(PacketT* param_1) {
-        undefined1* this_00;
-        undefined1* this_01;
-        undefined1* this_02;
-        undefined1 uVar1;
-        byte bVar2;
-        uint uVar3;
-        uint* puVar4;
-        undefined8 uVar5;
-        ulong uVar6;
-        long lVar7;
-        int* piVar8;
-        ulong uVar9;
-        uint uVar10;
+    // 0x10054ed70
+    WearposDefaults::WearposDefaults(PacketT<Array<unsigned char>>& arg1) : Array<WearposType>() {
+        uint8_t bVar1;
+        unsigned int uVar2;
+        unsigned int* puVar3;
+        unsigned long uVar4;
+        long lVar5;
+        int* piVar6;
+        unsigned long uVar7;
+        unsigned int uVar8;
 
-        new (this) Array<WearposType, eastl::allocator>();
-        this_00 = &field_24;
-        new (this_00) Array<unsigned int, eastl::allocator>();
+        uint8_t* this_00 = &field_24;
+        new (this_00) Array<unsigned int>();
         field_48 = 0;
         field_52 = 0;
         m_replaceHeldLeftWearPos = 4294967295;
         m_replaceHeldRightWearPos = 4294967295;
-        this_01 = &field_64;
-        new (this_01) Array<unsigned int, eastl::allocator>();
-        this_02 = &field_88;
-        new (this_02) Array<unsigned int, eastl::allocator>();
+        uint8_t* this_01 = &field_64;
+        new (this_01) Array<unsigned int>();
+        uint8_t* this_02 = &field_88;
+        new (this_02) Array<unsigned int>();
         do {
-            uVar1 = param_1->g1();
-            switch (uVar1) {
+            bVar1 = arg1.g1();
+            switch (bVar1) {
             case 0:
                 return;
             case 1:
-                bVar2 = param_1->g1();
-                set_max_size((ulong)bVar2, 0);
+                bVar1 = arg1.g1();
+                set_max_size((unsigned long)bVar1, 0);
                 field_48 = 0;
                 field_52 = 0;
-                lVar7 = end();
-                if (lVar7 != 0) {
-                    uVar10 = 1;
-                    uVar6 = 0;
+                lVar5 = end();
+                if (lVar5 != 0) {
+                    uVar8 = 1;
+                    uVar4 = 0;
                     do {
-                        uVar3 = param_1->g1();
-                        puVar4 = (uint*)Array<WearposType, eastl::allocator>::operator[](
-                            (Array<WearposType, eastl::allocator>*)this, uVar6);
-                        *puVar4 = uVar3 & 255;
-                        piVar8 = (int*)Array<WearposType, eastl::allocator>::operator[](
-                            (Array<WearposType, eastl::allocator>*)this, uVar6);
-                        if (*piVar8 == 0) {
+                        uVar2 = arg1.g1();
+                        puVar3 = (unsigned int*)(*this)[uVar4];
+                        *puVar3 = uVar2 & 255;
+                        piVar6 = (int*)(*this)[uVar4];
+                        if (*piVar6 == 0) {
                             field_48 = field_48 + 1;
                         } else {
-                            piVar8 = (int*)Array<WearposType, eastl::allocator>::operator[](
-                                (Array<WearposType, eastl::allocator>*)this, uVar6);
-                            if (*piVar8 == 2) {
+                            piVar6 = (int*)(*this)[uVar4];
+                            if (*piVar6 == 2) {
                                 field_52 = field_52 + 1;
                             }
                         }
-                        uVar6 = (ulong)uVar10;
-                        uVar9 = end();
-                        uVar10 = uVar10 + 1;
-                    } while (uVar6 < uVar9);
+                        uVar4 = (unsigned long)uVar8;
+                        uVar7 = end();
+                        uVar8 = uVar8 + 1;
+                    } while (uVar4 < uVar7);
                 }
                 break;
             default:
-                uVar5 = logger::default_logger();
-                logger::Logger::Log(uVar5, 0, 8,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
-                                    "runetek5/config/defaults/WearposDefaults.cpp",
-                                    71, "WearposDefaults: Error unrecognised .defaults config code: %u", uVar1);
+                (logger::default_logger())
+                    ->Log(false, 8,
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
+                          "defaults/WearposDefaults.cpp",
+                          71, "WearposDefaults: Error unrecognised .defaults config code: %u", (unsigned int)bVar1);
                 break;
             case 3:
-                bVar2 = param_1->g1();
-                m_replaceHeldLeftWearPos = (uint)bVar2;
+                bVar1 = arg1.g1();
+                m_replaceHeldLeftWearPos = (unsigned int)bVar1;
                 break;
             case 4:
-                bVar2 = param_1->g1();
-                m_replaceHeldRightWearPos = (uint)bVar2;
+                bVar1 = arg1.g1();
+                m_replaceHeldRightWearPos = (unsigned int)bVar1;
                 break;
             case 5:
-                bVar2 = param_1->g1();
-                this_01->set_max_size((ulong)bVar2, 0);
-                lVar7 = this_01->end();
-                if (lVar7 != 0) {
-                    uVar10 = 1;
-                    uVar6 = 0;
+                bVar1 = arg1.g1();
+                this_01->set_max_size((unsigned long)bVar1, 0);
+                lVar5 = this_01->end();
+                if (lVar5 != 0) {
+                    uVar8 = 1;
+                    uVar4 = 0;
                     do {
-                        uVar3 = param_1->g1();
-                        puVar4 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                            (Array<unsigned int, eastl::allocator>*)this_01, uVar6);
-                        *puVar4 = uVar3 & 255;
-                        uVar6 = (ulong)uVar10;
-                        uVar9 = this_01->end();
-                        uVar10 = uVar10 + 1;
-                    } while (uVar6 < uVar9);
+                        uVar2 = arg1.g1();
+                        puVar3 = (unsigned int*)(*this_01)[uVar4];
+                        *puVar3 = uVar2 & 255;
+                        uVar4 = (unsigned long)uVar8;
+                        uVar7 = this_01->end();
+                        uVar8 = uVar8 + 1;
+                    } while (uVar4 < uVar7);
                 }
                 break;
             case 6:
-                bVar2 = param_1->g1();
-                this_02->set_max_size((ulong)bVar2, 0);
-                lVar7 = this_02->end();
-                if (lVar7 != 0) {
-                    uVar10 = 1;
-                    uVar6 = 0;
+                bVar1 = arg1.g1();
+                this_02->set_max_size((unsigned long)bVar1, 0);
+                lVar5 = this_02->end();
+                if (lVar5 != 0) {
+                    uVar8 = 1;
+                    uVar4 = 0;
                     do {
-                        uVar3 = param_1->g1();
-                        puVar4 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                            (Array<unsigned int, eastl::allocator>*)this_02, uVar6);
-                        *puVar4 = uVar3 & 255;
-                        uVar6 = (ulong)uVar10;
-                        uVar9 = this_02->end();
-                        uVar10 = uVar10 + 1;
-                    } while (uVar6 < uVar9);
+                        uVar2 = arg1.g1();
+                        puVar3 = (unsigned int*)(*this_02)[uVar4];
+                        *puVar3 = uVar2 & 255;
+                        uVar4 = (unsigned long)uVar8;
+                        uVar7 = this_02->end();
+                        uVar8 = uVar8 + 1;
+                    } while (uVar4 < uVar7);
                 }
                 break;
             case 7:
-                uVar6 = end();
-                this_00->set_max_size(uVar6, 0);
-                lVar7 = end();
-                if (lVar7 != 0) {
-                    uVar10 = 1;
-                    uVar6 = 0;
+                uVar4 = end();
+                this_00->set_max_size(uVar4, 0);
+                lVar5 = end();
+                if (lVar5 != 0) {
+                    uVar8 = 1;
+                    uVar4 = 0;
                     do {
-                        uVar3 = param_1->g1();
-                        piVar8 = (int*)Array<unsigned int, eastl::allocator>::operator[](
-                            (Array<unsigned int, eastl::allocator>*)this_00, uVar6);
-                        *piVar8 = (uVar3 & 255) - 1;
-                        uVar6 = (ulong)uVar10;
-                        uVar9 = end();
-                        uVar10 = uVar10 + 1;
-                    } while (uVar6 < uVar9);
+                        uVar2 = arg1.g1();
+                        piVar6 = (int*)(*this_00)[uVar4];
+                        *piVar6 = (uVar2 & 255) - 1;
+                        uVar4 = (unsigned long)uVar8;
+                        uVar7 = end();
+                        uVar8 = uVar8 + 1;
+                    } while (uVar4 < uVar7);
                 }
             }
         } while (true);
     }
-
-    // 0x10054f280, 16 bytes, complete-object constructor, placed by class name
-    // WearposDefaults::WearposDefaults(PacketT<Array<unsigned char, eastl::allocator> >&): jumps straight to the base-object constructor
 
 } // namespace jag::game

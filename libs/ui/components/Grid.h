@@ -1,6 +1,5 @@
 // libs/ui/components/Grid.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,106 +8,78 @@ namespace jag::ui {
     public:
         // virtual methods in vtable order
         virtual ~Grid();
-        virtual GetType() const;
-        virtual void MainDraw(ComponentDependencies const&, int, int, float);
-        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int);
+        virtual uint64_t GetType() const;
+        virtual void MainDraw(const ComponentDependencies& componentDependencies, int arg2, int arg3, float arg4);
+        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2);
         virtual void FlagLayoutDirty();
-        virtual void LoadStyleSheetVisuals(StyleSheet const&);
-        virtual IsLayoutDirty() const;
-        virtual UpdateLayout(bool);
-        void SetGridParams(bool, int, int);
-        void UpdateComponentListLayout(eastl::vector<ComponentContainer, eastl::allocator> const&, int&, int&, int, int,
-                                       int, int, int, int);
-        ulong GetCellWidth() const;
-        ulong GetCellHeight() const;
-        ulong GetNumRows() const;
-        ulong GetNumColumns() const;
-        SeparatedIndexCount GetSizeEstimate(unsigned short, unsigned short, unsigned char, unsigned char,
-                                            unsigned char);
-        GetCellEstimate(unsigned short, unsigned short, unsigned short, unsigned short, unsigned char);
+        virtual void LoadStyleSheetVisuals(const StyleSheet& styleSheet);
+        virtual bool IsLayoutDirty() const;
+        virtual uint64_t UpdateLayout(bool arg1);
+        void SetGridParams(bool arg1, int arg2, int arg3);
+        void UpdateComponentListLayout(const eastl::vector<ComponentContainer>& componentContainers, int& arg2,
+                                       int& arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9);
+        unsigned long GetCellWidth() const;
+        unsigned long GetCellHeight() const;
+        unsigned long GetNumRows() const;
+        unsigned long GetNumColumns() const;
+        SeparatedIndexCount GetSizeEstimate(unsigned short arg1, unsigned short arg2, unsigned char arg3,
+                                            unsigned char arg4, unsigned char arg5);
+        void GetCellEstimate(unsigned short arg1, unsigned short arg2, unsigned short arg3, unsigned short arg4,
+                             unsigned char arg5);
 
-        // data members, from how the methods use this: 584 bytes
-        long field_0;    // offset 0, vtable pointer
-        ushort field_8;  // offset 8
-        ushort field_10; // offset 10
-        char _unknown_12[76];
-        int field_88; // offset 88
-        int field_92; // offset 92
-        char _unknown_96[336];
-        uint field_432; // offset 432
-        uint field_436; // offset 436
-        char _unknown_440[128];
-        uint field_568;           // offset 568
-        uint field_572;           // offset 572
-        uint field_576;           // offset 576
-        bool field_580;           // offset 580
-        undefined1 m_layoutDirty; // offset 581
-        char _unknown_582[2];
+    private:
+        unsigned short field_8;
+        unsigned short field_10;
+        uint8_t _unknown_12[76];
+        int field_88;
+        int field_92;
+        uint8_t _unknown_96[336];
+        unsigned int field_432;
+        unsigned int field_436;
+        uint8_t _unknown_440[128];
+        unsigned int field_568;
+        unsigned int field_572;
+        unsigned int field_576;
+        bool field_580;
+        uint8_t m_layoutDirty;
+        uint8_t _unknown_582[2];
     };
 
-    // 0x1006ad6e0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // Grid::~Grid(): jumps straight to the base-object destructor
-
-    // 0x1006ad6f0, 32 bytes, deleting destructor, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Grid::~Grid()
-    /* Layer::~Layer() */
-
-    void Layer::~Layer() {
-        ~Layer(this);
-        operator_delete(this);
-    }
-
-    // 0x1006ad710, 16 bytes, inline, placed by class name and debug map
-    // Grid::GetType() const
-    undefined8 Grid::GetType() {
+    // 0x1006ad710
+    uint64_t Grid::GetType() const {
         return 21;
     }
 
-    // 0x1006ad720, 16 bytes, inline, placed by class name and debug map
-    // Grid::FlagLayoutDirty()
+    // 0x1006ad720
     void Grid::FlagLayoutDirty() {
         m_layoutDirty = 1;
     }
 
-    // 0x1006ad730, 16 bytes, inline, placed by class name and debug map
-    // Grid::IsLayoutDirty() const
-    undefined1 Grid::IsLayoutDirty() {
+    // 0x1006ad730
+    bool Grid::IsLayoutDirty() const {
         return m_layoutDirty;
     }
 
-    // 0x1006b2db0, 16 bytes, base-object destructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Grid::~Grid()
-    /* Layer::~Layer() */
-
-    void Layer::~Layer() {
-        ~ComponentCollection();
-    }
+    // 0x1006b2db0
+    Grid::~Grid() {}
 
 } // namespace jag::ui
 
 namespace jag::oldscape::dash3d {
     class GridRect {
     public:
-        GridRect(int, int, int, int);
+        GridRect(int arg1, int arg2, int arg3, int arg4);
         GridRect();
 
-        // data members, from how the methods use this: 20 bytes
-        int field_0;  // offset 0
-        int field_4;  // offset 4
-        int field_8;  // offset 8
-        int field_12; // offset 12
-        char _unknown_16[4];
+    private:
+        int field_0;
+        int field_4;
+        int field_8;
+        int field_12;
+        uint8_t _unknown_16[4];
     };
 
-    // 0x100326f10, 16 bytes, base-object constructor, inline, placed by class header (inline)
-    // GridRect::GridRect()
-    void GridRect::GridRect() {
-        field_0 = -1;
-        field_4 = -1;
-        field_8 = 0;
-        field_12 = 0;
-    }
+    // 0x100326f10
+    GridRect::GridRect() : field_0(-1), field_4(-1), field_8(0), field_12(0) {}
 
 } // namespace jag::oldscape::dash3d

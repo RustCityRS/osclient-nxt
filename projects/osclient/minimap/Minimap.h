@@ -1,139 +1,137 @@
 // projects/osclient/minimap/Minimap.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::minimap {
     class Minimap {
     public:
-        void SetLevel(int);
+        void SetLevel(int arg1);
         Minimap();
         ~Minimap();
         void Destroy();
-        char TryLoadResources(shared_ptr<Array<graphics::Pix8, eastl::allocator>>, graphics::NXTPixToolkit*,
-                              defaults::GraphicsDefaults, jagex3::Js5*);
-        void SetDotStyles(shared_ptr<jstring::PixfontGeneric>);
-        void SetDotStyle(MiniDotCategory, unsigned int, unsigned int, int);
+        char TryLoadResources(shared_ptr<Array<graphics::Pix8>> pix8s, graphics::NXTPixToolkit* nxtPixToolkit,
+                              defaults::GraphicsDefaults graphicsDefaults, jagex3::Js5* js5);
+        void SetDotStyles(shared_ptr<jstring::PixfontGeneric> pixfontGeneric);
+        void SetDotStyle(MiniDotCategory miniDotCategory, unsigned int arg2, unsigned int arg3, int arg4);
         void Redraw();
-        void ResizeBuffer(int);
+        void ResizeBuffer(int arg1);
         int GetMinimapBufferSize();
-        void BuildBuffer(int, dash3d::world*);
-        void DrawDetail(int, int, int, int, int, int, int, dash3d::world*);
-        void AddMelIcon(int, int, int, int);
-        void DeleteIcons(configdecoder::LocType*, int, int, int);
-        void SetZoom(dash3d::world*, int, int);
-        ulong Draw(shared_ptr<rs2lib::IfType> const&, int, int, int, int, int, int, int);
-        void DrawTile(int, int, int, int, int, dash3d::EntityHighlight const&, rs2lib::InterfaceGraphicMask const&);
-        void DrawDot(int, int, int, int, int, graphics::Pix32*, rs2lib::InterfaceGraphicMask const&);
-        void DrawDotWithString(int, int, int, int, int, MiniDotCategory, eastl::string,
-                               rs2lib::InterfaceGraphicMask const&);
-        void DrawArrow(int, int, int, int, int, graphics::Pix32*, rs2lib::InterfaceGraphicMask const&);
-        void CompassDraw(shared_ptr<rs2lib::IfType> const&, int, int, int, int);
-        void DrawString(int, int, int, int, int, unsigned int, eastl::string, rs2lib::InterfaceGraphicMask const&);
-        void GlMinimap(shared_ptr<rs2lib::IfType> const&, int, int, bool);
-        GetDotStyle(MiniDotCategory);
-        void SetDotVisible(MiniDotCategory, bool);
-        bool GetDotVisible(MiniDotCategory);
-        void SetDrawDisplayname(MiniDotCategory, bool);
-        bool GetDrawDisplayname(MiniDotCategory);
-        void SetZoomable(bool);
+        void BuildBuffer(int arg1, dash3d::world* world);
+        void DrawDetail(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, dash3d::world* world);
+        void AddMelIcon(int arg1, int arg2, int arg3, int arg4);
+        void DeleteIcons(configdecoder::LocType* locType, int arg2, int arg3, int arg4);
+        void SetZoom(dash3d::world* world, int arg2, int arg3);
+        unsigned long Draw(const shared_ptr<rs2lib::IfType>& ifType, int arg2, int arg3, int arg4, int arg5, int arg6,
+                           int arg7, int arg8);
+        void DrawTile(int arg1, int arg2, int arg3, int arg4, int arg5, const dash3d::EntityHighlight& entityHighlight,
+                      const rs2lib::InterfaceGraphicMask& interfaceGraphicMask);
+        void DrawDot(int arg1, int arg2, int arg3, int arg4, int arg5, graphics::Pix32* pix32,
+                     const rs2lib::InterfaceGraphicMask& interfaceGraphicMask);
+        void DrawDotWithString(int arg1, int arg2, int arg3, int arg4, int arg5, MiniDotCategory miniDotCategory,
+                               eastl::string str, const rs2lib::InterfaceGraphicMask& interfaceGraphicMask);
+        void DrawArrow(int arg1, int arg2, int arg3, int arg4, int arg5, graphics::Pix32* pix32,
+                       const rs2lib::InterfaceGraphicMask& interfaceGraphicMask);
+        void CompassDraw(const shared_ptr<rs2lib::IfType>& ifType, int arg2, int arg3, int arg4, int arg5);
+        void DrawString(int arg1, int arg2, int arg3, int arg4, int arg5, unsigned int arg6, eastl::string str,
+                        const rs2lib::InterfaceGraphicMask& interfaceGraphicMask);
+        void GlMinimap(const shared_ptr<rs2lib::IfType>& ifType, int arg2, int arg3, bool arg4);
+        uint8_t[16] GetDotStyle(MiniDotCategory miniDotCategory);
+        void SetDotVisible(MiniDotCategory miniDotCategory, bool arg2);
+        bool GetDotVisible(MiniDotCategory miniDotCategory);
+        void SetDrawDisplayname(MiniDotCategory miniDotCategory, bool arg2);
+        bool GetDrawDisplayname(MiniDotCategory miniDotCategory);
+        void SetZoomable(bool arg1);
         bool GetZoomable();
-        int GetZoom();
-        void SetIconZoomLimit(int);
+        unsigned int GetZoom();
+        void SetIconZoomLimit(int arg1);
         int GetIconZoomLimit();
-        GetMapEdgeArrow();
+        uint8_t* GetMapEdgeArrow();
         int GetLevel();
         void ResetIcons();
-        GetFlagCoord(int);
-        void SetToggle(int);
+        CoordGrid GetFlagCoord(int arg1);
+        void SetToggle(int arg1);
 
-        // data members, from how the methods use this: 26128 bytes
-        undefined8 field_0; // offset 0
-        undefined1 field_8; // offset 8
-        char _unknown_9[3];
-        int m_level;         // offset 12
-        undefined1 field_16; // offset 16
-        char _unknown_17[25655];
-        undefined1 field_25672; // offset 25672
-        char _unknown_25673[47];
-        int m_zoom; // offset 25720
-        char _unknown_25724[60];
-        int m_toggle;    // offset 25784
-        bool m_zoomable; // offset 25788
-        char _unknown_25789[3];
-        int m_iconZoomLimit; // offset 25792
-        char _unknown_25796[260];
-        undefined8** field_26056; // offset 26056
-        char _unknown_26064[64];
+    private:
+        int field_0;
+        int field_4;
+        uint8_t field_8;
+        uint8_t _unknown_9[3];
+        int m_level;
+        uint8_t field_16;
+        uint8_t _unknown_17[25615];
+        int field_25632;
+        uint8_t _unknown_25636[36];
+        uint8_t field_25672;
+        uint8_t _unknown_25673[47];
+        unsigned int m_zoom;
+        uint8_t _unknown_25724[60];
+        int m_toggle;
+        bool m_zoomable;
+        uint8_t _unknown_25789[3];
+        int m_iconZoomLimit;
+        uint8_t _unknown_25796[260];
+        NXTPixToolkit* field_26056;
+        uint8_t _unknown_26064[64];
     };
 
-    // 0x100069c60, 16 bytes, inline, placed by class name
-    // Minimap::GetMinimapBufferSize()
+    // 0x100069c60
     int Minimap::GetMinimapBufferSize() {
         return m_zoom * 104 + 96;
     }
 
-    // 0x1000b77f0, 16 bytes, inline, placed by class name and debug map
-    // Minimap::SetZoomable(bool)
-    void Minimap::SetZoomable(bool param_1) {
-        m_zoomable = param_1;
+    // 0x1000b77f0
+    void Minimap::SetZoomable(bool arg1) {
+        m_zoomable = arg1;
     }
 
-    // 0x1000b7800, 16 bytes, inline, placed by class name and debug map
-    // Minimap::GetZoomable()
-    undefined1 Minimap::GetZoomable() {
+    // 0x1000b7800
+    bool Minimap::GetZoomable() {
         return m_zoomable;
     }
 
-    // 0x1000b7860, 16 bytes, inline, placed by class name
-    // Minimap::GetZoom()
-    int Minimap::GetZoom() {
+    // 0x1000b7860
+    unsigned int Minimap::GetZoom() {
         return m_zoom;
     }
 
-    // 0x1000b7870, 16 bytes, inline, placed by class name
-    // Minimap::SetIconZoomLimit(int)
-    void Minimap::SetIconZoomLimit(int param_1) {
-        m_iconZoomLimit = param_1;
+    // 0x1000b7870
+    void Minimap::SetIconZoomLimit(int arg1) {
+        m_iconZoomLimit = arg1;
     }
 
-    // 0x1000b7880, 16 bytes, inline, placed by class name
-    // Minimap::GetIconZoomLimit()
+    // 0x1000b7880
     int Minimap::GetIconZoomLimit() {
         return m_iconZoomLimit;
     }
 
-    // 0x1000da740, 16 bytes, inline, placed by class name
-    // Minimap::GetMapEdgeArrow()
-    undefined1* Minimap::GetMapEdgeArrow() {
+    // 0x1000da740
+    uint8_t* Minimap::GetMapEdgeArrow() {
         return &field_26080;
     }
 
-    // 0x1000e5f70, 48 bytes, inline, placed by class name
-    // Minimap::ResetIcons()
+    // 0x1000e5f70
     void Minimap::ResetIcons() {
-        int local_c;
-
-        local_c = 0;
-        (&field_16, &local_c)->fill();
+        field_16.fill(0);
     }
 
-    // 0x10010cfc0, 48 bytes, inline, placed by class name
-    // Minimap::GetFlagCoord(int)
-    Minimap* Minimap::GetFlagCoord(int param_1) {
+    // 0x10010cfc0
+    CoordGrid Minimap::GetFlagCoord(int arg1) {
         int in_EDX;
-        undefined4 in_register_00000034;
+        uint64_t extraout_RDX;
+        uint32_t in_register_00000034;
+        CoordGrid CVar1;
 
-        new (this) rs2lib::CoordGrid(in_EDX, *(int*)CONCAT44(in_register_00000034, param_1),
-                                     ((int*)CONCAT44(in_register_00000034, param_1))[1]);
-        return this;
+        new (this) rs2lib::CoordGrid(in_EDX, *(int*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1),
+                                     ((int*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1))[1]);
+        CVar1._8_8_ = extraout_RDX;
+        CVar1._0_8_ = this;
+        return CVar1;
     }
 
-    // 0x100112540, 16 bytes, inline, placed by class name
-    // Minimap::SetToggle(int)
-    void Minimap::SetToggle(int param_1) {
-        m_toggle = param_1;
+    // 0x100112540
+    void Minimap::SetToggle(int arg1) {
+        m_toggle = arg1;
     }
 
 } // namespace jag::oldscape::minimap

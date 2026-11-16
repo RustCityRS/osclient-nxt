@@ -1,76 +1,50 @@
 // libs/oldscape/jagex3/midi2/midiparser.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "midiparser.h"
 
 namespace jag::oldscape::midi2 {
-    // 0x100d41be0, 128 bytes, __const
-    MidiParser::m_msgLen = {
+    // 0x100d41be0
+    int32_t MidiParser::m_msgLen[32] = {
         33686018, 33686018, 33686018, 33686018, 33686018, 33686018, 33686018, 33686018, 33686018, 33686018, 33686018,
         33686018, 33686018, 33686018, 33686018, 33686018, 16843009, 16843009, 16843009, 16843009, 16843009, 16843009,
         16843009, 16843009, 33686018, 33686018, 33686018, 33686018, 16908544, 0,        0,        0,
     };
 
-    // 0x1002d00d0, 192 bytes, base-object constructor, placed by class name
-    // MidiParser::MidiParser()
-    void MidiParser::MidiParser() {
-        new (this) PacketJ<Array<unsigned char, eastl::allocator>>();
-        new (&field_40) Array<int, eastl::allocator>();
-        new (&field_72) Array<int, eastl::allocator>();
-        new (&field_96) Array<int, eastl::allocator>();
-        new (&field_120) Array<int, eastl::allocator>();
-        new (&field_144) Array<int, eastl::allocator>();
-        m_midiPos = 0;
+    // 0x1002d00d0
+    MidiParser::MidiParser() : PacketJ(), field_176(0) {}
+
+    // 0x1002d01a0
+    MidiParser::MidiParser(Array<unsigned char>& arg1, ErrorCapture& errorCapture) : PacketJ(), field_176(0) {
+        SetMidi(arg1, errorCapture);
     }
 
-    // 0x1002d0190, 16 bytes, complete-object constructor, placed by class name
-    // MidiParser::MidiParser(): jumps straight to the base-object constructor
-
-    // 0x1002d01a0, 240 bytes, base-object constructor, placed by class name
-    // MidiParser::MidiParser(Array<unsigned char, eastl::allocator>&, ErrorCapture&)
-    void MidiParser::MidiParser(Array* param_1, ErrorCapture* param_2) {
-        new (this) PacketJ<Array<unsigned char, eastl::allocator>>();
-        new (&field_40) Array<int, eastl::allocator>();
-        new (&field_72) Array<int, eastl::allocator>();
-        new (&field_96) Array<int, eastl::allocator>();
-        new (&field_120) Array<int, eastl::allocator>();
-        new (&field_144) Array<int, eastl::allocator>();
-        m_midiPos = 0;
-        SetMidi(this, param_1, param_2);
-    }
-
-    // 0x1002d0290, 768 bytes, placed by class name
-    // MidiParser::SetMidi(Array<unsigned char, eastl::allocator>&, ErrorCapture&)
-    void MidiParser::SetMidi(Array* param_1, ErrorCapture* param_2) {
-        undefined1* this_00;
+    // 0x1002d0290
+    void MidiParser::SetMidi(Array<unsigned char>& arg1, ErrorCapture& errorCapture) {
+        uint8_t* this_00;
         bool bVar1;
-        ushort uVar2;
-        ushort uVar3;
-        int iVar4;
-        uint uVar5;
+        unsigned short uVar3;
+        unsigned int uVar5;
         int iVar6;
         int iVar7;
         int iVar8;
-        undefined4 uVar9;
-        type* ptVar10;
-        vector* pvVar11;
-        undefined4* puVar12;
+        uint32_t uVar9;
+        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar11;
+        uint32_t* puVar12;
         int* piVar13;
-        ulong uVar14;
-        type* ptVar15;
-        char* pcVar16;
+        unsigned long arg1_00;
+        char* str;
         int local_34;
 
-        SetDataRaw(param_1);
-        SetMidiPos(this, 0);
-        iVar4 = g4();
+        SetDataRaw(arg1);
+        SetMidiPos(0);
+        int iVar4 = g4();
         if ((iVar4 != 1297377380) || (iVar4 = g4(), iVar4 != 6)) {
-            param_2->Raise("%s, Unexpected data", "SetMidi");
+            errorCapture.Raise("%s, Unexpected data", "SetMidi");
             return;
         }
-        uVar2 = g2();
+        unsigned short uVar2 = g2();
         if (uVar2 < 2) {
             uVar3 = g2();
             if ((uVar3 != 0) && ((bVar1 = true, uVar2 != 0 || (uVar3 == 1))))
@@ -79,579 +53,471 @@ namespace jag::oldscape::midi2 {
             uVar3 = 0;
         }
         bVar1 = false;
-        param_2->Raise("%s, Unexpected data", "SetMidi");
+        errorCapture.Raise("%s, Unexpected data", "SetMidi");
     LAB_1002d034f:
         if (!bVar1) {
             return;
         }
         uVar2 = g2();
-        uVar14 = (ulong)uVar2;
-        field_32 = (uint)uVar2;
+        unsigned long uVar10 = (unsigned long)uVar2;
+        field_32 = (unsigned int)uVar2;
         field_64 = 500000;
         if ((short)uVar2 < 0) {
-            pcVar16 = "%s, Invalid division: %i";
+            str = "%s, Invalid division: %i";
         } else {
-            ptVar10 = (type*)(ulong)uVar3;
+            uVar10 = (unsigned long)uVar3;
             this_00 = &field_72;
-            this_00->set_max_size((ulong)ptVar10, 3);
-            pcVar16 = (char*)ptVar10;
-            (&field_96, (ulong)ptVar10, 3)->set_max_size();
+            this_00->set_max_size(uVar10, 3);
+            field_96.set_max_size(uVar10, 3);
             local_34 = 0;
             while (true) {
-                if ((int)(uint)uVar3 <= local_34) {
+                if ((int)(unsigned int)uVar3 <= local_34) {
                     field_168 = 0;
-                    (&field_120, (ulong)ptVar10, 3)->set_max_size();
+                    field_120.set_max_size(uVar10, 3);
                     if (uVar3 != 0) {
-                        ptVar15 = (type*)0;
+                        arg1_00 = 0;
                         do {
-                            puVar12 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                                (Array<int, eastl::allocator>*)this_00, (ulong)ptVar15);
+                            puVar12 = (uint32_t*)(*this_00)[arg1_00];
                             uVar9 = *puVar12;
-                            puVar12 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                                (Array<int, eastl::allocator>*)&field_120, (ulong)ptVar15);
+                            puVar12 = &field_120[arg1_00];
                             *puVar12 = uVar9;
-                            ptVar15 = ptVar15 + 1;
-                        } while (ptVar10 != ptVar15);
+                            arg1_00 = arg1_00 + 1;
+                        } while (uVar10 != arg1_00);
                     }
-                    (&field_40, (ulong)ptVar10, 3)->set_max_size();
-                    (&field_144, (ulong)ptVar10, 3)->set_max_size();
+                    field_40.set_max_size(uVar10, 3);
+                    field_144.set_max_size(uVar10, 3);
                     return;
                 }
-                iVar4 = GetMidiPos(this);
-                pvVar11 = SSOBeginPtr(pcVar16);
+                iVar4 = GetMidiPos();
+                pvVar11 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)SSOBeginPtr();
                 iVar6 = pvVar11->end();
                 if (iVar6 < iVar4 + 8)
                     break;
                 iVar4 = g4();
                 iVar6 = g4();
-                iVar7 = GetMidiPos(this);
-                pvVar11 = SSOBeginPtr(pcVar16);
+                iVar7 = GetMidiPos();
+                pvVar11 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)SSOBeginPtr();
                 iVar8 = pvVar11->end();
                 if (iVar8 < iVar7 + iVar6) {
-                    uVar5 = GetMidiPos(this);
-                    pcVar16 = "%s, Midi pos is out of range: %i";
-                    param_2->Raise("%s, Midi pos is out of range: %i", "SetMidi", (ulong)uVar5);
+                    uVar5 = GetMidiPos();
+                    errorCapture.Raise("%s, Midi pos is out of range: %i", "SetMidi", (unsigned long)uVar5);
                 } else {
                     if (iVar4 == 1297379947) {
-                        uVar9 = GetMidiPos(this);
-                        puVar12 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)this_00, (long)local_34);
+                        uVar9 = GetMidiPos();
+                        puVar12 = (uint32_t*)(*this_00)[(long)local_34];
                         *puVar12 = uVar9;
-                        iVar4 = GetMidiPos(this);
-                        piVar13 = (int*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)&field_96, (long)local_34);
+                        iVar4 = GetMidiPos();
+                        piVar13 = &field_96[(long)local_34];
                         *piVar13 = iVar4 + iVar6;
                         local_34 = local_34 + 1;
                     }
-                    iVar4 = GetMidiPos(this);
-                    pcVar16 = (char*)(ulong)(uint)(iVar6 + iVar4);
-                    SetMidiPos(this, iVar6 + iVar4);
+                    iVar4 = GetMidiPos();
+                    SetMidiPos(iVar6 + iVar4);
                 }
                 if (iVar8 < iVar7 + iVar6) {
                     return;
                 }
             }
-            uVar5 = GetMidiPos(this);
-            pcVar16 = "%s, Midi pos is out of range: %i";
-            uVar14 = (ulong)uVar5;
+            uVar5 = GetMidiPos();
+            str = "%s, Midi pos is out of range: %i";
+            uVar10 = (unsigned long)uVar5;
         }
-        param_2->Raise(pcVar16, "SetMidi", uVar14);
+        errorCapture.Raise(str, "SetMidi", uVar10);
     }
 
-    // 0x1002d0590, 16 bytes, complete-object constructor, placed by class name
-    // MidiParser::MidiParser(Array<unsigned char, eastl::allocator>&, ErrorCapture&): jumps straight to the base-object constructor
+    // 0x1002d0600
+    void MidiParser::SetMidiPos(int arg1) {
+        unsigned long arg1_00;
 
-    // 0x1002d0600, 64 bytes, placed by class name
-    // MidiParser::SetMidiPos(int)
-    void MidiParser::SetMidiPos(int param_1) {
-        ulong uVar2;
-
-        m_midiPos = param_1;
-        if (param_1 < 0) {
-            uVar2 = GetTextureAtlas() - 1;
+        field_176 = arg1;
+        if (arg1 < 0) {
+            arg1_00 = GetTextureAtlas() - 1;
         } else {
-            uVar2 = (ulong)param_1;
+            arg1_00 = (unsigned long)arg1;
         }
-        SetPos(uVar2);
+        SetPos(arg1_00);
     }
 
-    // 0x1002d0640, 32 bytes, placed by class name
-    // MidiParser::GetMidiPos()
+    // 0x1002d0640
     void MidiParser::GetMidiPos() {
-        if (-1 < m_midiPos) {
+        if (-1 < field_176) {
             size();
         }
     }
 
-    // 0x1002d0660, 112 bytes, placed by class name
-    // MidiParser::DropMidi()
+    // 0x1002d0660
     void MidiParser::DropMidi() {
-        vector* this_00;
-        type* in_RSI;
-
-        this_00 = SSOBeginPtr(in_RSI);
-        this_00->set_max_size(0, 0);
-        (&field_72, 0, 0)->set_max_size();
-        (&field_96, 0, 0)->set_max_size();
-        (&field_120, 0, 0)->set_max_size();
-        (&field_40, 0, 0)->set_max_size();
-        (&field_144, 0, 0)->set_max_size();
+        ((Array<unsigned char>*)SSOBeginPtr())->set_max_size(0, 0);
+        field_72.set_max_size(0, 0);
+        field_96.set_max_size(0, 0);
+        field_120.set_max_size(0, 0);
+        field_40.set_max_size(0, 0);
+        field_144.set_max_size(0, 0);
     }
 
-    // 0x1002d06d0, 32 bytes, placed by class name
-    // MidiParser::GotMidi()
-    ulong MidiParser::GotMidi() {
-        vector* this_00;
-        ulong uVar1;
-        type* in_RSI;
-
-        this_00 = SSOBeginPtr(in_RSI);
-        uVar1 = this_00->empty();
-        return uVar1 ^ 1;
+    // 0x1002d06d0
+    uint8_t MidiParser::GotMidi() {
+        return ((Array<game::VarValue>*)SSOBeginPtr())->empty() ^ 1;
     }
 
-    // 0x1002d06f0, 16 bytes, placed by class name
-    // MidiParser::NumTracks()
+    // 0x1002d06f0
     void MidiParser::NumTracks() {
-        (&field_120)->end();
+        field_120.end();
     }
 
-    // 0x1002d0700, 48 bytes, placed by class name
-    // MidiParser::SetTrack(int)
-    void MidiParser::SetTrack(int param_1) {
-        int* piVar1;
-
-        piVar1 =
-            (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_120, (long)param_1);
-        SetMidiPos(this, *piVar1);
+    // 0x1002d0700
+    void MidiParser::SetTrack(int arg1) {
+        int* piVar1 = &field_120[(long)arg1];
+        SetMidiPos(*piVar1);
     }
 
-    // 0x1002d0730, 64 bytes, placed by class name
-    // MidiParser::UnsetTrack(int)
-    void MidiParser::UnsetTrack(int param_1) {
-        undefined4* puVar1;
-        undefined4 uVar2;
-
-        uVar2 = GetMidiPos(this);
-        puVar1 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_120,
-                                                                       (long)param_1);
+    // 0x1002d0730
+    void MidiParser::UnsetTrack(int arg1) {
+        uint32_t uVar2 = GetMidiPos();
+        uint32_t* puVar1 = &field_120[(long)arg1];
         *puVar1 = uVar2;
     }
 
-    // 0x1002d0770, 16 bytes, placed by class name
-    // MidiParser::FinishTrack()
+    // 0x1002d0770
     void MidiParser::FinishTrack() {
-        SetMidiPos(this, -1);
+        SetMidiPos(-1);
     }
 
-    // 0x1002d0780, 32 bytes, placed by class name
-    // MidiParser::TrackFinished()
+    // 0x1002d0780
     bool MidiParser::TrackFinished() {
-        return GetMidiPos(this) == -1;
+        return GetMidiPos() == -1;
     }
 
-    // 0x1002d07a0, 176 bytes, placed by class name
-    // MidiParser::Reset()
+    // 0x1002d07a0
     void MidiParser::Reset() {
-        undefined4 uVar1;
-        undefined4* puVar2;
-        uint uVar3;
-        ulong uVar4;
+        uint32_t uVar1;
+        uint32_t* puVar2;
+        unsigned long arg1;
 
         field_168 = 0;
-        uVar3 = (&field_120)->end();
+        unsigned int uVar3 = field_120.end();
         if (0 < (int)uVar3) {
-            uVar4 = 0;
+            arg1 = 0;
             do {
-                puVar2 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_40,
-                                                                               uVar4);
+                puVar2 = &field_40[arg1];
                 *puVar2 = 0;
-                puVar2 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&field_144, uVar4);
+                puVar2 = &field_144[arg1];
                 *puVar2 = 0;
-                puVar2 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_72,
-                                                                               uVar4);
+                puVar2 = &field_72[arg1];
                 uVar1 = *puVar2;
-                puVar2 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&field_120, uVar4);
+                puVar2 = &field_120[arg1];
                 *puVar2 = uVar1;
-                uVar4 = uVar4 + 1;
-            } while (uVar3 != uVar4);
+                arg1 = arg1 + 1;
+            } while (uVar3 != arg1);
         }
     }
 
-    // 0x1002d0850, 64 bytes, placed by class name
-    // MidiParser::ProcessDeltaTime(int)
-    void MidiParser::ProcessDeltaTime(int param_1) {
-        int iVar1;
-        int* piVar2;
-
-        iVar1 = gMidiVarLen();
-        piVar2 =
-            (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_40, (long)param_1);
+    // 0x1002d0850
+    void MidiParser::ProcessDeltaTime(int arg1) {
+        int iVar1 = gMidiVarLen();
+        int* piVar2 = &field_40[(long)arg1];
         *piVar2 = *piVar2 + iVar1;
     }
 
-    // 0x1002d0890, 112 bytes, placed by class name
-    // MidiParser::GetEvent(int)
-    undefined4 MidiParser::GetEvent(int param_1) {
-        undefined4 uVar1;
-        uint uVar2;
-        int* piVar3;
-
-        uVar1 = GetEvent2(this, param_1);
-        uVar2 = GetMidiPos(this);
-        piVar3 =
-            (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_96, (long)param_1);
+    // 0x1002d0890
+    uint32_t MidiParser::GetEvent(int arg1) {
+        uint32_t uVar1 = GetEvent2(arg1);
+        unsigned int uVar2 = GetMidiPos();
+        int* piVar3 = &field_96[(long)arg1];
         if (*piVar3 < (int)uVar2) {
-            /* WARNING: Subroutine does not return */
             LogAssert("checkMidiPos <= m_trackEnd[track]",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiparser.cpp",
-                      211, "Unexpected midi pos: %i", (ulong)uVar2);
+                      211, "Unexpected midi pos: %i", (unsigned long)uVar2);
         }
         return uVar1;
     }
 
-    // 0x1002d0900, 368 bytes, placed by class name
-    // MidiParser::GetEvent2(int)
-    /* WARNING: Removing unreachable block (ram,4297919074) */
-    /* MidiParser::GetEvent2(int) */
-
-    undefined8 MidiParser::GetEvent2(int param_1) {
-        byte bVar1;
-        int iVar2;
+    // 0x1002d0900
+    uint64_t MidiParser::GetEvent2(int arg1) {
+        uint8_t bVar1;
         int iVar3;
-        vector* pvVar4;
-        byte* pbVar5;
-        uint* puVar6;
-        undefined8 uVar7;
-        uint uVar8;
-        undefined4 in_register_00000034;
-        type* ptVar9;
+        unsigned int* puVar6;
+        uint64_t uVar7;
 
-        pvVar4 = SSOBeginPtr((type*)CONCAT44(in_register_00000034, param_1));
-        iVar2 = GetMidiPos(this);
-        pbVar5 = (byte*)Array<unsigned char, eastl::allocator>::operator[](
-            (Array<unsigned char, eastl::allocator>*)pvVar4, (long)iVar2);
-        uVar8 = (uint)*pbVar5;
-        ptVar9 = (type*)(long)param_1;
+        auto pAVar4 = SSOBeginPtr();
+        int iVar2 = GetMidiPos();
+        uint8_t* pbVar5 = (uint8_t*)(*pAVar4)[(long)iVar2];
+        unsigned int arg2 = (unsigned int)*pbVar5;
         if ((char)*pbVar5 < '\0') {
-            puVar6 = (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_144,
-                                                                     (ulong)ptVar9);
-            *puVar6 = uVar8;
-            iVar2 = GetMidiPos(this);
-            ptVar9 = (type*)(ulong)(iVar2 + 1U);
-            SetMidiPos(this, iVar2 + 1U);
+            puVar6 = &field_144[(long)arg1];
+            *puVar6 = arg2;
+            iVar2 = GetMidiPos();
+            SetMidiPos(iVar2 + 1);
         } else {
-            puVar6 = (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_144,
-                                                                     (ulong)ptVar9);
-            uVar8 = *puVar6;
-            if (uVar8 == 0) {
-                /* WARNING: Subroutine does not return */
+            puVar6 = &field_144[(long)arg1];
+            arg2 = *puVar6;
+            if (arg2 == 0) {
                 LogAssert("status != 0",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiparser.cpp",
                           233, "Unexpected zero status");
             }
         }
-        if ((uVar8 == 247) || (uVar8 == 240)) {
+        if ((arg2 == 247) || (arg2 == 240)) {
             iVar2 = gMidiVarLen();
-            if ((uVar8 == 247) && (0 < iVar2)) {
-                pvVar4 = SSOBeginPtr(ptVar9);
-                iVar3 = GetMidiPos(this);
-                pbVar5 = (byte*)Array<unsigned char, eastl::allocator>::operator[](
-                    (Array<unsigned char, eastl::allocator>*)pvVar4, (long)iVar3);
+            if ((arg2 == 247) && (0 < iVar2)) {
+                pAVar4 = (Array<unsigned char>*)SSOBeginPtr();
+                iVar3 = GetMidiPos();
+                pbVar5 = (uint8_t*)(*pAVar4)[(long)iVar3];
                 bVar1 = *pbVar5;
-                if (((byte)(bVar1 + 15) < 14) && ((11943UL >> ((ulong)(byte)(bVar1 + 15) & 63) & 1) != 0)) {
-                    iVar2 = GetMidiPos(this);
-                    SetMidiPos(this, iVar2 + 1);
-                    puVar6 = (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_144,
-                                                                             (long)param_1);
-                    *puVar6 = (uint)bVar1;
-                    uVar7 = GetEvent3(this, param_1, (uint)bVar1);
+                if (((uint8_t)(bVar1 + 15) < 14) &&
+                    ((11943UL >> ((unsigned long)(uint8_t)(bVar1 + 15) & 63) & 1) != 0)) {
+                    iVar2 = GetMidiPos();
+                    SetMidiPos(iVar2 + 1);
+                    puVar6 = &field_144[(long)arg1];
+                    *puVar6 = (unsigned int)bVar1;
+                    uVar7 = GetEvent3(arg1, (unsigned int)bVar1);
                     return uVar7;
                 }
             }
-            iVar3 = GetMidiPos(this);
-            SetMidiPos(this, iVar2 + iVar3);
+            iVar3 = GetMidiPos();
+            SetMidiPos(iVar2 + iVar3);
             uVar7 = 0;
         } else {
-            uVar7 = GetEvent3(this, param_1, uVar8);
+            uVar7 = GetEvent3(arg1, arg2);
         }
         return uVar7;
     }
 
-    // 0x1002d0a70, 272 bytes, placed by class name
-    // MidiParser::GetEvent3(int, int)
-    uint MidiParser::GetEvent3(int param_1, int param_2) {
+    // 0x1002d0a70
+    unsigned int MidiParser::GetEvent3(int arg1, int arg2) {
         char cVar1;
-        byte bVar2;
+        uint8_t bVar2;
         int iVar3;
         int iVar4;
         char* pcVar5;
         int* piVar6;
+        uint32_t in_register_00000034;
 
-        if (param_2 == 255) {
+        if (arg2 == 255) {
             cVar1 = g1();
             iVar3 = gMidiVarLen();
             if (cVar1 == 'Q') {
                 iVar4 = g3();
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_40,
-                                                                        (long)param_1);
+                piVar6 = &field_40[(long)arg1];
                 field_168 = field_168 + ((long)field_64 - (long)iVar4) * (long)*piVar6;
                 field_64 = iVar4;
-                iVar4 = GetMidiPos(this);
-                SetMidiPos(this, iVar3 + iVar4 + -3);
-                param_2 = 2;
+                iVar4 = GetMidiPos();
+                SetMidiPos(iVar3 + iVar4 - 3);
+                arg2 = 2;
             } else if (cVar1 == '/') {
-                iVar4 = GetMidiPos(this);
-                SetMidiPos(this, iVar3 + iVar4);
-                param_2 = 1;
+                iVar4 = GetMidiPos();
+                SetMidiPos(iVar3 + iVar4);
+                arg2 = 1;
             } else {
-                iVar4 = GetMidiPos(this);
-                SetMidiPos(this, iVar3 + iVar4);
-                param_2 = 3;
+                iVar4 = GetMidiPos();
+                SetMidiPos(iVar3 + iVar4);
+                arg2 = 3;
             }
         } else {
-            pcVar5 = (char*)std::array<signed char, 128ul>::operator[]((long)(param_2 + -128));
+            pcVar5 = (char*)(*(
+                (array<signed char, 128ul>*)(long)(arg2 -
+                                                   128)))[(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1)];
             cVar1 = *pcVar5;
             if ('\0' < cVar1) {
                 bVar2 = g1();
-                param_2 = (uint)bVar2 << 8 | param_2;
+                arg2 = (unsigned int)bVar2 << 8 | arg2;
             }
             if ('\x01' < cVar1) {
                 bVar2 = g1();
-                param_2 = (uint)bVar2 << 16 | param_2;
+                arg2 = (unsigned int)bVar2 << 16 | arg2;
             }
         }
-        return param_2;
+        return arg2;
     }
 
-    // 0x1002d0b90, 32 bytes, placed by class name
-    // MidiParser::TimeFromTick(int)
-    long MidiParser::TimeFromTick(int param_1) {
-        return (long)field_64 * (long)param_1 + field_168;
+    // 0x1002d0b90
+    long MidiParser::TimeFromTick(int arg1) {
+        return (long)field_64 * (long)arg1 + field_168;
     }
 
-    // 0x1002d0bb0, 160 bytes, placed by class name
-    // MidiParser::NextTrackToPlay()
-    undefined4 MidiParser::NextTrackToPlay() {
-        uint uVar1;
+    // 0x1002d0bb0
+    uint32_t MidiParser::NextTrackToPlay() {
         int* piVar2;
-        ulong uVar3;
-        int iVar4;
-        undefined8 uStack_38;
+        unsigned long arg1;
+        int iVar3;
+        uint64_t uStack_38;
 
-        uVar1 = (&field_120)->end();
+        unsigned int uVar1 = field_120.end();
         if ((int)uVar1 < 1) {
             uStack_38._4_4_ = 4294967295;
         } else {
             uStack_38 = -4294967296;
-            iVar4 = 2147483647;
-            uVar3 = 0;
+            iVar3 = 2147483647;
+            arg1 = 0;
             do {
-                piVar2 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_120, uVar3);
+                piVar2 = &field_120[arg1];
                 if (*piVar2 != -1) {
-                    piVar2 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_40, uVar3);
-                    if (*piVar2 < iVar4) {
-                        piVar2 = (int*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)&field_40, uVar3);
-                        iVar4 = *piVar2;
-                        uStack_38 = uVar3 << 32;
+                    piVar2 = &field_40[arg1];
+                    if (*piVar2 < iVar3) {
+                        piVar2 = &field_40[arg1];
+                        iVar3 = *piVar2;
+                        uStack_38 = arg1 << 32;
                     }
                 }
-                uVar3 = uVar3 + 1;
-            } while (uVar1 != uVar3);
+                arg1 = arg1 + 1;
+            } while (uVar1 != arg1);
         }
         return uStack_38._4_4_;
     }
 
-    // 0x1002d0c50, 144 bytes, placed by class name
-    // MidiParser::AllTracksFinished()
-    ulong MidiParser::AllTracksFinished() {
-        uint uVar1;
+    // 0x1002d0c50
+    unsigned long MidiParser::AllTracksFinished() {
         int* piVar2;
-        ulong uVar3;
-        bool bVar4;
-        undefined8 unaff_R12;
-        undefined1* this_00;
+        unsigned long arg1;
+        uint64_t unaff_R12;
 
-        this_00 = &field_120;
-        uVar1 = this_00->end();
-        bVar4 = 0 < (int)uVar1;
+        uint8_t* this_00 = &field_120;
+        unsigned int uVar1 = this_00->end();
+        bool bVar3 = 0 < (int)uVar1;
         if (0 < (int)uVar1) {
-            piVar2 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, 0);
-            bVar4 = true;
+            piVar2 = (int*)(*this_00)[0];
+            bVar3 = true;
             if (*piVar2 < 0) {
-                uVar3 = 1;
+                arg1 = 1;
                 do {
-                    bVar4 = (long)uVar3 < (long)(int)uVar1;
-                    if (uVar1 == uVar3)
+                    bVar3 = (long)arg1 < (long)(int)uVar1;
+                    if (uVar1 == arg1)
                         break;
-                    piVar2 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, uVar3);
-                    uVar3 = uVar3 + 1;
+                    piVar2 = (int*)(*this_00)[arg1];
+                    arg1 = arg1 + 1;
                 } while (*piVar2 < 0);
             }
         }
-        return (CONCAT71((int7)((ulong)unaff_R12 >> 8), bVar4) ^ 1) & 4294967295;
+        return ((((uint64_t)((int64_t)((unsigned long)unaff_R12 >> 8)) << 8) | (uint8_t)bVar3) ^ 1) & 4294967295;
     }
 
-    // 0x1002d0ce0, 208 bytes, placed by class name
-    // MidiParser::Restart(long long)
-    void MidiParser::Restart(longlong param_1) {
-        undefined4* puVar1;
+    // 0x1002d0ce0
+    void MidiParser::Restart(long long arg1) {
+        uint32_t* puVar1;
         int* piVar2;
-        uint uVar3;
-        undefined4 uVar4;
-        ulong uVar5;
+        uint32_t uVar4;
+        unsigned long arg1_00;
 
-        field_168 = param_1;
-        uVar3 = (&field_120)->end();
+        field_168 = arg1;
+        unsigned int uVar3 = field_120.end();
         if (0 < (int)uVar3) {
-            uVar5 = 0;
+            arg1_00 = 0;
             do {
-                puVar1 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_40,
-                                                                               uVar5);
+                puVar1 = &field_40[arg1_00];
                 *puVar1 = 0;
-                puVar1 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&field_144, uVar5);
+                puVar1 = &field_144[arg1_00];
                 *puVar1 = 0;
-                piVar2 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_72, uVar5);
-                SetMidiPos(this, *piVar2);
-                ProcessDeltaTime(this, (int)uVar5);
-                uVar4 = GetMidiPos(this);
-                puVar1 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&field_120, uVar5);
+                piVar2 = &field_72[arg1_00];
+                SetMidiPos(*piVar2);
+                ProcessDeltaTime((int)arg1_00);
+                uVar4 = GetMidiPos();
+                puVar1 = &field_120[arg1_00];
                 *puVar1 = uVar4;
-                uVar5 = uVar5 + 1;
-            } while (uVar3 != uVar5);
+                arg1_00 = arg1_00 + 1;
+            } while (uVar3 != arg1_00);
         }
     }
 
-    // 0x1002d0db0, 496 bytes, placed by class name
-    // MidiParser::Resize(int, int, int, int)
-    void MidiParser::Resize(int param_1, int param_2, int param_3, int param_4) {
+    // 0x1002d0db0
+    void MidiParser::Resize(int arg1, int arg2, int arg3, int arg4) {
         int iVar1;
-        int iVar2;
-        vector* pvVar3;
+        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar3;
         long lVar4;
         void* pvVar5;
-        type* ptVar6;
+        void* pvVar6;
         long lVar7;
         int* piVar8;
-        ulong uVar9;
-        undefined4 in_register_00000034;
-        int iVar10;
-        undefined1* this_00;
-        Array<unsigned char, eastl::allocator> local_68[24];
+        unsigned long uVar9;
+        uint8_t* this_00;
+        Array<unsigned char> local_68;
         void* local_50;
-        Array<int, eastl::allocator>* local_48;
-        ulong local_38;
+        Array<int>* local_48;
+        unsigned long local_38;
 
-        iVar10 = param_4 - param_3;
+        int iVar10 = arg4 - arg3;
         if (iVar10 != 0) {
-            pvVar3 = SSOBeginPtr((type*)CONCAT44(in_register_00000034, param_1));
+            pvVar3 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)SSOBeginPtr();
             lVar4 = pvVar3->end();
-            local_38 = (ulong)param_3;
-            local_50 = (void*)(long)param_4;
-            Array<unsigned char, eastl::allocator>::Array(local_68, ((long)local_50 - local_38) + lVar4);
-            pvVar5 = (void*)local_68->data();
-            ptVar6 = (type*)GetDataPtr();
-            local_48 = (Array<int, eastl::allocator>*)(long)param_2;
-            _memcpy(pvVar5, ptVar6, (size_t)local_48);
-            lVar4 = local_68->data();
+            local_38 = (unsigned long)arg3;
+            local_50 = (void*)(long)arg4;
+            local_68 = Array<unsigned char>(((long)local_50 - local_38) + lVar4);
+            pvVar5 = (void*)local_68.data();
+            pvVar6 = (void*)GetDataPtr();
+            local_48 = (Array<int>*)(long)arg2;
+            _memcpy(pvVar5, pvVar6, (size_t)local_48);
+            lVar4 = local_68.data();
             lVar7 = GetDataPtr();
             uVar9 = local_38;
             pvVar5 = (void*)(lVar4 + (long)local_48 + (long)local_50);
             local_50 = (void*)(lVar7 + (long)local_48 + local_38);
-            pvVar3 = SSOBeginPtr(ptVar6);
+            pvVar3 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)SSOBeginPtr();
             lVar4 = pvVar3->end();
             _memcpy(pvVar5, local_50, lVar4 - (uVar9 + (long)local_48));
             SetDataRaw(local_68);
-            local_48 = (Array<int, eastl::allocator>*)&field_72;
-            local_38 = (ulong)param_1;
-            piVar8 = (int*)Array<int, eastl::allocator>::operator[](local_48, local_38);
-            SetMidiPos(this, *piVar8 + -4);
+            local_48 = (Array<int>*)&field_72;
+            local_38 = (unsigned long)arg1;
+            piVar8 = (int*)(*local_48)[local_38];
+            SetMidiPos(*piVar8 - 4);
             iVar1 = g4();
-            iVar2 = GetMidiPos(this);
-            SetMidiPos(this, iVar2 + -4);
-            PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                (PacketT<Array<unsigned char, eastl::allocator>>*)this, iVar1 + iVar10);
-            piVar8 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_96, local_38);
+            SetMidiPos(GetMidiPos() - 4);
+            p4<int>(iVar1 + iVar10);
+            piVar8 = &field_96[local_38];
             *piVar8 = *piVar8 + iVar10;
             this_00 = &field_120;
-            piVar8 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, local_38);
-            if (param_2 < *piVar8) {
-                piVar8 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, local_38);
+            piVar8 = (int*)(*this_00)[local_38];
+            if (arg2 < *piVar8) {
+                piVar8 = (int*)(*this_00)[local_38];
                 *piVar8 = *piVar8 + iVar10;
             }
             iVar1 = this_00->end();
-            if (param_1 + 1 < iVar1) {
-                uVar9 = (ulong)(param_1 + 1);
-                iVar1 = ~param_1 + iVar1;
+            if (arg1 + 1 < iVar1) {
+                uVar9 = (unsigned long)(arg1 + 1);
+                iVar1 = ~arg1 + iVar1;
                 do {
-                    piVar8 = (int*)Array<int, eastl::allocator>::operator[](local_48, uVar9);
+                    piVar8 = (int*)(*local_48)[uVar9];
                     *piVar8 = *piVar8 + iVar10;
-                    piVar8 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, uVar9);
+                    piVar8 = (int*)(*this_00)[uVar9];
                     *piVar8 = *piVar8 + iVar10;
-                    piVar8 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_96, uVar9);
+                    piVar8 = &field_96[uVar9];
                     *piVar8 = *piVar8 + iVar10;
                     uVar9 = uVar9 + 1;
-                    iVar1 = iVar1 + -1;
+                    iVar1 = iVar1 - 1;
                 } while (iVar1 != 0);
             }
-            local_68->~Array();
         }
     }
 
-    // 0x1002d0fa0, 64 bytes, placed by class name
-    // MidiParser::InsertEvent(int, int, Array<signed char, eastl::allocator>&, ErrorCapture&)
-    void MidiParser::InsertEvent(int param_1, int param_2, Array* param_3, ErrorCapture* param_4) {
-        vector* this_00;
-        undefined4 in_register_00000034;
-
-        this_00 = SSOBeginPtr((type*)CONCAT44(in_register_00000034, param_1));
-        Array<unsigned char, eastl::allocator>::operator[]((Array<unsigned char, eastl::allocator>*)this_00,
-                                                           (long)param_2);
-        param_4->Raise("Cannot insert event here: will break running status");
+    // 0x1002d0fa0
+    void MidiParser::InsertEvent(int arg1, int arg2, Array<signed char>& arg3, ErrorCapture& errorCapture) {
+        auto this_00 = SSOBeginPtr();
+        (*this_00)[(long)arg2];
+        errorCapture.Raise("Cannot insert event here: will break running status");
     }
 
-    // 0x1002d0fe0, 224 bytes, placed by class name
-    // MidiParser::ChangeDeltaTime(int, int, int)
-    void MidiParser::ChangeDeltaTime(int param_1, int param_2, int param_3) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-
-        SetMidiPos(this, param_2);
+    // 0x1002d0fe0
+    void MidiParser::ChangeDeltaTime(int arg1, int arg2, int arg3) {
+        SetMidiPos(arg2);
         gMidiVarLen();
-        iVar1 = GetMidiPos(this);
-        iVar3 = 3;
-        if (param_3 < 16384) {
-            iVar3 = (127 < param_3) + 1;
+        int iVar1 = GetMidiPos();
+        int iVar3 = 3;
+        if (arg3 < 16384) {
+            iVar3 = (127 < arg3) + 1;
         }
-        iVar2 = 4;
-        if (param_3 < 2097152) {
+        int iVar2 = 4;
+        if (arg3 < 2097152) {
             iVar2 = iVar3;
         }
         iVar3 = 5;
-        if (param_3 < 268435456) {
+        if (arg3 < 268435456) {
             iVar3 = iVar2;
         }
-        Resize(this, param_1, param_2, iVar1 - param_2, iVar3);
-        SetMidiPos(this, param_2);
-        pMidiVarLen(param_3);
-        iVar1 = GetMidiPos(this);
-        if (iVar1 - param_2 != iVar3) {
-            /* WARNING: Subroutine does not return */
+        Resize(arg1, arg2, iVar1 - arg2, iVar3);
+        SetMidiPos(arg2);
+        pMidiVarLen(arg3);
+        iVar1 = GetMidiPos();
+        if (iVar1 - arg2 != iVar3) {
             LogAssert("GetMidiPos() - pos == newlen",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiparser.cpp",

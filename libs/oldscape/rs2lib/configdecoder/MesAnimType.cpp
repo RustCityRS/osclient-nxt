@@ -1,101 +1,83 @@
 // libs/oldscape/rs2lib/configdecoder/MesAnimType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 namespace jag::oldscape::configdecoder {
     class MesAnimType {
     public:
-        void Init(jagex3::Js5*);
-        MesAnimType* List(int);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&, int);
+        void Init(jagex3::Js5* js5);
+        auto List(int arg1);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2);
         void ResetCache();
-        static /* 8 bytes */ m_pConfigClient;
-        static /* 5376 bytes */ m_recentUse;
+        static int64_t m_pConfigClient;
+        static LRUHashCache<MesAnimType, 64ul, 65ul, false, unsigned long long> m_recentUse;
 
-        // data members, from how the methods use this: 16 bytes
-        char _unknown_0[8];
-        long field_8; // offset 8
+        uint8_t _unknown_0[1];
     };
 
-    // 0x10103bf30, 8 bytes, __common; zero-initialised
-    MesAnimType::m_pConfigClient;
+    // 0x10103bf30
+    int64_t MesAnimType::m_pConfigClient;
 
-    // 0x10103bf38, 5376 bytes, __common; zero-initialised
-    MesAnimType::m_recentUse;
+    // 0x10103bf38
+    LRUHashCache<MesAnimType, 64ul, 65ul, false, unsigned long long> MesAnimType::m_recentUse;
 
-    // 0x10022cfa0, 16 bytes, placed by class name and debug map
-    // MesAnimType::Init(jagex3::Js5*)
-    void MesAnimType::Init(Js5* param_1) {
-        m_pConfigClient = param_1;
+    // 0x10022cfa0
+    void MesAnimType::Init(jagex3::Js5* js5) {
+        m_pConfigClient = js5;
     }
 
-    // 0x10022cfb0, 288 bytes, placed by class name and debug map
-    // MesAnimType::List(int)
-    MesAnimType* MesAnimType::List(int param_1) {
-        bool bVar1;
-        shared_ptr* psVar2;
-        MesAnimType* this_00;
-        PacketJ* pPVar3;
-        shared_ptr local_40;
-        shared_ptr local_30;
+    // 0x10022cfb0
+    auto MesAnimType::List(int arg1) {
+        MesAnimType* mesAnimType;
+        PacketJ<Array<unsigned char> _>* packetJ;
+        ReturnValue local_40;
+        ReturnValue local_30;
 
-        local_30._0_8_ = (long)param_1;
-        psVar2 = (shared_ptr*)LRUHashCache<MesAnimType, 64ul, 65ul, false, unsigned long long>::Find(
-            (ulonglong*)&m_recentUse);
-        new (this) shared_ptr<dash3d::Decor>(psVar2);
-        bVar1 = operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0);
-        if (!bVar1) {
-            new (&local_30) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            m_pConfigClient->GetFile((int)&local_30, 7, (array*)(ulong)(uint)param_1);
-            make_shared<MesAnimType>((jag*)&local_40);
-            shared_ptr<MesAnimType>::operator=((shared_ptr<MesAnimType>*)this, &local_40);
-            local_40.~shared_ptr();
-            bVar1 = operator!=(&local_30, (_func_decltype_nullptr*)0);
-            if (bVar1) {
-                this_00 = (MesAnimType*)shared_ptr<MesAnimType>::operator->((shared_ptr<MesAnimType>*)this);
-                pPVar3 = (PacketJ*)shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator*(
-                    (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)&local_30);
-                Decode(this_00, pPVar3);
+        local_30[0] = (ReturnValue)(long)arg1;
+        auto groundDecor = m_recentUse.Find(local_30);
+        auto result(groundDecor);
+        if (!(result != nullptr)) {
+            local_30 = shared_ptr();
+            m_pConfigClient->GetFile(local_30, 7, arg1, nullptr);
+            make_shared<MesAnimType>(&local_40);
+            result = local_40;
+            if (local_30 != nullptr) {
+                mesAnimType = (MesAnimType*)(result).operator->();
+                packetJ = (PacketJ<Array<unsigned char> _>*)*local_30;
+                Decode(mesAnimType, packetJ);
             }
-            local_40._0_8_ = (long)param_1;
-            m_recentUse.Put(this, 1, (ulonglong*)&local_40);
-            local_30.~shared_ptr();
+            local_40[0] = (ReturnValue)(long)arg1;
+            m_recentUse.Put(result, 1, local_40);
         }
-        return this;
+        return result;
     }
 
-    // 0x10022d280, 48 bytes, placed by class name and debug map
-    // MesAnimType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&)
-    void MesAnimType::Decode(PacketJ* param_1) {
-        byte bVar1;
+    // 0x10022d280
+    void MesAnimType::Decode(PacketJ<Array<unsigned char>>& packetJ) {
+        uint8_t bVar1;
 
         while (true) {
-            bVar1 = param_1->g1();
+            bVar1 = packetJ.g1();
             if (bVar1 == 0)
                 break;
-            Decode((MesAnimType*)param_1, param_1, (uint)bVar1);
+            Decode((MesAnimType*)packetJ, packetJ, (unsigned int)bVar1);
         }
     }
 
-    // 0x10022d3a0, 64 bytes, placed by class name and debug map
-    // MesAnimType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&, int)
-    void MesAnimType::Decode(PacketJ* param_1, int param_2) {
-        undefined8 in_RAX;
-        undefined4 uVar2;
-        undefined8 uVar1;
+    // 0x10022d3a0
+    void MesAnimType::Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2) {
+        uint64_t in_RAX;
 
-        uVar2 = (undefined4)((ulong)in_RAX >> 32);
-        uVar1 = logger::default_logger();
-        logger::Logger::Log(uVar1, 0, 8,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                            "configdecoder/MesAnimType.cpp",
-                            47, "Error unrecognised .mesanim config code: %i", CONCAT44(uVar2, param_2));
+        uint32_t uVar1 = (uint32_t)((unsigned long)in_RAX >> 32);
+        (logger::default_logger())
+            ->Log(false, 8,
+                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/configdecoder/"
+                  "MesAnimType.cpp",
+                  47, "Error unrecognised .mesanim config code: %i", (((uint64_t)uVar1 << 32) | (uint32_t)arg2));
     }
 
-    // 0x10022d3e0, 32 bytes, placed by class name and debug map
-    // MesAnimType::ResetCache()
+    // 0x10022d3e0
     void MesAnimType::ResetCache() {
         m_recentUse.Reset();
     }
@@ -103,28 +85,27 @@ namespace jag::oldscape::configdecoder {
 } // namespace jag::oldscape::configdecoder
 
 namespace jag {
-    // 0x10022d170, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::configdecoder::MesAnimType>::type make_shared<oldscape::configdecoder::MesAnimType>()
-    jag* make_shared<oldscape::configdecoder::MesAnimType>() {
-        void* pvVar1;
-        ref_counter_shared_trivial* prVar2;
+    // 0x10022d170
+    shared_ptr_if_not_array<oldscape::configdecoder::MesAnimType>::type
+    make_shared<oldscape::configdecoder::MesAnimType>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         MesAnimType* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(24, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>((_func_decltype_nullptr*)(type*)8);
+        auto arg1 = aligned_alloc(24, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::configdecoder::MesAnimType>::type result;
         } else {
-            local_28[0] = (MesAnimType*)(((long)pvVar1 + 16))->SSOBeginPtr(8);
+            local_28[0] = (MesAnimType*)((Layout*)((long)arg1 + 16))->SSOBeginPtr();
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared_trivial<oldscape::configdecoder::MesAnimType>, int,
-                                   oldscape::configdecoder::MesAnimType*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared_trivial<oldscape::configdecoder::MesAnimType>, int,
+                              oldscape::configdecoder::MesAnimType*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

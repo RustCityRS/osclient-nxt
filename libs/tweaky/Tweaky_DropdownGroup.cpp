@@ -1,290 +1,261 @@
 // libs/tweaky/Tweaky_DropdownGroup.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.tweaky
 
 #include "Tweaky_DropdownGroup.h"
 
 namespace jag::tweak {
-    // 0x100a452f0, 1776 bytes, placed by class name and debug map
-    // DropdownGroup::Draw(int, int)
-    void DropdownGroup::Draw(int param_1, int param_2) {
-        uint uVar1;
-        Placement PVar2;
-        bool bVar4;
-        bool bVar5;
+    // 0x100a452f0
+    void DropdownGroup::Draw(int arg1, int arg2) {
+        EnumOptionToggle EVar1;
+        unsigned int uVar2;
+        Placement placement;
+        int iVar4;
+        int iVar5;
         MapArea* this_00;
         int* piVar6;
         Tweaky* pTVar7;
-        basic_string* pbVar8;
-        long lVar9;
-        long* plVar10;
-        int iVar11;
+        long lVar8;
+        long* plVar9;
+        int iVar10;
+        unsigned long uVar11;
         int iVar12;
-        int iVar13;
-        ulong uVar14;
-        int iVar15;
-        StringView SVar16;
-        undefined4 in_stack_ffffffffffffff2c;
-        undefined8 in_stack_ffffffffffffff34;
-        undefined1 auStack_c2[10];
-        GridRect local_b8[2];
-        GridRect local_88;
-        undefined1 local_74[4];
+        uint32_t in_stack_ffffffffffffff2c;
+        uint64_t in_stack_ffffffffffffff34;
+        int aiStack_c0[2];
+        GridRect local_b8;
+        bool local_88[8];
+        int local_80;
+        int local_78[2];
         int* local_70;
-        int local_64;
         int local_60;
-        int local_5c;
         int local_58;
         int local_54;
-        vector<PageInfo, eastl::allocator>* local_50;
-        uint local_48;
-        int local_44;
+        vector<PageInfo>* local_50;
+        unsigned int local_48;
+        unsigned int local_44;
         shared_ptr local_40;
 
-        if ((**(code**)(field_0 + 40))(this, &local_88.field_16, local_74) != '\0') {
-            weak_ptr<oldscape::rs2lib::IfType>::lock();
-            bVar4 = shared_ptr::operator_cast_to_bool(&local_40);
-            if (bVar4) {
-                this_00 = (MapArea*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+        if (GetControlSize(local_78)) {
+            local_40 = field_104.lock();
+            if (shared_ptr::operator_cast_to_bool(&local_40)) {
+                this_00 = (MapArea*)local_40.operator->();
                 piVar6 = (int*)this_00->GetOrigin();
-                iVar11 = piVar6[2];
-                iVar12 = *piVar6;
-                field_36 = iVar11 - iVar12;
-                iVar13 = param_1 + field_24;
-                local_48 = param_2 + field_28;
-                iVar15 = field_40 + local_48;
-                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                iVar5 = piVar6[2];
+                iVar4 = *piVar6;
+                field_36 = iVar5 - iVar4;
+                iVar10 = arg1 + field_24;
+                local_48 = arg2 + field_28;
+                iVar12 = field_40 + local_48;
+                pTVar7 = (Tweaky*)local_40.operator->();
                 local_44 = pTVar7->GetTextCenterYOffset(field_340);
-                oldscape::dash3d::GridRect::GridRect(local_b8, iVar13, local_48, (iVar11 - iVar12) + iVar13, iVar15);
+                new (&local_b8) oldscape::dash3d::GridRect(iVar10, local_48, (iVar5 - iVar4) + iVar10, iVar12);
                 field_136 = local_b8[0].field_0;
                 field_140 = local_b8[0].field_4;
                 field_144 = local_b8[0].field_8;
                 field_148 = local_b8[0].field_12;
                 field_376 = field_136;
                 field_380 = field_140;
-                *(uint*)&field_384 = field_136 + field_344;
-                *(uint*)((long)&field_384 + 4) = field_140 + field_340;
-                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                *(unsigned int*)&field_384 = field_136 + field_344;
+                *(unsigned int*)((long)&field_384 + 4) = field_140 + field_340;
+                pTVar7 = (Tweaky*)local_40.operator->();
                 pTVar7->SetColour(808464639);
-                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                pTVar7 = (Tweaky*)local_40.operator->();
                 pTVar7->FillRect(field_376, field_380, field_344, field_340);
-                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                pTVar7 = (Tweaky*)local_40.operator->();
                 pTVar7->SetColour(2425393407);
-                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                pTVar7 = (Tweaky*)local_40.operator->();
                 pTVar7->FillRect(field_376, field_380, field_344, field_340 - 1);
-                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                pTVar7 = (Tweaky*)local_40.operator->();
                 pTVar7->SetColour(4294967295);
-                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                iVar11 = field_376;
-                local_50 = (vector<PageInfo, eastl::allocator>*)&field_248;
-                pbVar8 = (basic_string*)eastl::vector<PageInfo, eastl::allocator>::operator[](local_50,
-                                                                                              (long)(int)field_280);
+                iVar4 = local_40.operator->();
+                iVar5 = field_376;
+                local_50 = (vector<PageInfo>*)&field_248;
+                iVar10 = (*local_50)[(long)(int)field_280];
                 local_44 = local_44 + local_48;
-                iVar12 = -1;
-                Tweaky::TextDraw<eastl::string>(pTVar7, iVar11 + 1, local_44, pbVar8, -1, -1, false);
-                new (local_b8) eastl::fixed_string<char, 2, true, eastl::allocator>("v");
-                local_5c = 0;
-                local_64 = 0;
-                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
-                    (StringView*)(auStack_c2 + -6), (fixed_string*)local_b8);
-                SVar16.field_8 = (uchar*)4294967295;
-                SVar16.field_0 = (ulong)(auStack_c2 + -6);
-                pTVar7->GetTextSize(&local_5c, &local_64, SVar16, iVar12);
-                uVar14 = field_384;
-                iVar11 = local_5c + field_328;
+                Tweaky::TextDraw<eastl::string>(iVar4, iVar5 + 1, *((fixed_string<char, _16>*)(unsigned long)local_44),
+                                                iVar10, -1, true);
+                local_b8 = eastl::fixed_string<char, 2>("v");
+                pTVar7 = (Tweaky*)local_40.operator->();
+                (&local_b8[-1].field_4)->StringView<eastl::fixed_string<char, 40>>(local_b8);
+                pTVar7->GetTextSize(0, 0, &local_b8[-1].field_4, -1);
+                uVar11 = field_384;
+                iVar4 = 0 + field_328;
                 SetColour(3772834047, field_333);
-                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                Tweaky::TextDraw<eastl::string>(pTVar7, (int)uVar14 - iVar11, local_44, (basic_string*)local_b8, -1, -1,
-                                                false);
-                lVar9 = eastl::vector<PageInfo, eastl::allocator>::operator[](local_50, (long)(int)field_280);
+                iVar5 = local_40.operator->();
+                Tweaky::TextDraw<eastl::string>(iVar5, (int)uVar11 - iVar4,
+                                                *((fixed_string<char, _16>*)(unsigned long)local_44), (int)&local_b8,
+                                                -1, true);
+                lVar8 = (*local_50)[(long)(int)field_280];
                 local_58 = 0;
                 local_54 = 0;
-                plVar10 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar9 + 32));
-                (**(code**)(*plVar10 + 40))(plVar10, &local_58, &local_54);
-                iVar11 = *(int*)((long)&field_384 + 4);
+                plVar9 = (long*)(*((lVar8 + 32))).operator->();
+                (**(void (**)(...))(*plVar9 + 40))(plVar9, &local_58, &local_54);
+                iVar5 = *(int*)((long)&field_384 + 4);
                 field_392 = field_376;
-                field_396 = iVar11;
+                field_396 = iVar5;
                 field_400 = field_376 + local_58;
-                field_404 = iVar11 + local_54;
-                plVar10 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar9 + 32));
-                (**(code**)(*plVar10 + 32))(plVar10, field_392, field_396);
+                field_404 = iVar5 + local_54;
+                plVar9 = (long*)(*((lVar8 + 32))).operator->();
+                (**(void (**)(...))(*plVar9 + 32))(plVar9, field_392, field_396);
                 field_304 = field_136;
                 field_308 = field_404;
                 field_312 = field_136 + field_320;
                 field_316 = field_404 + field_324;
-                plVar10 = (long*)shared_ptr<Settings>::operator->((shared_ptr<Settings>*)&field_288);
-                (**(code**)(*plVar10 + 32))(plVar10, field_304, field_308);
-                iVar11 = field_380;
-                iVar12 = field_340 + iVar11;
+                plVar9 = (long*)field_288.operator->();
+                (**(void (**)(...))(*plVar9 + 32))(plVar9, field_304, field_308);
+                iVar5 = field_380;
+                iVar4 = field_340 + iVar5;
                 if (field_332 != '\0') {
-                    uVar1 = field_356;
-                    uVar14 = (ulong)(int)uVar1;
-                    iVar13 = local_50->size();
-                    if ((int)uVar1 < iVar13) {
+                    EVar1 = field_356;
+                    uVar11 = (unsigned long)(int)EVar1;
+                    iVar10 = local_50->size();
+                    if ((int)EVar1 < iVar10) {
                         local_70 = &field_136;
                         do {
-                            uVar1 = field_340;
-                            iVar12 = iVar12 + uVar1;
-                            if (field_352 <= (int)((uint)uVar14 - field_356))
+                            uVar2 = field_340;
+                            iVar4 = iVar4 + uVar2;
+                            if (field_352 <= (int)((EnumOptionToggle)uVar11 - field_356))
                                 break;
-                            iVar11 = iVar11 + uVar1;
-                            local_60 = iVar12;
-                            local_48 = uVar1;
-                            if ((uint)uVar14 == field_336) {
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                            iVar5 = iVar5 + uVar2;
+                            local_60 = iVar4;
+                            local_48 = uVar2;
+                            if ((EnumOptionToggle)uVar11 == field_336) {
+                                pTVar7 = (Tweaky*)local_40.operator->();
                                 pTVar7->SetColour(1886417151);
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                                pTVar7->FillRect(field_136, iVar11, field_344, field_340);
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                                pTVar7 = (Tweaky*)local_40.operator->();
+                                pTVar7->FillRect(field_136, iVar5, field_344, field_340);
+                                pTVar7 = (Tweaky*)local_40.operator->();
                                 pTVar7->SetColour(2155937791);
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                                pTVar7->FillRect(field_136, iVar11, field_344, field_340 - 1);
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                                pTVar7 = (Tweaky*)local_40.operator->();
+                                pTVar7->FillRect(field_136, iVar5, field_344, field_340 - 1);
+                                pTVar7 = (Tweaky*)local_40.operator->();
                             } else {
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                                pTVar7 = (Tweaky*)local_40.operator->();
                                 pTVar7->SetColour(1886417151);
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                                pTVar7->FillRect(field_136, iVar11, field_344, field_340);
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                                pTVar7 = (Tweaky*)local_40.operator->();
+                                pTVar7->FillRect(field_136, iVar5, field_344, field_340);
+                                pTVar7 = (Tweaky*)local_40.operator->();
                                 pTVar7->SetColour(2425393407);
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                                pTVar7->FillRect(field_136, iVar11, field_344, field_340 - 1);
-                                pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
+                                pTVar7 = (Tweaky*)local_40.operator->();
+                                pTVar7->FillRect(field_136, iVar5, field_344, field_340 - 1);
+                                pTVar7 = (Tweaky*)local_40.operator->();
                             }
                             pTVar7->SetColour(4294967295);
-                            pTVar7 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                            iVar12 = *local_70;
-                            pbVar8 =
-                                (basic_string*)eastl::vector<PageInfo, eastl::allocator>::operator[](local_50, uVar14);
+                            iVar10 = local_40.operator->();
+                            iVar4 = *local_70;
+                            iVar12 = (*local_50)[uVar11];
                             local_44 = local_44 + local_48;
-                            Tweaky::TextDraw<eastl::string>(pTVar7, iVar12 + 1, local_44, pbVar8, -1, -1, false);
-                            uVar14 = uVar14 + 1;
-                            iVar13 = local_50->size();
-                            iVar12 = local_60;
-                        } while ((long)uVar14 < (long)iVar13);
+                            Tweaky::TextDraw<eastl::string>(iVar10, iVar4 + 1,
+                                                            *((fixed_string<char, _16>*)(unsigned long)local_44),
+                                                            iVar12, -1, true);
+                            uVar11 = uVar11 + 1;
+                            iVar10 = local_50->size();
+                            iVar4 = local_60;
+                        } while ((long)uVar11 < (long)iVar10);
                     }
                 }
                 field_360 = field_376;
                 field_364 = field_384 << 32 | field_384 >> 32;
-                field_372 = iVar12;
+                field_372 = iVar4;
                 if (field_332 != '\0') {
-                    iVar11 = local_50->size();
-                    if (field_348 < iVar11) {
-                        iVar11 = field_140 + field_340;
-                        new (&local_88) oldscape::dash3d::GridRect(
-                            field_344 + field_136 + -2, iVar11, field_344 + field_136, field_340 * field_352 + iVar11);
-                        bVar4 = (bool)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                        bVar5 = (bool)local_50->size();
-                        PVar2.field_4 = in_stack_ffffffffffffff2c;
-                        PVar2.field_0 = field_356;
-                        PVar2.field_8 = 1;
-                        PVar2._12_8_ = in_stack_ffffffffffffff34;
-                        Tweaky::DrawScrollBar(PVar2, bVar4, local_88.field_0, local_88.field_8, 1, bVar5);
+                    iVar5 = local_50->size();
+                    if ((int)field_348 < iVar5) {
+                        iVar5 = field_140 + field_340;
+                        new (local_88) oldscape::dash3d::GridRect(field_344 + field_136 - 2, iVar5,
+                                                                  field_344 + field_136, field_340 * field_352 + iVar5);
+                        pTVar7 = (Tweaky*)local_40.operator->();
+                        iVar5 = local_50->size();
+                        placement.field_4 = in_stack_ffffffffffffff2c;
+                        placement.field_0 = field_356;
+                        placement.field_8 = 1;
+                        placement._12_8_ = in_stack_ffffffffffffff34;
+                        pTVar7->DrawScrollBar(placement, local_88[0], local_80, 1, iVar5, (uint8_t)field_352);
                     }
                 }
-                /* WARNING: Subroutine does not return */
-                local_b8->~fixed_string();
             }
-            local_40.~shared_ptr();
         }
     }
 
-    // 0x100a459f0, 432 bytes, placed by class name and debug map
-    // DropdownGroup::HandleMouseDown(float, float)
-    undefined8 DropdownGroup::HandleMouseDown(float param_1, float param_2) {
-        char cVar1;
+    // 0x100a459f0
+    uint64_t DropdownGroup::HandleMouseDown(float arg1, float arg2) {
         long lVar2;
         long* plVar3;
         Event local_50;
-        enable_shared_from_this<PathingEntity> local_38[16];
+        enable_shared_from_this<PathingEntity> local_38;
 
-        cVar1 = (&field_376, (int)param_1, (int)param_2)->IsInside();
-        if (cVar1 != '\0') {
+        bool cVar1 = field_376.IsInside((int)arg1, (int)arg2);
+        if (cVar1) {
             if (field_332 == '\0') {
-                ShowList(this);
-                local_38->shared_from_this();
-                new (&local_50) Event(local_38, 2);
-                DoCallback(&local_50);
-                local_50.~LRUHashCacheWrapper();
-                local_38->~shared_ptr();
+                ShowList();
+                local_38.shared_from_this();
+                local_50 = Event(local_38, 2);
+                DoCallback(local_50);
             } else {
-                HideList(this);
+                HideList();
                 field_336 = field_280;
-                ValidatePosition(this);
+                ValidatePosition();
             }
             return 1;
         }
-        if ((field_332 != '\0') && (cVar1 = (&field_360, (int)param_1, (int)param_2)->IsInside(), cVar1 != '\0')) {
+        if ((field_332 != '\0') && (cVar1 = field_360.IsInside((int)arg1, (int)arg2), cVar1)) {
             field_416 = 1;
             field_417 = 0;
-            field_412 = param_2;
+            field_412 = arg2;
             field_408 = 0.0;
             return 1;
         }
-        if ((field_332 == '\0') && (cVar1 = (&field_392, (int)param_1, (int)param_2)->IsInside(), cVar1 != '\0')) {
-            lVar2 = eastl::vector<PageInfo, eastl::allocator>::operator[](
-                (vector<PageInfo, eastl::allocator>*)&field_248, (long)(int)field_280);
-            plVar3 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar2 + 32));
+        if ((field_332 == '\0') && (cVar1 = field_392.IsInside((int)arg1, (int)arg2), cVar1)) {
+            lVar2 = field_248[(long)(int)field_280];
+            plVar3 = (long*)(*((lVar2 + 32))).operator->();
         } else {
-            if ((field_332 != '\0') || (cVar1 = (&field_304, (int)param_1, (int)param_2)->IsInside(), cVar1 == '\0')) {
-                HideList(this);
+            if ((field_332 != '\0') || (cVar1 = field_304.IsInside((int)arg1, (int)arg2), !cVar1)) {
+                HideList();
                 return 0;
             }
-            plVar3 = (long*)shared_ptr<Settings>::operator->((shared_ptr<Settings>*)&field_288);
+            plVar3 = (long*)field_288.operator->();
         }
-        return (**(code**)(*plVar3 + 48))(param_1, param_2, plVar3, 1);
+        return (**(void (**)(...))(*plVar3 + 48))(arg1, arg2, plVar3, 1);
     }
 
-    // 0x100a45bc0, 80 bytes, placed by class name and debug map
-    // DropdownGroup::ShowList()
+    // 0x100a45bc0
     void DropdownGroup::ShowList() {
-        int iVar1;
-        uint uVar2;
-
-        Control::SetFocus();
+        SetFocus();
         m_hasKeyboardNavigation = 1;
         field_332 = 1;
-        iVar1 = (&field_248)->size();
-        uVar2 = eastl::max<int>(0, iVar1 - field_348);
-        if ((int)uVar2 < (int)field_356) {
-            field_356 = uVar2;
+        int iVar1 = field_248.size();
+        auto EVar2 = eastl::max<int>(0, iVar1 - field_348);
+        if ((int)EVar2 < (int)field_356) {
+            field_356 = EVar2;
         }
     }
 
-    // 0x100a45c10, 32 bytes, placed by class name and debug map
-    // DropdownGroup::HideList()
+    // 0x100a45c10
     void DropdownGroup::HideList() {
         field_332 = 0;
         field_416 = 0;
     }
 
-    // 0x100a45c30, 208 bytes, placed by class name and debug map
-    // DropdownGroup::ValidatePosition()
+    // 0x100a45c30
     void DropdownGroup::ValidatePosition() {
-        undefined1* this_00;
-        int iVar1;
-        uint uVar2;
-
-        uVar2 = field_336;
-        this_00 = &field_248;
-        iVar1 = this_00->size();
-        iVar1 = eastl::min<graphics::GraphicsQuality>(uVar2, iVar1 + -1);
-        uVar2 = eastl::max<int>(0, iVar1);
-        field_336 = uVar2;
+        EnumOptionToggle EVar2 = field_336;
+        uint8_t* this_00 = &field_248;
+        int iVar1 = this_00->size();
+        auto shaderVariablePrecision2 = eastl::min<graphics::GraphicsQuality>(EVar2, iVar1 - 1);
+        EVar2 = eastl::max<int>(0, shaderVariablePrecision2);
+        field_336 = EVar2;
         if (field_332 == '\0') {
             field_356 = field_280;
         }
-        if ((int)(field_356 + field_352) <= (int)uVar2) {
-            field_356 = (uVar2 - field_352) + 1;
+        if ((int)(field_356 + field_352) <= (int)EVar2) {
+            field_356 = (EVar2 - field_352) + 1;
         }
-        if ((int)uVar2 < (int)field_356) {
-            field_356 = uVar2;
+        if ((int)EVar2 < (int)field_356) {
+            field_356 = EVar2;
         }
-        uVar2 = field_356;
+        EVar2 = field_356;
         iVar1 = this_00->size();
-        if (iVar1 - field_352 < (int)uVar2) {
+        if (iVar1 - field_352 < (int)EVar2) {
             iVar1 = this_00->size();
             field_356 = iVar1 - field_352;
         }
@@ -293,434 +264,380 @@ namespace jag::tweak {
         }
     }
 
-    // 0x100a45d00, 320 bytes, placed by class name and debug map
-    // DropdownGroup::HandleMouseUp(float, float)
-    ulong DropdownGroup::HandleMouseUp(float param_1, float param_2) {
-        char cVar1;
-        uint uVar2;
+    // 0x100a45d00
+    unsigned long DropdownGroup::HandleMouseUp(float arg1, float arg2) {
+        unsigned int uVar2;
         long lVar3;
         long* plVar4;
-        undefined8 unaff_R14;
-        ulong uVar6;
+        uint64_t unaff_R14;
 
-        cVar1 = (&field_376, (int)param_1, (int)param_2)->IsInside();
-        uVar6 = CONCAT71((int7)((ulong)unaff_R14 >> 8), 1);
-        if (cVar1 != '\0')
+        bool cVar1 = field_376.IsInside((int)arg1, (int)arg2);
+        unsigned long uVar5 = (((uint64_t)((int64_t)((unsigned long)unaff_R14 >> 8)) << 8) | (uint8_t)1);
+        if (cVar1)
             goto LAB_100a45e27;
         if (field_332 != '\0') {
-            cVar1 = (&field_360, (int)param_1, (int)param_2)->IsInside();
-            if (cVar1 != '\0') {
+            cVar1 = field_360.IsInside((int)arg1, (int)arg2);
+            if (cVar1) {
                 if (field_417 == '\0') {
-                    UpdateMouseSelection(this, param_1, param_2);
-                    HideList(this);
+                    UpdateMouseSelection(arg1, arg2);
+                    HideList();
                     SetSelectedPage(field_336);
                 }
                 goto LAB_100a45e27;
             }
         }
         if (field_332 == '\0') {
-            cVar1 = (&field_392, (int)param_1, (int)param_2)->IsInside();
-            if (cVar1 == '\0')
+            cVar1 = field_392.IsInside((int)arg1, (int)arg2);
+            if (!cVar1)
                 goto LAB_100a45ddc;
-            lVar3 = eastl::vector<PageInfo, eastl::allocator>::operator[](
-                (vector<PageInfo, eastl::allocator>*)&field_248, (long)(int)field_280);
-            plVar4 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar3 + 32));
+            lVar3 = field_248[(long)(int)field_280];
+            plVar4 = (long*)(*((lVar3 + 32))).operator->();
         LAB_100a45e0a:
-            uVar2 = (**(code**)(*plVar4 + 48))(param_1, param_2, plVar4, 0);
-            uVar6 = (ulong)uVar2;
+            uVar2 = (**(void (**)(...))(*plVar4 + 48))(arg1, arg2, plVar4, 0);
+            uVar5 = (unsigned long)uVar2;
         } else {
         LAB_100a45ddc:
             if (field_332 == '\0') {
-                cVar1 = (&field_304, (int)param_1, (int)param_2)->IsInside();
-                if (cVar1 != '\0') {
-                    plVar4 = (long*)shared_ptr<Settings>::operator->((shared_ptr<Settings>*)&field_288);
+                cVar1 = field_304.IsInside((int)arg1, (int)arg2);
+                if (cVar1) {
+                    plVar4 = (long*)field_288.operator->();
                     goto LAB_100a45e0a;
                 }
             }
-            uVar6 = 0;
+            uVar5 = 0;
         }
     LAB_100a45e27:
-        return uVar6 & 4294967295;
+        return uVar5 & 4294967295;
     }
 
-    // 0x100a45e40, 128 bytes, placed by class name and debug map
-    // DropdownGroup::UpdateMouseSelection(float, float)
-    void DropdownGroup::UpdateMouseSelection(float param_1, float param_2) {
+    // 0x100a45e40
+    void DropdownGroup::UpdateMouseSelection(float arg1, float arg2) {
         int iVar2;
 
         if (field_332 != '\0') {
-            if ((&field_360, (int)param_1, (int)param_2)->IsInside() != '\0') {
-                iVar2 = (int)((param_2 - (float)(int)field_364) / (float)(int)field_340);
+            if (field_360.IsInside((int)arg1, (int)arg2) != '\0') {
+                iVar2 = (int)((arg2 - (float)(int)field_364) / (float)(int)field_340);
                 if (iVar2 < field_352) {
                     field_336 = iVar2 + field_356;
                 }
-                ValidatePosition(this);
+                ValidatePosition();
             }
         }
     }
 
-    // 0x100a45ec0, 112 bytes, placed by class name and debug map
-    // DropdownGroup::OnClick(float, float, bool)
-    undefined8 DropdownGroup::OnClick(float param_1, float param_2, bool param_3) {
-        char cVar1;
-        undefined3 in_register_00000031;
+    // 0x100a45ec0
+    uint64_t DropdownGroup::OnClick(float arg1, float arg2, bool arg3) {
+        uint32_t in_register_00000031;
 
-        if (CONCAT31(in_register_00000031, param_3) != 0) {
-            cVar1 = HandleMouseDown(this, param_1, param_2);
-            if (cVar1 != '\0') {
+        if ((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg3) != 0) {
+            if (HandleMouseDown(arg1, arg2)) {
                 return 1;
             }
-            if (param_3) {
+            if (arg3) {
                 return 0;
             }
         }
-        cVar1 = HandleMouseUp(this, param_1, param_2);
-        if (cVar1 == '\0') {
+        if (!(HandleMouseUp(arg1, arg2))) {
             return 0;
         }
         return 1;
     }
 
-    // 0x100a45f30, 416 bytes, placed by class name and debug map
-    // DropdownGroup::OnMouseWheel(float, float, float)
-    ulong DropdownGroup::OnMouseWheel(float param_1, float param_2, float param_3) {
-        char cVar1;
-        int iVar2;
+    // 0x100a45f30
+    unsigned long DropdownGroup::OnMouseWheel(float arg1, float arg2, float arg3) {
+        EnumOptionToggle EVar1;
         int iVar3;
-        uint uVar4;
-        long lVar5;
-        long* plVar6;
-        int iVar7;
-        undefined8 unaff_R14;
-        undefined7 uVar9;
-        ulong uVar8;
-        uint7 uVar10;
+        int iVar4;
+        unsigned int uVar5;
+        long lVar6;
+        long* plVar7;
+        int iVar8;
+        uint64_t unaff_R14;
+        uint64_t uVar10;
+        unsigned long uVar9;
+        uint64_t uVar11;
 
         if (field_332 == '\0') {
-            iVar2 = (int)param_1;
-            cVar1 = (&field_376, iVar2, (int)param_2)->IsInside();
-            if (cVar1 == '\0') {
-                cVar1 = (&field_392, iVar2, (int)param_2)->IsInside();
-                if (cVar1 == '\0') {
-                    uVar8 = 0;
+            iVar3 = (int)arg1;
+            if (!(field_376.IsInside(iVar3, (int)arg2))) {
+                if (!(field_392.IsInside(iVar3, (int)arg2))) {
+                    uVar9 = 0;
                 } else {
-                    lVar5 = eastl::vector<PageInfo, eastl::allocator>::operator[](
-                        (vector<PageInfo, eastl::allocator>*)&field_248, (long)(int)field_280);
-                    plVar6 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar5 + 32));
-                    uVar4 = (**(code**)(*plVar6 + 72))(param_1, param_2, param_3, plVar6);
-                    uVar8 = (ulong)uVar4;
+                    lVar6 = field_248[(long)(int)field_280];
+                    plVar7 = (long*)(*((lVar6 + 32))).operator->();
+                    uVar5 = (**(void (**)(...))(*plVar7 + 72))(arg1, arg2, arg3, plVar7);
+                    uVar9 = (unsigned long)uVar5;
                 }
             } else {
-                uVar10 = (uint7)(uint3)((uint)iVar2 >> 8);
-                if (param_3 <= 0.0) {
-                    uVar8 = CONCAT71(uVar10, 1);
-                    if (param_3 < 0.0) {
+                uVar11 = (uint64_t)(uint32_t)((unsigned int)iVar3 >> 8);
+                if (arg3 <= 0.0) {
+                    uVar9 = (((uint64_t)uVar11 << 8) | (uint8_t)1);
+                    if (arg3 < 0.0) {
                         field_336 = field_280 + 1;
-                        ValidatePosition(this);
+                        ValidatePosition();
                         SetSelectedPage(field_336);
                     }
                 } else {
                     field_336 = field_280 - 1;
-                    ValidatePosition(this);
+                    ValidatePosition();
                     SetSelectedPage(field_336);
-                    uVar8 = CONCAT71(uVar10, 1);
+                    uVar9 = (((uint64_t)uVar11 << 8) | (uint8_t)1);
                 }
             }
         } else {
-            iVar2 = field_352;
-            iVar7 = iVar2 + 3;
-            if (-1 < iVar2) {
-                iVar7 = iVar2;
+            iVar3 = field_352;
+            iVar8 = iVar3 + 3;
+            if (-1 < iVar3) {
+                iVar8 = iVar3;
             }
-            iVar2 = eastl::max<int>(1, iVar7 >> 2);
-            uVar9 = (undefined7)((ulong)unaff_R14 >> 8);
-            if ((param_3 <= 0.0) || (field_356 == 0)) {
-                uVar8 = CONCAT71(uVar9, 1);
-                if (param_3 < 0.0) {
-                    iVar7 = field_352;
-                    uVar4 = field_356;
-                    iVar3 = (&field_248)->size();
-                    if (iVar7 + uVar4 != iVar3) {
-                        ScrollDown(this, iVar2);
+            iVar3 = eastl::max<int>(1, iVar8 >> 2);
+            uVar10 = (uint64_t)((unsigned long)unaff_R14 >> 8);
+            if ((arg3 <= 0.0) || (field_356 == 0)) {
+                uVar9 = (((uint64_t)uVar10 << 8) | (uint8_t)1);
+                if (arg3 < 0.0) {
+                    iVar8 = field_352;
+                    EVar1 = field_356;
+                    iVar4 = field_248.size();
+                    if (iVar8 + EVar1 != iVar4) {
+                        ScrollDown(iVar3);
                     }
                 }
             } else {
-                ScrollUp(this, iVar2);
-                uVar8 = CONCAT71(uVar9, 1);
+                ScrollUp(iVar3);
+                uVar9 = (((uint64_t)uVar10 << 8) | (uint8_t)1);
             }
         }
-        return uVar8 & 4294967295;
+        return uVar9 & 4294967295;
     }
 
-    // 0x100a460d0, 32 bytes, placed by class name and debug map
-    // DropdownGroup::ScrollUp(int)
-    void DropdownGroup::ScrollUp(int param_1) {
-        field_356 = field_356 - param_1;
-        field_336 = field_336 - param_1;
-        ValidatePosition(this);
+    // 0x100a460d0
+    void DropdownGroup::ScrollUp(int arg1) {
+        field_356 = field_356 - arg1;
+        field_336 = field_336 - arg1;
+        ValidatePosition();
     }
 
-    // 0x100a460f0, 32 bytes, placed by class name and debug map
-    // DropdownGroup::ScrollDown(int)
-    void DropdownGroup::ScrollDown(int param_1) {
-        field_356 = field_356 + param_1;
-        field_336 = field_336 + param_1;
-        ValidatePosition(this);
+    // 0x100a460f0
+    void DropdownGroup::ScrollDown(int arg1) {
+        field_356 = field_356 + arg1;
+        field_336 = field_336 + arg1;
+        ValidatePosition();
     }
 
-    // 0x100a46110, 448 bytes, placed by class name and debug map
-    // DropdownGroup::OnMouseMove(float, float)
-    undefined8 DropdownGroup::OnMouseMove(float param_1, float param_2) {
-        char cVar1;
+    // 0x100a46110
+    uint64_t DropdownGroup::OnMouseMove(float arg1, float arg2) {
+        bool cVar1;
         long lVar2;
         long* plVar3;
-        float fVar5;
 
         if ((field_332 != '\0') && (field_416 == '\0')) {
-            cVar1 = (&field_376, (int)param_1, (int)param_2)->IsInside();
-            if ((cVar1 != '\0') || (cVar1 = (&field_360, (int)param_1, (int)param_2)->IsInside(), cVar1 != '\0'))
+            cVar1 = field_376.IsInside((int)arg1, (int)arg2);
+            if ((cVar1) || (cVar1 = field_360.IsInside((int)arg1, (int)arg2), cVar1))
                 goto LAB_100a462b2;
         }
         if (((field_332 == '\0') || (field_416 == '\0')) ||
-            (cVar1 = (&field_360, (int)param_1, (int)param_2)->IsInside(), cVar1 == '\0')) {
-            if ((field_332 == '\0') && (cVar1 = (&field_392, (int)param_1, (int)param_2)->IsInside(), cVar1 != '\0')) {
-                lVar2 = eastl::vector<PageInfo, eastl::allocator>::operator[](
-                    (vector<PageInfo, eastl::allocator>*)&field_248, (long)(int)field_280);
-                plVar3 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar2 + 32));
-                return (**(code**)(*plVar3 + 56))(param_1, param_2, plVar3);
+            (cVar1 = field_360.IsInside((int)arg1, (int)arg2), !cVar1)) {
+            if ((field_332 == '\0') && (cVar1 = field_392.IsInside((int)arg1, (int)arg2), cVar1)) {
+                lVar2 = field_248[(long)(int)field_280];
+                plVar3 = (long*)(*((lVar2 + 32))).operator->();
+                return (**(void (**)(...))(*plVar3 + 56))(arg1, arg2, plVar3);
             }
             return 0;
         }
-        fVar5 = (param_2 - field_412) + field_408;
+        float fVar5 = (arg2 - field_412) + field_408;
         field_408 = fVar5;
-        field_412 = param_2;
+        field_412 = arg2;
         if (fVar5 <= (float)(int)field_340) {
             if ((float)(int)-field_340 <= fVar5)
                 goto LAB_100a462b2;
-            ScrollDown(this, 1);
+            ScrollDown(1);
         } else {
-            ScrollUp(this, 1);
+            ScrollUp(1);
         }
         field_408 = 0.0;
         field_417 = 1;
     LAB_100a462b2:
-        UpdateMouseSelection(this, param_1, param_2);
+        UpdateMouseSelection(arg1, arg2);
         return 1;
     }
 
-    // 0x100a462d0, 416 bytes, placed by class name and debug map
-    // DropdownGroup::OnMouseOver(float, float)
-    undefined8 DropdownGroup::OnMouseOver(float param_1, float param_2) {
-        char cVar1;
-        long* plVar2;
-        long lVar3;
-        undefined8 uVar4;
+    // 0x100a462d0
+    uint64_t DropdownGroup::OnMouseOver(float arg1, float arg2) {
+        bool cVar1;
+        uint64_t uVar4;
 
         field_333 = false;
-        plVar2 = (long*)shared_ptr<Settings>::operator->((shared_ptr<Settings>*)&field_288);
-        (**(code**)(*plVar2 + 224))(plVar2, 0);
-        lVar3 = eastl::vector<PageInfo, eastl::allocator>::operator[]((vector<PageInfo, eastl::allocator>*)&field_248,
-                                                                      (long)(int)field_280);
-        plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar3 + 32));
-        (**(code**)(*plVar2 + 224))(plVar2, 0);
-        if ((field_332 == '\0') && (cVar1 = (&field_376, (int)param_1, (int)param_2)->IsInside(), cVar1 != '\0')) {
-            Control::SetFocus();
+        auto plVar2 = field_288.operator->();
+        (**(void (**)(...))(*plVar2 + 224))(plVar2, 0);
+        long lVar3 = field_248[(long)(int)field_280];
+        plVar2 = (long*)(*((lVar3 + 32))).operator->();
+        (**(void (**)(...))(*plVar2 + 224))(plVar2, 0);
+        if ((field_332 == '\0') && (cVar1 = field_376.IsInside((int)arg1, (int)arg2), cVar1)) {
+            SetFocus();
             field_333 = true;
             m_hasKeyboardNavigation = 1;
         } else {
             if (field_332 != '\0') {
                 m_hasKeyboardNavigation = 1;
-                cVar1 = (&field_360, (int)param_1, (int)param_2)->IsInside();
-                if (cVar1 == '\0') {
-                    cVar1 = (&field_376, (int)param_1, (int)param_2)->IsInside();
-                    if (cVar1 == '\0') {
-                        HideList(this);
+                cVar1 = field_360.IsInside((int)arg1, (int)arg2);
+                if (!cVar1) {
+                    cVar1 = field_376.IsInside((int)arg1, (int)arg2);
+                    if (!cVar1) {
+                        HideList();
                         m_hasKeyboardNavigation = 0;
                     } else {
                         field_333 = true;
                     }
                 } else {
-                    UpdateMouseSelection(this, param_1, param_2);
+                    UpdateMouseSelection(arg1, arg2);
                 }
                 return 1;
             }
-            cVar1 = (&field_392, (int)param_1, (int)param_2)->IsInside();
-            if (cVar1 != '\0') {
+            cVar1 = field_392.IsInside((int)arg1, (int)arg2);
+            if (cVar1) {
                 m_hasKeyboardNavigation = 0;
-                uVar4 = OnMouseOver(param_1, param_2);
+                uVar4 = OnMouseOver(arg1, arg2);
                 return uVar4;
             }
-            cVar1 = (&field_304, (int)param_1, (int)param_2)->IsInside();
-            if (cVar1 != '\0') {
-                plVar2 = (long*)shared_ptr<Settings>::operator->((shared_ptr<Settings>*)&field_288);
-                uVar4 = (**(code**)(*plVar2 + 64))(param_1, param_2, plVar2);
+            cVar1 = field_304.IsInside((int)arg1, (int)arg2);
+            if (cVar1) {
+                plVar2 = (long*)field_288.operator->();
+                uVar4 = (**(void (**)(...))(*plVar2 + 64))(arg1, arg2, plVar2);
                 return uVar4;
             }
         }
         return 0;
     }
 
-    // 0x100a46470, 448 bytes, placed by class name and debug map
-    // DropdownGroup::GetControlSize(int&, int&)
-    ulong DropdownGroup::GetControlSize(int* param_1, int* param_2) {
-        bool bVar1;
+    // 0x100a46470
+    uint32_t DropdownGroup::GetControlSize(int& arg1, int& arg2) {
+        EnumOptionToggle enumOptionToggle1;
         int iVar2;
-        uint uVar3;
-        undefined4 uVar4;
-        uint uVar5;
-        undefined7 extraout_var;
-        Tweaky* pTVar6;
-        long lVar7;
-        long* plVar8;
-        shared_ptr local_48;
-        uint local_38;
+        unsigned int uVar3;
+        EnumOptionToggle enumOptionToggle2;
+        unsigned int arg2_00;
+        Tweaky* pTVar4;
+        long lVar5;
+        long* plVar6;
+        unsigned int local_38;
         int local_34;
 
-        weak_ptr<oldscape::rs2lib::IfType>::lock();
-        bVar1 = shared_ptr::operator_cast_to_bool(&local_48);
-        if (bVar1) {
-            pTVar6 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_48);
-            iVar2 = pTVar6->GetMinControlHeight();
+        shared_ptr local_48 = field_104.lock();
+        uint32_t uVar1 = shared_ptr::operator_cast_to_bool(&local_48);
+        if ((char)uVar1 != '\0') {
+            pTVar4 = (Tweaky*)local_48.operator->();
+            iVar2 = pTVar4->GetMinControlHeight();
             field_340 = iVar2 + 1;
-            uVar3 = CalculateDropdownWidth(this, &local_48);
+            uVar3 = CalculateDropdownWidth(local_48);
             field_344 = uVar3;
             local_38 = 0;
             local_34 = 0;
-            lVar7 = eastl::vector<PageInfo, eastl::allocator>::operator[](
-                (vector<PageInfo, eastl::allocator>*)&field_248, (long)(int)field_280);
-            plVar8 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar7 + 32));
-            (**(code**)(*plVar8 + 40))(plVar8, &local_38, &local_34);
+            lVar5 = field_248[(long)(int)field_280];
+            plVar6 = (long*)(*((lVar5 + 32))).operator->();
+            (**(void (**)(...))(*plVar6 + 40))(plVar6, &local_38, &local_34);
             field_352 = 0;
             if (field_332 != '\0') {
-                iVar2 = field_348;
-                uVar4 = (&field_248)->size();
-                iVar2 = eastl::min<graphics::GraphicsQuality>(iVar2, uVar4);
+                enumOptionToggle1 = field_348;
+                enumOptionToggle2 = field_248.size();
+                iVar2 = eastl::min<graphics::GraphicsQuality>(enumOptionToggle1, enumOptionToggle2);
                 field_352 = iVar2;
-                pTVar6 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_48);
-                iVar2 = pTVar6->GetVisibleY();
-                iVar2 = eastl::min<graphics::GraphicsQuality>(field_352, iVar2 / (int)field_340 + -1,
-                                                              (long)iVar2 % (long)(int)field_340 & 4294967295);
+                pTVar4 = (Tweaky*)local_48.operator->();
+                iVar2 = pTVar4->GetVisibleY();
+                iVar2 = eastl::min<graphics::GraphicsQuality>(field_352, iVar2 / (int)field_340 - 1);
                 field_352 = iVar2;
             }
-            plVar8 = (long*)shared_ptr<Settings>::operator->((shared_ptr<Settings>*)&field_288);
-            (**(code**)(*plVar8 + 40))(plVar8, &field_320, &field_324);
+            plVar6 = (long*)field_288.operator->();
+            (**(void (**)(...))(*plVar6 + 40))(plVar6, &field_320, &field_324);
             uVar3 = field_340;
             iVar2 = eastl::max<int>(field_352 * uVar3, field_324 + local_34);
             field_40 = iVar2 + uVar3;
             uVar3 = field_344;
-            uVar5 = eastl::max<unsigned int>(local_38, 300);
-            iVar2 = eastl::max<unsigned int>(uVar3, uVar5);
+            arg2_00 = eastl::max<unsigned int>(local_38, 300);
+            iVar2 = eastl::max<unsigned int>(uVar3, arg2_00);
             field_36 = iVar2;
-            *param_1 = iVar2;
-            *param_2 = field_40;
+            arg1 = iVar2;
+            arg2 = field_40;
         }
-        local_48.~shared_ptr();
-        return CONCAT71(extraout_var, bVar1) & 4294967295;
+        return uVar1;
     }
 
-    // 0x100a46630, 320 bytes, placed by class name and debug map
-    // DropdownGroup::CalculateDropdownWidth(shared_ptr<Tweaky>&)
-    int DropdownGroup::CalculateDropdownWidth(shared_ptr* param_1) {
-        int iVar2;
-        Tweaky* pTVar3;
-        fixed_string* pfVar4;
-        fixed_string* pfVar5;
-        int in_R9D;
-        StringView SVar6;
-        StringView SVar7;
+    // 0x100a46630
+    ShaderVariablePrecision DropdownGroup::CalculateDropdownWidth(shared_ptr<Tweaky>& tweaky) {
+        ShaderVariablePrecision shaderVariablePrecision1;
         StringView local_98;
         StringView local_88;
         int local_78[9];
         int local_54;
-        allocator local_50[8];
-        ulong local_40;
-        uint local_34;
+        unsigned long local_40;
+        unsigned int local_34;
 
-        pTVar3 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)param_1);
-        eastl::allocator::allocator(local_50, "EASTL basic_string");
-        new (local_78) eastl::string(" v", local_50);
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_88,
-                                                                                      (fixed_string*)local_78);
-        SVar6.field_8 = (uchar*)4294967295;
-        SVar6.field_0 = (ulong)&local_88;
-        pTVar3->GetTextSize((int*)&local_34, &local_54, SVar6, in_R9D);
-        local_78->~basic_string();
-        pfVar4 = (fixed_string*)(&field_248)->HeapBeginPtr();
-        pfVar5 = (fixed_string*)(&field_248)->end();
-        if (pfVar4 == pfVar5) {
+        auto pTVar2 = tweaky.operator->();
+        new (local_78) eastl::string(" v");
+        local_88.StringView<eastl::fixed_string<char, 40>>(*local_78);
+        pTVar2->GetTextSize(local_34, local_54, &local_88, -1);
+        auto str = field_248.HeapBeginPtr();
+        auto pbVar3 = field_248.end();
+        if (str == pbVar3) {
         LAB_100a4673f:
-            iVar2 = 0;
+            shaderVariablePrecision1 = 0;
         } else {
-            local_40 = (ulong)local_34;
-            iVar2 = 0;
+            local_40 = (unsigned long)local_34;
+            shaderVariablePrecision1 = 0;
             do {
-                pTVar3 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)param_1);
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_98, pfVar4);
-                SVar7.field_8 = (uchar*)4294967295;
-                SVar7.field_0 = (ulong)&local_98;
-                if (pTVar3->GetTextSize(local_78, local_50, SVar7, in_R9D) == '\0')
+                pTVar2 = (Tweaky*)tweaky.operator->();
+                local_98.StringView<eastl::fixed_string<char, 40>>(*str);
+                if (pTVar2->GetTextSize(*local_78, local_50, &local_98, -1) == '\0')
                     goto LAB_100a4673f;
-                iVar2 = eastl::max<int>(iVar2, local_78[0] + (int)local_40 + 3);
-                pfVar4 = pfVar4 + 80;
-            } while (pfVar4 != pfVar5);
+                shaderVariablePrecision1 = eastl::max<int>(shaderVariablePrecision1, local_78[0] + (int)local_40 + 3);
+                str = str + 80;
+            } while (str != pbVar3);
         }
-        return iVar2;
+        return shaderVariablePrecision1;
     }
 
-    // 0x100a46770, 368 bytes, placed by class name and debug map
-    // DropdownGroup::HandleChar(int)
-    undefined8 DropdownGroup::HandleChar(int param_1) {
-        undefined1* this_00;
-        char cVar1;
+    // 0x100a46770
+    uint64_t DropdownGroup::HandleChar(int arg1) {
         bool bVar2;
-        bool bVar3;
-        char cVar4;
-        int iVar5;
-        eastl::string* pbVar6;
-        char* pcVar7;
-        ulong uVar8;
-        ulong uVar9;
-        uint uVar10;
+        unsigned long arg1_00;
+        EnumOptionToggle EVar10;
 
         if (field_332 == '\0') {
             if (field_333 == false) {
                 return 0;
             }
-            if (param_1 < 97) {
+            if (arg1 < 97) {
                 return 0;
             }
-            if (122 < param_1) {
+            if (122 < arg1) {
                 return 0;
             }
-        } else if (25 < param_1 - 97U) {
+        } else if (25 < arg1 - 97U) {
             return 0;
         }
-        cVar4 = toupper((char)param_1);
-        this_00 = &field_248;
-        pbVar6 = (eastl::string*)eastl::vector<PageInfo, eastl::allocator>::operator[](
-            (vector<PageInfo, eastl::allocator>*)this_00, (long)(int)field_336);
-        pcVar7 = (char*)eastl::string::operator[](pbVar6, 0);
-        cVar1 = *pcVar7;
-        iVar5 = this_00->size();
+        char cVar4 = toupper((char)arg1);
+        uint8_t* this_00 = &field_248;
+        eastl::string* pbVar6 = (eastl::string*)(*this_00)[(long)(int)field_336];
+        char* pcVar7 = (char*)(*pbVar6)[0];
+        bool cVar1 = *pcVar7;
+        int iVar5 = this_00->size();
         if (iVar5 < 1) {
             return 0;
         }
-        uVar10 = -iVar5;
-        bVar3 = false;
-        uVar9 = (long)iVar5;
+        unsigned int uVar9 = -iVar5;
+        bool bVar3 = false;
+        unsigned long uVar8 = (long)iVar5;
         do {
-            uVar8 = uVar9 - 1;
-            pbVar6 = (eastl::string*)eastl::vector<PageInfo, eastl::allocator>::operator[](
-                (vector<PageInfo, eastl::allocator>*)this_00, uVar8);
-            pcVar7 = (char*)eastl::string::operator[](pbVar6, 0);
+            arg1_00 = uVar8 - 1;
+            pbVar6 = (eastl::string*)(*this_00)[arg1_00];
+            pcVar7 = (char*)(*pbVar6)[0];
             if (*pcVar7 == cVar4) {
                 if (cVar1 == cVar4) {
-                    if ((uVar8 == 0) || (bVar3 = true, uVar8 == field_336 + 1)) {
+                    if ((arg1_00 == 0) || (bVar3 = true, arg1_00 == field_336 + 1)) {
                     LAB_100a46888:
-                        uVar10 = ~uVar10;
+                        EVar10 = ~uVar9;
                     LAB_100a46890:
-                        field_336 = uVar10;
-                        ValidatePosition(this);
+                        field_336 = EVar10;
+                        ValidatePosition();
                         if (field_332 == '\0') {
                             SetSelectedPage(field_336);
                             return 1;
@@ -729,34 +646,33 @@ namespace jag::tweak {
                     }
                 } else {
                     bVar3 = true;
-                    if (uVar8 == 0)
+                    if (arg1_00 == 0)
                         goto LAB_100a46888;
                 }
             } else if (bVar3) {
-                uVar10 = -uVar10;
+                EVar10 = -uVar9;
                 goto LAB_100a46890;
             }
-            uVar10 = uVar10 + 1;
-            bVar2 = (long)uVar9 < 2;
-            uVar9 = uVar8;
+            uVar9 = uVar9 + 1;
+            bVar2 = (long)uVar8 < 2;
+            uVar8 = arg1_00;
             if (bVar2) {
                 return 0;
             }
         } while (true);
     }
 
-    // 0x100a468f0, 320 bytes, placed by class name and debug map
-    // DropdownGroup::HandleKeyDown(int)
-    undefined8 DropdownGroup::HandleKeyDown(int param_1) {
+    // 0x100a468f0
+    uint64_t DropdownGroup::HandleKeyDown(int arg1) {
         if (field_332 == '\0') {
             return 0;
         }
-        switch (param_1) {
+        switch (arg1) {
         case 63232:
-            NavigateUp(this);
+            NavigateUp();
             break;
         case 63233:
-            NavigateDown(this);
+            NavigateDown();
             break;
         case 63234:
         case 63235:
@@ -800,21 +716,21 @@ namespace jag::tweak {
         case 63274:
             return 0;
         case 63273:
-            NavigateHome(this);
+            NavigateHome();
             break;
         case 63275:
-            NavigateEnd(this);
+            NavigateEnd();
             break;
         case 63276:
-            ScrollUp(this, 4);
+            ScrollUp(4);
             break;
         case 63277:
-            ScrollDown(this, 4);
+            ScrollDown(4);
             break;
         default:
-            if (param_1 == 36) {
+            if (arg1 == 36) {
                 field_280 = field_336;
-                HideList(this);
+                HideList();
                 return 1;
             }
             return 0;
@@ -822,75 +738,57 @@ namespace jag::tweak {
         return 1;
     }
 
-    // 0x100a46ac0, 64 bytes, placed by class name
-    // DropdownGroup::DoOnShown()
+    // 0x100a46ac0
     void DropdownGroup::DoOnShown() {
-        long lVar1;
-        long* plVar2;
-
-        lVar1 = eastl::vector<PageInfo, eastl::allocator>::operator[]((vector<PageInfo, eastl::allocator>*)&field_248,
-                                                                      (long)(int)field_280);
-        plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar1 + 32));
-        (**(code**)(*plVar2 + 80))(plVar2);
+        long lVar1 = field_248[(long)(int)field_280];
+        long* plVar2 = (long*)(*((lVar1 + 32))).operator->();
+        (**(void (**)(...))(*plVar2 + 80))(plVar2);
         DoOnShown();
     }
 
-    // 0x100a46b00, 16 bytes, placed by class name
-    // DropdownGroup::OnFocusChanged(bool)
-    void DropdownGroup::OnFocusChanged(bool param_1) {
-        undefined3 in_register_00000031;
+    // 0x100a46b00
+    void DropdownGroup::OnFocusChanged(bool arg1) {
+        uint32_t in_register_00000031;
 
-        if (CONCAT31(in_register_00000031, param_1) == 0) {
-            HideList(this);
+        if ((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1) == 0) {
+            HideList();
         }
     }
 
-    // 0x100a46b10, 32 bytes, placed by class name
-    // DropdownGroup::SetMouseOver(bool)
-    void DropdownGroup::SetMouseOver(bool param_1) {
-        m_mouseOver = param_1;
+    // 0x100a46b10
+    void DropdownGroup::SetMouseOver(bool arg1) {
+        m_mouseOver = arg1;
         m_hasKeyboardNavigation = 0;
     }
 
-    // 0x100a46b30, 64 bytes, placed by class name
-    // DropdownGroup::AddPage(eastl::string const&)
-    DropdownGroup* DropdownGroup::AddPage(basic_string* param_1) {
-        AddPage(param_1);
-        param_1->Sort();
+    // 0x100a46b30
+    DropdownGroup* DropdownGroup::AddPage(const eastl::string& str) {
+        AddPage(str);
+        str.Sort();
         return this;
     }
 
-    // 0x100a46b70, 48 bytes, placed by class name
-    // DropdownGroup::ResetToDefault()
+    // 0x100a46b70
     void DropdownGroup::ResetToDefault() {
-        long lVar1;
-        long* plVar2;
-
-        lVar1 = eastl::vector<PageInfo, eastl::allocator>::operator[]((vector<PageInfo, eastl::allocator>*)&field_248,
-                                                                      (long)(int)field_280);
-        plVar2 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(lVar1 + 32));
-        (**(code**)(*plVar2 + 96))(plVar2);
+        long lVar1 = field_248[(long)(int)field_280];
+        long* plVar2 = (long*)(*((lVar1 + 32))).operator->();
+        (**(void (**)(...))(*plVar2 + 96))(plVar2);
     }
 
-    // 0x100a46ba0, 144 bytes, placed by class name
-    // DropdownGroup::ResetAllToDefault()
+    // 0x100a46ba0
     void DropdownGroup::ResetAllToDefault() {
         shared_ptr<Container>* this_00;
-        Control* this_01;
-        long lVar2;
         long* plVar3;
-        long lVar4;
 
-        lVar4 = (&field_248)->HeapBeginPtr();
-        lVar2 = (&field_248)->end();
+        long lVar4 = field_248.HeapBeginPtr();
+        long lVar2 = field_248.end();
         for (; lVar4 != lVar2; lVar4 = lVar4 + 80) {
             this_00 = (shared_ptr<Container>*)(lVar4 + 32);
-            this_01 = (Control*)shared_ptr<Container>::operator->(this_00);
-            if (this_01->HasBeenShown() != '\0') {
-                plVar3 = (long*)shared_ptr<Container>::operator->(this_00);
-                (**(code**)(*plVar3 + 104))(plVar3);
-                plVar3 = (long*)shared_ptr<Container>::operator->(this_00);
-                (**(code**)(*plVar3 + 96))(plVar3);
+            if (((Control*)(*this_00).operator->())->HasBeenShown() != '\0') {
+                plVar3 = (long*)(*this_00).operator->();
+                (**(void (**)(...))(*plVar3 + 104))(plVar3);
+                plVar3 = (long*)(*this_00).operator->();
+                (**(void (**)(...))(*plVar3 + 96))(plVar3);
             }
         }
     }
@@ -898,13 +796,11 @@ namespace jag::tweak {
 } // namespace jag::tweak
 
 namespace jag {
-    // 0x100a468e0, 16 bytes, inline, placed by debug map only (low confidence)
-    // toupper(char)
-    int toupper(char param_1) {
-        char cVar1;
-        undefined3 in_register_00000039;
+    // 0x100a468e0
+    int toupper(char arg1) {
+        uint32_t in_register_00000039;
 
-        cVar1 = ::toupper(CONCAT31(in_register_00000039, param_1));
+        bool cVar1 = ::toupper((((uint32_t)in_register_00000039 << 8) | (uint8_t)arg1));
         return (int)cVar1;
     }
 

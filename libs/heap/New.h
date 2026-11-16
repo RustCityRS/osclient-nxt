@@ -1,13 +1,9 @@
 // libs/heap/New.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 class Alignment {
 public:
-    Alignment(int);
+    Alignment(int arg1);
 };
-
-// 0x100824450, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-// Alignment::Alignment(int): jumps straight to the base-object constructor

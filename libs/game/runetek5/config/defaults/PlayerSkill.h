@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/defaults/PlayerSkill.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,32 +8,32 @@ namespace jag::game {
     public:
         bool IsMembersOnly() const;
         PlayerSkill();
-        uint GetCappedFreeLevel() const;
-        int GetCappedFreeXP() const;
+        unsigned int GetCappedFreeLevel() const;
+        bool GetCappedFreeXP() const;
         bool HasFreeWorldCap() const;
-        PlayerSkill(unsigned int, unsigned int, bool, bool, unsigned int, PlayerSkillXPTable const*, int);
-        int GetFineXPFromLevel(unsigned int) const;
-        void GetXPFromLevel(unsigned int) const;
-        uint GetLevelFromXP(unsigned int) const;
-        void GetLevelFromFineXP(unsigned int) const;
+        PlayerSkill(unsigned int arg1, unsigned int arg2, bool arg3, bool arg4, unsigned int arg5,
+                    const PlayerSkillXPTable* playerSkillXPTable, int arg7);
+        int GetFineXPFromLevel(unsigned int arg1) const;
+        void GetXPFromLevel(unsigned int arg1) const;
+        unsigned int GetLevelFromXP(unsigned int arg1) const;
+        void GetLevelFromFineXP(unsigned int arg1) const;
 
-        // data members, from how the methods use this: 40 bytes
-        uint field_0;       // offset 0
-        uint field_4;       // offset 4
-        bool m_membersOnly; // offset 8
-        bool field_9;       // offset 9
-        char _unknown_10[2];
-        int m_cappedFreeXP;     // offset 12
-        uint m_cappedFreeLevel; // offset 16
-        char _unknown_20[4];
-        PlayerSkillXPTable* field_24; // offset 24
-        int field_32;                 // offset 32
-        char _unknown_36[4];
+    private:
+        unsigned int field_0;
+        unsigned int field_4;
+        bool m_membersOnly;
+        bool field_9;
+        uint8_t _unknown_10[2];
+        int m_cappedFreeXP;
+        unsigned int m_cappedFreeLevel;
+        uint8_t _unknown_20[4];
+        PlayerSkillXPTable* field_24;
+        int field_32;
+        uint8_t _unknown_36[4];
     };
 
-    // 0x100497df0, 16 bytes, inline, placed by class name and debug map
-    // PlayerSkill::HasFreeWorldCap() const
-    bool PlayerSkill::HasFreeWorldCap() {
+    // 0x100497df0
+    bool PlayerSkill::HasFreeWorldCap() const {
         return m_cappedFreeXP != -1;
     }
 

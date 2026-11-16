@@ -1,376 +1,20 @@
 // libs/tweaky/Tweaky.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
-
-namespace jag::fixedfunction {
-    // 0x100914990, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&): jumps straight to the base-object constructor
-
-    // 0x1009149a0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)
-    /* function<void (render::RenderContext&), 128ul, 16ul,
-   (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1},
-   void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1}&&) */
-
-    void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::operator()(
-        function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>* this,
-        _lambda_jag__render__RenderContext___1_* param_1) {
-        undefined8 uVar1;
-
-        *(undefined8*)this = 0;
-        uVar1 = *(undefined8*)(param_1 + 8);
-        *(undefined8*)(this + 16) = *(undefined8*)param_1;
-        *(undefined8*)(this + 24) = uVar1;
-        *(code**)(this + 144) = function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(
-                                               tweak::Event_const&) const ::{
-            lambda(void*, void*) #1
-        }
-        (render::RenderContext&)#1
-    },void>((tweak::Container&)->RegisterTweakyVars()::$_8::operator()(tweak::Event_const&)const::{
-        lambda(void*, void*) #1}(render::RenderContext&)#1
-}&&)::{
-    lambda(void*, void*) #1
-}
-::__invoke;
-*(code**)this =
-    function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event_const&) const ::{
-    lambda(void*, render::RenderContext&) #1
-}
-(render::RenderContext&)#1
-},void>((tweak::Container&)->RegisterTweakyVars()::$_8::operator()(tweak::Event_const&)const::{
-    lambda(void*, render::RenderContext&) #1}(render::RenderContext&)#1
-}&&)::{
-    lambda(void*, render::RenderContext&) #1
-}
-::RenderContext__;
-*(code**)(this + 152) =
-    function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event_const&) const ::{
-    lambda(void*) #1
-}
-(render::RenderContext&)#1
-},void>((tweak::Container&)->RegisterTweakyVars()::$_8::operator()(tweak::Event_const&)const::{
-    lambda(void*) #1}(render::RenderContext&)#1
-}&&)::{
-    lambda(void*) #1
-}
-::__invoke;
-return;
-}
-
-// 0x1009149e0, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*, void*)#1}::__invoke(void*, void*)
-/* __invoke(void*, void*) */
-
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event_const&) const ::{
-    lambda(void*, void*) #1
-}
-(render::RenderContext&)#1
-},void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event_const&)const::{
-    lambda(void*, void*) #1}(render::RenderContext&)#1
-}&&)
-     ::{
-    lambda(void*, void*) #1
-}
-::__invoke(void* param_1, void* param_2) {
-    function <
-        DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&)
-            const ::{
-        lambda(render::RenderContext&) #1
-    }
-    , void > ((tweak::Container&)->RegisterTweakyVars()::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&) const ::{
-          lambda(render::RenderContext&) #1
-      }&&)::{
-        lambda(void*, void*) #1
-    }
-    ::operator()(param_1, param_2);
-}
-
-// 0x1009149f0, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*, void*)#1}::operator()(void*, void*) const
-/* function<void (render::RenderContext&), 128ul, 16ul,
-   (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1},
-   void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*,
-   void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, void*) const */
-
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&) const ::{
-    lambda(render::RenderContext&) #1
-}
-, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&)
-              const ::{ lambda(render::RenderContext&) #1 }&&)::{
-    lambda(void*, void*) #1
-}
-::operator()(void* param_1, void* param_2) {
-    undefined8 uVar1;
-
-    uVar1 = *(undefined8*)((long)param_1 + 8);
-    *(undefined8*)param_2 = *(undefined8*)param_1;
-    *(undefined8*)((long)param_2 + 8) = uVar1;
-}
-
-// 0x100914a00, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*, render::RenderContext&)#1}::__invoke(void*, render::RenderContext&)
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event_const&) const ::{
-    lambda(void*, render::RenderContext&) #1
-}
-(render::RenderContext&)#1
-},void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event_const&)const::{
-    lambda(void*, render::RenderContext&) #1}(render::RenderContext&)#1
-}&&)
-     ::{
-    lambda(void*, render::RenderContext&) #1
-}
-::RenderContext__(void* param_1, RenderContext* param_2) {
-    function <
-        DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&)
-            const ::{
-        lambda(render::RenderContext&) #1
-    }
-    , void > ((tweak::Container&)->RegisterTweakyVars()::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&) const ::{
-          lambda(render::RenderContext&) #1
-      }&&)::{
-        lambda(void*, render::RenderContext&) #1
-    }
-    ::operator()(param_1, param_2);
-}
-
-// 0x100914a10, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*, render::RenderContext&)#1}::operator()(void*, render::RenderContext&) const
-/* function<void (render::RenderContext&), 128ul, 16ul,
-   (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1},
-   void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*,
-   render::RenderContext&)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, render::RenderContext&)
-   const */
-
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&) const ::{
-    lambda(render::RenderContext&) #1
-}
-, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&)
-              const ::{ lambda(render::RenderContext&) #1 }&&)::{
-    lambda(void*, render::RenderContext&) #1
-}
-::operator()(void* param_1, RenderContext * param_2) {
-    const ::{
-        lambda(render::RenderContext&) #1
-    }
-    ::operator()(param_1, param_2);
-}
-
-// 0x100914a40, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*)#1}::__invoke(void*)
-/* __invoke(void*) */
-
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event_const&) const ::{
-    lambda(void*) #1
-}
-(render::RenderContext&)#1
-},void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event_const&)const::{
-    lambda(void*) #1}(render::RenderContext&)#1
-}&&)
-     ::{
-    lambda(void*) #1
-}
-::__invoke(void* param_1) {}
-
-// 0x100916720, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&): jumps straight to the base-object constructor
-
-// 0x100916730, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)
-/* function<void (render::RenderContext&), 128ul, 16ul,
-   (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1},
-   void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1}&&) */
-
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::operator()(
-    function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>* this,
-    _lambda_jag__render__RenderContext___1_* param_1) {
-    *(undefined8*)this = 0;
-    *(undefined8*)(this + 16) = *(undefined8*)param_1;
-    *(code**)(this + 144) = function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(
-                                           tweak::Event_const&) const ::{
-        lambda(void*, void*) #1
-    }
-    (render::RenderContext&)#1
-},void>((tweak::Container&)->RegisterTweakyVars()::$_11::operator()(tweak::Event_const&)const::{
-    lambda(void*, void*) #1}(render::RenderContext&)#1
-}&&)::{
-    lambda(void*, void*) #1
-}
-::__invoke;
-*(code**)this =
-    function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event_const&) const ::{
-    lambda(void*, render::RenderContext&) #1
-}
-(render::RenderContext&)#1
-},void>((tweak::Container&)->RegisterTweakyVars()::$_11::operator()(tweak::Event_const&)const::{
-    lambda(void*, render::RenderContext&) #1}(render::RenderContext&)#1
-}&&)::{
-    lambda(void*, render::RenderContext&) #1
-}
-::RenderContext__;
-*(code**)(this + 152) =
-    function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event_const&) const ::{
-    lambda(void*) #1
-}
-(render::RenderContext&)#1
-},void>((tweak::Container&)->RegisterTweakyVars()::$_11::operator()(tweak::Event_const&)const::{
-    lambda(void*) #1}(render::RenderContext&)#1
-}&&)::{
-    lambda(void*) #1
-}
-::__invoke;
-return;
-}
-
-// 0x100916770, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*, void*)#1}::__invoke(void*, void*)
-/* __invoke(void*, void*) */
-
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event_const&) const ::{
-    lambda(void*, void*) #1
-}
-(render::RenderContext&)#1
-},void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event_const&)const::{
-    lambda(void*, void*) #1}(render::RenderContext&)#1
-}&&)
-     ::{
-    lambda(void*, void*) #1
-}
-::__invoke(void* param_1, void* param_2) {
-    function <
-        DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&)
-            const ::{
-        lambda(render::RenderContext&) #1
-    }
-    , void > ((tweak::Container&)->RegisterTweakyVars()::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&) const ::{
-          lambda(render::RenderContext&) #1
-      }&&)::{
-        lambda(void*, void*) #1
-    }
-    ::operator()(param_1, param_2);
-}
-
-// 0x100916780, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*, void*)#1}::operator()(void*, void*) const
-/* function<void (render::RenderContext&), 128ul, 16ul,
-   (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1},
-   void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*,
-   void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, void*) const */
-
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(
-        tweak::Event_const&) const ::{
-    lambda(render::RenderContext&) #1
-}
-, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&)
-              const ::{ lambda(render::RenderContext&) #1 }&&)::{
-    lambda(void*, void*) #1
-}
-::operator()(void* param_1, void* param_2) {
-    *(undefined8*)param_2 = *(undefined8*)param_1;
-}
-
-// 0x100916790, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*, render::RenderContext&)#1}::__invoke(void*, render::RenderContext&)
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event_const&) const ::{
-    lambda(void*, render::RenderContext&) #1
-}
-(render::RenderContext&)#1
-},void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event_const&)const::{
-    lambda(void*, render::RenderContext&) #1}(render::RenderContext&)#1
-}&&)
-     ::{
-    lambda(void*, render::RenderContext&) #1
-}
-::RenderContext__(void* param_1, RenderContext* param_2) {
-    function <
-        DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&)
-            const ::{
-        lambda(render::RenderContext&) #1
-    }
-    , void > ((tweak::Container&)->RegisterTweakyVars()::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&) const ::{
-          lambda(render::RenderContext&) #1
-      }&&)::{
-        lambda(void*, render::RenderContext&) #1
-    }
-    ::operator()(param_1, param_2);
-}
-
-// 0x1009167a0, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*, render::RenderContext&)#1}::operator()(void*, render::RenderContext&) const
-/* function<void (render::RenderContext&), 128ul, 16ul,
-   (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1},
-   void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event
-   const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*,
-   render::RenderContext&)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, render::RenderContext&)
-   const */
-
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(
-        tweak::Event_const&) const ::{
-    lambda(render::RenderContext&) #1
-}
-, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event_const&)
-              const ::{ lambda(render::RenderContext&) #1 }&&)::{
-    lambda(void*, render::RenderContext&) #1
-}
-::operator()(void* param_1, RenderContext * param_2) {
-    const ::{
-        lambda(render::RenderContext&) #1
-    }
-    ::operator()(param_1, param_2);
-}
-
-// 0x1009167c0, 16 bytes, inline, placed by debug map only (low confidence)
-// function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}, void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const::{lambda(render::RenderContext&)#1}&&)::{lambda(void*)#1}::__invoke(void*)
-/* __invoke(void*) */
-
-void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
-    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event_const&) const ::{
-    lambda(void*) #1
-}
-(render::RenderContext&)#1
-},void>(DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event_const&)const::{
-    lambda(void*) #1}(render::RenderContext&)#1
-}&&)
-     ::{
-    lambda(void*) #1
-}
-::__invoke(void* param_1) {}
-
-} // namespace jag::fixedfunction
 
 namespace jag::tweak {
     class Event {
     public:
         ~Event();
-        Event(Event&&);
-        Event(shared_ptr<Control> const&, Name);
-        Event(Event const&);
+        Event(Event&& arg1);
+        Event(const shared_ptr<Control>& control, Name name);
+        Event(const Event& event);
 
-        // data members, from how the methods use this: 24 bytes
-        char _unknown_0[16];
-        undefined4 field_16; // offset 16
-        char _unknown_20[4];
+    private:
+        uint8_t _unknown_0[16];
+        Name field_16;
+        uint8_t _unknown_20[4];
     };
 
     class Tweaky {
@@ -380,249 +24,484 @@ namespace jag::tweak {
         shared_ptr GetRoot() const;
         RT7Core* GetRT7Core() const;
         FontHelpers* GetFontHelper() const;
-        Tweaky* GetFocus() const;
-        Tweaky(graphics::RT7Core*, graphics::FontHelpers*, input::Input*);
+        auto GetFocus() const;
+        Tweaky(graphics::RT7Core* rt7Core, graphics::FontHelpers* fontHelpers, input::Input* input);
         ~Tweaky();
         void AddGlobalControls();
-        void AddButton(char const*, std::function<void(Event const&)> const&);
-        void Add(shared_ptr<Control> const&);
-        void AddCheckBox(char const*, bool&);
-        void AddCheckBox(char const*, std::function<void(Event const&)> const&);
-        void AddEditField(char const*, int, std::function<void(Event const&)> const&);
-        void AddEnum(char const*, StringEnum const*, int*);
-        void AddEnum(char const*, StringEnum const*, int*, std::function<void(Event const&)> const&);
-        void AddSlider(char const*, float, float, float, int*);
-        void AddSlider(char const*, float, float, float, unsigned int*);
-        void AddSlider(char const*, float, float, float, float*);
-        void AddSlider(char const*, float, float, float, std::function<void(Event const&)> const&);
-        void AddSwatch(float*, float*, float*);
-        void AddSwatch(float*, float*, float*, float*);
-        AddGroup(char const*);
-        void Draw(int, int, int, int);
+        void AddButton(const char* str, std::function<void(Event const&)> const& callback);
+        void Add(const shared_ptr<Control>& control);
+        void AddCheckBox(const char* str, bool& arg2);
+        void AddCheckBox(const char* str, std::function<void(Event const&)> const& callback);
+        void AddEditField(const char* str, int arg2, std::function<void(Event const&)> const& callback);
+        void AddEnum(const char* str, const StringEnum* stringEnum, int* arg3);
+        void AddEnum(const char* str, const StringEnum* stringEnum, int* arg3,
+                     std::function<void(Event const&)> const& callback);
+        void AddSlider(const char* str, float arg2, float arg3, float arg4, int* arg5);
+        void AddSlider(const char* str, float arg2, float arg3, float arg4, unsigned int* arg5);
+        void AddSlider(const char* str, float arg2, float arg3, float arg4, float* arg5);
+        void AddSlider(const char* str, float arg2, float arg3, float arg4,
+                       std::function<void(Event const&)> const& callback);
+        void AddSwatch(float* arg1, float* arg2, float* arg3);
+        void AddSwatch(float* arg1, float* arg2, float* arg3, float* arg4);
+        auto AddGroup(const char* str);
+        void Draw(int arg1, int arg2, int arg3, int arg4);
         void DetectTweakyShown();
         int GetVisibleX() const;
         int GetVisibleY() const;
         bool IsAttached();
-        void DrawScrollBar(Placement, bool, int, int, int, bool);
+        void DrawScrollBar(Placement placement, bool arg2, int arg3, int arg4, int arg5, bool arg6);
         void Clear();
-        void DrawLine(int, int, int, int, bool);
-        void DrawRect(int, int, int, int, bool);
-        void FillRect(int, int, int, int);
-        void GetSize(int&, int&) const;
-        GetTextSize(int&, int&, StringView, int);
-        uint GetMinControlHeight();
-        int GetTextCenterYOffset(unsigned int);
-        HandleMouseDown(float, float);
-        void IsInsideVisibleArea(int, int) const;
+        void DrawLine(int arg1, int arg2, int arg3, int arg4, bool arg5);
+        void DrawRect(int arg1, int arg2, int arg3, int arg4, bool arg5);
+        void FillRect(int arg1, int arg2, int arg3, int arg4);
+        void GetSize(int& arg1, int& arg2) const;
+        char GetTextSize(int& arg1, int& arg2, StringView stringView, int arg4);
+        unsigned int GetMinControlHeight();
+        int GetTextCenterYOffset(unsigned int arg1);
+        uint64_t HandleMouseDown(float arg1, float arg2);
+        void IsInsideVisibleArea(int arg1, int arg2) const;
         void ClearFocus();
-        ulong HandleMouseMove(float, float);
-        HandleMouseOver(float, float);
-        HandleMouseUp(float, float);
-        HandleMouseWheel(float, float, float);
+        unsigned long HandleMouseMove(float arg1, float arg2);
+        uint64_t HandleMouseOver(float arg1, float arg2);
+        uint64_t HandleMouseUp(float arg1, float arg2);
+        uint32_t HandleMouseWheel(float arg1, float arg2, float arg3);
         void ValidateScroll();
-        HasInputFocus() const;
-        void SetFont(shared_ptr<graphics::Font> const&);
-        void SetControlMinHeight(unsigned int);
+        bool HasInputFocus() const;
+        void SetFont(const shared_ptr<graphics::Font>& font);
+        void SetControlMinHeight(unsigned int arg1);
         void ToggleControlMinHeight();
-        void SetFocus(shared_ptr<Control> const&);
-        void EnsureVisible(shared_ptr<Control> const&);
+        void SetFocus(const shared_ptr<Control>& control);
+        void EnsureVisible(const shared_ptr<Control>& control);
         void SetFocusNext();
         void SetFocusPrevious();
-        HandleChar(int);
-        HandleKeyDown(int);
-        HandleKeyUp(int);
-        void TextDraw<eastl::fixed_string<char, 16, true, eastl::allocator>>(
-            int, int, eastl::fixed_string<char, 16, true, eastl::allocator> const&, int, int, bool);
-        void SetColour(unsigned int);
-        void GetScroll(int&, int&) const;
-        void TextDraw(int, int, char const*, int, int, bool);
-        void GetTextSize(int&, int&, char const*, unsigned long, int);
-        void SetVisibleArea(int, int);
-        void TextDraw<std::basic_string_view<char, std::char_traits<char>>>(
-            int, int, std::basic_string_view<char, std::char_traits<char>> const&, int, int, bool);
-        IsMinimised();
-        void SetMinimised(bool);
-        void SetAttached(bool);
-        static /* 4 bytes */ m_controlMinHeight; // = 15
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullTweaky;
+        uint32_t HandleChar(int arg1);
+        uint32_t HandleKeyDown(int arg1);
+        uint32_t HandleKeyUp(int arg1);
+        void TextDraw<eastl::fixed_string<char, 16>>(int arg1, int arg2, const eastl::fixed_string<char, 16>& str,
+                                                     int arg4, int arg5, bool arg6);
+        void SetColour(unsigned int arg1);
+        void GetScroll(int& arg1, int& arg2) const;
+        void TextDraw(int arg1, int arg2, const char* str, int arg4, int arg5, bool arg6);
+        void GetTextSize(int& arg1, int& arg2, const char* str, unsigned long arg4, int arg5);
+        void SetVisibleArea(int arg1, int arg2);
+        void TextDraw<std::basic_string_view<char>>(int arg1, int arg2, const std::basic_string_view<char>& str,
+                                                    int arg4, int arg5, bool arg6);
+        bool IsMinimised();
+        void SetMinimised(bool arg1);
+        void SetAttached(bool arg1);
+        static int32_t m_controlMinHeight; // = 15
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullTweaky; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
 
-        // data members, from how the methods use this: 164 bytes
-        char _unknown_0[16];
-        shared_ptr m_root; // offset 16
-        char _unknown_32[16];
-        RT7Core* m_pRT7Core;        // offset 48
-        FontHelpers* m_pFontHelper; // offset 56
-        shared_ptr m_font;          // offset 64
-        uint field_80;              // offset 80
-        char _unknown_84[4];
-        Input* field_88;      // offset 88
-        undefined8 field_96;  // offset 96
-        int m_placement;      // offset 104
-        int field_108;        // offset 108
-        int field_112;        // offset 112
-        int field_116;        // offset 116
-        undefined1 field_120; // offset 120
-        char _unknown_121[3];
-        float field_124; // offset 124
-        float field_128; // offset 128
-        int field_132;   // offset 132
-        int field_136;   // offset 136
-        int m_visibleX;  // offset 140
-        int m_visibleY;  // offset 144
-        uint m_colour;   // offset 148
-        uint field_152;  // offset 152
-        char _unknown_156[1];
-        bool m_attached;  // offset 157
-        bool m_minimised; // offset 158
-        char field_159;   // offset 159
-        char _unknown_160[4];
+    private:
+        uint8_t _unknown_0[16];
+        shared_ptr m_root;
+        uint8_t _unknown_32[16];
+        RT7Core* m_pRT7Core;
+        FontHelpers* m_pFontHelper;
+        shared_ptr m_font;
+        unsigned int field_80;
+        uint8_t _unknown_84[4];
+        Input* field_88;
+        uint64_t field_96;
+        int m_placement;
+        int field_108;
+        int field_112;
+        int field_116;
+        uint8_t field_120;
+        uint8_t _unknown_121[3];
+        float field_124;
+        float field_128;
+        int field_132;
+        int field_136;
+        int m_visibleX;
+        int m_visibleY;
+        unsigned int m_colour;
+        uint8_t _unknown_152[5];
+        bool m_attached;
+        bool m_minimised;
+        char field_159;
+        uint8_t _unknown_160[4];
     };
 
-    // 0x100912b70, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // Event::Event(shared_ptr<Control> const&, Event::Name): jumps straight to the base-object constructor
+    // 0x100912bb0
+    Event::Event(const shared_ptr<Control>& control, Event::Name name) : shared_ptr(control), field_16(name) {}
 
-    // 0x100912bb0, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // Event::Event(shared_ptr<Control> const&, Event::Name)
-    void Event::Event(shared_ptr* param_1, undefined4 param_3) {
-        new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
-        field_16 = param_3;
-    }
-
-    // 0x100a3cda0, 32 bytes, inline, placed by class name
-    // Tweaky::GetVisibleX() const
-    int Tweaky::GetVisibleX() {
+    // 0x100a3cda0
+    int Tweaky::GetVisibleX() const {
         if (m_visibleX == -1) {
             return field_112 - m_placement;
         }
         return m_visibleX;
     }
 
-    // 0x100a3cdc0, 32 bytes, inline, placed by class name
-    // Tweaky::GetVisibleY() const
-    int Tweaky::GetVisibleY() {
+    // 0x100a3cdc0
+    int Tweaky::GetVisibleY() const {
         if (m_visibleY == -1) {
             return field_116 - field_108;
         }
         return m_visibleY;
     }
 
-    // 0x100a3cde0, 16 bytes, inline, placed by class name
-    // Tweaky::IsAttached()
-    undefined1 Tweaky::IsAttached() {
+    // 0x100a3cde0
+    bool Tweaky::IsAttached() {
         return m_attached;
     }
 
-    // 0x100a3d500, 112 bytes, inline, placed by class name
-    // Tweaky::IsInsideVisibleArea(int, int) const
-    void Tweaky::IsInsideVisibleArea(int param_1, int param_2) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-        int iVar4;
-        int iVar5;
-        GridRect local_48;
-
-        iVar1 = m_placement;
-        iVar2 = field_108;
-        local_48._16_4_ = param_2;
-        iVar4 = GetVisibleX(this);
-        iVar3 = field_108;
-        iVar5 = GetVisibleY(this);
-        new (&local_48) oldscape::dash3d::GridRect(iVar1, iVar2, iVar4 + iVar1, iVar3 + iVar5);
-        local_48.IsInside(param_1, local_48._16_4_);
+    // 0x100a3d500
+    void Tweaky::IsInsideVisibleArea(int arg1, int arg2) const {
+        int arg1_00 = m_placement;
+        int arg2_00 = field_108;
+        local_48._16_4_ = arg2;
+        int iVar2 = GetVisibleX();
+        int iVar1 = field_108;
+        int iVar3 = GetVisibleY();
+        GridRect local_48(arg1_00, arg2_00, iVar2 + arg1_00, iVar1 + iVar3);
+        local_48.IsInside(arg1, local_48._16_4_);
     }
 
-    // 0x100a3fa10, 304 bytes, inline, placed by class name
-    // void Tweaky::TextDraw<eastl::fixed_string<char, 16, true, eastl::allocator> >(int, int, eastl::fixed_string<char, 16, true, eastl::allocator> const&, int, int, bool)
-    /* void Tweaky::TextDraw<eastl::string >(int, int,
-   eastl::string const&, int, int, bool) */
-
-    void Tweaky::TextDraw<eastl::string>(int param_1, int param_2, basic_string* param_3, int param_4, int param_5,
-                                         bool param_6) {
-        uint uVar1;
-        FontHelpers* this_00;
-        StringView SVar2;
-        StringView SVar3;
-        TextFlags in_stack_ffffffffffffff58;
-        undefined7 in_stack_ffffffffffffff59;
+    // 0x100a3fa10
+    void Tweaky::TextDraw<eastl::fixed_string<char, 16>>(int arg1, int arg2, const eastl::fixed_string<char, 16>& str,
+                                                         int arg4, int arg5, bool arg6) {
+        uint32_t in_register_0000000c;
+        uint32_t in_register_0000003c;
+        uint64_t in_register_00000089;
+        bool in_stack_00000008;
         StringView local_a0;
         StringView local_90;
-        TextProperties local_80;
-        optional<unsigned int> local_58[8];
-        TextFlags local_38[8];
 
-        graphics::TextFlags::TextFlags(local_38, 1, param_6);
-        new (&local_80) graphics::TextProperties((shared_ptr*)m_font, in_stack_ffffffffffffff58);
+        long lVar1 = (((uint64_t)in_register_0000003c << 32) | (uint32_t)arg1);
+        basic_string<char, BucketAllocatorEASTL>* local_50 =
+            (basic_string<char, BucketAllocatorEASTL>*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4);
+        int local_44 = (int)(((uint64_t)in_register_00000089 << 8) | (uint8_t)arg6);
+        TextFlags local_38(1, in_stack_00000008);
+        TextProperties local_80(*((lVar1 + 64)), local_38[0]);
         local_80.SetAlignment(0, 0);
-        uVar1 = m_colour;
-        eastl::optional<unsigned int>::optional(local_58, &field_152);
-        local_80.SetColours(uVar1, local_58);
-        this_00 = m_pFontHelper;
-        if (param_4 < 1) {
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_90,
-                                                                                          (fixed_string*)param_3);
-            SVar3.field_8._0_4_ = param_1 - field_136;
-            SVar3.field_0 = (ulong)&local_90;
-            SVar3.field_8._4_4_ = 0;
-            this_00->DrawString(SVar3, param_2 - (field_132 + field_80), 512, (uint)&local_80,
-                                (TextProperties*)CONCAT71(in_stack_ffffffffffffff59, in_stack_ffffffffffffff58));
+        unsigned int arg1_00 = *(unsigned int*)(lVar1 + 148);
+        optional<unsigned int> local_58(*((lVar1 + 152)));
+        local_80.SetColours(arg1_00, &local_58);
+        FontHelpers* fontHelpers = *(FontHelpers**)(lVar1 + 56);
+        if (arg5 < 1) {
+            local_90.StringView<eastl::fixed_string<char, 40>>(*local_50);
+            fontHelpers->DrawString(&local_90, arg2 - *(int*)(lVar1 + 136),
+                                    (int)str - (*(int*)(lVar1 + 132) + *(int*)(lVar1 + 80)), 512, local_80);
         } else {
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_a0,
-                                                                                          (fixed_string*)param_3);
-            SVar2.field_8._0_4_ = param_1 - field_136;
-            SVar2.field_0 = (ulong)&local_a0;
-            SVar2.field_8._4_4_ = 0;
-            this_00->DrawStringMultiline(
-                SVar2, param_2 - (field_132 + field_80), param_4, param_5, 0, (uint*)&local_80,
-                (TextProperties*)CONCAT71(in_stack_ffffffffffffff59, in_stack_ffffffffffffff58));
+            local_a0.StringView<eastl::fixed_string<char, 40>>(*local_50);
+            fontHelpers->DrawStringMultiline(&local_a0, arg2 - *(int*)(lVar1 + 136),
+                                             (int)str - (*(int*)(lVar1 + 132) + *(int*)(lVar1 + 80)), arg5, local_44,
+                                             nullptr, local_80);
         }
     }
 
-    // 0x100a423d0, 16 bytes, inline, placed by class name
-    // Tweaky::SetColour(unsigned int)
-    void Tweaky::SetColour(uint param_1) {
-        m_colour = param_1;
+    // 0x100a423d0
+    void Tweaky::SetColour(unsigned int arg1) {
+        m_colour = arg1;
     }
 
-    // 0x100a46f20, 32 bytes, inline, placed by class name
-    // Tweaky::GetScroll(int&, int&) const
-    void Tweaky::GetScroll(int* param_1, int* param_2) {
-        *param_1 = field_136;
-        *param_2 = field_132;
+    // 0x100a46f20
+    void Tweaky::GetScroll(int& arg1, int& arg2) const {
+        arg1 = field_136;
+        arg2 = field_132;
     }
 
-    // 0x100a47c00, 96 bytes, inline, placed by class name
-    // Tweaky::TextDraw(int, int, char const*, int, int, bool)
-    void Tweaky::TextDraw(int param_1, int param_2, char* param_3, int param_4, int param_5, bool param_6) {
-        basic_string_view<char, std::char_traits<char>> local_40[16];
+    // 0x100a47c00
+    void Tweaky::TextDraw(int arg1, int arg2, const char* str, int arg4, int arg5, bool arg6) {
+        uint32_t in_register_0000000c;
+        basic_string_view<char> local_40;
 
-        if (param_3 != (char*)0) {
-            std::basic_string_view<char, std::char_traits<char>>::basic_string_view(local_40, param_3);
-            TextDraw<std::basic_string_view<char, std::char_traits<char>>>(this, param_1, param_2, local_40, param_4,
-                                                                           param_5, param_6);
+        if ((char*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4) != nullptr) {
+            local_40 = std::basic_string_view<char>((char*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4));
+            TextDraw<std::basic_string_view<char>>(
+                arg1, arg2, (basic_string_view<char, std::char_traits<char> _>*)((unsigned long)str & 4294967295),
+                (int)&local_40, arg5, arg6);
         }
     }
 
-    // 0x100a49350, 96 bytes, inline, placed by class name
-    // Tweaky::GetTextSize(int&, int&, char const*, unsigned long, int)
-    void Tweaky::GetTextSize(int* param_1, int* param_2, char* param_3, ulong param_4, int param_5) {
-        StringView SVar2;
-        StringView local_40;
+    // 0x100a49350
+    void Tweaky::GetTextSize(int& arg1, int& arg2, const char* str, unsigned long arg4, int arg5) {
 
-        new (&local_40) StringView(param_3, param_4);
-        SVar2.field_8._0_4_ = param_5;
-        SVar2.field_0 = (ulong)&local_40;
-        SVar2.field_8._4_4_ = 0;
-        GetTextSize(this, param_1, param_2, SVar2, param_5);
+        StringView local_40(str, arg4);
+        GetTextSize(arg1, arg2, &local_40, arg5);
     }
 
 } // namespace jag::tweak
 
+namespace jag::fixedfunction {
+    // 0x1009149a0
+    function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+        DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const ::{
+        lambda(render::RenderContext&) #1
+    }
+    , void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const ::{
+          lambda(render::RenderContext&) #1
+      } && arg1) {
+        *(uint64_t*)this = 0;
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        *(uint64_t*)(this + 16) = *(uint64_t*)arg1;
+        *(uint64_t*)(this + 24) = uVar1;
+        *(void (**)(...))(this + 144) =
+            function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&)
+                           const ::{
+            lambda(void*, void*) #1
+        }
+        (render::RenderContext&)#1
+    },void>((tweak::Container&)->RegisterTweakyVars()::$_8::operator()(tweak::Event const&)const::{
+        lambda(void*, void*) #1}(render::RenderContext&)#1
+}&&)::{
+    lambda(void*, void*) #1
+}
+::__invoke;
+*(void (**)(...))this =
+    function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const ::{
+    lambda(void*, render::RenderContext&) #1
+}
+(render::RenderContext&)#1
+},void>((tweak::Container&)->RegisterTweakyVars()::$_8::operator()(tweak::Event const&)const::{
+    lambda(void*, render::RenderContext&) #1}(render::RenderContext&)#1
+}&&)::{
+    lambda(void*, render::RenderContext&) #1
+}
+::RenderContext__;
+*(void (**)(...))(this + 152) =
+    function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const ::{
+    lambda(void*) #1
+}
+(render::RenderContext&)#1
+},void>((tweak::Container&)->RegisterTweakyVars()::$_8::operator()(tweak::Event const&)const::{
+    lambda(void*) #1}(render::RenderContext&)#1
+}&&)::{
+    lambda(void*) #1
+}
+::__invoke;
+return;
+}
+
+// 0x1009149e0
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*, void*) #1
+}
+::__invoke(void* arg1, void* arg2) {
+    function <
+        DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&)
+            const ::{
+        lambda(render::RenderContext&) #1
+    }
+    , void > ((tweak::Container&)->RegisterTweakyVars()::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&) const ::{
+          lambda(render::RenderContext&) #1
+      }&&)::{
+        lambda(void*, void*) #1
+    }
+    ::operator()((_lambda_void__void___1_*)this, arg1, arg2);
+}
+
+// 0x1009149f0
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*, void*) #1
+}
+::operator()(void* arg1, void* arg2) const {
+    uint64_t uVar1 = *(uint64_t*)(this + 8);
+    *(uint64_t*)arg1 = *(uint64_t*)this;
+    *(uint64_t*)((long)arg1 + 8) = uVar1;
+}
+
+// 0x100914a00
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*, render::RenderContext&) #1
+}
+::__invoke(void* arg1, render::RenderContext& renderContext) {
+    function <
+        DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&)
+            const ::{
+        lambda(render::RenderContext&) #1
+    }
+    , void > ((tweak::Container&)->RegisterTweakyVars()::$_8::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&) const ::{
+          lambda(render::RenderContext&) #1
+      }&&)::{
+        lambda(void*, render::RenderContext&) #1
+    }
+    ::operator()((_lambda_void__jag__render__RenderContext___1_*)this, arg1, renderContext);
+}
+
+// 0x100914a10
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*, render::RenderContext&) #1
+}
+::operator()(void* arg1, render::RenderContext & renderContext) const {
+    const ::{
+        lambda(render::RenderContext&) #1
+    }
+    ::operator()((_lambda_jag__render__RenderContext___1_*)this, arg1);
+}
+
+// 0x100914a40
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_8::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*) #1
+}
+::__invoke(void* arg1) {}
+
+// 0x100916730
+function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const ::{
+      lambda(render::RenderContext&) #1
+  } && arg1) {
+    *(uint64_t*)this = 0;
+    *(uint64_t*)(this + 16) = *(uint64_t*)arg1;
+    *(void (**)(...))(this + 144) = function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(
+                                                   tweak::Event const&) const ::{
+        lambda(void*, void*) #1
+    }
+    (render::RenderContext&)#1
+},void>((tweak::Container&)->RegisterTweakyVars()::$_11::operator()(tweak::Event const&)const::{
+    lambda(void*, void*) #1}(render::RenderContext&)#1
+}&&)::{
+    lambda(void*, void*) #1
+}
+::__invoke;
+*(void (**)(...))this =
+    function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const ::{
+    lambda(void*, render::RenderContext&) #1
+}
+(render::RenderContext&)#1
+},void>((tweak::Container&)->RegisterTweakyVars()::$_11::operator()(tweak::Event const&)const::{
+    lambda(void*, render::RenderContext&) #1}(render::RenderContext&)#1
+}&&)::{
+    lambda(void*, render::RenderContext&) #1
+}
+::RenderContext__;
+*(void (**)(...))(this + 152) =
+    function < DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const ::{
+    lambda(void*) #1
+}
+(render::RenderContext&)#1
+},void>((tweak::Container&)->RegisterTweakyVars()::$_11::operator()(tweak::Event const&)const::{
+    lambda(void*) #1}(render::RenderContext&)#1
+}&&)::{
+    lambda(void*) #1
+}
+::__invoke;
+return;
+}
+
+// 0x100916770
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*, void*) #1
+}
+::__invoke(void* arg1, void* arg2) {
+    function <
+        DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&)
+            const ::{
+        lambda(render::RenderContext&) #1
+    }
+    , void > ((tweak::Container&)->RegisterTweakyVars()::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&) const ::{
+          lambda(render::RenderContext&) #1
+      }&&)::{
+        lambda(void*, void*) #1
+    }
+    ::operator()((_lambda_void__void___1_*)this, arg1, arg2);
+}
+
+// 0x100916780
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*, void*) #1
+}
+::operator()(void* arg1, void* arg2) const {
+    *(uint64_t*)arg1 = *(uint64_t*)this;
+}
+
+// 0x100916790
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*, render::RenderContext&) #1
+}
+::__invoke(void* arg1, render::RenderContext& renderContext) {
+    function <
+        DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&)
+            const ::{
+        lambda(render::RenderContext&) #1
+    }
+    , void > ((tweak::Container&)->RegisterTweakyVars()::$_11::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&) const ::{
+          lambda(render::RenderContext&) #1
+      }&&)::{
+        lambda(void*, render::RenderContext&) #1
+    }
+    ::operator()((_lambda_void__jag__render__RenderContext___1_*)this, arg1, renderContext);
+}
+
+// 0x1009167a0
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*, render::RenderContext&) #1
+}
+::operator()(void* arg1, render::RenderContext & renderContext) const {
+    const ::{
+        lambda(render::RenderContext&) #1
+    }
+    ::operator()((_lambda_jag__render__RenderContext___1_*)this, arg1);
+}
+
+// 0x1009167c0
+void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function <
+    DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&) const ::{
+    lambda(render::RenderContext&) #1
+}
+, void > (DebugOverlayFPS::RegisterTweakyVars(tweak::Container&)::$_11::operator()(tweak::Event const&)
+              const ::{ lambda(render::RenderContext&) #1 }&&)::{
+    lambda(void*) #1
+}
+::__invoke(void* arg1) {}
+
+} // namespace jag::fixedfunction
+
 namespace jag {
-    // 0x100913890, 48 bytes, inline, placed by debug map only (low confidence)
-    // float Bytes2Kilobytes<unsigned long long>(unsigned long long)
-    float Bytes2Kilobytes<unsigned long long>(ulonglong param_1) {
-        return (float)param_1 * 0.0009765625;
+    // 0x100913890
+    float Bytes2Kilobytes<unsigned long long>(unsigned long long arg1) {
+        return (float)arg1 * 0.0009765625f;
     }
 
 } // namespace jag

@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/renderer/DrawableGroupList.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.system.osclient
@@ -8,94 +7,64 @@
 namespace jag::graphics {
     class DrawableGroupList {
     public:
-        GetDrawableElementInfoGroup();
-        GetDrawableElementInfoGroup() const;
-        void GetDrawableGroup(DrawableGroupType) const;
-        void SetOpaqueGroupsSortKeyType(DrawableSortKeyType);
+        void GetDrawableElementInfoGroup();
+        void GetDrawableElementInfoGroup() const;
+        NXTPixToolkit* GetDrawableGroup(DrawableGroupType drawableGroupType) const;
+        void SetOpaqueGroupsSortKeyType(DrawableSortKeyType drawableSortKeyType);
         DrawableGroupList();
         ~DrawableGroupList();
-        void GetDrawableGroup(DrawableGroupType);
+        NXTPixToolkit* GetDrawableGroup(DrawableGroupType drawableGroupType);
 
-        // data members, from how the methods use this: 584 bytes
-        char _unknown_0[584];
+        uint8_t _unknown_0[584];
     };
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    DrawableGroupList::GetDrawableElementInfoGroup();
+    // 0x100009ca0: DrawableGroupList::GetDrawableElementInfoGroup() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    DrawableGroupList::GetDrawableElementInfoGroup() const;
+    // 0x100009ca0: DrawableGroupList::GetDrawableElementInfoGroup() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x1007bcb30, 16 bytes, inline, placed by class name and debug map
-    // DrawableGroupList::GetDrawableGroup(DrawableGroupType) const
-    void DrawableGroupList::GetDrawableGroup(uint param_2) {
-        std::array<DrawableGroup, 13ul>::operator[]((array<DrawableGroup, 13ul>*)this, (ulong)param_2);
+    // 0x1007bcb30
+    NXTPixToolkit* DrawableGroupList::GetDrawableGroup(DrawableGroupType drawableGroupType) const {
+        return (NXTPixToolkit*)(*this)[(unsigned long)drawableGroupType];
     }
 
-    // 0x1007bcc00, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // GraphEntityTransformData::GraphEntityTransformData(math::Matrix44T<float> const*, math::Frustum const&)
-    void GraphEntityTransformData::GraphEntityTransformData(Matrix44T* param_1, Frustum* param_2) {
-        field_0 = param_1;
-        _memcpy(field_16, param_2, 160);
+    // 0x1007bcc00
+    GraphEntityTransformData::GraphEntityTransformData(const math::Matrix44T<float>* matrix44,
+                                                       const math::Frustum& frustum)
+        : field_0(matrix44) {
+        _memcpy(field_16, frustum, 160);
     }
 
-    // 0x1007e1bf0, 112 bytes, inline, placed by class name and debug map
-    // DrawableGroupList::SetOpaqueGroupsSortKeyType(DrawableSortKeyType)
-    void DrawableGroupList::SetOpaqueGroupsSortKeyType(undefined4 param_2) {
-        ServerConnectionWorkItem* pSVar1;
-
-        pSVar1 = (ServerConnectionWorkItem*)GetDrawableGroup(this, 0);
-        oldscape::ServerConnectionWorkItem::ServerConnectionWorkItem(pSVar1, param_2);
-        pSVar1 = (ServerConnectionWorkItem*)GetDrawableGroup(this, 1);
-        oldscape::ServerConnectionWorkItem::ServerConnectionWorkItem(pSVar1, param_2);
-        pSVar1 = (ServerConnectionWorkItem*)GetDrawableGroup(this, 7);
-        oldscape::ServerConnectionWorkItem::ServerConnectionWorkItem(pSVar1, param_2);
-        pSVar1 = (ServerConnectionWorkItem*)GetDrawableGroup(this, 8);
-        oldscape::ServerConnectionWorkItem::ServerConnectionWorkItem(pSVar1, param_2);
+    // 0x1007e1bf0
+    void DrawableGroupList::SetOpaqueGroupsSortKeyType(DrawableSortKeyType drawableSortKeyType) {
+        auto pNVar1 = GetDrawableGroup(0);
+        new (pNVar1) oldscape::ServerConnectionWorkItem(drawableSortKeyType);
+        pNVar1 = GetDrawableGroup(1);
+        new (pNVar1) oldscape::ServerConnectionWorkItem(drawableSortKeyType);
+        pNVar1 = GetDrawableGroup(7);
+        new (pNVar1) oldscape::ServerConnectionWorkItem(drawableSortKeyType);
+        pNVar1 = GetDrawableGroup(8);
+        new (pNVar1) oldscape::ServerConnectionWorkItem(drawableSortKeyType);
     }
 
-    // 0x1007e80f0, 16 bytes, complete-object constructor, inline, placed by class name
-    // DrawableGroupList::DrawableGroupList(): jumps straight to the base-object constructor
+    // 0x1007e8110
+    DrawableGroupList::DrawableGroupList()
+        : DrawableGroup(0, 2), field_48(1, 2), field_96(2, 1), field_144(3, 1), field_192(4, 1), field_240(5, 1),
+          field_288(6, 1), field_336(7, 2), field_384(8, 2), field_432(9, 2), field_480(10, 5), field_528(11, 2),
+          field_576(12, 2) {}
 
-    // 0x1007e8100, 16 bytes, complete-object destructor, inline, placed by class name
-    // DrawableGroupList::~DrawableGroupList(): jumps straight to the base-object destructor
+    // 0x1007e8400
+    DrawableGroupList::~DrawableGroupList() {}
 
-    // 0x1007e8110, 480 bytes, base-object constructor, inline, placed by class name
-    // DrawableGroupList::DrawableGroupList()
-    void DrawableGroupList::DrawableGroupList() {
-        new (this) DrawableGroup(0, 2);
-        new (&field_48, 1, 2) DrawableGroup();
-        new (&field_96, 2, 1) DrawableGroup();
-        new (&field_144, 3, 1) DrawableGroup();
-        new (&field_192, 4, 1) DrawableGroup();
-        new (&field_240, 5, 1) DrawableGroup();
-        new (&field_288, 6, 1) DrawableGroup();
-        new (&field_336, 7, 2) DrawableGroup();
-        new (&field_384, 8, 2) DrawableGroup();
-        new (&field_432, 9, 2) DrawableGroup();
-        new (&field_480, 10, 5) DrawableGroup();
-        new (&field_528, 11, 2) DrawableGroup();
-        new (&field_576, 12, 2) DrawableGroup();
-    }
-
-    // 0x1007e8400, 16 bytes, base-object destructor, inline, placed by class name
-    // DrawableGroupList::~DrawableGroupList()
-    void DrawableGroupList::~DrawableGroupList() {
-        ~array();
-    }
-
-    // 0x1009382b0, 16 bytes, inline, placed by class name
-    // DrawableGroupList::GetDrawableGroup(DrawableGroupType)
-    void DrawableGroupList::GetDrawableGroup(uint param_2) {
-        std::array<DrawableGroup, 13ul>::operator[]((array<DrawableGroup, 13ul>*)this, (ulong)param_2);
+    // 0x1009382b0
+    NXTPixToolkit* DrawableGroupList::GetDrawableGroup(DrawableGroupType drawableGroupType) {
+        return (NXTPixToolkit*)(*this)[(unsigned long)drawableGroupType];
     }
 
 } // namespace jag::graphics
 
-// 0x1007bcc90, 16 bytes, placed by debug map only (low confidence)
-// fabs(float)
-ulong fabs(float param_1) {
-    undefined4 in_XMM0_Db;
+// 0x1007bcc90
+unsigned long fabs(float arg1) {
+    uint32_t in_XMM0_Db;
 
-    return CONCAT44(in_XMM0_Db, param_1) & 9223372034707292159;
+    return (((uint64_t)in_XMM0_Db << 32) | (uint32_t)arg1) & 9223372034707292159;
 }

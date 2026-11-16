@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/effects/irradiance/LightProbeMaterial.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,36 +9,23 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~LightProbeMaterial();
-        void SetIrradianceSHConsts(IrradianceSHCoefConsts const&);
-        GetIrradianceSHConsts() const;
+        void SetIrradianceSHConsts(const IrradianceSHCoefConsts& irradianceSHCoefConsts);
+        IrradianceSHCoefConsts GetIrradianceSHConsts() const;
         LightProbeMaterial();
         void Init();
-        LightProbeMaterial(LightProbeMaterial&&);
-        LightProbeMaterial(LightProbeMaterial const&);
+        LightProbeMaterial(LightProbeMaterial&& lightProbeMaterial);
+        LightProbeMaterial(const LightProbeMaterial& lightProbeMaterial);
         void InitRenderPassEffects();
-        LightProbeMaterial* operator=(LightProbeMaterial const&);
+        LightProbeMaterial* operator=(const LightProbeMaterial& lightProbeMaterial);
 
-        // data members, from how the methods use this: 656 bytes, the first 544 are SkyBoxMaterial
-        undefined8 m_irradianceSHConsts; // offset 544
-        undefined8 field_552;            // offset 552
-        undefined8 field_560;            // offset 560
-        undefined8 field_568;            // offset 568
-        undefined8 field_576;            // offset 576
-        undefined8 field_584;            // offset 584
-        undefined8 field_592;            // offset 592
-        undefined8 field_600;            // offset 600
-        undefined8 field_608;            // offset 608
-        undefined8 field_616;            // offset 616
-        undefined8 field_624;            // offset 624
-        undefined8 field_632;            // offset 632
-        undefined8 field_640;            // offset 640
-        undefined8 field_648;            // offset 648
+    private:
+        IrradianceSHCoefConsts m_irradianceSHConsts;
+        uint64_t field_648;
     };
 
-    // 0x100414c60, 32 bytes, inline, placed by class name and debug map
-    // LightProbeMaterial::SetIrradianceSHConsts(IrradianceSHCoefConsts const&)
-    void LightProbeMaterial::SetIrradianceSHConsts(IrradianceSHCoefConsts* param_1) {
-        IrradianceSHCoefConsts::operator=((IrradianceSHCoefConsts*)&m_irradianceSHConsts, param_1);
+    // 0x100414c60
+    void LightProbeMaterial::SetIrradianceSHConsts(const IrradianceSHCoefConsts& irradianceSHCoefConsts) {
+        *m_irradianceSHConsts = irradianceSHCoefConsts;
     }
 
 } // namespace jag::graphics

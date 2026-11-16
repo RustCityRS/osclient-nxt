@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/renderer/renderpasses/SSAOPass.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,44 +8,43 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~SSAOPass();
-        virtual BeginPass(render::DrawCallState&, render::RenderContext&, EffectManager&, SceneViewData const&,
-                          DrawableQueue const&);
-        virtual void Render(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&,
-                            DrawableQueue&);
-        virtual void RenderDebug(EffectManager&, DrawableQueue&);
+        virtual uint64_t BeginPass(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                   EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                   const DrawableQueue& drawableQueue);
+        virtual void Render(RT7Core& rt7Core, const render::DrawCallState& drawCallState, EffectManager& effectManager,
+                            const SceneViewData& sceneViewData, DrawableQueue& drawableQueue);
+        virtual void RenderDebug(EffectManager& effectManager, DrawableQueue& drawableQueue);
         virtual void CreateRenderingResources();
         virtual void DestroyRenderingResources();
-        void SetGBufferRT(shared_ptr<render::RenderTargets> const&);
-        void SetSSSAORT(shared_ptr<render::RenderTargets> const&);
+        void SetGBufferRT(const shared_ptr<render::RenderTargets>& renderTargets);
+        void SetSSSAORT(const shared_ptr<render::RenderTargets>& renderTargets);
         SSAOPass();
-        void ClearSSAORT(RT7Core&);
-        void SetSharedState(render::DrawCallState&, render::RenderContext&, render::ShaderProgram const&,
-                            SceneViewData const&);
-        void SetSSAOContext(SSAOContext*);
-        static /* 64 bytes */ m_SSAOModeNiceNames__; // initialised in its definition
-        static /* 4 bytes */ m_SSAOMode;             // = 1
-        static StringEnum                            /* 16 bytes */
-            m_SSAOModeNiceNames;                     // = StringEnum((StringEnumEntry *)&m_SSAOModeNiceNames__, 4)
+        void ClearSSAORT(RT7Core& rt7Core);
+        void SetSharedState(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                            const render::ShaderProgram& shaderProgram, const SceneViewData& sceneViewData);
+        void SetSSAOContext(SSAOContext* texture);
+        static int32_t m_SSAOModeNiceNames__[16]; // initialised in its definition
+        static int32_t m_SSAOMode;                // = 1
+        static StringEnum m_SSAOModeNiceNames;    // = StringEnum((StringEnumEntry *)&m_SSAOModeNiceNames__, 4)
 
-        // data members, from how the methods use this: 1912 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[616];
-        SSAOContext* m_pSSAOContext; // offset 624
-        shared_ptr field_632;        // offset 632
-        shared_ptr field_648;        // offset 648
-        char _unknown_664[1248];
+    private:
+        uint8_t _unknown_8[616];
+        Texture* m_pSSAOContext;
+        shared_ptr field_632;
+        shared_ptr field_648;
+        uint8_t _unknown_664[1048];
+        InputAssemblerState field_1712;
+        InputAssemblerState field_1904;
     };
 
-    // 0x1001d0730, 32 bytes, inline, placed by class name and debug map
-    // SSAOPass::SetGBufferRT(shared_ptr<render::RenderTargets> const&)
-    void SSAOPass::SetGBufferRT(shared_ptr* param_1) {
-        shared_ptr<render::RenderTargets>::operator=((shared_ptr<render::RenderTargets>*)field_632, param_1);
+    // 0x1001d0730
+    void SSAOPass::SetGBufferRT(const shared_ptr<render::RenderTargets>& renderTargets) {
+        *field_632 = renderTargets;
     }
 
-    // 0x1001d0750, 32 bytes, inline, placed by class name and debug map
-    // SSAOPass::SetSSSAORT(shared_ptr<render::RenderTargets> const&)
-    void SSAOPass::SetSSSAORT(shared_ptr* param_1) {
-        shared_ptr<render::RenderTargets>::operator=((shared_ptr<render::RenderTargets>*)field_648, param_1);
+    // 0x1001d0750
+    void SSAOPass::SetSSSAORT(const shared_ptr<render::RenderTargets>& renderTargets) {
+        *field_648 = renderTargets;
     }
 
 } // namespace jag::graphics

@@ -1,11 +1,10 @@
 // _unplaced/libs/core/unity_0.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.core
 
 namespace jag {
-    // 0x100d9ee30, 8882 bytes, __const
-    CRCTable32 = {
+    // 0x100d9ee30
+    uint8_t CRCTable32[8882] = {
         0,   0,   0,   0,   150, 48,  7,   119, 44,  97,  14,  238, 186, 81,  9,   153, 25,  196, 109, 7,   143, 244,
         106, 112, 53,  165, 99,  233, 163, 149, 100, 158, 50,  136, 219, 14,  164, 184, 220, 121, 30,  233, 213, 224,
         136, 217, 210, 151, 43,  76,  182, 9,   189, 124, 177, 126, 7,   45,  184, 231, 145, 29,  191, 144, 100, 16,
@@ -412,85 +411,66 @@ namespace jag {
         115, 116, 80,  97,  116, 104, 67,  111, 109, 112, 111, 110, 101, 110, 116, 0,
     };
 
-    // 0x100f4df88, 8 bytes, __data
-    g_DefaultAssertPresenter = 4310868640;
+    // 0x100f4df88
+    int64_t g_DefaultAssertPresenter = 4310868640;
 
-    // 0x100f4df90, 8 bytes, __data
-    g_CurrentAssertPresenter = &g_DefaultAssertPresenter;
+    // 0x100f4df90
+    const void* g_CurrentAssertPresenter = &g_DefaultAssertPresenter;
 
-    // 0x103bff690, 48 bytes, __common; zero-initialised
-    g_logAndAbortHandler;
+    // 0x103bff690
+    uint8_t g_logAndAbortHandler[48];
 
-    // 0x100cc6370, 32 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init
-    void ___cxx_global_var_init() {
-        (&types::float16::ZERO)->FromBits(0);
+    // 0x100cc6370
+    void ___cxx_global_var_init(void) {
+        *((ReturnValue*)&types::float16::ZERO) = types::float16::FromBits(0);
     }
 
-    // 0x100cc6390, 48 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.3
-    void ___cxx_global_var_init_3() {
-        std::function<void(char const*)>::function();
+    // 0x100cc6390
+    void ___cxx_global_var_init_3(function<void(char const*)>* param_1) {
+        new (param_1) std::function<void(char const*)>();
         ___cxa_atexit(PTR__function_100ee6f28, &g_logAndAbortHandler, 4294967296);
     }
 
-    // 0x100cc63c0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.5
-    void ___cxx_global_var_init_5() {
-        undefined* puVar1;
-
-        puVar1 = PTR_LOOK_100ee47d8;
+    // 0x100cc63c0
+    void ___cxx_global_var_init_5(void) {
+        uint8_t* puVar1 = PTR_LOOK_100ee47d8;
         if (*PTR_LOOK_100ee47d8 == '\0') {
             new (PTR_LOOK_100ee66e0) math::ColourHSL(0.0, 0.0, 1.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x100cc6400, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.6
-    void ___cxx_global_var_init_6() {
-        undefined* puVar1;
-
-        puVar1 = PTR_UP_100ee47c8;
+    // 0x100cc6400
+    void ___cxx_global_var_init_6(void) {
+        uint8_t* puVar1 = PTR_UP_100ee47c8;
         if (*PTR_UP_100ee47c8 == '\0') {
             new (PTR_UP_100ee66d0) math::ColourHSL(0.0, 1.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x100cc6440, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.7
-    void ___cxx_global_var_init_7() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee4298;
+    // 0x100cc6440
+    void ___cxx_global_var_init_7(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee4298;
         if (*PTR_m_pSingleton_100ee4298 == '\0') {
-            ___cxa_atexit(std::unique_ptr<ThreadPoolSingleton, std::default_delete<ThreadPoolSingleton>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee5948, 4294967296);
+            ___cxa_atexit(std::unique_ptr<ThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5948, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x100cc6480, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.8
-    void ___cxx_global_var_init_8() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee42a0;
+    // 0x100cc6480
+    void ___cxx_global_var_init_8(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee42a0;
         if (*PTR_m_pSingleton_100ee42a0 == '\0') {
-            ___cxa_atexit(
-                std::unique_ptr<ShaderThreadPoolSingleton, std::default_delete<ShaderThreadPoolSingleton>>::~unique_ptr,
-                PTR_m_pSingleton_100ee5950, 4294967296);
+            ___cxa_atexit(std::unique_ptr<ShaderThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5950,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x100cc64c0, 39 bytes, placed by nothing (unplaced)
-    // __GLOBAL__sub_I_unity_0_cxx.cxx
-    void __GLOBAL__sub_I_unity_0_cxx_cxx() {
-        undefined8 uVar1;
-
-        uVar1 = _objc_autoreleasePoolPush();
+    // 0x100cc64c0
+    void __GLOBAL__sub_I_unity_0_cxx_cxx(void) {
+        uint64_t uVar1 = _objc_autoreleasePoolPush();
         ___cxx_global_var_init();
         ___cxx_global_var_init_3();
         _objc_autoreleasePoolPop(uVar1);

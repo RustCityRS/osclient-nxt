@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/sound/envelope.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,36 +8,32 @@ namespace jag::oldscape::sound {
     public:
         ~Envelope();
         Envelope();
-        void Load(PacketJ<Array<unsigned char, eastl::allocator>>&);
-        void LoadPoints(PacketJ<Array<unsigned char, eastl::allocator>>&);
-        void LoadUncompressed(PacketJ<Array<unsigned char, eastl::allocator>>&);
-        void SaveUncompressed(PacketJ<Array<unsigned char, eastl::allocator>>&);
+        void Load(PacketJ<Array<unsigned char>>& packetJ);
+        void LoadPoints(PacketJ<Array<unsigned char>>& packetJ);
+        void LoadUncompressed(PacketJ<Array<unsigned char>>& packetJ);
+        void SaveUncompressed(PacketJ<Array<unsigned char>>& packetJ);
         void GenInit();
-        int GenNext(int);
+        int GenNext(int arg1);
 
-        // data members, from how the methods use this: 72 bytes
-        undefined4 field_0; // offset 0
-        undefined4 field_4; // offset 4
-        uint field_8;       // offset 8
-        bool field_12;      // offset 12
-        char _unknown_13[3];
-        int field_16;  // offset 16
-        uint field_20; // offset 20
-        int field_24;  // offset 24
-        int field_28;  // offset 28
-        int field_32;  // offset 32
-        uint field_36; // offset 36
-        char _unknown_40[32];
+    private:
+        uint32_t field_0;
+        uint32_t field_4;
+        unsigned int field_8;
+        uint8_t field_12;
+        uint8_t _unknown_13[3];
+        int field_16;
+        unsigned int field_20;
+        int field_24;
+        int field_28;
+        int field_32;
+        unsigned int field_36;
+        uint8_t _unknown_40[32];
     };
 
-    // 0x100137f80, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // Envelope::~Envelope(): jumps straight to the base-object destructor
-
-    // 0x100137f90, 48 bytes, base-object destructor, inline, placed by class name and debug map
-    // Envelope::~Envelope()
-    void Envelope::~Envelope() {
-        (&field_64)->~Array();
-        (&field_40)->~Array();
+    // 0x100137f90
+    Envelope::~Envelope() {
+        field_64.~Array();
+        field_40.~Array();
     }
 
 } // namespace jag::oldscape::sound

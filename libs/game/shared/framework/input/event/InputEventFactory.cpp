@@ -1,46 +1,37 @@
 // libs/game/shared/framework/input/event/InputEventFactory.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.shared
 
 namespace jag::game {
     class InputEventFactory {
     public:
-        MouseInputEvent* NewInputEventUnpacked(PacketT<Array<unsigned char, eastl::allocator>>&);
-        void PackInputEvent(InputEvent const&, PacketT<Array<unsigned char, eastl::allocator>>&);
+        InputEvent* NewInputEventUnpacked(PacketT<Array<unsigned char>>& arg1);
+        void PackInputEvent(const InputEvent& inputEvent, PacketT<Array<unsigned char>>& arg2);
     };
 
-    // 0x1006e44c0, 144 bytes, placed by class name and debug map
-    // InputEventFactory::NewInputEventUnpacked(PacketT<Array<unsigned char, eastl::allocator> >&)
-    MouseInputEvent* InputEventFactory::NewInputEventUnpacked(PacketT* param_1) {
-        char cVar1;
-        MouseInputEvent* this;
+    // 0x1006e44c0
+    InputEvent* InputEventFactory::NewInputEventUnpacked(PacketT<Array<unsigned char>>& arg1) {
+        MouseInputEvent* mouseInputEvent;
 
-        cVar1 = param_1->g1();
+        char cVar1 = arg1.g1();
         if (cVar1 == '\x02') {
-            this = operator_new(32);
-            new (this) KeyHeldInputEvent(param_1);
+            mouseInputEvent = (MouseInputEvent*)operator new(32);
+            new (mouseInputEvent) KeyHeldInputEvent(arg1);
         } else if (cVar1 == '\x01') {
-            this = operator_new(16);
-            new (this) KeyPressInputEvent(param_1);
-        } else if (cVar1 == '\0') {
-            this = operator_new(40);
-            MouseInputEvent::MouseInputEvent(this, param_1);
+            mouseInputEvent = (MouseInputEvent*)operator new(16);
+            new (mouseInputEvent) KeyPressInputEvent(arg1);
+        } else if (!cVar1) {
+            mouseInputEvent = (MouseInputEvent*)operator new(40);
+            new (mouseInputEvent) MouseInputEvent(arg1);
         } else {
-            this = (MouseInputEvent*)0;
+            mouseInputEvent = nullptr;
         }
-        return this;
+        return (InputEvent*)mouseInputEvent;
     }
 
-    // 0x1006e4580, 48 bytes, placed by class name
-    // InputEventFactory::PackInputEvent(InputEvent const&, PacketT<Array<unsigned char, eastl::allocator> >&)
-    void InputEventFactory::PackInputEvent(InputEvent* param_1, PacketT* param_2) {
-        uint uVar1;
-
-        uVar1 = (**(code**)(param_1->field_0 + 40))();
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_2, (ulong)uVar1);
-        (**(code**)(param_1->field_0 + 24))(param_1, param_2);
+    // 0x1006e4580
+    void InputEventFactory::PackInputEvent(const InputEvent& inputEvent, PacketT<Array<unsigned char>>& arg2) {
+        (inputEvent._vptr[2]._x7e___2)();
     }
 
 } // namespace jag::game

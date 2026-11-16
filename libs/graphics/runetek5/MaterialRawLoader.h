@@ -1,48 +1,34 @@
 // libs/graphics/runetek5/MaterialRawLoader.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class MaterialRawLoader {
     public:
-        Initialise(MaterialRawProvider*);
-        uint GetMaterialCount() const;
-        GetMaterialRaws() const;
-        uint GetMaxMaterialID() const;
-        GetDefaultMaterial() const;
+        void Initialise(MaterialRawProvider* arg1);
+        unsigned int GetMaterialCount() const;
+        uint8_t* GetMaterialRaws() const;
+        unsigned int GetMaxMaterialID() const;
+        uint8_t* GetDefaultMaterial() const;
         ~MaterialRawLoader();
         MaterialRawLoader();
-        ulong MainLogic();
+        unsigned long MainLogic();
         void Destruct();
 
-        // data members, from how the methods use this: 56 bytes
-        long* field_0;        // offset 0
-        uint m_materialCount; // offset 8
-        uint m_maxMaterialID; // offset 12
-        char _unknown_16[40];
+    private:
+        long* field_0;
+        unsigned int m_materialCount;
+        unsigned int m_maxMaterialID;
+        uint8_t _unknown_16[40];
     };
 
-    // 0x1001e0e70, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // MaterialRawLoader::~MaterialRawLoader(): jumps straight to the base-object destructor
-
-    // 0x1001e0f00, 16 bytes, base-object destructor, inline, placed by class name and debug map
-    // MaterialRawLoader::~MaterialRawLoader()
-    void MaterialRawLoader::~MaterialRawLoader() {
-        (&field_16)->~Array();
+    // 0x1001e0f00
+    MaterialRawLoader::~MaterialRawLoader() {
+        field_16.~Array();
     }
 
-    // 0x1001e13f0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // MaterialRawLoader::MaterialRawLoader(): jumps straight to the base-object constructor
-
-    // 0x1001e1410, 80 bytes, base-object constructor, inline, placed by class name and debug map
-    // MaterialRawLoader::MaterialRawLoader()
-    void MaterialRawLoader::MaterialRawLoader() {
-        m_materialCount = 0;
-        m_maxMaterialID = 0;
-        new (&field_16) Array<MaterialRaw, eastl::allocator>();
-        new (&field_48) MaterialRaw();
-    }
+    // 0x1001e1410
+    MaterialRawLoader::MaterialRawLoader() : m_materialCount(0), m_maxMaterialID(0) {}
 
 } // namespace jag::graphics

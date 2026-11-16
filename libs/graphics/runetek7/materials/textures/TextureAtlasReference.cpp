@@ -1,239 +1,164 @@
 // libs/graphics/runetek7/materials/textures/TextureAtlasReference.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "TextureAtlasReference.h"
 
 namespace jag::graphics {
-    // 0x10017b8a0: the linker folded this into PacketT<Array<unsigned char, BucketAllocatorEASTL> >::GetSize() const, which has identical code
-    TextureAtlasReference::GetTextureAtlas() const;
+    // 0x10017b8a0: TextureAtlasReference::GetTextureAtlas() const has the same machine code as PacketT<Array<unsigned char, BucketAllocatorEASTL>>::GetSize() const
 
-    // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    int TextureAtlasReference::GetTextureAtlasID() const;
+    // 0x100293ee0: TextureAtlasReference::GetTextureAtlasID() const has the same machine code as hal::audio::AudioRenderer::GetState() const
 
-    // 0x10085f160, 16 bytes, complete-object destructor, placed by class name and debug map
-    // TextureAtlasReference::~TextureAtlasReference(): jumps straight to the base-object destructor
-
-    // 0x10085f320, 16 bytes, complete-object constructor, placed by class name
-    // TextureAtlasReference::TextureAtlasReference(shared_ptr<TextureAtlas> const&, eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL> const&): jumps straight to the base-object constructor
-
-    // 0x10085f330, 48 bytes, placed by class name
-    // TextureAtlasReference::operator=(TextureAtlasReference&&)
-    /* TextureAtlasReference::TEMPNAMEPLACEHOLDERVALUE(TextureAtlasReference&&)
-    */
-
-    TextureAtlasReference* TextureAtlasReference::operator=(TextureAtlasReference* param_1) {
-        shared_ptr<TextureAtlas>::operator=((shared_ptr<TextureAtlas>*)this, (shared_ptr*)param_1);
-        eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::operator=(
-            (vector<MaterialInfo, SafeBucketAllocatorEASTL>*)&field_16, (vector*)&param_1->field_16);
-        m_textureAtlasID = param_1->m_textureAtlasID;
+    // 0x10085f330
+    TextureAtlasReference* TextureAtlasReference::operator=(TextureAtlasReference&& textureAtlasReference) {
+        *this = textureAtlasReference;
+        field_16 = textureAtlasReference.field_16;
+        m_textureAtlasID = textureAtlasReference.m_textureAtlasID;
         return this;
     }
 
-    // 0x10085f990, 160 bytes, base-object constructor, placed by class name
-    // TextureAtlasReference::TextureAtlasReference(shared_ptr<TextureAtlas> const&, eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL> const&)
-    void TextureAtlasReference::TextureAtlasReference(shared_ptr* param_1, vector* param_2) {
-        TextRun* this_00;
-
-        new (this) MakeSharedPool<TextureAtlasReference, 8192>();
-        new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
-        new (&field_16, param_2) eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>();
-        m_textureAtlasID = -1;
-        field_44 = 0;
-        if (operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0)) {
-            this_00 = (TextRun*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)this);
-            m_textureAtlasID = this_00->GetMaxLineWidth();
+    // 0x10085f990
+    TextureAtlasReference::TextureAtlasReference(
+        const shared_ptr<TextureAtlas>& textureAtlas,
+        const eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>& materialInfos)
+        : MakeSharedPool<TextureAtlasReference, 8192>(), shared_ptr(textureAtlas), field_16(materialInfos),
+          m_textureAtlasID(4294967295), field_44(0) {
+        if (*this != nullptr) {
+            m_textureAtlasID = ((TextRun*)(*this).operator->())->GetMaxLineWidth();
         }
-        AddReferences(this);
+        AddReferences();
     }
 
-    // 0x10085faa0, 64 bytes, placed by class name
-    // TextureAtlasReference::AddReferences()
+    // 0x10085faa0
     void TextureAtlasReference::AddReferences() {
-        TextureAtlas* this_00;
-
-        if (operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0)) {
-            this_00 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)this);
-            this_00->AddReferences((vector*)&field_16);
+        if (*this != nullptr) {
+            ((TextureAtlas*)(*this).operator->())->AddReferences(field_16);
         }
     }
 
-    // 0x10085fae0, 112 bytes, base-object constructor, placed by class name
-    // TextureAtlasReference::TextureAtlasReference(TextureAtlasReference const&)
-    void TextureAtlasReference::TextureAtlasReference(TextureAtlasReference* param_1) {
-        new (this) MakeSharedPool<TextureAtlasReference, 8192>();
-        new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
-        new (&field_16, (vector*)&param_1->field_16) eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>();
-        m_textureAtlasID = param_1->m_textureAtlasID;
-        field_44 = 0;
-        AddReferences(this);
+    // 0x10085fae0
+    TextureAtlasReference::TextureAtlasReference(const TextureAtlasReference& textureAtlasReference)
+        : MakeSharedPool<TextureAtlasReference, 8192>(), shared_ptr(textureAtlasReference),
+          field_16(textureAtlasReference.field_16), m_textureAtlasID(textureAtlasReference.m_textureAtlasID),
+          field_44(0) {
+        AddReferences();
     }
 
-    // 0x10085fb50, 16 bytes, complete-object constructor, placed by class name
-    // TextureAtlasReference::TextureAtlasReference(TextureAtlasReference const&): jumps straight to the base-object constructor
-
-    // 0x10085fb60, 64 bytes, base-object constructor, placed by class name
-    // TextureAtlasReference::TextureAtlasReference(TextureAtlasReference&&)
-    void TextureAtlasReference::TextureAtlasReference(TextureAtlasReference* param_1) {
-        new (this) MakeSharedPool<TextureAtlasReference, 8192>();
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, (shared_ptr*)param_1);
-        new (&field_16, (vector*)&param_1->field_16) eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>();
-        m_textureAtlasID = param_1->m_textureAtlasID;
+    // 0x10085fb60
+    TextureAtlasReference::TextureAtlasReference(TextureAtlasReference&& textureAtlasReference)
+        : MakeSharedPool<TextureAtlasReference, 8192>() {
+        shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(textureAtlasReference);
+        new (&field_16) eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>(textureAtlasReference.field_16);
+        m_textureAtlasID = textureAtlasReference.m_textureAtlasID;
         field_44 = 0;
     }
 
-    // 0x10085fbb0, 16 bytes, complete-object constructor, placed by class name
-    // TextureAtlasReference::TextureAtlasReference(TextureAtlasReference&&): jumps straight to the base-object constructor
-
-    // 0x10085fbc0, 96 bytes, base-object destructor, placed by class name
-    // TextureAtlasReference::~TextureAtlasReference()
-    void TextureAtlasReference::~TextureAtlasReference() {
-        TextureAtlas* this_00;
-
-        if (operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0)) {
-            this_00 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)this);
-            this_00->RemoveReferences((vector*)&field_16);
+    // 0x10085fbc0
+    TextureAtlasReference::~TextureAtlasReference() {
+        if (*this != nullptr) {
+            ((TextureAtlas*)(*this).operator->())->RemoveReferences(field_16);
         }
-        (&field_16)->~vector();
-        ~shared_ptr();
+        field_16.~vector();
     }
 
-    // 0x10085fc20, 64 bytes, placed by class name
-    // TextureAtlasReference::CheckTexturesLoaded() const
-    undefined1 TextureAtlasReference::CheckTexturesLoaded() {
-        TextureAtlas* this_00;
+    // 0x10085fc20
+    uint8_t TextureAtlasReference::CheckTexturesLoaded() const {
         bool bVar1;
-        undefined1 uVar2;
 
-        uVar2 = 1;
+        uint8_t uVar2 = 1;
         if (field_44 == '\0') {
-            bVar1 = operator==((shared_ptr*)this, (_func_decltype_nullptr*)0);
+            bVar1 = *this == nullptr;
             uVar2 = 1;
             if (!bVar1) {
-                this_00 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)this);
-                uVar2 = this_00->CheckMaterialsLoaded((vector*)&field_16);
+                uVar2 = ((TextureAtlas*)(*this).operator->())->CheckMaterialsLoaded(field_16);
             }
             field_44 = uVar2;
         }
         return uVar2;
     }
 
-    // 0x10085fc60, 400 bytes, placed by class name
-    // TextureAtlasReference::Combine(TextureAtlasReference const&)
-    void TextureAtlasReference::Combine(TextureAtlasReference* param_1) {
-        undefined1* this_00;
-        uint in_EAX;
-        int iVar2;
-        long lVar3;
-        ulong uVar4;
-        eastl* peVar5;
-        undefined8 uVar6;
-        MaterialInfo* pMVar7;
-        MaterialInfo* pMVar8;
-        TextureAtlas* pTVar9;
-        uint uVar10;
-        undefined1* this_01;
-        undefined8 uStack_38;
+    // 0x10085fc60
+    void TextureAtlasReference::Combine(const TextureAtlasReference& textureAtlasReference) {
+        uint8_t* this_00;
+        unsigned long uVar4;
+        MaterialInfo* pMVar5;
+        MaterialInfo* pMVar6;
+        TextureAtlas* pTVar7;
+        uint8_t* this_02;
+        unsigned int local_34;
 
-        uStack_38._0_4_ = in_EAX;
-        iVar2 = param_1->GetEndPosition();
-        if (m_textureAtlasID == -1) {
-            if (iVar2 != -1) {
-                m_textureAtlasID = iVar2;
-                shared_ptr<TextureAtlas>::operator=((shared_ptr<TextureAtlas>*)this, (shared_ptr*)param_1);
-                eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::operator=(
-                    (vector<MaterialInfo, SafeBucketAllocatorEASTL>*)&field_16, (vector*)&param_1->field_16);
-                pTVar9 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)this);
-                pTVar9->AddReferences((vector*)&field_16);
+        unsigned int uVar2 = textureAtlasReference.GetEndPosition();
+        if (m_textureAtlasID == 4294967295) {
+            if (uVar2 != 4294967295) {
+                m_textureAtlasID = uVar2;
+                *this = textureAtlasReference;
+                field_16 = textureAtlasReference.field_16;
+                pTVar7 = (TextureAtlas*)(*this).operator->();
+                pTVar7->AddReferences(field_16);
             }
-        } else if (iVar2 != -1) {
-            if (iVar2 == m_textureAtlasID) {
-                if (operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0)) {
-                    this_01 = &param_1->field_16;
-                    uStack_38 = (ulong)(uint)uStack_38;
-                    lVar3 = this_01->size();
-                    if (lVar3 != 0) {
+        } else if (uVar2 != 4294967295) {
+            if (uVar2 == m_textureAtlasID) {
+                if (*this != nullptr) {
+                    this_02 = &textureAtlasReference.field_16;
+                    local_34 = 0;
+                    if (this_02->size() != 0) {
                         this_00 = &field_16;
                         do {
-                            peVar5 = (eastl*)this_00->HeapBeginPtr();
-                            uVar6 = this_00->end();
-                            pMVar7 = eastl::find_if<MaterialInfo*, (TextureAtlasReference_const&)->Combine()::__18>(
-                                peVar5, uVar6, this_01, (long)&uStack_38 + 4);
-                            pMVar8 = (MaterialInfo*)this_00->end();
-                            if (pMVar7 == pMVar8) {
-                                pMVar7 =
-                                    (MaterialInfo*)eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::operator[](
-                                        (vector<MaterialInfo, SafeBucketAllocatorEASTL>*)this_01, uStack_38 >> 32);
-                                this_00->push_back(pMVar7);
-                                pTVar9 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->(
-                                    (shared_ptr<TextureAtlas>*)this);
-                                pMVar7 =
-                                    (MaterialInfo*)eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::operator[](
-                                        (vector<MaterialInfo, SafeBucketAllocatorEASTL>*)this_01, uStack_38 >> 32);
-                                pTVar9->AddReference(pMVar7);
+                            pMVar5 = (MaterialInfo*)this_00->HeapBeginPtr();
+                            pMVar6 = (MaterialInfo*)this_00->end();
+                            pMVar5 = eastl::find_if<MaterialInfo*, (TextureAtlasReference const&)->Combine()::__18>(
+                                pMVar5, pMVar6, (__18*)this_02);
+                            pMVar6 = (MaterialInfo*)this_00->end();
+                            if (pMVar5 == pMVar6) {
+                                pMVar5 = (MaterialInfo*)(*this_02)[(unsigned long)local_34];
+                                this_00->push_back(*pMVar5);
+                                pTVar7 = (TextureAtlas*)(*this).operator->();
+                                pMVar5 = (MaterialInfo*)(*this_02)[(unsigned long)local_34];
+                                pTVar7->AddReference(*pMVar5);
                             }
-                            uVar10 = uStack_38._4_4_ + 1;
-                            uStack_38 = CONCAT44(uVar10, (uint)uStack_38);
-                            uVar4 = this_01->size();
-                        } while (uVar10 < uVar4);
+                            local_34 = local_34 + 1;
+                            uVar4 = this_02->size();
+                        } while (local_34 < uVar4);
                     }
                 }
             } else {
-                uVar6 = logger::default_logger();
-                logger::Logger::Log(uVar6, 0, 2,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                    "runetek7/materials/textures/TextureAtlasReference.cpp",
-                                    80,
-                                    "TextureAtlasReference: Attempted to combine incompatible atlas references! %d %d",
-                                    iVar2, m_textureAtlasID);
+                (logger::default_logger())
+                    ->Log(false, 2,
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                          "materials/textures/TextureAtlasReference.cpp",
+                          80, "TextureAtlasReference: Attempted to combine incompatible atlas references! %d %d",
+                          (unsigned long)uVar2, (unsigned long)m_textureAtlasID);
             }
         }
     }
 
-    // 0x10085ff50, 96 bytes, placed by class name
-    // TextureAtlasReference::GetIDsFromMaterialInfo(eastl::vector<int, BucketAllocatorEASTL>&, eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL> const&) const
-    void TextureAtlasReference::GetIDsFromMaterialInfo(vector* param_1, vector* param_2) {
-        ulong uVar1;
-        int* piVar2;
-        int* piVar3;
-
-        uVar1 = param_2->size();
-        param_1->reserve(uVar1);
-        piVar2 = (int*)param_2->HeapBeginPtr();
-        piVar3 = (int*)param_2->end();
-        for (; piVar2 != piVar3; piVar2 = piVar2 + 7) {
-            param_1->push_back(piVar2);
+    // 0x10085ff50
+    void TextureAtlasReference::GetIDsFromMaterialInfo(
+        eastl::vector<int, BucketAllocatorEASTL>& arg1,
+        const eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>& materialInfos) const {
+        arg1.reserve(materialInfos.size());
+        auto arg1_01 = materialInfos.HeapBeginPtr();
+        auto piVar1 = materialInfos.end();
+        for (; arg1_01 != piVar1; arg1_01 = arg1_01 + 7) {
+            arg1.push_back(*arg1_01);
         }
     }
 
-    // 0x10085ffe0, 64 bytes, placed by class name
-    // TextureAtlasReference::operator=(TextureAtlasReference const&)
-    /* TextureAtlasReference::TEMPNAMEPLACEHOLDERVALUE(TextureAtlasReference
-   const&) */
-
-    TextureAtlasReference* TextureAtlasReference::operator=(TextureAtlasReference* param_1) {
-        shared_ptr<TextureAtlas>::operator=((shared_ptr<TextureAtlas>*)this, (shared_ptr*)param_1);
-        eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::operator=(
-            (vector<MaterialInfo, SafeBucketAllocatorEASTL>*)&field_16, (vector*)&param_1->field_16);
-        m_textureAtlasID = param_1->m_textureAtlasID;
-        AddReferences(this);
+    // 0x10085ffe0
+    TextureAtlasReference* TextureAtlasReference::operator=(const TextureAtlasReference& textureAtlasReference) {
+        *this = textureAtlasReference;
+        field_16 = textureAtlasReference.field_16;
+        m_textureAtlasID = textureAtlasReference.m_textureAtlasID;
+        AddReferences();
         return this;
     }
 
-    // 0x1008775c0, 48 bytes, placed by class name
-    // TextureAtlasReference::Combine(TextureAtlasReference const&)::$_18::operator()(MaterialInfo const&) const
-    /* TextureAtlasReference::Combine(TextureAtlasReference
-   const&)::$_18::TEMPNAMEPLACEHOLDERVALUE(MaterialInfo const&) const */
-
-    bool TextureAtlasReference::Combine(TextureAtlasReference_const&)::$_18::operator()(MaterialInfo* param_1) {
-        int iVar1;
-        int* piVar2;
-
-        iVar1 = param_1->field_0;
-        piVar2 = (int*)eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::operator[](
-            *(vector<MaterialInfo, SafeBucketAllocatorEASTL>**)this, (ulong) * *(uint**)(this + 8));
+    // 0x1008775c0
+    bool TextureAtlasReference::Combine(TextureAtlasReference const&)::$_18::operator()(
+        const MaterialInfo& materialInfo) const {
+        int iVar1 = materialInfo.field_0;
+        int* piVar2 = (int*)(*(
+            *(vector<MaterialInfo, SafeBucketAllocatorEASTL>**)this))[(unsigned long)**(unsigned int**)(this + 8)];
         return iVar1 == *piVar2;
     }
 

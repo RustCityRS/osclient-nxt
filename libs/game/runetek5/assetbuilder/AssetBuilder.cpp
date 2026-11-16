@@ -1,397 +1,286 @@
 // libs/game/runetek5/assetbuilder/AssetBuilder.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "AssetBuilder.h"
 
 namespace jag::game {
-    // 0x100659570, 336 bytes, base-object constructor, placed by class name
-    // AssetBuilder::AssetBuilder(unsigned int)
-    void AssetBuilder::AssetBuilder(uint param_1) {
-        undefined1* this_00;
-        uint uVar1;
-        __0 local_70;
-        undefined1* local_60;
-        undefined1* local_58;
-        undefined1* local_50;
-        undefined1* local_48;
-        undefined1* local_40;
-        undefined1* local_38;
+    // 0x100659570
+    AssetBuilder::AssetBuilder(unsigned int arg1) {
+        unsigned int uVar1;
+        AssetBuilder* local_70;
+        unsigned int local_68;
 
-        field_0 = &PTR__AssetBuilder_100f0dc38;
-        this_00 = &field_8;
-        new (this_00) eastl::vector<std::thread, eastl::allocator>();
-        field_40 = (Js5ResourceProvider*)0;
-        field_48 = (ConfigProvider*)0;
+        uint8_t* this_00 = &field_8;
+        new (this_00) eastl::vector<std::thread>();
+        field_40 = nullptr;
+        field_48 = nullptr;
         field_56 = '\x01';
-        new (&field_64) eastl::vector<shared_ptr<AssetJob>, eastl::allocator>();
+        new (&field_64) eastl::vector<shared_ptr<AssetJob>>();
         new (&field_96) std::condition_variable();
-        local_50 = &field_144;
+        uint8_t* local_50 = &field_144;
         new (local_50) std::mutex();
-        local_48 = &field_208;
-        local_60 = &field_64;
-        local_58 = &field_96;
-        new (local_48) eastl::priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob, eastl::allocator>,
-                                             eastl::less<AssetWorkerJob>>();
-        local_40 = &field_248;
+        uint8_t* local_48 = &field_208;
+        uint8_t* local_60 = &field_64;
+        uint8_t* local_58 = &field_96;
+        new (local_48) eastl::priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob>>();
+        uint8_t* local_40 = &field_248;
         new (local_40) std::mutex();
-        local_38 = &field_312;
-        new (local_38) eastl::vector<AssetWorkerJob, eastl::allocator>();
-        this_00->reserve((ulong)param_1);
-        if (param_1 != 0) {
+        uint8_t* local_38 = &field_312;
+        new (local_38) eastl::vector<AssetWorkerJob>();
+        this_00->reserve((unsigned long)arg1);
+        if (arg1 != 0) {
             uVar1 = 0;
             do {
-                local_70.field_0 = this;
-                local_70.field_8 = uVar1;
-                eastl::vector<std::thread, eastl::allocator>::emplace_back<AssetBuilder::AssetBuilder(
-                    unsigned int)::__0>((vector<std::thread, eastl::allocator>*)this_00, &local_70);
+                local_70 = this;
+                local_68 = uVar1;
+                this_00->emplace_back<AssetBuilder::AssetBuilder(unsigned int)::__0>(&local_70);
                 uVar1 = uVar1 + 1;
-            } while (param_1 != uVar1);
+            } while (arg1 != uVar1);
         }
     }
 
-    // 0x100659790, 16 bytes, complete-object constructor, placed by class name
-    // AssetBuilder::AssetBuilder(unsigned int): jumps straight to the base-object constructor
-
-    // 0x1006597a0, 288 bytes, base-object destructor, placed by class name
-    // AssetBuilder::~AssetBuilder()
-    void AssetBuilder::~AssetBuilder() {
-        undefined1* this_00;
-        long lVar1;
-        long lVar2;
-
-        field_0 = &PTR__AssetBuilder_100f0dc38;
+    // 0x1006597a0
+    AssetBuilder::~AssetBuilder() {
         field_56 = '\0';
         std::condition_variable::notify_all();
-        this_00 = &field_8;
-        lVar1 = this_00->HeapBeginPtr();
-        lVar2 = this_00->end();
+        uint8_t* this_00 = &field_8;
+        long lVar1 = this_00->HeapBeginPtr();
+        long lVar2 = this_00->end();
         for (; lVar1 != lVar2; lVar1 = lVar1 + 8) {
             std::thread::join();
         }
-        (&field_312)->~vector();
+        field_312.~vector();
         (&field_248)->~mutex();
-        (&field_208)->~priority_queue();
+        field_208.~priority_queue();
         (&field_144)->~mutex();
         (&field_96)->~condition_variable();
-        (&field_64)->~vector();
+        field_64.~vector();
         this_00->~vector();
     }
 
-    // 0x1006598c0, 16 bytes, complete-object destructor, placed by class name
-    // AssetBuilder::~AssetBuilder(): jumps straight to the base-object destructor
-
-    // 0x1006598d0, 32 bytes, deleting destructor, placed by class name
-    // AssetBuilder::~AssetBuilder()
-    void AssetBuilder::~AssetBuilder() {
-        ~AssetBuilder(this);
-        operator_delete(this);
+    // 0x1006598f0
+    void AssetBuilder::Initialise(Js5ResourceProvider* js5ResourceProvider, ConfigProvider* configProvider) {
+        field_40 = js5ResourceProvider;
+        field_48 = configProvider;
     }
 
-    // 0x1006598f0, 16 bytes, placed by class name
-    // AssetBuilder::Initialise(Js5ResourceProvider*, ConfigProvider*)
-    void AssetBuilder::Initialise(Js5ResourceProvider* param_1, ConfigProvider* param_2) {
-        field_40 = param_1;
-        field_48 = param_2;
-    }
-
-    // 0x100659900, 64 bytes, placed by class name
-    // AssetBuilder::ThreadWrapper(int)
-    void AssetBuilder::ThreadWrapper(int param_1) {
-        char cVar1;
-
+    // 0x100659900
+    void AssetBuilder::ThreadWrapper(int arg1) {
         this_thread::GetThreadName();
-        cVar1 = field_56;
-        while (cVar1 != '\0') {
-            AssetBuilderThread(this, param_1);
+        bool cVar1 = field_56;
+        while (cVar1) {
+            AssetBuilderThread(arg1);
             cVar1 = field_56;
         }
     }
 
-    // 0x100659940, 592 bytes, placed by class name
-    // AssetBuilder::AssetBuilderThread(int)
-    void AssetBuilder::AssetBuilderThread(int param_1) {
+    // 0x100659940
+    void AssetBuilder::AssetBuilderThread(int arg1) {
         bool bVar1;
         int iVar2;
-        AssetWorkerJob* pAVar3;
-        Option<option::EnumBrightness>* this_00;
-        undefined8 uVar4;
-        undefined1 local_b0[16];
-        shared_ptr local_a0;
-        unique_lock<std::mutex> local_90[16];
+        AssetWorkerJob* assetWorkerJob;
+        type* arg2;
+        uint8_t local_b0[32];
+        unique_lock<std::mutex> local_90;
         ActiveComponent local_80;
-        mutex* local_60;
-        mutex* local_58;
-        vector<AssetWorkerJob, eastl::allocator>* local_50;
-        condition_variable* local_48;
-        priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob, eastl::allocator>, eastl::less<AssetWorkerJob>>*
-            local_40;
-        undefined4 local_38;
-        int local_34;
 
-        local_60 = (mutex*)&field_144;
-        local_48 = (condition_variable*)&field_96;
-        local_40 = (priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob, eastl::allocator>,
-                                   eastl::less<AssetWorkerJob>>*)&field_208;
-        local_58 = (mutex*)&field_248;
-        local_50 = (vector<AssetWorkerJob, eastl::allocator>*)&field_312;
-        local_34 = param_1;
+        mutex* local_60 = (mutex*)&field_144;
+        condition_variable* local_48 = (condition_variable*)&field_96;
+        priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob>>* local_40 =
+            (priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob>>*)&field_208;
+        mutex* local_58 = (mutex*)&field_248;
+        vector<AssetWorkerJob>* local_50 = (vector<AssetWorkerJob>*)&field_312;
         do {
             if (field_56 == '\0') {
                 return;
             }
             new (local_b0) AssetWorkerJob();
-            std::unique_lock<std::mutex>::unique_lock(local_90, local_60);
-            std::condition_variable::wait<AssetBuilder::AssetBuilderThread(int)::__1>(local_48, local_90, this);
+            local_90 = std::unique_lock<std::mutex>(*local_60);
+            std::condition_variable::wait<AssetBuilder::AssetBuilderThread(int)::__1>(local_48, &local_90, (__1*)this);
             if (field_56 == '\0') {
                 iVar2 = 1;
             LAB_100659ac6:
                 bVar1 = false;
             } else {
-                pAVar3 = (AssetWorkerJob*)
-                    eastl::priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob, eastl::allocator>,
-                                          eastl::less<AssetWorkerJob>>::top(local_40);
-                AssetWorkerJob::operator=((AssetWorkerJob*)local_b0, pAVar3);
-                this_00 = (Option<option::EnumBrightness>*)shared_ptr<AssetJob>::operator->(
-                    (shared_ptr<AssetJob>*)(local_b0 + 16));
-                iVar2 = this_00->GetValue();
-                if ((iVar2 != -1) && (iVar2 != local_34)) {
-                    uVar4 = logger::default_logger();
-                    logger::Logger::Log(uVar4, 0, 8,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
-                                        "runetek5/assetbuilder/AssetBuilder.cpp",
-                                        100, "Job was retrieved on wrong asset thread (wanted %i), retrying...", iVar2);
-                    new (&local_80) AssetWorkerJob();
-                    AssetWorkerJob::operator=((AssetWorkerJob*)local_b0, (AssetWorkerJob*)&local_80);
-                    local_80.~ActiveComponent();
-                    std::unique_lock<std::mutex>::unlock(local_90);
+                assetWorkerJob = (AssetWorkerJob*)local_40->top();
+                *local_b0 = *assetWorkerJob;
+                iVar2 = ((Option<option::EnumBrightness>*)(*((local_b0 + 16))).operator->())->GetValue();
+                if ((iVar2 != -1) && (iVar2 != arg1)) {
+                    (logger::default_logger())
+                        ->Log(false, 8,
+                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
+                              "assetbuilder/AssetBuilder.cpp",
+                              100, "Job was retrieved on wrong asset thread (wanted %i), retrying...", iVar2);
+                    local_80 = AssetWorkerJob();
+                    *local_b0 = local_80;
+                    local_90.unlock();
                     std::condition_variable::notify_all();
-                    local_38 = 5;
-                    std::chrono::duration<long long, std::ratio<1l, 1000l>>::duration<int>((int*)&local_80,
-                                                                                           (type*)&local_38);
-                    std::this_thread::sleep_for<long long, std::ratio<1l, 1000l>>((duration*)&local_80);
+                    local_80.duration<int>(5, arg2);
+                    std::this_thread::sleep_for<long long, std::ratio<1l, 1000l>>(local_80);
                     iVar2 = 2;
                     goto LAB_100659ac6;
                 }
-                eastl::priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob, eastl::allocator>,
-                                      eastl::less<AssetWorkerJob>>::pop(local_40);
+                local_40->pop();
                 iVar2 = 0;
                 bVar1 = true;
             }
-            std::unique_lock<std::mutex>::~unique_lock(local_90);
             if (bVar1) {
-                ProcessJob(this, (shared_ptr*)local_b0, (shared_ptr*)(local_b0 + 16), local_34);
-                new (&local_80) std::unique_lock<std::mutex>(local_58);
-                eastl::vector<AssetWorkerJob, eastl::allocator>::emplace_back<AssetWorkerJob>(
-                    local_50, (AssetWorkerJob*)local_b0);
-                local_80.~unique_lock();
+                ProcessJob(*local_b0, *((local_b0 + 16)), arg1);
+                local_80 = std::unique_lock<std::mutex>(*local_58);
+                local_50->emplace_back<AssetWorkerJob>(*local_b0);
                 iVar2 = 0;
             }
-            local_b0->~ActiveComponent();
             if (iVar2 == 1) {
                 return;
             }
         } while (true);
     }
 
-    // 0x100659d20, 480 bytes, placed by class name
-    // AssetBuilder::ProcessJob(shared_ptr<AssetWorker> const&, shared_ptr<AssetJob> const&, int)
-    void AssetBuilder::ProcessJob(shared_ptr* param_1, shared_ptr* param_2, int param_3) {
-        StockPlayerOffer* pSVar1;
+    // 0x100659d20
+    void AssetBuilder::ProcessJob(const shared_ptr<AssetWorker>& assetWorker, const shared_ptr<AssetJob>& assetJob,
+                                  int arg3) {
         AssetWorker* this_00;
         Option<float>* this_01;
+        shared_ptr<void>* arg1;
         AssetJob* pAVar2;
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* this_02;
-        bool bVar3;
-        int iVar4;
+        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>* this_02;
+        bool cVar3;
         long* plVar5;
-        undefined* puVar6;
-        shared_ptr* psVar7;
-        _func_decltype_nullptr* p_Var8;
+        uint8_t* puVar6;
+        shared_ptr* this_03;
         ActiveComponent local_58;
-        scoped_lock<std::mutex> local_38[8];
+        scoped_lock<std::mutex> local_38;
 
-        pSVar1 = (StockPlayerOffer*)shared_ptr<AssetJob>::operator->((shared_ptr<AssetJob>*)param_2);
-        iVar4 = pSVar1->GetCompletedGold();
+        auto pSVar1 = assetJob.operator->();
+        int iVar4 = pSVar1->GetCompletedGold();
         if (iVar4 == 3) {
-            this_00 = (AssetWorker*)shared_ptr<AssetWorker>::operator->((shared_ptr<AssetWorker>*)param_1);
-            this_01 = (Option<float>*)shared_ptr<AssetJob>::operator->((shared_ptr<AssetJob>*)param_2);
-            psVar7 = (shared_ptr*)this_01->GetDefaultValue();
-            this_00->SetRequestData(psVar7);
-            pAVar2 = (AssetJob*)shared_ptr<AssetJob>::operator->((shared_ptr<AssetJob>*)param_2);
+            this_00 = (AssetWorker*)assetWorker.operator->();
+            this_01 = (Option<float>*)assetJob.operator->();
+            arg1 = (shared_ptr<void>*)this_01->GetDefaultValue();
+            this_00->SetRequestData(*arg1);
+            pAVar2 = (AssetJob*)assetJob.operator->();
             pAVar2->AwaitWorkerService();
         }
-        pSVar1 = (StockPlayerOffer*)shared_ptr<AssetJob>::operator->((shared_ptr<AssetJob>*)param_2);
+        pSVar1 = (StockPlayerOffer*)assetJob.operator->();
         iVar4 = pSVar1->GetCompletedGold();
         if (iVar4 == 4) {
-            plVar5 = (long*)shared_ptr<AssetWorker>::operator->((shared_ptr<AssetWorker>*)param_1);
-            p_Var8 = (_func_decltype_nullptr*)(ulong)(uint)param_3;
-            puVar6 = (undefined*)(**(code**)(*plVar5 + 24))(plVar5);
+            plVar5 = (long*)assetWorker.operator->();
+            puVar6 = (uint8_t*)(**(void (**)(...))(*plVar5 + 24))(plVar5);
             if (puVar6 == DataStatus::NOTLOADED) {
-                std::scoped_lock<std::mutex>::scoped_lock(local_38, (mutex*)&field_144);
-                new (&local_58) AssetWorkerJob(param_1, param_2);
-                (&field_208, (AssetWorkerJob*)&local_58)->push();
-                local_58.~ActiveComponent();
-                std::scoped_lock<std::mutex>::~scoped_lock(local_38);
+                local_38 = std::scoped_lock(field_144);
+                local_58 = AssetWorkerJob(assetWorker, assetJob);
+                field_208.push(local_58);
             } else {
                 if (puVar6 == DataStatus::READY) {
-                    this_02 = (compressed_pair_imp<
-                               eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                       eastl::allocator>>::Layout,
-                               eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)
-                                  shared_ptr<AssetWorker>::operator->((shared_ptr<AssetWorker>*)param_1);
-                    psVar7 = (shared_ptr*)eastl::compressed_pair_imp<
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(this_02);
-                    bVar3 = shared_ptr::operator_cast_to_bool(psVar7);
-                    pAVar2 = (AssetJob*)shared_ptr<AssetJob>::operator->((shared_ptr<AssetJob>*)param_2);
-                    if (bVar3) {
-                        pAVar2->WorkerDone(0, psVar7);
+                    this_02 =
+                        (compressed_pair_imp<
+                            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>*)assetWorker.operator->();
+                    this_03 = (shared_ptr*)this_02->second();
+                    cVar3 = shared_ptr::operator_cast_to_bool(this_03);
+                    pAVar2 = (AssetJob*)assetJob.operator->();
+                    if (cVar3) {
+                        pAVar2->WorkerDone(0, *this_03);
                         return;
                     }
-                    new (&local_58) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var8);
-                    pAVar2->WorkerDone(1, &local_58);
+                    local_58 = shared_ptr();
+                    pAVar2->WorkerDone(1, local_58);
                 } else {
                     if (puVar6 != DataStatus::MISSING) {
                         return;
                     }
-                    pAVar2 = (AssetJob*)shared_ptr<AssetJob>::operator->((shared_ptr<AssetJob>*)param_2);
-                    new (&local_58) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var8);
-                    pAVar2->WorkerDone(2, &local_58);
+                    pAVar2 = (AssetJob*)assetJob.operator->();
+                    local_58 = shared_ptr();
+                    pAVar2->WorkerDone(2, local_58);
                 }
-                local_58.~shared_ptr();
             }
         }
     }
 
-    // 0x100659f70, 48 bytes, placed by class name
-    // AssetBuilder::SubmitJob(shared_ptr<AssetJob> const&)
-    void AssetBuilder::SubmitJob(shared_ptr* param_1) {
-        AssetJob* this_00;
-
-        eastl::vector<shared_ptr<AssetJob>, eastl::allocator>::emplace_back<shared_ptr<AssetJob> const&>(
-            (vector<shared_ptr<AssetJob>, eastl::allocator>*)&field_64, param_1);
-        this_00 = (AssetJob*)shared_ptr<AssetJob>::operator->((shared_ptr<AssetJob>*)param_1);
-        this_00->Queued();
+    // 0x100659f70
+    void AssetBuilder::SubmitJob(const shared_ptr<AssetJob>& assetJob) {
+        field_64.emplace_back<shared_ptr<AssetJob> const&>(assetJob);
+        ((AssetJob*)assetJob.operator->())->Queued();
     }
 
-    // 0x10065a040, 240 bytes, placed by class name
-    // AssetBuilder::Service()
+    // 0x10065a040
     void AssetBuilder::Service() {
-        undefined1* this_00;
-        undefined8 uVar1;
-        undefined8 uVar2;
-        shared_ptr* psVar3;
-        shared_ptr* psVar4;
-        unique_lock<std::mutex> local_30[16];
-
-        if (field_48 == (ConfigProvider*)0) {
-            /* WARNING: Subroutine does not return */
+        if (field_48 == nullptr) {
             LogAssert("m_configProvider",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                       "assetbuilder/AssetBuilder.cpp",
-                      135, (char*)0);
+                      135, nullptr);
         }
-        if (field_40 == (Js5ResourceProvider*)0) {
-            /* WARNING: Subroutine does not return */
+        if (field_40 == nullptr) {
             LogAssert("m_resourceProvider",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                       "assetbuilder/AssetBuilder.cpp",
-                      136, (char*)0);
+                      136, nullptr);
         }
-        this_00 = &field_64;
-        uVar1 = this_00->HeapBeginPtr();
-        uVar2 = this_00->end();
-        psVar3 = eastl::remove_if<shared_ptr<AssetJob>*, AssetBuilder::Service()::__2>(uVar1, uVar2, this);
-        psVar4 = (shared_ptr*)this_00->end();
-        this_00->erase(psVar3, psVar4);
-        std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)&field_248);
-        (&field_312)->clear();
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
+        uint8_t* this_00 = &field_64;
+        auto psVar1 = this_00->HeapBeginPtr();
+        auto psVar2 = this_00->end();
+        psVar1 = eastl::remove_if<shared_ptr<AssetJob>*, AssetBuilder::Service()::__2>(psVar1, psVar2, (__2*)this);
+        psVar2 = (shared_ptr<AssetJob>*)this_00->end();
+        this_00->erase(psVar1, psVar2);
+        unique_lock<std::mutex> local_30(field_248);
+        field_312.clear();
     }
 
-    // 0x10065a1f0, 496 bytes, placed by class name
-    // AssetBuilder::RunFunctionOnAllThreads(std::function<void ()> const&)
-    /* AssetBuilder::RunFunctionOnAllThreads(std::function<void ()> const&) */
-
-    void AssetBuilder::RunFunctionOnAllThreads(function* param_1) {
-        long lVar1;
+    // 0x10065a1f0
+    void AssetBuilder::RunFunctionOnAllThreads(const std::function<void()>& callback) {
         long* plVar2;
         AssetJob* pAVar3;
-        ulong uVar4;
-        ulong uVar5;
+        unsigned long uVar4;
+        unsigned long uVar5;
         ActiveComponent local_b0;
-        shared_ptr local_90;
-        shared_ptr local_80;
-        shared_ptr local_70;
-        function* local_60;
-        vector<eastl::pair<int, int>, eastl::allocator>* local_58;
+        ReturnValue local_90;
+        shared_ptr<oldscape::dash3d::Decor> local_80;
+        uint32_t local_70[4];
+        function<void_()>* local_60;
         mutex* local_50;
-        priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob, eastl::allocator>, eastl::less<AssetWorkerJob>>*
-            local_48;
-        scoped_lock<std::mutex> local_40[12];
-        uint local_34;
+        priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob>>* local_48;
+        scoped_lock<std::mutex> local_40;
 
-        local_58 = (vector<eastl::pair<int, int>, eastl::allocator>*)&field_8;
-        local_34 = 0;
-        local_60 = param_1;
-        lVar1 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(local_58);
+        vector<eastl::pair<int, int>>* local_58 = (vector<eastl::pair<int, int>>*)&field_8;
+        unsigned int local_34 = 0;
+        local_60 = callback;
+        long lVar1 = local_58->size();
         if (lVar1 != 0) {
             local_50 = (mutex*)&field_144;
-            local_48 = (priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob, eastl::allocator>,
-                                       eastl::less<AssetWorkerJob>>*)&field_208;
+            local_48 = (priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob>>*)&field_208;
             do {
-                local_70._0_4_ = 1;
-                make_shared<std::function<void()>, std::function<void()> const&>((jag*)&local_b0, local_60);
+                local_70[0] = 1;
+                make_shared<std::function<void()>, std::function<void()> const&>((ReturnValue*)&local_b0, local_60);
                 bucket_make_shared<BuildFunctionMain, int, shared_ptr<std::function<void()>>, unsigned int&>(
-                    (jag*)&local_90, (int*)&local_70, (shared_ptr*)&local_b0, &local_34);
-                local_b0.~shared_ptr();
-                plVar2 = (long*)shared_ptr<BuildFunctionMain>::operator->((shared_ptr<BuildFunctionMain>*)&local_90);
-                (**(code**)(*plVar2 + 24))(&local_70, plVar2);
-                pAVar3 =
-                    (AssetJob*)shared_ptr<BuildFunctionMain>::operator->((shared_ptr<BuildFunctionMain>*)&local_90);
+                    &local_90, (int*)local_70, (shared_ptr<std::function<void_()> _>*)&local_b0, &local_34);
+                plVar2 = (long*)local_90.operator->();
+                (**(void (**)(...))(*plVar2 + 24))((shared_ptr<AssetWorker>*)local_70, plVar2);
+                pAVar3 = (AssetJob*)local_90.operator->();
                 pAVar3->Queued();
-                plVar2 = (long*)shared_ptr<BuildFunctionMain>::operator->((shared_ptr<BuildFunctionMain>*)&local_90);
-                (**(code**)(*plVar2 + 16))(plVar2, field_40, field_48);
-                pAVar3 =
-                    (AssetJob*)shared_ptr<BuildFunctionMain>::operator->((shared_ptr<BuildFunctionMain>*)&local_90);
+                plVar2 = (long*)local_90.operator->();
+                (**(void (**)(...))(*plVar2 + 16))(plVar2, field_40, field_48);
+                pAVar3 = (AssetJob*)local_90.operator->();
                 pAVar3->AwaitWorkerReply();
-                std::scoped_lock<std::mutex>::scoped_lock(local_40, local_50);
-                new (&local_80) shared_ptr<oldscape::dash3d::Decor>(&local_90);
-                new (&local_b0) AssetWorkerJob(&local_70, &local_80);
-                eastl::priority_queue<AssetWorkerJob, eastl::vector<AssetWorkerJob, eastl::allocator>,
-                                      eastl::less<AssetWorkerJob>>::push(local_48, (AssetWorkerJob*)&local_b0);
-                local_b0.~ActiveComponent();
-                local_80.~shared_ptr();
-                std::scoped_lock<std::mutex>::~scoped_lock(local_40);
-                local_70.~shared_ptr();
-                local_90.~shared_ptr();
+                local_40 = std::scoped_lock(*local_50);
+                local_80 = shared_ptr(&local_90);
+                local_b0 = AssetWorkerJob(*local_70, local_80);
+                local_48->push(local_b0);
                 local_34 = local_34 + 1;
-                uVar5 = (ulong)local_34;
-                uVar4 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(local_58);
+                uVar5 = (unsigned long)local_34;
+                uVar4 = local_58->size();
             } while (uVar5 < uVar4);
         }
         std::condition_variable::notify_all();
     }
 
-    // 0x10065e140, 336 bytes, placed by class name
-    // AssetBuilder::AssetBuilder(unsigned int)::$_0::operator()() const
-    /* AssetBuilder::AssetBuilder(unsigned int)::$_0::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void AssetBuilder::AssetBuilder(unsigned int)::$_0::operator()() {
-        AssetBuilder* this_00;
-        char* pcVar1;
-        eastl::string local_40[32];
-
-        this_00 = field_0;
-        eastl::string::basic_string(local_40, "AssetWorker-%u", field_8);
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        this_thread::SetThreadName(pcVar1);
-        eastl::string::~basic_string(local_40);
+    // 0x10065e140
+    void AssetBuilder::AssetBuilder(unsigned int)::$_0::operator()() const {
+        AssetBuilder* this_00 = field_0;
+        eastl::string local_40((CtorSprintf*)"AssetWorker-%u", (char*)(unsigned long)field_8);
+        this_thread::SetThreadName((char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin());
         BucketManager::Init(8, 0);
         BucketManager::CreateBucket(32, 4096, 32);
         BucketManager::CreateBucket(64, 8192, 64);
@@ -407,19 +296,12 @@ namespace jag::game {
         BucketManager::PrintMetrics();
     }
 
-    // 0x10065e420, 48 bytes, placed by class name
-    // AssetBuilder::AssetBuilderThread(int)::$_1::operator()() const
-    /* AssetBuilder::AssetBuilderThread(int)::$_1::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    bool AssetBuilder::AssetBuilderThread(int)::$_1::operator()() {
-        long lVar1;
-        char cVar2;
-        bool bVar3;
-
-        lVar1 = *(long*)this;
-        cVar2 = ((lVar1 + 208))->empty();
-        bVar3 = true;
-        if (cVar2 != '\0') {
+    // 0x10065e420
+    bool AssetBuilder::AssetBuilderThread(int)::$_1::operator()() const {
+        long lVar1 = field_0;
+        bool cVar2 = ((lVar1 + 208))->empty();
+        bool bVar3 = true;
+        if (cVar2) {
             bVar3 = *(char*)(lVar1 + 56) == '\0';
         }
         return bVar3;

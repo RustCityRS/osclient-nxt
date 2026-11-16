@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/entities/PathingEntity.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,208 +8,211 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~PathingEntity();
-        virtual ShouldAnimate() const;
-        virtual void TestIntersection(math::Vector3T<float> const&, math::Vector3T<float> const&, int) const;
-        virtual OnModelChange();
+        virtual bool ShouldAnimate() const;
+        virtual void TestIntersection(const math::Vector3T<float>& vector31, const math::Vector3T<float>& vector32,
+                                      int arg3) const;
+        virtual void OnModelChange();
         virtual float GetLoadProgress() const;
-        virtual void SetTranslation(math::Vector3T<float> const&);
-        virtual GetTranslation() const;
-        virtual void SetTranslationY(float);
-        virtual HideChatLine();
-        virtual GetSmoothPosition() const;
-        virtual void MainLogic(graphics::RT7Core&, unsigned int, math::Matrix44T<float> const&);
-        virtual void GatherDrawableElements(graphics::DrawableQueue&, graphics::RT7Core&, math::Matrix44T<float> const&,
-                                            graphics::SceneViewData const&, graphics::EffectManager const&);
-        virtual void AddPickableEntity(game::World&, math::Matrix44T<float> const&);
+        virtual void SetTranslation(const math::Vector3T<float>& vector3);
+        virtual uint8_t* GetTranslation() const;
+        virtual void SetTranslationY(float arg1);
+        virtual uint64_t HideChatLine();
+        virtual uint64_t GetSmoothPosition() const;
+        virtual void MainLogic(graphics::RT7Core& rt7Core, unsigned int arg2, const math::Matrix44T<float>& matrix44);
+        virtual void GatherDrawableElements(graphics::DrawableQueue& drawableQueue, graphics::RT7Core& rt7Core,
+                                            const math::Matrix44T<float>& matrix44,
+                                            const graphics::SceneViewData& sceneViewData,
+                                            const graphics::EffectManager& effectManager);
+        virtual void AddPickableEntity(game::World& world, const math::Matrix44T<float>& matrix44);
         virtual void GetOverlayHeight() const;
         virtual void Destruct();
         virtual int GetWorldPriority() const;
-        virtual CalculateWorldPriority(unsigned int, PathingEntityPriorityData) const;
+        virtual uint64_t CalculateWorldPriority(unsigned int arg1, PathingEntityPriorityData arg2) const;
         virtual void GetTrackableID() const;
-        virtual CanRender() const;
-        virtual ulong Build(int, bool, PathingEntityPriorityData);
+        virtual bool CanRender() const;
+        virtual unsigned long Build(int arg1, bool arg2, PathingEntityPriorityData pathingEntityPriorityData);
         virtual void UpdateAudio();
         virtual void __pure_slot_43() = 0;
         virtual void __pure_slot_45() = 0;
-        virtual void TeleportFine(game::CoordFine const&, bool);
-        virtual void TeleportFine(int, game::CoordFine const&, bool);
+        virtual void TeleportFine(const game::CoordFine& coordFine, bool arg2);
+        virtual void TeleportFine(int arg1, const game::CoordFine& coordFine, bool arg3);
         virtual void CanSetFacing() const;
-        virtual ulong UpdatePosition(int);
+        virtual unsigned long UpdatePosition(int arg1);
         virtual void ClearAppearance();
-        UpdateHighlighting(unsigned int);
-        IsInPlayersClan() const;
-        IsMiniMapHidden() const;
-        GetWalkSmoothing() const;
-        IsInPlayersGroup() const;
-        IsFullySoftHidden() const;
-        RepeatLastOverrideAnimationFrameWhenFinished(int) const;
-        IsPlayer() const;
-        LineIntersectionSupport() const;
+        void UpdateHighlighting(unsigned int arg1);
+        bool IsInPlayersClan() const;
+        bool IsMiniMapHidden() const;
+        uint64_t GetWalkSmoothing() const;
+        bool IsInPlayersGroup() const;
+        bool IsFullySoftHidden() const;
+        uint64_t RepeatLastOverrideAnimationFrameWhenFinished(int arg1) const;
+        bool IsPlayer() const;
+        uint8_t LineIntersectionSupport() const;
         PathingEntityAnimatedModel GetAnimatedModel() const;
-        PathingEntity(PathingEntityParams const&, graphics::GraphNode*, shared_ptr<game::World> const&,
-                      game::EntityType, int);
-        void AddRouteWaypointFine(game::CoordFine const&, MoveSpeed const*, bool);
-        void SetPathingEntityChatLine(eastl::basic_string<char, BucketAllocatorEASTL> const&,
-                                      EntityChatLine::ChatColour, EntityChatLine::ChatEffect, unsigned long long);
-        GetChatLine();
-        GetDisplayNameWithExtras(bool);
-        void SetTitle(int, game::PlayerGender);
-        void GetPositionFine(game::CoordFine&) const;
+        PathingEntity(const PathingEntityParams& pathingEntityParams, graphics::GraphNode* graphNode,
+                      const shared_ptr<game::World>& world, game::EntityType entityType, int arg5);
+        void AddRouteWaypointFine(const game::CoordFine& coordFine, const MoveSpeed* moveSpeed, bool arg3);
+        void SetPathingEntityChatLine(const eastl::string& str, EntityChatLine::ChatColour chatColour,
+                                      EntityChatLine::ChatEffect chatEffect, unsigned long long arg4);
+        uint8_t* GetChatLine();
+        auto GetDisplayNameWithExtras(bool arg1);
+        void SetTitle(int arg1, game::PlayerGender playerGender);
+        void GetPositionFine(game::CoordFine& coordFine) const;
         void AbortAnimationsOnMove();
-        void SetExactMove(int, int, int, int, int, int, int, int, float, unsigned int);
-        int GetHeightForLevel(int, math::Vector3T<float>&);
-        void SetBasID(int);
-        void SetSpotAnimation(std::unique_ptr<SpotAnimation, MakeUniquePool<SpotAnimation, 64>::UniquePoolDeleter>&&,
-                              int);
-        void ResetSpotAnimation(int, int);
-        void GetSpotAnimation(int);
-        void UpdateSpotAnimations(unsigned int);
-        ulong GetRequestedDefaultOrOverrideModel(game::AnimatedModelPair&, PathingEntityModels&);
-        GetReplaceHeldModel(game::AnimatedModelPair&, PathingEntityModels&, int);
-        void GetDefaultModel(game::AnimatedModelPair&, int);
-        void GetOverrideModel(game::AnimatedModelPair&, int);
-        void UpdateIrradianceForModel(graphics::Model&);
+        void SetExactMove(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, float arg9,
+                          unsigned int arg10);
+        int GetHeightForLevel(int arg1, math::Vector3T<float>& vector3);
+        void SetBasID(int arg1);
+        void SetSpotAnimation(
+            std::unique_ptr<SpotAnimation, MakeUniquePool<SpotAnimation, 64>::UniquePoolDeleter>&& spotAnimation,
+            int arg2);
+        void ResetSpotAnimation(int arg1, int arg2);
+        void GetSpotAnimation(int arg1);
+        void UpdateSpotAnimations(unsigned int arg1);
+        unsigned long GetRequestedDefaultOrOverrideModel(game::AnimatedModelPair& animatedModelPair,
+                                                         PathingEntityModels& pathingEntityModels);
+        uint32_t GetReplaceHeldModel(game::AnimatedModelPair& animatedModelPair,
+                                     PathingEntityModels& pathingEntityModels, int arg3);
+        void GetDefaultModel(game::AnimatedModelPair& animatedModelPair, int arg2);
+        void GetOverrideModel(game::AnimatedModelPair& animatedModelPair, int arg2);
+        void UpdateIrradianceForModel(graphics::Model& model);
         void BuildAnimStateMachine();
         void DestroySpotAnimations();
         void RequestReadyAnimation();
-        void SetGridSize(int);
-        void GetPositionGrid(game::CoordGrid&, bool) const;
-        void GetDestinationPositionGrid(game::CoordGrid&);
-        void GetDestinationPositionFine(game::CoordFine&);
-        GetCurrentMoveSpeed();
-        void GetCameraFollowPosition(math::Vector3T<float>&);
+        void SetGridSize(int arg1);
+        void GetPositionGrid(game::CoordGrid& coordGrid, bool arg2) const;
+        void GetDestinationPositionGrid(game::CoordGrid& coordGrid);
+        void GetDestinationPositionFine(game::CoordFine& coordFine);
+        uint8_t* GetCurrentMoveSpeed();
+        void GetCameraFollowPosition(math::Vector3T<float>& vector3);
         void UpdateGroundHeight();
         bool IsDoingAnExactMove() const;
-        void UpdateEntity(int);
+        void UpdateEntity(int arg1);
         void UpdatePostTransform();
         void SetFacingGradual();
-        void AttachToNode(graphics::GraphNode*, shared_ptr<game::World> const&);
+        void AttachToNode(graphics::GraphNode* graphNode, const shared_ptr<game::World>& world);
         bool EnsureBASType();
-        ulong AttachToWorld();
-        DoPendingExactMoves(int);
-        uint MoveAlongRoute(int, MoveSpeed const**, float*);
-        void SelectMovementAnimation(MoveSpeed const*, float);
-        void UpdatePositionFromCurrentTime(unsigned int);
-        Matrix44T* CalculateWorldTransformationMatrix();
-        ulong IsAnimationBlockingMovement();
-        void SelectBaseAnimation(MoveSpeed const*, float);
-        void DoExactMove1(int);
-        void DoExactMove2(int);
+        uint32_t AttachToWorld();
+        uint64_t DoPendingExactMoves(int arg1);
+        unsigned int MoveAlongRoute(int arg1, const MoveSpeed** arg2, float* arg3);
+        void SelectMovementAnimation(const MoveSpeed* moveSpeed, float arg2);
+        void UpdatePositionFromCurrentTime(unsigned int arg1);
+        Matrix44T<float>* CalculateWorldTransformationMatrix();
+        unsigned long IsAnimationBlockingMovement();
+        void SelectBaseAnimation(const MoveSpeed* moveSpeed, float arg2);
+        void DoExactMove1(int arg1);
+        void DoExactMove2(int arg1);
         void DestroyPendingSpotAnimations();
-        void DestroySpotAnimationType(int);
-        void DestroyPendingSpotAnimationType(int);
-        void TranslateParticles(math::Vector3T<float> const&);
-        void OnOverrideAnimationFinished(int);
-        void CalculateHillRotateTransform(int, int, int, int);
-        void SetFacingImmediate(float);
-        void CheckAnimationJoinsOnMovement(int);
-        int GetMaxRemoveRoofLevel(game::LinkMap const&, int, int, int, int);
+        void DestroySpotAnimationType(int arg1);
+        void DestroyPendingSpotAnimationType(int arg1);
+        void TranslateParticles(const math::Vector3T<float>& vector3);
+        void OnOverrideAnimationFinished(int arg1);
+        void CalculateHillRotateTransform(int arg1, int arg2, int arg3, int arg4);
+        void SetFacingImmediate(float arg1);
+        void CheckAnimationJoinsOnMovement(int arg1);
+        int GetMaxRemoveRoofLevel(const game::LinkMap& linkMap, int arg2, int arg3, int arg4, int arg5);
         void RecalculateMaxRemoveRoofLevel();
-        ulong GetOverlayHeightPathingEntity() const;
-        void RequestAnimationInner(std::array<int, 4ul> const&, int, bool, unsigned int, unsigned int);
-        void SetupTint(unsigned int, unsigned int, unsigned int, unsigned int);
-        ulong IsNonCentredEntity();
+        unsigned long GetOverlayHeightPathingEntity() const;
+        void RequestAnimationInner(const std::array<int, 4ul>& arg1, int arg2, bool arg3, unsigned int arg4,
+                                   unsigned int arg5);
+        void SetupTint(unsigned int arg1, unsigned int arg2, unsigned int arg3, unsigned int arg4);
+        unsigned long IsNonCentredEntity();
         void ResetHitmarksAndHeadbars();
-        void AddHitmark(int, int, int, int, unsigned int, unsigned int);
-        void AddHeadbar(int, int, unsigned int, int, int, int, int, unsigned int);
-        void ClearHeadbar(int);
-        void DebugRenderRouting(unsigned int);
+        void AddHitmark(int arg1, int arg2, int arg3, int arg4, unsigned int arg5, unsigned int arg6);
+        void AddHeadbar(int arg1, int arg2, unsigned int arg3, int arg4, int arg5, int arg6, int arg7,
+                        unsigned int arg8);
+        void ClearHeadbar(int arg1);
+        void DebugRenderRouting(unsigned int arg1);
         void DebugRenderFacing();
-        void DebugRenderPosition(unsigned int);
+        void DebugRenderPosition(unsigned int arg1);
         int GetBasID() const;
-        GetDisplayName() const;
-        void SetDisplayName(char const*);
+        uint8_t* GetDisplayName() const;
+        void SetDisplayName(const char* str);
         void DecrementAnimationRoutePending();
         char GetHiddenByOtherEntity() const;
         int GetGridSize() const;
-        GetSlotID() const;
-        static /* 8 bytes */ TITLE_TAG; // = "<name>"
-        static /* 6 bytes */ m_showHillRotateCorners;
-        static /* 8 bytes */ NullSpotAnimation;
+        uint32_t GetSlotID() const;
+        static const char* TITLE_TAG; // = "<name>"
+        static int16_t m_showHillRotateCorners;
+        static int64_t NullSpotAnimation;
 
-        // data members, from how the methods use this: 4176 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined** field_8; // offset 8
-        char _unknown_16[48];
-        byte field_64;       // offset 64
-        undefined1 field_65; // offset 65
-        undefined1 field_66; // offset 66
-        bool field_67;       // offset 67
-        uint field_68;       // offset 68
-        int field_72;        // offset 72
-        char _unknown_76[40];
-        undefined4 field_116; // offset 116
-        char _unknown_120[8];
-        undefined1 field_128; // offset 128
-        char _unknown_129[47];
-        shared_ptr field_176; // offset 176
-        char _unknown_192[16];
-        _func_decltype_nullptr* field_208; // offset 208
-        AssetBuilder* field_216;           // offset 216
-        ConfigProvider* field_224;         // offset 224
-        SceneManager* field_232;           // offset 232
-        undefined4 m_slotID;               // offset 240
-        char _unknown_244[172];
-        undefined8 field_416;      // offset 416
-        EntityVarDomain field_424; // offset 424
-        char _unknown_456[48];
-        undefined8 field_504; // offset 504
-        int field_512;        // offset 512
-        int m_gridSize;       // offset 516
-        char _unknown_520[4];
-        undefined1 field_524; // offset 524
-        char _unknown_525[15];
-        float field_540;            // offset 540
-        uint field_544;             // offset 544
-        uint field_548;             // offset 548
-        FacingController field_552; // offset 552
-        char _unknown_716[8];
-        float m_translationY; // offset 724
-        undefined4 field_728; // offset 728
-        char _unknown_732[4];
-        undefined1 field_736; // offset 736
-        char _unknown_737[63];
-        undefined4 field_800; // offset 800
-        char _unknown_804[60];
-        PathingEntityAnimatedModel m_animatedModel; // offset 864
-        char _unknown_3224[8];
-        undefined8 field_3232; // offset 3232
-        char _unknown_3240[168];
-        char field_3408; // offset 3408
-        char _unknown_3409[79];
-        bool field_3488; // offset 3488
-        char _unknown_3489[1];
-        short m_worldPriority;      // offset 3490
-        char m_hiddenByOtherEntity; // offset 3492
-        char _unknown_3493[3];
-        undefined4 field_3496; // offset 3496
-        int field_3500;        // offset 3500
-        char _unknown_3504[4];
-        float field_3508; // offset 3508
-        char _unknown_3512[4];
-        int field_3516; // offset 3516
-        char _unknown_3520[4];
-        float field_3524; // offset 3524
-        char _unknown_3528[4];
-        uint field_3532;  // offset 3532
-        uint field_3536;  // offset 3536
-        float field_3540; // offset 3540
-        char _unknown_3544[304];
-        int m_basID; // offset 3848
-        char _unknown_3852[4];
-        shared_ptr field_3856; // offset 3856
-        int field_3872;        // offset 3872
-        char _unknown_3876[4];
-        shared_ptr field_3880;   // offset 3880
-        shared_ptr field_3896;   // offset 3896
-        shared_ptr field_3912;   // offset 3912
-        VariableList field_3928; // offset 3928
-        char _unknown_4056[112];
-        undefined1 field_4168; // offset 4168
-        undefined1 field_4169; // offset 4169
-        undefined1 field_4170; // offset 4170
-        undefined1 field_4171; // offset 4171
-        char _unknown_4172[4];
+    private:
+        uint8_t** field_8;
+        uint8_t _unknown_16[48];
+        uint8_t field_64;
+        uint8_t field_65;
+        char field_66;
+        bool field_67;
+        unsigned int field_68;
+        TextWrapMode field_72;
+        uint8_t _unknown_76[40];
+        uint32_t field_116;
+        uint8_t _unknown_120[56];
+        shared_ptr field_176;
+        uint8_t _unknown_192[16];
+        RT7Core* field_208;
+        AssetBuilder* field_216;
+        ConfigProvider* field_224;
+        SceneManager* field_232;
+        uint32_t m_slotID;
+        uint8_t _unknown_244[172];
+        unsigned long field_416;
+        EntityVarDomain field_424;
+        uint8_t _unknown_456[48];
+        uint64_t field_504;
+        int field_512;
+        int m_gridSize;
+        uint8_t _unknown_520[4];
+        uint8_t field_524;
+        uint8_t _unknown_525[19];
+        unsigned int field_544;
+        unsigned int field_548;
+        FacingController field_552;
+        uint8_t _unknown_716[8];
+        float m_translationY;
+        uint32_t field_728;
+        uint8_t _unknown_732[68];
+        uint32_t field_800;
+        uint8_t _unknown_804[60];
+        PathingEntityAnimatedModel m_animatedModel;
+        uint8_t _unknown_3224[8];
+        uint64_t field_3232;
+        uint8_t _unknown_3240[168];
+        char field_3408;
+        uint8_t _unknown_3409[79];
+        bool field_3488;
+        uint8_t _unknown_3489[1];
+        short m_worldPriority;
+        char m_hiddenByOtherEntity;
+        uint8_t _unknown_3493[3];
+        uint32_t field_3496;
+        int field_3500;
+        uint8_t _unknown_3504[4];
+        float field_3508;
+        uint8_t _unknown_3512[4];
+        int field_3516;
+        uint8_t _unknown_3520[4];
+        float field_3524;
+        uint8_t _unknown_3528[4];
+        unsigned int field_3532;
+        unsigned int field_3536;
+        float field_3540;
+        uint8_t _unknown_3544[304];
+        int m_basID;
+        uint8_t _unknown_3852[4];
+        shared_ptr field_3856;
+        int field_3872;
+        uint8_t _unknown_3876[4];
+        shared_ptr field_3880;
+        shared_ptr field_3896;
+        shared_ptr field_3912;
+        VariableList field_3928;
+        uint8_t _unknown_4056[112];
+        uint8_t field_4168;
+        uint8_t field_4169;
+        uint8_t field_4170;
+        uint8_t field_4171;
+        uint8_t _unknown_4172[4];
     };
 
     class PathingEntityModels {
@@ -219,131 +221,98 @@ namespace jag {
         ~PathingEntityModels();
         void Clear();
 
-        // data members, from how the methods use this: 40 bytes
-        char _unknown_0[40];
+        uint8_t _unknown_0[40];
     };
 
-    // 0x1003dad60, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // PathingEntity::GetAnimatedModel() const
-    /* game::Terrain::GetLightProbe() */
-
-    undefined1* game::Terrain::GetLightProbe() {
+    // 0x1003dad60
+    PathingEntityAnimatedModel PathingEntity::GetAnimatedModel() const {
         return &field_864;
     }
 
-    // 0x1003f1400, 48 bytes, inline, placed by class header (inline)
-    // PathingEntityModels::Clear()
+    // 0x1003f1400
     void PathingEntityModels::Clear() {
-        shared_ptr<graphics::Model>::reset();
+        field_32.reset();
         Clear();
     }
 
-    // 0x1003f3790, 32 bytes, inline, placed by class name
-    // PathingEntity::IsDoingAnExactMove() const
-    bool PathingEntity::IsDoingAnExactMove() {
-        bool bVar1;
-
-        bVar1 = true;
+    // 0x1003f3790
+    bool PathingEntity::IsDoingAnExactMove() const {
+        bool bVar1 = true;
         if ((int)field_3532 <= field_512) {
             bVar1 = field_512 < (int)field_3536;
         }
         return bVar1;
     }
 
-    // 0x1003fdc60, 16 bytes, inline, placed by class name
-    // PathingEntity::GetOverlayHeight() const
-    void PathingEntity::GetOverlayHeight() {
-        GetOverlayHeightPathingEntity(this);
+    // 0x1003fdc60
+    void PathingEntity::GetOverlayHeight() const {
+        GetOverlayHeightPathingEntity();
     }
 
-    // 0x1003fdc70, 16 bytes, inline, placed by class name
-    // PathingEntity::GetBasID() const
-    int PathingEntity::GetBasID() {
+    // 0x1003fdc70
+    int PathingEntity::GetBasID() const {
         return m_basID;
     }
 
-    // 0x100417cf0, 16 bytes, inline, placed by class name
-    // PathingEntity::GetDisplayName() const
-    undefined1* PathingEntity::GetDisplayName() {
+    // 0x100417cf0
+    uint8_t* PathingEntity::GetDisplayName() const {
         return &field_248;
     }
 
-    // 0x100418f10, 32 bytes, inline, placed by class name
-    // PathingEntity::SetDisplayName(char const*)
-    void PathingEntity::SetDisplayName(char* param_1) {
-        eastl::fixed_string<char, 16, true, eastl::allocator>::operator=(
-            (fixed_string<char, 16, true, eastl::allocator>*)&field_248, param_1);
+    // 0x100418f10
+    void PathingEntity::SetDisplayName(const char* str) {
+        field_248 = str;
     }
 
-    // 0x1004190f0, 48 bytes, inline, placed by class name
-    // PathingEntity::DecrementAnimationRoutePending()
+    // 0x1004190f0
     void PathingEntity::DecrementAnimationRoutePending() {
-        field_800 = eastl::max<int>(0, field_800 + -1);
+        field_800 = eastl::max<int>(0, field_800 - 1);
     }
 
-    // 0x100419ee0, 16 bytes, inline, placed by class name
-    // PathingEntity::GetHiddenByOtherEntity() const
-    char PathingEntity::GetHiddenByOtherEntity() {
+    // 0x100419ee0
+    char PathingEntity::GetHiddenByOtherEntity() const {
         return m_hiddenByOtherEntity;
     }
 
-    // 0x100419ef0, 16 bytes, inline, placed by class name
-    // PathingEntity::GetGridSize() const
-    int PathingEntity::GetGridSize() {
+    // 0x100419ef0
+    int PathingEntity::GetGridSize() const {
         return m_gridSize;
     }
 
-    // 0x10041b610, 16 bytes, inline, placed by class name
-    // PathingEntity::GetWorldPriority() const
-    int PathingEntity::GetWorldPriority() {
+    // 0x10041b610
+    int PathingEntity::GetWorldPriority() const {
         return (int)m_worldPriority;
     }
 
-    // 0x10041b620, 16 bytes, inline, placed by class name
-    // PathingEntity::GetTrackableID() const
-    void PathingEntity::GetTrackableID() {
-        GetSlotID(this);
+    // 0x10041b620
+    void PathingEntity::GetTrackableID() const {
+        GetSlotID();
     }
 
-    // 0x10041b6c0, 16 bytes, inline, placed by class name
-    // PathingEntity::CanSetFacing() const
-    void PathingEntity::CanSetFacing() {
-        (*(code*)field_0[35])();
+    // 0x10041b6c0
+    void PathingEntity::CanSetFacing() const {
+        CanRender();
     }
 
-    // 0x10041dd90, 16 bytes, inline, placed by class name
-    // PathingEntity::GetSlotID() const
-    undefined4 PathingEntity::GetSlotID() {
+    // 0x10041dd90
+    uint32_t PathingEntity::GetSlotID() const {
         return m_slotID;
     }
 
 } // namespace jag
 
 namespace jag::math {
-    // 0x1003dad70, 48 bytes, inline, placed by debug map only (low confidence)
-    // Vector2T<float> operator/<float>(Vector2T<float> const&, Vector2T<float> const&)
-    /* Vector2T<float> TEMPNAMEPLACEHOLDERVALUE(Vector2T<float> const&,
-   Vector2T<float> const&) */
+    // 0x1003dad70
+    Vector2T<float> operator/ <float>(const Vector2T<float>& vector21, const Vector2T<float>& vector22) {
 
-    undefined8 operator/(Vector2T* param_1, Vector2T* param_2) {
-        undefined8 local_10;
-
-        new (&local_10)
-            Point<float>(*(float*)param_1 / *(float*)param_2, *(float*)(param_1 + 4) / *(float*)(param_2 + 4));
+        return local_10(*(float*)vector21 / *(float*)vector22, *(float*)(vector21 + 4) / *(float*)(vector22 + 4));
         return local_10;
     }
 
-    // 0x1003dada0, 48 bytes, inline, placed by debug map only (low confidence)
-    // Vector2T<float> operator*<float>(Vector2T<float> const&, Vector2T<float> const&)
-    /* Vector2T<float> TEMPNAMEPLACEHOLDERVALUE(Vector2T<float> const&,
-   Vector2T<float> const&) */
+    // 0x1003dada0
+    Vector2T<float> operator* <float>(const Vector2T<float>& vector21, const Vector2T<float>& vector22) {
 
-    undefined8 operator*(Vector2T* param_1, Vector2T* param_2) {
-        undefined8 local_10;
-
-        new (&local_10)
-            Point<float>(*(float*)param_2 * *(float*)param_1, *(float*)(param_2 + 4) * *(float*)(param_1 + 4));
+        return local_10(*(float*)vector22 * *(float*)vector21, *(float*)(vector22 + 4) * *(float*)(vector21 + 4));
         return local_10;
     }
 

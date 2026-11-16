@@ -1,6 +1,5 @@
 // libs/tweaky/TweakyEditLine.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.tweaky
@@ -10,16 +9,17 @@ namespace jag::tweak {
     public:
         int GetDrawOffset() const;
         void GetText() const;
-        bool SupportsKeyChar(int);
+        bool SupportsKeyChar(int arg1);
         void Home();
         void End();
         ~EditLine();
-        void SetCursorShown(bool);
-        void Draw(int, int, int, int, shared_ptr<graphics::Font> const&, graphics::RT7Core*, graphics::FontHelpers*);
-        GetSelection(int&, int&) const;
-        HandleChar(int);
-        void Insert(StringView);
-        ulong HandleKeyDown(int);
+        void SetCursorShown(bool arg1);
+        void Draw(int arg1, int arg2, int arg3, int arg4, const shared_ptr<graphics::Font>& font,
+                  graphics::RT7Core* rt7Core, graphics::FontHelpers* fontHelpers);
+        uint64_t GetSelection(int& arg1, int& arg2) const;
+        uint8_t HandleChar(int arg1);
+        void Insert(StringView stringView);
+        unsigned long HandleKeyDown(int arg1);
         void ClipboardCopy();
         void ClipboardPaste();
         void ClipboardCut();
@@ -31,125 +31,104 @@ namespace jag::tweak {
         void Delete();
         void DelWordLeft();
         void Backspace();
-        HandleKeyUp(int);
+        uint64_t HandleKeyUp(int arg1);
         void ValidatePosition();
         void SelectAll();
-        void SetSelecting(bool);
-        void SetSelectionStart(int);
-        void SetPos(int);
+        void SetSelecting(bool arg1);
+        void SetSelectionStart(int arg1);
+        void SetPos(int arg1);
         void SelectNone();
-        DeleteSelection();
-        GetSelection(int&, int&, eastl::fixed_string<char, 256, true, eastl::allocator>&) const;
-        GetCursorShown() const;
-        void SetText(StringView);
+        uint64_t DeleteSelection();
+        uint64_t GetSelection(int& arg1, int& arg2, eastl::fixed_string<char, 256>& str) const;
+        uint8_t GetCursorShown() const;
+        void SetText(StringView stringView);
         EditLine();
-        static /* 144 bytes */ m_shadowColour; // initialised in its definition
+        static int32_t m_shadowColour[36]; // initialised in its definition
 
-        // data members, from how the methods use this: 316 bytes
-        int m_drawOffset;   // offset 0
-        int m_pos;          // offset 4
-        undefined1 field_8; // offset 8
-        char _unknown_9[295];
-        int m_selectionStart; // offset 304
-        bool m_selecting;     // offset 308
-        bool m_cursorShown;   // offset 309
-        char _unknown_310[6];
+    private:
+        int m_drawOffset;
+        EnumOptionToggle m_pos;
+        uint8_t _unknown_8[296];
+        EnumOptionToggle m_selectionStart;
+        bool m_selecting;
+        bool m_cursorShown;
+        uint8_t _unknown_310[6];
     };
 
-    // 0x100a3f450, 16 bytes, inline, placed by debug map only (low confidence)
-    // EditLine::SetSelecting(bool)
-    void EditLine::SetSelecting(bool param_1) {
-        m_selecting = param_1;
+    // 0x100a3f450
+    void EditLine::SetSelecting(bool arg1) {
+        m_selecting = arg1;
     }
 
-    // 0x100a3f460, 16 bytes, inline, placed by debug map only (low confidence)
-    // EditLine::SetSelectionStart(int)
-    void EditLine::SetSelectionStart(int param_1) {
-        m_selectionStart = param_1;
+    // 0x100a3f460
+    void EditLine::SetSelectionStart(int arg1) {
+        m_selectionStart = arg1;
     }
 
-    // 0x100a3f470, 16 bytes, inline, placed by debug map only (low confidence)
-    // EditLine::SetPos(int)
-    void EditLine::SetPos(int param_1) {
-        m_pos = param_1;
-        ValidatePosition(this);
+    // 0x100a3f470
+    void EditLine::SetPos(int arg1) {
+        m_pos = arg1;
+        ValidatePosition();
     }
 
-    // 0x100a3f480, 64 bytes, placed by debug map only (low confidence)
-    // EditLine::SelectNone()
+    // 0x100a3f480
     void EditLine::SelectNone() {
-        SetSelecting(this, true);
-        SetSelectionStart(this, 0);
-        SetPos(this, 0);
-        SetSelecting(this, false);
+        SetSelecting(true);
+        SetSelectionStart(0);
+        SetPos(0);
+        SetSelecting(false);
     }
 
-    // 0x100a3f4c0, 128 bytes, placed by debug map only (low confidence)
-    // EditLine::DeleteSelection()
-    undefined8 EditLine::DeleteSelection() {
-        int iVar1;
+    // 0x100a3f4c0
+    uint64_t EditLine::DeleteSelection() {
         int iVar2;
 
-        if (m_selectionStart != -1) {
+        EnumOptionToggle EVar1 = m_selectionStart;
+        if (EVar1 != 4294967295) {
             m_selecting = false;
-            if (m_selectionStart != m_pos) {
-                iVar1 = eastl::min<graphics::GraphicsQuality>();
+            if (EVar1 != m_pos) {
+                EVar1 = eastl::min<graphics::GraphicsQuality>(m_pos, EVar1);
                 iVar2 = eastl::max<int>(m_pos, m_selectionStart);
-                (&field_8, (long)iVar1, (long)(iVar2 - iVar1), 0, ' ')->replace();
-                m_selectionStart = -1;
-                m_pos = iVar1;
+                (&field_8)->replace((long)(int)EVar1, (long)(int)(iVar2 - EVar1), 0, ' ');
+                m_selectionStart = 4294967295;
+                m_pos = EVar1;
                 return 1;
             }
-            m_selectionStart = -1;
+            m_selectionStart = 4294967295;
         }
         return 0;
     }
 
-    // 0x100a3f660, 208 bytes, placed by debug map only (low confidence)
-    // EditLine::GetSelection(int&, int&, eastl::fixed_string<char, 256, true, eastl::allocator>&) const
-    undefined8 EditLine::GetSelection(int* param_1, int* param_2, fixed_string* param_3) {
+    // 0x100a3f660
+    uint64_t EditLine::GetSelection(int& arg1, int& arg2, eastl::fixed_string<char, 256>& str) const {
         int iVar1;
-        fixed_string local_158[296];
-        long local_30;
+        ReturnValue local_158;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((m_selectionStart != -1) && (m_selectionStart != m_pos)) {
-            iVar1 = eastl::min<graphics::GraphicsQuality>();
-            *param_1 = iVar1;
-            iVar1 = eastl::max<int>(m_pos, m_selectionStart);
-            *param_2 = iVar1;
-            eastl::fixed_string<char, 256, true, eastl::allocator>::substr((ulong)local_158, (ulong)&field_8);
-            eastl::fixed_string<char, 4096, true, eastl::allocator>::operator=(
-                (fixed_string<char, 4096, true, eastl::allocator>*)param_3, local_158);
-            /* WARNING: Subroutine does not return */
-            local_158->~fixed_string();
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+        EnumOptionToggle enumOptionToggle2 = m_selectionStart;
+        if (enumOptionToggle2 != 4294967295) {
+            if (enumOptionToggle2 != m_pos) {
+                iVar1 = eastl::min<graphics::GraphicsQuality>(m_pos, enumOptionToggle2);
+                arg1 = iVar1;
+                iVar1 = eastl::max<int>(m_pos, m_selectionStart);
+                arg2 = iVar1;
+                local_158 = field_8.substr((long)*arg1, (long)iVar1 - (long)*arg1);
+                str = &local_158;
+            }
         }
         return 0;
     }
 
-    // 0x100a46f10, 16 bytes, inline, placed by class header (inline)
-    // EditLine::GetCursorShown() const
-    undefined1 EditLine::GetCursorShown() {
+    // 0x100a46f10
+    uint8_t EditLine::GetCursorShown() const {
         return m_cursorShown;
     }
 
-    // 0x100a47590, 80 bytes, inline, placed by class header (inline)
-    // EditLine::SetText(StringView)
-    void EditLine::SetText(StringView param_1) {
-        char* pcVar1;
-        ulong uVar2;
-
-        pcVar1 = (char*)param_1.field_0->end();
-        uVar2 = param_1.field_0->p2_alt2();
-        (&field_8, pcVar1, uVar2)->assign();
-        ValidatePosition(this);
+    // 0x100a47590
+    void EditLine::SetText(StringView stringView) {
+        auto str = stringView->end();
+        unsigned long arg2 = ShuffledPacketFactory::p2_alt2();
+        (&field_8)->assign(str, arg2);
+        ValidatePosition();
     }
-
-    // 0x100a48700, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // EditLine::EditLine(): jumps straight to the base-object constructor
 
 } // namespace jag::tweak

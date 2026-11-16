@@ -1,167 +1,107 @@
 // libs/graphics/runetek7/effects/irradiance/LightProbeMaterial.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "LightProbeMaterial.h"
 
 namespace jag::graphics {
-    // 0x1007a2d90: the linker folded this into WaterMaterial::GetWaterParameters() const, which has identical code
-    LightProbeMaterial::GetIrradianceSHConsts() const;
+    // 0x1007a2d90: LightProbeMaterial::GetIrradianceSHConsts() const has the same machine code as WaterMaterial::GetWaterParameters() const
 
-    // 0x1008cc3f0: the linker folded this into RenderMaterial::~RenderMaterial(), which has identical code
-    LightProbeMaterial::~LightProbeMaterial();
+    // 0x1008cc3f0: LightProbeMaterial::~LightProbeMaterial() has the same machine code as RenderMaterial::~RenderMaterial()
 
-    // 0x10091a510: the linker folded this into SkyBoxMaterial::~SkyBoxMaterial(), which has identical code
-    LightProbeMaterial::~LightProbeMaterial();
-
-    // 0x1009226b0: the linker folded this into SkyBoxMaterial::~SkyBoxMaterial(), which has identical code
-    LightProbeMaterial::~LightProbeMaterial();
-
-    // 0x10092f2a0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // LightProbeMaterial::LightProbeMaterial(): jumps straight to the base-object constructor
-
-    // 0x10092f2c0, 16 bytes, placed by class name
-    // LightProbeMaterial::Init()
+    // 0x10092f2c0
     void LightProbeMaterial::Init() {
-        InitRenderPassEffects(this);
+        InitRenderPassEffects();
     }
 
-    // 0x10092fd00, 80 bytes, base-object constructor, placed by class name
-    // LightProbeMaterial::LightProbeMaterial()
-    void LightProbeMaterial::LightProbeMaterial() {
-        new (this) RenderMaterial();
-        field_0 = (undefined**)(PTR_vtable_100ee87c8 + 16);
-        new (&m_irradianceSHConsts) IrradianceSHCoefConsts();
-    }
+    // 0x10092fd00
+    LightProbeMaterial::LightProbeMaterial() : RenderMaterial() {}
 
-    // 0x10092fde0, 144 bytes, base-object constructor, placed by class name
-    // LightProbeMaterial::LightProbeMaterial(LightProbeMaterial&&)
-    void LightProbeMaterial::LightProbeMaterial(LightProbeMaterial* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-
-        new (this) RenderMaterial(param_1);
-        field_0 = (undefined**)(PTR_vtable_100ee87c8 + 16);
-        uVar1 = param_1->field_552;
-        uVar2 = param_1->field_560;
-        uVar3 = param_1->field_568;
-        uVar4 = param_1->field_576;
-        uVar5 = param_1->field_584;
-        uVar6 = param_1->field_592;
-        uVar7 = param_1->field_600;
-        m_irradianceSHConsts = param_1->m_irradianceSHConsts;
-        field_552 = uVar1;
-        field_560 = uVar2;
-        field_568 = uVar3;
-        field_576 = uVar4;
-        field_584 = uVar5;
-        field_592 = uVar6;
-        field_600 = uVar7;
-        uVar1 = param_1->field_616;
-        field_608 = param_1->field_608;
-        field_616 = uVar1;
-        uVar1 = param_1->field_632;
-        field_624 = param_1->field_624;
-        field_632 = uVar1;
-        uVar1 = param_1->field_648;
-        field_640 = param_1->field_640;
+    // 0x10092fde0
+    LightProbeMaterial::LightProbeMaterial(LightProbeMaterial&& lightProbeMaterial)
+        : RenderMaterial(lightProbeMaterial) {
+        uint64_t uVar1 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 8);
+        uint64_t uVar2 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 16);
+        uint64_t uVar3 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 24);
+        uint64_t uVar4 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 32);
+        uint64_t uVar5 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 40);
+        uint64_t uVar6 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 48);
+        uint64_t uVar7 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 56);
+        *(uint64_t*)m_irradianceSHConsts = *(uint64_t*)lightProbeMaterial.m_irradianceSHConsts;
+        *(uint64_t*)(m_irradianceSHConsts + 8) = uVar1;
+        *(uint64_t*)(m_irradianceSHConsts + 16) = uVar2;
+        *(uint64_t*)(m_irradianceSHConsts + 24) = uVar3;
+        *(uint64_t*)(m_irradianceSHConsts + 32) = uVar4;
+        *(uint64_t*)(m_irradianceSHConsts + 40) = uVar5;
+        *(uint64_t*)(m_irradianceSHConsts + 48) = uVar6;
+        *(uint64_t*)(m_irradianceSHConsts + 56) = uVar7;
+        uVar1 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 72);
+        *(uint64_t*)(m_irradianceSHConsts + 64) = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 64);
+        *(uint64_t*)(m_irradianceSHConsts + 72) = uVar1;
+        uVar1 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 88);
+        *(uint64_t*)(m_irradianceSHConsts + 80) = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 80);
+        *(uint64_t*)(m_irradianceSHConsts + 88) = uVar1;
+        uVar1 = lightProbeMaterial.field_648;
+        *(uint64_t*)(m_irradianceSHConsts + 96) = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 96);
         field_648 = uVar1;
     }
 
-    // 0x10092fe70, 16 bytes, complete-object constructor, placed by class name
-    // LightProbeMaterial::LightProbeMaterial(LightProbeMaterial&&): jumps straight to the base-object constructor
-
-    // 0x10092fe80, 144 bytes, base-object constructor, placed by class name
-    // LightProbeMaterial::LightProbeMaterial(LightProbeMaterial const&)
-    void LightProbeMaterial::LightProbeMaterial(LightProbeMaterial* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-
-        new (this) RenderMaterial(param_1);
-        field_0 = (undefined**)(PTR_vtable_100ee87c8 + 16);
-        uVar1 = param_1->field_552;
-        uVar2 = param_1->field_560;
-        uVar3 = param_1->field_568;
-        uVar4 = param_1->field_576;
-        uVar5 = param_1->field_584;
-        uVar6 = param_1->field_592;
-        uVar7 = param_1->field_600;
-        m_irradianceSHConsts = param_1->m_irradianceSHConsts;
-        field_552 = uVar1;
-        field_560 = uVar2;
-        field_568 = uVar3;
-        field_576 = uVar4;
-        field_584 = uVar5;
-        field_592 = uVar6;
-        field_600 = uVar7;
-        uVar1 = param_1->field_616;
-        field_608 = param_1->field_608;
-        field_616 = uVar1;
-        uVar1 = param_1->field_632;
-        field_624 = param_1->field_624;
-        field_632 = uVar1;
-        uVar1 = param_1->field_648;
-        field_640 = param_1->field_640;
+    // 0x10092fe80
+    LightProbeMaterial::LightProbeMaterial(const LightProbeMaterial& lightProbeMaterial)
+        : RenderMaterial(lightProbeMaterial) {
+        uint64_t uVar1 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 8);
+        uint64_t uVar2 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 16);
+        uint64_t uVar3 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 24);
+        uint64_t uVar4 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 32);
+        uint64_t uVar5 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 40);
+        uint64_t uVar6 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 48);
+        uint64_t uVar7 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 56);
+        *(uint64_t*)m_irradianceSHConsts = *(uint64_t*)lightProbeMaterial.m_irradianceSHConsts;
+        *(uint64_t*)(m_irradianceSHConsts + 8) = uVar1;
+        *(uint64_t*)(m_irradianceSHConsts + 16) = uVar2;
+        *(uint64_t*)(m_irradianceSHConsts + 24) = uVar3;
+        *(uint64_t*)(m_irradianceSHConsts + 32) = uVar4;
+        *(uint64_t*)(m_irradianceSHConsts + 40) = uVar5;
+        *(uint64_t*)(m_irradianceSHConsts + 48) = uVar6;
+        *(uint64_t*)(m_irradianceSHConsts + 56) = uVar7;
+        uVar1 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 72);
+        *(uint64_t*)(m_irradianceSHConsts + 64) = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 64);
+        *(uint64_t*)(m_irradianceSHConsts + 72) = uVar1;
+        uVar1 = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 88);
+        *(uint64_t*)(m_irradianceSHConsts + 80) = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 80);
+        *(uint64_t*)(m_irradianceSHConsts + 88) = uVar1;
+        uVar1 = lightProbeMaterial.field_648;
+        *(uint64_t*)(m_irradianceSHConsts + 96) = *(uint64_t*)(lightProbeMaterial.m_irradianceSHConsts + 96);
         field_648 = uVar1;
     }
 
-    // 0x10092ff10, 16 bytes, complete-object constructor, placed by class name
-    // LightProbeMaterial::LightProbeMaterial(LightProbeMaterial const&): jumps straight to the base-object constructor
-
-    // 0x10092ff20, 176 bytes, placed by class name
-    // LightProbeMaterial::InitRenderPassEffects()
+    // 0x10092ff20
     void LightProbeMaterial::InitRenderPassEffects() {
-        undefined4* puVar1;
-        undefined4 local_48;
-        undefined4 uStack_44;
-        undefined4 uStack_40;
-        undefined4 uStack_3c;
-        undefined1* local_38;
-        undefined8 local_30;
-        undefined1 local_21;
+        uint64_t local_48;
+        uint64_t uStack_40;
 
-        puVar1 = (undefined4*)GetRenderPassEffect(4);
+        auto puVar1 = GetRenderPassEffect(4);
+        uint8_t local_21 = 79;
+        uint64_t local_30 = 1;
+        uint8_t* local_38 = &local_21;
+        new (&local_48) EffectList(local_38);
+        *puVar1 = local_48;
+        puVar1[1] = uStack_40;
+        field_528->AddFormatType(4);
+        puVar1 = (uint64_t*)GetRenderPassEffect(3);
         local_21 = 79;
         local_30 = 1;
         local_38 = &local_21;
-        new (&local_48) EffectList((initializer_list*)&local_38);
+        new (&local_48) EffectList(local_38);
         *puVar1 = local_48;
-        puVar1[1] = uStack_44;
-        puVar1[2] = uStack_40;
-        puVar1[3] = uStack_3c;
-        (field_528, 4)->AddFormatType();
-        puVar1 = (undefined4*)GetRenderPassEffect(3);
-        local_21 = 79;
-        local_30 = 1;
-        local_38 = &local_21;
-        new (&local_48) EffectList((initializer_list*)&local_38);
-        *puVar1 = local_48;
-        puVar1[1] = uStack_44;
-        puVar1[2] = uStack_40;
-        puVar1[3] = uStack_3c;
-        (field_528, 3)->AddFormatType();
+        puVar1[1] = uStack_40;
+        field_528->AddFormatType(3);
     }
 
-    // 0x10092ffd0, 48 bytes, placed by class name
-    // LightProbeMaterial::operator=(LightProbeMaterial const&)
-    /* LightProbeMaterial::TEMPNAMEPLACEHOLDERVALUE(LightProbeMaterial
-   const&) */
-
-    LightProbeMaterial* LightProbeMaterial::operator=(LightProbeMaterial* param_1) {
-        RenderMaterial::operator=((RenderMaterial*)this, (RenderMaterial*)param_1);
-        IrradianceSHCoefConsts::operator=((IrradianceSHCoefConsts*)&m_irradianceSHConsts,
-                                          (IrradianceSHCoefConsts*)&param_1->m_irradianceSHConsts);
+    // 0x10092ffd0
+    LightProbeMaterial* LightProbeMaterial::operator=(const LightProbeMaterial& lightProbeMaterial) {
+        *this = lightProbeMaterial;
+        *m_irradianceSHConsts = lightProbeMaterial.m_irradianceSHConsts;
         return this;
     }
 

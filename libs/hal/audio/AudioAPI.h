@@ -1,6 +1,5 @@
 // libs/hal/audio/AudioAPI.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.oldscape.osrendercore
@@ -8,72 +7,52 @@
 namespace jag::hal::audio {
     class AudioAPI {
     public:
-        GetRenderer() const;
+        void GetRenderer() const;
         AudioAPI();
         ~AudioAPI();
         void IsRendererValid() const;
-        StartAudioSystem(AudioSystemStartParams const&, AudioOptionsCallbacks const*);
-        ulong ConfigureRoutingArchitecture(AudioOptionsCallbacks const&);
+        uint32_t StartAudioSystem(const AudioSystemStartParams& audioSystemStartParams,
+                                  const AudioOptionsCallbacks* audioOptionsCallbacks);
+        unsigned long ConfigureRoutingArchitecture(const AudioOptionsCallbacks& audioOptionsCallbacks);
         void StopAudioSystem();
-        RestartAudioSystem(AudioOptionsCallbacks const*);
-        GetDecoder(AudioFormat const*);
-        void FreeDecoder(decoders::AudioDecoder*);
-        ActiveDecoderCount();
-        void ServiceAudio(float);
-        void AddMixBuss(BussType, unsigned int, unsigned int, float, BussType, std::function<float()> const&);
-        GetMixBuss(BussType);
-        GetMixBussTotalGain(BussType);
-        IsMixBussInChain(BussType, BussType);
+        uint32_t RestartAudioSystem(const AudioOptionsCallbacks* audioOptionsCallbacks);
+        uint64_t GetDecoder(const AudioFormat* audioFormat);
+        void FreeDecoder(decoders::AudioDecoder* audioDecoder);
+        uint64_t ActiveDecoderCount();
+        void ServiceAudio(float arg1);
+        void AddMixBuss(BussType bussType1, unsigned int arg2, unsigned int arg3, float arg4, BussType bussType2,
+                        const std::function<float()>& callback);
+        uint8_t* GetMixBuss(BussType bussType);
+        uint64_t GetMixBussTotalGain(BussType bussType);
+        bool IsMixBussInChain(BussType bussType1, BussType bussType2);
         void VerifyDefaultAudioDevice();
 
-        // data members, from how the methods use this: 24 bytes
-        char _unknown_0[8];
-        long field_8; // offset 8
-        char _unknown_16[8];
+    private:
+        uint8_t _unknown_0[8];
+        long field_8;
+        uint8_t _unknown_16[8];
     };
 
-    // 0x1001e0c20, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // AudioAPI::AudioAPI(): jumps straight to the base-object constructor
-
-    // 0x1001e0c40, 64 bytes, base-object constructor, inline, placed by class name and debug map
-    // AudioAPI::AudioAPI()
-    void AudioAPI::AudioAPI() {
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        new (&field_16, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x1001e0c40
+    AudioAPI::AudioAPI() : shared_ptr() {
+        new (&field_16) shared_ptr();
     }
 
-    // 0x1001e0d50, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // AudioAPI::~AudioAPI(): jumps straight to the base-object destructor
-
-    // 0x1001e0d60, 48 bytes, base-object destructor, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // AudioAPI::~AudioAPI()
-    /* game::ActiveComponent::~ActiveComponent() */
-
-    void game::ActiveComponent::~ActiveComponent() {
-        (&field_16)->~shared_ptr();
-        ~shared_ptr();
+    // 0x1001e0d60
+    AudioAPI::~AudioAPI() {
+        field_16.~shared_ptr();
     }
 
-    // 0x100665fb0, 16 bytes, inline, placed by class name
-    // AudioAPI::IsRendererValid() const
-    void AudioAPI::IsRendererValid() {
-        operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0);
+    // 0x100665fb0
+    void AudioAPI::IsRendererValid() const {
+        *this != nullptr;
     }
 
 } // namespace jag::hal::audio
 
 namespace jag::game {
-    // 0x1001e0d50: the linker folded this into hal::audio::AudioAPI::~AudioAPI(), which has identical code
-    AssetWorkerJob::~AssetWorkerJob();
+    // 0x1001e0d60: AssetWorkerJob::~AssetWorkerJob() has the same machine code as hal::audio::AudioAPI::~AudioAPI()
 
-    // 0x1001e0d50: the linker folded this into hal::audio::AudioAPI::~AudioAPI(), which has identical code
-    AnimatedModelPair::~AnimatedModelPair();
-
-    // 0x1001e0d60: the linker folded this into hal::audio::AudioAPI::~AudioAPI(), which has identical code
-    AssetWorkerJob::~AssetWorkerJob();
-
-    // 0x1001e0d60: the linker folded this into hal::audio::AudioAPI::~AudioAPI(), which has identical code
-    AnimatedModelPair::~AnimatedModelPair();
+    // 0x1001e0d60: AnimatedModelPair::~AnimatedModelPair() has the same machine code as hal::audio::AudioAPI::~AudioAPI()
 
 } // namespace jag::game

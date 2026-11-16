@@ -1,43 +1,34 @@
 // libs/math/matrix/Matrix33.inl
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
 
 namespace jag::math {
-    // 0x10017a0d0, 64 bytes, inline, placed by debug map only (low confidence)
-    // Matrix33T<float> Matrix33Scaling<float>(float, float, float)
-    math* Matrix33Scaling<float>(float param_1, float param_2, float param_3) {
-        new (this) Matrix33T<float>(param_1, 0.0, 0.0, 0.0, param_2, 0.0, 0.0, 0.0, param_3);
-        return this;
+    // 0x10017a0d0
+    Matrix33T<float> Matrix33Scaling<float>(float arg1, float arg2, float arg3) {
+        Matrix33T<float>* in_RDI;
+
+        new (in_RDI) Matrix33T<float>(arg1, 0.0, 0.0, 0.0, arg2, 0.0, 0.0, 0.0, arg3);
     }
 
-    // 0x10017a110, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // Vector3T<float>::Vector3T(): jumps straight to the base-object constructor
-
-    // 0x10017a110: the linker folded this into Vector3T<float>::Vector3T(), which has identical code
-    ColourHSL::ColourHSL();
+    // 0x10017a110: ColourHSL::ColourHSL() has the same machine code as Vector3T<float>::Vector3T()
 
 } // namespace jag::math
 
 namespace jag::render {
-    // 0x10017a110: the linker folded this into math::Vector3T<float>::Vector3T(), which has identical code
-    DispatchCallParams::DispatchCallParams();
+    // 0x10017a110: DispatchCallParams::DispatchCallParams() has the same machine code as math::Vector3T<float>::Vector3T()
 
-    // 0x10017a110: the linker folded this into math::Vector3T<float>::Vector3T(), which has identical code
-    QueryView::QueryView();
+    // 0x10017a110: QueryView::QueryView() has the same machine code as math::Vector3T<float>::Vector3T()
 
 } // namespace jag::render
 
 namespace jag::graphics {
-    // 0x10017a110: the linker folded this into math::Vector3T<float>::Vector3T(), which has identical code
-    TextRunCharacter::TextRunCharacter();
+    // 0x10017a110: TextRunCharacter::TextRunCharacter() has the same machine code as math::Vector3T<float>::Vector3T()
 
 } // namespace jag::graphics
 
 namespace jag::oldscape::dash3d {
-    // 0x10017a110: the linker folded this into jag::math::Vector3T<float>::Vector3T(), which has identical code
-    FaceNormal::FaceNormal();
+    // 0x10017a110: FaceNormal::FaceNormal() has the same machine code as jag::math::Vector3T<float>::Vector3T()
 
 } // namespace jag::oldscape::dash3d

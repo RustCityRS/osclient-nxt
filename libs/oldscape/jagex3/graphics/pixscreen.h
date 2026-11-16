@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/graphics/pixscreen.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,38 +7,27 @@ namespace jag::oldscape::graphics {
     class PixScreen {
     public:
         // virtual methods in vtable order
-        virtual void Resize(int, int);
+        virtual void Resize(int arg1, int arg2);
         PixScreen();
         ~PixScreen();
-        PixScreen(int, int);
-        void SetupPixelBuffer(int, int);
+        PixScreen(int arg1, int arg2);
+        void SetupPixelBuffer(int arg1, int arg2);
 
-        // data members, from how the methods use this: 48 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[24];
-        int field_32;        // offset 32
-        int field_36;        // offset 36
-        undefined2 field_40; // offset 40
-        undefined1 field_42; // offset 42
-        char _unknown_43[5];
+    private:
+        uint8_t _unknown_8[24];
+        int field_32;
+        int field_36;
+        uint16_t field_40;
+        uint8_t field_42;
+        uint8_t _unknown_43[5];
     };
 
-    // 0x10031aee0, 64 bytes, base-object constructor, inline, placed by class name and debug map
-    // PixScreen::PixScreen()
-    void PixScreen::PixScreen() {
-        field_0 = &PTR_Resize_100efadd8;
-        new (&field_8) SharedArray<unsigned int>();
-        field_32 = 0;
-        field_36 = 0;
-        field_40 = 1;
-        field_42 = 0;
-    }
+    // 0x10031aee0
+    PixScreen::PixScreen() : field_32(0), field_36(0), field_40(1), field_42(0) {}
 
-    // 0x10031b010, 32 bytes, base-object destructor, inline, placed by class name
-    // PixScreen::~PixScreen()
-    void PixScreen::~PixScreen() {
-        field_0 = &PTR_Resize_100efadd8;
-        (&field_8)->~SharedArray();
+    // 0x10031b010
+    PixScreen::~PixScreen() {
+        field_8.~SharedArray();
     }
 
 } // namespace jag::oldscape::graphics

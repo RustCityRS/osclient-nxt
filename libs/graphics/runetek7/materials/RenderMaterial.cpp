@@ -1,103 +1,67 @@
 // libs/graphics/runetek7/materials/RenderMaterial.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "RenderMaterial.h"
 
 namespace jag::graphics {
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    RenderMaterial::GetOptions();
+    // 0x100009d50: RenderMaterial::GetOptions() has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    RenderMaterial::GetOptions() const;
+    // 0x100009d50: RenderMaterial::GetOptions() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    RenderMaterial::Activate(render::RenderContext&);
+    // 0x100009e70: RenderMaterial::Activate(render::RenderContext&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100016cf0: the linker folded this into eastl::hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator, eastl::use_first<eastl::pair<int const, unsigned int> >, eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::size() const, which has identical code
-    RenderMaterial::GetBlendMode() const;
+    // 0x100016cf0: RenderMaterial::GetBlendMode() const has the same machine code as eastl::hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator, eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::size() const
 
-    // 0x100023f30: the linker folded this into oldscape::option::IOption::GetName() const, which has identical code
-    RenderMaterial::GetAlphaMode() const;
+    // 0x100023f30: RenderMaterial::GetAlphaMode() const has the same machine code as oldscape::option::IOption::GetName() const
 
-    // 0x1000fa840: the linker folded this into oldscape::graphics::NXTPixScreen::GetHeight() const, which has identical code
-    RenderMaterial::GetEnvironmentMaterialID() const;
+    // 0x1000fa840: RenderMaterial::GetEnvironmentMaterialID() const has the same machine code as oldscape::graphics::NXTPixScreen::GetHeight() const
 
-    // 0x100121c80: the linker folded this into oldscape::LoginManager::SetAuthenticatorUserHash(int), which has identical code
-    RenderMaterial::SetViewportMapID(int);
+    // 0x100121c80: RenderMaterial::SetViewportMapID(int) has the same machine code as oldscape::LoginManager::SetAuthenticatorUserHash(int)
 
-    // 0x1001a3d00: the linker folded this into MainLoopFrameTimer::SetFastUpdateLoopEnabled(bool), which has identical code
-    RenderMaterial::SetAlphaTestThreshold(unsigned char);
+    // 0x1001a3d00: RenderMaterial::SetAlphaTestThreshold(unsigned char) has the same machine code as MainLoopFrameTimer::SetFastUpdateLoopEnabled(bool)
 
-    // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    int RenderMaterial::GetViewportMapID() const;
+    // 0x100293ee0: RenderMaterial::GetViewportMapID() const has the same machine code as hal::audio::AudioRenderer::GetState() const
 
-    // 0x10060da40: the linker folded this into game::option::Option<game::option::EnumAntialiasingMode>::SetMaxLowestValue(game::option::EnumAntialiasingMode), which has identical code
-    RenderMaterial::SetEnvironmentMaterialID(int);
+    // 0x10060da40: RenderMaterial::SetEnvironmentMaterialID(int) has the same machine code as game::option::Option<game::option::EnumAntialiasingMode>::SetMaxLowestValue(game::option::EnumAntialiasingMode)
 
-    // 0x10080e330: the linker folded this into GeometryBatch::GetBoneCount() const, which has identical code
-    uchar RenderMaterial::GetAlphaTestThreshold() const;
+    // 0x10080e330: RenderMaterial::GetAlphaTestThreshold() const has the same machine code as GeometryBatch::GetBoneCount() const
 
-    // 0x1008c76c0, 96 bytes, base-object constructor, placed by class name and debug map
-    // RenderMaterial::RenderMaterial(RenderMaterial&&)
-    void RenderMaterial::RenderMaterial(RenderMaterial* param_1) {
-        field_0 = &PTR__SkyBoxMaterial_100f184f0;
-        field_8 = param_1->field_8;
-        m_alphaMode = param_1->m_alphaMode;
-        m_pBlendMode = param_1->m_pBlendMode;
-        m_alphaTestThreshold = param_1->m_alphaTestThreshold;
-        m_environmentMaterialID = param_1->m_environmentMaterialID;
-        m_viewportMapID = param_1->m_viewportMapID;
-        new (&field_48, (array*)&param_1->field_48) std::array<RenderPassEffect, 10ul>();
-        *(undefined4*)field_528 = *(undefined4*)param_1->field_528;
+    // 0x1008c76c0
+    RenderMaterial::RenderMaterial(RenderMaterial&& renderMaterial)
+        : field_8(renderMaterial.field_8), m_alphaMode(renderMaterial.m_alphaMode),
+          m_pBlendMode(renderMaterial.m_pBlendMode), m_alphaTestThreshold(renderMaterial.m_alphaTestThreshold),
+          m_environmentMaterialID(renderMaterial.m_environmentMaterialID),
+          m_viewportMapID(renderMaterial.m_viewportMapID), field_48(renderMaterial.field_48) {
+        *(uint32_t*)field_528 = *(uint32_t*)renderMaterial.field_528;
     }
 
-    // 0x1008c7730, 16 bytes, complete-object constructor, placed by class name and debug map
-    // RenderMaterial::RenderMaterial(RenderMaterial&&): jumps straight to the base-object constructor
-
-    // 0x1008c7740, 96 bytes, base-object constructor, placed by class name and debug map
-    // RenderMaterial::RenderMaterial(RenderMaterial const&)
-    void RenderMaterial::RenderMaterial(RenderMaterial* param_1) {
-        field_0 = &PTR__SkyBoxMaterial_100f184f0;
-        field_8 = param_1->field_8;
-        m_alphaMode = param_1->m_alphaMode;
-        m_pBlendMode = param_1->m_pBlendMode;
-        m_alphaTestThreshold = param_1->m_alphaTestThreshold;
-        m_environmentMaterialID = param_1->m_environmentMaterialID;
-        m_viewportMapID = param_1->m_viewportMapID;
-        new (&field_48, (array*)&param_1->field_48) std::array<RenderPassEffect, 10ul>();
-        *(undefined4*)field_528 = *(undefined4*)param_1->field_528;
+    // 0x1008c7740
+    RenderMaterial::RenderMaterial(const RenderMaterial& renderMaterial)
+        : field_8(renderMaterial.field_8), m_alphaMode(renderMaterial.m_alphaMode),
+          m_pBlendMode(renderMaterial.m_pBlendMode), m_alphaTestThreshold(renderMaterial.m_alphaTestThreshold),
+          m_environmentMaterialID(renderMaterial.m_environmentMaterialID),
+          m_viewportMapID(renderMaterial.m_viewportMapID), field_48(renderMaterial.field_48) {
+        *(uint32_t*)field_528 = *(uint32_t*)renderMaterial.field_528;
     }
 
-    // 0x1008c77b0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // RenderMaterial::RenderMaterial(RenderMaterial const&): jumps straight to the base-object constructor
-
-    // 0x1008c77c0, 96 bytes, placed by class name and debug map
-    // RenderMaterial::operator=(RenderMaterial const&)
-    /* RenderMaterial::TEMPNAMEPLACEHOLDERVALUE(RenderMaterial const&) */
-
-    RenderMaterial* RenderMaterial::operator=(RenderMaterial* param_1) {
-        field_8 = param_1->field_8;
-        m_alphaMode = param_1->m_alphaMode;
-        m_pBlendMode = param_1->m_pBlendMode;
-        m_alphaTestThreshold = param_1->m_alphaTestThreshold;
-        m_environmentMaterialID = param_1->m_environmentMaterialID;
-        m_viewportMapID = param_1->m_viewportMapID;
-        std::array<RenderPassEffect, 10ul>::operator=((array<RenderPassEffect, 10ul>*)&field_48,
-                                                      (array*)&param_1->field_48);
-        *(undefined4*)field_528 = *(undefined4*)param_1->field_528;
+    // 0x1008c77c0
+    RenderMaterial* RenderMaterial::operator=(const RenderMaterial& renderMaterial) {
+        field_8 = renderMaterial.field_8;
+        m_alphaMode = renderMaterial.m_alphaMode;
+        m_pBlendMode = renderMaterial.m_pBlendMode;
+        m_alphaTestThreshold = renderMaterial.m_alphaTestThreshold;
+        m_environmentMaterialID = renderMaterial.m_environmentMaterialID;
+        m_viewportMapID = renderMaterial.m_viewportMapID;
+        field_48 = renderMaterial.field_48;
+        *(uint32_t*)field_528 = *(uint32_t*)renderMaterial.field_528;
         return this;
     }
 
-    // 0x1008c7870, 80 bytes, placed by class name and debug map
-    // RenderMaterial::DestroyRenderingResources()
+    // 0x1008c7870
     void RenderMaterial::DestroyRenderingResources() {
-        RenderPassEffect* this_00;
-        RenderPassEffect* pRVar1;
-
-        this_00 = (RenderPassEffect*)(&field_48)->begin();
-        pRVar1 = (RenderPassEffect*)(&field_48)->end();
+        RenderPassEffect* this_00 = (RenderPassEffect*)std::array<RenderPassEffect, 10ul>::begin();
+        RenderPassEffect* pRVar1 = (RenderPassEffect*)std::array<RenderPassEffect, 10ul>::end();
         for (; this_00 != pRVar1; this_00 = this_00 + 1) {
             this_00->Clear();
         }

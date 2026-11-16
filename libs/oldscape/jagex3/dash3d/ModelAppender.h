@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/dash3d/ModelAppender.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -8,69 +7,48 @@
 namespace jag::oldscape::dash3d {
     class ModelAppender {
     public:
-        ModelAppender(shared_ptr<ModelLit>&, ModelAppendList&);
+        ModelAppender(shared_ptr<ModelLit>& modelLit, ModelAppendList& modelAppendList);
         ~ModelAppender();
-        Resolve();
+        auto Resolve();
         void AppendModels();
 
-        // data members, from how the methods use this: 25 bytes
-        ModelAppendList* field_0; // offset 0
-        char _unknown_8[16];
-        undefined1 field_24; // offset 24
+    private:
+        ModelAppendList* field_0;
+        uint8_t _unknown_8[16];
+        uint8_t field_24;
     };
 
     class SingleAppendList {
     public:
         // virtual methods in vtable order
-        virtual Count() const;
-        virtual ModelLit* GetBaseModel(unsigned long) const;
-        virtual ModelLit* GetTempModel(unsigned long);
-        SingleAppendList(ModelLit const&);
+        virtual uint64_t Count() const;
+        virtual ModelLit* GetBaseModel(unsigned long arg1) const;
+        virtual ModelLit* GetTempModel(unsigned long arg1);
+        SingleAppendList(const ModelLit& modelLit);
 
-        // data members, from how the methods use this: 16 bytes
-        undefined** field_0;    // offset 0, vtable pointer
-        ModelLit* m_pBaseModel; // offset 8
+    private:
+        ModelLit* m_pBaseModel;
     };
 
-    // 0x10011c990, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // ModelAppender::ModelAppender(shared_ptr<ModelLit>&, ModelAppendList&): jumps straight to the base-object constructor
-
-    // 0x10011c9a0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // ModelAppender::~ModelAppender(): jumps straight to the base-object destructor
-
-    // 0x1001312f0, 32 bytes, base-object constructor, inline, placed by class name
-    // ModelAppender::ModelAppender(shared_ptr<ModelLit>&, ModelAppendList&)
-    void ModelAppender::ModelAppender(shared_ptr* param_1, ModelAppendList* param_2) {
-        field_0 = param_2;
-        new (&field_8, param_1) shared_ptr<Decor>();
-        field_24 = 0;
-    }
+    // 0x1001312f0
+    ModelAppender::ModelAppender(shared_ptr<ModelLit>& modelLit, ModelAppendList& modelAppendList)
+        : field_0(modelAppendList), field_8(modelLit), field_24(0) {}
 
 } // namespace jag::oldscape::dash3d
 
 namespace jag::graphics {
-    // 0x10011c9a0: the linker folded this into oldscape::dash3d::ModelAppender::~ModelAppender(), which has identical code
-    SkyBoxEntry::~SkyBoxEntry();
+    // 0x10011c9a0: SkyBoxEntry::~SkyBoxEntry() has the same machine code as oldscape::dash3d::ModelAppender::~ModelAppender()
 
-    // 0x10011c9a0: the linker folded this into oldscape::dash3d::ModelAppender::~ModelAppender(), which has identical code
-    ViewportMapEntry::~ViewportMapEntry();
+    // 0x10011c9a0: ViewportMapEntry::~ViewportMapEntry() has the same machine code as oldscape::dash3d::ModelAppender::~ModelAppender()
 
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x10011c9a0: the linker folded this into oldscape::dash3d::ModelAppender::~ModelAppender(), which has identical code
-    Js5MemoryCacheWrapper::~Js5MemoryCacheWrapper();
+    // 0x10011c9a0: Js5MemoryCacheWrapper::~Js5MemoryCacheWrapper() has the same machine code as oldscape::dash3d::ModelAppender::~ModelAppender()
 
 } // namespace jag
 
 namespace jag::game {
-    // 0x10011c9a0: the linker folded this into oldscape::dash3d::ModelAppender::~ModelAppender(), which has identical code
-    MapSquareEnvInfo::~MapSquareEnvInfo();
+    // 0x10011c9a0: MapSquareEnvInfo::~MapSquareEnvInfo() has the same machine code as oldscape::dash3d::ModelAppender::~ModelAppender()
 
 } // namespace jag::game
-
-namespace jag::oldscape {
-    // 0x10011c9b0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // SpotAnimAppendList::~SpotAnimAppendList(): jumps straight to the base-object destructor
-
-} // namespace jag::oldscape

@@ -1,123 +1,106 @@
 // libs/ui/components/Layer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.ui
 
 #include "Layer.h"
 
 namespace jag::ui {
-    // 0x100f3e9c4, 4 bytes, __data
-    Layer::m_showNoClickThroughLayers = 0;
+    // 0x100f3e9c4
+    int32_t Layer::m_showNoClickThroughLayers = 0;
 
-    // 0x1005fa390: the linker folded this into game::option::WindowMode::IsAvailable(game::option::OptionClient) const, which has identical code
-    Layer::SupportsMargin(Component::MarginType) const;
+    // 0x1005fa390: Layer::SupportsMargin(Component::MarginType) const has the same machine code as game::option::WindowMode::IsAvailable(game::option::OptionClient) const
 
-    // 0x10069b750, 448 bytes, placed by class name and debug map
-    // Layer::MainDraw(ComponentDependencies const&, int, int, float)
-    void Layer::MainDraw(ComponentDependencies* param_1, int param_2, int param_3, float param_4) {
-        undefined8* puVar1;
-        byte bVar2;
-        char cVar3;
-        int iVar4;
-        int iVar5;
-        int iVar6;
-        int iVar7;
-        int iVar8;
-        undefined4 uVar9;
-        undefined8 uVar10;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* pvVar11;
-        int iVar12;
+    // 0x10069b750
+    void Layer::MainDraw(const ComponentDependencies& componentDependencies, int arg2, int arg3, float arg4) {
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        uint64_t extraout_var_01;
+        uint64_t extraout_var_02;
 
-        iVar4 = (uint)field_568 + param_2;
-        iVar12 = (uint)field_569 + param_3;
-        iVar5 = GetStreamCountLastMix();
-        bVar2 = (&field_568)->GetWidth();
-        iVar5 = iVar5 - (uint)bVar2;
-        iVar6 = GetMinMapX();
-        bVar2 = (&field_568)->GetHeight();
-        iVar6 = iVar6 - (uint)bVar2;
-        iVar7 = (*(code*)field_0[51])(this);
-        iVar8 = (*(code*)field_0[52])(this);
+        int arg1 = (unsigned int)field_568 + arg2;
+        int arg2_00 = (unsigned int)field_569 + arg3;
+        int iVar6 = GetStreamCountLastMix();
+        uint8_t bVar2 = field_568.GetWidth();
+        iVar6 = iVar6 - (unsigned int)bVar2;
+        int iVar7 = GetMinMapX();
+        bVar2 = field_568.GetHeight();
+        iVar7 = iVar7 - (unsigned int)bVar2;
+        uint8_t uVar3 = GetScrollXPos();
+        uint8_t uVar4 = GetScrollYPos();
         if (*PTR_m_showNoClickThroughLayers_100ee6468 != '\0') {
-            cVar3 = IsClickthrough();
-            if (cVar3 == '\0') {
-                uVar10 = (*(RT7Core**)(param_1 + 16))->GetGUIManager();
-                uVar10->AddColouredRectangle(iVar4, iVar12, iVar5, iVar6, 4278190250, 1);
+            if (!(IsClickthrough())) {
+                ((*(RT7Core**)(componentDependencies + 16))->GetGUIManager())
+                    ->AddColouredRectangle(arg1, arg2_00, iVar6, iVar7, 4278190250, 1);
             }
         }
-        iVar7 = iVar4 - iVar7;
-        iVar8 = iVar12 - iVar8;
-        pvVar11 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(*(
-            code*)field_0[40])(this);
-        cVar3 = eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-            pvVar11);
-        if (cVar3 == '\0') {
-            (**(code**)(**(long**)(param_1 + 48) + 8))(param_4, *(long**)(param_1 + 48), pvVar11, iVar7, iVar8, iVar4,
-                                                       iVar12, iVar5, iVar6);
+        int iVar10 = arg1 - (int)(((uint64_t)extraout_var << 8) | (uint8_t)uVar3);
+        int iVar9 = arg2_00 - (int)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar4);
+        uVar3 = GetStaticChildrenWithOptionalRenderOrder();
+        if (!(((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)extraout_var_01
+                                                                                        << 8) |
+                                                                                       (uint8_t)uVar3))
+                  ->empty())) {
+            (**(void (**)(...))(**(long**)(componentDependencies + 48) + 8))(
+                arg4, *(long**)(componentDependencies + 48),
+                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)extraout_var_01
+                                                                                         << 8) |
+                                                                                        (uint8_t)uVar3),
+                iVar10, iVar9, arg1, arg2_00, iVar6, iVar7);
         }
-        pvVar11 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(*(
-            code*)field_0[41])(this);
-        cVar3 = eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-            pvVar11);
-        if (cVar3 == '\0') {
-            (**(code**)(**(long**)(param_1 + 48) + 8))(param_4, *(long**)(param_1 + 48), pvVar11, iVar7, iVar8, iVar4,
-                                                       iVar12, iVar5, iVar6);
+        uVar3 = GetDynamicChildrenWithOptionalRenderOrder();
+        if (!(((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)extraout_var_02
+                                                                                        << 8) |
+                                                                                       (uint8_t)uVar3))
+                  ->empty())) {
+            (**(void (**)(...))(**(long**)(componentDependencies + 48) + 8))(
+                arg4, *(long**)(componentDependencies + 48),
+                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)extraout_var_02
+                                                                                         << 8) |
+                                                                                        (uint8_t)uVar3),
+                iVar10, iVar9, arg1, arg2_00, iVar6, iVar7);
         }
-        puVar1 = *(undefined8**)(param_1 + 48);
-        uVar9 = GetCombinedID();
-        (**(code**)*puVar1)(param_4, puVar1, uVar9, iVar7, iVar8, iVar4, iVar12, iVar5, iVar6);
+        uint64_t* puVar1 = *(uint64_t**)(componentDependencies + 48);
+        uint32_t uVar8 = GetCombinedID();
+        (**(void (**)(...))*puVar1)(arg4, puVar1, uVar8, iVar10, iVar9, arg1, arg2_00, iVar6, iVar7);
     }
 
-    // 0x10069b930, 208 bytes, placed by class name and debug map
-    // Layer::DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator> >&, int)
-    void Layer::DecodeTypedComponentProperties(PacketT* param_1, int param_2) {
-        char cVar1;
-        byte bVar2;
-        ushort uVar3;
-        undefined8 in_RAX;
-        Margin local_24;
+    // 0x10069b930
+    void Layer::DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2) {
+        uint8_t bVar2;
+        uint64_t in_RAX;
 
-        local_24 = SUB84((ulong)in_RAX >> 32, 0);
-        uVar3 = param_1->g2();
-        field_432 = (uint)uVar3;
-        uVar3 = param_1->g2();
-        field_436 = (uint)uVar3;
-        if (param_2 == -1) {
-            cVar1 = param_1->g1();
-            SetClickthrough(cVar1 != '\x01');
-        } else if (8 < param_2) {
-            new (&local_24) Margin(param_1);
+        Margin local_24 = (uint32_t)((unsigned long)in_RAX >> 32);
+        unsigned short uVar3 = arg1.g2();
+        field_432 = (unsigned int)uVar3;
+        uVar3 = arg1.g2();
+        field_436 = (unsigned int)uVar3;
+        if (arg2 == -1) {
+            SetClickthrough(arg1.g1() != '\x01');
+        } else if (8 < arg2) {
+            local_24 = Margin(arg1);
             field_568 = local_24.field_0;
             field_569 = local_24.field_1;
             field_570 = local_24.field_2;
             field_571 = local_24.field_3;
             return;
         }
-        if (5 < param_2) {
-            bVar2 = param_1->g2();
+        if (5 < arg2) {
+            bVar2 = arg1.g2();
             field_568 = bVar2;
-            bVar2 = param_1->g2();
+            bVar2 = arg1.g2();
             field_569 = bVar2;
-            bVar2 = param_1->g2();
+            bVar2 = arg1.g2();
             field_570 = bVar2;
-            bVar2 = param_1->g2();
+            bVar2 = arg1.g2();
             field_571 = bVar2;
         }
     }
 
-    // 0x10069ba00, 32 bytes, placed by class name and debug map
-    // Layer::OnResizeAnimation()
+    // 0x10069ba00
     void Layer::OnResizeAnimation() {
-        (**(code**)(*field_576 + 16))(field_576, this, 0);
+        (**(void (**)(...))(*field_576 + 16))(field_576, this, 0);
     }
 
-    // 0x1006ad6e0: the linker folded this into Grid::~Grid(), which has identical code
-    Layer::~Layer();
-
-    // 0x1006ad6f0: the linker folded this into Grid::~Grid(), which has identical code
-    Layer::~Layer();
-
-    // 0x1006b2db0: the linker folded this into Grid::~Grid(), which has identical code
-    Layer::~Layer();
+    // 0x1006b2db0: Layer::~Layer() has the same machine code as Grid::~Grid()
 
 } // namespace jag::ui

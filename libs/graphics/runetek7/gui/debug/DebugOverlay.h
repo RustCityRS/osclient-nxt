@@ -1,239 +1,223 @@
 // libs/graphics/runetek7/gui/debug/DebugOverlay.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class DebugOverlay {
     public:
-        GetInput() const;
-        GetRT7Core() const;
+        void GetInput() const;
+        void GetRT7Core() const;
         FontHelpers* GetFontHelpers() const;
-        SetExpandGraphs(bool);
-        void SetShow(bool);
+        void SetExpandGraphs(bool arg1);
+        void SetShow(bool arg1);
         void ShowGraphs();
         void GetFont() const;
-        DebugOverlay(input::Input&, graphics::RT7Core&, graphics::FontHelpers&, bool);
-        void Init(shared_ptr<graphics::Font> const&);
-        void AddSection(shared_ptr<DebugOverlaySection> const&);
+        DebugOverlay(input::Input& input, graphics::RT7Core& rt7Core, graphics::FontHelpers& fontHelpers, bool arg4);
+        void Init(const shared_ptr<graphics::Font>& font);
+        void AddSection(const shared_ptr<DebugOverlaySection>& debugOverlaySection);
         void AddDefaultSections();
         void AddTimingSections();
         void AddMemorySections();
         void AddRenderingSections();
         void HideAllSections();
-        ShowSection(DebugOverlaySection::SectionType);
-        HideSection(DebugOverlaySection::SectionType);
+        uint64_t ShowSection(DebugOverlaySection::SectionType sectionType);
+        uint64_t HideSection(DebugOverlaySection::SectionType sectionType);
         void MainLogic();
-        void RegisterTweakVars(tweak::ContainerGroup&);
+        void RegisterTweakVars(tweak::ContainerGroup& containerGroup);
         void DrawDebugOverlaySections();
-        void MainDraw(shared_ptr<graphics::Font> const&);
+        void MainDraw(const shared_ptr<graphics::Font>& font);
         void DrawDebugRealTimeLogging();
-        void DrawString(char const*, int, int, unsigned int, unsigned int, graphics::FontAlign, bool);
+        void DrawString(const char* str, int arg2, int arg3, unsigned int arg4, unsigned int arg5,
+                        graphics::FontAlign fontAlign, bool arg7);
 
-        // data members, from how the methods use this: 88 bytes
-        Input* field_0;             // offset 0
-        RT7Core* field_8;           // offset 8
-        FontHelpers* m_fontHelpers; // offset 16
-        bool m_show;                // offset 24
-        bool m_expandGraphs;        // offset 25
-        char _unknown_26[2];
-        undefined4 field_28; // offset 28
-        int field_32;        // offset 32
-        uint field_36;       // offset 36
-        undefined1 field_40; // offset 40
-        char _unknown_41[15];
-        undefined1 field_56; // offset 56
-        char _unknown_57[31];
+    private:
+        Input* field_0;
+        RT7Core* field_8;
+        FontHelpers* m_fontHelpers;
+        bool m_show;
+        bool m_expandGraphs;
+        uint8_t _unknown_26[2];
+        uint32_t field_28;
+        int field_32;
+        unsigned int field_36;
+        uint8_t field_40;
+        uint8_t _unknown_41[15];
+        uint8_t field_56;
+        uint8_t _unknown_57[31];
     };
 
     class DebugOverlayAudio {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayAudio();
-        virtual void Draw(unsigned long long, int, int);
-        virtual Update(unsigned long long);
-        virtual void RegisterTweakyVars(tweak::Container&);
-        virtual void SetHeight(int);
-        DebugOverlayAudio(DebugOverlay&, bool);
-        void DrawSoundManagerDebugData(int, int);
+        virtual void Draw(unsigned long long arg1, int arg2, int arg3);
+        virtual uint64_t Update(unsigned long long arg1);
+        virtual void RegisterTweakyVars(tweak::Container& container);
+        virtual void SetHeight(int arg1);
+        DebugOverlayAudio(DebugOverlay& debugOverlay, bool arg2);
+        void DrawSoundManagerDebugData(int arg1, int arg2);
 
-        // data members, from how the methods use this: 128 bytes
-        undefined** field_0;                                                       // offset 0, vtable pointer
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* field_8; // offset 8
-        char _unknown_16[4];
-        uint field_20; // offset 20
-        char _unknown_24[84];
-        int field_108;        // offset 108
-        int m_height;         // offset 112
-        int field_116;        // offset 116
-        bool field_120;       // offset 120
-        undefined1 field_121; // offset 121
-        char _unknown_122[2];
-        undefined4 field_124; // offset 124
+    private:
+        DebugOverlay* field_8;
+        uint8_t _unknown_16[4];
+        unsigned int field_20;
+        uint8_t _unknown_24[84];
+        int field_108;
+        int field_112;
+        int field_116;
+        bool field_120;
+        uint8_t field_121;
+        uint8_t _unknown_122[2];
+        SectionType field_124;
     };
 
     class DebugOverlayGPU {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayGPU();
-        virtual void RegisterTweakyVars(tweak::Container&);
-        virtual void DrawImpl(int, int);
-        virtual UpdateImpl(unsigned long long);
-        DebugOverlayGPU(DebugOverlay&, bool);
+        virtual void RegisterTweakyVars(tweak::Container& container);
+        virtual void DrawImpl(int arg1, int arg2);
+        virtual uint8_t UpdateImpl(unsigned long long arg1);
+        DebugOverlayGPU(DebugOverlay& debugOverlay, bool arg2);
 
-        // data members, from how the methods use this: 98600 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[104];
-        int field_112; // offset 112
-        char _unknown_116[4];
-        bool field_120; // offset 120
-        char _unknown_121[7];
-        TimedGraph field_128; // offset 128
+    private:
+        uint8_t _unknown_8[104];
+        int field_112;
+        uint8_t _unknown_116[4];
+        bool field_120;
+        uint8_t _unknown_121[7];
+        TimedGraph field_128;
     };
 
     class DebugOverlayMainFPS {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayMainFPS();
-        virtual GetTitle() const;
+        virtual uint8_t* GetTitle() const;
         virtual void GetFPSCounter() const;
-        DebugOverlayMainFPS(DebugOverlay&, bool);
+        DebugOverlayMainFPS(DebugOverlay& debugOverlay, bool arg2);
 
-        // data members, from how the methods use this: 98600 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[120];
-        TimedGraph field_128; // offset 128
+    private:
+        uint8_t _unknown_8[120];
+        TimedGraph field_128;
     };
 
     class DebugOverlayOcclusion {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayOcclusion();
-        virtual void Draw(unsigned long long, int, int);
-        virtual Update(unsigned long long);
-        virtual void RegisterTweakyVars(tweak::Container&);
-        DebugOverlayOcclusion(graphics::EffectManager const&, DebugOverlay&, bool);
+        virtual void Draw(unsigned long long arg1, int arg2, int arg3);
+        virtual uint8_t Update(unsigned long long arg1);
+        virtual void RegisterTweakyVars(tweak::Container& container);
+        DebugOverlayOcclusion(const graphics::EffectManager& effectManager, DebugOverlay& debugOverlay, bool arg3);
 
-        // data members, from how the methods use this: 136 bytes
-        undefined** field_0;                                                       // offset 0, vtable pointer
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* field_8; // offset 8
-        undefined8 field_16;                                                       // offset 16
-        char _unknown_24[84];
-        int field_108; // offset 108
-        int field_112; // offset 112
-        char _unknown_116[4];
-        bool field_120;       // offset 120
-        undefined1 field_121; // offset 121
-        char _unknown_122[2];
-        undefined4 field_124;     // offset 124
-        EffectManager* field_128; // offset 128
+    private:
+        DebugOverlay* field_8;
+        uint64_t field_16;
+        uint8_t _unknown_24[84];
+        int field_108;
+        int field_112;
+        uint8_t _unknown_116[4];
+        bool field_120;
+        uint8_t field_121;
+        uint8_t _unknown_122[2];
+        SectionType field_124;
+        EffectManager* field_128;
     };
 
     class DebugOverlayProfiler {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayProfiler();
-        virtual void Draw(unsigned long long, int, int);
-        virtual Update(unsigned long long);
-        DebugOverlayProfiler(DebugOverlay&, bool);
+        virtual void Draw(unsigned long long arg1, int arg2, int arg3);
+        virtual uint8_t Update(unsigned long long arg1);
+        DebugOverlayProfiler(DebugOverlay& debugOverlay, bool arg2);
 
-        // data members, from how the methods use this: 128 bytes
-        undefined** field_0;             // offset 0, vtable pointer
-        _func_decltype_nullptr* field_8; // offset 8
-        undefined8 field_16;             // offset 16
-        char _unknown_24[80];
-        undefined8 field_104; // offset 104
-        undefined8 field_112; // offset 112
-        undefined1 field_120; // offset 120
-        undefined1 field_121; // offset 121
-        char _unknown_122[2];
-        undefined4 field_124; // offset 124
+    private:
+        DebugOverlay* field_8;
+        uint64_t field_16;
+        uint8_t _unknown_24[80];
+        uint64_t field_104;
+        uint64_t field_112;
+        bool field_120;
+        uint8_t field_121;
+        uint8_t _unknown_122[2];
+        SectionType field_124;
     };
 
     class DebugOverlayRender {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayRender();
-        virtual void RegisterTweakyVars(tweak::Container&);
-        virtual void DrawImpl(int, int);
-        virtual UpdateImpl(unsigned long long);
-        DebugOverlayRender(DebugOverlay&, bool);
+        virtual void RegisterTweakyVars(tweak::Container& container);
+        virtual void DrawImpl(int arg1, int arg2);
+        virtual uint32_t UpdateImpl(unsigned long long arg1);
+        DebugOverlayRender(DebugOverlay& debugOverlay, bool arg2);
 
-        // data members, from how the methods use this: 136 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        RT7Core* field_8;    // offset 8
-        char _unknown_16[96];
-        int field_112; // offset 112
-        char _unknown_116[4];
-        bool field_120; // offset 120
-        char _unknown_121[15];
+    private:
+        RT7Core* field_8;
+        uint8_t _unknown_16[96];
+        int field_112;
+        uint8_t _unknown_116[4];
+        bool field_120;
+        uint8_t _unknown_121[15];
     };
 
     class DebugOverlayShaderProfiler {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayShaderProfiler();
-        virtual void Draw(unsigned long long, int, int);
-        virtual Update(unsigned long long);
-        virtual void RegisterTweakyVars(tweak::Container&);
-        DebugOverlayShaderProfiler(DebugOverlay&, bool);
+        virtual void Draw(unsigned long long arg1, int arg2, int arg3);
+        virtual uint8_t Update(unsigned long long arg1);
+        virtual void RegisterTweakyVars(tweak::Container& container);
+        DebugOverlayShaderProfiler(DebugOverlay& debugOverlay, bool arg2);
 
-        // data members, from how the methods use this: 128 bytes
-        undefined** field_0;                                                       // offset 0, vtable pointer
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* field_8; // offset 8
-        undefined8 field_16;                                                       // offset 16
-        char _unknown_24[80];
-        undefined8 field_104; // offset 104
-        undefined8 field_112; // offset 112
-        bool field_120;       // offset 120
-        undefined1 field_121; // offset 121
-        char _unknown_122[2];
-        undefined4 field_124; // offset 124
+    private:
+        DebugOverlay* field_8;
+        uint64_t field_16;
+        uint8_t _unknown_24[80];
+        uint64_t field_104;
+        uint64_t field_112;
+        bool field_120;
+        uint8_t field_121;
+        uint8_t _unknown_122[2];
+        SectionType field_124;
     };
 
     class DebugOverlayTextureAtlas {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayTextureAtlas();
-        virtual void Draw(unsigned long long, int, int);
-        virtual Update(unsigned long long);
-        virtual void RegisterTweakyVars(tweak::Container&);
-        DebugOverlayTextureAtlas(DebugOverlay&, bool);
+        virtual void Draw(unsigned long long arg1, int arg2, int arg3);
+        virtual uint8_t Update(unsigned long long arg1);
+        virtual void RegisterTweakyVars(tweak::Container& container);
+        DebugOverlayTextureAtlas(DebugOverlay& debugOverlay, bool arg2);
 
-        // data members, from how the methods use this: 128 bytes
-        undefined** field_0;                                                       // offset 0, vtable pointer
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* field_8; // offset 8
-        undefined8 field_16;                                                       // offset 16
-        char _unknown_24[80];
-        undefined8 field_104; // offset 104
-        undefined8 field_112; // offset 112
-        bool field_120;       // offset 120
-        undefined1 field_121; // offset 121
-        char _unknown_122[2];
-        undefined4 field_124; // offset 124
+    private:
+        DebugOverlay* field_8;
+        uint64_t field_16;
+        uint8_t _unknown_24[80];
+        uint64_t field_104;
+        uint64_t field_112;
+        bool field_120;
+        uint8_t field_121;
+        uint8_t _unknown_122[2];
+        SectionType field_124;
     };
 
-    // 0x100601d40, 16 bytes, inline, placed by class name and debug map
-    // DebugOverlay::ShowGraphs()
+    // 0x100601d40
     void DebugOverlay::ShowGraphs() {
         DebugOverlayGraphSection::ShowGraphs();
     }
 
-    // 0x1008a7f60, 16 bytes, inline, placed by class name and debug map
-    // DebugOverlay::GetFont() const
-    void DebugOverlay::GetFont() {
-        shared_ptr<graphics::Font>::operator*((shared_ptr<graphics::Font>*)&field_40);
+    // 0x1008a7f60
+    void DebugOverlay::GetFont() const {
+        *field_40;
     }
 
-    // 0x100911680, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // DebugOverlayMainFPS::DebugOverlayMainFPS(DebugOverlay&, bool): jumps straight to the base-object constructor
-
-    // 0x100911690, 48 bytes, base-object constructor, inline, placed by class header (inline)
-    // DebugOverlayMainFPS::DebugOverlayMainFPS(DebugOverlay&, bool)
-    void DebugOverlayMainFPS::DebugOverlayMainFPS(DebugOverlay* param_1, bool param_2) {
-        new (this) DebugOverlayFPS(param_1, false, param_2);
-        field_0 = &PTR__DebugOverlayRenderFPS_100f18a60;
-    }
+    // 0x100911690
+    DebugOverlayMainFPS::DebugOverlayMainFPS(DebugOverlay& debugOverlay, bool arg2)
+        : DebugOverlayFPS(debugOverlay, false, arg2) {}
 
 } // namespace jag

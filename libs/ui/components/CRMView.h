@@ -1,6 +1,5 @@
 // libs/ui/components/CRMView.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,10 +9,11 @@ namespace jag::ui {
     public:
         // virtual methods in vtable order
         virtual ~CRMView();
-        virtual GetType() const;
-        virtual void MainLogic(ComponentDependencies const&, int, int, bool, bool, bool, bool);
-        virtual void MainDraw(ComponentDependencies const&, int, int, float);
-        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int);
+        virtual uint64_t GetType() const;
+        virtual void MainLogic(const ComponentDependencies& componentDependencies, int arg2, int arg3, bool arg4,
+                               bool arg5, bool arg6, bool arg7);
+        virtual void MainDraw(const ComponentDependencies& componentDependencies, int arg2, int arg3, float arg4);
+        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2);
         CRMView();
         void ServiceRequests();
         bool HasStateChanged() const;
@@ -21,58 +21,49 @@ namespace jag::ui {
         bool RequestsComplete() const;
         void GenerateServerTriggerPayloadData();
         void OpenActionURL();
-        Setup(eastl::basic_string<char, BucketAllocatorEASTL> const&, HideOnErrorMode);
-        static /* 1 bytes */ m_debugDrawImageBounds; // = 0
-        static /* 1 bytes */ m_debugDrawLabelBounds; // = 0
-        static /* 1 bytes */ m_debugDrawClickBounds; // = 0
+        void Setup(const eastl::string& str, HideOnErrorMode hideOnErrorMode);
+        static bool m_debugDrawImageBounds; // = 0
+        static bool m_debugDrawLabelBounds; // = 0
+        static bool m_debugDrawClickBounds; // = 0
 
-        // data members, from how the methods use this: 912 bytes, the first 368 are Component
-        char _unknown_368[80];
-        undefined1 field_448; // offset 448
-        char _unknown_449[31];
-        int field_480; // offset 480
-        char _unknown_484[28];
-        CRMData field_512; // offset 512
-        char _unknown_824[56];
-        int field_880;        // offset 880
-        undefined1 field_884; // offset 884
-        char _unknown_885[15];
-        undefined4 field_900; // offset 900
-        undefined1 field_904; // offset 904
-        undefined1 field_905; // offset 905
-        char _unknown_906[6];
+    private:
+        uint8_t _unknown_368[112];
+        HideOnErrorMode field_480;
+        uint8_t _unknown_484[28];
+        CRMData field_512;
+        uint8_t _unknown_824[56];
+        int field_880;
+        uint8_t field_884;
+        uint8_t _unknown_885[15];
+        uint32_t field_900;
+        uint8_t field_904;
+        uint8_t field_905;
+        uint8_t _unknown_906[6];
     };
 
-    // 0x100689fb0, 32 bytes, inline, placed by class name and debug map
-    // CRMView::HasStateChanged() const
-    bool CRMView::HasStateChanged() {
-        return GetState(this) != field_900;
+    // 0x100689fb0
+    bool CRMView::HasStateChanged() const {
+        return GetState() != field_900;
     }
 
-    // 0x100689fd0, 32 bytes, inline, placed by class name and debug map
-    // CRMView::GetState() const
-    void CRMView::GetState() {
+    // 0x100689fd0
+    void CRMView::GetState() const {
         field_512->GetX();
     }
 
-    // 0x100689ff0, 48 bytes, inline, placed by class name and debug map
-    // CRMView::RequestsComplete() const
-    bool CRMView::RequestsComplete() {
-        int iVar1;
-        bool bVar2;
-
-        iVar1 = GetState(this);
-        bVar2 = true;
+    // 0x100689ff0
+    bool CRMView::RequestsComplete() const {
+        int iVar1 = GetState();
+        bool bVar2 = true;
         if (iVar1 != 2) {
-            iVar1 = GetState(this);
+            iVar1 = GetState();
             bVar2 = iVar1 == 4;
         }
         return bVar2;
     }
 
-    // 0x1006ad030, 16 bytes, inline, placed by class name
-    // CRMView::GetType() const
-    undefined8 CRMView::GetType() {
+    // 0x1006ad030
+    uint64_t CRMView::GetType() const {
         return 18;
     }
 

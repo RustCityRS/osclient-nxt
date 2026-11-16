@@ -1,33 +1,30 @@
 // libs/game/shared/framework/utils/Namespacing.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.shared
 
 namespace jag::game {
-    // 0x1006e52c0, 1424 bytes, placed by debug map only (low confidence)
-    // ToBase(unsigned int)
-    uint ToBase(uint param_1) {
-        wchar16 wVar1;
-        uint uVar2;
+    // 0x1006e52c0
+    unsigned int ToBase(unsigned int arg1) {
+        char16_t wVar1;
 
-        uVar2 = 95;
-        switch (param_1) {
+        unsigned int uVar2 = 95;
+        switch (arg1) {
         case 32:
         case 45:
         case 95:
         case 160:
             goto switchD_1006e52e2_caseD_20;
         default:
-            wVar1 = eastl::CharToLower<char16_t>((wchar16)param_1);
-            uVar2 = (uint)(ushort)wVar1;
+            wVar1 = eastl::CharToLower<char16_t>((char16_t)arg1);
+            uVar2 = (unsigned int)(unsigned short)wVar1;
         switchD_1006e52e2_caseD_20:
             return uVar2;
         case 35:
         case 91:
         case 93:
-            return param_1;
+            return arg1;
         case 170:
         case 186:
         case 338:

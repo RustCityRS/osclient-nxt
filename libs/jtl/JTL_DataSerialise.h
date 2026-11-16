@@ -1,114 +1,82 @@
 // libs/jtl/JTL_DataSerialise.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x10089e060, 80 bytes, inline, placed by debug map only (low confidence)
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >& operator<< <PacketT<Array<unsigned char, BucketAllocatorEASTL> >, 121ul>(DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&, eastl::bitset<121ul, unsigned long long> const&)
-    /* DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&
-   TEMPNAMEPLACEHOLDERVALUE(DataSerialise<PacketT<Array<unsigned char,
-   BucketAllocatorEASTL> > >&, eastl::bitset<121ul, unsigned long long> const&) */
-
-    DataSerialise* operator<<(DataSerialise* param_1, bitset* param_2) {
-        long lVar1;
-
-        lVar1 = 0;
+    // 0x10089e060
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>&
+    operator<< <PacketT<Array<unsigned char, BucketAllocatorEASTL>>, 121ul>(
+        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& dataSerialise,
+        const eastl::bitset<121ul, unsigned long long>& bitset) {
+        long lVar1 = 0;
         do {
-            operator<<(param_1, (ulonglong*)(param_2 + lVar1));
+            dataSerialise << (*((bitset + lVar1)));
             lVar1 = lVar1 + 8;
         } while (lVar1 == 8);
-        return param_1;
+        return dataSerialise;
     }
 
-    // 0x10089e0b0, 32 bytes, inline, placed by debug map only (low confidence)
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >& operator<< <PacketT<Array<unsigned char, BucketAllocatorEASTL> >, unsigned char>(DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&, unsigned char const&)
-    /* DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&
-   TEMPNAMEPLACEHOLDERVALUE(DataSerialise<PacketT<Array<unsigned char,
-   BucketAllocatorEASTL> > >&, unsigned char const&) */
-
-    DataSerialise* operator<<(DataSerialise* param_1, uchar* param_2) {
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned char>(
-            (DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)param_1, param_2);
-        return param_1;
+    // 0x10089e0b0
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>&
+    operator<< <PacketT<Array<unsigned char, BucketAllocatorEASTL>>, unsigned char>(
+        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& dataSerialise, const unsigned char& arg2) {
+        dataSerialise.WriteObj<unsigned char>(arg2);
+        return dataSerialise;
     }
 
-    // 0x10089e200, 32 bytes, inline, placed by debug map only (low confidence)
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >& operator<< <PacketT<Array<unsigned char, BucketAllocatorEASTL> >, unsigned long long>(DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&, unsigned long long const&)
-    /* DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&
-   TEMPNAMEPLACEHOLDERVALUE(DataSerialise<PacketT<Array<unsigned char,
-   BucketAllocatorEASTL> > >&, unsigned long long const&) */
-
-    DataSerialise* operator<<(DataSerialise* param_1, ulonglong* param_2) {
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned long long>(
-            (DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)param_1, param_2);
-        return param_1;
+    // 0x10089e200
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>&
+    operator<< <PacketT<Array<unsigned char, BucketAllocatorEASTL>>, unsigned long long>(
+        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& dataSerialise,
+        const unsigned long long& arg2) {
+        dataSerialise.WriteObj<unsigned long long>(arg2);
+        return dataSerialise;
     }
 
-    // 0x10089e3a0, 32 bytes, inline, placed by debug map only (low confidence)
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >& operator>><PacketT<Array<unsigned char, BucketAllocatorEASTL> >, unsigned short>(DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&, unsigned short&)
-    /* DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&
-   TEMPNAMEPLACEHOLDERVALUE(DataSerialise<PacketT<Array<unsigned char,
-   BucketAllocatorEASTL> > >&, unsigned short&) */
-
-    DataSerialise* operator>>(DataSerialise* param_1, ushort* param_2) {
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned short>(
-            (DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)param_1, param_2);
-        return param_1;
+    // 0x10089e3a0
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& operator>>
+        <PacketT<Array<unsigned char, BucketAllocatorEASTL>>, unsigned short>(
+            DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& dataSerialise, unsigned short& arg2) {
+        dataSerialise.ReadObj<unsigned short>(arg2);
+        return dataSerialise;
     }
 
-    // 0x10089e3c0, 32 bytes, inline, placed by debug map only (low confidence)
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >& operator>><PacketT<Array<unsigned char, BucketAllocatorEASTL> >, unsigned int>(DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&, unsigned int&)
-    /* DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&
-   TEMPNAMEPLACEHOLDERVALUE(DataSerialise<PacketT<Array<unsigned char,
-   BucketAllocatorEASTL> > >&, unsigned int&) */
-
-    DataSerialise* operator>>(DataSerialise* param_1, uint* param_2) {
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned int>(
-            (DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)param_1, param_2);
-        return param_1;
+    // 0x10089e3c0
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& operator>>
+        <PacketT<Array<unsigned char, BucketAllocatorEASTL>>, unsigned int>(
+            DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& dataSerialise, unsigned int& arg2) {
+        dataSerialise.ReadObj<unsigned int>(arg2);
+        return dataSerialise;
     }
 
-    // 0x10089e3e0, 80 bytes, inline, placed by debug map only (low confidence)
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >& operator>><PacketT<Array<unsigned char, BucketAllocatorEASTL> >, 121ul>(DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&, eastl::bitset<121ul, unsigned long long>&)
-    /* DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&
-   TEMPNAMEPLACEHOLDERVALUE(DataSerialise<PacketT<Array<unsigned char,
-   BucketAllocatorEASTL> > >&, eastl::bitset<121ul, unsigned long long>&) */
-
-    DataSerialise* operator>>(DataSerialise* param_1, bitset* param_2) {
-        long lVar1;
-
-        lVar1 = 0;
+    // 0x10089e3e0
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& operator>>
+        <PacketT<Array<unsigned char, BucketAllocatorEASTL>>, 121ul>(
+            DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& dataSerialise,
+            eastl::bitset<121ul, unsigned long long>& bitset) {
+        long lVar1 = 0;
         do {
-            operator>>(param_1, (ulonglong*)(param_2 + lVar1));
+            dataSerialise >> (*((bitset + lVar1)));
             lVar1 = lVar1 + 8;
         } while (lVar1 == 8);
-        return param_1;
+        return dataSerialise;
     }
 
-    // 0x10089e430, 32 bytes, inline, placed by debug map only (low confidence)
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >& operator>><PacketT<Array<unsigned char, BucketAllocatorEASTL> >, unsigned char>(DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&, unsigned char&)
-    /* DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&
-   TEMPNAMEPLACEHOLDERVALUE(DataSerialise<PacketT<Array<unsigned char,
-   BucketAllocatorEASTL> > >&, unsigned char&) */
-
-    DataSerialise* operator>>(DataSerialise* param_1, uchar* param_2) {
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned char>(
-            (DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)param_1, param_2);
-        return param_1;
+    // 0x10089e430
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& operator>>
+        <PacketT<Array<unsigned char, BucketAllocatorEASTL>>, unsigned char>(
+            DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& dataSerialise, unsigned char& arg2) {
+        dataSerialise.ReadObj<unsigned char>(arg2);
+        return dataSerialise;
     }
 
-    // 0x10089e520, 32 bytes, inline, placed by debug map only (low confidence)
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >& operator>><PacketT<Array<unsigned char, BucketAllocatorEASTL> >, unsigned long long>(DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&, unsigned long long&)
-    /* DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >&
-   TEMPNAMEPLACEHOLDERVALUE(DataSerialise<PacketT<Array<unsigned char,
-   BucketAllocatorEASTL> > >&, unsigned long long&) */
-
-    DataSerialise* operator>>(DataSerialise* param_1, ulonglong* param_2) {
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned long long>(
-            (DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)param_1, param_2);
-        return param_1;
+    // 0x10089e520
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>&
+    operator>> <PacketT<Array<unsigned char, BucketAllocatorEASTL>>, unsigned long long>(
+        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>& dataSerialise, unsigned long long& arg2) {
+        dataSerialise.ReadObj<unsigned long long>(arg2);
+        return dataSerialise;
     }
 
 } // namespace jag

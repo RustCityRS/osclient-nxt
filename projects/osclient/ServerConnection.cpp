@@ -1,172 +1,130 @@
 // projects/osclient/ServerConnection.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "ServerConnection.h"
 
 namespace jag::oldscape {
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ServerConnection::GetAverageBytesReceived();
+    // 0x100029ea0: ServerConnection::GetAverageBytesReceived() has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x1000bb1f0, 384 bytes, base-object constructor, placed by class name
-    // ServerConnection::ServerConnection()
-    void ServerConnection::ServerConnection() {
-        new (this) std::thread();
-        new (&field_8) std::thread();
-        new (&field_16) jagex3::LockFreeStack<ServerConnectionWorkItem>();
-        field_24 = (MessageToServerWorkItem*)0;
-        new (&field_32) jagex3::LockFreeStack<ServerConnectionWorkItem>();
-        new (field_40, false) jagex3::ThreadSignal();
-        m_connectionState = 0;
-        new (&field_168, 4096) jagex3::BufferedSocket();
-        new (field_376) LoginWorkItem();
-        new (field_400) DisconnectedWorkItem();
-        (field_416, 256)->PacketT();
-        new (field_448) PacketJ<Array<unsigned char, eastl::allocator>>();
-        new (&field_480, (array*)&g_zeroKey) Isaac();
-        new (&field_2544, (array*)&g_zeroKey) Isaac();
+    // 0x1000bb1f0
+    ServerConnection::ServerConnection()
+        : std::thread(), field_24(nullptr), field_40(false), m_connectionState(0), field_168(4096) {
+        field_416->PacketT(256);
+        new (field_448) PacketJ();
+        new (&field_480) Isaac(g_zeroKey);
+        new (&field_2544) Isaac(g_zeroKey);
         field_4608 = 1;
         m_bytesSent = 0;
         m_bytesReceived = 0;
         m_ticksSinceNoTimeOutPacket = 0;
-        (field_448, 5000)->Reserve();
-        (&field_168, 3000)->SetSocketConnectTimeOut();
+        field_448->Reserve(5000);
+        field_168.SetSocketConnectTimeOut(3000);
     }
 
-    // 0x1000bb400, 16 bytes, complete-object constructor, placed by class name
-    // ServerConnection::ServerConnection(): jumps straight to the base-object constructor
-
-    // 0x1000bb410, 256 bytes, placed by class name
-    // ServerConnection::BeginAsyncConnectionWork(std::unique_ptr<LoginState, std::default_delete<LoginState> >&&)
-    /* ServerConnection::BeginAsyncConnectionWork(std::unique_ptr<LoginState,
-   std::default_delete<LoginState> >&&) */
-
-    void ServerConnection::BeginAsyncConnectionWork(unique_ptr* param_1) {
-        uint* puVar2;
+    // 0x1000bb410
+    void ServerConnection::BeginAsyncConnectionWork(std::unique_ptr<LoginState>&& loginState) {
+        unsigned int* puVar2;
         int* piVar3;
-        undefined8 uVar4;
-        thread local_38[8];
-        undefined8 local_30;
+        __thread_id* thread_id1;
+        thread local_38;
+        __thread_id* local_30;
         ServerConnection* local_28;
 
         if ((m_connectionState & 4294967293) == 0) {
             m_connectionState = 1;
-            puVar2 = (uint*)std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(
-                (unique_ptr<LoginState, std::default_delete<LoginState>>*)param_1);
+            puVar2 = (unsigned int*)loginState.operator->();
             if ((5 < *puVar2) || ((35U >> (*puVar2 & 31) & 1) == 0)) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("state->m_loginProgress == LoginStep::LOGIN_STEP_PREPARE || state->m_loginProgress == "
                           "LoginStep::LOGIN_STEP_GET_ONE_TIME_LOGIN_TOKEN || state->m_loginProgress == "
                           "LoginStep::LOGIN_STEP_SEND_LOGIN_PACKET",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                           "ServerConnection.cpp",
-                          39, (char*)0);
+                          39, nullptr);
             }
-            piVar3 = (int*)std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(
-                (unique_ptr<LoginState, std::default_delete<LoginState>>*)param_1);
+            piVar3 = (int*)loginState.operator->();
             if (*piVar3 == 5) {
                 *piVar3 = 2;
             }
-            std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator=(
-                (unique_ptr<LoginState, std::default_delete<LoginState>>*)&field_392, param_1);
-            (&field_32, (ServerConnectionWorkItem*)field_376)->PushHead();
+            field_392 = loginState;
+            field_32.PushHead(field_376);
             field_40->RaiseSignal();
-            uVar4 = (&field_8)->get_id();
+            thread_id1 = (__thread_id*)field_8.get_id();
             new (&local_30) std::__thread_id();
-            if (std::operator==(uVar4, local_30) != '\0') {
+            if (thread_id1 == local_30 != '\0') {
                 local_28 = this;
-                std::thread::thread<ServerConnection::BeginAsyncConnectionWork(
-                                        std::unique_ptr<LoginState, std::default_delete<LoginState>>&&)::__0,
-                                    , void>(local_38, (__0*)&local_28);
-                std::thread::operator=((thread*)&field_8, local_38);
-                std::thread::~thread(local_38);
+                std::thread::thread<ServerConnection::BeginAsyncConnectionWork(std::unique_ptr<LoginState>&&)::__0, ,
+                                    void>(&local_38, (__0*)&local_28);
+                field_8 = local_38;
+                std::thread::~thread(&local_38);
             }
         }
     }
 
-    // 0x1000bb690, 208 bytes, placed by class name
-    // ServerConnection::Close()
+    // 0x1000bb690
     void ServerConnection::Close() {
         bool bVar1;
-        undefined1 local_28[8];
+        ReturnValue local_28;
 
         if (m_connectionState == 1) {
             do {
-                ConsumeUpdatedLoginState((ServerConnection*)local_28);
-                bVar1 = std::operator!=((unique_ptr*)local_28, (_func_decltype_nullptr*)(ServerConnection*)this);
+                ConsumeUpdatedLoginState(&local_28, this);
+                bVar1 = &local_28 != this;
                 if (bVar1) {
                     m_connectionState = 2;
                 } else {
                     this_thread::Sleep(100);
                 }
-                local_28->~unique_ptr();
             } while (!bVar1);
         }
         if (m_connectionState - 2 < 2) {
-            if ((&field_168)->IsOpen() != '\0') {
-                (&field_168)->Close();
+            if (field_168.IsOpen() != '\0') {
+                field_168.Close();
             }
         } else if (m_connectionState != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_connectionState == ConnectionState::CONNECTING_IDLE || m_connectionState == "
                       "ConnectionState::CONNECTED",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                       "ServerConnection.cpp",
-                      85, (char*)0);
+                      85, nullptr);
         }
     }
 
-    // 0x1000bb760, 80 bytes, placed by class name
-    // ServerConnection::ConsumeUpdatedLoginState()
-    ServerConnection* ServerConnection::ConsumeUpdatedLoginState() {
-        ServerConnection* in_RSI;
-
-        if ((in_RSI->m_connectionState == 1) && (AdvanceWorkerQueueToPacket(in_RSI), in_RSI->m_connectionState != 1)) {
-            new (this) std::unique_ptr<LoginState, std::default_delete<LoginState>>((unique_ptr*)&in_RSI->field_392);
-            return this;
+    // 0x1000bb760
+    auto ServerConnection::ConsumeUpdatedLoginState() {
+        if ((m_connectionState == 1) && (AdvanceWorkerQueueToPacket(), m_connectionState != 1)) {
+            return auto(field_392);
         }
-        std::unique_ptr<LoginState, std::default_delete<LoginState>>::unique_ptr<true, void>(
-            (_func_decltype_nullptr*)this);
-        return this;
+        result.unique_ptr<true, void>(this);
+        return result;
     }
 
-    // 0x1000bb7e0, 240 bytes, placed by class name
-    // ServerConnection::EndAndJoin()
+    // 0x1000bb7e0
     void ServerConnection::EndAndJoin() {
-        MessageToServerWorkItem* this_00;
-        char cVar1;
-        long lVar2;
-        MessageToServerWorkItem* pMVar3;
-
-        Close(this);
+        Close();
         field_4608 = 0;
         field_40->RaiseSignal();
-        cVar1 = joinable();
-        if (cVar1 != '\0') {
+        if (joinable()) {
             std::thread::join();
         }
-        cVar1 = (&field_8)->joinable();
-        if (cVar1 != '\0') {
+        if (field_8.joinable()) {
             std::thread::join();
         }
-        lVar2 = (&field_32)->TakeStack();
-        if (lVar2 != 0) {
-            /* WARNING: Subroutine does not return */
+        if (field_32.TakeStack() != 0) {
             LogAssert("pNext == nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                       "ServerConnection.cpp",
-                      114, (char*)0);
+                      114, nullptr);
         }
-        pMVar3 = field_24;
+        MessageToServerWorkItem* pMVar3 = (MessageToServerWorkItem*)field_24;
     joined_r0x0001000bb864:
-        this_00 = pMVar3;
-        if (this_00 == (MessageToServerWorkItem*)0) {
+        MessageToServerWorkItem* this_00 = pMVar3;
+        if (this_00 == nullptr) {
             return;
         }
         pMVar3 = (MessageToServerWorkItem*)this_00->HeapBeginPtr();
-        if (pMVar3 == (MessageToServerWorkItem*)0) {
-            pMVar3 = (MessageToServerWorkItem*)(&field_32)->TakeStack();
+        if (pMVar3 == nullptr) {
+            pMVar3 = (MessageToServerWorkItem*)field_32.TakeStack();
         }
         if (this_00->field_8 != 2)
             goto code_r0x0001000bb8bb;
@@ -176,79 +134,70 @@ namespace jag::oldscape {
         if (this_00->field_8 == 3) {
             this_00->~MessageFromServerWorkItem();
         LAB_1000bb888:
-            operator_delete(this_00);
+            operator delete(this_00);
         }
         goto joined_r0x0001000bb864;
     }
 
-    // 0x1000bb930, 16 bytes, placed by class name
-    // ServerConnection::GetConnectionState() const
-    undefined4 ServerConnection::GetConnectionState() {
+    // 0x1000bb930
+    uint32_t ServerConnection::GetConnectionState() const {
         return m_connectionState;
     }
 
-    // 0x1000bb940, 112 bytes, placed by class name
-    // ServerConnection::SendClientMessage(shared::ClientMessage&&)
-    void ServerConnection::SendClientMessage(ClientMessage* param_1) {
+    // 0x1000bb940
+    void ServerConnection::SendClientMessage(shared::ClientMessage&& clientMessage) {
         MessageToServerWorkItem* this_00;
 
         if (m_connectionState == 3) {
-            this_00 = operator_new(80);
-            MessageToServerWorkItem::MessageToServerWorkItem(this_00, param_1);
-            (&field_32, (ServerConnectionWorkItem*)this_00)->PushHead();
+            this_00 = (MessageToServerWorkItem*)operator new(80);
+            new (this_00) MessageToServerWorkItem(clientMessage);
+            field_32.PushHead(this_00);
             field_40->RaiseSignal();
         }
     }
 
-    // 0x1000bb9c0, 512 bytes, placed by class name
-    // ServerConnection::AdvanceWorkerQueueToPacket()
-    ulong ServerConnection::AdvanceWorkerQueueToPacket() {
-        uint uVar1;
+    // 0x1000bb9c0
+    unsigned long ServerConnection::AdvanceWorkerQueueToPacket() {
+        unsigned int uVar1;
+        MessageToServerWorkItem* this_00;
         bool bVar2;
-        char cVar3;
-        LockFreeStackData<sound::Mixer::QueuedOp>* this_00;
-        MessageToServerWorkItem* pMVar4;
-        MessageToServerWorkItem* pMVar5;
-        uint* puVar6;
-        undefined4* puVar7;
-        ulong in_RCX;
-        ulong unaff_R13;
-        thread local_50[8];
-        LockFreeStack<ServerConnectionWorkItem>* local_48;
-        MessageToServerWorkItem* local_40;
-        unique_ptr<LoginState, std::default_delete<LoginState>>* local_38;
+        ReturnValue* pRVar4;
+        unsigned int* puVar5;
+        uint32_t* puVar6;
+        unsigned long in_RCX;
+        unsigned long unaff_R13;
+        thread local_50;
 
-        local_48 = (LockFreeStack<ServerConnectionWorkItem>*)&field_16;
-        local_40 = (MessageToServerWorkItem*)field_376;
-        local_38 = (unique_ptr<LoginState, std::default_delete<LoginState>>*)&field_392;
+        LockFreeStack<ServerConnectionWorkItem>* local_48 = (LockFreeStack<ServerConnectionWorkItem>*)&field_16;
+        MessageToServerWorkItem* local_40 = (MessageToServerWorkItem*)field_376;
+        unique_ptr<LoginState>* local_38 = (unique_ptr<LoginState>*)&field_392;
         do {
-            if (field_24 == (MessageToServerWorkItem*)0) {
-                this_00 = (LockFreeStackData<sound::Mixer::QueuedOp>*)local_48->TakeStack();
-                if (this_00 == (LockFreeStackData<sound::Mixer::QueuedOp>*)0) {
+            if (field_24 == nullptr) {
+                pRVar4 = (ReturnValue*)local_48->TakeStack();
+                if (pRVar4 == nullptr) {
                     unaff_R13 = 0;
                     break;
                 }
-                pMVar4 = (MessageToServerWorkItem*)this_00->Reverse();
-                field_24 = pMVar4;
+                pRVar4 = *pRVar4 = jagex3::LockFreeStackData<sound::Mixer::QueuedOp>::Reverse();
+                field_24 = pRVar4;
             }
-            pMVar4 = field_24;
-            pMVar5 = (MessageToServerWorkItem*)pMVar4->HeapBeginPtr();
-            if (3 < pMVar4->field_8 - 1)
+            this_00 = (MessageToServerWorkItem*)field_24;
+            pRVar4 = (ReturnValue*)this_00->HeapBeginPtr();
+            if (3 < this_00->field_8 - 1U)
                 goto LAB_1000bba2d;
-            in_RCX = CONCAT71((int7)(in_RCX >> 8), 1);
+            in_RCX = (((uint64_t)((int64_t)(in_RCX >> 8)) << 8) | (uint8_t)1);
             bVar2 = false;
-            switch (pMVar4->field_8) {
+            switch (this_00->field_8) {
             case 1:
-                if (pMVar4 != local_40) {
-                    /* WARNING: Subroutine does not return */
+                if (this_00 != local_40) {
                     LogAssert("pItem == &m_connectionRequest",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                               "ServerConnection.cpp",
-                              209, (char*)0);
+                              209, nullptr);
                 }
                 if (m_connectionState == 1) {
-                    puVar6 = (uint*)std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_38);
-                    uVar1 = *puVar6;
+                    puVar5 = (unsigned int*)(*local_38).operator->();
+                    uVar1 = *puVar5;
                     if (uVar1 < 20) {
                         if ((524322U >> (uVar1 & 31) & 1) == 0) {
                             if ((196608U >> (uVar1 & 31) & 1) == 0) {
@@ -263,25 +212,22 @@ namespace jag::oldscape {
                         }
                     } else {
                     LAB_1000bbb4b:
-                        cVar3 = ((puVar6 + 31))->IsValid();
-                        if (cVar3 == '\0') {
-                            /* WARNING: Subroutine does not return */
+                        if (((puVar5 + 31))->IsValid() == '\0') {
                             LogAssert("m_connectionRequest.m_state->m_error.IsError()",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                       "osclient/ServerConnection.cpp",
-                                      228, (char*)0);
+                                      228, nullptr);
                         }
-                        puVar7 = (undefined4*)std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(
-                            local_38);
-                        *puVar7 = 18;
+                        puVar6 = (uint32_t*)(*local_38).operator->();
+                        *puVar6 = 18;
                         m_connectionState = 0;
                     }
                 }
                 break;
             case 2:
-                if (pMVar4 != (MessageToServerWorkItem*)0) {
-                    pMVar4->~MessageToServerWorkItem();
-                    operator_delete(pMVar4);
+                if (this_00 != nullptr) {
+                    this_00->~MessageToServerWorkItem();
+                    operator delete(this_00);
                 }
                 break;
             case 3:
@@ -289,12 +235,12 @@ namespace jag::oldscape {
             case 4:
                 m_connectionState = 0;
                 std::thread::join();
-                std::thread::thread(local_50);
+                local_50 = std::thread();
                 swap(local_50);
-                std::thread::~thread(local_50);
+                std::thread::~thread(&local_50);
             }
         LAB_1000bba2d:
-            field_24 = pMVar5;
+            field_24 = pRVar4;
             bVar2 = true;
             in_RCX = unaff_R13 & 4294967295;
         switchD_1000bbaa0_caseD_3:
@@ -303,23 +249,20 @@ namespace jag::oldscape {
         return unaff_R13 & 4294967041;
     }
 
-    // 0x1000bbbe0, 112 bytes, placed by class name
-    // ServerConnection::GetNextServerMessage(shared::ServerMessage&)
-    ulong ServerConnection::GetNextServerMessage(ServerMessage* param_1) {
-        MessageToServerWorkItem* this_00;
-        MessageToServerWorkItem* pMVar2;
-        ulong uVar3;
+    // 0x1000bbbe0
+    unsigned long ServerConnection::GetNextServerMessage(shared::ServerMessage& serverMessage) {
+        MessageFromServerWorkItem* this_00;
+        unsigned long uVar3;
 
         if (m_connectionState == 3) {
-            if (AdvanceWorkerQueueToPacket(this) != '\0') {
-                this_00 = field_24;
-                pMVar2 = (MessageToServerWorkItem*)this_00->HeapBeginPtr();
-                field_24 = pMVar2;
-                shared::ServerMessage::operator=(param_1, (ServerMessage*)&this_00->field_16);
-                uVar3 = CONCAT71((int7)((ulong)this >> 8), 1);
-                if (this_00 != (MessageToServerWorkItem*)0) {
+            if (AdvanceWorkerQueueToPacket() != '\0') {
+                this_00 = (MessageFromServerWorkItem*)field_24;
+                field_24 = (ReturnValue*)this_00->HeapBeginPtr();
+                serverMessage = this_00->field_16;
+                uVar3 = (((uint64_t)((int64_t)((unsigned long)this >> 8)) << 8) | (uint8_t)1);
+                if (this_00 != nullptr) {
                     this_00->~MessageFromServerWorkItem();
-                    operator_delete(this_00);
+                    operator delete(this_00);
                 }
                 goto LAB_1000bbc39;
             }
@@ -329,704 +272,591 @@ namespace jag::oldscape {
         return uVar3 & 4294967295;
     }
 
-    // 0x1000bbcc0, 800 bytes, placed by class name
-    // ServerConnection::Reader_Run()
+    // 0x1000bbcc0
     void ServerConnection::Reader_Run() {
         TextureAtlasReference* this_00;
-        undefined1* this_01;
-        undefined1* this_02;
-        char cVar1;
-        ushort uVar2;
-        ushort uVar3;
-        uchar* puVar4;
+        bool cVar1;
+        unsigned short uVar2;
+        unsigned short uVar3;
+        unsigned char* puVar4;
         long lVar5;
         MessageFromServerWorkItem* this_03;
-        uint uVar7;
-        int iVar8;
-        ulong uVar9;
-        undefined1 local_90[8];
+        unsigned int arg2;
+        int iVar7;
+        unsigned long arg1;
+        uint8_t local_90[8];
         long local_58;
-        LockFreeStack<ServerConnectionWorkItem>* local_50;
-        Isaac* local_48;
-        Error local_38[2];
+        Error local_38;
 
         this_thread::SetThreadName("ServerConnection Reader");
-        this_01 = &field_168;
-        this_02 = field_448;
-        local_48 = (Isaac*)&field_480;
-        local_50 = (LockFreeStack<ServerConnectionWorkItem>*)&field_16;
+        uint8_t* this_01 = &field_168;
+        uint8_t* this_02 = field_448;
+        Isaac* local_48 = (Isaac*)&field_480;
+        LockFreeStack<ServerConnectionWorkItem>* local_50 = (LockFreeStack<ServerConnectionWorkItem>*)&field_16;
         do {
             if (field_4608 == '\0')
                 break;
-            new (local_38) callstack::Callstack();
-            puVar4 = (uchar*)this_02->GetDataPtr();
-            cVar1 = this_01->Read(puVar4, 1, local_38);
-            iVar8 = 3;
-            if (cVar1 != '\0') {
+            local_38 = callstack::Callstack();
+            puVar4 = (unsigned char*)this_02->GetDataPtr();
+            cVar1 = this_01->Read(puVar4, 1, &local_38);
+            iVar7 = 3;
+            if (cVar1) {
                 this_02->SetPos(0);
-                cVar1 = this_02->gSmart1or2EncTest(local_48);
-                if (cVar1 != '\0') {
+                cVar1 = this_02->gSmart1or2EncTest(*local_48);
+                if (cVar1) {
                     lVar5 = this_02->GetDataPtr();
-                    cVar1 = this_01->Read((uchar*)(lVar5 + 1), 1, local_38);
-                    if (cVar1 == '\0')
+                    cVar1 = this_01->Read((lVar5 + 1), 1, &local_38);
+                    if (!cVar1)
                         goto LAB_1000bbd10;
                 }
-                uVar2 = this_02->gSmart1or2Enc(local_48);
+                uVar2 = this_02->gSmart1or2Enc(*local_48);
                 if (122 < uVar2) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("packetType < ServerProt::NUM_PROT_IDS",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                               "ServerConnection.cpp",
-                              292, (char*)0);
+                              292, nullptr);
                 }
                 if (uVar2 < 123) {
-                    uVar7 = *(uint*)(PTR_SIZES_100ee6b88 + (ulong)(uint)uVar2 * 4);
-                    if (uVar7 == 4294967294) {
-                        puVar4 = (uchar*)this_02->GetDataPtr();
-                        cVar1 = this_01->Read(puVar4, 2, local_38);
-                        this = (ServerConnection*)this;
-                        if (cVar1 != '\0') {
+                    arg2 = *(unsigned int*)(PTR_SIZES_100ee6b88 + (unsigned long)(unsigned int)uVar2 * 4);
+                    if (arg2 == 4294967294) {
+                        puVar4 = (unsigned char*)this_02->GetDataPtr();
+                        cVar1 = this_01->Read(puVar4, 2, &local_38);
+                        this = this;
+                        if (cVar1) {
                             this_02->SetPos(0);
                             uVar3 = this_02->g2();
-                            uVar7 = (uint)uVar3;
+                            arg2 = (unsigned int)uVar3;
                             goto LAB_1000bbe68;
                         }
                     } else {
-                        if (uVar7 == 4294967295) {
-                            cVar1 = this_01->Read(local_90, 1, local_38);
-                            uVar7 = (uint)(byte)local_90[0];
-                            if (cVar1 != '\0')
+                        if (arg2 == 4294967295) {
+                            cVar1 = this_01->Read(local_90, 1, &local_38);
+                            arg2 = (unsigned int)(uint8_t)local_90[0];
+                            if (cVar1)
                                 goto LAB_1000bbe68;
-                            iVar8 = 3;
+                            iVar7 = 3;
                         } else {
                         LAB_1000bbe68:
                             new (local_90) shared::ClientMessage();
-                            uVar9 = (ulong)(int)uVar7;
-                            local_90._0_4_ = (uint)uVar2;
-                            ((local_90 + 8))->Reserve(uVar9);
-                            puVar4 = (uchar*)((local_90 + 8))->GetDataPtr();
-                            cVar1 = this_01->Read(puVar4, uVar7, local_38);
-                            iVar8 = 3;
-                            if (cVar1 != '\0') {
+                            arg1 = (unsigned long)(int)arg2;
+                            local_90._0_4_ = (unsigned int)uVar2;
+                            ((local_90 + 8))->Reserve(arg1);
+                            puVar4 = (unsigned char*)((local_90 + 8))->GetDataPtr();
+                            cVar1 = this_01->Read(puVar4, arg2, &local_38);
+                            iVar7 = 3;
+                            if (cVar1) {
                                 this_00 = (TextureAtlasReference*)(local_90 + 8);
                                 if (local_90._0_4_ == 51) {
                                     local_58 = this_00->size();
                                     if (local_58 != 0) {
-                                        /* WARNING: Subroutine does not return */
                                         LogAssert("pos == 0",
                                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
                                                   "projects/osclient/ServerConnection.cpp",
-                                                  331, (char*)0);
+                                                  331, nullptr);
                                     }
-                                    puVar4 = (uchar*)this_00->GetDataPtr();
-                                    this_00->gArrayBufferEncrypted(puVar4, (int)local_58, uVar7, local_48);
+                                    puVar4 = (unsigned char*)this_00->GetDataPtr();
+                                    this_00->gArrayBufferEncrypted(puVar4, (int)local_58, arg2, *local_48);
                                     this_00->SetPos(0);
                                 }
-                                if (this_00->GetTextureAtlas() != uVar9) {
-                                    /* WARNING: Subroutine does not return */
+                                if (this_00->GetTextureAtlas() != arg1) {
                                     LogAssert("msg.p.GetSize() == static_cast<size_t>(packetSize)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
                                               "projects/osclient/ServerConnection.cpp",
-                                              338, (char*)0);
+                                              338, nullptr);
                                 }
-                                this_03 = operator_new(72);
-                                MessageFromServerWorkItem::MessageFromServerWorkItem(this_03, (ServerMessage*)local_90);
+                                this_03 = (MessageFromServerWorkItem*)operator new(72);
+                                new (this_03) MessageFromServerWorkItem(*local_90);
                                 local_50->PushHead(this_03);
-                                ((ServerConnection*)this)->m_bytesReceived =
-                                    ((ServerConnection*)this)->m_bytesReceived + uVar9;
-                                iVar8 = 0;
+                                m_bytesReceived = m_bytesReceived + arg1;
+                                iVar7 = 0;
                             }
-                            local_90->~ServerMessage();
                         }
-                        this = (ServerConnection*)this;
+                        this = this;
                     }
                 } else {
                     this_01->Close();
                 }
             }
         LAB_1000bbd10:
-        } while (iVar8 == 0);
+        } while (iVar7 == 0);
         local_50->PushHead(field_400);
     }
 
-    // 0x1000bc130, 576 bytes, placed by class name
-    // ServerConnection::Writer_Login_GetLoginPackets()
+    // 0x1000bc130
     int ServerConnection::Writer_Login_GetLoginPackets() {
-        __cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>* p_Var1;
-        undefined1* this_00;
-        undefined1* this_01;
-        undefined1* puVar2;
-        char cVar3;
-        byte bVar4;
-        undefined1 uVar5;
-        undefined1 uVar6;
-        ushort uVar7;
-        ushort uVar8;
-        int iVar9;
-        int iVar10;
-        uint uVar11;
-        long lVar12;
-        uchar* puVar13;
-        undefined8 uVar14;
-        ulonglong uVar15;
-        byte local_31;
+        uint8_t* this_02;
+        uint8_t* isaac;
+        uint8_t bVar2;
+        uint8_t uVar3;
+        uint8_t uVar4;
+        unsigned short uVar5;
+        unsigned short uVar6;
+        int iVar8;
+        unsigned int uVar9;
+        unsigned char* puVar11;
+        uint64_t uVar12;
+        uint8_t local_31;
 
-        lVar12 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator*(
-            (unique_ptr<LoginState, std::default_delete<LoginState>>*)&field_392);
-        this_00 = &field_168;
-        p_Var1 = (__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>*)(lVar12 + 124);
-        cVar3 = this_00->Read(&local_31, 1, p_Var1);
-        iVar9 = 18;
-        if (cVar3 != '\0') {
-            this_01 = field_416;
-            puVar13 = (uchar*)this_01->GetDataPtr();
-            cVar3 = this_00->Read(puVar13, (uint)local_31, p_Var1);
-            if (cVar3 == '\0') {
-                iVar9 = 18;
+        long lVar10 = *field_392;
+        uint8_t* this_01 = &field_168;
+        __cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>* this_00 =
+            (__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>*)(lVar10 + 124);
+        char cVar1 = this_01->Read(&local_31, 1, this_00);
+        int iVar7 = 18;
+        if (cVar1) {
+            this_02 = field_416;
+            puVar11 = (unsigned char*)this_02->GetDataPtr();
+            cVar1 = this_01->Read(puVar11, (unsigned int)local_31, this_00);
+            if (!cVar1) {
+                iVar7 = 18;
             } else {
-                this_01->SetPos(0);
-                cVar3 = this_01->g1();
-                *(bool*)(lVar12 + 392) = cVar3 == '\x01';
-                if (cVar3 == '\x01') {
-                    puVar2 = &field_480;
-                    iVar9 = this_01->g1Enc(puVar2);
-                    iVar10 = this_01->g1Enc(puVar2);
-                    uVar7 = this_01->g1Enc(puVar2);
-                    uVar8 = this_01->g1Enc(puVar2);
-                    uVar11 = (uint)uVar8 | (uint)uVar7 << 8 | iVar10 << 16 | iVar9 << 24;
+                this_02->SetPos(0);
+                cVar1 = this_02->g1();
+                *(bool*)(lVar10 + 392) = cVar1 == '\x01';
+                if (cVar1 == '\x01') {
+                    isaac = &field_480;
+                    iVar7 = this_02->g1Enc(*isaac);
+                    iVar8 = this_02->g1Enc(*isaac);
+                    uVar5 = this_02->g1Enc(*isaac);
+                    uVar6 = this_02->g1Enc(*isaac);
+                    uVar9 = (unsigned int)uVar6 | (unsigned int)uVar5 << 8 | iVar8 << 16 | iVar7 << 24;
                 } else {
-                    uVar11 = this_01->g4();
+                    uVar9 = this_02->g4();
                 }
-                *(uint*)(lVar12 + 396) = uVar11;
-                bVar4 = this_01->g1();
-                *(uint*)(lVar12 + 400) = (uint)bVar4;
-                cVar3 = this_01->g1();
-                *(bool*)(lVar12 + 404) = cVar3 == '\x01';
-                uVar5 = this_01->g1();
-                uVar6 = this_01->g1();
-                *(uint*)(lVar12 + 408) = (uint)CONCAT11(uVar5, uVar6);
-                bVar4 = this_01->g1();
-                *(uint*)(lVar12 + 412) = (uint)bVar4;
-                uVar14 = this_01->g8();
-                *(undefined8*)(lVar12 + 416) = uVar14;
-                uVar14 = this_01->g8();
-                *(undefined8*)(lVar12 + 424) = uVar14;
+                *(unsigned int*)(lVar10 + 396) = uVar9;
+                bVar2 = this_02->g1();
+                *(unsigned int*)(lVar10 + 400) = (unsigned int)bVar2;
+                cVar1 = this_02->g1();
+                *(bool*)(lVar10 + 404) = cVar1 == '\x01';
+                uVar3 = this_02->g1();
+                uVar4 = this_02->g1();
+                *(unsigned int*)(lVar10 + 408) = (unsigned int)(((uint16_t)uVar3 << 8) | (uint8_t)uVar4);
+                bVar2 = this_02->g1();
+                *(unsigned int*)(lVar10 + 412) = (unsigned int)bVar2;
+                uVar12 = this_02->g8();
+                *(uint64_t*)(lVar10 + 416) = uVar12;
+                uVar12 = this_02->g8();
+                *(uint64_t*)(lVar10 + 424) = uVar12;
                 if (36 < local_31) {
-                    uVar15 = this_01->g8();
-                    notifications::SetNotificationUserID(uVar15);
+                    notifications::SetNotificationUserID(this_02->g8());
                 }
-                uVar7 = this_01->gSmart1or2Enc((Isaac*)&field_480);
-                if (uVar7 < 123) {
-                    *(uint*)(lVar12 + 448) = (uint)uVar7;
-                    uVar7 = this_01->g2();
-                    ((lVar12 + 456))->Reserve((ulong)uVar7);
-                    puVar13 = (uchar*)((lVar12 + 456))->GetDataPtr();
-                    bVar4 = this_00->Read(puVar13, (uint)uVar7, p_Var1);
-                    iVar9 = (uint)(bVar4 ^ 1) * 2 + 16;
+                uVar5 = this_02->gSmart1or2Enc(field_480);
+                if (uVar5 < 123) {
+                    *(unsigned int*)(lVar10 + 448) = (unsigned int)uVar5;
+                    uVar5 = this_02->g2();
+                    ((lVar10 + 456))->Reserve((unsigned long)uVar5);
+                    puVar11 = (unsigned char*)((lVar10 + 456))->GetDataPtr();
+                    bVar2 = this_01->Read(puVar11, (unsigned int)uVar5, this_00);
+                    iVar7 = (unsigned int)(bVar2 ^ 1) * 2 + 16;
                 } else {
-                    std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>::__cxx_atomic_base_impl(
-                        p_Var1, 34);
-                    *(undefined4*)(lVar12 + 128) = 4294967292;
-                    iVar9 = 18;
+                    new (this_00) std::__cxx_atomic_base_impl(34);
+                    *(uint32_t*)(lVar10 + 128) = 4294967292;
+                    iVar7 = 18;
                 }
             }
         }
-        return iVar9;
+        return iVar7;
     }
 
-    // 0x1000bc3f0, 1552 bytes, placed by class name
-    // ServerConnection::Writer_Login_GetSecondResponse()
-    uint ServerConnection::Writer_Login_GetSecondResponse() {
-        __cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>* p_Var1;
-        undefined1* this_00;
-        PacketT<Array<unsigned char, eastl::allocator>>* pPVar2;
-        char cVar3;
-        byte bVar4;
-        ushort uVar5;
-        long lVar6;
-        eastl::string* this_01;
-        long lVar7;
-        undefined8 uVar8;
-        uchar* puVar9;
-        undefined1* this_02;
-        ulong uVar10;
-        bool bVar11;
-        uint uVar12;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>> local_60[32];
-        PacketT<Array<unsigned char, eastl::allocator>>* local_40;
-        byte local_32;
-        byte local_31;
+    // 0x1000bc3f0
+    unsigned int ServerConnection::Writer_Login_GetSecondResponse() {
+        PacketT<Array<unsigned char>>* pPVar1;
+        uint8_t bVar3;
+        unsigned short uVar4;
+        eastl::string* this_02;
+        uint64_t uVar7;
+        unsigned char* puVar8;
+        uint8_t* this_03;
+        unsigned long arg1;
+        bool arg1_00;
+        PacketReaderMixin<PacketT<Array<unsigned char>>> local_60;
+        PacketT<Array<unsigned char>>* local_40;
+        uint8_t local_32;
+        uint8_t local_31;
 
-        lVar6 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator*(
-            (unique_ptr<LoginState, std::default_delete<LoginState>>*)&field_392);
-        this_00 = &field_168;
-        p_Var1 = (__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>*)(lVar6 + 124);
-        cVar3 = this_00->Read(&local_31, 1, p_Var1);
-        uVar12 = 18;
-        if (cVar3 != '\0') {
+        long lVar5 = *field_392;
+        uint8_t* this_01 = &field_168;
+        __cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>* this_00 =
+            (__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>*)(lVar5 + 124);
+        bool cVar2 = this_01->Read(&local_31, 1, this_00);
+        unsigned int uVar9 = 18;
+        if (cVar2) {
             switch ((int)(char)local_31) {
             case 2:
-                uVar12 = Writer_Login_GetLoginPackets(this);
+                uVar9 = Writer_Login_GetLoginPackets();
                 break;
             default:
-                *(int*)(lVar6 + 128) = (int)(char)local_31;
+                *(int*)(lVar5 + 128) = (int)(char)local_31;
                 break;
             case 15:
-                this_02 = field_416;
-                puVar9 = (uchar*)this_02->GetDataPtr();
-                cVar3 = this_00->Read(puVar9, 2, p_Var1);
-                if (cVar3 != '\0') {
-                    this_02->SetPos(0);
-                    uVar5 = this_02->g2();
-                    *(undefined4*)(lVar6 + 448) = 70;
-                    ((lVar6 + 456))->Reserve((ulong)uVar5);
-                    puVar9 = (uchar*)((lVar6 + 456))->GetDataPtr();
-                    bVar4 = this_00->Read(puVar9, (uint)uVar5, p_Var1);
-                    uVar12 = 18 - bVar4;
+                this_03 = field_416;
+                puVar8 = (unsigned char*)this_03->GetDataPtr();
+                cVar2 = this_01->Read(puVar8, 2, this_00);
+                if (cVar2) {
+                    this_03->SetPos(0);
+                    uVar4 = this_03->g2();
+                    *(uint32_t*)(lVar5 + 448) = 70;
+                    ((lVar5 + 456))->Reserve((unsigned long)uVar4);
+                    puVar8 = (unsigned char*)((lVar5 + 456))->GetDataPtr();
+                    bVar3 = this_01->Read(puVar8, (unsigned int)uVar4, this_00);
+                    uVar9 = 18 - bVar3;
                 }
                 break;
             case 21:
-                cVar3 = this_00->Read(&local_31, 1, p_Var1);
-                if (cVar3 != '\0') {
-                    *(uint*)(lVar6 + 132) = (uint)local_31 * 60 + 180;
-                    *(undefined4*)(lVar6 + 128) = 21;
-                    uVar12 = 7;
+                cVar2 = this_01->Read(&local_31, 1, this_00);
+                if (cVar2) {
+                    *(unsigned int*)(lVar5 + 132) = (unsigned int)local_31 * 60 + 180;
+                    *(uint32_t*)(lVar5 + 128) = 21;
+                    uVar9 = 7;
                 }
                 break;
             case 23:
-                if (*(int*)(lVar6 + 120) == 0) {
-                    *(undefined4*)(lVar6 + 120) = 1;
-                    uVar12 = 0;
+                if (*(int*)(lVar5 + 120) == 0) {
+                    *(uint32_t*)(lVar5 + 120) = 1;
+                    uVar9 = 0;
                 } else {
-                    std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>::__cxx_atomic_base_impl(
-                        p_Var1, 101);
-                    *(undefined4*)(lVar6 + 128) = 23;
+                    new (this_00) std::__cxx_atomic_base_impl(101);
+                    *(uint32_t*)(lVar5 + 128) = 23;
                 }
                 break;
             case 29:
-                local_40 = (PacketT<Array<unsigned char, eastl::allocator>>*)field_416;
-                puVar9 = (uchar*)local_40->GetDataPtr();
-                cVar3 = this_00->Read(puVar9, 2, p_Var1);
-                if (cVar3 != '\0') {
+                local_40 = (PacketT<Array<unsigned char>>*)field_416;
+                puVar8 = (unsigned char*)local_40->GetDataPtr();
+                cVar2 = this_01->Read(puVar8, 2, this_00);
+                if (cVar2) {
                     local_40->SetPos(0);
-                    uVar5 = local_40->g2();
-                    Writer_EnsureLoginPacketSize(this, (ulong)uVar5);
-                    puVar9 = (uchar*)local_40->GetDataPtr();
-                    cVar3 = this_00->Read(puVar9, (uint)uVar5, p_Var1);
-                    pPVar2 = local_40;
-                    if (cVar3 != '\0') {
-                        uVar10 = 0;
+                    uVar4 = local_40->g2();
+                    Writer_EnsureLoginPacketSize((unsigned long)uVar4);
+                    puVar8 = (unsigned char*)local_40->GetDataPtr();
+                    cVar2 = this_01->Read(puVar8, (unsigned int)uVar4, this_00);
+                    pPVar1 = local_40;
+                    if (cVar2) {
+                        arg1 = 0;
                         local_40->SetPos(0);
                         do {
-                            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                                eastl::string>(local_60, SUB81(pPVar2, 0));
-                            this_01 = (eastl::string*)std::array<eastl::string, 3ul>::operator[](
-                                (array<eastl::string, 3ul>*)(lVar6 + 296), uVar10);
-                            eastl::string::operator=(this_01, (basic_string*)local_60);
-                            local_60->~basic_string();
-                            uVar10 = uVar10 + 1;
-                        } while (uVar10 != 3);
-                        *(undefined4*)(lVar6 + 128) = 29;
-                        uVar12 = 12;
+                            PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(
+                                &local_60, (uint8_t)pPVar1);
+                            this_02 = (eastl::string*)(*((lVar5 + 296)))[arg1];
+                            *this_02 = &local_60;
+                            arg1 = arg1 + 1;
+                        } while (arg1 != 3);
+                        *(uint32_t*)(lVar5 + 128) = 29;
+                        uVar9 = 12;
                     }
                 }
                 break;
             case 61:
-                bVar4 = this_00->Read(&local_31, 1, p_Var1);
-                lVar7 = Client::Instance();
-                *(byte*)(lVar7 + 52032) = local_31 == 1 & bVar4;
-                *(undefined4*)(lVar6 + 128) = 61;
+                bVar3 = this_01->Read(&local_31, 1, this_00);
+                Client::Instance()->field_52032 = local_31 == 1 & bVar3;
+                *(uint32_t*)(lVar5 + 128) = 61;
                 break;
             case 64:
-                local_40 = (PacketT<Array<unsigned char, eastl::allocator>>*)field_416;
+                local_40 = (PacketT<Array<unsigned char>>*)field_416;
                 local_40->SetPos(0);
-                cVar3 = this_00->Read(&local_32, 1, p_Var1);
-                uVar12 = 18;
-                if (cVar3 != '\0') {
-                    puVar9 = (uchar*)local_40->GetDataPtr();
-                    cVar3 = this_00->Read(puVar9, (uint)local_32, p_Var1);
-                    pPVar2 = local_40;
-                    if (cVar3 != '\0') {
-                        puVar9 = (uchar*)local_40->GetDataPtr();
-                        pPVar2->gArrayBufferEncrypted(puVar9, 0, (uint)local_32, (Isaac*)&field_480);
-                        pPVar2->SetPos(0);
-                        bVar11 = SUB81(pPVar2, 0);
-                        if (*(char*)(lVar6 + 41) != '\0') {
-                            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                                eastl::string>(local_60, bVar11);
-                            eastl::string::operator=((eastl::string*)(lVar6 + 136), (basic_string*)local_60);
-                            local_60->~basic_string();
-                            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                                eastl::string>(local_60, bVar11);
-                            eastl::string::operator=((eastl::string*)(lVar6 + 168), (basic_string*)local_60);
-                            local_60->~basic_string();
-                            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                                eastl::string>(local_60, bVar11);
-                            eastl::string::operator=((eastl::string*)(lVar6 + 200), (basic_string*)local_60);
-                            local_60->~basic_string();
-                            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                                eastl::string>(local_60, bVar11);
-                            eastl::string::operator=((eastl::string*)(lVar6 + 232), (basic_string*)local_60);
-                            local_60->~basic_string();
+                cVar2 = this_01->Read(&local_32, 1, this_00);
+                uVar9 = 18;
+                if (cVar2) {
+                    puVar8 = (unsigned char*)local_40->GetDataPtr();
+                    cVar2 = this_01->Read(puVar8, (unsigned int)local_32, this_00);
+                    pPVar1 = local_40;
+                    if (cVar2) {
+                        puVar8 = (unsigned char*)local_40->GetDataPtr();
+                        pPVar1->gArrayBufferEncrypted(puVar8, 0, (unsigned int)local_32, field_480);
+                        pPVar1->SetPos(0);
+                        arg1_00 = (uint8_t)pPVar1;
+                        if (*(char*)(lVar5 + 41) != '\0') {
+                            PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(
+                                &local_60, arg1_00);
+                            (*((lVar5 + 136))) = &local_60;
+                            PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(
+                                &local_60, arg1_00);
+                            (*((lVar5 + 168))) = &local_60;
+                            PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(
+                                &local_60, arg1_00);
+                            (*((lVar5 + 200))) = &local_60;
+                            PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(
+                                &local_60, arg1_00);
+                            (*((lVar5 + 232))) = &local_60;
                         }
-                        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                            eastl::string>(local_60, bVar11);
-                        eastl::string::operator=((eastl::string*)(lVar6 + 264), (basic_string*)local_60);
-                        local_60->~basic_string();
-                        uVar8 = pPVar2->g8();
-                        *(undefined8*)(lVar6 + 424) = uVar8;
-                        *(undefined4*)(lVar6 + 128) = 64;
-                        uVar12 = 5;
+                        PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(&local_60,
+                                                                                                             arg1_00);
+                        (*((lVar5 + 264))) = &local_60;
+                        uVar7 = pPVar1->g8();
+                        *(uint64_t*)(lVar5 + 424) = uVar7;
+                        *(uint32_t*)(lVar5 + 128) = 64;
+                        uVar9 = 5;
                     }
                 }
                 break;
             case 66:
-                *(undefined4*)(lVar6 + 128) = 66;
-                uVar12 = 19;
+                *(uint32_t*)(lVar5 + 128) = 66;
+                uVar9 = 19;
                 break;
             case 69:
-                local_40 = (PacketT<Array<unsigned char, eastl::allocator>>*)field_416;
-                puVar9 = (uchar*)local_40->GetDataPtr();
-                cVar3 = this_00->Read(puVar9, 2, p_Var1);
-                if (cVar3 != '\0') {
+                local_40 = (PacketT<Array<unsigned char>>*)field_416;
+                puVar8 = (unsigned char*)local_40->GetDataPtr();
+                cVar2 = this_01->Read(puVar8, 2, this_00);
+                if (cVar2) {
                     local_40->SetPos(0);
-                    uVar5 = local_40->g2();
-                    Writer_EnsureLoginPacketSize(this, (ulong)uVar5);
-                    puVar9 = (uchar*)local_40->GetDataPtr();
-                    cVar3 = this_00->Read(puVar9, (uint)uVar5, p_Var1);
-                    if (cVar3 != '\0') {
-                        bVar4 = Writer_DoProofOfWork(this, (PacketT*)local_40);
-                        *(undefined4*)(lVar6 + 128) = 69;
-                        uVar12 = (uint)(bVar4 ^ 1) << 4 | 2;
+                    uVar4 = local_40->g2();
+                    Writer_EnsureLoginPacketSize((unsigned long)uVar4);
+                    puVar8 = (unsigned char*)local_40->GetDataPtr();
+                    cVar2 = this_01->Read(puVar8, (unsigned int)uVar4, this_00);
+                    if (cVar2) {
+                        bVar3 = Writer_DoProofOfWork(*local_40);
+                        *(uint32_t*)(lVar5 + 128) = 69;
+                        uVar9 = (unsigned int)(bVar3 ^ 1) << 4 | 2;
                     }
                 }
             }
         }
-        return uVar12;
+        return uVar9;
     }
 
-    // 0x1000bca70, 64 bytes, placed by class name
-    // ServerConnection::Writer_EnsureLoginPacketSize(unsigned long)
-    void ServerConnection::Writer_EnsureLoginPacketSize(ulong param_1) {
-        ulong uVar1;
-
-        uVar1 = field_416->GetTextureAtlas();
-        if (uVar1 < param_1) {
-            (field_416, param_1)->Reserve();
+    // 0x1000bca70
+    void ServerConnection::Writer_EnsureLoginPacketSize(unsigned long arg1) {
+        if (field_416->GetTextureAtlas() < arg1) {
+            field_416->Reserve(arg1);
         }
     }
 
-    // 0x1000bcac0, 400 bytes, placed by class name
-    // ServerConnection::Writer_DoProofOfWork(PacketT<Array<unsigned char, eastl::allocator> >&)
-    uint ServerConnection::Writer_DoProofOfWork(PacketT* param_1) {
-        undefined1* this_00;
-        undefined1 uVar1;
-        bool bVar2;
-        uint uVar3;
-        _func_decltype_nullptr* p_Var4;
-        long lVar5;
+    // 0x1000bcac0
+    unsigned int ServerConnection::Writer_DoProofOfWork(PacketT<Array<unsigned char>>& arg1) {
+        uint8_t* this_00;
+        unsigned short arg1_00;
+        unsigned int uVar3;
+        long lVar4;
         hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                   eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                   eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                  eastl::prime_rehash_policy, false, true, true>* phVar6;
-        ulong uVar7;
-        PacketT<Array<unsigned char, eastl::allocator>>* this_01;
-        uchar* puVar8;
-        unique_ptr<game::ProofOfWorkSolver, std::default_delete<game::ProofOfWorkSolver>> local_38[8];
+                  eastl::prime_rehash_policy, false, true, true>* phVar5;
+        PacketT<Array<unsigned char>>* this_01;
+        unsigned char* puVar6;
+        unsigned long arg3;
         Callstack local_30;
 
-        param_1->SetPos(0);
-        uVar1 = param_1->g1();
-        local_38->GetProofOfWorkSolver(uVar1);
-        p_Var4 = (_func_decltype_nullptr*)
-                     std::unique_ptr<game::ProofOfWorkSolver, std::default_delete<game::ProofOfWorkSolver>>::operator->(
-                         local_38);
-        (**(code**)(*(long*)p_Var4 + 8))(&local_30.field_8, p_Var4, param_1);
-        bVar2 = std::operator==((unique_ptr*)&local_30.field_8, p_Var4);
-        if (bVar2) {
-            lVar5 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(
-                (unique_ptr<LoginState, std::default_delete<LoginState>>*)&field_392);
-            new ((lVar5 + 124)) std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>(22);
+        arg1.SetPos(0);
+        uint8_t bVar1 = arg1.g1();
+        auto local_38 = game::ProofOfWorkFactory::GetProofOfWorkSolver((unsigned int)bVar1);
+        auto arg2 = local_38.operator->();
+        (**(void (**)(...))(*arg2 + 8))(&local_30.field_8, arg2, arg1);
+        if (&local_30.field_8 == arg2) {
+            lVar4 = field_392.operator->();
+            new ((lVar4 + 124)) std::__cxx_atomic_base_impl(22);
             uVar3 = 0;
         } else {
-            phVar6 =
+            phVar5 =
                 (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                            eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                            eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                           eastl::prime_rehash_policy, false, true, true>*)
-                    std::unique_ptr<PacketT<Array<unsigned char, eastl::allocator>>,
-                                    std::default_delete<PacketT<Array<unsigned char, eastl::allocator>>>>::
-                    operator->(
-                        (unique_ptr<PacketT<Array<unsigned char, eastl::allocator>>,
-                                    std::default_delete<PacketT<Array<unsigned char, eastl::allocator>>>>*)&local_30
-                            .field_8);
-            lVar5 = eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                     eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                     eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                     true>::size(phVar6);
-            Writer_EnsureLoginPacketSize(this, lVar5 + 3);
+                           eastl::prime_rehash_policy, false, true, true>*)local_30.field_8.operator->();
+            lVar4 = phVar5->size();
+            Writer_EnsureLoginPacketSize(lVar4 + 3);
             this_00 = field_416;
             this_00->SetPos(0);
-            PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-                (PacketT<Array<unsigned char, eastl::allocator>>*)this_00, 19);
-            phVar6 =
+            this_00->p1<unsigned long>(19);
+            phVar5 =
                 (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                            eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                            eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                           eastl::prime_rehash_policy, false, true, true>*)
-                    std::unique_ptr<PacketT<Array<unsigned char, eastl::allocator>>,
-                                    std::default_delete<PacketT<Array<unsigned char, eastl::allocator>>>>::
-                    operator->(
-                        (unique_ptr<PacketT<Array<unsigned char, eastl::allocator>>,
-                                    std::default_delete<PacketT<Array<unsigned char, eastl::allocator>>>>*)&local_30
-                            .field_8);
-            uVar7 = eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                     eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                     eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                     true>::size(phVar6);
-            PacketT<Array<unsigned char, eastl::allocator>>::p2<unsigned long>(
-                (PacketT<Array<unsigned char, eastl::allocator>>*)this_00, uVar7);
-            this_01 =
-                (PacketT<Array<unsigned char, eastl::allocator>>*)
-                    std::unique_ptr<PacketT<Array<unsigned char, eastl::allocator>>,
-                                    std::default_delete<PacketT<Array<unsigned char, eastl::allocator>>>>::
-                    operator->(
-                        (unique_ptr<PacketT<Array<unsigned char, eastl::allocator>>,
-                                    std::default_delete<PacketT<Array<unsigned char, eastl::allocator>>>>*)&local_30
-                            .field_8);
-            puVar8 = (uchar*)this_01->GetDataPtr();
-            phVar6 =
+                           eastl::prime_rehash_policy, false, true, true>*)local_30.field_8.operator->();
+            arg1_00 = phVar5->size();
+            this_00->p2<unsigned long>(arg1_00);
+            this_01 = (PacketT<Array<unsigned char>>*)local_30.field_8.operator->();
+            puVar6 = (unsigned char*)this_01->GetDataPtr();
+            phVar5 =
                 (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                            eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                            eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                           eastl::prime_rehash_policy, false, true, true>*)
-                    std::unique_ptr<PacketT<Array<unsigned char, eastl::allocator>>,
-                                    std::default_delete<PacketT<Array<unsigned char, eastl::allocator>>>>::
-                    operator->(
-                        (unique_ptr<PacketT<Array<unsigned char, eastl::allocator>>,
-                                    std::default_delete<PacketT<Array<unsigned char, eastl::allocator>>>>*)&local_30
-                            .field_8);
-            uVar7 = eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                     eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                     eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                     true>::size(phVar6);
-            this_00->pArrayBuffer(puVar8, 0, uVar7);
-            new (&local_30) callstack::Callstack();
-            puVar8 = (uchar*)this_00->GetDataPtr();
+                           eastl::prime_rehash_policy, false, true, true>*)local_30.field_8.operator->();
+            arg3 = phVar5->size();
+            this_00->pArrayBuffer(puVar6, 0, arg3);
+            local_30 = callstack::Callstack();
+            puVar6 = (unsigned char*)this_00->GetDataPtr();
             uVar3 = this_00->size();
-            (&field_168, puVar8, uVar3, (Error*)&local_30)->Write();
+            field_168.Write(puVar6, uVar3, &local_30);
             uVar3 = local_30.IsValid();
             uVar3 = uVar3 ^ 1;
         }
         local_30.field_8.~unique_ptr();
-        std::unique_ptr<game::ProofOfWorkSolver, std::default_delete<game::ProofOfWorkSolver>>::~unique_ptr(local_38);
         return uVar3;
     }
 
-    // 0x1000bccb0, 864 bytes, placed by class name
-    // ServerConnection::Writer_ConnectAndLogin()
+    // 0x1000bccb0
     void ServerConnection::Writer_ConnectAndLogin() {
-        array* this_00;
-        undefined1* this_01;
-        undefined1* this_02;
-        int iVar1;
-        byte bVar2;
-        char cVar3;
-        uint uVar4;
-        uint* puVar5;
-        int* piVar6;
-        char* pcVar7;
-        uchar* puVar8;
-        undefined8 uVar9;
-        ulong uVar10;
-        WaterNormalParamsTarget* this_03;
-        undefined1 local_888[2064];
-        __1 local_78[2];
-        uint* local_68;
-        WaterNormalParamsTarget* local_60;
+        uint8_t* this_00;
+        uint8_t* this_01;
+        uint8_t bVar1;
+        bool cVar2;
+        unsigned int uVar3;
+        int* piVar5;
+        uint64_t uVar6;
+        int iVar7;
+        unsigned long arg1_01;
+        uint8_t local_888[2064];
+        __1 local_78;
         __1 local_58;
-        void* local_50;
-        void* local_48;
-        ClientMessage* local_40;
-        ServerConnectionWorkItem* local_38;
 
-        local_38 = (ServerConnectionWorkItem*)field_376;
-        puVar5 = (uint*)std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator*(
-            (unique_ptr<LoginState, std::default_delete<LoginState>>*)&field_392);
+        ServerConnectionWorkItem* local_38 = (ServerConnectionWorkItem*)field_376;
+        unsigned int* puVar4 = (unsigned int*)*field_392;
         new (local_888) callstack::Callstack();
-        this_03 = (WaterNormalParamsTarget*)(puVar5 + 31);
-        puVar5[31] = local_888._0_4_;
-        this_00 = (array*)(puVar5 + 108);
-        local_50 = &field_2544;
-        local_48 = &field_480;
-        local_40 = (ClientMessage*)(puVar5 + 12);
-        local_68 = puVar5;
-        local_60 = this_03;
+        WaterNormalParamsTarget* this_02 = (WaterNormalParamsTarget*)(puVar4 + 31);
+        puVar4[31] = local_888._0_4_;
+        array<int, _4ul>* arg1 = (array<int, _4ul>*)(puVar4 + 108);
+        void* local_50 = &field_2544;
+        void* local_48 = &field_480;
+        ClientMessage* local_40 = (ClientMessage*)(puVar4 + 12);
+        unsigned int* local_68 = puVar4;
+        WaterNormalParamsTarget* local_60 = this_02;
         local_58.field_0 = this;
     LAB_1000bcd4a:
         do {
-            if (*puVar5 == 1) {
-                new (local_888) Isaac(this_00);
+            if (*puVar4 == 1) {
+                new (local_888) Isaac(*arg1);
                 _memcpy(local_50, (Isaac*)local_888, 2064);
-                uVar10 = 0;
+                arg1_01 = 0;
                 do {
-                    piVar6 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)this_00, uVar10);
-                    iVar1 = *piVar6;
-                    piVar6 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)local_78, uVar10);
-                    *piVar6 = iVar1 + 50;
-                    uVar10 = uVar10 + 1;
-                } while (uVar10 != 4);
+                    piVar5 = (int*)(*arg1)[arg1_01];
+                    iVar7 = *piVar5;
+                    piVar5 = &local_78[arg1_01];
+                    *piVar5 = iVar7 + 50;
+                    arg1_01 = arg1_01 + 1;
+                } while (arg1_01 != 4);
                 new (local_888) Isaac(local_78);
                 _memcpy(local_48, (Isaac*)local_888, 2064);
                 this = local_58.field_0;
-                uVar4 = Writer_SendClientMessage(local_58.field_0, local_40);
-                this_03 = local_60;
-                puVar5 = local_68;
-                local_68[31] = uVar4;
-                bVar2 = local_60->IsValid();
-                *puVar5 = (uint)bVar2 << 4 | 2;
-                uVar4 = *puVar5;
+                uVar3 = Writer_SendClientMessage(local_58.field_0, local_40);
+                this_02 = local_60;
+                puVar4 = local_68;
+                local_68[31] = uVar3;
+                bVar1 = local_60->IsValid();
+                *puVar4 = (unsigned int)bVar1 << 4 | 2;
+                uVar3 = *puVar4;
             } else {
-                if (*puVar5 == 0) {
-                    this_01 = &field_168;
-                    this_01->Close();
-                    this_01->Initialize();
-                    pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    cVar3 = this_01->Connect(pcVar7, this_03);
-                    if (cVar3 == '\0') {
-                        cVar3 = this_03->IsValid();
-                        if (cVar3 != '\0')
+                if (*puVar4 == 0) {
+                    this_00 = &field_168;
+                    this_00->Close();
+                    this_00->Initialize();
+                    cVar2 = this_00->Connect((char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin(), this_02);
+                    if (!cVar2) {
+                        cVar2 = this_02->IsValid();
+                        if (cVar2)
                             goto LAB_1000bcf76;
                     } else {
-                        this_01->SetSocketRecvTimeOut(15000);
+                        this_00->SetSocketRecvTimeOut(15000);
                         local_888[0] = (thread)14;
-                        cVar3 = this_01->Write(local_888, 1, this_03);
-                        if (cVar3 == '\0') {
-                            cVar3 = this_03->IsValid();
-                            if (cVar3 == '\0') {
-                                new (this_03) std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>(22);
+                        cVar2 = this_00->Write(local_888, 1, this_02);
+                        if (!cVar2) {
+                            cVar2 = this_02->IsValid();
+                            if (!cVar2) {
+                                new (this_02) std::__cxx_atomic_base_impl(22);
                             }
                             goto LAB_1000bcf76;
                         }
-                        cVar3 = this_01->Read(local_888, 1, this_03);
-                        if (cVar3 == '\0') {
-                            cVar3 = this_03->IsValid();
-                            if (cVar3 == '\0') {
-                                new (this_03) std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>(22);
-                                puVar5[32] = 23;
+                        cVar2 = this_00->Read(local_888, 1, this_02);
+                        if (!cVar2) {
+                            cVar2 = this_02->IsValid();
+                            if (!cVar2) {
+                                new (this_02) std::__cxx_atomic_base_impl(22);
+                                puVar4[32] = 23;
                             }
                             goto LAB_1000bcf76;
                         }
                         if (local_888[0] == (thread)0) {
-                            this_02 = field_416;
-                            puVar8 = (uchar*)this_02->GetDataPtr();
-                            cVar3 = this_01->Read(puVar8, 8, this_03);
-                            if (cVar3 != '\0') {
-                                this_02->SetPos(0);
-                                uVar9 = this_02->g8();
-                                *(undefined8*)(puVar5 + 28) = uVar9;
-                                *puVar5 = 1;
+                            this_01 = field_416;
+                            cVar2 = this_00->Read((unsigned char*)this_01->GetDataPtr(), 8, this_02);
+                            if (cVar2) {
+                                this_01->SetPos(0);
+                                uVar6 = this_01->g8();
+                                *(uint64_t*)(puVar4 + 28) = uVar6;
+                                *puVar4 = 1;
                                 goto LAB_1000bcf76;
                             }
                         }
                     }
-                    uVar9 = 22;
+                    iVar7 = 22;
                     goto LAB_1000bcf71;
                 }
-                uVar4 = *puVar5;
+                uVar3 = *puVar4;
             }
-            if (uVar4 == 2) {
-                uVar4 = Writer_Login_GetSecondResponse(this);
-                *puVar5 = uVar4;
-                if (uVar4 == 2)
+            if (uVar3 == 2) {
+                uVar3 = Writer_Login_GetSecondResponse();
+                *puVar4 = uVar3;
+                if (uVar3 == 2)
                     goto LAB_1000bcd4a;
             }
-            if (*puVar5 != 0) {
-                if ((*puVar5 == 18) && (cVar3 = this_03->IsValid(), cVar3 == '\0')) {
-                    uVar9 = 13;
+            if (*puVar4 != 0) {
+                if ((*puVar4 == 18) && (cVar2 = this_02->IsValid(), !cVar2)) {
+                    iVar7 = 13;
                 LAB_1000bcf71:
-                    new (this_03) std::__cxx_atomic_base_impl<FolderSelection::FolderPathRequestStatus>(uVar9);
+                    new (this_02) std::__cxx_atomic_base_impl(iVar7);
                 }
             LAB_1000bcf76:
-                cVar3 = this_03->IsValid();
-                if (cVar3 != '\0') {
-                    (&field_168)->Close();
+                cVar2 = this_02->IsValid();
+                if (cVar2) {
+                    field_168.Close();
                 }
-                (&field_16, local_38)->PushHead();
-                if ((*puVar5 & 4294967294) == 16) {
+                field_16.PushHead(local_38);
+                if ((*puVar4 & 4294967294) == 16) {
                     local_78[0].field_0 = this;
-                    std::thread::thread<ServerConnection::Writer_ConnectAndLogin()::__1, , void>((thread*)local_888,
-                                                                                                 local_78);
-                    std::thread::operator=((thread*)this, (thread*)local_888);
-                    local_888->~thread();
+                    local_888->thread<ServerConnection::Writer_ConnectAndLogin()::__1, , void>(&local_78);
+                    *this = *local_888;
                 }
                 return;
             }
         } while (true);
     }
 
-    // 0x1000bd030, 96 bytes, placed by class name
-    // ServerConnection::Writer_SendClientMessage(shared::ClientMessage&)
-    int ServerConnection::Writer_SendClientMessage(ClientMessage* param_1) {
-        uint uVar1;
-        uchar* puVar2;
-        int local_30[2];
-
-        new (local_30) callstack::Callstack();
-        puVar2 = (uchar*)(&param_1->field_8)->GetDataPtr();
-        uVar1 = (&param_1->field_8)->size();
-        (&field_168, puVar2, uVar1, (Error*)local_30)->Write();
+    // 0x1000bd030
+    int ServerConnection::Writer_SendClientMessage(shared::ClientMessage& clientMessage) {
+        return local_30;
+        auto arg1 = clientMessage.field_8.GetDataPtr();
+        unsigned int arg2 = clientMessage.field_8.size();
+        field_168.Write(arg1, arg2, &local_30);
         return local_30[0];
     }
 
-    // 0x1000bd0a0, 288 bytes, placed by class name
-    // ServerConnection::Writer_Run()
+    // 0x1000bd0a0
     void ServerConnection::Writer_Run() {
-        LockFreeStackData<sound::Mixer::QueuedOp>* this_00;
-        ServerConnectionWorkItem* this_01;
+        void result;
+        ReturnValue result;
+        ServerConnectionWorkItem* serverConnectionWorkItem;
         long lVar1;
         ServerConnectionWorkItem* pSVar2;
 
         this_thread::SetThreadName("ServerConnection Writer");
         if (field_4608 != '\0') {
             do {
-                this_00 = (LockFreeStackData<sound::Mixer::QueuedOp>*)(&field_32)->TakeStack();
-                this_01 = (ServerConnectionWorkItem*)this_00->Reverse();
-                if (this_01 != (ServerConnectionWorkItem*)0) {
+                &result = (ReturnValue*)field_32.TakeStack();
+                serverConnectionWorkItem = (ServerConnectionWorkItem*)result =
+                    jagex3::LockFreeStackData<sound::Mixer::QueuedOp>::Reverse();
+                if (serverConnectionWorkItem != nullptr) {
                     do {
-                        pSVar2 = (ServerConnectionWorkItem*)this_01->HeapBeginPtr();
-                        if (this_01->field_8 == 2) {
-                            Writer_SendClientMessage(this, (ClientMessage*)(this_01 + 1));
-                            (&field_16, this_01)->PushHead();
-                            lVar1 = this_01[1].field_8.GetTextureAtlas();
+                        pSVar2 = (ServerConnectionWorkItem*)serverConnectionWorkItem->HeapBeginPtr();
+                        if (serverConnectionWorkItem->field_8 == 2) {
+                            Writer_SendClientMessage(*((serverConnectionWorkItem + 1)));
+                            field_16.PushHead(serverConnectionWorkItem);
+                            lVar1 = serverConnectionWorkItem[1].field_8.GetTextureAtlas();
                             m_bytesSent = m_bytesSent + lVar1;
-                        } else if (this_01->field_8 == 1) {
-                            if (this_01 != (ServerConnectionWorkItem*)field_376) {
-                                /* WARNING: Subroutine does not return */
+                        } else if (serverConnectionWorkItem->field_8 == 1) {
+                            if (serverConnectionWorkItem != (ServerConnectionWorkItem*)field_376) {
                                 LogAssert("pCur == &m_connectionRequest",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                           "osclient/ServerConnection.cpp",
-                                          797, (char*)0);
+                                          797, nullptr);
                             }
-                            Writer_ConnectAndLogin(this);
+                            Writer_ConnectAndLogin();
                         }
-                        this_01 = pSVar2;
-                    } while (pSVar2 != (ServerConnectionWorkItem*)0);
+                        serverConnectionWorkItem = pSVar2;
+                    } while (pSVar2 != nullptr);
                 }
                 field_40->WaitForAndLowerSignal();
             } while (field_4608 != '\0');
         }
     }
 
-    // 0x1001362c0, 16 bytes, placed by class name
-    // ServerConnection::Writer_ConnectAndLogin()::$_1::operator()() const
-    /* ServerConnection::Writer_ConnectAndLogin()::$_1::TEMPNAMEPLACEHOLDERVALUE() const
-    */
-
-    void ServerConnection::Writer_ConnectAndLogin()::$_1::operator()() {
+    // 0x1001362c0
+    void ServerConnection::Writer_ConnectAndLogin()::$_1::operator()() const {
         Reader_Run(field_0);
     }
 

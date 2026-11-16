@@ -1,6 +1,5 @@
 // _unplaced/projects/osclient/unity_2.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "libs/game/runetek5/scene/entities/MapSquare.h"
@@ -11,38 +10,35 @@
 #include "libs/tweaky/Tweaky_ContainerGroup.h"
 
 namespace jag::oldscape {
-    // 0x100f36fe4, 4 bytes, __data
-    traceBackgroundModeLoginFlow = 1;
+    // 0x100f36fe4
+    int32_t traceBackgroundModeLoginFlow = 1;
 
-    // 0x100f3702c, 4 bytes, __data
-    currentSupportReason = -1;
+    // 0x100f3702c
+    int32_t currentSupportReason = -1;
 
-    // 0x100f8a750, 16 bytes, __common; zero-initialised
-    g_zeroKey;
+    // 0x100f8a750
+    std::array<int, _4ul> g_zeroKey;
 
-    // 0x103c04fa0, 24 bytes, __bss; zero-initialised
-    AllFonts;
+    // 0x103c04fa0
+    uint8_t AllFonts[24];
 
-    // 0x100156b90, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init
-    void ___cxx_global_var_init() {
-        undefined1 local_50[40];
-        Vector3T<int> local_28[16];
+    // 0x100156b90
+    void ___cxx_global_var_init(void) {
+        Matrix33T<float> local_50;
 
-        jag::math::Matrix33Scaling<float>((math*)local_50, 1.0, 1.0, -1.0);
-        jag::math::Vector3T<int>::Vector3T(local_28);
-        new (&jag::graphics::MAYA_ANIM_INVERT_MATRIX) jag::math::Matrix44T<float>(local_50, local_28);
+        jag::math::Matrix33Scaling<float>(1.0, 1.0, -1.0);
+        Vector3T<int> local_28;
+        new ((Matrix44T<float>*)&jag::graphics::MAYA_ANIM_INVERT_MATRIX)
+            jag::math::Matrix44T<float>(local_50, local_28);
     }
 
-    // 0x100156bf0, 32 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.1
-    void ___cxx_global_var_init_1() {
-        new (&jag::graphics::WORLD_ORTHOGONAL) jag::math::ColourHSL(-1.5707964, -1.5707964, 0.0);
+    // 0x100156bf0
+    void ___cxx_global_var_init_1(void) {
+        new ((ColourHSL*)&jag::graphics::WORLD_ORTHOGONAL) jag::math::ColourHSL(-1.5707964, -1.5707964, 0.0);
     }
 
-    // 0x100156c10, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.3
-    void ___cxx_global_var_init_3() {
+    // 0x100156c10
+    void ___cxx_global_var_init_3(void) {
         if (*PTR_VIEWRT_LUMINANCE_ADAPTED_100ee4048 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_ADAPTED_100ee4048) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_ADAPTED_100ee5578) HashedString("LUMINANCE_ADAPTED");
@@ -51,9 +47,8 @@ namespace jag::oldscape {
         }
     }
 
-    // 0x100156c70, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.4
-    void ___cxx_global_var_init_4() {
+    // 0x100156c70
+    void ___cxx_global_var_init_4(void) {
         if (*PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee4058 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee4058) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee5588) HashedString("LUMINANCE_ADAPTED_PREVIOUS");
@@ -62,9 +57,8 @@ namespace jag::oldscape {
         }
     }
 
-    // 0x100156cd0, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.6
-    void ___cxx_global_var_init_6() {
+    // 0x100156cd0
+    void ___cxx_global_var_init_6(void) {
         if (*PTR_VIEWRT_LUMINANCE_AVERAGE_100ee4050 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_AVERAGE_100ee4050) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_AVERAGE_100ee5580) HashedString("VIEWRT_LUMINANCE_AVERAGE");
@@ -73,50 +67,43 @@ namespace jag::oldscape {
         }
     }
 
-    // 0x100156d30, 16 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.8
-    void ___cxx_global_var_init_8() {
+    // 0x100156d30
+    void ___cxx_global_var_init_8(void) {
         defaults::DefaultsGroup::GRAPHICS = 3;
     }
 
 } // namespace jag::oldscape
 
 namespace jag::graphics {
-    // 0x103c04f50, 64 bytes, __bss; zero-initialised
-    MAYA_ANIM_INVERT_MATRIX;
+    // 0x103c04f50
+    uint8_t MAYA_ANIM_INVERT_MATRIX[64];
 
-    // 0x103c04f90, 12 bytes, __bss; zero-initialised
-    WORLD_ORTHOGONAL;
+    // 0x103c04f90
+    uint8_t WORLD_ORTHOGONAL[12];
 
-    // 0x10012a760: the linker folded this into eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric> >::~pair(), which has identical code
-    SkyBoxEntry::~SkyBoxEntry();
+    // 0x10012a760: SkyBoxEntry::~SkyBoxEntry() has the same machine code as eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric>>::~pair()
 
-    // 0x10012a760: the linker folded this into eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric> >::~pair(), which has identical code
-    ViewportMapEntry::~ViewportMapEntry();
+    // 0x10012a760: ViewportMapEntry::~ViewportMapEntry() has the same machine code as eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric>>::~pair()
 
 } // namespace jag::graphics
 
 namespace jag::tweak {
-    // 0x10012c6c0: the linker folded this into eastl::pair<eastl::string const, shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> >::~pair(), which has identical code
-    PageInfo::~PageInfo();
+    // 0x10012c6c0: PageInfo::~PageInfo() has the same machine code as eastl::pair<eastl::string const, shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>>::~pair()
 
-    // 0x10012c6d0: the linker folded this into eastl::pair<eastl::string const, shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> >::~pair(), which has identical code
-    PageInfo::~PageInfo();
+    // 0x10012c6d0: PageInfo::~PageInfo() has the same machine code as eastl::pair<eastl::string const, shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>>::~pair()
 
 } // namespace jag::tweak
 
 namespace jag::oldscape::midi2 {
-    // 0x10012e6f0: the linker folded this into eastl::pair<unsigned long long const, LRUHashCacheWrapper<configdecoder::VarBitType, unsigned long long> >::~pair(), which has identical code
-    MidiPlayerMainThread::QueuedLazyWave::~QueuedLazyWave();
+    // 0x10012e6f0: MidiPlayerMainThread::QueuedLazyWave::~QueuedLazyWave() has the same machine code as eastl::pair<unsigned long long const, LRUHashCacheWrapper<configdecoder::VarBitType, unsigned long long>>::~pair()
 
-    // 0x10012e700: the linker folded this into eastl::pair<unsigned long long const, LRUHashCacheWrapper<configdecoder::VarBitType, unsigned long long> >::~pair(), which has identical code
-    MidiPlayerMainThread::QueuedLazyWave::~QueuedLazyWave();
+    // 0x10012e700: MidiPlayerMainThread::QueuedLazyWave::~QueuedLazyWave() has the same machine code as eastl::pair<unsigned long long const, LRUHashCacheWrapper<configdecoder::VarBitType, unsigned long long>>::~pair()
 
 } // namespace jag::oldscape::midi2
 
 namespace jag::oldscape::constants::skills {
-    // 0x100d3d5d8, 472 bytes, __const
-    skillxp = {
+    // 0x100d3d5d8
+    int32_t skillxp[118] = {
         83,       174,      276,      388,     512,     650,     801,     969,     1154,    1358,    1584,    1833,
         2107,     2411,     2746,     3115,    3523,    3973,    4470,    5018,    5624,    6291,    7028,    7842,
         8740,     9730,     10824,    12031,   13363,   14833,   16456,   18247,   20224,   22406,   24815,   27473,
@@ -132,19 +119,17 @@ namespace jag::oldscape::constants::skills {
 } // namespace jag::oldscape::constants::skills
 
 namespace jag::oldscape::defaults {
-    // 0x103c04f9c, 4 bytes, __bss; zero-initialised
-    DefaultsGroup::GRAPHICS;
+    // 0x103c04f9c
+    int32_t DefaultsGroup::GRAPHICS;
 
 } // namespace jag::oldscape::defaults
 
 namespace jag {
-    // 0x10012a760: the linker folded this into eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric> >::~pair(), which has identical code
-    Js5MemoryCacheWrapper::~Js5MemoryCacheWrapper();
+    // 0x10012a760: Js5MemoryCacheWrapper::~Js5MemoryCacheWrapper() has the same machine code as eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric>>::~pair()
 
 } // namespace jag
 
 namespace jag::game {
-    // 0x10012a760: the linker folded this into eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric> >::~pair(), which has identical code
-    MapSquareEnvInfo::~MapSquareEnvInfo();
+    // 0x10012a760: MapSquareEnvInfo::~MapSquareEnvInfo() has the same machine code as eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric>>::~pair()
 
 } // namespace jag::game

@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/materials/shaders/effects/blur/GeometryAwareBlurFS.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
@@ -8,61 +7,39 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~GeometryAwareBlurFS();
-        virtual GetSource(EffectManager const&, EffectList const&) const;
+        virtual auto GetSource(const EffectManager& effectManager, const EffectList& effectList) const;
         GeometryAwareBlurFS();
 
-        // data members, from how the methods use this: 40 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
+    private:
+        uint64_t field_8;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
     };
 
-    // 0x100022b10: the linker folded this into oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    GeometryAwareBlurFS::~GeometryAwareBlurFS();
+    // 0x100022b10: GeometryAwareBlurFS::~GeometryAwareBlurFS() has the same machine code as oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption()
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    GeometryAwareBlurFS::~GeometryAwareBlurFS();
+    // 0x10002a770: GeometryAwareBlurFS::~GeometryAwareBlurFS() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10004a690: the linker folded this into oldscape::option::ScriptOption<bool, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    GeometryAwareBlurFS::~GeometryAwareBlurFS();
-
-    // 0x10088cf80, 112 bytes, base-object constructor, placed by class name and debug map
-    // GeometryAwareBlurFS::GeometryAwareBlurFS()
-    void GeometryAwareBlurFS::GeometryAwareBlurFS() {
-        EffectList local_58[16];
-        EffectList local_48[16];
-        undefined2* local_38;
-        undefined8 local_30;
-        undefined2 local_23;
-        undefined1 local_21;
-
-        EffectList::EffectList(local_58);
-        local_23 = 27225;
-        local_21 = 114;
-        local_38 = &local_23;
-        local_30 = 3;
-        EffectList::EffectList(local_48, (initializer_list*)&local_38);
+    // 0x10088cf80
+    GeometryAwareBlurFS::GeometryAwareBlurFS() {
+        EffectList local_58;
+        uint16_t local_23 = 27225;
+        uint8_t local_21 = 114;
+        uint64_t local_30 = 3;
+        EffectList local_48(&local_23);
         new (this) ShaderSource(local_58, local_48);
-        field_0 = &PTR__ScriptOption_100f17048;
     }
 
-    // 0x10088cff0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // GeometryAwareBlurFS::GeometryAwareBlurFS(): jumps straight to the base-object constructor
+    // 0x10088d000
+    auto GeometryAwareBlurFS::GetSource(const EffectManager& effectManager, const EffectList& effectList) const {
+        uint8_t local_128[280];
 
-    // 0x10088d000, 176 bytes, placed by class name and debug map
-    // GeometryAwareBlurFS::GetSource(EffectManager const&, EffectList const&) const
-    GeometryAwareBlurFS* GeometryAwareBlurFS::GetSource(EffectManager* param_1, EffectList* param_2) {
-        char* pcVar1;
-        undefined1 local_128[280];
-
-        new (local_128) RT7PixelShaderSourceStream();
-        pcVar1 = (char*)shadersourceprovider::GetShaderString(23);
-        std::operator<<((ostream*)(local_128 + 16), pcVar1);
-        str();
-        local_128->~RT7PixelShaderSourceStream();
-        return this;
+        new (local_128) RT7PixelShaderSourceStream(*this, effectList, 1, 1, 1, 1, 1, 1, 24);
+        auto str = shadersourceprovider::GetShaderString(23);
+        std::operator<<((basic_ostream<char, std::char_traits<char> _>*)(local_128 + 16), str);
+        auto result = local_128->str();
+        return result;
     }
 
 } // namespace jag::graphics

@@ -1,70 +1,58 @@
 // libs/oldscape/rs2lib/worldmap/MapSquareData.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x100225fc0, 32 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::rs2lib::worldmap::MapZoneData* placement_new<oldscape::rs2lib::worldmap::MapZoneData>(void*)
-    MapZoneData* placement_new<oldscape::rs2lib::worldmap::MapZoneData>(void* param_1) {
-        oldscape::rs2lib::worldmap::MapZoneData::MapZoneData(param_1);
-        return param_1;
+    // 0x100225fc0
+    oldscape::rs2lib::worldmap::MapZoneData* placement_new<oldscape::rs2lib::worldmap::MapZoneData>(void* arg1) {
+        new (arg1) oldscape::rs2lib::worldmap::MapZoneData();
+        return arg1;
     }
 
-    // 0x100225fe0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>* placement_new<ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>, int, oldscape::rs2lib::worldmap::MapZoneData*&>(void*, int&&, oldscape::rs2lib::worldmap::MapZoneData*&)
-    ref_counter_shared* jag::placement_new<ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>, int,
-                                           oldscape::rs2lib::worldmap::MapZoneData*&>(void* param_1, int* param_2,
-                                                                                      MapZoneData** param_3) {
-        ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>::ref_counter_shared(param_1, (long)*param_2,
-                                                                                        *param_3);
-        return param_1;
+    // 0x100225fe0
+    ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>*
+    placement_new<ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>, int,
+                  oldscape::rs2lib::worldmap::MapZoneData*&>(void* arg1, int&& arg2,
+                                                             oldscape::rs2lib::worldmap::MapZoneData*& arg3) {
+        new (arg1) ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100226000, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>::ref_counter_shared(unsigned long, oldscape::rs2lib::worldmap::MapZoneData*): jumps straight to the base-object constructor
+    // 0x100226010
+    ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>::ref_counter_shared(
+        unsigned long arg1, oldscape::rs2lib::worldmap::MapZoneData* mapZoneData)
+        : ref_counter_base() {}
 
-    // 0x100226010, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>::ref_counter_shared(unsigned long, oldscape::rs2lib::worldmap::MapZoneData*)
-    void ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>::ref_counter_shared(ulong param_1,
-                                                                                         MapZoneData* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7900 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(MapZoneData**)(this + 24) = param_2;
-    }
-
-    // 0x100226050, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>::DeleteData()
+    // 0x100226050
     void ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData>::DeleteData() {
-        ulong uVar1;
+        ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData> _vtbl* prVar1;
         long lVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar2 = 0;
-                uVar1 = 0;
+                prVar1 = nullptr;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~MapZoneData();
-                    uVar1 = uVar1 + 1;
+                    ((MapZoneData*)((long)&(this[3]._vptr)->_dtor + lVar2))->~MapZoneData();
+                    prVar1 =
+                        (ref_counter_shared<oldscape::rs2lib::worldmap::MapZoneData> _vtbl*)((long)&prVar1->_dtor + 1);
                     lVar2 = lVar2 + 208;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (prVar1 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x1002260a0, 32 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::rs2lib::worldmap::StaticMapElement* placement_new<oldscape::rs2lib::worldmap::StaticMapElement, oldscape::rs2lib::CoordGrid const&, oldscape::rs2lib::CoordGrid&, int&, decltype(nullptr)>(void*, oldscape::rs2lib::CoordGrid const&, oldscape::rs2lib::CoordGrid&, int&, decltype(nullptr)&&)
-    StaticMapElement*
-    jag::placement_new<oldscape::rs2lib::worldmap::StaticMapElement, oldscape::rs2lib::CoordGrid_const&,
-                       oldscape::rs2lib::CoordGrid&, int&, decltype(nullptr)>(void* param_1, CoordGrid* param_2,
-                                                                              CoordGrid* param_3, int* param_4,
-                                                                              _func_decltype_nullptr** param_5) {
-        oldscape::rs2lib::worldmap::StaticMapElement::StaticMapElement(param_1, param_2, param_3, *param_4,
-                                                                       (MapTextLabel*)0);
-        return param_1;
+    // 0x1002260a0
+    oldscape::rs2lib::worldmap::StaticMapElement*
+    placement_new<oldscape::rs2lib::worldmap::StaticMapElement, oldscape::rs2lib::CoordGrid const&,
+                  oldscape::rs2lib::CoordGrid&, int&, decltype(nullptr)>(void* arg1,
+                                                                         const oldscape::rs2lib::CoordGrid& coordGrid1,
+                                                                         oldscape::rs2lib::CoordGrid& coordGrid2,
+                                                                         int& arg4, decltype(nullptr)&& arg5) {
+        new (arg1) oldscape::rs2lib::worldmap::StaticMapElement(coordGrid1, coordGrid2, arg4, nullptr);
+        return arg1;
     }
 
 } // namespace jag
@@ -73,46 +61,36 @@ namespace jag::oldscape::rs2lib::worldmap {
     class MapSquareData {
     public:
         // virtual methods in vtable order
-        virtual void DeserialiseCompositeMetaData(PacketJ<Array<unsigned char, eastl::allocator>>&, ErrorCapture&);
-        virtual void DeserialiseAreaGeography(PacketJ<Array<unsigned char, eastl::allocator>>&, ErrorCapture&);
-        virtual GetZoneX();
-        virtual GetZoneZ();
-        virtual void SerialiseCompositeMetaData(PacketJ<Array<unsigned char, eastl::allocator>>&);
-        virtual void SerialiseAreaGeography(PacketJ<Array<unsigned char, eastl::allocator>>&);
-        virtual GeneratePreviewInner(Array<Array<int, eastl::allocator>, eastl::allocator>, int, int);
+        virtual void DeserialiseCompositeMetaData(PacketJ<Array<unsigned char>>& packetJ, ErrorCapture& errorCapture);
+        virtual void DeserialiseAreaGeography(PacketJ<Array<unsigned char>>& packetJ, ErrorCapture& errorCapture);
+        virtual uint64_t GetZoneX();
+        virtual uint64_t GetZoneZ();
+        virtual void SerialiseCompositeMetaData(PacketJ<Array<unsigned char>>& packetJ);
+        virtual void SerialiseAreaGeography(PacketJ<Array<unsigned char>>& packetJ);
+        virtual uint64_t GeneratePreviewInner(Array<Array<int>> arg1, int arg2, int arg3);
         MapSquareData();
-        MapSquareData(int, int, int, int, int, int);
-        uint HashCode();
+        MapSquareData(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+        unsigned int HashCode();
         ~MapSquareData();
 
-        // data members, from how the methods use this: 192 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[120];
-        int field_128;  // offset 128
-        uint field_132; // offset 132
-        char _unknown_136[24];
-        uint field_160;       // offset 160
-        uint field_164;       // offset 164
-        uint field_168;       // offset 168
-        char field_172;       // offset 172
-        undefined1 field_173; // offset 173
-        char _unknown_174[2];
-        uint field_176; // offset 176
-        uint field_180; // offset 180
-        uint field_184; // offset 184
-        int field_188;  // offset 188
+    private:
+        uint8_t _unknown_8[120];
+        int field_128;
+        int field_132;
+        uint8_t _unknown_136[24];
+        unsigned int field_160;
+        unsigned int field_164;
+        unsigned int field_168;
+        char field_172;
+        uint8_t field_173;
+        uint8_t _unknown_174[2];
+        unsigned int field_176;
+        unsigned int field_180;
+        unsigned int field_184;
+        int field_188;
     };
 
-    // 0x100225e80, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // MapSquareData::~MapSquareData(): jumps straight to the base-object destructor
-
-    // 0x100225e90, 16 bytes, base-object destructor, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MapSquareData::~MapSquareData()
-    /* MapZoneData::~MapZoneData() */
-
-    void MapZoneData::~MapZoneData() {
-        ~PackableArea();
-    }
+    // 0x100225e90
+    MapSquareData::~MapSquareData() {}
 
 } // namespace jag::oldscape::rs2lib::worldmap

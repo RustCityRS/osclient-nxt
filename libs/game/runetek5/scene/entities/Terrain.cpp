@@ -1,819 +1,490 @@
 // libs/game/runetek5/scene/entities/Terrain.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "Terrain.h"
 
 namespace jag::game {
-    // 0x1039b4de8, 8 bytes, __common; zero-initialised
-    Terrain::m_debugPrimitiveText;
+    // 0x1039b4de8
+    int64_t Terrain::m_debugPrimitiveText;
 
-    // 0x10011ceb0: the linker folded this into oldscape::configdecoder::NpcType::GetHeadIconGraphics() const, which has identical code
-    shared_ptr Terrain::GetWaterHeights() const;
+    // 0x10011ceb0: Terrain::GetWaterHeights() const has the same machine code as oldscape::configdecoder::NpcType::GetHeadIconGraphics() const
 
-    // 0x10036f4c0: the linker folded this into graphics::GeometryBatch::GetFaceTransparencyBuffer(), which has identical code
-    Terrain::GetWaterPatches() const;
+    // 0x10036f4c0: Terrain::GetWaterPatches() const has the same machine code as graphics::GeometryBatch::GetFaceTransparencyBuffer()
 
-    // 0x100396010: the linker folded this into oldscape::auth::SteamAuthLibWrapper::GetGameToken(), which has identical code
-    Terrain::GetAABB() const;
+    // 0x100396010: Terrain::GetAABB() const has the same machine code as oldscape::auth::SteamAuthLibWrapper::GetGameToken()
 
-    // 0x1003dad60: the linker folded this into PathingEntity::GetAnimatedModel() const, which has identical code
-    Terrain::GetLightProbe();
+    // 0x1003dad60: Terrain::GetLightProbe() has the same machine code as PathingEntity::GetAnimatedModel() const
 
-    // 0x1003f9270, 624 bytes, base-object constructor, placed by class name and debug map
-    // Terrain::Terrain(graphics::GraphNode*, shared_ptr<World> const&, TerrainInputData&, graphics::RT7Core*)
-    void Terrain::Terrain(GraphNode* param_1, shared_ptr* param_2, TerrainInputData* param_3, RT7Core* param_4) {
-        shared_ptr* psVar1;
-
-        Entity::Entity();
-        new (this) MakeUniquePool<Terrain, 32>();
-        field_0 = &PTR__Terrain_100efee68;
+    // 0x1003f9270
+    Terrain::Terrain(graphics::GraphNode* graphNode, const shared_ptr<World>& world, TerrainInputData& terrainInputData,
+                     graphics::RT7Core* rt7Core)
+        : Entity(graphNode, world, 6, -1), MakeUniquePool<Terrain, 32>() {
         field_8 = &PTR__Terrain_100efefa8;
         new (&field_192) math::AABB();
         new (&field_224) math::Matrix44T<float>();
-        field_288 = *(undefined4*)param_3;
-        field_292 = *(undefined4*)(param_3 + 4);
-        new (&field_296, *(shared_ptr**)(param_3 + 16)) shared_ptr<oldscape::dash3d::Decor>();
-        new (&field_312, *(shared_ptr**)(param_3 + 24)) shared_ptr<oldscape::dash3d::Decor>();
-        psVar1 = *(shared_ptr**)(param_3 + 32);
-        new (&field_328, psVar1) shared_ptr<oldscape::dash3d::Decor>();
-        new (&field_344)
-            eastl::fixed_vector<std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>,
-                                4ul, true, eastl::allocator>();
-        new (&field_416) eastl::vector<shared_ptr<graphics::WaterPatch>, eastl::allocator>();
-        field_448[0] = param_3[40];
+        field_288 = *(uint32_t*)terrainInputData;
+        field_292 = *(uint32_t*)(terrainInputData + 4);
+        new (&field_296) shared_ptr(*(shared_ptr<oldscape::dash3d::GroundDecor>**)(terrainInputData + 16));
+        new (&field_312) shared_ptr(*(shared_ptr<oldscape::dash3d::GroundDecor>**)(terrainInputData + 24));
+        new (&field_328) shared_ptr(*(shared_ptr<oldscape::dash3d::GroundDecor>**)(terrainInputData + 32));
+        new (&field_344) eastl::fixed_vector<std::unique_ptr<graphics::TerrainPatch>, 4ul>();
+        new (&field_416) eastl::vector<shared_ptr<graphics::WaterPatch>>();
+        field_448[0] = terrainInputData[40];
         m_heightZero = 0;
-        new (&field_456)
-            eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>, 4ul,
-                                true, eastl::allocator>();
-        new (&field_560) Array<std::array<std::array<HeightOffset, 64ul>, 64ul>, eastl::allocator>();
-        new (m_waterHeights, (_func_decltype_nullptr*)psVar1)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_600) eastl::fixed_vector<
-            shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>, 4ul, true,
-            eastl::allocator>();
-        new (&field_704) eastl::fixed_vector<
-            shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>, 4ul, true,
-            eastl::allocator>();
-        new (&field_808, (_func_decltype_nullptr*)psVar1)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (&field_456) eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<int>>>, 4ul>();
+        new (&field_560) Array<std::array<std::array<HeightOffset, 64ul>, 64ul>>();
+        new (m_waterHeights) shared_ptr();
+        new (&field_600) eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>, 4ul>();
+        new (&field_704) eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>, 4ul>();
+        new (&field_808) shared_ptr();
         field_824 = 0;
-        new (field_832, (_func_decltype_nullptr*)psVar1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (field_832) shared_ptr();
         field_848 = 6;
         m_hasFade = 0;
         field_852 = 0.0;
         m_hideTerrain = false;
         new (&field_864) graphics::LightProbe();
-        field_1680 = param_4;
+        field_1680 = rt7Core;
     }
 
-    // 0x1003f95c0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // Terrain::Terrain(graphics::GraphNode*, shared_ptr<World> const&, TerrainInputData&, graphics::RT7Core*): jumps straight to the base-object constructor
-
-    // 0x1003f95d0, 416 bytes, base-object destructor, placed by class name and debug map
-    // Terrain::~Terrain()
-    void Terrain::~Terrain() {
-        LightProbeRenderer* this_00;
-
-        field_0 = &PTR__Terrain_100efee68;
+    // 0x1003f95d0
+    Terrain::~Terrain() {
         field_8 = &PTR__Terrain_100efefa8;
-        if (field_1680 != (RT7Core*)0) {
-            this_00 = (LightProbeRenderer*)field_1680->GetLightProbeRenderer();
-            this_00->RecycleRenderingResources((LightProbe*)&field_864);
+        if (field_1680 != nullptr) {
+            field_1680->GetLightProbeRenderer()->RecycleRenderingResources(field_864);
         }
-        (&field_864)->~LightProbe();
+        field_864.~LightProbe();
         field_832->~shared_ptr();
-        (&field_808)->~shared_ptr();
-        (&field_704)->~fixed_vector();
-        (&field_600)->~fixed_vector();
+        field_808.~shared_ptr();
+        field_704.~fixed_vector();
+        field_600.~fixed_vector();
         m_waterHeights->~shared_ptr();
-        (&field_560)->~Array();
-        (&field_456)->~fixed_vector();
-        (&field_416)->~vector();
-        (&field_344)->~fixed_vector();
-        (&field_328)->~shared_ptr();
-        (&field_312)->~shared_ptr();
-        (&field_296)->~shared_ptr();
-        ~Entity();
+        field_560.~Array();
+        field_456.~fixed_vector();
+        field_416.~vector();
+        field_344.~fixed_vector();
+        field_328.~shared_ptr();
+        field_312.~shared_ptr();
+        field_296.~shared_ptr();
     }
 
-    // 0x1003f9770, 16 bytes, complete-object destructor, placed by class name and debug map
-    // Terrain::~Terrain(): jumps straight to the base-object destructor
-
-    // 0x1003f9790, 32 bytes, deleting destructor, placed by class name and debug map
-    // Terrain::~Terrain()
-    void Terrain::~Terrain() {
-        ~Terrain(this);
-        operator_delete(this);
-    }
-
-    // 0x1003f97c0, 128 bytes, placed by class name and debug map
-    // Terrain::Build(AssetBuilder*, int, ConfigProvider*)
-    void Terrain::Build(AssetBuilder* param_1, int param_2, ConfigProvider* param_3) {
-        char cVar1;
-        char cVar2;
-
-        cVar1 = GetTargetLOD();
-        if (cVar1 != '\0') {
+    // 0x1003f97c0
+    void Terrain::Build(AssetBuilder* assetBuilder, int arg2, ConfigProvider* configProvider) {
+        bool cVar1 = GetTargetLOD();
+        if (cVar1) {
             SetTargetLOD(0);
         }
         cVar1 = GetNumTilesPerRow();
-        cVar2 = GetTargetLOD();
+        char cVar2 = GetTargetLOD();
         if (cVar1 != cVar2) {
-            cVar1 = BuildTerrain(this, param_1, param_2, param_3);
-            if (cVar1 != '\0') {
+            cVar1 = BuildTerrain(assetBuilder, arg2, configProvider);
+            if (cVar1) {
                 SetCurrentLOD(0);
-                CreateCombinedLocalAABB(this);
+                CreateCombinedLocalAABB();
             }
         }
     }
 
-    // 0x1003f9840, 2288 bytes, placed by class name and debug map
-    // Terrain::BuildTerrain(AssetBuilder*, int, ConfigProvider*)
-    ulong Terrain::BuildTerrain(AssetBuilder* param_1, int param_2, ConfigProvider* param_3) {
-        undefined1* this_00;
-        bool bVar1;
-        char cVar2;
+    // 0x1003f9840
+    unsigned long Terrain::BuildTerrain(AssetBuilder* assetBuilder, int arg2, ConfigProvider* configProvider) {
+        unsigned long arg1;
         LoginManager* this_01;
         World* this_02;
         Frustum* this_03;
-        OpenGLView* this_04;
-        AABB* pAVar3;
-        shared_ptr* psVar4;
-        vector* pvVar5;
-        long lVar6;
-        unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>* puVar7;
-        shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>* psVar8;
-        shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>* psVar9;
-        unique_ptr* this_05;
-        vector<eastl::vector<int, eastl::allocator>, eastl::allocator>* pvVar10;
-        ulong uVar11;
-        vector<int, eastl::allocator>* this_06;
-        int* piVar12;
-        shared_ptr<BuildTerrainResultWaterData>* this_07;
-        shared_ptr<BuildTerrainResultWaterData>* psVar13;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_08;
-        AnimationWrapper* this_09;
-        WaterType* this_10;
-        WaterPatchConfig* pWVar14;
-        long lVar15;
-        undefined8 uVar16;
-        ulong uVar17;
-        int iVar18;
-        ulong uVar19;
-        undefined1 auVar20[16];
-        vector* in_stack_fffffffffffffd08;
-        fixed_hash_map* in_stack_fffffffffffffd18;
-        undefined1 local_2c0[24];
-        undefined1* local_2a8;
-        undefined1* local_2a0;
-        undefined1 local_298;
-        ConfigProvider* local_c0;
-        vector<shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-               eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>* local_b8;
-        float* local_b0;
-        shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>* local_a8;
+        GraphNode* this_04;
+        shared_ptr* psVar2;
+        vector<graphics::TerrainPatchVertex>* terrainPatchVertexs;
+        long lVar3;
+        unique_ptr<graphics::TerrainPatch>* puVar4;
+        shared_ptr<eastl::vector<eastl::vector<int>>>* psVar5;
+        shared_ptr<eastl::vector<eastl::vector<unsigned char>>>* psVar6;
+        vector<eastl::vector<int>>* pvVar7;
+        vector<int>* pvVar8;
+        int* piVar9;
+        shared_ptr<BuildTerrainResultWaterData>* this_06;
+        shared_ptr<BuildTerrainResultWaterData>* psVar10;
+        shared_ptr<WaterType>* this_08;
+        vector<unsigned short>* arg5;
+        long lVar11;
+        AABB* pAVar13;
+        unsigned long arg1_00;
+        int iVar14;
+        unsigned long uVar15;
+        bool bVar16;
+        uint8_t local_2c0[24];
+        BaseTemplateConfigTypeList<WaterType>* local_2a8;
+        uint8_t* local_2a0;
+        uint8_t local_298;
+        vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>,
+               eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true>>* local_b8;
+        Matrix44T<float>* local_b0;
+        shared_ptr<eastl::vector<eastl::vector<unsigned char>>>* local_a8;
         array<shared_ptr<BuildTerrainResultLevelData>, 4ul>* local_a0;
-        float* local_98;
-        float* local_90;
-        vector<std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>,
-               eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>* local_88;
-        undefined1* local_80;
-        shared_ptr local_78;
-        vector<eastl::vector<int, eastl::allocator>, eastl::allocator>* local_68;
-        float* local_60[2];
-        vector<shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-               eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>* local_50;
+        Matrix44T<float>* local_98;
+        Matrix44T<float>* local_90;
+        vector<std::unique_ptr<graphics::TerrainPatch>, eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true>>*
+            local_88;
+        shared_ptr<BuildTerrainMain>* local_80;
+        uint8_t local_78[24];
+        Matrix44T<float>* local_60[2];
+        vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>,
+               eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true>>* local_50;
         shared_ptr* local_48;
         shared_ptr<BuildTerrainResultWaterData>* local_40;
         float local_34;
 
-        this_00 = field_832;
-        local_c0 = param_3;
-        bVar1 = this_00->operator_cast_to_bool();
-        if (bVar1) {
-            local_80 = this_00;
-            this_01 = (LoginManager*)shared_ptr<BuildTerrainMain>::operator*((shared_ptr<BuildTerrainMain>*)this_00);
-            cVar2 = this_01->IsFinished();
-            if (cVar2 != '\0') {
-                cVar2 = this_01->IsMissingData();
-                if (cVar2 != '\0') {
-                    shared_ptr<BuildTerrainMain>::reset();
-                    (*(code*)field_0[25])(this);
-                    CreateCombinedLocalAABB(this);
-                    uVar19 = CONCAT71((int7)((ulong)this_01 >> 8), 1);
-                    goto LAB_1003f99ee;
-                }
-                cVar2 = this_01->IsSuccessful();
-                if (cVar2 != '\0') {
-                    auVar20 = this_01->GetDevCredentialsOutputDirectory();
-                    psVar4 = &local_78;
-                    static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(psVar4, auVar20._0_8_,
-                                                                                                 auVar20._8_8_);
-                    bVar1 = shared_ptr::operator_cast_to_bool(psVar4);
-                    if (bVar1) {
-                        local_a0 = (array<shared_ptr<BuildTerrainResultLevelData>, 4ul>*)
-                            shared_ptr<BuildTerrainResultData>::operator*(
-                                (shared_ptr<BuildTerrainResultData>*)&local_78);
-                        (*(code*)field_0[25])(this);
-                        local_88 =
-                            (vector<
-                                std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>,
-                                eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_344;
-                        eastl::vector<
-                            std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>,
-                            eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::resize(local_88,
-                                                                                                               4);
-                        local_40 = (shared_ptr<BuildTerrainResultWaterData>*)&field_456;
-                        local_40->resize(4);
-                        local_50 =
-                            (vector<
-                                shared_ptr<
-                                    eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-                                eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_600;
-                        eastl::vector<
-                            shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-                            eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                          eastl::allocator>>::resize(local_50, 4);
-                        local_b8 =
-                            (vector<
-                                shared_ptr<
-                                    eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-                                eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_704;
-                        eastl::vector<
-                            shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-                            eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                          eastl::allocator>>::resize(local_b8, 4);
-                        local_48 = (shared_ptr*)m_waterHeights;
-                        local_98 = (float*)&field_224;
-                        local_b0 = &field_852;
-                        local_a8 = (shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                             eastl::allocator>>*)&field_808;
-                        local_34 = 0.0;
-                        do {
-                            psVar4 = (shared_ptr*)std::array<shared_ptr<BuildTerrainResultLevelData>, 4ul>::operator[](
-                                local_a0, (ulong)(uint)local_34);
-                            bVar1 = shared_ptr::operator_cast_to_bool(psVar4);
-                            if (bVar1) {
-                                pvVar5 = (vector*)shared_ptr<BuildTerrainResultLevelData>::operator*(
-                                    (shared_ptr<BuildTerrainResultLevelData>*)psVar4);
-                                lVar6 = ((pvVar5 + 96))->size();
-                                if (lVar6 != 0) {
-                                    in_stack_fffffffffffffd08 = pvVar5 + 164;
-                                    in_stack_fffffffffffffd18 = (fixed_hash_map*)(pvVar5 + 12640);
-                                    local_60[0] = local_98;
-                                    local_90 = local_b0;
-                                    std::make_unique<graphics::TerrainPatch, unsigned int&, math::AABB&,
-                                                     eastl::vector<graphics::TerrainPatchVertex, eastl::allocator>&,
-                                                     eastl::vector<graphics::TerrainPatchVertexPos, eastl::allocator>&,
-                                                     int&, int&, int&, shared_ptr<graphics::TextureAtlasReference>&,
-                                                     eastl::fixed_hash_map<int, graphics::RenderChunk, 256ul, 257ul,
-                                                                           true, eastl::hash<int>, eastl::equal_to<int>,
-                                                                           false, eastl::allocator>&,
-                                                     math::Matrix44T<float>*, float*>(
-                                        (uint*)local_2c0, (AABB*)&local_34, pvVar5, pvVar5 + 96, (int*)(pvVar5 + 128),
-                                        (int*)(pvVar5 + 160), (int*)in_stack_fffffffffffffd08,
-                                        (shared_ptr*)(pvVar5 + 12656), in_stack_fffffffffffffd18,
-                                        (Matrix44T**)(pvVar5 + 168), (float**)local_60);
-                                    puVar7 = (unique_ptr<graphics::TerrainPatch,
-                                                         std::default_delete<graphics::TerrainPatch>>*)
-                                        eastl::vector<
-                                            std::unique_ptr<graphics::TerrainPatch,
-                                                            std::default_delete<graphics::TerrainPatch>>,
-                                            eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                        operator[](local_88, (ulong)(uint)local_34);
-                                    std::unique_ptr<
-                                        graphics::TerrainPatch,
-                                        std::default_delete<graphics::TerrainPatch>>::operator=(puVar7,
-                                                                                                (unique_ptr*)local_2c0);
-                                    local_2c0->~unique_ptr();
-                                }
-                                psVar8 =
-                                    (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>*)
-                                        eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                               eastl::allocator>>,
-                                                      eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                    eastl::allocator>>::
-                                        operator[](
-                                            (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                             eastl::allocator>>,
-                                                    eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                  eastl::allocator>>*)local_40,
-                                            (ulong)(uint)local_34);
-                                shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>::
-                                operator=(psVar8, (shared_ptr*)(pvVar5 + 32));
-                                if (local_34 == 0.0) {
-                                    shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>::
-                                    operator=((shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                        eastl::allocator>>*)local_48,
-                                              (shared_ptr*)(pvVar5 + 48));
-                                    shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                             eastl::allocator>>::operator=(local_a8,
-                                                                                           (shared_ptr*)(pvVar5 + 80));
-                                }
-                                psVar9 = (shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                                   eastl::allocator>>*)
-                                    eastl::vector<
-                                        shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                                 eastl::allocator>>,
-                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                    operator[](local_50, (ulong)(uint)local_34);
-                                shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                         eastl::allocator>>::operator=(psVar9,
-                                                                                       (shared_ptr*)(pvVar5 + 64));
-                                psVar9 = (shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                                   eastl::allocator>>*)
-                                    eastl::vector<
-                                        shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                                 eastl::allocator>>,
-                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                    operator[](local_b8, (ulong)(uint)local_34);
-                                psVar9->swap((shared_ptr*)(pvVar5 + 12624));
-                            } else {
-                                this_05 = (unique_ptr*)eastl::vector<
-                                    std::unique_ptr<graphics::TerrainPatch,
-                                                    std::default_delete<graphics::TerrainPatch>>,
-                                    eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                operator[](local_88, (ulong)(uint)local_34);
-                                bVar1 = std::unique_ptr::operator_cast_to_bool(this_05);
-                                if (bVar1) {
-                                    puVar7 = (unique_ptr<graphics::TerrainPatch,
-                                                         std::default_delete<graphics::TerrainPatch>>*)
-                                        eastl::vector<
-                                            std::unique_ptr<graphics::TerrainPatch,
-                                                            std::default_delete<graphics::TerrainPatch>>,
-                                            eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                        operator[](local_88, (ulong)(uint)local_34);
-                                    std::unique_ptr<
-                                        graphics::TerrainPatch,
-                                        std::default_delete<graphics::TerrainPatch>>::reset(puVar7, (TerrainPatch*)0);
-                                }
-                                psVar4 = (shared_ptr*)eastl::vector<
-                                    shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                             eastl::allocator>>,
-                                    eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                operator[](local_50, (ulong)(uint)local_34);
-                                bVar1 = shared_ptr::operator_cast_to_bool(psVar4);
-                                if (bVar1) {
-                                    eastl::vector<
-                                        shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                                 eastl::allocator>>,
-                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                    operator[](local_50, (ulong)(uint)local_34);
-                                    shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                             eastl::allocator>>::reset();
-                                }
-                                if (local_34 == 0.0) {
-                                    psVar4 = (shared_ptr*)eastl::vector<
-                                        shared_ptr<
-                                            eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                    operator[]((vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                eastl::allocator>>,
-                                                       eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                     eastl::allocator>>*)local_40,
-                                               0);
-                                    bVar1 = shared_ptr::operator_cast_to_bool(psVar4);
-                                    if (bVar1) {
-                                        eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                               eastl::allocator>>,
-                                                      eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                    eastl::allocator>>::
-                                        operator[](
-                                            (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                             eastl::allocator>>,
-                                                    eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                  eastl::allocator>>*)local_40,
-                                            (ulong)(uint)local_34);
-                                        shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                 eastl::allocator>>::reset();
-                                    }
-                                    bVar1 = shared_ptr::operator_cast_to_bool(local_48);
-                                    if (bVar1) {
-                                        shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                 eastl::allocator>>::reset();
-                                    }
-                                } else {
-                                    psVar4 = (shared_ptr*)eastl::vector<
-                                        shared_ptr<
-                                            eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                    operator[]((vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                eastl::allocator>>,
-                                                       eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                     eastl::allocator>>*)local_40,
-                                               (ulong)((int)local_34 - 1));
-                                    bVar1 = shared_ptr::operator_cast_to_bool(psVar4);
-                                    if (bVar1) {
-                                        psVar4 = (shared_ptr*)
-                                            eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                   eastl::allocator>>,
-                                                          eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                        eastl::allocator>>::
-                                            operator[](
-                                                (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                 eastl::allocator>>,
-                                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                      eastl::allocator>>*)local_40,
-                                                (ulong)(uint)local_34);
-                                        bVar1 = shared_ptr::operator_cast_to_bool(psVar4);
-                                        if (bVar1) {
-                                            psVar8 = (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                               eastl::allocator>>*)
-                                                eastl::vector<
-                                                    shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                             eastl::allocator>>,
-                                                    eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                  eastl::allocator>>::
-                                                operator[](
-                                                    (vector<
-                                                        shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                 eastl::allocator>>,
-                                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                      eastl::allocator>>*)local_40,
-                                                    (ulong)(uint)local_34);
-                                            pvVar10 =
-                                                (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)
-                                                    shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                             eastl::allocator>>::operator->(psVar8);
-                                            eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                          eastl::allocator>::resize(pvVar10, 66);
-                                        } else {
-                                            local_60[0] = (float*)CONCAT44(local_60[0]._4_4_, 66);
-                                            make_shared<
-                                                eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>,
-                                                int>((jag*)local_2c0, (int*)local_60);
-                                            psVar8 = (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                               eastl::allocator>>*)
-                                                eastl::vector<
-                                                    shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                             eastl::allocator>>,
-                                                    eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                  eastl::allocator>>::
-                                                operator[](
-                                                    (vector<
-                                                        shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                 eastl::allocator>>,
-                                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                      eastl::allocator>>*)local_40,
-                                                    (ulong)(uint)local_34);
-                                            shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                     eastl::allocator>>::operator=(psVar8,
-                                                                                                   (shared_ptr*)
-                                                                                                       local_2c0);
-                                            local_2c0->~shared_ptr();
-                                        }
-                                        psVar8 = (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                           eastl::allocator>>*)
-                                            eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                   eastl::allocator>>,
-                                                          eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                        eastl::allocator>>::
-                                            operator[](
-                                                (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                 eastl::allocator>>,
-                                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                      eastl::allocator>>*)local_40,
-                                                (ulong)(uint)local_34);
-                                        local_68 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)
-                                            shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                     eastl::allocator>>::operator*(psVar8);
-                                        uVar19 = 0;
-                                        do {
-                                            uVar11 = eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                   eastl::allocator>::operator[](local_68, uVar19);
-                                            eastl::vector<int, eastl::allocator>::resize(uVar11);
-                                            if (local_34 == 0.0) {
-                                                pvVar10 = (vector<eastl::vector<int, eastl::allocator>,
-                                                                  eastl::allocator>*)
-                                                    shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                             eastl::allocator>>::
-                                                    operator*(
-                                                        (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                  eastl::allocator>>*)local_48);
-                                                uVar11 = eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                       eastl::allocator>::operator[](pvVar10, uVar19);
-                                                eastl::vector<int, eastl::allocator>::resize(uVar11);
-                                            }
-                                            uVar19 = uVar19 + 1;
-                                        } while (uVar19 != 66);
-                                        uVar19 = 0;
-                                        do {
-                                            uVar11 = uVar19 + 1;
-                                            uVar17 = 0;
-                                            do {
-                                                in_stack_fffffffffffffd08 =
-                                                    (vector*)((ulong)in_stack_fffffffffffffd08 & 18446744069414584320);
-                                                GetTileHeight(this, local_2c0, (int)local_34 - 1, uVar19 & 4294967295,
-                                                              uVar17 & 4294967295, 1, in_stack_fffffffffffffd08);
-                                                iVar18 = local_2c0._0_4_ + 960;
-                                                this_06 = (vector<int, eastl::allocator>*)
-                                                    eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                  eastl::allocator>::operator[](local_68, uVar11);
-                                                uVar17 = uVar17 + 1;
-                                                piVar12 = (int*)eastl::vector<int, eastl::allocator>::operator[](
-                                                    this_06, uVar17);
-                                                *piVar12 = iVar18;
-                                            } while (uVar17 != 64);
-                                            uVar19 = uVar11;
-                                        } while (uVar11 != 64);
-                                    } else {
-                                        psVar4 = (shared_ptr*)
-                                            eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                   eastl::allocator>>,
-                                                          eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                        eastl::allocator>>::
-                                            operator[](
-                                                (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                 eastl::allocator>>,
-                                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                      eastl::allocator>>*)local_40,
-                                                (ulong)(uint)local_34);
-                                        bVar1 = shared_ptr::operator_cast_to_bool(psVar4);
-                                        if (bVar1) {
-                                            eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                   eastl::allocator>>,
-                                                          eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                        eastl::allocator>>::
-                                            operator[](
-                                                (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                                 eastl::allocator>>,
-                                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                      eastl::allocator>>*)local_40,
-                                                (ulong)(uint)local_34);
-                                            shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>,
-                                                                     eastl::allocator>>::reset();
-                                        }
-                                    }
-                                }
-                            }
-                            local_34 = (float)((int)local_34 + 1);
-                        } while ((uint)local_34 < 4);
-                        psVar4 = (shared_ptr*)(local_a0 + 64);
-                        this_07 = (shared_ptr<BuildTerrainResultWaterData>*)psVar4->HeapBeginPtr();
-                        psVar13 = (shared_ptr<BuildTerrainResultWaterData>*)psVar4->end();
-                        if (this_07 != psVar13) {
-                            local_50 = (vector<shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                                        eastl::allocator>>,
-                                               eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                             eastl::allocator>>*)&field_328;
-                            local_48 = (shared_ptr*)&field_416;
-                            local_68 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)&field_1680;
-                            local_40 = psVar13;
-                            do {
-                                this_08 =
-                                    (vector<int,
-                                            eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                        shared_ptr<BuildTerrainResultWaterData>::operator->(this_07);
-                                cVar2 =
-                                    eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
-                                                                                     eastl::allocator>>::empty(this_08);
-                                if (cVar2 == '\0') {
-                                    lVar6 = shared_ptr<BuildTerrainResultWaterData>::operator->(this_07);
-                                    psVar4 = ConfigProvider::GetConfig<WaterType>(local_c0, *(int*)(lVar6 + 96),
-                                                                                  (DataStatus**)0);
-                                    this_09 = (AnimationWrapper*)shared_ptr<WaterType>::operator->(
-                                        (shared_ptr<WaterType>*)psVar4);
-                                    cVar2 = this_09->IsReadyAnim();
-                                    if (cVar2 == '\0') {
-                                        this_10 = (WaterType*)shared_ptr<WaterType>::operator*(
-                                            (shared_ptr<WaterType>*)local_50);
-                                    } else {
-                                        this_10 = (WaterType*)shared_ptr<WaterType>::operator*(
-                                            (shared_ptr<WaterType>*)psVar4);
-                                    }
-                                    lVar6 = shared_ptr<BuildTerrainResultWaterData>::operator->(this_07);
-                                    local_34 = (float)CONCAT31(local_34._1_3_, 1);
-                                    WaterType::operator_cast_to_WaterPatchConfig((WaterPatchConfig*)local_2c0, this_10);
-                                    pWVar14 =
-                                        (WaterPatchConfig*)shared_ptr<BuildTerrainResultWaterData>::operator->(this_07);
-                                    lVar15 = shared_ptr<BuildTerrainResultWaterData>::operator->(this_07);
-                                    psVar4 = (shared_ptr*)(lVar6 + 64);
-                                    local_90 = local_98;
-                                    MakeSharedPool<graphics::WaterPatch, 32>::MakeShared<
-                                        graphics::RT7Core*&, math::AABB&, bool, graphics::WaterPatchConfig,
-                                        eastl::vector<unsigned short, eastl::allocator>,
-                                        eastl::vector<graphics::WaterPatchVertex, eastl::allocator>,
-                                        math::Matrix44T<float>*>((shared_ptr*)local_60,
-                                                                 (MakeSharedPool<graphics::WaterPatch, 32>*)local_68,
-                                                                 (RT7Core**)psVar4, (AABB*)&local_34, (bool*)local_2c0,
-                                                                 pWVar14, (vector*)(lVar15 + 32), (vector*)&local_90,
-                                                                 (Matrix44T**)in_stack_fffffffffffffd18);
-                                    local_48->push_back(local_60);
-                                    local_60->~shared_ptr();
-                                    psVar13 = local_40;
-                                }
-                                this_07 = this_07 + 16;
-                            } while (this_07 != psVar13);
-                        }
-                    } else {
-                        m_heightZero = 1;
-                    }
-                    shared_ptr<BuildTerrainMain>::reset();
-                    uVar16 = FrameTime::GetCurrentTimeMS();
-                    field_824 = uVar16;
-                    field_852 = -1.0;
-                    m_hasFade = 1;
-                    bVar1 = field_848 == field_66;
-                    uVar19 = CONCAT71((int7)((ulong)psVar4 >> 8), bVar1);
-                    if (bVar1) {
-                        CreateCombinedLocalAABB(this);
-                    }
-                    local_78.~shared_ptr();
-                    goto LAB_1003f99ee;
-                }
-                shared_ptr<BuildTerrainMain>::reset();
-            }
-        } else {
-            local_60[0]._0_4_ = 65536;
-            this_02 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)&field_176);
+        uint8_t* this_00 = field_832;
+        if (!(this_00->operator_cast_to_bool())) {
+            local_60[0]._0_4_ = 9.18355e-41;
+            this_02 = (World*)field_176.operator->();
             this_03 = (Frustum*)this_02->GetLastFrustum();
-            this_04 = (OpenGLView*)GetNode();
-            pAVar3 = (AABB*)this_04->GetCursorMutex();
-            cVar2 = this_03->TestIntersection(pAVar3);
-            if (cVar2 != '\0') {
-                local_60[0]._0_4_ = (int)local_60[0] + 8;
+            this_04 = GetNode();
+            pAVar13 = (AABB*)this_04->GetCursorMutex();
+            if (this_03->TestIntersection(*pAVar13)) {
+                local_60[0]._0_4_ = (float)((int)local_60[0]._0_4_ + 8);
             }
-            if (param_2 < 2) {
-                local_60[0]._0_4_ = (int)local_60[0] + 4;
-            } else if (param_2 < 4) {
-                local_60[0]._0_4_ = (int)local_60[0] + 2;
+            if (arg2 < 2) {
+                local_60[0]._0_4_ = (float)((int)local_60[0]._0_4_ + 4);
+            } else if (arg2 < 4) {
+                local_60[0]._0_4_ = (float)((int)local_60[0]._0_4_ + 2);
             }
             local_2c0[8] = field_66;
             if (field_65 < local_2c0[8]) {
-                local_60[0]._0_4_ = (int)local_60[0] + -2;
+                local_60[0]._0_4_ = (float)((int)local_60[0]._0_4_ - 2);
             }
             local_2c0._0_4_ = field_288;
             local_2c0._4_4_ = field_292;
             local_2c0._16_8_ = &field_296;
-            local_2a8 = &field_312;
+            local_2a8 = (BaseTemplateConfigTypeList<WaterType>*)&field_312;
             local_2a0 = &field_328;
             local_298 = field_448[0];
             bucket_make_shared<BuildTerrainMain, graphics::RT7Core*&, int&, TerrainInputData&>(
-                (jag*)&local_78, &field_1680, (int*)local_60, (TerrainInputData*)local_2c0);
-            shared_ptr<BuildTerrainMain>::operator=((shared_ptr<BuildTerrainMain>*)this_00, &local_78);
-            local_78.~shared_ptr();
+                (ReturnValue*)local_78, &field_1680, (int*)local_60, (TerrainInputData*)local_2c0);
+            *this_00 = *local_78;
             field_848 = field_66;
-            new (&local_78) shared_ptr<oldscape::dash3d::Decor>(this_00);
-            param_1->SubmitJob(&local_78);
-            local_78.~shared_ptr();
+            new (local_78) shared_ptr(this_00);
+            assetBuilder->SubmitJob(*local_78);
+        } else {
+            local_80 = (shared_ptr<BuildTerrainMain>*)this_00;
+            this_01 = (LoginManager*)**this_00;
+            if (this_01->IsFinished()) {
+                if (this_01->IsMissingData()) {
+                    local_80->reset();
+                    Destruct();
+                    CreateCombinedLocalAABB();
+                    uVar15 = (((uint64_t)((int64_t)((unsigned long)this_01 >> 8)) << 8) | (uint8_t)1);
+                    goto LAB_1003f99ee;
+                }
+                if (this_01->IsSuccessful()) {
+                    this_01->GetDevCredentialsOutputDirectory();
+                    pAVar13 = (AABB*)local_78;
+                    static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(
+                        (shared_ptr<oldscape::ClientNpc>*)pAVar13);
+                    if (!(pAVar13->operator_cast_to_bool())) {
+                        m_heightZero = 1;
+                    } else {
+                        local_a0 = (array<shared_ptr<BuildTerrainResultLevelData>, 4ul>*)**local_78;
+                        Destruct();
+                        local_88 = (vector<std::unique_ptr<graphics::TerrainPatch>,
+                                           eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true>>*)&field_344;
+                        local_88->resize(4);
+                        local_40 = (shared_ptr<BuildTerrainResultWaterData>*)&field_456;
+                        local_40->resize(4);
+                        local_50 = (vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>,
+                                           eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true>>*)&field_600;
+                        local_50->resize(4);
+                        local_b8 = (vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>,
+                                           eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true>>*)&field_704;
+                        local_b8->resize(4);
+                        local_48 = (shared_ptr*)m_waterHeights;
+                        local_98 = (Matrix44T<float>*)&field_224;
+                        local_b0 = (Matrix44T<float>*)&field_852;
+                        local_a8 = (shared_ptr<eastl::vector<eastl::vector<unsigned char>>>*)&field_808;
+                        local_34 = 0.0;
+                        do {
+                            psVar2 = (shared_ptr*)(*local_a0)[(unsigned long)(unsigned int)local_34];
+                            if (!(shared_ptr::operator_cast_to_bool(psVar2))) {
+                                if (((*local_88)[(unsigned long)(unsigned int)local_34])->operator_cast_to_bool()) {
+                                    puVar4 = (unique_ptr<graphics::TerrainPatch>*)(*local_88)[(
+                                        unsigned long)(unsigned int)local_34];
+                                    puVar4->reset(nullptr);
+                                }
+                                psVar2 = (shared_ptr*)(*local_50)[(unsigned long)(unsigned int)local_34];
+                                if (shared_ptr::operator_cast_to_bool(psVar2)) {
+                                    psVar6 = (shared_ptr<eastl::vector<eastl::vector<unsigned char>>>*)(*local_50)[(
+                                        unsigned long)(unsigned int)local_34];
+                                    psVar6->reset();
+                                }
+                                if (local_34 == 0.0) {
+                                    psVar2 = (shared_ptr*)(*local_40)[0];
+                                    if (shared_ptr::operator_cast_to_bool(psVar2)) {
+                                        psVar5 = (shared_ptr<eastl::vector<eastl::vector<int>>>*)(*local_40)[(
+                                            unsigned long)(unsigned int)local_34];
+                                        psVar5->reset();
+                                    }
+                                    if (shared_ptr::operator_cast_to_bool(local_48)) {
+                                        local_48->reset();
+                                    }
+                                } else {
+                                    psVar2 = (shared_ptr*)(*local_40)[(unsigned long)((int)local_34 - 1)];
+                                    if (!(shared_ptr::operator_cast_to_bool(psVar2))) {
+                                        psVar2 = (shared_ptr*)(*local_40)[(unsigned long)(unsigned int)local_34];
+                                        if (shared_ptr::operator_cast_to_bool(psVar2)) {
+                                            psVar5 = (shared_ptr<eastl::vector<eastl::vector<int>>>*)(*local_40)[(
+                                                unsigned long)(unsigned int)local_34];
+                                            psVar5->reset();
+                                        }
+                                    } else {
+                                        psVar2 = (shared_ptr*)(*local_40)[(unsigned long)(unsigned int)local_34];
+                                        if (!(shared_ptr::operator_cast_to_bool(psVar2))) {
+                                            local_60[0] =
+                                                (Matrix44T<float>*)(((uint64_t)local_60[0]._4_4_ << 32) | (uint32_t)66);
+                                            make_shared<eastl::vector<eastl::vector<int>>, int>((ReturnValue*)local_2c0,
+                                                                                                (int*)local_60);
+                                            psVar5 = (shared_ptr<eastl::vector<eastl::vector<int>>>*)(*local_40)[(
+                                                unsigned long)(unsigned int)local_34];
+                                            *psVar5 = *local_2c0;
+                                        } else {
+                                            psVar5 = (shared_ptr<eastl::vector<eastl::vector<int>>>*)(*local_40)[(
+                                                unsigned long)(unsigned int)local_34];
+                                            pvVar7 = (vector<eastl::vector<int>>*)(*psVar5).operator->();
+                                            pvVar7->resize(66);
+                                        }
+                                        psVar5 = (shared_ptr<eastl::vector<eastl::vector<int>>>*)(*local_40)[(
+                                            unsigned long)(unsigned int)local_34];
+                                        local_78._16_8_ = **psVar5;
+                                        uVar15 = 0;
+                                        do {
+                                            pvVar8 = (vector<int>*)(*local_78._16_8_)[uVar15];
+                                            pvVar8->resize(66);
+                                            if (local_34 == 0.0) {
+                                                pvVar7 = (vector<eastl::vector<int>>*)**local_48;
+                                                pvVar8 = (vector<int>*)(*pvVar7)[uVar15];
+                                                pvVar8->resize(66);
+                                            }
+                                            uVar15 = uVar15 + 1;
+                                        } while (uVar15 != 66);
+                                        uVar15 = 0;
+                                        do {
+                                            arg1 = uVar15 + 1;
+                                            arg1_00 = 0;
+                                            do {
+                                                GetTileHeight(*local_2c0, (int)local_34 - 1, (int)uVar15, (int)arg1_00,
+                                                              true, 0);
+                                                iVar14 = local_2c0._0_4_ + 960;
+                                                pvVar8 = (vector<int>*)(*local_78._16_8_)[arg1];
+                                                arg1_00 = arg1_00 + 1;
+                                                piVar9 = (int*)(*pvVar8)[arg1_00];
+                                                *piVar9 = iVar14;
+                                            } while (arg1_00 != 64);
+                                            uVar15 = arg1;
+                                        } while (arg1 != 64);
+                                    }
+                                }
+                            } else {
+                                terrainPatchVertexs = (vector<graphics::TerrainPatchVertex>*)**psVar2;
+                                lVar3 = ((terrainPatchVertexs + 96))->size();
+                                if (lVar3 != 0) {
+                                    local_60[0] = local_98;
+                                    local_90 = local_b0;
+                                    std::make_unique<
+                                        graphics::TerrainPatch, unsigned int&, math::AABB&,
+                                        eastl::vector<graphics::TerrainPatchVertex>&,
+                                        eastl::vector<graphics::TerrainPatchVertexPos>&, int&, int&, int&,
+                                        shared_ptr<graphics::TextureAtlasReference>&,
+                                        eastl::fixed_hash_map<int, graphics::RenderChunk, 256ul, 257ul, true,
+                                                              eastl::hash<int>, eastl::equal_to<int>, false>&,
+                                        math::Matrix44T<float>*, float*>(
+                                        *local_2c0, local_34, *terrainPatchVertexs, *((terrainPatchVertexs + 96)),
+                                        *((terrainPatchVertexs + 128)), *((terrainPatchVertexs + 160)),
+                                        *((terrainPatchVertexs + 164)), *((terrainPatchVertexs + 12656)),
+                                        *((terrainPatchVertexs + 12640)), *((terrainPatchVertexs + 168)), *local_60);
+                                    puVar4 = (unique_ptr<graphics::TerrainPatch>*)(*local_88)[(
+                                        unsigned long)(unsigned int)local_34];
+                                    *puVar4 = *local_2c0;
+                                }
+                                psVar5 = (shared_ptr<eastl::vector<eastl::vector<int>>>*)(*local_40)[(
+                                    unsigned long)(unsigned int)local_34];
+                                *psVar5 = (*((terrainPatchVertexs + 32)));
+                                if (local_34 == 0.0) {
+                                    *local_48 = (*((terrainPatchVertexs + 48)));
+                                    *local_a8 = (*((terrainPatchVertexs + 80)));
+                                }
+                                psVar6 = (shared_ptr<eastl::vector<eastl::vector<unsigned char>>>*)(*local_50)[(
+                                    unsigned long)(unsigned int)local_34];
+                                *psVar6 = (*((terrainPatchVertexs + 64)));
+                                psVar6 = (shared_ptr<eastl::vector<eastl::vector<unsigned char>>>*)(*local_b8)[(
+                                    unsigned long)(unsigned int)local_34];
+                                psVar6->swap(*((terrainPatchVertexs + 12624)));
+                            }
+                            local_34 = (float)((int)local_34 + 1);
+                        } while ((unsigned int)local_34 < 4);
+                        pAVar13 = (AABB*)(local_a0 + 64);
+                        this_06 = (shared_ptr<BuildTerrainResultWaterData>*)pAVar13->HeapBeginPtr();
+                        psVar10 = (shared_ptr<BuildTerrainResultWaterData>*)pAVar13->end();
+                        if (this_06 != psVar10) {
+                            local_50 = (vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>,
+                                               eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true>>*)&field_328;
+                            local_48 = (shared_ptr*)&field_416;
+                            local_78._16_8_ = &field_1680;
+                            local_40 = psVar10;
+                            do {
+                                if (!(((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(*this_06)
+                                           .operator->())
+                                          ->empty())) {
+                                    lVar3 = (*this_06).operator->();
+                                    this_08 = configProvider->GetConfig<WaterType>(*(int*)(lVar3 + 96), nullptr);
+                                    if (!(((AnimationWrapper*)(*this_08).operator->())->IsReadyAnim())) {
+                                        **local_50;
+                                    } else {
+                                        **this_08;
+                                    }
+                                    lVar3 = (*this_06).operator->();
+                                    local_34 = (float)(((uint32_t)local_34._1_3_ << 8) | (uint8_t)1);
+                                    local_2c0->operator_cast_to_WaterPatchConfig();
+                                    arg5 = (vector<unsigned short>*)(*this_06).operator->();
+                                    lVar11 = (*this_06).operator->();
+                                    pAVar13 = (AABB*)(lVar3 + 64);
+                                    local_90 = local_98;
+                                    local_60->MakeShared<graphics::RT7Core*&, math::AABB&, bool,
+                                                         graphics::WaterPatchConfig, eastl::vector<unsigned short>,
+                                                         eastl::vector<graphics::WaterPatchVertex>,
+                                                         math::Matrix44T<float>*>(
+                                        local_78._16_8_, pAVar13, &local_34, local_2c0, arg5, (lVar11 + 32), &local_90);
+                                    local_48->push_back(*local_60);
+                                    psVar10 = local_40;
+                                }
+                                this_06 = this_06 + 16;
+                            } while (this_06 != psVar10);
+                        }
+                    }
+                    local_80->reset();
+                    field_824 = FrameTime::GetCurrentTimeMS();
+                    field_852 = -1.0;
+                    m_hasFade = 1;
+                    bVar16 = field_848 == field_66;
+                    uVar15 = (((uint64_t)((int64_t)((unsigned long)pAVar13 >> 8)) << 8) | (uint8_t)bVar16);
+                    if (bVar16) {
+                        CreateCombinedLocalAABB();
+                    }
+                    goto LAB_1003f99ee;
+                }
+                local_80->reset();
+            }
         }
-        uVar19 = 0;
+        uVar15 = 0;
     LAB_1003f99ee:
-        return uVar19 & 4294967295;
+        return uVar15 & 4294967295;
     }
 
-    // 0x1003fa130, 256 bytes, placed by class name and debug map
-    // Terrain::CreateCombinedLocalAABB()
+    // 0x1003fa130
     void Terrain::CreateCombinedLocalAABB() {
-        undefined1* this_00;
         NXTPixToolkit* pNVar1;
         AABB* pAVar2;
-        unique_ptr* puVar5;
-        shared_ptr<graphics::WaterPatch>* psVar6;
-        unique_ptr* this_01;
-        shared_ptr<graphics::WaterPatch>* this_02;
 
-        this_00 = &field_192;
+        uint8_t* this_00 = &field_192;
         this_00->Reset();
-        this_01 = (unique_ptr*)(&field_344)->HeapBeginPtr();
-        puVar5 = (unique_ptr*)(&field_344)->end();
-        for (; this_01 != puVar5; this_01 = this_01 + 8) {
+        auto this_01 = field_344.HeapBeginPtr();
+        auto puVar4 = field_344.end();
+        for (; this_01 != puVar4; this_01 = this_01 + 8) {
             if (std::unique_ptr::operator_cast_to_bool(this_01)) {
-                pNVar1 =
-                    (NXTPixToolkit*)std::
-                        unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>::operator->(
-                            (unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>*)this_01);
+                pNVar1 = (NXTPixToolkit*)(*this_01).operator->();
                 pAVar2 = (AABB*)pNVar1->GetScreen();
-                this_00->Union(pAVar2);
+                this_00->Union(*pAVar2);
             }
         }
-        this_02 = (shared_ptr<graphics::WaterPatch>*)(&field_416)->HeapBeginPtr();
-        psVar6 = (shared_ptr<graphics::WaterPatch>*)(&field_416)->end();
-        for (; this_02 != psVar6; this_02 = this_02 + 16) {
-            pNVar1 = (NXTPixToolkit*)shared_ptr<graphics::WaterPatch>::operator->(this_02);
+        auto this_02 = field_416.HeapBeginPtr();
+        auto psVar5 = field_416.end();
+        for (; this_02 != psVar5; this_02 = this_02 + 16) {
+            pNVar1 = (NXTPixToolkit*)(*this_02).operator->();
             pAVar2 = (AABB*)pNVar1->GetScreen();
-            this_00->Union(pAVar2);
+            this_00->Union(*pAVar2);
         }
-        if (this_00->IsValid() == '\0') {
+        if (!(this_00->IsValid())) {
             RemoveAABB();
         } else {
-            SetAABB(this_00);
+            SetAABB(*this_00);
         }
     }
 
-    // 0x1003fa9d0, 368 bytes, placed by class name
-    // Terrain::GetTileHeight(int&, int, int, int, bool, HeightOffsetType) const
-    undefined* Terrain::GetTileHeight(int* param_1, int param_2, int param_3, int param_4, char param_5, int param_7) {
-        undefined1* this_00;
+    // 0x1003fa9d0
+    uint8_t* Terrain::GetTileHeight(int& arg1, int arg2, int arg3, int arg4, bool arg5,
+                                    HeightOffsetType heightOffsetType) const {
+        uint8_t* arg1_00;
         bool bVar1;
-        int iVar2;
-        vector<eastl::vector<int, eastl::allocator>, eastl::allocator>* pvVar3;
-        vector<int, eastl::allocator>* pvVar4;
-        int* piVar5;
-        shared_ptr* this_01;
-        shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>* this_02;
-        undefined** ppuVar6;
+        bool cVar2;
+        int iVar3;
+        vector<eastl::vector<int>>* pvVar4;
+        vector<int>* pvVar5;
+        int* piVar6;
+        shared_ptr<eastl::vector<eastl::vector<int>>>* this_01;
+        uint8_t** ppuVar7;
         int local_34;
 
-        *param_1 = -1;
+        arg1 = -1;
         if (m_heightZero == '\0') {
-            this_00 = &field_456;
-            local_34 = param_2;
-            bVar1 = ArrayValidPosition<
-                eastl::fixed_vector<
-                    shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>, 4ul,
-                    true, eastl::allocator>,
-                int>((fixed_vector*)this_00, &local_34);
-            ppuVar6 = &DataStatus::MISSING;
+            arg1_00 = &field_456;
+            local_34 = arg2;
+            bVar1 =
+                ArrayValidPosition<eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>, 4ul>,
+                                   int>((fixed_vector<shared_ptr<eastl::vector<eastl::vector<int>> _>, _4ul>*)arg1_00,
+                                        &local_34);
+            ppuVar7 = &DataStatus::MISSING;
             if (!bVar1)
                 goto LAB_1003fab2d;
-            if ((param_5 == '\0') || (local_34 != 0)) {
-                this_01 = (shared_ptr*)
-                    eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                  eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                        (long)local_34);
-                bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-                if (!bVar1)
+            if ((arg5) && (local_34 == 0)) {
+                cVar2 = m_waterHeights->operator_cast_to_bool();
+                if (!cVar2)
                     goto LAB_1003fab2d;
-                this_02 = (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>*)
-                    eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                  eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                        (long)local_34);
-                pvVar3 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)
-                    shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>::operator*(
-                        this_02);
-                pvVar4 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](
-                        pvVar3, (long)(param_3 + 1));
-                piVar5 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar4, (long)(param_4 + 1));
-                *param_1 = *piVar5;
+                pvVar4 = (vector<eastl::vector<int>>*)**m_waterHeights;
+                pvVar5 = (vector<int>*)(*pvVar4)[(long)(arg3 + 1)];
+                piVar6 = (int*)(*pvVar5)[(long)(arg4 + 1)];
+                arg1 = *piVar6;
             } else {
-                bVar1 = m_waterHeights->operator_cast_to_bool();
-                if (!bVar1)
+                cVar2 = ((*arg1_00)[(long)local_34])->operator_cast_to_bool();
+                if (!cVar2)
                     goto LAB_1003fab2d;
-                pvVar3 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)
-                    shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>::operator*(
-                        (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>*)
-                            m_waterHeights);
-                pvVar4 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](
-                        pvVar3, (long)(param_3 + 1));
-                piVar5 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar4, (long)(param_4 + 1));
-                *param_1 = *piVar5;
+                this_01 = (shared_ptr<eastl::vector<eastl::vector<int>>>*)(*arg1_00)[(long)local_34];
+                pvVar4 = (vector<eastl::vector<int>>*)**this_01;
+                pvVar5 = (vector<int>*)(*pvVar4)[(long)(arg3 + 1)];
+                piVar6 = (int*)(*pvVar5)[(long)(arg4 + 1)];
+                arg1 = *piVar6;
             }
-            if (param_7 == 0) {
-                ppuVar6 = &DataStatus::READY;
+            if (heightOffsetType == 0) {
+                ppuVar7 = &DataStatus::READY;
                 goto LAB_1003fab2d;
             }
-            iVar2 = GetLocationHeightOffset(this, local_34, param_3, param_4, param_7);
-            iVar2 = iVar2 + *param_1;
-            ppuVar6 = &DataStatus::READY;
+            iVar3 = GetLocationHeightOffset(local_34, arg3, arg4, heightOffsetType);
+            iVar3 = iVar3 + arg1;
+            ppuVar7 = &DataStatus::READY;
         } else {
-            ppuVar6 = &DataStatus::MISSING;
-            iVar2 = 0;
+            ppuVar7 = &DataStatus::MISSING;
+            iVar3 = 0;
         }
-        *param_1 = iVar2;
+        arg1 = iVar3;
     LAB_1003fab2d:
-        return *ppuVar6;
+        return *ppuVar7;
     }
 
-    // 0x1003fad70, 288 bytes, placed by class name
-    // Terrain::GetTerrainData(shared_ptr<PacketT<Array<unsigned char, eastl::allocator> > >&, Js5ResourceProvider*, int, int)
-    undefined* Terrain::GetTerrainData(shared_ptr* param_1, Js5ResourceProvider* param_2, int param_3, int param_4) {
-        undefined* puVar1;
-        undefined8 uVar2;
+    // 0x1003fad70
+    void Terrain::GetTerrainData(shared_ptr<PacketT<Array<unsigned char>>>& arg1,
+                                 Js5ResourceProvider* js5ResourceProvider, int arg3, int arg4) {
+        Logger* pLVar2;
         LogStream local_c8;
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        puVar1 = (undefined*)param_2->GetFile(param_1, Js5Archive::JS5_MAPS, param_4 << 7 | param_3, 5,
-                                              (Priority*)Priority::HIGH, true, false, false);
+        auto puVar1 = js5ResourceProvider->GetFile(arg1, *(Js5Archive::JS5_MAPS), arg4 << 7 | arg3, 5,
+                                                   (Priority*)Priority::HIGH, true, false, false);
         if (puVar1 == DataStatus::MISSING) {
-            uVar2 = logger::default_logger();
-            new (&local_c8) logger::LogStream((LogStream*)&LOGGER_SCENE);
-            logger::Logger::Log(uVar2, 0, &local_c8, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
-                                "scene/entities/Terrain.cpp",
-                                350, "TerrainData [%ix%i] missing", param_3, param_4);
-            local_c8.~LogStream();
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            pLVar2 = logger::default_logger();
+            local_c8 = logger::LogStream(LOGGER_SCENE);
+            ((uint8_t)pLVar2)
+                ->Log(nullptr, (LogLevel)&local_c8, 3, 14423086, 350, "TerrainData [%ix%i] missing", arg3, arg4);
         }
         return puVar1;
     }
 
-    // 0x1003fae90, 32 bytes, placed by class name
-    // Terrain::PreventFadeIn()
+    // 0x1003fae90
     void Terrain::PreventFadeIn() {
         if (m_hasFade != '\0') {
             field_852 = 0.0;
@@ -821,488 +492,396 @@ namespace jag::game {
         }
     }
 
-    // 0x1003faeb0, 80 bytes, placed by class name
-    // Terrain::Destruct()
+    // 0x1003faeb0
     void Terrain::Destruct() {
-        (&field_344)->clear();
-        (&field_456)->clear();
-        shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>::reset();
-        (&field_600)->clear();
+        field_344.clear();
+        field_456.clear();
+        m_waterHeights->reset();
+        field_600.clear();
     }
 
-    // 0x1003faf30, 240 bytes, placed by class name
-    // Terrain::MainLogic(graphics::RT7Core&, unsigned int, math::Matrix44T<float> const&)
-    void Terrain::MainLogic(RT7Core* param_1, uint param_2, Matrix44T* param_3) {
+    // 0x1003faf30
+    void Terrain::MainLogic(graphics::RT7Core& rt7Core, unsigned int arg2, const math::Matrix44T<float>& matrix44) {
         long lVar1;
-        shared_ptr<graphics::WaterPatch>* this_00;
-        shared_ptr<graphics::WaterPatch>* psVar2;
-        WaterPatch* this_01;
         float fVar3;
 
         if ((m_hasFade != '\0') && (field_852 <= 0.0 && field_852 != 0.0)) {
             lVar1 = FrameTime::GetCurrentTimeMS();
-            fVar3 = (float)(ulong)(lVar1 - field_824) * 0.0033333334 + -1.0;
+            fVar3 = (float)(unsigned long)(lVar1 - field_824) * 0.0033333334f - 1.0;
             field_852 = fVar3;
             if (0.0 <= fVar3) {
                 m_hasFade = 0;
                 field_852 = 0.0;
             }
         }
-        this_00 = (shared_ptr<graphics::WaterPatch>*)(&field_416)->HeapBeginPtr();
-        psVar2 = (shared_ptr<graphics::WaterPatch>*)(&field_416)->end();
+        auto this_00 = field_416.HeapBeginPtr();
+        auto psVar2 = field_416.end();
         for (; this_00 != psVar2; this_00 = this_00 + 16) {
-            this_01 = (WaterPatch*)shared_ptr<graphics::WaterPatch>::operator->(this_00);
-            this_01->SetFade(field_852);
+            ((WaterPatch*)(*this_00).operator->())->SetFade(field_852);
         }
-        UpdateIrradiance(this);
+        UpdateIrradiance();
     }
 
-    // 0x1003fb050, 384 bytes, placed by class name
-    // Terrain::UpdateIrradiance()
+    // 0x1003fb050
     void Terrain::UpdateIrradiance() {
-        undefined1* this_00;
-        uint uVar1;
-        byte bVar2;
-        char cVar3;
-        int iVar5;
-        World* pWVar6;
-        shared_ptr<MapSquare>* this_01;
-        int* piVar7;
-        uint* puVar8;
-        unique_ptr* this_02;
-        TerrainPatch* this_03;
-        IrradianceEffect* this_04;
-        ulong uVar9;
+        unsigned int uVar1;
+        unsigned int* puVar7;
+        unique_ptr* this_03;
+        TerrainPatch* this_04;
+        unsigned long arg1;
         IrradianceSHCoefConsts local_a8;
 
-        this_00 = &field_176;
-        pWVar6 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)this_00);
-        this_01 = (shared_ptr<MapSquare>*)pWVar6->GetMapSquare(field_288, field_292);
-        pWVar6 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)this_00);
-        iVar5 = pWVar6->GetMaxRenderLevel();
-        pWVar6 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)this_00);
-        piVar7 = (int*)pWVar6->GetCentreSquarePosition();
-        bVar2 = GetNumTilesPerRow();
-        if (bVar2 < 3) {
-            if ((*piVar7 + -1 <= (int)field_288) && ((int)field_288 <= *piVar7 + 1)) {
-                if ((piVar7[1] + -1 <= (int)field_292) && ((int)field_292 <= piVar7[1] + 1))
+        uint8_t* this_00 = &field_176;
+        World* pWVar5 = (World*)(*this_00).operator->();
+        auto this_01 = pWVar5->GetMapSquare(field_288, field_292);
+        pWVar5 = (World*)(*this_00).operator->();
+        int iVar4 = pWVar5->GetMaxRenderLevel();
+        pWVar5 = (World*)(*this_00).operator->();
+        auto piVar6 = pWVar5->GetCentreSquarePosition();
+        if (GetNumTilesPerRow() < 3) {
+            if ((*piVar6 - 1 <= (int)field_288) && ((int)field_288 <= *piVar6 + 1)) {
+                if ((piVar6[1] - 1 <= (int)field_292) && ((int)field_292 <= piVar6[1] + 1))
                     goto LAB_1003fb0c7;
             }
         }
-        iVar5 = 0;
+        iVar4 = 0;
     LAB_1003fb0c7:
-        cVar3 = (&field_344)->empty();
-        if (cVar3 == '\0') {
-            local_a8.field_0 = iVar5 + 1;
-            puVar8 = (uint*)std::min<int>((int*)&local_a8, (int*)&constants::MapConstants::LEVELS);
-            uVar1 = *puVar8;
-            shared_ptr<MapSquare>::operator->(this_01);
-            local_a8.GetIrradianceSHConsts();
+        if (!(field_344.empty())) {
+            local_a8.field_0 = iVar4 + 1;
+            puVar7 = (unsigned int*)std::min<int>(local_a8, *((int*)&constants::MapConstants::LEVELS));
+            uVar1 = *puVar7;
+            local_a8 = ((MapSquare*)(*this_01).operator->())->GetIrradianceSHConsts();
             if (0 < (int)uVar1) {
-                uVar9 = 0;
+                arg1 = 0;
                 do {
-                    this_02 = (unique_ptr*)eastl::vector<
-                        std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>,
-                        eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>,
-                                eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_344,
-                        uVar9);
-                    if (std::unique_ptr::operator_cast_to_bool(this_02)) {
-                        this_03 =
-                            (TerrainPatch*)
-                                std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>::
-                                operator->(
-                                    (unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>*)
-                                        this_02);
-                        this_04 = (IrradianceEffect*)this_03->GetIrradianceEffect();
-                        this_04->SetCoefficients(&local_a8);
+                    this_03 = &field_344[arg1];
+                    if (std::unique_ptr::operator_cast_to_bool(this_03)) {
+                        this_04 = (TerrainPatch*)(*this_03).operator->();
+                        ((IrradianceEffect*)this_04->GetIrradianceEffect())->SetCoefficients(local_a8);
                     }
-                    uVar9 = uVar9 + 1;
-                } while (uVar1 != uVar9);
+                    arg1 = arg1 + 1;
+                } while (uVar1 != arg1);
             }
         }
     }
 
-    // 0x1003fb200, 1104 bytes, placed by class name
-    // Terrain::GatherDrawableElements(graphics::DrawableQueue&, graphics::RT7Core&, math::Matrix44T<float> const&, graphics::SceneViewData const&, graphics::EffectManager const&)
-    void Terrain::GatherDrawableElements(DrawableQueue* param_1, RT7Core* param_2, Matrix44T* param_3,
-                                         SceneViewData* param_4, EffectManager* param_5) {
-        undefined1* this_00;
-        char cVar1;
-        bool bVar2;
-        char cVar3;
-        undefined1 uVar4;
-        bool bVar5;
-        int iVar6;
-        World* pWVar7;
-        undefined8* puVar8;
+    // 0x1003fb200
+    void Terrain::GatherDrawableElements(graphics::DrawableQueue& drawableQueue, graphics::RT7Core& rt7Core,
+                                         const math::Matrix44T<float>& matrix44,
+                                         const graphics::SceneViewData& sceneViewData,
+                                         const graphics::EffectManager& effectManager) {
+        uint8_t* this_00;
+        bool arg6;
+        bool cVar2;
+        uint8_t arg5;
+        bool bVar3;
+        int iVar4;
+        World* pWVar5;
+        uint64_t* puVar6;
         Terrain* this_01;
-        TerrainPatch* pTVar9;
+        TerrainPatch* pTVar7;
         shared_ptr<graphics::WaterPatch>* this_02;
-        shared_ptr<graphics::WaterPatch>* psVar10;
-        long* plVar11;
-        ulong uVar12;
-        undefined4 in_stack_fffffffffffffd0c;
-        undefined4 local_2b0;
+        shared_ptr<graphics::WaterPatch>* psVar8;
+        long* plVar9;
+        unsigned long arg1;
+        uint32_t in_stack_fffffffffffffd0c;
+        uint32_t local_2b0;
         bool local_28a;
         bool local_289;
-        undefined1 local_288[296];
-        fixed_vector<unsigned char, 256ul, true, eastl::allocator> local_160[296];
-        long local_38;
+        uint8_t local_288[296];
+        fixed_vector<unsigned char, 256ul> local_160;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        cVar1 = (*(code*)field_0[35])();
-        if (cVar1 != '\0') {
-            math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_224, param_3);
+        char cVar1 = CanRender();
+        if (cVar1) {
+            field_224 = matrix44;
             this_00 = &field_176;
-            pWVar7 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)this_00);
-            pWVar7->GetCentreSquarePosition();
-            pWVar7 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)this_00);
-            pWVar7->GetMaxRenderLevel();
+            pWVar5 = (World*)(*this_00).operator->();
+            pWVar5->GetCentreSquarePosition();
+            pWVar5 = (World*)(*this_00).operator->();
+            pWVar5->GetMaxRenderLevel();
             GetNumTilesPerRow();
             local_28a = true;
-            bVar2 = (bool)param_4->HasRenderPass();
+            arg6 = (bool)sceneViewData.HasRenderPass(5);
             local_2b0 = 0;
-            if (bVar2 != false) {
+            if (arg6 != false) {
                 local_2b0 = 0;
-                puVar8 = (undefined8*)eastl::vector<
-                    graphics::RenderPass*, eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                operator[]((vector<graphics::RenderPass*,
-                                   eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)&param_4
-                               ->field_520,
-                           0);
-                iVar6 = (*puVar8)->GetPos();
-                if (iVar6 == 5) {
-                    puVar8 = (undefined8*)
-                        eastl::vector<graphics::RenderPass*,
-                                      eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<graphics::RenderPass*,
-                                    eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)&param_4
-                                ->field_520,
-                            0);
-                    local_2b0 = (*puVar8)->GetLevel();
+                puVar6 = &sceneViewData.field_520[0];
+                iVar4 = (*puVar6)->GetPos();
+                if (iVar4 == 5) {
+                    puVar6 = &sceneViewData.field_520[0];
+                    local_2b0 = (*puVar6)->GetLevel();
                 }
             }
             cVar1 = '\x01';
-            if (bVar2 == false) {
-                cVar1 = param_4->HasShadowPass();
+            if (arg6 == false) {
+                cVar1 = sceneViewData.HasShadowPass();
             }
-            if (cVar1 == '\0') {
-                cVar3 = param_4->HasRenderPass(4);
-                uVar4 = true;
-                if (cVar3 == '\0') {
-                    uVar4 = param_4->HasRenderPass(2);
+            if (!cVar1) {
+                cVar2 = sceneViewData.HasRenderPass(4);
+                arg5 = true;
+                if (!cVar2) {
+                    arg5 = sceneViewData.HasRenderPass(2);
                 }
             } else {
-                uVar4 = false;
+                arg5 = false;
             }
-            if ((cVar1 == '\0') && (cVar1 = param_4->HasRenderPass(3), cVar1 == '\0')) {
-                param_4->HasRenderPass(9);
+            if ((!cVar1) && (cVar1 = sceneViewData.HasRenderPass(3), !cVar1)) {
+                sceneViewData.HasRenderPass(9);
             }
-            uVar12 = 0;
+            arg1 = 0;
             do {
-                this_01 = (Terrain*)
-                    eastl::vector<std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>,
-                                  eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>,
-                                eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_344,
-                        uVar12);
-                bVar5 = this_01->operator_cast_to_bool();
-                if (bVar5) {
+                this_01 = &field_344[arg1];
+                cVar1 = this_01->operator_cast_to_bool();
+                if (cVar1) {
                     local_289 = false;
-                    eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator>::fixed_vector(local_160);
-                    bVar5 = (bool)
-                        std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>::operator*(
-                            (unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>*)this_01);
-                    iVar6 = shared_ptr<World>::operator*((shared_ptr<World>*)this_00);
-                    CalculateRemoveRoofChunks((Terrain*)local_288, (bool*)this, &local_289, (TerrainPatch*)&local_28a,
-                                              bVar5, (bool)uVar4, bVar2, false, 0, (int)uVar12,
-                                              (World*)CONCAT44(in_stack_fffffffffffffd0c, local_2b0), iVar6);
-                    eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator>::operator=(
-                        local_160, (fixed_vector*)local_288);
-                    local_288->~fixed_vector();
+                    local_160 = eastl::fixed_vector<unsigned char, 256ul>();
+                    bVar3 = (bool)**this_01;
+                    iVar4 = **this_00;
+                    CalculateRemoveRoofChunks(
+                        (Terrain*)local_288, (bool*)this, &local_289, (TerrainPatch*)&local_28a, bVar3, (bool)arg5,
+                        arg6, false, 0, (int)arg1,
+                        (World*)(((uint64_t)in_stack_fffffffffffffd0c << 32) | (uint32_t)local_2b0), iVar4);
+                    local_160 = *local_288;
                     if (local_289 == false) {
-                        pTVar9 =
-                            (TerrainPatch*)
-                                std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>::
-                                operator->(
-                                    (unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>*)
-                                        this_01);
-                        pTVar9->GatherDrawableElements(param_1, param_2, param_4, param_5, local_160);
+                        pTVar7 = (TerrainPatch*)(*this_01).operator->();
+                        pTVar7->GatherDrawableElements(drawableQueue, rt7Core, sceneViewData, effectManager, local_160);
                     }
-                    bVar5 = local_28a;
-                    pTVar9 = (TerrainPatch*)
-                        std::unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>::operator*(
-                            (unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>*)this_01);
-                    DebugShowPrimitiveTerrainPatchWhole(this_01, (bool)uVar4, bVar5, pTVar9, (int)uVar12);
-                    eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator>::~fixed_vector(local_160);
+                    bVar3 = local_28a;
+                    pTVar7 = (TerrainPatch*)**this_01;
+                    DebugShowPrimitiveTerrainPatchWhole(this_01, (bool)arg5, bVar3, pTVar7, (int)arg1);
                 }
-                uVar12 = uVar12 + 1;
-            } while (uVar12 != 4);
-            this_02 = (shared_ptr<graphics::WaterPatch>*)(&field_416)->HeapBeginPtr();
-            psVar10 = (shared_ptr<graphics::WaterPatch>*)(&field_416)->end();
-            for (; this_02 != psVar10; this_02 = this_02 + 16) {
-                plVar11 = (long*)shared_ptr<graphics::WaterPatch>::operator->(this_02);
-                (**(code**)(*plVar11 + 16))(plVar11, param_1, param_2, param_4, param_5);
+                arg1 = arg1 + 1;
+            } while (arg1 != 4);
+            this_02 = (shared_ptr<graphics::WaterPatch>*)field_416.HeapBeginPtr();
+            psVar8 = (shared_ptr<graphics::WaterPatch>*)field_416.end();
+            for (; this_02 != psVar8; this_02 = this_02 + 16) {
+                plVar9 = (long*)(*this_02).operator->();
+                (**(void (**)(...))(*plVar9 + 16))(plVar9, drawableQueue, rt7Core, sceneViewData, effectManager);
             }
-            (&field_864, param_1, param_2, param_4, param_5)->GatherDrawableElements();
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            field_864.GatherDrawableElements(drawableQueue, rt7Core, sceneViewData, effectManager);
         }
     }
 
-    // 0x1003fb690, 1360 bytes, placed by class name
-    // Terrain::CalculateRemoveRoofChunks(bool&, bool&, graphics::TerrainPatch&, bool, bool, bool, bool, int, int, World&, int)
-    Terrain* Terrain::CalculateRemoveRoofChunks(bool* param_1, bool* param_2, TerrainPatch* param_3, bool param_4,
-                                                bool param_5, bool param_6, bool param_7, int param_8, int param_9,
-                                                World* param_10, int param_11) {
-        bool bVar1;
-        int iVar2;
-        char cVar3;
-        bool bVar4;
-        undefined1 uVar5;
-        int iVar6;
+    // 0x1003fb690
+    Terrain* Terrain::CalculateRemoveRoofChunks(bool& arg1, bool& arg2, graphics::TerrainPatch& terrainPatch, bool arg4,
+                                                bool arg5, bool arg6, bool arg7, int arg8, int arg9, World& world,
+                                                int arg11) {
+        bool arg1_00;
+        int iVar1;
+        bool cVar2;
+        uint8_t uVar3;
+        int iVar4;
         hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator,
                   eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>, eastl::hash<int>,
                   eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*
             this_00;
-        pair* ppVar7;
-        int* piVar8;
-        ulong uVar9;
-        char* pcVar10;
-        uint uVar11;
-        undefined8 extraout_RDX;
-        uint uVar12;
-        uint uVar13;
-        uint uVar14;
-        undefined7 in_register_00000081;
-        uint uVar15;
-        ulong uVar16;
-        undefined1 auVar17[16];
-        undefined4 in_stack_00000034;
+        pair<int const, graphics::RenderChunk>* ppVar5;
+        int* piVar6;
+        unsigned long uVar7;
+        char* pcVar8;
+        unsigned int uVar9;
+        unsigned int arg1_01;
+        unsigned int uVar10;
+        unsigned int uVar11;
+        uint64_t in_register_00000081;
+        bool bVar12;
+        unsigned int uVar13;
+        unsigned long uVar14;
+        uint32_t in_stack_00000034;
         int in_stack_00000038;
-        undefined8 local_f0;
-        undefined8 local_e8;
-        undefined1 local_e0[24];
-        bool* local_c8;
-        Rect* local_c0;
-        pair<int, graphics::RenderChunk> local_b8[32];
+        uint8_t local_f0[16];
+        uint8_t local_e0[24];
+        Rect<int>* local_c0;
+        pair<int, graphics::RenderChunk> local_b8;
         RemoveRoof* local_98;
-        Terrain* local_90;
-        TerrainPatch* local_88;
-        ulong local_80;
-        TerrainPatch* local_78;
-        ulong local_70;
-        undefined1 local_68[16];
-        ulong local_58;
-        ulong local_50;
-        ulong local_48;
-        Terrain* local_40;
-        pair* local_38;
+        unsigned long local_80;
+        unsigned long local_70;
+        uint8_t local_68[16];
+        unsigned long local_58;
+        unsigned long local_50;
+        unsigned long local_48;
+        pair<int const, graphics::RenderChunk>* local_38;
 
-        local_78 = (TerrainPatch*)CONCAT71(in_register_00000081, param_4);
-        local_c8 = param_2;
-        local_90 = (Terrain*)param_1;
-        local_88 = param_3;
-        new (this) eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator>();
-        if (param_6) {
-            if (param_9 == 0) {
+        TerrainPatch* local_78 = (TerrainPatch*)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg4);
+        bool* local_c8 = arg2;
+        TerrainPatch* local_88 = terrainPatch;
+        new (this) eastl::fixed_vector<unsigned char, 256ul>();
+        if (arg6) {
+            if (arg9 == 0) {
                 return this;
             }
-            if ((int)param_10 < param_9) {
+            if ((int)world < arg9) {
                 local_b8[0] = (pair<int, graphics::RenderChunk>)0;
                 push_back(local_b8);
                 return this;
             }
             return this;
         }
-        if (!param_5) {
+        if (!arg5) {
             return this;
         }
-        if (param_9 < 1) {
+        if (arg9 < 1) {
             local_b8[0] = (pair<int, graphics::RenderChunk>)0;
             push_back(local_b8);
         } else {
-            local_98 = (RemoveRoof*)(CONCAT44(in_stack_00000034, param_11))->GetRemoveRoof();
-            cVar3 = local_98->AnyRoofRemoved();
-            if (cVar3 == '\0') {
-                cVar3 = (CONCAT44(in_stack_00000034, param_11))->IsRemoveRoofSelective();
-                if (cVar3 != '\0')
+            local_98 = (RemoveRoof*)((World*)(((uint64_t)in_stack_00000034 << 32) | (uint32_t)arg11))->GetRemoveRoof();
+            cVar2 = local_98->AnyRoofRemoved();
+            if (!cVar2) {
+                cVar2 = ((World*)(((uint64_t)in_stack_00000034 << 32) | (uint32_t)arg11))->IsRemoveRoofSelective();
+                if (cVar2)
                     goto LAB_1003fbb56;
             }
             this_00 = (hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator,
                                  eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>,
                                  eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                                  eastl::prime_rehash_policy, false, true, true>*)local_78->GetRenderChunks();
-            local_c0 = (Rect*)local_98->GetBoundsForLevel(param_9);
-            local_68 = eastl::hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator,
-                                        eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>,
-                                        eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                        eastl::prime_rehash_policy, false, true, true>::begin();
-            auVar17 = eastl::hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator,
-                                       eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>,
-                                       eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                       eastl::prime_rehash_policy, false, true, true>::end(this_00);
-            local_e8 = auVar17._8_8_;
+            local_c0 = (Rect<int>*)local_98->GetBoundsForLevel(arg9);
+            local_68 = this_00->begin();
+            local_f0 = this_00->end();
             local_70 = 0;
-            local_40 = this;
             while (true) {
-                local_f0 = auVar17._0_8_;
-                bVar4 = eastl::operator!=((eastl*)local_68, (hashtable_iterator_base*)&local_f0, auVar17._8_8_);
-                if (!bVar4)
+                cVar2 = *local_68 != *local_f0;
+                if (!cVar2)
                     break;
-                ppVar7 = (pair*)local_68->HeapBeginPtr();
-                if (*(uint*)ppVar7 == 0) {
+                ppVar5 = (pair<int const, graphics::RenderChunk>*)local_68->HeapBeginPtr();
+                if (*(unsigned int*)ppVar5 == 0) {
                     local_b8[0] = (pair<int, graphics::RenderChunk>)0;
                     push_back(local_b8);
-                } else if ((0 < (int)*(uint*)ppVar7) && (0 < (int)*(uint*)(ppVar7 + 12))) {
-                    uVar13 = *(uint*)(ppVar7 + 16);
-                    uVar15 = *(uint*)(ppVar7 + 20);
-                    uVar11 = uVar13 + 63;
+                } else if ((0 < (int)*(unsigned int*)ppVar5) && (0 < (int)*(unsigned int*)(ppVar5 + 12))) {
+                    uVar10 = *(unsigned int*)(ppVar5 + 16);
+                    uVar13 = *(unsigned int*)(ppVar5 + 20);
+                    uVar9 = uVar10 + 63;
+                    if (-1 < (int)uVar10) {
+                        uVar9 = uVar10;
+                    }
+                    arg1_01 = (int)uVar10 % 64 | (((int)uVar9 >> 6) + ((Terrain*)arg1)->field_288) * 64;
+                    uVar10 = *(unsigned int*)(ppVar5 + 24);
+                    uVar9 = uVar10 + 63;
+                    if (-1 < (int)uVar10) {
+                        uVar9 = uVar10;
+                    }
+                    uVar9 = (int)uVar10 % 64 | (((int)uVar9 >> 6) + ((Terrain*)arg1)->field_292) * 64;
+                    local_58 = (unsigned long)uVar9;
+                    uVar10 = uVar13 + 63;
                     if (-1 < (int)uVar13) {
-                        uVar11 = uVar13;
+                        uVar10 = uVar13;
                     }
-                    uVar12 = (int)uVar13 % 64 | (((int)uVar11 >> 6) + local_90->field_288) * 64;
-                    uVar13 = *(uint*)(ppVar7 + 24);
-                    uVar11 = uVar13 + 63;
-                    if (-1 < (int)uVar13) {
-                        uVar11 = uVar13;
+                    uVar11 = (int)uVar13 % 64 | (((int)uVar10 >> 6) + ((Terrain*)arg1)->field_288) * 64;
+                    local_48 = (unsigned long)uVar11;
+                    uVar10 = *(unsigned int*)(ppVar5 + 28);
+                    uVar13 = uVar10 + 63;
+                    if (-1 < (int)uVar10) {
+                        uVar13 = uVar10;
                     }
-                    uVar11 = (int)uVar13 % 64 | (((int)uVar11 >> 6) + local_90->field_292) * 64;
-                    local_58 = (ulong)uVar11;
-                    uVar13 = uVar15 + 63;
-                    if (-1 < (int)uVar15) {
-                        uVar13 = uVar15;
-                    }
-                    uVar14 = (int)uVar15 % 64 | (((int)uVar13 >> 6) + local_90->field_288) * 64;
-                    local_48 = (ulong)uVar14;
-                    uVar13 = *(uint*)(ppVar7 + 28);
-                    uVar15 = uVar13 + 63;
-                    if (-1 < (int)uVar13) {
-                        uVar15 = uVar13;
-                    }
-                    uVar13 = (int)uVar13 % 64 | (((int)uVar15 >> 6) + local_90->field_292) * 64;
-                    local_50 = (ulong)uVar13;
-                    local_38 = ppVar7;
+                    uVar10 = (int)uVar10 % 64 | (((int)uVar13 >> 6) + ((Terrain*)arg1)->field_292) * 64;
+                    local_50 = (unsigned long)uVar10;
+                    local_38 = ppVar5;
                     new (local_e0)
-                        oldscape::dash3d::GridRect(uVar12, uVar11, (uVar14 - uVar12) + 1, (uVar13 - uVar11) + 1);
-                    piVar8 = (int*)local_e0->second();
-                    if (*piVar8 < 0) {
+                        oldscape::dash3d::GridRect(arg1_01, uVar9, (uVar11 - arg1_01) + 1, (uVar10 - uVar9) + 1);
+                    piVar6 = (int*)local_e0->second();
+                    if (*piVar6 < 0) {
                     LAB_1003fb8cc:
-                        /* WARNING: Subroutine does not return */
                         LogAssert("rect.Width() >= 0 && rect.Height() >= 0",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                                   "scene/entities/Terrain.cpp",
-                                  1070, (char*)0);
+                                  1070, nullptr);
                     }
-                    piVar8 = (int*)local_e0->qw();
-                    if (*piVar8 < 0)
+                    piVar6 = (int*)local_e0->qw();
+                    if (*piVar6 < 0)
                         goto LAB_1003fb8cc;
-                    cVar3 = (CONCAT44(in_stack_00000034, param_11))->IsRemoveRoofSelective();
-                    local_80 = (ulong)uVar12;
-                    if (cVar3 == '\0') {
+                    cVar2 = ((World*)(((uint64_t)in_stack_00000034 << 32) | (uint32_t)arg11))->IsRemoveRoofSelective();
+                    local_80 = (unsigned long)arg1_01;
+                    if (!cVar2) {
                     LAB_1003fb912:
-                        local_e0._16_8_ = (CONCAT44(in_stack_00000034, param_11))->GetLinkMap();
-                        iVar6 = local_e0._16_8_->GetTileLinkZero(1, uVar12, (int)local_58);
-                        iVar6 = ((iVar6 << 30) >> 31) + param_9;
-                        uVar9 = (CONCAT44(in_stack_00000034, param_11))->IsRemoveRoofSelective();
-                        if ((char)uVar9 == '\0') {
-                            bVar4 = in_stack_00000038 < iVar6;
+                        local_e0._16_8_ =
+                            ((World*)(((uint64_t)in_stack_00000034 << 32) | (uint32_t)arg11))->GetLinkMap();
+                        iVar4 = local_e0._16_8_->GetTileLinkZero(1, arg1_01, (int)local_58);
+                        iVar4 = ((iVar4 << 30) >> 31) + arg9;
+                        uVar7 =
+                            ((World*)(((uint64_t)in_stack_00000034 << 32) | (uint32_t)arg11))->IsRemoveRoofSelective();
+                        if ((char)uVar7 == '\0') {
+                            bVar12 = in_stack_00000038 < iVar4;
                         } else {
-                            uVar9 = local_80;
+                            uVar7 = local_80;
                             if ((int)local_48 < (int)local_80) {
-                                bVar4 = false;
+                                bVar12 = false;
                             } else {
-                                iVar2 = (int)local_50;
-                                bVar4 = false;
+                                iVar1 = (int)local_50;
+                                bVar12 = false;
                                 do {
-                                    uVar16 = local_58 & 4294967295;
-                                    uVar13 = (uint)uVar9;
+                                    uVar14 = local_58 & 4294967295;
+                                    uVar10 = (unsigned int)uVar7;
                                     if ((int)local_58 <= (int)local_50) {
                                         do {
-                                            uVar15 = (uint)uVar16;
-                                            cVar3 = local_98->IsRoofRemoved(iVar6, uVar13, uVar15);
-                                            if (cVar3 != '\0') {
-                                                uVar11 = local_e0._16_8_->GetRemoveRoofID(param_9, uVar13, uVar15);
-                                                if (uVar11 == *(uint*)local_38) {
-                                                    bVar4 = true;
-                                                    uVar13 = (uint)local_48;
+                                            uVar13 = (unsigned int)uVar14;
+                                            cVar2 = local_98->IsRoofRemoved(iVar4, uVar10, uVar13);
+                                            if (cVar2) {
+                                                uVar9 = local_e0._16_8_->GetRemoveRoofID(arg9, uVar10, uVar13);
+                                                if (uVar9 == *(unsigned int*)local_38) {
+                                                    bVar12 = true;
+                                                    uVar10 = (unsigned int)local_48;
                                                     break;
                                                 }
                                             }
-                                            uVar16 = (ulong)(uVar15 + 1);
-                                        } while (iVar2 + 1U != uVar15 + 1);
+                                            uVar14 = (unsigned long)(uVar13 + 1);
+                                        } while (iVar1 + 1U != uVar13 + 1);
                                     }
-                                    uVar9 = (ulong)(uVar13 + 1);
-                                } while ((int)uVar13 < (int)local_48);
+                                    uVar7 = (unsigned long)(uVar10 + 1);
+                                } while ((int)uVar10 < (int)local_48);
                             }
                         }
-                        bVar4 = !bVar4;
-                        if (bVar4) {
-                            if (255 < *(uint*)local_38) {
-                                /* WARNING: Subroutine does not return */
+                        bVar12 = !bVar12;
+                        if (bVar12) {
+                            if (255 < *(unsigned int*)local_38) {
                                 LogAssert(
                                     "chunkPair.first <= std::numeric_limits<uint8>::max() && chunkPair.first >= 0",
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
                                     "runetek5/scene/entities/Terrain.cpp",
-                                    1151, (char*)0);
+                                    1151, nullptr);
                             }
                             local_b8[0] = *(pair<int, graphics::RenderChunk>*)local_38;
-                            local_40->push_back(local_b8);
-                            bVar4 = true;
+                            push_back(local_b8);
+                            bVar12 = true;
                         } else {
-                            local_70 = CONCAT71((int7)(uVar9 >> 8), 1);
+                            local_70 = (((uint64_t)((int64_t)(uVar7 >> 8)) << 8) | (uint8_t)1);
                         }
                     } else {
-                        cVar3 = local_e0->Intersects(local_c0);
-                        if (cVar3 != '\0')
+                        cVar2 = local_e0->Intersects(*local_c0);
+                        if (cVar2)
                             goto LAB_1003fb912;
-                        if (255 < *(uint*)local_38) {
-                            /* WARNING: Subroutine does not return */
+                        if (255 < *(unsigned int*)local_38) {
                             LogAssert("chunkPair.first <= std::numeric_limits<uint8>::max() && chunkPair.first >= 0",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
                                       "runetek5/scene/entities/Terrain.cpp",
-                                      1078, (char*)0);
+                                      1078, nullptr);
                         }
                         local_b8[0] = *(pair<int, graphics::RenderChunk>*)local_38;
                         push_back(local_b8);
-                        bVar4 = true;
-                        iVar6 = param_9;
+                        bVar12 = true;
+                        iVar4 = arg9;
                     }
-                    bVar1 = *(bool*)&local_88->field_0;
-                    eastl::pair<int, graphics::RenderChunk>::pair<int const, graphics::RenderChunk, void>(local_b8,
-                                                                                                          local_38);
-                    uVar5 = DebugShowPrimitiveTerrainPatch(local_90, bVar1, local_78, (pair*)local_b8, param_9, iVar6,
-                                                           (Rect*)local_e0, (int)local_80, (int)local_58, (int)local_48,
-                                                           (int)local_50, bVar4);
-                    *(undefined1*)&local_88->field_0 = uVar5;
-                    this = local_40;
+                    arg1_00 = *(bool*)&local_88->_vptr;
+                    local_b8.pair<int const, graphics::RenderChunk, void>(*local_38);
+                    uVar3 = DebugShowPrimitiveTerrainPatch((Terrain*)arg1, arg1_00, local_78, &local_b8, arg9, iVar4,
+                                                           (Rect<int>*)local_e0, (int)local_80, (int)local_58,
+                                                           (int)local_48, (int)local_50, bVar12);
+                    *(uint8_t*)&local_88->_vptr = uVar3;
+                    this = this;
                 }
-                eastl::hashtable_iterator<eastl::pair<int const, oldscape::midi2::MidiFile::PatchNoteSet>, false,
-                                          false>::
-                operator++(
-                    (hashtable_iterator<eastl::pair<int const, oldscape::midi2::MidiFile::PatchNoteSet>, false, false>*)
-                        local_68);
-                auVar17._8_8_ = extraout_RDX;
-                auVar17._0_8_ = local_f0;
+                ++*local_68;
             }
             if ((local_70 & 1) != 0) {
-                cVar3 = empty();
-                if (cVar3 != '\0') {
+                cVar2 = empty();
+                if (cVar2) {
                     *local_c8 = true;
                 }
             }
         }
     LAB_1003fbb56:
-        cVar3 = empty();
-        if (cVar3 == '\0') {
-            pcVar10 = (char*)front();
-            if (*pcVar10 != '\0') {
+        cVar2 = empty();
+        if (!cVar2) {
+            pcVar8 = (char*)front();
+            if (*pcVar8 != '\0') {
                 local_b8[0] = (pair<int, graphics::RenderChunk>)0;
                 push_back(local_b8);
             }
@@ -1310,323 +889,268 @@ namespace jag::game {
         return this;
     }
 
-    // 0x1003fbc50, 720 bytes, placed by class name
-    // Terrain::DebugShowPrimitiveTerrainPatchWhole(bool, bool, graphics::TerrainPatch&, int)
-    void Terrain::DebugShowPrimitiveTerrainPatchWhole(bool param_1, bool param_2, TerrainPatch* param_3, int param_4) {
-        uint uVar2;
-        uint uVar3;
-        undefined4 uVar4;
-        undefined4 uVar5;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_00;
-        vector<graphics::TerrainPatchVertex, eastl::allocator>* this_01;
-        math* this_02;
-        vector* pvVar6;
-        float* pfVar7;
-        long* plVar8;
-        char* pcVar10;
-        eastl::string local_1c0[32];
-        undefined8 local_1a0[2];
-        allocator local_190[8];
-        undefined1 local_188[12];
-        Layout local_17c[16];
+    // 0x1003fbc50
+    void Terrain::DebugShowPrimitiveTerrainPatchWhole(bool arg1, bool arg2, graphics::TerrainPatch& terrainPatch,
+                                                      int arg4) {
+        unsigned int uVar2;
+        unsigned int uVar3;
+        uint32_t uVar4;
+        uint32_t uVar5;
+        vector<graphics::TerrainPatchVertex>* this_01;
+        Vector3T<short>* vector3;
+        float* pfVar6;
+        long* plVar7;
+        char* str;
+        eastl::string local_1c0;
+        uint64_t local_1a0[2];
+        uint8_t local_188[12];
+        Layout local_17c;
         float local_16c;
-        fixed_string<char, 256, true, eastl::allocator> local_168[304];
-        long local_38;
+        fixed_string<char, 256> local_168;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (((m_debugPrimitiveText != '\0') && (param_1)) && (param_2)) {
-            this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                          param_3->GetVertexDataBuffer();
-            if (eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                    this_00) == '\0') {
-                this_01 = (vector<graphics::TerrainPatchVertex, eastl::allocator>*)param_3->GetVertexDataBuffer();
-                this_02 = (math*)eastl::vector<graphics::TerrainPatchVertex, eastl::allocator>::operator[](this_01, 0);
-                local_1a0[0] = math::Vector3FromVector3T<short>(this_02, (Vector3T*)(type*)0);
-                pvVar6 = local_1a0->SSOBeginPtr(0);
-                *(float*)pvVar6 = *(float*)pvVar6 + 16383.0;
-                pfVar7 = (float*)local_1a0->second();
-                *pfVar7 = *pfVar7 + 16383.0;
-                local_168->GetWorldTransform();
-                math::Vector3T<float>::operator*=((Vector3T<float>*)local_1a0, (Matrix44T*)local_168);
-                new ((local_188 + 8)) CoordFine(param_4, local_1a0);
-                eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_168);
+        if (((m_debugPrimitiveText != '\0') && (arg1)) && (arg2)) {
+            if (((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)
+                     terrainPatch.GetVertexDataBuffer())
+                    ->empty() == '\0') {
+                this_01 = (vector<graphics::TerrainPatchVertex>*)terrainPatch.GetVertexDataBuffer();
+                vector3 = (Vector3T<short>*)(*this_01)[0];
+                local_1a0[0] = math::Vector3FromVector3T<short>(*vector3);
+                pfVar6 = (float*)local_1a0->SSOBeginPtr();
+                *pfVar6 = *pfVar6 + 16383.0;
+                pfVar6 = (float*)local_1a0->second();
+                *pfVar6 = *pfVar6 + 16383.0;
+                local_168.GetWorldTransform();
+                *local_1a0 *= &local_168;
+                new ((local_188 + 8)) CoordFine(arg4, local_1a0);
+                local_168 = eastl::fixed_string<char, 256>();
                 uVar2 = ((local_188 + 8))->GetMapSquareX();
                 uVar3 = ((local_188 + 8))->GetMapSquareZ();
                 uVar4 = ((local_188 + 8))->GetLocalX();
                 uVar5 = ((local_188 + 8))->GetLocalZ();
-                pcVar10 = "TerrainPatch:%p @ %d,%d,%d,%d,%d";
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                    sprintf((char*)local_168, "TerrainPatch:%p @ %d,%d,%d,%d,%d", param_3, (ulong)(uint)param_4,
-                            (ulong)uVar2, (ulong)uVar3, uVar4, uVar5);
-                uVar2 = stringtools::hash32<eastl::fixed_string<char, 256, true, eastl::allocator>>(
-                    (fixed_string*)local_168);
+                local_168.sprintf("TerrainPatch:%p @ %d,%d,%d,%d,%d", terrainPatch, (unsigned long)(unsigned int)arg4,
+                                  (unsigned long)uVar2, (unsigned long)uVar3, uVar4, uVar5);
+                uVar2 = stringtools::hash32<eastl::fixed_string<char, 256>>(local_168);
                 local_16c = (float)((int)uVar2 % 100);
-                pvVar6 = eastl::string::Layout::SSOBeginPtr(local_17c, (type*)pcVar10);
-                *(float*)pvVar6 = *(float*)pvVar6 + local_16c;
-                pfVar7 = (float*)local_17c->y();
-                *pfVar7 = *pfVar7 + local_16c;
-                pfVar7 = (float*)local_17c->second();
-                *pfVar7 = local_16c + *pfVar7;
-                plVar8 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-                if (plVar8 != (long*)0) {
-                    pcVar10 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    eastl::allocator::allocator(local_190, "EASTL basic_string");
-                    eastl::string::basic_string(local_1c0, pcVar10, local_190);
+                pfVar6 = (float*)local_17c.SSOBeginPtr();
+                *pfVar6 = *pfVar6 + local_16c;
+                pfVar6 = (float*)local_17c.y();
+                *pfVar6 = *pfVar6 + local_16c;
+                pfVar6 = (float*)local_17c.second();
+                *pfVar6 = local_16c + *pfVar6;
+                plVar7 = DebugPrimitiveCollectorBasic::GetCollector("");
+                if (plVar7 != nullptr) {
+                    str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    local_1c0 = eastl::string(str);
                     new (local_188) oldscape::sidebars::SideBarData(-8323200, 0);
-                    (**(code**)(*plVar8 + 136))(plVar8, local_17c, local_1c0, local_188);
-                    eastl::string::~basic_string(local_1c0);
+                    (**(void (**)(...))(*plVar7 + 136))(plVar7, &local_17c, &local_1c0, local_188);
                 }
-                /* WARNING: Subroutine does not return */
-                local_168->~fixed_string();
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x1003fbf20, 176 bytes, placed by class name
-    // Terrain::AllocateLocationHeightOffsets(int)
-    void Terrain::AllocateLocationHeightOffsets(int param_1) {
+    // 0x1003fbf20
+    void Terrain::AllocateLocationHeightOffsets(int arg1) {
         array<std::array<HeightOffset, 64ul>, 64ul>* this_00;
         array<HeightOffset, 64ul>* this_01;
-        char cVar1;
-        ulong uVar2;
-        ulong uVar3;
-        undefined1* this_02;
-        undefined4 local_38[2];
+        unsigned long arg1_00;
+        unsigned long arg1_01;
+        uint32_t local_38[2];
 
-        this_02 = &field_560;
-        cVar1 = this_02->empty();
-        if (cVar1 != '\0') {
-            uVar2 = 0;
+        uint8_t* this_02 = &field_560;
+        if (this_02->empty() != '\0') {
+            arg1_00 = 0;
             this_02->set_max_size(4, 0);
             do {
-                this_00 = (array<std::array<HeightOffset, 64ul>, 64ul>*)
-                    Array<std::array<std::array<HeightOffset, 64ul>, 64ul>, eastl::allocator>::operator[](
-                        (Array<std::array<std::array<HeightOffset, 64ul>, 64ul>, eastl::allocator>*)this_02, uVar2);
-                uVar3 = 0;
+                this_00 = (array<std::array<HeightOffset, 64ul>, 64ul>*)(*this_02)[arg1_00];
+                arg1_01 = 0;
                 do {
-                    this_01 = (array<HeightOffset, 64ul>*)std::array<std::array<HeightOffset, 64ul>, 64ul>::operator[](
-                        this_00, uVar3);
+                    this_01 = (array<HeightOffset, 64ul>*)(*this_00)[arg1_01];
                     local_38[0] = 0;
-                    std::array<HeightOffset, 64ul>::fill(this_01, (HeightOffset*)local_38);
-                    uVar3 = uVar3 + 1;
-                } while (uVar3 != 64);
-                uVar2 = uVar2 + 1;
-            } while (uVar2 != 4);
+                    this_01->fill(*local_38);
+                    arg1_01 = arg1_01 + 1;
+                } while (arg1_01 != 64);
+                arg1_00 = arg1_00 + 1;
+            } while (arg1_00 != 4);
         }
-        Array<std::array<std::array<HeightOffset, 64ul>, 64ul>, eastl::allocator>::operator[](
-            (Array<std::array<std::array<HeightOffset, 64ul>, 64ul>, eastl::allocator>*)this_02, (long)param_1);
+        (*this_02)[(long)arg1];
     }
 
-    // 0x1003fc1e0, 256 bytes, placed by class name
-    // Terrain::ImportHeightAdjustments(Terrain const&)
-    void Terrain::ImportHeightAdjustments(Terrain* param_1) {
+    // 0x1003fc1e0
+    void Terrain::ImportHeightAdjustments(const Terrain& terrain) {
         int iVar1;
         array<std::array<HeightOffset, 64ul>, 64ul>* this_00;
         array<std::array<HeightOffset, 64ul>, 64ul>* this_01;
         array<HeightOffset, 64ul>* this_02;
         array<HeightOffset, 64ul>* this_03;
-        undefined4* puVar2;
-        undefined4* puVar3;
-        ulong uVar4;
-        ulong uVar5;
-        ulong uVar6;
+        uint32_t* puVar2;
+        uint32_t* puVar3;
+        unsigned long arg1_00;
+        unsigned long arg1_01;
 
-        uVar4 = 0;
+        unsigned long arg1 = 0;
         do {
-            iVar1 = (&param_1->field_560)->end();
-            if ((long)uVar4 < (long)iVar1) {
-                this_00 = (array<std::array<HeightOffset, 64ul>, 64ul>*)
-                    Array<std::array<std::array<HeightOffset, 64ul>, 64ul>, eastl::allocator>::operator[](
-                        (Array<std::array<std::array<HeightOffset, 64ul>, 64ul>, eastl::allocator>*)&param_1->field_560,
-                        uVar4);
-                this_01 = (array<std::array<HeightOffset, 64ul>, 64ul>*)AllocateLocationHeightOffsets(this, (int)uVar4);
-                uVar6 = 0;
+            iVar1 = terrain.field_560.end();
+            if ((long)arg1 < (long)iVar1) {
+                this_00 = &terrain.field_560[arg1];
+                this_01 = (array<std::array<HeightOffset, 64ul>, 64ul>*)AllocateLocationHeightOffsets((int)arg1);
+                arg1_01 = 0;
                 do {
-                    this_02 = (array<HeightOffset, 64ul>*)std::array<std::array<HeightOffset, 64ul>, 64ul>::operator[](
-                        this_01, uVar6);
-                    this_03 = (array<HeightOffset, 64ul>*)std::array<std::array<HeightOffset, 64ul>, 64ul>::operator[](
-                        this_00, uVar6);
-                    uVar5 = 0;
+                    this_02 = (array<HeightOffset, 64ul>*)(*this_01)[arg1_01];
+                    this_03 = (array<HeightOffset, 64ul>*)(*this_00)[arg1_01];
+                    arg1_00 = 0;
                     do {
-                        puVar2 = (undefined4*)std::array<HeightOffset, 64ul>::operator[](this_03, uVar5);
-                        puVar3 = (undefined4*)std::array<HeightOffset, 64ul>::operator[](this_02, uVar5);
+                        puVar2 = (uint32_t*)(*this_03)[arg1_00];
+                        puVar3 = (uint32_t*)(*this_02)[arg1_00];
                         *puVar3 = *puVar2;
-                        uVar5 = uVar5 + 1;
-                    } while (uVar5 != 64);
-                    uVar6 = uVar6 + 1;
-                } while (uVar6 != 64);
+                        arg1_00 = arg1_00 + 1;
+                    } while (arg1_00 != 64);
+                    arg1_01 = arg1_01 + 1;
+                } while (arg1_01 != 64);
             }
-            uVar4 = uVar4 + 1;
-        } while (uVar4 != 4);
+            arg1 = arg1 + 1;
+        } while (arg1 != 4);
     }
 
-    // 0x1003fc390, 352 bytes, placed by class name
-    // Terrain::AddLocationHeightOffset(int, int, int, int, int, int, int)
-    void Terrain::AddLocationHeightOffset(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6,
-                                          int param_7) {
+    // 0x1003fc390
+    void Terrain::AddLocationHeightOffset(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7) {
         bool bVar1;
         array<std::array<HeightOffset, 64ul>, 64ul>* this_00;
         array<HeightOffset, 64ul>* this_01;
         short* psVar3;
-        ulong uVar4;
-        ulong uVar5;
+        unsigned long arg1_00;
+        unsigned long arg1_01;
 
-        if (param_6 != 0 || param_7 != 0) {
-            if (constants::MapConstants::IsValidLevel(param_1) != '\0') {
-                if ((short)param_6 != param_6) {
-                    /* WARNING: Subroutine does not return */
+        if (arg6 != 0 || arg7 != 0) {
+            if (constants::MapConstants::IsValidLevel(arg1) != '\0') {
+                if ((short)arg6 != arg6) {
                     LogAssert("offsetGroundDecor >= std::numeric_limits<int16>::min() && offsetGroundDecor <= "
                               "std::numeric_limits<int16>::max()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "scene/entities/Terrain.cpp",
-                              543, (char*)0);
+                              543, nullptr);
                 }
-                if ((short)param_7 != param_7) {
-                    /* WARNING: Subroutine does not return */
+                if ((short)arg7 != arg7) {
                     LogAssert("offsetModel >= std::numeric_limits<int16>::min() && offsetModel <= "
                               "std::numeric_limits<int16>::max()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "scene/entities/Terrain.cpp",
-                              544, (char*)0);
+                              544, nullptr);
                 }
-                this_00 = (array<std::array<HeightOffset, 64ul>, 64ul>*)AllocateLocationHeightOffsets(this, param_1);
-                if (0 < param_6) {
-                    param_7 = 0;
+                this_00 = (array<std::array<HeightOffset, 64ul>, 64ul>*)AllocateLocationHeightOffsets(arg1);
+                if (0 < arg6) {
+                    arg7 = 0;
                 }
-                if ((0 < param_4) && (param_2 < 64)) {
-                    uVar5 = (long)param_2;
+                if ((0 < arg4) && (arg2 < 64)) {
+                    arg1_01 = (long)arg2;
                     do {
-                        this_01 =
-                            (array<HeightOffset, 64ul>*)std::array<std::array<HeightOffset, 64ul>, 64ul>::operator[](
-                                this_00, uVar5);
-                        if (0 < param_5 && param_3 < 64) {
-                            uVar4 = (long)param_3;
+                        this_01 = (array<HeightOffset, 64ul>*)(*this_00)[arg1_01];
+                        if (0 < arg5 && arg3 < 64) {
+                            arg1_00 = (long)arg3;
                             do {
-                                psVar3 = (short*)std::array<HeightOffset, 64ul>::operator[](this_01, uVar4);
-                                *psVar3 = *psVar3 + (short)param_6;
-                                psVar3[1] = psVar3[1] + (short)param_7;
-                                if ((long)(param_5 + param_3) <= (long)(uVar4 + 1))
+                                psVar3 = (short*)(*this_01)[arg1_00];
+                                *psVar3 = *psVar3 + (short)arg6;
+                                psVar3[1] = psVar3[1] + (short)arg7;
+                                if ((long)(arg5 + arg3) <= (long)(arg1_00 + 1))
                                     break;
-                                bVar1 = (long)uVar4 < 63;
-                                uVar4 = uVar4 + 1;
+                                bVar1 = (long)arg1_00 < 63;
+                                arg1_00 = arg1_00 + 1;
                             } while (bVar1);
                         }
-                    } while (((long)(uVar5 + 1) < (long)(param_4 + param_2)) &&
-                             (bVar1 = (long)uVar5 < 63, uVar5 = uVar5 + 1, bVar1));
+                    } while (((long)(arg1_01 + 1) < (long)(arg4 + arg2)) &&
+                             (bVar1 = (long)arg1_01 < 63, arg1_01 = arg1_01 + 1, bVar1));
                 }
             }
         }
     }
 
-    // 0x1003fc500, 352 bytes, placed by class name
-    // Terrain::RemoveLocationHeightOffset(int, int, int, int, int, int, int)
-    void Terrain::RemoveLocationHeightOffset(int param_1, int param_2, int param_3, int param_4, int param_5,
-                                             int param_6, int param_7) {
+    // 0x1003fc500
+    void Terrain::RemoveLocationHeightOffset(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7) {
         bool bVar1;
         array<std::array<HeightOffset, 64ul>, 64ul>* this_00;
         array<HeightOffset, 64ul>* this_01;
         short* psVar3;
-        ulong uVar4;
-        ulong uVar5;
+        unsigned long arg1_00;
+        unsigned long arg1_01;
 
-        if (param_6 != 0 || param_7 != 0) {
-            if (constants::MapConstants::IsValidLevel(param_1) != '\0') {
-                if ((short)param_6 != param_6) {
-                    /* WARNING: Subroutine does not return */
+        if (arg6 != 0 || arg7 != 0) {
+            if (constants::MapConstants::IsValidLevel(arg1) != '\0') {
+                if ((short)arg6 != arg6) {
                     LogAssert("offsetGroundDecor >= std::numeric_limits<int16>::min() && offsetGroundDecor <= "
                               "std::numeric_limits<int16>::max()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "scene/entities/Terrain.cpp",
-                              572, (char*)0);
+                              572, nullptr);
                 }
-                if ((short)param_7 != param_7) {
-                    /* WARNING: Subroutine does not return */
+                if ((short)arg7 != arg7) {
                     LogAssert("offsetModel >= std::numeric_limits<int16>::min() && offsetModel <= "
                               "std::numeric_limits<int16>::max()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "scene/entities/Terrain.cpp",
-                              573, (char*)0);
+                              573, nullptr);
                 }
-                this_00 = (array<std::array<HeightOffset, 64ul>, 64ul>*)AllocateLocationHeightOffsets(this, param_1);
-                if (0 < param_6) {
-                    param_7 = 0;
+                this_00 = (array<std::array<HeightOffset, 64ul>, 64ul>*)AllocateLocationHeightOffsets(arg1);
+                if (0 < arg6) {
+                    arg7 = 0;
                 }
-                if ((0 < param_4) && (param_2 < 64)) {
-                    uVar5 = (long)param_2;
+                if ((0 < arg4) && (arg2 < 64)) {
+                    arg1_01 = (long)arg2;
                     do {
-                        this_01 =
-                            (array<HeightOffset, 64ul>*)std::array<std::array<HeightOffset, 64ul>, 64ul>::operator[](
-                                this_00, uVar5);
-                        if (0 < param_5 && param_3 < 64) {
-                            uVar4 = (long)param_3;
+                        this_01 = (array<HeightOffset, 64ul>*)(*this_00)[arg1_01];
+                        if (0 < arg5 && arg3 < 64) {
+                            arg1_00 = (long)arg3;
                             do {
-                                psVar3 = (short*)std::array<HeightOffset, 64ul>::operator[](this_01, uVar4);
-                                *psVar3 = *psVar3 - (short)param_6;
-                                psVar3[1] = psVar3[1] - (short)param_7;
-                                if ((long)(param_5 + param_3) <= (long)(uVar4 + 1))
+                                psVar3 = (short*)(*this_01)[arg1_00];
+                                *psVar3 = *psVar3 - (short)arg6;
+                                psVar3[1] = psVar3[1] - (short)arg7;
+                                if ((long)(arg5 + arg3) <= (long)(arg1_00 + 1))
                                     break;
-                                bVar1 = (long)uVar4 < 63;
-                                uVar4 = uVar4 + 1;
+                                bVar1 = (long)arg1_00 < 63;
+                                arg1_00 = arg1_00 + 1;
                             } while (bVar1);
                         }
-                    } while (((long)(uVar5 + 1) < (long)(param_4 + param_2)) &&
-                             (bVar1 = (long)uVar5 < 63, uVar5 = uVar5 + 1, bVar1));
+                    } while (((long)(arg1_01 + 1) < (long)(arg4 + arg2)) &&
+                             (bVar1 = (long)arg1_01 < 63, arg1_01 = arg1_01 + 1, bVar1));
                 }
             }
         }
     }
 
-    // 0x1003fc6a0, 304 bytes, placed by class name
-    // Terrain::GetLocationHeightOffset(int, int, int, HeightOffsetType) const
-    int Terrain::GetLocationHeightOffset(int param_1, int param_2, int param_3, int param_5) {
+    // 0x1003fc6a0
+    int Terrain::GetLocationHeightOffset(int arg1, int arg2, int arg3, HeightOffsetType heightOffsetType) const {
         int iVar1;
-        bool bVar2;
         short sVar3;
         int iVar4;
         array<std::array<HeightOffset, 64ul>, 64ul>* this_00;
         int* piVar5;
         array<HeightOffset, 64ul>* this_01;
         short* psVar6;
-        undefined8 uVar7;
-        int local_3c;
-        int local_38;
         int local_34[3];
 
-        local_3c = param_2;
-        local_38 = param_3;
-        local_34[0] = param_1;
-        bVar2 = ArrayValidPosition<Array<VarValue, eastl::allocator>, int>((Array*)&field_560, local_34);
-        if (bVar2) {
-            this_00 = (array<std::array<HeightOffset, 64ul>, 64ul>*)
-                Array<std::array<std::array<HeightOffset, 64ul>, 64ul>, eastl::allocator>::operator[](
-                    (Array<std::array<std::array<HeightOffset, 64ul>, 64ul>, eastl::allocator>*)&field_560,
-                    (long)local_34[0]);
+        local_34[0] = arg1;
+        if (ArrayValidPosition<Array<VarValue>, int>(
+                (Array<std::array<std::array<HeightOffset, _64ul>, _64ul>>*)&field_560, local_34)) {
+            this_00 = (array<std::array<HeightOffset, 64ul>, 64ul>*)field_560[(long)local_34[0]];
             local_34[1] = 0;
             local_34[2] = 63;
-            piVar5 = std::min<int>(local_34 + 2, &local_3c);
-            piVar5 = std::max<int>(local_34 + 1, piVar5);
+            piVar5 = std::min<int>(*(local_34 + 2), arg2);
+            piVar5 = std::max<int>(*(local_34 + 1), *piVar5);
             iVar4 = *piVar5;
             local_34[1] = 0;
             local_34[2] = 63;
-            piVar5 = std::min<int>(local_34 + 2, &local_38);
-            piVar5 = std::max<int>(local_34 + 1, piVar5);
+            piVar5 = std::min<int>(*(local_34 + 2), arg3);
+            piVar5 = std::max<int>(*(local_34 + 1), *piVar5);
             iVar1 = *piVar5;
-            this_01 = (array<HeightOffset, 64ul>*)std::array<std::array<HeightOffset, 64ul>, 64ul>::operator[](
-                this_00, (long)iVar4);
-            psVar6 = (short*)std::array<HeightOffset, 64ul>::operator[](this_01, (long)iVar1);
-            if (param_5 == 2) {
+            this_01 = (array<HeightOffset, 64ul>*)(*this_00)[(long)iVar4];
+            psVar6 = (short*)(*this_01)[(long)iVar1];
+            if (heightOffsetType == 2) {
                 sVar3 = eastl::max<short>(psVar6[1], *psVar6);
             } else {
-                if (param_5 != 1) {
-                    uVar7 = logger::default_logger();
-                    logger::Logger::Log(uVar7, 1, 2,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
-                                        "runetek5/scene/entities/Terrain.cpp",
-                                        653, "%s: Invalid option %d", "GetLocationHeightOffset", param_5);
+                if (heightOffsetType != 1) {
+                    (logger::default_logger())
+                        ->Log(true, 2,
+                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
+                              "scene/entities/Terrain.cpp",
+                              653, "%s: Invalid option %d", "GetLocationHeightOffset", (unsigned long)heightOffsetType);
                     goto LAB_1003fc776;
                 }
                 sVar3 = *psVar6;
@@ -1639,558 +1163,416 @@ namespace jag::game {
         return iVar4;
     }
 
-    // 0x1003fc830, 656 bytes, placed by class name
-    // Terrain::GetFineHeight(int&, int, int, int, bool, HeightOffsetType) const
-    undefined* Terrain::GetFineHeight(int* param_1, int param_2, uint param_3, uint param_4, char param_5,
-                                      int param_7) {
-        undefined1* this_00;
+    // 0x1003fc830
+    uint8_t* Terrain::GetFineHeight(int& arg1, int arg2, int arg3, int arg4, bool arg5,
+                                    HeightOffsetType heightOffsetType) const {
+        uint8_t* arg1_00;
         bool bVar1;
-        int iVar2;
-        shared_ptr* this_01;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_02;
-        vector<eastl::vector<int, eastl::allocator>, eastl::allocator>* this_03;
-        vector<int, eastl::allocator>* pvVar3;
-        int* piVar4;
-        uint uVar5;
-        int iVar6;
+        bool cVar2;
+        int iVar3;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01;
+        vector<eastl::vector<int>>* this_02;
+        vector<int>* pvVar4;
+        int* piVar5;
+        unsigned int uVar6;
         int iVar7;
-        uint uVar8;
-        int iVar9;
-        int iVar10;
-        undefined** ppuVar11;
-        int local_34;
-
-        *param_1 = -1;
-        if (m_heightZero == '\0') {
-            this_00 = &field_456;
-            local_34 = param_2;
-            bVar1 = ArrayValidPosition<
-                eastl::fixed_vector<
-                    shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>, 4ul,
-                    true, eastl::allocator>,
-                int>((fixed_vector*)this_00, &local_34);
-            ppuVar11 = &DataStatus::MISSING;
-            if (!bVar1)
-                goto LAB_1003fcaa3;
-            uVar8 = param_3 + 127;
-            if (-1 < (int)param_3) {
-                uVar8 = param_3;
-            }
-            uVar5 = param_4 + 127;
-            if (-1 < (int)param_4) {
-                uVar5 = param_4;
-            }
-            if ((param_5 == '\0') || (local_34 != 0)) {
-                this_01 = (shared_ptr*)
-                    eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                  eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                        (long)local_34);
-                bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-                if (!bVar1)
-                    goto LAB_1003fcaa3;
-                this_02 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                    eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                  eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                        (long)local_34);
-            } else {
-                this_02 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)m_waterHeights;
-                bVar1 = this_02->operator_cast_to_bool();
-                if (!bVar1)
-                    goto LAB_1003fcaa3;
-            }
-            this_03 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)
-                eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_02);
-            if (((int)param_3 < -255) || ((int)param_4 < -255))
-                goto LAB_1003fcaa3;
-            iVar10 = (int)uVar8 >> 7;
-            iVar7 = (int)uVar5 >> 7;
-            uVar8 = param_3 & 127;
-            pvVar3 = (vector<int, eastl::allocator>*)
-                eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](this_03,
-                                                                                                  (long)(iVar10 + 1));
-            piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, (long)(iVar7 + 1));
-            iVar9 = *piVar4;
-            if ((param_3 & 127) != 0) {
-                iVar9 = iVar9 * (128 - uVar8);
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](
-                        this_03, (ulong)(iVar10 + 2));
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, (long)(iVar7 + 1));
-                iVar6 = *piVar4 * uVar8 + iVar9;
-                iVar9 = *piVar4 * uVar8 + 127 + iVar9;
-                if (-1 < iVar6) {
-                    iVar9 = iVar6;
-                }
-                iVar9 = iVar9 >> 7;
-            }
-            if ((param_4 & 127) == 0) {
-                *param_1 = iVar9;
-            } else {
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](
-                        this_03, (long)(iVar10 + 1));
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, (ulong)(iVar7 + 2));
-                iVar6 = *piVar4;
-                if ((param_3 & 127) != 0) {
-                    iVar6 = iVar6 * (128 - uVar8);
-                    pvVar3 = (vector<int, eastl::allocator>*)
-                        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](
-                            this_03, (ulong)(iVar10 + 2));
-                    piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, (ulong)(iVar7 + 2));
-                    iVar2 = uVar8 * *piVar4 + iVar6;
-                    iVar6 = uVar8 * *piVar4 + 127 + iVar6;
-                    if (-1 < iVar2) {
-                        iVar6 = iVar2;
-                    }
-                    iVar6 = iVar6 >> 7;
-                }
-                iVar9 = iVar9 * (128 - (param_4 & 127));
-                iVar6 = iVar6 * (param_4 & 127);
-                iVar2 = iVar6 + iVar9;
-                iVar9 = iVar6 + 127 + iVar9;
-                if (-1 < iVar2) {
-                    iVar9 = iVar2;
-                }
-                *param_1 = iVar9 >> 7;
-            }
-            if (param_7 == 0) {
-                ppuVar11 = &DataStatus::READY;
-                goto LAB_1003fcaa3;
-            }
-            iVar9 = GetLocationHeightOffset(this, local_34, iVar10, iVar7);
-            iVar9 = iVar9 + *param_1;
-            ppuVar11 = &DataStatus::READY;
-        } else {
-            ppuVar11 = &DataStatus::MISSING;
-            iVar9 = 0;
-        }
-        *param_1 = iVar9;
-    LAB_1003fcaa3:
-        return *ppuVar11;
-    }
-
-    // 0x1003fcac0, 592 bytes, placed by class name
-    // Terrain::GetFineWaterDepth(int, int, int) const
-    int Terrain::GetFineWaterDepth(int param_1, int param_2, int param_3) {
-        undefined1* this_00;
-        bool bVar1;
-        int iVar2;
-        shared_ptr* this_01;
-        shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>* this_02;
-        vector<eastl::vector<int, eastl::allocator>, eastl::allocator>* this_03;
-        vector<eastl::vector<int, eastl::allocator>, eastl::allocator>* this_04;
-        vector<int, eastl::allocator>* pvVar3;
-        int* piVar4;
-        int iVar5;
-        ulong uVar6;
-        ulong uVar7;
-        uint uVar8;
-        ulong uVar9;
+        int iVar8;
+        unsigned int uVar9;
         int iVar10;
         int iVar11;
+        uint8_t** ppuVar12;
+        int local_34;
+
+        arg1 = -1;
+        if (m_heightZero == '\0') {
+            arg1_00 = &field_456;
+            local_34 = arg2;
+            bVar1 =
+                ArrayValidPosition<eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>, 4ul>,
+                                   int>((fixed_vector<shared_ptr<eastl::vector<eastl::vector<int>> _>, _4ul>*)arg1_00,
+                                        &local_34);
+            ppuVar12 = &DataStatus::MISSING;
+            if (!bVar1)
+                goto LAB_1003fcaa3;
+            iVar11 = arg3 + 127;
+            if (-1 < arg3) {
+                iVar11 = arg3;
+            }
+            iVar8 = arg4 + 127;
+            if (-1 < arg4) {
+                iVar8 = arg4;
+            }
+            if ((arg5) && (local_34 == 0)) {
+                this_01 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)m_waterHeights;
+                cVar2 = this_01->operator_cast_to_bool();
+                if (!cVar2)
+                    goto LAB_1003fcaa3;
+            } else {
+                cVar2 = ((*arg1_00)[(long)local_34])->operator_cast_to_bool();
+                if (!cVar2)
+                    goto LAB_1003fcaa3;
+                this_01 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(*arg1_00)[(long)local_34];
+            }
+            this_02 = (vector<eastl::vector<int>>*)this_01->end();
+            if ((arg3 < -255) || (arg4 < -255))
+                goto LAB_1003fcaa3;
+            iVar11 = iVar11 >> 7;
+            iVar8 = iVar8 >> 7;
+            uVar9 = arg3 & 127;
+            uVar6 = arg4 & 127;
+            pvVar4 = (vector<int>*)(*this_02)[(long)(iVar11 + 1)];
+            piVar5 = (int*)(*pvVar4)[(long)(iVar8 + 1)];
+            iVar10 = *piVar5;
+            if (uVar9 != 0) {
+                iVar10 = iVar10 * (128 - uVar9);
+                pvVar4 = (vector<int>*)(*this_02)[(unsigned long)(iVar11 + 2)];
+                piVar5 = (int*)(*pvVar4)[(long)(iVar8 + 1)];
+                iVar7 = *piVar5 * uVar9 + iVar10;
+                iVar10 = *piVar5 * uVar9 + 127 + iVar10;
+                if (-1 < iVar7) {
+                    iVar10 = iVar7;
+                }
+                iVar10 = iVar10 >> 7;
+            }
+            if (uVar6 == 0) {
+                arg1 = iVar10;
+            } else {
+                pvVar4 = (vector<int>*)(*this_02)[(long)(iVar11 + 1)];
+                piVar5 = (int*)(*pvVar4)[(unsigned long)(iVar8 + 2)];
+                iVar7 = *piVar5;
+                if (uVar9 != 0) {
+                    iVar7 = iVar7 * (128 - uVar9);
+                    pvVar4 = (vector<int>*)(*this_02)[(unsigned long)(iVar11 + 2)];
+                    piVar5 = (int*)(*pvVar4)[(unsigned long)(iVar8 + 2)];
+                    iVar3 = uVar9 * *piVar5 + iVar7;
+                    iVar7 = uVar9 * *piVar5 + 127 + iVar7;
+                    if (-1 < iVar3) {
+                        iVar7 = iVar3;
+                    }
+                    iVar7 = iVar7 >> 7;
+                }
+                iVar10 = iVar10 * (128 - uVar6);
+                iVar3 = iVar7 * uVar6 + iVar10;
+                iVar10 = iVar7 * uVar6 + 127 + iVar10;
+                if (-1 < iVar3) {
+                    iVar10 = iVar3;
+                }
+                arg1 = iVar10 >> 7;
+            }
+            if (heightOffsetType == 0) {
+                ppuVar12 = &DataStatus::READY;
+                goto LAB_1003fcaa3;
+            }
+            iVar11 = GetLocationHeightOffset(local_34, iVar11, iVar8, heightOffsetType);
+            iVar11 = iVar11 + arg1;
+            ppuVar12 = &DataStatus::READY;
+        } else {
+            ppuVar12 = &DataStatus::MISSING;
+            iVar11 = 0;
+        }
+        arg1 = iVar11;
+    LAB_1003fcaa3:
+        return *ppuVar12;
+    }
+
+    // 0x1003fcac0
+    int Terrain::GetFineWaterDepth(int arg1, int arg2, int arg3) const {
+        uint8_t* arg1_00;
+        int iVar3;
+        shared_ptr<eastl::vector<eastl::vector<int>>>* this_01;
+        vector<eastl::vector<int>>* this_02;
+        vector<eastl::vector<int>>* this_03;
+        vector<int>* pvVar4;
+        int* piVar5;
+        int iVar6;
+        unsigned long arg1_01;
+        unsigned long uVar7;
+        unsigned int uVar8;
+        unsigned long arg1_02;
+        int iVar9;
+        int iVar10;
         int local_34;
 
         if (m_heightZero == '\0') {
-            this_00 = &field_456;
-            local_34 = param_1;
-            bVar1 = ArrayValidPosition<
-                eastl::fixed_vector<
-                    shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>, 4ul,
-                    true, eastl::allocator>,
-                int>((fixed_vector*)this_00, &local_34);
-            if (!bVar1) {
+            arg1_00 = &field_456;
+            local_34 = arg1;
+            if (!ArrayValidPosition<eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>, 4ul>,
+                                    int>((fixed_vector<shared_ptr<eastl::vector<eastl::vector<int>> _>, _4ul>*)arg1_00,
+                                         &local_34)) {
                 return -1;
             }
-            this_01 = (shared_ptr*)
-                eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                              eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                operator[]((vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                   eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                           (long)local_34);
-            bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-            if (bVar1) {
-                bVar1 = m_waterHeights->operator_cast_to_bool();
-                if (!bVar1) {
+            if (((*arg1_00)[(long)local_34])->operator_cast_to_bool()) {
+                if (!(m_waterHeights->operator_cast_to_bool())) {
                     return 0;
                 }
-                iVar5 = param_2 + 127;
-                if (-1 < param_2) {
-                    iVar5 = param_2;
+                iVar6 = arg2 + 127;
+                if (-1 < arg2) {
+                    iVar6 = arg2;
                 }
-                iVar11 = param_3 + 127;
-                if (-1 < param_3) {
-                    iVar11 = param_3;
+                iVar10 = arg3 + 127;
+                if (-1 < arg3) {
+                    iVar10 = arg3;
                 }
-                uVar8 = param_2 & 127;
-                this_02 = (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>*)
-                    eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                  eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                                eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                        (long)local_34);
-                this_03 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)
-                    shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>::operator*(
-                        this_02);
-                this_04 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)
-                    shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>::operator*(
-                        (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>*)
-                            m_waterHeights);
-                uVar6 = (ulong)((iVar5 >> 7) + 1);
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](this_04, uVar6);
-                uVar7 = (ulong)((iVar11 >> 7) + 1);
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, uVar7);
-                iVar2 = *piVar4;
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](this_03, uVar6);
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, uVar7);
-                iVar10 = (iVar2 - *piVar4) * (128 - uVar8);
-                uVar9 = (ulong)((iVar5 >> 7) + 2);
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](this_04, uVar9);
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, uVar7);
-                iVar5 = *piVar4;
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](this_03, uVar9);
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, uVar7);
-                iVar5 = (iVar5 - *piVar4) * uVar8;
-                iVar2 = iVar5 + iVar10;
-                iVar5 = iVar5 + 127 + iVar10;
-                if (-1 < iVar2) {
-                    iVar5 = iVar2;
+                uVar8 = arg2 & 127;
+                this_01 = (shared_ptr<eastl::vector<eastl::vector<int>>>*)(*arg1_00)[(long)local_34];
+                this_02 = (vector<eastl::vector<int>>*)**this_01;
+                this_03 = (vector<eastl::vector<int>>*)**m_waterHeights;
+                arg1_01 = (unsigned long)((iVar6 >> 7) + 1);
+                pvVar4 = (vector<int>*)(*this_03)[arg1_01];
+                uVar7 = (unsigned long)((iVar10 >> 7) + 1);
+                piVar5 = (int*)(*pvVar4)[uVar7];
+                iVar3 = *piVar5;
+                pvVar4 = (vector<int>*)(*this_02)[arg1_01];
+                piVar5 = (int*)(*pvVar4)[uVar7];
+                iVar9 = (iVar3 - *piVar5) * (128 - uVar8);
+                arg1_02 = (unsigned long)((iVar6 >> 7) + 2);
+                pvVar4 = (vector<int>*)(*this_03)[arg1_02];
+                piVar5 = (int*)(*pvVar4)[uVar7];
+                iVar6 = *piVar5;
+                pvVar4 = (vector<int>*)(*this_02)[arg1_02];
+                piVar5 = (int*)(*pvVar4)[uVar7];
+                iVar6 = (iVar6 - *piVar5) * uVar8;
+                iVar3 = iVar6 + iVar9;
+                iVar6 = iVar6 + 127 + iVar9;
+                if (-1 < iVar3) {
+                    iVar6 = iVar3;
                 }
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](this_04, uVar6);
-                uVar7 = (ulong)((iVar11 >> 7) + 2);
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, uVar7);
-                iVar11 = *piVar4;
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](this_03, uVar6);
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, uVar7);
-                iVar10 = (iVar11 - *piVar4) * (128 - uVar8);
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](this_04, uVar9);
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, uVar7);
-                iVar11 = *piVar4;
-                pvVar3 = (vector<int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](this_03, uVar9);
-                piVar4 = (int*)eastl::vector<int, eastl::allocator>::operator[](pvVar3, uVar7);
-                iVar11 = (iVar11 - *piVar4) * uVar8;
-                iVar2 = iVar11 + iVar10;
-                iVar11 = iVar11 + 127 + iVar10;
-                if (-1 < iVar2) {
-                    iVar11 = iVar2;
+                pvVar4 = (vector<int>*)(*this_03)[arg1_01];
+                uVar7 = (unsigned long)((iVar10 >> 7) + 2);
+                piVar5 = (int*)(*pvVar4)[uVar7];
+                iVar10 = *piVar5;
+                pvVar4 = (vector<int>*)(*this_02)[arg1_01];
+                piVar5 = (int*)(*pvVar4)[uVar7];
+                iVar9 = (iVar10 - *piVar5) * (128 - uVar8);
+                pvVar4 = (vector<int>*)(*this_03)[arg1_02];
+                piVar5 = (int*)(*pvVar4)[uVar7];
+                iVar10 = *piVar5;
+                pvVar4 = (vector<int>*)(*this_02)[arg1_02];
+                piVar5 = (int*)(*pvVar4)[uVar7];
+                iVar10 = (iVar10 - *piVar5) * uVar8;
+                iVar3 = iVar10 + iVar9;
+                iVar10 = iVar10 + 127 + iVar9;
+                if (-1 < iVar3) {
+                    iVar10 = iVar3;
                 }
-                iVar2 = (128 - (param_3 & 127U)) * (iVar5 >> 7);
-                iVar5 = (iVar11 >> 7) * (param_3 & 127U);
-                iVar11 = iVar5 + iVar2;
-                iVar5 = iVar5 + iVar2 + 127;
-                if (-1 < iVar11) {
-                    iVar5 = iVar11;
+                iVar3 = (128 - (arg3 & 127U)) * (iVar6 >> 7);
+                iVar6 = (iVar10 >> 7) * (arg3 & 127U);
+                iVar10 = iVar6 + iVar3;
+                iVar6 = iVar6 + iVar3 + 127;
+                if (-1 < iVar10) {
+                    iVar6 = iVar10;
                 }
-                return iVar5 >> 7;
+                return iVar6 >> 7;
             }
         }
         return 0;
     }
 
-    // 0x1003fcd10, 1344 bytes, placed by class name
-    // Terrain::CalculatePrimaryWaterHeightNearTile(int, int) const
-    uint Terrain::CalculatePrimaryWaterHeightNearTile(int param_1, int param_2) {
-        undefined1* this_00;
-        uint uVar1;
+    // 0x1003fcd10
+    unsigned int Terrain::CalculatePrimaryWaterHeightNearTile(int arg1, int arg2) const {
+        unsigned int uVar1;
         Terrain* pTVar2;
-        uint uVar3;
-        char cVar4;
-        bool bVar5;
-        int iVar6;
-        vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>* pvVar7;
-        vector<unsigned char, eastl::allocator>* pvVar8;
-        char* pcVar9;
-        uint* puVar10;
-        vector<int, eastl::allocator>* this_01;
-        vector* pvVar11;
-        int* piVar12;
-        float* pfVar13;
-        undefined4* puVar14;
-        long* plVar15;
-        SideBarData* pSVar16;
-        SideBarData* pSVar17;
-        long lVar18;
-        SideBarData* this_02;
-        SideBarData* pSVar19;
-        SideBarData* pSVar20;
-        ulong uVar21;
-        ulong uVar22;
-        Vector3T<int> local_130[16];
-        undefined8 local_120[4];
-        undefined1 local_100[16];
-        undefined1 local_f0[16];
-        vector<unsigned int, eastl::allocator>* local_e0;
-        Vector2T<int> local_d8[8];
-        vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
-               eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>* local_d0;
-        SideBarData* local_c8;
-        ulong local_c0;
-        uint local_b4;
-        SideBarData* local_b0;
-        SideBarData* local_a8;
-        Terrain* local_a0;
+        unsigned int uVar3;
+        int iVar5;
+        vector<eastl::vector<unsigned char>>* pvVar6;
+        vector<unsigned char>* pvVar7;
+        char* pcVar8;
+        unsigned int* puVar9;
+        vector<int>* this_01;
+        int* piVar10;
+        float* pfVar11;
+        uint32_t* puVar12;
+        long* plVar13;
+        unsigned long uVar14;
+        unsigned long arg1_00;
+        long lVar15;
+        unsigned long arg1_01;
+        unsigned long uVar16;
+        unsigned long uVar17;
+        Vector3T<int> local_130;
+        uint64_t local_120[4];
+        uint8_t local_100[16];
+        uint8_t local_f0[16];
+        vector<unsigned int>* local_e0;
+        unsigned long local_c8;
+        unsigned long local_c0;
+        unsigned int local_b4;
+        unsigned long local_b0;
         int local_94;
-        shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>* local_90;
-        uint local_84;
-        SideBarData local_80[6];
-        long local_38;
+        SideBarData local_80;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_a0 = this;
-        cVar4 = HasWater(this);
-        if (cVar4 == '\0') {
-            /* WARNING: Subroutine does not return */
+        Terrain* local_a0 = this;
+        if (!(HasWater())) {
             LogAssert("HasWater()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/Terrain.cpp",
-                      759, (char*)0);
+                      759, nullptr);
         }
-        this_00 = local_a0->m_waterHeights;
-        bVar5 = this_00->operator_cast_to_bool();
-        if (!bVar5) {
-            /* WARNING: Subroutine does not return */
+        uint8_t* this_00 = local_a0->m_waterHeights;
+        if (!(this_00->operator_cast_to_bool())) {
             LogAssert("m_waterHeights",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/Terrain.cpp",
-                      760, (char*)0);
+                      760, nullptr);
         }
-        local_90 =
-            (shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>*)&local_a0
-                ->field_808;
-        bVar5 = local_90->operator_cast_to_bool();
-        if (!bVar5) {
-            /* WARNING: Subroutine does not return */
+        shared_ptr<eastl::vector<eastl::vector<unsigned char>>>* local_90 =
+            (shared_ptr<eastl::vector<eastl::vector<unsigned char>>>*)&local_a0->field_808;
+        if (!(local_90->operator_cast_to_bool())) {
             LogAssert("m_underworldMap",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/Terrain.cpp",
-                      761, (char*)0);
+                      761, nullptr);
         }
-        new (local_100) oldscape::sidebars::SideBarData(param_1, param_2);
-        local_84 = 2147483647;
-        this_02 = (SideBarData*)2147483647;
-        math::Vector2T<int>::Vector2T(local_d8, 2147483647);
-        local_d0 = (vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
-                           eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>*)
-            shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>::operator*(
-                (shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>*)this_00);
-        local_a8 = (SideBarData*)
-            eastl::vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
-                          eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::size(local_d0);
+        new (local_100) oldscape::sidebars::SideBarData(arg1, arg2);
+        return local_84 = 2147483647;
+        Vector2T<int> local_d8(2147483647);
+        vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>>>,
+               eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true>>* local_d0 =
+            (vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>>>,
+                    eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true>>*)**this_00;
+        unsigned long local_a8 = local_d0->size();
         if (2 < (int)local_a8) {
-            pSVar16 = (SideBarData*)4294967294;
-            local_a8 = (SideBarData*)(ulong)((int)local_a8 - 2);
+            uVar14 = 4294967294;
+            local_a8 = (unsigned long)((int)local_a8 - 2);
             local_94 = 2147483647;
-            pSVar17 = (SideBarData*)&DAT_00000001;
-            local_b0 = (SideBarData*)0;
+            arg1_00 = 1;
+            local_b0 = 0;
             local_84 = 2147483647;
             do {
-                this_02 = pSVar17;
-                local_e0 = (vector<unsigned int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](
-                        (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)local_d0, (ulong)pSVar17);
-                iVar6 = eastl::vector<unsigned int, eastl::allocator>::size(local_e0);
-                if (2 < iVar6) {
-                    uVar22 = (ulong)(iVar6 - 2);
-                    pSVar19 = (SideBarData*)&DAT_00000001;
-                    uVar21 = 0;
-                    local_f0._8_8_ = pSVar17;
-                    local_c0 = uVar22;
+                local_e0 = (vector<unsigned int>*)(*local_d0)[arg1_00];
+                iVar5 = local_e0->size();
+                if (2 < iVar5) {
+                    uVar16 = (unsigned long)(iVar5 - 2);
+                    arg1_01 = 1;
+                    uVar17 = 0;
+                    local_f0._8_8_ = arg1_00;
+                    local_c0 = uVar16;
                     do {
-                        pvVar7 = (vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>*)
-                            shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                     eastl::allocator>>::operator*(local_90);
-                        pvVar8 = (vector<unsigned char, eastl::allocator>*)
-                            eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>::operator[](
-                                pvVar7, (ulong)pSVar17);
-                        this_02 = pSVar19;
-                        pcVar9 =
-                            (char*)eastl::vector<unsigned char, eastl::allocator>::operator[](pvVar8, (ulong)pSVar19);
-                        if (*pcVar9 != '\0') {
-                            local_c8 = pSVar19;
-                            puVar10 = (uint*)eastl::vector<int, eastl::allocator>::operator[](
-                                (vector<int, eastl::allocator>*)local_e0, (ulong)pSVar19);
-                            uVar1 = *puVar10;
-                            pSVar16 = (SideBarData*)CONCAT71((int7)((ulong)pSVar16 >> 8), 1);
-                            pSVar20 = local_b0;
+                        pvVar6 = (vector<eastl::vector<unsigned char>>*)**local_90;
+                        pvVar7 = (vector<unsigned char>*)(*pvVar6)[arg1_00];
+                        pcVar8 = (char*)(*pvVar7)[arg1_01];
+                        if (*pcVar8 != '\0') {
+                            local_c8 = arg1_01;
+                            puVar9 = (unsigned int*)(*local_e0)[arg1_01];
+                            uVar1 = *puVar9;
+                            uVar14 = (((uint64_t)((int64_t)(uVar14 >> 8)) << 8) | (uint8_t)1);
+                            uVar16 = local_b0;
                             do {
-                                local_b4 = (uint)pSVar16;
-                                lVar18 = 0;
+                                local_b4 = (unsigned int)uVar14;
+                                lVar15 = 0;
                                 do {
-                                    pSVar17 = (SideBarData*)(uVar21 + lVar18);
-                                    pvVar7 = (vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>*)
-                                        shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                                 eastl::allocator>>::operator*(local_90);
-                                    pvVar8 = (vector<unsigned char, eastl::allocator>*)
-                                        eastl::vector<eastl::vector<unsigned char, eastl::allocator>,
-                                                      eastl::allocator>::operator[](pvVar7, (ulong)pSVar20);
-                                    this_02 = pSVar17;
-                                    pcVar9 = (char*)eastl::vector<unsigned char, eastl::allocator>::operator[](
-                                        pvVar8, (ulong)pSVar17);
-                                    if (*pcVar9 == '\0') {
+                                    pvVar6 = (vector<eastl::vector<unsigned char>>*)**local_90;
+                                    pvVar7 = (vector<unsigned char>*)(*pvVar6)[uVar16];
+                                    pcVar8 = (char*)(*pvVar7)[uVar17 + lVar15];
+                                    if (*pcVar8 == '\0') {
                                     LAB_1003fcfc0:
-                                        pSVar16 = (SideBarData*)0;
+                                        uVar14 = 0;
                                         goto LAB_1003fcfc2;
                                     }
-                                    this_01 = (vector<int, eastl::allocator>*)eastl::
-                                        vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](
-                                            (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)local_d0,
-                                            (ulong)pSVar20);
-                                    puVar10 = (uint*)eastl::vector<int, eastl::allocator>::operator[](this_01,
-                                                                                                      (ulong)pSVar17);
-                                    this_02 = pSVar17;
-                                    if (*puVar10 != uVar1)
+                                    this_01 = (vector<int>*)(*local_d0)[uVar16];
+                                    puVar9 = (unsigned int*)(*this_01)[uVar17 + lVar15];
+                                    if (*puVar9 != uVar1)
                                         goto LAB_1003fcfc0;
-                                    lVar18 = lVar18 + 1;
-                                } while (lVar18 != 2);
-                                pSVar16 = (SideBarData*)(ulong)local_b4;
+                                    lVar15 = lVar15 + 1;
+                                } while (lVar15 != 2);
+                                uVar14 = (unsigned long)local_b4;
                             LAB_1003fcfc2:
-                                pSVar19 = local_c8;
-                                pSVar17 = (SideBarData*)local_f0._8_8_;
-                            } while (
-                                (pSVar20 < (ulong)local_f0._8_8_) &&
-                                (pSVar20 = (SideBarData*)((long)&pSVar20->field_0 + 1), ((ulong)pSVar16 & 1) != 0));
-                            if (((ulong)pSVar16 & 1) == 0) {
-                                uVar22 = local_c0;
+                                arg1_01 = local_c8;
+                                arg1_00 = local_f0._8_8_;
+                            } while ((uVar16 < (unsigned long)local_f0._8_8_) &&
+                                     (uVar16 = uVar16 + 1, (uVar14 & 1) != 0));
+                            if ((uVar14 & 1) == 0) {
+                                uVar16 = local_c0;
                             } else {
-                                this_02 = local_80;
-                                oldscape::sidebars::SideBarData::SideBarData(this_02, local_f0._8_4_, (int)local_c8);
-                                local_120[0] = math::operator-((Vector2T*)local_100, (Vector2T*)this_02);
-                                iVar6 = local_120->LengthSq();
-                                if (iVar6 < local_94) {
-                                    this_02 = local_80;
-                                    eastl::pair<int, unsigned int>::operator=((pair<int, unsigned int>*)local_d8,
-                                                                              (pair*)this_02);
-                                    local_94 = iVar6;
+                                local_80 = oldscape::sidebars::SideBarData(local_f0._8_4_, (int)local_c8);
+                                local_120[0] = *local_100 - local_80;
+                                iVar5 = local_120->LengthSq();
+                                if (iVar5 < local_94) {
+                                    local_d8 = local_80;
+                                    local_94 = iVar5;
                                     local_84 = uVar1;
                                 }
-                                uVar22 = local_c0;
+                                uVar16 = local_c0;
                             }
                         }
-                        pSVar19 = (SideBarData*)((long)&pSVar19->field_0 + 1);
-                        uVar21 = uVar21 + 1;
-                    } while (uVar21 != uVar22);
+                        arg1_01 = arg1_01 + 1;
+                        uVar17 = uVar17 + 1;
+                    } while (uVar17 != uVar16);
                 }
-                pSVar17 = (SideBarData*)((long)&pSVar17->field_0 + 1);
-                pSVar16 = (SideBarData*)((long)&local_b0->field_0 + 1);
-                local_b0 = pSVar16;
-            } while (pSVar16 != local_a8);
+                arg1_00 = arg1_00 + 1;
+                uVar14 = local_b0 + 1;
+                local_b0 = uVar14;
+            } while (uVar14 != local_a8);
         }
         if (World::m_showWaterHeights != '\0') {
-            math::Vector3T<int>::Vector3T(local_130);
+            local_130 = math::Vector3T();
             pTVar2 = local_a0;
-            iVar6 = local_a0->field_288;
-            pvVar11 = local_d8->SSOBeginPtr(this_02);
-            local_90._0_4_ = (float)((iVar6 * 64 + *(int*)pvVar11) * 128 + -128);
-            pvVar11 = local_130->SSOBeginPtr(this_02);
-            *(float*)pvVar11 = local_90._0_4_;
-            iVar6 = pTVar2->field_292;
-            piVar12 = (int*)local_d8->y();
-            local_90._0_4_ = (float)((iVar6 * 64 + *piVar12) * 128 + -128);
-            pfVar13 = (float*)local_130->second();
+            iVar5 = local_a0->field_288;
+            piVar10 = (int*)local_d8.SSOBeginPtr();
+            local_90._0_4_ = (float)((iVar5 * 64 + *piVar10) * 128 - 128);
+            pfVar11 = (float*)local_130.SSOBeginPtr();
+            *pfVar11 = local_90._0_4_;
+            iVar5 = pTVar2->field_292;
+            piVar10 = (int*)local_d8.y();
+            local_90._0_4_ = (float)((iVar5 * 64 + *piVar10) * 128 - 128);
+            pfVar11 = (float*)local_130.second();
             uVar3 = local_84;
-            *pfVar13 = local_90._0_4_;
-            local_90 =
-                (shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>*)CONCAT44(
-                    local_90._4_4_, (float)(int)local_84);
-            puVar14 = (undefined4*)local_130->y();
-            *puVar14 = local_90._0_4_;
-            new (local_80) eastl::fixed_string<char, 32, true, eastl::allocator>();
-            pvVar11 = local_d8->SSOBeginPtr(this_02);
-            uVar1 = *(uint*)pvVar11;
-            puVar10 = (uint*)local_d8->y();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 32ul, 1ul, 0ul, true, eastl::allocator>>::
-                sprintf((char*)local_80, "Target %i (%i %i)", (ulong)uVar3, (ulong)uVar1, (ulong)*puVar10);
-            plVar15 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar15 != (long*)0) {
-                pcVar9 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            *pfVar11 = local_90._0_4_;
+            local_90 = (shared_ptr<eastl::vector<eastl::vector<unsigned char>>>*)(((uint64_t)local_90._4_4_ << 32) |
+                                                                                  (uint32_t)((float)(int)local_84));
+            puVar12 = (uint32_t*)local_130.y();
+            *puVar12 = local_90._0_4_;
+            local_80 = eastl::fixed_string<char, 32>();
+            puVar9 = (unsigned int*)local_d8.SSOBeginPtr();
+            uVar1 = *puVar9;
+            puVar9 = (unsigned int*)local_d8.y();
+            local_80.sprintf("Target %i (%i %i)", (unsigned long)uVar3, (unsigned long)uVar1, (unsigned long)*puVar9);
+            plVar13 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar13 != nullptr) {
+                pcVar8 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 new ((local_100 + 8)) eastl::allocator("EASTL basic_string");
-                new (local_120) eastl::string(pcVar9, (allocator*)(local_100 + 8));
+                new (local_120) eastl::string(pcVar8, (local_100 + 8));
                 new (local_f0) oldscape::sidebars::SideBarData(-16711681, 0);
-                (**(code**)(*plVar15 + 136))(plVar15, local_130, local_120, local_f0);
-                local_120->~basic_string();
+                (**(void (**)(...))(*plVar13 + 136))(plVar13, &local_130, local_120, local_f0);
             }
-            /* WARNING: Subroutine does not return */
-            local_80->~fixed_string();
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
         return local_84;
     }
 
-    // 0x1003fd250, 32 bytes, placed by class name
-    // Terrain::HasWater() const
-    byte Terrain::HasWater() {
-        byte bVar1;
-
-        bVar1 = (&field_416)->empty();
-        return bVar1 ^ 1;
+    // 0x1003fd250
+    bool Terrain::HasWater() const {
+        return field_416.empty() ^ 1;
     }
 
-    // 0x1003fd270, 192 bytes, placed by class name
-    // Terrain::GetTileRoofLinkInner(eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator> >, 4ul, true, eastl::allocator> const&, int, int, int) const
-    ulong Terrain::GetTileRoofLinkInner(fixed_vector* param_1, int param_2, int param_3, int param_4) {
-        bool bVar1;
+    // 0x1003fd270
+    unsigned long Terrain::GetTileRoofLinkInner(
+        const eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>, 4ul>& arg1, int arg2,
+        int arg3, int arg4) const {
         shared_ptr* this_00;
-        vector* pvVar2;
-        byte* pbVar3;
-        ulong uVar4;
+        vector<eastl::vector<unsigned char>>* arg1_00;
+        vector<unsigned char>* arg1_01;
+        uint8_t* pbVar3;
         int local_3c;
         int local_38;
-        int local_34;
 
-        local_34 = param_2;
-        bVar1 = ArrayValidPosition<
-            eastl::fixed_vector<
-                shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>, 4ul, true,
-                eastl::allocator>,
-            int>(param_1, &local_34);
-        uVar4 = 4294967295;
+        int local_34 = arg2;
+        bool bVar1 =
+            ArrayValidPosition<eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>, 4ul>, int>(
+                (fixed_vector<shared_ptr<eastl::vector<eastl::vector<int>> _>, _4ul>*)arg1, &local_34);
+        unsigned long uVar4 = 4294967295;
         if (bVar1) {
-            this_00 = (shared_ptr*)eastl::vector<
-                shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-                eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-            operator[](
-                (vector<shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)param_1,
-                (long)local_34);
-            bVar1 = shared_ptr::operator_cast_to_bool(this_00);
-            if (bVar1) {
-                pvVar2 = (vector*)
-                    shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>::
-                    operator*(
-                        (shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>*)
-                            this_00);
-                local_3c = param_3 + 1;
-                bVar1 = ArrayValidPosition<
-                    eastl::vector<eastl::vector<DecodedTerrainTile, eastl::allocator>, eastl::allocator>, int>(
-                    pvVar2, &local_3c);
+            this_00 = &arg1[(long)local_34];
+            if (shared_ptr::operator_cast_to_bool(this_00) != '\0') {
+                arg1_00 = (vector<eastl::vector<unsigned char>>*)**this_00;
+                local_3c = arg3 + 1;
+                bVar1 = ArrayValidPosition<eastl::vector<eastl::vector<DecodedTerrainTile>>, int>(arg1_00, &local_3c);
                 if (bVar1) {
-                    pvVar2 = (vector*)
-                        eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>::operator[](
-                            (vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>*)pvVar2,
-                            (long)(param_3 + 1));
-                    local_38 = param_4 + 1;
-                    bVar1 = ArrayValidPosition<eastl::vector<unsigned char, eastl::allocator>, int>(pvVar2, &local_38);
+                    arg1_01 = (vector<unsigned char>*)(*arg1_00)[(long)(arg3 + 1)];
+                    local_38 = arg4 + 1;
+                    bVar1 = ArrayValidPosition<eastl::vector<unsigned char>, int>(arg1_01, &local_38);
                     if (bVar1) {
-                        pbVar3 = (byte*)eastl::vector<unsigned char, eastl::allocator>::operator[](
-                            (vector<unsigned char, eastl::allocator>*)pvVar2, (long)(param_4 + 1));
-                        uVar4 = (ulong)*pbVar3;
+                        pbVar3 = (uint8_t*)(*arg1_01)[(long)(arg4 + 1)];
+                        uVar4 = (unsigned long)*pbVar3;
                     }
                 }
             }
@@ -2198,53 +1580,28 @@ namespace jag::game {
         return uVar4;
     }
 
-    // 0x1003fd430, 144 bytes, placed by class name
-    // Terrain::LinkMapValidPos(int, int, int) const
-    bool Terrain::LinkMapValidPos(int param_1, int param_2, int param_3) {
-        bool bVar1;
+    // 0x1003fd430
+    bool Terrain::LinkMapValidPos(int arg1, int arg2, int arg3) const {
         shared_ptr* this_00;
-        vector* pvVar2;
-        vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>* this_01;
-        int local_1c;
-        int local_18;
-        int local_14;
+        vector<eastl::vector<unsigned char>>* arg1_00;
+        vector<eastl::vector<unsigned char>>* this_01;
+        vector<unsigned char>* arg1_01;
 
-        local_1c = param_3;
-        local_18 = param_1;
-        local_14 = param_2;
-        bVar1 = ArrayValidPosition<
-            eastl::fixed_vector<
-                shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>, 4ul, true,
-                eastl::allocator>,
-            int>((fixed_vector*)&field_600, &local_18);
+        int local_1c = arg3;
+        int local_18 = arg1;
+        int local_14 = arg2;
+        bool bVar1 =
+            ArrayValidPosition<eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>, 4ul>, int>(
+                (fixed_vector<shared_ptr<eastl::vector<eastl::vector<int>> _>, _4ul>*)&field_600, &local_18);
         if (bVar1) {
-            this_00 = (shared_ptr*)eastl::vector<
-                shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-                eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-            operator[](
-                (vector<shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>,
-                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_600,
-                (long)local_18);
-            bVar1 = shared_ptr::operator_cast_to_bool(this_00);
-            if (bVar1) {
-                pvVar2 = (vector*)
-                    shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>::
-                    operator*(
-                        (shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>*)
-                            this_00);
-                bVar1 = ArrayValidPosition<
-                    eastl::vector<eastl::vector<DecodedTerrainTile, eastl::allocator>, eastl::allocator>, int>(
-                    pvVar2, &local_14);
+            this_00 = &field_600[(long)local_18];
+            if (shared_ptr::operator_cast_to_bool(this_00) != '\0') {
+                arg1_00 = (vector<eastl::vector<unsigned char>>*)**this_00;
+                bVar1 = ArrayValidPosition<eastl::vector<eastl::vector<DecodedTerrainTile>>, int>(arg1_00, &local_14);
                 if (bVar1) {
-                    this_01 = (vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>*)shared_ptr<
-                        eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>::
-                    operator*(
-                        (shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>*)
-                            this_00);
-                    pvVar2 = (vector*)
-                        eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>::operator[](
-                            this_01, (long)local_14);
-                    bVar1 = ArrayValidPosition<eastl::vector<unsigned char, eastl::allocator>, int>(pvVar2, &local_1c);
+                    this_01 = (vector<eastl::vector<unsigned char>>*)**this_00;
+                    arg1_01 = (vector<unsigned char>*)(*this_01)[(long)local_14];
+                    bVar1 = ArrayValidPosition<eastl::vector<unsigned char>, int>(arg1_01, &local_1c);
                     return bVar1;
                 }
             }
@@ -2252,14 +1609,11 @@ namespace jag::game {
         return false;
     }
 
-    // 0x1003fd4c0, 48 bytes, placed by class name
-    // Terrain::CanRender() const
-    bool Terrain::CanRender() {
-        char cVar1;
+    // 0x1003fd4c0
+    bool Terrain::CanRender() const {
         bool bVar2;
 
-        cVar1 = (&field_344)->empty();
-        if (cVar1 == '\0') {
+        if (field_344.empty() == '\0') {
             bVar2 = m_hideTerrain == false;
         } else {
             bVar2 = false;
@@ -2267,184 +1621,164 @@ namespace jag::game {
         return bVar2;
     }
 
-    // 0x1003fd4f0, 128 bytes, placed by class name
-    // Terrain::IsReadyToRender() const
-    ulong Terrain::IsReadyToRender() {
-        unique_ptr* this_00;
-        unique_ptr* puVar3;
-        TerrainPatch* this_01;
-        undefined1* this_02;
+    // 0x1003fd4f0
+    unsigned long Terrain::IsReadyToRender() const {
+        bool cVar1;
 
-        this_02 = &field_344;
-        this_00 = (unique_ptr*)this_02->HeapBeginPtr();
-        puVar3 = (unique_ptr*)this_02->end();
-        for (; this_00 != puVar3; this_00 = this_00 + 8) {
-            if (std::unique_ptr::operator_cast_to_bool(this_00)) {
-                this_01 =
-                    (TerrainPatch*)std::
-                        unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>::operator->(
-                            (unique_ptr<graphics::TerrainPatch, std::default_delete<graphics::TerrainPatch>>*)this_00);
-                if (this_01->IsReadyToRender() == '\0')
+        uint8_t* this_02 = &field_344;
+        auto this_00 = this_02->HeapBeginPtr();
+        auto puVar2 = this_02->end();
+        for (; this_00 != puVar2; this_00 = this_00 + 8) {
+            cVar1 = std::unique_ptr::operator_cast_to_bool(this_00);
+            if (cVar1) {
+                cVar1 = ((TerrainPatch*)(*this_00).operator->())->IsReadyToRender();
+                if (!cVar1)
                     break;
             }
         }
-        return CONCAT71((int7)((ulong)this_02 >> 8), this_00 == puVar3) & 4294967295;
+        return this_00 == puVar2 & 4294967295;
     }
 
-    // 0x1003fd570, 1376 bytes, placed by class name
-    // Terrain::DebugShowPrimitiveTerrainPatch(bool, graphics::TerrainPatch&, eastl::pair<int, graphics::RenderChunk> const&, int, int, math::Rect<int> const&, int, int, int, int, bool)
-    ulong Terrain::DebugShowPrimitiveTerrainPatch(bool param_1, TerrainPatch* param_2, pair* param_3, int param_4,
-                                                  int param_5, Rect* param_6, int param_7, int param_8, int param_9,
-                                                  int param_10, bool param_11) {
+    // 0x1003fd570
+    unsigned long Terrain::DebugShowPrimitiveTerrainPatch(bool arg1, graphics::TerrainPatch& terrainPatch,
+                                                          const eastl::pair<int, graphics::RenderChunk>& arg3, int arg4,
+                                                          int arg5, const math::Rect<int>& rect, int arg7, int arg8,
+                                                          int arg9, int arg10, bool arg11) {
         float fVar1;
-        int iVar2;
-        int iVar3;
-        uint uVar4;
-        uint uVar5;
-        undefined4 uVar6;
-        undefined4 uVar7;
+        unsigned int uVar2;
+        unsigned int uVar3;
+        uint32_t uVar4;
+        uint32_t uVar5;
+        int iVar6;
+        int iVar7;
         int iVar8;
         int iVar9;
         World* pWVar10;
         HeightMap* pHVar11;
         long* plVar12;
-        char* pcVar13;
-        undefined7 in_register_00000031;
+        char* str;
         CoordGrid local_1f0;
-        eastl::string local_1e0[32];
+        eastl::string local_1e0;
         shared_ptr<World>* local_1c0;
-        int local_1b4;
-        undefined1 local_1b0[8];
-        undefined4 local_1a8;
-        undefined4 local_1a4;
+        ShaderVariablePrecision local_1b4;
+        uint8_t local_1b0[8];
+        uint32_t local_1a8;
+        uint32_t local_1a4;
         float local_1a0;
         CoordFine local_198;
-        int local_184;
-        pair* local_180;
+        ShaderVariablePrecision local_184;
         TerrainPatch* local_178;
         float local_16c;
         float local_168;
         float local_164;
-        fixed_string<char, 256, true, eastl::allocator> local_160[296];
-        long local_38;
+        fixed_string<char, 256> local_160;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_180 = param_3;
+        pair<int, graphics::RenderChunk>* local_180 = arg3;
         if (m_debugPrimitiveText != '\0') {
-            local_178 = param_2;
-            local_164 = (float)param_5;
-            iVar2 = param_6->GetX();
-            iVar3 = param_6->GetZ();
-            new (&local_1f0) oldscape::rs2lib::worldmap::LocationData(param_4, iVar2, iVar3);
-            new (&local_198) CoordFine(&local_1f0, false);
+            local_178 = terrainPatch;
+            local_164 = (float)arg5;
+            uVar2 = rect.GetX();
+            uVar3 = rect.GetZ();
+            local_1f0 = oldscape::rs2lib::worldmap::LocationData(arg4, uVar2, uVar3);
+            local_198 = CoordFine(&local_1f0, false);
             fVar1 = local_164;
             local_1c0 = (shared_ptr<World>*)&field_176;
-            pWVar10 = (World*)shared_ptr<World>::operator->(local_1c0);
-            pHVar11 = (HeightMap*)pWVar10->GetHeightMap();
-            local_16c = (float)param_4;
-            pHVar11->GetFineHeight(&local_184, param_4, (int)local_198.field_4, (int)local_198.field_12, 0, 0);
-            local_198.field_8 = (float)local_184;
-            eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_160);
-            uVar4 = local_198.GetMapSquareX();
-            uVar5 = local_198.GetMapSquareZ();
-            uVar6 = local_198.GetLocalX();
-            uVar7 = local_198.GetLocalZ();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                sprintf((char*)local_160, "TerrainPatch:%p @ %d,%d,%d,%d,%d", local_178, (ulong)(uint)local_16c,
-                        (ulong)uVar4, (ulong)uVar5, uVar6, uVar7);
+            pWVar10 = (World*)(*local_1c0).operator->();
+            pHVar11 = pWVar10->GetHeightMap();
+            local_16c = (float)arg4;
+            pHVar11->GetFineHeight(local_184, arg4, (int)local_198.field_4, (int)local_198.field_12, false, 0);
+            local_198.field_8 = (float)(int)local_184;
+            local_160 = eastl::fixed_string<char, 256>();
+            uVar2 = local_198.GetMapSquareX();
+            uVar3 = local_198.GetMapSquareZ();
+            uVar4 = local_198.GetLocalX();
+            uVar5 = local_198.GetLocalZ();
+            local_160.sprintf("TerrainPatch:%p @ %d,%d,%d,%d,%d", local_178, (unsigned long)(unsigned int)local_16c,
+                              (unsigned long)uVar2, (unsigned long)uVar3, uVar4, uVar5);
             if (local_16c != fVar1) {
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                    append_sprintf((char*)local_160, " [lvl %d]", (ulong)(uint)fVar1);
+                local_160.append_sprintf(" [lvl %d]", (unsigned long)(unsigned int)fVar1);
             }
             local_164 = *(float*)local_180;
-            local_178 = (TerrainPatch*)CONCAT44(local_178._4_4_, *(int*)(local_180 + 8));
-            local_168 = (float)param_6->GetPos();
-            uVar4 = param_6->GetLevel();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                append_sprintf((char*)local_160, " [Chunk %d : %d tiles] [size=%dx%d @ %d,%d - %d,%d]",
-                               (ulong)(uint)local_164, (ulong)local_178 & 4294967295, (ulong)(uint)local_168,
-                               (ulong)uVar4, param_7 & 63, param_8 & 63, param_9 & 63, param_10 & 63);
-            uVar4 = 4293943472;
-            if (param_11) {
-                uVar4 = 4290838400;
+            local_178 = (TerrainPatch*)(((uint64_t)local_178._4_4_ << 32) | (uint32_t)(*(int*)(local_180 + 8)));
+            local_168 = (float)rect.GetPos();
+            uVar2 = rect.GetLevel();
+            local_160.append_sprintf(" [Chunk %d : %d tiles] [size=%dx%d @ %d,%d - %d,%d]",
+                                     (unsigned long)(unsigned int)local_164, (unsigned long)local_178 & 4294967295,
+                                     (unsigned long)(unsigned int)local_168, (unsigned long)uVar2, arg7 & 63, arg8 & 63,
+                                     arg9 & 63, arg10 & 63);
+            uVar2 = 4293943472;
+            if (arg11) {
+                uVar2 = 4290838400;
             }
-            plVar12 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar12 != (long*)0) {
-                pcVar13 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                new (&local_1a8) eastl::allocator("EASTL basic_string");
-                eastl::string::basic_string(local_1e0, pcVar13, (allocator*)&local_1a8);
-                new (local_1b0) oldscape::sidebars::SideBarData(uVar4, 0);
-                (**(code**)(*plVar12 + 136))(plVar12, &local_198.field_4, local_1e0, local_1b0);
-                eastl::string::~basic_string(local_1e0);
+            plVar12 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar12 != nullptr) {
+                str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                local_1e0 = eastl::string(str);
+                new (local_1b0) oldscape::sidebars::SideBarData(uVar2, 0);
+                (**(void (**)(...))(*plVar12 + 136))(plVar12, &local_198.field_4, &local_1e0, local_1b0);
             }
             if (0 < *(int*)local_180) {
                 local_164 = local_198.field_4;
                 local_180._0_4_ = local_198.field_12;
-                iVar2 = param_6->GetPos();
-                iVar3 = param_6->GetLevel();
+                iVar6 = rect.GetPos();
+                iVar7 = rect.GetLevel();
                 local_178._0_4_ = local_198.field_4;
                 local_168 = local_198.field_12;
-                iVar8 = param_6->GetPos();
-                iVar9 = param_6->GetLevel();
-                pWVar10 = (World*)shared_ptr<World>::operator->(local_1c0);
-                local_164 = local_164 + (float)(iVar2 << 7);
-                local_180 = (pair*)CONCAT44(local_180._4_4_, local_180._0_4_ + (float)(iVar3 << 7));
-                pHVar11 = (HeightMap*)pWVar10->GetHeightMap();
-                pHVar11->GetFineHeight(&local_1b4, local_16c, (int)local_164, (int)local_180._0_4_, 0, 0);
-                local_178 = (TerrainPatch*)CONCAT44(local_178._4_4_, local_178._0_4_ + (float)(iVar8 << 6));
+                iVar8 = rect.GetPos();
+                iVar9 = rect.GetLevel();
+                pWVar10 = (World*)(*local_1c0).operator->();
+                local_164 = local_164 + (float)(iVar6 << 7);
+                local_180 = (pair<int, graphics::RenderChunk>*)(((uint64_t)local_180._4_4_ << 32) |
+                                                                (uint32_t)(local_180._0_4_ + (float)(iVar7 << 7)));
+                pHVar11 = pWVar10->GetHeightMap();
+                pHVar11->GetFineHeight(local_1b4, (int)local_16c, (int)local_164, (int)local_180._0_4_, false, 0);
+                local_178 = (TerrainPatch*)(((uint64_t)local_178._4_4_ << 32) |
+                                            (uint32_t)(local_178._0_4_ + (float)(iVar8 << 6)));
                 local_168 = local_168 + (float)(iVar9 << 6);
                 local_184 = eastl::max<int>(local_1b4, local_184);
                 local_1a8 = local_178._0_4_;
                 local_1a0 = local_168;
                 local_1a4 = 0;
-                new (local_1e0) math::PlaneT<float>(PTR_UP_100ee66d0, (float)-local_184);
-                plVar12 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-                if (plVar12 != (long*)0) {
-                    local_178 = (TerrainPatch*)CONCAT44(local_178._4_4_, local_198.field_4);
+                local_1e0 = math::PlaneT<float>(PTR_UP_100ee66d0, (float)(int)-local_184);
+                plVar12 = DebugPrimitiveCollectorBasic::GetCollector("");
+                if (plVar12 != nullptr) {
+                    local_178 = (TerrainPatch*)(((uint64_t)local_178._4_4_ << 32) | (uint32_t)local_198.field_4);
                     local_16c = local_198.field_12;
-                    new (local_1b0) oldscape::sidebars::SideBarData(uVar4 & 552665008, 5);
-                    (**(code**)(*plVar12 + 104))(plVar12, &local_1a8, local_1e0,
-                                                 (int)(local_180._0_4_ - local_16c) + -8,
-                                                 (int)(local_164 - local_178._0_4_) + -8, local_1b0);
+                    new (local_1b0) oldscape::sidebars::SideBarData(uVar2 & 552665008, 5);
+                    (**(void (**)(...))(*plVar12 + 104))(plVar12, &local_1a8, &local_1e0,
+                                                         (int)(local_180._0_4_ - local_16c) - 8,
+                                                         (int)(local_164 - local_178._0_4_) - 8, local_1b0);
                 }
             }
-            /* WARNING: Subroutine does not return */
-            local_160->~fixed_string();
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return CONCAT71(in_register_00000031, param_1) & 4294967295;
+        return arg1 & 4294967295;
     }
 
 } // namespace jag::game
 
 namespace jag {
-    // 0x1003fa250, 176 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<game::BuildTerrainMain>::type bucket_make_shared<game::BuildTerrainMain, graphics::RT7Core*&, int&, game::TerrainInputData&>(graphics::RT7Core*&, int&, game::TerrainInputData&)
-    jag* jag::bucket_make_shared<game::BuildTerrainMain, graphics::RT7Core*&, int&, game::TerrainInputData&>(
-        RT7Core** param_1, int* param_2, TerrainInputData* param_3) {
-        BucketRefCounter* pBVar1;
-        managed_ptr_counter_and_data* local_40;
+    // 0x1003fa250
+    shared_ptr_if_not_array<game::BuildTerrainMain>::type
+    bucket_make_shared<game::BuildTerrainMain, graphics::RT7Core*&, int&, game::TerrainInputData&>(
+        graphics::RT7Core*& arg1, int& arg2, game::TerrainInputData& terrainInputData) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         BuildTerrainMain* local_38[2];
 
-        local_40 = (managed_ptr_counter_and_data*)BucketManager::Allocate(656, 0, 16);
-        if (local_40 == (managed_ptr_counter_and_data*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        auto local_40 = BucketManager::Allocate(656, 0, 16);
+        if (local_40 == nullptr) {
+            shared_ptr_if_not_array<game::BuildTerrainMain>::type result;
         } else {
             local_38[0] = placement_new<game::BuildTerrainMain, graphics::RT7Core*&, int&, game::TerrainInputData&>(
-                local_40 + 48, param_1, param_2, param_3);
-            pBVar1 = placement_new<
+                local_40 + 48, arg1, arg2, terrainInputData);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)placement_new<
                 BucketRefCounter<game::BuildTerrainMain>,
                 managed_ptr_counter_and_data<BucketRefCounter<game::BuildTerrainMain>, game::BuildTerrainMain>*&,
                 game::BuildTerrainMain*&>(local_40, &local_40, local_38);
-            pBVar1->~AutoSingleton(local_38[0]);
-            pBVar1->~AutoSingleton(local_38[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(pBVar1, local_38[0]);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_38[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

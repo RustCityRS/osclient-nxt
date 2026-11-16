@@ -1,36 +1,32 @@
 // libs/game/runetek5/scene/loaders/EnvironmentLoader.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class EnvironmentLoader {
     public:
-        EnvironmentLoader(unsigned int, unsigned int, shared_ptr<ClientCompositeData> const&);
+        EnvironmentLoader(unsigned int arg1, unsigned int arg2,
+                          const shared_ptr<ClientCompositeData>& clientCompositeData);
         bool IsLoaded() const;
-        GetEnvironmentSettings(shared_ptr<MapEnvironmentSettings>&, unsigned int, unsigned int, unsigned int) const;
-        Load(Js5ResourceProvider*);
-        LoadMapSquare(Js5ResourceProvider*, unsigned int, unsigned int);
+        uint8_t* GetEnvironmentSettings(shared_ptr<MapEnvironmentSettings>& mapEnvironmentSettings, unsigned int arg2,
+                                        unsigned int arg3, unsigned int arg4) const;
+        uint8_t* Load(Js5ResourceProvider* js5ResourceProvider);
+        auto LoadMapSquare(Js5ResourceProvider* js5ResourceProvider, unsigned int arg2, unsigned int arg3);
         ~EnvironmentLoader();
-        static /* 16 bytes */ DEFAULT_ENVIRONMENT_SETTINGS;
+        static shared_ptr<MapEnvironmentSettings> DEFAULT_ENVIRONMENT_SETTINGS;
 
-        // data members, from how the methods use this: 56 bytes
-        uint field_0;        // offset 0
-        uint field_4;        // offset 4
-        shared_ptr field_8;  // offset 8
-        shared_ptr field_24; // offset 24
-        shared_ptr field_40; // offset 40
+    private:
+        unsigned int field_0;
+        unsigned int field_4;
+        shared_ptr field_8;
+        uint8_t _unknown_24[24];
     };
 
-    // 0x100420d20, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // EnvironmentLoader::~EnvironmentLoader(): jumps straight to the base-object destructor
-
-    // 0x100420e60, 48 bytes, base-object destructor, inline, placed by class name and debug map
-    // EnvironmentLoader::~EnvironmentLoader()
-    void EnvironmentLoader::~EnvironmentLoader() {
-        field_40->~shared_ptr();
-        field_24->~shared_ptr();
+    // 0x100420e60
+    EnvironmentLoader::~EnvironmentLoader() {
+        field_40.~shared_ptr();
+        field_24.~shared_ptr();
         field_8->~shared_ptr();
     }
 

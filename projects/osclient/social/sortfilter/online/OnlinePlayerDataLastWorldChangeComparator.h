@@ -1,6 +1,5 @@
 // projects/osclient/social/sortfilter/online/OnlinePlayerDataLastWorldChangeComparator.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,49 +8,27 @@ namespace jag::oldscape::social {
     class OnlinePlayerDataLastWorldChangeComparator {
     public:
         // virtual methods in vtable order
-        virtual int Compare(FriendData const&, FriendData const&) const;
-        OnlinePlayerDataLastWorldChangeComparator(bool);
+        virtual int Compare(const FriendData& friendData1, const FriendData& friendData2) const;
+        OnlinePlayerDataLastWorldChangeComparator(bool arg1);
     };
 
-    // 0x100170950, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataLastWorldChangeComparator<FriendData>::OnlinePlayerDataLastWorldChangeComparator(bool): jumps straight to the base-object constructor
+    // 0x100170970
+    OnlinePlayerDataLastWorldChangeComparator<FriendData>::OnlinePlayerDataLastWorldChangeComparator(bool arg1)
+        : PlayerDataComparator<FriendData>() {}
 
-    // 0x100170970, 48 bytes, base-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataLastWorldChangeComparator<FriendData>::OnlinePlayerDataLastWorldChangeComparator(bool)
-    void
-    OnlinePlayerDataLastWorldChangeComparator<FriendData>::OnlinePlayerDataLastWorldChangeComparator(bool param_1) {
-        new (this) PlayerDataComparator<FriendData>();
-        *(undefined**)this = PTR_vtable_100ee8c10 + 16;
-        this[8] = (OnlinePlayerDataLastWorldChangeComparator<FriendData>)param_1;
-    }
-
-    // 0x1001709a0, 48 bytes, inline, placed by class name and debug map
-    // OnlinePlayerDataLastWorldChangeComparator<FriendData>::Compare(FriendData const&, FriendData const&) const
-    /* OnlinePlayerDataLastWorldChangeComparator<FriendChatUser>::Compare(FriendChatUser
-   const&, FriendChatUser const&) const */
-
-    int social::OnlinePlayerDataLastWorldChangeComparator<FriendChatUser>::Compare(FriendChatUser* param_1,
-                                                                                   FriendChatUser* param_2) {
-        FriendChatUser* pFVar1;
-
-        pFVar1 = param_2;
-        if (this[8] == (OnlinePlayerDataLastWorldChangeComparator<FriendChatUser>)0) {
-            pFVar1 = param_1;
-            param_1 = param_2;
+    // 0x1001709a0
+    int OnlinePlayerDataLastWorldChangeComparator<FriendData>::Compare(const FriendData& friendData1,
+                                                                       const FriendData& friendData2) const {
+        FriendData* pFVar1 = friendData2;
+        if (*(char*)&this[1]._vptr == '\0') {
+            pFVar1 = friendData1;
+            friendData1 = friendData2;
         }
-        return *(int*)&param_1->field_140 - *(int*)&pFVar1->field_140;
+        return friendData1.field_140 - pFVar1->field_140;
     }
 
-    // 0x100175060, 16 bytes, complete-object constructor, inline, placed by class name
-    // OnlinePlayerDataLastWorldChangeComparator<FriendChatUser>::OnlinePlayerDataLastWorldChangeComparator(bool): jumps straight to the base-object constructor
-
-    // 0x100175080, 48 bytes, base-object constructor, inline, placed by class name
-    // OnlinePlayerDataLastWorldChangeComparator<FriendChatUser>::OnlinePlayerDataLastWorldChangeComparator(bool)
-    void social::OnlinePlayerDataLastWorldChangeComparator<FriendChatUser>::OnlinePlayerDataLastWorldChangeComparator(
-        bool param_1) {
-        new (this) PlayerDataComparator<FriendChatUser>();
-        *(undefined**)this = PTR_vtable_100ee8c18 + 16;
-        this[8] = (OnlinePlayerDataLastWorldChangeComparator<FriendChatUser>)param_1;
-    }
+    // 0x100175080
+    OnlinePlayerDataLastWorldChangeComparator<FriendChatUser>::OnlinePlayerDataLastWorldChangeComparator(bool arg1)
+        : PlayerDataComparator<FriendChatUser>() {}
 
 } // namespace jag::oldscape::social

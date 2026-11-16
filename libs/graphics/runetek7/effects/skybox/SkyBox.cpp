@@ -1,603 +1,491 @@
 // libs/graphics/runetek7/effects/skybox/SkyBox.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "SkyBox.h"
 
 namespace jag::graphics {
-    // 0x100f444c0, 1 bytes, __data
-    SkyBox::m_ShowSkyBox = 1;
+    // 0x100f444c0
+    bool SkyBox::m_ShowSkyBox = 1;
 
-    // 0x100f444c1, 1 bytes, __data
-    SkyBox::m_UseModels = 1;
+    // 0x100f444c1
+    bool SkyBox::m_UseModels = 1;
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    SkyBox::GetTransformedTriangle(unsigned int, math::Vector4T<float> (&)[3]);
+    // 0x100009e70: SkyBox::GetTransformedTriangle(unsigned int, math::Vector4T<float> (&) [3]) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100067280: the linker folded this into game::console::Snow::GetSnowPiles() const, which has identical code
-    SkyBox::GetMaterial() const;
+    // 0x100067280: SkyBox::GetMaterial() const has the same machine code as game::console::Snow::GetSnowPiles() const
 
-    // 0x10041b1e0: the linker folded this into game::NPCType::GetFirstUniqueOpIndex() const, which has identical code
-    int SkyBox::GetPendingSkyID() const;
+    // 0x10041b1e0: SkyBox::GetPendingSkyID() const has the same machine code as game::NPCType::GetFirstUniqueOpIndex() const
 
-    // 0x10047dbc0: the linker folded this into PointLightShadows::GetPointLightSMManager(), which has identical code
-    shared_ptr SkyBox::GetRenderTargets();
+    // 0x10047dbc0, the same machine code as PointLightShadows::GetPointLightSMManager()
+    shared_ptr SkyBox::GetRenderTargets() {
+        return m_renderTargets;
+    }
 
-    // 0x10091a2a0, 416 bytes, base-object constructor, placed by class name and debug map
-    // SkyBox::SkyBox()
-    void SkyBox::SkyBox() {
-        _func_decltype_nullptr* p_Var1;
-
-        p_Var1 = (_func_decltype_nullptr*)4;
-        new (this) Drawable(4);
-        new (this) MakeSharedPool<SkyBox, 16>();
-        field_0 = &PTR__SkyBox_100f193f0;
-        field_16 = 0;
-        field_24 = 0;
-        field_32 = 0;
-        new (&field_40) SkyBoxMaterial();
-        new (m_cubeMap, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_592, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_608, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_624, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_640, 32) Array<eastl::pair<unsigned char, int>, eastl::allocator>();
-        p_Var1 = (_func_decltype_nullptr*)32;
-        new (&field_664, 32) Array<eastl::pair<unsigned char, int>, eastl::allocator>();
-        new (m_renderTargets, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        m_pendingSkyID = -2;
-        m_pendingSkyTransitionTime = 0;
-        m_exposure = 0.0;
-        new (&field_736) math::Vector4T<float>();
-        (&field_40)->Init();
+    // 0x10091a2a0
+    SkyBox::SkyBox()
+        : Drawable(4), MakeSharedPool<SkyBox, 16>(), field_16(0), field_24(0), field_32(0), field_640(32),
+          field_664(32), m_pendingSkyID(-2), m_pendingSkyTransitionTime(0), m_exposure(0.0) {
+        field_40.Init();
         CreateRenderingResources();
     }
 
-    // 0x10091a4d0, 48 bytes, placed by class name
-    // SkyBox::CreateRenderingResources()
-    undefined8 SkyBox::CreateRenderingResources() {
-        AutoSingleton<ShaderThreadPoolSingleton> local_10[8];
+    // 0x10091a4d0
+    void SkyBox::CreateRenderingResources() {
+        AutoSingleton<ShaderThreadPoolSingleton> local_10;
 
-        local_10->~AutoSingleton("Sky_Box");
         return 1;
     }
 
-    // 0x10091a520, 16 bytes, complete-object constructor, placed by class name
-    // SkyBox::SkyBox(): jumps straight to the base-object constructor
-
-    // 0x10091a530, 256 bytes, base-object destructor, placed by class name
-    // SkyBox::~SkyBox()
-    void SkyBox::~SkyBox() {
-        field_0 = &PTR__SkyBox_100f193f0;
-        DestroyRenderingResources(this);
+    // 0x10091a530
+    SkyBox::~SkyBox() {
+        DestroyRenderingResources();
         m_renderTargets->~shared_ptr();
-        (&field_664)->~Array();
-        (&field_640)->~Array();
+        field_664.~Array();
+        field_640.~Array();
         field_624->~shared_ptr();
         field_608->~shared_ptr();
         field_592->~shared_ptr();
         m_cubeMap->~shared_ptr();
-        (&field_40)->~LightProbeMaterial();
-        ~AutoSingleton();
+        field_40.~LightProbeMaterial();
     }
 
-    // 0x10091a630, 96 bytes, placed by class name
-    // SkyBox::DestroyRenderingResources()
+    // 0x10091a630
     void SkyBox::DestroyRenderingResources() {
-        AutoSingleton<ShaderThreadPoolSingleton> local_18[8];
+        AutoSingleton<ShaderThreadPoolSingleton> local_18;
 
-        local_18->~AutoSingleton("Sky_Box");
-        (&field_40)->DestroyRenderingResources();
-        shared_ptr<render::TextureCube>::reset();
-        shared_ptr<render::TextureCube>::reset();
-        shared_ptr<Model>::reset();
+        field_40.DestroyRenderingResources();
+        m_cubeMap->reset();
+        field_592->reset();
+        field_608->reset();
     }
 
-    // 0x10091a690, 16 bytes, complete-object destructor, placed by class name
-    // SkyBox::~SkyBox(): jumps straight to the base-object destructor
-
-    // 0x10091a6a0, 32 bytes, deleting destructor, placed by class name
-    // SkyBox::~SkyBox()
-    void SkyBox::~SkyBox() {
-        ~SkyBox(this);
-        operator_delete(this);
-    }
-
-    // 0x10091a6c0, 208 bytes, placed by class name
-    // SkyBox::MainLogic()
+    // 0x10091a6c0
     void SkyBox::MainLogic() {
         Model* pMVar1;
-        bool bVar2;
-        ulong uVar3;
         SkyBox* this_00;
         SkyBox* this_01;
 
-        uVar3 = FrameTime::GetCurrentTimeMS();
+        unsigned long uVar3 = FrameTime::GetCurrentTimeMS();
         field_16 = uVar3;
         if ((field_32 != 0) && (field_32 <= uVar3)) {
             field_24 = 0;
             field_32 = 0;
-            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)m_cubeMap,
-                                                       (shared_ptr*)field_592);
-            shared_ptr<render::TextureCube>::reset();
+            *m_cubeMap = *field_592;
+            field_592->reset();
             this_01 = (SkyBox*)field_624;
             this_00 = (SkyBox*)field_608;
-            shared_ptr<Model>::operator=((shared_ptr<Model>*)this_00, (shared_ptr*)this_01);
-            shared_ptr<Model>::reset();
-            bVar2 = this_00->operator_cast_to_bool();
-            if (bVar2) {
-                pMVar1 = (Model*)shared_ptr<Model>::operator*((shared_ptr<Model>*)this_00);
-                SetupRenderOrderForSkyModel(this_00, (Array*)&field_640, pMVar1);
+            *this_00 = *this_01;
+            this_01->reset();
+            if (this_00->operator_cast_to_bool()) {
+                pMVar1 = (Model*)**this_00;
+                SetupRenderOrderForSkyModel(this_00, (Array<eastl::pair<unsigned char, int>>*)&field_640, pMVar1);
             }
-            bVar2 = this_01->operator_cast_to_bool();
-            if (bVar2) {
-                pMVar1 = (Model*)shared_ptr<Model>::operator*((shared_ptr<Model>*)this_01);
-                SetupRenderOrderForSkyModel(this_01, (Array*)&field_664, pMVar1);
+            if (this_01->operator_cast_to_bool()) {
+                pMVar1 = (Model*)**this_01;
+                SetupRenderOrderForSkyModel(this_01, (Array<eastl::pair<unsigned char, int>>*)&field_664, pMVar1);
             }
         }
     }
 
-    // 0x10091a790, 208 bytes, placed by class name
-    // SkyBox::SetupRenderOrderForSkyModel(Array<eastl::pair<unsigned char, int>, eastl::allocator>&, Model&)
-    void SkyBox::SetupRenderOrderForSkyModel(Array* param_1, Model* param_2) {
-        byte bVar1;
-        undefined4 uVar2;
-        vector<eastl::pair<int, int>, eastl::allocator>* this_00;
-        ulong uVar3;
-        byte* pbVar4;
+    // 0x10091a790
+    void SkyBox::SetupRenderOrderForSkyModel(Array<eastl::pair<unsigned char, int>>& pairs, Model& model) {
+        uint32_t uVar2;
+        uint8_t* pbVar4;
         unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>* this_01;
-        GeometryBatchInstance* this_02;
         long lVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        byte bVar8;
+        uint8_t bVar6;
+        uint8_t auVar7[16];
 
-        this_00 = (vector<eastl::pair<int, int>, eastl::allocator>*)param_2->GetBatchList();
-        bVar1 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_00);
-        uVar3 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_00);
-        param_1->set_max_size(uVar3, 1);
+        auto this_00 = model.GetBatchList();
+        uint8_t bVar1 = this_00->size();
+        unsigned long uVar3 = this_00->size();
+        pairs.set_max_size(uVar3, 1);
         if (bVar1 != 0) {
-            bVar8 = 0;
+            bVar6 = 0;
             do {
-                uVar3 = (ulong)bVar8;
-                pbVar4 = (byte*)Array<eastl::pair<unsigned char, int>, eastl::allocator>::operator[](
-                    (Array<eastl::pair<unsigned char, int>, eastl::allocator>*)param_1, uVar3);
-                *pbVar4 = bVar8;
+                uVar3 = (unsigned long)bVar6;
+                pbVar4 = &pairs[uVar3];
+                *pbVar4 = bVar6;
                 this_01 =
-                    (unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                        eastl::vector<std::unique_ptr<GeometryBatchInstance,
-                                                      MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                                      eastl::allocator>::
-                        operator[](
-                            (vector<std::unique_ptr<GeometryBatchInstance,
-                                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                                    eastl::allocator>*)this_00,
-                            uVar3);
-                this_02 = (GeometryBatchInstance*)std::unique_ptr<
-                              GeometryBatchInstance,
-                              MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::operator->(this_01);
-                uVar2 = this_02->GetFirstSequenceIDFromSource();
-                lVar5 = Array<eastl::pair<unsigned char, int>, eastl::allocator>::operator[](
-                    (Array<eastl::pair<unsigned char, int>, eastl::allocator>*)param_1, uVar3);
-                *(undefined4*)(lVar5 + 4) = uVar2;
-                bVar8 = bVar8 + 1;
-            } while (bVar8 < bVar1);
+                    (unique_ptr<GeometryBatchInstance,
+                                MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)(*this_00)[uVar3];
+                uVar2 = ((GeometryBatchInstance*)(*this_01).operator->())->GetFirstSequenceIDFromSource();
+                lVar5 = pairs[uVar3];
+                *(uint32_t*)(lVar5 + 4) = uVar2;
+                bVar6 = bVar6 + 1;
+            } while (bVar6 < bVar1);
         }
-        uVar6 = param_1->data();
-        uVar7 = param_1->end();
-        eastl::sort<eastl::pair<unsigned char, int>*, (Array<eastl::pair<unsigned char, int>, eastl::allocator>&)
-                                                          ->SetupRenderOrderForSkyModel(Model&)::__4>(uVar6, uVar7);
+        auto arg1 = pairs.data();
+        auVar7 = pairs.end();
+        eastl::sort<eastl::pair<unsigned char, int>*,
+                    (Array<eastl::pair<unsigned char, int>>&)->SetupRenderOrderForSkyModel(Model&)::__4>(
+            arg1, auVar7._0_8_, auVar7._8_8_);
     }
 
-    // 0x10091a860, 112 bytes, placed by class name
-    // SkyBox::Clear()
+    // 0x10091a860
     void SkyBox::Clear() {
         field_16 = 0;
         field_24 = 0;
         field_32 = 0;
-        shared_ptr<render::TextureCube>::reset();
-        shared_ptr<render::TextureCube>::reset();
-        shared_ptr<Model>::reset();
-        shared_ptr<Model>::reset();
+        m_cubeMap->reset();
+        field_592->reset();
+        field_608->reset();
+        field_624->reset();
         m_pendingSkyID = -2;
         m_pendingSkyTransitionTime = 0;
         m_exposure = 0.0;
     }
 
-    // 0x10091a8d0, 128 bytes, placed by class name
-    // SkyBox::GetTransitionProgress(unsigned long long, bool) const
-    float SkyBox::GetTransitionProgress(ulonglong param_1, bool param_2) {
-        ulong uVar1;
-        float fVar2;
-
-        fVar2 = 0.0;
-        uVar1 = field_32 - field_24;
-        if (((uVar1 != 0) && (fVar2 = 1.0, param_1 < field_32)) && (param_2)) {
-            fVar2 = (float)(param_1 - field_24) / (float)uVar1;
+    // 0x10091a8d0
+    float SkyBox::GetTransitionProgress(unsigned long long arg1, bool arg2) const {
+        float fVar2 = 0.0;
+        unsigned long uVar1 = field_32 - field_24;
+        if (((uVar1 != 0) && (fVar2 = 1.0, arg1 < field_32)) && (arg2)) {
+            fVar2 = (float)(arg1 - field_24) / (float)uVar1;
         }
         return fVar2;
     }
 
-    // 0x10091a950, 144 bytes, placed by class name
-    // SkyBox::SetCubeMap(shared_ptr<render::TextureCube> const&, unsigned long long, unsigned long long)
-    void SkyBox::SetCubeMap(shared_ptr* param_1, ulonglong param_2, ulonglong param_3) {
-        undefined1* this_00;
+    // 0x10091a950
+    void SkyBox::SetCubeMap(const shared_ptr<render::TextureCube>& textureCube, unsigned long long arg2,
+                            unsigned long long arg3) {
+        uint8_t* this_00;
 
-        if (param_2 == 0) {
-            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)m_cubeMap, param_1);
-            shared_ptr<render::TextureCube>::reset();
+        if (arg2 == 0) {
+            *m_cubeMap = textureCube;
+            field_592->reset();
             field_24 = 0;
             field_32 = 0;
         } else {
             this_00 = field_592;
-            if (this_00->operator_cast_to_bool()) {
-                shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)m_cubeMap,
-                                                           (shared_ptr*)this_00);
+            if (this_00->operator_cast_to_bool() != '\0') {
+                *m_cubeMap = *this_00;
             }
-            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)this_00, param_1);
-            field_16 = param_3;
-            field_24 = param_3;
-            field_32 = param_2 + param_3;
+            *this_00 = textureCube;
+            field_16 = arg3;
+            field_24 = arg3;
+            field_32 = arg2 + arg3;
         }
     }
 
-    // 0x10091a9e0, 464 bytes, placed by class name
-    // SkyBox::SetModel(shared_ptr<Model> const&, unsigned long long, unsigned long long)
-    void SkyBox::SetModel(shared_ptr* param_1, ulonglong param_2, ulonglong param_3) {
-        undefined1* this_00;
+    // 0x10091a9e0
+    void SkyBox::SetModel(const shared_ptr<Model>& model, unsigned long long arg2, unsigned long long arg3) {
+        uint8_t* this_00;
         bool bVar1;
-        ulong uVar2;
-        ulong uVar3;
-        Model* pMVar4;
-        shared_ptr* extraout_RDX;
-        SkyBox* pSVar5;
+        bool cVar2;
+        unsigned long uVar3;
+        unsigned long uVar4;
+        Model* pMVar5;
         float local_34;
 
         m_pendingSkyID = -1;
         m_pendingSkyTransitionTime = 0;
-        if (param_2 == 0) {
-            shared_ptr<Model>::operator=((shared_ptr<Model>*)field_608, param_1);
-            shared_ptr<Model>::reset();
+        if (arg2 == 0) {
+            *field_608 = model;
+            field_624->reset();
             field_24 = 0;
             field_32 = 0;
         } else {
             this_00 = field_624;
-            bVar1 = operator==((jag*)param_1, (shared_ptr*)this_00, (shared_ptr*)param_2);
+            bVar1 = model == *this_00;
             if (bVar1) {
-                local_34 = (float)GetTransitionProgress(this, param_3, true);
+                local_34 = (float)GetTransitionProgress(arg3, true);
             } else {
-                bVar1 = this_00->operator_cast_to_bool();
+                cVar2 = this_00->operator_cast_to_bool();
                 local_34 = 0.0;
-                if (bVar1) {
-                    bVar1 = operator==((jag*)param_1, (shared_ptr*)field_608, extraout_RDX);
+                if (cVar2) {
+                    bVar1 = model == *field_608;
                     local_34 = 0.0;
                     if (bVar1) {
-                        local_34 = (float)GetTransitionProgress(this, param_3, true);
+                        local_34 = (float)GetTransitionProgress(arg3, true);
                         local_34 = 1.0 - local_34;
                     }
-                    shared_ptr<Model>::operator=((shared_ptr<Model>*)field_608, (shared_ptr*)this_00);
+                    *field_608 = *this_00;
                 }
-                shared_ptr<Model>::operator=((shared_ptr<Model>*)this_00, param_1);
+                *this_00 = model;
             }
-            field_16 = param_3;
-            uVar2 = (ulong)((float)param_2 * local_34);
-            uVar3 = 0;
+            field_16 = arg3;
+            uVar3 = (unsigned long)((float)arg2 * local_34);
+            uVar4 = 0;
             if (0.0 < local_34) {
-                uVar3 = (long)((float)param_2 * local_34 - 9.223372e+18) & (long)uVar2 >> 63 | uVar2;
+                uVar4 = (long)((float)arg2 * local_34 - 9.223372e+18) & (long)uVar3 >> 63 | uVar3;
             }
-            field_24 = param_3 - uVar3;
-            field_32 = (param_3 - uVar3) + param_2;
+            field_24 = arg3 - uVar4;
+            field_32 = (arg3 - uVar4) + arg2;
         }
-        pSVar5 = (SkyBox*)field_608;
-        bVar1 = pSVar5->operator_cast_to_bool();
-        if (bVar1) {
-            pMVar4 = (Model*)shared_ptr<Model>::operator*((shared_ptr<Model>*)pSVar5);
-            SetupRenderOrderForSkyModel(pSVar5, (Array*)&field_640, pMVar4);
+        SkyBox* pSVar6 = (SkyBox*)field_608;
+        cVar2 = pSVar6->operator_cast_to_bool();
+        if (cVar2) {
+            pMVar5 = (Model*)**pSVar6;
+            SetupRenderOrderForSkyModel(pSVar6, (Array<eastl::pair<unsigned char, int>>*)&field_640, pMVar5);
         }
-        pSVar5 = (SkyBox*)field_624;
-        bVar1 = pSVar5->operator_cast_to_bool();
-        if (bVar1) {
-            pMVar4 = (Model*)shared_ptr<Model>::operator*((shared_ptr<Model>*)pSVar5);
-            SetupRenderOrderForSkyModel(pSVar5, (Array*)&field_664, pMVar4);
+        pSVar6 = (SkyBox*)field_624;
+        cVar2 = pSVar6->operator_cast_to_bool();
+        if (cVar2) {
+            pMVar5 = (Model*)**pSVar6;
+            SetupRenderOrderForSkyModel(pSVar6, (Array<eastl::pair<unsigned char, int>>*)&field_664, pMVar5);
         }
     }
 
-    // 0x10091abb0, 160 bytes, placed by class name
-    // SkyBox::SetPendingSkyID(int, unsigned long long)
-    void SkyBox::SetPendingSkyID(int param_1, ulonglong param_2) {
-        ulonglong uVar1;
-        shared_ptr local_30;
+    // 0x10091abb0
+    void SkyBox::SetPendingSkyID(int arg1, unsigned long long arg2) {
+        unsigned long long arg3;
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_30;
 
-        if (param_1 == -2) {
-            /* WARNING: Subroutine does not return */
+        if (arg1 == -2) {
             LogAssert("skyID != SKYBOX_ID_UNINITIALISED",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/effects/"
                       "skybox/SkyBox.cpp",
-                      178, (char*)0);
+                      178, nullptr);
         }
-        m_pendingSkyID = param_1;
-        m_pendingSkyTransitionTime = param_2;
-        if (param_1 == -1) {
-            new (&local_30) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            uVar1 = FrameTime::GetCurrentTimeMS();
-            SetModel(this, &local_30, param_2, uVar1);
-            local_30.~shared_ptr();
+        m_pendingSkyID = arg1;
+        m_pendingSkyTransitionTime = arg2;
+        if (arg1 == -1) {
+            local_30 = shared_ptr();
+            arg3 = FrameTime::GetCurrentTimeMS();
+            SetModel(local_30, arg2, arg3);
         }
     }
 
-    // 0x10091ac50, 144 bytes, placed by class name
-    // SkyBox::GetDesiredClearColour(math::Vector4T<float> const&) const
-    undefined1[16] SkyBox::GetDesiredClearColour(Vector4T* param_1) {
-        float fVar1;
-        undefined1 auVar3[16];
-        ImVec4 local_48[16];
-        ImVec4 local_38[24];
+    // 0x10091ac50
+    uint8_t[16] SkyBox::GetDesiredClearColour(const math::Vector4T<float>& vector4) const {
+        float arg1;
+        uint8_t auVar2[16];
+        ImVec4 local_48;
 
-        ImVec4::ImVec4(local_38, 0.0, 0.0, 0.0, 0.0);
-        if (!m_cubeMap->operator_cast_to_bool()) {
-            math::Rect<float>::operator=((Rect<float>*)local_38, (Rect*)param_1);
-            fVar1 = m_exposure;
-            ImVec4::ImVec4(local_48, fVar1, fVar1, fVar1, 0.0);
-            math::QuaternionT<float>::operator+=((QuaternionT<float>*)local_38, (QuaternionT*)local_48);
+        ImVec4 local_38(0.0, 0.0, 0.0, 0.0);
+        if (m_cubeMap->operator_cast_to_bool() == '\0') {
+            local_38 = vector4;
+            arg1 = m_exposure;
+            local_48 = ImVec4(arg1, arg1, arg1, 0.0);
+            local_38 += local_48;
         }
-        auVar3[0] = local_38[0];
-        auVar3[1] = local_38[1];
-        auVar3[2] = local_38[2];
-        auVar3[3] = local_38[3];
-        auVar3[4] = local_38[4];
-        auVar3[5] = local_38[5];
-        auVar3[6] = local_38[6];
-        auVar3[7] = local_38[7];
-        auVar3[8] = local_38[8];
-        auVar3[9] = local_38[9];
-        auVar3[10] = local_38[10];
-        auVar3[11] = local_38[11];
-        auVar3[12] = local_38[12];
-        auVar3[13] = local_38[13];
-        auVar3[14] = local_38[14];
-        auVar3[15] = local_38[15];
-        return auVar3;
+        auVar2[0] = local_38[0];
+        auVar2[1] = local_38[1];
+        auVar2[2] = local_38[2];
+        auVar2[3] = local_38[3];
+        auVar2[4] = local_38[4];
+        auVar2[5] = local_38[5];
+        auVar2[6] = local_38[6];
+        auVar2[7] = local_38[7];
+        auVar2[8] = local_38[8];
+        auVar2[9] = local_38[9];
+        auVar2[10] = local_38[10];
+        auVar2[11] = local_38[11];
+        auVar2[12] = local_38[12];
+        auVar2[13] = local_38[13];
+        auVar2[14] = local_38[14];
+        auVar2[15] = local_38[15];
+        return auVar2;
     }
 
-    // 0x10091ace0, 16 bytes, placed by class name
-    // SkyBox::GatherDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&)
-    void SkyBox::GatherDrawableElements(DrawableQueue* param_1, RT7Core* param_2, SceneViewData* param_3,
-                                        EffectManager* param_4) {
-        GatherDrawableElementsImpl(this, param_1, param_2, param_3, param_4, false);
+    // 0x10091ace0
+    void SkyBox::GatherDrawableElements(DrawableQueue& drawableQueue, RT7Core& rt7Core,
+                                        const SceneViewData& sceneViewData, const EffectManager& effectManager) {
+        GatherDrawableElementsImpl(drawableQueue, rt7Core, sceneViewData, effectManager, false);
     }
 
-    // 0x10091acf0, 944 bytes, placed by class name
-    // SkyBox::GatherDrawableElementsImpl(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&, bool)
-    void SkyBox::GatherDrawableElementsImpl(DrawableQueue* param_1, RT7Core* param_2, SceneViewData* param_3,
-                                            EffectManager* param_4, bool param_5) {
-        char cVar2;
+    // 0x10091acf0
+    void SkyBox::GatherDrawableElementsImpl(DrawableQueue& drawableQueue, RT7Core& rt7Core,
+                                            const SceneViewData& sceneViewData, const EffectManager& effectManager,
+                                            bool arg5) {
         bool bVar3;
-        undefined4 uVar4;
-        RenderPassBitSet* pRVar5;
-        ulonglong uVar6;
+        uint8_t bVar4;
+        uint32_t uVar5;
+        unsigned long long uVar6;
         long* plVar7;
-        RenderPassEffect* pRVar8;
-        undefined7 in_register_00000089;
-        DrawableSortKey local_e8;
+        RT7Core* pRVar8;
+        uint64_t in_register_00000089;
+        uint8_t local_e8[8];
         __3 local_e0;
-        RenderMaterial* local_88;
+        RenderPassType* local_98;
         long* local_80;
-        shared_ptr local_78;
-        shared_ptr local_68;
         float local_58;
-        undefined4 local_54;
+        uint32_t local_54;
         long local_40;
-        uint local_38;
+        RenderPassType local_38;
         int local_34;
 
         if (m_ShowSkyBox == '\0') {
             return;
         }
-        pRVar5 = (RenderPassBitSet*)param_3->GetRenderPassBits();
-        local_88 = (RenderMaterial*)&field_40;
-        cVar2 = (&field_40, pRVar5)->CanRenderInPasses();
-        if (cVar2 == '\0') {
+        auto renderPassBitSet = sceneViewData.GetRenderPassBits();
+        RenderMaterial* local_88 = (RenderMaterial*)&field_40;
+        bool cVar2 = field_40.CanRenderInPasses(*renderPassBitSet);
+        if (!cVar2) {
             return;
         }
-        cVar2 = param_4->IsEnabled(27);
-        if (cVar2 == '\0') {
+        cVar2 = effectManager.IsEnabled(27);
+        if (!cVar2) {
             return;
         }
-        new (&local_78) shared_ptr<oldscape::dash3d::Decor>(m_cubeMap);
-        new (&local_68) shared_ptr<oldscape::dash3d::Decor>(field_592);
-        bVar3 = shared_ptr::operator_cast_to_bool(&local_78);
-        if ((((bVar3) || (bVar3 = shared_ptr::operator_cast_to_bool(&local_68), bVar3)) ||
-             (bVar3 = field_608->operator_cast_to_bool(), bVar3)) ||
-            (bVar3 = field_624->operator_cast_to_bool(), bVar3)) {
+        shared_ptr local_78(m_cubeMap);
+        shared_ptr local_68(field_592);
+        cVar2 = shared_ptr::operator_cast_to_bool(&local_78);
+        if ((((cVar2) || (cVar2 = shared_ptr::operator_cast_to_bool(&local_68), cVar2)) ||
+             (cVar2 = field_608->operator_cast_to_bool(), cVar2)) ||
+            (cVar2 = field_624->operator_cast_to_bool(), cVar2)) {
             uVar6 = FrameTime::GetCurrentTimeMS();
-            bVar3 = (bool)param_4->IsEnabled(94);
-            local_58 = (float)GetTransitionProgress(this, uVar6, bVar3);
+            bVar3 = (bool)effectManager.IsEnabled(94);
+            local_58 = (float)GetTransitionProgress(uVar6, bVar3);
             local_34 = 1;
             if (0.0 < local_58) {
-                bVar3 = shared_ptr::operator_cast_to_bool(&local_78);
+                cVar2 = shared_ptr::operator_cast_to_bool(&local_78);
                 local_34 = 2;
-                if (bVar3) {
-                    bVar3 = shared_ptr::operator_cast_to_bool(&local_68);
-                    local_34 = 2 - (uint)bVar3;
+                if (cVar2) {
+                    bVar4 = shared_ptr::operator_cast_to_bool(&local_68);
+                    local_34 = 2 - (unsigned int)bVar4;
                 }
             }
-            bVar3 = field_608->operator_cast_to_bool();
-            if (bVar3) {
-                GatherSkyModel(this, param_2, param_3, param_4, (shared_ptr*)field_608, param_5);
+            cVar2 = field_608->operator_cast_to_bool();
+            if (cVar2) {
+                GatherSkyModel(rt7Core, sceneViewData, effectManager, *field_608, arg5);
                 local_34 = 2;
             }
-            bVar3 = field_624->operator_cast_to_bool();
-            if (bVar3) {
-                GatherSkyModel(this, param_2, param_3, param_4, (shared_ptr*)field_624, param_5);
+            cVar2 = field_624->operator_cast_to_bool();
+            if (cVar2) {
+                GatherSkyModel(rt7Core, sceneViewData, effectManager, *field_624, arg5);
                 local_34 = 2;
             }
-            local_54 = (undefined4)CONCAT71(in_register_00000089, param_5);
-            plVar7 = (long*)(&param_3->field_520)->HeapBeginPtr();
-            local_80 = (long*)(&param_3->field_520)->end();
+            local_54 = (uint32_t)(((uint64_t)in_register_00000089 << 8) | (uint8_t)arg5);
+            plVar7 = (long*)sceneViewData.field_520.HeapBeginPtr();
+            local_80 = (long*)sceneViewData.field_520.end();
             if (plVar7 != local_80) {
                 do {
                     if (*plVar7 == 0) {
-                        /* WARNING: Subroutine does not return */
                         LogAssert("renderPass",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                   "runetek7/effects/skybox/SkyBox.cpp",
-                                  265, (char*)0);
+                                  265, nullptr);
                     }
                     local_38 = (*plVar7)->GetPos();
-                    pRVar8 = (RenderPassEffect*)local_88->GetRenderPassEffect(local_38);
+                    pRVar8 = (RT7Core*)local_88->GetRenderPassEffect(local_38);
                     local_40 = 0;
-                    new (&local_e8) math::Vector2T<int>();
-                    local_e0.field_0 = (SkyBox*)this;
-                    local_e0.field_24 = param_2;
+                    new (local_e8) math::Vector2T();
+                    local_e0.field_0 = this;
+                    local_e0.field_24 = (EffectManager*)rt7Core;
                     local_e0.field_40 = &local_34;
                     local_e0.field_48 = &local_58;
                     local_e0.field_56 = &local_40;
-                    local_e0.field_64 = param_1;
-                    local_e0.field_72 = &local_38;
-                    local_e0.field_8 = &local_e8;
+                    local_e0.field_64 = drawableQueue;
+                    local_98 = &local_38;
+                    local_e0.field_8 = (RenderPassEffect*)local_e8;
                     local_e0.field_16 = pRVar8;
-                    local_e0.field_32 = param_4;
+                    local_e0.field_32 = effectManager;
                     if (14 < local_38) {
                     LAB_10091b02f:
-                        /* WARNING: Subroutine does not return */
                         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                         "graphics/runetek7/effects/skybox/SkyBox.cpp",
                                         296, "Unsupported render pass");
                     }
                     if ((21000U >> (local_38 & 31) & 1) == 0) {
                         if (local_38 == 2) {
-                            GatherDrawableElementsImpl(DrawableQueue&, RT7Core&, SceneViewData_const&,
-                                                       EffectManager_const&, bool)::$_3::operator()(&local_e0);
+                            GatherDrawableElementsImpl(DrawableQueue&, RT7Core&, SceneViewData const&,
+                                                       EffectManager const&, bool)::$_3::operator()(&local_e0);
                         } else {
                             if (local_38 != 4)
                                 goto LAB_10091b02f;
                             if ((char)local_54 != '\0') {
-                                GatherDrawableElementsImpl(DrawableQueue&, RT7Core&, SceneViewData_const&,
-                                                           EffectManager_const&, bool)::$_3::operator()(&local_e0);
+                                GatherDrawableElementsImpl(DrawableQueue&, RT7Core&, SceneViewData const&,
+                                                           EffectManager const&, bool)::$_3::operator()(&local_e0);
                             }
                         }
                     }
                     if (local_40 != 0) {
-                        uVar4 = ((SkyBox*)this)->GetPos();
-                        *(undefined4*)(local_40 + 96) = uVar4;
-                        *(SkyBox**)(local_40 + 104) = (SkyBox*)this;
+                        uVar5 = GetPos();
+                        *(uint32_t*)(local_40 + 96) = uVar5;
+                        *(SkyBox**)(local_40 + 104) = this;
                         uVar6 = FrameTime::GetCurrentTimeMS();
-                        bVar3 = (bool)param_4->IsEnabled(94);
-                        uVar4 = GetTransitionProgress((SkyBox*)this, uVar6, bVar3);
-                        *(undefined4*)(local_40 + 112) = uVar4;
+                        bVar3 = (bool)effectManager.IsEnabled(94);
+                        uVar5 = GetTransitionProgress(uVar6, bVar3);
+                        *(uint32_t*)(local_40 + 112) = uVar5;
                     }
                     plVar7 = plVar7 + 1;
                 } while (plVar7 != local_80);
             }
         }
-        local_68.~shared_ptr();
-        local_78.~shared_ptr();
     }
 
-    // 0x10091b0a0, 32 bytes, placed by class name
-    // SkyBox::GatherForwardDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&)
-    void SkyBox::GatherForwardDrawableElements(DrawableQueue* param_1, RT7Core* param_2, SceneViewData* param_3,
-                                               EffectManager* param_4) {
-        GatherDrawableElementsImpl(this, param_1, param_2, param_3, param_4, true);
+    // 0x10091b0a0
+    void SkyBox::GatherForwardDrawableElements(DrawableQueue& drawableQueue, RT7Core& rt7Core,
+                                               const SceneViewData& sceneViewData, const EffectManager& effectManager) {
+        GatherDrawableElementsImpl(drawableQueue, rt7Core, sceneViewData, effectManager, true);
     }
 
-    // 0x10091b0c0, 768 bytes, placed by class name
-    // SkyBox::GatherSkyModel(RT7Core&, SceneViewData const&, EffectManager const&, shared_ptr<Model>&, bool)
-    void SkyBox::GatherSkyModel(RT7Core* param_1, SceneViewData* param_2, EffectManager* param_3, shared_ptr* param_4,
-                                bool param_5) {
+    // 0x10091b0c0
+    void SkyBox::GatherSkyModel(RT7Core& rt7Core, const SceneViewData& sceneViewData,
+                                const EffectManager& effectManager, shared_ptr<Model>& model, bool arg5) {
         SceneViewData* pSVar1;
-        char cVar2;
-        uint uVar3;
-        Model* pMVar4;
+        RenderPassType RVar3;
         Layout* pLVar5;
         unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>* this_00;
         PointLightShadows* this_01;
         SkyBox* this_02;
-        GeometryBatch* this_03;
         long* plVar6;
         long* plVar7;
         GeometryBatchInstance* pGVar8;
         RenderMaterial* pRVar9;
         RenderPassEffect* pRVar10;
-        BillboardBatchInstance* pBVar11;
+        BillboardBatchInstance* billboardBatchInstance;
         SkyBox* this_04;
-        undefined3 in_register_00000089;
-        Vector4T<float> local_78[16];
+        uint32_t in_register_00000089;
+        Vector4T<float> local_78;
         unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>* local_68;
-        shared_ptr* local_60;
-        EffectManager* local_58;
-        RT7Core* local_50;
-        SceneViewData* local_48;
         SkyBox* local_40;
-        undefined4 local_34;
 
-        local_34 = CONCAT31(in_register_00000089, param_5);
-        local_58 = param_3;
-        local_50 = param_1;
-        local_48 = param_2;
-        pMVar4 = (Model*)shared_ptr<Model>::operator->((shared_ptr<Model>*)param_4);
-        cVar2 = pMVar4->IsReadyToRender();
-        if (cVar2 != '\0') {
-            pMVar4 = (Model*)shared_ptr<Model>::operator->((shared_ptr<Model>*)param_4);
+        uint32_t local_34 = (((uint32_t)in_register_00000089 << 8) | (uint8_t)arg5);
+        SceneViewData* local_48 = sceneViewData;
+        auto pMVar4 = model.operator->();
+        bool cVar2 = pMVar4->IsReadyToRender();
+        if (cVar2) {
+            pMVar4 = (Model*)model.operator->();
             local_40 = this;
-            math::Vector4T<float>::Vector4T(local_78, m_exposure);
+            local_78 = math::Vector4T(m_exposure);
             pMVar4->SetTint(local_78);
-            local_60 = param_4;
-            pMVar4 = (Model*)shared_ptr<Model>::operator->((shared_ptr<Model>*)param_4);
+            pMVar4 = (Model*)model.operator->();
             pLVar5 = (Layout*)pMVar4->GetBatchList();
             this_00 =
                 (unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(pLVar5);
+                    pLVar5->HeapBeginPtr();
             local_68 =
                 (unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
                     pLVar5->end();
             local_48 = (SceneViewData*)&local_48->field_520;
             if (this_00 != local_68) {
                 do {
-                    pGVar8 = (GeometryBatchInstance*)std::unique_ptr<
-                                 GeometryBatchInstance,
-                                 MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::operator->(this_00);
-                    this_03 = (GeometryBatch*)pGVar8->GetGeometryBatch();
-                    cVar2 = this_03->IsHidden();
+                    pGVar8 = (GeometryBatchInstance*)(*this_00).operator->();
+                    cVar2 = ((GeometryBatch*)pGVar8->GetGeometryBatch())->IsHidden();
                     pSVar1 = local_48;
-                    if (cVar2 == '\0') {
+                    if (!cVar2) {
                         plVar6 = (long*)local_48->HeapBeginPtr();
                         plVar7 = (long*)pSVar1->end();
                         for (; plVar6 != plVar7; plVar6 = plVar6 + 1) {
                             if (*plVar6 == 0) {
-                                /* WARNING: Subroutine does not return */
                                 LogAssert("renderPass",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                           "graphics/runetek7/effects/skybox/SkyBox.cpp",
-                                          328, (char*)0);
+                                          328, nullptr);
                             }
-                            uVar3 = (*plVar6)->GetPos();
-                            pGVar8 = (GeometryBatchInstance*)
-                                         std::unique_ptr<GeometryBatchInstance,
-                                                         MakeUniquePool<GeometryBatchInstance,
-                                                                        3072>::UniquePoolDeleter>::operator->(this_00);
+                            RVar3 = (*plVar6)->GetPos();
+                            pGVar8 = (GeometryBatchInstance*)(*this_00).operator->();
                             pRVar9 = (RenderMaterial*)pGVar8->GetMaterial();
-                            pRVar10 = (RenderPassEffect*)pRVar9->GetRenderPassEffect(uVar3);
-                            if (14 < uVar3) {
+                            pRVar10 = (RenderPassEffect*)pRVar9->GetRenderPassEffect(RVar3);
+                            if (14 < RVar3) {
                             LAB_10091b2a5:
-                                /* WARNING: Subroutine does not return */
                                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                                 "graphics/runetek7/effects/skybox/SkyBox.cpp",
                                                 349, "Unsupported render pass");
                             }
-                            if ((21000U >> (uVar3 & 31) & 1) == 0) {
-                                if (uVar3 != 2) {
-                                    if (uVar3 != 4)
+                            if ((21000U >> (RVar3 & 31) & 1) == 0) {
+                                if (RVar3 != 2) {
+                                    if (RVar3 != 4)
                                         goto LAB_10091b2a5;
                                     if ((char)local_34 == '\0')
                                         goto LAB_10091b21f;
                                 }
-                                pGVar8 = (GeometryBatchInstance*)std::unique_ptr<
-                                    GeometryBatchInstance,
-                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::get(this_00);
-                                UpdateSkyBatchForwardPassEffect(local_40, pRVar10, local_50, local_58, pGVar8);
+                                pGVar8 = (GeometryBatchInstance*)this_00->get();
+                                UpdateSkyBatchForwardPassEffect(local_40, pRVar10, rt7Core, effectManager, pGVar8);
                             }
                         LAB_10091b21f:
                         }
@@ -605,11 +493,9 @@ namespace jag::graphics {
                     this_00 = this_00 + 8;
                 } while (this_00 != local_68);
             }
-            this_01 = (PointLightShadows*)shared_ptr<Model>::operator->((shared_ptr<Model>*)local_60);
+            this_01 = (PointLightShadows*)model.operator->();
             pLVar5 = (Layout*)this_01->GetPointLightSMManager();
-            this_02 = (SkyBox*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar5);
+            this_02 = (SkyBox*)pLVar5->HeapBeginPtr();
             local_40 = (SkyBox*)pLVar5->end();
             if (this_02 != local_40) {
                 do {
@@ -618,35 +504,29 @@ namespace jag::graphics {
                     plVar7 = (long*)pSVar1->end();
                     for (; plVar6 != plVar7; plVar6 = plVar6 + 1) {
                         if (*plVar6 == 0) {
-                            /* WARNING: Subroutine does not return */
                             LogAssert("renderPass",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                       "runetek7/effects/skybox/SkyBox.cpp",
-                                      359, (char*)0);
+                                      359, nullptr);
                         }
-                        uVar3 = (*plVar6)->GetPos();
-                        pGVar8 =
-                            (GeometryBatchInstance*)std::unique_ptr<
-                                BillboardBatchInstance, MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<BillboardBatchInstance,
-                                            MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)this_02);
+                        RVar3 = (*plVar6)->GetPos();
+                        pGVar8 = (GeometryBatchInstance*)(*this_02).operator->();
                         pRVar9 = (RenderMaterial*)pGVar8->GetMaterial();
-                        pRVar10 = (RenderPassEffect*)pRVar9->GetRenderPassEffect(uVar3);
-                        if (14 < uVar3) {
+                        pRVar10 = (RenderPassEffect*)pRVar9->GetRenderPassEffect(RVar3);
+                        if (14 < RVar3) {
                         LAB_10091b2ff:
-                            /* WARNING: Subroutine does not return */
                             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                             "graphics/runetek7/effects/skybox/SkyBox.cpp",
                                             378, "Unsupported render pass");
                         }
-                        if ((21004U >> (uVar3 & 31) & 1) == 0) {
-                            if (uVar3 != 4)
+                        if ((21004U >> (RVar3 & 31) & 1) == 0) {
+                            if (RVar3 != 4)
                                 goto LAB_10091b2ff;
                             if ((char)local_34 != '\0') {
                                 this_04 = this_02;
-                                pBVar11 = (BillboardBatchInstance*)this_02->get();
-                                UpdateSkyBillboardBatchForwardPassEffect(this_04, pRVar10, local_50, local_58, pBVar11);
+                                billboardBatchInstance = (BillboardBatchInstance*)this_02->get();
+                                UpdateSkyBillboardBatchForwardPassEffect(this_04, pRVar10, rt7Core, effectManager,
+                                                                         billboardBatchInstance);
                             }
                         }
                     }
@@ -656,252 +536,200 @@ namespace jag::graphics {
         }
     }
 
-    // 0x10091b3c0, 208 bytes, placed by class name
-    // SkyBox::GatherDrawableElementsImpl(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&, bool)::$_3::operator()() const
-    /* SkyBox::GatherDrawableElementsImpl(DrawableQueue&,
-   RT7Core&, SceneViewData const&, EffectManager
-   const&, bool)::$_3::TEMPNAMEPLACEHOLDERVALUE() const */
+    // 0x10091b3c0
+    void SkyBox::GatherDrawableElementsImpl(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&,
+                                            bool)::$_3::operator()() const {
+        unique_ptr<DrawableElement, DrawableElementDeleter>* drawableElement;
+        DrawableSortKey drawableSortKey;
+        uint32_t in_stack_ffffffffffffffbc;
+        unique_ptr<DrawableElement, DrawableElementDeleter> local_38;
 
-    void SkyBox::GatherDrawableElementsImpl(DrawableQueue&, RT7Core&, SceneViewData_const&, EffectManager_const&,
-                                            bool)::$_3::operator()() {
-        undefined8 uVar1;
-        DrawableQueue* pDVar2;
-        DrawableSortKey DVar3;
-        bool bVar4;
-        SkyBox_DE* pSVar5;
-        SkyBox* this_00;
-        unique_ptr<DrawableElement, DrawableElementDeleter> local_38[8];
-
-        uVar1 = field_0;
-        bVar4 = *field_48 <= 1.0 && *field_48 != 1.0;
-        this_00 = (SkyBox*)(ulong)bVar4;
-        UpdateForwardPassEffect(this_00, field_8, field_16, field_24, field_32, *field_40 == 2, bVar4);
-        pSVar5 = DrawableElementPool<SkyBox_DE>::Create<>((DrawableElementPool<SkyBox_DE>*)this_00);
-        *field_56 = pSVar5;
-        pDVar2 = field_64;
-        DVar3 = *field_8;
-        std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(local_38,
-                                                                                         (DrawableElement*)*field_56);
-        pDVar2->AddDrawable(DVar3, local_38, uVar1, 3, *field_72);
-        std::unique_ptr<DrawableElement, DrawableElementDeleter>::~unique_ptr(local_38);
+        uint64_t uVar1 = field_0;
+        bool bVar2 = *field_48 <= 1.0 && *field_48 != 1.0;
+        unsigned int uVar4 = (unsigned int)bVar2;
+        UpdateForwardPassEffect((DrawableSortKey*)(unsigned long)bVar2, field_8, field_16, field_24, (uint8_t)field_32,
+                                *field_40 == 2);
+        auto pSVar3 = DrawableElementPool<SkyBox_DE>::Create<>();
+        *field_56 = pSVar3;
+        DrawableQueue* this_00 = field_64;
+        drawableElement = *(unique_ptr<DrawableElement, DrawableElementDeleter>**)field_8;
+        local_38.unique_ptr<true, void>(*field_56);
+        drawableSortKey._4_4_ = in_stack_ffffffffffffffbc;
+        drawableSortKey._0_4_ = uVar4;
+        this_00->AddDrawable(drawableSortKey, *drawableElement, &local_38, (DrawableGroupType)uVar1, 3);
     }
 
-    // 0x10091b4c0, 480 bytes, placed by class name
-    // SkyBox::UpdateSkyBatchForwardPassEffect(RenderPassEffect&, RT7Core&, EffectManager const&, GeometryBatchInstance*)
-    void SkyBox::UpdateSkyBatchForwardPassEffect(RenderPassEffect* param_1, RT7Core* param_2, EffectManager* param_3,
-                                                 GeometryBatchInstance* param_4) {
-        undefined8 uVar1;
-        undefined* puVar2;
-        undefined8 uVar3;
-        char cVar4;
-        undefined7 in_register_00000001;
-        RenderMaterial* this_00;
-        undefined8 extraout_RDX;
-        bool bVar5;
-        undefined4 uVar6;
+    // 0x10091b4c0
+    void SkyBox::UpdateSkyBatchForwardPassEffect(RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                                 const EffectManager& effectManager,
+                                                 GeometryBatchInstance* geometryBatchInstance) {
+        uint8_t auVar4[16];
 
-        uVar6 = (undefined4)((uint7)in_register_00000001 >> 24);
-        param_1->Set(86, 1);
-        param_1->Set(7, 0);
-        param_1->Set(21, 0);
-        param_1->Set(52, 0);
-        param_1->Set(26, 0);
-        param_1->Set(30, 0);
-        param_1->Set(28, 0);
-        param_1->Set(48, 0);
-        param_1->Set(57, 0);
-        param_1->Set(24, 0);
-        param_1->Set(51, 0);
-        param_1->Set(110, 0);
-        param_1->Set(15, 0);
-        param_1->Set(44, 0);
-        param_1->Set(117, 0);
-        param_1->Set(35, 0);
-        param_1->Set(82, m_exposure != 0.0);
-        uVar1 = param_3->BuildShaderEffectList(param_1);
-        param_1->field_16 = uVar1;
-        param_1->field_24 = extraout_RDX;
-        this_00 = (RenderMaterial*)param_4->GetMaterial();
-        cVar4 = this_00->GetOption(1);
-        bVar5 = true;
-        if (cVar4 == '\0') {
-            cVar4 = this_00->GetOption(2);
-            if (cVar4 == '\0') {
-                puVar2 = (undefined*)this_00->data();
-                bVar5 = puVar2 != AlphaMode::ALPHA_OPAQUE;
+        renderPassEffect.Set(86, true);
+        renderPassEffect.Set(7, false);
+        renderPassEffect.Set(21, false);
+        renderPassEffect.Set(52, false);
+        renderPassEffect.Set(26, false);
+        renderPassEffect.Set(30, false);
+        renderPassEffect.Set(28, false);
+        renderPassEffect.Set(48, false);
+        renderPassEffect.Set(57, false);
+        renderPassEffect.Set(24, false);
+        renderPassEffect.Set(51, false);
+        renderPassEffect.Set(110, false);
+        renderPassEffect.Set(15, false);
+        renderPassEffect.Set(44, false);
+        renderPassEffect.Set(117, false);
+        renderPassEffect.Set(35, false);
+        renderPassEffect.Set(82, m_exposure != 0.0);
+        auVar4 = effectManager.BuildShaderEffectList(renderPassEffect);
+        renderPassEffect.field_16 = auVar4[0];
+        renderPassEffect.field_17 = auVar4[1];
+        renderPassEffect.field_18 = auVar4[2];
+        renderPassEffect.field_19 = auVar4[3];
+        renderPassEffect.field_20 = auVar4[4];
+        renderPassEffect.field_21 = auVar4._5_3_;
+        renderPassEffect.field_24 = auVar4._8_8_;
+        auto this_00 = geometryBatchInstance->GetMaterial();
+        bool cVar1 = this_00->GetOption(1);
+        bool arg2 = true;
+        if (!cVar1) {
+            cVar1 = this_00->GetOption(2);
+            if (!cVar1) {
+                arg2 = (uint8_t*)this_00->data() != AlphaMode::ALPHA_OPAQUE;
             }
         }
-        (&param_1->field_16, 65, bVar5)->Set();
-        uVar1 = param_2->GetShaderManager();
-        uVar3 = GeometryBatchRenderer::GetVertexDecl();
-        param_1->UpdateShader(param_3, uVar1, 0, uVar3, 4, CONCAT44(uVar6, 3));
+        renderPassEffect.field_16.Set(65, arg2);
+        auto pSVar3 = rt7Core.GetShaderManager();
+        auto renderPassType = GeometryBatchRenderer::GetVertexDecl();
+        RenderPassEffect::UpdateShader(renderPassEffect, effectManager, (ShaderType)pSVar3, nullptr, renderPassType,
+                                       '\x04');
     }
 
-    // 0x10091b6c0, 240 bytes, placed by class name
-    // SkyBox::UpdateSkyBillboardBatchForwardPassEffect(RenderPassEffect&, RT7Core&, EffectManager const&, BillboardBatchInstance*)
-    void SkyBox::UpdateSkyBillboardBatchForwardPassEffect(RenderPassEffect* param_1, RT7Core* param_2,
-                                                          EffectManager* param_3, BillboardBatchInstance* param_4) {
-        BillboardBatch* this_00;
-        undefined8 uVar1;
-        PostProcessController* this_01;
-        long lVar2;
-        undefined8 uVar3;
-        undefined1 uVar4;
-        undefined8 extraout_RDX;
+    // 0x10091b6c0
+    void SkyBox::UpdateSkyBillboardBatchForwardPassEffect(RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                                          const EffectManager& effectManager,
+                                                          BillboardBatchInstance* billboardBatchInstance) {
+        uint8_t auVar5[16];
 
-        param_1->Set(86, 1);
-        this_00 = (BillboardBatch*)param_4->GetBillboardBatch();
-        uVar4 = this_00->IsLowPrecision();
-        param_1->Set(20, uVar4);
-        uVar4 = param_3->IsEnabled(48);
-        param_1->Set(29, uVar4);
-        uVar1 = param_3->BuildShaderEffectList(param_1);
-        param_1->field_16 = uVar1;
-        param_1->field_24 = extraout_RDX;
-        this_01 = (PostProcessController*)param_2->GetPostProcessController();
-        lVar2 = this_01->GetCurrentConfig();
+        renderPassEffect.Set(86, true);
+        auto this_00 = billboardBatchInstance->GetBillboardBatch();
+        bool bVar1 = (bool)this_00->IsLowPrecision();
+        renderPassEffect.Set(20, bVar1);
+        bVar1 = (bool)effectManager.IsEnabled(48);
+        renderPassEffect.Set(29, bVar1);
+        auVar5 = effectManager.BuildShaderEffectList(renderPassEffect);
+        renderPassEffect.field_16 = auVar5[0];
+        renderPassEffect.field_17 = auVar5[1];
+        renderPassEffect.field_18 = auVar5[2];
+        renderPassEffect.field_19 = auVar5[3];
+        renderPassEffect.field_20 = auVar5[4];
+        renderPassEffect.field_21 = auVar5._5_3_;
+        renderPassEffect.field_24 = auVar5._8_8_;
+        long lVar2 = rt7Core.GetPostProcessController()->GetCurrentConfig();
         if (*(char*)(lVar2 + 468) == '\0') {
-            (&param_1->field_16, 64, 0)->Set();
+            renderPassEffect.field_16.Set(64, false);
         }
-        uVar1 = param_2->GetShaderManager();
-        uVar3 = BillboardBatchRenderer::GetVertexDecl();
-        param_1->UpdateShader(param_3, uVar1, 5, uVar3, 4, 3);
+        auto pSVar3 = rt7Core.GetShaderManager();
+        auto pVVar4 = BillboardBatchRenderer::GetVertexDecl();
+        RenderPassEffect::UpdateShader(renderPassEffect, effectManager, (ShaderType)pSVar3, *5, (RenderPassType)pVVar4,
+                                       '\x04');
     }
 
-    // 0x10091b990, 240 bytes, placed by class name
-    // SkyBox::UpdateForwardPassEffect(DrawableSortKey&, RenderPassEffect&, RT7Core&, EffectManager const&, bool, bool)
-    void SkyBox::UpdateForwardPassEffect(DrawableSortKey* param_1, RenderPassEffect* param_2, RT7Core* param_3,
-                                         EffectManager* param_4, bool param_5, bool param_6) {
-        undefined1 uVar1;
-        ushort uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        BucketAllocatorEASTL* extraout_RDX;
-        ulong uVar5;
-        undefined7 in_register_00000089;
-        undefined1 auVar6[16];
-        DrawableSortKey local_40;
-        DrawableSortKey* local_38;
+    // 0x10091b990
+    void SkyBox::UpdateForwardPassEffect(DrawableSortKey& drawableSortKey, RenderPassEffect& renderPassEffect,
+                                         RT7Core& rt7Core, const EffectManager& effectManager, bool arg5, bool arg6) {
+        uint64_t in_register_00000081;
+        uint64_t in_register_00000089;
+        uint8_t auVar4[16];
+        bool in_stack_00000008;
+        uint64_t local_40;
 
-        local_38 = param_1;
-        uVar1 = param_4->IsEnabled(48);
-        param_2->Set(29, uVar1);
-        param_2->Set(84, param_6);
-        auVar6 = param_4->BuildShaderEffectList(param_2);
-        param_2->field_16 = auVar6._0_8_;
-        param_2->field_24 = auVar6._8_8_;
-        uVar3 = param_3->GetShaderManager();
-        uVar4 = SkyBoxRenderer::GetVertexDecl();
-        param_2->UpdateShader(param_4, uVar3, 17, uVar4, 4294967295, 3);
-        uVar2 = param_2->GetConstructedShaderId();
-        uVar5 = 576460752320135168;
-        if ((int)CONCAT71(in_register_00000089, param_5) != 0) {
-            uVar5 = 72057594054639616;
+        ShaderManager* shaderManager = (ShaderManager*)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg5);
+        bool arg2 = (bool)shaderManager->IsEnabled(48);
+        rt7Core.Set(29, arg2);
+        rt7Core.Set(84, in_stack_00000008);
+        auVar4 = shaderManager->BuildShaderEffectList(rt7Core);
+        *(uint8_t(*)[16]) & rt7Core.field_16 = auVar4;
+        auto pSVar2 = effectManager.GetShaderManager();
+        auto renderPassType = SkyBoxRenderer::GetVertexDecl();
+        RenderPassEffect::UpdateShader(rt7Core, *shaderManager, (ShaderType)pSVar2, *17, renderPassType, 255);
+        unsigned short uVar1 = rt7Core.GetConstructedShaderId();
+        unsigned long uVar3 = 576460752320135168;
+        if ((int)(((uint64_t)in_register_00000089 << 8) | (uint8_t)arg6) != 0) {
+            uVar3 = 72057594054639616;
         }
-        new (&local_40) eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(
-            (EntityHighlight**)(uVar5 | uVar2), extraout_RDX);
-        *local_38 = local_40;
+        new (&local_40)
+            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>((uVar3 | uVar1));
+        renderPassEffect.field_0 = (uint32_t)local_40;
+        renderPassEffect.field_4 = local_40._4_4_;
     }
 
-    // 0x10091ba90, 464 bytes, placed by class name
-    // SkyBox::UpdateRenderTargets(RT7Core&, unsigned int, unsigned int)
-    void SkyBox::UpdateRenderTargets(RT7Core* param_1, uint param_2, uint param_3) {
+    // 0x10091ba90
+    void SkyBox::UpdateRenderTargets(RT7Core& rt7Core, unsigned int arg2, unsigned int arg3) {
         RenderTargets* pRVar1;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* pvVar2;
-        undefined8* puVar3;
-        uint* puVar4;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* pvVar2;
+        uint64_t* puVar3;
+        unsigned int* puVar4;
         long lVar5;
-        RenderTargetsManager* this_00;
-        RenderDevice* this_01;
-        undefined8 uVar6;
-        bool bVar7;
-        undefined1* this_02;
-        Desc* this_03;
-        undefined8 local_148;
-        undefined8 uStack_140;
-        undefined8 local_138;
-        undefined8 uStack_130;
-        undefined8 local_128;
-        undefined8 uStack_120;
-        undefined8 local_118;
-        undefined8 uStack_110;
-        Desc local_108;
-        undefined1 local_c0[68];
-        uint uStack_7c;
-        undefined4 uStack_78;
-        undefined4 uStack_74;
-        undefined8 local_70;
-        undefined8 uStack_68;
-        undefined8 local_60;
-        undefined8 uStack_58;
-        undefined8 local_50;
-        undefined8 uStack_48;
-        shared_ptr<oldscape::RSevenDebugPresetProvider> local_40[16];
+        uint8_t local_c0[68];
+        uint32_t uStack_78;
+        uint64_t local_70;
+        uint64_t uStack_68;
+        uint64_t local_60;
+        uint64_t uStack_58;
+        uint64_t local_50;
+        uint64_t uStack_48;
+        shared_ptr<oldscape::RSevenDebugPresetProvider> local_40;
 
-        this_02 = m_renderTargets;
-        bVar7 = this_02->operator_cast_to_bool();
-        if (bVar7) {
-            pRVar1 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                (shared_ptr<render::RenderTargets>*)this_02);
-            pvVar2 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    pRVar1->GetColourTargetTextures();
-            puVar3 = (undefined8*)
-                eastl::vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                              eastl::allocator>>::operator[](pvVar2, 0);
-            puVar4 = (uint*)(*puVar3)->second();
-            if (*puVar4 == param_2) {
-                pRVar1 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                    (shared_ptr<render::RenderTargets>*)this_02);
-                pvVar2 = (vector<render::Texture*,
-                                 eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
+        uint8_t* this_02 = m_renderTargets;
+        if (this_02->operator_cast_to_bool()) {
+            pRVar1 = (RenderTargets*)(*this_02).operator->();
+            pvVar2 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                         pRVar1->GetColourTargetTextures();
+            puVar3 = (uint64_t*)(*pvVar2)[0];
+            puVar4 = (unsigned int*)(*puVar3)->second();
+            if (*puVar4 == arg2) {
+                pRVar1 = (RenderTargets*)(*this_02).operator->();
+                pvVar2 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
                              pRVar1->GetColourTargetTextures();
-                puVar3 = (undefined8*)eastl::vector<
-                    render::Texture*,
-                    eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](pvVar2, 0);
+                puVar3 = (uint64_t*)(*pvVar2)[0];
                 lVar5 = (*puVar3)->second();
-                if (*(uint*)(lVar5 + 4) == param_3)
+                if (*(unsigned int*)(lVar5 + 4) == arg3)
                     goto LAB_10091bc22;
             }
         }
-        bVar7 = this_02->operator_cast_to_bool();
-        if (bVar7) {
-            this_00 = (RenderTargetsManager*)param_1->GetRenderTargetsManager();
-            this_00->Unregister(this_02);
-            shared_ptr<render::RenderTargets>::reset();
+        if (this_02->operator_cast_to_bool()) {
+            ((RenderTargetsManager*)rt7Core.GetRenderTargetsManager())->Unregister(*this_02);
+            this_02->reset();
         }
         new (local_c0) render::Texture::Desc();
-        local_c0._0_4_ = param_2;
-        local_c0._4_4_ = param_3;
+        local_c0._0_4_ = arg2;
+        local_c0._4_4_ = arg3;
         local_c0._12_4_ = render::GetFormatFromDepthStencilBits(16, 0, false);
-        this_03 = (Desc*)(local_c0 + 64);
-        render::Texture::Desc::Desc(this_03);
-        local_c0._64_4_ = param_2;
-        uStack_7c = param_3;
-        this_01 = (RenderDevice*)this_03->Instance();
-        uStack_74 = this_01->GetLowestPrecisionRGBFloatFormat();
-        uVar6 = param_1->GetRenderTargetsManager();
-        local_148 = CONCAT44(uStack_7c, local_c0._64_4_);
-        uStack_140 = CONCAT44(uStack_74, uStack_78);
-        local_118 = local_50;
-        uStack_110 = uStack_48;
-        local_128 = local_60;
-        uStack_120 = uStack_58;
-        local_138 = local_70;
-        uStack_130 = uStack_68;
-        new (&local_108) render::Texture::Desc();
-        local_40->Register(uVar6, "SkyBoxMap", 3553, &local_148, 1, local_c0, 0, 1);
-        shared_ptr<render::RenderTargets>::operator=((shared_ptr<render::RenderTargets>*)this_02,
-                                                     (shared_ptr*)local_40);
-        local_40->~shared_ptr();
+        Desc* this_03 = (Desc*)(local_c0 + 64);
+        new (this_03) render::Texture::Desc();
+        local_c0._64_4_ = arg2;
+        uint32_t uStack_74 = ((RenderDevice*)this_03->Instance())->GetLowestPrecisionRGBFloatFormat();
+        auto str = rt7Core.GetRenderTargetsManager();
+        uint64_t local_148 = (((uint64_t)arg3 << 32) | (uint32_t)local_c0._64_4_);
+        uint64_t uStack_140 = (((uint64_t)uStack_74 << 32) | (uint32_t)uStack_78);
+        uint64_t local_118 = local_50;
+        uint64_t uStack_110 = uStack_48;
+        uint64_t local_128 = local_60;
+        uint64_t uStack_120 = uStack_58;
+        uint64_t local_138 = local_70;
+        uint64_t uStack_130 = uStack_68;
+        Desc local_108;
+        local_40.Register(str, 14749739, *3553, (int)&local_148, DAT_00000001, (unsigned int)(Desc*)local_c0, false);
+        *this_02 = local_40;
     LAB_10091bc22:
-        operator!=((shared_ptr*)this_02, (_func_decltype_nullptr*)0);
+        *this_02 != nullptr;
     }
 
 } // namespace jag::graphics
 
 namespace jag::oldscape {
-    // 0x100023af0: the linker folded this into hal::Haptics::GetEnabled() const, which has identical code
-    Skybox::ShowSkybox() const;
+    // 0x100023af0: Skybox::ShowSkybox() const has the same machine code as hal::Haptics::GetEnabled() const
 
 } // namespace jag::oldscape

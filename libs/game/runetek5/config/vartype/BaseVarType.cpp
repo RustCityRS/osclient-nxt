@@ -1,217 +1,161 @@
 // libs/game/runetek5/config/vartype/BaseVarType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "BaseVarType.h"
 
 namespace jag::game {
-    // 0x1039bb7d0, 8 bytes, __common; zero-initialised
-    BaseVarType::INTEGER;
+    // 0x1039bb7d0
+    int64_t BaseVarType::INTEGER;
 
-    // 0x1039bb7d8, 8 bytes, __common; zero-initialised
-    BaseVarType::LONG;
+    // 0x1039bb7d8
+    int64_t BaseVarType::LONG;
 
-    // 0x1039bb7e0, 8 bytes, __common; zero-initialised
-    BaseVarType::STRING;
+    // 0x1039bb7e0
+    int64_t BaseVarType::STRING;
 
-    // 0x1039bb7e8, 8 bytes, __common; zero-initialised
-    BaseVarType::COORDFINE;
+    // 0x1039bb7e8
+    int64_t BaseVarType::COORDFINE;
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseVarType::~BaseVarType();
+    // 0x100009e70: BaseVarType::~BaseVarType() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x1004cd710, 160 bytes, placed by class name and debug map
-    // BaseVarType::Initialise()
+    // 0x1004cd710
     void BaseVarType::Initialise() {
-        BaseVarTypeInteger* this;
-        BaseVarTypeLong* this_00;
-        BaseVarTypeString* this_01;
-        BaseVarTypeCoordFine* this_02;
-
-        this = operator_new(8);
-        BaseVarTypeInteger::BaseVarTypeInteger(this);
-        INTEGER = this;
-        this_00 = operator_new(8);
-        BaseVarTypeLong::BaseVarTypeLong(this_00);
+        BaseVarTypeInteger* baseVarTypeInteger = (BaseVarTypeInteger*)operator new(8);
+        new (baseVarTypeInteger) BaseVarTypeInteger();
+        INTEGER = baseVarTypeInteger;
+        BaseVarTypeLong* this_00 = (BaseVarTypeLong*)operator new(8);
+        new (this_00) BaseVarTypeLong();
         LONG = this_00;
-        this_01 = operator_new(8);
-        BaseVarTypeString::BaseVarTypeString(this_01);
+        BaseVarTypeString* this_01 = (BaseVarTypeString*)operator new(8);
+        new (this_01) BaseVarTypeString();
         STRING = this_01;
-        this_02 = operator_new(8);
-        BaseVarTypeCoordFine::BaseVarTypeCoordFine(this_02);
+        BaseVarTypeCoordFine* this_02 = (BaseVarTypeCoordFine*)operator new(8);
+        new (this_02) BaseVarTypeCoordFine();
         COORDFINE = this_02;
     }
 
-    // 0x1004cd7f0, 64 bytes, placed by class name and debug map
-    // BaseVarType::Destroy()
+    // 0x1004cd7f0
     void BaseVarType::Destroy() {
-        safe_delete<VarDomainType>((VarDomainType**)&INTEGER);
-        safe_delete<VarDomainType>((VarDomainType**)&LONG);
-        safe_delete<VarDomainType>((VarDomainType**)&STRING);
-        safe_delete<VarDomainType>((VarDomainType**)&COORDFINE);
+        safe_delete<VarDomainType>((DebugPrimitiveCollectorBasic**)&INTEGER);
+        safe_delete<VarDomainType>((DebugPrimitiveCollectorBasic**)&LONG);
+        safe_delete<VarDomainType>((DebugPrimitiveCollectorBasic**)&STRING);
+        safe_delete<VarDomainType>((DebugPrimitiveCollectorBasic**)&COORDFINE);
     }
 
-    // 0x1004cd830, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeInteger::Decode(VarValue&, PacketT<Array<unsigned char, eastl::allocator> >&) const
-    void BaseVarTypeInteger::Decode(VarValue* param_1, PacketT* param_2) {
+    // 0x1004cd830
+    void BaseVarTypeInteger::Decode(VarValue& varValue, PacketT<Array<unsigned char>>& arg2) const {
         int local_14;
 
-        param_2->g4s();
-        VarValue::Set<int>(param_1, &local_14);
+        arg2.g4s();
+        varValue.Set<int>(local_14);
     }
 
-    // 0x1004cd870, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeInteger::Decode(VarValue&, PacketT<Array<unsigned char, BucketAllocatorEASTL> >&) const
-    void BaseVarTypeInteger::Decode(VarValue* param_1, PacketT* param_2) {
+    // 0x1004cd870
+    void BaseVarTypeInteger::Decode(VarValue& varValue,
+                                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>& arg2) const {
         int local_14;
 
-        param_2->g4s();
-        VarValue::Set<int>(param_1, &local_14);
+        arg2.g4s();
+        varValue.Set<int>(local_14);
     }
 
-    // 0x1004cd8a0, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeInteger::Encode(VarValue const&, PacketT<Array<unsigned char, eastl::allocator> >&) const
-    void BaseVarTypeInteger::Encode(VarValue* param_1, PacketT* param_2) {
-        int iVar1;
-
-        iVar1 = param_1->GetInt();
-        PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_2, iVar1);
+    // 0x1004cd8a0
+    void BaseVarTypeInteger::Encode(const VarValue& varValue, PacketT<Array<unsigned char>>& arg2) const {
+        unsigned int arg1 = varValue.GetInt();
+        arg2.p4<int>(arg1);
     }
 
-    // 0x1004cd8d0, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeInteger::Encode(VarValue const&, PacketT<Array<unsigned char, BucketAllocatorEASTL> >&) const
-    void BaseVarTypeInteger::Encode(VarValue* param_1, PacketT* param_2) {
-        int iVar1;
-
-        iVar1 = param_1->GetInt();
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_2, iVar1);
+    // 0x1004cd8d0
+    void BaseVarTypeInteger::Encode(const VarValue& varValue,
+                                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>& arg2) const {
+        unsigned int uVar1 = varValue.GetInt();
+        arg2.p4<int>((unsigned long)uVar1);
     }
 
-    // 0x1004cd900, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeLong::Decode(VarValue&, PacketT<Array<unsigned char, eastl::allocator> >&) const
-    void BaseVarTypeLong::Decode(VarValue* param_1, PacketT* param_2) {
-        longlong local_18;
-
-        local_18 = param_2->g8s();
-        VarValue::Set<long long>(param_1, &local_18);
+    // 0x1004cd900
+    void BaseVarTypeLong::Decode(VarValue& varValue, PacketT<Array<unsigned char>>& arg2) const {
+        long long local_18 = arg2.g8s();
+        varValue.Set<long long>(local_18);
     }
 
-    // 0x1004cd950, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeLong::Decode(VarValue&, PacketT<Array<unsigned char, BucketAllocatorEASTL> >&) const
-    void BaseVarTypeLong::Decode(VarValue* param_1, PacketT* param_2) {
-        longlong local_18;
-
-        local_18 = param_2->g8s();
-        VarValue::Set<long long>(param_1, &local_18);
+    // 0x1004cd950
+    void BaseVarTypeLong::Decode(VarValue& varValue, PacketT<Array<unsigned char, BucketAllocatorEASTL>>& arg2) const {
+        long long local_18 = arg2.g8s();
+        varValue.Set<long long>(local_18);
     }
 
-    // 0x1004cd990, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeLong::Encode(VarValue const&, PacketT<Array<unsigned char, eastl::allocator> >&) const
-    void BaseVarTypeLong::Encode(VarValue* param_1, PacketT* param_2) {
-        longlong lVar1;
-
-        lVar1 = param_1->GetInt64();
-        PacketT<Array<unsigned char, eastl::allocator>>::p8<long long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_2, lVar1);
+    // 0x1004cd990
+    void BaseVarTypeLong::Encode(const VarValue& varValue, PacketT<Array<unsigned char>>& arg2) const {
+        unsigned long long arg1 = varValue.GetInt64();
+        arg2.p8<long long>(arg1);
     }
 
-    // 0x1004cda10, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeLong::Encode(VarValue const&, PacketT<Array<unsigned char, BucketAllocatorEASTL> >&) const
-    void BaseVarTypeLong::Encode(VarValue* param_1, PacketT* param_2) {
-        longlong lVar1;
-
-        lVar1 = param_1->GetInt64();
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p8<long long>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_2, lVar1);
+    // 0x1004cda10
+    void BaseVarTypeLong::Encode(const VarValue& varValue,
+                                 PacketT<Array<unsigned char, BucketAllocatorEASTL>>& arg2) const {
+        unsigned long long arg1 = varValue.GetInt64();
+        arg2.p8<long long>(arg1);
     }
 
-    // 0x1004cda40, 80 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeString::Decode(VarValue&, PacketT<Array<unsigned char, eastl::allocator> >&) const
-    void BaseVarTypeString::Decode(VarValue* param_1, PacketT* param_2) {
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>> local_30[24];
+    // 0x1004cda40
+    void BaseVarTypeString::Decode(VarValue& varValue, PacketT<Array<unsigned char>>& arg2) const {
+        PacketReaderMixin<PacketT<Array<unsigned char>>> local_30;
 
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-            eastl::basic_string<char, BucketAllocatorEASTL>>(local_30, SUB81(param_2, 0));
-        VarValue::Set<eastl::basic_string<char, BucketAllocatorEASTL>>(param_1, (basic_string*)local_30);
-        local_30->~basic_string();
+        PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<
+            eastl::basic_string<char, BucketAllocatorEASTL>>(&local_30, (uint8_t)arg2);
+        varValue.Set<eastl::basic_string<char, BucketAllocatorEASTL>>(local_30);
     }
 
-    // 0x1004cdae0, 80 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeString::Decode(VarValue&, PacketT<Array<unsigned char, BucketAllocatorEASTL> >&) const
-    void BaseVarTypeString::Decode(VarValue* param_1, PacketT* param_2) {
+    // 0x1004cdae0
+    void BaseVarTypeString::Decode(VarValue& varValue,
+                                   PacketT<Array<unsigned char, BucketAllocatorEASTL>>& arg2) const {
         PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>> local_30[24];
 
         PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<
-            eastl::basic_string<char, BucketAllocatorEASTL>>(local_30, SUB81(param_2, 0));
-        VarValue::Set<eastl::basic_string<char, BucketAllocatorEASTL>>(param_1, (basic_string*)local_30);
-        local_30->~basic_string();
+            eastl::basic_string<char, BucketAllocatorEASTL>>(local_30, (uint8_t)arg2);
+        varValue.Set<eastl::basic_string<char, BucketAllocatorEASTL>>(*local_30);
     }
 
-    // 0x1004cdb80, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeString::Encode(VarValue const&, PacketT<Array<unsigned char, eastl::allocator> >&) const
-    void BaseVarTypeString::Encode(VarValue* param_1, PacketT* param_2) {
-        basic_string* pbVar1;
-
-        pbVar1 = (basic_string*)param_1->GetString();
-        PacketT<Array<unsigned char, eastl::allocator>>::pStringUTF8ToCP1252<
-            eastl::basic_string<char, BucketAllocatorEASTL>>((PacketT<Array<unsigned char, eastl::allocator>>*)param_2,
-                                                             pbVar1, true);
+    // 0x1004cdb80
+    void BaseVarTypeString::Encode(const VarValue& varValue, PacketT<Array<unsigned char>>& arg2) const {
+        auto str = varValue.GetString();
+        arg2.pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(*str, true);
     }
 
-    // 0x1004cdc00, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeString::Encode(VarValue const&, PacketT<Array<unsigned char, BucketAllocatorEASTL> >&) const
-    void BaseVarTypeString::Encode(VarValue* param_1, PacketT* param_2) {
-        basic_string* pbVar1;
-
-        pbVar1 = (basic_string*)param_1->GetString();
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringUTF8ToCP1252<
-            eastl::basic_string<char, BucketAllocatorEASTL>>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_2, pbVar1, true);
+    // 0x1004cdc00
+    void BaseVarTypeString::Encode(const VarValue& varValue,
+                                   PacketT<Array<unsigned char, BucketAllocatorEASTL>>& arg2) const {
+        auto str = varValue.GetString();
+        arg2.pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(*str, true);
     }
 
-    // 0x1004cdc30, 64 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeCoordFine::Decode(VarValue&, PacketT<Array<unsigned char, eastl::allocator> >&) const
-    void BaseVarTypeCoordFine::Decode(VarValue* param_1, PacketT* param_2) {
-        undefined1 local_28[16];
+    // 0x1004cdc30
+    void BaseVarTypeCoordFine::Decode(VarValue& varValue, PacketT<Array<unsigned char>>& arg2) const {
+        uint8_t local_28[16];
 
-        new (local_28) CoordFine(param_2);
-        VarValue::Set<CoordFine>(param_1, (CoordFine*)local_28);
+        new (local_28) CoordFine(arg2);
+        varValue.Set<CoordFine>(*local_28);
     }
 
-    // 0x1004cdc80, 64 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeCoordFine::Decode(VarValue&, PacketT<Array<unsigned char, BucketAllocatorEASTL> >&) const
-    void BaseVarTypeCoordFine::Decode(VarValue* param_1, PacketT* param_2) {
-        undefined1 local_28[16];
+    // 0x1004cdc80
+    void BaseVarTypeCoordFine::Decode(VarValue& varValue,
+                                      PacketT<Array<unsigned char, BucketAllocatorEASTL>>& arg2) const {
+        uint8_t local_28[16];
 
-        new (local_28) CoordFine(param_2);
-        VarValue::Set<CoordFine>(param_1, (CoordFine*)local_28);
+        new (local_28) CoordFine(arg2);
+        varValue.Set<CoordFine>(*local_28);
     }
 
-    // 0x1004cdcc0, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeCoordFine::Encode(VarValue const&, PacketT<Array<unsigned char, eastl::allocator> >&) const
-    void BaseVarTypeCoordFine::Encode(VarValue* param_1, PacketT* param_2) {
-        CoordFine* this_00;
-
-        this_00 = (CoordFine*)param_1->GetCoordFine();
-        this_00->Serialise(param_2);
+    // 0x1004cdcc0
+    void BaseVarTypeCoordFine::Encode(const VarValue& varValue, PacketT<Array<unsigned char>>& arg2) const {
+        varValue.GetCoordFine()->Serialise(arg2);
     }
 
-    // 0x1004cdd40, 48 bytes, placed by debug map only (low confidence)
-    // BaseVarTypeCoordFine::Encode(VarValue const&, PacketT<Array<unsigned char, BucketAllocatorEASTL> >&) const
-    void BaseVarTypeCoordFine::Encode(VarValue* param_1, PacketT* param_2) {
-        CoordFine* this_00;
-
-        this_00 = (CoordFine*)param_1->GetCoordFine();
-        this_00->Serialise(param_2);
+    // 0x1004cdd40
+    void BaseVarTypeCoordFine::Encode(const VarValue& varValue,
+                                      PacketT<Array<unsigned char, BucketAllocatorEASTL>>& arg2) const {
+        varValue.GetCoordFine()->Serialise(arg2);
     }
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    BaseVarType::~BaseVarType();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    BaseVarType::~BaseVarType();
 
 } // namespace jag::game

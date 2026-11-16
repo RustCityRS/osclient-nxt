@@ -1,481 +1,367 @@
 // libs/hal/render/shaders/ShaderProgramStateCache.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "ShaderProgramStateCache.h"
 
 namespace jag::render {
-    // 0x100bebcf0, 208 bytes, base-object constructor, placed by class name and debug map
-    // ShaderProgramStateCache::ShaderProgramStateCache(ShaderProgramStateCache const&)
-    void ShaderProgramStateCache::ShaderProgramStateCache(ShaderProgramStateCache* param_1) {
-        unique_lock<std::mutex> local_30[16];
+    // 0x100bebcf0
+    ShaderProgramStateCache::ShaderProgramStateCache(const ShaderProgramStateCache& shaderProgramStateCache)
+        : eastl::vector_map<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>(),
+          field_40(shaderProgramStateCache.field_40), field_112(shaderProgramStateCache.field_112) {
+        unique_lock<std::mutex> local_30;
 
-        new (this) eastl::vector_map<
-            unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>, eastl::allocator>>();
-        field_40 = param_1->field_40;
-        new (&field_48) std::mutex();
-        field_112 = param_1->field_112;
-        if (param_1->field_112 == 0) {
+        if (shaderProgramStateCache.field_112 == 0) {
             if (IsOwnerThread() == '\0') {
-                /* WARNING: Subroutine does not return */
                 LogAssert("rhs.m_isThreadSafe || rhs.IsOwnerThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "ShaderProgramStateCache.cpp",
-                          24, (char*)0);
+                          24, nullptr);
             }
         }
-        if (param_1->field_112 == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_30);
+        if (shaderProgramStateCache.field_112 == 0) {
+            local_30 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)&param_1->field_48);
+            local_30 = std::unique_lock<std::mutex>(shaderProgramStateCache.field_48);
         }
-        eastl::vector_map<
-            unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>, eastl::allocator>>::
-        operator=((vector_map<unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                              eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                            eastl::allocator>>*)this,
-                  (vector_map*)param_1);
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
+        *this = shaderProgramStateCache;
     }
 
-    // 0x100bebe50, 16 bytes, complete-object constructor, placed by class name
-    // ShaderProgramStateCache::ShaderProgramStateCache(ShaderProgramStateCache const&): jumps straight to the base-object constructor
-
-    // 0x100bebe60, 48 bytes, placed by class name
-    // ShaderProgramStateCache::Initialise(ShaderProgram const&)
-    undefined1 ShaderProgramStateCache::Initialise(ShaderProgram* param_1) {
-        field_40 = param_1;
-        field_112 = param_1->GetCompileFlags() >> 2 & 1;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+    // 0x100bebe60
+    uint8_t ShaderProgramStateCache::Initialise(const ShaderProgram& shaderProgram) {
+        field_40 = shaderProgram;
+        field_112 = shaderProgram.GetCompileFlags() >> 2 & 1;
+        clear();
         return 1;
     }
 
-    // 0x100bebea0, 112 bytes, placed by class name
-    // ShaderProgramStateCache::Clear()
+    // 0x100bebea0
     void ShaderProgramStateCache::Clear() {
-        unique_lock<std::mutex> local_20[16];
+        unique_lock<std::mutex> local_20;
 
         if (field_112 == 0) {
             if (IsOwnerThread() == '\0') {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_isThreadSafe || IsOwnerThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "ShaderProgramStateCache.cpp",
-                          48, (char*)0);
+                          48, nullptr);
             }
         }
         if (field_112 == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_20);
+            local_20 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)&field_48);
+            local_20 = std::unique_lock<std::mutex>(field_48);
         }
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
+        clear();
     }
 
-    // 0x100bebf10, 224 bytes, placed by class name
-    // ShaderProgramStateCache::ClearShaderConst(unsigned int, unsigned int)
-    void ShaderProgramStateCache::ClearShaderConst(uint param_1, uint param_2) {
-        char cVar1;
-        ShaderConstMapValue* this_00;
-        uint uVar2;
-        unique_lock<std::mutex> local_48[20];
-        uint local_34;
+    // 0x100bebf10
+    void ShaderProgramStateCache::ClearShaderConst(unsigned int arg1, unsigned int arg2) {
+        bool cVar1;
+        unsigned int uVar2;
+        unique_lock<std::mutex> local_48;
+        unsigned int local_34;
 
-        if ((field_112 == 0) && (cVar1 = IsOwnerThread(), cVar1 == '\0')) {
-            /* WARNING: Subroutine does not return */
+        if ((field_112 == 0) && (cVar1 = IsOwnerThread(), !cVar1)) {
             LogAssert("m_isThreadSafe || IsOwnerThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                       "ShaderProgramStateCache.cpp",
-                      55, (char*)0);
+                      55, nullptr);
         }
         if (field_112 == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_48);
+            local_48 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_48, (mutex*)&field_48);
+            local_48 = std::unique_lock<std::mutex>(field_48);
         }
-        if (param_2 != 0) {
+        if (arg2 != 0) {
             uVar2 = 0;
             do {
-                local_34 = (uVar2 >> 4) + param_1;
-                this_00 = (ShaderConstMapValue*)eastl::vector_map<
-                    unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                    eastl::allocator,
-                    eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                  eastl::allocator>>::
-                operator[](
-                    (vector_map<unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                                eastl::allocator,
-                                eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                              eastl::allocator>>*)this,
-                    &local_34);
-                this_00->Reset();
+                local_34 = (uVar2 >> 4) + arg1;
+                ((ShaderConstMapValue*)(*this)[local_34])->Reset();
                 uVar2 = uVar2 + 16;
-            } while (uVar2 < param_2);
+            } while (uVar2 < arg2);
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_48);
     }
 
-    // 0x100bec0f0, 192 bytes, placed by class name
-    // ShaderProgramStateCache::SetConstData1(unsigned int, float const*)
-    ulong ShaderProgramStateCache::SetConstData1(uint param_1, float* param_2) {
-        float fVar1;
-        float fVar2;
-        ulong uVar4;
-        float* pfVar5;
-        unique_lock<std::mutex> local_30[20];
-        uint local_1c;
+    // 0x100bec0f0
+    unsigned long ShaderProgramStateCache::SetConstData1(unsigned int arg1, const float* arg2) {
+        unique_lock<std::mutex> local_30;
 
-        local_1c = param_1;
+        unsigned int local_1c = arg1;
         if (field_112 == 0) {
             if (IsOwnerThread() == '\0') {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_isThreadSafe || IsOwnerThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "ShaderProgramStateCache.cpp",
-                          65, (char*)0);
+                          65, nullptr);
             }
         }
         if (field_112 == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_30);
+            local_30 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)&field_48);
+            local_30 = std::unique_lock<std::mutex>(field_48);
         }
-        uVar4 = eastl::vector_map<
-            unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>, eastl::allocator>>::
-        operator[]((vector_map<unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                               eastl::allocator,
-                               eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                             eastl::allocator>>*)this,
-                   &local_1c);
-        pfVar5 = (float*)std::array<float, 16ul>::operator[](uVar4);
-        fVar1 = *pfVar5;
-        fVar2 = *param_2;
+        array<float, 16ul>* this_00 = (array<float, 16ul>*)(*this)[local_1c];
+        float* pfVar4 = (float*)(*this_00)[(unsigned long)&local_1c];
+        float fVar1 = *pfVar4;
+        float fVar2 = *arg2;
         if (fVar1 != fVar2) {
-            *pfVar5 = *param_2;
+            *pfVar4 = *arg2;
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
-        return CONCAT71((int7)((ulong)this >> 8), fVar1 != fVar2) & 4294967295;
+        return fVar1 != fVar2 & 4294967295;
     }
 
-    // 0x100bec280, 256 bytes, placed by class name
-    // ShaderProgramStateCache::SetConstData3(unsigned int, float const*)
-    ulong ShaderProgramStateCache::SetConstData3(uint param_1, float* param_2) {
-        float fVar1;
-        float fVar2;
-        long lVar3;
-        long lVar4;
-        ulong uVar7;
-        long* plVar8;
-        undefined8 unaff_R15;
-        unique_lock<std::mutex> local_38[20];
-        uint local_24;
+    // 0x100bec280
+    unsigned long ShaderProgramStateCache::SetConstData3(unsigned int arg1, const float* arg2) {
+        unique_lock<std::mutex> local_38;
 
-        local_24 = param_1;
+        unsigned int local_24 = arg1;
         if (field_112 == 0) {
-            if (IsOwnerThread() == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(IsOwnerThread())) {
                 LogAssert("m_isThreadSafe || IsOwnerThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "ShaderProgramStateCache.cpp",
-                          81, (char*)0);
+                          81, nullptr);
             }
         }
         if (field_112 == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_38);
+            local_38 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_38, (mutex*)&field_48);
+            local_38 = std::unique_lock<std::mutex>(field_48);
         }
-        uVar7 = eastl::vector_map<
-            unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>, eastl::allocator>>::
-        operator[]((vector_map<unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                               eastl::allocator,
-                               eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                             eastl::allocator>>*)this,
-                   &local_24);
-        plVar8 = (long*)std::array<float, 16ul>::operator[](uVar7);
-        if (!is_aligned<char>((char*)param_2, 16)) {
-            /* WARNING: Subroutine does not return */
+        array<float, 16ul>* this_00 = (array<float, 16ul>*)(*this)[local_24];
+        long* plVar6 = (long*)(*this_00)[(unsigned long)&local_24];
+        if (!(is_aligned<char>((unsigned long)arg2, 16))) {
             LogAssert("is_aligned(pSrcData)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                       "ShaderProgramStateCache.cpp",
                       95, "Non-scalar shader input data should be aligned 16.");
         }
-        lVar3 = *plVar8;
-        lVar4 = *(long*)param_2;
-        fVar1 = *(float*)(plVar8 + 1);
-        fVar2 = param_2[2];
+        long lVar3 = *plVar6;
+        long lVar4 = *(long*)arg2;
+        float fVar1 = *(float*)(plVar6 + 1);
+        float fVar2 = arg2[2];
         if (fVar1 != fVar2 || lVar3 != lVar4) {
-            *(float*)(plVar8 + 1) = param_2[2];
-            *plVar8 = *(long*)param_2;
+            *(float*)(plVar6 + 1) = arg2[2];
+            *plVar6 = *(long*)arg2;
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_38);
-        return CONCAT71((int7)((ulong)unaff_R15 >> 8), fVar1 != fVar2 || lVar3 != lVar4) & 4294967295;
+        return fVar1 != fVar2 || lVar3 != lVar4 & 4294967295;
     }
 
-    // 0x100bec380, 256 bytes, placed by class name
-    // ShaderProgramStateCache::SetConstData4(unsigned int, float const*)
-    ulong ShaderProgramStateCache::SetConstData4(uint param_1, float* param_2) {
-        float fVar1;
-        float fVar2;
-        float fVar3;
-        ulong uVar6;
-        float* pfVar7;
-        undefined4 in_ECX;
-        undefined1 auVar9[16];
-        unique_lock<std::mutex> local_30[20];
-        uint local_1c;
+    // 0x100bec380
+    unsigned long ShaderProgramStateCache::SetConstData4(unsigned int arg1, const float* arg2) {
+        uint32_t in_ECX;
+        uint8_t auVar7[16];
+        unique_lock<std::mutex> local_30;
 
-        local_1c = param_1;
+        unsigned int local_1c = arg1;
         if (field_112 == 0) {
-            if (IsOwnerThread() == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(IsOwnerThread())) {
                 LogAssert("m_isThreadSafe || IsOwnerThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "ShaderProgramStateCache.cpp",
-                          87, (char*)0);
+                          87, nullptr);
             }
         }
         if (field_112 == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_30);
+            local_30 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)&field_48);
+            local_30 = std::unique_lock<std::mutex>(field_48);
         }
-        uVar6 = eastl::vector_map<
-            unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>, eastl::allocator>>::
-        operator[]((vector_map<unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                               eastl::allocator,
-                               eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                             eastl::allocator>>*)this,
-                   &local_1c);
-        pfVar7 = (float*)std::array<float, 16ul>::operator[](uVar6);
-        if (!is_aligned<char>((char*)param_2, 16)) {
-            /* WARNING: Subroutine does not return */
+        array<float, 16ul>* this_00 = (array<float, 16ul>*)(*this)[local_1c];
+        float* pfVar5 = (float*)(*this_00)[(unsigned long)&local_1c];
+        if (!(is_aligned<char>((unsigned long)arg2, 16))) {
             LogAssert("is_aligned(pSrcData)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                       "ShaderProgramStateCache.cpp",
                       109, "Non-scalar shader input data should be aligned 16.");
         }
-        fVar1 = param_2[1];
-        fVar2 = param_2[2];
-        fVar3 = param_2[3];
-        auVar9._0_4_ = -(uint)(*pfVar7 == *param_2);
-        auVar9._4_4_ = -(uint)(pfVar7[1] == fVar1);
-        auVar9._8_4_ = -(uint)(pfVar7[2] == fVar2);
-        auVar9._12_4_ = -(uint)(pfVar7[3] == fVar3);
-        if (movmskps(in_ECX, auVar9) != 15) {
-            *pfVar7 = *param_2;
-            pfVar7[1] = fVar1;
-            pfVar7[2] = fVar2;
-            pfVar7[3] = fVar3;
+        float fVar1 = arg2[1];
+        float fVar2 = arg2[2];
+        float fVar3 = arg2[3];
+        auVar7._0_4_ = -(unsigned int)(*pfVar5 == *arg2);
+        auVar7._4_4_ = -(unsigned int)(pfVar5[1] == fVar1);
+        auVar7._8_4_ = -(unsigned int)(pfVar5[2] == fVar2);
+        auVar7._12_4_ = -(unsigned int)(pfVar5[3] == fVar3);
+        if (movmskps(in_ECX, auVar7) != 15) {
+            *pfVar5 = *arg2;
+            pfVar5[1] = fVar1;
+            pfVar5[2] = fVar2;
+            pfVar5[3] = fVar3;
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
-        return CONCAT71(
-                   (int7)((ulong)pfVar7 >> 8),
-                   (ushort)((ushort)(SUB161(auVar9 >> 7, 0) & 1) | (ushort)(SUB161(auVar9 >> 15, 0) & 1) << 1 |
-                            (ushort)(SUB161(auVar9 >> 23, 0) & 1) << 2 | (ushort)(SUB161(auVar9 >> 31, 0) & 1) << 3 |
-                            (ushort)(SUB161(auVar9 >> 39, 0) & 1) << 4 | (ushort)(SUB161(auVar9 >> 47, 0) & 1) << 5 |
-                            (ushort)(SUB161(auVar9 >> 55, 0) & 1) << 6 | (ushort)(SUB161(auVar9 >> 63, 0) & 1) << 7 |
-                            (ushort)(SUB161(auVar9 >> 71, 0) & 1) << 8 | (ushort)(SUB161(auVar9 >> 79, 0) & 1) << 9 |
-                            (ushort)(SUB161(auVar9 >> 87, 0) & 1) << 10 | (ushort)(SUB161(auVar9 >> 95, 0) & 1) << 11 |
-                            (ushort)((byte)(auVar9._12_4_ >> 7) & 1) << 12 |
-                            (ushort)((byte)(auVar9._12_4_ >> 15) & 1) << 13 |
-                            (ushort)((byte)(auVar9._12_4_ >> 23) & 1) << 14 |
-                            (ushort)(byte)(auVar9._12_4_ >> 31) << 15) != 65535) &
+        return (unsigned short)((unsigned short)((uint64_t)(auVar7 >> 7) & 1) |
+                                (unsigned short)((uint64_t)(auVar7 >> 15) & 1) << 1 |
+                                (unsigned short)((uint64_t)(auVar7 >> 23) & 1) << 2 |
+                                (unsigned short)((uint64_t)(auVar7 >> 31) & 1) << 3 |
+                                (unsigned short)((uint64_t)(auVar7 >> 39) & 1) << 4 |
+                                (unsigned short)((uint64_t)(auVar7 >> 47) & 1) << 5 |
+                                (unsigned short)((uint64_t)(auVar7 >> 55) & 1) << 6 |
+                                (unsigned short)((uint64_t)(auVar7 >> 63) & 1) << 7 |
+                                (unsigned short)((uint64_t)(auVar7 >> 71) & 1) << 8 |
+                                (unsigned short)((uint64_t)(auVar7 >> 79) & 1) << 9 |
+                                (unsigned short)((uint64_t)(auVar7 >> 87) & 1) << 10 |
+                                (unsigned short)((uint64_t)(auVar7 >> 95) & 1) << 11 |
+                                (unsigned short)((uint8_t)(auVar7._12_4_ >> 7) & 1) << 12 |
+                                (unsigned short)((uint8_t)(auVar7._12_4_ >> 15) & 1) << 13 |
+                                (unsigned short)((uint8_t)(auVar7._12_4_ >> 23) & 1) << 14 |
+                                (unsigned short)(uint8_t)(auVar7._12_4_ >> 31) << 15) != 65535 &
                4294967295;
     }
 
-    // 0x100bec480, 800 bytes, placed by class name
-    // ShaderProgramStateCache::SetConstData(unsigned int, unsigned int, float const*, bool)
-    byte ShaderProgramStateCache::SetConstData(uint param_1, uint param_2, float* param_3, bool param_4) {
+    // 0x100bec480
+    uint8_t ShaderProgramStateCache::SetConstData(unsigned int arg1, unsigned int arg2, const float* arg3, bool arg4) {
         long* plVar1;
+        float* arg1_00;
         float* pfVar2;
-        float* pfVar3;
+        float fVar3;
         float fVar4;
-        float fVar5;
+        long lVar5;
         long lVar6;
-        long lVar7;
-        float fVar8;
-        char cVar9;
-        bool bVar10;
-        int iVar11;
-        ulong uVar12;
-        long lVar13;
-        undefined7 extraout_var;
-        ulong uVar14;
-        byte bVar15;
-        uint uVar16;
-        undefined1 auVar17[16];
-        unique_lock<std::mutex> local_70[16];
+        float fVar7;
+        bool cVar8;
+        uint32_t uVar9;
+        int iVar10;
+        array<float, 16ul>* paVar11;
+        long lVar12;
+        unsigned long uVar13;
+        unsigned int* puVar14;
+        uint8_t bVar15;
+        unsigned int uVar16;
+        bool bVar17;
+        uint8_t auVar18[16];
+        unique_lock<std::mutex> local_70;
         float* local_60;
         float* local_58;
-        uint local_4c;
+        unsigned int local_4c;
         ShaderProgramStateCache* local_48;
-        ulong local_40;
-        uint local_34;
+        unsigned long local_40;
+        unsigned int local_34;
 
-        if ((field_112 == 0) && (cVar9 = IsOwnerThread(), cVar9 == '\0')) {
-            /* WARNING: Subroutine does not return */
+        if ((field_112 == 0) && (cVar8 = IsOwnerThread(), !cVar8)) {
             LogAssert("m_isThreadSafe || IsOwnerThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                       "ShaderProgramStateCache.cpp",
-                      142, (char*)0);
+                      142, nullptr);
         }
         if (field_112 == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_70);
+            local_70 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_70, (mutex*)&field_48);
+            local_70 = std::unique_lock<std::mutex>(field_48);
         }
-        if (param_2 < 2) {
-            /* WARNING: Subroutine does not return */
+        if (arg2 < 2) {
             LogAssert("floatCount > 1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                       "ShaderProgramStateCache.cpp",
-                      145, (char*)0);
+                      145, nullptr);
         }
-        if (((param_4) || ((param_2 & 3) == 0)) || (param_2 % 3 != 0)) {
-            if (param_2 != 0) {
+        if (((arg4) || ((arg2 & 3) == 0)) || (arg2 % 3 != 0)) {
+            if (arg2 != 0) {
                 uVar16 = 0;
                 local_40 = 0;
                 bVar15 = 0;
-                local_60 = param_3;
-                local_4c = param_2;
+                local_60 = arg3;
+                local_4c = arg2;
                 local_48 = this;
                 do {
                     if ((uVar16 & 12) == 0) {
-                        local_34 = (uVar16 >> 4) + param_1;
-                        uVar14 = eastl::vector_map<
-                            unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                            eastl::allocator,
-                            eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                          eastl::allocator>>::
-                        operator[](
-                            (vector_map<
-                                unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                                eastl::allocator,
-                                eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                              eastl::allocator>>*)local_48,
-                            &local_34);
-                        local_40 = std::array<float, 16ul>::operator[](uVar14);
+                        local_34 = (uVar16 >> 4) + arg1;
+                        puVar14 = &local_34;
+                        paVar11 = (array<float, 16ul>*)(*local_48)[*puVar14];
+                        local_40 = (*paVar11)[(unsigned long)puVar14];
                     }
-                    pfVar2 = local_60 + uVar16;
-                    pfVar3 = (float*)(local_40 + (ulong)(uVar16 & 12) * 4);
-                    if (param_2 < 4) {
-                        local_58 = pfVar3;
-                        iVar11 = _memcmp(pfVar3, pfVar2, (ulong)param_2 << 2);
-                        bVar10 = iVar11 == 0;
-                        if (!bVar10) {
-                            _memcpy(local_58, pfVar2, (ulong)param_2 << 2);
+                    arg1_00 = local_60 + uVar16;
+                    pfVar2 = (float*)(local_40 + (unsigned long)(uVar16 & 12) * 4);
+                    if (arg2 < 4) {
+                        local_58 = pfVar2;
+                        iVar10 = _memcmp(pfVar2, arg1_00, (unsigned long)arg2 << 2);
+                        bVar17 = iVar10 == 0;
+                        if (!bVar17) {
+                            _memcpy(local_58, arg1_00, (unsigned long)arg2 << 2);
                             goto LAB_100bec650;
                         }
                     } else {
-                        bVar10 = is_aligned<char>((char*)pfVar2, 16);
-                        if (!bVar10) {
-                            /* WARNING: Subroutine does not return */
+                        uVar9 = is_aligned<char>((unsigned long)arg1_00, 16);
+                        if ((char)uVar9 == '\0') {
                             LogAssert("is_aligned(pSrcData)",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                       "render/shaders/ShaderProgramStateCache.cpp",
                                       109, "Non-scalar shader input data should be aligned 16.");
                         }
-                        fVar4 = pfVar2[1];
-                        fVar5 = pfVar2[2];
-                        fVar8 = pfVar2[3];
-                        auVar17._0_4_ = -(uint)(*pfVar3 == *pfVar2);
-                        auVar17._4_4_ = -(uint)(pfVar3[1] == fVar4);
-                        auVar17._8_4_ = -(uint)(pfVar3[2] == fVar5);
-                        auVar17._12_4_ = -(uint)(pfVar3[3] == fVar8);
-                        iVar11 = movmskps((int)CONCAT71(extraout_var, bVar10), auVar17);
-                        bVar10 = iVar11 == 15;
-                        if (!bVar10) {
-                            *pfVar3 = *pfVar2;
-                            pfVar3[1] = fVar4;
-                            pfVar3[2] = fVar5;
-                            pfVar3[3] = fVar8;
+                        fVar3 = arg1_00[1];
+                        fVar4 = arg1_00[2];
+                        fVar7 = arg1_00[3];
+                        auVar18._0_4_ = -(unsigned int)(*pfVar2 == *arg1_00);
+                        auVar18._4_4_ = -(unsigned int)(pfVar2[1] == fVar3);
+                        auVar18._8_4_ = -(unsigned int)(pfVar2[2] == fVar4);
+                        auVar18._12_4_ = -(unsigned int)(pfVar2[3] == fVar7);
+                        iVar10 = movmskps(uVar9, auVar18);
+                        bVar17 = iVar10 == 15;
+                        if (!bVar17) {
+                            *pfVar2 = *arg1_00;
+                            pfVar2[1] = fVar3;
+                            pfVar2[2] = fVar4;
+                            pfVar2[3] = fVar7;
                         LAB_100bec650:
-                            bVar10 = false;
+                            bVar17 = false;
                         }
                     }
-                    bVar15 = bVar15 | bVar10 ^ 1U;
+                    bVar15 = bVar15 | bVar17 ^ 1U;
                     uVar16 = uVar16 + 4;
-                    param_2 = param_2 - 4;
+                    arg2 = arg2 - 4;
                 } while (uVar16 < local_4c);
                 goto LAB_100bec75b;
             }
-        } else if (2 < param_2) {
+        } else if (2 < arg2) {
             local_40 = 1;
-            if (1 < param_2 / 3) {
-                local_40 = (ulong)(param_2 / 3);
+            if (1 < arg2 / 3) {
+                local_40 = (unsigned long)(arg2 / 3);
             }
-            uVar14 = 0;
-            lVar13 = 0;
+            uVar13 = 0;
+            lVar12 = 0;
             bVar15 = 0;
             local_48 = this;
             do {
-                if ((uVar14 & 3) == 0) {
-                    local_34 = ((uint)(uVar14 >> 2) & 1073741823) + param_1;
-                    uVar12 = eastl::vector_map<
-                        unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                        eastl::allocator,
-                        eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                      eastl::allocator>>::
-                    operator[](
-                        (vector_map<
-                            unsigned int, ShaderProgramStateCache::ShaderConstMapValue, eastl::less<unsigned int>,
-                            eastl::allocator,
-                            eastl::vector<eastl::pair<unsigned int, ShaderProgramStateCache::ShaderConstMapValue>,
-                                          eastl::allocator>>*)local_48,
-                        &local_34);
-                    lVar13 = std::array<float, 16ul>::operator[](uVar12);
+                if ((uVar13 & 3) == 0) {
+                    local_34 = ((unsigned int)(uVar13 >> 2) & 1073741823) + arg1;
+                    puVar14 = &local_34;
+                    paVar11 = (array<float, 16ul>*)(*local_48)[*puVar14];
+                    lVar12 = (*paVar11)[(unsigned long)puVar14];
                 }
-                bVar10 = is_aligned<char>((char*)param_3, 16);
-                if (!bVar10) {
-                    /* WARNING: Subroutine does not return */
+                cVar8 = is_aligned<char>((unsigned long)arg3, 16);
+                if (!cVar8) {
                     LogAssert("is_aligned(pSrcData)",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "shaders/ShaderProgramStateCache.cpp",
                               95, "Non-scalar shader input data should be aligned 16.");
                 }
-                plVar1 = (long*)(lVar13 + (ulong)((uint)uVar14 & 3) * 4);
-                lVar6 = *plVar1;
-                lVar7 = *(long*)param_3;
-                fVar4 = *(float*)(plVar1 + 1);
-                fVar5 = param_3[2];
-                if (fVar4 != fVar5 || lVar6 != lVar7) {
-                    *(float*)(plVar1 + 1) = param_3[2];
-                    *plVar1 = *(long*)param_3;
+                plVar1 = (long*)(lVar12 + (unsigned long)((unsigned int)uVar13 & 3) * 4);
+                lVar5 = *plVar1;
+                lVar6 = *(long*)arg3;
+                fVar3 = *(float*)(plVar1 + 1);
+                fVar4 = arg3[2];
+                if (fVar3 != fVar4 || lVar5 != lVar6) {
+                    *(float*)(plVar1 + 1) = arg3[2];
+                    *plVar1 = *(long*)arg3;
                 }
-                bVar15 = bVar15 | (fVar4 != fVar5 || lVar6 != lVar7);
-                uVar14 = uVar14 + 1;
-                param_3 = param_3 + 1;
-            } while (local_40 != uVar14);
+                bVar15 = bVar15 | (fVar3 != fVar4 || lVar5 != lVar6);
+                uVar13 = uVar13 + 1;
+                arg3 = arg3 + 1;
+            } while (local_40 != uVar13);
             goto LAB_100bec75b;
         }
         bVar15 = 0;
     LAB_100bec75b:
-        std::unique_lock<std::mutex>::~unique_lock(local_70);
         return bVar15;
     }
 
-    // 0x100bf15f0: the linker folded this into ShaderProgramStateCache::SetShaderConstFloat4Array(unsigned int, unsigned int, float const*), which has identical code
-    ShaderProgramStateCache::SetShaderConstInt4Array(unsigned int, unsigned int, int const*);
+    // 0x100bf15f0: ShaderProgramStateCache::SetShaderConstInt4Array(unsigned int, unsigned int, int const*) has the same machine code as ShaderProgramStateCache::SetShaderConstFloat4Array(unsigned int, unsigned int, float const*)
 
-    // 0x100bf16b0: the linker folded this into ShaderProgramStateCache::SetShaderConstFloat3Array(unsigned int, unsigned int, float const*), which has identical code
-    ShaderProgramStateCache::SetShaderConstInt3Array(unsigned int, unsigned int, int const*);
+    // 0x100bf16b0: ShaderProgramStateCache::SetShaderConstInt3Array(unsigned int, unsigned int, int const*) has the same machine code as ShaderProgramStateCache::SetShaderConstFloat3Array(unsigned int, unsigned int, float const*)
 
-    // 0x100bf16e0: the linker folded this into ShaderProgramStateCache::SetShaderConstFloat2Array(unsigned int, unsigned int, float const*), which has identical code
-    ShaderProgramStateCache::SetShaderConstInt2Array(unsigned int, unsigned int, int const*);
+    // 0x100bf16e0: ShaderProgramStateCache::SetShaderConstInt2Array(unsigned int, unsigned int, int const*) has the same machine code as ShaderProgramStateCache::SetShaderConstFloat2Array(unsigned int, unsigned int, float const*)
 
-    // 0x100bf1710: the linker folded this into ShaderProgramStateCache::SetShaderConstFloat1Array(unsigned int, unsigned int, float const*), which has identical code
-    ShaderProgramStateCache::SetShaderConstInt1Array(unsigned int, unsigned int, int const*);
+    // 0x100bf1710: ShaderProgramStateCache::SetShaderConstInt1Array(unsigned int, unsigned int, int const*) has the same machine code as ShaderProgramStateCache::SetShaderConstFloat1Array(unsigned int, unsigned int, float const*)
 
-    // 0x100bf1710: the linker folded this into ShaderProgramStateCache::SetShaderConstFloat1Array(unsigned int, unsigned int, float const*), which has identical code
-    ShaderProgramStateCache::SetShaderConstUInt1Array(unsigned int, unsigned int, unsigned int const*);
+    // 0x100bf1710: ShaderProgramStateCache::SetShaderConstUInt1Array(unsigned int, unsigned int, unsigned int const*) has the same machine code as ShaderProgramStateCache::SetShaderConstFloat1Array(unsigned int, unsigned int, float const*)
 
 } // namespace jag::render

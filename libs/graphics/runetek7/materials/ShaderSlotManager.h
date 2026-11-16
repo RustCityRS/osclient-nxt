@@ -1,56 +1,41 @@
 // libs/graphics/runetek7/materials/ShaderSlotManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class ShaderResourceSlotManager {
     public:
-        void SetMaxSize(unsigned long);
-        int RegisterSlotID(unsigned int);
-        void UnregisterSlotID(unsigned int);
-        GetTextureSlot(unsigned int);
+        void SetMaxSize(unsigned long arg1);
+        int RegisterSlotID(unsigned int arg1);
+        void UnregisterSlotID(unsigned int arg1);
+        uint32_t GetTextureSlot(unsigned int arg1);
         void Clear();
         ShaderResourceSlotManager();
         ~ShaderResourceSlotManager();
 
-        // data members, from how the methods use this: 40 bytes
-        char _unknown_0[40];
+    private:
+        uint8_t _unknown_0[32];
+        unsigned int field_32;
+        uint8_t _unknown_36[4];
     };
 
     class ShaderSlotManager {
     public:
-        void SetMaxSize(unsigned long);
+        void SetMaxSize(unsigned long arg1);
         void Clear();
-        AllocSlot();
-        void FreeSlot(int);
+        uint32_t AllocSlot();
+        void FreeSlot(int arg1);
         ShaderSlotManager();
         ~ShaderSlotManager();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
-    // 0x10097ed40, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ShaderResourceSlotManager::ShaderResourceSlotManager(): jumps straight to the base-object constructor
+    // 0x10098eae0
+    ShaderSlotManager::ShaderSlotManager() : eastl::stack<int, eastl::vector<int>>() {}
 
-    // 0x10098eac0, 16 bytes, complete-object constructor, inline, placed by class name
-    // ShaderSlotManager::ShaderSlotManager(): jumps straight to the base-object constructor
-
-    // 0x10098ead0, 16 bytes, complete-object destructor, inline, placed by class name
-    // ShaderSlotManager::~ShaderSlotManager(): jumps straight to the base-object destructor
-
-    // 0x10098eae0, 16 bytes, base-object constructor, inline, placed by class name
-    // ShaderSlotManager::ShaderSlotManager()
-    void ShaderSlotManager::ShaderSlotManager() {
-        new (this) eastl::stack<int, eastl::vector<int, eastl::allocator>>();
-    }
-
-    // 0x10098eb10, 16 bytes, base-object destructor, inline, placed by class name
-    // ShaderSlotManager::~ShaderSlotManager()
-    void ShaderSlotManager::~ShaderSlotManager() {
-        ~stack();
-    }
+    // 0x10098eb10
+    ShaderSlotManager::~ShaderSlotManager() {}
 
 } // namespace jag::graphics

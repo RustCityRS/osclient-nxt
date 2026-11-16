@@ -1,69 +1,64 @@
 // libs/oldscape/jagex3/sound/jagvorbis.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::sound {
     class JagVorbis {
     public:
-        ToWaveMultistep(Array<int, eastl::allocator>&);
-        Float32Unpack(int);
-        void DecodeJagVorbis(Array<unsigned char, eastl::allocator>&);
-        void ProcessHeaders(Array<unsigned char, eastl::allocator>&);
-        DecodeAudioPacket(int);
-        GetHeaders(jagex3::Js5&);
-        Js5* Load(jagex3::Js5&, eastl::string&, eastl::string&);
-        Js5* Load(jagex3::Js5&, eastl::string&);
-        JagVorbis* Load(jagex3::Js5&, int, int);
-        JagVorbis* Load(jagex3::Js5&, int);
-        JagVorbis(Array<unsigned char, eastl::allocator>&);
-        ToWave();
+        auto ToWaveMultistep(Array<int>& arg1);
+        uint64_t Float32Unpack(int arg1);
+        void DecodeJagVorbis(Array<unsigned char>& arg1);
+        void ProcessHeaders(Array<unsigned char>& arg1);
+        JagVorbis* DecodeAudioPacket(int arg1);
+        void GetHeaders(jagex3::Js5& js5);
+        auto Load(jagex3::Js5& js5, eastl::string& str1, eastl::string& str2);
+        auto Load(jagex3::Js5& js5, eastl::string& str);
+        auto Load(jagex3::Js5& js5, int arg2, int arg3);
+        auto Load(jagex3::Js5& js5, int arg2);
+        JagVorbis(Array<unsigned char>& arg1);
+        JagVorbis* ToWave();
         ~JagVorbis();
-        static PacketT<Array<unsigned char, eastl::allocator>> /* 32 bytes */
-            m_staticUnpacker;                                  // = PacketT<Array<unsigned char,eastl::allocator>>()
-        static Array<CodeBook, eastl::allocator> /* 24 bytes */ m_codebook; // = Array<CodeBook,eastl::allocator>()
-        static Array<float, eastl::allocator> /* 24 bytes */ m_A0;          // = Array<float,eastl::allocator>()
-        static Array<float, eastl::allocator> /* 24 bytes */ m_B0;          // = Array<float,eastl::allocator>()
-        static Array<float, eastl::allocator> /* 24 bytes */ m_C0;          // = Array<float,eastl::allocator>()
-        static Array<float, eastl::allocator> /* 24 bytes */ m_A1;          // = Array<float,eastl::allocator>()
-        static Array<float, eastl::allocator> /* 24 bytes */ m_B1;          // = Array<float,eastl::allocator>()
-        static Array<float, eastl::allocator> /* 24 bytes */ m_C1;          // = Array<float,eastl::allocator>()
-        static Array<int, eastl::allocator> /* 24 bytes */ m_bitrev0;       // = Array<int,eastl::allocator>()
-        static Array<int, eastl::allocator> /* 24 bytes */ m_bitrev1;       // = Array<int,eastl::allocator>()
-        static /* 4 bytes */ m_blocksize0;
-        static /* 4 bytes */ m_blocksize1;
-        static Array<Floor, eastl::allocator> /* 24 bytes */ m_floor;        // = Array<Floor,eastl::allocator>()
-        static Array<Residue, eastl::allocator> /* 24 bytes */ m_residue;    // = Array<Residue,eastl::allocator>()
-        static Array<Mapping, eastl::allocator> /* 24 bytes */ m_mapping;    // = Array<Mapping,eastl::allocator>()
-        static Array<bool, eastl::allocator> /* 24 bytes */ m_modeBlockflag; // = Array<bool,eastl::allocator>()
-        static Array<int, eastl::allocator> /* 24 bytes */ m_modeMapping;    // = Array<int,eastl::allocator>()
-        static /* 1 bytes */ m_gotHeaders;
+        static PacketT<Array<unsigned char>> m_staticUnpacker; // = PacketT<Array<unsigned char>>()
+        static Array<CodeBook> m_codebook;                     // = Array<CodeBook>()
+        static Array<float> m_A0;                              // = Array<float>()
+        static Array<float> m_B0;                              // = Array<float>()
+        static Array<float> m_C0;                              // = Array<float>()
+        static Array<float> m_A1;                              // = Array<float>()
+        static Array<float> m_B1;                              // = Array<float>()
+        static Array<float> m_C1;                              // = Array<float>()
+        static Array<int> m_bitrev0;                           // = Array<int>()
+        static Array<int> m_bitrev1;                           // = Array<int>()
+        static uint m_blocksize0;
+        static uint m_blocksize1;
+        static Array<Floor> m_floor;        // = Array<Floor>()
+        static Array<Residue> m_residue;    // = Array<Residue>()
+        static Array<Mapping> m_mapping;    // = Array<Mapping>()
+        static Array<bool> m_modeBlockflag; // = Array<bool>()
+        static Array<int> m_modeMapping;    // = Array<int>()
+        static bool m_gotHeaders;
 
-        // data members, from how the methods use this: 144 bytes
-        char _unknown_0[24];
-        undefined8 field_24; // offset 24
-        undefined1 field_32; // offset 32
-        char _unknown_33[55];
-        undefined4 field_88;  // offset 88
-        undefined4 field_92;  // offset 92
-        undefined4 field_96;  // offset 96
-        uint field_100;       // offset 100
-        undefined1 field_104; // offset 104
-        char _unknown_105[31];
-        undefined8 field_136; // offset 136
+    private:
+        uint8_t _unknown_0[24];
+        uint32_t field_24;
+        uint8_t _unknown_28[4];
+        uint8_t field_32;
+        uint8_t _unknown_33[55];
+        uint32_t field_88;
+        int field_92;
+        uint32_t field_96;
+        unsigned int field_100;
+        Array<unsigned char> field_104;
+        uint8_t _unknown_105[31];
+        int field_136;
+        int field_140;
     };
 
-    // 0x1002aab70, 16 bytes, complete-object destructor, inline, placed by class name
-    // JagVorbis::~JagVorbis(): jumps straight to the base-object destructor
-
-    // 0x1002aab80, 64 bytes, base-object destructor, inline, placed by class name
-    // JagVorbis::~JagVorbis()
-    void JagVorbis::~JagVorbis() {
-        (&field_112)->~Array();
-        (&field_64)->~Array();
-        (&field_40)->~Array();
-        ~Array();
+    // 0x1002aab80
+    JagVorbis::~JagVorbis() {
+        field_112.~Array();
+        field_64.~Array();
+        field_40.~Array();
     }
 
 } // namespace jag::oldscape::sound

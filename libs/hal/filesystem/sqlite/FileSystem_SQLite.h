@@ -1,6 +1,5 @@
 // libs/hal/filesystem/sqlite/FileSystem_SQLite.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -13,56 +12,55 @@ namespace jag {
         class SQLStatement;
         // virtual methods in vtable order
         virtual ~FileSystem_SQLite();
-        virtual UpdateStats();
-        virtual GetQuotaBytes() const;
-        virtual GetUsageBytes() const;
-        virtual SetIndexUpdateCallback(std::function<Array<unsigned char, eastl::allocator>*(int)> const&);
+        virtual void UpdateStats();
+        virtual uint64_t GetQuotaBytes() const;
+        virtual uint64_t GetUsageBytes() const;
+        virtual uint8_t SetIndexUpdateCallback(std::function<Array<unsigned char>*(int)> const& callback);
         virtual void ServiceInstance();
-        virtual void MoveFileSystem(Filename const&);
-        virtual void WriteFileImpl(filesystem::QueueItem&&);
-        virtual void ReadFileImpl(filesystem::QueueItem&&);
-        virtual void DeleteFileImpl(filesystem::QueueItem&&);
-        virtual void ResetImpl(filesystem::QueueItem&&);
+        virtual void MoveFileSystem(const Filename& filename);
+        virtual void WriteFileImpl(filesystem::QueueItem&& queueItem);
+        virtual void ReadFileImpl(filesystem::QueueItem&& queueItem);
+        virtual void DeleteFileImpl(filesystem::QueueItem&& queueItem);
+        virtual void ResetImpl(filesystem::QueueItem&& queueItem);
         virtual void BeginTransactionImpl();
         virtual void EndTransactionImpl();
-        ProcessAllQueuedRequests();
-        FileSystem_SQLite(Filename const&, FileSystem::Scope, char const*, bool);
-        GetDatabaseFilename();
+        void ProcessAllQueuedRequests();
+        FileSystem_SQLite(const Filename& filename, FileSystem::Scope scope, const char* str, bool arg4);
+        auto GetDatabaseFilename();
         void SQLClose();
-        ulong SQLOpen();
-        void ThreadRunnerWrapper(int);
+        unsigned long SQLOpen();
+        void ThreadRunnerWrapper(int arg1);
         void ThreadRunnerSEHWrapper();
         void ThreadRunner();
         void GetUsageQuota();
-        void HandleSQLErrorImpl(Database&, int);
-        void CheckSettingsTable(char const*, bool);
-        void CreateTable(char const*);
-        bool HandleSQLError(Database&, int);
-        ulong PerformWrite(Database&, filesystem::QueueItem const&);
+        void HandleSQLErrorImpl(Database& database, int arg2);
+        void CheckSettingsTable(const char* str, bool arg2);
+        void CreateTable(const char* str);
+        bool HandleSQLError(Database& database, int arg2);
+        unsigned long PerformWrite(Database& database, const filesystem::QueueItem& queueItem);
         void UpdateCacheSize();
-        PerformReadAll(Database&, filesystem::QueueItem&);
-        PerformRead(Database&, filesystem::QueueItem&);
-        PerformDelete(Database&, filesystem::QueueItem&);
-        void GetCurrentTableList(
-            eastl::fixed_map<unsigned int, eastl::string, 16ul, true, eastl::less<unsigned int>, eastl::allocator>&);
-        UpdateAllTableSchemasFromVersion1to2();
-        void SQLCheckProperties(Database&, bool&, bool);
-        ulong PerformClose(Database&);
-        bool ClearStatement(sqlite3_stmt*&);
+        uint64_t PerformReadAll(Database& database, filesystem::QueueItem& queueItem);
+        uint64_t PerformRead(Database& database, filesystem::QueueItem& queueItem);
+        uint64_t PerformDelete(Database& database, filesystem::QueueItem& queueItem);
+        void GetCurrentTableList(eastl::fixed_map<unsigned int, eastl::string, 16ul>& fixed_map);
+        uint64_t UpdateAllTableSchemasFromVersion1to2();
+        void SQLCheckProperties(Database& database, bool& arg2, bool arg3);
+        unsigned long PerformClose(Database& database);
+        bool ClearStatement(sqlite3_stmt*& arg1);
 
-        // data members, from how the methods use this: 2528 bytes, the first 913 are FileSystem
-        char _unknown_913[7];
-        Database field_920; // offset 920
-        char _unknown_1000[1336];
-        char field_2336; // offset 2336
-        char _unknown_2337[7];
-        undefined8 m_usageBytes; // offset 2344
-        char field_2352;         // offset 2352
-        char _unknown_2353[3];
-        int field_2356;        // offset 2356
-        uint field_2360;       // offset 2360
-        undefined4 field_2364; // offset 2364
-        char _unknown_2368[160];
+    private:
+        uint8_t _unknown_913[7];
+        Database field_920;
+        uint8_t _unknown_1000[1336];
+        char field_2336;
+        uint8_t _unknown_2337[7];
+        uint64_t m_usageBytes;
+        char field_2352;
+        uint8_t _unknown_2353[3];
+        int field_2356;
+        unsigned int field_2360;
+        uint32_t field_2364;
+        uint8_t _unknown_2368[160];
     };
 
     class FileSystem_SQLite::Database {
@@ -74,145 +72,101 @@ namespace jag {
         void GetInsertStatement();
         void GetSelectStatement();
         void GetDeleteStatement();
-        BuildStatement(char const*, SQLStatement&);
+        uint64_t BuildStatement(const char* str, SQLStatement& sqlStatement);
 
-        // data members, from how the methods use this: 80 bytes
-        undefined8 field_0; // offset 0
-        char _unknown_8[72];
+    private:
+        uint64_t field_0;
+        uint8_t _unknown_8[72];
     };
 
     class FileSystem_SQLite::SQLStatement {
     public:
-        Get() const;
-        SQLStatement(sqlite3*&);
+        void Get() const;
+        SQLStatement(sqlite3*& arg1);
         ~SQLStatement();
-        void Prepare(char const*);
+        void Prepare(const char* str);
         void Reset();
 
-        // data members, from how the methods use this: 16 bytes
-        long* field_0; // offset 0
-        long field_8;  // offset 8
+    private:
+        long* field_0;
+        long field_8;
     };
 
-    // 0x10001d440, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // FileSystem_SQLite::Database::~Database(): jumps straight to the base-object destructor
-
-    // 0x10002cff0, 64 bytes, base-object destructor, inline, placed by class name
-    // FileSystem_SQLite::Database::~Database()
-    void FileSystem_SQLite::Database::~Database() {
-        (&field_72)->~SQLStatement();
-        (&field_56)->~SQLStatement();
-        (&field_40)->~SQLStatement();
-        (&field_24)->~SQLStatement();
-        (&field_8)->~SQLStatement();
+    // 0x10002cff0
+    FileSystem_SQLite::Database::~Database() {
+        field_72.~SQLStatement();
+        field_56.~SQLStatement();
+        field_40.~SQLStatement();
+        field_24.~SQLStatement();
+        field_8.~SQLStatement();
     }
 
-    // 0x1001298d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FileSystem_SQLite::Database::Database(): jumps straight to the base-object constructor
+    // 0x100129b30
+    FileSystem_SQLite::Database::Database()
+        : field_0(0), field_8(*this), field_24(*this), field_40(*this), field_56(*this), field_72(*this) {}
 
-    // 0x100129b30, 176 bytes, base-object constructor, inline, placed by class name
-    // FileSystem_SQLite::Database::Database()
-    void FileSystem_SQLite::Database::Database() {
-        field_0 = 0;
-        new (&field_8, (SuperPacket*)this) oldscape::SuperShuffledPacketFactory();
-        new (&field_24, (SuperPacket*)this) oldscape::SuperShuffledPacketFactory();
-        new (&field_40, (SuperPacket*)this) oldscape::SuperShuffledPacketFactory();
-        new (&field_56, (SuperPacket*)this) oldscape::SuperShuffledPacketFactory();
-        new (&field_72, (SuperPacket*)this) oldscape::SuperShuffledPacketFactory();
+    // 0x100129c00
+    FileSystem_SQLite::SQLStatement::SQLStatement(sqlite3*& arg1) : field_0(arg1), field_8(0) {}
+
+    // 0x100129c00: ShuffledPacketFactory::ShuffledPacketFactory(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&) has the same machine code as FileSystem_SQLite::SQLStatement::SQLStatement(sqlite3*&)
+
+    // 0x100129c20
+    FileSystem_SQLite::SQLStatement::~SQLStatement() {
+        Reset();
     }
 
-    // 0x100129be0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FileSystem_SQLite::SQLStatement::SQLStatement(sqlite3*&): jumps straight to the base-object constructor
-
-    // 0x100129bf0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FileSystem_SQLite::SQLStatement::~SQLStatement(): jumps straight to the base-object destructor
-
-    // 0x100129c00, 32 bytes, base-object constructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // FileSystem_SQLite::SQLStatement::SQLStatement(sqlite3*&)
-    /* ShuffledPacketFactory::ShuffledPacketFactory(PacketT<Array<unsigned char,
-   BucketAllocatorEASTL> >&) */
-
-    void ShuffledPacketFactory::ShuffledPacketFactory(PacketT* param_1) {
-        field_0 = param_1;
-        field_8 = 0;
-    }
-
-    // 0x100129c00: the linker folded this into FileSystem_SQLite::SQLStatement::SQLStatement(sqlite3*&), which has identical code
-    ShuffledPacketFactory::ShuffledPacketFactory(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&);
-
-    // 0x100129c20, 16 bytes, base-object destructor, inline, placed by class name
-    // FileSystem_SQLite::SQLStatement::~SQLStatement()
-    void FileSystem_SQLite::SQLStatement::~SQLStatement() {
-        Reset(this);
-    }
-
-    // 0x100b21450, 32 bytes, inline, placed by class name
-    // FileSystem_SQLite::Database::GetBeginStatement()
+    // 0x100b21450
     void FileSystem_SQLite::Database::GetBeginStatement() {
-        BuildStatement(this, "BEGIN", (SQLStatement*)&field_56);
+        BuildStatement("BEGIN", field_56);
     }
 
-    // 0x100b21470, 32 bytes, inline, placed by class name
-    // FileSystem_SQLite::HandleSQLError(FileSystem_SQLite::Database&, int)
-    bool FileSystem_SQLite::HandleSQLError(Database* param_1, int param_2) {
-        if (param_2 != 0) {
-            HandleSQLErrorImpl(this, param_1, param_2);
+    // 0x100b21470
+    bool FileSystem_SQLite::HandleSQLError(FileSystem_SQLite::Database& database, int arg2) {
+        if (arg2 != 0) {
+            HandleSQLErrorImpl(database, arg2);
         }
-        return param_2 == 0;
+        return arg2 == 0;
     }
 
-    // 0x100b214e0, 32 bytes, inline, placed by class name
-    // FileSystem_SQLite::Database::GetEndStatement()
+    // 0x100b214e0
     void FileSystem_SQLite::Database::GetEndStatement() {
-        BuildStatement(this, "END", (SQLStatement*)&field_72);
+        BuildStatement("END", field_72);
     }
 
-    // 0x100b218f0, 32 bytes, inline, placed by class name
-    // FileSystem_SQLite::Database::GetInsertStatement()
+    // 0x100b218f0
     void FileSystem_SQLite::Database::GetInsertStatement() {
-        BuildStatement(this, "INSERT OR REPLACE INTO cache(KEY,DATA) VALUES(?,?)", (SQLStatement*)&field_8);
+        BuildStatement("INSERT OR REPLACE INTO cache(KEY,DATA) VALUES(?,?)", field_8);
     }
 
-    // 0x100b21fe0, 32 bytes, inline, placed by class name
-    // FileSystem_SQLite::Database::GetSelectStatement()
+    // 0x100b21fe0
     void FileSystem_SQLite::Database::GetSelectStatement() {
-        BuildStatement(this, "SELECT DATA FROM cache WHERE KEY = ?", (SQLStatement*)&field_24);
+        BuildStatement("SELECT DATA FROM cache WHERE KEY = ?", field_24);
     }
 
-    // 0x100b22520, 32 bytes, inline, placed by class name
-    // FileSystem_SQLite::Database::GetDeleteStatement()
+    // 0x100b22520
     void FileSystem_SQLite::Database::GetDeleteStatement() {
-        BuildStatement(this, "DELETE FROM cache WHERE KEY = ?", (SQLStatement*)&field_40);
+        BuildStatement("DELETE FROM cache WHERE KEY = ?", field_40);
     }
 
-    // 0x100b22eb0, 16 bytes, inline, placed by class name
-    // FileSystem_SQLite::GetQuotaBytes() const
-    undefined8 FileSystem_SQLite::GetQuotaBytes() {
+    // 0x100b22eb0
+    uint64_t FileSystem_SQLite::GetQuotaBytes() const {
         return 4294967296;
     }
 
-    // 0x100b22ec0, 16 bytes, inline, placed by class name
-    // FileSystem_SQLite::GetUsageBytes() const
-    undefined8 FileSystem_SQLite::GetUsageBytes() {
+    // 0x100b22ec0
+    uint64_t FileSystem_SQLite::GetUsageBytes() const {
         return m_usageBytes;
     }
 
-    // 0x100b22ed0, 32 bytes, inline, placed by class name
-    // FileSystem_SQLite::SetIndexUpdateCallback(std::function<Array<unsigned char, eastl::allocator>* (int)> const&)
-    /* FileSystem_SQLite::SetIndexUpdateCallback(std::function<Array<unsigned char,
-   eastl::allocator>* (int)> const&) */
-
-    undefined1 FileSystem_SQLite::SetIndexUpdateCallback(function* param_1) {
-        std::function<Array<unsigned char, eastl::allocator>*(int)>::operator=(
-            (function<Array<unsigned char, eastl::allocator>*(int)>*)&field_2464, param_1);
+    // 0x100b22ed0
+    uint8_t FileSystem_SQLite::SetIndexUpdateCallback(std::function<Array<unsigned char>*(int)> const& callback) {
+        field_2464 = callback;
         return 1;
     }
 
 } // namespace jag
 
 namespace jag::oldscape {
-    // 0x100129be0: the linker folded this into FileSystem_SQLite::SQLStatement::SQLStatement(sqlite3*&), which has identical code
-    SuperShuffledPacketFactory::SuperShuffledPacketFactory(core::SuperPacket&);
+    // 0x100129be0: SuperShuffledPacketFactory::SuperShuffledPacketFactory(core::SuperPacket&) has the same machine code as FileSystem_SQLite::SQLStatement::SQLStatement(sqlite3*&)
 
 } // namespace jag::oldscape

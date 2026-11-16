@@ -1,235 +1,176 @@
 // libs/tweaky/Tweaky_Tickable.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.tweaky
 
 #include "Tweaky_Tickable.h"
 
 namespace jag::tweak {
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    Tickable::ResetToDefault();
+    // 0x100009e70: Tickable::ResetToDefault() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100a4ffa0, 320 bytes, placed by class name and debug map
-    // Tickable::Draw(int, int)
-    void Tickable::Draw(int param_1, int param_2) {
-        uint uVar1;
-        Tweaky* pTVar3;
-        int iVar4;
-        int iVar5;
-        GridRect local_48;
-        int local_34;
-
-        iVar5 = field_24 + param_1;
-        iVar4 = field_28 + param_2;
-        new (&local_48) oldscape::dash3d::GridRect(iVar5, iVar4, field_36 + iVar5, field_40 + iVar4);
+    // 0x100a4ffa0
+    void Tickable::Draw(int arg1, int arg2) {
+        int iVar4 = field_24 + arg1;
+        int iVar3 = field_28 + arg2;
+        GridRect local_48(iVar4, iVar3, field_36 + iVar4, field_40 + iVar3);
         field_136 = local_48.field_0;
         field_140 = local_48.field_4;
         field_144 = local_48.field_8;
         field_148 = local_48.field_12;
-        weak_ptr<oldscape::rs2lib::IfType>::lock();
-        if (local_48.operator_cast_to_bool()) {
-            if (field_208 == '\0') {
-                SetColour(3772834047, false);
-            } else {
-                SetColour(4294967295, false);
-            }
-            iVar4 = field_24;
-            uVar1 = field_40;
-            iVar5 = field_28;
-            pTVar3 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_48);
-            local_34 = pTVar3->GetTextCenterYOffset(field_40);
-            pTVar3 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_48);
-            Tweaky::TextDraw<eastl::string>(pTVar3, iVar4 + param_1 + uVar1, iVar5 + param_2 + local_34,
-                                            (basic_string*)&field_48, -1, -1, false);
-            (*(code*)field_0[30])(this, param_1 + field_24, param_2 + field_28);
+        local_48 = field_104.lock();
+        if (local_48.operator_cast_to_bool() == '\0') {
+            return;
         }
-        local_48.~shared_ptr();
+        if (field_208 == false) {
+            SetColour(3772834047, false);
+        } else {
+            SetColour(4294967295, false);
+        }
+        iVar3 = field_24;
+        unsigned int uVar1 = field_40;
+        iVar4 = field_28;
+        int local_34 = ((Tweaky*)local_48.operator->())->GetTextCenterYOffset(field_40);
+        int arg1_00 = local_48.operator->();
+        Tweaky::TextDraw<eastl::string>(
+            arg1_00, iVar3 + arg1 + uVar1,
+            *((fixed_string<char, _16>*)(unsigned long)(unsigned int)(iVar4 + arg2 + local_34)), (int)this + 48, -1,
+            true);
+        (*this->_vptr[1]._dtor)(this, (unsigned long)(unsigned int)(arg1 + field_24),
+                                (unsigned long)(unsigned int)(arg2 + field_28));
     }
 
-    // 0x100a500e0, 208 bytes, placed by class name and debug map
-    // Tickable::GetControlSize(int&, int&)
-    ulong Tickable::GetControlSize(int* param_1, int* param_2) {
-        uint uVar3;
-        Tweaky* pTVar4;
-        ulong uVar5;
-        int in_R9D;
-        StringView SVar6;
+    // 0x100a500e0
+    unsigned long Tickable::GetControlSize(int& arg1, int& arg2) {
+        unsigned int uVar2;
+        Tweaky* pTVar3;
+        unsigned long uVar4;
         StringView local_58;
         int local_44;
-        shared_ptr local_40;
         int local_2c;
 
-        weak_ptr<oldscape::rs2lib::IfType>::lock();
+        shared_ptr local_40 = field_104.lock();
         if (shared_ptr::operator_cast_to_bool(&local_40)) {
-            pTVar4 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_58,
-                                                                                          (fixed_string*)&field_48);
-            SVar6.field_8 = (uchar*)4294967295;
-            SVar6.field_0 = (ulong)&local_58;
-            if (pTVar4->GetTextSize(&local_2c, &local_44, SVar6, in_R9D) != '\0') {
-                pTVar4 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-                uVar3 = pTVar4->GetMinControlHeight();
-                field_40 = uVar3;
-                field_36 = uVar3 + local_2c;
+            pTVar3 = (Tweaky*)local_40.operator->();
+            local_58.StringView<eastl::fixed_string<char, 40>>(field_48);
+            if (pTVar3->GetTextSize(local_2c, local_44, &local_58, -1)) {
+                pTVar3 = (Tweaky*)local_40.operator->();
+                uVar2 = pTVar3->GetMinControlHeight();
+                field_40 = uVar2;
+                field_36 = uVar2 + local_2c;
             }
         }
         if (((int)field_40 < 1) && ((int)field_36 < 1)) {
-            uVar5 = 0;
+            uVar4 = 0;
         } else {
-            *param_1 = field_36;
-            *param_2 = field_40;
-            uVar5 = CONCAT71((int7)((ulong)this >> 8), 1);
+            arg1 = field_36;
+            arg2 = field_40;
+            uVar4 = (((uint64_t)((int64_t)((unsigned long)this >> 8)) << 8) | (uint8_t)1);
         }
-        local_40.~shared_ptr();
-        return uVar5 & 4294967295;
+        return uVar4 & 4294967295;
     }
 
-    // 0x100a501b0, 48 bytes, placed by class name and debug map
-    // Tickable::SaveSettings(TweakSettingsValue&)
-    void Tickable::SaveSettings(TweakSettingsValue* param_1) {
-        char* pcVar1;
-
-        pcVar1 = "1";
+    // 0x100a501b0
+    void Tickable::SaveSettings(TweakSettingsValue& tweakSettingsValue) {
+        char* str = "1";
         if (m_ticked == false) {
-            pcVar1 = "0";
+            str = "0";
         }
-        param_1->assign(pcVar1);
+        tweakSettingsValue.assign(str);
     }
 
-    // 0x100a501e0, 160 bytes, placed by class name and debug map
-    // Tickable::LoadSettings(TweakSettingsValue const&)
-    undefined8 Tickable::LoadSettings(TweakSettingsValue* param_1) {
-        bool bVar1;
-        bool bVar2;
-        undefined7 extraout_var;
-        undefined7 extraout_var_00;
-        undefined7 uVar3;
+    // 0x100a501e0
+    uint64_t Tickable::LoadSettings(const TweakSettingsValue& tweakSettingsValue) {
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
         Event local_40;
-        enable_shared_from_this<PathingEntity> local_28[16];
+        enable_shared_from_this<PathingEntity> local_28;
 
-        bVar1 = m_ticked;
-        bVar2 = eastl::operator==((basic_string*)param_1, (value_type*)&DAT_100e33d78);
+        bool bVar1 = m_ticked;
+        bool bVar2 = tweakSettingsValue == DAT_100e33d78;
         m_ticked = bVar2;
-        uVar3 = extraout_var;
+        uint64_t uVar3 = extraout_var;
         if (bVar1 != bVar2) {
-            local_28->shared_from_this();
-            new (&local_40) Event(local_28, 3);
-            DoCallback(&local_40);
-            local_40.~LRUHashCacheWrapper();
-            local_28->~shared_ptr();
+            local_28.shared_from_this();
+            local_40 = Event(local_28, 3);
+            DoCallback(local_40);
             uVar3 = extraout_var_00;
         }
-        return CONCAT71(uVar3, 1);
+        return 1;
     }
 
-    // 0x100a52a40: the linker folded this into Button::~Button(), which has identical code
-    Tickable::~Tickable();
+    // 0x100a52a40: Tickable::~Tickable() has the same machine code as Button::~Button()
 
-    // 0x100a54340, 48 bytes, placed by class name and neighbouring functions
-    // Tweaky::AddGlobalControls()::$_0::operator()(Event const&) const
-    /* Tweaky::AddGlobalControls()::$_0::TEMPNAMEPLACEHOLDERVALUE(Event const&)
-   const */
-
-    void Tweaky::AddGlobalControls()::$_0::operator()(Event* param_1) {
+    // 0x100a54340
+    void Tweaky::AddGlobalControls()::$_0::operator()(const Event& event) const {
         long* plVar1;
 
-        if (param_1->field_16 == 2) {
-            plVar1 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(*(long*)this + 16));
-            (**(code**)(*plVar1 + 96))(plVar1);
+        if (event.field_16 == 2) {
+            plVar1 = (long*)(*((field_0 + 16))).operator->();
+            (**(void (**)(...))(*plVar1 + 96))(plVar1);
         }
     }
 
-    // 0x100a54c60, 48 bytes, placed by class name and neighbouring functions
-    // Tweaky::AddGlobalControls()::$_1::operator()(Event const&) const
-    /* Tweaky::AddGlobalControls()::$_1::TEMPNAMEPLACEHOLDERVALUE(Event const&)
-   const */
-
-    void Tweaky::AddGlobalControls()::$_1::operator()(Event* param_1) {
+    // 0x100a54c60
+    void Tweaky::AddGlobalControls()::$_1::operator()(const Event& event) const {
         long* plVar1;
 
-        if (param_1->field_16 == 2) {
-            plVar1 = (long*)shared_ptr<Container>::operator->((shared_ptr<Container>*)(*(long*)this + 16));
-            (**(code**)(*plVar1 + 104))(plVar1);
+        if (event.field_16 == 2) {
+            plVar1 = (long*)(*((field_0 + 16))).operator->();
+            (**(void (**)(...))(*plVar1 + 104))(plVar1);
         }
     }
 
-    // 0x100a55aa0, 80 bytes, placed by class name and neighbouring functions
-    // Tweaky::AddCheckBox(char const*, bool&)::$_2::operator()(Event const&) const
-    /* Tweaky::AddCheckBox(char const*,
-   bool&)::$_2::TEMPNAMEPLACEHOLDERVALUE(Event const&) const */
-
-    void Tweaky::AddCheckBox(char const*, bool&)::$_2::operator()(Event* param_1) {
-        undefined1 uVar1;
+    // 0x100a55aa0
+    void Tweaky::AddCheckBox(char const*, bool&)::$_2::operator()(const Event& event) const {
+        uint8_t uVar1;
         long* plVar2;
 
-        if (param_1->field_16 == 3) {
-            plVar2 = (long*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-            uVar1 = (**(code**)(*plVar2 + 120))(plVar2);
-            **(undefined1**)this = uVar1;
-        } else if (param_1->field_16 == 1) {
-            plVar2 = (long*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-            (**(code**)(*plVar2 + 128))(plVar2, **(undefined1**)this);
+        if (event.field_16 == 3) {
+            plVar2 = (long*)event.operator->();
+            uVar1 = (**(void (**)(...))(*plVar2 + 120))(plVar2);
+            **(uint8_t**)this = uVar1;
+        } else if (event.field_16 == 1) {
+            plVar2 = (long*)event.operator->();
+            (**(void (**)(...))(*plVar2 + 128))(plVar2, **(uint8_t**)this);
         }
     }
 
-    // 0x100a56800, 80 bytes, placed by class name and neighbouring functions
-    // Tweaky::AddSlider(char const*, float, float, float, int*)::$_3::operator()(Event const&) const
-    /* Tweaky::AddSlider(char const*, float, float, float,
-   int*)::$_3::TEMPNAMEPLACEHOLDERVALUE(Event const&) const */
-
-    void Tweaky::AddSlider(char const*, float, float, float, int*)::$_3::operator()(Event* param_1) {
-        Slider* this_00;
+    // 0x100a56800
+    void Tweaky::AddSlider(char const*, float, float, float, int*)::$_3::operator()(const Event& event) const {
         float fVar1;
 
-        this_00 = (Slider*)param_1->end();
-        if (param_1->field_16 == 3) {
+        auto this_00 = event.end();
+        if (event.field_16 == 3) {
             fVar1 = (float)this_00->GetCurrentValue();
             **(int**)this = (int)fVar1;
-        } else if (param_1->field_16 == 1) {
-            Slider::SetSlider<float>(this_00, (float)**(int**)this);
+        } else if (event.field_16 == 1) {
+            this_00->SetSlider<float>((float)**(int**)this);
         }
     }
 
-    // 0x100a57140, 80 bytes, placed by class name and neighbouring functions
-    // Tweaky::AddSlider(char const*, float, float, float, unsigned int*)::$_4::operator()(Event const&) const
-    /* Tweaky::AddSlider(char const*, float, float, float, unsigned
-   int*)::$_4::TEMPNAMEPLACEHOLDERVALUE(Event const&) const */
-
-    void Tweaky::AddSlider(char const*, float, float, float, unsigned int*)::$_4::operator()(Event* param_1) {
-        Slider* this_00;
+    // 0x100a57140
+    void Tweaky::AddSlider(char const*, float, float, float, unsigned int*)::$_4::operator()(const Event& event) const {
         float fVar1;
 
-        this_00 = (Slider*)param_1->end();
-        if (param_1->field_16 == 3) {
+        auto this_00 = event.end();
+        if (event.field_16 == 3) {
             fVar1 = (float)this_00->GetCurrentValue();
-            **(undefined4**)this = (int)(long)fVar1;
-        } else if (param_1->field_16 == 1) {
-            Slider::SetSlider<float>(this_00, (float)**(uint**)this);
+            **(uint32_t**)this = (int)(long)fVar1;
+        } else if (event.field_16 == 1) {
+            this_00->SetSlider<float>((float)**(unsigned int**)this);
         }
     }
 
-    // 0x100a57a80, 80 bytes, placed by class name and neighbouring functions
-    // Tweaky::AddSlider(char const*, float, float, float, float*)::$_5::operator()(Event const&) const
-    /* Tweaky::AddSlider(char const*, float, float, float,
-   float*)::$_5::TEMPNAMEPLACEHOLDERVALUE(Event const&) const */
+    // 0x100a57a80
+    void Tweaky::AddSlider(char const*, float, float, float, float*)::$_5::operator()(const Event& event) const {
+        uint32_t uVar1;
 
-    void Tweaky::AddSlider(char const*, float, float, float, float*)::$_5::operator()(Event* param_1) {
-        Slider* this_00;
-        undefined4 uVar1;
-
-        this_00 = (Slider*)param_1->end();
-        if (param_1->field_16 == 3) {
+        auto this_00 = event.end();
+        if (event.field_16 == 3) {
             uVar1 = this_00->GetCurrentValue();
-            **(undefined4**)this = uVar1;
-        } else if (param_1->field_16 == 1) {
-            Slider::SetSlider<float>(this_00, **(float**)this);
+            **(uint32_t**)this = uVar1;
+        } else if (event.field_16 == 1) {
+            this_00->SetSlider<float>(**(float**)this);
         }
     }
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    Tickable::~Tickable();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    Tickable::~Tickable();
 
 } // namespace jag::tweak

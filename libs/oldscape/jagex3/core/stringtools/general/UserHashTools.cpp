@@ -1,89 +1,81 @@
 // libs/oldscape/jagex3/core/stringtools/general/UserHashTools.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 namespace jag::oldscape::core::stringtools::general {
     class UserhashTools {
     public:
-        IsValidUserhash(long long);
-        long ToUserhash(eastl::string const&);
-        UserhashTools* FromUserhash(long long);
-        UserhashTools* ToRawUsername(long long);
-        eastl::string* ToScreenName(long long);
-        UserhashTools* ToRawUsername(eastl::string const&);
-        UserhashTools* ToScreenName(eastl::string const&);
-        int CompareUserhashes(long long, long long);
-
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        void IsValidUserhash(long long arg1);
+        long ToUserhash(const eastl::string& str);
+        UserhashTools* FromUserhash(long long arg1);
+        auto ToRawUsername(long long arg1);
+        auto ToScreenName(long long arg1);
+        auto ToRawUsername(const eastl::string& str);
+        auto ToScreenName(const eastl::string& str);
+        int CompareUserhashes(long long arg1, long long arg2);
     };
 
-    // 0x100349010, 80 bytes, placed by class name and debug map
-    // UserhashTools::IsValidUserhash(long long)
-    undefined8 UserhashTools::IsValidUserhash(longlong param_1) {
-        ulong uVar1;
+    // 0x100349010
+    void UserhashTools::IsValidUserhash(long long arg1) {
+        unsigned long uVar1;
 
-        if (param_1 - 1U < 6582952005840035280) {
-            uVar1 = param_1 * 1495681951922396077 + 249280325320399346;
-            return CONCAT71((int7)(uVar1 >> 8), 498560650640798692 < uVar1);
+        if (arg1 - 1U < 6582952005840035280) {
+            uVar1 = arg1 * 1495681951922396077 + 249280325320399346;
+            return 498560650640798692 < uVar1;
         }
         return 0;
     }
 
-    // 0x100349060, 288 bytes, placed by class name and debug map
-    // UserhashTools::ToUserhash(eastl::string const&)
-    long UserhashTools::ToUserhash(basic_string* param_1) {
+    // 0x100349060
+    long UserhashTools::ToUserhash(const eastl::string& str) {
         char cVar1;
         int iVar2;
-        ulong uVar3;
         char* pcVar4;
-        ulong uVar5;
+        unsigned long uVar5;
         long* plVar6;
-        long lVar7;
         long lVar8;
-        long lVar9;
-        ulong uVar10;
+        unsigned long arg1;
+        unsigned long uVar10;
         bool bVar11;
 
-        uVar3 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+        unsigned long uVar3 = str.size();
         if (uVar3 == 0) {
             lVar8 = 0;
         } else {
             lVar8 = 0;
             uVar10 = 1;
             do {
+                arg1 = uVar10 - 1;
                 lVar8 = lVar8 * 37;
-                pcVar4 = (char*)eastl::string::operator[]((eastl::string*)param_1, uVar10 - 1);
+                pcVar4 = &str[arg1];
                 cVar1 = *pcVar4;
                 iVar2 = (int)cVar1;
-                if ((byte)(cVar1 + 191U) < 26) {
-                    uVar5 = (ulong)(iVar2 - 64);
+                if ((uint8_t)(cVar1 + 191U) < 26) {
+                    uVar5 = (unsigned long)(iVar2 - 64);
                 LAB_1003490e0:
                     lVar8 = lVar8 + uVar5;
                 } else {
-                    if ((byte)(cVar1 + 159U) < 26) {
-                        uVar5 = (ulong)(iVar2 - 96);
+                    if ((uint8_t)(cVar1 + 159U) < 26) {
+                        uVar5 = (unsigned long)(iVar2 - 96);
                         goto LAB_1003490e0;
                     }
-                    if ((byte)(cVar1 - 48U) < 10) {
-                        uVar5 = (ulong)(iVar2 - 21);
+                    if ((uint8_t)(cVar1 - 48U) < 10) {
+                        uVar5 = (unsigned long)(iVar2 - 21);
                         goto LAB_1003490e0;
                     }
                 }
-                plVar6 = (long*)std::array<long long, 12ul>::operator[](11);
+                plVar6 = (long*)(*11)[arg1];
             } while ((lVar8 < *plVar6) && (bVar11 = uVar10 < uVar3, uVar10 = uVar10 + 1, bVar11));
         }
-        lVar7 = SUB168(SEXT816(lVar8) * SEXT816(3988485205126389539), 8);
-        lVar9 = 0;
+        long lVar7 = (uint64_t)(((__int128)lVar8 * (__int128)3988485205126389539) >> 64);
+        long lVar9 = 0;
         if (lVar8 != 0) {
             do {
                 if (lVar8 != ((lVar7 >> 3) - (lVar7 >> 63)) * 37) {
                     return lVar8;
                 }
                 lVar9 = lVar8 / 37;
-                lVar7 = SUB168(SEXT816(lVar9) * SEXT816(3988485205126389539), 8);
+                lVar7 = (uint64_t)(((__int128)lVar9 * (__int128)3988485205126389539) >> 64);
                 uVar3 = lVar8 + 36;
                 lVar8 = lVar9;
             } while (72 < uVar3);
@@ -91,178 +83,160 @@ namespace jag::oldscape::core::stringtools::general {
         return lVar9;
     }
 
-    // 0x1003491a0, 32 bytes, placed by class name and debug map
-    // UserhashTools::FromUserhash(long long)
-    UserhashTools* UserhashTools::FromUserhash(longlong param_1) {
-        ToRawUsername(this, param_1);
+    // 0x1003491a0
+    UserhashTools* UserhashTools::FromUserhash(long long arg1) {
+        ToRawUsername((ReturnValue*)this, arg1);
         return this;
     }
 
-    // 0x1003491c0, 336 bytes, placed by class name and debug map
-    // UserhashTools::ToRawUsername(long long)
-    UserhashTools* UserhashTools::ToRawUsername(longlong param_1) {
+    // 0x1003491c0
+    auto UserhashTools::ToRawUsername(long long arg1) {
         long lVar1;
-        allocator* this_00;
-        ulong uVar2;
-        char* pcVar3;
-        undefined1* puVar4;
-        allocator local_40[8];
-        allocator local_38[12];
-        undefined1 local_2c[4];
-        long local_28;
+        allocator* allocator;
+        unsigned long uVar2;
+        char* str;
+        uint8_t* puVar3;
+        allocator local_40;
+        allocator local_38;
+        uint8_t local_2c[4];
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_1 - 1U < 6582952005840035280) &&
-            (498560650640798692 < param_1 * 1495681951922396077 + 249280325320399346U)) {
+        if ((arg1 - 1U < 6582952005840035280) &&
+            (498560650640798692 < arg1 * 1495681951922396077 + 249280325320399346U)) {
             local_2c[1] = 0;
-            if (param_1 == 0) {
+            if (arg1 == 0) {
                 lVar1 = 13;
             } else {
-                puVar4 = local_2c;
+                puVar3 = local_2c;
                 lVar1 = 55834574848;
                 do {
-                    lVar1 = lVar1 + -4294967296;
-                    *puVar4 = (&g_decodeMap)[(int)(param_1 / 37) * -37 + (int)param_1];
-                    uVar2 = param_1 + 36;
-                    puVar4 = puVar4 + -1;
-                    param_1 = param_1 / 37;
+                    lVar1 = lVar1 - 4294967296;
+                    *puVar3 = (&g_decodeMap)[(arg1 / 37) * -37 + (int)arg1];
+                    uVar2 = arg1 + 36;
+                    puVar3 = puVar3 - 1;
+                    arg1 = arg1 / 37;
                 } while (72 < uVar2);
                 lVar1 = lVar1 >> 32;
             }
-            pcVar3 = (char*)(local_38 + lVar1);
-            this_00 = local_40;
-            eastl::allocator::allocator(this_00, "EASTL basic_string");
+            str = (char*)(&local_38 + lVar1);
+            allocator = &local_40;
+            new (allocator) eastl::allocator("EASTL basic_string");
         } else {
-            this_00 = local_38;
-            eastl::allocator::allocator(this_00, "EASTL basic_string");
-            pcVar3 = "";
+            allocator = &local_38;
+            new (allocator) eastl::allocator("EASTL basic_string");
+            str = "";
         }
-        new (this) eastl::string(pcVar3, this_00);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return this;
+        return auto(str, allocator);
     }
 
-    // 0x100349310, 400 bytes, placed by class name and debug map
-    // UserhashTools::ToScreenName(long long)
-    eastl::string* UserhashTools::ToScreenName(longlong param_1) {
+    // 0x100349310
+    auto UserhashTools::ToScreenName(long long arg1) {
         allocator aVar1;
-        allocator* this_00;
-        char* pcVar2;
-        long lVar3;
-        int iVar4;
-        ulong uVar5;
-        ulong uVar6;
-        allocator local_68[8];
-        allocator local_58[31];
-        undefined1 local_39;
-        long local_38;
+        allocator* allocator;
+        char* str;
+        long lVar2;
+        int iVar3;
+        unsigned long uVar4;
+        unsigned long uVar5;
+        allocator local_68;
+        uint64_t local_60;
+        allocator local_58;
+        uint8_t local_39;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_1 - 1U < 6582952005840035280) &&
-            (498560650640798692 < param_1 * 1495681951922396077 + 249280325320399346U)) {
+        if ((arg1 - 1U < 6582952005840035280) &&
+            (498560650640798692 < arg1 * 1495681951922396077 + 249280325320399346U)) {
             local_39 = 0;
-            uVar5 = 31;
-            iVar4 = 31;
-            if (param_1 != 0) {
+            uVar4 = 31;
+            iVar3 = 31;
+            local_60 = &result;
+            if (arg1 != 0) {
                 do {
-                    iVar4 = (int)uVar5;
-                    lVar3 = (long)iVar4;
-                    uVar5 = lVar3 - 1;
-                    if ((param_1 % 37 & 4294967295U) == 0) {
-                        aVar1 = (allocator)::toupper((int)(char)local_58[lVar3]);
-                        local_58[lVar3] = aVar1;
-                        local_58[lVar3 + -1] = (allocator)160;
+                    iVar3 = (int)uVar4;
+                    lVar2 = (long)iVar3;
+                    uVar4 = lVar2 - 1;
+                    if ((arg1 % 37 & 4294967295U) == 0) {
+                        aVar1 = (allocator)::toupper((int)(char)local_58[lVar2]);
+                        local_58[lVar2] = aVar1;
+                        local_58[lVar2 - 1] = (allocator)160;
                         aVar1 = (allocator)194;
-                        uVar5 = (ulong)(iVar4 - 2);
+                        uVar4 = (unsigned long)(iVar3 - 2);
                     } else {
-                        aVar1 = *(allocator*)(&g_decodeMap + (int)(param_1 % 37));
+                        aVar1 = *(allocator*)(&g_decodeMap + (int)(arg1 % 37));
                     }
-                    iVar4 = (int)uVar5;
-                    local_58[iVar4] = aVar1;
-                    uVar6 = param_1 + 36;
-                    param_1 = param_1 / 37;
-                } while (72 < uVar6);
+                    iVar3 = (int)uVar4;
+                    local_58[iVar3] = aVar1;
+                    uVar5 = arg1 + 36;
+                    arg1 = arg1 / 37;
+                } while (72 < uVar5);
             }
-            pcVar2 = (char*)(local_58 + iVar4);
-            aVar1 = (allocator)::toupper((int)(char)local_58[iVar4]);
-            local_58[iVar4] = aVar1;
-            this_00 = local_68;
-            eastl::allocator::allocator(this_00, "EASTL basic_string");
-            this = (undefined8)this;
+            str = (char*)(&local_58 + iVar3);
+            aVar1 = (allocator)::toupper((int)(char)local_58[iVar3]);
+            local_58[iVar3] = aVar1;
+            allocator = &local_68;
+            new (allocator) eastl::allocator("EASTL basic_string");
+            &result = local_60;
         } else {
-            this_00 = local_58;
-            eastl::allocator::allocator(this_00, "EASTL basic_string");
-            pcVar2 = "";
+            allocator = &local_58;
+            new (allocator) eastl::allocator("EASTL basic_string");
+            str = "";
         }
-        new (this) eastl::string(pcVar2, this_00);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return (eastl::string*)this;
+        return auto(str, allocator);
     }
 
-    // 0x1003494b0, 48 bytes, placed by class name and debug map
-    // UserhashTools::ToRawUsername(eastl::string const&)
-    UserhashTools* UserhashTools::ToRawUsername(basic_string* param_1) {
-        longlong lVar1;
+    // 0x1003494b0
+    auto UserhashTools::ToRawUsername(const eastl::string& str) {
+        auto result;
 
-        lVar1 = ToUserhash(param_1);
-        ToRawUsername(this, lVar1);
-        return this;
+        long long arg1 = ToUserhash(str);
+        ToRawUsername(&result, arg1);
+        return result;
     }
 
-    // 0x1003494e0, 48 bytes, placed by class name and debug map
-    // UserhashTools::ToScreenName(eastl::string const&)
-    UserhashTools* UserhashTools::ToScreenName(basic_string* param_1) {
-        longlong lVar1;
+    // 0x1003494e0
+    auto UserhashTools::ToScreenName(const eastl::string& str) {
+        auto result;
 
-        lVar1 = ToUserhash(param_1);
-        ToScreenName(this, lVar1);
-        return this;
+        long long arg1 = ToUserhash(str);
+        ToScreenName(&result, arg1);
+        return result;
     }
 
-    // 0x100349510, 176 bytes, placed by class name and debug map
-    // UserhashTools::CompareUserhashes(long long, long long)
-    int UserhashTools::CompareUserhashes(longlong param_1, longlong param_2) {
+    // 0x100349510
+    int UserhashTools::CompareUserhashes(long long arg1, long long arg2) {
         int iVar1;
         long* plVar2;
-        ulong uVar3;
-        ulong uVar4;
+        array<long long, 12ul>* array;
 
-        uVar3 = 1;
-        uVar4 = 11;
+        array = (array<long long, 12ul>*)&DAT_00000001;
+        array<long long, 12ul>* this_00 = (array<long long, 12ul>*)11;
+        long long lVar3 = arg2;
         do {
-            if (param_1 == 0) {
-                param_1 = 0;
-                if (param_2 == 0)
+            if (arg1 == 0) {
+                arg1 = 0;
+                if (lVar3 == 0)
                     goto LAB_100349530;
             LAB_100349578:
-                plVar2 = (long*)std::array<long long, 12ul>::operator[](uVar3);
-                if (param_2 < *plVar2) {
-                    plVar2 = (long*)std::array<long long, 12ul>::operator[](uVar4);
-                    param_2 = param_2 * *plVar2;
+                plVar2 = (long*)(*array)[arg2];
+                if (lVar3 < *plVar2) {
+                    plVar2 = (long*)(*this_00)[arg2];
+                    lVar3 = lVar3 * *plVar2;
                 }
             } else {
-                plVar2 = (long*)std::array<long long, 12ul>::operator[](uVar3);
-                if (param_1 < *plVar2) {
-                    plVar2 = (long*)std::array<long long, 12ul>::operator[](uVar4);
-                    param_1 = param_1 * *plVar2;
+                plVar2 = (long*)(*array)[arg2];
+                if (arg1 < *plVar2) {
+                    plVar2 = (long*)(*this_00)[arg2];
+                    arg1 = arg1 * *plVar2;
                 }
-                if (param_2 != 0)
+                if (lVar3 != 0)
                     goto LAB_100349578;
             LAB_100349530:
-                param_2 = 0;
+                lVar3 = 0;
             }
-            uVar3 = uVar3 + 1;
-            uVar4 = uVar4 - 1;
-            if (uVar4 == 0) {
+            array = array + 1;
+            this_00 = this_00 - 1;
+            if (this_00 == nullptr) {
                 iVar1 = 1;
-                if (param_1 <= param_2) {
-                    iVar1 = -(uint)(param_1 < param_2);
+                if (arg1 <= lVar3) {
+                    iVar1 = -(unsigned int)(arg1 < lVar3);
                 }
                 return iVar1;
             }
@@ -271,8 +245,7 @@ namespace jag::oldscape::core::stringtools::general {
 
 } // namespace jag::oldscape::core::stringtools::general
 
-// 0x1003494a0, 16 bytes, inline, placed by debug map only (low confidence)
-// toupper(int)
-void toupper(int param_1) {
-    ___toupper(param_1);
+// 0x1003494a0
+void toupper(int arg1) {
+    ___toupper(arg1);
 }

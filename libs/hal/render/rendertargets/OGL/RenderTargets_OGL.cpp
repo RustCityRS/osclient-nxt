@@ -1,105 +1,80 @@
 // libs/hal/render/rendertargets/OGL/RenderTargets_OGL.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "libs/hal/render/rendertargets/RenderTargets.h"
 
 namespace jag::render {
-    // 0x100f48760, 64 bytes, __data
-    RenderTargets::m_renderTargetsToInvalidateMutex = {
+    // 0x100f48760
+    int32_t RenderTargets::m_renderTargetsToInvalidateMutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x103bd9e90, 16 bytes, __common; set at startup by ___cxx_global_var_init
-    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> RenderTargets::NullRenderTargets;
+    // 0x103bd9e90, set at startup by ___cxx_global_var_init
+    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> RenderTargets::NullRenderTargets =
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
 
-    // 0x103bd9ea0, 2704 bytes, __common; zero-initialised
-    RenderTargets::m_renderTargetsToInvalidate;
+    // 0x103bd9ea0
+    eastl::rbtree<eastl::string, eastl::pair<eastl::stringconst, bool>, eastl::less<eastl::string>, eastl::allocator,
+                  eastl::use_first<eastl::pair<eastl::stringconst, bool>>, true, true>
+        RenderTargets::m_renderTargetsToInvalidate;
 
-    // 0x100bdfd50, 112 bytes, placed by class name and debug map
-    // RenderTargets::IsCreated() const
-    bool RenderTargets::IsCreated() {
-        char cVar1;
-        uint uVar2;
-        RenderDevice* this_00;
-        bool bVar3;
+    // 0x100bdfd50
+    bool RenderTargets::IsCreated() const {
+        bool cVar1;
 
         if ((field_216 & 8) == 0) {
-            this_00 = (RenderDevice*)Instance();
-            cVar1 = this_00->IsRenderThread();
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = ((RenderDevice*)Instance())->IsRenderThread();
+            if (!cVar1) {
                 LogAssert("(m_flags & FORCE_SYNCHRONOUS_ALLOW_CREATION_FAILURE) == "
                           "FORCE_SYNCHRONOUS_ALLOW_CREATION_FAILURE || RenderDevice::Instance().IsRenderThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                           "rendertargets/OGL/RenderTargets_OGL.cpp",
-                          981, (char*)0);
+                          981, nullptr);
             }
         }
-        cVar1 = IsBackBuffer(this);
-        bVar3 = true;
-        if (cVar1 == '\0') {
-            uVar2 = (&field_380)->operator_cast_to_unsigned_int();
-            bVar3 = uVar2 != 0;
+        cVar1 = IsBackBuffer();
+        bool bVar3 = true;
+        if (!cVar1) {
+            bVar3 = (&field_380)->operator_cast_to_unsigned_int() != 0;
         }
         return bVar3;
     }
 
-    // 0x100bdff60, 16 bytes, complete-object destructor, placed by class name and debug map
-    // RenderTargets::~RenderTargets(): jumps straight to the base-object destructor
+    // 0x100bdff70
+    uint64_t RenderTargets::BindColourTargetTexture(Texture* texture, int arg2, int arg3, CubeFace cubeFace) {
+        fixed_vector<Texture*, 2ul> local_68[56];
 
-    // 0x100bdff70, 160 bytes, placed by class name and debug map
-    // RenderTargets::BindColourTargetTexture(Texture*, int, int, CubeFace)
-    undefined8 RenderTargets::BindColourTargetTexture(long param_1, undefined4 param_2, undefined4 param_3,
-                                                      undefined4 param_5) {
-        fixed_vector<Texture*, 2ul, true, eastl::allocator> local_68[56];
-        long local_30;
-
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator>::fixed_vector(local_68);
-        if (param_1 != 0) {
-            eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator>::push_back((Texture**)local_68);
+        new (local_68) eastl::fixed_vector<Texture*, 2ul>();
+        if (texture != nullptr) {
+            local_68->push_back(texture);
         }
-        BindColourTargetTextures(this, local_68, param_2, param_3, param_5);
-        eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator>::~fixed_vector(local_68);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return CONCAT71((int7)((ulong) * (long*)PTR____stack_chk_guard_100ee9d98 >> 8), 1);
+        BindColourTargetTextures(*local_68, arg2, arg3, cubeFace);
+        return 1;
     }
 
-    // 0x100be0020, 656 bytes, placed by class name and debug map
-    // RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace)
-    undefined8 RenderTargets::BindColourTargetTextures(vector* param_1, undefined4 param_2, undefined4 param_3,
-                                                       undefined4 param_5) {
-        undefined1* this_00;
+    // 0x100be0020
+    uint64_t RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul> const& textures, int arg2,
+                                                     int arg3, CubeFace cubeFace) {
         int iVar1;
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* this_01;
-        char cVar2;
-        bool bVar3;
+        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>* this_00;
         long lVar4;
-        ulong uVar5;
-        undefined8* puVar6;
+        unsigned long uVar5;
+        uint64_t* puVar6;
         int* piVar7;
-        RenderDevice* this_02;
-        Singleton<RenderDevice>* this_03;
-        ulong uVar8;
+        RenderDevice* this_01;
+        Singleton<RenderDevice>* this_02;
+        unsigned long uVar8;
         RenderTargets* local_128;
-        undefined4 local_120;
-        undefined4 local_11c;
-        undefined4 local_118;
-        fixed_vector<Texture*, 2ul, true, eastl::allocator> local_110[56];
-        function local_d8;
+        int local_120;
+        int local_11c;
+        CubeFace local_118;
+        fixed_vector<Texture*, 2ul> local_110[56];
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        cVar2 = (&field_136)->empty();
-        if (cVar2 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (!(field_136.empty())) {
             LogAssert("m_ownedColourTargetTextures.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
@@ -108,7 +83,6 @@ namespace jag::render {
                       "ownership of its own");
         }
         if ((field_216 & 4) != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("(m_flags & IMMUTABLE_RENDER_TARGET) == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
@@ -116,50 +90,34 @@ namespace jag::render {
                       "Setting of external colour target textures is not supported on RenderTargets created via "
                       "RenderTargetsManager. Use a standalone RenderTargets object instead.");
         }
-        KeepAlive(this);
-        this_00 = &field_24;
-        bVar3 = eastl::operator!=(param_1, (vector*)this_00);
+        KeepAlive();
+        uint8_t* arg2_00 = &field_24;
+        bool bVar3 = textures != *arg2_00;
         if (bVar3) {
-            eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator>::operator=(
-                (fixed_vector<Texture*, 2ul, true, eastl::allocator>*)this_00, (fixed_vector*)param_1);
-            this_03 = (Singleton<RenderDevice>*)this_00;
-            lVar4 = this_00->size();
+            *arg2_00 = textures;
+            this_02 = (Singleton<RenderDevice>*)arg2_00;
+            lVar4 = arg2_00->size();
             if (lVar4 != 0) {
                 uVar5 = 0;
                 uVar8 = 1;
                 do {
-                    puVar6 = (undefined8*)eastl::vector<
-                        Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        uVar5);
-                    this_01 = (compressed_pair_imp<
-                               eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                       eastl::allocator>>::Layout,
-                               eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)*puVar6;
-                    if (this_01 ==
+                    puVar6 = (uint64_t*)(*arg2_00)[uVar5];
+                    this_00 =
                         (compressed_pair_imp<
-                            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)0) {
-                        /* WARNING: Subroutine does not return */
+                            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>*)*puVar6;
+                    if (this_00 == nullptr) {
                         LogAssert("pTexture != nullptr",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "rendertargets/OGL/RenderTargets_OGL.cpp",
-                                  603, (char*)0);
+                                  603, nullptr);
                     }
-                    if (field_192 != (Texture*)0) {
-                        piVar7 = (int*)eastl::compressed_pair_imp<
-                            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>,
-                            0>::second(this_01);
+                    if (field_192 != nullptr) {
+                        piVar7 = (int*)this_00->second();
                         iVar1 = *piVar7;
                         piVar7 = (int*)field_192->second();
                         if (iVar1 != *piVar7) {
                         LAB_100be0110:
-                            /* WARNING: Subroutine does not return */
                             LogAssert("!m_pMainThreadDepthStencilTargetTexture || (pTexture->GetDesc().m_Width == "
                                       "m_pMainThreadDepthStencilTargetTexture->GetDesc().m_Width && "
                                       "pTexture->GetDesc().m_Height == "
@@ -169,136 +127,109 @@ namespace jag::render {
                                       608,
                                       "Supplied colour texture must have same dimensions as existing depth texture");
                         }
-                        lVar4 = eastl::compressed_pair_imp<
-                            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>,
-                            0>::second(this_01);
+                        lVar4 = this_00->second();
                         iVar1 = *(int*)(lVar4 + 4);
                         lVar4 = field_192->second();
                         if (iVar1 != *(int*)(lVar4 + 4))
                             goto LAB_100be0110;
                     }
-                    this_03 = (Singleton<RenderDevice>*)this_00;
-                    uVar5 = this_00->size();
+                    this_02 = (Singleton<RenderDevice>*)arg2_00;
+                    uVar5 = arg2_00->size();
                     bVar3 = uVar8 < uVar5;
                     uVar5 = uVar8;
-                    uVar8 = (ulong)((int)uVar8 + 1);
+                    uVar8 = (unsigned long)((int)uVar8 + 1);
                 } while (bVar3);
             }
-            this_02 = (RenderDevice*)this_03->Instance();
+            this_01 = (RenderDevice*)this_02->Instance();
             local_128 = this;
-            local_120 = param_2;
-            local_11c = param_3;
-            local_118 = param_5;
-            eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator>::fixed_vector(local_110, (fixed_vector*)param_1);
+            local_120 = arg2;
+            local_11c = arg3;
+            local_118 = cubeFace;
+            new (local_110) eastl::fixed_vector<Texture*, 2ul>(textures);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                RenderTargets::BindColourTargetTextures(
-                    eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace)::__11,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__11*)&local_128);
-            this_02->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-            BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int,
+                RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul> const&, int, int,
+                                                        CubeFace)::__11,
+                void>(local_d8, (__11*)&local_128);
+            this_01->RunOnRenderThread(*local_d8);
+            BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul> const&, int, int,
                                      CubeFace)::$_11::~__11((__11*)&local_128);
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return CONCAT71((int7)((ulong) * (long*)PTR____stack_chk_guard_100ee9d98 >> 8), 1);
+        return 1;
     }
 
-    // 0x100be02b0, 96 bytes, placed by class name and debug map
-    // RenderTargets::SetNeedsInvalidated() const
-    void RenderTargets::SetNeedsInvalidated() {
-        RenderTargets* local_20;
-        scoped_lock<std::mutex> local_18[8];
+    // 0x100be02b0
+    void RenderTargets::SetNeedsInvalidated() const {
+        scoped_lock<std::mutex> local_18;
 
         if ((field_216 & 1) == 0) {
-            std::scoped_lock<std::mutex>::scoped_lock(local_18, (mutex*)&m_renderTargetsToInvalidateMutex);
-            local_20 = this;
-            eastl::rbtree<RenderTargets_const*, RenderTargets_const*, eastl::less<RenderTargets_const*>,
-                          eastl::fixed_node_allocator<40ul, 64ul, 8ul, 0ul, true, eastl::allocator>,
-                          eastl::use_self<RenderTargets_const*>, false, true>::insert<RenderTargets_const*,
-                                                                                      void>(
-                (rbtree<RenderTargets_const*, RenderTargets_const*, eastl::less<RenderTargets_const*>,
-                        eastl::fixed_node_allocator<40ul, 64ul, 8ul, 0ul, true, eastl::allocator>,
-                        eastl::use_self<RenderTargets_const*>, false, true>*)&m_renderTargetsToInvalidate,
-                &local_20);
-            std::scoped_lock<std::mutex>::~scoped_lock(local_18);
+            local_18 = std::scoped_lock(m_renderTargetsToInvalidateMutex);
+            m_renderTargetsToInvalidate.insert<RenderTargets const*, void>(this);
         }
     }
 
-    // 0x100be0430, 64 bytes, placed by class name and debug map
-    // RenderTargets::SafeReset(shared_ptr<RenderTargets>&)
-    void RenderTargets::SafeReset(shared_ptr* param_1) {
-        RenderTargets* this;
-
-        if (shared_ptr::operator_cast_to_bool(param_1)) {
-            this = (RenderTargets*)shared_ptr<RenderTargets>::operator->((shared_ptr<RenderTargets>*)param_1);
-            Destroy(this);
+    // 0x100be0430
+    void RenderTargets::SafeReset(shared_ptr<RenderTargets>& renderTargets) {
+        if (renderTargets.operator_cast_to_bool() != '\0') {
+            Destroy((RenderTargets*)renderTargets.operator->());
         }
-        shared_ptr<RenderTargets>::reset();
+        renderTargets.reset();
     }
 
-    // 0x100be0680, 336 bytes, placed by class name and debug map
-    // RenderTargets::ReleaseNativeResources()
+    // 0x100be0680
     void RenderTargets::ReleaseNativeResources() {
-        code* pcVar1;
-        char cVar2;
-        uint uVar3;
-        uint uVar4;
-        RenderDevice* pRVar5;
+        void* pcVar1;
+        bool cVar2;
+        uint32_t uVar4;
+        int iVar5;
+        RenderDevice* pRVar6;
         RenderContext* this_00;
-        ImmediateRenderContext* this_01;
-        long lVar6;
-        RenderTargets* pRVar7;
-        Singleton<RenderDevice>* this_02;
+        RenderTargets* pRVar8;
+        memory_order extraout_EDX;
+        memory_order extraout_EDX_00;
+        memory_order extraout_EDX_01;
+        memory_order memory_order;
         char* this_03;
-        undefined1* this_04;
-        undefined4 local_2c;
+        uint32_t local_2c;
 
-        this_04 = &field_380;
-        this_02 = (Singleton<RenderDevice>*)this_04;
-        uVar3 = this_04->operator_cast_to_unsigned_int();
-        if (uVar3 != 0) {
-            pRVar5 = (RenderDevice*)this_02->Instance();
-            cVar2 = pRVar5->IsRenderThread();
+        uint8_t* this_04 = &field_380;
+        Singleton<RenderDevice>* this_02 = (Singleton<RenderDevice>*)this_04;
+        int iVar3 = this_04->operator_cast_to_unsigned_int();
+        if (iVar3 != 0) {
+            pRVar6 = (RenderDevice*)this_02->Instance();
+            cVar2 = pRVar6->IsRenderThread();
             pcVar1 = ___glewIsFramebuffer;
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!cVar2) {
                 LogAssert("RenderDevice::Instance().IsRenderThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                           "rendertargets/OGL/RenderTargets_OGL.cpp",
-                          845, (char*)0);
+                          845, nullptr);
             }
-            uVar3 = this_04->operator_cast_to_unsigned_int();
-            cVar2 = (*pcVar1)(uVar3);
+            uVar4 = this_04->operator_cast_to_unsigned_int();
+            cVar2 = (*pcVar1)(uVar4);
             this_03 = "glIsFramebuffer";
             CheckGlErrorInternal("glIsFramebuffer",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "rendertargets/OGL/RenderTargets_OGL.cpp",
                                  846);
-            if (cVar2 != '\0') {
-                pRVar5 = (RenderDevice*)this_03->Instance();
-                this_00 = (RenderContext*)pRVar5->GetPrimaryRenderContext();
-                this_01 = (ImmediateRenderContext*)this_00->GetImmediateContext();
-                lVar6 = this_01->GetStateCache();
-                uVar3 = *(uint*)(lVar6 + 8);
-                uVar4 = this_04->operator_cast_to_unsigned_int();
-                if (uVar3 == uVar4) {
-                    uVar3 = this_04->operator_cast_to_unsigned_int();
-                    pRVar7 = (RenderTargets*)this_00->GetBackBuffer();
-                    uVar4 = GetNativeFBOId(pRVar7);
-                    if (uVar3 != uVar4) {
-                        pRVar7 = (RenderTargets*)this_00->GetBackBuffer();
-                        this_00->SetRenderTargets(pRVar7);
+            if (cVar2) {
+                pRVar6 = (RenderDevice*)this_03->Instance();
+                this_00 = (RenderContext*)pRVar6->GetPrimaryRenderContext();
+                iVar3 = this_00->GetImmediateContext()->GetStateCache()->field_8;
+                iVar5 = this_04->operator_cast_to_unsigned_int();
+                memory_order = extraout_EDX;
+                if (iVar3 == iVar5) {
+                    iVar3 = this_04->operator_cast_to_unsigned_int();
+                    pRVar8 = this_00->GetBackBuffer();
+                    iVar5 = GetNativeFBOId(pRVar8);
+                    memory_order = extraout_EDX_00;
+                    if (iVar3 != iVar5) {
+                        pRVar8 = this_00->GetBackBuffer();
+                        this_00->SetRenderTargets(pRVar8);
+                        memory_order = extraout_EDX_01;
                     }
                 }
                 local_2c = 0;
-                local_2c = std::__atomic_base<unsigned int, false>::exchange(this_04, 0);
+                local_2c = this_04->exchange(0, memory_order);
                 (*___glewDeleteFramebuffers)(1, &local_2c);
                 CheckGlErrorInternal("glDeleteFramebuffers",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
@@ -308,31 +239,25 @@ namespace jag::render {
         }
     }
 
-    // 0x100be08f0, 464 bytes, placed by class name and debug map
-    // RenderTargets::BindDepthStencilTargetTexture(Texture*)
-    undefined8 RenderTargets::BindDepthStencilTargetTexture(Texture* param_1) {
-        undefined1* this_00;
+    // 0x100be08f0
+    uint64_t RenderTargets::BindDepthStencilTargetTexture(Texture* texture) {
         int iVar1;
-        char cVar3;
-        long* plVar4;
-        int* piVar5;
-        undefined8* puVar6;
-        long lVar7;
+        long* plVar3;
+        int* piVar4;
+        uint64_t* puVar5;
+        long lVar6;
         RenderDevice* this_01;
         __12 local_e8;
-        function local_d8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[168];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (param_1 == (Texture*)0) {
-            /* WARNING: Subroutine does not return */
+        if (texture == nullptr) {
             LogAssert("pDepthStencilTargetTexture != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      654, (char*)0);
+                      654, nullptr);
         }
         if ((&field_208)->operator_cast_to_bool()) {
-            /* WARNING: Subroutine does not return */
             LogAssert("!m_pOwnedDepthStencilTargetTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
@@ -340,38 +265,22 @@ namespace jag::render {
                       "Setting of external depth resources only supported when RenderTargets is created will no depth "
                       "resources");
         }
-        this_00 = &field_24;
-        cVar3 = this_00->empty();
-        if (cVar3 == '\0') {
-            plVar4 = (long*)eastl::
-                vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                        this_00,
-                    0);
-            if (*plVar4 != 0) {
-                piVar5 = (int*)param_1->second();
-                iVar1 = *piVar5;
-                puVar6 = (undefined8*)
-                    eastl::vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        0);
-                piVar5 = (int*)(*puVar6)->second();
-                if (iVar1 == *piVar5) {
-                    lVar7 = param_1->second();
-                    iVar1 = *(int*)(lVar7 + 4);
-                    puVar6 = (undefined8*)eastl::vector<
-                        Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        0);
-                    lVar7 = (*puVar6)->second();
-                    if (iVar1 == *(int*)(lVar7 + 4))
+        uint8_t* this_00 = &field_24;
+        if (!(this_00->empty())) {
+            plVar3 = (long*)(*this_00)[0];
+            if (*plVar3 != 0) {
+                piVar4 = (int*)texture->second();
+                iVar1 = *piVar4;
+                puVar5 = (uint64_t*)(*this_00)[0];
+                piVar4 = (int*)(*puVar5)->second();
+                if (iVar1 == *piVar4) {
+                    lVar6 = texture->second();
+                    iVar1 = *(int*)(lVar6 + 4);
+                    puVar5 = (uint64_t*)(*this_00)[0];
+                    lVar6 = (*puVar5)->second();
+                    if (iVar1 == *(int*)(lVar6 + 4))
                         goto LAB_100be09f5;
                 }
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_mainThreadColourTargetTextures.empty() || !m_mainThreadColourTargetTextures[0] || "
                           "(pDepthStencilTargetTexture->GetDesc().m_Width == "
                           "m_mainThreadColourTargetTextures[0]->GetDesc().m_Width && "
@@ -384,7 +293,6 @@ namespace jag::render {
         }
     LAB_100be09f5:
         if ((field_216 & 4) != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("(m_flags & IMMUTABLE_RENDER_TARGET) == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
@@ -392,687 +300,551 @@ namespace jag::render {
                       "Setting of external depth resources is not supported on RenderTargets created via "
                       "RenderTargetsManager. Use a standalone RenderTargets object instead.");
         }
-        KeepAlive(this);
-        if (field_192 != param_1) {
-            field_192 = param_1;
-            this_01 = (RenderDevice*)((RenderTargets*)this)->Instance();
+        RenderTargets* this_02 = this;
+        KeepAlive();
+        if (field_192 != texture) {
+            field_192 = texture;
+            this_01 = (RenderDevice*)this_02->Instance();
             local_e8.field_0 = this;
-            local_e8.field_8 = param_1;
+            local_e8.field_8 = texture;
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                RenderTargets::BindDepthStencilTargetTexture(Texture*)::__12, void>(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, &local_e8);
-            this_01->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                RenderTargets::BindDepthStencilTargetTexture(Texture*)::__12, void>(local_d8, &local_e8);
+            this_01->RunOnRenderThread(*local_d8);
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return CONCAT71((int7)((ulong) * (long*)PTR____stack_chk_guard_100ee9d98 >> 8), 1);
+        return 1;
     }
 
-    // 0x100be0ac0, 48 bytes, placed by class name and debug map
-    // RenderTargets::GetDepthStencilTargetTexture()
-    undefined8 RenderTargets::GetDepthStencilTargetTexture() {
-        byte bVar1;
-        RenderDevice* this_00;
-
-        KeepAlive(this);
-        this_00 = (RenderDevice*)((RenderTargets*)this)->Instance();
-        bVar1 = this_00->IsRenderThread();
-        return *(undefined8*)(field_4 + (ulong)bVar1 * 8 + 188);
+    // 0x100be0ac0
+    uint64_t RenderTargets::GetDepthStencilTargetTexture() {
+        KeepAlive();
+        uint8_t bVar1 = ((RenderDevice*)Instance())->IsRenderThread();
+        return *(uint64_t*)(field_4 + (unsigned long)bVar1 * 8 + 188);
     }
 
-    // 0x100be0af0, 64 bytes, placed by class name and debug map
-    // RenderTargets::GetColourTargetTextures()
-    undefined1* RenderTargets::GetColourTargetTextures() {
-        char cVar1;
-        RenderDevice* this_00;
-        undefined1* puVar2;
-
-        KeepAlive(this);
-        this_00 = (RenderDevice*)((RenderTargets*)this)->Instance();
-        cVar1 = this_00->IsRenderThread();
-        puVar2 = &field_24;
-        if (cVar1 != '\0') {
+    // 0x100be0af0
+    uint8_t* RenderTargets::GetColourTargetTextures() {
+        KeepAlive();
+        bool cVar1 = ((RenderDevice*)Instance())->IsRenderThread();
+        uint8_t* puVar2 = &field_24;
+        if (cVar1) {
             puVar2 = &field_80;
         }
         return puVar2;
     }
 
-    // 0x100be0b30, 64 bytes, placed by class name and debug map
-    // RenderTargets::GetColourTargetTextures() const
-    undefined1* RenderTargets::GetColourTargetTextures() {
-        char cVar1;
-        RenderDevice* this_00;
-        undefined1* puVar2;
-
-        KeepAlive(this);
-        this_00 = (RenderDevice*)((RenderTargets*)this)->Instance();
-        cVar1 = this_00->IsRenderThread();
-        puVar2 = &field_24;
-        if (cVar1 != '\0') {
+    // 0x100be0b30
+    uint8_t* RenderTargets::GetColourTargetTextures() const {
+        KeepAlive();
+        bool cVar1 = ((RenderDevice*)Instance())->IsRenderThread();
+        uint8_t* puVar2 = &field_24;
+        if (cVar1) {
             puVar2 = &field_80;
         }
         return puVar2;
     }
 
-    // 0x100be2370, 2112 bytes, placed by __FILE__ string
-    // RenderTargets::Create(char const*, TextureType, std::array<Texture::Desc, 2ul> const&, int, Texture::Desc const&, unsigned int)
-    /* RenderTargets::Create(char const*, TextureType,
-   std::array<Texture::Desc, 2ul> const&, int, Texture::Desc const&,
-   unsigned int) */
+    // 0x100be2370
+    bool RenderTargets::Create(const char* str, TextureType textureType, const std::array<Texture::Desc, 2ul>& descs,
+                               int arg4, const Texture::Desc& desc, unsigned int arg6) {
+        unique_ptr* unique_ptr;
+        uint8_t bVar2;
+        uint64_t uVar6;
+        Texture2D* pTVar7;
+        Logger* pLVar8;
+        uint64_t uVar9;
+        Texture* pTVar10;
+        RenderDevice* pRVar11;
+        uint32_t in_register_0000000c;
+        uint32_t in_register_00000034;
+        uint32_t in_register_0000008c;
+        unsigned int in_stack_00000008;
+        char* local_1b0;
+        char* local_1a8;
+        ReturnValue local_190;
+        ReturnValue local_188;
 
-    bool RenderTargets::Create(char* param_1, int param_3, array<Texture::Desc, 2ul>* param_4, int param_5,
-                               Desc* param_6, uint param_7) {
-        undefined1* this_00;
-        Texture* this_01;
-        char cVar1;
-        byte bVar3;
-        int iVar4;
-        int iVar5;
-        Desc* pDVar6;
-        undefined8 uVar7;
-        TextureCube* this_02;
-        Texture2DArray* this_03;
-        Texture2D* pTVar8;
-        Texture3D* this_04;
-        undefined8 uVar9;
-        undefined8 uVar10;
-        Texture* pTVar11;
-        RenderDevice* pRVar12;
-        undefined1* this_05;
-        Singleton<RenderDevice>* this_06;
-        undefined8 local_1b0;
-        undefined8 local_1a8;
-        Texture* local_1a0;
-        byte local_191;
-        Texture* local_190;
-        Texture* local_188;
-        function local_e8;
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_05 = &field_24;
-        cVar1 = this_05->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        Desc* pDVar5 = (Desc*)(((uint64_t)in_register_0000008c << 32) | (uint32_t)arg6);
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_04 =
+            (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(str + 24);
+        if (!(this_04->empty())) {
             LogAssert("m_mainThreadColourTargetTextures.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      280, (char*)0);
+                      280, nullptr);
         }
-        if (field_192 != (Texture*)0) {
-            /* WARNING: Subroutine does not return */
+        if (*(long*)(str + 192) != 0) {
             LogAssert("!m_pMainThreadDepthStencilTargetTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      281, (char*)0);
+                      281, nullptr);
         }
-        this_00 = &field_208;
-        if (this_00->operator_cast_to_bool()) {
-            /* WARNING: Subroutine does not return */
+        unique_ptr = (unique_ptr*)(str + 208);
+        if (std::unique_ptr::operator_cast_to_bool(unique_ptr)) {
             LogAssert("!m_pOwnedDepthStencilTargetTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      282, (char*)0);
+                      282, nullptr);
         }
-        cVar1 = (&field_136)->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (!(((str + 136))->empty())) {
             LogAssert("m_ownedColourTargetTextures.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      283, (char*)0);
+                      283, nullptr);
         }
-        this_06 = (Singleton<RenderDevice>*)&field_80;
-        cVar1 = this_06->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_05 =
+            (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(str + 80);
+        if (!(this_05->empty())) {
             LogAssert("m_renderThreadColourTargetTextures.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      284, (char*)0);
+                      284, nullptr);
         }
-        if (field_200 != (Texture*)0) {
-            /* WARNING: Subroutine does not return */
+        if (*(long*)(str + 200) != 0) {
             LogAssert("!m_pRenderThreadDepthStencilTargetTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      285, (char*)0);
+                      285, nullptr);
         }
-        local_191 = 1;
-        if ((field_216 & 4) != 0) {
-            /* WARNING: Subroutine does not return */
+        int iVar3 = (int)descs;
+        uint8_t local_191 = 1;
+        if ((str[216] & 4U) != 0) {
             LogAssert("(m_flags & IMMUTABLE_RENDER_TARGET) == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      288, (char*)0);
+                      288, nullptr);
         }
-        field_216 = param_7;
-        local_1a0 = (Texture*)this;
-        eastl::fixed_string<char, 16, true, eastl::allocator>::operator=(
-            (fixed_string<char, 16, true, eastl::allocator>*)&field_224, param_1);
-        if (param_5 < 1) {
-            iVar4 = GetFormatDepthBits(param_6->field_12);
-            iVar5 = GetFormatStencilBits(param_6->field_12);
-            this_01 = local_1a0;
-            if (iVar5 != 0 || iVar4 != 0) {
-                *(int*)&local_1a0->field_328 = param_6->field_0;
-                *(int*)&local_1a0->field_332 = param_6->field_4;
-                new (&local_e8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-                uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true, eastl::allocator>>::
-                    sprintf((char*)&local_e8, "%s//DepthStencilTargetTexture", uVar7);
-                local_1b0 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                std::make_unique<Texture2D, char const*>((char**)&local_190);
-                std::unique_ptr<Texture, std::default_delete<Texture>>::operator=(
-                    (unique_ptr<Texture, std::default_delete<Texture>>*)this_00, (unique_ptr*)&local_190);
-                local_190.~unique_ptr();
-                pTVar8 = (Texture2D*)this_00->get();
-                bVar3 = pTVar8->Create(param_6, 0, 0);
-                local_191 = local_191 & bVar3;
-                /* WARNING: Subroutine does not return */
-                local_e8.~fixed_string();
+        *(unsigned int*)(str + 216) = in_stack_00000008;
+        (*((str + 224))) = ((char*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)textureType));
+        if ((int)desc < 1) {
+            iVar3 = GetFormatDepthBits(pDVar5->field_12);
+            if (GetFormatStencilBits(pDVar5->field_12) != 0 || iVar3 != 0) {
+                *(int*)((long)(ReturnValue)str + 328) = pDVar5->field_0;
+                *(int*)((long)(ReturnValue)str + 332) = pDVar5->field_4;
+                local_e8 = eastl::fixed_string<char, 128>();
+                uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                local_e8.sprintf("%s//DepthStencilTargetTexture", uVar6);
+                local_1b0 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                local_190 = std::make_unique<Texture2D, char const*>(local_1b0);
+                unique_ptr->operator=(&local_190);
+                pTVar7 = (Texture2D*)unique_ptr->get();
+                bVar2 = pTVar7->Create(*pDVar5, nullptr, 0);
+                local_191 = local_191 & bVar2;
             }
             if (local_191 == 0) {
-                uVar7 = logger::default_logger();
-                GetInfoString((RenderTargets*)&local_e8);
-                uVar9 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                logger::Logger::Log(uVar7, 0, 3,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                    "rendertargets/OGL/RenderTargets_OGL.cpp",
-                                    379, "Failed to create depth stencil target for %s", uVar9);
-                /* WARNING: Subroutine does not return */
-                local_e8.~fixed_string();
+                pLVar8 = logger::default_logger();
+                GetInfoString(&local_e8, (RenderTargets*)(ReturnValue)str);
+                uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                pLVar8->Log(false, 3,
+                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                            "rendertargets/OGL/RenderTargets_OGL.cpp",
+                            379, "Failed to create depth stencil target for %s", uVar6);
             }
-            pTVar11 = (Texture*)this_00->get();
-            *(Texture**)&this_01->field_192 = pTVar11;
-            eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator>::operator=(
-                (fixed_vector<Texture*, 2ul, true, eastl::allocator>*)this_06, (fixed_vector*)this_05);
-            *(Texture**)&this_01->field_200 = *(Texture**)&this_01->field_192;
-            if ((param_7 & 8) == 0) {
-                pTVar11 = this_01;
-                KeepAlive((RenderTargets*)this_01);
-                pRVar12 = (RenderDevice*)pTVar11->Instance();
-                local_190 = this_01;
+            pTVar10 = (Texture*)unique_ptr->get();
+            *(Texture**)((long)(ReturnValue)str + 192) = pTVar10;
+            *this_05 = *this_04;
+            *(Texture**)((long)(ReturnValue)str + 200) = *(Texture**)((long)(ReturnValue)str + 192);
+            if ((in_stack_00000008 & 8) == 0) {
+                KeepAlive((RenderTargets*)(ReturnValue)str);
+                pRVar11 = (RenderDevice*)((Singleton<RenderDevice>*)(ReturnValue)str)->Instance();
+                local_190 = (ReturnValue)str;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                     RenderTargets::Create(char const*, TextureType, std::array<Texture::Desc, 2ul> const&, int,
-                                          Texture::Desc_const&, unsigned int)::__7,
+                                          Texture::Desc const&, unsigned int)::__7,
                     void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_e8,
                           (__7*)&local_190);
-                pRVar12->RunOnRenderThread(&local_e8);
+                pRVar11->RunOnRenderThread(local_e8);
             } else {
-                pRVar12 = (RenderDevice*)this_06->Instance();
-                local_190 = (Texture*)&local_191;
-                local_188 = this_01;
+                pRVar11 = (RenderDevice*)this_05->Instance();
+                local_190 = (ReturnValue)&local_191;
+                local_188 = (ReturnValue)str;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                     RenderTargets::Create(char const*, TextureType, std::array<Texture::Desc, 2ul> const&, int,
-                                          Texture::Desc_const&, unsigned int)::__6,
+                                          Texture::Desc const&, unsigned int)::__6,
                     void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_e8,
                           (__6*)&local_190);
-                pRVar12->RunSynchronouslyOnRenderThread(&local_e8, true);
-            }
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_e8);
-            if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-                /* WARNING: Subroutine does not return */
-                ___stack_chk_fail();
+                pRVar11->RunSynchronouslyOnRenderThread(local_e8, true);
             }
             return local_191 != 0;
         }
-        pDVar6 = (Desc*)std::array<Texture::Desc, 2ul>::operator[](param_4, 0);
-        std::unique_ptr<Texture, std::default_delete<Texture>>::unique_ptr<true, void>(
-            (unique_ptr<Texture, std::default_delete<Texture>>*)&local_1b0);
-        new (&local_e8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            (char*)&local_e8, "%s//ColourTargetTexture%d", uVar7, 0);
-        *(int*)&local_1a0->field_328 = pDVar6->field_0;
-        *(int*)&local_1a0->field_332 = pDVar6->field_4;
-        if (param_3 < 35866) {
-            if (param_3 != 3553) {
-                if (param_3 == 32879) {
-                    local_1a8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    std::make_unique<Texture3D, char const*>((char**)&local_190);
-                    std::unique_ptr<Texture, std::default_delete<Texture>>::operator=(
-                        (unique_ptr<Texture, std::default_delete<Texture>>*)&local_1b0, (unique_ptr*)&local_190);
-                    local_190.~unique_ptr();
-                    this_04 = (Texture3D*)local_1b0.get();
-                    bVar3 = this_04->Create(pDVar6, 0);
+        pDVar5 = (Desc*)(*((array<Texture::Desc, 2ul>*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4)))[0];
+        local_1b0.unique_ptr<true, void>();
+        eastl::fixed_string<char, 128> local_e8;
+        uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        local_e8.sprintf("%s//ColourTargetTexture%d", uVar6, 0);
+        *(int*)((long)(ReturnValue)str + 328) = pDVar5->field_0;
+        *(int*)((long)(ReturnValue)str + 332) = pDVar5->field_4;
+        if (iVar3 < 35866) {
+            if (iVar3 != 3553) {
+                if (iVar3 == 32879) {
+                    local_1a8 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    local_190 = std::make_unique<Texture3D, char const*>(local_1a8);
+                    local_1b0.operator=(&local_190);
+                    bVar2 = ((Texture3D*)local_1b0.get())->Create(*pDVar5, nullptr);
                 } else {
-                    if (param_3 != 34067) {
+                    if (iVar3 != 34067) {
                     LAB_100be2857:
-                        /* WARNING: Subroutine does not return */
                         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                         "render/rendertargets/OGL/RenderTargets_OGL.cpp",
                                         336, "RenderTargetsManager attempting to create an unsupported texture type!");
                     }
-                    local_1a8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    std::make_unique<TextureCube, char const*>((char**)&local_190);
-                    std::unique_ptr<Texture, std::default_delete<Texture>>::operator=(
-                        (unique_ptr<Texture, std::default_delete<Texture>>*)&local_1b0, (unique_ptr*)&local_190);
-                    local_190.~unique_ptr();
-                    this_02 = (TextureCube*)local_1b0.get();
-                    bVar3 = this_02->Create(pDVar6);
+                    local_1a8 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    local_190 = std::make_unique<TextureCube, char const*>(local_1a8);
+                    local_1b0.operator=(&local_190);
+                    bVar2 = ((TextureCube*)local_1b0.get())->Create(*pDVar5);
                 }
                 goto LAB_100be2740;
             }
         LAB_100be26b0:
-            local_1a8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            std::make_unique<Texture2D, char const*>((char**)&local_190);
-            std::unique_ptr<Texture, std::default_delete<Texture>>::operator=(
-                (unique_ptr<Texture, std::default_delete<Texture>>*)&local_1b0, (unique_ptr*)&local_190);
-            local_190.~unique_ptr();
-            pTVar8 = (Texture2D*)local_1b0.get();
-            bVar3 = pTVar8->Create(pDVar6, 0, 0);
+            local_1a8 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            local_190 = std::make_unique<Texture2D, char const*>(local_1a8);
+            local_1b0.operator=(&local_190);
+            pTVar7 = (Texture2D*)local_1b0.get();
+            bVar2 = pTVar7->Create(*pDVar5, nullptr, 0);
         } else {
-            if (param_3 != 35866) {
-                if (param_3 == 37120)
+            if (iVar3 != 35866) {
+                if (iVar3 == 37120)
                     goto LAB_100be26b0;
-                if (param_3 != 37122)
+                if (iVar3 != 37122)
                     goto LAB_100be2857;
             }
-            local_1a8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            std::make_unique<Texture2DArray, char const*>((char**)&local_190);
-            std::unique_ptr<Texture, std::default_delete<Texture>>::operator=(
-                (unique_ptr<Texture, std::default_delete<Texture>>*)&local_1b0, (unique_ptr*)&local_190);
-            local_190.~unique_ptr();
-            this_03 = (Texture2DArray*)local_1b0.get();
-            bVar3 = this_03->Create(pDVar6, 0);
+            local_1a8 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            local_190 = std::make_unique<Texture2DArray, char const*>(local_1a8);
+            local_1b0.operator=(&local_190);
+            bVar2 = ((Texture2DArray*)local_1b0.get())->Create(*pDVar5, nullptr);
         }
     LAB_100be2740:
-        local_191 = local_191 & bVar3;
+        local_191 = local_191 & bVar2;
         if (local_191 == 0) {
-            uVar7 = logger::default_logger();
+            pLVar8 = logger::default_logger();
+            uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            GetInfoString(&local_190, (RenderTargets*)(ReturnValue)str);
             uVar9 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            GetInfoString((RenderTargets*)&local_190);
-            uVar10 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            logger::Logger::Log(uVar7, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "rendertargets/OGL/RenderTargets_OGL.cpp",
-                                347, "Failed to create colour target %s for %s", uVar9, uVar10);
-            /* WARNING: Subroutine does not return */
-            local_190.~fixed_string();
+            pLVar8->Log(false, 3,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                        "rendertargets/OGL/RenderTargets_OGL.cpp",
+                        347, "Failed to create colour target %s for %s", uVar6, uVar9);
         }
-        local_190 = (Texture*)local_1b0.get();
-        this_05->push_back(&local_190);
-        eastl::vector<std::unique_ptr<Texture, std::default_delete<Texture>>,
-                      eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-            emplace_back<std::unique_ptr<Texture, std::default_delete<Texture>>>(
-                (vector<std::unique_ptr<Texture, std::default_delete<Texture>>,
-                        eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)&field_136,
-                (unique_ptr*)&local_1b0);
-        /* WARNING: Subroutine does not return */
-        local_e8.~fixed_string();
+        local_190 = (ReturnValue)local_1b0.get();
+        this_04->push_back(local_190);
+        ((str + 136))->emplace_back<std::unique_ptr<Texture>>(local_1b0);
     }
 
-    // 0x100be6bf0, 832 bytes, placed by __FILE__ string
-    // AttachColourTargetToFBO(Texture const*, int, int, int, CubeFace)
-    void AttachColourTargetToFBO(TextureRenderBuffer* param_1, int param_2, int param_3, undefined4 param_4,
-                                 int param_5) {
-        undefined4 uVar1;
-        code* pcVar2;
-        code* pcVar3;
-        code* pcVar4;
-        code* pcVar5;
-        char cVar6;
-        int iVar7;
-        undefined4 uVar8;
-        undefined4 uVar9;
-        RenderDevice* this;
-        undefined4* puVar10;
-        char* pcVar11;
+    // 0x100be6bf0
+    void AttachColourTargetToFBO(const Texture* texture, int arg2, int arg3, int arg4, CubeFace cubeFace) {
+        uint32_t uVar1;
+        uint32_t uVar8;
+        uint32_t uVar9;
+        uint32_t* puVar10;
+        uint32_t in_register_00000034;
+        char* str1;
 
-        if (param_1 == (TextureRenderBuffer*)0) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1 = (((uint64_t)in_register_00000034 << 32) | (uint32_t)arg2);
+        if (texture == nullptr) {
             LogAssert("pTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      32, (char*)0);
+                      32, nullptr);
         }
-        cVar6 = param_1->IsCreated();
-        if (cVar6 == '\0') {
-            /* WARNING: Subroutine does not return */
+        Texture* pTVar11 = texture;
+        if (!(texture->IsCreated())) {
             LogAssert("pTexture->IsCreated()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      33, (char*)0);
+                      33, nullptr);
         }
-        this = (RenderDevice*)param_1->Instance();
-        cVar6 = IsRenderThread();
-        if (cVar6 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (!(((RenderDevice*)pTVar11->Instance())->IsRenderThread())) {
             LogAssert("RenderDevice::Instance().IsRenderThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      34, (char*)0);
+                      34, nullptr);
         }
-        iVar7 = param_1->GetMaxLineWidth();
+        int iVar7 = texture->GetMaxLineWidth();
         if (iVar7 == 37120) {
         LAB_100be6ca7:
-            if (param_3 != 0) {
-                /* WARNING: Subroutine does not return */
+            if (arg3 != 0) {
                 LogAssert("targetMipLevel == 0",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                           "rendertargets/OGL/RenderTargets_OGL.cpp",
-                          46, (char*)0);
+                          46, nullptr);
             }
-            param_3 = 0;
+            arg3 = 0;
         } else {
-            iVar7 = param_1->GetMaxLineWidth();
+            iVar7 = texture->GetMaxLineWidth();
             if (iVar7 == 37122)
                 goto LAB_100be6ca7;
         }
-        iVar7 = param_1->GetMaxLineWidth();
-        pcVar5 = ___glewFramebufferTextureLayer;
-        pcVar4 = ___glewFramebufferTexture3D;
-        pcVar3 = ___glewFramebufferTexture2D;
-        pcVar2 = ___glewFramebufferRenderbuffer;
+        iVar7 = texture->GetMaxLineWidth();
+        void* pcVar5 = ___glewFramebufferTextureLayer;
+        void* pcVar4 = ___glewFramebufferTexture3D;
+        void* pcVar3 = ___glewFramebufferTexture2D;
+        void* pcVar2 = ___glewFramebufferRenderbuffer;
         if (iVar7 < 35866) {
             if (iVar7 < 34037) {
                 if (iVar7 != 3553) {
                     if (iVar7 != 32879)
                         goto LAB_100be6f0a;
-                    puVar10 = (undefined4*)std::array<unsigned int, 2ul>::operator[]((long)param_2);
+                    puVar10 = (uint32_t*)(*((array<unsigned int, 2ul>*)(long)arg2))[arg1];
                     uVar1 = *puVar10;
-                    uVar8 = param_1->GetMaxLineWidth();
-                    uVar9 = param_1->GetNativeTextureId();
-                    (*pcVar4)(36160, uVar1, uVar8, uVar9, param_3, param_4);
-                    pcVar11 = "glFramebufferTexture3D";
+                    uVar8 = texture->GetMaxLineWidth();
+                    pTVar11 = texture->GetNativeTextureId();
+                    (*pcVar4)(36160, uVar1, uVar8, (unsigned long)pTVar11 & 4294967295, arg3, arg4);
+                    str1 = "glFramebufferTexture3D";
                     iVar7 = 101;
                     goto LAB_100be6ef4;
                 }
             } else if (iVar7 != 34037) {
                 if (iVar7 != 34067)
                     goto LAB_100be6f0a;
-                if (param_5 == -1) {
-                    /* WARNING: Subroutine does not return */
+                if (cubeFace == 4294967295) {
                     LogAssert("targetCubeMapFace != CubeFace::CUBEFACE_UNKNOWN",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "rendertargets/OGL/RenderTargets_OGL.cpp",
-                              80, (char*)0);
+                              80, nullptr);
                 }
-                puVar10 = (undefined4*)std::array<unsigned int, 2ul>::operator[]((long)param_2);
+                puVar10 = (uint32_t*)(*((array<unsigned int, 2ul>*)(long)arg2))[arg1];
                 uVar1 = *puVar10;
-                uVar8 = param_1->GetNativeTextureId();
-                (*pcVar3)(36160, uVar1, param_5, uVar8, param_3);
-                pcVar11 = "glFramebufferTexture2D";
+                pTVar11 = texture->GetNativeTextureId();
+                (*pcVar3)(36160, uVar1, cubeFace, (unsigned long)pTVar11 & 4294967295, arg3);
+                str1 = "glFramebufferTexture2D";
                 iVar7 = 89;
                 goto LAB_100be6ef4;
             }
         LAB_100be6e61:
-            puVar10 = (undefined4*)std::array<unsigned int, 2ul>::operator[]((long)param_2);
+            puVar10 = (uint32_t*)(*((array<unsigned int, 2ul>*)(long)arg2))[arg1];
             uVar1 = *puVar10;
-            uVar8 = param_1->GetMaxLineWidth();
-            uVar9 = param_1->GetNativeTextureId();
-            (*pcVar3)(36160, uVar1, uVar8, uVar9, param_3);
-            pcVar11 = "glFramebufferTexture2D";
+            uVar8 = texture->GetMaxLineWidth();
+            pTVar11 = texture->GetNativeTextureId();
+            (*pcVar3)(36160, uVar1, uVar8, (unsigned long)pTVar11 & 4294967295, arg3);
+            str1 = "glFramebufferTexture2D";
             iVar7 = 63;
         } else {
             if (iVar7 < 37120) {
                 if (iVar7 != 35866) {
                     if (iVar7 == 36161) {
-                        puVar10 = (undefined4*)std::array<unsigned int, 2ul>::operator[]((long)param_2);
+                        puVar10 = (uint32_t*)(*((array<unsigned int, 2ul>*)(long)arg2))[arg1];
                         uVar1 = *puVar10;
-                        uVar8 = param_1->GetMaxLineWidth();
-                        uVar9 = param_1->GetNativeRenderBufferId();
+                        uVar8 = texture->GetMaxLineWidth();
+                        uVar9 = texture->GetNativeRenderBufferId();
                         (*pcVar2)(36160, uVar1, uVar8, uVar9);
-                        pcVar11 = "glFramebufferRenderbuffer";
+                        str1 = "glFramebufferRenderbuffer";
                         iVar7 = 111;
                         goto LAB_100be6ef4;
                     }
                 LAB_100be6f0a:
-                    /* WARNING: Subroutine does not return */
                     LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                     "rendertargets/OGL/RenderTargets_OGL.cpp",
-                                    115, (char*)0);
+                                    115, nullptr);
                 }
             } else if (iVar7 != 37122) {
                 if (iVar7 != 37120)
                     goto LAB_100be6f0a;
                 goto LAB_100be6e61;
             }
-            puVar10 = (undefined4*)std::array<unsigned int, 2ul>::operator[]((long)param_2);
+            puVar10 = (uint32_t*)(*((array<unsigned int, 2ul>*)(long)arg2))[arg1];
             uVar1 = *puVar10;
-            uVar8 = param_1->GetNativeTextureId();
-            (*pcVar5)(36160, uVar1, uVar8, param_3, param_4);
-            pcVar11 = "glFramebufferTextureLayer";
+            pTVar11 = texture->GetNativeTextureId();
+            (*pcVar5)(36160, uVar1, (unsigned long)pTVar11 & 4294967295, arg3, arg4);
+            str1 = "glFramebufferTextureLayer";
             iVar7 = 75;
         }
     LAB_100be6ef4:
-        CheckGlErrorInternal(pcVar11,
+        CheckGlErrorInternal(str1,
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "rendertargets/OGL/RenderTargets_OGL.cpp",
                              iVar7);
     }
 
-    // 0x100be6f60, 480 bytes, placed by __FILE__ string
-    // AttachDepthStencilToFBO(Texture*, bool)
-    void AttachDepthStencilToFBO(Texture* param_1, bool param_2) {
-        code* pcVar1;
-        code* pcVar2;
-        char cVar3;
-        int iVar4;
-        undefined4 uVar5;
-        undefined4 uVar6;
-        RenderDevice* this;
-        char* pcVar7;
+    // 0x100be6f60
+    void AttachDepthStencilToFBO(Texture* texture, bool arg2) {
+        uint32_t uVar5;
+        uint32_t uVar6;
+        char* str1;
 
-        if (param_1 == (Texture*)0) {
-            /* WARNING: Subroutine does not return */
+        if (texture == nullptr) {
             LogAssert("pDepthStencilTargetTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      123, (char*)0);
+                      123, nullptr);
         }
-        cVar3 = param_1->IsCreated();
-        if (cVar3 == '\0') {
-            /* WARNING: Subroutine does not return */
+        Texture* pTVar7 = texture;
+        if (!(texture->IsCreated())) {
             LogAssert("pDepthStencilTargetTexture->IsCreated()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      124, (char*)0);
+                      124, nullptr);
         }
-        this = (RenderDevice*)param_1->Instance();
-        cVar3 = IsRenderThread();
-        if (cVar3 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (!(((RenderDevice*)pTVar7->Instance())->IsRenderThread())) {
             LogAssert("RenderDevice::Instance().IsRenderThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      125, (char*)0);
+                      125, nullptr);
         }
-        iVar4 = param_1->GetMaxLineWidth();
-        pcVar2 = ___glewFramebufferTexture2D;
-        pcVar1 = ___glewFramebufferRenderbuffer;
+        int iVar4 = texture->GetMaxLineWidth();
+        void* pcVar2 = ___glewFramebufferTexture2D;
+        void* pcVar1 = ___glewFramebufferRenderbuffer;
         if (iVar4 == 36161) {
-            uVar5 = param_1->GetMaxLineWidth();
-            uVar6 = param_1->GetNativeRenderBufferId();
+            uVar5 = texture->GetMaxLineWidth();
+            uVar6 = texture->GetNativeRenderBufferId();
             (*pcVar1)(36160, 36096, uVar5, uVar6);
             CheckGlErrorInternal("glFramebufferRenderbuffer",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "rendertargets/OGL/RenderTargets_OGL.cpp",
                                  134);
             pcVar1 = ___glewFramebufferRenderbuffer;
-            if (!param_2) {
+            if (!arg2) {
                 return;
             }
-            uVar5 = param_1->GetMaxLineWidth();
-            uVar6 = param_1->GetNativeRenderBufferId();
+            uVar5 = texture->GetMaxLineWidth();
+            uVar6 = texture->GetNativeRenderBufferId();
             (*pcVar1)(36160, 36128, uVar5, uVar6);
-            pcVar7 = "glFramebufferRenderbuffer";
+            str1 = "glFramebufferRenderbuffer";
             iVar4 = 143;
         } else {
-            uVar5 = param_1->GetMaxLineWidth();
-            uVar6 = param_1->GetNativeTextureId();
-            (*pcVar2)(36160, 36096, uVar5, uVar6, 0);
+            uVar5 = texture->GetMaxLineWidth();
+            pTVar7 = texture->GetNativeTextureId();
+            (*pcVar2)(36160, 36096, uVar5, (unsigned long)pTVar7 & 4294967295, 0);
             CheckGlErrorInternal("glFramebufferTexture2D",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "rendertargets/OGL/RenderTargets_OGL.cpp",
                                  154);
             pcVar1 = ___glewFramebufferTexture2D;
-            if (!param_2) {
+            if (!arg2) {
                 return;
             }
-            uVar5 = param_1->GetMaxLineWidth();
-            uVar6 = param_1->GetNativeTextureId();
-            (*pcVar1)(36160, 36128, uVar5, uVar6, 0);
-            pcVar7 = "glFramebufferTexture2D";
+            uVar5 = texture->GetMaxLineWidth();
+            pTVar7 = texture->GetNativeTextureId();
+            (*pcVar1)(36160, 36128, uVar5, (unsigned long)pTVar7 & 4294967295, 0);
+            str1 = "glFramebufferTexture2D";
             iVar4 = 164;
         }
-        CheckGlErrorInternal(pcVar7,
+        CheckGlErrorInternal(str1,
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "rendertargets/OGL/RenderTargets_OGL.cpp",
                              iVar4);
     }
 
-    // 0x100be7140, 544 bytes, placed by __FILE__ string
-    // IsFBOValid()
+    // 0x100be7140
     bool IsFBOValid() {
-        int iVar1;
-        undefined8 in_RAX;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        char* pcVar4;
-        undefined4 uVar6;
-        undefined8 uVar5;
+        uint64_t in_RAX;
+        int arg4;
+        char* str2;
 
-        uVar6 = (undefined4)((ulong)in_RAX >> 32);
-        iVar1 = (*___glewCheckFramebufferStatus)(36160);
+        uint32_t uVar4 = (uint32_t)((unsigned long)in_RAX >> 32);
+        int iVar1 = (*___glewCheckFramebufferStatus)(36160);
         CheckGlErrorInternal("glCheckFramebufferStatus",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "rendertargets/OGL/RenderTargets_OGL.cpp",
                              172);
         if (iVar1 == 36053)
             goto switchD_100be71ca_caseD_2;
-        uVar2 = logger::default_logger();
-        uVar5 = CONCAT44(uVar6, iVar1);
-        logger::Logger::Log(uVar2, 0, 3,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                            "rendertargets/OGL/RenderTargets_OGL.cpp",
-                            175, "FBO is incomplete with status: %u", uVar5);
+        auto pLVar2 = logger::default_logger();
+        uint64_t uVar3 = (((uint64_t)uVar4 << 32) | (uint32_t)iVar1);
+        pLVar2->Log(false, 3,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
+                    "OGL/RenderTargets_OGL.cpp",
+                    175, "FBO is incomplete with status: %u", uVar3);
         if (iVar1 < 36182) {
-            switch (iVar1 + -36054) {
+            switch (iVar1 - 36054) {
             case 0:
-                uVar2 = logger::default_logger();
-                pcVar4 = "\tGL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT";
-                uVar3 = 182;
+                pLVar2 = logger::default_logger();
+                str2 = "\tGL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT";
+                arg4 = 182;
                 break;
             case 1:
-                uVar2 = logger::default_logger();
-                pcVar4 = "\tGL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT";
-                uVar3 = 185;
+                pLVar2 = logger::default_logger();
+                str2 = "\tGL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT";
+                arg4 = 185;
                 break;
             case 2:
             case 3:
             case 4:
                 goto switchD_100be71ca_caseD_2;
             case 5:
-                uVar2 = logger::default_logger();
-                pcVar4 = "\tGL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER";
-                uVar3 = 188;
+                pLVar2 = logger::default_logger();
+                str2 = "\tGL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER";
+                arg4 = 188;
                 break;
             case 6:
-                uVar2 = logger::default_logger();
-                pcVar4 = "\tGL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER";
-                uVar3 = 191;
+                pLVar2 = logger::default_logger();
+                str2 = "\tGL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER";
+                arg4 = 191;
                 break;
             case 7:
-                uVar2 = logger::default_logger();
-                pcVar4 = "\tGL_FRAMEBUFFER_UNSUPPORTED";
-                uVar3 = 194;
+                pLVar2 = logger::default_logger();
+                str2 = "\tGL_FRAMEBUFFER_UNSUPPORTED";
+                arg4 = 194;
                 break;
             default:
                 if (iVar1 != 33305)
                     goto switchD_100be71ca_caseD_2;
-                uVar2 = logger::default_logger();
-                pcVar4 = "\tGL_FRAMEBUFFER_UNDEFINED";
-                uVar3 = 179;
+                pLVar2 = logger::default_logger();
+                str2 = "\tGL_FRAMEBUFFER_UNDEFINED";
+                arg4 = 179;
             }
         } else if (iVar1 == 36182) {
-            uVar2 = logger::default_logger();
-            pcVar4 = "\tGL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE";
-            uVar3 = 197;
+            pLVar2 = logger::default_logger();
+            str2 = "\tGL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE";
+            arg4 = 197;
         } else {
             if (iVar1 != 36264)
                 goto switchD_100be71ca_caseD_2;
-            uVar2 = logger::default_logger();
-            pcVar4 = "\tGL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS";
-            uVar3 = 200;
+            pLVar2 = logger::default_logger();
+            str2 = "\tGL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS";
+            arg4 = 200;
         }
-        logger::Logger::Log(uVar2, 0, 3,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                            "rendertargets/OGL/RenderTargets_OGL.cpp",
-                            uVar3, pcVar4, uVar5);
+        pLVar2->Log(false, 3,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
+                    "OGL/RenderTargets_OGL.cpp",
+                    arg4, str2, uVar3);
     switchD_100be71ca_caseD_2:
         return iVar1 == 36053;
     }
 
-    // 0x100be7360, 176 bytes, placed by __FILE__ string
-    // RenderTargets::RestorePreviousFrameBuffer(RenderContext&) const
-    void RenderTargets::RestorePreviousFrameBuffer(RenderContext* param_1) {
-        uint uVar2;
-        uint uVar3;
-        ImmediateRenderContext* this_00;
-        long lVar4;
-
-        if (param_1->IsContextThread() == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x100be7360
+    void RenderTargets::RestorePreviousFrameBuffer(RenderContext& renderContext) const {
+        if (renderContext.IsContextThread() == '\0') {
             LogAssert("renderContext.IsContextThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      213, (char*)0);
+                      213, nullptr);
         }
-        this_00 = (ImmediateRenderContext*)param_1->GetImmediateContext();
-        lVar4 = this_00->GetStateCache();
-        uVar3 = *(uint*)(lVar4 + 8);
-        uVar2 = (&field_380)->operator_cast_to_unsigned_int();
-        if ((uVar3 == uVar2) && (uVar3 = (&field_380)->operator_cast_to_unsigned_int(), uVar3 != 0)) {
+        RenderContextStateCache* pRVar4 = renderContext.GetImmediateContext()->GetStateCache();
+        int iVar3 = pRVar4->field_8;
+        int iVar2 = (&field_380)->operator_cast_to_unsigned_int();
+        if ((iVar3 == iVar2) && (iVar3 = (&field_380)->operator_cast_to_unsigned_int(), iVar3 != 0)) {
             return;
         }
-        (*___glewBindFramebuffer)(36160, *(undefined4*)(lVar4 + 8));
+        (*___glewBindFramebuffer)(36160, pRVar4->field_8);
         CheckGlErrorInternal("glBindFramebuffer",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "rendertargets/OGL/RenderTargets_OGL.cpp",
                              219);
     }
 
-    // 0x100be7420, 208 bytes, placed by __FILE__ string
-    // RenderTargets::BindFrameBufferWithoutStateCache(RenderContext&) const
-    void RenderTargets::BindFrameBufferWithoutStateCache(RenderContext* param_1) {
-        code* pcVar1;
-        uint uVar3;
-        uint uVar4;
-        ImmediateRenderContext* this_00;
-        long lVar5;
-        undefined1* this_01;
+    // 0x100be7420
+    void RenderTargets::BindFrameBufferWithoutStateCache(RenderContext& renderContext) const {
+        uint32_t uVar5;
 
-        this_01 = &field_380;
-        uVar3 = this_01->operator_cast_to_unsigned_int();
-        if (uVar3 == 0) {
-            /* WARNING: Subroutine does not return */
+        uint8_t* this_01 = &field_380;
+        int iVar3 = this_01->operator_cast_to_unsigned_int();
+        if (iVar3 == 0) {
             LogAssert("m_FBO != 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      225, (char*)0);
+                      225, nullptr);
         }
-        if (param_1->IsContextThread() == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (renderContext.IsContextThread() == '\0') {
             LogAssert("renderContext.IsContextThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      226, (char*)0);
+                      226, nullptr);
         }
-        this_00 = (ImmediateRenderContext*)param_1->GetImmediateContext();
-        lVar5 = this_00->GetStateCache();
-        uVar3 = *(uint*)(lVar5 + 8);
-        uVar4 = this_01->operator_cast_to_unsigned_int();
-        pcVar1 = ___glewBindFramebuffer;
-        if (uVar3 != uVar4) {
-            uVar3 = this_01->operator_cast_to_unsigned_int();
-            (*pcVar1)(36160, uVar3);
+        iVar3 = renderContext.GetImmediateContext()->GetStateCache()->field_8;
+        int iVar4 = this_01->operator_cast_to_unsigned_int();
+        void* pcVar1 = ___glewBindFramebuffer;
+        if (iVar3 != iVar4) {
+            uVar5 = this_01->operator_cast_to_unsigned_int();
+            (*pcVar1)(36160, uVar5);
             CheckGlErrorInternal("glBindFramebuffer",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "rendertargets/OGL/RenderTargets_OGL.cpp",
@@ -1080,207 +852,146 @@ namespace jag::render {
         }
     }
 
-    // 0x100be74f0, 416 bytes, placed by __FILE__ string
-    // RenderTargets::Create(char const*, unsigned int)
-    undefined1 RenderTargets::Create(char* param_1, uint param_2) {
-        char cVar1;
+    // 0x100be74f0
+    uint8_t RenderTargets::Create(const char* str, unsigned int arg2) {
         RenderDevice* pRVar2;
-        RenderTargets* pRVar3;
-        __4 local_e0;
-        undefined1 local_c9;
-        function local_c8;
+        RenderTargets* local_e0;
+        RenderTargets* local_d8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[160];
         long local_28;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        cVar1 = (&field_24)->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (!(field_24.empty())) {
             LogAssert("m_mainThreadColourTargetTextures.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      239, (char*)0);
+                      239, nullptr);
         }
-        if (field_192 != (Texture*)0) {
-            /* WARNING: Subroutine does not return */
+        if (field_192 != nullptr) {
             LogAssert("!m_pMainThreadDepthStencilTargetTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      240, (char*)0);
+                      240, nullptr);
         }
         if ((field_216 & 4) != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("(m_flags & IMMUTABLE_RENDER_TARGET) == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      242, (char*)0);
+                      242, nullptr);
         }
-        field_216 = param_2;
-        eastl::fixed_string<char, 16, true, eastl::allocator>::operator=(
-            (fixed_string<char, 16, true, eastl::allocator>*)&field_224, param_1);
-        local_c9 = 1;
-        pRVar3 = this;
-        cVar1 = IsBackBuffer(this);
-        if (cVar1 == '\0') {
-            if ((param_2 & 8) == 0) {
+        field_216 = arg2;
+        field_224 = str;
+        return local_c9 = 1;
+        RenderTargets* pRVar3 = this;
+        if (!(IsBackBuffer())) {
+            if ((arg2 & 8) == 0) {
                 pRVar3 = this;
-                KeepAlive(this);
+                KeepAlive();
                 pRVar2 = (RenderDevice*)pRVar3->Instance();
-                local_e0.field_0 = (undefined1*)this;
+                local_e0 = this;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                    RenderTargets::Create(char const*, unsigned int)::__5, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8,
-                    (__5*)&local_e0);
-                pRVar2->RunOnRenderThread(&local_c8);
+                    RenderTargets::Create(char const*, unsigned int)::__5, void>(local_c8, (__5*)&local_e0);
+                pRVar2->RunOnRenderThread(*local_c8);
             } else {
                 pRVar2 = (RenderDevice*)pRVar3->Instance();
-                local_e0.field_0 = &local_c9;
-                local_e0.field_8 = this;
+                local_e0 = (RenderTargets*)&local_c9;
+                local_d8 = this;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                    RenderTargets::Create(char const*, unsigned int)::__4, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8, &local_e0);
-                pRVar2->RunSynchronouslyOnRenderThread(&local_c8, true);
+                    RenderTargets::Create(char const*, unsigned int)::__4, void>(local_c8, (__4*)&local_e0);
+                pRVar2->RunSynchronouslyOnRenderThread(*local_c8, true);
             }
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
         return local_c9;
     }
 
-    // 0x100be7a90, 1040 bytes, placed by __FILE__ string
-    // RenderTargets::CreateInternal(RenderContext&)
-    undefined4 RenderTargets::CreateInternal(RenderContext* param_1) {
-        undefined1* this_00;
-        undefined1* this_01;
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* this_02;
-        Texture* this_03;
-        char cVar1;
-        byte bVar2;
-        bool bVar3;
-        uint uVar4;
-        RenderDevice* this_04;
-        long lVar5;
-        undefined8 uVar6;
-        ulong uVar7;
-        undefined8* puVar8;
+    // 0x100be7a90
+    uint32_t RenderTargets::CreateInternal(RenderContext& renderContext) {
+        Texture* pTVar1;
+        uint8_t bVar3;
+        bool arg2;
+        Logger* pLVar6;
+        unsigned long uVar7;
+        uint64_t* puVar8;
         int* piVar9;
-        undefined8 uVar10;
-        undefined4 uVar11;
-        ulong uVar12;
-        undefined4 local_ec;
-        AutoSingleton<ShaderThreadPoolSingleton> local_e8[7];
-        char local_e1;
-        fixed_string<char, 40, true, eastl::allocator> local_e0[168];
-        long local_38;
+        memory_order memory_order;
+        unsigned long arg1;
+        AutoSingleton<ShaderThreadPoolSingleton> local_e8;
+        ReturnValue local_e0;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_04 = (RenderDevice*)Instance();
-        cVar1 = this_04->IsRenderThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar2 = ((RenderDevice*)Instance())->IsRenderThread();
+        if (!cVar2) {
             LogAssert("RenderDevice::Instance().IsRenderThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      415, (char*)0);
+                      415, nullptr);
         }
-        this_01 = &field_380;
-        uVar4 = this_01->operator_cast_to_unsigned_int();
-        if (uVar4 != 0) {
-            /* WARNING: Subroutine does not return */
+        uint8_t* this_01 = &field_380;
+        int iVar4 = this_01->operator_cast_to_unsigned_int();
+        if (iVar4 != 0) {
             LogAssert("m_FBO == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      416, (char*)0);
+                      416, nullptr);
         }
-        uVar4 = this_01->operator_cast_to_unsigned_int();
-        if (uVar4 != 0) {
-            /* WARNING: Subroutine does not return */
+        iVar4 = this_01->operator_cast_to_unsigned_int();
+        if (iVar4 != 0) {
             LogAssert("m_FBO == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      420, (char*)0);
+                      420, nullptr);
         }
-        local_e8->~AutoSingleton("Render_Targets");
-        local_ec = 0;
+        unsigned int local_ec = 0;
         (*___glewGenFramebuffers)(1, &local_ec);
         CheckGlErrorInternal("glGenFramebuffers",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "rendertargets/OGL/RenderTargets_OGL.cpp",
                              426);
-        std::__atomic_base<unsigned int, false>::exchange(this_01);
-        this_00 = &field_80;
-        cVar1 = this_00->empty();
-        local_e1 = true;
-        if (cVar1 != '\0') {
-            local_e1 = field_200 != (Texture*)0;
+        this_01->exchange(local_ec, memory_order);
+        uint8_t* this_00 = &field_80;
+        cVar2 = this_00->empty();
+        char local_e1 = true;
+        if (cVar2) {
+            local_e1 = field_200 != nullptr;
         }
-        if ((bool)local_e1 != false) {
+        if (local_e1 != false) {
             if ((field_216 & 8) == 0) {
-                param_1->SetRenderTargets(this);
+                renderContext.SetRenderTargets(this);
             } else {
-                BindFrameBufferWithoutStateCache(this, param_1);
+                BindFrameBufferWithoutStateCache(renderContext);
             }
         }
-        lVar5 = this_00->size();
-        uVar10 = CONCAT71((int7)((ulong)this_01 >> 8), 1);
+        long lVar5 = this_00->size();
+        uint64_t uVar10 = (((uint64_t)((int64_t)((unsigned long)this_01 >> 8)) << 8) | (uint8_t)1);
         if (lVar5 != 0) {
-            uVar12 = 0;
+            arg1 = 0;
             do {
-                puVar8 = (undefined8*)
-                    eastl::vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        uVar12);
-                this_02 =
-                    (compressed_pair_imp<
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)*puVar8;
-                if (this_02 ==
-                    (compressed_pair_imp<
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)0) {
-                    /* WARNING: Subroutine does not return */
+                puVar8 = (uint64_t*)(*this_00)[arg1];
+                pTVar1 = (Texture*)*puVar8;
+                if (pTVar1 == nullptr) {
                     LogAssert("pTexture != nullptr",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "rendertargets/OGL/RenderTargets_OGL.cpp",
-                              446, (char*)0);
+                              446, nullptr);
                 }
-                piVar9 = (int*)eastl::compressed_pair_imp<
-                    eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(this_02);
-                if ((*piVar9 == 0) ||
-                    (lVar5 = eastl::compressed_pair_imp<
-                         eastl::basic_string<
-                             char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                         eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>,
-                         0>::second(this_02),
-                     *(int*)(lVar5 + 4) == 0)) {
-                    uVar6 = logger::default_logger();
-                    logger::Logger::Log(uVar6, 0, 3,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                        "render/rendertargets/OGL/RenderTargets_OGL.cpp",
-                                        447, "Attempting to create zero-sized render target");
+                piVar9 = (int*)pTVar1->second();
+                if ((*piVar9 == 0) || (lVar5 = pTVar1->second(), *(int*)(lVar5 + 4) == 0)) {
+                    pLVar6 = logger::default_logger();
+                    pLVar6->Log(false, 3,
+                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                "rendertargets/OGL/RenderTargets_OGL.cpp",
+                                447, "Attempting to create zero-sized render target");
                 }
-                AttachColourTargetToFBO(this_02, uVar12, 0, 0, 34069);
-                bVar2 = IsFBOValid();
-                uVar10 = CONCAT71((int7)((ulong)uVar10 >> 8), (byte)uVar10 & bVar2);
-                uVar12 = (ulong)((int)uVar12 + 1);
+                AttachColourTargetToFBO(pTVar1, (int)arg1, 0, 0, 34069);
+                bVar3 = IsFBOValid();
+                uVar10 =
+                    (((uint64_t)((int64_t)((unsigned long)uVar10 >> 8)) << 8) | (uint8_t)((uint8_t)uVar10 & bVar3));
+                arg1 = (unsigned long)((int)arg1 + 1);
                 uVar7 = this_00->size();
-            } while (uVar12 < uVar7);
+            } while (arg1 < uVar7);
         }
-        uVar11 = (undefined4)uVar10;
-        if (field_200 != (Texture*)0) {
-            cVar1 = this_00->empty();
-            if (cVar1 != '\0') {
+        uint32_t uVar11 = (uint32_t)uVar10;
+        if (field_200 != nullptr) {
+            cVar2 = this_00->empty();
+            if (cVar2) {
                 _glDrawBuffer(0);
                 CheckGlErrorInternal("glDrawBuffer",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
@@ -1294,516 +1005,327 @@ namespace jag::render {
             }
             piVar9 = (int*)field_200->second();
             if ((*piVar9 == 0) || (lVar5 = field_200->second(), *(int*)(lVar5 + 4) == 0)) {
-                uVar6 = logger::default_logger();
-                logger::Logger::Log(uVar6, 0, 3,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                    "rendertargets/OGL/RenderTargets_OGL.cpp",
-                                    466, "Attempting to create zero-sized render target");
+                pLVar6 = logger::default_logger();
+                pLVar6->Log(false, 3,
+                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                            "rendertargets/OGL/RenderTargets_OGL.cpp",
+                            466, "Attempting to create zero-sized render target");
             }
-            this_03 = field_200;
-            lVar5 = this_03->second();
-            bVar3 = (bool)HasStencilBits(*(undefined4*)(lVar5 + 12));
-            AttachDepthStencilToFBO(this_03, bVar3);
-            bVar2 = IsFBOValid();
-            uVar11 = (undefined4)CONCAT71((int7)((ulong)uVar10 >> 8), (byte)uVar10 & bVar2);
+            pTVar1 = field_200;
+            lVar5 = pTVar1->second();
+            arg2 = (bool)HasStencilBits(*(Format*)(lVar5 + 12));
+            AttachDepthStencilToFBO(pTVar1, arg2);
+            bVar3 = IsFBOValid();
+            uVar11 = (uint32_t)(((uint64_t)((int64_t)((unsigned long)uVar10 >> 8)) << 8) |
+                                (uint8_t)((uint8_t)uVar10 & bVar3));
         }
         if ((local_e1 != '\0') && ((field_216 & 8) != 0)) {
-            RestorePreviousFrameBuffer(this, param_1);
+            RestorePreviousFrameBuffer(renderContext);
         }
         if ((char)uVar11 == '\0') {
-            uVar10 = logger::default_logger();
-            GetInfoString((RenderTargets*)local_e0);
-            uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            logger::Logger::Log(uVar10, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "rendertargets/OGL/RenderTargets_OGL.cpp",
-                                481, "Failed to create render target %s", uVar6);
-            /* WARNING: Subroutine does not return */
-            eastl::fixed_string<char, 40, true, eastl::allocator>::~fixed_string(local_e0);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            pLVar6 = logger::default_logger();
+            GetInfoString(&local_e0, this);
+            uVar10 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            pLVar6->Log(false, 3,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                        "rendertargets/OGL/RenderTargets_OGL.cpp",
+                        481, "Failed to create render target %s", uVar10);
         }
         return uVar11;
     }
 
-    // 0x100be7eb0, 272 bytes, placed by class name and neighbouring functions
-    // RenderTargets::SetEnabledRenderTargets(unsigned long, unsigned long const*)
-    void RenderTargets::SetEnabledRenderTargets(ulong param_1, ulong* param_2) {
+    // 0x100be7eb0
+    void RenderTargets::SetEnabledRenderTargets(unsigned long arg1, const unsigned long* arg2) {
         RenderDevice* this_00;
-        Singleton<RenderDevice>* this_01;
-        __8 local_110;
-        function local_f8;
-        vector local_58[40];
+        RenderTargets* local_110;
+        unsigned long local_108;
+        unsigned long* local_100;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_f8[160];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_vector<unsigned long, 2ul, false, eastl::dummy_allocator>::fixed_vector();
-        eastl::vector<unsigned long, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, false, eastl::dummy_allocator>>::
-            assign<unsigned long const*>((ulong*)local_58, param_2);
-        this_01 = (Singleton<RenderDevice>*)&field_336;
-        if (eastl::operator!=(local_58, (vector*)this_01)) {
-            eastl::fixed_vector<unsigned long, 2ul, false, eastl::dummy_allocator>::operator=(
-                (fixed_vector<unsigned long, 2ul, false, eastl::dummy_allocator>*)this_01, (fixed_vector*)local_58);
-            this_00 = (RenderDevice*)this_01->Instance();
-            local_110.field_0 = this;
-            local_110.field_8 = param_1;
-            local_110.field_16 = (long)param_2;
+        fixed_vector<unsigned long, 2ul, false, eastl::dummy_allocator> local_58;
+        local_58.assign<unsigned long const*>(arg2, arg2 + arg1);
+        Singleton<RenderDevice>* arg2_00 = (Singleton<RenderDevice>*)&field_336;
+        if (local_58 != *arg2_00) {
+            *arg2_00 = local_58;
+            this_00 = (RenderDevice*)arg2_00->Instance();
+            local_110 = this;
+            local_108 = arg1;
+            local_100 = arg2;
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 RenderTargets::SetEnabledRenderTargets(unsigned long, unsigned long const*)::__8, void>(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_f8, &local_110);
-            this_00->RunOnRenderThread(&local_f8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_f8);
-        }
-        local_58->~fixed_vector();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                local_f8, (__8*)&local_110);
+            this_00->RunOnRenderThread(*local_f8);
         }
     }
 
-    // 0x100be80a0, 192 bytes, placed by class name and neighbouring functions
-    // RenderTargets::SetTargetCubeMapFace(int, CubeFace)
-    void RenderTargets::SetTargetCubeMapFace(int param_1, undefined4 param_3) {
-        RenderDevice* this_00;
-        __9 local_e8;
-        function local_d8;
+    // 0x100be80a0
+    void RenderTargets::SetTargetCubeMapFace(int arg1, CubeFace cubeFace) {
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[168];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        KeepAlive(this);
-        this_00 = (RenderDevice*)((RenderTargets*)this)->Instance();
-        local_e8.field_0 = this;
-        local_e8.field_8 = param_1;
-        local_e8.field_12 = param_3;
+        RenderTargets* this_01 = this;
+        KeepAlive();
+        auto this_00 = this_01->Instance();
+        RenderTargets* local_e8 = this;
+        int local_e0 = arg1;
+        CubeFace local_dc = cubeFace;
         fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-            RenderTargets::SetTargetCubeMapFace(int, CubeFace)::__9, void>(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, &local_e8);
-        this_00->RunOnRenderThread(&local_d8);
-        fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        field_376 = param_3;
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            RenderTargets::SetTargetCubeMapFace(int, CubeFace)::__9, void>(local_d8, (__9*)&local_e8);
+        this_00->RunOnRenderThread(*local_d8);
+        field_376 = cubeFace;
     }
 
-    // 0x100be8170, 208 bytes, placed by class name and neighbouring functions
-    // RenderTargets::SetTargetMipLayerLevel(int, int, int)
-    void RenderTargets::SetTargetMipLayerLevel(int param_1, int param_2, int param_3) {
-        RenderDevice* this_00;
-        __10 local_f0;
-        function local_d8;
+    // 0x100be8170
+    void RenderTargets::SetTargetMipLayerLevel(int arg1, int arg2, int arg3) {
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        KeepAlive(this);
-        this_00 = (RenderDevice*)((RenderTargets*)this)->Instance();
-        local_f0.field_0 = this;
-        local_f0.field_8 = param_1;
-        local_f0.field_12 = param_2;
-        local_f0.field_16 = param_3;
+        RenderTargets* this_01 = this;
+        KeepAlive();
+        auto this_00 = this_01->Instance();
+        RenderTargets* local_f0 = this;
+        int local_e8 = arg1;
+        int local_e4 = arg2;
+        int local_e0 = arg3;
         fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-            RenderTargets::SetTargetMipLayerLevel(int, int, int)::__10, void>(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, &local_f0);
-        this_00->RunOnRenderThread(&local_d8);
-        fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            RenderTargets::SetTargetMipLayerLevel(int, int, int)::__10, void>(local_d8, (__10*)&local_f0);
+        this_00->RunOnRenderThread(*local_d8);
     }
 
-    // 0x100be8290, 176 bytes, placed by class name and neighbouring functions
-    // RenderTargets::Unbind()
+    // 0x100be8290
     void RenderTargets::Unbind() {
-        RenderDevice* this_00;
-        Singleton<RenderDevice>* this_01;
         __13 local_d0;
-        function local_c8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[168];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        KeepAlive(this);
-        this_01 = (Singleton<RenderDevice>*)&field_24;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        field_192 = (Texture*)0;
-        this_00 = (RenderDevice*)this_01->Instance();
+        KeepAlive();
+        Singleton<RenderDevice>* this_01 = (Singleton<RenderDevice>*)&field_24;
+        this_01->clear();
+        field_192 = nullptr;
+        auto this_00 = this_01->Instance();
         local_d0.field_0 = this;
-        fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-            RenderTargets::Unbind()::__13, void>(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8, &local_d0);
-        this_00->RunOnRenderThread(&local_c8);
-        fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        fixedfunction::function<void(RenderContext&), 128ul, 16ul,
+                                (fixedfunction::Methods)0>::function<RenderTargets::Unbind()::__13, void>(local_c8,
+                                                                                                          &local_d0);
+        this_00->RunOnRenderThread(*local_c8);
     }
 
-    // 0x100be8350, 176 bytes, placed by class name and neighbouring functions
-    // RenderTargets::UnbindDepthStencilTargetTexture()
+    // 0x100be8350
     void RenderTargets::UnbindDepthStencilTargetTexture() {
-        RenderDevice* this_00;
         __14 local_d0;
-        function local_c8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[168];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        KeepAlive(this);
-        field_192 = (Texture*)0;
-        this_00 = (RenderDevice*)((RenderTargets*)this)->Instance();
+        RenderTargets* this_01 = this;
+        KeepAlive();
+        field_192 = nullptr;
+        auto this_00 = this_01->Instance();
         local_d0.field_0 = this;
         fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-            RenderTargets::UnbindDepthStencilTargetTexture()::__14, void>(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8, &local_d0);
-        this_00->RunOnRenderThread(&local_c8);
-        fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            RenderTargets::UnbindDepthStencilTargetTexture()::__14, void>(local_c8, &local_d0);
+        this_00->RunOnRenderThread(*local_c8);
     }
 
-    // 0x100be8410, 256 bytes, placed by __FILE__ string
-    // RenderTargets::GetNativeFBOId() const
-    void RenderTargets::GetNativeFBOId() {
-        char cVar1;
-        RenderDevice* this_00;
-        undefined8 uVar2;
-        undefined1 local_c8[168];
-        long local_20;
+    // 0x100be8410
+    void RenderTargets::GetNativeFBOId() const {
+        uint64_t uVar2;
+        ReturnValue local_c8;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if ((field_216 & 8) == 0) {
-            this_00 = (RenderDevice*)Instance();
-            cVar1 = this_00->IsRenderThread();
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(((RenderDevice*)Instance())->IsRenderThread())) {
                 LogAssert("(m_flags & FORCE_SYNCHRONOUS_ALLOW_CREATION_FAILURE) == "
                           "FORCE_SYNCHRONOUS_ALLOW_CREATION_FAILURE || RenderDevice::Instance().IsRenderThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                           "rendertargets/OGL/RenderTargets_OGL.cpp",
-                          971, (char*)0);
+                          971, nullptr);
             }
         }
-        cVar1 = IsCreated(this);
-        if (cVar1 == '\0') {
-            GetInfoString((RenderTargets*)local_c8);
+        if (!(IsCreated())) {
+            GetInfoString(&local_c8, this);
             uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            /* WARNING: Subroutine does not return */
             LogAssert("IsCreated()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
                       972, "Dead render target bound (%s)", uVar2);
         }
-        KeepAlive(this);
+        KeepAlive();
         (&field_380)->operator_cast_to_unsigned_int();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x100be8510, 160 bytes, placed by class name and neighbouring functions
-    // RenderTargets::Invalidate() const
-    void RenderTargets::Invalidate() {
-        RenderDevice* this_00;
-        RenderTargets* local_d0;
-        function local_c8;
+    // 0x100be8510
+    void RenderTargets::Invalidate() const {
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[168];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        KeepAlive(this);
-        this_00 = (RenderDevice*)((RenderTargets*)this)->Instance();
-        local_d0 = this;
+        RenderTargets* this_01 = this;
+        KeepAlive();
+        auto this_00 = this_01->Instance();
+        RenderTargets* local_d0 = this;
         fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-            RenderTargets::Invalidate() const ::__15, void>(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8, (__15*)&local_d0);
-        this_00->RunOnRenderThread(&local_c8);
-        fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            RenderTargets::Invalidate() const ::__15, void>(local_c8, (__15*)&local_d0);
+        this_00->RunOnRenderThread(*local_c8);
     }
 
-    // 0x100be85c0, 272 bytes, placed by __FILE__ string
-    // RenderTargets::InvalidateAllRenderTargets()
+    // 0x100be85c0
     void RenderTargets::InvalidateAllRenderTargets() {
         RenderTargets* this_00;
-        bool bVar2;
-        uint uVar3;
-        RenderDevice* pRVar4;
-        undefined8* puVar6;
-        undefined8 extraout_RDX;
-        undefined1 auVar7[16];
-        undefined8 local_38;
-        undefined8 local_30;
-        scoped_lock<std::mutex> local_28[8];
+        uint64_t* puVar5;
+        uint64_t local_38;
+        uint64_t local_30;
+        scoped_lock<std::mutex> local_28;
 
-        pRVar4 = (RenderDevice*)Instance();
-        if (pRVar4->IsRenderThread() == '\0') {
-            /* WARNING: Subroutine does not return */
+        auto pRVar3 = Instance();
+        bool cVar1 = pRVar3->IsRenderThread();
+        if (!cVar1) {
             LogAssert("RenderDevice::Instance().IsRenderThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      951, (char*)0);
+                      951, nullptr);
         }
-        pRVar4 = (RenderDevice*)pRVar4->Instance();
-        if (pRVar4->GetPrimaryRenderContext() != 0) {
-            std::scoped_lock<std::mutex>::scoped_lock(local_28, (mutex*)&m_renderTargetsToInvalidateMutex);
-            local_38 = eastl::rbtree<eastl::string, eastl::pair<eastl::stringconst, bool>, eastl::less<eastl::string>,
-                                     eastl::allocator, eastl::use_first<eastl::pair<eastl::stringconst, bool>>, true,
-                                     true>::begin();
-            auVar7 = eastl::rbtree<eastl::string, eastl::pair<eastl::stringconst, bool>, eastl::less<eastl::string>,
-                                   eastl::allocator, eastl::use_first<eastl::pair<eastl::stringconst, bool>>, true,
-                                   true>::end();
+        pRVar3 = (RenderDevice*)pRVar3->Instance();
+        if (pRVar3->GetPrimaryRenderContext() != 0) {
+            local_28 = std::scoped_lock(m_renderTargetsToInvalidateMutex);
+            local_38 = m_renderTargetsToInvalidate.begin();
+            local_30 = m_renderTargetsToInvalidate.end();
             while (true) {
-                local_30 = auVar7._0_8_;
-                bVar2 = eastl::operator!=((eastl*)&local_38, (hashtable_iterator_base*)&local_30, auVar7._8_8_);
-                if (!bVar2)
+                cVar1 = local_38 != local_30;
+                if (!cVar1)
                     break;
-                puVar6 = (undefined8*)eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)&local_38);
-                this_00 = (RenderTargets*)*puVar6;
-                if (this_00 != (RenderTargets*)0) {
-                    uVar3 = (&this_00->field_380)->operator_cast_to_unsigned_int();
-                    if (uVar3 != 0) {
+                puVar5 = (uint64_t*)*local_38;
+                this_00 = (RenderTargets*)*puVar5;
+                if (this_00 != nullptr) {
+                    if ((&this_00->field_380)->operator_cast_to_unsigned_int() != 0) {
                         Invalidate(this_00);
                     }
                 }
-                eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator++(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)&local_38);
-                auVar7._8_8_ = extraout_RDX;
-                auVar7._0_8_ = local_30;
+                ++local_38;
             }
             m_renderTargetsToInvalidate.clear();
-            std::scoped_lock<std::mutex>::~scoped_lock(local_28);
         }
     }
 
-    // 0x100bfac40, 16 bytes, placed by class name and neighbouring functions
-    // RenderTargets::Destroy()::$_0::operator()(RenderContext&) const
-    /* RenderTargets::Destroy()::$_0::TEMPNAMEPLACEHOLDERVALUE(RenderContext&)
-   const */
-
-    void RenderTargets::Destroy()::$_0::operator()(RenderContext* param_1) {
+    // 0x100bfac40
+    void RenderTargets::Destroy()::$_0::operator()(RenderContext& renderContext) const {
         field_0->Destroy();
     }
 
-    // 0x100bfc360, 32 bytes, placed by class name and neighbouring functions
-    // RenderTargets::Create(char const*, unsigned int)::$_4::operator()(RenderContext&) const
-    /* RenderTargets::Create(char const*, unsigned
-   int)::$_4::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    void RenderTargets::Create(char const*, unsigned int)::$_4::operator()(RenderContext* param_1) {
-        undefined1 uVar1;
-
-        uVar1 = CreateInternal(field_8, param_1);
+    // 0x100bfc360
+    void RenderTargets::Create(char const*, unsigned int)::$_4::operator()(RenderContext& renderContext) const {
+        uint8_t uVar1 = CreateInternal(field_8, renderContext);
         *field_0 = uVar1;
     }
 
-    // 0x100bfc410, 16 bytes, placed by class name and neighbouring functions
-    // RenderTargets::Create(char const*, unsigned int)::$_5::operator()(RenderContext&) const
-    /* RenderTargets::Create(char const*, unsigned
-   int)::$_5::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    void RenderTargets::Create(char const*, unsigned int)::$_5::operator()(RenderContext* param_1) {
-        CreateInternal(field_0, param_1);
+    // 0x100bfc410
+    void RenderTargets::Create(char const*, unsigned int)::$_5::operator()(RenderContext& renderContext) const {
+        CreateInternal(field_0, renderContext);
     }
 
-    // 0x100bfd090, 384 bytes, placed by __FILE__ string
-    // RenderTargets::SetEnabledRenderTargets(unsigned long, unsigned long const*)::$_8::operator()(RenderContext&) const
-    /* RenderTargets::SetEnabledRenderTargets(unsigned long, unsigned long
-   const*)::$_8::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100bfd090
+    void
+    RenderTargets::SetEnabledRenderTargets(unsigned long,
+                                           unsigned long const*)::$_8::operator()(RenderContext& renderContext) const {
+        unsigned long uVar1;
+        unsigned int* puVar4;
+        unsigned int* puVar5;
+        unsigned int* arg2;
+        unsigned long uVar7;
+        unsigned long local_80;
 
-    void RenderTargets::SetEnabledRenderTargets(unsigned long,
-                                                unsigned long const*)::$_8::operator()(RenderContext* param_1) {
-        ulong uVar1;
-        code* pcVar2;
-        undefined4 uVar3;
-        uint* puVar4;
-        uint* puVar5;
-        uint* puVar6;
-        undefined8 uVar7;
-        ulong uVar8;
-        ulong local_80;
-        RenderTargets* local_70;
-        uint local_5c;
-        fixed_vector<unsigned int, 2ul, false, eastl::dummy_allocator> local_58[32];
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_70 = field_0;
-        BindFrameBufferWithoutStateCache(local_70, param_1);
-        eastl::fixed_vector<unsigned int, 2ul, false, eastl::dummy_allocator>::fixed_vector();
+        RenderTargets* local_70 = field_0;
+        BindFrameBufferWithoutStateCache(local_70, renderContext);
+        fixed_vector<unsigned int, 2ul, false, eastl::dummy_allocator> local_58;
         if (field_8 != 0) {
-            uVar8 = 0;
+            uVar7 = 0;
             do {
-                uVar1 = *(ulong*)(((__8*)this)->field_16 + uVar8 * 8);
+                uVar1 = *(unsigned long*)(field_16 + uVar7 * 8);
                 local_80 = uVar1;
-                puVar4 = (uint*)local_58->end();
-                puVar5 = (uint*)local_58->HeapBeginPtr();
-                puVar6 = (uint*)local_58->end();
-                puVar5 = std::find<unsigned int*, unsigned long>(puVar5, puVar6, &local_80);
+                puVar4 = (unsigned int*)local_58.end();
+                puVar5 = (unsigned int*)local_58.HeapBeginPtr();
+                arg2 = (unsigned int*)local_58.end();
+                puVar5 = std::find<unsigned int*, unsigned long>(puVar5, arg2, local_80);
                 if (puVar4 != puVar5) {
-                    /* WARNING: Subroutine does not return */
                     LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                     "rendertargets/OGL/RenderTargets_OGL.cpp",
                                     515, "Attempted to attach the same texture index %d to multiple draw buffers.",
                                     uVar1 & 4294967295);
                 }
-                local_5c = (int)uVar1 + 36064;
-                eastl::fixed_vector<unsigned int, 2ul, false, eastl::dummy_allocator>::push_back(local_58, &local_5c);
-                uVar8 = uVar8 + 1;
-            } while (uVar8 < (ulong)((__8*)this)->field_8);
+                local_58.push_back((int)uVar1 + 36064);
+                uVar7 = uVar7 + 1;
+            } while (uVar7 < (unsigned long)field_8);
         }
-        pcVar2 = ___glewDrawBuffers;
-        uVar3 = local_58->size();
-        uVar7 = local_58->HeapBeginPtr();
-        (*pcVar2)(uVar3, uVar7);
+        void* pcVar2 = ___glewDrawBuffers;
+        uint32_t uVar3 = local_58.size();
+        uint64_t uVar6 = local_58.HeapBeginPtr();
+        (*pcVar2)(uVar3, uVar6);
         CheckGlErrorInternal("glDrawBuffers",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "rendertargets/OGL/RenderTargets_OGL.cpp",
                              519);
-        RestorePreviousFrameBuffer(local_70, param_1);
-        eastl::fixed_vector<unsigned int, 2ul, false, eastl::dummy_allocator>::~fixed_vector(local_58);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        RestorePreviousFrameBuffer(local_70, renderContext);
     }
 
-    // 0x100bfd430, 480 bytes, placed by __FILE__ string
-    // RenderTargets::SetTargetCubeMapFace(int, CubeFace)::$_9::operator()(RenderContext&) const
-    /* RenderTargets::SetTargetCubeMapFace(int,
-   CubeFace)::$_9::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100bfd430
+    void RenderTargets::SetTargetCubeMapFace(int, CubeFace)::$_9::operator()(RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t* puVar7;
+        uint32_t* puVar8;
+        Texture* pTVar9;
 
-    void RenderTargets::SetTargetCubeMapFace(int, CubeFace)::$_9::operator()(RenderContext* param_1) {
-        undefined1* this_00;
-        undefined4 uVar1;
-        undefined4 uVar2;
-        RenderTargets* pRVar3;
-        code* pcVar4;
-        char cVar5;
-        uint uVar6;
-        int iVar7;
-        undefined4 uVar8;
-        long* plVar9;
-        undefined8* puVar10;
-        undefined4* puVar11;
-        undefined8 uVar12;
-
-        pRVar3 = field_0;
-        uVar6 = (&pRVar3->field_380)->operator_cast_to_unsigned_int();
-        if (uVar6 == 0) {
-            /* WARNING: Subroutine does not return */
+        RenderTargets* renderTargets = field_0;
+        int iVar5 = (&renderTargets->field_380)->operator_cast_to_unsigned_int();
+        if (iVar5 == 0) {
             LogAssert("m_FBO",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      533, (char*)0);
+                      533, nullptr);
         }
         if (field_8 != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("iColourTarget == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      534, (char*)0);
+                      534, nullptr);
         }
-        this_00 = &pRVar3->field_80;
-        plVar9 = (long*)eastl::
-            vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                (long)field_8);
-        if (*plVar9 != 0) {
-            puVar10 = (undefined8*)eastl::
-                vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                        this_00,
-                    (long)field_8);
-            iVar7 = (*puVar10)->GetMaxLineWidth();
-            if (iVar7 == 34067) {
-                plVar9 = (long*)
-                    eastl::vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        (long)field_8);
-                if (*plVar9 != 0) {
-                    puVar10 = (undefined8*)eastl::vector<
-                        Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        (long)field_8);
-                    iVar7 = (*puVar10)->GetMaxLineWidth();
-                    if (iVar7 == 34067) {
-                        puVar10 = (undefined8*)eastl::vector<
-                            Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<Texture*,
-                                    eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                            (long)field_8);
-                        cVar5 = (*puVar10)->IsCreated();
-                        if (cVar5 == '\0') {
-                            uVar12 = logger::default_logger();
-                            logger::Logger::Log(uVar12, 0, 3,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                                "hal/render/rendertargets/OGL/RenderTargets_OGL.cpp",
-                                                556, "Attempted to bind invalid texture to cube map face");
+        uint8_t* this_00 = &renderTargets->field_80;
+        long* plVar6 = (long*)(*this_00)[(long)field_8];
+        if (*plVar6 != 0) {
+            puVar7 = (uint64_t*)(*this_00)[(long)field_8];
+            iVar5 = (*puVar7)->GetMaxLineWidth();
+            if (iVar5 == 34067) {
+                plVar6 = (long*)(*this_00)[(long)field_8];
+                if (*plVar6 != 0) {
+                    puVar7 = (uint64_t*)(*this_00)[(long)field_8];
+                    iVar5 = (*puVar7)->GetMaxLineWidth();
+                    if (iVar5 == 34067) {
+                        puVar7 = (uint64_t*)(*this_00)[(long)field_8];
+                        if (!((*puVar7)->IsCreated())) {
+                            (logger::default_logger())
+                                ->Log(false, 3,
+                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
+                                      "render/rendertargets/OGL/RenderTargets_OGL.cpp",
+                                      556, "Attempted to bind invalid texture to cube map face");
                         } else {
-                            param_1->SetRenderTargets(pRVar3);
-                            pcVar4 = ___glewFramebufferTexture2D;
-                            iVar7 = field_8;
-                            puVar11 = (undefined4*)std::array<unsigned int, 2ul>::operator[]((long)iVar7);
-                            uVar1 = *puVar11;
+                            renderContext.SetRenderTargets(renderTargets);
+                            pcVar3 = ___glewFramebufferTexture2D;
+                            iVar5 = field_8;
+                            puVar8 =
+                                (uint32_t*)(*((array<unsigned int, 2ul>*)(long)iVar5))[(unsigned long)renderTargets];
+                            uVar1 = *puVar8;
                             uVar2 = field_12;
-                            puVar10 = (undefined8*)eastl::vector<
-                                Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                            operator[](
-                                (vector<Texture*,
-                                        eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                    this_00,
-                                (long)iVar7);
-                            uVar8 = (*puVar10)->GetNativeTextureId();
-                            (*pcVar4)(36160, uVar1, uVar2, uVar8, 0);
+                            puVar7 = (uint64_t*)(*this_00)[(unsigned long)(long)iVar5];
+                            pTVar9 = (*puVar7)->GetNativeTextureId();
+                            (*pcVar3)(36160, uVar1, uVar2, (unsigned long)pTVar9 & 4294967295, 0);
                             CheckGlErrorInternal("glFramebufferTexture2D",
                                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
                                                  "libs/hal/render/rendertargets/OGL/RenderTargets_OGL.cpp",
                                                  550);
-                            cVar5 = IsFBOValid();
-                            if (cVar5 == '\0') {
-                                /* WARNING: Subroutine does not return */
+                            if (!(IsFBOValid())) {
                                 LogAssert("IsFBOValid()",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                           "render/rendertargets/OGL/RenderTargets_OGL.cpp",
-                                          552, (char*)0);
+                                          552, nullptr);
                             }
                         }
                     }
@@ -1811,134 +1333,80 @@ namespace jag::render {
                 return;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("m_renderThreadColourTargetTextures[iColourTarget] && "
                   "m_renderThreadColourTargetTextures[iColourTarget]->GetType() == TEXTURE_TYPE_CUBE",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/OGL/"
                   "RenderTargets_OGL.cpp",
-                  535, (char*)0);
+                  535, nullptr);
     }
 
-    // 0x100bfd6c0, 336 bytes, placed by __FILE__ string
-    // RenderTargets::SetTargetMipLayerLevel(int, int, int)::$_10::operator()(RenderContext&) const
-    /* RenderTargets::SetTargetMipLayerLevel(int, int,
-   int)::$_10::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100bfd6c0
+    void RenderTargets::SetTargetMipLayerLevel(int, int, int)::$_10::operator()(RenderContext& renderContext) const {
+        uint64_t* puVar4;
 
-    void RenderTargets::SetTargetMipLayerLevel(int, int, int)::$_10::operator()(RenderContext* param_1) {
-        undefined1* this_00;
-        RenderTargets* pRVar1;
-        uint uVar3;
-        int iVar4;
-        long* plVar5;
-        undefined8* puVar6;
-
-        pRVar1 = field_0;
-        uVar3 = (&pRVar1->field_380)->operator_cast_to_unsigned_int();
-        if (uVar3 == 0) {
-            /* WARNING: Subroutine does not return */
+        RenderTargets* renderTargets = field_0;
+        int iVar2 = (&renderTargets->field_380)->operator_cast_to_unsigned_int();
+        if (iVar2 == 0) {
             LogAssert("m_FBO",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      571, (char*)0);
+                      571, nullptr);
         }
         if (field_8 != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("iColourTarget == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      572, (char*)0);
+                      572, nullptr);
         }
-        this_00 = &pRVar1->field_80;
-        plVar5 = (long*)eastl::
-            vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                (long)field_8);
-        if (*plVar5 != 0) {
-            puVar6 = (undefined8*)eastl::
-                vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                        this_00,
-                    (long)field_8);
-            iVar4 = (*puVar6)->GetMaxLineWidth();
-            if (iVar4 != 34067) {
-                puVar6 = (undefined8*)
-                    eastl::vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        (long)field_8);
-                if ((*puVar6)->IsCreated() == '\0') {
-                    /* WARNING: Subroutine does not return */
+        uint8_t* this_00 = &renderTargets->field_80;
+        long* plVar3 = (long*)(*this_00)[(long)field_8];
+        if (*plVar3 != 0) {
+            puVar4 = (uint64_t*)(*this_00)[(long)field_8];
+            iVar2 = (*puVar4)->GetMaxLineWidth();
+            if (iVar2 != 34067) {
+                puVar4 = (uint64_t*)(*this_00)[(long)field_8];
+                if ((*puVar4)->IsCreated() == '\0') {
                     LogAssert("m_renderThreadColourTargetTextures[iColourTarget]->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "rendertargets/OGL/RenderTargets_OGL.cpp",
-                              574, (char*)0);
+                              574, nullptr);
                 }
-                plVar5 = (long*)
-                    eastl::vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        (long)field_8);
-                if (*plVar5 != 0) {
-                    puVar6 = (undefined8*)eastl::vector<
-                        Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        (long)field_8);
-                    iVar4 = (*puVar6)->GetMaxLineWidth();
-                    if (iVar4 != 34067) {
-                        param_1->SetRenderTargets(pRVar1);
-                        puVar6 = (undefined8*)eastl::vector<
-                            Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<Texture*,
-                                    eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                            (long)field_8);
-                        AttachColourTargetToFBO(*puVar6, field_8, field_12, field_16, 4294967295);
+                plVar3 = (long*)(*this_00)[(long)field_8];
+                if (*plVar3 != 0) {
+                    puVar4 = (uint64_t*)(*this_00)[(long)field_8];
+                    iVar2 = (*puVar4)->GetMaxLineWidth();
+                    if (iVar2 != 34067) {
+                        renderContext.SetRenderTargets(renderTargets);
+                        puVar4 = (uint64_t*)(*this_00)[(long)field_8];
+                        AttachColourTargetToFBO((Texture*)*puVar4, field_8, field_12, field_16, 4294967295);
                     }
                 }
                 return;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("m_renderThreadColourTargetTextures[iColourTarget] && "
                   "m_renderThreadColourTargetTextures[iColourTarget]->GetType() != TEXTURE_TYPE_CUBE",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/OGL/"
                   "RenderTargets_OGL.cpp",
-                  573, (char*)0);
+                  573, nullptr);
     }
 
-    // 0x100bfdcc0, 400 bytes, placed by __FILE__ string
-    // RenderTargets::BindDepthStencilTargetTexture(Texture*)::$_12::operator()(RenderContext&) const
-    /* RenderTargets::BindDepthStencilTargetTexture(Texture*)::$_12::TEMPNAMEPLACEHOLDERVALUE(RenderContext&)
-   const */
+    // 0x100bfdcc0
+    void RenderTargets::BindDepthStencilTargetTexture(Texture*)::$_12::operator()(RenderContext& renderContext) const {
+        bool cVar1;
+        unsigned int uVar3;
+        Logger* pLVar5;
+        memory_order memory_order;
 
-    void RenderTargets::BindDepthStencilTargetTexture(Texture*)::$_12::operator()(RenderContext* param_1) {
-        RenderTargets* this_00;
-        Texture* pTVar1;
-        char cVar2;
-        bool bVar3;
-        uint uVar4;
-        undefined4 uVar5;
-        undefined4 uVar6;
-        long lVar7;
-        undefined8 uVar8;
-        RenderResource* pRVar9;
-
-        this_00 = field_0;
-        uVar4 = (&this_00->field_380)->operator_cast_to_unsigned_int();
-        if ((uVar4 == 0) && (cVar2 = IsBackBuffer(this_00), cVar2 == '\0')) {
-            /* WARNING: Subroutine does not return */
+        RenderTargets* this_00 = field_0;
+        if (((&this_00->field_380)->operator_cast_to_unsigned_int() == 0) && (cVar1 = IsBackBuffer(this_00), !cVar1)) {
             LogAssert("m_FBO != 0 || IsBackBuffer()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      673, (char*)0);
+                      673, nullptr);
         }
-        bVar3 = (&this_00->field_208)->operator_cast_to_bool();
-        if (bVar3) {
-            /* WARNING: Subroutine does not return */
+        cVar1 = (&this_00->field_208)->operator_cast_to_bool();
+        if (cVar1) {
             LogAssert("!m_pOwnedDepthStencilTargetTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
@@ -1946,227 +1414,204 @@ namespace jag::render {
                       "Setting of external depth resources only supported when RenderTargets is created will no depth "
                       "resources");
         }
-        pTVar1 = field_8;
-        this_00->field_200 = pTVar1;
-        pRVar9 = (RenderResource*)&pTVar1->field_8;
-        if (pTVar1 == (Texture*)0) {
-            pRVar9 = (RenderResource*)0;
+        Texture* pTVar6 = field_8;
+        this_00->field_200 = pTVar6;
+        RenderResource* renderResource = (RenderResource*)&pTVar6->field_8;
+        if (pTVar6 == nullptr) {
+            renderResource = nullptr;
         }
-        cVar2 = param_1->IsObjectAlive(pRVar9);
-        if ((cVar2 == '\0') || (cVar2 = this_00->field_200->IsCreated(), cVar2 == '\0')) {
-            uVar8 = logger::default_logger();
-            logger::Logger::Log(uVar8, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "rendertargets/OGL/RenderTargets_OGL.cpp",
-                                694,
-                                "Depth texture to be bound to render target was destroyed before deferred binding");
+        cVar1 = renderContext.IsObjectAlive(renderResource);
+        if ((!cVar1) || (cVar1 = this_00->field_200->IsCreated(), !cVar1)) {
+            pLVar5 = logger::default_logger();
+            pLVar5->Log(false, 3,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                        "rendertargets/OGL/RenderTargets_OGL.cpp",
+                        694, "Depth texture to be bound to render target was destroyed before deferred binding");
             return;
         }
-        cVar2 = IsBackBuffer(this_00);
-        if (cVar2 != '\0') {
+        cVar1 = IsBackBuffer(this_00);
+        if (cVar1) {
             return;
         }
-        param_1->SetRenderTargets(this_00);
-        pTVar1 = this_00->field_200;
-        lVar7 = pTVar1->second();
-        bVar3 = (bool)HasStencilBits(*(undefined4*)(lVar7 + 12));
-        AttachDepthStencilToFBO(pTVar1, bVar3);
-        cVar2 = IsFBOValid();
-        if (cVar2 == '\0') {
-            uVar8 = logger::default_logger();
-            uVar5 = this_00->field_200->GetNativeTextureId();
-            uVar6 = std::__atomic_base<unsigned int, false>::load(&this_00->field_380);
-            logger::Logger::Log(uVar8, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "rendertargets/OGL/RenderTargets_OGL.cpp",
-                                688, "Failed to bind depth texture %u to FBO %u", uVar5, uVar6);
+        renderContext.SetRenderTargets(this_00);
+        pTVar6 = this_00->field_200;
+        long lVar4 = pTVar6->second();
+        bool arg2 = (bool)HasStencilBits(*(Format*)(lVar4 + 12));
+        memory_order = (memory_order)arg2;
+        AttachDepthStencilToFBO(pTVar6, arg2);
+        cVar1 = IsFBOValid();
+        if (!cVar1) {
+            pLVar5 = logger::default_logger();
+            pTVar6 = this_00->field_200->GetNativeTextureId();
+            uVar3 = this_00->field_380.load(memory_order);
+            pLVar5->Log(false, 2,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                        "rendertargets/OGL/RenderTargets_OGL.cpp",
+                        688, "Failed to bind depth texture %u to FBO %u", (unsigned long)pTVar6 & 4294967295,
+                        (unsigned long)uVar3);
             return;
         }
     }
 
-    // 0x100bfdee0, 752 bytes, placed by __FILE__ string
-    // RenderTargets::Unbind()::$_13::operator()(RenderContext&) const
-    /* RenderTargets::Unbind()::$_13::TEMPNAMEPLACEHOLDERVALUE(RenderContext&)
-   const */
+    // 0x100bfdee0
+    void RenderTargets::Unbind()::$_13::operator()(RenderContext& renderContext) const {
+        void* pcVar1;
+        void* pcVar2;
+        bool cVar3;
+        int iVar4;
+        uint32_t uVar5;
+        uint32_t uVar6;
+        uint32_t* puVar9;
+        RenderResource* renderResource;
+        char* str1;
+        array<unsigned int, 2ul>* this_01;
 
-    void RenderTargets::Unbind()::$_13::operator()(RenderContext* param_1) {
-        RenderTargets* pRVar1;
-        code* pcVar2;
-        code* pcVar3;
-        char cVar4;
-        int iVar5;
-        undefined4 uVar6;
-        undefined4 uVar7;
-        long* plVar8;
-        long* plVar9;
-        undefined4* puVar10;
-        RenderResource* pRVar11;
-        char* pcVar12;
-        ulong uVar13;
-
-        pRVar1 = field_0;
-        param_1->SetRenderTargets(pRVar1);
-        plVar8 = (long*)(&pRVar1->field_80)->HeapBeginPtr();
-        plVar9 = (long*)(&pRVar1->field_80)->end();
-        if (plVar8 != plVar9) {
-            uVar13 = 0;
+        RenderTargets* renderTargets = field_0;
+        renderContext.SetRenderTargets(renderTargets);
+        uint8_t* this_00 = &renderTargets->field_80;
+        auto plVar7 = this_00->HeapBeginPtr();
+        auto plVar8 = this_00->end();
+        if (plVar7 != plVar8) {
+            this_01 = nullptr;
             do {
-                pRVar11 = (RenderResource*)(*plVar8 + 8);
-                if (*plVar8 == 0) {
-                    pRVar11 = (RenderResource*)0;
+                renderResource = (RenderResource*)(*plVar7 + 8);
+                if (*plVar7 == 0) {
+                    renderResource = nullptr;
                 }
-                cVar4 = param_1->IsObjectAlive(pRVar11);
-                if (cVar4 != '\0') {
-                    iVar5 = (*plVar8)->GetMaxLineWidth();
-                    pcVar3 = ___glewFramebufferTexture3D;
-                    pcVar2 = ___glewFramebufferTexture2D;
-                    if (iVar5 < 35866) {
-                        if (iVar5 == 3553) {
+                cVar3 = renderContext.IsObjectAlive(renderResource);
+                if (cVar3) {
+                    iVar4 = (*plVar7)->GetMaxLineWidth();
+                    pcVar2 = ___glewFramebufferTexture3D;
+                    pcVar1 = ___glewFramebufferTexture2D;
+                    if (iVar4 < 35866) {
+                        if (iVar4 == 3553) {
                         LAB_100bfe041:
-                            puVar10 = (undefined4*)std::array<unsigned int, 2ul>::operator[](uVar13);
-                            uVar7 = *puVar10;
-                            uVar6 = (*plVar8)->GetMaxLineWidth();
-                            (*pcVar2)(36160, uVar7, uVar6);
-                            pcVar12 = "glFramebufferTexture2D";
-                            iVar5 = 731;
-                        } else if (iVar5 == 32879) {
-                            puVar10 = (undefined4*)std::array<unsigned int, 2ul>::operator[](uVar13);
-                            uVar7 = *puVar10;
-                            uVar6 = (*plVar8)->GetMaxLineWidth();
-                            (*pcVar3)(36160, uVar7, uVar6);
-                            pcVar12 = "glFramebufferTexture3D";
-                            iVar5 = 767;
+                            puVar9 = (uint32_t*)(*this_01)[(unsigned long)renderResource];
+                            uVar6 = *puVar9;
+                            uVar5 = (*plVar7)->GetMaxLineWidth();
+                            (*pcVar1)(36160, uVar6, uVar5);
+                            str1 = "glFramebufferTexture2D";
+                            iVar4 = 731;
+                        } else if (iVar4 == 32879) {
+                            puVar9 = (uint32_t*)(*this_01)[(unsigned long)renderResource];
+                            uVar6 = *puVar9;
+                            uVar5 = (*plVar7)->GetMaxLineWidth();
+                            (*pcVar2)(36160, uVar6, uVar5);
+                            str1 = "glFramebufferTexture3D";
+                            iVar4 = 767;
                         } else {
-                            if (iVar5 != 34067)
+                            if (iVar4 != 34067)
                                 goto LAB_100bfdf86;
-                            puVar10 = (undefined4*)std::array<unsigned int, 2ul>::operator[](uVar13);
-                            (*pcVar2)(36160, *puVar10, 34069);
-                            pcVar12 = "glFramebufferTexture2D";
-                            iVar5 = 755;
+                            puVar9 = (uint32_t*)(*this_01)[(unsigned long)renderResource];
+                            (*pcVar1)(36160, *puVar9, 34069);
+                            str1 = "glFramebufferTexture2D";
+                            iVar4 = 755;
                         }
                     } else {
-                        if ((iVar5 != 35866) && (iVar5 != 37122)) {
-                            if (iVar5 == 37120)
+                        if ((iVar4 != 35866) && (iVar4 != 37122)) {
+                            if (iVar4 == 37120)
                                 goto LAB_100bfe041;
                             goto LAB_100bfdf86;
                         }
-                        puVar10 = (undefined4*)std::array<unsigned int, 2ul>::operator[](uVar13);
-                        uVar7 = *puVar10;
-                        uVar6 = (*plVar8)->GetMaxLineWidth();
-                        (*pcVar3)(36160, uVar7, uVar6, 0, 0, 0);
-                        pcVar12 = "glFramebufferTexture3D";
-                        iVar5 = 744;
+                        puVar9 = (uint32_t*)(*this_01)[(unsigned long)renderResource];
+                        uVar6 = *puVar9;
+                        uVar5 = (*plVar7)->GetMaxLineWidth();
+                        (*pcVar2)(36160, uVar6, uVar5, 0, 0, 0);
+                        str1 = "glFramebufferTexture3D";
+                        iVar4 = 744;
                     }
-                    CheckGlErrorInternal(pcVar12,
+                    CheckGlErrorInternal(str1,
                                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                          "render/rendertargets/OGL/RenderTargets_OGL.cpp",
-                                         iVar5);
+                                         iVar4);
                 }
             LAB_100bfdf86:
-                uVar13 = uVar13 + 1;
-                plVar8 = plVar8 + 1;
-            } while (plVar8 != plVar9);
+                this_01 = this_01 + 1;
+                plVar7 = plVar7 + 1;
+            } while (plVar7 != plVar8);
         }
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        (&pRVar1->field_136)->clear();
-        if (pRVar1->field_200 != (Texture*)0) {
-            cVar4 = param_1->IsObjectAlive((RenderResource*)&pRVar1->field_200->field_8);
-            pcVar2 = ___glewFramebufferTexture2D;
-            if (cVar4 != '\0') {
-                uVar7 = pRVar1->field_200->GetMaxLineWidth();
-                (*pcVar2)(36160, 36096, uVar7, 0, 0);
+        this_00->clear();
+        renderTargets->field_136.clear();
+        if (renderTargets->field_200 != nullptr) {
+            cVar3 = renderContext.IsObjectAlive(&renderTargets->field_200->field_8);
+            pcVar1 = ___glewFramebufferTexture2D;
+            if (cVar3) {
+                uVar6 = renderTargets->field_200->GetMaxLineWidth();
+                (*pcVar1)(36160, 36096, uVar6, 0, 0);
                 CheckGlErrorInternal("glFramebufferTexture2D",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                      "rendertargets/OGL/RenderTargets_OGL.cpp",
                                      788);
-                pcVar2 = ___glewFramebufferTexture2D;
-                uVar7 = pRVar1->field_200->GetMaxLineWidth();
-                (*pcVar2)(36160, 36128, uVar7, 0, 0);
+                pcVar1 = ___glewFramebufferTexture2D;
+                uVar6 = renderTargets->field_200->GetMaxLineWidth();
+                (*pcVar1)(36160, 36128, uVar6, 0, 0);
                 CheckGlErrorInternal("glFramebufferTexture2D",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                      "rendertargets/OGL/RenderTargets_OGL.cpp",
                                      796);
-                pRVar1->field_200 = (Texture*)0;
-                (&pRVar1->field_208, (Texture*)0)->reset();
+                renderTargets->field_200 = nullptr;
+                renderTargets->field_208.reset(nullptr);
             }
         }
     }
 
-    // 0x100bfe260, 240 bytes, placed by __FILE__ string
-    // RenderTargets::UnbindDepthStencilTargetTexture()::$_14::operator()(RenderContext&) const
-    /* RenderTargets::UnbindDepthStencilTargetTexture()::$_14::TEMPNAMEPLACEHOLDERVALUE(RenderContext&)
-   const */
+    // 0x100bfe260
+    void RenderTargets::UnbindDepthStencilTargetTexture()::$_14::operator()(RenderContext& renderContext) const {
+        void* pcVar1;
+        bool cVar2;
+        uint32_t uVar3;
 
-    void RenderTargets::UnbindDepthStencilTargetTexture()::$_14::operator()(RenderContext* param_1) {
-        RenderTargets* pRVar1;
-        code* pcVar2;
-        char cVar3;
-        undefined4 uVar4;
-
-        pRVar1 = field_0;
-        param_1->SetRenderTargets(pRVar1);
-        if (pRVar1->field_200 != (Texture*)0) {
-            cVar3 = param_1->IsObjectAlive((RenderResource*)&pRVar1->field_200->field_8);
-            pcVar2 = ___glewFramebufferTexture2D;
-            if (cVar3 != '\0') {
-                uVar4 = pRVar1->field_200->GetMaxLineWidth();
-                (*pcVar2)(36160, 36096, uVar4, 0, 0);
+        RenderTargets* renderTargets = field_0;
+        renderContext.SetRenderTargets(renderTargets);
+        if (renderTargets->field_200 != nullptr) {
+            cVar2 = renderContext.IsObjectAlive(&renderTargets->field_200->field_8);
+            pcVar1 = ___glewFramebufferTexture2D;
+            if (cVar2) {
+                uVar3 = renderTargets->field_200->GetMaxLineWidth();
+                (*pcVar1)(36160, 36096, uVar3, 0, 0);
                 CheckGlErrorInternal("glFramebufferTexture2D",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                      "rendertargets/OGL/RenderTargets_OGL.cpp",
                                      824);
-                pcVar2 = ___glewFramebufferTexture2D;
-                uVar4 = pRVar1->field_200->GetMaxLineWidth();
-                (*pcVar2)(36160, 36128, uVar4, 0, 0);
+                pcVar1 = ___glewFramebufferTexture2D;
+                uVar3 = renderTargets->field_200->GetMaxLineWidth();
+                (*pcVar1)(36160, 36128, uVar3, 0, 0);
                 CheckGlErrorInternal("glFramebufferTexture2D",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                      "rendertargets/OGL/RenderTargets_OGL.cpp",
                                      832);
-                pRVar1->field_200 = (Texture*)0;
-                (&pRVar1->field_208, (Texture*)0)->reset();
+                renderTargets->field_200 = nullptr;
+                renderTargets->field_208.reset(nullptr);
             }
         }
     }
 
-    // 0x100bfe3e0, 560 bytes, placed by __FILE__ string
-    // RenderTargets::Invalidate() const::$_15::operator()(RenderContext&) const
-    /* RenderTargets::Invalidate()
-   const::$_15::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    _func_Invalidate* const ::$_15::operator()(RenderContext * param_1) {
-        RenderTargets* this_00;
+    // 0x100bfe3e0
+    void RenderTargets::Invalidate() const ::$_15::operator()(RenderContext& renderContext) const {
         Texture* this_01;
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        undefined4 extraout_var_00;
-        _func_Invalidate* p_Var4;
-        ImmediateRenderContext* this_02;
+        bool cVar1;
         RenderContextStateCache* this_03;
-        MapArea* pMVar5;
-        undefined8* puVar6;
-        undefined8* puVar7;
-        undefined7 extraout_var;
-        Singleton<RenderDevice>* this_04;
-        undefined4 local_34;
-        undefined4 local_30;
-        undefined4 local_2c;
+        MapArea* pMVar3;
+        long lVar4;
+        uint64_t* puVar5;
+        uint64_t* puVar6;
+        uint32_t local_34;
+        uint32_t local_30;
+        uint32_t local_2c;
 
-        this_00 = *(RenderTargets**)this;
-        this_04 = (Singleton<RenderDevice>*)&this_00->field_380;
-        uVar3 = this_04->operator_cast_to_unsigned_int();
-        p_Var4 = (_func_Invalidate*)CONCAT44(extraout_var_00, uVar3);
-        if ((uVar3 != 0) && (p_Var4 = (_func_Invalidate*)this_00->CheckTexturesAlive(param_1), (char)p_Var4 != '\0')) {
-            this_02 = (ImmediateRenderContext*)param_1->GetImmediateContext();
-            this_03 = (RenderContextStateCache*)this_02->GetStateCache();
-            uVar3 = this_04->operator_cast_to_unsigned_int();
-            if (uVar3 == this_03->field_8) {
+        RenderTargets* this_00 = *(RenderTargets**)this;
+        Singleton<RenderDevice>* this_04 = (Singleton<RenderDevice>*)&this_00->field_380;
+        int iVar2 = this_04->operator_cast_to_unsigned_int();
+        if ((iVar2 != 0) && (cVar1 = this_00->CheckTexturesAlive(renderContext), cVar1)) {
+            this_03 = renderContext.GetImmediateContext()->GetStateCache();
+            iVar2 = this_04->operator_cast_to_unsigned_int();
+            if (iVar2 == this_03->field_8) {
                 this_03->ValidateBoundFBO();
-                pMVar5 = (MapArea*)this_03->Instance();
-                p_Var4 = (_func_Invalidate*)pMVar5->GetOrigin();
-                if (p_Var4[329] != (_func_Invalidate)0) {
+                pMVar3 = (MapArea*)this_03->Instance();
+                lVar4 = pMVar3->GetOrigin();
+                if (*(char*)(lVar4 + 329) != '\0') {
                     cVar1 = this_00->HasColourTargets();
-                    if (cVar1 != '\0') {
+                    if (cVar1) {
                         local_34 = 36064;
                         (*___glewInvalidateFramebuffer)(36160, 1, &local_34);
                         CheckGlErrorInternal("glInvalidateFramebuffer",
@@ -2175,7 +1620,7 @@ namespace jag::render {
                                              888);
                     }
                     cVar1 = this_00->HasDepthTarget();
-                    if (cVar1 != '\0') {
+                    if (cVar1) {
                         local_30 = 36096;
                         (*___glewInvalidateFramebuffer)(36160, 1, &local_30);
                         CheckGlErrorInternal("glInvalidateFramebuffer",
@@ -2183,52 +1628,40 @@ namespace jag::render {
                                              "hal/render/rendertargets/OGL/RenderTargets_OGL.cpp",
                                              893);
                     }
-                    p_Var4 = (_func_Invalidate*)this_00->HasStencilTarget();
-                    if ((char)p_Var4 != '\0') {
+                    cVar1 = this_00->HasStencilTarget();
+                    if (cVar1) {
                         local_2c = 36128;
                         (*___glewInvalidateFramebuffer)(36160, 1, &local_2c);
-                        p_Var4 = (_func_Invalidate*)CheckGlErrorInternal(
-                            "glInvalidateFramebuffer",
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                            "rendertargets/OGL/RenderTargets_OGL.cpp",
-                            898);
+                        CheckGlErrorInternal("glInvalidateFramebuffer",
+                                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
+                                             "hal/render/rendertargets/OGL/RenderTargets_OGL.cpp",
+                                             898);
                     }
                 }
             } else {
-                pMVar5 = (MapArea*)this_04->Instance();
-                p_Var4 = (_func_Invalidate*)pMVar5->GetOrigin();
-                if (p_Var4[328] != (_func_Invalidate)0) {
+                pMVar3 = (MapArea*)this_04->Instance();
+                lVar4 = pMVar3->GetOrigin();
+                if (*(char*)(lVar4 + 328) != '\0') {
                     cVar1 = this_00->HasColourTargets();
-                    if (cVar1 != '\0') {
-                        puVar6 = (undefined8*)(&this_00->field_80)->HeapBeginPtr();
-                        puVar7 = (undefined8*)(&this_00->field_80)->end();
-                        for (; puVar6 != puVar7; puVar6 = puVar6 + 1) {
-                            this_01 = (Texture*)*puVar6;
-                            if ((this_01 != (Texture*)0) && (cVar1 = this_01->IsCreated(), cVar1 != '\0')) {
+                    if (cVar1) {
+                        puVar5 = (uint64_t*)this_00->field_80.HeapBeginPtr();
+                        puVar6 = (uint64_t*)this_00->field_80.end();
+                        for (; puVar5 != puVar6; puVar5 = puVar5 + 1) {
+                            this_01 = (Texture*)*puVar5;
+                            if ((this_01 != nullptr) && (cVar1 = this_01->IsCreated(), cVar1)) {
                                 this_01->Invalidate();
                             }
                         }
                     }
-                    p_Var4 = (_func_Invalidate*)this_00->HasDepthTarget();
-                    if ((char)p_Var4 != '\0') {
-                        bVar2 = (&this_00->field_208)->operator_cast_to_bool();
-                        p_Var4 = (_func_Invalidate*)CONCAT71(extraout_var, bVar2);
-                        if (((bVar2) && (this_00->field_200 != (Texture*)0)) &&
-                            (p_Var4 = (_func_Invalidate*)this_00->field_200->IsCreated(), (char)p_Var4 != '\0')) {
-                            p_Var4 = (_func_Invalidate*)this_00->field_200->Invalidate();
-                        }
+                    cVar1 = this_00->HasDepthTarget();
+                    if ((((cVar1) && (cVar1 = (&this_00->field_208)->operator_cast_to_bool(), cVar1)) &&
+                         (this_00->field_200 != nullptr)) &&
+                        (cVar1 = this_00->field_200->IsCreated(), cVar1)) {
+                        this_00->field_200->Invalidate();
                     }
                 }
             }
         }
-        return p_Var4;
-    }
-
-    // 0x100c0c310, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init
-    void ___cxx_global_var_init(undefined8 param_1, _func_decltype_nullptr* param_2) {
-        new (&RenderTargets::NullRenderTargets) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_2);
-        ___cxa_atexit(PTR__shared_ptr_100ee5318, &RenderTargets::NullRenderTargets, 4294967296);
     }
 
 } // namespace jag::render

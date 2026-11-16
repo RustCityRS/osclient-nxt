@@ -1,6 +1,5 @@
 // libs/graphics/primitive/debugbasic/DebugConeRender.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics.primitive.debugbasic
@@ -8,311 +7,259 @@
 namespace jag {
     class DebugConeRender {
     public:
-        DebugConeRender(int);
-        byte CreateRenderingResources();
+        DebugConeRender(int arg1);
+        uint8_t CreateRenderingResources();
         void DestroyRenderingResources();
-        void Render(render::RenderContext&, render::DrawCallState const&, ViewTransforms const&,
-                    eastl::vector<eastl::pair<DebugCone<DebugDataBasic> const*, float>, eastl::allocator> const&, bool);
+        void Render(render::RenderContext& renderContext, const render::DrawCallState& drawCallState,
+                    const ViewTransforms& viewTransforms,
+                    eastl::vector<eastl::pair<DebugCone<DebugDataBasic> const*, float>> const& pairs, bool arg5);
         void OnEndFrame();
         ~DebugConeRender();
 
-        // data members, from how the methods use this: 704 bytes
-        char _unknown_0[8];
-        ulong field_8;            // offset 8
-        PrimVertPosCol* field_16; // offset 16
-        char _unknown_24[288];
-        InputAssemblerState field_312; // offset 312
-        InputAssemblerState field_504; // offset 504
-        uint field_696;                // offset 696
-        char _unknown_700[4];
+    private:
+        uint8_t _unknown_0[8];
+        unsigned long field_8;
+        PrimVertPosCol* field_16;
+        uint8_t _unknown_24[288];
+        InputAssemblerState field_312;
+        InputAssemblerState field_504;
+        unsigned int field_696;
+        uint8_t _unknown_700[4];
     };
 
-    // 0x1009c09b0, 336 bytes, base-object constructor, placed by class name
-    // DebugConeRender::DebugConeRender(int)
-    void DebugConeRender::DebugConeRender(int param_1) {
-        Vector3T* pVVar1;
-        uint uVar2;
-
-        new (this) Array<PrimVertPosCol, eastl::allocator>();
-        new (&field_24) Array<PrimVertPosCol, eastl::allocator>();
-        new (&field_48) render::DynamicBuffer<render::VertexBuffer>();
-        new (&field_136) render::IndexBuffer();
-        new (&field_224) render::IndexBuffer();
+    // 0x1009c09b0
+    DebugConeRender::DebugConeRender(int arg1) : Array<PrimVertPosCol>() {
         new (field_312) render::InputAssemblerState();
         new (field_504) render::InputAssemblerState();
         field_696 = 32;
-        uVar2 = graphicutils::GetConeVertexCount(32);
-        set_max_size((ulong)uVar2, 0);
-        pVVar1 = (Vector3T*)Array<PrimVertPosCol, eastl::allocator>::operator[](
-            (Array<PrimVertPosCol, eastl::allocator>*)this, 0);
-        graphicutils::CreateConeVertices(pVVar1, (Vector3T*)0, 28, field_696);
-        (&field_24, (ulong)(uVar2 * param_1), 0)->set_max_size();
-        CreateRenderingResources(this);
+        unsigned int uVar1 = graphicutils::GetConeVertexCount(32);
+        set_max_size((unsigned long)uVar1, 0);
+        graphicutils::CreateConeVertices((Vector3T<float>*)(*this)[0], nullptr, 28, field_696);
+        field_24.set_max_size((unsigned long)(uVar1 * arg1), 0);
+        CreateRenderingResources();
     }
 
-    // 0x1009c0b00, 544 bytes, placed by class name
-    // DebugConeRender::CreateRenderingResources()
-    byte DebugConeRender::CreateRenderingResources() {
-        undefined1* puVar1;
-        undefined1* this_00;
-        DebugConeRender* pDVar2;
-        byte bVar3;
-        uint uVar4;
-        int iVar5;
-        ulong uVar6;
-        uint* puVar7;
-        undefined8 uVar8;
-        ulong uVar9;
-        undefined1* puVar10;
-        int iVar11;
-        ulong uVar12;
-        Array<unsigned int, eastl::allocator> local_60[28];
-        int local_44;
-        DebugConeRender* local_40;
-        uint local_38;
-        byte local_31;
+    // 0x1009c0b00
+    uint8_t DebugConeRender::CreateRenderingResources() {
+        unsigned int* puVar6;
+        unsigned long uVar11;
 
-        uVar4 = graphicutils::GetConeVertexCount(field_696);
-        uVar6 = (&field_24)->end();
-        uVar9 = 0;
-        uVar6 = uVar6 / uVar4;
-        local_40 = this;
-        local_38 = uVar4;
-        iVar5 = graphicutils::GetConeTriListIndexCount(field_696);
-        iVar11 = (int)uVar6;
-        Array<unsigned int, eastl::allocator>::Array(local_60, (ulong)(uint)(iVar5 * iVar11));
-        if (0 < iVar11) {
-            uVar4 = 0;
-            uVar12 = 0;
+        unsigned int uVar3 = graphicutils::GetConeVertexCount(field_696);
+        unsigned long uVar5 = field_24.end();
+        unsigned long uVar8 = 0;
+        uVar5 = uVar5 / uVar3;
+        DebugConeRender* local_40 = this;
+        unsigned int local_38 = uVar3;
+        int iVar4 = graphicutils::GetConeTriListIndexCount(field_696);
+        int iVar10 = (int)uVar5;
+        Array<unsigned int> local_60((unsigned long)(unsigned int)(iVar4 * iVar10));
+        if (0 < iVar10) {
+            uVar3 = 0;
+            uVar11 = 0;
             do {
-                puVar7 = (uint*)Array<unsigned int, eastl::allocator>::operator[](local_60, uVar9);
-                graphicutils::CreateConeTriListIndices<unsigned int>(puVar7, uVar4, local_40->field_696, false);
-                uVar12 = uVar12 + 1;
-                uVar4 = uVar4 + local_38;
-                uVar9 = (ulong)(uint)((int)uVar9 + iVar5);
-            } while (uVar12 != (uVar6 & 4294967295));
+                puVar6 = &local_60[uVar8];
+                graphicutils::CreateConeTriListIndices<unsigned int>(puVar6, uVar3, local_40->field_696, false);
+                uVar11 = uVar11 + 1;
+                uVar3 = uVar3 + local_38;
+                uVar8 = (unsigned long)(unsigned int)((int)uVar8 + iVar4);
+            } while (uVar11 != (uVar5 & 4294967295));
         }
-        pDVar2 = local_40;
-        puVar10 = &local_40->field_136;
-        local_44 = iVar11 * 4;
-        iVar5 = iVar5 * local_44;
-        uVar8 = local_60->data();
-        local_31 = puVar10->Create(iVar5, 0, uVar8, 5125);
-        local_60->~Array();
-        iVar5 = graphicutils::GetConeLineListIndexCount(pDVar2->field_696);
-        Array<unsigned int, eastl::allocator>::Array(local_60, (ulong)(uint)(iVar5 * iVar11));
-        if (0 < iVar11) {
-            uVar12 = 0;
-            uVar4 = 0;
-            uVar9 = 0;
+        DebugConeRender* pDVar1 = local_40;
+        uint8_t* puVar9 = &local_40->field_136;
+        int local_44 = iVar10 * 4;
+        uVar3 = iVar4 * local_44;
+        auto pvVar7 = local_60.data();
+        uint8_t local_31 = puVar9->Create(uVar3, 0, pvVar7, 5125);
+        iVar4 = graphicutils::GetConeLineListIndexCount(pDVar1->field_696);
+        local_60 = Array<unsigned int>((unsigned long)(unsigned int)(iVar4 * iVar10));
+        if (0 < iVar10) {
+            uVar11 = 0;
+            uVar3 = 0;
+            uVar8 = 0;
             do {
-                puVar7 = (uint*)Array<unsigned int, eastl::allocator>::operator[](local_60, uVar12);
-                graphicutils::CreateConeLineListIndices<unsigned int>(puVar7, uVar4, local_40->field_696);
-                uVar9 = uVar9 + 1;
-                uVar4 = uVar4 + local_38;
-                uVar12 = (ulong)(uint)((int)uVar12 + iVar5);
-            } while (uVar9 != (uVar6 & 4294967295));
+                puVar6 = &local_60[uVar11];
+                graphicutils::CreateConeLineListIndices<unsigned int>(puVar6, uVar3, local_40->field_696);
+                uVar8 = uVar8 + 1;
+                uVar3 = uVar3 + local_38;
+                uVar11 = (unsigned long)(unsigned int)((int)uVar11 + iVar4);
+            } while (uVar8 != (uVar5 & 4294967295));
         }
-        pDVar2 = local_40;
-        puVar1 = &local_40->field_224;
-        iVar5 = local_44 * iVar5;
-        uVar8 = local_60->data();
-        bVar3 = puVar1->Create(iVar5, 0, uVar8, 5125);
-        bVar3 = local_31 & bVar3;
-        local_60->~Array();
-        this_00 = pDVar2->field_312;
-        new (this_00) std::__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>(4);
-        render::InputAssemblerState::SetIndexBuffer((IndexBuffer*)this_00, (uint)puVar10);
-        this_00->SetFlags(1);
-        puVar10 = pDVar2->field_504;
-        new (puVar10) std::__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>(1);
-        render::InputAssemblerState::SetIndexBuffer((IndexBuffer*)puVar10, (uint)puVar1);
-        puVar10->SetFlags(1);
-        return bVar3;
+        pDVar1 = local_40;
+        uint8_t* this_00 = &local_40->field_224;
+        uVar3 = local_44 * iVar4;
+        pvVar7 = (void*)local_60.data();
+        uint8_t bVar2 = this_00->Create(uVar3, 0, pvVar7, 5125);
+        bVar2 = local_31 & bVar2;
+        uint8_t* this_01 = pDVar1->field_312;
+        new (this_01) std::__cxx_atomic_base_impl(4);
+        render::InputAssemblerState::SetIndexBuffer(this_01, (unsigned int)puVar9);
+        this_01->SetFlags(1);
+        puVar9 = pDVar1->field_504;
+        new (puVar9) std::__cxx_atomic_base_impl(1);
+        render::InputAssemblerState::SetIndexBuffer(puVar9, (unsigned int)this_00);
+        puVar9->SetFlags(1);
+        return bVar2;
     }
 
-    // 0x1009c0d20, 16 bytes, complete-object constructor, placed by class name
-    // DebugConeRender::DebugConeRender(int): jumps straight to the base-object constructor
-
-    // 0x1009c0f70, 80 bytes, placed by class name
-    // DebugConeRender::DestroyRenderingResources()
+    // 0x1009c0f70
     void DebugConeRender::DestroyRenderingResources() {
         field_504->Destroy();
         field_312->Destroy();
-        (&field_224)->Destroy();
-        (&field_136)->Destroy();
-        (&field_48)->Destroy();
+        field_224.Destroy();
+        field_136.Destroy();
+        field_48.Destroy();
     }
 
-    // 0x1009c0fc0, 976 bytes, placed by class name
-    // DebugConeRender::Render(render::RenderContext&, render::DrawCallState const&, ViewTransforms const&, eastl::vector<eastl::pair<DebugCone<DebugDataBasic> const*, float>, eastl::allocator> const&, bool)
-    void DebugConeRender::Render(RenderContext* param_1, DrawCallState* param_2, ViewTransforms* param_3,
-                                 vector* param_4, bool param_5) {
-        undefined1* this_00;
-        undefined8* puVar1;
-        Array<PrimVertPosCol, eastl::allocator>* this_01;
-        char cVar2;
-        uint uVar3;
+    // 0x1009c0fc0
+    void DebugConeRender::Render(render::RenderContext& renderContext, const render::DrawCallState& drawCallState,
+                                 const ViewTransforms& viewTransforms,
+                                 eastl::vector<eastl::pair<DebugCone<DebugDataBasic> const*, float>> const& pairs,
+                                 bool arg5) {
+        uint8_t* this_00;
+        uint64_t* puVar1;
+        Array<PrimVertPosCol>* this_01;
+        unsigned int uVar3;
         int iVar4;
-        undefined4 uVar5;
-        long* plVar6;
-        Vector3T* pVVar7;
-        Vector4T<float>* this_02;
-        long lVar8;
-        void* pvVar9;
-        PrimitiveShaderFamily* pPVar10;
-        ShaderProgram* this_03;
-        RenderPipelineState* this_04;
-        Matrix44T* pMVar11;
-        VertexDeclaration* pVVar12;
-        VertexBuffer* pVVar13;
-        CoordMapSquare* this_05;
-        DrawCallState* this_06;
-        undefined3 in_register_00000089;
-        int iVar14;
-        ulong uVar15;
-        ulong uVar16;
-        undefined8 uVar17;
-        undefined4 uVar18;
-        undefined8 local_f8;
-        undefined4 uStack_f0;
-        undefined4 uStack_ec;
-        undefined1 local_e8[56];
-        undefined8 uStack_b0;
-        ulong local_a0;
+        PrimitiveType primitiveType;
+        long* plVar5;
+        Vector3T<float>* vector3;
+        long lVar6;
+        void* arg3;
+        ShaderProgram* this_04;
+        Matrix44T<float>* matrix44;
+        VertexDeclaration* pVVar7;
+        VertexBuffer* pVVar8;
+        uint32_t in_register_00000089;
+        int iVar9;
+        unsigned long uVar10;
+        unsigned long arg1;
+        uint32_t uVar11;
+        uint32_t uVar12;
+        Rect<float> local_f8;
+        uint32_t uStack_f0;
+        uint32_t uStack_ec;
+        DrawCallState local_e8;
+        uint64_t local_b8;
+        uint64_t uStack_b0;
+        unsigned long local_a0;
         long* local_90;
         long* local_88;
-        ulong local_80;
+        unsigned long local_80;
         long local_60;
-        Array<PrimVertPosCol, eastl::allocator>* local_58;
-        uint local_4c;
+        Array<PrimVertPosCol>* local_58;
+        unsigned int local_4c;
         int local_48;
-        undefined4 local_44;
+        uint32_t local_44;
         HashedString local_40;
 
-        cVar2 = param_4->empty();
-        if (cVar2 == '\0') {
-            local_44 = CONCAT31(in_register_00000089, param_5);
+        if (pairs.empty() == '\0') {
+            local_44 = (((uint32_t)in_register_00000089 << 8) | (uint8_t)arg5);
             uVar3 = graphicutils::GetConeVertexCount(field_696);
-            uVar15 = (ulong)uVar3;
-            plVar6 = (long*)param_4->HeapBeginPtr();
-            local_88 = (long*)param_4->end();
-            local_58 = (Array<PrimVertPosCol, eastl::allocator>*)&field_24;
-            if (plVar6 == local_88) {
-                iVar14 = 0;
+            uVar10 = (unsigned long)uVar3;
+            plVar5 = (long*)pairs.HeapBeginPtr();
+            local_88 = (long*)pairs.end();
+            local_58 = (Array<PrimVertPosCol>*)&field_24;
+            if (plVar5 == local_88) {
+                iVar9 = 0;
             } else {
-                lVar8 = 0;
-                iVar14 = 0;
-                local_a0 = uVar15;
-                local_80 = uVar15;
+                lVar6 = 0;
+                iVar9 = 0;
+                local_a0 = uVar10;
+                local_80 = uVar10;
                 do {
                     this_01 = local_58;
-                    local_4c = *(uint*)(*plVar6 + 64);
-                    puVar1 = (undefined8*)*plVar6;
-                    local_e8._0_8_ = *puVar1;
-                    local_e8._8_8_ = puVar1[1];
-                    uVar18 = *(undefined4*)(puVar1 + 2);
-                    uVar5 = *(undefined4*)((long)puVar1 + 20);
-                    local_e8._24_4_ = *(undefined4*)(puVar1 + 3);
-                    local_e8._28_4_ = *(undefined4*)((long)puVar1 + 28);
-                    local_e8._32_8_ = puVar1[4];
-                    local_e8._40_8_ = puVar1[5];
-                    local_e8._48_8_ = puVar1[6];
+                    local_4c = *(unsigned int*)(*plVar5 + 64);
+                    puVar1 = (uint64_t*)*plVar5;
+                    local_e8.m_pInputAssemblerState = (InputAssemblerState*)*puVar1;
+                    local_e8.m_pRenderPipelineState = &puVar1[1];
+                    uVar11 = *(uint32_t*)(puVar1 + 2);
+                    uVar12 = *(uint32_t*)((long)puVar1 + 20);
+                    local_e8.field_24._0_4_ = *(uint32_t*)(puVar1 + 3);
+                    local_e8.field_24._4_4_ = *(uint32_t*)((long)puVar1 + 28);
+                    local_e8.field_24._8_8_ = puVar1[4];
+                    local_e8.field_24._16_8_ = puVar1[5];
+                    local_b8 = puVar1[6];
                     uStack_b0 = puVar1[7];
-                    local_e8._16_4_ = uVar18;
-                    local_e8._20_4_ = uVar5;
-                    local_90 = plVar6;
-                    local_60 = lVar8;
-                    local_48 = iVar14;
+                    local_e8.m_pOutputMergerState._0_4_ = uVar11;
+                    local_e8.m_pOutputMergerState._4_4_ = uVar12;
+                    local_90 = plVar5;
+                    local_60 = lVar6;
+                    local_48 = iVar9;
                     if (0 < (int)local_80) {
-                        uVar16 = 0;
+                        arg1 = 0;
                         do {
-                            pVVar7 = (Vector3T*)Array<PrimVertPosCol, eastl::allocator>::operator[](
-                                (Array<PrimVertPosCol, eastl::allocator>*)this, uVar16);
-                            local_40.field_0 = (char*)math::operator*(pVVar7, (Matrix44T*)local_e8);
-                            uVar15 = (ulong)((int)local_60 + (int)uVar16);
-                            local_40.field_8._0_4_ = uVar18;
-                            this_02 =
-                                (Vector4T<float>*)Array<PrimVertPosCol, eastl::allocator>::operator[](this_01, uVar15);
-                            math::Vector4T<float>::SetXYZ(this_02, (Vector3T*)&local_40);
-                            uVar17 = math::Colour4FromA8R8G8B8(local_4c);
-                            uStack_f0 = uVar18;
-                            uStack_ec = uVar5;
-                            local_f8 = uVar17;
-                            new (&local_40) math::Float4((Vector4T*)&local_f8);
-                            this = (DebugConeRender*)this;
-                            lVar8 = Array<PrimVertPosCol, eastl::allocator>::operator[](this_01, uVar15);
-                            *(char**)(lVar8 + 12) = local_40.field_0;
-                            *(ulong*)(lVar8 + 20) = CONCAT44(local_40.field_8._4_4_, (undefined4)local_40.field_8);
-                            uVar16 = uVar16 + 1;
-                            uVar15 = local_a0;
-                        } while (local_a0 != uVar16);
+                            vector3 = (Vector3T<float>*)(*this)[arg1];
+                            local_40.field_0 = (char*)*vector3 * local_e8;
+                            uVar10 = (unsigned long)((int)local_60 + (int)arg1);
+                            local_40.field_8._0_4_ = uVar11;
+                            ((Vector4T<float>*)(*this_01)[uVar10])->SetXYZ(local_40);
+                            math::Colour4FromA8R8G8B8(local_4c);
+                            uStack_f0 = uVar11;
+                            uStack_ec = uVar12;
+                            local_40 = math::Float4(local_f8);
+                            this = this;
+                            lVar6 = (*this_01)[uVar10];
+                            *(char**)(lVar6 + 12) = local_40.field_0;
+                            *(unsigned long*)(lVar6 + 20) =
+                                (((uint64_t)local_40.field_8._4_4_ << 32) | (uint32_t)((uint32_t)local_40.field_8));
+                            arg1 = arg1 + 1;
+                            uVar10 = local_a0;
+                        } while (local_a0 != arg1);
                     }
-                    iVar14 = local_48 + 1;
-                    plVar6 = local_90 + 2;
-                    lVar8 = local_60 + uVar15;
-                    uVar3 = (uint)local_80;
-                } while (plVar6 != local_88);
+                    iVar9 = local_48 + 1;
+                    plVar5 = local_90 + 2;
+                    lVar6 = local_60 + uVar10;
+                    uVar3 = (unsigned int)local_80;
+                } while (plVar5 != local_88);
             }
             this_00 = &field_48;
-            pvVar9 = (void*)local_58->data();
-            this_00->Update(0, uVar3 * iVar14 * 28, pvVar9);
-            this_06 = (DrawCallState*)local_e8;
-            render::DrawCallState::DrawCallState(this_06, param_2);
-            pPVar10 = (PrimitiveShaderFamily*)this_06->Instance();
-            this_03 = (ShaderProgram*)pPVar10->GetShaderProgram(1);
-            this_04 = (RenderPipelineState*)local_e8->GetRenderPipelineState();
-            this_04->SetShaderProgram(this_03);
-            new (&local_40) HashedString("uWorldMat");
-            this_03->SetShaderConstMatrix4(&local_40, 1, PTR_IDENTITY_100ee6730, 1);
-            new (&local_40) HashedString("uViewProjMat");
-            pMVar11 = (Matrix44T*)param_3->GetImmediateThreadPool();
-            this_03->SetShaderConstMatrix4(&local_40, 1, pMVar11, 1);
+            arg3 = (void*)local_58->data();
+            this_00->Update(0, uVar3 * iVar9 * 28, arg3);
+            local_e8 = render::DrawCallState(drawCallState);
+            this_04 = ((PrimitiveShaderFamily*)local_e8.Instance())->GetShaderProgram(1);
+            ((RenderPipelineState*)local_e8.GetRenderPipelineState())->SetShaderProgram(this_04);
+            local_40 = HashedString("uWorldMat");
+            this_04->SetShaderConstMatrix4(&local_40, 1, PTR_IDENTITY_100ee6730, 1);
+            local_40 = HashedString("uViewProjMat");
+            matrix44 = (Matrix44T<float>*)viewTransforms.GetImmediateThreadPool();
+            this_04->SetShaderConstMatrix4(&local_40, 1, matrix44, 1);
             if ((char)local_44 == '\0') {
-                pVVar12 = (VertexDeclaration*)this_03->second();
-                pVVar13 = (VertexBuffer*)this_00->CurrentBuffer();
-                (field_312, pVVar12, pVVar13)->SetVertexStreamData();
-                local_e8->SetInputAssemblerState(field_312);
+                pVVar7 = (VertexDeclaration*)this_04->second();
+                pVVar8 = (VertexBuffer*)this_00->CurrentBuffer();
+                field_312->SetVertexStreamData(pVVar7, pVVar8);
+                local_e8.SetInputAssemblerState(field_312);
                 iVar4 = graphicutils::GetConeTriListIndexCount(field_696);
             } else {
-                pVVar12 = (VertexDeclaration*)this_03->second();
-                pVVar13 = (VertexBuffer*)this_00->CurrentBuffer();
-                (field_504, pVVar12, pVVar13)->SetVertexStreamData();
-                local_e8->SetInputAssemblerState(field_504);
+                pVVar7 = (VertexDeclaration*)this_04->second();
+                pVVar8 = (VertexBuffer*)this_00->CurrentBuffer();
+                field_504->SetVertexStreamData(pVVar7, pVVar8);
+                local_e8.SetInputAssemblerState(field_504);
                 iVar4 = graphicutils::GetConeLineListIndexCount(field_696);
             }
-            lVar8 = local_e8->second();
-            *(int*)(lVar8 + 12) = iVar4 * iVar14;
-            this_05 = (CoordMapSquare*)local_e8->GetInputAssemblerState();
-            uVar5 = this_05->GetX();
-            lVar8 = local_e8->second();
-            uVar18 = *(undefined4*)(lVar8 + 12);
-            lVar8 = local_e8->second();
-            param_1->DrawIndexedPrimitives(local_e8, uVar5, uVar18, *(undefined4*)(lVar8 + 16));
-            local_e8->~DrawCallState();
+            lVar6 = local_e8.second();
+            *(int*)(lVar6 + 12) = iVar4 * iVar9;
+            primitiveType = ((CoordMapSquare*)local_e8.GetInputAssemblerState())->GetX();
+            lVar6 = local_e8.second();
+            uVar3 = *(unsigned int*)(lVar6 + 12);
+            lVar6 = local_e8.second();
+            renderContext.DrawIndexedPrimitives(&local_e8, primitiveType, uVar3, *(unsigned int*)(lVar6 + 16));
         }
     }
 
-    // 0x1009c1390, 16 bytes, placed by class name
-    // DebugConeRender::OnEndFrame()
+    // 0x1009c1390
     void DebugConeRender::OnEndFrame() {
-        (&field_48)->RotateBuffers();
+        field_48.RotateBuffers();
     }
 
-    // 0x1009c92d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // DebugConeRender::~DebugConeRender(): jumps straight to the base-object destructor
-
-    // 0x1009ccf70, 192 bytes, base-object destructor, inline, placed by class name
-    // DebugConeRender::~DebugConeRender()
-    void DebugConeRender::~DebugConeRender() {
-        DestroyRenderingResources(this);
+    // 0x1009ccf70
+    DebugConeRender::~DebugConeRender() {
+        DestroyRenderingResources();
         field_504->~InputAssemblerState();
         field_312->~InputAssemblerState();
-        (&field_224)->~IndexBuffer();
-        (&field_136)->~IndexBuffer();
-        (&field_48)->~DynamicBuffer();
-        (&field_24)->~Array();
-        ~Array();
+        field_224.~IndexBuffer();
+        field_136.~IndexBuffer();
+        field_48.~DynamicBuffer();
+        field_24.~Array();
     }
 
 } // namespace jag

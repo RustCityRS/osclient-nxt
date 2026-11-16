@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/sound/mixer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,130 +9,96 @@ namespace jag::oldscape::sound {
         class QueuedOp;
         // virtual methods in vtable order
         virtual ~Mixer();
-        virtual SubstreamStart();
-        virtual SubstreamNext();
-        virtual SelfMixCost();
-        virtual void DoMix(Array<int, eastl::allocator>&, int, int);
-        virtual void PretendToMix(int);
-        virtual void QueueStopStream(shared_ptr<PCMStream> const&);
-        virtual void QueuePlayStream(shared_ptr<PCMStream> const&);
+        virtual auto SubstreamStart();
+        virtual auto SubstreamNext();
+        virtual uint64_t SelfMixCost();
+        virtual void DoMix(Array<int>& arg1, int arg2, int arg3);
+        virtual void PretendToMix(int arg1);
+        virtual void QueueStopStream(const shared_ptr<PCMStream>& pcmStream);
+        virtual void QueuePlayStream(const shared_ptr<PCMStream>& pcmStream);
         int GetStreamCountLastMix() const;
         Mixer();
         void SyncWithMainThread();
-        void StopStream(shared_ptr<PCMStream> const&);
-        void PlayStream(shared_ptr<PCMStream> const&);
-        void PlaystreamDelayedMillis(shared_ptr<PCMStream>&, int);
-        void PlayWaveRatePercent(shared_ptr<Wave>&, int, int);
-        void PlayWaveRatePercent(shared_ptr<Wave>&, int, int, int);
-        void PlayWaveRatePercentFineVolPan(shared_ptr<Wave>&, int, int, int);
-        void PlayWaveRateRaw(shared_ptr<Wave>&, int, int);
-        void PlayWaveRateRaw(shared_ptr<Wave>&, int, int, int);
-        void PlayWaveRatePercentDelayedMillis(shared_ptr<Wave>&, int, int, int);
-        void PlayWaveRatePercentDelayedMillis(shared_ptr<Wave>&, int, int, int, int);
-        void PlayWaveRateRawDelayedMillis(shared_ptr<Wave>&, int, int, int);
-        void PlayWaveRateRawDelayedMillis(shared_ptr<Wave>&, int, int, int, int);
+        void StopStream(const shared_ptr<PCMStream>& pcmStream);
+        void PlayStream(const shared_ptr<PCMStream>& pcmStream);
+        void PlaystreamDelayedMillis(shared_ptr<PCMStream>& pcmStream, int arg2);
+        void PlayWaveRatePercent(shared_ptr<Wave>& wave, int arg2, int arg3);
+        void PlayWaveRatePercent(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
+        void PlayWaveRatePercentFineVolPan(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
+        void PlayWaveRateRaw(shared_ptr<Wave>& wave, int arg2, int arg3);
+        void PlayWaveRateRaw(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
+        void PlayWaveRatePercentDelayedMillis(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
+        void PlayWaveRatePercentDelayedMillis(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4, int arg5);
+        void PlayWaveRateRawDelayedMillis(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
+        void PlayWaveRateRawDelayedMillis(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4, int arg5);
         void FixMixerWait();
-        void AddController(shared_ptr<MixerController>&, ErrorCapture&);
-        void SortController(SharedPtrList<MixerController>::obj_iterator, MixerController&);
-        void RemoveController(shared_ptr<MixerController> const&, ErrorCapture&);
-        void UnlinkController(MixerController&);
-        void DoMixLoop(Array<int, eastl::allocator>&, int, int);
-        int Mix2(Array<int, eastl::allocator>&, int, int);
-        void PretendToMix2(int);
-        static /* 7 bytes */ m_repriAlreadyWarned;
+        void AddController(shared_ptr<MixerController>& mixerController, ErrorCapture& errorCapture);
+        void SortController(SharedPtrList<MixerController>::obj_iterator obj_iterator,
+                            MixerController& mixerController);
+        void RemoveController(const shared_ptr<MixerController>& mixerController, ErrorCapture& errorCapture);
+        void UnlinkController(MixerController& mixerController);
+        void DoMixLoop(Array<int>& arg1, int arg2, int arg3);
+        int Mix2(Array<int>& arg1, int arg2, int arg3);
+        void PretendToMix2(int arg1);
+        static bool m_repriAlreadyWarned;
 
-        // data members, from how the methods use this: 152 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[40];
-        undefined4 field_48; // offset 48
-        undefined1 field_52; // offset 52
-        char _unknown_53[19];
-        undefined** field_72;     // offset 72
-        long field_80;            // offset 80
-        int m_streamCountLastMix; // offset 88
-        char _unknown_92[44];
-        int field_136; // offset 136
-        int field_140; // offset 140
-        char _unknown_144[8];
+    private:
+        uint8_t _unknown_8[40];
+        uint32_t field_48;
+        uint8_t field_52;
+        uint8_t _unknown_53[19];
+        uint8_t** field_72;
+        long field_80;
+        int m_streamCountLastMix;
+        uint8_t _unknown_92[44];
+        int field_136;
+        int field_140;
+        uint8_t _unknown_144[8];
     };
 
     class Mixer::QueuedOp {
     public:
         ~QueuedOp();
-        QueuedOp(Type, shared_ptr<PCMStream> const&);
+        QueuedOp(Type arg1, const shared_ptr<PCMStream>& pcmStream);
 
-        // data members, from how the methods use this: 32 bytes
-        char _unknown_0[8];
-        undefined4 field_8; // offset 8
-        char _unknown_12[20];
+    private:
+        uint8_t _unknown_0[8];
+        Type field_8;
+        uint8_t _unknown_12[20];
     };
 
     class MixerMainThread {
     public:
         MixerMainThread();
-
-        // data members, from how the methods use this: 8 bytes
-        undefined* field_0; // offset 0, vtable pointer
     };
 
-    // 0x10013d610, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // Mixer::Mixer(): jumps straight to the base-object constructor
-
-    // 0x10013d620, 176 bytes, base-object constructor, inline, placed by class name and debug map
-    // Mixer::Mixer()
-    void Mixer::Mixer() {
-        new (this) PCMStream();
-        new (&field_72) MixerMainThread();
-        field_0 = &PTR__Mixer_100ef9d80;
+    // 0x10013d620
+    Mixer::Mixer() : PCMStream() {
         field_72 = &PTR_QueueStopStream_100ef9dd8;
         m_streamCountLastMix = 0;
         new (&field_96) SharedPtrList<PCMStream>();
-        new (&field_112) jag::math::Vector2T<int>();
+        new (&field_112) jag::math::Vector2T();
         new (&field_120) SharedPtrList<MixerController>();
         field_136 = 0;
         field_140 = -1;
         new (&field_144) jagex3::LockFreeStack<Mixer::QueuedOp>();
     }
 
-    // 0x10029d750, 16 bytes, complete-object constructor, inline, placed by class name
-    // Mixer::QueuedOp::QueuedOp(Mixer::QueuedOp::Type, shared_ptr<PCMStream> const&): jumps straight to the base-object constructor
+    // 0x1002a7e80
+    Mixer::QueuedOp::QueuedOp(Mixer::QueuedOp::Type arg1, const shared_ptr<PCMStream>& pcmStream)
+        : field_8(arg1), field_16(pcmStream) {}
 
-    // 0x1002a7610, 32 bytes, deleting destructor, inline, placed by class name
-    // Mixer::~Mixer()
-    void Mixer::~Mixer() {
-        ~Mixer(this);
-        operator_delete(this);
+    // 0x1002ab1c0
+    uint32_t Mixer::SortController(SharedPtrList<MixerController>::obj_iterator,
+                                   MixerController&)::$_0::operator()(const MixerController& mixerController) const {
+        return *(int*)(*(long*)this + 32) < *(int*)(mixerController + 32);
     }
 
-    // 0x1002a7e80, 32 bytes, base-object constructor, inline, placed by class name
-    // Mixer::QueuedOp::QueuedOp(Mixer::QueuedOp::Type, shared_ptr<PCMStream> const&)
-    void Mixer::QueuedOp::QueuedOp(undefined4 param_2, shared_ptr* param_3) {
-        field_8 = param_2;
-        new (&field_16, param_3) shared_ptr<dash3d::Decor>();
-    }
-
-    // 0x1002ab1c0, 32 bytes, inline, placed by class name
-    // Mixer::SortController(SharedPtrList<MixerController>::obj_iterator, MixerController&)::$_0::operator()(MixerController const&) const
-    /* Mixer::SortController(SharedPtrList<MixerController>::obj_iterator,
-   MixerController&)::$_0::TEMPNAMEPLACEHOLDERVALUE(MixerController
-   const&) const */
-
-    undefined4 Mixer::SortController(SharedPtrList<MixerController>::obj_iterator,
-                                     MixerController&)::$_0::operator()(MixerController* param_1) {
-        return CONCAT31((int3)((uint) * (int*)(param_1 + 32) >> 8), *(int*)(*(long*)this + 32) < *(int*)(param_1 + 32));
-    }
-
-    // 0x1002ce810, 16 bytes, complete-object destructor, inline, placed by class name
-    // Mixer::~Mixer(): jumps straight to the base-object destructor
-
-    // 0x1002db590, 64 bytes, base-object destructor, inline, placed by class name
-    // Mixer::~Mixer()
-    void Mixer::~Mixer() {
-        field_0 = &PTR__Mixer_100ef9d80;
+    // 0x1002db590
+    Mixer::~Mixer() {
         field_72 = &PTR_QueueStopStream_100ef9dd8;
-        (&field_120)->~SharedPtrList();
-        (&field_96)->~SharedPtrList();
-        ~PCMStream();
+        field_120.~SharedPtrList();
+        field_96.~SharedPtrList();
     }
 
 } // namespace jag::oldscape::sound

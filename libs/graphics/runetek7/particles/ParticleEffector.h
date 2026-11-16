@@ -1,88 +1,70 @@
 // libs/graphics/runetek7/particles/ParticleEffector.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class ParticleEffector {
     public:
-        GetEffectorSource() const;
-        GetEffectorTemplate() const;
-        GetPosition() const;
+        void GetEffectorSource() const;
+        uint64_t GetEffectorTemplate() const;
+        void GetPosition() const;
         ~ParticleEffector();
-        GetForceDirection() const;
-        ParticleEffector* operator=(ParticleEffector&&);
-        ParticleEffector(ParticleEffector&&);
-        ParticleEffector(shared_ptr<ModelParticleSource> const&, ParticleManager*, ParticleSystem*);
-        void Initialise(shared_ptr<ModelParticleSource> const&, ParticleManager*, ParticleSystem*);
-        MainLogic();
-        void UpdatePosition(math::Vector3T<float> const&, math::Matrix33T<float> const&);
+        uint8_t* GetForceDirection() const;
+        ParticleEffector* operator=(ParticleEffector&& particleEffector);
+        ParticleEffector(ParticleEffector&& particleEffector);
+        ParticleEffector(const shared_ptr<ModelParticleSource>& modelParticleSource, ParticleManager* particleManager,
+                         ParticleSystem* particleSystem);
+        void Initialise(const shared_ptr<ModelParticleSource>& modelParticleSource, ParticleManager* particleManager,
+                        ParticleSystem* particleSystem);
+        void MainLogic();
+        void UpdatePosition(const math::Vector3T<float>& vector3, const math::Matrix33T<float>& matrix33);
 
-        // data members, from how the methods use this: 76 bytes
-        char _unknown_0[16];
-        undefined8 m_effectorTemplate; // offset 16
-        ParticleManager* field_24;     // offset 24
-        ParticleSystem* field_32;      // offset 32
-        undefined8 field_40;           // offset 40
-        undefined8 field_48;           // offset 48
-        undefined8 field_56;           // offset 56
-        undefined4 field_64;           // offset 64
-        undefined4 field_68;           // offset 68
-        char _unknown_72[4];
+    private:
+        uint8_t _unknown_0[16];
+        uint64_t m_effectorTemplate;
+        ParticleManager* field_24;
+        ParticleSystem* field_32;
+        uint64_t field_40;
+        uint64_t field_48;
+        uint64_t field_56;
+        uint32_t field_64;
+        uint32_t field_68;
+        uint8_t _unknown_72[4];
     };
 
-    // 0x1007cd080, 16 bytes, inline, placed by class name and debug map
-    // ParticleEffector::GetForceDirection() const
-    undefined1* ParticleEffector::GetForceDirection() {
-        return (undefined1*)((long)&field_48 + 4);
+    // 0x1007cd080
+    uint8_t* ParticleEffector::GetForceDirection() const {
+        return (uint8_t*)((long)&field_48 + 4);
     }
 
-    // 0x1007f6910, 80 bytes, inline, placed by class name
-    // ParticleEffector::operator=(ParticleEffector&&)
-    /* ParticleEffector::TEMPNAMEPLACEHOLDERVALUE(ParticleEffector&&) */
-
-    ParticleEffector* ParticleEffector::operator=(ParticleEffector* param_1) {
-        ParticleManager* pPVar1;
-        undefined4 uVar2;
-
-        shared_ptr<ModelParticleSource>::operator=((shared_ptr<ModelParticleSource>*)this, (shared_ptr*)param_1);
-        pPVar1 = param_1->field_24;
-        m_effectorTemplate = param_1->m_effectorTemplate;
+    // 0x1007f6910
+    ParticleEffector* ParticleEffector::operator=(ParticleEffector&& particleEffector) {
+        *this = particleEffector;
+        ParticleManager* pPVar1 = particleEffector.field_24;
+        m_effectorTemplate = particleEffector.m_effectorTemplate;
         field_24 = pPVar1;
-        field_32 = param_1->field_32;
-        (&field_40, (Vector3T*)&param_1->field_40)->SetXYZ();
-        (((long)&field_48 + 4), (Vector3T*)((long)&param_1->field_48 + 4))->SetXYZ();
-        uVar2 = param_1->field_68;
-        field_64 = param_1->field_64;
+        field_32 = particleEffector.field_32;
+        field_40.SetXYZ(particleEffector.field_40);
+        ((Vector4T<float>*)((long)&field_48 + 4))->SetXYZ(*((Vector3T<float>*)((long)&particleEffector.field_48 + 4)));
+        uint32_t uVar2 = particleEffector.field_68;
+        field_64 = particleEffector.field_64;
         field_68 = uVar2;
         return this;
     }
 
-    // 0x1007f6c30, 16 bytes, complete-object constructor, inline, placed by class name
-    // ParticleEffector::ParticleEffector(ParticleEffector&&): jumps straight to the base-object constructor
-
-    // 0x1007f6c40, 64 bytes, base-object constructor, inline, placed by class name
-    // ParticleEffector::ParticleEffector(ParticleEffector&&)
-    void ParticleEffector::ParticleEffector(ParticleEffector* param_1) {
-        undefined8 uVar1;
-        ParticleManager* pPVar2;
-        ParticleSystem* pPVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined4 uVar6;
-
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, (shared_ptr*)param_1);
-        uVar6 = param_1->field_68;
-        field_64 = param_1->field_64;
+    // 0x1007f6c40
+    ParticleEffector::ParticleEffector(ParticleEffector&& particleEffector) {
+        shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(particleEffector);
+        uint32_t uVar6 = particleEffector.field_68;
+        field_64 = particleEffector.field_64;
         field_68 = uVar6;
-        uVar1 = param_1->m_effectorTemplate;
-        pPVar2 = param_1->field_24;
-        pPVar3 = param_1->field_32;
-        uVar4 = param_1->field_40;
-        uVar5 = param_1->field_56;
-        field_48 = param_1->field_48;
+        uint64_t uVar1 = particleEffector.m_effectorTemplate;
+        ParticleManager* pPVar2 = particleEffector.field_24;
+        ParticleSystem* pPVar3 = particleEffector.field_32;
+        uint64_t uVar4 = particleEffector.field_40;
+        uint64_t uVar5 = particleEffector.field_56;
+        field_48 = particleEffector.field_48;
         field_56 = uVar5;
         field_32 = pPVar3;
         field_40 = uVar4;
@@ -93,48 +75,48 @@ namespace jag::graphics {
 } // namespace jag::graphics
 
 namespace jag::math {
-    // 0x1007cd8d0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ColourStorage8888<RGBA8StorageLayout>::Set(unsigned char, unsigned char, unsigned char, unsigned char)
-    void ColourStorage8888<RGBA8StorageLayout>::Set(uchar param_1, uchar param_2, uchar param_3, uchar param_4) {
-        this[3] = (ColourStorage8888<RGBA8StorageLayout>)param_1;
-        this[2] = (ColourStorage8888<RGBA8StorageLayout>)param_2;
-        this[1] = (ColourStorage8888<RGBA8StorageLayout>)param_3;
-        *this = (ColourStorage8888<RGBA8StorageLayout>)param_4;
+    // 0x1007cd8d0
+    void ColourStorage8888<RGBA8StorageLayout>::Set(unsigned char arg1, unsigned char arg2, unsigned char arg3,
+                                                    unsigned char arg4) {
+        this[3] = (ColourStorage8888<RGBA8StorageLayout>)arg1;
+        this[2] = (ColourStorage8888<RGBA8StorageLayout>)arg2;
+        this[1] = (ColourStorage8888<RGBA8StorageLayout>)arg3;
+        *this = (ColourStorage8888<RGBA8StorageLayout>)arg4;
     }
 
-    // 0x1007ce110, 112 bytes, inline, placed by debug map only (low confidence)
-    // FRandMT(float, float)
-    void FRandMT(float param_1, float param_2) {
-        mersenne_twister_engine* pmVar1;
-        param_type local_28[8];
+    // 0x1007ce110
+    void FRandMT(float arg1, float arg2) {
+        uniform_real_distribution<float>* uniform_real_distribution;
+        param_type* extraout_RDX;
 
-        if (param_2 < param_1) {
-            /* WARNING: Subroutine does not return */
+        if (arg2 < arg1) {
             LogAssert("min <= max",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/math/Random.h", 152,
-                      (char*)0);
+                      nullptr);
         }
-        pmVar1 = (mersenne_twister_engine*)getMersenneTwistorEngine();
-        std::uniform_real_distribution<float>::param_type::param_type(local_28, param_1, param_2);
-        std::uniform_real_distribution<float>::operator()(pmVar1, local_28);
+        uniform_real_distribution = (uniform_real_distribution<float>*)getMersenneTwistorEngine();
+        param_type local_28(arg1, arg2);
+        std::uniform_real_distribution<float>::operator()(uniform_real_distribution, &local_28, extraout_RDX);
     }
 
-    // 0x1007ce180, 112 bytes, inline, placed by debug map only (low confidence)
-    // IRandMT(int, int)
-    void IRandMT(int param_1, int param_2) {
-        mersenne_twister_engine* pmVar1;
-        undefined1 local_30[8];
+    // 0x1007ce180
+    void IRandMT(int arg1, int arg2) {
+        mersenne_twister_engine<unsigned int, _32ul, _624ul, _397ul, _31ul, _2567483615u, _11ul, _4294967295u, _7ul,
+                                _2636928640u, _15ul, _4022730752u, _18ul, _1812433253u>* mersenne_twister_engine;
+        uint8_t local_30[8];
 
-        if (param_2 < param_1) {
-            /* WARNING: Subroutine does not return */
+        if (arg2 < arg1) {
             LogAssert("min <= max",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/math/Random.h", 137,
-                      (char*)0);
+                      nullptr);
         }
-        pmVar1 = (mersenne_twister_engine*)getMersenneTwistorEngine();
-        new (local_30) oldscape::sidebars::SideBarData(param_1, param_2);
+        mersenne_twister_engine =
+            (mersenne_twister_engine<unsigned int, _32ul, _624ul, _397ul, _31ul, _2567483615u, _11ul, _4294967295u,
+                                     _7ul, _2636928640u, _15ul, _4022730752u, _18ul, _1812433253u>*)
+                getMersenneTwistorEngine();
+        new (local_30) oldscape::sidebars::SideBarData(arg1, arg2);
         std::uniform_int_distribution<int>::operator()((uniform_int_distribution<int>*)&Random::uniformIntDistribution,
-                                                       pmVar1, (param_type*)local_30);
+                                                       mersenne_twister_engine, (param_type*)local_30);
     }
 
 } // namespace jag::math

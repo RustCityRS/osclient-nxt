@@ -1,6 +1,5 @@
 // libs/oldscape/osrendercore/rseven/Scene.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,166 +8,119 @@ namespace jag::game {
     public:
         float GetPlaybackStart() const;
         ~Scene();
-        Scene(Scene&&);
-        Scene* operator=(Scene&&);
-        void PrepareResourceRequests(Cutscene2DResources*) const;
-        void Play(graphics::GUIManager*, math::Rect<int> const&, math::Vector2T<float> const&, float,
-                  Cutscene2DResources const&) const;
-        bool IsSceneActive(float) const;
-        void DrawSubtitles(graphics::GUIManager*, graphics::FontManager*, graphics::FontHelpers*,
-                           math::Rect<int> const&, float, Cutscene2DResources const&,
-                           GlobalCutscene2DResources const&) const;
-        LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&, int);
+        Scene(Scene&& scene);
+        Scene* operator=(Scene&& scene);
+        void PrepareResourceRequests(Cutscene2DResources* cutscene2DResources) const;
+        void Play(graphics::GUIManager* guiManager, const math::Rect<int>& rect, const math::Vector2T<float>& vector2,
+                  float arg4, const Cutscene2DResources& cutscene2DResources) const;
+        bool IsSceneActive(float arg1) const;
+        void DrawSubtitles(graphics::GUIManager* guiManager, graphics::FontManager* fontManager,
+                           graphics::FontHelpers* fontHelpers, const math::Rect<int>& rect, float arg5,
+                           const Cutscene2DResources& cutscene2DResources,
+                           const GlobalCutscene2DResources& globalCutscene2DResources) const;
+        uint64_t LoadFromPacket(PacketT<Array<unsigned char>>& arg1, int arg2);
         float GetPlaybackEnd() const;
-        GetName() const;
+        VarAny* GetName() const;
         Scene();
 
-        // data members, from how the methods use this: 536 bytes
-        char _unknown_0[72];
-        float m_playbackStart; // offset 72
-        float m_playbackEnd;   // offset 76
-        char _unknown_80[456];
+    private:
+        uint8_t _unknown_0[72];
+        float m_playbackStart;
+        float m_playbackEnd;
+        uint8_t _unknown_80[456];
     };
 
-    // 0x10052a110, 16 bytes, complete-object destructor, inline, placed by class name
-    // Cutscene2D::Scene::~Scene(): jumps straight to the base-object destructor
-
-    // 0x10052a120, 64 bytes, base-object destructor, inline, placed by class name
-    // Cutscene2D::Scene::~Scene()
-    void Cutscene2D::Scene::~Scene() {
-        (&field_528)->~fixed_vector();
-        (&field_408)->~fixed_vector();
-        (&field_80)->~fixed_vector();
-        /* WARNING: Subroutine does not return */
-        ~fixed_string();
+    // 0x10052a120
+    Cutscene2D::Scene::~Scene() {
+        field_528.~fixed_vector();
+        field_408.~fixed_vector();
+        field_80.~fixed_vector();
     }
 
-    // 0x10052df00, 16 bytes, complete-object constructor, inline, placed by class name
-    // Cutscene2D::Scene::Scene(Cutscene2D::Scene&&): jumps straight to the base-object constructor
-
-    // 0x10052df40, 144 bytes, base-object constructor, inline, placed by class name
-    // Cutscene2D::Scene::Scene(Cutscene2D::Scene&&)
-    void Cutscene2D::Scene::Scene(Scene* param_1) {
-        float fVar1;
-
-        new (this) eastl::fixed_string<char, 32, true, eastl::allocator>(param_1);
-        fVar1 = param_1->m_playbackEnd;
-        m_playbackStart = param_1->m_playbackStart;
+    // 0x10052df40
+    Cutscene2D::Scene::Scene(Cutscene2D::Scene&& scene) : eastl::fixed_string<char, 32>(scene) {
+        float fVar1 = scene.m_playbackEnd;
+        m_playbackStart = scene.m_playbackStart;
         m_playbackEnd = fVar1;
-        new (&field_80, (fixed_vector*)&param_1->field_80)
-            eastl::fixed_vector<Cutscene2DImageElement, 1ul, true, eastl::allocator>();
-        new (&field_408, (fixed_vector*)&param_1->field_408)
-            eastl::fixed_vector<Cutscene2DAudioElement, 1ul, true, eastl::allocator>();
-        new (&field_528, (fixed_vector*)&param_1->field_528)
-            eastl::fixed_vector<Cutscene2DSubtitleElement, 1ul, true, eastl::allocator>();
+        new (&field_80) eastl::fixed_vector<Cutscene2DImageElement, 1ul>(scene.field_80);
+        new (&field_408) eastl::fixed_vector<Cutscene2DAudioElement, 1ul>(scene.field_408);
+        new (&field_528) eastl::fixed_vector<Cutscene2DSubtitleElement, 1ul>(scene.field_528);
     }
 
-    // 0x1005308c0, 96 bytes, inline, placed by class name
-    // Cutscene2D::Scene::operator=(Cutscene2D::Scene&&)
-    /* Cutscene2D::Scene::TEMPNAMEPLACEHOLDERVALUE(Cutscene2D::Scene&&) */
-
-    Scene* Cutscene2D::Scene::operator=(Scene* param_1) {
-        float fVar1;
-
-        eastl::fixed_string<char, 4096, true, eastl::allocator>::operator=(
-            (fixed_string<char, 4096, true, eastl::allocator>*)this, (fixed_string*)param_1);
-        fVar1 = param_1->m_playbackEnd;
-        m_playbackStart = param_1->m_playbackStart;
+    // 0x1005308c0
+    Scene* Cutscene2D::Scene::operator=(Cutscene2D::Scene&& scene) {
+        *this = scene;
+        float fVar1 = scene.m_playbackEnd;
+        m_playbackStart = scene.m_playbackStart;
         m_playbackEnd = fVar1;
-        eastl::fixed_vector<Cutscene2DImageElement, 1ul, true, eastl::allocator>::operator=(
-            (fixed_vector<Cutscene2DImageElement, 1ul, true, eastl::allocator>*)&field_80,
-            (fixed_vector*)&param_1->field_80);
-        eastl::fixed_vector<Cutscene2DAudioElement, 1ul, true, eastl::allocator>::operator=(
-            (fixed_vector<Cutscene2DAudioElement, 1ul, true, eastl::allocator>*)&field_408,
-            (fixed_vector*)&param_1->field_408);
-        eastl::fixed_vector<Cutscene2DSubtitleElement, 1ul, true, eastl::allocator>::operator=(
-            (fixed_vector<Cutscene2DSubtitleElement, 1ul, true, eastl::allocator>*)&field_528,
-            (fixed_vector*)&param_1->field_528);
+        field_80 = scene.field_80;
+        field_408 = scene.field_408;
+        field_528 = scene.field_528;
         return this;
     }
 
-    // 0x10053acc0, 32 bytes, inline, placed by class name
-    // Cutscene2D::Scene::IsSceneActive(float) const
-    bool Cutscene2D::Scene::IsSceneActive(float param_1) {
-        if (param_1 < m_playbackStart) {
+    // 0x10053acc0
+    bool Cutscene2D::Scene::IsSceneActive(float arg1) const {
+        if (arg1 < m_playbackStart) {
             return false;
         }
-        return param_1 < m_playbackEnd;
+        return arg1 < m_playbackEnd;
     }
 
-    // 0x10053c040, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Cutscene2D::Scene::GetPlaybackEnd() const
-    /* graphics::Material::GetDefaultNonMetalSpecular() const */
-
-    undefined4 graphics::Material::GetDefaultNonMetalSpecular() {
+    // 0x10053c040
+    float Cutscene2D::Scene::GetPlaybackEnd() const {
         return m_defaultNonMetalSpecular;
     }
 
-    // 0x10053c140, 32 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Cutscene2D::Scene::GetName() const
-    /* jag::console::VarAny::GetTypeName() const */
+    // 0x10053c140
+    VarAny* Cutscene2D::Scene::GetName() const {
+        basic_string<char, BucketAllocatorEASTL>* in_RSI;
 
-    VarAny* jag::console::VarAny::GetTypeName() {
-        fixed_string* in_RSI;
-
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>((StringView*)this, in_RSI);
+        StringView<eastl::fixed_string<char, 40>>(*in_RSI);
         return this;
     }
 
-    // 0x100542df0, 16 bytes, complete-object constructor, inline, placed by class name
-    // Cutscene2D::Scene::Scene(): jumps straight to the base-object constructor
-
-    // 0x100542e00, 112 bytes, base-object constructor, inline, placed by class name
-    // Cutscene2D::Scene::Scene()
-    void Cutscene2D::Scene::Scene() {
-        new (this) eastl::fixed_string<char, 32, true, eastl::allocator>();
-        new (&field_80) eastl::fixed_vector<Cutscene2DImageElement, 1ul, true, eastl::allocator>();
-        new (&field_408) eastl::fixed_vector<Cutscene2DAudioElement, 1ul, true, eastl::allocator>();
-        new (&field_528) eastl::fixed_vector<Cutscene2DSubtitleElement, 1ul, true, eastl::allocator>();
-    }
+    // 0x100542e00
+    Cutscene2D::Scene::Scene() : eastl::fixed_string<char, 32>() {}
 
 } // namespace jag::game
 
 namespace jag::oldscape::rseven {
     class Scene {
     public:
-        GetSceneGraphRoot() const;
-        GetSceneGraphRoot();
-        void ProcessOverlayUpdates(RenderState::OverlayRSeven*, RenderState::OverlayRSeven*);
-        void HandleRebuild(MapRebuildResults&);
-        void ProcessModelUpdates(shared_ptr<RenderState::ModelSubmissionRSeven> const*,
-                                 shared_ptr<RenderState::ModelSubmissionRSeven> const*);
-        void ProcessLightUpdates(RenderState::LightSubmissionRSeven const*, RenderState::LightSubmissionRSeven const*);
-        void RenderThread_Render(render::RenderTargets*, int, ViewTransforms const&, render::Viewport const&);
-        Scene(jag::graphics::RT7Core*);
+        GraphRoot* GetSceneGraphRoot() const;
+        GraphRoot* GetSceneGraphRoot();
+        void ProcessOverlayUpdates(RenderState::OverlayRSeven* overlayRSeven1,
+                                   RenderState::OverlayRSeven* overlayRSeven2);
+        void HandleRebuild(MapRebuildResults& mapRebuildResults);
+        void ProcessModelUpdates(const shared_ptr<RenderState::ModelSubmissionRSeven>* modelSubmissionRSeven1,
+                                 const shared_ptr<RenderState::ModelSubmissionRSeven>* modelSubmissionRSeven2);
+        void ProcessLightUpdates(const RenderState::LightSubmissionRSeven* lightSubmissionRSeven1,
+                                 const RenderState::LightSubmissionRSeven* lightSubmissionRSeven2);
+        void RenderThread_Render(render::RenderTargets* renderTargets, int arg2, const ViewTransforms& viewTransforms,
+                                 const render::Viewport& viewport);
+        Scene(jag::graphics::RT7Core* rt7Core);
         void GenerateMapSquarePointLightLists();
         ~Scene();
-        void SetSceneGraphRootPosition(MapRebuildResults&);
-        void UpdatePointLight(game::LightSource&, jag::graphics::PointLight const&);
-        void UpdateMapSquareLightSources(eastl::vector<shared_ptr<game::LightSource>, BucketAllocatorEASTL>&);
-        GatherLightsForSquare(
-            std::unique_ptr<game::MapSquarePointLights, std::default_delete<game::MapSquarePointLights>> const&,
-            eastl::vector<shared_ptr<game::LightSource>, BucketAllocatorEASTL>&);
-        CreateAABBForSquare(
-            std::unique_ptr<game::MapSquarePointLights, std::default_delete<game::MapSquarePointLights>> const&);
-        vector<game::VisibleShadowCastingLightInfo, eastl::allocator>*
-        GetShadowCastingLights(jag::graphics::SceneViewData const&);
-        void UpdateLightingLogic(int);
+        void SetSceneGraphRootPosition(MapRebuildResults& mapRebuildResults);
+        void UpdatePointLight(game::LightSource& lightSource, const jag::graphics::PointLight& pointLight);
+        void UpdateMapSquareLightSources(eastl::vector<shared_ptr<game::LightSource>>& lightSources);
+        Scene* GatherLightsForSquare(const std::unique_ptr<game::MapSquarePointLights>& mapSquarePointLights,
+                                     eastl::vector<shared_ptr<game::LightSource>>& lightSources);
+        Scene* CreateAABBForSquare(const std::unique_ptr<game::MapSquarePointLights>& mapSquarePointLights);
+        vector<game::VisibleShadowCastingLightInfo>*
+        GetShadowCastingLights(const jag::graphics::SceneViewData& sceneViewData);
+        void UpdateLightingLogic(int arg1);
 
-        // data members, from how the methods use this: 1344 bytes
-        RT7Core* field_0; // offset 0
-        char _unknown_8[1320];
-        CoordGrid field_1328; // offset 1328
+    private:
+        RT7Core* field_0;
+        uint8_t _unknown_8[1320];
+        CoordGrid field_1328;
     };
 
-    // 0x1001c0a40, 16 bytes, inline, placed by class name and debug map
-    // Scene::GetSceneGraphRoot() const
-    /* Scene::GetSceneGraphRoot() */
-
-    undefined1* Scene::GetSceneGraphRoot() {
-        return &field_944;
+    // 0x1001c0a40
+    GraphRoot* Scene::GetSceneGraphRoot() const {
+        return (GraphRoot*)&field_944;
     }
 
 } // namespace jag::oldscape::rseven

@@ -1,6 +1,5 @@
 // libs/game/runetek5/map/ClientCompositeData.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,51 +8,35 @@ namespace jag::game {
     public:
         ~ClientCompositeData();
         ClientCompositeData();
-        void
-        DecodeFromRegionData(eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>,
-                                                 4ul, true, eastl::allocator> const&,
-                             int, int, int, int);
-        ulong DecodeFromWorldArea(shared_ptr<WorldAreaType> const&, shared_ptr<MapSquareWorldAreaCompositeInner> const&,
-                                  int, int, bool);
+        void DecodeFromRegionData(const eastl::fixed_vector<eastl::vector<eastl::vector<int>>, 4ul>& arg1, int arg2,
+                                  int arg3, int arg4, int arg5);
+        unsigned long
+        DecodeFromWorldArea(const shared_ptr<WorldAreaType>& worldAreaType,
+                            const shared_ptr<MapSquareWorldAreaCompositeInner>& mapSquareWorldAreaCompositeInner,
+                            int arg3, int arg4, bool arg5);
 
-        // data members, from how the methods use this: 9808 bytes
-        char _unknown_0[9808];
+        uint8_t _unknown_0[9808];
     };
 
-    // 0x100413d10, 48 bytes, inline, placed by debug map only (low confidence)
-    // ClientCompositeZone::operator==(ClientCompositeZone const&) const
-    /* ClientCompositeZone::TEMPNAMEPLACEHOLDERVALUE(ClientCompositeZone const&)
-   const */
-
-    undefined4 ClientCompositeZone::operator==(ClientCompositeZone* param_1) {
-        if (((field_0 == param_1->field_0) && (field_4 == param_1->field_4)) && (field_8 == param_1->field_8)) {
-            return CONCAT31((int3)((uint)field_8 >> 8), field_12 == param_1->field_12);
+    // 0x100413d10
+    uint32_t ClientCompositeZone::operator==(const ClientCompositeZone& clientCompositeZone) const {
+        if (((field_0 == clientCompositeZone.field_0) && (field_4 == clientCompositeZone.field_4)) &&
+            (field_8 == clientCompositeZone.field_8)) {
+            return field_12 == clientCompositeZone.field_12;
         }
         return 0;
     }
 
-    // 0x1004516d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // ClientCompositeData::~ClientCompositeData(): jumps straight to the base-object destructor
-
-    // 0x1004516e0, 48 bytes, base-object destructor, inline, placed by class name
-    // ClientCompositeData::~ClientCompositeData()
-    void ClientCompositeData::~ClientCompositeData() {
-        (&field_9800)->~vector_map();
-        ~fixed_vector();
+    // 0x1004516e0
+    ClientCompositeData::~ClientCompositeData() {
+        field_9800.~vector_map();
     }
 
-    // 0x100451aa0, 16 bytes, complete-object constructor, inline, placed by class name
-    // ClientCompositeData::ClientCompositeData(): jumps straight to the base-object constructor
-
-    // 0x100451ab0, 64 bytes, base-object constructor, inline, placed by class name
-    // ClientCompositeData::ClientCompositeData()
-    void ClientCompositeData::ClientCompositeData() {
-        new (this) MakeSharedPool<ClientCompositeData, 8>();
-        new (this) eastl::fixed_vector<
-            eastl::fixed_vector<eastl::fixed_vector<ClientCompositeZone, 10ul, true, eastl::allocator>, 10ul, true,
-                                eastl::allocator>,
-            4ul, true, eastl::allocator>();
-        new (&field_9800) eastl::vector<eastl::pair<unsigned int, unsigned int>, eastl::allocator>();
+    // 0x100451ab0
+    ClientCompositeData::ClientCompositeData()
+        : MakeSharedPool<ClientCompositeData, 8>(),
+          eastl::fixed_vector<eastl::fixed_vector<eastl::fixed_vector<ClientCompositeZone, 10ul>, 10ul>, 4ul>() {
+        new (&field_9800) eastl::vector<eastl::pair<unsigned int, unsigned int>>();
     }
 
 } // namespace jag::game

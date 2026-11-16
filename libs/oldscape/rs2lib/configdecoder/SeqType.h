@@ -1,116 +1,99 @@
 // libs/oldscape/rs2lib/configdecoder/SeqType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::configdecoder {
     class SeqType {
     public:
-        AnimateModel90(dash3d::ModelLit&, int, int, int) const;
-        SplitAnimateModel(dash3d::ModelLit&, int, SeqType&, int);
-        AnimateModel(dash3d::ModelLit&, int, int) const;
-        void Init(jagex3::Js5*, jagex3::Js5*, jagex3::Js5*);
-        SeqType* List(int);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&);
+        auto AnimateModel90(dash3d::ModelLit& modelLit, int arg2, int arg3, int arg4) const;
+        void SplitAnimateModel(dash3d::ModelLit& modelLit, int arg2, SeqType& seqType, int arg4);
+        auto AnimateModel(dash3d::ModelLit& modelLit, int arg2, int arg3) const;
+        void Init(jagex3::Js5* js51, jagex3::Js5* js52, jagex3::Js5* js53);
+        auto List(int arg1);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ);
         void PostDecode();
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&, int);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2);
         bool IsKeyFramed() const;
-        SeqType* Get(int);
-        SeqType* GetKeyFrameSet(int);
-        GetKeyFrameSet() const;
-        SplitAnimateModelNoKeyFrameSet(dash3d::ModelLit&, int, SeqType&, int);
-        ulong Compare(Array<int, eastl::allocator>, Array<int, eastl::allocator>, int, int);
-        AnimateModelWithExtra(dash3d::ModelLit&, int) const;
-        uint GetEnd() const;
-        uint GetStart() const;
+        auto Get(int arg1);
+        auto GetKeyFrameSet(int arg1);
+        auto GetKeyFrameSet() const;
+        SeqType* SplitAnimateModelNoKeyFrameSet(dash3d::ModelLit& modelLit, int arg2, SeqType& seqType, int arg4);
+        unsigned long Compare(Array<int> arg1, Array<int> arg2, int arg3, int arg4);
+        auto AnimateModelWithExtra(dash3d::ModelLit& modelLit, int arg2) const;
+        unsigned int GetEnd() const;
+        unsigned int GetStart() const;
         int GetDuration() const;
-        GetKeyFrameSetStatus() const;
-        GetKeyFrameSetStatus(int);
-        SeqType* GetKeyFrameSetInner(int);
+        uint8_t* GetKeyFrameSetStatus() const;
+        void GetKeyFrameSetStatus(int arg1);
+        auto GetKeyFrameSetInner(int arg1);
         void ResetCache();
         bool IsInitComplete();
         void GetNumFrames();
         SeqType();
         ~SeqType();
-        static /* 8 bytes */ m_pConfigClient;
-        static /* 8 bytes */ m_pAnims;
-        static /* 8 bytes */ m_pBases;
-        static /* 5376 bytes */ m_recentUse;
-        static /* 8256 bytes */ m_framesetCache;
-        static /* 8256 bytes */ m_keyFrameSetCache;
+        static int64_t m_pConfigClient;
+        static int64_t m_pAnims;
+        static int64_t m_pBases;
+        static LRUHashCache<SeqType, 64ul, 65ul, false, unsigned long long> m_recentUse;
+        static LRUHashCache<dash3d::AnimFrameSet, 100ul, 101ul, false, unsigned long long> m_framesetCache;
+        static LRUHashCache<graphics::animation::OldscapeAnimKeyFrameSet, 100ul, 101ul, false, unsigned long long>
+            m_keyFrameSetCache;
 
-        // data members, from how the methods use this: 264 bytes
-        int field_0; // offset 0
-        char _unknown_4[4];
-        long field_8; // offset 8
-        char _unknown_16[48];
-        uint m_start; // offset 64
-        uint m_end;   // offset 68
-        char _unknown_72[96];
-        uint field_168; // offset 168
-        char _unknown_172[52];
-        undefined1 field_224; // offset 224
-        char _unknown_225[3];
-        uint field_228;       // offset 228
-        uint field_232;       // offset 232
-        uint field_236;       // offset 236
-        uint field_240;       // offset 240
-        undefined1 field_244; // offset 244
-        char _unknown_245[3];
-        uint field_248; // offset 248
-        uint field_252; // offset 252
-        uint field_256; // offset 256
-        char _unknown_260[4];
+    private:
+        int field_0;
+        uint8_t _unknown_4[60];
+        unsigned int m_start;
+        unsigned int m_end;
+        uint8_t _unknown_72[96];
+        unsigned int field_168;
+        uint8_t _unknown_172[52];
+        uint8_t field_224;
+        uint8_t _unknown_225[3];
+        unsigned int field_228;
+        unsigned int field_232;
+        unsigned int field_236;
+        unsigned int field_240;
+        uint8_t field_244;
+        uint8_t _unknown_245[3];
+        unsigned int field_248;
+        unsigned int field_252;
+        unsigned int field_256;
+        uint8_t _unknown_260[4];
     };
 
-    // 0x100235310, 144 bytes, inline, placed by class name and debug map
-    // SeqType::GetKeyFrameSet(int)
-    SeqType* SeqType::GetKeyFrameSet(int param_1) {
-        OldscapeAnimKeyFrameSet* this_00;
-        shared_ptr local_28;
+    // 0x100235310
+    auto SeqType::GetKeyFrameSet(int arg1) {
+        OldscapeAnimKeyFrameSet* oldscapeAnimKeyFrameSet;
+        ReturnValue local_28;
 
-        GetKeyFrameSetInner((SeqType*)&local_28, param_1);
-        if (operator!=(&local_28, (_func_decltype_nullptr*)0)) {
-            this_00 = (OldscapeAnimKeyFrameSet*)shared_ptr<graphics::animation::OldscapeAnimKeyFrameSet>::operator->(
-                (shared_ptr<graphics::animation::OldscapeAnimKeyFrameSet>*)&local_28);
-            if ((undefined*)this_00->GetStatus() == DataStatus::READY) {
-                shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-                    (shared_ptr<RSevenDebugPresetProvider>*)this, &local_28);
+        GetKeyFrameSetInner(&local_28, arg1);
+        if (local_28 != nullptr) {
+            oldscapeAnimKeyFrameSet = (OldscapeAnimKeyFrameSet*)local_28.operator->();
+            if ((uint8_t*)oldscapeAnimKeyFrameSet->GetStatus() == DataStatus::READY) {
+                result.shared_ptr<FileRSevenDebugPresetProvider, void>(local_28);
                 goto LAB_10023535f;
             }
         }
-        new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        auto result;
     LAB_10023535f:
-        local_28.~shared_ptr();
-        return this;
+        return result;
     }
 
-    // 0x10024d170, 16 bytes, complete-object constructor, inline, placed by class name
-    // SeqType::SeqType(): jumps straight to the base-object constructor
-
-    // 0x10024d180, 320 bytes, base-object constructor, inline, placed by class name
-    // SeqType::SeqType()
-    void SeqType::SeqType() {
-        allocator local_48[8];
-        long* local_40;
-        undefined1* local_38;
-
-        field_0 = -1;
-        eastl::allocator::allocator(local_48, "EASTL hash_map");
-        local_40 = &field_8;
-        new (&field_8, local_48)
-            eastl::hash_map<int, int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>();
+    // 0x10024d180
+    SeqType::SeqType() : field_0(-1) {
+        uint8_t* local_40 = &field_8;
+        new (&field_8) eastl::hash_map(local_48);
         m_start = 0;
         m_end = 0;
-        new (&field_72) Array<int, eastl::allocator>();
-        local_38 = &field_72;
-        new (&field_96) Array<int, eastl::allocator>();
-        new (&field_120) Array<int, eastl::allocator>();
-        new (&field_144) Array<int, eastl::allocator>();
+        new (&field_72) Array<int>();
+        uint8_t* local_38 = &field_72;
+        new (&field_96) Array<int>();
+        new (&field_120) Array<int>();
+        new (&field_144) Array<int>();
         field_168 = 4294967295;
-        new (&field_176) Array<int, eastl::allocator>();
-        new (&field_200) Array<bool, eastl::allocator>();
+        new (&field_176) Array<int>();
+        new (&field_200) Array<bool>();
         field_224 = 0;
         field_228 = 5;
         field_232 = 4294967295;
@@ -122,19 +105,15 @@ namespace jag::oldscape::configdecoder {
         field_256 = 2;
     }
 
-    // 0x10024d360, 16 bytes, complete-object destructor, inline, placed by class name
-    // SeqType::~SeqType(): jumps straight to the base-object destructor
-
-    // 0x10024d370, 96 bytes, base-object destructor, inline, placed by class name
-    // SeqType::~SeqType()
-    void SeqType::~SeqType() {
-        (&field_200)->~Array();
-        (&field_176)->~Array();
-        (&field_144)->~Array();
-        (&field_120)->~Array();
-        (&field_96)->~Array();
-        (&field_72)->~Array();
-        (&field_8)->~hash_map();
+    // 0x10024d370
+    SeqType::~SeqType() {
+        field_200.~Array();
+        field_176.~Array();
+        field_144.~Array();
+        field_120.~Array();
+        field_96.~Array();
+        field_72.~Array();
+        field_8.~hash_map();
     }
 
 } // namespace jag::oldscape::configdecoder

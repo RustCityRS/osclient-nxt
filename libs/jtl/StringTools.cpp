@@ -1,22 +1,21 @@
 // libs/jtl/StringTools.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.jtl
 
 #include "StringTools.h"
 
 namespace jag::stringtools {
-    // 0x100d9ee24, 12 bytes, __const
-    UNICODE_CODEPOINT_BYTE_MAX = {127, 2047, 32767};
+    // 0x100d9ee24
+    int32_t UNICODE_CODEPOINT_BYTE_MAX[3] = {127, 2047, 32767};
 
-    // 0x100f4dd00, 4 bytes, __data
-    UTF8_size_mask = -253706240;
+    // 0x100f4dd00
+    int32_t UTF8_size_mask = -253706240;
 
-    // 0x100f4dd04, 4 bytes, __data
-    UTF8_value_mask = 118431615;
+    // 0x100f4dd04
+    int32_t UTF8_value_mask = 118431615;
 
-    // 0x100f4dd08, 512 bytes, __data
-    wdata = {
+    // 0x100f4dd08
+    int32_t wdata[128] = {
         65536,    196610,   327684,    458758,    589832,    720906,    851980,    983054,    1114128,   1245202,
         1376276,  1507350,  1638424,   1769498,   1900572,   2031646,   2162720,   2293794,   2424868,   2555942,
         2687016,  2818090,  2949164,   3080238,   3211312,   3342386,   3473460,   3604534,   3735608,   3866682,
@@ -32,14 +31,13 @@ namespace jag::stringtools {
         15794416, 15925490, 16056564,  16187638,  16318712,  16449786,  16580860,  16711934,
     };
 
-    // 0x100cb7bd0, 1152 bytes, placed by class name and debug map
-    // WideToCP1252(char16_t)
-    undefined1 WideToCP1252(wchar16 param_1) {
-        undefined1 uVar1;
-        wchar16 wVar2;
+    // 0x100cb7bd0
+    void WideToCP1252(char16_t arg1) {
+        uint8_t uVar1;
+        char16_t wVar2;
 
-        if (param_1 < L'–') {
-            switch (param_1) {
+        if (arg1 < L'–') {
+            switch (arg1) {
             case L'Œ':
                 uVar1 = 140;
                 break;
@@ -123,17 +121,17 @@ namespace jag::stringtools {
                 uVar1 = 131;
                 break;
             default:
-                if (param_1 == L'ˆ') {
+                if (arg1 == L'ˆ') {
                     return 136;
                 }
-                if (param_1 == L'˜') {
+                if (arg1 == L'˜') {
                     return 152;
                 }
                 goto switchD_100cb7c01_caseD_2015;
             }
         } else {
             uVar1 = 128;
-            switch (param_1) {
+            switch (arg1) {
             case L'–':
                 uVar1 = 150;
                 break;
@@ -182,7 +180,7 @@ namespace jag::stringtools {
             case L'€':
                 break;
             default:
-                if (param_1 == L'™') {
+                if (arg1 == L'™') {
                     return 153;
                 }
             case L'―':
@@ -325,273 +323,251 @@ namespace jag::stringtools {
             case L'₫':
             switchD_100cb7c01_caseD_2015:
                 wVar2 = L'?';
-                if ((ushort)(param_1 + L'｠') < 96) {
-                    wVar2 = param_1;
+                if ((unsigned short)(arg1 + L'｠') < 96) {
+                    wVar2 = arg1;
                 }
-                if ((ushort)param_1 < 128) {
-                    wVar2 = param_1;
+                if ((unsigned short)arg1 < 128) {
+                    wVar2 = arg1;
                 }
-                uVar1 = (undefined1)wVar2;
+                uVar1 = (uint8_t)wVar2;
             }
         }
         return uVar1;
     }
 
-    // 0x100cb8050, 128 bytes, placed by class name and debug map
-    // WideToCP1252(char16_t const*, unsigned long, char*, unsigned long, unsigned long)
-    ulong WideToCP1252(wchar16* param_1, ulong param_2, char* param_3, ulong param_4, ulong param_5) {
-        ulong uVar2;
-        char* pcVar3;
+    // 0x100cb8050
+    unsigned long WideToCP1252(const char16_t* arg1, unsigned long arg2, char* str, unsigned long arg4,
+                               unsigned long arg5) {
+        unsigned long uVar2;
 
-        pcVar3 = param_3 + param_4;
-        if (param_3 + param_5 < pcVar3 + param_2) {
-            /* WARNING: Subroutine does not return */
+        char* pcVar3 = str + arg4;
+        if (str + arg5 < pcVar3 + arg2) {
             LogAssert("destPtr + size <= endPtr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/StringTools.cpp", 79,
-                      (char*)0);
+                      nullptr);
         }
-        if (param_2 != 0) {
+        if (arg2 != 0) {
             uVar2 = 0;
             do {
-                pcVar3[uVar2] = WideToCP1252(param_1[uVar2]);
+                pcVar3[uVar2] = WideToCP1252(arg1[uVar2]);
                 uVar2 = uVar2 + 1;
-            } while (param_2 != uVar2);
+            } while (arg2 != uVar2);
             pcVar3 = pcVar3 + uVar2;
         }
         *pcVar3 = '\0';
-        return param_2;
+        return arg2;
     }
 
-    // 0x100cb80d0, 128 bytes, placed by class name and debug map
-    // WideToCP1252(wchar_t const*, unsigned long, char*, unsigned long, unsigned long)
-    ulong WideToCP1252(wchar_t* param_1, ulong param_2, char* param_3, ulong param_4, ulong param_5) {
-        ulong uVar2;
-        char* pcVar3;
+    // 0x100cb80d0
+    unsigned long WideToCP1252(const wchar_t* arg1, unsigned long arg2, char* str, unsigned long arg4,
+                               unsigned long arg5) {
+        unsigned long uVar2;
 
-        pcVar3 = param_3 + param_4;
-        if (param_3 + param_5 < pcVar3 + param_2) {
-            /* WARNING: Subroutine does not return */
+        char* pcVar3 = str + arg4;
+        if (str + arg5 < pcVar3 + arg2) {
             LogAssert("destPtr + size <= endPtr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/StringTools.cpp", 99,
-                      (char*)0);
+                      nullptr);
         }
-        if (param_2 != 0) {
+        if (arg2 != 0) {
             uVar2 = 0;
             do {
-                pcVar3[uVar2] = WideToCP1252((wchar16)param_1[uVar2]);
+                pcVar3[uVar2] = WideToCP1252((char16_t)arg1[uVar2]);
                 uVar2 = uVar2 + 1;
-            } while (param_2 != uVar2);
+            } while (arg2 != uVar2);
             pcVar3 = pcVar3 + uVar2;
         }
         *pcVar3 = '\0';
-        return param_2;
+        return arg2;
     }
 
-    // 0x100cb8150, 192 bytes, placed by class name and debug map
-    // CP1252ToWide(char const*, unsigned long, eastl::basic_string<char16_t, eastl::allocator>&)
-    void CP1252ToWide(char* param_1, ulong param_2, basic_string* param_3) {
-        byte bVar1;
-        wchar16* pwVar2;
-        ulong uVar3;
-        basic_string<char16_t, eastl::allocator> local_50[32];
+    // 0x100cb8150
+    void CP1252ToWide(const char* str1, unsigned long arg2, eastl::basic_string<char16_t>& str2) {
+        uint8_t bVar1;
+        char16_t* pwVar2;
+        unsigned long uVar3;
+        array<char16_t, 256ul>* array;
 
-        eastl::basic_string<char16_t, eastl::allocator>::basic_string(local_50);
-        eastl::basic_string<char16_t, eastl::allocator>::reserve(local_50, param_2);
-        if (param_2 != 0) {
+        basic_string<char16_t> local_50;
+        array<char16_t, 256ul>* arg1 = (array<char16_t, 256ul>*)arg2;
+        local_50.reserve(arg2);
+        if (arg2 != 0) {
             uVar3 = 0;
             do {
-                bVar1 = param_1[uVar3];
-                if ((ulong)bVar1 != 0) {
+                bVar1 = str1[uVar3];
+                array = (array<char16_t, 256ul>*)(unsigned long)bVar1;
+                if (array != nullptr) {
                     if (((char)bVar1 < '\0') && (bVar1 < 160)) {
-                        pwVar2 = (wchar16*)std::array<char16_t, 256ul>::operator[]((ulong)bVar1);
-                        eastl::basic_string<char16_t, eastl::allocator>::push_back(local_50, *pwVar2);
+                        pwVar2 = (char16_t*)(*array)[(unsigned long)arg1];
+                        arg1 = (array<char16_t, 256ul>*)(unsigned long)(unsigned short)*pwVar2;
+                        local_50.push_back(*pwVar2);
                     } else {
-                        eastl::basic_string<char16_t, eastl::allocator>::push_back(local_50, (ushort)bVar1);
+                        local_50.push_back((unsigned short)bVar1);
+                        arg1 = array;
                     }
                 }
                 uVar3 = uVar3 + 1;
-            } while (param_2 != uVar3);
+            } while (arg2 != uVar3);
         }
-        param_3->swap(local_50);
-        eastl::basic_string<char16_t, eastl::allocator>::~basic_string(local_50);
+        str2.swap(local_50);
     }
 
-    // 0x100cb8390, 240 bytes, placed by class name and debug map
-    // GetUTF8NextChar(char const*, unsigned long&)
-    uint GetUTF8NextChar(char* param_1, ulong* param_2) {
-        byte bVar1;
-        byte bVar2;
-        ulong uVar3;
-        byte* pbVar4;
-        uint uVar5;
+    // 0x100cb8390
+    unsigned int GetUTF8NextChar(const char* str, unsigned long& arg2) {
+        uint8_t bVar1;
+        uint8_t bVar2;
+        unsigned long uVar3;
+        uint8_t* pbVar4;
+        unsigned int uVar5;
 
-        if (param_1 == (char*)0) {
+        if (str == nullptr) {
             uVar5 = 0;
         } else {
-            uVar3 = *param_2;
-            *param_2 = uVar3 + 1;
-            bVar1 = param_1[uVar3];
-            pbVar4 = (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_size_mask, 2);
+            uVar3 = arg2;
+            arg2 = uVar3 + 1;
+            bVar1 = str[uVar3];
+            pbVar4 = &UTF8_size_mask[2];
             if ((*pbVar4 & ~bVar1) == 0) {
-                pbVar4 =
-                    (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_value_mask, 2);
+                pbVar4 = &UTF8_value_mask[2];
                 bVar2 = *pbVar4;
-                *param_2 = uVar3 + 2;
-                uVar5 = ((byte)param_1[uVar3 + 1] & 63) << 6 | (uint)(bVar2 & bVar1) << 12;
-                *param_2 = uVar3 + 3;
-                bVar1 = param_1[uVar3 + 2];
+                arg2 = uVar3 + 2;
+                uVar5 = ((uint8_t)str[uVar3 + 1] & 63) << 6 | (unsigned int)(bVar2 & bVar1) << 12;
+                arg2 = uVar3 + 3;
+                bVar1 = str[uVar3 + 2];
             } else {
-                pbVar4 =
-                    (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_size_mask, 1);
+                pbVar4 = &UTF8_size_mask[1];
                 if ((*pbVar4 & ~bVar1) != 0) {
-                    pbVar4 = (byte*)std::array<unsigned char, 4ul>::operator[](
-                        (array<unsigned char, 4ul>*)&UTF8_value_mask, 0);
-                    return (uint)(bVar1 & *pbVar4);
+                    pbVar4 = &UTF8_value_mask[0];
+                    return (unsigned int)(bVar1 & *pbVar4);
                 }
-                pbVar4 =
-                    (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_value_mask, 1);
-                uVar5 = (uint)(*pbVar4 & bVar1) << 6;
-                *param_2 = uVar3 + 2;
-                bVar1 = param_1[uVar3 + 1];
+                pbVar4 = &UTF8_value_mask[1];
+                uVar5 = (unsigned int)(*pbVar4 & bVar1) << 6;
+                arg2 = uVar3 + 2;
+                bVar1 = str[uVar3 + 1];
             }
             uVar5 = bVar1 & 63 | uVar5;
         }
         return uVar5;
     }
 
-    // 0x100cb8490, 304 bytes, placed by class name and debug map
-    // GetUTF8NextChar(char const*, unsigned long&, unsigned long)
-    uint GetUTF8NextChar(char* param_1, ulong* param_2, ulong param_3) {
-        byte bVar1;
-        byte bVar2;
-        byte bVar3;
-        ulong uVar4;
-        byte* pbVar5;
-        uint uVar6;
+    // 0x100cb8490
+    unsigned int GetUTF8NextChar(const char* str, unsigned long& arg2, unsigned long arg3) {
+        uint8_t bVar1;
+        uint8_t bVar2;
+        uint8_t bVar3;
+        unsigned long uVar4;
+        uint8_t* pbVar5;
 
-        uVar6 = 0;
-        if ((param_1 != (char*)0) && (uVar4 = *param_2, uVar4 < param_3)) {
-            *param_2 = uVar4 + 1;
-            bVar1 = param_1[uVar4];
-            pbVar5 = (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_size_mask, 2);
+        unsigned int uVar6 = 0;
+        if ((str != nullptr) && (uVar4 = arg2, uVar4 < arg3)) {
+            arg2 = uVar4 + 1;
+            bVar1 = str[uVar4];
+            pbVar5 = &UTF8_size_mask[2];
             if ((*pbVar5 & ~bVar1) == 0) {
-                if (uVar4 + 3 <= param_3) {
-                    pbVar5 = (byte*)std::array<unsigned char, 4ul>::operator[](
-                        (array<unsigned char, 4ul>*)&UTF8_value_mask, 2);
+                if (uVar4 + 3 <= arg3) {
+                    pbVar5 = &UTF8_value_mask[2];
                     bVar2 = *pbVar5;
-                    *param_2 = uVar4 + 2;
-                    bVar3 = param_1[uVar4 + 1];
-                    *param_2 = uVar4 + 3;
-                    uVar6 = (byte)param_1[uVar4 + 2] & 63 | (bVar3 & 63) << 6 | (uint)(bVar2 & bVar1) << 12;
+                    arg2 = uVar4 + 2;
+                    bVar3 = str[uVar4 + 1];
+                    arg2 = uVar4 + 3;
+                    uVar6 = (uint8_t)str[uVar4 + 2] & 63 | (bVar3 & 63) << 6 | (unsigned int)(bVar2 & bVar1) << 12;
                 }
             } else {
-                pbVar5 =
-                    (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_size_mask, 1);
+                pbVar5 = &UTF8_size_mask[1];
                 if ((*pbVar5 & ~bVar1) == 0) {
-                    if (uVar4 + 2 <= param_3) {
-                        pbVar5 = (byte*)std::array<unsigned char, 4ul>::operator[](
-                            (array<unsigned char, 4ul>*)&UTF8_value_mask, 1);
+                    if (uVar4 + 2 <= arg3) {
+                        pbVar5 = &UTF8_value_mask[1];
                         bVar2 = *pbVar5;
-                        *param_2 = uVar4 + 2;
-                        uVar6 = (byte)param_1[uVar4 + 1] & 63 | (uint)(bVar2 & bVar1) << 6;
+                        arg2 = uVar4 + 2;
+                        uVar6 = (uint8_t)str[uVar4 + 1] & 63 | (unsigned int)(bVar2 & bVar1) << 6;
                     }
                 } else {
-                    pbVar5 = (byte*)std::array<unsigned char, 4ul>::operator[](
-                        (array<unsigned char, 4ul>*)&UTF8_value_mask, 0);
-                    uVar6 = (uint)(bVar1 & *pbVar5);
+                    pbVar5 = &UTF8_value_mask[0];
+                    uVar6 = (unsigned int)(bVar1 & *pbVar5);
                 }
             }
         }
         return uVar6;
     }
 
-    // 0x100cb85c0, 272 bytes, placed by class name and debug map
-    // GetUTF8PrevChar(char const*, unsigned long&)
-    uint GetUTF8PrevChar(char* param_1, ulong* param_2) {
-        byte bVar1;
-        ulong uVar2;
-        byte* pbVar3;
-        uint uVar4;
-        ulong uVar5;
+    // 0x100cb85c0
+    unsigned int GetUTF8PrevChar(const char* str, unsigned long& arg2) {
+        uint8_t bVar1;
+        uint8_t* pbVar3;
+        unsigned int uVar4;
+        unsigned long uVar5;
 
-        uVar2 = *param_2;
+        unsigned long uVar2 = arg2;
         if (uVar2 == 0) {
             return 0;
         }
-        if (param_1 == (char*)0) {
+        if (str == nullptr) {
             return 0;
         }
         if (uVar2 < 2) {
         LAB_100cb8631:
             if (2 < uVar2) {
-                bVar1 = param_1[uVar2 - 3];
-                pbVar3 =
-                    (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_size_mask, 2);
+                bVar1 = str[uVar2 - 3];
+                pbVar3 = &UTF8_size_mask[2];
                 if ((*pbVar3 & ~bVar1) == 0) {
                     uVar5 = uVar2 - 3;
-                    pbVar3 = (byte*)std::array<unsigned char, 4ul>::operator[](
-                        (array<unsigned char, 4ul>*)&UTF8_value_mask, 2);
-                    uVar4 = ((byte)param_1[uVar2 - 2] & 63) << 6 | (uint)(*pbVar3 & bVar1) << 12;
+                    pbVar3 = &UTF8_value_mask[2];
+                    uVar4 = ((uint8_t)str[uVar2 - 2] & 63) << 6 | (unsigned int)(*pbVar3 & bVar1) << 12;
                     goto LAB_100cb8683;
                 }
             }
-            *param_2 = uVar2 - 1;
-            bVar1 = param_1[uVar2 - 1];
-            pbVar3 = (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_value_mask, 0);
-            uVar4 = (uint)(bVar1 & *pbVar3);
+            arg2 = uVar2 - 1;
+            bVar1 = str[uVar2 - 1];
+            pbVar3 = &UTF8_value_mask[0];
+            uVar4 = (unsigned int)(bVar1 & *pbVar3);
         } else {
-            bVar1 = param_1[uVar2 - 2];
-            pbVar3 = (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_size_mask, 1);
+            bVar1 = str[uVar2 - 2];
+            pbVar3 = &UTF8_size_mask[1];
             if ((*pbVar3 & ~bVar1) != 0)
                 goto LAB_100cb8631;
             uVar5 = uVar2 - 2;
-            pbVar3 = (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_value_mask, 1);
-            uVar4 = (uint)(*pbVar3 & bVar1) << 6;
+            pbVar3 = &UTF8_value_mask[1];
+            uVar4 = (unsigned int)(*pbVar3 & bVar1) << 6;
         LAB_100cb8683:
-            uVar4 = (byte)param_1[uVar2 - 1] & 63 | uVar4;
-            *param_2 = uVar5;
+            uVar4 = (uint8_t)str[uVar2 - 1] & 63 | uVar4;
+            arg2 = uVar5;
         }
         return uVar4;
     }
 
-    // 0x100cb86d0, 224 bytes, placed by class name and debug map
-    // CodepointToUTF8(unsigned int, char*)
-    char* CodepointToUTF8(uint param_1, char* param_2) {
-        byte bVar1;
-        uint* puVar3;
-        byte* pbVar4;
+    // 0x100cb86d0
+    char* CodepointToUTF8(unsigned int arg1, char* str) {
+        uint8_t bVar1;
+        uint8_t* pbVar4;
 
-        puVar3 = (uint*)std::array<unsigned int, 3ul>::operator[](0);
-        if (*puVar3 < param_1) {
-            puVar3 = (uint*)std::array<unsigned int, 3ul>::operator[](1);
-            if (*puVar3 < param_1) {
-                puVar3 = (uint*)std::array<unsigned int, 3ul>::operator[](2);
-                if (param_1 <= *puVar3) {
-                    pbVar4 = (byte*)std::array<unsigned char, 4ul>::operator[](
-                        (array<unsigned char, 4ul>*)&UTF8_value_mask, 2);
+        char* arg1_00 = str;
+        unsigned int* puVar3 = &nullptr[(unsigned long)str];
+        if (*puVar3 < arg1) {
+            puVar3 = &DAT_00000001[(unsigned long)arg1_00];
+            if (*puVar3 < arg1) {
+                puVar3 = (unsigned int*)(*2)[(unsigned long)arg1_00];
+                if (arg1 <= *puVar3) {
+                    pbVar4 = &UTF8_value_mask[2];
                     bVar1 = *pbVar4;
-                    pbVar4 = (byte*)std::array<unsigned char, 4ul>::operator[](
-                        (array<unsigned char, 4ul>*)&UTF8_size_mask, 2);
-                    *param_2 = bVar1 & (byte)param_1 | *pbVar4;
-                    param_2[1] = (byte)(param_1 >> 6) & 63;
-                    param_2[2] = (byte)(param_1 >> 12) & 63;
-                    param_2 = param_2 + 3;
+                    pbVar4 = &UTF8_size_mask[2];
+                    *str = bVar1 & (uint8_t)arg1 | *pbVar4;
+                    str[1] = (uint8_t)(arg1 >> 6) & 63;
+                    str[2] = (uint8_t)(arg1 >> 12) & 63;
+                    str = str + 3;
                 }
             } else {
-                pbVar4 =
-                    (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_value_mask, 1);
+                pbVar4 = &UTF8_value_mask[1];
                 bVar1 = *pbVar4;
-                pbVar4 =
-                    (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)&UTF8_size_mask, 1);
-                *param_2 = bVar1 & (byte)param_1 | *pbVar4;
-                param_2[1] = (byte)(param_1 >> 6) & 63;
-                param_2 = param_2 + 2;
+                pbVar4 = &UTF8_size_mask[1];
+                *str = bVar1 & (uint8_t)arg1 | *pbVar4;
+                str[1] = (uint8_t)(arg1 >> 6) & 63;
+                str = str + 2;
             }
         } else {
-            *param_2 = (byte)param_1;
-            param_2 = param_2 + 1;
+            *str = (uint8_t)arg1;
+            str = str + 1;
         }
-        return param_2;
+        return str;
     }
 
 } // namespace jag::stringtools

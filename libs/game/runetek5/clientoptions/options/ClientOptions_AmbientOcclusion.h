@@ -1,6 +1,5 @@
 // libs/game/runetek5/clientoptions/options/ClientOptions_AmbientOcclusion.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,19 +8,19 @@ namespace jag::game::option {
     public:
         // virtual methods in vtable order
         virtual ~AmbientOcclusion();
-        virtual bool IsModifiable(graphics::RT7Core const*) const;
-        virtual GetDefault();
-        virtual char DetermineBestSetting(perf::PerfModuleReporter const&) const;
-        virtual void ApplySettingImpl(graphics::RT7Core&, graphics::EffectManager&, graphics::SSAOPass::Mode);
-        AmbientOcclusion(graphics::RT7Core&, Settings&, char const*);
+        virtual bool IsModifiable(const graphics::RT7Core* rt7Core) const;
+        virtual uint64_t GetDefault();
+        virtual char DetermineBestSetting(const perf::PerfModuleReporter& perfModuleReporter) const;
+        virtual void ApplySettingImpl(graphics::RT7Core& arg1, graphics::EffectManager& effectManager,
+                                      graphics::SSAOPass::Mode arg3);
+        AmbientOcclusion(graphics::RT7Core& rt7Core, Settings& settings, const char* str);
 
-        // data members, from how the methods use this: 193 bytes
-        undefined** field_0;    // offset 0, vtable pointer
-        undefined8 field_8;     // offset 8
-        undefined8 field_16;    // offset 16
-        undefined4 field_24;    // offset 24
-        MinimenuEntry field_28; // offset 28
-        char _unknown_144[49];
+    private:
+        Settings* field_8;
+        char* field_16;
+        uint32_t field_24;
+        MinimenuEntry field_28;
+        uint8_t _unknown_144[49];
     };
 
 } // namespace jag::game::option
@@ -29,10 +28,7 @@ namespace jag::game::option {
 namespace jag::graphics {
     class AmbientOcclusion {
     public:
-        AmbientOcclusion* BuildUniforms();
-
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        auto BuildUniforms();
     };
 
 } // namespace jag::graphics

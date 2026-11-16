@@ -1,6 +1,5 @@
 // _unplaced/libs/hal/system/bootstrap/unity_0.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.system.osclient
 
 #include "_unplaced/classes/jag/math/ColourHSL.h"
@@ -34,55 +33,41 @@
 namespace jag {
     class DebugName {
     public:
-        GetDebugName() const;
-        DebugName(char const*);
+        void GetDebugName() const;
+        DebugName(const char* arg1);
     };
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    ThreadPoolSingleton::GetThreadPool();
+    // 0x100009ca0: ThreadPoolSingleton::GetThreadPool() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    BucketAllocatorEASTL::operator=(BucketAllocatorEASTL const&);
+    // 0x100009ca0: BucketAllocatorEASTL::operator=(BucketAllocatorEASTL const&) has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    SafeBucketAllocatorEASTL::operator=(SafeBucketAllocatorEASTL const&);
+    // 0x100009ca0: SafeBucketAllocatorEASTL::operator=(SafeBucketAllocatorEASTL const&) has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    EntityWaypoint::GetCoord() const;
+    // 0x100009ca0: EntityWaypoint::GetCoord() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009d10: the linker folded this into eastl::string::Layout::HeapBeginPtr(), which has identical code
-    ShuffledPacketFactory::p1();
+    // 0x100009d10: ShuffledPacketFactory::p1() has the same machine code as eastl::string::Layout::HeapBeginPtr()
 
-    // 0x100009d10: the linker folded this into eastl::string::Layout::HeapBeginPtr(), which has identical code
-    ShuffledPacketFactory::p1_alt1();
+    // 0x100009d10: ShuffledPacketFactory::p1_alt1() has the same machine code as eastl::string::Layout::HeapBeginPtr()
 
-    // 0x100009d10: the linker folded this into eastl::string::Layout::HeapBeginPtr(), which has identical code
-    ShuffledPacketFactory::p1_alt2();
+    // 0x100009d10: ShuffledPacketFactory::p1_alt2() has the same machine code as eastl::string::Layout::HeapBeginPtr()
 
-    // 0x100009d10: the linker folded this into eastl::string::Layout::HeapBeginPtr(), which has identical code
-    ShuffledPacketFactory::p1_alt3();
+    // 0x100009d10: ShuffledPacketFactory::p1_alt3() has the same machine code as eastl::string::Layout::HeapBeginPtr()
 
-    // 0x100009d10: the linker folded this into eastl::string::Layout::HeapBeginPtr(), which has identical code
-    DebugName::GetDebugName() const;
+    // 0x100009d10: DebugName::GetDebugName() const has the same machine code as eastl::string::Layout::HeapBeginPtr()
 
-    // 0x10000b2a0: the linker folded this into eastl::string::Layout::GetHeapSize() const, which has identical code
-    StringEnumEntry::GetName() const;
+    // 0x10000b2a0: StringEnumEntry::GetName() const has the same machine code as eastl::string::Layout::GetHeapSize() const
 
-    // 0x10000b400: the linker folded this into eastl::string::Layout::SetHeapBeginPtr(char*), which has identical code
-    DebugName::DebugName(char const*);
+    // 0x10000b400: DebugName::DebugName(char const*) has the same machine code as eastl::string::Layout::SetHeapBeginPtr(char*)
 
-    // 0x10000be60, 32 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init
-    void ___cxx_global_var_init() {
-        ___cxa_atexit(std::unique_ptr<std::thread, std::default_delete<std::thread>>::~unique_ptr, &_g_mainThread,
-                      4294967296);
+    // 0x10000be60
+    void ___cxx_global_var_init(void) {
+        ___cxa_atexit(std::unique_ptr<std::thread>::~unique_ptr, &g_mainThread, 4294967296);
     }
 
-    // 0x10000be80, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.130
-    void ___cxx_global_var_init_130() {
-        new (&_g_initParams) SystemInitParams();
-        ___cxa_atexit(PTR__SystemInitParams_100ee63d8, &_g_initParams, 4294967296);
+    // 0x10000be80
+    void ___cxx_global_var_init_130(void) {
+        new (&g_initParams) SystemInitParams();
+        ___cxa_atexit(PTR__SystemInitParams_100ee63d8, &g_initParams, 4294967296);
     }
 
 } // namespace jag
@@ -90,154 +75,122 @@ namespace jag {
 namespace jag::game {
     class TcpConnectionMessageBase {
     public:
-        GetPacket();
-        void SetEndPosition(int);
+        void GetPacket();
+        void SetEndPosition(int arg1);
         int GetEndPosition() const;
 
-        // data members, from how the methods use this: 48 bytes
-        char _unknown_0[40];
-        int m_endPosition; // offset 40
-        char _unknown_44[4];
+    private:
+        uint8_t _unknown_0[40];
+        int m_endPosition;
+        uint8_t _unknown_44[4];
     };
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    EnvScatteringSettings::GetSimpleScatteringParams() const;
+    // 0x100009ca0: EnvScatteringSettings::GetSimpleScatteringParams() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    EnvVolumetricSettings::GetParams() const;
+    // 0x100009ca0: EnvVolumetricSettings::GetParams() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009d00: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second(), which has identical code
-    EnvSkySettings::GetSkyModelRequest();
+    // 0x100009d00: EnvSkySettings::GetSkyModelRequest() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second()
 
-    // 0x100009d10: the linker folded this into eastl::string::Layout::HeapBeginPtr(), which has identical code
-    BuildCombinedLocationRequestData::GetLocationContainerLocationList() const;
+    // 0x100009d10: BuildCombinedLocationRequestData::GetLocationContainerLocationList() const has the same machine code as eastl::string::Layout::HeapBeginPtr()
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    TcpConnectionMessageBase::GetPacket();
+    // 0x100009d50: TcpConnectionMessageBase::GetPacket() has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    EnvSkySettings::GetSkyBox() const;
+    // 0x100009d50: EnvSkySettings::GetSkyBox() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    EnvToneMapSettings::GetToneMapParams() const;
+    // 0x100009d50: EnvToneMapSettings::GetToneMapParams() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    LocTypeCustomisation::GetModelList() const;
+    // 0x100009d50: LocTypeCustomisation::GetModelList() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    EnvColourGradingSettings::GetColourRemapIDs() const;
+    // 0x100009d50: EnvColourGradingSettings::GetColourRemapIDs() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
 } // namespace jag::game
 
 namespace jag::graphics {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    uint ScriptedPointLight::GetRadius();
+    // 0x100009ca0: ScriptedPointLight::GetRadius() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    TextureAtlasUsageMap::GetUsed();
+    // 0x100009ca0: TextureAtlasUsageMap::GetUsed() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    LayeredAnimationStateMachineLayerDescriptor::GetAnimationStateMachineDescriptor();
+    // 0x100009ca0: LayeredAnimationStateMachineLayerDescriptor::GetAnimationStateMachineDescriptor() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    AnimationResource::GetAnimationDescriptor() const;
+    // 0x100009ca0: AnimationResource::GetAnimationDescriptor() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    GeometryBatchVertexPos::GetPosition() const;
+    // 0x100009ca0: GeometryBatchVertexPos::GetPosition() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    LayeredAnimationStateMachineLayerDescriptor::GetAnimationStateMachineDescriptor() const;
+    // 0x100009ca0: LayeredAnimationStateMachineLayerDescriptor::GetAnimationStateMachineDescriptor() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009d00: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second(), which has identical code
-    TextureAtlasUsageMap::GetLoading();
+    // 0x100009d00: TextureAtlasUsageMap::GetLoading() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second()
 
-    // 0x100009d00: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second(), which has identical code
-    ModularParticleSystemDrawable::GetTextureAtlasReference() const;
+    // 0x100009d00: ModularParticleSystemDrawable::GetTextureAtlasReference() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second()
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    ModularParticleSystemTemplate::GetName() const;
+    // 0x100009d50: ModularParticleSystemTemplate::GetName() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x10000b2a0: the linker folded this into eastl::string::Layout::GetHeapSize() const, which has identical code
-    TextRunSlice::begin() const;
+    // 0x10000b2a0: TextRunSlice::begin() const has the same machine code as eastl::string::Layout::GetHeapSize() const
 
 } // namespace jag::graphics
 
-// 0x100f309b0, 16 bytes, __data
-g_exitCode = {1, 0, 0, 0};
+// 0x100f309b0
+int32_t g_exitCode[4] = {1, 0, 0, 0};
 
-// 0x100f886b0, 8 bytes, __common; zero-initialised
-g_pApp;
+// 0x100f886b0
+int64_t g_pApp;
 
-// 0x100f886b8, 8 bytes, __common; zero-initialised
-g_mainThread;
+// 0x100f886b8
+int64_t g_mainThread;
 
-// 0x100f886c0, 56 bytes, __common; zero-initialised
-g_initParams;
+// 0x100f886c0
+uint8_t g_initParams[56];
 
 namespace jag::render {
     class ZoneObjectMemory {
     public:
-        ZoneObjectMemory(unsigned long long);
+        ZoneObjectMemory(unsigned long long arg1);
     };
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    GPUMemoryAllocatorZone::GetName() const;
+    // 0x100009ca0: GPUMemoryAllocatorZone::GetName() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x10000b400: the linker folded this into eastl::string::Layout::SetHeapBeginPtr(char*), which has identical code
-    ZoneObjectMemory::ZoneObjectMemory(unsigned long long);
+    // 0x10000b400: ZoneObjectMemory::ZoneObjectMemory(unsigned long long) has the same machine code as eastl::string::Layout::SetHeapBeginPtr(char*)
 
 } // namespace jag::render
 
 namespace jag::oldscape {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    ConsoleCommandHelp::Usage() const;
+    // 0x100009ca0: ConsoleCommandHelp::Usage() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009d10: the linker folded this into eastl::string::Layout::HeapBeginPtr(), which has identical code
-    OSRenderCore_LogicThread_Common::GetRenderStateJava();
+    // 0x100009d10: OSRenderCore_LogicThread_Common::GetRenderStateJava() has the same machine code as eastl::string::Layout::HeapBeginPtr()
 
-    // 0x10000add0: the linker folded this into eastl::allocator::allocator(eastl::allocator const&), which has identical code
-    OSRenderCore_LogicThread_JavaStyle::OSRenderCore_LogicThread_JavaStyle();
+    // 0x10000add0: OSRenderCore_LogicThread_JavaStyle::OSRenderCore_LogicThread_JavaStyle() has the same machine code as eastl::allocator::allocator(eastl::allocator const&)
 
 } // namespace jag::oldscape
 
 namespace jag::callstack {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    CallstackResolved::GetStack();
+    // 0x100009ca0: CallstackResolved::GetStack() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    SignalState::GetJumpBuffer();
+    // 0x100009d50: SignalState::GetJumpBuffer() has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
 } // namespace jag::callstack
 
 namespace jag::graphicutils {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    Screengrabber::GetScreenshotData() const;
+    // 0x100009ca0: Screengrabber::GetScreenshotData() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    RenderToTextureHelper::GetQuadVBPos() const;
+    // 0x100009d50: RenderToTextureHelper::GetQuadVBPos() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
 } // namespace jag::graphicutils
 
 namespace jag::logger {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    LogStream::GetName() const;
+    // 0x100009ca0: LogStream::GetName() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
 } // namespace jag::logger
 
 namespace jag::math {
-    // 0x100009d90: the linker folded this into Vector3T<float>::Vector3T(float, float, float), which has identical code
-    ColourHSL::ColourHSL(float, float, float);
+    // 0x100009d90: ColourHSL::ColourHSL(float, float, float) has the same machine code as Vector3T<float>::Vector3T(float, float, float)
 
 } // namespace jag::math
 
 namespace jag::ui {
-    // 0x10000add0: the linker folded this into eastl::allocator::allocator(eastl::allocator const&), which has identical code
-    ComponentServerConfig::SetServerActiveProperties(ServerActiveProperties const&);
+    // 0x10000add0: ComponentServerConfig::SetServerActiveProperties(ServerActiveProperties const&) has the same machine code as eastl::allocator::allocator(eastl::allocator const&)
 
 } // namespace jag::ui
 
 namespace jag::console {
-    // 0x10000b400: the linker folded this into eastl::string::Layout::SetHeapBeginPtr(char*), which has identical code
-    RegisteredCommand::RegisteredCommand(CommandData&);
+    // 0x10000b400: RegisteredCommand::RegisteredCommand(CommandData&) has the same machine code as eastl::string::Layout::SetHeapBeginPtr(char*)
 
 } // namespace jag::console

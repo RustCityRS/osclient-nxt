@@ -1,238 +1,176 @@
 // libs/graphics/runetek7/fonts/FontHelpers.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "FontHelpers.h"
 #include "TextRun.h"
 
 namespace jag::graphics {
-    // 0x100f442f8, 4 bytes, __data
-    FontHelpers::ltCharCode = 60;
+    // 0x100f442f8
+    int32_t FontHelpers::ltCharCode = 60;
 
-    // 0x100f442fc, 4 bytes, __data
-    FontHelpers::gtCharCode = 62;
+    // 0x100f442fc
+    int32_t FontHelpers::gtCharCode = 62;
 
-    // 0x100f44300, 4 bytes, __data
-    FontHelpers::spaceCharCode = 32;
+    // 0x100f44300
+    int32_t FontHelpers::spaceCharCode = 32;
 
-    // 0x100f44304, 4 bytes, __data
-    FontHelpers::nbspCharCode = 160;
+    // 0x100f44304
+    int32_t FontHelpers::nbspCharCode = 160;
 
-    // 0x100f44308, 4 bytes, __data
-    FontHelpers::shyCharCode = 173;
+    // 0x100f44308
+    int32_t FontHelpers::shyCharCode = 173;
 
-    // 0x100f4430c, 4 bytes, __data
-    FontHelpers::timesCharCode = 215;
+    // 0x100f4430c
+    int32_t FontHelpers::timesCharCode = 215;
 
-    // 0x100f44310, 4 bytes, __data
-    FontHelpers::euroCharCode = 128;
+    // 0x100f44310
+    int32_t FontHelpers::euroCharCode = 128;
 
-    // 0x100f44314, 4 bytes, __data
-    FontHelpers::copyCharCode = 169;
+    // 0x100f44314
+    int32_t FontHelpers::copyCharCode = 169;
 
-    // 0x100f44318, 4 bytes, __data
-    FontHelpers::regCharCode = 174;
+    // 0x100f44318
+    int32_t FontHelpers::regCharCode = 174;
 
-    // 0x100f4431c, 4 bytes, __data
-    FontHelpers::hyphenCharCode = 45;
+    // 0x100f4431c
+    int32_t FontHelpers::hyphenCharCode = 45;
 
-    // 0x100f44320, 4 bytes, __data
-    FontHelpers::newlineCharCode = 10;
+    // 0x100f44320
+    int32_t FontHelpers::newlineCharCode = 10;
 
-    // 0x100f44324, 4 bytes, __data
-    FontHelpers::tabCharCode = 9;
+    // 0x100f44324
+    int32_t FontHelpers::tabCharCode = 9;
 
-    // 0x100f44328, 4 bytes, __data
-    FontHelpers::m_overrideDrawAutoWrapWidth = -1;
+    // 0x100f44328
+    int32_t FontHelpers::m_overrideDrawAutoWrapWidth = -1;
 
-    // 0x100f44428, 8 bytes, __data
-    FontHelpers::m_overrideTruncatedStringLength = 4294967295;
+    // 0x100f44428
+    int64_t FontHelpers::m_overrideTruncatedStringLength = 4294967295;
 
-    // 0x103bc0410, 8 bytes, __common; zero-initialised
-    FontHelpers::m_highlightNonVectorFonts;
+    // 0x103bc0410
+    int64_t FontHelpers::m_highlightNonVectorFonts;
 
-    // 0x103bc0418, 24 bytes, __common; set at startup by ___cxx_global_var_init.14
-    Array<FontHelpers::ModIconReference, eastl::allocator> FontHelpers::m_modIcons =
-        Array<FontHelpers::ModIconReference, eastl::allocator>();
+    // 0x103bc0418, set at startup by ___cxx_global_var_init.14
+    Array<FontHelpers::ModIconReference> FontHelpers::m_modIcons = Array<FontHelpers::ModIconReference>();
 
-    // 0x103bc0430, 48 bytes, __common; zero-initialised
-    FontHelpers::m_callbackGetSpriteReference;
+    // 0x103bc0430
+    uint8_t FontHelpers::m_callbackGetSpriteReference[48];
 
-    // 0x10011c9a0: the linker folded this into oldscape::dash3d::ModelAppender::~ModelAppender(), which has identical code
-    FontHelpers::ModIconReference::~ModIconReference();
+    // 0x10011c9a0: FontHelpers::ModIconReference::~ModIconReference() has the same machine code as oldscape::dash3d::ModelAppender::~ModelAppender()
 
-    // 0x10012a760: the linker folded this into eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric> >::~pair(), which has identical code
-    FontHelpers::ModIconReference::~ModIconReference();
+    // 0x10012a760: FontHelpers::ModIconReference::~ModIconReference() has the same machine code as eastl::pair<oldscape::Font const, shared_ptr<oldscape::jstring::PixfontGeneric>>::~pair()
 
-    // 0x100426b40: the linker folded this into HardCodedSprites::SpriteReference::SpriteReference(HardCodedSprites::SpriteReference&&), which has identical code
-    FontHelpers::ModIconReference::ModIconReference(FontHelpers::ModIconReference&&);
+    // 0x100426b50: FontHelpers::ModIconReference::ModIconReference(FontHelpers::ModIconReference&&) has the same machine code as HardCodedSprites::SpriteReference::SpriteReference(HardCodedSprites::SpriteReference&&)
 
-    // 0x100426b50: the linker folded this into HardCodedSprites::SpriteReference::SpriteReference(HardCodedSprites::SpriteReference&&), which has identical code
-    FontHelpers::ModIconReference::ModIconReference(FontHelpers::ModIconReference&&);
+    // 0x100426bd0: FontHelpers::ModIconReference::ModIconReference() has the same machine code as HardCodedSprites::SpriteReference::SpriteReference()
 
-    // 0x100426bc0: the linker folded this into HardCodedSprites::SpriteReference::SpriteReference(), which has identical code
-    FontHelpers::ModIconReference::ModIconReference();
+    // 0x1008dfe70
+    unsigned long ParseSpriteData(StringView stringView, int& arg2, int& arg3) {
+        bool cVar2;
+        StringView* stringView_00;
+        StringView* stringView_01;
+        Logger* logger;
+        unsigned long uVar5;
 
-    // 0x100426bd0: the linker folded this into HardCodedSprites::SpriteReference::SpriteReference(), which has identical code
-    FontHelpers::ModIconReference::ModIconReference();
-
-    // 0x1008dfe70, 240 bytes, placed by debug map only (low confidence)
-    // ParseSpriteData(StringView, int&, int&)
-    ulong ParseSpriteData(StringView param_1, int* param_2, int* param_3) {
-        bool bVar1;
-        char cVar2;
-        StringView* pSVar3;
-        StringView* this;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        ulong uVar7;
-        StringView local_58[2];
-        int* local_38;
-
-        *param_2 = 0;
-        local_38 = param_2;
-        local_58->split((char)param_1.field_0);
-        pSVar3 = (StringView*)std::get<0ul, StringView, StringView>((pair*)local_58);
-        this = (StringView*)std::get<1ul, StringView, StringView>((pair*)local_58);
-        bVar1 = FromString<StringView, int>(pSVar3, (int*)param_1.field_8, 10);
+        arg3 = 0;
+        int* local_38 = arg3;
+        auto local_58 = stringView->split(',');
+        stringView_00 = (StringView*)std::get<0ul, StringView, StringView>(local_58);
+        stringView_01 = (StringView*)std::get<1ul, StringView, StringView>(local_58);
+        bool bVar1 = FromString<StringView, int>(stringView_00, arg2, 10);
         if (bVar1) {
-            cVar2 = empty();
-            uVar7 = CONCAT71(param_1.field_8._1_7_, 1);
-            if (cVar2 != '\0')
+            cVar2 = stringView_01->empty();
+            uVar5 = (((uint64_t)((int64_t)((unsigned long)arg2 >> 8)) << 8) | (uint8_t)1);
+            if (cVar2)
                 goto LAB_1008dff40;
-            bVar1 = FromString<StringView, int>(this, local_38, 10);
+            bVar1 = FromString<StringView, int>(stringView_01, local_38, 10);
             if (bVar1)
                 goto LAB_1008dff40;
         }
-        uVar4 = logger::default_logger();
-        uVar5 = param_1.field_0->HeapBeginPtr();
-        uVar6 = param_1.field_0->end();
-        uVar7 = 0;
-        logger::Logger::Log(uVar4, 0, 2,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
-                            "fonts/FontHelpers.cpp",
-                            46, "could not parse sprite data from \'sprite=%.*s\'", uVar5, uVar6);
+        logger = logger::default_logger();
+        uint64_t uVar3 = stringView->HeapBeginPtr();
+        uint64_t uVar4 = stringView->end();
+        uVar5 = 0;
+        logger->Log(false, 2,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/"
+                    "FontHelpers.cpp",
+                    46, "could not parse sprite data from \'sprite=%.*s\'", uVar3, uVar4);
     LAB_1008dff40:
-        return uVar7 & 4294967295;
+        return uVar5 & 4294967295;
     }
 
-    // 0x1008e0060, 16 bytes, base-object constructor, placed by class name and debug map
-    // FontHelpers::FontHelpers()
-    void FontHelpers::FontHelpers() {
-        field_32 = (GUIManager*)0;
-    }
+    // 0x1008e0060
+    FontHelpers::FontHelpers() : field_32(nullptr) {}
 
-    // 0x1008e0070, 16 bytes, complete-object constructor, placed by class name and debug map
-    // FontHelpers::FontHelpers(): jumps straight to the base-object constructor
-
-    // 0x1008e0080, 64 bytes, base-object destructor, placed by class name and debug map
-    // FontHelpers::~FontHelpers()
-    void FontHelpers::~FontHelpers() {
-        char cVar1;
-
-        cVar1 = m_modIcons.empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x1008e0080
+    FontHelpers::~FontHelpers() {
+        if (m_modIcons.empty() == '\0') {
             LogAssert("m_modIcons.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/"
                       "FontHelpers.cpp",
-                      57, (char*)0);
+                      57, nullptr);
         }
     }
 
-    // 0x1008e00c0, 16 bytes, complete-object destructor, placed by class name and debug map
-    // FontHelpers::~FontHelpers(): jumps straight to the base-object destructor
-
-    // 0x1008e00d0, 16 bytes, placed by class name and debug map
-    // FontHelpers::Initialise(GUIManager*)
-    void FontHelpers::Initialise(GUIManager* param_1) {
-        field_32 = param_1;
+    // 0x1008e00d0
+    void FontHelpers::Initialise(GUIManager* guiManager) {
+        field_32 = guiManager;
     }
 
-    // 0x1008e00e0, 32 bytes, placed by class name and debug map
-    // FontHelpers::Shutdown()
+    // 0x1008e00e0
     void FontHelpers::Shutdown() {
         m_modIcons.clear();
     }
 
-    // 0x1008e0150, 32 bytes, placed by class name and debug map
-    // FontHelpers::SetModIcons(Array<FontHelpers::ModIconReference, eastl::allocator>&&)
-    void FontHelpers::SetModIcons(Array* param_1) {
-        m_modIcons.swap(param_1);
+    // 0x1008e0150
+    void FontHelpers::SetModIcons(Array<FontHelpers::ModIconReference>&& modIconReferences) {
+        m_modIcons.swap(modIconReferences);
     }
 
-    // 0x1008e0170, 208 bytes, placed by class name and debug map
-    // FontHelpers::DrawString(StringView, int, int, unsigned int, TextProperties const&)
-    undefined8 FontHelpers::DrawString(StringView param_1, int param_2, int param_3, uint param_4,
-                                       TextProperties* param_5) {
-        char cVar1;
-        byte bVar2;
-        byte bVar3;
+    // 0x1008e0170
+    uint64_t FontHelpers::DrawString(StringView stringView, int arg2, int arg3, unsigned int arg4,
+                                     const TextProperties& textProperties) {
+        uint8_t bVar2;
+        uint8_t bVar3;
         FontMetrics* this_00;
-        undefined8 uVar4;
-        undefined4 in_register_0000008c;
-        TextProperties* this_01;
         int iVar5;
-        StringView SVar6;
-        TextProperties* in_stack_ffffffffffffffa0;
         StringView local_58;
-        undefined4 local_34;
 
-        this_01 = (TextProperties*)CONCAT44(in_register_0000008c, param_4);
-        cVar1 = param_1.field_0->empty();
-        uVar4 = 0;
-        if (cVar1 == '\0') {
-            local_34 = (int)param_1.field_8;
-            ResetState(this_01);
-            this_00 = (FontMetrics*)this_01->GetFontMetrics();
+        bool cVar1 = stringView->empty();
+        uint64_t uVar4 = 0;
+        if (!cVar1) {
+            ResetState(textProperties);
+            this_00 = textProperties.GetFontMetrics();
             cVar1 = this_00->IsVectorFont();
-            if (cVar1 == '\0') {
+            if (!cVar1) {
                 iVar5 = this_00->GetVerticalSpacing();
             } else {
                 bVar2 = this_00->GetMaxAscent();
                 bVar3 = this_00->GetMaxDescent();
-                iVar5 = (uint)bVar2 - (uint)bVar3;
+                iVar5 = (unsigned int)bVar2 - (unsigned int)bVar3;
             }
-            iVar5 = iVar5 + param_2;
-            new (&local_58) StringView(param_1.field_0);
-            SVar6.field_8._0_4_ = local_34;
-            SVar6.field_0 = (ulong)&local_58;
-            SVar6.field_8._4_4_ = 0;
-            uVar4 = DrawAlignedString((FontHelpers*)this, SVar6, iVar5, param_3, 0, (fixed_vector*)this_01,
-                                      in_stack_ffffffffffffffa0);
+            iVar5 = iVar5 + arg3;
+            local_58 = StringView(*stringView);
+            uVar4 = DrawAlignedString((StringView*)this, (int)&local_58, arg2, iVar5,
+                                      (fixed_vector<std::pair<int, int>, _256ul>*)(unsigned long)arg4, nullptr);
         }
         return uVar4;
     }
 
-    // 0x1008e02e0, 576 bytes, placed by class name
-    // FontHelpers::DrawAlignedString(StringView, int, int, int, eastl::fixed_vector<std::pair<int, int>, 256ul, true, eastl::allocator> const*, TextProperties const&)
-    /* FontHelpers::DrawAlignedString(StringView, int, int, int,
-   eastl::fixed_vector<std::pair<int, int>, 256ul, true, eastl::allocator> const*,
-   TextProperties const&) */
-
-    int FontHelpers::DrawAlignedString(StringView param_1, int param_2, int param_3, int param_4, fixed_vector* param_5,
-                                       TextProperties* param_6) {
-        char cVar1;
-        undefined1 uVar2;
-        byte bVar3;
-        int iVar4;
-        int iVar5;
-        undefined4 uVar6;
-        uchar* puVar7;
-        StringView* this_00;
-        StringView* this_01;
-        FontHelpers* this_02;
-        undefined4 in_register_0000008c;
-        undefined8 uVar10;
-        StringView SVar11;
-        StringView SVar12;
-        StringView SVar13;
-        StringView SVar14;
-        StringView SVar15;
-        StringView SVar16;
-        TextProperties* in_stack_ffffffffffffff28;
+    // 0x1008e02e0
+    unsigned int FontHelpers::DrawAlignedString(StringView stringView, int arg2, int arg3, int arg4,
+                                                const eastl::fixed_vector<std::pair<int, int>, 256ul>* pairs,
+                                                const TextProperties& textProperties) {
+        uint8_t bVar3;
+        bool bVar4;
+        unsigned int uVar5;
+        unsigned int arg2_00;
+        uint32_t uVar6;
+        StringView* stringView;
+        uint32_t in_register_00000034;
+        FontHelpers* this_00;
+        TextProperties* in_stack_00000008;
         StringView local_d0;
         StringView local_c0;
         StringView local_b0;
@@ -241,169 +179,125 @@ namespace jag::graphics {
         StringView local_80;
         StringView local_70;
         StringView local_60;
-        FontHelpers* local_48;
-        undefined8 local_40;
 
-        uVar10 = CONCAT44(in_register_0000008c, param_4);
-        this_01 = (StringView*)param_1.field_0;
-        SVar11.field_8._0_4_ = (int)param_1.field_8;
-        local_48 = this;
-        cVar1 = this_01->empty();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+        StringView* stringView_00 = (StringView*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg2);
+        FontHelpers* local_48 = (FontHelpers*)stringView;
+        if (stringView_00->empty() != '\0') {
             LogAssert("!string.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/"
                       "FontHelpers.cpp",
-                      1241, (char*)0);
+                      1241, nullptr);
         }
-        puVar7 = (uchar*)param_5->GetFontMetrics();
-        uVar2 = param_5->GetHorizontalAlignment();
-        local_40 = uVar10;
-        switch (uVar2) {
+        auto fontMetrics = in_stack_00000008->GetFontMetrics();
+        switch (in_stack_00000008->GetHorizontalAlignment()) {
         case 0:
-            new (&local_d0) StringView(this_01);
-            SVar11.field_0 = (ulong)&local_d0;
-            SVar11.field_8._4_4_ = 0;
-            iVar4 = DrawStringInner(local_48, SVar11, param_2, param_4, param_5, in_stack_ffffffffffffff28);
-            return iVar4;
+            local_d0 = StringView(*stringView_00);
+            uVar5 = DrawStringInner(local_48, &local_d0, arg3, arg4,
+                                    (fixed_vector<std::pair<int, int>, _256ul>*)textProperties, in_stack_00000008);
+            return uVar5;
         case 1:
-            new (&local_c0) StringView(this_01);
-            bVar3 = param_5->HasFlag(1);
-            SVar13.field_8 = puVar7;
-            SVar13.field_0 = (ulong)&local_c0;
-            iVar5 = GetStringWidth(SVar13, (FontMetrics*)(ulong)bVar3, (bool)12);
-            this_00 = &local_b0;
-            StringView::StringView(this_00, this_01);
-            iVar4 = iVar5 / 2;
+            local_c0 = StringView(*stringView_00);
+            bVar4 = (bool)in_stack_00000008->HasFlag(1);
+            arg2_00 = GetStringWidth(&local_c0, fontMetrics, bVar4);
+            stringView = &local_b0;
+            new (stringView) StringView(*stringView_00);
+            uVar5 = (int)arg2_00 / 2;
             break;
         case 2:
-            new (&local_a0) StringView(this_01);
-            bVar3 = param_5->HasFlag(1);
-            SVar14.field_8 = puVar7;
-            SVar14.field_0 = (ulong)&local_a0;
-            iVar5 = GetStringWidth(SVar14, (FontMetrics*)(ulong)bVar3, (bool)12);
-            this_00 = &local_90;
-            StringView::StringView(this_00, this_01);
-            iVar4 = iVar5;
+            local_a0 = StringView(*stringView_00);
+            bVar4 = (bool)in_stack_00000008->HasFlag(1);
+            arg2_00 = GetStringWidth(&local_a0, fontMetrics, bVar4);
+            stringView = &local_90;
+            new (stringView) StringView(*stringView_00);
+            uVar5 = arg2_00;
             break;
         case 3:
-            new (&local_80) StringView(this_01);
-            bVar3 = param_5->HasFlag(1);
-            SVar15.field_8 = puVar7;
-            SVar15.field_0 = (ulong)&local_80;
-            iVar5 = GetStringWidth(SVar15, (FontMetrics*)(ulong)bVar3, (bool)12);
-            new (&local_70) StringView(this_01);
-            bVar3 = param_5->HasFlag(1);
-            SVar16.field_8._0_4_ = iVar5;
-            SVar16.field_0 = (ulong)&local_70;
-            SVar16.field_8._4_4_ = 0;
-            uVar6 = CalculateExtraSpaceWidthForJustify(SVar16, (uint)param_3, (uint)bVar3, (bool)(undefined1)param_3);
-            this_02 = local_48;
-            *(undefined4*)&local_48->field_16 = uVar6;
-            new (&local_60) StringView(this_01);
-            this_00 = &local_60;
-            iVar4 = iVar5;
+            local_80 = StringView(*stringView_00);
+            bVar4 = (bool)in_stack_00000008->HasFlag(1);
+            arg2_00 = GetStringWidth(&local_80, fontMetrics, bVar4);
+            local_70 = StringView(*stringView_00);
+            bVar4 = (bool)in_stack_00000008->HasFlag(1);
+            uVar6 = CalculateExtraSpaceWidthForJustify(&local_70, arg2_00, (unsigned int)pairs, bVar4);
+            this_00 = local_48;
+            *(uint32_t*)&local_48->field_16 = uVar6;
+            local_60 = StringView(*stringView_00);
+            stringView = &local_60;
+            uVar5 = arg2_00;
             goto LAB_1008e04e4;
         default:
-            bVar3 = param_5->GetHorizontalAlignment();
-            /* WARNING: Subroutine does not return */
+            bVar3 = in_stack_00000008->GetHorizontalAlignment();
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "fonts/FontHelpers.cpp",
-                            1269, "FontHelpers: Unknown align mode: %i", (ulong)bVar3);
+                            1269, "FontHelpers: Unknown align mode: %i", (unsigned long)bVar3);
         }
-        this_02 = local_48;
+        this_00 = local_48;
     LAB_1008e04e4:
-        SVar12.field_8._0_4_ = (int)SVar11.field_8 - iVar4;
-        SVar12.field_0 = (ulong)this_00;
-        SVar12.field_8._4_4_ = 0;
-        DrawStringInner(this_02, SVar12, param_2, (int)local_40, param_5, in_stack_ffffffffffffff28);
-        return iVar5;
+        DrawStringInner(this_00, stringView, arg3 - uVar5, arg4,
+                        (fixed_vector<std::pair<int, int>, _256ul>*)textProperties, in_stack_00000008);
+        return arg2_00;
     }
 
-    // 0x1008e0520, 432 bytes, placed by class name
-    // FontHelpers::DrawStringIn3DSpace(math::Vector3T<float> const&, math::Matrix44T<float> const&, math::Matrix44T<float> const&, char const*, unsigned long, TextProperties const&)
-    void FontHelpers::DrawStringIn3DSpace(Vector3T* param_1, Matrix44T* param_2, Matrix44T* param_3, char* param_4,
-                                          ulong param_5, TextProperties* param_6) {
+    // 0x1008e0520
+    void FontHelpers::DrawStringIn3DSpace(const math::Vector3T<float>& vector3, const math::Matrix44T<float>& matrix441,
+                                          const math::Matrix44T<float>& matrix442, const char* str, unsigned long arg5,
+                                          const TextProperties& textProperties) {
         int iVar1;
-        float* pfVar2;
-        vector* pvVar3;
-        Matrix44T* this_01;
-        StringView SVar4;
-        Matrix44T aMStackY_1ce8[128];
-        TextProperties* in_stack_ffffffffffffff18;
-        undefined1 local_a8[88];
+        TextProperties* in_stack_00000008;
+        Matrix44T<float> local_a8;
+        StringView local_60;
         float local_38;
         float local_34;
 
-        this_01 = aMStackY_1ce8 + 128;
-        new (this_01) math::Matrix44T<float>();
-        math::operator*((math*)local_a8, param_3, param_2);
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)this_01, (Matrix44T*)local_a8);
-        new (local_a8) math::Vector4T<float>(param_1, 1.0);
-        math::Vector4T<float>::operator*=((Vector4T<float>*)local_a8, this_01);
-        pfVar2 = (float*)local_a8->qw();
+        Matrix44T<float> local_e8;
+        local_a8** str;
+        local_e8 = local_a8;
+        new (&local_a8) math::Vector4T(matrix441, 1.0);
+        local_a8 *= &local_e8;
+        auto pfVar2 = local_a8.qw();
         if (0.0 < *pfVar2) {
-            pfVar2 = (float*)local_a8->qw();
+            pfVar2 = (float*)local_a8.qw();
             local_34 = *pfVar2;
-            pvVar3 = local_a8->SSOBeginPtr(this_01);
-            *(float*)pvVar3 = *(float*)pvVar3 / local_34;
-            pfVar2 = (float*)local_a8->qw();
-            local_34 = *pfVar2;
-            pfVar2 = (float*)local_a8->y();
+            pfVar2 = (float*)local_a8.SSOBeginPtr();
             *pfVar2 = *pfVar2 / local_34;
-            pvVar3 = local_a8->SSOBeginPtr(this_01);
-            local_34 = *(float*)pvVar3 * 0.5 + 0.5;
-            iVar1 = (((FontHelpers*)this)->field_32)->GetStatus();
+            pfVar2 = (float*)local_a8.qw();
+            local_34 = *pfVar2;
+            pfVar2 = (float*)local_a8.y();
+            *pfVar2 = *pfVar2 / local_34;
+            pfVar2 = (float*)local_a8.SSOBeginPtr();
+            local_34 = *pfVar2 * 0.5 + 0.5;
+            iVar1 = ((GameToken*)((FontHelpers*)vector3)->field_32)->GetStatus();
             local_34 = (float)iVar1 * local_34;
-            pfVar2 = (float*)local_a8->y();
+            pfVar2 = (float*)local_a8.y();
             local_38 = *pfVar2 * 0.5 + 0.5;
-            iVar1 = (((FontHelpers*)this)->field_32)->GetAliveCount();
+            iVar1 = ((ImPool<ImGuiTabBar>*)((FontHelpers*)vector3)->field_32)->GetAliveCount();
             local_38 = (float)iVar1 * local_38;
-            new ((local_a8 + 72)) StringView(param_4, param_5);
-            SVar4.field_8._0_4_ = (int)local_34;
-            SVar4.field_0 = (ulong)(local_a8 + 72);
-            SVar4.field_8._4_4_ = 0;
-            DrawString((FontHelpers*)this, SVar4, (int)local_38, 0, (uint)param_6, in_stack_ffffffffffffff18);
+            local_60 = StringView(arg5, (unsigned long)textProperties);
+            DrawString((FontHelpers*)vector3, &local_60, (int)local_34, (int)local_38, 0, in_stack_00000008);
         }
     }
 
-    // 0x1008e0730, 1504 bytes, placed by class name
-    // FontHelpers::DrawStringMultiline(StringView, int, int, int, int, unsigned int*, TextProperties const&)
-    void FontHelpers::DrawStringMultiline(StringView param_1, int param_2, int param_3, int param_4, int param_5,
-                                          uint* param_6, TextProperties* param_7) {
-        FontHelpers* pFVar1;
-        char cVar2;
-        byte bVar3;
-        undefined1 uVar4;
-        int iVar5;
-        uint uVar6;
-        uint uVar7;
-        int iVar8;
-        undefined4 uVar9;
-        int iVar10;
-        FontMetrics* pFVar11;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        char* pcVar12;
-        Layout* this_01;
-        ulong uVar13;
+    // 0x1008e0730
+    void FontHelpers::DrawStringMultiline(StringView stringView, int arg2, int arg3, int arg4, int arg5,
+                                          unsigned int* arg6, const TextProperties& textProperties) {
+        FontHelpers* this_00;
+        TextFlags TVar2;
+        uint8_t bVar4;
+        bool bVar5;
+        int iVar6;
+        unsigned int uVar7;
+        unsigned int uVar8;
+        int iVar9;
+        FontAlign FVar10;
+        int iVar11;
+        uint32_t uVar12;
+        FontMetrics* this_01;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_02;
+        char* str;
+        unsigned long uVar13;
         StringView* pSVar14;
         long lVar15;
-        ulong uVar16;
-        undefined1 uVar18;
-        ulong uVar19;
-        StringView SVar20;
-        StringView SVar21;
-        StringView SVar22;
-        StringView SVar23;
-        StringView SVar24;
-        StringView SVar25;
-        StringView SVar26;
-        StringView SVar27;
-        StringView SVar28;
-        StringView SVar29;
-        undefined4 in_stack_0000000c;
-        TextFlags in_stack_fffffffffffffce8;
-        undefined4 in_stack_fffffffffffffcec;
+        unsigned long uVar16;
+        unsigned int* arg4_00;
         StringView local_308;
         StringView local_2f8;
         StringView local_2e8;
@@ -415,946 +309,752 @@ namespace jag::graphics {
         StringView local_288;
         StringView local_278;
         StringView local_268;
-        StringView* local_258;
         int local_24c;
         FontMetrics* local_248;
         FontHelpers* local_240;
-        int local_234;
-        uint local_230;
-        uint local_22c;
-        fixed_string<char, 256, true, eastl::allocator> local_228[296];
-        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_100[200];
-        long local_38;
+        int local_22c;
+        fixed_string<char, 256> local_228;
+        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_100;
 
-        pSVar14 = (StringView*)param_1.field_0;
-        local_234 = (int)param_1.field_8;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_230 = param_3;
-        cVar2 = pSVar14->empty();
-        if (cVar2 == '\0') {
+        unsigned int local_230 = arg4;
+        if (stringView->empty() == '\0') {
             local_240 = this;
-            local_22c = param_4;
-            ResetState(param_6);
-            pFVar11 = (FontMetrics*)param_6->GetFontMetrics();
-            iVar5 = param_6->GetLineSpacing();
-            local_24c = iVar5;
-            uVar6 = pFVar11->GetMaxAscent();
-            local_248 = pFVar11;
-            uVar7 = pFVar11->GetMaxDescent();
-            iVar8 = *(int*)PTR_m_overrideDrawAutoWrapWidth_100ee69a0;
-            eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::fixed_vector(local_100);
-            local_258 = pSVar14;
-            new (&local_308) StringView(pSVar14);
-            pFVar11 = (FontMetrics*)0;
-            if (iVar5 * 2 <= (int)local_22c) {
-                pFVar11 = (FontMetrics*)&local_230;
+            local_22c = arg5;
+            ResetState(textProperties);
+            this_01 = textProperties.GetFontMetrics();
+            iVar6 = textProperties.GetLineSpacing();
+            local_24c = iVar6;
+            uVar7 = this_01->GetMaxAscent();
+            local_248 = this_01;
+            uVar8 = this_01->GetMaxDescent();
+            iVar11 = *(int*)PTR_m_overrideDrawAutoWrapWidth_100ee69a0;
+            local_100 = eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>();
+            local_308 = StringView(*stringView);
+            arg4_00 = nullptr;
+            if (iVar6 * 2 <= local_22c) {
+                arg4_00 = &local_230;
             }
-            if ((int)((uVar6 & 255) + iVar5 + (uVar7 & 255)) <= (int)local_22c) {
-                pFVar11 = (FontMetrics*)&local_230;
+            if ((int)((uVar7 & 255) + iVar6 + (uVar8 & 255)) <= local_22c) {
+                arg4_00 = &local_230;
             }
-            if (-1 < iVar8) {
-                pFVar11 = (FontMetrics*)PTR_m_overrideDrawAutoWrapWidth_100ee69a0;
+            if (-1 < iVar11) {
+                arg4_00 = (unsigned int*)PTR_m_overrideDrawAutoWrapWidth_100ee69a0;
             }
-            bVar3 = param_6->GetLightLevelsBelow();
-            SVar20.field_8 = (uchar*)local_248;
-            SVar20.field_0 = (ulong)&local_308;
-            iVar8 =
-                SplitString((fixed_vector*)local_100, SVar20, pFVar11, (int*)(ulong)bVar3, in_stack_fffffffffffffce8);
-            uVar6 = local_22c;
-            pFVar1 = local_240;
-            if ((int*)CONCAT44(in_stack_0000000c, param_5) == (int*)0) {
-                iVar10 = 1;
-                if (0 < (int)local_22c / iVar5) {
-                    iVar10 = (int)local_22c / iVar5;
+            TVar2.field_0 = textProperties.GetLightLevelsBelow();
+            iVar9 = SplitString((fixed_vector<StringView, _10ul, true, BucketAllocatorEASTL>*)&local_100, &local_308,
+                                local_248, (int*)arg4_00, TVar2);
+            iVar11 = local_22c;
+            this_00 = local_240;
+            if (arg6 == nullptr) {
+                uVar7 = 1;
+                if (0 < local_22c / iVar6) {
+                    uVar7 = local_22c / iVar6;
                 }
             } else {
-                iVar10 = *(int*)CONCAT44(in_stack_0000000c, param_5);
+                uVar7 = *arg6;
             }
-            eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_228);
-            if ((0 < iVar10) && (iVar10 <= iVar8)) {
-                eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true,
-                                                                        BucketAllocatorEASTL>>::resize((ulong)
-                                                                                                           local_100);
-                this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)local_100->back();
-                pcVar12 = (char*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-                this_01 = (Layout*)local_100->back();
-                uVar13 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-                local_228->assign(pcVar12, uVar13);
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_2f8,
-                                                                                              (fixed_string*)local_228);
-                uVar7 = local_230;
-                bVar3 = param_6->GetLightLevelsBelow();
-                SVar21.field_8 = (uchar*)local_248;
-                SVar21.field_0 = (ulong)&local_2f8;
-                TruncateString<eastl::fixed_string<char, 256, true, eastl::allocator>>(
-                    (fixed_string*)local_228, SVar21, (FontMetrics*)(ulong)uVar7, (uint)bVar3,
-                    in_stack_fffffffffffffce8, iVar10 < iVar8);
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_2e8,
-                                                                                              (fixed_string*)local_228);
-                pSVar14 = (StringView*)local_100->back();
-                StringView::operator=(pSVar14, &local_2e8);
+            local_228 = eastl::fixed_string<char, 256>();
+            if ((0 < (int)uVar7) && ((int)uVar7 <= iVar9)) {
+                local_100.resize((long)(int)uVar7);
+                this_02 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)local_100.back();
+                str = (char*)this_02->end();
+                uVar13 = ((Layout*)local_100.back())->HeapBeginPtr();
+                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>::assign(
+                    &local_228, str, uVar13);
+                local_2f8.StringView<eastl::fixed_string<char, 40>>(local_228);
+                uVar8 = local_230;
+                TVar2.field_0 = textProperties.GetLightLevelsBelow();
+                TruncateString<eastl::fixed_string<char, 256>>(&local_228, &local_2f8, local_248, uVar8, TVar2,
+                                                               (int)uVar7 < iVar9);
+                local_2e8.StringView<eastl::fixed_string<char, 40>>(local_228);
+                pSVar14 = (StringView*)local_100.back();
+                *pSVar14 = local_2e8;
             }
-            uVar4 = param_6->GetVerticalAlignment();
-            uVar9 = local_100->size();
-            uVar13 = (ulong)uVar6;
-            iVar5 = param_2;
-            iVar8 = GetAlignedYOffset(pFVar1, local_248, uVar4, &local_24c, uVar13, uVar9);
+            FVar10 = textProperties.GetVerticalAlignment();
+            iVar6 = local_100.size();
+            iVar11 = GetAlignedYOffset(this_00, local_248, FVar10 & 255, &local_24c, iVar11, iVar6, arg3);
             local_22c = local_24c;
-            lVar15 = local_100->size();
+            lVar15 = local_100.size();
             if (lVar15 != 0) {
-                uVar19 = 0;
+                uVar13 = 0;
                 do {
-                    uVar18 = (undefined1)uVar13;
-                    pSVar14 = (StringView*)eastl::vector<
-                        StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                    operator[](
-                        (vector<StringView,
-                                eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                            local_100,
-                        uVar19);
-                    uVar4 = param_6->GetHorizontalAlignment();
-                    switch (uVar4) {
+                    pSVar14 = &local_100[uVar13];
+                    switch (textProperties.GetHorizontalAlignment()) {
                     case 0:
-                        new (&local_2d8) StringView(pSVar14);
-                        uVar13 = 0;
-                        SVar22.field_8._0_4_ = local_234;
-                        SVar22.field_0 = (ulong)&local_2d8;
-                        SVar22.field_8._4_4_ = 0;
-                        DrawStringInner(local_240, SVar22, iVar8, 0, (fixed_vector*)param_6,
-                                        (TextProperties*)CONCAT44(in_stack_fffffffffffffcec, iVar5));
+                        local_2d8 = StringView(*pSVar14);
+                        DrawStringInner(local_240, &local_2d8, arg2, iVar11, nullptr, textProperties);
                         break;
                     case 1:
-                        new (&local_2c8) StringView(pSVar14);
-                        bVar3 = param_6->HasFlag(1);
-                        SVar26.field_8 = (uchar*)local_248;
-                        SVar26.field_0 = (ulong)&local_2c8;
-                        iVar10 = GetStringWidth(SVar26, (FontMetrics*)(ulong)bVar3, (bool)244);
-                        new (&local_2b8) StringView(pSVar14);
-                        SVar23.field_8._0_4_ = (int)(local_230 - iVar10) / 2 + local_234;
-                        uVar13 = 0;
-                        SVar23.field_0 = (ulong)&local_2b8;
-                        SVar23.field_8._4_4_ = 0;
-                        DrawStringInner(local_240, SVar23, iVar8, 0, (fixed_vector*)param_6,
-                                        (TextProperties*)CONCAT44(in_stack_fffffffffffffcec, iVar5));
+                        local_2c8 = StringView(*pSVar14);
+                        bVar5 = (bool)textProperties.HasFlag(1);
+                        iVar6 = GetStringWidth(&local_2c8, local_248, bVar5);
+                        local_2b8 = StringView(*pSVar14);
+                        DrawStringInner(local_240, &local_2b8, (int)(local_230 - iVar6) / 2 + arg2, iVar11, nullptr,
+                                        textProperties);
                         break;
                     case 2:
-                        new (&local_2a8) StringView(pSVar14);
-                        bVar3 = param_6->HasFlag(1);
-                        SVar27.field_8 = (uchar*)local_248;
-                        SVar27.field_0 = (ulong)&local_2a8;
-                        iVar10 = GetStringWidth(SVar27, (FontMetrics*)(ulong)bVar3, (bool)244);
-                        new (&local_298) StringView(pSVar14);
-                        SVar24.field_8._0_4_ = (local_234 - iVar10) + local_230;
-                        uVar13 = 0;
-                        SVar24.field_0 = (ulong)&local_298;
-                        SVar24.field_8._4_4_ = 0;
-                        DrawStringInner(local_240, SVar24, iVar8, 0, (fixed_vector*)param_6,
-                                        (TextProperties*)CONCAT44(in_stack_fffffffffffffcec, iVar5));
+                        local_2a8 = StringView(*pSVar14);
+                        bVar5 = (bool)textProperties.HasFlag(1);
+                        iVar6 = GetStringWidth(&local_2a8, local_248, bVar5);
+                        local_298 = StringView(*pSVar14);
+                        DrawStringInner(local_240, &local_298, (arg2 - iVar6) + local_230, iVar11, nullptr,
+                                        textProperties);
                         break;
                     case 3:
-                        lVar15 = local_100->size();
-                        if (uVar19 == lVar15 - 1U) {
-                            new (&local_288) StringView(pSVar14);
-                            bVar3 = param_6->HasFlag(1);
-                            SVar28.field_8 = (uchar*)local_248;
-                            SVar28.field_0 = (ulong)&local_288;
-                            uVar9 = GetStringWidth(SVar28, (FontMetrics*)(ulong)bVar3, (bool)244);
-                            new (&local_278) StringView(local_258);
-                            uVar6 = local_230;
-                            bVar3 = param_6->HasFlag(1);
-                            SVar29.field_8._0_4_ = uVar9;
-                            SVar29.field_0 = (ulong)&local_278;
-                            SVar29.field_8._4_4_ = 0;
-                            uVar9 = CalculateExtraSpaceWidthForJustify(SVar29, uVar6, (uint)bVar3, (bool)uVar18);
-                            *(undefined4*)&local_240->field_16 = uVar9;
+                        lVar15 = local_100.size();
+                        if (uVar13 == lVar15 - 1U) {
+                            local_288 = StringView(*pSVar14);
+                            bVar5 = (bool)textProperties.HasFlag(1);
+                            uVar8 = GetStringWidth(&local_288, local_248, bVar5);
+                            local_278 = StringView(*stringView);
+                            uVar7 = local_230;
+                            bVar5 = (bool)textProperties.HasFlag(1);
+                            uVar12 = CalculateExtraSpaceWidthForJustify(&local_278, uVar8, uVar7, bVar5);
+                            *(uint32_t*)&local_240->field_16 = uVar12;
                         }
-                        new (&local_268) StringView(pSVar14);
-                        uVar13 = 0;
-                        SVar25.field_8._0_4_ = local_234;
-                        SVar25.field_0 = (ulong)&local_268;
-                        SVar25.field_8._4_4_ = 0;
-                        DrawStringInner(local_240, SVar25, iVar8, 0, (fixed_vector*)param_6,
-                                        (TextProperties*)CONCAT44(in_stack_fffffffffffffcec, iVar5));
+                        local_268 = StringView(*pSVar14);
+                        DrawStringInner(local_240, &local_268, arg2, iVar11, nullptr, textProperties);
                         break;
                     default:
-                        bVar3 = param_6->GetHorizontalAlignment();
-                        /* WARNING: Subroutine does not return */
+                        bVar4 = textProperties.GetHorizontalAlignment();
                         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                         "graphics/runetek7/fonts/FontHelpers.cpp",
-                                        219, "FontHelpers: Unknown align mode: %i", (ulong)bVar3);
+                                        219, "FontHelpers: Unknown align mode: %i", (unsigned long)bVar4);
                     }
-                    uVar19 = uVar19 + 1;
-                    uVar16 = local_100->size();
-                    iVar8 = iVar8 + local_22c;
-                } while (uVar19 < uVar16);
+                    uVar13 = uVar13 + 1;
+                    uVar16 = local_100.size();
+                    iVar11 = iVar11 + local_22c;
+                } while (uVar13 < uVar16);
             }
-            /* WARNING: Subroutine does not return */
-            local_228->~fixed_string();
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
     }
 
-    // 0x1008e0d50, 960 bytes, placed by class name
-    // FontHelpers::SplitString(eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>&, StringView, FontMetrics const&, int*, TextFlags)
-    void FontHelpers::SplitString(fixed_vector* param_1, StringView param_2, FontMetrics* param_3, int* param_4,
-                                  TextFlags param_5) {
-        undefined4 uVar1;
-        FontMetrics* pFVar2;
-        ulong uVar3;
-        char cVar4;
-        byte bVar5;
-        long lVar6;
-        ulong uVar7;
+    // 0x1008e0d50
+    void FontHelpers::SplitString(eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>& stringViews,
+                                  StringView stringView, const FontMetrics& fontMetrics, int* arg4,
+                                  TextFlags textFlags) {
+        unsigned long uVar2;
+        bool cVar3;
+        uint8_t bVar4;
+        unsigned long uVar6;
+        type* ptVar7;
         type* ptVar8;
-        undefined8 extraout_RAX;
-        type* ptVar9;
-        ulong uVar10;
-        uchar* extraout_RDX;
-        int iVar11;
-        undefined1 uVar12;
-        undefined7 uVar13;
-        uint uVar14;
-        uint uVar15;
-        StringView* this;
-        int iVar16;
-        StringView SVar17;
-        StringView SVar18;
-        StringView SVar19;
-        TextFlags in_stack_ffffffffffffff08;
+        unsigned long uVar9;
+        int iVar10;
+        unsigned int uVar11;
+        unsigned int uVar12;
+        StringView* stringView_00;
+        int iVar13;
         StringView local_f0;
         StringView local_e0;
         StringView local_d0;
         StringView local_c0;
-        undefined8 local_b0;
-        uchar* local_a8;
-        FontMetrics* local_a0;
-        ulong local_98;
+        uint64_t local_b0;
+        unsigned long local_98;
         type* local_90;
-        ulong local_88;
-        ulong local_80;
+        unsigned long local_80;
         type* local_78;
         char* local_70;
-        ulong local_68;
-        uint local_58;
+        unsigned long local_68;
+        unsigned int local_58;
         int local_54;
-        StringView* local_50;
-        undefined4 local_44;
-        uint local_40;
-        uint local_3c;
-        uint local_38[2];
+        unsigned int local_44;
+        unsigned int local_40;
+        unsigned int local_3c;
+        TextFlags local_38;
 
-        uVar12 = SUB81(param_4, 0);
-        uVar13 = (undefined7)((ulong)param_4 >> 8);
-        local_a8 = param_2.field_8;
-        local_50 = (StringView*)param_2.field_0;
-        local_38[0] = CONCAT31(local_38[0]._1_3_, uVar12);
-        local_88 = 0;
-        lVar6 = local_50->HeapBeginPtr();
-        if (lVar6 == 0) {
+        local_38[0].field_0 = textFlags.field_0;
+        unsigned long local_88 = 0;
+        long lVar5 = stringView->HeapBeginPtr();
+        if (lVar5 == 0) {
             local_3c = 0;
-            this = local_50;
+            stringView_00 = stringView;
         } else {
-            uVar10 = 4294967295;
-            iVar16 = 0;
+            uVar9 = 4294967295;
+            iVar13 = 0;
             local_3c = 0;
             local_54 = 0;
             local_58 = 0;
             local_44 = 0;
-            this = local_50;
-            local_a0 = param_3;
+            stringView_00 = stringView;
             do {
-                uVar3 = local_88;
-                local_78 = (type*)CONCAT44(local_78._4_4_, iVar16);
-                local_40 = (uint)uVar10;
-                new (&local_f0) StringView(this);
-                SVar17.field_8 = (uchar*)&local_88;
-                SVar17.field_0 = (ulong)&local_f0;
-                local_80 = GetNextElementLength(SVar17, (ulong*)(ulong)local_38[0], in_stack_ffffffffffffff08);
-                std::get<0ul, unsigned int, unsigned int>((pair*)&local_80);
-                ptVar8 = std::get<1ul, unsigned int, unsigned int>((pair*)&local_80);
-                local_98 = uVar3;
-                local_c0.substr((ulong)this, (long)(int)uVar3);
-                new (&local_e0) StringView(&local_c0);
-                SVar18.field_8._0_4_ = local_44;
-                SVar18.field_0 = (ulong)&local_e0;
-                SVar18.field_8._4_4_ = 0;
-                GetElementWidth(SVar18, *(uint*)ptVar8, (uint)local_a8, (FontMetrics*)CONCAT71(uVar13, uVar12));
-                local_b0 = extraout_RAX;
-                ptVar9 = std::get<0ul, unsigned int, unsigned int>((pair*)&local_b0);
-                ptVar8 = std::get<1ul, unsigned int, unsigned int>((pair*)&local_b0);
-                uVar1 = *(undefined4*)ptVar8;
-                StringView::StringView<5ul>(&local_d0, "<br>");
-                SVar19.field_8 = extraout_RDX;
-                SVar19.field_0 = (ulong)&local_d0;
-                cVar4 = StringView::operator==(&local_c0, SVar19);
-                this = local_50;
-                uVar10 = local_98;
-                pFVar2 = local_a0;
-                local_44 = uVar1;
-                if (cVar4 == '\0') {
-                    local_90 = ptVar8;
-                    if (*(int*)ptVar9 == 0) {
-                        uVar10 = (ulong)local_40;
-                        iVar16 = (int)local_78;
+                uVar2 = local_88;
+                local_78 = (type*)(((uint64_t)local_78._4_4_ << 32) | (uint32_t)iVar13);
+                local_40 = (unsigned int)uVar9;
+                local_f0 = StringView(*stringView_00);
+                local_80 = GetNextElementLength(&local_f0, &local_88, (TextFlags)local_38[0].field_0);
+                std::get<0ul, unsigned int, unsigned int>(local_80);
+                ptVar7 = std::get<1ul, unsigned int, unsigned int>(local_80);
+                local_98 = uVar2;
+                local_c0 = ((unsigned long)stringView_00)->substr((long)(int)uVar2);
+                local_e0 = StringView(local_c0);
+                local_b0 = GetElementWidth(&local_e0, local_44, *(unsigned int*)ptVar7, fontMetrics);
+                ptVar8 = std::get<0ul, unsigned int, unsigned int>(local_b0);
+                ptVar7 = std::get<1ul, unsigned int, unsigned int>(local_b0);
+                uVar11 = *(unsigned int*)ptVar7;
+                local_d0.StringView<5ul>("<br>");
+                cVar3 = local_c0 == &local_d0;
+                stringView_00 = stringView;
+                uVar9 = local_98;
+                local_44 = uVar11;
+                if (!cVar3) {
+                    local_90 = ptVar7;
+                    if (*(int*)ptVar8 == 0) {
+                        uVar9 = (unsigned long)local_40;
+                        iVar13 = (int)local_78;
                     } else {
-                        iVar16 = *(int*)ptVar9 + (int)local_78;
-                        if ((local_a0 == (FontMetrics*)0) || (*(int*)&local_a0->field_0 < 1)) {
-                            uVar10 = (ulong)local_40;
+                        iVar13 = *(int*)ptVar8 + (int)local_78;
+                        if ((arg4 == nullptr) || (*arg4 < 1)) {
+                            uVar9 = (unsigned long)local_40;
                         } else {
-                            uVar15 = (uint)local_98;
-                            uVar14 = local_40;
-                            local_78 = ptVar9;
-                            if (*(int*)ptVar8 == spaceCharCode) {
-                                bVar5 = local_38->HasFlag(4);
-                                local_58 = (uint)(bVar5 ^ 1);
-                                uVar14 = uVar15;
-                                local_54 = iVar16;
+                            uVar12 = (unsigned int)local_98;
+                            uVar11 = local_40;
+                            local_78 = ptVar8;
+                            if (*(int*)ptVar7 == spaceCharCode) {
+                                bVar4 = local_38.HasFlag(4);
+                                local_58 = (unsigned int)(bVar4 ^ 1);
+                                uVar11 = uVar12;
+                                local_54 = iVar13;
                             }
-                            if (*(int*)&pFVar2->field_0 < iVar16) {
-                                cVar4 = local_38->HasFlag(2);
-                                if ((cVar4 == '\0') && (-1 < (int)uVar14)) {
-                                    lVar6 = end();
-                                    local_70 = (char*)((int)local_3c + lVar6);
-                                    uVar15 = uVar14 + 1;
-                                    local_68 = CONCAT44(local_68._4_4_, uVar15 - (local_3c + local_58));
-                                    eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true,
-                                                                                            BucketAllocatorEASTL>>::
-                                        emplace_back<char const*, int>(
-                                            (vector<StringView, eastl::fixed_vector_allocator<
-                                                                    16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                                                param_1,
-                                            &local_70, (int*)&local_68);
-                                    iVar16 = iVar16 - local_54;
+                            if (*arg4 < iVar13) {
+                                cVar3 = local_38.HasFlag(2);
+                                if ((!cVar3) && (-1 < (int)uVar11)) {
+                                    lVar5 = stringView_00->end();
+                                    local_70 = (char*)((int)local_3c + lVar5);
+                                    uVar12 = uVar11 + 1;
+                                    local_68 =
+                                        (((uint64_t)local_68._4_4_ << 32) | (uint32_t)(uVar12 - (local_3c + local_58)));
+                                    stringViews.emplace_back<char const*, int>(local_70, local_68);
+                                    iVar13 = iVar13 - local_54;
                                     local_44 = 0;
-                                    uVar14 = 4294967295;
-                                    this = local_50;
-                                    local_3c = uVar15;
+                                    uVar11 = 4294967295;
+                                    stringView_00 = stringView;
+                                    local_3c = uVar12;
                                 } else {
-                                    lVar6 = end();
-                                    local_70 = (char*)(lVar6 + (int)local_3c);
-                                    local_68 = CONCAT44(local_68._4_4_, uVar15 - local_3c);
-                                    eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true,
-                                                                                            BucketAllocatorEASTL>>::
-                                        emplace_back<char const*, int>(
-                                            (vector<StringView, eastl::fixed_vector_allocator<
-                                                                    16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                                                param_1,
-                                            &local_70, (int*)&local_68);
-                                    iVar16 = *(int*)local_78;
-                                    uVar14 = 4294967295;
+                                    lVar5 = stringView_00->end();
+                                    local_70 = (char*)(lVar5 + (int)local_3c);
+                                    local_68 = (((uint64_t)local_68._4_4_ << 32) | (uint32_t)(uVar12 - local_3c));
+                                    stringViews.emplace_back<char const*, int>(local_70, local_68);
+                                    iVar13 = *(int*)local_78;
+                                    uVar11 = 4294967295;
                                     local_44 = 0;
-                                    local_3c = uVar15;
+                                    local_3c = uVar12;
                                 }
                             }
                             if (*(int*)local_90 == hyphenCharCode) {
                                 local_58 = 0;
-                                local_54 = iVar16;
+                                local_54 = iVar13;
                             } else {
-                                uVar10 = (ulong)uVar14;
+                                uVar9 = (unsigned long)uVar11;
                             }
                         }
                     }
                 } else {
-                    lVar6 = local_50->end();
-                    local_70 = (char*)((int)local_3c + lVar6);
-                    iVar11 = (int)local_98;
-                    iVar16 = iVar11 - local_3c;
-                    lVar6 = local_c0.HeapBeginPtr();
-                    local_68 = lVar6 + iVar16;
-                    eastl::vector<StringView,
-                                  eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                        emplace_back<char const*, unsigned long>(
-                            (vector<StringView,
-                                    eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                                param_1,
-                            &local_70, &local_68);
-                    local_3c = iVar11 + 4;
-                    iVar16 = 0;
-                    uVar10 = 4294967295;
+                    lVar5 = stringView->end();
+                    local_70 = (char*)((int)local_3c + lVar5);
+                    iVar10 = (int)local_98;
+                    iVar13 = iVar10 - local_3c;
+                    lVar5 = local_c0.HeapBeginPtr();
+                    local_68 = lVar5 + iVar13;
+                    stringViews.emplace_back<char const*, unsigned long>(local_70, local_68);
+                    local_3c = iVar10 + 4;
+                    iVar13 = 0;
+                    uVar9 = 4294967295;
                 }
-                uVar3 = local_88;
-                uVar7 = HeapBeginPtr();
-                uVar10 = uVar10 & 4294967295;
-            } while (uVar3 < uVar7);
+                uVar2 = local_88;
+                uVar6 = stringView_00->HeapBeginPtr();
+                uVar9 = uVar9 & 4294967295;
+            } while (uVar2 < uVar6);
         }
-        iVar16 = HeapBeginPtr();
-        uVar14 = local_3c;
-        if ((int)local_3c < iVar16) {
-            lVar6 = end();
-            local_c0.field_0 = lVar6 + (int)uVar14;
-            lVar6 = HeapBeginPtr();
-            local_80 = lVar6 - (int)uVar14;
-            eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                emplace_back<char const*, unsigned long>(
-                    (vector<StringView,
-                            eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)param_1,
-                    (char**)&local_c0, &local_80);
+        iVar13 = stringView_00->HeapBeginPtr();
+        uVar11 = local_3c;
+        if ((int)local_3c < iVar13) {
+            lVar5 = stringView_00->end();
+            local_c0.field_0 = lVar5 + (int)uVar11;
+            lVar5 = stringView_00->HeapBeginPtr();
+            local_80 = lVar5 - (int)uVar11;
+            stringViews.emplace_back<char const*, unsigned long>(local_c0, local_80);
         }
-        param_1->size();
+        stringViews.size();
     }
 
-    // 0x1008e1560, 400 bytes, placed by class name
-    // FontHelpers::GetAlignedYOffset(FontMetrics const&, FontAlign, int&, int, int, int) const
-    int FontHelpers::GetAlignedYOffset(FontMetrics* param_1, byte param_3, int* param_4, int param_5, int param_6,
-                                       int param_7) {
+    // 0x1008e1560
+    int FontHelpers::GetAlignedYOffset(const FontMetrics& fontMetrics, FontAlign fontAlign, int& arg3, int arg4,
+                                       int arg5, int arg6) const {
         int iVar1;
-        byte bVar3;
-        uint uVar4;
-        uint uVar5;
+        uint8_t bVar3;
+        unsigned int uVar4;
+        unsigned int uVar5;
         int iVar6;
 
-        if (param_6 < 1) {
-            /* WARNING: Subroutine does not return */
+        if (arg5 < 1) {
             LogAssert("contentRows >= 1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/"
                       "FontHelpers.cpp",
-                      1308, (char*)0);
+                      1308, nullptr);
         }
-        if (3 < param_3) {
-            /* WARNING: Subroutine does not return */
+        if (3 < (uint8_t)fontAlign) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "fonts/FontHelpers.cpp",
                             1365, "FontHelpers: Unknown vertical align mode");
         }
-        iVar6 = param_5 - (param_6 + -1) * *param_4;
-        switch (param_3) {
+        int iVar7 = arg4 - (arg5 - 1) * arg3;
+        switch (fontAlign & 255) {
         case 0:
-            bVar3 = param_1->GetMaxAscent();
-            param_7 = (uint)bVar3 + param_7;
+            bVar3 = fontMetrics.GetMaxAscent();
+            iVar6 = (unsigned int)bVar3 + arg6;
             break;
         case 1:
-            if (param_1->IsVectorFont() == '\0') {
-                uVar4 = param_1->GetMaxAscent();
-                bVar3 = param_1->GetMaxDescent();
-                uVar5 = (uint)bVar3;
+            if (fontMetrics.IsVectorFont() == '\0') {
+                uVar4 = fontMetrics.GetMaxAscent();
+                bVar3 = fontMetrics.GetMaxDescent();
+                uVar5 = (unsigned int)bVar3;
             } else {
-                uVar4 = param_1->GetUpperCaseAscent();
+                uVar4 = fontMetrics.GetUpperCaseAscent();
                 uVar5 = 0;
             }
-            param_7 = (int)((iVar6 + (uVar4 & 255)) - uVar5) / 2 + param_7;
+            iVar6 = (int)((iVar7 + (uVar4 & 255)) - uVar5) / 2 + arg6;
             break;
         case 2:
-            bVar3 = param_1->GetMaxDescent();
-            param_7 = (iVar6 + param_7) - (uint)bVar3;
+            bVar3 = fontMetrics.GetMaxDescent();
+            iVar6 = (iVar7 + arg6) - (unsigned int)bVar3;
             break;
         case 3:
-            if (param_6 == 1) {
-                param_7 = GetAlignedYOffset(this, param_1, 1, param_4, param_5, 1, param_7);
+            if (arg5 == 1) {
+                iVar6 = GetAlignedYOffset(fontMetrics, 1, arg3, arg4, 1, arg6);
             } else {
-                bVar3 = param_1->GetMaxAscent();
-                param_7 = (uint)bVar3 + param_7;
-                iVar1 = *param_4;
-                if (iVar6 - iVar1 != 0 && iVar1 <= iVar6) {
-                    iVar6 = (iVar6 - iVar1) / (param_6 + 1);
-                    param_7 = param_7 + iVar6;
-                    *param_4 = iVar1 + iVar6;
+                bVar3 = fontMetrics.GetMaxAscent();
+                iVar6 = (unsigned int)bVar3 + arg6;
+                iVar1 = arg3;
+                if (iVar7 - iVar1 != 0 && iVar1 <= iVar7) {
+                    iVar7 = (iVar7 - iVar1) / (arg5 + 1);
+                    iVar6 = iVar6 + iVar7;
+                    arg3 = iVar1 + iVar7;
                 }
             }
         }
-        return param_7;
+        return iVar6;
     }
 
-    // 0x1008e1740, 3424 bytes, placed by class name
-    // FontHelpers::DrawStringInner(StringView, int, int, eastl::fixed_vector<std::pair<int, int>, 256ul, true, eastl::allocator> const*, TextProperties const&)
-    /* FontHelpers::DrawStringInner(StringView, int, int,
-   eastl::fixed_vector<std::pair<int, int>, 256ul, true, eastl::allocator> const*,
-   TextProperties const&) */
-
-    int FontHelpers::DrawStringInner(StringView param_1, int param_2, int param_3, fixed_vector* param_4,
-                                     TextProperties* param_5) {
+    // 0x1008e1740
+    int FontHelpers::DrawStringInner(StringView stringView, int arg2, int arg3,
+                                     const eastl::fixed_vector<std::pair<int, int>, 256ul>* pairs,
+                                     const TextProperties& textProperties) {
+        shared_ptr* psVar1;
         array<int, 2ul>* this_00;
-        ulong uVar1;
-        vector<eastl::pair<int, int>, eastl::allocator>* pvVar2;
-        bool bVar3;
-        char cVar4;
-        byte bVar5;
-        byte bVar6;
-        uint uVar7;
-        int iVar8;
+        unsigned long uVar2;
+        fixed_vector<std::pair<int, int>, _256ul>* pfVar3;
+        uint8_t bVar5;
+        uint8_t bVar6;
+        bool bVar7;
+        unsigned int uVar8;
         int iVar9;
-        undefined4 uVar10;
-        uint uVar11;
-        Font* pFVar12;
-        shared_ptr* psVar13;
+        int iVar10;
+        int iVar11;
+        uint32_t uVar12;
+        unsigned int uVar13;
         FontMetrics* pFVar14;
         long lVar15;
         char* pcVar16;
-        ulong uVar17;
+        unsigned long uVar17;
         int* piVar18;
-        int* piVar19;
-        undefined8 uVar20;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* pcVar21;
-        GUIManager* this_01;
-        SpriteAtlas* pSVar22;
-        FastPool<audio::SoundInstance, int>* pFVar23;
-        MapArea* pMVar24;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar25;
-        undefined8 uVar26;
-        uchar* extraout_RDX;
-        uchar* extraout_RDX_00;
-        int iVar27;
-        FontHelpers* pFVar28;
-        EntityHighlightState* this_02;
-        Layout* pLVar29;
-        undefined4 in_register_00000084;
-        int iVar30;
-        StringView SVar31;
-        StringView SVar32;
-        StringView SVar33;
-        StringView SVar34;
-        StringView SVar35;
-        shared_ptr* in_stack_fffffffffffffe48;
-        undefined8 in_stack_fffffffffffffe50;
-        undefined4 uVar36;
-        undefined8 in_stack_fffffffffffffe58;
+        Logger* pLVar19;
+        uint64_t uVar20;
+        shared_ptr<render::Texture>* psVar21;
+        int* piVar22;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* pcVar23;
+        GUIManager* this_02;
+        SpriteAtlas* pSVar24;
+        FastPool<audio::SoundInstance, int>* pFVar25;
+        EnumOptionToggle* pEVar26;
+        EnumOptionToggle* pEVar27;
+        MapArea* pMVar28;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar29;
+        Texture* texture;
+        char* pcVar30;
+        FontHelpers* pFVar31;
+        EntityHighlightState* this_03;
+        StringView* pSVar32;
+        unsigned int uVar33;
+        Texture* in_stack_fffffffffffffe48;
+        uint64_t in_stack_fffffffffffffe50;
         StringView local_1a0;
         StringView local_190;
         StringView local_180;
-        undefined1 local_170[24];
+        ReturnValue local_170;
+        StringView local_168;
         StringView local_158;
         StringView local_148;
         StringView local_138;
-        shared_ptr local_128;
         StringView local_118;
-        undefined1 local_108[24];
+        uint8_t local_108[24];
         int local_f0;
-        uint local_ec;
-        uint local_e8;
-        undefined4 local_e4;
-        undefined4 local_e0;
-        undefined4 local_dc;
-        ulong local_d8;
-        TextProperties* local_d0;
-        vector<eastl::pair<int, int>, eastl::allocator>* local_c8;
+        unsigned int local_ec;
+        unsigned int local_e8;
+        float local_e4;
+        float local_e0;
+        float local_dc;
         shared_ptr* local_c0;
-        int* local_b8;
-        Layout* local_b0;
+        char* local_b8;
+        StringView* local_b0;
         int* local_a8;
         GUIManager* local_a0;
         GUIManager* local_98;
-        ulong local_90;
-        int local_84;
-        int* local_80;
-        uint local_74;
+        unsigned long local_90;
+        unsigned int local_84;
+        char* local_80;
         FontMetrics* local_70;
-        uint local_64;
-        FontHelpers* local_60;
+        unsigned int local_64;
         char local_51;
         shared_ptr* local_50;
         int local_44;
-        int* local_40;
-        int local_34;
+        char* local_40;
 
-        pLVar29 = (Layout*)param_1.field_0;
-        local_74 = (uint)param_1.field_8;
-        local_60 = this;
-        local_34 = param_2;
-        pFVar12 = (Font*)param_4->GetFont();
-        psVar13 = (shared_ptr*)pFVar12->GetCharactersTexture();
-        new (&local_128) shared_ptr<oldscape::dash3d::Decor>(psVar13);
-        bVar3 = shared_ptr::operator_cast_to_bool(&local_128);
-        uVar36 = (undefined4)((ulong)in_stack_fffffffffffffe50 >> 32);
-        if (bVar3) {
-            pFVar14 = (FontMetrics*)param_4->GetFontMetrics();
-            uVar7 = pFVar14->GetGlyphAdvance(tabCharCode);
+        uint32_t uVar34 = (uint32_t)((unsigned long)in_stack_fffffffffffffe50 >> 32);
+        FontHelpers* local_60 = this;
+        unsigned int local_34 = arg3;
+        shared_ptr<oldscape::dash3d::GroundDecor>* groundDecor =
+            ((Font*)textProperties.GetFont())->GetCharactersTexture();
+        shared_ptr local_128(groundDecor);
+        bool cVar4 = shared_ptr::operator_cast_to_bool(&local_128);
+        if (!cVar4) {
+            pLVar19 = logger::default_logger();
+            uVar12 = stringView->HeapBeginPtr();
+            uVar20 = stringView->end();
+            iVar9 = 0;
+            pLVar19->Log(false, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                         "fonts/FontHelpers.cpp",
+                         969, "%s called with string \'%.*s\', while fontTexture was null", "DrawStringInner",
+                         (((uint64_t)uVar34 << 32) | (uint32_t)uVar12), uVar20);
+        } else {
+            pFVar14 = textProperties.GetFontMetrics();
+            uVar8 = pFVar14->GetGlyphAdvance(tabCharCode);
             cVar4 = pFVar14->IsVectorFont();
-            local_d0 = (TextProperties*)param_4;
-            local_c8 = (vector<eastl::pair<int, int>, eastl::allocator>*)CONCAT44(in_register_00000084, param_3);
             local_70 = pFVar14;
-            if (cVar4 == '\0') {
-                iVar8 = pFVar14->GetVerticalSpacing();
-                local_34 = local_34 - iVar8;
+            if (!cVar4) {
+                iVar9 = pFVar14->GetVerticalSpacing();
+                local_34 = local_34 - iVar9;
             }
-            local_d8 = 0;
-            lVar15 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar29);
-            local_40 = (int*)(ulong)local_74;
+            lVar15 = stringView->HeapBeginPtr();
+            local_40 = (char*)(unsigned long)(unsigned int)arg2;
             if (lVar15 != 0) {
-                local_e8 = uVar7 & 255;
+                local_e8 = uVar8 & 255;
                 local_50 = (shared_ptr*)4294967295;
-                local_b8 = (int*)18446744073709551615;
-                local_40 = (int*)(ulong)local_74;
-                iVar8 = 0;
+                local_b8 = (char*)18446744073709551615;
+                local_40 = (char*)(unsigned long)(unsigned int)arg2;
+                iVar9 = 0;
                 local_90 = 0;
-                local_b0 = pLVar29;
+                local_b0 = stringView;
                 do {
-                    piVar19 = local_b8;
-                    uVar1 = local_d8;
-                    iVar30 = (int)local_d8;
-                    pcVar16 = (char*)pLVar29->end();
-                    uVar17 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                            eastl::allocator>>::Layout::HeapBeginPtr(pLVar29);
-                    uVar7 = stringtools::GetUTF8NextChar(pcVar16, &local_d8, uVar17);
-                    local_80 = piVar19;
-                    pcVar16 = (char*)((long)piVar19 + 1);
-                    local_b8 = (int*)pcVar16;
-                    local_44 = ToCodeMap(uVar7);
+                    pcVar30 = local_b8;
+                    uVar2 = 0;
+                    iVar10 = (int)0;
+                    pcVar16 = (char*)stringView->end();
+                    uVar17 = stringView->HeapBeginPtr();
+                    uVar8 = stringtools::GetUTF8NextChar(pcVar16, 0, uVar17);
+                    local_80 = pcVar30;
+                    pcVar30 = pcVar30 + 1;
+                    local_b8 = pcVar30;
+                    local_44 = ToCodeMap(uVar8);
                     if (local_44 == tabCharCode) {
                         local_40 =
-                            (int*)(ulong)(((int)((int)local_40 - local_74) / (int)local_e8 + 1) * local_e8 + local_74);
+                            (char*)(unsigned long)(((int)((int)local_40 - (unsigned int)arg2) / (int)local_e8 + 1) *
+                                                       local_e8 +
+                                                   (unsigned int)arg2);
                     } else {
-                        cVar4 = local_d0->HasFlag(1);
-                        if (cVar4 == '\0') {
+                        cVar4 = textProperties.HasFlag(1);
+                        if (!cVar4) {
                             if (local_44 == ltCharCode) {
-                                local_50 = (shared_ptr*)(uVar1 & 4294967295);
+                                local_50 = (shared_ptr*)(uVar2 & 4294967295);
                                 goto LAB_1008e1861;
                             }
-                            pcVar16 = (char*)local_50;
-                            if ((local_44 != gtCharCode) || (uVar7 = (uint)local_50, uVar7 == 4294967295))
+                            pcVar30 = (char*)local_50;
+                            if ((local_44 != gtCharCode) || (uVar8 = (unsigned int)local_50, uVar8 == 4294967295))
                                 goto LAB_1008e18f4;
-                            pcVar16 = (char*)(long)(int)(iVar30 + ~uVar7);
-                            local_118.substr((ulong)local_b0, (long)(int)(uVar7 + 1));
-                            new (&local_1a0) StringView(&local_118);
-                            SVar31.field_8 = extraout_RDX;
-                            SVar31.field_0 = (ulong)&local_1a0;
-                            ConvertTagCharCodes((FontHelpers*)local_170, SVar31);
-                            local_51 = local_170->IsActive();
-                            if ((bool)local_51) {
-                                piVar19 = (int*)eastl::optional<unsigned int>::value();
-                                local_44 = *piVar19;
-                            LAB_1008e1a1b:
-                                piVar19 = (int*)((ulong)local_40 & 4294967295);
-                                iVar30 = local_34;
-                            } else {
-                                StringView::StringView<5ul>(&local_180, "img=");
-                                SVar32.field_8 = (uchar*)&local_180;
-                                SVar32.field_0 = (ulong)&local_118;
-                                local_190.suffix_of(SVar32);
+                            pcVar30 = (char*)(long)(int)(iVar10 + ~uVar8);
+                            local_118 = ((unsigned long)local_b0)->substr((long)(int)(uVar8 + 1));
+                            local_1a0 = StringView(local_118);
+                            ConvertTagCharCodes(&local_170, &local_1a0);
+                            local_51 = local_170.IsActive();
+                            if (local_51 == '\0') {
+                                local_180.StringView<5ul>("img=");
+                                local_190.suffix_of(&local_118);
                                 cVar4 = local_190.empty();
-                                if (cVar4 == '\0') {
-                                    bVar3 = FromString<StringView, int>(&local_190, (int*)local_108, 10);
-                                    uVar36 = local_108._0_4_;
-                                    if ((!bVar3) || (iVar30 = m_modIcons.end(), iVar30 <= (int)uVar36)) {
+                                if (!cVar4) {
+                                    bVar7 = FromString<StringView, int>(&local_190, (int*)local_108, 10);
+                                    uVar34 = local_108._0_4_;
+                                    if ((!bVar7) || (iVar10 = m_modIcons.end(), iVar10 <= (int)uVar34)) {
                                     LAB_1008e1d84:
-                                        uVar7 = (uint)local_40;
-                                        iVar30 = local_34;
+                                        uVar8 = (unsigned int)local_40;
+                                        uVar33 = local_34;
                                     } else {
-                                        piVar19 =
-                                            (int*)Array<FontHelpers::ModIconReference, eastl::allocator>::operator[](
-                                                (Array<FontHelpers::ModIconReference, eastl::allocator>*)&m_modIcons,
-                                                (long)(int)local_108._0_4_);
-                                        psVar13 = (shared_ptr*)(piVar19 + 2);
-                                        bVar3 = shared_ptr::operator_cast_to_bool(psVar13);
-                                        pvVar2 = local_c8;
-                                        if (!bVar3)
+                                        piVar18 = &m_modIcons[(long)(int)local_108._0_4_];
+                                        psVar1 = (shared_ptr*)(piVar18 + 2);
+                                        cVar4 = shared_ptr::operator_cast_to_bool(psVar1);
+                                        pfVar3 = pairs;
+                                        if (!cVar4)
                                             goto LAB_1008e1d84;
-                                        if (local_c8 == (vector<eastl::pair<int, int>, eastl::allocator>*)0) {
-                                            uVar7 = (uint)local_40;
-                                            iVar30 = local_34;
+                                        if (pairs == nullptr) {
+                                            uVar8 = (unsigned int)local_40;
+                                            uVar33 = local_34;
                                         } else {
-                                            iVar30 =
-                                                eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(local_c8);
-                                            uVar36 = (undefined4)((ulong)in_stack_fffffffffffffe48 >> 32);
-                                            if ((long)local_80 < (long)iVar30) {
-                                                piVar18 = (int*)
-                                                    eastl::vector<std::pair<int, int>,
-                                                                  eastl::fixed_vector_allocator<
-                                                                      8ul, 256ul, 4ul, 0ul, true, eastl::allocator>>::
-                                                    operator[](
-                                                        (vector<std::pair<int, int>,
-                                                                eastl::fixed_vector_allocator<8ul, 256ul, 4ul, 0ul,
-                                                                                              true, eastl::allocator>>*)
-                                                            pvVar2,
-                                                        (ulong)local_b8);
-                                                uVar7 = *piVar18 + (int)local_40;
-                                                iVar30 = piVar18[1] + local_34;
+                                            iVar10 = pairs->size();
+                                            uVar34 = (uint32_t)((unsigned long)in_stack_fffffffffffffe48 >> 32);
+                                            if ((long)local_80 < (long)iVar10) {
+                                                piVar22 = (int*)(*pfVar3)[(unsigned long)local_b8];
+                                                uVar8 = *piVar22 + (int)local_40;
+                                                uVar33 = piVar22[1] + local_34;
                                             } else {
-                                                uVar7 = (uint)local_40;
-                                                iVar30 = local_34;
+                                                uVar8 = (unsigned int)local_40;
+                                                uVar33 = local_34;
                                                 if ((local_90 & 1) == 0) {
-                                                    uVar20 = logger::default_logger();
-                                                    pLVar29 = local_b0;
-                                                    local_50 = (shared_ptr*)eastl::basic_string<
-                                                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                            eastl::allocator>>::Layout::
-                                                        HeapBeginPtr(local_b0);
-                                                    in_stack_fffffffffffffe50 = pLVar29->end();
-                                                    local_90 = CONCAT71((int7)((ulong)pcVar16 >> 8), 1);
-                                                    in_stack_fffffffffffffe48 =
-                                                        (shared_ptr*)CONCAT44(uVar36, (int)local_50);
-                                                    logger::Logger::Log(
-                                                        uVar20, 0, 3,
+                                                    pLVar19 = logger::default_logger();
+                                                    pSVar32 = local_b0;
+                                                    local_50 = (shared_ptr*)local_b0->HeapBeginPtr();
+                                                    uVar20 = pSVar32->end();
+                                                    local_90 =
+                                                        (((uint64_t)((int64_t)((unsigned long)pcVar30 >> 8)) << 8) |
+                                                         (uint8_t)1);
+                                                    in_stack_fffffffffffffe48 = (Texture*)(((uint64_t)uVar34 << 32) |
+                                                                                           (uint32_t)((int)local_50));
+                                                    pLVar19->Log(
+                                                        false, 3,
                                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/"
                                                         "OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/FontHelpers.cpp",
                                                         1039,
                                                         "Custom Offsets supplied for string \'%.*s\' is shorter than "
                                                         "the string",
-                                                        in_stack_fffffffffffffe48, in_stack_fffffffffffffe50);
-                                                    uVar7 = (uint)local_40;
-                                                    iVar30 = local_34;
+                                                        in_stack_fffffffffffffe48, uVar20);
+                                                    uVar8 = (unsigned int)local_40;
+                                                    uVar33 = local_34;
                                                 }
                                             }
                                         }
-                                        local_50 = psVar13;
-                                        pcVar21 =
-                                            (compressed_pair_imp<
-                                                std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                                eastl::allocator, 0>*)
-                                                shared_ptr<SpriteAtlasReference>::operator->(
-                                                    (shared_ptr<SpriteAtlasReference>*)psVar13);
-                                        pFVar28 = local_60;
-                                        local_c0 = (shared_ptr*)eastl::compressed_pair_imp<
-                                            std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                            eastl::allocator, 0>::second(pcVar21);
-                                        bVar3 = shared_ptr::operator_cast_to_bool(local_c0);
-                                        uVar36 = (undefined4)((ulong)in_stack_fffffffffffffe50 >> 32);
-                                        if (bVar3) {
+                                        local_50 = psVar1;
+                                        pcVar23 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*,
+                                                                       eastl::allocator, 0>*)(*psVar1)
+                                                      .operator->();
+                                        pFVar31 = local_60;
+                                        local_c0 = (shared_ptr*)pcVar23->second();
+                                        cVar4 = shared_ptr::operator_cast_to_bool(local_c0);
+                                        if (!cVar4) {
+                                        } else {
                                             cVar4 = local_70->IsVectorFont();
                                             pFVar14 = local_70;
-                                            local_a8 = piVar19;
-                                            local_84 = iVar30;
-                                            local_64 = uVar7;
-                                            if (cVar4 == '\0') {
-                                                uVar10 = local_70->GetVerticalSpacing();
-                                                local_a0 = (GUIManager*)CONCAT44(local_a0._4_4_, uVar10);
+                                            local_a8 = piVar18;
+                                            local_84 = uVar33;
+                                            local_64 = uVar8;
+                                            if (!cVar4) {
+                                                uVar34 = local_70->GetVerticalSpacing();
+                                                local_a0 =
+                                                    (GUIManager*)(((uint64_t)local_a0._4_4_ << 32) | (uint32_t)uVar34);
                                                 bVar5 = pFVar14->GetMaxDescent();
-                                                uVar10 = pFVar14->GetVerticalSpacing();
-                                                local_98 = (GUIManager*)CONCAT44(local_98._4_4_, uVar10);
+                                                uVar34 = pFVar14->GetVerticalSpacing();
+                                                local_98 =
+                                                    (GUIManager*)(((uint64_t)local_98._4_4_ << 32) | (uint32_t)uVar34);
                                                 bVar6 = pFVar14->GetMaxAscent();
-                                                iVar30 = (int)(((uint)bVar5 + (int)local_a0 + (int)local_98) -
-                                                               ((uint)bVar6 + piVar19[1])) /
-                                                         2;
+                                                iVar10 =
+                                                    (int)(((unsigned int)bVar5 + (int)local_a0 + (int)local_98._0_4_) -
+                                                          ((unsigned int)bVar6 + piVar18[1])) /
+                                                    2;
                                             } else {
                                                 bVar5 = local_70->GetMaxAscent();
-                                                iVar30 = pFVar14->GetVerticalSpacing();
-                                                iVar30 = (iVar30 - piVar19[1]) / 2 - (uint)bVar5;
+                                                iVar10 = pFVar14->GetVerticalSpacing();
+                                                iVar10 = (iVar10 - piVar18[1]) / 2 - (unsigned int)bVar5;
                                             }
-                                            psVar13 = local_c0;
-                                            pSVar22 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->(
-                                                (shared_ptr<SpriteAtlas>*)local_c0);
-                                            pFVar23 = (FastPool<audio::SoundInstance, int>*)
-                                                          shared_ptr<SpriteAtlasReference>::operator->(
-                                                              (shared_ptr<SpriteAtlasReference>*)local_50);
-                                            iVar9 = FastPool<audio::SoundInstance, int>::capacity(pFVar23);
-                                            lVar15 = pSVar22->GetSpriteRenderMapping(iVar9);
-                                            local_a0 = pFVar28->field_32;
-                                            iVar9 = *local_a8;
-                                            local_50 = (shared_ptr*)CONCAT44(local_50._4_4_, local_a8[1]);
-                                            this_02 = (EntityHighlightState*)(lVar15 + 88);
-                                            uVar10 = this_02->GetOverbright();
-                                            local_98 = (GUIManager*)CONCAT44(local_98._4_4_, uVar10);
-                                            local_e4 = this_02->GetAlpha();
-                                            local_e0 = this_02->MaxU();
-                                            local_dc = this_02->MaxV();
-                                            pMVar24 = (MapArea*)shared_ptr<SpriteAtlas>::operator->(
-                                                (shared_ptr<SpriteAtlas>*)psVar13);
-                                            iVar30 = iVar30 + local_84;
-                                            pvVar25 =
+                                            psVar1 = local_c0;
+                                            pSVar24 = (SpriteAtlas*)(*local_c0).operator->();
+                                            pFVar25 = (FastPool<audio::SoundInstance, int>*)(*local_50).operator->();
+                                            iVar11 = pFVar25->capacity();
+                                            lVar15 = pSVar24->GetSpriteRenderMapping(iVar11);
+                                            local_a0 = pFVar31->field_32;
+                                            iVar11 = *local_a8;
+                                            local_50 =
+                                                (shared_ptr*)(((uint64_t)local_50._4_4_ << 32) | (uint32_t)local_a8[1]);
+                                            this_03 = (EntityHighlightState*)(lVar15 + 88);
+                                            uVar34 = this_03->GetOverbright();
+                                            local_98 =
+                                                (GUIManager*)(((uint64_t)local_98._4_4_ << 32) | (uint32_t)uVar34);
+                                            local_e4 = (float)this_03->GetAlpha();
+                                            local_e0 = (float)this_03->MaxU();
+                                            local_dc = (float)this_03->MaxV();
+                                            pMVar28 = (MapArea*)(*psVar1).operator->();
+                                            uVar33 = iVar10 + local_84;
+                                            pvVar29 =
                                                 (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                                                    pMVar24->GetOrigin();
-                                            in_stack_fffffffffffffe48 =
-                                                (shared_ptr*)eastl::vector<oldscape::dash3d::EntityHighlight*,
-                                                                           BucketAllocatorEASTL>::end(pvVar25);
-                                            in_stack_fffffffffffffe50 = CONCAT44(uVar36, 1);
-                                            ((int)local_98)
-                                                ->AddTexturedRectangle(local_e4, local_e0, local_dc, local_a0, local_64,
-                                                                       iVar30, iVar9, (ulong)local_50 & 4294967295,
-                                                                       4294967295, in_stack_fffffffffffffe48,
-                                                                       in_stack_fffffffffffffe50);
-                                            local_40 = (int*)(ulong)(uint)((int)local_40 + *local_a8);
-                                            uVar7 = local_64;
-                                        } else {
+                                                    pMVar28->GetOrigin();
+                                            in_stack_fffffffffffffe48 = (Texture*)pvVar29->end();
+                                            local_a0->AddTexturedRectangle(local_64, uVar33, iVar11,
+                                                                           (EnumOptionToggle)local_50, 4294967295,
+                                                                           local_98._0_4_, local_e4, local_e0, local_dc,
+                                                                           in_stack_fffffffffffffe48, 1);
+                                            local_40 = (char*)(unsigned long)(unsigned int)((int)local_40 + *local_a8);
+                                            uVar8 = local_64;
                                         }
                                     }
-                                    piVar19 = (int*)((ulong)local_40 & 4294967295);
+                                    pcVar16 = (char*)((unsigned long)local_40 & 4294967295);
                                 } else {
-                                    StringView::StringView<8ul>(&local_158, "sprite=");
-                                    SVar33.field_8 = (uchar*)&local_158;
-                                    SVar33.field_0 = (ulong)&local_118;
-                                    ((local_170 + 8))->suffix_of(SVar33);
-                                    cVar4 = ((local_170 + 8))->empty();
-                                    if (cVar4 != '\0') {
-                                        new (&local_138) StringView(&local_118);
-                                        SVar34.field_8 = extraout_RDX_00;
-                                        SVar34.field_0 = (ulong)&local_138;
-                                        local_60->UpdateState(SVar34);
-                                        piVar19 = (int*)((ulong)local_40 & 4294967295);
-                                        iVar30 = local_34;
+                                    local_158.StringView<8ul>("sprite=");
+                                    local_168.suffix_of(&local_118);
+                                    cVar4 = local_168.empty();
+                                    if (cVar4) {
+                                        local_138 = StringView(local_118);
+                                        local_60->UpdateState(&local_138);
+                                        pcVar16 = (char*)((unsigned long)local_40 & 4294967295);
+                                        uVar33 = local_34;
                                         goto LAB_1008e1d99;
                                     }
-                                    new (&local_148) StringView((StringView*)(local_170 + 8));
-                                    SVar35.field_0 = &local_148;
-                                    SVar35.field_8 = (uchar*)&local_f0;
-                                    SVar35.field_0 = (ulong)SVar35.field_0;
-                                    cVar4 = ParseSpriteData(SVar35, (int*)&local_ec, (int*)pcVar16);
-                                    if (cVar4 == '\0')
+                                    local_148 = StringView(local_168);
+                                    pSVar32 = &local_148;
+                                    cVar4 = ParseSpriteData(pSVar32, &local_f0, (int*)&local_ec);
+                                    if (!cVar4)
                                         goto LAB_1008e1a1b;
-                                    bVar3 = SVar35.field_0->operator_cast_to_bool();
-                                    uVar36 = (undefined4)((ulong)in_stack_fffffffffffffe48 >> 32);
-                                    if (!bVar3) {
-                                        uVar20 = logger::default_logger();
-                                        uVar10 = local_118.HeapBeginPtr();
-                                        in_stack_fffffffffffffe50 = local_118.end();
-                                        in_stack_fffffffffffffe48 = (shared_ptr*)CONCAT44(uVar36, uVar10);
-                                        pcVar16 = "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
+                                    cVar4 = pSVar32->operator_cast_to_bool();
+                                    uVar34 = (uint32_t)((unsigned long)in_stack_fffffffffffffe48 >> 32);
+                                    if (!cVar4) {
+                                        pLVar19 = logger::default_logger();
+                                        uVar12 = local_118.HeapBeginPtr();
+                                        uVar20 = local_118.end();
+                                        in_stack_fffffffffffffe48 =
+                                            (Texture*)(((uint64_t)uVar34 << 32) | (uint32_t)uVar12);
+                                        pcVar30 = "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
                                                   "libs/graphics/runetek7/fonts/FontHelpers.cpp";
-                                        logger::Logger::Log(
-                                            uVar20, 0, 3,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                            "graphics/runetek7/fonts/FontHelpers.cpp",
-                                            1150, "%.*s in text, but no sprite reference callback has been set",
-                                            in_stack_fffffffffffffe48, in_stack_fffffffffffffe50);
-                                        piVar19 = (int*)((ulong)local_40 & 4294967295);
-                                        iVar30 = local_34;
+                                        pLVar19->Log(false, 3,
+                                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
+                                                     "libs/graphics/runetek7/fonts/FontHelpers.cpp",
+                                                     1150,
+                                                     "%.*s in text, but no sprite reference callback has been set",
+                                                     in_stack_fffffffffffffe48, uVar20);
+                                        pcVar16 = (char*)((unsigned long)local_40 & 4294967295);
+                                        uVar33 = local_34;
                                         goto LAB_1008e1d99;
                                     }
                                     new (local_108) ModIconReference();
                                     pFVar14 = local_70;
-                                    pcVar16 = (char*)(ulong)local_ec;
+                                    pcVar30 = (char*)(unsigned long)local_ec;
                                     cVar4 = std::function<bool(FontHelpers::ModIconReference&, int, int)>::operator()(
                                         (function<bool(FontHelpers::ModIconReference&, int,
                                                        int)>*)&m_callbackGetSpriteReference,
                                         (ModIconReference*)local_108, local_f0, local_ec);
-                                    pvVar2 = local_c8;
-                                    uVar7 = (uint)local_40;
-                                    iVar30 = local_34;
-                                    if (cVar4 == '\0') {
-                                        uVar11 = uVar7;
+                                    pfVar3 = pairs;
+                                    uVar8 = (unsigned int)local_40;
+                                    uVar33 = local_34;
+                                    if (!cVar4) {
+                                        uVar13 = uVar8;
                                     } else {
-                                        if (local_c8 != (vector<eastl::pair<int, int>, eastl::allocator>*)0) {
-                                            iVar30 =
-                                                eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(local_c8);
-                                            uVar36 = (undefined4)((ulong)in_stack_fffffffffffffe48 >> 32);
-                                            if ((long)local_80 < (long)iVar30) {
-                                                piVar19 = (int*)
-                                                    eastl::vector<std::pair<int, int>,
-                                                                  eastl::fixed_vector_allocator<
-                                                                      8ul, 256ul, 4ul, 0ul, true, eastl::allocator>>::
-                                                    operator[](
-                                                        (vector<std::pair<int, int>,
-                                                                eastl::fixed_vector_allocator<8ul, 256ul, 4ul, 0ul,
-                                                                                              true, eastl::allocator>>*)
-                                                            pvVar2,
-                                                        (ulong)local_b8);
-                                                uVar7 = *piVar19 + (int)local_40;
-                                                iVar30 = piVar19[1] + local_34;
+                                        if (pairs != nullptr) {
+                                            iVar10 = pairs->size();
+                                            uVar34 = (uint32_t)((unsigned long)in_stack_fffffffffffffe48 >> 32);
+                                            if ((long)local_80 < (long)iVar10) {
+                                                piVar18 = (int*)(*pfVar3)[(unsigned long)local_b8];
+                                                uVar8 = *piVar18 + (int)local_40;
+                                                uVar33 = piVar18[1] + local_34;
                                             } else {
-                                                uVar7 = (uint)local_40;
-                                                iVar30 = local_34;
+                                                uVar8 = (unsigned int)local_40;
+                                                uVar33 = local_34;
                                                 if ((local_90 & 1) == 0) {
-                                                    uVar20 = logger::default_logger();
-                                                    pLVar29 = local_b0;
-                                                    uVar10 = eastl::basic_string<
-                                                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                            eastl::allocator>>::Layout::
-                                                        HeapBeginPtr(local_b0);
-                                                    in_stack_fffffffffffffe50 = pLVar29->end();
-                                                    local_90 = CONCAT71((int7)((ulong)pcVar16 >> 8), 1);
-                                                    in_stack_fffffffffffffe48 = (shared_ptr*)CONCAT44(uVar36, uVar10);
-                                                    pcVar16 =
+                                                    pLVar19 = logger::default_logger();
+                                                    pSVar32 = local_b0;
+                                                    uVar12 = local_b0->HeapBeginPtr();
+                                                    uVar20 = pSVar32->end();
+                                                    local_90 =
+                                                        (((uint64_t)((int64_t)((unsigned long)pcVar30 >> 8)) << 8) |
+                                                         (uint8_t)1);
+                                                    in_stack_fffffffffffffe48 =
+                                                        (Texture*)(((uint64_t)uVar34 << 32) | (uint32_t)uVar12);
+                                                    pcVar30 =
                                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/"
                                                         "OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/FontHelpers.cpp";
-                                                    logger::Logger::Log(
-                                                        uVar20, 0, 3,
+                                                    pLVar19->Log(
+                                                        false, 3,
                                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/"
                                                         "OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/FontHelpers.cpp",
                                                         1100,
                                                         "Custom Offsets supplied for string \'%.*s\' is shorter than "
                                                         "the string",
-                                                        in_stack_fffffffffffffe48, in_stack_fffffffffffffe50);
-                                                    uVar7 = (uint)local_40;
-                                                    iVar30 = local_34;
+                                                        in_stack_fffffffffffffe48, uVar20);
+                                                    uVar8 = (unsigned int)local_40;
+                                                    uVar33 = local_34;
                                                 }
                                             }
                                         }
-                                        pcVar21 =
-                                            (compressed_pair_imp<
-                                                std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                                eastl::allocator, 0>*)
-                                                shared_ptr<SpriteAtlasReference>::operator->(
-                                                    (shared_ptr<SpriteAtlasReference>*)(local_108 + 8));
-                                        this_01 = (GUIManager*)eastl::compressed_pair_imp<
-                                            std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                            eastl::allocator, 0>::second(pcVar21);
-                                        bVar3 = this_01->operator_cast_to_bool();
-                                        uVar36 = (undefined4)((ulong)in_stack_fffffffffffffe58 >> 32);
-                                        if (bVar3) {
-                                            local_c0 = (shared_ptr*)CONCAT44(local_c0._4_4_, uVar7);
-                                            local_a0 = this_01;
-                                            local_84 = iVar30;
-                                            pSVar22 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->(
-                                                (shared_ptr<SpriteAtlas>*)this_01);
-                                            pFVar23 = (FastPool<audio::SoundInstance, int>*)
-                                                          shared_ptr<SpriteAtlasReference>::operator->(
-                                                              (shared_ptr<SpriteAtlasReference>*)(local_108 + 8));
-                                            iVar30 = FastPool<audio::SoundInstance, int>::capacity(pFVar23);
-                                            local_a8 = (int*)pSVar22->GetSpriteRenderMapping(iVar30);
+                                        pcVar23 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*,
+                                                                       eastl::allocator, 0>*)(*((local_108 + 8)))
+                                                      .operator->();
+                                        this_02 = (GUIManager*)pcVar23->second();
+                                        cVar4 = this_02->operator_cast_to_bool();
+                                        if (!cVar4) {
+                                            uVar13 = (unsigned int)local_40;
+                                        } else {
+                                            local_c0 =
+                                                (shared_ptr*)(((uint64_t)local_c0._4_4_ << 32) | (uint32_t)uVar8);
+                                            local_a0 = this_02;
+                                            local_84 = uVar33;
+                                            pSVar24 = (SpriteAtlas*)(*this_02).operator->();
+                                            pFVar25 =
+                                                (FastPool<audio::SoundInstance, int>*)(*((local_108 + 8))).operator->();
+                                            iVar10 = pFVar25->capacity();
+                                            local_a8 = (int*)pSVar24->GetSpriteRenderMapping(iVar10);
                                             this_00 = (array<int, 2ul>*)(local_a8 + 26);
-                                            piVar19 = (int*)std::array<int, 2ul>::operator[](this_00, 1);
-                                            local_50 = (shared_ptr*)CONCAT44(local_50._4_4_, *piVar19);
-                                            pFVar14->GetMaxAscent();
-                                            pFVar14->GetMaxDescent();
-                                            uVar11 = eastl::min<GraphicsQuality>((ulong)local_50 & 4294967295);
-                                            piVar18 = (int*)std::array<int, 2ul>::operator[](this_00, 0);
-                                            pFVar28 = local_60;
-                                            uVar7 = uVar11;
-                                            if (*piVar18 != *piVar19) {
-                                                uVar7 =
-                                                    (uint)(((float)*piVar18 * (float)(int)uVar11) / (float)*piVar19 +
-                                                           0.5);
+                                            pEVar26 = (EnumOptionToggle*)(*this_00)[1];
+                                            local_50._0_4_ = *pEVar26;
+                                            bVar5 = pFVar14->GetMaxAscent();
+                                            bVar6 = pFVar14->GetMaxDescent();
+                                            uVar33 = eastl::min<GraphicsQuality>(
+                                                (EnumOptionToggle)local_50, (unsigned int)bVar6 + (unsigned int)bVar5);
+                                            pEVar27 = (EnumOptionToggle*)(*this_00)[0];
+                                            pFVar31 = local_60;
+                                            uVar8 = uVar33;
+                                            if (*pEVar27 != *pEVar26) {
+                                                uVar8 = (unsigned int)(((float)(int)*pEVar27 * (float)(int)uVar33) /
+                                                                           (float)(int)*pEVar26 +
+                                                                       0.5);
                                             }
-                                            local_50 = (shared_ptr*)CONCAT44(local_50._4_4_, uVar7);
-                                            local_64 = uVar11;
+                                            local_50 =
+                                                (shared_ptr*)(((uint64_t)local_50._4_4_ << 32) | (uint32_t)uVar8);
+                                            local_64 = uVar33;
                                             cVar4 = pFVar14->IsVectorFont();
-                                            iVar30 = local_84;
-                                            if (cVar4 == '\0') {
-                                                iVar9 = pFVar14->GetVerticalSpacing();
+                                            uVar8 = local_84;
+                                            if (!cVar4) {
+                                                iVar10 = pFVar14->GetVerticalSpacing();
                                                 bVar5 = pFVar14->GetMaxDescent();
-                                                iVar9 = (iVar9 - local_64) + (uint)bVar5;
+                                                iVar10 = (iVar10 - local_64) + (unsigned int)bVar5;
                                             } else {
                                                 bVar5 = pFVar14->GetMaxAscent();
-                                                iVar9 = pFVar14->GetVerticalSpacing();
-                                                iVar9 = (iVar9 - local_108._4_4_) / 2 - (uint)bVar5;
+                                                iVar10 = pFVar14->GetVerticalSpacing();
+                                                iVar10 = (iVar10 - local_108._4_4_) / 2 - (unsigned int)bVar5;
                                             }
-                                            local_98 = pFVar28->field_32;
-                                            piVar19 = (int*)eastl::vector<
-                                                int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true,
-                                                                                   eastl::allocator>>::
-                                            operator[](
-                                                (vector<int,
-                                                        eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true,
-                                                                                      eastl::allocator>>*)(local_a8 +
-                                                                                                           2),
-                                                0);
-                                            iVar27 = *piVar19;
-                                            pMVar24 = (MapArea*)shared_ptr<SpriteAtlas>::operator->(
-                                                (shared_ptr<SpriteAtlas>*)local_a0);
-                                            in_stack_fffffffffffffe48 = (shared_ptr*)(local_a8 + 22);
-                                            iVar27 = iVar27 + (uint)local_c0;
-                                            pvVar25 =
+                                            local_98 = pFVar31->field_32;
+                                            piVar18 = (int*)(*((local_a8 + 2)))[0];
+                                            iVar11 = *piVar18;
+                                            pMVar28 = (MapArea*)(*local_a0).operator->();
+                                            in_stack_fffffffffffffe48 = (Texture*)(local_a8 + 22);
+                                            iVar11 = iVar11 + (unsigned int)local_c0;
+                                            pvVar29 =
                                                 (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                                                    pMVar24->GetOrigin();
-                                            in_stack_fffffffffffffe50 =
-                                                eastl::vector<oldscape::dash3d::EntityHighlight*,
-                                                              BucketAllocatorEASTL>::end(pvVar25);
-                                            in_stack_fffffffffffffe58 = CONCAT44(uVar36, 1);
-                                            pcVar16 = (char*)((ulong)local_50 & 4294967295);
-                                            local_98->AddTexturedRectangle(iVar27, iVar9 + iVar30, pcVar16, local_64,
-                                                                           4294967295, in_stack_fffffffffffffe48,
-                                                                           in_stack_fffffffffffffe50,
-                                                                           in_stack_fffffffffffffe58);
-                                            iVar30 = iVar9 + iVar30;
-                                            uVar7 = (uint)local_c0;
-                                            uVar11 = (int)local_50 + (int)local_40;
-                                        } else {
-                                            uVar11 = (uint)local_40;
+                                                    pMVar28->GetOrigin();
+                                            texture = (Texture*)pvVar29->end();
+                                            pcVar30 = (char*)((unsigned long)local_50 & 4294967295);
+                                            local_98->AddTexturedRectangle(
+                                                iVar11, iVar10 + uVar8, (EnumOptionToggle)local_50, local_64,
+                                                4294967295, *in_stack_fffffffffffffe48, texture, 1);
+                                            uVar33 = iVar10 + uVar8;
+                                            uVar8 = (unsigned int)local_c0;
+                                            uVar13 = (EnumOptionToggle)local_50 + (int)local_40;
                                         }
                                     }
-                                    piVar19 = (int*)(ulong)uVar11;
-                                    local_108->~pair();
-                                    local_40 = (int*)pcVar16;
+                                    pcVar16 = (char*)(unsigned long)uVar13;
+                                    local_40 = pcVar30;
                                 }
-                                pcVar16 = (char*)local_40;
-                                local_40 = (int*)(ulong)uVar7;
+                                pcVar30 = local_40;
+                                local_40 = (char*)(unsigned long)uVar8;
+                            } else {
+                                piVar18 = (int*)local_170.value();
+                                local_44 = *piVar18;
+                            LAB_1008e1a1b:
+                                pcVar16 = (char*)((unsigned long)local_40 & 4294967295);
+                                uVar33 = local_34;
                             }
                         LAB_1008e1d99:
                             local_50 = (shared_ptr*)4294967295;
@@ -1362,532 +1062,425 @@ namespace jag::graphics {
                                 goto LAB_1008e1901;
                         } else {
                         LAB_1008e18f4:
-                            piVar19 = (int*)((ulong)local_40 & 4294967295);
-                            iVar30 = local_34;
+                            pcVar16 = (char*)((unsigned long)local_40 & 4294967295);
+                            uVar33 = local_34;
                         LAB_1008e1901:
-                            if ((int)local_50 == -1) {
-                                iVar8 = local_70->GetKerning(local_44, iVar8);
-                                pvVar2 = local_c8;
-                                local_40 = (int*)(ulong)(uint)((int)local_40 + iVar8);
-                                if (local_c8 != (vector<eastl::pair<int, int>, eastl::allocator>*)0) {
-                                    iVar9 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(local_c8);
-                                    uVar36 = (undefined4)((ulong)in_stack_fffffffffffffe48 >> 32);
-                                    if ((long)local_80 < (long)iVar9) {
-                                        piVar18 =
-                                            (int*)eastl::vector<std::pair<int, int>,
-                                                                eastl::fixed_vector_allocator<8ul, 256ul, 4ul, 0ul,
-                                                                                              true, eastl::allocator>>::
-                                            operator[]((vector<std::pair<int, int>,
-                                                               eastl::fixed_vector_allocator<8ul, 256ul, 4ul, 0ul, true,
-                                                                                             eastl::allocator>>*)pvVar2,
-                                                       (ulong)local_b8);
-                                        local_40 = (int*)(ulong)(uint)((int)local_40 + *piVar18);
-                                        iVar30 = iVar30 + piVar18[1];
+                            if ((EnumOptionToggle)local_50 == -1) {
+                                iVar9 = local_70->GetKerning(local_44, iVar9);
+                                pfVar3 = pairs;
+                                local_40 = (char*)(unsigned long)(unsigned int)((int)local_40 + iVar9);
+                                if (pairs != nullptr) {
+                                    iVar10 = pairs->size();
+                                    uVar34 = (uint32_t)((unsigned long)in_stack_fffffffffffffe48 >> 32);
+                                    if ((long)local_80 < (long)iVar10) {
+                                        piVar18 = (int*)(*pfVar3)[(unsigned long)local_b8];
+                                        local_40 = (char*)(unsigned long)(unsigned int)((int)local_40 + *piVar18);
+                                        uVar33 = uVar33 + piVar18[1];
                                     } else if ((local_90 & 1) == 0) {
-                                        uVar20 = logger::default_logger();
-                                        pLVar29 = local_b0;
-                                        local_80 = (int*)eastl::basic_string<
-                                            char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                eastl::allocator>>::Layout::
-                                            HeapBeginPtr(local_b0);
-                                        in_stack_fffffffffffffe50 = pLVar29->end();
-                                        local_90 = CONCAT71((int7)((ulong)pcVar16 >> 8), 1);
-                                        in_stack_fffffffffffffe48 = (shared_ptr*)CONCAT44(uVar36, (int)local_80);
-                                        logger::Logger::Log(
-                                            uVar20, 0, 3,
+                                        pLVar19 = logger::default_logger();
+                                        pSVar32 = local_b0;
+                                        local_80 = (char*)local_b0->HeapBeginPtr();
+                                        uVar20 = pSVar32->end();
+                                        local_90 =
+                                            (((uint64_t)((int64_t)((unsigned long)pcVar30 >> 8)) << 8) | (uint8_t)1);
+                                        in_stack_fffffffffffffe48 =
+                                            (Texture*)(((uint64_t)uVar34 << 32) | (uint32_t)((int)local_80));
+                                        pLVar19->Log(
+                                            false, 3,
                                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                             "graphics/runetek7/fonts/FontHelpers.cpp",
                                             1176,
                                             "Custom Offsets supplied for string \'%.*s\' is shorter than the string",
-                                            in_stack_fffffffffffffe48, in_stack_fffffffffffffe50);
+                                            in_stack_fffffffffffffe48, uVar20);
                                     }
                                 }
-                                iVar8 = iVar8 + (int)piVar19;
+                                iVar9 = iVar9 + (int)pcVar16;
                                 if (local_44 == spaceCharCode) {
-                                    iVar9 = *(int*)&local_60->field_16;
-                                    if (iVar9 < 0) {
-                                        iVar9 = 0;
+                                    iVar10 = *(int*)&local_60->field_16;
+                                    if (iVar10 < 0) {
+                                        iVar10 = 0;
                                     }
-                                    iVar8 = iVar8 + iVar9;
+                                    iVar9 = iVar9 + iVar10;
                                 } else {
                                     if (local_60->field_20 != '\0') {
-                                        uVar7 = *(uint*)&local_60->field_24;
-                                        pFVar12 = (Font*)local_d0->GetFont();
-                                        DrawLetter(local_60, local_44, (int)local_40 + 1, iVar30 + 1, uVar7, pFVar12,
-                                                   &local_128);
+                                        uVar8 = *(unsigned int*)&local_60->field_24;
+                                        psVar21 = (shared_ptr<render::Texture>*)textProperties.GetFont();
+                                        DrawLetter((int)local_60, local_44, (int)local_40 + 1, uVar33 + 1,
+                                                   (Font*)(unsigned long)uVar8, psVar21);
                                     }
-                                    uVar7 = *(uint*)&local_60->field_8;
-                                    pFVar12 = (Font*)local_d0->GetFont();
-                                    in_stack_fffffffffffffe48 = &local_128;
-                                    DrawLetter(local_60, local_44, (int)local_40, iVar30, uVar7, pFVar12,
-                                               in_stack_fffffffffffffe48);
+                                    uVar8 = *(unsigned int*)&local_60->field_8;
+                                    psVar21 = (shared_ptr<render::Texture>*)textProperties.GetFont();
+                                    in_stack_fffffffffffffe48 = (Texture*)&local_128;
+                                    DrawLetter((int)local_60, local_44, (int)local_40, uVar33,
+                                               (Font*)(unsigned long)uVar8, psVar21);
                                 }
                                 pFVar14 = local_70;
                                 bVar5 = local_70->GetGlyphAdvance(local_44);
-                                uVar36 = (undefined4)((ulong)in_stack_fffffffffffffe48 >> 32);
-                                pFVar28 = local_60;
-                                if (*(int*)local_60 != -1) {
-                                    local_80 = (int*)CONCAT44(local_80._4_4_, iVar8);
-                                    uVar7 = pFVar14->GetMaxDescent();
+                                uVar34 = (uint32_t)((unsigned long)in_stack_fffffffffffffe48 >> 32);
+                                pFVar31 = local_60;
+                                if (*(unsigned int*)local_60 != 4294967295) {
+                                    local_80 = (char*)(((uint64_t)local_80._4_4_ << 32) | (uint32_t)iVar9);
+                                    uVar8 = pFVar14->GetMaxDescent();
                                     cVar4 = pFVar14->IsVectorFont();
                                     pFVar14 = local_70;
-                                    iVar8 = (uVar7 & 255) + iVar30;
-                                    if (cVar4 == '\0') {
-                                        iVar9 = local_70->GetVerticalSpacing();
-                                        iVar8 = iVar8 + iVar9;
+                                    iVar9 = (uVar8 & 255) + uVar33;
+                                    if (!cVar4) {
+                                        iVar10 = local_70->GetVerticalSpacing();
+                                        iVar9 = iVar9 + iVar10;
                                     }
                                     bVar6 = pFVar14->GetAscentDescentDelta();
-                                    pFVar28 = local_60;
-                                    in_stack_fffffffffffffe48 = (shared_ptr*)CONCAT44(uVar36, 1);
-                                    GUIManager::AddHorizontalLine(local_60->field_32, local_40,
-                                                                  iVar8 - (int)((float)bVar6 * 0.5), bVar5, 1,
-                                                                  *(int*)local_60, in_stack_fffffffffffffe48);
-                                    iVar8 = (int)local_80;
+                                    pFVar31 = local_60;
+                                    in_stack_fffffffffffffe48 = (Texture*)(((uint64_t)uVar34 << 32) | (uint32_t)1);
+                                    local_60->field_32->AddHorizontalLine(
+                                        (int)local_40, iVar9 - (int)((float)bVar6 * 0.5), (unsigned int)bVar5, 1,
+                                        *(unsigned int*)local_60, 1);
+                                    iVar9 = (int)local_80;
                                 }
-                                uVar36 = (undefined4)((ulong)in_stack_fffffffffffffe48 >> 32);
-                                if (*(int*)&pFVar28->field_4 != -1) {
+                                uVar34 = (uint32_t)((unsigned long)in_stack_fffffffffffffe48 >> 32);
+                                if (*(int*)&pFVar31->field_4 != -1) {
                                     cVar4 = pFVar14->IsVectorFont();
-                                    iVar30 = iVar30 + 1;
-                                    if (cVar4 == '\0') {
-                                        iVar9 = pFVar14->GetVerticalSpacing();
-                                        iVar30 = iVar9 + iVar30;
+                                    iVar10 = uVar33 + 1;
+                                    if (!cVar4) {
+                                        iVar11 = pFVar14->GetVerticalSpacing();
+                                        iVar10 = iVar11 + iVar10;
                                     }
-                                    in_stack_fffffffffffffe48 = (shared_ptr*)CONCAT44(uVar36, 1);
-                                    GUIManager::AddHorizontalLine(pFVar28->field_32, local_40, iVar30, (uint)bVar5, 1,
-                                                                  *(undefined4*)&pFVar28->field_4,
-                                                                  in_stack_fffffffffffffe48);
+                                    in_stack_fffffffffffffe48 = (Texture*)(((uint64_t)uVar34 << 32) | (uint32_t)1);
+                                    pFVar31->field_32->AddHorizontalLine((int)local_40, iVar10, (unsigned int)bVar5, 1,
+                                                                         *(unsigned int*)&pFVar31->field_4, 1);
                                 }
-                                local_40 = (int*)(ulong)(iVar8 + (uint)bVar5);
-                                iVar8 = local_44;
+                                local_40 = (char*)(unsigned long)(iVar9 + (unsigned int)bVar5);
+                                iVar9 = local_44;
                                 goto LAB_1008e1861;
                             }
                         }
-                        local_40 = piVar19;
+                        local_40 = pcVar16;
                     }
                 LAB_1008e1861:
-                    pLVar29 = local_b0;
-                    uVar1 = local_d8;
-                    uVar17 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                            eastl::allocator>>::Layout::HeapBeginPtr(local_b0);
-                } while (uVar1 < uVar17);
+                    stringView = local_b0;
+                    uVar2 = 0;
+                    uVar17 = local_b0->HeapBeginPtr();
+                } while (uVar2 < uVar17);
             }
-            iVar8 = (int)local_40 - local_74;
-        } else {
-            uVar20 = logger::default_logger();
-            uVar10 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar29);
-            uVar26 = pLVar29->end();
-            iVar8 = 0;
-            logger::Logger::Log(uVar20, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/fonts/FontHelpers.cpp",
-                                969, "%s called with string \'%.*s\', while fontTexture was null", "DrawStringInner",
-                                CONCAT44(uVar36, uVar10), uVar26);
+            iVar9 = (int)local_40 - (unsigned int)arg2;
         }
-        local_128.~shared_ptr();
-        return iVar8;
+        return iVar9;
     }
 
-    // 0x1008e24a0, 304 bytes, placed by class name
-    // FontHelpers::GetStringWidth(StringView, FontMetrics const&, bool)
-    int FontHelpers::GetStringWidth(StringView param_1, FontMetrics* param_2, bool param_3) {
-        ulong uVar1;
-        long lVar2;
+    // 0x1008e24a0
+    int FontHelpers::GetStringWidth(StringView stringView, const FontMetrics& fontMetrics, bool arg3) {
+        unsigned long uVar1;
         type* ptVar3;
         type* ptVar4;
-        ulong uVar5;
-        undefined4 uVar6;
-        ShuffledPacketFactory* this;
-        FontMetrics* in_R8;
-        int iVar7;
-        StringView SVar8;
-        StringView SVar9;
-        StringView aSStack_898[128];
-        TextFlags in_stack_ffffffffffffff68;
+        unsigned long uVar5;
+        uint64_t in_register_00000011;
+        unsigned int uVar6;
+        StringView local_98;
         StringView local_88;
         StringView local_78;
-        undefined8 local_68;
-        undefined8 local_60;
-        ulong local_58;
-        uchar* local_50;
-        undefined4 local_44;
-        ulong local_40;
-        uint local_38[2];
+        uint64_t local_68;
+        uint64_t local_60;
+        unsigned long local_58;
+        unsigned int local_44;
+        ReturnValue local_38;
 
-        local_50 = param_1.field_8;
-        this = (ShuffledPacketFactory*)param_1.field_0;
-        new (local_38) oldscape::configdecoder::VeccType();
-        if ((int)param_2 != 0) {
-            local_38->SetFlag(1);
+        new (&local_38) oldscape::configdecoder::VeccType();
+        if ((int)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg3) != 0) {
+            local_38 = TextFlags::SetFlag(1);
         }
-        local_40 = 0;
-        lVar2 = ShuffledPacketFactory::p2_alt2(this);
-        iVar7 = 0;
+        unsigned long local_40 = 0;
+        long lVar2 = ShuffledPacketFactory::p2_alt2();
+        int iVar7 = 0;
         if (lVar2 != 0) {
             uVar6 = 0;
             do {
                 local_58 = local_40;
                 local_44 = uVar6;
-                StringView::StringView(aSStack_898 + 128, (StringView*)this);
-                SVar8.field_8 = (uchar*)&local_40;
-                SVar8.field_0 = (ulong)(aSStack_898 + 128);
-                local_68 = GetNextElementLength(SVar8, (ulong*)(ulong)local_38[0], in_stack_ffffffffffffff68);
-                std::get<0ul, unsigned int, unsigned int>((pair*)&local_68);
-                ptVar3 = std::get<1ul, unsigned int, unsigned int>((pair*)&local_68);
-                local_88.substr((ulong)this, local_58);
-                new (&local_78) StringView(&local_88);
-                SVar9.field_8._0_4_ = local_44;
-                SVar9.field_0 = (ulong)&local_78;
-                SVar9.field_8._4_4_ = 0;
-                local_60 = GetElementWidth(SVar9, *(uint*)ptVar3, (uint)local_50, in_R8);
-                ptVar4 = std::get<0ul, unsigned int, unsigned int>((pair*)&local_60);
-                ptVar3 = std::get<1ul, unsigned int, unsigned int>((pair*)&local_60);
+                local_98 = StringView(*stringView);
+                local_68 = GetNextElementLength(&local_98, &local_40, (TextFlags)local_38._0_1_);
+                std::get<0ul, unsigned int, unsigned int>(local_68);
+                ptVar3 = std::get<1ul, unsigned int, unsigned int>(local_68);
+                local_88 = ((unsigned long)stringView)->substr(local_58);
+                local_78 = StringView(local_88);
+                local_60 = GetElementWidth(&local_78, local_44, *(unsigned int*)ptVar3, fontMetrics);
+                ptVar4 = std::get<0ul, unsigned int, unsigned int>(local_60);
+                ptVar3 = std::get<1ul, unsigned int, unsigned int>(local_60);
                 uVar1 = local_40;
-                uVar6 = *(undefined4*)ptVar3;
+                uVar6 = *(unsigned int*)ptVar3;
                 iVar7 = iVar7 + *(int*)ptVar4;
-                uVar5 = ShuffledPacketFactory::p2_alt2(this);
+                uVar5 = ShuffledPacketFactory::p2_alt2();
             } while (uVar1 < uVar5);
         }
         return iVar7;
     }
 
-    // 0x1008e25e0, 208 bytes, placed by class name
-    // FontHelpers::CalculateExtraSpaceWidthForJustify(StringView, unsigned int, unsigned int, bool)
-    ulong FontHelpers::CalculateExtraSpaceWidthForJustify(StringView param_1, uint param_2, uint param_3,
-                                                          bool param_4) {
-        char* pcVar1;
-        char* pcVar2;
-        ulong uVar3;
+    // 0x1008e25e0
+    unsigned long FontHelpers::CalculateExtraSpaceWidthForJustify(StringView stringView, unsigned int arg2,
+                                                                  unsigned int arg3, bool arg4) {
         int iVar4;
         bool bVar5;
-        uint uVar6;
-        byte bVar7;
 
-        pcVar1 = (char*)param_1.field_0->end();
-        pcVar2 = (char*)param_1.field_0->end();
-        uVar3 = 0;
-        uVar6 = 0;
+        auto pcVar1 = stringView->end();
+        auto pcVar2 = stringView->end();
+        unsigned long uVar3 = 0;
+        unsigned int uVar6 = 0;
         if (pcVar1 != pcVar2) {
-            bVar7 = (byte)param_3 ^ 1;
             uVar6 = 0;
             bVar5 = false;
             do {
                 iVar4 = (int)*pcVar1;
-                if ((bVar7 & ltCharCode == iVar4) == 0) {
-                    if ((bVar7 & gtCharCode == iVar4) == 0) {
-                        uVar6 = uVar6 + (spaceCharCode == iVar4 && !bVar5);
-                    } else {
-                        bVar5 = false;
-                    }
-                } else {
+                if (!arg4 && ltCharCode == iVar4) {
                     bVar5 = true;
+                } else if (!arg4 && gtCharCode == iVar4) {
+                    bVar5 = false;
+                } else {
+                    uVar6 = uVar6 + (spaceCharCode == iVar4 && !bVar5);
                 }
                 pcVar1 = pcVar1 + 1;
             } while (pcVar1 != pcVar2);
         }
         if (0 < (int)uVar6) {
-            uVar3 = (ulong)(param_2 - (int)param_1.field_8) / (ulong)uVar6;
+            uVar3 = (unsigned long)(arg3 - arg2) / (unsigned long)uVar6;
         }
         return uVar3;
     }
 
-    // 0x1008e26c0, 640 bytes, placed by class name
-    // FontHelpers::DrawTextRunSlice(TextRunSlice const&, int, int, TextProperties const&, int)
-    undefined8 FontHelpers::DrawTextRunSlice(TextRunSlice* param_1, int param_2, int param_3, TextProperties* param_4,
-                                             int param_5) {
+    // 0x1008e26c0
+    uint64_t FontHelpers::DrawTextRunSlice(const TextRunSlice& textRunSlice, int arg2, int arg3,
+                                           const TextProperties& textProperties, int arg5) {
         FontMetrics* this_00;
-        char cVar1;
-        bool bVar2;
-        byte bVar3;
-        byte bVar4;
-        uint uVar5;
-        Font* pFVar6;
-        shared_ptr* psVar7;
-        long lVar8;
-        long lVar9;
+        uint8_t bVar2;
+        uint8_t bVar3;
+        unsigned int uVar4;
+        shared_ptr<oldscape::dash3d::GroundDecor>* groundDecor;
+        long lVar5;
+        long lVar6;
+        int* piVar7;
+        shared_ptr<render::Texture>* psVar8;
         int* piVar10;
-        int* piVar12;
-        int* piVar13;
-        int iVar14;
+        int* arg2_00;
+        int arg2_01;
         shared_ptr local_78;
         int local_68[3];
-        undefined8 local_58;
+        uint64_t local_58;
         FontHelpers* local_50;
         FontMetrics* local_48;
-        ulong local_40;
+        unsigned long local_40;
         int local_34;
 
-        cVar1 = param_1->IsEmpty();
-        if (cVar1 == '\0') {
-            local_40 = CONCAT44(local_40._4_4_, param_3);
-            ResetState(param_4);
-            local_48 = (FontMetrics*)param_4->GetFontMetrics();
-            pFVar6 = (Font*)param_4->GetFont();
-            psVar7 = (shared_ptr*)pFVar6->GetCharactersTexture();
-            new (&local_78) shared_ptr<oldscape::dash3d::Decor>(psVar7);
-            bVar2 = shared_ptr::operator_cast_to_bool(&local_78);
+        bool cVar1 = textRunSlice.IsEmpty();
+        if (!cVar1) {
+            local_40 = (((uint64_t)local_40._4_4_ << 32) | (uint32_t)arg3);
+            ResetState(textProperties);
+            local_48 = textProperties.GetFontMetrics();
+            groundDecor = ((Font*)textProperties.GetFont())->GetCharactersTexture();
+            local_78 = shared_ptr(groundDecor);
+            cVar1 = shared_ptr::operator_cast_to_bool(&local_78);
             this_00 = local_48;
-            if (!bVar2) {
+            if (!cVar1) {
                 local_68[0] = 0;
                 local_68[1] = 0;
-                local_58 = std::make_pair<int, int>(local_68, local_68 + 1);
+                local_58 = std::make_pair<int, int>(*local_68, *(local_68 + 1));
             LAB_1008e277d:
-                local_78.~shared_ptr();
                 return local_58;
             }
             cVar1 = local_48->IsVectorFont();
             local_50 = this;
-            if (cVar1 == '\0') {
-                bVar3 = this_00->GetMaxAscent();
-                bVar4 = this_00->GetMaxDescent();
-                local_34 = (uint)bVar4 - (uint)bVar3;
+            if (!cVar1) {
+                bVar2 = this_00->GetMaxAscent();
+                bVar3 = this_00->GetMaxDescent();
+                local_34 = (unsigned int)bVar3 - (unsigned int)bVar2;
             } else {
-                local_34 = param_1->GetVerticalOrigin();
+                local_34 = textRunSlice.GetVerticalOrigin();
             }
-            lVar8 = param_1->end();
-            lVar9 = param_1->data();
-            if (lVar8 != lVar9) {
+            lVar5 = textRunSlice.end();
+            lVar6 = textRunSlice.data();
+            if (lVar5 != lVar6) {
                 local_34 = local_34 + (int)local_40;
-                piVar13 = (int*)(lVar8 + 8);
-                local_68[2] = param_5;
+                arg2_00 = (int*)(lVar5 + 8);
+                local_68[2] = arg5;
                 do {
-                    if ((local_68[2] != -1) && (local_68[2] < *piVar13)) {
-                        std::pair<int, int>::pair<true, false>((pair<int, int>*)&local_58, piVar13 + -1, piVar13);
+                    if ((local_68[2] != -1) && (local_68[2] < *arg2_00)) {
+                        local_58.pair<true, false>(*(arg2_00 - 1), *arg2_00);
                         goto LAB_1008e277d;
                     }
-                    iVar14 = piVar13[-2];
-                    if (iVar14 != newlineCharCode) {
-                        cVar1 = param_1->ShouldHide((TextRunCharacter*)(piVar13 + -2));
-                        if (cVar1 != '\0') {
-                            iVar14 = 42;
+                    arg2_01 = arg2_00[-2];
+                    if (arg2_01 != newlineCharCode) {
+                        cVar1 = textRunSlice.ShouldHide(*((arg2_00 - 2)));
+                        if (cVar1) {
+                            arg2_01 = 42;
                         }
-                        if (iVar14 != tabCharCode) {
-                            local_48 = (FontMetrics*)(ulong)(uint)(piVar13[-1] + param_2);
-                            local_40 = (ulong)(uint)(*piVar13 + local_34);
+                        if (arg2_01 != tabCharCode) {
+                            local_48 = (FontMetrics*)(unsigned long)(unsigned int)(arg2_00[-1] + arg2);
+                            local_40 = (unsigned long)(unsigned int)(*arg2_00 + local_34);
                             if (local_50->field_20 != '\0') {
-                                uVar5 = *(uint*)&local_50->field_24;
-                                pFVar6 = (Font*)param_4->GetFont();
-                                DrawLetter(local_50, iVar14, (int)local_48 + 1, (int)local_40 + 1, uVar5, pFVar6,
-                                           &local_78);
+                                uVar4 = *(unsigned int*)&local_50->field_24;
+                                psVar8 = (shared_ptr<render::Texture>*)textProperties.GetFont();
+                                DrawLetter((int)local_50, arg2_01, (int)local_48 + 1, (int)local_40 + 1,
+                                           (Font*)(unsigned long)uVar4, psVar8);
                             }
-                            uVar5 = param_4->GetLevel();
-                            pFVar6 = (Font*)param_4->GetFont();
-                            DrawLetter(local_50, iVar14, (int)local_48, (int)local_40, uVar5, pFVar6, &local_78);
+                            uVar4 = textProperties.GetLevel();
+                            psVar8 = (shared_ptr<render::Texture>*)textProperties.GetFont();
+                            DrawLetter((int)local_50, arg2_01, (int)local_48, (unsigned int)local_40,
+                                       (Font*)(unsigned long)uVar4, psVar8);
                         }
                     }
-                    piVar10 = (int*)param_1->data();
-                    piVar12 = piVar13 + 1;
-                    piVar13 = piVar13 + 3;
-                } while (piVar12 != piVar10);
+                    piVar7 = (int*)textRunSlice.data();
+                    piVar10 = arg2_00 + 1;
+                    arg2_00 = arg2_00 + 3;
+                } while (piVar10 != piVar7);
             }
-            local_78.~shared_ptr();
         }
-        return param_1->GetLastCursorPosition();
+        return textRunSlice.GetLastCursorPosition();
     }
 
-    // 0x1008e2ad0, 304 bytes, placed by class name
-    // FontHelpers::DrawLetter(int, int, int, unsigned int, Font const&, shared_ptr<render::Texture> const&)
-    void FontHelpers::DrawLetter(int param_1, int param_2, int param_3, uint param_4, Font* param_5,
-                                 shared_ptr* param_6) {
-        byte bVar1;
-        byte bVar2;
-        byte bVar3;
-        byte bVar4;
-        GUIManager* pGVar5;
-        vector* this_00;
-        EntityHighlightState* this_01;
-        FontMetrics* pFVar7;
-        byte* pbVar8;
-        undefined8 uVar9;
-        undefined4 in_register_00000034;
-        undefined4 uVar10;
-        undefined4 uVar11;
-        undefined4 uVar12;
-        undefined4 uVar13;
-        uint local_34;
+    // 0x1008e2ad0
+    void FontHelpers::DrawLetter(int arg1, int arg2, int arg3, unsigned int arg4, const Font& font,
+                                 const shared_ptr<render::Texture>& texture) {
+        uint32_t in_register_0000003c;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* in_stack_00000008;
 
-        this_00 = param_5->SSOBeginPtr((type*)CONCAT44(in_register_00000034, param_1));
-        this_01 = (EntityHighlightState*)param_5->GetUV(param_1);
-        pFVar7 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this_00);
-        pbVar8 = (byte*)pFVar7->GetGlyphInfo(param_1);
-        local_34 = param_4;
+        unsigned int local_34 = (unsigned int)font;
+        auto this_00 = texture.SSOBeginPtr();
+        auto this_01 = texture.GetUV(arg2);
+        FontMetrics* pFVar6 = (FontMetrics*)(*this_00).operator->();
+        auto pbVar7 = pFVar6->GetGlyphInfo(arg2);
         if (m_highlightNonVectorFonts != '\0') {
-            pFVar7 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this_00);
-            if (pFVar7->IsVectorFont() == '\0') {
-                param_4 = 3423731711;
+            pFVar6 = (FontMetrics*)(*this_00).operator->();
+            if (pFVar6->IsVectorFont() == '\0') {
+                local_34 = 3423731711;
             }
-            local_34 = param_4;
         }
-        bVar1 = pbVar8[3];
-        bVar2 = pbVar8[4];
-        pGVar5 = field_32;
-        bVar3 = *pbVar8;
-        bVar4 = pbVar8[1];
-        uVar10 = this_01->GetOverbright();
-        uVar11 = this_01->GetAlpha();
-        uVar12 = this_01->MaxU();
-        uVar13 = this_01->MaxV();
-        uVar9 = param_6->end();
-        uVar10->AddElement(uVar11, uVar12, uVar13, pGVar5, (char)bVar1 + param_2, (char)bVar2 + param_3,
-                           (uint)bVar3 + (char)bVar1 + param_2, (uint)bVar4 + (char)bVar2 + param_3, local_34, uVar9,
-                           1);
+        uint8_t bVar1 = pbVar7[3];
+        uint8_t bVar2 = pbVar7[4];
+        GUIManager* gUIManager = *(GUIManager**)((((uint64_t)in_register_0000003c << 32) | (uint32_t)arg1) + 32);
+        uint8_t bVar3 = *pbVar7;
+        uint8_t bVar4 = pbVar7[1];
+        float arg6 = (float)this_01->GetOverbright();
+        float arg7 = (float)this_01->GetAlpha();
+        float arg8 = (float)this_01->MaxU();
+        float arg9 = (float)this_01->MaxV();
+        auto texture_00 = in_stack_00000008->end();
+        gUIManager->AddElement((char)bVar1 + arg3, (int)(char)bVar2 + arg4, (unsigned int)bVar3 + (char)bVar1 + arg3,
+                               (unsigned int)bVar4 + (int)(char)bVar2 + arg4, local_34, arg6, arg7, arg8, arg9,
+                               texture_00, 1);
     }
 
-    // 0x1008e2c00, 112 bytes, placed by neighbouring functions
-    // TextRunSlice::GetLastCursorPosition() const
-    void TextRunSlice::GetLastCursorPosition() {
+    // 0x1008e2c00
+    void TextRunSlice::GetLastCursorPosition() const {
         int iVar1;
         int local_24[3];
 
-        if (IsEmpty(this) == '\0') {
-            iVar1 = *(int*)(field_16 + -8);
-            local_24[2] = GetLastCharAdvance(this);
+        if (IsEmpty() == '\0') {
+            iVar1 = *(int*)(field_16 - 8);
+            local_24[2] = GetLastCharAdvance();
             local_24[2] = local_24[2] + iVar1;
-            std::make_pair<int, int const&>(local_24 + 2, (int*)(field_16 + -4));
+            std::make_pair<int, int const&>(*(local_24 + 2), *((field_16 - 4)));
         } else {
             local_24[0] = 0;
             local_24[1] = 0;
-            std::make_pair<int, int>(local_24, local_24 + 1);
+            std::make_pair<int, int>(*local_24, *(local_24 + 1));
         }
     }
 
-    // 0x1008e2c70, 160 bytes, placed by class name
-    // FontHelpers::DrawStringCustomOffsets(StringView, int, int, int, eastl::fixed_vector<std::pair<int, int>, 256ul, true, eastl::allocator> const&, TextProperties const&)
-    /* FontHelpers::DrawStringCustomOffsets(StringView, int, int, int,
-   eastl::fixed_vector<std::pair<int, int>, 256ul, true, eastl::allocator> const&,
-   TextProperties const&) */
-
-    void FontHelpers::DrawStringCustomOffsets(StringView param_1, int param_2, int param_3, int param_4,
-                                              fixed_vector* param_5, TextProperties* param_6) {
-        char cVar1;
-        undefined4 in_register_0000008c;
-        StringView SVar2;
-        TextProperties* in_stack_ffffffffffffff80;
+    // 0x1008e2c70
+    void FontHelpers::DrawStringCustomOffsets(StringView stringView, int arg2, int arg3, int arg4,
+                                              const eastl::fixed_vector<std::pair<int, int>, 256ul>& pairs,
+                                              const TextProperties& textProperties) {
+        uint32_t in_register_00000034;
+        TextProperties* in_stack_00000008;
         TextProperties local_78;
         StringView local_50;
-        undefined8 local_40;
 
-        SVar2.field_8._0_4_ = param_1.field_8._0_4_;
-        cVar1 = param_1.field_0->empty();
-        if (cVar1 == '\0') {
-            ResetState(param_5);
-            local_40 = CONCAT44(in_register_0000008c, param_4);
-            new (&local_78) TextProperties(param_5);
-            TextProperties::ClearFlag(&local_78, 1);
-            new (&local_50) StringView(param_1.field_0);
-            SVar2.field_0 = (ulong)&local_50;
-            SVar2.field_8._4_4_ = 0;
-            DrawAlignedString(this, SVar2, param_2, param_3, (int)local_40, param_5, in_stack_ffffffffffffff80);
+        if (((SharedArray<std::unique_ptr<oldscape::rs2lib::worldmap::LocationData>>*)(((uint64_t)in_register_00000034
+                                                                                        << 32) |
+                                                                                       (uint32_t)arg2))
+                ->empty() == '\0') {
+            stringView->ResetState(*in_stack_00000008);
+            local_78 = TextProperties(*in_stack_00000008);
+            local_78.ClearFlag(1);
+            local_50 = StringView(*((StringView*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg2)));
+            DrawAlignedString(stringView, (int)&local_50, arg3, arg4,
+                              (fixed_vector<std::pair<int, int>, _256ul>*)(unsigned long)(unsigned int)pairs,
+                              textProperties);
         }
     }
 
-    // 0x1008e2d50, 368 bytes, placed by class name
-    // FontHelpers::GetNextElementLength(StringView, unsigned long&, TextFlags)
-    undefined8 FontHelpers::GetNextElementLength(StringView param_1, ulong* param_2, TextFlags param_3) {
-        ulong uVar1;
-        ulong uVar2;
-        uint uVar4;
-        ulong uVar5;
-        char* pcVar6;
-        ulong* puVar7;
-        Layout* this;
-        int iVar8;
-        bool bVar9;
+    // 0x1008e2d50
+    void FontHelpers::GetNextElementLength(StringView stringView, unsigned long& arg2, TextFlags textFlags) {
+        unsigned long uVar2;
+        unsigned long uVar4;
+        char* str;
+        bool bVar6;
         int local_58;
-        int local_4c;
-        undefined8 local_48;
-        uint local_40;
-        uint local_3c;
-        TextFlags local_38[8];
+        uint64_t local_48;
+        unsigned int local_40;
+        unsigned int local_3c;
+        TextFlags local_38;
 
-        puVar7 = (ulong*)param_1.field_8;
-        this = (Layout*)param_1.field_0;
-        local_38[0] = SUB81(param_2, 0);
-        uVar1 = *puVar7;
-        iVar8 = -1;
+        unsigned long uVar1 = arg2;
+        int iVar5 = -1;
+        local_38[0].field_0 = textFlags.field_0;
         do {
-            uVar2 = *puVar7;
-            uVar5 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                        eastl::allocator>>::Layout::HeapBeginPtr(this);
-            if (uVar5 <= uVar2) {
-                *puVar7 = uVar1 + 1;
+            uVar2 = arg2;
+            uVar4 = stringView->HeapBeginPtr();
+            if (uVar4 <= uVar2) {
+                arg2 = uVar1 + 1;
                 local_40 = 1;
-                std::pair<unsigned int, unsigned int>::pair<int, unsigned int&, false>(
-                    (pair<unsigned int, unsigned int>*)&local_48, (int*)&local_40, &ltCharCode);
+                local_48.pair<int, unsigned int&, false>(local_40, ltCharCode);
                 return local_48;
             }
-            uVar2 = *puVar7;
-            pcVar6 = (char*)end();
-            uVar5 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                        eastl::allocator>>::Layout::HeapBeginPtr(this);
-            uVar4 = stringtools::GetUTF8NextChar(pcVar6, puVar7, uVar5);
-            local_40 = ToCodeMap(uVar4);
-            if (local_38->HasFlag(1) == '\0') {
-                bVar9 = true;
-                if (iVar8 == -1) {
-                    iVar8 = (int)uVar2;
+            uVar2 = arg2;
+            str = (char*)stringView->end();
+            uVar4 = stringView->HeapBeginPtr();
+            local_40 = ToCodeMap(stringtools::GetUTF8NextChar(str, arg2, uVar4));
+            if (local_38.HasFlag(1) == '\0') {
+                bVar6 = true;
+                if (iVar5 == -1) {
+                    iVar5 = (int)uVar2;
                     if (local_40 != ltCharCode) {
                         local_3c = 1;
-                        std::pair<unsigned int, unsigned int>::pair<int, unsigned int&, false>(
-                            (pair<unsigned int, unsigned int>*)&local_48, (int*)&local_3c, &local_40);
-                        iVar8 = -1;
-                        bVar9 = false;
+                        local_48.pair<int, unsigned int&, false>(local_3c, local_40);
+                        iVar5 = -1;
+                        bVar6 = false;
                     }
                 } else {
-                    bVar9 = local_40 != gtCharCode;
-                    if (!bVar9) {
-                        local_3c = ((int)uVar2 - iVar8) + 1;
-                        local_4c = 0;
-                        std::pair<unsigned int, unsigned int>::pair<unsigned int, int, false>(
-                            (pair<unsigned int, unsigned int>*)&local_48, &local_3c, &local_4c);
+                    bVar6 = local_40 != gtCharCode;
+                    if (!bVar6) {
+                        local_3c = ((int)uVar2 - iVar5) + 1;
+                        local_48.pair<unsigned int, int, false>(local_3c, 0);
                     }
                 }
             } else {
                 local_58 = (int)uVar1;
-                local_3c = (int)*puVar7 - local_58;
-                std::pair<unsigned int, unsigned int>::pair<unsigned int, unsigned int&, false>(
-                    (pair<unsigned int, unsigned int>*)&local_48, &local_3c, &local_40);
-                bVar9 = false;
+                local_3c = (int)*arg2 - local_58;
+                local_48.pair<unsigned int, unsigned int&, false>(local_3c, local_40);
+                bVar6 = false;
             }
-        } while (bVar9);
+        } while (bVar6);
         return local_48;
     }
 
-    // 0x1008e2f40, 960 bytes, placed by class name
-    // FontHelpers::GetElementWidth(StringView, unsigned int, unsigned int, FontMetrics const&)
-    undefined8 FontHelpers::GetElementWidth(StringView param_1, uint param_2, uint param_3, FontMetrics* param_4) {
-        char cVar1;
-        bool bVar2;
-        byte bVar3;
-        int iVar4;
-        undefined4 uVar5;
-        ulong uVar6;
-        long lVar7;
+    // 0x1008e2f40
+    void FontHelpers::GetElementWidth(StringView stringView, unsigned int arg2, unsigned int arg3,
+                                      const FontMetrics& fontMetrics) {
+        EnumOptionToggle enumOptionToggle1;
+        bool cVar1;
+        uint8_t bVar2;
+        uint8_t bVar3;
+        bool bVar4;
+        int iVar5;
+        uint32_t uVar6;
         char* pcVar8;
-        uint* puVar9;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this;
+        unsigned int* puVar9;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* this;
         shared_ptr* this_00;
         SpriteAtlas* this_01;
-        FastPool<audio::SoundInstance, int>* this_02;
-        int* piVar10;
-        int* piVar11;
-        undefined8 uVar12;
-        undefined8 uVar13;
-        undefined4 in_register_0000000c;
-        FontMetrics* this_03;
-        uchar* extraout_RDX;
-        uchar* extraout_RDX_00;
-        Layout* this_04;
-        StringView SVar14;
-        StringView SVar15;
-        StringView SVar16;
-        StringView SVar17;
-        StringView SVar18;
+        long lVar10;
+        EnumOptionToggle* pEVar11;
+        EnumOptionToggle* pEVar12;
+        int* piVar13;
+        Logger* this_03;
+        uint64_t uVar14;
         StringView local_e8;
         StringView local_d8;
         StringView local_c8;
@@ -1895,346 +1488,217 @@ namespace jag::graphics {
         StringView local_a8;
         StringView local_98;
         StringView local_88;
-        undefined8 local_78;
+        uint64_t local_78;
         StringView local_70;
-        undefined1 local_60[8];
-        undefined1 local_58[24];
+        ReturnValue local_60;
+        uint8_t local_58[24];
         int local_40;
         int local_3c;
-        uint local_38;
-        uint local_34;
 
-        this_03 = (FontMetrics*)CONCAT44(in_register_0000000c, param_3);
-        this_04 = (Layout*)param_1.field_0;
-        local_38 = 0;
-        local_34 = param_2;
-        uVar6 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(this_04);
-        if (uVar6 < 3) {
-            lVar7 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_04);
-            if (((lVar7 != 2) || (pcVar8 = (char*)WrapArray<char const>::operator[]((WrapArray<char const>*)this_04, 0),
-                                  ltCharCode != *pcVar8)) ||
-                (pcVar8 = (char*)WrapArray<char const>::operator[]((WrapArray<char const>*)this_04, 1),
-                 gtCharCode != *pcVar8)) {
+        unsigned int local_38 = 0;
+        unsigned int local_34 = arg3;
+        if (stringView->HeapBeginPtr() < 3) {
+            lVar10 = stringView->HeapBeginPtr();
+            if (((lVar10 != 2) || (pcVar8 = (char*)(*stringView)[0], ltCharCode != *pcVar8)) ||
+                (pcVar8 = (char*)(*stringView)[1], gtCharCode != *pcVar8)) {
             LAB_1008e303c:
-                bVar3 = this_03->GetGlyphAdvance(local_34);
-                local_38 = local_38 + bVar3;
-                iVar4 = this_03->GetKerning(local_34, (int)param_1.field_8);
-                local_38 = local_38 + iVar4;
+                bVar2 = fontMetrics.GetGlyphAdvance(local_34);
+                local_38 = local_38 + bVar2;
+                iVar5 = fontMetrics.GetKerning(local_34, arg2);
+                local_38 = local_38 + iVar5;
                 goto LAB_1008e305b;
             }
         } else {
-            lVar7 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_04);
-            piVar10 = (int*)(lVar7 + -2);
-            local_70.substr((ulong)this_04, 1);
-            StringView::StringView<3ul>(&local_e8, "br");
-            SVar14.field_8 = extraout_RDX;
-            SVar14.field_0 = (ulong)&local_e8;
-            cVar1 = StringView::operator==(&local_70, SVar14);
-            if (cVar1 == '\0') {
-                new (&local_d8) StringView(&local_70);
-                SVar15.field_8 = extraout_RDX_00;
-                SVar15.field_0 = (ulong)&local_d8;
-                ConvertTagCharCodes((FontHelpers*)local_60, SVar15);
-                bVar2 = local_60->IsActive();
-                if (bVar2) {
-                    puVar9 = (uint*)eastl::optional<unsigned int>::value();
+            stringView->HeapBeginPtr();
+            local_70 = ((unsigned long)stringView)->substr(1);
+            local_e8.StringView<3ul>("br");
+            cVar1 = local_70 == &local_e8;
+            if (!cVar1) {
+                local_d8 = StringView(local_70);
+                ConvertTagCharCodes(&local_60, &local_d8);
+                cVar1 = local_60.IsActive();
+                if (cVar1) {
+                    puVar9 = (unsigned int*)local_60.value();
                     local_34 = *puVar9;
                     goto LAB_1008e303c;
                 }
-                StringView::StringView<5ul>(&local_c8, "img=");
-                SVar16.field_8 = (uchar*)&local_c8;
-                SVar16.field_0 = (ulong)&local_70;
-                local_98.suffix_of(SVar16);
+                local_c8.StringView<5ul>("img=");
+                local_98.suffix_of(&local_70);
                 cVar1 = local_98.empty();
-                if (cVar1 == '\0') {
-                    bVar2 = FromString<StringView, int>(&local_98, (int*)local_58, 10);
-                    uVar5 = local_58._0_4_;
-                    if ((bVar2) && (iVar4 = m_modIcons.end(), (int)uVar5 < iVar4)) {
-                        piVar10 = (int*)Array<FontHelpers::ModIconReference, eastl::allocator>::operator[](
-                            (Array<FontHelpers::ModIconReference, eastl::allocator>*)&m_modIcons,
-                            (long)(int)local_58._0_4_);
-                        bVar2 = operator!=((shared_ptr*)(piVar10 + 2), (_func_decltype_nullptr*)0);
-                        if (bVar2) {
-                            local_38 = local_38 + *piVar10;
+                if (!cVar1) {
+                    bVar4 = FromString<StringView, int>(&local_98, (int*)local_58, 10);
+                    uVar6 = local_58._0_4_;
+                    if ((bVar4) && (iVar5 = m_modIcons.end(), (int)uVar6 < iVar5)) {
+                        piVar13 = &m_modIcons[(long)(int)local_58._0_4_];
+                        bVar4 = (*((piVar13 + 2))) != nullptr;
+                        if (bVar4) {
+                            local_38 = local_38 + *piVar13;
                         }
                     }
                 } else {
-                    StringView::StringView<8ul>(&local_b8, "sprite=");
-                    SVar17.field_8 = (uchar*)&local_b8;
-                    SVar17.field_0 = (ulong)&local_70;
-                    local_88.suffix_of(SVar17);
+                    local_b8.StringView<8ul>("sprite=");
+                    local_88.suffix_of(&local_70);
                     cVar1 = local_88.empty();
-                    if (cVar1 != '\0')
+                    if (cVar1)
                         goto LAB_1008e305b;
-                    SVar18.field_0 = &local_a8;
-                    StringView::StringView(SVar18.field_0, &local_88);
-                    SVar18.field_8 = (uchar*)&local_40;
-                    SVar18.field_0 = (ulong)SVar18.field_0;
-                    cVar1 = ParseSpriteData(SVar18, &local_3c, piVar10);
-                    if (cVar1 != '\0') {
-                        bVar2 = SVar18.field_0->operator_cast_to_bool();
-                        if (bVar2) {
+                    local_a8 = StringView(local_88);
+                    cVar1 = ParseSpriteData(&local_a8, &local_40, &local_3c);
+                    if (cVar1) {
+                        cVar1 = local_a8.operator_cast_to_bool();
+                        if (cVar1) {
                             new (local_58) ModIconReference();
                             cVar1 = std::function<bool(FontHelpers::ModIconReference&, int, int)>::operator()(
                                 (function<bool(FontHelpers::ModIconReference&, int,
                                                int)>*)&m_callbackGetSpriteReference,
                                 (ModIconReference*)local_58, local_40, local_3c);
-                            if (cVar1 != '\0') {
-                                this = (compressed_pair_imp<
-                                        std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                        eastl::allocator, 0>*)
-                                           shared_ptr<SpriteAtlasReference>::operator->(
-                                               (shared_ptr<SpriteAtlasReference>*)(local_58 + 8));
-                                this_00 = (shared_ptr*)eastl::compressed_pair_imp<
-                                    std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                    eastl::allocator, 0>::second(this);
-                                bVar2 = shared_ptr::operator_cast_to_bool(this_00);
-                                if (bVar2) {
-                                    this_01 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->(
-                                        (shared_ptr<SpriteAtlas>*)this_00);
-                                    this_02 = (FastPool<audio::SoundInstance, int>*)
-                                                  shared_ptr<SpriteAtlasReference>::operator->(
-                                                      (shared_ptr<SpriteAtlasReference>*)(local_58 + 8));
-                                    iVar4 = FastPool<audio::SoundInstance, int>::capacity(this_02);
-                                    lVar7 = this_01->GetSpriteRenderMapping(iVar4);
-                                    piVar10 =
-                                        (int*)std::array<int, 2ul>::operator[]((array<int, 2ul>*)(lVar7 + 104), 1);
-                                    iVar4 = *piVar10;
-                                    this_03->GetMaxAscent();
-                                    this_03->GetMaxDescent();
-                                    iVar4 = eastl::min<GraphicsQuality>(iVar4);
-                                    piVar11 =
-                                        (int*)std::array<int, 2ul>::operator[]((array<int, 2ul>*)(lVar7 + 104), 0);
-                                    if (*piVar11 != *piVar10) {
-                                        iVar4 = (int)(((float)*piVar11 * (float)iVar4) / (float)*piVar10 + 0.5);
+                            if (cVar1) {
+                                this = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator,
+                                                            0>*)(*((local_58 + 8)))
+                                           .operator->();
+                                this_00 = (shared_ptr*)second();
+                                cVar1 = shared_ptr::operator_cast_to_bool(this_00);
+                                if (cVar1) {
+                                    this_01 = (SpriteAtlas*)(*this_00).operator->();
+                                    iVar5 = ((FastPool<audio::SoundInstance, int>*)(*((local_58 + 8))).operator->())
+                                                ->capacity();
+                                    lVar10 = this_01->GetSpriteRenderMapping(iVar5);
+                                    pEVar11 = (EnumOptionToggle*)(*((lVar10 + 104)))[1];
+                                    enumOptionToggle1 = *pEVar11;
+                                    bVar2 = fontMetrics.GetMaxAscent();
+                                    bVar3 = fontMetrics.GetMaxDescent();
+                                    iVar5 = eastl::min<GraphicsQuality>(enumOptionToggle1,
+                                                                        (unsigned int)bVar3 + (unsigned int)bVar2);
+                                    pEVar12 = (EnumOptionToggle*)(*((lVar10 + 104)))[0];
+                                    if (*pEVar12 != *pEVar11) {
+                                        iVar5 =
+                                            (int)(((float)(int)*pEVar12 * (float)iVar5) / (float)(int)*pEVar11 + 0.5);
                                     }
-                                    local_38 = local_38 + iVar4;
+                                    local_38 = local_38 + iVar5;
                                 }
                             }
-                            local_58->~pair();
                             local_34 = 0;
                             goto LAB_1008e305b;
                         }
-                        uVar12 = logger::default_logger();
-                        uVar5 = eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                eastl::allocator>>::Layout::HeapBeginPtr(this_04);
-                        uVar13 = this_04->end();
-                        logger::Logger::Log(uVar12, 0, 3,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                            "graphics/runetek7/fonts/FontHelpers.cpp",
-                                            572, "%.*s in text, but no sprite reference callback has been set", uVar5,
-                                            uVar13);
+                        this_03 = logger::default_logger();
+                        uVar6 = stringView->HeapBeginPtr();
+                        uVar14 = stringView->end();
+                        this_03->Log(false, 3,
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
+                                     "runetek7/fonts/FontHelpers.cpp",
+                                     572, "%.*s in text, but no sprite reference callback has been set", uVar6, uVar14);
                     }
                 }
             }
         }
         local_34 = 0;
     LAB_1008e305b:
-        std::pair<unsigned int, unsigned int>::pair<unsigned int&, unsigned int&, false>(
-            (pair<unsigned int, unsigned int>*)&local_78, &local_38, &local_34);
+        local_78.pair<unsigned int&, unsigned int&, false>(local_38, local_34);
         return local_78;
     }
 
-    // 0x1008e3300, 192 bytes, placed by class name
-    // FontHelpers::PredictLines(StringView, int, FontMetrics const&, TextFlags)
-    undefined4 FontHelpers::PredictLines(StringView param_1, int param_2, FontMetrics* param_3, TextFlags param_4) {
-        undefined4 uVar1;
-        undefined4 in_register_00000014;
-        StringView SVar2;
-        StringView aSStack_908[128];
-        TextFlags in_stack_fffffffffffffef8;
-        undefined4 local_f4;
-        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_f0[200];
-        long local_28;
-
-        SVar2.field_8._4_4_ = in_register_00000014;
-        SVar2.field_8._0_4_ = param_2;
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_f4 = param_1.field_8._0_4_;
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::fixed_vector(local_f0);
-        StringView::StringView(aSStack_908 + 128, (StringView*)param_1.field_0);
-        SVar2.field_0 = (ulong)(aSStack_908 + 128);
-        uVar1 = SplitString((fixed_vector*)local_f0, SVar2, (FontMetrics*)&local_f4, (int*)((ulong)param_3 & 255),
-                            in_stack_fffffffffffffef8);
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::~fixed_vector(local_f0);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+    // 0x1008e3300
+    void FontHelpers::PredictLines(StringView stringView, int arg2, const FontMetrics& fontMetrics,
+                                   TextFlags textFlags) {
+        int local_f4 = arg2;
+        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_f0;
+        StringView local_108(*stringView);
+        uint32_t uVar1 = SplitString((fixed_vector<StringView, _10ul, true, BucketAllocatorEASTL>*)&local_f0,
+                                     &local_108, fontMetrics, &local_f4, textFlags);
         return uVar1;
     }
 
-    // 0x1008e33c0, 304 bytes, placed by class name
-    // FontHelpers::GetPredictLinesLine(StringView, int, FontMetrics const&, unsigned int, TextFlags)
-    FontHelpers* FontHelpers::GetPredictLinesLine(StringView param_1, int param_2, FontMetrics* param_3, uint param_4,
-                                                  TextFlags param_5) {
-        ulong uVar1;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        char* pcVar2;
-        undefined4 in_register_0000000c;
-        StringView SVar3;
-        TextFlags in_stack_fffffffffffffed8;
-        StringView local_120;
-        allocator local_110[12];
-        undefined4 local_104;
-        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_100[200];
-        long local_38;
+    // 0x1008e33c0
+    auto FontHelpers::GetPredictLinesLine(StringView stringView, int arg2, const FontMetrics& fontMetrics,
+                                          unsigned int arg4, TextFlags textFlags) {
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this;
+        char* str;
 
-        SVar3.field_8._4_4_ = in_register_0000000c;
-        SVar3.field_8._0_4_ = param_2;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_104 = param_1.field_8._0_4_;
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::fixed_vector(local_100);
-        new (&local_120) StringView(param_1.field_0);
-        SVar3.field_0 = (ulong)&local_120;
-        SplitString((fixed_vector*)local_100, SVar3, (FontMetrics*)&local_104, (int*)(ulong)(param_4 & 255),
-                    in_stack_fffffffffffffed8);
-        uVar1 = local_100->size();
-        if (((ulong)param_3 & 4294967295) < uVar1) {
-            this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)eastl::vector<
-                StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-            operator[](
-                (vector<StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                    local_100,
-                (ulong)param_3 & 4294967295);
-            pcVar2 = (char*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-            eastl::allocator::allocator(local_110, "EASTL basic_string");
-            new (this) eastl::string(pcVar2, local_110);
+        int local_104 = arg2;
+        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_100;
+        StringView local_120(*stringView);
+        SplitString(&local_100, &local_120, fontMetrics, &local_104, textFlags);
+        unsigned long uVar1 = local_100.size();
+        if (arg4 < uVar1) {
+            this = &local_100[(unsigned long)arg4];
+            str = (char*)end();
+            auto result(str);
         } else {
-            new (this) eastl::string((basic_string*)&eastl::EMPTY_STRING);
+            new (&result) eastl::string(*((eastl::string*)&eastl::EMPTY_STRING));
         }
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::~fixed_vector(local_100);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return this;
+        local_100.~fixed_vector();
+        return result;
     }
 
-    // 0x1008e34f0, 288 bytes, placed by class name
-    // FontHelpers::PredictHeightAndLines(StringView, int, TextProperties const&)
-    undefined8 FontHelpers::PredictHeightAndLines(StringView param_1, int param_2, TextProperties* param_3) {
-        byte bVar1;
-        byte bVar2;
-        int iVar3;
-        int iVar4;
-        FontMetrics* this;
-        undefined4 in_register_00000014;
-        StaticPointLight* this_00;
-        StringView SVar5;
-        StringView aSStack_918[128];
-        TextFlags in_stack_fffffffffffffee8;
-        undefined8 local_108;
-        undefined4 local_fc;
-        int local_f8;
-        uint local_f4;
-        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_f0[200];
-        long local_28;
+    // 0x1008e34f0
+    void FontHelpers::PredictHeightAndLines(StringView stringView, int arg2, const TextProperties& textProperties) {
+        TextFlags textFlags;
+        uint64_t local_108;
 
-        this_00 = (StaticPointLight*)CONCAT44(in_register_00000014, param_2);
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_fc = param_1.field_8._0_4_;
-        this = (FontMetrics*)this_00->GetFontMetrics();
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::fixed_vector(local_f0);
-        StringView::StringView(aSStack_918 + 128, (StringView*)param_1.field_0);
-        bVar1 = this_00->GetLightLevelsBelow();
-        SVar5.field_8 = (uchar*)this;
-        SVar5.field_0 = (ulong)(aSStack_918 + 128);
-        iVar3 = SplitString((fixed_vector*)local_f0, SVar5, (FontMetrics*)&local_fc, (int*)(ulong)bVar1,
-                            in_stack_fffffffffffffee8);
-        local_f8 = iVar3;
-        iVar4 = this_00->GetLineSpacing();
-        bVar1 = GetMaxAscent();
-        bVar2 = GetMaxDescent();
-        local_f4 = (uint)bVar2 + (uint)bVar1 + iVar4 * (iVar3 + -1);
-        std::pair<int, int>::pair<int, int&, false>((pair<int, int>*)&local_108, (int*)&local_f4, &local_f8);
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::~fixed_vector(local_f0);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        int local_fc = arg2;
+        auto fontMetrics = textProperties.GetFontMetrics();
+        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_f0;
+        StringView local_118(*stringView);
+        textFlags.field_0 = textProperties.GetLightLevelsBelow();
+        int iVar3 = SplitString((fixed_vector<StringView, _10ul, true, BucketAllocatorEASTL>*)&local_f0, &local_118,
+                                fontMetrics, &local_fc, textFlags);
+        int local_f8 = iVar3;
+        int iVar4 = textProperties.GetLineSpacing();
+        uint8_t bVar1 = fontMetrics->GetMaxAscent();
+        uint8_t bVar2 = fontMetrics->GetMaxDescent();
+        int local_f4 = (unsigned int)bVar2 + (unsigned int)bVar1 + iVar4 * (iVar3 - 1);
+        local_108.pair<int, int&, false>(local_f4, local_f8);
         return local_108;
     }
 
-    // 0x1008e3620, 304 bytes, placed by class name
-    // FontHelpers::PredictWidthMultiLine(StringView, int, FontMetrics const&, TextFlags)
-    int FontHelpers::PredictWidthMultiLine(StringView param_1, int param_2, FontMetrics* param_3, TextFlags param_4) {
-        byte bVar1;
-        uint uVar2;
+    // 0x1008e3620
+    int FontHelpers::PredictWidthMultiLine(StringView stringView, int arg2, const FontMetrics& fontMetrics,
+                                           TextFlags textFlags) {
+        bool arg3;
+        int iVar2;
+        StringView* stringView_00;
+        unsigned long arg1;
         int iVar3;
-        StringView* pSVar4;
-        undefined4 in_register_00000014;
-        ulong uVar6;
-        int iVar7;
-        StringView SVar8;
-        StringView SVar9;
-        TextFlags in_stack_fffffffffffffec8;
         StringView local_130;
-        StringView local_120;
-        undefined4 local_10c;
-        uint local_108[2];
-        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_100[200];
-        long local_38;
+        TextFlags local_108;
 
-        SVar8.field_8 = (uchar*)CONCAT44(in_register_00000014, param_2);
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_108[0] = CONCAT31(local_108[0]._1_3_, (char)param_3);
-        local_10c = param_1.field_8._0_4_;
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::fixed_vector(local_100);
-        new (&local_120) StringView(param_1.field_0);
-        SVar8.field_0 = (ulong)&local_120;
-        uVar2 = SplitString((fixed_vector*)local_100, SVar8, (FontMetrics*)&local_10c, (int*)(ulong)local_108[0],
-                            in_stack_fffffffffffffec8);
-        if ((int)uVar2 < 1) {
-            iVar7 = 0;
+        local_108[0].field_0 = textFlags.field_0;
+        int local_10c = arg2;
+        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_100;
+        StringView local_120(*stringView);
+        unsigned int uVar1 = SplitString((fixed_vector<StringView, _10ul, true, BucketAllocatorEASTL>*)&local_100,
+                                         &local_120, fontMetrics, &local_10c, (TextFlags)local_108[0].field_0);
+        if ((int)uVar1 < 1) {
+            iVar3 = 0;
         } else {
-            uVar6 = 0;
-            iVar7 = 0;
+            arg1 = 0;
+            iVar3 = 0;
             do {
-                pSVar4 = (StringView*)eastl::vector<
-                    StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                operator[](
-                    (vector<StringView,
-                            eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)local_100,
-                    uVar6);
-                new (&local_130) StringView(pSVar4);
-                bVar1 = local_108->HasFlag(1);
-                SVar9.field_8 = SVar8.field_8;
-                SVar9.field_0 = (ulong)&local_130;
-                iVar3 = GetStringWidth(SVar9, (FontMetrics*)(ulong)bVar1, SUB81((FontMetrics*)&local_10c, 0));
-                if (iVar7 < iVar3) {
-                    iVar7 = iVar3;
+                stringView_00 = (StringView*)local_100[arg1];
+                local_130 = StringView(*stringView_00);
+                arg3 = (bool)local_108.HasFlag(1);
+                iVar2 = GetStringWidth(&local_130, fontMetrics, arg3);
+                if (iVar3 < iVar2) {
+                    iVar3 = iVar2;
                 }
-                uVar6 = uVar6 + 1;
-            } while (uVar2 != uVar6);
+                arg1 = arg1 + 1;
+            } while (uVar1 != arg1);
         }
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::~fixed_vector(local_100);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return iVar7;
+        local_100.~fixed_vector();
+        return iVar3;
     }
 
-    // 0x1008e3870, 1216 bytes, placed by class name
-    // FontHelpers::ToCodeMap(unsigned int)
-    uint FontHelpers::ToCodeMap(uint param_1) {
-        uint uVar1;
+    // 0x1008e3870
+    unsigned int FontHelpers::ToCodeMap(unsigned int arg1) {
+        unsigned int uVar1;
 
-        if (param_1 - 1 < 127) {
-            return param_1;
+        if (arg1 - 1 < 127) {
+            return arg1;
         }
-        if (param_1 - 160 < 96) {
-            return param_1;
+        if (arg1 - 160 < 96) {
+            return arg1;
         }
-        if ((int)param_1 < 8211) {
-            switch (param_1) {
+        if ((int)arg1 < 8211) {
+            switch (arg1) {
             case 338:
                 uVar1 = 140;
                 break;
@@ -2318,17 +1782,17 @@ namespace jag::graphics {
                 uVar1 = 131;
                 break;
             default:
-                if (param_1 == 710) {
+                if (arg1 == 710) {
                     return 136;
                 }
-                if (param_1 == 732) {
+                if (arg1 == 732) {
                     return 152;
                 }
                 goto switchD_1008e38b9_caseD_2015;
             }
         } else {
             uVar1 = 128;
-            switch (param_1) {
+            switch (arg1) {
             case 8211:
                 uVar1 = 150;
                 break;
@@ -2377,7 +1841,7 @@ namespace jag::graphics {
             case 8364:
                 break;
             default:
-                if (param_1 == 8482) {
+                if (arg1 == 8482) {
                     return 153;
                 }
             case 8213:
@@ -2525,28 +1989,9 @@ namespace jag::graphics {
         return uVar1;
     }
 
-    // 0x1008e3d70, 432 bytes, placed by class name
-    // FontHelpers::ConvertTagCharCodes(StringView)
-    FontHelpers* FontHelpers::ConvertTagCharCodes(StringView param_1) {
-        char cVar1;
-        uchar* extraout_RDX;
-        uchar* extraout_RDX_00;
-        uchar* extraout_RDX_01;
-        uchar* extraout_RDX_02;
-        uchar* extraout_RDX_03;
-        uchar* extraout_RDX_04;
-        uchar* extraout_RDX_05;
-        uchar* extraout_RDX_06;
-        StringView* this_00;
-        uint* puVar2;
-        StringView SVar3;
-        StringView SVar4;
-        StringView SVar5;
-        StringView SVar6;
-        StringView SVar7;
-        StringView SVar8;
-        StringView SVar9;
-        StringView SVar10;
+    // 0x1008e3d70
+    eastl::optional<unsigned int> FontHelpers::ConvertTagCharCodes(StringView stringView) {
+        unsigned int* arg1;
         StringView local_a0;
         StringView local_90;
         StringView local_80;
@@ -2556,486 +2001,353 @@ namespace jag::graphics {
         StringView local_40;
         StringView local_30;
 
-        this_00 = (StringView*)param_1.field_0;
-        StringView::StringView<3ul>(&local_a0, "lt");
-        SVar3.field_8 = extraout_RDX;
-        SVar3.field_0 = (ulong)&local_a0;
-        cVar1 = StringView::operator==(this_00, SVar3);
-        if (cVar1 == '\0') {
-            StringView::StringView<3ul>(&local_90, "gt");
-            SVar4.field_8 = extraout_RDX_00;
-            SVar4.field_0 = (ulong)&local_90;
-            cVar1 = StringView::operator==(this_00, SVar4);
-            if (cVar1 == '\0') {
-                StringView::StringView<5ul>(&local_80, "nbsp");
-                SVar5.field_8 = extraout_RDX_01;
-                SVar5.field_0 = (ulong)&local_80;
-                cVar1 = StringView::operator==(this_00, SVar5);
-                if (cVar1 == '\0') {
-                    StringView::StringView<4ul>(&local_70, "shy");
-                    SVar6.field_8 = extraout_RDX_02;
-                    SVar6.field_0 = (ulong)&local_70;
-                    cVar1 = StringView::operator==(this_00, SVar6);
-                    if (cVar1 == '\0') {
-                        StringView::StringView<6ul>(&local_60, "times");
-                        SVar7.field_8 = extraout_RDX_03;
-                        SVar7.field_0 = (ulong)&local_60;
-                        cVar1 = StringView::operator==(this_00, SVar7);
-                        if (cVar1 == '\0') {
-                            StringView::StringView<5ul>(&local_50, "euro");
-                            SVar8.field_8 = extraout_RDX_04;
-                            SVar8.field_0 = (ulong)&local_50;
-                            cVar1 = StringView::operator==(this_00, SVar8);
-                            if (cVar1 == '\0') {
-                                StringView::StringView<5ul>(&local_40, "copy");
-                                SVar9.field_8 = extraout_RDX_05;
-                                SVar9.field_0 = (ulong)&local_40;
-                                cVar1 = StringView::operator==(this_00, SVar9);
-                                if (cVar1 == '\0') {
-                                    StringView::StringView<4ul>(&local_30, "reg");
-                                    SVar10.field_8 = extraout_RDX_06;
-                                    SVar10.field_0 = (ulong)&local_30;
-                                    cVar1 = StringView::operator==(this_00, SVar10);
-                                    if (cVar1 == '\0') {
-                                        new (this) eastl::optional<game::option::EnumOptionToggle>();
-                                        return this;
+        local_a0.StringView<3ul>("lt");
+        if (!(*stringView == &local_a0)) {
+            local_90.StringView<3ul>("gt");
+            if (!(*stringView == &local_90)) {
+                local_80.StringView<5ul>("nbsp");
+                if (!(*stringView == &local_80)) {
+                    local_70.StringView<4ul>("shy");
+                    if (!(*stringView == &local_70)) {
+                        local_60.StringView<6ul>("times");
+                        if (!(*stringView == &local_60)) {
+                            local_50.StringView<5ul>("euro");
+                            if (!(*stringView == &local_50)) {
+                                local_40.StringView<5ul>("copy");
+                                if (!(*stringView == &local_40)) {
+                                    local_30.StringView<4ul>("reg");
+                                    if (!(*stringView == &local_30)) {
+                                        return eastl::optional<unsigned int>();
                                     }
-                                    puVar2 = &regCharCode;
+                                    arg1 = &regCharCode;
                                 } else {
-                                    puVar2 = &copyCharCode;
+                                    arg1 = &copyCharCode;
                                 }
                             } else {
-                                puVar2 = &euroCharCode;
+                                arg1 = &euroCharCode;
                             }
                         } else {
-                            puVar2 = &timesCharCode;
+                            arg1 = &timesCharCode;
                         }
                     } else {
-                        puVar2 = &shyCharCode;
+                        arg1 = &shyCharCode;
                     }
                 } else {
-                    puVar2 = &nbspCharCode;
+                    arg1 = &nbspCharCode;
                 }
             } else {
-                puVar2 = &gtCharCode;
+                arg1 = &gtCharCode;
             }
         } else {
-            puVar2 = &ltCharCode;
+            arg1 = &ltCharCode;
         }
-        new (this) eastl::optional<unsigned int>(puVar2);
-        return this;
+        new (&result) eastl::optional(*arg1);
+        return result;
     }
 
-    // 0x1008e4110, 1152 bytes, placed by class name
-    // FontHelpers::PredictCharPosAtIndexMultiline(StringView, int, int, FontMetrics const&, TextFlags, eastl::optional<int>)
-    /* WARNING: Removing unreachable block (ram,4304291088) */
-    /* FontHelpers::PredictCharPosAtIndexMultiline(StringView, int, int,
-   FontMetrics const&, TextFlags, eastl::optional<int>) */
-
-    undefined8 FontHelpers::PredictCharPosAtIndexMultiline(ShuffledPacketFactory* param_1, undefined4 param_2_00,
-                                                           int param_2, FontMetrics* param_4, undefined1 param_5,
-                                                           optional<int>* param_6) {
+    // 0x1008e4110
+    void FontHelpers::PredictCharPosAtIndexMultiline(StringView stringView, int arg2, int arg3,
+                                                     const FontMetrics& fontMetrics, TextFlags textFlags,
+                                                     eastl::optional<int> arg6) {
         bool bVar1;
-        byte bVar2;
-        undefined1 uVar3;
-        uint uVar4;
-        char* pcVar5;
-        ulong uVar6;
-        undefined8 uVar7;
-        Layout* this_00;
-        StringView* pSVar8;
-        ulong uVar9;
-        long lVar10;
-        ulong uVar11;
-        ulong uVar12;
-        int iVar13;
-        long lVar14;
-        StringView SVar15;
-        StringView SVar16;
-        TextFlags in_stack_fffffffffffffc48;
+        uint8_t bVar2;
+        uint8_t uVar3;
+        unsigned int uVar5;
+        char* str;
+        unsigned long uVar6;
+        uint64_t uVar7;
+        StringView* stringView_00;
+        unsigned long uVar8;
+        long lVar9;
+        unsigned long arg3_00;
+        int iVar10;
+        long lVar11;
         StringView local_3b0;
         StringView local_3a0;
-        undefined8 local_390;
-        undefined8 local_388;
-        ulong local_380;
-        undefined8 local_378;
-        undefined4 local_36c;
+        uint64_t local_390;
+        uint64_t local_388;
+        unsigned long local_380;
+        uint64_t local_378;
         int local_368;
-        uint local_364;
-        uint local_360;
-        uint local_35c;
-        pair<int, int> local_350[8];
+        int local_364;
+        int local_360;
+        int local_35c;
+        uint64_t local_350;
         int local_348;
-        ulong local_340;
+        unsigned long local_340;
         int local_338;
-        uint local_334;
-        uint local_330[2];
-        undefined8 local_328;
+        int local_334;
+        TextFlags local_330;
+        uint64_t local_328;
         int local_100[50];
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_330[0] = CONCAT31(local_330[0]._1_3_, param_5);
-        local_36c = param_2_00;
-        local_328._0_4_ = param_4->GetVerticalSpacing();
-        uVar4 = eastl::optional<int>::value_or<int>(param_6, (int*)&local_328);
-        if (param_2 < 1) {
-            local_328 = (ulong)local_328._4_4_ << 32;
-            bVar2 = param_4->GetMaxAscent();
-            local_100[0] = uVar4 + bVar2;
-            local_350 = (pair<int, int>[8])eastl::make_pair<int, int&>((int*)&local_328, local_100);
+        local_330[0].field_0 = textFlags.field_0;
+        int local_36c = arg2;
+        local_328._0_4_ = fontMetrics.GetVerticalSpacing();
+        int iVar4 = arg6->value_or<int>(local_328);
+        if (arg3 < 1) {
+            local_328 = (unsigned long)local_328._4_4_ << 32;
+            bVar2 = fontMetrics.GetMaxAscent();
+            local_100[0] = iVar4 + (unsigned int)bVar2;
+            local_350 = eastl::make_pair<int, int&>(local_328, *local_100);
         } else {
-            pcVar5 = (char*)param_1->end();
-            uVar6 = param_1->HeapBeginPtr();
-            uVar7 = stringtools::GetUTF8StringWidth(pcVar5, uVar6);
-            iVar13 = (int)uVar7;
-            if (iVar13 != 0) {
-                local_348 = param_2;
-                if (iVar13 < param_2) {
-                    local_348 = iVar13;
+            str = (char*)stringView->end();
+            uVar6 = stringView->HeapBeginPtr();
+            uVar7 = stringtools::GetUTF8StringWidth(str, uVar6);
+            iVar10 = (int)uVar7;
+            if (iVar10 != 0) {
+                local_348 = arg3;
+                if (iVar10 < arg3) {
+                    local_348 = iVar10;
                 }
                 new (local_100) eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>();
-                new (&local_3a0) StringView(param_1);
-                SVar15.field_8 = (uchar*)param_4;
-                SVar15.field_0 = (ulong)&local_3a0;
-                local_388 = SplitString((fixed_vector*)local_100, SVar15, (FontMetrics*)&local_36c,
-                                        (int*)(ulong)local_330[0], in_stack_fffffffffffffc48);
+                local_3a0 = StringView(*stringView);
+                local_388 = SplitString((fixed_vector<StringView, _10ul, true, BucketAllocatorEASTL>*)local_100,
+                                        &local_3a0, fontMetrics, &local_36c, (TextFlags)local_330[0].field_0);
                 local_35c = (int)local_388 - 1;
                 local_338 = 0;
-                uVar12 = 0;
                 uVar6 = 0;
                 local_390 = uVar7;
-                local_360 = uVar4;
+                local_360 = iVar4;
+                iVar4 = 0;
                 while (true) {
-                    uVar4 = (uint)uVar12;
-                    if ((int)local_388 <= (int)uVar4) {
-                        /* WARNING: Subroutine does not return */
+                    if ((int)local_388 <= iVar4) {
                         LogAssertAlways(
                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "fonts/FontHelpers.cpp",
                             659, "FontHelpers::PredictCharPosAtIndexMultiline - Reached end of file before expected.");
                     }
-                    local_334 = uVar4;
-                    this_00 = (Layout*)eastl::vector<
-                        StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                    operator[](
-                        (vector<StringView,
-                                eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                            local_100,
-                        (long)(int)uVar4);
-                    local_378 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                            eastl::allocator>>::Layout::HeapBeginPtr(this_00);
-                    pSVar8 = (StringView*)eastl::vector<
-                        StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                    operator[](
-                        (vector<StringView,
-                                eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                            local_100,
-                        (long)(int)uVar4);
-                    uVar9 = stringtools::GetUTF8StringWidth<StringView>(pSVar8);
-                    iVar13 = (int)uVar6;
-                    uVar4 = (int)uVar9 + iVar13;
-                    local_380 = (ulong)uVar4;
-                    if ((local_348 < (int)uVar4) || ((local_334 == local_35c && ((int)local_390 <= param_2))))
+                    local_334 = iVar4;
+                    local_378 = ((Layout*)(*local_100)[(long)iVar4])->HeapBeginPtr();
+                    stringView_00 = (StringView*)(*local_100)[(long)iVar4];
+                    uVar8 = stringtools::GetUTF8StringWidth<StringView>(*stringView_00);
+                    iVar4 = (int)uVar6;
+                    uVar5 = (int)uVar8 + iVar4;
+                    local_380 = (unsigned long)uVar5;
+                    if ((local_348 < (int)uVar5) || ((local_334 == local_35c && ((int)local_390 <= arg3))))
                         break;
                     local_338 = local_338 + (int)local_378;
                     local_334 = local_334 + 1;
-                    uVar12 = (ulong)local_334;
                     uVar6 = local_380;
+                    iVar4 = local_334;
                 }
-                new (&local_328) eastl::fixed_string<char, 512, true, eastl::allocator>();
-                uVar3 = (undefined1)uVar12;
+                new (&local_328) eastl::fixed_string<char, 512>();
                 local_340 = 0;
-                uVar9 = (ulong)(uint)(local_348 - iVar13);
-                if (local_348 - iVar13 != 0 && iVar13 <= local_348) {
-                    lVar14 = (long)local_338;
+                uVar8 = (unsigned long)(unsigned int)(local_348 - iVar4);
+                if (local_348 - iVar4 != 0 && iVar4 <= local_348) {
+                    lVar11 = (long)local_338;
                     do {
-                        lVar10 = param_1->end();
-                        uVar11 = ShuffledPacketFactory::p2_alt2(param_1);
-                        uVar4 = stringtools::GetUTF8NextChar((char*)(lVar10 + lVar14), &local_340, uVar11);
-                        stringtools::UTF8Append<eastl::fixed_string<char, 24, true, eastl::allocator>>(
-                            uVar4, (fixed_string*)&local_328);
-                        uVar3 = (undefined1)uVar12;
-                        uVar9 = uVar9 - 1;
-                    } while (uVar9 != 0);
+                        lVar9 = stringView->end();
+                        arg3_00 = ShuffledPacketFactory::p2_alt2();
+                        uVar5 = stringtools::GetUTF8NextChar((lVar9 + lVar11), local_340, arg3_00);
+                        stringtools::UTF8Append<eastl::fixed_string<char, 24>>(uVar5, local_328);
+                        uVar8 = uVar8 - 1;
+                    } while (uVar8 != 0);
                 }
-                bVar1 = ends_with<eastl::fixed_string<char, 512, true, eastl::allocator>>((fixed_string*)&local_328,
-                                                                                          "<br>");
-                uVar4 = local_360;
+                bVar1 = ends_with<eastl::fixed_string<char, 512>>((fixed_string<char, _512>*)&local_328, "<br>");
+                iVar4 = local_360;
                 if (bVar1) {
-                    eastl::fixed_string<char, 16, true, eastl::allocator>::operator=(
-                        (fixed_string<char, 16, true, eastl::allocator>*)&local_328, "");
+                    local_328 = "";
                     local_338 = local_338 + (int)local_378;
                     local_334 = local_334 + 1;
                 } else {
                     local_380 = uVar6;
                 }
-                StringView::StringView<eastl::fixed_string<char, 512, true, eastl::allocator>>(
-                    &local_3b0, (fixed_string*)&local_328);
-                bVar2 = local_330->HasFlag(1);
-                SVar16.field_8 = (uchar*)param_4;
-                SVar16.field_0 = (ulong)&local_3b0;
-                local_368 = GetStringWidth(SVar16, (FontMetrics*)(ulong)bVar2, (bool)uVar3);
-                bVar2 = param_4->GetMaxAscent();
-                local_364 = local_334 * uVar4 + (uint)bVar2;
-                local_350 = (pair<int, int>[8])eastl::make_pair<int, int&>(&local_368, (int*)&local_364);
-                /* WARNING: Subroutine does not return */
-                local_328.~fixed_string();
+                local_3b0.StringView<eastl::fixed_string<char, 512>>(local_328);
+                bVar1 = (bool)local_330.HasFlag(1);
+                local_368 = GetStringWidth(&local_3b0, fontMetrics, bVar1);
+                bVar2 = fontMetrics.GetMaxAscent();
+                local_364 = local_334 * iVar4 + (unsigned int)bVar2;
+                local_350 = eastl::make_pair<int, int&>(local_368, local_364);
             }
             local_100[0] = 0;
-            uVar3 = param_4->GetMaxAscent();
-            local_340 = CONCAT71(local_340._1_7_, uVar3);
-            local_328 = eastl::make_pair<int, unsigned char>(local_100, (uchar*)&local_340);
-            eastl::pair<int, int>::pair<int, unsigned char, void>(local_350, (pair*)&local_328);
+            uVar3 = fontMetrics.GetMaxAscent();
+            local_340 = (((uint64_t)local_340._1_7_ << 8) | (uint8_t)uVar3);
+            local_328 = eastl::make_pair<int, unsigned char>(*local_100, local_340);
+            local_350.pair<int, unsigned char, void>(local_328);
         }
-        uVar7._0_1_ = local_350[0];
-        uVar7._1_1_ = local_350[1];
-        uVar7._2_1_ = local_350[2];
-        uVar7._3_1_ = local_350[3];
-        uVar7._4_1_ = local_350[4];
-        uVar7._5_1_ = local_350[5];
-        uVar7._6_1_ = local_350[6];
-        uVar7._7_1_ = local_350[7];
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar7;
+        return local_350;
     }
 
-    // 0x1008e46a0, 336 bytes, placed by class name
-    // FontHelpers::PredictCharPosAtIndex(StringView, FontMetrics const&, int, bool)
-    undefined8 FontHelpers::PredictCharPosAtIndex(StringView param_1, FontMetrics* param_2, int param_3, bool param_4) {
-        uint uVar1;
-        uint uVar2;
-        char* pcVar3;
-        ulong uVar4;
-        ulong uVar5;
-        undefined1 uVar6;
-        ShuffledPacketFactory* this;
-        StringView SVar7;
+    // 0x1008e46a0
+    void FontHelpers::PredictCharPosAtIndex(StringView stringView, const FontMetrics& fontMetrics, int arg3,
+                                            bool arg4) {
+        unsigned int uVar1;
+        char* pcVar2;
+        unsigned long uVar3;
+        unsigned long arg3_00;
+        uint32_t in_register_00000009;
         StringView local_288;
-        ulong local_278;
-        uchar* local_270;
-        fixed_string<char, 512, true, eastl::allocator> local_260[552];
-        long local_38;
+        fixed_string<char, 512> local_260;
 
-        local_270 = param_1.field_8;
-        this = (ShuffledPacketFactory*)param_1.field_0;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        uVar2 = (uint)param_2;
-        if (0 < (int)uVar2) {
-            pcVar3 = (char*)end();
-            uVar4 = HeapBeginPtr();
-            uVar1 = stringtools::GetUTF8StringWidth(pcVar3, uVar4);
-            if ((int)uVar1 < (int)uVar2) {
-                uVar2 = uVar1;
+        uint32_t local_264 = (((uint32_t)in_register_00000009 << 8) | (uint8_t)arg4);
+        if (0 < arg3) {
+            pcVar2 = (char*)stringView->end();
+            uVar3 = stringView->HeapBeginPtr();
+            uVar1 = stringtools::GetUTF8StringWidth(pcVar2, uVar3);
+            if ((int)uVar1 < arg3) {
+                arg3 = uVar1;
             }
-            eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(local_260);
-            uVar6 = (undefined1)param_3;
-            local_278 = 0;
-            if (0 < (int)uVar2) {
-                uVar4 = (ulong)uVar2;
+            local_260 = eastl::fixed_string<char, 512>();
+            if (0 < arg3) {
+                uVar3 = (unsigned long)(unsigned int)arg3;
                 do {
-                    pcVar3 = (char*)end();
-                    uVar5 = ShuffledPacketFactory::p2_alt2(this);
-                    uVar2 = stringtools::GetUTF8NextChar(pcVar3, &local_278, uVar5);
-                    stringtools::UTF8Append<eastl::fixed_string<char, 24, true, eastl::allocator>>(
-                        uVar2, (fixed_string*)local_260);
-                    uVar6 = (undefined1)param_3;
-                    uVar4 = uVar4 - 1;
-                } while (uVar4 != 0);
+                    pcVar2 = (char*)stringView->end();
+                    arg3_00 = ShuffledPacketFactory::p2_alt2();
+                    uVar1 = stringtools::GetUTF8NextChar(pcVar2, 0, arg3_00);
+                    stringtools::UTF8Append<eastl::fixed_string<char, 24>>(uVar1, local_260);
+                    uVar3 = uVar3 - 1;
+                } while (uVar3 != 0);
             }
-            StringView::StringView<eastl::fixed_string<char, 512, true, eastl::allocator>>(&local_288,
-                                                                                           (fixed_string*)local_260);
-            SVar7.field_8 = local_270;
-            SVar7.field_0 = (ulong)&local_288;
-            GetStringWidth(SVar7, (FontMetrics*)(ulong)(byte)param_3, (bool)uVar6);
-            /* WARNING: Subroutine does not return */
-            local_260->~fixed_string();
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            local_288.StringView<eastl::fixed_string<char, 512>>(local_260);
+            GetStringWidth(&local_288, fontMetrics, local_264._0_1_);
         }
         return 0;
     }
 
-    // 0x1008e47f0, 848 bytes, placed by class name
-    // FontHelpers::PredictCharAtPosMultiline(StringView, int*, int, int, FontMetrics const&, TextFlags, eastl::optional<int>)
-    ulong FontHelpers::PredictCharAtPosMultiline(StringView* param_1, FontMetrics* param_2, int param_3_00, int param_3,
-                                                 FontMetrics* param_5, uint param_6_00, optional<int>* param_6) {
+    // 0x1008e47f0
+    unsigned long FontHelpers::PredictCharAtPosMultiline(StringView stringView, int* arg2, int arg3, int arg4,
+                                                         const FontMetrics& fontMetrics, TextFlags textFlags,
+                                                         eastl::optional<int> arg7) {
         bool bVar1;
-        int iVar2;
         int iVar3;
         StringView* pSVar4;
         long lVar5;
         type* ptVar6;
         type* ptVar7;
         type* ptVar8;
-        ulong uVar9;
-        ulong uVar10;
-        ulong uVar11;
-        FontMetrics* pFVar12;
-        undefined4 uVar13;
-        int iVar14;
-        uint uVar15;
-        ulong uVar16;
-        StringView SVar17;
-        StringView SVar18;
-        StringView SVar19;
-        TextFlags in_stack_fffffffffffffe68;
+        unsigned long uVar9;
+        unsigned long uVar10;
+        unsigned long uVar11;
+        uint32_t in_register_00000084;
+        unsigned int uVar12;
+        int iVar13;
+        unsigned int uVar14;
+        uint64_t in_stack_00000009;
         StringView local_190;
         StringView local_180;
         StringView local_170;
-        StringView local_160;
-        undefined8 local_150;
-        undefined8 local_148;
-        ulong local_140;
-        undefined4 local_12c;
+        uint64_t local_150;
+        uint64_t local_148;
+        unsigned long local_140;
+        FontMetrics* local_138;
+        unsigned int local_12c;
         int local_128;
-        uint local_124;
         StringView local_120;
-        ulong local_110;
-        uint local_108;
-        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_100[200];
-        long local_38;
+        unsigned long local_110;
+        unsigned int local_108;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::fixed_vector(local_100);
-        new (&local_160) StringView(param_1);
-        local_124 = param_6_00 & 255;
-        pFVar12 = (FontMetrics*)(ulong)local_124;
-        SVar17.field_8 = (uchar*)param_5;
-        SVar17.field_0 = (ulong)&local_160;
-        iVar2 = SplitString((fixed_vector*)local_100, SVar17, param_2, (int*)pFVar12, in_stack_fffffffffffffe68);
-        uVar16 = 0;
+        FontMetrics* fontMetrics_00 = (FontMetrics*)(((uint64_t)in_register_00000084 << 32) | (uint32_t)arg4);
+        fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL> local_100;
+        StringView local_160(*this);
+        unsigned int local_124 = (unsigned int)fontMetrics & 255;
+        int iVar2 = SplitString((fixed_vector<StringView, _10ul, true, BucketAllocatorEASTL>*)&local_100, &local_160,
+                                fontMetrics_00, (int*)stringView, (TextFlags)(uint8_t)fontMetrics);
+        unsigned long uVar15 = 0;
         if (iVar2 != 0) {
-            iVar14 = 0;
-            if (-1 < param_3) {
-                iVar14 = param_3;
+            iVar13 = 0;
+            if (-1 < arg3) {
+                iVar13 = arg3;
             }
-            local_120.field_0._0_4_ = param_5->GetVerticalSpacing();
-            iVar3 = eastl::optional<int>::value_or<int>(param_6, (int*)&local_120);
+            local_120.field_0._0_4_ = fontMetrics_00->GetVerticalSpacing();
+            iVar3 = ((optional<int>*)(((uint64_t)in_stack_00000009 << 8) | (uint8_t)textFlags.field_0))
+                        ->value_or<int>(local_120);
             local_108 = iVar2 - 1;
-            if (iVar14 / iVar3 < iVar2) {
-                local_108 = iVar14 / iVar3;
+            if (iVar13 / iVar3 < iVar2) {
+                local_108 = iVar13 / iVar3;
             }
-            pSVar4 = (StringView*)eastl::vector<
-                StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-            operator[](
-                (vector<StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                    local_100,
-                (long)(int)local_108);
-            new (&local_120) StringView(pSVar4);
+            pSVar4 = &local_100[(long)(int)local_108];
+            local_120 = StringView(*pSVar4);
             local_110 = 0;
             lVar5 = local_120.HeapBeginPtr();
-            uVar15 = 0;
+            uVar14 = 0;
             if (lVar5 == 0) {
                 iVar2 = 0;
                 uVar11 = 0;
             } else {
                 iVar2 = 0;
                 uVar11 = 0;
-                if (0 < param_3_00) {
+                local_138 = fontMetrics_00;
+                if (0 < (int)arg2) {
                     uVar11 = 0;
                     iVar2 = 0;
-                    uVar16 = 0;
-                    uVar13 = 0;
+                    uVar15 = 0;
+                    uVar12 = 0;
                     do {
                         uVar9 = local_110;
-                        local_140 = uVar16;
-                        local_12c = uVar13;
+                        local_140 = uVar15;
+                        local_12c = uVar12;
                         local_128 = iVar2;
-                        new (&local_190) StringView(&local_120);
-                        SVar18.field_8 = (uchar*)&local_110;
-                        SVar18.field_0 = (ulong)&local_190;
-                        local_150 = GetNextElementLength(SVar18, (ulong*)(ulong)local_124, in_stack_fffffffffffffe68);
-                        ptVar6 = std::get<0ul, unsigned int, unsigned int>((pair*)&local_150);
-                        ptVar7 = std::get<1ul, unsigned int, unsigned int>((pair*)&local_150);
-                        local_180.substr((ulong)&local_120, uVar9);
-                        new (&local_170) StringView(&local_180);
-                        SVar19.field_8._0_4_ = local_12c;
-                        SVar19.field_0 = (ulong)&local_170;
-                        SVar19.field_8._4_4_ = 0;
-                        local_148 = GetElementWidth(SVar19, *(uint*)ptVar7, (uint)param_5, pFVar12);
-                        ptVar8 = std::get<0ul, unsigned int, unsigned int>((pair*)&local_148);
-                        ptVar7 = std::get<1ul, unsigned int, unsigned int>((pair*)&local_148);
-                        uVar16 = local_110;
-                        uVar13 = *(undefined4*)ptVar7;
-                        uVar11 = uVar11 + *(uint*)ptVar6;
-                        uVar15 = *(int*)ptVar8 + (int)local_140;
+                        local_190 = StringView(local_120);
+                        local_150 = GetNextElementLength(&local_190, &local_110, (TextFlags)(uint8_t)local_124);
+                        ptVar6 = std::get<0ul, unsigned int, unsigned int>(local_150);
+                        ptVar7 = std::get<1ul, unsigned int, unsigned int>(local_150);
+                        local_180 = ((unsigned long)&local_120)->substr(uVar9);
+                        local_170 = StringView(local_180);
+                        local_148 = GetElementWidth(&local_170, local_12c, *(unsigned int*)ptVar7, local_138);
+                        ptVar8 = std::get<0ul, unsigned int, unsigned int>(local_148);
+                        ptVar7 = std::get<1ul, unsigned int, unsigned int>(local_148);
+                        uVar15 = local_110;
+                        uVar12 = *(unsigned int*)ptVar7;
+                        uVar11 = uVar11 + *(unsigned int*)ptVar6;
+                        uVar14 = *(int*)ptVar8 + (int)local_140;
                         iVar2 = local_128;
                         if (*(int*)ptVar8 != 0) {
                             iVar2 = (int)local_140;
                         }
                         uVar9 = local_120.HeapBeginPtr();
-                    } while ((uVar16 < uVar9) && (uVar16 = (ulong)uVar15, (int)uVar15 < param_3_00));
+                    } while ((uVar15 < uVar9) && (uVar15 = (unsigned long)uVar14, (int)uVar14 < (int)arg2));
                 }
             }
-            uVar16 = local_110;
+            uVar15 = local_110;
             uVar9 = local_120.HeapBeginPtr();
-            if (uVar16 == uVar9) {
+            if (uVar15 == uVar9) {
                 bVar1 = ends_with<StringView>(&local_120, "<br>");
-                uVar16 = uVar11 - 4;
+                uVar15 = uVar11 - 4;
                 if (!bVar1) {
-                    uVar16 = uVar11;
+                    uVar15 = uVar11;
                 }
             } else {
-                uVar16 = uVar11 - ((uint)(param_3_00 - iVar2) < uVar15 - param_3_00);
+                uVar15 = uVar11 - ((unsigned int)((int)arg2 - iVar2) < uVar14 - (int)arg2);
             }
             if (0 < (int)local_108) {
-                uVar9 = (ulong)local_108;
+                uVar9 = (unsigned long)local_108;
                 uVar11 = 0;
                 do {
-                    pSVar4 = (StringView*)eastl::vector<
-                        StringView, eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                    operator[](
-                        (vector<StringView,
-                                eastl::fixed_vector_allocator<16ul, 10ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                            local_100,
-                        uVar11);
-                    uVar10 = stringtools::GetUTF8StringWidth<StringView>(pSVar4);
-                    uVar16 = uVar16 + uVar10;
+                    pSVar4 = &local_100[uVar11];
+                    uVar10 = stringtools::GetUTF8StringWidth<StringView>(*pSVar4);
+                    uVar15 = uVar15 + uVar10;
                     uVar11 = uVar11 + 1;
                 } while (uVar9 != uVar11);
             }
         }
-        eastl::fixed_vector<StringView, 10ul, true, BucketAllocatorEASTL>::~fixed_vector(local_100);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar16 & 4294967295;
+        local_100.~fixed_vector();
+        return uVar15 & 4294967295;
     }
 
-    // 0x1008e4be0, 64 bytes, placed by class name
-    // FontHelpers::FromCodeMap(unsigned int)
-    uint FontHelpers::FromCodeMap(uint param_1) {
-        uint uVar1;
-
-        if ((param_1 - 1 < 127) || (param_1 - 160 < 96)) {
-            return param_1;
+    // 0x1008e4be0
+    unsigned int FontHelpers::FromCodeMap(unsigned int arg1) {
+        if ((arg1 - 1 < 127) || (arg1 - 160 < 96)) {
+            return arg1;
         }
-        uVar1 = 63;
-        if (param_1 - 128 < 32) {
-            uVar1 = *(uint*)(&DAT_100d4b8f8 + (long)(int)(param_1 - 128) * 4);
+        unsigned int uVar1 = 63;
+        if (arg1 - 128 < 32) {
+            uVar1 = *(unsigned int*)(&reinterpret_cast<const uint64_t*>(&OVERRIDE_INTERFACE_SCALE_LIMIT_HEIGHT)[2] +
+                                     (long)(int)(arg1 - 128) * 4);
         }
         return uVar1;
     }
 
-    // 0x1008e4c20, 1008 bytes, placed by class name
-    // FontHelpers::IsDrawableCodepoint(unsigned int)
-    undefined8 FontHelpers::IsDrawableCodepoint(uint param_1) {
-        if (param_1 - 32 < 96) {
+    // 0x1008e4c20
+    void FontHelpers::IsDrawableCodepoint(unsigned int arg1) {
+        if (arg1 - 32 < 96) {
             return 1;
         }
-        if (param_1 - 160 < 96) {
+        if (arg1 - 160 < 96) {
             return 1;
         }
-        if ((int)param_1 < 732) {
-            switch (param_1) {
+        if ((int)arg1 < 732) {
+            switch (arg1) {
             case 338:
             case 339:
             case 352:
@@ -3104,12 +2416,12 @@ namespace jag::graphics {
             case 401:
                 goto switchD_1008e4c5d_caseD_2015;
             default:
-                if ((1 < param_1 - 9) && (param_1 != 710)) {
+                if ((1 < arg1 - 9) && (arg1 != 710)) {
                     return 0;
                 }
             }
         } else {
-            switch (param_1) {
+            switch (arg1) {
             case 8211:
             case 8212:
             case 8216:
@@ -3268,7 +2580,7 @@ namespace jag::graphics {
             switchD_1008e4c5d_caseD_2015:
                 return 0;
             default:
-                if ((param_1 != 732) && (param_1 != 8482)) {
+                if ((arg1 != 732) && (arg1 != 8482)) {
                     return 0;
                 }
             }
@@ -3276,44 +2588,16 @@ namespace jag::graphics {
         return 1;
     }
 
-    // 0x1008e5180, 1392 bytes, placed by class name
-    // FontHelpers::FontState::UpdateState(StringView)
-    void FontHelpers::FontState::UpdateState(StringView param_1) {
-        char cVar1;
+    // 0x1008e5180
+    void FontHelpers::FontState::UpdateState(StringView stringView) {
         bool bVar2;
-        uint uVar3;
-        ulong uVar4;
+        unsigned int uVar3;
         long lVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        undefined8 uVar8;
-        uchar* extraout_RDX;
-        uchar* extraout_RDX_00;
-        uchar* extraout_RDX_01;
-        uchar* extraout_RDX_02;
-        uchar* extraout_RDX_03;
-        uchar* extraout_RDX_04;
-        uchar* extraout_RDX_05;
-        uchar* extraout_RDX_06;
-        uchar* extraout_RDX_07;
-        uchar* extraout_RDX_08;
-        undefined8 uVar9;
-        char* pcVar10;
-        StringView SVar11;
-        StringView SVar12;
-        StringView SVar13;
-        StringView SVar14;
-        StringView SVar15;
-        StringView SVar16;
-        StringView SVar17;
-        StringView SVar18;
-        StringView SVar19;
-        StringView SVar20;
-        StringView SVar21;
-        StringView SVar22;
-        StringView SVar23;
-        StringView SVar24;
-        StringView SVar25;
+        Logger* this_00;
+        uint64_t uVar6;
+        uint64_t uVar7;
+        int arg4;
+        char* str2;
         StringView local_178;
         StringView local_168;
         StringView local_158;
@@ -3329,7 +2613,7 @@ namespace jag::graphics {
         StringView local_b8;
         StringView local_a8;
         StringView local_98;
-        optional<unsigned int> local_88[8];
+        optional<unsigned int> local_88;
         StringView local_80;
         StringView local_70;
         StringView local_60;
@@ -3337,230 +2621,183 @@ namespace jag::graphics {
         StringView local_40;
         int local_2c;
 
-        SVar12.field_0 = (StringView*)param_1.field_0;
-        StringView::StringView<5ul>(&local_178, "/col");
-        SVar11.field_8 = extraout_RDX;
-        SVar11.field_0 = (ulong)&local_178;
-        cVar1 = StringView::operator==(SVar12.field_0, SVar11);
-        if (cVar1 != '\0') {
-            field_8 = field_12 & 4294967040 | (uint)(byte)field_8;
+        local_178.StringView<5ul>("/col");
+        bool cVar1 = *stringView == &local_178;
+        if (cVar1) {
+            field_8 = field_12 & 4294967040 | (unsigned int)(uint8_t)field_8;
             return;
         }
-        StringView::StringView<5ul>(&local_168, "col=");
-        SVar12.field_8 = (uchar*)&local_168;
-        local_50.suffix_of(SVar12);
+        local_168.StringView<5ul>("col=");
+        local_50.suffix_of(stringView);
         cVar1 = local_50.empty();
-        if (cVar1 != '\0') {
-            StringView::StringView<6ul>(&local_148, "argb=");
-            SVar13.field_8 = (uchar*)&local_148;
-            SVar13.field_0 = (ulong)SVar12.field_0;
-            local_40.suffix_of(SVar13);
+        if (cVar1) {
+            local_148.StringView<6ul>("argb=");
+            local_40.suffix_of(stringView);
             cVar1 = local_40.empty();
-            if (cVar1 == '\0') {
+            if (!cVar1) {
                 bVar2 = FromString<StringView, int>(&local_40, (int*)&local_80, 16);
                 if (bVar2) {
-                    field_8 = (uint)local_80.field_0 << 8 | (uint)local_80.field_0 >> 24;
+                    field_8 = (unsigned int)local_80.field_0 << 8 | (unsigned int)local_80.field_0 >> 24;
                     return;
                 }
-                uVar6 = logger::default_logger();
-                uVar7 = SVar12.field_0->HeapBeginPtr();
-                uVar8 = SVar12.field_0->end();
-                pcVar10 = "Failed to parse argb tag value from %.*s";
-                uVar9 = 1408;
+                this_00 = logger::default_logger();
+                uVar6 = stringView->HeapBeginPtr();
+                uVar7 = stringView->end();
+                str2 = "Failed to parse argb tag value from %.*s";
+                arg4 = 1408;
             } else {
-                StringView::StringView<6ul>(&local_138, "/argb");
-                SVar14.field_8 = extraout_RDX_00;
-                SVar14.field_0 = (ulong)&local_138;
-                cVar1 = StringView::operator==(SVar12.field_0, SVar14);
-                if (cVar1 != '\0') {
+                local_138.StringView<6ul>("/argb");
+                cVar1 = *stringView == &local_138;
+                if (cVar1) {
                     field_8 = field_12;
                     return;
                 }
-                StringView::StringView<5ul>(&local_128, "str=");
-                SVar15.field_8 = (uchar*)&local_128;
-                SVar15.field_0 = (ulong)SVar12.field_0;
-                local_80.suffix_of(SVar15);
+                local_128.StringView<5ul>("str=");
+                local_80.suffix_of(stringView);
                 cVar1 = local_80.empty();
-                if (cVar1 == '\0') {
+                if (!cVar1) {
                     bVar2 = FromString<StringView, int>(&local_80, (int*)&local_70, 16);
                     if (bVar2) {
-                        field_0 = (int)local_70.field_0 << 8 | (uint)(byte)field_8;
+                        field_0 = (int)local_70.field_0 << 8 | (unsigned int)(uint8_t)field_8;
                         return;
                     }
-                    uVar6 = logger::default_logger();
-                    uVar7 = SVar12.field_0->HeapBeginPtr();
-                    uVar8 = SVar12.field_0->end();
-                    pcVar10 = "Failed to parse strikethrough tag value from %.*s";
-                    uVar9 = 1426;
+                    this_00 = logger::default_logger();
+                    uVar6 = stringView->HeapBeginPtr();
+                    uVar7 = stringView->end();
+                    str2 = "Failed to parse strikethrough tag value from %.*s";
+                    arg4 = 1426;
                 } else {
-                    StringView::StringView<4ul>(&local_118, "str");
-                    SVar16.field_8 = extraout_RDX_01;
-                    SVar16.field_0 = (ulong)&local_118;
-                    cVar1 = StringView::operator==(SVar12.field_0, SVar16);
-                    if (cVar1 != '\0') {
-                        field_0 = (byte)field_8 | 2147483648;
+                    local_118.StringView<4ul>("str");
+                    cVar1 = *stringView == &local_118;
+                    if (cVar1) {
+                        field_0 = (uint8_t)field_8 | 2147483648;
                         return;
                     }
-                    StringView::StringView<5ul>(&local_108, "/str");
-                    SVar18.field_8 = extraout_RDX_03;
-                    SVar18.field_0 = (ulong)&local_108;
-                    cVar1 = StringView::operator==(SVar12.field_0, SVar18);
-                    if (cVar1 != '\0') {
+                    local_108.StringView<5ul>("/str");
+                    cVar1 = *stringView == &local_108;
+                    if (cVar1) {
                         field_0 = 4294967295;
                         return;
                     }
-                    StringView::StringView<3ul>(&local_f8, "u=");
-                    SVar19.field_8 = (uchar*)&local_f8;
-                    SVar19.field_0 = (ulong)SVar12.field_0;
-                    local_70.suffix_of(SVar19);
+                    local_f8.StringView<3ul>("u=");
+                    local_70.suffix_of(stringView);
                     cVar1 = local_70.empty();
-                    if (cVar1 != '\0') {
-                        new (&local_e8) StringView("u");
-                        SVar20.field_8 = extraout_RDX_04;
-                        SVar20.field_0 = (ulong)&local_e8;
-                        cVar1 = StringView::operator==(SVar12.field_0, SVar20);
-                        if (cVar1 != '\0') {
-                            field_4 = (uint)(byte)field_8;
+                    if (cVar1) {
+                        local_e8 = StringView("u");
+                        cVar1 = *stringView == &local_e8;
+                        if (cVar1) {
+                            field_4 = (unsigned int)(uint8_t)field_8;
                             return;
                         }
-                        StringView::StringView<3ul>(&local_d8, "/u");
-                        SVar21.field_8 = extraout_RDX_05;
-                        SVar21.field_0 = (ulong)&local_d8;
-                        cVar1 = StringView::operator==(SVar12.field_0, SVar21);
-                        if (cVar1 != '\0') {
+                        local_d8.StringView<3ul>("/u");
+                        cVar1 = *stringView == &local_d8;
+                        if (cVar1) {
                             field_4 = 4294967295;
                             return;
                         }
-                        StringView::StringView<6ul>(&local_c8, "shad=");
-                        SVar22.field_8 = (uchar*)&local_c8;
-                        SVar22.field_0 = (ulong)SVar12.field_0;
-                        local_60.suffix_of(SVar22);
+                        local_c8.StringView<6ul>("shad=");
+                        local_60.suffix_of(stringView);
                         cVar1 = local_60.empty();
-                        if (cVar1 == '\0') {
+                        if (!cVar1) {
                             bVar2 = FromString<StringView, int>(&local_60, &local_2c, 16);
                             uVar3 = 0;
                             if ((bVar2) && (local_2c != -1)) {
-                                uVar3 = local_2c << 8 | (uint)(byte)field_8;
+                                uVar3 = local_2c << 8 | (unsigned int)(uint8_t)field_8;
                             }
                             field_24 = uVar3;
                             return;
                         }
-                        StringView::StringView<5ul>(&local_b8, "shad");
-                        SVar23.field_8 = extraout_RDX_06;
-                        SVar23.field_0 = (ulong)&local_b8;
-                        cVar1 = StringView::operator==(SVar12.field_0, SVar23);
-                        if (cVar1 != '\0') {
-                            field_24 = (uint)(byte)field_8;
+                        local_b8.StringView<5ul>("shad");
+                        cVar1 = *stringView == &local_b8;
+                        if (cVar1) {
+                            field_24 = (unsigned int)(uint8_t)field_8;
                             return;
                         }
-                        StringView::StringView<6ul>(&local_a8, "/shad");
-                        SVar24.field_8 = extraout_RDX_07;
-                        SVar24.field_0 = (ulong)&local_a8;
-                        cVar1 = StringView::operator==(SVar12.field_0, SVar24);
-                        if (cVar1 != '\0') {
+                        local_a8.StringView<6ul>("/shad");
+                        cVar1 = *stringView == &local_a8;
+                        if (cVar1) {
                             field_24 = field_28;
                             return;
                         }
-                        StringView::StringView<3ul>(&local_98, "br");
-                        SVar25.field_8 = extraout_RDX_08;
-                        SVar25.field_0 = (ulong)&local_98;
-                        cVar1 = StringView::operator==(SVar12.field_0, SVar25);
-                        if (cVar1 == '\0') {
+                        local_98.StringView<3ul>("br");
+                        cVar1 = *stringView == &local_98;
+                        if (!cVar1) {
                             return;
                         }
                         uVar3 = field_12;
-                        eastl::optional<unsigned int>::optional(local_88, &field_28);
-                        ResetState(this, uVar3, local_88);
+                        local_88 = eastl::optional(field_28);
+                        ResetState(uVar3, &local_88);
                         return;
                     }
                     bVar2 = FromString<StringView, int>(&local_70, (int*)&local_60, 16);
                     if (bVar2) {
-                        field_4 = (int)local_60.field_0 << 8 | (uint)(byte)field_8;
+                        field_4 = (int)local_60.field_0 << 8 | (unsigned int)(uint8_t)field_8;
                         return;
                     }
-                    uVar6 = logger::default_logger();
-                    uVar7 = SVar12.field_0->HeapBeginPtr();
-                    uVar8 = SVar12.field_0->end();
-                    pcVar10 = "Failed to parse m_underline tag value from %.*s";
-                    uVar9 = 1448;
+                    this_00 = logger::default_logger();
+                    uVar6 = stringView->HeapBeginPtr();
+                    uVar7 = stringView->end();
+                    str2 = "Failed to parse m_underline tag value from %.*s";
+                    arg4 = 1448;
                 }
             }
         LAB_1008e5411:
-            logger::Logger::Log(uVar6, 1, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/fonts/FontHelpers.cpp",
-                                uVar9, pcVar10, uVar7, uVar8);
+            this_00->Log(true, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                         "fonts/FontHelpers.cpp",
+                         arg4, str2, uVar6, uVar7);
             return;
         }
-        bVar2 = FromString<StringView, unsigned int>(&local_50, (uint*)&local_40, 16);
+        bVar2 = FromString<StringView, unsigned int>(&local_50, (unsigned int*)&local_40, 16);
         if (!bVar2) {
-            uVar6 = logger::default_logger();
-            uVar7 = SVar12.field_0->HeapBeginPtr();
-            uVar8 = SVar12.field_0->end();
-            pcVar10 = "Failed to parse colour tag value from %.*s";
-            uVar9 = 1394;
+            this_00 = logger::default_logger();
+            uVar6 = stringView->HeapBeginPtr();
+            uVar7 = stringView->end();
+            str2 = "Failed to parse colour tag value from %.*s";
+            arg4 = 1394;
             goto LAB_1008e5411;
         }
-        uVar4 = local_50.HeapBeginPtr();
+        unsigned long uVar4 = local_50.HeapBeginPtr();
         if (6 < uVar4) {
-            StringView::StringView<3ul>(&local_158, "0x");
-            SVar17.field_8 = extraout_RDX_02;
-            SVar17.field_0 = (ulong)&local_158;
-            cVar1 = local_50.starts_with(SVar17);
-            if ((cVar1 == '\0') || (lVar5 = local_50.HeapBeginPtr(), lVar5 != 8))
+            local_158.StringView<3ul>("0x");
+            cVar1 = local_50.starts_with(&local_158);
+            if ((!cVar1) || (lVar5 = local_50.HeapBeginPtr(), lVar5 != 8))
                 goto LAB_1008e53c9;
         }
-        local_40.field_0._0_4_ = (uint)local_40.field_0 << 8 | 255;
+        local_40.field_0._0_4_ = (unsigned int)local_40.field_0 << 8 | 255;
     LAB_1008e53c9:
-        field_8 = (uint)local_40.field_0;
+        field_8 = (unsigned int)local_40.field_0;
     }
 
-    // 0x1008e5850, 96 bytes, placed by class name
-    // FontHelpers::FontState::ResetState(unsigned int, eastl::optional<unsigned int>)
-    void FontHelpers::FontState::ResetState(uint param_1, optional* param_3) {
-        uint* puVar1;
-        bool bVar2;
-        uint uVar3;
-        optional<game::option::EnumOptionToggle> local_28[8];
+    // 0x1008e5850
+    void FontHelpers::FontState::ResetState(unsigned int arg1, eastl::optional<unsigned int> arg2) {
+        unsigned int* puVar1;
 
         field_0 = 4294967295;
         field_4 = 4294967295;
-        field_12 = param_1;
-        field_8 = param_1;
+        field_12 = arg1;
+        field_8 = arg1;
         field_16 = 0;
-        eastl::optional<game::option::EnumOptionToggle>::optional(local_28);
-        bVar2 = eastl::operator!=(param_3, (optional*)local_28);
+        optional<game::option::EnumOptionToggle> local_28;
+        bool bVar2 = *arg2 != local_28;
         field_20 = bVar2;
-        uVar3 = 0;
+        unsigned int uVar3 = 0;
         if (bVar2) {
-            puVar1 = (uint*)eastl::optional<unsigned int>::value();
+            puVar1 = (unsigned int*)arg2->value();
             uVar3 = *puVar1;
         }
         field_28 = uVar3;
         field_24 = uVar3;
     }
 
-    // 0x100916d80, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.14
-    void ___cxx_global_var_init_14() {
-        new (&FontHelpers::m_modIcons) Array<FontHelpers::ModIconReference, eastl::allocator>();
-        ___cxa_atexit(PTR__Array_100ee6770, &FontHelpers::m_modIcons, 4294967296);
-    }
-
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x1008e0020, 64 bytes, inline, placed by debug map only (low confidence)
-    // bool FromString<StringView, int>(StringView const&, int&, int)
-    bool FromString<StringView, int>(StringView* param_1, int* param_2, int param_3) {
-        int in_ECX;
-        StringView SVar2;
-        StringView local_30;
+    // 0x1008e0020
+    bool FromString<StringView, int>(const StringView& stringView, int& arg2, int arg3) {
 
-        new (&local_30) StringView(param_1);
-        SVar2.field_8 = (uchar*)param_2;
-        SVar2.field_0 = (ulong)&local_30;
-        return (bool)FromText(SVar2, (int*)(ulong)(uint)param_3, in_ECX);
+        StringView local_30(stringView);
+        return (bool)FromText(&local_30, arg2, arg3);
     }
 
 } // namespace jag

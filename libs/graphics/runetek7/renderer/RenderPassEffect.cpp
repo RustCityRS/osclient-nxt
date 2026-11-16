@@ -1,78 +1,58 @@
 // libs/graphics/runetek7/renderer/RenderPassEffect.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "RenderPassEffect.h"
 
 namespace jag::graphics {
-    // 0x10019c120: the linker folded this into eastl::rbtree_node<shared_ptr<Js5WorkerRequestMessage> >::~rbtree_node(), which has identical code
-    RenderPassEffect::~RenderPassEffect();
+    // 0x10019c120: RenderPassEffect::~RenderPassEffect() has the same machine code as eastl::rbtree_node<shared_ptr<Js5WorkerRequestMessage>>::~rbtree_node()
 
-    // 0x10019c130: the linker folded this into eastl::rbtree_node<shared_ptr<Js5WorkerRequestMessage> >::~rbtree_node(), which has identical code
-    RenderPassEffect::~RenderPassEffect();
+    // 0x10019c130: RenderPassEffect::~RenderPassEffect() has the same machine code as eastl::rbtree_node<shared_ptr<Js5WorkerRequestMessage>>::~rbtree_node()
 
-    // 0x1006d6ac0: the linker folded this into ui::SpriteData::SpriteData(ui::SpriteData&&), which has identical code
-    RenderPassEffect::RenderPassEffect(RenderPassEffect&&);
+    // 0x1006d6ad0: RenderPassEffect::RenderPassEffect(RenderPassEffect&&) has the same machine code as ui::SpriteData::SpriteData(ui::SpriteData&&)
 
-    // 0x1006d6ad0: the linker folded this into ui::SpriteData::SpriteData(ui::SpriteData&&), which has identical code
-    RenderPassEffect::RenderPassEffect(RenderPassEffect&&);
+    // 0x1007d0a00
+    void RenderPassEffect::UpdateShader(const EffectManager& effectManager, ShaderManager& shaderManager,
+                                        ShaderType shaderType, const render::VertexDeclaration& vertexDeclaration,
+                                        RenderPassType renderPassType, unsigned char arg6) {
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* this_00;
+        EffectList* this_01;
+        uint8_t in_stack_00000008;
 
-    // 0x1007d0a00, 176 bytes, placed by class name and debug map
-    // RenderPassEffect::UpdateShader(EffectManager const&, ShaderManager&, ShaderType, render::VertexDeclaration const&, RenderPassType, unsigned char)
-    void RenderPassEffect::UpdateShader(EffectManager* param_1, ShaderManager* param_2, undefined4 param_4,
-                                        undefined8 param_5, undefined4 param_6, undefined1 param_7) {
-        undefined1* this_00;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_01;
-        EffectList* this_02;
-        shared_ptr* psVar1;
-        Shader* this_03;
-        bool bVar2;
-        char cVar3;
-
-        this_00 = field_32;
-        bVar2 = this_00->operator_cast_to_bool();
-        if (bVar2) {
-            this_01 =
-                (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                     eastl::allocator, 0>*)shared_ptr<Shader>::operator->((shared_ptr<Shader>*)this_00);
-            this_02 = (EffectList*)
-                eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                           eastl::allocator, 0>::second(this_01);
-            cVar3 = EffectList::operator!=(this_02, (EffectList*)&field_16);
-            if (cVar3 == '\0')
+        uint64_t* uint64_t = &effectManager.field_32;
+        bool cVar1 = uint64_t->operator_cast_to_bool();
+        if (cVar1) {
+            this_00 =
+                (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)(*uint64_t).operator->();
+            this_01 = (EffectList*)this_00->second();
+            cVar1 = *this_01 != effectManager.field_16;
+            if (!cVar1)
                 goto LAB_1007d0a83;
         }
-        psVar1 = (shared_ptr*)param_2->GetShader(param_4, param_1, &field_16, param_5, param_7, param_6);
-        shared_ptr<Shader>::operator=((shared_ptr<Shader>*)this_00, psVar1);
+        auto shader = ShaderManager::GetShader(
+            shaderType, *((EffectManager*)((unsigned long)vertexDeclaration & 4294967295)), shaderManager,
+            effectManager.field_16, (unsigned char)renderPassType, (unsigned int)in_stack_00000008);
+        *uint64_t = *shader;
     LAB_1007d0a83:
-        this_03 = (Shader*)shared_ptr<Shader>::operator->((shared_ptr<Shader>*)this_00);
-        this_03->PreRender(param_1);
+        ((Shader*)(*uint64_t).operator->())->PreRender(shaderManager);
     }
 
-    // 0x1007d4d60, 80 bytes, placed by class name
-    // RenderPassEffect::GetShader(SceneViewData const&) const
-    undefined1* RenderPassEffect::GetShader(SceneViewData* param_1) {
-        Shader* this_00;
-        undefined1* this_01;
-
-        this_01 = field_32;
+    // 0x1007d4d60
+    uint8_t* RenderPassEffect::GetShader(const SceneViewData& sceneViewData) const {
+        uint8_t* this_01 = field_32;
         if (this_01->operator_cast_to_bool()) {
-            if (param_1->UseAsyncRenderingResources() == '\0') {
-                this_00 = (Shader*)shared_ptr<Shader>::operator->((shared_ptr<Shader>*)this_01);
-                this_00->WaitForAsyncCompile();
+            if (!(sceneViewData.UseAsyncRenderingResources())) {
+                ((Shader*)(*this_01).operator->())->WaitForAsyncCompile();
             }
         }
         return this_01;
     }
 
-    // 0x1007e4050, 48 bytes, placed by class name
-    // RenderPassEffect::Clear()
+    // 0x1007e4050
     void RenderPassEffect::Clear() {
         Clear();
-        (&field_16)->Clear();
-        shared_ptr<Shader>::reset();
+        field_16.Clear();
+        field_32->reset();
     }
 
 } // namespace jag::graphics

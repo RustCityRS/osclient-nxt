@@ -1,64 +1,53 @@
 // projects/osclient/highlighting/HighlightedGroup.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "HighlightedGroup.h"
 
 namespace jag::oldscape::highlight {
-    // 0x100013a60, 224 bytes, placed by class name and debug map
-    // HighlightedGroup::ForEachNPC(std::function<void (ClientNpc const&)>, std::array<shared_ptr<ClientNpc>, 65536ul> const&)
-    /* HighlightedGroup::ForEachNPC(std::function<void
-   (ClientNpc const&)>, std::array<shared_ptr<ClientNpc>,
-   65536ul> const&) */
-
-    void HighlightedGroup::ForEachNPC(function<void(ClientNpc_const&)>* param_2,
-                                      array<shared_ptr<ClientNpc>, 65536ul>* param_3) {
-        ushort uVar1;
-        long lVar2;
+    // 0x100013a60
+    void HighlightedGroup::ForEachNPC(std::function<void(ClientNpc const&)> callback,
+                                      const std::array<shared_ptr<ClientNpc>, 65536ul>& clientNpcs) {
+        unsigned short uVar1;
         vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        uint* puVar3;
-        ulong uVar4;
-        ushort* puVar6;
-        ClientNpc* pCVar7;
-        ulong uVar8;
-        undefined1* this_01;
+        unsigned int* puVar3;
+        unsigned long uVar4;
+        unsigned short* puVar6;
+        ClientNpc* clientNpc;
+        unsigned long arg1;
 
-        this_01 = &field_8;
-        lVar2 = this_01->size();
+        uint8_t* this_01 = &field_8;
+        long lVar2 = this_01->size();
         if (lVar2 != 0) {
-            uVar8 = 0;
+            arg1 = 0;
             do {
-                puVar6 = (ushort*)eastl::vector<NpcUID, eastl::allocator>::operator[](
-                    (vector<NpcUID, eastl::allocator>*)this_01, uVar8);
+                puVar6 = (unsigned short*)(*this_01)[arg1];
                 uVar1 = *puVar6;
-                this_00 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                    std::array<shared_ptr<ClientNpc>, 65536ul>::operator[](param_3, (ulong)puVar6[1]);
-                pCVar7 = (ClientNpc*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-                if (pCVar7 == (ClientNpc*)0) {
+                this_00 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)clientNpcs[(unsigned long)puVar6[1]];
+                clientNpc = (ClientNpc*)this_00->end();
+                if (clientNpc == nullptr) {
                 LAB_100013aa0:
                     lVar2 = this_01->HeapBeginPtr();
-                    this_01->erase((NpcUID*)(lVar2 + uVar8 * 4));
-                    uVar8 = uVar8 - 1;
+                    this_01->erase((lVar2 + arg1 * 4));
+                    arg1 = arg1 - 1;
                 } else {
-                    if (!(&pCVar7->field_1024)->operator_cast_to_bool())
+                    if ((&clientNpc->field_1024)->operator_cast_to_bool() == '\0')
                         goto LAB_100013aa0;
-                    puVar3 = (uint*)shared_ptr<configdecoder::NpcType>::operator->(
-                        (shared_ptr<configdecoder::NpcType>*)&pCVar7->field_1024);
-                    if (*puVar3 != (uint)uVar1)
+                    puVar3 = (unsigned int*)clientNpc->field_1024.operator->();
+                    if (*puVar3 != (unsigned int)uVar1)
                         goto LAB_100013aa0;
-                    std::function<void(ClientNpc_const&)>::operator()(param_2, pCVar7);
+                    std::function<void(ClientNpc const&)>::operator()((function<void(ClientNpc const&)>*)callback,
+                                                                      clientNpc);
                 }
-                uVar8 = uVar8 + 1;
+                arg1 = arg1 + 1;
                 uVar4 = this_01->size();
-            } while (uVar8 < uVar4);
+            } while (arg1 < uVar4);
         }
     }
 
-    // 0x1000156e0, 16 bytes, inline, placed by debug map only (low confidence)
-    // GetMapSquareIndex(int, int)
-    int GetMapSquareIndex(int param_1, int param_2) {
-        return param_2 * 100 + param_1;
+    // 0x1000156e0
+    int GetMapSquareIndex(int arg1, int arg2) {
+        return arg2 * 100 + arg1;
     }
 
 } // namespace jag::oldscape::highlight

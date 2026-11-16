@@ -1,177 +1,148 @@
 // libs/oldscape/rs2lib/configdecoder/ParamType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "ParamType.h"
 
 namespace jag::oldscape::configdecoder {
-    // 0x10166dd20, 8 bytes, __common; zero-initialised
-    ParamType::m_pConfigClient;
+    // 0x10166dd20
+    int64_t ParamType::m_pConfigClient;
 
-    // 0x10166dd28, 5376 bytes, __common; zero-initialised
-    ParamType::m_recentUse;
+    // 0x10166dd28
+    LRUHashCache<ParamType, 64ul, 65ul, false, unsigned long long> ParamType::m_recentUse;
 
-    // 0x100059090: the linker folded this into FolderSelection::FolderSelectionRequest::~FolderSelectionRequest(), which has identical code
-    ParamType::~ParamType();
+    // 0x1000590a0: ParamType::~ParamType() has the same machine code as FolderSelection::FolderSelectionRequest::~FolderSelectionRequest()
 
-    // 0x1000590a0: the linker folded this into FolderSelection::FolderSelectionRequest::~FolderSelectionRequest(), which has identical code
-    ParamType::~ParamType();
-
-    // 0x100234190, 16 bytes, placed by class name and debug map
-    // ParamType::Init(jagex3::Js5*)
-    void ParamType::Init(Js5* param_1) {
-        m_pConfigClient = param_1;
+    // 0x100234190
+    void ParamType::Init(jagex3::Js5* js5) {
+        m_pConfigClient = js5;
     }
 
-    // 0x1002341a0, 304 bytes, placed by class name and debug map
-    // ParamType::List(int)
-    ParamType* ParamType::List(int param_1) {
-        bool bVar1;
-        shared_ptr* psVar2;
-        ParamType* this_00;
-        PacketJ* pPVar3;
-        shared_ptr local_40;
-        shared_ptr local_30;
+    // 0x1002341a0
+    auto ParamType::List(int arg1) {
+        ParamType* paramType;
+        PacketJ<Array<unsigned char> _>* packetJ;
+        ReturnValue local_40;
+        ReturnValue local_30;
 
-        local_30._0_8_ = (long)param_1;
-        psVar2 =
-            (shared_ptr*)LRUHashCache<ParamType, 64ul, 65ul, false, unsigned long long>::Find((ulonglong*)&m_recentUse);
-        new (this) shared_ptr<dash3d::Decor>(psVar2);
-        bVar1 = operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0);
-        if (!bVar1) {
-            new (&local_30) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            m_pConfigClient->GetFile((int)&local_30, 11, (array*)(ulong)(uint)param_1);
-            make_shared<ParamType>((jag*)&local_40);
-            shared_ptr<ParamType>::operator=((shared_ptr<ParamType>*)this, &local_40);
-            local_40.~shared_ptr();
-            bVar1 = operator!=(&local_30, (_func_decltype_nullptr*)0);
-            if (bVar1) {
-                this_00 = (ParamType*)shared_ptr<ParamType>::operator->((shared_ptr<ParamType>*)this);
-                pPVar3 = (PacketJ*)shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator*(
-                    (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)&local_30);
-                Decode(this_00, pPVar3);
+        local_30[0] = (ReturnValue)(long)arg1;
+        auto groundDecor = m_recentUse.Find(local_30);
+        auto result(groundDecor);
+        if (!(result != nullptr)) {
+            local_30 = shared_ptr();
+            m_pConfigClient->GetFile(local_30, 11, arg1, nullptr);
+            make_shared<ParamType>(&local_40);
+            result = local_40;
+            if (local_30 != nullptr) {
+                paramType = (ParamType*)(result).operator->();
+                packetJ = (PacketJ<Array<unsigned char> _>*)*local_30;
+                Decode(paramType, packetJ);
             }
-            shared_ptr<ParamType>::operator->((shared_ptr<ParamType>*)this);
-            local_40._0_8_ = (long)param_1;
-            m_recentUse.Put(this, 1, (ulonglong*)&local_40);
-            local_30.~shared_ptr();
+            (result).operator->();
+            local_40[0] = (ReturnValue)(long)arg1;
+            m_recentUse.Put(result, 1, local_40);
         }
-        return this;
+        return result;
     }
 
-    // 0x100234480, 64 bytes, placed by class name and debug map
-    // ParamType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&)
-    void ParamType::Decode(PacketJ* param_1) {
-        byte bVar1;
+    // 0x100234480
+    void ParamType::Decode(PacketJ<Array<unsigned char>>& packetJ) {
+        uint8_t bVar1;
 
         while (true) {
-            bVar1 = param_1->g1();
+            bVar1 = packetJ.g1();
             if (bVar1 == 0)
                 break;
-            Decode(this, param_1, (uint)bVar1);
+            Decode(packetJ, (unsigned int)bVar1);
         }
     }
 
-    // 0x1002344c0, 16 bytes, placed by class name and debug map
-    // ParamType::PostDecode()
+    // 0x1002344c0
     void ParamType::PostDecode() {}
 
-    // 0x1002345c0, 16 bytes, placed by class name and debug map
-    // ParamType::IsStringType()
+    // 0x1002345c0
     bool ParamType::IsStringType() {
         return field_0 == 115;
     }
 
-    // 0x1002345d0, 32 bytes, placed by class name and debug map
-    // ParamType::ResetCache()
+    // 0x1002345d0
     void ParamType::ResetCache() {
         m_recentUse.Reset();
     }
 
-    // 0x1002345f0, 224 bytes, placed by class name and debug map
-    // ParamType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&, int)
-    void ParamType::Decode(PacketJ* param_1, int param_2) {
-        uchar uVar1;
-        undefined4 uVar3;
-        undefined8 uVar4;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>> local_38[32];
+    // 0x1002345f0
+    void ParamType::Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2) {
+        PacketReaderMixin<PacketT<Array<unsigned char>>> local_38;
 
-        switch (param_2) {
+        switch (arg2) {
         case 1:
-            uVar1 = param_1->g1();
-            field_0 = stringtools::CP1252ToWide(uVar1);
+            field_0 = stringtools::CP1252ToWide(packetJ.g1());
             break;
         case 2:
-            uVar3 = param_1->g4();
-            field_4 = uVar3;
+            field_4 = packetJ.g4();
             break;
         default:
-            uVar4 = logger::default_logger();
-            logger::Logger::Log(uVar4, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "configdecoder/ParamType.cpp",
-                                97, "Error unrecognised .param config code: %i", param_2);
+            (logger::default_logger())
+                ->Log(false, 8,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
+                      "configdecoder/ParamType.cpp",
+                      97, "Error unrecognised .param config code: %i", arg2);
             break;
         case 4:
             field_40 = 0;
             break;
         case 5:
-            local_38->gStringNoConversion(SUB81(param_1, 0));
-            eastl::string::operator=((eastl::string*)&field_8, (basic_string*)local_38);
-            local_38->~basic_string();
+            local_38.gStringNoConversion((uint8_t)packetJ);
+            field_8 = &local_38;
         }
     }
 
 } // namespace jag::oldscape::configdecoder
 
 namespace jag {
-    // 0x100234370, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::configdecoder::ParamType>::type make_shared<oldscape::configdecoder::ParamType>()
-    jag* make_shared<oldscape::configdecoder::ParamType>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100234370
+    shared_ptr_if_not_array<oldscape::configdecoder::ParamType>::type
+    make_shared<oldscape::configdecoder::ParamType>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         ParamType* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(80, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(80, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::configdecoder::ParamType>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::configdecoder::ParamType>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::configdecoder::ParamType>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::configdecoder::ParamType>, int,
-                                   oldscape::configdecoder::ParamType*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::configdecoder::ParamType>, int,
+                              oldscape::configdecoder::ParamType*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x100234a60, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::configdecoder::SeqType>::type make_shared<oldscape::configdecoder::SeqType>()
-    jag* make_shared<oldscape::configdecoder::SeqType>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100234a60
+    shared_ptr_if_not_array<oldscape::configdecoder::SeqType>::type make_shared<oldscape::configdecoder::SeqType>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         SeqType* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(296, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(296, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::configdecoder::SeqType>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::configdecoder::SeqType>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::configdecoder::SeqType>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::configdecoder::SeqType>, int,
-                                   oldscape::configdecoder::SeqType*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::configdecoder::SeqType>, int,
+                              oldscape::configdecoder::SeqType*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

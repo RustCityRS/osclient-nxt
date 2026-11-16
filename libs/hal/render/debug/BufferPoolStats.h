@@ -1,6 +1,5 @@
 // libs/hal/render/debug/BufferPoolStats.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -13,910 +12,474 @@ namespace jag::render::internal {
         virtual void OnDeviceLost();
         virtual void OnEndFrame();
         BufferPool();
-        void GarbageCollect(bool);
+        void GarbageCollect(bool arg1);
     };
 
-    // 0x100c0e0f0, 224 bytes, base-object constructor, inline, placed by class header (inline)
-    // BufferPool<IndexBuffer>::BufferPool()
-    void BufferPool<IndexBuffer>::BufferPool() {
-        undefined* puVar1;
-        allocator local_30[8];
-
-        new (this) AutoSingleton<BufferPool<IndexBuffer>>();
-        new (this) RenderDeviceCallback(true, 3);
-        new ((this + 16)) RenderDeviceOnEndFrame(true);
-        puVar1 = PTR_vtable_100ee86b0;
-        *(undefined**)this = PTR_vtable_100ee86b0 + 16;
-        *(undefined**)(this + 16) = puVar1 + 72;
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)(this + 32));
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)(this + 80));
+    // 0x100c0e0f0
+    BufferPool<IndexBuffer>::BufferPool() : AutoSingleton<BufferPool<IndexBuffer>>(), RenderDeviceCallback(true, 3) {
+        new ((this + 2)) RenderDeviceOnEndFrame(true);
+        uint8_t* puVar1 = PTR_vtable_100ee86b0;
+        new ((this + 4)) eastl::map(local_30);
+        new ((this + 10)) eastl::map(local_30);
     }
 
-    // 0x100c0fbf0, 224 bytes, base-object constructor, inline, placed by class header (inline)
-    // BufferPool<VertexBuffer>::BufferPool()
-    void BufferPool<VertexBuffer>::BufferPool() {
-        undefined* puVar1;
-        allocator local_30[8];
-
-        new (this) AutoSingleton<BufferPool<VertexBuffer>>();
-        new (this) RenderDeviceCallback(true, 3);
-        new ((this + 16)) RenderDeviceOnEndFrame(true);
-        puVar1 = PTR_vtable_100ee86b8;
-        *(undefined**)this = PTR_vtable_100ee86b8 + 16;
-        *(undefined**)(this + 16) = puVar1 + 72;
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)(this + 32));
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)(this + 80));
+    // 0x100c0fbf0
+    BufferPool<VertexBuffer>::BufferPool() : AutoSingleton<BufferPool<VertexBuffer>>(), RenderDeviceCallback(true, 3) {
+        new ((this + 2)) RenderDeviceOnEndFrame(true);
+        uint8_t* puVar1 = PTR_vtable_100ee86b8;
+        new ((this + 4)) eastl::map(local_30);
+        new ((this + 10)) eastl::map(local_30);
     }
 
-    // 0x100c0fd30, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // BufferPool<VertexBuffer>::BufferPool(): jumps straight to the base-object constructor
-
-    // 0x100c0fd40, 208 bytes, inline, placed by class header (inline)
-    // BufferPool<VertexBuffer>::OnEndFrame()
+    // 0x100c0fd40
     void BufferPool<VertexBuffer>::OnEndFrame() {
         Layout* this_00;
-        uint uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        long lVar4;
-        bool bVar5;
-        uint uVar6;
-        uint* puVar7;
-        hashtable_iterator_base* extraout_RDX;
-        long extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        eastl local_40[8];
-        hashtable_iterator_base local_38[8];
+        unsigned int uVar1;
+        unsigned int arg2;
+        unsigned int* puVar3;
+        ManagedBuffer<ShaderConstBuffer>* managedBuffer1;
+        unsigned int in_R9D;
+        uint8_t auVar4[16];
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_38;
 
-        (SUB81(this, 0))->GarbageCollect();
-        eastl::vector<unsigned long,
-                      eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar5 = eastl::operator!=(local_40, local_38, extraout_RDX);
-        if (bVar5) {
+        ((uint8_t)this)->GarbageCollect();
+        ReturnValue local_40 = ((this + 4))->rbegin();
+        local_38.end();
+        bool cVar2 = local_40 != local_38;
+        if (cVar2) {
             do {
-                puVar7 = (uint*)eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                this_00 = (Layout*)(puVar7 + 2);
-                uVar2 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_00);
-                uVar3 = this_00->end();
-                lVar4 = eastl::minmax_element<ManagedBuffer<VertexBuffer> const*,
-                                              BufferPool<VertexBuffer>::OnEndFrame()::_lambda(
-                                                  auto : 1_const &, auto : 2_const &) _1_>(uVar2, uVar3);
-                uVar1 = *puVar7;
-                uVar6 = this_00->size();
-                BufferPoolStats::RecordEndOfFrameStats("VertexBuffer", uVar1, uVar6, *(uint*)(lVar4 + 80),
-                                                       *(uint*)(extraout_RDX_00 + 80));
-                eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator++(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                bVar5 = eastl::operator!=(local_40, local_38, extraout_RDX_01);
-            } while (bVar5);
+                puVar3 = (unsigned int*)*local_40;
+                this_00 = (Layout*)(puVar3 + 2);
+                managedBuffer1 = (ManagedBuffer<ShaderConstBuffer>*)this_00->HeapBeginPtr();
+                auVar4 = this_00->end();
+                auVar4 = eastl::minmax_element<ManagedBuffer<VertexBuffer> const*,
+                                               BufferPool<VertexBuffer>::OnEndFrame()::_lambda(
+                                                   auto : 1 const&, auto : 2 const&) _1_>(managedBuffer1, auVar4._0_8_,
+                                                                                          auVar4._8_8_);
+                uVar1 = *puVar3;
+                arg2 = this_00->size();
+                ((BufferPoolStats*)"VertexBuffer")
+                    ->RecordEndOfFrameStats((char*)(unsigned long)uVar1, arg2, *(unsigned int*)(auVar4._0_8_ + 80),
+                                            *(unsigned int*)(auVar4._8_8_ + 80), in_R9D);
+                ++local_40;
+                cVar2 = local_40 != local_38;
+            } while (cVar2);
         }
     }
 
-    // 0x100c0fe10, 576 bytes, inline, placed by class header (inline)
-    // BufferPool<VertexBuffer>::GarbageCollect(bool)
-    void BufferPool<VertexBuffer>::GarbageCollect(bool param_1) {
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        uint uVar4;
-        long lVar5;
+    // 0x100c0fe10
+    void BufferPool<VertexBuffer>::GarbageCollect(bool arg1) {
+        unsigned int uVar2;
+        unsigned int uVar3;
+        long lVar4;
         BufferInterface* this_00;
-        BufferInterface* pBVar6;
-        undefined8 uVar7;
-        undefined8 uVar8;
-        ManagedBuffer* pMVar9;
-        ManagedBuffer* pMVar10;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        uint uVar11;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_01;
-        undefined8 local_50;
-        hashtable_iterator_base local_48[8];
-        BufferPool<VertexBuffer>* local_40;
-        eastl local_38[8];
+        BufferInterface* pBVar5;
+        ManagedBuffer<VertexBuffer>* pMVar6;
+        ManagedBuffer<VertexBuffer>* managedBuffer2;
+        unsigned int uVar7;
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_01;
+        uint8_t auVar8[16];
+        rbtree_iterator<eastl::pair<unsigned int const, eastl::vector<ManagedBuffer<VertexBuffer>> _>,
+                        eastl::pair<unsigned int const, eastl::vector<ManagedBuffer<VertexBuffer>> _> const*,
+                        eastl::pair<unsigned int const, eastl::vector<ManagedBuffer<VertexBuffer>> _> const&>* local_50;
+        ReturnValue local_48;
+        vector<unsigned long, eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true>>* local_40;
+        ReturnValue local_38;
 
-        cVar1 = this_thread::IsMainThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if (!cVar1) {
             LogAssert("this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                       "PooledBuffer.cpp",
-                      320, (char*)0);
+                      320, nullptr);
         }
-        if (param_1) {
+        if (arg1) {
             BufferPoolStats::PrintPoolUsage();
-            ((this + 32))->clear();
+            ((this + 4))->clear();
             BufferPoolStats::ResetStats();
         } else {
-            eastl::vector<unsigned long,
-                          eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-            eastl::rbtree<
-                unsigned int,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::less<unsigned int>, eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                true, true>::end();
-            bVar2 = eastl::operator!=(local_38, local_48, extraout_RDX);
-            if (bVar2) {
-                local_40 = this + 32;
+            local_38 = ((this + 4))->rbegin();
+            local_48.end();
+            cVar1 = local_38 != local_48;
+            if (cVar1) {
+                local_40 = (vector<unsigned long, eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true>>*)(this + 4);
                 do {
-                    lVar5 = eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_38);
-                    this_01 =
-                        (vector<int,
-                                eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(lVar5 + 8);
-                    cVar1 = eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_01);
-                    if (cVar1 != '\0') {
-                        /* WARNING: Subroutine does not return */
+                    lVar4 = *local_38;
+                    this_01 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(lVar4 + 8);
+                    cVar1 = this_01->empty();
+                    if (cVar1) {
                         LogAssert("!bufferList.empty()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "buffers/PooledBuffer.cpp",
-                                  334, (char*)0);
+                                  334, nullptr);
                     }
                     this_00 = (BufferInterface*)this_01->HeapBeginPtr();
-                    pBVar6 = (BufferInterface*)this_01->end();
-                    for (; this_00 != pBVar6; this_00 = (BufferInterface*)&this_00[1].m_nativeBuffer) {
-                        uVar11 = this_00[1].field_0 + 1;
-                        this_00[1].field_0 = uVar11;
-                        uVar3 = this_00->GetEndPosition();
-                        uVar4 = 1000;
-                        if (16383 < uVar3) {
-                            uVar4 = 5;
+                    pBVar5 = (BufferInterface*)this_01->end();
+                    for (; this_00 != pBVar5; this_00 = (BufferInterface*)&this_00[1].m_nativeBuffer) {
+                        uVar7 = this_00[1].field_0 + 1;
+                        this_00[1].field_0 = uVar7;
+                        uVar2 = this_00->GetEndPosition();
+                        uVar3 = 1000;
+                        if (16383 < uVar2) {
+                            uVar3 = 5;
                         }
-                        if ((uVar4 < uVar11) && (cVar1 = this_00->IsPermanent(), cVar1 == '\0')) {
+                        if ((uVar3 < uVar7) && (cVar1 = this_00->IsPermanent(), !cVar1)) {
                             this_00->Destroy();
                         }
                     }
-                    uVar7 = this_01->HeapBeginPtr();
-                    uVar8 = this_01->end();
-                    pMVar9 =
-                        std::remove_if<ManagedBuffer<VertexBuffer>*,
-                                       bool->GarbageCollect()::_lambda(ManagedBuffer<VertexBuffer>&) _1_>(uVar7, uVar8);
-                    pMVar10 = (ManagedBuffer*)this_01->end();
-                    this_01->erase(pMVar9, pMVar10);
-                    uVar7 = this_01->HeapBeginPtr();
-                    uVar8 = this_01->end();
+                    pMVar6 = (ManagedBuffer<VertexBuffer>*)this_01->HeapBeginPtr();
+                    auVar8 = this_01->end();
+                    pMVar6 = std::remove_if<ManagedBuffer<VertexBuffer>*,
+                                            bool->GarbageCollect()::_lambda(ManagedBuffer<VertexBuffer>&) _1_>(
+                        pMVar6, auVar8._0_8_, auVar8._8_8_);
+                    managedBuffer2 = (ManagedBuffer<VertexBuffer>*)this_01->end();
+                    this_01->erase(pMVar6, managedBuffer2);
+                    pMVar6 = (ManagedBuffer<VertexBuffer>*)this_01->HeapBeginPtr();
+                    auVar8 = this_01->end();
                     eastl::shell_sort<ManagedBuffer<VertexBuffer>*,
                                       bool->GarbageCollect()::_lambda(ManagedBuffer<VertexBuffer> const&,
-                                                                      ManagedBuffer<VertexBuffer> const&) _1_>(uVar7,
-                                                                                                               uVar8);
-                    cVar1 = eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_01);
-                    if (cVar1 == '\0') {
-                        eastl::rbtree_iterator<
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                        operator++((rbtree_iterator<
-                                    eastl::pair<unsigned int const,
-                                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                    eastl::pair<unsigned int const,
-                                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                    eastl::pair<unsigned int const,
-                                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                                       local_38);
+                                                                      ManagedBuffer<VertexBuffer> const&) _1_>(
+                        pMVar6, auVar8._0_8_, auVar8._8_8_);
+                    cVar1 = this_01->empty();
+                    if (!cVar1) {
+                        ++local_38;
                     } else {
-                        new (&local_50)
-                            eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(local_38);
-                        eastl::rbtree<
-                            unsigned int,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<ManagedBuffer<VertexBuffer>, eastl::allocator>>,
-                            eastl::less<unsigned int>, eastl::allocator,
-                            eastl::use_first<eastl::pair<unsigned int const,
-                                                         eastl::vector<ManagedBuffer<VertexBuffer>, eastl::allocator>>>,
-                            true, true>::erase((rbtree_iterator*)local_48, local_40, local_50);
-                        eastl::rbtree_iterator<
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                        operator=(
-                            (rbtree_iterator<
-                                eastl::pair<unsigned int const,
-                                            eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                eastl::pair<unsigned int const,
-                                            eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                eastl::pair<unsigned int const,
-                                            eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_38,
-                            (rbtree_iterator*)local_48);
+                        new (&local_50) eastl::ListIterator(&local_38);
+                        local_48 = local_40->erase(local_50);
+                        local_38 = local_48;
                     }
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                        true, true>::end();
-                    bVar2 = eastl::operator!=(local_38, local_48, extraout_RDX_00);
-                } while (bVar2);
+                    local_48.end();
+                    cVar1 = local_38 != local_48;
+                } while (cVar1);
             }
         }
     }
 
-    // 0x100c10060, 16 bytes, inline, placed by class header (inline)
-    // BufferPool<VertexBuffer>::OnDeviceLost()
+    // 0x100c10060
     void BufferPool<VertexBuffer>::OnDeviceLost() {
-        (SUB81(this, 0))->GarbageCollect();
+        ((uint8_t)this)->GarbageCollect();
     }
 
-    // 0x100c11220, 224 bytes, base-object constructor, inline, placed by class header (inline)
-    // BufferPool<ShaderConstBuffer>::BufferPool()
-    void BufferPool<ShaderConstBuffer>::BufferPool() {
-        undefined* puVar1;
-        allocator local_30[8];
-
-        new (this) AutoSingleton<BufferPool<ShaderConstBuffer>>();
-        new (this) RenderDeviceCallback(true, 3);
-        new ((this + 16)) RenderDeviceOnEndFrame(true);
-        puVar1 = PTR_vtable_100ee86c8;
-        *(undefined**)this = PTR_vtable_100ee86c8 + 16;
-        *(undefined**)(this + 16) = puVar1 + 72;
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)(this + 32));
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)(this + 80));
+    // 0x100c11220
+    BufferPool<ShaderConstBuffer>::BufferPool()
+        : AutoSingleton<BufferPool<ShaderConstBuffer>>(), RenderDeviceCallback(true, 3) {
+        new ((this + 2)) RenderDeviceOnEndFrame(true);
+        uint8_t* puVar1 = PTR_vtable_100ee86c8;
+        new ((this + 4)) eastl::map(local_30);
+        new ((this + 10)) eastl::map(local_30);
     }
 
-    // 0x100c11360, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // BufferPool<ShaderConstBuffer>::BufferPool(): jumps straight to the base-object constructor
-
-    // 0x100c11370, 208 bytes, inline, placed by class header (inline)
-    // BufferPool<ShaderConstBuffer>::OnEndFrame()
+    // 0x100c11370
     void BufferPool<ShaderConstBuffer>::OnEndFrame() {
         Layout* this_00;
-        uint uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        long lVar4;
-        bool bVar5;
-        uint uVar6;
-        uint* puVar7;
-        hashtable_iterator_base* extraout_RDX;
-        long extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        eastl local_40[8];
-        hashtable_iterator_base local_38[8];
+        unsigned int uVar1;
+        unsigned int arg2;
+        unsigned int* puVar3;
+        ManagedBuffer<ShaderConstBuffer>* managedBuffer1;
+        unsigned int in_R9D;
+        uint8_t auVar4[16];
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_38;
 
-        (SUB81(this, 0))->GarbageCollect();
-        eastl::vector<unsigned long,
-                      eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar5 = eastl::operator!=(local_40, local_38, extraout_RDX);
-        if (bVar5) {
+        ((uint8_t)this)->GarbageCollect();
+        ReturnValue local_40 = ((this + 4))->rbegin();
+        local_38.end();
+        bool cVar2 = local_40 != local_38;
+        if (cVar2) {
             do {
-                puVar7 = (uint*)eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                this_00 = (Layout*)(puVar7 + 2);
-                uVar2 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_00);
-                uVar3 = this_00->end();
-                lVar4 = eastl::minmax_element<ManagedBuffer<VertexBuffer> const*,
-                                              BufferPool<VertexBuffer>::OnEndFrame()::_lambda(
-                                                  auto : 1_const &, auto : 2_const &) _1_>(uVar2, uVar3);
-                uVar1 = *puVar7;
-                uVar6 = this_00->size();
-                BufferPoolStats::RecordEndOfFrameStats("ShaderConstBuffer", uVar1, uVar6, *(uint*)(lVar4 + 80),
-                                                       *(uint*)(extraout_RDX_00 + 80));
-                eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator++(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                bVar5 = eastl::operator!=(local_40, local_38, extraout_RDX_01);
-            } while (bVar5);
+                puVar3 = (unsigned int*)*local_40;
+                this_00 = (Layout*)(puVar3 + 2);
+                managedBuffer1 = (ManagedBuffer<ShaderConstBuffer>*)this_00->HeapBeginPtr();
+                auVar4 = this_00->end();
+                auVar4 = eastl::minmax_element<ManagedBuffer<VertexBuffer> const*,
+                                               BufferPool<VertexBuffer>::OnEndFrame()::_lambda(
+                                                   auto : 1 const&, auto : 2 const&) _1_>(managedBuffer1, auVar4._0_8_,
+                                                                                          auVar4._8_8_);
+                uVar1 = *puVar3;
+                arg2 = this_00->size();
+                ((BufferPoolStats*)"ShaderConstBuffer")
+                    ->RecordEndOfFrameStats((char*)(unsigned long)uVar1, arg2, *(unsigned int*)(auVar4._0_8_ + 80),
+                                            *(unsigned int*)(auVar4._8_8_ + 80), in_R9D);
+                ++local_40;
+                cVar2 = local_40 != local_38;
+            } while (cVar2);
         }
     }
 
-    // 0x100c11440, 576 bytes, inline, placed by class header (inline)
-    // BufferPool<ShaderConstBuffer>::GarbageCollect(bool)
-    void BufferPool<ShaderConstBuffer>::GarbageCollect(bool param_1) {
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        uint uVar4;
-        long lVar5;
+    // 0x100c11440
+    void BufferPool<ShaderConstBuffer>::GarbageCollect(bool arg1) {
+        unsigned int uVar2;
+        unsigned int uVar3;
+        long lVar4;
         BufferInterface* this_00;
-        BufferInterface* pBVar6;
-        undefined8 uVar7;
-        undefined8 uVar8;
-        ManagedBuffer* pMVar9;
-        ManagedBuffer* pMVar10;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        uint uVar11;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_01;
-        undefined8 local_50;
-        hashtable_iterator_base local_48[8];
-        BufferPool<ShaderConstBuffer>* local_40;
-        eastl local_38[8];
+        BufferInterface* pBVar5;
+        ManagedBuffer<ShaderConstBuffer>* pMVar6;
+        ManagedBuffer<ShaderConstBuffer>* managedBuffer2;
+        unsigned int uVar7;
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_01;
+        uint8_t auVar8[16];
+        rbtree_iterator<eastl::pair<unsigned int const, eastl::vector<ManagedBuffer<ShaderConstBuffer>> _>,
+                        eastl::pair<unsigned int const, eastl::vector<ManagedBuffer<ShaderConstBuffer>> _> const*,
+                        eastl::pair<unsigned int const, eastl::vector<ManagedBuffer<ShaderConstBuffer>> _> const&>*
+            local_50;
+        ReturnValue local_48;
+        vector<unsigned long, eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true>>* local_40;
+        ReturnValue local_38;
 
-        cVar1 = this_thread::IsMainThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if (!cVar1) {
             LogAssert("this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                       "PooledBuffer.cpp",
-                      320, (char*)0);
+                      320, nullptr);
         }
-        if (param_1) {
+        if (arg1) {
             BufferPoolStats::PrintPoolUsage();
-            ((this + 32))->clear();
+            ((this + 4))->clear();
             BufferPoolStats::ResetStats();
         } else {
-            eastl::vector<unsigned long,
-                          eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-            eastl::rbtree<
-                unsigned int,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::less<unsigned int>, eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                true, true>::end();
-            bVar2 = eastl::operator!=(local_38, local_48, extraout_RDX);
-            if (bVar2) {
-                local_40 = this + 32;
+            local_38 = ((this + 4))->rbegin();
+            local_48.end();
+            cVar1 = local_38 != local_48;
+            if (cVar1) {
+                local_40 = (vector<unsigned long, eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true>>*)(this + 4);
                 do {
-                    lVar5 = eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_38);
-                    this_01 =
-                        (vector<int,
-                                eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(lVar5 + 8);
-                    cVar1 = eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_01);
-                    if (cVar1 != '\0') {
-                        /* WARNING: Subroutine does not return */
+                    lVar4 = *local_38;
+                    this_01 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(lVar4 + 8);
+                    cVar1 = this_01->empty();
+                    if (cVar1) {
                         LogAssert("!bufferList.empty()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "buffers/PooledBuffer.cpp",
-                                  334, (char*)0);
+                                  334, nullptr);
                     }
                     this_00 = (BufferInterface*)this_01->HeapBeginPtr();
-                    pBVar6 = (BufferInterface*)this_01->end();
-                    for (; this_00 != pBVar6; this_00 = (BufferInterface*)&this_00[1].m_nativeBuffer) {
-                        uVar11 = this_00[1].field_0 + 1;
-                        this_00[1].field_0 = uVar11;
-                        uVar3 = this_00->GetEndPosition();
-                        uVar4 = 1000;
-                        if (16383 < uVar3) {
-                            uVar4 = 5;
+                    pBVar5 = (BufferInterface*)this_01->end();
+                    for (; this_00 != pBVar5; this_00 = (BufferInterface*)&this_00[1].m_nativeBuffer) {
+                        uVar7 = this_00[1].field_0 + 1;
+                        this_00[1].field_0 = uVar7;
+                        uVar2 = this_00->GetEndPosition();
+                        uVar3 = 1000;
+                        if (16383 < uVar2) {
+                            uVar3 = 5;
                         }
-                        if ((uVar4 < uVar11) && (cVar1 = this_00->IsPermanent(), cVar1 == '\0')) {
+                        if ((uVar3 < uVar7) && (cVar1 = this_00->IsPermanent(), !cVar1)) {
                             this_00->Destroy();
                         }
                     }
-                    uVar7 = this_01->HeapBeginPtr();
-                    uVar8 = this_01->end();
-                    pMVar9 = std::remove_if<ManagedBuffer<ShaderConstBuffer>*,
+                    pMVar6 = (ManagedBuffer<ShaderConstBuffer>*)this_01->HeapBeginPtr();
+                    auVar8 = this_01->end();
+                    pMVar6 = std::remove_if<ManagedBuffer<ShaderConstBuffer>*,
                                             bool->GarbageCollect()::_lambda(ManagedBuffer<ShaderConstBuffer>&) _1_>(
-                        uVar7, uVar8);
-                    pMVar10 = (ManagedBuffer*)this_01->end();
-                    this_01->erase(pMVar9, pMVar10);
-                    uVar7 = this_01->HeapBeginPtr();
-                    uVar8 = this_01->end();
+                        pMVar6, auVar8._0_8_, auVar8._8_8_);
+                    managedBuffer2 = (ManagedBuffer<ShaderConstBuffer>*)this_01->end();
+                    this_01->erase(pMVar6, managedBuffer2);
+                    pMVar6 = (ManagedBuffer<ShaderConstBuffer>*)this_01->HeapBeginPtr();
+                    auVar8 = this_01->end();
                     eastl::shell_sort<ManagedBuffer<ShaderConstBuffer>*,
                                       bool->GarbageCollect()::_lambda(ManagedBuffer<ShaderConstBuffer> const&,
                                                                       ManagedBuffer<ShaderConstBuffer> const&) _1_>(
-                        uVar7, uVar8);
-                    cVar1 = eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_01);
-                    if (cVar1 == '\0') {
-                        eastl::rbtree_iterator<
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                        operator++((rbtree_iterator<
-                                    eastl::pair<unsigned int const,
-                                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                    eastl::pair<unsigned int const,
-                                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                    eastl::pair<unsigned int const,
-                                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                                       local_38);
+                        pMVar6, auVar8._0_8_, auVar8._8_8_);
+                    cVar1 = this_01->empty();
+                    if (!cVar1) {
+                        ++local_38;
                     } else {
-                        new (&local_50)
-                            eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(local_38);
-                        eastl::rbtree<
-                            unsigned int,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<ManagedBuffer<ShaderConstBuffer>, eastl::allocator>>,
-                            eastl::less<unsigned int>, eastl::allocator,
-                            eastl::use_first<eastl::pair<
-                                unsigned int const, eastl::vector<ManagedBuffer<ShaderConstBuffer>, eastl::allocator>>>,
-                            true, true>::erase((rbtree_iterator*)local_48, local_40, local_50);
-                        eastl::rbtree_iterator<
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                        operator=(
-                            (rbtree_iterator<
-                                eastl::pair<unsigned int const,
-                                            eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                eastl::pair<unsigned int const,
-                                            eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                eastl::pair<unsigned int const,
-                                            eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_38,
-                            (rbtree_iterator*)local_48);
+                        new (&local_50) eastl::ListIterator(&local_38);
+                        local_48 = local_40->erase(local_50);
+                        local_38 = local_48;
                     }
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                        true, true>::end();
-                    bVar2 = eastl::operator!=(local_38, local_48, extraout_RDX_00);
-                } while (bVar2);
+                    local_48.end();
+                    cVar1 = local_38 != local_48;
+                } while (cVar1);
             }
         }
     }
 
-    // 0x100c11690, 16 bytes, inline, placed by class header (inline)
-    // BufferPool<ShaderConstBuffer>::OnDeviceLost()
+    // 0x100c11690
     void BufferPool<ShaderConstBuffer>::OnDeviceLost() {
-        (SUB81(this, 0))->GarbageCollect();
+        ((uint8_t)this)->GarbageCollect();
     }
 
-    // 0x100c126f0, 224 bytes, base-object constructor, inline, placed by class header (inline)
-    // BufferPool<PixelUnpackBuffer>::BufferPool()
-    void BufferPool<PixelUnpackBuffer>::BufferPool() {
-        undefined* puVar1;
-        allocator local_30[8];
-
-        new (this) AutoSingleton<BufferPool<PixelUnpackBuffer>>();
-        new (this) RenderDeviceCallback(true, 3);
-        new ((this + 16)) RenderDeviceOnEndFrame(true);
-        puVar1 = PTR_vtable_100ee86c0;
-        *(undefined**)this = PTR_vtable_100ee86c0 + 16;
-        *(undefined**)(this + 16) = puVar1 + 72;
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)(this + 32));
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)(this + 80));
+    // 0x100c126f0
+    BufferPool<PixelUnpackBuffer>::BufferPool()
+        : AutoSingleton<BufferPool<PixelUnpackBuffer>>(), RenderDeviceCallback(true, 3) {
+        new ((this + 2)) RenderDeviceOnEndFrame(true);
+        uint8_t* puVar1 = PTR_vtable_100ee86c0;
+        new ((this + 4)) eastl::map(local_30);
+        new ((this + 10)) eastl::map(local_30);
     }
 
-    // 0x100c12830, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // BufferPool<PixelUnpackBuffer>::BufferPool(): jumps straight to the base-object constructor
-
-    // 0x100c12840, 208 bytes, inline, placed by class header (inline)
-    // BufferPool<PixelUnpackBuffer>::OnEndFrame()
+    // 0x100c12840
     void BufferPool<PixelUnpackBuffer>::OnEndFrame() {
         Layout* this_00;
-        uint uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        long lVar4;
-        bool bVar5;
-        uint uVar6;
-        uint* puVar7;
-        hashtable_iterator_base* extraout_RDX;
-        long extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        eastl local_40[8];
-        hashtable_iterator_base local_38[8];
+        unsigned int uVar1;
+        unsigned int arg2;
+        unsigned int* puVar3;
+        ManagedBuffer<ShaderConstBuffer>* managedBuffer1;
+        unsigned int in_R9D;
+        uint8_t auVar4[16];
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_38;
 
-        (SUB81(this, 0))->GarbageCollect();
-        eastl::vector<unsigned long,
-                      eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar5 = eastl::operator!=(local_40, local_38, extraout_RDX);
-        if (bVar5) {
+        ((uint8_t)this)->GarbageCollect();
+        ReturnValue local_40 = ((this + 4))->rbegin();
+        local_38.end();
+        bool cVar2 = local_40 != local_38;
+        if (cVar2) {
             do {
-                puVar7 = (uint*)eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                this_00 = (Layout*)(puVar7 + 2);
-                uVar2 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_00);
-                uVar3 = this_00->end();
-                lVar4 = eastl::minmax_element<ManagedBuffer<VertexBuffer> const*,
-                                              BufferPool<VertexBuffer>::OnEndFrame()::_lambda(
-                                                  auto : 1_const &, auto : 2_const &) _1_>(uVar2, uVar3);
-                uVar1 = *puVar7;
-                uVar6 = this_00->size();
-                BufferPoolStats::RecordEndOfFrameStats("PixelUnpackBuffer", uVar1, uVar6, *(uint*)(lVar4 + 80),
-                                                       *(uint*)(extraout_RDX_00 + 80));
-                eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator++(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                bVar5 = eastl::operator!=(local_40, local_38, extraout_RDX_01);
-            } while (bVar5);
+                puVar3 = (unsigned int*)*local_40;
+                this_00 = (Layout*)(puVar3 + 2);
+                managedBuffer1 = (ManagedBuffer<ShaderConstBuffer>*)this_00->HeapBeginPtr();
+                auVar4 = this_00->end();
+                auVar4 = eastl::minmax_element<ManagedBuffer<VertexBuffer> const*,
+                                               BufferPool<VertexBuffer>::OnEndFrame()::_lambda(
+                                                   auto : 1 const&, auto : 2 const&) _1_>(managedBuffer1, auVar4._0_8_,
+                                                                                          auVar4._8_8_);
+                uVar1 = *puVar3;
+                arg2 = this_00->size();
+                ((BufferPoolStats*)"PixelUnpackBuffer")
+                    ->RecordEndOfFrameStats((char*)(unsigned long)uVar1, arg2, *(unsigned int*)(auVar4._0_8_ + 80),
+                                            *(unsigned int*)(auVar4._8_8_ + 80), in_R9D);
+                ++local_40;
+                cVar2 = local_40 != local_38;
+            } while (cVar2);
         }
     }
 
-    // 0x100c12910, 576 bytes, inline, placed by class header (inline)
-    // BufferPool<PixelUnpackBuffer>::GarbageCollect(bool)
-    void BufferPool<PixelUnpackBuffer>::GarbageCollect(bool param_1) {
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        uint uVar4;
-        long lVar5;
+    // 0x100c12910
+    void BufferPool<PixelUnpackBuffer>::GarbageCollect(bool arg1) {
+        unsigned int uVar2;
+        unsigned int uVar3;
+        long lVar4;
         BufferInterface* this_00;
-        BufferInterface* pBVar6;
-        undefined8 uVar7;
-        undefined8 uVar8;
-        ManagedBuffer* pMVar9;
-        ManagedBuffer* pMVar10;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        uint uVar11;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_01;
-        undefined8 local_50;
-        hashtable_iterator_base local_48[8];
-        BufferPool<PixelUnpackBuffer>* local_40;
-        eastl local_38[8];
+        BufferInterface* pBVar5;
+        ManagedBuffer<PixelUnpackBuffer>* pMVar6;
+        ManagedBuffer<PixelUnpackBuffer>* managedBuffer2;
+        unsigned int uVar7;
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_01;
+        uint8_t auVar8[16];
+        rbtree_iterator<eastl::pair<unsigned int const, eastl::vector<ManagedBuffer<PixelUnpackBuffer>> _>,
+                        eastl::pair<unsigned int const, eastl::vector<ManagedBuffer<PixelUnpackBuffer>> _> const*,
+                        eastl::pair<unsigned int const, eastl::vector<ManagedBuffer<PixelUnpackBuffer>> _> const&>*
+            local_50;
+        ReturnValue local_48;
+        vector<unsigned long, eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true>>* local_40;
+        ReturnValue local_38;
 
-        cVar1 = this_thread::IsMainThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if (!cVar1) {
             LogAssert("this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                       "PooledBuffer.cpp",
-                      320, (char*)0);
+                      320, nullptr);
         }
-        if (param_1) {
+        if (arg1) {
             BufferPoolStats::PrintPoolUsage();
-            ((this + 32))->clear();
+            ((this + 4))->clear();
             BufferPoolStats::ResetStats();
         } else {
-            eastl::vector<unsigned long,
-                          eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-            eastl::rbtree<
-                unsigned int,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::less<unsigned int>, eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                true, true>::end();
-            bVar2 = eastl::operator!=(local_38, local_48, extraout_RDX);
-            if (bVar2) {
-                local_40 = this + 32;
+            local_38 = ((this + 4))->rbegin();
+            local_48.end();
+            cVar1 = local_38 != local_48;
+            if (cVar1) {
+                local_40 = (vector<unsigned long, eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true>>*)(this + 4);
                 do {
-                    lVar5 = eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_38);
-                    this_01 =
-                        (vector<int,
-                                eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(lVar5 + 8);
-                    cVar1 = eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_01);
-                    if (cVar1 != '\0') {
-                        /* WARNING: Subroutine does not return */
+                    lVar4 = *local_38;
+                    this_01 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(lVar4 + 8);
+                    cVar1 = this_01->empty();
+                    if (cVar1) {
                         LogAssert("!bufferList.empty()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "buffers/PooledBuffer.cpp",
-                                  334, (char*)0);
+                                  334, nullptr);
                     }
                     this_00 = (BufferInterface*)this_01->HeapBeginPtr();
-                    pBVar6 = (BufferInterface*)this_01->end();
-                    for (; this_00 != pBVar6; this_00 = (BufferInterface*)&this_00[1].m_nativeBuffer) {
-                        uVar11 = this_00[1].field_0 + 1;
-                        this_00[1].field_0 = uVar11;
-                        uVar3 = this_00->GetEndPosition();
-                        uVar4 = 1000;
-                        if (16383 < uVar3) {
-                            uVar4 = 5;
+                    pBVar5 = (BufferInterface*)this_01->end();
+                    for (; this_00 != pBVar5; this_00 = (BufferInterface*)&this_00[1].m_nativeBuffer) {
+                        uVar7 = this_00[1].field_0 + 1;
+                        this_00[1].field_0 = uVar7;
+                        uVar2 = this_00->GetEndPosition();
+                        uVar3 = 1000;
+                        if (16383 < uVar2) {
+                            uVar3 = 5;
                         }
-                        if ((uVar4 < uVar11) && (cVar1 = this_00->IsPermanent(), cVar1 == '\0')) {
+                        if ((uVar3 < uVar7) && (cVar1 = this_00->IsPermanent(), !cVar1)) {
                             this_00->Destroy();
                         }
                     }
-                    uVar7 = this_01->HeapBeginPtr();
-                    uVar8 = this_01->end();
-                    pMVar9 = std::remove_if<ManagedBuffer<PixelUnpackBuffer>*,
+                    pMVar6 = (ManagedBuffer<PixelUnpackBuffer>*)this_01->HeapBeginPtr();
+                    auVar8 = this_01->end();
+                    pMVar6 = std::remove_if<ManagedBuffer<PixelUnpackBuffer>*,
                                             bool->GarbageCollect()::_lambda(ManagedBuffer<PixelUnpackBuffer>&) _1_>(
-                        uVar7, uVar8);
-                    pMVar10 = (ManagedBuffer*)this_01->end();
-                    this_01->erase(pMVar9, pMVar10);
-                    uVar7 = this_01->HeapBeginPtr();
-                    uVar8 = this_01->end();
+                        pMVar6, auVar8._0_8_, auVar8._8_8_);
+                    managedBuffer2 = (ManagedBuffer<PixelUnpackBuffer>*)this_01->end();
+                    this_01->erase(pMVar6, managedBuffer2);
+                    pMVar6 = (ManagedBuffer<PixelUnpackBuffer>*)this_01->HeapBeginPtr();
+                    auVar8 = this_01->end();
                     eastl::shell_sort<ManagedBuffer<PixelUnpackBuffer>*,
                                       bool->GarbageCollect()::_lambda(ManagedBuffer<PixelUnpackBuffer> const&,
                                                                       ManagedBuffer<PixelUnpackBuffer> const&) _1_>(
-                        uVar7, uVar8);
-                    cVar1 = eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_01);
-                    if (cVar1 == '\0') {
-                        eastl::rbtree_iterator<
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                        operator++((rbtree_iterator<
-                                    eastl::pair<unsigned int const,
-                                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                    eastl::pair<unsigned int const,
-                                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                    eastl::pair<unsigned int const,
-                                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                                       local_38);
+                        pMVar6, auVar8._0_8_, auVar8._8_8_);
+                    cVar1 = this_01->empty();
+                    if (!cVar1) {
+                        ++local_38;
                     } else {
-                        new (&local_50)
-                            eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(local_38);
-                        eastl::rbtree<
-                            unsigned int,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>>,
-                            eastl::less<unsigned int>, eastl::allocator,
-                            eastl::use_first<eastl::pair<
-                                unsigned int const, eastl::vector<ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>>>,
-                            true, true>::erase((rbtree_iterator*)local_48, local_40, local_50);
-                        eastl::rbtree_iterator<
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                        operator=(
-                            (rbtree_iterator<
-                                eastl::pair<unsigned int const,
-                                            eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                eastl::pair<unsigned int const,
-                                            eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                eastl::pair<unsigned int const,
-                                            eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_38,
-                            (rbtree_iterator*)local_48);
+                        new (&local_50) eastl::ListIterator(&local_38);
+                        local_48 = local_40->erase(local_50);
+                        local_38 = local_48;
                     }
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                        true, true>::end();
-                    bVar2 = eastl::operator!=(local_38, local_48, extraout_RDX_00);
-                } while (bVar2);
+                    local_48.end();
+                    cVar1 = local_38 != local_48;
+                } while (cVar1);
             }
         }
     }
 
-    // 0x100c12b60, 16 bytes, inline, placed by class header (inline)
-    // BufferPool<PixelUnpackBuffer>::OnDeviceLost()
+    // 0x100c12b60
     void BufferPool<PixelUnpackBuffer>::OnDeviceLost() {
-        (SUB81(this, 0))->GarbageCollect();
+        ((uint8_t)this)->GarbageCollect();
     }
 
-    // 0x100c31070, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<IndexBuffer>::~BufferPool(): jumps straight to the base-object destructor
-
-    // 0x100c31080, 32 bytes, deleting destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<IndexBuffer>::~BufferPool()
-    void BufferPool<IndexBuffer>::~BufferPool() {
-        ~BufferPool(this);
-        operator_delete(this);
+    // 0x100c37470
+    BufferPool<IndexBuffer>::~BufferPool() {
+        uint8_t* puVar1 = PTR_vtable_100ee86b0;
+        ((this + 10))->~map();
+        ((this + 4))->~map();
+        ((this + 2))->~RenderDeviceOnEndFrame();
     }
 
-    // 0x100c310c0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<VertexBuffer>::~BufferPool(): jumps straight to the base-object destructor
-
-    // 0x100c310d0, 32 bytes, deleting destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<VertexBuffer>::~BufferPool()
-    void BufferPool<VertexBuffer>::~BufferPool() {
-        ~BufferPool(this);
-        operator_delete(this);
+    // 0x100c374d0
+    BufferPool<VertexBuffer>::~BufferPool() {
+        uint8_t* puVar1 = PTR_vtable_100ee86b8;
+        ((this + 10))->~map();
+        ((this + 4))->~map();
+        ((this + 2))->~RenderDeviceOnEndFrame();
     }
 
-    // 0x100c31110, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<ShaderConstBuffer>::~BufferPool(): jumps straight to the base-object destructor
-
-    // 0x100c31120, 32 bytes, deleting destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<ShaderConstBuffer>::~BufferPool()
-    void BufferPool<ShaderConstBuffer>::~BufferPool() {
-        ~BufferPool(this);
-        operator_delete(this);
+    // 0x100c37530
+    BufferPool<ShaderConstBuffer>::~BufferPool() {
+        uint8_t* puVar1 = PTR_vtable_100ee86c8;
+        ((this + 10))->~map();
+        ((this + 4))->~map();
+        ((this + 2))->~RenderDeviceOnEndFrame();
     }
 
-    // 0x100c31160, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<PixelUnpackBuffer>::~BufferPool(): jumps straight to the base-object destructor
-
-    // 0x100c31170, 32 bytes, deleting destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<PixelUnpackBuffer>::~BufferPool()
-    void BufferPool<PixelUnpackBuffer>::~BufferPool() {
-        ~BufferPool(this);
-        operator_delete(this);
-    }
-
-    // 0x100c37470, 96 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<IndexBuffer>::~BufferPool()
-    void BufferPool<IndexBuffer>::~BufferPool() {
-        undefined* puVar1;
-
-        puVar1 = PTR_vtable_100ee86b0;
-        *(undefined**)this = PTR_vtable_100ee86b0 + 16;
-        *(undefined**)(this + 16) = puVar1 + 72;
-        ((this + 80))->~map();
-        ((this + 32))->~map();
-        ((this + 16))->~RenderDeviceOnEndFrame();
-        ~RenderDeviceCallback();
-        ~AutoSingleton();
-    }
-
-    // 0x100c374d0, 96 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<VertexBuffer>::~BufferPool()
-    void BufferPool<VertexBuffer>::~BufferPool() {
-        undefined* puVar1;
-
-        puVar1 = PTR_vtable_100ee86b8;
-        *(undefined**)this = PTR_vtable_100ee86b8 + 16;
-        *(undefined**)(this + 16) = puVar1 + 72;
-        ((this + 80))->~map();
-        ((this + 32))->~map();
-        ((this + 16))->~RenderDeviceOnEndFrame();
-        ~RenderDeviceCallback();
-        ~AutoSingleton();
-    }
-
-    // 0x100c37530, 96 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<ShaderConstBuffer>::~BufferPool()
-    void BufferPool<ShaderConstBuffer>::~BufferPool() {
-        undefined* puVar1;
-
-        puVar1 = PTR_vtable_100ee86c8;
-        *(undefined**)this = PTR_vtable_100ee86c8 + 16;
-        *(undefined**)(this + 16) = puVar1 + 72;
-        ((this + 80))->~map();
-        ((this + 32))->~map();
-        ((this + 16))->~RenderDeviceOnEndFrame();
-        ~RenderDeviceCallback();
-        ~AutoSingleton();
-    }
-
-    // 0x100c37590, 96 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // BufferPool<PixelUnpackBuffer>::~BufferPool()
-    void BufferPool<PixelUnpackBuffer>::~BufferPool() {
-        undefined* puVar1;
-
-        puVar1 = PTR_vtable_100ee86c0;
-        *(undefined**)this = PTR_vtable_100ee86c0 + 16;
-        *(undefined**)(this + 16) = puVar1 + 72;
-        ((this + 80))->~map();
-        ((this + 32))->~map();
-        ((this + 16))->~RenderDeviceOnEndFrame();
-        ~RenderDeviceCallback();
-        ~AutoSingleton();
+    // 0x100c37590
+    BufferPool<PixelUnpackBuffer>::~BufferPool() {
+        uint8_t* puVar1 = PTR_vtable_100ee86c0;
+        ((this + 10))->~map();
+        ((this + 4))->~map();
+        ((this + 2))->~RenderDeviceOnEndFrame();
     }
 
 } // namespace jag::render::internal
@@ -925,13 +488,19 @@ namespace jag::render {
     class BufferPoolStats {
     public:
         class PoolStats;
-        void RecordBufferCreation(char const*, unsigned int, unsigned int, BufferCreationReason);
-        void RecordBufferRecycle(char const*, unsigned int, unsigned int, unsigned int);
-        void RecordBufferDestruction(char const*, unsigned int, unsigned int, unsigned int);
-        void RecordEndOfFrameStats(char const*, unsigned int, unsigned int, unsigned int, unsigned int);
+        void RecordBufferCreation(const char* str, unsigned int arg2, unsigned int arg3,
+                                  BufferCreationReason bufferCreationReason);
+        void RecordBufferRecycle(const char* str, unsigned int arg2, unsigned int arg3, unsigned int arg4);
+        void RecordBufferDestruction(const char* str, unsigned int arg2, unsigned int arg3, unsigned int arg4);
+        void RecordEndOfFrameStats(const char* str, unsigned int arg2, unsigned int arg3, unsigned int arg4,
+                                   unsigned int arg5);
         void PrintPoolUsage();
         void ResetStats();
-        static /* 56 bytes */ m_stats;
+        static eastl::hash_map<eastl::fixed_string<char, 64>, eastl::map<unsigned int, PoolStats>,
+                               eastl::string_hash<eastl::fixed_string<char, 64>>>
+            m_stats;
+
+        uint8_t _unknown_0[1];
     };
 
     class BufferPoolStats::PoolStats {
@@ -941,35 +510,29 @@ namespace jag::render {
 
     class StencilOpDesc {
     public:
-        operator==(StencilOpDesc const&) const;
+        uint32_t operator==(const StencilOpDesc& rect) const;
         StencilOpDesc();
         void SetToDefault();
 
-        // data members, from how the methods use this: 20 bytes
-        int field_0;  // offset 0
-        int field_4;  // offset 4
-        int field_8;  // offset 8
-        int field_12; // offset 12
-        char _unknown_16[4];
+    private:
+        int field_0;
+        int field_4;
+        int field_8;
+        int field_12;
+        uint8_t _unknown_16[4];
     };
 
-    // 0x100c319f0, 16 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // GPUMemoryTrackingEntry::~GPUMemoryTrackingEntry()
-    void GPUMemoryTrackingEntry::~GPUMemoryTrackingEntry() {
-        Unregister(this);
+    // 0x100c319f0
+    GPUMemoryTrackingEntry::~GPUMemoryTrackingEntry() {
+        Unregister();
     }
 
-    // 0x100c32d00, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // StencilOpDesc::StencilOpDesc(): jumps straight to the base-object constructor
-
-    // 0x100c32d10, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // StencilOpDesc::StencilOpDesc()
-    void StencilOpDesc::StencilOpDesc() {
-        SetToDefault(this);
+    // 0x100c32d10
+    StencilOpDesc::StencilOpDesc() {
+        SetToDefault();
     }
 
-    // 0x100c32d20, 16 bytes, inline, placed by debug map only (low confidence)
-    // StencilOpDesc::SetToDefault()
+    // 0x100c32d20
     void StencilOpDesc::SetToDefault() {
         field_0 = 7680;
         field_4 = 7680;
@@ -977,144 +540,112 @@ namespace jag::render {
         field_12 = 519;
     }
 
-    // 0x100c32db0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // RenderTargetBlendDesc::RenderTargetBlendDesc(): jumps straight to the base-object constructor
-
-    // 0x100c32dc0, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // RenderTargetBlendDesc::RenderTargetBlendDesc()
-    void RenderTargetBlendDesc::RenderTargetBlendDesc() {
-        SetToDefault(this);
+    // 0x100c32dc0
+    RenderTargetBlendDesc::RenderTargetBlendDesc() {
+        SetToDefault();
     }
 
-    // 0x100c32dd0, 48 bytes, inline, placed by debug map only (low confidence)
-    // RenderTargetBlendDesc::SetToDefault()
+    // 0x100c32dd0
     void RenderTargetBlendDesc::SetToDefault() {
         field_0 = 0;
         field_4 = 1;
         field_8 = 0;
-        *(undefined**)&field_12 = &UNK_100008006;
+        *(uint8_t**)&field_12 = &UNK_100008006;
         field_20 = 0;
         field_24 = 32774;
         field_28 = 15;
     }
 
-    // 0x100c33000, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // VertexArrayObject::VertexArrayObject()
-    void VertexArrayObject::VertexArrayObject() {
-        new (this) MakeSharedPool<VertexArrayObject, 2048>();
-        m_nativeVAO = 0;
-        m_lastUsageSeconds = 0.0;
+    // 0x100c33000
+    VertexArrayObject::VertexArrayObject()
+        : MakeSharedPool<VertexArrayObject, 2048>(), m_nativeVAO(0), m_lastUsageSeconds(0.0) {}
+
+    // 0x100c34c40
+    RenderContextStateCache::~RenderContextStateCache() {
+        field_696.~fixed_vector();
+        field_528.~fixed_vector();
+        field_360.~fixed_vector();
+        field_72.~fixed_vector();
     }
 
-    // 0x100c34c40, 64 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // RenderContextStateCache::~RenderContextStateCache()
-    void RenderContextStateCache::~RenderContextStateCache() {
-        (&field_696)->~fixed_vector();
-        (&field_528)->~fixed_vector();
-        (&field_360)->~fixed_vector();
-        (&field_72)->~fixed_vector();
-    }
+    // 0x100c350a0
+    uint32_t RenderTargetBlendDesc::operator==(const RenderTargetBlendDesc& renderTargetBlendDesc) const {
+        uint32_t uVar1;
 
-    // 0x100c350a0, 80 bytes, inline, placed by debug map only (low confidence)
-    // RenderTargetBlendDesc::operator==(RenderTargetBlendDesc const&) const
-    /* RenderTargetBlendDesc::TEMPNAMEPLACEHOLDERVALUE(RenderTargetBlendDesc
-   const&) const */
-
-    undefined4 RenderTargetBlendDesc::operator==(RenderTargetBlendDesc* param_1) {
-        undefined4 uVar1;
-
-        if ((((field_0 == param_1->field_0) && (field_4 == param_1->field_4)) && (field_8 == param_1->field_8)) &&
-            (((*(int*)&field_12 == *(int*)&param_1->field_12 && (field_16 == param_1->field_16)) &&
-              ((field_20 == param_1->field_20 && (field_24 == param_1->field_24)))))) {
-            uVar1 = CONCAT31((int3)((uint)field_24 >> 8), field_28 == param_1->field_28);
+        if ((((field_0 == renderTargetBlendDesc.field_0) && (field_4 == renderTargetBlendDesc.field_4)) &&
+             (field_8 == renderTargetBlendDesc.field_8)) &&
+            (((*(int*)&field_12 == *(int*)&renderTargetBlendDesc.field_12 &&
+               (field_16 == renderTargetBlendDesc.field_16)) &&
+              ((field_20 == renderTargetBlendDesc.field_20 && (field_24 == renderTargetBlendDesc.field_24)))))) {
+            uVar1 = (((uint32_t)((int32_t)((unsigned int)field_24 >> 8)) << 8) |
+                     (uint8_t)(field_28 == renderTargetBlendDesc.field_28));
         } else {
             uVar1 = 0;
         }
         return uVar1;
     }
 
-    // 0x100c37030, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // GPUMemoryAllocatorZone::~GPUMemoryAllocatorZone()
-    void GPUMemoryAllocatorZone::~GPUMemoryAllocatorZone() {
-        (&field_29696)->~fixed_map();
-        (&field_584)->~fixed_map();
-        /* WARNING: Subroutine does not return */
-        ~fixed_string();
+    // 0x100c37030
+    GPUMemoryAllocatorZone::~GPUMemoryAllocatorZone() {
+        field_29696.~fixed_map();
+        field_584.~fixed_map();
     }
 
-    // 0x100c372a0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DeviceCallbacks::~DeviceCallbacks(): jumps straight to the base-object destructor
-
-    // 0x100c372b0, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // DeviceCallbacks::~DeviceCallbacks()
-    void DeviceCallbacks::~DeviceCallbacks() {
-        (&field_56)->~vector();
-        ~hash_map();
+    // 0x100c372b0
+    DeviceCallbacks::~DeviceCallbacks() {
+        field_56.~vector();
     }
 
-    // 0x100c37b80, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ResourceDataT<unsigned char const>::ResourceDataT(unsigned char const*, unsigned int, unsigned int, bool)
-    /* ResourceDataT<unsigned char>::ResourceDataT(unsigned char*, unsigned int, unsigned
-   int, bool) */
-
-    void ResourceDataT<unsigned char>::ResourceDataT(uchar* param_1, uint param_2, uint param_3, bool param_4) {
-        *(uchar**)this = param_1;
-        *(uint*)(this + 8) = param_2;
-        *(uint*)(this + 12) = param_3;
-        this[16] = (ResourceDataT<unsigned char>)param_4;
+    // 0x100c37b80
+    ResourceDataT<unsigned char const>::ResourceDataT(const unsigned char* arg1, unsigned int arg2, unsigned int arg3,
+                                                      bool arg4) {
+        *(unsigned char**)this = arg1;
+        *(unsigned int*)(this + 8) = arg2;
+        *(unsigned int*)(this + 12) = arg3;
+        this[16] = (ResourceDataT<unsigned char>)arg4;
     }
 
-    // 0x100c37ba0, 32 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // ResourceDataT<unsigned char const>::~ResourceDataT()
-    /* ResourceDataT<unsigned char>::~ResourceDataT() */
-
-    void ResourceDataT<unsigned char>::~ResourceDataT() {
+    // 0x100c37ba0
+    ResourceDataT<unsigned char const>::~ResourceDataT() {
         if (this[16] != (ResourceDataT<unsigned char>)0) {
-            safe_delete_array<float>((float**)this);
+            safe_delete_array<float>((unsigned char**)this);
         }
     }
 
 } // namespace jag::render
 
 namespace jag::math {
-    // 0x100c312a0, 32 bytes, inline, placed by debug map only (low confidence)
-    // IsPowerOf2(unsigned int)
-    undefined4 IsPowerOf2(uint param_1) {
-        if (param_1 == 0) {
+    // 0x100c312a0
+    void IsPowerOf2(unsigned int arg1) {
+        if (arg1 == 0) {
             return 0;
         }
-        return CONCAT31((int3)(param_1 - 1 >> 8), (param_1 & param_1 - 1) == 0);
+        return (arg1 & arg1 - 1) == 0;
     }
 
-    // 0x100c312c0, 32 bytes, inline, placed by debug map only (low confidence)
-    // RoundDownToPowerOf2(unsigned int)
-    int RoundDownToPowerOf2(uint param_1) {
-        int iVar1;
-        int iVar2;
-
-        iVar1 = GetPowerOf2(param_1);
-        iVar2 = -1;
+    // 0x100c312c0
+    int RoundDownToPowerOf2(unsigned int arg1) {
+        int iVar1 = GetPowerOf2(arg1);
+        int iVar2 = -1;
         if (-1 < iVar1) {
-            iVar2 = 1 << ((byte)iVar1 & 31);
+            iVar2 = 1 << ((uint8_t)iVar1 & 31);
         }
         return iVar2;
     }
 
-    // 0x100c312e0, 32 bytes, inline, placed by debug map only (low confidence)
-    // GetPowerOf2(unsigned int)
-    int GetPowerOf2(uint param_1) {
+    // 0x100c312e0
+    int GetPowerOf2(unsigned int arg1) {
         bool bVar1;
-        int iVar2;
-        ulong uVar3;
+        unsigned long uVar3;
 
-        iVar2 = -1;
-        if (param_1 != 0) {
-            uVar3 = (ulong)param_1;
+        int iVar2 = -1;
+        if (arg1 != 0) {
+            uVar3 = (unsigned long)arg1;
             do {
                 uVar3 = uVar3 >> 1;
                 iVar2 = iVar2 + 1;
-                bVar1 = 1 < param_1;
-                param_1 = (uint)uVar3;
+                bVar1 = 1 < arg1;
+                arg1 = (unsigned int)uVar3;
             } while (bVar1);
         }
         return iVar2;
@@ -1123,61 +654,42 @@ namespace jag::math {
 } // namespace jag::math
 
 namespace jag::fixedfunction {
-    // 0x100c37c00, 80 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function(function<void (render::RenderContext&), 128ul, 16ul, (Methods)0> const&)
-    /* function<void (render::RenderContext&), 128ul, 16ul,
-   (Methods)0>::function(function<void
-   (render::RenderContext&), 128ul, 16ul, (Methods)0>&&) */
-
-    void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function(
-        function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>* this, function* param_1) {
-        *(long*)this = param_1->field_0;
-        *(undefined8*)(this + 144) = *(undefined8*)&param_1->field_144;
-        *(undefined8*)(this + 152) = *(undefined8*)&param_1->field_152;
-        if (operator_cast_to_bool()) {
-            function<void(BaseApp*), 128ul, 16ul, (Methods)0>::copy(
-                (function<void(BaseApp*), 128ul, 16ul, (Methods)0>*)param_1, this + 16);
+    // 0x100c37c00
+    function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function(
+        function<void(render::RenderContext&), 128ul, 16ul, (Methods)0> const& callback) {
+        *(uint64_t*)this = *(uint64_t*)callback;
+        *(uint64_t*)(this + 144) = *(uint64_t*)(callback + 144);
+        *(uint64_t*)(this + 152) = *(uint64_t*)(callback + 152);
+        if (operator_cast_to_bool() != '\0') {
+            callback.copy(this + 16);
         }
     }
 
-    // 0x100c37c50, 48 bytes, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::copy(void*) const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::copy(void*) const */
-
-    void
-    function<void(BaseApp*), 128ul, 16ul, (Methods)0>::copy(function<void(BaseApp*), 128ul, 16ul, (Methods)0>* this,
-                                                            void* param_1) {
-        if (operator_cast_to_bool()) {
-            (**(code**)(this + 144))(this + 16, param_1);
+    // 0x100c37c50
+    void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::copy(void* arg1) const {
+        if (operator_cast_to_bool() != '\0') {
+            (**(void (**)(...))(this + 144))(this + 16, arg1);
         }
     }
 
 } // namespace jag::fixedfunction
 
 namespace jag {
-    // 0x100c33320, 64 bytes, inline, placed by debug map only (low confidence)
-    // char const* DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator> >(eastl::fixed_string<char, 128, true, eastl::allocator>&, unsigned long long)
-    char* DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>(fixed_string* param_1,
-                                                                                   ulonglong param_2) {
-        float fVar2;
-
-        fVar2 = Bytes2Megabytes<unsigned long long>(param_2);
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            (char*)param_1, (double)fVar2, "%.3fMB");
+    // 0x100c33320
+    char const* DataSizeStringMB<eastl::fixed_string<char, 128>>(eastl::fixed_string<char, 128>& str,
+                                                                 unsigned long long arg2) {
+        float fVar2 = Bytes2Megabytes<unsigned long long>(arg2);
+        str.sprintf("%.3fMB", (double)fVar2);
         return (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
     }
 
 } // namespace jag
 
-// 0x100c37350, 48 bytes, inline, placed by debug map only (low confidence)
-// __isctype(int, unsigned long)
-bool __isctype(int param_1, ulong param_2) {
-    bool bVar1;
-
-    bVar1 = false;
-    if ((uint)param_1 < 256) {
-        bVar1 = (*(uint*)(PTR___DefaultRuneLocale_100ee4030 + (long)param_1 * 4 + 60) & (uint)param_2) != 0;
+// 0x100c37350
+bool __isctype(int arg1, unsigned long arg2) {
+    bool bVar1 = false;
+    if ((unsigned int)arg1 < 256) {
+        bVar1 = (*(unsigned int*)(PTR___DefaultRuneLocale_100ee4030 + (long)arg1 * 4 + 60) & (unsigned int)arg2) != 0;
     }
     return bVar1;
 }

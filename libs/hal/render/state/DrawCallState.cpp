@@ -1,368 +1,276 @@
 // libs/hal/render/state/DrawCallState.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "DrawCallState.h"
 
 namespace jag::render {
-    // 0x100009d00: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second(), which has identical code
-    DrawCallState::GetDrawParams();
+    // 0x100009d00: DrawCallState::GetDrawParams() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second()
 
-    // 0x10000b5b0: the linker folded this into fixedfunction::function<void (BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::allocated() const, which has identical code
-    DrawCallState::HasInputAssemblerState() const;
+    // 0x10000b5b0: DrawCallState::HasInputAssemblerState() const has the same machine code as fixedfunction::function<void (BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::allocated() const
 
-    // 0x100058b00: the linker folded this into shared_ptr<oldscape::rs2lib::worldmap::MapElement>::operator bool() const, which has identical code
-    DrawCallState::HasRenderPipelineState() const;
+    // 0x100058b00: DrawCallState::HasRenderPipelineState() const has the same machine code as shared_ptr<oldscape::rs2lib::worldmap::MapElement>::operator bool() const
 
-    // 0x1001a3cf0: the linker folded this into eastl::internal::function_detail<16, bool ()>::HaveManager() const, which has identical code
-    DrawCallState::HasOutputMergerState() const;
+    // 0x1001a3cf0: DrawCallState::HasOutputMergerState() const has the same machine code as eastl::internal::function_detail<16, bool ()>::HaveManager() const
 
-    // 0x100bdf420, 48 bytes, placed by class name and debug map
-    // DrawCallState::SetRenderPipelineState(RenderPipelineState*)
-    void DrawCallState::SetRenderPipelineState(RenderPipelineState* param_1) {
-        VectorFastPool* this_00;
-
-        if (OwnsRenderPipelineState(this) != '\0') {
-            this_00 = GetStateObjectPool<RenderPipelineState>();
-            this_00->Destroy(m_pRenderPipelineState);
+    // 0x100bdf420
+    void DrawCallState::SetRenderPipelineState(RenderPipelineState* renderPipelineState) {
+        if (OwnsRenderPipelineState() != '\0') {
+            GetStateObjectPool<RenderPipelineState>()->Destroy(m_pRenderPipelineState);
         }
-        m_pRenderPipelineState = param_1;
+        m_pRenderPipelineState = renderPipelineState;
     }
 
-    // 0x100bdf460, 48 bytes, placed by class name and debug map
-    // DrawCallState::SetOutputMergerState(OutputMergerState*)
-    void DrawCallState::SetOutputMergerState(OutputMergerState* param_1) {
-        VectorFastPool* this_00;
-
-        if (OwnsOutputMergerState(this) != '\0') {
-            this_00 = GetStateObjectPool<OutputMergerState>();
-            this_00->Destroy(m_pOutputMergerState);
+    // 0x100bdf460
+    void DrawCallState::SetOutputMergerState(OutputMergerState* outputMergerState) {
+        if (OwnsOutputMergerState() != '\0') {
+            GetStateObjectPool<OutputMergerState>()->Destroy(m_pOutputMergerState);
         }
-        m_pOutputMergerState = param_1;
+        m_pOutputMergerState = outputMergerState;
     }
 
-    // 0x100bdf490, 96 bytes, placed by class name and debug map
-    // DrawCallState::GetRenderPipelineState()
+    // 0x100bdf490
     RenderPipelineState* DrawCallState::GetRenderPipelineState() {
-        VectorFastPool* this_00;
         RenderPipelineState* pRVar1;
 
-        if (m_pRenderPipelineState == (RenderPipelineState*)0) {
-            this_00 = GetStateObjectPool<RenderPipelineState>();
-            pRVar1 = VectorFastPool<RenderPipelineState>::Create<>((VectorFastPool<RenderPipelineState>*)this_00);
+        if (m_pRenderPipelineState == nullptr) {
+            pRVar1 = GetStateObjectPool<RenderPipelineState>()->Create<>();
             m_pRenderPipelineState = pRVar1;
             pRVar1 = m_pRenderPipelineState;
         } else {
             pRVar1 = m_pRenderPipelineState;
         }
-        if (pRVar1 == (RenderPipelineState*)0) {
-            /* WARNING: Subroutine does not return */
+        if (pRVar1 == nullptr) {
             LogAssert("m_pRenderPipelineState",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                       "DrawCallState.cpp",
-                      100, (char*)0);
+                      100, nullptr);
         }
         return m_pRenderPipelineState;
     }
 
-    // 0x100bdf4f0, 96 bytes, placed by class name and debug map
-    // DrawCallState::GetOutputMergerState()
+    // 0x100bdf4f0
     OutputMergerState* DrawCallState::GetOutputMergerState() {
-        VectorFastPool* this_00;
         OutputMergerState* pOVar1;
 
-        if (m_pOutputMergerState == (OutputMergerState*)0) {
-            this_00 = GetStateObjectPool<OutputMergerState>();
-            pOVar1 = VectorFastPool<OutputMergerState>::Create<>((VectorFastPool<OutputMergerState>*)this_00);
+        if (m_pOutputMergerState == nullptr) {
+            pOVar1 = GetStateObjectPool<OutputMergerState>()->Create<>();
             m_pOutputMergerState = pOVar1;
             pOVar1 = m_pOutputMergerState;
         } else {
             pOVar1 = m_pOutputMergerState;
         }
-        if (pOVar1 == (OutputMergerState*)0) {
-            /* WARNING: Subroutine does not return */
+        if (pOVar1 == nullptr) {
             LogAssert("m_pOutputMergerState",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                       "DrawCallState.cpp",
-                      119, (char*)0);
+                      119, nullptr);
         }
         return m_pOutputMergerState;
     }
 
-    // 0x100bdf750, 48 bytes, placed by class name
-    // DrawCallState::SetInputAssemblerState(InputAssemblerState*)
-    void DrawCallState::SetInputAssemblerState(InputAssemblerState* param_1) {
-        VectorFastPool* this_00;
+    // 0x100bdf750
+    void DrawCallState::SetInputAssemblerState(InputAssemblerState* inputAssemblerState) {
+        if (OwnsInputAssemblerState() != '\0') {
+            GetStateObjectPool<InputAssemblerState>()->Destroy(m_pInputAssemblerState);
+        }
+        m_pInputAssemblerState = inputAssemblerState;
+    }
 
-        if (OwnsInputAssemblerState(this) != '\0') {
+    // 0x100bf4760
+    DrawCallState::DrawCallState(const DrawCallState& drawCallState)
+        : m_pInputAssemblerState(nullptr), m_pRenderPipelineState(nullptr), m_pOutputMergerState(nullptr) {
+        VectorFastPool<InputAssemblerState>* this_00;
+        InputAssemblerState* pIVar2;
+        VectorFastPool<RenderPipelineState>* this_01;
+        RenderPipelineState* pRVar3;
+        VectorFastPool<OutputMergerState>* this_02;
+        OutputMergerState* pOVar4;
+
+        Clear();
+        if (!(OwnsInputAssemblerState(drawCallState))) {
+            pIVar2 = drawCallState.m_pInputAssemblerState;
+        } else {
             this_00 = GetStateObjectPool<InputAssemblerState>();
-            this_00->Destroy(m_pInputAssemblerState);
+            pIVar2 = (InputAssemblerState*)GetInputAssemblerState(drawCallState);
+            pIVar2 = this_00->Create<InputAssemblerState&>(*pIVar2);
         }
-        m_pInputAssemblerState = param_1;
+        m_pInputAssemblerState = pIVar2;
+        if (!(OwnsRenderPipelineState(drawCallState))) {
+            pRVar3 = drawCallState.m_pRenderPipelineState;
+        } else {
+            this_01 = GetStateObjectPool<RenderPipelineState>();
+            pRVar3 = (RenderPipelineState*)GetRenderPipelineState(drawCallState);
+            pRVar3 = this_01->Create<RenderPipelineState&>(*pRVar3);
+        }
+        m_pRenderPipelineState = pRVar3;
+        if (!(OwnsOutputMergerState(drawCallState))) {
+            pOVar4 = drawCallState.m_pOutputMergerState;
+        } else {
+            this_02 = GetStateObjectPool<OutputMergerState>();
+            pOVar4 = GetOutputMergerState(drawCallState);
+            pOVar4 = this_02->Create<OutputMergerState&>(*pOVar4);
+        }
+        m_pOutputMergerState = pOVar4;
     }
 
-    // 0x100bdf780, 16 bytes, complete-object destructor, placed by class name
-    // DrawCallState::~DrawCallState(): jumps straight to the base-object destructor
-
-    // 0x100bf4760, 208 bytes, base-object constructor, placed by class name
-    // DrawCallState::DrawCallState(DrawCallState const&)
-    void DrawCallState::DrawCallState(DrawCallState* param_1) {
-        char cVar1;
-        VectorFastPool* pVVar2;
-        InputAssemblerState* pIVar3;
-        RenderPipelineState* pRVar4;
-        OutputMergerState* pOVar5;
-
-        m_pInputAssemblerState = (InputAssemblerState*)0;
-        m_pRenderPipelineState = (RenderPipelineState*)0;
-        m_pOutputMergerState = (OutputMergerState*)0;
-        new (field_24) game::EntityHighlightGlobalState::RadialHighlightState();
-        Clear(this);
-        cVar1 = OwnsInputAssemblerState(param_1);
-        if (cVar1 == '\0') {
-            pIVar3 = param_1->m_pInputAssemblerState;
-        } else {
-            pVVar2 = GetStateObjectPool<InputAssemblerState>();
-            pIVar3 = (InputAssemblerState*)GetInputAssemblerState(param_1);
-            pIVar3 = VectorFastPool<InputAssemblerState>::Create<InputAssemblerState&>(
-                (VectorFastPool<InputAssemblerState>*)pVVar2, pIVar3);
-        }
-        m_pInputAssemblerState = pIVar3;
-        cVar1 = OwnsRenderPipelineState(param_1);
-        if (cVar1 == '\0') {
-            pRVar4 = param_1->m_pRenderPipelineState;
-        } else {
-            pVVar2 = GetStateObjectPool<RenderPipelineState>();
-            pRVar4 = (RenderPipelineState*)GetRenderPipelineState(param_1);
-            pRVar4 = VectorFastPool<RenderPipelineState>::Create<RenderPipelineState&>(
-                (VectorFastPool<RenderPipelineState>*)pVVar2, pRVar4);
-        }
-        m_pRenderPipelineState = pRVar4;
-        cVar1 = OwnsOutputMergerState(param_1);
-        if (cVar1 == '\0') {
-            pOVar5 = param_1->m_pOutputMergerState;
-        } else {
-            pVVar2 = GetStateObjectPool<OutputMergerState>();
-            pOVar5 = (OutputMergerState*)GetOutputMergerState(param_1);
-            pOVar5 = VectorFastPool<OutputMergerState>::Create<OutputMergerState&>(
-                (VectorFastPool<OutputMergerState>*)pVVar2, pOVar5);
-        }
-        m_pOutputMergerState = pOVar5;
-    }
-
-    // 0x100bf4830, 128 bytes, placed by class name
-    // DrawCallState::Clear()
+    // 0x100bf4830
     void DrawCallState::Clear() {
-        char cVar1;
-        VectorFastPool* pVVar2;
 
-        cVar1 = OwnsInputAssemblerState(this);
-        if (cVar1 != '\0') {
-            pVVar2 = GetStateObjectPool<InputAssemblerState>();
-            pVVar2->Destroy(m_pInputAssemblerState);
-            m_pInputAssemblerState = (InputAssemblerState*)0;
+        if (OwnsInputAssemblerState()) {
+            GetStateObjectPool<InputAssemblerState>()->Destroy(m_pInputAssemblerState);
+            m_pInputAssemblerState = nullptr;
         }
-        cVar1 = OwnsRenderPipelineState(this);
-        if (cVar1 != '\0') {
-            pVVar2 = GetStateObjectPool<RenderPipelineState>();
-            pVVar2->Destroy(m_pRenderPipelineState);
-            m_pRenderPipelineState = (RenderPipelineState*)0;
+        if (OwnsRenderPipelineState()) {
+            GetStateObjectPool<RenderPipelineState>()->Destroy(m_pRenderPipelineState);
+            m_pRenderPipelineState = nullptr;
         }
-        cVar1 = OwnsOutputMergerState(this);
-        if (cVar1 != '\0') {
-            pVVar2 = GetStateObjectPool<OutputMergerState>();
-            pVVar2->Destroy(m_pOutputMergerState);
-            m_pOutputMergerState = (OutputMergerState*)0;
+        if (OwnsOutputMergerState()) {
+            GetStateObjectPool<OutputMergerState>()->Destroy(m_pOutputMergerState);
+            m_pOutputMergerState = nullptr;
         }
     }
 
-    // 0x100bf48b0, 96 bytes, placed by class name
-    // DrawCallState::OwnsInputAssemblerState() const
-    undefined4 DrawCallState::OwnsInputAssemblerState() {
-        char cVar1;
-        undefined4 uVar2;
-        VectorFastPool* this_00;
+    // 0x100bf48b0
+    uint32_t DrawCallState::OwnsInputAssemblerState() const {
+        bool cVar1;
+        uint32_t uVar2;
 
-        if (m_pInputAssemblerState == (InputAssemblerState*)0) {
+        if (m_pInputAssemblerState == nullptr) {
             uVar2 = 0;
         } else {
-            this_00 = GetStateObjectPool<InputAssemblerState>();
-            uVar2 = this_00->is_owner(m_pInputAssemblerState);
-            if (((char)uVar2 != '\0') && (cVar1 = this_thread::IsMainThread(), cVar1 == '\0')) {
-                /* WARNING: Subroutine does not return */
+            uVar2 = GetStateObjectPool<InputAssemblerState>()->is_owner(m_pInputAssemblerState);
+            if (((char)uVar2 != '\0') && (cVar1 = this_thread::IsMainThread(), !cVar1)) {
                 LogAssert("!result || this_thread::IsMainThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                           "DrawCallState.cpp",
-                          165, (char*)0);
+                          165, nullptr);
             }
         }
         return uVar2;
     }
 
-    // 0x100bf4a90, 48 bytes, placed by class name
-    // DrawCallState::GetInputAssemblerState() const
-    InputAssemblerState* DrawCallState::GetInputAssemblerState() {
-        VectorFastPool* this_00;
-        InputAssemblerState* pIVar1;
-
-        if (m_pInputAssemblerState == (InputAssemblerState*)0) {
-            this_00 = GetStateObjectPool<InputAssemblerState>();
-            pIVar1 = VectorFastPool<InputAssemblerState>::Create<>((VectorFastPool<InputAssemblerState>*)this_00);
-            m_pInputAssemblerState = pIVar1;
+    // 0x100bf4a90
+    InputAssemblerState* DrawCallState::GetInputAssemblerState() const {
+        if (m_pInputAssemblerState == nullptr) {
+            m_pInputAssemblerState = GetStateObjectPool<InputAssemblerState>()->Create<>();
         }
         return m_pInputAssemblerState;
     }
 
-    // 0x100bf4ac0, 96 bytes, placed by class name
-    // DrawCallState::OwnsRenderPipelineState() const
-    undefined4 DrawCallState::OwnsRenderPipelineState() {
-        char cVar1;
-        undefined4 uVar2;
-        VectorFastPool* this_00;
+    // 0x100bf4ac0
+    uint32_t DrawCallState::OwnsRenderPipelineState() const {
+        bool cVar1;
+        uint32_t uVar2;
 
-        if (m_pRenderPipelineState == (RenderPipelineState*)0) {
+        if (m_pRenderPipelineState == nullptr) {
             uVar2 = 0;
         } else {
-            this_00 = GetStateObjectPool<RenderPipelineState>();
-            uVar2 = this_00->is_owner(m_pRenderPipelineState);
-            if (((char)uVar2 != '\0') && (cVar1 = this_thread::IsMainThread(), cVar1 == '\0')) {
-                /* WARNING: Subroutine does not return */
+            uVar2 = GetStateObjectPool<RenderPipelineState>()->is_owner(m_pRenderPipelineState);
+            if (((char)uVar2 != '\0') && (cVar1 = this_thread::IsMainThread(), !cVar1)) {
                 LogAssert("!result || this_thread::IsMainThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                           "DrawCallState.cpp",
-                          172, (char*)0);
+                          172, nullptr);
             }
         }
         return uVar2;
     }
 
-    // 0x100bf4ca0, 48 bytes, placed by class name
-    // DrawCallState::GetRenderPipelineState() const
-    RenderPipelineState* DrawCallState::GetRenderPipelineState() {
-        VectorFastPool* this_00;
-        RenderPipelineState* pRVar1;
-
-        if (m_pRenderPipelineState == (RenderPipelineState*)0) {
-            this_00 = GetStateObjectPool<RenderPipelineState>();
-            pRVar1 = VectorFastPool<RenderPipelineState>::Create<>((VectorFastPool<RenderPipelineState>*)this_00);
-            m_pRenderPipelineState = pRVar1;
+    // 0x100bf4ca0
+    RenderPipelineState* DrawCallState::GetRenderPipelineState() const {
+        if (m_pRenderPipelineState == nullptr) {
+            m_pRenderPipelineState = GetStateObjectPool<RenderPipelineState>()->Create<>();
         }
         return m_pRenderPipelineState;
     }
 
-    // 0x100bf4cd0, 96 bytes, placed by class name
-    // DrawCallState::OwnsOutputMergerState() const
-    undefined4 DrawCallState::OwnsOutputMergerState() {
-        char cVar1;
-        undefined4 uVar2;
-        VectorFastPool* this_00;
+    // 0x100bf4cd0
+    uint32_t DrawCallState::OwnsOutputMergerState() const {
+        bool cVar1;
+        uint32_t uVar2;
 
-        if (m_pOutputMergerState == (OutputMergerState*)0) {
+        if (m_pOutputMergerState == nullptr) {
             uVar2 = 0;
         } else {
-            this_00 = GetStateObjectPool<OutputMergerState>();
-            uVar2 = this_00->is_owner(m_pOutputMergerState);
-            if (((char)uVar2 != '\0') && (cVar1 = this_thread::IsMainThread(), cVar1 == '\0')) {
-                /* WARNING: Subroutine does not return */
+            uVar2 = GetStateObjectPool<OutputMergerState>()->is_owner(m_pOutputMergerState);
+            if (((char)uVar2 != '\0') && (cVar1 = this_thread::IsMainThread(), !cVar1)) {
                 LogAssert("!result || this_thread::IsMainThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                           "DrawCallState.cpp",
-                          179, (char*)0);
+                          179, nullptr);
             }
         }
         return uVar2;
     }
 
-    // 0x100bf4eb0, 48 bytes, placed by class name
-    // DrawCallState::GetOutputMergerState() const
-    OutputMergerState* DrawCallState::GetOutputMergerState() {
-        VectorFastPool* this_00;
-        OutputMergerState* pOVar1;
-
-        if (m_pOutputMergerState == (OutputMergerState*)0) {
-            this_00 = GetStateObjectPool<OutputMergerState>();
-            pOVar1 = VectorFastPool<OutputMergerState>::Create<>((VectorFastPool<OutputMergerState>*)this_00);
-            m_pOutputMergerState = pOVar1;
+    // 0x100bf4eb0
+    OutputMergerState* DrawCallState::GetOutputMergerState() const {
+        if (m_pOutputMergerState == nullptr) {
+            m_pOutputMergerState = GetStateObjectPool<OutputMergerState>()->Create<>();
         }
         return m_pOutputMergerState;
     }
 
-    // 0x100bf4ee0, 16 bytes, complete-object constructor, placed by class name
-    // DrawCallState::DrawCallState(DrawCallState const&): jumps straight to the base-object constructor
-
-    // 0x100bf4ef0, 16 bytes, base-object destructor, placed by class name
-    // DrawCallState::~DrawCallState()
-    void DrawCallState::~DrawCallState() {
-        Clear(this);
+    // 0x100bf4ef0
+    DrawCallState::~DrawCallState() {
+        Clear();
     }
 
-    // 0x100bf5080, 96 bytes, placed by class name
-    // DrawCallState::GetInputAssemblerState()
+    // 0x100bf5080
     InputAssemblerState* DrawCallState::GetInputAssemblerState() {
-        VectorFastPool* this_00;
         InputAssemblerState* pIVar1;
 
-        if (m_pInputAssemblerState == (InputAssemblerState*)0) {
-            this_00 = GetStateObjectPool<InputAssemblerState>();
-            pIVar1 = VectorFastPool<InputAssemblerState>::Create<>((VectorFastPool<InputAssemblerState>*)this_00);
+        if (m_pInputAssemblerState == nullptr) {
+            pIVar1 = GetStateObjectPool<InputAssemblerState>()->Create<>();
             m_pInputAssemblerState = pIVar1;
             pIVar1 = m_pInputAssemblerState;
         } else {
             pIVar1 = m_pInputAssemblerState;
         }
-        if (pIVar1 == (InputAssemblerState*)0) {
-            /* WARNING: Subroutine does not return */
+        if (pIVar1 == nullptr) {
             LogAssert("m_pInputAssemblerState",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                       "DrawCallState.cpp",
-                      81, (char*)0);
+                      81, nullptr);
         }
         return m_pInputAssemblerState;
     }
 
-    // 0x100bf5470, 192 bytes, placed by class name
-    // DrawCallState::operator=(DrawCallState const&)
-    /* DrawCallState::TEMPNAMEPLACEHOLDERVALUE(DrawCallState const&) */
+    // 0x100bf5470
+    DrawCallState* DrawCallState::operator=(const DrawCallState& drawCallState) {
+        VectorFastPool<InputAssemblerState>* this_00;
+        InputAssemblerState* pIVar2;
+        VectorFastPool<RenderPipelineState>* this_01;
+        RenderPipelineState* pRVar3;
+        VectorFastPool<OutputMergerState>* this_02;
+        OutputMergerState* pOVar4;
 
-    DrawCallState* DrawCallState::operator=(DrawCallState* param_1) {
-        char cVar1;
-        VectorFastPool* pVVar2;
-        InputAssemblerState* pIVar3;
-        RenderPipelineState* pRVar4;
-        OutputMergerState* pOVar5;
-
-        Clear(this);
-        cVar1 = OwnsInputAssemblerState(param_1);
-        if (cVar1 == '\0') {
-            pIVar3 = param_1->m_pInputAssemblerState;
+        Clear();
+        if (!(OwnsInputAssemblerState(drawCallState))) {
+            pIVar2 = drawCallState.m_pInputAssemblerState;
         } else {
-            pVVar2 = GetStateObjectPool<InputAssemblerState>();
-            pIVar3 = (InputAssemblerState*)GetInputAssemblerState(param_1);
-            pIVar3 = VectorFastPool<InputAssemblerState>::Create<InputAssemblerState&>(
-                (VectorFastPool<InputAssemblerState>*)pVVar2, pIVar3);
+            this_00 = GetStateObjectPool<InputAssemblerState>();
+            pIVar2 = (InputAssemblerState*)GetInputAssemblerState(drawCallState);
+            pIVar2 = this_00->Create<InputAssemblerState&>(*pIVar2);
         }
-        m_pInputAssemblerState = pIVar3;
-        cVar1 = OwnsRenderPipelineState(param_1);
-        if (cVar1 == '\0') {
-            pRVar4 = param_1->m_pRenderPipelineState;
+        m_pInputAssemblerState = pIVar2;
+        if (!(OwnsRenderPipelineState(drawCallState))) {
+            pRVar3 = drawCallState.m_pRenderPipelineState;
         } else {
-            pVVar2 = GetStateObjectPool<RenderPipelineState>();
-            pRVar4 = (RenderPipelineState*)GetRenderPipelineState(param_1);
-            pRVar4 = VectorFastPool<RenderPipelineState>::Create<RenderPipelineState&>(
-                (VectorFastPool<RenderPipelineState>*)pVVar2, pRVar4);
+            this_01 = GetStateObjectPool<RenderPipelineState>();
+            pRVar3 = (RenderPipelineState*)GetRenderPipelineState(drawCallState);
+            pRVar3 = this_01->Create<RenderPipelineState&>(*pRVar3);
         }
-        m_pRenderPipelineState = pRVar4;
-        cVar1 = OwnsOutputMergerState(param_1);
-        if (cVar1 == '\0') {
-            pOVar5 = param_1->m_pOutputMergerState;
+        m_pRenderPipelineState = pRVar3;
+        if (!(OwnsOutputMergerState(drawCallState))) {
+            pOVar4 = drawCallState.m_pOutputMergerState;
         } else {
-            pVVar2 = GetStateObjectPool<OutputMergerState>();
-            pOVar5 = (OutputMergerState*)GetOutputMergerState(param_1);
-            pOVar5 = VectorFastPool<OutputMergerState>::Create<OutputMergerState&>(
-                (VectorFastPool<OutputMergerState>*)pVVar2, pOVar5);
+            this_02 = GetStateObjectPool<OutputMergerState>();
+            pOVar4 = GetOutputMergerState(drawCallState);
+            pOVar4 = this_02->Create<OutputMergerState&>(*pOVar4);
         }
-        m_pOutputMergerState = pOVar5;
+        m_pOutputMergerState = pOVar4;
         return this;
     }
 

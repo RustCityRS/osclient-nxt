@@ -1,85 +1,60 @@
 // libs/game/runetek5/telemetry/grid/TelemetryGridGroup.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class TelemetryGridGroup {
     public:
-        int GetId() const;
-        TelemetryGridGroup(int);
-        ulong GetRowIndexFromId(int) const;
-        ulong GetColumnIndexFromId(int) const;
-        int AddColumn(int, int);
-        void MoveColumn(unsigned int, unsigned int);
-        void RemoveColumn(unsigned int);
-        AddRow(int, int);
-        void InnerMoveRow(unsigned int, unsigned int);
-        void MoveRow(unsigned int, unsigned int);
-        void RemoveRow(unsigned int);
-        bool IsRowPinned(unsigned int) const;
+        unsigned int GetId() const;
+        TelemetryGridGroup(int arg1);
+        unsigned long GetRowIndexFromId(int arg1) const;
+        unsigned long GetColumnIndexFromId(int arg1) const;
+        int AddColumn(int arg1, int arg2);
+        void MoveColumn(unsigned int arg1, unsigned int arg2);
+        void RemoveColumn(unsigned int arg1);
+        uint32_t AddRow(int arg1, int arg2);
+        void InnerMoveRow(unsigned int arg1, unsigned int arg2);
+        void MoveRow(unsigned int arg1, unsigned int arg2);
+        void RemoveRow(unsigned int arg1);
+        bool IsRowPinned(unsigned int arg1) const;
         ~TelemetryGridGroup();
-        TelemetryGridGroup(TelemetryGridGroup&&);
-        TelemetryGridGroup* operator=(TelemetryGridGroup&&);
-        static float /* 4 bytes */ NOT_SET; // = -0.0f
-        static /* 84 bytes */ NOT_PINNED;   // initialised in its definition
+        TelemetryGridGroup(TelemetryGridGroup&& telemetryGridGroup);
+        TelemetryGridGroup* operator=(TelemetryGridGroup&& telemetryGridGroup);
+        static float NOT_SET;          // = -0.0f
+        static int32_t NOT_PINNED[21]; // initialised in its definition
 
-        // data members, from how the methods use this: 112 bytes
-        int m_id; // offset 0
-        char _unknown_4[108];
+    private:
+        unsigned int m_id;
+        uint8_t _unknown_4[108];
     };
 
-    // 0x1003b4e20, 32 bytes, inline, placed by class name and debug map
-    // TelemetryGridGroup::IsRowPinned(unsigned int) const
-    bool TelemetryGridGroup::IsRowPinned(uint param_1) {
-        int* piVar1;
-
-        piVar1 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_72,
-                                                                        (ulong)param_1);
+    // 0x1003b4e20
+    bool TelemetryGridGroup::IsRowPinned(unsigned int arg1) const {
+        int* piVar1 = &field_72[(unsigned long)arg1];
         return *piVar1 != -1;
     }
 
-    // 0x1003bab80, 16 bytes, complete-object destructor, inline, placed by class name
-    // TelemetryGridGroup::~TelemetryGridGroup(): jumps straight to the base-object destructor
-
-    // 0x1003bab90, 64 bytes, base-object destructor, inline, placed by class name
-    // TelemetryGridGroup::~TelemetryGridGroup()
-    void TelemetryGridGroup::~TelemetryGridGroup() {
-        (&field_104)->~vector();
-        (&field_72)->~vector();
-        (&field_40)->~vector();
-        (&field_8)->~vector();
+    // 0x1003bab90
+    TelemetryGridGroup::~TelemetryGridGroup() {
+        field_104.~vector();
+        field_72.~vector();
+        field_40.~vector();
+        field_8.~vector();
     }
 
-    // 0x1003bae40, 16 bytes, complete-object constructor, inline, placed by class name
-    // TelemetryGridGroup::TelemetryGridGroup(TelemetryGridGroup&&): jumps straight to the base-object constructor
+    // 0x1003bae60
+    TelemetryGridGroup::TelemetryGridGroup(TelemetryGridGroup&& telemetryGridGroup)
+        : m_id(telemetryGridGroup.m_id), field_8(telemetryGridGroup.field_8), field_40(telemetryGridGroup.field_40),
+          field_72(telemetryGridGroup.field_72), field_104(telemetryGridGroup.field_104) {}
 
-    // 0x1003bae60, 80 bytes, base-object constructor, inline, placed by class name
-    // TelemetryGridGroup::TelemetryGridGroup(TelemetryGridGroup&&)
-    void TelemetryGridGroup::TelemetryGridGroup(TelemetryGridGroup* param_1) {
-        m_id = param_1->m_id;
-        new (&field_8, (vector*)&param_1->field_8) eastl::vector<int, eastl::allocator>();
-        new (&field_40, (vector*)&param_1->field_40) eastl::vector<int, eastl::allocator>();
-        new (&field_72, (vector*)&param_1->field_72) eastl::vector<int, eastl::allocator>();
-        new (&field_104, (vector*)&param_1->field_104)
-            eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>();
-    }
-
-    // 0x1003bb2b0, 80 bytes, inline, placed by class name
-    // TelemetryGridGroup::operator=(TelemetryGridGroup&&)
-    /* TelemetryGridGroup::TEMPNAMEPLACEHOLDERVALUE(TelemetryGridGroup&&) */
-
-    TelemetryGridGroup* TelemetryGridGroup::operator=(TelemetryGridGroup* param_1) {
-        m_id = param_1->m_id;
-        eastl::vector<int, eastl::allocator>::operator=((vector<int, eastl::allocator>*)&field_8,
-                                                        (vector*)&param_1->field_8);
-        eastl::vector<int, eastl::allocator>::operator=((vector<int, eastl::allocator>*)&field_40,
-                                                        (vector*)&param_1->field_40);
-        eastl::vector<int, eastl::allocator>::operator=((vector<int, eastl::allocator>*)&field_72,
-                                                        (vector*)&param_1->field_72);
-        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator=(
-            (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)&field_104, (vector*)&param_1->field_104);
+    // 0x1003bb2b0
+    TelemetryGridGroup* TelemetryGridGroup::operator=(TelemetryGridGroup&& telemetryGridGroup) {
+        m_id = telemetryGridGroup.m_id;
+        field_8 = telemetryGridGroup.field_8;
+        field_40 = telemetryGridGroup.field_40;
+        field_72 = telemetryGridGroup.field_72;
+        field_104 = telemetryGridGroup.field_104;
         return this;
     }
 

@@ -1,823 +1,562 @@
 // libs/jtl/TextConvert.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.jtl
 
 #include "TextConvert.h"
 
 namespace jag {
-    // 0x100cb9d20, 80 bytes, placed by neighbouring functions
-    // FromText(StringView, int&, int)
-    void FromText(StringView param_1, int* param_2, int param_3) {
-        _func_long_char_ptr_char_ptr_ptr_int* in_R8;
-        StringView SVar1;
-        StringView local_38;
-        undefined* local_28;
-
-        SVar1.field_8 = param_1.field_8;
-        new (&local_38) StringView(param_1.field_0);
-        local_28 = PTR__strtol_100ee9e80;
-        SVar1.field_0 = (ulong)&local_38;
-        internal::TryParseFallback<int, long (*)(char const*, char**, int)>(SVar1, (int*)((ulong)param_2 & 4294967295),
-                                                                            (int)&local_28, in_R8);
+    // 0x100cb9d20
+    void FromText(StringView stringView, int& arg2, int arg3) {
+        StringView local_38(*stringView);
+        uint8_t* local_28 = PTR__strtol_100ee9e80;
+        internal::TryParseFallback<int, long (*)(char const*, char**, int)>(
+            &local_38, arg2, arg3, (long_______char_const___char____int_)&local_28);
     }
 
-    // 0x100cb9e40, 80 bytes, placed by neighbouring functions
-    // FromText(StringView, unsigned int&, int)
-    void FromText(StringView param_1, uint* param_2, int param_3) {
-        _func_ulong_char_ptr_char_ptr_ptr_int* in_R8;
-        StringView SVar1;
-        StringView local_38;
-        undefined* local_28;
-
-        SVar1.field_8 = param_1.field_8;
-        new (&local_38) StringView(param_1.field_0);
-        local_28 = PTR__strtoul_100ee9e90;
-        SVar1.field_0 = (ulong)&local_38;
+    // 0x100cb9e40
+    void FromText(StringView stringView, unsigned int& arg2, int arg3) {
+        StringView local_38(*stringView);
+        uint8_t* local_28 = PTR__strtoul_100ee9e90;
         internal::TryParseFallback<unsigned int, unsigned long (*)(char const*, char**, int)>(
-            SVar1, (uint*)((ulong)param_2 & 4294967295), (int)&local_28, in_R8);
+            &local_38, arg2, arg3, (unsigned_long_______char_const___char____int_)&local_28);
     }
 
-    // 0x100cb9f50, 80 bytes, placed by neighbouring functions
-    // FromText(StringView, long long&, int)
-    void FromText(StringView param_1, longlong* param_2, int param_3) {
-        _func_longlong_char_ptr_char_ptr_ptr_int* in_R8;
-        StringView SVar1;
-        StringView local_38;
-        undefined* local_28;
-
-        SVar1.field_8 = param_1.field_8;
-        new (&local_38) StringView(param_1.field_0);
-        local_28 = PTR__strtoll_100ee9e88;
-        SVar1.field_0 = (ulong)&local_38;
+    // 0x100cb9f50
+    void FromText(StringView stringView, long long& arg2, int arg3) {
+        StringView local_38(*stringView);
+        uint8_t* local_28 = PTR__strtoll_100ee9e88;
         internal::TryParseFallback<long long, long long (*)(char const*, char**, int)>(
-            SVar1, (longlong*)((ulong)param_2 & 4294967295), (int)&local_28, in_R8);
+            &local_38, arg2, arg3, (long_long_______char_const___char____int_)&local_28);
     }
 
-    // 0x100cba060, 80 bytes, placed by neighbouring functions
-    // FromText(StringView, unsigned long long&, int)
-    void FromText(StringView param_1, ulonglong* param_2, int param_3) {
-        _func_ulonglong_char_ptr_char_ptr_ptr_int* in_R8;
-        StringView SVar1;
-        StringView local_38;
-        undefined* local_28;
-
-        SVar1.field_8 = param_1.field_8;
-        new (&local_38) StringView(param_1.field_0);
-        local_28 = PTR__strtoull_100ee9e98;
-        SVar1.field_0 = (ulong)&local_38;
+    // 0x100cba060
+    void FromText(StringView stringView, unsigned long long& arg2, int arg3) {
+        StringView local_38(*stringView);
+        uint8_t* local_28 = PTR__strtoull_100ee9e98;
         internal::TryParseFallback<unsigned long long, unsigned long long (*)(char const*, char**, int)>(
-            SVar1, (ulonglong*)((ulong)param_2 & 4294967295), (int)&local_28, in_R8);
+            &local_38, arg2, arg3, (unsigned_long_long_______char_const___char____int_)&local_28);
     }
 
-    // 0x100cba170, 176 bytes, placed by neighbouring functions
-    // FromText(StringView, bool&, int)
-    ulong FromText(StringView param_1, bool* param_2, int param_3) {
-        char cVar1;
-        uint uVar2;
-        uchar* extraout_RDX;
-        uchar* extraout_RDX_00;
-        StringView* this;
-        undefined8 unaff_R15;
-        ulong uVar3;
-        StringView SVar4;
-        StringView SVar5;
-        StringView SVar6;
+    // 0x100cba170
+    unsigned long FromText(StringView stringView, bool& arg2, int arg3) {
+        uint64_t unaff_R15;
         StringView local_60;
         StringView local_50;
         StringView local_40;
-        int local_2c;
 
-        this = (StringView*)param_1.field_0;
-        local_2c = 0;
-        StringView::StringView<5ul>(&local_60, "true");
-        SVar4.field_8 = extraout_RDX;
-        SVar4.field_0 = (ulong)&local_60;
-        cVar1 = StringView::operator==(this, SVar4);
-        uVar3 = CONCAT71((int7)((ulong)unaff_R15 >> 8), 1);
-        uVar2 = CONCAT31((int3)((uint)param_3 >> 8), 1);
-        if (cVar1 == '\0') {
-            StringView::StringView<6ul>(&local_50, "false");
-            SVar5.field_8 = extraout_RDX_00;
-            SVar5.field_0 = (ulong)&local_50;
-            cVar1 = StringView::operator==(this, SVar5);
-            if (cVar1 == '\0') {
-                new (&local_40) StringView(this);
-                SVar6.field_8 = (uchar*)&local_2c;
-                SVar6.field_0 = (ulong)&local_40;
-                cVar1 = FromText(SVar6, (int*)10, uVar2);
-                if (cVar1 == '\0') {
+        int local_2c = 0;
+        local_60.StringView<5ul>(&DAT_100e39422);
+        bool cVar1 = *stringView == &local_60;
+        unsigned long uVar3 = (((uint64_t)((int64_t)((unsigned long)unaff_R15 >> 8)) << 8) | (uint8_t)1);
+        bool bVar2 = true;
+        if (!cVar1) {
+            local_50.StringView<6ul>("false");
+            cVar1 = *stringView == &local_50;
+            if (!cVar1) {
+                local_40 = StringView(*stringView);
+                cVar1 = FromText(&local_40, &local_2c, 10);
+                if (!cVar1) {
                     uVar3 = 0;
                     goto LAB_100cba203;
                 }
             }
-            uVar2 = (uint)(local_2c != 0);
+            bVar2 = local_2c != 0;
         }
-        *param_1.field_8 = (uchar)uVar2;
+        arg2 = bVar2;
     LAB_100cba203:
         return uVar3 & 4294967295;
     }
 
-    // 0x100cba2c0, 64 bytes, placed by neighbouring functions
-    // FromText(StringView, float&, int)
-    void FromText(StringView param_1, float* param_2, int param_3) {
-        float* extraout_RDX;
-        StringView SVar1;
-        StringView local_28;
+    // 0x100cba2c0
+    void FromText(StringView stringView, float& arg2, int arg3) {
 
-        SVar1.field_8 = param_1.field_8;
-        new (&local_28) StringView(param_1.field_0);
-        SVar1.field_0 = (ulong)&local_28;
-        internal::TryParseFallback(SVar1, extraout_RDX);
+        StringView local_28(*stringView);
+        internal::TryParseFallback(&local_28, arg2);
     }
 
-    // 0x100cba300, 64 bytes, placed by neighbouring functions
-    // FromText(StringView, double&, int)
-    void FromText(StringView param_1, double* param_2, int param_3) {
-        double* extraout_RDX;
-        StringView SVar1;
-        StringView local_28;
+    // 0x100cba300
+    void FromText(StringView stringView, double& arg2, int arg3) {
 
-        SVar1.field_8 = param_1.field_8;
-        new (&local_28) StringView(param_1.field_0);
-        SVar1.field_0 = (ulong)&local_28;
-        internal::TryParseFallback(SVar1, extraout_RDX);
+        StringView local_28(*stringView);
+        internal::TryParseFallback(&local_28, arg2);
     }
 
-    // 0x100cba340, 32 bytes, placed by neighbouring functions
-    // FromText(char const*, int&, int)
-    undefined4 FromText(char* param_1, int* param_2, int param_3) {
-        int iVar1;
-
-        iVar1 = eastl::stoi(param_1, param_3);
-        *param_2 = iVar1;
+    // 0x100cba340
+    void FromText(const char* str, int& arg2, int arg3) {
+        arg2 = eastl::stoi(str, arg3);
         return 1;
     }
 
-    // 0x100cba370, 32 bytes, placed by neighbouring functions
-    // FromText(char const*, unsigned int&, int)
-    undefined8 FromText(char* param_1, uint* param_2, int param_3) {
-        ulong uVar1;
-
-        uVar1 = _strtoul(param_1, (char**)0, param_3);
-        *param_2 = (uint)uVar1;
+    // 0x100cba370
+    void FromText(const char* str, unsigned int& arg2, int arg3) {
+        unsigned long uVar1 = _strtoul(str, nullptr, arg3);
+        arg2 = (unsigned int)uVar1;
         return 1;
     }
 
-    // 0x100cba390, 32 bytes, placed by neighbouring functions
-    // FromText(char const*, long long&, int)
-    undefined8 FromText(char* param_1, longlong* param_2, int param_3) {
-        longlong lVar1;
-
-        lVar1 = _strtoll(param_1, (char**)0, param_3);
-        *param_2 = lVar1;
+    // 0x100cba390
+    void FromText(const char* str, long long& arg2, int arg3) {
+        arg2 = _strtoll(str, nullptr, arg3);
         return 1;
     }
 
-    // 0x100cba3b0, 32 bytes, placed by neighbouring functions
-    // FromText(char const*, unsigned long long&, int)
-    undefined8 FromText(char* param_1, ulonglong* param_2, int param_3) {
-        ulonglong uVar1;
-
-        uVar1 = _strtoull(param_1, (char**)0, param_3);
-        *param_2 = uVar1;
+    // 0x100cba3b0
+    void FromText(const char* str, unsigned long long& arg2, int arg3) {
+        arg2 = _strtoull(str, nullptr, arg3);
         return 1;
     }
 
-    // 0x100cba3d0, 64 bytes, placed by neighbouring functions
-    // FromText(char const*, bool&, int)
-    undefined4 FromText(char* param_1, bool* param_2, int param_3) {
-        int iVar1;
-        undefined3 uVar2;
+    // 0x100cba3d0
+    void FromText(const char* str, bool& arg2, int arg3) {
+        uint32_t uVar2;
         bool bVar3;
 
-        iVar1 = _strcmp(param_1, "true");
+        int iVar1 = _strcmp(str, "true");
         if (iVar1 == 0) {
             uVar2 = 0;
             bVar3 = true;
         } else {
-            iVar1 = eastl::stoi(param_1, 10);
+            iVar1 = eastl::stoi(str, 10);
             bVar3 = iVar1 != 0;
-            uVar2 = (undefined3)((uint)iVar1 >> 8);
+            uVar2 = (uint32_t)((unsigned int)iVar1 >> 8);
         }
-        *param_2 = bVar3;
-        return CONCAT31(uVar2, 1);
-    }
-
-    // 0x100cba410, 32 bytes, placed by neighbouring functions
-    // FromText(char const*, float&, int)
-    undefined1 FromText(char* param_1, float* param_2, int param_3) {
-        double dVar1;
-
-        dVar1 = _atof(param_1);
-        *param_2 = (float)dVar1;
+        arg2 = bVar3;
         return 1;
     }
 
-    // 0x100cba430, 32 bytes, placed by neighbouring functions
-    // FromText(char const*, double&, int)
-    undefined1 FromText(char* param_1, double* param_2, int param_3) {
-        double dVar1;
-
-        dVar1 = _atof(param_1);
-        *param_2 = dVar1;
+    // 0x100cba410
+    void FromText(const char* str, float& arg2, int arg3) {
+        double dVar1 = _atof(str);
+        arg2 = (float)dVar1;
         return 1;
     }
 
-    // 0x100cba450, 336 bytes, placed by debug map only (low confidence)
-    // FromText(StringView, math::Vector3T<float>&, int)
-    ulong FromText(StringView param_1, Vector3T* param_2, int param_3) {
-        bool bVar1;
-        int iVar2;
-        ulong uVar3;
-        jag* this;
-        bool bVar4;
-        undefined1 auVar5[16];
-        fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true, eastl::allocator>
-            local_5a0[1384];
-        long local_38;
+    // 0x100cba430
+    void FromText(const char* str, double& arg2, int arg3) {
+        arg2 = _atof(str);
+        return 1;
+    }
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true,
-                            eastl::allocator>::fixed_vector(local_5a0);
-        tokenize<
-            eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true, eastl::allocator>,
-            StringView>((fixed_vector*)local_5a0, (StringView*)param_1.field_0, ", ", -1);
-        uVar3 = local_5a0->size();
+    // 0x100cba450
+    unsigned long FromText(StringView stringView, math::Vector3T<float>& vector3, int arg3) {
+        char* str;
+        float* arg2;
+
+        fixed_vector<eastl::fixed_string<char, 128>, 8ul> local_5a0;
+        tokenize<eastl::fixed_vector<eastl::fixed_string<char, 128>, 8ul>, StringView>(&local_5a0, stringView, ", ",
+                                                                                       -1);
+        unsigned long uVar3 = local_5a0.size();
         if (3 < uVar3) {
-            /* WARNING: Subroutine does not return */
             LogAssert("tokens.size() <= 3",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/TextConvert.cpp", 266,
-                      (char*)0);
+                      nullptr);
         }
-        param_1.field_8->SetXYZ(PTR_ZERO_100ee66e8);
-        iVar2 = local_5a0->size();
-        bVar4 = 0 < iVar2;
+        vector3.SetXYZ(*PTR_ZERO_100ee66e8);
+        int iVar2 = local_5a0.size();
+        bool bVar4 = 0 < iVar2;
         if (0 < iVar2) {
             uVar3 = 0;
             do {
-                eastl::vector<eastl::fixed_string<char, 128, true, eastl::allocator>,
-                              eastl::fixed_vector_allocator<168ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (vector<eastl::fixed_string<char, 128, true, eastl::allocator>,
-                            eastl::fixed_vector_allocator<168ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)local_5a0,
-                    uVar3);
-                this = (jag*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                auVar5 = math::Vector3T<float>::operator[]((Vector3T<float>*)param_1.field_8, (uint)uVar3);
-                bVar1 = FromText<float>(this, auVar5._0_8_, auVar5._8_8_);
-                if (!bVar1)
+                local_5a0[uVar3];
+                str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                arg2 = &vector3[(unsigned int)uVar3];
+                if (!FromText<float>(str, arg2))
                     break;
                 uVar3 = uVar3 + 1;
-                iVar2 = local_5a0->size();
+                iVar2 = local_5a0.size();
                 bVar4 = (long)uVar3 < (long)iVar2;
             } while ((long)uVar3 < (long)iVar2);
         }
-        eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true,
-                            eastl::allocator>::~fixed_vector(local_5a0);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return CONCAT71((int7)((ulong)local_5a0 >> 8), ~bVar4) & 4294967041;
+        return ~bVar4 & 4294967041;
     }
 
-    // 0x100cba5b0, 320 bytes, inline, placed by debug map only (low confidence)
-    // int tokenize<eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true, eastl::allocator>, StringView>(eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true, eastl::allocator>&, StringView const&, char const*, int)
-    int jag::tokenize<
-        eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true, eastl::allocator>,
-        StringView>(fixed_vector* param_1, StringView* param_2, char* param_3, int param_4) {
+    // 0x100cba5b0
+    int tokenize<eastl::fixed_vector<eastl::fixed_string<char, 128>, 8ul>, StringView>(
+        eastl::fixed_vector<eastl::fixed_string<char, 128>, 8ul>& strs, const StringView& stringView, const char* str,
+        int arg4) {
         bool bVar1;
-        int iVar2;
         size_t sVar3;
-        char* pcVar4;
-        char* pcVar5;
-        basic_string<char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true, eastl::allocator>>* pbVar6;
-        char* pcVar7;
-        char* pcVar8;
+        ReturnValue* pRVar5;
+        char* str1_00;
 
-        if (param_4 == -1) {
-            sVar3 = _strlen(param_3);
-            param_4 = (int)sVar3;
+        if (arg4 == -1) {
+            sVar3 = _strlen(str);
+            arg4 = (int)sVar3;
         }
-        param_1->clear();
-        param_1->reserve(4);
-        pcVar4 = (char*)param_2->end();
-        pcVar5 = (char*)param_2->end();
-        pcVar8 = pcVar4;
-        if (pcVar4 != pcVar5) {
-            pcVar7 = pcVar4;
+        strs.clear();
+        strs.reserve(4);
+        auto str1 = stringView.end();
+        auto pcVar4 = stringView.end();
+        char* pcVar6 = str1;
+        if (str1 != pcVar4) {
+            str1_00 = str1;
             do {
-                pcVar4 = pcVar8;
-                bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                str1 = pcVar6;
+                bVar1 = internal::find_token<char, char const*>(*str1, str, str + arg4);
                 if (bVar1) {
-                    if (pcVar7 != pcVar4) {
-                        pbVar6 =
-                            (basic_string<char,
-                                          eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true, eastl::allocator>>*)
-                                eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true,
-                                                    eastl::allocator>::push_back();
-                        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true,
-                                                                                eastl::allocator>>::assign(pbVar6,
-                                                                                                           pcVar7,
-                                                                                                           pcVar4);
+                    if (str1_00 != str1) {
+                        pRVar5 = (ReturnValue*)eastl::fixed_vector<eastl::fixed_string<char, 128>, 8ul>::push_back();
+                        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true>>::assign(
+                            pRVar5, str1_00, str1);
                     }
-                    if (pcVar4 == pcVar5) {
+                    if (str1 == pcVar4) {
                     LAB_100cba6a0:
-                        pcVar8 = pcVar4;
+                        pcVar6 = str1;
                     } else {
                         do {
-                            bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                            bVar1 = internal::find_token<char, char const*>(*str1, str, str + arg4);
                             if (!bVar1)
                                 goto LAB_100cba6a0;
-                            pcVar4 = pcVar4 + 1;
-                            pcVar8 = pcVar4;
-                        } while (pcVar4 != pcVar5);
+                            str1 = str1 + 1;
+                            pcVar6 = str1;
+                        } while (str1 != pcVar4);
                     }
                 } else {
-                    pcVar8 = pcVar4 + 1;
-                    pcVar4 = pcVar7;
+                    pcVar6 = str1 + 1;
+                    str1 = str1_00;
                 }
-                pcVar7 = pcVar4;
-            } while (pcVar8 != pcVar5);
+                str1_00 = str1;
+            } while (pcVar6 != pcVar4);
         }
-        if (pcVar4 != pcVar8) {
-            pbVar6 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true, eastl::allocator>>*)
-                eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true,
-                                    eastl::allocator>::push_back();
-            eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true, eastl::allocator>>::assign(pbVar6,
-                                                                                                           pcVar4,
-                                                                                                           pcVar8);
+        if (str1 != pcVar6) {
+            pRVar5 = (ReturnValue*)eastl::fixed_vector<eastl::fixed_string<char, 128>, 8ul>::push_back();
+            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true>>::assign(pRVar5, str1,
+                                                                                                         pcVar6);
         }
-        iVar2 = param_1->size();
-        return iVar2;
+        return strs.size();
     }
 
-    // 0x100cba710, 16 bytes, inline, placed by debug map only (low confidence)
-    // bool FromText<float>(char const*, float&)
-    bool FromText<float>(char* param_1, float* param_2) {
-        FromText((char*)this, (float*)param_1, (int)param_2);
+    // 0x100cba710
+    bool FromText<float>(const char* str, float& arg2) {
+        int in_EDX;
+
+        FromText(str, arg2, in_EDX);
         return true;
     }
 
-    // 0x100cba7c0, 112 bytes, placed by neighbouring functions
-    // ToText(char*, unsigned int, int, unsigned int)
-    char* ToText(char* param_1, uint param_2, int param_3, uint param_4) {
-        void* pvVar1;
-        uint local_4c;
+    // 0x100cba7c0
+    char* ToText(char* str, unsigned int arg2, int arg3, unsigned int arg4) {
         char local_48[40];
-        long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_4c = 32;
-        pvVar1 = (void*)internal::itoa(local_48, &local_4c, (long)param_3, param_4);
-        if (local_4c < param_2) {
-            _memcpy(param_1, pvVar1, (ulong)(local_4c + 1));
+        auto pvVar1 = internal::itoa(local_48, 32, (long)arg3, arg4);
+        if (32 < arg2) {
+            _memcpy(str, pvVar1, (unsigned long)(32 + 1));
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return param_1;
+        return str;
     }
 
-    // 0x100cba830, 112 bytes, placed by neighbouring functions
-    // ToText(char*, unsigned int, unsigned int, unsigned int)
-    char* ToText(char* param_1, uint param_2, uint param_3, uint param_4) {
-        void* pvVar1;
-        uint local_4c;
+    // 0x100cba830
+    char* ToText(char* str, unsigned int arg2, unsigned int arg3, unsigned int arg4) {
         char local_48[40];
-        long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_4c = 32;
-        pvVar1 = (void*)internal::utoa(local_48, &local_4c, (ulong)param_3, param_4);
-        if (local_4c < param_2) {
-            _memcpy(param_1, pvVar1, (ulong)(local_4c + 1));
+        auto pvVar1 = internal::utoa(local_48, 32, (unsigned long)arg3, arg4);
+        if (32 < arg2) {
+            _memcpy(str, pvVar1, (unsigned long)(32 + 1));
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return param_1;
+        return str;
     }
 
-    // 0x100cba8a0, 112 bytes, placed by neighbouring functions
-    // ToText(char*, unsigned int, long long, unsigned int)
-    char* ToText(char* param_1, uint param_2, longlong param_3, uint param_4) {
-        void* pvVar1;
-        uint local_4c;
+    // 0x100cba8a0
+    char* ToText(char* str, unsigned int arg2, long long arg3, unsigned int arg4) {
         char local_48[40];
-        long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_4c = 32;
-        pvVar1 = (void*)internal::itoa(local_48, &local_4c, param_3, param_4);
-        if (local_4c < param_2) {
-            _memcpy(param_1, pvVar1, (ulong)(local_4c + 1));
+        auto pvVar1 = internal::itoa(local_48, 32, arg3, arg4);
+        if (32 < arg2) {
+            _memcpy(str, pvVar1, (unsigned long)(32 + 1));
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return param_1;
+        return str;
     }
 
-    // 0x100cba910, 112 bytes, placed by neighbouring functions
-    // ToText(char*, unsigned int, unsigned long long, unsigned int)
-    char* ToText(char* param_1, uint param_2, ulonglong param_3, uint param_4) {
-        void* pvVar1;
-        uint local_4c;
+    // 0x100cba910
+    char* ToText(char* str, unsigned int arg2, unsigned long long arg3, unsigned int arg4) {
         char local_48[40];
-        long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_4c = 32;
-        pvVar1 = (void*)internal::utoa(local_48, &local_4c, param_3, param_4);
-        if (local_4c < param_2) {
-            _memcpy(param_1, pvVar1, (ulong)(local_4c + 1));
+        auto pvVar1 = internal::utoa(local_48, 32, arg3, arg4);
+        if (32 < arg2) {
+            _memcpy(str, pvVar1, (unsigned long)(32 + 1));
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return param_1;
+        return str;
     }
 
-    // 0x100cba980, 144 bytes, placed by debug map only (low confidence)
-    // ToText(char*, unsigned int, bool, unsigned int)
-    char* ToText(char* param_1, uint param_2, bool param_3, uint param_4) {
-        char* pcVar1;
-
-        if (param_2 < 6) {
-            /* WARNING: Subroutine does not return */
+    // 0x100cba980
+    char* ToText(char* str, unsigned int arg2, bool arg3, unsigned int arg4) {
+        if (arg2 < 6) {
             LogAssert("uTextSize > 5",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/TextConvert.cpp", 335,
-                      (char*)0);
+                      nullptr);
         }
-        if (param_4 != 10) {
-            /* WARNING: Subroutine does not return */
+        if (arg4 != 10) {
             LogAssert("radix == 10",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/TextConvert.cpp", 337,
-                      (char*)0);
+                      nullptr);
         }
-        pcVar1 = "false";
-        if (param_3) {
+        char* pcVar1 = "false";
+        if (arg3) {
             pcVar1 = "true";
         }
-        _strcpy(param_1, pcVar1);
-        return param_1;
+        _strcpy(str, pcVar1);
+        return str;
     }
 
-    // 0x100cbaa10, 80 bytes, placed by neighbouring functions
-    // TrimNumericZeros(char*, int)
-    uint TrimNumericZeros(char* param_1, int param_2) {
-        uint uVar1;
+    // 0x100cbaa10
+    unsigned int TrimNumericZeros(char* str, int arg2) {
+        unsigned int uVar1;
         bool bVar2;
         bool bVar3;
 
         if (__ZL6strchrUa9enable_ifIXLb1EEEPci() != 0) {
             do {
-                if (param_2 < 1) {
-                    return param_2;
+                if (arg2 < 1) {
+                    return arg2;
                 }
-                uVar1 = param_2 - 1;
+                uVar1 = arg2 - 1;
                 bVar2 = false;
                 bVar3 = false;
-                if (param_1[uVar1] == '.') {
+                if (str[uVar1] == '.') {
                 LAB_100cbaa30:
                     bVar2 = bVar3;
-                    param_1[uVar1] = '\0';
-                    param_2 = uVar1;
-                } else if (param_1[uVar1] == '0') {
+                    str[uVar1] = '\0';
+                    arg2 = uVar1;
+                } else if (str[uVar1] == '0') {
                     bVar3 = true;
                     goto LAB_100cbaa30;
                 }
             } while (bVar2);
         }
-        return param_2;
+        return arg2;
     }
 
-    // 0x100cbaa70, 112 bytes, placed by debug map only (low confidence)
-    // ToText(char*, unsigned int, float, unsigned int)
-    char* ToText(char* param_1, uint param_2, float param_3, uint param_4) {
-        int iVar1;
-
-        if (param_4 != 10) {
-            /* WARNING: Subroutine does not return */
+    // 0x100cbaa70
+    char* ToText(char* str, unsigned int arg2, float arg3, unsigned int arg4) {
+        if (arg4 != 10) {
             LogAssert("radix == 10",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/TextConvert.cpp", 371,
-                      (char*)0);
+                      nullptr);
         }
-        iVar1 = _snprintf(param_1, (ulong)param_2, "%f", (double)param_3);
-        TrimNumericZeros(param_1, iVar1);
-        return param_1;
+        int arg2_00 = _snprintf(str, (unsigned long)arg2, "%f", (double)arg3);
+        TrimNumericZeros(str, arg2_00);
+        return str;
     }
 
-    // 0x100cbaae0, 112 bytes, placed by debug map only (low confidence)
-    // ToText(char*, unsigned int, double, unsigned int)
-    char* ToText(char* param_1, uint param_2, double param_3, uint param_4) {
-        int iVar1;
-
-        if (param_4 != 10) {
-            /* WARNING: Subroutine does not return */
+    // 0x100cbaae0
+    char* ToText(char* str, unsigned int arg2, double arg3, unsigned int arg4) {
+        if (arg4 != 10) {
             LogAssert("radix == 10",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/TextConvert.cpp", 380,
-                      (char*)0);
+                      nullptr);
         }
-        iVar1 = _snprintf(param_1, (ulong)param_2, "%lf");
-        TrimNumericZeros(param_1, iVar1);
-        return param_1;
+        int arg2_00 = _snprintf(str, (unsigned long)arg2, "%lf");
+        TrimNumericZeros(str, arg2_00);
+        return str;
     }
 
 } // namespace jag
 
 namespace jag::internal {
-    // 0x100cb9870, 176 bytes, placed by debug map only (low confidence)
-    // TryParseFallback(StringView, float&)
-    void TryParseFallback(StringView param_1, float* param_2) {
-        char* pcVar1;
-        char* pcVar2;
-        char* local_78;
-        float local_6c;
-        StringView local_68[4];
-        undefined8 local_20;
-
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        StringView::to_owned_string<eastl::fixed_string<char, 30, true, eastl::allocator>>(local_68);
-        local_78 = (char*)0;
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        local_6c = _strtof(pcVar1, &local_78);
+    // 0x100cb9870
+    void TryParseFallback(StringView stringView, float& arg2) {
+        auto local_68 = stringView->to_owned_string<eastl::fixed_string<char, 30>>();
+        char* local_78 = nullptr;
+        char* pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        float local_6c = _strtof(pcVar1, &local_78);
         pcVar1 = local_78;
-        pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        char* pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
         if (pcVar1 != pcVar2) {
-            *(float*)param_1.field_8 = local_6c;
+            arg2 = local_6c;
         }
-        /* WARNING: Subroutine does not return */
-        local_68->~fixed_string();
     }
 
-    // 0x100cb9960, 192 bytes, placed by debug map only (low confidence)
-    // TryParseFallback(StringView, double&)
-    void TryParseFallback(StringView param_1, double* param_2) {
-        char* pcVar1;
-        char* pcVar2;
-        double dVar3;
-        char* local_88;
-        StringView local_80[6];
-        undefined8 local_20;
-
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        StringView::to_owned_string<eastl::fixed_string<char, 50, true, eastl::allocator>>(local_80);
-        local_88 = (char*)0;
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        dVar3 = _strtod(pcVar1, &local_88);
+    // 0x100cb9960
+    void TryParseFallback(StringView stringView, double& arg2) {
+        auto local_80 = stringView->to_owned_string<eastl::fixed_string<char, 50>>();
+        char* local_88 = nullptr;
+        char* pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        double dVar3 = _strtod(pcVar1, &local_88);
         pcVar1 = local_88;
-        pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        char* pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
         if (pcVar1 != pcVar2) {
-            *(double*)param_1.field_8 = dVar3;
+            arg2 = dVar3;
         }
-        /* WARNING: Subroutine does not return */
-        local_80->~fixed_string();
     }
 
-    // 0x100cb9a60, 336 bytes, placed by debug map only (low confidence)
-    // itoa(char*, unsigned int&, long long, unsigned int)
-    char* itoa(char* param_1, uint* param_2, longlong param_3, uint param_4) {
+    // 0x100cb9a60
+    char* itoa(char* str, unsigned int& arg2, long long arg3, unsigned int arg4) {
         char cVar1;
-        uint uVar2;
+        unsigned int uVar2;
         long lVar3;
         long lVar4;
         char* pcVar5;
         char* pcVar6;
         char cVar7;
-        longlong lVar8;
-        ulong uVar9;
-        double dVar10;
-        double dVar11;
 
-        if (34 < param_4 - 2) {
-            /* WARNING: Subroutine does not return */
+        if (34 < arg4 - 2) {
             LogAssert("radix >= 2 && radix <= 36",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/TextConvert.cpp", 92,
-                      (char*)0);
+                      nullptr);
         }
-        uVar9 = (ulong)*param_2;
-        lVar8 = -param_3;
-        if (-param_3 < 0) {
-            lVar8 = param_3;
+        unsigned long uVar8 = (unsigned long)*arg2;
+        long long arg1 = -arg3;
+        if (-arg3 < 0) {
+            arg1 = arg3;
         }
-        dVar10 = (double)log<long long>(lVar8);
-        dVar11 = (double)log<unsigned int>(param_4);
-        if ((double)uVar9 < (double)((uint)((ulong)param_3 >> 63) | 2) + dVar10 / dVar11) {
-            /* WARNING: Subroutine does not return */
+        double dVar9 = (double)log<long long>(arg1);
+        double dVar10 = (double)log<unsigned int>(arg4);
+        if ((double)uVar8 < (double)((unsigned int)((unsigned long)arg3 >> 63) | 2) + dVar9 / dVar10) {
             LogAssert("tempBufferSize >= ((std::log(value) / std::log(radix)) + 1 + (negative ? 1 : 0) + 1 )",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/TextConvert.cpp", 99,
-                      (char*)0);
+                      nullptr);
         }
-        param_1[uVar9 - 1] = '\0';
-        if (lVar8 == 0) {
-            param_1[uVar9 - 2] = '0';
-            pcVar6 = param_1 + (uVar9 - 2);
+        str[uVar8 - 1] = '\0';
+        if (arg1 == 0) {
+            str[uVar8 - 2] = '0';
+            pcVar6 = str + (uVar8 - 2);
             uVar2 = 1;
         } else {
-            pcVar6 = param_1 + (uVar9 - 2);
+            pcVar6 = str + (uVar8 - 2);
             do {
                 pcVar5 = pcVar6;
-                lVar3 = lVar8 / (long)(ulong)param_4;
-                lVar4 = lVar8 % (long)(ulong)param_4;
+                lVar3 = arg1 / (long)(unsigned long)arg4;
+                lVar4 = arg1 % (long)(unsigned long)arg4;
                 cVar1 = (char)lVar4;
                 cVar7 = cVar1 + '7';
                 if ((int)lVar4 < 10) {
                     cVar7 = cVar1 + '0';
                 }
                 *pcVar5 = cVar7;
-                pcVar6 = pcVar5 + -1;
-                lVar8 = lVar3;
+                pcVar6 = pcVar5 - 1;
+                arg1 = lVar3;
             } while (lVar3 != 0);
-            if (param_3 < 0) {
+            if (arg3 < 0) {
                 *pcVar6 = '-';
             } else {
                 pcVar6 = pcVar5;
             }
-            uVar2 = ~((int)pcVar6 - (int)param_1) + *param_2;
+            uVar2 = ~((int)pcVar6 - (int)str) + arg2;
         }
-        *param_2 = uVar2;
+        arg2 = uVar2;
         return pcVar6;
     }
 
-    // 0x100cb9be0, 272 bytes, placed by debug map only (low confidence)
-    // utoa(char*, unsigned int&, unsigned long long, unsigned int)
-    char* utoa(char* param_1, uint* param_2, ulonglong param_3, uint param_4) {
+    // 0x100cb9be0
+    char* utoa(char* str, unsigned int& arg2, unsigned long long arg3, unsigned int arg4) {
         char cVar1;
-        char* pcVar2;
-        char cVar3;
-        uint uVar4;
-        ulong uVar5;
+        bool cVar3;
         bool bVar7;
-        double dVar8;
-        double dVar9;
 
-        uVar4 = *param_2;
-        dVar8 = (double)log<unsigned long long>(param_3);
-        dVar9 = (double)log<unsigned int>(param_4);
+        unsigned int uVar4 = arg2;
+        double dVar8 = (double)log<unsigned long long>(arg3);
+        double dVar9 = (double)log<unsigned int>(arg4);
         if ((double)uVar4 < dVar8 / dVar9 + 2.0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("tempBufferSize >= ((std::log(value) / std::log(radix)) + 1 + 1 )",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/TextConvert.cpp", 128,
-                      (char*)0);
+                      nullptr);
         }
-        if (34 < param_4 - 2) {
-            /* WARNING: Subroutine does not return */
+        if (34 < arg4 - 2) {
             LogAssert("radix >= 2 && radix <= 36",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/TextConvert.cpp", 129,
-                      (char*)0);
+                      nullptr);
         }
-        uVar5 = (ulong)*param_2;
-        pcVar2 = param_1 + (uVar5 - 1);
-        param_1[uVar5 - 1] = '\0';
-        if (param_3 == 0) {
-            param_1[uVar5 - 2] = '0';
-            pcVar2 = param_1 + (uVar5 - 2);
+        unsigned long uVar5 = (unsigned long)*arg2;
+        char* pcVar2 = str + (uVar5 - 1);
+        str[uVar5 - 1] = '\0';
+        if (arg3 == 0) {
+            str[uVar5 - 2] = '0';
+            pcVar2 = str + (uVar5 - 2);
             uVar4 = 1;
         } else {
             do {
-                cVar1 = (char)(param_3 % (ulong)param_4);
+                cVar1 = (char)(arg3 % (unsigned long)arg4);
                 cVar3 = cVar1 + '7';
-                if ((int)(param_3 % (ulong)param_4) < 10) {
+                if ((int)(arg3 % (unsigned long)arg4) < 10) {
                     cVar3 = cVar1 + '0';
                 }
                 pcVar2[-1] = cVar3;
-                pcVar2 = pcVar2 + -1;
+                pcVar2 = pcVar2 - 1;
                 uVar4 = (int)uVar5 - 1;
-                uVar5 = (ulong)uVar4;
-                bVar7 = (ulong)param_4 <= param_3;
-                param_3 = param_3 / (ulong)param_4;
+                uVar5 = (unsigned long)uVar4;
+                bVar7 = (unsigned long)arg4 <= arg3;
+                arg3 = arg3 / (unsigned long)arg4;
             } while (bVar7);
-            uVar4 = *param_2 - uVar4;
+            uVar4 = arg2 - uVar4;
         }
-        *param_2 = uVar4;
+        arg2 = uVar4;
         return pcVar2;
     }
 
-    // 0x100cb9d70, 192 bytes, inline, placed by debug map only (low confidence)
-    // bool TryParseFallback<int, long (*)(char const*, char**, int)>(StringView, int&, int, long (*&&)(char const*, char**, int))
-    bool TryParseFallback<int, long (*)(char const*, char**, int)>(StringView param_1, int* param_2, int param_3,
-                                                                   _func_long_char_ptr_char_ptr_ptr_int* param_4) {
-        code* pcVar1;
-        long lVar2;
-        undefined4 uVar3;
-        undefined8 uVar4;
-        long lVar5;
-        undefined4 in_register_0000000c;
-        long local_78;
-        StringView local_70[4];
-        undefined8 local_30;
+    // 0x100cb9d70
+    bool TryParseFallback<int, long (*)(char const*, char**, int)>(StringView stringView, int& arg2, int arg3,
+                                                                   long (*&&)(char const*, char**, int) arg4) {
+        uint32_t in_register_0000000c;
 
-        local_30 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        StringView::to_owned_string<eastl::fixed_string<char, 20, true, eastl::allocator>>(local_70);
-        local_78 = 0;
-        pcVar1 = *(code**)CONCAT44(in_register_0000000c, param_3);
-        uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        uVar3 = (*pcVar1)(uVar4, &local_78, (ulong)param_2 & 4294967295);
-        lVar2 = local_78;
-        lVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        auto local_70 = stringView->to_owned_string<eastl::fixed_string<char, 20>>();
+        long local_78 = 0;
+        void* pcVar1 = *(void (**)(...))(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4);
+        uint64_t uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        int iVar3 = (*pcVar1)(uVar4, &local_78, arg3);
+        long lVar2 = local_78;
+        long lVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
         if (lVar2 != lVar5) {
-            *(undefined4*)param_1.field_8 = uVar3;
+            arg2 = iVar3;
         }
-        /* WARNING: Subroutine does not return */
-        local_70->~fixed_string();
     }
 
-    // 0x100cb9e90, 192 bytes, inline, placed by debug map only (low confidence)
-    // bool TryParseFallback<unsigned int, unsigned long (*)(char const*, char**, int)>(StringView, unsigned int&, int, unsigned long (*&&)(char const*, char**, int))
+    // 0x100cb9e90
     bool TryParseFallback<unsigned int, unsigned long (*)(char const*, char**, int)>(
-        StringView param_1, uint* param_2, int param_3, _func_ulong_char_ptr_char_ptr_ptr_int* param_4) {
-        code* pcVar1;
-        long lVar2;
-        undefined4 uVar3;
-        undefined8 uVar4;
-        long lVar5;
-        undefined4 in_register_0000000c;
-        long local_78;
-        StringView local_70[4];
-        undefined8 local_30;
+        StringView stringView, unsigned int& arg2, int arg3, unsigned long (*&&)(char const*, char**, int) arg4) {
+        uint32_t in_register_0000000c;
 
-        local_30 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        StringView::to_owned_string<eastl::fixed_string<char, 20, true, eastl::allocator>>(local_70);
-        local_78 = 0;
-        pcVar1 = *(code**)CONCAT44(in_register_0000000c, param_3);
-        uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        uVar3 = (*pcVar1)(uVar4, &local_78, (ulong)param_2 & 4294967295);
-        lVar2 = local_78;
-        lVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        auto local_70 = stringView->to_owned_string<eastl::fixed_string<char, 20>>();
+        long local_78 = 0;
+        void* pcVar1 = *(void (**)(...))(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4);
+        uint64_t uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        unsigned int uVar3 = (*pcVar1)(uVar4, &local_78, arg3);
+        long lVar2 = local_78;
+        long lVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
         if (lVar2 != lVar5) {
-            *(undefined4*)param_1.field_8 = uVar3;
+            arg2 = uVar3;
         }
-        /* WARNING: Subroutine does not return */
-        local_70->~fixed_string();
     }
 
-    // 0x100cb9fa0, 192 bytes, inline, placed by debug map only (low confidence)
-    // bool TryParseFallback<long long, long long (*)(char const*, char**, int)>(StringView, long long&, int, long long (*&&)(char const*, char**, int))
-    bool TryParseFallback<long long, long long (*)(char const*, char**, int)>(
-        StringView param_1, longlong* param_2, int param_3, _func_longlong_char_ptr_char_ptr_ptr_int* param_4) {
-        code* pcVar1;
-        long lVar2;
-        undefined8 uVar3;
-        long lVar4;
-        undefined4 in_register_0000000c;
-        long local_78;
-        StringView local_70[4];
-        undefined8 local_30;
+    // 0x100cb9fa0
+    bool TryParseFallback<long long, long long (*)(char const*, char**, int)>(StringView stringView, long long& arg2,
+                                                                              int arg3,
+                                                                              long long (*&&)(char const*, char**, int)
+                                                                                  arg4) {
+        uint32_t in_register_0000000c;
 
-        local_30 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        StringView::to_owned_string<eastl::fixed_string<char, 20, true, eastl::allocator>>(local_70);
-        local_78 = 0;
-        pcVar1 = *(code**)CONCAT44(in_register_0000000c, param_3);
-        uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        uVar3 = (*pcVar1)(uVar3, &local_78, (ulong)param_2 & 4294967295);
-        lVar2 = local_78;
-        lVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        if (lVar2 != lVar4) {
-            *(undefined8*)param_1.field_8 = uVar3;
+        auto local_70 = stringView->to_owned_string<eastl::fixed_string<char, 20>>();
+        long local_78 = 0;
+        void* pcVar1 = *(void (**)(...))(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4);
+        uint64_t uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        long long lVar4 = (*pcVar1)(uVar3, &local_78, arg3);
+        long lVar2 = local_78;
+        long lVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        if (lVar2 != lVar5) {
+            arg2 = lVar4;
         }
-        /* WARNING: Subroutine does not return */
-        local_70->~fixed_string();
     }
 
-    // 0x100cba0b0, 192 bytes, inline, placed by debug map only (low confidence)
-    // bool TryParseFallback<unsigned long long, unsigned long long (*)(char const*, char**, int)>(StringView, unsigned long long&, int, unsigned long long (*&&)(char const*, char**, int))
-    bool internal::TryParseFallback<unsigned long long, unsigned long long (*)(char const*, char**, int)>(
-        StringView param_1, ulonglong* param_2, int param_3, _func_ulonglong_char_ptr_char_ptr_ptr_int* param_4) {
-        code* pcVar1;
-        long lVar2;
-        undefined8 uVar3;
-        long lVar4;
-        undefined4 in_register_0000000c;
-        long local_78;
-        StringView local_70[4];
-        undefined8 local_30;
+    // 0x100cba0b0
+    bool TryParseFallback<unsigned long long, unsigned long long (*)(char const*, char**, int)>(
+        StringView stringView, unsigned long long& arg2, int arg3,
+        unsigned long long (*&&)(char const*, char**, int) arg4) {
+        uint32_t in_register_0000000c;
 
-        local_30 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        StringView::to_owned_string<eastl::fixed_string<char, 20, true, eastl::allocator>>(local_70);
-        local_78 = 0;
-        pcVar1 = *(code**)CONCAT44(in_register_0000000c, param_3);
-        uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        uVar3 = (*pcVar1)(uVar3, &local_78, (ulong)param_2 & 4294967295);
-        lVar2 = local_78;
-        lVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        if (lVar2 != lVar4) {
-            *(undefined8*)param_1.field_8 = uVar3;
+        auto local_70 = stringView->to_owned_string<eastl::fixed_string<char, 20>>();
+        long local_78 = 0;
+        void* pcVar1 = *(void (**)(...))(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4);
+        uint64_t uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        unsigned long long uVar4 = (*pcVar1)(uVar3, &local_78, arg3);
+        long lVar2 = local_78;
+        long lVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        if (lVar2 != lVar5) {
+            arg2 = uVar4;
         }
-        /* WARNING: Subroutine does not return */
-        local_70->~fixed_string();
     }
 
 } // namespace jag::internal
 
-// 0x100cbaa60, 16 bytes, placed by neighbouring functions
-// _ZL6strchrUa9enable_ifIXLb1EEEPci
+// 0x100cbaa60
 void __ZL6strchrUa9enable_ifIXLb1EEEPci(char* param_1, int param_2) {
     __libcpp_strchr(param_1, param_2);
 }

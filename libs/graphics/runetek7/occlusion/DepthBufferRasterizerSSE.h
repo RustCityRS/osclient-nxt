@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/occlusion/DepthBufferRasterizerSSE.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,22 +9,20 @@ namespace jag::graphics {
         // virtual methods in vtable order
         virtual ~DepthBufferRasterizerSSE();
         int GetNumRasterizedTriangles() const;
-        DepthBufferRasterizerSSE(unsigned int, unsigned int);
-        void ClearDepthTile(int, int, int, int, unsigned int);
-        void SetCPURenderTargetPixels(unsigned int*, unsigned int);
+        DepthBufferRasterizerSSE(unsigned int arg1, unsigned int arg2);
+        void ClearDepthTile(int arg1, int arg2, int arg3, int arg4, unsigned int arg5);
+        void SetCPURenderTargetPixels(unsigned int* arg1, unsigned int arg2);
 
-        // data members, from how the methods use this: 56 bytes
-        undefined** field_0;          // offset 0, vtable pointer
-        uint field_8;                 // offset 8
-        uint field_12;                // offset 12
-        int m_numRasterizedTriangles; // offset 16
-        char _unknown_20[36];
+    private:
+        unsigned int field_8;
+        unsigned int field_12;
+        int m_numRasterizedTriangles;
+        uint8_t _unknown_20[36];
     };
 
-    // 0x100824440, 16 bytes, inline, placed by class name and debug map
-    // DepthBufferRasterizerSSE::SetCPURenderTargetPixels(unsigned int*, unsigned int)
-    void DepthBufferRasterizerSSE::SetCPURenderTargetPixels(uint* param_1, uint param_2) {
-        *(uint**)(&field_24 + (ulong)param_2 * 8) = param_1;
+    // 0x100824440
+    void DepthBufferRasterizerSSE::SetCPURenderTargetPixels(unsigned int* arg1, unsigned int arg2) {
+        *(unsigned int**)(&field_24 + (unsigned long)arg2 * 8) = arg1;
     }
 
 } // namespace jag::graphics

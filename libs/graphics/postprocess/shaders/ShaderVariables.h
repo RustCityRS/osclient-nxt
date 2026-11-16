@@ -1,46 +1,24 @@
 // libs/graphics/postprocess/shaders/ShaderVariables.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
-namespace jag::math {
-    // 0x100936150, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ColourStorage8888<ARGB8StorageLayout>::ColourStorage8888(unsigned int, unsigned int, unsigned int, unsigned int): jumps straight to the base-object constructor
-
-    // 0x100936280, 80 bytes, inline, placed by debug map only (low confidence)
-    // Matrix44T<float>::operator*=(float)
-    /* Matrix44T<float>::TEMPNAMEPLACEHOLDERVALUE(float) */
-
-    Matrix44T<float>* Matrix44T<float>::operator*=(float param_1) {
-        Vector4T<float>::operator*=((Vector4T<float>*)this, param_1);
-        Vector4T<float>::operator*=((Vector4T<float>*)(this + 16), param_1);
-        Vector4T<float>::operator*=((Vector4T<float>*)(this + 32), param_1);
-        Vector4T<float>::operator*=((Vector4T<float>*)(this + 48), param_1);
-        return this;
-    }
-
-} // namespace jag::math
-
 namespace jag::postprocess {
-    // 0x100935950, 16 bytes, inline, placed by debug map only (low confidence)
-    // operator*(ShaderVariable)
-    /* TEMPNAMEPLACEHOLDERVALUE(ShaderVariable) */
+    // 0x100935950
+    void operator*(ShaderVariable shaderVariable) {
+        unsigned long in_RSI;
 
-    void operator*(uint param_1) {
-        std::array<render::ShaderProgramVariable, 48ul>::operator[]((ulong)param_1);
+        (*((array<render::ShaderProgramVariable, 48ul>*)(unsigned long)shaderVariable))[in_RSI];
     }
 
 } // namespace jag::postprocess
 
 namespace jag::graphics {
-    // 0x100935970, 80 bytes, inline, placed by debug map only (low confidence)
-    // PackMieGParams(float)
-    undefined1[16] PackMieGParams(float param_1) {
-        undefined1 auVar1[16];
-        ImVec4 local_18[16];
+    // 0x100935970
+    void PackMieGParams(float arg1) {
+        uint8_t auVar1[16];
 
-        ImVec4::ImVec4(local_18, 1.0 - param_1 * param_1, param_1 * param_1 + 1.0, param_1 + param_1, 0.7853982);
+        ImVec4 local_18(1.0 - arg1 * arg1, arg1 * arg1 + 1.0, arg1 + arg1, 0.7853982f);
         auVar1[0] = local_18[0];
         auVar1[1] = local_18[1];
         auVar1[2] = local_18[2];
@@ -61,3 +39,15 @@ namespace jag::graphics {
     }
 
 } // namespace jag::graphics
+
+namespace jag::math {
+    // 0x100936280
+    Matrix44T<float>* Matrix44T<float>::operator*=(float arg1) {
+        *this *= arg1;
+        (*((this + 16))) *= arg1;
+        (*((this + 32))) *= arg1;
+        (*((this + 48))) *= arg1;
+        return this;
+    }
+
+} // namespace jag::math

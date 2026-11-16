@@ -1,6 +1,5 @@
 // libs/oldscape/rs2lib/stockmarket/ActiveOffersReply.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,141 +8,101 @@ namespace jag::oldscape::rs2lib {
     public:
         class ActiveOffer;
         ~ActiveOffersReply();
-        ActiveOffersReply(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, ErrorCapture&);
-        void Pack(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        ActiveOffersReply(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, bool);
-        void PackClient(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, int, bool);
-        void SortList(std::function<bool(ActiveOffer const&, ActiveOffer const&)>, bool);
+        ActiveOffersReply(PacketJ<Array<unsigned char>>& packetJ, ErrorCapture& errorCapture);
+        void Pack(PacketJ<Array<unsigned char>>& packetJ);
+        ActiveOffersReply(PacketJ<Array<unsigned char>>& packetJ, bool arg2);
+        void PackClient(PacketJ<Array<unsigned char>>& packetJ, int arg2, bool arg3);
+        void SortList(std::function<bool(ActiveOffer const&, ActiveOffer const&)> callback, bool arg2);
         void GetActiveOfferCount() const;
-        void GetActiveOffer(unsigned int) const;
-        static /* 48 bytes */ compareByOfferMade;
-        static /* 48 bytes */ compareByNodeId;
-        static /* 48 bytes */ compareByPrice;
-        static /* 48 bytes */ compareByDisplayName;
-        static /* 48 bytes */ compareByCount;
+        void GetActiveOffer(unsigned int arg1) const;
+        static uint8_t compareByOfferMade[48];
+        static uint8_t compareByNodeId[48];
+        static uint8_t compareByPrice[48];
+        static uint8_t compareByDisplayName[48];
+        static uint8_t compareByCount[48];
 
-        // data members, from how the methods use this: 32 bytes
-        uint field_0; // offset 0
-        char _unknown_4[28];
+    private:
+        unsigned int field_0;
+        uint8_t _unknown_4[28];
     };
 
     class ActiveOffersReply::ActiveOffer {
     public:
-        GetOffer() const;
-        GetUserhash() const;
-        longlong GetOfferMade() const;
-        uint GetNodeId() const;
+        void GetOffer() const;
+        void GetUserhash() const;
+        long long GetOfferMade() const;
+        unsigned int GetNodeId() const;
         ~ActiveOffer();
-        ActiveOffer(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, ErrorCapture&);
-        void Pack(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        ActiveOffer(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, StockPlayerOffer::OFFER_TYPE, int);
-        void PackClient(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        ActiveOffer(long long, int, long long, StockPlayerOffer const&);
-        void SetDisplayName(eastl::string const&, eastl::string const&);
-        getDisplayName() const;
-        getOldDisplayName() const;
+        ActiveOffer(PacketJ<Array<unsigned char>>& packetJ, ErrorCapture& errorCapture);
+        void Pack(PacketJ<Array<unsigned char>>& packetJ);
+        ActiveOffer(PacketJ<Array<unsigned char>>& packetJ, StockPlayerOffer::OFFER_TYPE oFFER_TYPE, int arg3);
+        void PackClient(PacketJ<Array<unsigned char>>& packetJ);
+        ActiveOffer(long long arg1, int arg2, long long arg3, const StockPlayerOffer& stockPlayerOffer);
+        void SetDisplayName(const eastl::string& str1, const eastl::string& str2);
+        uint8_t* getDisplayName() const;
+        uint8_t* getOldDisplayName() const;
 
-        // data members, from how the methods use this: 26152 bytes
-        longlong field_0; // offset 0
-        uint m_nodeId;    // offset 8
-        char _unknown_12[4];
-        longlong m_offerMade; // offset 16
-        Minimap field_24;     // offset 24
+    private:
+        long long field_0;
+        unsigned int m_nodeId;
+        uint8_t _unknown_12[4];
+        long long m_offerMade;
+        Minimap field_24;
     };
 
-    // 0x10013c340, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // ActiveOffersReply::~ActiveOffersReply(): jumps straight to the base-object destructor
-
-    // 0x10013c350, 16 bytes, base-object destructor, inline, placed by class name and debug map
-    // ActiveOffersReply::~ActiveOffersReply()
-    void ActiveOffersReply::~ActiveOffersReply() {
-        (&field_8)->~Array();
+    // 0x10013c350
+    ActiveOffersReply::~ActiveOffersReply() {
+        field_8.~Array();
     }
 
-    // 0x10013c4e0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // ActiveOffersReply::ActiveOffer::~ActiveOffer(): jumps straight to the base-object destructor
-
-    // 0x10013c4f0, 48 bytes, base-object destructor, inline, placed by class name and debug map
-    // ActiveOffersReply::ActiveOffer::~ActiveOffer()
-    void ActiveOffersReply::ActiveOffer::~ActiveOffer() {
+    // 0x10013c4f0
+    ActiveOffersReply::ActiveOffer::~ActiveOffer() {
         ((field_24 + 64))->~basic_string();
         ((field_24 + 32))->~basic_string();
     }
 
-    // 0x1002070d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // ActiveOffersReply::SortList(std::function<bool (ActiveOffersReply::ActiveOffer const&, ActiveOffersReply::ActiveOffer const&)>, bool)::$_9::~$_9(): jumps straight to the base-object destructor
-
-    // 0x100207450, 96 bytes, base-object constructor, inline, placed by class name
-    // ActiveOffersReply::ActiveOffer::ActiveOffer(long long, int, long long, StockPlayerOffer const&)
-    void ActiveOffersReply::ActiveOffer::ActiveOffer(longlong param_1, int param_2, longlong param_3,
-                                                     StockPlayerOffer* param_4) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        byte bVar4;
-        undefined2 uVar5;
-        uint uVar6;
-
-        field_0 = param_1;
-        m_nodeId = param_2;
-        m_offerMade = param_3;
-        bVar4 = param_4->m_offerType;
-        uVar5 = param_4->field_2;
-        uVar6 = param_4->m_item;
-        uVar1 = *(undefined8*)&param_4->m_price;
-        uVar2 = *(undefined8*)&param_4->m_completedCount;
-        uVar3 = *(undefined8*)&param_4->field_24;
-        field_24[0] = param_4->m_offerStatus;
+    // 0x100207450
+    ActiveOffersReply::ActiveOffer::ActiveOffer(long long arg1, int arg2, long long arg3,
+                                                const StockPlayerOffer& stockPlayerOffer)
+        : field_0(arg1), m_nodeId(arg2), m_offerMade(arg3) {
+        uint8_t bVar4 = stockPlayerOffer.m_offerType;
+        uint16_t uVar5 = stockPlayerOffer.field_2;
+        unsigned int uVar6 = stockPlayerOffer.m_item;
+        uint64_t uVar1 = *(uint64_t*)&stockPlayerOffer.m_price;
+        uint64_t uVar2 = *(uint64_t*)&stockPlayerOffer.m_completedCount;
+        uint64_t uVar3 = *(uint64_t*)&stockPlayerOffer.field_24;
+        field_24[0] = stockPlayerOffer.m_offerStatus;
         field_24[1] = bVar4;
-        *(undefined2*)(field_24 + 2) = uVar5;
-        *(uint*)(field_24 + 4) = uVar6;
-        *(undefined8*)(field_24 + 8) = uVar1;
-        *(undefined8*)(field_24 + 16) = uVar2;
-        *(undefined8*)(field_24 + 24) = uVar3;
+        *(uint16_t*)(field_24 + 2) = uVar5;
+        *(unsigned int*)(field_24 + 4) = uVar6;
+        *(uint64_t*)(field_24 + 8) = uVar1;
+        *(uint64_t*)(field_24 + 16) = uVar2;
+        *(uint64_t*)(field_24 + 24) = uVar3;
         new ((field_24 + 32)) eastl::string();
         new ((field_24 + 64)) eastl::string();
     }
 
-    // 0x1002074b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // ActiveOffersReply::ActiveOffer::ActiveOffer(long long, int, long long, StockPlayerOffer const&): jumps straight to the base-object constructor
+    // 0x1002163e0
+    ActiveOffersReply::SortList(
+        std::function<bool(ActiveOffersReply::ActiveOffer const&, ActiveOffersReply::ActiveOffer const&)>,
+        bool)::$_9::~$_9() {}
 
-    // 0x1002163e0, 16 bytes, base-object destructor, inline, placed by class name
-    // ActiveOffersReply::SortList(std::function<bool (ActiveOffersReply::ActiveOffer const&, ActiveOffersReply::ActiveOffer const&)>, bool)::$_9::~$_9()
-    /* ~$_9() */
-
-    void ActiveOffersReply::SortList(
-        std::function<bool(ActiveOffersReply::ActiveOffer_const&, ActiveOffersReply::ActiveOffer_const&)>,
-        bool)::$_9::~__9() {
-        std::function<bool(ActiveOffersReply::ActiveOffer_const&, ActiveOffersReply::ActiveOffer_const&)>::~function(
-            (function<bool(ActiveOffersReply::ActiveOffer_const&, ActiveOffersReply::ActiveOffer_const&)>*)this);
-    }
-
-    // 0x100222d90, 80 bytes, inline, placed by class name
-    // ActiveOffersReply::SortList(std::function<bool (ActiveOffersReply::ActiveOffer const&, ActiveOffersReply::ActiveOffer const&)>, bool)::$_9::operator()(eastl::unique_ptr<ActiveOffersReply::ActiveOffer, eastl::default_delete<ActiveOffersReply::ActiveOffer> > const&, eastl::unique_ptr<ActiveOffersReply::ActiveOffer, eastl::default_delete<ActiveOffersReply::ActiveOffer> > const&) const
-    /* ActiveOffersReply::SortList(std::function<bool
-   (ActiveOffersReply::ActiveOffer const&,
-   ActiveOffersReply::ActiveOffer const&)>,
-   bool)::$_9::TEMPNAMEPLACEHOLDERVALUE(eastl::unique_ptr<ActiveOffersReply::ActiveOffer,
-   eastl::default_delete<ActiveOffersReply::ActiveOffer> > const&,
-   eastl::unique_ptr<ActiveOffersReply::ActiveOffer,
-   eastl::default_delete<ActiveOffersReply::ActiveOffer> > const&) const */
-
+    // 0x100222d90
     bool ActiveOffersReply::SortList(
-        std::function<bool(ActiveOffersReply::ActiveOffer_const&, ActiveOffersReply::ActiveOffer_const&)>,
-        bool)::$_9::operator()(unique_ptr* param_1, unique_ptr* param_2) {
-        __9 _Var1;
-        ActiveOffer* pAVar2;
-        __9 _Var3;
+        std::function<bool(ActiveOffersReply::ActiveOffer const&, ActiveOffersReply::ActiveOffer const&)>,
+        bool)::$_9::operator()(const eastl::unique_ptr<ActiveOffersReply::ActiveOffer>& activeOffer1,
+                               const eastl::unique_ptr<ActiveOffersReply::ActiveOffer>& activeOffer2) const {
+        ActiveOffer* activeOffer1_00;
+        ActiveOffer* activeOffer2_00;
 
-        _Var1 = this[48];
-        pAVar2 =
-            (ActiveOffer*)eastl::unique_ptr<ActiveOffersReply, eastl::default_delete<ActiveOffersReply>>::operator->(
-                (unique_ptr<ActiveOffersReply, eastl::default_delete<ActiveOffersReply>>*)param_1);
-        eastl::unique_ptr<ActiveOffersReply, eastl::default_delete<ActiveOffersReply>>::operator->(
-            (unique_ptr<ActiveOffersReply, eastl::default_delete<ActiveOffersReply>>*)param_2);
-        _Var3 = (__9)std::function<bool(ActiveOffersReply::ActiveOffer_const&,
-                                        ActiveOffersReply::ActiveOffer_const&)>::operator()((ActiveOffer*)this, pAVar2);
-        return _Var1 == _Var3;
+        __9 _Var1 = this[48];
+        activeOffer1_00 = (ActiveOffer*)activeOffer1.operator->();
+        activeOffer2_00 = (ActiveOffer*)activeOffer2.operator->();
+        __9 _Var2 = (__9)std::
+            function<bool(ActiveOffersReply::ActiveOffer const&, ActiveOffersReply::ActiveOffer const&)>::operator()(
+                (function<bool(ActiveOffersReply::ActiveOffer const&, ActiveOffersReply::ActiveOffer const&)>*)this,
+                activeOffer1_00, activeOffer2_00);
+        return _Var1 == _Var2;
     }
 
 } // namespace jag::oldscape::rs2lib

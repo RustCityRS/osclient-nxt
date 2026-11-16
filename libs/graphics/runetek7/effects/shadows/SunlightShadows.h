@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/effects/shadows/SunlightShadows.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,97 +8,77 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~SunlightShadows();
-        virtual Initialise();
-        virtual void RenderDebug(render::Viewport const&) const;
-        virtual void SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const;
-        virtual void BindConstBufferToShader(render::ShaderProgram const&) const;
-        virtual CreateRenderingResources();
+        virtual uint8_t Initialise();
+        virtual void RenderDebug(const render::Viewport& viewport) const;
+        virtual void SetShaderConstants(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                        Shader& shader) const;
+        virtual void BindConstBufferToShader(const render::ShaderProgram& shaderProgram) const;
+        virtual uint64_t CreateRenderingResources();
         virtual void DestroyRenderingResources();
         virtual void OnEndFrame();
-        virtual void InitialiseTweakVars(tweak::ContainerGroup&, EffectManager&);
-        virtual OnQualityChange(GraphicsQuality);
-        GetSunlightCsmManager();
-        GetSunlightCsmManager() const;
-        GetSunlightViewTransform() const;
-        SunlightShadows(RT7Core&, int, int);
+        virtual void InitialiseTweakVars(tweak::ContainerGroup& containerGroup, EffectManager& effectManager);
+        virtual uint64_t OnQualityChange(GraphicsQuality graphicsQuality);
+        uint8_t* GetSunlightCsmManager();
+        uint8_t* GetSunlightCsmManager() const;
+        uint64_t* GetSunlightViewTransform() const;
+        SunlightShadows(RT7Core& rt7Core, int arg2, int arg3);
         void Update();
-        void SetSunlightViewTransform(math::Matrix44T<float> const&);
+        void SetSunlightViewTransform(const math::Matrix44T<float>& matrix44);
         void UpdateShaderConstants();
-        void PushConfig(DirLightCsmManager::Config&);
+        void PushConfig(DirLightCsmManager::Config& config);
         void GetCurrentConfig();
         void PopConfig();
-        void SetShaderConstantsDirect(render::DrawCallState&, render::RenderContext&,
-                                      render::ShaderProgram const&) const;
-        void SetSunlightShadowStrength(float, long long, unsigned long long);
+        void SetShaderConstantsDirect(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                      const render::ShaderProgram& shaderProgram) const;
+        void SetSunlightShadowStrength(float arg1, long long arg2, unsigned long long arg3);
 
-        // data members, from how the methods use this: 6516896 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        char _unknown_12[4];
-        RT7Core* field_16; // offset 16
-        char _unknown_24[660];
-        float field_684; // offset 684
-        char _unknown_688[72];
-        uint field_760; // offset 760
-        char _unknown_764[1172];
-        undefined8 m_sunlightViewTransform; // offset 1936
-        undefined8 field_1944;              // offset 1944
-        undefined8 field_1952;              // offset 1952
-        undefined8 field_1960;              // offset 1960
-        undefined8 field_1968;              // offset 1968
-        undefined8 field_1976;              // offset 1976
-        undefined8 field_1984;              // offset 1984
-        undefined8 field_1992;              // offset 1992
-        uint field_2000;                    // offset 2000
-        uint field_2004;                    // offset 2004
-        undefined4 field_2008;              // offset 2008
-        char _unknown_2012[76];
-        uint field_2088; // offset 2088
-        char _unknown_2092[6514804];
+    private:
+        GraphicsQuality field_8;
+        uint8_t _unknown_12[4];
+        RT7Core* field_16;
+        uint8_t _unknown_24[660];
+        float field_684;
+        uint8_t _unknown_688[72];
+        unsigned int field_760;
+        uint8_t _unknown_764[1172];
+        uint64_t m_sunlightViewTransform;
+        uint64_t field_1944;
+        uint64_t field_1952;
+        uint64_t field_1960;
+        uint64_t field_1968;
+        uint64_t field_1976;
+        uint64_t field_1984;
+        uint64_t field_1992;
+        unsigned int field_2000;
+        unsigned int field_2004;
+        uint32_t field_2008;
+        uint8_t _unknown_2012[76];
+        unsigned int field_2088;
+        uint8_t _unknown_2092[6514804];
     };
 
-    // 0x1001d0810, 16 bytes, inline, placed by class name and debug map
-    // SunlightShadows::GetSunlightCsmManager()
-    /* SunlightShadows::GetSunlightCsmManager() const */
-
-    undefined1* SunlightShadows::GetSunlightCsmManager() {
+    // 0x1001d0810
+    uint8_t* SunlightShadows::GetSunlightCsmManager() {
         return &field_1056;
     }
 
-    // 0x1007a5640, 16 bytes, inline, placed by class name
-    // SunlightShadows::GetSunlightViewTransform() const
-    undefined8* SunlightShadows::GetSunlightViewTransform() {
+    // 0x1007a5640
+    uint64_t* SunlightShadows::GetSunlightViewTransform() const {
         return &m_sunlightViewTransform;
     }
 
-    // 0x100919830, 32 bytes, inline, placed by class name
-    // SunlightShadows::GetCurrentConfig()
+    // 0x100919830
     void SunlightShadows::GetCurrentConfig() {
-        (&field_768)->top();
+        eastl::stack<DirLightCsmManager::Config, eastl::fixed_vector<DirLightCsmManager::Config, 2ul>>::top();
     }
 
-    // 0x100921f40, 16 bytes, complete-object destructor, inline, placed by class name
-    // SunlightShadows::~SunlightShadows(): jumps straight to the base-object destructor
-
-    // 0x100921f50, 32 bytes, deleting destructor, inline, placed by class name
-    // SunlightShadows::~SunlightShadows()
-    void SunlightShadows::~SunlightShadows() {
-        ~SunlightShadows(this);
-        operator_delete(this);
-    }
-
-    // 0x100923600, 96 bytes, base-object destructor, inline, placed by class name
-    // SunlightShadows::~SunlightShadows()
-    void SunlightShadows::~SunlightShadows() {
-        NpcUID* extraout_RDX;
-        NpcUID* in_RSI;
-
-        field_0 = &PTR__SunlightShadows_100f19370;
-        (&field_2016)->~TypedShaderConstBuffer();
-        (&field_1056)->~DirLightCsmManager();
-        (&field_768)->~fixed_stack();
-        (&field_688)->~TypedShaderConstBuffer();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)this, in_RSI, extraout_RDX);
+    // 0x100923600
+    SunlightShadows::~SunlightShadows() {
+        field_2016.~TypedShaderConstBuffer();
+        field_1056.~DirLightCsmManager();
+        field_768.~fixed_stack();
+        field_688.~TypedShaderConstBuffer();
+        destruct<oldscape::highlight::NpcUID*>();
     }
 
 } // namespace jag::graphics

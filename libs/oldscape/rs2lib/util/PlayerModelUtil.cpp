@@ -1,261 +1,180 @@
 // libs/oldscape/rs2lib/util/PlayerModelUtil.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 namespace jag::oldscape {
     class PlayerModelUtil {
     public:
-        void SetPlayerModel(rs2lib::IfType&, bool);
-        void SetPlayerModelObj(rs2lib::IfType&, int);
-        void SetPlayerModelColour(rs2lib::IfType&, int, int);
-        void SetPlayerModelBodyType(rs2lib::IfType&, int);
-        bool ModelHasHelmetThatDoesntCoverJaw(rs2lib::PlayerModel const&);
+        void SetPlayerModel(rs2lib::IfType& ifType, bool arg2);
+        void SetPlayerModelObj(rs2lib::IfType& ifType, int arg2);
+        void SetPlayerModelColour(rs2lib::IfType& ifType, int arg2, int arg3);
+        void SetPlayerModelBodyType(rs2lib::IfType& ifType, int arg2);
+        bool ModelHasHelmetThatDoesntCoverJaw(const rs2lib::PlayerModel& playerModel);
     };
 
-    // 0x1001fe530, 272 bytes, placed by class name and debug map
-    // PlayerModelUtil::SetPlayerModel(rs2lib::IfType&, bool)
-    void PlayerModelUtil::SetPlayerModel(IfType* param_1, bool param_2) {
-        long lVar1;
-        fixed_vector<int, 12ul, true, eastl::allocator>* this;
-        PlayerModel* this_00;
-        undefined1* this_01;
-        shared_ptr<dash3d::Decor> local_48[16];
-        shared_ptr local_38;
-        unique_ptr local_28[8];
+    // 0x1001fe530
+    void PlayerModelUtil::SetPlayerModel(rs2lib::IfType& ifType, bool arg2) {
+        fixed_vector<int, 12ul>* fixed_vector;
+        shared_ptr<rs2lib::PlayerModel> local_38;
 
-        param_1->field_228 = 7;
-        lVar1 = Client::Instance();
-        lVar1 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)(lVar1 + 52016));
-        shared_ptr<dash3d::Decor>::shared_ptr(local_48, (shared_ptr*)(lVar1 + 1008));
-        shared_ptr<rs2lib::PlayerModel>::operator*((shared_ptr<rs2lib::PlayerModel>*)local_48);
-        std::make_unique<rs2lib::PlayerModel, rs2lib::PlayerModel&>((PlayerModel*)local_28);
-        shared_ptr<rs2lib::PlayerModel>::shared_ptr<rs2lib::PlayerModel, std::default_delete<rs2lib::PlayerModel>>(
-            (shared_ptr<rs2lib::PlayerModel>*)&local_38, local_28);
-        this_01 = &param_1->field_296;
-        shared_ptr<rs2lib::PlayerModel>::operator=((shared_ptr<rs2lib::PlayerModel>*)this_01, &local_38);
-        local_38.~shared_ptr();
-        local_28->~unique_ptr();
-        if (!param_2) {
-            lVar1 = shared_ptr<rs2lib::PlayerModel>::operator->((shared_ptr<rs2lib::PlayerModel>*)local_48);
-            this = (fixed_vector<int, 12ul, true, eastl::allocator>*)shared_ptr<rs2lib::PlayerModel>::operator->(
-                (shared_ptr<rs2lib::PlayerModel>*)this_01);
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::operator=(this, (fixed_vector*)(lVar1 + 88));
-            this_00 =
-                (PlayerModel*)shared_ptr<rs2lib::PlayerModel>::operator->((shared_ptr<rs2lib::PlayerModel>*)this_01);
-            this_00->RefreshAppearance();
-        }
-        local_48->~shared_ptr();
-    }
-
-    // 0x1001fe780, 272 bytes, placed by class name
-    // PlayerModelUtil::SetPlayerModelObj(rs2lib::IfType&, int)
-    void PlayerModelUtil::SetPlayerModelObj(IfType* param_1, int param_2) {
-        undefined8 uVar2;
-        long lVar3;
-        vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>* pvVar4;
-        int* piVar5;
-        undefined4* puVar6;
-        PlayerModel* this;
-        undefined1* this_00;
-        undefined1 local_38[16];
-
-        this_00 = &param_1->field_296;
-        if (operator==((shared_ptr*)this_00, (_func_decltype_nullptr*)0)) {
-            uVar2 = logger::default_logger();
-            logger::Logger::Log(uVar2, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "util/PlayerModelUtil.cpp",
-                                24, "SetPlayerModelObj called on a component without a player model!");
-        } else {
-            local_38->List(param_2);
-            lVar3 = local_38->end();
-            local_38->~shared_ptr();
-            pvVar4 = (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                         shared_ptr<rs2lib::PlayerModel>::operator->((shared_ptr<rs2lib::PlayerModel>*)this_00);
-            piVar5 =
-                (int*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                operator[](pvVar4, (long)*(int*)(lVar3 + 208));
-            *piVar5 = param_2 + 512;
-            if (*(int*)(lVar3 + 212) != -1) {
-                pvVar4 = (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                             shared_ptr<rs2lib::PlayerModel>::operator->((shared_ptr<rs2lib::PlayerModel>*)this_00);
-                puVar6 = (undefined4*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        pvVar4, (long)*(int*)(lVar3 + 212));
-                *puVar6 = 0;
-            }
-            if (*(int*)(lVar3 + 216) != -1) {
-                pvVar4 = (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                             shared_ptr<rs2lib::PlayerModel>::operator->((shared_ptr<rs2lib::PlayerModel>*)this_00);
-                puVar6 = (undefined4*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        pvVar4, (long)*(int*)(lVar3 + 216));
-                *puVar6 = 0;
-            }
-            this = (PlayerModel*)shared_ptr<rs2lib::PlayerModel>::operator->((shared_ptr<rs2lib::PlayerModel>*)this_00);
-            RefreshAppearance();
+        ifType.field_228 = 7;
+        long lVar2 = Client::Instance()->field_52016.operator->();
+        shared_ptr<dash3d::Decor> local_48((lVar2 + 1008));
+        PlayerModel* pPVar3 = (PlayerModel*)*local_48;
+        auto local_28 = std::make_unique<rs2lib::PlayerModel, rs2lib::PlayerModel&>(*pPVar3);
+        local_38.shared_ptr<rs2lib::PlayerModel>(local_28);
+        uint8_t* this_00 = &ifType.field_296;
+        *this_00 = local_38;
+        if (!arg2) {
+            lVar2 = local_48.operator->();
+            fixed_vector = (fixed_vector<int, 12ul>*)(*this_00).operator->();
+            *fixed_vector = (*((lVar2 + 88)));
+            pPVar3 = (PlayerModel*)(*this_00).operator->();
+            pPVar3->RefreshAppearance();
         }
     }
 
-    // 0x1001fe890, 144 bytes, placed by class name
-    // PlayerModelUtil::SetPlayerModelColour(rs2lib::IfType&, int, int)
-    void PlayerModelUtil::SetPlayerModelColour(IfType* param_1, int param_2, int param_3) {
-        undefined8 uVar2;
-        long lVar3;
+    // 0x1001fe780
+    void PlayerModelUtil::SetPlayerModelObj(rs2lib::IfType& ifType, int arg2) {
+        long lVar2;
+        vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true>>* pvVar3;
         int* piVar4;
-        PlayerModel* this;
-        undefined1* this_00;
+        uint32_t* puVar5;
+        ReturnValue local_38;
 
-        this_00 = &param_1->field_296;
-        if (operator==((shared_ptr*)this_00, (_func_decltype_nullptr*)0)) {
-            uVar2 = logger::default_logger();
-            logger::Logger::Log(uVar2, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "util/PlayerModelUtil.cpp",
-                                44, "SetPlayerModelColour called on a component without a player model!");
+        uint8_t* objType = &ifType.field_296;
+        if (*objType == nullptr) {
+            (logger::default_logger())
+                ->Log(false, 2,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/util/"
+                      "PlayerModelUtil.cpp",
+                      24, "SetPlayerModelObj called on a component without a player model!");
         } else {
-            lVar3 = shared_ptr<rs2lib::PlayerModel>::operator->((shared_ptr<rs2lib::PlayerModel>*)this_00);
-            piVar4 = (int*)eastl::
-                vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)(lVar3 +
-                                                                                                              176),
-                    (long)param_2);
-            *piVar4 = param_3;
-            this = (PlayerModel*)shared_ptr<rs2lib::PlayerModel>::operator->((shared_ptr<rs2lib::PlayerModel>*)this_00);
-            RefreshAppearance();
+            local_38 = configdecoder::ObjType::List(arg2);
+            lVar2 = local_38.end();
+            pvVar3 = (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true>>*)(*objType).operator->();
+            piVar4 = (int*)(*pvVar3)[(long)*(int*)(lVar2 + 208)];
+            *piVar4 = arg2 + 512;
+            if (*(int*)(lVar2 + 212) != -1) {
+                pvVar3 =
+                    (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true>>*)(*objType).operator->();
+                puVar5 = (uint32_t*)(*pvVar3)[(long)*(int*)(lVar2 + 212)];
+                *puVar5 = 0;
+            }
+            if (*(int*)(lVar2 + 216) != -1) {
+                pvVar3 =
+                    (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true>>*)(*objType).operator->();
+                puVar5 = (uint32_t*)(*pvVar3)[(long)*(int*)(lVar2 + 216)];
+                *puVar5 = 0;
+            }
+            ((PlayerModel*)(*objType).operator->())->RefreshAppearance();
         }
     }
 
-    // 0x1001fe920, 432 bytes, placed by class name
-    // PlayerModelUtil::SetPlayerModelBodyType(rs2lib::IfType&, int)
-    void PlayerModelUtil::SetPlayerModelBodyType(IfType* param_1, int param_2) {
-        undefined4 uVar1;
-        char cVar3;
-        int iVar4;
-        int iVar5;
-        undefined8 uVar6;
-        GraphicsDefaults* this;
-        long lVar7;
-        GraphicsDefaults* this_00;
-        int* piVar8;
-        undefined4* puVar9;
-        ulong uVar10;
-        ulong uVar11;
+    // 0x1001fe890
+    void PlayerModelUtil::SetPlayerModelColour(rs2lib::IfType& ifType, int arg2, int arg3) {
+        long lVar2;
+        int* piVar3;
 
-        if (operator==((shared_ptr*)&param_1->field_296, (_func_decltype_nullptr*)0)) {
-            uVar6 = logger::default_logger();
-            logger::Logger::Log(uVar6, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "util/PlayerModelUtil.cpp",
-                                55, "SetPlayerModelBodyType called on a component without a player model!");
+        uint8_t* objType = &ifType.field_296;
+        if (*objType == nullptr) {
+            (logger::default_logger())
+                ->Log(false, 2,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/util/"
+                      "PlayerModelUtil.cpp",
+                      44, "SetPlayerModelColour called on a component without a player model!");
+        } else {
+            lVar2 = (*objType).operator->();
+            piVar3 = (int*)(*((lVar2 + 176)))[(long)arg2];
+            *piVar3 = arg3;
+            ((PlayerModel*)(*objType).operator->())->RefreshAppearance();
+        }
+    }
+
+    // 0x1001fe920
+    void PlayerModelUtil::SetPlayerModelBodyType(rs2lib::IfType& ifType, int arg2) {
+        uint32_t uVar1;
+        bool cVar3;
+        int iVar5;
+        long lVar7;
+        GraphicsDefaults* pGVar8;
+        int* piVar9;
+        uint32_t* puVar10;
+        array<int, 7ul>* paVar11;
+        unsigned long arg1_00;
+        GraphicsDefaults* arg1_01;
+
+        if (ifType.field_296 == nullptr) {
+            (logger::default_logger())
+                ->Log(false, 2,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/util/"
+                      "PlayerModelUtil.cpp",
+                      55, "SetPlayerModelBodyType called on a component without a player model!");
             return;
         }
-        this = (GraphicsDefaults*)shared_ptr<rs2lib::PlayerModel>::operator*(
-            (shared_ptr<rs2lib::PlayerModel>*)&param_1->field_296);
-        iVar4 = GetSpriteCompassID();
-        SetBodytype(param_2);
-        if (iVar4 != param_2) {
-            iVar4 = GetSpriteCompassID();
-            lVar7 = Client::Instance();
-            lVar7 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)(lVar7 + 52016));
-            this_00 = (GraphicsDefaults*)shared_ptr<rs2lib::PlayerModel>::operator->(
-                (shared_ptr<rs2lib::PlayerModel>*)(lVar7 + 1008));
-            iVar5 = this_00->GetSpriteCompassID();
+        GraphicsDefaults* this_00 = (GraphicsDefaults*)ifType.field_296;
+        int iVar4 = this_00->GetSpriteCompassID();
+        unsigned long arg1 = (unsigned long)(unsigned int)arg2;
+        this_00->SetBodytype(arg2);
+        if (iVar4 != arg2) {
+            iVar4 = this_00->GetSpriteCompassID();
+            lVar7 = Client::Instance()->field_52016.operator->();
+            pGVar8 = (GraphicsDefaults*)(*((lVar7 + 1008))).operator->();
+            iVar5 = pGVar8->GetSpriteCompassID();
             if (iVar4 == iVar5) {
-                uVar10 = 0;
+                paVar11 = nullptr;
                 do {
-                    piVar8 = (int*)std::array<int, 7ul>::operator[](uVar10);
-                    uVar11 = (ulong)*piVar8;
-                    piVar8 = (int*)eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                        uVar11);
-                    if ((0 < *piVar8) &&
-                        (piVar8 = (int*)eastl::vector<
-                             int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                         operator[](
-                             (vector<int,
-                                     eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                             uVar11),
-                         *piVar8 < 512)) {
-                        puVar9 = (undefined4*)eastl::vector<
-                            int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                        operator[]((vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true,
-                                                                              eastl::allocator>>*)&field_88,
-                                   uVar11);
-                        uVar1 = *puVar9;
-                        puVar9 = (undefined4*)eastl::vector<
-                            int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<int,
-                                    eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                            uVar11);
-                        *puVar9 = uVar1;
+                    piVar9 = (int*)(*paVar11)[arg1];
+                    arg1_00 = (unsigned long)*piVar9;
+                    arg1 = arg1_00;
+                    piVar9 = (int*)(*this_00)[arg1_00];
+                    if ((0 < *piVar9) && (arg1 = arg1_00, piVar9 = (int*)(*this_00)[arg1_00], *piVar9 < 512)) {
+                        puVar10 = &this_00->field_88[arg1_00];
+                        uVar1 = *puVar10;
+                        puVar10 = (uint32_t*)(*this_00)[arg1_00];
+                        *puVar10 = uVar1;
+                        arg1 = arg1_00;
                     }
-                    uVar10 = uVar10 + 1;
-                } while (uVar10 != 7);
+                    paVar11 = paVar11 + 1;
+                } while (paVar11 != (array<int, 7ul>*)7);
             } else {
-                piVar8 = (int*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                        0);
-                if ((*piVar8 < 512) || (cVar3 = ModelHasHelmetThatDoesntCoverJaw((PlayerModel*)this), cVar3 != '\0')) {
-                    puVar9 = (undefined4*)eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                        11);
-                    *puVar9 = 1;
+                pGVar8 = nullptr;
+                piVar9 = (int*)(*this_00)[0];
+                if ((*piVar9 < 512) || (cVar3 = ModelHasHelmetThatDoesntCoverJaw((PlayerModel*)this_00), cVar3)) {
+                    pGVar8 = (GraphicsDefaults*)11;
+                    puVar10 = (uint32_t*)(*this_00)[11];
+                    *puVar10 = 1;
                 }
-                uVar10 = 0;
+                paVar11 = nullptr;
                 do {
-                    piVar8 = (int*)std::array<int, 7ul>::operator[](uVar10);
-                    iVar4 = *piVar8;
-                    piVar8 = (int*)eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                        (long)iVar4);
-                    if ((0 < *piVar8) &&
-                        (piVar8 = (int*)eastl::vector<
-                             int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                         operator[](
-                             (vector<int,
-                                     eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                             (long)iVar4),
-                         *piVar8 < 512)) {
-                        rs2lib::PlayerModel::SetDefaultTypeForIdkSlot(param_2, (fixed_vector*)this, (int)uVar10);
+                    piVar9 = (int*)(*paVar11)[(unsigned long)pGVar8];
+                    arg1_01 = (GraphicsDefaults*)(long)*piVar9;
+                    pGVar8 = arg1_01;
+                    piVar9 = (int*)(*this_00)[(unsigned long)arg1_01];
+                    if ((0 < *piVar9) &&
+                        (piVar9 = (int*)(*this_00)[(unsigned long)arg1_01], pGVar8 = arg1_01, *piVar9 < 512)) {
+                        pGVar8 = this_00;
+                        rs2lib::PlayerModel::SetDefaultTypeForIdkSlot(arg2, *this_00, (int)paVar11);
                     }
-                    uVar10 = uVar10 + 1;
-                } while (uVar10 != 7);
+                    paVar11 = paVar11 + 1;
+                } while (paVar11 != (array<int, 7ul>*)7);
             }
         }
-        RefreshAppearance();
+        this_00->RefreshAppearance();
     }
 
-    // 0x1001feaf0, 128 bytes, placed by class name
-    // PlayerModelUtil::ModelHasHelmetThatDoesntCoverJaw(rs2lib::PlayerModel const&)
-    bool PlayerModelUtil::ModelHasHelmetThatDoesntCoverJaw(PlayerModel* param_1) {
-        int* piVar1;
+    // 0x1001feaf0
+    bool PlayerModelUtil::ModelHasHelmetThatDoesntCoverJaw(const rs2lib::PlayerModel& playerModel) {
         long lVar2;
-        bool bVar3;
-        undefined1 local_30[16];
+        ReturnValue local_30;
 
-        bVar3 = false;
-        piVar1 = (int*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)param_1, 0);
+        bool bVar3 = false;
+        int* piVar1 = &playerModel[0];
         if (511 < *piVar1) {
             bVar3 = false;
-            piVar1 = (int*)eastl::
-                vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)param_1,
-                    0);
-            local_30->List(*piVar1 + -512);
-            lVar2 = local_30->end();
-            local_30->~shared_ptr();
+            piVar1 = &playerModel[0];
+            local_30 = configdecoder::ObjType::List(*piVar1 - 512);
+            lVar2 = local_30.end();
             if (*(int*)(lVar2 + 212) != 11) {
                 bVar3 = *(int*)(lVar2 + 216) != 11;
             }

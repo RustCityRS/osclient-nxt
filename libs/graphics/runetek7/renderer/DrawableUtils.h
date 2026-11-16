@@ -1,28 +1,20 @@
 // libs/graphics/runetek7/renderer/DrawableUtils.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
-    // 0x1007b7300, 176 bytes, inline, placed by debug map only (low confidence)
-    // DstFromCameraPlane(math::Vector3T<float> const&, math::Matrix44T<float> const&)
-    float DstFromCameraPlane(Vector3T* param_1, Matrix44T* param_2) {
-        float* pfVar1;
-        float local_24;
-        float local_20;
-        float local_1c;
-
-        local_24 = 0.0;
-        pfVar1 = (float*)math::Matrix44T<float>::operator()((Matrix44T<float>*)param_2, 2);
-        local_1c = *(float*)param_1 * *pfVar1;
-        pfVar1 = (float*)math::Matrix44T<float>::operator()((Matrix44T<float>*)param_2, 6);
-        local_1c = *(float*)(param_1 + 4) * *pfVar1 + local_1c;
-        pfVar1 = (float*)math::Matrix44T<float>::operator()((Matrix44T<float>*)param_2, 10);
-        local_1c = *(float*)(param_1 + 8) * *pfVar1 + local_1c;
-        pfVar1 = (float*)math::Matrix44T<float>::operator()((Matrix44T<float>*)param_2, 14);
-        local_20 = local_1c + *pfVar1;
-        pfVar1 = std::max<float>(&local_24, &local_20);
+    // 0x1007b7300
+    float DstFromCameraPlane(const math::Vector3T<float>& vector3, const math::Matrix44T<float>& matrix44) {
+        float* pfVar1 = (float*)math::Matrix44T<float>::operator()(matrix44, 2);
+        float local_1c = *(float*)vector3 * *pfVar1;
+        pfVar1 = (float*)math::Matrix44T<float>::operator()(matrix44, 6);
+        local_1c = *(float*)(vector3 + 4) * *pfVar1 + local_1c;
+        pfVar1 = (float*)math::Matrix44T<float>::operator()(matrix44, 10);
+        local_1c = *(float*)(vector3 + 8) * *pfVar1 + local_1c;
+        pfVar1 = (float*)math::Matrix44T<float>::operator()(matrix44, 14);
+        float local_20 = local_1c + *pfVar1;
+        pfVar1 = std::max<float>(0.0, local_20);
         return *pfVar1;
     }
 

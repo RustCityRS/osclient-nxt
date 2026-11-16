@@ -1,56 +1,51 @@
 // libs/oldscape/rs2lib/stockmarket/stock_playeroffer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::rs2lib {
     class StockPlayerOffer {
     public:
-        SetItem(int);
-        GetPrice() const;
-        SetPrice(int);
-        void SetCompletedCount(int);
-        SetAddedCount(int);
-        int GetCompletedCount() const;
-        uint GetItem() const;
-        int GetAddedCount() const;
-        GetCompletedGold() const;
+        void SetItem(int arg1);
+        EnumOptionToggle GetPrice() const;
+        void SetPrice(int arg1);
+        void SetCompletedCount(int arg1);
+        void SetAddedCount(int arg1);
+        unsigned int GetCompletedCount() const;
+        unsigned int GetItem() const;
+        unsigned int GetAddedCount() const;
+        unsigned int GetCompletedGold() const;
         StockPlayerOffer();
-        void SetOfferStatus(OFFER_STATUS);
-        void SetOfferType(OFFER_TYPE);
-        SetCompletedGold(int);
-        StockPlayerOffer(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, bool, ErrorCapture&);
-        void Pack(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, bool) const;
-        void DecodeTypeStatus(unsigned char);
-        void UnpackVariables(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, ErrorCapture&);
-        uint EncodeTypeStatus() const;
-        void PackVariables(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&) const;
-        byte GetOfferStatus() const;
-        byte GetOfferType() const;
+        void SetOfferStatus(OFFER_STATUS oFFER_STATUS);
+        void SetOfferType(OFFER_TYPE oFFER_TYPE);
+        void SetCompletedGold(int arg1);
+        StockPlayerOffer(PacketJ<Array<unsigned char>>& packetJ, bool arg2, ErrorCapture& errorCapture);
+        void Pack(PacketJ<Array<unsigned char>>& packetJ, bool arg2) const;
+        void DecodeTypeStatus(unsigned char arg1);
+        void UnpackVariables(PacketJ<Array<unsigned char>>& packetJ, ErrorCapture& errorCapture);
+        unsigned int EncodeTypeStatus() const;
+        void PackVariables(PacketJ<Array<unsigned char>>& packetJ) const;
+        uint8_t GetOfferStatus() const;
+        uint8_t GetOfferType() const;
 
-        // data members, from how the methods use this: 36 bytes
-        byte m_offerStatus;         // offset 0
-        byte m_offerType;           // offset 1
-        undefined2 field_2;         // offset 2
-        uint m_item;                // offset 4
-        undefined4 m_price;         // offset 8
-        int m_addedCount;           // offset 12
-        int m_completedCount;       // offset 16
-        undefined4 m_completedGold; // offset 20
-        undefined1 field_24;        // offset 24
-        char _unknown_25[3];
-        undefined4 field_28; // offset 28
-        char _unknown_32[4];
+    private:
+        uint8_t m_offerStatus;
+        uint8_t m_offerType;
+        uint16_t field_2;
+        unsigned int m_item;
+        unsigned int m_price;
+        unsigned int m_addedCount;
+        unsigned int m_completedCount;
+        unsigned int m_completedGold;
+        uint8_t field_24;
+        uint8_t _unknown_25[3];
+        unsigned int field_28;
+        uint8_t _unknown_32[4];
     };
 
-    // 0x100207330, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // StockPlayerOffer::SetCompletedGold(int)
-    /* game::PlayerStat::SetGameplayLevel(unsigned int) */
-
-    void game::PlayerStat::SetGameplayLevel(uint param_1) {
-        m_gameplayLevel = param_1;
+    // 0x100207330
+    void StockPlayerOffer::SetCompletedGold(int arg1) {
+        m_gameplayLevel = arg1;
     }
 
 } // namespace jag::oldscape::rs2lib

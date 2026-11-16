@@ -9,7 +9,7 @@ for root, _, names in os.walk(tree):
             p = os.path.join(root, n)
             texts[os.path.relpath(p, tree).replace(os.sep, '/')] = open(p, encoding='utf8', errors='replace').read()
 alltext = '\n'.join(texts.values())
-addrs = set(int(a, 16) for a in re.findall(r'^\s*// 0x([0-9a-f]+)[,:]', alltext, re.M))
+addrs = set(int(a, 16) for a in re.findall(r'^\s*// 0x([0-9a-f]+)\b', alltext, re.M))
 demangled = open(dem, encoding='utf8').read().split('\n')
 missing = []
 for n, line in enumerate(open(stabs, encoding='utf8')):
@@ -19,7 +19,7 @@ for n, line in enumerate(open(stabs, encoding='utf8')):
         missing.append(d)
 print('1. jag:: functions with a vendored debug-map file still missing:', len(missing), missing[:3])
 print('2. GCC_except_table / block / ObjC metadata emitted as data:',
-      len(re.findall(r'^\s*// 0x[0-9a-f]+, \d+ bytes, __\w+.*\n\s*\S*\b(?:GCC_except_table\d+|___block_descriptor|__OBJC_)',
+      len(re.findall(r'^\s*// 0x[0-9a-f]+\b.*\n\s*[^\n(]*\b(?:GCC_except_table\d+|___block_descriptor|__OBJC_)',
                      alltext, re.M)))
 ctor_void = 0
 for m in re.finditer(r'^\s*class (\w+)[^\n{;]*\{(.*?)^\s*\};', alltext, re.M | re.S):
@@ -38,7 +38,7 @@ targets = collections.Counter(re.findall(r'add_(?:library|executable)\((\S+)', '
 print('5. duplicate CMake targets:', [t for t, c in targets.items() if c > 1],
       '| exe target:', [t for t in targets if 'system.osclient' in t],
       '| osclient lib linked:', any('target_link_libraries' in v and '\n    osclient\n' in v for v in cm.values()))
-dumps = sorted(((len(re.findall(r'^\s*// 0x[0-9a-f]+, \d+ bytes, __', t, re.M)), p) for p, t in texts.items()), reverse=True)[:3]
+dumps = sorted(((len(re.findall(r'^\s*// 0x[0-9a-f]+(?:, set at startup.*)?\n\s*[^\n(]*;\s*$', t, re.M)), p) for p, t in texts.items()), reverse=True)[:3]
 print('6. files with the most data definitions:', dumps)
 print('7. member calls still in Ghidra form (Class::m((Class *)x ...)):',
       len(re.findall(r'(\w+)(?:<[^;()]*>)?::(\w+)\(\s*\(\s*\1(?:<[^;()]*>)?\s*\*\s*\)', alltext)))

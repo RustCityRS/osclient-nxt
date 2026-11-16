@@ -1,525 +1,434 @@
 // libs/oldscape/rs2lib/social/clanchat/ClanSettings.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "ClanSettings.h"
 
 namespace jag::oldscape::rs2lib::social {
-    // 0x1016af933, 1 bytes, __common; zero-initialised
-    ClanSettings::m_fluttered;
+    // 0x1016af933
+    bool ClanSettings::m_fluttered;
 
-    // 0x1016af934, 12 bytes, __common; zero-initialised
-    ClanSettings::m_verbose;
+    // 0x1016af934
+    uint8_t ClanSettings::m_verbose[12];
 
-    // 0x100243890: the linker folded this into configdecoder::ObjSpriteCacheKey::ObjSpriteCacheKey(), which has identical code
-    ClanSettings::ExtraSettingsParam::ExtraSettingsParam();
+    // 0x1002438a0: ClanSettings::ExtraSettingsParam::ExtraSettingsParam() has the same machine code as configdecoder::ObjSpriteCacheKey::ObjSpriteCacheKey()
 
-    // 0x1002438a0: the linker folded this into configdecoder::ObjSpriteCacheKey::ObjSpriteCacheKey(), which has identical code
-    ClanSettings::ExtraSettingsParam::ExtraSettingsParam();
+    // 0x10025cec0
+    ClanSettings::ClanSettings(long long arg1, PacketJ<Array<unsigned char, BucketAllocatorEASTL>>& packetJ) {
 
-    // 0x10025cec0, 528 bytes, base-object constructor, placed by class name and debug map
-    // ClanSettings::ClanSettings(long long, PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&)
-    void ClanSettings::ClanSettings(longlong param_1, PacketJ* param_2) {
-        allocator local_38[8];
-
-        *(undefined8*)((long)&field_0 + 6) = 0;
+        *(uint64_t*)((long)&field_0 + 6) = 0;
         field_0 = 0;
-        eastl::allocator::allocator(local_38, "EASTL basic_string");
-        new (&field_16, "", local_38) eastl::string();
+        new (&field_16) eastl::string("");
         field_64 = 0;
         field_48 = 0;
         field_52 = 0;
-        m_allowNonMembers = false;
-        new (&field_72) eastl::vector<long long, eastl::allocator>();
-        new (&field_104) eastl::vector<signed char, eastl::allocator>();
-        new (&field_136) eastl::vector<int, eastl::allocator>();
-        new (&field_168) eastl::vector<int, eastl::allocator>();
-        new (&field_200) eastl::vector<int, eastl::allocator>();
+        field_56 = false;
+        new (&field_72) eastl::vector<long long>();
+        new (&field_104) eastl::vector<signed char>();
+        new (&field_136) eastl::vector<int>();
+        new (&field_168) eastl::vector<int>();
+        new (&field_200) eastl::vector<int>();
         field_232 = 4294967295;
         field_236 = 4294967295;
         field_240 = 0;
-        new (&field_248) eastl::vector<long long, eastl::allocator>();
-        new (&field_280) eastl::vector<eastl::string, eastl::allocator>();
-        new (&field_312) eastl::vector<eastl::string, eastl::allocator>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_344, local_38) eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                                   eastl::equal_to<long long>, eastl::allocator, false>();
-        new (&field_400) Array<int, eastl::allocator>();
-        field_0 = param_1;
-        Decode(this, param_2);
+        new (&field_248) eastl::vector<long long>();
+        new (&field_280) eastl::vector<eastl::string>();
+        new (&field_312) eastl::vector<eastl::string>();
+        new (&field_344) eastl::hash_map<long long, ClanSettings::ExtraSettingsParam>(local_38);
+        new (&field_400) Array<int>();
+        field_0 = arg1;
+        Decode(packetJ);
     }
 
-    // 0x10025d0f0, 1904 bytes, placed by class name and debug map
-    // ClanSettings::Decode(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&)
-    void ClanSettings::Decode(PacketJ* param_1) {
-        undefined1* this_00;
-        undefined1* this_01;
-        byte bVar1;
+    // 0x10025d0f0
+    void ClanSettings::Decode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>& packetJ) {
+        uint8_t* this_00;
+        uint8_t* this_01;
+        uint8_t bVar1;
         char cVar2;
-        undefined1 uVar3;
-        ushort uVar4;
-        uint uVar5;
-        undefined4 uVar6;
-        int iVar7;
+        uint8_t uVar4;
         int iVar8;
-        undefined8 uVar9;
-        ulong uVar10;
-        undefined8* puVar11;
-        eastl::string* pbVar12;
-        undefined1* puVar13;
-        undefined4* puVar14;
-        uint* puVar15;
-        ExtraSettingsParam* pEVar16;
-        char* pcVar17;
-        bool bVar18;
-        byte bVar19;
-        ulong uVar20;
-        uint uVar21;
-        ulong local_c0[4];
-        ulong local_a0;
-        vector<int, eastl::allocator>* local_98;
-        vector<long long, eastl::allocator>* local_90;
-        vector<eastl::string, eastl::allocator>* local_88;
-        vector<int, eastl::allocator>* local_80;
-        undefined1 local_78[48];
-        ulong local_48;
-        vector<signed char, eastl::allocator>* local_40;
-        vector<int, eastl::allocator>* local_38;
+        uint32_t uVar9;
+        int iVar10;
+        Logger* this_02;
+        uint64_t uVar12;
+        uint64_t* puVar13;
+        eastl::string* pbVar14;
+        uint8_t* puVar15;
+        uint32_t* puVar16;
+        unsigned int* puVar17;
+        ExtraSettingsParam* pEVar18;
+        char* pcVar19;
+        unsigned long local_c0[4];
+        unsigned long local_a0;
+        vector<int>* local_98;
+        vector<long long>* local_90;
+        vector<eastl::string>* local_88;
+        vector<int>* local_80;
+        uint8_t local_78[48];
+        vector<signed char>* local_40;
+        vector<int>* local_38;
 
-        uVar5 = param_1->g1();
-        uVar20 = (ulong)uVar5;
-        bVar19 = (byte)uVar5;
-        if (5 < (byte)(bVar19 - 1)) {
-            uVar9 = logger::default_logger();
-            pcVar17 = "";
+        unsigned int uVar6 = packetJ.g1();
+        unsigned long uVar21 = (unsigned long)uVar6;
+        uint8_t bVar20 = (uint8_t)uVar6;
+        if (5 < (uint8_t)(bVar20 - 1)) {
+            this_02 = logger::default_logger();
+            pcVar19 = "";
             if (m_fluttered == '\0') {
-                pcVar17 = "Unsupported ClanSettings version: ";
+                pcVar19 = "Unsupported ClanSettings version: ";
             }
-            logger::Logger::Log(uVar9, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "social/clanchat/ClanSettings.cpp",
-                                1099, "%s %i", pcVar17, uVar5 & 255);
+            this_02->Log(false, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/social/"
+                         "clanchat/ClanSettings.cpp",
+                         1099, "%s %i", pcVar19, uVar6 & 255);
         }
-        uVar10 = param_1->g1();
-        if ((uVar10 & 1) != 0) {
+        unsigned long uVar11 = packetJ.g1();
+        if ((uVar11 & 1) != 0) {
             field_12 = true;
         }
-        if ((uVar10 & 2) == 0) {
+        if ((uVar11 & 2) == 0) {
             cVar2 = field_12;
         } else {
-            field_13 = '\x01';
+            field_13 = 1;
             cVar2 = field_12;
         }
-        if (cVar2 == '\0') {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-            cVar2 = field_13;
+        if (!cVar2) {
+            field_72.clear();
+            field_248.clear();
+            bVar1 = field_13;
         } else {
-            cVar2 = field_13;
+            bVar1 = field_13;
         }
-        if (cVar2 == '\0') {
-            (&field_280)->clear();
-            (&field_312)->clear();
+        if (bVar1 == 0) {
+            field_280.clear();
+            field_312.clear();
         }
-        uVar6 = param_1->g4();
+        uVar6 = packetJ.g4();
         field_8 = uVar6;
-        iVar7 = param_1->g4();
-        iVar8 = iVar7 + 16912800;
-        if (iVar7 == 0) {
-            iVar8 = iVar7;
+        unsigned int uVar7 = packetJ.g4();
+        uVar6 = uVar7 + 16912800;
+        if (uVar7 == 0) {
+            uVar6 = uVar7;
         }
-        if (3 < bVar19) {
-            iVar8 = iVar7;
+        if (3 < bVar20) {
+            uVar6 = uVar7;
         }
-        field_48 = iVar8;
-        uVar4 = param_1->g2();
-        field_64 = (uint)uVar4;
-        bVar1 = param_1->g1();
-        field_240 = (uint)bVar1;
-        bVar18 = SUB81(param_1, 0);
-        local_78->gStringNoConversion(bVar18);
-        eastl::string::operator=((eastl::string*)&field_16, (basic_string*)local_78);
-        local_78->~basic_string();
-        if (3 < bVar19) {
-            uVar6 = param_1->g4();
+        field_48 = uVar6;
+        unsigned short uVar5 = packetJ.g2();
+        field_64 = (unsigned int)uVar5;
+        bVar1 = packetJ.g1();
+        field_240 = (unsigned int)bVar1;
+        local_78->gStringNoConversion((uint8_t)packetJ);
+        field_16 = local_78;
+        if (3 < bVar20) {
+            uVar6 = packetJ.g4();
             field_52 = uVar6;
         }
-        cVar2 = param_1->g1();
-        m_allowNonMembers = cVar2 == '\x01';
-        cVar2 = param_1->g1s();
-        field_57 = cVar2;
-        cVar2 = param_1->g1s();
-        field_58 = cVar2;
-        cVar2 = param_1->g1s();
-        field_59 = cVar2;
-        cVar2 = param_1->g1s();
-        field_60 = cVar2;
-        local_48 = uVar20;
+        cVar2 = packetJ.g1();
+        field_56 = cVar2 == '\x01';
+        bool bVar3 = (bool)packetJ.g1s();
+        field_57 = bVar3;
+        bVar3 = (bool)packetJ.g1s();
+        field_58 = bVar3;
+        bVar3 = (bool)packetJ.g1s();
+        field_59 = bVar3;
+        bVar3 = (bool)packetJ.g1s();
+        field_60 = bVar3;
+        unsigned long local_48 = uVar21;
         if (0 < (int)field_64) {
             if (field_12 != false) {
-                puVar13 = &field_72;
-                cVar2 = puVar13->empty();
-                if ((cVar2 != '\0') || (iVar8 = puVar13->size(), iVar8 < (int)field_64)) {
-                    eastl::vector<long long, eastl::allocator>::resize((ulong)puVar13);
+                puVar15 = &field_72;
+                cVar2 = puVar15->empty();
+                if ((cVar2) || (iVar8 = puVar15->size(), iVar8 < (int)field_64)) {
+                    puVar15->resize((long)(int)field_64);
                 }
             }
-            if (field_13 != '\0') {
-                puVar13 = &field_280;
-                cVar2 = puVar13->empty();
-                if ((cVar2 != '\0') || (iVar8 = puVar13->size(), iVar8 < (int)field_64)) {
-                    puVar13->resize((long)(int)field_64);
+            if (field_13 != 0) {
+                puVar15 = &field_280;
+                cVar2 = puVar15->empty();
+                if ((cVar2) || (iVar8 = puVar15->size(), iVar8 < (int)field_64)) {
+                    puVar15->resize((long)(int)field_64);
                 }
             }
-            puVar13 = &field_104;
-            cVar2 = puVar13->empty();
-            if ((cVar2 != '\0') || (iVar8 = puVar13->size(), iVar8 < (int)field_64)) {
-                eastl::vector<signed char, eastl::allocator>::resize((ulong)puVar13);
+            puVar15 = &field_104;
+            cVar2 = puVar15->empty();
+            if ((cVar2) || (iVar8 = puVar15->size(), iVar8 < (int)field_64)) {
+                puVar15->resize((long)(int)field_64);
             }
             this_00 = &field_136;
-            local_40 = (vector<signed char, eastl::allocator>*)puVar13;
+            local_40 = (vector<signed char>*)puVar15;
             cVar2 = this_00->empty();
-            if ((cVar2 != '\0') || (iVar8 = this_00->size(), iVar8 < (int)field_64)) {
-                eastl::vector<int, eastl::allocator>::resize((ulong)this_00);
+            if ((cVar2) || (iVar8 = this_00->size(), iVar8 < (int)field_64)) {
+                this_00->resize((long)(int)field_64);
             }
-            puVar13 = &field_168;
-            cVar2 = puVar13->empty();
-            if ((cVar2 != '\0') || (iVar8 = puVar13->size(), iVar8 < (int)field_64)) {
-                eastl::vector<int, eastl::allocator>::resize((ulong)puVar13);
+            puVar15 = &field_168;
+            cVar2 = puVar15->empty();
+            if ((cVar2) || (iVar8 = puVar15->size(), iVar8 < (int)field_64)) {
+                puVar15->resize((long)(int)field_64);
             }
             this_01 = &field_200;
-            local_80 = (vector<int, eastl::allocator>*)this_00;
-            local_38 = (vector<int, eastl::allocator>*)puVar13;
+            local_80 = (vector<int>*)this_00;
+            local_38 = (vector<int>*)puVar15;
             cVar2 = this_01->empty();
-            if ((cVar2 != '\0') || (iVar8 = this_01->size(), iVar8 < (int)field_64)) {
-                eastl::vector<int, eastl::allocator>::resize((ulong)this_01);
+            if ((cVar2) || (iVar8 = this_01->size(), iVar8 < (int)field_64)) {
+                this_01->resize((long)(int)field_64);
             }
-            local_98 = (vector<int, eastl::allocator>*)this_01;
+            local_98 = (vector<int>*)this_01;
             if (0 < (int)field_64) {
-                local_90 = (vector<long long, eastl::allocator>*)&field_72;
-                local_88 = (vector<eastl::string, eastl::allocator>*)&field_280;
-                uVar10 = 0;
+                local_90 = (vector<long long>*)&field_72;
+                local_88 = (vector<eastl::string>*)&field_280;
+                uVar11 = 0;
                 do {
                     if (field_12 != false) {
-                        uVar9 = param_1->g8();
-                        puVar11 = (undefined8*)eastl::vector<long long, eastl::allocator>::operator[](local_90, uVar10);
-                        *puVar11 = uVar9;
+                        uVar12 = packetJ.g8();
+                        puVar13 = (uint64_t*)(*local_90)[uVar11];
+                        *puVar13 = uVar12;
                     }
-                    if (field_13 != '\0') {
-                        local_78->gStringNoConversion(bVar18);
-                        pbVar12 = (eastl::string*)eastl::vector<eastl::string, eastl::allocator>::operator[](local_88,
-                                                                                                             uVar10);
-                        eastl::string::operator=(pbVar12, (basic_string*)local_78);
-                        local_78->~basic_string();
+                    if (field_13 != 0) {
+                        local_78->gStringNoConversion((uint8_t)packetJ);
+                        pbVar14 = (eastl::string*)(*local_88)[uVar11];
+                        *pbVar14 = local_78;
                     }
-                    uVar3 = param_1->g1s();
-                    puVar13 = (undefined1*)eastl::vector<signed char, eastl::allocator>::operator[](local_40, uVar10);
-                    *puVar13 = uVar3;
-                    if (1 < (byte)uVar20) {
-                        uVar6 = param_1->g4();
-                        puVar14 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_80, uVar10);
-                        *puVar14 = uVar6;
+                    uVar4 = packetJ.g1s();
+                    puVar15 = (uint8_t*)(*local_40)[uVar11];
+                    *puVar15 = uVar4;
+                    if (1 < (uint8_t)uVar21) {
+                        uVar9 = packetJ.g4();
+                        puVar16 = (uint32_t*)(*local_80)[uVar11];
+                        *puVar16 = uVar9;
                     }
-                    uVar5 = 0;
-                    uVar21 = 0;
-                    if (4 < (byte)local_48) {
-                        uVar4 = param_1->g2();
-                        uVar21 = (uint)uVar4;
+                    uVar6 = 0;
+                    uVar7 = 0;
+                    if (4 < (uint8_t)local_48) {
+                        uVar5 = packetJ.g2();
+                        uVar7 = (unsigned int)uVar5;
                     }
-                    puVar15 = (uint*)eastl::vector<int, eastl::allocator>::operator[](local_38, uVar10);
-                    uVar20 = local_48;
-                    *puVar15 = uVar21;
-                    if (5 < (byte)local_48) {
-                        cVar2 = param_1->g1();
-                        uVar5 = (uint)(cVar2 == '\x01');
+                    puVar17 = (unsigned int*)(*local_38)[uVar11];
+                    uVar21 = local_48;
+                    *puVar17 = uVar7;
+                    if (5 < (uint8_t)local_48) {
+                        cVar2 = packetJ.g1();
+                        uVar6 = (unsigned int)(cVar2 == '\x01');
                     }
-                    puVar15 = (uint*)eastl::vector<int, eastl::allocator>::operator[](local_98, uVar10);
-                    *puVar15 = uVar5;
-                    uVar10 = uVar10 + 1;
-                } while ((long)uVar10 < (long)(int)field_64);
+                    puVar17 = (unsigned int*)(*local_98)[uVar11];
+                    *puVar17 = uVar6;
+                    uVar11 = uVar11 + 1;
+                } while ((long)uVar11 < (long)(int)field_64);
             }
-            SetCurrentAndReplacementOwners(this);
+            SetCurrentAndReplacementOwners();
         }
-        bVar19 = (byte)uVar20;
+        bVar20 = (uint8_t)uVar21;
         if (0 < (int)field_240) {
             if (field_12 != false) {
-                puVar13 = &field_248;
-                cVar2 = puVar13->empty();
-                if ((cVar2 != '\0') || (iVar8 = puVar13->size(), iVar8 < (int)field_240)) {
-                    eastl::vector<long long, eastl::allocator>::resize((ulong)puVar13);
+                puVar15 = &field_248;
+                cVar2 = puVar15->empty();
+                if ((cVar2) || (iVar8 = puVar15->size(), iVar8 < (int)field_240)) {
+                    puVar15->resize((long)(int)field_240);
                 }
             }
-            if (field_13 != '\0') {
-                puVar13 = &field_312;
-                cVar2 = puVar13->empty();
-                if ((cVar2 != '\0') || (iVar8 = puVar13->size(), iVar8 < (int)field_240)) {
-                    puVar13->resize((long)(int)field_240);
+            if (field_13 != 0) {
+                puVar15 = &field_312;
+                cVar2 = puVar15->empty();
+                if ((cVar2) || (iVar8 = puVar15->size(), iVar8 < (int)field_240)) {
+                    puVar15->resize((long)(int)field_240);
                 }
             }
             if (0 < (int)field_240) {
-                local_40 = (vector<signed char, eastl::allocator>*)&field_248;
-                local_38 = (vector<int, eastl::allocator>*)&field_312;
-                uVar10 = 0;
+                local_40 = (vector<signed char>*)&field_248;
+                local_38 = (vector<int>*)&field_312;
+                uVar11 = 0;
                 do {
                     if (field_12 != false) {
-                        uVar9 = param_1->g8();
-                        puVar11 = (undefined8*)eastl::vector<long long, eastl::allocator>::operator[](
-                            (vector<long long, eastl::allocator>*)local_40, uVar10);
-                        *puVar11 = uVar9;
-                        uVar20 = local_48;
+                        uVar12 = packetJ.g8();
+                        puVar13 = (uint64_t*)(*local_40)[uVar11];
+                        *puVar13 = uVar12;
+                        uVar21 = local_48;
                     }
-                    bVar19 = (byte)uVar20;
-                    if (field_13 != '\0') {
-                        local_78->gStringNoConversion(bVar18);
-                        pbVar12 = (eastl::string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                            (vector<eastl::string, eastl::allocator>*)local_38, uVar10);
-                        eastl::string::operator=(pbVar12, (basic_string*)local_78);
-                        local_78->~basic_string();
+                    bVar20 = (uint8_t)uVar21;
+                    if (field_13 != 0) {
+                        local_78->gStringNoConversion((uint8_t)packetJ);
+                        pbVar14 = (eastl::string*)(*local_38)[uVar11];
+                        *pbVar14 = local_78;
                     }
-                    uVar10 = uVar10 + 1;
-                } while ((long)uVar10 < (long)(int)field_240);
+                    uVar11 = uVar11 + 1;
+                } while ((long)uVar11 < (long)(int)field_240);
             }
         }
-        if ((2 < bVar19) && (uVar4 = param_1->g2(), uVar4 != 0)) {
-            puVar13 = &field_344;
-            puVar13->clear();
-            iVar8 = uVar4 + 1;
+        if ((2 < bVar20) && (uVar5 = packetJ.g2(), uVar5 != 0)) {
+            puVar15 = &field_344;
+            puVar15->clear();
+            iVar8 = uVar5 + 1;
             do {
-                uVar5 = param_1->g4();
-                uVar21 = uVar5 & 1073741823;
-                if (uVar5 < 1073741824) {
-                    iVar7 = param_1->g4();
+                uVar6 = packetJ.g4();
+                uVar7 = uVar6 & 1073741823;
+                if (uVar6 < 1073741824) {
+                    iVar10 = packetJ.g4();
                     local_78._0_4_ = 0;
-                    local_78._8_8_ = SEXT48(iVar7);
+                    local_78._8_8_ = (int64_t)iVar10;
                     new (local_c0) eastl::allocator("EASTL basic_string");
                     new ((local_78 + 16)) eastl::string("", local_c0);
-                    local_c0[0] = (ulong)uVar21;
-                    pEVar16 = (ExtraSettingsParam*)
-                        eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                        eastl::equal_to<long long>, eastl::allocator, false>::
-                        operator[]((hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                             eastl::equal_to<long long>, eastl::allocator, false>*)puVar13,
-                                   (longlong*)local_c0);
-                    ExtraSettingsParam::operator=(pEVar16, (ExtraSettingsParam*)local_78);
+                    local_c0[0] = (unsigned long)uVar7;
+                    pEVar18 = (ExtraSettingsParam*)(*puVar15)[*local_c0];
+                    *pEVar18 = *local_78;
                 LAB_10025d620:
-                    local_78->~ObjSpriteCacheKey();
-                } else if (uVar5 >> 30 == 2) {
-                    PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<
-                        eastl::string>(
-                        (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_c0, bVar18);
+                } else if (uVar6 >> 30 == 2) {
+                    local_c0->gStringCP1252ToUTF8<eastl::string>((uint8_t)packetJ);
                     local_78._0_4_ = 2;
                     local_78._8_8_ = 0;
-                    new ((local_78 + 16)) eastl::string(local_c0);
-                    local_a0 = (ulong)uVar21;
-                    pEVar16 = (ExtraSettingsParam*)
-                        eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                        eastl::equal_to<long long>, eastl::allocator, false>::
-                        operator[]((hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                             eastl::equal_to<long long>, eastl::allocator, false>*)puVar13,
-                                   (longlong*)&local_a0);
-                    ExtraSettingsParam::operator=(pEVar16, (ExtraSettingsParam*)local_78);
-                    local_78->~ObjSpriteCacheKey();
-                    local_c0->~basic_string();
-                } else if (uVar5 >> 30 == 1) {
-                    local_78._8_8_ = param_1->g8();
+                    new ((local_78 + 16)) eastl::string(*local_c0);
+                    local_a0 = (unsigned long)uVar7;
+                    pEVar18 = (ExtraSettingsParam*)(*puVar15)[local_a0];
+                    *pEVar18 = *local_78;
+                } else if (uVar6 >> 30 == 1) {
+                    local_78._8_8_ = packetJ.g8();
                     local_78._0_4_ = 1;
                     new (local_c0) eastl::allocator("EASTL basic_string");
                     new ((local_78 + 16)) eastl::string("", local_c0);
-                    local_c0[0] = (ulong)uVar21;
-                    pEVar16 = (ExtraSettingsParam*)
-                        eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                        eastl::equal_to<long long>, eastl::allocator, false>::
-                        operator[]((hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                             eastl::equal_to<long long>, eastl::allocator, false>*)puVar13,
-                                   (longlong*)local_c0);
-                    ExtraSettingsParam::operator=(pEVar16, (ExtraSettingsParam*)local_78);
+                    local_c0[0] = (unsigned long)uVar7;
+                    pEVar18 = (ExtraSettingsParam*)(*puVar15)[*local_c0];
+                    *pEVar18 = *local_78;
                     goto LAB_10025d620;
                 }
-                iVar8 = iVar8 + -1;
+                iVar8 = iVar8 - 1;
             } while (1 < iVar8);
         }
     }
 
-    // 0x10025d860, 16 bytes, complete-object constructor, placed by class name and debug map
-    // ClanSettings::ClanSettings(long long, PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&): jumps straight to the base-object constructor
+    // 0x10025d870
+    ClanSettings::ClanSettings(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>& packetJ) {
 
-    // 0x10025d870, 528 bytes, base-object constructor, placed by class name and debug map
-    // ClanSettings::ClanSettings(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&)
-    void ClanSettings::ClanSettings(PacketJ* param_1) {
-        allocator local_38[8];
-
-        *(undefined8*)((long)&field_0 + 6) = 0;
+        *(uint64_t*)((long)&field_0 + 6) = 0;
         field_0 = 0;
-        eastl::allocator::allocator(local_38, "EASTL basic_string");
-        new (&field_16, "", local_38) eastl::string();
+        new (&field_16) eastl::string("");
         field_64 = 0;
         field_48 = 0;
         field_52 = 0;
-        m_allowNonMembers = false;
-        new (&field_72) eastl::vector<long long, eastl::allocator>();
-        new (&field_104) eastl::vector<signed char, eastl::allocator>();
-        new (&field_136) eastl::vector<int, eastl::allocator>();
-        new (&field_168) eastl::vector<int, eastl::allocator>();
-        new (&field_200) eastl::vector<int, eastl::allocator>();
+        field_56 = false;
+        new (&field_72) eastl::vector<long long>();
+        new (&field_104) eastl::vector<signed char>();
+        new (&field_136) eastl::vector<int>();
+        new (&field_168) eastl::vector<int>();
+        new (&field_200) eastl::vector<int>();
         field_232 = 4294967295;
         field_236 = 4294967295;
         field_240 = 0;
-        new (&field_248) eastl::vector<long long, eastl::allocator>();
-        new (&field_280) eastl::vector<eastl::string, eastl::allocator>();
-        new (&field_312) eastl::vector<eastl::string, eastl::allocator>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_344, local_38) eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                                   eastl::equal_to<long long>, eastl::allocator, false>();
-        new (&field_400) Array<int, eastl::allocator>();
-        Decode(this, param_1);
+        new (&field_248) eastl::vector<long long>();
+        new (&field_280) eastl::vector<eastl::string>();
+        new (&field_312) eastl::vector<eastl::string>();
+        new (&field_344) eastl::hash_map<long long, ClanSettings::ExtraSettingsParam>(local_38);
+        new (&field_400) Array<int>();
+        Decode(packetJ);
     }
 
-    // 0x10025da80, 16 bytes, complete-object constructor, placed by class name and debug map
-    // ClanSettings::ClanSettings(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&): jumps straight to the base-object constructor
-
-    // 0x10025da90, 640 bytes, base-object constructor, placed by class name and debug map
-    // ClanSettings::ClanSettings(eastl::string, long long)
-    undefined8 ClanSettings::ClanSettings(basic_string* param_2, longlong param_3) {
-        undefined1 auVar1[16];
-        int iVar2;
-        ulonglong uVar3;
-        eastl::string* this_00;
-        allocator local_a8[32];
-        allocator local_88[8];
-        undefined1* local_70;
-        undefined1* local_68;
-        undefined1* local_60;
-        undefined1* local_58;
-        undefined1* local_50;
-        undefined1* local_48;
-        undefined1* local_40;
-        eastl::string* local_38;
-
-        *(undefined8*)((long)&field_0 + 6) = 0;
+    // 0x10025da90
+    ClanSettings::ClanSettings(eastl::string str, long long arg2) {
+        *(uint64_t*)((long)&field_0 + 6) = 0;
         field_0 = 0;
-        eastl::allocator::allocator(local_a8, "EASTL basic_string");
-        local_38 = (eastl::string*)&field_16;
-        new (&field_16, "", local_a8) eastl::string();
+        eastl::string* local_38 = (eastl::string*)&field_16;
+        new (&field_16) eastl::string("");
         field_64 = 0;
         field_48 = 0;
         field_52 = 0;
-        m_allowNonMembers = false;
-        new (&field_72) eastl::vector<long long, eastl::allocator>();
-        local_70 = &field_72;
-        new (&field_104) eastl::vector<signed char, eastl::allocator>();
-        local_68 = &field_104;
-        new (&field_136) eastl::vector<int, eastl::allocator>();
-        local_58 = &field_168;
-        local_60 = &field_136;
-        new (local_58) eastl::vector<int, eastl::allocator>();
-        local_50 = &field_200;
-        new (local_50) eastl::vector<int, eastl::allocator>();
+        field_56 = false;
+        new (&field_72) eastl::vector<long long>();
+        uint8_t* local_70 = &field_72;
+        new (&field_104) eastl::vector<signed char>();
+        uint8_t* local_68 = &field_104;
+        new (&field_136) eastl::vector<int>();
+        uint8_t* local_58 = &field_168;
+        uint8_t* local_60 = &field_136;
+        new (local_58) eastl::vector<int>();
+        uint8_t* local_50 = &field_200;
+        new (local_50) eastl::vector<int>();
         field_232 = 4294967295;
         field_236 = 4294967295;
         field_240 = 0;
-        local_48 = &field_248;
-        new (local_48) eastl::vector<long long, eastl::allocator>();
-        new (&field_280) eastl::vector<eastl::string, eastl::allocator>();
-        local_40 = &field_280;
-        new (&field_312) eastl::vector<eastl::string, eastl::allocator>();
-        eastl::allocator::allocator(local_a8, "EASTL hash_map");
-        new (&field_344, local_a8) eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                                   eastl::equal_to<long long>, eastl::allocator, false>();
-        new (&field_400) Array<int, eastl::allocator>();
+        uint8_t* local_48 = &field_248;
+        new (local_48) eastl::vector<long long>();
+        new (&field_280) eastl::vector<eastl::string>();
+        uint8_t* local_40 = &field_280;
+        new (&field_312) eastl::vector<eastl::string>();
+        new (&field_344) eastl::hash_map<long long, ClanSettings::ExtraSettingsParam>(local_a8);
+        new (&field_400) Array<int>();
         field_12 = true;
-        eastl::string::operator=(local_38, param_2);
-        eastl::allocator::allocator(local_88, "EASTL basic_string");
-        new (local_a8) eastl::string(0, local_88);
-        iVar2 = game::TimeTools::RuneDay();
-        DoAddMember(this, param_3, (basic_string*)local_a8, iVar2);
-        this_00 = (eastl::string*)local_a8;
-        eastl::string::~basic_string(this_00);
-        uVar3 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this_00);
-        auVar1._8_8_ = 0;
-        auVar1._0_8_ = uVar3 >> 5;
-        field_48 = (int)((uVar3 >> 5) / 1875);
-        return SUB168(auVar1 * ZEXT816(314824432191309681), 0);
+        *local_38 = str;
+        local_a8 = eastl::string(nullptr);
+        int arg3 = game::TimeTools::RuneDay();
+        DoAddMember(arg2, local_a8, arg3);
+        unsigned long long uVar1 = SystemTimer::GetTimeMS<std::chrono::steady_clock>();
+        field_48 = (unsigned int)(uVar1 / 60000);
     }
 
-    // 0x10025dd10, 576 bytes, placed by class name and debug map
-    // ClanSettings::DoAddMember(long long, eastl::string const&, int)
-    void ClanSettings::DoAddMember(longlong param_1, basic_string* param_2, int param_3) {
-        uint uVar1;
-        byte bVar2;
-        char cVar3;
+    // 0x10025dd10
+    void ClanSettings::DoAddMember(long long arg1, const eastl::string& str, int arg3) {
+        unsigned int uVar1;
+        bool cVar3;
         int iVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        longlong* plVar7;
+        Logger* pLVar5;
+        uint64_t uVar6;
+        long long* plVar7;
         eastl::string* this_00;
-        undefined1* puVar8;
-        undefined4* puVar9;
-        int* piVar10;
         char* pcVar11;
-        undefined1 uVar12;
+        uint8_t uVar12;
 
-        if (field_12 != 0 < param_1) {
-            uVar5 = logger::default_logger();
+        if (field_12 != 0 < arg1) {
+            pLVar5 = logger::default_logger();
             pcVar11 = "";
             if (m_fluttered == '\0') {
                 pcVar11 = "Invalid UserHash arg to this method - useUserHashes: %i but userhash: %i";
             }
-            logger::Logger::Log(uVar5, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "social/clanchat/ClanSettings.cpp",
-                                470, pcVar11, field_12, param_1);
+            pLVar5->Log(false, 8,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/social/"
+                        "clanchat/ClanSettings.cpp",
+                        470, pcVar11, (unsigned long)field_12, arg1);
         }
-        bVar2 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
+        uint8_t bVar2 = str.empty();
         if (field_13 != (bVar2 ^ 1)) {
-            uVar5 = logger::default_logger();
+            pLVar5 = logger::default_logger();
             pcVar11 = "";
             if (m_fluttered == '\0') {
                 pcVar11 = "Invalid DisplayName arg to this method - useDisplayNames: %i but displayname: %s";
             }
-            cVar3 = field_13;
+            bVar2 = field_13;
             uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            logger::Logger::Log(uVar5, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "social/clanchat/ClanSettings.cpp",
-                                475, pcVar11, cVar3, uVar6);
+            pLVar5->Log(false, 8,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/social/"
+                        "clanchat/ClanSettings.cpp",
+                        475, pcVar11, (unsigned long)bVar2, uVar6);
         }
-        if (param_1 < 1) {
+        if (arg1 < 1) {
         LAB_10025de2a:
-            cVar3 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar3 != '\0')
+            cVar3 = str.empty();
+            if (cVar3)
                 goto LAB_10025de74;
-            cVar3 = (&field_280)->empty();
-            if (cVar3 == '\0') {
+            cVar3 = field_280.empty();
+            if (!cVar3) {
                 uVar1 = field_64;
-                iVar4 = (&field_280)->size();
+                iVar4 = field_280.size();
                 if ((int)uVar1 < iVar4)
                     goto LAB_10025de74;
             }
         } else {
-            cVar3 = (&field_72)->empty();
-            if (cVar3 == '\0') {
+            cVar3 = field_72.empty();
+            if (!cVar3) {
                 uVar1 = field_64;
-                iVar4 = (&field_72)->size();
+                iVar4 = field_72.size();
                 if ((int)uVar1 < iVar4)
                     goto LAB_10025de2a;
             }
         }
-        ExtendMemberList(this, field_64 + 5);
+        ExtendMemberList(field_64 + 5);
     LAB_10025de74:
-        cVar3 = (&field_72)->empty();
-        if (cVar3 == '\0') {
-            plVar7 = (longlong*)eastl::vector<long long, eastl::allocator>::operator[](
-                (vector<long long, eastl::allocator>*)&field_72, (long)(int)field_64);
-            *plVar7 = param_1;
+        cVar3 = field_72.empty();
+        if (!cVar3) {
+            plVar7 = &field_72[(long)(int)field_64];
+            *plVar7 = arg1;
         }
-        cVar3 = (&field_280)->empty();
-        if (cVar3 == '\0') {
-            this_00 = (eastl::string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                (vector<eastl::string, eastl::allocator>*)&field_280, (long)(int)field_64);
-            eastl::string::operator=(this_00, param_2);
+        cVar3 = field_280.empty();
+        if (!cVar3) {
+            this_00 = &field_280[(long)(int)field_64];
+            *this_00 = str;
         }
         if (field_232 == 4294967295) {
             field_232 = field_64;
@@ -527,731 +436,587 @@ namespace jag::oldscape::rs2lib::social {
         } else {
             uVar12 = 0;
         }
-        puVar8 = (undefined1*)eastl::vector<signed char, eastl::allocator>::operator[](
-            (vector<signed char, eastl::allocator>*)&field_104, (long)(int)field_64);
+        uint8_t* puVar8 = &field_104[(long)(int)field_64];
         *puVar8 = uVar12;
-        puVar9 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](
-            (vector<int, eastl::allocator>*)&field_136, (long)(int)field_64);
+        uint32_t* puVar9 = &field_136[(long)(int)field_64];
         *puVar9 = 0;
-        piVar10 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_168,
-                                                                         (long)(int)field_64);
-        *piVar10 = param_3;
-        puVar9 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](
-            (vector<int, eastl::allocator>*)&field_200, (long)(int)field_64);
+        int* piVar10 = &field_168[(long)(int)field_64];
+        *piVar10 = arg3;
+        puVar9 = &field_200[(long)(int)field_64];
         *puVar9 = 0;
         field_64 = field_64 + 1;
-        (&field_400)->clear();
+        field_400.clear();
     }
 
-    // 0x10025df70, 16 bytes, complete-object constructor, placed by class name and debug map
-    // ClanSettings::ClanSettings(eastl::string, long long): jumps straight to the base-object constructor
+    // 0x10025df80
+    auto ClanSettings::Copy() {
+        auto result;
 
-    // 0x10025df80, 624 bytes, placed by class name and debug map
-    // ClanSettings::Copy()
-    ClanSettings* ClanSettings::Copy() {
-        undefined1 uVar1;
-        undefined4 uVar2;
-        int iVar3;
-        char cVar4;
-        long lVar5;
-        long in_RSI;
-
-        make_shared<ClanSettings>((jag*)this);
-        uVar2 = *(undefined4*)(in_RSI + 8);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined4*)(lVar5 + 8) = uVar2;
-        uVar2 = *(undefined4*)(in_RSI + 48);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined4*)(lVar5 + 48) = uVar2;
-        uVar2 = *(undefined4*)(in_RSI + 52);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined4*)(lVar5 + 52) = uVar2;
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        eastl::string::operator=((eastl::string*)(lVar5 + 16), (basic_string*)(in_RSI + 16));
-        uVar1 = *(undefined1*)(in_RSI + 56);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined1*)(lVar5 + 56) = uVar1;
-        uVar1 = *(undefined1*)(in_RSI + 57);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined1*)(lVar5 + 57) = uVar1;
-        uVar1 = *(undefined1*)(in_RSI + 58);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined1*)(lVar5 + 58) = uVar1;
-        uVar1 = *(undefined1*)(in_RSI + 59);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined1*)(lVar5 + 59) = uVar1;
-        uVar1 = *(undefined1*)(in_RSI + 60);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined1*)(lVar5 + 60) = uVar1;
-        uVar1 = *(undefined1*)(in_RSI + 12);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined1*)(lVar5 + 12) = uVar1;
-        uVar1 = *(undefined1*)(in_RSI + 13);
-        lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-        *(undefined1*)(lVar5 + 13) = uVar1;
-        iVar3 = *(int*)(in_RSI + 64);
-        if (0 < iVar3) {
-            lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-            *(int*)(lVar5 + 64) = iVar3;
-            if (*(char*)(in_RSI + 12) != '\0') {
-                lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-                eastl::vector<long long, eastl::allocator>::operator=(
-                    (vector<long long, eastl::allocator>*)(lVar5 + 72), (vector*)(in_RSI + 72));
+        make_shared<ClanSettings>(&result);
+        unsigned int uVar3 = field_8;
+        long lVar5 = (result).operator->();
+        *(unsigned int*)(lVar5 + 8) = uVar3;
+        uVar3 = field_48;
+        lVar5 = (result).operator->();
+        *(unsigned int*)(lVar5 + 48) = uVar3;
+        uVar3 = field_52;
+        lVar5 = (result).operator->();
+        *(unsigned int*)(lVar5 + 52) = uVar3;
+        lVar5 = (result).operator->();
+        (*((lVar5 + 16))) = &field_16;
+        bool bVar1 = field_56;
+        lVar5 = (result).operator->();
+        *(bool*)(lVar5 + 56) = bVar1;
+        bVar1 = field_57;
+        lVar5 = (result).operator->();
+        *(bool*)(lVar5 + 57) = bVar1;
+        bVar1 = field_58;
+        lVar5 = (result).operator->();
+        *(bool*)(lVar5 + 58) = bVar1;
+        bVar1 = field_59;
+        lVar5 = (result).operator->();
+        *(bool*)(lVar5 + 59) = bVar1;
+        bVar1 = field_60;
+        lVar5 = (result).operator->();
+        *(bool*)(lVar5 + 60) = bVar1;
+        bVar1 = field_12;
+        lVar5 = (result).operator->();
+        *(bool*)(lVar5 + 12) = bVar1;
+        uint8_t bVar2 = field_13;
+        lVar5 = (result).operator->();
+        *(uint8_t*)(lVar5 + 13) = bVar2;
+        uVar3 = field_64;
+        if (0 < (int)uVar3) {
+            lVar5 = (result).operator->();
+            *(unsigned int*)(lVar5 + 64) = uVar3;
+            if (field_12 != false) {
+                lVar5 = (result).operator->();
+                (*((lVar5 + 72))) = field_72;
             }
-            if (*(char*)(in_RSI + 13) != '\0') {
-                lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-                eastl::vector<eastl::string, eastl::allocator>::operator=(
-                    (vector<eastl::string, eastl::allocator>*)(lVar5 + 280), (vector*)(in_RSI + 280));
+            if (field_13 != 0) {
+                lVar5 = (result).operator->();
+                (*((lVar5 + 280))) = field_280;
             }
-            lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-            eastl::vector<signed char, eastl::allocator>::operator=(
-                (vector<signed char, eastl::allocator>*)(lVar5 + 104), (vector*)(in_RSI + 104));
-            lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-            eastl::vector<int, eastl::allocator>::operator=((vector<int, eastl::allocator>*)(lVar5 + 136),
-                                                            (vector*)(in_RSI + 136));
-            lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-            eastl::vector<int, eastl::allocator>::operator=((vector<int, eastl::allocator>*)(lVar5 + 168),
-                                                            (vector*)(in_RSI + 168));
-            lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-            eastl::vector<int, eastl::allocator>::operator=((vector<int, eastl::allocator>*)(lVar5 + 200),
-                                                            (vector*)(in_RSI + 200));
-            uVar2 = *(undefined4*)(in_RSI + 232);
-            lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-            *(undefined4*)(lVar5 + 232) = uVar2;
-            uVar2 = *(undefined4*)(in_RSI + 236);
-            lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-            *(undefined4*)(lVar5 + 236) = uVar2;
+            lVar5 = (result).operator->();
+            (*((lVar5 + 104))) = field_104;
+            lVar5 = (result).operator->();
+            (*((lVar5 + 136))) = field_136;
+            lVar5 = (result).operator->();
+            (*((lVar5 + 168))) = field_168;
+            lVar5 = (result).operator->();
+            (*((lVar5 + 200))) = field_200;
+            uVar3 = field_232;
+            lVar5 = (result).operator->();
+            *(unsigned int*)(lVar5 + 232) = uVar3;
+            uVar3 = field_236;
+            lVar5 = (result).operator->();
+            *(unsigned int*)(lVar5 + 236) = uVar3;
         }
-        iVar3 = *(int*)(in_RSI + 240);
-        if (0 < iVar3) {
-            lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-            *(int*)(lVar5 + 240) = iVar3;
-            if (*(char*)(in_RSI + 12) != '\0') {
-                lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-                eastl::vector<long long, eastl::allocator>::operator=(
-                    (vector<long long, eastl::allocator>*)(lVar5 + 248), (vector*)(in_RSI + 248));
+        uVar3 = field_240;
+        if (0 < (int)uVar3) {
+            lVar5 = (result).operator->();
+            *(unsigned int*)(lVar5 + 240) = uVar3;
+            if (field_12 != false) {
+                lVar5 = (result).operator->();
+                (*((lVar5 + 248))) = field_248;
             }
-            if (*(char*)(in_RSI + 13) != '\0') {
-                lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-                eastl::vector<eastl::string, eastl::allocator>::operator=(
-                    (vector<eastl::string, eastl::allocator>*)(lVar5 + 312), (vector*)(in_RSI + 312));
+            if (field_13 != 0) {
+                lVar5 = (result).operator->();
+                (*((lVar5 + 312))) = field_312;
             }
         }
-        cVar4 = ((in_RSI + 344))->empty();
-        if (cVar4 == '\0') {
-            lVar5 = shared_ptr<ClanSettings>::operator->((shared_ptr<ClanSettings>*)this);
-            eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                            eastl::equal_to<long long>, eastl::allocator, false>::
-            operator=((hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                eastl::equal_to<long long>, eastl::allocator, false>*)(lVar5 + 344),
-                      (hash_map*)(in_RSI + 344));
+        if (field_344.empty() == '\0') {
+            lVar5 = (result).operator->();
+            (*((lVar5 + 344))) = field_344;
         }
-        return this;
+        return result;
     }
 
-    // 0x10025e2f0, 480 bytes, placed by class name and debug map
-    // ClanSettings::ValidateClanName(eastl::string)
-    ClanSettings* ClanSettings::ValidateClanName(eastl::string* param_2) {
+    // 0x10025e2f0
+    auto ClanSettings::ValidateClanName(eastl::string str) {
         int iVar2;
-        long lVar3;
-        char* pcVar4;
-        undefined8 uVar5;
-        int iVar6;
-        int iVar7;
-        regex local_d8[64];
-        string local_98[24];
-        eastl::string local_80[32];
-        eastl::string local_60[32];
-        allocator local_40[8];
+        ClanSettings* str_00;
+        basic_regex<char, std::regex_traits<char> _>* basic_regex;
+        char* str_01;
+        match_flag_type in_ECX;
+        syntax_option_type extraout_EDX;
+        syntax_option_type extraout_EDX_00;
+        syntax_option_type extraout_EDX_01;
+        syntax_option_type extraout_EDX_02;
+        syntax_option_type syntax_option_type;
+        int iVar4;
+        int iVar5;
+        regex local_d8;
+        string local_98;
+        eastl::string local_80;
+        eastl::string local_60;
+        ReturnValue* local_38;
 
-        lVar3 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+        ClanSettings* str_02 = this;
+        long lVar3 = size();
         if (lVar3 == 0) {
-            new (this) eastl::string();
+            auto result;
         } else {
-            eastl::string::trim(param_2);
-            iVar2 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            eastl::string::basic_string(local_80);
+            local_38 = &result;
+            trim();
+            iVar2 = size();
+            local_80 = eastl::string();
+            syntax_option_type = extraout_EDX;
             if (0 < iVar2) {
-                iVar7 = 0;
-                iVar6 = 1;
+                iVar5 = 0;
+                iVar4 = 1;
                 do {
-                    pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    if (core::stringtools::general::StringTools::IsASCIIAlphaNumeric((short)*pcVar4) == '\0') {
-                        if (0 < iVar7) {
-                            eastl::string::append(local_80, " ");
+                    str_00 = (ClanSettings*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    if (core::stringtools::general::StringTools::IsASCIIAlphaNumeric((short)(char)str_00->field_0) ==
+                        '\0') {
+                        syntax_option_type = extraout_EDX_00;
+                        if (0 < iVar5) {
+                            str_00 = (ClanSettings*)&DAT_100e35840;
+                            local_80.append(" ");
+                            syntax_option_type = extraout_EDX_02;
                             goto LAB_10025e395;
                         }
                     } else {
-                        eastl::string::append(local_80, pcVar4);
+                        local_80.append(str_00);
+                        syntax_option_type = extraout_EDX_01;
                     LAB_10025e395:
-                        iVar7 = iVar7 + 1;
+                        iVar5 = iVar5 + 1;
+                        str_02 = str_00;
                     }
-                } while ((iVar6 < iVar2) && (iVar6 = iVar6 + 1, iVar7 < 20));
+                } while ((iVar4 < iVar2) && (iVar4 = iVar4 + 1, iVar5 < 20));
             }
-            std::regex::basic_regex(local_d8);
-            uVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            std::regex_replace<std::regex_traits<char>, char>(local_98, uVar5, local_d8);
-            pcVar4 = (char*)std::string::c_str(local_98);
-            eastl::allocator::allocator(local_40, "EASTL basic_string");
-            this = (ClanSettings*)this;
-            eastl::string::basic_string(local_60, pcVar4, local_40);
-            eastl::string::trim(local_60);
-            lVar3 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+            std::regex::basic_regex(&local_d8, (char*)str_02, syntax_option_type);
+            basic_regex =
+                (basic_regex<char, std::regex_traits<char> _>*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            std::regex_replace<std::regex_traits<char>, char>(&local_98, basic_regex, &local_d8, in_ECX);
+            str_01 = (char*)std::string::c_str(&local_98);
+            &result = local_38;
+            local_60 = eastl::string(str_01);
+            local_60.trim();
+            lVar3 = local_60.size();
             if (lVar3 == 0) {
-                new (this) eastl::string();
+                new (&result) eastl::string();
             } else {
-                new (this) eastl::string(local_60);
+                new (&result) eastl::string(local_60);
             }
-            eastl::string::~basic_string(local_60);
-            std::string::~string(local_98);
-            std::regex::~basic_regex(local_d8);
-            eastl::string::~basic_string(local_80);
+            std::string::~string(&local_98);
+            std::regex::~basic_regex(&local_d8);
         }
-        return this;
+        return result;
     }
 
-    // 0x10025e570, 272 bytes, placed by class name
-    // ClanSettings::ExtendMemberList(int)
-    void ClanSettings::ExtendMemberList(int param_1) {
-        allocator local_58[8];
-        ulong local_50[4];
+    // 0x10025e570
+    void ClanSettings::ExtendMemberList(int arg1) {
+        unsigned long local_50[4];
 
         if (field_12 != false) {
             local_50[0] = 0;
-            (&field_72, (ulong)param_1, (longlong*)local_50)->resize();
+            field_72.resize((unsigned long)arg1, *local_50);
         }
-        if (field_13 != '\0') {
-            eastl::allocator::allocator(local_58, "EASTL basic_string");
-            new (local_50) eastl::string("", local_58);
-            (&field_280, (ulong)param_1, (basic_string*)local_50)->resize();
-            local_50->~basic_string();
+        if (field_13 != 0) {
+            new (local_50) eastl::string("");
+            field_280.resize((unsigned long)arg1, *local_50);
         }
         local_50[0] = local_50[0] & 18446744073709551360;
-        (&field_104, (ulong)param_1, (signed*)local_50)->resize();
+        field_104.resize((unsigned long)arg1, *local_50);
         local_50[0] = local_50[0] & 18446744069414584320;
-        (&field_136, (ulong)param_1, (int*)local_50)->resize();
+        field_136.resize((unsigned long)arg1, *local_50);
         local_50[0] = local_50[0] & 18446744069414584320;
-        (&field_168, (ulong)param_1, (int*)local_50)->resize();
+        field_168.resize((unsigned long)arg1, *local_50);
         local_50[0] = local_50[0] & 18446744069414584320;
-        (&field_200, (ulong)param_1, (int*)local_50)->resize();
+        field_200.resize((unsigned long)arg1, *local_50);
     }
 
-    // 0x10025e7c0, 96 bytes, placed by class name
-    // ClanSettings::ExtendBannedList(int)
-    void ClanSettings::ExtendBannedList(int param_1) {
-        longlong local_20;
-
+    // 0x10025e7c0
+    void ClanSettings::ExtendBannedList(int arg1) {
         if (field_12 != false) {
-            local_20 = 0;
-            (&field_248, (long)param_1, &local_20)->resize();
+            field_248.resize((long)arg1, 0);
         }
-        if (field_13 != '\0') {
-            (&field_312, (long)param_1)->resize();
+        if (field_13 != 0) {
+            field_312.resize((long)arg1);
         }
     }
 
-    // 0x10025e820, 144 bytes, placed by class name
-    // ClanSettings::IsBanned(long long)
-    ulong ClanSettings::IsBanned(longlong param_1) {
+    // 0x10025e820
+    unsigned long ClanSettings::IsBanned(long long arg1) {
         long* plVar1;
-        ulong uVar2;
-        undefined8 unaff_R13;
-        ulong uVar3;
+        unsigned long arg1_00;
+        uint64_t unaff_R13;
+        unsigned long uVar2;
 
-        if (param_1 == 0) {
-            uVar3 = 0;
+        if (arg1 == 0) {
+            uVar2 = 0;
         } else {
-            uVar3 = CONCAT71((int7)((ulong)unaff_R13 >> 8), 0 < (int)field_240);
+            uVar2 = (((uint64_t)((int64_t)((unsigned long)unaff_R13 >> 8)) << 8) | (uint8_t)(0 < (int)field_240));
             if (0 < (int)field_240) {
-                plVar1 = (long*)eastl::vector<long long, eastl::allocator>::operator[](
-                    (vector<long long, eastl::allocator>*)&field_248, 0);
-                if (*plVar1 != param_1) {
-                    uVar2 = 1;
+                plVar1 = &field_248[0];
+                if (*plVar1 != arg1) {
+                    arg1_00 = 1;
                     do {
-                        uVar3 = CONCAT71((int7)(uVar3 >> 8), (long)uVar2 < (long)(int)field_240);
-                        if ((long)(int)field_240 <= (long)uVar2)
+                        uVar2 = (((uint64_t)((int64_t)(uVar2 >> 8)) << 8) |
+                                 (uint8_t)((long)arg1_00 < (long)(int)field_240));
+                        if ((long)(int)field_240 <= (long)arg1_00)
                             break;
-                        plVar1 = (long*)eastl::vector<long long, eastl::allocator>::operator[](
-                            (vector<long long, eastl::allocator>*)&field_248, uVar2);
-                        uVar2 = uVar2 + 1;
-                    } while (*plVar1 != param_1);
+                        plVar1 = &field_248[arg1_00];
+                        arg1_00 = arg1_00 + 1;
+                    } while (*plVar1 != arg1);
                 }
             }
         }
-        return uVar3 & 4294967295;
+        return uVar2 & 4294967295;
     }
 
-    // 0x10025e8b0, 128 bytes, placed by class name
-    // ClanSettings::IsAffined(long long)
-    ulong ClanSettings::IsAffined(longlong param_1) {
+    // 0x10025e8b0
+    unsigned long ClanSettings::IsAffined(long long arg1) {
         long* plVar1;
-        ulong uVar2;
-        undefined8 unaff_R13;
-        ulong uVar3;
+        unsigned long arg1_00;
+        uint64_t unaff_R13;
+        unsigned long uVar2;
 
-        if (param_1 == 0) {
-            uVar3 = 0;
+        if (arg1 == 0) {
+            uVar2 = 0;
         } else {
-            uVar3 = CONCAT71((int7)((ulong)unaff_R13 >> 8), 0 < (int)field_64);
+            uVar2 = (((uint64_t)((int64_t)((unsigned long)unaff_R13 >> 8)) << 8) | (uint8_t)(0 < (int)field_64));
             if (0 < (int)field_64) {
-                plVar1 = (long*)eastl::vector<long long, eastl::allocator>::operator[](
-                    (vector<long long, eastl::allocator>*)&field_72, 0);
-                if (*plVar1 != param_1) {
-                    uVar2 = 1;
+                plVar1 = &field_72[0];
+                if (*plVar1 != arg1) {
+                    arg1_00 = 1;
                     do {
-                        uVar3 = CONCAT71((int7)(uVar3 >> 8), (long)uVar2 < (long)(int)field_64);
-                        if ((long)(int)field_64 <= (long)uVar2)
+                        uVar2 =
+                            (((uint64_t)((int64_t)(uVar2 >> 8)) << 8) | (uint8_t)((long)arg1_00 < (long)(int)field_64));
+                        if ((long)(int)field_64 <= (long)arg1_00)
                             break;
-                        plVar1 = (long*)eastl::vector<long long, eastl::allocator>::operator[](
-                            (vector<long long, eastl::allocator>*)&field_72, uVar2);
-                        uVar2 = uVar2 + 1;
-                    } while (*plVar1 != param_1);
+                        plVar1 = &field_72[arg1_00];
+                        arg1_00 = arg1_00 + 1;
+                    } while (*plVar1 != arg1);
                 }
             }
         }
-        return uVar3 & 4294967295;
+        return uVar2 & 4294967295;
     }
 
-    // 0x10025e930, 128 bytes, placed by class name
-    // ClanSettings::FindBanned(long long)
-    ulong ClanSettings::FindBanned(longlong param_1) {
+    // 0x10025e930
+    unsigned long ClanSettings::FindBanned(long long arg1) {
         long* plVar1;
-        ulong uVar2;
+        unsigned long arg1_00;
 
-        if ((param_1 != 0) && (0 < (int)field_240)) {
-            uVar2 = 0;
+        if ((arg1 != 0) && (0 < (int)field_240)) {
+            arg1_00 = 0;
             do {
-                plVar1 = (long*)eastl::vector<long long, eastl::allocator>::operator[](
-                    (vector<long long, eastl::allocator>*)&field_248, uVar2);
-                if (*plVar1 == param_1) {
-                    return uVar2 & 4294967295;
+                plVar1 = &field_248[arg1_00];
+                if (*plVar1 == arg1) {
+                    return arg1_00 & 4294967295;
                 }
-                uVar2 = uVar2 + 1;
-            } while ((long)uVar2 < (long)(int)field_240);
+                arg1_00 = arg1_00 + 1;
+            } while ((long)arg1_00 < (long)(int)field_240);
         }
         return 4294967295;
     }
 
-    // 0x10025e9b0, 112 bytes, placed by class name
-    // ClanSettings::FindMember(long long)
-    ulong ClanSettings::FindMember(longlong param_1) {
+    // 0x10025e9b0
+    unsigned long ClanSettings::FindMember(long long arg1) {
         long* plVar1;
-        ulong uVar2;
+        unsigned long arg1_00;
 
-        if ((param_1 != 0) && (0 < (int)field_64)) {
-            uVar2 = 0;
+        if ((arg1 != 0) && (0 < (int)field_64)) {
+            arg1_00 = 0;
             do {
-                plVar1 = (long*)eastl::vector<long long, eastl::allocator>::operator[](
-                    (vector<long long, eastl::allocator>*)&field_72, uVar2);
-                if (*plVar1 == param_1) {
-                    return uVar2 & 4294967295;
+                plVar1 = &field_72[arg1_00];
+                if (*plVar1 == arg1) {
+                    return arg1_00 & 4294967295;
                 }
-                uVar2 = uVar2 + 1;
-            } while ((long)uVar2 < (long)(int)field_64);
+                arg1_00 = arg1_00 + 1;
+            } while ((long)arg1_00 < (long)(int)field_64);
         }
         return 4294967295;
     }
 
-    // 0x10025ea20, 128 bytes, placed by class name
-    // ClanSettings::FindMember(eastl::string)
-    ulong ClanSettings::FindMember(basic_string* param_2) {
-        basic_string* pbVar3;
-        ulong uVar4;
+    // 0x10025ea20
+    unsigned long ClanSettings::FindMember(eastl::string str) {
+        eastl::string* str1;
+        unsigned long arg1;
 
-        if ((eastl::basic_string<char,
-                                 eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size() !=
-             0) &&
-            (0 < (int)field_64)) {
-            uVar4 = 0;
+        if ((str->size() != 0) && (0 < (int)field_64)) {
+            arg1 = 0;
             do {
-                pbVar3 = (basic_string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                    (vector<eastl::string, eastl::allocator>*)&field_280, uVar4);
-                if (eastl::operator==(pbVar3, param_2)) {
-                    return uVar4 & 4294967295;
+                str1 = &field_280[arg1];
+                if (*str1 == *str) {
+                    return arg1 & 4294967295;
                 }
-                uVar4 = uVar4 + 1;
-            } while ((long)uVar4 < (long)(int)field_64);
+                arg1 = arg1 + 1;
+            } while ((long)arg1 < (long)(int)field_64);
         }
         return 4294967295;
     }
 
-    // 0x10025eaa0, 64 bytes, placed by class name
-    // ClanSettings::GetMemberRank(long long)
-    int ClanSettings::GetMemberRank(longlong param_1) {
-        char cVar1;
-        int iVar2;
+    // 0x10025eaa0
+    int ClanSettings::GetMemberRank(long long arg1) {
+        bool cVar1;
         char* pcVar3;
 
-        iVar2 = FindMember(this, param_1);
+        int iVar2 = FindMember(arg1);
         if (iVar2 == -1) {
             cVar1 = -1;
         } else {
-            pcVar3 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](
-                (vector<signed char, eastl::allocator>*)&field_104, (long)iVar2);
+            pcVar3 = &field_104[(long)iVar2];
             cVar1 = *pcVar3;
         }
         return (int)cVar1;
     }
 
-    // 0x10025eae0, 64 bytes, placed by class name
-    // ClanSettings::GetMemberJoinRuneday(long long)
-    undefined4 ClanSettings::GetMemberJoinRuneday(longlong param_1) {
-        int iVar1;
-        undefined4 uVar2;
-        undefined4* puVar3;
+    // 0x10025eae0
+    uint32_t ClanSettings::GetMemberJoinRuneday(long long arg1) {
+        uint32_t uVar2;
+        uint32_t* puVar3;
 
-        iVar1 = FindMember(this, param_1);
+        int iVar1 = FindMember(arg1);
         if (iVar1 == -1) {
             uVar2 = 4294967295;
         } else {
-            puVar3 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](
-                (vector<int, eastl::allocator>*)&field_168, (long)iVar1);
+            puVar3 = &field_168[(long)iVar1];
             uVar2 = *puVar3;
         }
         return uVar2;
     }
 
-    // 0x10025eb20, 64 bytes, placed by class name
-    // ClanSettings::GetMemberMuted(long long)
-    bool ClanSettings::GetMemberMuted(longlong param_1) {
-        int iVar1;
+    // 0x10025eb20
+    bool ClanSettings::GetMemberMuted(long long arg1) {
         int* piVar2;
         bool bVar3;
 
-        iVar1 = FindMember(this, param_1);
+        int iVar1 = FindMember(arg1);
         if (iVar1 == -1) {
             bVar3 = false;
         } else {
-            piVar2 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_200,
-                                                                            (long)iVar1);
+            piVar2 = &field_200[(long)iVar1];
             bVar3 = *piVar2 != 0;
         }
         return bVar3;
     }
 
-    // 0x10025eb60, 64 bytes, placed by class name
-    // ClanSettings::GetMemberExtraInfo(long long, unsigned int, unsigned int)
-    undefined8 ClanSettings::GetMemberExtraInfo(longlong param_1, uint param_2, uint param_3) {
-        uint uVar1;
-        undefined8 uVar2;
+    // 0x10025eb60
+    uint64_t ClanSettings::GetMemberExtraInfo(long long arg1, unsigned int arg2, unsigned int arg3) {
+        uint64_t uVar1;
 
-        uVar1 = FindMember(this, param_1);
-        if (uVar1 == 4294967295) {
-            uVar2 = 0;
+        unsigned int arg1_00 = FindMember(arg1);
+        if (arg1_00 == 4294967295) {
+            uVar1 = 0;
         } else {
-            uVar2 = GetMemberExtraInfoBySlot(this, uVar1, param_2, param_3);
+            uVar1 = GetMemberExtraInfoBySlot(arg1_00, arg2, arg3);
         }
-        return uVar2;
+        return uVar1;
     }
 
-    // 0x10025eba0, 64 bytes, placed by class name
-    // ClanSettings::GetMemberExtraInfoBySlot(unsigned int, unsigned int, unsigned int)
-    int ClanSettings::GetMemberExtraInfoBySlot(uint param_1, uint param_2, uint param_3) {
-        uint* puVar1;
-        uint uVar2;
-
-        uVar2 = ~(-1 << ((char)param_3 + 1U & 31));
-        if (param_3 == 31) {
+    // 0x10025eba0
+    int ClanSettings::GetMemberExtraInfoBySlot(unsigned int arg1, unsigned int arg2, unsigned int arg3) {
+        unsigned int uVar2 = ~(-1 << ((char)arg3 + 1U & 31));
+        if (arg3 == 31) {
             uVar2 = 4294967295;
         }
-        puVar1 = (uint*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_136,
-                                                                         (ulong)param_1);
-        return (int)(uVar2 & *puVar1) >> ((byte)param_2 & 31);
+        unsigned int* puVar1 = &field_136[(unsigned long)arg1];
+        return (int)(uVar2 & *puVar1) >> ((uint8_t)arg2 & 31);
     }
 
-    // 0x10025ebe0, 144 bytes, placed by class name
-    // ClanSettings::GetMemberDisplayName(long long)
-    ClanSettings* ClanSettings::GetMemberDisplayName(longlong param_1) {
-        int iVar2;
-        basic_string* pbVar3;
-        longlong in_RDX;
-        allocator local_28[8];
+    // 0x10025ebe0
+    auto ClanSettings::GetMemberDisplayName(long long arg1) {
+        eastl::string* str;
 
-        iVar2 = FindMember((ClanSettings*)param_1, in_RDX);
+        int iVar2 = FindMember(arg1);
         if (iVar2 != -1) {
-            eastl::vector<eastl::string, eastl::allocator>::operator[](
-                (vector<eastl::string, eastl::allocator>*)(param_1 + 280), (long)iVar2);
-            if (eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() ==
-                '\0') {
-                pbVar3 = (basic_string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                    (vector<eastl::string, eastl::allocator>*)(param_1 + 280), (long)iVar2);
-                new (this) eastl::string(pbVar3);
-                return this;
+            if (((basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)field_280[(long)iVar2])
+                    ->empty() == '\0') {
+                str = &field_280[(long)iVar2];
+                return auto(*str);
             }
         }
-        eastl::allocator::allocator(local_28, "EASTL basic_string");
-        new (this) eastl::string("", local_28);
-        return this;
+        new (&result) eastl::string("");
+        return result;
     }
 
-    // 0x10025ec70, 144 bytes, placed by class name
-    // ClanSettings::GetBannedDisplayName(long long)
-    ClanSettings* ClanSettings::GetBannedDisplayName(longlong param_1) {
-        int iVar2;
-        basic_string* pbVar3;
-        longlong in_RDX;
-        allocator local_28[8];
+    // 0x10025ec70
+    auto ClanSettings::GetBannedDisplayName(long long arg1) {
+        eastl::string* str;
 
-        iVar2 = FindBanned((ClanSettings*)param_1, in_RDX);
+        int iVar2 = FindBanned(arg1);
         if (iVar2 != -1) {
-            eastl::vector<eastl::string, eastl::allocator>::operator[](
-                (vector<eastl::string, eastl::allocator>*)(param_1 + 312), (long)iVar2);
-            if (eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() ==
-                '\0') {
-                pbVar3 = (basic_string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                    (vector<eastl::string, eastl::allocator>*)(param_1 + 312), (long)iVar2);
-                new (this) eastl::string(pbVar3);
-                return this;
+            if (((basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)field_312[(long)iVar2])
+                    ->empty() == '\0') {
+                str = &field_312[(long)iVar2];
+                return auto(*str);
             }
         }
-        eastl::allocator::allocator(local_28, "EASTL basic_string");
-        new (this) eastl::string("", local_28);
-        return this;
+        new (&result) eastl::string("");
+        return result;
     }
 
-    // 0x10025ed00, 16 bytes, placed by class name
-    // ClanSettings::IsAdmin(long long)
-    bool ClanSettings::IsAdmin(longlong param_1) {
-        char cVar1;
-
-        cVar1 = GetMemberRank(this, param_1);
+    // 0x10025ed00
+    bool ClanSettings::IsAdmin(long long arg1) {
+        char cVar1 = GetMemberRank(arg1);
         return 'c' < cVar1;
     }
 
-    // 0x10025ed10, 160 bytes, placed by class name
-    // ClanSettings::GetExtraSettingAsInt(int)
-    ClanSettings* ClanSettings::GetExtraSettingAsInt(int param_1) {
-        char cVar1;
-        long lVar3;
-        int in_EDX;
-        hashtable_iterator_base* extraout_RDX;
-        undefined4 in_register_00000034;
-        eastl local_48[16];
-        long local_38[2];
+    // 0x10025ed10
+    Nullable<int> ClanSettings::GetExtraSettingAsInt(int arg1) {
+        long lVar2;
+        ReturnValue local_48;
+        ReturnValue local_38;
 
-        cVar1 = ((CONCAT44(in_register_00000034, param_1) + 344))->empty();
-        if (cVar1 == '\0') {
-            local_38[0] = (long)in_EDX;
-            eastl::hashtable<
-                long long, eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, eastl::allocator,
-                eastl::use_first<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>>,
-                eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::find((longlong*)local_48);
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            if ((!eastl::operator==(local_48, (hashtable_iterator_base*)local_38, extraout_RDX)) &&
-                (lVar3 = local_48->HeapBeginPtr(), *(int*)(lVar3 + 8) == 0)) {
-                lVar3 = local_48->HeapBeginPtr();
-                new (this) Nullable<int>(*(int*)(lVar3 + 16));
-                return this;
+        uint8_t* this_00 = &field_344;
+        bool cVar1 = this_00->empty();
+        if (!cVar1) {
+            local_38[0] = (ReturnValue)(long)arg1;
+            local_48 = this_00->find(local_38);
+            local_38 = this_00->end();
+            cVar1 = local_48 == local_38;
+            if ((!cVar1) && (lVar2 = local_48.HeapBeginPtr(), *(int*)(lVar2 + 8) == 0)) {
+                lVar2 = local_48.HeapBeginPtr();
+                return Nullable<int>(*(int*)(lVar2 + 16));
             }
         }
-        new (this) Nullable<int>();
-        return this;
+        new (&result) Nullable<int>();
+        return result;
     }
 
-    // 0x10025ee60, 224 bytes, placed by class name
-    // ClanSettings::GetExtraSettingAsIntVarbit(int, unsigned int, unsigned int)
-    ClanSettings* ClanSettings::GetExtraSettingAsIntVarbit(int param_1, uint param_2, uint param_3) {
-        char cVar1;
-        long lVar3;
-        uint uVar4;
-        hashtable_iterator_base* extraout_RDX;
-        undefined4 in_register_00000034;
-        int in_R8D;
-        eastl local_58[16];
-        long local_48[2];
+    // 0x10025ee60
+    Nullable<int> ClanSettings::GetExtraSettingAsIntVarbit(int arg1, unsigned int arg2, unsigned int arg3) {
+        long lVar2;
+        unsigned int uVar3;
+        ReturnValue local_58;
+        ReturnValue local_48;
 
-        cVar1 = ((CONCAT44(in_register_00000034, param_1) + 344))->empty();
-        if (cVar1 == '\0') {
-            local_48[0] = (long)(int)param_2;
-            eastl::hashtable<
-                long long, eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, eastl::allocator,
-                eastl::use_first<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>>,
-                eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::find((longlong*)local_58);
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            if ((!eastl::operator==(local_58, (hashtable_iterator_base*)local_48, extraout_RDX)) &&
-                (lVar3 = local_58->HeapBeginPtr(), *(int*)(lVar3 + 8) == 0)) {
-                lVar3 = local_58->HeapBeginPtr();
-                uVar4 = ~(-1 << ((char)in_R8D + 1U & 31));
-                if (in_R8D == 31) {
-                    uVar4 = 4294967295;
+        uint8_t* this_00 = &field_344;
+        bool cVar1 = this_00->empty();
+        if (!cVar1) {
+            local_48[0] = (ReturnValue)(long)arg1;
+            local_58 = this_00->find(local_48);
+            local_48 = this_00->end();
+            cVar1 = local_58 == local_48;
+            if ((!cVar1) && (lVar2 = local_58.HeapBeginPtr(), *(int*)(lVar2 + 8) == 0)) {
+                lVar2 = local_58.HeapBeginPtr();
+                uVar3 = ~(-1 << ((char)arg3 + 1U & 31));
+                if (arg3 == 31) {
+                    uVar3 = 4294967295;
                 }
-                local_48[0] = CONCAT44(local_48[0]._4_4_, (uVar4 & *(uint*)(lVar3 + 16)) >> ((byte)param_3 & 31));
-                eastl::pair<int const, bool>::pair<int, bool, void>((pair<int const, bool>*)this, local_48);
-                return this;
+                local_48[0]._0_4_ = (uVar3 & *(unsigned int*)(lVar2 + 16)) >> ((uint8_t)arg2 & 31);
+                result.pair<int, bool, void>(&local_48);
+                return result;
             }
         }
-        new (this) Nullable<int>();
-        return this;
+        return Nullable<int>();
     }
 
-    // 0x10025ef50, 176 bytes, placed by class name
-    // ClanSettings::GetExtraSettingAsLong(int)
-    ClanSettings* ClanSettings::GetExtraSettingAsLong(int param_1) {
-        char cVar1;
-        long lVar3;
-        int in_EDX;
-        hashtable_iterator_base* extraout_RDX;
-        undefined4 in_register_00000034;
-        eastl local_48[16];
-        long local_38[2];
+    // 0x10025ef50
+    Nullable<long long> ClanSettings::GetExtraSettingAsLong(int arg1) {
+        long lVar2;
+        ReturnValue local_48;
+        ReturnValue local_38;
 
-        cVar1 = ((CONCAT44(in_register_00000034, param_1) + 344))->empty();
-        if (cVar1 == '\0') {
-            local_38[0] = (long)in_EDX;
-            eastl::hashtable<
-                long long, eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, eastl::allocator,
-                eastl::use_first<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>>,
-                eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::find((longlong*)local_48);
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            if ((!eastl::operator==(local_48, (hashtable_iterator_base*)local_38, extraout_RDX)) &&
-                (lVar3 = local_48->HeapBeginPtr(), *(int*)(lVar3 + 8) == 1)) {
-                lVar3 = local_48->HeapBeginPtr();
-                new (this) Nullable<long long>(*(longlong*)(lVar3 + 16));
-                return this;
+        uint8_t* this_00 = &field_344;
+        bool cVar1 = this_00->empty();
+        if (!cVar1) {
+            local_38[0] = (ReturnValue)(long)arg1;
+            local_48 = this_00->find(local_38);
+            local_38 = this_00->end();
+            cVar1 = local_48 == local_38;
+            if ((!cVar1) && (lVar2 = local_48.HeapBeginPtr(), *(int*)(lVar2 + 8) == 1)) {
+                lVar2 = local_48.HeapBeginPtr();
+                return Nullable<long long>(*(long long*)(lVar2 + 16));
             }
         }
-        new (this) Nullable<long long>();
-        return this;
+        new (&result) Nullable();
+        return result;
     }
 
-    // 0x10025f020, 208 bytes, placed by class name
-    // ClanSettings::GetExtraSettingAsString(int)
-    ClanSettings* ClanSettings::GetExtraSettingAsString(int param_1) {
-        char cVar1;
-        long lVar3;
-        int in_EDX;
-        hashtable_iterator_base* extraout_RDX;
-        undefined4 in_register_00000034;
-        eastl::string local_68[32];
-        eastl local_48[16];
-        long local_38[2];
+    // 0x10025f020
+    auto ClanSettings::GetExtraSettingAsString(int arg1) {
+        long lVar2;
+        eastl::string local_68;
+        ReturnValue local_48;
+        ReturnValue local_38;
 
-        cVar1 = ((CONCAT44(in_register_00000034, param_1) + 344))->empty();
-        if (cVar1 == '\0') {
-            local_38[0] = (long)in_EDX;
-            eastl::hashtable<
-                long long, eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, eastl::allocator,
-                eastl::use_first<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>>,
-                eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::find((longlong*)local_48);
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            if ((!eastl::operator==(local_48, (hashtable_iterator_base*)local_38, extraout_RDX)) &&
-                (lVar3 = local_48->HeapBeginPtr(), *(int*)(lVar3 + 8) == 2)) {
-                lVar3 = local_48->HeapBeginPtr();
-                eastl::string::basic_string(local_68, (basic_string*)(lVar3 + 24));
-                new (this) Nullable<eastl::string>(local_68);
-                eastl::string::~basic_string(local_68);
-                return this;
+        uint8_t* this_00 = &field_344;
+        bool cVar1 = this_00->empty();
+        if (!cVar1) {
+            local_38[0] = (ReturnValue)(long)arg1;
+            local_48 = this_00->find(local_38);
+            local_38 = this_00->end();
+            cVar1 = local_48 == local_38;
+            if ((!cVar1) && (lVar2 = local_48.HeapBeginPtr(), *(int*)(lVar2 + 8) == 2)) {
+                lVar2 = local_48.HeapBeginPtr();
+                local_68 = eastl::string(*((lVar2 + 24)));
+                auto result(&local_68);
+                return result;
             }
         }
-        new (this) Nullable<eastl::string>();
-        return this;
+        new (&result) Nullable<eastl::string>();
+        return result;
     }
 
-    // 0x10025f110, 464 bytes, placed by class name
-    // ClanSettings::GetMemberSortedIndex()
-    ClanSettings* ClanSettings::GetMemberSortedIndex() {
-        Array<game::VarValue, eastl::allocator>* this_00;
-        char cVar1;
+    // 0x10025f110
+    auto ClanSettings::GetMemberSortedIndex() {
+        Array<int>* this_00;
         int iVar2;
-        basic_string* pbVar3;
+        eastl::string* pbVar3;
         eastl::string* pbVar4;
-        basic_string* pbVar5;
-        undefined4* puVar6;
-        ulong uVar7;
-        long in_RSI;
-        Array<eastl::string, eastl::allocator> local_50[24];
-        Array<game::VarValue, eastl::allocator>* local_38;
+        eastl::string* str2;
+        uint32_t* puVar5;
+        unsigned long uVar6;
+        Array<eastl::string> local_50;
 
-        local_38 = (Array<game::VarValue, eastl::allocator>*)(in_RSI + 400);
-        cVar1 = local_38->empty();
-        if (cVar1 != '\0') {
-            Array<eastl::string, eastl::allocator>::Array(local_50);
-            local_50->set_max_size((long)*(int*)(in_RSI + 64), 1);
-            local_38->set_max_size((long)*(int*)(in_RSI + 64), 3);
-            if (0 < *(int*)(in_RSI + 64)) {
-                uVar7 = 0;
+        Array<int>* local_38 = (Array<int>*)&field_400;
+        if (local_38->empty()) {
+            local_50 = Array<eastl::string>();
+            local_50.set_max_size((long)(int)field_64, 1);
+            local_38->set_max_size((long)(int)field_64, 3);
+            if (0 < (int)field_64) {
+                uVar6 = 0;
                 do {
-                    pbVar3 = (basic_string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                        (vector<eastl::string, eastl::allocator>*)(in_RSI + 280), uVar7);
-                    pbVar4 = (eastl::string*)Array<eastl::string, eastl::allocator>::operator[](local_50, uVar7);
-                    eastl::string::operator=(pbVar4, pbVar3);
-                    Array<eastl::string, eastl::allocator>::operator[](local_50, uVar7);
-                    cVar1 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-                    if (cVar1 == '\0') {
-                        Array<eastl::string, eastl::allocator>::operator[](local_50, uVar7);
-                        eastl::string::make_lower();
-                        pbVar3 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](local_50, uVar7);
-                        pbVar4 = (eastl::string*)Array<eastl::string, eastl::allocator>::operator[](local_50, uVar7);
-                        eastl::string::operator=(pbVar4, pbVar3);
+                    pbVar3 = &field_280[uVar6];
+                    pbVar4 = &local_50[uVar6];
+                    *pbVar4 = pbVar3;
+                    if (!(((basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)
+                               local_50[uVar6])
+                              ->empty())) {
+                        pbVar4 = &local_50[uVar6];
+                        pbVar4->make_lower();
+                        pbVar3 = &local_50[uVar6];
+                        pbVar4 = &local_50[uVar6];
+                        *pbVar4 = pbVar3;
                     }
-                    uVar7 = uVar7 + 1;
-                } while ((long)uVar7 < (long)*(int*)(in_RSI + 64));
+                    uVar6 = uVar6 + 1;
+                } while ((long)uVar6 < (long)(int)field_64);
             }
-            pbVar3 = (basic_string*)local_50->data();
-            pbVar5 = (basic_string*)local_50->end();
-            std::sort<eastl::string*>(pbVar3, pbVar5);
-            local_38->set_max_size((long)*(int*)(in_RSI + 64), 3);
-            iVar2 = local_50->end();
+            pbVar3 = (eastl::string*)local_50.data();
+            str2 = (eastl::string*)local_50.end();
+            std::sort<eastl::string*>(pbVar3, str2);
+            local_38->set_max_size((long)(int)field_64, 3);
+            iVar2 = local_50.end();
             this_00 = local_38;
             if (0 < iVar2) {
-                uVar7 = 0;
+                uVar6 = 0;
                 do {
-                    puVar6 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)this_00, uVar7);
-                    *puVar6 = (int)uVar7;
-                    uVar7 = uVar7 + 1;
-                    iVar2 = local_50->end();
-                } while ((long)uVar7 < (long)iVar2);
+                    puVar5 = (uint32_t*)(*this_00)[uVar6];
+                    *puVar5 = (int)uVar6;
+                    uVar6 = uVar6 + 1;
+                    iVar2 = local_50.end();
+                } while ((long)uVar6 < (long)iVar2);
             }
-            local_50->~Array();
         }
-        new (this) Array<int, eastl::allocator>(local_38);
-        return this;
+        return auto(local_38);
     }
 
-    // 0x10025f310, 176 bytes, placed by class name
-    // ClanSettings::AddMember(long long, int)
-    ulong ClanSettings::AddMember(longlong param_1, int param_2) {
-        char cVar1;
-        ulong uVar2;
-        eastl::string local_58[32];
-        allocator local_38[8];
+    // 0x10025f310
+    unsigned long ClanSettings::AddMember(long long arg1, int arg2) {
+        unsigned long uVar2;
+        eastl::string local_58;
 
         if ((int)field_64 < 500) {
-            cVar1 = IsAffined(this, param_1);
-            if (cVar1 == '\0') {
-                cVar1 = IsBanned(this, param_1);
-                if (cVar1 == '\0') {
-                    eastl::allocator::allocator(local_38, "EASTL basic_string");
-                    eastl::string::basic_string(local_58, (char*)0, local_38);
-                    uVar2 = (ulong)(uint)param_2;
-                    DoAddMember(this, param_1, (basic_string*)local_58, param_2);
-                    eastl::string::~basic_string(local_58);
-                    uVar2 = CONCAT71((int7)(uVar2 >> 8), 1);
+            if (!(IsAffined(arg1))) {
+                if (!(IsBanned(arg1))) {
+                    local_58 = eastl::string(nullptr);
+                    uVar2 = (unsigned long)(unsigned int)arg2;
+                    DoAddMember(arg1, local_58, arg2);
+                    uVar2 = (((uint64_t)((int64_t)(uVar2 >> 8)) << 8) | (uint8_t)1);
                     goto LAB_10025f34d;
                 }
             }
@@ -1261,147 +1026,127 @@ namespace jag::oldscape::rs2lib::social {
         return uVar2 & 4294967295;
     }
 
-    // 0x10025f3c0, 48 bytes, placed by class name
-    // ClanSettings::DeleteMember(long long)
-    int ClanSettings::DeleteMember(longlong param_1) {
-        int iVar1;
-
-        iVar1 = FindMember(this, param_1);
-        if (iVar1 == -1) {
-            iVar1 = -1;
+    // 0x10025f3c0
+    int ClanSettings::DeleteMember(long long arg1) {
+        int arg1_00 = FindMember(arg1);
+        if (arg1_00 == -1) {
+            arg1_00 = -1;
         } else {
-            DoDeleteMember(this, iVar1);
+            DoDeleteMember(arg1_00);
         }
-        return iVar1;
+        return arg1_00;
     }
 
-    // 0x10025f3f0, 416 bytes, placed by class name
-    // ClanSettings::DoDeleteMember(int)
-    void ClanSettings::DoDeleteMember(int param_1) {
-        undefined1* puVar1;
-        char cVar2;
-        undefined8 uVar3;
-        long lVar4;
-        char* pcVar5;
+    // 0x10025f3f0
+    void ClanSettings::DoDeleteMember(int arg1) {
+        uint8_t* puVar1;
+        Logger* this_00;
+        long lVar3;
+        char* str2;
 
-        if ((param_1 < 0) || ((int)field_64 <= param_1)) {
-            uVar3 = logger::default_logger();
-            pcVar5 = "";
+        if ((arg1 < 0) || ((int)field_64 <= arg1)) {
+            this_00 = logger::default_logger();
+            str2 = "";
             if (m_fluttered == '\0') {
-                pcVar5 = "Invalid pos in doDeleteMember - pos: %i memberCount: %i";
+                str2 = "Invalid pos in doDeleteMember - pos: %i memberCount: %i";
             }
-            logger::Logger::Log(uVar3, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "social/clanchat/ClanSettings.cpp",
-                                525, pcVar5, param_1, field_64);
+            this_00->Log(false, 8,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/social/"
+                         "clanchat/ClanSettings.cpp",
+                         525, str2, (unsigned long)(unsigned int)arg1, (unsigned long)field_64);
         }
         field_64 = field_64 - 1;
-        (&field_400)->clear();
+        field_400.clear();
         if (field_64 == 0) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-            (&field_280)->clear();
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+            field_72.clear();
+            field_280.clear();
+            field_104.clear();
+            field_136.clear();
+            field_168.clear();
+            field_200.clear();
             field_232 = 4294967295;
             field_236 = 4294967295;
         } else {
-            lVar4 = (&field_104)->HeapBeginPtr();
-            (&field_104, (signed*)(lVar4 + (long)param_1))->erase();
-            lVar4 = (&field_136)->HeapBeginPtr();
-            (&field_136, (int*)(lVar4 + (long)param_1 * 4))->erase();
-            lVar4 = (&field_168)->HeapBeginPtr();
-            (&field_168, (int*)(lVar4 + (long)param_1 * 4))->erase();
-            lVar4 = (&field_200)->HeapBeginPtr();
-            (&field_200, (int*)(lVar4 + (long)param_1 * 4))->erase();
+            lVar3 = field_104.HeapBeginPtr();
+            field_104.erase((schar*)(lVar3 + (long)arg1));
+            lVar3 = field_136.HeapBeginPtr();
+            field_136.erase((int*)(lVar3 + (long)arg1 * 4));
+            lVar3 = field_168.HeapBeginPtr();
+            field_168.erase((int*)(lVar3 + (long)arg1 * 4));
+            lVar3 = field_200.HeapBeginPtr();
+            field_200.erase((int*)(lVar3 + (long)arg1 * 4));
             puVar1 = &field_72;
-            cVar2 = puVar1->empty();
-            if (cVar2 == '\0') {
-                lVar4 = puVar1->HeapBeginPtr();
-                puVar1->erase((longlong*)(lVar4 + (long)param_1 * 8));
+            if (!(puVar1->empty())) {
+                lVar3 = puVar1->HeapBeginPtr();
+                puVar1->erase((long long*)(lVar3 + (long)arg1 * 8));
             }
             puVar1 = &field_280;
-            cVar2 = puVar1->empty();
-            if (cVar2 == '\0') {
-                lVar4 = puVar1->HeapBeginPtr();
-                puVar1->erase((basic_string*)((long)param_1 * 32 + lVar4));
+            if (!(puVar1->empty())) {
+                lVar3 = puVar1->HeapBeginPtr();
+                puVar1->erase((eastl::string*)((long)arg1 * 32 + lVar3));
             }
-            SetCurrentAndReplacementOwners(this);
+            SetCurrentAndReplacementOwners();
         }
     }
 
-    // 0x10025f630, 240 bytes, placed by class name
-    // ClanSettings::SetCurrentAndReplacementOwners()
+    // 0x10025f630
     void ClanSettings::SetCurrentAndReplacementOwners() {
         char* pcVar1;
-        undefined1* puVar2;
-        ulong uVar3;
-        uint uVar4;
-        ulong uVar5;
-        char cVar6;
+        uint8_t* puVar2;
+        unsigned long arg1;
+        unsigned int uVar3;
+        unsigned long uVar4;
+        char cVar5;
 
         field_232 = 4294967295;
         field_236 = 4294967295;
         if (field_64 != 0) {
             puVar2 = &field_104;
-            uVar4 = 0;
-            pcVar1 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](
-                (vector<signed char, eastl::allocator>*)puVar2, 0);
+            uVar3 = 0;
+            pcVar1 = (char*)(*puVar2)[0];
             if (1 < (int)field_64) {
-                cVar6 = *pcVar1;
-                uVar5 = 0;
-                uVar3 = 1;
+                cVar5 = *pcVar1;
+                uVar4 = 0;
+                arg1 = 1;
                 do {
-                    pcVar1 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](
-                        (vector<signed char, eastl::allocator>*)puVar2, uVar3);
-                    if (cVar6 < *pcVar1) {
-                        if (cVar6 == '}') {
-                            field_236 = (uint)uVar5;
+                    pcVar1 = (char*)(*puVar2)[arg1];
+                    if (cVar5 < *pcVar1) {
+                        if (cVar5 == '}') {
+                            field_236 = (unsigned int)uVar4;
                         }
-                        pcVar1 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](
-                            (vector<signed char, eastl::allocator>*)puVar2, uVar3);
-                        cVar6 = *pcVar1;
-                        uVar5 = uVar3 & 4294967295;
+                        pcVar1 = (char*)(*puVar2)[arg1];
+                        cVar5 = *pcVar1;
+                        uVar4 = arg1 & 4294967295;
                     } else if (field_236 == 4294967295) {
-                        pcVar1 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](
-                            (vector<signed char, eastl::allocator>*)puVar2, uVar3);
+                        pcVar1 = (char*)(*puVar2)[arg1];
                         if (*pcVar1 == '}') {
-                            field_236 = (uint)uVar3;
+                            field_236 = (unsigned int)arg1;
                         }
                     }
-                    uVar4 = (uint)uVar5;
-                    uVar3 = uVar3 + 1;
-                } while ((long)uVar3 < (long)(int)field_64);
+                    uVar3 = (unsigned int)uVar4;
+                    arg1 = arg1 + 1;
+                } while ((long)arg1 < (long)(int)field_64);
             }
-            field_232 = uVar4;
-            if (uVar4 != 4294967295) {
-                puVar2 = (undefined1*)eastl::vector<signed char, eastl::allocator>::operator[](
-                    (vector<signed char, eastl::allocator>*)puVar2, (long)(int)uVar4);
+            field_232 = uVar3;
+            if (uVar3 != 4294967295) {
+                puVar2 = (uint8_t*)(*puVar2)[(long)(int)uVar3];
                 *puVar2 = 126;
             }
         }
     }
 
-    // 0x10025f720, 160 bytes, placed by class name
-    // ClanSettings::AddBanned(long long)
-    ulong ClanSettings::AddBanned(longlong param_1) {
-        char cVar1;
-        undefined8 in_RCX;
-        ulong uVar2;
-        eastl::string local_50[32];
-        allocator local_30[8];
+    // 0x10025f720
+    unsigned long ClanSettings::AddBanned(long long arg1) {
+        uint64_t in_RCX;
+        unsigned long uVar2;
+        eastl::string local_50;
 
         if ((int)field_240 < 100) {
-            cVar1 = IsBanned(this, param_1);
-            if (cVar1 == '\0') {
-                cVar1 = IsAffined(this, param_1);
-                if (cVar1 == '\0') {
-                    eastl::allocator::allocator(local_30, "EASTL basic_string");
-                    eastl::string::basic_string(local_50, (char*)0, local_30);
-                    DoAddBanned(this, param_1, (basic_string*)local_50);
-                    eastl::string::~basic_string(local_50);
-                    uVar2 = CONCAT71((int7)((ulong)in_RCX >> 8), 1);
+            if (!(IsBanned(arg1))) {
+                if (!(IsAffined(arg1))) {
+                    local_50 = eastl::string(nullptr);
+                    DoAddBanned(arg1, local_50);
+                    uVar2 = (((uint64_t)((int64_t)((unsigned long)in_RCX >> 8)) << 8) | (uint8_t)1);
                     goto LAB_10025f758;
                 }
             }
@@ -1411,873 +1156,651 @@ namespace jag::oldscape::rs2lib::social {
         return uVar2 & 4294967295;
     }
 
-    // 0x10025f7c0, 448 bytes, placed by class name
-    // ClanSettings::DoAddBanned(long long, eastl::string const&)
-    void ClanSettings::DoAddBanned(longlong param_1, basic_string* param_2) {
-        uint uVar1;
-        byte bVar2;
-        char cVar3;
+    // 0x10025f7c0
+    void ClanSettings::DoAddBanned(long long arg1, const eastl::string& str) {
+        unsigned int uVar1;
+        bool cVar3;
         int iVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        longlong* plVar7;
+        Logger* pLVar5;
+        uint64_t uVar6;
+        long long* plVar7;
         eastl::string* this_00;
         char* pcVar8;
 
-        if ((0 < param_1) || (field_12 == false)) {
-            uVar5 = logger::default_logger();
+        if ((0 < arg1) || (field_12 == false)) {
+            pLVar5 = logger::default_logger();
             pcVar8 = "";
             if (m_fluttered == '\0') {
                 pcVar8 = "Invalid UserHash arg to this method - useUserHashes: %i but userhash: %i";
             }
-            logger::Logger::Log(uVar5, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "social/clanchat/ClanSettings.cpp",
-                                627, pcVar8, field_12, param_1);
+            pLVar5->Log(false, 8,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/social/"
+                        "clanchat/ClanSettings.cpp",
+                        627, pcVar8, (unsigned long)field_12, arg1);
         }
-        bVar2 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
+        uint8_t bVar2 = str.empty();
         if (field_13 != (bVar2 ^ 1)) {
-            uVar5 = logger::default_logger();
+            pLVar5 = logger::default_logger();
             pcVar8 = "";
             if (m_fluttered == '\0') {
                 pcVar8 = "Invalid DisplayName arg to this method - useDisplayNames: %i but displayname: %s";
             }
-            cVar3 = field_13;
+            bVar2 = field_13;
             uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            logger::Logger::Log(uVar5, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "social/clanchat/ClanSettings.cpp",
-                                631, pcVar8, cVar3, uVar6);
+            pLVar5->Log(false, 8,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/social/"
+                        "clanchat/ClanSettings.cpp",
+                        631, pcVar8, (unsigned long)bVar2, uVar6);
         }
-        if (param_1 < 1) {
+        if (arg1 < 1) {
         LAB_10025f8c7:
-            cVar3 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar3 != '\0')
+            cVar3 = str.empty();
+            if (cVar3)
                 goto LAB_10025f90b;
-            cVar3 = (&field_312)->empty();
-            if (cVar3 == '\0') {
+            cVar3 = field_312.empty();
+            if (!cVar3) {
                 uVar1 = field_240;
-                iVar4 = (&field_312)->size();
+                iVar4 = field_312.size();
                 if ((int)uVar1 < iVar4)
                     goto LAB_10025f90b;
             }
         } else {
-            cVar3 = (&field_248)->empty();
-            if (cVar3 == '\0') {
+            cVar3 = field_248.empty();
+            if (!cVar3) {
                 uVar1 = field_240;
-                iVar4 = (&field_248)->size();
+                iVar4 = field_248.size();
                 if ((int)uVar1 < iVar4)
                     goto LAB_10025f8c7;
             }
         }
-        ExtendBannedList(this, field_240 + 5);
+        ExtendBannedList(field_240 + 5);
     LAB_10025f90b:
-        cVar3 = (&field_248)->empty();
-        if (cVar3 == '\0') {
-            plVar7 = (longlong*)eastl::vector<long long, eastl::allocator>::operator[](
-                (vector<long long, eastl::allocator>*)&field_248, (long)(int)field_240);
-            *plVar7 = param_1;
+        cVar3 = field_248.empty();
+        if (!cVar3) {
+            plVar7 = &field_248[(long)(int)field_240];
+            *plVar7 = arg1;
         }
-        cVar3 = (&field_312)->empty();
-        if (cVar3 == '\0') {
-            this_00 = (eastl::string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                (vector<eastl::string, eastl::allocator>*)&field_312, (long)(int)field_240);
-            eastl::string::operator=(this_00, param_2);
+        cVar3 = field_312.empty();
+        if (!cVar3) {
+            this_00 = &field_312[(long)(int)field_240];
+            *this_00 = str;
         }
         field_240 = field_240 + 1;
     }
 
-    // 0x10025f980, 48 bytes, placed by class name
-    // ClanSettings::DeleteBanned(long long)
-    int ClanSettings::DeleteBanned(longlong param_1) {
-        int iVar1;
-
-        iVar1 = FindBanned(this, param_1);
-        if (iVar1 == -1) {
-            iVar1 = -1;
+    // 0x10025f980
+    int ClanSettings::DeleteBanned(long long arg1) {
+        int arg1_00 = FindBanned(arg1);
+        if (arg1_00 == -1) {
+            arg1_00 = -1;
         } else {
-            DoDeleteBanned(this, iVar1);
+            DoDeleteBanned(arg1_00);
         }
-        return iVar1;
+        return arg1_00;
     }
 
-    // 0x10025f9b0, 160 bytes, placed by class name
-    // ClanSettings::DoDeleteBanned(int)
-    void ClanSettings::DoDeleteBanned(int param_1) {
-        uint* puVar1;
+    // 0x10025f9b0
+    void ClanSettings::DoDeleteBanned(int arg1) {
         long lVar2;
-        char cVar3;
-        undefined1* puVar4;
 
-        puVar4 = &field_248;
-        puVar1 = &field_240;
+        uint8_t* puVar4 = &field_248;
+        unsigned int* puVar1 = &field_240;
         *puVar1 = *puVar1 - 1;
         if (*puVar1 == 0) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-            (&field_312)->clear();
+            puVar4->clear();
+            field_312.clear();
         } else {
-            cVar3 = puVar4->empty();
-            if (cVar3 == '\0') {
+            if (!(puVar4->empty())) {
                 lVar2 = puVar4->HeapBeginPtr();
-                puVar4->erase((longlong*)(lVar2 + (long)param_1 * 8));
+                puVar4->erase((long long*)(lVar2 + (long)arg1 * 8));
             }
             puVar4 = &field_312;
-            cVar3 = puVar4->empty();
-            if (cVar3 == '\0') {
+            if (!(puVar4->empty())) {
                 lVar2 = puVar4->HeapBeginPtr();
-                puVar4->erase((basic_string*)((long)param_1 * 32 + lVar2));
+                puVar4->erase((eastl::string*)((long)arg1 * 32 + lVar2));
             }
         }
     }
 
-    // 0x10025fa50, 64 bytes, placed by class name
-    // ClanSettings::SetMemberRank(long long, signed char)
-    undefined8 ClanSettings::SetMemberRank(longlong param_1, char param_3) {
-        int iVar1;
-        undefined8 uVar2;
+    // 0x10025fa50
+    uint64_t ClanSettings::SetMemberRank(long long arg1, signed char arg2) {
+        uint64_t uVar1;
 
-        iVar1 = FindMember(this, param_1);
-        if (iVar1 == -1) {
-            uVar2 = 4294967295;
+        int arg1_00 = FindMember(arg1);
+        if (arg1_00 == -1) {
+            uVar1 = 4294967295;
         } else {
-            uVar2 = SetMemberRankBySlot(this, iVar1, (int)param_3);
+            uVar1 = SetMemberRankBySlot(arg1_00, arg2);
         }
-        return uVar2;
+        return uVar1;
     }
 
-    // 0x10025fa90, 144 bytes, placed by class name
-    // ClanSettings::SetMemberRankBySlot(int, signed char)
-    uint ClanSettings::SetMemberRankBySlot(uint param_1, byte param_3) {
+    // 0x10025fa90
+    int ClanSettings::SetMemberRankBySlot(int arg1, signed char arg2) {
         char* pcVar1;
-        byte* pbVar2;
-        uint uVar3;
+        schar* psVar2;
 
-        if ((param_3 & 254) == 126) {
-            return 4294967295;
+        if ((arg2 & 254U) == 126) {
+            return -1;
         }
-        if (field_232 == param_1) {
+        if (field_232 == arg1) {
             if ((long)(int)field_236 == 18446744073709551615) {
-                return 4294967295;
+                return -1;
             }
-            pcVar1 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](
-                (vector<signed char, eastl::allocator>*)&field_104, (long)(int)field_236);
+            pcVar1 = &field_104[(long)(int)field_236];
             if (*pcVar1 < '}') {
-                return 4294967295;
+                return -1;
             }
         }
-        pbVar2 = (byte*)eastl::vector<signed char, eastl::allocator>::operator[](
-            (vector<signed char, eastl::allocator>*)&field_104, (long)(int)param_1);
-        uVar3 = 4294967295;
-        if (*pbVar2 != param_3) {
-            pbVar2 = (byte*)eastl::vector<signed char, eastl::allocator>::operator[](
-                (vector<signed char, eastl::allocator>*)&field_104, (long)(int)param_1);
-            *pbVar2 = param_3;
-            SetCurrentAndReplacementOwners(this);
-            uVar3 = param_1;
+        pcVar1 = &field_104[(long)arg1];
+        int iVar3 = -1;
+        if (*pcVar1 != arg2) {
+            psVar2 = &field_104[(long)arg1];
+            *psVar2 = arg2;
+            SetCurrentAndReplacementOwners();
+            iVar3 = arg1;
         }
-        return uVar3;
+        return iVar3;
     }
 
-    // 0x10025fb20, 112 bytes, placed by class name
-    // ClanSettings::SetOwnerBySlot(int)
-    undefined8 ClanSettings::SetOwnerBySlot(int param_1) {
+    // 0x10025fb20
+    uint64_t ClanSettings::SetOwnerBySlot(int arg1) {
         char* pcVar1;
-        undefined1* puVar2;
-        undefined1* puVar3;
+        uint8_t* puVar2;
+        uint8_t* puVar3;
 
-        if (field_232 != param_1) {
+        if (field_232 != arg1) {
             puVar3 = &field_104;
-            pcVar1 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](
-                (vector<signed char, eastl::allocator>*)puVar3, (long)param_1);
+            pcVar1 = (char*)(*puVar3)[(long)arg1];
             if (*pcVar1 != '~') {
-                puVar2 = (undefined1*)eastl::vector<signed char, eastl::allocator>::operator[](
-                    (vector<signed char, eastl::allocator>*)puVar3, (long)(int)field_232);
+                puVar2 = (uint8_t*)(*puVar3)[(long)(int)field_232];
                 *puVar2 = 125;
                 field_236 = field_232;
-                puVar3 = (undefined1*)eastl::vector<signed char, eastl::allocator>::operator[](
-                    (vector<signed char, eastl::allocator>*)puVar3, (long)param_1);
+                puVar3 = (uint8_t*)(*puVar3)[(long)arg1];
                 *puVar3 = 126;
-                field_232 = param_1;
+                field_232 = arg1;
                 return 1;
             }
         }
         return 0;
     }
 
-    // 0x10025fb90, 64 bytes, placed by class name
-    // ClanSettings::SetMemberMuted(long long, bool)
-    undefined8 ClanSettings::SetMemberMuted(longlong param_1, bool param_2) {
-        int iVar1;
-        undefined8 uVar2;
+    // 0x10025fb90
+    uint64_t ClanSettings::SetMemberMuted(long long arg1, bool arg2) {
+        uint64_t uVar1;
 
-        iVar1 = FindMember(this, param_1);
-        if (iVar1 == -1) {
-            uVar2 = 4294967295;
+        int arg1_00 = FindMember(arg1);
+        if (arg1_00 == -1) {
+            uVar1 = 4294967295;
         } else {
-            uVar2 = SetMemberMutedBySlot(this, iVar1, param_2);
+            uVar1 = SetMemberMutedBySlot(arg1_00, arg2);
         }
-        return uVar2;
+        return uVar1;
     }
 
-    // 0x10025fbd0, 80 bytes, placed by class name
-    // ClanSettings::SetMemberMutedBySlot(int, bool)
-    int ClanSettings::SetMemberMutedBySlot(int param_1, bool param_2) {
-        int iVar1;
-        int* piVar2;
-        undefined3 in_register_00000011;
+    // 0x10025fbd0
+    int ClanSettings::SetMemberMutedBySlot(int arg1, bool arg2) {
+        uint32_t in_register_00000011;
 
-        piVar2 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_200,
-                                                                        (long)param_1);
-        iVar1 = -1;
-        if (*piVar2 != CONCAT31(in_register_00000011, param_2)) {
-            piVar2 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_200,
-                                                                            (long)param_1);
-            *piVar2 = CONCAT31(in_register_00000011, param_2);
-            iVar1 = param_1;
+        int* piVar2 = &field_200[(long)arg1];
+        int iVar1 = -1;
+        if (*piVar2 != (((uint32_t)in_register_00000011 << 8) | (uint8_t)arg2)) {
+            piVar2 = &field_200[(long)arg1];
+            *piVar2 = (((uint32_t)in_register_00000011 << 8) | (uint8_t)arg2);
+            iVar1 = arg1;
         }
         return iVar1;
     }
 
-    // 0x10025fc20, 80 bytes, placed by class name
-    // ClanSettings::SetMemberExtraInfo(long long, int, unsigned int, unsigned int)
-    undefined8 ClanSettings::SetMemberExtraInfo(longlong param_1, int param_2, uint param_3, uint param_4) {
-        int iVar1;
-        undefined8 uVar2;
+    // 0x10025fc20
+    uint64_t ClanSettings::SetMemberExtraInfo(long long arg1, int arg2, unsigned int arg3, unsigned int arg4) {
+        uint64_t uVar1;
 
-        iVar1 = FindMember(this, param_1);
-        if (iVar1 == -1) {
-            uVar2 = 4294967295;
+        int arg1_00 = FindMember(arg1);
+        if (arg1_00 == -1) {
+            uVar1 = 4294967295;
         } else {
-            uVar2 = SetMemberExtraInfoBySlot(this, iVar1, param_2, param_3, param_4);
+            uVar1 = SetMemberExtraInfoBySlot(arg1_00, arg2, arg3, arg4);
         }
-        return uVar2;
+        return uVar1;
     }
 
-    // 0x10025fc70, 160 bytes, placed by class name
-    // ClanSettings::SetMemberExtraInfoBySlot(int, int, unsigned int, unsigned int)
-    int ClanSettings::SetMemberExtraInfoBySlot(int param_1, int param_2, uint param_3, uint param_4) {
-        uint uVar1;
-        int iVar2;
-        uint* puVar3;
-        uint uVar4;
-        uint uVar5;
-        uint uVar6;
-
-        uVar6 = ~(-1 << ((char)param_4 + 1U & 31));
-        if (param_4 == 31) {
+    // 0x10025fc70
+    int ClanSettings::SetMemberExtraInfoBySlot(int arg1, int arg2, unsigned int arg3, unsigned int arg4) {
+        unsigned int uVar6 = ~(-1 << ((char)arg4 + 1U & 31));
+        if (arg4 == 31) {
             uVar6 = 4294967295;
         }
-        uVar6 = uVar6 ^ -1 << ((byte)param_3 & 31);
-        uVar5 = ~uVar6;
-        uVar4 = param_2 << ((byte)param_3 & 31) & uVar5;
-        puVar3 = (uint*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_136,
-                                                                         (long)param_1);
-        uVar1 = *puVar3;
-        iVar2 = -1;
+        uVar6 = uVar6 ^ -1 << ((uint8_t)arg3 & 31);
+        unsigned int uVar5 = ~uVar6;
+        unsigned int uVar4 = arg2 << ((uint8_t)arg3 & 31) & uVar5;
+        unsigned int* puVar3 = &field_136[(long)arg1];
+        unsigned int uVar1 = *puVar3;
+        int iVar2 = -1;
         if ((uVar5 & uVar1) != uVar4) {
-            puVar3 = (uint*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_136,
-                                                                             (long)param_1);
+            puVar3 = &field_136[(long)arg1];
             *puVar3 = uVar1 & uVar6 | uVar4;
-            iVar2 = param_1;
+            iVar2 = arg1;
         }
         return iVar2;
     }
 
-    // 0x10025fd10, 32 bytes, placed by class name
-    // ClanSettings::SetAllowNonMembers(bool)
-    bool ClanSettings::SetAllowNonMembers(bool param_1) {
-        bool bVar1;
-
-        bVar1 = m_allowNonMembers;
-        if (bVar1 != param_1) {
-            m_allowNonMembers = param_1;
+    // 0x10025fd10
+    bool ClanSettings::SetAllowNonMembers(bool arg1) {
+        bool bVar1 = field_56;
+        if (bVar1 != arg1) {
+            field_56 = arg1;
         }
-        return bVar1 != param_1;
+        return bVar1 != arg1;
     }
 
-    // 0x10025fd30, 32 bytes, placed by class name
-    // ClanSettings::SetRankTalk(signed char)
-    bool ClanSettings::SetRankTalk(char param_2) {
-        char cVar1;
-
-        cVar1 = field_57;
-        if (cVar1 != param_2) {
-            field_57 = param_2;
+    // 0x10025fd30
+    bool ClanSettings::SetRankTalk(signed char arg1) {
+        bool bVar1 = field_57;
+        if (bVar1 != (bool)arg1) {
+            field_57 = (bool)arg1;
         }
-        return cVar1 != param_2;
+        return bVar1 != (bool)arg1;
     }
 
-    // 0x10025fd50, 32 bytes, placed by class name
-    // ClanSettings::SetRankKick(signed char)
-    bool ClanSettings::SetRankKick(char param_2) {
-        char cVar1;
-
-        cVar1 = field_58;
-        if (cVar1 != param_2) {
-            field_58 = param_2;
+    // 0x10025fd50
+    bool ClanSettings::SetRankKick(signed char arg1) {
+        bool bVar1 = field_58;
+        if (bVar1 != (bool)arg1) {
+            field_58 = (bool)arg1;
         }
-        return cVar1 != param_2;
+        return bVar1 != (bool)arg1;
     }
 
-    // 0x10025fd70, 32 bytes, placed by class name
-    // ClanSettings::SetRankLootShare(signed char)
-    bool ClanSettings::SetRankLootShare(char param_2) {
-        char cVar1;
-
-        cVar1 = field_59;
-        if (cVar1 != param_2) {
-            field_59 = param_2;
+    // 0x10025fd70
+    bool ClanSettings::SetRankLootShare(signed char arg1) {
+        bool bVar1 = field_59;
+        if (bVar1 != (bool)arg1) {
+            field_59 = (bool)arg1;
         }
-        return cVar1 != param_2;
+        return bVar1 != (bool)arg1;
     }
 
-    // 0x10025fd90, 32 bytes, placed by class name
-    // ClanSettings::SetCoinShare(signed char)
-    bool ClanSettings::SetCoinShare(char param_2) {
-        char cVar1;
-
-        cVar1 = field_60;
-        if (cVar1 != param_2) {
-            field_60 = param_2;
+    // 0x10025fd90
+    bool ClanSettings::SetCoinShare(signed char arg1) {
+        bool bVar1 = field_60;
+        if (bVar1 != (bool)arg1) {
+            field_60 = (bool)arg1;
         }
-        return cVar1 != param_2;
+        return bVar1 != (bool)arg1;
     }
 
-    // 0x10025fdb0, 256 bytes, placed by class name
-    // ClanSettings::SetExtraSettingInt(int, int)
-    undefined8 ClanSettings::SetExtraSettingInt(int param_1, int param_2) {
+    // 0x10025fdb0
+    uint64_t ClanSettings::SetExtraSettingInt(int arg1, int arg2) {
         long lVar2;
         ExtraSettingsParam* this_00;
-        hashtable_iterator_base* extraout_RDX;
-        eastl local_78[16];
-        undefined1 local_68[48];
-        ulong local_38;
+        uint8_t local_68[48];
+        ReturnValue local_38;
 
-        local_68._0_8_ = (long)param_1;
-        eastl::hashtable<long long, eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, eastl::allocator,
-                         eastl::use_first<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>>,
-                         eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::find((longlong*)
-                                                                                                              local_78);
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        if (((eastl::operator!=(local_78, (hashtable_iterator_base*)local_68, extraout_RDX)) &&
-             (lVar2 = local_78->HeapBeginPtr(), *(int*)(lVar2 + 8) == 0)) &&
-            (lVar2 = local_78->HeapBeginPtr(), *(int*)(lVar2 + 16) == param_2)) {
-            return 0;
+        uint8_t* this_01 = &field_344;
+        local_68._0_8_ = (long)arg1;
+        auto local_78 = this_01->find(*local_68);
+        *local_68 = this_01->end();
+        if (((local_78 != *local_68 == '\0') || (lVar2 = local_78.HeapBeginPtr(), *(int*)(lVar2 + 8) != 0)) ||
+            (lVar2 = local_78.HeapBeginPtr(), *(int*)(lVar2 + 16) != arg2)) {
+            local_68._0_8_ = local_68._0_8_ & 18446744069414584320;
+            local_68._8_8_ = (int64_t)arg2;
+            new ((local_68 + 16)) eastl::string("");
+            local_38 = (ReturnValue)(long)arg1;
+            this_00 = (ExtraSettingsParam*)(*this_01)[local_38];
+            *this_00 = *local_68;
+            return 1;
         }
-        local_68._0_8_ = local_68._0_8_ & 18446744069414584320;
-        local_68._8_8_ = SEXT48(param_2);
-        new (&local_38) eastl::allocator("EASTL basic_string");
-        new ((local_68 + 16)) eastl::string("", (allocator*)&local_38);
-        local_38 = (long)param_1;
-        this_00 =
-            (ExtraSettingsParam*)eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                                 eastl::equal_to<long long>, eastl::allocator, false>::
-            operator[]((hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                 eastl::equal_to<long long>, eastl::allocator, false>*)&field_344,
-                       (longlong*)&local_38);
-        ExtraSettingsParam::operator=(this_00, (ExtraSettingsParam*)local_68);
-        local_68->~ObjSpriteCacheKey();
-        return 1;
+        return 0;
     }
 
-    // 0x10025ff20, 384 bytes, placed by class name
-    // ClanSettings::SetExtraSettingIntVarbit(int, int, unsigned int, unsigned int)
-    /* WARNING: Removing unreachable block (ram,4297457623) */
-    /* ClanSettings::SetExtraSettingIntVarbit(int, int, unsigned int,
-   unsigned int) */
-
-    undefined8 ClanSettings::SetExtraSettingIntVarbit(int param_1, int param_2, uint param_3, uint param_4) {
-        uint uVar1;
-        bool bVar2;
+    // 0x10025ff20
+    uint64_t ClanSettings::SetExtraSettingIntVarbit(int arg1, int arg2, unsigned int arg3, unsigned int arg4) {
+        unsigned int uVar1;
         long lVar3;
-        ExtraSettingsParam* this_00;
-        hashtable_iterator_base* extraout_RDX;
-        uint uVar4;
-        uint uVar5;
-        uint uVar6;
-        undefined1 local_88[48];
-        eastl local_58[16];
-        hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>, eastl::equal_to<long long>,
-                 eastl::allocator, false>* local_48;
-        ulong local_40;
-        ulong local_38;
+        uint8_t local_88[48];
 
-        uVar5 = ~(-1 << ((char)param_4 + 1U & 31));
-        if (param_4 == 31) {
+        unsigned int uVar5 = ~(-1 << ((char)arg4 + 1U & 31));
+        if (arg4 == 31) {
             uVar5 = 4294967295;
         }
-        uVar5 = uVar5 ^ -1 << ((byte)param_3 & 31);
-        uVar6 = ~uVar5;
-        uVar4 = param_2 << ((byte)param_3 & 31) & uVar6;
-        local_88._0_8_ = SEXT48(param_1);
-        local_40 = local_88._0_8_;
-        eastl::hashtable<long long, eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, eastl::allocator,
-                         eastl::use_first<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>>,
-                         eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::find((longlong*)
-                                                                                                              local_58);
-        local_48 = (hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                             eastl::equal_to<long long>, eastl::allocator, false>*)&field_344;
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar2 = eastl::operator!=(local_58, (hashtable_iterator_base*)local_88, extraout_RDX);
-        if (bVar2) {
-            lVar3 = local_58->HeapBeginPtr();
-            uVar1 = *(uint*)(lVar3 + 16);
-            lVar3 = local_58->HeapBeginPtr();
+        uVar5 = uVar5 ^ -1 << ((uint8_t)arg3 & 31);
+        unsigned int uVar6 = ~uVar5;
+        unsigned int uVar4 = arg2 << ((uint8_t)arg3 & 31) & uVar6;
+        uint8_t* this_01 = &field_344;
+        local_88._0_8_ = (int64_t)arg1;
+        ReturnValue local_40 = (ReturnValue)local_88._0_8_;
+        auto local_58 = this_01->find(*local_88);
+        hash_map<long long, ClanSettings::ExtraSettingsParam>* local_48 =
+            (hash_map<long long, ClanSettings::ExtraSettingsParam>*)this_01;
+        *local_88 = this_01->end();
+        if (local_58 != *local_88 != '\0') {
+            lVar3 = local_58.HeapBeginPtr();
+            uVar1 = *(unsigned int*)(lVar3 + 16);
+            lVar3 = local_58.HeapBeginPtr();
             if (*(int*)(lVar3 + 8) == 0) {
                 if ((uVar6 & uVar1) == uVar4) {
                     return 0;
                 }
-                lVar3 = local_58->HeapBeginPtr();
+                lVar3 = local_58.HeapBeginPtr();
                 *(long*)(lVar3 + 16) = (long)(int)(uVar5 & uVar1 | uVar4);
                 return 1;
             }
         }
         local_88._0_8_ = local_88._0_8_ & 18446744069414584320;
-        local_88._8_8_ = SEXT48((int)uVar4);
-        new (&local_38) eastl::allocator("EASTL basic_string");
-        new ((local_88 + 16)) eastl::string("", (allocator*)&local_38);
-        local_38 = local_40;
-        this_00 = (ExtraSettingsParam*)
-            eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                            eastl::equal_to<long long>, eastl::allocator, false>::operator[](local_48,
-                                                                                             (longlong*)&local_38);
-        ExtraSettingsParam::operator=(this_00, (ExtraSettingsParam*)local_88);
-        local_88->~ObjSpriteCacheKey();
+        local_88._8_8_ = (int64_t)((int)uVar4);
+        new ((local_88 + 16)) eastl::string("");
+        ReturnValue local_38 = local_40;
+        ExtraSettingsParam* this_00 = (ExtraSettingsParam*)(*local_48)[local_38];
+        *this_00 = *local_88;
         return 1;
     }
 
-    // 0x1002600a0, 256 bytes, placed by class name
-    // ClanSettings::SetExtraSettingLong(int, long long)
-    undefined8 ClanSettings::SetExtraSettingLong(int param_1, longlong param_2) {
+    // 0x1002600a0
+    uint64_t ClanSettings::SetExtraSettingLong(int arg1, long long arg2) {
         long lVar2;
         ExtraSettingsParam* this_00;
-        hashtable_iterator_base* extraout_RDX;
-        eastl local_78[16];
-        undefined1 local_68[48];
-        long local_38;
+        uint8_t local_68[48];
+        ReturnValue local_38;
 
-        local_68._0_8_ = (long)param_1;
-        eastl::hashtable<long long, eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, eastl::allocator,
-                         eastl::use_first<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>>,
-                         eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::find((longlong*)
-                                                                                                              local_78);
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        if (((eastl::operator!=(local_78, (hashtable_iterator_base*)local_68, extraout_RDX)) &&
-             (lVar2 = local_78->HeapBeginPtr(), *(int*)(lVar2 + 8) == 1)) &&
-            (lVar2 = local_78->HeapBeginPtr(), *(long*)(lVar2 + 16) == param_2)) {
-            return 0;
+        uint8_t* this_01 = &field_344;
+        local_68._0_8_ = (long)arg1;
+        auto local_78 = this_01->find(*local_68);
+        *local_68 = this_01->end();
+        if (((local_78 != *local_68 == '\0') || (lVar2 = local_78.HeapBeginPtr(), *(int*)(lVar2 + 8) != 1)) ||
+            (lVar2 = local_78.HeapBeginPtr(), *(long*)(lVar2 + 16) != arg2)) {
+            local_68._0_4_ = 1;
+            local_68._8_8_ = arg2;
+            new ((local_68 + 16)) eastl::string("");
+            local_38 = (ReturnValue)(long)arg1;
+            this_00 = (ExtraSettingsParam*)(*this_01)[local_38];
+            *this_00 = *local_68;
+            return 1;
         }
-        local_68._0_4_ = 1;
-        local_68._8_8_ = param_2;
-        new (&local_38) eastl::allocator("EASTL basic_string");
-        new ((local_68 + 16)) eastl::string("", (allocator*)&local_38);
-        local_38 = (long)param_1;
-        this_00 =
-            (ExtraSettingsParam*)eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                                 eastl::equal_to<long long>, eastl::allocator, false>::
-            operator[]((hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                 eastl::equal_to<long long>, eastl::allocator, false>*)&field_344,
-                       &local_38);
-        ExtraSettingsParam::operator=(this_00, (ExtraSettingsParam*)local_68);
-        local_68->~ObjSpriteCacheKey();
-        return 1;
+        return 0;
     }
 
-    // 0x1002601a0, 320 bytes, placed by class name
-    // ClanSettings::SetExtraSettingString(int, eastl::string)
-    undefined8 ClanSettings::SetExtraSettingString(int param_1, eastl::string* param_3) {
-        bool bVar1;
-        ulong uVar2;
-        long lVar3;
-        ExtraSettingsParam* this_00;
-        hashtable_iterator_base* extraout_RDX;
-        eastl local_78[16];
-        undefined1 local_68[48];
-        long local_38;
+    // 0x1002601a0
+    uint64_t ClanSettings::SetExtraSettingString(int arg1, eastl::string str) {
+        long lVar4;
+        uint8_t local_68[48];
 
-        uVar2 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        if (80 < uVar2) {
-            eastl::string::substr((ulong)local_68, (ulong)param_3);
-            eastl::string::operator=(param_3, (basic_string*)local_68);
-            local_68->~basic_string();
+        unsigned long uVar3 = str->size();
+        if (80 < uVar3) {
+            *local_68 = str->substr(0, 80);
+            *str = local_68;
         }
-        local_68._0_8_ = (long)param_1;
-        eastl::hashtable<long long, eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, eastl::allocator,
-                         eastl::use_first<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>>,
-                         eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::find((longlong*)
-                                                                                                              local_78);
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar1 = eastl::operator!=(local_78, (hashtable_iterator_base*)local_68, extraout_RDX);
-        if ((bVar1) && (lVar3 = local_78->HeapBeginPtr(), *(int*)(lVar3 + 8) == 2)) {
-            lVar3 = local_78->HeapBeginPtr();
-            bVar1 = eastl::operator==((basic_string*)(lVar3 + 24), (basic_string*)param_3);
-            if (bVar1) {
+        uint8_t* this_01 = &field_344;
+        local_68._0_8_ = (long)arg1;
+        auto local_78 = this_01->find(*local_68);
+        *local_68 = this_01->end();
+        if ((local_78 != *local_68 != '\0') && (lVar4 = local_78.HeapBeginPtr(), *(int*)(lVar4 + 8) == 2)) {
+            lVar4 = local_78.HeapBeginPtr();
+            if ((*((lVar4 + 24))) == *str) {
                 return 0;
             }
         }
         local_68._0_4_ = 2;
         local_68._8_8_ = 0;
-        new ((local_68 + 16)) eastl::string(param_3);
-        local_38 = (long)param_1;
-        this_00 =
-            (ExtraSettingsParam*)eastl::hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                                 eastl::equal_to<long long>, eastl::allocator, false>::
-            operator[]((hash_map<long long, ClanSettings::ExtraSettingsParam, eastl::hash<long long>,
-                                 eastl::equal_to<long long>, eastl::allocator, false>*)&field_344,
-                       &local_38);
-        ExtraSettingsParam::operator=(this_00, (ExtraSettingsParam*)local_68);
-        local_68->~ObjSpriteCacheKey();
+        new ((local_68 + 16)) eastl::string(*str);
+        ReturnValue local_38 = (ReturnValue)(long)arg1;
+        ExtraSettingsParam* this_00 = (ExtraSettingsParam*)(*this_01)[local_38];
+        *this_00 = *local_68;
         return 1;
     }
 
-    // 0x1002602e0, 480 bytes, placed by class name
-    // ClanSettings::GetEncodeLength(bool, bool)
-    int ClanSettings::GetEncodeLength(bool param_1, bool param_2) {
-        uint uVar1;
-        char cVar2;
-        bool bVar3;
+    // 0x1002602e0
+    int ClanSettings::GetEncodeLength(bool arg1, bool arg2) {
+        int iVar3;
         int iVar4;
-        int iVar5;
-        long lVar6;
-        basic_string* pbVar7;
-        undefined4 extraout_EDX;
-        undefined4 extraout_EDX_00;
-        undefined4 extraout_var;
-        undefined4 extraout_var_00;
-        undefined7 in_register_00000031;
-        int iVar8;
-        ulong uVar9;
-        eastl local_58[16];
-        hashtable_iterator_base local_48[20];
-        undefined4 local_34;
+        eastl::string* pbVar6;
+        uint64_t in_register_00000031;
+        int iVar7;
+        unsigned long uVar8;
+        ReturnValue local_58;
+        ReturnValue local_48;
 
-        lVar6 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        if (lVar6 == 0) {
-            iVar4 = 25;
+        long lVar5 = field_16.size();
+        if (lVar5 == 0) {
+            iVar3 = 25;
         } else {
-            iVar4 = PacketT<Array<unsigned char, eastl::allocator>>::predictLengthPStringUTF8ToCP1252<eastl::string>(
-                (basic_string*)&field_16, false);
-            iVar4 = iVar4 + 24;
+            iVar3 = PacketT<Array<unsigned char>>::predictLengthPStringUTF8ToCP1252<eastl::string>(field_16, false);
+            iVar3 = iVar3 + 24;
         }
-        uVar1 = field_64;
-        local_34 = (undefined4)CONCAT71(in_register_00000031, param_1);
+        unsigned int uVar1 = field_64;
+        uint32_t local_34 = (uint32_t)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1);
         if (0 < (int)uVar1) {
-            iVar5 = 0;
-            if (param_1) {
-                iVar5 = uVar1 << 3;
+            iVar4 = 0;
+            if (arg1) {
+                iVar4 = uVar1 << 3;
             }
-            iVar4 = iVar5 + iVar4 + uVar1 * 8;
-            if (param_2) {
-                uVar9 = 0;
+            iVar3 = iVar4 + iVar3 + uVar1 * 8;
+            if (arg2) {
+                uVar8 = 0;
                 do {
-                    pbVar7 = (basic_string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                        (vector<eastl::string, eastl::allocator>*)&field_280, uVar9);
-                    iVar5 = PacketT<Array<unsigned char, eastl::allocator>>::predictLengthPStringUTF8ToCP1252<
-                        eastl::string>(pbVar7, false);
-                    iVar4 = iVar4 + iVar5;
-                    uVar9 = uVar9 + 1;
-                } while ((long)uVar9 < (long)(int)field_64);
+                    pbVar6 = &field_280[uVar8];
+                    iVar4 =
+                        PacketT<Array<unsigned char>>::predictLengthPStringUTF8ToCP1252<eastl::string>(*pbVar6, false);
+                    iVar3 = iVar3 + iVar4;
+                    uVar8 = uVar8 + 1;
+                } while ((long)uVar8 < (long)(int)field_64);
             }
         }
         if (0 < (int)field_240) {
-            iVar5 = 0;
+            iVar4 = 0;
             if ((char)local_34 != '\0') {
-                iVar5 = field_240 << 3;
+                iVar4 = field_240 << 3;
             }
-            iVar4 = iVar5 + iVar4;
-            if (param_2) {
-                uVar9 = 0;
+            iVar3 = iVar4 + iVar3;
+            if (arg2) {
+                uVar8 = 0;
                 do {
-                    pbVar7 = (basic_string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                        (vector<eastl::string, eastl::allocator>*)&field_312, uVar9);
-                    iVar5 = PacketT<Array<unsigned char, eastl::allocator>>::predictLengthPStringUTF8ToCP1252<
-                        eastl::string>(pbVar7, false);
-                    iVar4 = iVar4 + iVar5;
-                    uVar9 = uVar9 + 1;
-                } while ((long)uVar9 < (long)(int)field_240);
+                    pbVar6 = &field_312[uVar8];
+                    iVar4 =
+                        PacketT<Array<unsigned char>>::predictLengthPStringUTF8ToCP1252<eastl::string>(*pbVar6, false);
+                    iVar3 = iVar3 + iVar4;
+                    uVar8 = uVar8 + 1;
+                } while ((long)uVar8 < (long)(int)field_240);
             }
         }
-        cVar2 = (&field_344)->empty();
-        if (cVar2 == '\0') {
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            bVar3 =
-                eastl::operator!=(local_58, local_48, (hashtable_iterator_base*)CONCAT44(extraout_var, extraout_EDX));
-            if (bVar3) {
+        uint8_t* this_00 = &field_344;
+        bool cVar2 = this_00->empty();
+        if (!cVar2) {
+            local_58 = this_00->begin();
+            local_48 = this_00->end();
+            cVar2 = local_58 != local_48;
+            if (cVar2) {
                 do {
-                    lVar6 = local_58->HeapBeginPtr();
-                    iVar5 = *(int*)(lVar6 + 8);
-                    if (iVar5 == 2) {
-                        iVar5 = PacketT<Array<unsigned char, eastl::allocator>>::predictLengthPStringUTF8ToCP1252<
-                            eastl::string>((basic_string*)(lVar6 + 24), false);
-                        iVar8 = iVar4 + 4 + iVar5;
+                    lVar5 = local_58.HeapBeginPtr();
+                    iVar4 = *(int*)(lVar5 + 8);
+                    if (iVar4 == 2) {
+                        iVar4 = PacketT<Array<unsigned char>>::predictLengthPStringUTF8ToCP1252<eastl::string>(
+                            *((lVar5 + 24)), false);
+                        iVar7 = iVar3 + 4 + iVar4;
                     } else {
-                        if (iVar5 == 1) {
-                            iVar8 = iVar4 + 12;
+                        if (iVar4 == 1) {
+                            iVar7 = iVar3 + 12;
                         } else {
-                            iVar8 = iVar4 + 4;
-                            if (iVar5 != 0)
+                            iVar7 = iVar3 + 4;
+                            if (iVar4 != 0)
                                 goto LAB_100260447;
-                            iVar8 = iVar4 + 8;
+                            iVar7 = iVar3 + 8;
                         }
                     }
                 LAB_100260447:
-                    iVar4 = iVar8;
-                    eastl::hashtable_iterator<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, true,
-                                              false>::
-                    operator++((hashtable_iterator<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, true,
-                                                   false>*)local_58);
-                    bVar3 = eastl::operator!=(local_58, local_48,
-                                              (hashtable_iterator_base*)CONCAT44(extraout_var_00, extraout_EDX_00));
-                } while (bVar3);
+                    iVar3 = iVar7;
+                    ++local_58;
+                    cVar2 = local_58 != local_48;
+                } while (cVar2);
             }
         }
-        return iVar4;
+        return iVar3;
     }
 
-    // 0x1002604e0, 32 bytes, placed by class name
-    // ClanSettings::Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&, bool, bool)
-    void ClanSettings::Encode(PacketJ* param_1, bool param_2, bool param_3) {
-        Encode(this, param_1, param_2, param_3, true);
+    // 0x1002604e0
+    void ClanSettings::Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>& packetJ, bool arg2, bool arg3) {
+        Encode(packetJ, arg2, arg3, true);
     }
 
-    // 0x100260500, 1072 bytes, placed by class name
-    // ClanSettings::Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&, bool, bool, bool)
-    void ClanSettings::Encode(PacketJ* param_1, bool param_2, bool param_3, bool param_4) {
-        uint uVar1;
-        char cVar2;
-        bool bVar3;
-        int iVar4;
-        undefined8 uVar5;
-        char* pcVar7;
-        int* piVar8;
-        longlong* plVar9;
-        basic_string* pbVar10;
-        uint* puVar11;
-        undefined7 in_register_00000009;
-        undefined7 in_register_00000011;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        uint uVar12;
-        undefined7 in_register_00000081;
-        ulong uVar13;
-        eastl local_80[16];
-        hashtable_iterator_base local_70[16];
-        vector<signed char, eastl::allocator>* local_60;
-        vector<int, eastl::allocator>* local_58;
-        vector<long long, eastl::allocator>* local_50;
-        vector<eastl::string, eastl::allocator>* local_48;
-        undefined4 local_3c;
-        uint local_38;
-        undefined4 local_34;
+    // 0x100260500
+    void ClanSettings::Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>& packetJ, bool arg2, bool arg3,
+                              bool arg4) {
+        bool cVar1;
+        unsigned int uVar2;
+        Logger* pLVar3;
+        uint64_t uVar5;
+        unsigned int* puVar6;
+        int* piVar7;
+        unsigned long long* puVar8;
+        eastl::string* pbVar9;
+        uint64_t in_register_00000009;
+        uint64_t in_register_00000011;
+        unsigned int uVar10;
+        uint64_t in_register_00000081;
+        uint8_t* this_00;
+        unsigned long uVar11;
+        ReturnValue local_80;
+        ReturnValue local_70;
+        vector<signed char>* local_60;
+        vector<int>* local_58;
+        vector<long long>* local_50;
+        vector<eastl::string>* local_48;
 
-        local_3c = (undefined4)CONCAT71(in_register_00000081, param_4);
-        local_34 = (undefined4)CONCAT71(in_register_00000009, param_3);
-        local_38 = (uint)CONCAT71(in_register_00000011, param_2);
-        if ((local_38 == 0) && (!param_3)) {
-            uVar5 = logger::default_logger();
-            logger::Logger::Log(uVar5, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "social/clanchat/ClanSettings.cpp",
-                                978, "Must encode with at least one of UserHashes or DisplayNames!");
+        uint32_t local_3c = (uint32_t)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg4);
+        uint32_t local_34 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+        PublishingPlatformType local_38 =
+            (PublishingPlatformType)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg2);
+        if ((local_38 == 0) && (!arg3)) {
+            pLVar3 = logger::default_logger();
+            pLVar3->Log(false, 8,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/social/"
+                        "clanchat/ClanSettings.cpp",
+                        978, "Must encode with at least one of UserHashes or DisplayNames!");
         }
-        if (((char)local_38 == '\0') || (field_12 != false)) {
+        if (((uint8_t)local_38 == '\0') || (field_12 != false)) {
         } else {
-            uVar5 = logger::default_logger();
-            logger::Logger::Log(uVar5, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "social/clanchat/ClanSettings.cpp",
-                                982, "Asked to store UserHashes when not present");
+            pLVar3 = logger::default_logger();
+            pLVar3->Log(false, 8,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/social/"
+                        "clanchat/ClanSettings.cpp",
+                        982, "Asked to store UserHashes when not present");
         }
-        if (((char)local_34 != '\0') && (field_13 == '\0')) {
-            uVar5 = logger::default_logger();
-            logger::Logger::Log(uVar5, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "social/clanchat/ClanSettings.cpp",
-                                986, "Asked to store DisplayNames when not present");
+        if (((char)local_34 != '\0') && (field_13 == 0)) {
+            pLVar3 = logger::default_logger();
+            pLVar3->Log(false, 8,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/social/"
+                        "clanchat/ClanSettings.cpp",
+                        986, "Asked to store DisplayNames when not present");
         }
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, 6);
-        uVar1 = (local_38 & 255) + 2;
+        packetJ.p1<shared::LoginProt::ID>(6);
+        PublishingPlatformType publishingPlatformType = (local_38 & 255) + 2;
         if ((char)local_34 == '\0') {
-            uVar1 = local_38 & 255;
+            publishingPlatformType = local_38 & 255;
         }
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, uVar1);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, field_8);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, field_48);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p2<int>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, field_64);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, field_240);
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size() ==
-            0) {
-            param_1->pStringUTF8ToCP1252("", false);
+        packetJ.p1<shared::LoginProt::ID>(publishingPlatformType);
+        packetJ.p4<int>((unsigned long)field_8);
+        packetJ.p4<int>((unsigned long)field_48);
+        packetJ.p2<int>(field_64);
+        packetJ.p1<shared::LoginProt::ID>(field_240);
+        if (field_16.size() == 0) {
+            packetJ.pStringUTF8ToCP1252("", false);
         } else {
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringUTF8ToCP1252<
-                eastl::basic_string<char, BucketAllocatorEASTL>>(
-                (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, (basic_string*)&field_16, false);
+            packetJ.pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(field_16, false);
         }
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, field_52);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, m_allowNonMembers);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<signed char>(param_1, (int)field_57);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<signed char>(param_1, (int)field_58);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<signed char>(param_1, (int)field_59);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<signed char>(param_1);
+        packetJ.p4<int>((unsigned long)field_52);
+        packetJ.p1<shared::LoginProt::ID>((unsigned int)field_56);
+        packetJ.p1<signed char>(field_57);
+        packetJ.p1<signed char>(field_58);
+        packetJ.p1<signed char>(field_59);
+        packetJ.p1<signed char>(field_60);
         if (0 < (int)field_64) {
-            local_50 = (vector<long long, eastl::allocator>*)&field_72;
-            local_48 = (vector<eastl::string, eastl::allocator>*)&field_280;
-            local_60 = (vector<signed char, eastl::allocator>*)&field_104;
-            local_58 = (vector<int, eastl::allocator>*)&field_136;
-            uVar13 = 0;
+            local_50 = (vector<long long>*)&field_72;
+            local_48 = (vector<eastl::string>*)&field_280;
+            local_60 = (vector<signed char>*)&field_104;
+            local_58 = (vector<int>*)&field_136;
+            uVar11 = 0;
             do {
-                if ((char)local_38 != '\0') {
-                    plVar9 = (longlong*)eastl::vector<long long, eastl::allocator>::operator[](local_50, uVar13);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p8<long long>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, *plVar9);
+                if ((uint8_t)local_38 != '\0') {
+                    puVar8 = (unsigned long long*)(*local_50)[uVar11];
+                    packetJ.p8<long long>(*puVar8);
                 }
                 if ((char)local_34 != '\0') {
-                    pbVar10 =
-                        (basic_string*)eastl::vector<eastl::string, eastl::allocator>::operator[](local_48, uVar13);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringUTF8ToCP1252<
-                        eastl::basic_string<char, BucketAllocatorEASTL>>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, pbVar10, false);
+                    pbVar9 = (eastl::string*)(*local_48)[uVar11];
+                    packetJ.pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(*pbVar9, false);
                 }
-                pcVar7 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](local_60, uVar13);
-                PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<signed char>(param_1, (int)*pcVar7);
-                piVar8 = (int*)eastl::vector<int, eastl::allocator>::operator[](local_58, uVar13);
-                PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                    (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, *piVar8);
-                piVar8 = (int*)eastl::vector<int, eastl::allocator>::operator[](
-                    (vector<int, eastl::allocator>*)&field_168, uVar13);
-                PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p2<int>(
-                    (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, *piVar8);
-                eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_200, uVar13);
-                PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                    (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1);
-                uVar13 = uVar13 + 1;
-            } while ((long)uVar13 < (long)(int)field_64);
+                uVar5 = (*local_60)[uVar11];
+                packetJ.p1<signed char>(*(bool*)uVar5);
+                puVar6 = (unsigned int*)(*local_58)[uVar11];
+                packetJ.p4<int>((unsigned long)*puVar6);
+                puVar6 = &field_168[uVar11];
+                packetJ.p2<int>(*puVar6);
+                piVar7 = &field_200[uVar11];
+                packetJ.p1<shared::LoginProt::ID>((unsigned int)(*piVar7 != 0));
+                uVar11 = uVar11 + 1;
+            } while ((long)uVar11 < (long)(int)field_64);
         }
         if (0 < (int)field_240) {
-            uVar13 = 0;
+            uVar11 = 0;
             do {
-                if ((char)local_38 != '\0') {
-                    plVar9 = (longlong*)eastl::vector<long long, eastl::allocator>::operator[](
-                        (vector<long long, eastl::allocator>*)&field_248, uVar13);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p8<long long>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, *plVar9);
+                if ((uint8_t)local_38 != '\0') {
+                    puVar8 = &field_248[uVar11];
+                    packetJ.p8<long long>(*puVar8);
                 }
                 if ((char)local_34 != '\0') {
-                    pbVar10 = (basic_string*)eastl::vector<eastl::string, eastl::allocator>::operator[](
-                        (vector<eastl::string, eastl::allocator>*)&field_312, uVar13);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringUTF8ToCP1252<
-                        eastl::basic_string<char, BucketAllocatorEASTL>>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, pbVar10, false);
+                    pbVar9 = &field_312[uVar11];
+                    packetJ.pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(*pbVar9, false);
                 }
-                uVar13 = uVar13 + 1;
-            } while ((long)uVar13 < (long)(int)field_240);
+                uVar11 = uVar11 + 1;
+            } while ((long)uVar11 < (long)(int)field_240);
         }
         if ((char)local_3c != '\0') {
-            cVar2 = (&field_344)->empty();
-            if (cVar2 == '\0') {
-                iVar4 = (&field_344)->size();
-                PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p2<int>(
-                    (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, iVar4);
-                eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                                 eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-                eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                                 eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-                bVar3 = eastl::operator!=(local_80, local_70, extraout_RDX);
-                if (!bVar3) {
+            this_00 = &field_344;
+            cVar1 = this_00->empty();
+            if (!cVar1) {
+                uVar2 = this_00->size();
+                packetJ.p2<int>(uVar2);
+                local_80 = this_00->begin();
+                local_70 = this_00->end();
+                cVar1 = local_80 != local_70;
+                if (!cVar1) {
                     return;
                 }
                 do {
-                    puVar11 = (uint*)local_80->HeapBeginPtr();
-                    uVar12 = *puVar11 & 1073741823;
-                    uVar1 = puVar11[2];
-                    if (uVar1 == 2) {
-                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, uVar12 | 2147483648);
-                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringUTF8ToCP1252<
-                            eastl::basic_string<char, BucketAllocatorEASTL>>(
-                            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, (basic_string*)(puVar11 + 6),
-                            false);
-                    } else if (uVar1 == 1) {
-                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, uVar12 | 1073741824);
-                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p8<long long>(
-                            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, *(longlong*)(puVar11 + 4));
-                    } else if (uVar1 == 0) {
-                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, uVar12);
-                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, puVar11[4]);
+                    puVar6 = (unsigned int*)local_80.HeapBeginPtr();
+                    uVar10 = *puVar6 & 1073741823;
+                    uVar2 = puVar6[2];
+                    if (uVar2 == 2) {
+                        packetJ.p4<int>((unsigned long)(uVar10 | 2147483648));
+                        packetJ.pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(*((puVar6 + 6)),
+                                                                                                     false);
+                    } else if (uVar2 == 1) {
+                        packetJ.p4<int>((unsigned long)(uVar10 | 1073741824));
+                        packetJ.p8<long long>(*(unsigned long long*)(puVar6 + 4));
+                    } else if (uVar2 == 0) {
+                        packetJ.p4<int>((unsigned long)uVar10);
+                        packetJ.p4<int>((unsigned long)puVar6[4]);
                     }
-                    eastl::hashtable_iterator<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, true,
-                                              false>::
-                    operator++((hashtable_iterator<eastl::pair<long long const, ClanSettings::ExtraSettingsParam>, true,
-                                                   false>*)local_80);
-                    bVar3 = eastl::operator!=(local_80, local_70, extraout_RDX_00);
-                } while (bVar3);
+                    ++local_80;
+                    cVar1 = local_80 != local_70;
+                } while (cVar1);
                 return;
             }
         }
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p2<int>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, 0);
+        packetJ.p2<int>(0);
     }
 
-    // 0x100260970, 80 bytes, placed by class name
-    // ClanSettings::GetMaximumSize(bool, bool, int, int, int)
-    int ClanSettings::GetMaximumSize(bool param_1, bool param_2, int param_3, int param_4, int param_5) {
-        int iVar1;
-        undefined3 in_register_00000031;
-        int iVar2;
-        undefined7 in_register_00000039;
-        int iVar3;
+    // 0x100260970
+    int ClanSettings::GetMaximumSize(bool arg1, bool arg2, int arg3, int arg4, int arg5) {
+        uint32_t in_register_00000031;
+        uint64_t in_register_00000039;
 
-        iVar2 = (int)CONCAT71(in_register_00000039, param_1);
-        iVar1 = 2545;
+        int iVar2 = (int)(((uint64_t)in_register_00000039 << 8) | (uint8_t)arg1);
+        int iVar1 = 2545;
         if (iVar2 != 0) {
             iVar1 = 6545;
         }
-        iVar3 = iVar1 + 6500;
-        if (CONCAT31(in_register_00000031, param_2) == 0) {
+        int iVar3 = iVar1 + 6500;
+        if ((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg2) == 0) {
             iVar3 = iVar1;
         }
         iVar1 = iVar3 + 800;
@@ -2285,37 +1808,36 @@ namespace jag::oldscape::rs2lib::social {
             iVar1 = iVar3;
         }
         iVar2 = iVar1 + 1300;
-        if (CONCAT31(in_register_00000031, param_2) == 0) {
+        if ((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg2) == 0) {
             iVar2 = iVar1;
         }
-        return param_3 * 8 + param_4 * 12 + param_5 * 85 + iVar2;
+        return arg3 * 8 + arg4 * 12 + arg5 * 85 + iVar2;
     }
 
 } // namespace jag::oldscape::rs2lib::social
 
 namespace jag {
-    // 0x10025e1f0, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::rs2lib::social::ClanSettings>::type make_shared<oldscape::rs2lib::social::ClanSettings>()
-    jag* make_shared<oldscape::rs2lib::social::ClanSettings>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10025e1f0
+    shared_ptr_if_not_array<oldscape::rs2lib::social::ClanSettings>::type
+    make_shared<oldscape::rs2lib::social::ClanSettings>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         ClanSettings* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(456, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(456, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::rs2lib::social::ClanSettings>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::rs2lib::social::ClanSettings>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::rs2lib::social::ClanSettings>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::rs2lib::social::ClanSettings>, int,
-                                   oldscape::rs2lib::social::ClanSettings*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::rs2lib::social::ClanSettings>, int,
+                              oldscape::rs2lib::social::ClanSettings*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

@@ -1,6 +1,5 @@
 // libs/oldscape/rs2lib/worldmap/WorldmapSubareaSquare.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 namespace jag::oldscape::rs2lib::worldmap {
@@ -8,266 +7,202 @@ namespace jag::oldscape::rs2lib::worldmap {
     public:
         // virtual methods in vtable order
         virtual ~WorldmapSubareaSquare();
-        virtual GetType() const;
-        virtual GetSquares() const;
+        virtual uint64_t GetType() const;
+        virtual auto GetSquares() const;
         virtual WorldmapSubareaSquare* GetZones() const;
-        virtual void CalcBounding(WorldmapAreaMetadata&) const;
-        virtual ContainsSourceTile(int, int, int) const;
-        virtual bool ContainsTargetTile(int, int) const;
-        virtual SourceToTargetTile(int, int, int) const;
-        virtual TargetToSourceTile(int, int) const;
-        virtual void Pack(PacketJ<Array<unsigned char, eastl::allocator>>&) const;
-        virtual void Unpack(PacketJ<Array<unsigned char, eastl::allocator>>&);
+        virtual void CalcBounding(WorldmapAreaMetadata& worldmapAreaMetadata) const;
+        virtual bool ContainsSourceTile(int arg1, int arg2, int arg3) const;
+        virtual bool ContainsTargetTile(int arg1, int arg2) const;
+        virtual auto SourceToTargetTile(int arg1, int arg2, int arg3) const;
+        virtual CoordGrid TargetToSourceTile(int arg1, int arg2) const;
+        virtual void Pack(PacketJ<Array<unsigned char>>& packetJ) const;
+        virtual void Unpack(PacketJ<Array<unsigned char>>& packetJ);
         WorldmapSubareaSquare();
-        WorldmapSubareaSquare(int, int, int, int, int, int);
+        WorldmapSubareaSquare(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
         void SetTileBounds();
 
-        // data members, from how the methods use this: 52 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        uint field_12;       // offset 12
-        uint field_16;       // offset 16
-        uint field_20;       // offset 20
-        uint field_24;       // offset 24
-        uint field_28;       // offset 28
-        uint field_32;       // offset 32
-        uint field_36;       // offset 36
-        uint field_40;       // offset 40
-        uint field_44;       // offset 44
-        char _unknown_48[4];
+    private:
+        unsigned int field_8;
+        unsigned int field_12;
+        unsigned int field_16;
+        unsigned int field_20;
+        unsigned int field_24;
+        unsigned int field_28;
+        unsigned int field_32;
+        unsigned int field_36;
+        unsigned int field_40;
+        unsigned int field_44;
+        uint8_t _unknown_48[4];
     };
 
-    // 0x100022b10: the linker folded this into option::ScriptOption<int, option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    WorldmapSubareaSquare::~WorldmapSubareaSquare();
+    // 0x100022b10: WorldmapSubareaSquare::~WorldmapSubareaSquare() has the same machine code as option::ScriptOption<int, option::DeviceOptionScriptID>::~ScriptOption()
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<CoordMapSquare*>(CoordMapSquare*, CoordMapSquare*), which has identical code
-    WorldmapSubareaSquare::~WorldmapSubareaSquare();
+    // 0x10002a770: WorldmapSubareaSquare::~WorldmapSubareaSquare() has the same machine code as void eastl::destruct<CoordMapSquare*>(CoordMapSquare*, CoordMapSquare*)
 
-    // 0x10004a690: the linker folded this into option::ScriptOption<bool, option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    WorldmapSubareaSquare::~WorldmapSubareaSquare();
+    // 0x1001f6e90
+    WorldmapSubareaSquare::WorldmapSubareaSquare() : WorldmapSubarea() {}
 
-    // 0x1001f6e90, 32 bytes, base-object constructor, placed by class name and debug map
-    // WorldmapSubareaSquare::WorldmapSubareaSquare()
-    void WorldmapSubareaSquare::WorldmapSubareaSquare() {
-        new (this) WorldmapSubarea();
-        field_0 = &PTR__ScriptOption_100ef72d8;
+    // 0x1001f6ee0
+    WorldmapSubareaSquare::WorldmapSubareaSquare(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6)
+        : WorldmapSubarea(), field_8(arg1), field_12(arg2), field_16(arg3), field_20(arg5), field_24(arg4),
+          field_28(arg6) {
+        SetTileBounds();
     }
 
-    // 0x1001f6ed0, 16 bytes, complete-object constructor, placed by class name
-    // WorldmapSubareaSquare::WorldmapSubareaSquare(): jumps straight to the base-object constructor
-
-    // 0x1001f6ee0, 112 bytes, base-object constructor, placed by class name
-    // WorldmapSubareaSquare::WorldmapSubareaSquare(int, int, int, int, int, int)
-    void WorldmapSubareaSquare::WorldmapSubareaSquare(int param_1, int param_2, int param_3, int param_4, int param_5,
-                                                      int param_6) {
-        new (this) WorldmapSubarea();
-        field_0 = &PTR__ScriptOption_100ef72d8;
-        field_8 = param_1;
-        field_12 = param_2;
-        field_16 = param_3;
-        field_20 = param_5;
-        field_24 = param_4;
-        field_28 = param_6;
-        SetTileBounds(this);
-    }
-
-    // 0x1001f6f50, 48 bytes, placed by class name
-    // WorldmapSubareaSquare::SetTileBounds()
+    // 0x1001f6f50
     void WorldmapSubareaSquare::SetTileBounds() {
-        uint uVar1;
-        uint uVar2;
-
-        uVar1 = field_24 << 6;
+        unsigned int uVar1 = field_24 << 6;
         field_32 = uVar1;
-        uVar2 = field_28 << 6;
+        unsigned int uVar2 = field_28 << 6;
         field_36 = uVar2;
         field_40 = uVar1 | 63;
         field_44 = uVar2 | 63;
     }
 
-    // 0x1001f6f80, 32 bytes, complete-object constructor, placed by class name
-    // WorldmapSubareaSquare::WorldmapSubareaSquare(int, int, int, int, int, int)
-    void WorldmapSubareaSquare::WorldmapSubareaSquare(int param_1, int param_2, int param_3, int param_4, int param_5,
-                                                      int param_6) {
-        WorldmapSubareaSquare(this, param_1, param_2, param_3, param_4, param_5, param_6);
-    }
-
-    // 0x1001f6fa0, 16 bytes, placed by class name
-    // WorldmapSubareaSquare::GetType() const
-    undefined8 WorldmapSubareaSquare::GetType() {
+    // 0x1001f6fa0
+    uint64_t WorldmapSubareaSquare::GetType() const {
         return 1;
     }
 
-    // 0x1001f6fb0, 144 bytes, placed by class name
-    // WorldmapSubareaSquare::GetSquares() const
-    WorldmapSubareaSquare* WorldmapSubareaSquare::GetSquares() {
-        long in_RSI;
-        shared_ptr local_30;
+    // 0x1001f6fb0
+    auto WorldmapSubareaSquare::GetSquares() const {
+        shared_ptr<MapSquareData> local_30;
 
-        new (this) eastl::vector<shared_ptr<MapSquareData>, eastl::allocator>();
+        auto result;
         make_shared<MapSquareData, int const&, int const&, int, int, int&, int&>(
-            (jag*)&local_30, (int*)(in_RSI + 8), (int*)(in_RSI + 12), (int*)(in_RSI + 16), (int*)(in_RSI + 20),
-            (int*)(in_RSI + 24), (int*)(in_RSI + 28));
-        push_back(&local_30);
-        local_30.~shared_ptr();
+            &local_30, (int*)&field_8, (int*)&field_12, (int*)&field_16, (int*)&field_20, (int*)&field_24);
+        result.push_back(local_30);
+        return result;
+    }
+
+    // 0x1001f7190
+    WorldmapSubareaSquare* WorldmapSubareaSquare::GetZones() const {
+        new (this) eastl::vector<shared_ptr<MapZoneData>>();
         return this;
     }
 
-    // 0x1001f7190, 32 bytes, placed by class name
-    // WorldmapSubareaSquare::GetZones() const
-    WorldmapSubareaSquare* WorldmapSubareaSquare::GetZones() {
-        new (this) eastl::vector<shared_ptr<MapZoneData>, eastl::allocator>();
-        return this;
-    }
-
-    // 0x1001f71d0, 128 bytes, placed by class name
-    // WorldmapSubareaSquare::CalcBounding(WorldmapAreaMetadata&) const
-    void WorldmapSubareaSquare::CalcBounding(WorldmapAreaMetadata* param_1) {
-        int iVar1;
-
-        iVar1 = param_1->GetMinMapX();
+    // 0x1001f71d0
+    void WorldmapSubareaSquare::CalcBounding(WorldmapAreaMetadata& worldmapAreaMetadata) const {
+        int iVar1 = worldmapAreaMetadata.GetMinMapX();
         if ((int)field_24 < iVar1) {
-            param_1->SetBottomLine(field_24);
+            worldmapAreaMetadata.SetBottomLine(field_24);
         }
-        iVar1 = param_1->GetUIHeight();
+        iVar1 = worldmapAreaMetadata.GetUIHeight();
         if (iVar1 < (int)field_24) {
-            param_1->SetMaxMapX(field_24);
+            worldmapAreaMetadata.SetMaxMapX(field_24);
         }
-        iVar1 = param_1->GetSeqDelay();
+        iVar1 = worldmapAreaMetadata.GetSeqDelay();
         if ((int)field_28 < iVar1) {
-            param_1->SetMinMapZ(field_28);
+            worldmapAreaMetadata.SetMinMapZ(field_28);
         }
-        iVar1 = param_1->GetMaxMapZ();
+        iVar1 = worldmapAreaMetadata.GetMaxMapZ();
         if (iVar1 < (int)field_28) {
-            param_1->SetLevel(field_28);
+            worldmapAreaMetadata.SetLevel(field_28);
         }
     }
 
-    // 0x1001f7280, 48 bytes, placed by class name
-    // WorldmapSubareaSquare::ContainsSourceTile(int, int, int) const
-    undefined4 WorldmapSubareaSquare::ContainsSourceTile(int param_1, int param_2, int param_3) {
+    // 0x1001f7280
+    bool WorldmapSubareaSquare::ContainsSourceTile(int arg1, int arg2, int arg3) const {
         int iVar1;
 
-        if (((param_1 < (int)field_8) || (iVar1 = field_8 + field_12, iVar1 <= param_1)) ||
-            (param_2 >> 6 != field_16)) {
+        if (((arg1 < (int)field_8) || (iVar1 = field_8 + field_12, iVar1 <= arg1)) || (arg2 >> 6 != field_16)) {
             return 0;
         }
-        return CONCAT31((int3)((uint)iVar1 >> 8), param_3 >> 6 == field_20);
+        return arg3 >> 6 == field_20;
     }
 
-    // 0x1001f72b0, 32 bytes, placed by class name
-    // WorldmapSubareaSquare::ContainsTargetTile(int, int) const
-    bool WorldmapSubareaSquare::ContainsTargetTile(int param_1, int param_2) {
-        if (param_1 >> 6 == field_24) {
-            return param_2 >> 6 == field_28;
+    // 0x1001f72b0
+    bool WorldmapSubareaSquare::ContainsTargetTile(int arg1, int arg2) const {
+        if (arg1 >> 6 == field_24) {
+            return arg2 >> 6 == field_28;
         }
         return false;
     }
 
-    // 0x1001f72d0, 256 bytes, placed by class name
-    // WorldmapSubareaSquare::SourceToTargetTile(int, int, int) const
-    WorldmapSubareaSquare* WorldmapSubareaSquare::SourceToTargetTile(int param_1, int param_2, int param_3) {
-        int iVar1;
-        int iVar2;
-        long lVar3;
-        long lVar4;
+    // 0x1001f72d0
+    auto WorldmapSubareaSquare::SourceToTargetTile(int arg1, int arg2, int arg3) const {
+        auto result;
+        unsigned int uVar1;
+        unsigned int uVar2;
         array<int, 2ul>* this_00;
-        int* piVar6;
-        undefined4 in_register_00000034;
-        long* plVar7;
-        int in_R8D;
-        unique_ptr local_50[8];
-        int local_3c;
-        unique_ptr<std::array<int, 2ul>, std::default_delete<std::array<int, 2ul>>> local_38[8];
+        int* piVar4;
+        int iVar5;
+        ReturnValue local_50;
+        ReturnValue* local_48;
+        unique_ptr<std::array<int, 2ul>> local_38;
 
-        plVar7 = (long*)CONCAT44(in_register_00000034, param_1);
-        if ((**(code**)(*plVar7 + 48))(plVar7, param_2, param_3, in_R8D) == '\0') {
-            std::unique_ptr<std::array<int, 2ul>, std::default_delete<std::array<int, 2ul>>>::unique_ptr<true, void>(
-                (_func_decltype_nullptr*)this);
+        void* arg1_00 = (void*)(unsigned long)(unsigned int)arg1;
+        if (ContainsSourceTile((int)this, arg1, arg2) == '\0') {
+            result.unique_ptr<true, void>(arg1_00);
         } else {
-            local_3c = in_R8D;
-            std::unique_ptr<std::array<int, 2ul>, std::default_delete<std::array<int, 2ul>>>::unique_ptr<true, void>(
-                local_38);
-            std::make_unique<std::array<int, 2ul>>();
-            std::unique_ptr<std::array<int, 2ul>, std::default_delete<std::array<int, 2ul>>>::operator=(local_38,
-                                                                                                        local_50);
-            local_50->~unique_ptr();
-            this_00 = (array<int, 2ul>*)
-                std::unique_ptr<std::array<int, 2ul>, std::default_delete<std::array<int, 2ul>>>::operator*(local_38);
-            lVar3 = plVar7[3];
-            lVar4 = plVar7[2];
-            piVar6 = (int*)std::array<int, 2ul>::operator[](this_00, 0);
-            *piVar6 = ((int)lVar3 - (int)lVar4) * 64 + param_3;
-            iVar1 = *(int*)((long)plVar7 + 28);
-            iVar2 = *(int*)((long)plVar7 + 20);
-            piVar6 = (int*)std::array<int, 2ul>::operator[](this_00, 1);
-            this = (WorldmapSubareaSquare*)this;
-            *piVar6 = (iVar1 - iVar2) * 64 + local_3c;
-            new ((WorldmapSubareaSquare*)this)
-                std::unique_ptr<std::array<int, 2ul>, std::default_delete<std::array<int, 2ul>>>(local_38);
-            std::unique_ptr<std::array<int, 2ul>, std::default_delete<std::array<int, 2ul>>>::~unique_ptr(local_38);
+            local_48 = &result;
+            local_38.unique_ptr<true, void>();
+            local_50 = std::make_unique<std::array<int, 2ul>>();
+            local_38 = local_50;
+            this_00 = (array<int, 2ul>*)*local_38;
+            uVar1 = field_24;
+            uVar2 = field_16;
+            piVar4 = (int*)(*this_00)[0];
+            *piVar4 = (uVar1 - uVar2) * 64 + arg2;
+            iVar5 = (field_28 - field_20) * 64 + arg3;
+            piVar4 = (int*)(*this_00)[1];
+            &result = local_48;
+            *piVar4 = iVar5;
+            new (local_48) std::unique_ptr<std::array<int, 2ul>>(local_38);
         }
-        return this;
+        return result;
     }
 
-    // 0x1001f7490, 112 bytes, placed by class name
-    // WorldmapSubareaSquare::TargetToSourceTile(int, int) const
-    WorldmapSubareaSquare* WorldmapSubareaSquare::TargetToSourceTile(int param_1, int param_2) {
+    // 0x1001f7490
+    CoordGrid WorldmapSubareaSquare::TargetToSourceTile(int arg1, int arg2) const {
         int in_ECX;
-        undefined4 in_register_00000034;
-        long* plVar2;
+        uint64_t extraout_RDX;
+        uint64_t extraout_RDX_00;
+        uint64_t uVar2;
+        uint32_t in_register_00000034;
+        CoordGrid CVar4;
 
-        plVar2 = (long*)CONCAT44(in_register_00000034, param_1);
-        if ((**(code**)(*plVar2 + 56))(plVar2, param_2, in_ECX) == '\0') {
+        long* plVar3 = (long*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1);
+        if ((**(void (**)(...))(*plVar3 + 56))(plVar3, arg2, in_ECX) == '\0') {
             new (this) rs2lib::CoordGrid((CoordGrid*)&rs2lib::CoordGrid::CoordGridNull);
+            uVar2 = extraout_RDX_00;
         } else {
-            new (this) rs2lib::CoordGrid((int)plVar2[1], ((int)plVar2[2] - (int)plVar2[3]) * 64 + param_2,
-                                         (*(int*)((long)plVar2 + 20) - *(int*)((long)plVar2 + 28)) * 64 + in_ECX);
+            new (this) rs2lib::CoordGrid((int)plVar3[1], ((int)plVar3[2] - (int)plVar3[3]) * 64 + arg2,
+                                         (*(int*)((long)plVar3 + 20) - *(int*)((long)plVar3 + 28)) * 64 + in_ECX);
+            uVar2 = extraout_RDX;
         }
-        return this;
+        CVar4._8_8_ = uVar2;
+        CVar4._0_8_ = this;
+        return CVar4;
     }
 
-    // 0x1001f7500, 112 bytes, placed by class name
-    // WorldmapSubareaSquare::Pack(PacketJ<Array<unsigned char, eastl::allocator> >&) const
-    void WorldmapSubareaSquare::Pack(PacketJ* param_1) {
-        byte bVar1;
-
-        bVar1 = (*(code*)field_0[2])();
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)bVar1);
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)field_8);
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)field_12);
-        PacketT<Array<unsigned char, eastl::allocator>>::p2<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)field_16);
-        PacketT<Array<unsigned char, eastl::allocator>>::p2<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)field_20);
-        PacketT<Array<unsigned char, eastl::allocator>>::p2<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)field_24);
-        PacketT<Array<unsigned char, eastl::allocator>>::p2<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)field_28);
+    // 0x1001f7500
+    void WorldmapSubareaSquare::Pack(PacketJ<Array<unsigned char>>& packetJ) const {
+        uint8_t bVar1 = GetType();
+        packetJ.p1<unsigned long>((unsigned int)bVar1);
+        packetJ.p1<unsigned long>(field_8);
+        packetJ.p1<unsigned long>(field_12);
+        packetJ.p2<unsigned long>((unsigned short)field_16);
+        packetJ.p2<unsigned long>((unsigned short)field_20);
+        packetJ.p2<unsigned long>((unsigned short)field_24);
+        packetJ.p2<unsigned long>((unsigned short)field_28);
     }
 
-    // 0x1001f7570, 112 bytes, placed by class name
-    // WorldmapSubareaSquare::Unpack(PacketJ<Array<unsigned char, eastl::allocator> >&)
-    void WorldmapSubareaSquare::Unpack(PacketJ* param_1) {
-        byte bVar1;
-        ushort uVar2;
-
-        bVar1 = param_1->g1();
-        field_8 = (uint)bVar1;
-        bVar1 = param_1->g1();
-        field_12 = (uint)bVar1;
-        uVar2 = param_1->g2();
-        field_16 = (uint)uVar2;
-        uVar2 = param_1->g2();
-        field_20 = (uint)uVar2;
-        uVar2 = param_1->g2();
-        field_24 = (uint)uVar2;
-        uVar2 = param_1->g2();
-        field_28 = (uint)uVar2;
-        SetTileBounds(this);
+    // 0x1001f7570
+    void WorldmapSubareaSquare::Unpack(PacketJ<Array<unsigned char>>& packetJ) {
+        uint8_t bVar1 = packetJ.g1();
+        field_8 = (unsigned int)bVar1;
+        bVar1 = packetJ.g1();
+        field_12 = (unsigned int)bVar1;
+        unsigned short uVar2 = packetJ.g2();
+        field_16 = (unsigned int)uVar2;
+        uVar2 = packetJ.g2();
+        field_20 = (unsigned int)uVar2;
+        uVar2 = packetJ.g2();
+        field_24 = (unsigned int)uVar2;
+        uVar2 = packetJ.g2();
+        field_28 = (unsigned int)uVar2;
+        SetTileBounds();
     }
 
 } // namespace jag::oldscape::rs2lib::worldmap

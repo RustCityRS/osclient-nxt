@@ -1,193 +1,165 @@
 // libs/graphics/runetek7/renderer/renderpasses/SceneRenderPass.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "SceneRenderPass.h"
 
 namespace jag::graphics {
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    OcclusionManager SceneRenderPass::GetOcclusionManager();
+    // 0x1000b9950: SceneRenderPass::GetOcclusionManager() has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    OcclusionManager SceneRenderPass::GetOcclusionManager() const;
+    // 0x1000b9950: SceneRenderPass::GetOcclusionManager() const has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x1007a42e0, 336 bytes, placed by class name and debug map
-    // SceneRenderPass::ClearRenderTargets(render::RenderContext&, render::RenderTargetData const&, eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator> const&)
-    void SceneRenderPass::ClearRenderTargets(RenderContext* param_1, RenderTargetData* param_2, fixed_vector* param_3) {
-        RenderTargets* pRVar1;
-        Viewport* pVVar2;
-        vector<eastl::pair<int, int>, eastl::allocator>* this_00;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_01;
-        undefined8* puVar3;
-        int* piVar4;
-        Viewport* pVVar5;
-        ulong uVar6;
-        long lVar7;
-        Vector4T* pVVar8;
-        bool bVar9;
-        RenderContext* this_02;
-        ulong local_38;
+    // 0x1007a42e0
+    void SceneRenderPass::ClearRenderTargets(render::RenderContext& renderContext,
+                                             const render::RenderTargetData& renderTargetData,
+                                             const eastl::fixed_vector<render::Viewport, 2ul>& viewports) {
+        RenderTargets* renderTargets;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_01;
+        uint64_t* puVar1;
+        int* piVar2;
+        long lVar3;
+        Vector4T<float>* vector4;
+        BlendState* blendState;
+        unsigned long local_38;
 
-        bVar9 = false;
-        pVVar2 = (Viewport*)eastl::vector<render::Viewport,
-                                          eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>::
-        operator[](
-            (vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>*)
-                param_3,
-            0);
-        if (param_2->field_0 == (RenderTargets*)0) {
+        bool arg1 = false;
+        Viewport* viewport = &viewports[0];
+        if (renderTargetData.field_0 == nullptr) {
             local_38 = 1;
         } else {
-            this_00 = (vector<eastl::pair<int, int>, eastl::allocator>*)param_2->field_0->GetColourTargetTextures();
-            local_38 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_00);
-            this_01 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    param_2->field_0->GetColourTargetTextures();
-            puVar3 = (undefined8*)eastl::vector<
-                render::Texture*,
-                eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_01, 0);
-            piVar4 = (int*)(*puVar3)->second();
-            if (((pVVar2->field_0 == 0 && pVVar2->field_4 == 0) && (pVVar2->field_8 == *piVar4)) &&
-                (pVVar2->field_12 == piVar4[1])) {
-                bVar9 = false;
+            local_38 = ((vector<eastl::pair<int, int>>*)renderTargetData.field_0->GetColourTargetTextures())->size();
+            this_01 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                          renderTargetData.field_0->GetColourTargetTextures();
+            puVar1 = (uint64_t*)(*this_01)[0];
+            piVar2 = (int*)(*puVar1)->second();
+            if (((viewport->field_0 == 0 && viewport->field_4 == 0) && (viewport->field_8 == *piVar2)) &&
+                (viewport->field_12 == piVar2[1])) {
+                arg1 = false;
             } else {
-                bVar9 = true;
+                arg1 = true;
             }
         }
-        param_1->SetScissorRectangle(bVar9, pVVar2);
-        pVVar5 = (Viewport*)param_3->HeapBeginPtr();
-        uVar6 = param_3->size();
-        this_02 = param_1;
-        param_1->SetViewports(pVVar5, uVar6);
-        if ((param_2->field_48 & 1) != 0) {
-            lVar7 = this_02->Instance();
-            param_1->SetBlendState((BlendState*)(lVar7 + 1524));
-            pRVar1 = param_2->field_0;
-            pVVar8 = (Vector4T*)std::array<math::Vector4T<float>, 2ul>::operator[]((ulong)&param_2->field_16);
-            this_02 = param_1;
-            param_1->ClearRenderTargets(pRVar1, pVVar8, local_38);
+        renderContext.SetScissorRectangle(arg1, *viewport);
+        auto viewport_00 = viewports.HeapBeginPtr();
+        unsigned long arg2 = viewports.size();
+        RenderContext* this_02 = renderContext;
+        renderContext.SetViewports(viewport_00, arg2);
+        if ((renderTargetData.field_48 & 1) != 0) {
+            lVar3 = this_02->Instance();
+            blendState = (BlendState*)(lVar3 + 1524);
+            renderContext.SetBlendState(blendState);
+            renderTargets = renderTargetData.field_0;
+            vector4 = &renderTargetData.field_16[(unsigned long)blendState];
+            this_02 = renderContext;
+            renderContext.ClearRenderTargets(renderTargets, vector4, local_38);
         }
-        if ((param_2->field_48 & 6) != 0) {
-            lVar7 = this_02->Instance();
-            param_1->SetDepthStencilState((DepthStencilState*)(lVar7 + 720));
-            param_1->ClearDepthStencilTarget(param_2->field_0, param_2->field_52, param_2->field_56, param_2->field_48);
+        if ((renderTargetData.field_48 & 6) != 0) {
+            lVar3 = this_02->Instance();
+            renderContext.SetDepthStencilState((lVar3 + 720));
+            renderContext.ClearDepthStencilTarget(renderTargetData.field_0, renderTargetData.field_52,
+                                                  renderTargetData.field_56, renderTargetData.field_48);
         }
-        param_1->SetScissorRectangle(false, pVVar2);
+        renderContext.SetScissorRectangle(false, *viewport);
     }
 
-    // 0x1007a5f80, 192 bytes, base-object constructor, placed by class name
-    // SceneRenderPass::SceneRenderPass(RenderPassType, render::RenderTargetsManager*, ThreadPool*)
-    void SceneRenderPass::SceneRenderPass(undefined8 param_2, undefined8 param_3, ThreadPool* param_4) {
-        RenderPass::RenderPass();
-        field_0 = &PTR__SceneRenderPass_100f14460;
-        new (m_occlusionManager, param_4) OcclusionManager();
-        std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::unique_ptr<
-            true, void>(
-            (unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>*)&field_736);
-        new (&field_744) Array<SceneViewData, eastl::allocator>();
-        std::unique_ptr<OcclusionReprojection, std::default_delete<OcclusionReprojection>>::unique_ptr<true, void>(
-            (unique_ptr<OcclusionReprojection, std::default_delete<OcclusionReprojection>>*)&field_768);
+    // 0x1007a5f80
+    SceneRenderPass::SceneRenderPass(RenderPassType renderPassType, render::RenderTargetsManager* renderTargetsManager,
+                                     ThreadPool* threadPool)
+        : RenderPass(renderPassType), m_occlusionManager(threadPool) {
+        field_736.unique_ptr<true, void>();
+        new (&field_744) Array<SceneViewData>();
+        field_768.unique_ptr<true, void>();
         field_776 = '\0';
         field_777 = true;
         field_778 = 1;
         field_780 = 0;
-        field_784 = param_3;
+        field_784 = renderTargetsManager;
         field_792 = 0;
     }
 
-    // 0x1007a6040, 64 bytes, placed by class name
-    // SceneRenderPass::SetOcclusionTestEnabled(bool)
-    void SceneRenderPass::SetOcclusionTestEnabled(bool param_1) {
-        if ((field_776 == '\0') && (param_1)) {
+    // 0x1007a6040
+    void SceneRenderPass::SetOcclusionTestEnabled(bool arg1) {
+        if ((field_776 == '\0') && (arg1)) {
             field_776 = '\x01';
-            (*(code*)field_0[8])();
+            OnOcclusionEnabled();
             return;
         }
-        if ((field_776 != '\0') && (!param_1)) {
+        if ((field_776 != '\0') && (!arg1)) {
             field_776 = '\0';
-            OnOcclusionDisabled(this);
+            OnOcclusionDisabled();
         }
     }
 
-    // 0x1007a6080, 160 bytes, base-object destructor, placed by class name
-    // SceneRenderPass::~SceneRenderPass()
-    void SceneRenderPass::~SceneRenderPass() {
-        field_0 = &PTR__SceneRenderPass_100f14460;
-        DestroyRenderingResources(this);
+    // 0x1007a6080
+    SceneRenderPass::~SceneRenderPass() {
+        DestroyRenderingResources();
         DestroyOcclusion((RenderTargetsManager*)this);
-        (&field_768)->~unique_ptr();
-        (&field_744)->~Array();
-        (&field_736)->~unique_ptr();
+        field_768.~unique_ptr();
+        field_744.~Array();
+        field_736.~unique_ptr();
         m_occlusionManager->~OcclusionManager();
-        ~RenderPass();
     }
 
-    // 0x1007a6d10, 80 bytes, placed by class name
-    // SceneRenderPass::GetCPUOcclusionEnabled(SceneViewData const&) const
-    undefined8 SceneRenderPass::GetCPUOcclusionEnabled(SceneViewData* param_1) {
-        char cVar1;
-        undefined8 uVar2;
+    // 0x1007a6d10
+    uint64_t SceneRenderPass::GetCPUOcclusionEnabled(const SceneViewData& sceneViewData) const {
+        uint64_t uVar2;
 
-        cVar1 = GetOcclusionTestEnabled(this);
-        if (cVar1 == '\0') {
+        bool cVar1 = GetOcclusionTestEnabled();
+        if (!cVar1) {
             uVar2 = 0;
         } else {
-            cVar1 = param_1->GetOcclusionTestEnabled();
+            cVar1 = sceneViewData.GetOcclusionTestEnabled();
             uVar2 = 0;
-            if ((cVar1 != '\0') && (OcclusionManager::m_OcclusionEnabled != '\0')) {
-                uVar2 = CONCAT71(17021909, OcclusionManager::m_CPUDepthBufferGenerationEnabled != '\0');
+            if ((cVar1) && (OcclusionManager::m_OcclusionEnabled != '\0')) {
+                uVar2 = (((uint64_t)17021909 << 8) |
+                         (uint8_t)(OcclusionManager::m_CPUDepthBufferGenerationEnabled != '\0'));
             }
         }
         return uVar2;
     }
 
-    // 0x1007a6d60, 48 bytes, placed by class name
-    // SceneRenderPass::GetOcclusionEnabled(SceneViewData const&) const
-    undefined8 SceneRenderPass::GetOcclusionEnabled(SceneViewData* param_1) {
-        undefined8 uVar2;
+    // 0x1007a6d60
+    uint64_t SceneRenderPass::GetOcclusionEnabled(const SceneViewData& sceneViewData) const {
+        uint64_t uVar2;
 
-        if (GetOcclusionEnabled(this) == '\0') {
+        if (GetOcclusionEnabled() == '\0') {
             uVar2 = 0;
         } else {
-            uVar2 = param_1->GetOcclusionTestEnabled();
+            uVar2 = sceneViewData.GetOcclusionTestEnabled();
         }
         return uVar2;
     }
 
-    // 0x1007a6d90, 192 bytes, placed by class name
-    // SceneRenderPass::IsViewChangeValidForOcclusion(SceneViewData const&)
-    ulong SceneRenderPass::IsViewChangeValidForOcclusion(SceneViewData* param_1) {
-        uint uVar1;
-        uint uVar3;
+    // 0x1007a6d90
+    unsigned long SceneRenderPass::IsViewChangeValidForOcclusion(const SceneViewData& sceneViewData) {
+        unsigned int uVar1;
+        unsigned int uVar3;
         GraphicsApp* pGVar5;
-        undefined8 unaff_RBX;
-        ulong uVar6;
-        uint uVar7;
+        uint64_t unaff_RBX;
+        unsigned long uVar6;
+        unsigned int uVar7;
         float fVar8;
         float extraout_XMM0_Db;
         float extraout_XMM0_Db_00;
 
         if (OcclusionManager::m_disableOnVerticalCameraRotation == '\0') {
-            uVar6 = CONCAT71((int7)((ulong)unaff_RBX >> 8), 1);
+            uVar6 = (((uint64_t)((int64_t)((unsigned long)unaff_RBX >> 8)) << 8) | (uint8_t)1);
         } else {
-            pGVar5 = (GraphicsApp*)this;
-            if (GetOcclusionEnabled(this, param_1) == '\0') {
+            if (GetOcclusionEnabled(sceneViewData) == '\0') {
                 uVar6 = 0;
             } else {
                 uVar1 = field_792;
-                pGVar5 = (GraphicsApp*)pGVar5->Instance();
+                pGVar5 = (GraphicsApp*)GraphicsApp::Instance();
                 uVar3 = pGVar5->GetFrameCount();
                 uVar7 = 0;
                 uVar6 = 0;
                 if (uVar1 <= uVar3) {
-                    param_1->GetViewVector();
-                    pGVar5 = (GraphicsApp*)GetOcclusionSceneViewData(this);
-                    pGVar5->GetViewVector();
+                    sceneViewData.GetViewVector();
+                    ((ViewTransforms*)GetOcclusionSceneViewData())->GetViewVector();
                     fVar8 = (float)::abs(extraout_XMM0_Db - extraout_XMM0_Db_00);
-                    uVar6 = (ulong)(fVar8 < 0.07);
+                    uVar6 = (unsigned long)(fVar8 < 0.07);
                     if (fVar8 >= 0.07) {
-                        pGVar5 = (GraphicsApp*)pGVar5->Instance();
+                        pGVar5 = (GraphicsApp*)GraphicsApp::Instance();
                         uVar7 = pGVar5->GetFrameCount() + 5;
                     }
                     field_792 = uVar7;
@@ -197,674 +169,474 @@ namespace jag::graphics {
         return uVar6 & 4294967295;
     }
 
-    // 0x1007a6e60, 544 bytes, placed by class name
-    // SceneRenderPass::RenderOccludedDrawableGroup(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&, DrawableGroupType, bool, OcclusionManager*, float)
-    void SceneRenderPass::RenderOccludedDrawableGroup(undefined4 param_1_00, SceneRenderPass* this, undefined8 param_1,
-                                                      undefined8 param_2, undefined8 param_3, undefined8 param_4,
-                                                      DrawableQueue* param_5, undefined4 param_8, char param_9,
-                                                      OcclusionManager* param_10) {
-        char cVar1;
-        undefined4 uVar2;
-        undefined8* puVar3;
-        undefined8* puVar4;
-        undefined4* puVar5;
-        undefined8 local_90;
-        undefined8 local_88;
-        undefined8 local_80;
-        undefined8 local_78;
-        undefined4 local_6c;
-        function<bool(math::OBB_const&, SceneViewData_const&)> local_68[48];
+    // 0x1007a6e60
+    void SceneRenderPass::RenderOccludedDrawableGroup(RT7Core& rt7Core, const render::DrawCallState& drawCallState,
+                                                      EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                                      DrawableQueue& drawableQueue, DrawableGroupType drawableGroupType,
+                                                      bool arg7, OcclusionManager* occlusionManager, float arg9) {
+        bool cVar1;
+        function<bool(math::OBB const&, SceneViewData const&)> local_68[48];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (param_10 == (OcclusionManager*)0) {
-            param_10 = (OcclusionManager*)m_occlusionManager;
+        if (occlusionManager == nullptr) {
+            occlusionManager = (OcclusionManager*)m_occlusionManager;
         }
-        local_88 = param_2;
-        local_80 = param_1;
-        local_78 = param_3;
-        local_6c = param_1_00;
-        UpdateMaterialDistanceKeys(this, param_5, param_8);
-        uVar2 = GetPos();
-        DrawableQueue::SortGroup<SortKeyLessThan>(param_5, param_8, uVar2);
-        if ((param_9 != '\0') && (param_10 != (OcclusionManager*)0)) {
-            cVar1 = param_10->DepthBufferCanOcclude();
-            if (cVar1 != '\0') {
-                local_90 = GetOcclusionSceneViewData(this);
+        UpdateMaterialDistanceKeys(drawableQueue, drawableGroupType);
+        auto RVar2 = GetPos();
+        __3* arg1 = (__3*)(unsigned long)drawableGroupType;
+        drawableQueue.SortGroup<SortKeyLessThan>(drawableGroupType, RVar2);
+        if ((arg7) && (occlusionManager != nullptr)) {
+            cVar1 = occlusionManager->DepthBufferCanOcclude();
+            if (cVar1) {
+                GetOcclusionSceneViewData();
                 cVar1 = RenderPass::m_useAsyncRasterisation;
-                uVar2 = GetPos();
-                puVar3 = &param_10;
-                if (cVar1 == '\0') {
-                    std::function<bool(math::OBB_const&, SceneViewData_const&)>::function<
+                RVar2 = GetPos();
+                if (!cVar1) {
+                    std::function<bool(math::OBB const&, SceneViewData const&)>::function<
                         SceneRenderPass::RenderOccludedDrawableGroup(
-                            RT7Core&, render::DrawCallState_const&, EffectManager&, SceneViewData_const&,
+                            RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&,
                             DrawableQueue&, DrawableGroupType, bool, OcclusionManager*, float)::__3,
-                        void>(local_68);
-                    param_5->RenderGroup(local_80, local_88, param_4, param_8, uVar2, local_78, local_68, param_4);
+                        void>(local_68, arg1);
+                    drawableQueue.RenderGroup(rt7Core, drawCallState, sceneViewData, drawableGroupType, RVar2,
+                                              effectManager, *local_68, sceneViewData);
                 } else {
-                    puVar4 = &local_90;
-                    puVar5 = &local_6c;
-                    std::function<bool(math::OBB_const&, SceneViewData_const&)>::function<
+                    std::function<bool(math::OBB const&, SceneViewData const&)>::function<
                         SceneRenderPass::RenderOccludedDrawableGroup(
-                            RT7Core&, render::DrawCallState_const&, EffectManager&, SceneViewData_const&,
+                            RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&,
                             DrawableQueue&, DrawableGroupType, bool, OcclusionManager*, float)::__2,
-                        void>(local_68);
-                    param_5->RenderGroupWithAsyncTest(local_80, local_88, param_4, param_8, uVar2, local_78, local_68,
-                                                      param_4, puVar3, puVar4, puVar5);
+                        void>(local_68, (__2*)arg1);
+                    drawableQueue.RenderGroupWithAsyncTest(rt7Core, drawCallState, sceneViewData, drawableGroupType,
+                                                           RVar2, effectManager, *local_68, sceneViewData);
                 }
-                std::function<bool(math::OBB_const&, SceneViewData_const&)>::~function(local_68);
                 goto LAB_1007a7042;
             }
         }
-        uVar2 = GetPos();
-        param_5->RenderGroup(local_80, local_88, param_4, param_8, uVar2, local_78);
+        unsigned int uVar3 = GetPos();
+        DrawableQueue::RenderGroup(drawableQueue, rt7Core, drawCallState, (DrawableGroupType)sceneViewData,
+                                   drawableGroupType, *((EffectManager*)(unsigned long)uVar3));
     LAB_1007a7042:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x1007a72e0, 496 bytes, placed by class name
-    // SceneRenderPass::DownsampleGPUDepthBuffer(RT7Core&, EffectManager&, SceneViewData const&, DrawableQueue&, render::Texture const*, bool)
-    void SceneRenderPass::DownsampleGPUDepthBuffer(RT7Core* param_1, EffectManager* param_2, SceneViewData* param_3,
-                                                   DrawableQueue* param_4, Texture* param_5, bool param_6) {
-        undefined1* this_00;
-        int iVar1;
-        char cVar2;
-        uint uVar3;
-        SSAOPass* this_01;
-        BufferedRenderTargets* pBVar4;
-        RenderTargets* pRVar5;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* pvVar6;
-        undefined8* puVar7;
-        int* piVar8;
-        long lVar9;
-        Viewport* pVVar10;
-        OutputMergerState* this_02;
-        SceneViewData* this_03;
-        undefined1 local_98[72];
-        DrawableQueue* local_50;
-        EffectManager* local_48;
-        RT7Core* local_40;
-        SceneViewData* local_38;
+    // 0x1007a72e0
+    void SceneRenderPass::DownsampleGPUDepthBuffer(RT7Core& rt7Core, EffectManager& effectManager,
+                                                   const SceneViewData& sceneViewData, DrawableQueue& drawableQueue,
+                                                   const render::Texture* texture, bool arg6) {
+        unique_ptr<render::BufferedRenderTargets>* unique_ptr;
+        int arg3;
+        unsigned int uVar2;
+        RT7Core* rt7Core_00;
+        BufferedRenderTargets* pBVar3;
+        RenderTargets* pRVar4;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* pvVar5;
+        uint64_t* puVar6;
+        int* piVar7;
+        long lVar8;
+        OutputMergerState* pOVar9;
+        SceneViewData* this_00;
+        uint64_t in_register_00000089;
+        bool in_stack_00000008;
+        uint8_t local_98[24];
+        uint8_t local_80[72];
 
-        local_40 = param_1;
-        if (param_5 == (Texture*)0) {
-            /* WARNING: Subroutine does not return */
+        local_80._64_8_ = effectManager;
+        if ((Texture*)(((uint64_t)in_register_00000089 << 8) | (uint8_t)arg6) == nullptr) {
             LogAssert("srcDepthTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "renderer/renderpasses/SceneRenderPass.cpp",
-                      324, (char*)0);
+                      324, nullptr);
         }
-        cVar2 = GetGPUOcclusionEnabled(this, param_3);
-        if (cVar2 != '\0') {
-            local_50 = param_4;
-            local_48 = param_2;
-            local_38 = param_3;
-            this_01 = (SSAOPass*)local_40->GetDepthDownsamplePass();
-            this_01->SetSSAOContext(param_5);
-            this_01->SetCombineWithPrevious(param_6);
+        if (GetGPUOcclusionEnabled((SceneRenderPass*)rt7Core, (SceneViewData*)drawableQueue) != '\0') {
+            local_80._48_8_ = texture;
+            local_80._56_8_ = sceneViewData;
+            rt7Core_00 = (RT7Core*)local_80._64_8_->GetDepthDownsamplePass();
+            rt7Core_00->SetSSAOContext((Texture*)(((uint64_t)in_register_00000089 << 8) | (uint8_t)arg6));
+            rt7Core_00->SetCombineWithPrevious(in_stack_00000008);
             new ((local_98 + 24)) render::DrawCallState();
-            this_00 = &field_736;
-            pBVar4 =
-                (BufferedRenderTargets*)
-                    std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::
-                    operator->(
-                        (unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>*)
-                            this_00);
-            pRVar5 = (RenderTargets*)pBVar4->GetWriteRT();
-            pvVar6 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    pRVar5->GetColourTargetTextures();
-            puVar7 = (undefined8*)
-                eastl::vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                              eastl::allocator>>::operator[](pvVar6, 0);
-            piVar8 = (int*)(*puVar7)->second();
-            iVar1 = *piVar8;
-            pBVar4 =
-                (BufferedRenderTargets*)
-                    std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::
-                    operator->(
-                        (unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>*)
-                            this_00);
-            pRVar5 = (RenderTargets*)pBVar4->GetWriteRT();
-            pvVar6 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    pRVar5->GetColourTargetTextures();
-            puVar7 = (undefined8*)
-                eastl::vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                              eastl::allocator>>::operator[](pvVar6, 0);
-            lVar9 = (*puVar7)->second();
-            new (local_98) render::Viewport(0, 0, iVar1, *(int*)(lVar9 + 4), 0.0, 1.0);
-            pVVar10 = (Viewport*)((local_98 + 24))->GetOutputMergerState();
-            render::OutputMergerState::SetViewports(pVVar10, (uint)local_98);
-            this_02 = (OutputMergerState*)((local_98 + 24))->GetOutputMergerState();
-            pBVar4 =
-                (BufferedRenderTargets*)
-                    std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::
-                    operator->(
-                        (unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>*)
-                            this_00);
-            pRVar5 = (RenderTargets*)pBVar4->GetWriteRT();
-            this_02->SetRenderTargets(pRVar5);
-            (*(code*)this_01->field_0[5])(this_01, local_40, local_98 + 24, local_48, local_38, local_50);
-            pBVar4 =
-                (BufferedRenderTargets*)
-                    std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::
-                    operator->(
-                        (unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>*)
-                            this_00);
-            uVar3 = pBVar4->GetWriteIndex();
-            this_03 = (SceneViewData*)Array<SceneViewData, eastl::allocator>::operator[](
-                (Array<SceneViewData, eastl::allocator>*)&field_744, (ulong)uVar3);
-            SceneViewData::operator=(this_03, local_38);
-            pBVar4 =
-                (BufferedRenderTargets*)
-                    std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::
-                    operator->(
-                        (unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>*)
-                            this_00);
-            pBVar4->WriteFinished();
+            unique_ptr = (unique_ptr<render::BufferedRenderTargets>*)(rt7Core.m_postProcessManager + 288);
+            pBVar3 = (BufferedRenderTargets*)(*unique_ptr).operator->();
+            pRVar4 = pBVar3->GetWriteRT();
+            pvVar5 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                         pRVar4->GetColourTargetTextures();
+            puVar6 = (uint64_t*)(*pvVar5)[0];
+            piVar7 = (int*)(*puVar6)->second();
+            arg3 = *piVar7;
+            pBVar3 = (BufferedRenderTargets*)(*unique_ptr).operator->();
+            pRVar4 = pBVar3->GetWriteRT();
+            pvVar5 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                         pRVar4->GetColourTargetTextures();
+            puVar6 = (uint64_t*)(*pvVar5)[0];
+            lVar8 = (*puVar6)->second();
+            new (local_98) render::Viewport(0, 0, arg3, *(int*)(lVar8 + 4), 0.0, 1.0);
+            pOVar9 = ((local_98 + 24))->GetOutputMergerState();
+            pOVar9->SetViewports(local_98, 1);
+            pOVar9 = ((local_98 + 24))->GetOutputMergerState();
+            pBVar3 = (BufferedRenderTargets*)(*unique_ptr).operator->();
+            pRVar4 = pBVar3->GetWriteRT();
+            pOVar9->SetRenderTargets(pRVar4);
+            (*rt7Core_00->_vptr[1]._dtor)(rt7Core_00, (DrawCallState*)local_80._64_8_, (EffectManager*)(local_98 + 24),
+                                          (SceneViewData*)local_80._56_8_, drawableQueue);
+            pBVar3 = (BufferedRenderTargets*)(*unique_ptr).operator->();
+            uVar2 = pBVar3->GetWriteIndex();
+            this_00 = (SceneViewData*)(*((rt7Core.m_postProcessManager + 296)))[(unsigned long)uVar2];
+            *this_00 = drawableQueue;
+            pBVar3 = (BufferedRenderTargets*)(*unique_ptr).operator->();
+            pBVar3->WriteFinished();
             ((local_98 + 24))->~DrawCallState();
         }
     }
 
-    // 0x1007a84a0, 192 bytes, placed by class name
-    // SceneRenderPass::RenderOccludedDrawableGroup(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&, DrawableGroupType, RenderPassType, bool, std::function<bool (Drawable*, std::unique_ptr<DrawableElement, DrawableElementDeleter> const&)> const&)
-    /* SceneRenderPass::RenderOccludedDrawableGroup(RT7Core&,
-   render::DrawCallState const&, EffectManager&, SceneViewData
-   const&, DrawableQueue&, DrawableGroupType,
-   RenderPassType, bool, std::function<bool (Drawable*,
-   std::unique_ptr<DrawableElement, DrawableElementDeleter> const&)>
-   const&) */
+    // 0x1007a84a0
+    void SceneRenderPass::RenderOccludedDrawableGroup(
+        RT7Core& rt7Core, const render::DrawCallState& drawCallState, EffectManager& effectManager,
+        const SceneViewData& sceneViewData, DrawableQueue& drawableQueue, DrawableGroupType drawableGroupType,
+        RenderPassType renderPassType, bool arg8,
+        std::function<bool(Drawable*, std::unique_ptr<DrawableElement, DrawableElementDeleter> const&)> const&
+            callback) {
+        RenderPassType RVar2;
 
-    void SceneRenderPass::RenderOccludedDrawableGroup(undefined8 param_1, undefined8 param_2, undefined8 param_3,
-                                                      undefined8 param_4, DrawableQueue* param_5, undefined4 param_7,
-                                                      undefined4 param_8, char param_9, undefined8 param_10) {
-        char cVar1;
-        undefined4 uVar2;
-
-        UpdateMaterialDistanceKeys(this, param_5, param_7);
-        cVar1 = RenderPass::m_useAsyncRasterisation;
-        if (param_9 != '\0') {
-            uVar2 = GetPos();
-            if (cVar1 == '\0') {
-                param_5->FilterMulti(param_7, uVar2, param_8, param_10);
+        UpdateMaterialDistanceKeys(drawableQueue, drawableGroupType);
+        bool cVar1 = RenderPass::m_useAsyncRasterisation;
+        if (arg8) {
+            RVar2 = GetPos();
+            if (!cVar1) {
+                drawableQueue.FilterMulti(drawableGroupType, RVar2, renderPassType, callback);
             } else {
-                DrawableQueue::FilterMultiAsync();
+                drawableQueue.FilterMultiAsync(drawableGroupType, RVar2, renderPassType, callback);
             }
         }
-        uVar2 = GetPos();
-        DrawableQueue::SortGroup<SortKeyLessThan>(param_5, param_7, uVar2);
-        uVar2 = GetPos();
-        param_5->RenderGroup(param_1, param_2, param_4, param_7, uVar2, param_3);
+        RVar2 = GetPos();
+        drawableQueue.SortGroup<SortKeyLessThan>(drawableGroupType, RVar2);
+        unsigned int uVar3 = GetPos();
+        DrawableQueue::RenderGroup(drawableQueue, rt7Core, drawCallState, (DrawableGroupType)sceneViewData,
+                                   drawableGroupType, *((EffectManager*)(unsigned long)uVar3));
     }
 
-    // 0x1007a8ed0, 64 bytes, placed by class name
-    // SceneRenderPass::GetOcclusionEnabledIgnoringLocalBuffer(SceneViewData const&) const
-    undefined8 SceneRenderPass::GetOcclusionEnabledIgnoringLocalBuffer(SceneViewData* param_1) {
-        char cVar1;
-        undefined8 uVar2;
-
-        cVar1 = GetOcclusionTestEnabled(this);
-        uVar2 = 0;
-        if ((cVar1 != '\0') && (OcclusionManager::m_OcclusionEnabled != '\0')) {
-            uVar2 = param_1->GetOcclusionTestEnabled();
+    // 0x1007a8ed0
+    uint64_t SceneRenderPass::GetOcclusionEnabledIgnoringLocalBuffer(const SceneViewData& sceneViewData) const {
+        bool cVar1 = GetOcclusionTestEnabled();
+        uint64_t uVar2 = 0;
+        if ((cVar1) && (OcclusionManager::m_OcclusionEnabled != '\0')) {
+            uVar2 = sceneViewData.GetOcclusionTestEnabled();
         }
         return uVar2;
     }
 
-    // 0x1007aa170, 368 bytes, placed by class name
-    // SceneRenderPass::PreparePass(RT7Core&, EffectManager&, SceneViewData const&, DrawableQueue&)
-    void SceneRenderPass::PreparePass(RT7Core* param_1, EffectManager* param_2, SceneViewData* param_3,
-                                      DrawableQueue* param_4) {
-        char cVar1;
-        bool bVar2;
-        undefined4 uVar3;
-        int iVar4;
-        SceneRenderPass* pSVar5;
-        OcclusionReprojection* this_00;
-        NXTPixToolkit* this_01;
-        OcclusionManager* pOVar6;
-        ThreadPool* pTVar7;
-        SceneViewData* pSVar8;
-        long lVar9;
-        SceneViewData* pSVar10;
-        uint uVar11;
-        RT7Core* pRVar12;
-        int iVar13;
+    // 0x1007aa170
+    void SceneRenderPass::PreparePass(RT7Core& rt7Core, EffectManager& effectManager,
+                                      const SceneViewData& sceneViewData, DrawableQueue& drawableQueue) {
+        uint8_t bVar2;
+        RenderPassType renderPassType;
+        int iVar3;
+        SceneRenderPass* pSVar4;
+        OcclusionManager* occlusionManager;
+        NXTPixToolkit* this_00;
+        ThreadPool* threadPool;
+        SceneViewData* sceneViewData1;
+        SceneViewData* sceneViewData2;
+        DrawableGroupType drawableGroupType;
+        RT7Core* rt7Core_00;
+        int iVar6;
 
         m_occlusionManager->UpdateStats();
-        cVar1 = param_3->GetOcclusionTestEnabled();
-        if (cVar1 != '\0') {
-            uVar11 = 0;
-            iVar13 = 0;
+        bool cVar1 = sceneViewData.GetOcclusionTestEnabled();
+        if (cVar1) {
+            drawableGroupType = 0;
+            iVar6 = 0;
             do {
-                uVar3 = GetPos();
-                pRVar12 = (RT7Core*)(ulong)uVar11;
-                iVar4 = param_4->GetGroupSize(pRVar12, uVar3);
-                iVar13 = iVar13 + iVar4;
-                uVar11 = uVar11 + 1;
-            } while (uVar11 != 13);
-            field_777 = field_780 <= iVar13;
-            ResolveOcclusionBuffer(this, pRVar12, param_3);
-            bVar2 = (&field_768)->operator_cast_to_bool();
-            if (bVar2) {
-                pSVar5 = (SceneRenderPass*)param_1->GetForwardOcclusionRenderPass();
-                cVar1 = GetGPUOcclusionEnabled(pSVar5, param_3);
-                if (((cVar1 != '\0') && (cVar1 = GetOcclusionTestEnabled(this), cVar1 != '\0')) &&
-                    (field_778 != '\0')) {
-                    this_00 =
-                        (OcclusionReprojection*)std::unique_ptr<OcclusionReprojection,
-                                                                std::default_delete<OcclusionReprojection>>::
-                        operator->(
-                            (unique_ptr<OcclusionReprojection, std::default_delete<OcclusionReprojection>>*)&field_768);
-                    this_01 = (NXTPixToolkit*)param_1->GetForwardOcclusionRenderPass();
-                    pOVar6 = (OcclusionManager*)this_01->GetScreen();
-                    pTVar7 = (ThreadPool*)param_1->GetImmediateThreadPool();
-                    pSVar5 = (SceneRenderPass*)param_1->GetForwardOcclusionRenderPass();
-                    pSVar8 = (SceneViewData*)GetOcclusionSceneViewData(pSVar5);
-                    bVar2 = (bool)GetGPUOcclusionEnabled(this, param_3);
-                    lVar9 = (&field_744)->end();
-                    if (lVar9 == 1) {
-                        pSVar10 = (SceneViewData*)(&field_744)->data();
-                    } else {
-                        pSVar10 = (SceneViewData*)0;
+                renderPassType = GetPos();
+                rt7Core_00 = (RT7Core*)(unsigned long)drawableGroupType;
+                iVar3 = drawableQueue.GetGroupSize(drawableGroupType, renderPassType);
+                iVar6 = iVar6 + iVar3;
+                drawableGroupType = drawableGroupType + 1;
+            } while (drawableGroupType != 13);
+            field_777 = field_780 <= iVar6;
+            ResolveOcclusionBuffer(*rt7Core_00, sceneViewData);
+            cVar1 = (&field_768)->operator_cast_to_bool();
+            if (cVar1) {
+                pSVar4 = (SceneRenderPass*)rt7Core.GetForwardOcclusionRenderPass();
+                cVar1 = GetGPUOcclusionEnabled(pSVar4, sceneViewData);
+                if (((!cVar1) || (cVar1 = GetOcclusionTestEnabled(), !cVar1)) || (field_778 == '\0')) {
+                    field_777 = false;
+                } else {
+                    occlusionManager = (OcclusionManager*)field_768.operator->();
+                    this_00 = (NXTPixToolkit*)rt7Core.GetForwardOcclusionRenderPass();
+                    threadPool = (ThreadPool*)this_00->GetScreen();
+                    sceneViewData1 = (SceneViewData*)rt7Core.GetImmediateThreadPool();
+                    pSVar4 = (SceneRenderPass*)rt7Core.GetForwardOcclusionRenderPass();
+                    sceneViewData2 = (SceneViewData*)GetOcclusionSceneViewData(pSVar4);
+                    bVar2 = GetGPUOcclusionEnabled(sceneViewData);
+                    if (field_744.end() == 1) {
+                        field_744.data();
                     }
-                    this_00->ReprojectOcclusionBuffer(pOVar6, pTVar7, pSVar8, param_3, bVar2, pSVar10);
-                    return;
+                    OcclusionReprojection::ReprojectOcclusionBuffer(*occlusionManager, *threadPool, *sceneViewData1,
+                                                                    *sceneViewData2, (uint8_t)sceneViewData,
+                                                                    (SceneViewData*)(unsigned long)bVar2);
                 }
-                field_777 = false;
             }
         }
     }
 
-    // 0x1007aac50, 32 bytes, placed by class name
-    // SceneRenderPass::CreateRenderingResources()
+    // 0x1007aac50
     void SceneRenderPass::CreateRenderingResources() {
         if (field_776 != '\0') {
-            (*(code*)field_0[8])();
+            OnOcclusionEnabled();
         }
     }
 
-    // 0x1007aac90, 16 bytes, placed by class name
-    // SceneRenderPass::DestroyRenderingResources()
+    // 0x1007aac90
     void SceneRenderPass::DestroyRenderingResources() {
-        OnOcclusionDisabled(this);
+        OnOcclusionDisabled();
     }
 
-    // 0x1007ac0f0, 96 bytes, placed by class name
-    // SceneRenderPass::GetGPUOcclusionEnabled(SceneViewData const&) const
-    bool SceneRenderPass::GetGPUOcclusionEnabled(SceneViewData* param_1) {
-        char cVar1;
-        bool bVar2;
+    // 0x1007ac0f0
+    uint64_t SceneRenderPass::GetGPUOcclusionEnabled(const SceneViewData& sceneViewData) const {
+        uint64_t uVar2;
 
-        cVar1 = GetOcclusionTestEnabled(this);
-        if (cVar1 == '\0') {
-            bVar2 = false;
+        bool cVar1 = GetOcclusionTestEnabled();
+        if (!cVar1) {
+            uVar2 = 0;
         } else {
-            cVar1 = param_1->GetOcclusionTestEnabled();
-            bVar2 = false;
-            if (((cVar1 != '\0') && (OcclusionManager::m_OcclusionEnabled != '\0')) &&
+            cVar1 = sceneViewData.GetOcclusionTestEnabled();
+            uVar2 = 0;
+            if (((cVar1) && (OcclusionManager::m_OcclusionEnabled != '\0')) &&
                 (OcclusionManager::m_CPUDepthBufferGenerationEnabled == '\0')) {
-                bVar2 = (&field_736)->operator_cast_to_bool();
+                uVar2 = (&field_736)->operator_cast_to_bool();
             }
         }
-        return bVar2;
+        return uVar2;
     }
 
-    // 0x1007ac360, 320 bytes, placed by class name
-    // SceneRenderPass::InitOcclusion(render::RenderTargetsManager*, char const*, bool, unsigned int, unsigned int)
-    void SceneRenderPass::InitOcclusion(RenderTargetsManager* param_1, char* param_2, bool param_3, uint param_4,
-                                        uint param_5) {
-        undefined1* puVar1;
-        char cVar2;
-        BufferedRenderTargets* pBVar4;
-        undefined8 uVar5;
-        unique_ptr local_50[8];
-        char* local_48;
-        uint local_40;
-        undefined4 local_3c;
-        int local_38;
-        uint local_34;
+    // 0x1007ac360
+    void SceneRenderPass::InitOcclusion(render::RenderTargetsManager* renderTargetsManager, const char* str, bool arg3,
+                                        unsigned int arg4, unsigned int arg5) {
+        uint8_t* puVar1;
+        BufferedRenderTargets* pBVar3;
+        ReturnValue local_50;
+        unsigned int local_3c;
+        Format local_38;
+        unsigned int local_34;
 
-        local_48 = param_2;
-        cVar2 = GetGPUCullingSupported();
-        if (cVar2 != '\0') {
+        if (GetGPUCullingSupported()) {
             puVar1 = m_occlusionManager;
-            pBVar4 = (BufferedRenderTargets*)puVar1;
-            puVar1->Init(param_4, param_5);
-            if (param_3) {
-                local_38 = pBVar4->GetOptimalDepthReadbackFormat();
+            pBVar3 = (BufferedRenderTargets*)puVar1;
+            puVar1->Init(arg4, arg5);
+            if (arg3) {
+                local_38 = pBVar3->GetOptimalDepthReadbackFormat();
                 local_34 = puVar1->GetBufferWidth();
                 if ((local_38 != 11) && (local_38 != 21)) {
                     local_34 = local_34 >> 1;
                 }
-                local_40 = 4;
                 local_3c = puVar1->GetBufferHeight();
-                std::make_unique<render::BufferedRenderTargets, unsigned int const&, unsigned int&, unsigned int,
-                                 render::Format&, char const*&>((uint*)local_50, &local_40, &local_34,
-                                                                (Format*)&local_3c, (char**)&local_38);
+                local_50 =
+                    std::make_unique<render::BufferedRenderTargets, unsigned int const&, unsigned int&, unsigned int,
+                                     render::Format&, char const*&>(4, local_34, local_3c, local_38, str);
                 puVar1 = &field_736;
-                std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::
-                operator=(
-                    (unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>*)
-                        puVar1,
-                    local_50);
-                local_50->~unique_ptr();
-                pBVar4 =
-                    (BufferedRenderTargets*)std::unique_ptr<render::BufferedRenderTargets,
-                                                            std::default_delete<render::BufferedRenderTargets>>::
-                    operator->(
-                        (unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>*)
-                            puVar1);
-                cVar2 = pBVar4->Create(0, 0, 12);
-                if (cVar2 == '\0') {
-                    puVar1->reset(0);
-                    uVar5 = logger::default_logger();
-                    logger::Logger::Log(uVar5, 0, 2,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                        "graphics/runetek7/renderer/renderpasses/SceneRenderPass.cpp",
-                                        141,
-                                        "Failed to initialise GPU occlusion culling render targets - GPU occlusion "
-                                        "culling will not be available.");
+                *puVar1 = local_50;
+                pBVar3 = (BufferedRenderTargets*)(*puVar1).operator->();
+                if (!(pBVar3->Create(0, 0, 12))) {
+                    puVar1->reset(nullptr);
+                    (logger::default_logger())
+                        ->Log(false, 2,
+                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                              "renderer/renderpasses/SceneRenderPass.cpp",
+                              141,
+                              "Failed to initialise GPU occlusion culling render targets - GPU occlusion culling will "
+                              "not be available.");
                 }
                 if (puVar1->operator_cast_to_bool()) {
-                    (&field_744, 4, 0)->set_max_size();
+                    field_744.set_max_size(4, 0);
                 }
             }
         }
     }
 
-    // 0x1007adbe0, 80 bytes, placed by class name
-    // SceneRenderPass::DestroyOcclusion(render::RenderTargetsManager*)
-    void SceneRenderPass::DestroyOcclusion(RenderTargetsManager* param_1) {
-        undefined1* this;
-        BufferedRenderTargets* this_00;
-
-        this = &param_1[10].field_16;
-        if (operator_cast_to_bool()) {
-            this_00 =
-                (BufferedRenderTargets*)
-                    std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::
-                    operator->((unique_ptr<render::BufferedRenderTargets,
-                                           std::default_delete<render::BufferedRenderTargets>>*)this);
-            this_00->Destroy();
-            reset(0);
+    // 0x1007adbe0
+    void SceneRenderPass::DestroyOcclusion(render::RenderTargetsManager* renderTargetsManager) {
+        uint8_t* uint8_t = &renderTargetsManager[10].field_16;
+        if (uint8_t->operator_cast_to_bool() != '\0') {
+            ((BufferedRenderTargets*)(*uint8_t).operator->())->Destroy();
+            uint8_t->reset(nullptr);
         }
-        (&param_1->field_16)->Destroy();
+        renderTargetsManager->field_16.Destroy();
     }
 
-    // 0x1007adc50, 16 bytes, complete-object destructor, placed by class name
-    // SceneRenderPass::~SceneRenderPass(): jumps straight to the base-object destructor
-
-    // 0x1007adc60, 16 bytes, deleting destructor, placed by class name
-    // SceneRenderPass::~SceneRenderPass()
-    void SceneRenderPass::~SceneRenderPass() {
-        code* pcVar1;
-
-        /* WARNING: Does not return */
-        pcVar1 = (code*)invalidInstructionException();
-        (*pcVar1)();
-    }
-
-    // 0x1007adc70, 16 bytes, placed by class name
-    // SceneRenderPass::OnOcclusionDisabled()
+    // 0x1007adc70
     void SceneRenderPass::OnOcclusionDisabled() {
         DestroyOcclusion((RenderTargetsManager*)this);
     }
 
-    // 0x1007adca0, 112 bytes, placed by class name
-    // SceneRenderPass::GetOcclusionEnabled() const
-    undefined4 SceneRenderPass::GetOcclusionEnabled() {
-        char cVar1;
-        bool bVar2;
-        undefined4 uVar3;
-        WorldmapRenderer* this_00;
-
-        cVar1 = GetOcclusionTestEnabled(this);
-        uVar3 = 0;
-        if (((cVar1 != '\0') && (OcclusionManager::m_OcclusionEnabled != '\0')) &&
-            (uVar3 = 1, OcclusionManager::m_CPUDepthBufferGenerationEnabled == '\0')) {
-            bVar2 = (&field_736)->operator_cast_to_bool();
-            if (!bVar2) {
-                bVar2 = (&field_768)->operator_cast_to_bool();
-                if (bVar2) {
-                    this_00 =
-                        (WorldmapRenderer*)std::unique_ptr<OcclusionReprojection,
-                                                           std::default_delete<OcclusionReprojection>>::
-                        operator->(
-                            (unique_ptr<OcclusionReprojection, std::default_delete<OcclusionReprojection>>*)&field_768);
-                    uVar3 = this_00->IsValid();
+    // 0x1007adca0
+    uint32_t SceneRenderPass::GetOcclusionEnabled() const {
+        bool cVar1 = GetOcclusionTestEnabled();
+        uint32_t uVar2 = 0;
+        if (((cVar1) && (OcclusionManager::m_OcclusionEnabled != '\0')) &&
+            (uVar2 = 1, OcclusionManager::m_CPUDepthBufferGenerationEnabled == '\0')) {
+            cVar1 = (&field_736)->operator_cast_to_bool();
+            if (!cVar1) {
+                cVar1 = (&field_768)->operator_cast_to_bool();
+                if (!cVar1) {
+                    uVar2 = 0;
                 } else {
-                    uVar3 = 0;
+                    uVar2 = ((WorldmapRenderer*)field_768.operator->())->IsValid();
                 }
             }
         }
-        return uVar3;
+        return uVar2;
     }
 
-    // 0x1007add70, 128 bytes, placed by class name
-    // SceneRenderPass::ResolveOcclusionBuffer(RT7Core&, SceneViewData const&)
-    void SceneRenderPass::ResolveOcclusionBuffer(RT7Core* param_1, SceneViewData* param_2) {
-        BufferedRenderTargets* this_00;
-        BufferedImageData local_48;
+    // 0x1007add70
+    void SceneRenderPass::ResolveOcclusionBuffer(RT7Core& rt7Core, const SceneViewData& sceneViewData) {
+        uint8_t local_48[40];
+        Format local_20;
 
-        if (GetGPUOcclusionEnabled(this, param_2) != '\0') {
-            new (&local_48) render::BufferedImageData();
-            this_00 =
-                (BufferedRenderTargets*)
-                    std::unique_ptr<render::BufferedRenderTargets, std::default_delete<render::BufferedRenderTargets>>::
-                    operator->((unique_ptr<render::BufferedRenderTargets,
-                                           std::default_delete<render::BufferedRenderTargets>>*)&field_736);
-            this_00->MapColourTargetData(&local_48);
-            if (local_48._8_8_ != 0) {
-                (m_occlusionManager, local_48._8_8_, (undefined4)local_48.field_40)->LoadPackedDepthBuffer();
+        if (GetGPUOcclusionEnabled(sceneViewData) != '\0') {
+            new (local_48) render::BufferedImageData();
+            ((BufferedRenderTargets*)field_736.operator->())->MapColourTargetData(*local_48);
+            if ((unsigned char*)local_48._8_8_ != nullptr) {
+                m_occlusionManager->LoadPackedDepthBuffer(local_48._8_8_, local_20);
             }
-            local_48.~BufferedImageData();
         }
     }
 
-    // 0x1007adf10, 608 bytes, placed by class name
-    // SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)
-    void SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue* param_1, undefined4 param_3) {
-        ushort uVar1;
-        undefined4 uVar3;
-        int iVar4;
-        CommandLine* this_00;
+    // 0x1007adf10
+    void SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue& drawableQueue,
+                                                     DrawableGroupType drawableGroupType) {
+        unsigned short uVar1;
         short* psVar5;
-        ushort* puVar6;
+        unsigned short* puVar6;
         float* pfVar7;
-        ulong uVar8;
-        Array<unsigned short, BucketAllocatorEASTL> local_b0[24];
-        Array<float, BucketAllocatorEASTL> local_98[24];
+        unsigned long arg1;
+        Array<unsigned short, BucketAllocatorEASTL> local_b0;
+        Array<float, BucketAllocatorEASTL> local_98;
         float local_68[12];
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        uVar3 = GetPos();
-        this_00 = (CommandLine*)param_1->GetDrawableGroup(uVar3, param_3);
-        iVar4 = this_00->GetPos();
+        auto RVar3 = GetPos();
+        auto this_00 = drawableQueue.GetDrawableGroup(RVar3, drawableGroupType);
+        int iVar4 = this_00->GetPos();
         if (iVar4 != 2) {
             iVar4 = this_00->GetPos();
             if (iVar4 != 3)
                 goto LAB_1007ae102;
         }
-        if (*(int*)&this_00->field_0 == 0) {
+        if (*(int*)&this_00->_vptr == 0) {
             uVar1 = Shader::GetShaderCount();
             local_68[0] = 0.0;
-            Array<float, BucketAllocatorEASTL>::Array(local_98, (ulong)uVar1, local_68);
+            local_98 = Array<float, BucketAllocatorEASTL>((unsigned long)uVar1, *local_68);
             uVar1 = Shader::GetShaderCount();
-            local_68[0] = (float)((uint)local_68[0] & 4294901760);
-            Array<unsigned short, BucketAllocatorEASTL>::Array(local_b0, (ulong)uVar1, (ushort*)local_68);
-            uVar3 = ((SceneRenderPass*)this)->GetPos();
+            local_68[0] = (float)((unsigned int)local_68[0] & 4294901760);
+            new (&local_b0) Array<unsigned short, BucketAllocatorEASTL>((unsigned long)uVar1, *local_68);
+            RVar3 = GetPos();
             std::function<void(DrawableElementInfo&)>::function<
                 SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)::__4, void>(
-                local_68, local_98, local_b0);
-            param_1->Iter(param_3, uVar3, local_68);
-            std::function<void(DrawableElementInfo&)>::~function((function<void(DrawableElementInfo&)>*)local_68);
+                (function<void(DrawableElementInfo&)>*)local_68, &local_98);
+            drawableQueue.Iter(drawableGroupType, RVar3, *local_68);
             if (Shader::GetShaderCount() != 0) {
-                uVar8 = 0;
+                arg1 = 0;
                 do {
-                    psVar5 = (short*)Array<unsigned short, BucketAllocatorEASTL>::operator[](local_b0, uVar8);
+                    psVar5 = (short*)local_b0[arg1];
                     if (*psVar5 != 0) {
-                        puVar6 = (ushort*)Array<unsigned short, BucketAllocatorEASTL>::operator[](local_b0, uVar8);
+                        puVar6 = &local_b0[arg1];
                         uVar1 = *puVar6;
-                        pfVar7 = (float*)Array<float, BucketAllocatorEASTL>::operator[](local_98, uVar8);
+                        pfVar7 = &local_98[arg1];
                         *pfVar7 = *pfVar7 / (float)uVar1;
                     }
-                    uVar8 = uVar8 + 1;
+                    arg1 = arg1 + 1;
                     uVar1 = Shader::GetShaderCount();
-                } while (uVar8 < uVar1);
+                } while (arg1 < uVar1);
             }
             iVar4 = this_00->GetPos();
-            uVar3 = ((SceneRenderPass*)this)->GetPos();
+            RVar3 = GetPos();
             if (iVar4 == 2) {
                 std::function<void(DrawableElementInfo&)>::function<
                     SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)::__5, void>(
-                    local_68, local_98);
-                param_1->Iter(param_3, uVar3, local_68);
+                    (function<void(DrawableElementInfo&)>*)local_68, &local_98);
+                drawableQueue.Iter(drawableGroupType, RVar3, *local_68);
             } else {
                 std::function<void(DrawableElementInfo&)>::function<
                     SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)::__6, void>(
-                    local_68, local_98);
-                param_1->Iter(param_3, uVar3, local_68);
+                    (function<void(DrawableElementInfo&)>*)local_68, &local_98);
+                drawableQueue.Iter(drawableGroupType, RVar3, *local_68);
             }
-            std::function<void(DrawableElementInfo&)>::~function((function<void(DrawableElementInfo&)>*)local_68);
-            *(byte*)&this_00->field_0 = *(byte*)&this_00->field_0 | 1;
-            local_b0->~Array();
-            local_98->~Array();
+            *(uint8_t*)&this_00->_vptr = *(uint8_t*)&this_00->_vptr | 1;
         }
     LAB_1007ae102:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x1007ae390, 112 bytes, placed by class name
-    // SceneRenderPass::OnOcclusionEnabled()
+    // 0x1007ae390
     void SceneRenderPass::OnOcclusionEnabled() {
-        char* pcVar1;
-        eastl::string local_38[32];
+        eastl::string local_38;
 
-        (*(code*)field_0[9])(local_38);
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        InitOcclusion(this, (RenderTargetsManager*)(SceneRenderPass*)this, pcVar1, true, 96, 54);
-        eastl::string::~basic_string(local_38);
+        slot9(&local_38);
+        char* str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        InitOcclusion(this, str, true, 96, 54);
     }
 
-    // 0x1007c06b0, 48 bytes, placed by class name
-    // SceneRenderPass::RenderOccludedDrawableGroup(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&, DrawableGroupType, bool, OcclusionManager*, float)::$_2::operator()(math::OBB const&, SceneViewData const&) const
-    /* SceneRenderPass::RenderOccludedDrawableGroup(RT7Core&,
-   render::DrawCallState const&, EffectManager&, SceneViewData
-   const&, DrawableQueue&, DrawableGroupType, bool,
-   OcclusionManager*, float)::$_2::TEMPNAMEPLACEHOLDERVALUE(math::OBB const&,
-   SceneViewData const&) const */
-
-    void SceneRenderPass::RenderOccludedDrawableGroup(RT7Core&, render::DrawCallState_const&, EffectManager&,
-                                                      SceneViewData_const&, DrawableQueue&, DrawableGroupType, bool,
-                                                      OcclusionManager*,
-                                                      float)::$_2::operator()(OBB* param_1, SceneViewData* param_2) {
-        (*field_0, param_1, param_2, (SceneViewData*)*field_8, *field_16)->OBBVisible();
+    // 0x1007c06b0
+    void SceneRenderPass::RenderOccludedDrawableGroup(
+        RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&, DrawableGroupType,
+        bool, OcclusionManager*,
+        float)::$_2::operator()(const math::OBB& obb, const SceneViewData& sceneViewData) const {
+        (*field_0)->OBBVisible(obb, sceneViewData, *field_8, *field_16);
     }
 
-    // 0x1007c1020, 48 bytes, placed by class name
-    // SceneRenderPass::RenderOccludedDrawableGroup(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&, DrawableGroupType, bool, OcclusionManager*, float)::$_3::operator()(math::OBB const&, SceneViewData const&) const
-    /* SceneRenderPass::RenderOccludedDrawableGroup(RT7Core&,
-   render::DrawCallState const&, EffectManager&, SceneViewData
-   const&, DrawableQueue&, DrawableGroupType, bool,
-   OcclusionManager*, float)::$_3::TEMPNAMEPLACEHOLDERVALUE(math::OBB const&,
-   SceneViewData const&) const */
-
-    void SceneRenderPass::RenderOccludedDrawableGroup(RT7Core&, render::DrawCallState_const&, EffectManager&,
-                                                      SceneViewData_const&, DrawableQueue&, DrawableGroupType, bool,
-                                                      OcclusionManager*,
-                                                      float)::$_3::operator()(OBB* param_1, SceneViewData* param_2) {
-        (*field_0, param_1, param_2, (SceneViewData*)*field_8, *field_16)->OBBVisible();
+    // 0x1007c1020
+    void SceneRenderPass::RenderOccludedDrawableGroup(
+        RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&, DrawableGroupType,
+        bool, OcclusionManager*,
+        float)::$_3::operator()(const math::OBB& obb, const SceneViewData& sceneViewData) const {
+        (*field_0)->OBBVisible(obb, sceneViewData, *field_8, *field_16);
     }
 
-    // 0x1007c1ce0, 112 bytes, placed by class name
-    // SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)::$_4::operator()(DrawableElementInfo const&) const
-    /* SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&,
-   DrawableGroupType)::$_4::TEMPNAMEPLACEHOLDERVALUE(DrawableElementInfo
-   const&) const */
-
-    void SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&,
-                                                     DrawableGroupType)::$_4::operator()(DrawableElementInfo* param_1) {
-        float fVar1;
-        long lVar2;
-        uint uVar3;
-        float* pfVar4;
-        short* psVar5;
-
-        uVar3 = UserKeyUtils::GetUserBits(param_1->field_0);
-        lVar2 = std::unique_ptr<DrawableElement, DrawableElementDeleter>::operator->(
-            (unique_ptr<DrawableElement, DrawableElementDeleter>*)&param_1->field_8);
-        fVar1 = *(float*)(lVar2 + 100);
-        pfVar4 = (float*)Array<float, BucketAllocatorEASTL>::operator[](*(Array<float, BucketAllocatorEASTL>**)this,
-                                                                        (ulong)(uVar3 & 65535));
+    // 0x1007c1ce0
+    void SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)::$_4::operator()(
+        const DrawableElementInfo& drawableElementInfo) const {
+        unsigned int uVar3 = UserKeyUtils::GetUserBits((unsigned long long)drawableElementInfo.field_0);
+        long lVar2 = drawableElementInfo.field_8.operator->();
+        float fVar1 = *(float*)(lVar2 + 100);
+        float* pfVar4 = (float*)(*(*(Array<float, BucketAllocatorEASTL>**)this))[(unsigned long)(uVar3 & 65535)];
         *pfVar4 = fVar1 + *pfVar4;
-        psVar5 = (short*)Array<unsigned short, BucketAllocatorEASTL>::operator[](
-            *(Array<unsigned short, BucketAllocatorEASTL>**)(this + 8), (ulong)(uVar3 & 65535));
+        short* psVar5 =
+            (short*)(*(*(Array<unsigned short, BucketAllocatorEASTL>**)(this + 8)))[(unsigned long)(uVar3 & 65535)];
         *psVar5 = *psVar5 + 1;
     }
 
-    // 0x1007c26b0, 128 bytes, placed by class name
-    // SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)::$_5::operator()(DrawableElementInfo&) const
-    /* SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&,
-   DrawableGroupType)::$_5::TEMPNAMEPLACEHOLDERVALUE(DrawableElementInfo&)
-   const */
-
-    void SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&,
-                                                     DrawableGroupType)::$_5::operator()(DrawableElementInfo* param_1) {
-        ushort uVar1;
-        float* pfVar2;
+    // 0x1007c26b0
+    void SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)::$_5::operator()(
+        DrawableElementInfo& drawableElementInfo) const {
         long lVar3;
-        ulonglong uVar5;
+        unsigned long long arg2;
 
-        uVar1 = UserKeyUtils::GetUserBits(param_1->field_0);
-        pfVar2 = (float*)Array<float, BucketAllocatorEASTL>::operator[](*(Array<float, BucketAllocatorEASTL>**)this,
-                                                                        (ulong)uVar1);
+        unsigned short uVar1 = UserKeyUtils::GetUserBits((unsigned long long)drawableElementInfo.field_0);
+        float* pfVar2 = (float*)(*(*(Array<float, BucketAllocatorEASTL>**)this))[(unsigned long)uVar1];
         if (*pfVar2 <= 0.0) {
-            uVar5 = 0;
+            arg2 = 0;
         } else {
-            pfVar2 = (float*)Array<float, BucketAllocatorEASTL>::operator[](*(Array<float, BucketAllocatorEASTL>**)this,
-                                                                            (ulong)uVar1);
+            pfVar2 = (float*)(*(*(Array<float, BucketAllocatorEASTL>**)this))[(unsigned long)uVar1];
             lVar3 = (long)(*pfVar2 + 0.5);
-            uVar5 =
-                (ulonglong)(((uint)lVar3 | (uint)(long)((*pfVar2 + 0.5) - 9.223372e+18) & (uint)(lVar3 >> 63)) & 65535);
+            arg2 = (unsigned long long)(((unsigned int)lVar3 | (unsigned int)(long)((*pfVar2 + 0.5) - 9.223372e+18) &
+                                                                   (unsigned int)(lVar3 >> 63)) &
+                                        65535);
         }
-        param_1->field_0 = UserKeyUtils::SetUserBits(param_1->field_0, uVar5);
+        drawableElementInfo.field_0 = UserKeyUtils::SetUserBits((unsigned long long)drawableElementInfo.field_0, arg2);
     }
 
-    // 0x1007c3040, 144 bytes, placed by class name
-    // SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)::$_6::operator()(DrawableElementInfo&) const
-    /* SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&,
-   DrawableGroupType)::$_6::TEMPNAMEPLACEHOLDERVALUE(DrawableElementInfo&)
-   const */
-
-    void SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&,
-                                                     DrawableGroupType)::$_6::operator()(DrawableElementInfo* param_1) {
-        ushort uVar1;
-        float* pfVar2;
+    // 0x1007c3040
+    void SceneRenderPass::UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType)::$_6::operator()(
+        DrawableElementInfo& drawableElementInfo) const {
         long lVar3;
-        ulonglong uVar5;
 
-        uVar1 = UserKeyUtils::GetUserBits(param_1->field_0);
-        pfVar2 = (float*)Array<float, BucketAllocatorEASTL>::operator[](*(Array<float, BucketAllocatorEASTL>**)this,
-                                                                        (ulong)uVar1);
-        uVar5 = 65535;
+        unsigned short uVar1 = UserKeyUtils::GetUserBits((unsigned long long)drawableElementInfo.field_0);
+        float* pfVar2 = (float*)(*(*(Array<float, BucketAllocatorEASTL>**)this))[(unsigned long)uVar1];
+        unsigned long long arg2 = 65535;
         if (0.0 < *pfVar2) {
-            pfVar2 = (float*)Array<float, BucketAllocatorEASTL>::operator[](*(Array<float, BucketAllocatorEASTL>**)this,
-                                                                            (ulong)uVar1);
+            pfVar2 = (float*)(*(*(Array<float, BucketAllocatorEASTL>**)this))[(unsigned long)uVar1];
             lVar3 = (long)(*pfVar2 + 0.5);
-            uVar5 =
-                (ulonglong)(65535 - ((uint)lVar3 | (uint)(long)((*pfVar2 + 0.5) - 9.223372e+18) & (uint)(lVar3 >> 63)) &
-                            65535);
+            arg2 = (unsigned long long)(65535 - ((unsigned int)lVar3 |
+                                                 (unsigned int)(long)((*pfVar2 + 0.5) - 9.223372e+18) &
+                                                     (unsigned int)(lVar3 >> 63)) &
+                                        65535);
         }
-        param_1->field_0 = UserKeyUtils::SetUserBits(param_1->field_0, uVar5);
+        drawableElementInfo.field_0 = UserKeyUtils::SetUserBits((unsigned long long)drawableElementInfo.field_0, arg2);
     }
 
 } // namespace jag::graphics

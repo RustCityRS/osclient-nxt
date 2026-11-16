@@ -1,6 +1,5 @@
 // libs/jtl/pool/FastPool.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,243 +9,267 @@ namespace jag {
     class FastPool {
     public:
         long allocate();
-        is_owner(MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData const*);
-        void deallocate(unsigned long);
-        long operator[](int) const;
-        FastPool(unsigned long, unsigned long);
-        void resize(unsigned long, unsigned long);
+        uint64_t is_owner(const MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData* refCounterAndData);
+        void deallocate(unsigned long arg1);
+        long operator[](int arg1) const;
+        FastPool(unsigned long arg1, unsigned long arg2);
+        void resize(unsigned long arg1, unsigned long arg2);
         void clear();
         void Reset();
-        long operator[](unsigned long);
-        FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                          unsigned long>&&);
+        long operator[](unsigned long arg1);
+        FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::RefCounterAndData, unsigned long>&&
+                     fastPool);
         ~FastPool();
         void
-        deallocate(MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData const*);
-        long GetTotalSize(unsigned long);
-        is_owner(MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData const*);
-        is_owner(graphics::GeometryBatchInstance const*) const;
-        void deallocate(graphics::GeometryBatchInstance const*);
-        is_owner(MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData const*);
-        ulong GetTotalSize(unsigned long);
-        is_owner(MakeSharedPool<graphics::Model, 3072>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::Model, 3072>::RefCounterAndData const*);
-        is_owner(SpotAnimation const*) const;
-        void deallocate(SpotAnimation const*);
-        is_owner(MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::Location, 256>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::Location, 256>::RefCounterAndData const*);
-        is_owner(game::EnvironmentLoader const*) const;
-        void deallocate(game::EnvironmentLoader const*);
-        is_owner(game::Terrain const*) const;
-        void deallocate(game::Terrain const*);
-        is_owner(MakeSharedPool<game::LightSource, 1024>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::LightSource, 1024>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::MapSquare, 32>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::MapSquare, 32>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::VarType, 5504>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::VarType, 5504>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<graphics::Animation, 512>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::Animation, 512>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::SeqType, 96>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::SeqType, 96>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::ObjType, 96>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::ObjType, 96>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::NPCType, 216>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::NPCType, 216>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::LocType, 256>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::LocType, 256>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<ui::Interface, 128>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<ui::Interface, 128>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::ParamType, 640>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::DBRowType, 128>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::DBTableType, 4>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::InvType, 32>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::BASType, 96>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::BASType, 96>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::IDKType, 32>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::IDKType, 32>::RefCounterAndData const*);
-        void deallocate(game::MapElementType::Polygon const*);
-        is_owner(MakeSharedPool<game::MapElementType, 512>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::MapElementType, 512>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::MSIType, 32>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::QuestType, 128>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::QuestType, 128>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::LightType, 32>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::WaterType, 16>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::WaterType, 16>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::CursorType, 64>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::CursorType, 64>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::EnumType, 128>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::EnumType, 128>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::StructType, 1024>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::StructType, 1024>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::AchievementType, 256>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::AchievementType, 256>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData const*);
-        void deallocate(MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData const*);
-        FastPool(int, int);
+        deallocate(const MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::RefCounterAndData* refCounterAndData);
+        long GetTotalSize(unsigned long arg1);
+        uint64_t is_owner(const MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData*
+                              refCounterAndData) const;
+        void deallocate(
+            const MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const graphics::GeometryBatchInstance* geometryBatchInstance) const;
+        void deallocate(const graphics::GeometryBatchInstance* geometryBatchInstance);
+        uint64_t
+        is_owner(const MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData* refCounterAndData);
+        unsigned long GetTotalSize(unsigned long arg1);
+        uint64_t is_owner(const MakeSharedPool<graphics::Model, 3072>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::Model, 3072>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const SpotAnimation* spotAnimation) const;
+        void deallocate(const SpotAnimation* spotAnimation);
+        uint64_t is_owner(const MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::Location, 256>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::Location, 256>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const game::EnvironmentLoader* environmentLoader) const;
+        void deallocate(const game::EnvironmentLoader* environmentLoader);
+        uint64_t is_owner(const game::Terrain* terrain) const;
+        void deallocate(const game::Terrain* terrain);
+        uint64_t is_owner(const MakeSharedPool<game::LightSource, 1024>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::LightSource, 1024>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::MapSquare, 32>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::MapSquare, 32>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::VarType, 5504>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::VarType, 5504>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<graphics::Animation, 512>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::Animation, 512>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::SeqType, 96>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::SeqType, 96>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::ObjType, 96>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::ObjType, 96>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::NPCType, 216>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::NPCType, 216>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::LocType, 256>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::LocType, 256>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(
+            const MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData* refCounterAndData) const;
+        void
+        deallocate(const MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<ui::Interface, 128>::RefCounterAndData* polygon) const;
+        void deallocate(const MakeSharedPool<ui::Interface, 128>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::ParamType, 640>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::DBRowType, 128>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::DBTableType, 4>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::InvType, 32>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::BASType, 96>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::BASType, 96>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::IDKType, 32>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::IDKType, 32>::RefCounterAndData* refCounterAndData);
+        void deallocate(const game::MapElementType::Polygon* polygon);
+        uint64_t is_owner(const MakeSharedPool<game::MapElementType, 512>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::MapElementType, 512>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::MSIType, 32>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::QuestType, 128>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::QuestType, 128>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::LightType, 32>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::WaterType, 16>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::WaterType, 16>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::CursorType, 64>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::CursorType, 64>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::EnumType, 128>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::EnumType, 128>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::StructType, 1024>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::StructType, 1024>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<game::AchievementType, 256>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::AchievementType, 256>::RefCounterAndData* refCounterAndData);
+        void deallocate(
+            const MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(
+            const MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData* refCounterAndData) const;
+        void
+        deallocate(const MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData* refCounterAndData);
+        void
+        deallocate(const MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData* refCounterAndData);
+        void deallocate(const MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData* refCounterAndData);
+        void deallocate(
+            const MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData* refCounterAndData);
+        FastPool(int arg1, int arg2);
         bool empty() const;
-        begin();
-        end();
+        uint8_t[16] begin();
+        uint8_t[16] end();
         audio::SoundInstance* Create<>();
-        void resize(int, int);
-        long operator[](int);
-        void Destroy(audio::SoundInstance*);
-        is_owner(audio::SoundInstance const*) const;
-        void deallocate(audio::SoundInstance const*);
-        void deallocate(int);
-        is_owner(MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData const*);
-        is_owner(graphics::AnimationParameters const*) const;
-        void deallocate(graphics::AnimationParameters const*);
-        void deallocate(MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData const*);
-        void deallocate(ui::ConsoleSnow::SnowFlake const*);
-        ui::ConsoleSnow::SnowFlake* Create<int, int, float>(int&&, int&&, float&&);
-        ui::ConsoleSnow::SnowFlake* Create<int, int>(int&&, int&&);
-        is_owner(ui::ConsoleSnow::SnowFlake const*) const;
+        void resize(int arg1, int arg2);
+        long operator[](int arg1);
+        void Destroy(audio::SoundInstance* soundInstance);
+        uint64_t is_owner(const audio::SoundInstance* soundInstance) const;
+        void deallocate(const audio::SoundInstance* soundInstance);
+        void deallocate(int arg1);
+        uint64_t
+        is_owner(const MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const graphics::AnimationParameters* animationParameters) const;
+        void deallocate(const graphics::AnimationParameters* animationParameters);
+        void deallocate(const MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData* refCounterAndData);
+        void deallocate(const ui::ConsoleSnow::SnowFlake* snowFlake);
+        ui::ConsoleSnow::SnowFlake* Create<int, int, float>(int&& arg1, int&& arg2, float&& arg3);
+        ui::ConsoleSnow::SnowFlake* Create<int, int>(int&& arg1, int&& arg2);
+        uint64_t is_owner(const ui::ConsoleSnow::SnowFlake* snowFlake) const;
         graphics::TerrainPatch_DE*
-        Create<graphics::TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&,
-               math::OBB&, float&, render::InputAssemblerState*>(
-            graphics::TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&,
-            math::OBB&, float&, render::InputAssemblerState*&&);
-        is_owner(graphics::TerrainPatch_DE const*) const;
-        void Destroy(graphics::TerrainPatch_DE*);
-        void deallocate(graphics::TerrainPatch_DE const*);
+        Create<graphics::TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul> const&, math::OBB&, float&,
+               render::InputAssemblerState*>(graphics::TerrainPatch& terrainPatch,
+                                             const eastl::fixed_vector<unsigned char, 256ul>& arg2, math::OBB& obb,
+                                             float& arg4, render::InputAssemblerState*&& arg5);
+        uint64_t is_owner(const graphics::TerrainPatch_DE* terrainPatch_DE) const;
+        void Destroy(graphics::TerrainPatch_DE* terrainPatch_DE);
+        void deallocate(const graphics::TerrainPatch_DE* terrainPatch_DE);
         graphics::WaterPatch_DE* Create<graphics::WaterPatch&, math::OBB&, float&, render::InputAssemblerState*>(
-            graphics::WaterPatch&, math::OBB&, float&, render::InputAssemblerState*&&);
-        void Destroy(graphics::WaterPatch_DE*);
-        void deallocate(graphics::WaterPatch_DE const*);
+            graphics::WaterPatch& waterPatch, math::OBB& obb, float& arg3, render::InputAssemblerState*&& arg4);
+        void Destroy(graphics::WaterPatch_DE* waterPatch_DE);
+        void deallocate(const graphics::WaterPatch_DE* waterPatch_DE);
         graphics::ParticleSystem_DE*
         Create<shared_ptr<graphics::ParticleSystem>, math::OBB&, float&, unsigned int, bool>(
-            shared_ptr<graphics::ParticleSystem>&&, math::OBB&, float&, unsigned int&&, bool&&);
-        is_owner(graphics::ParticleSystem_DE const*) const;
-        void Destroy(graphics::ParticleSystem_DE*);
-        void deallocate(graphics::ParticleSystem_DE const*);
-        is_owner(MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData const*);
+            shared_ptr<graphics::ParticleSystem>&& particleSystem, math::OBB& obb, float& arg3, unsigned int&& arg4,
+            bool&& arg5);
+        uint64_t is_owner(const graphics::ParticleSystem_DE* particleSystem_DE) const;
+        void Destroy(graphics::ParticleSystem_DE* particleSystem_DE);
+        void deallocate(const graphics::ParticleSystem_DE* particleSystem_DE);
+        uint64_t
+        is_owner(const MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData* refCounterAndData);
         graphics::GeometryBatch_DE*
-        Create<math::OBB&, float&,
-               eastl::vector_map<
-                   int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                   eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator>> const*&,
-               unsigned int, graphics::GeometryBatchInstance&>(
-            math::OBB&, float&,
-            eastl::vector_map<
-                int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator>> const*&,
-            unsigned int&&, graphics::GeometryBatchInstance&);
-        is_owner(graphics::GeometryBatch_DE const*) const;
-        void Destroy(graphics::GeometryBatch_DE*);
-        void deallocate(graphics::GeometryBatch_DE const*);
-        is_owner(graphics::BillboardBatchInstance const*) const;
-        void deallocate(graphics::BillboardBatchInstance const*);
-        void deallocate(MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData const*);
+        Create<math::OBB&, float&, eastl::vector_map<int, graphics::FaceGroupRenderMasks> const*&, unsigned int,
+               graphics::GeometryBatchInstance&>(math::OBB& obb, float& arg2,
+                                                 const eastl::vector_map<int, graphics::FaceGroupRenderMasks>*& arg3,
+                                                 unsigned int&& arg4,
+                                                 graphics::GeometryBatchInstance& geometryBatchInstance);
+        uint64_t is_owner(const graphics::GeometryBatch_DE* geometryBatch_DE) const;
+        void Destroy(graphics::GeometryBatch_DE* geometryBatch_DE);
+        void deallocate(const graphics::GeometryBatch_DE* geometryBatch_DE);
+        uint64_t is_owner(const graphics::BillboardBatchInstance* billboardBatchInstance) const;
+        void deallocate(const graphics::BillboardBatchInstance* billboardBatchInstance);
+        void deallocate(const MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData* refCounterAndData);
         graphics::ParticleSystem_DE*
         Create<graphics::ModularParticleSystemDrawable&, math::OBB const&, float&, unsigned int, bool, bool>(
-            graphics::ModularParticleSystemDrawable&, math::OBB const&, float&, unsigned int&&, bool&&, bool&&);
-        is_owner(MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData const*);
+            graphics::ModularParticleSystemDrawable& modularParticleSystemDrawable, const math::OBB& obb, float& arg3,
+            unsigned int&& arg4, bool&& arg5, bool&& arg6);
+        uint64_t is_owner(
+            const MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData* refCounterAndData) const;
+        void
+        deallocate(const MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData* refCounterAndData);
+        uint64_t
+        is_owner(const MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData* refCounterAndData);
         graphics::BillboardBatch_DE*
-        Create<float&,
-               eastl::vector_map<
-                   int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                   eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator>> const*&,
-               graphics::BillboardBatchInstance&>(
-            float&,
-            eastl::vector_map<
-                int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator>> const*&,
-            graphics::BillboardBatchInstance&);
-        is_owner(graphics::BillboardBatch_DE const*) const;
-        void Destroy(graphics::BillboardBatch_DE*);
-        void deallocate(graphics::BillboardBatch_DE const*);
-        is_owner(MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData const*);
-        is_owner(MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData const*);
+        Create<float&, eastl::vector_map<int, graphics::FaceGroupRenderMasks> const*&,
+               graphics::BillboardBatchInstance&>(float& arg1,
+                                                  const eastl::vector_map<int, graphics::FaceGroupRenderMasks>*& arg2,
+                                                  graphics::BillboardBatchInstance& billboardBatchInstance);
+        uint64_t is_owner(const graphics::BillboardBatch_DE* billboardBatch_DE) const;
+        void Destroy(graphics::BillboardBatch_DE* billboardBatch_DE);
+        void deallocate(const graphics::BillboardBatch_DE* billboardBatch_DE);
+        uint64_t is_owner(
+            const MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData* refCounterAndData) const;
+        void
+        deallocate(const MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(
+            const MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData* refCounterAndData) const;
+        void
+        deallocate(const MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData* refCounterAndData);
         graphics::GUIAnimationInstance*
         Create<shared_ptr<graphics::GUIAnimation> const&, shared_ptr<ui::Component> const&, float&, float&,
-               unsigned int&, float&, game::Hook>(shared_ptr<graphics::GUIAnimation> const&,
-                                                  shared_ptr<ui::Component> const&, float&, float&, unsigned int&,
-                                                  float&, game::Hook&&);
+               unsigned int&, float&, game::Hook>(const shared_ptr<graphics::GUIAnimation>& guiAnimation,
+                                                  const shared_ptr<ui::Component>& component, float& arg3, float& arg4,
+                                                  unsigned int& arg5, float& arg6, game::Hook&& hook);
         graphics::GUIAnimationInstance*
         Create<shared_ptr<graphics::GUIAnimation> const&, shared_ptr<ui::Component> const&, float&, float&,
-               unsigned int&, float&>(shared_ptr<graphics::GUIAnimation> const&, shared_ptr<ui::Component> const&,
-                                      float&, float&, unsigned int&, float&);
-        void Destroy(graphics::GUIAnimationInstance*);
-        is_owner(MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData const*);
-        is_owner(graphics::GUIAnimationInstance const*) const;
-        void deallocate(graphics::GUIAnimationInstance const*);
+               unsigned int&, float&>(const shared_ptr<graphics::GUIAnimation>& guiAnimation,
+                                      const shared_ptr<ui::Component>& component, float& arg3, float& arg4,
+                                      unsigned int& arg5, float& arg6);
+        void Destroy(graphics::GUIAnimationInstance* guiAnimationInstance);
+        uint64_t is_owner(const MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData* refCounterAndData);
+        uint64_t is_owner(const graphics::GUIAnimationInstance* guiAnimationInstance) const;
+        void deallocate(const graphics::GUIAnimationInstance* guiAnimationInstance);
         graphics::SkyBox_DE* Create<>();
-        is_owner(MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData const*);
-        void Destroy(graphics::SkyBox_DE*);
-        void deallocate(graphics::SkyBox_DE const*);
+        uint64_t is_owner(const MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData* refCounterAndData);
+        void Destroy(graphics::SkyBox_DE* skyBox_DE);
+        void deallocate(const graphics::SkyBox_DE* skyBox_DE);
         graphics::LightProbe_DE* Create<>();
-        is_owner(graphics::LightProbe_DE const*) const;
-        void Destroy(graphics::LightProbe_DE*);
-        void deallocate(graphics::LightProbe_DE const*);
-        void deallocate(graphics::AnimState const*);
-        is_owner(MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData const*) const;
-        void deallocate(MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData const*);
+        uint64_t is_owner(const graphics::LightProbe_DE* lightProbe_DE) const;
+        void Destroy(graphics::LightProbe_DE* lightProbe_DE);
+        void deallocate(const graphics::LightProbe_DE* lightProbe_DE);
+        void deallocate(const graphics::AnimState* animState);
+        uint64_t is_owner(const MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData* refCounterAndData) const;
+        void deallocate(const MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData* refCounterAndData);
         // ... 29 more instantiated members
     };
 
@@ -254,5542 +277,3929 @@ namespace jag {
         typename...> // 3 instantiations, e.g. <MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>, <MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>, <audio::SoundInstance, int>
     class FastPool_iterator {
     public:
-        operator!=(FastPool_iterator<audio::SoundInstance, int> const&) const;
+        uint32_t operator!=(const FastPool_iterator<audio::SoundInstance, int>& fastPool_iterator) const;
         void operator*() const;
-        void destroy(audio::SoundInstance*);
+        void destroy(audio::SoundInstance* soundInstance);
         FastPool_iterator<audio::SoundInstance, int>* operator++();
-        FastPool_iterator(FastPool<audio::SoundInstance, int>*, int);
+        FastPool_iterator(FastPool<audio::SoundInstance, int>* fastPool, int arg2);
         void Increment();
-        operator!=(FastPool_iterator<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData,
-                                     unsigned long> const&) const;
+        uint64_t
+        operator!=(const FastPool_iterator<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData,
+                                           unsigned long>& fastPool_iterator) const;
         FastPool_iterator<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>*
         operator++();
-        operator!=(
-            FastPool_iterator<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long> const&) const;
+        uint64_t operator!=(const FastPool_iterator<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData,
+                                                    unsigned long>& fastPool_iterator) const;
         FastPool_iterator<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>* operator++();
     };
 
-    // 0x100055720, 48 bytes, inline, placed by class name and debug map
-    // FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >,
-   16192>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >,
-   16192>::RefCounterAndData const*) const */
-
-    undefined8 jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                             unsigned long>::
-        is_owner(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                          unsigned long>* this,
-                 RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100055720
+    uint64_t FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 64;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 64;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1000558f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // LRUHashCacheWrapper<oldscape::DBTableIndex, unsigned long long>::LRUHashCacheWrapper(shared_ptr<oldscape::DBTableIndex> const&, unsigned long long const&, unsigned long long, unsigned int): jumps straight to the base-object constructor
-
-    // 0x100055c10, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // LRUHashCacheWrapper<oldscape::DBTableIndex, unsigned long long>::LRUHashCacheWrapper(shared_ptr<oldscape::DBTableIndex> const&, unsigned long long const&, unsigned long long, unsigned int)
-    /* LRUHashCacheWrapper<oldscape::graphics::Pix32, unsigned long
-   long>::LRUHashCacheWrapper(shared_ptr<oldscape::graphics::Pix32> const&, unsigned long
-   long const&, unsigned long long, unsigned int) */
-
-    void LRUHashCacheWrapper<oldscape::graphics::Pix32, unsigned long long>::LRUHashCacheWrapper(
-        LRUHashCacheWrapper<oldscape::graphics::Pix32, unsigned long long>* this, shared_ptr* param_1,
-        ulonglong* param_2, ulonglong param_3, uint param_4) {
-        new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
-        *(ulonglong*)(this + 16) = *param_2;
-        *(uint*)(this + 24) = param_4;
-        *(ulonglong*)(this + 32) = param_3;
-        *(undefined8*)(this + 40) = 0;
-        *(undefined8*)(this + 48) = 0;
+    // 0x100055c10
+    LRUHashCacheWrapper<oldscape::DBTableIndex, unsigned long long>::LRUHashCacheWrapper(
+        const shared_ptr<oldscape::DBTableIndex>& pixfontGeneric, const unsigned long long& arg2,
+        unsigned long long arg3, unsigned int arg4)
+        : shared_ptr(pixfontGeneric) {
+        *(unsigned long long*)(this + 16) = arg2;
+        *(unsigned int*)(this + 24) = arg4;
+        *(unsigned long long*)(this + 32) = arg3;
+        *(uint64_t*)(this + 40) = 0;
+        *(uint64_t*)(this + 48) = 0;
     }
 
-    // 0x1000671a0, 80 bytes, inline, placed by class name
-    // FastPool<game::console::Snow::SnowFlake, int>::operator[](int) const
-    long FastPool<game::console::Snow::SnowFlake, int>::operator[](FastPool<game::console::Snow::SnowFlake, int>* this,
-                                                                   int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x1000671a0
+    long FastPool<game::console::Snow::SnowFlake, int>::operator[](int arg1) const {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 141,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 32 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 32 + *(long*)this;
     }
 
-    // 0x10019f4e0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10019f620, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                       unsigned long>::
-        FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                          unsigned long>* this,
-                 ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10019f620
+    FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10019f740, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                       unsigned long>::
-        clear(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                       unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10019f740
+    void FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10019f7d0, 64 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>::Reset()
-    /* FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel,
-   64>::RefCounterAndData, unsigned long>::Reset() */
-
-    void
-    jag::FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::
-        Reset(FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
-                       unsigned long>* this) {
+    // 0x10019f7d0
+    void FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::RefCounterAndData, unsigned long>::Reset() {
         long lVar1;
-        ulong uVar2;
+        unsigned long uVar2;
 
         if (*(long*)(this + 32) != 0) {
             lVar1 = *(long*)(this + 8);
             uVar2 = 0;
             do {
-                *(ulong*)(lVar1 + uVar2 * 8) = uVar2;
+                *(unsigned long*)(lVar1 + uVar2 * 8) = uVar2;
                 uVar2 = uVar2 + 1;
-            } while (uVar2 < *(ulong*)(this + 32));
+            } while (uVar2 < *(unsigned long*)(this + 32));
         }
-        *(undefined8*)(this + 24) = 0;
+        *(uint64_t*)(this + 24) = 0;
     }
 
-    // 0x10019f810, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                       unsigned long>::
-    operator[](FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                        unsigned long>* this,
-               ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10019f810
+    long FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 64 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 64 + *(long*)this;
     }
 
-    // 0x10019fa40, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>::FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>&&): jumps straight to the base-object constructor
-
-    // 0x10019fa50, 64 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>::FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>&&)
-    /* FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel,
-   64>::RefCounterAndData, unsigned
-   long>::FastPool(FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel,
-   64>::RefCounterAndData, unsigned long>&&) */
-
-    void
-    jag::FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::
-        FastPool(FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
-                          unsigned long>* this,
-                 FastPool* param_1) {
-        *(undefined8*)this = *(undefined8*)param_1;
-        *(undefined8*)(this + 8) = *(undefined8*)(param_1 + 8);
-        *(undefined8*)(this + 16) = *(undefined8*)(param_1 + 16);
-        *(undefined8*)(this + 24) = *(undefined8*)(param_1 + 24);
-        *(undefined8*)(this + 32) = *(undefined8*)(param_1 + 32);
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
+    // 0x10019fa50
+    FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::RefCounterAndData, unsigned long>::FastPool(
+        FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::RefCounterAndData, unsigned long>&& fastPool) {
+        *(uint64_t*)this = *(uint64_t*)fastPool;
+        *(uint64_t*)(this + 8) = *(uint64_t*)(fastPool + 8);
+        *(uint64_t*)(this + 16) = *(uint64_t*)(fastPool + 16);
+        *(uint64_t*)(this + 24) = *(uint64_t*)(fastPool + 24);
+        *(uint64_t*)(this + 32) = *(uint64_t*)(fastPool + 32);
+        *(uint64_t*)(fastPool + 16) = 0;
+        *(uint64_t*)(fastPool + 24) = 0;
+        *(uint64_t*)fastPool = 0;
+        *(uint64_t*)(fastPool + 8) = 0;
+        *(uint64_t*)(fastPool + 32) = 0;
     }
 
-    // 0x10019fad0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10019fae0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 16192>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                       unsigned long>::
-        ~FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::RefCounterAndData,
-                           unsigned long>* this) {
+    // 0x10019fae0
+    FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1001e52a0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1001e53e0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void
-    jag::FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::
-        FastPool(FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
-                          unsigned long>* this,
-                 ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1001e53e0
+    FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1001e54f0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::clear()
+    // 0x1001e54f0
     void
-    jag::FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::
-        clear(FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
-                       unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset(this);
     }
 
-    // 0x1001e5550, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long
-    jag::FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::
-    operator[](
-        FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1001e5550
+    long FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
+                  unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 12640 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 12640 + *(long*)this;
     }
 
-    // 0x1001e5920, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1001e5930, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void
-        jag::FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::
-            ~FastPool(FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
-                               unsigned long>* this) {
+    // 0x1001e5930
+    FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
+             unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1001e6610, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
-                       unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 12656 + 40;
+    // 0x1001e6610
+    long FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
+                  unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 12656 + 40;
     }
 
-    // 0x1001e6c40, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData const*) const
-    undefined8
-    jag::FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::
-        is_owner(FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData,
-                          unsigned long>* this,
-                 RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1001e6c40
+    uint64_t
+    FastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData* refCounterAndData)
+        const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 12640;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 12640;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1001ee0c0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1001ee200, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1001ee200
+    FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1001ee310, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1001ee310
+    void FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1001ee370, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1001ee370
+    long FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 240 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 240 + *(long*)this;
     }
 
-    // 0x1001ee4c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1001ee4d0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1001ee4d0
+    FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1001ee760, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData const*)
-   const */
-
-    undefined8 FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1001ee760
+    uint64_t FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 240;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 240;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1001f3f70, 16 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned
-   long>::GetTotalSize(unsigned long) */
-
-    long jag::FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 256 + 40;
+    // 0x1001f3f70
+    long FastPool<MakeSharedPool<oldscape::rseven::Terrain, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 256 + 40;
     }
 
-    // 0x100255040, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData,
-   unsigned long>::GetTotalSize(unsigned long) */
-
-    long jag::FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 80 + 40;
+    // 0x100255040
+    long FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 80 + 40;
     }
 
-    // 0x1002551c0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100255210, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100255210
+    FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100255330, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100255330
+    void FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100255390, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x100255390
     long FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 64 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 64 + *(long*)this;
     }
 
-    // 0x100255500, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100255510, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>* this) {
+    // 0x100255510
+    FastPool<MakeSharedPool<oldscape::DBTableIndex, 64>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100338d50, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned
-   long>::GetTotalSize(unsigned long) */
-
-    long jag::FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 248 + 40;
+    // 0x100338d50
+    long FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
+                  unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 248 + 40;
     }
 
-    // 0x100338ee0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100339020, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
-                       unsigned long>::
-        FastPool(
-            FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
-                     unsigned long>* this,
-            ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100339020
+    FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
+             unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100339140, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
-                       unsigned long>::
-        clear(FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
-                       unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100339140
+    void FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
+                  unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1003391a0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
-                       unsigned long>::
-    operator[](FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
-                        unsigned long>* this,
-               ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1003391a0
+    long FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
+                  unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 232 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 232 + *(long*)this;
     }
 
-    // 0x1003392f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100339300, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
-                       unsigned long>::
-        ~FastPool(
-            FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
-                     unsigned long>* this) {
+    // 0x100339300
+    FastPool<MakeSharedPool<oldscape::graphics::animation::OldscapeAnimKeyFrameSet, 128>::RefCounterAndData,
+             unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1003885f0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::GeometryBatchInstance, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100388730, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::GeometryBatchInstance, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<graphics::GeometryBatchInstance, unsigned long>::FastPool(
-        FastPool<graphics::GeometryBatchInstance, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100388730
+    FastPool<graphics::GeometryBatchInstance, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100388840, 96 bytes, inline, placed by class name
-    // FastPool<graphics::GeometryBatchInstance, unsigned long>::clear()
-    void FastPool<graphics::GeometryBatchInstance, unsigned long>::clear(
-        FastPool<graphics::GeometryBatchInstance, unsigned long>* this) {
-        long lVar1;
+    // 0x100388840
+    void FastPool<graphics::GeometryBatchInstance, unsigned long>::clear() {
         long* plVar2;
-        ulong uVar3;
-        ulong uVar4;
+        unsigned long uVar3;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar4 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                plVar2 = (long*)operator[](this, uVar4);
-                (**(code**)(*plVar2 + 32))(plVar2);
-                uVar4 = uVar4 + 1;
+                plVar2 = (long*)operator[](this, arg1);
+                (**(void (**)(...))(*plVar2 + 32))(plVar2);
+                arg1 = arg1 + 1;
                 uVar3 = size();
-            } while (uVar4 < uVar3);
+            } while (arg1 < uVar3);
         }
         Reset();
     }
 
-    // 0x1003888a0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::GeometryBatchInstance, unsigned long>::operator[](unsigned long)
-    long FastPool<graphics::GeometryBatchInstance, unsigned long>::operator[](
-        FastPool<graphics::GeometryBatchInstance, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1003888a0
+    long FastPool<graphics::GeometryBatchInstance, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 896 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 896 + *(long*)this;
     }
 
-    // 0x1003889b0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::GeometryBatchInstance, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1003889c0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::GeometryBatchInstance, unsigned long>::~FastPool()
-    void FastPool<graphics::GeometryBatchInstance, unsigned long>::~FastPool(
-        FastPool<graphics::GeometryBatchInstance, unsigned long>* this) {
+    // 0x1003889c0
+    FastPool<graphics::GeometryBatchInstance, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100388a50, 48 bytes, inline, placed by class name
-    // FastPool<graphics::GeometryBatchInstance, unsigned long>::is_owner(graphics::GeometryBatchInstance const*) const
-    undefined8 FastPool<graphics::GeometryBatchInstance, unsigned long>::is_owner(
-        FastPool<graphics::GeometryBatchInstance, unsigned long>* this, GeometryBatchInstance* param_1) {
-        GeometryBatchInstance* pGVar1;
-
-        if (param_1 < *(GeometryBatchInstance**)this) {
+    // 0x100388a50
+    uint64_t FastPool<graphics::GeometryBatchInstance, unsigned long>::is_owner(
+        const graphics::GeometryBatchInstance* geometryBatchInstance) const {
+        if (geometryBatchInstance < *(GeometryBatchInstance**)this) {
             return 0;
         }
-        pGVar1 = *(GeometryBatchInstance**)this + *(long*)(this + 32);
-        return CONCAT71((int7)((ulong)pGVar1 >> 8), param_1 < pGVar1);
+        GeometryBatchInstance* pGVar1 =
+            (GeometryBatchInstance*)((*(GeometryBatchInstance**)this)->field_24 + *(long*)(this + 32) * 896 - 24);
+        return geometryBatchInstance < pGVar1;
     }
 
-    // 0x1003e0d60, 32 bytes, inline, placed by class name
-    // FastPool<game::EnvironmentLoader, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<game::EnvironmentLoader, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 72 + 40;
+    // 0x1003e0d60
+    long FastPool<game::EnvironmentLoader, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 72 + 40;
     }
 
-    // 0x1003e3150, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData const*) const
-    undefined8
-    jag::FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1003e3150
+    uint64_t FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 704;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 704;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1003e3c40, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1003e3d80, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1003e3d80
+    FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1003e3ea0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1003e3ea0
+    void FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1003e3f00, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1003e3f00
+    long FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 120 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 120 + *(long*)this;
     }
 
-    // 0x1003e4070, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1003e4080, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>* this) {
+    // 0x1003e4080
+    FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1003e4ce0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 136 + 40;
+    // 0x1003e4ce0
+    long FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 136 + 40;
     }
 
-    // 0x1003e4eb0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData const*) const
-    undefined8
-    jag::FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1003e4eb0
+    uint64_t FastPool<MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::MapSquareLocation, 16384>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 120;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 120;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100402c80, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData,
-   unsigned long>::GetTotalSize(unsigned long) */
-
-    ulong
-    jag::FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 384 | 40;
+    // 0x100402c80
+    unsigned long
+    FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 384 | 40;
     }
 
-    // 0x100403880, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::Model, 3072>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100403880
+    uint64_t FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::Model, 3072>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 976;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 976;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100406510, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<SpotAnimation, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100406650, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<SpotAnimation, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<SpotAnimation, unsigned long>::FastPool(FastPool<SpotAnimation, unsigned long>* this, ulong param_1,
-                                                          ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100406650
+    FastPool<SpotAnimation, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100406760, 96 bytes, inline, placed by class name
-    // FastPool<SpotAnimation, unsigned long>::clear()
-    void FastPool<SpotAnimation, unsigned long>::clear(FastPool<SpotAnimation, unsigned long>* this) {
-        long lVar1;
-        undefined8* puVar2;
-        ulong uVar3;
-        ulong uVar4;
+    // 0x100406760
+    void FastPool<SpotAnimation, unsigned long>::clear() {
+        uint64_t* puVar2;
+        unsigned long uVar3;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar4 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                puVar2 = (undefined8*)operator[](this, uVar4);
-                (**(code**)*puVar2)(puVar2);
-                uVar4 = uVar4 + 1;
+                puVar2 = (uint64_t*)operator[](this, arg1);
+                (**(void (**)(...))*puVar2)(puVar2);
+                arg1 = arg1 + 1;
                 uVar3 = size();
-            } while (uVar4 < uVar3);
+            } while (arg1 < uVar3);
         }
         Reset();
     }
 
-    // 0x1004067c0, 80 bytes, inline, placed by class name
-    // FastPool<SpotAnimation, unsigned long>::operator[](unsigned long)
-    long FastPool<SpotAnimation, unsigned long>::operator[](FastPool<SpotAnimation, unsigned long>* this,
-                                                            ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004067c0
+    long FastPool<SpotAnimation, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 464 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 464 + *(long*)this;
     }
 
-    // 0x1004068d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<SpotAnimation, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004068e0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<SpotAnimation, unsigned long>::~FastPool()
-    void FastPool<SpotAnimation, unsigned long>::~FastPool(FastPool<SpotAnimation, unsigned long>* this) {
+    // 0x1004068e0
+    FastPool<SpotAnimation, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100406970, 48 bytes, inline, placed by class name
-    // FastPool<SpotAnimation, unsigned long>::is_owner(SpotAnimation const*) const
-    undefined8 FastPool<SpotAnimation, unsigned long>::is_owner(FastPool<SpotAnimation, unsigned long>* this,
-                                                                SpotAnimation* param_1) {
-        SpotAnimation* pSVar1;
-
-        if (param_1 < *(SpotAnimation**)this) {
+    // 0x100406970
+    uint64_t FastPool<SpotAnimation, unsigned long>::is_owner(const SpotAnimation* spotAnimation) const {
+        if (spotAnimation < *(SpotAnimation**)this) {
             return 0;
         }
-        pSVar1 = (SpotAnimation*)((long)*(SpotAnimation**)this + *(long*)(this + 32) * 464);
-        return CONCAT71((int7)((ulong)pSVar1 >> 8), param_1 < pSVar1);
+        SpotAnimation* pSVar1 = (SpotAnimation*)((long)*(SpotAnimation**)this + *(long*)(this + 32) * 464);
+        return spotAnimation < pSVar1;
     }
 
-    // 0x1004087b0, 32 bytes, inline, placed by class name
-    // FastPool<SpotAnimation, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<SpotAnimation, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 480 + 40;
+    // 0x1004087b0
+    long FastPool<SpotAnimation, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 480 + 40;
     }
 
-    // 0x100409430, 32 bytes, inline, placed by class name
-    // FastPool<game::Terrain, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<game::Terrain, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 1712 + 40;
+    // 0x100409430
+    long FastPool<game::Terrain, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 1712 + 40;
     }
 
-    // 0x10040a6d0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x10040a6d0
+    uint64_t FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1664;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1664;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x10041f6c0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::Location, 256>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x10041f6c0
+    uint64_t FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::Location, 256>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 912;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 912;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100420a00, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 1296 + 40;
-    }
-
-    // 0x100421000, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<game::EnvironmentLoader, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100421140, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<game::EnvironmentLoader, unsigned long>::FastPool(unsigned long, unsigned long)
-    void
-    FastPool<game::EnvironmentLoader, unsigned long>::FastPool(FastPool<game::EnvironmentLoader, unsigned long>* this,
-                                                               ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100421260, 96 bytes, inline, placed by class name
-    // FastPool<game::EnvironmentLoader, unsigned long>::clear()
-    void
-    FastPool<game::EnvironmentLoader, unsigned long>::clear(FastPool<game::EnvironmentLoader, unsigned long>* this) {
-        long lVar1;
-        EnvironmentLoader* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (EnvironmentLoader*)operator[](this, uVar3);
-                this_00->~EnvironmentLoader();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x1004212c0, 80 bytes, inline, placed by class name
-    // FastPool<game::EnvironmentLoader, unsigned long>::operator[](unsigned long)
+    // 0x100420a00
     long
-    FastPool<game::EnvironmentLoader, unsigned long>::operator[](FastPool<game::EnvironmentLoader, unsigned long>* this,
-                                                                 ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 1296 + 40;
+    }
+
+    // 0x100421140
+    FastPool<game::EnvironmentLoader, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100421260
+    void FastPool<game::EnvironmentLoader, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((EnvironmentLoader*)operator[](this, arg1))->~EnvironmentLoader();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x1004212c0
+    long FastPool<game::EnvironmentLoader, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 56 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 56 + *(long*)this;
     }
 
-    // 0x1004213d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<game::EnvironmentLoader, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004213e0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<game::EnvironmentLoader, unsigned long>::~FastPool()
-    void FastPool<game::EnvironmentLoader, unsigned long>::~FastPool(
-        FastPool<game::EnvironmentLoader, unsigned long>* this) {
+    // 0x1004213e0
+    FastPool<game::EnvironmentLoader, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100421470, 32 bytes, inline, placed by class name
-    // FastPool<game::EnvironmentLoader, unsigned long>::is_owner(game::EnvironmentLoader const*) const
-    undefined8
-    FastPool<game::EnvironmentLoader, unsigned long>::is_owner(FastPool<game::EnvironmentLoader, unsigned long>* this,
-                                                               EnvironmentLoader* param_1) {
-        EnvironmentLoader* pEVar1;
-
-        if (param_1 < *(EnvironmentLoader**)this) {
+    // 0x100421470
+    uint64_t
+    FastPool<game::EnvironmentLoader, unsigned long>::is_owner(const game::EnvironmentLoader* environmentLoader) const {
+        if (environmentLoader < *(EnvironmentLoader**)this) {
             return 0;
         }
-        pEVar1 = *(EnvironmentLoader**)this + *(long*)(this + 32);
-        return CONCAT71((int7)((ulong)pEVar1 >> 8), param_1 < pEVar1);
+        EnvironmentLoader* pEVar1 = (EnvironmentLoader*)((long)*(EnvironmentLoader**)this + *(long*)(this + 32) * 56);
+        return environmentLoader < pEVar1;
     }
 
-    // 0x100421950, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<game::Terrain, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100421a90, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<game::Terrain, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<game::Terrain, unsigned long>::FastPool(FastPool<game::Terrain, unsigned long>* this, ulong param_1,
-                                                          ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100421a90
+    FastPool<game::Terrain, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100421ba0, 96 bytes, inline, placed by class name
-    // FastPool<game::Terrain, unsigned long>::clear()
-    void FastPool<game::Terrain, unsigned long>::clear(FastPool<game::Terrain, unsigned long>* this) {
-        long lVar1;
-        undefined8* puVar2;
-        ulong uVar3;
-        ulong uVar4;
+    // 0x100421ba0
+    void FastPool<game::Terrain, unsigned long>::clear() {
+        uint64_t* puVar2;
+        unsigned long uVar3;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar4 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                puVar2 = (undefined8*)operator[](this, uVar4);
-                (**(code**)*puVar2)(puVar2);
-                uVar4 = uVar4 + 1;
+                puVar2 = (uint64_t*)operator[](this, arg1);
+                (**(void (**)(...))*puVar2)(puVar2);
+                arg1 = arg1 + 1;
                 uVar3 = size();
-            } while (uVar4 < uVar3);
+            } while (arg1 < uVar3);
         }
         Reset();
     }
 
-    // 0x100421c00, 80 bytes, inline, placed by class name
-    // FastPool<game::Terrain, unsigned long>::operator[](unsigned long)
-    long FastPool<game::Terrain, unsigned long>::operator[](FastPool<game::Terrain, unsigned long>* this,
-                                                            ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100421c00
+    long FastPool<game::Terrain, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1696 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1696 + *(long*)this;
     }
 
-    // 0x100421d10, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<game::Terrain, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100421d20, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<game::Terrain, unsigned long>::~FastPool()
-    void FastPool<game::Terrain, unsigned long>::~FastPool(FastPool<game::Terrain, unsigned long>* this) {
+    // 0x100421d20
+    FastPool<game::Terrain, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100421db0, 48 bytes, inline, placed by class name
-    // FastPool<game::Terrain, unsigned long>::is_owner(game::Terrain const*) const
-    undefined8 FastPool<game::Terrain, unsigned long>::is_owner(FastPool<game::Terrain, unsigned long>* this,
-                                                                Terrain* param_1) {
-        Terrain* pTVar1;
-
-        if (param_1 < *(Terrain**)this) {
+    // 0x100421db0
+    uint64_t FastPool<game::Terrain, unsigned long>::is_owner(const game::Terrain* terrain) const {
+        if (terrain < *(Terrain**)this) {
             return 0;
         }
-        pTVar1 = (Terrain*)((long)*(Terrain**)this + *(long*)(this + 32) * 1696);
-        return CONCAT71((int7)((ulong)pTVar1 >> 8), param_1 < pTVar1);
+        Terrain* pTVar1 = (Terrain*)((long)*(Terrain**)this + *(long*)(this + 32) * 1696);
+        return terrain < pTVar1;
     }
 
-    // 0x100423030, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::LightSource, 1024>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100423030
+    uint64_t FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::LightSource, 1024>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 496;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 496;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100424fa0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    ulong FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 4480 | 40;
+    // 0x100424fa0
+    unsigned long
+    FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 4480 | 40;
     }
 
-    // 0x100425130, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100425270, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100425270
+    FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                        unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100425380, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100425380
+    void FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004253e0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004253e0
+    long FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 4464 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 4464 + *(long*)this;
     }
 
-    // 0x100425530, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100425540, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>* this) {
+    // 0x100425540
+    FastPool<MakeSharedPool<NPCEntity, 64>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100434e90, 16 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 512 + 40;
+    // 0x100434e90
+    long FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 512 + 40;
     }
 
-    // 0x100435000, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100435050, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100435050
+    FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                  unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100435160, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100435160
+    void FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004351c0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x1004351c0
     long FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 496 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 496 + *(long*)this;
     }
 
-    // 0x100435310, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100435320, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>* this) {
+    // 0x100435320
+    FastPool<MakeSharedPool<game::LightSource, 1024>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1004378e0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 928 + 40;
+    // 0x1004378e0
+    long
+    FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 928 + 40;
     }
 
-    // 0x1004379f0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100437a40, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100437a40
+    FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                              unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100437b50, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100437b50
+    void FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100437bb0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100437bb0
+    long
+    FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 912 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 912 + *(long*)this;
     }
 
-    // 0x100437d00, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100437d10, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>* this) {
+    // 0x100437d10
+    FastPool<MakeSharedPool<game::Location, 256>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100438410, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100438550, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100438550
+    FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100438670, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100438670
+    void FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004386d0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004386d0
+    long FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 152 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 152 + *(long*)this;
     }
 
-    // 0x100438870, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100438880, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>* this) {
+    // 0x100438880
+    FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1004394c0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned
-   long>::GetTotalSize(unsigned long) */
-
-    long FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 168 + 40;
+    // 0x1004394c0
+    long FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 168 + 40;
     }
 
-    // 0x100439670, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<game::InvType, 32>::RefCounterAndData const*) const */
-
-    undefined8 FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100439670
+    uint64_t FastPool<MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::ChangeLocationRequest, 128>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 152;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 152;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x10044e8d0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned
-   long>::GetTotalSize(unsigned long) */
-
-    long jag::FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 240 + 40;
+    // 0x10044e8d0
+    long FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 240 + 40;
     }
 
-    // 0x10044ea60, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10044eba0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10044eba0
+    FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10044ecb0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10044ecb0
+    void FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10044ed10, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x10044ed10
     long FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 224 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 224 + *(long*)this;
     }
 
-    // 0x10044ee60, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10044ee70, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>* this) {
+    // 0x10044ee70
+    FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100451380, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1004514c0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1004514c0
+    FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1004515e0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1004515e0
+    void FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100451640, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100451640
+    long FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 9872 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 9872 + *(long*)this;
     }
 
-    // 0x1004519a0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004519b0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>* this) {
+    // 0x1004519b0
+    FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1004525b0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 9888 + 40;
+    // 0x1004525b0
+    long FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 9888 + 40;
     }
 
-    // 0x100452940, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData const*) const
-    undefined8 jag::FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100452940
+    uint64_t FastPool<MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::ClientCompositeData, 8>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 9872;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 9872;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100454c60, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
+    // 0x100454c60
+    long FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 720 + 40;
+    }
+
+    // 0x100454dc0
+    FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100454ed0
+    void FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100454f30
+    long FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 704 + *(long*)this;
+    }
+
+    // 0x1004551d0
+    FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x100456120
+    FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                              unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100456240
+    void FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x1004562a0
     long
-    jag::FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 720 + 40;
-    }
-
-    // 0x100454d70, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100454dc0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100454ed0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x100454f30, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 704 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1280 + *(long*)this;
     }
 
-    // 0x1004551c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004551d0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::MapEnvironmentSettings, 48>::RefCounterAndData, unsigned long>* this) {
+    // 0x100456400
+    FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100455fe0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100456120, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100456240, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x1004562a0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1280 + *(long*)this;
-    }
-
-    // 0x1004563f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100456400, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x100456640, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::MapSquare, 32>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100456640
+    uint64_t FastPool<MakeSharedPool<game::MapSquare, 32>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::MapSquare, 32>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1280;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1280;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x10045c130, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    ulong jag::FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 704 | 40;
+    // 0x10045c130
+    unsigned long FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 704 | 40;
     }
 
-    // 0x10045c2c0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10045c400, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10045c400
+    FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10045c510, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10045c510
+    void FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10045c570, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x10045c570
     long FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 688 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 688 + *(long*)this;
     }
 
-    // 0x10045c6c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10045c6d0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>* this) {
+    // 0x10045c6d0
+    FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10045cec0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10045d000, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10045d000
+    FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10045d110, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10045d110
+    void FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10045d170, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x10045d170
+    long FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 368 + *(long*)this;
+    }
+
+    // 0x10045d2d0
+    FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x10045d510
+    uint64_t FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
+            return 0;
+        }
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 368;
+        return refCounterAndData < pRVar1;
+    }
+
+    // 0x100487000
+    FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                              unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100487110
+    void FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100487170
     long
-    jag::FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 368 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 368 + *(long*)this;
     }
 
-    // 0x10045d2c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10045d2d0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>* this) {
+    // 0x1004872d0
+    FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10045d510, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData const*) const */
-
-    undefined8 FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
-            return 0;
-        }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 368;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+    // 0x10049af30
+    long FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 9744 + 40;
     }
 
-    // 0x100486ec0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100487000, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10049b270
+    FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100487110, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10049b390
+    void FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100487170, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 368 + *(long*)this;
-    }
-
-    // 0x1004872c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004872d0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ObjStackEntity, 256>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x10049af30, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
+    // 0x10049b3f0
     long
-    FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 9744 + 40;
+    FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 9728 + *(long*)this;
     }
 
-    // 0x10049b130, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10049b270, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10049b610
+    FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10049b390, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10049cc50
+    FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+    // 0x10049cd70
+    void FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10049b3f0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10049cdd0
+    long FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 9728 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 64 + *(long*)this;
     }
 
-    // 0x10049b600, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10049b610, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::PlayerModel, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x10049cf50
+    FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10049cb10, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10049cc50, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10049cd70, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x10049cdd0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 64 + *(long*)this;
-    }
-
-    // 0x10049cf40, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10049cf50, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::PlayerModelModelSet, 256>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x10049e090, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData const*)
-   const */
-
-    undefined8 FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x10049e090
+    uint64_t FastPool<MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::StaticPointLight, 64>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 224;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 224;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1004ca530, 16 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned
-   long>::GetTotalSize(unsigned long) */
-
-    long jag::FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 128 + 40;
+    // 0x1004ca530
+    long FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 128 + 40;
     }
 
-    // 0x1004ca720, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1004ca860, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1004ca860
+    FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                 unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1004ca980, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1004ca980
+    void FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004ca9e0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004ca9e0
+    long
+    FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 112 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 112 + *(long*)this;
     }
 
-    // 0x1004cab30, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004cab40, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>* this) {
+    // 0x1004cab40
+    FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1004cb880, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned
-   long>::GetTotalSize(unsigned long) */
-
-    long FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 600 + 40;
+    // 0x1004cb880
+    long
+    FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 600 + 40;
     }
 
-    // 0x1004cba10, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1004cbb50, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1004cbb50
+    FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                              unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1004cbc70, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1004cbc70
+    void FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004cbcd0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004cbcd0
+    long
+    FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 584 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 584 + *(long*)this;
     }
 
-    // 0x1004cbe20, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004cbe30, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>* this) {
+    // 0x1004cbe30
+    FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1004d7b30, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::BuildSingleLocationResultData,
-   160>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long) */
-
-    long jag::FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData,
-                       unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 144 + 40;
+    // 0x1004d7b30
+    long
+    FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 144 + 40;
     }
 
-    // 0x1004d7d30, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1004d7e70, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1004d7e70
+    FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                              unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1004d7f90, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1004d7f90
+    void FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004d7ff0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004d7ff0
+    long
+    FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 128 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 128 + *(long*)this;
     }
 
-    // 0x1004d8140, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004d8150, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>* this) {
+    // 0x1004d8150
+    FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1004d93d0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::VarType, 5504>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<game::BuildSingleLocationResultData,
-   160>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<game::BuildSingleLocationResultData,
-   160>::RefCounterAndData const*) const */
-
-    undefined8
-    jag::FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1004d93d0
+    uint64_t FastPool<MakeSharedPool<game::VarType, 5504>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::VarType, 5504>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 128;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 128;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1004e3760, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    ulong jag::FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 192 | 40;
+    // 0x1004e3760
+    unsigned long
+    FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 192 | 40;
     }
 
-    // 0x1004e3960, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1004e3aa0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1004e3aa0
+    FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1004e3bc0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1004e3bc0
+    void FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004e3c20, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004e3c20
+    long FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 176 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 176 + *(long*)this;
     }
 
-    // 0x1004e3dc0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004e3dd0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>* this) {
+    // 0x1004e3dd0
+    FastPool<MakeSharedPool<game::QuickChatPhraseType, 0>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1004e6c60, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::Animation, 512>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1004e6c60
+    uint64_t FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::Animation, 512>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 232;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 232;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1004eb5a0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1004eb6e0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1004eb6e0
+    FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                            unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1004eb800, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1004eb800
+    void FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004eb860, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004eb860
+    long FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1872 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1872 + *(long*)this;
     }
 
-    // 0x1004eb9b0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004eb9c0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>* this) {
+    // 0x1004eb9c0
+    FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1004ec760, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 1888 + 40;
+    // 0x1004ec760
+    long
+    FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 1888 + 40;
     }
 
-    // 0x1004ecda0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::SeqType, 96>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1004ecda0
+    uint64_t FastPool<MakeSharedPool<game::SeqType, 96>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::SeqType, 96>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1872;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1872;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1004f0b30, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1004f0b30
+    uint64_t FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 168;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 168;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1004f1390, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData const*) const
-    undefined8
-    jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1004f1390
+    uint64_t FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 184;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 184;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1004f8b10, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1004f8c50, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1004f8c50
+    FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                            unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1004f8d70, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1004f8d70
+    void FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004f8dd0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004f8dd0
+    long FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1040 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1040 + *(long*)this;
     }
 
-    // 0x1004f9070, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1004f9080, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>* this) {
+    // 0x1004f9080
+    FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1004f9320, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::ObjType, 96>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1004f9320
+    uint64_t FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::ObjType, 96>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1040;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1040;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1004ffa40, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData,
-   unsigned long>::GetTotalSize(unsigned long) */
-
-    long jag::FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData,
-                       unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 152 + 40;
+    // 0x1004ffa40
+    long FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 152 + 40;
     }
 
-    // 0x1004ffbd0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1004ffd10, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1004ffd10
+    FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1004ffe30, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1004ffe30
+    void FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1004ffe90, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x1004ffe90
     long FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 136 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 136 + *(long*)this;
     }
 
-    // 0x100500020, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100500030, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>* this) {
+    // 0x100500030
+    FastPool<MakeSharedPool<game::QuickChatCatType, 0>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10050c3d0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 1192 + 40;
-    }
-
-    // 0x10050c5d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10050c710, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10050c830, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x10050c890, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1176 + *(long*)this;
-    }
-
-    // 0x10050c9e0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10050c9f0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x10050fcd0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::NPCType, 216>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
-            return 0;
-        }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1176;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
-    }
-
-    // 0x100513e80, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 1056 + 40;
-    }
-
-    // 0x10051acf0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10051ae30, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10051af50, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x10051afb0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1064 + *(long*)this;
-    }
-
-    // 0x10051b520, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10051b530, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x10051b7d0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::LocType, 256>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
-            return 0;
-        }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1064;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
-    }
-
-    // 0x100520260, 32 bytes, inline, placed by class name
-    // FastPool<game::MapElementType::Polygon, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned
-   long>::GetTotalSize(unsigned long) */
-
-    long FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 160 + 40;
-    }
-
-    // 0x10052ada0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10052aee0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void
-    jag::FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10052b000, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x10052b060, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x10050c3d0
     long
-    jag::FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 136 + *(long*)this;
+    FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 1192 + 40;
     }
 
-    // 0x10052b1d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10052b1e0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::
-        ~FastPool(
-            FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+    // 0x10050c710
+    FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                             unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10052c0f0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<game::DBTableType, 4>::RefCounterAndData const*) const
-    */
+    // 0x10050c830
+    void FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-    undefined8 FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
-            return 0;
-        }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 136;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
-    }
-
-    // 0x1005339d0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 1080 + 40;
-    }
-
-    // 0x10053ee20, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10053ef60, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10053f080, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10053f0e0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 144 + *(long*)this;
-    }
-
-    // 0x10053f270, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10053f280, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x10053f570, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<ui::Interface, 128>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<game::ParamType, 640>::RefCounterAndData const*) const
-    */
-
-    undefined8 FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
-            return 0;
-        }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 144;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
-    }
-
-    // 0x10054c850, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
+    // 0x10050c890
     long
-    FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 232 + 40;
-    }
-
-    // 0x10055fb20, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10055fc60, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10055fd80, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x10055fde0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 64 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1176 + *(long*)this;
     }
 
-    // 0x10055fef0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10055ff00, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>* this) {
+    // 0x10050c9f0
+    FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005727c0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100572900, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100572a20, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x100572a80, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 144 + *(long*)this;
-    }
-
-    // 0x100572c50, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100572c60, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1005780f0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100578230, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100578350, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x1005783b0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 144 + *(long*)this;
-    }
-
-    // 0x100578950, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100578960, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x10057dbc0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10057dd00, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10057de20, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x10057de80, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 136 + *(long*)this;
-    }
-
-    // 0x10057e060, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10057e070, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1005832b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005833f0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100583510, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x100583570, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 152 + *(long*)this;
-    }
-
-    // 0x100583740, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100583750, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1005888c0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData const*)
-   const */
-
-    undefined8 FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x10050fcd0
+    uint64_t FastPool<MakeSharedPool<game::NPCType, 216>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::NPCType, 216>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 112;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1176;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x10058cd30, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10058ce70, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100513e80
+    long
+    FastPool<MakeSharedPool<game::ObjType, 96>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 1056 + 40;
     }
 
-    // 0x10058cf90, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10051ae30
+    FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                             unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+    // 0x10051af50
+    void FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10058cff0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10051afb0
+    long
+    FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 288 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1064 + *(long*)this;
     }
 
-    // 0x10058d1e0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10058d1f0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>* this) {
+    // 0x10051b530
+    FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10058dee0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 304 + 40;
-    }
-
-    // 0x10058e060, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::BASType, 96>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x10051b7d0
+    uint64_t FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::LocType, 256>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 288;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 1064;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1005924a0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005925e0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100520260
+    long FastPool<game::MapElementType::Polygon, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 160 + 40;
     }
 
-    // 0x100592700, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10052aee0
+    FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+    // 0x10052b000
+    void FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100592760, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10052b060
+    long FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 104 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 136 + *(long*)this;
     }
 
-    // 0x100592910, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100592920, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>* this) {
+    // 0x10052b1e0
+    FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100593580, 16 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned
-   long>::GetTotalSize(unsigned long) */
-
-    long FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 120 + 40;
-    }
-
-    // 0x100593710, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<game::MSIType, 32>::RefCounterAndData const*) const */
-
-    undefined8 FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x10052c0f0
+    uint64_t
+    FastPool<MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::LocType::LocationSoundData, 512>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 104;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 136;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100597b60, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100597ca0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005339d0
+    long
+    FastPool<MakeSharedPool<game::LocType, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 1080 + 40;
     }
 
-    // 0x100597dc0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10053ef60
+    FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                             unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+    // 0x10053f080
+    void FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100597e20, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x10053f0e0
+    long
+    FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 144 + *(long*)this;
+    }
+
+    // 0x10053f280
+    FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x10053f570
+    uint64_t FastPool<MakeSharedPool<ui::Interface, 128>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<ui::Interface, 128>::RefCounterAndData* polygon) const {
+        if (polygon < *(Polygon**)this) {
+            return 0;
+        }
+        Polygon* pPVar1 = (Polygon*)((long)*(Polygon**)this + *(long*)(this + 32) * 144);
+        return polygon < pPVar1;
+    }
+
+    // 0x10054c850
+    long FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 232 + 40;
+    }
+
+    // 0x10055fc60
+    FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                 unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x10055fd80
+    void FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x10055fde0
+    long
+    FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 64 + *(long*)this;
+    }
+
+    // 0x10055ff00
+    FastPool<MakeSharedPool<game::DBTableIndex, 64>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x100572900
+    FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                               unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100572a20
+    void FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100572a80
+    long
+    FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 144 + *(long*)this;
+    }
+
+    // 0x100572c60
+    FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x100578230
+    FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                               unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100578350
+    void FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x1005783b0
+    long
+    FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 144 + *(long*)this;
+    }
+
+    // 0x100578960
+    FastPool<MakeSharedPool<game::DBRowType, 128>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x10057dd00
+    FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                               unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x10057de20
+    void FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x10057de80
+    long
+    FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 136 + *(long*)this;
+    }
+
+    // 0x10057e070
+    FastPool<MakeSharedPool<game::DBTableType, 4>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x1005833f0
+    FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                            unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100583510
+    void FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100583570
+    long FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 152 + *(long*)this;
+    }
+
+    // 0x100583750
+    FastPool<MakeSharedPool<game::InvType, 32>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x1005888c0
+    uint64_t FastPool<MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::VarBitType, 2048>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
+            return 0;
+        }
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 112;
+        return refCounterAndData < pRVar1;
+    }
+
+    // 0x10058ce70
+    FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                            unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x10058cf90
+    void FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x10058cff0
+    long FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 288 + *(long*)this;
+    }
+
+    // 0x10058d1f0
+    FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x10058dee0
+    long
+    FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 304 + 40;
+    }
+
+    // 0x10058e060
+    uint64_t FastPool<MakeSharedPool<game::BASType, 96>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::BASType, 96>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
+            return 0;
+        }
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 288;
+        return refCounterAndData < pRVar1;
+    }
+
+    // 0x1005925e0
+    FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100592700
+    void FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100592760
+    long FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 104 + *(long*)this;
+    }
+
+    // 0x100592920
+    FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x100593580
+    long FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 120 + 40;
+    }
+
+    // 0x100593710
+    uint64_t FastPool<MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::FloorUnderlayType, 128>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
+            return 0;
+        }
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 104;
+        return refCounterAndData < pRVar1;
+    }
+
+    // 0x100597ca0
+    FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100597dc0
+    void FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100597e20
     long FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 136 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 136 + *(long*)this;
     }
 
-    // 0x100597fd0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100597fe0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>* this) {
+    // 0x100597fe0
+    FastPool<MakeSharedPool<game::FloorOverlayType, 128>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10059d2e0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10059d420, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10059d420
+    FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10059d540, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10059d540
+    void FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10059d5a0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10059d5a0
+    long
+    FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 216 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 216 + *(long*)this;
     }
 
-    // 0x10059d780, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10059d790, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x10059d790
+    FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10059da20, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x10059da20
+    uint64_t FastPool<MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::HitmarkType, 32>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 216;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 216;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1005a2330, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005a2470, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005a2470
+    FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005a2590, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005a2590
+    void FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005a25f0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1005a25f0
+    long
+    FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 152 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 152 + *(long*)this;
     }
 
-    // 0x1005a27a0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005a27b0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1005a27b0
+    FastPool<MakeSharedPool<game::HeadbarType, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005a7900, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005a7a40, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005a7a40
+    FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                            unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005a7b60, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005a7b60
+    void FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005a7bc0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1005a7bc0
+    long FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 296 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 296 + *(long*)this;
     }
 
-    // 0x1005a7de0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005a7df0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1005a7df0
+    FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005a8bd0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 312 + 40;
+    // 0x1005a8bd0
+    long
+    FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 312 + 40;
     }
 
-    // 0x1005a8d90, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::IDKType, 32>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1005a8d90
+    uint64_t FastPool<MakeSharedPool<game::IDKType, 32>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::IDKType, 32>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 296;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 296;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1005ad290, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005ad3d0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005ad3d0
+    FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005ad4f0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005ad4f0
+    void FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005ad550, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x1005ad550
     long FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 384 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 384 + *(long*)this;
     }
 
-    // 0x1005ada90, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<game::MapElementType::Polygon, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005adae0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<game::MapElementType::Polygon, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<game::MapElementType::Polygon, unsigned long>::FastPool(
-        FastPool<game::MapElementType::Polygon, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005adae0
+    FastPool<game::MapElementType::Polygon, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005adc00, 96 bytes, inline, placed by class name
-    // FastPool<game::MapElementType::Polygon, unsigned long>::clear()
-    void FastPool<game::MapElementType::Polygon, unsigned long>::clear(
-        FastPool<game::MapElementType::Polygon, unsigned long>* this) {
-        long lVar1;
-        Polygon* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005adc00
+    void FastPool<game::MapElementType::Polygon, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (Polygon*)operator[](this, uVar3);
-                this_00->~Polygon();
-                uVar3 = uVar3 + 1;
+                ((Polygon*)operator[](this, arg1))->~Polygon();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005adc60, 80 bytes, inline, placed by class name
-    // FastPool<game::MapElementType::Polygon, unsigned long>::operator[](unsigned long)
-    long FastPool<game::MapElementType::Polygon, unsigned long>::operator[](
-        FastPool<game::MapElementType::Polygon, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1005adc60
+    long FastPool<game::MapElementType::Polygon, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 144 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 144 + *(long*)this;
     }
 
-    // 0x1005add70, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<game::MapElementType::Polygon, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005add80, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<game::MapElementType::Polygon, unsigned long>::~FastPool()
-    void FastPool<game::MapElementType::Polygon, unsigned long>::~FastPool(
-        FastPool<game::MapElementType::Polygon, unsigned long>* this) {
+    // 0x1005add80
+    FastPool<game::MapElementType::Polygon, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005ae060, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005ae070, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>* this) {
+    // 0x1005ae070
+    FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005aedc0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 400 + 40;
+    // 0x1005aedc0
+    long FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 400 + 40;
     }
 
-    // 0x1005aeff0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::MapElementType, 512>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1005aeff0
+    uint64_t FastPool<MakeSharedPool<game::MapElementType, 512>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::MapElementType, 512>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 384;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 384;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1005b3b20, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005b3c60, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005b3c60
+    FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                            unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005b3d80, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005b3d80
+    void FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005b3de0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1005b3de0
+    long FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 104 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 104 + *(long*)this;
     }
 
-    // 0x1005b3f90, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005b3fa0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1005b3fa0
+    FastPool<MakeSharedPool<game::MSIType, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005b9550, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005b9690, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005b9690
+    FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                               unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005b97b0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005b97b0
+    void FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005b9810, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 376 + *(long*)this;
-    }
-
-    // 0x1005b9cc0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005b9cd0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1005baab0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 392 + 40;
-    }
-
-    // 0x1005bacf0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::QuestType, 128>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
-            return 0;
-        }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 376;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
-    }
-
-    // 0x1005bf140, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005bf280, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x1005bf3a0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x1005bf400, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 152 + *(long*)this;
-    }
-
-    // 0x1005bf5f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005bf600, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1005c4870, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005c49b0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x1005c4ad0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x1005c4b30, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 144 + *(long*)this;
-    }
-
-    // 0x1005c4ce0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005c4cf0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1005ca000, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005ca140, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x1005ca260, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x1005ca2c0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 136 + *(long*)this;
-    }
-
-    // 0x1005ca490, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005ca4a0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1005cfd00, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::WaterType, 16>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
-            return 0;
-        }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 584;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
-    }
-
-    // 0x1005d4130, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005d4270, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x1005d4390, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x1005d43f0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 96 + *(long*)this;
-    }
-
-    // 0x1005d45a0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005d45b0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1005d51f0, 16 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData,
-   unsigned long>::GetTotalSize(unsigned long) */
-
+    // 0x1005b9810
     long
-    jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 112 + 40;
+    FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 376 + *(long*)this;
     }
 
-    // 0x1005d5370, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::CursorType, 64>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData,
-   unsigned long>::is_owner(MakeSharedPool<graphics::AnimationFrameRT5,
-   20480>::RefCounterAndData const*) const */
+    // 0x1005b9cd0
+    FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
 
-    undefined8
-    jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
+    // 0x1005baab0
+    long
+    FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 392 + 40;
+    }
 
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1005bacf0
+    uint64_t FastPool<MakeSharedPool<game::QuestType, 128>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::QuestType, 128>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 96;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 376;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1005d96f0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005d9830, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005bf280
+    FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                 unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005d9950, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005bf3a0
+    void FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005d99b0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x1005bf400
+    long
+    FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 152 + *(long*)this;
+    }
+
+    // 0x1005bf600
+    FastPool<MakeSharedPool<game::SeqGroupType, 64>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x1005c49b0
+    FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                              unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x1005c4ad0
+    void FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x1005c4b30
+    long
+    FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 144 + *(long*)this;
+    }
+
+    // 0x1005c4cf0
+    FastPool<MakeSharedPool<game::LightType, 32>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x1005ca140
+    FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                               unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x1005ca260
+    void FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x1005ca2c0
+    long
+    FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 136 + *(long*)this;
+    }
+
+    // 0x1005ca4a0
+    FastPool<MakeSharedPool<game::SkyBoxType, 16>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x1005cfd00
+    uint64_t FastPool<MakeSharedPool<game::WaterType, 16>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::WaterType, 16>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
+            return 0;
+        }
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 584;
+        return refCounterAndData < pRVar1;
+    }
+
+    // 0x1005d4270
+    FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                               unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x1005d4390
+    void FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x1005d43f0
+    long
+    FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 96 + *(long*)this;
+    }
+
+    // 0x1005d45b0
+    FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x1005d51f0
+    long
+    FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 112 + 40;
+    }
+
+    // 0x1005d5370
+    uint64_t FastPool<MakeSharedPool<game::CursorType, 64>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::CursorType, 64>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
+            return 0;
+        }
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 96;
+        return refCounterAndData < pRVar1;
+    }
+
+    // 0x1005d9830
+    FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x1005d9950
+    void FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x1005d99b0
     long FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 240 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 240 + *(long*)this;
     }
 
-    // 0x1005d9b00, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005d9b10, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>* this) {
+    // 0x1005d9b10
+    FastPool<MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005df010, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005df150, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005df150
+    FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                              unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005df270, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005df270
+    void FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005df2d0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1005df2d0
+    long
+    FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 312 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 312 + *(long*)this;
     }
 
-    // 0x1005df840, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005df850, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>* this) {
+    // 0x1005df850
+    FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005e05d0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 328 + 40;
+    // 0x1005e05d0
+    long
+    FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 328 + 40;
     }
 
-    // 0x1005e0ca0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::EnumType, 128>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1005e0ca0
+    uint64_t FastPool<MakeSharedPool<game::EnumType, 128>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::EnumType, 128>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 312;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 312;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1005e53a0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005e54e0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005e54e0
+    FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005e5600, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005e5600
+    void FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005e5660, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x1005e5660
     long FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 224 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 224 + *(long*)this;
     }
 
-    // 0x1005e5850, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005e5860, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>* this) {
+    // 0x1005e5860
+    FastPool<MakeSharedPool<game::EffectAnimType, 256>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005eb0d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005eb210, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005eb210
+    FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                 unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005eb330, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005eb330
+    void FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005eb390, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1005eb390
+    long
+    FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 88 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 88 + *(long*)this;
     }
 
-    // 0x1005eb540, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005eb550, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>* this) {
+    // 0x1005eb550
+    FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005ec190, 16 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long
-    FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 104 + 40;
+    // 0x1005ec190
+    long FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 104 + 40;
     }
 
-    // 0x1005ec320, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::StructType, 1024>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1005ec320
+    uint64_t FastPool<MakeSharedPool<game::StructType, 1024>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::StructType, 1024>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 88;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 88;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1005f0760, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1005f08a0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1005f08a0
+    FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1005f09c0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1005f09c0
+    void FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1005f0a20, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x1005f0a20
     long FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 728 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 728 + *(long*)this;
     }
 
-    // 0x1005f0ff0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1005f1000, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>* this) {
+    // 0x1005f1000
+    FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1005f1f90, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 744 + 40;
+    // 0x1005f1f90
+    long FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 744 + 40;
     }
 
-    // 0x1005f2260, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::AchievementType, 256>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1005f2260
+    uint64_t FastPool<MakeSharedPool<game::AchievementType, 256>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::AchievementType, 256>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 728;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 728;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100634af0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100634c30, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void
-    jag::FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100634c30
+    FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100634d40, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::clear()
-    void
-    jag::FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100634d40
+    void FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100634da0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::
-    operator[](
-        FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 128 + *(long*)this;
-    }
-
-    // 0x100634ef0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100634f00, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::
-        ~FastPool(FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData,
-                           unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1006381b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006382f0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100638410, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x100638470, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 128 + *(long*)this;
-    }
-
-    // 0x100638650, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100638660, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1006398f0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100639a30, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void
-    jag::FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100639b40, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x100639ba0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x100634da0
     long
-    jag::FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 12704 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 128 + *(long*)this;
     }
 
-    // 0x100639d70, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100639d80, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::
-        ~FastPool(
-            FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>* this) {
+    // 0x100634f00
+    FastPool<MakeSharedPool<game::BuildSingleLocationResultData, 160>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10063aa60, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData,
-                       unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 12720 + 40;
+    // 0x1006382f0
+    FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10063ac10, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData const*) const
-    undefined8
-    jag::FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
+    // 0x100638410
+    void FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        if (param_1 < *(RefCounterAndData**)this) {
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100638470
+    long FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 128 + *(long*)this;
+    }
+
+    // 0x100638660
+    FastPool<MakeSharedPool<game::BuildTerrainResultData, 16>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x100639a30
+    FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100639b40
+    void FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100639ba0
+    long FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 12704 + *(long*)this;
+    }
+
+    // 0x100639d80
+    FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x10063aa60
+    long
+    FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 12720 + 40;
+    }
+
+    // 0x10063ac10
+    uint64_t
+    FastPool<MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::BuildTerrainResultLevelData, 16>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 12704;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 12704;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x10063c180, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10063c2c0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void
-    jag::FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10063c2c0
+    FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10063c3e0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10063c3e0
+    void FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10063c440, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long
-    jag::FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10063c440
+    long FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 144 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 144 + *(long*)this;
     }
 
-    // 0x10063c5d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10063c5e0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::
-        ~FastPool(
-            FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x10063c5e0
+    FastPool<MakeSharedPool<game::BuildTerrainResultWaterData, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10063e800, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10063e940, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10063e940
+    FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10063ea60, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10063ea60
+    void FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10063eac0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x10063eac0
     long FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 112 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 112 + *(long*)this;
     }
 
-    // 0x10063ec60, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10063ec70, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>* this) {
+    // 0x10063ec70
+    FastPool<MakeSharedPool<game::BuiltTerrainLevel, 64>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100646020, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100646160, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100646160
+    FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100646280, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100646280
+    void FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006462e0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006462e0
+    long FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 40 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 40 + *(long*)this;
     }
 
-    // 0x100646400, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100646410, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x100646410
+    FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100647020, 16 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData,
-   unsigned long>::GetTotalSize(unsigned long) */
-
-    long jag::FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 56 + 40;
+    // 0x100647020
+    long FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 56 + 40;
     }
 
-    // 0x100647200, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData,
-   unsigned long>::is_owner(MakeSharedPool<render::VertexArrayObject,
-   2048>::RefCounterAndData const*) const */
-
-    undefined8
-    jag::FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100647200
+    uint64_t FastPool<MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 40;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 40;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100647e40, 16 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData,
-   unsigned long>::GetTotalSize(unsigned long) */
-
-    long
-    jag::FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 64 + 40;
+    // 0x100647e40
+    long FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 64 + 40;
     }
 
-    // 0x100647fc0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100648100, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100648100
+    FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100648220, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100648220
+    void FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100648280, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100648280
+    long FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 48 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 48 + *(long*)this;
     }
 
-    // 0x100648390, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006483a0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006483a0
+    FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100649100, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData const*) const
-    /* FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData,
-   unsigned long>::is_owner(MakeSharedPool<game::BuildAnimationResultData,
-   96>::RefCounterAndData const*) const */
-
-    undefined8
-    jag::FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100649100
+    uint64_t FastPool<MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::BuildModelResultData, 512>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 48;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 48;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100652ae0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100652ae0
+    uint64_t FastPool<MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<game::CombinedLocation, 128>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 688;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 688;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100653390, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006534d0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::
-        FastPool(
-            FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>* this,
-            ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006534d0
+    FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006535f0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::clear()
+    // 0x1006535f0
     void
-    jag::FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100653650, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::
-    operator[](
-        FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 128 + *(long*)this;
-    }
-
-    // 0x1006538d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006538e0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::
-        ~FastPool(FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData,
-                           unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x10065c4b0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<graphics::AnimationParameters, unsigned long>::GetTotalSize(unsigned long) */
-
-    long FastPool<graphics::AnimationParameters, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 208 + 40;
-    }
-
-    // 0x100661a40, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100661a90, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100661bb0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x100661c10, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x100653650
     long
-    jag::FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 48 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 128 + *(long*)this;
     }
 
-    // 0x100661d20, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100661d30, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006538e0
+    FastPool<MakeSharedPool<game::BuildCombinedLocationResultData, 96>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100663720, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::FastPool(int, int): jumps straight to the base-object constructor
+    // 0x10065c4b0
+    long FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 208 + 40;
+    }
 
-    // 0x100663a10, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::~FastPool(): jumps straight to the base-object destructor
+    // 0x100661a90
+    FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
 
-    // 0x100663fd0, 16 bytes, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::empty() const
-    bool FastPool<audio::SoundInstance, int>::empty(FastPool<audio::SoundInstance, int>* this) {
+    // 0x100661bb0
+    void FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100661c10
+    long FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 48 + *(long*)this;
+    }
+
+    // 0x100661d30
+    FastPool<MakeSharedPool<game::BuildAnimationResultData, 96>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x100663fd0
+    bool FastPool<audio::SoundInstance, int>::empty() const {
         return *(int*)(this + 24) == 0;
     }
 
-    // 0x100664320, 48 bytes, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::begin()
-    undefined1[16] FastPool<audio::SoundInstance, int>::begin(FastPool<audio::SoundInstance, int>* this) {
-        undefined1 auVar1[16];
-        ImGuiPlotArrayGetterData local_18[16];
+    // 0x100664320
+    uint8_t[16] FastPool<audio::SoundInstance, int>::begin() {
+        uint8_t auVar1[16];
 
-        ImGuiPlotArrayGetterData::ImGuiPlotArrayGetterData(local_18, (float*)this, 0);
+        ImGuiPlotArrayGetterData local_18(this, 0);
         auVar1._12_4_ = 0;
         auVar1[0] = local_18[0];
         auVar1[1] = local_18[1];
@@ -5806,13 +4216,11 @@ namespace jag {
         return auVar1;
     }
 
-    // 0x1006643a0, 48 bytes, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::end()
-    undefined1[16] FastPool<audio::SoundInstance, int>::end(FastPool<audio::SoundInstance, int>* this) {
-        undefined1 auVar1[16];
-        ImGuiPlotArrayGetterData local_18[16];
+    // 0x1006643a0
+    uint8_t[16] FastPool<audio::SoundInstance, int>::end() {
+        uint8_t auVar1[16];
 
-        ImGuiPlotArrayGetterData::ImGuiPlotArrayGetterData(local_18, (float*)this, *(int*)(this + 24));
+        ImGuiPlotArrayGetterData local_18(this, *(int*)(this + 24));
         auVar1._12_4_ = 0;
         auVar1[0] = local_18[0];
         auVar1[1] = local_18[1];
@@ -5829,29 +4237,24 @@ namespace jag {
         return auVar1;
     }
 
-    // 0x100665330, 32 bytes, inline, placed by class name
-    // audio::SoundInstance* FastPool<audio::SoundInstance, int>::Create<>()
-    SoundInstance* FastPool<audio::SoundInstance, int>::Create<>(FastPool<audio::SoundInstance, int>* this) {
-        SoundInstance* this_00;
-
-        this_00 = (SoundInstance*)allocate(this);
-        audio::SoundInstance::SoundInstance(this_00);
+    // 0x100665330
+    audio::SoundInstance* FastPool<audio::SoundInstance, int>::Create<>() {
+        auto this_00 = allocate(this);
+        new (this_00) audio::SoundInstance();
         return this_00;
     }
 
-    // 0x100665a00, 80 bytes, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::clear()
-    void FastPool<audio::SoundInstance, int>::clear(FastPool<audio::SoundInstance, int>* this) {
-        int iVar1;
+    // 0x100665a00
+    void FastPool<audio::SoundInstance, int>::clear() {
         int iVar2;
-        undefined8* puVar3;
+        uint64_t* puVar3;
 
-        iVar1 = GetValue();
+        int iVar1 = GetValue();
         if (0 < iVar1) {
             iVar1 = 0;
             do {
-                puVar3 = (undefined8*)operator[](this, iVar1);
-                (**(code**)*puVar3)(puVar3);
+                puVar3 = (uint64_t*)operator[](this, iVar1);
+                (**(void (**)(...))*puVar3)(puVar3);
                 iVar1 = iVar1 + 1;
                 iVar2 = GetValue();
             } while (iVar1 < iVar2);
@@ -5859,22 +4262,17 @@ namespace jag {
         Reset();
     }
 
-    // 0x10066af70, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::FastPool(int, int)
-    void FastPool<audio::SoundInstance, int>::FastPool(FastPool<audio::SoundInstance, int>* this, int param_1,
-                                                       int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
+    // 0x10066af70
+    FastPool<audio::SoundInstance, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10066b0a0, 48 bytes, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::Reset()
-    /* FastPool<ui::ConsoleSnow::SnowFlake, int>::Reset() */
-
-    void FastPool<ui::ConsoleSnow::SnowFlake, int>::Reset(FastPool<ui::ConsoleSnow::SnowFlake, int>* this) {
+    // 0x10066b0a0
+    void FastPool<audio::SoundInstance, int>::Reset() {
         long lVar1;
         long lVar2;
 
@@ -5886,335 +4284,237 @@ namespace jag {
                 lVar2 = lVar2 + 1;
             } while (lVar2 < *(int*)(this + 28));
         }
-        *(undefined4*)(this + 24) = 0;
+        *(uint32_t*)(this + 24) = 0;
     }
 
-    // 0x10066b690, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::~FastPool()
-    void FastPool<audio::SoundInstance, int>::~FastPool(FastPool<audio::SoundInstance, int>* this) {
+    // 0x10066b690
+    FastPool<audio::SoundInstance, int>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10066ed50, 80 bytes, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::operator[](int)
-    long FastPool<audio::SoundInstance, int>::operator[](FastPool<audio::SoundInstance, int>* this, int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x10066ed50
+    long FastPool<audio::SoundInstance, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 192 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 192 + *(long*)this;
     }
 
-    // 0x10066ee00, 48 bytes, inline, placed by class name
-    // FastPool<audio::SoundInstance, int>::is_owner(audio::SoundInstance const*) const
-    /* FastPool<graphics::WaterPatch_DE, int>::is_owner(graphics::WaterPatch_DE const*)
-   const */
-
-    undefined8 FastPool<graphics::WaterPatch_DE, int>::is_owner(FastPool<graphics::WaterPatch_DE, int>* this,
-                                                                WaterPatch_DE* param_1) {
-        WaterPatch_DE* pWVar1;
-
-        if (param_1 < *(WaterPatch_DE**)this) {
+    // 0x10066ee00
+    uint64_t FastPool<audio::SoundInstance, int>::is_owner(const audio::SoundInstance* soundInstance) const {
+        if (soundInstance < *(SoundInstance**)this) {
             return 0;
         }
-        pWVar1 = *(WaterPatch_DE**)this + *(int*)(this + 28);
-        return CONCAT71((int7)((ulong)pWVar1 >> 8), param_1 < pWVar1);
+        SoundInstance* pSVar1 =
+            (SoundInstance*)((*(SoundInstance**)this)->field_24 + (long)*(int*)(this + 28) * 192 - 24);
+        return soundInstance < pSVar1;
     }
 
-    // 0x1006714e0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100671620, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100671620
+    FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100671740, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100671740
+    void FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006717a0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006717a0
+    long FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 3816 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 3816 + *(long*)this;
     }
 
-    // 0x1006718f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100671900, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>* this) {
+    // 0x100671900
+    FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100671b40, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData const*) const
-    undefined8 jag::FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100671b40
+    uint64_t FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 3816;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 3816;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1006723d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100672510, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100672510
+    FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100672630, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100672630
+    void FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100672690, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x100672690
     long FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 192 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 192 + *(long*)this;
     }
 
-    // 0x100672b10, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::AnimationParameters, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100672b60, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::AnimationParameters, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<graphics::AnimationParameters, unsigned long>::FastPool(
-        FastPool<graphics::AnimationParameters, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100672b60
+    FastPool<graphics::AnimationParameters, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100672c80, 96 bytes, inline, placed by class name
-    // FastPool<graphics::AnimationParameters, unsigned long>::clear()
-    void FastPool<graphics::AnimationParameters, unsigned long>::clear(
-        FastPool<graphics::AnimationParameters, unsigned long>* this) {
-        long lVar1;
-        AnimationParameters* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100672c80
+    void FastPool<graphics::AnimationParameters, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (AnimationParameters*)operator[](this, uVar3);
-                this_00->~AnimationParameters();
-                uVar3 = uVar3 + 1;
+                ((AnimationParameters*)operator[](this, arg1))->~AnimationParameters();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100672ce0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::AnimationParameters, unsigned long>::operator[](unsigned long)
-    long FastPool<graphics::AnimationParameters, unsigned long>::operator[](
-        FastPool<graphics::AnimationParameters, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100672ce0
+    long FastPool<graphics::AnimationParameters, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 192 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 192 + *(long*)this;
     }
 
-    // 0x100672df0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::AnimationParameters, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100672e00, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::AnimationParameters, unsigned long>::~FastPool()
-    void FastPool<graphics::AnimationParameters, unsigned long>::~FastPool(
-        FastPool<graphics::AnimationParameters, unsigned long>* this) {
+    // 0x100672e00
+    FastPool<graphics::AnimationParameters, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100672e90, 48 bytes, inline, placed by class name
-    // FastPool<graphics::AnimationParameters, unsigned long>::is_owner(graphics::AnimationParameters const*) const
-    /* FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned
-   long>::is_owner(MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData const*)
-   const */
-
-    undefined8 FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100672e90
+    uint64_t FastPool<graphics::AnimationParameters, unsigned long>::is_owner(
+        const graphics::AnimationParameters* animationParameters) const {
+        if (animationParameters < *(AnimationParameters**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 192;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        AnimationParameters* pAVar1 =
+            (AnimationParameters*)((long)*(AnimationParameters**)this + *(long*)(this + 32) * 192);
+        return animationParameters < pAVar1;
     }
 
-    // 0x100673080, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100673090, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>* this) {
+    // 0x100673090
+    FastPool<MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006825c0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<ui::ConsoleSnow::SnowFlake, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x1006825d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<ui::ConsoleSnow::SnowFlake, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100682c00, 80 bytes, inline, placed by class name
-    // FastPool<ui::ConsoleSnow::SnowFlake, int>::operator[](int)
-    long FastPool<ui::ConsoleSnow::SnowFlake, int>::operator[](FastPool<ui::ConsoleSnow::SnowFlake, int>* this,
-                                                               int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x100682c00
+    long FastPool<ui::ConsoleSnow::SnowFlake, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 32 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 32 + *(long*)this;
     }
 
-    // 0x100682d70, 64 bytes, inline, placed by class name
-    // ui::ConsoleSnow::SnowFlake* FastPool<ui::ConsoleSnow::SnowFlake, int>::Create<int, int, float>(int&&, int&&, float&&)
-    SnowFlake*
-    FastPool<ui::ConsoleSnow::SnowFlake, int>::Create<int, int, float>(FastPool<ui::ConsoleSnow::SnowFlake, int>* this,
-                                                                       int* param_1, int* param_2, float* param_3) {
-        SnowFlake* this_00;
-
-        this_00 = (SnowFlake*)allocate(this);
-        ui::ConsoleSnow::SnowFlake::SnowFlake(this_00, *param_1, *param_2, *param_3);
+    // 0x100682d70
+    ui::ConsoleSnow::SnowFlake*
+    FastPool<ui::ConsoleSnow::SnowFlake, int>::Create<int, int, float>(int&& arg1, int&& arg2, float&& arg3) {
+        auto this_00 = allocate(this);
+        new (this_00) ui::ConsoleSnow::SnowFlake(arg1, arg2, arg3);
         return this_00;
     }
 
-    // 0x100682db0, 64 bytes, inline, placed by class name
-    // ui::ConsoleSnow::SnowFlake* FastPool<ui::ConsoleSnow::SnowFlake, int>::Create<int, int>(int&&, int&&)
-    SnowFlake*
-    FastPool<ui::ConsoleSnow::SnowFlake, int>::Create<int, int>(FastPool<ui::ConsoleSnow::SnowFlake, int>* this,
-                                                                int* param_1, int* param_2) {
-        SnowFlake* this_00;
-
-        this_00 = (SnowFlake*)allocate(this);
-        ui::ConsoleSnow::SnowFlake::SnowFlake(this_00, *param_1, *param_2, 0.0);
+    // 0x100682db0
+    ui::ConsoleSnow::SnowFlake* FastPool<ui::ConsoleSnow::SnowFlake, int>::Create<int, int>(int&& arg1, int&& arg2) {
+        auto this_00 = allocate(this);
+        new (this_00) ui::ConsoleSnow::SnowFlake(arg1, arg2, 0.0);
         return this_00;
     }
 
-    // 0x1006b3a00, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<ui::ConsoleSnow::SnowFlake, int>::FastPool(int, int)
-    void FastPool<ui::ConsoleSnow::SnowFlake, int>::FastPool(FastPool<ui::ConsoleSnow::SnowFlake, int>* this,
-                                                             int param_1, int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006b3a00
+    FastPool<ui::ConsoleSnow::SnowFlake, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006b3b20, 80 bytes, inline, placed by class name
-    // FastPool<ui::ConsoleSnow::SnowFlake, int>::clear()
-    void FastPool<ui::ConsoleSnow::SnowFlake, int>::clear(FastPool<ui::ConsoleSnow::SnowFlake, int>* this) {
-        int iVar1;
+    // 0x1006b3b20
+    void FastPool<ui::ConsoleSnow::SnowFlake, int>::clear() {
         int iVar2;
 
-        iVar1 = GetValue();
+        int iVar1 = GetValue();
         if (0 < iVar1) {
             iVar1 = 0;
             do {
@@ -6226,697 +4526,508 @@ namespace jag {
         Reset(this);
     }
 
-    // 0x1006b3b70, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<ui::ConsoleSnow::SnowFlake, int>::~FastPool()
-    void FastPool<ui::ConsoleSnow::SnowFlake, int>::~FastPool(FastPool<ui::ConsoleSnow::SnowFlake, int>* this) {
+    // 0x1006b3b70
+    FastPool<ui::ConsoleSnow::SnowFlake, int>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006b3bb0, 48 bytes, inline, placed by class name
-    // FastPool<ui::ConsoleSnow::SnowFlake, int>::is_owner(ui::ConsoleSnow::SnowFlake const*) const
-    /* FastPool<game::console::Snow::SnowFlake,
-   int>::is_owner(game::console::Snow::SnowFlake const*) const */
-
-    undefined8
-    FastPool<game::console::Snow::SnowFlake, int>::is_owner(FastPool<game::console::Snow::SnowFlake, int>* this,
-                                                            SnowFlake* param_1) {
-        SnowFlake* pSVar1;
-
-        if (param_1 < *(SnowFlake**)this) {
+    // 0x1006b3bb0
+    uint64_t FastPool<ui::ConsoleSnow::SnowFlake, int>::is_owner(const ui::ConsoleSnow::SnowFlake* snowFlake) const {
+        if (snowFlake < *(SnowFlake**)this) {
             return 0;
         }
-        pSVar1 = (SnowFlake*)((long)*(SnowFlake**)this + (long)*(int*)(this + 28) * 32);
-        return CONCAT71((int7)((ulong)pSVar1 >> 8), param_1 < pSVar1);
+        SnowFlake* pSVar1 = (SnowFlake*)((long)*(SnowFlake**)this + (long)*(int*)(this + 28) * 32);
+        return snowFlake < pSVar1;
     }
 
-    // 0x1006c4f90, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 1048 + 40;
+    // 0x1006c4f90
+    long
+    FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 1048 + 40;
     }
 
-    // 0x1006c5180, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006c52c0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006c52c0
+    FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                           unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006c53e0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1006c53e0
+    void FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006c5440, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006c5440
+    long FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1032 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1032 + *(long*)this;
     }
 
-    // 0x1006c5590, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006c55a0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006c55a0
+    FastPool<MakeSharedPool<ui::Carousel, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006c6c40, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006c6d80, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006c6d80
+    FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                         unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006c6ea0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1006c6ea0
+    void FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006c6f00, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006c6f00
+    long FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 584 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 584 + *(long*)this;
     }
 
-    // 0x1006c7050, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006c7060, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006c7060
+    FastPool<MakeSharedPool<ui::Check, 128>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006c7c50, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 1584 + 40;
+    // 0x1006c7c50
+    long
+    FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 1584 + 40;
     }
 
-    // 0x1006c7de0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006c7f20, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006c7f20
+    FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                             unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006c8040, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1006c8040
+    void FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006c80a0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006c80a0
+    long
+    FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1568 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1568 + *(long*)this;
     }
 
-    // 0x1006c81f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006c8200, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006c8200
+    FastPool<MakeSharedPool<ui::ComboField, 16>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006d1e30, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 792 + 40;
+    // 0x1006d1e30
+    long
+    FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 792 + 40;
     }
 
-    // 0x1006d1fc0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006d2100, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006d2100
+    FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                           unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006d2220, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1006d2220
+    void FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006d2280, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006d2280
+    long FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 776 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 776 + *(long*)this;
     }
 
-    // 0x1006d23d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006d23e0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006d23e0
+    FastPool<MakeSharedPool<ui::GroupBox, 16>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006d2f70, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 984 + 40;
+    // 0x1006d2f70
+    long
+    FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 984 + 40;
     }
 
-    // 0x1006d3100, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006d3240, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006d3240
+    FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                              unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006d3360, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1006d3360
+    void FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006d33c0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006d33c0
+    long
+    FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 968 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 968 + *(long*)this;
     }
 
-    // 0x1006d3510, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006d3520, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006d3520
+    FastPool<MakeSharedPool<ui::InputField, 128>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006d4270, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 1456 + 40;
+    // 0x1006d4270
+    long FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 1456 + 40;
     }
 
-    // 0x1006d4400, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006d4540, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006d4540
+    FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                       unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006d4660, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1006d4660
+    void FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006d46c0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006d46c0
+    long FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1440 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1440 + *(long*)this;
     }
 
-    // 0x1006d4810, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006d4820, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006d4820
+    FastPool<MakeSharedPool<ui::List, 64>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006d75f0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 536 + 40;
+    // 0x1006d75f0
+    long FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 536 + 40;
     }
 
-    // 0x1006d7780, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006d78c0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006d78c0
+    FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006d79e0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1006d79e0
+    void FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006d7a40, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006d7a40
+    long FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 520 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 520 + *(long*)this;
     }
 
-    // 0x1006d7b90, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006d7ba0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006d7ba0
+    FastPool<MakeSharedPool<ui::RadialProgressOverlay, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006d8780, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 664 + 40;
+    // 0x1006d8780
+    long
+    FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 664 + 40;
     }
 
-    // 0x1006d8910, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006d8a50, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006d8a50
+    FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                             unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006d8b70, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1006d8b70
+    void FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006d8bd0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006d8bd0
+    long
+    FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 648 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 648 + *(long*)this;
     }
 
-    // 0x1006d8d20, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006d8d30, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006d8d30
+    FastPool<MakeSharedPool<ui::RadioGroup, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1006da740, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 880 + 40;
+    // 0x1006da740
+    long FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 880 + 40;
     }
 
-    // 0x1006da8d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1006daa10, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1006daa10
+    FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                         unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1006dab30, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1006dab30
+    void FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1006dab90, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006dab90
+    long FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 864 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 864 + *(long*)this;
     }
 
-    // 0x1006dace0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1006dacf0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1006dacf0
+    FastPool<MakeSharedPool<ui::Slider, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1007a25b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::WaterPatch_DE, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x1007a25c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::WaterPatch_DE, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1007a36a0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::WaterPatch_DE, int>::FastPool(int, int)
-    void FastPool<graphics::WaterPatch_DE, int>::FastPool(FastPool<graphics::WaterPatch_DE, int>* this, int param_1,
-                                                          int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
+    // 0x1007a36a0
+    FastPool<graphics::WaterPatch_DE, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1007a37d0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::WaterPatch_DE, int>::clear()
-    void FastPool<graphics::WaterPatch_DE, int>::clear(FastPool<graphics::WaterPatch_DE, int>* this) {
-        int iVar1;
+    // 0x1007a37d0
+    void FastPool<graphics::WaterPatch_DE, int>::clear() {
         int iVar2;
-        undefined8* puVar3;
+        uint64_t* puVar3;
 
-        iVar1 = GetValue();
+        int iVar1 = GetValue();
         if (0 < iVar1) {
             iVar1 = 0;
             do {
-                puVar3 = (undefined8*)operator[](this, iVar1);
-                (**(code**)*puVar3)(puVar3);
+                puVar3 = (uint64_t*)operator[](this, iVar1);
+                (**(void (**)(...))*puVar3)(puVar3);
                 iVar1 = iVar1 + 1;
                 iVar2 = GetValue();
             } while (iVar1 < iVar2);
@@ -6924,86 +5035,67 @@ namespace jag {
         Reset();
     }
 
-    // 0x1007a3820, 80 bytes, inline, placed by class name
-    // FastPool<graphics::WaterPatch_DE, int>::operator[](int)
-    long FastPool<graphics::WaterPatch_DE, int>::operator[](FastPool<graphics::WaterPatch_DE, int>* this, int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x1007a3820
+    long FastPool<graphics::WaterPatch_DE, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 192 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 192 + *(long*)this;
     }
 
-    // 0x1007a3870, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::WaterPatch_DE, int>::~FastPool()
-    void FastPool<graphics::WaterPatch_DE, int>::~FastPool(FastPool<graphics::WaterPatch_DE, int>* this) {
+    // 0x1007a3870
+    FastPool<graphics::WaterPatch_DE, int>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1007b8ac0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::TerrainPatch_DE, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x1007b8ad0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::TerrainPatch_DE, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1007c5d90, 96 bytes, inline, placed by class name
-    // graphics::TerrainPatch_DE* FastPool<graphics::TerrainPatch_DE, int>::Create<graphics::TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&, math::OBB&, float&, render::InputAssemblerState*>(graphics::TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&, math::OBB&, float&, render::InputAssemblerState*&&)
-    TerrainPatch_DE* FastPool<graphics::TerrainPatch_DE, int>::Create<
-        graphics::TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&, math::OBB&,
-        float&, render::InputAssemblerState*>(FastPool<graphics::TerrainPatch_DE, int>* this, TerrainPatch* param_1,
-                                              fixed_vector* param_2, OBB* param_3, float* param_4,
-                                              InputAssemblerState** param_5) {
-        TerrainPatch_DE* this_00;
-
-        this_00 = (TerrainPatch_DE*)allocate(this);
-        graphics::TerrainPatch_DE::TerrainPatch_DE(this_00, param_1, param_2, param_3, *param_4, *param_5,
-                                                   (RenderPipelineState*)0);
+    // 0x1007c5d90
+    graphics::TerrainPatch_DE* FastPool<graphics::TerrainPatch_DE, int>::Create<
+        graphics::TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul> const&, math::OBB&, float&,
+        render::InputAssemblerState*>(graphics::TerrainPatch& terrainPatch,
+                                      const eastl::fixed_vector<unsigned char, 256ul>& arg2, math::OBB& obb,
+                                      float& arg4, render::InputAssemblerState*&& arg5) {
+        auto this_00 = allocate(this);
+        new (this_00) graphics::TerrainPatch_DE(terrainPatch, arg2, obb, arg4, arg5, nullptr);
         return this_00;
     }
 
-    // 0x1007c6490, 48 bytes, inline, placed by class name
-    // FastPool<graphics::TerrainPatch_DE, int>::is_owner(graphics::TerrainPatch_DE const*) const
-    undefined8 FastPool<graphics::TerrainPatch_DE, int>::is_owner(FastPool<graphics::TerrainPatch_DE, int>* this,
-                                                                  TerrainPatch_DE* param_1) {
-        TerrainPatch_DE* pTVar1;
-
-        if (param_1 < *(TerrainPatch_DE**)this) {
+    // 0x1007c6490
+    uint64_t
+    FastPool<graphics::TerrainPatch_DE, int>::is_owner(const graphics::TerrainPatch_DE* terrainPatch_DE) const {
+        if (terrainPatch_DE < *(TerrainPatch_DE**)this) {
             return 0;
         }
-        pTVar1 = (TerrainPatch_DE*)((*(TerrainPatch_DE**)this)->field_112 + (long)*(int*)(this + 28) * 544 + -112);
-        return CONCAT71((int7)((ulong)pTVar1 >> 8), param_1 < pTVar1);
+        TerrainPatch_DE* pTVar1 =
+            (TerrainPatch_DE*)((*(TerrainPatch_DE**)this)->field_112 + (long)*(int*)(this + 28) * 544 - 112);
+        return terrainPatch_DE < pTVar1;
     }
 
-    // 0x1007c6c80, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::TerrainPatch_DE, int>::FastPool(int, int)
-    void FastPool<graphics::TerrainPatch_DE, int>::FastPool(FastPool<graphics::TerrainPatch_DE, int>* this, int param_1,
-                                                            int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
+    // 0x1007c6c80
+    FastPool<graphics::TerrainPatch_DE, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1007c6da0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::TerrainPatch_DE, int>::clear()
-    void FastPool<graphics::TerrainPatch_DE, int>::clear(FastPool<graphics::TerrainPatch_DE, int>* this) {
-        int iVar1;
+    // 0x1007c6da0
+    void FastPool<graphics::TerrainPatch_DE, int>::clear() {
         int iVar2;
-        undefined8* puVar3;
+        uint64_t* puVar3;
 
-        iVar1 = GetValue();
+        int iVar1 = GetValue();
         if (0 < iVar1) {
             iVar1 = 0;
             do {
-                puVar3 = (undefined8*)operator[](this, iVar1);
-                (**(code**)*puVar3)(puVar3);
+                puVar3 = (uint64_t*)operator[](this, iVar1);
+                (**(void (**)(...))*puVar3)(puVar3);
                 iVar1 = iVar1 + 1;
                 iVar2 = GetValue();
             } while (iVar1 < iVar2);
@@ -7011,330 +5103,244 @@ namespace jag {
         Reset();
     }
 
-    // 0x1007c6df0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::TerrainPatch_DE, int>::operator[](int)
-    long FastPool<graphics::TerrainPatch_DE, int>::operator[](FastPool<graphics::TerrainPatch_DE, int>* this,
-                                                              int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x1007c6df0
+    long FastPool<graphics::TerrainPatch_DE, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 544 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 544 + *(long*)this;
     }
 
-    // 0x1007c6e40, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::TerrainPatch_DE, int>::~FastPool()
-    void FastPool<graphics::TerrainPatch_DE, int>::~FastPool(FastPool<graphics::TerrainPatch_DE, int>* this) {
+    // 0x1007c6e40
+    FastPool<graphics::TerrainPatch_DE, int>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1007c7ba0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 1680 + 40;
+    // 0x1007c7ba0
+    long FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 1680 + 40;
     }
 
-    // 0x1007c7cb0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1007c7d00, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1007c7d00
+    FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                   unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1007c7e10, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1007c7e10
+    void FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1007c7e70, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x1007c7e70
     long FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1664 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1664 + *(long*)this;
     }
 
-    // 0x1007c7fc0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1007c7fd0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1007c7fd0
+    FastPool<MakeSharedPool<graphics::WaterPatch, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1007c8970, 80 bytes, inline, placed by class name
-    // graphics::WaterPatch_DE* FastPool<graphics::WaterPatch_DE, int>::Create<graphics::WaterPatch&, math::OBB&, float&, render::InputAssemblerState*>(graphics::WaterPatch&, math::OBB&, float&, render::InputAssemblerState*&&)
-    WaterPatch_DE* FastPool<graphics::WaterPatch_DE, int>::Create<graphics::WaterPatch&, math::OBB&, float&,
-                                                                  render::InputAssemblerState*>(
-        FastPool<graphics::WaterPatch_DE, int>* this, WaterPatch* param_1, OBB* param_2, float* param_3,
-        InputAssemblerState** param_4) {
-        WaterPatch_DE* this_00;
-
-        this_00 = (WaterPatch_DE*)allocate(this);
-        graphics::WaterPatch_DE::WaterPatch_DE(this_00, param_1, param_2, *param_3, *param_4);
+    // 0x1007c8970
+    graphics::WaterPatch_DE* FastPool<graphics::WaterPatch_DE, int>::Create<graphics::WaterPatch&, math::OBB&, float&,
+                                                                            render::InputAssemblerState*>(
+        graphics::WaterPatch& waterPatch, math::OBB& obb, float& arg3, render::InputAssemblerState*&& arg4) {
+        auto this_00 = allocate(this);
+        new (this_00) graphics::WaterPatch_DE(waterPatch, obb, arg3, arg4);
         return this_00;
     }
 
-    // 0x1007d3d30, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::ParticleSystem_DE, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x1007d3d40, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::ParticleSystem_DE, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1007e9de0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long
-    jag::FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 272 + 40;
+    // 0x1007e9de0
+    long FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 272 + 40;
     }
 
-    // 0x1007e9fa0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1007ea0e0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1007ea0e0
+    FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1007ea1f0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1007ea1f0
+    void FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1007ea250, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1007ea250
+    long FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 256 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 256 + *(long*)this;
     }
 
-    // 0x1007ea3a0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1007ea3b0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>* this) {
+    // 0x1007ea3b0
+    FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1007f50f0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 42992 + 40;
+    // 0x1007f50f0
+    long FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 42992 + 40;
     }
 
-    // 0x1007f5280, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1007f53c0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1007f53c0
+    FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1007f54d0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1007f54d0
+    void FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1007f5530, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1007f5530
+    long FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 42976 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 42976 + *(long*)this;
     }
 
-    // 0x1007f5680, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1007f5690, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>* this) {
+    // 0x1007f5690
+    FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1007f6da0, 96 bytes, inline, placed by class name
-    // graphics::ParticleSystem_DE* FastPool<graphics::ParticleSystem_DE, int>::Create<shared_ptr<graphics::ParticleSystem>, math::OBB&, float&, unsigned int, bool>(shared_ptr<graphics::ParticleSystem>&&, math::OBB&, float&, unsigned int&&, bool&&)
-    ParticleSystem_DE* FastPool<graphics::ParticleSystem_DE, int>::Create<shared_ptr<graphics::ParticleSystem>,
-                                                                          math::OBB&, float&, unsigned int, bool>(
-        FastPool<graphics::ParticleSystem_DE, int>* this, shared_ptr* param_1, OBB* param_2, float* param_3,
-        uint* param_4, bool* param_5) {
-        ParticleSystem_DE* this_00;
-
-        this_00 = (ParticleSystem_DE*)allocate(this);
-        graphics::ParticleSystem_DE::ParticleSystem_DE(this_00, param_1, param_2, *param_3, *param_4, *param_5);
+    // 0x1007f6da0
+    graphics::ParticleSystem_DE*
+    FastPool<graphics::ParticleSystem_DE, int>::Create<shared_ptr<graphics::ParticleSystem>, math::OBB&, float&,
+                                                       unsigned int, bool>(
+        shared_ptr<graphics::ParticleSystem>&& particleSystem, math::OBB& obb, float& arg3, unsigned int&& arg4,
+        bool&& arg5) {
+        auto this_00 = allocate(this);
+        new (this_00) graphics::ParticleSystem_DE(particleSystem, obb, arg3, arg4, arg5);
         return this_00;
     }
 
-    // 0x1007f7030, 48 bytes, inline, placed by class name
-    // FastPool<graphics::ParticleSystem_DE, int>::is_owner(graphics::ParticleSystem_DE const*) const
-    undefined8 FastPool<graphics::ParticleSystem_DE, int>::is_owner(FastPool<graphics::ParticleSystem_DE, int>* this,
-                                                                    ParticleSystem_DE* param_1) {
-        ParticleSystem_DE* pPVar1;
-
-        if (param_1 < *(ParticleSystem_DE**)this) {
+    // 0x1007f7030
+    uint64_t
+    FastPool<graphics::ParticleSystem_DE, int>::is_owner(const graphics::ParticleSystem_DE* particleSystem_DE) const {
+        if (particleSystem_DE < *(ParticleSystem_DE**)this) {
             return 0;
         }
-        pPVar1 = *(ParticleSystem_DE**)this + *(int*)(this + 28);
-        return CONCAT71((int7)((ulong)pPVar1 >> 8), param_1 < pPVar1);
+        ParticleSystem_DE* pPVar1 = *(ParticleSystem_DE**)this + *(int*)(this + 28);
+        return particleSystem_DE < pPVar1;
     }
 
-    // 0x1007f77a0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData const*) const
-    undefined8 jag::FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1007f77a0
+    uint64_t FastPool<MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::ParticleSystem, 32>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 42976;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 42976;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1007f7b70, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::ParticleSystem_DE, int>::FastPool(int, int)
-    void FastPool<graphics::ParticleSystem_DE, int>::FastPool(FastPool<graphics::ParticleSystem_DE, int>* this,
-                                                              int param_1, int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
+    // 0x1007f7b70
+    FastPool<graphics::ParticleSystem_DE, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1007f7ca0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::ParticleSystem_DE, int>::clear()
-    void FastPool<graphics::ParticleSystem_DE, int>::clear(FastPool<graphics::ParticleSystem_DE, int>* this) {
-        int iVar1;
+    // 0x1007f7ca0
+    void FastPool<graphics::ParticleSystem_DE, int>::clear() {
         int iVar2;
-        undefined8* puVar3;
+        uint64_t* puVar3;
 
-        iVar1 = GetValue();
+        int iVar1 = GetValue();
         if (0 < iVar1) {
             iVar1 = 0;
             do {
-                puVar3 = (undefined8*)operator[](this, iVar1);
-                (**(code**)*puVar3)(puVar3);
+                puVar3 = (uint64_t*)operator[](this, iVar1);
+                (**(void (**)(...))*puVar3)(puVar3);
                 iVar1 = iVar1 + 1;
                 iVar2 = GetValue();
             } while (iVar1 < iVar2);
@@ -7342,132 +5348,98 @@ namespace jag {
         Reset();
     }
 
-    // 0x1007f7cf0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::ParticleSystem_DE, int>::operator[](int)
-    long FastPool<graphics::ParticleSystem_DE, int>::operator[](FastPool<graphics::ParticleSystem_DE, int>* this,
-                                                                int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x1007f7cf0
+    long FastPool<graphics::ParticleSystem_DE, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 144 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 144 + *(long*)this;
     }
 
-    // 0x1007f7d40, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::ParticleSystem_DE, int>::~FastPool()
-    void FastPool<graphics::ParticleSystem_DE, int>::~FastPool(FastPool<graphics::ParticleSystem_DE, int>* this) {
+    // 0x1007f7d40
+    FastPool<graphics::ParticleSystem_DE, int>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10080d110, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::GeometryBatch_DE, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x10080d120, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::GeometryBatch_DE, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100830ee0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 2256 + 40;
+    // 0x100830ee0
+    long FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 2256 + 40;
     }
 
-    // 0x1008310b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1008311f0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1008311f0
+    FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100831300, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100831300
+    void FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100831360, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100831360
+    long FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 2240 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 2240 + *(long*)this;
     }
 
-    // 0x1008314b0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1008314c0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>* this) {
+    // 0x1008314c0
+    FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1008364d0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::GeometryBatch_DE, int>::FastPool(int, int)
-    void FastPool<graphics::GeometryBatch_DE, int>::FastPool(FastPool<graphics::GeometryBatch_DE, int>* this,
-                                                             int param_1, int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
+    // 0x1008364d0
+    FastPool<graphics::GeometryBatch_DE, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100836600, 80 bytes, inline, placed by class name
-    // FastPool<graphics::GeometryBatch_DE, int>::clear()
-    void FastPool<graphics::GeometryBatch_DE, int>::clear(FastPool<graphics::GeometryBatch_DE, int>* this) {
-        int iVar1;
+    // 0x100836600
+    void FastPool<graphics::GeometryBatch_DE, int>::clear() {
         int iVar2;
-        undefined8* puVar3;
+        uint64_t* puVar3;
 
-        iVar1 = GetValue();
+        int iVar1 = GetValue();
         if (0 < iVar1) {
             iVar1 = 0;
             do {
-                puVar3 = (undefined8*)operator[](this, iVar1);
-                (**(code**)*puVar3)(puVar3);
+                puVar3 = (uint64_t*)operator[](this, iVar1);
+                (**(void (**)(...))*puVar3)(puVar3);
                 iVar1 = iVar1 + 1;
                 iVar2 = GetValue();
             } while (iVar1 < iVar2);
@@ -7475,395 +5447,290 @@ namespace jag {
         Reset();
     }
 
-    // 0x100836650, 80 bytes, inline, placed by class name
-    // FastPool<graphics::GeometryBatch_DE, int>::operator[](int)
-    long FastPool<graphics::GeometryBatch_DE, int>::operator[](FastPool<graphics::GeometryBatch_DE, int>* this,
-                                                               int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x100836650
+    long FastPool<graphics::GeometryBatch_DE, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 160 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 160 + *(long*)this;
     }
 
-    // 0x1008366a0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::GeometryBatch_DE, int>::~FastPool()
-    void FastPool<graphics::GeometryBatch_DE, int>::~FastPool(FastPool<graphics::GeometryBatch_DE, int>* this) {
+    // 0x1008366a0
+    FastPool<graphics::GeometryBatch_DE, int>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100836a00, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData const*) const
-    undefined8 jag::FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100836a00
+    uint64_t FastPool<MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::GeometryBatch, 4096>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 2240;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 2240;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100837570, 32 bytes, inline, placed by class name
-    // FastPool<graphics::GeometryBatchInstance, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<graphics::GeometryBatchInstance, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 912 + 40;
+    // 0x100837570
+    long FastPool<graphics::GeometryBatchInstance, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 912 + 40;
     }
 
-    // 0x100838220, 96 bytes, inline, placed by class name
-    // graphics::GeometryBatch_DE* FastPool<graphics::GeometryBatch_DE, int>::Create<math::OBB&, float&, eastl::vector_map<int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator> > const*&, unsigned int, graphics::GeometryBatchInstance&>(math::OBB&, float&, eastl::vector_map<int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator> > const*&, unsigned int&&, graphics::GeometryBatchInstance&)
-    /* graphics::GeometryBatch_DE* FastPool<graphics::GeometryBatch_DE,
-   int>::Create<math::OBB&, float&, eastl::vector_map<int, graphics::FaceGroupRenderMasks,
-   eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int,
-   graphics::FaceGroupRenderMasks>, eastl::allocator> > const*&, unsigned int&,
-   graphics::GeometryBatchInstance&>(math::OBB&, float&, eastl::vector_map<int,
-   graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-   eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator> > const*&,
-   unsigned int&, graphics::GeometryBatchInstance&) */
-
-    GeometryBatch_DE* FastPool<graphics::GeometryBatch_DE, int>::Create<
-        math::OBB&, float&,
-        eastl::vector_map<int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                          eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator>> const*&,
-        unsigned int&, graphics::GeometryBatchInstance&>(FastPool<graphics::GeometryBatch_DE, int>* this, OBB* param_1,
-                                                         float* param_2, vector_map** param_3, uint* param_4,
-                                                         GeometryBatchInstance* param_5) {
-        GeometryBatch_DE* this_00;
-
-        this_00 = (GeometryBatch_DE*)allocate(this);
-        graphics::GeometryBatch_DE::GeometryBatch_DE(this_00, param_1, *param_2, *param_3, *param_4, param_5);
+    // 0x100838220
+    graphics::GeometryBatch_DE* FastPool<graphics::GeometryBatch_DE, int>::Create<
+        math::OBB&, float&, eastl::vector_map<int, graphics::FaceGroupRenderMasks> const*&, unsigned int,
+        graphics::GeometryBatchInstance&>(math::OBB& obb, float& arg2,
+                                          const eastl::vector_map<int, graphics::FaceGroupRenderMasks>*& arg3,
+                                          unsigned int&& arg4, graphics::GeometryBatchInstance& geometryBatchInstance) {
+        auto this_00 = allocate(this);
+        new (this_00) graphics::GeometryBatch_DE(obb, arg2, arg3, arg4, geometryBatchInstance);
         return this_00;
     }
 
-    // 0x100838470, 48 bytes, inline, placed by class name
-    // FastPool<graphics::GeometryBatch_DE, int>::is_owner(graphics::GeometryBatch_DE const*) const
-    undefined8 FastPool<graphics::GeometryBatch_DE, int>::is_owner(FastPool<graphics::GeometryBatch_DE, int>* this,
-                                                                   GeometryBatch_DE* param_1) {
-        GeometryBatch_DE* pGVar1;
-
-        if (param_1 < *(GeometryBatch_DE**)this) {
+    // 0x100838470
+    uint64_t
+    FastPool<graphics::GeometryBatch_DE, int>::is_owner(const graphics::GeometryBatch_DE* geometryBatch_DE) const {
+        if (geometryBatch_DE < *(GeometryBatch_DE**)this) {
             return 0;
         }
-        pGVar1 = *(GeometryBatch_DE**)this + *(int*)(this + 28);
-        return CONCAT71((int7)((ulong)pGVar1 >> 8), param_1 < pGVar1);
+        GeometryBatch_DE* pGVar1 = *(GeometryBatch_DE**)this + *(int*)(this + 28);
+        return geometryBatch_DE < pGVar1;
     }
 
-    // 0x10083a3a0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long
-    FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 992 + 40;
+    // 0x10083a3a0
+    long FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 992 + 40;
     }
 
-    // 0x100843190, 48 bytes, inline, placed by class name
-    // FastPool<graphics::BillboardBatchInstance, unsigned long>::is_owner(graphics::BillboardBatchInstance const*) const
-    undefined8 FastPool<graphics::BillboardBatchInstance, unsigned long>::is_owner(
-        FastPool<graphics::BillboardBatchInstance, unsigned long>* this, BillboardBatchInstance* param_1) {
-        BillboardBatchInstance* pBVar1;
-
-        if (param_1 < *(BillboardBatchInstance**)this) {
+    // 0x100843190
+    uint64_t FastPool<graphics::BillboardBatchInstance, unsigned long>::is_owner(
+        const graphics::BillboardBatchInstance* billboardBatchInstance) const {
+        if (billboardBatchInstance < *(BillboardBatchInstance**)this) {
             return 0;
         }
-        pBVar1 =
-            (BillboardBatchInstance*)((*(BillboardBatchInstance**)this)->field_32 + *(long*)(this + 32) * 768 + -32);
-        return CONCAT71((int7)((ulong)pBVar1 >> 8), param_1 < pBVar1);
+        BillboardBatchInstance* pBVar1 =
+            (BillboardBatchInstance*)((*(BillboardBatchInstance**)this)->field_32 + *(long*)(this + 32) * 768 - 32);
+        return billboardBatchInstance < pBVar1;
     }
 
-    // 0x100844bc0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100844d00, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100844d00
+    FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100844e20, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100844e20
+    void FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100844e80, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long
-    jag::FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100844e80
+    long FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 112 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 112 + *(long*)this;
     }
 
-    // 0x100844fd0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100844fe0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>* this) {
+    // 0x100844fe0
+    FastPool<MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100845850, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData const*) const
-    undefined8
-    jag::FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100845850
+    uint64_t FastPool<MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 256;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 256;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x10084b100, 16 bytes, inline, placed by class name
-    // FastPool<graphics::Billboard, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<graphics::Billboard, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 84 + 40;
+    // 0x10084b100
+    long FastPool<graphics::Billboard, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 84 + 40;
     }
 
-    // 0x10084b280, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::Billboard, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10084b3c0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::Billboard, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<graphics::Billboard, unsigned long>::FastPool(FastPool<graphics::Billboard, unsigned long>* this,
-                                                                ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10084b3c0
+    FastPool<graphics::Billboard, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10084b4e0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::Billboard, unsigned long>::clear()
-    void FastPool<graphics::Billboard, unsigned long>::clear(FastPool<graphics::Billboard, unsigned long>* this) {
-        long lVar1;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10084b4e0
+    void FastPool<graphics::Billboard, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                operator[](this, uVar3);
-                uVar3 = uVar3 + 1;
+                operator[](this, arg1);
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10084b530, 80 bytes, inline, placed by class name
-    // FastPool<graphics::Billboard, unsigned long>::operator[](unsigned long)
-    long FastPool<graphics::Billboard, unsigned long>::operator[](FastPool<graphics::Billboard, unsigned long>* this,
-                                                                  ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10084b530
+    long FastPool<graphics::Billboard, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 68 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 68 + *(long*)this;
     }
 
-    // 0x10084b640, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::Billboard, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10084b650, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::Billboard, unsigned long>::~FastPool()
-    void FastPool<graphics::Billboard, unsigned long>::~FastPool(FastPool<graphics::Billboard, unsigned long>* this) {
+    // 0x10084b650
+    FastPool<graphics::Billboard, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100850cb0, 96 bytes, inline, placed by class name
-    // graphics::ParticleSystem_DE* FastPool<graphics::ParticleSystem_DE, int>::Create<graphics::ModularParticleSystemDrawable&, math::OBB const&, float&, unsigned int, bool, bool>(graphics::ModularParticleSystemDrawable&, math::OBB const&, float&, unsigned int&&, bool&&, bool&&)
-    ParticleSystem_DE*
-    FastPool<graphics::ParticleSystem_DE, int>::Create<graphics::ModularParticleSystemDrawable&, math::OBB_const&,
+    // 0x100850cb0
+    graphics::ParticleSystem_DE*
+    FastPool<graphics::ParticleSystem_DE, int>::Create<graphics::ModularParticleSystemDrawable&, math::OBB const&,
                                                        float&, unsigned int, bool, bool>(
-        FastPool<graphics::ParticleSystem_DE, int>* this, ModularParticleSystemDrawable* param_1, OBB* param_2,
-        float* param_3, uint* param_4, bool* param_5, bool* param_6) {
-        ParticleSystem_DE* this_00;
+        graphics::ModularParticleSystemDrawable& modularParticleSystemDrawable, const math::OBB& obb, float& arg3,
+        unsigned int&& arg4, bool&& arg5, bool&& arg6) {
+        uint64_t in_stack_00000008;
 
-        this_00 = (ParticleSystem_DE*)allocate(this);
-        graphics::ParticleSystem_DE::ParticleSystem_DE(this_00, param_1, param_2, *param_3, *param_4, *param_5,
-                                                       *param_6);
-        return this_00;
+        auto particleSystem_DE = allocate((FastPool<graphics::ParticleSystem_DE, int>*)modularParticleSystemDrawable);
+        new (particleSystem_DE)
+            graphics::ParticleSystem_DE(obb, arg3, (float)*arg4, *(unsigned int*)arg5, arg6, *(bool*)in_stack_00000008);
+        return particleSystem_DE;
     }
 
-    // 0x100866030, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::BillboardBatch_DE, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x100866040, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::BillboardBatch_DE, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10086cb80, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData,
-                       unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 96 + 40;
+    // 0x10086cb80
+    long
+    FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 96 + 40;
     }
 
-    // 0x100873880, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData const*) const
-    undefined8
-    jag::FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100873880
+    uint64_t
+    FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 80;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 80;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100881100, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 816 + 40;
+    // 0x100881100
+    long FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 816 + 40;
     }
 
-    // 0x100881290, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1008813d0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1008813d0
+    FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1008814e0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1008814e0
+    void FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100881540, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100881540
+    long FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 800 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 800 + *(long*)this;
     }
 
-    // 0x100881690, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1008816a0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>* this) {
+    // 0x1008816a0
+    FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100884aa0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::BillboardBatch_DE, int>::FastPool(int, int)
-    void FastPool<graphics::BillboardBatch_DE, int>::FastPool(FastPool<graphics::BillboardBatch_DE, int>* this,
-                                                              int param_1, int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
+    // 0x100884aa0
+    FastPool<graphics::BillboardBatch_DE, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100884bc0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::BillboardBatch_DE, int>::clear()
-    void FastPool<graphics::BillboardBatch_DE, int>::clear(FastPool<graphics::BillboardBatch_DE, int>* this) {
-        int iVar1;
+    // 0x100884bc0
+    void FastPool<graphics::BillboardBatch_DE, int>::clear() {
         int iVar2;
-        undefined8* puVar3;
+        uint64_t* puVar3;
 
-        iVar1 = GetValue();
+        int iVar1 = GetValue();
         if (0 < iVar1) {
             iVar1 = 0;
             do {
-                puVar3 = (undefined8*)operator[](this, iVar1);
-                (**(code**)*puVar3)(puVar3);
+                puVar3 = (uint64_t*)operator[](this, iVar1);
+                (**(void (**)(...))*puVar3)(puVar3);
                 iVar1 = iVar1 + 1;
                 iVar2 = GetValue();
             } while (iVar1 < iVar2);
@@ -7871,482 +5738,349 @@ namespace jag {
         Reset();
     }
 
-    // 0x100884c10, 80 bytes, inline, placed by class name
-    // FastPool<graphics::BillboardBatch_DE, int>::operator[](int)
-    long FastPool<graphics::BillboardBatch_DE, int>::operator[](FastPool<graphics::BillboardBatch_DE, int>* this,
-                                                                int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x100884c10
+    long FastPool<graphics::BillboardBatch_DE, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 128 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 128 + *(long*)this;
     }
 
-    // 0x100884c60, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::BillboardBatch_DE, int>::~FastPool()
-    void FastPool<graphics::BillboardBatch_DE, int>::~FastPool(FastPool<graphics::BillboardBatch_DE, int>* this) {
+    // 0x100884c60
+    FastPool<graphics::BillboardBatch_DE, int>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100884f80, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData const*) const
-    undefined8 jag::FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100884f80
+    uint64_t FastPool<MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::BillboardBatch, 64>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 800;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 800;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100885ba0, 32 bytes, inline, placed by class name
-    // FastPool<graphics::BillboardBatchInstance, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<graphics::BillboardBatchInstance, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 784 + 40;
+    // 0x100885ba0
+    long FastPool<graphics::BillboardBatchInstance, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 784 + 40;
     }
 
-    // 0x100885cb0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::BillboardBatchInstance, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100885d00, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::BillboardBatchInstance, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<graphics::BillboardBatchInstance, unsigned long>::FastPool(
-        FastPool<graphics::BillboardBatchInstance, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100885d00
+    FastPool<graphics::BillboardBatchInstance, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100885e20, 96 bytes, inline, placed by class name
-    // FastPool<graphics::BillboardBatchInstance, unsigned long>::clear()
-    void FastPool<graphics::BillboardBatchInstance, unsigned long>::clear(
-        FastPool<graphics::BillboardBatchInstance, unsigned long>* this) {
-        long lVar1;
-        undefined8* puVar2;
-        ulong uVar3;
-        ulong uVar4;
+    // 0x100885e20
+    void FastPool<graphics::BillboardBatchInstance, unsigned long>::clear() {
+        uint64_t* puVar2;
+        unsigned long uVar3;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar4 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                puVar2 = (undefined8*)operator[](this, uVar4);
-                (**(code**)*puVar2)(puVar2);
-                uVar4 = uVar4 + 1;
+                puVar2 = (uint64_t*)operator[](this, arg1);
+                (**(void (**)(...))*puVar2)(puVar2);
+                arg1 = arg1 + 1;
                 uVar3 = size();
-            } while (uVar4 < uVar3);
+            } while (arg1 < uVar3);
         }
         Reset();
     }
 
-    // 0x100885e80, 80 bytes, inline, placed by class name
-    // FastPool<graphics::BillboardBatchInstance, unsigned long>::operator[](unsigned long)
-    long FastPool<graphics::BillboardBatchInstance, unsigned long>::operator[](
-        FastPool<graphics::BillboardBatchInstance, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100885e80
+    long FastPool<graphics::BillboardBatchInstance, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 768 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 768 + *(long*)this;
     }
 
-    // 0x100885f90, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::BillboardBatchInstance, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100885fa0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::BillboardBatchInstance, unsigned long>::~FastPool()
-    void FastPool<graphics::BillboardBatchInstance, unsigned long>::~FastPool(
-        FastPool<graphics::BillboardBatchInstance, unsigned long>* this) {
+    // 0x100885fa0
+    FastPool<graphics::BillboardBatchInstance, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100887a90, 64 bytes, inline, placed by class name
-    // graphics::BillboardBatch_DE* FastPool<graphics::BillboardBatch_DE, int>::Create<float&, eastl::vector_map<int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator> > const*&, graphics::BillboardBatchInstance&>(float&, eastl::vector_map<int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator> > const*&, graphics::BillboardBatchInstance&)
-    BillboardBatch_DE* FastPool<graphics::BillboardBatch_DE, int>::Create<
-        float&,
-        eastl::vector_map<int, graphics::FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                          eastl::vector<eastl::pair<int, graphics::FaceGroupRenderMasks>, eastl::allocator>> const*&,
-        graphics::BillboardBatchInstance&>(FastPool<graphics::BillboardBatch_DE, int>* this, float* param_1,
-                                           vector_map** param_2, BillboardBatchInstance* param_3) {
-        BillboardBatch_DE* this_00;
-
-        this_00 = (BillboardBatch_DE*)allocate(this);
-        graphics::BillboardBatch_DE::BillboardBatch_DE(this_00, *param_1, *param_2, param_3);
+    // 0x100887a90
+    graphics::BillboardBatch_DE* FastPool<graphics::BillboardBatch_DE, int>::Create<
+        float&, eastl::vector_map<int, graphics::FaceGroupRenderMasks> const*&, graphics::BillboardBatchInstance&>(
+        float& arg1, const eastl::vector_map<int, graphics::FaceGroupRenderMasks>*& arg2,
+        graphics::BillboardBatchInstance& billboardBatchInstance) {
+        auto this_00 = allocate(this);
+        new (this_00) graphics::BillboardBatch_DE(arg1, arg2, billboardBatchInstance);
         return this_00;
     }
 
-    // 0x100887cc0, 48 bytes, inline, placed by class name
-    // FastPool<graphics::BillboardBatch_DE, int>::is_owner(graphics::BillboardBatch_DE const*) const
-    /* FastPool<graphics::SkyBox_DE, int>::is_owner(graphics::SkyBox_DE const*) const */
-
-    undefined8 FastPool<graphics::SkyBox_DE, int>::is_owner(FastPool<graphics::SkyBox_DE, int>* this,
-                                                            SkyBox_DE* param_1) {
-        SkyBox_DE* pSVar1;
-
-        if (param_1 < *(SkyBox_DE**)this) {
+    // 0x100887cc0
+    uint64_t
+    FastPool<graphics::BillboardBatch_DE, int>::is_owner(const graphics::BillboardBatch_DE* billboardBatch_DE) const {
+        if (billboardBatch_DE < *(BillboardBatch_DE**)this) {
             return 0;
         }
-        pSVar1 = *(SkyBox_DE**)this + *(int*)(this + 28);
-        return CONCAT71((int7)((ulong)pSVar1 >> 8), param_1 < pSVar1);
+        BillboardBatch_DE* pBVar1 = *(BillboardBatch_DE**)this + *(int*)(this + 28);
+        return billboardBatch_DE < pBVar1;
     }
 
-    // 0x10089a000, 16 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long
-    jag::FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 88 + 40;
+    // 0x10089a000
+    long FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 88 + 40;
     }
 
-    // 0x1008d2f50, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData const*) const
-    /* FastPool<graphics::AnimState, unsigned long>::is_owner(graphics::AnimState const*)
-   const */
-
-    undefined8
-    FastPool<graphics::AnimState, unsigned long>::is_owner(FastPool<graphics::AnimState, unsigned long>* this,
-                                                           AnimState* param_1) {
-        AnimState* pAVar1;
-
-        if (param_1 < *(AnimState**)this) {
+    // 0x1008d2f50
+    uint64_t
+    FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pAVar1 = (AnimState*)((long)*(AnimState**)this + *(long*)(this + 32) * 160);
-        return CONCAT71((int7)((ulong)pAVar1 >> 8), param_1 < pAVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 160;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1008d7960, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 352 + 40;
+    // 0x1008d7960
+    long FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 352 + 40;
     }
 
-    // 0x1008d7af0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1008d7c30, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1008d7c30
+    FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1008d7d50, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1008d7d50
+    void FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1008d7db0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x1008d7db0
     long FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 336 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 336 + *(long*)this;
     }
 
-    // 0x1008d7f70, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1008d7f80, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>* this) {
+    // 0x1008d7f80
+    FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1008dc820, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1008dc960, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void
-    jag::FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1008dc960
+    FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1008dca80, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1008dca80
+    void FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1008dcae0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long
-    jag::FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1008dcae0
+    long FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 72 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 72 + *(long*)this;
     }
 
-    // 0x1008dcc30, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1008dcc40, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::
-        ~FastPool(
-            FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>* this) {
+    // 0x1008dcc40
+    FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1008dced0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData const*) const
-    undefined8
-    jag::FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1008dced0
+    uint64_t FastPool<MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 72;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 72;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1008dd4f0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x1008dd4f0
+    uint64_t FastPool<MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 336;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 336;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1008f6e70, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::GUIAnimationInstance, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x1008f6ef0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::GUIAnimationInstance, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1008f81f0, 96 bytes, inline, placed by class name
-    // graphics::GUIAnimationInstance* FastPool<graphics::GUIAnimationInstance, int>::Create<shared_ptr<graphics::GUIAnimation> const&, shared_ptr<ui::Component> const&, float&, float&, unsigned int&, float&, game::Hook>(shared_ptr<graphics::GUIAnimation> const&, shared_ptr<ui::Component> const&, float&, float&, unsigned int&, float&, game::Hook&&)
-    GUIAnimationInstance* FastPool<graphics::GUIAnimationInstance, int>::Create<
+    // 0x1008f81f0
+    graphics::GUIAnimationInstance* FastPool<graphics::GUIAnimationInstance, int>::Create<
         shared_ptr<graphics::GUIAnimation> const&, shared_ptr<ui::Component> const&, float&, float&, unsigned int&,
-        float&, game::Hook>(FastPool<graphics::GUIAnimationInstance, int>* this, shared_ptr* param_1,
-                            shared_ptr* param_2, float* param_3, float* param_4, uint* param_5, float* param_6,
-                            Hook* param_7) {
-        GUIAnimationInstance* this_00;
-
-        this_00 = (GUIAnimationInstance*)allocate(this);
-        graphics::GUIAnimationInstance::GUIAnimationInstance(this_00, param_1, param_2, *param_3, *param_4, *param_5,
-                                                             *param_6, param_7);
+        float&, game::Hook>(const shared_ptr<graphics::GUIAnimation>& guiAnimation,
+                            const shared_ptr<ui::Component>& component, float& arg3, float& arg4, unsigned int& arg5,
+                            float& arg6, game::Hook&& hook) {
+        auto this_00 = allocate(this);
+        new (this_00) graphics::GUIAnimationInstance(guiAnimation, component, arg3, arg4, arg5, arg6, hook);
         return this_00;
     }
 
-    // 0x1008f8250, 96 bytes, inline, placed by class name
-    // graphics::GUIAnimationInstance* FastPool<graphics::GUIAnimationInstance, int>::Create<shared_ptr<graphics::GUIAnimation> const&, shared_ptr<ui::Component> const&, float&, float&, unsigned int&, float&>(shared_ptr<graphics::GUIAnimation> const&, shared_ptr<ui::Component> const&, float&, float&, unsigned int&, float&)
-    GUIAnimationInstance* FastPool<graphics::GUIAnimationInstance, int>::Create<
+    // 0x1008f8250
+    graphics::GUIAnimationInstance* FastPool<graphics::GUIAnimationInstance, int>::Create<
         shared_ptr<graphics::GUIAnimation> const&, shared_ptr<ui::Component> const&, float&, float&, unsigned int&,
-        float&>(FastPool<graphics::GUIAnimationInstance, int>* this, shared_ptr* param_1, shared_ptr* param_2,
-                float* param_3, float* param_4, uint* param_5, float* param_6) {
-        GUIAnimationInstance* this_00;
+        float&>(const shared_ptr<graphics::GUIAnimation>& guiAnimation, const shared_ptr<ui::Component>& component,
+                float& arg3, float& arg4, unsigned int& arg5, float& arg6) {
+        float* in_stack_00000008;
 
-        this_00 = (GUIAnimationInstance*)allocate(this);
-        graphics::GUIAnimationInstance::GUIAnimationInstance(this_00, param_1, param_2, *param_3, *param_4, *param_5,
-                                                             *param_6);
-        return this_00;
+        auto gUIAnimationInstance = allocate((FastPool<graphics::GUIAnimationInstance, int>*)guiAnimation);
+        new (gUIAnimationInstance) graphics::GUIAnimationInstance(component, arg3, arg4, (float)*arg5,
+                                                                  (unsigned int)*arg6, *in_stack_00000008);
+        return gUIAnimationInstance;
     }
 
-    // 0x100907b50, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100907c90, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100907c90
+    FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100907db0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100907db0
+    void FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100907e10, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x100907e10
     long FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 13728 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 13728 + *(long*)this;
     }
 
-    // 0x100907f60, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100907f70, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>* this) {
+    // 0x100907f70
+    FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100908210, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100908210
+    uint64_t FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 13728;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 13728;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x1009092b0, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 13744 + 40;
+    // 0x1009092b0
+    long FastPool<MakeSharedPool<graphics::FontMetrics, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 13744 + 40;
     }
 
-    // 0x10090e820, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::GUIAnimationInstance, int>::~FastPool()
-    void FastPool<graphics::GUIAnimationInstance, int>::~FastPool(FastPool<graphics::GUIAnimationInstance, int>* this) {
+    // 0x10090e820
+    FastPool<graphics::GUIAnimationInstance, int>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10090e860, 80 bytes, inline, placed by class name
-    // FastPool<graphics::GUIAnimationInstance, int>::clear()
-    void FastPool<graphics::GUIAnimationInstance, int>::clear(FastPool<graphics::GUIAnimationInstance, int>* this) {
-        GUIAnimationInstance* this_00;
-        int iVar1;
+    // 0x10090e860
+    void FastPool<graphics::GUIAnimationInstance, int>::clear() {
         int iVar2;
 
-        iVar1 = GetValue();
+        int iVar1 = GetValue();
         if (0 < iVar1) {
             iVar1 = 0;
             do {
-                this_00 = (GUIAnimationInstance*)operator[](this, iVar1);
-                this_00->~GUIAnimationInstance();
+                ((GUIAnimationInstance*)operator[](this, iVar1))->~GUIAnimationInstance();
                 iVar1 = iVar1 + 1;
                 iVar2 = GetValue();
             } while (iVar1 < iVar2);
@@ -8354,751 +6088,559 @@ namespace jag {
         Reset();
     }
 
-    // 0x10090e8b0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::GUIAnimationInstance, int>::operator[](int)
-    long FastPool<graphics::GUIAnimationInstance, int>::operator[](FastPool<graphics::GUIAnimationInstance, int>* this,
-                                                                   int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x10090e8b0
+    long FastPool<graphics::GUIAnimationInstance, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 368 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 368 + *(long*)this;
     }
 
-    // 0x10090e950, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::GUIAnimationInstance, int>::FastPool(int, int)
-    void FastPool<graphics::GUIAnimationInstance, int>::FastPool(FastPool<graphics::GUIAnimationInstance, int>* this,
-                                                                 int param_1, int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
+    // 0x10090e950
+    FastPool<graphics::GUIAnimationInstance, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x1009110a0, 48 bytes, inline, placed by class name
-    // FastPool<graphics::GUIAnimationInstance, int>::is_owner(graphics::GUIAnimationInstance const*) const
-    undefined8
-    FastPool<graphics::GUIAnimationInstance, int>::is_owner(FastPool<graphics::GUIAnimationInstance, int>* this,
-                                                            GUIAnimationInstance* param_1) {
-        GUIAnimationInstance* pGVar1;
-
-        if (param_1 < *(GUIAnimationInstance**)this) {
+    // 0x1009110a0
+    uint64_t FastPool<graphics::GUIAnimationInstance, int>::is_owner(
+        const graphics::GUIAnimationInstance* guiAnimationInstance) const {
+        if (guiAnimationInstance < *(GUIAnimationInstance**)this) {
             return 0;
         }
-        pGVar1 = (GUIAnimationInstance*)((long)*(GUIAnimationInstance**)this + (long)*(int*)(this + 28) * 368);
-        return CONCAT71((int7)((ulong)pGVar1 >> 8), param_1 < pGVar1);
+        GUIAnimationInstance* pGVar1 =
+            (GUIAnimationInstance*)((long)*(GUIAnimationInstance**)this + (long)*(int*)(this + 28) * 368);
+        return guiAnimationInstance < pGVar1;
     }
 
-    // 0x10091bd10, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::SkyBox_DE, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x10091bd20, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::SkyBox_DE, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100922820, 80 bytes, inline, placed by class name
-    // graphics::SkyBox_DE* FastPool<graphics::SkyBox_DE, int>::Create<>()
-    SkyBox_DE* FastPool<graphics::SkyBox_DE, int>::Create<>(FastPool<graphics::SkyBox_DE, int>* this) {
-        SkyBox_DE* this_00;
-
-        this_00 = (SkyBox_DE*)allocate(this);
-        this_00->field_0 = (undefined**)0;
-        *(undefined8*)&this_00->field_8 = 0;
-        *(undefined8*)&this_00->field_16 = 0;
-        *(undefined8*)&this_00->field_24 = 0;
-        *(undefined8*)&this_00->field_32 = 0;
-        *(undefined8*)&this_00->field_40 = 0;
-        *(undefined8*)&this_00->field_48 = 0;
-        *(undefined8*)&this_00->field_56 = 0;
-        *(undefined8*)&this_00->field_64 = 0;
-        *(undefined8*)&this_00->field_72 = 0;
-        *(undefined8*)&this_00->field_80 = 0;
-        *(undefined8*)&this_00->field_88 = 0;
-        *(undefined8*)&this_00->field_96 = 0;
-        this_00->field_104 = (fixed_hashtable_allocator<10ul, 1208ul, 8ul, 8ul, 0ul, true, eastl::allocator>*)0;
-        *(undefined8*)&this_00->field_112 = 0;
-        *(undefined8*)&this_00->field_120 = 0;
-        graphics::SkyBox_DE::SkyBox_DE(this_00);
+    // 0x100922820
+    graphics::SkyBox_DE* FastPool<graphics::SkyBox_DE, int>::Create<>() {
+        auto this_00 = allocate(this);
+        this_00->_vptr = nullptr;
+        *(uint64_t*)&this_00->field_8 = 0;
+        *(uint64_t*)&this_00->field_16 = 0;
+        *(uint64_t*)&this_00->field_24 = 0;
+        *(uint64_t*)&this_00->field_32 = 0;
+        *(uint64_t*)&this_00->field_40 = 0;
+        *(uint64_t*)&this_00->field_48 = 0;
+        *(uint64_t*)&this_00->field_56 = 0;
+        *(uint64_t*)&this_00->field_64 = 0;
+        *(uint64_t*)&this_00->field_72 = 0;
+        *(uint64_t*)&this_00->field_80 = 0;
+        *(uint64_t*)&this_00->field_88 = 0;
+        *(uint64_t*)&this_00->field_96 = 0;
+        this_00->field_104 = nullptr;
+        *(uint64_t*)&this_00->field_112 = 0;
+        *(uint64_t*)&this_00->field_120 = 0;
+        new (this_00) graphics::SkyBox_DE();
         return this_00;
     }
 
-    // 0x100927070, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 800 + 40;
-    }
-
-    // 0x100927230, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100927370, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100927480, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x1009274e0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 784 + *(long*)this;
-    }
-
-    // 0x100927630, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100927640, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x100928300, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::SkyBox_DE, int>::FastPool(int, int)
-    void FastPool<graphics::SkyBox_DE, int>::FastPool(FastPool<graphics::SkyBox_DE, int>* this, int param_1,
-                                                      int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100928420, 80 bytes, inline, placed by class name
-    // FastPool<graphics::SkyBox_DE, int>::clear()
-    void FastPool<graphics::SkyBox_DE, int>::clear(FastPool<graphics::SkyBox_DE, int>* this) {
-        int iVar1;
-        int iVar2;
-        undefined8* puVar3;
-
-        iVar1 = GetValue();
-        if (0 < iVar1) {
-            iVar1 = 0;
-            do {
-                puVar3 = (undefined8*)operator[](this, iVar1);
-                (**(code**)*puVar3)(puVar3);
-                iVar1 = iVar1 + 1;
-                iVar2 = GetValue();
-            } while (iVar1 < iVar2);
-        }
-        Reset();
-    }
-
-    // 0x100928470, 80 bytes, inline, placed by class name
-    // FastPool<graphics::SkyBox_DE, int>::operator[](int)
-    long FastPool<graphics::SkyBox_DE, int>::operator[](FastPool<graphics::SkyBox_DE, int>* this, int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 128 + *(long*)this;
-    }
-
-    // 0x1009284c0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::SkyBox_DE, int>::~FastPool()
-    void FastPool<graphics::SkyBox_DE, int>::~FastPool(FastPool<graphics::SkyBox_DE, int>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x100928ae0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
-            return 0;
-        }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 784;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
-    }
-
-    // 0x10092fce0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::LightProbe_DE, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x10092fcf0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::LightProbe_DE, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10093f010, 64 bytes, inline, placed by class name
-    // graphics::LightProbe_DE* FastPool<graphics::LightProbe_DE, int>::Create<>()
-    LightProbe_DE* FastPool<graphics::LightProbe_DE, int>::Create<>(FastPool<graphics::LightProbe_DE, int>* this) {
-        LightProbe_DE* this_00;
-
-        this_00 = (LightProbe_DE*)allocate(this);
-        this_00->field_0 = (undefined*)0;
-        *(undefined8*)&this_00->field_8 = 0;
-        *(undefined8*)&this_00->field_16 = 0;
-        *(undefined8*)&this_00->field_24 = 0;
-        *(undefined8*)&this_00->field_32 = 0;
-        *(undefined8*)&this_00->field_40 = 0;
-        *(undefined8*)&this_00->field_48 = 0;
-        *(undefined8*)&this_00->field_56 = 0;
-        *(undefined8*)&this_00->field_64 = 0;
-        *(undefined8*)&this_00->field_72 = 0;
-        *(undefined8*)&this_00->field_80 = 0;
-        *(undefined8*)&this_00->field_88 = 0;
-        *(undefined8*)&this_00->field_96 = 0;
-        this_00->field_104 = (PointLightShadows*)0;
-        graphics::LightProbe_DE::LightProbe_DE(this_00);
-        return this_00;
-    }
-
-    // 0x10093f250, 48 bytes, inline, placed by class name
-    // FastPool<graphics::LightProbe_DE, int>::is_owner(graphics::LightProbe_DE const*) const
-    undefined8 FastPool<graphics::LightProbe_DE, int>::is_owner(FastPool<graphics::LightProbe_DE, int>* this,
-                                                                LightProbe_DE* param_1) {
-        LightProbe_DE* pLVar1;
-
-        if (param_1 < *(LightProbe_DE**)this) {
-            return 0;
-        }
-        pLVar1 = *(LightProbe_DE**)this + *(int*)(this + 28);
-        return CONCAT71((int7)((ulong)pLVar1 >> 8), param_1 < pLVar1);
-    }
-
-    // 0x10093f480, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::LightProbe_DE, int>::FastPool(int, int)
-    void FastPool<graphics::LightProbe_DE, int>::FastPool(FastPool<graphics::LightProbe_DE, int>* this, int param_1,
-                                                          int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10093f5a0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::LightProbe_DE, int>::clear()
-    void FastPool<graphics::LightProbe_DE, int>::clear(FastPool<graphics::LightProbe_DE, int>* this) {
-        int iVar1;
-        int iVar2;
-        undefined8* puVar3;
-
-        iVar1 = GetValue();
-        if (0 < iVar1) {
-            iVar1 = 0;
-            do {
-                puVar3 = (undefined8*)operator[](this, iVar1);
-                (**(code**)*puVar3)(puVar3);
-                iVar1 = iVar1 + 1;
-                iVar2 = GetValue();
-            } while (iVar1 < iVar2);
-        }
-        Reset();
-    }
-
-    // 0x10093f5f0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::LightProbe_DE, int>::operator[](int)
-    long FastPool<graphics::LightProbe_DE, int>::operator[](FastPool<graphics::LightProbe_DE, int>* this, int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 112 + *(long*)this;
-    }
-
-    // 0x10093f640, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::LightProbe_DE, int>::~FastPool()
-    void FastPool<graphics::LightProbe_DE, int>::~FastPool(FastPool<graphics::LightProbe_DE, int>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x10094bc80, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    /* FastPool<graphics::AnimState, unsigned long>::GetTotalSize(unsigned long) */
-
-    long FastPool<graphics::AnimState, unsigned long>::GetTotalSize(ulong param_1) {
-        return param_1 * 176 + 40;
-    }
-
-    // 0x10094bdc0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10094be10, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void
-    jag::FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10094bf30, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x10094bf90, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x100927070
     long
-    jag::FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 160 + *(long*)this;
+    FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long arg1) {
+        return arg1 * 800 + 40;
     }
 
-    // 0x10094c0e0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10094c0f0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::
-        ~FastPool(
-            FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+    // 0x100927370
+    FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                               unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100967e10, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<graphics::AnimState, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
+    // 0x100927480
+    void FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-    // 0x100967f50, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<graphics::AnimState, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<graphics::AnimState, unsigned long>::FastPool(FastPool<graphics::AnimState, unsigned long>* this,
-                                                                ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100968070, 96 bytes, inline, placed by class name
-    // FastPool<graphics::AnimState, unsigned long>::clear()
-    void FastPool<graphics::AnimState, unsigned long>::clear(FastPool<graphics::AnimState, unsigned long>* this) {
-        long lVar1;
-        AnimState* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (AnimState*)operator[](this, uVar3);
-                this_00->~AnimState();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1009680d0, 80 bytes, inline, placed by class name
-    // FastPool<graphics::AnimState, unsigned long>::operator[](unsigned long)
-    long FastPool<graphics::AnimState, unsigned long>::operator[](FastPool<graphics::AnimState, unsigned long>* this,
-                                                                  ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1009274e0
+    long
+    FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 160 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 784 + *(long*)this;
     }
 
-    // 0x1009681e0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<graphics::AnimState, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1009681f0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<graphics::AnimState, unsigned long>::~FastPool()
-    void FastPool<graphics::AnimState, unsigned long>::~FastPool(FastPool<graphics::AnimState, unsigned long>* this) {
+    // 0x100927640
+    FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100993a40, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    ulong jag::FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 320 | 40;
+    // 0x100928300
+    FastPool<graphics::SkyBox_DE, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100993c00, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
+    // 0x100928420
+    void FastPool<graphics::SkyBox_DE, int>::clear() {
+        int iVar2;
+        uint64_t* puVar3;
 
-    // 0x100993d40, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x100993e60, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        int iVar1 = GetValue();
+        if (0 < iVar1) {
+            iVar1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
+                puVar3 = (uint64_t*)operator[](this, iVar1);
+                (**(void (**)(...))*puVar3)(puVar3);
+                iVar1 = iVar1 + 1;
+                iVar2 = GetValue();
+            } while (iVar1 < iVar2);
         }
         Reset();
     }
 
-    // 0x100993ec0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x100928470
+    long FastPool<graphics::SkyBox_DE, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 128 + *(long*)this;
+    }
+
+    // 0x1009284c0
+    FastPool<graphics::SkyBox_DE, int>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x100928ae0
+    uint64_t FastPool<MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::SkyBox, 16>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
+            return 0;
+        }
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 784;
+        return refCounterAndData < pRVar1;
+    }
+
+    // 0x10093f010
+    graphics::LightProbe_DE* FastPool<graphics::LightProbe_DE, int>::Create<>() {
+        auto this_00 = allocate(this);
+        this_00->_vptr = nullptr;
+        *(uint64_t*)&this_00->field_8 = 0;
+        *(uint64_t*)&this_00->field_16 = 0;
+        *(uint64_t*)&this_00->field_24 = 0;
+        *(uint64_t*)&this_00->field_32 = 0;
+        *(uint64_t*)&this_00->field_40 = 0;
+        *(uint64_t*)&this_00->field_48 = 0;
+        *(uint64_t*)&this_00->field_56 = 0;
+        *(uint64_t*)&this_00->field_64 = 0;
+        *(uint64_t*)&this_00->field_72 = 0;
+        *(uint64_t*)&this_00->field_80 = 0;
+        *(uint64_t*)&this_00->field_88 = 0;
+        *(uint64_t*)&this_00->field_96 = 0;
+        this_00->field_104 = nullptr;
+        new (this_00) graphics::LightProbe_DE();
+        return this_00;
+    }
+
+    // 0x10093f250
+    uint64_t FastPool<graphics::LightProbe_DE, int>::is_owner(const graphics::LightProbe_DE* lightProbe_DE) const {
+        if (lightProbe_DE < *(LightProbe_DE**)this) {
+            return 0;
+        }
+        LightProbe_DE* pLVar1 = *(LightProbe_DE**)this + *(int*)(this + 28);
+        return lightProbe_DE < pLVar1;
+    }
+
+    // 0x10093f480
+    FastPool<graphics::LightProbe_DE, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x10093f5a0
+    void FastPool<graphics::LightProbe_DE, int>::clear() {
+        int iVar2;
+        uint64_t* puVar3;
+
+        int iVar1 = GetValue();
+        if (0 < iVar1) {
+            iVar1 = 0;
+            do {
+                puVar3 = (uint64_t*)operator[](this, iVar1);
+                (**(void (**)(...))*puVar3)(puVar3);
+                iVar1 = iVar1 + 1;
+                iVar2 = GetValue();
+            } while (iVar1 < iVar2);
+        }
+        Reset();
+    }
+
+    // 0x10093f5f0
+    long FastPool<graphics::LightProbe_DE, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 112 + *(long*)this;
+    }
+
+    // 0x10093f640
+    FastPool<graphics::LightProbe_DE, int>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x10094bc80
+    long
+    FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 176 + 40;
+    }
+
+    // 0x10094be10
+    FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x10094bf30
+    void FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x10094bf90
+    long FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 160 + *(long*)this;
+    }
+
+    // 0x10094c0f0
+    FastPool<MakeSharedPool<graphics::PointLightIndicesEffect, 64>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x100967f50
+    FastPool<graphics::AnimState, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100968070
+    void FastPool<graphics::AnimState, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((AnimState*)operator[](this, arg1))->~AnimState();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x1009680d0
+    long FastPool<graphics::AnimState, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 160 + *(long*)this;
+    }
+
+    // 0x1009681f0
+    FastPool<graphics::AnimState, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x100993a40
+    unsigned long FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 320 | 40;
+    }
+
+    // 0x100993d40
+    FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                  unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x100993e60
+    void FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x100993ec0
     long FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 304 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 304 + *(long*)this;
     }
 
-    // 0x100994090, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1009940a0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>* this) {
+    // 0x1009940a0
+    FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100995b20, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 184 + 40;
+    // 0x100995b20
+    long FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 184 + 40;
     }
 
-    // 0x100995c30, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100995c80, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100995c80
+    FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100995da0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100995da0
+    void FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100995e00, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x100995e00
     long FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 168 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 168 + *(long*)this;
     }
 
-    // 0x100996020, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100996030, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>* this) {
+    // 0x100996030
+    FastPool<MakeSharedPool<graphics::AnimFrameset, 256>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100996620, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::is_owner(MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData const*) const
-    undefined8 FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::is_owner(
-        FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>* this,
-        RefCounterAndData* param_1) {
-        RefCounterAndData* pRVar1;
-
-        if (param_1 < *(RefCounterAndData**)this) {
+    // 0x100996620
+    uint64_t FastPool<MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData, unsigned long>::is_owner(
+        const MakeSharedPool<graphics::AnimBase, 256>::RefCounterAndData* refCounterAndData) const {
+        if (refCounterAndData < *(RefCounterAndData**)this) {
             return 0;
         }
-        pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 304;
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RefCounterAndData* pRVar1 = *(RefCounterAndData**)this + *(long*)(this + 32) * 304;
+        return refCounterAndData < pRVar1;
     }
 
-    // 0x100996d80, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100996ec0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100996ec0
+    FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100996fe0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100996fe0
+    void FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100997040, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long
-    jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100997040
+    long FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 96 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 96 + *(long*)this;
     }
 
-    // 0x1009971d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1009971e0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>* this) {
+    // 0x1009971e0
+    FastPool<MakeSharedPool<graphics::AnimationFrameRT5, 20480>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100999ae0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100999b30, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100999b30
+    FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                   unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100999c50, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100999c50
+    void FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100999cb0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x100999cb0
     long FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 232 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 232 + *(long*)this;
     }
 
-    // 0x100999e00, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100999e10, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>* this) {
+    // 0x100999e10
+    FastPool<MakeSharedPool<graphics::Animation, 512>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10099ba70, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::begin()
-    /* FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned
-   long>::begin() */
+    // 0x10099ba70
+    uint8_t[16] FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData,
+                         unsigned long>::begin() {
+        uint8_t auVar1[16];
 
-    undefined1[16] FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::begin(
-        FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>* this) {
-        undefined1 auVar1[16];
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_18[16];
-
-        eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-            local_18, (hash_node*)this, (hash_node**)0);
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_18(this, 0);
         auVar1[0] = local_18[0];
         auVar1[1] = local_18[1];
         auVar1[2] = local_18[2];
@@ -9118,18 +6660,13 @@ namespace jag {
         return auVar1;
     }
 
-    // 0x10099baa0, 48 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::end()
-    /* FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned
-   long>::end() */
+    // 0x10099baa0
+    uint8_t[16] FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData,
+                         unsigned long>::end() {
+        uint8_t auVar1[16];
 
-    undefined1[16] FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::end(
-        FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>* this) {
-        undefined1 auVar1[16];
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_18[16];
-
-        eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-            local_18, (hash_node*)this, *(hash_node***)(this + 24));
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_18(this,
+                                                                                        *(unsigned long*)(this + 24));
         auVar1[0] = local_18[0];
         auVar1[1] = local_18[1];
         auVar1[2] = local_18[2];
@@ -9149,1086 +6686,756 @@ namespace jag {
         return auVar1;
     }
 
-    // 0x10099bc50, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10099bca0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void
-    jag::FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10099bca0
+    FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10099bdc0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10099bdc0
+    void FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10099be20, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x10099be20
+    long FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
+            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
+                      nullptr);
+        }
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 80 + *(long*)this;
+    }
+
+    // 0x10099bf80
+    FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::~FastPool() {
+        clear(this);
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
+        aligned_dealloc(*(void**)this);
+        *(uint64_t*)this = 0;
+    }
+
+    // 0x10099c2e0
+    FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::FastPool(unsigned long arg1,
+                                                                                                unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
+
+    // 0x10099c3f0
+    void FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
+            do {
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
+                uVar2 = size();
+            } while (arg1 < uVar2);
+        }
+        Reset();
+    }
+
+    // 0x10099c450
     long
-    jag::FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 80 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 976 + *(long*)this;
     }
 
-    // 0x10099bf70, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10099bf80, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>::
-        ~FastPool(
-            FastPool<MakeSharedPool<graphics::TextureAtlasReference, 8192>::RefCounterAndData, unsigned long>* this) {
+    // 0x10099c5b0
+    FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10099c290, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10099c2e0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10099e010
+    FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10099c3f0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10099e130
+    void FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10099c450, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10099e190
+    long FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 976 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 112 + *(long*)this;
     }
 
-    // 0x10099c5a0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10099c5b0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::Model, 3072>::RefCounterAndData, unsigned long>* this) {
+    // 0x10099e2f0
+    FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10099ded0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x10099e010, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x10099ef40
+    long FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 200 + 40;
     }
 
-    // 0x10099e130, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x10099f0a0
+    FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+    // 0x10099f1c0
+    void FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10099e190, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long
-    jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10099f220
+    long FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 112 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 184 + *(long*)this;
     }
 
-    // 0x10099e2e0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10099e2f0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::AnimKeyFrameSample, 8192>::RefCounterAndData, unsigned long>* this) {
+    // 0x10099f3d0
+    FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x10099ef40, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 200 + 40;
+    // 0x1009a2640
+    FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x10099f050, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
+    // 0x1009a2760
+    void FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-    // 0x10099f0a0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x10099f1c0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x10099f220, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1009a27c0
+    long FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 184 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 160 + *(long*)this;
     }
 
-    // 0x10099f3c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x10099f3d0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::AnimKeyFrameSet, 128>::RefCounterAndData, unsigned long>* this) {
+    // 0x1009a2920
+    FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x1009a2500, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1009a2640, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x1009a5200
+    long FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
+        unsigned long arg1) {
+        return arg1 * 3832 + 40;
     }
 
-    // 0x1009a2760, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x1009fab80
+    FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
+    }
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+    // 0x1009faca0
+    void FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
+
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x1009a27c0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
-            LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
-        }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 160 + *(long*)this;
-    }
-
-    // 0x1009a2910, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1009a2920, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<graphics::AnimationFrameRT7, 8192>::RefCounterAndData, unsigned long>* this) {
-        clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
-        aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
-    }
-
-    // 0x1009a5200, 32 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::GetTotalSize(unsigned long)
-    long jag::FastPool<MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData, unsigned long>::GetTotalSize(
-        ulong param_1) {
-        return param_1 * 3832 + 40;
-    }
-
-    // 0x1009faa40, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1009fab80, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>* this, ulong param_1,
-        ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
-    }
-
-    // 0x1009faca0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::clear()
-    void FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
-
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
-            do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
-                uVar2 = size();
-            } while (uVar3 < uVar2);
-        }
-        Reset();
-    }
-
-    // 0x1009fad00, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::operator[](unsigned long)
+    // 0x1009fad00
     long FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 104 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 104 + *(long*)this;
     }
 
-    // 0x1009fae50, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x1009fae60, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::~FastPool()
-    void FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>* this) {
+    // 0x1009fae60
+    FastPool<MakeSharedPool<Js5WorkerRequestMessage, 768>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100b98be0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100b98d20, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::RefCounterAndData,
-                       unsigned long>::
-        FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::RefCounterAndData,
-                          unsigned long>* this,
-                 ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100b98d20
+    FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 8>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100b98e40, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::RefCounterAndData,
-                       unsigned long>::
-        clear(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::RefCounterAndData,
-                       unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100b98e40
+    void FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 8>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100b98ea0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::RefCounterAndData,
-                       unsigned long>::
-    operator[](FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::RefCounterAndData,
-                        unsigned long>* this,
-               ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100b98ea0
+    long FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 8>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 64 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 64 + *(long*)this;
     }
 
-    // 0x100b98fb0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100b98fc0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::RefCounterAndData,
-                       unsigned long>::
-        ~FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::RefCounterAndData,
-                           unsigned long>* this) {
+    // 0x100b98fc0
+    FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 8>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100b99f90, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100b9a0d0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::RefCounterAndData,
-                       unsigned long>::
-        FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::RefCounterAndData,
-                          unsigned long>* this,
-                 ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100b9a0d0
+    FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 2048>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100b9a1f0, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::RefCounterAndData,
-                       unsigned long>::
-        clear(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::RefCounterAndData,
-                       unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100b9a1f0
+    void FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 2048>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100b9a250, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::RefCounterAndData,
-                       unsigned long>::
-    operator[](FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::RefCounterAndData,
-                        unsigned long>* this,
-               ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100b9a250
+    long FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 2048>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 64 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 64 + *(long*)this;
     }
 
-    // 0x100b9a360, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100b9a370, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::RefCounterAndData,
-                       unsigned long>::
-        ~FastPool(FastPool<MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::RefCounterAndData,
-                           unsigned long>* this) {
+    // 0x100b9a370
+    FastPool<MakeSharedPool<PacketT<Array<unsigned char>>, 2048>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100c0b600, 48 bytes, inline, placed by class name
-    // render::ComputePipelineState* FastPool<render::ComputePipelineState, unsigned long>::Create<render::ComputePipelineState const&>(render::ComputePipelineState const&)
-    /* render::ComputePipelineState* FastPool<render::ComputePipelineState, unsigned
-   long>::Create<render::ComputePipelineState&>(render::ComputePipelineState&) */
-
-    ComputePipelineState* FastPool<render::ComputePipelineState, unsigned long>::Create<render::ComputePipelineState&>(
-        FastPool<render::ComputePipelineState, unsigned long>* this, ComputePipelineState* param_1) {
-        ComputePipelineState* this_00;
-
-        this_00 = (ComputePipelineState*)allocate(this);
-        render::ComputePipelineState::ComputePipelineState(this_00, param_1);
+    // 0x100c0b600
+    render::ComputePipelineState*
+    FastPool<render::ComputePipelineState, unsigned long>::Create<render::ComputePipelineState const&>(
+        const render::ComputePipelineState& computePipelineState) {
+        auto this_00 = allocate(this);
+        new (this_00) render::ComputePipelineState(computePipelineState);
         return this_00;
     }
 
-    // 0x100c0b630, 48 bytes, inline, placed by class name
-    // FastPool<render::ComputePipelineState, unsigned long>::is_owner(render::ComputePipelineState const*) const
-    undefined8 FastPool<render::ComputePipelineState, unsigned long>::is_owner(
-        FastPool<render::ComputePipelineState, unsigned long>* this, ComputePipelineState* param_1) {
-        ComputePipelineState* pCVar1;
-
-        if (param_1 < *(ComputePipelineState**)this) {
+    // 0x100c0b630
+    uint64_t FastPool<render::ComputePipelineState, unsigned long>::is_owner(
+        const render::ComputePipelineState* computePipelineState) const {
+        if (computePipelineState < *(ComputePipelineState**)this) {
             return 0;
         }
-        pCVar1 = *(ComputePipelineState**)this + *(long*)(this + 32);
-        return CONCAT71((int7)((ulong)pCVar1 >> 8), param_1 < pCVar1);
+        ComputePipelineState* pCVar1 = *(ComputePipelineState**)this + *(long*)(this + 32);
+        return computePipelineState < pCVar1;
     }
 
-    // 0x100c0b7c0, 32 bytes, inline, placed by class name
-    // render::ComputePipelineState* FastPool<render::ComputePipelineState, unsigned long>::Create<>()
-    ComputePipelineState* FastPool<render::ComputePipelineState, unsigned long>::Create<>(
-        FastPool<render::ComputePipelineState, unsigned long>* this) {
-        ComputePipelineState* this_00;
-
-        this_00 = (ComputePipelineState*)allocate(this);
-        render::ComputePipelineState::ComputePipelineState(this_00);
+    // 0x100c0b7c0
+    render::ComputePipelineState* FastPool<render::ComputePipelineState, unsigned long>::Create<>() {
+        auto this_00 = allocate(this);
+        new (this_00) render::ComputePipelineState();
         return this_00;
     }
 
-    // 0x100c0b7e0, 48 bytes, inline, placed by class name
-    // render::InputAssemblerState* FastPool<render::InputAssemblerState, unsigned long>::Create<render::InputAssemblerState const&>(render::InputAssemblerState const&)
-    /* render::InputAssemblerState* FastPool<render::InputAssemblerState, unsigned
-   long>::Create<render::InputAssemblerState&>(render::InputAssemblerState&) */
-
-    InputAssemblerState* FastPool<render::InputAssemblerState, unsigned long>::Create<render::InputAssemblerState&>(
-        FastPool<render::InputAssemblerState, unsigned long>* this, InputAssemblerState* param_1) {
-        InputAssemblerState* this_00;
-
-        this_00 = (InputAssemblerState*)allocate(this);
-        render::InputAssemblerState::InputAssemblerState(this_00, param_1);
+    // 0x100c0b7e0
+    render::InputAssemblerState*
+    FastPool<render::InputAssemblerState, unsigned long>::Create<render::InputAssemblerState const&>(
+        const render::InputAssemblerState& inputAssemblerState) {
+        auto this_00 = allocate(this);
+        new (this_00) render::InputAssemblerState(inputAssemblerState);
         return this_00;
     }
 
-    // 0x100c0b810, 48 bytes, inline, placed by class name
-    // render::RenderPipelineState* FastPool<render::RenderPipelineState, unsigned long>::Create<render::RenderPipelineState const&>(render::RenderPipelineState const&)
-    /* render::RenderPipelineState* FastPool<render::RenderPipelineState, unsigned
-   long>::Create<render::RenderPipelineState&>(render::RenderPipelineState&) */
-
-    RenderPipelineState* FastPool<render::RenderPipelineState, unsigned long>::Create<render::RenderPipelineState&>(
-        FastPool<render::RenderPipelineState, unsigned long>* this, RenderPipelineState* param_1) {
-        RenderPipelineState* this_00;
-
-        this_00 = (RenderPipelineState*)allocate(this);
-        render::RenderPipelineState::RenderPipelineState(this_00, param_1);
+    // 0x100c0b810
+    render::RenderPipelineState*
+    FastPool<render::RenderPipelineState, unsigned long>::Create<render::RenderPipelineState const&>(
+        const render::RenderPipelineState& renderPipelineState) {
+        auto this_00 = allocate(this);
+        new (this_00) render::RenderPipelineState(renderPipelineState);
         return this_00;
     }
 
-    // 0x100c0b840, 48 bytes, inline, placed by class name
-    // render::OutputMergerState* FastPool<render::OutputMergerState, unsigned long>::Create<render::OutputMergerState const&>(render::OutputMergerState const&)
-    /* render::OutputMergerState* FastPool<render::OutputMergerState, unsigned
-   long>::Create<render::OutputMergerState&>(render::OutputMergerState&) */
-
-    OutputMergerState* FastPool<render::OutputMergerState, unsigned long>::Create<render::OutputMergerState&>(
-        FastPool<render::OutputMergerState, unsigned long>* this, OutputMergerState* param_1) {
-        OutputMergerState* this_00;
-
-        this_00 = (OutputMergerState*)allocate(this);
-        render::OutputMergerState::OutputMergerState(this_00, param_1);
+    // 0x100c0b840
+    render::OutputMergerState*
+    FastPool<render::OutputMergerState, unsigned long>::Create<render::OutputMergerState const&>(
+        const render::OutputMergerState& outputMergerState) {
+        auto this_00 = allocate(this);
+        new (this_00) render::OutputMergerState(outputMergerState);
         return this_00;
     }
 
-    // 0x100c0b9d0, 48 bytes, inline, placed by class name
-    // FastPool<render::RenderPipelineState, unsigned long>::is_owner(render::RenderPipelineState const*) const
-    undefined8 FastPool<render::RenderPipelineState, unsigned long>::is_owner(
-        FastPool<render::RenderPipelineState, unsigned long>* this, RenderPipelineState* param_1) {
-        RenderPipelineState* pRVar1;
-
-        if (param_1 < *(RenderPipelineState**)this) {
+    // 0x100c0b9d0
+    uint64_t FastPool<render::RenderPipelineState, unsigned long>::is_owner(
+        const render::RenderPipelineState* renderPipelineState) const {
+        if (renderPipelineState < *(RenderPipelineState**)this) {
             return 0;
         }
-        pRVar1 = (RenderPipelineState*)((long)*(RenderPipelineState**)this + *(long*)(this + 32) * 1104);
-        return CONCAT71((int7)((ulong)pRVar1 >> 8), param_1 < pRVar1);
+        RenderPipelineState* pRVar1 =
+            (RenderPipelineState*)((long)*(RenderPipelineState**)this + *(long*)(this + 32) * 1104);
+        return renderPipelineState < pRVar1;
     }
 
-    // 0x100c0bb60, 48 bytes, inline, placed by class name
-    // FastPool<render::OutputMergerState, unsigned long>::is_owner(render::OutputMergerState const*) const
-    undefined8 FastPool<render::OutputMergerState, unsigned long>::is_owner(
-        FastPool<render::OutputMergerState, unsigned long>* this, OutputMergerState* param_1) {
-        OutputMergerState* pOVar1;
-
-        if (param_1 < *(OutputMergerState**)this) {
+    // 0x100c0bb60
+    uint64_t FastPool<render::OutputMergerState, unsigned long>::is_owner(
+        const render::OutputMergerState* outputMergerState) const {
+        if (outputMergerState < *(OutputMergerState**)this) {
             return 0;
         }
-        pOVar1 = *(OutputMergerState**)this + *(long*)(this + 32);
-        return CONCAT71((int7)((ulong)pOVar1 >> 8), param_1 < pOVar1);
+        OutputMergerState* pOVar1 = *(OutputMergerState**)this + *(long*)(this + 32);
+        return outputMergerState < pOVar1;
     }
 
-    // 0x100c0bcf0, 32 bytes, inline, placed by class name
-    // render::InputAssemblerState* FastPool<render::InputAssemblerState, unsigned long>::Create<>()
-    InputAssemblerState* FastPool<render::InputAssemblerState, unsigned long>::Create<>(
-        FastPool<render::InputAssemblerState, unsigned long>* this) {
-        InputAssemblerState* this_00;
-
-        this_00 = (InputAssemblerState*)allocate(this);
-        render::InputAssemblerState::InputAssemblerState(this_00);
+    // 0x100c0bcf0
+    render::InputAssemblerState* FastPool<render::InputAssemblerState, unsigned long>::Create<>() {
+        auto this_00 = allocate(this);
+        new (this_00) render::InputAssemblerState();
         return this_00;
     }
 
-    // 0x100c0bd10, 32 bytes, inline, placed by class name
-    // render::RenderPipelineState* FastPool<render::RenderPipelineState, unsigned long>::Create<>()
-    RenderPipelineState* FastPool<render::RenderPipelineState, unsigned long>::Create<>(
-        FastPool<render::RenderPipelineState, unsigned long>* this) {
-        RenderPipelineState* this_00;
-
-        this_00 = (RenderPipelineState*)allocate(this);
-        render::RenderPipelineState::RenderPipelineState(this_00);
+    // 0x100c0bd10
+    render::RenderPipelineState* FastPool<render::RenderPipelineState, unsigned long>::Create<>() {
+        auto this_00 = allocate(this);
+        new (this_00) render::RenderPipelineState();
         return this_00;
     }
 
-    // 0x100c0bd30, 32 bytes, inline, placed by class name
-    // render::OutputMergerState* FastPool<render::OutputMergerState, unsigned long>::Create<>()
-    OutputMergerState* FastPool<render::OutputMergerState, unsigned long>::Create<>(
-        FastPool<render::OutputMergerState, unsigned long>* this) {
-        OutputMergerState* this_00;
-
-        this_00 = (OutputMergerState*)allocate(this);
-        render::OutputMergerState::OutputMergerState(this_00);
+    // 0x100c0bd30
+    render::OutputMergerState* FastPool<render::OutputMergerState, unsigned long>::Create<>() {
+        auto this_00 = allocate(this);
+        new (this_00) render::OutputMergerState();
         return this_00;
     }
 
-    // 0x100c322a0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<render::OutputMergerState, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100c322b0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<render::OutputMergerState, unsigned long>::~FastPool()
-    void FastPool<render::OutputMergerState, unsigned long>::~FastPool(
-        FastPool<render::OutputMergerState, unsigned long>* this) {
+    // 0x100c322b0
+    FastPool<render::OutputMergerState, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100c322f0, 96 bytes, inline, placed by class name
-    // FastPool<render::OutputMergerState, unsigned long>::clear()
-    void FastPool<render::OutputMergerState, unsigned long>::clear(
-        FastPool<render::OutputMergerState, unsigned long>* this) {
-        long lVar1;
-        OutputMergerState* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100c322f0
+    void FastPool<render::OutputMergerState, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (OutputMergerState*)operator[](this, uVar3);
-                this_00->~OutputMergerState();
-                uVar3 = uVar3 + 1;
+                ((OutputMergerState*)operator[](this, arg1))->~OutputMergerState();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100c32350, 80 bytes, inline, placed by class name
-    // FastPool<render::OutputMergerState, unsigned long>::operator[](unsigned long)
-    long FastPool<render::OutputMergerState, unsigned long>::operator[](
-        FastPool<render::OutputMergerState, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100c32350
+    long FastPool<render::OutputMergerState, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 208 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 208 + *(long*)this;
     }
 
-    // 0x100c32550, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<render::ComputePipelineState, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100c32560, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<render::ComputePipelineState, unsigned long>::~FastPool()
-    void FastPool<render::ComputePipelineState, unsigned long>::~FastPool(
-        FastPool<render::ComputePipelineState, unsigned long>* this) {
+    // 0x100c32560
+    FastPool<render::ComputePipelineState, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100c325a0, 96 bytes, inline, placed by class name
-    // FastPool<render::ComputePipelineState, unsigned long>::clear()
-    void FastPool<render::ComputePipelineState, unsigned long>::clear(
-        FastPool<render::ComputePipelineState, unsigned long>* this) {
-        long lVar1;
-        ComputePipelineState* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100c325a0
+    void FastPool<render::ComputePipelineState, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (ComputePipelineState*)operator[](this, uVar3);
-                this_00->~ComputePipelineState();
-                uVar3 = uVar3 + 1;
+                ((ComputePipelineState*)operator[](this, arg1))->~ComputePipelineState();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100c32600, 80 bytes, inline, placed by class name
-    // FastPool<render::ComputePipelineState, unsigned long>::operator[](unsigned long)
-    long FastPool<render::ComputePipelineState, unsigned long>::operator[](
-        FastPool<render::ComputePipelineState, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100c32600
+    long FastPool<render::ComputePipelineState, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 640 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 640 + *(long*)this;
     }
 
-    // 0x100c32700, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<render::RenderPipelineState, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100c32710, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<render::RenderPipelineState, unsigned long>::~FastPool()
-    void FastPool<render::RenderPipelineState, unsigned long>::~FastPool(
-        FastPool<render::RenderPipelineState, unsigned long>* this) {
+    // 0x100c32710
+    FastPool<render::RenderPipelineState, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100c32750, 96 bytes, inline, placed by class name
-    // FastPool<render::RenderPipelineState, unsigned long>::clear()
-    void FastPool<render::RenderPipelineState, unsigned long>::clear(
-        FastPool<render::RenderPipelineState, unsigned long>* this) {
-        long lVar1;
-        RenderPipelineState* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100c32750
+    void FastPool<render::RenderPipelineState, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RenderPipelineState*)operator[](this, uVar3);
-                this_00->~RenderPipelineState();
-                uVar3 = uVar3 + 1;
+                ((RenderPipelineState*)operator[](this, arg1))->~RenderPipelineState();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100c327b0, 80 bytes, inline, placed by class name
-    // FastPool<render::RenderPipelineState, unsigned long>::operator[](unsigned long)
-    long FastPool<render::RenderPipelineState, unsigned long>::operator[](
-        FastPool<render::RenderPipelineState, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100c327b0
+    long FastPool<render::RenderPipelineState, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 1104 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 1104 + *(long*)this;
     }
 
-    // 0x100c328b0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<render::InputAssemblerState, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100c328c0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<render::InputAssemblerState, unsigned long>::~FastPool()
-    void FastPool<render::InputAssemblerState, unsigned long>::~FastPool(
-        FastPool<render::InputAssemblerState, unsigned long>* this) {
+    // 0x100c328c0
+    FastPool<render::InputAssemblerState, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100c32900, 96 bytes, inline, placed by class name
-    // FastPool<render::InputAssemblerState, unsigned long>::clear()
-    void FastPool<render::InputAssemblerState, unsigned long>::clear(
-        FastPool<render::InputAssemblerState, unsigned long>* this) {
-        long lVar1;
-        InputAssemblerState* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100c32900
+    void FastPool<render::InputAssemblerState, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (InputAssemblerState*)operator[](this, uVar3);
-                this_00->~InputAssemblerState();
-                uVar3 = uVar3 + 1;
+                ((InputAssemblerState*)operator[](this, arg1))->~InputAssemblerState();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100c32960, 80 bytes, inline, placed by class name
-    // FastPool<render::InputAssemblerState, unsigned long>::operator[](unsigned long)
-    long FastPool<render::InputAssemblerState, unsigned long>::operator[](
-        FastPool<render::InputAssemblerState, unsigned long>* this, ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100c32960
+    long FastPool<render::InputAssemblerState, unsigned long>::operator[](unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 192 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 192 + *(long*)this;
     }
 
-    // 0x100c346e0, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100c34730, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::FastPool(unsigned long, unsigned long)
-    void jag::FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::FastPool(
-        FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>* this,
-        ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100c34730
+    FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::FastPool(
+        unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100c34850, 96 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::clear()
-    void jag::FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::clear(
-        FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>* this) {
-        long lVar1;
-        RefCounterAndData* this_00;
-        ulong uVar2;
-        ulong uVar3;
+    // 0x100c34850
+    void FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::clear() {
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = size();
-        if (lVar1 != 0) {
-            uVar3 = 0;
+        if (size() != 0) {
+            arg1 = 0;
             do {
-                this_00 = (RefCounterAndData*)operator[](this, uVar3);
-                this_00->~RefCounterAndData();
-                uVar3 = uVar3 + 1;
+                ((RefCounterAndData*)operator[](this, arg1))->~RefCounterAndData();
+                arg1 = arg1 + 1;
                 uVar2 = size();
-            } while (uVar3 < uVar2);
+            } while (arg1 < uVar2);
         }
         Reset();
     }
 
-    // 0x100c348b0, 80 bytes, inline, placed by class name
-    // FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::operator[](unsigned long)
-    long jag::FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::operator[](
-        FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>* this,
-        ulong param_1) {
-        if (*(ulong*)(this + 32) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x100c348b0
+    long FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::operator[](
+        unsigned long arg1) {
+        if (*(unsigned long*)(this + 32) <= arg1) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return *(long*)(*(long*)(this + 8) + param_1 * 8) * 40 + *(long*)this;
+        return *(long*)(*(long*)(this + 8) + arg1 * 8) * 40 + *(long*)this;
     }
 
-    // 0x100c34a00, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100c34a10, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::~FastPool()
-    void jag::FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::~FastPool(
-        FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>* this) {
+    // 0x100c34a10
+    FastPool<MakeSharedPool<render::VertexArrayObject, 2048>::RefCounterAndData, unsigned long>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100c3ce50, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<render::InputAssemblerState, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100c3cf90, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<render::InputAssemblerState, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<render::InputAssemblerState, unsigned long>::FastPool(
-        FastPool<render::InputAssemblerState, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100c3cf90
+    FastPool<render::InputAssemblerState, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100c3d260, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<render::RenderPipelineState, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100c3d3a0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<render::RenderPipelineState, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<render::RenderPipelineState, unsigned long>::FastPool(
-        FastPool<render::RenderPipelineState, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100c3d3a0
+    FastPool<render::RenderPipelineState, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100c3d670, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<render::ComputePipelineState, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100c3d7b0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<render::ComputePipelineState, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<render::ComputePipelineState, unsigned long>::FastPool(
-        FastPool<render::ComputePipelineState, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100c3d7b0
+    FastPool<render::ComputePipelineState, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100c3da80, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<render::OutputMergerState, unsigned long>::FastPool(unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x100c3dbc0, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<render::OutputMergerState, unsigned long>::FastPool(unsigned long, unsigned long)
-    void FastPool<render::OutputMergerState, unsigned long>::FastPool(
-        FastPool<render::OutputMergerState, unsigned long>* this, ulong param_1, ulong param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        *(undefined8*)(this + 32) = 0;
-        resize(this, param_1, param_2);
+    // 0x100c3dbc0
+    FastPool<render::OutputMergerState, unsigned long>::FastPool(unsigned long arg1, unsigned long arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        *(uint64_t*)(this + 32) = 0;
+        resize(this, arg1, arg2);
     }
 
-    // 0x100c7fa80, 16 bytes, complete-object constructor, inline, placed by class name
-    // FastPool<game::console::Snow::SnowFlake, int>::FastPool(int, int): jumps straight to the base-object constructor
-
-    // 0x100c7fa90, 16 bytes, complete-object destructor, inline, placed by class name
-    // FastPool<game::console::Snow::SnowFlake, int>::~FastPool(): jumps straight to the base-object destructor
-
-    // 0x100c7ffc0, 80 bytes, inline, placed by class name
-    // FastPool<game::console::Snow::SnowFlake, int>::operator[](int)
-    long FastPool<game::console::Snow::SnowFlake, int>::operator[](FastPool<game::console::Snow::SnowFlake, int>* this,
-                                                                   int param_1) {
-        if ((param_1 < 0) || (*(int*)(this + 28) <= param_1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x100c7ffc0
+    long FastPool<game::console::Snow::SnowFlake, int>::operator[](int arg1) {
+        if ((arg1 < 0) || (*(int*)(this + 28) <= arg1)) {
             LogAssert("allocatedEntityIndex >= 0 && allocatedEntityIndex < m_capacity",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 135,
-                      (char*)0);
+                      nullptr);
         }
-        return (long)*(int*)(*(long*)(this + 8) + (long)param_1 * 4) * 32 + *(long*)this;
+        return (long)*(int*)(*(long*)(this + 8) + (long)arg1 * 4) * 32 + *(long*)this;
     }
 
-    // 0x100c80130, 64 bytes, inline, placed by class name
-    // game::console::Snow::SnowFlake* FastPool<game::console::Snow::SnowFlake, int>::Create<int, int, float>(int&&, int&&, float&&)
-    SnowFlake* FastPool<game::console::Snow::SnowFlake, int>::Create<int, int, float>(
-        FastPool<game::console::Snow::SnowFlake, int>* this, int* param_1, int* param_2, float* param_3) {
-        SnowFlake* this_00;
-
-        this_00 = (SnowFlake*)allocate(this);
-        game::console::Snow::SnowFlake::SnowFlake(this_00, *param_1, *param_2, *param_3);
+    // 0x100c80130
+    game::console::Snow::SnowFlake*
+    FastPool<game::console::Snow::SnowFlake, int>::Create<int, int, float>(int&& arg1, int&& arg2, float&& arg3) {
+        auto this_00 = allocate(this);
+        new (this_00) game::console::Snow::SnowFlake(arg1, arg2, arg3);
         return this_00;
     }
 
-    // 0x100c80170, 64 bytes, inline, placed by class name
-    // game::console::Snow::SnowFlake* FastPool<game::console::Snow::SnowFlake, int>::Create<int, int>(int&&, int&&)
-    SnowFlake*
-    FastPool<game::console::Snow::SnowFlake, int>::Create<int, int>(FastPool<game::console::Snow::SnowFlake, int>* this,
-                                                                    int* param_1, int* param_2) {
-        SnowFlake* this_00;
-
-        this_00 = (SnowFlake*)allocate(this);
-        game::console::Snow::SnowFlake::SnowFlake(this_00, *param_1, *param_2, 0.0);
+    // 0x100c80170
+    game::console::Snow::SnowFlake* FastPool<game::console::Snow::SnowFlake, int>::Create<int, int>(int&& arg1,
+                                                                                                    int&& arg2) {
+        auto this_00 = allocate(this);
+        new (this_00) game::console::Snow::SnowFlake(arg1, arg2, 0.0);
         return this_00;
     }
 
-    // 0x100c91ff0, 64 bytes, base-object destructor, inline, placed by class name
-    // FastPool<game::console::Snow::SnowFlake, int>::~FastPool()
-    void FastPool<game::console::Snow::SnowFlake, int>::~FastPool(FastPool<game::console::Snow::SnowFlake, int>* this) {
+    // 0x100c91ff0
+    FastPool<game::console::Snow::SnowFlake, int>::~FastPool() {
         clear(this);
-        safe_delete_array<float>((float**)(this + 16));
-        safe_delete_array<float>((float**)(this + 8));
+        safe_delete_array<float>((unsigned char**)(this + 16));
+        safe_delete_array<float>((unsigned char**)(this + 8));
         aligned_dealloc(*(void**)this);
-        *(undefined8*)this = 0;
+        *(uint64_t*)this = 0;
     }
 
-    // 0x100c92030, 80 bytes, inline, placed by class name
-    // FastPool<game::console::Snow::SnowFlake, int>::clear()
-    void FastPool<game::console::Snow::SnowFlake, int>::clear(FastPool<game::console::Snow::SnowFlake, int>* this) {
-        int iVar1;
+    // 0x100c92030
+    void FastPool<game::console::Snow::SnowFlake, int>::clear() {
         int iVar2;
 
-        iVar1 = GetValue();
+        int iVar1 = GetValue();
         if (0 < iVar1) {
             iVar1 = 0;
             do {
@@ -10240,15 +7447,13 @@ namespace jag {
         Reset();
     }
 
-    // 0x100c92080, 32 bytes, base-object constructor, inline, placed by class name
-    // FastPool<game::console::Snow::SnowFlake, int>::FastPool(int, int)
-    void FastPool<game::console::Snow::SnowFlake, int>::FastPool(FastPool<game::console::Snow::SnowFlake, int>* this,
-                                                                 int param_1, int param_2) {
-        *(undefined8*)(this + 16) = 0;
-        *(undefined8*)(this + 24) = 0;
-        *(undefined8*)this = 0;
-        *(undefined8*)(this + 8) = 0;
-        resize(this, param_1, param_2);
+    // 0x100c92080
+    FastPool<game::console::Snow::SnowFlake, int>::FastPool(int arg1, int arg2) {
+        *(uint64_t*)(this + 16) = 0;
+        *(uint64_t*)(this + 24) = 0;
+        *(uint64_t*)this = 0;
+        *(uint64_t*)(this + 8) = 0;
+        resize(this, arg1, arg2);
     }
 
 } // namespace jag

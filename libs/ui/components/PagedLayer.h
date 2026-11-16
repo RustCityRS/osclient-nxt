@@ -1,6 +1,5 @@
 // libs/ui/components/PagedLayer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.ui
@@ -11,476 +10,355 @@ namespace jag::ui {
         class PageData;
         // virtual methods in vtable order
         virtual ~PagedLayer();
-        virtual GetType() const;
-        virtual OnPageCountChanged();
-        virtual void MainDraw(ComponentDependencies const&, int, int, float);
-        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int);
-        virtual RequiresSeparatePreviousValueTrigger() const;
-        virtual void SetMargin(Component::MarginType, Margin);
-        virtual Margin GetMargin(Component::MarginType) const;
-        virtual SupportsMargin(Component::MarginType) const;
-        virtual GetValueRepresentation();
-        virtual void LoadStyleSheetVisuals(StyleSheet const&);
-        virtual GetStaticChildren();
-        virtual GetDynamicChildren();
+        virtual uint64_t GetType() const;
+        virtual void OnPageCountChanged();
+        virtual void MainDraw(const ComponentDependencies& componentDependencies, int arg2, int arg3, float arg4);
+        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2);
+        virtual uint8_t RequiresSeparatePreviousValueTrigger() const;
+        virtual void SetMargin(Component::MarginType marginType, Margin margin);
+        virtual Margin GetMargin(Component::MarginType marginType) const;
+        virtual bool SupportsMargin(Component::MarginType optionClient) const;
+        virtual uint8_t* GetValueRepresentation();
+        virtual void LoadStyleSheetVisuals(const StyleSheet& styleSheet);
+        virtual vector<render::Viewport, eastl::fixed_vector_allocator<24ul, _2ul, _4ul, _0ul, true> _>*
+        GetStaticChildren();
+        virtual uint8_t* GetDynamicChildren();
         virtual void GetStaticChildrenRenderOrderCollection();
         virtual long GetDynamicChildrenRenderOrderCollection();
-        virtual GetStaticChildrenWithOptionalRenderOrder() const;
-        virtual GetDynamicChildrenWithOptionalRenderOrder() const;
-        virtual void AddStaticChild(ComponentContainer const&);
-        virtual ulong AddDynamicChild(shared_ptr<Component> const&, bool);
-        virtual DelDynamicChild(int);
-        virtual void SendComponentToBack(shared_ptr<Component> const&);
-        virtual void SendComponentToFront(shared_ptr<Component> const&);
-        virtual void SetChildHidden(Component const&, bool);
-        virtual void SetScrollPos(int, int);
-        virtual void SetScrollSize(int, int);
+        virtual uint8_t* GetStaticChildrenWithOptionalRenderOrder() const;
+        virtual uint8_t* GetDynamicChildrenWithOptionalRenderOrder() const;
+        virtual void AddStaticChild(const ComponentContainer& componentContainer);
+        virtual unsigned long AddDynamicChild(const shared_ptr<Component>& component, bool arg2);
+        virtual uint64_t DelDynamicChild(int arg1);
+        virtual void SendComponentToBack(const shared_ptr<Component>& component);
+        virtual void SendComponentToFront(const shared_ptr<Component>& component);
+        virtual void SetChildHidden(const Component& component, bool arg2);
+        virtual void SetScrollPos(int arg1, int arg2);
+        virtual void SetScrollSize(int arg1, int arg2);
         virtual void GetScrollXPos() const;
         virtual void GetScrollYPos() const;
-        virtual GetScrollWidth() const;
-        virtual GetScrollHeight() const;
+        virtual uint32_t GetScrollWidth() const;
+        virtual uint32_t GetScrollHeight() const;
         virtual bool HasRecentValueChange() const;
         virtual void NotifyRecentValueChangeHandled();
-        virtual uchar GetPreviousValue() const;
-        virtual uchar GetActivePage() const;
+        virtual unsigned char GetPreviousValue() const;
+        virtual unsigned char GetActivePage() const;
         virtual void OnActivePageChanged();
-        OnActivePageChanging(unsigned char);
-        GetDynamicChildren() const;
-        PagedLayer(InterfaceManager*);
-        bool SetActivePage(unsigned char);
-        GetPageCount() const;
-        uchar GetCurrentValue() const;
-        void GetPageStaticChildren(unsigned char);
-        long GetPageDynamicChildren(unsigned char);
-        void DrawBackground(graphics::RT7Core*, int, int);
-        void DrawActivePage(graphics::RT7Core*, int, int, float);
-        bool SetDynamicPageCount(unsigned char);
-        byte GetStaticPageCount() const;
+        void OnActivePageChanging(unsigned char arg1);
+        uint8_t* GetDynamicChildren() const;
+        PagedLayer(InterfaceManager* interfaceManager);
+        bool SetActivePage(unsigned char arg1);
+        uint8_t GetPageCount() const;
+        unsigned char GetCurrentValue() const;
+        void GetPageStaticChildren(unsigned char arg1);
+        long GetPageDynamicChildren(unsigned char arg1);
+        void DrawBackground(graphics::RT7Core* rt7Core, int arg2, int arg3);
+        void DrawActivePage(graphics::RT7Core* rt7Core, int arg2, int arg3, float arg4);
+        bool SetDynamicPageCount(unsigned char arg1);
+        uint8_t GetStaticPageCount() const;
         void GetCurrentPage();
-        void ConvertToInteractableArea(int&, int&, int&, int&, int&, int&) const;
-        long GetPageLabel(unsigned char) const;
-        GetPageEnabled(unsigned char) const;
-        GetPageIcon(unsigned char) const;
+        void ConvertToInteractableArea(int& arg1, int& arg2, int& arg3, int& arg4, int& arg5, int& arg6) const;
+        long GetPageLabel(unsigned char arg1) const;
+        uint8_t GetPageEnabled(unsigned char arg1) const;
+        uint32_t GetPageIcon(unsigned char arg1) const;
+        vector<render::Viewport, eastl::fixed_vector_allocator<24ul, _2ul, _4ul, _0ul, true> _>*
         GetStaticChildren() const;
         void GetCurrentPage() const;
-        static /* 1 bytes */ m_showNoClickThroughPagedLayers; // = 0
+        static bool m_showNoClickThroughPagedLayers; // = 0
 
-        // data members, from how the methods use this: 1132 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[4];
-        ushort field_12; // offset 12
-        char _unknown_14[74];
-        int field_88;        // offset 88
-        int field_92;        // offset 92
-        undefined4 field_96; // offset 96
-        byte field_100;      // offset 100
-        char _unknown_101[323];
-        undefined** m_pValueRepresentation; // offset 424
-        char _unknown_432[584];
-        byte m_staticPageCount; // offset 1016
-        uchar m_currentValue;   // offset 1017
-        uchar m_previousValue;  // offset 1018
-        char _unknown_1019[53];
-        undefined4 field_1072; // offset 1072
-        char _unknown_1076[4];
-        InterfaceManager* field_1080; // offset 1080
-        char _unknown_1088[44];
+    private:
+        uint8_t _unknown_8[4];
+        unsigned short field_12;
+        uint8_t _unknown_14[74];
+        ShaderVariablePrecision field_88;
+        ShaderVariablePrecision field_92;
+        uint32_t field_96;
+        uint8_t field_100;
+        uint8_t _unknown_101[323];
+        uint8_t** m_pValueRepresentation;
+        uint8_t _unknown_432[584];
+        uint8_t m_staticPageCount;
+        unsigned char m_currentValue;
+        unsigned char m_previousValue;
+        uint8_t _unknown_1019[53];
+        Margin field_1072;
+        uint8_t _unknown_1076[4];
+        InterfaceManager* field_1080;
+        uint8_t _unknown_1088[44];
     };
 
     class PagedLayer::PageData {
     public:
-        void ValidateScrollPos(int&, int&, int, int) const;
+        void ValidateScrollPos(int& arg1, int& arg2, int arg3, int arg4) const;
         ~PageData();
-        PageData(PageData&&);
+        PageData(PageData&& pageData);
         PageData();
 
-        // data members, from how the methods use this: 120 bytes
-        char _unknown_0[64];
-        undefined8 field_64; // offset 64
-        int field_72;        // offset 72
-        int field_76;        // offset 76
-        undefined1 field_80; // offset 80
-        char _unknown_81[31];
-        undefined4 field_112; // offset 112
-        char _unknown_116[4];
+    private:
+        uint8_t _unknown_0[64];
+        uint64_t field_64;
+        ShaderVariablePrecision field_72;
+        ShaderVariablePrecision field_76;
+        uint8_t field_80;
+        uint8_t _unknown_81[31];
+        uint32_t field_112;
+        uint8_t _unknown_116[4];
     };
 
-    // 0x1006a1ad0, 32 bytes, inline, placed by class name and debug map
-    // PagedLayer::GetPageCount() const
-    undefined1 PagedLayer::GetPageCount() {
-        undefined1 uVar1;
-
-        uVar1 = (&field_496)->size();
-        return uVar1;
+    // 0x1006a1ad0
+    uint8_t PagedLayer::GetPageCount() const {
+        return field_496.size();
     }
 
-    // 0x1006a2500, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // PagedLayer::GetActivePage() const
-    /* PagedLayer::GetCurrentValue() const */
-
-    uchar PagedLayer::GetCurrentValue() {
+    // 0x1006a2500
+    unsigned char PagedLayer::GetActivePage() const {
         return m_currentValue;
     }
 
-    // 0x1006a25c0, 80 bytes, inline, placed by class name and debug map
-    // PagedLayer::GetPageStaticChildren(unsigned char)
-    void PagedLayer::GetPageStaticChildren(uchar param_1) {
-        if (GetPageCount(this) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006a25c0
+    void PagedLayer::GetPageStaticChildren(unsigned char arg1) {
+        if (GetPageCount() <= arg1) {
             LogAssert(
                 "pageIndex < GetPageCount()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/PagedLayer.h", 86,
-                (char*)0);
+                nullptr);
         }
-        eastl::vector<PagedLayer::PageData,
-                      eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[]((vector<PagedLayer::PageData,
-                           eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_496,
-                   (ulong)param_1);
+        field_496[(unsigned long)arg1];
     }
 
-    // 0x1006a2610, 96 bytes, inline, placed by class name and debug map
-    // PagedLayer::GetPageDynamicChildren(unsigned char)
-    long PagedLayer::GetPageDynamicChildren(uchar param_1) {
-        long lVar2;
-
-        if (GetPageCount(this) <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1006a2610
+    long PagedLayer::GetPageDynamicChildren(unsigned char arg1) {
+        if (GetPageCount() <= arg1) {
             LogAssert(
                 "pageIndex < GetPageCount()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/PagedLayer.h", 87,
-                (char*)0);
+                nullptr);
         }
-        lVar2 = eastl::vector<PagedLayer::PageData,
-                              eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[]((vector<PagedLayer::PageData,
-                           eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_496,
-                   (ulong)param_1);
-        return lVar2 + 32;
+        return field_496[(unsigned long)arg1] + 32;
     }
 
-    // 0x1006a2d10, 16 bytes, inline, placed by class name and debug map
-    // PagedLayer::GetStaticPageCount() const
-    byte PagedLayer::GetStaticPageCount() {
+    // 0x1006a2d10
+    uint8_t PagedLayer::GetStaticPageCount() const {
         return m_staticPageCount;
     }
 
-    // 0x1006a2d80, 32 bytes, inline, placed by class name and debug map
-    // PagedLayer::GetCurrentPage()
+    // 0x1006a2d80
     void PagedLayer::GetCurrentPage() {
-        eastl::vector<PagedLayer::PageData,
-                      eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[]((vector<PagedLayer::PageData,
-                           eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_496,
-                   (ulong)m_currentValue);
+        field_496[(unsigned long)m_currentValue];
     }
 
-    // 0x1006a56b0, 96 bytes, inline, placed by class name
-    // PagedLayer::GetPageLabel(unsigned char) const
-    long PagedLayer::GetPageLabel(uchar param_1) {
-        ulong uVar1;
-        long lVar2;
-        undefined7 in_register_00000031;
-        ulong uVar3;
+    // 0x1006a56b0
+    long PagedLayer::GetPageLabel(unsigned char arg1) const {
+        uint64_t in_register_00000031;
 
-        uVar3 = CONCAT71(in_register_00000031, param_1) & 4294967295;
-        uVar1 = (&field_496)->size();
-        if (uVar1 <= uVar3) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1_00 = (((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) & 4294967295;
+        if (field_496.size() <= arg1_00) {
             LogAssert(
                 "pageIndex < m_pages.size()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/PagedLayer.h", 48,
-                (char*)0);
+                nullptr);
         }
-        lVar2 = eastl::vector<PagedLayer::PageData,
-                              eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[]((vector<PagedLayer::PageData,
-                           eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_496,
-                   uVar3);
-        return lVar2 + 88;
+        return field_496[arg1_00] + 88;
     }
 
-    // 0x1006a5780, 96 bytes, inline, placed by class name
-    // PagedLayer::GetPageEnabled(unsigned char) const
-    undefined1 PagedLayer::GetPageEnabled(uchar param_1) {
-        ulong uVar1;
-        long lVar2;
-        undefined7 in_register_00000031;
-        ulong uVar3;
+    // 0x1006a5780
+    uint8_t PagedLayer::GetPageEnabled(unsigned char arg1) const {
+        uint64_t in_register_00000031;
 
-        uVar3 = CONCAT71(in_register_00000031, param_1) & 4294967295;
-        uVar1 = (&field_496)->size();
-        if (uVar1 <= uVar3) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1_00 = (((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) & 4294967295;
+        if (field_496.size() <= arg1_00) {
             LogAssert(
                 "pageIndex < m_pages.size()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/PagedLayer.h", 44,
-                (char*)0);
+                nullptr);
         }
-        lVar2 = eastl::vector<PagedLayer::PageData,
-                              eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[]((vector<PagedLayer::PageData,
-                           eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_496,
-                   uVar3);
-        return *(undefined1*)(lVar2 + 80);
+        long lVar2 = field_496[arg1_00];
+        return *(uint8_t*)(lVar2 + 80);
     }
 
-    // 0x1006a57e0, 96 bytes, inline, placed by class name
-    // PagedLayer::GetPageIcon(unsigned char) const
-    undefined4 PagedLayer::GetPageIcon(uchar param_1) {
-        ulong uVar1;
-        long lVar2;
-        undefined7 in_register_00000031;
-        ulong uVar3;
+    // 0x1006a57e0
+    uint32_t PagedLayer::GetPageIcon(unsigned char arg1) const {
+        uint64_t in_register_00000031;
 
-        uVar3 = CONCAT71(in_register_00000031, param_1) & 4294967295;
-        uVar1 = (&field_496)->size();
-        if (uVar1 <= uVar3) {
-            /* WARNING: Subroutine does not return */
+        unsigned long arg1_00 = (((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) & 4294967295;
+        if (field_496.size() <= arg1_00) {
             LogAssert(
                 "pageIndex < m_pages.size()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/PagedLayer.h", 49,
-                (char*)0);
+                nullptr);
         }
-        lVar2 = eastl::vector<PagedLayer::PageData,
-                              eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[]((vector<PagedLayer::PageData,
-                           eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_496,
-                   uVar3);
-        return *(undefined4*)(lVar2 + 112);
+        long lVar2 = field_496[arg1_00];
+        return *(uint32_t*)(lVar2 + 112);
     }
 
-    // 0x1006adc50, 16 bytes, inline, placed by class name
-    // PagedLayer::GetStaticChildren()
-    /* PagedLayer::GetStaticChildren() const */
-
-    undefined1* PagedLayer::GetStaticChildren() {
-        return &field_432;
+    // 0x1006adc50
+    vector<render::Viewport, eastl::fixed_vector_allocator<24ul, _2ul, _4ul, _0ul, true> _>*
+    PagedLayer::GetStaticChildren() {
+        return (vector<render::Viewport, eastl::fixed_vector_allocator<24ul, _2ul, _4ul, _0ul, true> _>*)&field_432;
     }
 
-    // 0x1006adc60, 16 bytes, inline, placed by class name
-    // PagedLayer::GetStaticChildrenRenderOrderCollection()
+    // 0x1006adc60
     void PagedLayer::GetStaticChildrenRenderOrderCollection() {
-        GetCurrentPage(this);
+        GetCurrentPage();
     }
 
-    // 0x1006adc70, 16 bytes, inline, placed by class name
-    // PagedLayer::GetDynamicChildrenRenderOrderCollection()
+    // 0x1006adc70
     long PagedLayer::GetDynamicChildrenRenderOrderCollection() {
-        return GetCurrentPage(this) + 32;
+        return GetCurrentPage() + 32;
     }
 
-    // 0x1006adc80, 48 bytes, inline, placed by class name
-    // PagedLayer::GetStaticChildrenWithOptionalRenderOrder() const
-    undefined1* PagedLayer::GetStaticChildrenWithOptionalRenderOrder() {
-        undefined1* puVar2;
+    // 0x1006adc80
+    uint8_t* PagedLayer::GetStaticChildrenWithOptionalRenderOrder() const {
+        uint8_t* puVar2;
 
-        if (GetPageCount(this) == '\0') {
+        if (GetPageCount() == '\0') {
             puVar2 = &field_432;
         } else {
-            puVar2 = (undefined1*)GetCurrentPage(this);
+            puVar2 = (uint8_t*)GetCurrentPage();
         }
         return puVar2;
     }
 
-    // 0x1006adcb0, 64 bytes, inline, placed by class name
-    // PagedLayer::GetDynamicChildrenWithOptionalRenderOrder() const
-    undefined1* PagedLayer::GetDynamicChildrenWithOptionalRenderOrder() {
+    // 0x1006adcb0
+    uint8_t* PagedLayer::GetDynamicChildrenWithOptionalRenderOrder() const {
         long lVar2;
-        undefined1* puVar3;
+        uint8_t* puVar3;
 
-        if (GetPageCount(this) == '\0') {
+        if (GetPageCount() == '\0') {
             puVar3 = &field_464;
         } else {
-            lVar2 = GetCurrentPage(this);
-            puVar3 = (undefined1*)(lVar2 + 32);
+            lVar2 = GetCurrentPage();
+            puVar3 = (uint8_t*)(lVar2 + 32);
         }
         return puVar3;
     }
 
-    // 0x1006adcf0, 80 bytes, inline, placed by class name
-    // PagedLayer::GetScrollXPos() const
-    void PagedLayer::GetScrollXPos() {
-        undefined4 uVar1;
-        int iVar2;
-        long lVar3;
-
-        lVar3 = GetCurrentPage(this);
-        uVar1 = *(undefined4*)(lVar3 + 64);
-        iVar2 = field_88;
-        lVar3 = GetCurrentPage(this);
-        iVar2 = eastl::max<int>(iVar2, *(int*)(lVar3 + 72));
-        iVar2 = eastl::min<graphics::GraphicsQuality>(uVar1, iVar2 - field_88);
-        eastl::max<int>(0, iVar2);
+    // 0x1006adcf0
+    void PagedLayer::GetScrollXPos() const {
+        long lVar3 = GetCurrentPage();
+        EnumOptionToggle enumOptionToggle1 = *(EnumOptionToggle*)(lVar3 + 64);
+        ShaderVariablePrecision SVar2 = field_88;
+        lVar3 = GetCurrentPage();
+        int iVar1 = eastl::max<int>(SVar2, *(ShaderVariablePrecision*)(lVar3 + 72));
+        SVar2 = eastl::min<graphics::GraphicsQuality>(enumOptionToggle1, iVar1 - field_88);
+        eastl::max<int>(0, SVar2);
     }
 
-    // 0x1006add40, 80 bytes, inline, placed by class name
-    // PagedLayer::GetScrollYPos() const
-    void PagedLayer::GetScrollYPos() {
-        undefined4 uVar1;
-        int iVar2;
-        long lVar3;
-
-        lVar3 = GetCurrentPage(this);
-        uVar1 = *(undefined4*)(lVar3 + 68);
-        iVar2 = field_92;
-        lVar3 = GetCurrentPage(this);
-        iVar2 = eastl::max<int>(iVar2, *(int*)(lVar3 + 76));
-        iVar2 = eastl::min<graphics::GraphicsQuality>(uVar1, iVar2 - field_92);
-        eastl::max<int>(0, iVar2);
+    // 0x1006add40
+    void PagedLayer::GetScrollYPos() const {
+        long lVar3 = GetCurrentPage();
+        EnumOptionToggle enumOptionToggle1 = *(EnumOptionToggle*)(lVar3 + 68);
+        ShaderVariablePrecision SVar2 = field_92;
+        lVar3 = GetCurrentPage();
+        int iVar1 = eastl::max<int>(SVar2, *(ShaderVariablePrecision*)(lVar3 + 76));
+        SVar2 = eastl::min<graphics::GraphicsQuality>(enumOptionToggle1, iVar1 - field_92);
+        eastl::max<int>(0, SVar2);
     }
 
-    // 0x1006add90, 16 bytes, inline, placed by class name
-    // PagedLayer::GetScrollWidth() const
-    undefined4 PagedLayer::GetScrollWidth() {
-        long lVar1;
-
-        lVar1 = GetCurrentPage(this);
-        return *(undefined4*)(lVar1 + 72);
+    // 0x1006add90
+    uint32_t PagedLayer::GetScrollWidth() const {
+        long lVar1 = GetCurrentPage();
+        return *(uint32_t*)(lVar1 + 72);
     }
 
-    // 0x1006adda0, 16 bytes, inline, placed by class name
-    // PagedLayer::GetScrollHeight() const
-    undefined4 PagedLayer::GetScrollHeight() {
-        long lVar1;
-
-        lVar1 = GetCurrentPage(this);
-        return *(undefined4*)(lVar1 + 76);
+    // 0x1006adda0
+    uint32_t PagedLayer::GetScrollHeight() const {
+        long lVar1 = GetCurrentPage();
+        return *(uint32_t*)(lVar1 + 76);
     }
 
-    // 0x1006addb0, 32 bytes, inline, placed by class name
-    // PagedLayer::HasRecentValueChange() const
-    bool PagedLayer::HasRecentValueChange() {
+    // 0x1006addb0
+    bool PagedLayer::HasRecentValueChange() const {
         return m_currentValue != m_previousValue;
     }
 
-    // 0x1006addd0, 32 bytes, inline, placed by class name
-    // PagedLayer::NotifyRecentValueChangeHandled()
+    // 0x1006addd0
     void PagedLayer::NotifyRecentValueChangeHandled() {
         m_previousValue = m_currentValue;
     }
 
-    // 0x1006addf0, 16 bytes, inline, placed by class name
-    // PagedLayer::GetPreviousValue() const
-    uchar PagedLayer::GetPreviousValue() {
+    // 0x1006addf0
+    unsigned char PagedLayer::GetPreviousValue() const {
         return m_previousValue;
     }
 
-    // 0x1006adf10, 16 bytes, inline, placed by class name
-    // PagedLayer::GetType() const
-    undefined8 PagedLayer::GetType() {
+    // 0x1006adf10
+    uint64_t PagedLayer::GetType() const {
         return 22;
     }
 
-    // 0x1006adf20, 32 bytes, inline, placed by class name
-    // PagedLayer::SetMargin(Component::MarginType, Margin)
-    void PagedLayer::SetMargin(int param_2, undefined4 param_3) {
-        if (param_2 == 0) {
-            field_1072 = param_3;
+    // 0x1006adf20
+    void PagedLayer::SetMargin(Component::MarginType marginType, Margin margin) {
+        if (marginType == 0) {
+            field_1072[0] = margin.field_0;
+            field_1072[1] = margin.field_1;
+            field_1072[2] = margin.field_2;
+            field_1072[3] = margin.field_3;
             return;
         }
     }
 
-    // 0x1006adf40, 48 bytes, inline, placed by class name
-    // PagedLayer::GetMargin(Component::MarginType) const
-    Margin PagedLayer::GetMargin(int param_2) {
+    // 0x1006adf40
+    Margin PagedLayer::GetMargin(Component::MarginType marginType) const {
         Margin local_c;
 
-        if (param_2 == 0) {
-            local_c = (Margin)field_1072;
+        if (marginType == 0) {
+            local_c.field_0 = field_1072[0];
+            local_c.field_1 = field_1072[1];
+            local_c.field_2 = field_1072[2];
+            local_c.field_3 = field_1072[3];
         } else {
-            new (&local_c) Margin();
+            local_c = Margin();
         }
         return local_c;
     }
 
-    // 0x1006b2610, 16 bytes, complete-object destructor, inline, placed by class name
-    // PagedLayer::PageData::~PageData(): jumps straight to the base-object destructor
-
-    // 0x1006b2620, 48 bytes, base-object destructor, inline, placed by class name
-    // PagedLayer::PageData::~PageData()
-    void PagedLayer::PageData::~PageData() {
-        (&field_88)->~basic_string();
-        (&field_32)->~vector();
-        ~vector();
+    // 0x1006b2620
+    PagedLayer::PageData::~PageData() {
+        field_88.~basic_string();
+        field_32.~vector();
     }
 
-    // 0x1006b2fb0, 32 bytes, inline, placed by class name
-    // PagedLayer::GetCurrentPage() const
-    void PagedLayer::GetCurrentPage() {
-        eastl::vector<PagedLayer::PageData,
-                      eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[]((vector<PagedLayer::PageData,
-                           eastl::fixed_vector_allocator<120ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_496,
-                   (ulong)m_currentValue);
+    // 0x1006b2fb0
+    void PagedLayer::GetCurrentPage() const {
+        field_496[(unsigned long)m_currentValue];
     }
 
-    // 0x1006d6130, 16 bytes, complete-object constructor, inline, placed by class name
-    // PagedLayer::PageData::PageData(PagedLayer::PageData&&): jumps straight to the base-object constructor
-
-    // 0x1006d6140, 80 bytes, base-object constructor, inline, placed by class name
-    // PagedLayer::PageData::PageData(PagedLayer::PageData&&)
-    void PagedLayer::PageData::PageData(PageData* param_1) {
-        int iVar1;
-        int iVar2;
-
-        new (this) eastl::vector<ComponentContainer, eastl::allocator>(param_1);
-        new (&field_32, (vector*)&param_1->field_32) eastl::vector<ComponentContainer, eastl::allocator>();
-        field_80 = param_1->field_80;
-        iVar1 = param_1->field_72;
-        iVar2 = param_1->field_76;
-        field_64 = param_1->field_64;
-        field_72 = iVar1;
-        field_76 = iVar2;
-        new (&field_88) eastl::basic_string<char, BucketAllocatorEASTL>();
-        field_112 = param_1->field_112;
+    // 0x1006d6140
+    PagedLayer::PageData::PageData(PagedLayer::PageData&& pageData)
+        : eastl::vector<ComponentContainer>(pageData), field_32(pageData.field_32), field_80(pageData.field_80) {
+        ShaderVariablePrecision SVar1 = pageData.field_72;
+        ShaderVariablePrecision SVar2 = pageData.field_76;
+        field_64 = pageData.field_64;
+        field_72 = SVar1;
+        field_76 = SVar2;
+        new (&field_88) eastl::basic_string<char, BucketAllocatorEASTL>(pageData.field_88);
+        field_112 = pageData.field_112;
     }
 
-    // 0x1006d6260, 16 bytes, complete-object constructor, inline, placed by class name
-    // PagedLayer::PageData::PageData(): jumps straight to the base-object constructor
+    // 0x1006d6270
+    PagedLayer::PageData::PageData()
+        : eastl::vector<ComponentContainer>(), field_64(0), field_72(0), field_76(0), field_80(1),
+          field_112(4294967295) {}
 
-    // 0x1006d6270, 112 bytes, base-object constructor, inline, placed by class name
-    // PagedLayer::PageData::PageData()
-    void PagedLayer::PageData::PageData() {
-        new (this) eastl::vector<ComponentContainer, eastl::allocator>();
-        new (&field_32) eastl::vector<ComponentContainer, eastl::allocator>();
-        field_64 = 0;
-        field_72 = 0;
-        field_76 = 0;
-        field_80 = 1;
-        eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-        field_112 = 4294967295;
-    }
-
-    // 0x1006d6630, 32 bytes, inline, placed by class name
-    // PagedLayer::SendComponentToBack(shared_ptr<Component> const&)::$_56::operator()(ComponentContainer const&, shared_ptr<Component> const&) const
-    /* PagedLayer::SendComponentToBack(shared_ptr<Component>
-   const&)::$_56::TEMPNAMEPLACEHOLDERVALUE(ComponentContainer const&,
-   shared_ptr<Component> const&) const */
-
-    void PagedLayer::SendComponentToBack(shared_ptr<Component> const&)::$_56::operator()(ComponentContainer* param_1,
-                                                                                         shared_ptr* param_2) {
-        jag* this;
-        shared_ptr* extraout_RDX;
-
-        this = (jag*)param_1->second();
-        operator==(this, param_2, extraout_RDX);
+    // 0x1006d6630
+    void PagedLayer::SendComponentToBack(shared_ptr<Component> const&)::$_56::operator()(
+        const ComponentContainer& componentContainer, const shared_ptr<Component>& component) const {
+        auto midiRequest1 = second();
+        *midiRequest1 == componentContainer;
     }
 
 } // namespace jag::ui
 
 namespace jag::math {
-    // 0x1006a2590, 32 bytes, inline, placed by debug map only (low confidence)
-    // int Lerp<int, float>(int const&, int const&, float)
-    int Lerp<int, float>(int* param_1, int* param_2, float param_3) {
-        return (int)((float)(*param_2 - *param_1) * param_3) + *param_1;
+    // 0x1006a2590
+    int Lerp<int, float>(const int& arg1, const int& arg2, float arg3) {
+        return (int)((float)(arg2 - arg1) * arg3) + arg1;
     }
 
 } // namespace jag::math
 
-// 0x1006a2700, 16 bytes, placed by debug map only (low confidence)
-// ceil(float)
-void ceil(float param_1) {
+// 0x1006a2700
+void ceil(float arg1) {
     _ceilf();
 }

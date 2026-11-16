@@ -1,6 +1,5 @@
 // libs/game/runetek5/assetbuilder/AssetLRUHashCache.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,849 +8,532 @@ namespace jag::game {
         typename...> // 6 instantiations, e.g. <graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>, <graphics::Model, BuildModelMain, 100ul, 101ul, false>, <graphics::Model, BuildModelMain, 1024ul, 1025ul, false>
     class AssetLRUHashCache {
     public:
-        AssetLRUHashCache(unsigned int, char const*);
+        AssetLRUHashCache(unsigned int arg1, const char* str);
         ~AssetLRUHashCache();
         void Reset();
-        void UpdateLoadingAssetList(unsigned long);
-        uint IsLoadingAsset(unsigned long long);
-        void AddLoadingAsset(unsigned long long, shared_ptr<BuildAnimationMain> const&);
-        void AddLoadingAsset(unsigned long long, shared_ptr<BuildModelMain> const&);
+        void UpdateLoadingAssetList(unsigned long arg1);
+        bool IsLoadingAsset(unsigned long long arg1);
+        void AddLoadingAsset(unsigned long long arg1, const shared_ptr<BuildAnimationMain>& buildAnimationMain);
+        void AddLoadingAsset(unsigned long long arg1, const shared_ptr<BuildModelMain>& buildModelMain);
     };
 
-    // 0x100495140, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::AssetLRUHashCache(unsigned int, char const*): jumps straight to the base-object constructor
-
-    // 0x100495460, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::~AssetLRUHashCache(): jumps straight to the base-object destructor
-
-    // 0x100495480, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // PlayerModelReplaceHeldStatus::~PlayerModelReplaceHeldStatus(): jumps straight to the base-object destructor
-
-    // 0x1004956d0, 32 bytes, inline, placed by debug map only (low confidence)
-    // PlayerModelReplaceHeldStatus::Reset()
+    // 0x1004956d0
     void PlayerModelReplaceHeldStatus::Reset() {
         field_0 = 0;
         field_4 = 4294967295;
-        shared_ptr<ObjTypeCustomisation>::reset();
+        field_8.reset();
     }
 
-    // 0x1004990a0, 48 bytes, base-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::~AssetLRUHashCache()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::~AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>* this) {
+    // 0x1004990a0
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::~AssetLRUHashCache() {
         ((this + 8256))->~vector_map();
-        ~LRUHashCache();
     }
 
-    // 0x1004991c0, 48 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::Reset()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::Reset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>* this) {
+    // 0x1004991c0
+    void AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::Reset() {
         ((this + 8256))->clear();
         Reset();
     }
 
-    // 0x100499fe0, 96 bytes, base-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::AssetLRUHashCache(unsigned int, char const*)
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>* this, uint param_1, char* param_2) {
-        new (this) LRUHashCache<graphics::Model, 100ul, 101ul, false, unsigned long long>(param_1, param_2);
-        new ((this + 8256)) eastl::vector_map<
-            unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>();
-        ((this + 8256))->reserve((ulong)param_1);
+    // 0x100499fe0
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::AssetLRUHashCache(unsigned int arg1,
+                                                                                               const char* str)
+        : LRUHashCache<graphics::Model, 100ul, 101ul, false, unsigned long long>(arg1, str) {
+        new ((this + 8256)) eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>();
+        ((this + 8256))->reserve((unsigned long)arg1);
     }
 
-    // 0x1004ddb40, 16 bytes, complete-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::~AssetLRUHashCache(): jumps straight to the base-object destructor
-
-    // 0x1004df0a0, 224 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::UpdateLoadingAssetList(unsigned long)
+    // 0x1004df0a0
     void AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::UpdateLoadingAssetList(
-        AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>* this, ulong param_1) {
+        unsigned long arg1) {
         shared_ptr<BuildAnimationMain>* this_00;
-        Layout* this_01;
-        pair* ppVar1;
+        pair<unsigned long long, shared_ptr<BuildAnimationMain> _>* ppVar1;
         AssetJob* pAVar2;
-        BuildAnimationMain* this_02;
         WorldmapAreaMetadata* this_03;
-        shared_ptr* psVar3;
-        char cVar4;
-        pair* ppVar5;
-        ulong uVar6;
+        shared_ptr<graphics::Animation>* animation;
 
-        this_01 = (Layout*)(this + 1536);
-        ppVar5 = (pair*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        uVar6 = 0;
+        Layout* this_01 = (Layout*)(this + 1536);
+        auto arg1_00 = this_01->HeapBeginPtr();
+        unsigned long uVar4 = 0;
         do {
-            ppVar1 = (pair*)this_01->end();
-            if (ppVar5 == ppVar1) {
+            ppVar1 = (pair<unsigned long long, shared_ptr<BuildAnimationMain> _>*)this_01->end();
+            if (arg1_00 == ppVar1) {
                 return;
             }
-            this_00 = (shared_ptr<BuildAnimationMain>*)(ppVar5 + 8);
-            pAVar2 = (AssetJob*)shared_ptr<BuildAnimationMain>::operator->(this_00);
-            cVar4 = pAVar2->IsFinished();
-            if (cVar4 == '\0') {
-                ppVar5 = ppVar5 + 24;
+            this_00 = (shared_ptr<BuildAnimationMain>*)(arg1_00 + 8);
+            pAVar2 = (AssetJob*)(*this_00).operator->();
+            if (!(pAVar2->IsFinished())) {
+                arg1_00 = arg1_00 + 24;
             } else {
-                pAVar2 = (AssetJob*)shared_ptr<BuildAnimationMain>::operator->(this_00);
-                cVar4 = pAVar2->IsSuccessful();
-                if (cVar4 != '\0') {
-                    this_02 = (BuildAnimationMain*)shared_ptr<BuildAnimationMain>::operator->(this_00);
-                    cVar4 = this_02->IsAssetConstructed();
-                    if (cVar4 != '\0') {
-                        this_03 = (WorldmapAreaMetadata*)shared_ptr<BuildAnimationMain>::operator->(this_00);
-                        psVar3 = (shared_ptr*)this_03->GetOrigin();
-                        Put(psVar3, 1, ppVar5);
+                pAVar2 = (AssetJob*)(*this_00).operator->();
+                if (pAVar2->IsSuccessful()) {
+                    if (((BuildAnimationMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (WorldmapAreaMetadata*)(*this_00).operator->();
+                        animation = (shared_ptr<graphics::Animation>*)this_03->GetOrigin();
+                        Put(*animation, 1, *arg1_00);
                     }
                 }
-                ppVar5 = (pair*)this_01->erase(ppVar5);
+                arg1_00 = (pair<unsigned long long, shared_ptr<BuildAnimationMain> _>*)this_01->erase(arg1_00);
             }
-            uVar6 = uVar6 + 1;
-        } while (uVar6 <= param_1);
+            uVar4 = uVar4 + 1;
+        } while (uVar4 <= arg1);
     }
 
-    // 0x1004df180, 192 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::IsLoadingAsset(unsigned long long)
-    uint AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::IsLoadingAsset(
-        AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>* this, ulonglong param_1) {
+    // 0x1004df180
+    bool AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::IsLoadingAsset(
+        unsigned long long arg1) {
         shared_ptr<BuildAnimationMain>* this_00;
-        vector_map<unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                   eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*
-            this_01;
-        char cVar1;
-        uint uVar2;
-        pair* ppVar3;
-        pair* ppVar4;
-        AssetJob* pAVar5;
-        BuildAnimationMain* this_02;
+        unsigned int uVar2;
+        AssetJob* pAVar4;
         WorldmapAreaMetadata* this_03;
-        shared_ptr* psVar6;
-        ulonglong local_38;
+        shared_ptr<graphics::Animation>* animation;
 
-        this_01 =
-            (vector_map<
-                unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*)(this +
-                                                                                                                1536);
-        local_38 = param_1;
-        ppVar3 = (pair*)eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>,
-                                          eastl::less<unsigned long long>, eastl::allocator,
-                                          eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                        eastl::allocator>>::find(this_01, &local_38);
-        ppVar4 = (pair*)this_01->end();
-        if (ppVar3 == ppVar4) {
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01 =
+            (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(this + 1536);
+        pair<unsigned long long, shared_ptr<BuildAnimationMain> _>* arg1_00 =
+            (pair<unsigned long long, shared_ptr<BuildAnimationMain> _>*)
+                eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>::find(*this_01);
+        auto ppVar3 = this_01->end();
+        if (arg1_00 == ppVar3) {
             uVar2 = 0;
         } else {
-            this_00 = (shared_ptr<BuildAnimationMain>*)(ppVar3 + 8);
-            pAVar5 = (AssetJob*)shared_ptr<BuildAnimationMain>::operator->(this_00);
-            uVar2 = pAVar5->IsFinished();
+            this_00 = (shared_ptr<BuildAnimationMain>*)(arg1_00 + 8);
+            pAVar4 = (AssetJob*)(*this_00).operator->();
+            uVar2 = pAVar4->IsFinished();
             if ((char)uVar2 != '\0') {
-                pAVar5 = (AssetJob*)shared_ptr<BuildAnimationMain>::operator->(this_00);
-                cVar1 = pAVar5->IsSuccessful();
-                if (cVar1 != '\0') {
-                    this_02 = (BuildAnimationMain*)shared_ptr<BuildAnimationMain>::operator->(this_00);
-                    cVar1 = this_02->IsAssetConstructed();
-                    if (cVar1 != '\0') {
-                        this_03 = (WorldmapAreaMetadata*)shared_ptr<BuildAnimationMain>::operator->(this_00);
-                        psVar6 = (shared_ptr*)this_03->GetOrigin();
-                        Put(psVar6, 1, ppVar3);
+                pAVar4 = (AssetJob*)(*this_00).operator->();
+                if (pAVar4->IsSuccessful()) {
+                    if (((BuildAnimationMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (WorldmapAreaMetadata*)(*this_00).operator->();
+                        animation = (shared_ptr<graphics::Animation>*)this_03->GetOrigin();
+                        Put(*animation, 1, *arg1_00);
                     }
                 }
-                this_01->erase(ppVar3);
+                this_01->erase(arg1_00);
             }
             uVar2 = uVar2 ^ 1;
         }
         return uVar2;
     }
 
-    // 0x1004dfbf0, 96 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::AddLoadingAsset(unsigned long long, shared_ptr<BuildAnimationMain> const&)
+    // 0x1004dfbf0
     void AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::AddLoadingAsset(
-        AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>* this, ulonglong param_1,
-        shared_ptr* param_2) {
-        eastl local_38[24];
-        ulonglong local_20;
+        unsigned long long arg1, const shared_ptr<BuildAnimationMain>& buildAnimationMain) {
 
-        local_20 = param_1;
-        eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(local_38, &local_20, param_2);
-        eastl::vector_map<
-            unsigned long long, shared_ptr<BuildAnimationMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildAnimationMain>>, eastl::allocator>>::
-            insert<eastl::pair<unsigned long long, shared_ptr<BuildAnimationMain>>, void>(
-                (vector_map<unsigned long long, shared_ptr<BuildAnimationMain>, eastl::less<unsigned long long>,
-                            eastl::allocator,
-                            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildAnimationMain>>,
-                                          eastl::allocator>>*)(this + 1536),
-                (pair*)local_38);
-        local_38->~pair();
+        auto local_38 =
+            eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(arg1, buildAnimationMain);
+        ((this + 1536))->insert<eastl::pair<unsigned long long, shared_ptr<BuildAnimationMain>>, void>(local_38);
     }
 
-    // 0x1004e1680, 48 bytes, base-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::~AssetLRUHashCache()
-    void AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::~AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>* this) {
+    // 0x1004e1680
+    AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::~AssetLRUHashCache() {
         ((this + 1536))->~vector_map();
-        ~LRUHashCache();
     }
 
-    // 0x1004ebd00, 16 bytes, complete-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::AssetLRUHashCache(unsigned int, char const*): jumps straight to the base-object constructor
-
-    // 0x1004ec790, 96 bytes, base-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::AssetLRUHashCache(unsigned int, char const*)
-    void AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>* this, uint param_1,
-        char* param_2) {
-        new (this) LRUHashCache<graphics::Animation, 16ul, 17ul, false, unsigned long long>(param_1, param_2);
-        new ((this + 1536)) eastl::vector_map<
-            unsigned long long, shared_ptr<BuildAnimationMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildAnimationMain>>, eastl::allocator>>();
-        ((this + 1536))->reserve((ulong)param_1);
+    // 0x1004ec790
+    AssetLRUHashCache<graphics::Animation, BuildAnimationMain, 16ul, 17ul, false>::AssetLRUHashCache(unsigned int arg1,
+                                                                                                     const char* str)
+        : LRUHashCache<graphics::Animation, 16ul, 17ul, false, unsigned long long>(arg1, str) {
+        new ((this + 1536)) eastl::vector_map<unsigned long long, shared_ptr<BuildAnimationMain>>();
+        ((this + 1536))->reserve((unsigned long)arg1);
     }
 
-    // 0x1004f30b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::AssetLRUHashCache(unsigned int, char const*): jumps straight to the base-object constructor
-
-    // 0x1004f3120, 16 bytes, complete-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::~AssetLRUHashCache(): jumps straight to the base-object destructor
-
-    // 0x1004f6cc0, 48 bytes, base-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::~AssetLRUHashCache()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::~AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* this) {
+    // 0x1004f6cc0
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::~AssetLRUHashCache() {
         ((this + 1056))->~vector_map();
-        ~LRUHashCache();
     }
 
-    // 0x1004f71a0, 48 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::Reset()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::Reset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* this) {
+    // 0x1004f71a0
+    void AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::Reset() {
         ((this + 1056))->clear();
         Reset();
     }
 
-    // 0x1004fc630, 96 bytes, base-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::AssetLRUHashCache(unsigned int, char const*)
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* this, uint param_1, char* param_2) {
-        new (this) LRUHashCache<graphics::Model, 10ul, 11ul, false, unsigned long long>(param_1, param_2);
-        new ((this + 1056)) eastl::vector_map<
-            unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>();
-        ((this + 1056))->reserve((ulong)param_1);
+    // 0x1004fc630
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::AssetLRUHashCache(unsigned int arg1,
+                                                                                             const char* str) {
+        new (this) LRUHashCache<graphics::Model, 10ul, 11ul, false, unsigned long long>(arg1, str);
+        new ((this + 1056)) eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>();
+        ((this + 1056))->reserve((unsigned long)arg1);
     }
 
-    // 0x100504740, 224 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::UpdateLoadingAssetList(unsigned long)
+    // 0x100504740
     void AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::UpdateLoadingAssetList(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>* this, ulong param_1) {
+        unsigned long arg1) {
         shared_ptr<BuildModelMain>* this_00;
-        Layout* this_01;
-        pair* ppVar1;
+        pair<unsigned long long, shared_ptr<BuildModelMain> _>* ppVar1;
         AssetJob* pAVar2;
-        BuildModelMain* this_02;
         OpenGLView* this_03;
-        shared_ptr* psVar3;
-        char cVar4;
-        pair* ppVar5;
-        ulong uVar6;
+        shared_ptr<graphics::Model>* model;
 
-        this_01 = (Layout*)(this + 10496);
-        ppVar5 = (pair*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        uVar6 = 0;
+        Layout* this_01 = (Layout*)(this + 10496);
+        auto arg1_00 = this_01->HeapBeginPtr();
+        unsigned long uVar4 = 0;
         do {
-            ppVar1 = (pair*)this_01->end();
-            if (ppVar5 == ppVar1) {
+            ppVar1 = (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)this_01->end();
+            if (arg1_00 == ppVar1) {
                 return;
             }
-            this_00 = (shared_ptr<BuildModelMain>*)(ppVar5 + 8);
-            pAVar2 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-            cVar4 = pAVar2->IsFinished();
-            if (cVar4 == '\0') {
-                ppVar5 = ppVar5 + 24;
+            this_00 = (shared_ptr<BuildModelMain>*)(arg1_00 + 8);
+            pAVar2 = (AssetJob*)(*this_00).operator->();
+            if (!(pAVar2->IsFinished())) {
+                arg1_00 = arg1_00 + 24;
             } else {
-                pAVar2 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-                cVar4 = pAVar2->IsSuccessful();
-                if (cVar4 != '\0') {
-                    this_02 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(this_00);
-                    cVar4 = this_02->IsAssetConstructed();
-                    if (cVar4 != '\0') {
-                        this_03 = (OpenGLView*)shared_ptr<BuildModelMain>::operator->(this_00);
-                        psVar3 = (shared_ptr*)this_03->GetCursorMutex();
-                        Put(psVar3, 1, ppVar5);
+                pAVar2 = (AssetJob*)(*this_00).operator->();
+                if (pAVar2->IsSuccessful()) {
+                    if (((BuildModelMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (OpenGLView*)(*this_00).operator->();
+                        model = (shared_ptr<graphics::Model>*)this_03->GetCursorMutex();
+                        Put(*model, 1, *arg1_00);
                     }
                 }
-                ppVar5 = (pair*)this_01->erase(ppVar5);
+                arg1_00 = (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)this_01->erase(arg1_00);
             }
-            uVar6 = uVar6 + 1;
-        } while (uVar6 <= param_1);
+            uVar4 = uVar4 + 1;
+        } while (uVar4 <= arg1);
     }
 
-    // 0x100504820, 192 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::IsLoadingAsset(unsigned long long)
-    uint AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::IsLoadingAsset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>* this, ulonglong param_1) {
+    // 0x100504820
+    bool
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::IsLoadingAsset(unsigned long long arg1) {
         shared_ptr<BuildModelMain>* this_00;
-        vector_map<unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                   eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*
-            this_01;
-        char cVar1;
-        uint uVar2;
-        pair* ppVar3;
-        pair* ppVar4;
-        AssetJob* pAVar5;
-        BuildModelMain* this_02;
+        unsigned int uVar2;
+        AssetJob* pAVar4;
         OpenGLView* this_03;
-        shared_ptr* psVar6;
-        ulonglong local_38;
+        shared_ptr<graphics::Model>* model;
 
-        this_01 =
-            (vector_map<
-                unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*)(this +
-                                                                                                                10496);
-        local_38 = param_1;
-        ppVar3 = (pair*)eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>,
-                                          eastl::less<unsigned long long>, eastl::allocator,
-                                          eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                        eastl::allocator>>::find(this_01, &local_38);
-        ppVar4 = (pair*)this_01->end();
-        if (ppVar3 == ppVar4) {
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01 =
+            (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(this + 10496);
+        pair<unsigned long long, shared_ptr<BuildModelMain> _>* arg1_00 =
+            (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)
+                eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>::find(*this_01);
+        auto ppVar3 = this_01->end();
+        if (arg1_00 == ppVar3) {
             uVar2 = 0;
         } else {
-            this_00 = (shared_ptr<BuildModelMain>*)(ppVar3 + 8);
-            pAVar5 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-            uVar2 = pAVar5->IsFinished();
+            this_00 = (shared_ptr<BuildModelMain>*)(arg1_00 + 8);
+            pAVar4 = (AssetJob*)(*this_00).operator->();
+            uVar2 = pAVar4->IsFinished();
             if ((char)uVar2 != '\0') {
-                pAVar5 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-                cVar1 = pAVar5->IsSuccessful();
-                if (cVar1 != '\0') {
-                    this_02 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(this_00);
-                    cVar1 = this_02->IsAssetConstructed();
-                    if (cVar1 != '\0') {
-                        this_03 = (OpenGLView*)shared_ptr<BuildModelMain>::operator->(this_00);
-                        psVar6 = (shared_ptr*)this_03->GetCursorMutex();
-                        Put(psVar6, 1, ppVar3);
+                pAVar4 = (AssetJob*)(*this_00).operator->();
+                if (pAVar4->IsSuccessful()) {
+                    if (((BuildModelMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (OpenGLView*)(*this_00).operator->();
+                        model = (shared_ptr<graphics::Model>*)this_03->GetCursorMutex();
+                        Put(*model, 1, *arg1_00);
                     }
                 }
-                eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>,
-                                  eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                eastl::allocator>>::erase(this_01, ppVar3);
+                this_01->erase(arg1_00);
             }
             uVar2 = uVar2 ^ 1;
         }
         return uVar2;
     }
 
-    // 0x100504980, 224 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::UpdateLoadingAssetList(unsigned long)
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::UpdateLoadingAssetList(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>* this, ulong param_1) {
+    // 0x100504980
+    void
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::UpdateLoadingAssetList(unsigned long arg1) {
         shared_ptr<BuildModelMain>* this_00;
-        Layout* this_01;
-        pair* ppVar1;
+        pair<unsigned long long, shared_ptr<BuildModelMain> _>* ppVar1;
         AssetJob* pAVar2;
-        BuildModelMain* this_02;
         OpenGLView* this_03;
-        shared_ptr* psVar3;
-        char cVar4;
-        pair* ppVar5;
-        ulong uVar6;
+        shared_ptr<graphics::Model>* model;
 
-        this_01 = (Layout*)(this + 1536);
-        ppVar5 = (pair*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        uVar6 = 0;
+        Layout* this_01 = (Layout*)(this + 1536);
+        auto arg1_00 = this_01->HeapBeginPtr();
+        unsigned long uVar4 = 0;
         do {
-            ppVar1 = (pair*)this_01->end();
-            if (ppVar5 == ppVar1) {
+            ppVar1 = (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)this_01->end();
+            if (arg1_00 == ppVar1) {
                 return;
             }
-            this_00 = (shared_ptr<BuildModelMain>*)(ppVar5 + 8);
-            pAVar2 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-            cVar4 = pAVar2->IsFinished();
-            if (cVar4 == '\0') {
-                ppVar5 = ppVar5 + 24;
+            this_00 = (shared_ptr<BuildModelMain>*)(arg1_00 + 8);
+            pAVar2 = (AssetJob*)(*this_00).operator->();
+            if (!(pAVar2->IsFinished())) {
+                arg1_00 = arg1_00 + 24;
             } else {
-                pAVar2 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-                cVar4 = pAVar2->IsSuccessful();
-                if (cVar4 != '\0') {
-                    this_02 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(this_00);
-                    cVar4 = this_02->IsAssetConstructed();
-                    if (cVar4 != '\0') {
-                        this_03 = (OpenGLView*)shared_ptr<BuildModelMain>::operator->(this_00);
-                        psVar3 = (shared_ptr*)this_03->GetCursorMutex();
-                        Put(psVar3, 1, ppVar5);
+                pAVar2 = (AssetJob*)(*this_00).operator->();
+                if (pAVar2->IsSuccessful()) {
+                    if (((BuildModelMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (OpenGLView*)(*this_00).operator->();
+                        model = (shared_ptr<graphics::Model>*)this_03->GetCursorMutex();
+                        Put(*model, 1, *arg1_00);
                     }
                 }
-                ppVar5 = (pair*)this_01->erase(ppVar5);
+                arg1_00 = (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)this_01->erase(arg1_00);
             }
-            uVar6 = uVar6 + 1;
-        } while (uVar6 <= param_1);
+            uVar4 = uVar4 + 1;
+        } while (uVar4 <= arg1);
     }
 
-    // 0x100504a60, 192 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::IsLoadingAsset(unsigned long long)
-    uint AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::IsLoadingAsset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>* this, ulonglong param_1) {
+    // 0x100504a60
+    bool
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::IsLoadingAsset(unsigned long long arg1) {
         shared_ptr<BuildModelMain>* this_00;
-        vector_map<unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                   eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*
-            this_01;
-        char cVar1;
-        uint uVar2;
-        pair* ppVar3;
-        pair* ppVar4;
-        AssetJob* pAVar5;
-        BuildModelMain* this_02;
+        unsigned int uVar2;
+        AssetJob* pAVar4;
         OpenGLView* this_03;
-        shared_ptr* psVar6;
-        ulonglong local_38;
+        shared_ptr<graphics::Model>* model;
 
-        this_01 =
-            (vector_map<
-                unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*)(this +
-                                                                                                                1536);
-        local_38 = param_1;
-        ppVar3 = (pair*)eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>,
-                                          eastl::less<unsigned long long>, eastl::allocator,
-                                          eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                        eastl::allocator>>::find(this_01, &local_38);
-        ppVar4 = (pair*)this_01->end();
-        if (ppVar3 == ppVar4) {
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01 =
+            (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(this + 1536);
+        pair<unsigned long long, shared_ptr<BuildModelMain> _>* arg1_00 =
+            (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)
+                eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>::find(*this_01);
+        auto ppVar3 = this_01->end();
+        if (arg1_00 == ppVar3) {
             uVar2 = 0;
         } else {
-            this_00 = (shared_ptr<BuildModelMain>*)(ppVar3 + 8);
-            pAVar5 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-            uVar2 = pAVar5->IsFinished();
+            this_00 = (shared_ptr<BuildModelMain>*)(arg1_00 + 8);
+            pAVar4 = (AssetJob*)(*this_00).operator->();
+            uVar2 = pAVar4->IsFinished();
             if ((char)uVar2 != '\0') {
-                pAVar5 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-                cVar1 = pAVar5->IsSuccessful();
-                if (cVar1 != '\0') {
-                    this_02 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(this_00);
-                    cVar1 = this_02->IsAssetConstructed();
-                    if (cVar1 != '\0') {
-                        this_03 = (OpenGLView*)shared_ptr<BuildModelMain>::operator->(this_00);
-                        psVar6 = (shared_ptr*)this_03->GetCursorMutex();
-                        Put(psVar6, 1, ppVar3);
+                pAVar4 = (AssetJob*)(*this_00).operator->();
+                if (pAVar4->IsSuccessful()) {
+                    if (((BuildModelMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (OpenGLView*)(*this_00).operator->();
+                        model = (shared_ptr<graphics::Model>*)this_03->GetCursorMutex();
+                        Put(*model, 1, *arg1_00);
                     }
                 }
-                eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>,
-                                  eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                eastl::allocator>>::erase(this_01, ppVar3);
+                this_01->erase(arg1_00);
             }
             uVar2 = uVar2 ^ 1;
         }
         return uVar2;
     }
 
-    // 0x100504ee0, 96 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::AddLoadingAsset(unsigned long long, shared_ptr<BuildModelMain> const&)
+    // 0x100504ee0
     void AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::AddLoadingAsset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>* this, ulonglong param_1,
-        shared_ptr* param_2) {
-        eastl local_38[24];
-        ulonglong local_20;
+        unsigned long long arg1, const shared_ptr<BuildModelMain>& buildModelMain) {
 
-        local_20 = param_1;
-        eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(local_38, &local_20, param_2);
-        eastl::vector_map<
-            unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                          eastl::allocator>>::insert<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                     void>(
-            (vector_map<
-                unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*)(this +
-                                                                                                                10496),
-            (pair*)local_38);
-        local_38->~pair();
+        auto local_38 = eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(arg1, buildModelMain);
+        ((this + 10496))->insert<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, void>(local_38);
     }
 
-    // 0x100504f40, 96 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::AddLoadingAsset(unsigned long long, shared_ptr<BuildModelMain> const&)
+    // 0x100504f40
     void AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::AddLoadingAsset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>* this, ulonglong param_1,
-        shared_ptr* param_2) {
-        eastl local_38[24];
-        ulonglong local_20;
+        unsigned long long arg1, const shared_ptr<BuildModelMain>& buildModelMain) {
 
-        local_20 = param_1;
-        eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(local_38, &local_20, param_2);
-        eastl::vector_map<
-            unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                          eastl::allocator>>::insert<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                     void>(
-            (vector_map<
-                unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*)(this +
-                                                                                                                1536),
-            (pair*)local_38);
-        local_38->~pair();
+        auto local_38 = eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(arg1, buildModelMain);
+        ((this + 1536))->insert<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, void>(local_38);
     }
 
-    // 0x100505c70, 16 bytes, complete-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::AssetLRUHashCache(unsigned int, char const*): jumps straight to the base-object constructor
-
-    // 0x100505c80, 16 bytes, complete-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::AssetLRUHashCache(unsigned int, char const*): jumps straight to the base-object constructor
-
-    // 0x100505c90, 16 bytes, complete-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::~AssetLRUHashCache(): jumps straight to the base-object destructor
-
-    // 0x100507f10, 224 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::UpdateLoadingAssetList(unsigned long)
+    // 0x100507f10
     void AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::UpdateLoadingAssetList(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>* this, ulong param_1) {
+        unsigned long arg1) {
         shared_ptr<BuildModelMain>* this_00;
-        Layout* this_01;
-        pair* ppVar1;
+        pair<unsigned long long, shared_ptr<BuildModelMain> _>* ppVar1;
         AssetJob* pAVar2;
-        BuildModelMain* this_02;
         OpenGLView* this_03;
-        shared_ptr* psVar3;
-        char cVar4;
-        pair* ppVar5;
-        ulong uVar6;
+        shared_ptr<graphics::Model>* model;
 
-        this_01 = (Layout*)(this + 8256);
-        ppVar5 = (pair*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        uVar6 = 0;
+        Layout* this_01 = (Layout*)(this + 8256);
+        auto arg1_00 = this_01->HeapBeginPtr();
+        unsigned long uVar4 = 0;
         do {
-            ppVar1 = (pair*)this_01->end();
-            if (ppVar5 == ppVar1) {
+            ppVar1 = (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)this_01->end();
+            if (arg1_00 == ppVar1) {
                 return;
             }
-            this_00 = (shared_ptr<BuildModelMain>*)(ppVar5 + 8);
-            pAVar2 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-            cVar4 = pAVar2->IsFinished();
-            if (cVar4 == '\0') {
-                ppVar5 = ppVar5 + 24;
+            this_00 = (shared_ptr<BuildModelMain>*)(arg1_00 + 8);
+            pAVar2 = (AssetJob*)(*this_00).operator->();
+            if (!(pAVar2->IsFinished())) {
+                arg1_00 = arg1_00 + 24;
             } else {
-                pAVar2 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-                cVar4 = pAVar2->IsSuccessful();
-                if (cVar4 != '\0') {
-                    this_02 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(this_00);
-                    cVar4 = this_02->IsAssetConstructed();
-                    if (cVar4 != '\0') {
-                        this_03 = (OpenGLView*)shared_ptr<BuildModelMain>::operator->(this_00);
-                        psVar3 = (shared_ptr*)this_03->GetCursorMutex();
-                        Put(psVar3, 1, ppVar5);
+                pAVar2 = (AssetJob*)(*this_00).operator->();
+                if (pAVar2->IsSuccessful()) {
+                    if (((BuildModelMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (OpenGLView*)(*this_00).operator->();
+                        model = (shared_ptr<graphics::Model>*)this_03->GetCursorMutex();
+                        Put(*model, 1, *arg1_00);
                     }
                 }
-                ppVar5 = (pair*)this_01->erase(ppVar5);
+                arg1_00 = (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)this_01->erase(arg1_00);
             }
-            uVar6 = uVar6 + 1;
-        } while (uVar6 <= param_1);
+            uVar4 = uVar4 + 1;
+        } while (uVar4 <= arg1);
     }
 
-    // 0x100507ff0, 192 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::IsLoadingAsset(unsigned long long)
-    uint AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::IsLoadingAsset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>* this, ulonglong param_1) {
+    // 0x100507ff0
+    bool
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::IsLoadingAsset(unsigned long long arg1) {
         shared_ptr<BuildModelMain>* this_00;
-        vector_map<unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                   eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*
-            this_01;
-        char cVar1;
-        uint uVar2;
-        pair* ppVar3;
-        pair* ppVar4;
-        AssetJob* pAVar5;
-        BuildModelMain* this_02;
+        unsigned int uVar2;
+        AssetJob* pAVar4;
         OpenGLView* this_03;
-        shared_ptr* psVar6;
-        ulonglong local_38;
+        shared_ptr<graphics::Model>* model;
 
-        this_01 =
-            (vector_map<
-                unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*)(this +
-                                                                                                                8256);
-        local_38 = param_1;
-        ppVar3 = (pair*)eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>,
-                                          eastl::less<unsigned long long>, eastl::allocator,
-                                          eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                        eastl::allocator>>::find(this_01, &local_38);
-        ppVar4 = (pair*)this_01->end();
-        if (ppVar3 == ppVar4) {
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01 =
+            (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(this + 8256);
+        pair<unsigned long long, shared_ptr<BuildModelMain> _>* arg1_00 =
+            (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)
+                eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>::find(*this_01);
+        auto ppVar3 = this_01->end();
+        if (arg1_00 == ppVar3) {
             uVar2 = 0;
         } else {
-            this_00 = (shared_ptr<BuildModelMain>*)(ppVar3 + 8);
-            pAVar5 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-            uVar2 = pAVar5->IsFinished();
+            this_00 = (shared_ptr<BuildModelMain>*)(arg1_00 + 8);
+            pAVar4 = (AssetJob*)(*this_00).operator->();
+            uVar2 = pAVar4->IsFinished();
             if ((char)uVar2 != '\0') {
-                pAVar5 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-                cVar1 = pAVar5->IsSuccessful();
-                if (cVar1 != '\0') {
-                    this_02 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(this_00);
-                    cVar1 = this_02->IsAssetConstructed();
-                    if (cVar1 != '\0') {
-                        this_03 = (OpenGLView*)shared_ptr<BuildModelMain>::operator->(this_00);
-                        psVar6 = (shared_ptr*)this_03->GetCursorMutex();
-                        Put(psVar6, 1, ppVar3);
+                pAVar4 = (AssetJob*)(*this_00).operator->();
+                if (pAVar4->IsSuccessful()) {
+                    if (((BuildModelMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (OpenGLView*)(*this_00).operator->();
+                        model = (shared_ptr<graphics::Model>*)this_03->GetCursorMutex();
+                        Put(*model, 1, *arg1_00);
                     }
                 }
-                eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>,
-                                  eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                eastl::allocator>>::erase(this_01, ppVar3);
+                this_01->erase(arg1_00);
             }
             uVar2 = uVar2 ^ 1;
         }
         return uVar2;
     }
 
-    // 0x100508150, 224 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::UpdateLoadingAssetList(unsigned long)
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::UpdateLoadingAssetList(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* this, ulong param_1) {
+    // 0x100508150
+    void
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::UpdateLoadingAssetList(unsigned long arg1) {
         shared_ptr<BuildModelMain>* this_00;
-        Layout* this_01;
-        pair* ppVar1;
+        pair<unsigned long long, shared_ptr<BuildModelMain> _>* ppVar1;
         AssetJob* pAVar2;
-        BuildModelMain* this_02;
         OpenGLView* this_03;
-        shared_ptr* psVar3;
-        char cVar4;
-        pair* ppVar5;
-        ulong uVar6;
+        shared_ptr<graphics::Model>* model;
 
-        this_01 = (Layout*)(this + 1056);
-        ppVar5 = (pair*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        uVar6 = 0;
+        Layout* this_01 = (Layout*)(this + 1056);
+        auto arg1_00 = this_01->HeapBeginPtr();
+        unsigned long uVar4 = 0;
         do {
-            ppVar1 = (pair*)this_01->end();
-            if (ppVar5 == ppVar1) {
+            ppVar1 = (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)this_01->end();
+            if (arg1_00 == ppVar1) {
                 return;
             }
-            this_00 = (shared_ptr<BuildModelMain>*)(ppVar5 + 8);
-            pAVar2 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-            cVar4 = pAVar2->IsFinished();
-            if (cVar4 == '\0') {
-                ppVar5 = ppVar5 + 24;
+            this_00 = (shared_ptr<BuildModelMain>*)(arg1_00 + 8);
+            pAVar2 = (AssetJob*)(*this_00).operator->();
+            if (!(pAVar2->IsFinished())) {
+                arg1_00 = arg1_00 + 24;
             } else {
-                pAVar2 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-                cVar4 = pAVar2->IsSuccessful();
-                if (cVar4 != '\0') {
-                    this_02 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(this_00);
-                    cVar4 = this_02->IsAssetConstructed();
-                    if (cVar4 != '\0') {
-                        this_03 = (OpenGLView*)shared_ptr<BuildModelMain>::operator->(this_00);
-                        psVar3 = (shared_ptr*)this_03->GetCursorMutex();
-                        Put(psVar3, 1, ppVar5);
+                pAVar2 = (AssetJob*)(*this_00).operator->();
+                if (pAVar2->IsSuccessful()) {
+                    if (((BuildModelMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (OpenGLView*)(*this_00).operator->();
+                        model = (shared_ptr<graphics::Model>*)this_03->GetCursorMutex();
+                        Put(*model, 1, *arg1_00);
                     }
                 }
-                ppVar5 = (pair*)this_01->erase(ppVar5);
+                arg1_00 = (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)this_01->erase(arg1_00);
             }
-            uVar6 = uVar6 + 1;
-        } while (uVar6 <= param_1);
+            uVar4 = uVar4 + 1;
+        } while (uVar4 <= arg1);
     }
 
-    // 0x100508230, 192 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::IsLoadingAsset(unsigned long long)
-    uint AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::IsLoadingAsset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* this, ulonglong param_1) {
+    // 0x100508230
+    bool
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::IsLoadingAsset(unsigned long long arg1) {
         shared_ptr<BuildModelMain>* this_00;
-        vector_map<unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                   eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*
-            this_01;
-        char cVar1;
-        uint uVar2;
-        pair* ppVar3;
-        pair* ppVar4;
-        AssetJob* pAVar5;
-        BuildModelMain* this_02;
+        unsigned int uVar2;
+        AssetJob* pAVar4;
         OpenGLView* this_03;
-        shared_ptr* psVar6;
-        ulonglong local_38;
+        shared_ptr<graphics::Model>* model;
 
-        this_01 =
-            (vector_map<
-                unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*)(this +
-                                                                                                                1056);
-        local_38 = param_1;
-        ppVar3 = (pair*)eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>,
-                                          eastl::less<unsigned long long>, eastl::allocator,
-                                          eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                        eastl::allocator>>::find(this_01, &local_38);
-        ppVar4 = (pair*)this_01->end();
-        if (ppVar3 == ppVar4) {
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01 =
+            (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(this + 1056);
+        pair<unsigned long long, shared_ptr<BuildModelMain> _>* arg1_00 =
+            (pair<unsigned long long, shared_ptr<BuildModelMain> _>*)
+                eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>::find(*this_01);
+        auto ppVar3 = this_01->end();
+        if (arg1_00 == ppVar3) {
             uVar2 = 0;
         } else {
-            this_00 = (shared_ptr<BuildModelMain>*)(ppVar3 + 8);
-            pAVar5 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-            uVar2 = pAVar5->IsFinished();
+            this_00 = (shared_ptr<BuildModelMain>*)(arg1_00 + 8);
+            pAVar4 = (AssetJob*)(*this_00).operator->();
+            uVar2 = pAVar4->IsFinished();
             if ((char)uVar2 != '\0') {
-                pAVar5 = (AssetJob*)shared_ptr<BuildModelMain>::operator->(this_00);
-                cVar1 = pAVar5->IsSuccessful();
-                if (cVar1 != '\0') {
-                    this_02 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->(this_00);
-                    cVar1 = this_02->IsAssetConstructed();
-                    if (cVar1 != '\0') {
-                        this_03 = (OpenGLView*)shared_ptr<BuildModelMain>::operator->(this_00);
-                        psVar6 = (shared_ptr*)this_03->GetCursorMutex();
-                        Put(psVar6, 1, ppVar3);
+                pAVar4 = (AssetJob*)(*this_00).operator->();
+                if (pAVar4->IsSuccessful()) {
+                    if (((BuildModelMain*)(*this_00).operator->())->IsAssetConstructed()) {
+                        this_03 = (OpenGLView*)(*this_00).operator->();
+                        model = (shared_ptr<graphics::Model>*)this_03->GetCursorMutex();
+                        Put(*model, 1, *arg1_00);
                     }
                 }
-                eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>,
-                                  eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                eastl::allocator>>::erase(this_01, ppVar3);
+                this_01->erase(arg1_00);
             }
             uVar2 = uVar2 ^ 1;
         }
         return uVar2;
     }
 
-    // 0x1005083f0, 96 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::AddLoadingAsset(unsigned long long, shared_ptr<BuildModelMain> const&)
+    // 0x1005083f0
     void AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>::AddLoadingAsset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 100ul, 101ul, false>* this, ulonglong param_1,
-        shared_ptr* param_2) {
-        eastl local_38[24];
-        ulonglong local_20;
+        unsigned long long arg1, const shared_ptr<BuildModelMain>& buildModelMain) {
 
-        local_20 = param_1;
-        eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(local_38, &local_20, param_2);
-        eastl::vector_map<
-            unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                          eastl::allocator>>::insert<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                     void>(
-            (vector_map<
-                unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*)(this +
-                                                                                                                8256),
-            (pair*)local_38);
-        local_38->~pair();
+        auto local_38 = eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(arg1, buildModelMain);
+        ((this + 8256))->insert<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, void>(local_38);
     }
 
-    // 0x100508450, 96 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::AddLoadingAsset(unsigned long long, shared_ptr<BuildModelMain> const&)
+    // 0x100508450
     void AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>::AddLoadingAsset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 10ul, 11ul, false>* this, ulonglong param_1,
-        shared_ptr* param_2) {
-        eastl local_38[24];
-        ulonglong local_20;
+        unsigned long long arg1, const shared_ptr<BuildModelMain>& buildModelMain) {
 
-        local_20 = param_1;
-        eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(local_38, &local_20, param_2);
-        eastl::vector_map<
-            unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                          eastl::allocator>>::insert<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>,
-                                                     void>(
-            (vector_map<
-                unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-                eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>*)(this +
-                                                                                                                1056),
-            (pair*)local_38);
-        local_38->~pair();
+        auto local_38 = eastl::make_pair<unsigned long long&, shared_ptr<BuildModelMain> const&>(arg1, buildModelMain);
+        ((this + 1056))->insert<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, void>(local_38);
     }
 
-    // 0x10050acd0, 48 bytes, base-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::~AssetLRUHashCache()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::~AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>* this) {
+    // 0x10050acd0
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::~AssetLRUHashCache() {
         ((this + 10496))->~vector_map();
-        ~LRUHashCache();
     }
 
-    // 0x100512e20, 96 bytes, base-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::AssetLRUHashCache(unsigned int, char const*)
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>* this, uint param_1, char* param_2) {
-        new (this) LRUHashCache<graphics::Model, 128ul, 129ul, false, unsigned long long>(param_1, param_2);
-        new ((this + 10496)) eastl::vector_map<
-            unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>();
-        ((this + 10496))->reserve((ulong)param_1);
+    // 0x100512e20
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::AssetLRUHashCache(unsigned int arg1,
+                                                                                               const char* str)
+        : LRUHashCache<graphics::Model, 128ul, 129ul, false, unsigned long long>(arg1, str) {
+        new ((this + 10496)) eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>();
+        ((this + 10496))->reserve((unsigned long)arg1);
     }
 
-    // 0x100513100, 96 bytes, base-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::AssetLRUHashCache(unsigned int, char const*)
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>* this, uint param_1, char* param_2) {
-        new (this) LRUHashCache<graphics::Model, 16ul, 17ul, false, unsigned long long>(param_1, param_2);
-        new ((this + 1536)) eastl::vector_map<
-            unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>();
-        ((this + 1536))->reserve((ulong)param_1);
+    // 0x100513100
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::AssetLRUHashCache(unsigned int arg1,
+                                                                                             const char* str) {
+        new (this) LRUHashCache<graphics::Model, 16ul, 17ul, false, unsigned long long>(arg1, str);
+        new ((this + 1536)) eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>();
+        ((this + 1536))->reserve((unsigned long)arg1);
     }
 
-    // 0x100514d10, 16 bytes, complete-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::~AssetLRUHashCache(): jumps straight to the base-object destructor
-
-    // 0x100514d20, 48 bytes, base-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::~AssetLRUHashCache()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::~AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>* this) {
+    // 0x100514d20
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::~AssetLRUHashCache() {
         ((this + 1536))->~vector_map();
-        ~LRUHashCache();
     }
 
-    // 0x100514d50, 48 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::Reset()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::Reset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>* this) {
+    // 0x100514d50
+    void AssetLRUHashCache<graphics::Model, BuildModelMain, 128ul, 129ul, false>::Reset() {
         ((this + 10496))->clear();
         Reset();
     }
 
-    // 0x100514d80, 48 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::Reset()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::Reset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>* this) {
+    // 0x100514d80
+    void AssetLRUHashCache<graphics::Model, BuildModelMain, 16ul, 17ul, false>::Reset() {
         ((this + 1536))->clear();
         Reset();
     }
 
-    // 0x100515ac0, 16 bytes, complete-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::AssetLRUHashCache(unsigned int, char const*): jumps straight to the base-object constructor
-
-    // 0x10051e990, 96 bytes, base-object constructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::AssetLRUHashCache(unsigned int, char const*)
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>* this, uint param_1, char* param_2) {
-        new (this) LRUHashCache<graphics::Model, 1024ul, 1025ul, false, unsigned long long>(param_1, param_2);
-        new ((this + 82176)) eastl::vector_map<
-            unsigned long long, shared_ptr<BuildModelMain>, eastl::less<unsigned long long>, eastl::allocator,
-            eastl::vector<eastl::pair<unsigned long long, shared_ptr<BuildModelMain>>, eastl::allocator>>();
-        ((this + 82176))->reserve((ulong)param_1);
+    // 0x10051e990
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::AssetLRUHashCache(unsigned int arg1,
+                                                                                                 const char* str)
+        : LRUHashCache<graphics::Model, 1024ul, 1025ul, false, unsigned long long>(arg1, str) {
+        new ((this + 82176)) eastl::vector_map<unsigned long long, shared_ptr<BuildModelMain>>();
+        ((this + 82176))->reserve((unsigned long)arg1);
     }
 
-    // 0x100521a30, 16 bytes, complete-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::~AssetLRUHashCache(): jumps straight to the base-object destructor
-
-    // 0x100521a40, 48 bytes, base-object destructor, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::~AssetLRUHashCache()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::~AssetLRUHashCache(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>* this) {
+    // 0x100521a40
+    AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::~AssetLRUHashCache() {
         ((this + 82176))->~vector_map();
-        ~LRUHashCache();
     }
 
-    // 0x100521a70, 48 bytes, inline, placed by class name
-    // AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::Reset()
-    void AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::Reset(
-        AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>* this) {
+    // 0x100521a70
+    void AssetLRUHashCache<graphics::Model, BuildModelMain, 1024ul, 1025ul, false>::Reset() {
         ((this + 82176))->clear();
         Reset();
     }

@@ -1,341 +1,274 @@
 // libs/oldscape/jagex3/dash3d/NXTPix3D.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "NXTPix3D.h"
 
 namespace jag::oldscape::dash3d {
-    // 0x100f37e18, 8 bytes, __data
-    NXTPix3D::m_needUploadTextureData = 1;
+    // 0x100f37e18
+    int64_t NXTPix3D::m_needUploadTextureData = 1;
 
-    // 0x10394be60, 8 bytes, __common; zero-initialised
-    NXTPix3D::m_needColTabUpdate;
+    // 0x10394be60
+    int64_t NXTPix3D::m_needColTabUpdate;
 
-    // 0x1003637e0, 48 bytes, placed by class name and debug map
-    // NXTPix3D::FlatTriangle(int, int, int, int, int, int, int)
-    void NXTPix3D::FlatTriangle(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6,
-                                int param_7) {
-        int iVar1;
+    // 0x1003637e0
+    void NXTPix3D::FlatTriangle(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7) {
+        int in_stack_fffffffffffffff0;
 
-        iVar1 = field_16;
-        GouraudTriangleOpenGL((int)this, param_1, param_2, param_3, param_4, param_5, param_6, iVar1, iVar1, iVar1,
-                              param_7, param_7, param_7);
+        int arg7_00 = field_16;
+        GouraudTriangleOpenGL(arg1, arg2, arg3, arg4, arg5, arg6, arg7_00, arg7_00, arg7_00, arg7, arg7, arg7,
+                              in_stack_fffffffffffffff0);
     }
 
-    // 0x100363810, 64 bytes, placed by class name and debug map
-    // NXTPix3D::GouraudTriangle(int, int, int, int, int, int, int, int, int)
-    void NXTPix3D::GouraudTriangle(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6,
-                                   int param_7, int param_8, int param_9) {
-        int iVar1;
+    // 0x100363810
+    void NXTPix3D::GouraudTriangle(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                   int arg9) {
+        int in_stack_ffffffffffffffe0;
 
-        iVar1 = field_16;
-        GouraudTriangleOpenGL((int)this, param_1, param_2, param_3, param_4, param_5, param_6, iVar1, iVar1, iVar1,
-                              param_7, param_8, param_9);
+        int arg7_00 = field_16;
+        GouraudTriangleOpenGL(arg1, arg2, arg3, arg4, arg5, arg6, arg7_00, arg7_00, arg7_00, arg7, arg8, arg9,
+                              in_stack_ffffffffffffffe0);
     }
 
-    // 0x100363850, 1024 bytes, placed by class name and debug map
-    // NXTPix3D::TextureTriangleOpenGL(int, int, int, int, int, int, int, int, int, int, int, int, float, float, float, float, float, float, int)
-    void NXTPix3D::TextureTriangleOpenGL(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6,
-                                         int param_7, int param_8, int param_9, int param_10, int param_11,
-                                         int param_12, float param_13, float param_14, float param_15, float param_16,
-                                         float param_17, float param_18, int param_19) {
+    // 0x100363850
+    void NXTPix3D::TextureTriangleOpenGL(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                         int arg9, int arg10, int arg11, int arg12, float arg13, float arg14,
+                                         float arg15, float arg16, float arg17, float arg18, int arg19) {
         short sVar3;
-        undefined2 uVar4;
-        short sVar5;
-        short sVar6;
+        uint16_t uVar4;
+        short arg17_00;
+        short arg24;
+        int iVar6;
         int iVar7;
-        int iVar8;
-        int iVar9;
-        long* plVar10;
-        int* piVar11;
-        long lVar12;
-        shared_ptr* extraout_RDX;
-        ErrorCapture local_3f8[17];
-        shared_ptr local_a8;
+        int* piVar9;
+        TextureCache* pTVar10;
+        long lVar11;
+        shared_ptr<configdecoder::ObjType> local_a8;
         int local_7c;
-        uint local_78;
+        unsigned int local_78;
         int local_74;
-        shared_ptr local_70;
-        int local_50[4];
+        int local_70[4];
+        ReturnValue local_50;
         short local_3e;
-        float local_3c;
-        float local_38;
-        float local_34;
 
-        local_3c = param_14;
-        local_38 = param_16;
-        local_34 = param_13;
-        ErrorCapture::ErrorCapture(local_3f8, true);
-        plVar10 =
-            (long*)shared_ptr<TextureProvider>::operator->((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider);
-        iVar7 = param_19;
-        (**(code**)(*plVar10 + 16))(&local_a8, plVar10, param_19, local_3f8);
-        if (!operator==(&local_a8, (_func_decltype_nullptr*)0)) {
-            if (local_3f8->IsRaised() == '\0') {
-                iVar8 = field_12;
-                local_70._0_4_ = 2;
-                piVar11 = std::max<int>(&param_10, (int*)&local_70);
-                local_50[0] = 126;
-                piVar11 = std::min<int>(piVar11, local_50);
-                param_10 = *piVar11 + 1024;
-                local_70._0_4_ = 2;
-                piVar11 = std::max<int>(&param_11, (int*)&local_70);
-                local_50[0] = 126;
-                piVar11 = std::min<int>(piVar11, local_50);
-                param_11 = *piVar11 + 1024;
-                local_70._0_4_ = 2;
-                piVar11 = std::max<int>(&param_12, (int*)&local_70);
-                local_50[0] = 126;
-                piVar11 = std::min<int>(piVar11, local_50);
-                param_12 = *piVar11 + 1024;
-                sVar3 = OSRenderCore_RenderThread::GetAtlasUV(iVar7);
-                static_pointer_cast<ClientEntity, shared_ptr<ClientNpc>>(&local_70, (jag*)&Pix3D::m_textureProvider,
-                                                                         extraout_RDX);
-                iVar7 = shared_ptr<TextureCache>::operator->((shared_ptr<TextureCache>*)&local_70);
-                local_50->GetTexture(iVar7);
-                lVar12 = shared_ptr<Texture>::operator->((shared_ptr<Texture>*)local_50);
-                iVar7 = *(int*)(lVar12 + 160);
-                local_50->~shared_ptr();
-                iVar9 = shared_ptr<TextureCache>::operator->((shared_ptr<TextureCache>*)&local_70);
-                local_50->GetTexture(iVar9);
+        float local_3c = arg14;
+        float local_38 = arg16;
+        float local_34 = arg13;
+        ErrorCapture local_3f8(true);
+        long* plVar8 = (long*)(*((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider)).operator->();
+        int iVar5 = arg19;
+        (**(void (**)(...))(*plVar8 + 16))(&local_a8, plVar8, arg19, &local_3f8);
+        if (!local_a8 == nullptr) {
+            if (local_3f8.IsRaised() == '\0') {
+                iVar6 = field_12;
+                local_70[0] = 2;
+                piVar9 = std::max<int>(arg10, *local_70);
+                local_50[0]._0_4_ = 126;
+                piVar9 = std::min<int>(*piVar9, local_50);
+                arg10 = *piVar9 + 1024;
+                local_70[0] = 2;
+                piVar9 = std::max<int>(arg11, *local_70);
+                local_50[0]._0_4_ = 126;
+                piVar9 = std::min<int>(*piVar9, local_50);
+                arg11 = *piVar9 + 1024;
+                local_70[0] = 2;
+                piVar9 = std::max<int>(arg12, *local_70);
+                local_50[0]._0_4_ = 126;
+                piVar9 = std::min<int>(*piVar9, local_50);
+                arg12 = *piVar9 + 1024;
+                sVar3 = OSRenderCore_RenderThread::GetAtlasUV(iVar5);
+                static_pointer_cast<ClientEntity, shared_ptr<ClientNpc>>((shared_ptr<ClientNpc>*)local_70);
+                pTVar10 = (TextureCache*)(*local_70).operator->();
+                local_50 = pTVar10->GetTexture(iVar5);
+                lVar11 = local_50.operator->();
+                iVar7 = *(int*)(lVar11 + 160);
+                pTVar10 = (TextureCache*)(*local_70).operator->();
+                local_50 = pTVar10->GetTexture(iVar5);
                 local_3e = sVar3;
-                lVar12 = shared_ptr<Texture>::operator->((shared_ptr<Texture>*)local_50);
-                local_78 = -(uint)(iVar8 == 0) | iVar8 << 8 | 255;
-                iVar8 = *(int*)(lVar12 + 164);
-                local_50->~shared_ptr();
-                local_7c = (int)(short)param_10;
+                lVar11 = local_50.operator->();
+                local_78 = -(unsigned int)(iVar6 == 0) | iVar6 << 8 | 255;
+                iVar5 = *(int*)(lVar11 + 164);
+                local_7c = (int)(short)arg10;
                 uVar4 = OSRenderCore_RenderThread::GetLocalU(local_34, iVar7);
-                local_34 = (float)CONCAT22(local_34._2_2_, uVar4);
-                uVar4 = OSRenderCore_RenderThread::GetLocalU(local_38, iVar8);
-                local_38 = (float)CONCAT22(local_38._2_2_, uVar4);
-                local_74 = (int)(short)param_11;
+                local_34 = (float)(((uint32_t)local_34._2_2_ << 16) | (uint16_t)uVar4);
+                uVar4 = OSRenderCore_RenderThread::GetLocalU(local_38, iVar5);
+                local_38 = (float)(((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar4);
+                local_74 = (int)(short)arg11;
                 uVar4 = OSRenderCore_RenderThread::GetLocalU(local_3c, iVar7);
-                local_3c = (float)CONCAT22(local_3c._2_2_, uVar4);
-                sVar3 = OSRenderCore_RenderThread::GetLocalU(param_17, iVar8);
-                iVar9 = (int)(short)param_12;
-                sVar5 = OSRenderCore_RenderThread::GetLocalU(param_15, iVar7);
-                sVar6 = OSRenderCore_RenderThread::GetLocalU(param_18, iVar8);
-                iVar7 = (int)(short)local_78;
-                iVar8 = (int)local_3e;
-                (*(code*)((NXTPix3D*)this)->field_0[12])(
-                    (NXTPix3D*)this, (int)(short)param_4, (int)(short)param_1, (int)(short)param_7, iVar8, local_7c,
-                    iVar7, (int)local_34._0_2_, (int)local_38._0_2_, (int)(short)param_5, (int)(short)param_2,
-                    (int)(short)param_8, iVar8, local_74, iVar7, (int)local_3c._0_2_, (int)sVar3, (int)(short)param_6,
-                    (int)(short)param_3, (int)(short)param_9, iVar8, iVar9, iVar7, (int)sVar5, (int)sVar6);
-                local_70.~shared_ptr();
+                local_3c = (float)(((uint32_t)local_3c._2_2_ << 16) | (uint16_t)uVar4);
+                arg17_00 = OSRenderCore_RenderThread::GetLocalU(arg17, iVar5);
+                sVar3 = (short)arg12;
+                arg24 = OSRenderCore_RenderThread::GetLocalU(arg15, iVar7);
+                OSRenderCore_RenderThread::GetLocalU(arg18, iVar5);
+                RenderCore_RenderTriangle((short)this, (short)arg4, (short)arg1, (short)arg7, local_3e, (short)local_7c,
+                                          (short)local_78, local_34._0_2_, local_38._0_2_, (short)arg5, (short)arg2,
+                                          (short)arg8, local_3e, (short)local_74, (short)local_78, local_3c._0_2_,
+                                          arg17_00, (short)arg6, (short)arg3, (short)arg9, local_3e, sVar3,
+                                          (short)local_78, arg24);
                 goto LAB_100363bcf;
             }
         }
-        plVar10 =
-            (long*)shared_ptr<TextureProvider>::operator->((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider);
-        iVar7 = (**(code**)(*plVar10 + 24))(plVar10, iVar7);
-        iVar8 = Pix3D::TextureLightColour(iVar7, param_10);
-        iVar9 = Pix3D::TextureLightColour(iVar7, param_11);
-        iVar7 = Pix3D::TextureLightColour(iVar7, param_12);
-        GouraudTriangle(this, param_1, param_2, param_3, param_4, param_5, param_6, iVar8, iVar9, iVar7);
+        plVar8 = (long*)(*((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider)).operator->();
+        iVar5 = (**(void (**)(...))(*plVar8 + 24))(plVar8, iVar5);
+        iVar6 = Pix3D::TextureLightColour(iVar5, arg10);
+        iVar7 = Pix3D::TextureLightColour(iVar5, arg11);
+        iVar5 = Pix3D::TextureLightColour(iVar5, arg12);
+        GouraudTriangle(arg1, arg2, arg3, arg4, arg5, arg6, iVar6, iVar7, iVar5);
     LAB_100363bcf:
-        local_a8.~shared_ptr();
-        local_3f8->~LanguageMessage();
     }
 
-    // 0x100365dd0, 128 bytes, base-object constructor, placed by class name
-    // NXTPix3D::NXTPix3D(NXTRenderable&)
-    void NXTPix3D::NXTPix3D(NXTRenderable* param_1) {
-        int iVar1;
-
-        new (this) Pix3D();
-        field_0 = &PTR__NXTPix3D_100efbf30;
-        field_120 = (NXTRenderCanvas*)0;
-        new (&field_144) UISceneSettings();
-        new (field_176, (_func_decltype_nullptr*)param_1) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_128 = param_1;
-        iVar1 = (**(code**)(param_1->field_0 + 8))(param_1);
+    // 0x100365dd0
+    NXTPix3D::NXTPix3D(NXTRenderable& nxtRenderable) : Pix3D(), field_120(0) {
+        new (&field_176) shared_ptr();
+        field_128 = nxtRenderable;
+        int iVar1 = (**(void (**)(...))(nxtRenderable.field_0 + 8))(nxtRenderable);
         field_104 = iVar1;
-        iVar1 = (**(code**)(param_1->field_0 + 16))(param_1);
+        iVar1 = (**(void (**)(...))(nxtRenderable.field_0 + 16))(nxtRenderable);
         field_108 = iVar1;
     }
 
-    // 0x100365e50, 16 bytes, complete-object constructor, placed by class name
-    // NXTPix3D::NXTPix3D(NXTRenderable&): jumps straight to the base-object constructor
-
-    // 0x100365e60, 256 bytes, placed by class name
-    // NXTPix3D::PrepareRender()
+    // 0x100365e60
     void NXTPix3D::PrepareRender() {
-        bool bVar1;
-        bool bVar2;
-        char cVar3;
-        byte bVar4;
-        int iVar5;
-        long* plVar6;
-        NXTRenderer* this_00;
+        bool cVar2;
+        uint8_t bVar3;
         TextureProvider* pTVar7;
-        undefined8 uVar9;
-        NXTPix3D* this_01;
+        uint64_t extraout_var;
 
-        plVar6 = (long*)Instance();
-        this_00 = (NXTRenderer*)NXTRenderer::GetInstancePtr();
-        cVar3 = (**(code**)*plVar6)(plVar6);
-        if (cVar3 == '\0') {
+        auto pOVar6 = OSRenderCore_LogicThread_JavaStyle::Instance();
+        auto this_00 = NXTRenderer::GetInstancePtr();
+        bool cVar1 = (**(void (**)(...))pOVar6->field_0)(pOVar6);
+        if (!cVar1) {
             m_needUploadTextureData = 1;
         }
         if (m_needUploadTextureData != 0 || m_needColTabUpdate != '\0') {
-            cVar3 = (((long)plVar6 + *(long*)(*plVar6 + -24)))->WasRenderContextReady();
-            bVar2 = (bool)m_needColTabUpdate;
-            bVar1 = (bool)m_needUploadTextureData;
-            if (cVar3 != '\0') {
-                pTVar7 = (TextureProvider*)shared_ptr<TextureProvider>::operator*(
-                    (shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider);
-                bVar4 = this_00->InitColTabAndUploadTextureData(bVar2, bVar1, pTVar7);
+            cVar2 = ((OSRenderCore_LogicThread_Common*)((long)&pOVar6->field_0 + *(long*)(pOVar6->field_0 - 24)))
+                        ->WasRenderContextReady();
+            cVar1 = m_needColTabUpdate;
+            bVar3 = m_needUploadTextureData;
+            if (cVar2) {
+                pTVar7 = (TextureProvider*)*(*((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider));
+                bVar3 = this_00->InitColTabAndUploadTextureData((bool)cVar1, (bool)bVar3, *pTVar7);
                 if (m_needUploadTextureData != 0) {
-                    m_needUploadTextureData = bVar4 ^ 1;
+                    m_needUploadTextureData = bVar3 ^ 1;
                 }
                 if (m_needColTabUpdate != '\0') {
                     m_needColTabUpdate = '\0';
                 }
             }
         }
-        pTVar7 = (TextureProvider*)shared_ptr<TextureProvider>::operator*(
-            (shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider);
-        this_00->UpdateTextureOffsets(pTVar7);
-        field_120 = (NXTRenderCanvas*)(**(code**)field_128->field_0)();
-        iVar5 = (**(code**)(field_128->field_0 + 8))();
-        field_104 = iVar5;
-        this_01 = (NXTPix3D*)field_128;
-        iVar5 = (*(code*)this_01->field_0[2])();
-        field_108 = iVar5;
-        uVar9 = GetHeapSize(this_01);
-        *(undefined8*)&this_00->field_280 = uVar9;
+        pTVar7 = (TextureProvider*)*(*((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider));
+        this_00->UpdateTextureOffsets(*pTVar7);
+        int arg2 = (int)pTVar7;
+        uint64_t uVar8 = (**(void (**)(...))field_128->field_0)();
+        field_120 = uVar8;
+        field_104 = (**(void (**)(...))(field_128->field_0 + 8))();
+        NXTPix3D* this_01 = (NXTPix3D*)field_128;
+        uint8_t uVar4 = this_01->SetRenderZoom((int)this_01, arg2);
+        field_108 = (int)(((uint64_t)extraout_var << 8) | (uint8_t)uVar4);
+        uVar8 = GetHeapSize(this_01);
+        *(uint64_t*)&this_00->field_280 = uVar8;
     }
 
-    // 0x100366290, 64 bytes, placed by class name
-    // NXTPix3D::GetHeapSize()
-    ulonglong NXTPix3D::GetHeapSize() {
-        ulonglong* puVar1;
-        undefined1 local_20[8];
-        ulonglong local_18;
+    // 0x100366290
+    unsigned long long NXTPix3D::GetHeapSize() {
+        uint8_t local_20[8];
+        unsigned long long local_18;
 
-        puVar1 = (ulonglong*)Instance();
-        SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this);
-        hardware::HardwareInfo::GetProcessMemoryBytes(puVar1, &local_18, (ulonglong)local_20);
+        auto arg1 = Instance();
+        SystemTimer::GetTimeMS<std::chrono::steady_clock>();
+        hardware::HardwareInfo::GetProcessMemoryBytes(*arg1, local_18, (unsigned long long)local_20);
         return local_18;
     }
 
-    // 0x1003662d0, 176 bytes, placed by class name
-    // NXTPix3D::SetMaxViewport(int, int, int, int, int, int)
-    void NXTPix3D::SetMaxViewport(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6) {
-        long* plVar1;
+    // 0x1003662d0
+    void NXTPix3D::SetMaxViewport(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
+        uint32_t in_register_0000003c;
+        int in_stack_00000008;
 
-        field_136 = param_1;
-        field_140 = param_2;
-        (field_120, param_1 + param_3, param_2 + param_4, param_5 - param_3, param_6 - param_4)->SetRenderRect();
-        new (field_176, param_1 + param_3, param_2 + param_4, param_5 - param_3, param_6 - param_4) GridRect();
-        new (field_160, 4294967295) ServerConnectionWorkItem();
-        plVar1 = (long*)OSRenderCore_AudioThread::Instance();
-        (((long)plVar1 + *(long*)(*plVar1 + -24)))->AddUISceneSettings((UISceneSettings*)&field_144);
+        long lVar2 = (((uint64_t)in_register_0000003c << 32) | (uint32_t)arg1);
+        *(int*)(lVar2 + 136) = arg2;
+        *(int*)(lVar2 + 140) = arg3;
+        (*(NXTRenderCanvas**)(lVar2 + 120))
+            ->SetRenderRect(arg2 + arg4, arg3 + arg5, arg6 - arg4, in_stack_00000008 - arg5);
+        new ((lVar2 + 176)) GridRect(arg2 + arg4, arg3 + arg5, arg6 - arg4, in_stack_00000008 - arg5);
+        new ((lVar2 + 160)) ServerConnectionWorkItem(-1);
+        auto plVar1 = OSRenderCore_AudioThread::Instance();
+        ((OSRenderCore_LogicThread_Common*)((long)plVar1 + *(long*)(*plVar1 - 24)))
+            ->AddUISceneSettings(*((lVar2 + 144)));
     }
 
-    // 0x1003663a0, 224 bytes, placed by class name
-    // NXTPix3D::SetRenderClipping(int, int, int, int)
-    void NXTPix3D::SetRenderClipping(int param_1, int param_2, int param_3, int param_4) {
-        undefined1* this_00;
-        char cVar1;
+    // 0x1003663a0
+    void NXTPix3D::SetRenderClipping(int arg1, int arg2, int arg3, int arg4) {
         int* piVar2;
-        long* plVar3;
-        Rect local_60[16];
-        Rect<unsigned int> local_50[16];
-        undefined1 local_40[16];
+        uint8_t local_60[32];
 
-        SetRenderClipping(param_1, param_2, param_3, param_4);
-        new (local_40) GridRect(param_1 + field_136, param_2 + field_140, param_3 - param_1, param_4 - param_2);
-        jag::math::Rect<unsigned int>::Rect(local_50, (Rect*)field_176);
-        local_60->Intersection(local_40, local_50);
-        this_00 = field_160;
-        jag::math::Rect<unsigned int>::operator=((Rect<unsigned int>*)this_00, local_60);
-        cVar1 = render::StencilOpDesc::operator==((StencilOpDesc*)field_176, (StencilOpDesc*)this_00);
-        if (cVar1 == '\0') {
+        SetRenderClipping(arg1, arg2, arg3, arg4);
+        Rect<int> local_40(arg1 + field_136, arg2 + field_140, arg3 - arg1, arg4 - arg2);
+        new ((local_60 + 16)) jag::math::Rect(field_176);
+        *local_60 = local_40.Intersection((local_60 + 16));
+        uint8_t* this_00 = field_160;
+        *this_00 = *local_60;
+        if (field_176 == *this_00 == '\0') {
             piVar2 = (int*)this_00->qw();
             if (0 < *piVar2)
                 goto LAB_100366450;
         }
-        new (this_00) ServerConnectionWorkItem(4294967295);
+        new (this_00) ServerConnectionWorkItem(-1);
     LAB_100366450:
-        plVar3 = (long*)OSRenderCore_AudioThread::Instance();
-        (((long)plVar3 + *(long*)(*plVar3 + -24)))->AddUISceneSettings((UISceneSettings*)&field_144);
+        auto plVar3 = OSRenderCore_AudioThread::Instance();
+        ((OSRenderCore_LogicThread_Common*)((long)plVar3 + *(long*)(*plVar3 - 24)))->AddUISceneSettings(field_144);
     }
 
-    // 0x100366510, 144 bytes, placed by class name
-    // NXTPix3D::SetRenderOrigin(int, int)
-    void NXTPix3D::SetRenderOrigin(int param_1, int param_2) {
-        int iVar1;
-        int iVar2;
-        int* piVar3;
-        long* plVar4;
-
-        piVar3 = (int*)field_176->second();
-        iVar1 = *piVar3;
-        piVar3 = (int*)field_176->qw();
-        iVar2 = *piVar3;
-        *(int*)&field_144 = param_1 - iVar1 / 2;
-        *(int*)&field_148 = param_2 - iVar2 / 2;
-        plVar4 = (long*)OSRenderCore_AudioThread::Instance();
-        (((long)plVar4 + *(long*)(*plVar4 + -24)))->AddUISceneSettings((UISceneSettings*)&field_144);
+    // 0x100366510
+    void NXTPix3D::SetRenderOrigin(int arg1, int arg2) {
+        auto piVar3 = field_176.second();
+        int iVar1 = *piVar3;
+        piVar3 = (int*)field_176.qw();
+        int iVar2 = *piVar3;
+        field_144 = arg1 - iVar1 / 2;
+        field_148 = arg2 - iVar2 / 2;
+        auto plVar4 = OSRenderCore_AudioThread::Instance();
+        ((OSRenderCore_LogicThread_Common*)((long)plVar4 + *(long*)(*plVar4 - 24)))->AddUISceneSettings(field_144);
     }
 
-    // 0x1003665a0, 64 bytes, placed by class name
-    // NXTPix3D::ResetOrigin()
+    // 0x1003665a0
     void NXTPix3D::ResetOrigin() {
-        long* plVar1;
-
         ResetOrigin();
-        *(undefined8*)&field_144 = 0;
-        plVar1 = (long*)OSRenderCore_AudioThread::Instance();
-        (((long)plVar1 + *(long*)(*plVar1 + -24)))->AddUISceneSettings((UISceneSettings*)&field_144);
+        field_144 = 0;
+        field_148 = 0;
+        auto plVar1 = OSRenderCore_AudioThread::Instance();
+        ((OSRenderCore_LogicThread_Common*)((long)plVar1 + *(long*)(*plVar1 - 24)))->AddUISceneSettings(field_144);
     }
 
-    // 0x100366620, 48 bytes, placed by class name
-    // NXTPix3D::SetRenderZoom(int, int)
-    void NXTPix3D::SetRenderZoom(int param_1, int param_2) {
-        long* plVar1;
-
-        SetRenderZoom(param_1, param_2);
-        plVar1 = (long*)OSRenderCore_AudioThread::Instance();
-        (((long)plVar1 + *(long*)(*plVar1 + -24)))->SetZoom(param_1, param_2);
+    // 0x100366620
+    void NXTPix3D::SetRenderZoom(int arg1, int arg2) {
+        SetRenderZoom(arg1, arg2);
+        auto plVar1 = OSRenderCore_AudioThread::Instance();
+        ((OSRenderCore_LogicThread_Common*)((long)plVar1 + *(long*)(*plVar1 - 24)))->SetZoom(arg1, arg2);
     }
 
-    // 0x100366660, 16 bytes, placed by class name
-    // NXTPix3D::CalculateRenderDepth(int)
-    void NXTPix3D::CalculateRenderDepth(int param_1) {
-        CalculateRenderDepth(param_1);
+    // 0x100366660
+    void NXTPix3D::CalculateRenderDepth(int arg1) {
+        CalculateRenderDepth(arg1);
     }
 
-    // 0x100366690, 208 bytes, placed by class name
-    // NXTPix3D::GouraudTriangleOpenGL(int, int, int, int, int, int, int, int, int, int, int, int, int)
-    void NXTPix3D::GouraudTriangleOpenGL(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6,
-                                         int param_7, int param_8, int param_9, int param_10, int param_11,
-                                         int param_12, int param_13) {
-        int iVar1;
-        undefined4 in_register_0000003c;
-
-        iVar1 = *(int*)(CONCAT44(in_register_0000003c, param_1) + 12);
-        iVar1 = (int)(short)(-(ushort)(iVar1 == 0) | (ushort)(iVar1 << 8) | 255);
-        (**(code**)(*(long*)CONCAT44(in_register_0000003c, param_1) + 96))(
-            param_1, (int)(short)param_5, (int)(short)param_2, (int)(short)param_8, 0, (int)(short)param_11, iVar1, 0,
-            0, (int)(short)param_6, (int)(short)param_3, (int)(short)param_9, 0, (int)(short)param_12, iVar1, 0, 0,
-            (int)(short)param_7, (int)(short)param_4, (int)(short)param_10, 0, (int)(short)param_13, iVar1, 0, 0);
+    // 0x100366690
+    void NXTPix3D::GouraudTriangleOpenGL(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                         int arg9, int arg10, int arg11, int arg12, int arg13) {
+        unsigned short arg7_00 = -(unsigned short)(field_12 == 0) | (unsigned short)(field_12 << 8) | 255;
+        RenderCore_RenderTriangle((short)this, (short)arg4, (short)arg1, (short)arg7, 0, (short)arg10, arg7_00, 0, 0,
+                                  (short)arg5, (short)arg2, (short)arg8, 0, (short)arg11, arg7_00, 0, 0, (short)arg6,
+                                  (short)arg3, (short)arg9, 0, (short)arg12, arg7_00, 0);
     }
 
-    // 0x1003667c0, 848 bytes, placed by class name
-    // NXTPix3D::TextureTriangleAffineOpenGL(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int)
-    void NXTPix3D::TextureTriangleAffineOpenGL(int param_1, int param_2, int param_3, int param_4, int param_5,
-                                               int param_6, int param_7, int param_8, int param_9, int param_10,
-                                               int param_11, int param_12, int param_13, int param_14, int param_15,
-                                               int param_16, int param_17, int param_18, int param_19, int param_20,
-                                               int param_21, int param_22) {
+    // 0x1003667c0
+    void NXTPix3D::TextureTriangleAffineOpenGL(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7,
+                                               int arg8, int arg9, int arg10, int arg11, int arg12, int arg13,
+                                               int arg14, int arg15, int arg16, int arg17, int arg18, int arg19,
+                                               int arg20, int arg21, int arg22) {
         int iVar3;
         int iVar4;
         int iVar5;
-        long* plVar6;
         int iVar7;
         int iVar8;
         int iVar9;
@@ -355,22 +288,20 @@ namespace jag::oldscape::dash3d {
         float fVar23;
         float fVar24;
         float fVar25;
-        ErrorCapture local_3a8[17];
-        shared_ptr local_58;
+        shared_ptr<configdecoder::ObjType> local_58;
 
-        ErrorCapture::ErrorCapture(local_3a8, true);
-        plVar6 =
-            (long*)shared_ptr<TextureProvider>::operator->((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider);
-        (**(code**)(*plVar6 + 16))(&local_58, plVar6, param_22, local_3a8);
-        if (!operator==(&local_58, (_func_decltype_nullptr*)0)) {
-            if (local_3a8->IsRaised() == '\0') {
-                iVar8 = param_14 - param_13;
-                iVar7 = param_17 - param_16;
-                iVar5 = param_20 - param_19;
-                iVar9 = param_15 - param_13;
-                iVar4 = param_18 - param_16;
+        ErrorCapture local_3a8(true);
+        long* plVar6 = (long*)(*((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider)).operator->();
+        (**(void (**)(...))(*plVar6 + 16))(&local_58, plVar6, arg22, &local_3a8);
+        if (!local_58 == nullptr) {
+            if (local_3a8.IsRaised() == '\0') {
+                iVar8 = arg14 - arg13;
+                iVar7 = arg17 - arg16;
+                iVar5 = arg20 - arg19;
+                iVar9 = arg15 - arg13;
+                iVar4 = arg18 - arg16;
                 fVar17 = (float)iVar5;
-                iVar3 = param_21 - param_19;
+                iVar3 = arg21 - arg19;
                 fVar22 = (float)(iVar3 * iVar7 - iVar5 * iVar4);
                 fVar20 = (float)iVar3;
                 fVar13 = (float)(iVar5 * iVar9 - iVar3 * iVar8);
@@ -390,53 +321,41 @@ namespace jag::oldscape::dash3d {
                 fVar21 = fVar20 * fVar13 + fVar24 * fVar25 + fVar23 * fVar15;
                 fVar22 = 1.0 / fVar21;
                 TextureTriangleOpenGL(
-                    (NXTPix3D*)this, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9,
-                    param_10, param_11, param_12, (fVar16 + fVar12 + fVar11) * fVar14, fVar10 * fVar14,
+                    arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12,
+                    (fVar16 + fVar12 + fVar11) * fVar14, fVar10 * fVar14,
                     (fVar11 * fVar20 + fVar12 * fVar24 + fVar16 * fVar23) * fVar14, (fVar15 + fVar25 + fVar13) * fVar22,
-                    (fVar13 * fVar17 + fVar25 * fVar18 + fVar15 * fVar19) * fVar22, fVar22 * fVar21, param_22);
+                    (fVar13 * fVar17 + fVar25 * fVar18 + fVar15 * fVar19) * fVar22, fVar22 * fVar21, arg22);
                 goto LAB_100366abd;
             }
         }
-        plVar6 =
-            (long*)shared_ptr<TextureProvider>::operator->((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider);
-        iVar3 = (**(code**)(*plVar6 + 24))(plVar6, param_22);
-        iVar4 = Pix3D::TextureLightColour(iVar3, param_10);
-        iVar5 = Pix3D::TextureLightColour(iVar3, param_11);
-        iVar3 = Pix3D::TextureLightColour(iVar3, param_12);
-        GouraudTriangle((NXTPix3D*)this, param_1, param_2, param_3, param_4, param_5, param_6, iVar4, iVar5, iVar3);
+        plVar6 = (long*)(*((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider)).operator->();
+        iVar3 = (**(void (**)(...))(*plVar6 + 24))(plVar6, arg22);
+        iVar4 = Pix3D::TextureLightColour(iVar3, arg10);
+        iVar5 = Pix3D::TextureLightColour(iVar3, arg11);
+        iVar3 = Pix3D::TextureLightColour(iVar3, arg12);
+        GouraudTriangle(arg1, arg2, arg3, arg4, arg5, arg6, iVar4, iVar5, iVar3);
     LAB_100366abd:
-        local_58.~shared_ptr();
-        local_3a8->~LanguageMessage();
     }
 
-    // 0x100366b10, 16 bytes, placed by class name
-    // NXTPix3D::TextureTriangle(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int)
-    void NXTPix3D::TextureTriangle(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6,
-                                   int param_7, int param_8, int param_9, int param_10, int param_11, int param_12,
-                                   int param_13, int param_14, int param_15, int param_16, int param_17, int param_18,
-                                   int param_19) {}
+    // 0x100366b10
+    void NXTPix3D::TextureTriangle(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                   int arg9, int arg10, int arg11, int arg12, int arg13, int arg14, int arg15,
+                                   int arg16, int arg17, int arg18, int arg19) {}
 
-    // 0x100366b20, 16 bytes, placed by class name
-    // NXTPix3D::TextureTriangleAffine(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int)
-    void NXTPix3D::TextureTriangleAffine(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6,
-                                         int param_7, int param_8, int param_9, int param_10, int param_11,
-                                         int param_12, int param_13, int param_14, int param_15, int param_16,
-                                         int param_17, int param_18, int param_19) {}
+    // 0x100366b20
+    void NXTPix3D::TextureTriangleAffine(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                         int arg9, int arg10, int arg11, int arg12, int arg13, int arg14, int arg15,
+                                         int arg16, int arg17, int arg18, int arg19) {}
 
-    // 0x100366b30, 336 bytes, placed by class name
-    // NXTPix3D::RenderCore_RenderTriangle(short, short, short, short, short, short, short, short, short, short, short, short, short, short, short, short, short, short, short, short, short, short, short, short)
-    void NXTPix3D::RenderCore_RenderTriangle(short param_1, short param_2, short param_3, short param_4, short param_5,
-                                             short param_6, short param_7, short param_8, short param_9, short param_10,
-                                             short param_11, short param_12, short param_13, short param_14,
-                                             short param_15, short param_16, short param_17, short param_18,
-                                             short param_19, short param_20, short param_21, short param_22,
-                                             short param_23, short param_24) {
-        OSRenderCore_LogicThread_JavaStyle* this_00;
-
-        this_00 = (OSRenderCore_LogicThread_JavaStyle*)Instance();
-        this_00->RenderTriangle(param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9,
-                                param_10, param_11, param_12, param_13, param_14, param_15, param_16, param_17,
-                                param_18, param_19, param_20, param_21, param_22, param_23, param_24);
+    // 0x100366b30
+    void NXTPix3D::RenderCore_RenderTriangle(short arg1, short arg2, short arg3, short arg4, short arg5, short arg6,
+                                             short arg7, short arg8, short arg9, short arg10, short arg11, short arg12,
+                                             short arg13, short arg14, short arg15, short arg16, short arg17,
+                                             short arg18, short arg19, short arg20, short arg21, short arg22,
+                                             short arg23, short arg24) {
+        OSRenderCore_LogicThread_JavaStyle::Instance()->RenderTriangle(
+            arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16,
+            arg17, arg18, arg19, arg20, arg21, arg22, arg23, arg24);
     }
 
 } // namespace jag::oldscape::dash3d

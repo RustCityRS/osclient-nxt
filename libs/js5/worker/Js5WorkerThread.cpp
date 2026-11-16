@@ -1,1372 +1,940 @@
 // libs/js5/worker/Js5WorkerThread.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.js5
 
 #include "Js5WorkerThread.h"
 
-// 0x1009f3890, 1280 bytes, placed by class name
-// Js5WorkerThread::OnMessage(jag::PacketT<jag::Array<unsigned char, eastl::allocator> >&)
-void Js5WorkerThread::OnMessage(PacketT* param_1) {
-    char cVar1;
-    byte bVar2;
-    ushort uVar3;
-    uint uVar4;
-    int iVar5;
-    ModeGame* pMVar6;
-    long lVar7;
-    ulong uVar8;
-    undefined8 uVar9;
-    char* pcVar10;
-    char* pcVar11;
-    char* pcVar12;
-    uchar* puVar13;
-    undefined1 local_3d0[328];
-    fixed_string<char, 256, true, eastl::allocator> local_288[296];
-    fixed_string<char, 256, true, eastl::allocator> local_160[4];
-    undefined4 local_15c;
-    undefined4 local_158;
-    undefined4 local_154;
-    undefined8 local_150;
-    undefined1 local_148;
-    undefined1 local_147;
+// 0x1009f3890
+void Js5WorkerThread::OnMessage(jag::PacketT<jag::Array<unsigned char>>& arg1) {
+    unsigned short uVar2;
+    unsigned int uVar3;
+    int arg2;
+    ModeGame* arg5;
+    unsigned long arg2_00;
+    ModeGame* modeGame;
+    char* pcVar5;
+    char* pcVar6;
+    char* str3;
+    fixed_string<char, _256>* str;
+    uint8_t local_3d0[328];
+    fixed_string<char, 256> local_288;
+    fixed_string<char, 256> local_160;
+    int local_15c;
+    int local_158;
+    int local_154;
+    EncodeType* local_150;
+    bool local_148;
+    bool local_147;
     char local_145;
-    undefined4 local_144;
-    undefined4 local_140;
-    undefined8 local_138;
-    undefined1 local_130[248];
-    long local_38;
+    int local_144;
+    int local_140;
+    Priority* local_138;
+    Array<unsigned char> local_130;
 
-    local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-    cVar1 = param_1->g1();
-    switch (cVar1 + -2) {
-    case '\0':
-        eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_160);
-        eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_288);
-        new ((local_3d0 + 32)) eastl::fixed_string<char, 256, true, eastl::allocator>();
-        jag::PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::gStringNoConversion<256,
-                                                                                                               true>(
-            (PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)param_1,
-            (fixed_string*)local_160, false);
-        jag::PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::gStringNoConversion<256,
-                                                                                                               true>(
-            (PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)param_1,
-            (fixed_string*)local_288, false);
-        jag::PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::gStringNoConversion<256,
-                                                                                                               true>(
-            (PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)param_1,
-            (fixed_string*)(local_3d0 + 32), false);
-        bVar2 = param_1->g1();
-        pMVar6 = (ModeGame*)jag::ModeGame::GetByID((uint)bVar2);
-        uVar3 = param_1->g2();
-        new (local_3d0) jag::PacketT<jag::Array<unsigned char, eastl::allocator>>((ulong)uVar3);
-        lVar7 = local_3d0->GetTextureAtlas();
-        if (lVar7 != 0) {
-            uVar8 = local_3d0->GetTextureAtlas();
-            jag::PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::gArrayBuffer<
-                jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>(
-                (PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)param_1,
-                (PacketT*)local_3d0, uVar8);
+    uint8_t bVar1 = arg1.g1();
+    switch (bVar1 - 2) {
+    case 0:
+        local_160 = eastl::fixed_string<char, 256>();
+        local_288 = eastl::fixed_string<char, 256>();
+        new ((local_3d0 + 32)) eastl::fixed_string<char, 256>();
+        arg1.gStringNoConversion<256, true>(local_160, false);
+        arg1.gStringNoConversion<256, true>(local_288, false);
+        str = (fixed_string<char, _256>*)(local_3d0 + 32);
+        arg1.gStringNoConversion<256, true>(*str, false);
+        uVar3 = (unsigned int)str;
+        bVar1 = arg1.g1();
+        arg5 = ((ModeGame*)(unsigned long)bVar1)->GetByID(uVar3);
+        uVar2 = arg1.g2();
+        new (local_3d0) jag::PacketT((unsigned long)uVar2);
+        if (local_3d0->GetTextureAtlas() != 0) {
+            arg2_00 = local_3d0->GetTextureAtlas();
+            arg1.gArrayBuffer<jag::PacketT<jag::Array<unsigned char>>>(*local_3d0, arg2_00);
         }
-        uVar3 = param_1->g2();
-        pcVar10 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-        pcVar11 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-        pcVar12 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-        Initialize(this, pcVar10, pcVar11, pcVar12, pMVar6, (PacketT*)local_3d0, (uint)uVar3);
+        arg1.g2();
+        pcVar5 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+        pcVar6 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+        modeGame = (ModeGame*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+        Initialize((char*)this, pcVar5, pcVar6, modeGame, (PacketT<jag::Array<unsigned char> _>*)arg5, (int)local_3d0);
         SetInterval(5);
-        local_3d0->~VBOMapper();
         goto LAB_1009f3ae2;
     default:
-        uVar9 = jag::logger::default_logger();
-        jag::logger::Logger::Log(
-            uVar9, 0, 2,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp", 143,
-            "Unhandled Js5Worker event: %d", cVar1);
+        (jag::logger::default_logger())
+            ->Log(
+                false, 2,
+                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp",
+                143, "Unhandled Js5Worker event: %d", (unsigned int)bVar1);
         break;
-    case '\x05':
-        eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_160);
-        eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_288);
-        new ((local_3d0 + 32)) eastl::fixed_string<char, 256, true, eastl::allocator>();
-        jag::PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::gStringNoConversion<256,
-                                                                                                               true>(
-            (PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)param_1,
-            (fixed_string*)local_160, false);
-        jag::PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::gStringNoConversion<256,
-                                                                                                               true>(
-            (PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)param_1,
-            (fixed_string*)local_288, false);
-        jag::PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::gStringNoConversion<256,
-                                                                                                               true>(
-            (PacketReaderMixin<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)param_1,
-            (fixed_string*)(local_3d0 + 32), false);
-        pcVar10 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-        pcVar11 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-        pcVar12 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-        ChangeURLs(this, pcVar10, pcVar11, pcVar12);
+    case 5:
+        local_160 = eastl::fixed_string<char, 256>();
+        local_288 = eastl::fixed_string<char, 256>();
+        new ((local_3d0 + 32)) eastl::fixed_string<char, 256>();
+        arg1.gStringNoConversion<256, true>(local_160, false);
+        arg1.gStringNoConversion<256, true>(local_288, false);
+        arg1.gStringNoConversion<256, true>(*((local_3d0 + 32)), false);
+        pcVar5 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+        pcVar6 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+        str3 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+        ChangeURLs(pcVar5, pcVar6, str3);
     LAB_1009f3ae2:
-        /* WARNING: Subroutine does not return */
         ((local_3d0 + 32))->~fixed_string();
-    case '\b':
-        RequestMasterIndex(this);
+    case 8:
+        RequestMasterIndex();
         break;
-    case '\x12':
-        uVar4 = param_1->g1();
-        iVar5 = param_1->g4();
-        new (local_160) jag::Array<unsigned char, jag::SafeBucketAllocatorEASTL>(64);
-        puVar13 = (uchar*)local_160->data();
-        param_1->gArrayBuffer(puVar13, 0, 64);
-        jag::Array<unsigned char, eastl::allocator>::Array<jag::SafeBucketAllocatorEASTL>(
-            (Array<unsigned char, eastl::allocator>*)local_288, (Array*)local_160);
-        RequestIndex(this, uVar4 & 255, iVar5, (Array*)local_288);
-        local_288->~Array();
-        local_160->~Array();
+    case 18:
+        uVar3 = arg1.g1();
+        arg2 = arg1.g4();
+        local_160 = jag::Array<unsigned char, jag::SafeBucketAllocatorEASTL>(64);
+        arg1.gArrayBuffer((unsigned char*)local_160.data(), 0, 64);
+        local_288.Array<jag::SafeBucketAllocatorEASTL>(local_160);
+        RequestIndex(uVar3 & 255, arg2, local_288);
         break;
-    case '\x1c':
-        new (local_160) Js5WorkerRequestMessage();
-        local_160->Deserialize(param_1);
-        RequestGroup(this, local_15c, local_158, local_154, local_150, local_148, (int)local_145, local_147, local_138,
+    case 28:
+        local_160 = Js5WorkerRequestMessage();
+        local_160.Deserialize(arg1);
+        RequestGroup(local_15c, local_158, local_154, local_150, local_148, (int)local_145, local_147, local_138,
                      local_144, local_140, local_130);
-        local_160->~Js5WorkerRequestMessage();
         break;
-    case '&':
-        RequestMasterIndexOverHTTP(this);
-    }
-    if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-        /* WARNING: Subroutine does not return */
-        ___stack_chk_fail();
+    case 38:
+        RequestMasterIndexOverHTTP();
     }
 }
 
-// 0x1009f3d90, 160 bytes, placed by class name
-// Js5WorkerThread::Initialize(char const*, char const*, char const*, jag::ModeGame const*, jag::PacketT<jag::Array<unsigned char, eastl::allocator> >&, int)
-void Js5WorkerThread::Initialize(char* param_1, char* param_2, char* param_3, ModeGame* param_4, PacketT* param_5,
-                                 int param_6) {
-    undefined8 uVar1;
+// 0x1009f3d90
+void Js5WorkerThread::Initialize(const char* str1, const char* str2, const char* str3, const jag::ModeGame* modeGame,
+                                 jag::PacketT<jag::Array<unsigned char>>& arg5, int arg6) {
+    uint32_t in_register_0000008c;
+    uint32_t in_stack_00000008;
 
-    uVar1 = jag::logger::default_logger();
-    jag::logger::Logger::Log(
-        uVar1, 0, 8,
-        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp", 781,
-        "Js5WorkerThread: Initialising...");
-    *(ModeGame**)(this + 664) = param_4;
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::operator=(
-        (PacketT<jag::Array<unsigned char, eastl::allocator>>*)(this + 672), param_5);
-    *(int*)(this + 704) = param_6;
-    ChangeURLs(this, param_1, param_2, param_3);
+    (jag::logger::default_logger())
+        ->Log(false, 8,
+              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp",
+              781, "Js5WorkerThread: Initialising...");
+    *(PacketT<jag::Array<unsigned char> _>**)(str1 + 664) = arg5;
+    (*((str1 + 672))) =
+        (*((PacketT<jag::Array<unsigned char> _>*)(((uint64_t)in_register_0000008c << 32) | (uint32_t)arg6)));
+    *(uint32_t*)(str1 + 704) = in_stack_00000008;
+    ChangeURLs((Js5WorkerThread*)str1, str2, str3, (char*)modeGame);
     jag::BucketManager::CreateBucket(16256, 4, 64);
 }
 
-// 0x1009f3e30, 96 bytes, placed by class name
-// Js5WorkerThread::ChangeURLs(char const*, char const*, char const*)
-void Js5WorkerThread::ChangeURLs(char* param_1, char* param_2, char* param_3) {
-    ((this + 592))->assign(param_1);
-    ((this + 560))->assign(param_2);
-    ((this + 624))->assign(param_3);
-    this[656] = (Js5WorkerThread)0;
-    UpdateConnection(this);
+// 0x1009f3e30
+void Js5WorkerThread::ChangeURLs(const char* str1, const char* str2, const char* str3) {
+    ((this + 74))->assign(str1);
+    ((this + 70))->assign(str2);
+    ((this + 78))->assign(str3);
+    *(uint8_t*)&this[82]._vptr = 0;
+    UpdateConnection();
 }
 
-// 0x1009f3e90, 192 bytes, placed by class name
-// Js5WorkerThread::RequestMasterIndex()
+// 0x1009f3e90
 void Js5WorkerThread::RequestMasterIndex() {
-    char cVar1;
-    Js5NetQueue* pJVar2;
-    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                  jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>
+    Js5NetQueue* this_00;
+    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                  jag::PacketT<jag::Array<unsigned char>>&&, bool)>
         local_58[48];
     long local_28;
 
-    local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-    cVar1 = IsJs5Connected(this);
-    if (cVar1 == '\0') {
-        this[720] = (Js5WorkerThread)1;
+    bool cVar1 = IsJs5Connected();
+    if (!cVar1) {
+        *(uint8_t*)&this[90]._vptr = 1;
     } else {
-        pJVar2 = (Js5NetQueue*)std::unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>::operator->(
-            (unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>*)(this + 512));
-        std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                           jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&,
-                           bool)>::function<Js5WorkerThread::RequestMasterIndex()::__6, void>(local_58, this);
-        cVar1 = pJVar2->RequestData(255, 255, 0, 1, local_58);
-        std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                           jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>::~function(local_58);
-        if (cVar1 != '\0')
+        this_00 = (Js5NetQueue*)(*((this + 64))).operator->();
+        std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                           jag::PacketT<jag::Array<unsigned char>>&&,
+                           bool)>::function<Js5WorkerThread::RequestMasterIndex()::__6, void>(local_58, (__6*)this);
+        cVar1 = this_00->RequestData(255, 255, 0, true, local_58);
+        if (cVar1)
             goto LAB_1009f3f14;
     }
-    MasterIndexNotDownloaded(this);
+    MasterIndexNotDownloaded();
 LAB_1009f3f14:
-    if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-        /* WARNING: Subroutine does not return */
-        ___stack_chk_fail();
-    }
 }
 
-// 0x1009f3f50, 256 bytes, placed by class name
-// Js5WorkerThread::RequestMasterIndexOverHTTP()
+// 0x1009f3f50
 void Js5WorkerThread::RequestMasterIndexOverHTTP() {
-    char cVar1;
-    Js5HTTPQueue* pJVar2;
+    Js5HTTPQueue* this_00;
     function<void(unsigned int, unsigned int, bool)> local_98[48];
-    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                  jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>
+    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                  jag::PacketT<jag::Array<unsigned char>>&&, bool)>
         local_68[56];
     long local_30;
 
-    local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-    cVar1 = IsJs5Connected(this);
-    if (cVar1 == '\0') {
-        this[720] = (Js5WorkerThread)1;
+    bool cVar1 = IsJs5Connected();
+    if (!cVar1) {
+        *(uint8_t*)&this[90]._vptr = 1;
     } else {
-        pJVar2 = (Js5HTTPQueue*)std::unique_ptr<jag::Js5HTTPQueue, std::default_delete<jag::Js5HTTPQueue>>::operator->(
-            (unique_ptr<jag::Js5HTTPQueue, std::default_delete<jag::Js5HTTPQueue>>*)(this + 520));
-        std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                           jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&,
-                           bool)>::function<Js5WorkerThread::RequestMasterIndexOverHTTP()::__7, void>(local_68, this);
+        this_00 = (Js5HTTPQueue*)(*((this + 65))).operator->();
+        std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                           jag::PacketT<jag::Array<unsigned char>>&&,
+                           bool)>::function<Js5WorkerThread::RequestMasterIndexOverHTTP()::__7, void>(local_68,
+                                                                                                      (__7*)this);
         std::function<void(unsigned int, unsigned int,
-                           bool)>::function<Js5WorkerThread::RequestMasterIndexOverHTTP()::__8, void>(local_98, this);
-        cVar1 = pJVar2->RequestData(255, 255, 0, 0, 0, 1, local_68, local_98);
-        std::function<void(unsigned int, unsigned int, bool)>::~function(local_98);
-        std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                           jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>::~function(local_68);
-        if (cVar1 != '\0')
+                           bool)>::function<Js5WorkerThread::RequestMasterIndexOverHTTP()::__8, void>(local_98,
+                                                                                                      (__8*)this);
+        cVar1 = this_00->RequestData(255, 255, 0, 0, 0, true, local_68, local_98);
+        if (cVar1)
             goto LAB_1009f4005;
     }
-    MasterIndexNotDownloadedOverHTTP(this);
+    MasterIndexNotDownloadedOverHTTP();
 LAB_1009f4005:
-    if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-        /* WARNING: Subroutine does not return */
-        ___stack_chk_fail();
-    }
 }
 
-// 0x1009f4050, 368 bytes, placed by class name
-// Js5WorkerThread::RequestIndex(unsigned int, int, jag::Array<unsigned char, eastl::allocator> const&)
-void Js5WorkerThread::RequestIndex(uint param_1, int param_2, Array* param_3) {
-    byte bVar1;
-    char cVar2;
-    long lVar3;
-    uchar* puVar4;
-    ulong uVar5;
-    Js5NetQueue* pJVar6;
-    VBOMapper local_88;
-    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                  jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>
+// 0x1009f4050
+void Js5WorkerThread::RequestIndex(unsigned int arg1, int arg2, const jag::Array<unsigned char>& arg3) {
+    Js5NetQueue* this_00;
+    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                  jag::PacketT<jag::Array<unsigned char>>&&, bool)>
         local_68[48];
     long local_38;
 
-    local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-    lVar3 = param_3->end();
-    new (&local_88) jag::PacketT<jag::Array<unsigned char, eastl::allocator>>(lVar3 + 5);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(
-        (PacketT<jag::Array<unsigned char, eastl::allocator>>*)&local_88, param_2);
-    bVar1 = param_3->empty();
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-        (PacketT<jag::Array<unsigned char, eastl::allocator>>*)&local_88, (ulong)(bVar1 ^ 1));
-    puVar4 = (uchar*)param_3->data();
-    uVar5 = param_3->end();
-    local_88.pArrayBuffer(puVar4, 0, uVar5);
-    cVar2 = IsJs5Connected(this);
-    if (cVar2 == '\0') {
-        this[720] = (Js5WorkerThread)1;
-        IndexNotDownloaded(this, param_1);
+    long lVar3 = arg3.end();
+    VBOMapper local_88(lVar3 + 5);
+    local_88.p4<int>(arg2);
+    uint8_t bVar1 = arg3.empty();
+    local_88.p1<unsigned long>((unsigned int)(bVar1 ^ 1));
+    auto arg1_00 = arg3.data();
+    unsigned long arg3_00 = arg3.end();
+    local_88.pArrayBuffer(arg1_00, 0, arg3_00);
+    bool cVar2 = IsJs5Connected();
+    if (!cVar2) {
+        *(uint8_t*)&this[90]._vptr = 1;
+        IndexNotDownloaded(arg1);
     } else {
-        pJVar6 = (Js5NetQueue*)std::unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>::operator->(
-            (unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>*)(this + 512));
-        std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                           jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>::
-            function<Js5WorkerThread::RequestIndex(unsigned int, int,
-                                                   jag::Array<unsigned char, eastl::allocator> const&)::__9,
-                     void>(local_68, this);
-        cVar2 = pJVar6->RequestData(255, param_1, 0, 1, local_68, &local_88, jag::Priority::HIGHEST);
-        std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                           jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>::~function(local_68);
-        if (cVar2 == '\0') {
-            IndexNotDownloaded(this, param_1);
+        this_00 = (Js5NetQueue*)(*((this + 64))).operator->();
+        std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                           jag::PacketT<jag::Array<unsigned char>>&&, bool)>::
+            function<Js5WorkerThread::RequestIndex(unsigned int, int, jag::Array<unsigned char> const&)::__9, void>(
+                local_68, (__9*)this);
+        cVar2 = this_00->RequestData(255, arg1, 0, true, local_68, local_88, (Priority*)jag::Priority::HIGHEST);
+        if (!cVar2) {
+            IndexNotDownloaded(arg1);
         }
     }
-    local_88.~VBOMapper();
-    if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-        /* WARNING: Subroutine does not return */
-        ___stack_chk_fail();
-    }
 }
 
-// 0x1009f4310, 752 bytes, placed by class name
-// Js5WorkerThread::RequestGroup(int, int, int, jag::EncodeType const*, bool, jag::Js5DiskCacheFormat, bool, jag::Priority const*, int, int, jag::Array<unsigned char, eastl::allocator> const&)
-void Js5WorkerThread::RequestGroup(
-    int param_1, undefined4 param_2, int param_3, long param_4, char param_5, char param_7, byte param_8,
-    undefined8 param_9, int param_10, undefined4 param_11,
-    vector<jag::oldscape::dash3d::EntityHighlight*, jag::BucketAllocatorEASTL>* param_12) {
-    byte bVar1;
-    char cVar2;
-    long lVar3;
-    uchar* puVar4;
-    ulong uVar5;
-    Js5HTTPQueue* pJVar6;
-    Js5NetQueue* pJVar7;
-    int iVar8;
-    undefined8 in_stack_fffffffffffffee8;
-    undefined4 uVar9;
-    VBOMapper local_f0;
-    undefined4 local_d0;
-    int local_cc;
-    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                  jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>
+// 0x1009f4310
+void Js5WorkerThread::RequestGroup(int arg1, int arg2, int arg3, const jag::EncodeType* encodeType, bool arg5,
+                                   jag::Js5DiskCacheFormat js5DiskCacheFormat, bool arg7, const jag::Priority* priority,
+                                   int arg9, int arg10, const jag::Array<unsigned char>& arg11) {
+    Js5HTTPQueue* this_00;
+    Js5NetQueue* this_01;
+    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                  jag::PacketT<jag::Array<unsigned char>>&&, bool)>
         local_c8[48];
     function<void(unsigned int, unsigned int, bool)> local_98[48];
-    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                  jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>
+    function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                  jag::PacketT<jag::Array<unsigned char>>&&, bool)>
         local_68[48];
     long local_38;
 
-    uVar9 = (undefined4)((ulong)in_stack_fffffffffffffee8 >> 32);
-    local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-    local_d0 = param_2;
-    local_cc = param_1;
-    lVar3 = eastl::vector<jag::oldscape::dash3d::EntityHighlight*, jag::BucketAllocatorEASTL>::end(param_12);
-    new (&local_f0) jag::PacketT<jag::Array<unsigned char, eastl::allocator>>(lVar3 + 11);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(
-        (PacketT<jag::Array<unsigned char, eastl::allocator>>*)&local_f0, param_3);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-        (PacketT<jag::Array<unsigned char, eastl::allocator>>*)&local_f0, (ulong) * (uint*)(param_4 + 8));
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<bool>(SUB81(&local_f0, 0));
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(
-        (PacketT<jag::Array<unsigned char, eastl::allocator>>*)&local_f0, param_10);
-    bVar1 = param_12->empty();
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-        (PacketT<jag::Array<unsigned char, eastl::allocator>>*)&local_f0,
-        (ulong)((uint)(bVar1 ^ 1) + (uint)(param_7 == '\x02') * 2));
-    puVar4 = (uchar*)param_12->data();
-    uVar5 = eastl::vector<jag::oldscape::dash3d::EntityHighlight*, jag::BucketAllocatorEASTL>::end(param_12);
-    local_f0.pArrayBuffer(puVar4, 0, uVar5);
-    cVar2 = IsJs5Connected(this);
-    iVar8 = (int)this;
-    if (cVar2 != '\0') {
-        cVar2 = IsSocketConnected(this);
-        if (cVar2 != '\0') {
-            if (param_5 == '\0') {
-                pJVar7 =
-                    (Js5NetQueue*)std::unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>::operator->(
-                        (unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>*)(this + 512));
-                std::function<void(
-                    unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>::function(local_c8,
-                                                                                                  (function*)(this +
-                                                                                                              832));
-                cVar2 = pJVar7->RequestData(local_cc, local_d0, 2, param_8, local_c8, &local_f0, param_9);
-                std::function<void(
-                    unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>::~function(local_c8);
-                if (cVar2 == '\0') {
-                    GroupNotDownloaded(iVar8, local_cc, SUB41(local_d0, 0));
+    unsigned int local_d0 = arg2;
+    unsigned int local_cc = arg1;
+    long lVar3 = arg11.end();
+    VBOMapper local_f0(lVar3 + 11);
+    local_f0.p4<int>(arg3);
+    local_f0.p1<unsigned long>(*(ID*)(encodeType + 8));
+    local_f0.p1<bool>(arg5);
+    local_f0.p4<int>(arg9);
+    uint8_t bVar1 = arg11.empty();
+    local_f0.p1<unsigned long>((unsigned int)(bVar1 ^ 1) + (unsigned int)((uint8_t)js5DiskCacheFormat == 2) * 2);
+    auto arg1_00 = arg11.data();
+    unsigned long arg3_00 = arg11.end();
+    local_f0.pArrayBuffer(arg1_00, 0, arg3_00);
+    bool cVar2 = IsJs5Connected();
+    if (cVar2) {
+        cVar2 = IsSocketConnected();
+        if (cVar2) {
+            if (arg5) {
+                this_00 = (Js5HTTPQueue*)(*((this + 65))).operator->();
+                new (local_68) std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                                                  jag::PacketT<jag::Array<unsigned char>>&&, bool)>(*((this + 104)));
+                new (local_98) std::function<void(unsigned int, unsigned int, bool)>(*((this + 110)));
+                cVar2 = this_00->RequestData(local_cc, local_d0, arg9, arg10, 2, arg7, local_68, local_98, local_f0,
+                                             priority);
+                if (!cVar2) {
+                    GroupNotDownloaded(local_cc, local_d0, arg7);
                 }
             } else {
-                pJVar6 = (Js5HTTPQueue*)
-                             std::unique_ptr<jag::Js5HTTPQueue, std::default_delete<jag::Js5HTTPQueue>>::operator->(
-                                 (unique_ptr<jag::Js5HTTPQueue, std::default_delete<jag::Js5HTTPQueue>>*)(this + 520));
-                std::function<void(
-                    unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>::function(local_68,
-                                                                                                  (function*)(this +
-                                                                                                              832));
-                std::function<void(unsigned int, unsigned int, bool)>::function(local_98, (function*)(this + 880));
-                cVar2 = pJVar6->RequestData(local_cc, local_d0, param_10, param_11, 2, CONCAT44(uVar9, (uint)param_8),
-                                            local_68, local_98, &local_f0, param_9);
-                std::function<void(unsigned int, unsigned int, bool)>::~function(local_98);
-                std::function<void(
-                    unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&,
-                    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&&, bool)>::~function(local_68);
-                if (cVar2 == '\0') {
-                    GroupNotDownloaded(iVar8, local_cc, SUB41(local_d0, 0));
+                this_01 = (Js5NetQueue*)(*((this + 64))).operator->();
+                new (local_c8) std::function<void(unsigned int, unsigned int, jag::PacketT<jag::Array<unsigned char>>&,
+                                                  jag::PacketT<jag::Array<unsigned char>>&&, bool)>(*((this + 104)));
+                cVar2 = this_01->RequestData(local_cc, local_d0, 2, arg7, local_c8, local_f0, priority);
+                if (!cVar2) {
+                    GroupNotDownloaded(local_cc, local_d0, arg7);
                 }
             }
             goto LAB_1009f44f0;
         }
     }
-    this[720] = (Js5WorkerThread)1;
-    GroupNotDownloaded(iVar8, local_cc, SUB41(local_d0, 0));
+    *(uint8_t*)&this[90]._vptr = 1;
+    GroupNotDownloaded(local_cc, local_d0, arg7);
 LAB_1009f44f0:
-    local_f0.~VBOMapper();
-    if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-        /* WARNING: Subroutine does not return */
-        ___stack_chk_fail();
-    }
 }
 
-// 0x1009f4600, 80 bytes, placed by class name
-// Js5WorkerThread::IsSocketConnected() const
-bool Js5WorkerThread::IsSocketConnected() {
-    CoordMapSquare* this_00;
-    bool bVar3;
-
-    bVar3 = false;
-    if (jag::operator!=((shared_ptr*)(this + 496), (_func_decltype_nullptr*)0)) {
-        this_00 = (CoordMapSquare*)jag::shared_ptr<jag::ClientStream>::operator->(
-            (shared_ptr<jag::ClientStream>*)(this + 496));
-        bVar3 = this_00->GetX() == 2;
+// 0x1009f4600
+bool Js5WorkerThread::IsSocketConnected() const {
+    bool bVar3 = false;
+    if ((*((this + 62))) != nullptr) {
+        bVar3 = ((CoordMapSquare*)(*((this + 62))).operator->())->GetX() == 2;
     }
     return bVar3;
 }
 
-// 0x1009f4650, 48 bytes, placed by class name
-// Js5WorkerThread::RequestServerDrop()
+// 0x1009f4650
 void Js5WorkerThread::RequestServerDrop() {
-    Js5NetQueue* this_00;
-
-    if (IsJs5Connected(this) != '\0') {
-        this_00 = (Js5NetQueue*)std::unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>::operator->(
-            (unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>*)(this + 512));
-        this_00->RequestServerDrop();
+    if (IsJs5Connected() != '\0') {
+        ((Js5NetQueue*)(*((this + 64))).operator->())->RequestServerDrop();
     }
 }
 
-// 0x1009f46a0, 80 bytes, placed by class name
-// Js5WorkerThread::DropClientConnection()
+// 0x1009f46a0
 void Js5WorkerThread::DropClientConnection() {
-    ClientStream* this_00;
-
-    if (((this + 496))->operator_cast_to_bool()) {
-        this_00 =
-            (ClientStream*)jag::shared_ptr<jag::ClientStream>::operator->((shared_ptr<jag::ClientStream>*)(this + 496));
-        this_00->Drop();
-        jag::shared_ptr<jag::ClientStream>::reset();
-        this[720] = (Js5WorkerThread)1;
-        *(undefined4*)(this + 788) = 0;
+    shared_ptr* this_00 = (shared_ptr*)(this + 62);
+    if (jag::shared_ptr::operator_cast_to_bool(this_00) != '\0') {
+        ((ClientStream*)(*this_00).operator->())->Drop();
+        this_00->reset();
+        *(uint8_t*)&this[90]._vptr = 1;
+        *(uint32_t*)((long)&this[98]._vptr + 4) = 0;
     }
 }
 
-// 0x1009f4720, 128 bytes, placed by class name
-// Js5WorkerThread::MasterIndexNotDownloaded()
+// 0x1009f4720
 void Js5WorkerThread::MasterIndexNotDownloaded() {
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar1;
-    int* in_RDX;
-    shared_ptr local_30;
-    undefined4 local_1c;
+    shared_ptr<jag::PacketT<jag::Array<unsigned char>>> local_30;
 
-    local_1c = 3;
-    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<int>(
-        &local_30, (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)&local_1c,
-        in_RDX);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, 10);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p2<unsigned long>(pPVar1, 0);
-    Response(&local_30);
-    local_30.~shared_ptr();
+    uint32_t local_1c = 3;
+    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<int>(&local_30);
+    auto pPVar1 = local_30.operator->();
+    pPVar1->p1<unsigned long>(10);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_30.operator->();
+    pPVar1->p2<unsigned long>(0);
+    Response(local_30);
 }
 
-// 0x1009f4890, 128 bytes, placed by class name
-// Js5WorkerThread::MasterIndexNotDownloadedOverHTTP()
+// 0x1009f4890
 void Js5WorkerThread::MasterIndexNotDownloadedOverHTTP() {
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar1;
-    int* in_RDX;
-    shared_ptr local_30;
-    undefined4 local_1c;
+    shared_ptr<jag::PacketT<jag::Array<unsigned char>>> local_30;
 
-    local_1c = 3;
-    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<int>(
-        &local_30, (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)&local_1c,
-        in_RDX);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, 40);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p2<unsigned long>(pPVar1, 0);
-    Response(&local_30);
-    local_30.~shared_ptr();
+    uint32_t local_1c = 3;
+    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<int>(&local_30);
+    auto pPVar1 = local_30.operator->();
+    pPVar1->p1<unsigned long>(40);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_30.operator->();
+    pPVar1->p2<unsigned long>(0);
+    Response(local_30);
 }
 
-// 0x1009f4a80, 176 bytes, placed by class name
-// Js5WorkerThread::MasterIndexDownloaded(jag::PacketT<jag::Array<unsigned char, eastl::allocator> >&)
-void Js5WorkerThread::MasterIndexDownloaded(PacketT* param_1) {
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar1;
-    ulong uVar2;
-    undefined1 auVar3[16];
-    long local_38;
-    shared_ptr local_30;
+// 0x1009f4a80
+void Js5WorkerThread::MasterIndexDownloaded(jag::PacketT<jag::Array<unsigned char>>& arg1) {
+    shared_ptr<jag::PacketT<jag::Array<unsigned char>>> local_30;
 
-    auVar3 = param_1->GetTextureAtlas();
-    local_38 = auVar3._0_8_ + 3;
-    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<unsigned long>(
-        &local_30, (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)&local_38,
-        auVar3._8_8_);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, 10);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    uVar2 = param_1->GetTextureAtlas();
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p2<unsigned long>(pPVar1, uVar2);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    pPVar1->pArrayBuffer(param_1);
-    Response(&local_30);
-    local_30.~shared_ptr();
+    arg1.GetTextureAtlas();
+    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<unsigned long>(&local_30);
+    auto pPVar1 = local_30.operator->();
+    pPVar1->p1<unsigned long>(10);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_30.operator->();
+    unsigned short arg1_00 = arg1.GetTextureAtlas();
+    pPVar1->p2<unsigned long>(arg1_00);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_30.operator->();
+    pPVar1->pArrayBuffer(arg1);
+    Response(local_30);
 }
 
-// 0x1009f4b30, 176 bytes, placed by class name
-// Js5WorkerThread::MasterIndexDownloadedOverHTTP(jag::PacketT<jag::Array<unsigned char, eastl::allocator> >&)
-void Js5WorkerThread::MasterIndexDownloadedOverHTTP(PacketT* param_1) {
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar1;
-    ulong uVar2;
-    undefined1 auVar3[16];
-    long local_38;
-    shared_ptr local_30;
+// 0x1009f4b30
+void Js5WorkerThread::MasterIndexDownloadedOverHTTP(jag::PacketT<jag::Array<unsigned char>>& arg1) {
+    shared_ptr<jag::PacketT<jag::Array<unsigned char>>> local_30;
 
-    auVar3 = param_1->GetTextureAtlas();
-    local_38 = auVar3._0_8_ + 3;
-    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<unsigned long>(
-        &local_30, (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)&local_38,
-        auVar3._8_8_);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, 40);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    uVar2 = param_1->GetTextureAtlas();
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p2<unsigned long>(pPVar1, uVar2);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_30);
-    pPVar1->pArrayBuffer(param_1);
-    Response(&local_30);
-    local_30.~shared_ptr();
+    arg1.GetTextureAtlas();
+    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<unsigned long>(&local_30);
+    auto pPVar1 = local_30.operator->();
+    pPVar1->p1<unsigned long>(40);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_30.operator->();
+    unsigned short arg1_00 = arg1.GetTextureAtlas();
+    pPVar1->p2<unsigned long>(arg1_00);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_30.operator->();
+    pPVar1->pArrayBuffer(arg1);
+    Response(local_30);
 }
 
-// 0x1009f4be0, 16 bytes, placed by class name
-// Js5WorkerThread::IndexNotDownloaded(int)
-void Js5WorkerThread::IndexNotDownloaded(int param_1) {
-    FailGetIndexResponse(this, param_1, 3);
+// 0x1009f4be0
+void Js5WorkerThread::IndexNotDownloaded(int arg1) {
+    FailGetIndexResponse(arg1, 3);
 }
 
-// 0x1009f4c00, 976 bytes, placed by class name
-// Js5WorkerThread::IndexDownloaded(int, jag::PacketT<jag::Array<unsigned char, eastl::allocator> >&, jag::PacketT<jag::Array<unsigned char, eastl::allocator> >&&)
-void Js5WorkerThread::IndexDownloaded(int param_1, PacketT* param_2, PacketT* param_3) {
-    uint uVar1;
-    char cVar2;
-    int iVar3;
-    ulong uVar5;
-    uchar* puVar6;
-    undefined8 uVar7;
-    undefined8 uVar8;
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar9;
-    undefined1 auVar10[16];
+// 0x1009f4c00
+void Js5WorkerThread::IndexDownloaded(int arg1, jag::PacketT<jag::Array<unsigned char>>& arg2,
+                                      jag::PacketT<jag::Array<unsigned char>>&& arg3) {
+    int* piVar1;
+    ID IVar2;
+    char cVar3;
+    unsigned int arg1_00;
+    Logger* this_00;
+    uint64_t uVar7;
+    PacketT<jag::Array<unsigned char>>* pPVar8;
     long local_128[3];
-    PacketT* local_110;
-    shared_ptr local_108[2];
-    int local_e8;
+    PacketT<jag::Array<unsigned char> _>* local_110;
+    ReturnValue local_108;
     Whirlpool local_e0;
-    long local_38;
 
-    local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-    param_3->SetPos(0);
-    iVar3 = param_3->g4();
-    uVar5 = param_2->GetTextureAtlas();
-    puVar6 = (uchar*)param_2->GetDataPtr();
-    if (jag::CRC32(puVar6, uVar5, 4294967295) == iVar3) {
-        iVar3 = param_2->GetTextureAtlas();
-        *(int*)(this + 708) = *(int*)(this + 708) + iVar3;
-        cVar2 = param_3->g1();
-        if (cVar2 == '\x01') {
-            new (&local_e0) jag::Whirlpool();
-            local_110 = param_2;
-            puVar6 = (uchar*)param_2->GetDataPtr();
-            local_e0.Update(puVar6, uVar5);
-            new (local_108) jag::Array<unsigned char, jag::SafeBucketAllocatorEASTL>(64);
-            puVar6 = (uchar*)local_108->data();
+    arg3.SetPos(0);
+    int iVar4 = arg3.g4();
+    unsigned long arg2_00 = arg2.GetTextureAtlas();
+    auto puVar6 = arg2.GetDataPtr();
+    if (jag::CRC32(puVar6, arg2_00, 4294967295) == iVar4) {
+        iVar4 = arg2.GetTextureAtlas();
+        piVar1 = (int*)((long)&this[88]._vptr + 4);
+        *piVar1 = *piVar1 + iVar4;
+        cVar3 = arg3.g1();
+        if (cVar3 == '\x01') {
+            local_e0 = jag::Whirlpool();
+            local_110 = arg2;
+            puVar6 = (unsigned char*)arg2.GetDataPtr();
+            local_e0.Update(puVar6, arg2_00);
+            local_108 = jag::Array<unsigned char, jag::SafeBucketAllocatorEASTL>(64);
+            puVar6 = (unsigned char*)local_108.data();
             local_e0.Final(puVar6);
             new (local_128) jag::Array<unsigned char, jag::SafeBucketAllocatorEASTL>(64);
-            puVar6 = (uchar*)local_128->data();
-            param_3->gArrayBuffer(puVar6, 0, 64);
-            cVar2 = jag::Array<unsigned char, eastl::allocator>::operator==(
-                (Array<unsigned char, eastl::allocator>*)local_108, (Array*)local_128);
-            if (cVar2 == '\0') {
-                FailGetIndexResponse(this, (uint)param_1, 2);
-                local_128->~Array();
-                local_108->~Array();
+            puVar6 = (unsigned char*)local_128->data();
+            arg3.gArrayBuffer(puVar6, 0, 64);
+            cVar3 = local_108 == *local_128;
+            if (!cVar3) {
+                FailGetIndexResponse((ID)arg1, 2);
                 goto LAB_1009f4f33;
             }
-            local_128->~Array();
-            local_108->~Array();
-            param_2 = local_110;
+            arg2 = local_110;
         }
-        local_e8 = 1;
-        local_e0.Decompress(param_2, (JS5DecompressionResult*)&local_e8);
-        if (local_e8 == 1) {
-            uVar7 = jag::logger::default_logger();
-            uVar1 = (uint)param_1;
-            local_108->ToString();
-            uVar8 = eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-            jag::logger::Logger::Log(
-                uVar7, 0, 2,
+        local_e0 = jag::Js5Compression::Decompress(arg2, 1);
+        if (1 == 1) {
+            this_00 = jag::logger::default_logger();
+            IVar2 = (ID)arg1;
+            local_108 = arg2.ToString();
+            uVar7 = eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+            this_00->Log(
+                false, 2,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp",
-                309, "Error decompressing index: archive=%i, packet=%s", uVar1, uVar8);
-            local_108->~basic_string();
-            IndexNotDownloaded(this, uVar1);
+                309, "Error decompressing index: archive=%i, packet=%s", IVar2, uVar7);
+            IndexNotDownloaded(IVar2);
         } else {
-            auVar10 = local_e0.GetTextureAtlas();
-            local_128[0] = auVar10._0_8_ + 7;
-            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<
-                unsigned long>(
-                local_108, (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)local_128,
-                auVar10._8_8_);
-            uVar1 = (uint)param_1;
-            pPVar9 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                         jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                             (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_108);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar9, 20);
-            pPVar9 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                         jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                             (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_108);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar9, (ulong)uVar1);
-            pPVar9 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                         jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                             (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_108);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar9, 0);
-            pPVar9 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                         jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                             (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_108);
-            iVar3 = local_e0.GetTextureAtlas();
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar9, iVar3);
-            pPVar9 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                         jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                             (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_108);
-            pPVar9->pArrayBuffer((PacketT*)&local_e0);
+            local_128[0] = local_e0.GetTextureAtlas();
+            local_128[0] = local_128[0] + 7;
+            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<unsigned long>(&local_108);
+            IVar2 = (ID)arg1;
+            pPVar8 = (PacketT<jag::Array<unsigned char>>*)local_108.operator->();
+            pPVar8->p1<unsigned long>(20);
+            pPVar8 = (PacketT<jag::Array<unsigned char>>*)local_108.operator->();
+            pPVar8->p1<unsigned long>(IVar2);
+            pPVar8 = (PacketT<jag::Array<unsigned char>>*)local_108.operator->();
+            pPVar8->p1<unsigned long>(0);
+            pPVar8 = (PacketT<jag::Array<unsigned char>>*)local_108.operator->();
+            arg1_00 = local_e0.GetTextureAtlas();
+            pPVar8->p4<int>(arg1_00);
+            pPVar8 = (PacketT<jag::Array<unsigned char>>*)local_108.operator->();
+            pPVar8->pArrayBuffer(local_e0);
             Response(local_108);
-            local_108->~shared_ptr();
         }
-        local_e0.~VBOMapper();
     } else {
-        FailGetIndexResponse(this, (uint)param_1, 1);
+        FailGetIndexResponse((ID)arg1, 1);
     }
 LAB_1009f4f33:
-    if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-        /* WARNING: Subroutine does not return */
-        ___stack_chk_fail();
-    }
 }
 
-// 0x1009f4fd0, 176 bytes, placed by class name
-// Js5WorkerThread::FailGetIndexResponse(int, Js5WorkerGetIndexResponseType)
-void Js5WorkerThread::FailGetIndexResponse(uint param_1, int* param_3) {
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar1;
-    shared_ptr local_40;
-    undefined4 local_2c;
+// 0x1009f4fd0
+void Js5WorkerThread::FailGetIndexResponse(int arg1, Js5WorkerGetIndexResponseType js5WorkerGetIndexResponseType) {
+    shared_ptr<jag::PacketT<jag::Array<unsigned char>>> local_40;
 
-    local_2c = 3;
-    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<int>(
-        &local_40, (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)&local_2c,
-        param_3);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, 20);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, (ulong)param_1);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, (ulong)param_3 & 4294967295);
-    Response(&local_40);
-    local_40.~shared_ptr();
+    uint32_t local_2c = 3;
+    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<int>(&local_40);
+    auto pPVar1 = local_40.operator->();
+    pPVar1->p1<unsigned long>(20);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_40.operator->();
+    pPVar1->p1<unsigned long>(arg1);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_40.operator->();
+    pPVar1->p1<unsigned long>(js5WorkerGetIndexResponseType);
+    Response(local_40);
 }
 
-// 0x1009f5080, 32 bytes, placed by class name
-// Js5WorkerThread::GroupNotDownloaded(int, int, bool)
-void Js5WorkerThread::GroupNotDownloaded(int param_1, int param_2, bool param_3) {
-    FailGetGroupResponse();
+// 0x1009f5080
+void Js5WorkerThread::GroupNotDownloaded(int arg1, int arg2, bool arg3) {
+    FailGetGroupResponse(arg1, arg2, arg3, 6);
 }
 
-// 0x1009f50a0, 2704 bytes, placed by class name
-// Js5WorkerThread::GroupDownloaded(int, int, jag::PacketT<jag::Array<unsigned char, eastl::allocator> >&, jag::PacketT<jag::Array<unsigned char, eastl::allocator> >&&, bool)
-void Js5WorkerThread::GroupDownloaded(int param_1, int param_2, PacketT* param_3, PacketT* param_4, bool param_5) {
-    byte bVar1;
-    char cVar2;
-    bool bVar3;
-    int iVar4;
-    int iVar5;
-    uint uVar7;
-    uint uVar8;
-    undefined8 uVar10;
-    undefined* puVar11;
-    uchar* puVar12;
-    undefined8 uVar13;
+// 0x1009f50a0
+void Js5WorkerThread::GroupDownloaded(int arg1, int arg2, jag::PacketT<jag::Array<unsigned char>>& arg3,
+                                      jag::PacketT<jag::Array<unsigned char>>&& arg4, bool arg5) {
+    ID IVar1;
+    Logger* pLVar10;
+    uint64_t uVar13;
     long lVar14;
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar15;
-    undefined7 in_register_00000089;
-    undefined1 auVar16[16];
-    long local_138;
-    uint local_130;
-    uint local_12c;
-    undefined1 local_128[32];
-    shared_ptr local_108;
+    PacketT<jag::Array<unsigned char>>* pPVar16;
+    uint8_t local_128[32];
+    unsigned long local_108[3];
     int local_f0;
-    byte local_e1;
     Whirlpool local_e0;
-    long local_38;
 
-    local_130 = (uint)CONCAT71(in_register_00000089, param_5);
-    local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-    if (param_3->GetTextureAtlas() < 3) {
-        uVar10 = jag::logger::default_logger();
-        jag::logger::Logger::Log(
-            uVar10, 0, 2,
+    if (arg3.GetTextureAtlas() < 3) {
+        pLVar10 = jag::logger::default_logger();
+        pLVar10->Log(
+            false, 2,
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp", 384,
             "Data received from server for group too small");
         goto LAB_1009f5a47;
     }
-    param_4->SetPos(0);
-    local_12c = param_4->g4();
-    bVar1 = param_4->g1();
-    puVar11 = (undefined*)jag::EncodeType::GetByID((uint)bVar1);
-    param_4->g1();
-    iVar4 = param_4->g4();
-    iVar5 = param_3->GetTextureAtlas();
-    puVar12 = (uchar*)param_3->GetDataPtr();
-    if (jag::CRC32(puVar12, (long)(iVar5 + -2), 4294967295) != iVar4) {
-        FailGetGroupResponse(this, (uint)param_1, param_2, (undefined1)local_130, 1);
+    unsigned int uVar8 = 0;
+    arg4.SetPos(0);
+    unsigned int uVar4 = arg4.g4();
+    uint8_t bVar2 = arg4.g1();
+    uint8_t* puVar11 = (uint8_t*)((EncodeType*)(unsigned long)bVar2)->GetByID(uVar8);
+    arg4.g1();
+    int iVar5 = arg4.g4();
+    int iVar6 = arg3.GetTextureAtlas();
+    auto puVar12 = arg3.GetDataPtr();
+    if (jag::CRC32(puVar12, (long)(iVar6 - 2), 4294967295) != iVar5) {
+        FailGetGroupResponse((ID)arg1, (unsigned int)arg2, arg5, 1);
         goto LAB_1009f5a47;
     }
-    iVar4 = param_3->GetTextureAtlas();
-    *(long*)(this + 712) = *(long*)(this + 712) + (long)iVar4;
-    local_e1 = param_4->g1();
-    uVar7 = local_130;
+    iVar5 = arg3.GetTextureAtlas();
+    this[89]._vptr = (Js5WorkerThread_vtbl*)((long)&(this[89]._vptr)->_dtor + (long)iVar5);
+    uint8_t local_e1 = arg4.g1();
     if ((local_e1 & 1) != 0) {
-        new (&local_e0) jag::Whirlpool();
-        puVar12 = (uchar*)param_3->GetDataPtr();
-        local_e0.Update(puVar12, (long)(iVar5 + -2));
+        local_e0 = jag::Whirlpool();
+        puVar12 = (unsigned char*)arg3.GetDataPtr();
+        local_e0.Update(puVar12, (long)(iVar6 - 2));
         new (local_128) jag::Array<unsigned char, jag::SafeBucketAllocatorEASTL>(64);
-        puVar12 = (uchar*)local_128->data();
+        puVar12 = (unsigned char*)local_128->data();
         local_e0.Final(puVar12);
-        new ((local_128 + 32)) jag::Array<unsigned char, jag::SafeBucketAllocatorEASTL>(64);
-        puVar12 = (uchar*)((local_128 + 32))->data();
-        param_4->gArrayBuffer(puVar12, 0, 64);
-        cVar2 = jag::Array<unsigned char, eastl::allocator>::operator==(
-            (Array<unsigned char, eastl::allocator>*)local_128, (Array*)(local_128 + 32));
-        if (cVar2 == '\0') {
-            FailGetGroupResponse(this, (uint)param_1, param_2, uVar7 & 255, 2);
-            ((local_128 + 32))->~Array();
-            local_128->~Array();
+        new (local_108) jag::Array<unsigned char, jag::SafeBucketAllocatorEASTL>(64);
+        puVar12 = (unsigned char*)local_108->data();
+        arg4.gArrayBuffer(puVar12, 0, 64);
+        if (*local_128 == *local_108 == '\0') {
+            FailGetGroupResponse((ID)arg1, (unsigned int)arg2, arg5, 2);
             goto LAB_1009f5a47;
         }
-        ((local_128 + 32))->~Array();
-        local_128->~Array();
     }
     if ((puVar11 == jag::EncodeType::PNG_MIPPED) && ((local_e1 & 2) != 0)) {
-        /* WARNING: Subroutine does not return */
         jag::LogAssert(
             "!(extraData_encodeType == jag::EncodeType::PNG_MIPPED && extraData_JS5DiskCacheFormat == "
             "jag::Js5DiskCacheFormat::SERVER_COMPRESSED)",
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp", 428,
             "PNG_MIPPED Cannot suppport SERVER_COMPRESSION unless DecodePNG is moved to the disk thread");
     }
-    if ((char)uVar7 == '\0') {
+    if (arg5) {
+        local_f0 = 1;
+        local_e0 = jag::Js5Compression::Decompress(arg3, local_f0);
+        if (local_f0 == 1) {
+            pLVar10 = jag::logger::default_logger();
+            *local_128 = arg3.ToString();
+            uVar13 = eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+            uVar4 = (unsigned int)arg2;
+            IVar1 = (ID)arg1;
+            pLVar10->Log(
+                false, 2,
+                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp",
+                501, "Error decompressing packet: archive=%i, group=%i, packet=%s", (ID)arg1, (unsigned int)arg2,
+                uVar13);
+            FailGetGroupResponse(IVar1, uVar4, true, 5);
+        } else if (uVar4 == 1) {
+            if ((local_e1 & 2) == 0) {
+                arg3 = local_e0;
+            }
+            if (puVar11 == jag::EncodeType::PNG_MIPPED) {
+                jag::Js5Compression::DecodePNG(local_e0);
+                arg3 = local_e0;
+            }
+            lVar14 = arg3.GetTextureAtlas();
+            local_108[0] = local_e0.GetTextureAtlas() + lVar14 + 16;
+            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<unsigned long>(
+                (unsigned long*)local_128);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_128).operator->();
+            pPVar16->p1<unsigned long>(30);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_128).operator->();
+            pPVar16->p1<unsigned long>((ID)arg1);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_128).operator->();
+            pPVar16->p4<int>((unsigned int)arg2);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_128).operator->();
+            pPVar16->p1<bool>('\x01');
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_128).operator->();
+            pPVar16->p1<unsigned long>(0);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_128).operator->();
+            uVar4 = arg3.GetTextureAtlas();
+            pPVar16->p4<int>(uVar4);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_128).operator->();
+            pPVar16->pArrayBuffer(arg3);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_128).operator->();
+            uVar4 = local_e0.GetTextureAtlas();
+            pPVar16->p4<int>(uVar4);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_128).operator->();
+            pPVar16->pArrayBuffer(local_e0);
+            Response(*local_128);
+        } else {
+            new (local_128) jag::PacketT();
+            uVar8 = local_e0.GetTextureAtlas();
+            jag::Js5DiskFileFormat::DechunkGroupFiles(*local_128, local_e0, 0, uVar8, uVar4);
+            if ((local_e1 & 2) == 0) {
+                arg3 = *local_128;
+            }
+            arg3.GetTextureAtlas();
+            local_128->GetTextureAtlas();
+            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<unsigned long>(local_108);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p1<unsigned long>(30);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p1<unsigned long>((ID)arg1);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p4<int>((unsigned int)arg2);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p1<bool>('\x01');
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p1<unsigned long>(0);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            uVar4 = arg3.GetTextureAtlas();
+            pPVar16->p4<int>(uVar4);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->pArrayBuffer(arg3);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            uVar4 = local_128->GetTextureAtlas();
+            pPVar16->p4<int>(uVar4);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->pArrayBuffer(*local_128);
+            Response(*local_108);
+        LAB_1009f5a23:
+        }
+    } else {
         if ((local_e1 & 2) != 0) {
-            auVar16 = param_3->GetTextureAtlas();
-            local_128._0_8_ = auVar16._0_8_ + 12;
-            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<
-                unsigned long>(
-                (shared_ptr*)&local_e0,
-                (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)local_128,
-                auVar16._8_8_);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_e0);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, 30);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_e0);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, (ulong)(uint)param_1);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_e0);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, param_2);
-            bVar3 = (bool)jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_e0);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<bool>(bVar3);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_e0);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, 0);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_e0);
-            iVar4 = param_3->GetTextureAtlas();
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, iVar4);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_e0);
-            pPVar15->pArrayBuffer(param_3);
-            Response((shared_ptr*)&local_e0);
-            local_e0.~shared_ptr();
+            lVar14 = arg3.GetTextureAtlas();
+            local_128._0_8_ = lVar14 + 12;
+            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<unsigned long>(
+                (unsigned long*)&local_e0);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)local_e0.operator->();
+            pPVar16->p1<unsigned long>(30);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)local_e0.operator->();
+            pPVar16->p1<unsigned long>((ID)arg1);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)local_e0.operator->();
+            pPVar16->p4<int>((unsigned int)arg2);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)local_e0.operator->();
+            pPVar16->p1<bool>('\0');
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)local_e0.operator->();
+            pPVar16->p1<unsigned long>(0);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)local_e0.operator->();
+            uVar4 = arg3.GetTextureAtlas();
+            pPVar16->p4<int>(uVar4);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)local_e0.operator->();
+            pPVar16->pArrayBuffer(arg3);
+            Response(local_e0);
             goto LAB_1009f5a47;
         }
         local_f0 = 1;
-        local_e0.Decompress(param_3, (JS5DecompressionResult*)&local_f0);
+        local_e0 = jag::Js5Compression::Decompress(arg3, local_f0);
         if (local_f0 != 1) {
-            new (local_128) jag::PacketT<jag::Array<unsigned char, eastl::allocator>>();
-            uVar7 = local_12c;
-            if (1 < (int)local_12c) {
+            new (local_128) jag::PacketT();
+            if (1 < (int)uVar4) {
                 uVar8 = local_e0.GetTextureAtlas();
-                jag::Js5DiskFileFormat::DechunkGroupFiles((PacketT*)local_128, (PacketT*)&local_e0, 0, uVar8, uVar7);
-                jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::operator=(
-                    (PacketT<jag::Array<unsigned char, eastl::allocator>>*)&local_e0, (PacketT*)local_128);
+                jag::Js5DiskFileFormat::DechunkGroupFiles(*local_128, local_e0, 0, uVar8, uVar4);
+                local_e0 = *local_128;
             }
             if (puVar11 == jag::EncodeType::PNG_MIPPED) {
-                jag::Js5Compression::DecodePNG((PacketT*)&local_e0);
+                jag::Js5Compression::DecodePNG(local_e0);
             }
-            auVar16 = local_e0.GetTextureAtlas();
-            local_138 = auVar16._0_8_ + 12;
-            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<
-                unsigned long>(
-                (shared_ptr*)(local_128 + 32),
-                (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)&local_138,
-                auVar16._8_8_);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, 30);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, (ulong)(uint)param_1);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, param_2);
-            bVar3 = (bool)jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<bool>(bVar3);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, 0);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            iVar4 = local_e0.GetTextureAtlas();
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, iVar4);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            pPVar15->pArrayBuffer((PacketT*)&local_e0);
-            Response((shared_ptr*)(local_128 + 32));
+            local_e0.GetTextureAtlas();
+            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<unsigned long>(local_108);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p1<unsigned long>(30);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p1<unsigned long>((ID)arg1);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p4<int>((unsigned int)arg2);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p1<bool>('\0');
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->p1<unsigned long>(0);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            uVar4 = local_e0.GetTextureAtlas();
+            pPVar16->p4<int>(uVar4);
+            pPVar16 = (PacketT<jag::Array<unsigned char>>*)(*local_108).operator->();
+            pPVar16->pArrayBuffer(local_e0);
+            Response(*local_108);
             goto LAB_1009f5a23;
         }
-        uVar10 = jag::logger::default_logger();
-        local_128->ToString();
+        pLVar10 = jag::logger::default_logger();
+        *local_128 = arg3.ToString();
         uVar13 = eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-        iVar4 = param_2;
-        uVar7 = (uint)param_1;
-        jag::logger::Logger::Log(
-            uVar10, 0, 2,
+        uVar4 = (unsigned int)arg2;
+        IVar1 = (ID)arg1;
+        pLVar10->Log(
+            false, 2,
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp", 456,
-            "Error decompressing packet: archive=%i, group=%i, packet=%s", (uint)param_1, param_2, uVar13);
-        local_128->~basic_string();
-        FailGetGroupResponse(this, uVar7, iVar4, 0, 5);
-    } else {
-        local_f0 = 1;
-        local_e0.Decompress(param_3, (JS5DecompressionResult*)&local_f0);
-        if (local_f0 == 1) {
-            uVar10 = jag::logger::default_logger();
-            local_128->ToString();
-            uVar13 = eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-            iVar4 = param_2;
-            uVar7 = (uint)param_1;
-            jag::logger::Logger::Log(
-                uVar10, 0, 2,
-                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp",
-                501, "Error decompressing packet: archive=%i, group=%i, packet=%s", (uint)param_1, param_2, uVar13);
-            local_128->~basic_string();
-            FailGetGroupResponse(this, uVar7, iVar4, 1, 5);
-        } else if (local_12c == 1) {
-            if ((local_e1 & 2) == 0) {
-                jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::operator=(
-                    (PacketT<jag::Array<unsigned char, eastl::allocator>>*)param_3, (PacketT*)&local_e0);
-            }
-            if (puVar11 == jag::EncodeType::PNG_MIPPED) {
-                jag::Js5Compression::DecodePNG((PacketT*)&local_e0);
-                jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::operator=(
-                    (PacketT<jag::Array<unsigned char, eastl::allocator>>*)param_3, (PacketT*)&local_e0);
-            }
-            lVar14 = param_3->GetTextureAtlas();
-            auVar16 = local_e0.GetTextureAtlas();
-            local_108._0_8_ = auVar16._0_8_ + lVar14 + 16;
-            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<
-                unsigned long>(
-                (shared_ptr*)local_128,
-                (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)(local_128 + 32),
-                auVar16._8_8_);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_128);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, 30);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_128);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, (ulong)(uint)param_1);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_128);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, param_2);
-            bVar3 = (bool)jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_128);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<bool>(bVar3);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_128);
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, 0);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_128);
-            iVar4 = param_3->GetTextureAtlas();
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, iVar4);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_128);
-            pPVar15->pArrayBuffer(param_3);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_128);
-            iVar4 = local_e0.GetTextureAtlas();
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, iVar4);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)local_128);
-            pPVar15->pArrayBuffer((PacketT*)&local_e0);
-            Response(local_128);
-            local_128->~shared_ptr();
-        } else {
-            new (local_128) jag::PacketT<jag::Array<unsigned char, eastl::allocator>>();
-            uVar7 = local_e0.GetTextureAtlas();
-            jag::Js5DiskFileFormat::DechunkGroupFiles((PacketT*)local_128, (PacketT*)&local_e0, 0, uVar7, local_12c);
-            if ((local_e1 & 2) == 0) {
-                jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::operator=(
-                    (PacketT<jag::Array<unsigned char, eastl::allocator>>*)param_3, (PacketT*)local_128);
-            }
-            lVar14 = param_3->GetTextureAtlas();
-            auVar16 = local_128->GetTextureAtlas();
-            local_138 = auVar16._0_8_ + lVar14 + 16;
-            jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<
-                unsigned long>(
-                (shared_ptr*)(local_128 + 32),
-                (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)&local_138,
-                auVar16._8_8_);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, 30);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, (ulong)(uint)param_1);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, param_2);
-            bVar3 = (bool)jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<bool>(bVar3);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar15, 0);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            iVar4 = param_3->GetTextureAtlas();
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, iVar4);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            pPVar15->pArrayBuffer(param_3);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            iVar4 = local_128->GetTextureAtlas();
-            jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar15, iVar4);
-            pPVar15 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                          jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)(local_128 + 32));
-            pPVar15->pArrayBuffer(local_128);
-            Response((shared_ptr*)(local_128 + 32));
-        LAB_1009f5a23:
-            ((local_128 + 32))->~shared_ptr();
-            local_128->~VBOMapper();
-        }
+            "Error decompressing packet: archive=%i, group=%i, packet=%s", (ID)arg1, (unsigned int)arg2, uVar13);
+        FailGetGroupResponse(IVar1, uVar4, false, 5);
     }
-    local_e0.~VBOMapper();
 LAB_1009f5a47:
-    if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-        /* WARNING: Subroutine does not return */
-        ___stack_chk_fail();
-    }
 }
 
-// 0x1009f5b30, 224 bytes, placed by class name
-// Js5WorkerThread::FailGetGroupResponse(int, int, bool, Js5WorkerGetGroupResponseType)
-void Js5WorkerThread::FailGetGroupResponse(uint param_1, int* param_3, undefined8 param_4, uint param_5) {
-    bool bVar1;
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar2;
-    undefined4 local_44;
-    shared_ptr local_40;
+// 0x1009f5b30
+void Js5WorkerThread::FailGetGroupResponse(int arg1, int arg2, bool arg3,
+                                           Js5WorkerGetGroupResponseType js5WorkerGetGroupResponseType) {
+    shared_ptr<jag::PacketT<jag::Array<unsigned char>>> local_40;
 
-    local_44 = 8;
-    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<int>(
-        &local_40, (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)&local_44,
-        param_3);
-    pPVar2 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar2, 30);
-    pPVar2 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar2, (ulong)param_1);
-    pPVar2 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar2, (int)param_3);
-    bVar1 = (bool)jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-        (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<bool>(bVar1);
-    pPVar2 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar2, (ulong)param_5);
-    Response(&local_40);
-    local_40.~shared_ptr();
+    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<int>(&local_40);
+    auto pPVar1 = local_40.operator->();
+    pPVar1->p1<unsigned long>(30);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_40.operator->();
+    pPVar1->p1<unsigned long>(arg1);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_40.operator->();
+    pPVar1->p4<int>(arg2);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_40.operator->();
+    pPVar1->p1<bool>(arg3);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_40.operator->();
+    pPVar1->p1<unsigned long>(js5WorkerGetGroupResponseType);
+    Response(local_40);
 }
 
-// 0x1009f5c10, 336 bytes, placed by class name
-// Js5WorkerThread::OnInterval(float, unsigned long long)
-void Js5WorkerThread::OnInterval(float param_1, ulonglong param_2) {
-    shared_ptr* this_00;
-    bool bVar1;
-    int iVar2;
-    long lVar3;
-    CoordMapSquare* pCVar4;
-    Js5HTTPQueue* this_01;
-    ulonglong uVar5;
+// 0x1009f5c10
+void Js5WorkerThread::OnInterval(float arg1, unsigned long long arg2) {
+    int iVar3;
+    CoordMapSquare* pCVar5;
 
-    lVar3 = jag::SystemTimer::ConvertNStoSecondsApprox(param_2);
-    if (*(long*)(this + 736) != lVar3) {
-        *(undefined4*)(this + 744) = *(undefined4*)(this + 748);
-        *(undefined4*)(this + 748) = 0;
-        *(long*)(this + 736) = lVar3;
-        if (*(ulong*)(this + 752) < lVar3 - 10U) {
-            *(long*)(this + 760) = lVar3;
-            *(undefined8*)(this + 768) = 0;
-            *(undefined8*)(this + 776) = 0;
-            *(long*)(this + 752) = lVar3;
+    auto pJVar4 = jag::SystemTimer::ConvertNStoSecondsApprox(arg2);
+    if (this[92]._vptr != pJVar4) {
+        *(uint32_t*)&this[93]._vptr = *(uint32_t*)((long)&this[93]._vptr + 4);
+        *(uint32_t*)((long)&this[93]._vptr + 4) = 0;
+        this[92]._vptr = pJVar4;
+        if (this[94]._vptr < (Js5WorkerThread_vtbl*)((long)&pJVar4[-1].OnComplete + 6U)) {
+            this[95]._vptr = pJVar4;
+            this[96]._vptr = nullptr;
+            this[97]._vptr = nullptr;
+            this[94]._vptr = pJVar4;
         }
     }
-    if (this[721] != (Js5WorkerThread)0) {
-        bVar1 = jag::operator!=((shared_ptr*)(this + 496), (_func_decltype_nullptr*)0);
-        if (bVar1) {
-            pCVar4 = (CoordMapSquare*)jag::shared_ptr<jag::ClientStream>::operator->(
-                (shared_ptr<jag::ClientStream>*)(this + 496));
-            iVar2 = pCVar4->GetX();
-            if (iVar2 == 0) {
-                RotateConnectMethods(this);
-                UpdatedFailedConnectionAttemptCount(this, *(int*)(this + 784) + 1, -1);
+    if (*(char*)((long)&this[90]._vptr + 1) != '\0') {
+        if ((*((this + 62))) != nullptr) {
+            pCVar5 = (CoordMapSquare*)(*((this + 62))).operator->();
+            iVar3 = pCVar5->GetX();
+            if (iVar3 == 0) {
+                RotateConnectMethods();
+                UpdatedFailedConnectionAttemptCount(*(int*)&this[98]._vptr + 1, -1);
             }
         }
     }
-    this_00 = (shared_ptr*)(this + 496);
-    bVar1 = jag::operator!=(this_00, (_func_decltype_nullptr*)0);
-    if (bVar1) {
-        pCVar4 =
-            (CoordMapSquare*)jag::shared_ptr<jag::ClientStream>::operator->((shared_ptr<jag::ClientStream>*)this_00);
-        iVar2 = pCVar4->GetX();
-        if (iVar2 == 2) {
-            ServiceConnected(this);
+    shared_ptr<jag::oldscape::midi2::MidiPlayerMainThread>* midiPlayerMainThread =
+        (shared_ptr<jag::oldscape::midi2::MidiPlayerMainThread>*)(this + 62);
+    if (*midiPlayerMainThread != nullptr) {
+        pCVar5 = (CoordMapSquare*)(*midiPlayerMainThread).operator->();
+        iVar3 = pCVar5->GetX();
+        if (iVar3 == 2) {
+            ServiceConnected();
             goto LAB_1009f5d21;
         }
     }
-    bVar1 = jag::operator==(this_00, (_func_decltype_nullptr*)0);
-    if (!bVar1) {
-        pCVar4 =
-            (CoordMapSquare*)jag::shared_ptr<jag::ClientStream>::operator->((shared_ptr<jag::ClientStream>*)this_00);
-        iVar2 = pCVar4->GetX();
-        if (iVar2 != 0)
+    if (!(*midiPlayerMainThread == nullptr)) {
+        pCVar5 = (CoordMapSquare*)(*midiPlayerMainThread).operator->();
+        iVar3 = pCVar5->GetX();
+        if (iVar3 != 0)
             goto LAB_1009f5d21;
     }
-    ServiceReconnect(this);
+    ServiceReconnect();
 LAB_1009f5d21:
-    this_01 = (Js5HTTPQueue*)std::unique_ptr<jag::Js5HTTPQueue, std::default_delete<jag::Js5HTTPQueue>>::operator->(
-        (unique_ptr<jag::Js5HTTPQueue, std::default_delete<jag::Js5HTTPQueue>>*)(this + 520));
-    this_01->Service();
-    *(int*)(this + 748) = *(int*)(this + 748) + 1;
-    uVar5 = jag::SystemTimer::GetTimeNS<std::chrono::steady_clock>((SystemTimer*)this_01);
-    *(ulonglong*)(this + 776) = *(long*)(this + 776) + (uVar5 - lVar3);
+    ((Js5HTTPQueue*)(*((this + 65))).operator->())->Service();
+    int* piVar1 = (int*)((long)&this[93]._vptr + 4);
+    *piVar1 = *piVar1 + 1;
+    unsigned long long uVar6 = jag::SystemTimer::GetTimeNS<std::chrono::steady_clock>();
+    this[97]._vptr = (Js5WorkerThread_vtbl*)((long)this[97]._vptr + (uVar6 - (long)pJVar4));
 }
 
-// 0x1009f5db0, 32 bytes, placed by class name
-// Js5WorkerThread::RotateConnectMethods()
+// 0x1009f5db0
 void Js5WorkerThread::RotateConnectMethods() {
-    this[656] = (Js5WorkerThread)((byte)this[656] ^ 1);
-    UpdateConnection(this);
+    *(uint8_t*)&this[82]._vptr = *(uint8_t*)&this[82]._vptr ^ 1;
+    UpdateConnection();
 }
 
-// 0x1009f5dd0, 176 bytes, placed by class name
-// Js5WorkerThread::UpdatedFailedConnectionAttemptCount(int, int)
-void Js5WorkerThread::UpdatedFailedConnectionAttemptCount(int param_1, int param_2) {
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar1;
-    undefined4 in_register_00000014;
-    shared_ptr local_40;
-    undefined4 local_2c;
+// 0x1009f5dd0
+void Js5WorkerThread::UpdatedFailedConnectionAttemptCount(int arg1, int arg2) {
+    shared_ptr<jag::PacketT<jag::Array<unsigned char>>> local_40;
 
-    *(int*)(this + 784) = param_1;
-    local_2c = 9;
-    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<int>(
-        &local_40, (MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 16192>*)&local_2c,
-        (int*)CONCAT44(in_register_00000014, param_2));
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, 6);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar1, param_1);
-    pPVar1 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)
-                 jag::shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>::operator->(
-                     (shared_ptr<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>*)&local_40);
-    jag::PacketT<jag::Array<unsigned char, eastl::allocator>>::p4<int>(pPVar1, param_2);
-    Response(&local_40);
-    local_40.~shared_ptr();
+    *(int*)&this[98]._vptr = arg1;
+    uint32_t local_2c = 9;
+    jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 16192>::MakeShared<int>(&local_40);
+    auto pPVar1 = local_40.operator->();
+    pPVar1->p1<unsigned long>(6);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_40.operator->();
+    pPVar1->p4<int>(arg1);
+    pPVar1 = (PacketT<jag::Array<unsigned char>>*)local_40.operator->();
+    pPVar1->p4<int>(arg2);
+    Response(local_40);
 }
 
-// 0x1009f5e80, 688 bytes, placed by class name
-// Js5WorkerThread::ServiceConnected()
+// 0x1009f5e80
 void Js5WorkerThread::ServiceConnected() {
     shared_ptr<jag::ClientStream>* psVar1;
-    shared_ptr* this_00;
-    PacketT<jag::Array<unsigned char, eastl::allocator>>* pPVar2;
-    byte bVar3;
-    int iVar4;
-    undefined8 in_RAX;
+    PacketT<jag::Array<unsigned char>>* pPVar2;
+    uint8_t bVar3;
+    uint64_t in_RAX;
     CoordMapSquare* pCVar5;
-    long lVar6;
     ClientStream* pCVar7;
-    ulong uVar9;
-    undefined8 uVar10;
-    Js5NetQueue* pJVar11;
-    undefined4 uVar12;
+    unsigned long uVar9;
+    Js5NetQueue* pJVar10;
 
-    uVar12 = (undefined4)((ulong)in_RAX >> 32);
-    iVar4 = *(int*)(this + 788);
+    uint32_t uVar11 = (uint32_t)((unsigned long)in_RAX >> 32);
+    int iVar4 = *(int*)((long)&this[98]._vptr + 4);
     if (iVar4 == 2) {
-        this_00 = (shared_ptr*)(this + 496);
-        pCVar5 =
-            (CoordMapSquare*)jag::shared_ptr<jag::ClientStream>::operator->((shared_ptr<jag::ClientStream>*)this_00);
+        psVar1 = (shared_ptr<jag::ClientStream>*)(this + 62);
+        pCVar5 = (CoordMapSquare*)(*psVar1).operator->();
         iVar4 = pCVar5->GetX();
         if (iVar4 == 2) {
-            iVar4 = *(int*)(this + 704);
+            iVar4 = *(int*)&this[88]._vptr;
             uVar9 = (long)iVar4 * 4;
-            pCVar7 =
-                (ClientStream*)jag::shared_ptr<jag::ClientStream>::operator->((shared_ptr<jag::ClientStream>*)this_00);
+            pCVar7 = (ClientStream*)(*psVar1).operator->();
             if (pCVar7->GetAvailable() < uVar9) {
                 return;
             }
             if (iVar4 != 0) {
-                pPVar2 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)(this + 792);
+                pPVar2 = (PacketT<jag::Array<unsigned char>>*)(this + 99);
                 iVar4 = 0;
                 pPVar2->SetPos(0);
-                pCVar7 = (ClientStream*)jag::shared_ptr<jag::ClientStream>::operator->(
-                    (shared_ptr<jag::ClientStream>*)this_00);
-                jag::ClientStream::Read<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>(
-                    pCVar7, (PacketT*)pPVar2, uVar9);
+                pCVar7 = (ClientStream*)(*psVar1).operator->();
+                pCVar7->Read<jag::PacketT<jag::Array<unsigned char>>>(*pPVar2, uVar9);
                 pPVar2->SetPos(0);
-                if (0 < *(int*)(this + 704)) {
+                if (0 < *(int*)&this[88]._vptr) {
                     do {
                         pPVar2->g4();
                         iVar4 = iVar4 + 1;
-                    } while (iVar4 < *(int*)(this + 704));
+                    } while (iVar4 < *(int*)&this[88]._vptr);
                 }
             }
-            pJVar11 =
-                (Js5NetQueue*)std::unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>::operator->(
-                    (unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>*)(this + 512));
-            pJVar11->ProvideConnection(this_00, false);
-            *(undefined4*)(this + 788) = 3;
-            *(undefined2*)(this + 720) = 0;
-            UpdatedFailedConnectionAttemptCount(this, 0, 0);
+            pJVar10 = (Js5NetQueue*)(*((this + 64))).operator->();
+            pJVar10->ProvideConnection(*psVar1, false);
+            *(uint32_t*)((long)&this[98]._vptr + 4) = 3;
+            *(uint16_t*)&this[90]._vptr = 0;
+            UpdatedFailedConnectionAttemptCount(0, 0);
             return;
         }
     } else {
         if (iVar4 != 1) {
             if (iVar4 != 0) {
-                pJVar11 =
-                    (Js5NetQueue*)std::unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>::operator->(
-                        (unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>*)(this + 512));
-                bVar3 = pJVar11->Service();
-                this[720] = (Js5WorkerThread)(bVar3 ^ 1);
+                pJVar10 = (Js5NetQueue*)(*((this + 64))).operator->();
+                bVar3 = pJVar10->Service();
+                *(uint8_t*)&this[90]._vptr = bVar3 ^ 1;
                 return;
             }
-            psVar1 = (shared_ptr<jag::ClientStream>*)(this + 496);
-            pCVar5 = (CoordMapSquare*)jag::shared_ptr<jag::ClientStream>::operator->(psVar1);
+            psVar1 = (shared_ptr<jag::ClientStream>*)(this + 62);
+            pCVar5 = (CoordMapSquare*)(*psVar1).operator->();
             iVar4 = pCVar5->GetX();
             if (iVar4 != 2) {
                 return;
             }
-            lVar6 = ((this + 672))->GetTextureAtlas();
-            if (lVar6 != 0) {
-                pCVar7 = (ClientStream*)jag::shared_ptr<jag::ClientStream>::operator->(psVar1);
-                pCVar7->Write((PacketT*)(this + 672));
-                pCVar7 = (ClientStream*)jag::shared_ptr<jag::ClientStream>::operator->(psVar1);
+            if (((this + 84))->GetTextureAtlas() != 0) {
+                pCVar7 = (ClientStream*)(*psVar1).operator->();
+                pCVar7->Write(*((this + 84)));
+                pCVar7 = (ClientStream*)(*psVar1).operator->();
                 pCVar7->Flush();
             }
-            *(undefined4*)(this + 788) = 1;
+            *(uint32_t*)((long)&this[98]._vptr + 4) = 1;
             return;
         }
-        psVar1 = (shared_ptr<jag::ClientStream>*)(this + 496);
-        pCVar5 = (CoordMapSquare*)jag::shared_ptr<jag::ClientStream>::operator->(psVar1);
+        psVar1 = (shared_ptr<jag::ClientStream>*)(this + 62);
+        pCVar5 = (CoordMapSquare*)(*psVar1).operator->();
         iVar4 = pCVar5->GetX();
         if (iVar4 == 2) {
-            pPVar2 = (PacketT<jag::Array<unsigned char, eastl::allocator>>*)(this + 792);
+            pPVar2 = (PacketT<jag::Array<unsigned char>>*)(this + 99);
             pPVar2->SetPos(0);
-            pCVar7 = (ClientStream*)jag::shared_ptr<jag::ClientStream>::operator->(psVar1);
-            uVar9 = jag::ClientStream::Read<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>>(
-                pCVar7, (PacketT*)pPVar2, 1);
+            pCVar7 = (ClientStream*)(*psVar1).operator->();
+            uVar9 = pCVar7->Read<jag::PacketT<jag::Array<unsigned char>>>(*pPVar2, 1);
             if (uVar9 != 1) {
                 return;
             }
             pPVar2->SetPos(0);
             bVar3 = pPVar2->g1();
             if (bVar3 == 0) {
-                *(undefined4*)(this + 788) = 2;
+                *(uint32_t*)((long)&this[98]._vptr + 4) = 2;
                 return;
             }
-            uVar10 = jag::logger::default_logger();
-            jag::logger::Logger::Log(
-                uVar10, 0, 3,
-                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp",
-                670, "Js5WorkerThread: Server response not 0: %d", CONCAT44(uVar12, (uint)bVar3));
-            pCVar7 = (ClientStream*)jag::shared_ptr<jag::ClientStream>::operator->(psVar1);
+            (jag::logger::default_logger())
+                ->Log(false, 3,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/"
+                      "Js5WorkerThread.cpp",
+                      670, "Js5WorkerThread: Server response not 0: %d",
+                      (((uint64_t)uVar11 << 32) | (uint32_t)((unsigned int)bVar3)));
+            pCVar7 = (ClientStream*)(*psVar1).operator->();
             pCVar7->Close();
-            jag::shared_ptr<jag::ClientStream>::reset();
-            *(undefined4*)(this + 788) = 0;
-            this[720] = (Js5WorkerThread)1;
-            UpdatedFailedConnectionAttemptCount(this, *(int*)(this + 784) + 1, (uint)bVar3);
+            psVar1->reset();
+            *(uint32_t*)((long)&this[98]._vptr + 4) = 0;
+            *(uint8_t*)&this[90]._vptr = 1;
+            UpdatedFailedConnectionAttemptCount(*(int*)&this[98]._vptr + 1, (unsigned int)bVar3);
             return;
         }
     }
-    *(undefined4*)(this + 788) = 0;
-    this[720] = (Js5WorkerThread)1;
+    *(uint32_t*)((long)&this[98]._vptr + 4) = 0;
+    *(uint8_t*)&this[90]._vptr = 1;
 }
 
-// 0x1009f6130, 608 bytes, placed by class name
-// Js5WorkerThread::ServiceReconnect()
+// 0x1009f6130
 void Js5WorkerThread::ServiceReconnect() {
-    shared_ptr<jag::ClientStream>* this_00;
-    int iVar3;
-    ulonglong uVar4;
-    undefined8 uVar5;
-    undefined8 uVar6;
-    CoordMapSquare* pCVar7;
-    AutoSingleton<jag::ShaderThreadPoolSingleton>* pAVar8;
-    ClientStream* pCVar9;
-    undefined4* puVar10;
-    char* pcVar11;
-    shared_ptr local_50[2];
-    char* local_30;
+    char* str2;
 
-    uVar4 = jag::SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this);
-    if ((this[720] == (Js5WorkerThread)0) || (uVar4 - 1000 <= *(ulong*)(this + 728))) {
-        if (jag::operator!=((shared_ptr*)(this + 496), (_func_decltype_nullptr*)0)) {
-            pAVar8 = (AutoSingleton<jag::ShaderThreadPoolSingleton>*)
-                         std::unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>::operator->(
-                             (unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>*)(this + 512));
-            pAVar8->~AutoSingleton();
-            jag::shared_ptr<jag::ClientStream>::reset();
-            *(undefined4*)(this + 788) = 0;
+    auto pJVar4 = jag::SystemTimer::GetTimeMS<std::chrono::steady_clock>();
+    if ((*(char*)&this[90]._vptr == '\0') || (&pJVar4[-18]._deleting_dtor <= this[91]._vptr)) {
+        if ((*((this + 62))) != nullptr) {
+            ((AutoSingleton<jag::ShaderThreadPoolSingleton>*)(*((this + 64))).operator->())->~AutoSingleton();
+            ((this + 62))->reset();
+            *(uint32_t*)((long)&this[98]._vptr + 4) = 0;
             return;
         }
         return;
     }
-    uVar5 = jag::logger::default_logger();
-    uVar6 = eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-    jag::logger::Logger::Log(
-        uVar5, 0, 8,
-        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp", 746,
-        "Js5Worker: Initiating connection to JS5 server at %s...", uVar6);
-    local_30 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-    jag::make_shared<jag::ClientStream, char const*, int const&, int const&, int const&, int const&>(
-        (jag*)local_50, &local_30, &jag::Js5Constants::CIRCULAR_RCV_BUFFER_SIZE,
-        &jag::Js5Constants::CIRCULAR_SND_BUFFER_SIZE, &jag::Js5Constants::SOCKET_RCV_BUFFER_SIZE,
-        &jag::Js5Constants::SOCKET_SND_BUFFER_SIZE);
-    this_00 = (shared_ptr<jag::ClientStream>*)(this + 496);
-    jag::shared_ptr<jag::ClientStream>::operator=(this_00, local_50);
-    local_50->~shared_ptr();
-    *(ulonglong*)(this + 728) = uVar4;
-    *(undefined2*)(this + 720) = 256;
-    *(undefined4*)(this + 788) = 0;
-    pCVar7 = (CoordMapSquare*)jag::shared_ptr<jag::ClientStream>::operator->(this_00);
-    iVar3 = pCVar7->GetX();
+    auto pLVar5 = jag::logger::default_logger();
+    uint64_t uVar6 = eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+    pLVar5->Log(false, 8,
+                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp",
+                746, "Js5Worker: Initiating connection to JS5 server at %s...", uVar6);
+    char* local_30 = (char*)eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
+    auto local_50 = jag::make_shared<jag::ClientStream, char const*, int const&, int const&, int const&, int const&>(
+        local_30, *(&jag::Js5Constants::CIRCULAR_RCV_BUFFER_SIZE), *(&jag::Js5Constants::CIRCULAR_SND_BUFFER_SIZE),
+        *(&jag::Js5Constants::SOCKET_RCV_BUFFER_SIZE), *(&jag::Js5Constants::SOCKET_SND_BUFFER_SIZE));
+    shared_ptr<jag::ClientStream>* this_00 = (shared_ptr<jag::ClientStream>*)(this + 62);
+    *this_00 = local_50;
+    this[91]._vptr = pJVar4;
+    *(uint16_t*)&this[90]._vptr = 256;
+    *(uint32_t*)((long)&this[98]._vptr + 4) = 0;
+    CoordMapSquare* pCVar7 = (CoordMapSquare*)(*this_00).operator->();
+    int iVar3 = pCVar7->GetX();
     if (iVar3 == 2) {
-        uVar5 = jag::logger::default_logger();
-        pcVar11 = "Js5Worker: Connected!";
-        uVar6 = 758;
+        pLVar5 = jag::logger::default_logger();
+        str2 = "Js5Worker: Connected!";
+        iVar3 = 758;
     } else {
-        pCVar7 = (CoordMapSquare*)jag::shared_ptr<jag::ClientStream>::operator->(this_00);
+        pCVar7 = (CoordMapSquare*)(*this_00).operator->();
         iVar3 = pCVar7->GetX();
         if (iVar3 != 0)
             goto LAB_1009f62d3;
-        uVar5 = jag::logger::default_logger();
-        pcVar11 = "Js5Worker: Closed immediately!";
-        uVar6 = 762;
+        pLVar5 = jag::logger::default_logger();
+        str2 = "Js5Worker: Closed immediately!";
+        iVar3 = 762;
     }
-    jag::logger::Logger::Log(
-        uVar5, 0, 8,
-        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp", uVar6,
-        pcVar11);
+    pLVar5->Log(false, 8,
+                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp",
+                iVar3, str2);
 LAB_1009f62d3:
-    pCVar9 = (ClientStream*)jag::shared_ptr<jag::ClientStream>::operator->(this_00);
-    puVar10 = (undefined4*)pCVar9->GetError();
-    local_30 = (char*)CONCAT44(local_30._4_4_, *puVar10);
+    ClientStream* pCVar8 = (ClientStream*)(*this_00).operator->();
+    auto puVar9 = pCVar8->GetError();
+    local_30 = (char*)(((uint64_t)local_30._4_4_ << 32) | (uint32_t)(*puVar9));
     if (local_30.IsValid() != '\0') {
-        uVar5 = jag::logger::default_logger();
-        local_50->GetErrorString();
+        pLVar5 = jag::logger::default_logger();
+        local_50 = local_30.GetErrorString();
         uVar6 = eastl::basic_string<char, jag::BucketAllocatorEASTL>::begin();
-        jag::logger::Logger::Log(
-            uVar5, 0, 8,
+        pLVar5->Log(
+            false, 8,
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/worker/Js5WorkerThread.cpp", 767,
             "Connection error: %s", uVar6);
-        local_50->~basic_string();
-        pCVar9 = (ClientStream*)jag::shared_ptr<jag::ClientStream>::operator->(this_00);
-        pCVar9->Close();
+        pCVar8 = (ClientStream*)(*this_00).operator->();
+        pCVar8->Close();
     }
 }
 
-// 0x1009f6490, 160 bytes, placed by class name
-// Js5WorkerThread::UpdateConnection()
+// 0x1009f6490
 void Js5WorkerThread::UpdateConnection() {
-    unique_ptr local_20[8];
-
-    eastl::string::operator=((eastl::string*)(this + 528), (basic_string*)(this + (ulong)(byte)this[656] * 32 + 592));
-    std::make_unique<jag::Js5NetQueue>();
-    std::unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>::operator=(
-        (unique_ptr<jag::Js5NetQueue, std::default_delete<jag::Js5NetQueue>>*)(this + 512), local_20);
-    local_20->~unique_ptr();
-    std::make_unique<jag::Js5HTTPQueue, eastl::string&>((basic_string*)local_20);
-    std::unique_ptr<jag::Js5HTTPQueue, std::default_delete<jag::Js5HTTPQueue>>::operator=(
-        (unique_ptr<jag::Js5HTTPQueue, std::default_delete<jag::Js5HTTPQueue>>*)(this + 520), local_20);
-    local_20->~unique_ptr();
-    this[720] = (Js5WorkerThread)1;
-    *(undefined4*)(this + 788) = 0;
+    (*((this + 66))) = ((eastl::string*)(this + (unsigned long)*(uint8_t*)&this[82]._vptr * 4 + 74));
+    auto local_20 = std::make_unique<jag::Js5NetQueue>();
+    (*((this + 64))) = local_20;
+    local_20 = std::make_unique<jag::Js5HTTPQueue, eastl::string&>(*((this + 70)));
+    (*((this + 65))) = local_20;
+    *(uint8_t*)&this[90]._vptr = 1;
+    *(uint32_t*)((long)&this[98]._vptr + 4) = 0;
 }

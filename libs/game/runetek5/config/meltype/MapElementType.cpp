@@ -1,867 +1,649 @@
 // libs/game/runetek5/config/meltype/MapElementType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "MapElementType.h"
 
 namespace jag::game {
-    // 0x1039bbc00, 16 bytes, __common; set at startup by ___cxx_global_var_init.13
-    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> MapElementType::NullMapElementType;
+    // 0x1039bbc00, set at startup by ___cxx_global_var_init.13
+    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> MapElementType::NullMapElementType =
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
 
-    // 0x1000fa830: the linker folded this into oldscape::graphics::NXTPixScreen::GetWidth() const, which has identical code
-    int MapElementType::GetMyID() const;
+    // 0x1000fa830: MapElementType::GetMyID() const has the same machine code as oldscape::graphics::NXTPixScreen::GetWidth() const
 
-    // 0x10012f260: the linker folded this into oldscape::social::OnlinePlayerData<oldscape::social::FriendChatUser>::GetWorldId() const, which has identical code
-    uint MapElementType::GetTextSize() const;
+    // 0x10012f260: MapElementType::GetTextSize() const has the same machine code as oldscape::social::OnlinePlayerData<oldscape::social::FriendChatUser>::GetWorldId() const
 
-    // 0x1001be5d0: the linker folded this into graphics::SunlightOptions::GetShadowQuality() const, which has identical code
-    uint MapElementType::GetSpriteID() const;
+    // 0x1001be5d0: MapElementType::GetSpriteID() const has the same machine code as graphics::SunlightOptions::GetShadowQuality() const
 
-    // 0x100515c90, 2704 bytes, placed by class name and debug map
-    // MapElementType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
-    undefined* MapElementType::DecodeType(PacketT* param_1, uint param_2) {
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* this_00;
+    // 0x100515c90
+    uint8_t* MapElementType::DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2) {
+        PacketReaderMixin<PacketT<Array<unsigned char>>>* this_00;
         char cVar1;
-        bool bVar2;
-        byte bVar3;
-        ushort uVar4;
+        uint8_t bVar2;
+        unsigned short uVar3;
+        short sVar4;
         short sVar5;
-        short sVar6;
-        int iVar7;
-        uint uVar8;
-        undefined4 uVar9;
-        fixed_string* pfVar10;
-        uint* puVar11;
-        int* piVar12;
-        undefined4* puVar13;
-        vector<math::Point<int>, eastl::allocator>* pvVar14;
+        int iVar6;
+        unsigned int uVar7;
+        uint32_t uVar8;
+        fixed_string<char, _8>* str;
+        unsigned int* puVar9;
+        int* piVar10;
+        uint32_t* puVar11;
+        vector<math::Point<int>>* pvVar12;
         Layout* this_01;
-        vector* pvVar15;
         Vector2T<int>* this_02;
         Js5RequestKey* this_03;
-        Js5RequestKey* pJVar16;
-        long lVar17;
-        undefined8 uVar18;
-        ulong uVar19;
-        type* ptVar20;
-        type* ptVar21;
-        undefined1* puVar22;
-        MakeUniquePool<MapElementType::Polygon, 256> local_48[8];
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* local_40;
-        type* local_38;
+        Point<int>* point;
+        vector<math::Point<int>>* points;
+        long lVar13;
+        unsigned long uVar14;
+        unsigned long uVar15;
+        uint8_t* puVar16;
+        fixed_string<char, _24>* str_00;
+        unique_ptr<MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, _256>::UniquePoolDeleter> local_48;
+        PacketReaderMixin<PacketT<Array<unsigned char>>>* local_40;
+        unsigned long local_38;
 
-        switch (param_2) {
+        switch (arg2) {
         case 1:
-            uVar8 = param_1->gSmart2or4s();
-            m_spriteID = uVar8;
+            uVar7 = arg1.gSmart2or4s();
+            m_spriteID = uVar7;
             break;
         case 2:
-            uVar8 = param_1->gSmart2or4s();
-            field_60 = uVar8;
+            uVar7 = arg1.gSmart2or4s();
+            field_60 = uVar7;
             break;
         case 3:
-            pfVar10 = (fixed_string*)&field_64;
+            str_00 = (fixed_string<char, _24>*)&field_64;
             goto LAB_1005162cc;
         case 4:
-            iVar7 = param_1->g3();
-            m_textRGBA = iVar7 << 8 | 255;
+            iVar6 = arg1.g3();
+            m_textRGBA = iVar6 << 8 | 255;
             break;
         case 5:
-            iVar7 = param_1->g3();
-            m_textMouseOverRGBA = iVar7 << 8 | 255;
+            iVar6 = arg1.g3();
+            m_textMouseOverRGBA = iVar6 << 8 | 255;
             break;
         case 6:
-            bVar3 = param_1->g1();
-            m_textSize = (uint)bVar3;
+            bVar2 = arg1.g1();
+            m_textSize = (unsigned int)bVar2;
             break;
         case 7:
-            uVar19 = param_1->g1();
-            if ((uVar19 & 1) == 0) {
+            uVar14 = arg1.g1();
+            if ((uVar14 & 1) == 0) {
                 m_showOnWorldMap = 0;
             }
-            if ((uVar19 & 2) != 0) {
+            if ((uVar14 & 2) != 0) {
                 m_showOnMiniMap = 1;
             }
             break;
         case 8:
-            cVar1 = param_1->g1();
+            cVar1 = arg1.g1();
             field_150 = cVar1 == '\x01';
             break;
         case 9:
-            uVar4 = param_1->g2();
-            uVar8 = (uint)uVar4;
-            if (uVar4 == 65535) {
-                uVar8 = 4294967295;
+            uVar3 = arg1.g2();
+            uVar7 = (unsigned int)uVar3;
+            if (uVar3 == 65535) {
+                uVar7 = 4294967295;
             }
-            field_260 = uVar8;
-            uVar4 = param_1->g2();
-            uVar8 = (uint)uVar4;
-            if (uVar4 == 65535) {
-                uVar8 = 4294967295;
+            field_260 = uVar7;
+            uVar3 = arg1.g2();
+            uVar7 = (unsigned int)uVar3;
+            if (uVar3 == 65535) {
+                uVar7 = 4294967295;
             }
-            field_264 = uVar8;
-            iVar7 = param_1->g4();
-            field_252 = iVar7;
-            iVar7 = param_1->g4();
-            field_256 = iVar7;
+            field_264 = uVar7;
+            iVar6 = arg1.g4();
+            field_252 = iVar6;
+            iVar6 = arg1.g4();
+            field_256 = iVar6;
             break;
         case 10:
         case 11:
         case 12:
         case 13:
         case 14:
-            puVar22 = &field_152;
-            cVar1 = puVar22->empty();
-            if (cVar1 != '\0') {
-                puVar22->resize(5);
+            puVar16 = &field_152;
+            cVar1 = puVar16->empty();
+            if (cVar1) {
+                puVar16->resize(5);
             }
-            pfVar10 = (fixed_string*)
-                eastl::vector<eastl::fixed_string<char, 8, true, eastl::allocator>, eastl::allocator>::operator[](
-                    (vector<eastl::fixed_string<char, 8, true, eastl::allocator>, eastl::allocator>*)puVar22,
-                    (long)(int)(param_2 - 10));
-            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                eastl::fixed_string<char, 8, true, eastl::allocator>>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1, pfVar10, false);
+            str = (fixed_string<char, _8>*)(*puVar16)[(long)(int)(arg2 - 10)];
+            arg1.gStringCP1252ToUTF8<eastl::fixed_string<char, 8>>(*str, false);
             break;
         case 15:
-            puVar22 = &field_312;
-            bVar2 = puVar22->operator_cast_to_bool();
-            if (!bVar2) {
-                MakeUniquePool<MapElementType::Polygon, 256>::MakeUnique<>(local_48);
-                std::unique_ptr<MapElementType::Polygon,
-                                MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                operator=((unique_ptr<MapElementType::Polygon,
-                                      MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22,
-                          (unique_ptr*)local_48);
-                local_48->~unique_ptr();
+            puVar16 = &field_312;
+            cVar1 = puVar16->operator_cast_to_bool();
+            if (!cVar1) {
+                MakeUniquePool<MapElementType::Polygon, 256>::MakeUnique<>();
+                *puVar16 = local_48;
             }
-            bVar3 = param_1->g1();
-            uVar19 = std::unique_ptr<MapElementType::Polygon,
-                                     MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                     operator->((unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            eastl::vector<math::Point<int>, eastl::allocator>::resize(uVar19);
-            if (bVar3 != 0) {
-                ptVar20 = (type*)0;
-                local_40 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1;
+            bVar2 = arg1.g1();
+            pvVar12 = (vector<math::Point<int>>*)(*puVar16).operator->();
+            uVar14 = (unsigned long)bVar2;
+            pvVar12->resize(uVar14);
+            if (bVar2 != 0) {
+                uVar15 = 0;
+                local_40 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)arg1;
                 do {
                     this_00 = local_40;
-                    sVar6 = local_40->g2s();
-                    sVar5 = this_00->g2s();
-                    pvVar14 =
-                        (vector<math::Point<int>, eastl::allocator>*)std::unique_ptr<
-                            MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                        operator->(
-                            (unique_ptr<MapElementType::Polygon,
-                                        MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-                    ptVar21 = ptVar20;
-                    this_01 =
-                        (Layout*)eastl::vector<math::Point<int>, eastl::allocator>::operator[](pvVar14, (ulong)ptVar20);
-                    pvVar15 = eastl::string::Layout::SSOBeginPtr(this_01, ptVar21);
-                    *(int*)pvVar15 = (int)sVar6 << 7;
-                    pvVar14 =
-                        (vector<math::Point<int>, eastl::allocator>*)std::unique_ptr<
-                            MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                        operator->(
-                            (unique_ptr<MapElementType::Polygon,
-                                        MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-                    this_02 = (Vector2T<int>*)eastl::vector<math::Point<int>, eastl::allocator>::operator[](
-                        pvVar14, (ulong)ptVar20);
-                    piVar12 = (int*)this_02->y();
-                    *piVar12 = (int)sVar5 << 7;
-                    ptVar20 = ptVar20 + 1;
-                    param_1 = (PacketT*)local_40;
-                } while ((type*)(ulong)bVar3 != ptVar20);
+                    sVar5 = local_40->g2s();
+                    sVar4 = this_00->g2s();
+                    pvVar12 = (vector<math::Point<int>>*)(*puVar16).operator->();
+                    this_01 = (Layout*)(*pvVar12)[uVar15];
+                    piVar10 = (int*)this_01->SSOBeginPtr();
+                    *piVar10 = (int)sVar5 << 7;
+                    pvVar12 = (vector<math::Point<int>>*)(*puVar16).operator->();
+                    this_02 = (Vector2T<int>*)(*pvVar12)[uVar15];
+                    piVar10 = (int*)this_02->y();
+                    *piVar10 = (int)sVar4 << 7;
+                    uVar15 = uVar15 + 1;
+                    arg1 = (PacketT<Array<unsigned char> _>*)local_40;
+                } while (uVar14 != uVar15);
             }
-            local_38 = (type*)(ulong)bVar3;
-            uVar8 = param_1->g4();
-            lVar17 = std::unique_ptr<MapElementType::Polygon,
-                                     MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                     operator->((unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            *(uint*)(lVar17 + 48) = uVar8 << 8 | uVar8 >> 24;
-            bVar3 = param_1->g1();
-            lVar17 = std::unique_ptr<MapElementType::Polygon,
-                                     MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                     operator->((unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            ((lVar17 + 64))->set_max_size((ulong)bVar3, 0);
-            if (bVar3 != 0) {
-                uVar19 = 0;
+            local_38 = uVar14;
+            uVar7 = arg1.g4();
+            lVar13 = (*puVar16).operator->();
+            *(unsigned int*)(lVar13 + 48) = uVar7 << 8 | uVar7 >> 24;
+            bVar2 = arg1.g1();
+            lVar13 = (*puVar16).operator->();
+            ((lVar13 + 64))->set_max_size((unsigned long)bVar2, 0);
+            if (bVar2 != 0) {
+                uVar14 = 0;
                 do {
-                    uVar8 = param_1->g4();
-                    lVar17 = std::unique_ptr<MapElementType::Polygon,
-                                             MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                             operator->(
-                                 (unique_ptr<MapElementType::Polygon,
-                                             MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-                    puVar11 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                        (Array<unsigned int, eastl::allocator>*)(lVar17 + 64), uVar19);
-                    *puVar11 = uVar8 << 8 | uVar8 >> 24;
-                    uVar19 = uVar19 + 1;
-                } while (bVar3 != uVar19);
+                    uVar7 = arg1.g4();
+                    lVar13 = (*puVar16).operator->();
+                    puVar9 = (unsigned int*)(*((lVar13 + 64)))[uVar14];
+                    *puVar9 = uVar7 << 8 | uVar7 >> 24;
+                    uVar14 = uVar14 + 1;
+                } while (bVar2 != uVar14);
             }
-            lVar17 = std::unique_ptr<MapElementType::Polygon,
-                                     MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                     operator->((unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            ptVar20 = local_38;
-            ((lVar17 + 88))->set_max_size((ulong)local_38, 0);
-            if (ptVar20 != (type*)0) {
-                ptVar21 = (type*)0;
+            lVar13 = (*puVar16).operator->();
+            uVar14 = local_38;
+            ((lVar13 + 88))->set_max_size(local_38, 0);
+            if (uVar14 != 0) {
+                uVar15 = 0;
                 do {
-                    cVar1 = param_1->g1s();
-                    lVar17 = std::unique_ptr<MapElementType::Polygon,
-                                             MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                             operator->(
-                                 (unique_ptr<MapElementType::Polygon,
-                                             MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-                    piVar12 = (int*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)(lVar17 + 88), (ulong)ptVar21);
-                    *piVar12 = (int)cVar1;
-                    ptVar21 = ptVar21 + 1;
-                } while (ptVar20 != ptVar21);
+                    cVar1 = arg1.g1s();
+                    lVar13 = (*puVar16).operator->();
+                    piVar10 = (int*)(*((lVar13 + 88)))[uVar15];
+                    *piVar10 = (int)cVar1;
+                    uVar15 = uVar15 + 1;
+                } while (uVar14 != uVar15);
             }
-            pvVar14 = (vector<math::Point<int>, eastl::allocator>*)std::unique_ptr<
-                          MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                      operator->((unique_ptr<MapElementType::Polygon,
-                                             MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            this_03 = (Js5RequestKey*)eastl::vector<math::Point<int>, eastl::allocator>::front(pvVar14);
-            pvVar14 = (vector<math::Point<int>, eastl::allocator>*)std::unique_ptr<
-                          MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                      operator->((unique_ptr<MapElementType::Polygon,
-                                             MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            pJVar16 = (Js5RequestKey*)eastl::vector<math::Point<int>, eastl::allocator>::back(pvVar14);
-            cVar1 = oldscape::jagex3::Js5RequestKey::operator==(this_03, pJVar16);
-            if (cVar1 != '\0') {
-                pvVar14 =
-                    (vector<math::Point<int>, eastl::allocator>*)std::unique_ptr<
-                        MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                    operator->((unique_ptr<MapElementType::Polygon,
-                                           MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-                eastl::vector<math::Point<int>, eastl::allocator>::pop_back(pvVar14);
+            pvVar12 = (vector<math::Point<int>>*)(*puVar16).operator->();
+            this_03 = (Js5RequestKey*)pvVar12->front();
+            pvVar12 = (vector<math::Point<int>>*)(*puVar16).operator->();
+            point = (Point<int>*)pvVar12->back();
+            cVar1 = *this_03 == *point;
+            if (cVar1) {
+                pvVar12 = (vector<math::Point<int>>*)(*puVar16).operator->();
+                pvVar12->pop_back();
             }
-            pvVar15 = (vector*)std::unique_ptr<MapElementType::Polygon,
-                                               MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                      operator->((unique_ptr<MapElementType::Polygon,
-                                             MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            Triangulate::ConvertPolygon(pvVar15 + 112, pvVar15);
+            points = (vector<math::Point<int>>*)(*puVar16).operator->();
+            Triangulate::ConvertPolygon(*((points + 112)), *points);
             break;
         case 16:
             m_listable = 0;
             break;
         case 17:
-            pfVar10 = (fixed_string*)&field_184;
+            str_00 = (fixed_string<char, _24>*)&field_184;
         LAB_1005162cc:
-            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                eastl::fixed_string<char, 24, true, eastl::allocator>>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1, pfVar10, false);
+            arg1.gStringCP1252ToUTF8<eastl::fixed_string<char, 24>>(*str_00, false);
             break;
         case 18:
-            uVar9 = param_1->gSmart2or4s();
-            field_248 = uVar9;
+            uVar8 = arg1.gSmart2or4s();
+            field_248 = uVar8;
             break;
         case 19:
-            uVar4 = param_1->g2();
-            m_category = (uint)uVar4;
+            uVar3 = arg1.g2();
+            m_category = (unsigned int)uVar3;
             break;
         case 20:
-            uVar4 = param_1->g2();
-            uVar8 = (uint)uVar4;
-            if (uVar4 == 65535) {
-                uVar8 = 4294967295;
+            uVar3 = arg1.g2();
+            uVar7 = (unsigned int)uVar3;
+            if (uVar3 == 65535) {
+                uVar7 = 4294967295;
             }
-            field_276 = uVar8;
-            uVar4 = param_1->g2();
-            uVar8 = (uint)uVar4;
-            if (uVar4 == 65535) {
-                uVar8 = 4294967295;
+            field_276 = uVar7;
+            uVar3 = arg1.g2();
+            uVar7 = (unsigned int)uVar3;
+            if (uVar3 == 65535) {
+                uVar7 = 4294967295;
             }
-            field_280 = uVar8;
-            iVar7 = param_1->g4();
-            field_268 = iVar7;
-            iVar7 = param_1->g4();
-            field_272 = iVar7;
+            field_280 = uVar7;
+            iVar6 = arg1.g4();
+            field_268 = iVar6;
+            iVar6 = arg1.g4();
+            field_272 = iVar6;
             break;
         case 21:
-            uVar8 = param_1->g4();
-            m_textBackgroundOutlineRGBA = uVar8 << 8 | uVar8 >> 24;
+            uVar7 = arg1.g4();
+            m_textBackgroundOutlineRGBA = uVar7 << 8 | uVar7 >> 24;
             break;
         case 22:
-            uVar8 = param_1->g4();
-            m_textBackgroundFillRGBA = uVar8 << 8 | uVar8 >> 24;
+            uVar7 = arg1.g4();
+            m_textBackgroundFillRGBA = uVar7 << 8 | uVar7 >> 24;
             break;
         case 23:
-            puVar22 = &field_312;
-            bVar2 = puVar22->operator_cast_to_bool();
-            if (!bVar2) {
-                MakeUniquePool<MapElementType::Polygon, 256>::MakeUnique<>(local_48);
-                std::unique_ptr<MapElementType::Polygon,
-                                MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                operator=((unique_ptr<MapElementType::Polygon,
-                                      MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22,
-                          (unique_ptr*)local_48);
-                local_48->~unique_ptr();
+            puVar16 = &field_312;
+            cVar1 = puVar16->operator_cast_to_bool();
+            if (!cVar1) {
+                MakeUniquePool<MapElementType::Polygon, 256>::MakeUnique<>();
+                *puVar16 = local_48;
             }
-            bVar3 = param_1->g1();
-            lVar17 = std::unique_ptr<MapElementType::Polygon,
-                                     MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                     operator->((unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            *(uint*)(lVar17 + 52) = (uint)bVar3;
-            bVar3 = param_1->g1();
-            lVar17 = std::unique_ptr<MapElementType::Polygon,
-                                     MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                     operator->((unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            *(uint*)(lVar17 + 56) = (uint)bVar3;
-            bVar3 = param_1->g1();
-            lVar17 = std::unique_ptr<MapElementType::Polygon,
-                                     MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                     operator->((unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)puVar22);
-            *(uint*)(lVar17 + 60) = (uint)bVar3;
+            bVar2 = arg1.g1();
+            lVar13 = (*puVar16).operator->();
+            *(unsigned int*)(lVar13 + 52) = (unsigned int)bVar2;
+            bVar2 = arg1.g1();
+            lVar13 = (*puVar16).operator->();
+            *(unsigned int*)(lVar13 + 56) = (unsigned int)bVar2;
+            bVar2 = arg1.g1();
+            lVar13 = (*puVar16).operator->();
+            *(unsigned int*)(lVar13 + 60) = (unsigned int)bVar2;
             break;
         case 24:
-            sVar6 = param_1->g2s();
-            field_320 = (int)sVar6 << 7;
-            sVar6 = param_1->g2s();
-            field_324 = (int)sVar6 << 7;
+            sVar5 = arg1.g2s();
+            field_320 = (int)sVar5 << 7;
+            sVar5 = arg1.g2s();
+            field_324 = (int)sVar5 << 7;
             break;
         case 25:
-            uVar9 = param_1->gSmart2or4s();
-            m_flashSpriteID = uVar9;
+            uVar8 = arg1.gSmart2or4s();
+            m_flashSpriteID = uVar8;
             break;
         case 26:
         case 27:
-            uVar4 = param_1->g2();
-            uVar8 = (uint)uVar4;
-            if (uVar4 == 65535) {
-                uVar8 = 4294967295;
+            uVar3 = arg1.g2();
+            uVar7 = (unsigned int)uVar3;
+            if (uVar3 == 65535) {
+                uVar7 = 4294967295;
             }
-            field_260 = uVar8;
-            uVar4 = param_1->g2();
-            uVar8 = (uint)uVar4;
-            if (uVar4 == 65535) {
-                uVar8 = 4294967295;
+            field_260 = uVar7;
+            uVar3 = arg1.g2();
+            uVar7 = (unsigned int)uVar3;
+            if (uVar3 == 65535) {
+                uVar7 = 4294967295;
             }
-            field_264 = uVar8;
-            uVar8 = 4294967295;
-            if (param_2 == 27) {
-                uVar4 = param_1->g2();
-                uVar8 = 4294967295;
-                if (uVar4 != 65535) {
-                    uVar8 = (uint)uVar4;
+            field_264 = uVar7;
+            uVar7 = 4294967295;
+            if (arg2 == 27) {
+                uVar3 = arg1.g2();
+                uVar7 = 4294967295;
+                if (uVar3 != 65535) {
+                    uVar7 = (unsigned int)uVar3;
                 }
             }
-            local_38 = (type*)CONCAT44(local_38._4_4_, uVar8);
-            bVar3 = param_1->g1();
-            puVar22 = &field_288;
-            uVar19 = 0;
-            puVar22->set_max_size((ulong)(bVar3 + 2), 0);
+            local_38 = (((uint64_t)local_38._4_4_ << 32) | (uint32_t)uVar7);
+            bVar2 = arg1.g1();
+            puVar16 = &field_288;
+            uVar14 = 0;
+            puVar16->set_max_size((unsigned long)(bVar2 + 2), 0);
             do {
-                uVar4 = param_1->g2();
-                puVar11 =
-                    (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar22, uVar19);
-                *puVar11 = (uint)uVar4;
-                piVar12 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar22, uVar19);
-                if (*piVar12 == 65535) {
-                    puVar13 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)puVar22, uVar19);
-                    *puVar13 = 4294967295;
+                uVar3 = arg1.g2();
+                puVar9 = (unsigned int*)(*puVar16)[uVar14];
+                *puVar9 = (unsigned int)uVar3;
+                piVar10 = (int*)(*puVar16)[uVar14];
+                if (*piVar10 == 65535) {
+                    puVar11 = (uint32_t*)(*puVar16)[uVar14];
+                    *puVar11 = 4294967295;
                 }
-                uVar19 = uVar19 + 1;
-            } while (bVar3 + 1 != uVar19);
-            puVar13 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar22,
-                                                                            (ulong)(bVar3 + 1));
-            *puVar13 = local_38._0_4_;
+                uVar14 = uVar14 + 1;
+            } while (bVar2 + 1 != uVar14);
+            puVar11 = (uint32_t*)(*puVar16)[(unsigned long)(bVar2 + 1)];
+            *puVar11 = (uint32_t)local_38;
             break;
         case 28:
-            bVar3 = param_1->g1();
-            m_minimapIconScale = (uint)bVar3;
+            bVar2 = arg1.g1();
+            m_minimapIconScale = (unsigned int)bVar2;
             break;
         case 29:
-            bVar3 = param_1->g1();
-            m_hAlign = (uint)bVar3;
+            bVar2 = arg1.g1();
+            m_hAlign = (unsigned int)bVar2;
             break;
         case 30:
-            bVar3 = param_1->g1();
-            m_vAlign = (uint)bVar3;
+            bVar2 = arg1.g1();
+            m_vAlign = (unsigned int)bVar2;
             break;
         default:
-            uVar18 = logger::default_logger();
-            logger::Logger::Log(uVar18, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
-                                "config/meltype/MapElementType.cpp",
-                                262, "Unrecognised .mel config code: %u", param_2);
+            (logger::default_logger())
+                ->Log(false, 2,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
+                      "meltype/MapElementType.cpp",
+                      262, "Unrecognised .mel config code: %u", arg2);
             break;
         case 249:
-            DecodeParams(param_1);
+            DecodeParams(arg1);
         }
         return DataStatus::READY;
     }
 
-    // 0x100517070, 352 bytes, placed by class name
-    // MapElementType::PostDecode()
+    // 0x100517070
     void MapElementType::PostDecode() {
         int iVar1;
-        undefined4 uVar3;
-        vector<eastl::pair<int, int>, eastl::allocator>* pvVar4;
+        uint32_t uVar3;
+        vector<eastl::pair<int, int>>* pvVar4;
         long lVar5;
-        vector<math::Point<int>, eastl::allocator>* pvVar6;
+        vector<math::Point<int>>* pvVar6;
         Layout* this_00;
-        vector* pvVar7;
+        int* piVar7;
         Vector2T<int>* this_01;
-        int* piVar8;
-        type* ptVar9;
-        int iVar10;
-        uint uVar11;
-        undefined1* this_02;
-        int iVar12;
-        type* ptVar13;
+        unsigned long uVar8;
+        int iVar9;
+        unsigned int uVar10;
+        int iVar11;
+        unsigned long arg1;
 
-        this_02 = &field_312;
-        if (this_02->operator_cast_to_bool()) {
-            pvVar4 = (vector<eastl::pair<int, int>, eastl::allocator>*)std::unique_ptr<
-                         MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                     operator->((unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-            lVar5 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(pvVar4);
+        uint8_t* this_02 = &field_312;
+        if (this_02->operator_cast_to_bool() != '\0') {
+            pvVar4 = (vector<eastl::pair<int, int>>*)(*this_02).operator->();
+            lVar5 = pvVar4->size();
             if (lVar5 != 0) {
-                uVar11 = 2;
-                ptVar13 = (type*)0;
+                uVar10 = 2;
+                arg1 = 0;
                 do {
-                    pvVar6 =
-                        (vector<math::Point<int>, eastl::allocator>*)std::unique_ptr<
-                            MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                        operator->(
-                            (unique_ptr<MapElementType::Polygon,
-                                        MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    ptVar9 = ptVar13;
-                    this_00 =
-                        (Layout*)eastl::vector<math::Point<int>, eastl::allocator>::operator[](pvVar6, (ulong)ptVar13);
-                    pvVar7 = eastl::string::Layout::SSOBeginPtr(this_00, ptVar9);
-                    iVar1 = *(int*)pvVar7;
-                    iVar10 = iVar1 + 127;
+                    pvVar6 = (vector<math::Point<int>>*)(*this_02).operator->();
+                    this_00 = (Layout*)(*pvVar6)[arg1];
+                    piVar7 = (int*)this_00->SSOBeginPtr();
+                    iVar1 = *piVar7;
+                    iVar9 = iVar1 + 127;
                     if (-1 < iVar1) {
-                        iVar10 = iVar1;
+                        iVar9 = iVar1;
                     }
-                    pvVar6 =
-                        (vector<math::Point<int>, eastl::allocator>*)std::unique_ptr<
-                            MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                        operator->(
-                            (unique_ptr<MapElementType::Polygon,
-                                        MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    this_01 = (Vector2T<int>*)eastl::vector<math::Point<int>, eastl::allocator>::operator[](
-                        pvVar6, (ulong)ptVar13);
-                    piVar8 = (int*)this_01->y();
-                    iVar1 = *piVar8;
-                    iVar12 = iVar1 + 127;
+                    pvVar6 = (vector<math::Point<int>>*)(*this_02).operator->();
+                    this_01 = (Vector2T<int>*)(*pvVar6)[arg1];
+                    piVar7 = (int*)this_01->y();
+                    iVar1 = *piVar7;
+                    iVar11 = iVar1 + 127;
                     if (-1 < iVar1) {
-                        iVar12 = iVar1;
+                        iVar11 = iVar1;
                     }
-                    lVar5 = std::unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    uVar3 = eastl::min<graphics::GraphicsQuality>(*(undefined4*)(lVar5 + 32), iVar10 >> 7);
-                    lVar5 = std::unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    *(undefined4*)(lVar5 + 32) = uVar3;
-                    lVar5 = std::unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    uVar3 = eastl::max<int>(*(int*)(lVar5 + 40), iVar10 >> 7);
-                    lVar5 = std::unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    *(undefined4*)(lVar5 + 40) = uVar3;
-                    lVar5 = std::unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    uVar3 = eastl::min<graphics::GraphicsQuality>(*(undefined4*)(lVar5 + 36), iVar12 >> 7);
-                    lVar5 = std::unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    *(undefined4*)(lVar5 + 36) = uVar3;
-                    lVar5 = std::unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    uVar3 = eastl::max<int>(*(int*)(lVar5 + 44), iVar12 >> 7);
-                    lVar5 = std::unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<MapElementType::Polygon,
-                                            MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    *(undefined4*)(lVar5 + 44) = uVar3;
-                    ptVar13 = (type*)(ulong)uVar11;
-                    pvVar4 =
-                        (vector<eastl::pair<int, int>, eastl::allocator>*)std::unique_ptr<
-                            MapElementType::Polygon, MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>::
-                        operator->(
-                            (unique_ptr<MapElementType::Polygon,
-                                        MakeUniquePool<MapElementType::Polygon, 256>::UniquePoolDeleter>*)this_02);
-                    ptVar9 = (type*)eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(pvVar4);
-                    uVar11 = uVar11 + 2;
-                } while (ptVar13 < ptVar9);
+                    lVar5 = (*this_02).operator->();
+                    uVar3 = eastl::min<graphics::GraphicsQuality>(*(EnumOptionToggle*)(lVar5 + 32), iVar9 >> 7);
+                    lVar5 = (*this_02).operator->();
+                    *(uint32_t*)(lVar5 + 32) = uVar3;
+                    lVar5 = (*this_02).operator->();
+                    uVar3 = eastl::max<int>(*(ShaderVariablePrecision*)(lVar5 + 40), iVar9 >> 7);
+                    lVar5 = (*this_02).operator->();
+                    *(uint32_t*)(lVar5 + 40) = uVar3;
+                    lVar5 = (*this_02).operator->();
+                    uVar3 = eastl::min<graphics::GraphicsQuality>(*(EnumOptionToggle*)(lVar5 + 36), iVar11 >> 7);
+                    lVar5 = (*this_02).operator->();
+                    *(uint32_t*)(lVar5 + 36) = uVar3;
+                    lVar5 = (*this_02).operator->();
+                    uVar3 = eastl::max<int>(*(ShaderVariablePrecision*)(lVar5 + 44), iVar11 >> 7);
+                    lVar5 = (*this_02).operator->();
+                    *(uint32_t*)(lVar5 + 44) = uVar3;
+                    arg1 = (unsigned long)uVar10;
+                    pvVar4 = (vector<eastl::pair<int, int>>*)(*this_02).operator->();
+                    uVar8 = pvVar4->size();
+                    uVar10 = uVar10 + 2;
+                } while (arg1 < uVar8);
             }
         }
     }
 
-    // 0x1005171d0, 624 bytes, placed by class name
-    // MapElementType::GetSprite(graphics::RT7Core&, bool)
-    PacketView* MapElementType::GetSprite(RT7Core* param_1, bool param_2) {
-        uint uVar1;
-        bool bVar2;
-        char cVar3;
-        uint uVar4;
-        PacketView* this_00;
-        SpriteAtlasReference* this_01;
-        Js5ResourceProvider* this_02;
-        undefined* puVar5;
-        TextureManager* this_03;
+    // 0x1005171d0
+    PacketView* MapElementType::GetSprite(graphics::RT7Core& rt7Core, bool arg2) {
+        unsigned int arg3;
+        bool bVar1;
+        unsigned int uVar3;
         LoginManager* this_04;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* this_05;
-        CoordMapSquare* pCVar6;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_06;
-        shared_ptr* psVar7;
-        PacketView* this_07;
-        undefined7 in_register_00000011;
+        CoordMapSquare* pCVar5;
+        uint64_t in_register_00000011;
         PacketView local_b0;
-        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_88[16];
-        shared_ptr local_78;
-        MapElementTypeList* local_68;
-        void* local_60;
-        undefined8 local_58;
-        vector local_50[24];
-        uint local_38;
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_88;
+        shared_ptr<graphics::SpriteAtlasReference> local_78;
+        SpriteAtlasManager* local_60;
+        uint64_t local_58;
+        vector<RGBAImage, BucketAllocatorEASTL> local_50;
+        unsigned int local_38;
         char local_31;
 
-        if (((int)CONCAT71(in_register_00000011, param_2) == 0) || (uVar1 = field_60, uVar1 == 4294967295)) {
-            uVar1 = m_spriteID;
+        if (((int)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg2) == 0) ||
+            (arg3 = field_60, arg3 == 4294967295)) {
+            arg3 = m_spriteID;
         }
-        if (uVar1 == 4294967295) {
+        if (arg3 == 4294967295) {
             return (PacketView*)&graphics::SpriteAtlasReference::NullSpriteAtlasReference;
         }
-        local_68 = (MapElementTypeList*)field_24;
-        this_00 = (PacketView*)MapElementTypeList::FindCachedSprite((int)local_68);
-        bVar2 = this_00->operator_cast_to_bool();
-        if (bVar2) {
-            this_01 = (SpriteAtlasReference*)shared_ptr<graphics::SpriteAtlasReference>::operator->(
-                (shared_ptr<graphics::SpriteAtlasReference>*)this_00);
-            cVar3 = this_01->IsReady();
-            if (cVar3 != '\0') {
+        MapElementTypeList* local_68 = (MapElementTypeList*)field_24;
+        auto this_00 = local_68->FindCachedSprite(arg3);
+        if (this_00->operator_cast_to_bool()) {
+            if (((SpriteAtlasReference*)(*this_00).operator->())->IsReady()) {
                 return this_00;
             }
         }
-        this_02 = (Js5ResourceProvider*)field_24->GetOutputType();
-        this_07 = &local_b0;
-        PacketView::PacketView(this_07);
-        puVar5 = (undefined*)this_02->GetFile(this_07, Js5Archive::JS5_SPRITES, uVar1, 0, (Priority*)Priority::HIGH,
-                                              true, false, false);
-        if (puVar5 == DataStatus::READY) {
-            eastl::vector<RGBAImage, BucketAllocatorEASTL>::vector();
-            local_31 = RAWDecoder::LoadFromPacket(local_50, &local_b0);
+        auto this_02 = field_24->GetOutputType();
+        PacketView* this_07 = &local_b0;
+        new (this_07) PacketView();
+        if ((uint8_t*)this_02->GetFile(*this_07, *(Js5Archive::JS5_SPRITES), arg3, 0, (Priority*)Priority::HIGH, true,
+                                       false, false) == DataStatus::READY) {
+            local_50 = eastl::vector<RGBAImage, BucketAllocatorEASTL>();
+            local_31 = RAWDecoder::LoadFromPacket(local_50, local_b0);
             if (local_31 != '\0') {
-                this_03 = (TextureManager*)param_1->GetTextureManager();
-                local_60 = (void*)this_03->GetSpriteAtlasManager();
-                this_04 = (LoginManager*)eastl::vector<RGBAImage, BucketAllocatorEASTL>::operator[](
-                    (vector<RGBAImage, BucketAllocatorEASTL>*)local_50, 0);
-                this_05 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
-                                                 std::default_delete<LoadingScreenScript::AnimLayer>>,
-                                 eastl::allocator>*)this_04->GetDevCredentialsOutputDirectory();
-                local_58 = this_05->data();
-                pCVar6 = (CoordMapSquare*)eastl::vector<RGBAImage, BucketAllocatorEASTL>::operator[](
-                    (vector<RGBAImage, BucketAllocatorEASTL>*)local_50, 0);
-                local_38 = pCVar6->GetX();
-                pCVar6 = (CoordMapSquare*)eastl::vector<RGBAImage, BucketAllocatorEASTL>::operator[](
-                    (vector<RGBAImage, BucketAllocatorEASTL>*)local_50, 0);
-                uVar4 = pCVar6->GetZ();
-                this_06 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>*)
-                    eastl::vector<RGBAImage, BucketAllocatorEASTL>::operator[](
-                        (vector<RGBAImage, BucketAllocatorEASTL>*)local_50, 0);
-                psVar7 = (shared_ptr*)
-                    eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(this_06);
-                shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>::shared_ptr(local_88,
-                                                                                         (_func_decltype_nullptr*)0);
-                local_78.AddRuntimeSprite(local_60, (uint)local_58, local_38, uVar4, (fixed_vector*)&DAT_00000001,
-                                          psVar7);
-                local_88->~shared_ptr();
-                this_07 = (PacketView*)local_68->CacheSprite(&local_78, uVar1);
-                local_78.~shared_ptr();
+                local_60 = rt7Core.GetTextureManager()->GetSpriteAtlasManager();
+                this_04 = &local_50[0];
+                local_58 = ((Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)
+                                this_04->GetDevCredentialsOutputDirectory())
+                               ->data();
+                pCVar5 = &local_50[0];
+                local_38 = pCVar5->GetX();
+                pCVar5 = &local_50[0];
+                uVar3 = pCVar5->GetZ();
+                ((compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)local_50[0])->second();
+                local_88 = shared_ptr();
+                graphics::SpriteAtlasManager::AddRuntimeSprite(
+                    &local_78, (unsigned int)local_60, (unsigned int)local_58, local_38,
+                    *((fixed_vector<int, _4ul>*)(unsigned long)uVar3), DAT_00000001);
+                this_07 = local_68->CacheSprite(local_78, arg3);
             }
-            local_50->~vector();
             if (local_31 != '\0') {
-                bVar2 = false;
+                bVar1 = false;
                 goto LAB_1005173c6;
             }
         }
-        bVar2 = true;
+        bVar1 = true;
     LAB_1005173c6:
-        local_b0.~PacketView();
-        if (bVar2) {
+        if (bVar1) {
             return this_00;
         }
         return this_07;
     }
 
-    // 0x1005174a0, 592 bytes, placed by class name
-    // MapElementType::GetFlashSprite(graphics::RT7Core&)
-    PacketView* MapElementType::GetFlashSprite(RT7Core* param_1) {
-        MapElementTypeList* this_00;
+    // 0x1005174a0
+    PacketView* MapElementType::GetFlashSprite(graphics::RT7Core& rt7Core) {
         bool bVar1;
-        char cVar2;
-        SpriteAtlasReference* this_01;
-        Js5ResourceProvider* this_02;
-        undefined* puVar3;
-        TextureManager* this_03;
         LoginManager* this_04;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* this_05;
         CoordMapSquare* pCVar4;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_06;
-        shared_ptr* psVar5;
-        PacketView* this_07;
         PacketView local_b0;
-        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_88[16];
-        shared_ptr local_78;
-        void* local_68;
-        undefined8 local_60;
-        vector local_58[24];
-        PacketView* local_40;
-        uint local_38;
-        uint local_34;
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_88;
+        shared_ptr<graphics::SpriteAtlasReference> local_78;
+        SpriteAtlasManager* local_68;
+        uint64_t local_60;
+        vector<RGBAImage, BucketAllocatorEASTL> local_58;
+        unsigned int local_38;
+        unsigned int local_34;
 
         if (m_flashSpriteID == -1) {
             return (PacketView*)&graphics::SpriteAtlasReference::NullSpriteAtlasReference;
         }
-        this_00 = (MapElementTypeList*)field_24;
-        local_40 = (PacketView*)MapElementTypeList::FindCachedSprite((int)this_00);
-        bVar1 = local_40->operator_cast_to_bool();
-        if (bVar1) {
-            this_01 = (SpriteAtlasReference*)shared_ptr<graphics::SpriteAtlasReference>::operator->(
-                (shared_ptr<graphics::SpriteAtlasReference>*)local_40);
-            cVar2 = this_01->IsReady();
-            if (cVar2 != '\0') {
+        MapElementTypeList* this_00 = (MapElementTypeList*)field_24;
+        auto local_40 = this_00->FindCachedSprite(m_flashSpriteID);
+        bool cVar2 = local_40->operator_cast_to_bool();
+        if (cVar2) {
+            cVar2 = ((SpriteAtlasReference*)(*local_40).operator->())->IsReady();
+            if (cVar2) {
                 return local_40;
             }
         }
-        this_02 = (Js5ResourceProvider*)field_24->GetOutputType();
-        this_07 = &local_b0;
-        PacketView::PacketView(this_07);
-        puVar3 = (undefined*)this_02->GetFile(this_07, Js5Archive::JS5_SPRITES, m_flashSpriteID, 0,
-                                              (Priority*)Priority::HIGH, true, false, false);
-        if (puVar3 == DataStatus::READY) {
-            eastl::vector<RGBAImage, BucketAllocatorEASTL>::vector();
-            cVar2 = RAWDecoder::LoadFromPacket(local_58, &local_b0);
-            if (cVar2 != '\0') {
-                this_03 = (TextureManager*)param_1->GetTextureManager();
-                local_68 = (void*)this_03->GetSpriteAtlasManager();
-                this_04 = (LoginManager*)eastl::vector<RGBAImage, BucketAllocatorEASTL>::operator[](
-                    (vector<RGBAImage, BucketAllocatorEASTL>*)local_58, 0);
-                this_05 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
-                                                 std::default_delete<LoadingScreenScript::AnimLayer>>,
-                                 eastl::allocator>*)this_04->GetDevCredentialsOutputDirectory();
-                local_60 = this_05->data();
-                pCVar4 = (CoordMapSquare*)eastl::vector<RGBAImage, BucketAllocatorEASTL>::operator[](
-                    (vector<RGBAImage, BucketAllocatorEASTL>*)local_58, 0);
+        auto this_02 = field_24->GetOutputType();
+        PacketView* this_07 = &local_b0;
+        new (this_07) PacketView();
+        if ((uint8_t*)this_02->GetFile(*this_07, *(Js5Archive::JS5_SPRITES), m_flashSpriteID, 0,
+                                       (Priority*)Priority::HIGH, true, false, false) == DataStatus::READY) {
+            local_58 = eastl::vector<RGBAImage, BucketAllocatorEASTL>();
+            cVar2 = RAWDecoder::LoadFromPacket(local_58, local_b0);
+            if (cVar2) {
+                local_68 = rt7Core.GetTextureManager()->GetSpriteAtlasManager();
+                this_04 = &local_58[0];
+                local_60 = ((Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)
+                                this_04->GetDevCredentialsOutputDirectory())
+                               ->data();
+                pCVar4 = &local_58[0];
                 local_38 = pCVar4->GetX();
-                pCVar4 = (CoordMapSquare*)eastl::vector<RGBAImage, BucketAllocatorEASTL>::operator[](
-                    (vector<RGBAImage, BucketAllocatorEASTL>*)local_58, 0);
+                pCVar4 = &local_58[0];
                 local_34 = pCVar4->GetZ();
-                this_06 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>*)
-                    eastl::vector<RGBAImage, BucketAllocatorEASTL>::operator[](
-                        (vector<RGBAImage, BucketAllocatorEASTL>*)local_58, 0);
-                psVar5 = (shared_ptr*)
-                    eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(this_06);
-                shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>::shared_ptr(local_88,
-                                                                                         (_func_decltype_nullptr*)0);
-                local_78.AddRuntimeSprite(local_68, (uint)local_60, local_38, local_34, (fixed_vector*)&DAT_00000001,
-                                          psVar5);
-                local_88->~shared_ptr();
-                this_07 = (PacketView*)this_00->CacheSprite(&local_78, m_flashSpriteID);
-                local_78.~shared_ptr();
+                ((compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)local_58[0])->second();
+                local_88 = shared_ptr();
+                graphics::SpriteAtlasManager::AddRuntimeSprite(
+                    &local_78, (unsigned int)local_68, (unsigned int)local_60, local_38,
+                    *((fixed_vector<int, _4ul>*)(unsigned long)local_34), DAT_00000001);
+                this_07 = this_00->CacheSprite(local_78, m_flashSpriteID);
             }
-            local_58->~vector();
-            if (cVar2 != '\0') {
+            if (cVar2) {
                 bVar1 = false;
                 goto LAB_100517671;
             }
         }
         bVar1 = true;
     LAB_100517671:
-        local_b0.~PacketView();
         if (bVar1) {
             return local_40;
         }
         return this_07;
     }
 
-    // 0x1005176f0, 400 bytes, placed by class name
-    // MapElementType::GetMultiME(PlayerVarDomain const*, ConfigProvider*)
-    MapElementType* MapElementType::GetMultiME(PlayerVarDomain* param_1, ConfigProvider* param_2) {
-        undefined1* this_00;
-        ConfigProvider* this_01;
-        char cVar1;
-        int iVar2;
-        int iVar3;
-        undefined8 uVar4;
-        VarValue* this_02;
+    // 0x1005176f0
+    auto MapElementType::GetMultiME(const PlayerVarDomain* playerVarDomain, ConfigProvider* configProvider) {
+        BaseTemplateConfigTypeList<MapElementType>* this_01;
+        uint8_t uVar2;
+        uint32_t extraout_var;
+        int iVar4;
+        uint64_t extraout_var_00;
         int* piVar5;
-        shared_ptr* psVar6;
+        shared_ptr<oldscape::dash3d::GroundDecor>* psVar6;
         int* piVar7;
-        ConfigProvider* in_RCX;
-        shared_ptr* extraout_RDX;
-        enable_shared_from_this<PathingEntity> local_40[16];
+        enable_shared_from_this<PathingEntity> local_40;
 
-        this_00 = &param_1->field_288;
-        cVar1 = this_00->empty();
-        if (cVar1 != '\0') {
-            local_40->shared_from_this();
-            static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>((shared_ptr*)this,
-                                                                                         (jag*)local_40, extraout_RDX);
-            local_40->~shared_ptr();
-            return this;
+        uint8_t* this_00 = &field_288;
+        if (this_00->empty() != '\0') {
+            local_40.shared_from_this();
+            static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&result);
+            return result;
         }
-        iVar2 = -1;
-        if (param_2 != (ConfigProvider*)0) {
-            if (*(int*)&param_1->field_260 == -1) {
-                if (*(int*)&param_1->field_264 != -1) {
-                    uVar4 = in_RCX->GetVarType(VarDomainType::PLAYER, *(int*)&param_1->field_264);
-                    this_02 = (VarValue*)(*(code*)param_2->field_0[2])(param_2, uVar4);
-                    iVar2 = this_02->GetInt();
+        int iVar3 = -1;
+        if (playerVarDomain != nullptr) {
+            if (field_260 == 4294967295) {
+                if (field_264 != 4294967295) {
+                    configProvider->GetVarType(VarDomainType::PLAYER, field_264);
+                    uVar2 = playerVarDomain->GetVarValue();
+                    iVar3 = ((VarValue*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar2))->GetInt();
                 }
             } else {
-                uVar4 = in_RCX->GetVarBitType(*(int*)&param_1->field_260);
-                iVar2 = (*(code*)param_2->field_0[4])(param_2, uVar4);
+                configProvider->GetVarBitType(field_260);
+                uVar2 = playerVarDomain->GetVarBitValue();
+                iVar3 = (((uint32_t)extraout_var << 8) | (uint8_t)uVar2);
             }
         }
-        if ((iVar2 < 0) || (iVar3 = this_00->end(), iVar3 + -1 <= iVar2)) {
+        if ((iVar3 < 0) || (iVar4 = this_00->end(), iVar4 - 1 <= iVar3)) {
             piVar5 = (int*)this_00->data();
             piVar7 = (int*)this_00->end();
             for (; piVar5 != piVar7; piVar5 = piVar5 + 1) {
                 if (*piVar5 != -1) {
-                    psVar6 = (shared_ptr*)(param_1->field_24, *piVar5, (DataStatus**)0)->List();
-                    new (this) shared_ptr<oldscape::dash3d::Decor>(psVar6);
-                    return this;
+                    psVar6 = (shared_ptr<oldscape::dash3d::GroundDecor>*)field_24->List(*piVar5, nullptr);
+                    return auto(psVar6);
                 }
             }
         } else {
-            piVar5 =
-                (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, (long)iVar2);
+            piVar5 = (int*)(*this_00)[(long)iVar3];
             if (*piVar5 != -1) {
-                this_01 = param_1->field_24;
-                piVar5 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, (long)iVar2);
-                psVar6 = (shared_ptr*)this_01->List(*piVar5, 0);
+                this_01 = field_24;
+                piVar5 = (int*)(*this_00)[(long)iVar3];
+                psVar6 = (shared_ptr<oldscape::dash3d::GroundDecor>*)this_01->List(*piVar5, nullptr);
                 goto LAB_10051784b;
             }
         }
-        psVar6 = (shared_ptr*)&NullMapElementType;
+        psVar6 = (shared_ptr<oldscape::dash3d::GroundDecor>*)&NullMapElementType;
     LAB_10051784b:
-        new (this) shared_ptr<oldscape::dash3d::Decor>(psVar6);
-        return this;
+        new (&result) shared_ptr(psVar6);
+        return result;
     }
 
-    // 0x1005178b0, 496 bytes, placed by class name
-    // MapElementType::VariableTest(bool&, PlayerVarDomain const*, ConfigProvider*)
-    undefined* MapElementType::VariableTest(bool* param_1, PlayerVarDomain* param_2, ConfigProvider* param_3) {
-        undefined1* this_00;
-        uint uVar1;
-        char cVar2;
+    // 0x1005178b0
+    uint8_t* MapElementType::VariableTest(bool& arg1, const PlayerVarDomain* playerVarDomain,
+                                          ConfigProvider* configProvider) {
+        uint8_t* this_00;
+        uint8_t uVar1;
+        bool cVar2;
         int iVar3;
+        uint32_t extraout_var;
         int iVar4;
-        undefined8 uVar5;
-        VarValue* pVVar6;
-        int* piVar7;
-        undefined** ppuVar8;
+        uint32_t extraout_var_00;
+        uint64_t extraout_var_01;
+        int* piVar5;
+        uint64_t extraout_var_02;
+        uint8_t** ppuVar6;
 
-        *param_1 = false;
-        uVar1 = field_264;
-        if (param_2 == (PlayerVarDomain*)0) {
-            ppuVar8 = &DataStatus::MISSING;
-            if ((uVar1 != 4294967295) || (field_260 != 4294967295))
+        arg1 = false;
+        unsigned int arg2 = field_264;
+        if (playerVarDomain == nullptr) {
+            ppuVar6 = &DataStatus::MISSING;
+            if ((arg2 != 4294967295) || (field_260 != 4294967295))
                 goto LAB_100517a82;
         LAB_100517a74:
-            *param_1 = true;
+            arg1 = true;
         } else {
-            if (uVar1 == 4294967295) {
+            if (arg2 == 4294967295) {
                 if (field_260 == 4294967295)
                     goto LAB_100517a74;
-                uVar5 = param_3->GetVarBitType(field_260);
-                iVar3 = (*(code*)param_2->field_0[4])(param_2, uVar5);
+                configProvider->GetVarBitType(field_260);
+                uVar1 = playerVarDomain->GetVarBitValue();
+                iVar3 = (((uint32_t)extraout_var << 8) | (uint8_t)uVar1);
             } else {
-                uVar5 = param_3->GetVarType(VarDomainType::PLAYER, uVar1);
-                pVVar6 = (VarValue*)(*(code*)param_2->field_0[2])(param_2, uVar5);
-                iVar3 = pVVar6->GetInt();
+                configProvider->GetVarType(VarDomainType::PLAYER, arg2);
+                uVar1 = playerVarDomain->GetVarValue();
+                iVar3 = ((VarValue*)(((uint64_t)extraout_var_01 << 8) | (uint8_t)uVar1))->GetInt();
             }
             this_00 = &field_288;
             cVar2 = this_00->empty();
-            if (cVar2 != '\0') {
-                ppuVar8 = &DataStatus::READY;
+            if (cVar2) {
+                ppuVar6 = &DataStatus::READY;
                 if ((iVar3 < field_252) || (field_256 < iVar3))
                     goto LAB_100517a82;
             LAB_100517a05:
                 if (field_280 == 4294967295) {
                     if (field_276 == 4294967295)
                         goto LAB_100517a74;
-                    uVar5 = param_3->GetVarBitType(field_276);
-                    iVar3 = (*(code*)param_2->field_0[4])(param_2, uVar5);
+                    configProvider->GetVarBitType(field_276);
+                    uVar1 = playerVarDomain->GetVarBitValue();
+                    iVar3 = (((uint32_t)extraout_var_00 << 8) | (uint8_t)uVar1);
                 } else {
-                    uVar5 = param_3->GetVarType(VarDomainType::PLAYER, field_280);
-                    pVVar6 = (VarValue*)(*(code*)param_2->field_0[2])(param_2, uVar5);
-                    iVar3 = pVVar6->GetInt();
+                    configProvider->GetVarType(VarDomainType::PLAYER, field_280);
+                    uVar1 = playerVarDomain->GetVarValue();
+                    iVar3 = ((VarValue*)(((uint64_t)extraout_var_02 << 8) | (uint8_t)uVar1))->GetInt();
                 }
-                ppuVar8 = &DataStatus::READY;
+                ppuVar6 = &DataStatus::READY;
                 if ((iVar3 < field_268) || (field_272 < iVar3))
                     goto LAB_100517a82;
                 goto LAB_100517a74;
             }
-            if ((iVar3 < 0) || (iVar4 = this_00->end(), iVar4 + -1 <= iVar3)) {
+            if ((iVar3 < 0) || (iVar4 = this_00->end(), iVar4 - 1 <= iVar3)) {
                 cVar2 = this_00->empty();
-                ppuVar8 = &DataStatus::READY;
-                if (((cVar2 != '\0') || (piVar7 = (int*)this_00->back(), *piVar7 == -1)) ||
+                ppuVar6 = &DataStatus::READY;
+                if (((cVar2) || (piVar5 = (int*)this_00->back(), *piVar5 == -1)) ||
                     ((field_252 != -1 && ((field_256 != -1 && ((iVar3 < field_252 || (field_256 < iVar3))))))))
                     goto LAB_100517a82;
             }
-            piVar7 =
-                (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, (long)iVar3);
-            if (*piVar7 != -1)
+            piVar5 = (int*)(*this_00)[(long)iVar3];
+            if (*piVar5 != -1)
                 goto LAB_100517a05;
         }
-        ppuVar8 = &DataStatus::READY;
+        ppuVar6 = &DataStatus::READY;
     LAB_100517a82:
-        return *ppuVar8;
-    }
-
-    // 0x100521db0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.13
-    void ___cxx_global_var_init_13(undefined8 param_1, _func_decltype_nullptr* param_2) {
-        new (&MapElementType::NullMapElementType) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_2);
-        ___cxa_atexit(PTR__shared_ptr_100ee51f0, &MapElementType::NullMapElementType, 4294967296);
+        return *ppuVar6;
     }
 
 } // namespace jag::game

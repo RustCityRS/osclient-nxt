@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/effects/reflection/PlanarReflection.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,177 +9,132 @@ namespace jag::graphics {
         // virtual methods in vtable order
         virtual ~PlanarReflection();
         virtual bool Initialise();
-        virtual void SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const;
-        virtual OnQualityChange(GraphicsQuality);
-        GetReflectionManager();
-        void SetReflectionMapContribution(float);
-        void SetWaterReflectionStrength(float);
+        virtual void SetShaderConstants(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                        Shader& shader) const;
+        virtual uint64_t OnQualityChange(GraphicsQuality graphicsQuality);
+        Option<float>* GetReflectionManager();
+        void SetReflectionMapContribution(float arg1);
+        void SetWaterReflectionStrength(float arg1);
         float GetReflectionMapContribution() const;
-        PlanarReflection(RT7Core&);
+        PlanarReflection(RT7Core& rt7Core);
 
-        // data members, from how the methods use this: 704 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        char _unknown_12[4];
-        RT7Core* field_16; // offset 16
-        char _unknown_24[664];
-        uint field_688;                    // offset 688
-        float m_reflectionMapContribution; // offset 692
-        float m_waterReflectionStrength;   // offset 696
-        char _unknown_700[4];
+    private:
+        GraphicsQuality field_8;
+        uint8_t _unknown_12[4];
+        RT7Core* field_16;
+        uint8_t _unknown_24[664];
+        unsigned int field_688;
+        float m_reflectionMapContribution;
+        float m_waterReflectionStrength;
+        uint8_t _unknown_700[4];
     };
 
-    // 0x100468ca0, 16 bytes, inline, placed by class name and debug map
-    // PlanarReflection::SetReflectionMapContribution(float)
-    void PlanarReflection::SetReflectionMapContribution(float param_1) {
-        m_reflectionMapContribution = param_1;
+    // 0x100468ca0
+    void PlanarReflection::SetReflectionMapContribution(float arg1) {
+        m_reflectionMapContribution = arg1;
     }
 
-    // 0x1007a2e50, 16 bytes, inline, placed by class name
-    // PlanarReflection::SetWaterReflectionStrength(float)
-    void PlanarReflection::SetWaterReflectionStrength(float param_1) {
-        m_waterReflectionStrength = param_1;
+    // 0x1007a2e50
+    void PlanarReflection::SetWaterReflectionStrength(float arg1) {
+        m_waterReflectionStrength = arg1;
     }
 
-    // 0x1007bbf10, 16 bytes, inline, placed by class name
-    // PlanarReflection::GetReflectionMapContribution() const
-    float PlanarReflection::GetReflectionMapContribution() {
+    // 0x1007bbf10
+    float PlanarReflection::GetReflectionMapContribution() const {
         return m_reflectionMapContribution;
     }
 
-    // 0x100921e40, 16 bytes, complete-object destructor, inline, placed by class name
-    // PlanarReflection::~PlanarReflection(): jumps straight to the base-object destructor
-
-    // 0x100921e50, 32 bytes, deleting destructor, inline, placed by class name
-    // PlanarReflection::~PlanarReflection()
-    void PlanarReflection::~PlanarReflection() {
-        ~PlanarReflection(this);
-        operator_delete(this);
-    }
-
-    // 0x100923320, 48 bytes, base-object destructor, inline, placed by class name
-    // PlanarReflection::~PlanarReflection()
-    void PlanarReflection::~PlanarReflection() {
-        NpcUID* extraout_RDX;
-        NpcUID* in_RSI;
-
-        field_0 = &PTR__PlanarReflection_100f19170;
-        (&field_32)->~ReflectionManager();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)this, in_RSI, extraout_RDX);
+    // 0x100923320
+    PlanarReflection::~PlanarReflection() {
+        field_32.~ReflectionManager();
+        destruct<oldscape::highlight::NpcUID*>();
     }
 
 } // namespace jag::graphics
 
 namespace jag::math {
-    // 0x100468cb0, 240 bytes, inline, placed by debug map only (low confidence)
-    // Matrix44T<float> Matrix44Reflection<float>(Vector3T<float> const&, float)
-    Matrix44T* Matrix44Reflection<float>(Matrix44T* __return_storage_ptr__, math* this, Vector3T* param_1,
-                                         float param_2) {
-        float fVar1;
-        float fVar2;
-        float fVar3;
-        float fVar4;
-        float fVar5;
+    // 0x100468cb0
+    Matrix44T<float> Matrix44Reflection<float>(const Vector3T<float>& vector3, float arg2) {
+        float* in_RSI;
 
-        fVar1 = field_0;
-        fVar2 = field_4;
-        fVar4 = fVar1 * -2.0;
-        fVar3 = field_8;
-        fVar5 = fVar2 * -2.0 * fVar3;
-        new (__return_storage_ptr__)
-            Matrix44T<float>(1.0 - (fVar1 * fVar1 + fVar1 * fVar1), fVar4 * fVar2, fVar3 * fVar4, 0.0, fVar4 * fVar2,
-                             1.0 - (fVar2 * fVar2 + fVar2 * fVar2), fVar5, 0.0, fVar3 * fVar4, fVar5,
-                             1.0 - (fVar3 * fVar3 + fVar3 * fVar3), 0.0, fVar4 * param_2, fVar2 * -2.0 * param_2,
-                             param_2 * -2.0 * fVar3, 1.0);
-        return __return_storage_ptr__;
+        float fVar1 = *in_RSI;
+        float fVar2 = in_RSI[1];
+        float fVar4 = fVar1 * -2.0;
+        float fVar3 = in_RSI[2];
+        float arg7 = fVar2 * -2.0 * fVar3;
+        new (vector3) Matrix44T<float>(1.0 - (fVar1 * fVar1 + fVar1 * fVar1), fVar4 * fVar2, fVar3 * fVar4, 0.0,
+                                       fVar4 * fVar2, 1.0 - (fVar2 * fVar2 + fVar2 * fVar2), arg7, 0.0, fVar3 * fVar4,
+                                       arg7, 1.0 - (fVar3 * fVar3 + fVar3 * fVar3), 0.0, fVar4 * arg2,
+                                       fVar2 * -2.0 * arg2, arg2 * -2.0 * fVar3, 1.0);
+        return vector3;
     }
 
-    // 0x100468da0, 48 bytes, inline, placed by debug map only (low confidence)
-    // PlaneT<float> operator*<float>(PlaneT<float> const&, Matrix44T<float> const&)
-    /* PlaneT<float> TEMPNAMEPLACEHOLDERVALUE(PlaneT<float> const&,
-   Matrix44T<float> const&) */
-
-    undefined8 operator*(PlaneT* param_1, Matrix44T* param_2) {
-        undefined8 local_18;
-        undefined8 uStack_10;
-
-        local_18 = *(undefined8*)param_1;
-        uStack_10 = *(undefined8*)(param_1 + 8);
-        PlaneT<float>::operator*=((PlaneT<float>*)&local_18, param_2);
+    // 0x100468da0
+    PlaneT<float> operator* <float>(const PlaneT<float>& plane, const Matrix44T<float>& matrix44) {
+        return local_18 = *(uint64_t*)plane;
+        uint64_t uStack_10 = *(uint64_t*)(plane + 8);
+        local_18 *= matrix44;
         return local_18;
     }
 
-    // 0x100468dd0, 560 bytes, inline, placed by debug map only (low confidence)
-    // Matrix44T<float>& Matrix44Oblique<float>(Matrix44T<float>&, Matrix44T<float> const&, Vector4T<float> const&)
-    Matrix44T* Matrix44Oblique<float>(Matrix44T* param_1, Matrix44T* param_2, Vector4T* param_3) {
-        int iVar1;
-        Vector4T<float>* pVVar2;
-        float* pfVar3;
-        Vector4T* extraout_RDX;
-        float fVar4;
-        undefined4 extraout_XMM0_Dd;
-        ImVec4 local_b8[16];
-        Matrix44T local_a8;
-        undefined8 uStack_70;
-        float local_68;
-        undefined4 uStack_60;
-        float local_4c;
-        undefined8 local_48;
-        undefined4 uStack_40;
-        undefined4 uStack_3c;
+    // 0x100468dd0
+    Matrix44T<float>& Matrix44Oblique<float>(Matrix44T<float>& matrix441, const Matrix44T<float>& matrix442,
+                                             const Vector4T<float>& vector4) {
+        uint32_t extraout_XMM0_Dd;
+        uint64_t local_48;
 
-        local_a8._0_8_ = *(undefined8*)param_2;
-        local_a8._8_8_ = *(undefined8*)&param_2->field_8;
-        local_a8._16_8_ = *(undefined8*)&param_2->field_16;
-        local_a8._24_8_ = *(undefined8*)&param_2->field_24;
-        local_a8._32_8_ = *(undefined8*)&param_2->field_32;
-        local_a8._40_8_ = *(undefined8*)&param_2->field_40;
-        local_a8._48_8_ = *(undefined8*)&param_2->field_48;
-        uStack_70 = *(undefined8*)(param_2 + 1);
-        local_a8.Invert(0);
-        iVar1 = sign<float>(*(float*)param_3);
+        ReturnValue local_a8 = *(ReturnValue*)matrix442;
+        uint64_t uStack_a0 = *(uint64_t*)(matrix442 + 8);
+        uint64_t local_98 = *(uint64_t*)(matrix442 + 16);
+        uint64_t uStack_90 = *(uint64_t*)(matrix442 + 24);
+        uint64_t local_88 = *(uint64_t*)(matrix442 + 32);
+        uint64_t uStack_80 = *(uint64_t*)(matrix442 + 40);
+        uint64_t local_78 = *(uint64_t*)(matrix442 + 48);
+        uint64_t uStack_70 = *(uint64_t*)(matrix442 + 56);
+        local_a8 = Matrix44T<float>::Invert(nullptr);
+        int iVar1 = sign<float>(*(float*)vector4);
         local_48._0_4_ = (float)iVar1;
-        iVar1 = sign<float>(*(float*)(param_3 + 4));
-        ImVec4::ImVec4(local_b8, (float)local_48, (float)iVar1, 1.0, 1.0);
-        Vector4T<float>::operator*=((Vector4T<float>*)local_b8, &local_a8);
-        fVar4 = Vector4Dot<float>((math*)param_3, (Vector4T*)local_b8, extraout_RDX);
+        iVar1 = sign<float>(*(float*)(vector4 + 4));
+        ImVec4 local_b8((float)local_48, (float)iVar1, 1.0, 1.0);
+        local_b8 *= &local_a8;
+        float fVar4 = (float)Vector4Dot<float>((math*)vector4, &local_b8);
         fVar4 = 2.0 / fVar4;
-        local_48 = operator*(param_3, fVar4);
-        local_68 = fVar4;
-        uStack_60 = 0;
-        uStack_3c = extraout_XMM0_Dd;
-        Matrix44T<float>::operator=((Matrix44T<float>*)param_1, param_2);
-        pVVar2 = (Vector4T<float>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_2, 0);
-        pfVar3 = (float*)Vector4T<float>::operator[](pVVar2, 3);
-        local_4c = (float)local_48 - *pfVar3;
-        pVVar2 = (Vector4T<float>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 0);
-        pfVar3 = (float*)Vector4T<float>::operator[](pVVar2, 2);
+        local_48 = vector4 * fVar4;
+        float local_68 = fVar4;
+        uint32_t uStack_60 = 0;
+        uint32_t uStack_3c = extraout_XMM0_Dd;
+        matrix441 = matrix442;
+        Vector4T<float>* pVVar2 = &matrix442[0];
+        float* pfVar3 = (float*)(*pVVar2)[3];
+        float local_4c = (float)local_48 - *pfVar3;
+        pVVar2 = &matrix441[0];
+        pfVar3 = (float*)(*pVVar2)[2];
         *pfVar3 = local_4c;
         local_48._0_4_ = local_48._4_4_;
-        uStack_40 = uStack_3c;
-        pVVar2 = (Vector4T<float>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_2, 1);
-        pfVar3 = (float*)Vector4T<float>::operator[](pVVar2, 3);
+        uint32_t uStack_40 = uStack_3c;
+        pVVar2 = &matrix442[1];
+        pfVar3 = (float*)(*pVVar2)[3];
         local_48._0_4_ = (float)local_48 - *pfVar3;
-        pVVar2 = (Vector4T<float>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 1);
-        pfVar3 = (float*)Vector4T<float>::operator[](pVVar2, 2);
+        pVVar2 = &matrix441[1];
+        pfVar3 = (float*)(*pVVar2)[2];
         *pfVar3 = (float)local_48;
-        pVVar2 = (Vector4T<float>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_2, 2);
-        pfVar3 = (float*)Vector4T<float>::operator[](pVVar2, 3);
+        pVVar2 = &matrix442[2];
+        pfVar3 = (float*)(*pVVar2)[3];
         local_48._0_4_ = local_68 - *pfVar3;
-        pVVar2 = (Vector4T<float>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 2);
-        pfVar3 = (float*)Vector4T<float>::operator[](pVVar2, 2);
+        pVVar2 = &matrix441[2];
+        pfVar3 = (float*)(*pVVar2)[2];
         *pfVar3 = (float)local_48;
         local_48._0_4_ = 0.0;
         local_48._4_4_ = 0.0;
         uStack_40 = 0;
         uStack_3c = 0;
-        pVVar2 = (Vector4T<float>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_2, 3);
-        pfVar3 = (float*)Vector4T<float>::operator[](pVVar2, 3);
+        pVVar2 = &matrix442[3];
+        pfVar3 = (float*)(*pVVar2)[3];
         local_48._0_4_ = (float)local_48 - *pfVar3;
-        pVVar2 = (Vector4T<float>*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 3);
-        pfVar3 = (float*)Vector4T<float>::operator[](pVVar2, 2);
+        pVVar2 = &matrix441[3];
+        pfVar3 = (float*)(*pVVar2)[2];
         *pfVar3 = (float)local_48;
-        return param_1;
+        return matrix441;
     }
 
 } // namespace jag::math

@@ -1,1280 +1,1050 @@
 // libs/hal/render/shaders/OGL/ShaderProgram_OGL.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "libs/hal/render/shaders/ShaderProgram.h"
 
 namespace jag::render {
-    // 0x100bde730, 144 bytes, placed by class name and debug map
-    // ShaderProgram::CreateFromSourceString(char const*, char const*, VertexElementDesc const*, unsigned int, unsigned char)
-    void ShaderProgram::CreateFromSourceString(char* param_1, char* param_2, VertexElementDesc* param_3, uint param_4,
-                                               uchar param_5) {
-        MapArea* this_00;
-        long lVar1;
+    // 0x100bde730
+    void ShaderProgram::CreateFromSourceString(const char* str1, const char* str2,
+                                               const VertexElementDesc* vertexElementDesc, unsigned int arg4,
+                                               unsigned char arg5) {
+        uint32_t in_register_00000084;
 
-        m_compileFlags = param_5;
-        this_00 = (MapArea*)Instance();
-        lVar1 = this_00->GetOrigin();
+        m_compileFlags = arg5;
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
         if (*(char*)(lVar1 + 226) == '\0') {
             m_compileFlags = m_compileFlags & 252;
         }
-        VertexDeclaration::Create((VertexElementDesc*)&field_24, (ulong)param_3, (void*)(ulong)param_4, (ulong)param_3);
-        (&m_vertexShaderSource, param_1)->SetSource();
-        (&m_pixelShaderSource, param_2)->SetSource();
-        CreateFromSourceString(this);
+        field_24.Create(vertexElementDesc, (unsigned long)arg4, vertexElementDesc,
+                        (((uint64_t)in_register_00000084 << 32) | (uint32_t)arg4));
+        m_vertexShaderSource->SetSource(str1);
+        m_pixelShaderSource->SetSource(str2);
+        CreateFromSourceString();
     }
 
-    // 0x100bde960, 224 bytes, placed by __FILE__ string
-    // ShaderProgram::Destroy()
+    // 0x100bde960
     void ShaderProgram::Destroy() {
-        char cVar1;
         int iVar2;
-        scoped_lock<std::mutex> local_20[8];
+        scoped_lock<std::mutex> local_20;
 
-        cVar1 = (&field_369)->operator_cast_to_ShaderProgramLinkState();
-        if (cVar1 == '\0') {
-            (&field_12)->MarkAsDead();
+        if ((&field_369)->operator_cast_to_ShaderProgramLinkState() == '\0') {
+            field_12.MarkAsDead();
             if (m_nativeShaderProgram != 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_GLProgramObject == 0",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          562, (char*)0);
+                          562, nullptr);
             }
         } else {
-            iVar2 = GetNativeShaderProgram(this);
-            ReleaseNativeResources(this);
+            iVar2 = GetNativeShaderProgram();
+            ReleaseNativeResources();
             field_320 = 0;
-            *(undefined3*)&field_321 = 0;
+            *(uint32_t*)&field_321 = 0;
             field_324 = 0;
-            *(undefined3*)&field_325 = 0;
+            *(uint32_t*)&field_325 = 0;
             field_328 = 0;
             if (iVar2 != 0) {
-                (&field_376)->Clear();
-                (&field_496)->clear();
-                std::scoped_lock<std::mutex>::scoped_lock(local_20, (mutex*)&field_1768);
-                (&field_552)->clear();
-                std::scoped_lock<std::mutex>::~scoped_lock(local_20);
+                field_376.Clear();
+                field_496.clear();
+                local_20 = std::scoped_lock(field_1768);
+                field_552.clear();
             }
         }
     }
 
-    // 0x100be6210, 448 bytes, placed by __FILE__ string
-    // ShaderProgram::GetStorageBufferIndex(HashedString const&) const
-    undefined4 ShaderProgram::GetStorageBufferIndex(HashedString* param_1) {
-        uint uVar1;
-        code* pcVar2;
-        char cVar3;
-        undefined4 uVar5;
-        long lVar6;
-        undefined8 uVar7;
-        undefined4* puVar8;
-        hashtable_iterator_base* extraout_RDX;
-        eastl local_60[16];
-        unique_lock<std::mutex> local_50[16];
-        ulong local_40[2];
+    // 0x100be6210
+    uint32_t ShaderProgram::GetStorageBufferIndex(const HashedString& hashedString) const {
+        unsigned int uVar1;
+        void* pcVar2;
+        bool cVar3;
+        uint32_t uVar4;
+        uint64_t uVar6;
+        uint32_t* puVar7;
+        unique_lock<std::mutex> local_50;
 
-        lVar6 = param_1->HeapBeginPtr();
-        if (lVar6 == 0) {
-            /* WARNING: Subroutine does not return */
+        long lVar5 = hashedString.HeapBeginPtr();
+        if (lVar5 == 0) {
             LogAssert("storageBufferName.GetString() != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1230, (char*)0);
+                      1230, nullptr);
         }
-        if (((m_compileFlags & 4) == 0) && (cVar3 = this_thread::IsMainThread(), cVar3 == '\0')) {
-            /* WARNING: Subroutine does not return */
+        if (((m_compileFlags & 4) == 0) && (cVar3 = this_thread::IsMainThread(), !cVar3)) {
             LogAssert("(m_compileFlags & SHADER_THREAD_SAFE_CACHE) || this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1231, (char*)0);
+                      1231, nullptr);
         }
         if ((m_compileFlags & 4) == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_50);
+            local_50 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_50, (mutex*)&field_1768);
+            local_50 = std::unique_lock<std::mutex>(field_1768);
         }
-        local_40[0] = param_1->end();
-        eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                         eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::find((longlong*)local_60);
-        eastl::hashtable<int, eastl::pair<int const, oldscape::highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, oldscape::highlight::HighlightedGroup>>,
-                         eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        if (eastl::operator!=(local_60, (hashtable_iterator_base*)local_40, extraout_RDX)) {
-            lVar6 = local_60->HeapBeginPtr();
-            uVar5 = *(undefined4*)(lVar6 + 8);
-        } else {
-            WaitForAsyncCompile(this);
+        uint8_t* this_00 = &field_552;
+        local_40[0] = (ReturnValue)hashedString.end();
+        auto local_60 = this_00->find(local_40);
+        auto local_40 = this_00->end();
+        cVar3 = local_60 != local_40;
+        if (!cVar3) {
+            WaitForAsyncCompile();
             pcVar2 = ___glewGetProgramResourceIndex;
             if (m_nativeShaderProgram == 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_GLProgramObject",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          1245, (char*)0);
+                          1245, nullptr);
             }
             uVar1 = m_nativeShaderProgram;
-            uVar7 = param_1->HeapBeginPtr();
-            uVar5 = (*pcVar2)(uVar1, 37606, uVar7);
+            uVar6 = hashedString.HeapBeginPtr();
+            uVar4 = (*pcVar2)(uVar1, 37606, uVar6);
             CheckGlErrorInternal("glGetProgramResourceIndex",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  1247);
-            local_40[0] = param_1->end();
-            puVar8 = (undefined4*)eastl::hash_map<
-                unsigned long, int, eastl::hash<unsigned long>, eastl::equal_to<unsigned long>,
-                eastl::fixed_hashtable_allocator<34ul, 24ul, 32ul, 8ul, 0ul, true, eastl::allocator>, false>::
-            operator[]((hash_map<unsigned long, int, eastl::hash<unsigned long>, eastl::equal_to<unsigned long>,
-                                 eastl::fixed_hashtable_allocator<34ul, 24ul, 32ul, 8ul, 0ul, true, eastl::allocator>,
-                                 false>*)&field_552,
-                       local_40);
-            *puVar8 = uVar5;
+            local_40[0] = (ReturnValue)hashedString.end();
+            puVar7 = (uint32_t*)(*this_00)[local_40];
+            *puVar7 = uVar4;
+        } else {
+            lVar5 = local_60.HeapBeginPtr();
+            uVar4 = *(uint32_t*)(lVar5 + 8);
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_50);
-        return uVar5;
+        return uVar4;
     }
 
-    // 0x100be8cd0, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstMatrix4(HashedString const&, unsigned int, math::Matrix44T<float> const*, unsigned int) const
-    void ShaderProgram::SetShaderConstMatrix4(HashedString* param_1, uint param_2, Matrix44T* param_3, uint param_4) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstMatrix4(this, iVar1, param_2, param_3, param_4);
+    // 0x100be8cd0
+    void ShaderProgram::SetShaderConstMatrix4(const HashedString& hashedString, unsigned int arg2,
+                                              const math::Matrix44T<float>* matrix44, unsigned int arg4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstMatrix4(arg1, arg2, matrix44, arg4);
         }
     }
 
-    // 0x100be8d10, 448 bytes, placed by __FILE__ string
-    // ShaderProgram::GetUniformLocationIndex(HashedString const&) const
-    undefined4 ShaderProgram::GetUniformLocationIndex(HashedString* param_1) {
-        uint uVar1;
-        code* pcVar2;
-        char cVar3;
-        undefined4 uVar5;
-        long lVar6;
-        undefined8 uVar7;
-        undefined4* puVar8;
-        hashtable_iterator_base* extraout_RDX;
-        eastl local_60[16];
-        unique_lock<std::mutex> local_50[16];
-        ulong local_40[2];
+    // 0x100be8d10
+    uint32_t ShaderProgram::GetUniformLocationIndex(const HashedString& hashedString) const {
+        unsigned int uVar1;
+        void* pcVar2;
+        bool cVar3;
+        uint32_t uVar4;
+        uint64_t uVar6;
+        uint32_t* puVar7;
+        unique_lock<std::mutex> local_50;
 
-        lVar6 = param_1->HeapBeginPtr();
-        if (lVar6 == 0) {
-            /* WARNING: Subroutine does not return */
+        long lVar5 = hashedString.HeapBeginPtr();
+        if (lVar5 == 0) {
             LogAssert("constName.GetString() != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1161, (char*)0);
+                      1161, nullptr);
         }
-        if (((m_compileFlags & 4) == 0) && (cVar3 = this_thread::IsMainThread(), cVar3 == '\0')) {
-            /* WARNING: Subroutine does not return */
+        if (((m_compileFlags & 4) == 0) && (cVar3 = this_thread::IsMainThread(), !cVar3)) {
             LogAssert("(m_compileFlags & SHADER_THREAD_SAFE_CACHE) || this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1162, (char*)0);
+                      1162, nullptr);
         }
         if ((m_compileFlags & 4) == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_50);
+            local_50 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_50, (mutex*)&field_1768);
+            local_50 = std::unique_lock<std::mutex>(field_1768);
         }
-        local_40[0] = param_1->end();
-        eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                         eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::find((longlong*)local_60);
-        eastl::hashtable<int, eastl::pair<int const, oldscape::highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, oldscape::highlight::HighlightedGroup>>,
-                         eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        if (eastl::operator!=(local_60, (hashtable_iterator_base*)local_40, extraout_RDX)) {
-            lVar6 = local_60->HeapBeginPtr();
-            uVar5 = *(undefined4*)(lVar6 + 8);
-        } else {
-            WaitForAsyncCompile(this);
+        uint8_t* this_00 = &field_552;
+        local_40[0] = (ReturnValue)hashedString.end();
+        auto local_60 = this_00->find(local_40);
+        auto local_40 = this_00->end();
+        cVar3 = local_60 != local_40;
+        if (!cVar3) {
+            WaitForAsyncCompile();
             pcVar2 = ___glewGetUniformLocation;
             if (m_nativeShaderProgram == 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_GLProgramObject",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          1176, (char*)0);
+                          1176, nullptr);
             }
             uVar1 = m_nativeShaderProgram;
-            uVar7 = param_1->HeapBeginPtr();
-            uVar5 = (*pcVar2)(uVar1, uVar7);
+            uVar6 = hashedString.HeapBeginPtr();
+            uVar4 = (*pcVar2)(uVar1, uVar6);
             CheckGlErrorInternal("glGetUniformLocation",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  1178);
-            local_40[0] = param_1->end();
-            puVar8 = (undefined4*)eastl::hash_map<
-                unsigned long, int, eastl::hash<unsigned long>, eastl::equal_to<unsigned long>,
-                eastl::fixed_hashtable_allocator<34ul, 24ul, 32ul, 8ul, 0ul, true, eastl::allocator>, false>::
-            operator[]((hash_map<unsigned long, int, eastl::hash<unsigned long>, eastl::equal_to<unsigned long>,
-                                 eastl::fixed_hashtable_allocator<34ul, 24ul, 32ul, 8ul, 0ul, true, eastl::allocator>,
-                                 false>*)&field_552,
-                       local_40);
-            *puVar8 = uVar5;
+            local_40[0] = (ReturnValue)hashedString.end();
+            puVar7 = (uint32_t*)(*this_00)[local_40];
+            *puVar7 = uVar4;
+        } else {
+            lVar5 = local_60.HeapBeginPtr();
+            uVar4 = *(uint32_t*)(lVar5 + 8);
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_50);
-        return uVar5;
+        return uVar4;
     }
 
-    // 0x100be8ed0, 336 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstMatrix4(int, unsigned int, math::Matrix44T<float> const*, unsigned int) const
-    void ShaderProgram::SetShaderConstMatrix4(int param_1, uint param_2, Matrix44T* param_3, uint param_4) {
-        char cVar1;
+    // 0x100be8ed0
+    void ShaderProgram::SetShaderConstMatrix4(int arg1, unsigned int arg2, const math::Matrix44T<float>* matrix44,
+                                              unsigned int arg4) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        Matrix44T<float>* this_01;
+        Matrix44T<float> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_3 == (Matrix44T*)0) || (param_2 == 0)) {
-            /* WARNING: Subroutine does not return */
+        if ((matrix44 == nullptr) || (arg2 == 0)) {
             LogAssert("pMatrices && count >= 1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      659, (char*)0);
+                      659, nullptr);
         }
-        if (-1 < param_1) {
-            if ((param_4 & 1) == 0) {
-                if ((param_4 & 2) != 0) {
-                    (&field_376, param_1, param_2 << 4)->ClearShaderConst();
+        if (-1 < arg1) {
+            if ((arg4 & 1) == 0) {
+                if ((arg4 & 2) != 0) {
+                    field_376.ClearShaderConst(arg1, arg2 << 4);
                 }
             } else {
-                cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstMatrix4();
-                if (cVar1 == '\0')
+                cVar1 = field_376.SetShaderConstMatrix4(arg1, arg2, matrix44);
+                if (!cVar1)
                     goto LAB_100be8fe0;
             }
-            AllocateScratchArrayAndCopy<math::Matrix44T<float>>(&local_108, param_3, (ulong)param_2);
-            this_00 = (RenderDevice*)local_108.Instance();
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<math::Matrix44T<float>>(&local_108, (unsigned long)matrix44);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstMatrix4(int, unsigned int, math::Matrix44T<float> const*, unsigned int)
                     const ::__17,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__17*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                void>(local_d8, (__17*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     LAB_100be8fe0:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100be9020
+    void ShaderProgram::SetShaderConstMatrix3(const HashedString& hashedString, unsigned int arg2,
+                                              const math::Matrix33T<float>* matrix33, unsigned int arg4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstMatrix3(arg1, arg2, matrix33, arg4);
         }
     }
 
-    // 0x100be9020, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstMatrix3(HashedString const&, unsigned int, math::Matrix33T<float> const*, unsigned int) const
-    void ShaderProgram::SetShaderConstMatrix3(HashedString* param_1, uint param_2, Matrix33T* param_3, uint param_4) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstMatrix3(this, iVar1, param_2, param_3, param_4);
-        }
-    }
-
-    // 0x100be9060, 336 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstMatrix3(int, unsigned int, math::Matrix33T<float> const*, unsigned int) const
-    void ShaderProgram::SetShaderConstMatrix3(int param_1, uint param_2, Matrix33T* param_3, uint param_4) {
-        char cVar1;
+    // 0x100be9060
+    void ShaderProgram::SetShaderConstMatrix3(int arg1, unsigned int arg2, const math::Matrix33T<float>* matrix33,
+                                              unsigned int arg4) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        Matrix33T<float>* this_01;
+        Matrix33T<float> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_3 == (Matrix33T*)0) || (param_2 == 0)) {
-            /* WARNING: Subroutine does not return */
+        if ((matrix33 == nullptr) || (arg2 == 0)) {
             LogAssert("pMatrices && count >= 1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      693, (char*)0);
+                      693, nullptr);
         }
-        if (-1 < param_1) {
-            if ((param_4 & 1) == 0) {
-                if ((param_4 & 2) != 0) {
-                    (&field_376, param_1, param_2 * 9)->ClearShaderConst();
+        if (-1 < arg1) {
+            if ((arg4 & 1) == 0) {
+                if ((arg4 & 2) != 0) {
+                    field_376.ClearShaderConst(arg1, arg2 * 9);
                 }
             } else {
-                cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstMatrix3();
-                if (cVar1 == '\0')
+                cVar1 = field_376.SetShaderConstMatrix3(arg1, arg2, matrix33);
+                if (!cVar1)
                     goto LAB_100be916e;
             }
-            AllocateScratchArrayAndCopy<math::Matrix33T<float>>(&local_108, param_3, (ulong)param_2);
-            this_00 = (RenderDevice*)local_108.Instance();
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<math::Matrix33T<float>>(&local_108, (unsigned long)matrix33);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstMatrix3(int, unsigned int, math::Matrix33T<float> const*, unsigned int)
                     const ::__18,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__18*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                void>(local_d8, (__18*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     LAB_100be916e:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100be91b0
+    void ShaderProgram::SetShaderConstMatrix2(const HashedString& hashedString, unsigned int arg2,
+                                              const math::Matrix22T<float>* matrix22, unsigned int arg4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstMatrix2(arg1, arg2, matrix22, arg4);
         }
     }
 
-    // 0x100be91b0, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstMatrix2(HashedString const&, unsigned int, math::Matrix22T<float> const*, unsigned int) const
-    void ShaderProgram::SetShaderConstMatrix2(HashedString* param_1, uint param_2, Matrix22T* param_3, uint param_4) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstMatrix2(this, iVar1, param_2, param_3, param_4);
-        }
-    }
-
-    // 0x100be91f0, 336 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstMatrix2(int, unsigned int, math::Matrix22T<float> const*, unsigned int) const
-    void ShaderProgram::SetShaderConstMatrix2(int param_1, uint param_2, Matrix22T* param_3, uint param_4) {
-        char cVar1;
+    // 0x100be91f0
+    void ShaderProgram::SetShaderConstMatrix2(int arg1, unsigned int arg2, const math::Matrix22T<float>* matrix22,
+                                              unsigned int arg4) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        Matrix22T<float>* this_01;
+        Matrix22T<float> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_3 == (Matrix22T*)0) || (param_2 == 0)) {
-            /* WARNING: Subroutine does not return */
+        if ((matrix22 == nullptr) || (arg2 == 0)) {
             LogAssert("pMatrices && count >= 1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      727, (char*)0);
+                      727, nullptr);
         }
-        if (-1 < param_1) {
-            if ((param_4 & 1) == 0) {
-                if ((param_4 & 2) != 0) {
-                    (&field_376, param_1, param_2 * 4)->ClearShaderConst();
+        if (-1 < arg1) {
+            if ((arg4 & 1) == 0) {
+                if ((arg4 & 2) != 0) {
+                    field_376.ClearShaderConst(arg1, arg2 * 4);
                 }
             } else {
-                cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstMatrix2();
-                if (cVar1 == '\0')
+                cVar1 = field_376.SetShaderConstMatrix2(arg1, arg2, matrix22);
+                if (!cVar1)
                     goto LAB_100be9302;
             }
-            AllocateScratchArrayAndCopy<math::Matrix22T<float>>(&local_108, param_3, (ulong)param_2);
-            this_00 = (RenderDevice*)local_108.Instance();
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<math::Matrix22T<float>>(&local_108, (unsigned long)matrix22);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstMatrix2(int, unsigned int, math::Matrix22T<float> const*, unsigned int)
                     const ::__19,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__19*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                void>(local_d8, (__19*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     LAB_100be9302:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100be9340
+    void ShaderProgram::SetShaderConstFloat4Array(const HashedString& hashedString, unsigned int arg2,
+                                                  const float* arg3, unsigned int arg4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstFloat4Array(arg1, arg2, arg3, arg4);
         }
     }
 
-    // 0x100be9340, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat4Array(HashedString const&, unsigned int, float const*, unsigned int) const
-    void ShaderProgram::SetShaderConstFloat4Array(HashedString* param_1, uint param_2, float* param_3, uint param_4) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstFloat4Array(this, iVar1, param_2, param_3, param_4);
-        }
-    }
-
-    // 0x100be9380, 336 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned int) const
-    void ShaderProgram::SetShaderConstFloat4Array(int param_1, uint param_2, float* param_3, uint param_4) {
-        char cVar1;
+    // 0x100be9380
+    void ShaderProgram::SetShaderConstFloat4Array(int arg1, unsigned int arg2, const float* arg3,
+                                                  unsigned int arg4) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (float*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pFloatArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      762, (char*)0);
+                      762, nullptr);
         }
-        if (-1 < param_1) {
-            if ((param_4 & 1) == 0) {
-                if ((param_4 & 2) != 0) {
-                    (&field_376, param_1, param_2)->ClearShaderConst();
+        if (-1 < arg1) {
+            if ((arg4 & 1) == 0) {
+                if ((arg4 & 2) != 0) {
+                    field_376.ClearShaderConst(arg1, arg2);
                 }
             } else {
-                cVar1 = (&field_376, param_1, param_2, (int*)param_3)->SetShaderConstInt4Array();
-                if (cVar1 == '\0')
+                cVar1 = field_376.SetShaderConstInt4Array(arg1, arg2, arg3);
+                if (!cVar1)
                     goto LAB_100be9492;
             }
-            AllocateScratchArrayAndCopy<float>(&local_108, param_3, (ulong)(param_2 * 4));
-            this_00 = (RenderDevice*)local_108.Instance();
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<float>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned int) const ::__20,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__20*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                void>(local_d8, (__20*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     LAB_100be9492:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100be94d0
+    void ShaderProgram::SetShaderConstUint4Array(const HashedString& hashedString, unsigned int arg2,
+                                                 const unsigned int* arg3, unsigned int arg4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstUint4Array(arg1, arg2, arg3, arg4);
         }
     }
 
-    // 0x100be94d0, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUint4Array(HashedString const&, unsigned int, unsigned int const*, unsigned int) const
-    void ShaderProgram::SetShaderConstUint4Array(HashedString* param_1, uint param_2, uint* param_3, uint param_4) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstUint4Array(this, iVar1, param_2, param_3, param_4);
-        }
-    }
-
-    // 0x100be9510, 336 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*, unsigned int) const
-    void ShaderProgram::SetShaderConstUint4Array(int param_1, uint param_2, uint* param_3, uint param_4) {
-        char cVar1;
+    // 0x100be9510
+    void ShaderProgram::SetShaderConstUint4Array(int arg1, unsigned int arg2, const unsigned int* arg3,
+                                                 unsigned int arg4) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (uint*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pUintArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      795, (char*)0);
+                      795, nullptr);
         }
-        if (-1 < param_1) {
-            if ((param_4 & 1) == 0) {
-                if ((param_4 & 2) != 0) {
-                    (&field_376, param_1, param_2)->ClearShaderConst();
+        if (-1 < arg1) {
+            if ((arg4 & 1) == 0) {
+                if ((arg4 & 2) != 0) {
+                    field_376.ClearShaderConst(arg1, arg2);
                 }
             } else {
-                cVar1 = (&field_376, param_1, param_2, (int*)param_3)->SetShaderConstInt4Array();
-                if (cVar1 == '\0')
+                cVar1 = field_376.SetShaderConstInt4Array(arg1, arg2, arg3);
+                if (!cVar1)
                     goto LAB_100be9622;
             }
-            AllocateScratchArrayAndCopy<unsigned int>(&local_108, param_3, (ulong)(param_2 * 4));
-            this_00 = (RenderDevice*)local_108.Instance();
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<unsigned int>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*, unsigned int)
                     const ::__21,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__21*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                void>(local_d8, (__21*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     LAB_100be9622:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100be9660
+    void ShaderProgram::SetShaderConstFloat3Array(const HashedString& hashedString, unsigned int arg2,
+                                                  const float* arg3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstFloat3Array(arg1, arg2, arg3);
         }
     }
 
-    // 0x100be9660, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat3Array(HashedString const&, unsigned int, float const*) const
-    void ShaderProgram::SetShaderConstFloat3Array(HashedString* param_1, uint param_2, float* param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstFloat3Array(this, iVar1, param_2, param_3);
-        }
-    }
-
-    // 0x100be96a0, 304 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const
-    void ShaderProgram::SetShaderConstFloat3Array(int param_1, uint param_2, float* param_3) {
-        char cVar1;
+    // 0x100be96a0
+    void ShaderProgram::SetShaderConstFloat3Array(int arg1, unsigned int arg2, const float* arg3) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (float*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pFloatArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      828, (char*)0);
+                      828, nullptr);
         }
-        if ((-1 < param_1) &&
-            (cVar1 = (&field_376, param_1, param_2, (int*)param_3)->SetShaderConstInt3Array(), cVar1 != '\0')) {
-            AllocateScratchArrayAndCopy<float>(&local_108, param_3, (ulong)(param_2 * 3));
-            this_00 = (RenderDevice*)local_108.Instance();
+        if ((-1 < arg1) && (cVar1 = field_376.SetShaderConstInt3Array(arg1, arg2, arg3), cVar1)) {
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<float>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const ::__22, void>(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, (__22*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                local_d8, (__22*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     }
 
-    // 0x100be97d0, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat2Array(HashedString const&, unsigned int, float const*) const
-    void ShaderProgram::SetShaderConstFloat2Array(HashedString* param_1, uint param_2, float* param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstFloat2Array(this, iVar1, param_2, param_3);
+    // 0x100be97d0
+    void ShaderProgram::SetShaderConstFloat2Array(const HashedString& hashedString, unsigned int arg2,
+                                                  const float* arg3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstFloat2Array(arg1, arg2, arg3);
         }
     }
 
-    // 0x100be9810, 304 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const
-    void ShaderProgram::SetShaderConstFloat2Array(int param_1, uint param_2, float* param_3) {
-        char cVar1;
+    // 0x100be9810
+    void ShaderProgram::SetShaderConstFloat2Array(int arg1, unsigned int arg2, const float* arg3) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (float*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pFloatArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      837, (char*)0);
+                      837, nullptr);
         }
-        if ((-1 < param_1) &&
-            (cVar1 = (&field_376, param_1, param_2, (int*)param_3)->SetShaderConstInt2Array(), cVar1 != '\0')) {
-            AllocateScratchArrayAndCopy<float>(&local_108, param_3, (ulong)(param_2 * 2));
-            this_00 = (RenderDevice*)local_108.Instance();
+        if ((-1 < arg1) && (cVar1 = field_376.SetShaderConstInt2Array(arg1, arg2, arg3), cVar1)) {
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<float>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const ::__23, void>(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, (__23*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                local_d8, (__23*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     }
 
-    // 0x100be9940, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat1Array(HashedString const&, unsigned int, float const*, unsigned int) const
-    void ShaderProgram::SetShaderConstFloat1Array(HashedString* param_1, uint param_2, float* param_3, uint param_4) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstFloat1Array(this, iVar1, param_2, param_3, param_4);
+    // 0x100be9940
+    void ShaderProgram::SetShaderConstFloat1Array(const HashedString& hashedString, unsigned int arg2,
+                                                  const float* arg3, unsigned int arg4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstFloat1Array(arg1, arg2, arg3, arg4);
         }
     }
 
-    // 0x100be9980, 336 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned int) const
-    void ShaderProgram::SetShaderConstFloat1Array(int param_1, uint param_2, float* param_3, uint param_4) {
-        char cVar1;
+    // 0x100be9980
+    void ShaderProgram::SetShaderConstFloat1Array(int arg1, unsigned int arg2, const float* arg3,
+                                                  unsigned int arg4) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (float*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pFloatArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      846, (char*)0);
+                      846, nullptr);
         }
-        if (-1 < param_1) {
-            if ((param_4 & 1) == 0) {
-                if ((param_4 & 2) != 0) {
-                    (&field_376, param_1, param_2)->ClearShaderConst();
+        if (-1 < arg1) {
+            if ((arg4 & 1) == 0) {
+                if ((arg4 & 2) != 0) {
+                    field_376.ClearShaderConst(arg1, arg2);
                 }
             } else {
-                cVar1 = (&field_376, param_1, param_2, (int*)param_3)->SetShaderConstInt1Array();
-                if (cVar1 == '\0')
+                cVar1 = field_376.SetShaderConstInt1Array(arg1, arg2, arg3);
+                if (!cVar1)
                     goto LAB_100be9a8d;
             }
-            AllocateScratchArrayAndCopy<float>(&local_108, param_3, (ulong)param_2);
-            this_00 = (RenderDevice*)local_108.Instance();
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<float>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned int) const ::__24,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__24*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                void>(local_d8, (__24*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     LAB_100be9a8d:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100be9ad0
+    void ShaderProgram::SetShaderConstInt4Array(const HashedString& hashedString, unsigned int arg2,
+                                                const int* arg3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstInt4Array(arg1, arg2, arg3);
         }
     }
 
-    // 0x100be9ad0, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt4Array(HashedString const&, unsigned int, int const*) const
-    void ShaderProgram::SetShaderConstInt4Array(HashedString* param_1, uint param_2, int* param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstInt4Array(this, iVar1, param_2, param_3);
-        }
-    }
-
-    // 0x100be9b10, 304 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*) const
-    void ShaderProgram::SetShaderConstInt4Array(int param_1, uint param_2, int* param_3) {
-        char cVar1;
+    // 0x100be9b10
+    void ShaderProgram::SetShaderConstInt4Array(int arg1, unsigned int arg2, const int* arg3) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (int*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pIntArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      879, (char*)0);
+                      879, nullptr);
         }
-        if ((-1 < param_1) &&
-            (cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstInt4Array(), cVar1 != '\0')) {
-            AllocateScratchArrayAndCopy<int>(&local_108, param_3, (ulong)(param_2 * 4));
-            this_00 = (RenderDevice*)local_108.Instance();
+        if ((-1 < arg1) && (cVar1 = field_376.SetShaderConstInt4Array(arg1, arg2, arg3), cVar1)) {
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<int>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*) const ::__25, void>(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, (__25*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                local_d8, (__25*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     }
 
-    // 0x100be9c40, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt3Array(HashedString const&, unsigned int, int const*) const
-    void ShaderProgram::SetShaderConstInt3Array(HashedString* param_1, uint param_2, int* param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstInt3Array(this, iVar1, param_2, param_3);
+    // 0x100be9c40
+    void ShaderProgram::SetShaderConstInt3Array(const HashedString& hashedString, unsigned int arg2,
+                                                const int* arg3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstInt3Array(arg1, arg2, arg3);
         }
     }
 
-    // 0x100be9c80, 304 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*) const
-    void ShaderProgram::SetShaderConstInt3Array(int param_1, uint param_2, int* param_3) {
-        char cVar1;
+    // 0x100be9c80
+    void ShaderProgram::SetShaderConstInt3Array(int arg1, unsigned int arg2, const int* arg3) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (int*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pIntArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      888, (char*)0);
+                      888, nullptr);
         }
-        if ((-1 < param_1) &&
-            (cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstInt3Array(), cVar1 != '\0')) {
-            AllocateScratchArrayAndCopy<int>(&local_108, param_3, (ulong)(param_2 * 3));
-            this_00 = (RenderDevice*)local_108.Instance();
+        if ((-1 < arg1) && (cVar1 = field_376.SetShaderConstInt3Array(arg1, arg2, arg3), cVar1)) {
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<int>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*) const ::__26, void>(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, (__26*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                local_d8, (__26*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     }
 
-    // 0x100be9db0, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt2Array(HashedString const&, unsigned int, int const*) const
-    void ShaderProgram::SetShaderConstInt2Array(HashedString* param_1, uint param_2, int* param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstInt2Array(this, iVar1, param_2, param_3);
+    // 0x100be9db0
+    void ShaderProgram::SetShaderConstInt2Array(const HashedString& hashedString, unsigned int arg2,
+                                                const int* arg3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstInt2Array(arg1, arg2, arg3);
         }
     }
 
-    // 0x100be9df0, 304 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*) const
-    void ShaderProgram::SetShaderConstInt2Array(int param_1, uint param_2, int* param_3) {
-        char cVar1;
+    // 0x100be9df0
+    void ShaderProgram::SetShaderConstInt2Array(int arg1, unsigned int arg2, const int* arg3) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (int*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pIntArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      897, (char*)0);
+                      897, nullptr);
         }
-        if ((-1 < param_1) &&
-            (cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstInt2Array(), cVar1 != '\0')) {
-            AllocateScratchArrayAndCopy<int>(&local_108, param_3, (ulong)(param_2 * 2));
-            this_00 = (RenderDevice*)local_108.Instance();
+        if ((-1 < arg1) && (cVar1 = field_376.SetShaderConstInt2Array(arg1, arg2, arg3), cVar1)) {
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<int>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*) const ::__27, void>(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, (__27*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                local_d8, (__27*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     }
 
-    // 0x100be9f20, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt1Array(HashedString const&, unsigned int, int const*) const
-    void ShaderProgram::SetShaderConstInt1Array(HashedString* param_1, uint param_2, int* param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstInt1Array(this, iVar1, param_2, param_3);
+    // 0x100be9f20
+    void ShaderProgram::SetShaderConstInt1Array(const HashedString& hashedString, unsigned int arg2,
+                                                const int* arg3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstInt1Array(arg1, arg2, arg3);
         }
     }
 
-    // 0x100be9f60, 304 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*) const
-    void ShaderProgram::SetShaderConstInt1Array(int param_1, uint param_2, int* param_3) {
-        char cVar1;
+    // 0x100be9f60
+    void ShaderProgram::SetShaderConstInt1Array(int arg1, unsigned int arg2, const int* arg3) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (int*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pIntArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      906, (char*)0);
+                      906, nullptr);
         }
-        if ((-1 < param_1) &&
-            (cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstInt1Array(), cVar1 != '\0')) {
-            AllocateScratchArrayAndCopy<int>(&local_108, param_3, (ulong)param_2);
-            this_00 = (RenderDevice*)local_108.Instance();
+        if ((-1 < arg1) && (cVar1 = field_376.SetShaderConstInt1Array(arg1, arg2, arg3), cVar1)) {
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<int>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*) const ::__28, void>(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, (__28*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                local_d8, (__28*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     }
 
-    // 0x100bea090, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUInt1Array(HashedString const&, unsigned int, unsigned int const*, unsigned int) const
-    void ShaderProgram::SetShaderConstUInt1Array(HashedString* param_1, uint param_2, uint* param_3, uint param_4) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstUInt1Array(this, iVar1, param_2, param_3, param_4);
+    // 0x100bea090
+    void ShaderProgram::SetShaderConstUInt1Array(const HashedString& hashedString, unsigned int arg2,
+                                                 const unsigned int* arg3, unsigned int arg4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstUInt1Array(arg1, arg2, arg3, arg4);
         }
     }
 
-    // 0x100bea0d0, 336 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*, unsigned int) const
-    void ShaderProgram::SetShaderConstUInt1Array(int param_1, uint param_2, uint* param_3, uint param_4) {
-        char cVar1;
+    // 0x100bea0d0
+    void ShaderProgram::SetShaderConstUInt1Array(int arg1, unsigned int arg2, const unsigned int* arg3,
+                                                 unsigned int arg4) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        WrapArray<math::Matrix22T<float> const>* this_01;
+        WrapArray<math::Matrix22T<float> const> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (uint*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (arg3 == nullptr)) {
             LogAssert("count >= 1 && pUIntArray",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      916, (char*)0);
+                      916, nullptr);
         }
-        if (-1 < param_1) {
-            if ((param_4 & 1) == 0) {
-                if ((param_4 & 2) != 0) {
-                    (&field_376, param_1, param_2)->ClearShaderConst();
+        if (-1 < arg1) {
+            if ((arg4 & 1) == 0) {
+                if ((arg4 & 2) != 0) {
+                    field_376.ClearShaderConst(arg1, arg2);
                 }
             } else {
-                cVar1 = (&field_376, param_1, param_2, (int*)param_3)->SetShaderConstInt1Array();
-                if (cVar1 == '\0')
+                cVar1 = field_376.SetShaderConstInt1Array(arg1, arg2, arg3);
+                if (!cVar1)
                     goto LAB_100bea1dd;
             }
-            AllocateScratchArrayAndCopy<unsigned int>(&local_108, param_3, (ulong)param_2);
-            this_00 = (RenderDevice*)local_108.Instance();
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<unsigned int>(&local_108, (unsigned long)arg3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*, unsigned int)
                     const ::__29,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__29*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                void>(local_d8, (__29*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     LAB_100bea1dd:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100bea220
+    void ShaderProgram::SetShaderConstVector4(const HashedString& hashedString,
+                                              const math::Vector4T<float>* vector4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstVector4(arg1, vector4);
         }
     }
 
-    // 0x100bea220, 48 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstVector4(HashedString const&, math::Vector4T<float> const*) const
-    void ShaderProgram::SetShaderConstVector4(HashedString* param_1, Vector4T* param_2) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstVector4(this, iVar1, param_2);
-        }
-    }
-
-    // 0x100bea250, 256 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstVector4(int, math::Vector4T<float> const*) const
-    void ShaderProgram::SetShaderConstVector4(int param_1, Vector4T* param_2) {
-        char cVar1;
+    // 0x100bea250
+    void ShaderProgram::SetShaderConstVector4(int arg1, const math::Vector4T<float>* vector4) const {
         RenderDevice* this_00;
         Singleton<RenderDevice>* this_01;
         ShaderProgram* local_f8;
         int local_f0;
-        undefined8 local_e8;
-        undefined8 uStack_e0;
-        function local_d8;
+        uint64_t local_e8;
+        uint64_t uStack_e0;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[168];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (param_2 == (Vector4T*)0) {
-            /* WARNING: Subroutine does not return */
+        if (vector4 == nullptr) {
             LogAssert("pVectors",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      950, (char*)0);
+                      950, nullptr);
         }
-        if (-1 < param_1) {
+        if (-1 < arg1) {
             this_01 = (Singleton<RenderDevice>*)&field_376;
-            cVar1 = this_01->SetShaderConstVector4(param_1, param_2);
-            if (cVar1 != '\0') {
+            if (this_01->SetShaderConstVector4(arg1, vector4)) {
                 this_00 = (RenderDevice*)this_01->Instance();
-                local_e8 = *(undefined8*)param_2;
-                uStack_e0 = *(undefined8*)(param_2 + 8);
+                local_e8 = *(uint64_t*)vector4;
+                uStack_e0 = *(uint64_t*)(vector4 + 8);
                 local_f8 = this;
-                local_f0 = param_1;
+                local_f0 = arg1;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                     ShaderProgram::SetShaderConstVector4(int, math::Vector4T<float> const*) const ::__30, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                    (__30*)&local_f8);
-                this_00->RunOnRenderThread(&local_d8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                    local_d8, (__30*)&local_f8);
+                this_00->RunOnRenderThread(*local_d8);
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100bea350
+    void ShaderProgram::SetShaderConstVector3(const HashedString& hashedString,
+                                              const math::Vector3T<float>* vector3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstVector3(arg1, vector3);
         }
     }
 
-    // 0x100bea350, 48 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstVector3(HashedString const&, math::Vector3T<float> const*) const
-    void ShaderProgram::SetShaderConstVector3(HashedString* param_1, Vector3T* param_2) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstVector3(this, iVar1, param_2);
-        }
-    }
-
-    // 0x100bea380, 272 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstVector3(int, math::Vector3T<float> const*) const
-    void ShaderProgram::SetShaderConstVector3(int param_1, Vector3T* param_2) {
-        char cVar1;
+    // 0x100bea380
+    void ShaderProgram::SetShaderConstVector3(int arg1, const math::Vector3T<float>* vector3) const {
         RenderDevice* this_00;
         Singleton<RenderDevice>* this_01;
         ShaderProgram* local_f0;
         int local_e8;
-        undefined8 local_e4;
-        undefined4 local_dc;
-        function local_d8;
+        uint64_t local_e4;
+        uint32_t local_dc;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[168];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (param_2 == (Vector3T*)0) {
-            /* WARNING: Subroutine does not return */
+        if (vector3 == nullptr) {
             LogAssert("pVectors",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      960, (char*)0);
+                      960, nullptr);
         }
-        if (-1 < param_1) {
+        if (-1 < arg1) {
             this_01 = (Singleton<RenderDevice>*)&field_376;
-            cVar1 = this_01->SetShaderConstVector3(param_1, param_2);
-            if (cVar1 != '\0') {
+            if (this_01->SetShaderConstVector3(arg1, vector3)) {
                 this_00 = (RenderDevice*)this_01->Instance();
-                local_e4 = *(undefined8*)param_2;
-                local_dc = *(undefined4*)(param_2 + 8);
+                local_e4 = *(uint64_t*)vector3;
+                local_dc = *(uint32_t*)(vector3 + 8);
                 local_f0 = this;
-                local_e8 = param_1;
+                local_e8 = arg1;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                     ShaderProgram::SetShaderConstVector3(int, math::Vector3T<float> const*) const ::__31, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                    (__31*)&local_f0);
-                this_00->RunOnRenderThread(&local_d8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                    local_d8, (__31*)&local_f0);
+                this_00->RunOnRenderThread(*local_d8);
             }
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
     }
 
-    // 0x100bea490, 336 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstVector4(int, unsigned int, math::Vector4T<float> const*, unsigned int) const
-    void ShaderProgram::SetShaderConstVector4(int param_1, uint param_2, Vector4T* param_3, uint param_4) {
-        char cVar1;
+    // 0x100bea490
+    void ShaderProgram::SetShaderConstVector4(int arg1, unsigned int arg2, const math::Vector4T<float>* vector4,
+                                              unsigned int arg4) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        Vector4T<float>* this_01;
+        Vector4T<float> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_2 == 0) || (param_3 == (Vector4T*)0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg2 == 0) || (vector4 == nullptr)) {
             LogAssert("count >= 1 && pVectors",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      970, (char*)0);
+                      970, nullptr);
         }
-        if (-1 < param_1) {
-            if ((param_4 & 1) == 0) {
-                if ((param_4 & 2) != 0) {
-                    (&field_376, param_1, param_2)->ClearShaderConst();
+        if (-1 < arg1) {
+            if ((arg4 & 1) == 0) {
+                if ((arg4 & 2) != 0) {
+                    field_376.ClearShaderConst(arg1, arg2);
                 }
             } else {
-                cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstVector4();
-                if (cVar1 == '\0')
+                cVar1 = field_376.SetShaderConstVector4(arg1, arg2, vector4);
+                if (!cVar1)
                     goto LAB_100bea59d;
             }
-            AllocateScratchArrayAndCopy<math::Vector4T<float>>(&local_108, param_3, (ulong)param_2);
-            this_00 = (RenderDevice*)local_108.Instance();
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<math::Vector4T<float>>(&local_108, (unsigned long)vector4);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstVector4(int, unsigned int, math::Vector4T<float> const*, unsigned int)
                     const ::__32,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__32*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                void>(local_d8, (__32*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     LAB_100bea59d:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100bea5e0
+    void ShaderProgram::SetShaderConstVector3(const HashedString& hashedString, unsigned int arg2,
+                                              const math::Vector3T<float>* vector3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstVector3(arg1, arg2, vector3);
         }
     }
 
-    // 0x100bea5e0, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstVector3(HashedString const&, unsigned int, math::Vector3T<float> const*) const
-    void ShaderProgram::SetShaderConstVector3(HashedString* param_1, uint param_2, Vector3T* param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstVector3(this, iVar1, param_2, param_3);
-        }
-    }
-
-    // 0x100bea620, 304 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstVector3(int, unsigned int, math::Vector3T<float> const*) const
-    void ShaderProgram::SetShaderConstVector3(int param_1, uint param_2, Vector3T* param_3) {
-        char cVar1;
+    // 0x100bea620
+    void ShaderProgram::SetShaderConstVector3(int arg1, unsigned int arg2, const math::Vector3T<float>* vector3) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        Vector3T<float>* this_01;
+        Vector3T<float> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_3 == (Vector3T*)0) || (param_2 == 0)) {
-            /* WARNING: Subroutine does not return */
+        if ((vector3 == nullptr) || (arg2 == 0)) {
             LogAssert("pVectors && count >= 1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1003, (char*)0);
+                      1003, nullptr);
         }
-        if ((-1 < param_1) &&
-            (cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstVector3(), cVar1 != '\0')) {
-            AllocateScratchArrayAndCopy<math::Vector3T<float>>(&local_108, param_3, (ulong)param_2);
-            this_00 = (RenderDevice*)local_108.Instance();
+        if ((-1 < arg1) && (cVar1 = field_376.SetShaderConstVector3(arg1, arg2, vector3), cVar1)) {
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<math::Vector3T<float>>(&local_108, (unsigned long)vector3);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstVector3(int, unsigned int, math::Vector3T<float> const*) const ::__33,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__33*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                void>(local_d8, (__33*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     }
 
-    // 0x100bea750, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstVector2(HashedString const&, unsigned int, math::Vector2T<float> const*) const
-    void ShaderProgram::SetShaderConstVector2(HashedString* param_1, uint param_2, Vector2T* param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstVector2(this, iVar1, param_2, param_3);
+    // 0x100bea750
+    void ShaderProgram::SetShaderConstVector2(const HashedString& hashedString, unsigned int arg2,
+                                              const math::Vector2T<float>* vector2) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstVector2(arg1, arg2, vector2);
         }
     }
 
-    // 0x100bea790, 304 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstVector2(int, unsigned int, math::Vector2T<float> const*) const
-    void ShaderProgram::SetShaderConstVector2(int param_1, uint param_2, Vector2T* param_3) {
-        char cVar1;
+    // 0x100bea790
+    void ShaderProgram::SetShaderConstVector2(int arg1, unsigned int arg2, const math::Vector2T<float>* vector2) const {
+        bool cVar1;
         RenderDevice* this_00;
-        render local_108;
+        Vector2T<float>* this_01;
+        Vector2T<float> local_108;
         ShaderProgram* local_f8;
         int local_f0;
-        uint local_ec;
-        WrapArray<math::Matrix44T<float> const> local_e8[16];
-        function local_d8;
+        unsigned int local_ec;
+        WrapArray<math::Matrix44T<float> const> local_e8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((param_3 == (Vector2T*)0) || (param_2 == 0)) {
-            /* WARNING: Subroutine does not return */
+        if ((vector2 == nullptr) || (arg2 == 0)) {
             LogAssert("pVectors && count >= 1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1012, (char*)0);
+                      1012, nullptr);
         }
-        if ((-1 < param_1) &&
-            (cVar1 = (&field_376, param_1, param_2, param_3)->SetShaderConstVector2(), cVar1 != '\0')) {
-            AllocateScratchArrayAndCopy<math::Vector2T<float>>(&local_108, param_3, (ulong)param_2);
-            this_00 = (RenderDevice*)local_108.Instance();
+        if ((-1 < arg1) && (cVar1 = field_376.SetShaderConstVector2(arg1, arg2, vector2), cVar1)) {
+            this_01 = &local_108;
+            AllocateScratchArrayAndCopy<math::Vector2T<float>>(&local_108, (unsigned long)vector2);
+            this_00 = (RenderDevice*)this_01->Instance();
             local_f8 = this;
-            local_f0 = param_1;
-            local_ec = param_2;
-            WrapArray<math::Matrix44T<float> const>::WrapArray(local_e8, (WrapArray*)&local_108);
+            local_f0 = arg1;
+            local_ec = arg2;
+            local_e8 = WrapArray(local_108);
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 ShaderProgram::SetShaderConstVector2(int, unsigned int, math::Vector2T<float> const*) const ::__34,
-                void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                      (__34*)&local_f8);
-            this_00->RunOnRenderThread(&local_d8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                void>(local_d8, (__34*)&local_f8);
+            this_00->RunOnRenderThread(*local_d8);
         }
     }
 
-    // 0x100bea8c0, 32 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstVector2(HashedString const&, math::Vector2T<float> const*) const
-    void ShaderProgram::SetShaderConstVector2(HashedString* param_1, Vector2T* param_2) {
-        SetShaderConstVector2(this, param_1, 1, param_2);
+    // 0x100bea8c0
+    void ShaderProgram::SetShaderConstVector2(const HashedString& hashedString,
+                                              const math::Vector2T<float>* vector2) const {
+        SetShaderConstVector2(hashedString, 1, vector2);
     }
 
-    // 0x100bea8e0, 80 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat4(HashedString const&, float, float, float, float) const
-    void ShaderProgram::SetShaderConstFloat4(HashedString* param_1, float param_2, float param_3, float param_4,
-                                             float param_5) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstFloat4(this, iVar1, param_2, param_3, param_4, param_5);
+    // 0x100bea8e0
+    void ShaderProgram::SetShaderConstFloat4(const HashedString& hashedString, float arg2, float arg3, float arg4,
+                                             float arg5) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstFloat4(arg1, arg2, arg3, arg4, arg5);
         }
     }
 
-    // 0x100bea930, 304 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat4(int, float, float, float, float) const
-    void ShaderProgram::SetShaderConstFloat4(int param_1, float param_2, float param_3, float param_4, float param_5) {
-        char cVar1;
+    // 0x100bea930
+    void ShaderProgram::SetShaderConstFloat4(int arg1, float arg2, float arg3, float arg4, float arg5) const {
         RenderDevice* this_00;
         Singleton<RenderDevice>* this_01;
         ShaderProgram* local_f8;
@@ -1283,51 +1053,46 @@ namespace jag::render {
         float local_e8;
         float local_e4;
         float local_e0;
-        function local_c8;
+        float local_d8;
+        float local_d4;
+        float local_d0;
+        float local_cc;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[160];
         long local_28;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (-1 < param_1) {
+        if (-1 < arg1) {
             this_01 = (Singleton<RenderDevice>*)&field_376;
-            cVar1 = this_01->SetShaderConstFloat4(param_1, param_2, param_3, param_4, param_5);
-            if (cVar1 != '\0') {
+            local_d8 = arg3;
+            local_d4 = arg2;
+            local_d0 = arg5;
+            local_cc = arg4;
+            if (this_01->SetShaderConstFloat4(arg1, arg2, arg3, arg4, arg5)) {
                 this_00 = (RenderDevice*)this_01->Instance();
-                local_ec = param_2;
-                local_e8 = param_3;
-                local_e4 = param_4;
-                local_e0 = param_5;
+                local_ec = local_d4;
+                local_e8 = local_d8;
+                local_e4 = local_cc;
+                local_e0 = local_d0;
                 local_f8 = this;
-                local_f0 = param_1;
+                local_f0 = arg1;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                     ShaderProgram::SetShaderConstFloat4(int, float, float, float, float) const ::__35, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8,
-                    (__35*)&local_f8);
-                this_00->RunOnRenderThread(&local_c8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
+                    local_c8, (__35*)&local_f8);
+                this_00->RunOnRenderThread(*local_c8);
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100beaa60
+    void ShaderProgram::SetShaderConstFloat3(const HashedString& hashedString, float arg2, float arg3,
+                                             float arg4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstFloat3(arg1, arg2, arg3, arg4);
         }
     }
 
-    // 0x100beaa60, 80 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat3(HashedString const&, float, float, float) const
-    void ShaderProgram::SetShaderConstFloat3(HashedString* param_1, float param_2, float param_3, float param_4) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstFloat3(this, iVar1, param_2, param_3, param_4);
-        }
-    }
-
-    // 0x100beaab0, 272 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat3(int, float, float, float) const
-    void ShaderProgram::SetShaderConstFloat3(int param_1, float param_2, float param_3, float param_4) {
-        char cVar1;
+    // 0x100beaab0
+    void ShaderProgram::SetShaderConstFloat3(int arg1, float arg2, float arg3, float arg4) const {
         RenderDevice* this_00;
         Singleton<RenderDevice>* this_01;
         ShaderProgram* local_f0;
@@ -1335,146 +1100,118 @@ namespace jag::render {
         float local_e4;
         float local_e0;
         float local_dc;
-        function local_c8;
+        float local_d4;
+        float local_d0;
+        float local_cc;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[160];
         long local_28;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (-1 < param_1) {
+        if (-1 < arg1) {
             this_01 = (Singleton<RenderDevice>*)&field_376;
-            cVar1 = this_01->SetShaderConstFloat3(param_1, param_2, param_3, param_4);
-            if (cVar1 != '\0') {
+            local_d4 = arg2;
+            local_d0 = arg4;
+            local_cc = arg3;
+            if (this_01->SetShaderConstFloat3(arg1, arg2, arg3, arg4)) {
                 this_00 = (RenderDevice*)this_01->Instance();
-                local_e4 = param_2;
-                local_e0 = param_3;
-                local_dc = param_4;
+                local_e4 = local_d4;
+                local_e0 = local_cc;
+                local_dc = local_d0;
                 local_f0 = this;
-                local_e8 = param_1;
+                local_e8 = arg1;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                    ShaderProgram::SetShaderConstFloat3(int, float, float, float) const ::__36, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8,
-                    (__36*)&local_f0);
-                this_00->RunOnRenderThread(&local_c8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
+                    ShaderProgram::SetShaderConstFloat3(int, float, float, float) const ::__36, void>(local_c8,
+                                                                                                      (__36*)&local_f0);
+                this_00->RunOnRenderThread(*local_c8);
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100beabc0
+    void ShaderProgram::SetShaderConstFloat2(const HashedString& hashedString, float arg2, float arg3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstFloat2(arg1, arg2, arg3);
         }
     }
 
-    // 0x100beabc0, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat2(HashedString const&, float, float) const
-    void ShaderProgram::SetShaderConstFloat2(HashedString* param_1, float param_2, float param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstFloat2(this, iVar1, param_2, param_3);
-        }
-    }
-
-    // 0x100beac00, 240 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat2(int, float, float) const
-    void ShaderProgram::SetShaderConstFloat2(int param_1, float param_2, float param_3) {
-        char cVar1;
+    // 0x100beac00
+    void ShaderProgram::SetShaderConstFloat2(int arg1, float arg2, float arg3) const {
         RenderDevice* this_00;
         Singleton<RenderDevice>* this_01;
         ShaderProgram* local_e8;
         int local_e0;
         float local_dc;
         float local_d8;
-        function local_c8;
+        float local_d0;
+        float local_cc;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[160];
         long local_28;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (-1 < param_1) {
+        if (-1 < arg1) {
             this_01 = (Singleton<RenderDevice>*)&field_376;
-            cVar1 = this_01->SetShaderConstFloat2(param_1, param_2, param_3);
-            if (cVar1 != '\0') {
+            local_d0 = arg2;
+            local_cc = arg3;
+            if (this_01->SetShaderConstFloat2(arg1, arg2, arg3)) {
                 this_00 = (RenderDevice*)this_01->Instance();
-                local_dc = param_2;
-                local_d8 = param_3;
+                local_dc = local_d0;
+                local_d8 = local_cc;
                 local_e8 = this;
-                local_e0 = param_1;
+                local_e0 = arg1;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                    ShaderProgram::SetShaderConstFloat2(int, float, float) const ::__37, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8,
-                    (__37*)&local_e8);
-                this_00->RunOnRenderThread(&local_c8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
+                    ShaderProgram::SetShaderConstFloat2(int, float, float) const ::__37, void>(local_c8,
+                                                                                               (__37*)&local_e8);
+                this_00->RunOnRenderThread(*local_c8);
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100beacf0
+    void ShaderProgram::SetShaderConstFloat1(const HashedString& hashedString, float arg2) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstFloat1(arg1, arg2);
         }
     }
 
-    // 0x100beacf0, 48 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat1(HashedString const&, float) const
-    void ShaderProgram::SetShaderConstFloat1(HashedString* param_1, float param_2) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstFloat1(this, iVar1, param_2);
-        }
-    }
-
-    // 0x100bead20, 224 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat1(int, float) const
-    void ShaderProgram::SetShaderConstFloat1(int param_1, float param_2) {
-        char cVar1;
+    // 0x100bead20
+    void ShaderProgram::SetShaderConstFloat1(int arg1, float arg2) const {
         RenderDevice* this_00;
         Singleton<RenderDevice>* this_01;
         ShaderProgram* local_e0;
         int local_d8;
         float local_d4;
-        function local_c8;
+        float local_cc;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[160];
         long local_28;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (-1 < param_1) {
+        if (-1 < arg1) {
             this_01 = (Singleton<RenderDevice>*)&field_376;
-            cVar1 = this_01->SetShaderConstFloat1(param_1, param_2);
-            if (cVar1 != '\0') {
+            local_cc = arg2;
+            if (this_01->SetShaderConstFloat1(arg1, arg2)) {
                 this_00 = (RenderDevice*)this_01->Instance();
-                local_d4 = param_2;
+                local_d4 = local_cc;
                 local_e0 = this;
-                local_d8 = param_1;
+                local_d8 = arg1;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                    ShaderProgram::SetShaderConstFloat1(int, float) const ::__38, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8,
-                    (__38*)&local_e0);
-                this_00->RunOnRenderThread(&local_c8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
+                    ShaderProgram::SetShaderConstFloat1(int, float) const ::__38, void>(local_c8, (__38*)&local_e0);
+                this_00->RunOnRenderThread(*local_c8);
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100beae00
+    void ShaderProgram::SetShaderConstInt4(const HashedString& hashedString, int arg2, int arg3, int arg4,
+                                           int arg5) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstInt4(arg1, arg2, arg3, arg4, arg5);
         }
     }
 
-    // 0x100beae00, 80 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt4(HashedString const&, int, int, int, int) const
-    void ShaderProgram::SetShaderConstInt4(HashedString* param_1, int param_2, int param_3, int param_4, int param_5) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstInt4(this, iVar1, param_2, param_3, param_4, param_5);
-        }
-    }
-
-    // 0x100beae50, 272 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt4(int, int, int, int, int) const
-    void ShaderProgram::SetShaderConstInt4(int param_1, int param_2, int param_3, int param_4, int param_5) {
-        char cVar2;
+    // 0x100beae50
+    void ShaderProgram::SetShaderConstInt4(int arg1, int arg2, int arg3, int arg4, int arg5) const {
+        ShaderProgram* pSVar1;
+        bool cVar2;
         Singleton<RenderDevice>* this_00;
         ShaderProgram* local_110;
         int local_108;
@@ -1483,51 +1220,43 @@ namespace jag::render {
         int local_fc;
         int local_f8;
         RenderDevice* local_f0;
-        function local_d8;
+        ShaderProgram* local_e8;
+        int local_dc;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (-1 < param_1) {
+        if (-1 < arg1) {
             this_00 = (Singleton<RenderDevice>*)&field_376;
-            cVar2 = this_00->SetShaderConstInt4(param_1, param_2, param_3, param_4, param_5);
-            if (cVar2 != '\0') {
+            local_e8 = this;
+            cVar2 = this_00->SetShaderConstInt4(arg1, arg2, arg3, arg4, arg5);
+            pSVar1 = local_e8;
+            if (cVar2) {
+                local_dc = arg5;
                 local_f0 = (RenderDevice*)this_00->Instance();
-                local_110 = (ShaderProgram*)this;
-                local_f8 = param_5;
-                local_108 = param_1;
-                local_104 = param_2;
-                local_100 = param_3;
-                local_fc = param_4;
+                local_110 = pSVar1;
+                local_f8 = local_dc;
+                local_108 = arg1;
+                local_104 = arg2;
+                local_100 = arg3;
+                local_fc = arg4;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                    ShaderProgram::SetShaderConstInt4(int, int, int, int, int) const ::__39, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                    (__39*)&local_110);
-                local_f0->RunOnRenderThread(&local_d8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                    ShaderProgram::SetShaderConstInt4(int, int, int, int, int) const ::__39, void>(local_d8,
+                                                                                                   (__39*)&local_110);
+                local_f0->RunOnRenderThread(*local_d8);
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100beaf60
+    void ShaderProgram::SetShaderConstInt3(const HashedString& hashedString, int arg2, int arg3, int arg4) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstInt3(arg1, arg2, arg3, arg4);
         }
     }
 
-    // 0x100beaf60, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt3(HashedString const&, int, int, int) const
-    void ShaderProgram::SetShaderConstInt3(HashedString* param_1, int param_2, int param_3, int param_4) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstInt3(this, iVar1, param_2, param_3, param_4);
-        }
-    }
-
-    // 0x100beafa0, 240 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt3(int, int, int, int) const
-    void ShaderProgram::SetShaderConstInt3(int param_1, int param_2, int param_3, int param_4) {
-        char cVar1;
+    // 0x100beafa0
+    void ShaderProgram::SetShaderConstInt3(int arg1, int arg2, int arg3, int arg4) const {
         Singleton<RenderDevice>* this_00;
         ShaderProgram* local_f8;
         int local_f0;
@@ -1535,675 +1264,529 @@ namespace jag::render {
         int local_e8;
         int local_e4;
         RenderDevice* local_e0;
-        function local_d8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (-1 < param_1) {
+        if (-1 < arg1) {
             this_00 = (Singleton<RenderDevice>*)&field_376;
-            cVar1 = this_00->SetShaderConstInt3(param_1, param_2, param_3, param_4);
-            if (cVar1 != '\0') {
+            if (this_00->SetShaderConstInt3(arg1, arg2, arg3, arg4)) {
                 local_e0 = (RenderDevice*)this_00->Instance();
                 local_f8 = this;
-                local_f0 = param_1;
-                local_ec = param_2;
-                local_e8 = param_3;
-                local_e4 = param_4;
+                local_f0 = arg1;
+                local_ec = arg2;
+                local_e8 = arg3;
+                local_e4 = arg4;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                    ShaderProgram::SetShaderConstInt3(int, int, int, int) const ::__40, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                    (__40*)&local_f8);
-                local_e0->RunOnRenderThread(&local_d8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                    ShaderProgram::SetShaderConstInt3(int, int, int, int) const ::__40, void>(local_d8,
+                                                                                              (__40*)&local_f8);
+                local_e0->RunOnRenderThread(*local_d8);
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100beb090
+    void ShaderProgram::SetShaderConstInt2(const HashedString& hashedString, int arg2, int arg3) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstInt2(arg1, arg2, arg3);
         }
     }
 
-    // 0x100beb090, 64 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt2(HashedString const&, int, int) const
-    void ShaderProgram::SetShaderConstInt2(HashedString* param_1, int param_2, int param_3) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstInt2(this, iVar1, param_2, param_3);
-        }
-    }
-
-    // 0x100beb0d0, 208 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt2(int, int, int) const
-    void ShaderProgram::SetShaderConstInt2(int param_1, int param_2, int param_3) {
-        char cVar1;
+    // 0x100beb0d0
+    void ShaderProgram::SetShaderConstInt2(int arg1, int arg2, int arg3) const {
         RenderDevice* this_00;
         Singleton<RenderDevice>* this_01;
         ShaderProgram* local_f0;
         int local_e8;
         int local_e4;
         int local_e0;
-        function local_d8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (-1 < param_1) {
+        if (-1 < arg1) {
             this_01 = (Singleton<RenderDevice>*)&field_376;
-            cVar1 = this_01->SetShaderConstInt2(param_1, param_2, param_3);
-            if (cVar1 != '\0') {
+            if (this_01->SetShaderConstInt2(arg1, arg2, arg3)) {
                 this_00 = (RenderDevice*)this_01->Instance();
                 local_f0 = this;
-                local_e8 = param_1;
-                local_e4 = param_2;
-                local_e0 = param_3;
+                local_e8 = arg1;
+                local_e4 = arg2;
+                local_e0 = arg3;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                    ShaderProgram::SetShaderConstInt2(int, int, int) const ::__41, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                    (__41*)&local_f0);
-                this_00->RunOnRenderThread(&local_d8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                    ShaderProgram::SetShaderConstInt2(int, int, int) const ::__41, void>(local_d8, (__41*)&local_f0);
+                this_00->RunOnRenderThread(*local_d8);
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+    }
+
+    // 0x100beb1a0
+    void ShaderProgram::SetShaderConstInt1(const HashedString& hashedString, int arg2) const {
+        int arg1 = GetUniformLocationIndex(hashedString);
+        if (-1 < arg1) {
+            SetShaderConstInt1(arg1, arg2);
         }
     }
 
-    // 0x100beb1a0, 48 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt1(HashedString const&, int) const
-    void ShaderProgram::SetShaderConstInt1(HashedString* param_1, int param_2) {
-        int iVar1;
-
-        iVar1 = GetUniformLocationIndex(this, param_1);
-        if (-1 < iVar1) {
-            SetShaderConstInt1(this, iVar1, param_2);
-        }
-    }
-
-    // 0x100beb1d0, 320 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt1(int, int) const
-    void ShaderProgram::SetShaderConstInt1(int param_1, int param_2) {
-        char cVar2;
+    // 0x100beb1d0
+    void ShaderProgram::SetShaderConstInt1(int arg1, int arg2) const {
         RenderDevice* this_00;
-        hashtable_iterator_base* extraout_RDX;
         Singleton<RenderDevice>* this_01;
-        ShaderProgram* local_f0;
-        uint local_e8;
+        ReturnValue local_f0;
+        unsigned int local_e8;
         int local_e4;
-        function local_d8;
-        long local_38;
+        ReturnValue local_d8;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (-1 < param_1) {
-            eastl::hashtable<int, eastl::pair<int const, int>, BucketAllocatorEASTL,
-                             eastl::use_first<eastl::pair<int const, int>>, eastl::equal_to<int>, eastl::hash<int>,
-                             eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false,
-                             true, true>::find((int*)&local_d8);
-            eastl::hashtable<int, eastl::pair<int const, oldscape::highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, oldscape::highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            if (!eastl::operator==((eastl*)&local_d8, (hashtable_iterator_base*)&local_f0, extraout_RDX)) {
-                /* WARNING: Subroutine does not return */
+        if (-1 < arg1) {
+            local_d8 = field_496.find((unsigned int)arg1);
+            local_f0 = field_496.end();
+            if (!(local_d8 == local_f0)) {
                 LogAssert("index < 0 || m_samplerStateCache.find(index) == m_samplerStateCache.end()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          1096, (char*)0);
+                          1096, nullptr);
             }
         }
-        if (-1 < (int)(uint)param_1) {
+        if (-1 < (int)(unsigned int)arg1) {
             this_01 = (Singleton<RenderDevice>*)&field_376;
-            cVar2 = this_01->SetShaderConstInt1((uint)param_1, param_2);
-            if (cVar2 != '\0') {
+            if (this_01->SetShaderConstInt1((unsigned int)arg1, arg2)) {
                 this_00 = (RenderDevice*)this_01->Instance();
-                local_e8 = (uint)param_1;
-                local_f0 = this;
-                local_e4 = param_2;
+                local_e8 = (unsigned int)arg1;
+                local_f0 = (ReturnValue)this;
+                local_e4 = arg2;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                     ShaderProgram::SetShaderConstInt1(int, int) const ::__42, void>(
                     (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
                     (__42*)&local_f0);
-                this_00->RunOnRenderThread(&local_d8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                this_00->RunOnRenderThread(local_d8);
             }
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
     }
 
-    // 0x100beb6f0, 176 bytes, placed by __FILE__ string
-    // ShaderProgram::WaitForAsyncCompile() const
-    void ShaderProgram::WaitForAsyncCompile() {
-        byte bVar1;
-        char cVar2;
-        long lVar3;
-        RenderDevice* this_00;
-        undefined1* this_01;
+    // 0x100beb6f0
+    void ShaderProgram::WaitForAsyncCompile() const {
+        uint8_t bVar1;
+        uint8_t* this_00;
+        memory_order in_ESI;
 
-        lVar3 = Singleton<RenderDevice>::InstancePtr();
-        if (lVar3 != 0) {
-            this_00 = (RenderDevice*)((ShaderProgram*)this)->Instance();
-            lVar3 = this_00->GetCurrentThreadRenderContext();
-            if (lVar3 != 0) {
+        auto pRVar3 = InstancePtr();
+        if (pRVar3 != nullptr) {
+            pRVar3 = (RenderDevice*)Instance();
+            if (pRVar3->GetCurrentThreadRenderContext() != nullptr) {
                 if ((m_compileFlags & 1) != 0) {
-                    bVar1 = std::__atomic_base<ShaderProgramLinkState, false>::load(&field_369);
+                    bVar1 = field_369.load(in_ESI);
                     if ((6 < bVar1) || ((97U >> (bVar1 & 31) & 1) == 0)) {
-                        cVar2 = (&field_1840)->valid();
-                        if (cVar2 != '\0') {
-                            std::future<void>::wait();
+                        if (field_1840.valid()) {
+                            field_1840.wait();
                         }
                     }
                 }
-                this_01 = &field_1848;
-                cVar2 = this_01->IsCreated();
-                if (cVar2 != '\0') {
-                    this_01->WaitServer();
-                    this_01->Destroy();
+                this_00 = &field_1848;
+                if (this_00->IsCreated()) {
+                    this_00->WaitServer();
+                    this_00->Destroy();
                 }
                 return;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("RenderDevice::InstancePtr() && RenderDevice::Instance().GetCurrentThreadRenderContext()",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                   "ShaderProgram_OGL.cpp",
-                  1382, (char*)0);
+                  1382, nullptr);
     }
 
-    // 0x100bee420, 784 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::ShaderProgram(char const*)
-    void ShaderProgram::ShaderProgram(char* param_1) {
-        allocator local_48[8];
-        equal_to local_40[16];
+    // 0x100bee420
+    ShaderProgram::ShaderProgram(const char* str) : RenderDeviceOnEndFrame(false) {
+        equal_to<unsigned long> local_40;
 
-        new (&field_12) RenderResource();
-        new (this) RenderDeviceOnEndFrame(false);
-        field_0 = &PTR__ShaderProgram_100f28258;
-        new (&field_24) VertexDeclaration();
-        new (&m_vertexShaderSource) ShaderSource();
-        new (field_160, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&m_pixelShaderSource) ShaderSource();
-        new (field_216, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (&field_160) shared_ptr();
+        new (m_pixelShaderSource) ShaderSource();
+        new (&field_216) shared_ptr();
         new (&field_232) ShaderSource();
-        new (field_272, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_288) eastl::vector<unsigned char, eastl::allocator>();
+        new (&field_272) shared_ptr();
+        new (&field_288) eastl::vector<unsigned char>();
         field_320 = 0;
-        *(undefined3*)&field_321 = 0;
+        *(uint32_t*)&field_321 = 0;
         field_324 = 0;
-        *(undefined3*)&field_325 = 0;
+        *(uint32_t*)&field_325 = 0;
         field_328 = 0;
         m_lastUsedTimeSeconds = 0.0;
-        eastl::allocator::allocator(local_48, "EASTL basic_string");
-        new (&field_336, param_1, local_48) eastl::string();
+        new (&field_336) eastl::string(str);
         m_compileFlags = '\0';
-        new (&field_369) std::atomic<ShaderProgramLinkState>();
+        new (&field_369) std::atomic<ShaderProgramLinkState>((ShaderProgramLinkState)str);
         new (&field_376) ShaderProgramStateCache();
-        eastl::allocator::allocator(local_48, "EASTL hash_map");
-        new (&field_496, local_48)
-            eastl::hash_map<int, int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>();
-        new (&field_552, (hash*)local_48, local_40)
-            eastl::fixed_hash_map<unsigned long, int, 32ul, 33ul, true, eastl::hash<unsigned long>,
-                                  eastl::equal_to<unsigned long>, false, eastl::allocator>();
-        new (&field_1728) eastl::vector_map<unsigned long, int, eastl::less<unsigned long>, eastl::allocator,
-                                            eastl::vector<eastl::pair<unsigned long, int>, eastl::allocator>>();
+        new (&field_496) eastl::hash_map(local_48);
+        new (&field_552) eastl::fixed_hash_map<unsigned long, int, 32ul, 33ul, true, eastl::hash<unsigned long>,
+                                               eastl::equal_to<unsigned long>, false>(local_48, local_40);
+        new (&field_1728) eastl::vector_map<unsigned long, int>();
         new (&field_1768) std::mutex();
         m_nativeShaderProgram = 0;
         field_1836 = 0;
         new (&field_1840) std::future<void>();
         new (&field_1848) SyncFence();
-        (&field_1728, 16)->reserve();
-        (&field_24, 3)->DisableMarkAsDead();
+        field_1728.reserve(16);
+        field_24.DisableMarkAsDead(3);
     }
 
-    // 0x100bee7f0, 464 bytes, base-object destructor, placed by class name and neighbouring functions
-    // ShaderProgram::~ShaderProgram()
-    void ShaderProgram::~ShaderProgram() {
-        field_0 = &PTR__ShaderProgram_100f28258;
-        Destroy(this);
-        (&field_1848)->~SyncFence();
+    // 0x100bee7f0
+    ShaderProgram::~ShaderProgram() {
+        Destroy();
+        field_1848.~SyncFence();
         (&field_1840)->~future();
         (&field_1768)->~mutex();
-        (&field_1728)->~vector_map();
-        (&field_552)->~fixed_hash_map();
-        (&field_496)->~hash_map();
-        (&field_376)->~ShaderProgramStateCache();
-        (&field_336)->~basic_string();
-        (&field_288)->~vector();
-        field_272->~shared_ptr();
-        (&field_232)->~hash_node();
-        field_216->~shared_ptr();
-        (&m_pixelShaderSource)->~hash_node();
-        field_160->~shared_ptr();
-        (&m_vertexShaderSource)->~hash_node();
-        (&field_24)->~VertexDeclaration();
-        ~RenderDeviceOnEndFrame();
-        (&field_12)->~RenderResource();
+        field_552.~fixed_hash_map();
+        field_496.~hash_map();
+        field_376.~ShaderProgramStateCache();
+        field_336.~basic_string();
+        field_288.~vector();
+        field_272.~shared_ptr();
+        field_232.~hash_node();
+        field_216.~shared_ptr();
+        m_pixelShaderSource->~hash_node();
+        field_160.~shared_ptr();
+        m_vertexShaderSource->~hash_node();
+        field_24.~VertexDeclaration();
+        field_12.~RenderResource();
     }
 
-    // 0x100bee9c0, 32 bytes, deleting destructor, placed by class name and neighbouring functions
-    // ShaderProgram::~ShaderProgram()
-    void ShaderProgram::~ShaderProgram() {
-        ~ShaderProgram(this);
-        operator_delete(this);
-    }
-
-    // 0x100beea20, 192 bytes, placed by __FILE__ string
-    // ShaderProgram::CreateFromSourceString()
-    undefined8 ShaderProgram::CreateFromSourceString() {
-        char cVar1;
-        undefined8 uVar2;
+    // 0x100beea20
+    uint64_t ShaderProgram::CreateFromSourceString() {
+        uint64_t uVar2;
         Layout* this_00;
-        vector* pvVar3;
-        type* ptVar4;
-        undefined1 local_28[8];
+        char* str;
+        ReturnValue local_28;
         __16 local_20;
 
-        cVar1 = (&field_369)->operator_cast_to_ShaderProgramLinkState();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+        if ((&field_369)->operator_cast_to_ShaderProgramLinkState() != '\0') {
             LogAssert("m_linkState == ShaderProgramLinkState::UNINITIALISED",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      132, (char*)0);
+                      132, nullptr);
         }
-        ptVar4 = (type*)&DAT_00000001;
-        std::atomic<ShaderProgramLinkState>::operator=((atomic<ShaderProgramLinkState>*)&field_369);
-        (&field_12)->UndoMarkAsDead();
+        field_369 = 1;
+        field_12.UndoMarkAsDead();
         if ((m_compileFlags & 1) == 0) {
-            uVar2 = CreateFromSourceStringInternal(this);
+            uVar2 = CreateFromSourceStringInternal();
         } else {
             RegisterOnEndFrame();
-            this_00 = (Layout*)((ShaderProgram*)this)->Instance();
-            pvVar3 = eastl::string::Layout::SSOBeginPtr(this_00, ptVar4);
+            this_00 = (Layout*)Instance();
+            str = (char*)this_00->SSOBeginPtr();
             local_20.field_0 = this;
-            ThreadPool::AddTask<ShaderProgram::CreateFromSourceString()::__16>((ThreadPool*)local_28, (char*)pvVar3,
-                                                                               &local_20);
-            std::future<void>::operator=((future<void>*)&field_1840, (future*)local_28);
-            local_28->~future();
+            ThreadPool::AddTask<ShaderProgram::CreateFromSourceString()::__16>(&local_28, str, &local_20);
+            field_1840 = local_28;
             uVar2 = 1;
         }
         return uVar2;
     }
 
-    // 0x100beeae0, 112 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::CreateFromSourceString(char const*, char const*, VertexDeclaration const*, unsigned char)
-    void ShaderProgram::CreateFromSourceString(char* param_1, char* param_2, VertexDeclaration* param_3,
-                                               uchar param_4) {
-        Array<VertexElementDesc, eastl::allocator>* this_00;
-        VertexElementDesc* pVVar1;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01;
-        uint uVar2;
+    // 0x100beeae0
+    void ShaderProgram::CreateFromSourceString(const char* str1, const char* str2,
+                                               const VertexDeclaration* vertexDeclaration, unsigned char arg4) {
+        VertexElementDesc* vertexElementDesc;
 
-        this_00 = (Array<VertexElementDesc, eastl::allocator>*)param_3->second();
-        pVVar1 = (VertexElementDesc*)Array<VertexElementDesc, eastl::allocator>::operator[](this_00, 0);
-        this_01 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)param_3->second();
-        uVar2 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_01);
-        CreateFromSourceString(this, param_1, param_2, pVVar1, uVar2, param_4);
+        auto this_00 = vertexDeclaration->second();
+        vertexElementDesc = (VertexElementDesc*)(*this_00)[0];
+        unsigned int arg4_00 =
+            ((vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)vertexDeclaration->second())->end();
+        CreateFromSourceString(str1, str2, vertexElementDesc, arg4_00, arg4);
     }
 
-    // 0x100beeb50, 32 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::RebuildFromInternalSource()
+    // 0x100beeb50
     void ShaderProgram::RebuildFromInternalSource() {
         if (field_1836 == 0) {
-            CreateFromSourceString(this);
+            CreateFromSourceString();
             return;
         }
-        CreateFromBinary(this);
+        CreateFromBinary();
     }
 
-    // 0x100beeb70, 752 bytes, placed by __FILE__ string
-    // ShaderProgram::CreateFromBinary()
-    undefined4 ShaderProgram::CreateFromBinary() {
-        undefined1* puVar1;
-        undefined1* this_00;
+    // 0x100beeb70
+    uint32_t ShaderProgram::CreateFromBinary() {
         int iVar2;
-        code* pcVar3;
-        char cVar4;
-        uint uVar5;
-        undefined4 uVar6;
-        ShaderSource* pSVar7;
-        vector* this_01;
-        undefined8 uVar9;
-        Array<game::VarValue, eastl::allocator>* this_02;
-        Array<VertexElementDesc, eastl::allocator>* this_03;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_04;
-        char* pcVar10;
-        char* pcVar11;
-        char* pcVar12;
-        Singleton<ShaderManager<VertexShader>>* this_06;
-        shared_ptr local_48;
-        AutoSingleton<ShaderThreadPoolSingleton> local_38[8];
+        uint8_t bVar5;
+        uint32_t uVar7;
+        ShaderManager<PixelShader>* this_02;
+        uint64_t uVar10;
+        Array<VertexElementDesc>* this_04;
+        VertexElementDesc* vertexElementDesc;
+        char* str1;
+        char* str2;
+        char* str3;
+        Logger* this_06;
+        AutoSingleton<ShaderThreadPoolSingleton> local_38;
 
         if (m_nativeShaderProgram != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_GLProgramObject == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
                       362, "Call Destroy() before calling Create() again");
         }
         if (field_1836 == 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_BinaryFormat",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      363, (char*)0);
+                      363, nullptr);
         }
-        puVar1 = &field_288;
-        cVar4 = puVar1->empty();
-        if (cVar4 != '\0') {
-            /* WARNING: Subroutine does not return */
+        uint8_t* puVar1 = &field_288;
+        if (puVar1->empty()) {
             LogAssert("!m_Binary.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      364, (char*)0);
+                      364, nullptr);
         }
-        local_38->~AutoSingleton("%s (Flags=%u)", "CreateFromBinary", m_compileFlags);
-        this_06 = (Singleton<ShaderManager<VertexShader>>*)&field_12;
-        this_06->UndoMarkAsDead();
-        pSVar7 = (ShaderSource*)this_06->Instance();
-        puVar1->size();
-        local_48.RegisterFromBinary(pSVar7, (ulong)&m_vertexShaderSource);
-        shared_ptr<VertexShader>::operator=((shared_ptr<VertexShader>*)field_160, &local_48);
-        local_48.~shared_ptr();
-        this_00 = &m_pixelShaderSource;
-        this_01 = this_00->SSOBeginPtr((type*)&local_48);
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size() !=
-            0) {
-            pSVar7 = (ShaderSource*)this_01->Instance();
-            puVar1->size();
-            local_48.RegisterFromBinary(pSVar7, (ulong)this_00);
-            shared_ptr<PixelShader>::operator=((shared_ptr<PixelShader>*)field_216, &local_48);
-            local_48.~shared_ptr();
+        Singleton<ShaderManager<VertexShader>>* this_07 = (Singleton<ShaderManager<VertexShader>>*)&field_12;
+        this_07->UndoMarkAsDead();
+        auto this_00 = this_07->Instance();
+        unsigned long uVar8 = puVar1->size();
+        auto local_48 = this_00->RegisterFromBinary(*m_vertexShaderSource, uVar8);
+        field_160 = local_48;
+        uint8_t* shaderSource = m_pixelShaderSource;
+        auto this_01 = shaderSource->SSOBeginPtr();
+        if (this_01->size() != 0) {
+            this_02 = (ShaderManager<PixelShader>*)this_01->Instance();
+            uVar8 = puVar1->size();
+            local_48 = this_02->RegisterFromBinary(*shaderSource, uVar8);
+            field_216 = local_48;
         }
-        uVar5 = (*___glewCreateProgram)();
-        m_nativeShaderProgram = uVar5;
-        pcVar3 = ___glewProgramBinary;
-        if (uVar5 == 0) {
-            uVar9 = logger::default_logger();
-            uVar6 = 0;
-            logger::Logger::Log(uVar9, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "shaders/OGL/ShaderProgram_OGL.cpp",
-                                381, "Failed to create program object!");
-            cVar4 = '\x05';
+        unsigned int uVar6 = (*___glewCreateProgram)();
+        m_nativeShaderProgram = uVar6;
+        void* pcVar3 = ___glewProgramBinary;
+        if (uVar6 == 0) {
+            this_06 = logger::default_logger();
+            uVar7 = 0;
+            this_06->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
+                         "ShaderProgram_OGL.cpp",
+                         381, "Failed to create program object!");
+            bVar5 = 5;
         } else {
             iVar2 = field_1836;
-            uVar9 = eastl::vector<unsigned char, eastl::allocator>::operator[](
-                (vector<unsigned char, eastl::allocator>*)puVar1, 0);
-            uVar6 = puVar1->size();
-            (*pcVar3)(uVar5, iVar2, uVar9, uVar6);
-            pcVar12 = "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                      "ShaderProgram_OGL.cpp";
+            uVar10 = (*puVar1)[0];
+            uVar7 = puVar1->size();
+            (*pcVar3)(uVar6, iVar2, uVar10, uVar7);
             CheckGlErrorInternal("glProgramBinary",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  387);
             puVar1 = &field_24;
-            this_02 = (Array<game::VarValue, eastl::allocator>*)puVar1->second();
-            cVar4 = this_02->empty();
-            if (cVar4 == '\0') {
-                this_03 = (Array<VertexElementDesc, eastl::allocator>*)puVar1->second();
-                pcVar12 = (char*)Array<VertexElementDesc, eastl::allocator>::operator[](this_03, 0);
-                this_04 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)puVar1->second();
-                uVar5 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_04);
-                BindVertexElementAttribs(this, (VertexElementDesc*)pcVar12, uVar5);
+            if (!(((Array<game::VarValue>*)puVar1->second())->empty())) {
+                this_04 = (Array<VertexElementDesc>*)puVar1->second();
+                vertexElementDesc = (VertexElementDesc*)(*this_04)[0];
+                uVar6 = ((vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)puVar1->second())->end();
+                BindVertexElementAttribs(vertexElementDesc, uVar6);
             }
-            (&m_vertexShaderSource, (type*)pcVar12)->SSOBeginPtr();
-            pcVar10 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            this_00->SSOBeginPtr(pcVar12);
-            pcVar11 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            (&field_232, (type*)pcVar12)->SSOBeginPtr();
-            pcVar12 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar6 = CreateShaderInternal(this, pcVar10, pcVar11, pcVar12);
-            cVar4 = (char)uVar6 + '\x05';
+            m_vertexShaderSource->SSOBeginPtr();
+            str1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            shaderSource->SSOBeginPtr();
+            str2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            field_232.SSOBeginPtr();
+            str3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            uVar7 = CreateShaderInternal(str1, str2, str3);
+            bVar5 = (char)uVar7 + 5;
         }
-        std::atomic<ShaderProgramLinkState>::operator=((atomic<ShaderProgramLinkState>*)&field_369, cVar4);
-        return uVar6;
+        field_369 = ((unsigned int)bVar5);
+        return uVar7;
     }
 
-    // 0x100beee60, 16 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::DestroyBinary()
+    // 0x100beee60
     void ShaderProgram::DestroyBinary() {
         field_1836 = 0;
     }
 
-    // 0x100bef060, 1120 bytes, placed by __FILE__ string
-    // ShaderProgram::CreateFromSourceStringInternal()
-    ulong ShaderProgram::CreateFromSourceStringInternal() {
-        undefined1* this_00;
-        undefined1* this_01;
+    // 0x100bef060
+    unsigned long ShaderProgram::CreateFromSourceStringInternal() {
         char cVar1;
-        uchar uVar2;
-        uint uVar3;
-        RenderDevice* this_02;
-        vector* pvVar4;
-        ulong uVar5;
-        char* pcVar6;
-        Shader* pSVar7;
-        undefined8 uVar8;
-        undefined1* puVar9;
-        undefined7 uVar10;
-        shared_ptr* in_RSI;
-        undefined8 uVar11;
-        shared_ptr local_40;
+        unsigned int uVar2;
+        ShaderManager<VertexShader>* this_03;
+        unsigned long uVar4;
+        char* pcVar5;
+        Shader* pSVar6;
+        ShaderManager<PixelShader>* this_04;
+        ShaderManager<ComputeShader>* this_05;
+        Logger* this_06;
+        uint64_t uVar8;
+        int arg4;
+        ReturnValue local_40;
 
         if (m_compileFlags == '\0') {
             cVar1 = this_thread::IsMainThread();
-            if (cVar1 == '\0') {
-                this_02 = (RenderDevice*)((ShaderProgram*)this)->Instance();
-                cVar1 = this_02->IsRenderThread();
-                if (cVar1 == '\0') {
-                    /* WARNING: Subroutine does not return */
+            if (!cVar1) {
+                cVar1 = ((RenderDevice*)Instance())->IsRenderThread();
+                if (!cVar1) {
                     LogAssert("m_compileFlags != 0 || this_thread::IsMainThread() || "
                               "RenderDevice::Instance().IsRenderThread()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "shaders/OGL/ShaderProgram_OGL.cpp",
-                              159, (char*)0);
+                              159, nullptr);
                 }
             }
         }
-        this_00 = &field_369;
+        uint8_t* this_00 = &field_369;
         cVar1 = this_00->operator_cast_to_ShaderProgramLinkState();
         if (cVar1 != '\x01') {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_linkState == ShaderProgramLinkState::COMPILING",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      160, (char*)0);
+                      160, nullptr);
         }
         if (m_nativeShaderProgram != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_GLProgramObject == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
                       161, "Call Destroy() before calling Create() again (program %u)");
         }
-        this_01 = &field_232;
-        this_01->SSOBeginPtr(in_RSI);
-        cVar1 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        if (cVar1 != '\0') {
-            (&m_vertexShaderSource, (type*)in_RSI)->SSOBeginPtr();
-            cVar1 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar1 != '\0') {
-                (&m_vertexShaderSource, (type*)in_RSI)->SSOBeginPtr();
-                cVar1 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-                if (cVar1 != '\0') {
+        uint8_t* this_01 = &field_232;
+        auto pbVar3 = this_01->SSOBeginPtr();
+        cVar1 = pbVar3->empty();
+        if (cVar1) {
+            pbVar3 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)
+                         m_vertexShaderSource->SSOBeginPtr();
+            cVar1 = pbVar3->empty();
+            if (cVar1) {
+                pbVar3 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)
+                             m_vertexShaderSource->SSOBeginPtr();
+                cVar1 = pbVar3->empty();
+                if (cVar1) {
                 LAB_100bef179:
-                    /* WARNING: Subroutine does not return */
                     LogAssert(
                         "!m_ComputeShaderSource.GetSource().empty() || !m_VertexShaderSource.GetSource().empty() || !( "
                         "m_VertexShaderSource.GetSource().empty() || m_PixelShaderSource.GetSource().empty() )",
                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                         "ShaderProgram_OGL.cpp",
-                        169, (char*)0);
+                        169, nullptr);
                 }
-                (&m_pixelShaderSource, (type*)in_RSI)->SSOBeginPtr();
-                cVar1 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-                if (cVar1 != '\0')
+                pbVar3 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)
+                             m_pixelShaderSource->SSOBeginPtr();
+                cVar1 = pbVar3->empty();
+                if (cVar1)
                     goto LAB_100bef179;
             }
         }
-        puVar9 = &m_vertexShaderSource;
-        pvVar4 = puVar9->SSOBeginPtr(in_RSI);
-        cVar1 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        if (cVar1 == '\0') {
-            uVar5 = pvVar4->Instance();
-            pcVar6 = (char*)puVar9->capacity();
-            puVar9->SSOBeginPtr(in_RSI);
-            uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            in_RSI = &local_40;
-            in_RSI->RegisterFromSourceString(uVar5, pcVar6, uVar2);
-            shared_ptr<VertexShader>::operator=((shared_ptr<VertexShader>*)field_160, in_RSI);
-            local_40.~shared_ptr();
-            pSVar7 = (Shader*)shared_ptr<VertexShader>::operator->((shared_ptr<VertexShader>*)field_160);
-            cVar1 = pSVar7->IsReady();
-            if (cVar1 != '\0')
+        uint8_t* puVar7 = m_vertexShaderSource;
+        pbVar3 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)puVar7->SSOBeginPtr();
+        cVar1 = pbVar3->empty();
+        if (!cVar1) {
+            this_03 = (ShaderManager<VertexShader>*)pbVar3->Instance();
+            uVar4 = puVar7->capacity();
+            puVar7->SSOBeginPtr();
+            pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            local_40 = this_03->RegisterFromSourceString(uVar4, pcVar5, m_compileFlags);
+            field_160 = local_40;
+            pSVar6 = (Shader*)field_160.operator->();
+            cVar1 = pSVar6->IsReady();
+            if (cVar1)
                 goto LAB_100bef239;
-            uVar8 = logger::default_logger();
-            pcVar6 = "Failed to compile vertex shader!";
-            uVar11 = 176;
+            this_06 = logger::default_logger();
+            pcVar5 = "Failed to compile vertex shader!";
+            arg4 = 176;
         } else {
         LAB_100bef239:
-            puVar9 = &m_pixelShaderSource;
-            pvVar4 = puVar9->SSOBeginPtr(in_RSI);
-            cVar1 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar1 == '\0') {
-                uVar5 = pvVar4->Instance();
-                pcVar6 = (char*)puVar9->capacity();
-                puVar9->SSOBeginPtr(in_RSI);
-                uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                in_RSI = &local_40;
-                in_RSI->RegisterFromSourceString(uVar5, pcVar6, uVar2);
-                puVar9 = field_216;
-                shared_ptr<PixelShader>::operator=((shared_ptr<PixelShader>*)puVar9, in_RSI);
-                local_40.~shared_ptr();
-                pSVar7 = (Shader*)shared_ptr<PixelShader>::operator->((shared_ptr<PixelShader>*)puVar9);
-                cVar1 = pSVar7->IsReady();
-                if (cVar1 == '\0') {
-                    uVar8 = logger::default_logger();
-                    pcVar6 = "Failed to compile pixel shader!";
-                    uVar11 = 186;
+            puVar7 = m_pixelShaderSource;
+            pbVar3 =
+                (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)puVar7->SSOBeginPtr();
+            cVar1 = pbVar3->empty();
+            if (!cVar1) {
+                this_04 = (ShaderManager<PixelShader>*)pbVar3->Instance();
+                uVar4 = puVar7->capacity();
+                puVar7->SSOBeginPtr();
+                pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                local_40 = this_04->RegisterFromSourceString(uVar4, pcVar5, m_compileFlags);
+                puVar7 = &field_216;
+                *puVar7 = local_40;
+                pSVar6 = (Shader*)(*puVar7).operator->();
+                cVar1 = pSVar6->IsReady();
+                if (!cVar1) {
+                    this_06 = logger::default_logger();
+                    pcVar5 = "Failed to compile pixel shader!";
+                    arg4 = 186;
                     goto LAB_100bef437;
                 }
             }
-            pvVar4 = this_01->SSOBeginPtr(in_RSI);
-            cVar1 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar1 == '\0') {
-                uVar5 = pvVar4->Instance();
-                pcVar6 = (char*)this_01->capacity();
-                this_01->SSOBeginPtr(in_RSI);
-                uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                local_40.RegisterFromSourceString(uVar5, pcVar6, uVar2);
-                puVar9 = field_272;
-                shared_ptr<ComputeShader>::operator=((shared_ptr<ComputeShader>*)puVar9, &local_40);
-                local_40.~shared_ptr();
-                pSVar7 = (Shader*)shared_ptr<ComputeShader>::operator->((shared_ptr<ComputeShader>*)puVar9);
-                cVar1 = pSVar7->IsReady();
-                if (cVar1 == '\0') {
-                    uVar8 = logger::default_logger();
-                    pcVar6 = "Failed to compile compute shader!";
-                    uVar11 = 196;
+            pbVar3 =
+                (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)this_01->SSOBeginPtr();
+            cVar1 = pbVar3->empty();
+            if (!cVar1) {
+                this_05 = (ShaderManager<ComputeShader>*)pbVar3->Instance();
+                uVar4 = this_01->capacity();
+                this_01->SSOBeginPtr();
+                pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                local_40 = this_05->RegisterFromSourceString(uVar4, pcVar5, m_compileFlags);
+                puVar7 = &field_272;
+                *puVar7 = local_40;
+                pSVar6 = (Shader*)(*puVar7).operator->();
+                cVar1 = pSVar6->IsReady();
+                if (!cVar1) {
+                    this_06 = logger::default_logger();
+                    pcVar5 = "Failed to compile compute shader!";
+                    arg4 = 196;
                     goto LAB_100bef437;
                 }
             }
-            uVar3 = (*___glewCreateProgram)();
-            m_nativeShaderProgram = uVar3;
-            if (uVar3 != 0) {
-                uVar10 = (undefined7)((ulong)puVar9 >> 8);
+            uVar2 = (*___glewCreateProgram)();
+            m_nativeShaderProgram = uVar2;
+            if (uVar2 != 0) {
+                uVar8 = (uint64_t)((unsigned long)puVar7 >> 8);
                 if ((~m_compileFlags & 3) == 0) {
-                    LinkShaderAsync(this);
-                    uVar5 = CONCAT71(uVar10, 1);
+                    LinkShaderAsync();
+                    uVar4 = (((uint64_t)uVar8 << 8) | (uint8_t)1);
                 } else {
-                    LinkShader(this);
-                    PostLinkShader(this);
+                    LinkShader();
+                    PostLinkShader();
                     cVar1 = this_00->operator_cast_to_ShaderProgramLinkState();
-                    uVar5 = CONCAT71(uVar10, cVar1 == '\x06');
+                    uVar4 = (((uint64_t)uVar8 << 8) | (uint8_t)(cVar1 == '\x06'));
                 }
                 goto LAB_100bef44b;
             }
-            uVar8 = logger::default_logger();
-            pcVar6 = "Failed to create program object!";
-            uVar11 = 206;
+            this_06 = logger::default_logger();
+            pcVar5 = "Failed to create program object!";
+            arg4 = 206;
         }
     LAB_100bef437:
-        uVar5 = 0;
-        logger::Logger::Log(uVar8, 0, 2,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
-                            "OGL/ShaderProgram_OGL.cpp",
-                            uVar11, pcVar6);
-        std::atomic<ShaderProgramLinkState>::operator=((atomic<ShaderProgramLinkState>*)this_00, 5);
+        uVar4 = 0;
+        this_06->Log(false, 2,
+                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
+                     "ShaderProgram_OGL.cpp",
+                     arg4, pcVar5);
+        *this_00 = 5;
     LAB_100bef44b:
-        return uVar5 & 4294967295;
+        return uVar4 & 4294967295;
     }
 
-    // 0x100befa00, 96 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::LinkShaderAsync()
+    // 0x100befa00
     void ShaderProgram::LinkShaderAsync() {
-        MapArea* this_00;
-        long lVar1;
-        char cVar2;
+        bool cVar2;
 
-        LinkShader(this);
-        this_00 = (MapArea*)((ShaderProgram*)this)->Instance();
-        lVar1 = this_00->GetOrigin();
-        if ((*(char*)(lVar1 + 335) == '\0') || (cVar2 = IsReadyGL(this), cVar2 != '\0')) {
-            PostLinkShader(this);
+        LinkShader();
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
+        if ((*(char*)(lVar1 + 335) == '\0') || (cVar2 = IsReadyGL(), cVar2)) {
+            PostLinkShader();
             return;
         }
-        std::atomic<ShaderProgramLinkState>::operator=((atomic<ShaderProgramLinkState>*)&field_369, 3);
+        field_369 = 3;
     }
 
-    // 0x100befa60, 848 bytes, placed by __FILE__ string
-    // ShaderProgram::LinkShader()
+    // 0x100befa60
     void ShaderProgram::LinkShader() {
-        undefined1* puVar1;
-        code* pcVar2;
-        char cVar3;
-        bool bVar4;
+        void* pcVar2;
         int iVar5;
-        undefined4 uVar6;
-        uint uVar7;
-        MapArea* pMVar8;
-        long lVar9;
+        uint32_t uVar6;
+        unsigned int uVar7;
         TextRun* pTVar10;
-        ShaderProgram* this_00;
-        Array<VertexElementDesc, eastl::allocator>* this_01;
-        VertexElementDesc* pVVar11;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_02;
-        Singleton<RenderDevice>* this_03;
-        char* pcVar12;
-        undefined4 local_34;
-        AutoSingleton<ShaderThreadPoolSingleton> local_30[8];
+        Array<VertexElementDesc>* this_01;
+        VertexElementDesc* vertexElementDesc;
+        memory_order memory_order;
+        char* str1;
+        uint32_t local_34;
+        AutoSingleton<ShaderThreadPoolSingleton> local_30;
 
-        local_30->~AutoSingleton("%s %u (Flags=%u)", "LinkShader", m_nativeShaderProgram, m_compileFlags);
-        this_03 = (Singleton<RenderDevice>*)&field_369;
-        cVar3 = std::__atomic_base<ShaderProgramLinkState, false>::exchange();
+        Singleton<RenderDevice>* this_03 = (Singleton<RenderDevice>*)&field_369;
+        char cVar3 = this_03->exchange(15036296, memory_order);
         if (cVar3 != '\x01') {
-            /* WARNING: Subroutine does not return */
             LogAssert("prevLinkState == ShaderProgramLinkState::COMPILING",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      231, (char*)0);
+                      231, nullptr);
         }
-        pMVar8 = (MapArea*)this_03->Instance();
-        lVar9 = pMVar8->GetOrigin();
+        auto pMVar8 = this_03->Instance();
+        long lVar9 = pMVar8->GetOrigin();
         if (*(char*)(lVar9 + 223) != '\0') {
             (*___glewProgramParameteri)(m_nativeShaderProgram, 33367, 1);
             CheckGlErrorInternal("glProgramParameteri",
@@ -2211,21 +1794,19 @@ namespace jag::render {
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  236);
         }
-        puVar1 = field_160;
-        bVar4 = operator!=((shared_ptr*)puVar1, (_func_decltype_nullptr*)0);
-        if (bVar4) {
-            pTVar10 = (TextRun*)shared_ptr<VertexShader>::operator->((shared_ptr<VertexShader>*)puVar1);
+        uint8_t* puVar1 = &field_160;
+        if (*puVar1 != nullptr) {
+            pTVar10 = (TextRun*)(*puVar1).operator->();
             iVar5 = pTVar10->GetWrapMode();
             pcVar2 = ___glewAttachShader;
             if (iVar5 == 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_VertexShader->GetNativeShader()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          242, (char*)0);
+                          242, nullptr);
             }
             uVar7 = m_nativeShaderProgram;
-            pTVar10 = (TextRun*)shared_ptr<VertexShader>::operator->((shared_ptr<VertexShader>*)puVar1);
+            pTVar10 = (TextRun*)(*puVar1).operator->();
             uVar6 = pTVar10->GetWrapMode();
             (*pcVar2)(uVar7, uVar6);
             CheckGlErrorInternal("glAttachShader",
@@ -2233,21 +1814,19 @@ namespace jag::render {
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  243);
         }
-        puVar1 = field_216;
-        bVar4 = operator!=((shared_ptr*)puVar1, (_func_decltype_nullptr*)0);
-        if (bVar4) {
-            pTVar10 = (TextRun*)shared_ptr<PixelShader>::operator->((shared_ptr<PixelShader>*)puVar1);
+        puVar1 = &field_216;
+        if (*puVar1 != nullptr) {
+            pTVar10 = (TextRun*)(*puVar1).operator->();
             iVar5 = pTVar10->GetWrapMode();
             pcVar2 = ___glewAttachShader;
             if (iVar5 == 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_PixelShader->GetNativeShader()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          247, (char*)0);
+                          247, nullptr);
             }
             uVar7 = m_nativeShaderProgram;
-            pTVar10 = (TextRun*)shared_ptr<PixelShader>::operator->((shared_ptr<PixelShader>*)puVar1);
+            pTVar10 = (TextRun*)(*puVar1).operator->();
             uVar6 = pTVar10->GetWrapMode();
             (*pcVar2)(uVar7, uVar6);
             CheckGlErrorInternal("glAttachShader",
@@ -2255,21 +1834,19 @@ namespace jag::render {
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  248);
         }
-        puVar1 = field_272;
-        bVar4 = operator!=((shared_ptr*)puVar1, (_func_decltype_nullptr*)0);
-        if (bVar4) {
-            pTVar10 = (TextRun*)shared_ptr<ComputeShader>::operator->((shared_ptr<ComputeShader>*)puVar1);
+        puVar1 = &field_272;
+        if (*puVar1 != nullptr) {
+            pTVar10 = (TextRun*)(*puVar1).operator->();
             iVar5 = pTVar10->GetWrapMode();
             pcVar2 = ___glewAttachShader;
             if (iVar5 == 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_ComputeShader->GetNativeShader()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          252, (char*)0);
+                          252, nullptr);
             }
             uVar7 = m_nativeShaderProgram;
-            pTVar10 = (TextRun*)shared_ptr<ComputeShader>::operator->((shared_ptr<ComputeShader>*)puVar1);
+            pTVar10 = (TextRun*)(*puVar1).operator->();
             uVar6 = pTVar10->GetWrapMode();
             (*pcVar2)(uVar7, uVar6);
             CheckGlErrorInternal("glAttachShader",
@@ -2278,15 +1855,14 @@ namespace jag::render {
                                  253);
         }
         puVar1 = &field_24;
-        this_00 = (ShaderProgram*)puVar1->second();
+        auto this_00 = puVar1->second();
         cVar3 = this_00->empty();
-        if (cVar3 == '\0') {
-            this_01 = (Array<VertexElementDesc, eastl::allocator>*)puVar1->second();
-            pVVar11 = (VertexElementDesc*)Array<VertexElementDesc, eastl::allocator>::operator[](this_01, 0);
-            this_02 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)puVar1->second();
-            uVar7 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_02);
+        if (!cVar3) {
+            this_01 = (Array<VertexElementDesc>*)puVar1->second();
+            vertexElementDesc = (VertexElementDesc*)(*this_01)[0];
+            uVar7 = ((vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)puVar1->second())->end();
             this_00 = this;
-            BindVertexElementAttribs(this, pVVar11, uVar7);
+            BindVertexElementAttribs(vertexElementDesc, uVar7);
         }
         pMVar8 = (MapArea*)this_00->Instance();
         lVar9 = pMVar8->GetOrigin();
@@ -2298,71 +1874,60 @@ namespace jag::render {
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  309);
             (*___glewGetProgramiv)(m_nativeShaderProgram, 35714, &local_34);
-            pcVar12 = "glGetProgramiv";
+            str1 = "glGetProgramiv";
             iVar5 = 312;
         } else {
             (*___glewLinkProgram)(m_nativeShaderProgram);
-            pcVar12 = "glLinkProgram";
+            str1 = "glLinkProgram";
             iVar5 = 279;
         }
-        CheckGlErrorInternal(pcVar12,
+        CheckGlErrorInternal(str1,
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                              "OGL/ShaderProgram_OGL.cpp",
                              iVar5);
     }
 
-    // 0x100befdb0, 240 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::PostLinkShader()
+    // 0x100befdb0
     void ShaderProgram::PostLinkShader() {
-        char cVar1;
-        char* pcVar2;
-        char* pcVar3;
-        char* pcVar4;
-        MapArea* this_00;
-        long lVar5;
-        type* in_RSI;
-        undefined8 uVar6;
+        long lVar1;
 
-        (&m_vertexShaderSource, in_RSI)->SSOBeginPtr();
-        pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        (&m_pixelShaderSource, in_RSI)->SSOBeginPtr();
-        pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        (&field_232, in_RSI)->SSOBeginPtr();
-        pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        cVar1 = CreateShaderInternal(this, pcVar2, pcVar3, pcVar4);
-        uVar6 = 5;
-        if (cVar1 != '\0') {
-            this_00 = (MapArea*)((ShaderProgram*)this)->Instance();
-            lVar5 = this_00->GetOrigin();
-            if (*(char*)(lVar5 + 223) != '\0') {
-                RetrieveShaderBinary(this);
+        m_vertexShaderSource->SSOBeginPtr();
+        char* str1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        m_pixelShaderSource->SSOBeginPtr();
+        char* str2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        field_232.SSOBeginPtr();
+        char* str3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        bool cVar2 = CreateShaderInternal(str1, str2, str3);
+        ShaderProgramLinkState shaderProgramLinkState = 5;
+        if (cVar2) {
+            lVar1 = ((MapArea*)Instance())->GetOrigin();
+            if (*(char*)(lVar1 + 223) != '\0') {
+                RetrieveShaderBinary();
             }
-            if (cVar1 != '\0') {
-                (&field_1848)->Create();
-                (&m_vertexShaderSource)->ClearSourceString();
-                (&m_pixelShaderSource)->ClearSourceString();
-                (&field_232)->ClearSourceString();
-                uVar6 = 6;
+            if (cVar2) {
+                field_1848.Create();
+                m_vertexShaderSource->ClearSourceString();
+                m_pixelShaderSource->ClearSourceString();
+                field_232.ClearSourceString();
+                shaderProgramLinkState = 6;
             }
         }
-        std::atomic<ShaderProgramLinkState>::operator=((atomic<ShaderProgramLinkState>*)&field_369, uVar6);
+        field_369 = shaderProgramLinkState;
     }
 
-    // 0x100befeb0, 176 bytes, placed by __FILE__ string
-    // ShaderProgram::BindVertexElementAttribs(VertexElementDesc const*, unsigned int)
-    void ShaderProgram::BindVertexElementAttribs(VertexElementDesc* param_1, uint param_2) {
-        ulong uVar1;
+    // 0x100befeb0
+    void ShaderProgram::BindVertexElementAttribs(const VertexElementDesc* vertexElementDesc, unsigned int arg2) {
+        unsigned long uVar1;
         char** ppcVar2;
 
         if (m_nativeShaderProgram == 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_GLProgramObject",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1258, (char*)0);
+                      1258, nullptr);
         }
-        if (param_2 != 0) {
-            ppcVar2 = &param_1->field_8;
+        if (arg2 != 0) {
+            ppcVar2 = &vertexElementDesc->field_8;
             uVar1 = 0;
             do {
                 (*___glewBindAttribLocation)(m_nativeShaderProgram, uVar1 & 4294967295, *ppcVar2);
@@ -2372,72 +1937,56 @@ namespace jag::render {
                                      1262);
                 uVar1 = uVar1 + 1;
                 ppcVar2 = ppcVar2 + 5;
-            } while (param_2 != uVar1);
+            } while (arg2 != uVar1);
         }
     }
 
-    // 0x100beff60, 432 bytes, placed by __FILE__ string
-    // ShaderProgram::RetrieveShaderBinary()
+    // 0x100beff60
     void ShaderProgram::RetrieveShaderBinary() {
-        undefined1* this_00;
-        uint uVar1;
-        code* pcVar2;
-        undefined4 uVar3;
-        MapArea* this_01;
-        long lVar4;
-        long lVar5;
-        undefined8 uVar6;
-        ulong uVar7;
-        char* pcVar8;
-        AutoSingleton<ShaderThreadPoolSingleton>* this_02;
-        AutoSingleton<ShaderThreadPoolSingleton> local_38[4];
-        int local_34;
+        uint8_t* this_00;
+        unsigned int uVar1;
+        void* pcVar2;
+        uint32_t uVar3;
+        basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>* pbVar5;
+        long lVar6;
+        uint64_t uVar7;
+        AutoSingleton<ShaderThreadPoolSingleton> local_38;
 
-        this_02 = local_38;
-        this_02->~AutoSingleton("%s %u (Flags=%u)", "RetrieveShaderBinary", m_nativeShaderProgram, m_compileFlags);
-        this_01 = (MapArea*)this_02->Instance();
-        lVar4 = this_01->GetOrigin();
+        long lVar4 = ((MapArea*)&local_38->Instance())->GetOrigin();
         if (*(char*)(lVar4 + 223) == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("RenderDevice::Instance().GetDeviceCaps().m_ShaderBinary",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      332, (char*)0);
+                      332, nullptr);
         }
         if (m_nativeShaderProgram == 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_GLProgramObject",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      333, (char*)0);
+                      333, nullptr);
         }
-        local_34 = -1;
+        int local_34 = -1;
         (*___glewGetProgramiv)(m_nativeShaderProgram, 34625, &local_34);
-        pcVar8 = "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                 "ShaderProgram_OGL.cpp";
         CheckGlErrorInternal("glGetProgramiv",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                              "OGL/ShaderProgram_OGL.cpp",
                              335);
-        uVar7 = (ulong)local_34;
-        if (0 < (long)uVar7) {
-            (&m_pixelShaderSource, (type*)pcVar8)->SSOBeginPtr();
-            lVar4 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            (&m_vertexShaderSource, (type*)pcVar8)->SSOBeginPtr();
-            lVar5 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            if (uVar7 < (ulong)(lVar5 + lVar4)) {
+        unsigned long uVar8 = (unsigned long)local_34;
+        if (0 < (long)uVar8) {
+            pbVar5 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>*)
+                         m_pixelShaderSource->SSOBeginPtr();
+            lVar4 = pbVar5->size();
+            pbVar5 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>*)
+                         m_vertexShaderSource->SSOBeginPtr();
+            lVar6 = pbVar5->size();
+            if (uVar8 < (unsigned long)(lVar6 + lVar4)) {
                 this_00 = &field_288;
-                eastl::vector<unsigned char, eastl::allocator>::resize((ulong)this_00);
+                this_00->resize((long)local_34);
                 pcVar2 = ___glewGetProgramBinary;
                 uVar1 = m_nativeShaderProgram;
                 uVar3 = this_00->capacity();
-                uVar6 = eastl::vector<unsigned char, eastl::allocator>::operator[](
-                    (vector<unsigned char, eastl::allocator>*)this_00, 0);
-                (*pcVar2)(uVar1, uVar3, &local_34, &field_1836, uVar6);
+                uVar7 = (*this_00)[0];
+                (*pcVar2)(uVar1, uVar3, &local_34, &field_1836, uVar7);
                 CheckGlErrorInternal("glGetProgramBinary",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                      "shaders/OGL/ShaderProgram_OGL.cpp",
@@ -2449,155 +1998,144 @@ namespace jag::render {
         }
     }
 
-    // 0x100bf02d0, 2592 bytes, placed by __FILE__ string
-    // ShaderProgram::CreateShaderInternal(char const*, char const*, char const*)
-    bool ShaderProgram::CreateShaderInternal(char* param_1, char* param_2, char* param_3) {
+    // 0x100bf02d0
+    bool ShaderProgram::CreateShaderInternal(const char* str1, const char* str2, const char* str3) {
         bool bVar1;
         bool bVar2;
-        ShaderProgram* pSVar3;
-        bool bVar4;
-        int iVar5;
+        bool bVar3;
+        ShaderProgram* pSVar4;
+        bool cVar5;
         int iVar6;
-        uint uVar7;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar8;
-        Array<VertexElementDesc, eastl::allocator>* this_00;
-        long lVar9;
-        istream* piVar10;
-        ostream* poVar11;
-        float* pfVar12;
-        undefined8 uVar13;
-        undefined8 uVar14;
-        uint extraout_EDX;
-        uint extraout_EDX_00;
-        uint extraout_EDX_01;
-        ulong uVar15;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_01;
-        bool bVar16;
-        undefined8 in_stack_fffffffffffffad8;
-        undefined8* puVar17;
-        undefined4 uVar19;
-        undefined8 uVar18;
+        int iVar7;
+        unsigned int uVar8;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar9;
+        Array<VertexElementDesc>* this_00;
+        long lVar10;
+        basic_istream<char, std::char_traits<char> _>* pbVar11;
+        basic_ostream<char, std::char_traits<char> _>* pbVar12;
+        unsigned char* puVar13;
+        Logger* pLVar14;
+        uint64_t uVar15;
+        unsigned int arg2;
+        unsigned int arg2_00;
+        unsigned int arg2_01;
+        unsigned long uVar16;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* this_01;
+        bool bVar17;
+        uint64_t in_stack_fffffffffffffad8;
+        uint32_t uVar20;
+        uint64_t uVar19;
         int local_510[70];
-        uint local_3f8[70];
+        unsigned int local_3f8[70];
         GLVertexElementFormat local_2e0;
-        ostream local_2d0[264];
-        string local_1c8[24];
+        basic_ostream<char, std::char_traits<char> _> local_2d0;
+        string local_1c8;
         int* local_1b0;
-        float* local_1a8;
+        unsigned char* local_1a8;
         int local_1a0;
-        int local_19c;
-        string local_198[24];
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* local_180;
+        ReturnValue local_198;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* local_180;
         char* local_178;
         int local_16c;
-        AutoSingleton<ShaderThreadPoolSingleton> local_168[8];
-        ShaderProgram* local_160;
-        undefined8 local_158;
-        undefined8 uStack_150;
-        undefined8 local_148;
-        undefined8 uStack_140;
-        undefined8 local_138;
-        undefined8 uStack_130;
-        undefined8 local_128;
-        undefined8 uStack_120;
-        undefined8 local_118;
-        undefined8 uStack_110;
-        undefined8 local_108;
-        undefined8 uStack_100;
-        undefined8 local_f8;
-        undefined8 uStack_f0;
-        undefined8 local_e8;
-        undefined8 uStack_e0;
-        undefined8 local_d8;
-        undefined8 uStack_d0;
-        undefined8 local_c8;
-        undefined8 uStack_c0;
-        undefined8 local_b8;
-        undefined8 uStack_b0;
-        undefined8 local_a8;
-        undefined8 uStack_a0;
-        undefined8 local_98;
-        undefined8 uStack_90;
-        undefined8 local_88;
-        undefined8 uStack_80;
-        undefined8 uStack_78;
-        undefined7 uStack_70;
-        undefined1 local_69;
-        undefined7 uStack_68;
-        undefined8 uStack_61;
-        long local_38;
+        AutoSingleton<ShaderThreadPoolSingleton> local_168;
+        uint64_t local_158;
+        uint64_t uStack_150;
+        uint64_t local_148;
+        uint64_t uStack_140;
+        uint64_t local_138;
+        uint64_t uStack_130;
+        uint64_t local_128;
+        uint64_t uStack_120;
+        uint64_t local_118;
+        uint64_t uStack_110;
+        uint64_t local_108;
+        uint64_t uStack_100;
+        uint64_t local_f8;
+        uint64_t uStack_f0;
+        uint64_t local_e8;
+        uint64_t uStack_e0;
+        uint64_t local_d8;
+        uint64_t uStack_d0;
+        uint64_t local_c8;
+        uint64_t uStack_c0;
+        uint64_t local_b8;
+        uint64_t uStack_b0;
+        uint64_t local_a8;
+        uint64_t uStack_a0;
+        uint64_t local_98;
+        uint64_t uStack_90;
+        uint64_t local_88;
+        uint64_t uStack_80;
+        uint64_t uStack_78;
+        uint64_t uStack_70;
+        uint8_t local_69;
+        uint64_t uStack_68;
+        uint64_t uStack_61;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_168->~AutoSingleton("%s %u (Flags=%u)", "CreateShaderInternal", m_nativeShaderProgram, m_compileFlags);
         (*___glewGetProgramiv)(m_nativeShaderProgram, 35714, &local_1a0);
         CheckGlErrorInternal("glGetProgramiv",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                              "OGL/ShaderProgram_OGL.cpp",
                              406);
-        local_19c = local_1a0;
-        local_160 = this;
+        int local_19c = local_1a0;
+        ShaderProgram* local_160 = this;
         if (local_1a0 == 0) {
-            local_180 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                             eastl::allocator, 0>*)param_2;
-            local_178 = param_3;
-            std::string::string(local_1c8);
-            std::string::string<decltype(nullptr)>((string*)&local_2e0, param_1);
-            new (&local_158) std::stringstream((string*)&local_2e0, extraout_EDX);
-            local_2e0.~string();
-            new (&local_2e0) std::stringstream();
-            std::operator<<(local_2d0, "\n-----VS-----\n\n");
-            iVar6 = 1;
+            local_180 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)str2;
+            local_178 = str3;
+            local_1c8 = std::string();
+            local_2e0.string<decltype(nullptr)>(str1);
+            new (&local_158) std::stringstream(&local_2e0, arg2);
+            local_2e0 = std::stringstream();
+            std::operator<<(&local_2d0, "\n-----VS-----\n\n");
+            iVar7 = 1;
             while (true) {
-                piVar10 =
-                    std::getline<char, std::char_traits<char>, std::allocator<char>>((istream*)&local_158, local_1c8);
-                bVar4 = ((piVar10 + *(long*)(*(long*)piVar10 + -24)))->operator_cast_to_bool();
-                if (!bVar4)
+                pbVar11 = std::getline<char>(local_158, local_1c8);
+                cVar5 = ((pbVar11 + *(long*)(*(long*)pbVar11 - 24)))->operator_cast_to_bool();
+                if (!cVar5)
                     break;
-                poVar11 = std::operator<<(local_2d0, "Line ");
-                poVar11 = (ostream*)std::ostream::operator<<(poVar11, iVar6);
-                poVar11 = std::operator<<(poVar11, ": ");
-                poVar11 = std::operator<<(poVar11, local_1c8);
-                iVar6 = iVar6 + 1;
-                std::operator<<(poVar11, "\n");
+                pbVar12 = std::operator<<(&local_2d0, "Line ");
+                pbVar12 =
+                    (basic_ostream<char, std::char_traits<char> _>*)std::ostream::operator<<((ostream*)pbVar12, iVar7);
+                pbVar12 = std::operator<<(pbVar12, ": ");
+                pbVar12 = std::operator<<(pbVar12, &local_1c8);
+                iVar7 = iVar7 + 1;
+                std::operator<<(pbVar12, "\n");
             }
-            std::string::string<decltype(nullptr)>((string*)local_3f8, (char*)local_180);
-            new (local_510) std::stringstream(local_3f8, extraout_EDX_00);
-            local_3f8->~string();
-            std::operator<<(local_2d0, "\n\n-----FS-----\n\n");
-            iVar6 = 1;
+            local_3f8->string<decltype(nullptr)>(local_180);
+            new (local_510) std::stringstream(local_3f8, arg2_00);
+            std::operator<<(&local_2d0, "\n\n-----FS-----\n\n");
+            iVar7 = 1;
             while (true) {
-                piVar10 =
-                    std::getline<char, std::char_traits<char>, std::allocator<char>>((istream*)local_510, local_1c8);
-                bVar4 = ((piVar10 + *(long*)(*(long*)piVar10 + -24)))->operator_cast_to_bool();
-                if (!bVar4)
+                pbVar11 = std::getline<char>(*local_510, local_1c8);
+                cVar5 = ((pbVar11 + *(long*)(*(long*)pbVar11 - 24)))->operator_cast_to_bool();
+                if (!cVar5)
                     break;
-                poVar11 = std::operator<<(local_2d0, "Line ");
-                poVar11 = (ostream*)std::ostream::operator<<(poVar11, iVar6);
-                poVar11 = std::operator<<(poVar11, ": ");
-                poVar11 = std::operator<<(poVar11, local_1c8);
-                iVar6 = iVar6 + 1;
-                std::operator<<(poVar11, "\n");
+                pbVar12 = std::operator<<(&local_2d0, "Line ");
+                pbVar12 =
+                    (basic_ostream<char, std::char_traits<char> _>*)std::ostream::operator<<((ostream*)pbVar12, iVar7);
+                pbVar12 = std::operator<<(pbVar12, ": ");
+                pbVar12 = std::operator<<(pbVar12, &local_1c8);
+                iVar7 = iVar7 + 1;
+                std::operator<<(pbVar12, "\n");
             }
-            std::string::string<decltype(nullptr)>(local_198, local_178);
-            new (local_3f8) std::stringstream(local_198, extraout_EDX_01);
-            std::string::~string(local_198);
-            std::operator<<(local_2d0, "\n\n-----CS-----\n\n");
-            iVar6 = 1;
+            std::string::string<decltype(nullptr)>(&local_198, local_178);
+            new (local_3f8) std::stringstream(&local_198, arg2_01);
+            std::string::~string(&local_198);
+            std::operator<<(&local_2d0, "\n\n-----CS-----\n\n");
+            iVar7 = 1;
             while (true) {
-                piVar10 =
-                    std::getline<char, std::char_traits<char>, std::allocator<char>>((istream*)local_3f8, local_1c8);
-                bVar4 = ((piVar10 + *(long*)(*(long*)piVar10 + -24)))->operator_cast_to_bool();
-                uVar19 = (undefined4)((ulong)in_stack_fffffffffffffad8 >> 32);
-                if (!bVar4)
+                pbVar11 = std::getline<char>(*local_3f8, local_1c8);
+                cVar5 = ((pbVar11 + *(long*)(*(long*)pbVar11 - 24)))->operator_cast_to_bool();
+                uVar20 = (uint32_t)((unsigned long)in_stack_fffffffffffffad8 >> 32);
+                if (!cVar5)
                     break;
-                poVar11 = std::operator<<(local_2d0, "Line ");
-                poVar11 = (ostream*)std::ostream::operator<<(poVar11, iVar6);
-                poVar11 = std::operator<<(poVar11, ": ");
-                poVar11 = std::operator<<(poVar11, local_1c8);
-                iVar6 = iVar6 + 1;
-                std::operator<<(poVar11, "\n");
+                pbVar12 = std::operator<<(&local_2d0, "Line ");
+                pbVar12 =
+                    (basic_ostream<char, std::char_traits<char> _>*)std::ostream::operator<<((ostream*)pbVar12, iVar7);
+                pbVar12 = std::operator<<(pbVar12, ": ");
+                pbVar12 = std::operator<<(pbVar12, &local_1c8);
+                iVar7 = iVar7 + 1;
+                std::operator<<(pbVar12, "\n");
             }
             local_16c = 0;
             (*___glewGetProgramiv)(local_160->m_nativeShaderProgram, 35716, &local_16c);
@@ -2605,61 +2143,56 @@ namespace jag::render {
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  462);
-            iVar6 = local_16c;
+            iVar7 = local_16c;
             if ((long)local_16c < 2) {
-                uVar13 = logger::default_logger();
-                uVar7 = local_160->m_nativeShaderProgram;
-                local_198->str();
-                pfVar12 = (float*)std::string::c_str(local_198);
-                uVar14 = CONCAT44(uVar19, uVar7);
-                logger::Logger::Log(uVar13, 0, 2,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                    "shaders/OGL/ShaderProgram_OGL.cpp",
-                                    474, "Error linking shader program %u (no info log):\n%s\n", uVar14, pfVar12);
-                uVar19 = (undefined4)((ulong)uVar14 >> 32);
-                std::string::~string(local_198);
+                pLVar14 = logger::default_logger();
+                uVar8 = local_160->m_nativeShaderProgram;
+                std::stringstream::str(&local_198, (stringstream*)&local_2e0);
+                puVar13 = (unsigned char*)std::string::c_str(&local_198);
+                uVar15 = (((uint64_t)uVar20 << 32) | (uint32_t)uVar8);
+                pLVar14->Log(false, 2,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
+                             "OGL/ShaderProgram_OGL.cpp",
+                             474, "Error linking shader program %u (no info log):\n%s\n", uVar15, puVar13);
+                uVar20 = (uint32_t)((unsigned long)uVar15 >> 32);
+                std::string::~string(&local_198);
             } else {
-                uVar15 = (long)local_16c + 1;
-                pfVar12 = operator_new__(uVar15);
-                local_1a8 = pfVar12;
-                ___bzero(pfVar12, uVar15);
-                (*___glewGetProgramInfoLog)(local_160->m_nativeShaderProgram, iVar6, 0, pfVar12);
+                uVar16 = (long)local_16c + 1;
+                puVar13 = (unsigned char*)operator_new__(uVar16);
+                local_1a8 = puVar13;
+                ___bzero(puVar13, uVar16);
+                (*___glewGetProgramInfoLog)(local_160->m_nativeShaderProgram, iVar7, 0, puVar13);
                 CheckGlErrorInternal("glGetProgramInfoLog",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                      "shaders/OGL/ShaderProgram_OGL.cpp",
                                      468);
-                uVar13 = logger::default_logger();
-                pfVar12 = local_1a8;
-                uVar7 = local_160->m_nativeShaderProgram;
-                local_198->str();
-                uVar14 = std::string::c_str(local_198);
-                uVar18 = CONCAT44(uVar19, uVar7);
-                logger::Logger::Log(uVar13, 0, 2,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                    "shaders/OGL/ShaderProgram_OGL.cpp",
-                                    469, "Error linking shader program %u:\n%s\n\n%s\n", uVar18, pfVar12, uVar14);
-                uVar19 = (undefined4)((ulong)uVar18 >> 32);
-                std::string::~string(local_198);
+                pLVar14 = logger::default_logger();
+                puVar13 = local_1a8;
+                uVar8 = local_160->m_nativeShaderProgram;
+                std::stringstream::str(&local_198, (stringstream*)&local_2e0);
+                uVar15 = std::string::c_str(&local_198);
+                uVar19 = (((uint64_t)uVar20 << 32) | (uint32_t)uVar8);
+                pLVar14->Log(false, 2,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
+                             "OGL/ShaderProgram_OGL.cpp",
+                             469, "Error linking shader program %u:\n%s\n\n%s\n", uVar19, puVar13, uVar15);
+                uVar20 = (uint32_t)((unsigned long)uVar19 >> 32);
+                std::string::~string(&local_198);
                 safe_delete_array<float>(&local_1a8);
             }
-            uVar13 = logger::default_logger();
-            logger::Logger::Log(uVar13, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "shaders/OGL/ShaderProgram_OGL.cpp",
-                                477, "Error linking shader program %u!",
-                                CONCAT44(uVar19, local_160->m_nativeShaderProgram), pfVar12);
+            pLVar14 = logger::default_logger();
+            pLVar14->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
+                         "ShaderProgram_OGL.cpp",
+                         477, "Error linking shader program %u!",
+                         (((uint64_t)uVar20 << 32) | (uint32_t)local_160->m_nativeShaderProgram), puVar13);
             if ((~local_160->m_compileFlags & 3) != 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                 "shaders/OGL/ShaderProgram_OGL.cpp",
-                                481, (char*)0);
+                                481, nullptr);
             }
             Destroy(local_160);
-            local_3f8->~stringstream();
-            local_510->~stringstream();
-            local_2e0.~stringstream();
-            local_158.~stringstream();
-            std::string::~string(local_1c8);
+            std::string::~string(&local_1c8);
         } else {
             (*___glewGetProgramiv)(m_nativeShaderProgram, 35717, &field_320);
             CheckGlErrorInternal("glGetProgramiv",
@@ -2678,9 +2211,9 @@ namespace jag::render {
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  492);
             if (0 < field_328) {
-                this_01 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>*)&local_160->field_24;
-                iVar6 = 0;
+                this_01 =
+                    (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)&local_160->field_24;
+                iVar7 = 0;
                 local_180 = this_01;
                 do {
                     uStack_68 = 0;
@@ -2718,143 +2251,124 @@ namespace jag::render {
                     uStack_150 = 0;
                     local_510[0] = 0;
                     local_3f8[0] = 0;
-                    puVar17 = &local_158;
-                    (*___glewGetActiveAttrib)(local_160->m_nativeShaderProgram, iVar6, 255, 0, local_510, local_3f8,
-                                              puVar17);
+                    (*___glewGetActiveAttrib)(local_160->m_nativeShaderProgram, iVar7, 255, 0, local_510, local_3f8,
+                                              &local_158);
                     CheckGlErrorInternal("glGetActiveAttrib",
                                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                          "render/shaders/OGL/ShaderProgram_OGL.cpp",
                                          501);
-                    bVar4 = local_158._2_1_ == '_';
-                    bVar1 = local_158._1_1_ == 'l';
-                    bVar2 = local_158._0_1_ == (stringstream)103;
-                    bVar16 = bVar4 && (bVar1 && bVar2);
-                    pvVar8 =
-                        (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)eastl::compressed_pair_imp<
-                            std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>::second(this_01);
-                    iVar5 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar8);
-                    local_178 = (char*)CONCAT44(local_178._4_4_, iVar6);
-                    if ((0 < iVar5) && (!bVar4 || (!bVar1 || !bVar2))) {
-                        uVar15 = 0;
+                    bVar1 = local_158._2_1_ == '_';
+                    bVar2 = local_158._1_1_ == 'l';
+                    bVar3 = local_158._0_1_ == (stringstream)103;
+                    bVar17 = bVar1 && (bVar2 && bVar3);
+                    pvVar9 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_01->second();
+                    iVar6 = pvVar9->end();
+                    local_178 = (char*)(((uint64_t)local_178._4_4_ << 32) | (uint32_t)iVar7);
+                    if ((0 < iVar6) && (!bVar1 || (!bVar2 || !bVar3))) {
+                        uVar16 = 0;
                         while (true) {
-                            this_00 = (Array<VertexElementDesc, eastl::allocator>*)eastl::compressed_pair_imp<
-                                std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                eastl::allocator, 0>::second(this_01);
-                            lVar9 = Array<VertexElementDesc, eastl::allocator>::operator[](this_00, uVar15);
-                            iVar6 = _strcmp(*(char**)(lVar9 + 8), (char*)&local_158);
-                            if (iVar6 == 0) {
-                                new (&local_2e0) GLVertexElementFormat(*(undefined4*)(lVar9 + 16));
+                            this_00 = (Array<VertexElementDesc>*)this_01->second();
+                            lVar10 = (*this_00)[uVar16];
+                            iVar7 = _strcmp(*(char**)(lVar10 + 8), (char*)&local_158);
+                            if (iVar7 == 0) {
+                                local_2e0 = GLVertexElementFormat(*(ShaderInputFormat*)(lVar10 + 16));
                                 if (local_510[0] != 1) {
-                                    /* WARNING: Subroutine does not return */
                                     LogAssert("attribSize == 1",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "hal/render/shaders/OGL/ShaderProgram_OGL.cpp",
-                                              518, (char*)0);
+                                              518, nullptr);
                                 }
                                 if (local_3f8[0] != local_2e0.field_0._8_4_) {
-                                    /* WARNING: Subroutine does not return */
                                     LogAssert("attribType == vertexFormat.m_ShaderType",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "hal/render/shaders/OGL/ShaderProgram_OGL.cpp",
                                               519, "Type mismatch on vertex attribute \'%s\' (%i != %i)",
-                                              *(undefined8*)(lVar9 + 8), (ulong)local_3f8[0],
-                                              CONCAT44((int)((ulong)puVar17 >> 32), local_2e0.field_0._8_4_));
+                                              *(uint64_t*)(lVar10 + 8), (unsigned long)local_3f8[0],
+                                              (((uint64_t)((int)((unsigned long)&local_158 >> 32)) << 32) |
+                                               (uint32_t)local_2e0.field_0._8_4_));
                                 }
-                                uVar7 = (*___glewGetAttribLocation)(local_160->m_nativeShaderProgram,
-                                                                    *(undefined8*)(lVar9 + 8));
+                                uVar8 = (*___glewGetAttribLocation)(local_160->m_nativeShaderProgram,
+                                                                    *(uint64_t*)(lVar10 + 8));
                                 CheckGlErrorInternal("glGetAttribLocation",
                                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
                                                      "libs/hal/render/shaders/OGL/ShaderProgram_OGL.cpp",
                                                      520);
-                                if (uVar15 != uVar7) {
-                                    /* WARNING: Subroutine does not return */
-                                    LogAssert("attribLocation == j",
-                                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                              "hal/render/shaders/OGL/ShaderProgram_OGL.cpp",
-                                              521, "Vertex attribute \'%s\' at wrong index (C++: %i, Shader: %i)",
-                                              *(undefined8*)(lVar9 + 8), uVar15 & 4294967295,
-                                              CONCAT44((int)((ulong)puVar17 >> 32), uVar7));
+                                if (uVar16 != uVar8) {
+                                    LogAssert(
+                                        "attribLocation == j",
+                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
+                                        "render/shaders/OGL/ShaderProgram_OGL.cpp",
+                                        521, "Vertex attribute \'%s\' at wrong index (C++: %i, Shader: %i)",
+                                        *(uint64_t*)(lVar10 + 8), uVar16 & 4294967295,
+                                        (((uint64_t)((int)((unsigned long)&local_158 >> 32)) << 32) | (uint32_t)uVar8));
                                 }
-                                bVar16 = true;
+                                bVar17 = true;
                                 this_01 = local_180;
                             }
-                            if (iVar6 == 0)
+                            if (iVar7 == 0)
                                 break;
-                            uVar15 = uVar15 + 1;
-                            pvVar8 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                                eastl::compressed_pair_imp<
-                                    std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                    eastl::allocator, 0>::second(this_01);
-                            iVar6 =
-                                eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar8);
-                            if (((long)iVar6 <= (long)uVar15) || (bVar16))
+                            uVar16 = uVar16 + 1;
+                            pvVar9 =
+                                (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_01->second();
+                            iVar7 = pvVar9->end();
+                            if (((long)iVar7 <= (long)uVar16) || (bVar17))
                                 break;
                         }
                     }
-                    if (!bVar16) {
-                        /* WARNING: Subroutine does not return */
+                    if (!bVar17) {
                         LogAssert("existsInVertexDecl",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "shaders/OGL/ShaderProgram_OGL.cpp",
                                   526,
                                   "Vertex attribute \'%s\' (%i) present and active in shader but not found in C++-side "
                                   "vertex declaration, this will result in undefined behaviour!",
-                                  &local_158, (ulong)local_178 & 4294967295);
+                                  &local_158, (unsigned long)local_178 & 4294967295);
                     }
-                    iVar6 = (int)local_178 + 1;
-                } while (iVar6 < *local_1b0);
+                    iVar7 = (int)local_178 + 1;
+                } while (iVar7 < *local_1b0);
             }
-            pSVar3 = local_160;
-            (&local_160->field_376, local_160)->Initialise();
-            (&pSVar3->field_496)->clear();
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            pSVar4 = local_160;
+            local_160->field_376.Initialise(*local_160);
+            pSVar4->field_496.clear();
         }
         return local_19c != 0;
     }
 
-    // 0x100bf0e60, 464 bytes, placed by __FILE__ string
-    // ShaderProgram::ReleaseNativeResources()
+    // 0x100bf0e60
     void ShaderProgram::ReleaseNativeResources() {
-        char cVar1;
-        long lVar2;
-        ShaderManager<PixelShader>* this_00;
-        ulong uVar3;
+        bool cVar1;
+        unsigned long uVar3;
         ShaderManager<VertexShader>* this_01;
-        MapArea* this_02;
         char* this_03;
 
-        WaitForAsyncCompile(this);
-        this_00 = (ShaderManager<PixelShader>*)&field_12;
+        WaitForAsyncCompile();
+        ShaderManager<PixelShader>* this_00 = (ShaderManager<PixelShader>*)&field_12;
         this_00->MarkAsDead();
-        lVar2 = Singleton<ShaderManager<ComputeShader>>::InstancePtr();
+        long lVar2 = this_00->InstancePtr();
         if (lVar2 != 0) {
             this_00 = (ShaderManager<PixelShader>*)this_00->Instance();
-            uVar3 = (&field_232)->capacity();
+            uVar3 = field_232.capacity();
             this_00->Unregister(uVar3, field_272);
         }
-        lVar2 = Singleton<ShaderManager<PixelShader>>::InstancePtr();
+        lVar2 = this_00->InstancePtr();
         if (lVar2 != 0) {
             this_00 = (ShaderManager<PixelShader>*)this_00->Instance();
-            uVar3 = (&m_pixelShaderSource)->capacity();
+            uVar3 = m_pixelShaderSource->capacity();
             this_00->Unregister(uVar3, field_216);
         }
-        lVar2 = Singleton<ShaderManager<VertexShader>>::InstancePtr();
+        lVar2 = this_00->InstancePtr();
         if (lVar2 != 0) {
             this_01 = (ShaderManager<VertexShader>*)this_00->Instance();
-            uVar3 = (&m_vertexShaderSource)->capacity();
+            uVar3 = m_vertexShaderSource->capacity();
             this_01->Unregister(uVar3, field_160);
         }
-        lVar2 = field_216->end();
+        lVar2 = field_216.end();
         if (lVar2 == 0) {
-            lVar2 = field_160->end();
+            lVar2 = field_160.end();
             if (lVar2 == 0) {
-                lVar2 = field_272->end();
+                lVar2 = field_272.end();
                 if (lVar2 == 0) {
-                    this_03 = (char*)(ulong)m_nativeShaderProgram;
+                    this_03 = (char*)(unsigned long)m_nativeShaderProgram;
                     if (m_nativeShaderProgram != 0) {
                         cVar1 = (*___glewIsProgram)();
                         this_03 = "glIsProgram";
@@ -2862,7 +2376,7 @@ namespace jag::render {
                                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                              "hal/render/shaders/OGL/ShaderProgram_OGL.cpp",
                                              611);
-                        if (cVar1 != '\0') {
+                        if (cVar1) {
                             (*___glewDeleteProgram)(m_nativeShaderProgram);
                             this_03 = "glDeleteProgram";
                             CheckGlErrorInternal("glDeleteProgram",
@@ -2872,148 +2386,118 @@ namespace jag::render {
                         }
                         m_nativeShaderProgram = 0;
                     }
-                    lVar2 = Singleton<RenderDevice>::InstancePtr();
-                    if (lVar2 != 0) {
-                        this_02 = (MapArea*)this_03->Instance();
-                        lVar2 = this_02->GetOrigin();
+                    if (this_03->InstancePtr() != nullptr) {
+                        lVar2 = ((MapArea*)this_03->Instance())->GetOrigin();
                         if (*(char*)(lVar2 + 187) != '\0') {
-                            cVar1 = (&field_1848)->IsCreated();
-                            if (cVar1 != '\0') {
-                                /* WARNING: Subroutine does not return */
+                            cVar1 = field_1848.IsCreated();
+                            if (cVar1) {
                                 LogAssert("!RenderDevice::InstancePtr() || "
                                           "!RenderDevice::Instance().GetDeviceCaps().m_SyncFenceObjectsSync || "
                                           "!m_syncFence.IsCreated()",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                           "render/shaders/OGL/ShaderProgram_OGL.cpp",
-                                          619, (char*)0);
+                                          619, nullptr);
                             }
                         }
                     }
-                    std::atomic<ShaderProgramLinkState>::operator=((atomic<ShaderProgramLinkState>*)&field_369, 0);
+                    field_369 = 0;
                     return;
                 }
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert(
             "m_PixelShader.get() == nullptr && m_VertexShader.get() == nullptr && m_ComputeShader.get() == nullptr",
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
             "ShaderProgram_OGL.cpp",
-            607, (char*)0);
+            607, nullptr);
     }
 
-    // 0x100bf10f0, 160 bytes, placed by __FILE__ string
-    // ShaderProgram::BindConstBufferSlot(unsigned int, HashedString const&, unsigned int) const
-    void ShaderProgram::BindConstBufferSlot(uint param_1, HashedString* param_2, uint param_3) {
-        int iVar1;
-
-        iVar1 = GetConstBlockIndex(this, param_2);
+    // 0x100bf10f0
+    void ShaderProgram::BindConstBufferSlot(unsigned int arg1, const HashedString& hashedString,
+                                            unsigned int arg3) const {
+        int iVar1 = GetConstBlockIndex(hashedString);
         if (iVar1 != -1) {
-            (*___glewUniformBlockBinding)(m_nativeShaderProgram, iVar1, param_1);
+            (*___glewUniformBlockBinding)(m_nativeShaderProgram, iVar1, arg1);
             CheckGlErrorInternal("glUniformBlockBinding",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  631);
         }
-        if (GetConstBlockSize(this, param_2) != param_3) {
-            iVar1 = GetConstBlockSize(this, param_2);
+        if (GetConstBlockSize(hashedString) != arg3) {
+            iVar1 = GetConstBlockSize(hashedString);
             if (iVar1 != -1) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("GetConstBlockSize(constBlockName) == (int)constBufferSizeBytes || "
                           "GetConstBlockSize(constBlockName) == -1",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          637, (char*)0);
+                          637, nullptr);
             }
         }
     }
 
-    // 0x100bf1190, 448 bytes, placed by __FILE__ string
-    // ShaderProgram::GetConstBlockIndex(HashedString const&) const
-    undefined4 ShaderProgram::GetConstBlockIndex(HashedString* param_1) {
-        uint uVar1;
-        code* pcVar2;
-        char cVar3;
-        undefined4 uVar5;
-        long lVar6;
-        undefined8 uVar7;
-        undefined4* puVar8;
-        hashtable_iterator_base* extraout_RDX;
-        eastl local_60[16];
-        unique_lock<std::mutex> local_50[16];
-        ulong local_40[2];
+    // 0x100bf1190
+    uint32_t ShaderProgram::GetConstBlockIndex(const HashedString& hashedString) const {
+        unsigned int uVar1;
+        void* pcVar2;
+        bool cVar3;
+        uint32_t uVar4;
+        uint64_t uVar6;
+        uint32_t* puVar7;
+        unique_lock<std::mutex> local_50;
 
-        lVar6 = param_1->HeapBeginPtr();
-        if (lVar6 == 0) {
-            /* WARNING: Subroutine does not return */
+        long lVar5 = hashedString.HeapBeginPtr();
+        if (lVar5 == 0) {
             LogAssert("constBlockName.GetString() != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1190, (char*)0);
+                      1190, nullptr);
         }
-        if (((m_compileFlags & 4) == 0) && (cVar3 = this_thread::IsMainThread(), cVar3 == '\0')) {
-            /* WARNING: Subroutine does not return */
+        if (((m_compileFlags & 4) == 0) && (cVar3 = this_thread::IsMainThread(), !cVar3)) {
             LogAssert("(m_compileFlags & SHADER_THREAD_SAFE_CACHE) || this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1191, (char*)0);
+                      1191, nullptr);
         }
         if ((m_compileFlags & 4) == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_50);
+            local_50 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_50, (mutex*)&field_1768);
+            local_50 = std::unique_lock<std::mutex>(field_1768);
         }
-        local_40[0] = param_1->end();
-        eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                         eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::find((longlong*)local_60);
-        eastl::hashtable<int, eastl::pair<int const, oldscape::highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, oldscape::highlight::HighlightedGroup>>,
-                         eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        if (eastl::operator!=(local_60, (hashtable_iterator_base*)local_40, extraout_RDX)) {
-            lVar6 = local_60->HeapBeginPtr();
-            uVar5 = *(undefined4*)(lVar6 + 8);
-        } else {
-            WaitForAsyncCompile(this);
+        uint8_t* this_00 = &field_552;
+        local_40[0] = (ReturnValue)hashedString.end();
+        auto local_60 = this_00->find(local_40);
+        auto local_40 = this_00->end();
+        cVar3 = local_60 != local_40;
+        if (!cVar3) {
+            WaitForAsyncCompile();
             pcVar2 = ___glewGetUniformBlockIndex;
             if (m_nativeShaderProgram == 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_GLProgramObject",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          1205, (char*)0);
+                          1205, nullptr);
             }
             uVar1 = m_nativeShaderProgram;
-            uVar7 = param_1->HeapBeginPtr();
-            uVar5 = (*pcVar2)(uVar1, uVar7);
+            uVar6 = hashedString.HeapBeginPtr();
+            uVar4 = (*pcVar2)(uVar1, uVar6);
             CheckGlErrorInternal("glGetUniformBlockIndex",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
                                  1207);
-            local_40[0] = param_1->end();
-            puVar8 = (undefined4*)eastl::hash_map<
-                unsigned long, int, eastl::hash<unsigned long>, eastl::equal_to<unsigned long>,
-                eastl::fixed_hashtable_allocator<34ul, 24ul, 32ul, 8ul, 0ul, true, eastl::allocator>, false>::
-            operator[]((hash_map<unsigned long, int, eastl::hash<unsigned long>, eastl::equal_to<unsigned long>,
-                                 eastl::fixed_hashtable_allocator<34ul, 24ul, 32ul, 8ul, 0ul, true, eastl::allocator>,
-                                 false>*)&field_552,
-                       local_40);
-            *puVar8 = uVar5;
+            local_40[0] = (ReturnValue)hashedString.end();
+            puVar7 = (uint32_t*)(*this_00)[local_40];
+            *puVar7 = uVar4;
+        } else {
+            lVar5 = local_60.HeapBeginPtr();
+            uVar4 = *(uint32_t*)(lVar5 + 8);
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_50);
-        return uVar5;
+        return uVar4;
     }
 
-    // 0x100bf1350, 96 bytes, placed by __FILE__ string
-    // ShaderProgram::GetConstBlockSize(HashedString const&) const
-    undefined4 ShaderProgram::GetConstBlockSize(HashedString* param_1) {
-        int iVar1;
-        undefined4 local_14;
-
-        iVar1 = GetConstBlockIndex(this, param_1);
-        local_14 = 4294967295;
+    // 0x100bf1350
+    uint32_t ShaderProgram::GetConstBlockSize(const HashedString& hashedString) const {
+        int iVar1 = GetConstBlockIndex(hashedString);
+        return local_14 = 4294967295;
         if (iVar1 != -1) {
             (*___glewGetActiveUniformBlockiv)(m_nativeShaderProgram, iVar1, 35392, &local_14);
             CheckGlErrorInternal("glGetActiveUniformBlockiv",
@@ -3024,52 +2508,36 @@ namespace jag::render {
         return local_14;
     }
 
-    // 0x100bf1c80, 272 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstSampler(int, int) const
-    void ShaderProgram::SetShaderConstSampler(int param_1, int param_2) {
-        RenderDevice* this_00;
-        long lVar3;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base local_68[16];
-        pair<int, int> local_58[8];
-        eastl local_50[16];
-        undefined8 local_40;
-        undefined8 local_38;
-        int local_30;
-        int local_2c;
+    // 0x100bf1c80
+    void ShaderProgram::SetShaderConstSampler(int arg1, int arg2) const {
+        uint8_t* this_00;
+        long lVar2;
+        ReturnValue local_68;
+        pair<int, int> local_58;
+        ReturnValue local_50;
+        hashtable_iterator<eastl::pair<int const, int>, true, false>* local_40;
+        pair<int const, int>* local_38;
 
-        local_30 = param_2;
-        local_2c = param_1;
-        this_00 = (RenderDevice*)Instance();
-        if (this_00->IsRenderThread() == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = ((RenderDevice*)Instance())->IsRenderThread();
+        if (!cVar1) {
             LogAssert("RenderDevice::Instance().IsRenderThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1077, (char*)0);
+                      1077, nullptr);
         }
-        if (-1 < local_2c) {
-            eastl::hashtable<int, eastl::pair<int const, int>, BucketAllocatorEASTL,
-                             eastl::use_first<eastl::pair<int const, int>>, eastl::equal_to<int>, eastl::hash<int>,
-                             eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false,
-                             true, true>::find((int*)local_50);
-            eastl::hashtable<int, eastl::pair<int const, oldscape::highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, oldscape::highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            if ((!eastl::operator==(local_50, local_68, extraout_RDX)) &&
-                (lVar3 = local_50->HeapBeginPtr(), *(int*)(lVar3 + 4) == local_30)) {
+        if (-1 < arg1) {
+            this_00 = &field_496;
+            local_50 = this_00->find(arg1);
+            local_68 = this_00->end();
+            cVar1 = local_50 == local_68;
+            if ((!cVar1) && (lVar2 = local_50.HeapBeginPtr(), *(int*)(lVar2 + 4) == arg2)) {
                 return;
             }
-            new (&local_40)
-                eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(local_50);
-            eastl::pair<int, int>::pair<int, int&, void>(local_58, &local_2c, &local_30);
-            eastl::hashtable<int, eastl::pair<int const, int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, int>>, eastl::equal_to<int>, eastl::hash<int>,
-                             eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false,
-                             true, true>::insert(local_68, &field_496, local_40, local_38, local_58);
-            SetProgramActive(this);
-            (*___glewUniform1i)(local_2c, local_30);
+            new (&local_40) eastl::hashtable_iterator(&local_50);
+            local_58.pair<int, int&, void>(arg1, arg2);
+            local_68 = this_00->insert(local_40, *local_38);
+            SetProgramActive();
+            (*___glewUniform1i)(arg1, arg2);
             CheckGlErrorInternal("glUniform1i",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "shaders/OGL/ShaderProgram_OGL.cpp",
@@ -3077,54 +2545,46 @@ namespace jag::render {
         }
     }
 
-    // 0x100bf1e20, 432 bytes, placed by __FILE__ string
-    // ShaderProgram::GetUniformBindingIndex(HashedString const&) const
-    undefined4 ShaderProgram::GetUniformBindingIndex(HashedString* param_1) {
-        undefined1* this_00;
-        undefined4 uVar1;
-        char cVar2;
+    // 0x100bf1e20
+    uint32_t ShaderProgram::GetUniformBindingIndex(const HashedString& hashedString) const {
+        uint32_t uVar1;
+        bool cVar2;
         int iVar3;
-        long lVar4;
-        long lVar5;
-        undefined4* puVar6;
-        unique_lock<std::mutex> local_48[16];
-        ulong local_38;
-        undefined4 local_2c;
+        uint32_t* puVar6;
+        unique_lock<std::mutex> local_48;
+        uint32_t local_2c;
 
-        lVar4 = param_1->HeapBeginPtr();
+        long lVar4 = hashedString.HeapBeginPtr();
         if (lVar4 == 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("constName.GetString() != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1106, (char*)0);
+                      1106, nullptr);
         }
-        if (((m_compileFlags & 4) == 0) && (cVar2 = this_thread::IsMainThread(), cVar2 == '\0')) {
-            /* WARNING: Subroutine does not return */
+        if (((m_compileFlags & 4) == 0) && (cVar2 = this_thread::IsMainThread(), !cVar2)) {
             LogAssert("(m_compileFlags & SHADER_THREAD_SAFE_CACHE) || this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1107, (char*)0);
+                      1107, nullptr);
         }
         if ((m_compileFlags & 4) == 0) {
-            std::unique_lock<std::mutex>::unique_lock(local_48);
+            local_48 = std::unique_lock<std::mutex>();
         } else {
-            std::unique_lock<std::mutex>::unique_lock(local_48, (mutex*)&field_1768);
+            local_48 = std::unique_lock<std::mutex>(field_1768);
         }
-        this_00 = &field_1728;
-        local_38 = param_1->end();
-        lVar4 = this_00->find(&local_38);
-        lVar5 = this_00->end();
+        unsigned long* this_00 = &field_1728;
+        unsigned long local_38 = hashedString.end();
+        lVar4 = eastl::vector_map<unsigned long, int>::find(*this_00);
+        long lVar5 = this_00->end();
         if (lVar4 == lVar5) {
-            WaitForAsyncCompile(this);
+            WaitForAsyncCompile();
             if (m_nativeShaderProgram == 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_GLProgramObject",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          1121, (char*)0);
+                          1121, nullptr);
             }
-            iVar3 = GetUniformLocationIndex(this, param_1);
+            iVar3 = GetUniformLocationIndex(hashedString);
             if (iVar3 == -1) {
                 local_2c = 4294967295;
             } else {
@@ -3134,91 +2594,73 @@ namespace jag::render {
                                      "shaders/OGL/ShaderProgram_OGL.cpp",
                                      1149);
                 uVar1 = local_2c;
-                local_38 = param_1->end();
-                puVar6 =
-                    (undefined4*)eastl::vector_map<unsigned long, int, eastl::less<unsigned long>, eastl::allocator,
-                                                   eastl::vector<eastl::pair<unsigned long, int>, eastl::allocator>>::
-                    operator[]((vector_map<unsigned long, int, eastl::less<unsigned long>, eastl::allocator,
-                                           eastl::vector<eastl::pair<unsigned long, int>, eastl::allocator>>*)this_00,
-                               &local_38);
+                local_38 = hashedString.end();
+                puVar6 = (uint32_t*)(*this_00)[local_38];
                 *puVar6 = uVar1;
             }
         } else {
-            local_2c = *(undefined4*)(lVar4 + 8);
+            local_2c = *(uint32_t*)(lVar4 + 8);
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_48);
         return local_2c;
     }
 
-    // 0x100bf20d0, 96 bytes, placed by __FILE__ string
-    // ShaderProgram::IsReady() const
-    bool ShaderProgram::IsReady() {
-        char cVar1;
-        undefined8 uVar2;
+    // 0x100bf20d0
+    bool ShaderProgram::IsReady() const {
+        memory_order in_ESI;
 
-        cVar1 = std::__atomic_base<ShaderProgramLinkState, false>::load(&field_369);
-        if (cVar1 == '\0') {
-            uVar2 = logger::default_logger();
-            logger::Logger::Log(uVar2, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "shaders/OGL/ShaderProgram_OGL.cpp",
-                                1280, "%s called on uninitialised shader", "IsReady");
+        char cVar1 = field_369.load(in_ESI);
+        if (!cVar1) {
+            (logger::default_logger())
+                ->Log(false, 3,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
+                      "ShaderProgram_OGL.cpp",
+                      1280, "%s called on uninitialised shader", "IsReady");
         }
         return cVar1 == '\x06';
     }
 
-    // 0x100bf2140, 176 bytes, placed by __FILE__ string
-    // ShaderProgram::PreRender()
+    // 0x100bf2140
     void ShaderProgram::PreRender() {
-        char cVar1;
         Layout* this_00;
-        vector* pvVar2;
-        AutoSingleton<ThreadPoolSingleton>* this_01;
-        undefined1 local_28[8];
+        char* str;
+        ReturnValue local_28;
         __43 local_20;
 
-        this_01 = (AutoSingleton<ThreadPoolSingleton>*)&field_369;
-        cVar1 = this_01->operator_cast_to_ShaderProgramLinkState();
+        AutoSingleton<ThreadPoolSingleton>* this_01 = (AutoSingleton<ThreadPoolSingleton>*)&field_369;
+        char cVar1 = this_01->operator_cast_to_ShaderProgramLinkState();
         if (cVar1 == '\x03') {
             if ((~m_compileFlags & 3) != 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("(m_compileFlags & SHADER_COMPILE_THREADED_ASYNC) == SHADER_COMPILE_THREADED_ASYNC",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
                           "OGL/ShaderProgram_OGL.cpp",
-                          1296, (char*)0);
+                          1296, nullptr);
             }
-            cVar1 = IsReadyGL(this);
-            if (cVar1 != '\0') {
-                std::atomic<ShaderProgramLinkState>::operator=();
+            cVar1 = IsReadyGL();
+            if (cVar1) {
+                *this_01 = 4;
                 this_00 = (Layout*)this_01->Instance();
-                pvVar2 = eastl::string::Layout::SSOBeginPtr(this_00, (type*)4);
+                str = (char*)this_00->SSOBeginPtr();
                 local_20.field_0 = this;
-                ThreadPool::AddTask<ShaderProgram::PreRender()::__43>((ThreadPool*)local_28, (char*)pvVar2, &local_20);
-                std::future<void>::operator=((future<void>*)&field_1840, (future*)local_28);
-                local_28->~future();
+                ThreadPool::AddTask<ShaderProgram::PreRender()::__43>(&local_28, str, &local_20);
+                field_1840 = local_28;
             }
         }
     }
 
-    // 0x100bf21f0, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::IsReadyGL() const
-    bool ShaderProgram::IsReadyGL() {
-        uint in_EAX;
-        MapArea* this_00;
-        long lVar1;
-        undefined8 uStack_18;
+    // 0x100bf21f0
+    bool ShaderProgram::IsReadyGL() const {
+        unsigned int in_EAX;
+        uint64_t uStack_18;
 
         uStack_18._0_4_ = in_EAX;
-        this_00 = (MapArea*)Instance();
-        lVar1 = this_00->GetOrigin();
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
         if (*(char*)(lVar1 + 335) == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("RenderDevice::Instance().GetDeviceCaps().m_GLParallelShaderCompile",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "ShaderProgram_OGL.cpp",
-                      1347, (char*)0);
+                      1347, nullptr);
         }
-        uStack_18 = (ulong)(uint)uStack_18;
+        uStack_18 = (unsigned long)(unsigned int)uStack_18;
         (*___glewGetProgramiv)(m_nativeShaderProgram, 37297, (long)&uStack_18 + 4);
         CheckGlErrorInternal("glGetProgramiv",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/"
@@ -3227,969 +2669,593 @@ namespace jag::render {
         return uStack_18._4_4_ != 0;
     }
 
-    // 0x100bf2440, 160 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::OnEndFrame()
+    // 0x100bf2440
     void ShaderProgram::OnEndFrame() {
-        RenderDevice* this_00;
         __44 local_d0;
-        function local_c8;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[168];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_00 = (RenderDevice*)Instance();
+        auto this_00 = Instance();
         local_d0.field_0 = (long)this;
         fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-            ShaderProgram::OnEndFrame()::__44, void>(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8, &local_d0);
-        this_00->RunOnRenderThread(&local_c8);
-        fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-            (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            ShaderProgram::OnEndFrame()::__44, void>(local_c8, &local_d0);
+        this_00->RunOnRenderThread(*local_c8);
     }
 
-    // 0x100c01b00, 80 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::CreateFromSourceString()::$_16::operator()() const
-    /* ShaderProgram::CreateFromSourceString()::$_16::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void ShaderProgram::CreateFromSourceString()::$_16::operator()() {
-        ShaderProgram* this_00;
-        RenderDevice* this_01;
-        RenderContext* pRVar1;
-        lock_guard<RenderContext> local_18[8];
-
-        this_00 = field_0;
-        this_01 = (RenderDevice*)Instance();
-        pRVar1 = (RenderContext*)this_01->GetCurrentThreadRenderContext();
-        lock_guard<RenderContext>::lock_guard(local_18, pRVar1);
+    // 0x100c01b00
+    void ShaderProgram::CreateFromSourceString()::$_16::operator()() const {
+        ShaderProgram* this_00 = field_0;
+        RenderContext* renderContext = ((RenderDevice*)Instance())->GetCurrentThreadRenderContext();
+        lock_guard<RenderContext> local_18(*renderContext);
         CreateFromSourceStringInternal(this_00);
-        local_18->~lock_guard();
     }
 
-    // 0x100c06ae0, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned int) const::$_20::$_20($_20&&): jumps straight to the base-object constructor
-
-    // 0x100c06af0, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned int) const::$_20::$_20($_20&&)
-    /* $_20($_20&&) */
-
-    void ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned int)::__20(__20* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c06af0
+    ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*,
+                                             unsigned int) const ::$_20::$_20($_20&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c06b40, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned int) const::$_20::$_20($_20 const&): jumps straight to the base-object constructor
-
-    // 0x100c06b50, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned int) const::$_20::$_20($_20 const&)
-    /* $_20($_20 const&) */
-
-    void ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned int)::__20(__20* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c06b50
+    ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*,
+                                             unsigned int) const ::$_20::$_20(const $_20& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c06b90, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned int) const::$_20::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstFloat4Array(int, unsigned int, float const*, unsigned
-   int) const::$_20::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c06b90
+    void ShaderProgram::SetShaderConstFloat4Array(
+        int, unsigned int, float const*, unsigned int) const ::$_20::operator()(RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstFloat4Array_int_unsigned_int_float_const_ptr_unsigned_int* const ::$_20::operator()(
-        RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstFloat4Array_int_unsigned_int_float_const_ptr_unsigned_int* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstFloat4Array_int_unsigned_int_float_const_ptr_unsigned_int*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstFloat4Array_int_unsigned_int_float_const_ptr_unsigned_int*)this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform4fv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstFloat4Array_int_unsigned_int_float_const_ptr_unsigned_int*)
-                    CheckGlErrorInternal("__glewUniform4fv",
-                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                         "render/shaders/OGL/ShaderProgram_OGL.cpp",
-                                         788);
+                CheckGlErrorInternal("__glewUniform4fv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     788);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c06d30, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*, unsigned int) const::$_21::$_21($_21&&): jumps straight to the base-object constructor
-
-    // 0x100c06d40, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*, unsigned int) const::$_21::$_21($_21&&)
-    /* $_21($_21&&) */
-
-    void ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*,
-                                                 unsigned int)::__21(__21* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c06d40
+    ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*,
+                                            unsigned int) const ::$_21::$_21($_21&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c06d90, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*, unsigned int) const::$_21::$_21($_21 const&): jumps straight to the base-object constructor
-
-    // 0x100c06da0, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*, unsigned int) const::$_21::$_21($_21 const&)
-    /* $_21($_21 const&) */
-
-    void ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*,
-                                                 unsigned int)::__21(__21* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c06da0
+    ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*,
+                                            unsigned int) const ::$_21::$_21(const $_21& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c06de0, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*, unsigned int) const::$_21::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*,
-   unsigned int) const::$_21::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c06de0
+    void
+    ShaderProgram::SetShaderConstUint4Array(int, unsigned int, unsigned int const*,
+                                            unsigned int) const ::$_21::operator()(RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstUint4Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int* const ::$_21::operator()(
-        RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstUint4Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstUint4Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int*)
-                     param_1->IsObjectAlive((RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstUint4Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int*)
-                         this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform4uiv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstUint4Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int*)
-                    CheckGlErrorInternal("__glewUniform4uiv",
-                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                         "render/shaders/OGL/ShaderProgram_OGL.cpp",
-                                         821);
+                CheckGlErrorInternal("__glewUniform4uiv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     821);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c06ed0, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const::$_22::$_22($_22&&): jumps straight to the base-object constructor
-
-    // 0x100c06ee0, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const::$_22::$_22($_22&&)
-    /* $_22($_22&&) */
-
-    void ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*)::__22(__22* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c06ee0
+    ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const ::$_22::$_22($_22&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c06f30, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const::$_22::$_22($_22 const&): jumps straight to the base-object constructor
-
-    // 0x100c06f40, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const::$_22::$_22($_22 const&)
-    /* $_22($_22 const&) */
-
-    void ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*)::__22(__22* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c06f40
+    ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const ::$_22::$_22(const $_22& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c06f80, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const::$_22::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*)
-   const::$_22::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c06f80
+    void ShaderProgram::SetShaderConstFloat3Array(int, unsigned int, float const*) const ::$_22::operator()(
+        RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstFloat3Array_int_unsigned_int_float_const_ptr* const ::$_22::operator()(
-        RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstFloat3Array_int_unsigned_int_float_const_ptr* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstFloat3Array_int_unsigned_int_float_const_ptr*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstFloat3Array_int_unsigned_int_float_const_ptr*)this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform3fv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstFloat3Array_int_unsigned_int_float_const_ptr*)CheckGlErrorInternal(
-                    "__glewUniform3fv",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    831);
+                CheckGlErrorInternal("__glewUniform3fv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     831);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c07070, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const::$_23::$_23($_23&&): jumps straight to the base-object constructor
-
-    // 0x100c07080, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const::$_23::$_23($_23&&)
-    /* $_23($_23&&) */
-
-    void ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*)::__23(__23* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07080
+    ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const ::$_23::$_23($_23&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c070d0, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const::$_23::$_23($_23 const&): jumps straight to the base-object constructor
-
-    // 0x100c070e0, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const::$_23::$_23($_23 const&)
-    /* $_23($_23 const&) */
-
-    void ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*)::__23(__23* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c070e0
+    ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const ::$_23::$_23(const $_23& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c07120, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const::$_23::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*)
-   const::$_23::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c07120
+    void ShaderProgram::SetShaderConstFloat2Array(int, unsigned int, float const*) const ::$_23::operator()(
+        RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstFloat2Array_int_unsigned_int_float_const_ptr* const ::$_23::operator()(
-        RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstFloat2Array_int_unsigned_int_float_const_ptr* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstFloat2Array_int_unsigned_int_float_const_ptr*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstFloat2Array_int_unsigned_int_float_const_ptr*)this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform2fv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstFloat2Array_int_unsigned_int_float_const_ptr*)CheckGlErrorInternal(
-                    "__glewUniform2fv",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    840);
+                CheckGlErrorInternal("__glewUniform2fv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     840);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c07210, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned int) const::$_24::$_24($_24&&): jumps straight to the base-object constructor
-
-    // 0x100c07220, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned int) const::$_24::$_24($_24&&)
-    /* $_24($_24&&) */
-
-    void ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned int)::__24(__24* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07220
+    ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*,
+                                             unsigned int) const ::$_24::$_24($_24&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c07270, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned int) const::$_24::$_24($_24 const&): jumps straight to the base-object constructor
-
-    // 0x100c07280, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned int) const::$_24::$_24($_24 const&)
-    /* $_24($_24 const&) */
-
-    void ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned int)::__24(__24* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07280
+    ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*,
+                                             unsigned int) const ::$_24::$_24(const $_24& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c072c0, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned int) const::$_24::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstFloat1Array(int, unsigned int, float const*, unsigned
-   int) const::$_24::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c072c0
+    void ShaderProgram::SetShaderConstFloat1Array(
+        int, unsigned int, float const*, unsigned int) const ::$_24::operator()(RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstFloat1Array_int_unsigned_int_float_const_ptr_unsigned_int* const ::$_24::operator()(
-        RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstFloat1Array_int_unsigned_int_float_const_ptr_unsigned_int* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstFloat1Array_int_unsigned_int_float_const_ptr_unsigned_int*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstFloat1Array_int_unsigned_int_float_const_ptr_unsigned_int*)this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform1fv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstFloat1Array_int_unsigned_int_float_const_ptr_unsigned_int*)
-                    CheckGlErrorInternal("__glewUniform1fv",
-                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                         "render/shaders/OGL/ShaderProgram_OGL.cpp",
-                                         872);
+                CheckGlErrorInternal("__glewUniform1fv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     872);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c073b0, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*) const::$_25::$_25($_25&&): jumps straight to the base-object constructor
-
-    // 0x100c073c0, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*) const::$_25::$_25($_25&&)
-    /* $_25($_25&&) */
-
-    void ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*)::__25(__25* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c073c0
+    ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*) const ::$_25::$_25($_25&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c07410, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*) const::$_25::$_25($_25 const&): jumps straight to the base-object constructor
-
-    // 0x100c07420, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*) const::$_25::$_25($_25 const&)
-    /* $_25($_25 const&) */
-
-    void ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*)::__25(__25* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07420
+    ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*) const ::$_25::$_25(const $_25& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c07460, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*) const::$_25::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstInt4Array(int, unsigned int, int const*)
-   const::$_25::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c07460
+    void
+    ShaderProgram::SetShaderConstInt4Array(int, unsigned int,
+                                           int const*) const ::$_25::operator()(RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstInt4Array_int_unsigned_int_int_const_ptr* const ::$_25::operator()(RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstInt4Array_int_unsigned_int_int_const_ptr* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstInt4Array_int_unsigned_int_int_const_ptr*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstInt4Array_int_unsigned_int_int_const_ptr*)this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform4iv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstInt4Array_int_unsigned_int_int_const_ptr*)CheckGlErrorInternal(
-                    "__glewUniform4iv",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    882);
+                CheckGlErrorInternal("__glewUniform4iv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     882);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c07550, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*) const::$_26::$_26($_26&&): jumps straight to the base-object constructor
-
-    // 0x100c07560, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*) const::$_26::$_26($_26&&)
-    /* $_26($_26&&) */
-
-    void ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*)::__26(__26* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07560
+    ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*) const ::$_26::$_26($_26&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c075b0, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*) const::$_26::$_26($_26 const&): jumps straight to the base-object constructor
-
-    // 0x100c075c0, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*) const::$_26::$_26($_26 const&)
-    /* $_26($_26 const&) */
-
-    void ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*)::__26(__26* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c075c0
+    ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*) const ::$_26::$_26(const $_26& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c07600, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*) const::$_26::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstInt3Array(int, unsigned int, int const*)
-   const::$_26::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c07600
+    void
+    ShaderProgram::SetShaderConstInt3Array(int, unsigned int,
+                                           int const*) const ::$_26::operator()(RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstInt3Array_int_unsigned_int_int_const_ptr* const ::$_26::operator()(RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstInt3Array_int_unsigned_int_int_const_ptr* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstInt3Array_int_unsigned_int_int_const_ptr*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstInt3Array_int_unsigned_int_int_const_ptr*)this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform3iv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstInt3Array_int_unsigned_int_int_const_ptr*)CheckGlErrorInternal(
-                    "__glewUniform3iv",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    891);
+                CheckGlErrorInternal("__glewUniform3iv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     891);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c076f0, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*) const::$_27::$_27($_27&&): jumps straight to the base-object constructor
-
-    // 0x100c07700, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*) const::$_27::$_27($_27&&)
-    /* $_27($_27&&) */
-
-    void ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*)::__27(__27* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07700
+    ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*) const ::$_27::$_27($_27&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c07750, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*) const::$_27::$_27($_27 const&): jumps straight to the base-object constructor
-
-    // 0x100c07760, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*) const::$_27::$_27($_27 const&)
-    /* $_27($_27 const&) */
-
-    void ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*)::__27(__27* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07760
+    ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*) const ::$_27::$_27(const $_27& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c077a0, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*) const::$_27::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstInt2Array(int, unsigned int, int const*)
-   const::$_27::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c077a0
+    void
+    ShaderProgram::SetShaderConstInt2Array(int, unsigned int,
+                                           int const*) const ::$_27::operator()(RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstInt2Array_int_unsigned_int_int_const_ptr* const ::$_27::operator()(RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstInt2Array_int_unsigned_int_int_const_ptr* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstInt2Array_int_unsigned_int_int_const_ptr*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstInt2Array_int_unsigned_int_int_const_ptr*)this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform2iv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstInt2Array_int_unsigned_int_int_const_ptr*)CheckGlErrorInternal(
-                    "__glewUniform2iv",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    900);
+                CheckGlErrorInternal("__glewUniform2iv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     900);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c07890, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*) const::$_28::$_28($_28&&): jumps straight to the base-object constructor
-
-    // 0x100c078a0, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*) const::$_28::$_28($_28&&)
-    /* $_28($_28&&) */
-
-    void ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*)::__28(__28* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c078a0
+    ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*) const ::$_28::$_28($_28&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c078f0, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*) const::$_28::$_28($_28 const&): jumps straight to the base-object constructor
-
-    // 0x100c07900, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*) const::$_28::$_28($_28 const&)
-    /* $_28($_28 const&) */
-
-    void ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*)::__28(__28* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07900
+    ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*) const ::$_28::$_28(const $_28& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c07940, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*) const::$_28::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstInt1Array(int, unsigned int, int const*)
-   const::$_28::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c07940
+    void
+    ShaderProgram::SetShaderConstInt1Array(int, unsigned int,
+                                           int const*) const ::$_28::operator()(RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstInt1Array_int_unsigned_int_int_const_ptr* const ::$_28::operator()(RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstInt1Array_int_unsigned_int_int_const_ptr* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstInt1Array_int_unsigned_int_int_const_ptr*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstInt1Array_int_unsigned_int_int_const_ptr*)this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform1iv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstInt1Array_int_unsigned_int_int_const_ptr*)CheckGlErrorInternal(
-                    "__glewUniform1iv",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    909);
+                CheckGlErrorInternal("__glewUniform1iv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     909);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c07a30, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*, unsigned int) const::$_29::$_29($_29&&): jumps straight to the base-object constructor
-
-    // 0x100c07a40, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*, unsigned int) const::$_29::$_29($_29&&)
-    /* $_29($_29&&) */
-
-    void ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*,
-                                                 unsigned int)::__29(__29* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07a40
+    ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*,
+                                            unsigned int) const ::$_29::$_29($_29&& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c07a90, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*, unsigned int) const::$_29::$_29($_29 const&): jumps straight to the base-object constructor
-
-    // 0x100c07aa0, 32 bytes, base-object constructor, placed by class name and neighbouring functions
-    // ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*, unsigned int) const::$_29::$_29($_29 const&)
-    /* $_29($_29 const&) */
-
-    void ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*,
-                                                 unsigned int)::__29(__29* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
+    // 0x100c07aa0
+    ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*,
+                                            unsigned int) const ::$_29::$_29(const $_29& arg1) {
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        field_0 = *(uint64_t*)arg1;
         field_8 = uVar1;
-        new (&field_16, param_1 + 16) WrapArray<math::Matrix44T<float> const>();
+        new (&field_16) WrapArray(*((arg1 + 16)));
     }
 
-    // 0x100c07ae0, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*, unsigned int) const::$_29::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*,
-   unsigned int) const::$_29::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100c07ae0
+    void
+    ShaderProgram::SetShaderConstUInt1Array(int, unsigned int, unsigned int const*,
+                                            unsigned int) const ::$_29::operator()(RenderContext& renderContext) const {
+        uint32_t uVar1;
+        uint32_t uVar2;
+        void* pcVar3;
+        uint64_t uVar5;
 
-    _func_SetShaderConstUInt1Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int* const ::$_29::operator()(
-        RenderContext * param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ShaderProgram* this_00;
-        code* pcVar3;
-        _func_SetShaderConstUInt1Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int* p_Var4;
-        undefined8 uVar5;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var4 = (_func_SetShaderConstUInt1Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int*)
-                     param_1->IsObjectAlive((RenderResource*)&this_00->field_12);
-        if ((char)p_Var4 != '\0') {
-            p_Var4 = (_func_SetShaderConstUInt1Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int*)
-                         this_00->IsReady();
-            if ((char)p_Var4 != '\0') {
-                this_00->SetProgramActive(param_1);
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
                 pcVar3 = ___glewUniform1uiv;
-                uVar1 = *(undefined4*)(this + 8);
-                uVar2 = *(undefined4*)(this + 12);
+                uVar1 = *(uint32_t*)(this + 8);
+                uVar2 = *(uint32_t*)(this + 12);
                 uVar5 = ((this + 16))->end();
                 (*pcVar3)(uVar1, uVar2, uVar5);
-                p_Var4 = (_func_SetShaderConstUInt1Array_int_unsigned_int_unsigned_int_const_ptr_unsigned_int*)
-                    CheckGlErrorInternal("__glewUniform1uiv",
-                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                         "render/shaders/OGL/ShaderProgram_OGL.cpp",
-                                         942);
+                CheckGlErrorInternal("__glewUniform1uiv",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     942);
             }
         }
-        return p_Var4;
     }
 
-    // 0x100c08790, 144 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat4(int, float, float, float, float) const::$_35::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstFloat4(int, float, float, float, float)
-   const::$_35::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    _func_SetShaderConstFloat4_int_float_float_float_float* const ::$_35::operator()(RenderContext * param_1) {
-        ShaderProgram* this_00;
-        _func_SetShaderConstFloat4_int_float_float_float_float* p_Var1;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var1 = (_func_SetShaderConstFloat4_int_float_float_float_float*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var1 != '\0') {
-            p_Var1 = (_func_SetShaderConstFloat4_int_float_float_float_float*)this_00->IsReady();
-            if ((char)p_Var1 != '\0') {
-                this_00->SetProgramActive(param_1);
-                (*___glewUniform4f)(*(undefined4*)(this + 12), *(undefined4*)(this + 16), *(undefined4*)(this + 20),
-                                    *(undefined4*)(this + 24), *(undefined4*)(this + 8));
-                p_Var1 = (_func_SetShaderConstFloat4_int_float_float_float_float*)CheckGlErrorInternal(
-                    "__glewUniform4f",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    1023);
+    // 0x100c08790
+    void ShaderProgram::SetShaderConstFloat4(int, float, float, float,
+                                             float) const ::$_35::operator()(RenderContext& renderContext) const {
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
+                (*___glewUniform4f)(*(uint32_t*)(this + 12), *(uint32_t*)(this + 16), *(uint32_t*)(this + 20),
+                                    *(uint32_t*)(this + 24), *(uint32_t*)(this + 8));
+                CheckGlErrorInternal("__glewUniform4f",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     1023);
             }
         }
-        return p_Var1;
     }
 
-    // 0x100c088d0, 128 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat3(int, float, float, float) const::$_36::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstFloat3(int, float, float, float)
-   const::$_36::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    _func_SetShaderConstFloat3_int_float_float_float* const ::$_36::operator()(RenderContext * param_1) {
-        ShaderProgram* this_00;
-        _func_SetShaderConstFloat3_int_float_float_float* p_Var1;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var1 = (_func_SetShaderConstFloat3_int_float_float_float*)param_1->IsObjectAlive(
-            (RenderResource*)&this_00->field_12);
-        if ((char)p_Var1 != '\0') {
-            p_Var1 = (_func_SetShaderConstFloat3_int_float_float_float*)this_00->IsReady();
-            if ((char)p_Var1 != '\0') {
-                this_00->SetProgramActive(param_1);
-                (*___glewUniform3f)(*(undefined4*)(this + 12), *(undefined4*)(this + 16), *(undefined4*)(this + 20),
-                                    *(undefined4*)(this + 8));
-                p_Var1 = (_func_SetShaderConstFloat3_int_float_float_float*)CheckGlErrorInternal(
-                    "__glewUniform3f",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    1031);
+    // 0x100c088d0
+    void ShaderProgram::SetShaderConstFloat3(int, float, float,
+                                             float) const ::$_36::operator()(RenderContext& renderContext) const {
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
+                (*___glewUniform3f)(*(uint32_t*)(this + 12), *(uint32_t*)(this + 16), *(uint32_t*)(this + 20),
+                                    *(uint32_t*)(this + 8));
+                CheckGlErrorInternal("__glewUniform3f",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     1031);
             }
         }
-        return p_Var1;
     }
 
-    // 0x100c08a00, 128 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat2(int, float, float) const::$_37::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstFloat2(int, float, float)
-   const::$_37::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    _func_SetShaderConstFloat2_int_float_float* const ::$_37::operator()(RenderContext * param_1) {
-        ShaderProgram* this_00;
-        _func_SetShaderConstFloat2_int_float_float* p_Var1;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var1 =
-            (_func_SetShaderConstFloat2_int_float_float*)param_1->IsObjectAlive((RenderResource*)&this_00->field_12);
-        if ((char)p_Var1 != '\0') {
-            p_Var1 = (_func_SetShaderConstFloat2_int_float_float*)this_00->IsReady();
-            if ((char)p_Var1 != '\0') {
-                this_00->SetProgramActive(param_1);
-                (*___glewUniform2f)(*(undefined4*)(this + 12), *(undefined4*)(this + 16), *(undefined4*)(this + 8));
-                p_Var1 = (_func_SetShaderConstFloat2_int_float_float*)CheckGlErrorInternal(
-                    "__glewUniform2f",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    1039);
+    // 0x100c08a00
+    void ShaderProgram::SetShaderConstFloat2(int, float,
+                                             float) const ::$_37::operator()(RenderContext& renderContext) const {
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
+                (*___glewUniform2f)(*(uint32_t*)(this + 12), *(uint32_t*)(this + 16), *(uint32_t*)(this + 8));
+                CheckGlErrorInternal("__glewUniform2f",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     1039);
             }
         }
-        return p_Var1;
     }
 
-    // 0x100c08b10, 128 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstFloat1(int, float) const::$_38::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstFloat1(int, float)
-   const::$_38::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    _func_SetShaderConstFloat1_int_float* const ::$_38::operator()(RenderContext * param_1) {
-        ShaderProgram* this_00;
-        _func_SetShaderConstFloat1_int_float* p_Var1;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var1 = (_func_SetShaderConstFloat1_int_float*)param_1->IsObjectAlive((RenderResource*)&this_00->field_12);
-        if ((char)p_Var1 != '\0') {
-            p_Var1 = (_func_SetShaderConstFloat1_int_float*)this_00->IsReady();
-            if ((char)p_Var1 != '\0') {
-                this_00->SetProgramActive(param_1);
-                (*___glewUniform1f)(*(undefined4*)(this + 12), *(undefined4*)(this + 8));
-                p_Var1 = (_func_SetShaderConstFloat1_int_float*)CheckGlErrorInternal(
-                    "__glewUniform1f",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    1047);
+    // 0x100c08b10
+    void ShaderProgram::SetShaderConstFloat1(int, float) const ::$_38::operator()(RenderContext& renderContext) const {
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
+                (*___glewUniform1f)(*(uint32_t*)(this + 12), *(uint32_t*)(this + 8));
+                CheckGlErrorInternal("__glewUniform1f",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     1047);
             }
         }
-        return p_Var1;
     }
 
-    // 0x100c08c40, 128 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt4(int, int, int, int, int) const::$_39::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstInt4(int, int, int, int, int)
-   const::$_39::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    _func_SetShaderConstInt4_int_int_int_int_int* const ::$_39::operator()(RenderContext * param_1) {
-        ShaderProgram* this_00;
-        _func_SetShaderConstInt4_int_int_int_int_int* p_Var1;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var1 =
-            (_func_SetShaderConstInt4_int_int_int_int_int*)param_1->IsObjectAlive((RenderResource*)&this_00->field_12);
-        if ((char)p_Var1 != '\0') {
-            p_Var1 = (_func_SetShaderConstInt4_int_int_int_int_int*)this_00->IsReady();
-            if ((char)p_Var1 != '\0') {
-                this_00->SetProgramActive(param_1);
-                (*___glewUniform4i)(*(undefined4*)(this + 8), *(undefined4*)(this + 12), *(undefined4*)(this + 16),
-                                    *(undefined4*)(this + 20), *(undefined4*)(this + 24));
-                p_Var1 = (_func_SetShaderConstInt4_int_int_int_int_int*)CheckGlErrorInternal(
-                    "__glewUniform4i",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    1055);
+    // 0x100c08c40
+    void ShaderProgram::SetShaderConstInt4(int, int, int, int,
+                                           int) const ::$_39::operator()(RenderContext& renderContext) const {
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
+                (*___glewUniform4i)(*(uint32_t*)(this + 8), *(uint32_t*)(this + 12), *(uint32_t*)(this + 16),
+                                    *(uint32_t*)(this + 20), *(uint32_t*)(this + 24));
+                CheckGlErrorInternal("__glewUniform4i",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     1055);
             }
         }
-        return p_Var1;
     }
 
-    // 0x100c08d70, 128 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt3(int, int, int, int) const::$_40::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstInt3(int, int, int, int)
-   const::$_40::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    _func_SetShaderConstInt3_int_int_int_int* const ::$_40::operator()(RenderContext * param_1) {
-        ShaderProgram* this_00;
-        _func_SetShaderConstInt3_int_int_int_int* p_Var1;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var1 = (_func_SetShaderConstInt3_int_int_int_int*)param_1->IsObjectAlive((RenderResource*)&this_00->field_12);
-        if ((char)p_Var1 != '\0') {
-            p_Var1 = (_func_SetShaderConstInt3_int_int_int_int*)this_00->IsReady();
-            if ((char)p_Var1 != '\0') {
-                this_00->SetProgramActive(param_1);
-                (*___glewUniform3i)(*(undefined4*)(this + 8), *(undefined4*)(this + 12), *(undefined4*)(this + 16),
-                                    *(undefined4*)(this + 20));
-                p_Var1 = (_func_SetShaderConstInt3_int_int_int_int*)CheckGlErrorInternal(
-                    "__glewUniform3i",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    1063);
+    // 0x100c08d70
+    void ShaderProgram::SetShaderConstInt3(int, int, int,
+                                           int) const ::$_40::operator()(RenderContext& renderContext) const {
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
+                (*___glewUniform3i)(*(uint32_t*)(this + 8), *(uint32_t*)(this + 12), *(uint32_t*)(this + 16),
+                                    *(uint32_t*)(this + 20));
+                CheckGlErrorInternal("__glewUniform3i",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     1063);
             }
         }
-        return p_Var1;
     }
 
-    // 0x100c08ea0, 128 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt2(int, int, int) const::$_41::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstInt2(int, int, int)
-   const::$_41::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    _func_SetShaderConstInt2_int_int_int* const ::$_41::operator()(RenderContext * param_1) {
-        ShaderProgram* this_00;
-        _func_SetShaderConstInt2_int_int_int* p_Var1;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var1 = (_func_SetShaderConstInt2_int_int_int*)param_1->IsObjectAlive((RenderResource*)&this_00->field_12);
-        if ((char)p_Var1 != '\0') {
-            p_Var1 = (_func_SetShaderConstInt2_int_int_int*)this_00->IsReady();
-            if ((char)p_Var1 != '\0') {
-                this_00->SetProgramActive(param_1);
-                (*___glewUniform2i)(*(undefined4*)(this + 8), *(undefined4*)(this + 12), *(undefined4*)(this + 16));
-                p_Var1 = (_func_SetShaderConstInt2_int_int_int*)CheckGlErrorInternal(
-                    "__glewUniform2i",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    1071);
+    // 0x100c08ea0
+    void ShaderProgram::SetShaderConstInt2(int, int, int) const ::$_41::operator()(RenderContext& renderContext) const {
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
+                (*___glewUniform2i)(*(uint32_t*)(this + 8), *(uint32_t*)(this + 12), *(uint32_t*)(this + 16));
+                CheckGlErrorInternal("__glewUniform2i",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     1071);
             }
         }
-        return p_Var1;
     }
 
-    // 0x100c09220, 112 bytes, placed by __FILE__ string
-    // ShaderProgram::SetShaderConstInt1(int, int) const::$_42::operator()(RenderContext&) const
-    /* ShaderProgram::SetShaderConstInt1(int, int)
-   const::$_42::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
-    _func_SetShaderConstInt1_int_int* const ::$_42::operator()(RenderContext * param_1) {
-        ShaderProgram* this_00;
-        _func_SetShaderConstInt1_int_int* p_Var1;
-
-        this_00 = *(ShaderProgram**)this;
-        p_Var1 = (_func_SetShaderConstInt1_int_int*)param_1->IsObjectAlive((RenderResource*)&this_00->field_12);
-        if ((char)p_Var1 != '\0') {
-            p_Var1 = (_func_SetShaderConstInt1_int_int*)this_00->IsReady();
-            if ((char)p_Var1 != '\0') {
-                this_00->SetProgramActive(param_1);
-                (*___glewUniform1i)(*(undefined4*)(this + 8), *(undefined4*)(this + 12));
-                p_Var1 = (_func_SetShaderConstInt1_int_int*)CheckGlErrorInternal(
-                    "__glewUniform1i",
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
-                    "ShaderProgram_OGL.cpp",
-                    1100);
+    // 0x100c09220
+    void ShaderProgram::SetShaderConstInt1(int, int) const ::$_42::operator()(RenderContext& renderContext) const {
+        ShaderProgram* this_00 = *(ShaderProgram**)this;
+        if (renderContext.IsObjectAlive(&this_00->field_12)) {
+            if (this_00->IsReady()) {
+                this_00->SetProgramActive(renderContext);
+                (*___glewUniform1i)(*(uint32_t*)(this + 8), *(uint32_t*)(this + 12));
+                CheckGlErrorInternal("__glewUniform1i",
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                     "shaders/OGL/ShaderProgram_OGL.cpp",
+                                     1100);
             }
         }
-        return p_Var1;
     }
 
-    // 0x100c0a110, 16 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::PreRender()::$_43::operator()() const
-    /* ShaderProgram::PreRender()::$_43::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void ShaderProgram::PreRender()::$_43::operator()() {
+    // 0x100c0a110
+    void ShaderProgram::PreRender()::$_43::operator()() const {
         PostLinkShader(field_0);
     }
 
-    // 0x100c0ac90, 80 bytes, placed by class name and neighbouring functions
-    // ShaderProgram::OnEndFrame()::$_44::operator()(RenderContext&) const
-    /* ShaderProgram::OnEndFrame()::$_44::TEMPNAMEPLACEHOLDERVALUE(RenderContext&)
-   const */
-
-    void ShaderProgram::OnEndFrame()::$_44::operator()(RenderContext* param_1) {
-        long lVar1;
-        char cVar2;
+    // 0x100c0ac90
+    void ShaderProgram::OnEndFrame()::$_44::operator()(RenderContext& renderContext) const {
         SyncFence* this_00;
 
-        lVar1 = field_0;
-        cVar2 = param_1->IsObjectAlive((RenderResource*)(lVar1 + 12));
-        if (cVar2 != '\0') {
+        long lVar1 = field_0;
+        if (renderContext.IsObjectAlive((lVar1 + 12))) {
             this_00 = (SyncFence*)(lVar1 + 1848);
-            cVar2 = this_00->IsCreated();
-            if (cVar2 != '\0') {
+            if (this_00->IsCreated()) {
                 this_00->WaitServer();
                 this_00->Destroy();
             }

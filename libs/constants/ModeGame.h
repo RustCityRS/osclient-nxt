@@ -1,45 +1,36 @@
 // libs/constants/ModeGame.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class ModeGame {
     public:
-        ModeGame(unsigned int, char const*, char const*);
-        void GetByID(unsigned int);
-        static ModeGame const* /* 8 bytes */ RUNESCAPE; // = &enumArray
-        static ModeGame const*                          /* 8 bytes */
-            STELLARDAWN;       // = &enumArray[1] /* ModeGame(1, "stellardawn", "StellarDawn") */
-        static ModeGame const* /* 8 bytes */
-            ALTERNATEREALITY;  // = &enumArray[2] /* ModeGame(2, "alternatereality", "Alternate Reality") */
-        static ModeGame const* /* 8 bytes */
-            TRANSFORMERS;      // = &enumArray[3] /* ModeGame(3, "transformers", "Transformers") */
-        static ModeGame const* /* 8 bytes */ SCRATCH; // = &enumArray[4] /* ModeGame(4, "scratch", "Scratch") */
-        static ModeGame const*                        /* 8 bytes */
-            OLDSCAPE; // = &enumArray[5] /* ModeGame(5, "oldscape", "Old School RuneScape") */
-        static ModeGame /* 192 bytes */ enumArray[6]; // initialised in its definition
+        ModeGame(unsigned int arg1, const char* str1, const char* str2);
+        ModeGame* GetByID(unsigned int arg1);
+        static ModeGame const* RUNESCAPE;   // = &enumArray
+        static ModeGame const* STELLARDAWN; // = &enumArray[1] /* ModeGame(1, "stellardawn", "StellarDawn") */
+        static ModeGame const*
+            ALTERNATEREALITY; // = &enumArray[2] /* ModeGame(2, "alternatereality", "Alternate Reality") */
+        static ModeGame const* TRANSFORMERS; // = &enumArray[3] /* ModeGame(3, "transformers", "Transformers") */
+        static ModeGame const* SCRATCH;      // = &enumArray[4] /* ModeGame(4, "scratch", "Scratch") */
+        static ModeGame const* OLDSCAPE;     // = &enumArray[5] /* ModeGame(5, "oldscape", "Old School RuneScape") */
+        static ModeGame enumArray[6];        // initialised in its definition
 
-        // data members, from how the methods use this: 32 bytes
-        EntityHighlight** field_0; // offset 0
-        uint field_8;              // offset 8
-        char _unknown_12[4];
-        char* field_16; // offset 16
-        char* field_24; // offset 24
+    private:
+        PlayerDataComparator<oldscape::social::FriendChatUser>* field_0;
+        unsigned int field_8;
+        uint8_t _unknown_12[4];
+        char* field_16;
+        char* field_24;
     };
 
-    // 0x100b89480, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // ModeGame::ModeGame(unsigned int, char const*, char const*): jumps straight to the base-object constructor
-
-    // 0x100b89630, 64 bytes, base-object constructor, inline, placed by class name
-    // ModeGame::ModeGame(unsigned int, char const*, char const*)
-    void ModeGame::ModeGame(uint param_1, char* param_2, char* param_3) {
-        new (this)
-            eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>(param_2, param_2);
-        field_8 = param_1;
-        field_16 = param_3;
-        field_24 = param_2;
+    // 0x100b89630
+    ModeGame::ModeGame(unsigned int arg1, const char* str1, const char* str2) {
+        new (this) eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>(str1);
+        field_8 = arg1;
+        field_16 = str2;
+        field_24 = str1;
     }
 
 } // namespace jag

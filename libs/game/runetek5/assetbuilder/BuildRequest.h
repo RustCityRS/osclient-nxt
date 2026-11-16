@@ -1,6 +1,5 @@
 // libs/game/runetek5/assetbuilder/BuildRequest.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,136 +8,106 @@ namespace jag::game {
         typename...> // 2 instantiations, e.g. <graphics::Animation, BuildAnimationMain>, <graphics::Model, BuildModelMain>
     class BuildRequest {
     public:
-        BuildRequest<graphics::Model, BuildModelMain>* operator=(BuildRequest<graphics::Model, BuildModelMain>&&);
-        BuildRequest<graphics::Model, BuildModelMain>* operator=(BuildRequest<graphics::Model, BuildModelMain> const&);
-        BuildRequest(BuildRequest<graphics::Model, BuildModelMain>&&);
-        BuildRequest(shared_ptr<graphics::Model> const&, shared_ptr<BuildModelMain> const&);
+        BuildRequest<graphics::Model, BuildModelMain>*
+        operator=(BuildRequest<graphics::Model, BuildModelMain>&& buildRequest);
+        BuildRequest<graphics::Model, BuildModelMain>*
+        operator=(const BuildRequest<graphics::Model, BuildModelMain>& buildRequest);
+        BuildRequest(BuildRequest<graphics::Model, BuildModelMain>&& buildRequest);
+        BuildRequest(const shared_ptr<graphics::Model>& model, const shared_ptr<BuildModelMain>& buildModelMain);
         BuildRequest();
         bool IsTaskDone() const;
         void Clear();
-        ulong IsTaskRunning() const;
-        ulong IsEmpty() const;
-        void SetConstructedObj(shared_ptr<graphics::Model> const&);
-        BuildRequest(BuildRequest<graphics::Model, BuildModelMain> const&);
-        void SetConstructedObj(shared_ptr<graphics::Animation> const&);
-        void SetObjAndTask(shared_ptr<graphics::Animation> const&, shared_ptr<BuildAnimationMain> const&);
-        void SetObjAndTask(shared_ptr<graphics::Model> const&, shared_ptr<BuildModelMain> const&);
+        unsigned long IsTaskRunning() const;
+        unsigned long IsEmpty() const;
+        void SetConstructedObj(const shared_ptr<graphics::Model>& model);
+        BuildRequest(const BuildRequest<graphics::Model, BuildModelMain>& buildRequest);
+        void SetConstructedObj(const shared_ptr<graphics::Animation>& animation);
+        void SetObjAndTask(const shared_ptr<graphics::Animation>& animation,
+                           const shared_ptr<BuildAnimationMain>& buildAnimationMain);
+        void SetObjAndTask(const shared_ptr<graphics::Model>& model, const shared_ptr<BuildModelMain>& buildModelMain);
     };
 
-    // 0x1004188c0, 48 bytes, inline, placed by class name and debug map
-    // BuildRequest<graphics::Model, BuildModelMain>::operator=(BuildRequest<graphics::Model, BuildModelMain>&&)
-    /* BuildRequest<graphics::Model,
-   BuildModelMain>::TEMPNAMEPLACEHOLDERVALUE(BuildRequest<graphics::Model,
-   BuildModelMain>&&) */
-
-    BuildRequest<graphics::Model, BuildModelMain>*
-    BuildRequest<graphics::Model, BuildModelMain>::operator=(BuildRequest<graphics::Model, BuildModelMain>* this,
-                                                             BuildRequest* param_1) {
-        shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)this, (shared_ptr*)param_1);
-        shared_ptr<BuildModelMain>::operator=((shared_ptr<BuildModelMain>*)(this + 16), (shared_ptr*)(param_1 + 16));
+    // 0x1004188c0
+    BuildRequest<graphics::Model, BuildModelMain>* BuildRequest<graphics::Model, BuildModelMain>::operator=(
+        BuildRequest<graphics::Model, BuildModelMain>&& buildRequest) {
+        *this = buildRequest;
+        (*((this + 16))) = (*((buildRequest + 16)));
         return this;
     }
 
-    // 0x100419440, 48 bytes, inline, placed by class name and debug map
-    // BuildRequest<graphics::Model, BuildModelMain>::operator=(BuildRequest<graphics::Model, BuildModelMain> const&)
-    /* BuildRequest<graphics::Model,
-   BuildModelMain>::TEMPNAMEPLACEHOLDERVALUE(BuildRequest<graphics::Model,
-   BuildModelMain> const&) */
-
-    BuildRequest<graphics::Model, BuildModelMain>*
-    BuildRequest<graphics::Model, BuildModelMain>::operator=(BuildRequest<graphics::Model, BuildModelMain>* this,
-                                                             BuildRequest* param_1) {
-        shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)this, (shared_ptr*)param_1);
-        shared_ptr<BuildModelMain>::operator=((shared_ptr<BuildModelMain>*)(this + 16), (shared_ptr*)(param_1 + 16));
+    // 0x100419440
+    BuildRequest<graphics::Model, BuildModelMain>* BuildRequest<graphics::Model, BuildModelMain>::operator=(
+        const BuildRequest<graphics::Model, BuildModelMain>& buildRequest) {
+        *this = buildRequest;
+        (*((this + 16))) = (*((buildRequest + 16)));
         return this;
     }
 
-    // 0x10041eeb0, 16 bytes, complete-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(BuildRequest<graphics::Model, BuildModelMain>&&): jumps straight to the base-object constructor
-
-    // 0x10041eed0, 64 bytes, base-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(BuildRequest<graphics::Model, BuildModelMain>&&)
-    void
-    BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(BuildRequest<graphics::Model, BuildModelMain>* this,
-                                                                BuildRequest* param_1) {
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, (shared_ptr*)param_1);
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)(this + 16), (shared_ptr*)(param_1 + 16));
+    // 0x10041eed0
+    BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(
+        BuildRequest<graphics::Model, BuildModelMain>&& buildRequest) {
+        shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(buildRequest);
+        ((this + 16))->shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(*((buildRequest + 16)));
     }
 
-    // 0x10042adf0, 16 bytes, complete-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(shared_ptr<graphics::Model> const&, shared_ptr<BuildModelMain> const&): jumps straight to the base-object constructor
-
-    // 0x10042ae00, 16 bytes, complete-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(): jumps straight to the base-object constructor
-
-    // 0x10042ae40, 208 bytes, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::IsTaskDone() const
-    bool
-    BuildRequest<graphics::Model, BuildModelMain>::IsTaskDone(BuildRequest<graphics::Model, BuildModelMain>* this) {
-        bool bVar1;
-        bool bVar2;
-        char cVar3;
+    // 0x10042ae40
+    bool BuildRequest<graphics::Model, BuildModelMain>::IsTaskDone() const {
+        bool bVar3;
         AssetJob* pAVar4;
         BuildModelMain* pBVar5;
-        OpenGLView* this_00;
-        shared_ptr* psVar6;
+        OpenGLView* this_01;
+        shared_ptr<graphics::Model>* model;
 
-        bVar1 = operator_cast_to_bool();
-        psVar6 = (shared_ptr*)(this + 16);
-        bVar2 = shared_ptr::operator_cast_to_bool(psVar6);
-        if (bVar1) {
-            if (bVar2) {
-                pAVar4 = (AssetJob*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)psVar6);
-                cVar3 = pAVar4->IsFinished();
-                if (cVar3 == '\0')
-                    goto LAB_10042aef9;
-                pBVar5 = (BuildModelMain*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)psVar6);
-                cVar3 = pBVar5->IsAssetConstructed();
-                if (cVar3 == '\0') {
-                    shared_ptr<graphics::Model>::reset();
-                } else {
-                LAB_10042aeca:
-                    this_00 = (OpenGLView*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)psVar6);
-                    psVar6 = (shared_ptr*)this_00->GetCursorMutex();
-                    shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)this, psVar6);
-                }
-            LAB_10042aee5:
-                shared_ptr<BuildModelMain>::reset();
-            }
-            bVar1 = operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0);
-        } else {
-            if (bVar2) {
-                pAVar4 = (AssetJob*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)psVar6);
-                cVar3 = pAVar4->IsFinished();
-                if (cVar3 != '\0') {
-                    pBVar5 =
-                        (BuildModelMain*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)psVar6);
-                    cVar3 = pBVar5->IsAssetConstructed();
-                    if (cVar3 != '\0')
+        bool cVar1 = operator_cast_to_bool();
+        shared_ptr* this_00 = (shared_ptr*)(this + 16);
+        bool cVar2 = shared_ptr::operator_cast_to_bool(this_00);
+        if (!cVar1) {
+            if (cVar2) {
+                pAVar4 = (AssetJob*)(*this_00).operator->();
+                cVar1 = pAVar4->IsFinished();
+                if (cVar1) {
+                    pBVar5 = (BuildModelMain*)(*this_00).operator->();
+                    cVar1 = pBVar5->IsAssetConstructed();
+                    if (cVar1)
                         goto LAB_10042aeca;
                     goto LAB_10042aee5;
                 }
             }
         LAB_10042aef9:
-            bVar1 = false;
+            bVar3 = false;
+        } else {
+            if (cVar2) {
+                pAVar4 = (AssetJob*)(*this_00).operator->();
+                cVar1 = pAVar4->IsFinished();
+                if (!cVar1)
+                    goto LAB_10042aef9;
+                pBVar5 = (BuildModelMain*)(*this_00).operator->();
+                cVar1 = pBVar5->IsAssetConstructed();
+                if (!cVar1) {
+                    reset();
+                } else {
+                LAB_10042aeca:
+                    this_01 = (OpenGLView*)(*this_00).operator->();
+                    model = (shared_ptr<graphics::Model>*)this_01->GetCursorMutex();
+                    *this = *model;
+                }
+            LAB_10042aee5:
+                this_00->reset();
+            }
+            bVar3 = *this != nullptr;
         }
-        return bVar1;
+        return bVar3;
     }
 
-    // 0x10042c090, 48 bytes, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::Clear()
-    void BuildRequest<graphics::Model, BuildModelMain>::Clear(BuildRequest<graphics::Model, BuildModelMain>* this) {
-        shared_ptr<graphics::Model>::reset();
-        shared_ptr<BuildModelMain>::reset();
+    // 0x10042c090
+    void BuildRequest<graphics::Model, BuildModelMain>::Clear() {
+        reset();
+        ((this + 16))->reset();
     }
 
-    // 0x10042e6b0, 48 bytes, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::IsTaskRunning() const
-    ulong
-    BuildRequest<graphics::Model, BuildModelMain>::IsTaskRunning(BuildRequest<graphics::Model, BuildModelMain>* this) {
-        ulong uVar2;
+    // 0x10042e6b0
+    unsigned long BuildRequest<graphics::Model, BuildModelMain>::IsTaskRunning() const {
+        unsigned long uVar2;
 
         if (IsTaskDone(this) == '\0') {
             uVar2 = IsEmpty();
@@ -149,241 +118,176 @@ namespace jag::game {
         return uVar2;
     }
 
-    // 0x10042eae0, 48 bytes, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::IsEmpty() const
-    /* BuildRequest<graphics::Animation, BuildAnimationMain>::IsEmpty() const
-    */
+    // 0x10042eae0
+    unsigned long BuildRequest<graphics::Model, BuildModelMain>::IsEmpty() const {
+        unsigned long uVar2;
 
-    ulong BuildRequest<graphics::Animation, BuildAnimationMain>::IsEmpty(
-        BuildRequest<graphics::Animation, BuildAnimationMain>* this) {
-        bool bVar1;
-        undefined7 extraout_var;
-        ulong uVar2;
-
-        bVar1 = operator_cast_to_bool();
-        if (bVar1) {
-            uVar2 = 0;
+        if (operator_cast_to_bool() == '\0') {
+            uVar2 = ((this + 16))->operator_cast_to_bool();
+            uVar2 = uVar2 ^ 1;
         } else {
-            bVar1 = ((this + 16))->operator_cast_to_bool();
-            uVar2 = CONCAT71(extraout_var, bVar1) ^ 1;
+            uVar2 = 0;
         }
         return uVar2;
     }
 
-    // 0x100430d10, 48 bytes, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::SetConstructedObj(shared_ptr<graphics::Model> const&)
-    void BuildRequest<graphics::Model, BuildModelMain>::SetConstructedObj(
-        BuildRequest<graphics::Model, BuildModelMain>* this, shared_ptr* param_1) {
-        shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)this, param_1);
-        shared_ptr<BuildModelMain>::reset();
+    // 0x100430d10
+    void BuildRequest<graphics::Model, BuildModelMain>::SetConstructedObj(const shared_ptr<graphics::Model>& model) {
+        *this = model;
+        ((this + 16))->reset();
     }
 
-    // 0x100434230, 48 bytes, base-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::BuildRequest()
-    void
-    BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(BuildRequest<graphics::Model, BuildModelMain>* this) {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        new ((this + 16)) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
+    // 0x100434230
+    BuildRequest<graphics::Model, BuildModelMain>::BuildRequest() : shared_ptr() {
+        new ((this + 16)) shared_ptr();
     }
 
-    // 0x100436db0, 64 bytes, base-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(shared_ptr<graphics::Model> const&, shared_ptr<BuildModelMain> const&)
-    void
-    BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(BuildRequest<graphics::Model, BuildModelMain>* this,
-                                                                shared_ptr* param_1, shared_ptr* param_2) {
-        new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
-        new ((this + 16)) shared_ptr<oldscape::dash3d::Decor>(param_2);
+    // 0x100436db0
+    BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(const shared_ptr<graphics::Model>& model,
+                                                                const shared_ptr<BuildModelMain>& buildModelMain)
+        : shared_ptr(model) {
+        new ((this + 16)) shared_ptr(buildModelMain);
     }
 
-    // 0x1004552d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(BuildRequest<graphics::Model, BuildModelMain> const&): jumps straight to the base-object constructor
-
-    // 0x1004552e0, 64 bytes, base-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(BuildRequest<graphics::Model, BuildModelMain> const&)
-    void
-    BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(BuildRequest<graphics::Model, BuildModelMain>* this,
-                                                                BuildRequest* param_1) {
-        new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
-        new ((this + 16)) shared_ptr<oldscape::dash3d::Decor>((shared_ptr*)(param_1 + 16));
+    // 0x1004552e0
+    BuildRequest<graphics::Model, BuildModelMain>::BuildRequest(
+        const BuildRequest<graphics::Model, BuildModelMain>& buildRequest)
+        : shared_ptr(buildRequest) {
+        new ((this + 16)) shared_ptr((buildRequest + 16));
     }
 
-    // 0x1004df2e0, 48 bytes, inline, placed by class name
-    // BuildRequest<graphics::Animation, BuildAnimationMain>::SetConstructedObj(shared_ptr<graphics::Animation> const&)
+    // 0x1004df2e0
     void BuildRequest<graphics::Animation, BuildAnimationMain>::SetConstructedObj(
-        BuildRequest<graphics::Animation, BuildAnimationMain>* this, shared_ptr* param_1) {
-        shared_ptr<graphics::Animation>::operator=((shared_ptr<graphics::Animation>*)this, param_1);
-        shared_ptr<BuildAnimationMain>::reset();
+        const shared_ptr<graphics::Animation>& animation) {
+        *this = animation;
+        ((this + 16))->reset();
     }
 
-    // 0x1004dfc50, 48 bytes, inline, placed by class name
-    // BuildRequest<graphics::Animation, BuildAnimationMain>::SetObjAndTask(shared_ptr<graphics::Animation> const&, shared_ptr<BuildAnimationMain> const&)
+    // 0x1004dfc50
     void BuildRequest<graphics::Animation, BuildAnimationMain>::SetObjAndTask(
-        BuildRequest<graphics::Animation, BuildAnimationMain>* this, shared_ptr* param_1, shared_ptr* param_2) {
-        shared_ptr<graphics::Animation>::operator=((shared_ptr<graphics::Animation>*)this, param_1);
-        shared_ptr<BuildAnimationMain>::operator=((shared_ptr<BuildAnimationMain>*)(this + 16), param_2);
+        const shared_ptr<graphics::Animation>& animation, const shared_ptr<BuildAnimationMain>& buildAnimationMain) {
+        *this = animation;
+        (*((this + 16))) = buildAnimationMain;
     }
 
-    // 0x1004dfc80, 208 bytes, inline, placed by class name
-    // BuildRequest<graphics::Animation, BuildAnimationMain>::IsTaskDone() const
-    bool BuildRequest<graphics::Animation, BuildAnimationMain>::IsTaskDone(
-        BuildRequest<graphics::Animation, BuildAnimationMain>* this) {
-        bool bVar1;
-        bool bVar2;
-        char cVar3;
+    // 0x1004dfc80
+    bool BuildRequest<graphics::Animation, BuildAnimationMain>::IsTaskDone() const {
+        bool bVar3;
         AssetJob* pAVar4;
         BuildAnimationMain* pBVar5;
-        WorldmapAreaMetadata* this_00;
-        shared_ptr* psVar6;
+        WorldmapAreaMetadata* this_01;
+        shared_ptr<graphics::Animation>* animation;
 
-        bVar1 = operator_cast_to_bool();
-        psVar6 = (shared_ptr*)(this + 16);
-        bVar2 = shared_ptr::operator_cast_to_bool(psVar6);
-        if (bVar1) {
-            if (bVar2) {
-                pAVar4 = (AssetJob*)shared_ptr<BuildAnimationMain>::operator->((shared_ptr<BuildAnimationMain>*)psVar6);
-                cVar3 = pAVar4->IsFinished();
-                if (cVar3 == '\0')
-                    goto LAB_1004dfd39;
-                pBVar5 = (BuildAnimationMain*)shared_ptr<BuildAnimationMain>::operator->(
-                    (shared_ptr<BuildAnimationMain>*)psVar6);
-                cVar3 = pBVar5->IsAssetConstructed();
-                if (cVar3 == '\0') {
-                    shared_ptr<graphics::Animation>::reset();
-                } else {
-                LAB_1004dfd0a:
-                    this_00 = (WorldmapAreaMetadata*)shared_ptr<BuildAnimationMain>::operator->(
-                        (shared_ptr<BuildAnimationMain>*)psVar6);
-                    psVar6 = (shared_ptr*)this_00->GetOrigin();
-                    shared_ptr<graphics::Animation>::operator=((shared_ptr<graphics::Animation>*)this, psVar6);
-                }
-            LAB_1004dfd25:
-                shared_ptr<BuildAnimationMain>::reset();
-            }
-            bVar1 = operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0);
-        } else {
-            if (bVar2) {
-                pAVar4 = (AssetJob*)shared_ptr<BuildAnimationMain>::operator->((shared_ptr<BuildAnimationMain>*)psVar6);
-                cVar3 = pAVar4->IsFinished();
-                if (cVar3 != '\0') {
-                    pBVar5 = (BuildAnimationMain*)shared_ptr<BuildAnimationMain>::operator->(
-                        (shared_ptr<BuildAnimationMain>*)psVar6);
-                    cVar3 = pBVar5->IsAssetConstructed();
-                    if (cVar3 != '\0')
+        bool cVar1 = operator_cast_to_bool();
+        shared_ptr* this_00 = (shared_ptr*)(this + 16);
+        bool cVar2 = shared_ptr::operator_cast_to_bool(this_00);
+        if (!cVar1) {
+            if (cVar2) {
+                pAVar4 = (AssetJob*)(*this_00).operator->();
+                cVar1 = pAVar4->IsFinished();
+                if (cVar1) {
+                    pBVar5 = (BuildAnimationMain*)(*this_00).operator->();
+                    cVar1 = pBVar5->IsAssetConstructed();
+                    if (cVar1)
                         goto LAB_1004dfd0a;
                     goto LAB_1004dfd25;
                 }
             }
         LAB_1004dfd39:
-            bVar1 = false;
+            bVar3 = false;
+        } else {
+            if (cVar2) {
+                pAVar4 = (AssetJob*)(*this_00).operator->();
+                cVar1 = pAVar4->IsFinished();
+                if (!cVar1)
+                    goto LAB_1004dfd39;
+                pBVar5 = (BuildAnimationMain*)(*this_00).operator->();
+                cVar1 = pBVar5->IsAssetConstructed();
+                if (!cVar1) {
+                    reset();
+                } else {
+                LAB_1004dfd0a:
+                    this_01 = (WorldmapAreaMetadata*)(*this_00).operator->();
+                    animation = (shared_ptr<graphics::Animation>*)this_01->GetOrigin();
+                    *this = *animation;
+                }
+            LAB_1004dfd25:
+                this_00->reset();
+            }
+            bVar3 = *this != nullptr;
         }
-        return bVar1;
+        return bVar3;
     }
 
-    // 0x100546640, 48 bytes, inline, placed by class name
-    // BuildRequest<graphics::Model, BuildModelMain>::SetObjAndTask(shared_ptr<graphics::Model> const&, shared_ptr<BuildModelMain> const&)
+    // 0x100546640
     void
-    BuildRequest<graphics::Model, BuildModelMain>::SetObjAndTask(BuildRequest<graphics::Model, BuildModelMain>* this,
-                                                                 shared_ptr* param_1, shared_ptr* param_2) {
-        shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)this, param_1);
-        shared_ptr<BuildModelMain>::operator=((shared_ptr<BuildModelMain>*)(this + 16), param_2);
+    BuildRequest<graphics::Model, BuildModelMain>::SetObjAndTask(const shared_ptr<graphics::Model>& model,
+                                                                 const shared_ptr<BuildModelMain>& buildModelMain) {
+        *this = model;
+        (*((this + 16))) = buildModelMain;
     }
 
-    // 0x100657c20, 16 bytes, complete-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Animation, BuildAnimationMain>::BuildRequest(): jumps straight to the base-object constructor
-
-    // 0x100657ee0, 48 bytes, inline, placed by class name
-    // BuildRequest<graphics::Animation, BuildAnimationMain>::Clear()
-    void BuildRequest<graphics::Animation, BuildAnimationMain>::Clear(
-        BuildRequest<graphics::Animation, BuildAnimationMain>* this) {
-        shared_ptr<graphics::Animation>::reset();
-        shared_ptr<BuildAnimationMain>::reset();
+    // 0x100657ee0
+    void BuildRequest<graphics::Animation, BuildAnimationMain>::Clear() {
+        reset();
+        ((this + 16))->reset();
     }
 
-    // 0x10065c560, 48 bytes, base-object constructor, inline, placed by class name
-    // BuildRequest<graphics::Animation, BuildAnimationMain>::BuildRequest()
-    void BuildRequest<graphics::Animation, BuildAnimationMain>::BuildRequest(
-        BuildRequest<graphics::Animation, BuildAnimationMain>* this) {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        new ((this + 16)) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
+    // 0x10065c560
+    BuildRequest<graphics::Animation, BuildAnimationMain>::BuildRequest() : shared_ptr() {
+        new ((this + 16)) shared_ptr();
     }
 
 } // namespace jag::game
 
 namespace jag {
-    // 0x1004194f0, 176 bytes, inline, placed by debug map only (low confidence)
-    // std::enable_if<!std::is_array<game::NPCTypeCustomisation>::value, std::unique_ptr<game::NPCTypeCustomisation, BucketDeleter<game::NPCTypeCustomisation> > >::type bucket_make_unique<game::NPCTypeCustomisation, eastl::vector<int, eastl::allocator>, eastl::vector<float, eastl::allocator>, eastl::vector<math::Vector3T<float>, eastl::allocator>, eastl::vector<math::Vector3T<float>, eastl::allocator>, eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, Array<unsigned short, eastl::allocator>, Array<unsigned short, eastl::allocator>, bool&, Array<unsigned char, eastl::allocator> >(eastl::vector<int, eastl::allocator>&&, eastl::vector<float, eastl::allocator>&&, eastl::vector<math::Vector3T<float>, eastl::allocator>&&, eastl::vector<math::Vector3T<float>, eastl::allocator>&&, eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>&&, eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>&&, Array<unsigned short, eastl::allocator>&&, Array<unsigned short, eastl::allocator>&&, bool&, Array<unsigned char, eastl::allocator>&&)
-    /* std::enable_if<!std::is_array<game::NPCTypeCustomisation>::value,
-   std::unique_ptr<game::NPCTypeCustomisation,
-   BucketDeleter<game::NPCTypeCustomisation> > >::type
-   bucket_make_unique<game::NPCTypeCustomisation, eastl::vector<int, eastl::allocator>,
-   eastl::vector<float, eastl::allocator>, eastl::vector<math::Vector3T<float>,
-   eastl::allocator>, eastl::vector<math::Vector3T<float>, eastl::allocator>,
-   eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>,
-   eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, Array<unsigned short,
-   eastl::allocator>, Array<unsigned short, eastl::allocator>, bool&, Array<unsigned char,
-   eastl::allocator> >(eastl::vector<int, eastl::allocator>&&, eastl::vector<float,
-   eastl::allocator>&&, eastl::vector<math::Vector3T<float>, eastl::allocator>&&,
-   eastl::vector<math::Vector3T<float>, eastl::allocator>&&, eastl::vector<eastl::vector<int,
-   eastl::allocator>, eastl::allocator>&&, eastl::vector<eastl::vector<int, eastl::allocator>,
-   eastl::allocator>&&, Array<unsigned short, eastl::allocator>&&, Array<unsigned short,
-   eastl::allocator>&&, bool&, Array<unsigned char, eastl::allocator>&&) */
+    // 0x1004194f0
+    std::enable_if<!std::is_array<game::NPCTypeCustomisation>::value,
+                   std::unique_ptr<game::NPCTypeCustomisation, BucketDeleter<game::NPCTypeCustomisation>>>::type
+    bucket_make_unique<game::NPCTypeCustomisation, eastl::vector<int>, eastl::vector<float>,
+                       eastl::vector<math::Vector3T<float>>, eastl::vector<math::Vector3T<float>>,
+                       eastl::vector<eastl::vector<int>>, eastl::vector<eastl::vector<int>>, Array<unsigned short>,
+                       Array<unsigned short>, bool&, Array<unsigned char>>(
+        eastl::vector<int>&& arg1, eastl::vector<float>&& arg2, eastl::vector<math::Vector3T<float>>&& vector3s1,
+        eastl::vector<math::Vector3T<float>>&& vector3s2, eastl::vector<eastl::vector<int>>&& arg5,
+        eastl::vector<eastl::vector<int>>&& arg6, Array<unsigned short>&& arg7, Array<unsigned short>&& arg8,
+        bool& arg9, Array<unsigned char>&& arg10) {
+        __good_rval_ref_type* good_rval_ref_type;
+        Array<unsigned char>* in_stack_00000028;
 
-    jag* jag::bucket_make_unique<
-        game::NPCTypeCustomisation, eastl::vector<int, eastl::allocator>, eastl::vector<float, eastl::allocator>,
-        eastl::vector<math::Vector3T<float>, eastl::allocator>, eastl::vector<math::Vector3T<float>, eastl::allocator>,
-        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>,
-        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, Array<unsigned short, eastl::allocator>,
-        Array<unsigned short, eastl::allocator>, bool&, Array<unsigned char, eastl::allocator>>(
-        vector* param_1, vector* param_2, vector* param_3, vector* param_4, vector* param_5, vector* param_6,
-        Array* param_7, Array* param_8, bool* param_9, Array* param_10) {
-        NPCTypeCustomisation* this_00;
-
-        this_00 = (NPCTypeCustomisation*)BucketManager::Allocate(280, 0, 16);
-        if (this_00 == (NPCTypeCustomisation*)0) {
-            /* WARNING: Subroutine does not return */
+        auto nPCTypeCustomisation = BucketManager::Allocate(280, 0, 16);
+        if (nPCTypeCustomisation == nullptr) {
             LogAssert(
                 "ptr != nullptr",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/managed_ptr/make_unique.h",
-                37, (char*)0);
+                37, nullptr);
         }
-        game::NPCTypeCustomisation::NPCTypeCustomisation(this_00, param_1, param_2, param_3, param_4, param_5, param_6,
-                                                         param_7, param_8, *param_9, param_10);
-        std::unique_ptr<game::NPCTypeCustomisation, BucketDeleter<game::NPCTypeCustomisation>>::unique_ptr<true, void>(
-            this, this_00);
-        return this;
+        new (nPCTypeCustomisation) game::NPCTypeCustomisation(arg2, vector3s1, vector3s2, arg5, arg6, arg7, arg8, arg9,
+                                                              (bool)*arg10, *in_stack_00000028);
+        arg1.unique_ptr<true, void>(nPCTypeCustomisation, good_rval_ref_type);
+        return arg1;
     }
 
-    // 0x100419810, 128 bytes, inline, placed by debug map only (low confidence)
-    // std::enable_if<!std::is_array<game::NPCTypeCustomisation>::value, std::unique_ptr<game::NPCTypeCustomisation, BucketDeleter<game::NPCTypeCustomisation> > >::type bucket_make_unique<game::NPCTypeCustomisation, eastl::vector<int, eastl::allocator>, Array<unsigned short, eastl::allocator>, Array<unsigned short, eastl::allocator> >(eastl::vector<int, eastl::allocator>&&, Array<unsigned short, eastl::allocator>&&, Array<unsigned short, eastl::allocator>&&)
-    /* std::enable_if<!std::is_array<game::NPCTypeCustomisation>::value,
-   std::unique_ptr<game::NPCTypeCustomisation,
-   BucketDeleter<game::NPCTypeCustomisation> > >::type
-   bucket_make_unique<game::NPCTypeCustomisation, eastl::vector<int, eastl::allocator>,
-   Array<unsigned short, eastl::allocator>, Array<unsigned short, eastl::allocator>
-   >(eastl::vector<int, eastl::allocator>&&, Array<unsigned short, eastl::allocator>&&,
-   Array<unsigned short, eastl::allocator>&&) */
+    // 0x100419810
+    std::enable_if<!std::is_array<game::NPCTypeCustomisation>::value,
+                   std::unique_ptr<game::NPCTypeCustomisation, BucketDeleter<game::NPCTypeCustomisation>>>::type
+    bucket_make_unique<game::NPCTypeCustomisation, eastl::vector<int>, Array<unsigned short>, Array<unsigned short>>(
+        eastl::vector<int>&& arg1, Array<unsigned short>&& arg2, Array<unsigned short>&& arg3) {
+        std::enable_if<!std::is_array<game::NPCTypeCustomisation>::value,
+                       std::unique_ptr<game::NPCTypeCustomisation, BucketDeleter<game::NPCTypeCustomisation>>>::type
+            result;
+        __good_rval_ref_type* good_rval_ref_type;
 
-    jag* jag::bucket_make_unique<game::NPCTypeCustomisation, eastl::vector<int, eastl::allocator>,
-                                 Array<unsigned short, eastl::allocator>, Array<unsigned short, eastl::allocator>>(
-        vector* param_1, Array* param_2, Array* param_3) {
-        NPCTypeCustomisation* this_00;
-
-        this_00 = (NPCTypeCustomisation*)BucketManager::Allocate(280, 0, 16);
-        if (this_00 == (NPCTypeCustomisation*)0) {
-            /* WARNING: Subroutine does not return */
+        auto nPCTypeCustomisation = BucketManager::Allocate(280, 0, 16);
+        if (nPCTypeCustomisation == nullptr) {
             LogAssert(
                 "ptr != nullptr",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/managed_ptr/make_unique.h",
-                37, (char*)0);
+                37, nullptr);
         }
-        game::NPCTypeCustomisation::NPCTypeCustomisation(this_00, param_1, param_2, param_3);
-        std::unique_ptr<game::NPCTypeCustomisation, BucketDeleter<game::NPCTypeCustomisation>>::unique_ptr<true, void>(
-            this, this_00);
-        return this;
+        game::NPCTypeCustomisation::NPCTypeCustomisation(nPCTypeCustomisation, arg1, arg2, arg3);
+        result.unique_ptr<true, void>(nPCTypeCustomisation, good_rval_ref_type);
+        return result;
     }
 
 } // namespace jag

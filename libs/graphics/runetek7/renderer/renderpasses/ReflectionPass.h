@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/renderer/renderpasses/ReflectionPass.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,42 +8,40 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~ReflectionPass();
-        virtual void PreparePass(RT7Core&, EffectManager&, SceneViewData const&, DrawableQueue&);
-        virtual BeginPass(render::DrawCallState&, render::RenderContext&, EffectManager&, SceneViewData const&,
-                          DrawableQueue const&);
-        virtual void Render(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&,
-                            DrawableQueue&);
-        virtual void RenderDebug(EffectManager&, DrawableQueue&);
-        virtual void RegisterTweakVarsOcclusion(tweak::Container&);
+        virtual void PreparePass(RT7Core& rt7Core, EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                 DrawableQueue& drawableQueue);
+        virtual uint64_t BeginPass(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                   EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                   const DrawableQueue& drawableQueue);
+        virtual void Render(RT7Core& rt7Core, const render::DrawCallState& drawCallState, EffectManager& effectManager,
+                            const SceneViewData& sceneViewData, DrawableQueue& drawableQueue);
+        virtual void RenderDebug(EffectManager& effectManager, DrawableQueue& drawableQueue);
+        virtual void RegisterTweakVarsOcclusion(tweak::Container& container);
         virtual void OnOcclusionEnabled();
         virtual ReflectionPass* GetOcclusionRTName();
-        ReflectionPass(render::RenderTargetsManager*, ThreadPool*);
-        static /* 1 bytes */ m_showReflectionMap;
+        ReflectionPass(render::RenderTargetsManager* renderTargetsManager, ThreadPool* threadPool);
+        static bool m_showReflectionMap;
 
-        // data members, from how the methods use this: 804 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        char _unknown_12[4];
-        OcclusionManager field_16; // offset 16
-        char _unknown_729[47];
-        bool field_776; // offset 776
-        bool field_777; // offset 777
-        bool field_778; // offset 778
-        char _unknown_779[1];
-        int field_780;        // offset 780
-        undefined8 field_784; // offset 784
-        uint field_792;       // offset 792
-        undefined1 field_796; // offset 796
-        char _unknown_797[7];
+    private:
+        EnumOptionToggle field_8;
+        uint8_t _unknown_12[4];
+        OcclusionManager field_16;
+        uint8_t _unknown_729[47];
+        bool field_776;
+        bool field_777;
+        bool field_778;
+        uint8_t _unknown_779[1];
+        int field_780;
+        RenderTargetsManager* field_784;
+        unsigned int field_792;
+        uint8_t field_796;
+        uint8_t _unknown_797[7];
     };
 
-    // 0x1007bc0d0, 64 bytes, inline, placed by class name and debug map
-    // ReflectionPass::GetOcclusionRTName()
+    // 0x1007bc0d0
     ReflectionPass* ReflectionPass::GetOcclusionRTName() {
-        allocator local_20[8];
 
-        eastl::allocator::allocator(local_20, "EASTL basic_string");
-        new (this) eastl::string("ReflectionOcclusion", local_20);
+        new (this) eastl::string("ReflectionOcclusion");
         return this;
     }
 

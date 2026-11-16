@@ -1,36 +1,36 @@
 // libs/graphics/runetek7/animation/AnimCurveSampler.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
     class AnimCurveSampler {
     public:
-        ulong SampleCurve(AnimCurve const*, float, AnimCurveSegmentCacheData&);
-        void SampleInfinities(AnimCurve const*, float, bool, AnimCurveSegmentCacheData&);
-        void BezierCreate(AnimCurve const*, float*, float*, AnimCurveSegmentCacheData&);
-        void HermiteCreate(AnimCurve const*, float*, float*, AnimCurveSegmentCacheData&);
-        float SampleBezier(AnimCurveSegmentCacheData*, float);
-        float SampleHermite(AnimCurveSegmentCacheData*, float);
-        void CheckMonotonic(float&, float&);
-        void BezierToPower(float, float, float, float, float&, float&, float&, float&);
-        void ConstrainInsideBounds(float&, float&);
+        unsigned long SampleCurve(const AnimCurve* animCurve, float arg2,
+                                  AnimCurveSegmentCacheData& animCurveSegmentCacheData);
+        void SampleInfinities(const AnimCurve* animCurve, float arg2, bool arg3,
+                              AnimCurveSegmentCacheData& animCurveSegmentCacheData);
+        void BezierCreate(const AnimCurve* animCurve, float* arg2, float* arg3,
+                          AnimCurveSegmentCacheData& animCurveSegmentCacheData);
+        void HermiteCreate(const AnimCurve* animCurve, float* arg2, float* arg3,
+                           AnimCurveSegmentCacheData& animCurveSegmentCacheData);
+        float SampleBezier(AnimCurveSegmentCacheData* animCurveSegmentCacheData, float arg2);
+        float SampleHermite(AnimCurveSegmentCacheData* animCurveSegmentCacheData, float arg2);
+        void CheckMonotonic(float& arg1, float& arg2);
+        void BezierToPower(float arg1, float arg2, float arg3, float arg4, float& arg5, float& arg6, float& arg7,
+                           float& arg8);
+        void ConstrainInsideBounds(float& arg1, float& arg2);
     };
 
-    // 0x100981d00, 752 bytes, placed by class name and debug map
-    // AnimCurveSampler::SampleCurve(AnimCurve const*, float, AnimCurveSegmentCacheData&)
-    ulong AnimCurveSampler::SampleCurve(AnimCurve* param_1, float param_2, AnimCurveSegmentCacheData* param_3) {
+    // 0x100981d00
+    unsigned long AnimCurveSampler::SampleCurve(const AnimCurve* animCurve, float arg2,
+                                                AnimCurveSegmentCacheData& animCurveSegmentCacheData) {
         float fVar1;
         bool bVar2;
-        char cVar3;
-        int iVar4;
-        int iVar5;
-        Array<AnimKey, eastl::allocator>* pAVar6;
+        bool cVar3;
+        int arg1;
         short* psVar7;
-        short* psVar8;
-        long lVar9;
-        bool bVar10;
-        ulong uVar11;
+        long lVar8;
+        bool bVar9;
         float local_58;
         float local_54;
         float local_50;
@@ -39,177 +39,162 @@ namespace jag::graphics {
         float local_44;
         float local_40;
         float local_3c;
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        uVar11 = 0;
-        if (param_1 == (AnimCurve*)0)
+        unsigned long uVar10 = 0;
+        if (animCurve == nullptr)
             goto LAB_100981e7a;
-        iVar4 = param_1->GetNumKeys();
+        int iVar4 = animCurve->GetNumKeys();
         if (iVar4 == 0) {
-            uVar11 = 0;
+            uVar10 = 0;
             goto LAB_100981e7a;
         }
-        pAVar6 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-        psVar7 = (short*)Array<AnimKey, eastl::allocator>::operator[](pAVar6, 0);
-        if ((float)(int)*psVar7 <= param_2) {
-            pAVar6 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-            iVar4 = param_1->GetNumKeys();
-            psVar7 = (short*)Array<AnimKey, eastl::allocator>::operator[](pAVar6, (long)(iVar4 + -1));
-            if (param_2 <= (float)(int)*psVar7) {
-                cVar3 = param_1->IsStatic();
-                if (cVar3 != '\0')
+        auto pAVar5 = animCurve->second();
+        short* psVar6 = (short*)(*pAVar5)[0];
+        if ((float)(int)*psVar6 <= arg2) {
+            pAVar5 = (Array<AnimKey>*)animCurve->second();
+            iVar4 = animCurve->GetNumKeys();
+            psVar6 = (short*)(*pAVar5)[(long)(iVar4 - 1)];
+            if (arg2 <= (float)(int)*psVar6) {
+                cVar3 = animCurve->IsStatic();
+                if (cVar3)
                     goto LAB_100981dec;
-                iVar5 = param_1->GetKeyIndexAtTime(param_2, param_3);
-                psVar7 = (short*)param_1->GetKeyFromIndex(iVar5);
-                psVar8 = (short*)param_1->GetKeyFromIndex(iVar5 + 1);
-                iVar4 = param_3->field_0;
-                param_3->field_0 = iVar5;
-                uVar11 = 0;
-                if (psVar7 == (short*)0)
+                arg1 = animCurve->GetKeyIndexAtTime(arg2, animCurveSegmentCacheData);
+                psVar6 = animCurve->GetKeyFromIndex(arg1);
+                psVar7 = animCurve->GetKeyFromIndex(arg1 + 1);
+                iVar4 = animCurveSegmentCacheData.field_0;
+                animCurveSegmentCacheData.field_0 = arg1;
+                uVar10 = 0;
+                if (psVar6 == nullptr)
                     goto LAB_100981e7a;
-                fVar1 = *(float*)(psVar7 + 8);
-                if ((fVar1 == 0.0) && (*(float*)(psVar7 + 10) == 0.0)) {
-                    bVar10 = true;
+                fVar1 = *(float*)(psVar6 + 8);
+                if ((fVar1 == 0.0) && (*(float*)(psVar6 + 10) == 0.0)) {
+                    bVar9 = true;
                 LAB_100981f84:
                     bVar2 = false;
-                } else if ((fVar1 == 3.4028235e+38) && (*(float*)(psVar7 + 10) == 3.4028235e+38)) {
+                } else if ((fVar1 == 3.4028235e+38) && (*(float*)(psVar6 + 10) == 3.4028235e+38)) {
                     bVar2 = true;
-                    bVar10 = false;
+                    bVar9 = false;
                 } else {
                     bVar2 = false;
-                    bVar10 = psVar8 == (short*)0;
-                    if ((!bVar10) && (iVar5 != iVar4)) {
-                        local_48 = (float)(int)*psVar7;
-                        local_58 = *(float*)(psVar7 + 2);
-                        local_44 = fVar1 * 0.33333334 + local_48;
-                        local_54 = *(float*)(psVar7 + 10) * 0.33333334 + local_58;
-                        local_3c = (float)(int)*psVar8;
-                        local_4c = *(float*)(psVar8 + 2);
-                        local_40 = local_3c - *(float*)(psVar8 + 4) * 0.33333334;
-                        local_50 = local_4c - *(float*)(psVar8 + 6) * 0.33333334;
-                        cVar3 = param_1->IsWeighted();
-                        if (cVar3 == '\0') {
-                            HermiteCreate(param_1, &local_48, &local_58, param_3);
+                    bVar9 = psVar7 == nullptr;
+                    if ((!bVar9) && (arg1 != iVar4)) {
+                        local_48 = (float)(int)*psVar6;
+                        local_58 = *(float*)(psVar6 + 2);
+                        local_44 = fVar1 * 0.33333334f + local_48;
+                        local_54 = *(float*)(psVar6 + 10) * 0.33333334f + local_58;
+                        local_3c = (float)(int)*psVar7;
+                        local_4c = *(float*)(psVar7 + 2);
+                        local_40 = local_3c - *(float*)(psVar7 + 4) * 0.33333334f;
+                        local_50 = local_4c - *(float*)(psVar7 + 6) * 0.33333334f;
+                        cVar3 = animCurve->IsWeighted();
+                        if (!cVar3) {
+                            HermiteCreate(animCurve, &local_48, &local_58, animCurveSegmentCacheData);
                         } else {
-                            BezierCreate(param_1, &local_48, &local_58, param_3);
+                            BezierCreate(animCurve, &local_48, &local_58, animCurveSegmentCacheData);
                         }
-                        bVar10 = false;
+                        bVar9 = false;
                         goto LAB_100981f84;
                     }
                 }
-                if (!bVar10) {
+                if (!bVar9) {
                     if (!bVar2) {
-                        cVar3 = param_1->IsWeighted();
-                        if (cVar3 == '\0') {
-                            uVar11 = SampleHermite(param_3, param_2);
+                        cVar3 = animCurve->IsWeighted();
+                        if (!cVar3) {
+                            uVar10 = SampleHermite(animCurveSegmentCacheData, arg2);
                         } else {
-                            uVar11 = SampleBezier(param_3, param_2);
+                            uVar10 = SampleBezier(animCurveSegmentCacheData, arg2);
                         }
                         goto LAB_100981e7a;
                     }
-                    if (((float)(int)*psVar7 != param_2) && (psVar8 != (short*)0)) {
-                        uVar11 = (ulong) * (uint*)(psVar8 + 2);
+                    if (((float)(int)*psVar6 != arg2) && (psVar7 != nullptr)) {
+                        uVar10 = (unsigned long)*(unsigned int*)(psVar7 + 2);
                         goto LAB_100981e7a;
                     }
                 }
-                uVar11 = (ulong) * (uint*)(psVar7 + 2);
+                uVar10 = (unsigned long)*(unsigned int*)(psVar6 + 2);
                 goto LAB_100981e7a;
             }
-            cVar3 = param_1->GetSpriteAlpha();
-            if (cVar3 == '\0') {
-                pAVar6 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-                iVar4 = param_1->GetNumKeys();
-                uVar11 = (ulong)(iVar4 + -1);
+            cVar3 = animCurve->GetSpriteAlpha();
+            if (!cVar3) {
+                pAVar5 = (Array<AnimKey>*)animCurve->second();
+                iVar4 = animCurve->GetNumKeys();
+                uVar10 = (unsigned long)(iVar4 - 1);
                 goto LAB_100981e70;
             }
-            bVar10 = false;
+            bVar9 = false;
         } else {
-            cVar3 = param_1->GetPreInfinity();
-            if (cVar3 == '\0') {
+            cVar3 = animCurve->GetPreInfinity();
+            if (!cVar3) {
             LAB_100981dec:
-                pAVar6 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-                uVar11 = 0;
+                pAVar5 = (Array<AnimKey>*)animCurve->second();
+                uVar10 = 0;
             LAB_100981e70:
-                lVar9 = Array<AnimKey, eastl::allocator>::operator[](pAVar6, uVar11);
-                uVar11 = (ulong) * (uint*)(lVar9 + 4);
+                lVar8 = (*pAVar5)[uVar10];
+                uVar10 = (unsigned long)*(unsigned int*)(lVar8 + 4);
                 goto LAB_100981e7a;
             }
-            bVar10 = true;
+            bVar9 = true;
         }
-        uVar11 = SampleInfinities(param_1, param_2, bVar10, param_3);
+        uVar10 = SampleInfinities(animCurve, arg2, bVar9, animCurveSegmentCacheData);
     LAB_100981e7a:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar11;
+        return uVar10;
     }
 
-    // 0x100982300, 992 bytes, placed by class name
-    // AnimCurveSampler::SampleInfinities(AnimCurve const*, float, bool, AnimCurveSegmentCacheData&)
-    void AnimCurveSampler::SampleInfinities(AnimCurve* param_1, float param_2, bool param_3,
-                                            AnimCurveSegmentCacheData* param_4) {
+    // 0x100982300
+    void AnimCurveSampler::SampleInfinities(const AnimCurve* animCurve, float arg2, bool arg3,
+                                            AnimCurveSegmentCacheData& animCurveSegmentCacheData) {
         char cVar1;
-        int iVar2;
-        Array<AnimKey, eastl::allocator>* pAVar3;
-        short* psVar4;
         long lVar5;
-        double dVar6;
-        float fVar7;
-        undefined4 in_XMM2_Db;
-        float fVar8;
+        uint32_t in_XMM2_Db;
         double local_68[2];
-        undefined8 local_58;
-        undefined1 local_48[16];
-        float local_30;
-        float local_2c;
+        uint8_t local_48[16];
 
-        local_30 = param_2;
-        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-        psVar4 = (short*)Array<AnimKey, eastl::allocator>::operator[](pAVar3, 0);
-        local_48 = ZEXT416((uint)(float)(int)*psVar4);
-        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-        iVar2 = param_1->GetNumKeys();
-        psVar4 = (short*)Array<AnimKey, eastl::allocator>::operator[](pAVar3, (long)(iVar2 + -1));
-        fVar7 = (float)(int)*psVar4;
-        fVar8 = fVar7 - (float)local_48._0_4_;
+        float local_30 = arg2;
+        auto pAVar3 = animCurve->second();
+        short* psVar4 = (short*)(*pAVar3)[0];
+        local_48 = (unsigned __int128)((unsigned int)(float)(int)*psVar4);
+        pAVar3 = (Array<AnimKey>*)animCurve->second();
+        int iVar2 = animCurve->GetNumKeys();
+        psVar4 = (short*)(*pAVar3)[(long)(iVar2 - 1)];
+        float fVar7 = (float)(int)*psVar4;
+        float fVar8 = fVar7 - (float)local_48._0_4_;
         if (fVar8 == 0.0) {
-            pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-            Array<AnimKey, eastl::allocator>::operator[](pAVar3, 0);
+            pAVar3 = (Array<AnimKey>*)animCurve->second();
+            (*pAVar3)[0];
             return;
         }
-        local_58 = (double)CONCAT44(in_XMM2_Db, fVar8);
-        dVar6 = (double)_modf((double)((local_30 - (float)(~-(uint)(fVar7 < local_30) & local_48._0_4_ |
-                                                           -(uint)(fVar7 < local_30) & (uint)fVar7)) /
-                                       fVar8),
-                              local_68);
+        uint64_t local_58 = (double)(((uint64_t)in_XMM2_Db << 32) | (uint32_t)fVar8);
+        double dVar6 =
+            (double)_modf((double)((local_30 - (float)(~-(unsigned int)(fVar7 < local_30) & local_48._0_4_ |
+                                                       -(unsigned int)(fVar7 < local_30) & (unsigned int)fVar7)) /
+                                   fVar8),
+                          local_68);
         dVar6 = (double)::abs(dVar6);
-        local_2c = (float)dVar6 * (float)local_58;
+        float local_2c = (float)dVar6 * (float)local_58;
         local_68[0] = (double)::abs(local_68[0]);
         local_68[0] = local_68[0] + 1.0;
         local_68[1] = 0.0;
         local_58 = local_68[0];
-        if (param_3) {
-            cVar1 = param_1->GetPreInfinity();
+        if (arg3) {
+            cVar1 = animCurve->GetPreInfinity();
             if (cVar1 == '\x04') {
                 dVar6 = (double)_modf(local_58 * 0.5, local_68 + 1);
                 if ((float)dVar6 != 0.0)
                     goto LAB_1009824b1;
             } else {
-                cVar1 = param_1->GetPreInfinity();
-                if ((cVar1 != '\x02') && (cVar1 = param_1->GetPreInfinity(), cVar1 != '\x03')) {
-                    cVar1 = param_1->GetPreInfinity();
+                cVar1 = animCurve->GetPreInfinity();
+                if ((cVar1 != '\x02') && (cVar1 = animCurve->GetPreInfinity(), cVar1 != '\x03')) {
+                    cVar1 = animCurve->GetPreInfinity();
                     fVar7 = local_2c;
                     if (cVar1 == '\x01') {
-                        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-                        lVar5 = Array<AnimKey, eastl::allocator>::operator[](pAVar3, 0);
-                        local_58 = (double)CONCAT44(local_58._4_4_, *(undefined4*)(lVar5 + 8));
-                        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-                        lVar5 = Array<AnimKey, eastl::allocator>::operator[](pAVar3, 0);
+                        pAVar3 = (Array<AnimKey>*)animCurve->second();
+                        lVar5 = (*pAVar3)[0];
+                        local_58 = (double)(((uint64_t)local_58._4_4_ << 32) | (uint32_t)(*(uint32_t*)(lVar5 + 8)));
+                        pAVar3 = (Array<AnimKey>*)animCurve->second();
+                        lVar5 = (*pAVar3)[0];
                         local_2c = *(float*)(lVar5 + 12);
-                        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-                        Array<AnimKey, eastl::allocator>::operator[](pAVar3, 0);
+                        pAVar3 = (Array<AnimKey>*)animCurve->second();
+                        (*pAVar3)[0];
                         return;
                     }
                     goto LAB_1009824bb;
@@ -218,28 +203,28 @@ namespace jag::graphics {
         LAB_10098248a:
             fVar7 = fVar7 - local_2c;
         } else {
-            cVar1 = param_1->GetSpriteAlpha();
+            cVar1 = animCurve->GetSpriteAlpha();
             if (cVar1 == '\x04') {
                 dVar6 = (double)_modf(local_58 * 0.5, local_68 + 1);
                 if ((float)dVar6 != 0.0)
                     goto LAB_10098248a;
             } else {
-                cVar1 = param_1->GetSpriteAlpha();
-                if ((cVar1 != '\x02') && (cVar1 = param_1->GetSpriteAlpha(), cVar1 != '\x03')) {
-                    cVar1 = param_1->GetSpriteAlpha();
+                cVar1 = animCurve->GetSpriteAlpha();
+                if ((cVar1 != '\x02') && (cVar1 = animCurve->GetSpriteAlpha(), cVar1 != '\x03')) {
+                    cVar1 = animCurve->GetSpriteAlpha();
                     fVar7 = local_2c;
                     if (cVar1 == '\x01') {
-                        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-                        iVar2 = param_1->GetNumKeys();
-                        lVar5 = Array<AnimKey, eastl::allocator>::operator[](pAVar3, (long)(iVar2 + -1));
-                        local_48._0_4_ = *(undefined4*)(lVar5 + 16);
-                        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-                        iVar2 = param_1->GetNumKeys();
-                        lVar5 = Array<AnimKey, eastl::allocator>::operator[](pAVar3, (long)(iVar2 + -1));
-                        local_58 = (double)CONCAT44(local_58._4_4_, *(undefined4*)(lVar5 + 20));
-                        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-                        iVar2 = param_1->GetNumKeys();
-                        Array<AnimKey, eastl::allocator>::operator[](pAVar3, (long)(iVar2 + -1));
+                        pAVar3 = (Array<AnimKey>*)animCurve->second();
+                        iVar2 = animCurve->GetNumKeys();
+                        lVar5 = (*pAVar3)[(long)(iVar2 - 1)];
+                        local_48._0_4_ = *(uint32_t*)(lVar5 + 16);
+                        pAVar3 = (Array<AnimKey>*)animCurve->second();
+                        iVar2 = animCurve->GetNumKeys();
+                        lVar5 = (*pAVar3)[(long)(iVar2 - 1)];
+                        local_58 = (double)(((uint64_t)local_58._4_4_ << 32) | (uint32_t)(*(uint32_t*)(lVar5 + 20)));
+                        pAVar3 = (Array<AnimKey>*)animCurve->second();
+                        iVar2 = animCurve->GetNumKeys();
+                        (*pAVar3)[(long)(iVar2 - 1)];
                         return;
                     }
                     goto LAB_1009824bb;
@@ -249,54 +234,42 @@ namespace jag::graphics {
             fVar7 = local_2c + (float)local_48._0_4_;
         }
     LAB_1009824bb:
-        local_30 = (float)SampleCurve(param_1, fVar7, param_4);
-        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-        iVar2 = param_1->GetNumKeys();
-        lVar5 = Array<AnimKey, eastl::allocator>::operator[](pAVar3, (long)(iVar2 + -1));
+        local_30 = (float)SampleCurve(animCurve, fVar7, animCurveSegmentCacheData);
+        pAVar3 = (Array<AnimKey>*)animCurve->second();
+        iVar2 = animCurve->GetNumKeys();
+        lVar5 = (*pAVar3)[(long)(iVar2 - 1)];
         local_48._0_4_ = *(float*)(lVar5 + 4);
-        pAVar3 = (Array<AnimKey, eastl::allocator>*)param_1->second();
-        lVar5 = Array<AnimKey, eastl::allocator>::operator[](pAVar3, 0);
+        pAVar3 = (Array<AnimKey>*)animCurve->second();
+        lVar5 = (*pAVar3)[0];
         local_48._0_4_ = (float)local_48._0_4_ - *(float*)(lVar5 + 4);
-        if (param_3) {
-            param_1->GetPreInfinity();
+        if (arg3) {
+            animCurve->GetPreInfinity();
         } else {
-            param_1->GetSpriteAlpha();
+            animCurve->GetSpriteAlpha();
         }
     }
 
-    // 0x1009826f0, 688 bytes, placed by class name
-    // AnimCurveSampler::BezierCreate(AnimCurve const*, float*, float*, AnimCurveSegmentCacheData&)
-    void AnimCurveSampler::BezierCreate(AnimCurve* param_1, float* param_2, float* param_3,
-                                        AnimCurveSegmentCacheData* param_4) {
-        float fVar1;
-        float* pfVar2;
-        float* pfVar3;
-        float* pfVar4;
-        float* pfVar5;
-        undefined8* puVar6;
-        float fVar7;
-        float fVar8;
-        float local_40;
-        float local_3c;
+    // 0x1009826f0
+    void AnimCurveSampler::BezierCreate(const AnimCurve* animCurve, float* arg2, float* arg3,
+                                        AnimCurveSegmentCacheData& animCurveSegmentCacheData) {
         float local_38;
-        float local_34;
 
-        if (param_1 == (AnimCurve*)0) {
+        if (animCurve == nullptr) {
             return;
         }
-        fVar1 = *param_2;
-        fVar7 = param_2[3] - fVar1;
+        float fVar1 = *arg2;
+        float fVar7 = arg2[3] - fVar1;
         if (fVar7 == 0.0) {
             return;
         }
-        fVar8 = (param_2[1] - fVar1) * (1.0 / fVar7);
-        local_34 = (1.0 / fVar7) * (param_2[2] - fVar1);
-        param_4->field_4 = local_34 == 0.6666667 && fVar8 == 0.33333334;
-        local_40 = fVar8;
+        float fVar8 = (arg2[1] - fVar1) * (1.0 / fVar7);
+        float local_34 = (1.0 / fVar7) * (arg2[2] - fVar1);
+        animCurveSegmentCacheData.field_4 = local_34 == 0.6666667f && fVar8 == 0.33333334f;
+        float local_40 = fVar8;
         if (fVar8 < 0.0) {
             local_40 = 0.0;
         }
-        local_3c = local_34;
+        float local_3c = local_34;
         if (1.0 < local_34) {
             local_3c = 1.0;
         }
@@ -305,40 +278,39 @@ namespace jag::graphics {
             CheckMonotonic(&local_40, &local_3c);
             fVar7 = local_38;
         }
-        if ((fVar8 != local_40) && (param_2[1] = local_40 * fVar7 + *param_2, fVar8 != 0.0)) {
-            param_3[1] = ((param_3[1] - *param_3) * local_40) / fVar8 + *param_3;
+        if ((fVar8 != local_40) && (arg2[1] = local_40 * fVar7 + *arg2, fVar8 != 0.0)) {
+            arg3[1] = ((arg3[1] - *arg3) * local_40) / fVar8 + *arg3;
         }
         local_38 = local_40;
-        if ((local_34 != local_3c) && (param_2[2] = fVar7 * local_3c + *param_2, local_34 != 1.0)) {
-            param_3[2] = ((1.0 - local_3c) * (param_3[2] - param_3[3])) / (1.0 - local_34) + param_3[3];
+        if ((local_34 != local_3c) && (arg2[2] = fVar7 * local_3c + *arg2, local_34 != 1.0)) {
+            arg3[2] = ((1.0 - local_3c) * (arg3[2] - arg3[3])) / (1.0 - local_34) + arg3[3];
         }
-        *(float*)&param_4->field_8 = *param_2;
-        *(float*)((long)&param_4->field_8 + 4) = param_2[3];
-        puVar6 = &param_4->field_16;
+        *(float*)&animCurveSegmentCacheData.field_8 = *arg2;
+        *(float*)((long)&animCurveSegmentCacheData.field_8 + 4) = arg2[3];
+        uint64_t* puVar6 = &animCurveSegmentCacheData.field_16;
         local_34 = local_3c;
-        pfVar2 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 3);
-        pfVar3 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 2);
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 1);
-        pfVar5 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 0);
+        float* pfVar2 = (float*)(*puVar6)[3];
+        float* pfVar3 = (float*)(*puVar6)[2];
+        float* pfVar4 = (float*)(*puVar6)[1];
+        float* pfVar5 = (float*)(*puVar6)[0];
         BezierToPower(0.0, local_38, local_34, 1.0, pfVar2, pfVar3, pfVar4, pfVar5);
-        local_38 = *param_3;
-        local_34 = param_3[1];
-        fVar1 = param_3[2];
-        fVar7 = param_3[3];
-        puVar6 = &param_4->field_32;
-        pfVar2 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 3);
-        pfVar3 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 2);
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 1);
-        pfVar5 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 0);
+        local_38 = *arg3;
+        local_34 = arg3[1];
+        fVar1 = arg3[2];
+        fVar7 = arg3[3];
+        puVar6 = &animCurveSegmentCacheData.field_32;
+        pfVar2 = (float*)(*puVar6)[3];
+        pfVar3 = (float*)(*puVar6)[2];
+        pfVar4 = (float*)(*puVar6)[1];
+        pfVar5 = (float*)(*puVar6)[0];
         BezierToPower(local_38, local_34, fVar1, fVar7, pfVar2, pfVar3, pfVar4, pfVar5);
     }
 
-    // 0x1009829a0, 368 bytes, placed by class name
-    // AnimCurveSampler::HermiteCreate(AnimCurve const*, float*, float*, AnimCurveSegmentCacheData&)
-    void AnimCurveSampler::HermiteCreate(AnimCurve* param_1, float* param_2, float* param_3,
-                                         AnimCurveSegmentCacheData* param_4) {
+    // 0x1009829a0
+    void AnimCurveSampler::HermiteCreate(const AnimCurve* animCurve, float* arg2, float* arg3,
+                                         AnimCurveSegmentCacheData& animCurveSegmentCacheData) {
         float* pfVar1;
-        undefined8* this;
+        uint64_t* uint64_t;
         float fVar2;
         float fVar3;
         float fVar4;
@@ -346,183 +318,161 @@ namespace jag::graphics {
         float fVar6;
         float fVar7;
 
-        if (param_1 != (AnimCurve*)0) {
-            *(float*)&param_4->field_8 = *param_2;
-            fVar2 = param_2[1] - *param_2;
+        if (animCurve != nullptr) {
+            *(float*)&animCurveSegmentCacheData.field_8 = *arg2;
+            fVar2 = arg2[1] - *arg2;
             fVar7 = 0.0;
             fVar6 = 0.0;
             if (fVar2 != 0.0) {
-                fVar6 = (param_3[1] - *param_3) / fVar2;
+                fVar6 = (arg3[1] - *arg3) / fVar2;
             }
-            fVar2 = param_2[3] - *param_2;
-            fVar5 = param_3[3] - *param_3;
-            fVar3 = param_2[3] - param_2[2];
+            fVar2 = arg2[3] - *arg2;
+            fVar5 = arg3[3] - *arg3;
+            fVar3 = arg2[3] - arg2[2];
             if (fVar3 != 0.0) {
-                fVar7 = (param_3[3] - param_3[2]) / fVar3;
+                fVar7 = (arg3[3] - arg3[2]) / fVar3;
             }
             fVar4 = 1.0 / (fVar2 * fVar2);
             fVar3 = fVar6 * fVar2;
-            this = &param_4->field_16;
-            pfVar1 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)this, 0);
+            uint64_t = &animCurveSegmentCacheData.field_16;
+            pfVar1 = (float*)(*uint64_t)[0];
             *pfVar1 = (((fVar7 * fVar2 + fVar3) - (fVar5 + fVar5)) * fVar4) / fVar2;
-            pfVar1 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)this, 1);
+            pfVar1 = (float*)(*uint64_t)[1];
             *pfVar1 = ((fVar5 * 3.0 - (fVar3 + fVar3)) - fVar7 * fVar2) * fVar4;
-            pfVar1 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)this, 2);
+            pfVar1 = (float*)(*uint64_t)[2];
             *pfVar1 = fVar6;
-            fVar2 = *param_3;
-            pfVar1 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)this, 3);
+            fVar2 = *arg3;
+            pfVar1 = (float*)(*uint64_t)[3];
             *pfVar1 = fVar2;
         }
     }
 
-    // 0x100982b10, 480 bytes, placed by class name
-    // AnimCurveSampler::SampleBezier(AnimCurveSegmentCacheData*, float)
-    float AnimCurveSampler::SampleBezier(AnimCurveSegmentCacheData* param_1, float param_2) {
-        float fVar1;
+    // 0x100982b10
+    float AnimCurveSampler::SampleBezier(AnimCurveSegmentCacheData* animCurveSegmentCacheData, float arg2) {
         float fVar2;
-        undefined4* puVar3;
+        uint32_t* puVar3;
         float* pfVar4;
-        int iVar5;
-        undefined8* puVar6;
-        array<float, 4ul> local_48[16];
-        array local_38[16];
-        float local_28;
+        uint64_t* puVar6;
+        array<float, 4ul> local_48;
+        array<float, _4ul> local_38;
         float local_24;
 
-        if (param_1 == (AnimCurveSegmentCacheData*)0) {
+        if (animCurveSegmentCacheData == nullptr) {
             return 0.0;
         }
-        fVar1 = *(float*)&param_1->field_8;
-        local_28 = 0.0;
-        if (param_2 != fVar1) {
-            fVar2 = *(float*)((long)&param_1->field_8 + 4);
-            if (param_2 == fVar2) {
+        float fVar1 = *(float*)&animCurveSegmentCacheData->field_8;
+        float local_28 = 0.0;
+        if (arg2 != fVar1) {
+            fVar2 = *(float*)((long)&animCurveSegmentCacheData->field_8 + 4);
+            if (arg2 == fVar2) {
                 local_28 = 1.0;
             } else {
-                local_28 = (param_2 - fVar1) / (fVar2 - fVar1);
+                local_28 = (arg2 - fVar1) / (fVar2 - fVar1);
             }
         }
-        if (param_1->field_4 == '\0') {
-            puVar6 = &param_1->field_16;
-            puVar3 = (undefined4*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 3);
+        if (animCurveSegmentCacheData->field_4 == '\0') {
+            puVar6 = &animCurveSegmentCacheData->field_16;
+            puVar3 = (uint32_t*)(*puVar6)[3];
             local_24 = (float)*puVar3;
-            puVar3 = (undefined4*)std::array<float, 4ul>::operator[](local_48, 3);
+            puVar3 = &local_48[3];
             *puVar3 = local_24;
-            puVar3 = (undefined4*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 2);
+            puVar3 = (uint32_t*)(*puVar6)[2];
             local_24 = (float)*puVar3;
-            puVar3 = (undefined4*)std::array<float, 4ul>::operator[](local_48, 2);
+            puVar3 = &local_48[2];
             *puVar3 = local_24;
-            puVar3 = (undefined4*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 1);
+            puVar3 = (uint32_t*)(*puVar6)[1];
             local_24 = (float)*puVar3;
-            puVar3 = (undefined4*)std::array<float, 4ul>::operator[](local_48, 1);
+            puVar3 = &local_48[1];
             *puVar3 = local_24;
-            pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 0);
+            pfVar4 = (float*)(*puVar6)[0];
             local_24 = *pfVar4 - local_28;
-            pfVar4 = (float*)std::array<float, 4ul>::operator[](local_48, 0);
+            pfVar4 = &local_48[0];
             *pfVar4 = local_24;
             local_28 = 0.0;
-            iVar5 = math::polynomial::FindPolynomialRoots(local_38, (array*)local_48, 3, 0.0, true, 1.0, true);
-            if (iVar5 == 1) {
-                pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)local_38, 0);
+            if (math::polynomial::FindPolynomialRoots(local_38, local_48, 3, 0.0, true, 1.0, true) == 1) {
+                pfVar4 = &local_38[0];
                 local_28 = *pfVar4;
             }
         }
-        puVar6 = &param_1->field_32;
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 3);
+        puVar6 = &animCurveSegmentCacheData->field_32;
+        pfVar4 = (float*)(*puVar6)[3];
         local_24 = *pfVar4 * local_28;
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 2);
+        pfVar4 = (float*)(*puVar6)[2];
         local_24 = (local_24 + *pfVar4) * local_28;
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 1);
+        pfVar4 = (float*)(*puVar6)[1];
         local_24 = (local_24 + *pfVar4) * local_28;
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)puVar6, 0);
+        pfVar4 = (float*)(*puVar6)[0];
         return local_24 + *pfVar4;
     }
 
-    // 0x100982cf0, 160 bytes, placed by class name
-    // AnimCurveSampler::SampleHermite(AnimCurveSegmentCacheData*, float)
-    float AnimCurveSampler::SampleHermite(AnimCurveSegmentCacheData* param_1, float param_2) {
-        float fVar1;
-        float fVar2;
-        float fVar3;
-        float* pfVar4;
-        undefined8* this;
-        float fVar5;
-
-        if (param_1 == (AnimCurveSegmentCacheData*)0) {
+    // 0x100982cf0
+    float AnimCurveSampler::SampleHermite(AnimCurveSegmentCacheData* animCurveSegmentCacheData, float arg2) {
+        if (animCurveSegmentCacheData == nullptr) {
             return 0.0;
         }
-        fVar5 = param_2 - *(float*)&param_1->field_8;
-        this = &param_1->field_16;
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)this, 0);
-        fVar1 = *pfVar4;
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)this, 1);
-        fVar2 = *pfVar4;
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)this, 2);
-        fVar3 = *pfVar4;
-        pfVar4 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)this, 3);
+        float fVar5 = arg2 - *(float*)&animCurveSegmentCacheData->field_8;
+        uint64_t* uint64_t = &animCurveSegmentCacheData->field_16;
+        float* pfVar4 = (float*)(*uint64_t)[0];
+        float fVar1 = *pfVar4;
+        pfVar4 = (float*)(*uint64_t)[1];
+        float fVar2 = *pfVar4;
+        pfVar4 = (float*)(*uint64_t)[2];
+        float fVar3 = *pfVar4;
+        pfVar4 = (float*)(*uint64_t)[3];
         return ((fVar1 * fVar5 + fVar2) * fVar5 + fVar3) * fVar5 + *pfVar4;
     }
 
-    // 0x100982db0, 160 bytes, placed by class name
-    // AnimCurveSampler::CheckMonotonic(float&, float&)
-    void AnimCurveSampler::CheckMonotonic(float* param_1, float* param_2) {
-        float fVar1;
-        float fVar2;
-
-        *param_2 = 1.0 - *param_2;
-        if (*param_1 <= 0.0 && *param_1 != 0.0) {
-            *param_1 = 0.0;
+    // 0x100982db0
+    void AnimCurveSampler::CheckMonotonic(float& arg1, float& arg2) {
+        arg2 = 1.0 - arg2;
+        if (arg1 <= 0.0 && arg1 != 0.0) {
+            arg1 = 0.0;
         }
-        if (*param_2 <= 0.0 && *param_2 != 0.0) {
-            *param_2 = 0.0;
+        if (arg2 <= 0.0 && arg2 != 0.0) {
+            arg2 = 0.0;
         }
-        fVar1 = *param_1;
-        fVar2 = *param_2;
+        float fVar1 = arg1;
+        float fVar2 = arg2;
         if (((1.0 < fVar1) || (1.0 < fVar2)) &&
-            (0.0 < (fVar2 + -2.0) * fVar2 + 1.0000001 + (fVar2 + -2.0 + fVar1) * fVar1)) {
-            ConstrainInsideBounds(param_1, param_2);
+            (0.0 < (fVar2 - 2.0) * fVar2 + 1.0000001f + (fVar2 - 2.0 + fVar1) * fVar1)) {
+            ConstrainInsideBounds(arg1, arg2);
         }
-        *param_2 = 1.0 - *param_2;
+        arg2 = 1.0 - arg2;
     }
 
-    // 0x100982e50, 80 bytes, placed by class name
-    // AnimCurveSampler::BezierToPower(float, float, float, float, float&, float&, float&, float&)
-    void AnimCurveSampler::BezierToPower(float param_1, float param_2, float param_3, float param_4, float* param_5,
-                                         float* param_6, float* param_7, float* param_8) {
-        float fVar1;
-
-        fVar1 = (param_3 - param_2) - (param_2 - param_1);
-        *param_5 = param_4 - ((param_3 - param_2) + param_3 + fVar1);
-        *param_6 = fVar1 * 3.0;
-        *param_7 = (param_2 - param_1) * 3.0;
-        *param_8 = param_1;
+    // 0x100982e50
+    void AnimCurveSampler::BezierToPower(float arg1, float arg2, float arg3, float arg4, float& arg5, float& arg6,
+                                         float& arg7, float& arg8) {
+        float fVar1 = (arg3 - arg2) - (arg2 - arg1);
+        arg5 = arg4 - ((arg3 - arg2) + arg3 + fVar1);
+        arg6 = fVar1 * 3.0;
+        arg7 = (arg2 - arg1) * 3.0;
+        arg8 = arg1;
     }
 
-    // 0x100982ea0, 192 bytes, placed by class name
-    // AnimCurveSampler::ConstrainInsideBounds(float&, float&)
-    void AnimCurveSampler::ConstrainInsideBounds(float* param_1, float* param_2) {
+    // 0x100982ea0
+    void AnimCurveSampler::ConstrainInsideBounds(float& arg1, float& arg2) {
         float fVar1;
         float fVar2;
-        float fVar3;
 
-        fVar3 = *param_1;
-        if (1.3333334 <= fVar3 + 1.1920929e-07) {
-            *param_1 = 1.3333333;
-            fVar3 = 0.33333322;
+        float fVar3 = arg1;
+        if (1.3333334f <= fVar3 + 1.1920929e-07) {
+            arg1 = 1.3333333f;
+            fVar3 = 0.33333322f;
         } else {
-            fVar2 = fVar3 + -2.0;
-            fVar1 = (float)::sqrt((fVar3 + -1.0) * (fVar3 + -1.0) * -4.0 + fVar2 * fVar2);
+            fVar2 = fVar3 - 2.0;
+            fVar1 = (float)::sqrt((fVar3 - 1.0) * (fVar3 - 1.0) * -4.0 + fVar2 * fVar2);
             fVar3 = (fVar1 - fVar2) * 0.5;
-            if (*param_2 + 1.1920929e-07 <= fVar3) {
+            if (arg2 + 1.1920929e-07 <= fVar3) {
                 fVar3 = (fVar1 + fVar2) * -0.5 + 1.1920929e-07;
-                if (fVar3 <= *param_2) {
+                if (fVar3 <= arg2) {
                     return;
                 }
             } else {
-                fVar3 = fVar3 + -1.1920929e-07;
+                fVar3 = fVar3 - 1.1920929e-07;
             }
         }
-        *param_2 = fVar3;
+        arg2 = fVar3;
     }
 
 } // namespace jag::graphics

@@ -1,57 +1,36 @@
 // libs/oldscape/jagex3/dash3d/ShareLightOperation.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "ShareLightOperation.h"
 
 namespace jag::oldscape::dash3d {
-    // 0x1002f2cd0, 256 bytes, base-object constructor, placed by debug map only (low confidence)
-    // ShareLightPointRSeven::ShareLightPointRSeven(jag::graphics::GeometryBatch const&, unsigned long)
-    void ShareLightPointRSeven::ShareLightPointRSeven(GeometryBatch* param_1, ulong param_2) {
-        vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>* this_00;
-        undefined8* puVar1;
-        vector* pvVar2;
-        float* pfVar3;
-        vector<jag::graphics::GeometryBatchVertex, eastl::allocator>* this_01;
-        long lVar4;
-        float fVar5;
-        Vector3T<int> local_70[16];
-        ColourHSL local_60;
-        undefined8 local_50;
-        undefined4 local_48;
-        float local_38;
-        float local_34;
+    // 0x1002f2cd0
+    ShareLightPointRSeven::ShareLightPointRSeven(const jag::graphics::GeometryBatch& geometryBatch, unsigned long arg2)
+        : jag::math::Vector3T() {
+        Vector3T<int> local_70;
 
-        new (this) jag::math::Vector3T<int>();
-        new (&field_12) jag::math::Vector3T<unsigned char>();
-        this_00 = (vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>*)param_1->GetVertexDataBufferPos();
-        puVar1 = (undefined8*)eastl::vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>::operator[](
-            this_00, param_2);
-        local_50 = *puVar1;
-        local_48 = *(undefined4*)(puVar1 + 1);
-        pvVar2 = local_50.SSOBeginPtr(param_2);
-        local_38 = (float)round(*(float*)pvVar2);
-        pfVar3 = (float*)local_50.y();
-        local_34 = (float)round(*pfVar3);
-        pfVar3 = (float*)local_50.second();
-        fVar5 = (float)round(*pfVar3);
-        new (&local_60) jag::math::ColourHSL(local_38, local_34, fVar5);
-        jag::math::Vector3T<int>::Vector3T<float>(local_70, (Vector3T*)&local_60);
-        jag::math::Vector3T<int>::operator=((Vector3T<int>*)this, (Vector3T*)local_70);
-        this_01 = (vector<jag::graphics::GeometryBatchVertex, eastl::allocator>*)param_1->GetVertexDataBuffer();
-        lVar4 = eastl::vector<jag::graphics::GeometryBatchVertex, eastl::allocator>::operator[](this_01, param_2);
-        jag::math::Vector3T<unsigned char>::operator=((Vector3T<unsigned char>*)&field_12, (Vector3T*)(lVar4 + 4));
+        auto this_00 = geometryBatch.GetVertexDataBufferPos();
+        uint64_t* puVar1 = (uint64_t*)(*this_00)[arg2];
+        uint64_t local_50 = *puVar1;
+        uint32_t local_48 = *(uint32_t*)(puVar1 + 1);
+        auto pfVar2 = local_50.SSOBeginPtr();
+        float local_38 = (float)round(*pfVar2);
+        pfVar2 = (float*)local_50.y();
+        float local_34 = (float)round(*pfVar2);
+        pfVar2 = (float*)local_50.second();
+        float arg3 = (float)round(*pfVar2);
+        ColourHSL local_60(local_38, local_34, arg3);
+        local_70.Vector3T<float>(local_60);
+        *this = local_70;
+        auto this_01 = geometryBatch.GetVertexDataBuffer();
+        long lVar3 = (*this_01)[arg2];
+        field_12 = (*((lVar3 + 4)));
     }
 
-    // 0x1002f2df0, 16 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // ShareLightPointRSeven::ShareLightPointRSeven(jag::graphics::GeometryBatch const&, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1002f2e00, 80 bytes, placed by debug map only (low confidence)
-    // ShareLightCache::GetPointNormals() const
-    undefined1* ShareLightCache::GetPointNormals() {
+    // 0x1002f2e00
+    uint8_t* ShareLightCache::GetPointNormals() const {
         if (field_152 == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_resolved",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "ShareLightOperation.cpp",
@@ -60,23 +39,19 @@ namespace jag::oldscape::dash3d {
         return &field_32;
     }
 
-    // 0x1002f2e50, 16 bytes, placed by neighbouring functions
-    // ShareLightCache::GetUniquePoints() const
-    undefined1* ShareLightCache::GetUniquePoints() {
+    // 0x1002f2e50
+    uint8_t* ShareLightCache::GetUniquePoints() const {
         return &field_88;
     }
 
-    // 0x1002f2e60, 16 bytes, placed by neighbouring functions
-    // ShareLightCache::GetVertexToPointMap() const
-    undefined1* ShareLightCache::GetVertexToPointMap() {
-        return &field_120;
+    // 0x1002f2e60
+    vector<unsigned int>* ShareLightCache::GetVertexToPointMap() const {
+        return (vector<unsigned int>*)&field_120;
     }
 
-    // 0x1002f2e70, 80 bytes, placed by debug map only (low confidence)
-    // ShareLightCache::GetEditableModel() const
-    undefined1* ShareLightCache::GetEditableModel() {
+    // 0x1002f2e70
+    uint8_t* ShareLightCache::GetEditableModel() const {
         if (field_152 == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_resolved",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "ShareLightOperation.cpp",
@@ -85,769 +60,525 @@ namespace jag::oldscape::dash3d {
         return &field_16;
     }
 
-    // 0x1002f2ec0, 128 bytes, placed by neighbouring functions
-    // ShareLightCache::Resolve(ShareLightCache const*)
-    void ShareLightCache::Resolve(ShareLightCache* param_1) {
-        Model* pMVar1;
-        shared_ptr<RSevenDebugPresetProvider> local_30[16];
+    // 0x1002f2ec0
+    void ShareLightCache::Resolve(const ShareLightCache* shareLightCache) {
+        Model* model;
+        ReturnValue local_30;
 
-        if (param_1->field_152 == '\0') {
-            ResolveAndTransformModel((ShareLightCache*)local_30, (OperationBuffer*)param_1);
-            shared_ptr<jag::graphics::Model>::operator=((shared_ptr<jag::graphics::Model>*)&param_1->field_16,
-                                                        (shared_ptr*)local_30);
-            local_30->~shared_ptr();
-            pMVar1 = (Model*)shared_ptr<jag::graphics::Model>::operator*(
-                (shared_ptr<jag::graphics::Model>*)&param_1->field_16);
-            GeneratePoints(param_1, pMVar1);
-            param_1->field_152 = 1;
+        if (field_152 == '\0') {
+            ResolveAndTransformModel(&local_30, this, (OperationBuffer*)shareLightCache);
+            field_16 = local_30;
+            model = (Model*)*field_16;
+            GeneratePoints(*model);
+            field_152 = 1;
         }
     }
 
-    // 0x1002f2f40, 320 bytes, placed by debug map only (low confidence)
-    // ShareLightCache::ResolveAndTransformModel(OperationBuffer const*)
-    ShareLightCache* ShareLightCache::ResolveAndTransformModel(OperationBuffer* param_1) {
-        bool bVar1;
-        ResolvedModel* this_00;
-        shared_ptr* this_01;
-        shared_ptr<jag::graphics::Model>* this_02;
-        Model* pMVar2;
-        Matrix44T* pMVar3;
-        OperationBuffer* in_RDX;
-        Matrix44T local_68;
+    // 0x1002f2f40
+    auto ShareLightCache::ResolveAndTransformModel(const OperationBuffer* operationBuffer) {
+        auto result;
 
-        this_00 = (ResolvedModel*)param_1->Resolve(in_RDX);
-        this_01 = (shared_ptr*)this_00->GetAnimationState();
-        bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-        if (bVar1) {
-            /* WARNING: Subroutine does not return */
+        auto this_00 = Resolve(operationBuffer);
+        auto this_01 = this_00->GetAnimationState();
+        if (shared_ptr::operator_cast_to_bool(this_01) != '\0') {
             LogAssert("!model.GetAnimationState()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "ShareLightOperation.cpp",
                       106, "Animated models may not participate in ShareLight.");
         }
-        this_02 = (shared_ptr<jag::graphics::Model>*)this_00->GetModel();
-        pMVar2 = (Model*)shared_ptr<jag::graphics::Model>::operator*(this_02);
-        local_68._0_4_ = 1;
-        make_shared<jag::graphics::Model, jag::graphics::Model_const&, jag::graphics::ModelCopyType>(
-            (jag*)this, pMVar2, (ModelCopyType*)&local_68);
-        local_68.GetLocalTransform();
-        bVar1 = jag::math::operator!=(&local_68, (Matrix44T*)PTR_IDENTITY_100ee6730);
-        if (bVar1) {
-            pMVar2 = (Model*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)this);
-            pMVar2->StartTransform();
-            pMVar2 = (Model*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)this);
-            local_68.GetLocalTransform();
-            pMVar2->Transform(&local_68);
-            pMVar3 = (Matrix44T*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)this);
-            local_68.GetLocalTransform();
-            jag::graphics::Model::TransformNormals(pMVar3, SUB81(&local_68, 0));
-            pMVar2 = (Model*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)this);
-            pMVar2->EndTransform(true);
+        auto this_02 = this_00->GetModel();
+        Model* pMVar3 = (Model*)**this_02;
+        local_68[0]._0_4_ = 1;
+        make_shared<jag::graphics::Model, jag::graphics::Model const&, jag::graphics::ModelCopyType>(&result, pMVar3,
+                                                                                                     &local_68);
+        auto local_68 = this_00->GetLocalTransform();
+        if (local_68 != *PTR_IDENTITY_100ee6730) {
+            pMVar3 = (Model*)(result).operator->();
+            pMVar3->StartTransform();
+            pMVar3 = (Model*)(result).operator->();
+            local_68 = this_00->GetLocalTransform();
+            pMVar3->Transform(local_68);
+            pMVar3 = (Model*)(result).operator->();
+            local_68 = this_00->GetLocalTransform();
+            pMVar3->TransformNormals(local_68, false);
+            pMVar3 = (Model*)(result).operator->();
+            pMVar3->EndTransform(true);
         }
-        param_1->ClearCache();
-        return this;
+        ClearCache();
+        return result;
     }
 
-    // 0x1002f3080, 1024 bytes, placed by neighbouring functions
-    // ShareLightCache::GeneratePoints(jag::graphics::Model const&)
-    void ShareLightCache::GeneratePoints(Model* param_1) {
+    // 0x1002f3080
+    void ShareLightCache::GeneratePoints(const jag::graphics::Model& model) {
         Layout* this_00;
-        vector vVar1;
-        char cVar2;
-        uint uVar3;
-        int iVar4;
-        Layout* this_01;
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* this_02;
+        bool cVar1;
+        bool cVar2;
+        unsigned int uVar3;
         GeometryBatchInstance* this_03;
         GeometryBatch* this_04;
-        vector<jag::graphics::GeometryBatchVertex, eastl::allocator>* this_05;
+        vector<jag::graphics::GeometryBatchVertex>* this_05;
         long lVar5;
         char* pcVar6;
-        vector* pvVar7;
-        Vector4T<int>* pVVar8;
-        ShareLightPointRSeven* this_06;
-        vector<unsigned int, eastl::allocator>* this_07;
-        ulong uVar9;
-        vector<ShareLightPointRSeven, eastl::allocator>* this_08;
-        undefined1 auVar10[12];
-        hash_map<ShareLightPointRSeven, unsigned int, eastl::hash<ShareLightPointRSeven>,
-                 eastl::equal_to<ShareLightPointRSeven>, eastl::allocator, false>
-            local_e8[56];
+        Vector4T<int>* pVVar7;
+        vector<unsigned int>* this_06;
+        unsigned long arg1;
+        vector<ShareLightPointRSeven>* this_07;
+        uint8_t auVar8[12];
         LocationData local_b0;
-        undefined1 local_a0[16];
-        ShareLightPointRSeven local_90;
-        vector<ShareLightPointRSeven, eastl::allocator>* local_78;
-        vector<unsigned int, eastl::allocator>* local_70;
+        uint8_t local_a0[16];
+        ReturnValue local_90;
+        char local_80;
+        vector<ShareLightPointRSeven>* local_78;
+        vector<unsigned int>* local_70;
         unique_ptr<jag::graphics::GeometryBatchInstance,
                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* local_68;
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* local_60;
-        undefined1 local_58[24];
-        undefined1 local_40[12];
+        uint8_t local_58[24];
+        uint8_t local_40[12];
 
-        new (&local_90) eastl::allocator("EASTL hash_map");
-        eastl::hash_map<ShareLightPointRSeven, unsigned int, eastl::hash<ShareLightPointRSeven>,
-                        eastl::equal_to<ShareLightPointRSeven>, eastl::allocator,
-                        false>::hash_map(local_e8, (allocator*)&local_90);
-        this_01 = (Layout*)param_1->GetBatchList();
-        this_02 = (unique_ptr<jag::graphics::GeometryBatchInstance,
-                              MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        local_60 =
-            (unique_ptr<jag::graphics::GeometryBatchInstance,
-                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)this_01->end();
+        hash_map<ShareLightPointRSeven, unsigned int> local_e8(local_90);
+        auto this_01 = model.GetBatchList();
+        auto this_02 = this_01->HeapBeginPtr();
+        auto local_60 = this_01->end();
         if (this_02 != local_60) {
-            this_08 = (vector<ShareLightPointRSeven, eastl::allocator>*)&field_88;
-            this_07 = (vector<unsigned int, eastl::allocator>*)&field_120;
+            this_07 = (vector<ShareLightPointRSeven>*)&field_88;
+            this_06 = (vector<unsigned int>*)&field_120;
             local_58._16_8_ = &field_32;
-            local_78 = this_08;
-            local_70 = this_07;
+            local_78 = this_07;
+            local_70 = this_06;
             do {
                 local_68 = this_02;
-                this_03 = (GeometryBatchInstance*)
-                              std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                              MakeUniquePool<jag::graphics::GeometryBatchInstance,
-                                                             3072>::UniquePoolDeleter>::operator->(this_02);
+                this_03 = (GeometryBatchInstance*)(*this_02).operator->();
                 this_04 = (GeometryBatch*)this_03->GetGeometryBatch();
                 uVar3 = this_04->GetVertexCount();
-                eastl::vector<ShareLightPointRSeven, eastl::allocator>::reserve(this_08, (ulong)uVar3);
+                this_07->reserve((unsigned long)uVar3);
                 uVar3 = this_04->GetVertexCount();
-                eastl::vector<unsigned int, eastl::allocator>::reserve(this_07, (ulong)uVar3);
-                iVar4 = this_04->GetVertexCount();
-                if (iVar4 != 0) {
-                    uVar9 = 0;
+                this_06->reserve((unsigned long)uVar3);
+                if (this_04->GetVertexCount() != 0) {
+                    arg1 = 0;
                     do {
-                        this_06 = (ShareLightPointRSeven*)local_a0;
-                        this_05 = (vector<jag::graphics::GeometryBatchVertex, eastl::allocator>*)
-                                      this_04->GetVertexDataBuffer();
-                        lVar5 = eastl::vector<jag::graphics::GeometryBatchVertex, eastl::allocator>::operator[](this_05,
-                                                                                                                uVar9);
+                        this_05 = (vector<jag::graphics::GeometryBatchVertex>*)this_04->GetVertexDataBuffer();
+                        lVar5 = (*this_05)[arg1];
                         pcVar6 = (char*)((lVar5 + 8))->y();
                         if (*pcVar6 == '\0') {
-                            ShareLightPointRSeven::ShareLightPointRSeven(this_06, this_04, uVar9);
-                            local_58._0_4_ = this_08->size();
-                            eastl::hashtable<ShareLightPointRSeven,
-                                             eastl::pair<ShareLightPointRSeven_const, unsigned int>, eastl::allocator,
-                                             eastl::use_first<eastl::pair<ShareLightPointRSeven_const, unsigned int>>,
-                                             eastl::equal_to<ShareLightPointRSeven>, eastl::hash<ShareLightPointRSeven>,
-                                             eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                             eastl::prime_rehash_policy, false, true,
-                                             true>::emplace<ShareLightPointRSeven&, unsigned int>(&local_90,
-                                                                                                  (uint*)local_e8);
-                            if (local_90._16_1_ == '\0') {
+                            new (local_a0) ShareLightPointRSeven(*this_04, arg1);
+                            local_58._0_4_ = this_07->size();
+                            local_90 = local_e8.emplace<ShareLightPointRSeven&, unsigned int>(*local_a0, *local_58);
+                            if (local_80 == '\0') {
                                 lVar5 = local_90.HeapBeginPtr();
-                                eastl::vector<unsigned int, eastl::allocator>::push_back(this_07, (uint*)(lVar5 + 16));
+                                this_06->push_back(*((lVar5 + 16)));
                             } else {
-                                local_58._0_4_ = this_08->size();
-                                eastl::vector<unsigned int, eastl::allocator>::push_back(this_07, (uint*)local_58);
-                                eastl::vector<ShareLightPointRSeven, eastl::allocator>::push_back(this_08, this_06);
+                                local_58._0_4_ = this_07->size();
+                                this_06->push_back(*local_58);
+                                this_07->push_back(*local_a0);
                                 this_00 = (Layout*)(local_a0 + 12);
-                                pvVar7 = eastl::string::Layout::SSOBeginPtr(this_00, (type*)this_06);
-                                vVar1 = *pvVar7;
+                                pcVar6 = (char*)this_00->SSOBeginPtr();
+                                cVar1 = *pcVar6;
                                 pcVar6 = (char*)this_00->y();
                                 cVar2 = *pcVar6;
                                 pcVar6 = (char*)this_00->z();
-                                new (local_58) GridRect((int)(char)vVar1, (int)cVar2, (int)*pcVar6, 1);
-                                pVVar8 = (Vector4T<int>*)eastl::hash_map<
-                                    jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                    eastl::hash<jag::math::Vector3T<int>>, eastl::equal_to<jag::math::Vector3T<int>>,
-                                    eastl::allocator,
-                                    false>::operator[]((hash_map<jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                                                 eastl::hash<jag::math::Vector3T<int>>,
-                                                                 eastl::equal_to<jag::math::Vector3T<int>>,
-                                                                 eastl::allocator, false>*)local_58._16_8_,
-                                                       (Vector3T*)local_a0);
-                                jag::math::Vector4T<int>::operator+=(pVVar8, (Vector4T*)local_58);
-                                new (&local_b0) rs2lib::worldmap::LocationData(-1, 0, 0);
-                                auVar10 = jag::math::operator+((Vector3T*)local_a0, (Vector3T*)&local_b0);
-                                local_40 = auVar10;
-                                pVVar8 = (Vector4T<int>*)eastl::hash_map<
-                                    jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                    eastl::hash<jag::math::Vector3T<int>>, eastl::equal_to<jag::math::Vector3T<int>>,
-                                    eastl::allocator,
-                                    false>::operator[]((hash_map<jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                                                 eastl::hash<jag::math::Vector3T<int>>,
-                                                                 eastl::equal_to<jag::math::Vector3T<int>>,
-                                                                 eastl::allocator, false>*)local_58._16_8_,
-                                                       (Vector3T*)local_40);
-                                jag::math::Vector4T<int>::operator+=(pVVar8, (Vector4T*)local_58);
-                                new (&local_b0) rs2lib::worldmap::LocationData(1, 0, 0);
-                                auVar10 = jag::math::operator+((Vector3T*)local_a0, (Vector3T*)&local_b0);
-                                local_40 = auVar10;
-                                pVVar8 = (Vector4T<int>*)eastl::hash_map<
-                                    jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                    eastl::hash<jag::math::Vector3T<int>>, eastl::equal_to<jag::math::Vector3T<int>>,
-                                    eastl::allocator,
-                                    false>::operator[]((hash_map<jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                                                 eastl::hash<jag::math::Vector3T<int>>,
-                                                                 eastl::equal_to<jag::math::Vector3T<int>>,
-                                                                 eastl::allocator, false>*)local_58._16_8_,
-                                                       (Vector3T*)local_40);
-                                jag::math::Vector4T<int>::operator+=(pVVar8, (Vector4T*)local_58);
-                                new (&local_b0) rs2lib::worldmap::LocationData(0, -1, 0);
-                                auVar10 = jag::math::operator+((Vector3T*)local_a0, (Vector3T*)&local_b0);
-                                local_40 = auVar10;
-                                pVVar8 = (Vector4T<int>*)eastl::hash_map<
-                                    jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                    eastl::hash<jag::math::Vector3T<int>>, eastl::equal_to<jag::math::Vector3T<int>>,
-                                    eastl::allocator,
-                                    false>::operator[]((hash_map<jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                                                 eastl::hash<jag::math::Vector3T<int>>,
-                                                                 eastl::equal_to<jag::math::Vector3T<int>>,
-                                                                 eastl::allocator, false>*)local_58._16_8_,
-                                                       (Vector3T*)local_40);
-                                jag::math::Vector4T<int>::operator+=(pVVar8, (Vector4T*)local_58);
-                                new (&local_b0) rs2lib::worldmap::LocationData(0, 1, 0);
-                                auVar10 = jag::math::operator+((Vector3T*)local_a0, (Vector3T*)&local_b0);
-                                local_40 = auVar10;
-                                pVVar8 = (Vector4T<int>*)eastl::hash_map<
-                                    jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                    eastl::hash<jag::math::Vector3T<int>>, eastl::equal_to<jag::math::Vector3T<int>>,
-                                    eastl::allocator,
-                                    false>::operator[]((hash_map<jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                                                 eastl::hash<jag::math::Vector3T<int>>,
-                                                                 eastl::equal_to<jag::math::Vector3T<int>>,
-                                                                 eastl::allocator, false>*)local_58._16_8_,
-                                                       (Vector3T*)local_40);
-                                jag::math::Vector4T<int>::operator+=(pVVar8, (Vector4T*)local_58);
-                                new (&local_b0) rs2lib::worldmap::LocationData(0, 0, -1);
-                                auVar10 = jag::math::operator+((Vector3T*)local_a0, (Vector3T*)&local_b0);
-                                local_40 = auVar10;
-                                pVVar8 = (Vector4T<int>*)eastl::hash_map<
-                                    jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                    eastl::hash<jag::math::Vector3T<int>>, eastl::equal_to<jag::math::Vector3T<int>>,
-                                    eastl::allocator,
-                                    false>::operator[]((hash_map<jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                                                 eastl::hash<jag::math::Vector3T<int>>,
-                                                                 eastl::equal_to<jag::math::Vector3T<int>>,
-                                                                 eastl::allocator, false>*)local_58._16_8_,
-                                                       (Vector3T*)local_40);
-                                jag::math::Vector4T<int>::operator+=(pVVar8, (Vector4T*)local_58);
-                                new (&local_b0) rs2lib::worldmap::LocationData(0, 0, 1);
-                                auVar10 = jag::math::operator+((Vector3T*)local_a0, (Vector3T*)&local_b0);
-                                local_40 = auVar10;
-                                pVVar8 = (Vector4T<int>*)eastl::hash_map<
-                                    jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                    eastl::hash<jag::math::Vector3T<int>>, eastl::equal_to<jag::math::Vector3T<int>>,
-                                    eastl::allocator,
-                                    false>::operator[]((hash_map<jag::math::Vector3T<int>, jag::math::Vector4T<int>,
-                                                                 eastl::hash<jag::math::Vector3T<int>>,
-                                                                 eastl::equal_to<jag::math::Vector3T<int>>,
-                                                                 eastl::allocator, false>*)local_58._16_8_,
-                                                       (Vector3T*)local_40);
-                                jag::math::Vector4T<int>::operator+=(pVVar8, (Vector4T*)local_58);
-                                this_07 = local_70;
-                                this_08 = local_78;
+                                new (local_58) GridRect((int)cVar1, (int)cVar2, (int)*pcVar6, 1);
+                                pVVar7 = (Vector4T<int>*)(*local_58._16_8_)[*local_a0];
+                                *pVVar7 += *local_58;
+                                local_b0 = rs2lib::worldmap::LocationData(-1, 0, 0);
+                                auVar8 = *local_a0 + local_b0;
+                                local_40 = auVar8;
+                                pVVar7 = (Vector4T<int>*)(*local_58._16_8_)[*local_40];
+                                *pVVar7 += *local_58;
+                                local_b0 = rs2lib::worldmap::LocationData(1, 0, 0);
+                                auVar8 = *local_a0 + local_b0;
+                                local_40 = auVar8;
+                                pVVar7 = (Vector4T<int>*)(*local_58._16_8_)[*local_40];
+                                *pVVar7 += *local_58;
+                                local_b0 = rs2lib::worldmap::LocationData(0, 4294967295, 0);
+                                auVar8 = *local_a0 + local_b0;
+                                local_40 = auVar8;
+                                pVVar7 = (Vector4T<int>*)(*local_58._16_8_)[*local_40];
+                                *pVVar7 += *local_58;
+                                local_b0 = rs2lib::worldmap::LocationData(0, 1, 0);
+                                auVar8 = *local_a0 + local_b0;
+                                local_40 = auVar8;
+                                pVVar7 = (Vector4T<int>*)(*local_58._16_8_)[*local_40];
+                                *pVVar7 += *local_58;
+                                local_b0 = rs2lib::worldmap::LocationData(0, 0, 4294967295);
+                                auVar8 = *local_a0 + local_b0;
+                                local_40 = auVar8;
+                                pVVar7 = (Vector4T<int>*)(*local_58._16_8_)[*local_40];
+                                *pVVar7 += *local_58;
+                                local_b0 = rs2lib::worldmap::LocationData(0, 0, 1);
+                                auVar8 = *local_a0 + local_b0;
+                                local_40 = auVar8;
+                                pVVar7 = (Vector4T<int>*)(*local_58._16_8_)[*local_40];
+                                *pVVar7 += *local_58;
+                                this_06 = local_70;
+                                this_07 = local_78;
                             }
                         } else {
-                            local_90.field_0 = 4294967295;
-                            eastl::vector<unsigned int, eastl::allocator>::push_back(this_07, (uint*)&local_90);
+                            local_90[0]._0_4_ = 4294967295;
+                            this_06->push_back(local_90);
                         }
-                        uVar9 = uVar9 + 1;
+                        arg1 = arg1 + 1;
                         uVar3 = this_04->GetVertexCount();
-                    } while (uVar9 < uVar3);
+                    } while (arg1 < uVar3);
                 }
                 this_02 = local_68 + 8;
             } while (this_02 != local_60);
         }
-        eastl::hash_map<ShareLightPointRSeven, unsigned int, eastl::hash<ShareLightPointRSeven>,
-                        eastl::equal_to<ShareLightPointRSeven>, eastl::allocator, false>::~hash_map(local_e8);
     }
 
-    // 0x1002f3660, 64 bytes, placed by neighbouring functions
-    // operator==(ShareLightPointRSeven const&, ShareLightPointRSeven const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(ShareLightPointRSeven
-   const&, ShareLightPointRSeven const&) */
-
-    bool operator==(ShareLightPointRSeven* param_1, ShareLightPointRSeven* param_2) {
-        bool bVar1;
-
-        bVar1 = jag::math::operator==((Vector3T*)param_1, (Vector3T*)param_2);
+    // 0x1002f3660
+    bool operator==(const ShareLightPointRSeven& shareLightPointRSeven1,
+                    const ShareLightPointRSeven& shareLightPointRSeven2) {
+        bool bVar1 = shareLightPointRSeven1 == shareLightPointRSeven2;
         if (bVar1) {
-            bVar1 = jag::math::operator==((Vector3T*)&param_1->field_12, (Vector3T*)&param_2->field_12);
+            bVar1 = shareLightPointRSeven1.field_12 == shareLightPointRSeven2.field_12;
         } else {
             bVar1 = false;
         }
         return bVar1;
     }
 
-    // 0x1002f36c0, 16 bytes, placed by neighbouring functions
-    // operator!=(ShareLightPointRSeven const&, ShareLightPointRSeven const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(ShareLightPointRSeven
-   const&, ShareLightPointRSeven const&) */
-
-    byte operator!=(ShareLightPointRSeven* param_1, ShareLightPointRSeven* param_2) {
-        return operator==(param_1, param_2) ^ 1;
+    // 0x1002f36c0
+    uint8_t operator!=(const ShareLightPointRSeven& shareLightPointRSeven1,
+                       const ShareLightPointRSeven& shareLightPointRSeven2) {
+        return shareLightPointRSeven1 == shareLightPointRSeven2 ^ 1;
     }
 
-    // 0x1002f36d0, 16 bytes, placed by neighbouring functions
-    // operator==(ShareLightCache const&, ShareLightCache const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(ShareLightCache const&,
-   ShareLightCache const&) */
-
-    void operator==(ShareLightCache* param_1, ShareLightCache* param_2) {
-        operator==((OperationBuffer*)param_1, (OperationBuffer*)param_2);
+    // 0x1002f36d0
+    void operator==(const ShareLightCache& shareLightCache1, const ShareLightCache& shareLightCache2) {
+        shareLightCache1 == shareLightCache2;
     }
 
-    // 0x1002f36e0, 16 bytes, placed by neighbouring functions
-    // operator!=(ShareLightCache const&, ShareLightCache const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(ShareLightCache const&,
-   ShareLightCache const&) */
-
-    byte operator!=(ShareLightCache* param_1, ShareLightCache* param_2) {
-        return operator==(param_1, param_2) ^ 1;
+    // 0x1002f36e0
+    uint8_t operator!=(const ShareLightCache& shareLightCache1, const ShareLightCache& shareLightCache2) {
+        return shareLightCache1 == shareLightCache2 ^ 1;
     }
 
-    // 0x1002f36f0, 96 bytes, placed by neighbouring functions
-    // operator==(ShareLightRequest const&, ShareLightRequest const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(ShareLightRequest const&,
-   ShareLightRequest const&) */
-
-    undefined8 operator==(ShareLightRequest* param_1, ShareLightRequest* param_2) {
+    // 0x1002f36f0
+    void operator==(const ShareLightRequest& shareLightRequest1, const ShareLightRequest& shareLightRequest2) {
         bool bVar2;
-        ShareLightCache* pSVar3;
-        ShareLightCache* pSVar4;
-        undefined7 extraout_var;
+        ShareLightCache* shareLightCache1;
+        ShareLightCache* shareLightCache2;
 
-        pSVar3 = (ShareLightCache*)shared_ptr<ShareLightCache>::operator*((shared_ptr<ShareLightCache>*)param_1);
-        pSVar4 = (ShareLightCache*)shared_ptr<ShareLightCache>::operator*((shared_ptr<ShareLightCache>*)param_2);
-        if ((operator==(pSVar3, pSVar4) != '\0') &&
-            (bVar2 = jag::math::operator==((Vector3T*)&param_1->field_16, (Vector3T*)&param_2->field_16), bVar2)) {
-            return CONCAT71(extraout_var,
-                            *(char*)((long)&param_1->field_21 + 7) == *(char*)((long)&param_2->field_21 + 7));
+        shareLightCache1 = (ShareLightCache*)shareLightRequest1;
+        shareLightCache2 = (ShareLightCache*)shareLightRequest2;
+        if ((*shareLightCache1 == *shareLightCache2 != '\0') &&
+            (bVar2 = shareLightRequest1.field_16 == shareLightRequest2.field_16, bVar2)) {
+            return *(char*)((long)&shareLightRequest1.field_21 + 7) == *(char*)((long)&shareLightRequest2.field_21 + 7);
         }
         return 0;
     }
 
-    // 0x1002f3790, 16 bytes, placed by neighbouring functions
-    // operator!=(ShareLightRequest const&, ShareLightRequest const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(ShareLightRequest const&,
-   ShareLightRequest const&) */
-
-    byte operator!=(ShareLightRequest* param_1, ShareLightRequest* param_2) {
-        return operator==(param_1, param_2) ^ 1;
+    // 0x1002f3790
+    uint8_t operator!=(const ShareLightRequest& shareLightRequest1, const ShareLightRequest& shareLightRequest2) {
+        return shareLightRequest1 == shareLightRequest2 ^ 1;
     }
 
-    // 0x1002f37a0, 640 bytes, placed by class name and debug map
-    // ShareLightOperation::Apply(ResolvedModel const&, OperationRecordEntry const*) const
-    ResolvedModel* ShareLightOperation::Apply(ResolvedModel* param_1, OperationRecordEntry* param_2) {
-        ResolvedModel* pRVar1;
-        int iVar2;
-        shared_ptr<Operation>* this_00;
-        CommandLine* this_01;
-        vector<EntityHighlight*, BucketAllocatorEASTL>* pvVar3;
+    // 0x1002f37a0
+    ResolvedModel* ShareLightOperation::Apply(const ResolvedModel& resolvedModel,
+                                              const OperationRecordEntry* operationRecordEntry) const {
+        uint8_t* arg1;
+        shared_ptr<Operation>* psVar3;
         long lVar4;
-        ShareLightCache* pSVar5;
-        shared_ptr* psVar6;
-        ulong uVar7;
-        ShareLightRequest* this_02;
-        ulong uVar8;
+        ShareLightCache* pSVar6;
+        OperationRecordEntry* pOVar7;
+        ShareLightRequest* shareLightRequest;
+        vector<EntityHighlight*, BucketAllocatorEASTL>* this_01;
         OperationRecordEntry* in_RCX;
-        vector<Nullable<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>>,
-               eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>* pvVar9;
-        ulong uVar10;
+        OperationRecordEntry* pOVar10;
         bool bVar11;
-        vector<ShareLightNormalSum, eastl::allocator> local_98[32];
-        vector<Nullable<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>>,
-               eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>* local_78;
-        vector<Nullable<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>>,
-               eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>* local_70;
-        ResolvedModel* local_68;
-        shared_ptr local_60;
-        long local_50;
-        shared_ptr local_48;
-        ResolvedModel* local_38;
+        vector<Nullable<Array<shared_ptr<rs2lib::IfType>>>, eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true>>*
+            local_78;
+        vector<Nullable<Array<shared_ptr<rs2lib::IfType>>>, eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true>>*
+            local_70;
+        OperationRecordEntry* local_48[2];
 
-        if (in_RCX != (OperationRecordEntry*)0) {
-            this_00 = (shared_ptr<Operation>*)in_RCX->GetOperation();
-            this_01 = (CommandLine*)shared_ptr<Operation>::operator->(this_00);
-            iVar2 = this_01->GetPos();
-            if (iVar2 == 10) {
-                pvVar3 = (vector<EntityHighlight*, BucketAllocatorEASTL>*)in_RCX->GetOperation();
-                lVar4 = eastl::vector<EntityHighlight*, BucketAllocatorEASTL>::end(pvVar3);
+        OperationRecordEntry* matrix44 = in_RCX;
+        if (in_RCX != nullptr) {
+            psVar3 = in_RCX->GetOperation();
+            if (((CommandLine*)(*psVar3).operator->())->GetPos() == 10) {
+                psVar3 = in_RCX->GetOperation();
+                lVar4 = psVar3->end();
                 goto LAB_1002f37f7;
             }
         }
         lVar4 = 0;
     LAB_1002f37f7:
-        pSVar5 =
-            (ShareLightCache*)shared_ptr<ShareLightCache>::operator->((shared_ptr<ShareLightCache>*)&param_1->field_16);
-        if (lVar4 != 0) {
-            ((lVar4 + 16))->end();
+        ShareLightCache* pSVar5 = (ShareLightCache*)(resolvedModel.field_16).operator->();
+        if (lVar4 == 0) {
+            pSVar6 = nullptr;
+        } else {
+            pSVar6 = (ShareLightCache*)((lVar4 + 16))->end();
         }
-        ShareLightCache::Resolve(pSVar5);
-        eastl::vector<ShareLightNormalSum, eastl::allocator>::vector(local_98);
-        pSVar5 =
-            (ShareLightCache*)shared_ptr<ShareLightCache>::operator->((shared_ptr<ShareLightCache>*)&param_1->field_16);
-        psVar6 = (shared_ptr*)pSVar5->GetEditableModel();
-        new (&local_60) shared_ptr<Decor>(psVar6);
-        local_68 = (ResolvedModel*)this;
-        local_50 = lVar4;
-        InitializeNormalSums((ShareLightOperation*)param_1, (vector*)local_98);
-        pvVar9 = (vector<Nullable<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>>,
-                         eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>*)&param_1
-                     ->m_animationState;
-        local_48._0_8_ = 0;
-        local_38 = param_1;
-        lVar4 =
-            eastl::vector<Nullable<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>>,
-                          eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::size(pvVar9);
+        pSVar5->Resolve(pSVar6);
+        vector<ShareLightNormalSum> local_98;
+        pSVar5 = (ShareLightCache*)(resolvedModel.field_16).operator->();
+        auto groundDecor = pSVar5->GetEditableModel();
+        shared_ptr<Decor> local_60(groundDecor);
+        long local_50 = lVar4;
+        InitializeNormalSums((ShareLightOperation*)resolvedModel, &local_98);
+        vector<Nullable<Array<shared_ptr<rs2lib::IfType>>>, eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true>>*
+            pvVar9 = (vector<Nullable<Array<shared_ptr<rs2lib::IfType>>>,
+                             eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true>>*)resolvedModel.m_animationState;
+        local_48[0] = nullptr;
+        lVar4 = pvVar9->size();
         if (lVar4 != 0) {
-            local_70 =
-                (vector<Nullable<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>>,
-                        eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>*)(local_50 + 32);
-            uVar10 = 1;
+            local_70 = (vector<Nullable<Array<shared_ptr<rs2lib::IfType>>>,
+                               eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true>>*)(local_50 + 32);
+            pOVar10 = (OperationRecordEntry*)&DAT_00000001;
             local_78 = pvVar9;
             do {
-                uVar7 = uVar10 - 1;
-                this_02 = (ShareLightRequest*)eastl::vector<ShareLightRequest, eastl::allocator>::operator[](
-                    (vector<ShareLightRequest, eastl::allocator>*)pvVar9, uVar7);
-                pSVar5 =
-                    (ShareLightCache*)shared_ptr<ShareLightCache>::operator->((shared_ptr<ShareLightCache>*)this_02);
+                arg1 = pOVar10[-1].m_outputModel + 111;
+                shareLightRequest = (ShareLightRequest*)(*pvVar9)[(unsigned long)arg1];
+                pSVar5 = (ShareLightCache*)(*shareLightRequest).operator->();
                 pvVar9 = local_70;
-                if ((local_50 != 0) &&
-                    (uVar8 = eastl::vector<
-                         Nullable<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>>,
-                         eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::size(local_70),
-                     uVar7 < uVar8)) {
-                    pvVar3 = (vector<EntityHighlight*, BucketAllocatorEASTL>*)
-                        eastl::vector<ShareLightRequest, eastl::allocator>::operator[](
-                            (vector<ShareLightRequest, eastl::allocator>*)pvVar9, uVar7);
-                    eastl::vector<EntityHighlight*, BucketAllocatorEASTL>::end(pvVar3);
+                if (local_50 == 0) {
+                LAB_1002f3910:
+                    pSVar6 = nullptr;
+                } else {
+                    if ((uint8_t*)local_70->size() <= arg1)
+                        goto LAB_1002f3910;
+                    this_01 = (vector<EntityHighlight*, BucketAllocatorEASTL>*)(*pvVar9)[(unsigned long)arg1];
+                    pSVar6 = (ShareLightCache*)this_01->end();
                 }
-                ShareLightCache::Resolve(pSVar5);
-                SumNormalsFromRequest((ShareLightOperation*)local_38, this_02, (vector*)local_98, (ulong*)&local_48);
-                if (*(char*)((long)&this_02->field_21 + 7) != '\0') {
-                    DegenerateFacesFromIteration((ShareLightOperation*)local_38, &local_60, (vector*)local_98,
-                                                 (ulong*)&local_48);
+                pSVar5->Resolve(pSVar6);
+                SumNormalsFromRequest((ShareLightOperation*)resolvedModel, shareLightRequest, &local_98,
+                                      (unsigned long*)local_48);
+                if (*(char*)((long)&shareLightRequest->field_21 + 7) != '\0') {
+                    DegenerateFacesFromIteration((ShareLightOperation*)resolvedModel, &local_60, &local_98,
+                                                 (unsigned long*)local_48);
                 }
                 pvVar9 = local_78;
-                local_48._0_8_ = uVar10;
-                uVar7 = eastl::vector<
-                    Nullable<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>>,
-                    eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::size(local_78);
-                bVar11 = uVar10 < uVar7;
-                uVar10 = uVar10 + 1;
+                local_48[0] = pOVar10;
+                pOVar7 = (OperationRecordEntry*)local_78->size();
+                matrix44 = (OperationRecordEntry*)&pOVar10->field_1;
+                bVar11 = pOVar10 < pOVar7;
+                pOVar10 = matrix44;
             } while (bVar11);
         }
-        ApplyAveragedNormals((ShareLightOperation*)local_38, &local_60, (vector*)local_98);
-        new (&local_48) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        pRVar1 = local_68;
-        ResolvedModel::ResolvedModel(local_68, &local_60, &local_48, *(Matrix44T*)PTR_IDENTITY_100ee6730);
-        local_48.~shared_ptr();
-        local_60.~shared_ptr();
-        eastl::vector<ShareLightNormalSum, eastl::allocator>::~vector(local_98);
-        return pRVar1;
+        ApplyAveragedNormals((ShareLightOperation*)resolvedModel, &local_60, &local_98);
+        new (local_48) shared_ptr();
+        new (this) ResolvedModel(local_60, *local_48, matrix44);
+        return (ResolvedModel*)this;
     }
 
-    // 0x1002f3a70, 256 bytes, placed by class name and debug map
-    // ShareLightOperation::InitializeNormalSums(eastl::vector<ShareLightNormalSum, eastl::allocator>&) const
-    void ShareLightOperation::InitializeNormalSums(vector* param_1) {
+    // 0x1002f3a70
+    void ShareLightOperation::InitializeNormalSums(eastl::vector<ShareLightNormalSum>& shareLightNormalSums) const {
         Layout* this_00;
-        vector vVar1;
-        char cVar2;
-        ShareLightCache* pSVar3;
-        vector<shared_ptr<ModelUnlit>, BucketAllocatorEASTL>* this_01;
-        ShareLightNormalSum* pSVar4;
-        Layout* this_02;
-        long lVar5;
-        vector* pvVar6;
-        char* pcVar7;
+        bool cVar1;
+        bool cVar2;
+        char* pcVar5;
         ShareLightNormalSum local_58;
-        LocationData local_48;
-        long local_38;
+        Vector3T<int>* local_48[2];
 
-        pSVar3 = (ShareLightCache*)shared_ptr<ShareLightCache>::operator->((shared_ptr<ShareLightCache>*)field_16);
-        this_01 = (vector<shared_ptr<ModelUnlit>, BucketAllocatorEASTL>*)pSVar3->GetUniquePoints();
-        pSVar4 = (ShareLightNormalSum*)eastl::vector<shared_ptr<ModelUnlit>, BucketAllocatorEASTL>::size(this_01);
-        param_1->reserve((ulong)pSVar4);
-        pSVar3 = (ShareLightCache*)shared_ptr<ShareLightCache>::operator->((shared_ptr<ShareLightCache>*)field_16);
-        this_02 = (Layout*)pSVar3->GetUniquePoints();
-        lVar5 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(this_02);
-        local_38 = this_02->end();
-        if (lVar5 != local_38) {
+        ShareLightCache* pSVar3 = (ShareLightCache*)(*field_16).operator->();
+        shareLightNormalSums.reserve(
+            ((vector<shared_ptr<ModelUnlit>, BucketAllocatorEASTL>*)pSVar3->GetUniquePoints())->size());
+        pSVar3 = (ShareLightCache*)(*field_16).operator->();
+        auto this_02 = pSVar3->GetUniquePoints();
+        long lVar4 = this_02->HeapBeginPtr();
+        long local_38 = this_02->end();
+        if (lVar4 != local_38) {
             do {
-                this_00 = (Layout*)(lVar5 + 12);
-                pvVar6 = eastl::string::Layout::SSOBeginPtr(this_00, (type*)pSVar4);
-                vVar1 = *pvVar6;
-                pcVar7 = (char*)this_00->y();
-                cVar2 = *pcVar7;
-                pcVar7 = (char*)this_00->z();
-                new (&local_48) rs2lib::worldmap::LocationData((int)(char)vVar1, (int)cVar2, (int)*pcVar7);
-                pSVar4 = &local_58;
-                ShareLightNormalSum::ShareLightNormalSum(pSVar4, local_48._0_8_, local_48.field_8, 1, 65535);
-                param_1->push_back(pSVar4);
-                lVar5 = lVar5 + 16;
-            } while (lVar5 != local_38);
+                this_00 = (Layout*)(lVar4 + 12);
+                pcVar5 = (char*)this_00->SSOBeginPtr();
+                cVar1 = *pcVar5;
+                pcVar5 = (char*)this_00->y();
+                cVar2 = *pcVar5;
+                pcVar5 = (char*)this_00->z();
+                new (local_48) rs2lib::worldmap::LocationData((int)cVar1, (int)cVar2, (int)*pcVar5);
+                local_58 = ShareLightNormalSum(local_48[0], (unsigned short)(int)local_48[1], 1);
+                shareLightNormalSums.push_back(local_58);
+                lVar4 = lVar4 + 16;
+            } while (lVar4 != local_38);
         }
     }
 
-    // 0x1002f3bb0, 352 bytes, placed by class name and debug map
-    // ShareLightOperation::SumNormalsFromRequest(ShareLightRequest const&, eastl::vector<ShareLightNormalSum, eastl::allocator>&, unsigned long const&) const
-    void ShareLightOperation::SumNormalsFromRequest(ShareLightRequest* param_1, vector* param_2, ulong* param_3) {
-        bool bVar1;
-        ShareLightCache* pSVar2;
-        hashtable<
-            jag::math::Vector3T<int>, eastl::pair<jag::math::Vector3T<int> const, jag::math::Vector4T<int>>,
-            eastl::allocator, eastl::use_first<eastl::pair<jag::math::Vector3T<int> const, jag::math::Vector4T<int>>>,
-            eastl::equal_to<jag::math::Vector3T<int>>, eastl::hash<jag::math::Vector3T<int>>, eastl::mod_range_hashing,
-            eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>* this_00;
-        long lVar3;
-        ulong uVar4;
-        vector<ShareLightPointRSeven, eastl::allocator>* this_01;
-        Vector3T* pVVar5;
-        Vector3T<int>* this_02;
+    // 0x1002f3bb0
+    void ShareLightOperation::SumNormalsFromRequest(const ShareLightRequest& shareLightRequest,
+                                                    eastl::vector<ShareLightNormalSum>& shareLightNormalSums,
+                                                    const unsigned long& arg3) const {
+        unsigned long uVar4;
+        vector<ShareLightPointRSeven>* this_01;
+        Vector3T<int>* pVVar5;
         short* psVar6;
-        undefined4 extraout_EDX;
-        undefined4 extraout_EDX_00;
-        undefined4 extraout_var;
-        undefined4 extraout_var_00;
-        ulong uVar7;
-        undefined1 auVar8[12];
-        undefined8 local_80;
-        undefined8 local_78;
-        undefined1 local_70[12];
-        ulong* local_60;
+        uint32_t extraout_EDX;
+        uint32_t extraout_EDX_00;
+        uint32_t extraout_var;
+        uint32_t extraout_var_00;
+        unsigned long arg1;
+        uint8_t auVar7[12];
+        uint64_t local_80;
+        uint64_t local_78;
+        uint8_t local_70[12];
         hashtable<
             jag::math::Vector3T<int>, eastl::pair<jag::math::Vector3T<int> const, jag::math::Vector4T<int>>,
             eastl::allocator, eastl::use_first<eastl::pair<jag::math::Vector3T<int> const, jag::math::Vector4T<int>>>,
             eastl::equal_to<jag::math::Vector3T<int>>, eastl::hash<jag::math::Vector3T<int>>, eastl::mod_range_hashing,
             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>* local_58;
-        ShareLightOperation* local_50;
-        undefined8 local_48;
-        undefined8 uStack_40;
+        uint64_t local_48;
+        uint64_t uStack_40;
 
-        local_60 = param_3;
-        local_50 = this;
-        pSVar2 = (ShareLightCache*)shared_ptr<ShareLightCache>::operator->((shared_ptr<ShareLightCache>*)param_1);
-        this_00 = (hashtable<jag::math::Vector3T<int>,
-                             eastl::pair<jag::math::Vector3T<int> const, jag::math::Vector4T<int>>, eastl::allocator,
-                             eastl::use_first<eastl::pair<jag::math::Vector3T<int> const, jag::math::Vector4T<int>>>,
-                             eastl::equal_to<jag::math::Vector3T<int>>, eastl::hash<jag::math::Vector3T<int>>,
-                             eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false,
-                             true, true>*)pSVar2->GetPointNormals();
-        lVar3 = param_2->size();
+        ShareLightOperation* local_50 = this;
+        auto pSVar2 = shareLightRequest.operator->();
+        auto this_00 = pSVar2->GetPointNormals();
+        long lVar3 = shareLightNormalSums.size();
         if (lVar3 != 0) {
             local_50 = (ShareLightOperation*)local_50->field_16;
-            uVar7 = 0;
+            arg1 = 0;
             local_58 = this_00;
             do {
-                pSVar2 =
-                    (ShareLightCache*)shared_ptr<ShareLightCache>::operator->((shared_ptr<ShareLightCache>*)local_50);
-                this_01 = (vector<ShareLightPointRSeven, eastl::allocator>*)pSVar2->GetUniquePoints();
-                pVVar5 = (Vector3T*)eastl::vector<ShareLightPointRSeven, eastl::allocator>::operator[](this_01, uVar7);
-                auVar8 = jag::math::operator-(pVVar5, (Vector3T*)&param_1->field_16);
-                local_48 = auVar8._0_8_;
-                uStack_40 = CONCAT44(uStack_40._4_4_, auVar8._8_4_);
-                local_80 = eastl::hashtable<
-                    jag::math::Vector3T<int>, eastl::pair<jag::math::Vector3T<int> const, jag::math::Vector4T<int>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<jag::math::Vector3T<int> const, jag::math::Vector4T<int>>>,
-                    eastl::equal_to<jag::math::Vector3T<int>>, eastl::hash<jag::math::Vector3T<int>>,
-                    eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                    true>::find(this_00, (Vector3T*)&local_48);
-                local_78 = CONCAT44(extraout_var, extraout_EDX);
+                pSVar2 = (ShareLightCache*)(*local_50).operator->();
+                this_01 = (vector<ShareLightPointRSeven>*)pSVar2->GetUniquePoints();
+                pVVar5 = (Vector3T<int>*)(*this_01)[arg1];
+                auVar7 = *pVVar5 - shareLightRequest.field_16;
+                local_48 = auVar7._0_8_;
+                uStack_40 = (((uint64_t)uStack_40._4_4_ << 32) | (uint32_t)auVar7._8_4_);
+                local_80 = this_00->find(local_48);
+                local_78 = (((uint64_t)extraout_var << 32) | (uint32_t)extraout_EDX);
                 local_48 = this_00->end();
-                uStack_40 = CONCAT44(extraout_var_00, extraout_EDX_00);
-                bVar1 = eastl::operator!=((eastl*)&local_80, (hashtable_iterator_base*)&local_48,
-                                          (hashtable_iterator_base*)CONCAT44(extraout_var_00, extraout_EDX_00));
-                if (bVar1) {
+                uStack_40 = (((uint64_t)extraout_var_00 << 32) | (uint32_t)extraout_EDX_00);
+                if (local_80 != local_48 != '\0') {
                     lVar3 = local_80.HeapBeginPtr();
-                    local_48 = *(undefined8*)(lVar3 + 12);
-                    uStack_40 = *(undefined8*)(lVar3 + 20);
-                    this_02 = (Vector3T<int>*)eastl::vector<ShareLightNormalSum, eastl::allocator>::operator[](
-                        (vector<ShareLightNormalSum, eastl::allocator>*)param_2, uVar7);
-                    auVar8 = local_48.GetXYZ();
-                    local_70 = auVar8;
-                    jag::math::Vector3T<int>::operator+=(this_02, (Vector3T*)local_70);
+                    local_48 = *(uint64_t*)(lVar3 + 12);
+                    uStack_40 = *(uint64_t*)(lVar3 + 20);
+                    pVVar5 = &shareLightNormalSums[arg1];
+                    auVar7 = local_48.GetXYZ();
+                    local_70 = auVar7;
+                    *pVVar5 += *local_70;
                     psVar6 = (short*)local_48.qw();
-                    *(short*)(this_02 + 12) = *(short*)(this_02 + 12) + *psVar6;
-                    *(short*)(this_02 + 14) = (short)*local_60;
+                    *(short*)(pVVar5 + 12) = *(short*)(pVVar5 + 12) + *psVar6;
+                    *(short*)(pVVar5 + 14) = (short)*arg3;
                     this_00 = local_58;
                 }
-                uVar7 = uVar7 + 1;
-                uVar4 = param_2->size();
-            } while (uVar7 < uVar4);
+                arg1 = arg1 + 1;
+                uVar4 = shareLightNormalSums.size();
+            } while (arg1 < uVar4);
         }
     }
 
-    // 0x1002f3d10, 320 bytes, placed by class name and debug map
-    // ShareLightOperation::DegenerateFacesFromIteration(shared_ptr<jag::graphics::Model>&, eastl::vector<ShareLightNormalSum, eastl::allocator>&, unsigned long const&) const
-    void ShareLightOperation::DegenerateFacesFromIteration(shared_ptr* param_1, vector* param_2, ulong* param_3) {
-        ulong* puVar1;
-        int iVar2;
-        uint uVar3;
-        Model* this_00;
-        Layout* this_01;
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* this_02;
+    // 0x1002f3d10
+    void ShareLightOperation::DegenerateFacesFromIteration(shared_ptr<jag::graphics::Model>& model,
+                                                           eastl::vector<ShareLightNormalSum>& shareLightNormalSums,
+                                                           const unsigned long& arg3) const {
+        unsigned int uVar2;
         GeometryBatchInstance* this_03;
         GeometryBatch* this_04;
-        vector<unsigned short, eastl::allocator>* pvVar4;
-        ulong uVar5;
-        undefined8 local_68;
-        undefined8 local_60;
-        undefined8 local_58;
+        vector<unsigned short>* pvVar3;
+        unsigned long arg1;
+        uint64_t local_68;
+        uint64_t local_60;
+        uint64_t local_58;
         unique_ptr<jag::graphics::GeometryBatchInstance,
                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* local_50;
-        ulong* local_48;
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* local_40;
-        ulong local_38;
 
-        local_38 = 0;
-        local_48 = param_3;
-        this_00 = (Model*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)param_1);
-        this_01 = (Layout*)this_00->GetBatchList();
-        this_02 = (unique_ptr<jag::graphics::GeometryBatchInstance,
-                              MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        local_40 =
-            (unique_ptr<jag::graphics::GeometryBatchInstance,
-                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)this_01->end();
+        unsigned long local_38 = 0;
+        auto this_00 = model.operator->();
+        auto this_01 = this_00->GetBatchList();
+        auto this_02 = this_01->HeapBeginPtr();
+        auto local_40 = this_01->end();
         if (this_02 != local_40) {
             do {
                 local_50 = this_02;
-                this_03 = (GeometryBatchInstance*)
-                              std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                              MakeUniquePool<jag::graphics::GeometryBatchInstance,
-                                                             3072>::UniquePoolDeleter>::operator->(this_02);
+                this_03 = (GeometryBatchInstance*)(*this_02).operator->();
                 this_04 = (GeometryBatch*)this_03->GetGeometryBatch();
-                iVar2 = this_04->GetIndexCount();
-                puVar1 = local_48;
-                if (iVar2 != 0) {
-                    uVar5 = 0;
+                if (this_04->GetIndexCount() != 0) {
+                    arg1 = 0;
                     do {
-                        pvVar4 = (vector<unsigned short, eastl::allocator>*)this_04->GetVertexIndexBuffer();
-                        local_68 = eastl::vector<unsigned short, eastl::allocator>::operator[](pvVar4, uVar5);
-                        pvVar4 = (vector<unsigned short, eastl::allocator>*)this_04->GetVertexIndexBuffer();
-                        local_60 = eastl::vector<unsigned short, eastl::allocator>::operator[](pvVar4, uVar5 + 1);
-                        pvVar4 = (vector<unsigned short, eastl::allocator>*)this_04->GetVertexIndexBuffer();
-                        local_58 = eastl::vector<unsigned short, eastl::allocator>::operator[](pvVar4, uVar5 + 2);
-                        DegenerateFaceFromIteration(this, (array*)&local_68, &local_38, param_2, puVar1);
-                        uVar3 = this_04->GetIndexCount();
-                        uVar5 = uVar5 + 3;
-                    } while (uVar5 < uVar3);
+                        pvVar3 = (vector<unsigned short>*)this_04->GetVertexIndexBuffer();
+                        local_68 = (*pvVar3)[arg1];
+                        pvVar3 = (vector<unsigned short>*)this_04->GetVertexIndexBuffer();
+                        local_60 = (*pvVar3)[arg1 + 1];
+                        pvVar3 = (vector<unsigned short>*)this_04->GetVertexIndexBuffer();
+                        local_58 = (*pvVar3)[arg1 + 2];
+                        DegenerateFaceFromIteration(local_68, local_38, shareLightNormalSums, arg3);
+                        uVar2 = this_04->GetIndexCount();
+                        arg1 = arg1 + 3;
+                    } while (arg1 < uVar2);
                 }
-                uVar3 = this_04->GetVertexCount();
-                local_38 = local_38 + uVar3;
+                uVar2 = this_04->GetVertexCount();
+                local_38 = local_38 + uVar2;
                 this_02 = local_50 + 8;
             } while (this_02 != local_40);
         }
     }
 
-    // 0x1002f3e50, 544 bytes, placed by class name and debug map
-    // ShareLightOperation::ApplyAveragedNormals(shared_ptr<jag::graphics::Model>&, eastl::vector<ShareLightNormalSum, eastl::allocator>&) const
-    void ShareLightOperation::ApplyAveragedNormals(shared_ptr* param_1, vector* param_2) {
-        ulong uVar1;
-        int iVar2;
-        uint uVar3;
-        Model* this_00;
-        Layout* this_01;
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* this_02;
+    // 0x1002f3e50
+    void ShareLightOperation::ApplyAveragedNormals(shared_ptr<jag::graphics::Model>& model,
+                                                   eastl::vector<ShareLightNormalSum>& shareLightNormalSums) const {
+        unsigned long arg1;
+        unsigned int uVar2;
         GeometryBatchInstance* this_03;
         GeometryBatch* this_04;
-        vector<jag::graphics::GeometryBatchVertex, eastl::allocator>* pvVar4;
-        long lVar5;
-        char* pcVar6;
-        ShareLightCache* this_05;
-        vector<unsigned int, eastl::allocator>* this_06;
-        uint* puVar7;
+        vector<jag::graphics::GeometryBatchVertex>* pvVar3;
+        long lVar4;
+        char* pcVar5;
+        vector<unsigned int>* this_06;
+        unsigned int* puVar6;
         Layout* this_07;
-        vector* pvVar8;
-        int* piVar9;
-        type* ptVar10;
-        ulong uVar11;
-        undefined1 local_a8[32];
-        vector* local_88;
+        int* piVar7;
+        unsigned long arg1_00;
+        uint8_t local_a8[32];
         unique_ptr<jag::graphics::GeometryBatchInstance,
                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* local_80;
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* local_78;
-        Vector3T<signed char> local_70[8];
+        Vector3T<signed char> local_70;
         long local_68;
-        ShareLightOperation* local_60;
         int local_58[4];
         int local_48[3];
         int local_3c[3];
 
-        local_88 = param_2;
-        local_60 = this;
-        this_00 = (Model*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)param_1);
-        this_01 = (Layout*)this_00->GetBatchList();
-        this_02 = (unique_ptr<jag::graphics::GeometryBatchInstance,
-                              MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        local_78 =
-            (unique_ptr<jag::graphics::GeometryBatchInstance,
-                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)this_01->end();
+        ShareLightOperation* local_60 = this;
+        auto this_00 = model.operator->();
+        auto this_01 = this_00->GetBatchList();
+        auto this_02 = this_01->HeapBeginPtr();
+        auto local_78 = this_01->end();
         if (this_02 != local_78) {
             local_60 = (ShareLightOperation*)local_60->field_16;
             local_68 = 0;
             do {
-                this_03 = (GeometryBatchInstance*)
-                              std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                              MakeUniquePool<jag::graphics::GeometryBatchInstance,
-                                                             3072>::UniquePoolDeleter>::operator->(this_02);
+                this_03 = (GeometryBatchInstance*)(*this_02).operator->();
                 this_04 = (GeometryBatch*)this_03->GetGeometryBatch();
-                iVar2 = this_04->GetVertexCount();
-                if (iVar2 != 0) {
-                    uVar11 = 0;
+                if (this_04->GetVertexCount() != 0) {
+                    arg1_00 = 0;
                     local_80 = this_02;
                     do {
-                        pvVar4 = (vector<jag::graphics::GeometryBatchVertex, eastl::allocator>*)
-                                     this_04->GetVertexDataBuffer();
-                        lVar5 = eastl::vector<jag::graphics::GeometryBatchVertex, eastl::allocator>::operator[](pvVar4,
-                                                                                                                uVar11);
-                        pcVar6 = (char*)((lVar5 + 8))->y();
-                        if (*pcVar6 == '\0') {
-                            uVar1 = local_68 + uVar11;
-                            new (local_a8) ShareLightPointRSeven(this_04, uVar11);
-                            this_05 = (ShareLightCache*)shared_ptr<ShareLightCache>::operator->(
-                                (shared_ptr<ShareLightCache>*)local_60);
-                            this_06 = (vector<unsigned int, eastl::allocator>*)this_05->GetVertexToPointMap();
-                            puVar7 = (uint*)eastl::vector<unsigned int, eastl::allocator>::operator[](this_06, uVar1);
-                            ptVar10 = (type*)(ulong)*puVar7;
-                            this_07 = (Layout*)eastl::vector<ShareLightNormalSum, eastl::allocator>::operator[](
-                                (vector<ShareLightNormalSum, eastl::allocator>*)local_88, (ulong)ptVar10);
-                            if (1 < *(ushort*)(this_07 + 12)) {
-                                pvVar8 = eastl::string::Layout::SSOBeginPtr(this_07, ptVar10);
-                                local_58[0] = *(int*)pvVar8 / (int)(uint) * (ushort*)(this_07 + 12);
+                        pvVar3 = (vector<jag::graphics::GeometryBatchVertex>*)this_04->GetVertexDataBuffer();
+                        lVar4 = (*pvVar3)[arg1_00];
+                        pcVar5 = (char*)((lVar4 + 8))->y();
+                        if (*pcVar5 == '\0') {
+                            arg1 = local_68 + arg1_00;
+                            new (local_a8) ShareLightPointRSeven(*this_04, arg1_00);
+                            this_06 = ((ShareLightCache*)(*local_60).operator->())->GetVertexToPointMap();
+                            puVar6 = (unsigned int*)(*this_06)[arg1];
+                            this_07 = &shareLightNormalSums[(unsigned long)*puVar6];
+                            if (1 < *(unsigned short*)(this_07 + 12)) {
+                                piVar7 = (int*)this_07->SSOBeginPtr();
+                                local_58[0] = *piVar7 / (int)(unsigned int)*(unsigned short*)(this_07 + 12);
                                 local_58[1] = 4294967168;
                                 local_58[2] = 127;
-                                piVar9 = std::clamp<int>(local_58, local_58 + 1, local_58 + 2);
-                                local_3c[2] = *piVar9;
-                                piVar9 = (int*)this_07->y();
-                                local_58[3] = *piVar9 / (int)(uint) * (ushort*)(this_07 + 12);
+                                piVar7 = std::clamp<int>(*local_58, *(local_58 + 1), *(local_58 + 2));
+                                local_3c[2] = *piVar7;
+                                piVar7 = (int*)this_07->y();
+                                local_58[3] = *piVar7 / (int)(unsigned int)*(unsigned short*)(this_07 + 12);
                                 local_48[0] = -128;
                                 local_48[1] = 127;
-                                piVar9 = std::clamp<int>(local_58 + 3, local_48, local_48 + 1);
-                                iVar2 = *piVar9;
-                                piVar9 = (int*)this_07->second();
-                                local_48[2] = *piVar9 / (int)(uint) * (ushort*)(this_07 + 12);
+                                puVar6 = (unsigned int*)std::clamp<int>(*(local_58 + 3), *local_48, *(local_48 + 1));
+                                uVar2 = *puVar6;
+                                piVar7 = (int*)this_07->second();
+                                local_48[2] = *piVar7 / (int)(unsigned int)*(unsigned short*)(this_07 + 12);
                                 local_3c[0] = -128;
                                 local_3c[1] = 127;
-                                piVar9 = std::clamp<int>(local_48 + 2, local_3c, local_3c + 1);
-                                new ((local_a8 + 16)) rs2lib::worldmap::LocationData(local_3c[2], iVar2, *piVar9);
-                                jag::math::Vector3T<signed char>::Vector3T<int>(local_70, (Vector3T*)(local_a8 + 16));
-                                pvVar4 = (vector<jag::graphics::GeometryBatchVertex, eastl::allocator>*)
-                                             this_04->GetVertexDataBuffer();
-                                lVar5 = eastl::vector<jag::graphics::GeometryBatchVertex, eastl::allocator>::operator[](
-                                    pvVar4, uVar11);
-                                jag::math::Vector3T<unsigned char>::operator=((Vector3T<unsigned char>*)(lVar5 + 4),
-                                                                              (Vector3T*)local_70);
+                                puVar6 = (unsigned int*)std::clamp<int>(*(local_48 + 2), *local_3c, *(local_3c + 1));
+                                new ((local_a8 + 16)) rs2lib::worldmap::LocationData(local_3c[2], uVar2, *puVar6);
+                                local_70.Vector3T<int>(*((local_a8 + 16)));
+                                pvVar3 = (vector<jag::graphics::GeometryBatchVertex>*)this_04->GetVertexDataBuffer();
+                                lVar4 = (*pvVar3)[arg1_00];
+                                (*((lVar4 + 4))) = local_70;
                             }
                         }
-                        uVar11 = uVar11 + 1;
-                        uVar3 = this_04->GetVertexCount();
-                    } while (uVar11 < uVar3);
-                    local_68 = local_68 + uVar11;
+                        arg1_00 = arg1_00 + 1;
+                        uVar2 = this_04->GetVertexCount();
+                    } while (arg1_00 < uVar2);
+                    local_68 = local_68 + arg1_00;
                     this_02 = local_80;
                 }
                 this_02 = this_02 + 8;
@@ -855,45 +586,36 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x1002f4130, 304 bytes, placed by class name
-    // ShareLightOperation::DegenerateFaceFromIteration(std::array<unsigned short*, 3ul>&, unsigned long const&, eastl::vector<ShareLightNormalSum, eastl::allocator>&, unsigned long const&) const
-    /* ShareLightOperation::DegenerateFaceFromIteration(std::array<unsigned
-   short*, 3ul>&, unsigned long const&, eastl::vector<ShareLightNormalSum,
-   eastl::allocator>&, unsigned long const&) const */
-
-    void ShareLightOperation::DegenerateFaceFromIteration(array* param_1, ulong* param_2, vector* param_3,
-                                                          ulong* param_4) {
-        ushort* puVar1;
+    // 0x1002f4130
+    void ShareLightOperation::DegenerateFaceFromIteration(std::array<unsigned short*, 3ul>& arg1,
+                                                          const unsigned long& arg2,
+                                                          eastl::vector<ShareLightNormalSum>& shareLightNormalSums,
+                                                          const unsigned long& arg4) const {
+        unsigned short* puVar1;
         bool bVar2;
-        undefined8* puVar3;
-        undefined8* puVar4;
-        undefined8* puVar5;
-        ShareLightCache* this_00;
-        vector<unsigned int, eastl::allocator>* this_01;
-        uint* puVar6;
+        uint64_t* puVar3;
+        vector<unsigned int>* this_01;
+        unsigned int* puVar6;
         long lVar7;
-        undefined8* puVar8;
+        uint64_t* puVar8;
 
-        puVar4 = (undefined8*)param_1->begin();
-        puVar5 = (undefined8*)param_1->end();
+        uint64_t* puVar4 = (uint64_t*)std::array<unsigned short*, 3ul>::begin();
+        uint64_t* puVar5 = (uint64_t*)std::array<unsigned short*, 3ul>::end();
         if (puVar4 == puVar5) {
             bVar2 = true;
         } else {
             puVar3 = puVar4;
             while (true) {
                 puVar8 = puVar3 + 1;
-                puVar1 = (ushort*)*puVar3;
-                this_00 =
-                    (ShareLightCache*)shared_ptr<ShareLightCache>::operator->((shared_ptr<ShareLightCache>*)field_16);
-                this_01 = (vector<unsigned int, eastl::allocator>*)this_00->GetVertexToPointMap();
-                puVar6 = (uint*)eastl::vector<unsigned int, eastl::allocator>::operator[](this_01,
-                                                                                          (ulong)*puVar1 + *param_2);
-                if ((ulong)*puVar6 == 4294967295)
+                puVar1 = (unsigned short*)*puVar3;
+                this_01 = ((ShareLightCache*)(*field_16).operator->())->GetVertexToPointMap();
+                puVar6 = (unsigned int*)(*this_01)[(unsigned long)*puVar1 + arg2];
+                if ((unsigned long)*puVar6 == 4294967295)
                     break;
-                lVar7 = eastl::vector<ShareLightNormalSum, eastl::allocator>::operator[](
-                    (vector<ShareLightNormalSum, eastl::allocator>*)param_3, (ulong)*puVar6);
+                lVar7 = shareLightNormalSums[(unsigned long)*puVar6];
                 bVar2 = false;
-                if ((*param_4 != (ulong) * (ushort*)(lVar7 + 14)) || (bVar2 = true, puVar3 = puVar8, puVar8 == puVar5))
+                if ((arg4 != (unsigned long)*(unsigned short*)(lVar7 + 14)) ||
+                    (bVar2 = true, puVar3 = puVar8, puVar8 == puVar5))
                     goto LAB_1002f4221;
             }
             bVar2 = false;
@@ -901,44 +623,41 @@ namespace jag::oldscape::dash3d {
     LAB_1002f4221:
         if (bVar2) {
             for (; puVar4 != puVar5; puVar4 = puVar4 + 1) {
-                *(undefined2*)*puVar4 = 0;
+                *(uint16_t*)*puVar4 = 0;
             }
         }
     }
 
-    // 0x1002f4450, 192 bytes, placed by class name
-    // ShareLightOperation::IsEqual(Operation const&) const
-    bool ShareLightOperation::IsEqual(Operation* param_1) {
-        undefined1* this_00;
+    // 0x1002f4450
+    bool ShareLightOperation::IsEqual(const Operation& operation) const {
+        uint8_t* objType;
         bool bVar1;
         bool bVar2;
         bool bVar3;
-        ShareLightCache* pSVar6;
-        ShareLightCache* pSVar7;
+        ShareLightCache* shareLightCache1;
+        ShareLightCache* shareLightCache2;
 
-        if (param_1->GetPos() == 10) {
-            this_00 = field_16;
+        if (operation.GetPos() == 10) {
+            objType = field_16;
             bVar2 = false;
-            bVar1 = operator==((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
+            bVar1 = *objType == nullptr;
             if (bVar1) {
-                bVar2 = operator==((shared_ptr*)(param_1 + 1), (_func_decltype_nullptr*)0);
+                bVar2 = (*((operation + 1))) == nullptr;
             }
             bVar3 = false;
-            bVar1 = operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
+            bVar1 = *objType != nullptr;
             if (bVar1) {
-                bVar3 = operator!=((shared_ptr*)(param_1 + 1), (_func_decltype_nullptr*)0);
+                bVar3 = (*((operation + 1))) != nullptr;
             }
             if (bVar2 != false) {
             LAB_1002f44bc:
-                bVar1 = eastl::operator==((vector*)&field_32, (vector*)(param_1 + 2));
+                bVar1 = field_32 == (*((operation + 2)));
                 return bVar1;
             }
             if (bVar3 != false) {
-                pSVar6 =
-                    (ShareLightCache*)shared_ptr<ShareLightCache>::operator*((shared_ptr<ShareLightCache>*)this_00);
-                pSVar7 = (ShareLightCache*)shared_ptr<ShareLightCache>::operator*(
-                    (shared_ptr<ShareLightCache>*)(param_1 + 1));
-                if (dash3d::operator==(pSVar6, pSVar7) != '\0')
+                shareLightCache1 = (ShareLightCache*)**objType;
+                shareLightCache2 = (ShareLightCache*)*(*((operation + 1)));
+                if (*shareLightCache1 == *shareLightCache2 != '\0')
                     goto LAB_1002f44bc;
             }
         }
@@ -947,20 +666,15 @@ namespace jag::oldscape::dash3d {
 
 } // namespace jag::oldscape::dash3d
 
-// 0x1002f2de0, 16 bytes, placed by debug map only (low confidence)
-// round(float)
-void round(float param_1) {
+// 0x1002f2de0
+void round(float arg1) {
     _roundf();
 }
 
 namespace jag::math {
-    // 0x1002f36a0, 32 bytes, inline, placed by debug map only (low confidence)
-    // bool operator==<signed char>(Vector3T<signed char> const&, Vector3T<signed char> const&)
-    /* bool TEMPNAMEPLACEHOLDERVALUE(Vector3T<signed char> const&,
-   Vector3T<signed char> const&) */
-
-    bool operator==(Vector3T* param_1, Vector3T* param_2) {
-        return param_1[2] == param_2[2] && *(short*)param_1 == *(short*)param_2;
+    // 0x1002f36a0
+    bool operator== <signed char>(const Vector3T<signed char>& vector31, const Vector3T<signed char>& vector32) {
+        return vector31[2] == vector32[2] && *(short*)vector31 == *(short*)vector32;
     }
 
 } // namespace jag::math

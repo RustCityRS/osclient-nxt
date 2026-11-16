@@ -1,6 +1,5 @@
 // libs/hal/system/discord/DiscordMain_Default.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.system.discord
 
 namespace jag {
@@ -8,27 +7,27 @@ namespace jag {
     public:
         DiscordMain();
         ~DiscordMain();
-        Init(long long);
-        void MainLogic(int const&);
-        IsDiscordRunning();
-        GetDiscordRichPresenceModule();
-        GetIsDiscordInitialized();
-        InitDiscordCore(long long);
-        static /* 8 bytes */ DISCORD_APP_ID_OSRS_BETA;   // = 0
-        static /* 280 bytes */ DISCORD_APP_ID_OSRS_LIVE; // initialised in its definition
+        uint64_t Init(long long arg1);
+        void MainLogic(const int& arg1);
+        void IsDiscordRunning();
+        unique_ptr<DiscordRichPresence, std::default_delete<DiscordRichPresence> _>* GetDiscordRichPresenceModule();
+        void GetIsDiscordInitialized();
+        uint64_t InitDiscordCore(long long arg1);
+        static int64_t DISCORD_APP_ID_OSRS_BETA;     // = 0
+        static int32_t DISCORD_APP_ID_OSRS_LIVE[70]; // initialised in its definition
 
-        // data members, from how the methods use this: 24 bytes
-        undefined1 field_0; // offset 0
-        char _unknown_1[7];
-        undefined8 field_8; // offset 8
-        char _unknown_16[8];
+    private:
+        uint8_t field_0;
+        uint8_t _unknown_1[7];
+        uint64_t field_8;
+        uint8_t _unknown_16[8];
     };
 
-    // 0x100d3d980, 8 bytes, __const
-    DiscordMain::DISCORD_APP_ID_OSRS_BETA = 0;
+    // 0x100d3d980
+    int64_t DiscordMain::DISCORD_APP_ID_OSRS_BETA = 0;
 
-    // 0x100d3d988, 280 bytes, __const
-    DiscordMain::DISCORD_APP_ID_OSRS_LIVE = {
+    // 0x100d3d988
+    int32_t DiscordMain::DISCORD_APP_ID_OSRS_LIVE[70] = {
         0,           0,          1053294592, 1024416809, 1174405120, 994643931,   -1152839717, 1179648000, 1123942400,
         1058642330,  1050253722, 1103626240, 1112014848, 1155186688, 1151090688,  -1063256064, 1095237632, 1045220557,
         994643944,   925353388,  1183365120, 1060320051, 1020054733, -1082969293, 1202590843,  1072724705, 0,
@@ -39,58 +38,42 @@ namespace jag {
         44100,       4096,       1024,       0,          0,          0,           999,
     };
 
-    // 0x1001b7810, 32 bytes, base-object constructor, placed by class name and debug map
-    // DiscordMain::DiscordMain()
-    void DiscordMain::DiscordMain() {
-        field_0 = 0;
-        field_8 = 0;
-        std::unique_ptr<DiscordRichPresence, std::default_delete<DiscordRichPresence>>::unique_ptr<true, void>(
-            (unique_ptr<DiscordRichPresence, std::default_delete<DiscordRichPresence>>*)&field_16);
+    // 0x1001b7810
+    DiscordMain::DiscordMain() : field_0(0), field_8(0) {
+        field_16.unique_ptr<true, void>();
     }
 
-    // 0x1001b7840, 16 bytes, complete-object constructor, placed by class name and debug map
-    // DiscordMain::DiscordMain(): jumps straight to the base-object constructor
-
-    // 0x1001b7850, 16 bytes, base-object destructor, placed by class name and debug map
-    // DiscordMain::~DiscordMain()
-    void DiscordMain::~DiscordMain() {
-        (&field_16)->~unique_ptr();
+    // 0x1001b7850
+    DiscordMain::~DiscordMain() {
+        field_16.~unique_ptr();
     }
 
-    // 0x1001b7870, 16 bytes, complete-object destructor, placed by class name and debug map
-    // DiscordMain::~DiscordMain(): jumps straight to the base-object destructor
-
-    // 0x1001b7880, 16 bytes, placed by class name and debug map
-    // DiscordMain::Init(long long)
-    undefined8 DiscordMain::Init(longlong param_1) {
+    // 0x1001b7880
+    uint64_t DiscordMain::Init(long long arg1) {
         return 0;
     }
 
-    // 0x1001b7890, 16 bytes, placed by class name and debug map
-    // DiscordMain::MainLogic(int const&)
-    void DiscordMain::MainLogic(int* param_1) {}
+    // 0x1001b7890
+    void DiscordMain::MainLogic(const int& arg1) {}
 
-    // 0x1001b78a0, 16 bytes, placed by class name and debug map
-    // DiscordMain::IsDiscordRunning()
-    undefined8 DiscordMain::IsDiscordRunning() {
+    // 0x1001b78a0
+    void DiscordMain::IsDiscordRunning() {
         return 0;
     }
 
-    // 0x1001b78b0, 16 bytes, placed by class name and debug map
-    // DiscordMain::GetDiscordRichPresenceModule()
-    undefined1* DiscordMain::GetDiscordRichPresenceModule() {
-        return &field_16;
+    // 0x1001b78b0
+    unique_ptr<DiscordRichPresence, std::default_delete<DiscordRichPresence> _>*
+    DiscordMain::GetDiscordRichPresenceModule() {
+        return (unique_ptr<DiscordRichPresence, std::default_delete<DiscordRichPresence> _>*)&field_16;
     }
 
-    // 0x1001b78c0, 16 bytes, placed by class name and debug map
-    // DiscordMain::GetIsDiscordInitialized()
-    undefined8 DiscordMain::GetIsDiscordInitialized() {
+    // 0x1001b78c0
+    void DiscordMain::GetIsDiscordInitialized() {
         return 0;
     }
 
-    // 0x1001b78d0, 16 bytes, placed by class name and debug map
-    // DiscordMain::InitDiscordCore(long long)
-    undefined8 DiscordMain::InitDiscordCore(longlong param_1) {
+    // 0x1001b78d0
+    uint64_t DiscordMain::InitDiscordCore(long long arg1) {
         return 0;
     }
 

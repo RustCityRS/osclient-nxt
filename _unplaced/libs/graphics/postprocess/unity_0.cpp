@@ -1,45 +1,44 @@
 // _unplaced/libs/graphics/postprocess/unity_0.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 namespace jag::postprocess {
-    // 0x100d4fc8c, 8 bytes, __const
-    g_kawaseKernel7x7 = 0;
+    // 0x100d4fc8c
+    int32_t g_kawaseKernel7x7 = 0;
 
-    // 0x100d4fc94, 12 bytes, __const
-    g_kawaseKernel15x15 = {0, 1.0f, 1.0f};
+    // 0x100d4fc94
+    float g_kawaseKernel15x15[3] = {0, 1.0f, 1.0f};
 
-    // 0x100d4fca0, 16 bytes, __const
-    g_kawaseKernel23x23 = {0, 1.0f, 1.0f, 2.0f};
+    // 0x100d4fca0
+    float g_kawaseKernel23x23[4] = {0, 1.0f, 1.0f, 2.0f};
 
-    // 0x100d4fcb0, 20 bytes, __const
-    g_kawaseKernel35x35 = {0, 1.0f, 2.0f, 2.0f, 3.0f};
+    // 0x100d4fcb0
+    float g_kawaseKernel35x35[5] = {0, 1.0f, 2.0f, 2.0f, 3.0f};
 
-    // 0x100d4fcc4, 28 bytes, __const
-    g_kawaseKernel63x63 = {0, 1.0f, 2.0f, 3.0f, 4.0f, 4.0f, 5.0f};
+    // 0x100d4fcc4
+    float g_kawaseKernel63x63[7] = {0, 1.0f, 2.0f, 3.0f, 4.0f, 4.0f, 5.0f};
 
-    // 0x100d4fce0, 40 bytes, __const
-    g_kawaseKernel127x127 = {
+    // 0x100d4fce0
+    float g_kawaseKernel127x127[10] = {
         0, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 7.0f, 8.0f, 9.0f, 10.0f,
     };
 
-    // 0x100d4fd10, 4 bytes, __const
-    DEF_MIN_BLACK_LUM = 0;
+    // 0x100d4fd10
+    int32_t DEF_MIN_BLACK_LUM = 0;
 
-    // 0x100d4fd14, 4 bytes, __const
+    // 0x100d4fd14
     float DEF_MAX_WHITE_LUM = 5.25f;
 
-    // 0x100d4fd18, 4 bytes, __const
+    // 0x100d4fd18
     float DEF_EXPOSURE_KEY = 2.75f;
 
-    // 0x100d4fd1c, 4 bytes, __const
-    DEF_MIN_AUTO_EXPOSURE = 0;
+    // 0x100d4fd1c
+    int32_t DEF_MIN_AUTO_EXPOSURE = 0;
 
-    // 0x100d4fd20, 4 bytes, __const
+    // 0x100d4fd20
     float DEF_MAX_AUTO_EXPOSURE = 5.0f;
 
-    // 0x100d4fd24, 380 bytes, __const
-    DEF_EXPOSURE_SPEED_MUL = {
+    // 0x100d4fd24
+    int32_t DEF_EXPOSURE_SPEED_MUL[95] = {
         1056964608,  3,         0,          4,           0,          5,           0,           7,           0,
         10,          0,         1053038739, 1064078148,  1060437492, -1094444909, -1087046156, -1083405500, 2,
         131073,      196609,    262149,     327686,      458758,     65539,       196613,      458757,      262150,

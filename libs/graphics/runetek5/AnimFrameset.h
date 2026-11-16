@@ -1,43 +1,40 @@
 // libs/graphics/runetek5/AnimFrameset.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class AnimFrameset {
     public:
-        IsLoaded() const;
-        GetLastLoadAttempt() const;
-        GetFrames() const;
-        AnimFrameset(unsigned int, Js5ResourceProvider&, Js5ArchiveSettings const&, Js5ArchiveSettings const&);
-        ulong Load();
+        bool IsLoaded() const;
+        void GetLastLoadAttempt() const;
+        uint8_t* GetFrames() const;
+        AnimFrameset(unsigned int arg1, Js5ResourceProvider& js5ResourceProvider,
+                     const Js5ArchiveSettings& js5ArchiveSettings1, const Js5ArchiveSettings& js5ArchiveSettings2);
+        unsigned long Load();
         ~AnimFrameset();
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullAnimFrameset;
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullAnimFrameset; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
 
-        // data members, from how the methods use this: 129 bytes
-        undefined8 field_0;  // offset 0
-        undefined1 m_loaded; // offset 8
-        char _unknown_9[31];
-        uint field_40; // offset 40
-        char _unknown_44[4];
-        Js5ResourceProvider* field_48; // offset 48
-        Js5ArchiveSettings* field_56;  // offset 56
-        Js5ArchiveSettings* field_64;  // offset 64
-        undefined4 field_72;           // offset 72
-        char _unknown_76[52];
-        undefined1 field_128; // offset 128
+    private:
+        uint64_t field_0;
+        uint8_t m_loaded;
+        uint8_t _unknown_9[31];
+        unsigned int field_40;
+        uint8_t _unknown_44[4];
+        Js5ResourceProvider* field_48;
+        Js5ArchiveSettings* field_56;
+        Js5ArchiveSettings* field_64;
+        uint32_t field_72;
+        uint8_t _unknown_76[52];
+        uint8_t field_128;
     };
 
-    // 0x100995e90, 16 bytes, complete-object destructor, inline, placed by class name
-    // AnimFrameset::~AnimFrameset(): jumps straight to the base-object destructor
-
-    // 0x100995ea0, 48 bytes, base-object destructor, inline, placed by class name
-    // AnimFrameset::~AnimFrameset()
-    void AnimFrameset::~AnimFrameset() {
-        (&field_104)->~Array();
-        (&field_80)->~vector();
-        (&field_16)->~Array();
+    // 0x100995ea0
+    AnimFrameset::~AnimFrameset() {
+        field_104.~Array();
+        field_80.~vector();
+        field_16.~Array();
     }
 
 } // namespace jag::graphics

@@ -1,6 +1,5 @@
 // libs/game/runetek5/camera/effects/ZTilt.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,22 +9,20 @@ namespace jag::game::camera {
     public:
         // virtual methods in vtable order
         virtual ~ZTilt();
-        virtual Update(float);
-        virtual void Apply(math::Matrix44T<float>&);
-        virtual void ProcessServerUpdate(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&);
-        virtual void ToString(eastl::fixed_string<char, 256, true, eastl::allocator>&);
-        ZTilt(int, float);
-        ZTilt(int, PacketT<Array<unsigned char, BucketAllocatorEASTL>>&);
+        virtual void Update(float arg1);
+        virtual void Apply(math::Matrix44T<float>& matrix44);
+        virtual void ProcessServerUpdate(PacketT<Array<unsigned char>>& arg1);
+        virtual void ToString(eastl::fixed_string<char, 256>& str);
+        ZTilt(int arg1, float arg2);
+        ZTilt(int arg1, PacketT<Array<unsigned char>>& arg2);
 
-        // data members, from how the methods use this: 24 bytes, the first 20 are ICameraEffect
-        char _unknown_20[4];
+    private:
+        uint8_t _unknown_20[4];
     };
 
-    // 0x10061d980, 48 bytes, inline, placed by class name and debug map
-    // ZTilt::ToString(eastl::fixed_string<char, 256, true, eastl::allocator>&)
-    void ZTilt::ToString(fixed_string* param_1) {
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            (char*)param_1, (double)field_16, "ZTitle (%f)");
+    // 0x10061d980
+    void ZTilt::ToString(eastl::fixed_string<char, 256>& str) {
+        str.sprintf("ZTitle (%f)", (double)field_16);
     }
 
 } // namespace jag::game::camera

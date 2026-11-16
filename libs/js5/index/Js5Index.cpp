@@ -1,156 +1,96 @@
 // libs/js5/index/Js5Index.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.js5
 
 #include "Js5Index.h"
 
 namespace jag {
-    // 0x103bc2178, 8 bytes, __common; set at startup by ___cxx_global_var_init.132
-    Js5Index::HASH_MAIN = stringtools::hash32("main");
+    // 0x103bc2178, set at startup by ___cxx_global_var_init.132
+    int64_t Js5Index::HASH_MAIN = stringtools::hash32("main");
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    Js5Index::GetIndexWhirlpool() const;
+    // 0x100009d50: Js5Index::GetIndexWhirlpool() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    uint Js5Index::GetIndexCRC() const;
+    // 0x1000b9960: Js5Index::GetIndexCRC() const has the same machine code as oldscape::ScriptVarType::GetID() const
 
-    // 0x1000fa830: the linker folded this into oldscape::graphics::NXTPixScreen::GetWidth() const, which has identical code
-    uint Js5Index::GetIndexVersion() const;
+    // 0x1000fa830: Js5Index::GetIndexVersion() const has the same machine code as oldscape::graphics::NXTPixScreen::GetWidth() const
 
-    // 0x10017f5b0: the linker folded this into oldscape::javapal::GameShell::GetPixToolkit(), which has identical code
-    long Js5Index::GetTotalPackedGroupSize() const;
+    // 0x10017f5b0: Js5Index::GetTotalPackedGroupSize() const has the same machine code as oldscape::javapal::GameShell::GetPixToolkit()
 
-    // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    Js5Index::GetGroupList() const;
+    // 0x1001a3c10: Js5Index::GetGroupList() const has the same machine code as MainLoopFrameTimer::GetFPSCounter()
 
-    // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    uint Js5Index::GetGroupCount() const;
+    // 0x100293ee0: Js5Index::GetGroupCount() const has the same machine code as hal::audio::AudioRenderer::GetState() const
 
-    // 0x1003cf280: the linker folded this into game::MapElementType::GetTextBackgroundFillRGBA() const, which has identical code
-    uint Js5Index::GetMaximumGroupID() const;
+    // 0x1003cf280: Js5Index::GetMaximumGroupID() const has the same machine code as game::MapElementType::GetTextBackgroundFillRGBA() const
 
-    // 0x1009e03c0, 64 bytes, placed by class name and debug map
-    // Js5Index::Init(unsigned int, Array<unsigned char, eastl::allocator> const&, PacketT<Array<unsigned char, eastl::allocator> >&)
-    void Js5Index::Init(uint param_1, Array* param_2, PacketT* param_3) {
-        m_indexCRC = param_1;
-        Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)&field_8, param_2);
+    // 0x1009e03c0
+    void Js5Index::Init(unsigned int arg1, const Array<unsigned char>& arg2, PacketT<Array<unsigned char>>& arg3) {
+        m_indexCRC = arg1;
+        field_8 = arg2;
         m_maximumGroupID = 4294967295;
-        LoadIndex(this, param_3, false);
+        LoadIndex(arg3, false);
     }
 
-    // 0x1009e4950, 160 bytes, placed by class name
-    // Js5Index::DoesFileExist(unsigned int, unsigned int) const
-    ulong Js5Index::DoesFileExist(uint param_1, uint param_2) {
-        uint uVar1;
-        char cVar2;
-        uint uVar3;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_00;
+    // 0x1009e4950
+    unsigned long Js5Index::DoesFileExist(unsigned int arg1, unsigned int arg2) const {
+        unsigned int uVar2;
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_00;
+        long lVar3;
         long lVar4;
-        long lVar5;
-        ulong uVar6;
-        uint local_24;
+        unsigned long uVar5;
 
-        local_24 = param_2;
-        cVar2 = DoesGroupExist(this, param_1);
-        uVar1 = local_24;
-        if (cVar2 != '\0') {
-            uVar3 = GetMaximumFileID(this, param_1);
-            if (uVar1 < uVar3) {
-                cVar2 = (&field_248)->empty();
-                uVar6 = CONCAT71((uint7)(uint3)(uVar1 >> 8), 1);
-                if (cVar2 == '\0') {
-                    this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                        Array<eastl::vector_map<
-                                  unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                              eastl::allocator>::
-                        operator[](
-                            (Array<eastl::vector_map<
-                                       unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                       eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                                   eastl::allocator>*)&field_248,
-                            (ulong)param_1);
-                    cVar2 = eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_00);
-                    if (cVar2 == '\0') {
-                        lVar4 = this_00->find(&local_24);
-                        lVar5 = this_00->end();
-                        uVar6 = CONCAT71((int7)((ulong)lVar4 >> 8), lVar4 == lVar5);
+        bool cVar1 = DoesGroupExist(arg1);
+        if (cVar1) {
+            uVar2 = GetMaximumFileID(arg1);
+            if (arg2 < uVar2) {
+                cVar1 = field_248.empty();
+                uVar5 = (((uint64_t)((uint64_t)(uint32_t)(arg2 >> 8)) << 8) | (uint8_t)1);
+                if (!cVar1) {
+                    this_00 = &field_248[(unsigned long)arg1];
+                    cVar1 = this_00->empty();
+                    if (!cVar1) {
+                        lVar3 = eastl::vector_map<unsigned int, unsigned int>::find(*this_00);
+                        lVar4 = this_00->end();
+                        uVar5 = (((uint64_t)((int64_t)((unsigned long)lVar3 >> 8)) << 8) | (uint8_t)(lVar3 == lVar4));
                     }
                 }
                 goto LAB_1009e49d3;
             }
         }
-        uVar6 = 0;
+        uVar5 = 0;
     LAB_1009e49d3:
-        return uVar6 & 4294967295;
+        return uVar5 & 4294967295;
     }
 
-    // 0x1009e52f0, 240 bytes, placed by class name
-    // Js5Index::GetFirstFileID(unsigned int, unsigned int&) const
-    undefined8 Js5Index::GetFirstFileID(uint param_1, uint* param_2) {
-        undefined1* this_00;
-        char cVar1;
-        uint uVar2;
+    // 0x1009e52f0
+    uint64_t Js5Index::GetFirstFileID(unsigned int arg1, unsigned int& arg2) const {
+        uint8_t* this_00;
+        unsigned int uVar2;
         short* psVar3;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_01;
-        vector_map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator,
-                   eastl::vector<eastl::pair<unsigned int, unsigned int>, eastl::allocator>>* this_02;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_02;
         long lVar4;
         long lVar5;
-        ulong uVar6;
-        uint local_34;
+        unsigned int local_34;
 
-        cVar1 = DoesGroupExist(this, param_1);
-        if (cVar1 != '\0') {
-            uVar6 = (ulong)param_1;
-            psVar3 = (short*)Array<unsigned short, eastl::allocator>::operator[](
-                (Array<unsigned short, eastl::allocator>*)&field_224, uVar6);
+        if (DoesGroupExist(arg1)) {
+            psVar3 = &field_224[(unsigned long)arg1];
             if (*psVar3 != 0) {
                 this_00 = &field_248;
-                cVar1 = this_00->empty();
-                if (cVar1 == '\0') {
-                    this_01 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                        Array<eastl::vector_map<
-                                  unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                              eastl::allocator>::
-                        operator[](
-                            (Array<eastl::vector_map<
-                                       unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                       eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                                   eastl::allocator>*)this_00,
-                            uVar6);
-                    cVar1 = eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_01);
-                    if (cVar1 == '\0') {
-                        this_02 = (vector_map<
-                                   unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator,
-                                   eastl::vector<eastl::pair<unsigned int, unsigned int>, eastl::allocator>>*)
-                            Array<eastl::vector_map<
-                                      unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                      eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                                  eastl::allocator>::
-                            operator[](
-                                (Array<eastl::vector_map<
-                                           unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                           eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                                       eastl::allocator>*)this_00,
-                                uVar6);
-                        uVar2 = GetMaximumFileID(this, param_1);
+                if (!(this_00->empty())) {
+                    if (!(((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(*this_00)[(
+                               unsigned long)arg1])
+                              ->empty())) {
+                        this_02 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(*this_00)[(
+                            unsigned long)arg1];
+                        uVar2 = GetMaximumFileID(arg1);
                         local_34 = 0;
                         if (uVar2 == 0) {
                             return 0;
                         }
                         do {
-                            lVar4 = eastl::vector_map<unsigned int, unsigned int, eastl::less<unsigned int>,
-                                                      eastl::allocator,
-                                                      eastl::vector<eastl::pair<unsigned int, unsigned int>,
-                                                                    eastl::allocator>>::find(this_02, &local_34);
+                            lVar4 = eastl::vector_map<unsigned int, unsigned int>::find(*this_02);
                             lVar5 = this_02->end();
                             if (lVar4 == lVar5) {
-                                *param_2 = local_34;
+                                arg2 = local_34;
                                 return 1;
                             }
                             local_34 = local_34 + 1;
@@ -158,261 +98,194 @@ namespace jag {
                         return 0;
                     }
                 }
-                *param_2 = 0;
+                arg2 = 0;
                 return 1;
             }
         }
         return 0;
     }
 
-    // 0x1009e5fc0, 16 bytes, complete-object constructor, placed by class name
-    // Js5Index::Js5Index(unsigned int, Array<unsigned char, eastl::allocator> const&, PacketT<Array<unsigned char, eastl::allocator> >&): jumps straight to the base-object constructor
-
-    // 0x1009e5fd0, 32 bytes, complete-object constructor, placed by class name
-    // Js5Index::Js5Index(unsigned int, unsigned int, Array<unsigned char, eastl::allocator> const&, Array<unsigned char, eastl::allocator> const&, unsigned int, PacketT<Array<unsigned char, eastl::allocator> >&)
-    void Js5Index::Js5Index(uint param_1, uint param_2, Array* param_3, Array* param_4, uint param_5,
-                            PacketT* param_6) {
-        Js5Index(this, param_1, param_2, param_3, param_4, param_5, param_6);
-    }
-
-    // 0x1009ef760, 256 bytes, placed by class name
-    // Js5Index::GetFileIndex(unsigned int, unsigned int) const
-    uint Js5Index::GetFileIndex(uint param_1, uint param_2) {
-        char cVar1;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_00;
+    // 0x1009ef760
+    unsigned int Js5Index::GetFileIndex(unsigned int arg1, unsigned int arg2) const {
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_00;
         long lVar2;
         long lVar3;
-        reverse_iterator<eastl::pair<unsigned int, unsigned short> const*> local_30[12];
-        uint local_24;
 
-        local_24 = param_2;
-        cVar1 = DoesGroupExist(this, param_1);
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        unsigned int local_24 = arg2;
+        if (!(DoesGroupExist(arg1))) {
             LogAssertAlways(
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/index/Js5Index.cpp", 318,
-                (char*)0);
+                nullptr);
         }
-        cVar1 = (&field_248)->empty();
-        if (cVar1 == '\0') {
-            this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)Array<
-                eastl::vector_map<unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                eastl::allocator>::
-            operator[](
-                (Array<eastl::vector_map<unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                         eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                       eastl::allocator>*)&field_248,
-                (ulong)param_1);
-            cVar1 =
-                eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                    this_00);
-            if (cVar1 == '\0') {
-                lVar2 = this_00->find(&local_24);
+        if (!(field_248.empty())) {
+            this_00 = &field_248[(unsigned long)arg1];
+            if (!(this_00->empty())) {
+                lVar2 = eastl::vector_map<unsigned int, unsigned int>::find(*this_00);
                 lVar3 = this_00->end();
                 if (lVar2 != lVar3) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert(
                         "missingFiles.find(fileID) == missingFiles.end()",
                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/index/Js5Index.cpp",
-                        303, (char*)0);
+                        303, nullptr);
                 }
-                lVar2 = this_00->lower_bound(&local_24);
+                lVar2 = this_00->lower_bound(local_24);
                 lVar3 = this_00->end();
                 if (lVar2 == lVar3) {
-                    eastl::vector<unsigned long,
-                                  eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-                    lVar2 =
-                        eastl::reverse_iterator<eastl::pair<unsigned int, unsigned short> const*>::operator->(local_30);
-                    param_2 = param_2 - (*(ushort*)(lVar2 + 4) + 1);
+                    lVar2 = (this_00->rbegin()).operator->();
+                    arg2 = arg2 - (*(unsigned short*)(lVar2 + 4) + 1);
                 } else {
-                    param_2 = param_2 - *(ushort*)(lVar2 + 4);
+                    arg2 = arg2 - *(unsigned short*)(lVar2 + 4);
                 }
             }
         }
-        return param_2;
+        return arg2;
     }
 
-    // 0x1009ef9d0, 512 bytes, base-object constructor, placed by class name
-    // Js5Index::Js5Index(unsigned int, unsigned int, Array<unsigned char, eastl::allocator> const&, Array<unsigned char, eastl::allocator> const&, unsigned int, PacketT<Array<unsigned char, eastl::allocator> >&)
-    void Js5Index::Js5Index(uint param_1, uint param_2, Array* param_3, Array* param_4, uint param_5,
-                            PacketT* param_6) {
-        char cVar1;
-        undefined8 uVar2;
+    // 0x1009ef9d0
+    Js5Index::Js5Index(unsigned int arg1, unsigned int arg2, const Array<unsigned char>& arg3,
+                       const Array<unsigned char>& arg4, unsigned int arg5, PacketT<Array<unsigned char>>& arg6)
+        : m_indexCRC(arg2), field_8(arg4), m_indexVersion(arg5), field_36(0), m_groupCount(0), field_136(4294967295),
+          m_maximumGroupID(4294967295), m_pTotalPackedGroupSize(0) {
+        bool cVar1;
+        Logger* pLVar2;
 
-        m_indexCRC = param_2;
-        new (&field_8, param_4) Array<unsigned char, eastl::allocator>();
-        m_indexVersion = param_5;
-        field_36 = 0;
-        m_groupCount = 0;
-        new (&field_48) Array<unsigned int, eastl::allocator>();
-        new (&field_72) Array<int, eastl::allocator>();
-        new (&field_96) eastl::vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
-                                          eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>();
-        field_136 = 4294967295;
-        m_maximumGroupID = 4294967295;
-        m_pTotalPackedGroupSize = 0;
-        new (&field_152) Array<int, eastl::allocator>();
-        new (&field_176) Array<Array<unsigned char, eastl::allocator>, eastl::allocator>();
-        new (&field_200) Array<int, eastl::allocator>();
-        new (&field_224) Array<unsigned short, eastl::allocator>();
-        new (&field_248)
-            Array<eastl::vector_map<unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                    eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                  eastl::allocator>();
-        if (param_1 == param_2) {
-            cVar1 = param_4->empty();
-            if ((cVar1 == '\0') && (cVar1 = Array<unsigned char, eastl::allocator>::operator==(
-                                        (Array<unsigned char, eastl::allocator>*)param_3, param_4),
-                                    cVar1 == '\0')) {
-                uVar2 = logger::default_logger();
-                logger::Logger::Log(
-                    uVar2, 0, 2,
+        if (arg1 == arg2) {
+            cVar1 = arg4.empty();
+            if ((!cVar1) && (cVar1 = arg3 == arg4, !cVar1)) {
+                pLVar2 = logger::default_logger();
+                pLVar2->Log(
+                    false, 2,
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/index/Js5Index.cpp", 27,
                     "Js5Index: Invalid Js5 Index whirlpool");
                 return;
             }
-            LoadIndex(this, param_6, true);
+            LoadIndex(arg6, true);
         } else {
-            uVar2 = logger::default_logger();
-            logger::Logger::Log(
-                uVar2, 0, 2,
-                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/index/Js5Index.cpp", 21,
-                "Js5Index: Invalid Js5 Index CRC: %u", param_1);
+            pLVar2 = logger::default_logger();
+            pLVar2->Log(false, 2,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/index/Js5Index.cpp",
+                        21, "Js5Index: Invalid Js5 Index CRC: %u", arg1);
         }
     }
 
-    // 0x1009efbe0, 1552 bytes, placed by class name
-    // Js5Index::LoadIndex(PacketT<Array<unsigned char, eastl::allocator> >&, bool)
-    void Js5Index::LoadIndex(PacketT* param_1, bool param_2) {
-        undefined1* puVar1;
-        undefined1* this_00;
-        ushort uVar2;
+    // 0x1009efbe0
+    void Js5Index::LoadIndex(PacketT<Array<unsigned char>>& arg1, bool arg2) {
+        uint8_t* puVar1;
+        uint8_t* this_00;
+        unsigned short uVar2;
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01;
-        Array<unsigned int, eastl::allocator>* pAVar3;
+        Array<unsigned int>* pAVar3;
         Js5Index* pJVar4;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* pPVar5;
-        byte bVar6;
-        undefined1 uVar7;
-        uint uVar8;
+        PacketReaderMixin<PacketT<Array<unsigned char>>>* pPVar5;
+        uint8_t uVar7;
+        unsigned int uVar8;
         int iVar9;
-        undefined4 uVar10;
+        uint32_t uVar10;
         int iVar11;
-        undefined8 uVar12;
-        uint* puVar13;
-        int* piVar14;
-        undefined4* puVar15;
-        Array<unsigned char, eastl::allocator>* this_02;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* this_03;
-        uchar* puVar16;
-        void* pvVar17;
-        undefined2* puVar18;
-        ushort* puVar19;
-        vector_map<unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                   eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>* this_04;
-        int iVar20;
-        ulong uVar21;
-        ulong uVar22;
-        undefined8 uVar23;
-        char* pcVar24;
-        uint uVar25;
-        ushort uVar26;
-        undefined8 local_98[3];
+        Logger* this_02;
+        unsigned int* puVar12;
+        int* piVar13;
+        uint32_t* puVar14;
+        Array<unsigned char>* this_03;
+        Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>* this_04;
+        uint16_t* puVar16;
+        unsigned short* puVar17;
+        vector_map<unsigned int, unsigned short>* this_05;
+        int iVar18;
+        unsigned long uVar19;
+        unsigned long uVar20;
+        char* str2;
+        unsigned int uVar21;
+        unsigned short uVar22;
+        uint64_t local_98[3];
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_80;
-        Array<unsigned short, eastl::allocator>* local_78;
-        ulong local_70;
-        Array<int, eastl::allocator>* local_68;
-        Array<unsigned int, eastl::allocator>* local_60;
-        Array<int, eastl::allocator>* local_58;
+        Array<unsigned short>* local_78;
+        unsigned long local_70;
+        Array<int>* local_68;
+        Array<unsigned int>* local_60;
+        Array<int>* local_58;
         Js5Index* local_50;
-        ushort local_46;
+        unsigned short local_46;
         int local_44;
-        ulong local_40;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* local_38;
+        unsigned long local_40;
 
-        param_1->SetPos(0);
-        bVar6 = param_1->g1();
+        arg1.SetPos(0);
+        uint8_t bVar6 = arg1.g1();
         if (bVar6 == 7) {
-            local_38 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1;
-            uVar8 = param_1->g4();
-            pPVar5 = local_38;
-            if (param_2) {
+            uVar8 = arg1.g4();
+            pPVar5 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)arg1;
+            if (arg2) {
                 if (uVar8 != m_indexVersion) {
-                    uVar12 = logger::default_logger();
-                    pcVar24 = "Js5Index: Mismatched js5 index version, got: %u";
-                    uVar23 = 107;
+                    this_02 = logger::default_logger();
+                    str2 = "Js5Index: Mismatched js5 index version, got: %u";
+                    iVar9 = 107;
                     goto LAB_1009efc7c;
                 }
             } else {
                 m_indexVersion = uVar8;
             }
-            uVar7 = local_38->g1();
-            local_40 = CONCAT71(local_40._1_7_, uVar7);
+            uVar7 = arg1.g1();
+            local_40 = (((uint64_t)local_40._1_7_ << 8) | (uint8_t)uVar7);
             uVar8 = pPVar5->gSmart2or4();
             m_groupCount = uVar8;
             puVar1 = &field_48;
-            uVar25 = 0;
-            puVar1->set_max_size((ulong)uVar8, 0);
+            uVar21 = 0;
+            puVar1->set_max_size((unsigned long)uVar8, 0);
             if (m_groupCount != 0) {
-                uVar21 = 0;
+                uVar19 = 0;
                 do {
-                    iVar9 = local_38->gSmart2or4();
-                    uVar25 = iVar9 + uVar25;
-                    puVar13 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                        (Array<unsigned int, eastl::allocator>*)puVar1, uVar21);
-                    *puVar13 = uVar25;
-                    if ((int)m_maximumGroupID < (int)uVar25) {
-                        m_maximumGroupID = uVar25;
+                    iVar9 = arg1.gSmart2or4();
+                    uVar21 = iVar9 + uVar21;
+                    puVar12 = (unsigned int*)(*puVar1)[uVar19];
+                    *puVar12 = uVar21;
+                    if ((int)m_maximumGroupID < (int)uVar21) {
+                        m_maximumGroupID = uVar21;
                     }
-                    uVar21 = uVar21 + 1;
-                } while (uVar21 < m_groupCount);
+                    uVar19 = uVar19 + 1;
+                } while (uVar19 < m_groupCount);
             }
-            uVar21 = (ulong)(m_maximumGroupID + 1);
-            local_68 = (Array<int, eastl::allocator>*)&field_152;
-            local_68->set_max_size(uVar21, 0);
+            uVar19 = (unsigned long)(m_maximumGroupID + 1);
+            local_68 = (Array<int>*)&field_152;
+            local_68->set_max_size(uVar19, 0);
             if ((local_40 & 2) != 0) {
-                (&field_176, uVar21, 0)->set_max_size();
+                field_176.set_max_size(uVar19, 0);
             }
-            local_58 = (Array<int, eastl::allocator>*)&field_200;
-            local_58->set_max_size(uVar21, 0);
-            local_78 = (Array<unsigned short, eastl::allocator>*)&field_224;
-            local_78->set_max_size(uVar21, 0);
+            local_58 = (Array<int>*)&field_200;
+            local_58->set_max_size(uVar19, 0);
+            local_78 = (Array<unsigned short>*)&field_224;
+            local_78->set_max_size(uVar19, 0);
             local_50 = this;
             if ((local_40 & 1) != 0) {
                 this_00 = &field_72;
-                this_00->set_max_size(uVar21, 0);
+                this_00->set_max_size(uVar19, 0);
                 if (m_groupCount != 0) {
-                    uVar22 = 0;
+                    uVar20 = 0;
                     do {
-                        iVar9 = local_38->g4s();
-                        piVar14 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00,
-                                                                                 uVar22);
+                        iVar9 = arg1.g4s();
+                        piVar13 = (int*)(*this_00)[uVar20];
                         this = local_50;
-                        *piVar14 = iVar9;
+                        *piVar13 = iVar9;
                         if (iVar9 == HASH_MAIN) {
-                            puVar13 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                                (Array<unsigned int, eastl::allocator>*)puVar1, uVar22);
-                            field_136 = *puVar13;
+                            puVar12 = (unsigned int*)(*puVar1)[uVar20];
+                            field_136 = *puVar12;
                         }
-                        uVar22 = uVar22 + 1;
-                    } while (uVar22 < m_groupCount);
+                        uVar20 = uVar20 + 1;
+                    } while (uVar20 < m_groupCount);
                 }
             }
-            pPVar5 = local_38;
-            local_70 = uVar21;
+            pPVar5 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)arg1;
+            local_70 = uVar19;
             if (m_groupCount != 0) {
-                uVar21 = 0;
+                uVar19 = 0;
                 do {
                     uVar10 = pPVar5->g4s();
-                    puVar13 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                        (Array<unsigned int, eastl::allocator>*)puVar1, uVar21);
-                    puVar15 = (undefined4*)Array<int, eastl::allocator>::operator[](local_68, (ulong)*puVar13);
-                    *puVar15 = uVar10;
-                    uVar21 = uVar21 + 1;
-                } while (uVar21 < m_groupCount);
+                    puVar12 = (unsigned int*)(*puVar1)[uVar19];
+                    puVar14 = (uint32_t*)(*local_68)[(unsigned long)*puVar12];
+                    *puVar14 = uVar10;
+                    uVar19 = uVar19 + 1;
+                } while (uVar19 < m_groupCount);
             }
-            local_60 = (Array<unsigned int, eastl::allocator>*)puVar1;
+            local_60 = (Array<unsigned int>*)puVar1;
             if (((local_40 & 8) != 0) && (m_groupCount != 0)) {
                 uVar8 = 0;
                 do {
@@ -423,27 +296,20 @@ namespace jag {
             pAVar3 = local_60;
             if (((local_40 & 2) != 0) && (local_50->m_groupCount != 0)) {
                 puVar1 = &local_50->field_176;
-                uVar21 = 0;
+                uVar19 = 0;
                 do {
-                    new (local_98) Array<unsigned char, eastl::allocator>(64);
-                    puVar13 = (uint*)Array<unsigned int, eastl::allocator>::operator[](pAVar3, uVar21);
-                    this_02 = (Array<unsigned char, eastl::allocator>*)
-                        Array<Array<unsigned char, eastl::allocator>, eastl::allocator>::operator[](
-                            (Array<Array<unsigned char, eastl::allocator>, eastl::allocator>*)puVar1, (ulong)*puVar13);
-                    Array<unsigned char, eastl::allocator>::operator=(this_02, (Array*)local_98);
-                    local_98->~Array();
-                    puVar13 = (uint*)Array<unsigned int, eastl::allocator>::operator[](pAVar3, uVar21);
-                    this_03 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
-                                                     std::default_delete<LoadingScreenScript::AnimLayer>>,
-                                     eastl::allocator>*)
-                        Array<Array<unsigned char, eastl::allocator>, eastl::allocator>::operator[](
-                            (Array<Array<unsigned char, eastl::allocator>, eastl::allocator>*)puVar1, (ulong)*puVar13);
-                    puVar16 = (uchar*)this_03->data();
-                    local_38->gArrayBuffer(puVar16, 0, 64);
-                    uVar21 = uVar21 + 1;
-                } while (uVar21 < local_50->m_groupCount);
+                    new (local_98) Array<unsigned char>(64);
+                    puVar12 = (unsigned int*)(*pAVar3)[uVar19];
+                    this_03 = (Array<unsigned char>*)(*puVar1)[(unsigned long)*puVar12];
+                    *this_03 = *local_98;
+                    puVar12 = (unsigned int*)(*pAVar3)[uVar19];
+                    this_04 =
+                        (Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)(*puVar1)[(unsigned long)*puVar12];
+                    arg1.gArrayBuffer((unsigned char*)this_04->data(), 0, 64);
+                    uVar19 = uVar19 + 1;
+                } while (uVar19 < local_50->m_groupCount);
             }
-            pPVar5 = local_38;
+            pPVar5 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)arg1;
             pJVar4 = local_50;
             local_50->m_pTotalPackedGroupSize = 0;
             if (((local_40 & 4) != 0) && (local_50->m_groupCount != 0)) {
@@ -456,112 +322,100 @@ namespace jag {
                 } while (uVar8 < pJVar4->m_groupCount);
             }
             if (pJVar4->m_groupCount != 0) {
-                pvVar17 = (void*)Array<int, eastl::allocator>::operator[](local_58, 0);
-                _memset(pvVar17, 255, local_70 * 4);
+                _memset((void*)(*local_58)[0], 255, local_70 * 4);
             }
             pAVar3 = local_60;
             if (pJVar4->m_groupCount != 0) {
-                uVar21 = 0;
+                uVar19 = 0;
                 do {
                     uVar10 = pPVar5->g4();
-                    puVar13 = (uint*)Array<unsigned int, eastl::allocator>::operator[](pAVar3, uVar21);
-                    puVar15 = (undefined4*)Array<int, eastl::allocator>::operator[](local_58, (ulong)*puVar13);
-                    *puVar15 = uVar10;
-                    uVar21 = uVar21 + 1;
-                } while (uVar21 < pJVar4->m_groupCount);
+                    puVar12 = (unsigned int*)(*pAVar3)[uVar19];
+                    puVar14 = (uint32_t*)(*local_58)[(unsigned long)*puVar12];
+                    *puVar14 = uVar10;
+                    uVar19 = uVar19 + 1;
+                } while (uVar19 < pJVar4->m_groupCount);
             }
             if (pJVar4->m_groupCount != 0) {
-                uVar21 = 0;
+                uVar19 = 0;
                 do {
-                    uVar8 = local_38->gSmart2or4();
+                    uVar8 = arg1.gSmart2or4();
                     if (65535 < uVar8) {
-                        /* WARNING: Subroutine does not return */
                         LogAssert("fileCount <= std::numeric_limits<uint16>::max()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/index/"
                                   "Js5Index.cpp",
-                                  207, (char*)0);
+                                  207, nullptr);
                     }
-                    puVar13 = (uint*)Array<unsigned int, eastl::allocator>::operator[](local_60, uVar21);
-                    puVar18 =
-                        (undefined2*)Array<unsigned short, eastl::allocator>::operator[](local_78, (ulong)*puVar13);
-                    *puVar18 = (short)uVar8;
-                    uVar21 = uVar21 + 1;
-                } while (uVar21 < pJVar4->m_groupCount);
+                    puVar12 = (unsigned int*)(*local_60)[uVar19];
+                    puVar16 = (uint16_t*)(*local_78)[(unsigned long)*puVar12];
+                    *puVar16 = (short)uVar8;
+                    uVar19 = uVar19 + 1;
+                } while (uVar19 < pJVar4->m_groupCount);
             }
             if (pJVar4->m_groupCount != 0) {
                 local_80 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&pJVar4->field_248;
                 local_40 = 0;
                 do {
-                    puVar13 = (uint*)Array<unsigned int, eastl::allocator>::operator[](local_60, local_40);
-                    local_58 = (Array<int, eastl::allocator>*)(ulong)*puVar13;
-                    puVar19 = (ushort*)Array<unsigned short, eastl::allocator>::operator[](local_78, (ulong)local_58);
-                    pPVar5 = local_38;
-                    uVar2 = *puVar19;
-                    uVar8 = (uint)uVar2;
-                    uVar21 = local_38->size();
-                    local_68 = (Array<int, eastl::allocator>*)CONCAT44(local_68._4_4_, (uint)uVar2);
+                    puVar12 = (unsigned int*)(*local_60)[local_40];
+                    local_58 = (Array<int>*)(unsigned long)*puVar12;
+                    puVar17 = (unsigned short*)(*local_78)[(unsigned long)local_58];
+                    pPVar5 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)arg1;
+                    uVar2 = *puVar17;
+                    uVar8 = (unsigned int)uVar2;
+                    uVar19 = ((hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
+                                         eastl::use_first<eastl::pair<long long const, unsigned int>>,
+                                         eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
+                                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
+                                         true>*)(PacketReaderMixin<PacketT<Array<unsigned char>>>*)arg1)
+                                 ->size();
+                    local_68 = (Array<int>*)(((uint64_t)local_68._4_4_ << 32) | (uint32_t)((unsigned int)uVar2));
                     if (uVar2 == 0) {
                         iVar9 = -1;
                     } else {
-                        iVar20 = 0;
+                        iVar18 = 0;
                         iVar9 = -1;
                         do {
                             iVar11 = pPVar5->gSmart2or4();
-                            iVar20 = iVar20 + iVar11;
-                            if (iVar9 < iVar20) {
-                                iVar9 = iVar20;
+                            iVar18 = iVar18 + iVar11;
+                            if (iVar9 < iVar18) {
+                                iVar9 = iVar18;
                             }
                             uVar8 = uVar8 - 1;
                         } while (uVar8 != 0);
                     }
                     this_01 = local_80;
-                    iVar20 = (int)local_68;
+                    iVar18 = (int)local_68;
                     uVar2 = local_46;
                     if (iVar9 + 1 != (int)local_68) {
-                        uVar22 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(local_80);
-                        if (uVar22 != local_70) {
+                        uVar20 = local_80->end();
+                        if (uVar20 != local_70) {
                             this_01->set_max_size(local_70, 0);
                         }
-                        local_38->SetPos(uVar21);
-                        this_04 = (vector_map<
-                                   unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                   eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>*)
-                            Array<eastl::vector_map<
-                                      unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                      eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                                  eastl::allocator>::
-                            operator[](
-                                (Array<eastl::vector_map<
-                                           unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                           eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                                       eastl::allocator>*)this_01,
-                                (ulong)local_58);
+                        ((PacketT<Array<unsigned char>>*)(PacketReaderMixin<PacketT<Array<unsigned char>>>*)arg1)
+                            ->SetPos(uVar19);
+                        this_05 = (vector_map<unsigned int, unsigned short>*)(*this_01)[(unsigned long)local_58];
                         uVar2 = local_46;
-                        if (iVar20 != 0) {
-                            iVar20 = 0;
+                        if (iVar18 != 0) {
+                            iVar18 = 0;
                             iVar9 = 0;
-                            uVar26 = 0;
+                            uVar22 = 0;
                             do {
                                 local_46 = uVar2;
-                                iVar11 = local_38->gSmart2or4();
-                                local_58 = (Array<int, eastl::allocator>*)CONCAT44(local_58._4_4_, iVar20);
+                                iVar11 = arg1.gSmart2or4();
+                                local_58 = (Array<int>*)(((uint64_t)local_58._4_4_ << 32) | (uint32_t)iVar18);
                                 uVar2 = local_46;
-                                local_46 = uVar26;
-                                for (local_44 = (iVar9 + 1) - (uint)(iVar20 == 0); local_44 < iVar11 + iVar9;
+                                local_46 = uVar22;
+                                for (local_44 = (iVar9 + 1) - (unsigned int)(iVar18 == 0); local_44 < iVar11 + iVar9;
                                      local_44 = local_44 + 1) {
-                                    uVar26 = local_46 + 1;
-                                    local_98[0] = eastl::make_pair<int&, unsigned short&>(&local_44, &local_46);
-                                    eastl::vector_map<
-                                        unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                        eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>::
-                                        insert<eastl::pair<int, unsigned short>, void>(this_04, (pair*)local_98);
+                                    uVar22 = local_46 + 1;
+                                    local_98[0] = eastl::make_pair<int&, unsigned short&>(local_44, local_46);
+                                    this_05->insert<eastl::pair<int, unsigned short>, void>(*local_98);
                                     uVar2 = local_46;
-                                    local_46 = uVar26;
+                                    local_46 = uVar22;
                                 }
-                                iVar20 = (int)local_58 + 1;
+                                iVar18 = (int)local_58 + 1;
                                 iVar9 = iVar11 + iVar9;
-                                uVar26 = local_46;
-                            } while (iVar20 != (int)local_68);
+                                uVar22 = local_46;
+                            } while (iVar18 != (int)local_68);
                         }
                     }
                     local_46 = uVar2;
@@ -569,169 +423,110 @@ namespace jag {
                 } while (local_40 < local_50->m_groupCount);
             }
         } else {
-            uVar12 = logger::default_logger();
-            uVar8 = (uint)bVar6;
-            pcVar24 = "Js5Index: Invalid Js5 Index file version: %d";
-            uVar23 = 98;
+            this_02 = logger::default_logger();
+            uVar8 = (unsigned int)bVar6;
+            str2 = "Js5Index: Invalid Js5 Index file version: %d";
+            iVar9 = 98;
         LAB_1009efc7c:
-            logger::Logger::Log(
-                uVar12, 0, 2,
-                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/index/Js5Index.cpp", uVar23,
-                pcVar24, uVar8);
+            this_02->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/index/Js5Index.cpp",
+                         iVar9, str2, uVar8);
         }
     }
 
-    // 0x1009f01f0, 384 bytes, base-object constructor, placed by class name
-    // Js5Index::Js5Index(unsigned int, Array<unsigned char, eastl::allocator> const&, PacketT<Array<unsigned char, eastl::allocator> >&)
-    void Js5Index::Js5Index(uint param_1, Array* param_2, PacketT* param_3) {
-        m_indexCRC = 0;
-        new (&field_8) Array<unsigned char, eastl::allocator>();
-        m_indexVersion = 0;
-        field_36 = 0;
-        m_groupCount = 0;
-        new (&field_48) Array<unsigned int, eastl::allocator>();
-        new (&field_72) Array<int, eastl::allocator>();
-        new (&field_96) eastl::vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
-                                          eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>();
-        field_136 = 4294967295;
-        m_maximumGroupID = 0;
-        m_pTotalPackedGroupSize = 0;
-        new (&field_152) Array<int, eastl::allocator>();
-        new (&field_176) Array<Array<unsigned char, eastl::allocator>, eastl::allocator>();
-        new (&field_200) Array<int, eastl::allocator>();
-        new (&field_224) Array<unsigned short, eastl::allocator>();
-        new (&field_248)
-            Array<eastl::vector_map<unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                    eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                  eastl::allocator>();
-        Init(this, param_1, param_2, param_3);
+    // 0x1009f01f0
+    Js5Index::Js5Index(unsigned int arg1, const Array<unsigned char>& arg2, PacketT<Array<unsigned char>>& arg3)
+        : m_indexCRC(0), m_indexVersion(0), field_36(0), m_groupCount(0), field_136(4294967295), m_maximumGroupID(0),
+          m_pTotalPackedGroupSize(0) {
+        Init(arg1, arg2, arg3);
     }
 
-    // 0x1009f0370, 176 bytes, placed by class name
-    // Js5Index::InitHashes()
+    // 0x1009f0370
     void Js5Index::InitHashes() {
-        undefined1* this_00;
-        undefined4 uVar1;
-        char cVar2;
-        long lVar3;
-        undefined4* puVar4;
-        int* piVar5;
-        ulong uVar6;
+        uint32_t uVar1;
+        uint32_t* puVar4;
+        int* arg1;
+        unsigned long arg1_00;
 
-        this_00 = &field_96;
-        cVar2 = this_00->empty();
-        if (cVar2 != '\0') {
-            lVar3 = (&field_72)->end();
-            if (lVar3 != 0) {
-                this_00->reserve((ulong)(m_maximumGroupID + 1));
+        int* this_00 = &field_96;
+        if (this_00->empty() != '\0') {
+            if (field_72.end() != 0) {
+                this_00->reserve((unsigned long)(m_maximumGroupID + 1));
                 if (m_groupCount != 0) {
-                    uVar6 = 0;
+                    arg1_00 = 0;
                     do {
-                        puVar4 = (undefined4*)Array<unsigned int, eastl::allocator>::operator[](
-                            (Array<unsigned int, eastl::allocator>*)&field_48, uVar6);
+                        puVar4 = &field_48[arg1_00];
                         uVar1 = *puVar4;
-                        piVar5 = (int*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)&field_72, uVar6);
-                        puVar4 = (undefined4*)
-                            eastl::vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
-                                              eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>::
-                            operator[](
-                                (vector_map<int, unsigned int, eastl::less<int>, eastl::allocator,
-                                            eastl::vector<eastl::pair<int, unsigned int>, eastl::allocator>>*)this_00,
-                                piVar5);
+                        arg1 = &field_72[arg1_00];
+                        puVar4 = (uint32_t*)(*this_00)[*arg1];
                         *puVar4 = uVar1;
-                        uVar6 = uVar6 + 1;
-                    } while (uVar6 < m_groupCount);
+                        arg1_00 = arg1_00 + 1;
+                    } while (arg1_00 < m_groupCount);
                 }
             }
         }
     }
 
-    // 0x1009f04f0, 128 bytes, placed by class name
-    // Js5Index::GetGroupIDFromHash(unsigned int&, int)
-    undefined* Js5Index::GetGroupIDFromHash(uint* param_1, int param_2) {
-        uint uVar1;
+    // 0x1009f04f0
+    uint8_t* Js5Index::GetGroupIDFromHash(unsigned int& arg1, int arg2) {
         long lVar2;
         long lVar3;
-        undefined** ppuVar4;
-        int local_24;
+        uint8_t** ppuVar4;
 
-        uVar1 = field_136;
-        if (((int)uVar1 < 0) || (HASH_MAIN != param_2)) {
-            InitHashes(this);
-            lVar2 = (&field_96, &local_24)->find();
-            lVar3 = (&field_96)->end();
+        unsigned int uVar1 = field_136;
+        if (((int)uVar1 < 0) || (HASH_MAIN != arg2)) {
+            InitHashes();
+            lVar2 = eastl::vector_map<int, int>::find(field_96);
+            lVar3 = field_96.end();
             if (lVar2 == lVar3) {
                 ppuVar4 = &DataStatus::MISSING;
                 goto LAB_1009f0554;
             }
-            uVar1 = *(uint*)(lVar2 + 4);
+            uVar1 = *(unsigned int*)(lVar2 + 4);
         }
-        *param_1 = uVar1;
+        arg1 = uVar1;
         ppuVar4 = &DataStatus::READY;
     LAB_1009f0554:
         return *ppuVar4;
     }
 
-    // 0x1009f0780, 256 bytes, placed by class name
-    // Js5Index::GetFileList(eastl::vector<unsigned int, BucketAllocatorEASTL>&, unsigned int) const
-    void Js5Index::GetFileList(vector* param_1, uint param_2) {
-        char cVar1;
-        uint in_EAX;
-        uint uVar2;
-        uint uVar3;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_00;
-        ushort* puVar4;
+    // 0x1009f0780
+    void Js5Index::GetFileList(eastl::vector<unsigned int, BucketAllocatorEASTL>& arg1, unsigned int arg2) const {
+        unsigned int in_EAX;
+        unsigned int uVar2;
+        unsigned int uVar3;
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_00;
+        unsigned short* puVar4;
         long lVar5;
         long lVar6;
-        undefined8 uStack_38;
+        uint64_t uStack_38;
 
         uStack_38._0_4_ = in_EAX;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        cVar1 = DoesGroupExist(this, param_2);
-        if (cVar1 != '\0') {
-            this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)Array<
-                eastl::vector_map<unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                eastl::allocator>::
-            operator[](
-                (Array<eastl::vector_map<unsigned int, unsigned short, eastl::less<unsigned int>, eastl::allocator,
-                                         eastl::vector<eastl::pair<unsigned int, unsigned short>, eastl::allocator>>,
-                       eastl::allocator>*)&field_248,
-                (ulong)param_2);
-            cVar1 =
-                eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                    this_00);
-            if (cVar1 != '\0') {
-                /* WARNING: Subroutine does not return */
+        arg1.clear();
+        if (DoesGroupExist(arg2)) {
+            this_00 = &field_248[(unsigned long)arg2];
+            if (this_00->empty()) {
                 LogAssertAlways(
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/index/Js5Index.cpp", 287,
                     "Js5Index: Fix caller to first check IsFileListContiguous() before trying to get a file list that "
                     "is just a sequential list.");
             }
-            puVar4 = (ushort*)Array<unsigned short, eastl::allocator>::operator[](
-                (Array<unsigned short, eastl::allocator>*)&field_224, (ulong)param_2);
-            param_1->reserve((ulong)*puVar4);
-            uVar2 = GetMaximumFileID(this, param_2);
-            uStack_38 = (ulong)(uint)uStack_38;
+            puVar4 = &field_224[(unsigned long)arg2];
+            arg1.reserve((unsigned long)*puVar4);
+            uVar2 = GetMaximumFileID(arg2);
+            uStack_38 = (unsigned long)(unsigned int)uStack_38;
             if (uVar2 != 0) {
                 do {
-                    lVar5 = this_00->find((uint*)((long)&uStack_38 + 4));
+                    lVar5 = eastl::vector_map<unsigned int, unsigned int>::find(*this_00);
                     lVar6 = this_00->end();
                     if (lVar5 == lVar6) {
-                        param_1->push_back((uint*)((long)&uStack_38 + 4));
+                        arg1.push_back(*((unsigned int*)((long)&uStack_38 + 4)));
                     }
                     uVar3 = uStack_38._4_4_ + 1;
-                    uStack_38 = CONCAT44(uVar3, (uint)uStack_38);
+                    uStack_38 = (((uint64_t)uVar3 << 32) | (uint32_t)((unsigned int)uStack_38));
                 } while (uVar3 < uVar2);
             }
         }
-    }
-
-    // 0x100a0b8e0, 32 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.132
-    void ___cxx_global_var_init_132() {
-        Js5Index::HASH_MAIN = stringtools::hash32("main");
     }
 
 } // namespace jag

@@ -1,379 +1,317 @@
 // libs/graphics/runetek7/animation/RT5AnimationSampler.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "RT5AnimationSampler.h"
 
 namespace jag::graphics {
-    // 0x10002d850: the linker folded this into oldscape::option::Option<int>::GetDefaultValue() const, which has identical code
-    RT5AnimationSampler::GetVertexTransformData();
+    // 0x10002d850: RT5AnimationSampler::GetVertexTransformData() has the same machine code as oldscape::option::Option<int>::GetDefaultValue() const
 
-    // 0x10094f3a0, 128 bytes, base-object constructor, placed by class name
-    // RT5AnimationSampler::RT5AnimationSampler()
-    void RT5AnimationSampler::RT5AnimationSampler() {
-        new (this) AnimationSampler();
-        field_0 = &PTR__RT5AnimationSampler_100f1b028;
-        new (field_32) VertexTransformData();
-        field_80 = (VertexTransformData*)0;
-        m_transformMaskToggle = 1;
-        new (&field_96) AnimationInfo();
-        m_pOverrideAnimationInfo = (AnimationInfo*)0;
-    }
+    // 0x10094f3a0
+    RT5AnimationSampler::RT5AnimationSampler()
+        : AnimationSampler(), field_80(nullptr), m_transformMaskToggle(1), m_pOverrideAnimationInfo(nullptr) {}
 
-    // 0x10094f420, 16 bytes, complete-object constructor, placed by class name
-    // RT5AnimationSampler::RT5AnimationSampler(): jumps straight to the base-object constructor
-
-    // 0x10094f430, 32 bytes, placed by class name
-    // RT5AnimationSampler::Reset()
+    // 0x10094f430
     void RT5AnimationSampler::Reset() {
-        ClearWalkMergeData(this);
+        ClearWalkMergeData();
         Reset();
     }
 
-    // 0x10094f4c0, 416 bytes, placed by class name
-    // RT5AnimationSampler::GetFrameFromTimeInRange(float&, float, unsigned int, Animation const&)
-    uint RT5AnimationSampler::GetFrameFromTimeInRange(float* param_1, float param_2, uint param_3, Animation* param_4) {
-        uint uVar1;
-        uint uVar2;
-        int iVar3;
-        Array<unsigned int, eastl::allocator>* this;
-        uint* puVar4;
-        ulong uVar5;
-        float fVar6;
-        float local_38;
-        float local_34;
+    // 0x10094f4c0
+    unsigned int RT5AnimationSampler::GetFrameFromTimeInRange(float& arg1, float arg2, unsigned int arg3,
+                                                              const Animation& animation) {
+        unsigned int* puVar4;
+        unsigned long arg1_00;
 
-        this = (Array<unsigned int, eastl::allocator>*)param_4->GetOrigin();
-        uVar1 = param_4->GetRT5FrameCount();
-        uVar2 = param_4->GetRT5FrameCount();
+        auto array = animation.GetOrigin();
+        unsigned int uVar1 = animation.GetRT5FrameCount();
+        unsigned int uVar2 = animation.GetRT5FrameCount();
         if (1 < uVar2) {
-            uVar5 = 1;
+            arg1_00 = 1;
             do {
-                puVar4 = (uint*)Array<unsigned int, eastl::allocator>::operator[](this, uVar5);
-                if (param_3 < *puVar4) {
-                    uVar1 = (uint)uVar5;
+                puVar4 = (unsigned int*)(*array)[arg1_00];
+                if (arg3 < *puVar4) {
+                    uVar1 = (unsigned int)arg1_00;
                     break;
                 }
-                uVar5 = uVar5 + 1;
-                uVar2 = param_4->GetRT5FrameCount();
-            } while (uVar5 < uVar2);
+                arg1_00 = arg1_00 + 1;
+                uVar2 = animation.GetRT5FrameCount();
+            } while (arg1_00 < uVar2);
         }
         uVar2 = uVar1 - 1;
-        iVar3 = param_4->GetRT5FrameCount();
-        puVar4 = (uint*)Array<unsigned int, eastl::allocator>::operator[](this, (ulong)uVar2);
-        fVar6 = (float)*puVar4;
+        int iVar3 = animation.GetRT5FrameCount();
+        puVar4 = (unsigned int*)(*array)[(unsigned long)uVar2];
+        float fVar5 = (float)*puVar4;
         if (uVar2 < iVar3 - 1U) {
-            puVar4 = (uint*)Array<unsigned int, eastl::allocator>::operator[](this, (ulong)uVar1);
-            fVar6 = (param_2 - fVar6) / ((float)*puVar4 - fVar6);
-            *param_1 = fVar6;
-            if ((fVar6 < 0.0) || (1.0 < fVar6)) {
-                /* WARNING: Subroutine does not return */
+            puVar4 = (unsigned int*)(*array)[(unsigned long)uVar1];
+            fVar5 = (arg2 - fVar5) / ((float)*puVar4 - fVar5);
+            arg1 = fVar5;
+            if ((fVar5 < 0.0) || (1.0 < fVar5)) {
                 LogAssert("frameInterpolationPosOut >= 0.0f && frameInterpolationPosOut <= 1.0f",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                           "animation/RT5AnimationSampler.cpp",
-                          49, (char*)0);
+                          49, nullptr);
             }
         } else {
-            iVar3 = param_4->GetMaxMapZ();
-            *param_1 = (param_2 - fVar6) / ((float)iVar3 - fVar6);
+            iVar3 = animation.GetMaxMapZ();
+            arg1 = (arg2 - fVar5) / ((float)iVar3 - fVar5);
         }
-        local_38 = 0.0;
-        local_34 = 1.0;
-        math::Clamp<float>(param_1, &local_38, &local_34);
-        if ((0.0 <= *param_1) && (*param_1 <= 1.0)) {
+        math::Clamp<float>(arg1, 0.0, 1.0);
+        if ((0.0 <= arg1) && (arg1 <= 1.0)) {
             return uVar2;
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("frameInterpolationPosOut >= 0.0f && frameInterpolationPosOut <= 1.0f",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/animation/"
                   "RT5AnimationSampler.cpp",
-                  64, (char*)0);
+                  64, nullptr);
     }
 
-    // 0x10094f660, 384 bytes, placed by class name
-    // RT5AnimationSampler::GetFrameFromTime(float&, unsigned long long, Animation const&, int, AnimationLoopBehaviour)
-    ulong RT5AnimationSampler::GetFrameFromTime(float* param_1, ulong param_2, WorldmapAreaMetadata* param_3,
-                                                int param_4, int param_5) {
+    // 0x10094f660
+    unsigned long RT5AnimationSampler::GetFrameFromTime(float& arg1, unsigned long long arg2,
+                                                        const Animation& animation, int arg4,
+                                                        AnimationLoopBehaviour animationLoopBehaviour) {
         int iVar1;
         int iVar2;
-        ulong uVar4;
-        Array<unsigned int, eastl::allocator>* this;
         int* piVar5;
-        uint* puVar6;
-        uint uVar7;
-        float fVar8;
+        unsigned int* puVar6;
 
-        uVar4 = param_3->GetAnimationSampleIntervalNS();
-        fVar8 = (float)param_2 / (float)uVar4;
-        this = (Array<unsigned int, eastl::allocator>*)param_3->GetOrigin();
-        uVar7 = (uint)(long)fVar8;
-        if ((param_5 == 2) || (param_4 == -1)) {
-            if (param_3->GetMaxMapZ() <= uVar7) {
-                *param_1 = 1.0;
-                iVar1 = param_3->GetRT5FrameCount();
-                return (ulong)(iVar1 - 1);
+        unsigned long uVar4 = animation.GetAnimationSampleIntervalNS();
+        float fVar7 = (float)arg2 / (float)uVar4;
+        auto array = animation.GetOrigin();
+        unsigned int arg3 = (unsigned int)(long)fVar7;
+        if ((animationLoopBehaviour == 2) || (arg4 == -1)) {
+            if (animation.GetMaxMapZ() <= arg3) {
+                arg1 = 1.0;
+                iVar1 = animation.GetRT5FrameCount();
+                return (unsigned long)(iVar1 - 1);
             }
         } else {
-            iVar1 = param_3->GetRT5FrameCount();
-            uVar4 = (ulong)(uint)(iVar1 - param_4);
-            iVar2 = param_3->GetMaxMapZ();
-            piVar5 = (int*)Array<unsigned int, eastl::allocator>::operator[](this, uVar4);
+            iVar1 = animation.GetRT5FrameCount();
+            uVar4 = (unsigned long)(unsigned int)(iVar1 - arg4);
+            iVar2 = animation.GetMaxMapZ();
+            piVar5 = (int*)(*array)[uVar4];
             iVar1 = *piVar5;
-            puVar6 = (uint*)Array<unsigned int, eastl::allocator>::operator[](this, uVar4);
-            if (*puVar6 < uVar7) {
-                puVar6 = (uint*)Array<unsigned int, eastl::allocator>::operator[](this, uVar4);
-                fVar8 = (float)fmod(fVar8 - (float)*puVar6, (float)(uint)(iVar2 - iVar1));
-                puVar6 = (uint*)Array<unsigned int, eastl::allocator>::operator[](this, uVar4);
-                fVar8 = (float)*puVar6 + fVar8;
-                uVar7 = (uint)(long)fVar8;
+            puVar6 = (unsigned int*)(*array)[uVar4];
+            if (*puVar6 < arg3) {
+                puVar6 = (unsigned int*)(*array)[uVar4];
+                fVar7 = (float)fmod(fVar7 - (float)*puVar6, (float)(unsigned int)(iVar2 - iVar1));
+                puVar6 = (unsigned int*)(*array)[uVar4];
+                fVar7 = (float)*puVar6 + fVar7;
+                arg3 = (unsigned int)(long)fVar7;
             }
         }
-        uVar4 = GetFrameFromTimeInRange(param_1, fVar8, uVar7, (Animation*)param_3);
+        uVar4 = GetFrameFromTimeInRange(arg1, fVar7, arg3, animation);
         return uVar4;
     }
 
-    // 0x10094f7f0, 208 bytes, placed by class name
-    // RT5AnimationSampler::GetFramesBeforeAndAfter(unsigned int&, eastl::optional<unsigned int>&, float&, Animation const&, unsigned long long, int, AnimationLoopBehaviour, bool)
-    void RT5AnimationSampler::GetFramesBeforeAndAfter(int* param_1, optional<unsigned int>* param_2, undefined8 param_3,
-                                                      Animation* param_4, undefined8 param_5, int param_6, int param_7,
-                                                      char param_8) {
-        int iVar1;
-        uint uVar2;
-        uint uVar3;
-        uint local_38[2];
+    // 0x10094f7f0
+    void RT5AnimationSampler::GetFramesBeforeAndAfter(unsigned int& arg1, eastl::optional<unsigned int>& arg2,
+                                                      float& arg3, const Animation& animation, unsigned long long arg5,
+                                                      int arg6, AnimationLoopBehaviour animationLoopBehaviour,
+                                                      bool arg8) {
+        unsigned int local_38[2];
 
-        iVar1 = GetFrameFromTime(param_3, param_5, param_4, param_6, param_7);
-        *param_1 = iVar1;
-        uVar3 = iVar1 + 1;
-        uVar2 = param_4->GetRT5FrameCount();
-        if ((param_7 == 2) || (param_6 == -1)) {
+        int iVar1 = GetFrameFromTime((float*)arg2, (unsigned long long)animation, (Animation*)arg3, (int)arg5, arg6);
+        *(int*)&this->_vptr = iVar1;
+        unsigned int uVar3 = iVar1 + 1;
+        unsigned int uVar2 = arg3.GetRT5FrameCount();
+        if ((arg6 == 2) || ((int)arg5 == -1)) {
             if (uVar2 <= uVar3) {
-                if ((param_8 == '\0') || (param_6 != -1)) {
-                    new (local_38) eastl::optional<game::option::EnumOptionToggle>();
-                    eastl::optional<unsigned int>::operator=(param_2, (optional*)local_38);
+                if (((uint8_t)animationLoopBehaviour == 0) || ((int)arg5 != -1)) {
+                    new (local_38) eastl::optional();
+                    arg1 = *local_38;
                     return;
                 }
                 local_38[0] = 0;
                 goto LAB_10094f880;
             }
         } else if (uVar2 <= uVar3) {
-            iVar1 = param_4->GetRT5FrameCount();
-            local_38[0] = iVar1 - param_6;
-            eastl::optional<unsigned int>::operator=(param_2, local_38);
+            iVar1 = arg3.GetRT5FrameCount();
+            local_38[0] = iVar1 - (int)arg5;
+            arg1 = *local_38;
             return;
         }
         local_38[0] = uVar3;
     LAB_10094f880:
-        eastl::optional<unsigned int>::operator=(param_2, local_38);
+        arg1 = *local_38;
     }
 
-    // 0x10094f8c0, 1392 bytes, placed by class name
-    // RT5AnimationSampler::Update(Array<LabelData, eastl::allocator> const&, math::Matrix44T<float> const&)
-    void RT5AnimationSampler::Update(Array* param_1, Matrix44T* param_2) {
-        undefined1* this_00;
-        AnimationInfo* pAVar1;
-        bool bVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        Option<float>* pOVar6;
-        Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>* pAVar7;
-        shared_ptr* psVar8;
-        uint* puVar9;
-        AnimationFrameRT5* pAVar10;
-        AnimationFrameRT5* pAVar11;
-        int* piVar12;
-        NXTRenderCanvas* this_01;
-        ulong uVar13;
-        vector* this_02;
-        Matrix43T<float>* this_03;
-        Matrix43T<float>* pMVar14;
-        int iVar15;
-        int iVar16;
-        NXTPixToolkit* this_04;
-        type* ptVar17;
-        RT5AnimationSampler* pRVar18;
-        float fVar19;
-        undefined8 in_stack_ffffffffffffff08;
-        undefined4 uVar21;
-        undefined8 uVar20;
-        undefined1 local_dc[4];
-        vector* local_d0;
-        type* local_c8;
-        WrapArray* local_c0;
-        AnimationFrameRT5* local_b8;
-        optional<game::option::EnumOptionToggle> local_b0[8];
-        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_a8[16];
-        shared_ptr local_98;
+    // 0x10094f8c0
+    void RT5AnimationSampler::Update(const Array<LabelData>& labelDatas, const math::Matrix44T<float>& matrix44) {
+        uint8_t bVar1;
+        AnimationInfo* pAVar2;
+        unsigned int* puVar10;
+        shared_ptr<AnimationFrameRT5>* psVar11;
+        AnimationFrameRT5* pAVar12;
+        AnimationFrameRT5* pAVar13;
+        int* piVar14;
+        NXTRenderCanvas* this_00;
+        shared_ptr<oldscape::midi2::MidiPlayerMainThread>* midiPlayerMainThread_00;
+        unsigned long uVar15;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01;
+        Matrix43T<float>* this_02;
+        Matrix43T<float>* pMVar16;
+        int iVar17;
+        int iVar18;
+        NXTPixToolkit* this_03;
+        RT5AnimationSampler* pRVar19;
+        float fVar20;
+        uint32_t in_stack_ffffffffffffff14;
+        uint8_t in_stack_ffffffffffffff18;
+        uint8_t in_stack_ffffffffffffff20;
+        optional<unsigned int> local_dc;
+        AnimationHelper* local_d0;
+        WrapArray<math::Matrix43T<float> _>* local_c8;
+        WrapArray<float>* local_c0;
+        WrapArray<float>* local_b8;
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_a8;
         ColourHSL local_88;
         float local_74;
         int local_70;
         int local_6c;
         int local_68;
         float local_64;
-        shared_ptr local_60;
-        optional<game::option::EnumOptionToggle> local_50[12];
-        uint local_44;
-        uint local_40;
+        optional<game::option::EnumOptionToggle> local_50;
+        unsigned int local_40;
         int local_3c;
         int local_38;
         int local_34;
 
-        uVar21 = (undefined4)((ulong)in_stack_ffffffffffffff08 >> 32);
-        this_00 = &field_128;
-        bVar2 = operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
-        if (!bVar2) {
-            /* WARNING: Subroutine does not return */
+        uint8_t* midiPlayerMainThread = &field_128;
+        bool bVar3 = *midiPlayerMainThread != nullptr;
+        if (!bVar3) {
             LogAssert("m_animationInfo.m_animation != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "animation/RT5AnimationSampler.cpp",
-                      177, (char*)0);
+                      177, nullptr);
         }
-        uVar4 = AnimationManager::GetTimeElapsedSinceNS(*(ulonglong*)&field_96);
-        local_44 = 0;
-        eastl::optional<game::option::EnumOptionToggle>::optional(local_b0);
-        uVar5 = shared_ptr<Animation>::operator*((shared_ptr<Animation>*)this_00);
-        uVar20 = CONCAT44(uVar21, *(undefined4*)&field_116);
-        GetFramesBeforeAndAfter(&local_44, local_b0, &local_74, uVar5, uVar4, *(undefined4*)&field_112, uVar20,
-                                field_121);
-        uVar21 = (undefined4)((ulong)uVar20 >> 32);
-        pOVar6 = (Option<float>*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
-        pAVar7 = (Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>*)pOVar6->GetDefaultValue();
-        psVar8 =
-            (shared_ptr*)Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>::operator[](pAVar7, (ulong)local_44);
-        new (&local_98) shared_ptr<oldscape::dash3d::Decor>(psVar8);
-        new (&local_60) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(psVar8);
-        bVar2 = local_b0->IsActive();
-        if (bVar2) {
-            pOVar6 = (Option<float>*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
-            pAVar7 = (Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>*)pOVar6->GetDefaultValue();
-            puVar9 = (uint*)eastl::optional<unsigned int>::value();
-            psVar8 =
-                (shared_ptr*)Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>::operator[](pAVar7, (ulong)*puVar9);
-            shared_ptr<AnimationFrameRT5>::operator=((shared_ptr<AnimationFrameRT5>*)&local_60, psVar8);
+        auto pAVar5 = AnimationManager::GetTimeElapsedSinceNS(*(unsigned long long*)&field_96);
+        unsigned int local_44 = 0;
+        optional<game::option::EnumOptionToggle> local_b0;
+        float* pfVar6 = (float*)**midiPlayerMainThread;
+        GetFramesBeforeAndAfter((RT5AnimationSampler*)&local_44, &local_b0, (optional<unsigned int>*)&local_74, pfVar6,
+                                pAVar5, (unsigned long)*(unsigned int*)&field_112, *(int*)&field_116,
+                                (unsigned int)(uint8_t)field_121, (bool)in_stack_ffffffffffffff18);
+        Option<float>* pOVar7 = (Option<float>*)(*midiPlayerMainThread).operator->();
+        auto pAVar8 = pOVar7->GetDefaultValue();
+        shared_ptr<oldscape::dash3d::GroundDecor>* psVar9 =
+            (shared_ptr<oldscape::dash3d::GroundDecor>*)(*pAVar8)[(unsigned long)local_44];
+        shared_ptr local_98(psVar9);
+        shared_ptr local_60;
+        bool cVar4 = local_b0.IsActive();
+        if (!cVar4) {
+            local_60 = local_98;
         } else {
-            psVar8 = &local_98;
-            shared_ptr<AnimationFrameRT5>::operator=((shared_ptr<AnimationFrameRT5>*)&local_60, psVar8);
+            pOVar7 = (Option<float>*)(*midiPlayerMainThread).operator->();
+            pAVar8 = (Array<shared_ptr<AnimationFrameRT5>>*)pOVar7->GetDefaultValue();
+            puVar10 = (unsigned int*)local_b0.value();
+            psVar11 = (shared_ptr<AnimationFrameRT5>*)(*pAVar8)[(unsigned long)*puVar10];
+            local_60 = *psVar11;
         }
-        if ((*(long*)&field_96 != -1) && ((bVar2 = shared_ptr::operator_cast_to_bool(&local_98),
-                                           bVar2 || (bVar2 = shared_ptr::operator_cast_to_bool(&local_60), bVar2)))) {
-            this_04 = (NXTPixToolkit*)field_80;
-            if (this_04 == (NXTPixToolkit*)0) {
-                pAVar10 = (AnimationFrameRT5*)local_98.end();
-                pRVar18 = (RT5AnimationSampler*)&local_60;
-                pAVar11 = (AnimationFrameRT5*)pRVar18->end();
-                CalculateMaxBoneOrLabelIDsForFrames(pRVar18, &local_3c, &local_38, &local_34, pAVar10, pAVar11);
-                if (m_pOverrideAnimationInfo != (AnimationInfo*)0) {
-                    uVar4 = AnimationManager::GetTimeElapsedSinceNS(m_pOverrideAnimationInfo->field_0);
+        if ((*(long*)&field_96 != -1) && ((cVar4 = shared_ptr::operator_cast_to_bool(&local_98),
+                                           cVar4 || (cVar4 = shared_ptr::operator_cast_to_bool(&local_60), cVar4)))) {
+            this_03 = (NXTPixToolkit*)field_80;
+            if (this_03 == nullptr) {
+                pAVar12 = (AnimationFrameRT5*)local_98.end();
+                pRVar19 = (RT5AnimationSampler*)&local_60;
+                pAVar13 = (AnimationFrameRT5*)pRVar19->end();
+                CalculateMaxBoneOrLabelIDsForFrames(pRVar19, &local_3c, &local_38, &local_34, pAVar12, pAVar13);
+                if (m_pOverrideAnimationInfo != nullptr) {
+                    pAVar5 = AnimationManager::GetTimeElapsedSinceNS(m_pOverrideAnimationInfo->field_0);
                     local_40 = 0;
-                    eastl::optional<game::option::EnumOptionToggle>::optional(local_50);
-                    uVar5 =
-                        shared_ptr<Animation>::operator*((shared_ptr<Animation>*)m_pOverrideAnimationInfo->field_32);
-                    pAVar1 = m_pOverrideAnimationInfo;
-                    GetFramesBeforeAndAfter(&local_40, local_50, local_dc, uVar5, uVar4,
-                                            *(undefined4*)((long)&pAVar1->field_10 + 6),
-                                            CONCAT44(uVar21, pAVar1->field_20), pAVar1->field_25);
-                    pOVar6 = (Option<float>*)shared_ptr<Animation>::operator->(
-                        (shared_ptr<Animation>*)m_pOverrideAnimationInfo->field_32);
-                    pAVar7 = (Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>*)pOVar6->GetDefaultValue();
-                    psVar8 = (shared_ptr*)Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>::operator[](
-                        pAVar7, (ulong)local_40);
-                    new (&local_88) shared_ptr<oldscape::dash3d::Decor>(psVar8);
-                    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>::shared_ptr(
-                        local_a8, (_func_decltype_nullptr*)psVar8);
-                    bVar2 = local_50->IsActive();
-                    if (bVar2) {
-                        pOVar6 = (Option<float>*)shared_ptr<Animation>::operator->(
-                            (shared_ptr<Animation>*)m_pOverrideAnimationInfo->field_32);
-                        pAVar7 = (Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>*)pOVar6->GetDefaultValue();
-                        puVar9 = (uint*)eastl::optional<unsigned int>::value();
-                        psVar8 = (shared_ptr*)Array<shared_ptr<AnimationFrameRT5>, eastl::allocator>::operator[](
-                            pAVar7, (ulong)*puVar9);
-                        shared_ptr<AnimationFrameRT5>::operator=((shared_ptr<AnimationFrameRT5>*)local_a8, psVar8);
+                    local_50 = eastl::optional();
+                    pfVar6 = (float*)*m_pOverrideAnimationInfo->field_32;
+                    pAVar2 = m_pOverrideAnimationInfo;
+                    GetFramesBeforeAndAfter((RT5AnimationSampler*)&local_40, &local_50, &local_dc, pfVar6, pAVar5,
+                                            (unsigned long)*(unsigned int*)((long)&pAVar2->field_10 + 6),
+                                            pAVar2->field_20, (unsigned int)(uint8_t)pAVar2->field_25,
+                                            (bool)in_stack_ffffffffffffff18);
+                    pOVar7 = (Option<float>*)m_pOverrideAnimationInfo->field_32.operator->();
+                    pAVar8 = (Array<shared_ptr<AnimationFrameRT5>>*)pOVar7->GetDefaultValue();
+                    psVar9 = (shared_ptr<oldscape::dash3d::GroundDecor>*)(*pAVar8)[(unsigned long)local_40];
+                    local_88 = shared_ptr(psVar9);
+                    local_a8 = shared_ptr();
+                    cVar4 = local_50.IsActive();
+                    if (!cVar4) {
+                        local_a8 = local_88;
                     } else {
-                        shared_ptr<AnimationFrameRT5>::operator=((shared_ptr<AnimationFrameRT5>*)local_a8,
-                                                                 (shared_ptr*)&local_88);
+                        pOVar7 = (Option<float>*)m_pOverrideAnimationInfo->field_32.operator->();
+                        pAVar8 = (Array<shared_ptr<AnimationFrameRT5>>*)pOVar7->GetDefaultValue();
+                        puVar10 = (unsigned int*)local_50.value();
+                        psVar11 = (shared_ptr<AnimationFrameRT5>*)(*pAVar8)[(unsigned long)*puVar10];
+                        local_a8 = *psVar11;
                     }
-                    pAVar10 = (AnimationFrameRT5*)local_88.end();
-                    pRVar18 = (RT5AnimationSampler*)local_a8;
-                    pAVar11 = (AnimationFrameRT5*)pRVar18->end();
-                    CalculateMaxBoneOrLabelIDsForFrames(pRVar18, &local_70, &local_6c, &local_68, pAVar10, pAVar11);
-                    piVar12 = std::max<int>(&local_3c, &local_70);
-                    local_3c = *piVar12;
-                    piVar12 = std::max<int>(&local_38, &local_6c);
-                    local_38 = *piVar12;
-                    piVar12 = std::max<int>(&local_34, &local_68);
-                    local_34 = *piVar12;
-                    local_a8->~shared_ptr();
-                    local_88.~shared_ptr();
+                    pAVar12 = (AnimationFrameRT5*)local_88.end();
+                    pRVar19 = &local_a8;
+                    pAVar13 = (AnimationFrameRT5*)pRVar19->end();
+                    CalculateMaxBoneOrLabelIDsForFrames(pRVar19, &local_70, &local_6c, &local_68, pAVar12, pAVar13);
+                    piVar14 = std::max<int>(local_3c, local_70);
+                    local_3c = *piVar14;
+                    piVar14 = std::max<int>(local_38, local_6c);
+                    local_38 = *piVar14;
+                    piVar14 = std::max<int>(local_34, local_68);
+                    local_34 = *piVar14;
                 }
-                iVar15 = local_3c + 1;
+                iVar17 = local_3c + 1;
                 if (local_3c < 0) {
-                    iVar15 = 0;
+                    iVar17 = 0;
                 }
-                iVar16 = local_38 * 4 + 4;
+                iVar18 = local_38 * 4 + 4;
                 if (local_38 < 0) {
-                    iVar16 = 0;
+                    iVar18 = 0;
                 }
-                psVar8 = (shared_ptr*)(long)iVar15;
-                uVar13 = (ulong)(local_34 * 8 + 8);
+                uVar15 = (unsigned long)(local_34 * 8 + 8);
                 if (local_34 < 0) {
-                    uVar13 = 0;
+                    uVar15 = 0;
                 }
-                this_04 = (NXTPixToolkit*)field_32;
-                this_04->SetMaxSize((ulong)psVar8, (long)iVar16, uVar13);
+                this_03 = (NXTPixToolkit*)field_32;
+                this_03->SetMaxSize((long)iVar17, (long)iVar18, uVar15);
             }
             field_32->ClearTransformData();
-            local_d0 = this_04->SSOBeginPtr(psVar8);
-            local_c8 = (type*)this_04->GetScreen();
-            local_c0 = (WrapArray*)this_04->GetDefaultValue();
-            local_b8 =
-                (AnimationFrameRT5*)shared_ptr<AnimationFrameRT5>::operator*((shared_ptr<AnimationFrameRT5>*)&local_98);
-            pAVar10 =
-                (AnimationFrameRT5*)shared_ptr<AnimationFrameRT5>::operator*((shared_ptr<AnimationFrameRT5>*)&local_60);
+            local_d0 = (AnimationHelper*)this_03->SSOBeginPtr();
+            local_c8 = (WrapArray<math::Matrix43T<float> _>*)this_03->GetScreen();
+            local_c0 = (WrapArray<float>*)this_03->GetDefaultValue();
+            local_b8 = (WrapArray<float>*)*local_98;
+            pAVar12 = (AnimationFrameRT5*)*local_60;
             local_64 = local_74;
-            bVar2 = (bool)m_transformMaskToggle;
-            this_01 = (NXTRenderCanvas*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
-            psVar8 = (shared_ptr*)this_01->GetPixelBuffer();
-            bVar3 = operator!=(psVar8, (_func_decltype_nullptr*)0);
-            ptVar17 = local_c8;
-            AnimationHelper::InterpolateRT5FrameTransforms(local_d0, local_c8, local_c0, local_b8, pAVar10, local_64,
-                                                           param_1, (shared_ptr*)field_8, bVar2, bVar3);
+            bVar1 = m_transformMaskToggle;
+            this_00 = (NXTRenderCanvas*)(*midiPlayerMainThread).operator->();
+            midiPlayerMainThread_00 = (shared_ptr<oldscape::midi2::MidiPlayerMainThread>*)this_00->GetPixelBuffer();
+            bVar3 = *midiPlayerMainThread_00 != nullptr;
+            local_d0->InterpolateRT5FrameTransforms(
+                *local_c8, *local_c0, *local_b8, *pAVar12, labelDatas, local_64, field_8,
+                *((shared_ptr<WalkMergeDataProvider>*)(((uint64_t)in_stack_ffffffffffffff14 << 32) |
+                                                       (uint32_t)((unsigned int)bVar1))),
+                bVar3, (bool)in_stack_ffffffffffffff20);
             if (AnimationState::m_highlightRT5Transforms != '\0') {
-                uVar13 = FrameTime::GetCurrentTimeMS();
-                fVar19 = (float)fmod((float)uVar13 * 0.001, 6.2831855);
-                fVar19 = (float)::cos(fVar19 * 3.0);
-                new (&local_88) math::ColourHSL(0.0, fVar19 * 100.0, 0.0);
-                this_02 = this_04->SSOBeginPtr(ptVar17);
-                this_03 = (Matrix43T<float>*)this_02->end();
-                pMVar14 = (Matrix43T<float>*)this_02->end();
-                if (this_03 != pMVar14) {
+                uVar15 = FrameTime::GetCurrentTimeMS();
+                fVar20 = (float)fmod((float)uVar15 * 0.001, 6.2831855f);
+                fVar20 = (float)::cos(fVar20 * 3.0);
+                local_88 = math::ColourHSL(0.0, fVar20 * 100.0, 0.0);
+                this_01 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_03->SSOBeginPtr();
+                this_02 = (Matrix43T<float>*)this_01->end();
+                pMVar16 = (Matrix43T<float>*)this_01->end();
+                if (this_02 != pMVar16) {
                     do {
-                        this_03->Translate((Vector3T*)&local_88);
-                        this_03 = this_03 + 48;
-                    } while (this_03 != pMVar14);
+                        this_02->Translate(local_88);
+                        this_02 = this_02 + 48;
+                    } while (this_02 != pMVar16);
                 }
             }
         }
         field_24 = 1;
-        local_60.~shared_ptr();
-        local_98.~shared_ptr();
     }
 
-    // 0x10094feb0, 608 bytes, placed by class name
-    // RT5AnimationSampler::CalculateMaxBoneOrLabelIDsForFrames(int&, int&, int&, AnimationFrameRT5*, AnimationFrameRT5*)
-    void RT5AnimationSampler::CalculateMaxBoneOrLabelIDsForFrames(int* param_1, int* param_2, int* param_3,
-                                                                  AnimationFrameRT5* param_4,
-                                                                  AnimationFrameRT5* param_5) {
-        undefined1 uVar1;
+    // 0x10094feb0
+    void RT5AnimationSampler::CalculateMaxBoneOrLabelIDsForFrames(int& arg1, int& arg2, int& arg3,
+                                                                  AnimationFrameRT5* animationFrameRT51,
+                                                                  AnimationFrameRT5* animationFrameRT52) {
+        AnimTransform AVar1;
         Layout* pLVar2;
-        uint* puVar3;
-        uint* puVar4;
+        unsigned int* puVar3;
+        unsigned int* puVar4;
         shared_ptr<AnimBase>* psVar5;
         AnimBase* pAVar6;
-        undefined8 uVar7;
-        int* piVar8;
         int local_48[6];
 
         local_48[0] = -1;
@@ -382,92 +320,85 @@ namespace jag::graphics {
         local_48[3] = 4294967295;
         local_48[4] = 4294967295;
         local_48[5] = 4294967295;
-        if (param_4 != (AnimationFrameRT5*)0) {
-            pLVar2 = (Layout*)param_4->GetDefaultValue();
-            puVar3 = (uint*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar2);
-            puVar4 = (uint*)pLVar2->end();
+        if (animationFrameRT51 != nullptr) {
+            pLVar2 = (Layout*)animationFrameRT51->GetDefaultValue();
+            puVar3 = (unsigned int*)pLVar2->HeapBeginPtr();
+            puVar4 = (unsigned int*)pLVar2->end();
             if (puVar3 != puVar4) {
                 do {
-                    psVar5 = (shared_ptr<AnimBase>*)param_4->second();
-                    pAVar6 = (AnimBase*)shared_ptr<AnimBase>::operator->(psVar5);
-                    uVar1 = pAVar6->GetTransformType(*puVar3);
-                    psVar5 = (shared_ptr<AnimBase>*)param_4->second();
-                    uVar7 = shared_ptr<AnimBase>::operator*(psVar5);
-                    AnimationFrameRT7::CalculateMaxBoneOrLabelIDs(local_48, local_48 + 1, local_48 + 2, uVar7, *puVar3,
-                                                                  uVar1);
+                    psVar5 = (shared_ptr<AnimBase>*)animationFrameRT51->second();
+                    pAVar6 = (AnimBase*)(*psVar5).operator->();
+                    AVar1 = pAVar6->GetTransformType(*puVar3);
+                    psVar5 = (shared_ptr<AnimBase>*)animationFrameRT51->second();
+                    pAVar6 = (AnimBase*)**psVar5;
+                    AnimationFrameRT7::CalculateMaxBoneOrLabelIDs(*local_48, *(local_48 + 1), *(local_48 + 2), *pAVar6,
+                                                                  *puVar3, AVar1 & 255);
                     if (puVar3[15] != 4294967295) {
-                        psVar5 = (shared_ptr<AnimBase>*)param_4->second();
-                        uVar7 = shared_ptr<AnimBase>::operator*(psVar5);
-                        AnimationFrameRT7::CalculateMaxBoneOrLabelIDs(local_48, local_48 + 1, local_48 + 2, uVar7,
-                                                                      puVar3[15], 0);
+                        psVar5 = (shared_ptr<AnimBase>*)animationFrameRT51->second();
+                        pAVar6 = (AnimBase*)**psVar5;
+                        AnimationFrameRT7::CalculateMaxBoneOrLabelIDs(*local_48, *(local_48 + 1), *(local_48 + 2),
+                                                                      *pAVar6, puVar3[15], 0);
                     }
                     puVar3 = puVar3 + 16;
                 } while (puVar3 != puVar4);
             }
         }
-        if (param_5 != (AnimationFrameRT5*)0) {
-            pLVar2 = (Layout*)param_5->GetDefaultValue();
-            puVar3 = (uint*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar2);
-            puVar4 = (uint*)pLVar2->end();
+        if (animationFrameRT52 != nullptr) {
+            pLVar2 = (Layout*)animationFrameRT52->GetDefaultValue();
+            puVar3 = (unsigned int*)pLVar2->HeapBeginPtr();
+            puVar4 = (unsigned int*)pLVar2->end();
             if (puVar3 != puVar4) {
                 do {
-                    psVar5 = (shared_ptr<AnimBase>*)param_5->second();
-                    pAVar6 = (AnimBase*)shared_ptr<AnimBase>::operator->(psVar5);
-                    uVar1 = pAVar6->GetTransformType(*puVar3);
-                    psVar5 = (shared_ptr<AnimBase>*)param_5->second();
-                    uVar7 = shared_ptr<AnimBase>::operator*(psVar5);
-                    AnimationFrameRT7::CalculateMaxBoneOrLabelIDs(local_48 + 3, local_48 + 4, local_48 + 5, uVar7,
-                                                                  *puVar3, uVar1);
+                    psVar5 = (shared_ptr<AnimBase>*)animationFrameRT52->second();
+                    pAVar6 = (AnimBase*)(*psVar5).operator->();
+                    AVar1 = pAVar6->GetTransformType(*puVar3);
+                    psVar5 = (shared_ptr<AnimBase>*)animationFrameRT52->second();
+                    pAVar6 = (AnimBase*)**psVar5;
+                    AnimationFrameRT7::CalculateMaxBoneOrLabelIDs(*(local_48 + 3), *(local_48 + 4), *(local_48 + 5),
+                                                                  *pAVar6, *puVar3, AVar1 & 255);
                     if (puVar3[15] != 4294967295) {
-                        psVar5 = (shared_ptr<AnimBase>*)param_5->second();
-                        uVar7 = shared_ptr<AnimBase>::operator*(psVar5);
-                        AnimationFrameRT7::CalculateMaxBoneOrLabelIDs(local_48 + 3, local_48 + 4, local_48 + 5, uVar7,
-                                                                      puVar3[15], 0);
+                        psVar5 = (shared_ptr<AnimBase>*)animationFrameRT52->second();
+                        pAVar6 = (AnimBase*)**psVar5;
+                        AnimationFrameRT7::CalculateMaxBoneOrLabelIDs(*(local_48 + 3), *(local_48 + 4), *(local_48 + 5),
+                                                                      *pAVar6, puVar3[15], 0);
                     }
                     puVar3 = puVar3 + 16;
                 } while (puVar3 != puVar4);
             }
         }
-        piVar8 = std::max<int>(local_48, local_48 + 3);
-        *param_1 = *piVar8;
-        piVar8 = std::max<int>(local_48 + 1, local_48 + 4);
-        *param_2 = *piVar8;
-        piVar8 = std::max<int>(local_48 + 2, local_48 + 5);
-        *param_3 = *piVar8;
+        auto piVar7 = std::max<int>(*local_48, *(local_48 + 3));
+        arg1 = *piVar7;
+        piVar7 = std::max<int>(*(local_48 + 1), *(local_48 + 4));
+        arg2 = *piVar7;
+        piVar7 = std::max<int>(*(local_48 + 2), *(local_48 + 5));
+        arg3 = *piVar7;
     }
 
-    // 0x100950300, 256 bytes, placed by class name
-    // RT5AnimationSampler::GetRT5BoneTransforms(WrapArray<math::Matrix43T<float> >&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&, math::Matrix44T<float> const&) const
-    void RT5AnimationSampler::GetRT5BoneTransforms(WrapArray* param_1, vector_map* param_2, vector_map* param_3,
-                                                   Matrix44T* param_4) {
-        ushort uVar1;
-        vector* this_00;
-        ushort* puVar3;
-        ushort* puVar4;
-        ulong uVar5;
-        ParticleVertexDataProxy* pPVar6;
+    // 0x100950300
+    void RT5AnimationSampler::GetRT5BoneTransforms(WrapArray<math::Matrix43T<float>>& wrapArray,
+                                                   const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                                   const eastl::vector_map<unsigned short, unsigned short>& arg3,
+                                                   const math::Matrix44T<float>& matrix44) const {
+        unsigned short uVar1;
+        unsigned short* puVar3;
+        unsigned short* puVar4;
+        unsigned long uVar5;
+        Matrix43T<float>* matrix43;
         ParticleVertexDataProxy<math::Vector3T<float>>* this_01;
-        VertexTransformData* this_02;
-        ulong uVar7;
+        unsigned long arg1;
 
-        this_02 = (VertexTransformData*)field_32;
-        if (field_80 != (VertexTransformData*)0) {
+        VertexTransformData* this_02 = (VertexTransformData*)field_32;
+        if (field_80 != nullptr) {
             this_02 = field_80;
         }
-        this_00 = this_02->SSOBeginPtr(param_1);
-        if (this_00->HeapBeginPtr() != 0) {
-            puVar3 = (ushort*)param_2->HeapBeginPtr();
-            puVar4 = (ushort*)param_2->end();
+        if (((Layout*)this_02->SSOBeginPtr())->HeapBeginPtr() != 0) {
+            puVar3 = (unsigned short*)arg2.HeapBeginPtr();
+            puVar4 = (unsigned short*)arg2.end();
             for (; puVar3 != puVar4; puVar3 = puVar3 + 2) {
                 uVar1 = *puVar3;
-                uVar7 = (ulong)puVar3[1];
-                uVar5 = param_1->HeapBeginPtr();
-                if (uVar5 <= uVar7) {
-                    /* WARNING: Subroutine does not return */
+                arg1 = (unsigned long)puVar3[1];
+                uVar5 = wrapArray.HeapBeginPtr();
+                if (uVar5 <= arg1) {
                     LogAssert("false",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "animation/RT5AnimationSampler.cpp",
@@ -475,46 +406,42 @@ namespace jag::graphics {
                               "AnimationState received boneMap containing data that\'s incompatible with async update "
                               "results!");
                 }
-                pPVar6 = (ParticleVertexDataProxy*)this_02->GetBoneTransform((uint)uVar1);
-                this_01 =
-                    (ParticleVertexDataProxy<math::Vector3T<float>>*)WrapArray<math::Matrix43T<float>>::operator[](
-                        (WrapArray<math::Matrix43T<float>>*)param_1, uVar7);
-                ParticleVertexDataProxy<math::Vector3T<float>>::operator=(this_01, pPVar6);
-                if (uVar5 <= uVar7) {
+                matrix43 = this_02->GetBoneTransform((unsigned int)uVar1);
+                this_01 = &wrapArray[arg1];
+                *this_01 = *matrix43;
+                if (uVar5 <= arg1) {
                     return;
                 }
             }
         }
     }
 
-    // 0x100950400, 128 bytes, placed by class name
-    // RT5AnimationSampler::GetLabelData(WrapArray<float>&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&, AnimationLabelType) const
-    void RT5AnimationSampler::GetLabelData(WrapArray* param_1, vector_map* param_2, int param_4) {
-        WrapArray* pWVar1;
-        Array* pAVar2;
-        WrapArray<game::Cutscene2DAnimation<float>::Key_const> local_30[16];
+    // 0x100950400
+    void RT5AnimationSampler::GetLabelData(WrapArray<float>& wrapArray,
+                                           const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                           AnimationLabelType animationLabelType) const {
+        WrapArray<float>* pWVar1;
+        Array<float>* arg4;
+        WrapArray<game::Cutscene2DAnimation<float>::Key const> local_30;
 
-        if (param_4 == 1) {
-            pWVar1 = (WrapArray*)field_32->GetDefaultValue();
-            WrapArray<game::Cutscene2DAnimation<float>::Key_const>::WrapArray<
-                WrapArray<game::Cutscene2DAnimation<float>::Key_const>>(local_30, pWVar1);
-            pAVar2 = (Array*)&AnimationConstants::IDENTITY_BILLBOARDTRANSFORM;
+        if (animationLabelType == 1) {
+            pWVar1 = (WrapArray<float>*)field_32->GetDefaultValue();
+            local_30.WrapArray<WrapArray<game::Cutscene2DAnimation<float>::Key const>>(*pWVar1);
+            arg4 = (Array<float>*)&AnimationConstants::IDENTITY_BILLBOARDTRANSFORM;
         } else {
-            if (param_4 != 0) {
+            if (animationLabelType != 0) {
                 return;
             }
-            pWVar1 = (WrapArray*)field_32->GetScreen();
-            WrapArray<game::Cutscene2DAnimation<float>::Key_const>::WrapArray<
-                WrapArray<game::Cutscene2DAnimation<float>::Key_const>>(local_30, pWVar1);
-            pAVar2 = (Array*)&AnimationConstants::IDENTITY_DELTA;
+            pWVar1 = (WrapArray<float>*)field_32->GetScreen();
+            local_30.WrapArray<WrapArray<game::Cutscene2DAnimation<float>::Key const>>(*pWVar1);
+            arg4 = (Array<float>*)&AnimationConstants::IDENTITY_DELTA;
         }
-        AnimationSampler::ConcatenateArrays(param_1, local_30, param_2, pAVar2);
+        AnimationSampler::ConcatenateArrays(wrapArray, local_30, arg2, *arg4);
     }
 
 } // namespace jag::graphics
 
-// 0x10094f7e0, 16 bytes, placed by neighbouring functions
-// fmod(float, float)
-void fmod(float param_1, float param_2) {
+// 0x10094f7e0
+void fmod(float arg1, float arg2) {
     _fmodf();
 }

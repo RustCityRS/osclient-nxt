@@ -1,59 +1,55 @@
 // libs/game/runetek5/camera/utils/GeometryTests.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 namespace jag::math {
     class GeometryTests {
     public:
-        SphereLineTest(Intersection&, Vector3T<double> const&, Vector3T<double> const&, Vector3T<double> const&,
-                       double);
-        float Cross(Vector2T<float> const&, Vector2T<float> const&, Vector2T<float> const&);
-        bool PointTriangle2DTest(Vector2T<float> const&, Vector2T<float> const&, Vector2T<float> const&,
-                                 Vector2T<float> const&);
-        static /* 4 bytes */ EPSILON; // = 981467136
+        void SphereLineTest(Intersection& intersection, const Vector3T<double>& vector31,
+                            const Vector3T<double>& vector32, const Vector3T<double>& vector33, double arg5);
+        float Cross(const Vector2T<float>& vector21, const Vector2T<float>& vector22, const Vector2T<float>& vector23);
+        bool PointTriangle2DTest(const Vector2T<float>& vector21, const Vector2T<float>& vector22,
+                                 const Vector2T<float>& vector23, const Vector2T<float>& vector24);
+        static int32_t EPSILON; // = 981467136
     };
 
-    // 0x100d431a8, 4 bytes, __const
-    GeometryTests::EPSILON = 981467136;
+    // 0x100d431a8
+    int32_t GeometryTests::EPSILON = 981467136;
 
-    // 0x100607490, 352 bytes, placed by class name and debug map
-    // GeometryTests::SphereLineTest(GeometryTests::Intersection&, Vector3T<double> const&, Vector3T<double> const&, Vector3T<double> const&, double)
-    undefined8 GeometryTests::SphereLineTest(Intersection* param_1, Vector3T* param_2, Vector3T* param_3,
-                                             Vector3T* param_4, double param_5) {
-        math* this;
-        undefined8 uVar1;
-        Vector3T<double>* this_00;
-        double dVar2;
-        undefined1 local_90[72];
-        double local_48;
-        double local_38;
+    // 0x100607490
+    void GeometryTests::SphereLineTest(GeometryTests::Intersection& intersection, const Vector3T<double>& vector31,
+                                       const Vector3T<double>& vector32, const Vector3T<double>& vector33,
+                                       double arg5) {
+        uint64_t uVar1;
+        Vector3T<double>* vector3T;
+        Vector3T<double> local_90;
+        Vector3T<double> local_78;
+        Vector3T<double> local_60;
 
-        local_38 = param_5;
-        math::operator-((math*)local_90, param_2, param_4);
-        local_48 = Vector3Dot<double>((Vector3T*)local_90, (Vector3T*)local_90);
+        double local_38 = arg5;
+        local_90 - vector31;
+        double local_48 = Vector3Dot<double>(&local_90, &local_90);
         local_38 = local_38 * local_38;
-        dVar2 = Vector3Dot<double>(param_3, (Vector3T*)local_90);
+        double dVar2 = Vector3Dot<double>(vector32, &local_90);
         local_38 = (local_38 - local_48) + dVar2 * dVar2;
         if (0.0 <= local_38) {
             local_48 = dVar2;
-            Vector3T<double>::operator=((Vector3T<double>*)param_1, param_2);
-            if (0.0009765625 <= local_38) {
-                this_00 = (Vector3T<double>*)(param_1 + 24);
-                Vector3T<double>::operator=(this_00, param_2);
-                *(undefined4*)(param_1 + 48) = 2;
+            intersection = vector31;
+            if (0.0009765625f <= local_38) {
+                vector3T = (Vector3T<double>*)(intersection + 24);
+                *vector3T = vector31;
+                *(uint32_t*)(intersection + 48) = 2;
                 local_38 = SQRT(local_38);
-                this = (math*)(local_90 + 48);
-                math::operator*(this, -(local_38 + local_48), param_3);
-                Vector3T<double>::operator+=((Vector3T<double>*)param_1, (Vector3T*)this);
-                math::operator*((math*)(local_90 + 24), local_38 - local_48, param_3);
-                Vector3T<double>::operator=((Vector3T<double>*)this, (Vector3T*)(local_90 + 24));
+                local_60*(*(-(local_38 + local_48)));
+                intersection += local_60;
+                local_78*(*(local_38 - local_48));
+                local_60 = local_78;
             } else {
-                *(undefined4*)(param_1 + 48) = 1;
-                math::operator*((math*)(local_90 + 48), -local_48, param_3);
-                this_00 = (Vector3T<double>*)param_1;
+                *(uint32_t*)(intersection + 48) = 1;
+                local_60*(*(-local_48));
+                vector3T = (Vector3T<double>*)intersection;
             }
-            Vector3T<double>::operator+=(this_00, (Vector3T*)(local_90 + 48));
+            *vector3T += local_60;
             uVar1 = 1;
         } else {
             uVar1 = 0;
@@ -61,48 +57,35 @@ namespace jag::math {
         return uVar1;
     }
 
-    // 0x100607630, 208 bytes, placed by class name and debug map
-    // GeometryTests::Cross(Vector2T<float> const&, Vector2T<float> const&, Vector2T<float> const&)
-    float GeometryTests::Cross(Vector2T* param_1, Vector2T* param_2, Vector2T* param_3) {
-        float fVar1;
-        float fVar2;
-        float fVar3;
-        float fVar4;
-        float fVar5;
-        float fVar6;
-        float fVar7;
-        vector* pvVar8;
-        float* pfVar9;
-
-        pvVar8 = param_1->SSOBeginPtr(param_2);
-        fVar1 = *(float*)pvVar8;
-        pvVar8 = param_3->SSOBeginPtr(param_2);
-        fVar2 = *(float*)pvVar8;
-        pfVar9 = (float*)param_2->y();
-        fVar3 = *pfVar9;
-        pfVar9 = (float*)param_3->y();
-        fVar4 = *pfVar9;
-        pvVar8 = param_2->SSOBeginPtr(param_2);
-        fVar5 = *(float*)pvVar8;
-        pvVar8 = param_3->SSOBeginPtr(param_2);
-        fVar6 = *(float*)pvVar8;
-        pfVar9 = (float*)param_1->y();
-        fVar7 = *pfVar9;
-        pfVar9 = (float*)param_3->y();
-        return (*pfVar9 - fVar7) * (fVar5 - fVar6) + (fVar3 - fVar4) * (fVar1 - fVar2);
+    // 0x100607630
+    float GeometryTests::Cross(const Vector2T<float>& vector21, const Vector2T<float>& vector22,
+                               const Vector2T<float>& vector23) {
+        auto pfVar8 = vector21.SSOBeginPtr();
+        float fVar1 = *pfVar8;
+        pfVar8 = (float*)vector23.SSOBeginPtr();
+        float fVar2 = *pfVar8;
+        pfVar8 = (float*)vector22.y();
+        float fVar3 = *pfVar8;
+        pfVar8 = (float*)vector23.y();
+        float fVar4 = *pfVar8;
+        pfVar8 = (float*)vector22.SSOBeginPtr();
+        float fVar5 = *pfVar8;
+        pfVar8 = (float*)vector23.SSOBeginPtr();
+        float fVar6 = *pfVar8;
+        pfVar8 = (float*)vector21.y();
+        float fVar7 = *pfVar8;
+        pfVar8 = (float*)vector23.y();
+        return (*pfVar8 - fVar7) * (fVar5 - fVar6) + (fVar3 - fVar4) * (fVar1 - fVar2);
     }
 
-    // 0x100607700, 144 bytes, placed by class name and debug map
-    // GeometryTests::PointTriangle2DTest(Vector2T<float> const&, Vector2T<float> const&, Vector2T<float> const&, Vector2T<float> const&)
-    bool GeometryTests::PointTriangle2DTest(Vector2T* param_1, Vector2T* param_2, Vector2T* param_3,
-                                            Vector2T* param_4) {
-        float fVar1;
-        float fVar2;
+    // 0x100607700
+    bool GeometryTests::PointTriangle2DTest(const Vector2T<float>& vector21, const Vector2T<float>& vector22,
+                                            const Vector2T<float>& vector23, const Vector2T<float>& vector24) {
         float extraout_XMM0_Da;
 
-        fVar1 = (float)Cross(param_1, param_2, param_3);
-        fVar2 = (float)Cross(param_1, param_3, param_4);
-        Cross(param_1, param_4, param_2);
+        float fVar1 = (float)Cross(vector21, vector22, vector23);
+        float fVar2 = (float)Cross(vector21, vector23, vector24);
+        Cross(vector21, vector24, vector22);
         return fVar1 < 0.0 != 0.0 <= fVar2 && 0.0 <= extraout_XMM0_Da != fVar1 < 0.0;
     }
 

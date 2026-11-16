@@ -1,1023 +1,777 @@
 // libs/graphics/runetek7/model/GeometryBatchDE.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics
 
 namespace jag {
-    // 0x100838a60, 32 bytes, inline, placed by debug map only (low confidence)
-    // render::Query* placement_new<render::Query>(void*)
-    Query* placement_new<render::Query>(void* param_1) {
-        render::Query::Query(param_1);
-        return param_1;
+    // 0x100838a60
+    render::Query* placement_new<render::Query>(void* arg1) {
+        new (arg1) render::Query();
+        return arg1;
     }
 
-    // 0x100838a80, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<render::Query>* placement_new<ref_counter_shared<render::Query>, int, render::Query*&>(void*, int&&, render::Query*&)
-    ref_counter_shared* placement_new<ref_counter_shared<render::Query>, int, render::Query*&>(void* param_1,
-                                                                                               int* param_2,
-                                                                                               Query** param_3) {
-        ref_counter_shared<render::Query>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100838a80
+    ref_counter_shared<render::Query>*
+    placement_new<ref_counter_shared<render::Query>, int, render::Query*&>(void* arg1, int&& arg2,
+                                                                           render::Query*& arg3) {
+        new (arg1) ref_counter_shared<render::Query>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100838aa0, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<render::Query>(ref_counter_base*, render::Query*, render::Query::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<render::Query>(ref_counter_base* param_1, Query* param_2,
-                                                              enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
+    // 0x100838aa0
+    void shared_ptr_do_enable_shared_from_this<render::Query>(ref_counter_base* ref_counter_base, render::Query* query,
+                                                              render::Query::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)query);
+            local_38 = weak_ptr(local_48);
+            query->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100838b40, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<render::Query>::ref_counter_shared(unsigned long, render::Query*): jumps straight to the base-object constructor
+    // 0x100838b50
+    ref_counter_shared<render::Query>::ref_counter_shared(unsigned long arg1, render::Query* query)
+        : ref_counter_base() {}
 
-    // 0x100838b50, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<render::Query>::ref_counter_shared(unsigned long, render::Query*)
-    void ref_counter_shared<render::Query>::ref_counter_shared(ulong param_1, Query* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee74e0 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(Query**)(this + 24) = param_2;
-    }
-
-    // 0x100838b90, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<render::Query>::DeleteData()
+    // 0x100838b90
     void ref_counter_shared<render::Query>::DeleteData() {
-        ulong uVar1;
+        ref_counter_shared<render::Query> _vtbl* prVar1;
         long lVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar2 = 0;
-                uVar1 = 0;
+                prVar1 = nullptr;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~Query();
-                    uVar1 = uVar1 + 1;
+                    ((Query*)((long)&(this[3]._vptr)->_dtor + lVar2))->~Query();
+                    prVar1 = (ref_counter_shared<render::Query> _vtbl*)((long)&prVar1->_dtor + 1);
                     lVar2 = lVar2 + 184;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (prVar1 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x100838f50, 32 bytes, inline, placed by debug map only (low confidence)
-    // graphics::GeometryQuery* placement_new<graphics::GeometryQuery, render::QueryType&, bool&>(void*, render::QueryType&, bool&)
-    GeometryQuery* placement_new<graphics::GeometryQuery, render::QueryType&, bool&>(void* param_1, QueryType* param_2,
-                                                                                     bool* param_3) {
-        graphics::GeometryQuery::GeometryQuery(param_1, *(undefined4*)param_2, *param_3);
-        return param_1;
+    // 0x100838f50
+    graphics::GeometryQuery*
+    placement_new<graphics::GeometryQuery, render::QueryType&, bool&>(void* arg1, render::QueryType& queryType,
+                                                                      bool& arg3) {
+        new (arg1) graphics::GeometryQuery(queryType, arg3);
+        return arg1;
     }
 
-    // 0x100838f70, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<graphics::GeometryQuery>* placement_new<ref_counter_shared<graphics::GeometryQuery>, int, graphics::GeometryQuery*&>(void*, int&&, graphics::GeometryQuery*&)
-    ref_counter_shared* jag::placement_new<ref_counter_shared<graphics::GeometryQuery>, int, graphics::GeometryQuery*&>(
-        void* param_1, int* param_2, GeometryQuery** param_3) {
-        ref_counter_shared<graphics::GeometryQuery>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100838f70
+    ref_counter_shared<graphics::GeometryQuery>*
+    placement_new<ref_counter_shared<graphics::GeometryQuery>, int, graphics::GeometryQuery*&>(
+        void* arg1, int&& arg2, graphics::GeometryQuery*& arg3) {
+        new (arg1) ref_counter_shared<graphics::GeometryQuery>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100838f90, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<graphics::GeometryQuery>::ref_counter_shared(unsigned long, graphics::GeometryQuery*): jumps straight to the base-object constructor
+    // 0x100838fa0
+    ref_counter_shared<graphics::GeometryQuery>::ref_counter_shared(unsigned long arg1,
+                                                                    graphics::GeometryQuery* geometryQuery)
+        : ref_counter_base() {}
 
-    // 0x100838fa0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<graphics::GeometryQuery>::ref_counter_shared(unsigned long, graphics::GeometryQuery*)
-    void ref_counter_shared<graphics::GeometryQuery>::ref_counter_shared(ulong param_1, GeometryQuery* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7530 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(GeometryQuery**)(this + 24) = param_2;
-    }
-
-    // 0x100838fe0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<graphics::GeometryQuery>::DeleteData()
+    // 0x100838fe0
     void ref_counter_shared<graphics::GeometryQuery>::DeleteData() {
-        ulong uVar1;
+        ref_counter_shared<graphics::GeometryQuery> _vtbl* prVar1;
         long lVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar2 = 0;
-                uVar1 = 0;
+                prVar1 = nullptr;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~GeometryQuery();
-                    uVar1 = uVar1 + 1;
+                    ((GeometryQuery*)((long)&(this[3]._vptr)->_dtor + lVar2))->~GeometryQuery();
+                    prVar1 = (ref_counter_shared<graphics::GeometryQuery> _vtbl*)((long)&prVar1->_dtor + 1);
                     lVar2 = lVar2 + 32;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (prVar1 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x100844a10, 32 bytes, inline, placed by debug map only (low confidence)
-    // graphics::ModelParticleSource* placement_new<graphics::ModelParticleSource, graphics::ModelParticleSource&>(void*, graphics::ModelParticleSource&)
-    ModelParticleSource*
-    placement_new<graphics::ModelParticleSource, graphics::ModelParticleSource&>(void* param_1,
-                                                                                 ModelParticleSource* param_2) {
-        graphics::ModelParticleSource::ModelParticleSource(param_1, param_2);
-        return param_1;
+    // 0x100844a10
+    graphics::ModelParticleSource* placement_new<graphics::ModelParticleSource, graphics::ModelParticleSource&>(
+        void* arg1, graphics::ModelParticleSource& modelParticleSource) {
+        new (arg1) graphics::ModelParticleSource(modelParticleSource);
+        return arg1;
     }
 
-    // 0x100844a30, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768> >* placement_new<MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768> >, MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData*&, graphics::ModelParticleSource*>(void*, MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData*&, graphics::ModelParticleSource*&&)
-    MakeSharedPoolRefCounter* jag::placement_new<
+    // 0x100844a30
+    MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768>>*
+    placement_new<
         MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768>>,
         MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData*&, graphics::ModelParticleSource*>(
-        void* param_1, RefCounterAndData** param_2, ModelParticleSource** param_3) {
-        MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768>>::
-            MakeSharedPoolRefCounter(param_1, *param_2, *param_3);
-        return param_1;
+        void* arg1, MakeSharedPool<graphics::ModelParticleSource, 768>::RefCounterAndData*& arg2,
+        graphics::ModelParticleSource*&& arg3) {
+        new (arg1)
+            MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768>>(
+                arg2, arg3);
+        return arg1;
     }
 
-    // 0x1008450d0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768> >::MakeSharedPoolRefCounter(void*, graphics::ModelParticleSource*): jumps straight to the base-object constructor
-
-    // 0x1008450e0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768> >::MakeSharedPoolRefCounter(void*, graphics::ModelParticleSource*)
-    void
-    jag::MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768>>::
-        MakeSharedPoolRefCounter(MakeSharedPoolRefCounter<graphics::ModelParticleSource,
-                                                          MakeSharedPool<graphics::ModelParticleSource, 768>>* this,
-                                 void* param_1, ModelParticleSource* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7bf0 + 16;
-        *(void**)(this + 16) = param_1;
-        *(ModelParticleSource**)(this + 24) = param_2;
+    // 0x1008450e0
+    MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768>>::
+        MakeSharedPoolRefCounter(void* arg1, graphics::ModelParticleSource* modelParticleSource)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7bf0 + 16;
+        *(void**)(this + 16) = arg1;
+        *(ModelParticleSource**)(this + 24) = modelParticleSource;
     }
 
-    // 0x100845120, 48 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768> >::DeleteData()
-    void
-    jag::MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768>>::
-        DeleteData(MakeSharedPoolRefCounter<graphics::ModelParticleSource,
-                                            MakeSharedPool<graphics::ModelParticleSource, 768>>* this) {
-        if (*(long**)(this + 24) != (long*)0) {
-            (**(code**)(**(long**)(this + 24) + 32))();
-            *(undefined8*)(this + 24) = 0;
+    // 0x100845120
+    void MakeSharedPoolRefCounter<graphics::ModelParticleSource,
+                                  MakeSharedPool<graphics::ModelParticleSource, 768>>::DeleteData() {
+        if (*(long**)(this + 24) != nullptr) {
+            (**(void (**)(...))(**(long**)(this + 24) + 32))();
+            *(uint64_t*)(this + 24) = 0;
         }
     }
 
-    // 0x100845150, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768> >::DeleteSelf()
-    void
-    jag::MakeSharedPoolRefCounter<graphics::ModelParticleSource, MakeSharedPool<graphics::ModelParticleSource, 768>>::
-        DeleteSelf(MakeSharedPoolRefCounter<graphics::ModelParticleSource,
-                                            MakeSharedPool<graphics::ModelParticleSource, 768>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<graphics::ModelParticleSource, 768>::deallocate(pvVar1);
+    // 0x100845150
+    void MakeSharedPoolRefCounter<graphics::ModelParticleSource,
+                                  MakeSharedPool<graphics::ModelParticleSource, 768>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<graphics::ModelParticleSource, 768>::deallocate(arg1);
     }
 
-    // 0x100845520, 32 bytes, inline, placed by debug map only (low confidence)
-    // graphics::VFXAttachmentInfo* placement_new<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo&>(void*, graphics::VFXAttachmentInfo&)
-    VFXAttachmentInfo*
-    placement_new<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo&>(void* param_1,
-                                                                             VFXAttachmentInfo* param_2) {
-        graphics::VFXAttachmentInfo::VFXAttachmentInfo(param_1, param_2);
-        return param_1;
+    // 0x100845520
+    graphics::VFXAttachmentInfo* placement_new<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo&>(
+        void* arg1, graphics::VFXAttachmentInfo& vfxAttachmentInfo) {
+        new (arg1) graphics::VFXAttachmentInfo(vfxAttachmentInfo);
+        return arg1;
     }
 
-    // 0x100845540, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768> >* placement_new<MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768> >, MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData*&, graphics::VFXAttachmentInfo*>(void*, MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData*&, graphics::VFXAttachmentInfo*&&)
-    MakeSharedPoolRefCounter* jag::placement_new<
+    // 0x100845540
+    MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768>>*
+    placement_new<
         MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768>>,
         MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData*&, graphics::VFXAttachmentInfo*>(
-        void* param_1, RefCounterAndData** param_2, VFXAttachmentInfo** param_3) {
-        MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo,
-                                 MakeSharedPool<graphics::VFXAttachmentInfo, 768>>::MakeSharedPoolRefCounter(param_1,
-                                                                                                             *param_2,
-                                                                                                             *param_3);
-        return param_1;
+        void* arg1, MakeSharedPool<graphics::VFXAttachmentInfo, 768>::RefCounterAndData*& arg2,
+        graphics::VFXAttachmentInfo*&& arg3) {
+        new (arg1)
+            MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768>>(
+                arg2, arg3);
+        return arg1;
     }
 
-    // 0x100845680, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768> >::MakeSharedPoolRefCounter(void*, graphics::VFXAttachmentInfo*): jumps straight to the base-object constructor
-
-    // 0x100845690, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768> >::MakeSharedPoolRefCounter(void*, graphics::VFXAttachmentInfo*)
-    void jag::MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768>>::
-        MakeSharedPoolRefCounter(MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo,
-                                                          MakeSharedPool<graphics::VFXAttachmentInfo, 768>>* this,
-                                 void* param_1, VFXAttachmentInfo* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7be8 + 16;
-        *(void**)(this + 16) = param_1;
-        *(VFXAttachmentInfo**)(this + 24) = param_2;
+    // 0x100845690
+    MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768>>::
+        MakeSharedPoolRefCounter(void* arg1, graphics::VFXAttachmentInfo* vfxAttachmentInfo)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7be8 + 16;
+        *(void**)(this + 16) = arg1;
+        *(VFXAttachmentInfo**)(this + 24) = vfxAttachmentInfo;
     }
 
-    // 0x1008456d0, 48 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768> >::DeleteData()
-    void jag::MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768>>::
-        DeleteData(MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo,
-                                            MakeSharedPool<graphics::VFXAttachmentInfo, 768>>* this) {
-        if (*(VFXAttachmentInfo**)(this + 24) != (VFXAttachmentInfo*)0) {
+    // 0x1008456d0
+    void MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo,
+                                  MakeSharedPool<graphics::VFXAttachmentInfo, 768>>::DeleteData() {
+        if (*(VFXAttachmentInfo**)(this + 24) != nullptr) {
             (*(VFXAttachmentInfo**)(this + 24))->~VFXAttachmentInfo();
-            *(undefined8*)(this + 24) = 0;
+            *(uint64_t*)(this + 24) = 0;
         }
     }
 
-    // 0x100845700, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768> >::DeleteSelf()
-    void jag::MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo, MakeSharedPool<graphics::VFXAttachmentInfo, 768>>::
-        DeleteSelf(MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo,
-                                            MakeSharedPool<graphics::VFXAttachmentInfo, 768>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<graphics::VFXAttachmentInfo, 768>::deallocate(pvVar1);
+    // 0x100845700
+    void MakeSharedPoolRefCounter<graphics::VFXAttachmentInfo,
+                                  MakeSharedPool<graphics::VFXAttachmentInfo, 768>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<graphics::VFXAttachmentInfo, 768>::deallocate(arg1);
     }
 
-    // 0x1008464e0, 32 bytes, inline, placed by debug map only (low confidence)
-    // graphics::VFXAttachmentInfo* placement_new<graphics::VFXAttachmentInfo, int, graphics::VFXAttachmentInfo::VertexBonePos, graphics::VFXAttachmentInfo::VertexBonePos, graphics::VFXAttachmentInfo::VertexBonePos>(void*, int&&, graphics::VFXAttachmentInfo::VertexBonePos&&, graphics::VFXAttachmentInfo::VertexBonePos&&, graphics::VFXAttachmentInfo::VertexBonePos&&)
-    VFXAttachmentInfo*
-    jag::placement_new<graphics::VFXAttachmentInfo, int, graphics::VFXAttachmentInfo::VertexBonePos,
-                       graphics::VFXAttachmentInfo::VertexBonePos, graphics::VFXAttachmentInfo::VertexBonePos>(
-        void* param_1, int* param_2, VertexBonePos* param_3, VertexBonePos* param_4, VertexBonePos* param_5) {
-        graphics::VFXAttachmentInfo::VFXAttachmentInfo(param_1, *param_2, param_3, param_4, param_5);
-        return param_1;
+    // 0x1008464e0
+    graphics::VFXAttachmentInfo*
+    placement_new<graphics::VFXAttachmentInfo, int, graphics::VFXAttachmentInfo::VertexBonePos,
+                  graphics::VFXAttachmentInfo::VertexBonePos, graphics::VFXAttachmentInfo::VertexBonePos>(
+        void* arg1, int&& arg2, graphics::VFXAttachmentInfo::VertexBonePos&& vertexBonePos1,
+        graphics::VFXAttachmentInfo::VertexBonePos&& vertexBonePos2,
+        graphics::VFXAttachmentInfo::VertexBonePos&& vertexBonePos3) {
+        new (arg1) graphics::VFXAttachmentInfo(arg2, vertexBonePos1, vertexBonePos2, vertexBonePos3);
+        return arg1;
     }
 
-    // 0x100846500, 32 bytes, inline, placed by debug map only (low confidence)
-    // graphics::ModelParticleSource* placement_new<graphics::ModelParticleSource, unsigned short&, graphics::ModelParticleSource::VertexBonePos, graphics::ModelParticleSource::VertexBonePos, graphics::ModelParticleSource::VertexBonePos>(void*, unsigned short&, graphics::ModelParticleSource::VertexBonePos&&, graphics::ModelParticleSource::VertexBonePos&&, graphics::ModelParticleSource::VertexBonePos&&)
-    ModelParticleSource*
-    jag::placement_new<graphics::ModelParticleSource, unsigned short&, graphics::ModelParticleSource::VertexBonePos,
-                       graphics::ModelParticleSource::VertexBonePos, graphics::ModelParticleSource::VertexBonePos>(
-        void* param_1, ushort* param_2, VertexBonePos* param_3, VertexBonePos* param_4, VertexBonePos* param_5) {
-        graphics::ModelParticleSource::ModelParticleSource(param_1, (uint)*param_2, param_3, param_4, param_5);
-        return param_1;
+    // 0x100846500
+    graphics::ModelParticleSource*
+    placement_new<graphics::ModelParticleSource, unsigned short&, graphics::ModelParticleSource::VertexBonePos,
+                  graphics::ModelParticleSource::VertexBonePos, graphics::ModelParticleSource::VertexBonePos>(
+        void* arg1, unsigned short& arg2, graphics::ModelParticleSource::VertexBonePos&& vertexBonePos1,
+        graphics::ModelParticleSource::VertexBonePos&& vertexBonePos2,
+        graphics::ModelParticleSource::VertexBonePos&& vertexBonePos3) {
+        new (arg1) graphics::ModelParticleSource((unsigned int)*arg2, vertexBonePos1, vertexBonePos2, vertexBonePos3);
+        return arg1;
     }
 
-    // 0x100846520, 32 bytes, inline, placed by debug map only (low confidence)
-    // graphics::ModelParticleSource* placement_new<graphics::ModelParticleSource, unsigned short&, graphics::ModelParticleSource::VertexBonePos>(void*, unsigned short&, graphics::ModelParticleSource::VertexBonePos&&)
-    ModelParticleSource*
-    jag::placement_new<graphics::ModelParticleSource, unsigned short&, graphics::ModelParticleSource::VertexBonePos>(
-        void* param_1, ushort* param_2, VertexBonePos* param_3) {
-        graphics::ModelParticleSource::ModelParticleSource(param_1, (uint)*param_2, param_3);
-        return param_1;
+    // 0x100846520
+    graphics::ModelParticleSource*
+    placement_new<graphics::ModelParticleSource, unsigned short&, graphics::ModelParticleSource::VertexBonePos>(
+        void* arg1, unsigned short& arg2, graphics::ModelParticleSource::VertexBonePos&& vertexBonePos) {
+        new (arg1) graphics::ModelParticleSource((unsigned int)*arg2, vertexBonePos);
+        return arg1;
     }
 
 } // namespace jag
 
 namespace jag::graphicutils {
-    // 0x10083a660, 192 bytes, inline, placed by debug map only (low confidence)
-    // void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::OnDestroy<BatchDestroy<eastl::fixed_vector<shared_ptr<graphics::TextureAtlasReference>, 1ul, true, eastl::allocator> > >(BatchDestroy<eastl::fixed_vector<shared_ptr<graphics::TextureAtlasReference>, 1ul, true, eastl::allocator> >&)
+    // 0x10083a660
     void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::OnDestroy<
-        BatchDestroy<eastl::fixed_vector<shared_ptr<graphics::TextureAtlasReference>, 1ul, true, eastl::allocator>>>(
-        BatchDestroy* param_1) {
+        BatchDestroy<eastl::fixed_vector<shared_ptr<graphics::TextureAtlasReference>, 1ul>>>(
+        BatchDestroy<eastl::fixed_vector<shared_ptr<graphics::TextureAtlasReference>, 1ul>>& batchDestroy) {
         long lVar1;
         long lVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
+        shared_ptr<graphics::TextureAtlasReference>* textureAtlasReference1;
+        shared_ptr<graphics::TextureAtlasReference>* textureAtlasReference2;
+        back_insert_iterator<eastl::vector<shared_ptr<graphics::TextureAtlasReference>> _>* back_insert_iterator;
         vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>* this_00;
-        scoped_lock<std::mutex> local_30[8];
 
-        std::scoped_lock<std::mutex>::scoped_lock(local_30, (mutex*)(this + 56));
+        scoped_lock<std::mutex> local_30(*((this + 56)));
         if (UseDestroyList(this) != '\0') {
             this_00 = (vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>*)(this + 16);
-            lVar1 = eastl::vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>::size(this_00);
-            lVar2 = param_1->size();
+            lVar1 = this_00->size();
+            lVar2 = batchDestroy.size();
             this_00->reserve(lVar1 + lVar2);
-            uVar3 = param_1->HeapBeginPtr();
-            uVar4 = param_1->end();
-            uVar5 = std::back_inserter<eastl::vector<shared_ptr<graphics::TextureAtlasReference>, eastl::allocator>>(
-                (vector*)this_00);
+            textureAtlasReference1 = (shared_ptr<graphics::TextureAtlasReference>*)batchDestroy.HeapBeginPtr();
+            textureAtlasReference2 = (shared_ptr<graphics::TextureAtlasReference>*)batchDestroy.end();
+            back_insert_iterator = (back_insert_iterator<eastl::vector<shared_ptr<graphics::TextureAtlasReference>> _>*)
+                std::back_inserter<eastl::vector<shared_ptr<graphics::TextureAtlasReference>>>(*this_00);
             eastl::move<shared_ptr<graphics::TextureAtlasReference>*,
-                        std::back_insert_iterator<
-                            eastl::vector<shared_ptr<graphics::TextureAtlasReference>, eastl::allocator>>>(uVar3, uVar4,
-                                                                                                           uVar5);
-            param_1->reset_lose_memory();
+                        std::back_insert_iterator<eastl::vector<shared_ptr<graphics::TextureAtlasReference>>>>(
+                textureAtlasReference1, textureAtlasReference2, back_insert_iterator);
+            batchDestroy.reset_lose_memory();
         }
-        std::scoped_lock<std::mutex>::~scoped_lock(local_30);
     }
 
-    // 0x10083a740, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::BatchDestroyHelper(): jumps straight to the base-object constructor
-
-    // 0x10083a780, 304 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::BatchDestroyHelper()
-    void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::BatchDestroyHelper() {
-        BatchDestroyManager* pBVar1;
-        BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>* this_00;
+    // 0x10083a780
+    BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::BatchDestroyHelper() {
         function<void()>* this_01;
-        function local_68[56];
+        function<void()> local_68[56];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
         new (this) AutoSingleton<BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>>();
         new (this) render::RenderDeviceOnEndFrame(true);
-        *(undefined**)this = PTR_vtable_100ee7090 + 16;
-        new ((this + 16)) eastl::vector<shared_ptr<graphics::TextureAtlasReference>, eastl::allocator>();
+        *(uint8_t**)this = PTR_vtable_100ee7090 + 16;
+        new ((this + 16)) eastl::vector<shared_ptr<graphics::TextureAtlasReference>>();
         this[48] = (BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>)1;
         new ((this + 56)) std::mutex();
-        this_00 = this + 120;
-        std::atomic<int>::atomic((int)this_00);
-        pBVar1 = (BatchDestroyManager*)this_00->Instance();
+        atomic<int>* this_00 = (atomic<int>*)(this + 120);
+        new (this_00) std::atomic<int>(0);
+        auto pBVar1 = this_00->Instance();
         std::function<void()>::function<
             BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::BatchDestroyHelper()::_lambda() _1_, void>(
-            local_68, this);
-        pBVar1->AddPauseCallback(local_68);
-        this_01 = (function<void()>*)local_68;
-        std::function<void()>::~function(this_01);
+            local_68, (_lambda___1_*)this);
+        pBVar1->AddPauseCallback(*local_68);
+        this_01 = local_68;
+        this_01->~function();
         pBVar1 = (BatchDestroyManager*)this_01->Instance();
         std::function<void()>::function<
             BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::BatchDestroyHelper()::_lambda() _2_, void>(
-            local_68, this);
-        pBVar1->AddResumeCallback(local_68);
-        std::function<void()>::~function((function<void()>*)local_68);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            local_68, (_lambda___2_*)this);
+        pBVar1->AddResumeCallback(*local_68);
     }
 
-    // 0x10083a940, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::~BatchDestroyHelper(): jumps straight to the base-object destructor
-
-    // 0x10083a950, 32 bytes, deleting destructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::~BatchDestroyHelper()
-    void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::~BatchDestroyHelper() {
-        ~BatchDestroyHelper(this);
-        operator_delete(this);
-    }
-
-    // 0x10083a970, 16 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::OnEndFrame()
+    // 0x10083a970
     void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::OnEndFrame() {
         Flush(this);
     }
 
-    // 0x10083b420, 16 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::BatchDestroyHelper()::{lambda()#1}::operator()() const
-    /* BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>
-   >::BatchDestroyHelper()::{lambda()#1}::TEMPNAMEPLACEHOLDERVALUE() const */
-
+    // 0x10083b420
     void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::BatchDestroyHelper()::{
         lambda() #1
     }
-    ::operator()() {
+    ::operator()() const {
         OnPause(*(BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>**)this);
     }
 
-    // 0x10083b430, 80 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::OnPause()
+    // 0x10083b430
     void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::OnPause() {
-        scoped_lock<std::mutex> local_18[8];
 
-        std::scoped_lock<std::mutex>::scoped_lock(local_18, (mutex*)(this + 56));
+        scoped_lock<std::mutex> local_18(*((this + 56)));
         this[48] = (BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>)0;
         ((this + 16))->clear();
         WaitDestroyList(this);
-        std::scoped_lock<std::mutex>::~scoped_lock(local_18);
     }
 
-    // 0x10083b480, 208 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::WaitDestroyList()
-    /* WARNING: Removing unreachable block (ram,4303598926) */
-    /* BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>
-   >::WaitDestroyList() */
-
+    // 0x10083b480
     void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::WaitDestroyList() {
-        undefined* puVar1;
-        int iVar2;
-        undefined4 uVar3;
-        undefined8 uVar4;
-        int iVar5;
-        __atomic_base* this_00;
-        duration local_30[8];
+        type* extraout_RDX;
+        type* arg2;
+        type* extraout_RDX_00;
+        memory_order memory_order;
+        uint8_t* in_RSI;
+        duration<long long, std::ratio<1l, 1000l>> local_30;
 
-        this_00 = (__atomic_base*)(this + 120);
-        iVar2 = std::__atomic_base::operator_cast_to_int(this_00);
-        puVar1 = PTR_ITERATION_WAIT_TIME_MS_100ee95b0;
-        iVar5 = 0;
-        if (iVar2 != 0) {
+        __atomic_base* this_01 = (__atomic_base*)(this + 120);
+        int iVar1 = std::__atomic_base::operator_cast_to_int(this_01);
+        uint8_t* arg1 = PTR_ITERATION_WAIT_TIME_MS_100ee95b0;
+        memory_order = (memory_order)in_RSI;
+        int iVar3 = 0;
+        if (iVar1 != 0) {
+            arg2 = extraout_RDX;
             do {
-                if (iVar5 == 1000)
+                memory_order = (memory_order)in_RSI;
+                if (iVar3 == 1000)
                     goto LAB_10083b4e6;
-                std::chrono::duration<long long, std::ratio<1l, 1000l>>::duration<int>((int*)local_30, (type*)puVar1);
+                in_RSI = arg1;
+                local_30.duration<int>(*arg1, arg2);
                 std::this_thread::sleep_for<long long, std::ratio<1l, 1000l>>(local_30);
-                iVar2 = std::__atomic_base::operator_cast_to_int(this_00);
-                iVar5 = iVar5 + 1;
-            } while (iVar2 != 0);
+                iVar1 = std::__atomic_base::operator_cast_to_int(this_01);
+                memory_order = (memory_order)in_RSI;
+                iVar3 = iVar3 + 1;
+                arg2 = extraout_RDX_00;
+            } while (iVar1 != 0);
         }
-        if (iVar5 < 1000) {
+        if (iVar3 < 1000) {
             return;
         }
     LAB_10083b4e6:
-        uVar4 = logger::default_logger();
-        uVar3 = std::__atomic_base<int, false>::load(this_00);
-        logger::Logger::Log(uVar4, 0, 2,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                            "graphicutils/BatchDestroy.h",
-                            220, "BatchDestroy took too long, %d entries remaining", uVar3);
-        /* WARNING: Subroutine does not return */
+        auto this_00 = logger::default_logger();
+        uint32_t uVar2 = this_01->load(memory_order);
+        this_00->Log(false, 2,
+                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
+                     "BatchDestroy.h",
+                     220, "BatchDestroy took too long, %d entries remaining", uVar2);
         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
                         "BatchDestroy.h",
-                        221, (char*)0);
+                        221, nullptr);
     }
 
-    // 0x10083c270, 64 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::~BatchDestroyHelper()
-    void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::~BatchDestroyHelper() {
-        *(undefined**)this = PTR_vtable_100ee7090 + 16;
+    // 0x10083c270
+    BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::~BatchDestroyHelper() {
+        *(uint8_t**)this = PTR_vtable_100ee7090 + 16;
         ((this + 56))->~mutex();
         ((this + 16))->~vector();
-        ~RenderDeviceOnEndFrame();
-        ~AutoSingleton();
     }
 
-    // 0x10083c2b0, 80 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::Flush()
+    // 0x10083c2b0
     void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::Flush() {
-        Layout* this_00;
-        vector* pvVar1;
-        type* in_RSI;
-        undefined1 local_20[8];
-        BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>* local_18;
+        ReturnValue local_20;
 
-        this_00 = (Layout*)Instance();
-        pvVar1 = eastl::string::Layout::SSOBeginPtr(this_00, in_RSI);
-        local_18 = this;
+        auto this_00 = Instance();
+        auto this_01 = this_00->SSOBeginPtr();
+        BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>* local_18 = this;
         ThreadPool::AddTask<BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::Flush()::_lambda() _1_>(
-            (ThreadPool*)local_20, (char*)pvVar1, (_lambda___1_*)"Flush");
-        local_20->~future();
+            &local_20, this_01, "Flush", (_lambda___1_*)&local_18);
     }
 
-    // 0x10083cc60, 256 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference> >::Flush()::{lambda()#1}::operator()() const
-    /* BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>
-   >::Flush()::{lambda()#1}::TEMPNAMEPLACEHOLDERVALUE() const */
-
+    // 0x10083cc60
     void BatchDestroyHelper<shared_ptr<graphics::TextureAtlasReference>>::Flush()::{
         lambda() #1
     }
-    ::operator()() {
-        vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>* this_00;
-        long lVar1;
-        int iVar2;
-        ulong uVar3;
-        shared_ptr* psVar4;
-        shared_ptr* psVar5;
-        shared_ptr* psVar6;
-        Array<shared_ptr<graphics::TextureAtlasReference>, BucketAllocatorEASTL> local_48[24];
-        scoped_lock<std::mutex> local_30[8];
+    ::operator()() const {
+        shared_ptr<graphics::TextureAtlasReference>* textureAtlasReference1;
+        shared_ptr<graphics::TextureAtlasReference>* textureAtlasReference2;
+        shared_ptr<graphics::TextureAtlasReference>* textureAtlasReference3;
 
-        lVar1 = *(long*)this;
-        Array<shared_ptr<graphics::TextureAtlasReference>, BucketAllocatorEASTL>::Array(local_48);
-        std::scoped_lock<std::mutex>::scoped_lock(local_30, (mutex*)(lVar1 + 56));
-        this_00 = (vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>*)(lVar1 + 16);
-        iVar2 = eastl::vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>::size(this_00);
-        std::__atomic_base<int, true>::operator+=((__atomic_base<int, true>*)(lVar1 + 120), iVar2);
-        uVar3 = eastl::vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>::size(this_00);
-        local_48->set_max_size(uVar3, 0);
-        psVar4 = (shared_ptr*)this_00->HeapBeginPtr();
-        psVar5 = (shared_ptr*)this_00->end();
-        psVar6 = (shared_ptr*)local_48->data();
+        long lVar1 = *(long*)this;
+        Array<shared_ptr<graphics::TextureAtlasReference>, BucketAllocatorEASTL> local_48;
+        scoped_lock<std::mutex> local_30(*((lVar1 + 56)));
+        vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>* this_00 =
+            (vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>*)(lVar1 + 16);
+        int iVar2 = this_00->size();
+        (*((lVar1 + 120))) += iVar2;
+        local_48.set_max_size(this_00->size(), 0);
+        textureAtlasReference1 = (shared_ptr<graphics::TextureAtlasReference>*)this_00->HeapBeginPtr();
+        textureAtlasReference2 = (shared_ptr<graphics::TextureAtlasReference>*)this_00->end();
+        textureAtlasReference3 = (shared_ptr<graphics::TextureAtlasReference>*)local_48.data();
         eastl::move<shared_ptr<graphics::TextureAtlasReference>*, shared_ptr<graphics::TextureAtlasReference>*>(
-            psVar4, psVar5, psVar6);
+            textureAtlasReference1, textureAtlasReference2, textureAtlasReference3);
         this_00->reset_lose_memory();
-        std::scoped_lock<std::mutex>::~scoped_lock(local_30);
-        iVar2 = local_48->end();
-        local_48->clear();
-        std::__atomic_base<int, true>::operator-=((__atomic_base<int, true>*)(lVar1 + 120), iVar2);
-        local_48->~Array();
+        iVar2 = local_48.end();
+        local_48.clear();
+        (*((lVar1 + 120))) -= iVar2;
     }
 
-    // 0x100840c40, 192 bytes, inline, placed by debug map only (low confidence)
-    // void BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::OnDestroy<BatchDestroy<eastl::vector<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>, eastl::allocator> > >(BatchDestroy<eastl::vector<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>, eastl::allocator> >&)
-    /* void BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   >::OnDestroy<BatchDestroy<eastl::vector<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>,
-   eastl::allocator> >
-   >(BatchDestroy<eastl::vector<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>,
-   eastl::allocator> >&) */
-
-    void graphicutils::BatchDestroyHelper<std::unique_ptr<
-        graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
+    // 0x100840c40
+    void BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
+                                            MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
         OnDestroy<BatchDestroy<
             eastl::vector<std::unique_ptr<graphics::BillboardBatchInstance,
-                                          MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                          eastl::allocator>>>(
-            BatchDestroyHelper<
+                                          MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>>>(
+            BatchDestroy<eastl::vector<
                 std::unique_ptr<graphics::BillboardBatchInstance,
-                                MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>* this,
-            BatchDestroy* param_1) {
+                                MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>>&
+                batchDestroy) {
         long lVar1;
         long lVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        char cVar6;
-        vector<eastl::pair<int, int>, eastl::allocator>* this_00;
-        scoped_lock<std::mutex> local_30[8];
+        unique_ptr<graphics::BillboardBatchInstance,
+                   MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>* billboardBatchInstance1;
+        unique_ptr<graphics::BillboardBatchInstance,
+                   MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>* billboardBatchInstance2;
+        back_insert_iterator<eastl::vector<std::unique_ptr<
+            graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>>
+                                 _>* back_insert_iterator;
+        vector<eastl::pair<int, int>>* this_00;
 
-        std::scoped_lock<std::mutex>::scoped_lock(local_30, (mutex*)(this + 56));
-        cVar6 = UseDestroyList();
-        if (cVar6 != '\0') {
-            this_00 = (vector<eastl::pair<int, int>, eastl::allocator>*)(this + 16);
-            lVar1 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_00);
-            lVar2 = param_1->size();
+        scoped_lock<std::mutex> local_30(*((this + 56)));
+        if (UseDestroyList() != '\0') {
+            this_00 = (vector<eastl::pair<int, int>>*)(this + 16);
+            lVar1 = this_00->size();
+            lVar2 = batchDestroy.size();
             this_00->reserve(lVar1 + lVar2);
-            uVar3 = param_1->HeapBeginPtr();
-            uVar4 = param_1->end();
-            uVar5 = std::back_inserter<
-                eastl::vector<std::unique_ptr<graphics::BillboardBatchInstance,
-                                              MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                              eastl::allocator>>((vector*)this_00);
+            billboardBatchInstance1 =
+                (unique_ptr<graphics::BillboardBatchInstance,
+                            MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>*)
+                    batchDestroy.HeapBeginPtr();
+            billboardBatchInstance2 =
+                (unique_ptr<graphics::BillboardBatchInstance,
+                            MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>*)
+                    batchDestroy.end();
+            back_insert_iterator =
+                (back_insert_iterator<eastl::vector<
+                     std::unique_ptr<graphics::BillboardBatchInstance,
+                                     MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>>
+                                          _>*)
+                    std::back_inserter<eastl::vector<
+                        std::unique_ptr<graphics::BillboardBatchInstance,
+                                        MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>>(
+                        *this_00);
             eastl::move<std::unique_ptr<graphics::BillboardBatchInstance,
                                         MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>*,
                         std::back_insert_iterator<eastl::vector<
                             std::unique_ptr<graphics::BillboardBatchInstance,
-                                            MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                            eastl::allocator>>>(uVar3, uVar4, uVar5);
-            param_1->reset_lose_memory();
+                                            MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>>>(
+                billboardBatchInstance1, billboardBatchInstance2, back_insert_iterator);
+            batchDestroy.reset_lose_memory();
         }
-        std::scoped_lock<std::mutex>::~scoped_lock(local_30);
     }
 
-    // 0x100840d50, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::BatchDestroyHelper(): jumps straight to the base-object constructor
-
-    // 0x100840d90, 304 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::BatchDestroyHelper()
-    /* BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   >::BatchDestroyHelper() */
-
-    void graphicutils::BatchDestroyHelper<std::unique_ptr<
-        graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
-        BatchDestroyHelper(
-            BatchDestroyHelper<
-                std::unique_ptr<graphics::BillboardBatchInstance,
-                                MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>* this) {
-        BatchDestroyManager* pBVar1;
-        BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-                                           MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>*
-            this_00;
+    // 0x100840d90
+    BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
+                                       MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
+        BatchDestroyHelper() {
         function<void()>* this_01;
-        function local_68[56];
+        function<void()> local_68[56];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
         new (this) AutoSingleton<BatchDestroyHelper<
             std::unique_ptr<graphics::BillboardBatchInstance,
                             MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>>();
         new (this) render::RenderDeviceOnEndFrame(true);
-        *(undefined**)this = PTR_vtable_100ee70a0 + 16;
-        new ((this + 16))
-            eastl::vector<std::unique_ptr<graphics::BillboardBatchInstance,
-                                          MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                          eastl::allocator>();
+        *(uint8_t**)this = PTR_vtable_100ee70a0 + 16;
+        new ((this + 16)) eastl::vector();
         this[48] = (BatchDestroyHelper<
                     std::unique_ptr<graphics::BillboardBatchInstance,
                                     MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>)1;
         new ((this + 56)) std::mutex();
-        this_00 = this + 120;
-        std::atomic<int>::atomic((int)this_00);
-        pBVar1 = (BatchDestroyManager*)this_00->Instance();
+        atomic<int>* this_00 = (atomic<int>*)(this + 120);
+        new (this_00) std::atomic<int>(0);
+        auto pBVar1 = this_00->Instance();
         std::function<void()>::function<
             BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
                                                MakeUniquePool<graphics::BillboardBatchInstance, 64>::
                                                    UniquePoolDeleter>>::BatchDestroyHelper()::_lambda() _1_,
-            void>(local_68, this);
-        pBVar1->AddPauseCallback(local_68);
-        this_01 = (function<void()>*)local_68;
-        std::function<void()>::~function(this_01);
+            void>(local_68, (_lambda___1_*)this);
+        pBVar1->AddPauseCallback(*local_68);
+        this_01 = local_68;
+        this_01->~function();
         pBVar1 = (BatchDestroyManager*)this_01->Instance();
         std::function<void()>::function<
             BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
                                                MakeUniquePool<graphics::BillboardBatchInstance, 64>::
                                                    UniquePoolDeleter>>::BatchDestroyHelper()::_lambda() _2_,
-            void>(local_68, this);
-        pBVar1->AddResumeCallback(local_68);
-        std::function<void()>::~function((function<void()>*)local_68);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            void>(local_68, (_lambda___2_*)this);
+        pBVar1->AddResumeCallback(*local_68);
     }
 
-    // 0x100840f40, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::~BatchDestroyHelper(): jumps straight to the base-object destructor
-
-    // 0x100840f50, 32 bytes, deleting destructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::~BatchDestroyHelper()
-    /* BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   >::~BatchDestroyHelper() */
-
-    void graphicutils::BatchDestroyHelper<std::unique_ptr<
-        graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
-        ~BatchDestroyHelper(
-            BatchDestroyHelper<
-                std::unique_ptr<graphics::BillboardBatchInstance,
-                                MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>* this) {
-        ~BatchDestroyHelper(this);
-        operator_delete(this);
-    }
-
-    // 0x100840f70, 16 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::OnEndFrame()
-    /* BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   >::OnEndFrame() */
-
-    void graphicutils::BatchDestroyHelper<std::unique_ptr<
-        graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
-        OnEndFrame(BatchDestroyHelper<
-                   std::unique_ptr<graphics::BillboardBatchInstance,
-                                   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>* this) {
+    // 0x100840f70
+    void BatchDestroyHelper<
+        std::unique_ptr<graphics::BillboardBatchInstance,
+                        MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::OnEndFrame() {
         Flush(this);
     }
 
-    // 0x1008418d0, 16 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::BatchDestroyHelper()::{lambda()#1}::operator()() const
-    /* BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   >::BatchDestroyHelper()::{lambda()#1}::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void graphicutils::BatchDestroyHelper<std::unique_ptr<
-        graphics::BillboardBatchInstance,
-        MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::BatchDestroyHelper()::{
+    // 0x1008418d0
+    void BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
+                                            MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
+        BatchDestroyHelper()::{
         lambda() #1
     }
-    ::operator()() {
+    ::operator()() const {
         OnPause(*(BatchDestroyHelper<
                   std::unique_ptr<graphics::BillboardBatchInstance,
                                   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>**)this);
     }
 
-    // 0x1008418e0, 80 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::OnPause()
-    /* BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::OnPause()
-    */
+    // 0x1008418e0
+    void BatchDestroyHelper<
+        std::unique_ptr<graphics::BillboardBatchInstance,
+                        MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::OnPause() {
 
-    void graphicutils::BatchDestroyHelper<std::unique_ptr<
-        graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
-        OnPause(BatchDestroyHelper<
-                std::unique_ptr<graphics::BillboardBatchInstance,
-                                MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>* this) {
-        scoped_lock<std::mutex> local_18[8];
-
-        std::scoped_lock<std::mutex>::scoped_lock(local_18, (mutex*)(this + 56));
+        scoped_lock<std::mutex> local_18(*((this + 56)));
         this[48] = (BatchDestroyHelper<
                     std::unique_ptr<graphics::BillboardBatchInstance,
                                     MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>)0;
         ((this + 16))->clear();
         WaitDestroyList(this);
-        std::scoped_lock<std::mutex>::~scoped_lock(local_18);
     }
 
-    // 0x100841930, 208 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::WaitDestroyList()
-    /* WARNING: Removing unreachable block (ram,4303624702) */
-    /* BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   >::WaitDestroyList() */
+    // 0x100841930
+    void BatchDestroyHelper<
+        std::unique_ptr<graphics::BillboardBatchInstance,
+                        MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::WaitDestroyList() {
+        type* extraout_RDX;
+        type* arg2;
+        type* extraout_RDX_00;
+        memory_order memory_order;
+        uint8_t* in_RSI;
+        duration<long long, std::ratio<1l, 1000l>> local_30;
 
-    void graphicutils::BatchDestroyHelper<std::unique_ptr<
-        graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
-        WaitDestroyList(
-            BatchDestroyHelper<
-                std::unique_ptr<graphics::BillboardBatchInstance,
-                                MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>* this) {
-        undefined* puVar1;
-        int iVar2;
-        undefined4 uVar3;
-        undefined8 uVar4;
-        int iVar5;
-        __atomic_base* this_00;
-        duration local_30[8];
-
-        this_00 = (__atomic_base*)(this + 120);
-        iVar2 = std::__atomic_base::operator_cast_to_int(this_00);
-        puVar1 = PTR_ITERATION_WAIT_TIME_MS_100ee95b8;
-        iVar5 = 0;
-        if (iVar2 != 0) {
+        __atomic_base* this_01 = (__atomic_base*)(this + 120);
+        int iVar1 = std::__atomic_base::operator_cast_to_int(this_01);
+        uint8_t* arg1 = PTR_ITERATION_WAIT_TIME_MS_100ee95b8;
+        memory_order = (memory_order)in_RSI;
+        int iVar3 = 0;
+        if (iVar1 != 0) {
+            arg2 = extraout_RDX;
             do {
-                if (iVar5 == 1000)
+                memory_order = (memory_order)in_RSI;
+                if (iVar3 == 1000)
                     goto LAB_100841996;
-                std::chrono::duration<long long, std::ratio<1l, 1000l>>::duration<int>((int*)local_30, (type*)puVar1);
+                in_RSI = arg1;
+                local_30.duration<int>(*arg1, arg2);
                 std::this_thread::sleep_for<long long, std::ratio<1l, 1000l>>(local_30);
-                iVar2 = std::__atomic_base::operator_cast_to_int(this_00);
-                iVar5 = iVar5 + 1;
-            } while (iVar2 != 0);
+                iVar1 = std::__atomic_base::operator_cast_to_int(this_01);
+                memory_order = (memory_order)in_RSI;
+                iVar3 = iVar3 + 1;
+                arg2 = extraout_RDX_00;
+            } while (iVar1 != 0);
         }
-        if (iVar5 < 1000) {
+        if (iVar3 < 1000) {
             return;
         }
     LAB_100841996:
-        uVar4 = logger::default_logger();
-        uVar3 = std::__atomic_base<int, false>::load(this_00);
-        logger::Logger::Log(uVar4, 0, 2,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                            "graphicutils/BatchDestroy.h",
-                            220, "BatchDestroy took too long, %d entries remaining", uVar3);
-        /* WARNING: Subroutine does not return */
+        auto this_00 = logger::default_logger();
+        uint32_t uVar2 = this_01->load(memory_order);
+        this_00->Log(false, 2,
+                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
+                     "BatchDestroy.h",
+                     220, "BatchDestroy took too long, %d entries remaining", uVar2);
         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
                         "BatchDestroy.h",
-                        221, (char*)0);
+                        221, nullptr);
     }
 
-    // 0x100842300, 64 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::~BatchDestroyHelper()
-    /* BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   >::~BatchDestroyHelper() */
-
-    void graphicutils::BatchDestroyHelper<std::unique_ptr<
-        graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
-        ~BatchDestroyHelper(
-            BatchDestroyHelper<
-                std::unique_ptr<graphics::BillboardBatchInstance,
-                                MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>* this) {
-        *(undefined**)this = PTR_vtable_100ee70a0 + 16;
+    // 0x100842300
+    BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
+                                       MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
+        ~BatchDestroyHelper() {
+        *(uint8_t**)this = PTR_vtable_100ee70a0 + 16;
         ((this + 56))->~mutex();
         ((this + 16))->~vector();
-        ~RenderDeviceOnEndFrame();
-        ~AutoSingleton();
     }
 
-    // 0x100842340, 80 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::Flush()
-    /* BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::Flush() */
+    // 0x100842340
+    void BatchDestroyHelper<
+        std::unique_ptr<graphics::BillboardBatchInstance,
+                        MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::Flush() {
+        ReturnValue local_20;
 
-    void graphicutils::BatchDestroyHelper<std::unique_ptr<
-        graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::
-        Flush(BatchDestroyHelper<
-              std::unique_ptr<graphics::BillboardBatchInstance,
-                              MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>* this) {
-        Layout* this_00;
-        vector* pvVar1;
-        type* in_RSI;
-        undefined1 local_20[8];
+        auto this_00 = Instance();
+        auto this_01 = this_00->SSOBeginPtr();
         BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
                                            MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>*
-            local_18;
-
-        this_00 = (Layout*)Instance();
-        pvVar1 = eastl::string::Layout::SSOBeginPtr(this_00, in_RSI);
-        local_18 = this;
+            local_18 = this;
         ThreadPool::AddTask<BatchDestroyHelper<std::unique_ptr<
             graphics::BillboardBatchInstance,
             MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::Flush()::_lambda() _1_>(
-            (ThreadPool*)local_20, (char*)pvVar1, (_lambda___1_*)"Flush");
-        local_20->~future();
+            &local_20, this_01, "Flush", (_lambda___1_*)&local_18);
     }
 
-    // 0x1008429f0, 256 bytes, inline, placed by debug map only (low confidence)
-    // BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> >::Flush()::{lambda()#1}::operator()() const
-    /* BatchDestroyHelper<std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   >::Flush()::{lambda()#1}::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void graphicutils::BatchDestroyHelper<
+    // 0x1008429f0
+    void BatchDestroyHelper<
         std::unique_ptr<graphics::BillboardBatchInstance,
                         MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>>::Flush()::{
         lambda() #1
     }
-    ::operator()() {
-        vector<eastl::pair<int, int>, eastl::allocator>* this_00;
-        long lVar1;
-        int iVar2;
-        ulong uVar3;
-        unique_ptr* puVar4;
-        unique_ptr* puVar5;
-        unique_ptr* puVar6;
+    ::operator()() const {
+        unique_ptr<graphics::BillboardBatchInstance,
+                   MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>* billboardBatchInstance1;
+        unique_ptr<graphics::BillboardBatchInstance,
+                   MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>* billboardBatchInstance2;
+        unique_ptr<graphics::BillboardBatchInstance,
+                   MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>* billboardBatchInstance3;
+
+        long lVar1 = *(long*)this;
         Array<std::unique_ptr<graphics::BillboardBatchInstance,
                               MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>,
               BucketAllocatorEASTL>
-            local_48[24];
-        scoped_lock<std::mutex> local_30[8];
-
-        lVar1 = *(long*)this;
-        Array<std::unique_ptr<graphics::BillboardBatchInstance,
-                              MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>,
-              BucketAllocatorEASTL>::Array(local_48);
-        std::scoped_lock<std::mutex>::scoped_lock(local_30, (mutex*)(lVar1 + 56));
-        this_00 = (vector<eastl::pair<int, int>, eastl::allocator>*)(lVar1 + 16);
-        iVar2 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_00);
-        std::__atomic_base<int, true>::operator+=((__atomic_base<int, true>*)(lVar1 + 120), iVar2);
-        uVar3 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_00);
-        local_48->set_max_size(uVar3, 0);
-        puVar4 = (unique_ptr*)this_00->HeapBeginPtr();
-        puVar5 = (unique_ptr*)this_00->end();
-        puVar6 = (unique_ptr*)local_48->data();
+            local_48;
+        scoped_lock<std::mutex> local_30(*((lVar1 + 56)));
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)(lVar1 + 16);
+        int iVar2 = this_00->size();
+        (*((lVar1 + 120))) += iVar2;
+        local_48.set_max_size(this_00->size(), 0);
+        billboardBatchInstance1 =
+            (unique_ptr<graphics::BillboardBatchInstance,
+                        MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>*)
+                this_00->HeapBeginPtr();
+        billboardBatchInstance2 =
+            (unique_ptr<graphics::BillboardBatchInstance,
+                        MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>*)this_00->end();
+        billboardBatchInstance3 =
+            (unique_ptr<graphics::BillboardBatchInstance,
+                        MakeUniquePool<graphics::BillboardBatchInstance, _64>::UniquePoolDeleter>*)local_48.data();
         eastl::move<std::unique_ptr<graphics::BillboardBatchInstance,
                                     MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>*,
                     std::unique_ptr<graphics::BillboardBatchInstance,
                                     MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>*>(
-            puVar4, puVar5, puVar6);
+            billboardBatchInstance1, billboardBatchInstance2, billboardBatchInstance3);
         this_00->reset_lose_memory();
-        std::scoped_lock<std::mutex>::~scoped_lock(local_30);
-        iVar2 = local_48->end();
-        local_48->clear();
-        std::__atomic_base<int, true>::operator-=((__atomic_base<int, true>*)(lVar1 + 120), iVar2);
-        local_48->~Array();
+        iVar2 = local_48.end();
+        local_48.clear();
+        (*((lVar1 + 120))) -= iVar2;
     }
 
 } // namespace jag::graphicutils
 
 namespace jag::fixedfunction {
-    // 0x100848fb0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)
-    void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
-        graphics::Model::ConstructFinishAndUpload()::__2, void>(
-        function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>* this, __2* param_1) {
-        *(undefined8*)this = 0;
-        *(Model**)(this + 16) = param_1->field_0;
-        *(code**)(this + 144) = function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(
+    // 0x100848fb0
+    function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
+        graphics::Model::ConstructFinishAndUpload()::$_2, void>(
+        graphics::Model::ConstructFinishAndUpload()::$_2&& arg1) {
+        *(uint64_t*)this = 0;
+        *(Model**)(this + 16) = arg1.field_0;
+        *(void (**)(...))(this + 144) = function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(
             graphics::Model::ConstructFinishAndUpload()::$_2&&)::{
             lambda(void*, void*) #1
         }
         ::__invoke;
-        *(code**)this = function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(
+        *(void (**)(...))this = function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(
             graphics::Model::ConstructFinishAndUpload()::$_2&&)::{
             lambda(void*, render::RenderContext&) #1
         }
         ::RenderContext__;
-        *(code**)(this + 152) = function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(
+        *(void (**)(...))(this + 152) = function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(
             graphics::Model::ConstructFinishAndUpload()::$_2&&)::{
             lambda(void*) #1
         }
         ::__invoke;
     }
 
-    // 0x100848ff0, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{lambda(void*, void*)#1}::__invoke(void*, void*)
-    /* __invoke(void*, void*) */
-
-    void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
+    // 0x100848ff0
+    void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
         graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{
         lambda(void*, void*) #1
     }
-    ::__invoke(void* param_1, void* param_2) {
-        operator()(param_1, param_2);
+    ::__invoke(void* arg1, void* arg2) {
+        operator()(this, arg1, arg2);
     }
 
-    // 0x100849000, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{lambda(void*, void*)#1}::operator()(void*, void*) const
-    /* function<void (render::RenderContext&), 128ul, 16ul,
-   (Methods)0>::function<graphics::Model::ConstructFinishAndUpload()::$_2,
-   void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{lambda(void*,
-   void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, void*) const */
-
-    void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
+    // 0x100849000
+    void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
         graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{
         lambda(void*, void*) #1
     }
-    ::operator()(void* param_1, void* param_2) {
-        *(undefined8*)param_2 = *(undefined8*)param_1;
+    ::operator()(void* arg1, void* arg2) const {
+        *(uint64_t*)arg1 = *(uint64_t*)this;
     }
 
-    // 0x100849010, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{lambda(void*, render::RenderContext&)#1}::__invoke(void*, render::RenderContext&)
-    void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
+    // 0x100849010
+    void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
         graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{
         lambda(void*, render::RenderContext&) #1
     }
-    ::RenderContext__(void* param_1, RenderContext* param_2) {
-        operator()(param_1, param_2);
+    ::__invoke(void* arg1, render::RenderContext& renderContext) {
+        operator()(this, arg1, renderContext);
     }
 
-    // 0x100849020, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{lambda(void*, render::RenderContext&)#1}::operator()(void*, render::RenderContext&) const
-    /* function<void (render::RenderContext&), 128ul, 16ul,
-   (Methods)0>::function<graphics::Model::ConstructFinishAndUpload()::$_2,
-   void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{lambda(void*,
-   render::RenderContext&)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, render::RenderContext&)
-   const */
-
-    void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
+    // 0x100849020
+    void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
         graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{
         lambda(void*, render::RenderContext&) #1
     }
-    ::operator()(void* param_1, RenderContext * param_2) {
-        graphics::Model::ConstructFinishAndUpload()::$_2::operator()(param_1, param_2);
+    ::operator()(void* arg1, render::RenderContext & renderContext) const {
+        graphics::Model::ConstructFinishAndUpload()::$_2::operator()((__2*)this, arg1);
     }
 
-    // 0x100849040, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{lambda(void*)#1}::__invoke(void*)
-    /* __invoke(void*) */
-
-    void fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
+    // 0x100849040
+    void function<void(render::RenderContext&), 128ul, 16ul, (Methods)0>::function<
         graphics::Model::ConstructFinishAndUpload()::$_2, void>(graphics::Model::ConstructFinishAndUpload()::$_2&&)::{
         lambda(void*) #1
     }
-    ::__invoke(void* param_1) {}
+    ::__invoke(void* arg1) {}
 
-    // 0x10084a500, 80 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)
-    void
-    function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::__4,
+    // 0x10084a500
+    function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4,
                                                                 void>(
-        function<void(BaseApp*), 128ul, 16ul, (Methods)0>* this, __4* param_1) {
-        *(undefined8*)this = 0;
-        graphics::ModelMaterial::DestroyEnvironmentMap()::$_4::__4((__4*)(this + 16), (__4*)param_1);
-        *(code**)(this + 144) = function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(
+        graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&& arg1) {
+        *(uint64_t*)this = 0;
+        graphics::ModelMaterial::DestroyEnvironmentMap()::$_4::__4((__4*)(this + 16), (__4*)arg1);
+        *(void (**)(...))(this + 144) = function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(
             graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{
             lambda(void*, void*) #1
         }
         ::__invoke;
-        *(code**)this = function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(
+        *(void (**)(...))this = function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(
             graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{
             lambda(void*, BaseApp*) #1
         }
         ::BaseApp__;
-        *(code**)(this + 152) = function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(
+        *(void (**)(...))(this + 152) = function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(
             graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{
             lambda(void*) #1
         }
         ::__invoke;
     }
 
-    // 0x10084a570, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{lambda(void*, void*)#1}::__invoke(void*, void*)
-    /* __invoke(void*, void*) */
-
+    // 0x10084a570
     void
     function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4,
                                                                 void>(
         graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{
         lambda(void*, void*) #1
     }
-    ::__invoke(void* param_1, void* param_2) {
-        operator()(param_1, param_2);
+    ::__invoke(void* arg1, void* arg2) {
+        operator()(this, arg1, arg2);
     }
 
-    // 0x10084a580, 32 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{lambda(void*, void*)#1}::operator()(void*, void*) const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4,
-   void>(graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{lambda(void*,
-   void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, void*) const */
-
+    // 0x10084a580
     void
     function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4,
                                                                 void>(
         graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{
         lambda(void*, void*) #1
     }
-    ::operator()(void* param_1, void* param_2) {
-        graphics::ModelMaterial::DestroyEnvironmentMap()::$_4::__4(param_2, param_1);
+    ::operator()(void* arg1, void* arg2) const {
+        graphics::ModelMaterial::DestroyEnvironmentMap()::$_4::__4(arg1, (__4*)this);
     }
 
-    // 0x10084a5c0, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{lambda(void*, BaseApp*)#1}::__invoke(void*, BaseApp*)
+    // 0x10084a5c0
     void
     function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4,
                                                                 void>(
         graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{
         lambda(void*, BaseApp*) #1
     }
-    ::BaseApp__() {}
+    ::__invoke(void* arg1, BaseApp* baseApp) {}
 
-    // 0x10084a5d0, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{lambda(void*)#1}::__invoke(void*)
-    /* __invoke(void*) */
-
+    // 0x10084a5d0
     void
     function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4,
                                                                 void>(
         graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{
         lambda(void*) #1
     }
-    ::__invoke(void* param_1) {
-        operator()(this, param_1);
+    ::__invoke(void* arg1) {
+        operator()(this, arg1);
     }
 
-    // 0x10084a5e0, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4, void>(graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{lambda(void*)#1}::operator()(void*) const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4,
-   void>(graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{lambda(void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*)
-   const */
-
+    // 0x10084a5e0
     void
     function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<graphics::ModelMaterial::DestroyEnvironmentMap()::$_4,
                                                                 void>(
         graphics::ModelMaterial::DestroyEnvironmentMap()::$_4&&)::{
         lambda(void*) #1
     }
-    ::operator()(void* param_1) {
+    ::operator()(void* arg1) const {
         graphics::ModelMaterial::DestroyEnvironmentMap()::$_4::~__4((__4*)this);
     }
 
@@ -1028,364 +782,258 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~GeometryBatch_DE();
-        virtual void Render(RT7Core&, render::DrawCallState const&, SceneViewData const&, RenderPassType,
-                            EffectManager&);
-        virtual void GetRenderer(RT7Core&);
-        GeometryBatch_DE(
-            math::OBB const&, float,
-            eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*,
-            unsigned int, GeometryBatchInstance&);
+        virtual void Render(RT7Core& rt7Core, const render::DrawCallState& drawCallState,
+                            const SceneViewData& sceneViewData, RenderPassType renderPassType,
+                            EffectManager& effectManager);
+        virtual void GetRenderer(RT7Core& rt7Core);
+        GeometryBatch_DE(const math::OBB& obb, float arg2, const eastl::vector_map<int, FaceGroupRenderMasks>* arg3,
+                         unsigned int arg4, GeometryBatchInstance& geometryBatchInstance);
 
-        // data members, from how the methods use this: 160 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        char _unknown_8[96];
-        vector_map* field_104; // offset 104
-        uint field_112;        // offset 112
-        char _unknown_116[4];
-        GeometryBatchInstance* field_120; // offset 120
-        char _unknown_128[16];
-        undefined2 field_144; // offset 144
-        char _unknown_146[14];
+    private:
+        uint8_t _unknown_8[96];
+        vector_map<int, FaceGroupRenderMasks>* field_104;
+        unsigned int field_112;
+        uint8_t _unknown_116[4];
+        GeometryBatchInstance* field_120;
+        uint8_t _unknown_128[16];
+        uint16_t field_144;
+        uint8_t _unknown_146[14];
     };
 
     class SharedVertexCountNormal {
     public:
         SharedVertexCountNormal();
 
-        // data members, from how the methods use this: 12 bytes
-        char _unknown_0[12];
+        uint8_t _unknown_0[12];
     };
 
-    // 0x100838280, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // GeometryBatch_DE::GeometryBatch_DE(math::OBB const&, float, eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator> > const*, unsigned int, GeometryBatchInstance&): jumps straight to the base-object constructor
-
-    // 0x1008382f0, 144 bytes, base-object constructor, inline, placed by class name and debug map
-    // GeometryBatch_DE::GeometryBatch_DE(math::OBB const&, float, eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator> > const*, unsigned int, GeometryBatchInstance&)
-    void GeometryBatch_DE::GeometryBatch_DE(OBB* param_1, float param_2, vector_map* param_3, uint param_4,
-                                            GeometryBatchInstance* param_5) {
-        uint uVar1;
-
-        uVar1 = (&param_5->field_8)->GetPos();
-        new (this) DrawableElementPool<GeometryBatch_DE>(param_1, uVar1, param_2);
-        field_0 = PTR_vtable_100ee87a0 + 16;
-        field_104 = param_3;
-        field_112 = param_4;
-        field_120 = param_5;
-        new (&field_128) math::Vector3T<int>();
+    // 0x1008382f0
+    GeometryBatch_DE::GeometryBatch_DE(const math::OBB& obb, float arg2,
+                                       const eastl::vector_map<int, FaceGroupRenderMasks>* arg3, unsigned int arg4,
+                                       GeometryBatchInstance& geometryBatchInstance) {
+        unsigned int arg2_00 = geometryBatchInstance.field_8.GetPos();
+        new (this) DrawableElementPool<GeometryBatch_DE>(obb, arg2_00, arg2);
+        field_104 = arg3;
+        field_112 = arg4;
+        field_120 = geometryBatchInstance;
+        new (&field_128) math::Vector3T();
         field_144 = 0;
     }
 
-    // 0x100838380, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // DrawableElementPool<GeometryBatch_DE>::DrawableElementPool(math::OBB const&, unsigned int, float)
-    void DrawableElementPool<GeometryBatch_DE>::DrawableElementPool(OBB* param_1, uint param_2, float param_3) {
-        new (this) DrawableElement(param_1, param_2, param_3);
-        *(undefined**)this = PTR_vtable_100ee87e8 + 16;
-    }
+    // 0x100838380
+    DrawableElementPool<GeometryBatch_DE>::DrawableElementPool(const math::OBB& obb, unsigned int arg2, float arg3)
+        : DrawableElement(obb, arg2, arg3) {}
 
-    // 0x1008383b0, 80 bytes, inline, placed by debug map only (low confidence)
-    // DrawableElementPool<GeometryBatch_DE>::Release()
+    // 0x1008383b0
     void DrawableElementPool<GeometryBatch_DE>::Release() {
-        char cVar1;
-
         GetDrawableElementPool();
-        cVar1 = (&GetDrawableElementPool()::pool)->is_owner(this);
-        if (cVar1 == '\0') {
-            if (this != (DrawableElementPool<GeometryBatch_DE>*)0) {
-                (**(code**)(*(long*)this + 8))(this);
+        if (((FastPool<GeometryBatch_DE, int>*)&GetDrawableElementPool()::pool)->is_owner(this) == '\0') {
+            if (this != nullptr) {
+                ~();
             }
         } else {
-            (&GetDrawableElementPool()::pool)->Destroy(this);
+            ((FastPool<GeometryBatch_DE, int>*)&GetDrawableElementPool()::pool)->Destroy(this);
         }
     }
 
-    // 0x100838400, 96 bytes, inline, placed by class name and debug map
-    // GeometryBatch_DE::Render(RT7Core&, render::DrawCallState const&, SceneViewData const&, RenderPassType, EffectManager&)
-    void GeometryBatch_DE::Render(RT7Core* param_1, undefined8 param_2, undefined8 param_3, undefined4 param_5,
-                                  undefined8 param_6) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-
-        uVar1 = param_1->GetGeometryBatchRenderer();
-        uVar2 = param_1->GetRenderContext();
-        GeometryBatchRenderer::Render(uVar1, this, uVar2, param_2, param_3, param_5, param_6);
+    // 0x100838400
+    void GeometryBatch_DE::Render(RT7Core& rt7Core, const render::DrawCallState& drawCallState,
+                                  const SceneViewData& sceneViewData, RenderPassType renderPassType,
+                                  EffectManager& effectManager) {
+        auto geometryBatch_DE = rt7Core.GetGeometryBatchRenderer();
+        auto drawCallState_00 = rt7Core.GetRenderContext();
+        GeometryBatchRenderer::Render(*geometryBatch_DE, *this, *drawCallState_00, drawCallState,
+                                      (RenderPassType)sceneViewData, *((EffectManager*)(unsigned long)renderPassType));
     }
 
-    // 0x100838460, 16 bytes, inline, placed by class name and debug map
-    // GeometryBatch_DE::GetRenderer(RT7Core&)
-    void GeometryBatch_DE::GetRenderer(RT7Core* param_1) {
-        param_1->GetGeometryBatchRenderer();
+    // 0x100838460
+    void GeometryBatch_DE::GetRenderer(RT7Core& rt7Core) {
+        rt7Core.GetGeometryBatchRenderer();
     }
 
-    // 0x1008499b0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // SharedVertexCountNormal::SharedVertexCountNormal(): jumps straight to the base-object constructor
-
-    // 0x1008499c0, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // SharedVertexCountNormal::SharedVertexCountNormal()
-    void SharedVertexCountNormal::SharedVertexCountNormal() {
-        new (&field_4) math::Vector3T<int>();
+    // 0x1008499c0
+    SharedVertexCountNormal::SharedVertexCountNormal() {
+        new (&field_4) math::Vector3T();
     }
 
 } // namespace jag::graphics
 
-// 0x1008390f0, 16 bytes, placed by debug map only (low confidence)
-// cos(float)
-void cos(float param_1) {
+// 0x1008390f0
+void cos(float arg1) {
     _cosf();
 }
 
-// 0x100839100, 16 bytes, placed by debug map only (low confidence)
-// sin(float)
-void sin(float param_1) {
+// 0x100839100
+void sin(float arg1) {
     _sinf();
 }
 
 namespace jag::math {
-    // 0x100839110, 2128 bytes, inline, placed by debug map only (low confidence)
-    // Matrix44T<float> operator*<float>(Matrix44T<float> const&, Matrix33T<float> const&)
-    /* Matrix44T<float> TEMPNAMEPLACEHOLDERVALUE(Matrix44T<float>
-   const&, Matrix33T<float> const&) */
+    // 0x100839110
+    Matrix44T<float> operator* <float>(const Matrix44T<float>& matrix44, const Matrix33T<float>& matrix33) {
+        Matrix33T<float>* in_RDX;
 
-    Matrix44T* operator*(Matrix44T* __return_storage_ptr__, math* this, Matrix44T* param_1, Matrix33T* param_2) {
-        float fVar1;
-        float fVar2;
-        float fVar3;
-        float fVar4;
-        float fVar5;
-        float fVar6;
-        float fVar7;
-        float fVar8;
-        float fVar9;
-        float fVar10;
-        float fVar11;
-        float fVar12;
-        float fVar13;
-        float fVar14;
-        float fVar15;
-        float fVar16;
-        float fVar17;
-        float fVar18;
-        float fVar19;
-        float fVar20;
-        float fVar21;
-        float fVar22;
-        float fVar23;
-        float fVar24;
-        float fVar25;
-        float fVar26;
-        float fVar27;
-        float fVar28;
-        float fVar29;
-        float fVar30;
-        float fVar31;
-        float fVar32;
-        float fVar33;
-        float fVar34;
-        float fVar35;
-        float fVar36;
-        float fVar37;
-        float fVar38;
-        float fVar39;
-        float fVar40;
-        float fVar41;
-        float fVar42;
-        float fVar43;
-        float fVar44;
-        float fVar45;
-        float fVar46;
-        float fVar47;
-        float fVar48;
-        float fVar49;
-        float fVar50;
-        float fVar51;
-        float fVar52;
-        float fVar53;
-        float fVar54;
-        float fVar55;
-        float fVar56;
-        float fVar57;
-        float fVar58;
-        float fVar59;
-        float fVar60;
-        float fVar61;
-        float fVar62;
-        float fVar63;
-        float fVar64;
-        float fVar65;
-        float fVar66;
-        float fVar67;
-        float fVar68;
-        float fVar69;
-        float fVar70;
-        float fVar71;
-        float fVar72;
-        float fVar73;
-        float fVar74;
-        float fVar75;
-        float* pfVar76;
-        long lVar77;
-
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar1 = *pfVar76;
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar2 = *pfVar76;
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar3 = *(float*)(lVar77 + 4);
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar4 = *pfVar76;
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar5 = *(float*)(lVar77 + 8);
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar6 = *pfVar76;
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar7 = *pfVar76;
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar8 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar9 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar10 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar11 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar12 = *(float*)(lVar77 + 4);
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar13 = *pfVar76;
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar14 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar15 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar16 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar17 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar18 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 0);
-        fVar19 = *(float*)(lVar77 + 12);
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar20 = *pfVar76;
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar21 = *pfVar76;
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar22 = *(float*)(lVar77 + 4);
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar23 = *pfVar76;
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar24 = *(float*)(lVar77 + 8);
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar25 = *pfVar76;
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar26 = *pfVar76;
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar27 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar28 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar29 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar30 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar31 = *(float*)(lVar77 + 4);
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar32 = *pfVar76;
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar33 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar34 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar35 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar36 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar37 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 1);
-        fVar38 = *(float*)(lVar77 + 12);
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar39 = *pfVar76;
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar40 = *pfVar76;
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar41 = *(float*)(lVar77 + 4);
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar42 = *pfVar76;
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar43 = *(float*)(lVar77 + 8);
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar44 = *pfVar76;
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar45 = *pfVar76;
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar46 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar47 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar48 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar49 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar50 = *(float*)(lVar77 + 4);
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar51 = *pfVar76;
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar52 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar53 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar54 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar55 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar56 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 2);
-        fVar57 = *(float*)(lVar77 + 12);
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        fVar58 = *pfVar76;
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar59 = *pfVar76;
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        fVar60 = *(float*)(lVar77 + 4);
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar61 = *pfVar76;
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        fVar62 = *(float*)(lVar77 + 8);
-        pfVar76 = (float*)Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar63 = *pfVar76;
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        fVar64 = *pfVar76;
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar65 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        fVar66 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar67 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        fVar68 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar69 = *(float*)(lVar77 + 4);
-        pfVar76 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        fVar70 = *pfVar76;
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 0);
-        fVar71 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        fVar72 = *(float*)(lVar77 + 4);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 1);
-        fVar73 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        fVar74 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix33T<float>::operator[]((Matrix33T<float>*)param_1, 2);
-        fVar75 = *(float*)(lVar77 + 8);
-        lVar77 = Matrix44T<float>::operator[]((Matrix44T<float>*)this, 3);
-        new (__return_storage_ptr__) Matrix44T<float>(
+        float* pfVar73 = &matrix33[0];
+        float fVar1 = *pfVar73;
+        pfVar73 = (float*)(*in_RDX)[0];
+        float fVar2 = *pfVar73;
+        long lVar74 = matrix33[0];
+        float fVar3 = *(float*)(lVar74 + 4);
+        pfVar73 = (float*)(*in_RDX)[1];
+        float fVar4 = *pfVar73;
+        lVar74 = matrix33[0];
+        float fVar5 = *(float*)(lVar74 + 8);
+        pfVar73 = (float*)(*in_RDX)[2];
+        float fVar6 = *pfVar73;
+        pfVar73 = &matrix33[0];
+        float fVar7 = *pfVar73;
+        lVar74 = (*in_RDX)[0];
+        float fVar8 = *(float*)(lVar74 + 4);
+        lVar74 = matrix33[0];
+        float fVar9 = *(float*)(lVar74 + 4);
+        lVar74 = (*in_RDX)[1];
+        float fVar10 = *(float*)(lVar74 + 4);
+        lVar74 = matrix33[0];
+        float fVar11 = *(float*)(lVar74 + 8);
+        lVar74 = (*in_RDX)[2];
+        float fVar12 = *(float*)(lVar74 + 4);
+        pfVar73 = &matrix33[0];
+        float fVar13 = *pfVar73;
+        lVar74 = (*in_RDX)[0];
+        float fVar14 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[0];
+        float fVar15 = *(float*)(lVar74 + 4);
+        lVar74 = (*in_RDX)[1];
+        float fVar16 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[0];
+        float fVar17 = *(float*)(lVar74 + 8);
+        lVar74 = (*in_RDX)[2];
+        float fVar18 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[0];
+        float arg4 = *(float*)(lVar74 + 12);
+        pfVar73 = &matrix33[1];
+        float fVar19 = *pfVar73;
+        pfVar73 = (float*)(*in_RDX)[0];
+        float fVar20 = *pfVar73;
+        lVar74 = matrix33[1];
+        float fVar21 = *(float*)(lVar74 + 4);
+        pfVar73 = (float*)(*in_RDX)[1];
+        float fVar22 = *pfVar73;
+        lVar74 = matrix33[1];
+        float fVar23 = *(float*)(lVar74 + 8);
+        pfVar73 = (float*)(*in_RDX)[2];
+        float fVar24 = *pfVar73;
+        pfVar73 = &matrix33[1];
+        float fVar25 = *pfVar73;
+        lVar74 = (*in_RDX)[0];
+        float fVar26 = *(float*)(lVar74 + 4);
+        lVar74 = matrix33[1];
+        float fVar27 = *(float*)(lVar74 + 4);
+        lVar74 = (*in_RDX)[1];
+        float fVar28 = *(float*)(lVar74 + 4);
+        lVar74 = matrix33[1];
+        float fVar29 = *(float*)(lVar74 + 8);
+        lVar74 = (*in_RDX)[2];
+        float fVar30 = *(float*)(lVar74 + 4);
+        pfVar73 = &matrix33[1];
+        float fVar31 = *pfVar73;
+        lVar74 = (*in_RDX)[0];
+        float fVar32 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[1];
+        float fVar33 = *(float*)(lVar74 + 4);
+        lVar74 = (*in_RDX)[1];
+        float fVar34 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[1];
+        float fVar35 = *(float*)(lVar74 + 8);
+        lVar74 = (*in_RDX)[2];
+        float fVar36 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[1];
+        float arg8 = *(float*)(lVar74 + 12);
+        pfVar73 = &matrix33[2];
+        float fVar37 = *pfVar73;
+        pfVar73 = (float*)(*in_RDX)[0];
+        float fVar38 = *pfVar73;
+        lVar74 = matrix33[2];
+        float fVar39 = *(float*)(lVar74 + 4);
+        pfVar73 = (float*)(*in_RDX)[1];
+        float fVar40 = *pfVar73;
+        lVar74 = matrix33[2];
+        float fVar41 = *(float*)(lVar74 + 8);
+        pfVar73 = (float*)(*in_RDX)[2];
+        float fVar42 = *pfVar73;
+        pfVar73 = &matrix33[2];
+        float fVar43 = *pfVar73;
+        lVar74 = (*in_RDX)[0];
+        float fVar44 = *(float*)(lVar74 + 4);
+        lVar74 = matrix33[2];
+        float fVar45 = *(float*)(lVar74 + 4);
+        lVar74 = (*in_RDX)[1];
+        float fVar46 = *(float*)(lVar74 + 4);
+        lVar74 = matrix33[2];
+        float fVar47 = *(float*)(lVar74 + 8);
+        lVar74 = (*in_RDX)[2];
+        float fVar48 = *(float*)(lVar74 + 4);
+        pfVar73 = &matrix33[2];
+        float fVar49 = *pfVar73;
+        lVar74 = (*in_RDX)[0];
+        float fVar50 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[2];
+        float fVar51 = *(float*)(lVar74 + 4);
+        lVar74 = (*in_RDX)[1];
+        float fVar52 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[2];
+        float fVar53 = *(float*)(lVar74 + 8);
+        lVar74 = (*in_RDX)[2];
+        float fVar54 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[2];
+        float arg12 = *(float*)(lVar74 + 12);
+        pfVar73 = &matrix33[3];
+        float fVar55 = *pfVar73;
+        pfVar73 = (float*)(*in_RDX)[0];
+        float fVar56 = *pfVar73;
+        lVar74 = matrix33[3];
+        float fVar57 = *(float*)(lVar74 + 4);
+        pfVar73 = (float*)(*in_RDX)[1];
+        float fVar58 = *pfVar73;
+        lVar74 = matrix33[3];
+        float fVar59 = *(float*)(lVar74 + 8);
+        pfVar73 = (float*)(*in_RDX)[2];
+        float fVar60 = *pfVar73;
+        pfVar73 = &matrix33[3];
+        float fVar61 = *pfVar73;
+        lVar74 = (*in_RDX)[0];
+        float fVar62 = *(float*)(lVar74 + 4);
+        lVar74 = matrix33[3];
+        float fVar63 = *(float*)(lVar74 + 4);
+        lVar74 = (*in_RDX)[1];
+        float fVar64 = *(float*)(lVar74 + 4);
+        lVar74 = matrix33[3];
+        float fVar65 = *(float*)(lVar74 + 8);
+        lVar74 = (*in_RDX)[2];
+        float fVar66 = *(float*)(lVar74 + 4);
+        pfVar73 = &matrix33[3];
+        float fVar67 = *pfVar73;
+        lVar74 = (*in_RDX)[0];
+        float fVar68 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[3];
+        float fVar69 = *(float*)(lVar74 + 4);
+        lVar74 = (*in_RDX)[1];
+        float fVar70 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[3];
+        float fVar71 = *(float*)(lVar74 + 8);
+        lVar74 = (*in_RDX)[2];
+        float fVar72 = *(float*)(lVar74 + 8);
+        lVar74 = matrix33[3];
+        new (matrix44) Matrix44T<float>(
             fVar5 * fVar6 + fVar3 * fVar4 + fVar1 * fVar2, fVar11 * fVar12 + fVar9 * fVar10 + fVar7 * fVar8,
-            fVar17 * fVar18 + fVar15 * fVar16 + fVar13 * fVar14, fVar19,
-            fVar24 * fVar25 + fVar22 * fVar23 + fVar20 * fVar21, fVar30 * fVar31 + fVar28 * fVar29 + fVar26 * fVar27,
-            fVar36 * fVar37 + fVar34 * fVar35 + fVar32 * fVar33, fVar38,
-            fVar43 * fVar44 + fVar41 * fVar42 + fVar39 * fVar40, fVar49 * fVar50 + fVar47 * fVar48 + fVar45 * fVar46,
-            fVar55 * fVar56 + fVar53 * fVar54 + fVar51 * fVar52, fVar57,
-            fVar62 * fVar63 + fVar60 * fVar61 + fVar58 * fVar59, fVar68 * fVar69 + fVar66 * fVar67 + fVar64 * fVar65,
-            fVar74 * fVar75 + fVar72 * fVar73 + fVar70 * fVar71, *(float*)(lVar77 + 12));
-        return __return_storage_ptr__;
+            fVar17 * fVar18 + fVar15 * fVar16 + fVar13 * fVar14, arg4,
+            fVar23 * fVar24 + fVar21 * fVar22 + fVar19 * fVar20, fVar29 * fVar30 + fVar27 * fVar28 + fVar25 * fVar26,
+            fVar35 * fVar36 + fVar33 * fVar34 + fVar31 * fVar32, arg8,
+            fVar41 * fVar42 + fVar39 * fVar40 + fVar37 * fVar38, fVar47 * fVar48 + fVar45 * fVar46 + fVar43 * fVar44,
+            fVar53 * fVar54 + fVar51 * fVar52 + fVar49 * fVar50, arg12,
+            fVar59 * fVar60 + fVar57 * fVar58 + fVar55 * fVar56, fVar65 * fVar66 + fVar63 * fVar64 + fVar61 * fVar62,
+            fVar71 * fVar72 + fVar69 * fVar70 + fVar67 * fVar68, *(float*)(lVar74 + 12));
+        return matrix44;
     }
 
 } // namespace jag::math

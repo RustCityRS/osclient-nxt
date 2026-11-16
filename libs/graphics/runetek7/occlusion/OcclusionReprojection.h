@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/occlusion/OcclusionReprojection.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,26 +7,28 @@ namespace jag::graphics {
     class OcclusionReprojection {
     public:
         class FrameData;
-        IsCPUReprojectionReady() const;
-        OcclusionReprojection(OcclusionManager&, ProjectionMode);
+        bool IsCPUReprojectionReady() const;
+        OcclusionReprojection(OcclusionManager& occlusionManager, ProjectionMode projectionMode);
         ~OcclusionReprojection();
-        void ReprojectOcclusionBuffer(OcclusionManager const&, ThreadPool&, SceneViewData const&, SceneViewData const&,
-                                      bool, SceneViewData*);
-        void WriteReprojectionResult(float*, bool, SceneViewData*);
-        void ReprojectAndRenderDepth(float*, float, float, float, float __vector(4) const&, float __vector(4) const&,
-                                     float __vector(4) const&, float __vector(4) const&, float __vector(4) const&,
-                                     float __vector(4) const&, float __vector(4) const&,
-                                     float __vector(4) const&) const;
-        void RenderDepth(float*, math::Vector4T<float> const&) const;
+        void ReprojectOcclusionBuffer(const OcclusionManager& occlusionManager, ThreadPool& threadPool,
+                                      const SceneViewData& sceneViewData1, const SceneViewData& sceneViewData2,
+                                      bool arg5, SceneViewData* sceneViewData3);
+        void WriteReprojectionResult(float* arg1, bool arg2, SceneViewData* sceneViewData);
+        void ReprojectAndRenderDepth(float* arg1, float arg2, float arg3, float arg4, const float __vector(4) & arg5,
+                                     const float __vector(4) & arg6, const float __vector(4) & arg7,
+                                     const float __vector(4) & arg8, const float __vector(4) & arg9,
+                                     const float __vector(4) & arg10, const float __vector(4) & arg11,
+                                     const float __vector(4) & arg12) const;
+        void RenderDepth(float* arg1, const math::Vector4T<float>& vector4) const;
 
-        // data members, from how the methods use this: 1536 bytes
-        OcclusionManager* field_0;         // offset 0
-        undefined1 m_cPUReprojectionReady; // offset 8
-        char _unknown_9[1511];
-        uint field_1520; // offset 1520
-        char _unknown_1524[4];
-        int field_1528; // offset 1528
-        char _unknown_1532[4];
+    private:
+        OcclusionManager* field_0;
+        uint8_t m_cPUReprojectionReady;
+        uint8_t _unknown_9[1511];
+        unsigned int field_1520;
+        uint8_t _unknown_1524[4];
+        ProjectionMode field_1528;
+        uint8_t _unknown_1532[4];
     };
 
     class OcclusionReprojection::FrameData {
@@ -35,40 +36,24 @@ namespace jag::graphics {
         FrameData();
         ~FrameData();
 
-        // data members, from how the methods use this: 748 bytes
-        char _unknown_0[64];
-        SceneViewData field_64; // offset 64
-        char _unknown_728[8];
-        undefined1 field_736; // offset 736
-        char _unknown_737[3];
-        undefined4 field_740; // offset 740
-        char _unknown_744[4];
+    private:
+        uint8_t _unknown_0[64];
+        SceneViewData field_64;
+        uint8_t _unknown_728[8];
+        uint8_t field_736;
+        uint8_t _unknown_737[3];
+        uint32_t field_740;
+        uint8_t _unknown_744[4];
     };
 
-    // 0x10082ed40, 16 bytes, complete-object constructor, inline, placed by class name
-    // OcclusionReprojection::FrameData::FrameData(): jumps straight to the base-object constructor
+    // 0x10082ed60
+    OcclusionReprojection::FrameData::FrameData() : Array<float>(), field_736(0), field_740(2139095039) {}
 
-    // 0x10082ed50, 16 bytes, complete-object destructor, inline, placed by class name
-    // OcclusionReprojection::FrameData::~FrameData(): jumps straight to the base-object destructor
-
-    // 0x10082ed60, 128 bytes, base-object constructor, inline, placed by class name
-    // OcclusionReprojection::FrameData::FrameData()
-    void OcclusionReprojection::FrameData::FrameData() {
-        new (this) Array<float, eastl::allocator>();
-        new (&field_24) Array<float, eastl::allocator>();
-        new (&field_48) std::future<void>();
-        new (field_64) SceneViewData();
-        field_736 = 0;
-        field_740 = 2139095039;
-    }
-
-    // 0x10082ede0, 64 bytes, base-object destructor, inline, placed by class name
-    // OcclusionReprojection::FrameData::~FrameData()
-    void OcclusionReprojection::FrameData::~FrameData() {
+    // 0x10082ede0
+    OcclusionReprojection::FrameData::~FrameData() {
         field_64->~SceneViewData();
         (&field_48)->~future();
-        (&field_24)->~Array();
-        ~Array();
+        field_24.~Array();
     }
 
 } // namespace jag::graphics

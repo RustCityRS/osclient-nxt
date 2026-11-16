@@ -1,497 +1,394 @@
 // projects/osclient/client_network.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "client.h"
 
 namespace jag::oldscape {
-    // 0x1000ccf80, 5568 bytes, placed by class name and debug map
-    // Client::LoginPoll()
+    // 0x1000ccf80
     void Client::LoginPoll() {
-        undefined1* this_00;
-        undefined8* this_01;
-        undefined1* this_02;
-        undefined1* this_03;
-        SuperPacket* this_04;
-        bool bVar1;
-        char cVar2;
-        short sVar3;
-        int iVar4;
-        undefined4 uVar5;
-        uint uVar6;
-        long lVar7;
-        SecureRandom* pSVar8;
-        ServerConnection* pSVar9;
-        _func_decltype_nullptr* p_Var10;
-        LoginManager* pLVar11;
-        int* piVar12;
-        long* plVar13;
-        undefined4* puVar14;
-        GameToken* this_05;
-        basic_string* pbVar15;
-        basic_string* pbVar16;
-        basic_string* pbVar17;
-        TotpPassCodes* pTVar18;
-        DeviceOptions* this_06;
-        char* pcVar19;
-        uchar* puVar20;
-        ulong uVar21;
-        vector<unsigned int, eastl::allocator>* this_07;
-        undefined8 uVar22;
-        int* piVar23;
-        ShuffledPacket2* pSVar24;
-        ShuffledPacket4* pSVar25;
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>* pPVar26;
-        ShuffledPacket3* pSVar27;
-        undefined8 extraout_RDX;
-        array<eastl::string, 3ul>* this_08;
-        unique_ptr* in_RSI;
-        longlong lVar28;
-        unique_ptr<LoginState, std::default_delete<LoginState>>* this_09;
-        undefined1 auVar29[16];
-        eastl::string local_1e8[32];
-        undefined1 local_1c8[80];
+        void result;
+        uint64_t* this_00;
+        UpdateUserDetailsV2* superPacket;
+        uint64_t uVar1;
+        bool cVar3;
+        uint8_t arg1;
+        uint32_t uVar6;
+        PublishingPlatformType PVar7;
+        unsigned int uVar8;
+        long lVar9;
+        SecureRandom* pSVar10;
+        unsigned int* puVar12;
+        LoginManager* pLVar13;
+        int* piVar14;
+        long* plVar15;
+        uint32_t* puVar16;
+        eastl::string* str1;
+        eastl::string* str2;
+        eastl::string* str3;
+        TotpPassCodes* pTVar17;
+        DeviceOptions* this_03;
+        char* str;
+        unsigned char* puVar18;
+        unsigned long uVar19;
+        vector<unsigned int>* this_04;
+        unsigned int* puVar20;
+        ShuffledPacket2* pSVar21;
+        ShuffledPacket4* pSVar22;
+        PacketT<Array<unsigned char, BucketAllocatorEASTL>>* pPVar23;
+        ShuffledPacket3* pSVar24;
+        array<eastl::string, 3ul>* this_05;
+        ReturnValue* in_RSI;
+        unsigned long long arg1_00;
+        ReturnValue result;
+        UpdateUserDetailsV2* pUVar25;
+        eastl::string local_1e8;
+        TextureAtlasReference local_1c8;
+        WindowSavedPosition local_198;
         SuperShuffledPacketFactory local_178;
-        unique_ptr<LoginState, std::default_delete<LoginState>> local_168[8];
-        undefined1 local_160[8];
-        SuperPacket local_158[6];
-        long local_38;
+        ReturnValue local_168;
+        uint8_t local_160[8];
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_00 = &field_19120;
-        bVar1 = std::operator==((unique_ptr*)this_00, (_func_decltype_nullptr*)in_RSI);
-        if (bVar1) {
-            std::make_unique<ServerConnection>();
-            in_RSI = (unique_ptr*)local_160;
-            std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator=(
-                (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00, (unique_ptr*)local_160);
-            local_160->~unique_ptr();
-            lVar7 = Singleton<SecureRandom>::InstancePtr();
-            if (lVar7 == 0) {
-                pSVar8 = operator_new(320);
-                SecureRandom::SecureRandom(pSVar8);
-                lVar7 = Singleton<SecureRandom>::InstancePtr();
-                if (lVar7 == 0) {
-                    /* WARNING: Subroutine does not return */
+        uint8_t* serverConnection = &field_19120;
+        if (serverConnection == in_RSI) {
+            &result = (ReturnValue*)local_160;
+            result = std::make_unique<ServerConnection>();
+            in_RSI = &result;
+            *serverConnection = result;
+            result.~unique_ptr();
+            lVar9 = result.InstancePtr();
+            if (lVar9 == 0) {
+                pSVar10 = (SecureRandom*)operator new(320);
+                new (pSVar10) SecureRandom();
+                lVar9 = pSVar10->InstancePtr();
+                if (lVar9 == 0) {
                     LogAssert("SecureRandom::InstancePtr() != nullptr",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                               "client_network.cpp",
-                              84, (char*)0);
+                              84, nullptr);
                 }
             }
         }
-        pSVar9 =
-            (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-        iVar4 = pSVar9->GetConnectionState();
-        if (iVar4 == 1) {
-            p_Var10 = (_func_decltype_nullptr*)
-                          std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                              (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-            pSVar9 = (ServerConnection*)local_168;
-            pSVar9->ConsumeUpdatedLoginState();
-            bVar1 = std::operator!=((unique_ptr*)pSVar9, p_Var10);
-            if (bVar1) {
-                (&field_1104120)->MarkServerDataSeen();
-                this_09 = local_168;
-                puVar14 =
-                    (undefined4*)std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(this_09);
-                switch (*puVar14) {
+        ServerConnection* pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+        int iVar5 = pSVar11->GetConnectionState();
+        if (iVar5 == 1) {
+            pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+            local_168 = pSVar11->ConsumeUpdatedLoginState();
+            if (&local_168 != pSVar11) {
+                field_1104120.MarkServerDataSeen();
+                puVar16 = (uint32_t*)local_168.operator->();
+                switch (*puVar16) {
                 case 1:
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    iVar4 = pSVar9->GetConnectionState();
-                    if (iVar4 != 2) {
-                        /* WARNING: Subroutine does not return */
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    iVar5 = pSVar11->GetConnectionState();
+                    if (iVar5 != 2) {
                         LogAssert("m_gameCon->GetConnectionState() == ConnectionState::CONNECTING_IDLE",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                   "client_network.cpp",
-                                  181, (char*)0);
+                                  181, nullptr);
                     }
-                    pSVar8 = (SecureRandom*)pSVar9->Instance();
-                    ((local_1c8 + 48))->PacketT(500);
-                    uVar5 = pSVar8->GetInt();
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    puVar14 = (undefined4*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)(lVar7 + 432), 0);
-                    *puVar14 = uVar5;
-                    uVar5 = pSVar8->GetInt();
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    puVar14 = (undefined4*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)(lVar7 + 432), 1);
-                    *puVar14 = uVar5;
-                    uVar5 = pSVar8->GetInt();
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    puVar14 = (undefined4*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)(lVar7 + 432), 2);
-                    *puVar14 = uVar5;
-                    uVar5 = pSVar8->GetInt();
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    puVar14 = (undefined4*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)(lVar7 + 432), 3);
-                    *puVar14 = uVar5;
-                    PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-                        (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), 1);
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    piVar12 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)(lVar7 + 432), 0);
-                    PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                        (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), *piVar12);
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    piVar12 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)(lVar7 + 432), 1);
-                    PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                        (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), *piVar12);
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    piVar12 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)(lVar7 + 432), 2);
-                    PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                        (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), *piVar12);
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    piVar12 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)(lVar7 + 432), 3);
-                    PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                        (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), *piVar12);
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    lVar28 = 3203386110;
+                    pSVar10 = pSVar11->Instance();
+                    local_198.PacketT(500);
+                    uVar6 = pSVar10->GetInt();
+                    lVar9 = local_168.operator->();
+                    puVar16 = (uint32_t*)(*((lVar9 + 432)))[0];
+                    *puVar16 = uVar6;
+                    uVar6 = pSVar10->GetInt();
+                    lVar9 = local_168.operator->();
+                    puVar16 = (uint32_t*)(*((lVar9 + 432)))[1];
+                    *puVar16 = uVar6;
+                    uVar6 = pSVar10->GetInt();
+                    lVar9 = local_168.operator->();
+                    puVar16 = (uint32_t*)(*((lVar9 + 432)))[2];
+                    *puVar16 = uVar6;
+                    uVar6 = pSVar10->GetInt();
+                    lVar9 = local_168.operator->();
+                    puVar16 = (uint32_t*)(*((lVar9 + 432)))[3];
+                    *puVar16 = uVar6;
+                    local_198.p1<unsigned long>(1);
+                    lVar9 = local_168.operator->();
+                    puVar12 = (unsigned int*)(*((lVar9 + 432)))[0];
+                    local_198.p4<int>(*puVar12);
+                    lVar9 = local_168.operator->();
+                    puVar12 = (unsigned int*)(*((lVar9 + 432)))[1];
+                    local_198.p4<int>(*puVar12);
+                    lVar9 = local_168.operator->();
+                    puVar12 = (unsigned int*)(*((lVar9 + 432)))[2];
+                    local_198.p4<int>(*puVar12);
+                    lVar9 = local_168.operator->();
+                    puVar12 = (unsigned int*)(*((lVar9 + 432)))[3];
+                    local_198.p4<int>(*puVar12);
+                    lVar9 = local_168.operator->();
+                    arg1_00 = 3203386110;
                     if (field_54712 == 0) {
-                        lVar28 = *(longlong*)(lVar7 + 112);
+                        arg1_00 = *(unsigned long long*)(lVar9 + 112);
                     }
-                    PacketT<Array<unsigned char, eastl::allocator>>::p8<long long>(
-                        (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), lVar28);
+                    local_198.p8<long long>(arg1_00);
                     if (field_8448 == 40) {
-                        this_01 = &field_55200;
-                        piVar12 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)this_01, 0);
-                        PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                            (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), *piVar12);
-                        piVar12 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)this_01, 1);
-                        PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                            (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), *piVar12);
-                        piVar12 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)this_01, 2);
-                        PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                            (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), *piVar12);
-                        piVar12 = (int*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)this_01, 3);
-                        PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                            (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), *piVar12);
+                        this_00 = &field_55200;
+                        puVar12 = (unsigned int*)(*this_00)[0];
+                        local_198.p4<int>(*puVar12);
+                        puVar12 = (unsigned int*)(*this_00)[1];
+                        local_198.p4<int>(*puVar12);
+                        puVar12 = (unsigned int*)(*this_00)[2];
+                        local_198.p4<int>(*puVar12);
+                        puVar12 = (unsigned int*)(*this_00)[3];
+                        local_198.p4<int>(*puVar12);
                     } else {
                         if (TitleScreen::m_dobSubmitted == '\0') {
-                            PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-                                (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48),
-                                (ulong)(byte)field_55056);
+                            local_198.p1<unsigned long>((unsigned int)(uint8_t)field_55056);
                             switch (field_55056) {
                             case 0:
-                                pTVar18 =
-                                    (TotpPassCodes*)
-                                        std::unique_ptr<TotpPassCodes, std::default_delete<TotpPassCodes>>::operator->((
-                                            unique_ptr<TotpPassCodes, std::default_delete<TotpPassCodes>>*)&field_8392);
-                                pLVar11 =
-                                    (LoginManager*)
-                                        std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-                                            (unique_ptr<LoginManager,
-                                                        std::default_delete<LoginManager>>*)&field_2506376);
-                                iVar4 = pLVar11->GetAuthenticatorUserHash();
-                                iVar4 = pTVar18->GetTotpPassCode(iVar4);
-                                PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                                    (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), iVar4);
+                                pTVar17 = (TotpPassCodes*)field_8392.operator->();
+                                pLVar13 = (LoginManager*)field_2506376.operator->();
+                                iVar5 = pLVar13->GetAuthenticatorUserHash();
+                                uVar8 = pTVar17->GetTotpPassCode(iVar5);
+                                local_198.p4<int>(uVar8);
                                 break;
                             case 1:
                             case 3:
-                                PacketT<Array<unsigned char, eastl::allocator>>::p3<int>(
-                                    (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48),
-                                    TitleScreen::m_loginTotpPin);
-                                PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-                                    (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), 0);
+                                local_198.p3<int>(TitleScreen::m_loginTotpPin);
+                                local_198.p1<unsigned long>(0);
                                 break;
                             case 2:
                             case 4:
-                                PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                                    (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), 0);
+                                local_198.p4<int>(0);
                             }
                         } else {
                             TitleScreen::m_dobSubmitted = '\0';
-                            PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-                                (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48), 4);
-                            PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                                (PacketT<Array<unsigned char, eastl::allocator>>*)(local_1c8 + 48),
-                                TitleScreen::m_dobInput);
+                            local_198.p1<unsigned long>(4);
+                            local_198.p4<int>(TitleScreen::m_dobInput);
                         }
-                        pLVar11 =
-                            (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-                                (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)&field_2506376);
-                        pLVar11->PackLoginRSAData((PacketJ*)(local_1c8 + 48));
+                        pLVar13 = (LoginManager*)field_2506376.operator->();
+                        pLVar13->PackLoginRSAData(local_198);
                     }
-                    ((local_1c8 + 48))
-                        ->rsaEncrypt((BigInteger*)&ClientKeys::login_rsae, (BigInteger*)&ClientKeys::login_rsan);
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    uVar22 = *(undefined8*)(lVar7 + 440);
-                    field_55200 = *(undefined8*)(lVar7 + 432);
-                    field_55208 = uVar22;
-                    local_160->MakeClientMessage();
+                    local_198.rsaEncrypt(*((BigInteger*)&ClientKeys::login_rsae),
+                                         *((BigInteger*)&ClientKeys::login_rsan));
+                    lVar9 = local_168.operator->();
+                    uVar1 = *(uint64_t*)(lVar9 + 440);
+                    field_55200 = *(uint64_t*)(lVar9 + 432);
+                    field_55208 = uVar1;
+                    *local_160 = shared::ClientMessage::MakeClientMessage();
                     if (field_8448 == 40) {
-                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)(local_160 + 8));
+                        ((local_160 + 8))->p1<shared::LoginProt::ID>(18);
                     } else {
-                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)(local_160 + 8));
+                        ((local_160 + 8))->p1<shared::LoginProt::ID>(16);
                     }
-                    this_04 = (SuperPacket*)(local_160 + 8);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p2<int>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, 0);
-                    local_1c8._32_8_ = this_04->size();
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, 216);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, 1);
-                    uVar5 = rs2lib::social::ClanChannelDelta::UpdateUserDetailsV2::GetID();
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, uVar5);
-                    uVar5 = GetPublishingPlatformType();
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, uVar5);
-                    pLVar11 = (LoginManager*)GetLoginManager(this);
-                    auVar29 = pLVar11->GetAuthWrapper();
-                    uVar22 = auVar29._8_8_;
-                    plVar13 = auVar29._0_8_;
-                    if (plVar13 == (long*)0) {
-                        uVar6 = 0;
+                    superPacket = (UpdateUserDetailsV2*)(local_160 + 8);
+                    superPacket->p2<int>(0);
+                    local_1c8._32_8_ = superPacket->size();
+                    superPacket->p4<int>(216);
+                    pUVar25 = superPacket;
+                    superPacket->p4<int>(1);
+                    PVar7 = pUVar25->GetID();
+                    superPacket->p1<shared::LoginProt::ID>(PVar7);
+                    PVar7 = GetPublishingPlatformType();
+                    superPacket->p1<shared::LoginProt::ID>(PVar7);
+                    pLVar13 = GetLoginManager();
+                    plVar15 = (long*)pLVar13->GetAuthWrapper();
+                    if (plVar15 == nullptr) {
+                        arg1 = false;
                     } else {
-                        uVar6 = (**(code**)(*plVar13 + 536))(plVar13);
-                        uVar22 = extraout_RDX;
+                        arg1 = (**(void (**)(...))(*plVar15 + 536))(plVar15);
                     }
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<signed char>(this_04, uVar6 & 255, uVar22,
-                                                                                         uVar6);
-                    puVar20 = (uchar*)((local_1c8 + 48))->GetDataPtr();
-                    uVar21 = ((local_1c8 + 48))->size();
-                    this_04->pArrayBuffer(puVar20, 0, uVar21);
-                    local_1c8._40_8_ = this_04->size();
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringUTF8ToCP1252<
-                        eastl::basic_string<char, BucketAllocatorEASTL>>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04,
-                        (basic_string*)&TitleScreen::m_loginUser, false);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04,
-                        (uint)m_lowMem | (uint)field_52456 * 2);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p2<int>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, javapal::GameShell::m_sWid);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p2<int>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, javapal::GameShell::m_sHei);
-                    SerialiseCurrentPackedUIDToPacket(this, this_04);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringUTF8ToCP1252<
-                        eastl::basic_string<char, BucketAllocatorEASTL>>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, (basic_string*)&field_54792,
-                        false);
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, field_54824);
-                    iVar4 = GetServerMajorVersion(this);
-                    if (213 < iVar4) {
-                        this_07 = (vector<unsigned int, eastl::allocator>*)GetDeepLinkingIDs(this);
-                        uVar22 = eastl::vector<unsigned int, eastl::allocator>::size(this_07);
-                        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, uVar22);
-                        piVar12 = (int*)this_07->HeapBeginPtr();
-                        piVar23 = (int*)this_07->end();
-                        for (; piVar12 != piVar23; piVar12 = piVar12 + 1) {
-                            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                                (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, *piVar12);
+                    superPacket->p1<signed char>((bool)arg1);
+                    puVar18 = (unsigned char*)local_198.GetDataPtr();
+                    uVar19 = local_198.size();
+                    superPacket->pArrayBuffer(puVar18, 0, uVar19);
+                    local_1c8._40_8_ = superPacket->size();
+                    superPacket->pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(
+                        *((eastl::string*)&TitleScreen::m_loginUser), false);
+                    superPacket->p1<shared::LoginProt::ID>((unsigned int)m_lowMem | (unsigned int)field_52456 * 2);
+                    superPacket->p2<int>(javapal::GameShell::m_sWid);
+                    superPacket->p2<int>(javapal::GameShell::m_sHei);
+                    SerialiseCurrentPackedUIDToPacket(*superPacket);
+                    superPacket->pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(field_54792,
+                                                                                                      false);
+                    superPacket->p4<int>((unsigned long)field_54824);
+                    iVar5 = GetServerMajorVersion();
+                    if (213 < iVar5) {
+                        this_04 = (vector<unsigned int>*)GetDeepLinkingIDs();
+                        PVar7 = this_04->size();
+                        superPacket->p1<shared::LoginProt::ID>(PVar7);
+                        puVar12 = (unsigned int*)this_04->HeapBeginPtr();
+                        puVar20 = (unsigned int*)this_04->end();
+                        for (; puVar12 != puVar20; puVar12 = puVar12 + 1) {
+                            superPacket->p4<int>((unsigned long)*puVar12);
                         }
                     }
-                    local_1c8->Serialise();
-                    puVar20 = (uchar*)local_1c8->GetDataPtr();
-                    uVar21 = local_1c8->GetTextureAtlas();
-                    this_04->pArrayBuffer(puVar20, 0, uVar21);
-                    uVar5 = rs2lib::social::ClanChannelDelta::UpdateUserDetailsV2::GetID();
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, uVar5);
-                    iVar4 = 1662957473;
+                    local_1c8 = field_2508992->Serialise();
+                    puVar18 = (unsigned char*)local_1c8.GetDataPtr();
+                    uVar19 = local_1c8.GetTextureAtlas();
+                    pUVar25 = superPacket;
+                    superPacket->pArrayBuffer(puVar18, 0, uVar19);
+                    PVar7 = pUVar25->GetID();
+                    superPacket->p1<shared::LoginProt::ID>(PVar7);
+                    uVar19 = 1662957473;
                     if (field_8425 == false) {
-                        iVar4 = 596936697;
+                        uVar19 = 596936697;
                     }
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                        (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)this_04, iVar4);
-                    new (&local_178) SuperShuffledPacketFactory(this_04);
-                    pSVar24 = (ShuffledPacket2*)local_178.p2_alt2();
-                    uVar6 = field_54432->GetCompletedGold();
-                    ShuffledPacket2::p4<unsigned int>(pSVar24, uVar6);
-                    pSVar24 = (ShuffledPacket2*)local_178.p2_alt2();
-                    uVar6 = field_54512->GetCompletedGold();
-                    ShuffledPacket2::p4<unsigned int>(pSVar24, uVar6);
-                    pSVar24 = (ShuffledPacket2*)local_178.p2_alt2();
-                    uVar6 = field_54504->GetCompletedGold();
-                    ShuffledPacket2::p4<unsigned int>(pSVar24, uVar6);
-                    pSVar24 = (ShuffledPacket2*)local_178.p2_alt2();
-                    uVar6 = field_54464->GetCompletedGold();
-                    ShuffledPacket2::p4<unsigned int>(pSVar24, uVar6);
-                    pSVar24 = (ShuffledPacket2*)local_178.p2_alt2();
-                    uVar6 = field_54480->GetCompletedGold();
-                    ShuffledPacket2::p4<unsigned int>(pSVar24, uVar6);
-                    pSVar25 = (ShuffledPacket4*)local_178.p2_alt2();
-                    uVar6 = field_54416->GetCompletedGold();
-                    ShuffledPacket4::p4<unsigned int>(pSVar25, uVar6);
-                    pPVar26 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)local_178.p2_alt2();
-                    iVar4 = field_54536->GetCompletedGold();
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(pPVar26, iVar4);
-                    pSVar27 = (ShuffledPacket3*)local_178.p2_alt2();
-                    uVar6 = m_pJagFx->GetCompletedGold();
-                    ShuffledPacket3::p4<unsigned int>(pSVar27, uVar6);
-                    pPVar26 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)local_178.p2_alt2();
-                    iVar4 = field_54392->GetCompletedGold();
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(pPVar26, iVar4);
-                    pSVar24 = (ShuffledPacket2*)local_178.p2_alt2();
-                    uVar6 = field_54544->GetCompletedGold();
-                    ShuffledPacket2::p4<unsigned int>(pSVar24, uVar6);
-                    pSVar24 = (ShuffledPacket2*)local_178.p2_alt2();
-                    ShuffledPacket2::p4<unsigned int>(pSVar24, 0);
-                    pSVar25 = (ShuffledPacket4*)local_178.p2_alt2();
-                    uVar6 = field_54520->GetCompletedGold();
-                    ShuffledPacket4::p4<unsigned int>(pSVar25, uVar6);
-                    pSVar24 = (ShuffledPacket2*)local_178.p2_alt2();
-                    uVar6 = field_54496->GetCompletedGold();
-                    ShuffledPacket2::p4<unsigned int>(pSVar24, uVar6);
-                    pSVar27 = (ShuffledPacket3*)local_178.p2_alt2();
-                    uVar6 = field_54472->GetCompletedGold();
-                    ShuffledPacket3::p4<unsigned int>(pSVar27, uVar6);
-                    pSVar24 = (ShuffledPacket2*)local_178.p2_alt2();
-                    uVar6 = field_54408->GetCompletedGold();
-                    ShuffledPacket2::p4<unsigned int>(pSVar24, uVar6);
-                    pSVar25 = (ShuffledPacket4*)local_178.p2_alt2();
-                    uVar6 = field_54400->GetCompletedGold();
-                    ShuffledPacket4::p4<unsigned int>(pSVar25, uVar6);
-                    pSVar27 = (ShuffledPacket3*)local_178.p2_alt2();
-                    uVar6 = m_pMidi->GetCompletedGold();
-                    ShuffledPacket3::p4<unsigned int>(pSVar27, uVar6);
-                    pPVar26 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)local_178.p2_alt2();
-                    iVar4 = field_54528->GetCompletedGold();
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(pPVar26, iVar4);
-                    pSVar27 = (ShuffledPacket3*)local_178.p2_alt2();
-                    uVar6 = field_54448->GetCompletedGold();
-                    ShuffledPacket3::p4<unsigned int>(pSVar27, uVar6);
-                    pSVar25 = (ShuffledPacket4*)local_178.p2_alt2();
-                    uVar6 = m_pSprites->GetCompletedGold();
-                    ShuffledPacket4::p4<unsigned int>(pSVar25, uVar6);
-                    pPVar26 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)local_178.p2_alt2();
-                    iVar4 = m_pClientScripts->GetCompletedGold();
-                    PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(pPVar26, iVar4);
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    uVar21 = this_04->size();
-                    this_04->tinyKeyEncrypt((array*)(lVar7 + 432), local_1c8._40_8_, uVar21);
-                    sVar3 = this_04->size();
-                    this_04->pSize2(sVar3 - local_1c8._32_2_);
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    shared::ClientMessage::operator=((ClientMessage*)(lVar7 + 48), (ClientMessage*)local_160);
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    pSVar9->BeginAsyncConnectionWork(local_168);
-                    local_1c8->~PacketT();
-                    local_160->~ClientMessage();
-                    ((local_1c8 + 48))->~WindowSavedPosition();
+                    superPacket->p4<int>(uVar19);
+                    local_178 = SuperShuffledPacketFactory(*superPacket);
+                    pSVar21 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54432->GetCompletedGold();
+                    pSVar21->p4<unsigned int>(iVar5);
+                    pSVar21 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54512->GetCompletedGold();
+                    pSVar21->p4<unsigned int>(iVar5);
+                    pSVar21 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54504->GetCompletedGold();
+                    pSVar21->p4<unsigned int>(iVar5);
+                    pSVar21 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54464->GetCompletedGold();
+                    pSVar21->p4<unsigned int>(iVar5);
+                    pSVar21 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54480->GetCompletedGold();
+                    pSVar21->p4<unsigned int>(iVar5);
+                    pSVar22 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54416->GetCompletedGold();
+                    pSVar22->p4<unsigned int>(iVar5);
+                    pPVar23 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)ShuffledPacketFactory::p2_alt2();
+                    uVar8 = field_54536->GetCompletedGold();
+                    pPVar23->p4<int>((unsigned long)uVar8);
+                    pSVar24 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = m_pJagFx->GetCompletedGold();
+                    pSVar24->p4<unsigned int>(iVar5);
+                    pPVar23 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)ShuffledPacketFactory::p2_alt2();
+                    uVar8 = field_54392->GetCompletedGold();
+                    pPVar23->p4<int>((unsigned long)uVar8);
+                    pSVar21 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54544->GetCompletedGold();
+                    pSVar21->p4<unsigned int>(iVar5);
+                    pSVar21 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+                    pSVar21->p4<unsigned int>(0);
+                    pSVar22 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54520->GetCompletedGold();
+                    pSVar22->p4<unsigned int>(iVar5);
+                    pSVar21 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54496->GetCompletedGold();
+                    pSVar21->p4<unsigned int>(iVar5);
+                    pSVar24 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54472->GetCompletedGold();
+                    pSVar24->p4<unsigned int>(iVar5);
+                    pSVar21 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54408->GetCompletedGold();
+                    pSVar21->p4<unsigned int>(iVar5);
+                    pSVar22 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54400->GetCompletedGold();
+                    pSVar22->p4<unsigned int>(iVar5);
+                    pSVar24 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = m_pMidi->GetCompletedGold();
+                    pSVar24->p4<unsigned int>(iVar5);
+                    pPVar23 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)ShuffledPacketFactory::p2_alt2();
+                    uVar8 = field_54528->GetCompletedGold();
+                    pPVar23->p4<int>((unsigned long)uVar8);
+                    pSVar24 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = field_54448->GetCompletedGold();
+                    pSVar24->p4<unsigned int>(iVar5);
+                    pSVar22 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+                    iVar5 = m_pSprites->GetCompletedGold();
+                    pSVar22->p4<unsigned int>(iVar5);
+                    pPVar23 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)ShuffledPacketFactory::p2_alt2();
+                    uVar8 = m_pClientScripts->GetCompletedGold();
+                    pPVar23->p4<int>((unsigned long)uVar8);
+                    lVar9 = local_168.operator->();
+                    uVar19 = superPacket->size();
+                    superPacket->tinyKeyEncrypt(*((lVar9 + 432)), local_1c8._40_8_, uVar19);
+                    superPacket->pSize2(superPacket->size() - local_1c8._32_2_);
+                    lVar9 = local_168.operator->();
+                    (*((lVar9 + 48))) = *local_160;
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    pSVar11->BeginAsyncConnectionWork(local_168);
                     break;
                 default:
-                    /* WARNING: Subroutine does not return */
                     LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                     "osclient/client_network.cpp",
                                     546, "Unexpected login state (%d)");
                 case 5:
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    iVar4 = pSVar9->GetConnectionState();
-                    if (iVar4 != 2) {
-                        /* WARNING: Subroutine does not return */
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    iVar5 = pSVar11->GetConnectionState();
+                    if (iVar5 != 2) {
                         LogAssert("m_gameCon->GetConnectionState() == ConnectionState::CONNECTING_IDLE",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                   "client_network.cpp",
-                                  524, (char*)0);
+                                  524, nullptr);
                     }
-                    pLVar11 = (LoginManager*)GetLoginManager(this);
-                    plVar13 = (long*)pLVar11->GetAuthWrapper();
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    if (*(char*)(lVar7 + 41) != '\0') {
-                        pLVar11 =
-                            (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-                                (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)&field_2506376);
-                        cVar2 = pLVar11->IsOneTimeLoginTokenRequested();
-                        if (cVar2 == '\0') {
-                            /* WARNING: Subroutine does not return */
+                    pLVar13 = GetLoginManager();
+                    plVar15 = (long*)pLVar13->GetAuthWrapper();
+                    lVar9 = local_168.operator->();
+                    if (*(char*)(lVar9 + 41) != '\0') {
+                        pLVar13 = (LoginManager*)field_2506376.operator->();
+                        cVar3 = pLVar13->IsOneTimeLoginTokenRequested();
+                        if (!cVar3) {
                             LogAssert("m_loginManager->IsOneTimeLoginTokenRequested()",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                       "osclient/client_network.cpp",
-                                      529, (char*)0);
+                                      529, nullptr);
                         }
-                        if (plVar13 == (long*)0) {
-                            /* WARNING: Subroutine does not return */
+                        if (plVar15 == nullptr) {
                             LogAssert("authLibWrapper != nullptr",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                       "osclient/client_network.cpp",
-                                      530, (char*)0);
+                                      530, nullptr);
                         }
-                        lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                        (**(code**)(*plVar13 + 32))(plVar13, lVar7 + 136, lVar7 + 168, lVar7 + 200, lVar7 + 232);
+                        lVar9 = local_168.operator->();
+                        (**(void (**)(...))(*plVar15 + 32))(plVar15, lVar9 + 136, lVar9 + 168, lVar9 + 200,
+                                                            lVar9 + 232);
                     }
-                    pLVar11 =
-                        (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-                            (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)&field_2506376);
-                    uVar5 = pLVar11->GetAuthenticatorUserHash();
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    eastl::string::basic_string(local_1e8, (basic_string*)(lVar7 + 264));
-                    TitleScreen::SetLoginCredentials(uVar5, local_1e8);
-                    eastl::string::~basic_string(local_1e8);
-                    if (plVar13 != (long*)0) {
-                        lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                        (**(code**)(*plVar13 + 216))(plVar13, *(undefined8*)(lVar7 + 424));
+                    pLVar13 = (LoginManager*)field_2506376.operator->();
+                    iVar5 = pLVar13->GetAuthenticatorUserHash();
+                    lVar9 = local_168.operator->();
+                    local_1e8 = eastl::string(*((lVar9 + 264)));
+                    TitleScreen::SetLoginCredentials(iVar5, &local_1e8);
+                    if (plVar15 != nullptr) {
+                        lVar9 = local_168.operator->();
+                        (**(void (**)(...))(*plVar15 + 216))(plVar15, *(uint64_t*)(lVar9 + 424));
                     }
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    pSVar9->BeginAsyncConnectionWork(local_168);
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    pSVar11->BeginAsyncConnectionWork(local_168);
                     break;
                 case 7:
-                    field_55040 = puVar14[33];
-                    lVar7 = this_09->CurrentTimeMillis();
-                    field_55032 = lVar7;
-                    ((local_1c8 + 48))->to_string(field_55040 / 60);
-                    eastl::operator+((eastl*)local_160, (basic_string*)(local_1c8 + 48),
-                                     (basic_string*)&constants::text::loginhop_c);
-                    TitleScreen::LoginMes((basic_string*)&constants::text::loginhop_a,
-                                          (basic_string*)&constants::text::loginhop_b, (basic_string*)local_160);
-                    local_160->~basic_string();
-                    ((local_1c8 + 48))->~basic_string();
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    iVar4 = pSVar9->GetConnectionState();
-                    if (iVar4 != 0) {
-                        /* WARNING: Subroutine does not return */
+                    field_55040 = puVar16[33];
+                    lVar9 = core::SafeTime::CurrentTimeMillis();
+                    field_55032 = lVar9;
+                    local_198 = eastl::to_string(field_55040 / 60);
+                    *local_160 + local_198;
+                    TitleScreen::LoginMes(*((eastl::string*)&constants::text::loginhop_a),
+                                          *((eastl::string*)&constants::text::loginhop_b), *local_160);
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    iVar5 = pSVar11->GetConnectionState();
+                    if (iVar5 != 0) {
                         LogAssert("m_gameCon->GetConnectionState() == ConnectionState::DISCONNECTED",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                   "client_network.cpp",
-                                  401, (char*)0);
+                                  401, nullptr);
                     }
                     break;
                 case 12:
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    iVar4 = pSVar9->GetConnectionState();
-                    if (iVar4 != 0) {
-                        /* WARNING: Subroutine does not return */
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    iVar5 = pSVar11->GetConnectionState();
+                    if (iVar5 != 0) {
                         LogAssert("m_gameCon->GetConnectionState() == ConnectionState::DISCONNECTED",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                   "client_network.cpp",
-                                  480, (char*)0);
+                                  480, nullptr);
                     }
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    this_08 = (array<eastl::string, 3ul>*)(lVar7 + 296);
-                    pbVar15 = (basic_string*)std::array<eastl::string, 3ul>::operator[](this_08, 0);
-                    pbVar16 = (basic_string*)std::array<eastl::string, 3ul>::operator[](this_08, 1);
-                    pbVar17 = (basic_string*)std::array<eastl::string, 3ul>::operator[](this_08, 2);
-                    TitleScreen::LoginMes(pbVar15, pbVar16, pbVar17);
-                    SetMainState(this, 10);
-                    pLVar11 =
-                        (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-                            (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)&field_2506376);
-                    cVar2 = pLVar11->IsRefreshTokenAvailable();
-                    if (cVar2 != '\0') {
-                        cVar2 = TitleScreen::HasLoginMessage();
-                        if (cVar2 == '\0') {
-                            pLVar11 = (LoginManager*)GetLoginManager(this);
-                            pLVar11->ResetLoginCredentials();
-                            pLVar11 = (LoginManager*)GetLoginManager(this);
-                            pLVar11->InvalidateRefreshToken();
+                    lVar9 = local_168.operator->();
+                    this_05 = (array<eastl::string, 3ul>*)(lVar9 + 296);
+                    str1 = (eastl::string*)(*this_05)[0];
+                    str2 = (eastl::string*)(*this_05)[1];
+                    str3 = (eastl::string*)(*this_05)[2];
+                    TitleScreen::LoginMes(*str1, *str2, *str3);
+                    SetMainState(10);
+                    pLVar13 = (LoginManager*)field_2506376.operator->();
+                    cVar3 = pLVar13->IsRefreshTokenAvailable();
+                    if (cVar3) {
+                        cVar3 = TitleScreen::HasLoginMessage();
+                        if (!cVar3) {
+                            pLVar13 = GetLoginManager();
+                            pLVar13->ResetLoginCredentials();
+                            pLVar13 = GetLoginManager();
+                            pLVar13->InvalidateRefreshToken();
                             TitleScreen::MoveToInitialScreen(true, true);
                         } else {
                             TitleScreen::m_loginscreen = 9;
@@ -499,2741 +396,2491 @@ namespace jag::oldscape {
                     }
                     break;
                 case 16:
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    iVar4 = pSVar9->GetConnectionState();
-                    if (iVar4 != 3) {
-                        /* WARNING: Subroutine does not return */
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    iVar5 = pSVar11->GetConnectionState();
+                    if (iVar5 != 3) {
                         LogAssert("m_gameCon->GetConnectionState() == ConnectionState::CONNECTED",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                   "client_network.cpp",
-                                  407, (char*)0);
+                                  407, nullptr);
                     }
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    if (*(char*)(lVar7 + 392) != '\0') {
-                        pLVar11 =
-                            (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-                                (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)&field_2506376);
-                        iVar4 = pLVar11->GetAuthenticatorUserHash();
-                        if (iVar4 != 0) {
-                            pTVar18 =
-                                (TotpPassCodes*)
-                                    std::unique_ptr<TotpPassCodes, std::default_delete<TotpPassCodes>>::operator->(
-                                        (unique_ptr<TotpPassCodes, std::default_delete<TotpPassCodes>>*)&field_8392);
-                            lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                            pTVar18->PutTotpPassCode(iVar4, *(int*)(lVar7 + 396));
+                    lVar9 = local_168.operator->();
+                    if (*(char*)(lVar9 + 392) != '\0') {
+                        pLVar13 = (LoginManager*)field_2506376.operator->();
+                        iVar5 = pLVar13->GetAuthenticatorUserHash();
+                        if (iVar5 != 0) {
+                            pTVar17 = (TotpPassCodes*)field_8392.operator->();
+                            lVar9 = local_168.operator->();
+                            pTVar17->PutTotpPassCode(iVar5, *(int*)(lVar9 + 396));
                         }
                     }
-                    cVar2 = field_19104;
-                    this_06 =
-                        (DeviceOptions*)std::unique_ptr<option::DeviceOptions,
-                                                        std::default_delete<option::DeviceOptions>>::
-                        operator->((
-                            unique_ptr<option::DeviceOptions, std::default_delete<option::DeviceOptions>>*)&field_8376);
-                    if (cVar2 == '\0') {
-                        new (local_160) eastl::fixed_string<char, 256, true, eastl::allocator>("");
-                        this_06->SetCachedUserName(local_160);
+                    cVar3 = field_19104;
+                    this_03 = (DeviceOptions*)field_8376.operator->();
+                    if (!cVar3) {
+                        new (local_160) eastl::fixed_string<char, 256>("");
+                        this_03->SetCachedUserName(*local_160);
                     } else {
-                        pcVar19 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                        new (local_160) eastl::fixed_string<char, 256, true, eastl::allocator>(pcVar19);
-                        this_06->SetCachedUserName(local_160);
+                        str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                        new (local_160) eastl::fixed_string<char, 256>(str);
+                        this_03->SetCachedUserName(*local_160);
                     }
-                    /* WARNING: Subroutine does not return */
-                    local_160->~fixed_string();
                 case 17:
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    iVar4 = pSVar9->GetConnectionState();
-                    if (iVar4 != 3) {
-                        /* WARNING: Subroutine does not return */
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    iVar5 = pSVar11->GetConnectionState();
+                    if (iVar5 != 3) {
                         LogAssert("m_gameCon->GetConnectionState() == ConnectionState::CONNECTED",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                   "client_network.cpp",
-                                  470, (char*)0);
+                                  470, nullptr);
                     }
-                    (&field_1104120)->MarkReconnectComplete();
-                    ReconnectDone(this);
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    ReceivePlayerPositions::GetAbsolutePlayerPositions((SuperPacket*)(lVar7 + 456));
+                    field_1104120.MarkReconnectComplete();
+                    ReconnectDone();
+                    lVar9 = local_168.operator->();
+                    ReceivePlayerPositions::GetAbsolutePlayerPositions(*((lVar9 + 456)));
                     break;
                 case 18:
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    iVar4 = pSVar9->GetConnectionState();
-                    if (iVar4 != 0) {
-                        /* WARNING: Subroutine does not return */
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    iVar5 = pSVar11->GetConnectionState();
+                    if (iVar5 != 0) {
                         LogAssert("m_gameCon->GetConnectionState() == ConnectionState::DISCONNECTED",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                   "client_network.cpp",
-                                  517, (char*)0);
+                                  517, nullptr);
                     }
-                    lVar7 = std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(local_168);
-                    LoginError(this, *(int*)(lVar7 + 128));
+                    lVar9 = local_168.operator->();
+                    LoginError(*(int*)(lVar9 + 128));
                     break;
                 case 19:
-                    pSVar9 = (ServerConnection*)
-                                 std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                     (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                    iVar4 = pSVar9->GetConnectionState();
-                    if (iVar4 != 2) {
-                        /* WARNING: Subroutine does not return */
+                    pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+                    iVar5 = pSVar11->GetConnectionState();
+                    if (iVar5 != 2) {
                         LogAssert("m_gameCon->GetConnectionState() == ConnectionState::CONNECTING_IDLE",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                   "client_network.cpp",
-                                  507, (char*)0);
+                                  507, nullptr);
                     }
-                    SetMainState(this, 10);
-                    SwitchToPendingTransactions();
+                    SetMainState(10);
+                    TitleScreen::SwitchToPendingTransactions();
                 }
             } else {
-                lVar7 = pSVar9->CurrentTimeMillis();
-                if (40000 < lVar7 - field_55032) {
-                    field_55032 = lVar7;
+                lVar9 = core::SafeTime::CurrentTimeMillis();
+                if (40000 < lVar9 - field_55032) {
+                    field_55032 = lVar9;
                 }
             }
-            std::unique_ptr<LoginState, std::default_delete<LoginState>>::~unique_ptr(local_168);
             goto LAB_1000cd4f6;
         }
-        if (iVar4 != 0)
+        if (iVar5 != 0)
             goto LAB_1000cd4f6;
         if (0 < field_55040) {
-            field_55040 = field_55040 + -1;
+            field_55040 = field_55040 - 1;
             goto LAB_1000cd4f6;
         }
-        this_02 = &field_2506376;
-        pLVar11 = (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-            (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)this_02);
-        local_1c8[0] = (PacketT<Array<unsigned char, eastl::allocator>>)pLVar11->IsOneTimeLoginTokenRequested();
-        this_03 = &field_54272;
-        bVar1 = std::operator==((unique_ptr*)this_03, (_func_decltype_nullptr*)in_RSI);
-        if (bVar1) {
-            new (local_160) eastl::string((basic_string*)&field_54224);
-            eastl::string::append_sprintf((char*)local_160, ":%d", (ulong)field_54256);
+        uint8_t* this_01 = &field_2506376;
+        pLVar13 = (LoginManager*)(*this_01).operator->();
+        local_1c8._0_1_ = pLVar13->IsOneTimeLoginTokenRequested();
+        uint8_t* loginState = &field_54272;
+        if (loginState == in_RSI) {
+            new (local_160) eastl::string(field_54224);
+            local_160->append_sprintf(":%d", (unsigned long)field_54256);
             local_178.field_0._0_1_ = field_8448 == 40;
-            std::make_unique<LoginState, eastl::string&, bool, bool const&>((basic_string*)(local_1c8 + 48),
-                                                                            (bool*)local_160, (bool*)&local_178);
-            std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator=(
-                (unique_ptr<LoginState, std::default_delete<LoginState>>*)this_03, (unique_ptr*)(local_1c8 + 48));
-            ((local_1c8 + 48))->~unique_ptr();
-            local_160->~basic_string();
+            local_198 =
+                std::make_unique<LoginState, eastl::string&, bool, bool const&>(*local_160, local_178, local_1c8);
+            *loginState = local_198;
         }
-        pLVar11 = (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-            (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)this_02);
-        cVar2 = pLVar11->IsGameTokenLogin();
-        if (cVar2 == '\0') {
+        pLVar13 = (LoginManager*)(*this_01).operator->();
+        cVar3 = pLVar13->IsGameTokenLogin();
+        if (!cVar3) {
         LAB_1000cd4e3:
-            pSVar9 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-            pSVar9->BeginAsyncConnectionWork(this_03);
+            pSVar11 = (ServerConnection*)(*serverConnection).operator->();
+            pSVar11->BeginAsyncConnectionWork(*loginState);
         } else {
-            pLVar11 = (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-                (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)this_02);
-            lVar7 = pLVar11->GetAuthWrapper();
-            piVar12 = (int*)std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(
-                (unique_ptr<LoginState, std::default_delete<LoginState>>*)this_03);
-            if (*piVar12 != 14) {
-                if (*piVar12 != 0) {
-                    /* WARNING: Subroutine does not return */
+            pLVar13 = (LoginManager*)(*this_01).operator->();
+            lVar9 = pLVar13->GetAuthWrapper();
+            piVar14 = (int*)(*loginState).operator->();
+            if (*piVar14 != 14) {
+                if (*piVar14 != 0) {
                     LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                     "osclient/client_network.cpp",
                                     162, "Unhandled login step pre-connection: %d ");
                 }
-                if (lVar7 == 0) {
-                    /* WARNING: Subroutine does not return */
+                if (lVar9 == 0) {
                     LogAssert("authWrapper != nullptr",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                               "client_network.cpp",
-                              121, (char*)0);
+                              121, nullptr);
                 }
-                pLVar11 = (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-                    (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)this_02);
-                plVar13 = (long*)pLVar11->GetAuthWrapper();
-                (**(code**)(*plVar13 + 40))(plVar13);
-                puVar14 = (undefined4*)std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(
-                    (unique_ptr<LoginState, std::default_delete<LoginState>>*)this_03);
-                *puVar14 = 14;
+                pLVar13 = (LoginManager*)(*this_01).operator->();
+                plVar15 = (long*)pLVar13->GetAuthWrapper();
+                (**(void (**)(...))(*plVar15 + 40))(plVar15);
+                puVar16 = (uint32_t*)(*loginState).operator->();
+                *puVar16 = 14;
                 goto LAB_1000cd4f6;
             }
-            pLVar11 = (LoginManager*)std::unique_ptr<LoginManager, std::default_delete<LoginManager>>::operator->(
-                (unique_ptr<LoginManager, std::default_delete<LoginManager>>*)this_02);
-            plVar13 = (long*)pLVar11->GetAuthWrapper();
-            this_05 = (GameToken*)(**(code**)(*plVar13 + 48))(plVar13);
-            iVar4 = this_05->GetStatus();
-            if (iVar4 < 1401) {
-                if (iVar4 == -3)
+            pLVar13 = (LoginManager*)(*this_01).operator->();
+            plVar15 = (long*)pLVar13->GetAuthWrapper();
+            iVar5 = ((GameToken*)(**(void (**)(...))(*plVar15 + 48))(plVar15))->GetStatus();
+            if (iVar5 < 1401) {
+                if (iVar5 == -3)
                     goto LAB_1000cd4f6;
-                if (iVar4 == 0) {
-                    puVar14 = (undefined4*)std::unique_ptr<LoginState, std::default_delete<LoginState>>::operator->(
-                        (unique_ptr<LoginState, std::default_delete<LoginState>>*)this_03);
-                    *puVar14 = 0;
+                if (iVar5 == 0) {
+                    puVar16 = (uint32_t*)(*loginState).operator->();
+                    *puVar16 = 0;
                     goto LAB_1000cd4e3;
                 }
             } else {
-                if ((iVar4 == 1401) || (iVar4 == 1404)) {
-                    LoginError(this, 63);
+                if ((iVar5 == 1401) || (iVar5 == 1404)) {
+                    LoginError(63);
                     goto LAB_1000cd4f6;
                 }
-                if (iVar4 == 1407) {
-                    this_05->SwitchToPendingTransactions();
+                if (iVar5 == 1407) {
+                    TitleScreen::SwitchToPendingTransactions();
                     goto LAB_1000cd4f6;
                 }
             }
-            LoginError(this, 65);
+            LoginError(65);
         }
     LAB_1000cd4f6:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x1000d1ec0, 1680 bytes, placed by class name and debug map
-    // Client::MainRedraw(bool, float)
-    void Client::MainRedraw(bool param_1, float param_2) {
-        uint uVar1;
-        undefined4 uVar2;
-        NXTPixToolkit* pNVar3;
-        bool bVar4;
-        long* plVar6;
-        shared_ptr* this_00;
-        shared_ptr* psVar7;
-        shared_ptr* this_01;
-        shared_ptr<ApplicationContext>* this_02;
-        ShareLightBuffer* this_03;
+    // 0x1000d1ec0
+    void Client::MainRedraw(bool arg1, float arg2) {
+        int arg4;
+        NXTPixToolkit* pNVar2;
+        bool bVar3;
+        shared_ptr<midi2::MidiPlayerMainThread>* midiPlayerMainThread;
+        shared_ptr<ApplicationContext>* this_00;
         long lVar8;
-        undefined1* puVar9;
-        Pix2D* pPVar10;
-        eastl::string* pbVar11;
-        DeviceOptions* this_04;
-        OSClientConsole* this_05;
-        char* pcVar12;
-        float* pfVar13;
-        undefined4* puVar14;
-        ulong uVar15;
-        basic_string* pbVar16;
-        eastl::string local_80[32];
+        uint8_t* puVar9;
+        uint64_t extraout_var;
+        eastl::string* pbVar10;
+        char* pcVar11;
+        float* pfVar12;
+        int* piVar13;
+        unsigned long uVar14;
+        eastl::string* pbVar15;
+        eastl::string local_80;
         array<bool, 100ul>* local_60;
         array<int, 100ul>* local_58;
         array<int, 100ul>* local_50;
         array<int, 100ul>* local_48;
         array<int, 100ul>* local_40;
-        undefined4 local_38;
-        float local_34;
+        int local_38;
 
-        local_34 = param_2;
-        plVar6 = (long*)OSRenderCore_AudioThread::Instance();
-        (((long)plVar6 + *(long*)(*plVar6 + -24)))->SetUsingRSeven(m_usingRSeven);
+        float local_34 = arg2;
+        auto plVar6 = OSRenderCore_AudioThread::Instance();
+        ((OSRenderCore_LogicThread_Common*)((long)plVar6 + *(long*)(*plVar6 - 24)))->SetUsingRSeven(m_usingRSeven);
         if (field_54785 != false) {
             this_thread::Sleep(100);
-            pNVar3 = field_144;
-            bVar4 = (bool)pNVar3->GetUIVisible();
-            pNVar3->ShowUI(false);
-            (*(code*)pNVar3->field_0[5])(pNVar3);
-            (*(code*)pNVar3->field_0[4])(pNVar3, 0, 0);
-            pNVar3->ShowUI(bVar4);
+            pNVar2 = field_144;
+            bVar3 = (bool)pNVar2->GetUIVisible();
+            pNVar2->ShowUI(false);
+            pNVar2->Set2DOnlyFrame();
+            pNVar2->Render((int)pNVar2, 0);
+            pNVar2->ShowUI(bVar3);
             return;
         }
-        DrawDebugUI(this);
-        if (param_1) {
+        DrawDebugUI();
+        if (arg1) {
             field_128 = 0;
         }
         field_2508656 = local_34;
-        javapal::GameShell::m_lastGameLoopTimeMillis = ((Client*)this)->CurrentTimeMillis();
-        CheckToQueueMutedAudio(this);
-        this_01 = (shared_ptr*)&field_2508688;
-        this_00 = (shared_ptr*)this_01->begin();
-        psVar7 = (shared_ptr*)this_01->end();
-        for (; this_00 != psVar7; this_00 = this_00 + 1) {
-            this_01 = this_00;
-            bVar4 = operator!=(this_00, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                this_01 = (shared_ptr*)shared_ptr<midi2::MidiPlayerMainThread>::operator->(
-                    (shared_ptr<midi2::MidiPlayerMainThread>*)this_00);
-                this_02 = (shared_ptr<ApplicationContext>*)(*(code*)**(undefined8**)this)(this);
-                this_03 = (ShareLightBuffer*)shared_ptr<ApplicationContext>::operator->(this_02);
-                this_03->IsPrepared();
-                (**(code**)(*(long*)this_01 + 72))();
+        javapal::GameShell::m_lastGameLoopTimeMillis = core::SafeTime::CurrentTimeMillis();
+        CheckToQueueMutedAudio();
+        midiPlayerMainThread =
+            (shared_ptr<midi2::MidiPlayerMainThread>*)std::array<shared_ptr<midi2::MidiPlayerMainThread>, 3ul>::begin();
+        shared_ptr<midi2::MidiPlayerMainThread>* psVar7 =
+            (shared_ptr<midi2::MidiPlayerMainThread>*)std::array<shared_ptr<midi2::MidiPlayerMainThread>, 3ul>::end();
+        for (; midiPlayerMainThread != psVar7; midiPlayerMainThread = midiPlayerMainThread + 16) {
+            bVar3 = *midiPlayerMainThread != nullptr;
+            if (bVar3) {
+                plVar6 = (long*)(*midiPlayerMainThread).operator->();
+                this_00 = (shared_ptr<ApplicationContext>*)(*(void (*)(...)) * *(uint64_t**)this)(this);
+                ((ShareLightBuffer*)(*this_00).operator->())->IsPrepared();
+                (**(void (**)(...))(*plVar6 + 72))(plVar6);
             }
         }
-        uVar1 = field_8448;
+        unsigned int uVar1 = field_8448;
         if (((((int)uVar1 < 11) || (uVar1 == 20)) || (uVar1 == 30)) &&
-            ((field_52448 != 0 && (lVar8 = this_01->CurrentTimeMillis(), field_52448 < lVar8)))) {
-            OnWindowModeChanged(this);
+            ((field_52448 != 0 && (lVar8 = core::SafeTime::CurrentTimeMillis(), field_52448 < lVar8)))) {
+            OnWindowModeChanged();
         }
-        if (param_1) {
-            uVar15 = 0;
+        if (arg1) {
+            uVar14 = 0;
             do {
-                puVar9 = (undefined1*)std::array<bool, 100ul>::operator[]((array<bool, 100ul>*)&field_2506576, uVar15);
+                puVar9 = (uint8_t*)field_2506576[uVar14];
                 *puVar9 = 1;
-                uVar15 = uVar15 + 1;
-            } while (uVar15 != 100);
+                uVar14 = uVar14 + 1;
+            } while (uVar14 != 100);
         }
-        pPVar10 = (Pix2D*)(*(code*)*field_144->field_0)();
+        uint8_t uVar4 = field_144->GetPix2D();
         uVar1 = field_8448;
         if (((int)uVar1 < 21) || (uVar1 == 1000)) {
-            TitleScreen::Draw((shared_ptr*)field_1104240, (shared_ptr*)field_1104208, (shared_ptr*)field_1104224, false,
-                              pPVar10);
+            TitleScreen::Draw(field_1104240, field_1104208, field_1104224, false,
+                              *((Pix2D*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar4)));
             goto switchD_1000d20aa_caseD_1a;
         }
         switch (uVar1) {
         case 25:
-            (*(code*)field_144->field_0[5])();
-            eastl::string::basic_string(local_80);
+            field_144->Set2DOnlyFrame();
+            local_80 = eastl::string();
             if (field_53252 == 2) {
                 if (field_53248 < field_53244) {
                     field_53248 = field_53244;
                 }
-                pbVar11 = (eastl::string*)local_80->append();
-                pbVar11 = (eastl::string*)eastl::string::append(pbVar11, StringConstants::TAG_BREAK);
-                pcVar12 = (char*)eastl::string::append(pbVar11, StringConstants::OPEN_BRACKET);
-                pbVar11 = (eastl::string*)eastl::string::append_sprintf(
-                    pcVar12, "%i%%", (ulong)(((field_53248 - field_53244) * 50) / field_53248 + 50));
-                pbVar16 = (basic_string*)eastl::string::append(pbVar11, StringConstants::CLOSE_BRACKET);
-                MessageBox(this, pbVar16, false);
+                pbVar10 = (eastl::string*)local_80.append((eastl::string*)&constants::text::loading);
+                pbVar10 = (eastl::string*)pbVar10->append(StringConstants::TAG_BREAK);
+                pbVar10 = (eastl::string*)pbVar10->append(StringConstants::OPEN_BRACKET);
+                pbVar10 = (eastl::string*)pbVar10->append_sprintf(
+                    "%i%%", (unsigned long)(((field_53248 - field_53244) * 50) / field_53248 + 50));
+                pbVar15 = (eastl::string*)pbVar10->append(StringConstants::CLOSE_BRACKET);
+                MessageBox(*pbVar15, false);
             } else if (field_53252 == 1) {
                 if (field_53240 < (int)field_53236) {
                     field_53240 = field_53236;
                 }
-                pbVar11 = (eastl::string*)local_80->append();
-                pbVar11 = (eastl::string*)eastl::string::append(pbVar11, StringConstants::TAG_BREAK);
-                pcVar12 = (char*)eastl::string::append(pbVar11, StringConstants::OPEN_BRACKET);
-                pbVar11 = (eastl::string*)eastl::string::append_sprintf(
-                    pcVar12, "%i%%", (long)((field_53240 - field_53236) * 50) / (long)field_53240 & 4294967295);
-                pbVar16 = (basic_string*)eastl::string::append(pbVar11, StringConstants::CLOSE_BRACKET);
-                MessageBox(this, pbVar16, false);
+                pbVar10 = (eastl::string*)local_80.append((eastl::string*)&constants::text::loading);
+                pbVar10 = (eastl::string*)pbVar10->append(StringConstants::TAG_BREAK);
+                pbVar10 = (eastl::string*)pbVar10->append(StringConstants::OPEN_BRACKET);
+                pbVar10 = (eastl::string*)pbVar10->append_sprintf(
+                    "%i%%", (long)((field_53240 - field_53236) * 50) / (long)field_53240 & 4294967295);
+                pbVar15 = (eastl::string*)pbVar10->append(StringConstants::CLOSE_BRACKET);
+                MessageBox(*pbVar15, false);
             } else {
-                MessageBox(this, (basic_string*)&constants::text::loading, false);
+                MessageBox(*((eastl::string*)&constants::text::loading), false);
             }
             break;
         default:
             goto switchD_1000d20aa_caseD_1a;
         case 30:
-            GameDraw(this);
+            GameDraw();
             goto switchD_1000d20aa_caseD_1a;
         case 40:
-            (*(code*)field_144->field_0[5])();
-            eastl::string::basic_string(local_80);
-            pbVar11 = (eastl::string*)local_80->append();
-            pbVar16 = (basic_string*)eastl::string::append(pbVar11, StringConstants::TAG_BREAK);
-            pbVar16 = (basic_string*)eastl::string::append(pbVar16);
-            MessageBox(this, pbVar16, false);
+            field_144->Set2DOnlyFrame();
+            local_80 = eastl::string();
+            pbVar10 = (eastl::string*)local_80.append((eastl::string*)&constants::text::conlost);
+            pbVar10 = (eastl::string*)pbVar10->append(StringConstants::TAG_BREAK);
+            pbVar15 = (eastl::string*)pbVar10->append((eastl::string*)&constants::text::attempt_to_reestablish);
+            MessageBox(*pbVar15, false);
             break;
         case 45:
-            (*(code*)field_144->field_0[5])();
-            pbVar16 = (basic_string*)&constants::text::pleasewait;
+            field_144->Set2DOnlyFrame();
+            pbVar15 = (eastl::string*)&constants::text::pleasewait;
             goto LAB_1000d221d;
         case 50:
-            (*(code*)field_144->field_0[5])();
-            pbVar16 = (basic_string*)&constants::text::world_transfer_pending;
+            field_144->Set2DOnlyFrame();
+            pbVar15 = (eastl::string*)&constants::text::world_transfer_pending;
         LAB_1000d221d:
-            MessageBox(this, pbVar16, false);
+            MessageBox(*pbVar15, false);
             goto switchD_1000d20aa_caseD_1a;
         }
-        eastl::string::~basic_string(local_80);
     switchD_1000d20aa_caseD_1a:
-        this_04 = (DeviceOptions*)
-                      std::unique_ptr<option::DeviceOptions, std::default_delete<option::DeviceOptions>>::operator->(
-                          (unique_ptr<option::DeviceOptions, std::default_delete<option::DeviceOptions>>*)&field_8376);
-        if (this_04->GetDisplayBuildInfo() != '\0') {
-            DrawBuildInfo(this);
+        if (((DeviceOptions*)field_8376.operator->())->GetDisplayBuildInfo() != '\0') {
+            DrawBuildInfo();
         }
-        this_05 = (OSClientConsole*)std::unique_ptr<OSClientConsole, std::default_delete<OSClientConsole>>::operator->(
-            (unique_ptr<OSClientConsole, std::default_delete<OSClientConsole>>*)&field_7306800);
-        this_05->Draw();
-        if ((((field_8448 == 30) && (field_2508476 == 0)) && (!param_1)) &&
+        ((OSClientConsole*)field_7306800.operator->())->Draw();
+        if ((((field_8448 == 30) && (field_2508476 == 0)) && (!arg1)) &&
             ((field_52456 == 0 && (0 < (int)field_2506568)))) {
             local_60 = (array<bool, 100ul>*)&field_2506676;
             local_58 = (array<int, 100ul>*)&field_2506876;
             local_50 = (array<int, 100ul>*)&field_2507276;
             local_48 = (array<int, 100ul>*)&field_2507676;
             local_40 = (array<int, 100ul>*)&field_2508076;
-            uVar15 = 0;
+            uVar14 = 0;
             do {
-                pcVar12 = (char*)std::array<bool, 100ul>::operator[](local_60, uVar15);
-                if (*pcVar12 != '\0') {
-                    pNVar3 = field_144;
-                    pfVar13 = (float*)std::array<int, 100ul>::operator[](local_58, uVar15);
-                    local_34 = *pfVar13;
-                    puVar14 = (undefined4*)std::array<int, 100ul>::operator[](local_50, uVar15);
-                    local_38 = *puVar14;
-                    puVar14 = (undefined4*)std::array<int, 100ul>::operator[](local_48, uVar15);
-                    uVar2 = *puVar14;
-                    puVar14 = (undefined4*)std::array<int, 100ul>::operator[](local_40, uVar15);
-                    (*(code*)pNVar3->field_0[3])(pNVar3, local_34, local_38, uVar2, *puVar14);
-                    *pcVar12 = '\0';
+                pcVar11 = (char*)(*local_60)[uVar14];
+                if (*pcVar11 != '\0') {
+                    pNVar2 = field_144;
+                    pfVar12 = (float*)(*local_58)[uVar14];
+                    local_34 = *pfVar12;
+                    piVar13 = (int*)(*local_50)[uVar14];
+                    local_38 = *piVar13;
+                    piVar13 = (int*)(*local_48)[uVar14];
+                    arg4 = *piVar13;
+                    (*local_40)[uVar14];
+                    pNVar2->Render((int)pNVar2, (int)local_34, local_38, arg4);
+                    *pcVar11 = '\0';
                 }
-                uVar15 = uVar15 + 1;
-            } while ((long)uVar15 < (long)(int)field_2506568);
+                uVar14 = uVar14 + 1;
+            } while ((long)uVar14 < (long)(int)field_2506568);
         }
         if (field_8448 == 1000) {
             ShowError();
             uVar1 = field_2506568;
             if (0 < (int)uVar1) {
-                uVar15 = 0;
+                uVar14 = 0;
                 do {
-                    puVar9 =
-                        (undefined1*)std::array<bool, 100ul>::operator[]((array<bool, 100ul>*)&field_2506676, uVar15);
+                    puVar9 = &field_2506676[uVar14];
                     *puVar9 = 0;
-                    uVar15 = uVar15 + 1;
-                } while (uVar1 != uVar15);
+                    uVar14 = uVar14 + 1;
+                } while (uVar1 != uVar14);
             }
         } else {
-            (*(code*)field_144->field_0[4])(field_144, 0, 0);
+            field_144->Render((int)field_144, 0);
             uVar1 = field_2506568;
             if (0 < (int)uVar1) {
-                uVar15 = 0;
+                uVar14 = 0;
                 do {
-                    puVar9 =
-                        (undefined1*)std::array<bool, 100ul>::operator[]((array<bool, 100ul>*)&field_2506676, uVar15);
+                    puVar9 = &field_2506676[uVar14];
                     *puVar9 = 0;
-                    uVar15 = uVar15 + 1;
-                } while (uVar1 != uVar15);
+                    uVar14 = uVar14 + 1;
+                } while (uVar1 != uVar14);
             }
         }
-        if (m_pWorldmap != (Worldmap*)0) {
-            m_pWorldmap->Service();
+        if (m_pWorldmap != nullptr) {
+            worldmap::Worldmap::Service();
         }
         if (field_53257 != '\0') {
-            RebuildMap(this);
+            RebuildMap();
         }
     }
 
-    // 0x1000d2560, 208 bytes, placed by class name and debug map
-    // Client::DrawDebugUI()
+    // 0x1000d2560
     void Client::DrawDebugUI() {
-        int iVar1;
-        int iVar2;
-        RenderContext* this_00;
-        DebugUIManager* pDVar3;
-        float* pfVar4;
-        GraphicsApp* this_01;
-        undefined1 local_48[20];
-        float local_34;
-        float local_30;
-        float local_2c;
+        uint64_t extraout_var;
 
-        this_01 = field_152;
-        this_00 = (RenderContext*)this_01->GetDefaultRenderContext();
-        pDVar3 = (DebugUIManager*)this_01->Instance();
-        iVar1 = this_00->GetBackBufferWidth();
-        iVar2 = this_00->GetBackBufferHeight();
-        pDVar3->MainDraw(0, iVar1, iVar2);
-        pDVar3 = (DebugUIManager*)pDVar3->Instance();
-        local_34 = (float)FrameTime::GetFrameDelta();
-        local_30 = 1.1754944e-38;
-        pfVar4 = std::max<float>(&local_34, &local_30);
-        local_2c = *pfVar4;
-        iVar1 = this_00->GetBackBufferWidth();
-        iVar2 = this_00->GetBackBufferHeight();
-        (*(code*)field_152->field_0[12])();
-        local_48->GetSafeAreaInsets();
-        pDVar3->NotifyFrameStart(local_2c, iVar1, iVar2, local_48);
+        GraphicsApp* this_01 = field_152;
+        auto this_00 = this_01->GetDefaultRenderContext();
+        auto pDVar4 = this_01->Instance();
+        int iVar2 = this_00->GetBackBufferWidth();
+        int iVar3 = this_00->GetBackBufferHeight();
+        pDVar4->MainDraw(nullptr, iVar2, iVar3);
+        pDVar4 = (DebugUIManager*)pDVar4->Instance();
+        float local_34 = (float)FrameTime::GetFrameDelta();
+        auto pfVar5 = std::max<float>(local_34, 1.1754944e-38);
+        float local_2c = *pfVar5;
+        iVar2 = this_00->GetBackBufferWidth();
+        iVar3 = this_00->GetBackBufferHeight();
+        uint8_t uVar1 = field_152->GetWindow();
+        auto local_48 = ((Window*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1))->GetSafeAreaInsets();
+        pDVar4->NotifyFrameStart(local_2c, iVar2, iVar3, local_48);
     }
 
-    // 0x1000d2630, 160 bytes, placed by class name and debug map
-    // Client::CheckToQueueMutedAudio()
+    // 0x1000d2630
     void Client::CheckToQueueMutedAudio() {
-        bool bVar1;
-        byte bVar2;
-        undefined1 uVar3;
+        uint8_t bVar2;
+        uint8_t uVar3;
         long* plVar4;
         shared_ptr<ApplicationContext>* psVar5;
         ShareLightBuffer* pSVar6;
-        _func_decltype_nullptr* in_RSI;
+        void* in_RSI;
 
-        bVar1 = std::operator!=((unique_ptr*)&field_2508736, in_RSI);
-        if (bVar1) {
-            plVar4 =
-                (long*)std::unique_ptr<sound::PCMPlayerMainThread, std::default_delete<sound::PCMPlayerMainThread>>::
-                operator->((unique_ptr<sound::PCMPlayerMainThread,
-                                       std::default_delete<sound::PCMPlayerMainThread>>*)&field_2508736);
-            psVar5 = (shared_ptr<ApplicationContext>*)(*(code*)**(undefined8**)this)(this);
-            pSVar6 = (ShareLightBuffer*)shared_ptr<ApplicationContext>::operator->(psVar5);
+        if (&field_2508736 != in_RSI) {
+            plVar4 = (long*)field_2508736.operator->();
+            psVar5 = (shared_ptr<ApplicationContext>*)(*(void (*)(...)) * *(uint64_t**)this)(this);
+            pSVar6 = (ShareLightBuffer*)(*psVar5).operator->();
             bVar2 = pSVar6->IsPrepared();
-            in_RSI = (_func_decltype_nullptr*)(ulong)bVar2;
-            (**(code**)(*plVar4 + 16))(plVar4);
+            in_RSI = (void*)(unsigned long)bVar2;
+            (**(void (**)(...))(*plVar4 + 16))(plVar4);
         }
-        bVar1 = std::operator!=((unique_ptr*)&field_2508744, in_RSI);
-        if (bVar1) {
-            plVar4 =
-                (long*)std::unique_ptr<sound::PCMPlayerMainThread, std::default_delete<sound::PCMPlayerMainThread>>::
-                operator->((unique_ptr<sound::PCMPlayerMainThread,
-                                       std::default_delete<sound::PCMPlayerMainThread>>*)&field_2508744);
-            psVar5 = (shared_ptr<ApplicationContext>*)(*(code*)**(undefined8**)this)(this);
-            pSVar6 = (ShareLightBuffer*)shared_ptr<ApplicationContext>::operator->(psVar5);
+        if (&field_2508744 != in_RSI) {
+            plVar4 = (long*)field_2508744.operator->();
+            psVar5 = (shared_ptr<ApplicationContext>*)(*(void (*)(...)) * *(uint64_t**)this)(this);
+            pSVar6 = (ShareLightBuffer*)(*psVar5).operator->();
             uVar3 = pSVar6->IsPrepared();
-            (**(code**)(*plVar4 + 16))(plVar4, uVar3);
+            (**(void (**)(...))(*plVar4 + 16))(plVar4, uVar3);
         }
     }
 
-    // 0x1000d6b30, 432 bytes, placed by class name and debug map
-    // Client::MessageBox(eastl::string const&, bool)
-    void Client::MessageBox(basic_string* param_1, bool param_2) {
-        undefined1* this_00;
-        uint uVar1;
-        int iVar2;
-        vector* pvVar3;
-        uint* puVar4;
+    // 0x1000d6b30
+    void Client::MessageBox(const eastl::string& str, bool arg2) {
+        uint8_t* this_00;
+        uint8_t uVar1;
+        unsigned int uVar2;
+        int iVar3;
+        unsigned int* puVar4;
         PixfontGeneric* pPVar5;
-        Pix2D* this_01;
-        undefined7 in_register_00000011;
-        int iVar6;
-        Client* pCVar7;
-        int iVar8;
-        int iVar9;
-        undefined1 local_80[16];
+        uint64_t extraout_var;
+        Pix2D* this_02;
+        uint64_t in_register_00000011;
+        int arg1;
+        int arg2_00;
+        int arg3;
+        ReturnValue local_80;
         shared_ptr<jstring::PixfontGeneric>* local_68;
-        ulong local_60;
-        ulong local_50;
-        ulong local_48;
-        char local_40;
+        unsigned long local_60;
+        unsigned long local_50;
+        unsigned long local_48;
+        uint32_t local_40;
         int local_3c;
         int local_38;
         int local_34;
 
         if (field_19192 != '\0') {
-            _local_40 = (undefined4)CONCAT71(in_register_00000011, param_2);
-            pCVar7 = this;
-            local_80->GetUISafeArea();
-            pvVar3 = local_80->SSOBeginPtr(pCVar7);
-            local_50 = (ulong) * (uint*)pvVar3;
-            local_38 = *(uint*)pvVar3 + 4;
-            puVar4 = (uint*)local_80->y();
-            local_60 = (ulong)*puVar4;
+            local_40 = (uint32_t)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg2);
+            local_80 = GetUISafeArea();
+            puVar4 = (unsigned int*)local_80.SSOBeginPtr();
+            local_50 = (unsigned long)*puVar4;
+            local_38 = *puVar4 + 4;
+            puVar4 = (unsigned int*)local_80.y();
+            local_60 = (unsigned long)*puVar4;
             local_3c = *puVar4 + 4;
-            this_00 = field_1104224;
+            this_00 = &field_1104224;
             local_68 = (shared_ptr<jstring::PixfontGeneric>*)this_00;
-            pPVar5 = (PixfontGeneric*)shared_ptr<jstring::PixfontGeneric>::operator->(
-                (shared_ptr<jstring::PixfontGeneric>*)this_00);
-            uVar1 = pPVar5->PredictWidthMultiline(param_1, 250);
-            local_48 = (ulong)uVar1;
-            pPVar5 = (PixfontGeneric*)shared_ptr<jstring::PixfontGeneric>::operator->(
-                (shared_ptr<jstring::PixfontGeneric>*)this_00);
-            iVar2 = pPVar5->PredictLinesMultiline(param_1, 250);
-            local_34 = iVar2 * 13;
-            this_01 = (Pix2D*)(*(code*)*field_144->field_0)();
-            iVar9 = uVar1 + 8;
-            iVar2 = iVar2 * 13 + 8;
-            iVar6 = (int)local_50;
-            iVar8 = (int)local_60;
-            (**(code**)(this_01->field_0 + 32))(this_01, local_50 & 4294967295, local_60 & 4294967295, iVar9, iVar2, 0);
-            this_01->DrawRect(iVar6, iVar8, iVar9, iVar2, 16777215);
-            pPVar5 = (PixfontGeneric*)shared_ptr<jstring::PixfontGeneric>::operator->(local_68);
-            pCVar7 = (Client*)this;
-            pPVar5->DrawStringMultiline(param_1, local_38, local_3c, (int)local_48, local_34, 16777215, -1, 1, 1, 0,
-                                        this_01);
-            DirtyArea(pCVar7, (int)local_50, iVar8, iVar9, iVar2);
-            if (local_40 == '\0') {
-                BlitArea(pCVar7, local_38, local_3c, (int)local_48, local_34);
+            pPVar5 = (PixfontGeneric*)(*this_00).operator->();
+            uVar2 = pPVar5->PredictWidthMultiline(str, 250);
+            local_48 = (unsigned long)uVar2;
+            pPVar5 = (PixfontGeneric*)(*this_00).operator->();
+            iVar3 = pPVar5->PredictLinesMultiline(str, 250);
+            local_34 = iVar3 * 13;
+            uVar1 = field_144->GetPix2D();
+            this_02 = (Pix2D*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1);
+            arg3 = uVar2 + 8;
+            iVar3 = iVar3 * 13 + 8;
+            arg1 = (int)local_50;
+            arg2_00 = (int)local_60;
+            (**(void (**)(...))(this_02->field_0 + 32))(this_02, local_50 & 4294967295, local_60 & 4294967295, arg3,
+                                                        iVar3, 0);
+            this_02->DrawRect(arg1, arg2_00, arg3, iVar3, 16777215);
+            pPVar5 = (PixfontGeneric*)(*local_68).operator->();
+            pPVar5->DrawStringMultiline(str, local_38, local_3c, (int)local_48, local_34, 16777215, -1, 1, 1, 0,
+                                        *this_02);
+            DirtyArea((int)local_50, arg2_00, arg3, iVar3);
+            if ((char)local_40 == '\0') {
+                BlitArea(local_38, local_3c, (int)local_48, local_34);
             } else {
-                (*(code*)pCVar7->field_144->field_0[5])();
-                (*(code*)pCVar7->field_144->field_0[4])(pCVar7->field_144, 0, 0);
-                DrawDebugUI(pCVar7);
+                field_144->Set2DOnlyFrame();
+                field_144->Render((int)field_144, 0);
+                DrawDebugUI();
             }
         }
     }
 
-    // 0x1000d6ce0, 560 bytes, placed by class name and debug map
-    // Client::GameDraw()
+    // 0x1000d6ce0
     void Client::GameDraw() {
-        uint uVar1;
-        Minimenu* this_00;
-        char cVar2;
-        int iVar3;
+        char cVar3;
         int iVar4;
-        Pix2D* this_01;
-        char* pcVar5;
+        int iVar5;
+        uint64_t extraout_var;
         char* pcVar6;
-        undefined1* puVar7;
-        ulonglong uVar8;
-        WorldmapAreaMetadata* this_02;
-        NXTPixScreen* this_03;
-        ulonglong uVar9;
-        Pix2D* pPVar10;
-        long lVar11;
-        Client* pCVar12;
-        ulong uVar13;
+        char* pcVar7;
+        uint8_t* puVar8;
+        unsigned long long uVar9;
+        uint64_t extraout_var_00;
+        unsigned long arg1;
         CoordMapSquare local_40;
 
         field_144->PrepareRender();
-        this_01 = (Pix2D*)(*(code*)*field_144->field_0)();
-        (**(code**)(this_01->field_0 + 8))();
-        pCVar12 = this;
-        SetupInterfaceRenderer(this);
+        uint8_t uVar2 = field_144->GetPix2D();
+        Pix2D* this_01 = (Pix2D*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar2);
+        (**(void (**)(...))(this_01->field_0 + 8))();
+        SetupInterfaceRenderer();
         if (field_53216 != -1) {
-            pCVar12 = this;
-            AnimateInterface(this, field_53216);
+            AnimateInterface(field_53216);
         }
-        uVar1 = field_2506568;
+        unsigned int uVar1 = field_2506568;
         if (0 < (int)uVar1) {
-            uVar13 = 0;
+            arg1 = 0;
             do {
-                pcVar6 = (char*)std::array<bool, 100ul>::operator[]((array<bool, 100ul>*)&field_2506576, uVar13);
-                if (*pcVar6 != '\0') {
-                    puVar7 =
-                        (undefined1*)std::array<bool, 100ul>::operator[]((array<bool, 100ul>*)&field_2506676, uVar13);
-                    *puVar7 = 1;
+                pcVar7 = &field_2506576[arg1];
+                if (*pcVar7 != '\0') {
+                    puVar8 = (uint8_t*)field_2506676[arg1];
+                    *puVar8 = 1;
                 }
-                cVar2 = *pcVar6;
-                pCVar12 = (Client*)&field_2506776;
-                pcVar5 = (char*)std::array<bool, 100ul>::operator[]((array<bool, 100ul>*)&field_2506776, uVar13);
-                *pcVar5 = cVar2;
-                *pcVar6 = '\0';
-                uVar13 = uVar13 + 1;
-            } while (uVar1 != uVar13);
+                cVar3 = *pcVar7;
+                pcVar6 = &field_2506776[arg1];
+                *pcVar6 = cVar3;
+                *pcVar7 = '\0';
+                arg1 = arg1 + 1;
+            } while (uVar1 != arg1);
         }
         field_2506572 = field_8488;
         field_2505044 = 18446744073709551615;
         if (field_53216 != -1) {
             field_2506568 = 0;
-            uVar8 = SystemTimer::GetTimeNS<std::chrono::steady_clock>((SystemTimer*)pCVar12);
-            this_02 = (WorldmapAreaMetadata*)field_144->GetScreen();
-            local_40.m_x = this_02->GetMinMapX();
-            iVar3 = local_40.GetX();
-            this_03 = (NXTPixScreen*)field_144->GetScreen();
-            local_40._8_4_ = this_03->GetUIHeight();
-            iVar4 = local_40.field_8.GetX();
-            pCVar12 = this;
-            DrawInterface(this, field_53216, 0, 0, iVar3, iVar4, 0, 0, -1);
-            uVar9 = SystemTimer::GetTimeNS<std::chrono::steady_clock>((SystemTimer*)pCVar12);
-            (field_52936, uVar9 - uVar8)->AddSample();
+            uVar9 = SystemTimer::GetTimeNS<std::chrono::steady_clock>();
+            local_40.m_x = ((WorldmapAreaMetadata*)field_144->GetScreen())->GetMinMapX();
+            iVar4 = local_40.GetX();
+            local_40._8_4_ = ((NXTPixScreen*)field_144->GetScreen())->GetUIHeight();
+            iVar5 = local_40.field_8.GetX();
+            DrawInterface(field_53216, 0, 0, iVar4, iVar5, 0, 0, -1);
+            field_52936->AddSample(SystemTimer::GetTimeNS<std::chrono::steady_clock>() - uVar9);
         }
         this_01->ResetClipping();
-        this_00 = field_52344;
-        pPVar10 = (Pix2D*)(*(code*)*field_144->field_0)();
-        this_00->DrawFeedback(pPVar10);
-        cVar2 = field_52344->IsOpen();
-        if (cVar2 != '\0') {
-            (field_52344, this_01)->Draw();
+        Minimenu* this_00 = field_52344;
+        uVar2 = field_144->GetPix2D();
+        this_00->DrawFeedback(*((Pix2D*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar2)));
+        cVar3 = field_52344->IsOpen();
+        if (cVar3) {
+            field_52344->Draw(*this_01);
         }
-        iVar3 = m_playerLevel;
-        lVar11 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)field_52016);
-        iVar4 = *(int*)(lVar11 + 24);
-        lVar11 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)field_52016);
-        bgsound::DoMix(iVar3, iVar4, *(int*)(lVar11 + 28), field_1115692);
+        iVar4 = field_51984;
+        long lVar11 = field_52016.operator->();
+        iVar5 = *(int*)(lVar11 + 24);
+        lVar11 = field_52016.operator->();
+        bgsound::DoMix(iVar4, iVar5, *(int*)(lVar11 + 28), field_1115692);
         field_1115692 = 0;
     }
 
-    // 0x1000e8350, 35536 bytes, placed by __FILE__ string
-    // Client::TcpIn(ServerConnection&)
-    ulong Client::TcpIn(ServerConnection* param_1) {
+    // 0x1000e8350
+    unsigned long Client::TcpIn(ServerConnection& serverConnection) {
         hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                   eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                   eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                   eastl::prime_rehash_policy, false, true, true>* this_00;
         TextureAtlasReference* this_01;
-        char cVar1;
-        bool bVar2;
-        char cVar3;
-        bool bVar4;
-        byte bVar5;
-        undefined1 uVar6;
-        byte bVar7;
-        ushort uVar8;
+        bool cVar1;
+        Easing EVar2;
+        bool bVar3;
+        uint8_t bVar5;
+        uint8_t bVar7;
+        unsigned short uVar8;
         short sVar9;
         short sVar10;
-        undefined2 uVar11;
+        uint16_t uVar11;
         int iVar12;
-        uint uVar13;
-        undefined4 uVar14;
-        uint uVar15;
+        unsigned int uVar13;
+        unsigned int uVar15;
         int iVar16;
-        uint uVar17;
-        uint uVar18;
+        unsigned int uVar17;
+        unsigned int uVar18;
         int iVar19;
-        undefined8 uVar20;
-        ServerConnection* pSVar21;
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>* pPVar22;
-        undefined4* puVar23;
-        ulong uVar24;
-        undefined1* puVar25;
+        unsigned int uVar20;
+        Logger* pLVar21;
+        ServerConnection* pSVar22;
+        Isaac* isaac;
+        uint32_t* puVar23;
+        unsigned long uVar24;
+        uint8_t* puVar25;
         ShuffledPacket3* pSVar26;
         ShuffledPacket4* pSVar27;
         long lVar28;
-        array<int, 32ul>* paVar29;
-        IfType* pIVar30;
-        int* piVar31;
-        ClientVarValues* this_02;
-        undefined8 uVar32;
-        ClientNpc* this_03;
-        ActiveOffersReply* this_04;
-        shared_ptr<rs2lib::IfType>* this_05;
-        undefined1* puVar33;
-        OldscapeVarTypeList* this_06;
-        VarContainerSparse* this_07;
-        PlayerModel* this_08;
+        __17* p_Var29;
+        shared_ptr<rs2lib::social::ClanChannel>* psVar30;
+        shared_ptr<rs2lib::IfType>* psVar31;
+        IfType* pIVar32;
+        int* piVar33;
+        uint64_t uVar34;
+        ClientNpc* this_04;
+        ActiveOffersReply* this_05;
+        uint8_t* puVar35;
         ClientProj* this_09;
         Minimap* this_10;
-        unique_ptr<rs2lib::StockPlayerOffer, eastl::default_delete<rs2lib::StockPlayerOffer>>* puVar34;
-        StockPlayerOffer* pSVar35;
-        HookArg* pHVar36;
-        shared_ptr<rs2lib::social::ClanSettings>* psVar37;
-        PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* pPVar38;
-        ShuffledPacket2* pSVar39;
-        ClientPlayer* pCVar40;
-        shared_ptr* psVar41;
+        unique_ptr<rs2lib::StockPlayerOffer>* puVar36;
+        StockPlayerOffer* pSVar37;
+        ReturnValue RVar38;
+        HookArg* pHVar39;
+        shared_ptr<rs2lib::social::ClanSettings>* psVar40;
+        PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* pPVar41;
+        ShuffledPacket2* pSVar42;
+        ClientPlayer* clientPlayer;
+        shared_ptr<midi2::MidiPlayerMainThread>* psVar43;
         shared_ptr<ApplicationContext>* this_11;
-        long* plVar42;
-        int* piVar43;
-        Client* pCVar44;
-        shared_ptr<rs2lib::social::ClanChannel>* psVar45;
-        char* pcVar46;
-        shared_ptr* psVar47;
-        Array<int, eastl::allocator>* pAVar48;
-        long lVar49;
-        ClientEntity* pCVar50;
-        SuperShuffledPacketFactory* pSVar51;
-        ulong* puVar52;
-        FriendSystem* pFVar53;
-        WordPack* pWVar54;
+        long* plVar44;
+        int* piVar45;
+        shared_ptr<dash3d::GroundDecor>* psVar46;
+        char* pcVar48;
+        shared_ptr<midi2::MidiPlayerMainThread>* psVar49;
+        Array<int>* pAVar50;
+        long lVar51;
+        shared_ptr<ClientPlayer>* clientPlayer_00;
+        ClientEntity* pCVar52;
+        SuperShuffledPacketFactory* pSVar53;
+        unsigned long* puVar54;
+        FriendSystem* pFVar55;
+        WordPack* pWVar56;
         ClanChannelDelta* this_12;
-        Client* pCVar55;
-        ClanSettingsDelta* this_13;
-        ClanSettings* pCVar56;
-        longlong* plVar57;
-        undefined8 uVar58;
+        ClanSettingsDelta* this_14;
+        ClanSettings* clanSettings;
+        long long* plVar57;
+        uint64_t uVar58;
         ClanChannel* pCVar59;
-        Array* pAVar60;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
-        hashtable_iterator_base* extraout_RDX_03;
-        hashtable_iterator_base* extraout_RDX_04;
-        hashtable_iterator_base* extraout_RDX_05;
-        hashtable_iterator_base* extraout_RDX_06;
-        hashtable_iterator_base* extraout_RDX_07;
-        hashtable_iterator_base* extraout_RDX_08;
-        hashtable_iterator_base* extraout_RDX_09;
-        uint* puVar61;
-        array<int, 32ul>* paVar62;
-        ulong uVar63;
-        uint uVar64;
-        ClientMessage* this_14;
-        Client* pCVar65;
-        shared_ptr<RSevenDebugPresetProvider>* this_15;
-        undefined* puVar66;
-        int iVar67;
-        NXTPixToolkit* pNVar68;
-        int iVar69;
-        ulong unaff_R15;
-        undefined7 uVar72;
-        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar70;
-        hashtable_iterator_base* phVar71;
-        double dVar73;
-        shared_ptr asStackY_d18[128];
-        ulong in_stack_fffffffffffffae8;
-        ulong in_stack_fffffffffffffaf0;
-        undefined4 uVar74;
-        undefined4 uVar75;
-        undefined4 uVar76;
-        ulong in_stack_fffffffffffffaf8;
-        undefined4 uVar77;
-        undefined8 in_stack_fffffffffffffb00;
-        undefined4 uVar78;
-        undefined8 in_stack_fffffffffffffb08;
-        undefined8 in_stack_fffffffffffffb10;
-        undefined1 local_4c0[8];
-        TextureAtlasReference local_4b8;
+        Array<shared_ptr<rs2lib::IfType>>* pAVar61;
+        world* pwVar62;
+        unsigned int* puVar63;
+        array<int, 99ul>* this_15;
+        array<int, 32ul>* paVar64;
+        unsigned long uVar65;
+        LocShapeID locShapeID;
+        shared_ptr<RSevenDebugPresetProvider>* this_16;
+        eastl::string* this_17;
+        uint8_t* puVar67;
+        int arg2;
+        ReturnValue RVar68;
+        int arg1;
+        unsigned long unaff_R15;
+        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar69;
+        double dVar71;
+        ReturnValue aRStackY_918[128];
+        unsigned long in_stack_fffffffffffffae8;
+        unsigned long in_stack_fffffffffffffaf0;
+        uint32_t uVar73;
+        unsigned long in_stack_fffffffffffffaf8;
+        uint64_t in_stack_fffffffffffffb00;
+        uint64_t in_stack_fffffffffffffb08;
+        uint64_t in_stack_fffffffffffffb10;
+        uint8_t local_4c0[8];
         int local_484;
-        undefined1 local_480[8];
-        undefined1 local_478[80];
-        eastl::string local_428[760];
-        Array<int, eastl::allocator>* local_130;
-        shared_ptr local_128;
-        shared_ptr local_110[2];
-        SuperShuffledPacketFactory local_f0[2];
-        undefined1 local_cc[4];
-        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_c8;
-        array<int, 32ul>* local_c0;
-        undefined1 local_b8[56];
+        uint8_t local_480[8];
+        uint8_t local_478[80];
+        eastl::string local_428;
+        Array<int>* local_130;
+        ReturnValue local_128;
+        ReturnValue local_110;
+        SuperShuffledPacketFactory local_f0;
+        uint8_t local_cc[12];
+        __17* local_c0;
+        SuperShuffledPacketFactory local_b8;
+        unsigned int local_94;
+        unsigned int local_90;
+        unsigned int local_8c;
         HookArg local_80;
-        long local_38;
 
-        uVar14 = (undefined4)((ulong)in_stack_fffffffffffffb08 >> 32);
-        uVar76 = (undefined4)((ulong)in_stack_fffffffffffffb10 >> 32);
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_14 = (ClientMessage*)local_4c0;
-        local_b8._48_8_ = this;
-        shared::ClientMessage::ClientMessage(this_14);
-        cVar3 = param_1->GetNextServerMessage(this_14);
-        if (cVar3 == '\0') {
-            iVar12 = param_1->GetConnectionState();
+        uint32_t uVar14 = (uint32_t)((unsigned long)in_stack_fffffffffffffb08 >> 32);
+        uint32_t uVar74 = (uint32_t)((unsigned long)in_stack_fffffffffffffb10 >> 32);
+        Client* local_88 = this;
+        new (local_4c0) shared::ClientMessage();
+        char cVar4 = serverConnection.GetNextServerMessage(*local_4c0);
+        if (!cVar4) {
+            iVar12 = serverConnection.GetConnectionState();
             if (iVar12 != 3) {
-                LostCon((Client*)local_b8._48_8_);
+                LostCon(local_88);
             }
             goto LAB_1000e84af;
         }
-        ((local_b8._48_8_ + 1104120))->MarkServerDataSeen();
-        uVar74 = (undefined4)(in_stack_fffffffffffffaf0 >> 32);
-        if (*(char*)(local_b8._48_8_ + 54760) != '\0') {
-            uVar20 = logger::default_logger();
-            uVar75 = local_4c0._0_4_;
-            unaff_R15 = *(ulong*)(PTR_NAMES_100ee6b80 + (ulong)(uint)local_4c0._0_4_ * 8);
+        local_88->field_1104120.MarkServerDataSeen();
+        uint32_t uVar72 = (uint32_t)(in_stack_fffffffffffffaf0 >> 32);
+        if (local_88->field_54760 != '\0') {
+            pLVar21 = logger::default_logger();
+            uVar73 = local_4c0._0_4_;
+            unaff_R15 = *(unsigned long*)(PTR_NAMES_100ee6b80 + (unsigned long)(unsigned int)local_4c0._0_4_ * 8);
             in_stack_fffffffffffffaf8 = ((local_4c0 + 8))->GetTextureAtlas();
-            in_stack_fffffffffffffaf0 = CONCAT44(uVar74, uVar75);
-            this_14 = (ClientMessage*)0;
+            in_stack_fffffffffffffaf0 = (((uint64_t)uVar72 << 32) | (uint32_t)uVar73);
             in_stack_fffffffffffffae8 = unaff_R15;
-            logger::Logger::Log(
-                uVar20, 0, 5,
+            pLVar21->Log(
+                false, 5,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
                 1159, "Got ptype: %s(%d), %zu", unaff_R15, in_stack_fffffffffffffaf0, in_stack_fffffffffffffaf8);
         }
-        uVar20 = local_b8._48_8_;
-        uVar77 = (undefined4)(in_stack_fffffffffffffaf8 >> 32);
-        uVar78 = (undefined4)((ulong)in_stack_fffffffffffffb00 >> 32);
-        uVar75 = (undefined4)(in_stack_fffffffffffffaf0 >> 32);
-        uVar74 = (undefined4)(in_stack_fffffffffffffae8 >> 32);
-        if (121 < (uint)local_4c0._0_4_) {
-            uVar20 = logger::default_logger();
-            logger::Logger::Log(
-                uVar20, 0, 2,
+        Client* pCVar66 = local_88;
+        uint32_t uVar75 = (uint32_t)(in_stack_fffffffffffffaf8 >> 32);
+        uint32_t uVar76 = (uint32_t)((unsigned long)in_stack_fffffffffffffb00 >> 32);
+        uVar73 = (uint32_t)(in_stack_fffffffffffffaf0 >> 32);
+        uVar72 = (uint32_t)(in_stack_fffffffffffffae8 >> 32);
+        if (121 < (unsigned int)local_4c0._0_4_) {
+            pLVar21 = logger::default_logger();
+            pLVar21->Log(
+                false, 2,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
-                4290, "Unrecognized packet type: %d", CONCAT44(uVar74, local_4c0._0_4_));
-            eastl::string::basic_string(local_480, "Unrecognized packet type: %d", local_4c0._0_4_);
-            pcVar46 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            OldscapeClientError::ReportError(pcVar46, (Callstack*)0);
-            local_480->~basic_string();
-            psVar41 = (shared_ptr*)CONCAT71((int7)(unaff_R15 >> 8), 1);
-            Logout((Client*)local_b8._48_8_);
+                4290, "Unrecognized packet type: %d", (((uint64_t)uVar72 << 32) | (uint32_t)local_4c0._0_4_));
+            new (local_480) eastl::string((CtorSprintf*)"Unrecognized packet type: %d",
+                                          (char*)(unsigned long)(unsigned int)local_4c0._0_4_);
+            pcVar48 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            OldscapeClientError::ReportError(pcVar48, nullptr);
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)(unaff_R15 >> 8)) << 8) | (uint8_t)1);
+            Logout(local_88);
             goto LAB_1000e84b2;
         }
-        pCVar55 = (Client*)(local_b8._48_8_ + 54760);
-        pCVar44 = (Client*)(local_4c0 + 8);
-        uVar72 = (undefined7)((ulong)pCVar55 >> 8);
-        bVar4 = SUB81(pCVar44, 0);
-        pHVar36 = (HookArg*)pCVar55;
+        Client* this_13 = (Client*)&local_88->field_54760;
+        Client* pCVar47 = (Client*)(local_4c0 + 8);
+        uint64_t uVar70 = (uint64_t)((unsigned long)this_13 >> 8);
+        bool bVar6 = (uint8_t)pCVar47;
+        ReturnValue* pRVar60 = (ReturnValue*)this_13;
         switch (local_4c0._0_4_) {
         case (BADTYPE)0:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar27->g2();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar27->g3();
             uVar15 = 4294967295;
             if (uVar8 != 65535) {
-                uVar15 = (uint)uVar8;
+                uVar15 = (unsigned int)uVar8;
             }
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            PlayJingle((Client*)local_b8._48_8_, uVar15, iVar12);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            PlayJingle(local_88, uVar15, iVar12);
             break;
         case (BADTYPE)1:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar27->g4s();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             sVar9 = pSVar26->g2s();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             if ((sVar9 == -1) || (*(int*)(lVar28 + 244) != (int)sVar9)) {
                 *(int*)(lVar28 + 244) = (int)sVar9;
-                *(undefined8*)(lVar28 + 1992) = 0;
-                ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+                *(uint64_t*)(lVar28 + 1992) = 0;
+                ComponentUpdated(local_88, psVar31);
             }
             break;
         case (BADTYPE)2:
-            bVar5 = pCVar44->g1();
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                uVar32 = shared::PlayerFacingLogoutReason::getReason((uint)bVar5);
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    1228, "logout due to %s", uVar32);
+            bVar5 = pCVar47->g1();
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                uVar34 = shared::PlayerFacingLogoutReason::getReason((unsigned int)bVar5);
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             1228, "logout due to %s", uVar34);
             }
-            LogoutWithReason((Client*)local_b8._48_8_, bVar5);
+            LogoutWithReason(local_88, (unsigned int)bVar5);
             goto LAB_1000e84af;
         case (BADTYPE)3:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            cVar3 = pSVar39->g1s();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            cVar4 = pSVar42->g1s();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar26->g1();
-            local_128._0_4_ = (uint)bVar5 << 2;
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar15 = pSVar39->g1s();
-            pHVar36 = (HookArg*)(ulong)uVar15;
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            local_128[0]._0_4_ = (unsigned int)bVar5 << 2;
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar15 = pSVar42->g1s();
+            pRVar60 = (ReturnValue*)(unsigned long)uVar15;
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar26->g2();
-            local_110[0]._0_4_ = ZEXT24(uVar8);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            local_f0[0].field_0._0_4_ = pPVar38->g3s();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar18 = pSVar39->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar17 = pSVar39->g1();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            local_110[0]._0_4_ = (uint32_t)uVar8;
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            local_f0[0].field_0._0_4_ = pPVar41->g3s();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar18 = pSVar42->g2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar17 = pSVar42->g1();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar11 = pSVar27->g2();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar13 = pSVar26->g3();
             local_80.m_argType = (uVar13 >> 4 & 7) + ((int)uVar13 >> 16);
-            local_b8._0_4_ = (uVar13 & 7) + (uVar13 >> 8 & 255);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            bVar5 = pPVar38->g1();
-            local_b8._44_4_ = ZEXT14(bVar5);
-            pCVar44 = (Client*)local_480->p2_alt2();
-            bVar5 = pCVar44->g1();
-            uVar20 = local_b8._48_8_;
-            local_b8._36_4_ = ZEXT14(bVar5);
+            local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) |
+                                              (uint32_t)((uVar13 & 7) + (uVar13 >> 8 & 255)));
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            bVar5 = pPVar41->g1();
+            local_8c = (unsigned int)bVar5;
+            pCVar47 = (Client*)ShuffledPacketFactory::p2_alt2();
+            bVar5 = pCVar47->g1();
+            pCVar66 = local_88;
+            local_94 = (unsigned int)bVar5;
             if ((((int)local_80.m_argType < 104) && (-1 < (int)local_80.m_argType)) &&
-                ((-1 < (int)local_b8._0_4_ &&
-                  (((int)local_b8._0_4_ < 104 && (iVar12 = (int)cVar3 + local_80.m_argType, -1 < iVar12)))))) {
-                uVar15 = (int)(char)uVar15 + local_b8._0_4_;
-                pHVar36 = (HookArg*)(ulong)uVar15;
+                ((-1 < (int)(Easing)local_b8[0].field_0 &&
+                  (((int)(Easing)local_b8[0].field_0 < 104 &&
+                    (iVar12 = (int)cVar4 + local_80.m_argType, -1 < iVar12)))))) {
+                uVar15 = (int)(char)uVar15 + (Easing)local_b8[0].field_0;
+                pRVar60 = (ReturnValue*)(unsigned long)uVar15;
                 if ((-1 < (int)uVar15) && (((iVar12 < 104 && ((int)uVar15 < 104)) && (local_110[0]._0_4_ != 65535)))) {
-                    local_c0 = (array<int, 32ul>*)CONCAT62(local_c0._2_6_, uVar11);
-                    uVar64 = local_80.m_argType << 7;
-                    local_80._0_8_ = CONCAT44(local_80._4_4_, uVar64) | 64;
-                    uVar13 = local_b8._0_4_ << 7;
-                    local_b8._0_8_ = CONCAT44(local_b8._4_4_, uVar13) | 64;
-                    iVar19 = GetAvH(pCVar44, uVar64 | 64, uVar13 | 64, *(int*)(local_b8._48_8_ + 51984));
-                    uVar13 = (uint)(ushort)local_c0;
-                    piVar43 = (int*)(uVar20 + 51984);
-                    local_b8._40_4_ = iVar19 + (uVar17 & 255) * -4;
-                    local_484 = *(int*)(uVar20 + 8488);
-                    local_cc = (undefined1[4])(local_484 + uVar13);
+                    local_c0 = (__17*)(((uint64_t)local_c0._2_6_ << 16) | (uint16_t)uVar11);
+                    uVar20 = local_80.m_argType << 7;
+                    local_80._0_8_ = (((uint64_t)local_80._4_4_ << 32) | (uint32_t)uVar20) | 64;
+                    uVar13 = (Easing)local_b8[0].field_0 << 7;
+                    local_b8[0].field_0 =
+                        (sqlite3**)((((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)uVar13) | 64);
+                    iVar19 = GetAvH(pCVar47, uVar20 | 64, uVar13 | 64, local_88->field_51984);
+                    uVar13 = (unsigned int)(unsigned short)local_c0;
+                    piVar45 = &pCVar66->field_51984;
+                    local_90 = iVar19 + (uVar17 & 255) * -4;
+                    local_484 = pCVar66->field_8488;
+                    local_cc._0_4_ = local_484 + uVar13;
                     local_484 = local_484 + (uVar18 & 65535);
                     make_shared<ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&>(
-                        (jag*)local_480, (int*)local_110, piVar43, (int*)&local_80, (int*)local_b8,
-                        (int*)(local_b8 + 40), (int*)local_cc, &local_484, (int*)(local_b8 + 36), (int*)(local_b8 + 44),
-                        (int*)local_f0, (int*)&local_128);
-                    pCVar44 = (Client*)local_480;
-                    this_09 = (ClientProj*)shared_ptr<ClientProj>::operator->((shared_ptr<ClientProj>*)pCVar44);
+                        (int*)local_480, &local_110, piVar45, (int*)&local_80, &local_b8, (int*)((long)&local_b8 + 40),
+                        (int*)local_cc, &local_484, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44),
+                        &local_f0);
+                    pCVar66 = (Client*)local_480;
+                    this_09 = (ClientProj*)(*pCVar66).operator->();
                     uVar18 = iVar12 * 128 | 64;
                     uVar15 = uVar15 * 128 | 64;
-                    pHVar36 = (HookArg*)(ulong)uVar15;
-                    iVar12 = GetAvH(pCVar44, uVar18, uVar15, *piVar43);
-                    uVar20 = local_b8._48_8_;
-                    this_09->SetTarget(uVar18, uVar15, iVar12 - local_128._0_4_,
-                                       uVar13 + *(int*)(local_b8._48_8_ + 8488));
-                    ((uVar20 + 7164584))->push_back(local_480);
-                    local_480->~shared_ptr();
+                    pRVar60 = (ReturnValue*)(unsigned long)uVar15;
+                    iVar12 = GetAvH(pCVar66, uVar18, uVar15, *piVar45);
+                    pCVar66 = local_88;
+                    this_09->SetTarget(uVar18, uVar15, iVar12 - local_128[0]._0_4_, uVar13 + local_88->field_8488);
+                    pCVar66->field_7164584.push_back(*local_480);
                 }
             }
             goto switchD_1000ea3f5_default;
         case (BADTYPE)4:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            bVar5 = pPVar38->g1();
-            uVar20 = local_b8._48_8_;
-            *(uint*)(local_b8._48_8_ + 53312) = (uint)bVar5;
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            bVar5 = pSVar39->g1();
-            *(uint*)(uVar20 + 53304) = (uint)bVar5;
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            bVar5 = pPVar41->g1();
+            pCVar66 = local_88;
+            local_88->field_53312 = (unsigned int)bVar5;
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            bVar5 = pSVar42->g1();
+            *(unsigned int*)&pCVar66->field_53304 = (unsigned int)bVar5;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)5:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar27->g2();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar18 = pPVar38->g2();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar18 = pPVar41->g2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar27->g4s();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar17 = pPVar38->g2();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar18 >> 8), 1);
-            if (((*(uint*)(lVar28 + 260) != (uVar17 & 65535)) || (*(uint*)(lVar28 + 264) != (uVar15 & 65535))) ||
-                (*(uint*)(lVar28 + 272) != (uVar18 & 65535))) {
-                *(uint*)(lVar28 + 260) = uVar17 & 65535;
-                *(uint*)(lVar28 + 264) = uVar15 & 65535;
-                *(uint*)(lVar28 + 272) = uVar18 & 65535;
-                ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar17 = pPVar41->g2();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar18 >> 8)) << 8) |
+                                                                 (uint8_t)1);
+            if (((*(unsigned int*)(lVar28 + 260) != (uVar17 & 65535)) ||
+                 (*(unsigned int*)(lVar28 + 264) != (uVar15 & 65535))) ||
+                (*(unsigned int*)(lVar28 + 272) != (uVar18 & 65535))) {
+                *(unsigned int*)(lVar28 + 260) = uVar17 & 65535;
+                *(unsigned int*)(lVar28 + 264) = uVar15 & 65535;
+                *(unsigned int*)(lVar28 + 272) = uVar18 & 65535;
+                ComponentUpdated(local_88, psVar31);
             }
             break;
         case (BADTYPE)6:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar15 = pPVar38->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            iVar12 = pSVar39->g4();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if ((*(int*)(lVar28 + 228) != 6) || (*(uint*)(lVar28 + 232) != (uVar15 & 65535))) {
-                *(undefined4*)(lVar28 + 228) = 6;
-                *(uint*)(lVar28 + 232) = uVar15 & 65535;
-                ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar15 = pPVar41->g2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            iVar12 = pSVar42->g4();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if ((*(int*)(lVar28 + 228) != 6) || (*(unsigned int*)(lVar28 + 232) != (uVar15 & 65535))) {
+                *(uint32_t*)(lVar28 + 228) = 6;
+                *(unsigned int*)(lVar28 + 232) = uVar15 & 65535;
+                ComponentUpdated(local_88, psVar31);
             }
             break;
         case (BADTYPE)7:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            shared_ptr<game::VarContainerSparse>::reset();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            local_88->field_52528.reset();
             break;
         case (BADTYPE)8:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 2, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 2, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)9:
-            *(undefined2*)(local_b8._48_8_ + 52996) = 256;
-            *(char*)(local_b8._48_8_ + 52999) = '\x01';
-            sVar9 = pCVar44->g2s();
-            sVar10 = pCVar44->g2s();
-            uVar20 = local_b8._48_8_;
-            local_80.m_argType = dash3d::world::ClampPitchAngle(*(int*)(local_b8._48_8_ + 53100) + (int)sVar10 & 2027);
-            local_b8._0_4_ = *(uint*)(uVar20 + 53104) + (int)sVar9;
+            *(uint16_t*)&local_88->field_52996 = 256;
+            local_88->field_52999 = '\x01';
+            sVar9 = pCVar47->g2s();
+            sVar10 = pCVar47->g2s();
+            pCVar66 = local_88;
+            local_80.m_argType = dash3d::world::ClampPitchAngle(local_88->field_53100 + (int)sVar10 & 2027);
+            local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) |
+                                              (uint32_t)(pCVar66->field_53104 + (int)sVar9));
             uVar8 = ((local_4c0 + 8))->g2();
-            local_f0[0].field_0._0_4_ = (uint)uVar8;
+            local_f0[0].field_0._0_4_ = (unsigned int)uVar8;
             bVar5 = ((local_4c0 + 8))->g1();
-            local_110[0]._0_4_ = ZEXT14(bVar5);
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(
-                    uVar20, 0, 5,
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
-                    "client_network.cpp",
-                    3088, "cam_rotateby yaw:%d (target yaw:%d) pitch:%d (target pitch:%d) cycles:%d easing:%d",
-                    CONCAT44(uVar74, (int)sVar9), CONCAT44(uVar75, local_b8._0_4_), CONCAT44(uVar77, (int)sVar10),
-                    CONCAT44(uVar78, local_80.m_argType), CONCAT44(uVar14, (uint)local_f0[0].field_0),
-                    CONCAT44(uVar76, local_110[0]._0_4_));
+            local_110[0]._0_4_ = (uint32_t)bVar5;
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3088, "cam_rotateby yaw:%d (target yaw:%d) pitch:%d (target pitch:%d) cycles:%d easing:%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)((int)sVar9)),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)((Easing)local_b8[0].field_0)),
+                             (((uint64_t)uVar75 << 32) | (uint32_t)((int)sVar10)),
+                             (((uint64_t)uVar76 << 32) | (uint32_t)local_80.m_argType),
+                             (((uint64_t)uVar14 << 32) | (uint32_t)((unsigned int)local_f0[0].field_0)),
+                             (((uint64_t)uVar74 << 32) | (uint32_t)local_110[0]._0_4_));
             }
-            pCVar44 = (Client*)local_b8._48_8_;
-            std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&, CinemaCameraTween::Easing_const&>(
-                (int*)local_480, (int*)(local_b8._48_8_ + 53100), (int*)&local_80, (Easing*)local_f0);
-            pCVar55 = (Client*)local_480;
-            std::unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>::operator=(
-                (unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>*)((long)pCVar44 +
-                                                                                                         53072),
-                (unique_ptr*)pCVar55);
-            pCVar55->~unique_ptr();
-            std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&, CinemaCameraTween::Easing_const&>(
-                (int*)local_480, (int*)((long)pCVar44 + 53104), (int*)local_b8, (Easing*)local_f0);
+            pCVar66 = local_88;
+            *local_480 = std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&,
+                                          CinemaCameraTween::Easing const&>(local_88->field_53100, local_80, local_f0,
+                                                                            local_110);
+            this_13 = (Client*)local_480;
+            pCVar66->field_53072 = *this_13;
+            this_13->~unique_ptr();
+            *local_480 =
+                std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&,
+                                 CinemaCameraTween::Easing const&>(pCVar66->field_53104, local_b8, local_f0, local_110);
             goto LAB_1000ecfdb;
         case (BADTYPE)10:
             new (local_480) ErrorCapture(true);
-            pFVar53 = (FriendSystem*)std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-                (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(local_b8._48_8_ + 52768));
-            iVar12 = pCVar44->GetTextureAtlas();
-            pFVar53->ProcessFriendListUpdate(pCVar44, iVar12, local_480);
-            cVar3 = local_480->IsRaised();
-            if (cVar3 != '\0') {
+            pFVar55 = (FriendSystem*)local_88->field_52768.operator->();
+            iVar12 = pCVar47->GetTextureAtlas();
+            pFVar55->ProcessFriendListUpdate(*pCVar47, iVar12, *local_480);
+            cVar4 = local_480->IsRaised();
+            if (cVar4) {
                 local_480->second();
-                pcVar46 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                /* WARNING: Subroutine does not return */
+                pcVar48 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                 "client_network.cpp",
-                                1335, pcVar46);
+                                1335, pcVar48);
             }
             goto LAB_1000ed08d;
         case (BADTYPE)11:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar26->g1();
-            uVar20 = local_b8._48_8_;
-            *(uint*)(local_b8._48_8_ + 1115284) = (uint)bVar5;
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pCVar66 = local_88;
+            *(unsigned int*)&local_88->field_1115284 = (unsigned int)bVar5;
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar27->g1();
-            *(uint*)(uVar20 + 1115288) = (uint)bVar5;
-            if (*(char*)(uVar20 + 54760) != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4099, "Full update for zone: %d,%d",
-                                    CONCAT44(uVar74, *(undefined4*)(local_b8._48_8_ + 1115284)),
-                                    CONCAT44(uVar75, *(undefined4*)(local_b8._48_8_ + 1115288)));
+            *(unsigned int*)&pCVar66->field_1115288 = (unsigned int)bVar5;
+            if (pCVar66->field_54760 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4099, "Full update for zone: %d,%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)(*(uint32_t*)&local_88->field_1115284)),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)(*(uint32_t*)&local_88->field_1115288)));
             }
-            uVar20 = local_b8._48_8_;
-            paVar29 = (array<int, 32ul>*)((undefined1*)(local_b8._48_8_ + 1120504) +
-                                          (long)*(int*)(local_b8._48_8_ + 1115284) * 3328 + 56);
-            lVar28 = (long)*(int*)(local_b8._48_8_ + 1115284);
+            pCVar66 = local_88;
+            p_Var29 = (__17*)(local_88->field_1120504 + (long)*(int*)&local_88->field_1115284 * 3328 + 56);
+            lVar28 = (long)*(int*)&local_88->field_1115284;
             do {
-                uVar63 = (ulong) * (int*)(uVar20 + 1115288);
-                lVar49 = uVar63 - 1;
-                paVar62 = paVar29 + uVar63 * 32;
-                local_c0 = paVar29;
+                uVar65 = (unsigned long)*(int*)&pCVar66->field_1115288;
+                lVar51 = uVar65 - 1;
+                paVar64 = (array<int, 32ul>*)(uVar65 * 32 + (long)p_Var29);
+                local_c0 = p_Var29;
                 do {
-                    cVar3 = ((paVar62 + (long)*(int*)(uVar20 + 51984) * 346112))->empty();
-                    iVar12 = (int)uVar63;
-                    if (cVar3 == '\0') {
-                        ((paVar62 + (long)*(int*)(uVar20 + 51984) * 346112))->clear();
-                        ShowObject((Client*)uVar20, (int)lVar28, iVar12);
-                        RunUpdateObjStackTrigger((Client*)uVar20, *(int*)(uVar20 + 51984), (int)lVar28, iVar12);
+                    cVar4 =
+                        ((hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>,
+                                    eastl::allocator,
+                                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                                    eastl::equal_to<eastl::string>, eastl::hash<eastl::string>,
+                                    eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy,
+                                    false, true, true>*)(paVar64 + (long)pCVar66->field_51984 * 346112))
+                            ->empty();
+                    iVar12 = (int)uVar65;
+                    if (!cVar4) {
+                        ((list<shared_ptr<ClientObj>>*)(paVar64 + (long)pCVar66->field_51984 * 346112))->clear();
+                        ShowObject(pCVar66, (int)lVar28, iVar12);
+                        RunUpdateObjStackTrigger(pCVar66, pCVar66->field_51984, (int)lVar28, iVar12);
                     }
-                    lVar49 = lVar49 + 1;
-                    uVar63 = (ulong)(iVar12 + 1);
-                    paVar62 = paVar62 + 32;
-                } while (lVar49 < (long)*(int*)(uVar20 + 1115288) + 7);
-                paVar29 = local_c0 + 3328;
-                bVar4 = lVar28 < (long)*(int*)(uVar20 + 1115284) + 7;
+                    lVar51 = lVar51 + 1;
+                    uVar65 = (unsigned long)(iVar12 + 1);
+                    paVar64 = paVar64 + 32;
+                } while (lVar51 < (long)*(int*)&pCVar66->field_1115288 + 7);
+                p_Var29 = local_c0 + 256;
+                bVar6 = lVar28 < (long)*(int*)&pCVar66->field_1115284 + 7;
                 lVar28 = lVar28 + 1;
-            } while (bVar4);
-            local_480->begin();
-            pHVar36 = &local_80;
-            pHVar36->end();
-            bVar4 = eastl::operator!=((eastl*)local_480, (hashtable_iterator_base*)pHVar36, extraout_RDX_07);
-            if (bVar4) {
+            } while (bVar6);
+            *local_480 = pCVar66->field_2505008.begin();
+            pRVar60 = (ReturnValue*)&local_80;
+            *pRVar60 = pCVar66->field_2505008.end();
+            cVar4 = *local_480 != *pRVar60;
+            if (cVar4) {
                 do {
-                    piVar43 = (int*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)local_480);
-                    if ((*(int*)(local_b8._48_8_ + 1115284) <= piVar43[1]) &&
-                        (piVar43[1] < *(int*)(local_b8._48_8_ + 1115284) + 8)) {
-                        if ((*(int*)(local_b8._48_8_ + 1115288) <= piVar43[2]) &&
-                            ((piVar43[2] < *(int*)(local_b8._48_8_ + 1115288) + 8 &&
-                              (*piVar43 == *(int*)(local_b8._48_8_ + 51984))))) {
-                            piVar43[13] = 0;
+                    piVar45 = (int*)**local_480;
+                    if ((*(int*)&local_88->field_1115284 <= piVar45[1]) &&
+                        (piVar45[1] < *(int*)&local_88->field_1115284 + 8)) {
+                        if ((*(int*)&local_88->field_1115288 <= piVar45[2]) &&
+                            ((piVar45[2] < *(int*)&local_88->field_1115288 + 8 &&
+                              (*piVar45 == local_88->field_51984)))) {
+                            piVar45[13] = 0;
                         }
                     }
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)local_480);
-                    bVar4 = eastl::operator!=((eastl*)local_480, (hashtable_iterator_base*)&local_80, extraout_RDX_08);
-                } while (bVar4);
+                    ++*local_480;
+                    cVar4 = *local_480 != local_80;
+                } while (cVar4);
             }
             goto switchD_1000ea3f5_default;
         case (BADTYPE)12:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar14 = pSVar39->g2s();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            iVar12 = pPVar38->g4();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            sVar9 = pPVar38->g2s();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)((uint)uVar14 >> 8), 1);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar14 = pSVar42->g2s();
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            iVar12 = pPVar41->g4();
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            sVar9 = pPVar41->g2s();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)((unsigned int)uVar14 >> 8))
+                                                            << 8) |
+                                                           (uint8_t)1);
             if ((((*(int*)(lVar28 + 48) != (int)sVar9) || (*(int*)(lVar28 + 52) != (int)(short)uVar14)) ||
                  (*(int*)(lVar28 + 32) != 0)) ||
                 (*(int*)(lVar28 + 36) != 0)) {
                 *(int*)(lVar28 + 48) = (int)sVar9;
                 *(int*)(lVar28 + 52) = (int)(short)uVar14;
-                *(undefined8*)(lVar28 + 32) = 0;
-                ComponentUpdated((Client*)local_b8._48_8_, psVar47);
-                InterfaceCalculateSizeAndPosComponent((Client*)local_b8._48_8_, psVar47);
+                *(uint64_t*)(lVar28 + 32) = 0;
+                ComponentUpdated(local_88, psVar31);
+                InterfaceCalculateSizeAndPosComponent(local_88, psVar31);
                 if (*(int*)(lVar28 + 12) == 0) {
-                    pAVar60 = (Array*)
-                        Array<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>, eastl::allocator>::operator[](
-                            (Array<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>,
-                                   eastl::allocator>*)&rs2lib::IfType::m_list,
-                            (long)(iVar12 >> 16));
-                    InterfaceCalculateSizeAndPosSubcomponents((Client*)local_b8._48_8_, pAVar60, psVar47, false);
+                    pAVar61 = (Array<shared_ptr<rs2lib::IfType>>*)(*(
+                        (Array<Array<shared_ptr<rs2lib::IfType>>>*)&rs2lib::IfType::m_list))[(long)(iVar12 >> 16)];
+                    InterfaceCalculateSizeAndPosSubcomponents(local_88, pAVar61, psVar31, false);
                 }
             }
             break;
         case (BADTYPE)13:
-            this_10 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)(local_b8._48_8_ + 8152));
-            bVar5 = pCVar44->g1();
-            this_10->SetToggle((uint)bVar5);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            this_10 = (Minimap*)local_88->field_8152.operator->();
+            bVar5 = pCVar47->g1();
+            this_10->SetToggle((unsigned int)bVar5);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)14:
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)&local_80, bVar4);
-            pvVar70 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pCVar44->g8();
-            uVar11 = pCVar44->g2();
-            uVar14 = pCVar44->g3();
-            bVar5 = pCVar44->g1();
-            paVar29 = (array<int, 32ul>*)constants::ChatCrownType::FromId((uint)bVar5);
-            puVar33 = (undefined1*)(local_b8._48_8_ + 53352);
-            uVar63 = 0;
-            local_c8 = pvVar70;
-            local_c0 = paVar29;
+            local_80.gStringCP1252ToUTF8<eastl::string>(bVar6);
+            pvVar69 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pCVar47->g8();
+            uVar11 = pCVar47->g2();
+            uVar14 = pCVar47->g3();
+            bVar5 = pCVar47->g1();
+            p_Var29 = (__17*)constants::ChatCrownType::FromId((unsigned int)bVar5);
+            puVar35 = &local_88->field_53352;
+            uVar65 = 0;
+            local_cc._4_8_ = pvVar69;
+            local_c0 = p_Var29;
             do {
-                puVar52 = (ulong*)std::array<unsigned long long, 100ul>::operator[](
-                    (array<unsigned long long, 100ul>*)puVar33, uVar63);
-                uVar20 = local_b8._48_8_;
-                if (*puVar52 == (ulong)CONCAT24(uVar11, uVar14)) {
-                    pCVar44 = (Client*)CONCAT71((int7)((ulong)paVar29 >> 8), 1);
+                puVar54 = (unsigned long*)(*puVar35)[uVar65];
+                pCVar66 = local_88;
+                if (*puVar54 == (unsigned long)(((uint64_t)uVar11 << 32) | (uint32_t)uVar14)) {
+                    pCVar47 = (Client*)(((uint64_t)((int64_t)((unsigned long)p_Var29 >> 8)) << 8) | (uint8_t)1);
                     goto LAB_1000ed60e;
                 }
-                uVar63 = uVar63 + 1;
-            } while (uVar63 != 100);
-            pCVar44 = (Client*)0;
+                uVar65 = uVar65 + 1;
+            } while (uVar65 != 100);
+            pCVar47 = nullptr;
         LAB_1000ed60e:
-            pCVar55 = pCVar44;
-            if (local_c0[6] != (array<int, 32ul>)0) {
-                pFVar53 = (FriendSystem*)std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-                    (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(local_b8._48_8_ + 52768));
-                new (local_480) rs2lib::social::DisplayName(&local_80, *(undefined4*)(uVar20 + 54172));
-                cVar3 = pFVar53->IsIgnored(local_480);
-                local_480->~pair();
-                pCVar55 = (Client*)&DAT_00000001;
-                if (cVar3 == '\0') {
-                    pCVar55 = (Client*)((ulong)pCVar44 & 255);
+            this_13 = pCVar47;
+            if (local_c0->field_6 != '\0') {
+                pFVar55 = (FriendSystem*)local_88->field_52768.operator->();
+                new (local_480) rs2lib::social::DisplayName(local_80, pCVar66->field_54172);
+                cVar4 = pFVar55->IsIgnored(*local_480);
+                this_13 = (Client*)&DAT_00000001;
+                if (!cVar4) {
+                    this_13 = (Client*)((unsigned long)pCVar47 & 255);
                 }
             }
-            pCVar44 = (Client*)local_b8._48_8_;
-            if (((char)pCVar55 == '\0') && (*(undefined4*)(local_b8._48_8_ + 52440) == 0)) {
-                iVar12 = *(int*)(local_b8._48_8_ + 54152);
-                puVar52 = (ulong*)std::array<unsigned long long, 100ul>::operator[](
-                    (array<unsigned long long, 100ul>*)puVar33, (long)iVar12);
-                *puVar52 = (ulong)CONCAT24(uVar11, uVar14);
-                *(int*)((long)pCVar44 + 54152) = (iVar12 + 1) % 100;
-                eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-                pWVar54 = (WordPack*)std::unique_ptr<game::WordPack, std::default_delete<game::WordPack>>::operator->(
-                    (unique_ptr<game::WordPack, std::default_delete<game::WordPack>>*)((long)((long)pCVar44 + 54172) +
-                                                                                       4));
-                pWVar54->UnpackCP1252AsUTF8((basic_string*)&local_128, (PacketT*)(local_4c0 + 8));
-                pcVar46 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                uVar63 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                local_480->Escape(pcVar46, uVar63);
-                paVar29 = local_c0;
-                pvVar70 = local_c8;
-                core::stringtools::general::StringTools::ForceCapitalisationOfWords((basic_string*)local_480);
-                if (*(int*)paVar29 == -1) {
-                    local_b8->ToScreenName((longlong)pvVar70);
-                    AddChat((Client*)local_b8._48_8_, 9, (basic_string*)&local_80, (basic_string*)local_480,
-                            (basic_string*)local_b8);
-                    pSVar51 = (SuperShuffledPacketFactory*)local_b8;
+            pCVar66 = local_88;
+            if (((char)this_13 == '\0') && (local_88->field_52440 == 0)) {
+                iVar12 = *(int*)&local_88->field_54152;
+                puVar54 = (unsigned long*)(*puVar35)[(long)iVar12];
+                *puVar54 = (unsigned long)(((uint64_t)uVar11 << 32) | (uint32_t)uVar14);
+                *(int*)&pCVar66->field_54152 = (iVar12 + 1) % 100;
+                local_128 = eastl::basic_string<char, BucketAllocatorEASTL>();
+                pWVar56 = (WordPack*)pCVar66->field_54176.operator->();
+                pWVar56->UnpackCP1252AsUTF8(local_128, *((local_4c0 + 8)));
+                pcVar48 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                uVar65 = local_128.size();
+                *local_480 = jstring::PixfontGeneric::Escape(pcVar48, uVar65);
+                p_Var29 = local_c0;
+                uVar34 = local_cc._4_8_;
+                core::stringtools::general::StringTools::ForceCapitalisationOfWords(*local_480);
+                if (*(int*)p_Var29 == -1) {
+                    local_b8 = core::stringtools::general::UserhashTools::ToScreenName(uVar34);
+                    AddChat(local_88, 9, (eastl::string*)&local_80, (eastl::string*)local_480);
+                    pSVar53 = &local_b8;
                 } else {
-                    local_f0->TAG_IMG(*(int*)paVar29);
-                    eastl::operator+((eastl*)local_b8, (basic_string*)local_f0, (basic_string*)&local_80);
-                    local_110->ToScreenName((longlong)pvVar70);
-                    AddChat((Client*)local_b8._48_8_, 9, (basic_string*)local_b8, (basic_string*)local_480,
-                            (basic_string*)local_110);
-                    local_110->~basic_string();
-                    local_b8->~basic_string();
-                    pSVar51 = local_f0;
+                    local_f0 = StringConstants::TAG_IMG(*(int*)p_Var29);
+                    local_b8 + local_f0;
+                    local_110 = core::stringtools::general::UserhashTools::ToScreenName(uVar34);
+                    AddChat(local_88, 9, &local_b8, (eastl::string*)local_480);
+                    pSVar53 = &local_f0;
                 }
-                pSVar51->~basic_string();
-                local_480->~basic_string();
-                psVar41 = &local_128;
+                pSVar53->~basic_string();
+                pRVar60 = &local_128;
             LAB_1000ef459:
-                psVar41->~basic_string();
-                pCVar55 = pCVar44;
+                pRVar60->~basic_string();
+                this_13 = pCVar66;
             }
             goto LAB_1000ef45e;
         case (BADTYPE)15:
-            local_c8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pCVar55;
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            local_cc._4_8_ = this_13;
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar26->g2();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar26->g4();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            if (local_c8->field_0 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3274, "if_setmodel - com:%i m:%i", CONCAT44(uVar74, iVar12),
-                                    CONCAT44(uVar75, uVar15) & 18446744069414649855);
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3274, "if_setmodel - com:%i m:%i", (((uint64_t)uVar72 << 32) | (uint32_t)iVar12),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)uVar15) & 18446744069414649855);
             }
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)((uint)iVar12 >> 8), 1);
-            if ((*(int*)(lVar28 + 228) != 1) || (*(uint*)(lVar28 + 232) != (uVar15 & 65535))) {
-                *(undefined4*)(lVar28 + 228) = 1;
-                *(uint*)(lVar28 + 232) = uVar15 & 65535;
-                ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)((unsigned int)iVar12 >> 8))
+                                                            << 8) |
+                                                           (uint8_t)1);
+            if ((*(int*)(lVar28 + 228) != 1) || (*(unsigned int*)(lVar28 + 232) != (uVar15 & 65535))) {
+                *(uint32_t*)(lVar28 + 228) = 1;
+                *(unsigned int*)(lVar28 + 232) = uVar15 & 65535;
+                ComponentUpdated(local_88, psVar31);
             }
             break;
         case (BADTYPE)16:
-            pCVar65 = pCVar44;
-            cVar3 = pCVar44->g1();
-            if (cVar3 == '\x01') {
-                lVar28 = pCVar65->CurrentTimeMillis();
-                lVar49 = pCVar44->g8();
-                *(long*)(local_b8._48_8_ + 52856) = lVar28 - lVar49;
-                this_04 = operator_new(32);
-                rs2lib::ActiveOffersReply::ActiveOffersReply(this_04, (PacketJ*)pCVar44, true);
-                pCVar55 = (Client*)this_04;
+            cVar4 = pCVar47->g1();
+            if (cVar4 == '\x01') {
+                lVar28 = core::SafeTime::CurrentTimeMillis();
+                lVar51 = pCVar47->g8();
+                local_88->field_52856 = lVar28 - lVar51;
+                this_05 = (ActiveOffersReply*)operator new(32);
+                new (this_05) rs2lib::ActiveOffersReply(pCVar47, true);
+                this_13 = (Client*)this_05;
             } else {
-                this_04 = (ActiveOffersReply*)0;
+                this_05 = nullptr;
             }
-            uVar20 = local_b8._48_8_;
-            ((local_b8._48_8_ + 52848))->reset(this_04);
-            *(int*)((long)(uVar20 + 2506360) + 4) = *(int*)(uVar20 + 2505808);
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar55 >> 8), 1);
+            pCVar66 = local_88;
+            local_88->field_52848.reset(this_05);
+            *(int*)((long)&pCVar66->field_2506360 + 4) = pCVar66->field_2505808;
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)17:
-            *(int*)(local_b8._48_8_ + 2506352) = *(int*)(local_b8._48_8_ + 2505808);
-            cVar3 = pCVar44->g1s();
-            make_shared<rs2lib::social::ClanSettingsDelta, core::SuperPacket&>((jag*)local_b8, (SuperPacket*)pCVar44);
-            new (local_f0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(pCVar44);
-            if (cVar3 < '\0') {
-                shared_ptr<rs2lib::social::ClanSettings>::operator=((shared_ptr<rs2lib::social::ClanSettings>*)local_f0,
-                                                                    (shared_ptr*)(local_b8._48_8_ + 52552));
+            local_88->field_2506352 = local_88->field_2505808;
+            cVar4 = pCVar47->g1s();
+            make_shared<rs2lib::social::ClanSettingsDelta, core::SuperPacket&>(&local_b8, (SuperPacket*)pCVar47);
+            local_f0 = shared_ptr();
+            if (cVar4 < '\0') {
+                local_f0 = local_88->field_52552;
             } else {
-                psVar41 = (shared_ptr*)std::array<shared_ptr<rs2lib::social::ClanSettings>, 4ul>::operator[](
-                    (array<shared_ptr<rs2lib::social::ClanSettings>, 4ul>*)(local_b8._48_8_ + 52568), (long)cVar3);
-                shared_ptr<rs2lib::social::ClanSettings>::operator=((shared_ptr<rs2lib::social::ClanSettings>*)local_f0,
-                                                                    psVar41);
+                psVar40 = &local_88->field_52568[(long)cVar4];
+                local_f0 = *psVar40;
             }
-            bVar4 = operator==((shared_ptr*)local_f0, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                RequestClanSettingsFull((Client*)local_b8._48_8_, (int)cVar3);
+            bVar6 = local_f0 == nullptr;
+            if (bVar6) {
+                RequestClanSettingsFull(local_88, (int)cVar4);
             } else {
-                lVar28 = shared_ptr<rs2lib::social::ClanSettingsDelta>::operator->(
-                    (shared_ptr<rs2lib::social::ClanSettingsDelta>*)local_b8);
+                lVar28 = local_b8.operator->();
                 iVar12 = *(int*)(lVar28 + 24);
-                lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                    (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
+                lVar28 = local_f0.operator->();
                 if (*(int*)(lVar28 + 8) < iVar12) {
-                    RequestClanSettingsFull((Client*)local_b8._48_8_, (int)cVar3);
+                    RequestClanSettingsFull(local_88, (int)cVar4);
                 } else {
-                    lVar28 = shared_ptr<rs2lib::social::ClanSettingsDelta>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettingsDelta>*)local_b8);
+                    lVar28 = local_b8.operator->();
                     iVar12 = *(int*)(lVar28 + 24);
-                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
+                    lVar28 = local_f0.operator->();
                     if (*(int*)(lVar28 + 8) <= iVar12) {
-                        this_13 = (ClanSettingsDelta*)shared_ptr<rs2lib::social::ClanSettingsDelta>::operator->(
-                            (shared_ptr<rs2lib::social::ClanSettingsDelta>*)local_b8);
-                        pCVar56 = (ClanSettings*)shared_ptr<rs2lib::social::ClanSettings>::operator*(
-                            (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                        this_13->ApplyToClanSettings(pCVar56);
-                        if (*(char*)pCVar55 != '\0') {
-                            uVar20 = logger::default_logger();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2797, "----------");
-                            uVar20 = logger::default_logger();
-                            shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                            uVar32 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2798, "Clan Name: %s", uVar32);
-                            uVar76 = (undefined4)((ulong)uVar32 >> 32);
-                            uVar20 = logger::default_logger();
-                            lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                            uVar14 = *(undefined4*)(lVar28 + 232);
-                            lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                            uVar58 = CONCAT44(uVar75, *(undefined4*)(lVar28 + 236));
-                            uVar32 = CONCAT44(uVar76, uVar14);
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2799, "currentOwnerSlot: %i  replacementOwnerSlot: %i", uVar32, uVar58);
-                            uVar14 = (undefined4)((ulong)uVar32 >> 32);
-                            uVar76 = (undefined4)((ulong)uVar58 >> 32);
-                            uVar20 = logger::default_logger();
-                            lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                            bVar5 = *(byte*)(lVar28 + 56);
-                            lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                            cVar3 = *(char*)(lVar28 + 57);
-                            lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
+                        this_14 = (ClanSettingsDelta*)local_b8.operator->();
+                        clanSettings = (ClanSettings*)*local_f0;
+                        this_14->ApplyToClanSettings(*clanSettings);
+                        if (*(char*)this_13 != '\0') {
+                            pLVar21 = logger::default_logger();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2797, "----------");
+                            pLVar21 = logger::default_logger();
+                            local_f0.operator->();
+                            uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2798, "Clan Name: %s", uVar34);
+                            uVar74 = (uint32_t)((unsigned long)uVar34 >> 32);
+                            pLVar21 = logger::default_logger();
+                            lVar28 = local_f0.operator->();
+                            uVar14 = *(uint32_t*)(lVar28 + 232);
+                            lVar28 = local_f0.operator->();
+                            uVar58 = (((uint64_t)uVar73 << 32) | (uint32_t)(*(uint32_t*)(lVar28 + 236)));
+                            uVar34 = (((uint64_t)uVar74 << 32) | (uint32_t)uVar14);
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2799, "currentOwnerSlot: %i replacementOwnerSlot: %i", uVar34, uVar58);
+                            uVar14 = (uint32_t)((unsigned long)uVar34 >> 32);
+                            uVar74 = (uint32_t)((unsigned long)uVar58 >> 32);
+                            pLVar21 = logger::default_logger();
+                            lVar28 = local_f0.operator->();
+                            bVar5 = *(uint8_t*)(lVar28 + 56);
+                            lVar28 = local_f0.operator->();
+                            cVar4 = *(char*)(lVar28 + 57);
+                            lVar28 = local_f0.operator->();
                             cVar1 = *(char*)(lVar28 + 58);
-                            lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                            uVar32 = CONCAT44(uVar77, (int)cVar1);
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2800,
-                                                "allowNonMembers: %i  rankTalk: %i  rankKick: %i, rankLootShare: %i",
-                                                CONCAT44(uVar14, (uint)bVar5), CONCAT44(uVar76, (int)cVar3), uVar32,
-                                                CONCAT44(uVar78, (int)*(char*)(lVar28 + 59)));
-                            uVar20 = logger::default_logger();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2801, "Members:");
-                            pCVar55 = (Client*)0;
+                            lVar28 = local_f0.operator->();
+                            uVar34 = (((uint64_t)uVar75 << 32) | (uint32_t)((int)cVar1));
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2800, "allowNonMembers: %i rankTalk: %i rankKick: %i, rankLootShare: %i",
+                                         (((uint64_t)uVar14 << 32) | (uint32_t)((unsigned int)bVar5)),
+                                         (((uint64_t)uVar74 << 32) | (uint32_t)((int)cVar4)), uVar34,
+                                         (((uint64_t)uVar76 << 32) | (uint32_t)((int)*(char*)(lVar28 + 59))));
+                            pLVar21 = logger::default_logger();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2801, "Members:");
+                            this_13 = nullptr;
                             while (true) {
-                                uVar14 = (undefined4)((ulong)uVar32 >> 32);
-                                lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                    (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                                if ((long)*(int*)(lVar28 + 64) <= (long)pCVar55)
+                                uVar14 = (uint32_t)((unsigned long)uVar34 >> 32);
+                                lVar28 = local_f0.operator->();
+                                if ((long)*(int*)(lVar28 + 64) <= (long)this_13)
                                     break;
-                                uVar20 = logger::default_logger();
-                                lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                    (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                                cVar3 = ((lVar28 + 72))->empty();
-                                puVar66 = &DAT_100e3aa9a;
-                                local_b8[48] = cVar3;
-                                if (cVar3 == '\0') {
-                                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                        (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                                    plVar57 = (longlong*)eastl::vector<long long, eastl::allocator>::operator[](
-                                        (vector<long long, eastl::allocator>*)(lVar28 + 72), (ulong)pCVar55);
-                                    local_480->ToRawUsername(*plVar57);
-                                    puVar66 = (undefined*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                pLVar21 = logger::default_logger();
+                                lVar28 = local_f0.operator->();
+                                cVar4 = ((lVar28 + 72))->empty();
+                                puVar67 = &DAT_100e3aa9a;
+                                local_88 = (Client*)(((uint64_t)local_88._1_7_ << 8) | (uint8_t)cVar4);
+                                if (!cVar4) {
+                                    lVar28 = local_f0.operator->();
+                                    plVar57 = (long long*)(*((lVar28 + 72)))[(unsigned long)this_13];
+                                    *local_480 = core::stringtools::general::UserhashTools::ToRawUsername(*plVar57);
+                                    puVar67 = (uint8_t*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                                 }
-                                lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                    (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                                eastl::vector<eastl::string, eastl::allocator>::operator[](
-                                    (vector<eastl::string, eastl::allocator>*)(lVar28 + 280), (ulong)pCVar55);
+                                lVar28 = local_f0.operator->();
+                                (*((lVar28 + 280)))[(unsigned long)this_13];
                                 uVar58 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                    (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                                pcVar46 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](
-                                    (vector<signed char, eastl::allocator>*)(lVar28 + 104), (ulong)pCVar55);
-                                uVar32 = CONCAT44(uVar14, (int)*pcVar46);
-                                logger::Logger::Log(uVar20, 0, 5,
-                                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                    "projects/osclient/client_network.cpp",
-                                                    2805, "%s - %s - rank: %i", puVar66, uVar58, uVar32);
-                                if (local_b8[48] == '\0') {
-                                    local_480->~basic_string();
+                                lVar28 = local_f0.operator->();
+                                pcVar48 = (char*)(*((lVar28 + 104)))[(unsigned long)this_13];
+                                uVar34 = (((uint64_t)uVar14 << 32) | (uint32_t)((int)*pcVar48));
+                                pLVar21->Log(false, 5,
+                                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
+                                             "projects/osclient/client_network.cpp",
+                                             2805, "%s - %s - rank: %i", puVar67, uVar58, uVar34);
+                                if ((char)local_88 == '\0') {
                                 }
-                                pCVar55 = (Client*)((long)pCVar55 + 1);
+                                this_13 = (Client*)((long)this_13 + 1);
                             }
-                            uVar20 = logger::default_logger();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2808, "Banned:");
-                            for (uVar63 = 0; lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                                 (shared_ptr<rs2lib::social::ClanSettings>*)local_f0),
-                                (long)uVar63 < (long)*(int*)(lVar28 + 240);
-                                 uVar63 = uVar63 + 1) {
-                                uVar20 = logger::default_logger();
-                                lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                    (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
+                            pLVar21 = logger::default_logger();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2808, "Banned:");
+                            for (uVar65 = 0; lVar28 = local_f0.operator->(), (long)uVar65 < (long)*(int*)(lVar28 + 240);
+                                 uVar65 = uVar65 + 1) {
+                                pLVar21 = logger::default_logger();
+                                lVar28 = local_f0.operator->();
                                 uVar15 = ((lVar28 + 248))->empty();
-                                pCVar55 = (Client*)(ulong)uVar15;
-                                puVar66 = &DAT_100e3aa9a;
+                                this_13 = (Client*)(unsigned long)uVar15;
+                                puVar67 = &DAT_100e3aa9a;
                                 if ((char)uVar15 == '\0') {
-                                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                        (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                                    plVar57 = (longlong*)eastl::vector<long long, eastl::allocator>::operator[](
-                                        (vector<long long, eastl::allocator>*)(lVar28 + 248), uVar63);
-                                    local_80.ToRawUsername(*plVar57);
-                                    puVar66 = (undefined*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                    lVar28 = local_f0.operator->();
+                                    plVar57 = (long long*)(*((lVar28 + 248)))[uVar65];
+                                    local_80 = core::stringtools::general::UserhashTools::ToRawUsername(*plVar57);
+                                    puVar67 = (uint8_t*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                                 }
-                                lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                    (shared_ptr<rs2lib::social::ClanSettings>*)local_f0);
-                                eastl::vector<eastl::string, eastl::allocator>::operator[](
-                                    (vector<eastl::string, eastl::allocator>*)(lVar28 + 312), uVar63);
-                                uVar32 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                logger::Logger::Log(uVar20, 0, 5,
-                                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                    "projects/osclient/client_network.cpp",
-                                                    2811, "%s - %s", puVar66, uVar32);
+                                lVar28 = local_f0.operator->();
+                                (*((lVar28 + 312)))[uVar65];
+                                uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                pLVar21->Log(false, 5,
+                                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
+                                             "projects/osclient/client_network.cpp",
+                                             2811, "%s - %s", puVar67, uVar34);
                                 if ((char)uVar15 == '\0') {
-                                    local_80.~basic_string();
                                 }
                             }
-                            uVar20 = logger::default_logger();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2813, "----------");
+                            pLVar21 = logger::default_logger();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2813, "----------");
                         }
                     }
                 }
             }
-            local_f0->~shared_ptr();
-            local_b8->~shared_ptr();
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar55 >> 8), 1);
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)18:
-            LegacyUpdated((Client*)local_b8._48_8_);
-            uVar8 = pCVar44->g2();
-            *(uint*)(local_b8._48_8_ + 53272) = (uint)uVar8;
+            LegacyUpdated(local_88);
+            uVar8 = pCVar47->g2();
+            *(unsigned int*)&local_88->field_53272 = (unsigned int)uVar8;
             goto LAB_1000eb88b;
         case (BADTYPE)19:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar8 = pSVar39->g2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar8 = pSVar42->g2();
             uVar15 = 4294967295;
             if (uVar8 != 65535) {
-                uVar15 = (uint)uVar8;
+                uVar15 = (unsigned int)uVar8;
             }
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            iVar12 = pPVar38->g4();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            iVar12 = pPVar41->g4();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar19 = pSVar27->g4s();
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3548, "if_setobject c:%d obj:%d zoomorcount:%d", CONCAT44(uVar74, iVar12),
-                                    CONCAT44(uVar75, uVar15), CONCAT44(uVar77, iVar19));
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(
+                    false, 5,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                    "client_network.cpp",
+                    3548, "if_setobject c:%d obj:%d zoomorcount:%d", (((uint64_t)uVar72 << 32) | (uint32_t)iVar12),
+                    (((uint64_t)uVar73 << 32) | (uint32_t)uVar15), (((uint64_t)uVar75 << 32) | (uint32_t)iVar19));
             }
-            psVar41 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            pcVar46 = (char*)shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar41);
-            uVar72 = (undefined7)((ulong)pcVar46 >> 8);
-            if (*pcVar46 == '\0') {
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            pcVar48 = (char*)**psVar31;
+            uVar70 = (uint64_t)((unsigned long)pcVar48 >> 8);
+            if (*pcVar48 == '\0') {
                 if (uVar8 == 65535) {
-                    pcVar46[228] = '\0';
-                    pcVar46[229] = '\0';
-                    pcVar46[230] = '\0';
-                    pcVar46[231] = '\0';
-                    psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+                    pcVar48[228] = '\0';
+                    pcVar48[229] = '\0';
+                    pcVar48[230] = '\0';
+                    pcVar48[231] = '\0';
+                    psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
                     break;
                 }
-                local_480->List(uVar15);
-                local_80.GetStackSizeAlt(local_480, iVar19);
-                shared_ptr<configdecoder::ObjType>::operator=((shared_ptr<configdecoder::ObjType>*)local_480,
-                                                              (shared_ptr*)&local_80);
-                local_80.~shared_ptr();
-                pcVar46[228] = '\x04';
-                pcVar46[229] = '\0';
-                pcVar46[230] = '\0';
-                pcVar46[231] = '\0';
-                *(uint*)(pcVar46 + 232) = uVar15;
-                lVar28 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)local_480);
-                *(undefined4*)(pcVar46 + 260) = *(undefined4*)(lVar28 + 180);
-                lVar28 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)local_480);
-                *(undefined4*)(pcVar46 + 264) = *(undefined4*)(lVar28 + 184);
-                lVar28 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)local_480);
-                *(int*)(pcVar46 + 272) = (*(int*)(lVar28 + 176) * 100) / iVar19;
-                ComponentUpdated((Client*)local_b8._48_8_, psVar41);
+                *local_480 = configdecoder::ObjType::List(uVar15);
+                local_80 = configdecoder::ObjType::GetStackSizeAlt(*local_480, iVar19);
+                *local_480 = local_80;
+                pcVar48[228] = '\x04';
+                pcVar48[229] = '\0';
+                pcVar48[230] = '\0';
+                pcVar48[231] = '\0';
+                *(unsigned int*)(pcVar48 + 232) = uVar15;
+                lVar28 = (*local_480).operator->();
+                *(uint32_t*)(pcVar48 + 260) = *(uint32_t*)(lVar28 + 180);
+                lVar28 = (*local_480).operator->();
+                *(uint32_t*)(pcVar48 + 264) = *(uint32_t*)(lVar28 + 184);
+                lVar28 = (*local_480).operator->();
+                *(int*)(pcVar48 + 272) = (*(int*)(lVar28 + 176) * 100) / iVar19;
+                ComponentUpdated(local_88, psVar31);
             } else {
-                *(uint*)(pcVar46 + 1984) = uVar15;
-                *(int*)(pcVar46 + 1988) = iVar19;
-                local_480->List(uVar15);
-                local_80.GetStackSizeAlt(local_480, iVar19);
-                shared_ptr<configdecoder::ObjType>::operator=((shared_ptr<configdecoder::ObjType>*)local_480,
-                                                              (shared_ptr*)&local_80);
-                local_80.~shared_ptr();
-                lVar28 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)local_480);
-                *(undefined4*)(pcVar46 + 260) = *(undefined4*)(lVar28 + 180);
-                lVar28 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)local_480);
-                *(undefined4*)(pcVar46 + 264) = *(undefined4*)(lVar28 + 184);
-                lVar28 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)local_480);
-                *(undefined4*)(pcVar46 + 268) = *(undefined4*)(lVar28 + 188);
-                lVar28 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)local_480);
-                *(undefined4*)(pcVar46 + 252) = *(undefined4*)(lVar28 + 192);
-                lVar28 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)local_480);
-                *(undefined4*)(pcVar46 + 256) = *(undefined4*)(lVar28 + 196);
-                lVar28 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)local_480);
+                *(unsigned int*)(pcVar48 + 1984) = uVar15;
+                *(int*)(pcVar48 + 1988) = iVar19;
+                *local_480 = configdecoder::ObjType::List(uVar15);
+                local_80 = configdecoder::ObjType::GetStackSizeAlt(*local_480, iVar19);
+                *local_480 = local_80;
+                lVar28 = (*local_480).operator->();
+                *(uint32_t*)(pcVar48 + 260) = *(uint32_t*)(lVar28 + 180);
+                lVar28 = (*local_480).operator->();
+                *(uint32_t*)(pcVar48 + 264) = *(uint32_t*)(lVar28 + 184);
+                lVar28 = (*local_480).operator->();
+                *(uint32_t*)(pcVar48 + 268) = *(uint32_t*)(lVar28 + 188);
+                lVar28 = (*local_480).operator->();
+                *(uint32_t*)(pcVar48 + 252) = *(uint32_t*)(lVar28 + 192);
+                lVar28 = (*local_480).operator->();
+                *(uint32_t*)(pcVar48 + 256) = *(uint32_t*)(lVar28 + 196);
+                lVar28 = (*local_480).operator->();
                 iVar12 = *(int*)(lVar28 + 176);
-                *(int*)(pcVar46 + 272) = iVar12;
-                iVar19 = *(int*)(pcVar46 + 276);
-                if ((0 < iVar19) || (iVar19 = *(int*)(pcVar46 + 56), 0 < iVar19)) {
-                    *(int*)(pcVar46 + 272) = (iVar12 << 5) / iVar19;
+                *(int*)(pcVar48 + 272) = iVar12;
+                iVar19 = *(int*)(pcVar48 + 276);
+                if ((0 < iVar19) || (iVar19 = *(int*)(pcVar48 + 56), 0 < iVar19)) {
+                    *(int*)(pcVar48 + 272) = (iVar12 << 5) / iVar19;
                 }
-                ComponentUpdated((Client*)local_b8._48_8_, psVar41);
+                ComponentUpdated(local_88, psVar31);
             }
-            local_480->~shared_ptr();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)20:
-            pFVar53 = (FriendSystem*)std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-                (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(local_b8._48_8_ + 52768));
-            pFVar53->NotifyConnectingFriendServer();
-            *(int*)(uVar20 + 2506344) = *(int*)(uVar20 + 2505808);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            pFVar55 = (FriendSystem*)local_88->field_52768.operator->();
+            pFVar55->NotifyConnectingFriendServer();
+            pCVar66->field_2506344 = pCVar66->field_2505808;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)21:
-            LegacyUpdated((Client*)local_b8._48_8_);
-            sVar9 = pCVar44->g2s();
-            *(int*)(local_b8._48_8_ + 53276) = (int)sVar9;
+            LegacyUpdated(local_88);
+            sVar9 = pCVar47->g2s();
+            local_88->field_53276 = (int)sVar9;
         LAB_1000eb88b:
-            *(int*)(local_b8._48_8_ + 2506368) = *(int*)(local_b8._48_8_ + 2505808);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            local_88->field_2506368 = local_88->field_2505808;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)22:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 1, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 1, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)23:
-            iVar12 = pCVar44->gSmarts();
-            cVar3 = pCVar44->g1();
+            iVar12 = pCVar47->gSmarts();
+            cVar4 = pCVar47->g1();
             new (local_480) eastl::allocator("EASTL basic_string");
-            new (&local_80) eastl::string("", local_480);
-            if (cVar3 == '\x01') {
-                PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<
-                    eastl::string>((PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480,
-                                   bVar4);
-                eastl::string::operator=((eastl::string*)&local_80, (basic_string*)local_480);
-                local_480->~basic_string();
-                uVar20 = local_b8._48_8_;
-                pCVar55 = (Client*)std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-                    (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(local_b8._48_8_ + 52768));
-                new (local_480) rs2lib::social::DisplayName(&local_80, *(undefined4*)(uVar20 + 54172));
-                cVar3 = pCVar55->IsIgnored(local_480);
-                local_480->~pair();
+            local_80 = eastl::string("", local_480);
+            if (cVar4 == '\x01') {
+                local_480->gStringCP1252ToUTF8<eastl::string>(bVar6);
+                local_80 = local_480;
+                pCVar66 = local_88;
+                this_13 = (Client*)local_88->field_52768.operator->();
+                new (local_480) rs2lib::social::DisplayName(local_80, pCVar66->field_54172);
+                cVar4 = this_13->IsIgnored(*local_480);
             } else {
-                cVar3 = '\0';
+                cVar4 = '\0';
             }
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480, bVar4);
-            if (cVar3 == '\0') {
-                AddChat((Client*)local_b8._48_8_, iVar12, (basic_string*)&local_80, (basic_string*)local_480);
+            local_480->gStringCP1252ToUTF8<eastl::string>(bVar6);
+            if (!cVar4) {
+                AddChat(local_88, iVar12, (eastl::string*)&local_80, (eastl::string*)local_480);
             }
-            local_480->~basic_string();
             goto LAB_1000ef45e;
         case (BADTYPE)24:
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)&local_80, bVar4);
-            uVar15 = pCVar44->g2();
-            uVar18 = pCVar44->g3();
-            bVar5 = pCVar44->g1();
-            local_c0 = (array<int, 32ul>*)constants::ChatCrownType::FromId((uint)bVar5);
-            uVar63 = (ulong)uVar18 | ((ulong)uVar15 & 65535) << 32;
-            puVar33 = (undefined1*)(local_b8._48_8_ + 53352);
-            puVar52 = (ulong*)std::array<unsigned long long, 100ul>::operator[](
-                (array<unsigned long long, 100ul>*)puVar33, 0);
-            bVar4 = true;
-            if (*puVar52 != uVar63) {
+            local_80.gStringCP1252ToUTF8<eastl::string>(bVar6);
+            uVar15 = pCVar47->g2();
+            uVar18 = pCVar47->g3();
+            bVar5 = pCVar47->g1();
+            local_c0 = (__17*)constants::ChatCrownType::FromId((unsigned int)bVar5);
+            uVar65 = (unsigned long)uVar18 | ((unsigned long)uVar15 & 65535) << 32;
+            puVar35 = &local_88->field_53352;
+            puVar54 = (unsigned long*)(*puVar35)[0];
+            bVar6 = true;
+            if (*puVar54 != uVar65) {
                 uVar24 = 1;
                 do {
-                    bVar4 = uVar24 - 1 < 99;
+                    bVar6 = uVar24 - 1 < 99;
                     if (uVar24 == 100)
                         break;
-                    puVar52 = (ulong*)std::array<unsigned long long, 100ul>::operator[](
-                        (array<unsigned long long, 100ul>*)puVar33, uVar24);
+                    puVar54 = (unsigned long*)(*puVar35)[uVar24];
                     uVar24 = uVar24 + 1;
-                } while (*puVar52 != uVar63);
+                } while (*puVar54 != uVar65);
             }
-            pCVar44 = (Client*)local_b8._48_8_;
-            pFVar53 = (FriendSystem*)std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-                (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(local_b8._48_8_ + 52768));
-            new (local_480) rs2lib::social::DisplayName(&local_80, *(undefined4*)((long)pCVar44 + 54172));
-            cVar3 = pFVar53->IsIgnored(local_480);
-            local_480->~pair();
-            uVar20 = local_b8._48_8_;
-            pCVar55 = pCVar44;
-            if ((cVar3 == '\0' && !bVar4) && (*(undefined4*)(local_b8._48_8_ + 52440) == 0)) {
-                iVar12 = *(int*)(local_b8._48_8_ + 54152);
-                puVar52 = (ulong*)std::array<unsigned long long, 100ul>::operator[](
-                    (array<unsigned long long, 100ul>*)puVar33, (long)iVar12);
-                *puVar52 = uVar63;
-                *(int*)(uVar20 + 54152) = (iVar12 + 1) % 100;
-                eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-                pWVar54 = (WordPack*)std::unique_ptr<game::WordPack, std::default_delete<game::WordPack>>::operator->(
-                    (unique_ptr<game::WordPack, std::default_delete<game::WordPack>>*)((long)(uVar20 + 54172) + 4));
-                pWVar54->UnpackCP1252AsUTF8(local_110, (PacketT*)(local_4c0 + 8));
-                pcVar46 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                uVar63 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                local_480->Escape(pcVar46, uVar63);
-                core::stringtools::general::StringTools::ForceCapitalisationOfWords((basic_string*)local_480);
-                iVar12 = (uint)(byte)local_c0[5] * 4 + 3;
+            pCVar66 = local_88;
+            pFVar55 = (FriendSystem*)local_88->field_52768.operator->();
+            new (local_480) rs2lib::social::DisplayName(local_80, pCVar66->field_54172);
+            cVar4 = pFVar55->IsIgnored(*local_480);
+            pCVar47 = local_88;
+            this_13 = pCVar66;
+            if ((!cVar4 && !bVar6) && (local_88->field_52440 == 0)) {
+                iVar12 = *(int*)&local_88->field_54152;
+                puVar54 = (unsigned long*)(*puVar35)[(long)iVar12];
+                *puVar54 = uVar65;
+                *(int*)&pCVar47->field_54152 = (iVar12 + 1) % 100;
+                local_110 = eastl::basic_string<char, BucketAllocatorEASTL>();
+                pWVar56 = (WordPack*)pCVar47->field_54176.operator->();
+                pWVar56->UnpackCP1252AsUTF8(local_110, *((local_4c0 + 8)));
+                pcVar48 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                uVar65 = local_110.size();
+                *local_480 = jstring::PixfontGeneric::Escape(pcVar48, uVar65);
+                core::stringtools::general::StringTools::ForceCapitalisationOfWords(*local_480);
+                iVar12 = (unsigned int)(uint8_t)local_c0->field_5 * 4 + 3;
                 if (*(int*)local_c0 == -1) {
-                    AddChat((Client*)local_b8._48_8_, iVar12, (basic_string*)&local_80, (basic_string*)local_480);
+                    AddChat(local_88, iVar12, (eastl::string*)&local_80, (eastl::string*)local_480);
                 } else {
-                    local_f0->TAG_IMG(*(int*)local_c0);
-                    eastl::operator+((eastl*)local_b8, (basic_string*)local_f0, (basic_string*)&local_80);
-                    AddChat((Client*)local_b8._48_8_, iVar12, (basic_string*)local_b8, (basic_string*)local_480);
-                    local_b8->~basic_string();
-                    local_f0->~basic_string();
+                    local_f0 = StringConstants::TAG_IMG(*(int*)local_c0);
+                    local_b8 + local_f0;
+                    AddChat(local_88, iVar12, &local_b8, (eastl::string*)local_480);
                 }
-                local_480->~basic_string();
-                psVar41 = local_110;
+                pRVar60 = &local_110;
                 goto LAB_1000ef459;
             }
             goto LAB_1000ef45e;
         case (BADTYPE)25:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar18 = pSVar39->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            iVar12 = pSVar39->g4();
-            uVar63 = (ulong)(ushort)uVar18;
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar18 = pSVar42->g2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            iVar12 = pSVar42->g4();
+            uVar65 = (unsigned long)(unsigned short)uVar18;
             uVar15 = uVar18 & 65535;
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    1591, "Received big variable:%i value:%i",
-                                    CONCAT44(uVar74, uVar18) & 18446744069414649855, CONCAT44(uVar75, iVar12));
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             1591, "Received big variable:%i value:%i",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)uVar18) & 18446744069414649855,
+                             (((uint64_t)uVar73 << 32) | (uint32_t)iVar12));
             }
-            piVar43 = (int*)Array<int, eastl::allocator>::operator[](
-                (Array<int, eastl::allocator>*)&ClientVarCache::m_varServ, uVar63);
-            *piVar43 = iVar12;
-            piVar43 = (int*)Array<int, eastl::allocator>::operator[](
-                (Array<int, eastl::allocator>*)&ClientVarCache::m_var, uVar63);
-            if (*piVar43 != iVar12) {
-                piVar43 = (int*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&ClientVarCache::m_var, uVar63);
-                *piVar43 = iVar12;
+            piVar45 = (int*)(*((Array<int>*)&ClientVarCache::m_varServ))[uVar65];
+            *piVar45 = iVar12;
+            piVar45 = (int*)(*((Array<int>*)&ClientVarCache::m_var))[uVar65];
+            if (*piVar45 != iVar12) {
+                piVar45 = (int*)(*((Array<int>*)&ClientVarCache::m_var))[uVar65];
+                *piVar45 = iVar12;
             }
-            ClientVar((Client*)local_b8._48_8_, uVar15);
+            ClientVar(local_88, uVar15);
             goto LAB_1000eb344;
         case (BADTYPE)26:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
-            local_b8._0_4_ = pSVar26->g4();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar8 = pPVar38->g2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+            uVar14 = pSVar26->g4();
+            local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)uVar14);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar8 = pPVar41->g2();
             uVar15 = 4294967295;
             if (uVar8 != 65535) {
-                uVar15 = (uint)uVar8;
+                uVar15 = (unsigned int)uVar8;
             }
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar18 = pSVar27->g4s();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar27->g2();
-            pHVar36 = (HookArg*)4294967295;
+            pRVar60 = (ReturnValue*)4294967295;
             if (uVar8 != 65535) {
-                pHVar36 = (HookArg*)(ulong)uVar8;
+                pRVar60 = (ReturnValue*)(unsigned long)uVar8;
             }
-            iVar12 = (int)pHVar36;
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3779, "if_setevents - com:%d subid1:%d subid2:%d serveractive:%d",
-                                    CONCAT44(uVar74, uVar18), CONCAT44(uVar75, iVar12), CONCAT44(uVar77, uVar15),
-                                    CONCAT44(uVar78, local_b8._0_4_));
+            iVar12 = (int)pRVar60;
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3779, "if_setevents - com:%d subid1:%d subid2:%d serveractive:%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)uVar18),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)iVar12),
+                             (((uint64_t)uVar75 << 32) | (uint32_t)uVar15),
+                             (((uint64_t)uVar76 << 32) | (uint32_t)((Easing)local_b8[0].field_0)));
             }
             if (iVar12 <= (int)uVar15) {
-                pHVar36 = (HookArg*)(local_b8._48_8_ + 2506512);
-                pNVar68 = (NXTPixToolkit*)(((ulong)uVar18 << 32) + (long)iVar12);
+                pRVar60 = (ReturnValue*)local_88->field_2506512;
+                RVar68 = (ReturnValue)(((unsigned long)uVar18 << 32) + (long)iVar12);
                 lVar28 = (long)(int)(uVar15 + 1) - (long)iVar12;
-                local_b8._48_8_ = pHVar36;
+                local_88 = (Client*)pRVar60;
                 do {
-                    local_80._0_8_ = pNVar68;
-                    pHVar36->erase((ulonglong*)&local_80);
-                    eastl::hashtable<unsigned long long, eastl::pair<unsigned long long const, int>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<unsigned long long const, int>>,
-                                     eastl::equal_to<unsigned long long>, eastl::hash<unsigned long long>,
-                                     eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy,
-                                     false, true, true>::emplace<unsigned long long&, int&>((ulonglong*)local_480,
-                                                                                            (int*)pHVar36);
-                    pNVar68 = (NXTPixToolkit*)((long)&pNVar68->field_0 + 1);
-                    lVar28 = lVar28 + -1;
+                    local_80._0_8_ = RVar68;
+                    pRVar60->erase(local_80);
+                    *local_480 = pRVar60->emplace<unsigned long long&, int&>(local_80, local_b8);
+                    RVar68 = (ReturnValue)((long)RVar68 + 1);
+                    lVar28 = lVar28 - 1;
                 } while (lVar28 != 0);
             }
             goto switchD_1000ea3f5_default;
         case (BADTYPE)27:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            sVar9 = pSVar39->g2s();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar15 = pPVar38->g1();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar8 = pPVar38->g2();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            sVar9 = pSVar42->g2s();
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar15 = pPVar41->g1();
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar8 = pPVar41->g2();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar26->g4();
-            psVar41 = (shared_ptr*)std::array<shared_ptr<ClientNpc>, 65536ul>::operator[](
-                (array<shared_ptr<ClientNpc>, 65536ul>*)(local_b8._48_8_ + 55272), (ulong)uVar8);
-            bVar4 = operator!=(psVar41, (_func_decltype_nullptr*)0);
-            if (!bVar4) {
-                /* WARNING: Subroutine does not return */
+            psVar43 = &local_88->field_55272[(unsigned long)uVar8];
+            bVar6 = *psVar43 != nullptr;
+            if (!bVar6) {
                 LogAssert("m_npc[npcid] != nullptr",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                           "client_network.cpp",
-                          2150, (char*)0);
+                          2150, nullptr);
             }
-            this_03 = (ClientNpc*)shared_ptr<ClientNpc>::operator*((shared_ptr<ClientNpc>*)psVar41);
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar15 >> 8), 1);
-            this_03->SetHeadIcon(uVar15 & 255, iVar12, (int)sVar9);
+            this_04 = (ClientNpc*)**psVar43;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar15 >> 8)) << 8) |
+                                                                 (uint8_t)1);
+            this_04->SetHeadIcon(uVar15 & 255, iVar12, (int)sVar9);
             break;
         case (BADTYPE)28:
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    1215, "logout");
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             1215, "logout");
             }
-            Logout((Client*)local_b8._48_8_);
+            Logout(local_88);
             goto LAB_1000e84af;
         case (BADTYPE)29:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 3, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 3, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)30:
-            *(undefined2*)(local_b8._48_8_ + 52996) = 256;
-            *(undefined1*)(local_b8._48_8_ + 52998) = 1;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53004) = (uint)bVar5;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53008) = (uint)bVar5;
-            uVar15 = pCVar44->g2();
-            uVar8 = pCVar44->g2();
-            local_80.m_argType = (uint)uVar8;
-            cVar3 = pCVar44->g1();
-            *(bool*)(local_b8._48_8_ + 53000) = cVar3 == '\x01';
-            local_b8[0] = pCVar44->g1();
+            *(uint16_t*)&local_88->field_52996 = 256;
+            local_88->field_52998 = 1;
+            bVar5 = pCVar47->g1();
+            local_88->field_53004 = (unsigned int)bVar5;
+            bVar5 = pCVar47->g1();
+            local_88->field_53008 = (unsigned int)bVar5;
+            uVar15 = pCVar47->g2();
+            uVar8 = pCVar47->g2();
+            local_80.m_argType = (unsigned int)uVar8;
+            cVar4 = pCVar47->g1();
+            local_88->field_53000 = cVar4 == '\x01';
+            bVar5 = pCVar47->g1();
             uVar18 = uVar15 & 65535;
-            local_b8._1_3_ = 0;
-            if (*(char*)pCVar55 != '\0') {
-                pCVar44 = (Client*)logger::default_logger();
-                logger::Logger::Log(pCVar44, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3023, "cam_moveto_cycles lx:%d lz:%d hei:%d cycles:%d ignoreTerrain:%d easing:%d",
-                                    CONCAT44(uVar74, *(int*)(local_b8._48_8_ + 53004)),
-                                    CONCAT44(uVar75, *(int*)(local_b8._48_8_ + 53008)),
-                                    CONCAT44(uVar77, uVar15) & 18446744069414649855,
-                                    CONCAT44(uVar78, local_80.m_argType),
-                                    CONCAT44(uVar14, (uint)(byte) * (undefined1*)(local_b8._48_8_ + 53000)),
-                                    CONCAT44(uVar76, local_b8._0_4_));
+            local_b8[0].field_0 =
+                (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)((unsigned int)bVar5));
+            if (*(char*)this_13 != '\0') {
+                pCVar47 = (Client*)logger::default_logger();
+                pCVar47->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3023, "cam_moveto_cycles lx:%d lz:%d hei:%d cycles:%d ignoreTerrain:%d easing:%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)local_88->field_53004),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)local_88->field_53008),
+                             (((uint64_t)uVar75 << 32) | (uint32_t)uVar15) & 18446744069414649855,
+                             (((uint64_t)uVar76 << 32) | (uint32_t)local_80.m_argType),
+                             (((uint64_t)uVar14 << 32) | (uint32_t)((unsigned int)(uint8_t)local_88->field_53000)),
+                             (((uint64_t)uVar74 << 32) | (uint32_t)((Easing)local_b8[0].field_0)));
             }
-            uVar20 = local_b8._48_8_;
-            uVar14 = local_128._4_4_;
-            local_f0[0].field_0._0_4_ = *(int*)(local_b8._48_8_ + 53004) << 7 | 64;
-            local_110[0]._0_4_ = *(int*)(local_b8._48_8_ + 53008) << 7 | 64;
-            local_128._0_8_ = (ulong)(uint)local_128._4_4_ << 32;
-            local_b8._36_4_ = 0;
-            if (*(undefined1*)(local_b8._48_8_ + 53000) == '\0') {
-                iVar12 = GetAvH(pCVar44, *(int*)(local_b8._48_8_ + 53088), *(int*)(local_b8._48_8_ + 53096),
-                                *(int*)(local_b8._48_8_ + 51984));
-                local_128._0_4_ = iVar12 - *(int*)(uVar20 + 53092);
+            pCVar66 = local_88;
+            uVar14 = local_128[0]._4_4_;
+            local_f0[0].field_0._0_4_ = local_88->field_53004 << 7 | 64;
+            local_110[0]._0_4_ = local_88->field_53008 << 7 | 64;
+            local_128[0] = (ReturnValue)((unsigned long)(unsigned int)local_128[0]._4_4_ << 32);
+            local_94 = 0;
+            if (local_88->field_53000 == '\0') {
+                iVar12 = GetAvH(pCVar47, local_88->field_53088, local_88->field_53096, local_88->field_51984);
+                local_128[0]._0_4_ = iVar12 - pCVar66->field_53092;
             } else {
-                local_128._0_4_ = *(int*)(local_b8._48_8_ + 53092);
-                local_128._0_8_ = CONCAT44(uVar14, local_128._0_4_);
-                iVar12 =
-                    GetAvH(pCVar44, (uint)local_f0[0].field_0, local_110[0]._0_4_, *(int*)(local_b8._48_8_ + 51984));
+                local_128[0]._0_4_ = local_88->field_53092;
+                local_128[0] = (ReturnValue)(((uint64_t)uVar14 << 32) | (uint32_t)local_128[0]._0_4_);
+                iVar12 = GetAvH(pCVar47, (unsigned int)local_f0[0].field_0, local_110[0]._0_4_, local_88->field_51984);
                 uVar18 = iVar12 - uVar18;
             }
-            local_b8._36_4_ = uVar18;
+            local_94 = uVar18;
             std::make_unique<LinearMovementTween, int&, int&, int&, int const&, int const&, int&, int const&,
-                             CinemaCameraTween::Easing_const&>(
-                (int*)local_480, (int*)(uVar20 + 53088), (int*)(uVar20 + 53096), (int*)&local_128, (int*)local_f0,
-                (int*)local_110, (int*)(local_b8 + 36), (Easing*)&local_80);
-            std::unique_ptr<CinemaCameraMovementTween, std::default_delete<CinemaCameraMovementTween>>::operator=(
-                (unique_ptr<CinemaCameraMovementTween, std::default_delete<CinemaCameraMovementTween>>*)(uVar20 +
-                                                                                                         53064),
-                (unique_ptr*)local_480);
-            local_480->~unique_ptr();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+                             CinemaCameraTween::Easing const&>(*local_480, pCVar66->field_53088, pCVar66->field_53096,
+                                                               local_128, local_f0, local_110,
+                                                               *((int*)((long)&local_b8 + 36)), local_80.m_argType);
+            (&pCVar66->field_53064)->operator=(local_480);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)31:
-            iVar12 = pCVar44->GetTextureAtlas();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ReceivePlayerPositions::GetPlayerInfo((SuperPacket*)pCVar44, iVar12);
+            iVar12 = pCVar47->GetTextureAtlas();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ReceivePlayerPositions::GetPlayerInfo(*pCVar47, iVar12);
             break;
         case (BADTYPE)32:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar27->g4s();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar15 = pPVar38->g2();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if ((*(int*)(lVar28 + 228) != 2) || (*(uint*)(lVar28 + 232) != (uVar15 & 65535))) {
-                *(undefined4*)(lVar28 + 228) = 2;
-                *(uint*)(lVar28 + 232) = uVar15 & 65535;
-                ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar15 = pPVar41->g2();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if ((*(int*)(lVar28 + 228) != 2) || (*(unsigned int*)(lVar28 + 232) != (uVar15 & 65535))) {
+                *(uint32_t*)(lVar28 + 228) = 2;
+                *(unsigned int*)(lVar28 + 232) = uVar15 & 65535;
+                ComponentUpdated(local_88, psVar31);
             }
             break;
         case (BADTYPE)33:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar27->g4s();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar19 = pSVar27->g2();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar26->g2();
-            this_05 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*(this_05);
-            *(uint*)(lVar28 + 284) = iVar19 << 16 | uVar15 & 65535;
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)((uint)iVar12 >> 8), 1);
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            *(unsigned int*)(lVar28 + 284) = iVar19 << 16 | uVar15 & 65535;
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)((unsigned int)iVar12 >> 8))
+                                                            << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)34:
-            uVar15 = HandleUpdateFriendChatChannelFullServerProt((Client*)local_b8._48_8_, (SuperPacket*)pCVar44, 2);
+            uVar15 = HandleUpdateFriendChatChannelFullServerProt(local_88, (SuperPacket*)pCVar47, 2);
             goto LAB_1000e9a14;
         case (BADTYPE)35:
-            local_c8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pCVar55;
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            local_cc._4_8_ = this_13;
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar27->g2();
             uVar18 = 4294967295;
             if ((short)uVar15 != -1) {
                 uVar18 = uVar15 & 65535;
             }
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar17 = pSVar39->g1();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar8 = pSVar39->g2();
-            psVar41 = (shared_ptr*)std::array<shared_ptr<ClientNpc>, 65536ul>::operator[](
-                (array<shared_ptr<ClientNpc>, 65536ul>*)(local_b8._48_8_ + 55272), (ulong)uVar8);
-            bVar4 = operator!=(psVar41, (_func_decltype_nullptr*)0);
-            if (!bVar4) {
-                /* WARNING: Subroutine does not return */
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar17 = pSVar42->g1();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar8 = pSVar42->g2();
+            psVar43 = &local_88->field_55272[(unsigned long)uVar8];
+            bVar6 = *psVar43 != nullptr;
+            if (!bVar6) {
                 LogAssert("m_npc[npcid] != nullptr",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                           "client_network.cpp",
-                          2096, (char*)0);
+                          2096, nullptr);
             }
-            lVar28 = shared_ptr<ClientNpc>::operator*((shared_ptr<ClientNpc>*)psVar41);
-            if ((uVar18 == 4294967295) || (uVar18 != *(uint*)(lVar28 + 372))) {
-                local_b8._48_8_ = CONCAT44(local_b8._52_4_, uVar17) & 18446744069414584575;
-                bVar4 = true;
-                if (*(uint*)(lVar28 + 372) != 4294967295 && (short)uVar15 != -1) {
-                    local_480->List(uVar18);
-                    lVar49 =
-                        shared_ptr<configdecoder::SeqType>::operator->((shared_ptr<configdecoder::SeqType>*)local_480);
-                    uVar15 = *(uint*)(lVar49 + 228);
-                    local_80.List(*(int*)(lVar28 + 372));
-                    lVar49 =
-                        shared_ptr<configdecoder::SeqType>::operator->((shared_ptr<configdecoder::SeqType>*)&local_80);
-                    bVar4 = *(int*)(lVar49 + 228) <= (int)uVar15;
-                    local_80.~shared_ptr();
-                    local_480->~shared_ptr();
+            lVar28 = **psVar43;
+            if ((uVar18 == 4294967295) || (uVar18 != *(unsigned int*)(lVar28 + 372))) {
+                local_88 = (Client*)((((uint64_t)local_88._4_4_ << 32) | (uint32_t)uVar17) & 18446744069414584575);
+                bVar6 = true;
+                if (*(unsigned int*)(lVar28 + 372) != 4294967295 && (short)uVar15 != -1) {
+                    *local_480 = configdecoder::SeqType::List(uVar18);
+                    lVar51 = (*local_480).operator->();
+                    uVar15 = *(unsigned int*)(lVar51 + 228);
+                    local_80 = configdecoder::SeqType::List(*(int*)(lVar28 + 372));
+                    lVar51 = local_80.operator->();
+                    bVar6 = *(int*)(lVar51 + 228) <= (int)uVar15;
                 }
-                psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar15 >> 8), 1);
-                if (bVar4) {
-                    uVar14 = local_b8._48_4_;
-                    if (local_c8->field_0 != '\0') {
-                        uVar20 = logger::default_logger();
-                        logger::Logger::Log(uVar20, 0, 5,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                            "osclient/client_network.cpp",
-                                            2117, "Got npc anim: %d delay:%d", CONCAT44(uVar74, uVar18),
-                                            CONCAT44(uVar75, uVar14));
+                psVar43 =
+                    (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar15 >> 8)) << 8) |
+                                                               (uint8_t)1);
+                if (bVar6) {
+                    iVar12 = (int)local_88;
+                    if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                        pLVar21 = logger::default_logger();
+                        pLVar21->Log(false, 5,
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                     "osclient/client_network.cpp",
+                                     2117, "Got npc anim: %d delay:%d", (((uint64_t)uVar72 << 32) | (uint32_t)uVar18),
+                                     (((uint64_t)uVar73 << 32) | (uint32_t)iVar12));
                     }
-                    *(uint*)(lVar28 + 372) = uVar18;
-                    *(undefined8*)(lVar28 + 376) = 0;
-                    *(undefined4*)(lVar28 + 384) = uVar14;
-                    *(undefined4*)(lVar28 + 388) = 0;
-                    *(undefined4*)(lVar28 + 540) = *(undefined4*)(lVar28 + 440);
+                    *(unsigned int*)(lVar28 + 372) = uVar18;
+                    *(uint64_t*)(lVar28 + 376) = 0;
+                    *(int*)(lVar28 + 384) = iVar12;
+                    *(uint32_t*)(lVar28 + 388) = 0;
+                    *(uint32_t*)(lVar28 + 540) = *(uint32_t*)(lVar28 + 440);
                 }
             } else {
-                if (local_c8->field_0 != '\0') {
-                    uVar20 = logger::default_logger();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2101, "Duplicate npc anim: %d delay:%d", CONCAT44(uVar74, uVar18),
-                                        CONCAT44(uVar75, uVar17) & 18446744069414584575);
+                if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                    pLVar21 = logger::default_logger();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2101, "Duplicate npc anim: %d delay:%d", (((uint64_t)uVar72 << 32) | (uint32_t)uVar18),
+                                 (((uint64_t)uVar73 << 32) | (uint32_t)uVar17) & 18446744069414584575);
                 }
-                local_480->List(uVar18);
-                lVar49 = shared_ptr<configdecoder::SeqType>::operator->((shared_ptr<configdecoder::SeqType>*)local_480);
-                iVar12 = *(int*)(lVar49 + 256);
-                local_480->~shared_ptr();
-                psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar15 >> 8), 1);
+                *local_480 = configdecoder::SeqType::List(uVar18);
+                lVar51 = (*local_480).operator->();
+                iVar12 = *(int*)(lVar51 + 256);
+                psVar43 =
+                    (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar15 >> 8)) << 8) |
+                                                               (uint8_t)1);
                 if (iVar12 == 2) {
-                    *(undefined4*)(lVar28 + 388) = 0;
+                    *(uint32_t*)(lVar28 + 388) = 0;
                 } else if (iVar12 == 1) {
-                    *(undefined8*)(lVar28 + 376) = 0;
-                    *(uint*)(lVar28 + 384) = uVar17 & 255;
-                    *(undefined4*)(lVar28 + 388) = 0;
+                    *(uint64_t*)(lVar28 + 376) = 0;
+                    *(unsigned int*)(lVar28 + 384) = uVar17 & 255;
+                    *(uint32_t*)(lVar28 + 388) = 0;
                 }
             }
             break;
         case (BADTYPE)36:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar8 = pSVar39->g2();
-            uVar15 = (uint)uVar8;
-            ClientInvCache::Delete((uint)uVar8);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar8 = pSVar42->g2();
+            uVar15 = (unsigned int)uVar8;
+            ClientInvCache::Delete((unsigned int)uVar8);
             goto LAB_1000ee005;
         case (BADTYPE)37:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            HandleUpdateFriendChatChannelSingleUserServerProt((Client*)local_b8._48_8_, (SuperPacket*)pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            HandleUpdateFriendChatChannelSingleUserServerProt(local_88, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)38:
-            uVar20 = logger::default_logger();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            logger::Logger::Log(
-                uVar20, 0, 3,
+            pLVar21 = logger::default_logger();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            pLVar21->Log(
+                false, 3,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
                 1286, "Unimplemented Serverprot REFLECTION_CHECKER");
             break;
         case (BADTYPE)39:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar15 = pSVar39->g1();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar18 = pSVar39->g1();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            iVar12 = pSVar39->g4();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            pIVar30 = (IfType*)shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            PlayerModelUtil::SetPlayerModelColour(pIVar30, uVar18 & 255, uVar15 & 255);
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar18 >> 8), 1);
-            ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar15 = pSVar42->g1();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar18 = pSVar42->g1();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            iVar12 = pSVar42->g4();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            pIVar32 = (IfType*)**psVar31;
+            PlayerModelUtil::SetPlayerModelColour(*pIVar32, uVar18 & 255, uVar15 & 255);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar18 >> 8)) << 8) |
+                                                                 (uint8_t)1);
+            ComponentUpdated(local_88, psVar31);
             break;
         case (BADTYPE)40:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar8 = pPVar38->g2();
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3843, "if_opentop - ifid:%i", CONCAT44(uVar74, (uint)uVar8));
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar8 = pPVar41->g2();
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3843, "if_opentop - ifid:%i",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)((unsigned int)uVar8)));
             }
-            *(uint*)(local_b8._48_8_ + 53216) = (uint)uVar8;
-            InterfaceCalculateSizeAndPosAll((Client*)local_b8._48_8_, false, false);
-            IfAnimReset((Client*)local_b8._48_8_, (uint)uVar8);
-            ScriptRunner::OnLoad(*(int*)(local_b8._48_8_ + 53216));
-            local_b8._48_8_ = local_b8._48_8_ + 2506576;
-            uVar63 = 0;
-            psVar41 = (shared_ptr*)pCVar55;
+            local_88->field_53216 = (unsigned int)uVar8;
+            InterfaceCalculateSizeAndPosAll(local_88, false, false);
+            IfAnimReset(local_88, (unsigned int)uVar8);
+            ScriptRunner::OnLoad(local_88->field_53216);
+            local_88 = (Client*)&local_88->field_2506576;
+            uVar65 = 0;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)this_13;
             do {
-                puVar33 =
-                    (undefined1*)std::array<bool, 100ul>::operator[]((array<bool, 100ul>*)local_b8._48_8_, uVar63);
-                *puVar33 = 1;
-                uVar63 = uVar63 + 1;
-                psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)psVar41 >> 8), 1);
-            } while (uVar63 != 100);
+                puVar35 = (uint8_t*)(*local_88)[uVar65];
+                *puVar35 = 1;
+                uVar65 = uVar65 + 1;
+                psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)psVar43 >> 8))
+                                                                      << 8) |
+                                                                     (uint8_t)1);
+            } while (uVar65 != 100);
             break;
         case (BADTYPE)41:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if (*(int*)(local_b8._48_8_ + 53216) != -1) {
-                RunHookImmediate((Client*)local_b8._48_8_, *(int*)(local_b8._48_8_ + 53216), 23);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if (local_88->field_53216 != -1) {
+                RunHookImmediate(local_88, local_88->field_53216, 23);
             }
             break;
         case (BADTYPE)42:
-            local_c8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pCVar55;
+            local_cc._4_8_ = this_13;
             PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_b8, bVar4);
-            eastl::vector<int, BucketAllocatorEASTL>::vector();
-            local_128._0_8_ = 0;
-            lVar28 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+                &local_b8, bVar6);
+            local_110 = eastl::vector<int, BucketAllocatorEASTL>();
+            local_128[0] = (ReturnValue)0;
+            lVar28 = local_b8.size();
             if (lVar28 != 0) {
-                pCVar55 = (Client*)local_110;
+                this_13 = &local_110;
                 do {
-                    pcVar46 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    local_480._0_4_ = stringtools::GetUTF8NextChar(pcVar46, (ulong*)&local_128);
-                    pCVar55->push_back(local_480);
-                    uVar20 = local_128._0_8_;
-                    uVar63 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                } while ((ulong)uVar20 < uVar63);
+                    pcVar48 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    local_480._0_4_ = stringtools::GetUTF8NextChar(pcVar48, local_128);
+                    this_13->push_back(*local_480);
+                    RVar68 = local_128[0];
+                    RVar38 = (ReturnValue)local_b8.size();
+                } while ((unsigned long)RVar68 < (unsigned long)RVar38);
             }
-            if (local_c8->field_0 != '\0') {
-                uVar20 = logger::default_logger();
-                uVar32 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3807, "runclientscript - params:%s", uVar32);
+            if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                pLVar21 = logger::default_logger();
+                uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3807, "runclientscript - params:%s", uVar34);
             }
             new (local_480) HookReq();
-            lVar28 = local_110->size();
+            lVar28 = local_110.size();
             local_480->set_max_size(lVar28 + 1, 1);
-            uVar63 = local_110->size();
-            if (uVar63 != 0) {
-                pCVar55 = (Client*)local_f0;
+            uVar65 = local_110.size();
+            if (uVar65 != 0) {
+                this_13 = &local_f0;
                 do {
-                    uVar24 = uVar63 - 1;
-                    piVar43 = (int*)eastl::vector<int, BucketAllocatorEASTL>::operator[](
-                        (vector<int, BucketAllocatorEASTL>*)local_110, uVar24);
-                    if (*piVar43 == 115) {
-                        PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<
-                            eastl::string>(
-                            (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)pCVar55,
-                            (bool)((char)local_4c0 + '\b'));
-                        new (&local_80) HookArg(pCVar55);
-                        pHVar36 = (HookArg*)Array<HookArg, eastl::allocator>::operator[](
-                            (Array<HookArg, eastl::allocator>*)local_480, uVar63);
-                        HookArg::operator=(pHVar36, &local_80);
-                        local_80.~LanguageMessage();
-                        pCVar55->~basic_string();
+                    uVar24 = uVar65 - 1;
+                    piVar45 = &local_110[uVar24];
+                    if (*piVar45 == 115) {
+                        this_13->gStringCP1252ToUTF8<eastl::string>((bool)((char)local_4c0 + '\b'));
+                        local_80 = HookArg(this_13);
+                        pHVar39 = (HookArg*)(*local_480)[uVar65];
+                        *pHVar39 = local_80;
+                        this_13->~basic_string();
                     } else {
                         iVar12 = ((local_4c0 + 8))->g4();
-                        new (&local_80) HookArg(iVar12);
-                        pHVar36 = (HookArg*)Array<HookArg, eastl::allocator>::operator[](
-                            (Array<HookArg, eastl::allocator>*)local_480, uVar63);
-                        HookArg::operator=(pHVar36, &local_80);
-                        local_80.~LanguageMessage();
+                        local_80 = HookArg(iVar12);
+                        pHVar39 = (HookArg*)(*local_480)[uVar65];
+                        *pHVar39 = local_80;
                     }
-                    uVar63 = uVar24;
+                    uVar65 = uVar24;
                 } while (uVar24 != 0);
             }
             iVar12 = ((local_4c0 + 8))->g4();
-            new (&local_80) HookArg(iVar12);
-            pHVar36 =
-                (HookArg*)Array<HookArg, eastl::allocator>::operator[]((Array<HookArg, eastl::allocator>*)local_480, 0);
-            HookArg::operator=(pHVar36, &local_80);
-            local_80.~LanguageMessage();
-            ScriptRunner::ExecuteScript((HookReq*)local_480, 500000);
-            local_480->~HookReq();
-            local_110->~vector_set();
-            pHVar36 = (HookArg*)local_b8;
+            local_80 = HookArg(iVar12);
+            pHVar39 = (HookArg*)(*local_480)[0];
+            *pHVar39 = local_80;
+            ScriptRunner::ExecuteScript(*local_480, 500000);
+            this_17 = &local_b8;
             goto LAB_1000ef462;
         case (BADTYPE)43:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
-            cVar3 = pSVar26->g1s();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+            cVar4 = pSVar26->g1s();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar26->g2();
-            iVar12 = (int)cVar3;
-            uVar63 = (ulong)uVar8;
-            uVar15 = (uint)uVar8;
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    1562, "Received small variable:%i value:%i", CONCAT44(uVar74, uVar15),
-                                    CONCAT44(uVar75, iVar12));
+            iVar12 = (int)cVar4;
+            uVar65 = (unsigned long)uVar8;
+            uVar15 = (unsigned int)uVar8;
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             1562, "Received small variable:%i value:%i", (((uint64_t)uVar72 << 32) | (uint32_t)uVar15),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)iVar12));
             }
-            piVar43 = (int*)Array<int, eastl::allocator>::operator[](
-                (Array<int, eastl::allocator>*)&ClientVarCache::m_varServ, uVar63);
-            *piVar43 = iVar12;
-            piVar43 = (int*)Array<int, eastl::allocator>::operator[](
-                (Array<int, eastl::allocator>*)&ClientVarCache::m_var, uVar63);
-            if (*piVar43 != iVar12) {
-                piVar43 = (int*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&ClientVarCache::m_var, uVar63);
-                *piVar43 = iVar12;
+            piVar45 = (int*)(*((Array<int>*)&ClientVarCache::m_varServ))[uVar65];
+            *piVar45 = iVar12;
+            piVar45 = (int*)(*((Array<int>*)&ClientVarCache::m_var))[uVar65];
+            if (*piVar45 != iVar12) {
+                piVar45 = (int*)(*((Array<int>*)&ClientVarCache::m_var))[uVar65];
+                *piVar45 = iVar12;
             }
-            ClientVar((Client*)local_b8._48_8_, uVar15);
+            ClientVar(local_88, uVar15);
         LAB_1000eb344:
-            uVar18 = *(undefined4*)(local_b8._48_8_ + 2505940);
-            *(uint*)(local_b8._48_8_ + 2505940) = uVar18 + 1;
-            puVar61 = (uint*)std::array<int, 32ul>::operator[]((array<int, 32ul>*)(local_b8._48_8_ + 2505812),
-                                                               (ulong)(uVar18 & 31));
-            *puVar61 = uVar15;
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            uVar18 = local_88->field_2505940;
+            local_88->field_2505940 = uVar18 + 1;
+            puVar63 = &local_88->field_2505812[(unsigned long)(uVar18 & 31)];
+            *puVar63 = uVar15;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)44:
-            *(undefined2*)(local_b8._48_8_ + 52996) = 256;
-            *(char*)(local_b8._48_8_ + 52999) = '\x01';
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53024) = (uint)bVar5;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53028) = (uint)bVar5;
-            uVar8 = pCVar44->g2();
-            *(uint*)(local_b8._48_8_ + 53032) = (uint)uVar8;
-            uVar8 = pCVar44->g2();
-            local_80.m_argType = (uint)uVar8;
-            local_b8[0] = pCVar44->g1();
-            uVar20 = local_b8._48_8_;
-            local_b8._1_3_ = 0;
-            uVar18 = *(int*)(local_b8._48_8_ + 53024) << 7 | 64;
-            uVar15 = *(int*)(local_b8._48_8_ + 53028) << 7 | 64;
-            iVar12 = GetAvH(pCVar44, uVar18, uVar15, *(int*)(local_b8._48_8_ + 51984));
-            iVar16 = uVar18 - *(int*)(uVar20 + 53088);
-            iVar19 = uVar15 - *(int*)(uVar20 + 53096);
-            uVar15 = iVar12 - (*(int*)(uVar20 + 53032) + *(int*)(uVar20 + 53092));
-            pCVar55 = (Client*)(ulong)uVar15;
-            dVar73 = (double)sqrt<int>(iVar19 * iVar19 + iVar16 * iVar16);
-            dVar73 = (double)atan2<int, double>(uVar15, dVar73);
-            local_f0[0].field_0._0_4_ = dash3d::world::ClampPitchAngle((int)(dVar73 * 325.9490051269531) & 2047);
-            dVar73 = (double)atan2<int, int>(iVar16, iVar19);
-            local_110[0]._0_4_ = WrapYawAngle((Client*)uVar20, (int)(dVar73 * -325.9490051269531) & 2047);
-            if (*(char*)(uVar20 + 54760) != '\0') {
-                uVar32 = logger::default_logger();
-                logger::Logger::Log(uVar32, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3066, "cam_rotateto_coordinate lx:%d lz:%d hei:%d cycles:%d easing:%d",
-                                    CONCAT44(uVar74, *(int*)(uVar20 + 53024)),
-                                    CONCAT44(uVar75, *(int*)(uVar20 + 53028)),
-                                    CONCAT44(uVar77, *(int*)(uVar20 + 53032)), CONCAT44(uVar78, local_80.m_argType),
-                                    CONCAT44(uVar14, local_b8._0_4_));
+            *(uint16_t*)&local_88->field_52996 = 256;
+            local_88->field_52999 = '\x01';
+            bVar5 = pCVar47->g1();
+            local_88->field_53024 = (unsigned int)bVar5;
+            bVar5 = pCVar47->g1();
+            local_88->field_53028 = (unsigned int)bVar5;
+            uVar8 = pCVar47->g2();
+            local_88->field_53032 = (unsigned int)uVar8;
+            uVar8 = pCVar47->g2();
+            local_80.m_argType = (unsigned int)uVar8;
+            bVar5 = pCVar47->g1();
+            pCVar66 = local_88;
+            local_b8[0].field_0 =
+                (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)((unsigned int)bVar5));
+            uVar18 = local_88->field_53024 << 7 | 64;
+            uVar15 = local_88->field_53028 << 7 | 64;
+            iVar12 = GetAvH(pCVar47, uVar18, uVar15, local_88->field_51984);
+            iVar16 = uVar18 - pCVar66->field_53088;
+            iVar19 = uVar15 - pCVar66->field_53096;
+            uVar15 = iVar12 - (pCVar66->field_53032 + pCVar66->field_53092);
+            this_13 = (Client*)(unsigned long)uVar15;
+            dVar71 = (double)sqrt<int>(iVar19 * iVar19 + iVar16 * iVar16);
+            dVar71 = (double)atan2<int, double>(uVar15, dVar71);
+            local_f0[0].field_0._0_4_ = dash3d::world::ClampPitchAngle((int)(dVar71 * 325.949f) & 2047);
+            dVar71 = (double)atan2<int, int>(iVar16, iVar19);
+            local_110[0]._0_4_ = WrapYawAngle(pCVar66, (int)(dVar71 * -325.949f) & 2047);
+            if (pCVar66->field_54760 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3066, "cam_rotateto_coordinate lx:%d lz:%d hei:%d cycles:%d easing:%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)pCVar66->field_53024),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)pCVar66->field_53028),
+                             (((uint64_t)uVar75 << 32) | (uint32_t)pCVar66->field_53032),
+                             (((uint64_t)uVar76 << 32) | (uint32_t)local_80.m_argType),
+                             (((uint64_t)uVar14 << 32) | (uint32_t)((Easing)local_b8[0].field_0)));
             }
-            std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&, CinemaCameraTween::Easing_const&>(
-                (int*)local_480, (int*)(uVar20 + 53100), (int*)local_f0, (Easing*)&local_80);
-            std::unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>::operator=(
-                (unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>*)(uVar20 +
-                                                                                                         53072),
-                (unique_ptr*)local_480);
-            local_480->~unique_ptr();
-            std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&, CinemaCameraTween::Easing_const&>(
-                (int*)local_480, (int*)(uVar20 + 53104), (int*)local_110, (Easing*)&local_80);
-            std::unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>::operator=(
-                (unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>*)(uVar20 +
-                                                                                                         53080),
-                (unique_ptr*)local_480);
+            *local_480 =
+                std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&,
+                                 CinemaCameraTween::Easing const&>(pCVar66->field_53100, local_f0, local_80, local_b8);
+            pCVar66->field_53072 = *local_480;
+            *local_480 =
+                std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&,
+                                 CinemaCameraTween::Easing const&>(pCVar66->field_53104, local_110, local_80, local_b8);
+            pCVar66->field_53080 = *local_480;
             goto LAB_1000ecff7;
         case (BADTYPE)45:
-            uVar20 = logger::default_logger();
-            logger::Logger::Log(
-                uVar20, 0, 3,
+            pLVar21 = logger::default_logger();
+            pLVar21->Log(
+                false, 3,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
                 1238, "Unimplemented Serverprot UPDATE_REBOOT_TIMER");
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar26->g2();
-            *(uint*)(local_b8._48_8_ + 53268) = ((uint)uVar8 * 32 - (uint)uVar8) - (uint)uVar8;
-            *(int*)(local_b8._48_8_ + 2506368) = *(int*)(local_b8._48_8_ + 2505808);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            local_88->field_53268 = ((unsigned int)uVar8 * 32 - (unsigned int)uVar8) - (unsigned int)uVar8;
+            local_88->field_2506368 = local_88->field_2505808;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)46:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
-            uVar15 = pSVar26->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar13 = pSVar39->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar18 = pSVar39->g2();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+            uVar18 = pSVar26->g2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar13 = pSVar42->g2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar17 = pSVar42->g2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar27->g2();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
-            uVar17 = pSVar27->g2();
-            local_b8._0_4_ = 4294967295;
-            if (uVar8 != 65535) {
-                local_b8._0_4_ = (uint)uVar8;
-            }
-            new (&local_80) eastl::allocator("EASTL vector");
-            eastl::vector<int, eastl::allocator>::vector(local_480, local_b8, 1, &local_80);
-            PlaySongs((Client*)local_b8._48_8_, (vector*)local_480, uVar17 & 65535, uVar13 & 65535, uVar18 & 65535,
-                      uVar15 & 65535);
-            goto LAB_1000ec795;
-        case (BADTYPE)47:
-            LegacyUpdated((Client*)local_b8._48_8_);
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
-            uVar15 = pSVar27->g1();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar18 = pSVar39->g1();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            iVar12 = pSVar39->g4();
-            uVar20 = local_b8._48_8_;
-            uVar24 = (ulong)uVar18 & 255;
-            piVar43 = (int*)std::array<int, 25ul>::operator[]((array<int, 25ul>*)(local_b8._48_8_ + 52240), uVar24);
-            *piVar43 = iVar12;
-            puVar61 = (uint*)std::array<int, 25ul>::operator[]((array<int, 25ul>*)(uVar20 + 52040), uVar24);
-            *puVar61 = uVar15 & 255;
-            piVar43 = (int*)std::array<int, 25ul>::operator[]((array<int, 25ul>*)(uVar20 + 52140), uVar24);
-            *piVar43 = 1;
-            uVar63 = 0;
-            do {
-                piVar31 = (int*)std::array<int, 99ul>::operator[](uVar63);
-                if (*piVar31 <= iVar12) {
-                    *piVar43 = (int)uVar63 + 2;
-                }
-                uVar63 = uVar63 + 1;
-            } while (uVar63 != 98);
-            uVar15 = *(undefined4*)(local_b8._48_8_ + 2506204);
-            *(uint*)(local_b8._48_8_ + 2506204) = uVar15 + 1;
-            puVar23 = (undefined4*)std::array<int, 32ul>::operator[]((array<int, 32ul>*)(local_b8._48_8_ + 2506076),
-                                                                     (ulong)(uVar15 & 31));
-            *puVar23 = (int)uVar24;
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)piVar43 >> 8), 1);
-            break;
-        case (BADTYPE)48:
-            EnableClanVarValues((Client*)local_b8._48_8_);
-            std::pair<unsigned int, game::VarValue>::pair<true, false>((pair<unsigned int, game::VarValue>*)local_480);
-            this_06 = (OldscapeVarTypeList*)shared_ptr<configdecoder::OldscapeVarTypeList>::operator->(
-                (shared_ptr<configdecoder::OldscapeVarTypeList>*)(local_b8._48_8_ + 52512));
-            this_06->DecodeVarValue(local_480, pCVar44);
-            this_07 = (VarContainerSparse*)shared_ptr<game::VarContainerSparse>::operator->(
-                (shared_ptr<game::VarContainerSparse>*)(local_b8._48_8_ + 52528));
-            this_07->SetVarValueByID(local_480._0_4_, local_478);
-            uVar14 = local_480._0_4_;
-            uVar15 = *(uint*)(local_b8._48_8_ + 2506336);
-            *(uint*)(local_b8._48_8_ + 2506336) = uVar15 + 1;
-            puVar61 = (uint*)std::array<int, 32ul>::operator[]((array<int, 32ul>*)(local_b8._48_8_ + 2506208),
-                                                               (ulong)(uVar15 & 31));
-            *puVar61 = uVar14;
-            local_480->~pair();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            break;
-        case (BADTYPE)49:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar8 = pPVar38->g2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+            uVar20 = pSVar27->g2();
             uVar15 = 4294967295;
             if (uVar8 != 65535) {
-                uVar15 = (uint)uVar8;
+                uVar15 = (unsigned int)uVar8;
             }
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            PlaySong((Client*)local_b8._48_8_, uVar15);
+            local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)uVar15);
+            new (local_480) eastl::vector<int>(&local_b8, DAT_00000001);
+            PlaySongs(local_88, (vector<int>*)local_480, uVar20 & 65535, uVar13 & 65535, uVar17 & 65535,
+                      uVar18 & 65535);
+            goto LAB_1000ec795;
+        case (BADTYPE)47:
+            LegacyUpdated(local_88);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+            uVar15 = pSVar27->g1();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar18 = pSVar42->g1();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            iVar12 = pSVar42->g4();
+            pCVar66 = local_88;
+            uVar24 = (unsigned long)uVar18 & 255;
+            piVar45 = &local_88->field_52240[uVar24];
+            *piVar45 = iVar12;
+            puVar63 = &pCVar66->field_52040[uVar24];
+            *puVar63 = uVar15 & 255;
+            uVar65 = uVar24;
+            piVar45 = &pCVar66->field_52140[uVar24];
+            *piVar45 = 1;
+            this_15 = nullptr;
+            do {
+                piVar33 = (int*)(*this_15)[uVar65];
+                if (*piVar33 <= iVar12) {
+                    *piVar45 = (int)this_15 + 2;
+                }
+                this_15 = this_15 + 1;
+            } while (this_15 != (array<int, 99ul>*)98);
+            uVar15 = local_88->field_2506204;
+            local_88->field_2506204 = uVar15 + 1;
+            puVar23 = &local_88->field_2506076[(unsigned long)(uVar15 & 31)];
+            *puVar23 = (int)uVar24;
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)piVar45 >> 8)) << 8) |
+                                                           (uint8_t)1);
+            break;
+        case (BADTYPE)48:
+            EnableClanVarValues(local_88);
+            local_480->pair<true, false>();
+            ((OldscapeVarTypeList*)local_88->field_52512.operator->())->DecodeVarValue(*local_480, *pCVar47);
+            ((VarContainerSparse*)local_88->field_52528.operator->())->SetVarValueByID(local_480._0_4_, *local_478);
+            uVar14 = local_480._0_4_;
+            uVar15 = *(unsigned int*)&local_88->field_2506336;
+            *(unsigned int*)&local_88->field_2506336 = uVar15 + 1;
+            puVar63 = &local_88->field_2506208[(unsigned long)(uVar15 & 31)];
+            *puVar63 = uVar14;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            break;
+        case (BADTYPE)49:
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar8 = pPVar41->g2();
+            uVar15 = 4294967295;
+            if (uVar8 != 65535) {
+                uVar15 = (unsigned int)uVar8;
+            }
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            PlaySong(local_88, uVar15);
             break;
         case (BADTYPE)50:
-            uVar15 = HandleUpdateFriendChatChannelFullServerProt((Client*)local_b8._48_8_, (SuperPacket*)pCVar44, 1);
+            uVar15 = HandleUpdateFriendChatChannelFullServerProt(local_88, (SuperPacket*)pCVar47, 1);
         LAB_1000e9a14:
-            psVar41 = (shared_ptr*)(ulong)uVar15;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(unsigned long)uVar15;
             break;
         case (BADTYPE)51:
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480, bVar4);
-            this_11 = (shared_ptr<ApplicationContext>*)(*(code*)**(undefined8**)local_b8._48_8_)();
-            plVar42 = (long*)shared_ptr<ApplicationContext>::operator->(this_11);
-            (**(code**)(*plVar42 + 192))(plVar42, local_480, 1);
+            local_480->gStringCP1252ToUTF8<eastl::string>(bVar6);
+            this_11 = (shared_ptr<ApplicationContext>*)(*(void (*)(...)) * *(uint64_t**)local_88)();
+            plVar44 = (long*)(*this_11).operator->();
+            (**(void (**)(...))(*plVar44 + 192))(plVar44, local_480, 1);
             goto LAB_1000ec994;
         case (BADTYPE)52:
-            *(undefined2*)(local_b8._48_8_ + 52996) = 256;
-            *(undefined1*)(local_b8._48_8_ + 52998) = 1;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53004) = (uint)bVar5;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53008) = (uint)bVar5;
-            uVar15 = pCVar44->g2();
-            bVar5 = pCVar44->g1();
-            local_80._0_8_ = CONCAT44(local_80._4_4_, (uint)bVar5 << 7) | 64;
-            bVar5 = pCVar44->g1();
-            local_b8._0_8_ = CONCAT44(local_b8._4_4_, (uint)bVar5 << 7) | 64;
-            uVar8 = pCVar44->g2();
-            local_f0[0].field_0._0_4_ = (uint)uVar8;
-            cVar3 = pCVar44->g1();
-            *(bool*)(local_b8._48_8_ + 53000) = cVar3 == '\x01';
-            bVar5 = pCVar44->g1();
+            *(uint16_t*)&local_88->field_52996 = 256;
+            local_88->field_52998 = 1;
+            bVar5 = pCVar47->g1();
+            local_88->field_53004 = (unsigned int)bVar5;
+            bVar5 = pCVar47->g1();
+            local_88->field_53008 = (unsigned int)bVar5;
+            uVar15 = pCVar47->g2();
+            bVar5 = pCVar47->g1();
+            local_80._0_8_ = (((uint64_t)local_80._4_4_ << 32) | (uint32_t)((unsigned int)bVar5 << 7)) | 64;
+            bVar5 = pCVar47->g1();
+            local_b8[0].field_0 =
+                (sqlite3**)((((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)((unsigned int)bVar5 << 7)) | 64);
+            uVar8 = pCVar47->g2();
+            local_f0[0].field_0._0_4_ = (unsigned int)uVar8;
+            cVar4 = pCVar47->g1();
+            local_88->field_53000 = cVar4 == '\x01';
+            bVar5 = pCVar47->g1();
             uVar18 = uVar15 & 65535;
-            local_110[0]._0_4_ = ZEXT14(bVar5);
-            if (*(char*)pCVar55 != '\0') {
-                pCVar44 = (Client*)logger::default_logger();
-                logger::Logger::Log(
-                    pCVar44, 0, 5,
+            local_110[0]._0_4_ = (uint32_t)bVar5;
+            if (*(char*)this_13 != '\0') {
+                pCVar47 = (Client*)logger::default_logger();
+                pCVar47->Log(
+                    false, 5,
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                     "client_network.cpp",
                     3130,
                     "cam_moveto_arc lx:%d lz:%d hei:%d tertiaryx:%d tertiaryz:%d cycles:%d ignoreTerrain:%d easing:%d",
-                    CONCAT44(uVar74, *(int*)(local_b8._48_8_ + 53004)),
-                    CONCAT44(uVar75, *(int*)(local_b8._48_8_ + 53008)), CONCAT44(uVar77, uVar15) & 18446744069414649855,
-                    CONCAT44(uVar78, local_80.m_argType), CONCAT44(uVar14, local_b8._0_4_),
-                    CONCAT44(uVar76, (uint)local_f0[0].field_0), *(undefined1*)(local_b8._48_8_ + 53000),
-                    local_110[0]._0_4_);
+                    (((uint64_t)uVar72 << 32) | (uint32_t)local_88->field_53004),
+                    (((uint64_t)uVar73 << 32) | (uint32_t)local_88->field_53008),
+                    (((uint64_t)uVar75 << 32) | (uint32_t)uVar15) & 18446744069414649855,
+                    (((uint64_t)uVar76 << 32) | (uint32_t)local_80.m_argType),
+                    (((uint64_t)uVar14 << 32) | (uint32_t)((Easing)local_b8[0].field_0)),
+                    (((uint64_t)uVar74 << 32) | (uint32_t)((unsigned int)local_f0[0].field_0)),
+                    (unsigned int)(uint8_t)local_88->field_53000, local_110[0]._0_4_);
             }
-            uVar20 = local_b8._48_8_;
-            uVar15 = *(int*)(local_b8._48_8_ + 53004) << 7;
-            local_128._0_8_ = CONCAT44(local_128._4_4_, uVar15) | 64;
-            local_b8._36_4_ = *(int*)(local_b8._48_8_ + 53008) << 7 | 64;
-            local_b8._44_4_ = 0;
-            local_b8._40_4_ = 0;
-            if (*(undefined1*)(local_b8._48_8_ + 53000) == '\0') {
-                iVar12 = GetAvH(pCVar44, *(int*)(local_b8._48_8_ + 53088), *(int*)(local_b8._48_8_ + 53096),
-                                *(int*)(local_b8._48_8_ + 51984));
-                local_b8._44_4_ = iVar12 - *(int*)(uVar20 + 53092);
+            pCVar66 = local_88;
+            uVar15 = local_88->field_53004 << 7;
+            local_128[0] = (ReturnValue)((((uint64_t)local_128[0]._4_4_ << 32) | (uint32_t)uVar15) | 64);
+            local_94 = local_88->field_53008 << 7 | 64;
+            local_8c = 0;
+            local_90 = 0;
+            if (local_88->field_53000 == '\0') {
+                iVar12 = GetAvH(pCVar47, local_88->field_53088, local_88->field_53096, local_88->field_51984);
+                local_8c = iVar12 - pCVar66->field_53092;
             } else {
-                local_b8._44_4_ = *(int*)(local_b8._48_8_ + 53092);
-                iVar12 = GetAvH(pCVar44, uVar15 | 64, local_b8._36_4_, *(int*)(local_b8._48_8_ + 51984));
+                local_8c = local_88->field_53092;
+                iVar12 = GetAvH(pCVar47, uVar15 | 64, local_94, local_88->field_51984);
                 uVar18 = iVar12 - uVar18;
             }
-            local_b8._40_4_ = uVar18;
+            local_90 = uVar18;
             std::make_unique<ArcMovementTween, int&, int&, int&, int const&, int const&, int&, int const&, int const&,
-                             int const&, CinemaCameraTween::Easing_const&>(
-                (int*)local_480, (int*)(uVar20 + 53088), (int*)(uVar20 + 53096), (int*)(local_b8 + 44),
-                (int*)&local_128, (int*)(local_b8 + 36), (int*)(local_b8 + 40), (int*)&local_80, (int*)local_b8,
-                (Easing*)local_f0);
-            std::unique_ptr<CinemaCameraMovementTween, std::default_delete<CinemaCameraMovementTween>>::operator=(
-                (unique_ptr<CinemaCameraMovementTween, std::default_delete<CinemaCameraMovementTween>>*)(uVar20 +
-                                                                                                         53064),
-                (unique_ptr*)local_480);
-            local_480->~unique_ptr();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+                             int const&, CinemaCameraTween::Easing const&>(
+                *local_480, pCVar66->field_53088, pCVar66->field_53096, *((int*)((long)&local_b8 + 44)), local_128,
+                *((int*)((long)&local_b8 + 36)), *((int*)((long)&local_b8 + 40)), local_80, local_b8, local_f0);
+            (&pCVar66->field_53064)->operator=(local_480);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)53:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar26->g2();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar18 = pSVar27->g2();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar17 = pSVar27->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar8 = pSVar39->g2();
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar18 >> 8), 1);
-            midi2::MidiManager::SwapSongs(uVar15 & 65535, uVar18 & 65535, (uint)uVar8, uVar17 & 65535);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar8 = pSVar42->g2();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar18 >> 8)) << 8) |
+                                                                 (uint8_t)1);
+            midi2::MidiManager::SwapSongs(uVar15 & 65535, uVar18 & 65535, (unsigned int)uVar8, uVar17 & 65535);
             break;
         case (BADTYPE)54:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            GetNPCPos((Client*)local_b8._48_8_, false, (SuperPacket*)pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            GetNPCPos(local_88, false, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)55:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
-            cVar3 = pSVar26->g1();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            iVar12 = pPVar38->g4();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if ((bool)*(char*)(lVar28 + 92) != (cVar3 == '\x01')) {
-                *(bool*)(lVar28 + 92) = cVar3 == '\x01';
-                ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+            cVar4 = pSVar26->g1();
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            iVar12 = pPVar41->g4();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if (*(char*)(lVar28 + 92) != (cVar4 == '\x01')) {
+                *(bool*)(lVar28 + 92) = cVar4 == '\x01';
+                ComponentUpdated(local_88, psVar31);
             }
             break;
         case (BADTYPE)56:
             new (local_480) eastl::string();
-            new (local_b8) SuperShuffledPacketFactory(pCVar44);
-            bVar4 = (bool)local_b8->p2_alt2();
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)&local_80, bVar4);
-            eastl::string::operator=((eastl::string*)local_480, (basic_string*)&local_80);
-            local_80.~basic_string();
-            pSVar39 = (ShuffledPacket2*)local_b8->p2_alt2();
-            iVar12 = pSVar39->g4();
-            psVar41 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar41);
-            bVar4 = eastl::operator!=((basic_string*)local_480, (basic_string*)(lVar28 + 320));
-            if (bVar4) {
-                eastl::string::operator=((eastl::string*)(lVar28 + 320), (basic_string*)local_480);
-                ComponentUpdated((Client*)local_b8._48_8_, psVar41);
+            local_b8 = SuperShuffledPacketFactory(*pCVar47);
+            bVar6 = (bool)ShuffledPacketFactory::p2_alt2();
+            local_80.gStringCP1252ToUTF8<eastl::string>(bVar6);
+            *local_480 = &local_80;
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            iVar12 = pSVar42->g4();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            bVar6 = *local_480 != (*((lVar28 + 320)));
+            if (bVar6) {
+                (*((lVar28 + 320))) = local_480;
+                ComponentUpdated(local_88, psVar31);
             }
             goto LAB_1000ec994;
         case (BADTYPE)57:
-            NotifyClanSettingsUpdate((Client*)local_b8._48_8_);
-            cVar3 = pCVar44->g1s();
-            lVar28 = pCVar44->GetTextureAtlas();
+            NotifyClanSettingsUpdate(local_88);
+            cVar4 = pCVar47->g1s();
+            lVar28 = pCVar47->GetTextureAtlas();
             if (lVar28 == 1) {
-                if (cVar3 < '\0') {
-                    new (local_480) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    shared_ptr<rs2lib::social::ClanSettings>::operator=(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)(local_b8._48_8_ + 52552), (shared_ptr*)local_480);
+                if (cVar4 < '\0') {
+                    new (local_480) shared_ptr();
+                    local_88->field_52552 = *local_480;
                 } else {
-                    new (local_480) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    psVar37 = (shared_ptr<rs2lib::social::ClanSettings>*)
-                        std::array<shared_ptr<rs2lib::social::ClanSettings>, 4ul>::operator[](
-                            (array<shared_ptr<rs2lib::social::ClanSettings>, 4ul>*)(local_b8._48_8_ + 52568),
-                            (long)cVar3);
-                    shared_ptr<rs2lib::social::ClanSettings>::operator=(psVar37, (shared_ptr*)local_480);
+                    new (local_480) shared_ptr();
+                    psVar40 = &local_88->field_52568[(long)cVar4];
+                    *psVar40 = *local_480;
                 }
-                this_15 = (shared_ptr<RSevenDebugPresetProvider>*)local_480;
+                this_16 = (shared_ptr<RSevenDebugPresetProvider>*)local_480;
             } else {
-                new (local_b8) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(this_14);
-                if (cVar3 < '\0') {
-                    make_shared<rs2lib::social::ClanSettings, core::SuperPacket&>((jag*)local_480,
-                                                                                  (SuperPacket*)pCVar44);
-                    psVar41 = (shared_ptr*)shared_ptr<rs2lib::social::ClanSettings>::operator=(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)(local_b8._48_8_ + 52552), (shared_ptr*)local_480);
-                    shared_ptr<rs2lib::social::ClanSettings>::operator=(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8, psVar41);
+                local_b8 = shared_ptr();
+                if (cVar4 < '\0') {
+                    make_shared<rs2lib::social::ClanSettings, core::SuperPacket&>((ReturnValue*)local_480,
+                                                                                  (SuperPacket*)pCVar47);
+                    psVar40 = (shared_ptr<rs2lib::social::ClanSettings>*)local_88->field_52552 = *local_480;
+                    local_b8 = *psVar40;
                 } else {
-                    make_shared<rs2lib::social::ClanSettings, core::SuperPacket&>((jag*)local_480,
-                                                                                  (SuperPacket*)pCVar44);
-                    psVar37 = (shared_ptr<rs2lib::social::ClanSettings>*)
-                        std::array<shared_ptr<rs2lib::social::ClanSettings>, 4ul>::operator[](
-                            (array<shared_ptr<rs2lib::social::ClanSettings>, 4ul>*)(local_b8._48_8_ + 52568),
-                            (long)cVar3);
-                    psVar41 = (shared_ptr*)shared_ptr<rs2lib::social::ClanSettings>::operator=(psVar37,
-                                                                                               (shared_ptr*)local_480);
-                    shared_ptr<rs2lib::social::ClanSettings>::operator=(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8, psVar41);
+                    make_shared<rs2lib::social::ClanSettings, core::SuperPacket&>((ReturnValue*)local_480,
+                                                                                  (SuperPacket*)pCVar47);
+                    psVar40 = &local_88->field_52568[(long)cVar4];
+                    psVar40 = (shared_ptr<rs2lib::social::ClanSettings>*)* psVar40 = *local_480;
+                    local_b8 = *psVar40;
                 }
-                local_480->~shared_ptr();
-                if (*(char*)pCVar55 != '\0') {
-                    uVar20 = logger::default_logger();
-                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                    uVar32 = CONCAT44(uVar75, *(undefined4*)(lVar28 + 8));
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2690, "ClanRecord affinitySlot %i received and set - updateNum: %i",
-                                        CONCAT44(uVar74, (int)cVar3), uVar32);
-                    uVar74 = (undefined4)((ulong)uVar32 >> 32);
-                    uVar20 = logger::default_logger();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2691, "----------");
-                    uVar20 = logger::default_logger();
-                    shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                    uVar32 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2692, "Clan Name: %s", uVar32);
-                    uVar76 = (undefined4)((ulong)uVar32 >> 32);
-                    uVar20 = logger::default_logger();
-                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                    uVar14 = *(undefined4*)(lVar28 + 232);
-                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                    uVar58 = CONCAT44(uVar74, *(undefined4*)(lVar28 + 236));
-                    uVar32 = CONCAT44(uVar76, uVar14);
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2693, "currentOwnerSlot: %i replacementOwnerSlot: %i", uVar32, uVar58);
-                    uVar14 = (undefined4)((ulong)uVar32 >> 32);
-                    uVar76 = (undefined4)((ulong)uVar58 >> 32);
-                    uVar20 = logger::default_logger();
-                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                    bVar5 = *(byte*)(lVar28 + 56);
-                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                    cVar3 = *(char*)(lVar28 + 57);
-                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
+                if (*(char*)this_13 != '\0') {
+                    pLVar21 = logger::default_logger();
+                    lVar28 = local_b8.operator->();
+                    uVar34 = (((uint64_t)uVar73 << 32) | (uint32_t)(*(uint32_t*)(lVar28 + 8)));
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2690, "ClanRecord affinitySlot %i received and set - updateNum: %i",
+                                 (((uint64_t)uVar72 << 32) | (uint32_t)((int)cVar4)), uVar34);
+                    uVar72 = (uint32_t)((unsigned long)uVar34 >> 32);
+                    pLVar21 = logger::default_logger();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2691, "----------");
+                    pLVar21 = logger::default_logger();
+                    local_b8.operator->();
+                    uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2692, "Clan Name: %s", uVar34);
+                    uVar74 = (uint32_t)((unsigned long)uVar34 >> 32);
+                    pLVar21 = logger::default_logger();
+                    lVar28 = local_b8.operator->();
+                    uVar14 = *(uint32_t*)(lVar28 + 232);
+                    lVar28 = local_b8.operator->();
+                    uVar58 = (((uint64_t)uVar72 << 32) | (uint32_t)(*(uint32_t*)(lVar28 + 236)));
+                    uVar34 = (((uint64_t)uVar74 << 32) | (uint32_t)uVar14);
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2693, "currentOwnerSlot: %i replacementOwnerSlot: %i", uVar34, uVar58);
+                    uVar14 = (uint32_t)((unsigned long)uVar34 >> 32);
+                    uVar74 = (uint32_t)((unsigned long)uVar58 >> 32);
+                    pLVar21 = logger::default_logger();
+                    lVar28 = local_b8.operator->();
+                    bVar5 = *(uint8_t*)(lVar28 + 56);
+                    lVar28 = local_b8.operator->();
+                    cVar4 = *(char*)(lVar28 + 57);
+                    lVar28 = local_b8.operator->();
                     cVar1 = *(char*)(lVar28 + 58);
-                    lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                        (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                    uVar32 = CONCAT44(uVar77, (int)cVar1);
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2694, "allowNonMembers: %i rankTalk: %i rankKick: %i, rankLootShare: %i",
-                                        CONCAT44(uVar14, (uint)bVar5), CONCAT44(uVar76, (int)cVar3), uVar32,
-                                        CONCAT44(uVar78, (int)*(char*)(lVar28 + 59)));
-                    uVar20 = logger::default_logger();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2695, "Members:");
-                    pCVar55 = (Client*)0;
+                    lVar28 = local_b8.operator->();
+                    uVar34 = (((uint64_t)uVar75 << 32) | (uint32_t)((int)cVar1));
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2694, "allowNonMembers: %i rankTalk: %i rankKick: %i, rankLootShare: %i",
+                                 (((uint64_t)uVar14 << 32) | (uint32_t)((unsigned int)bVar5)),
+                                 (((uint64_t)uVar74 << 32) | (uint32_t)((int)cVar4)), uVar34,
+                                 (((uint64_t)uVar76 << 32) | (uint32_t)((int)*(char*)(lVar28 + 59))));
+                    pLVar21 = logger::default_logger();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2695, "Members:");
+                    this_13 = nullptr;
                     while (true) {
-                        uVar14 = (undefined4)((ulong)uVar32 >> 32);
-                        lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                            (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                        if ((long)*(int*)(lVar28 + 64) <= (long)pCVar55)
+                        uVar14 = (uint32_t)((unsigned long)uVar34 >> 32);
+                        lVar28 = local_b8.operator->();
+                        if ((long)*(int*)(lVar28 + 64) <= (long)this_13)
                             break;
-                        uVar20 = logger::default_logger();
-                        lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                            (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                        cVar3 = ((lVar28 + 72))->empty();
-                        puVar66 = &DAT_100e3aa9a;
-                        local_b8[48] = cVar3;
-                        if (cVar3 == '\0') {
-                            lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                            plVar57 = (longlong*)eastl::vector<long long, eastl::allocator>::operator[](
-                                (vector<long long, eastl::allocator>*)(lVar28 + 72), (ulong)pCVar55);
-                            local_480->ToRawUsername(*plVar57);
-                            puVar66 = (undefined*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                        pLVar21 = logger::default_logger();
+                        lVar28 = local_b8.operator->();
+                        cVar4 = ((lVar28 + 72))->empty();
+                        puVar67 = &DAT_100e3aa9a;
+                        local_88 = (Client*)(((uint64_t)local_88._1_7_ << 8) | (uint8_t)cVar4);
+                        if (!cVar4) {
+                            lVar28 = local_b8.operator->();
+                            plVar57 = (long long*)(*((lVar28 + 72)))[(unsigned long)this_13];
+                            *local_480 = core::stringtools::general::UserhashTools::ToRawUsername(*plVar57);
+                            puVar67 = (uint8_t*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                         }
-                        lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                            (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                        eastl::vector<eastl::string, eastl::allocator>::operator[](
-                            (vector<eastl::string, eastl::allocator>*)(lVar28 + 280), (ulong)pCVar55);
+                        lVar28 = local_b8.operator->();
+                        (*((lVar28 + 280)))[(unsigned long)this_13];
                         uVar58 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                        lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                            (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                        pcVar46 = (char*)eastl::vector<signed char, eastl::allocator>::operator[](
-                            (vector<signed char, eastl::allocator>*)(lVar28 + 104), (ulong)pCVar55);
-                        uVar32 = CONCAT44(uVar14, (int)*pcVar46);
-                        logger::Logger::Log(uVar20, 0, 5,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                            "osclient/client_network.cpp",
-                                            2698, "%s - %s - rank: %i", puVar66, uVar58, uVar32);
-                        if (local_b8[48] == '\0') {
-                            local_480->~basic_string();
+                        lVar28 = local_b8.operator->();
+                        pcVar48 = (char*)(*((lVar28 + 104)))[(unsigned long)this_13];
+                        uVar34 = (((uint64_t)uVar14 << 32) | (uint32_t)((int)*pcVar48));
+                        pLVar21->Log(false, 5,
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                     "osclient/client_network.cpp",
+                                     2698, "%s - %s - rank: %i", puVar67, uVar58, uVar34);
+                        if ((char)local_88 == '\0') {
                         }
-                        pCVar55 = (Client*)((long)pCVar55 + 1);
+                        this_13 = (Client*)((long)this_13 + 1);
                     }
-                    uVar20 = logger::default_logger();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2700, "Banned:");
-                    for (uVar63 = 0; lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                         (shared_ptr<rs2lib::social::ClanSettings>*)local_b8),
-                        (long)uVar63 < (long)*(int*)(lVar28 + 240);
-                         uVar63 = uVar63 + 1) {
-                        uVar20 = logger::default_logger();
-                        lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                            (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
+                    pLVar21 = logger::default_logger();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2700, "Banned:");
+                    for (uVar65 = 0; lVar28 = local_b8.operator->(), (long)uVar65 < (long)*(int*)(lVar28 + 240);
+                         uVar65 = uVar65 + 1) {
+                        pLVar21 = logger::default_logger();
+                        lVar28 = local_b8.operator->();
                         uVar15 = ((lVar28 + 248))->empty();
-                        pCVar55 = (Client*)(ulong)uVar15;
-                        puVar66 = &DAT_100e3aa9a;
+                        this_13 = (Client*)(unsigned long)uVar15;
+                        puVar67 = &DAT_100e3aa9a;
                         if ((char)uVar15 == '\0') {
-                            lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                                (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                            plVar57 = (longlong*)eastl::vector<long long, eastl::allocator>::operator[](
-                                (vector<long long, eastl::allocator>*)(lVar28 + 248), uVar63);
-                            local_80.ToRawUsername(*plVar57);
-                            puVar66 = (undefined*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                            lVar28 = local_b8.operator->();
+                            plVar57 = (long long*)(*((lVar28 + 248)))[uVar65];
+                            local_80 = core::stringtools::general::UserhashTools::ToRawUsername(*plVar57);
+                            puVar67 = (uint8_t*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                         }
-                        lVar28 = shared_ptr<rs2lib::social::ClanSettings>::operator->(
-                            (shared_ptr<rs2lib::social::ClanSettings>*)local_b8);
-                        eastl::vector<eastl::string, eastl::allocator>::operator[](
-                            (vector<eastl::string, eastl::allocator>*)(lVar28 + 312), uVar63);
-                        uVar32 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                        logger::Logger::Log(uVar20, 0, 5,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                            "osclient/client_network.cpp",
-                                            2703, "%s - %s", puVar66, uVar32);
+                        lVar28 = local_b8.operator->();
+                        (*((lVar28 + 312)))[uVar65];
+                        uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                        pLVar21->Log(false, 5,
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                     "osclient/client_network.cpp",
+                                     2703, "%s - %s", puVar67, uVar34);
                         if ((char)uVar15 == '\0') {
-                            local_80.~basic_string();
                         }
                     }
-                    uVar20 = logger::default_logger();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2705, "----------");
+                    pLVar21 = logger::default_logger();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2705, "----------");
                 }
-                this_15 = (shared_ptr<RSevenDebugPresetProvider>*)local_b8;
+                this_16 = &local_b8;
             }
-            this_15->~shared_ptr();
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar55 >> 8), 1);
+            this_16->~shared_ptr();
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)58:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            iVar12 = pPVar38->g4();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            *(undefined4*)(lVar28 + 228) = 3;
-            lVar49 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)(local_b8._48_8_ + 52016));
-            this_08 = (PlayerModel*)shared_ptr<rs2lib::PlayerModel>::operator->(
-                (shared_ptr<rs2lib::PlayerModel>*)(lVar49 + 1008));
-            uVar14 = this_08->GetHeadModelCacheId();
-            *(undefined4*)(lVar28 + 232) = uVar14;
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            iVar12 = pPVar41->g4();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            *(uint32_t*)(lVar28 + 228) = 3;
+            lVar51 = local_88->field_52016.operator->();
+            uVar14 = ((PlayerModel*)(*((lVar51 + 1008))).operator->())->GetHeadModelCacheId();
+            *(uint32_t*)(lVar28 + 232) = uVar14;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ComponentUpdated(local_88, psVar31);
             break;
         case (BADTYPE)59:
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 54888) = (uint)bVar5;
+            bVar5 = pCVar47->g1();
+            local_88->field_54888 = (unsigned int)bVar5;
             if (bVar5 == 1) {
-                uVar8 = pCVar44->g2();
-                *(uint*)(local_b8._48_8_ + 54892) = (uint)uVar8;
+                uVar8 = pCVar47->g2();
+                *(unsigned int*)&local_88->field_54892 = (unsigned int)uVar8;
             }
-            uVar20 = local_b8._48_8_;
-            if (*(int*)(local_b8._48_8_ + 54888) - 2U < 5) {
-                *(undefined8*)(local_b8._48_8_ + 54912) =
-                    *(undefined8*)(&DAT_100d3d770 + (long)*(int*)(local_b8._48_8_ + 54888) * 8);
-                *(int*)(local_b8._48_8_ + 54888) = 2;
-                uVar8 = pCVar44->g2();
-                *(uint*)(uVar20 + 54900) = (uint)uVar8;
-                uVar8 = pCVar44->g2();
-                *(uint*)(uVar20 + 54904) = (uint)uVar8;
-                bVar5 = pCVar44->g1();
-                *(uint*)(uVar20 + 54908) = (uint)bVar5;
-                pCVar55 = pCVar44;
+            pCVar66 = local_88;
+            if (local_88->field_54888 - 2U < 5) {
+                uVar34 =
+                    *(uint64_t*)(&reinterpret_cast<const uint64_t*>(&skillxp)[51] + (long)local_88->field_54888 * 8);
+                local_88->field_54912 = (int)uVar34;
+                local_88->field_54916 = (int)((unsigned long)uVar34 >> 32);
+                local_88->field_54888 = 2;
+                uVar8 = pCVar47->g2();
+                pCVar66->field_54900 = (unsigned int)uVar8;
+                uVar8 = pCVar47->g2();
+                pCVar66->field_54904 = (unsigned int)uVar8;
+                bVar5 = pCVar47->g1();
+                pCVar66->field_54908 = (unsigned int)bVar5;
+                this_13 = pCVar47;
             }
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar55 >> 8), 1);
-            if (*(int*)(uVar20 + 54888) == 10) {
-                uVar8 = pCVar44->g2();
-                *(uint*)(local_b8._48_8_ + 54896) = (uint)uVar8;
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) |
+                                                           (uint8_t)1);
+            if (pCVar66->field_54888 == 10) {
+                uVar8 = pCVar47->g2();
+                *(unsigned int*)&local_88->field_54896 = (unsigned int)uVar8;
             }
             break;
         case (BADTYPE)60:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar26->g3();
-            local_b8._0_4_ = (uVar15 >> 4 & 7) + ((int)uVar15 >> 16);
+            locShapeID = (uVar15 >> 4 & 7) + ((int)uVar15 >> 16);
+            local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)locShapeID);
             local_f0[0].field_0._0_4_ = (uVar15 & 7) + (uVar15 >> 8 & 255);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar27->g1();
             bVar7 = bVar5 >> 2;
-            local_110[0]._0_4_ = ZEXT14(bVar5 & 3);
-            uVar15 = constants::LocShape::ToLayer((uint)bVar7);
-            pHVar36 = (HookArg*)(ulong)uVar15;
-            local_c0 = (array<int, 32ul>*)CONCAT44(local_c0._4_4_, (uint)bVar7);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            local_128._0_2_ = pPVar38->g2();
-            uVar20 = local_b8._48_8_;
-            local_128._2_2_ = 0;
-            if ((((102 < (int)local_b8._0_4_) || ((int)local_b8._0_4_ < 0)) || ((int)(uint)local_f0[0].field_0 < 0)) ||
-                (102 < (int)(uint)local_f0[0].field_0))
+            local_110[0]._0_4_ = (uint32_t)(bVar5 & 3);
+            uVar18 = ((LocShape*)(unsigned long)(unsigned int)bVar7)->ToLayer(locShapeID);
+            pRVar60 = (ReturnValue*)(unsigned long)uVar18;
+            local_c0 = (__17*)(((uint64_t)local_c0._4_4_ << 32) | (uint32_t)((unsigned int)bVar7));
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            local_128[0]._0_2_ = pPVar41->g2();
+            pCVar66 = local_88;
+            uVar15 = (unsigned int)local_f0[0].field_0;
+            local_128[0]._2_2_ = 0;
+            EVar2 = (Easing)local_b8[0].field_0;
+            if ((((102 < (int)(Easing)local_b8[0].field_0) || ((int)(Easing)local_b8[0].field_0 < 0)) ||
+                 ((int)(unsigned int)local_f0[0].field_0 < 0)) ||
+                (102 < (int)(unsigned int)local_f0[0].field_0))
                 goto switchD_1000ea3f5_default;
-            switch (uVar15 & 255) {
+            switch (uVar18 & 255) {
             case 0:
-                local_c8 =
-                    (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)CONCAT71(local_c8._1_7_, (char)uVar15);
-                iVar12 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                    (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)(local_b8._48_8_ + 19184));
-                dash3d::world::GetWall((int)local_480, iVar12, *(int*)(uVar20 + 51984));
-                bVar4 = operator!=((shared_ptr*)local_480, (_func_decltype_nullptr*)0);
-                pHVar36 = (HookArg*)CONCAT71(SUB87(uVar20, 1), (char)local_c8);
-                if (bVar4) {
-                    lVar28 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)local_480);
-                    local_b8._36_4_ = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar28 + 56));
-                    piVar43 = (int*)(local_b8._48_8_ + 51984);
+                local_cc[4] = (char)uVar18;
+                pwVar62 = (world*)local_88->field_19184.operator->();
+                *local_480 = pwVar62->GetWall(pCVar66->field_51984, EVar2, uVar15);
+                bVar6 = *local_480 != nullptr;
+                pRVar60 =
+                    (ReturnValue*)(((uint64_t)((int64_t)((unsigned long)pCVar66 >> 8)) << 8) | (uint8_t)local_cc[4]);
+                if (bVar6) {
+                    lVar28 = (*local_480).operator->();
+                    local_94 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar28 + 56));
+                    piVar45 = &local_88->field_51984;
                     if (bVar7 == 2) {
-                        local_b8._44_4_ = 2;
-                        local_b8._40_4_ = local_110[0]._0_4_ + 4;
-                        local_cc = (undefined1[4])((uint)local_cc & 4294967040);
-                        lVar28 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)local_480);
-                        piVar31 = (int*)(local_b8._48_8_ + 8488);
-                        pHVar36 = (HookArg*)local_cc;
+                        local_8c = 2;
+                        local_90 = local_110[0]._0_4_ + 4;
+                        local_cc._0_4_ = local_cc._0_4_ & 4294967040;
+                        lVar28 = (*local_480).operator->();
+                        pRVar60 = (ReturnValue*)local_cc;
                         make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)(local_b8 + 40),
-                            piVar43, (int*)local_b8, (int*)local_f0, (int*)&local_128, (bool*)pHVar36,
-                            (shared_ptr*)(lVar28 + 24), piVar31);
-                        lVar28 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)local_480);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 24),
-                                                                   (shared_ptr*)&local_80);
-                        local_80.~shared_ptr();
-                        local_b8._44_4_ = 2;
-                        local_b8._40_4_ = local_110[0]._0_4_ + 1 & 3;
-                        local_cc = (undefined1[4])((uint)local_cc & 4294967040);
-                        lVar28 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)local_480);
+                            (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44),
+                            (int*)((long)&local_b8 + 40), piVar45, &local_b8, &local_f0, &local_128,
+                            (shared_ptr<dash3d::ModelSource>*)pRVar60, (int*)(lVar28 + 24));
+                        lVar28 = (*local_480).operator->();
+                        (*((lVar28 + 24))) = local_80;
+                        local_8c = 2;
+                        local_90 = local_110[0]._0_4_ + 1 & 3;
+                        local_cc._0_4_ = local_cc._0_4_ & 4294967040;
+                        lVar28 = (*local_480).operator->();
                         make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)(local_b8 + 40),
-                            piVar43, (int*)local_b8, (int*)local_f0, (int*)&local_128, (bool*)pHVar36,
-                            (shared_ptr*)(lVar28 + 40), piVar31);
-                        lVar28 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)local_480);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 40),
-                                                                   (shared_ptr*)&local_80);
+                            (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44),
+                            (int*)((long)&local_b8 + 40), piVar45, &local_b8, &local_f0, &local_128,
+                            (shared_ptr<dash3d::ModelSource>*)pRVar60, (int*)(lVar28 + 40));
+                        lVar28 = (*local_480).operator->();
+                        (*((lVar28 + 40))) = local_80;
                     } else {
-                        local_b8._44_4_ = (uint)local_c0;
-                        local_b8._40_4_ = local_b8._40_4_ & 4294967040;
-                        lVar28 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)local_480);
+                        local_8c = (unsigned int)local_c0;
+                        local_90 = local_90 & 4294967040;
+                        lVar28 = (*local_480).operator->();
                         make_shared<ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)local_110, piVar43,
-                            (int*)local_b8, (int*)local_f0, (int*)&local_128, (bool*)(local_b8 + 40),
-                            (shared_ptr*)(lVar28 + 24), (int*)(local_b8._48_8_ + 8488));
-                        lVar28 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)local_480);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 24),
-                                                                   (shared_ptr*)&local_80);
+                            (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44), &local_110,
+                            piVar45, &local_b8, &local_f0, &local_128,
+                            (shared_ptr<dash3d::ModelSource>*)((long)&local_b8 + 40), (int*)(lVar28 + 24));
+                        lVar28 = (*local_480).operator->();
+                        (*((lVar28 + 24))) = local_80;
                     }
-                    local_80.~shared_ptr();
-                    pHVar36 = (HookArg*)CONCAT71((int7)((ulong)pHVar36 >> 8), (char)local_c8);
+                    pRVar60 = (ReturnValue*)(((uint64_t)((int64_t)((unsigned long)pRVar60 >> 8)) << 8) |
+                                             (uint8_t)local_cc[4]);
                 }
-                local_480->~shared_ptr();
-                if ((char)pHVar36 == '\x01')
+                if ((char)pRVar60 == '\x01')
                     goto switchD_1000ea3f5_caseD_1;
                 break;
             case 1:
             switchD_1000ea3f5_caseD_1:
-                uVar20 = local_b8._48_8_;
-                iVar12 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                    (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)(local_b8._48_8_ + 19184));
-                dash3d::world::GetDecor((int)local_480, iVar12, *(int*)(uVar20 + 51984));
-                bVar4 = operator!=((shared_ptr*)local_480, (_func_decltype_nullptr*)0);
-                if (bVar4) {
-                    lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
-                    local_b8._36_4_ = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar28 + 64));
-                    piVar43 = (int*)(local_b8._48_8_ + 51984);
+                pCVar66 = local_88;
+                pwVar62 = (world*)local_88->field_19184.operator->();
+                *local_480 = pwVar62->GetDecor(pCVar66->field_51984, (Easing)local_b8[0].field_0,
+                                               (unsigned int)local_f0[0].field_0);
+                bVar6 = *local_480 != nullptr;
+                if (bVar6) {
+                    lVar28 = (*local_480).operator->();
+                    local_94 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar28 + 64));
+                    piVar45 = &local_88->field_51984;
                     if ((bVar5 & 248) == 16) {
-                        local_b8._44_4_ = 4;
-                        local_b8._40_4_ = local_b8._40_4_ & 4294967040;
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
+                        local_8c = 4;
+                        local_90 = local_90 & 4294967040;
+                        lVar28 = (*local_480).operator->();
                         make_shared<ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)local_110, piVar43,
-                            (int*)local_b8, (int*)local_f0, (int*)&local_128, (bool*)(local_b8 + 40),
-                            (shared_ptr*)(lVar28 + 32), (int*)(local_b8._48_8_ + 8488));
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 32),
-                                                                   (shared_ptr*)&local_80);
+                            (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44), &local_110,
+                            piVar45, &local_b8, &local_f0, &local_128,
+                            (shared_ptr<dash3d::ModelSource>*)((long)&local_b8 + 40), (int*)(lVar28 + 32));
+                        lVar28 = (*local_480).operator->();
+                        (*((lVar28 + 32))) = local_80;
                     } else if (bVar7 == 8) {
-                        local_b8._44_4_ = 4;
-                        local_b8._40_4_ = local_110[0]._0_4_ + 4;
-                        local_cc = (undefined1[4])((uint)(uint3)local_cc._1_3_ << 8);
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
-                        piVar31 = (int*)(local_b8._48_8_ + 8488);
+                        local_8c = 4;
+                        local_90 = local_110[0]._0_4_ + 4;
+                        local_cc._0_4_ = (unsigned int)(uint32_t)local_cc._1_3_ << 8;
+                        lVar28 = (*local_480).operator->();
                         make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)(local_b8 + 40),
-                            piVar43, (int*)local_b8, (int*)local_f0, (int*)&local_128, (bool*)local_cc,
-                            (shared_ptr*)(lVar28 + 32), piVar31);
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 32),
-                                                                   (shared_ptr*)&local_80);
-                        local_80.~shared_ptr();
-                        local_b8._44_4_ = 4;
-                        local_b8._40_4_ = local_110[0]._0_4_ + 2 & 3 | 4;
-                        local_cc = (undefined1[4])((uint)local_cc & 4294967040);
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
+                            (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44),
+                            (int*)((long)&local_b8 + 40), piVar45, &local_b8, &local_f0, &local_128,
+                            (shared_ptr<dash3d::ModelSource>*)local_cc, (int*)(lVar28 + 32));
+                        lVar28 = (*local_480).operator->();
+                        (*((lVar28 + 32))) = local_80;
+                        local_8c = 4;
+                        local_90 = local_110[0]._0_4_ + 2 & 3 | 4;
+                        local_cc._0_4_ = local_cc._0_4_ & 4294967040;
+                        lVar28 = (*local_480).operator->();
                         make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)(local_b8 + 40),
-                            piVar43, (int*)local_b8, (int*)local_f0, (int*)&local_128, (bool*)local_cc,
-                            (shared_ptr*)(lVar28 + 48), piVar31);
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 48),
-                                                                   (shared_ptr*)&local_80);
+                            (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44),
+                            (int*)((long)&local_b8 + 40), piVar45, &local_b8, &local_f0, &local_128,
+                            (shared_ptr<dash3d::ModelSource>*)local_cc, (int*)(lVar28 + 48));
+                        lVar28 = (*local_480).operator->();
+                        (*((lVar28 + 48))) = local_80;
                     } else if (bVar7 == 7) {
-                        local_b8._44_4_ = 4;
-                        local_b8._40_4_ = local_110[0]._0_4_ + 2 & 3 | 4;
-                        local_cc = (undefined1[4])((uint)(uint3)local_cc._1_3_ << 8);
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
+                        local_8c = 4;
+                        local_90 = local_110[0]._0_4_ + 2 & 3 | 4;
+                        local_cc._0_4_ = (unsigned int)(uint32_t)local_cc._1_3_ << 8;
+                        lVar28 = (*local_480).operator->();
                         make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)(local_b8 + 40),
-                            piVar43, (int*)local_b8, (int*)local_f0, (int*)&local_128, (bool*)local_cc,
-                            (shared_ptr*)(lVar28 + 32), (int*)(local_b8._48_8_ + 8488));
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 32),
-                                                                   (shared_ptr*)&local_80);
+                            (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44),
+                            (int*)((long)&local_b8 + 40), piVar45, &local_b8, &local_f0, &local_128,
+                            (shared_ptr<dash3d::ModelSource>*)local_cc, (int*)(lVar28 + 32));
+                        lVar28 = (*local_480).operator->();
+                        (*((lVar28 + 32))) = local_80;
                     } else {
                         if (bVar7 != 6)
                             goto LAB_1000ef656;
-                        local_b8._44_4_ = 4;
-                        local_b8._40_4_ = local_110[0]._0_4_ + 4;
-                        local_cc = (undefined1[4])((uint)local_cc & 4294967040);
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
+                        local_8c = 4;
+                        local_90 = local_110[0]._0_4_ + 4;
+                        local_cc._0_4_ = local_cc._0_4_ & 4294967040;
+                        lVar28 = (*local_480).operator->();
                         make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)(local_b8 + 40),
-                            piVar43, (int*)local_b8, (int*)local_f0, (int*)&local_128, (bool*)local_cc,
-                            (shared_ptr*)(lVar28 + 32), (int*)(local_b8._48_8_ + 8488));
-                        lVar28 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_480);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 32),
-                                                                   (shared_ptr*)&local_80);
+                            (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44),
+                            (int*)((long)&local_b8 + 40), piVar45, &local_b8, &local_f0, &local_128,
+                            (shared_ptr<dash3d::ModelSource>*)local_cc, (int*)(lVar28 + 32));
+                        lVar28 = (*local_480).operator->();
+                        (*((lVar28 + 32))) = local_80;
                     }
-                    local_80.~shared_ptr();
                 }
             LAB_1000ef656:
-                local_480->~shared_ptr();
                 break;
             case 2:
                 goto switchD_1000ea3f5_caseD_2;
@@ -3242,125 +2889,127 @@ namespace jag::oldscape {
             default:
                 goto switchD_1000ea3f5_default;
             }
-            if ((char)pHVar36 == '\x02') {
+            if ((char)pRVar60 == '\x02') {
             switchD_1000ea3f5_caseD_2:
-                uVar20 = local_b8._48_8_;
-                iVar12 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                    (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)(local_b8._48_8_ + 19184));
-                dash3d::world::GetScene((int)local_480, iVar12, *(int*)(uVar20 + 51984));
-                uVar15 = (uint)local_c0;
+                pCVar66 = local_88;
+                pwVar62 = (world*)local_88->field_19184.operator->();
+                *local_480 = pwVar62->GetScene(pCVar66->field_51984, (Easing)local_b8[0].field_0,
+                                               (unsigned int)local_f0[0].field_0);
+                uVar15 = (unsigned int)local_c0;
                 if (bVar7 == 11) {
                     uVar15 = 10;
                 }
-                bVar4 = operator!=((shared_ptr*)local_480, (_func_decltype_nullptr*)0);
-                if (bVar4) {
-                    lVar28 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)local_480);
-                    local_b8._36_4_ = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar28 + 80));
-                    local_b8._44_4_ = uVar15 & 255;
-                    local_b8._40_4_ = local_b8._40_4_ & 4294967040;
-                    lVar28 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)local_480);
+                bVar6 = *local_480 != nullptr;
+                if (bVar6) {
+                    lVar28 = (*local_480).operator->();
+                    local_94 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar28 + 80));
+                    local_8c = uVar15 & 255;
+                    local_90 = local_90 & 4294967040;
+                    lVar28 = (*local_480).operator->();
                     make_shared<ClientLocAnim, int, int, int&, int&, int&, int&, int&, bool,
                                 shared_ptr<dash3d::ModelSource>&, int&>(
-                        (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)local_110,
-                        (int*)(local_b8._48_8_ + 51984), (int*)local_b8, (int*)local_f0, (int*)&local_128,
-                        (bool*)(local_b8 + 40), (shared_ptr*)(lVar28 + 32), (int*)(local_b8._48_8_ + 8488));
-                    lVar28 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)local_480);
-                    shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 32),
-                                                               (shared_ptr*)&local_80);
-                    local_80.~shared_ptr();
+                        (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44), &local_110,
+                        &local_88->field_51984, &local_b8, &local_f0, &local_128,
+                        (shared_ptr<dash3d::ModelSource>*)((long)&local_b8 + 40), (int*)(lVar28 + 32));
+                    lVar28 = (*local_480).operator->();
+                    (*((lVar28 + 32))) = local_80;
                 }
-                local_480->~shared_ptr();
             }
-            if ((char)pHVar36 == '\x03') {
+            if ((char)pRVar60 == '\x03') {
             switchD_1000ea3f5_caseD_3:
-                uVar20 = local_b8._48_8_;
-                iVar12 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                    (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)(local_b8._48_8_ + 19184));
-                dash3d::world::GetGd((int)local_480, iVar12, *(int*)(uVar20 + 51984));
-                bVar4 = operator!=((shared_ptr*)local_480, (_func_decltype_nullptr*)0);
-                if (bVar4) {
-                    lVar28 = shared_ptr<dash3d::GroundDecor>::operator->((shared_ptr<dash3d::GroundDecor>*)local_480);
-                    local_b8._36_4_ = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar28 + 32));
-                    local_b8._44_4_ = 22;
-                    local_b8._40_4_ = local_b8._40_4_ & 4294967040;
-                    lVar28 = shared_ptr<dash3d::GroundDecor>::operator->((shared_ptr<dash3d::GroundDecor>*)local_480);
+                pCVar66 = local_88;
+                pwVar62 = (world*)local_88->field_19184.operator->();
+                *local_480 = pwVar62->GetGd(pCVar66->field_51984, (Easing)local_b8[0].field_0,
+                                            (unsigned int)local_f0[0].field_0);
+                bVar6 = *local_480 != nullptr;
+                if (bVar6) {
+                    lVar28 = (*local_480).operator->();
+                    local_94 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar28 + 32));
+                    local_8c = 22;
+                    local_90 = local_90 & 4294967040;
+                    lVar28 = (*local_480).operator->();
                     make_shared<ClientLocAnim, int, int, int&, int&, int&, int&, int&, bool,
                                 shared_ptr<dash3d::ModelSource>&, int&>(
-                        (jag*)&local_80, (int*)(local_b8 + 36), (int*)(local_b8 + 44), (int*)local_110,
-                        (int*)(local_b8._48_8_ + 51984), (int*)local_b8, (int*)local_f0, (int*)&local_128,
-                        (bool*)(local_b8 + 40), (shared_ptr*)(lVar28 + 16), (int*)(local_b8._48_8_ + 8488));
-                    lVar28 = shared_ptr<dash3d::GroundDecor>::operator->((shared_ptr<dash3d::GroundDecor>*)local_480);
-                    shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar28 + 16),
-                                                               (shared_ptr*)&local_80);
-                    local_80.~shared_ptr();
+                        (int*)&local_80, (int*)((long)&local_b8 + 36), (int*)((long)&local_b8 + 44), &local_110,
+                        &local_88->field_51984, &local_b8, &local_f0, &local_128,
+                        (shared_ptr<dash3d::ModelSource>*)((long)&local_b8 + 40), (int*)(lVar28 + 16));
+                    lVar28 = (*local_480).operator->();
+                    (*((lVar28 + 16))) = local_80;
                 }
-                local_480->~shared_ptr();
             }
             goto switchD_1000ea3f5_default;
         case (BADTYPE)61:
-            bVar5 = pCVar44->g1();
-            uVar14 = rs2lib::FriendPrivacyUtils::GetBySaveValue((uint)bVar5);
-            *(undefined4*)((long)(local_b8._48_8_ + 53304) + 4) = uVar14;
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            bVar5 = pCVar47->g1();
+            uVar14 = rs2lib::FriendPrivacyUtils::GetBySaveValue((unsigned int)bVar5);
+            *(uint32_t*)((long)&local_88->field_53304 + 4) = uVar14;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)62:
-            *(undefined4*)(local_b8._48_8_ + 8492) = *(undefined4*)(local_b8._48_8_ + 8492) + 1;
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            local_88->field_8492 = local_88->field_8492 + 1;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)63:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar15 = pPVar38->g1();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar15 = pPVar41->g1();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar27->g4s();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            pIVar30 = (IfType*)shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            PlayerModelUtil::SetPlayerModelBodyType(pIVar30, uVar15 & 255);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            pIVar32 = (IfType*)**psVar31;
+            PlayerModelUtil::SetPlayerModelBodyType(*pIVar32, uVar15 & 255);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ComponentUpdated(local_88, psVar31);
             break;
         case (BADTYPE)64:
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    2957, "cam_reset");
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             2957, "cam_reset");
             }
-            uVar20 = local_b8._48_8_;
-            *(undefined4*)(local_b8._48_8_ + 52997) = 0;
-            *(undefined8*)(local_b8._48_8_ + 53004) = 0;
-            *(undefined8*)(local_b8._48_8_ + 53012) = 0;
-            *(undefined8*)(local_b8._48_8_ + 53020) = 0;
-            *(undefined8*)(local_b8._48_8_ + 53028) = 0;
-            *(undefined8*)(local_b8._48_8_ + 53036) = 0;
-            ((local_b8._48_8_ + 53064))->reset(0);
-            ((uVar20 + 53072))->reset(0);
-            ((uVar20 + 53080))->reset(0);
-            *(undefined1*)(uVar20 + 52996) = 0;
-            *(undefined4*)(uVar20 + 2508880) = 0;
-            *(undefined1*)(uVar20 + 2508884) = 0;
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            pCVar66 = local_88;
+            local_88->field_52997 = 0;
+            local_88->field_52998 = 0;
+            local_88->field_52999 = '\0';
+            local_88->field_53000 = 0;
+            local_88->field_53004 = 0;
+            local_88->field_53008 = 0;
+            local_88->field_53012 = 0;
+            local_88->field_53016 = 0;
+            local_88->field_53020 = 0;
+            local_88->field_53024 = 0;
+            local_88->field_53028 = 0;
+            local_88->field_53032 = 0;
+            local_88->field_53036 = 0;
+            local_88->field_53040 = 0;
+            local_88->field_53064.reset(nullptr);
+            pCVar66->field_53072.reset(nullptr);
+            pCVar66->field_53080.reset(nullptr);
+            pCVar66->field_52996 = 0;
+            pCVar66->field_2508880 = 0;
+            pCVar66->field_2508884 = 0;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)65:
-            uVar20 = logger::default_logger();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            logger::Logger::Log(
-                uVar20, 0, 3,
+            pLVar21 = logger::default_logger();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            pLVar21->Log(
+                false, 3,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
                 2374, "Unimplemented Serverprot SET_HEATMAP_ENABLED");
             break;
         case (BADTYPE)66:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar15 = pSVar39->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            iVar12 = pSVar39->g4();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            bVar4 = operator!=(psVar47, (_func_decltype_nullptr*)0);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if ((bVar4) && (lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47),
-                            *(int*)(lVar28 + 12) == 0)) {
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar15 = pSVar42->g2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            iVar12 = pSVar42->g4();
+            psVar49 = (shared_ptr<midi2::MidiPlayerMainThread>*)rs2lib::IfType::Get(iVar12);
+            bVar6 = *psVar49 != nullptr;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if ((bVar6) && (lVar28 = **psVar49, *(int*)(lVar28 + 12) == 0)) {
                 uVar18 = *(int*)(lVar28 + 108) - *(int*)(lVar28 + 76);
                 if ((int)(uVar15 & 65535) <= (int)uVar18) {
                     uVar18 = uVar15 & 65535;
@@ -3369,41 +3018,42 @@ namespace jag::oldscape {
                 if (-1 < (int)uVar18) {
                     uVar15 = uVar18;
                 }
-                if (*(uint*)(lVar28 + 100) != uVar15) {
-                    *(uint*)(lVar28 + 100) = uVar15;
-                    ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+                if (*(unsigned int*)(lVar28 + 100) != uVar15) {
+                    *(unsigned int*)(lVar28 + 100) = uVar15;
+                    ComponentUpdated(local_88, (shared_ptr<rs2lib::IfType>*)psVar49);
                 }
             }
             break;
         case (BADTYPE)67:
-            iVar12 = pCVar44->g4();
-            uVar8 = pCVar44->g2();
+            iVar12 = pCVar47->g4();
+            uVar8 = pCVar47->g2();
             uVar15 = uVar8 + 32768;
             if (-70001 < iVar12) {
-                uVar15 = (uint)uVar8;
+                uVar15 = (unsigned int)uVar8;
             }
-            local_c0 = (array<int, 32ul>*)CONCAT44(local_c0._4_4_, uVar15);
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    1392, "Received inventory update for inventory: %d component: %d",
-                                    CONCAT44(uVar74, (uint)local_c0), CONCAT44(uVar75, iVar12));
+            local_c0 = (__17*)(((uint64_t)local_c0._4_4_ << 32) | (uint32_t)uVar15);
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             1392, "Received inventory update for inventory: %d component: %d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)((unsigned int)local_c0)),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)iVar12));
             }
             if (iVar12 < 0) {
-                psVar41 = (shared_ptr*)&rs2lib::NULL_IFTYPE;
+                pvVar69 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&rs2lib::NULL_IFTYPE;
             } else {
-                psVar41 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
+                pvVar69 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)rs2lib::IfType::Get(iVar12);
             }
-            lVar28 = psVar41->end();
-            local_c8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(lVar28 + 1936);
-            local_130 = (Array<int, eastl::allocator>*)(lVar28 + 1960);
+            lVar28 = pvVar69->end();
+            local_cc._4_8_ = lVar28 + 1936;
+            local_130 = (Array<int>*)(lVar28 + 1960);
             while (true) {
                 this_01 = (TextureAtlasReference*)(local_4c0 + 8);
-                pCVar55 = (Client*)this_01->size();
-                pSVar51 = (SuperShuffledPacketFactory*)this_01->GetTextureAtlas();
-                if (pSVar51 <= pCVar55)
+                this_13 = (Client*)this_01->size();
+                pSVar53 = (SuperShuffledPacketFactory*)this_01->GetTextureAtlas();
+                if (pSVar53 <= this_13)
                     break;
                 iVar12 = this_01->gSmarts();
                 uVar8 = this_01->g2();
@@ -3414,1988 +3064,1706 @@ namespace jag::oldscape {
                     if (bVar5 == 255) {
                         uVar15 = ((local_4c0 + 8))->g4();
                     } else {
-                        uVar15 = (uint)bVar5;
+                        uVar15 = (unsigned int)bVar5;
                     }
                 }
-                bVar4 = operator!=(psVar41, (_func_decltype_nullptr*)0);
-                if ((bVar4 && -1 < iVar12) &&
-                    (iVar19 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(local_c8),
-                     iVar12 < iVar19)) {
-                    puVar61 = (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)local_c8,
-                                                                              (long)iVar12);
-                    *puVar61 = (uint)uVar8;
-                    puVar61 = (uint*)Array<int, eastl::allocator>::operator[](local_130, (long)iVar12);
-                    *puVar61 = uVar15;
+                bVar6 = *pvVar69 != nullptr;
+                if ((bVar6 && -1 < iVar12) && (iVar19 = local_cc._4_8_->end(), iVar12 < iVar19)) {
+                    puVar63 = (unsigned int*)(*local_cc._4_8_)[(long)iVar12];
+                    *puVar63 = (unsigned int)uVar8;
+                    puVar63 = (unsigned int*)(*local_130)[(long)iVar12];
+                    *puVar63 = uVar15;
                 }
-                ClientInvCache::Set((uint)local_c0, iVar12, uVar8 - 1, uVar15);
+                ClientInvCache::Set((unsigned int)local_c0, iVar12, uVar8 - 1, uVar15);
             }
-            bVar4 = operator!=(psVar41, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                ComponentUpdated((Client*)local_b8._48_8_, psVar41);
+            bVar6 = *pvVar69 != nullptr;
+            if (bVar6) {
+                ComponentUpdated(local_88, (shared_ptr<rs2lib::IfType>*)pvVar69);
             }
-            LegacyUpdated((Client*)local_b8._48_8_);
+            LegacyUpdated(local_88);
             goto LAB_1000edfff;
         case (BADTYPE)68:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            bVar5 = pPVar38->g1();
-            uVar20 = local_b8._48_8_;
-            *(uint*)(local_b8._48_8_ + 1115284) = (uint)bVar5;
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            bVar5 = pPVar41->g1();
+            pCVar66 = local_88;
+            *(unsigned int*)&local_88->field_1115284 = (unsigned int)bVar5;
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar27->g1();
-            *(uint*)(uVar20 + 1115288) = (uint)bVar5;
-            if (*(char*)(uVar20 + 54760) != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4137, "Partial update enclosed for zone: %d,%d",
-                                    CONCAT44(uVar74, *(undefined4*)(local_b8._48_8_ + 1115284)),
-                                    CONCAT44(uVar75, *(undefined4*)(local_b8._48_8_ + 1115288)));
+            *(unsigned int*)&pCVar66->field_1115288 = (unsigned int)bVar5;
+            if (pCVar66->field_54760 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4137, "Partial update enclosed for zone: %d,%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)(*(uint32_t*)&local_88->field_1115284)),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)(*(uint32_t*)&local_88->field_1115288)));
             }
             while (true) {
-                uVar63 = pCVar44->size();
-                uVar24 = pCVar44->GetTextureAtlas();
-                if (uVar24 <= uVar63)
+                uVar65 = pCVar47->size();
+                uVar24 = pCVar47->GetTextureAtlas();
+                if (uVar24 <= uVar65)
                     break;
-                uVar6 = pCVar44->g1();
-                ZonePacket((Client*)local_b8._48_8_, uVar6, pCVar44);
+                bVar5 = pCVar47->g1();
+                ZonePacket(local_88, (unsigned int)bVar5, (SuperPacket*)pCVar47);
             }
             goto switchD_1000ea3f5_default;
         case (BADTYPE)69:
-            uVar6 = pCVar44->g1();
-            SetCameraMode((Client*)local_b8._48_8_, uVar6);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            bVar5 = pCVar47->g1();
+            SetCameraMode(local_88, (unsigned int)bVar5);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)70:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            RebuildPacket((Client*)local_b8._48_8_, false, (SuperPacket*)pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            RebuildPacket(local_88, false, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)71:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 6, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 6, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)72:
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    2393, "Resetting variables to 0 in preperation for full transmit");
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             2393, "Resetting variables to 0 in preperation for full transmit");
             }
             if (0 < configdecoder::VarpType::m_numDefinitions) {
-                uVar63 = 0;
-                pCVar55 = (Client*)&ClientVarCache::m_varServ;
+                uVar65 = 0;
+                this_13 = (Client*)&ClientVarCache::m_varServ;
                 do {
-                    psVar41 = (shared_ptr*)configdecoder::VarpType::List((int)uVar63);
-                    new (local_480) shared_ptr<dash3d::Decor>(psVar41);
-                    bVar4 = operator!=((shared_ptr*)local_480, (_func_decltype_nullptr*)0);
-                    if (bVar4) {
-                        puVar23 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)&ClientVarCache::m_varServ, uVar63);
+                    psVar46 = (shared_ptr<dash3d::GroundDecor>*)configdecoder::VarpType::List((int)uVar65);
+                    new (local_480) shared_ptr(psVar46);
+                    bVar6 = *local_480 != nullptr;
+                    if (bVar6) {
+                        puVar23 = (uint32_t*)(*((Array<int>*)&ClientVarCache::m_varServ))[uVar65];
                         *puVar23 = 0;
-                        puVar23 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)&ClientVarCache::m_var, uVar63);
+                        puVar23 = (uint32_t*)(*((Array<int>*)&ClientVarCache::m_var))[uVar65];
                         *puVar23 = 0;
                     }
-                    local_480->~shared_ptr();
-                    uVar63 = uVar63 + 1;
-                } while ((long)uVar63 < (long)configdecoder::VarpType::m_numDefinitions);
+                    uVar65 = uVar65 + 1;
+                } while ((long)uVar65 < (long)configdecoder::VarpType::m_numDefinitions);
             }
-            LegacyUpdated((Client*)local_b8._48_8_);
-            *(undefined4*)(local_b8._48_8_ + 2505940) = *(undefined4*)(local_b8._48_8_ + 2505940) + 32;
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar55 >> 8), 1);
+            LegacyUpdated(local_88);
+            local_88->field_2505940 = local_88->field_2505940 + 32;
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)73:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 10, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 10, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)74:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 4, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 4, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)75:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar26->g1();
-            uVar20 = local_b8._48_8_;
-            *(uint*)(local_b8._48_8_ + 1115284) = (uint)bVar5;
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pCVar66 = local_88;
+            *(unsigned int*)&local_88->field_1115284 = (unsigned int)bVar5;
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar27->g1();
-            *(uint*)(uVar20 + 1115288) = (uint)bVar5;
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if (*(char*)(uVar20 + 54760) != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4083, "Partial update follows for zone: %i,%i ",
-                                    CONCAT44(uVar74, *(undefined4*)(local_b8._48_8_ + 1115284)),
-                                    CONCAT44(uVar75, *(undefined4*)(local_b8._48_8_ + 1115288)));
+            *(unsigned int*)&pCVar66->field_1115288 = (unsigned int)bVar5;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if (pCVar66->field_54760 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4083, "Partial update follows for zone: %i,%i ",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)(*(uint32_t*)&local_88->field_1115284)),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)(*(uint32_t*)&local_88->field_1115288)));
             }
             break;
         case (BADTYPE)76:
-            *(undefined2*)(local_b8._48_8_ + 52996) = 256;
-            *(undefined1*)(local_b8._48_8_ + 52998) = 0;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53004) = (uint)bVar5;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53008) = (uint)bVar5;
-            uVar8 = pCVar44->g2();
-            *(uint*)(local_b8._48_8_ + 53012) = (uint)uVar8;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53016) = (uint)bVar5;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53020) = (uint)bVar5;
-            if (*(char*)(local_b8._48_8_ + 54760) != '\0') {
-                pCVar44 = (Client*)logger::default_logger();
-                logger::Logger::Log(pCVar44, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    2892, "cam_moveto lx:%d lz:%d hei:%d rate:%d rate2:%d",
-                                    CONCAT44(uVar74, *(int*)(local_b8._48_8_ + 53004)),
-                                    CONCAT44(uVar75, *(int*)(local_b8._48_8_ + 53008)),
-                                    CONCAT44(uVar77, *(int*)(local_b8._48_8_ + 53012)),
-                                    CONCAT44(uVar78, *(int*)(local_b8._48_8_ + 53016)),
-                                    CONCAT44(uVar14, *(int*)(local_b8._48_8_ + 53020)));
+            *(uint16_t*)&local_88->field_52996 = 256;
+            local_88->field_52998 = 0;
+            bVar5 = pCVar47->g1();
+            local_88->field_53004 = (unsigned int)bVar5;
+            bVar5 = pCVar47->g1();
+            local_88->field_53008 = (unsigned int)bVar5;
+            uVar8 = pCVar47->g2();
+            local_88->field_53012 = (unsigned int)uVar8;
+            bVar5 = pCVar47->g1();
+            local_88->field_53016 = (unsigned int)bVar5;
+            bVar5 = pCVar47->g1();
+            local_88->field_53020 = (unsigned int)bVar5;
+            if (local_88->field_54760 != '\0') {
+                pCVar47 = (Client*)logger::default_logger();
+                pCVar47->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             2892, "cam_moveto lx:%d lz:%d hei:%d rate:%d rate2:%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)local_88->field_53004),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)local_88->field_53008),
+                             (((uint64_t)uVar75 << 32) | (uint32_t)local_88->field_53012),
+                             (((uint64_t)uVar76 << 32) | (uint32_t)local_88->field_53016),
+                             (((uint64_t)uVar14 << 32) | (uint32_t)local_88->field_53020));
             }
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if (99 < *(int*)(local_b8._48_8_ + 53020)) {
-                uVar18 = *(int*)(local_b8._48_8_ + 53004) << 7 | 64;
-                *(uint*)(local_b8._48_8_ + 53088) = uVar18;
-                uVar15 = *(int*)(local_b8._48_8_ + 53008) << 7 | 64;
-                *(uint*)(local_b8._48_8_ + 53096) = uVar15;
-                iVar12 = GetAvH(pCVar44, uVar18, uVar15, *(int*)(local_b8._48_8_ + 51984));
-                *(int*)(local_b8._48_8_ + 53092) = iVar12 - *(int*)(local_b8._48_8_ + 53012);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if (99 < local_88->field_53020) {
+                uVar18 = local_88->field_53004 << 7 | 64;
+                local_88->field_53088 = uVar18;
+                uVar15 = local_88->field_53008 << 7 | 64;
+                local_88->field_53096 = uVar15;
+                iVar12 = GetAvH(pCVar47, uVar18, uVar15, local_88->field_51984);
+                local_88->field_53092 = iVar12 - local_88->field_53012;
             }
             break;
         case (BADTYPE)77:
-            iVar12 = pCVar44->g4();
-            uVar8 = pCVar44->g2();
+            iVar12 = pCVar47->g4();
+            uVar8 = pCVar47->g2();
             uVar15 = uVar8 + 32768;
             if (-70001 < iVar12) {
-                uVar15 = (uint)uVar8;
+                uVar15 = (unsigned int)uVar8;
             }
-            local_c0 = (array<int, 32ul>*)CONCAT44(local_c0._4_4_, uVar15);
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    1444, "Received full inventory for inventory: %d component: %d",
-                                    CONCAT44(uVar74, (uint)local_c0), CONCAT44(uVar75, iVar12));
+            local_c0 = (__17*)(((uint64_t)local_c0._4_4_ << 32) | (uint32_t)uVar15);
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             1444, "Received full inventory for inventory: %d component: %d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)((unsigned int)local_c0)),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)iVar12));
             }
             if (iVar12 < 0) {
-                psVar41 = (shared_ptr*)&rs2lib::NULL_IFTYPE;
+                pvVar69 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&rs2lib::NULL_IFTYPE;
             } else {
-                psVar41 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
+                pvVar69 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)rs2lib::IfType::Get(iVar12);
             }
-            lVar28 = psVar41->end();
-            bVar4 = operator!=(psVar41, (_func_decltype_nullptr*)0);
-            local_c8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)CONCAT71(local_c8._1_7_, bVar4);
-            if (bVar4) {
-                pCVar55 = (Client*)(lVar28 + 1936);
-                lVar49 = pCVar55->end();
-                if (lVar49 != 0) {
-                    uVar63 = 0;
+            lVar28 = pvVar69->end();
+            bVar6 = *pvVar69 != nullptr;
+            local_cc[4] = bVar6;
+            if (bVar6) {
+                this_13 = (Client*)(lVar28 + 1936);
+                lVar51 = this_13->end();
+                if (lVar51 != 0) {
+                    uVar65 = 0;
                     do {
-                        puVar23 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)pCVar55, uVar63);
+                        puVar23 = (uint32_t*)(*this_13)[uVar65];
                         *puVar23 = 0;
-                        puVar23 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)(lVar28 + 1960), uVar63);
+                        puVar23 = (uint32_t*)(*((lVar28 + 1960)))[uVar65];
                         *puVar23 = 0;
-                        uVar63 = uVar63 + 1;
-                        uVar24 = pCVar55->end();
-                    } while (uVar63 < uVar24);
+                        uVar65 = uVar65 + 1;
+                        uVar24 = this_13->end();
+                    } while (uVar65 < uVar24);
                 }
             }
-            ClientInvCache::Blank((uint)local_c0);
+            ClientInvCache::Blank((unsigned int)local_c0);
             uVar8 = ((local_4c0 + 8))->g2();
             if (uVar8 != 0) {
-                local_130 = (Array<int, eastl::allocator>*)(ulong)uVar8;
-                pAVar48 = (Array<int, eastl::allocator>*)0;
-                pCVar55 = (Client*)local_480;
+                local_130 = (Array<int>*)(unsigned long)uVar8;
+                pAVar50 = nullptr;
+                this_13 = (Client*)local_480;
                 do {
-                    new (pCVar55) SuperShuffledPacketFactory((SuperPacket*)(local_4c0 + 8));
-                    pPVar38 =
-                        (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)pCVar55->p2_alt2();
-                    uVar15 = pPVar38->g2();
-                    pSVar27 = (ShuffledPacket4*)pCVar55->p2_alt2();
-                    pSVar39 = (ShuffledPacket2*)pCVar55->p2_alt2();
+                    new (this_13) SuperShuffledPacketFactory(*((local_4c0 + 8)));
+                    pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                        ShuffledPacketFactory::p2_alt2();
+                    uVar15 = pPVar41->g2();
+                    pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+                    pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
                     bVar5 = pSVar27->g1();
                     if (bVar5 == 255) {
-                        uVar18 = pSVar39->g4();
+                        uVar18 = pSVar42->g4();
                     } else {
-                        uVar18 = (uint)bVar5;
+                        uVar18 = (unsigned int)bVar5;
                     }
-                    if (((char)local_c8 != '\0') && (iVar12 = ((lVar28 + 1936))->end(), (long)pAVar48 < (long)iVar12)) {
-                        puVar61 = (uint*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)(lVar28 + 1936), (ulong)pAVar48);
-                        *puVar61 = uVar15 & 65535;
-                        puVar61 = (uint*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)(lVar28 + 1960), (ulong)pAVar48);
-                        *puVar61 = uVar18;
+                    if ((local_cc[4] != '\0') && (iVar12 = ((lVar28 + 1936))->end(), (long)pAVar50 < (long)iVar12)) {
+                        puVar63 = (unsigned int*)(*((lVar28 + 1936)))[(unsigned long)pAVar50];
+                        *puVar63 = uVar15 & 65535;
+                        puVar63 = (unsigned int*)(*((lVar28 + 1960)))[(unsigned long)pAVar50];
+                        *puVar63 = uVar18;
                     }
-                    ClientInvCache::Set((uint)local_c0, (int)pAVar48, (uVar15 & 65535) - 1, uVar18);
-                    pAVar48 = pAVar48 + 1;
-                } while (local_130 != pAVar48);
+                    ClientInvCache::Set((unsigned int)local_c0, (int)pAVar50, (uVar15 & 65535) - 1, uVar18);
+                    pAVar50 = pAVar50 + 1;
+                } while (local_130 != pAVar50);
             }
-            if ((char)local_c8 != '\0') {
-                ComponentUpdated((Client*)local_b8._48_8_, psVar41);
+            if (local_cc[4] != '\0') {
+                ComponentUpdated(local_88, (shared_ptr<rs2lib::IfType>*)pvVar69);
             }
-            LegacyUpdated((Client*)local_b8._48_8_);
+            LegacyUpdated(local_88);
         LAB_1000edfff:
-            uVar15 = (uint)local_c0;
+            uVar15 = (unsigned int)local_c0;
         LAB_1000ee005:
-            uVar18 = *(undefined4*)(local_b8._48_8_ + 2506072);
-            *(uint*)(local_b8._48_8_ + 2506072) = uVar18 + 1;
-            puVar61 = (uint*)std::array<int, 32ul>::operator[]((array<int, 32ul>*)(local_b8._48_8_ + 2505944),
-                                                               (ulong)(uVar18 & 31));
-            *puVar61 = uVar15 & 32767;
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar55 >> 8), 1);
+            uVar18 = local_88->field_2506072;
+            local_88->field_2506072 = uVar18 + 1;
+            puVar63 = &local_88->field_2505944[(unsigned long)(uVar18 & 31)];
+            *puVar63 = uVar15 & 32767;
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)78:
-            uVar14 = pCVar44->g4();
-            local_b8._0_4_ = uVar14;
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3893, "if_closesub - layer:%d", CONCAT44(uVar74, local_b8._0_4_));
+            uVar14 = pCVar47->g4();
+            local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)uVar14);
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3893, "if_closesub - layer:%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)((Easing)local_b8[0].field_0)));
             }
-            eastl::hashtable<
-                int,
-                eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                       std::default_delete<ChatHistory::HistoryBuffer>>>,
-                eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                           std::default_delete<ChatHistory::HistoryBuffer>>>>,
-                eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                eastl::prime_rehash_policy, false, true, true>::find((int*)local_480);
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)local_480, (hashtable_iterator_base*)&local_80, extraout_RDX_03);
-            if (bVar4) {
-                uVar14 = local_b8._0_4_;
+            puVar35 = local_88->field_53160;
+            *local_480 = puVar35->find(local_b8);
+            local_80 = puVar35->end();
+            cVar4 = *local_480 != local_80;
+            if (cVar4) {
+                EVar2 = (Easing)local_b8[0].field_0;
                 lVar28 = local_480->HeapBeginPtr();
-                CloseSubinterface((Client*)local_b8._48_8_, uVar14, *(int*)(lVar28 + 4), true);
+                CloseSubinterface(local_88, EVar2, *(int*)(lVar28 + 4), true);
             }
-            puVar33 = (undefined1*)(local_b8._48_8_ + 52424);
-            bVar4 = operator!=((shared_ptr*)puVar33, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                ComponentUpdated((Client*)local_b8._48_8_, (shared_ptr*)puVar33);
-                new (&local_80) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                shared_ptr<rs2lib::IfType>::operator=((shared_ptr<rs2lib::IfType>*)puVar33, (shared_ptr*)&local_80);
-                local_80.~shared_ptr();
+            puVar35 = &local_88->field_52424;
+            bVar6 = *puVar35 != nullptr;
+            if (bVar6) {
+                ComponentUpdated(local_88, (shared_ptr<rs2lib::IfType>*)puVar35);
+                local_80 = shared_ptr();
+                *puVar35 = local_80;
             }
             goto switchD_1000ea3f5_default;
         case (BADTYPE)79:
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480, bVar4);
-            eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-            pWVar54 = (WordPack*)std::unique_ptr<game::WordPack, std::default_delete<game::WordPack>>::operator->((
-                unique_ptr<game::WordPack, std::default_delete<game::WordPack>>*)((long)(local_b8._48_8_ + 54172) + 4));
-            pWVar54->UnpackCP1252AsUTF8(local_b8, pCVar44);
-            pcVar46 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar63 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            local_80.Escape(pcVar46, uVar63);
-            core::stringtools::general::StringTools::ForceCapitalisationOfWords((basic_string*)&local_80);
-            AddChat((Client*)local_b8._48_8_, 6, (basic_string*)local_480, (basic_string*)&local_80);
-            local_80.~basic_string();
-            local_b8->~basic_string();
-            pHVar36 = (HookArg*)local_480;
+            local_480->gStringCP1252ToUTF8<eastl::string>(bVar6);
+            local_b8 = eastl::basic_string<char, BucketAllocatorEASTL>();
+            pWVar56 = (WordPack*)local_88->field_54176.operator->();
+            pWVar56->UnpackCP1252AsUTF8(local_b8, *pCVar47);
+            pcVar48 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            uVar65 = local_b8.size();
+            local_80 = jstring::PixfontGeneric::Escape(pcVar48, uVar65);
+            core::stringtools::general::StringTools::ForceCapitalisationOfWords(local_80);
+            AddChat(local_88, 6, (eastl::string*)local_480, (eastl::string*)&local_80);
+            this_17 = (eastl::string*)local_480;
             goto LAB_1000ef462;
         case (BADTYPE)80:
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    1193, "logout transfer");
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             1193, "logout transfer");
             }
             new (local_480) GameWorld();
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)&local_80, bVar4);
-            eastl::string::operator=((eastl::string*)(local_478 + 8), (basic_string*)&local_80);
-            local_80.~basic_string();
-            uVar8 = pCVar44->g2();
-            local_480._0_4_ = ZEXT24(uVar8);
-            local_480._4_4_ = pCVar44->g4();
-            cVar3 = local_480->IsBeta();
-            if (cVar3 != '\0') {
-                eastl::string::operator=(local_428, (basic_string*)&BETA_CACHE_DIR_SUFFIX);
+            local_80.gStringCP1252ToUTF8<eastl::string>(bVar6);
+            (*((local_478 + 8))) = &local_80;
+            uVar8 = pCVar47->g2();
+            local_480._0_4_ = (uint32_t)uVar8;
+            local_480._4_4_ = pCVar47->g4();
+            cVar4 = local_480->IsBeta();
+            if (cVar4) {
+                local_428 = &BETA_CACHE_DIR_SUFFIX;
             }
-            ((local_b8._48_8_ + 2509312))->SaveToFiles();
-            this_02 =
-                (ClientVarValues*)std::unique_ptr<ClientVarValues, std::default_delete<ClientVarValues>>::operator->(
-                    (unique_ptr<ClientVarValues, std::default_delete<ClientVarValues>>*)(local_b8._48_8_ + 52488));
-            this_02->SavePermVars();
-            SetMainState((Client*)local_b8._48_8_);
-            puVar33 = (undefined1*)(local_b8._48_8_ + 19120);
-            pSVar21 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)puVar33);
-            pSVar21->Close();
-            puVar33->reset(0);
-            TitleScreen::SwitchToWorld((GameWorld*)local_480);
-            local_480->~GameWorld();
+            local_88->m_highlightManager->SaveToFiles();
+            ((ClientVarValues*)local_88->field_52488.operator->())->SavePermVars();
+            SetMainState(local_88, 45);
+            puVar35 = &local_88->field_19120;
+            pSVar22 = (ServerConnection*)(*puVar35).operator->();
+            pSVar22->Close();
+            puVar35->reset(nullptr);
+            TitleScreen::SwitchToWorld(*local_480);
         LAB_1000e84af:
-            psVar41 = (shared_ptr*)0;
+            psVar43 = nullptr;
             break;
         case (BADTYPE)81:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            local_110[0]._0_4_ = pPVar38->g4();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            local_f0[0].field_0._0_4_ = pSVar39->g4();
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4018, "if_movesub - srclayer:%i destlayer:%i",
-                                    CONCAT44(uVar74, (uint)local_f0[0].field_0), CONCAT44(uVar75, local_110[0]._0_4_));
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            local_110[0]._0_4_ = pPVar41->g4();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            local_f0[0].field_0._0_4_ = pSVar42->g4();
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4018, "if_movesub - srclayer:%i destlayer:%i",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)((unsigned int)local_f0[0].field_0)),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)local_110[0]._0_4_));
             }
-            puVar33 = (undefined1*)(local_b8._48_8_ + 53160);
-            eastl::hashtable<
-                int,
-                eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                       std::default_delete<ChatHistory::HistoryBuffer>>>,
-                eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                           std::default_delete<ChatHistory::HistoryBuffer>>>>,
-                eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                eastl::prime_rehash_policy, false, true, true>::find((int*)local_480);
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)local_480, (hashtable_iterator_base*)&local_80, extraout_RDX_01);
+            puVar35 = local_88->field_53160;
+            *local_480 = puVar35->find(local_f0);
+            local_80 = puVar35->end();
+            cVar4 = *local_480 != local_80;
             iVar12 = -1;
-            if (bVar4) {
+            if (cVar4) {
                 lVar28 = local_480->HeapBeginPtr();
                 iVar12 = *(int*)(lVar28 + 4);
             }
-            eastl::hashtable<
-                int,
-                eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                       std::default_delete<ChatHistory::HistoryBuffer>>>,
-                eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                           std::default_delete<ChatHistory::HistoryBuffer>>>>,
-                eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                eastl::prime_rehash_policy, false, true, true>::find((int*)&local_80);
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)&local_80, (hashtable_iterator_base*)local_b8, extraout_RDX_02);
+            local_80 = puVar35->find(local_110);
+            local_b8 = puVar35->end();
+            cVar4 = local_80 != local_b8;
             uVar14 = local_110[0]._0_4_;
-            if (bVar4) {
-                pCVar55 = (Client*)(ulong)(uint)local_110[0]._0_4_;
+            if (cVar4) {
+                this_13 = (Client*)(unsigned long)(unsigned int)local_110[0]._0_4_;
                 lVar28 = local_80.HeapBeginPtr();
                 iVar19 = *(int*)(lVar28 + 4);
                 if (iVar12 == -1) {
-                    bVar4 = true;
+                    bVar6 = true;
                 } else {
                     lVar28 = local_80.HeapBeginPtr();
-                    bVar4 = *(int*)(lVar28 + 4) != iVar12;
+                    bVar6 = *(int*)(lVar28 + 4) != iVar12;
                 }
-                CloseSubinterface((Client*)local_b8._48_8_, uVar14, iVar19, bVar4);
+                CloseSubinterface(local_88, uVar14, iVar19, bVar6);
             }
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)local_480, (hashtable_iterator_base*)local_b8, extraout_RDX_09);
-            if (bVar4) {
+            local_b8 = puVar35->end();
+            cVar4 = *local_480 != local_b8;
+            if (cVar4) {
                 lVar28 = local_480->HeapBeginPtr();
-                new (local_b8) game::EnvironmentOverrideParam<game::ColourGradingEnvironmentOverrides::ColourRemap>();
-                local_b8._0_8_ = *(ulong*)(lVar28 + 4);
-                local_b8[8] = *(undefined1*)(lVar28 + 12);
-                puVar52 = (ulong*)
-                    eastl::hash_map<int, SubInterface, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator,
-                                    false>::operator[]((hash_map<int, SubInterface, eastl::hash<int>,
-                                                                 eastl::equal_to<int>, eastl::allocator, false>*)
-                                                           puVar33,
-                                                       (int*)local_110);
-                *(undefined1*)(puVar52 + 1) = local_b8[8];
-                *puVar52 = local_b8._0_8_;
-                puVar33->erase(local_f0);
+                local_b8 = game::EnvironmentOverrideParam();
+                local_b8[0].field_0 = *(sqlite3***)(lVar28 + 4);
+                local_b8[0].field_8._0_1_ = *(uint8_t*)(lVar28 + 12);
+                pRVar60 = (ReturnValue*)(*puVar35)[local_110];
+                *(uint8_t*)(pRVar60 + 1) = (uint8_t)local_b8[0].field_8;
+                *pRVar60 = (ReturnValue)local_b8[0].field_0;
+                puVar35->erase(local_f0);
             }
-            psVar41 = (shared_ptr*)rs2lib::IfType::Get((uint)local_f0[0].field_0);
-            bVar4 = operator!=(psVar41, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                ComponentUpdated((Client*)local_b8._48_8_, psVar41);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)rs2lib::IfType::Get((unsigned int)local_f0[0].field_0);
+            bVar6 = *psVar43 != nullptr;
+            if (bVar6) {
+                ComponentUpdated(local_88, (shared_ptr<rs2lib::IfType>*)psVar43);
             }
-            psVar41 = (shared_ptr*)rs2lib::IfType::Get(local_110[0]._0_4_);
-            bVar4 = operator!=(psVar41, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                lVar28 = psVar41->end();
-                ComponentUpdated((Client*)local_b8._48_8_, psVar41);
-                pAVar60 =
-                    (Array*)Array<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>, eastl::allocator>::operator[](
-                        (Array<Array<shared_ptr<rs2lib::IfType>, eastl::allocator>,
-                               eastl::allocator>*)&rs2lib::IfType::m_list,
-                        (long)(*(int*)(lVar28 + 4) >> 16));
-                InterfaceCalculateSizeAndPosSubcomponents((Client*)local_b8._48_8_, pAVar60, psVar41, true);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)rs2lib::IfType::Get(local_110[0]._0_4_);
+            bVar6 = *psVar43 != nullptr;
+            if (bVar6) {
+                lVar28 = psVar43->end();
+                ComponentUpdated(local_88, (shared_ptr<rs2lib::IfType>*)psVar43);
+                pAVar61 = (Array<shared_ptr<rs2lib::IfType>>*)(*(
+                    (Array<Array<shared_ptr<rs2lib::IfType>>>*)&rs2lib::IfType::m_list))[(long)(*(int*)(lVar28 + 4) >>
+                                                                                                16)];
+                InterfaceCalculateSizeAndPosSubcomponents(local_88, pAVar61, (shared_ptr<rs2lib::IfType>*)psVar43,
+                                                          true);
             }
-            pHVar36 = (HookArg*)pCVar55;
-            if (*(int*)(local_b8._48_8_ + 53216) != -1) {
-                RunHookImmediate((Client*)local_b8._48_8_, *(int*)(local_b8._48_8_ + 53216), 24);
+            pRVar60 = (ReturnValue*)this_13;
+            if (local_88->field_53216 != -1) {
+                RunHookImmediate(local_88, local_88->field_53216, 24);
             }
             goto switchD_1000ea3f5_default;
         case (BADTYPE)82:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar26->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar18 = pSVar39->g1();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar18 = pSVar42->g1();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar17 = pSVar26->g2();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar13 = pSVar26->g4();
-            psVar47 = (shared_ptr*)std::array<shared_ptr<ClientNpc>, 65536ul>::operator[](
-                (array<shared_ptr<ClientNpc>, 65536ul>*)(local_b8._48_8_ + 55272), (ulong)uVar15 & 65535);
-            bVar4 = operator!=(psVar47, (_func_decltype_nullptr*)0);
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar15 >> 8), 1);
-            if (bVar4) {
-                pCVar50 = (ClientEntity*)shared_ptr<ClientNpc>::operator*((shared_ptr<ClientNpc>*)psVar47);
-                pCVar50->AddSpotAnim(uVar18 & 255, uVar17 & 65535, (int)uVar13 >> 16, uVar13 & 65535,
-                                     *(int*)(local_b8._48_8_ + 8488));
+            psVar49 = &local_88->field_55272[(unsigned long)uVar15 & 65535];
+            bVar6 = *psVar49 != nullptr;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar15 >> 8)) << 8) |
+                                                                 (uint8_t)1);
+            if (bVar6) {
+                pCVar52 = (ClientEntity*)**psVar49;
+                pCVar52->AddSpotAnim(uVar18 & 255, uVar17 & 65535, (int)uVar13 >> 16, uVar13 & 65535,
+                                     local_88->field_8488);
             }
             break;
         case (BADTYPE)83:
-            lVar28 = pCVar44->size();
-            pCVar44->SetPos(lVar28 + 28);
-            cVar3 = pCVar44->CheckCrc();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if (cVar3 != '\0') {
-                iVar12 = pCVar44->size();
-                StoreNewPackedUID((Client*)local_b8._48_8_, (SuperPacket*)pCVar44, iVar12 + -28);
+            lVar28 = pCVar47->size();
+            pCVar47->SetPos(lVar28 + 28);
+            cVar4 = pCVar47->CheckCrc();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if (cVar4) {
+                iVar12 = pCVar47->size();
+                StoreNewPackedUID(local_88, (SuperPacket*)pCVar47, iVar12 - 28);
             }
             break;
         case (BADTYPE)84:
-            uVar15 = pCVar44->g4();
-            uVar18 = pCVar44->g4();
-            puVar33 = (undefined1*)(local_b8._48_8_ + 19120);
-            pSVar21 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)puVar33);
-            uVar20 = pSVar21->GetOutgoingEncryption();
-            local_480->MakeClientMessage(82, uVar20);
-            new (&local_80) SuperShuffledPacketFactory(local_478);
-            pPVar22 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)local_80.HeapBeginPtr();
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(pPVar22,
-                                                                                           javapal::GameShell::m_fps);
-            pSVar39 = (ShuffledPacket2*)local_80.p2_alt2();
-            pSVar27 = (ShuffledPacket4*)local_80.p2_alt2();
-            ShuffledPacket2::p4<unsigned int>(pSVar39, uVar15);
-            ShuffledPacket4::p4<unsigned int>(pSVar27, uVar18);
-            pSVar39 = (ShuffledPacket2*)local_80.HeapBeginPtr();
-            ShuffledPacket2::p1<int>(pSVar39, 0);
-            pSVar21 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)puVar33);
-            pSVar21->SendClientMessage(local_480);
-            local_480->~ClientMessage();
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar15 >> 8), 1);
+            iVar12 = pCVar47->g4();
+            iVar19 = pCVar47->g4();
+            puVar35 = &local_88->field_19120;
+            pSVar22 = (ServerConnection*)(*puVar35).operator->();
+            isaac = pSVar22->GetOutgoingEncryption();
+            *local_480 = shared::ClientMessage::MakeClientMessage(82, *isaac);
+            local_80 = SuperShuffledPacketFactory(*local_478);
+            ((PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)local_80.HeapBeginPtr())
+                ->p1<shared::LoginProt::ID>(javapal::GameShell::m_fps);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+            pSVar42->p4<unsigned int>(iVar12);
+            pSVar27->p4<unsigned int>(iVar19);
+            pSVar42 = (ShuffledPacket2*)local_80.HeapBeginPtr();
+            pSVar42->p1<int>(0);
+            pSVar22 = (ServerConnection*)(*puVar35).operator->();
+            pSVar22->SendClientMessage(*local_480);
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)((unsigned int)iVar12 >> 8))
+                                                            << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)85:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            GetNPCPos((Client*)local_b8._48_8_, true, (SuperPacket*)pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            GetNPCPos(local_88, true, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)86:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            EnableClanVarValues((Client*)local_b8._48_8_);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            EnableClanVarValues(local_88);
             break;
         case (BADTYPE)87:
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    1911, "Resetting variables to authoritative set");
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             1911, "Resetting variables to authoritative set");
             }
-            lVar28 = (&ClientVarCache::m_var)->end();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            lVar28 = ((vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&ClientVarCache::m_var)->end();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             if (lVar28 != 0) {
-                local_c0 = (array<int, 32ul>*)(local_b8._48_8_ + 2505812);
-                uVar63 = 0;
+                local_c0 = (__17*)&local_88->field_2505812;
+                uVar65 = 0;
                 do {
-                    piVar43 = (int*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)&ClientVarCache::m_var, uVar63);
-                    iVar12 = *piVar43;
-                    piVar43 = (int*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)&ClientVarCache::m_varServ, uVar63);
-                    if (iVar12 != *piVar43) {
-                        puVar23 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)&ClientVarCache::m_varServ, uVar63);
+                    piVar45 = (int*)(*((Array<int>*)&ClientVarCache::m_var))[uVar65];
+                    iVar12 = *piVar45;
+                    piVar45 = (int*)(*((Array<int>*)&ClientVarCache::m_varServ))[uVar65];
+                    if (iVar12 != *piVar45) {
+                        puVar23 = (uint32_t*)(*((Array<int>*)&ClientVarCache::m_varServ))[uVar65];
                         uVar14 = *puVar23;
-                        puVar23 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)&ClientVarCache::m_var, uVar63);
+                        puVar23 = (uint32_t*)(*((Array<int>*)&ClientVarCache::m_var))[uVar65];
                         *puVar23 = uVar14;
-                        ClientVar((Client*)local_b8._48_8_, (int)uVar63);
-                        uVar15 = *(undefined4*)(local_b8._48_8_ + 2505940);
-                        *(uint*)(local_b8._48_8_ + 2505940) = uVar15 + 1;
-                        piVar43 = (int*)std::array<int, 32ul>::operator[](local_c0, (ulong)(uVar15 & 31));
-                        *piVar43 = (int)uVar63;
+                        ClientVar(local_88, (int)uVar65);
+                        uVar15 = local_88->field_2505940;
+                        local_88->field_2505940 = uVar15 + 1;
+                        piVar45 = (int*)(*local_c0)[(unsigned long)(uVar15 & 31)];
+                        *piVar45 = (int)uVar65;
                     }
-                    uVar63 = uVar63 + 1;
-                    uVar24 = (&ClientVarCache::m_var)->end();
-                } while (uVar63 < uVar24);
+                    uVar65 = uVar65 + 1;
+                    uVar24 = ((vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&ClientVarCache::m_var)->end();
+                } while (uVar65 < uVar24);
             }
             break;
         case (BADTYPE)88:
-            *(undefined2*)(local_b8._48_8_ + 52996) = 256;
-            *(char*)(local_b8._48_8_ + 52999) = '\0';
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53024) = (uint)bVar5;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53028) = (uint)bVar5;
-            uVar8 = pCVar44->g2();
-            *(uint*)(local_b8._48_8_ + 53032) = (uint)uVar8;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53036) = (uint)bVar5;
-            bVar5 = pCVar44->g1();
-            *(uint*)(local_b8._48_8_ + 53040) = (uint)bVar5;
-            if (*(char*)(local_b8._48_8_ + 54760) != '\0') {
-                pCVar44 = (Client*)logger::default_logger();
-                logger::Logger::Log(pCVar44, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    2917, "cam_lookat lx:%i lz:%i hei:%i rate:%i rate2:%i",
-                                    CONCAT44(uVar74, *(int*)(local_b8._48_8_ + 53024)),
-                                    CONCAT44(uVar75, *(int*)(local_b8._48_8_ + 53028)),
-                                    CONCAT44(uVar77, *(int*)(local_b8._48_8_ + 53032)),
-                                    CONCAT44(uVar78, *(int*)(local_b8._48_8_ + 53036)),
-                                    CONCAT44(uVar14, *(int*)(local_b8._48_8_ + 53040)));
+            *(uint16_t*)&local_88->field_52996 = 256;
+            local_88->field_52999 = '\0';
+            bVar5 = pCVar47->g1();
+            local_88->field_53024 = (unsigned int)bVar5;
+            bVar5 = pCVar47->g1();
+            local_88->field_53028 = (unsigned int)bVar5;
+            uVar8 = pCVar47->g2();
+            local_88->field_53032 = (unsigned int)uVar8;
+            bVar5 = pCVar47->g1();
+            local_88->field_53036 = (unsigned int)bVar5;
+            bVar5 = pCVar47->g1();
+            local_88->field_53040 = (unsigned int)bVar5;
+            if (local_88->field_54760 != '\0') {
+                pCVar47 = (Client*)logger::default_logger();
+                pCVar47->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             2917, "cam_lookat lx:%i lz:%i hei:%i rate:%i rate2:%i",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)local_88->field_53024),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)local_88->field_53028),
+                             (((uint64_t)uVar75 << 32) | (uint32_t)local_88->field_53032),
+                             (((uint64_t)uVar76 << 32) | (uint32_t)local_88->field_53036),
+                             (((uint64_t)uVar14 << 32) | (uint32_t)local_88->field_53040));
             }
-            uVar20 = local_b8._48_8_;
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if (99 < *(int*)(local_b8._48_8_ + 53040)) {
-                uVar18 = *(int*)(local_b8._48_8_ + 53024) << 7 | 64;
-                uVar15 = *(int*)(local_b8._48_8_ + 53028) << 7 | 64;
-                iVar16 = GetAvH(pCVar44, uVar18, uVar15, *(int*)(local_b8._48_8_ + 51984));
-                iVar12 = *(int*)(uVar20 + 53032);
-                iVar69 = uVar18 - *(int*)(uVar20 + 53088);
-                iVar19 = *(int*)(uVar20 + 53092);
-                iVar67 = uVar15 - *(int*)(uVar20 + 53096);
-                dVar73 = (double)sqrt<int>(iVar67 * iVar67 + iVar69 * iVar69);
-                dVar73 = (double)atan2<int, int>(iVar16 - (iVar12 + iVar19), (int)dVar73);
-                uVar15 = (int)(dVar73 * 325.9490051269531) & 2047;
-                *(uint*)(uVar20 + 53100) = uVar15;
-                dVar73 = (double)atan2<int, int>(iVar69, iVar67);
-                *(uint*)(uVar20 + 53104) = (int)(dVar73 * -325.9490051269531) & 2047;
+            pCVar66 = local_88;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if (99 < local_88->field_53040) {
+                uVar18 = local_88->field_53024 << 7 | 64;
+                uVar15 = local_88->field_53028 << 7 | 64;
+                iVar16 = GetAvH(pCVar47, uVar18, uVar15, local_88->field_51984);
+                iVar12 = pCVar66->field_53032;
+                arg1 = uVar18 - pCVar66->field_53088;
+                iVar19 = pCVar66->field_53092;
+                arg2 = uVar15 - pCVar66->field_53096;
+                dVar71 = (double)sqrt<int>(arg2 * arg2 + arg1 * arg1);
+                dVar71 = (double)atan2<int, int>(iVar16 - (iVar12 + iVar19), (int)dVar71);
+                uVar15 = (int)(dVar71 * 325.949f) & 2047;
+                pCVar66->field_53100 = uVar15;
+                dVar71 = (double)atan2<int, int>(arg1, arg2);
+                pCVar66->field_53104 = (int)(dVar71 * -325.949f) & 2047;
                 iVar12 = dash3d::world::ClampPitchAngle(uVar15);
-                *(int*)(uVar20 + 53100) = iVar12;
+                pCVar66->field_53100 = iVar12;
             }
             break;
         case (BADTYPE)89:
-            *(undefined2*)(local_b8._48_8_ + 52996) = 256;
-            *(char*)(local_b8._48_8_ + 52999) = '\x01';
-            uVar15 = pCVar44->g2s();
-            local_80.m_argType = WrapYawAngle((Client*)uVar20, uVar15 & 2027);
-            uVar15 = pCVar44->g2s();
-            local_b8._0_4_ = dash3d::world::ClampPitchAngle(uVar15 & 2027);
-            uVar8 = pCVar44->g2();
-            local_f0[0].field_0._0_4_ = (uint)uVar8;
-            bVar5 = pCVar44->g1();
-            local_110[0]._0_4_ = ZEXT14(bVar5);
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3107, "cam_rotateto yaw:%d pitch:%d cycles:%d easing:%d",
-                                    CONCAT44(uVar74, local_80.m_argType), CONCAT44(uVar75, local_b8._0_4_),
-                                    CONCAT44(uVar77, (uint)local_f0[0].field_0), CONCAT44(uVar78, local_110[0]._0_4_));
+            *(uint16_t*)&local_88->field_52996 = 256;
+            local_88->field_52999 = '\x01';
+            uVar15 = pCVar47->g2s();
+            local_80.m_argType = WrapYawAngle(pCVar66, uVar15 & 2027);
+            uVar15 = pCVar47->g2s();
+            uVar14 = dash3d::world::ClampPitchAngle(uVar15 & 2027);
+            local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)uVar14);
+            uVar8 = pCVar47->g2();
+            local_f0[0].field_0._0_4_ = (unsigned int)uVar8;
+            bVar5 = pCVar47->g1();
+            local_110[0]._0_4_ = (uint32_t)bVar5;
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3107, "cam_rotateto yaw:%d pitch:%d cycles:%d easing:%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)local_80.m_argType),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)((Easing)local_b8[0].field_0)),
+                             (((uint64_t)uVar75 << 32) | (uint32_t)((unsigned int)local_f0[0].field_0)),
+                             (((uint64_t)uVar76 << 32) | (uint32_t)local_110[0]._0_4_));
             }
-            pCVar44 = (Client*)local_b8._48_8_;
-            std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&, CinemaCameraTween::Easing_const&>(
-                (int*)local_480, (int*)(local_b8._48_8_ + 53100), (int*)local_b8, (Easing*)local_f0);
-            std::unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>::operator=(
-                (unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>*)((long)pCVar44 +
-                                                                                                         53072),
-                (unique_ptr*)local_480);
-            local_480->~unique_ptr();
-            std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&, CinemaCameraTween::Easing_const&>(
-                (int*)local_480, (int*)((long)pCVar44 + 53104), (int*)&local_80, (Easing*)local_f0);
+            pCVar66 = local_88;
+            *local_480 = std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&,
+                                          CinemaCameraTween::Easing const&>(local_88->field_53100, local_b8, local_f0,
+                                                                            local_110);
+            pCVar66->field_53072 = *local_480;
+            *local_480 =
+                std::make_unique<CinemaCameraRotationTween, int&, int const&, int const&,
+                                 CinemaCameraTween::Easing const&>(pCVar66->field_53104, local_80, local_f0, local_110);
         LAB_1000ecfdb:
-            std::unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>::operator=(
-                (unique_ptr<CinemaCameraRotationTween, std::default_delete<CinemaCameraRotationTween>>*)&pCVar44
-                    ->field_53080,
-                (unique_ptr*)local_480);
+            pCVar66->field_53080 = *local_480;
         LAB_1000ecff7:
-            local_480->~unique_ptr();
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar55 >> 8), 1);
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)90:
             new (local_480) ErrorCapture(true);
-            lVar28 = std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-                (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(local_b8._48_8_ + 52768));
-            iVar12 = pCVar44->GetTextureAtlas();
-            ((lVar28 + 208))->ProcessUpdate(pCVar44, iVar12, local_480);
-            cVar3 = local_480->IsRaised();
-            if (cVar3 != '\0') {
+            lVar28 = local_88->field_52768.operator->();
+            iVar12 = pCVar47->GetTextureAtlas();
+            ((lVar28 + 208))->ProcessUpdate(*pCVar47, iVar12, *local_480);
+            cVar4 = local_480->IsRaised();
+            if (cVar4) {
                 local_480->second();
-                pcVar46 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                /* WARNING: Subroutine does not return */
+                pcVar48 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                 "client_network.cpp",
-                                1846, pcVar46);
+                                1846, pcVar48);
             }
-            ResetPlayerIgnoreIndicators((Client*)local_b8._48_8_);
+            ResetPlayerIgnoreIndicators(local_88);
         LAB_1000ed08d:
-            *(int*)(local_b8._48_8_ + 2506344) = *(int*)(local_b8._48_8_ + 2505808);
-            local_480->~LanguageMessage();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
+            local_88->field_2506344 = local_88->field_2505808;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
             break;
         case (BADTYPE)91:
-            NotifyClanSettingsUpdate((Client*)local_b8._48_8_);
-            bVar5 = pCVar44->g1s();
-            make_shared<rs2lib::social::ClanChannelDelta, core::SuperPacket&>((jag*)local_480, (SuperPacket*)pCVar44);
-            new (&local_80) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(pCVar44);
+            NotifyClanSettingsUpdate(local_88);
+            bVar5 = pCVar47->g1s();
+            make_shared<rs2lib::social::ClanChannelDelta, core::SuperPacket&>((ReturnValue*)local_480,
+                                                                              (SuperPacket*)pCVar47);
+            local_80 = shared_ptr();
             if (bVar5 < 4) {
-                psVar41 = (shared_ptr*)std::array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>::operator[](
-                    (array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>*)(local_b8._48_8_ + 52648), (long)(char)bVar5);
-                shared_ptr<rs2lib::social::ClanChannel>::operator=((shared_ptr<rs2lib::social::ClanChannel>*)&local_80,
-                                                                   psVar41);
+                psVar30 = &local_88->field_52648[(long)(char)bVar5];
+                local_80 = *psVar30;
             } else {
-                shared_ptr<rs2lib::social::ClanChannel>::operator=((shared_ptr<rs2lib::social::ClanChannel>*)&local_80,
-                                                                   (shared_ptr*)(local_b8._48_8_ + 52632));
+                local_80 = local_88->field_52632;
             }
-            bVar4 = operator==((shared_ptr*)&local_80, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                RequestClanChannelFull((Client*)local_b8._48_8_, (int)(char)bVar5);
+            bVar6 = local_80 == nullptr;
+            if (bVar6) {
+                RequestClanChannelFull(local_88, (int)(char)bVar5);
             } else {
-                lVar28 = shared_ptr<rs2lib::social::ClanChannelDelta>::operator->(
-                    (shared_ptr<rs2lib::social::ClanChannelDelta>*)local_480);
+                lVar28 = (*local_480).operator->();
                 lVar28 = *(long*)(lVar28 + 24);
-                lVar49 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                    (shared_ptr<rs2lib::social::ClanChannel>*)&local_80);
-                if (*(long*)(lVar49 + 80) < lVar28) {
-                    RequestClanChannelFull((Client*)local_b8._48_8_, (int)(char)bVar5);
+                lVar51 = local_80.operator->();
+                if (*(long*)(lVar51 + 80) < lVar28) {
+                    RequestClanChannelFull(local_88, (int)(char)bVar5);
                 } else {
-                    lVar28 = shared_ptr<rs2lib::social::ClanChannelDelta>::operator->(
-                        (shared_ptr<rs2lib::social::ClanChannelDelta>*)local_480);
+                    lVar28 = (*local_480).operator->();
                     lVar28 = *(long*)(lVar28 + 24);
-                    lVar49 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)&local_80);
-                    if (*(long*)(lVar49 + 80) <= lVar28) {
-                        this_12 = (ClanChannelDelta*)shared_ptr<rs2lib::social::ClanChannelDelta>::operator->(
-                            (shared_ptr<rs2lib::social::ClanChannelDelta>*)local_480);
-                        pCVar59 = (ClanChannel*)shared_ptr<rs2lib::social::ClanChannel>::operator*(
-                            (shared_ptr<rs2lib::social::ClanChannel>*)&local_80);
-                        this_12->ApplyToClanChannel(pCVar59);
-                        if (*(char*)pCVar55 != '\0') {
-                            uVar20 = logger::default_logger();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2746, "----------");
-                            uVar20 = logger::default_logger();
-                            shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                                (shared_ptr<rs2lib::social::ClanChannel>*)&local_80);
-                            uVar32 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2747, "Clan Name: %s", uVar32);
-                            uVar14 = (undefined4)((ulong)uVar32 >> 32);
-                            uVar20 = logger::default_logger();
-                            lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                                (shared_ptr<rs2lib::social::ClanChannel>*)&local_80);
-                            cVar3 = *(char*)(lVar28 + 122);
-                            lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                                (shared_ptr<rs2lib::social::ClanChannel>*)&local_80);
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2748, "Rank Kick: %i  Talk: %i", CONCAT44(uVar14, (int)cVar3),
-                                                CONCAT44(uVar75, (int)*(char*)(lVar28 + 121)));
-                            uVar20 = logger::default_logger();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2749, "Users:");
-                            uVar63 = 0;
+                    lVar51 = local_80.operator->();
+                    if (*(long*)(lVar51 + 80) <= lVar28) {
+                        this_12 = (ClanChannelDelta*)(*local_480).operator->();
+                        pCVar59 = (ClanChannel*)*local_80;
+                        this_12->ApplyToClanChannel(*pCVar59);
+                        if (*(char*)this_13 != '\0') {
+                            pLVar21 = logger::default_logger();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2746, "----------");
+                            pLVar21 = logger::default_logger();
+                            local_80.operator->();
+                            uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2747, "Clan Name: %s", uVar34);
+                            uVar14 = (uint32_t)((unsigned long)uVar34 >> 32);
+                            pLVar21 = logger::default_logger();
+                            lVar28 = local_80.operator->();
+                            cVar4 = *(char*)(lVar28 + 122);
+                            lVar28 = local_80.operator->();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2748, "Rank Kick: %i Talk: %i",
+                                         (((uint64_t)uVar14 << 32) | (uint32_t)((int)cVar4)),
+                                         (((uint64_t)uVar73 << 32) | (uint32_t)((int)*(char*)(lVar28 + 121))));
+                            pLVar21 = logger::default_logger();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2749, "Users:");
+                            uVar65 = 0;
                             while (true) {
-                                pCVar59 = (ClanChannel*)shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                                    (shared_ptr<rs2lib::social::ClanChannel>*)&local_80);
+                                pCVar59 = (ClanChannel*)local_80.operator->();
                                 iVar12 = pCVar59->GetUserListSize();
-                                if ((long)iVar12 <= (long)uVar63)
+                                if ((long)iVar12 <= (long)uVar65)
                                     break;
-                                lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                                    (shared_ptr<rs2lib::social::ClanChannel>*)&local_80);
-                                psVar41 = (shared_ptr*)eastl::
-                                    vector<shared_ptr<rs2lib::social::ClanChannelUser>, eastl::allocator>::operator[](
-                                        (vector<shared_ptr<rs2lib::social::ClanChannelUser>,
-                                                eastl::allocator>*)(lVar28 + 48),
-                                        uVar63);
-                                new (local_b8) shared_ptr<dash3d::Decor>(psVar41);
-                                pCVar55 = (Client*)logger::default_logger();
-                                lVar28 = shared_ptr<rs2lib::social::ClanChannelUser>::operator->(
-                                    (shared_ptr<rs2lib::social::ClanChannelUser>*)local_b8);
+                                lVar28 = local_80.operator->();
+                                psVar46 = (shared_ptr<dash3d::GroundDecor>*)(*((lVar28 + 48)))[uVar65];
+                                local_b8 = shared_ptr(psVar46);
+                                this_13 = (Client*)logger::default_logger();
+                                lVar28 = local_b8.operator->();
                                 ((lVar28 + 16))->GetDisplayName();
-                                uVar20 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                logger::Logger::Log(pCVar55, 0, 5,
-                                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                    "projects/osclient/client_network.cpp",
-                                                    2753, &DAT_100e377c0, uVar20);
-                                local_b8->~shared_ptr();
-                                uVar63 = uVar63 + 1;
+                                uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                this_13->Log(false, 5,
+                                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
+                                             "projects/osclient/client_network.cpp",
+                                             2753, "%s", uVar34);
+                                uVar65 = uVar65 + 1;
                             }
-                            uVar20 = logger::default_logger();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                2755, "----------");
+                            pLVar21 = logger::default_logger();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         2755, "----------");
                         }
                     }
                 }
             }
-            local_80.~shared_ptr();
-            local_480->~shared_ptr();
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar55 >> 8), 1);
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)92:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar27->g4s();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar26->g2();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
             iVar12 = ((uVar15 & 992) << 6 | (uVar15 & 31744) << 9) + (uVar15 & 31) * 8;
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar15 >> 8), 1);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar15 >> 8)) << 8) |
+                                                                 (uint8_t)1);
             if (*(int*)(lVar28 + 116) != iVar12) {
                 *(int*)(lVar28 + 116) = iVar12;
-                ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+                ComponentUpdated(local_88, psVar31);
             }
             break;
         case (BADTYPE)93:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 0, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 0, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)94:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 7, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 7, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)95:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar15 = pPVar38->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar8 = pSVar39->g2();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            midi2::MidiManager::Stop((uint)uVar8, uVar15 & 65535);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar15 = pPVar41->g2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar8 = pSVar42->g2();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            midi2::MidiManager::Stop((unsigned int)uVar8, uVar15 & 65535);
             break;
         case (BADTYPE)96:
-            uVar15 = pCVar44->g1();
-            uVar18 = pCVar44->g1();
-            uVar17 = pCVar44->g1();
-            bVar5 = pCVar44->g1();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if ((byte)uVar15 < 5) {
-                uVar63 = (ulong)(uVar15 & 255);
-                ((undefined1*)(local_b8._48_8_ + 2508992))[uVar63 - 112] = 1;
-                *(uint*)((undefined1*)(local_b8._48_8_ + 2508992) + uVar63 * 4 + -104) = uVar18 & 255;
-                *(uint*)((undefined1*)(local_b8._48_8_ + 2508992) + uVar63 * 4 + -84) = uVar17 & 255;
-                *(uint*)((undefined1*)(local_b8._48_8_ + 2508992) + uVar63 * 4 + -64) = (uint)bVar5;
-                *(undefined4*)((undefined1*)(local_b8._48_8_ + 2508992) + uVar63 * 4 + -44) = 0;
-                if (*(char*)(local_b8._48_8_ + 54760) != '\0') {
-                    uVar20 = logger::default_logger();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2947, "cam_shake axis:%d ran:%d amp:%d rate:%d",
-                                        CONCAT44(uVar74, uVar15) & 18446744069414584575,
-                                        CONCAT44(uVar75, uVar18) & 18446744069414584575,
-                                        CONCAT44(uVar77, uVar17) & 18446744069414584575, CONCAT44(uVar78, (uint)bVar5));
+            uVar15 = pCVar47->g1();
+            uVar18 = pCVar47->g1();
+            uVar17 = pCVar47->g1();
+            bVar5 = pCVar47->g1();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if ((uint8_t)uVar15 < 5) {
+                uVar65 = (unsigned long)(uVar15 & 255);
+                local_88->field_2508992[uVar65 - 112] = 1;
+                *(unsigned int*)(local_88->field_2508992 + uVar65 * 4 - 104) = uVar18 & 255;
+                *(unsigned int*)(local_88->field_2508992 + uVar65 * 4 - 84) = uVar17 & 255;
+                *(unsigned int*)(local_88->field_2508992 + uVar65 * 4 - 64) = (unsigned int)bVar5;
+                *(uint32_t*)(local_88->field_2508992 + uVar65 * 4 - 44) = 0;
+                if (local_88->field_54760 != '\0') {
+                    pLVar21 = logger::default_logger();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2947, "cam_shake axis:%d ran:%d amp:%d rate:%d",
+                                 (((uint64_t)uVar72 << 32) | (uint32_t)uVar15) & 18446744069414584575,
+                                 (((uint64_t)uVar73 << 32) | (uint32_t)uVar18) & 18446744069414584575,
+                                 (((uint64_t)uVar75 << 32) | (uint32_t)uVar17) & 18446744069414584575,
+                                 (((uint64_t)uVar76 << 32) | (uint32_t)((unsigned int)bVar5)));
                 }
             }
             break;
         case (BADTYPE)97:
-            *(int*)(local_b8._48_8_ + 2506356) = *(int*)(local_b8._48_8_ + 2505808);
-            cVar3 = pCVar44->g1s();
-            lVar28 = pCVar44->GetTextureAtlas();
+            local_88->field_2506356 = local_88->field_2505808;
+            cVar4 = pCVar47->g1s();
+            lVar28 = pCVar47->GetTextureAtlas();
             if (lVar28 == 1) {
-                if (*(char*)pCVar55 != '\0') {
-                    uVar20 = logger::default_logger();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2613, "Received ClanChannel RESET - affinitySlot: %i",
-                                        CONCAT44(uVar74, (int)cVar3));
+                if (*(char*)this_13 != '\0') {
+                    pLVar21 = logger::default_logger();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2613, "Received ClanChannel RESET - affinitySlot: %i",
+                                 (((uint64_t)uVar72 << 32) | (uint32_t)((int)cVar4)));
                 }
-                if (cVar3 < '\0') {
-                    new (local_480) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    shared_ptr<rs2lib::social::ClanChannel>::operator=(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)(local_b8._48_8_ + 52632), (shared_ptr*)local_480);
+                if (cVar4 < '\0') {
+                    new (local_480) shared_ptr();
+                    local_88->field_52632 = *local_480;
                 } else {
-                    new (local_480) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    psVar45 = (shared_ptr<rs2lib::social::ClanChannel>*)
-                        std::array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>::operator[](
-                            (array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>*)(local_b8._48_8_ + 52648),
-                            (long)cVar3);
-                    shared_ptr<rs2lib::social::ClanChannel>::operator=(psVar45, (shared_ptr*)local_480);
+                    new (local_480) shared_ptr();
+                    psVar30 = &local_88->field_52648[(long)cVar4];
+                    *psVar30 = *local_480;
                 }
             } else {
-                new (local_480) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(this_14);
-                if (cVar3 < '\0') {
-                    make_shared<rs2lib::social::ClanChannel, core::SuperPacket&>((jag*)&local_80,
-                                                                                 (SuperPacket*)pCVar44);
-                    psVar41 = (shared_ptr*)shared_ptr<rs2lib::social::ClanChannel>::operator=(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)(local_b8._48_8_ + 52632), (shared_ptr*)&local_80);
-                    shared_ptr<rs2lib::social::ClanChannel>::operator=(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)local_480, psVar41);
+                new (local_480) shared_ptr();
+                if (cVar4 < '\0') {
+                    make_shared<rs2lib::social::ClanChannel, core::SuperPacket&>((ReturnValue*)&local_80,
+                                                                                 (SuperPacket*)pCVar47);
+                    psVar30 = (shared_ptr<rs2lib::social::ClanChannel>*)local_88->field_52632 = local_80;
+                    *local_480 = *psVar30;
                 } else {
-                    make_shared<rs2lib::social::ClanChannel, core::SuperPacket&>((jag*)&local_80,
-                                                                                 (SuperPacket*)pCVar44);
-                    psVar45 = (shared_ptr<rs2lib::social::ClanChannel>*)
-                        std::array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>::operator[](
-                            (array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>*)(local_b8._48_8_ + 52648),
-                            (long)cVar3);
-                    psVar41 = (shared_ptr*)shared_ptr<rs2lib::social::ClanChannel>::operator=(psVar45,
-                                                                                              (shared_ptr*)&local_80);
-                    shared_ptr<rs2lib::social::ClanChannel>::operator=(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)local_480, psVar41);
+                    make_shared<rs2lib::social::ClanChannel, core::SuperPacket&>((ReturnValue*)&local_80,
+                                                                                 (SuperPacket*)pCVar47);
+                    psVar30 = &local_88->field_52648[(long)cVar4];
+                    psVar30 = (shared_ptr<rs2lib::social::ClanChannel>*)* psVar30 = local_80;
+                    *local_480 = *psVar30;
                 }
-                local_80.~shared_ptr();
-                if (*(char*)pCVar55 != '\0') {
-                    uVar32 = logger::default_logger();
-                    lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)local_480);
-                    uVar20 = *(undefined8*)(lVar28 + 80);
-                    logger::Logger::Log(uVar32, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2640, "ClanChannel affinitySlot %i received and set - updateNum: %lld",
-                                        CONCAT44(uVar74, (int)cVar3), uVar20);
-                    uVar76 = (undefined4)((ulong)uVar20 >> 32);
-                    uVar20 = logger::default_logger();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2641, "----------");
-                    uVar20 = logger::default_logger();
-                    shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)local_480);
-                    uVar32 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2642, "Clan Name: %s", uVar32);
-                    uVar14 = (undefined4)((ulong)uVar32 >> 32);
-                    uVar20 = logger::default_logger();
-                    lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)local_480);
-                    cVar3 = *(char*)(lVar28 + 122);
-                    lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)local_480);
-                    uVar58 = CONCAT44(uVar76, (int)*(char*)(lVar28 + 121));
-                    uVar32 = CONCAT44(uVar14, (int)cVar3);
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2643, "Rank Kick: %i Talk: %i", uVar32, uVar58);
-                    uVar76 = (undefined4)((ulong)uVar32 >> 32);
-                    uVar20 = logger::default_logger();
-                    pCVar59 = (ClanChannel*)shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)local_480);
+                if (*(char*)this_13 != '\0') {
+                    pLVar21 = logger::default_logger();
+                    lVar28 = (*local_480).operator->();
+                    uVar34 = *(uint64_t*)(lVar28 + 80);
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2640, "ClanChannel affinitySlot %i received and set - updateNum: %lld",
+                                 (((uint64_t)uVar72 << 32) | (uint32_t)((int)cVar4)), uVar34);
+                    uVar74 = (uint32_t)((unsigned long)uVar34 >> 32);
+                    pLVar21 = logger::default_logger();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2641, "----------");
+                    pLVar21 = logger::default_logger();
+                    (*local_480).operator->();
+                    uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2642, "Clan Name: %s", uVar34);
+                    uVar14 = (uint32_t)((unsigned long)uVar34 >> 32);
+                    pLVar21 = logger::default_logger();
+                    lVar28 = (*local_480).operator->();
+                    cVar4 = *(char*)(lVar28 + 122);
+                    lVar28 = (*local_480).operator->();
+                    uVar58 = (((uint64_t)uVar74 << 32) | (uint32_t)((int)*(char*)(lVar28 + 121)));
+                    uVar34 = (((uint64_t)uVar14 << 32) | (uint32_t)((int)cVar4));
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2643, "Rank Kick: %i Talk: %i", uVar34, uVar58);
+                    uVar74 = (uint32_t)((unsigned long)uVar34 >> 32);
+                    pLVar21 = logger::default_logger();
+                    pCVar59 = (ClanChannel*)(*local_480).operator->();
                     uVar14 = pCVar59->GetUserListSize();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2644, "Users: (%i)", CONCAT44(uVar76, uVar14));
-                    uVar63 = 0;
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2644, "Users: (%i)", (((uint64_t)uVar74 << 32) | (uint32_t)uVar14));
+                    uVar65 = 0;
                     while (true) {
-                        uVar14 = (undefined4)((ulong)uVar58 >> 32);
-                        pCVar59 = (ClanChannel*)shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                            (shared_ptr<rs2lib::social::ClanChannel>*)local_480);
+                        uVar14 = (uint32_t)((unsigned long)uVar58 >> 32);
+                        pCVar59 = (ClanChannel*)(*local_480).operator->();
                         iVar12 = pCVar59->GetUserListSize();
-                        if ((long)iVar12 <= (long)uVar63)
+                        if ((long)iVar12 <= (long)uVar65)
                             break;
-                        lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                            (shared_ptr<rs2lib::social::ClanChannel>*)local_480);
-                        psVar41 = (shared_ptr*)
-                            eastl::vector<shared_ptr<rs2lib::social::ClanChannelUser>, eastl::allocator>::operator[](
-                                (vector<shared_ptr<rs2lib::social::ClanChannelUser>, eastl::allocator>*)(lVar28 + 48),
-                                uVar63);
-                        new (&local_80) shared_ptr<dash3d::Decor>(psVar41);
-                        pCVar44 = (Client*)logger::default_logger();
-                        lVar28 = shared_ptr<rs2lib::social::ClanChannelUser>::operator->(
-                            (shared_ptr<rs2lib::social::ClanChannelUser>*)&local_80);
+                        lVar28 = (*local_480).operator->();
+                        psVar46 = (shared_ptr<dash3d::GroundDecor>*)(*((lVar28 + 48)))[uVar65];
+                        local_80 = shared_ptr(psVar46);
+                        pCVar47 = (Client*)logger::default_logger();
+                        lVar28 = local_80.operator->();
                         ((lVar28 + 16))->GetDisplayName();
-                        uVar20 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                        lVar28 = shared_ptr<rs2lib::social::ClanChannelUser>::operator->(
-                            (shared_ptr<rs2lib::social::ClanChannelUser>*)&local_80);
-                        uVar58 = CONCAT44(uVar14, (int)*(char*)(lVar28 + 8));
-                        logger::Logger::Log(pCVar44, 0, 5,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                            "osclient/client_network.cpp",
-                                            2648, "ChannelUser: %s rank: %i", uVar20, uVar58);
-                        local_80.~shared_ptr();
-                        uVar63 = uVar63 + 1;
+                        uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                        lVar28 = local_80.operator->();
+                        uVar58 = (((uint64_t)uVar14 << 32) | (uint32_t)((int)*(char*)(lVar28 + 8)));
+                        pCVar47->Log(false, 5,
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                     "osclient/client_network.cpp",
+                                     2648, "ChannelUser: %s rank: %i", uVar34, uVar58);
+                        uVar65 = uVar65 + 1;
                     }
-                    uVar20 = logger::default_logger();
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        2650, "----------");
+                    pLVar21 = logger::default_logger();
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 2650, "----------");
                 }
             }
-            pSVar51 = (SuperShuffledPacketFactory*)local_480;
+            pSVar53 = (SuperShuffledPacketFactory*)local_480;
             goto LAB_1000ef06e;
         case (BADTYPE)98:
-            uVar15 = pCVar44->g1();
-            cVar3 = pCVar44->g1();
-            if (cVar3 == '\0') {
-                puVar34 =
-                    (unique_ptr<rs2lib::StockPlayerOffer, eastl::default_delete<rs2lib::StockPlayerOffer>>*)std::array<
-                        eastl::unique_ptr<rs2lib::StockPlayerOffer, eastl::default_delete<rs2lib::StockPlayerOffer>>,
-                        8ul>::operator[]((array<eastl::unique_ptr<rs2lib::StockPlayerOffer,
-                                                                  eastl::default_delete<rs2lib::StockPlayerOffer>>,
-                                                8ul>*)(local_b8._48_8_ + 52784),
-                                         (ulong)uVar15 & 255);
-                pSVar35 = operator_new(32);
-                rs2lib::StockPlayerOffer::StockPlayerOffer(pSVar35);
-                eastl::unique_ptr<rs2lib::StockPlayerOffer, eastl::default_delete<rs2lib::StockPlayerOffer>>::reset(
-                    puVar34, pSVar35);
-                lVar28 = pCVar44->size();
-                pCVar44->SetPos(lVar28 + 18);
+            uVar15 = pCVar47->g1();
+            cVar4 = pCVar47->g1();
+            if (!cVar4) {
+                puVar36 = &local_88->field_52784[(unsigned long)uVar15 & 255];
+                pSVar37 = (StockPlayerOffer*)operator new(32);
+                new (pSVar37) rs2lib::StockPlayerOffer();
+                puVar36->reset(pSVar37);
+                lVar28 = pCVar47->size();
+                pCVar47->SetPos(lVar28 + 18);
             } else {
-                lVar28 = pCVar44->size();
-                pCVar44->SetPos(lVar28 - 1);
+                lVar28 = pCVar47->size();
+                pCVar47->SetPos(lVar28 - 1);
                 new (local_480) ErrorCapture(true);
-                puVar34 =
-                    (unique_ptr<rs2lib::StockPlayerOffer, eastl::default_delete<rs2lib::StockPlayerOffer>>*)std::array<
-                        eastl::unique_ptr<rs2lib::StockPlayerOffer, eastl::default_delete<rs2lib::StockPlayerOffer>>,
-                        8ul>::operator[]((array<eastl::unique_ptr<rs2lib::StockPlayerOffer,
-                                                                  eastl::default_delete<rs2lib::StockPlayerOffer>>,
-                                                8ul>*)(local_b8._48_8_ + 52784),
-                                         (ulong)uVar15 & 255);
-                pSVar35 = operator_new(32);
-                rs2lib::StockPlayerOffer::StockPlayerOffer(pSVar35, (PacketJ*)pCVar44, false, (ErrorCapture*)local_480);
-                eastl::unique_ptr<rs2lib::StockPlayerOffer, eastl::default_delete<rs2lib::StockPlayerOffer>>::reset(
-                    puVar34, pSVar35);
-                cVar3 = local_480->IsRaised();
-                if (cVar3 != '\0') {
+                puVar36 = &local_88->field_52784[(unsigned long)uVar15 & 255];
+                pSVar37 = (StockPlayerOffer*)operator new(32);
+                new (pSVar37) rs2lib::StockPlayerOffer(*pCVar47, false, *local_480);
+                puVar36->reset(pSVar37);
+                cVar4 = local_480->IsRaised();
+                if (cVar4) {
                     local_480->second();
-                    uVar20 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    /* WARNING: Subroutine does not return */
+                    uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                     LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
                                     "osclient/client_network.cpp",
-                                    3185, "Failed to update stock market offers from server data: %s", uVar20);
+                                    3185, "Failed to update stock market offers from server data: %s", uVar34);
                 }
-                local_480->~LanguageMessage();
             }
-            *(int*)(local_b8._48_8_ + 2506360) = *(int*)(local_b8._48_8_ + 2505808);
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar44 >> 8), 1);
+            *(int*)&local_88->field_2506360 = local_88->field_2505808;
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)pCVar47 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)99:
-            uVar15 = pCVar44->g4();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if (uVar15 != *(uint*)(local_b8._48_8_ + 7294740)) {
-                *(uint*)(local_b8._48_8_ + 7294740) = uVar15;
-                ForceRecentreFreecam((Client*)local_b8._48_8_);
+            iVar12 = pCVar47->g4();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if (iVar12 != local_88->field_7294740) {
+                local_88->field_7294740 = iVar12;
+                ForceRecentreFreecam(local_88);
             }
             break;
         case (BADTYPE)100:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar8 = pPVar38->g2();
-            local_f0[0].field_0._0_4_ = (uint)uVar8;
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar8 = pPVar41->g2();
+            local_f0[0].field_0._0_4_ = (unsigned int)uVar8;
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar26->g3();
             local_80.m_argType = (uVar15 >> 4 & 7) + ((int)uVar15 >> 16);
-            local_b8._0_4_ = (uVar15 & 7) + (uVar15 >> 8 & 255);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar15 = pSVar39->g1();
-            pCVar44 = (Client*)local_480->p2_alt2();
-            uVar8 = pCVar44->g2();
-            uVar20 = local_b8._48_8_;
-            local_110[0]._0_4_ = ZEXT24(uVar8);
-            if (((((int)local_80.m_argType < 104) && (-1 < (int)local_80.m_argType)) && (-1 < (int)local_b8._0_4_)) &&
-                ((int)local_b8._0_4_ < 104)) {
+            local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) |
+                                              (uint32_t)((uVar15 & 7) + (uVar15 >> 8 & 255)));
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar15 = pSVar42->g1();
+            pCVar47 = (Client*)ShuffledPacketFactory::p2_alt2();
+            uVar8 = pCVar47->g2();
+            pCVar66 = local_88;
+            local_110[0]._0_4_ = (uint32_t)uVar8;
+            if (((((int)local_80.m_argType < 104) && (-1 < (int)local_80.m_argType)) &&
+                 (-1 < (int)(Easing)local_b8[0].field_0)) &&
+                ((int)(Easing)local_b8[0].field_0 < 104)) {
                 uVar17 = local_80.m_argType << 7;
-                local_80._0_8_ = CONCAT44(local_80._4_4_, uVar17) | 64;
-                uVar18 = local_b8._0_4_ << 7;
-                local_b8._0_8_ = CONCAT44(local_b8._4_4_, uVar18) | 64;
-                iVar12 = GetAvH(pCVar44, uVar17 | 64, uVar18 | 64, *(int*)(local_b8._48_8_ + 51984));
-                local_128._0_4_ = iVar12 - (uVar15 & 255);
+                local_80._0_8_ = (((uint64_t)local_80._4_4_ << 32) | (uint32_t)uVar17) | 64;
+                uVar18 = (Easing)local_b8[0].field_0 << 7;
+                local_b8[0].field_0 =
+                    (sqlite3**)((((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)uVar18) | 64);
+                iVar12 = GetAvH(pCVar47, uVar17 | 64, uVar18 | 64, local_88->field_51984);
+                local_128[0]._0_4_ = iVar12 - (uVar15 & 255);
                 make_shared<MapSpotAnim, int&, int&, int&, int&, int, int&, int&>(
-                    (jag*)local_480, (int*)local_f0, (int*)(uVar20 + 51984), (int*)&local_80, (int*)local_b8,
-                    (int*)&local_128, (int*)local_110, (int*)(uVar20 + 8488));
-                ((uVar20 + 7164616))->push_back(local_480);
-                local_480->~shared_ptr();
+                    (int*)local_480, &local_f0, &pCVar66->field_51984, (int*)&local_80, &local_b8, &local_128);
+                pCVar66->field_7164616.push_back(*local_480);
             }
             goto switchD_1000ea3f5_default;
         case (BADTYPE)101:
-            uVar15 = pCVar44->g1s();
-            pCVar55 = (Client*)(ulong)uVar15;
-            uVar18 = pCVar44->g2();
-            uVar17 = pCVar44->g3();
-            bVar5 = (byte)uVar15;
+            uVar15 = pCVar47->g1s();
+            pCVar66 = (Client*)(unsigned long)uVar15;
+            uVar18 = pCVar47->g2();
+            uVar17 = pCVar47->g3();
+            bVar5 = (uint8_t)uVar15;
             if ((char)bVar5 < '\0') {
-                psVar41 = (shared_ptr*)(local_b8._48_8_ + 52632);
+                psVar46 = (shared_ptr<dash3d::GroundDecor>*)&local_88->field_52632;
             } else {
-                psVar41 = (shared_ptr*)std::array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>::operator[](
-                    (array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>*)(local_b8._48_8_ + 52648), (long)(char)bVar5);
+                psVar46 = &local_88->field_52648[(long)(char)bVar5];
             }
-            new (local_f0) shared_ptr<dash3d::Decor>(psVar41);
-            bVar4 = operator==((shared_ptr*)local_f0, (_func_decltype_nullptr*)0);
-            if (!bVar4) {
-                uVar24 = ((ulong)uVar18 & 65535) << 32 | (ulong)uVar17;
-                puVar33 = (undefined1*)(local_b8._48_8_ + 53352);
-                uVar63 = 0;
+            local_f0 = shared_ptr(psVar46);
+            bVar6 = local_f0 == nullptr;
+            if (!bVar6) {
+                uVar24 = ((unsigned long)uVar18 & 65535) << 32 | (unsigned long)uVar17;
+                puVar35 = &local_88->field_53352;
+                uVar65 = 0;
                 do {
-                    puVar52 = (ulong*)std::array<unsigned long long, 100ul>::operator[](
-                        (array<unsigned long long, 100ul>*)puVar33, uVar63);
-                    uVar20 = local_b8._48_8_;
-                    if (*puVar52 == uVar24)
+                    puVar54 = (unsigned long*)(*puVar35)[uVar65];
+                    pCVar47 = local_88;
+                    if (*puVar54 == uVar24)
                         goto LAB_1000edd0c;
-                    uVar63 = uVar63 + 1;
-                } while (uVar63 != 100);
-                iVar12 = *(int*)(local_b8._48_8_ + 54152);
-                puVar52 = (ulong*)std::array<unsigned long long, 100ul>::operator[](
-                    (array<unsigned long long, 100ul>*)puVar33, (long)iVar12);
-                *puVar52 = uVar24;
-                *(int*)(uVar20 + 54152) = (iVar12 + 1) % 100;
-                eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-                pWVar54 = (WordPack*)std::unique_ptr<game::WordPack, std::default_delete<game::WordPack>>::operator->(
-                    (unique_ptr<game::WordPack, std::default_delete<game::WordPack>>*)((long)(uVar20 + 54172) + 4));
-                pWVar54->UnpackCP1252AsUTF8(local_b8, (PacketT*)(local_4c0 + 8));
-                pcVar46 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                new (&local_80) eastl::allocator("EASTL basic_string");
-                new (local_480) eastl::string(pcVar46, (allocator*)&local_80);
-                new (local_110) eastl::allocator("EASTL basic_string");
-                new (&local_80) eastl::string("", local_110);
-                lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                    (shared_ptr<rs2lib::social::ClanChannel>*)local_f0);
-                pCVar55 = (Client*)(ulong)CONCAT31((int3)(uVar15 >> 8), bVar5 >> 7);
-                AddChat((Client*)local_b8._48_8_, (uint)(bVar5 >> 7) * 3 + 43, (basic_string*)&local_80,
-                        (basic_string*)local_480, (basic_string*)(lVar28 + 88));
-                local_80.~basic_string();
-                local_480->~basic_string();
-                local_b8->~basic_string();
+                    uVar65 = uVar65 + 1;
+                } while (uVar65 != 100);
+                iVar12 = *(int*)&local_88->field_54152;
+                puVar54 = (unsigned long*)(*puVar35)[(long)iVar12];
+                *puVar54 = uVar24;
+                *(int*)&pCVar47->field_54152 = (iVar12 + 1) % 100;
+                local_b8 = eastl::basic_string<char, BucketAllocatorEASTL>();
+                pWVar56 = (WordPack*)pCVar47->field_54176.operator->();
+                pWVar56->UnpackCP1252AsUTF8(local_b8, *((local_4c0 + 8)));
+                pcVar48 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                new (local_480) eastl::string(pcVar48);
+                local_80 = eastl::string("");
+                lVar28 = local_f0.operator->();
+                pCVar66 = (Client*)(unsigned long)(((uint32_t)((int32_t)(uVar15 >> 8)) << 8) | (uint8_t)(bVar5 >> 7));
+                AddChat(local_88, (unsigned int)(bVar5 >> 7) * 3 + 43, (eastl::string*)&local_80,
+                        (eastl::string*)local_480, (eastl::string*)(lVar28 + 88));
             }
         LAB_1000edd0c:
-            pSVar51 = local_f0;
-            pCVar44 = pCVar55;
+            pSVar53 = &local_f0;
+            pCVar47 = pCVar66;
         LAB_1000ef06e:
-            pSVar51->~shared_ptr();
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar44 >> 8), 1);
+            pSVar53->~shared_ptr();
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)pCVar47 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)102:
-            uVar15 = pCVar44->g1s();
-            pCVar55 = (Client*)(ulong)uVar15;
-            pCVar65 = pCVar44;
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)&local_80, bVar4);
-            uVar11 = pCVar44->g2();
-            uVar14 = pCVar44->g3();
-            bVar5 = pCVar44->g1();
-            paVar29 = (array<int, 32ul>*)constants::ChatCrownType::FromId((uint)bVar5);
-            new (&local_128) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(pCVar65);
-            cVar3 = (char)uVar15;
-            if (cVar3 < '\0') {
-                psVar41 = (shared_ptr*)(local_b8._48_8_ + 52632);
+            uVar15 = pCVar47->g1s();
+            this_13 = (Client*)(unsigned long)uVar15;
+            local_80.gStringCP1252ToUTF8<eastl::string>(bVar6);
+            uVar11 = pCVar47->g2();
+            uVar14 = pCVar47->g3();
+            bVar5 = pCVar47->g1();
+            p_Var29 = (__17*)constants::ChatCrownType::FromId((unsigned int)bVar5);
+            local_128 = shared_ptr();
+            cVar4 = (char)uVar15;
+            if (cVar4 < '\0') {
+                psVar30 = (shared_ptr<rs2lib::social::ClanChannel>*)&local_88->field_52632;
             } else {
-                psVar41 = (shared_ptr*)std::array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>::operator[](
-                    (array<shared_ptr<rs2lib::social::ClanChannel>, 4ul>*)(local_b8._48_8_ + 52648), (long)cVar3);
+                psVar30 = &local_88->field_52648[(long)cVar4];
             }
-            local_c0 = paVar29;
-            shared_ptr<rs2lib::social::ClanChannel>::operator=((shared_ptr<rs2lib::social::ClanChannel>*)&local_128,
-                                                               psVar41);
-            bVar4 = operator==(&local_128, (_func_decltype_nullptr*)0);
-            puVar33 = (undefined1*)(local_b8._48_8_ + 53352);
-            uVar63 = 0;
+            local_c0 = p_Var29;
+            local_128 = *psVar30;
+            bVar6 = local_128 == nullptr;
+            puVar35 = &local_88->field_53352;
+            uVar65 = 0;
             do {
-                puVar52 = (ulong*)std::array<unsigned long long, 100ul>::operator[](
-                    (array<unsigned long long, 100ul>*)puVar33, uVar63);
-                uVar20 = local_b8._48_8_;
-                if (*puVar52 == (ulong)CONCAT24(uVar11, uVar14)) {
-                    bVar4 = true;
+                puVar54 = (unsigned long*)(*puVar35)[uVar65];
+                pCVar66 = local_88;
+                if (*puVar54 == (unsigned long)(((uint64_t)uVar11 << 32) | (uint32_t)uVar14)) {
+                    bVar6 = true;
                     break;
                 }
-                uVar63 = uVar63 + 1;
-            } while (uVar63 != 100);
-            if (local_c0[6] != (array<int, 32ul>)0) {
-                local_c8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)CONCAT71(local_c8._1_7_, cVar3);
-                pFVar53 = (FriendSystem*)std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-                    (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(local_b8._48_8_ + 52768));
-                new (local_480) rs2lib::social::DisplayName(&local_80, *(undefined4*)(uVar20 + 54172));
-                cVar3 = pFVar53->IsIgnored(local_480);
-                local_480->~pair();
-                bVar2 = true;
-                if (cVar3 == '\0') {
-                    bVar2 = bVar4;
+                uVar65 = uVar65 + 1;
+            } while (uVar65 != 100);
+            if (local_c0->field_6 != '\0') {
+                local_cc[4] = cVar4;
+                pFVar55 = (FriendSystem*)local_88->field_52768.operator->();
+                new (local_480) rs2lib::social::DisplayName(local_80, pCVar66->field_54172);
+                cVar4 = pFVar55->IsIgnored(*local_480);
+                bVar3 = true;
+                if (!cVar4) {
+                    bVar3 = bVar6;
                 }
-                bVar4 = bVar2;
-                pCVar55 = (Client*)CONCAT71(SUB87(uVar20, 1), (char)local_c8);
+                bVar6 = bVar3;
+                this_13 = (Client*)(((uint64_t)((int64_t)((unsigned long)pCVar66 >> 8)) << 8) | (uint8_t)local_cc[4]);
             }
-            uVar20 = local_b8._48_8_;
-            if (bVar4 == false) {
-                iVar12 = *(int*)(local_b8._48_8_ + 54152);
-                puVar52 = (ulong*)std::array<unsigned long long, 100ul>::operator[](
-                    (array<unsigned long long, 100ul>*)puVar33, (long)iVar12);
-                *puVar52 = (ulong)CONCAT24(uVar11, uVar14);
-                *(int*)(uVar20 + 54152) = (iVar12 + 1) % 100;
-                eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-                pWVar54 = (WordPack*)std::unique_ptr<game::WordPack, std::default_delete<game::WordPack>>::operator->(
-                    (unique_ptr<game::WordPack, std::default_delete<game::WordPack>>*)((long)(uVar20 + 54172) + 4));
-                pWVar54->UnpackCP1252AsUTF8(local_110, (PacketT*)(local_4c0 + 8));
-                paVar29 = local_c0;
-                pcVar46 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                uVar63 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                local_480->Escape(pcVar46, uVar63);
-                bVar5 = (byte)pCVar55 >> 7;
-                pCVar55 = (Client*)CONCAT71((int7)((ulong)pCVar55 >> 8), bVar5);
-                iVar12 = (uint)bVar5 * 3 + 41;
-                if (*(int*)paVar29 == -1) {
-                    lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)&local_128);
-                    AddChat((Client*)local_b8._48_8_, iVar12, (basic_string*)&local_80, (basic_string*)local_480,
-                            (basic_string*)(lVar28 + 88));
+            pCVar66 = local_88;
+            if (bVar6 == false) {
+                iVar12 = *(int*)&local_88->field_54152;
+                puVar54 = (unsigned long*)(*puVar35)[(long)iVar12];
+                *puVar54 = (unsigned long)(((uint64_t)uVar11 << 32) | (uint32_t)uVar14);
+                *(int*)&pCVar66->field_54152 = (iVar12 + 1) % 100;
+                local_110 = eastl::basic_string<char, BucketAllocatorEASTL>();
+                pWVar56 = (WordPack*)pCVar66->field_54176.operator->();
+                pWVar56->UnpackCP1252AsUTF8(local_110, *((local_4c0 + 8)));
+                p_Var29 = local_c0;
+                pcVar48 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                uVar65 = local_110.size();
+                *local_480 = jstring::PixfontGeneric::Escape(pcVar48, uVar65);
+                bVar5 = (uint8_t)this_13 >> 7;
+                this_13 = (Client*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) | (uint8_t)bVar5);
+                iVar12 = (unsigned int)bVar5 * 3 + 41;
+                if (*(int*)p_Var29 == -1) {
+                    lVar28 = local_128.operator->();
+                    AddChat(local_88, iVar12, (eastl::string*)&local_80, (eastl::string*)local_480,
+                            (eastl::string*)(lVar28 + 88));
                 } else {
-                    local_f0->TAG_IMG(*(int*)paVar29);
-                    eastl::operator+((eastl*)local_b8, (basic_string*)local_f0, (basic_string*)&local_80);
-                    lVar28 = shared_ptr<rs2lib::social::ClanChannel>::operator->(
-                        (shared_ptr<rs2lib::social::ClanChannel>*)&local_128);
-                    AddChat((Client*)local_b8._48_8_, iVar12, (basic_string*)local_b8, (basic_string*)local_480,
-                            (basic_string*)(lVar28 + 88));
-                    local_b8->~basic_string();
-                    local_f0->~basic_string();
+                    local_f0 = StringConstants::TAG_IMG(*(int*)p_Var29);
+                    local_b8 + local_f0;
+                    lVar28 = local_128.operator->();
+                    AddChat(local_88, iVar12, &local_b8, (eastl::string*)local_480, (eastl::string*)(lVar28 + 88));
                 }
-                local_480->~basic_string();
-                local_110->~basic_string();
             }
-            local_128.~shared_ptr();
         LAB_1000ef45e:
-            pHVar36 = &local_80;
+            this_17 = (eastl::string*)&local_80;
         LAB_1000ef462:
-            pHVar36->~basic_string();
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pCVar55 >> 8), 1);
+            this_17->~basic_string();
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)this_13 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)103:
-            bVar5 = pCVar44->g1();
-            bVar7 = pCVar44->g1();
-            uVar15 = (uint)bVar5;
+            bVar5 = pCVar47->g1();
+            bVar7 = pCVar47->g1();
+            uVar15 = (unsigned int)bVar5;
             if (bVar5 == 255) {
                 uVar15 = 0;
             }
-            uVar18 = (uint)bVar7;
+            uVar18 = (unsigned int)bVar7;
             if (bVar7 == 255) {
                 uVar18 = 0;
             }
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            SetPlayerDestination((Client*)local_b8._48_8_, uVar15, uVar18);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            SetPlayerDestination(local_88, uVar15, uVar18);
             break;
         case (BADTYPE)104:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 5, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 5, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)105:
-            local_c8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pCVar55;
-            local_130 = (Array<int, eastl::allocator>*)pCVar44->GetTextureAtlas();
-            uVar15 = pCVar44->g2();
-            uVar8 = pCVar44->g2();
-            uVar14 = (undefined4)(in_stack_fffffffffffffae8 >> 32);
-            if (local_c8->field_0 != '\0') {
-                uVar20 = logger::default_logger();
-                in_stack_fffffffffffffae8 = CONCAT44(uVar14, uVar15) & 18446744069414649855;
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3916, "Received if resync - toplevel:%d", in_stack_fffffffffffffae8);
+            local_cc._4_8_ = this_13;
+            local_130 = (Array<int>*)pCVar47->GetTextureAtlas();
+            uVar15 = pCVar47->g2();
+            uVar8 = pCVar47->g2();
+            uVar14 = (uint32_t)(in_stack_fffffffffffffae8 >> 32);
+            if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                pLVar21 = logger::default_logger();
+                in_stack_fffffffffffffae8 = (((uint64_t)uVar14 << 32) | (uint32_t)uVar15) & 18446744069414649855;
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3916, "Received if resync - toplevel:%d", in_stack_fffffffffffffae8);
             }
-            if (*(int*)(local_b8._48_8_ + 53216) != (uVar15 & 65535)) {
-                *(uint*)(local_b8._48_8_ + 53216) = uVar15 & 65535;
-                InterfaceCalculateSizeAndPosAll((Client*)local_b8._48_8_, false, false);
-                IfAnimReset((Client*)local_b8._48_8_, *(int*)(local_b8._48_8_ + 53216));
-                ScriptRunner::OnLoad(*(int*)(local_b8._48_8_ + 53216));
-                puVar33 = (undefined1*)(local_b8._48_8_ + 2506576);
-                uVar63 = 0;
+            if (local_88->field_53216 != (uVar15 & 65535)) {
+                local_88->field_53216 = uVar15 & 65535;
+                InterfaceCalculateSizeAndPosAll(local_88, false, false);
+                IfAnimReset(local_88, local_88->field_53216);
+                ScriptRunner::OnLoad(local_88->field_53216);
+                puVar35 = &local_88->field_2506576;
+                uVar65 = 0;
                 do {
-                    puVar25 = (undefined1*)std::array<bool, 100ul>::operator[]((array<bool, 100ul>*)puVar33, uVar63);
+                    puVar25 = (uint8_t*)(*puVar35)[uVar65];
                     *puVar25 = 1;
-                    uVar63 = uVar63 + 1;
-                } while (uVar63 != 100);
+                    uVar65 = uVar65 + 1;
+                } while (uVar65 != 100);
             }
-            local_c0 = (array<int, 32ul>*)(local_b8._48_8_ + 53160);
+            local_c0 = (__17*)local_88->field_53160;
             if (uVar8 != 0) {
                 iVar12 = uVar8 + 1;
                 do {
-                    pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)(local_4c0 + 8);
-                    uVar14 = pPVar38->g4();
-                    local_b8._0_4_ = uVar14;
-                    uVar15 = pPVar38->g2();
-                    bVar5 = pPVar38->g1();
-                    uVar14 = (undefined4)(in_stack_fffffffffffffae8 >> 32);
-                    uVar76 = (undefined4)(in_stack_fffffffffffffaf0 >> 32);
-                    uVar74 = (undefined4)(in_stack_fffffffffffffaf8 >> 32);
-                    if (local_c8->field_0 != '\0') {
-                        uVar20 = logger::default_logger();
-                        in_stack_fffffffffffffaf8 = CONCAT44(uVar74, (uint)bVar5);
-                        in_stack_fffffffffffffaf0 = CONCAT44(uVar76, uVar15) & 18446744069414649855;
-                        in_stack_fffffffffffffae8 = CONCAT44(uVar14, local_b8._0_4_);
-                        logger::Logger::Log(uVar20, 0, 5,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                            "osclient/client_network.cpp",
-                                            3936, "Received if resync - layer:%d ifid:%d type:%d",
-                                            in_stack_fffffffffffffae8, in_stack_fffffffffffffaf0,
-                                            in_stack_fffffffffffffaf8);
+                    pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)(local_4c0 + 8);
+                    uVar14 = pPVar41->g4();
+                    local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)uVar14);
+                    uVar15 = pPVar41->g2();
+                    bVar5 = pPVar41->g1();
+                    uVar14 = (uint32_t)(in_stack_fffffffffffffae8 >> 32);
+                    uVar74 = (uint32_t)(in_stack_fffffffffffffaf0 >> 32);
+                    uVar72 = (uint32_t)(in_stack_fffffffffffffaf8 >> 32);
+                    if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                        pLVar21 = logger::default_logger();
+                        in_stack_fffffffffffffaf8 = (((uint64_t)uVar72 << 32) | (uint32_t)((unsigned int)bVar5));
+                        in_stack_fffffffffffffaf0 =
+                            (((uint64_t)uVar74 << 32) | (uint32_t)uVar15) & 18446744069414649855;
+                        in_stack_fffffffffffffae8 =
+                            (((uint64_t)uVar14 << 32) | (uint32_t)((Easing)local_b8[0].field_0));
+                        pLVar21->Log(false, 5,
+                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                     "osclient/client_network.cpp",
+                                     3936, "Received if resync - layer:%d ifid:%d type:%d", in_stack_fffffffffffffae8,
+                                     in_stack_fffffffffffffaf0, in_stack_fffffffffffffaf8);
                     }
-                    eastl::hashtable<
-                        int,
-                        eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                               std::default_delete<ChatHistory::HistoryBuffer>>>,
-                        eastl::allocator,
-                        eastl::use_first<
-                            eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                                   std::default_delete<ChatHistory::HistoryBuffer>>>>,
-                        eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                        eastl::prime_rehash_policy, false, true, true>::find((int*)local_480);
-                    eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                                     eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                     eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)local_480, (hashtable_iterator_base*)&local_80, extraout_RDX);
-                    if (bVar4) {
-                        lVar28 = local_480->HeapBeginPtr();
-                        puVar61 = (uint*)(lVar28 + 4);
+                    *local_480 = local_c0->find(local_b8);
+                    local_80 = local_c0->end();
+                    cVar4 = *local_480 != local_80;
+                    if (!cVar4) {
+                        puVar63 = nullptr;
                     } else {
-                        puVar61 = (uint*)0;
+                        lVar28 = local_480->HeapBeginPtr();
+                        puVar63 = (unsigned int*)(lVar28 + 4);
                     }
-                    uVar14 = (undefined4)(in_stack_fffffffffffffae8 >> 32);
-                    uVar76 = (undefined4)(in_stack_fffffffffffffaf0 >> 32);
-                    if (puVar61 == (uint*)0) {
-                        if (local_c8->field_0 != '\0') {
-                            uVar20 = logger::default_logger();
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                3944, "if not found!");
+                    uVar14 = (uint32_t)(in_stack_fffffffffffffae8 >> 32);
+                    uVar74 = (uint32_t)(in_stack_fffffffffffffaf0 >> 32);
+                    if (puVar63 == nullptr) {
+                        if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                            pLVar21 = logger::default_logger();
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         3944, "if not found!");
                         }
                     LAB_1000e8c37:
-                        puVar61 = (uint*)0;
-                    } else if (*puVar61 != (uVar15 & 65535)) {
-                        if (local_c8->field_0 != '\0') {
-                            uVar20 = logger::default_logger();
-                            in_stack_fffffffffffffaf0 = CONCAT44(uVar76, puVar61[1]);
-                            in_stack_fffffffffffffae8 = CONCAT44(uVar14, *puVar61);
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                3948, "Purging incorrect SubInterface - ifid:%d type:%d",
-                                                in_stack_fffffffffffffae8, in_stack_fffffffffffffaf0);
+                        puVar63 = nullptr;
+                    } else if (*puVar63 != (uVar15 & 65535)) {
+                        if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                            pLVar21 = logger::default_logger();
+                            in_stack_fffffffffffffaf0 = (((uint64_t)uVar74 << 32) | (uint32_t)puVar63[1]);
+                            in_stack_fffffffffffffae8 = (((uint64_t)uVar14 << 32) | (uint32_t)(*puVar63));
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         3948, "Purging incorrect SubInterface - ifid:%d type:%d",
+                                         in_stack_fffffffffffffae8, in_stack_fffffffffffffaf0);
                         }
-                        CloseSubinterface((Client*)local_b8._48_8_, local_b8._0_4_, *puVar61, true);
+                        CloseSubinterface(local_88, (Easing)local_b8[0].field_0, *puVar63, true);
                         goto LAB_1000e8c37;
                     }
-                    if (puVar61 == (uint*)0) {
-                        puVar61 = (uint*)OpenSubinterface((Client*)local_b8._48_8_, local_b8._0_4_, uVar15 & 65535,
-                                                          (uint)bVar5);
+                    if (puVar63 == nullptr) {
+                        puVar63 = (unsigned int*)OpenSubinterface(local_88, (Easing)local_b8[0].field_0, uVar15 & 65535,
+                                                                  (unsigned int)bVar5);
                     }
-                    *(undefined1*)(puVar61 + 2) = 1;
-                    iVar12 = iVar12 + -1;
+                    *(uint8_t*)(puVar63 + 2) = 1;
+                    iVar12 = iVar12 - 1;
                 } while (1 < iVar12);
             }
-            helpers::GetKeysIf<int, SubInterface, (ServerConnection&)->TcpIn()::__17>(local_480);
-            phVar71 = (hashtable_iterator_base*)local_480;
-            local_f0->begin();
-            local_110->end();
-            bVar4 = eastl::operator!=((eastl*)local_f0, (hashtable_iterator_base*)local_110, extraout_RDX_04);
-            if (bVar4) {
-                phVar71 = (hashtable_iterator_base*)local_b8;
+            helpers::GetKeysIf<int, SubInterface, (ServerConnection&)->TcpIn()::__17>(
+                (hash_map<int, SubInterface>*)local_480, local_c0);
+            pRVar60 = (ReturnValue*)local_480;
+            local_f0 = pRVar60->begin();
+            local_110 = pRVar60->end();
+            cVar4 = local_f0 != local_110;
+            if (cVar4) {
+                pRVar60 = &local_b8;
                 do {
-                    puVar23 =
-                        (undefined4*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)local_f0);
-                    local_128._0_4_ = *puVar23;
-                    eastl::hashtable<
-                        int,
-                        eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                               std::default_delete<ChatHistory::HistoryBuffer>>>,
-                        eastl::allocator,
-                        eastl::use_first<
-                            eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                                   std::default_delete<ChatHistory::HistoryBuffer>>>>,
-                        eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                        eastl::prime_rehash_policy, false, true, true>::find((int*)&local_80);
-                    eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                                     eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                     eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_80, phVar71, extraout_RDX_06);
-                    if (bVar4) {
+                    puVar23 = (uint32_t*)*local_f0;
+                    p_Var29 = local_c0;
+                    local_128[0]._0_4_ = *puVar23;
+                    local_80 = local_c0->find(local_128);
+                    *pRVar60 = p_Var29->end();
+                    cVar4 = local_80 != *pRVar60;
+                    if (cVar4) {
                         lVar28 = local_80.HeapBeginPtr();
-                        uVar14 = (undefined4)(in_stack_fffffffffffffae8 >> 32);
-                        uVar76 = (undefined4)(in_stack_fffffffffffffaf0 >> 32);
-                        uVar74 = (undefined4)(in_stack_fffffffffffffaf8 >> 32);
-                        if (local_c8->field_0 != '\0') {
-                            uVar20 = logger::default_logger();
-                            in_stack_fffffffffffffaf8 = CONCAT44(uVar74, *(undefined4*)(lVar28 + 8));
-                            in_stack_fffffffffffffaf0 = CONCAT44(uVar76, *(undefined4*)(lVar28 + 4));
-                            in_stack_fffffffffffffae8 = CONCAT44(uVar14, local_128._0_4_);
-                            logger::Logger::Log(uVar20, 0, 5,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                "projects/osclient/client_network.cpp",
-                                                3979, "Purging unopen SubInterface - layer:%d ifid:%d type:%d",
-                                                in_stack_fffffffffffffae8, in_stack_fffffffffffffaf0,
-                                                in_stack_fffffffffffffaf8);
+                        uVar14 = (uint32_t)(in_stack_fffffffffffffae8 >> 32);
+                        uVar74 = (uint32_t)(in_stack_fffffffffffffaf0 >> 32);
+                        uVar72 = (uint32_t)(in_stack_fffffffffffffaf8 >> 32);
+                        if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                            pLVar21 = logger::default_logger();
+                            in_stack_fffffffffffffaf8 =
+                                (((uint64_t)uVar72 << 32) | (uint32_t)(*(uint32_t*)(lVar28 + 8)));
+                            in_stack_fffffffffffffaf0 =
+                                (((uint64_t)uVar74 << 32) | (uint32_t)(*(uint32_t*)(lVar28 + 4)));
+                            in_stack_fffffffffffffae8 = (((uint64_t)uVar14 << 32) | (uint32_t)local_128[0]._0_4_);
+                            pLVar21->Log(false, 5,
+                                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
+                                         "osclient/client_network.cpp",
+                                         3979, "Purging unopen SubInterface - layer:%d ifid:%d type:%d",
+                                         in_stack_fffffffffffffae8, in_stack_fffffffffffffaf0,
+                                         in_stack_fffffffffffffaf8);
                         }
-                        CloseSubinterface((Client*)local_b8._48_8_, local_128._0_4_, *(int*)(lVar28 + 4), true);
+                        CloseSubinterface(local_88, local_128[0]._0_4_, *(int*)(lVar28 + 4), true);
                     }
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)local_f0);
-                    bVar4 = eastl::operator!=((eastl*)local_f0, (hashtable_iterator_base*)local_110, extraout_RDX_05);
-                } while (bVar4);
+                    ++local_f0;
+                    cVar4 = local_f0 != local_110;
+                } while (cVar4);
             }
-            puVar33 = (undefined1*)(local_b8._48_8_ + 2506512);
-            puVar33->clear();
+            puVar35 = local_88->field_2506512;
+            puVar35->clear();
             while (true) {
                 this_00 =
                     (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                                eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                                eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                                eastl::prime_rehash_policy, false, true, true>*)(local_4c0 + 8);
-                pAVar48 = (Array<int, eastl::allocator>*)eastl::hashtable<
-                    long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                    eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                    eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                    eastl::prime_rehash_policy, false, true, true>::size(this_00);
-                if (local_130 <= pAVar48)
+                pAVar50 = (Array<int>*)this_00->size();
+                if (local_130 <= pAVar50)
                     break;
                 uVar15 = this_00->g4();
                 uVar11 = this_00->g2();
-                local_b8._48_2_ = uVar11;
+                local_88 = (Client*)(((uint64_t)local_88._2_6_ << 16) | (uint16_t)uVar11);
                 uVar18 = this_00->g2();
                 local_f0[0].field_0._0_4_ = this_00->g4();
-                uVar14 = (undefined4)(in_stack_fffffffffffffae8 >> 32);
-                uVar76 = (undefined4)(in_stack_fffffffffffffaf0 >> 32);
-                uVar74 = (undefined4)(in_stack_fffffffffffffaf8 >> 32);
-                uVar75 = (undefined4)((ulong)in_stack_fffffffffffffb00 >> 32);
-                uVar11 = local_b8._48_2_;
-                phVar71 = (hashtable_iterator_base*)(local_b8._48_8_ & 65535);
-                if (local_c8->field_0 != '\0') {
-                    uVar20 = logger::default_logger();
-                    in_stack_fffffffffffffb00 = CONCAT44(uVar75, (uint)local_f0[0].field_0);
-                    in_stack_fffffffffffffaf8 = CONCAT44(uVar74, uVar18) & 18446744069414649855;
-                    in_stack_fffffffffffffaf0 = CONCAT44(uVar76, (uint)(ushort)uVar11);
-                    in_stack_fffffffffffffae8 = CONCAT44(uVar14, uVar15);
-                    logger::Logger::Log(uVar20, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/client_network.cpp",
-                                        3993, "if_setevents resync - com:%d subid1:%d subid2:%d serveractive:%d",
-                                        in_stack_fffffffffffffae8, in_stack_fffffffffffffaf0, in_stack_fffffffffffffaf8,
-                                        in_stack_fffffffffffffb00);
+                uVar14 = (uint32_t)(in_stack_fffffffffffffae8 >> 32);
+                uVar74 = (uint32_t)(in_stack_fffffffffffffaf0 >> 32);
+                uVar72 = (uint32_t)(in_stack_fffffffffffffaf8 >> 32);
+                uVar73 = (uint32_t)((unsigned long)in_stack_fffffffffffffb00 >> 32);
+                uVar8 = (unsigned short)local_88;
+                pRVar60 = (ReturnValue*)((unsigned long)local_88 & 65535);
+                if (*(uint8_t*)local_cc._4_8_ != '\0') {
+                    pLVar21 = logger::default_logger();
+                    in_stack_fffffffffffffb00 =
+                        (((uint64_t)uVar73 << 32) | (uint32_t)((unsigned int)local_f0[0].field_0));
+                    in_stack_fffffffffffffaf8 = (((uint64_t)uVar72 << 32) | (uint32_t)uVar18) & 18446744069414649855;
+                    in_stack_fffffffffffffaf0 = (((uint64_t)uVar74 << 32) | (uint32_t)((unsigned int)uVar8));
+                    in_stack_fffffffffffffae8 = (((uint64_t)uVar14 << 32) | (uint32_t)uVar15);
+                    pLVar21->Log(false, 5,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "client_network.cpp",
+                                 3993, "if_setevents resync - com:%d subid1:%d subid2:%d serveractive:%d",
+                                 in_stack_fffffffffffffae8, in_stack_fffffffffffffaf0, in_stack_fffffffffffffaf8,
+                                 in_stack_fffffffffffffb00);
                 }
-                if ((ushort)local_b8._48_2_ <= (ushort)uVar18) {
+                if ((unsigned short)local_88 <= (unsigned short)uVar18) {
                     do {
-                        local_b8._0_8_ = (ulong)uVar15 << 32 | (ulong)phVar71;
-                        eastl::hashtable<unsigned long long, eastl::pair<unsigned long long const, int>,
-                                         eastl::allocator, eastl::use_first<eastl::pair<unsigned long long const, int>>,
-                                         eastl::equal_to<unsigned long long>, eastl::hash<unsigned long long>,
-                                         eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                         eastl::prime_rehash_policy, false, true,
-                                         true>::emplace<unsigned long long&, int&>((ulonglong*)&local_80,
-                                                                                   (int*)puVar33);
-                        phVar71 = phVar71 + 1;
-                    } while ((hashtable_iterator_base*)(ulong)((uVar18 & 65535) + 1) != phVar71);
+                        local_b8[0].field_0 = (sqlite3**)((unsigned long)uVar15 << 32 | (unsigned long)pRVar60);
+                        local_80 = puVar35->emplace<unsigned long long&, int&>(local_b8, local_f0);
+                        pRVar60 = (ReturnValue*)((long)&pRVar60->field_0 + 1);
+                    } while ((ReturnValue*)(unsigned long)((uVar18 & 65535) + 1) != pRVar60);
                 }
             }
-            local_480->~list();
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)phVar71 >> 8), 1);
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)pRVar60 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)106:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            iVar12 = pSVar39->g4();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            lVar28 = shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            pvVar70 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(lVar28 + 1936);
-            lVar28 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar70);
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            iVar12 = pSVar42->g4();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            lVar28 = **psVar31;
+            pvVar69 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(lVar28 + 1936);
+            lVar28 = pvVar69->end();
             if (lVar28 != 0) {
-                uVar63 = 0;
+                uVar65 = 0;
                 do {
-                    puVar23 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)pvVar70, uVar63);
+                    puVar23 = (uint32_t*)(*pvVar69)[uVar65];
                     *puVar23 = 4294967295;
-                    puVar23 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)pvVar70, uVar63);
+                    puVar23 = (uint32_t*)(*pvVar69)[uVar65];
                     *puVar23 = 0;
-                    uVar63 = uVar63 + 1;
-                    uVar24 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar70);
-                } while (uVar63 < uVar24);
+                    uVar65 = uVar65 + 1;
+                    uVar24 = pvVar69->end();
+                } while (uVar65 < uVar24);
             }
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pvVar70 >> 8), 1);
-            ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)pvVar69 >> 8)) << 8) |
+                                                           (uint8_t)1);
+            ComponentUpdated(local_88, psVar31);
             break;
         case (BADTYPE)107:
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480, bVar4);
-            uVar20 = logger::default_logger();
-            uVar32 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            logger::Logger::Log(
-                uVar20, 0, 3,
+            local_480->gStringCP1252ToUTF8<eastl::string>(bVar6);
+            pLVar21 = logger::default_logger();
+            uVar34 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            pLVar21->Log(
+                false, 3,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
-                3222, "unimplemented message SITE_SETTINGS. Dumped setting [%s]", uVar32);
+                3222, "unimplemented message SITE_SETTINGS. Dumped setting [%s]", uVar34);
             goto LAB_1000ec994;
         case (BADTYPE)108:
             new (local_480) eastl::string();
-            new (local_b8) SuperShuffledPacketFactory(pCVar44);
-            bVar4 = (bool)local_b8->p2_alt2();
-            PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)&local_80, bVar4);
-            eastl::string::operator=((eastl::string*)local_480, (basic_string*)&local_80);
-            local_80.~basic_string();
-            pSVar39 = (ShuffledPacket2*)local_b8->p2_alt2();
-            uVar15 = pSVar39->g1();
-            pSVar27 = (ShuffledPacket4*)local_b8->p2_alt2();
+            local_b8 = SuperShuffledPacketFactory(*pCVar47);
+            bVar6 = (bool)ShuffledPacketFactory::p2_alt2();
+            local_80.gStringCP1252ToUTF8<eastl::string>(bVar6);
+            *local_480 = &local_80;
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar15 = pSVar42->g1();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar27->g1();
-            (*(Minimenu**)(local_b8._48_8_ + 52344))->UpdatePlayerOpChoice((uint)bVar5, local_480, uVar15 & 255);
+            local_88->field_52344->UpdatePlayerOpChoice((unsigned int)bVar5, *local_480, uVar15 & 255);
         LAB_1000ec994:
-            pHVar36 = (HookArg*)local_480;
+            this_17 = (eastl::string*)local_480;
             goto LAB_1000ef462;
         case (BADTYPE)109:
-            uVar15 = pCVar44->g2();
-            uVar18 = pCVar44->g1();
-            uVar8 = pCVar44->g2();
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            PlaySynth((Client*)local_b8._48_8_, uVar15 & 65535, uVar18 & 255, (uint)uVar8);
+            uVar15 = pCVar47->g2();
+            uVar18 = pCVar47->g1();
+            uVar8 = pCVar47->g2();
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            PlaySynth(local_88, uVar15 & 65535, uVar18 & 255, (unsigned int)uVar8);
             break;
         case (BADTYPE)110:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar26->g2();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar27->g2();
             local_80._4_4_ = 4294967295;
             if (uVar8 != 65535) {
-                local_80._4_4_ = (uint)uVar8;
+                local_80._4_4_ = (unsigned int)uVar8;
             }
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar13 = pSVar27->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar18 = pSVar39->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar17 = pSVar39->g2();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar18 = pSVar42->g2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar17 = pSVar42->g2();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar26->g2();
             local_80.m_argType = 4294967295;
             if (uVar8 != 65535) {
-                local_80.m_argType = (uint)uVar8;
+                local_80.m_argType = (unsigned int)uVar8;
             }
-            new (local_b8) eastl::allocator("EASTL vector");
-            eastl::vector<int, eastl::allocator>::vector(local_480, &local_80, 2, local_b8);
-            PlaySongs((Client*)local_b8._48_8_, (vector*)local_480, uVar18 & 65535, uVar15 & 65535, uVar13 & 65535,
+            new (local_480) eastl::vector<int>(&local_80, *2);
+            PlaySongs(local_88, (vector<int>*)local_480, uVar18 & 65535, uVar15 & 65535, uVar13 & 65535,
                       uVar17 & 65535);
         LAB_1000ec795:
-            local_480->~vector();
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar13 >> 8), 1);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar13 >> 8)) << 8) |
+                                                                 (uint8_t)1);
             break;
         case (BADTYPE)111:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar27->g4s();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             iVar19 = pSVar26->g4();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar19);
-            pIVar30 = (IfType*)shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            PlayerModelUtil::SetPlayerModelObj(pIVar30, iVar12);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar19);
+            pIVar32 = (IfType*)**psVar31;
+            PlayerModelUtil::SetPlayerModelObj(*pIVar32, iVar12);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ComponentUpdated(local_88, psVar31);
             break;
         case (BADTYPE)112:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 8, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 8, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)113:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if (*(undefined1*)(local_b8._48_8_ + 52997) != '\0') {
-                *(undefined1*)(local_b8._48_8_ + 52996) = 1;
-                *(undefined2*)(local_b8._48_8_ + 52998) = 0;
-                bVar5 = pCVar44->g1();
-                *(uint*)(local_b8._48_8_ + 53016) = (uint)bVar5;
-                bVar5 = pCVar44->g1();
-                *(uint*)(local_b8._48_8_ + 53020) = (uint)bVar5;
-                bVar5 = pCVar44->g1();
-                *(uint*)(local_b8._48_8_ + 53036) = (uint)bVar5;
-                bVar5 = pCVar44->g1();
-                *(uint*)(local_b8._48_8_ + 53040) = (uint)bVar5;
-                *(undefined4*)(local_b8._48_8_ + 2508880) = 0;
-                *(undefined1*)(local_b8._48_8_ + 2508884) = 0;
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if (local_88->field_52997 != '\0') {
+                local_88->field_52996 = 1;
+                local_88->field_52998 = 0;
+                local_88->field_52999 = '\0';
+                bVar5 = pCVar47->g1();
+                local_88->field_53016 = (unsigned int)bVar5;
+                bVar5 = pCVar47->g1();
+                local_88->field_53020 = (unsigned int)bVar5;
+                bVar5 = pCVar47->g1();
+                local_88->field_53036 = (unsigned int)bVar5;
+                bVar5 = pCVar47->g1();
+                local_88->field_53040 = (unsigned int)bVar5;
+                local_88->field_2508880 = 0;
+                local_88->field_2508884 = 0;
             }
             break;
         case (BADTYPE)114:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             iVar12 = pSVar27->g4s();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            cVar3 = pPVar38->g1();
-            psVar47 = (shared_ptr*)rs2lib::IfType::Get(iVar12);
-            pIVar30 = (IfType*)shared_ptr<rs2lib::IfType>::operator*((shared_ptr<rs2lib::IfType>*)psVar47);
-            PlayerModelUtil::SetPlayerModel(pIVar30, cVar3 == '\x01');
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ComponentUpdated((Client*)local_b8._48_8_, psVar47);
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            cVar4 = pPVar41->g1();
+            psVar31 = (shared_ptr<rs2lib::IfType>*)rs2lib::IfType::Get(iVar12);
+            pIVar32 = (IfType*)**psVar31;
+            PlayerModelUtil::SetPlayerModel(*pIVar32, cVar4 == '\x01');
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ComponentUpdated(local_88, psVar31);
             break;
         case (BADTYPE)115:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar15 = pSVar39->g1();
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar15 = pSVar42->g1();
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar18 = pSVar26->g4();
-            pPVar38 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_480->p2_alt2();
-            uVar17 = pPVar38->g2();
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar8 = pSVar39->g2();
-            new (local_480) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            if (*(int*)(local_b8._48_8_ + 51988) == (uint)uVar8) {
-                shared_ptr<ClientPlayer>::operator=((shared_ptr<ClientPlayer>*)local_480,
-                                                    (shared_ptr*)(local_b8._48_8_ + 52016));
+            pPVar41 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar17 = pPVar41->g2();
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar8 = pSVar42->g2();
+            new (local_480) shared_ptr();
+            if (local_88->field_51988 == (unsigned int)uVar8) {
+                *local_480 = local_88->field_52016;
             } else {
-                psVar41 = (shared_ptr*)std::array<shared_ptr<ClientPlayer>, 2048ul>::operator[](
-                    (array<shared_ptr<ClientPlayer>, 2048ul>*)(local_b8._48_8_ + 19216), (ulong)uVar8);
-                shared_ptr<ClientPlayer>::operator=((shared_ptr<ClientPlayer>*)local_480, psVar41);
+                clientPlayer_00 = (shared_ptr<ClientPlayer>*)local_88->field_19216[(unsigned long)uVar8];
+                *local_480 = *clientPlayer_00;
             }
-            bVar4 = operator!=((shared_ptr*)local_480, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                pCVar50 = (ClientEntity*)shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)local_480);
-                pCVar50->AddSpotAnim(uVar15 & 255, uVar17 & 65535, (int)uVar18 >> 16, uVar18 & 65535,
-                                     *(int*)(local_b8._48_8_ + 8488));
+            bVar6 = *local_480 != nullptr;
+            if (bVar6) {
+                pCVar52 = (ClientEntity*)(*local_480).operator->();
+                pCVar52->AddSpotAnim(uVar15 & 255, uVar17 & 65535, (int)uVar18 >> 16, uVar18 & 65535,
+                                     local_88->field_8488);
             }
-            local_480->~shared_ptr();
-            psVar41 = (shared_ptr*)CONCAT71((uint7)(uint3)(uVar17 >> 8), 1);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((uint64_t)(uint32_t)(uVar17 >> 8)) << 8) |
+                                                                 (uint8_t)1);
             break;
         case (BADTYPE)116:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar39 = (ShuffledPacket2*)local_480->p2_alt2();
-            uVar8 = pSVar39->g2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar42 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            uVar8 = pSVar42->g2();
             uVar15 = 4294967295;
             if (uVar8 != 65535) {
-                uVar15 = (uint)uVar8;
+                uVar15 = (unsigned int)uVar8;
             }
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar18 = pSVar27->g1();
-            pCVar44 = (Client*)(local_b8._48_8_ + 52016);
-            pCVar40 = (ClientPlayer*)shared_ptr<ClientPlayer>::operator*((shared_ptr<ClientPlayer>*)pCVar44);
-            TriggerPlayerAnim(pCVar44, pCVar40, uVar15, uVar18 & 255);
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4282, "Triggered anim_specific: %d delay:%d", CONCAT44(uVar74, uVar15),
-                                    CONCAT44(uVar75, uVar18) & 18446744069414584575);
+            pCVar66 = (Client*)&local_88->field_52016;
+            clientPlayer = (ClientPlayer*)**pCVar66;
+            TriggerPlayerAnim(pCVar66, clientPlayer, uVar15, uVar18 & 255);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4282, "Triggered anim_specific: %d delay:%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)uVar15),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)uVar18) & 18446744069414584575);
             }
             break;
         case (BADTYPE)117:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            ZonePacket((Client*)local_b8._48_8_, 9, pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            ZonePacket(local_88, 9, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)118:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            UnpackHiscoresPacket((Client*)local_b8._48_8_, (SuperPacket*)pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            UnpackHiscoresPacket(local_88, (SuperPacket*)pCVar47);
             break;
         case (BADTYPE)119:
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    1857, "Resetting all animations");
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             1857, "Resetting all animations");
             }
-            puVar33 = (undefined1*)(local_b8._48_8_ + 19216);
-            uVar63 = 0;
+            puVar35 = &local_88->field_19216;
+            uVar65 = 0;
             do {
-                psVar41 = (shared_ptr*)std::array<shared_ptr<ClientPlayer>, 2048ul>::operator[](
-                    (array<shared_ptr<ClientPlayer>, 2048ul>*)puVar33, uVar63);
-                bVar4 = operator!=(psVar41, (_func_decltype_nullptr*)0);
-                if (bVar4) {
-                    lVar28 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)psVar41);
-                    *(undefined4*)(lVar28 + 372) = 4294967295;
+                psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(*puVar35)[uVar65];
+                bVar6 = *psVar43 != nullptr;
+                if (bVar6) {
+                    lVar28 = (*psVar43).operator->();
+                    *(uint32_t*)(lVar28 + 372) = 4294967295;
                 }
-                uVar63 = uVar63 + 1;
-            } while (uVar63 != 2048);
-            local_b8._48_8_ = local_b8._48_8_ + 55272;
-            uVar63 = 0;
+                uVar65 = uVar65 + 1;
+            } while (uVar65 != 2048);
+            local_88 = (Client*)&local_88->field_55272;
+            uVar65 = 0;
             do {
-                psVar47 = (shared_ptr*)std::array<shared_ptr<ClientNpc>, 65536ul>::operator[](
-                    (array<shared_ptr<ClientNpc>, 65536ul>*)local_b8._48_8_, uVar63);
-                bVar4 = operator!=(psVar47, (_func_decltype_nullptr*)0);
-                if (bVar4) {
-                    lVar28 = shared_ptr<ClientNpc>::operator->((shared_ptr<ClientNpc>*)psVar47);
-                    *(undefined4*)(lVar28 + 372) = 4294967295;
+                psVar49 = (shared_ptr<midi2::MidiPlayerMainThread>*)(*local_88)[uVar65];
+                bVar6 = *psVar49 != nullptr;
+                if (bVar6) {
+                    lVar28 = (*psVar49).operator->();
+                    *(uint32_t*)(lVar28 + 372) = 4294967295;
                 }
-                uVar63 = uVar63 + 1;
-                psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)psVar41 >> 8), 1);
-            } while (uVar63 != 65536);
+                uVar65 = uVar65 + 1;
+                psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)psVar43 >> 8))
+                                                                      << 8) |
+                                                                     (uint8_t)1);
+            } while (uVar65 != 65536);
             break;
         case (BADTYPE)120:
-            new (local_480) SuperShuffledPacketFactory(pCVar44);
-            pSVar26 = (ShuffledPacket3*)local_480->p2_alt2();
-            local_b8._0_4_ = pSVar26->g4();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            new (local_480) SuperShuffledPacketFactory(*pCVar47);
+            pSVar26 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+            uVar14 = pSVar26->g4();
+            local_b8[0].field_0 = (sqlite3**)(((uint64_t)local_b8[0].field_0._4_4_ << 32) | (uint32_t)uVar14);
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar15 = pSVar27->g1();
-            pSVar27 = (ShuffledPacket4*)local_480->p2_alt2();
+            pSVar27 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar27->g2();
-            uVar18 = (uint)uVar8;
-            if (*(char*)pCVar55 != '\0') {
-                uVar20 = logger::default_logger();
-                logger::Logger::Log(uVar20, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    3874, "if_opensub - layer:%d ifid:%d interfacetype:%d",
-                                    CONCAT44(uVar74, local_b8._0_4_), CONCAT44(uVar75, uVar18),
-                                    CONCAT44(uVar77, uVar15) & 18446744069414584575);
+            uVar18 = (unsigned int)uVar8;
+            if (*(char*)this_13 != '\0') {
+                pLVar21 = logger::default_logger();
+                pLVar21->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             3874, "if_opensub - layer:%d ifid:%d interfacetype:%d",
+                             (((uint64_t)uVar72 << 32) | (uint32_t)((Easing)local_b8[0].field_0)),
+                             (((uint64_t)uVar73 << 32) | (uint32_t)uVar18),
+                             (((uint64_t)uVar75 << 32) | (uint32_t)uVar15) & 18446744069414584575);
             }
-            eastl::hashtable<
-                int,
-                eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                       std::default_delete<ChatHistory::HistoryBuffer>>>,
-                eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<int const, std::unique_ptr<ChatHistory::HistoryBuffer,
-                                                           std::default_delete<ChatHistory::HistoryBuffer>>>>,
-                eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                eastl::prime_rehash_policy, false, true, true>::find((int*)local_480);
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)local_480, (hashtable_iterator_base*)&local_80, extraout_RDX_00);
-            if (bVar4) {
+            puVar35 = local_88->field_53160;
+            *local_480 = puVar35->find(local_b8);
+            local_80 = puVar35->end();
+            cVar4 = *local_480 != local_80;
+            if (cVar4) {
                 lVar28 = local_480->HeapBeginPtr();
-                CloseSubinterface((Client*)local_b8._48_8_, local_b8._0_4_, *(uint*)(lVar28 + 4),
-                                  *(uint*)(lVar28 + 4) != uVar18);
+                CloseSubinterface(local_88, (Easing)local_b8[0].field_0, *(unsigned int*)(lVar28 + 4),
+                                  *(unsigned int*)(lVar28 + 4) != uVar18);
             }
-            OpenSubinterface((Client*)local_b8._48_8_, local_b8._0_4_, uVar18, uVar15 & 255);
-            pHVar36 = (HookArg*)(ulong)uVar8;
+            OpenSubinterface(local_88, (Easing)local_b8[0].field_0, uVar18, uVar15 & 255);
+            pRVar60 = (ReturnValue*)(unsigned long)uVar8;
         switchD_1000ea3f5_default:
-            psVar41 = (shared_ptr*)CONCAT71((int7)((ulong)pHVar36 >> 8), 1);
+            psVar43 =
+                (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)((int64_t)((unsigned long)pRVar60 >> 8)) << 8) |
+                                                           (uint8_t)1);
             break;
         case (BADTYPE)121:
-            psVar41 = (shared_ptr*)CONCAT71(uVar72, 1);
-            RebuildPacket((Client*)local_b8._48_8_, true, (SuperPacket*)pCVar44);
+            psVar43 = (shared_ptr<midi2::MidiPlayerMainThread>*)(((uint64_t)uVar70 << 8) | (uint8_t)1);
+            RebuildPacket(local_88, true, (SuperPacket*)pCVar47);
         }
     LAB_1000e84b2:
-        local_4c0->~ServerMessage();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return (ulong)psVar41 & 4294967295;
+        return (unsigned long)psVar43 & 4294967295;
     }
 
-    // 0x100112a10, 384 bytes, placed by __FILE__ string
-    // Client::Logout()
+    // 0x100112a10
     void Client::Logout() {
-        undefined1* this_00;
-        char cVar1;
+        bool cVar1;
         int iVar2;
-        ServerConnection* pSVar4;
-        world* this_01;
-        CollisionMap* this_02;
-        LoginManager* this_03;
-        long* plVar5;
-        ulong uVar6;
-        ServerMessage local_58[3];
 
-        field_55192 = CurrentTimeMillis();
-        this_00 = &field_19120;
-        pSVar4 =
-            (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
+        field_55192 = core::SafeTime::CurrentTimeMillis();
+        uint8_t* this_00 = &field_19120;
+        ServerConnection* pSVar4 = (ServerConnection*)(*this_00).operator->();
         pSVar4->Close();
-        new (local_58) shared::ClientMessage();
+        ServerMessage local_58;
         while (true) {
-            pSVar4 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
+            pSVar4 = (ServerConnection*)(*this_00).operator->();
             iVar2 = pSVar4->GetConnectionState();
             if (iVar2 != 3)
                 break;
             this_thread::Sleep(10);
             do {
-                pSVar4 = (ServerConnection*)
-                             std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                 (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
+                pSVar4 = (ServerConnection*)(*this_00).operator->();
                 cVar1 = pSVar4->GetNextServerMessage(local_58);
-            } while (cVar1 != '\0');
+            } while (cVar1);
         }
         if (iVar2 != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "m_gameCon->GetConnectionState() == ConnectionState::DISCONNECTED",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
-                899, (char*)0);
+                899, nullptr);
         }
-        SaveAndClosePerAccountData(this);
-        this_01 = (world*)std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-            (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)&field_19184);
-        this_01->ResetMap();
-        uVar6 = 0;
+        SaveAndClosePerAccountData();
+        ((world*)field_19184.operator->())->ResetMap();
+        unsigned long arg1 = 0;
         do {
-            this_02 = (CollisionMap*)eastl::vector<
-                movement::CollisionMap, eastl::fixed_vector_allocator<40ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-            operator[](
-                (vector<movement::CollisionMap,
-                        eastl::fixed_vector_allocator<40ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_6814744,
-                uVar6);
-            this_02->Reset();
-            uVar6 = uVar6 + 1;
-        } while (uVar6 != 4);
+            ((CollisionMap*)field_6814744[arg1])->Reset();
+            arg1 = arg1 + 1;
+        } while (arg1 != 4);
         m_entityOverlays->DestroyAllStaticOverlays();
         field_19072->ClearFocusedComponent();
         midi2::MidiManager::Stop(0, 0);
         midi2::MidiManager::ResetPreviousSongs();
         field_2508680 = 0;
         bgsound::Reset();
-        SetMainState(this, 10);
-        this_03 = (LoginManager*)GetLoginManager(this);
-        plVar5 = (long*)this_03->GetAuthWrapper();
-        if (plVar5 != (long*)0) {
-            (**(code**)(*plVar5 + 416))(plVar5);
+        SetMainState(10);
+        auto this_03 = GetLoginManager();
+        auto plVar5 = this_03->GetAuthWrapper();
+        if (plVar5 != nullptr) {
+            (**(void (**)(...))(*plVar5 + 416))(plVar5);
         }
         field_8492 = 0;
-        local_58->~ServerMessage();
     }
 
-    // 0x100112b90, 48 bytes, placed by class name and neighbouring functions
-    // Client::LogoutWithReason(shared::PlayerFacingLogoutReason::ID)
-    void Client::LogoutWithReason(int param_2) {
-        Logout(this);
-        if (param_2 == 1) {
+    // 0x100112b90
+    void Client::LogoutWithReason(shared::PlayerFacingLogoutReason::ID id) {
+        Logout();
+        if (id == 1) {
             TitleScreen::ShowServerLogoffScreen();
-        } else if (param_2 == 2) {
+        } else if (id == 2) {
             TitleScreen::ShowServerRebootedScreen();
         }
     }
 
-    // 0x100112c60, 176 bytes, placed by class name and neighbouring functions
-    // Client::HandleUpdateFriendChatChannelFullServerProt(core::SuperPacket&, unsigned int)
-    ulong Client::HandleUpdateFriendChatChannelFullServerProt(SuperPacket* param_1, uint param_2) {
-        undefined1* this_00;
-        uint uVar2;
-        long lVar3;
-        FriendChatChannel* this_01;
-        ulong uVar4;
-        unique_ptr local_40[8];
-        Client* local_38;
+    // 0x100112c60
+    unsigned long Client::HandleUpdateFriendChatChannelFullServerProt(core::SuperPacket& superPacket,
+                                                                      unsigned int arg2) {
+        unsigned int uVar2;
+        unsigned long uVar4;
+        ReturnValue local_40;
 
-        lVar3 = param_1->GetTextureAtlas();
-        this_00 = &field_52544;
+        long lVar3 = superPacket.GetTextureAtlas();
+        uint8_t* this_00 = &field_52544;
         if (lVar3 == 0) {
-            std::unique_ptr<social::FriendChatChannel, std::default_delete<social::FriendChatChannel>>::operator=(
-                (unique_ptr<social::FriendChatChannel, std::default_delete<social::FriendChatChannel>>*)this_00,
-                (_func_decltype_nullptr*)param_1);
-            uVar4 = CONCAT71((int7)((ulong)this_00 >> 8), 1);
+            *this_00 = superPacket;
+            uVar4 = (((uint64_t)((int64_t)((unsigned long)this_00 >> 8)) << 8) | (uint8_t)1);
         } else {
-            if (std::operator==((unique_ptr*)this_00, (_func_decltype_nullptr*)param_1)) {
-                local_38 = this;
-                std::make_unique<social::FriendChatChannel, rs2lib::social::NameSpace&, Client*>(
-                    local_40, (Client**)&field_54172);
-                std::unique_ptr<social::FriendChatChannel, std::default_delete<social::FriendChatChannel>>::operator=(
-                    (unique_ptr<social::FriendChatChannel, std::default_delete<social::FriendChatChannel>>*)this_00,
-                    local_40);
-                local_40->~unique_ptr();
+            if (this_00 == superPacket) {
+                local_40 =
+                    std::make_unique<social::FriendChatChannel, rs2lib::social::NameSpace&, Client*>(field_54172, this);
+                *this_00 = &local_40;
             }
-            this_01 =
-                (FriendChatChannel*)std::
-                    unique_ptr<social::FriendChatChannel, std::default_delete<social::FriendChatChannel>>::operator->((
-                        unique_ptr<social::FriendChatChannel, std::default_delete<social::FriendChatChannel>>*)this_00);
-            uVar2 = this_01->ProcessFullUpdate(param_1, param_2);
-            uVar4 = (ulong)uVar2;
+            uVar2 = ((FriendChatChannel*)(*this_00).operator->())->ProcessFullUpdate(superPacket, arg2);
+            uVar4 = (unsigned long)uVar2;
         }
-        NotifyFriendChatUpdate(this);
+        NotifyFriendChatUpdate();
         return uVar4 & 4294967295;
     }
 
-    // 0x100112fd0, 80 bytes, placed by class name and neighbouring functions
-    // Client::HandleUpdateFriendChatChannelSingleUserServerProt(core::SuperPacket&)
-    undefined1 Client::HandleUpdateFriendChatChannelSingleUserServerProt(SuperPacket* param_1) {
-        FriendChatChannel* this_00;
-
-        if (std::operator!=((unique_ptr*)&field_52544, (_func_decltype_nullptr*)param_1)) {
-            this_00 =
-                (FriendChatChannel*)std::
-                    unique_ptr<social::FriendChatChannel, std::default_delete<social::FriendChatChannel>>::operator->(
-                        (unique_ptr<social::FriendChatChannel,
-                                    std::default_delete<social::FriendChatChannel>>*)&field_52544);
-            this_00->ProcessSingleUserUpdate(param_1);
+    // 0x100112fd0
+    uint8_t Client::HandleUpdateFriendChatChannelSingleUserServerProt(core::SuperPacket& superPacket) {
+        if (&field_52544 != superPacket) {
+            ((FriendChatChannel*)field_52544.operator->())->ProcessSingleUserUpdate(superPacket);
         }
-        NotifyFriendChatUpdate(this);
+        NotifyFriendChatUpdate();
         return 1;
     }
 
-    // 0x1001131b0, 192 bytes, placed by __FILE__ string
-    // Client::UnpackHiscoresPacket(core::SuperPacket&)
-    void Client::UnpackHiscoresPacket(SuperPacket* param_1) {
-        HiscoresManager* this_00;
-        char* pcVar2;
-        ErrorCapture local_370[17];
+    // 0x1001131b0
+    void Client::UnpackHiscoresPacket(core::SuperPacket& superPacket) {
+        char* str2;
 
-        ErrorCapture::ErrorCapture(local_370, true);
-        this_00 = (HiscoresManager*)std::unique_ptr<HiscoresManager, std::default_delete<HiscoresManager>>::operator->(
-            (unique_ptr<HiscoresManager, std::default_delete<HiscoresManager>>*)&field_52776);
-        this_00->UnpackHiscoresPacket(param_1, local_370);
-        if (local_370->IsRaised() != '\0') {
-            local_370->second();
-            pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            /* WARNING: Subroutine does not return */
+        ErrorCapture local_370(true);
+        ((HiscoresManager*)field_52776.operator->())->UnpackHiscoresPacket(superPacket, local_370);
+        if (local_370.IsRaised() != '\0') {
+            local_370.second();
+            str2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             LogAssertAlways(
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
-                1100, pcVar2);
+                1100, str2);
         }
-        local_370->~LanguageMessage();
     }
 
-    // 0x100113270, 176 bytes, placed by class name and neighbouring functions
-    // Client::OnMidiEnd(int)
-    void Client::OnMidiEnd(int param_1) {
-        undefined1* this_00;
-        ServerConnection* pSVar1;
-        undefined8 uVar2;
-        bool bVar3;
-        int iVar4;
-        undefined4 in_register_00000034;
-        undefined1 local_60[64];
+    // 0x100113270
+    void Client::OnMidiEnd(int arg1) {
+        int iVar2;
+        ServerConnection* pSVar3;
+        Isaac* isaac;
+        uint32_t in_register_00000034;
+        uint8_t local_60[64];
 
-        this_00 = &field_19120;
-        bVar3 = std::operator!=((unique_ptr*)this_00, (_func_decltype_nullptr*)CONCAT44(in_register_00000034, param_1));
-        if ((bVar3) && (-1 < param_1)) {
-            iVar4 = GetFinalMidiVolume(this);
-            if ((0 < iVar4) && (field_2508680 == '\0')) {
-                pSVar1 = (ServerConnection*)
-                             std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                 (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                uVar2 = pSVar1->GetOutgoingEncryption();
-                local_60->MakeClientMessage(92, uVar2);
-                PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4<int>(
-                    (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)(local_60 + 8), param_1);
-                pSVar1 = (ServerConnection*)
-                             std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                                 (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)this_00);
-                pSVar1->SendClientMessage(local_60);
-                local_60->~ClientMessage();
+        uint8_t* serverConnection = &field_19120;
+        if ((serverConnection != ((void*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1))) && (-1 < arg1)) {
+            iVar2 = GetFinalMidiVolume();
+            if ((0 < iVar2) && (field_2508680 == '\0')) {
+                pSVar3 = (ServerConnection*)(*serverConnection).operator->();
+                isaac = pSVar3->GetOutgoingEncryption();
+                *local_60 = shared::ClientMessage::MakeClientMessage(92, *isaac);
+                ((local_60 + 8))->p4<int>((unsigned long)(unsigned int)arg1);
+                pSVar3 = (ServerConnection*)(*serverConnection).operator->();
+                pSVar3->SendClientMessage(*local_60);
             }
         }
     }
 
-    // 0x100113320, 192 bytes, placed by __FILE__ string
-    // Client::RequestClanChannelFull(int)
-    void Client::RequestClanChannelFull(int param_1) {
-        int iVar1;
-        undefined8 uVar2;
-        ServerConnection* pSVar3;
-        undefined1 local_58[64];
+    // 0x100113320
+    void Client::RequestClanChannelFull(int arg1) {
+        ServerConnection* pSVar2;
+        Isaac* isaac;
+        uint8_t local_58[64];
 
-        iVar1 = GetServerMajorVersion(this);
+        int iVar1 = GetServerMajorVersion();
         if (215 < iVar1) {
-            uVar2 = logger::default_logger();
-            logger::Logger::Log(
-                uVar2, 0, 8,
-                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
-                1117, "Request full clan channel update");
-            pSVar3 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)&field_19120);
-            uVar2 = pSVar3->GetOutgoingEncryption();
-            local_58->MakeClientMessage(96, uVar2);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)(local_58 + 8), param_1);
-            pSVar3 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)&field_19120);
-            pSVar3->SendClientMessage(local_58);
-            local_58->~ClientMessage();
+            (logger::default_logger())
+                ->Log(false, 8,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                      "client_network.cpp",
+                      1117, "Request full clan channel update");
+            pSVar2 = (ServerConnection*)field_19120.operator->();
+            isaac = pSVar2->GetOutgoingEncryption();
+            *local_58 = shared::ClientMessage::MakeClientMessage(96, *isaac);
+            ((local_58 + 8))->p1<shared::LoginProt::ID>(arg1);
+            pSVar2 = (ServerConnection*)field_19120.operator->();
+            pSVar2->SendClientMessage(*local_58);
         }
     }
 
-    // 0x1001133e0, 192 bytes, placed by __FILE__ string
-    // Client::RequestClanSettingsFull(int)
-    void Client::RequestClanSettingsFull(int param_1) {
-        int iVar1;
-        undefined8 uVar2;
-        ServerConnection* pSVar3;
-        undefined1 local_58[64];
+    // 0x1001133e0
+    void Client::RequestClanSettingsFull(int arg1) {
+        ServerConnection* pSVar2;
+        Isaac* isaac;
+        uint8_t local_58[64];
 
-        iVar1 = GetServerMajorVersion(this);
+        int iVar1 = GetServerMajorVersion();
         if (215 < iVar1) {
-            uVar2 = logger::default_logger();
-            logger::Logger::Log(
-                uVar2, 0, 8,
-                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/client_network.cpp",
-                1128, "Request full clan settings update");
-            pSVar3 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)&field_19120);
-            uVar2 = pSVar3->GetOutgoingEncryption();
-            local_58->MakeClientMessage(97, uVar2);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)(local_58 + 8), param_1);
-            pSVar3 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)&field_19120);
-            pSVar3->SendClientMessage(local_58);
-            local_58->~ClientMessage();
+            (logger::default_logger())
+                ->Log(false, 8,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                      "client_network.cpp",
+                      1128, "Request full clan settings update");
+            pSVar2 = (ServerConnection*)field_19120.operator->();
+            isaac = pSVar2->GetOutgoingEncryption();
+            *local_58 = shared::ClientMessage::MakeClientMessage(97, *isaac);
+            ((local_58 + 8))->p1<shared::LoginProt::ID>(arg1);
+            pSVar2 = (ServerConnection*)field_19120.operator->();
+            pSVar2->SendClientMessage(*local_58);
         }
     }
 
-    // 0x100114680, 48 bytes, placed by class name and neighbouring functions
-    // Client::WrapYawAngle(int) const
-    int Client::WrapYawAngle(int param_1) {
-        uint uVar1;
-        int iVar2;
-        uint uVar3;
-
-        uVar1 = param_1 - field_53104;
-        uVar3 = -uVar1;
+    // 0x100114680
+    int Client::WrapYawAngle(int arg1) const {
+        unsigned int uVar1 = arg1 - field_53104;
+        unsigned int uVar3 = -uVar1;
         if ((int)uVar3 < 0) {
             uVar3 = uVar1;
         }
-        iVar2 = 0;
+        int iVar2 = 0;
         if (1024 < uVar3) {
-            iVar2 = (uint)(param_1 < (int)field_53104) * 4096 + -2048;
+            iVar2 = (unsigned int)(arg1 < (int)field_53104) * 4096 - 2048;
         }
-        return iVar2 + param_1;
+        return iVar2 + arg1;
     }
 
-    // 0x100114a40, 9856 bytes, placed by __FILE__ string
-    // Client::ZonePacket(shared::ZoneProt::ID, core::SuperPacket&)
-    void Client::ZonePacket(undefined4 param_2, SuperPacket* param_3) {
-        int* piVar1;
-        uint uVar2;
-        ushort uVar3;
+    // 0x100114a40
+    void Client::ZonePacket(shared::ZoneProt::ID id, core::SuperPacket& superPacket) {
+        unsigned int uVar1;
+        int iVar2;
+        unsigned short uVar3;
         char cVar4;
-        byte bVar5;
-        char cVar6;
-        byte bVar7;
-        undefined1 uVar8;
+        uint8_t bVar5;
+        bool cVar6;
+        uint8_t bVar7;
+        uint8_t uVar8;
         bool bVar9;
-        ushort uVar10;
-        undefined2 uVar11;
+        unsigned short uVar10;
+        uint16_t uVar11;
         int iVar12;
-        undefined4 uVar13;
-        undefined4 uVar14;
-        undefined4 uVar15;
-        undefined4* puVar16;
+        uint32_t* puVar16;
         int* piVar17;
-        uint* puVar18;
+        unsigned int* puVar18;
         shared_ptr<sound::JagFX>* this_00;
         ShuffledPacket3* pSVar19;
         PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* pPVar20;
@@ -5405,176 +4773,161 @@ namespace jag::oldscape {
         ClientProj* pCVar24;
         vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar25;
         AnimationWrapper* pAVar26;
-        undefined8 uVar27;
-        weak_ptr* pwVar28;
-        shared_ptr* psVar29;
-        byte bVar30;
-        char cVar31;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
-        hashtable_iterator_base* extraout_RDX_03;
-        undefined1* puVar32;
-        char cVar33;
+        Logger* pLVar27;
+        weak_ptr<dash3d::GroundDecor>* groundDecor;
+        shared_ptr<ClientPlayer>* clientPlayer;
+        shared_ptr<dash3d::GroundDecor>* groundDecor_00;
+        world* pwVar28;
+        uint8_t bVar29;
+        bool cVar30;
+        weak_ptr<ClientObj>* clientObj;
+        weak_ptr<ClientObj>* clientObj_00;
+        weak_ptr<ClientObj>* clientObj_01;
+        uint8_t* puVar31;
+        hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>, eastl::allocator,
+                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>* this_01;
+        LocShapeID LVar32;
+        bool cVar33;
         Client* pCVar34;
         int iVar35;
-        uint uVar36;
+        unsigned int uVar36;
         int iVar37;
-        uint uVar38;
+        unsigned int uVar38;
         int iVar39;
         long lVar40;
         long lVar41;
-        undefined8 in_stack_fffffffffffffe68;
-        undefined4 uVar44;
-        undefined8 uVar42;
-        ulong uVar43;
-        undefined8 in_stack_fffffffffffffe70;
-        undefined4 uVar47;
-        undefined8 uVar45;
-        ulong uVar46;
-        undefined8 in_stack_fffffffffffffe78;
-        undefined4 uVar49;
-        undefined8 uVar48;
-        ulong in_stack_fffffffffffffe80;
-        undefined4 uVar50;
-        undefined8 in_stack_fffffffffffffe88;
-        undefined8 uVar51;
-        undefined8 in_stack_fffffffffffffe90;
-        undefined8 in_stack_fffffffffffffe98;
-        weak_ptr<dash3d::Decor> local_128[16];
-        list<console::Line, eastl::allocator> local_118[8];
-        list<console::Line, eastl::allocator> local_110[8];
-        weak_ptr<dash3d::Decor> local_108[16];
-        undefined8 local_f8;
-        weak_ptr<dash3d::Decor> local_f0[16];
+        uint64_t in_stack_fffffffffffffe68;
+        uint64_t in_stack_fffffffffffffe70;
+        uint64_t in_stack_fffffffffffffe78;
+        uint64_t in_stack_fffffffffffffe80;
+        uint64_t in_stack_fffffffffffffe88;
+        uint64_t in_stack_fffffffffffffe90;
+        uint64_t in_stack_fffffffffffffe98;
+        CoordGrid local_128;
+        ReturnValue local_118;
+        ReturnValue local_110;
+        CoordGrid local_108;
+        ListIterator<shared_ptr<rs2lib::worldmap::MapElement>, shared_ptr<rs2lib::worldmap::MapElement> const*,
+                     shared_ptr<rs2lib::worldmap::MapElement> const&>* local_f8;
+        CoordGrid local_f0;
         long local_e0;
         long local_d8;
         int local_cc;
         int local_c8;
         int local_c4;
-        ulong local_c0;
-        ushort local_b8;
-        ushort local_b6;
+        unsigned long local_c0;
+        unsigned short local_b8;
+        unsigned short local_b6;
         int local_b4;
-        undefined4 local_b0;
+        LocLayer local_b0;
         char local_ac;
         char local_ab;
         char local_aa;
         char local_a9;
-        undefined8 local_a8;
+        uint64_t local_a8;
         CoordGrid local_a0;
-        uint local_90[2];
-        ulong local_88;
-        hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                  eastl::allocator,
-                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
+        ReturnValue local_90;
+        Logger* local_88;
+        hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>, eastl::allocator,
+                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
                   eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
                   eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>* local_80;
-        uint local_78;
-        uint local_74;
+        unsigned int local_78;
+        unsigned int local_74;
         CoordGrid local_70;
-        uint local_5c;
-        uint local_58;
-        uint local_54;
-        Client* local_50;
+        unsigned int local_5c;
+        unsigned int local_58;
+        unsigned int local_54;
         SuperShuffledPacketFactory local_48;
-        uint local_38;
-        uint local_34;
+        unsigned int local_38;
+        unsigned int local_34;
 
-        uVar44 = (undefined4)((ulong)in_stack_fffffffffffffe68 >> 32);
-        uVar47 = (undefined4)((ulong)in_stack_fffffffffffffe70 >> 32);
-        uVar49 = (undefined4)((ulong)in_stack_fffffffffffffe78 >> 32);
-        uVar50 = (undefined4)(in_stack_fffffffffffffe80 >> 32);
-        uVar13 = (undefined4)((ulong)in_stack_fffffffffffffe88 >> 32);
-        uVar15 = (undefined4)((ulong)in_stack_fffffffffffffe90 >> 32);
-        uVar14 = (undefined4)((ulong)in_stack_fffffffffffffe98 >> 32);
-        local_50 = this;
-        switch (param_2) {
+        uint32_t uVar42 = (uint32_t)((unsigned long)in_stack_fffffffffffffe68 >> 32);
+        uint32_t uVar43 = (uint32_t)((unsigned long)in_stack_fffffffffffffe70 >> 32);
+        uint32_t uVar44 = (uint32_t)((unsigned long)in_stack_fffffffffffffe78 >> 32);
+        uint32_t uVar45 = (uint32_t)((unsigned long)in_stack_fffffffffffffe80 >> 32);
+        uint32_t uVar15 = (uint32_t)((unsigned long)in_stack_fffffffffffffe88 >> 32);
+        uint32_t uVar14 = (uint32_t)((unsigned long)in_stack_fffffffffffffe90 >> 32);
+        uint32_t uVar13 = (uint32_t)((unsigned long)in_stack_fffffffffffffe98 >> 32);
+        Client* local_50 = this;
+        switch (id) {
         case 0:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar22->g1();
             pCVar34 = local_50;
             iVar35 = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
             iVar37 = (bVar5 & 7) + *(int*)&local_50->field_1115288;
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar21->g1();
-            uVar36 = (uint)(bVar5 >> 4);
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            uVar36 = (unsigned int)(bVar5 >> 4);
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             uVar8 = pPVar20->g1();
-            local_74 = CONCAT31(local_74._1_3_, uVar8);
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            local_74 = (((uint32_t)local_74._1_3_ << 8) | (uint8_t)uVar8);
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar21->g2();
-            local_80 =
-                (hashtable<
-                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                    eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)CONCAT44(local_80._4_4_,
-                                                                                                         (uint)uVar10);
+            local_80 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>,
+                                  eastl::allocator,
+                                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
+                                  true>*)(((uint64_t)local_80._4_4_ << 32) | (uint32_t)((unsigned int)uVar10));
             if (pCVar34->field_54760 != '\0') {
                 local_88 = logger::default_logger();
-                puVar32 = pCVar34->field_52016;
-                lVar40 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)puVar32);
-                puVar16 = (undefined4*)std::array<int, 10ul>::operator[]((array<int, 10ul>*)(lVar40 + 444), 0);
-                local_a8 = CONCAT44(local_a8._4_4_, *puVar16);
-                lVar40 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)puVar32);
-                puVar16 = (undefined4*)std::array<int, 10ul>::operator[]((array<int, 10ul>*)(lVar40 + 484), 0);
-                logger::Logger::Log(local_88, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4999, "Received sound_area x:%i z:%i range:%i synth:%i loops:%i rx:%i rz:%i",
-                                    CONCAT44(uVar44, iVar35), CONCAT44(uVar47, iVar37), CONCAT44(uVar49, uVar36),
-                                    CONCAT44(uVar50, (int)local_80),
-                                    CONCAT44(uVar13, (uint)bVar5) & 18446744069414584327,
-                                    CONCAT44(uVar15, (int)local_a8), CONCAT44(uVar14, *puVar16));
+                puVar31 = &pCVar34->field_52016;
+                lVar40 = (*puVar31).operator->();
+                puVar16 = (uint32_t*)(*((lVar40 + 444)))[0];
+                local_a8 = (((uint64_t)local_a8._4_4_ << 32) | (uint32_t)(*puVar16));
+                lVar40 = (*puVar31).operator->();
+                puVar16 = (uint32_t*)(*((lVar40 + 484)))[0];
+                local_88->Log(false, 5,
+                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                              "client_network.cpp",
+                              4999, "Received sound_area x:%i z:%i range:%i synth:%i loops:%i rx:%i rz:%i",
+                              (((uint64_t)uVar42 << 32) | (uint32_t)iVar35),
+                              (((uint64_t)uVar43 << 32) | (uint32_t)iVar37),
+                              (((uint64_t)uVar44 << 32) | (uint32_t)uVar36),
+                              (((uint64_t)uVar45 << 32) | (uint32_t)((int)local_80)),
+                              (((uint64_t)uVar15 << 32) | (uint32_t)((unsigned int)bVar5)) & 18446744069414584327,
+                              (((uint64_t)uVar14 << 32) | (uint32_t)((int)local_a8)),
+                              (((uint64_t)uVar13 << 32) | (uint32_t)(*puVar16)));
             }
-            local_a8 = CONCAT44(local_a8._4_4_, (uint)bVar5) & 18446744069414584327;
+            local_a8 = (((uint64_t)local_a8._4_4_ << 32) | (uint32_t)((unsigned int)bVar5)) & 18446744069414584327;
             if (((iVar35 < 104) && (-1 < iVar35)) && ((-1 < iVar37 && (iVar37 < 104)))) {
                 iVar12 = uVar36 + 1;
-                puVar32 = local_50->field_52016;
-                local_88 = (ulong)uVar36;
-                lVar40 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)puVar32);
-                piVar17 = (int*)std::array<int, 10ul>::operator[]((array<int, 10ul>*)(lVar40 + 444), 0);
+                puVar31 = &local_50->field_52016;
+                local_88 = (Logger*)(unsigned long)uVar36;
+                lVar40 = (*puVar31).operator->();
+                piVar17 = (int*)(*((lVar40 + 444)))[0];
                 if (iVar35 - iVar12 <= *piVar17) {
-                    lVar40 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)puVar32);
-                    piVar17 = (int*)std::array<int, 10ul>::operator[]((array<int, 10ul>*)(lVar40 + 444), 0);
+                    lVar40 = (*puVar31).operator->();
+                    piVar17 = (int*)(*((lVar40 + 444)))[0];
                     if (*piVar17 <= iVar12 + iVar35) {
-                        lVar40 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)puVar32);
-                        piVar17 = (int*)std::array<int, 10ul>::operator[]((array<int, 10ul>*)(lVar40 + 484), 0);
+                        lVar40 = (*puVar31).operator->();
+                        piVar17 = (int*)(*((lVar40 + 484)))[0];
                         if (iVar37 - iVar12 <= *piVar17) {
-                            lVar40 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)puVar32);
-                            piVar17 = (int*)std::array<int, 10ul>::operator[]((array<int, 10ul>*)(lVar40 + 484), 0);
+                            lVar40 = (*puVar31).operator->();
+                            piVar17 = (int*)(*((lVar40 + 484)))[0];
                             if ((((*piVar17 <= iVar12 + iVar37) &&
                                   (iVar12 = GetFinalAmbientVolume(local_50), pCVar34 = local_50, uVar36 = local_74,
                                    iVar12 != 0)) &&
                                  ((int)local_a8 != 0)) &&
                                 ((long)local_50->field_2508752 < 50)) {
-                                puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                                    (Array<int, eastl::allocator>*)&local_50->field_2508760,
-                                    (long)local_50->field_2508752);
+                                puVar16 = &local_50->field_2508760[(long)local_50->field_2508752];
                                 *puVar16 = (int)local_80;
-                                puVar16 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                                    (Array<int, eastl::allocator>*)&pCVar34->field_2508784,
-                                    (long)pCVar34->field_2508752);
+                                puVar16 = &pCVar34->field_2508784[(long)pCVar34->field_2508752];
                                 *puVar16 = (int)local_a8;
-                                puVar18 = (uint*)Array<int, eastl::allocator>::operator[](
-                                    (Array<int, eastl::allocator>*)&pCVar34->field_2508808,
-                                    (long)pCVar34->field_2508752);
+                                puVar18 = &pCVar34->field_2508808[(long)pCVar34->field_2508752];
                                 *puVar18 = uVar36 & 255;
-                                new (&local_48) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                                this_00 = (shared_ptr<sound::JagFX>*)
-                                    Array<shared_ptr<sound::JagFX>, eastl::allocator>::operator[](
-                                        (Array<shared_ptr<sound::JagFX>, eastl::allocator>*)&pCVar34->field_2508856,
-                                        (long)pCVar34->field_2508752);
-                                shared_ptr<sound::JagFX>::operator=(this_00, (shared_ptr*)&local_48);
-                                local_48.~shared_ptr();
-                                iVar35 = iVar37 * 256 + iVar35 * 65536 + (uint)local_88;
-                                piVar17 = (int*)Array<int, eastl::allocator>::operator[](
-                                    (Array<int, eastl::allocator>*)&pCVar34->field_2508832,
-                                    (long)pCVar34->field_2508752);
+                                local_48 = shared_ptr();
+                                this_00 =
+                                    (shared_ptr<sound::JagFX>*)pCVar34->field_2508856[(long)pCVar34->field_2508752];
+                                *this_00 = local_48;
+                                iVar35 = iVar37 * 256 + iVar35 * 65536 + (unsigned int)local_88;
+                                piVar17 = &pCVar34->field_2508832[(long)pCVar34->field_2508752];
                                 *piVar17 = iVar35;
                                 pCVar34->field_2508752 = pCVar34->field_2508752 + 1;
                             }
@@ -5584,58 +4937,61 @@ namespace jag::oldscape {
             }
             break;
         case 1:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar22->g2();
-            local_54 = (uint)uVar10;
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_54 = (unsigned int)uVar10;
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar22->g1();
             pCVar34 = local_50;
             local_70.m_level = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
             local_a0.m_level = (bVar5 & 7) + *(int*)&local_50->field_1115288;
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             cVar4 = pSVar21->g1s();
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
-            local_90[0] = pSVar19->g3s();
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+            local_90._0_4_ = pSVar19->g3s();
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar22->g1();
-            local_5c = (uint)bVar5;
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            local_5c = (unsigned int)bVar5;
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar21->g2();
-            local_88 = CONCAT44(local_88._4_4_, (uint)uVar10);
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_88 = (Logger*)(((uint64_t)local_88._4_4_ << 32) | (uint32_t)((unsigned int)uVar10));
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             cVar6 = pSVar22->g1s();
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar19->g1();
-            local_58 = (uint)bVar5 << 2;
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_58 = (unsigned int)bVar5 << 2;
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar22->g1();
-            local_34 = (uint)bVar5;
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_34 = (unsigned int)bVar5;
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar22->g1();
-            pCVar23 = (Client*)local_48.p2_alt2();
+            pCVar23 = (Client*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pCVar23->g2();
             local_80 =
                 (hashtable<
-                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
+                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>, eastl::allocator,
+                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
                     eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)(ulong)uVar10;
+                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)(unsigned long)uVar10;
             iVar35 = (int)cVar6 + local_70.m_level;
             iVar37 = (int)cVar4 + local_a0.m_level;
             if (pCVar34->field_54760 != '\0') {
                 pCVar23 = (Client*)logger::default_logger();
-                logger::Logger::Log(pCVar23, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4656,
-                                    "Received projanim x:%i z:%i x2:%i z2:%i targetEntity:%i spotanim:%i h1:%i h2:%i "
-                                    "t1:%i t2:%i angle:%i startpos:%i",
-                                    CONCAT44(uVar44, local_70.m_level), CONCAT44(uVar47, local_a0.m_level),
-                                    CONCAT44(uVar49, iVar35), CONCAT44(uVar50, iVar37), CONCAT44(uVar13, local_90[0]),
-                                    CONCAT44(uVar15, local_54), CONCAT44(uVar14, (uint)bVar5 * 4), local_58,
-                                    (int)local_80, (uint)local_88, local_5c, local_34);
+                pCVar23->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4656,
+                             "Received projanim x:%i z:%i x2:%i z2:%i targetEntity:%i spotanim:%i h1:%i h2:%i t1:%i "
+                             "t2:%i angle:%i startpos:%i",
+                             (((uint64_t)uVar42 << 32) | (uint32_t)local_70.m_level),
+                             (((uint64_t)uVar43 << 32) | (uint32_t)local_a0.m_level),
+                             (((uint64_t)uVar44 << 32) | (uint32_t)iVar35),
+                             (((uint64_t)uVar45 << 32) | (uint32_t)iVar37),
+                             (((uint64_t)uVar15 << 32) | (uint32_t)local_90._0_4_),
+                             (((uint64_t)uVar14 << 32) | (uint32_t)local_54),
+                             (((uint64_t)uVar13 << 32) | (uint32_t)((unsigned int)bVar5 * 4)), local_58, (int)local_80,
+                             (unsigned int)local_88, local_5c, local_34);
             }
             pCVar34 = local_50;
             if (103 < (int)local_70.m_level) {
@@ -5667,401 +5023,372 @@ namespace jag::oldscape {
             }
             local_70.m_level = local_70.m_level << 7 | 64;
             local_a0.m_level = local_a0.m_level << 7 | 64;
-            piVar17 = &local_50->m_playerLevel;
-            iVar12 = GetAvH(pCVar23, local_70.m_level, local_a0.m_level, local_50->m_playerLevel);
-            local_38 = iVar12 + (uint)bVar5 * -4;
+            piVar17 = &local_50->field_51984;
+            iVar12 = GetAvH(pCVar23, local_70.m_level, local_a0.m_level, local_50->field_51984);
+            local_38 = iVar12 + (unsigned int)bVar5 * -4;
             local_78 = (int)local_80 + pCVar34->field_8488;
-            local_b4 = pCVar34->field_8488 + (uint)local_88;
+            local_b4 = pCVar34->field_8488 + (unsigned int)local_88;
             make_shared<ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&>(
-                (jag*)&local_48, (int*)&local_54, piVar17, (int*)&local_70, (int*)&local_a0, (int*)&local_38,
-                (int*)&local_78, &local_b4, (int*)&local_5c, (int*)&local_34, (int*)local_90, (int*)&local_58);
+                (int*)&local_48, (int*)&local_54, piVar17, (int*)&local_70, (int*)&local_a0, (int*)&local_38,
+                (int*)&local_78, &local_b4, (int*)&local_5c, (int*)&local_34, (int*)&local_90);
             pCVar23 = (Client*)&local_48;
-            pCVar24 = (ClientProj*)shared_ptr<ClientProj>::operator->((shared_ptr<ClientProj>*)pCVar23);
+            pCVar24 = (ClientProj*)(*pCVar23).operator->();
             uVar36 = iVar35 * 128 | 64;
             uVar38 = iVar37 * 128 | 64;
             iVar35 = GetAvH(pCVar23, uVar36, uVar38, *piVar17);
             pCVar24->SetTarget(uVar36, uVar38, iVar35 - local_58, (int)local_80 + pCVar34->field_8488);
-            (&pCVar34->field_7164584, (shared_ptr*)&local_48)->push_back();
+            pCVar34->field_7164584.push_back(local_48);
             goto LAB_1001154e6;
         case 2:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            LVar32 = (LocShapeID)superPacket;
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar19->g1();
             bVar7 = bVar5 >> 2;
-            local_a8 = CONCAT71(local_a8._1_7_, bVar5);
-            local_54 = (uint)(bVar5 & 3);
-            local_88 = CONCAT44(local_88._4_4_, (uint)bVar7);
-            uVar36 = constants::LocShape::ToLayer();
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_a8 = (((uint64_t)local_a8._1_7_ << 8) | (uint8_t)bVar5);
+            local_54 = (unsigned int)(bVar5 & 3);
+            local_88 = (Logger*)(((uint64_t)local_88._4_4_ << 32) | (uint32_t)((unsigned int)bVar7));
+            uVar36 = ((LocShape*)(unsigned long)bVar7)->ToLayer(LVar32);
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar22->g2();
-            local_58 = (uint)uVar10;
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            local_58 = (unsigned int)uVar10;
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar19->g1();
             local_a0.m_level = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
-            local_90[0] = (bVar5 & 7) + *(int*)&local_50->field_1115288;
+            local_90._0_4_ = (bVar5 & 7) + *(int*)&local_50->field_1115288;
             local_80 =
                 (hashtable<
-                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
+                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>, eastl::allocator,
+                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
                     eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)((ulong)uVar36 & 255);
+                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)((unsigned long)uVar36 &
+                                                                                                 255);
             if (local_50->field_54760 != '\0') {
-                uVar27 = logger::default_logger();
-                logger::Logger::Log(uVar27, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4428, "Received loc_anim x:%i z:%i seq:%i layer:%u",
-                                    CONCAT44(uVar44, local_a0.m_level), CONCAT44(uVar47, local_90[0]),
-                                    CONCAT44(uVar49, local_58), CONCAT44(uVar50, (int)local_80));
+                pLVar27 = logger::default_logger();
+                pLVar27->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4428, "Received loc_anim x:%i z:%i seq:%i layer:%u",
+                             (((uint64_t)uVar42 << 32) | (uint32_t)local_a0.m_level),
+                             (((uint64_t)uVar43 << 32) | (uint32_t)local_90._0_4_),
+                             (((uint64_t)uVar44 << 32) | (uint32_t)local_58),
+                             (((uint64_t)uVar45 << 32) | (uint32_t)((int)local_80)));
             }
             pCVar34 = local_50;
+            uVar42 = local_90._0_4_;
+            uVar36 = local_a0.m_level;
             if (102 < (int)local_a0.m_level) {
                 return;
             }
             if ((int)local_a0.m_level < 0) {
                 return;
             }
-            if ((int)local_90[0] < 0) {
+            if ((int)local_90._0_4_ < 0) {
                 return;
             }
-            if (102 < (int)local_90[0]) {
+            if (102 < (int)local_90._0_4_) {
                 return;
             }
             switch (local_80) {
-            case (hashtable<
-                  eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                  eastl::allocator,
-                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)0:
-                iVar35 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                    (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)&local_50->field_19184);
-                dash3d::world::GetWall((int)&local_48, iVar35, pCVar34->m_playerLevel);
-                bVar9 = operator!=((shared_ptr*)&local_48, (_func_decltype_nullptr*)0);
+            case nullptr:
+                pwVar28 = (world*)local_50->field_19184.operator->();
+                local_48 = pwVar28->GetWall(pCVar34->field_51984, uVar36, uVar42);
+                bVar9 = local_48 != nullptr;
                 if (bVar9) {
-                    lVar40 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_48);
-                    local_5c = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar40 + 56));
-                    piVar17 = &local_50->m_playerLevel;
+                    lVar40 = local_48.operator->();
+                    local_5c = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar40 + 56));
+                    piVar17 = &local_50->field_51984;
                     if (bVar7 == 2) {
                         local_34 = 2;
                         local_38 = local_54 + 4;
                         local_78 = local_78 & 4294967040;
-                        lVar40 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_48);
-                        piVar1 = &local_50->field_8488;
+                        lVar40 = local_48.operator->();
                         make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
-                            (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_78,
-                            (shared_ptr*)(lVar40 + 24), piVar1);
-                        lVar40 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_48);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 24),
-                                                                   (shared_ptr*)&local_70);
-                        local_70.~shared_ptr();
+                            (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
+                            (int*)&local_a0, (int*)&local_90, (bool*)&local_58,
+                            (shared_ptr<dash3d::ModelSource>*)&local_78, (int*)(lVar40 + 24));
+                        lVar40 = local_48.operator->();
+                        (*((lVar40 + 24))) = local_70;
                         local_34 = 2;
                         local_38 = local_54 + 1 & 3;
                         local_78 = local_78 & 4294967040;
-                        lVar40 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_48);
+                        lVar40 = local_48.operator->();
                         make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
-                            (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_78,
-                            (shared_ptr*)(lVar40 + 40), piVar1);
-                        lVar40 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_48);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 40),
-                                                                   (shared_ptr*)&local_70);
+                            (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
+                            (int*)&local_a0, (int*)&local_90, (bool*)&local_58,
+                            (shared_ptr<dash3d::ModelSource>*)&local_78, (int*)(lVar40 + 40));
+                        lVar40 = local_48.operator->();
+                        (*((lVar40 + 40))) = local_70;
                     } else {
-                        local_34 = (uint)local_88;
+                        local_34 = (unsigned int)local_88;
                         local_38 = local_38 & 4294967040;
-                        lVar40 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_48);
+                        lVar40 = local_48.operator->();
                         make_shared<ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_54, piVar17,
-                            (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_38,
-                            (shared_ptr*)(lVar40 + 24), &local_50->field_8488);
-                        lVar40 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_48);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 24),
-                                                                   (shared_ptr*)&local_70);
+                            (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_54, piVar17,
+                            (int*)&local_a0, (int*)&local_90, (bool*)&local_58,
+                            (shared_ptr<dash3d::ModelSource>*)&local_38, (int*)(lVar40 + 24));
+                        lVar40 = local_48.operator->();
+                        (*((lVar40 + 24))) = local_70;
                     }
-                    local_70.~shared_ptr();
-                    local_48.~shared_ptr();
                     if (bVar9) {
                         return;
                     }
                 } else {
-                    local_48.~shared_ptr();
                 }
                 break;
-            case (hashtable<
-                  eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                  eastl::allocator,
-                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)1:
-                iVar35 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                    (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)&local_50->field_19184);
-                dash3d::world::GetDecor((int)&local_48, iVar35, pCVar34->m_playerLevel);
-                bVar9 = operator!=((shared_ptr*)&local_48, (_func_decltype_nullptr*)0);
+            case (
+                hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>, eastl::allocator,
+                          eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                          eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                          eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)1:
+                pwVar28 = (world*)local_50->field_19184.operator->();
+                local_48 = pwVar28->GetDecor(pCVar34->field_51984, uVar36, uVar42);
+                bVar9 = local_48 != nullptr;
                 if (bVar9) {
-                    lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
-                    local_5c = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar40 + 64));
-                    piVar17 = &local_50->m_playerLevel;
-                    if (((byte)local_a8 & 248) == 16) {
+                    lVar40 = local_48.operator->();
+                    local_5c = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar40 + 64));
+                    piVar17 = &local_50->field_51984;
+                    if (((uint8_t)local_a8 & 248) == 16) {
                         local_34 = 4;
                         local_38 = local_38 & 4294967040;
-                        lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
+                        lVar40 = local_48.operator->();
                         make_shared<ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool,
                                     shared_ptr<dash3d::ModelSource>&, int&>(
-                            (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_54, piVar17,
-                            (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_38,
-                            (shared_ptr*)(lVar40 + 32), &local_50->field_8488);
-                        lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
-                        shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 32),
-                                                                   (shared_ptr*)&local_70);
+                            (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_54, piVar17,
+                            (int*)&local_a0, (int*)&local_90, (bool*)&local_58,
+                            (shared_ptr<dash3d::ModelSource>*)&local_38, (int*)(lVar40 + 32));
+                        lVar40 = local_48.operator->();
+                        (*((lVar40 + 32))) = local_70;
                     LAB_100116e8f:
-                        local_70.~shared_ptr();
                     } else {
                         if (bVar7 == 8) {
                             local_34 = 4;
                             local_38 = local_54 + 4;
-                            local_78 = (uint)local_78._1_3_ << 8;
-                            lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
-                            piVar1 = &local_50->field_8488;
+                            local_78 = (unsigned int)local_78._1_3_ << 8;
+                            lVar40 = local_48.operator->();
                             make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                         shared_ptr<dash3d::ModelSource>&, int&>(
-                                (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
-                                (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_78,
-                                (shared_ptr*)(lVar40 + 32), piVar1);
-                            lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
-                            shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 32),
-                                                                       (shared_ptr*)&local_70);
-                            local_70.~shared_ptr();
+                                (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
+                                (int*)&local_a0, (int*)&local_90, (bool*)&local_58,
+                                (shared_ptr<dash3d::ModelSource>*)&local_78, (int*)(lVar40 + 32));
+                            lVar40 = local_48.operator->();
+                            (*((lVar40 + 32))) = local_70;
                             local_34 = 4;
                             local_38 = local_54 + 2 & 3 | 4;
                             local_78 = local_78 & 4294967040;
-                            lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
+                            lVar40 = local_48.operator->();
                             make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                         shared_ptr<dash3d::ModelSource>&, int&>(
-                                (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
-                                (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_78,
-                                (shared_ptr*)(lVar40 + 48), piVar1);
-                            lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
-                            shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 48),
-                                                                       (shared_ptr*)&local_70);
+                                (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
+                                (int*)&local_a0, (int*)&local_90, (bool*)&local_58,
+                                (shared_ptr<dash3d::ModelSource>*)&local_78, (int*)(lVar40 + 48));
+                            lVar40 = local_48.operator->();
+                            (*((lVar40 + 48))) = local_70;
                             goto LAB_100116e8f;
                         }
                         if (bVar7 == 7) {
                             local_34 = 4;
                             local_38 = local_54 + 2 & 3 | 4;
-                            local_78 = (uint)local_78._1_3_ << 8;
-                            lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
+                            local_78 = (unsigned int)local_78._1_3_ << 8;
+                            lVar40 = local_48.operator->();
                             make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                         shared_ptr<dash3d::ModelSource>&, int&>(
-                                (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
-                                (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_78,
-                                (shared_ptr*)(lVar40 + 32), &local_50->field_8488);
-                            lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
-                            shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 32),
-                                                                       (shared_ptr*)&local_70);
+                                (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
+                                (int*)&local_a0, (int*)&local_90, (bool*)&local_58,
+                                (shared_ptr<dash3d::ModelSource>*)&local_78, (int*)(lVar40 + 32));
+                            lVar40 = local_48.operator->();
+                            (*((lVar40 + 32))) = local_70;
                             goto LAB_100116e8f;
                         }
                         if (bVar7 == 6) {
                             local_34 = 4;
                             local_38 = local_54 + 4;
                             local_78 = local_78 & 4294967040;
-                            lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
+                            lVar40 = local_48.operator->();
                             make_shared<ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                         shared_ptr<dash3d::ModelSource>&, int&>(
-                                (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
-                                (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_78,
-                                (shared_ptr*)(lVar40 + 32), &local_50->field_8488);
-                            lVar40 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_48);
-                            shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 32),
-                                                                       (shared_ptr*)&local_70);
+                                (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_38, piVar17,
+                                (int*)&local_a0, (int*)&local_90, (bool*)&local_58,
+                                (shared_ptr<dash3d::ModelSource>*)&local_78, (int*)(lVar40 + 32));
+                            lVar40 = local_48.operator->();
+                            (*((lVar40 + 32))) = local_70;
                             goto LAB_100116e8f;
                         }
                     }
-                    local_48.~shared_ptr();
                     if (bVar9) {
                         return;
                     }
                 } else {
-                    local_48.~shared_ptr();
                 }
                 break;
-            case (hashtable<
-                  eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                  eastl::allocator,
-                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)2:
-                iVar35 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                    (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)&local_50->field_19184);
-                dash3d::world::GetScene((int)&local_48, iVar35, pCVar34->m_playerLevel);
+            case (
+                hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>, eastl::allocator,
+                          eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                          eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                          eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)2:
+                pwVar28 = (world*)local_50->field_19184.operator->();
+                local_48 = pwVar28->GetScene(pCVar34->field_51984, uVar36, uVar42);
                 uVar36 = 10;
                 if ((char)local_88 != '\v') {
-                    uVar36 = (uint)local_88;
+                    uVar36 = (unsigned int)local_88;
                 }
-                bVar9 = operator!=((shared_ptr*)&local_48, (_func_decltype_nullptr*)0);
+                bVar9 = local_48 != nullptr;
                 if (bVar9) {
-                    lVar40 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)&local_48);
-                    local_5c = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar40 + 80));
+                    lVar40 = local_48.operator->();
+                    local_5c = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar40 + 80));
                     local_34 = uVar36 & 255;
                     local_38 = local_38 & 4294967040;
-                    lVar40 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)&local_48);
+                    lVar40 = local_48.operator->();
                     make_shared<ClientLocAnim, int, int, int&, int&, int&, int&, int&, bool,
                                 shared_ptr<dash3d::ModelSource>&, int&>(
-                        (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_54, &local_50->m_playerLevel,
-                        (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_38, (shared_ptr*)(lVar40 + 32),
-                        &local_50->field_8488);
-                    lVar40 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)&local_48);
-                    shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 32),
-                                                               (shared_ptr*)&local_70);
-                    local_70.~shared_ptr();
-                    local_48.~shared_ptr();
+                        (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_54, &local_50->field_51984,
+                        (int*)&local_a0, (int*)&local_90, (bool*)&local_58, (shared_ptr<dash3d::ModelSource>*)&local_38,
+                        (int*)(lVar40 + 32));
+                    lVar40 = local_48.operator->();
+                    (*((lVar40 + 32))) = local_70;
                 LAB_100116b55:
                     if (bVar9 != false) {
                         return;
                     }
                 } else {
-                    local_48.~shared_ptr();
                 }
                 break;
-            case (hashtable<
-                  eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                  eastl::allocator,
-                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)3:
-                iVar35 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                    (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)&local_50->field_19184);
-                dash3d::world::GetGd((int)&local_48, iVar35, pCVar34->m_playerLevel);
-                bVar9 = operator!=((shared_ptr*)&local_48, (_func_decltype_nullptr*)0);
+            case (
+                hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>, eastl::allocator,
+                          eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                          eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                          eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)3:
+                pwVar28 = (world*)local_50->field_19184.operator->();
+                local_48 = pwVar28->GetGd(pCVar34->field_51984, uVar36, uVar42);
+                bVar9 = local_48 != nullptr;
                 if (bVar9) {
-                    lVar40 = shared_ptr<dash3d::GroundDecor>::operator->((shared_ptr<dash3d::GroundDecor>*)&local_48);
-                    local_5c = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar40 + 32));
+                    lVar40 = local_48.operator->();
+                    local_5c = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar40 + 32));
                     local_34 = 22;
                     local_38 = local_38 & 4294967040;
-                    lVar40 = shared_ptr<dash3d::GroundDecor>::operator->((shared_ptr<dash3d::GroundDecor>*)&local_48);
+                    lVar40 = local_48.operator->();
                     make_shared<ClientLocAnim, int, int, int&, int&, int&, int&, int&, bool,
                                 shared_ptr<dash3d::ModelSource>&, int&>(
-                        (jag*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_54, &pCVar34->m_playerLevel,
-                        (int*)&local_a0, (int*)local_90, (int*)&local_58, (bool*)&local_38, (shared_ptr*)(lVar40 + 16),
-                        &pCVar34->field_8488);
-                    lVar40 = shared_ptr<dash3d::GroundDecor>::operator->((shared_ptr<dash3d::GroundDecor>*)&local_48);
-                    shared_ptr<dash3d::ModelSource>::operator=((shared_ptr<dash3d::ModelSource>*)(lVar40 + 16),
-                                                               (shared_ptr*)&local_70);
-                    local_70.~shared_ptr();
-                    local_48.~shared_ptr();
+                        (int*)&local_70, (int*)&local_5c, (int*)&local_34, (int*)&local_54, &pCVar34->field_51984,
+                        (int*)&local_a0, (int*)&local_90, (bool*)&local_58, (shared_ptr<dash3d::ModelSource>*)&local_38,
+                        (int*)(lVar40 + 16));
+                    lVar40 = local_48.operator->();
+                    (*((lVar40 + 16))) = local_70;
                     bVar9 = true;
                     goto LAB_100116b55;
                 }
-                local_48.~shared_ptr();
             }
-            LocChangeAnim(local_50, local_50->m_playerLevel, local_a0.m_level, local_90[0], local_80, local_58);
+            LocChangeAnim(local_50, local_50->field_51984, local_a0.m_level, local_90._0_4_, (LocLayer)local_80,
+                          local_58);
             break;
         case 3:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             bVar5 = pPVar20->g1();
             pCVar34 = local_50;
-            iVar37 = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
-            iVar35 = (bVar5 & 7) + *(int*)&local_50->field_1115288;
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
-            uVar13 = pSVar21->g1();
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            lVar41 = (unsigned long)(bVar5 >> 4 & 7) + (long)*(int*)&local_50->field_1115284;
+            lVar40 = (unsigned long)(bVar5 & 7) + (long)*(int*)&local_50->field_1115288;
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+            uVar15 = pSVar21->g1();
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar22->g2();
+            iVar35 = (int)lVar40;
+            iVar37 = (int)lVar41;
             if (pCVar34->field_54760 != '\0') {
-                uVar27 = logger::default_logger();
-                logger::Logger::Log(uVar27, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4955, "Received obj_enabled_ops x:%d z:%d type:%d enabledOpsBitMask:%u",
-                                    CONCAT44(uVar44, iVar37), CONCAT44(uVar47, iVar35), CONCAT44(uVar49, (uint)uVar10),
-                                    CONCAT44(uVar50, uVar13) & 18446744069414584575);
+                pLVar27 = logger::default_logger();
+                pLVar27->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4955, "Received obj_enabled_ops x:%d z:%d type:%d enabledOpsBitMask:%u",
+                             (((uint64_t)uVar42 << 32) | (uint32_t)iVar37),
+                             (((uint64_t)uVar43 << 32) | (uint32_t)iVar35),
+                             (((uint64_t)uVar44 << 32) | (uint32_t)((unsigned int)uVar10)),
+                             (((uint64_t)uVar45 << 32) | (uint32_t)uVar15) & 18446744069414584575);
             }
             if (((iVar37 < 104) && (-1 < iVar37)) && ((-1 < iVar35 && (iVar35 < 104)))) {
-                local_48.begin();
-                local_70.end();
-                bVar9 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_70, extraout_RDX);
-                if (bVar9) {
+                iVar35 = local_50->field_51984;
+                puVar31 = local_50->field_1120504;
+                local_48 = ((list<console::Line>*)(puVar31 + lVar40 * 32 + lVar41 * 3328 + (long)iVar35 * 346112 + 56))
+                               ->begin();
+                local_70 =
+                    ((list<console::Line>*)(puVar31 + lVar40 * 32 + lVar41 * 3328 + (long)iVar35 * 346112 + 56))->end();
+                cVar4 = local_48 != local_70;
+                if (cVar4) {
                     do {
-                        pvVar25 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_48);
-                        pAVar26 = (AnimationWrapper*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-                            pvVar25);
-                        if (*(uint*)(pAVar26->m_source + 8) == (uVar10 & 32767)) {
-                            pAVar26->SetReadyAnim(SUB41(uVar13, 0));
+                        pvVar25 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)*local_48;
+                        pAVar26 = (AnimationWrapper*)pvVar25->end();
+                        if (*(unsigned int*)(pAVar26->m_source + 8) == (uVar10 & 32767)) {
+                            pAVar26->SetReadyAnim((unsigned char)uVar15);
                             return;
                         }
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_48);
-                        bVar9 =
-                            eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_70, extraout_RDX_00);
-                    } while (bVar9);
+                        ++local_48;
+                        cVar4 = local_48 != local_70;
+                    } while (cVar4);
                 }
             }
             break;
         case 4:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            LVar32 = (LocShapeID)superPacket;
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             bVar5 = pPVar20->g1();
             pCVar34 = local_50;
             iVar35 = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
             iVar37 = (bVar5 & 7) + *(int*)&local_50->field_1115288;
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar19->g1();
-            bVar7 = bVar5 >> 2;
-            uVar8 = constants::LocShape::ToLayer(bVar7);
-            uVar50 = (undefined4)(in_stack_fffffffffffffe80 >> 32);
+            bVar29 = bVar5 >> 2;
+            bVar7 = ((LocShape*)(unsigned long)bVar29)->ToLayer(LVar32);
             if (pCVar34->field_54760 != '\0') {
-                uVar27 = logger::default_logger();
-                in_stack_fffffffffffffe80 = CONCAT44(uVar50, (uint)bVar7);
-                uVar48 = CONCAT44(uVar49, (uint)(bVar5 & 3));
-                uVar45 = CONCAT44(uVar47, iVar37);
-                uVar42 = CONCAT44(uVar44, iVar35);
-                logger::Logger::Log(uVar27, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4397, "Received loc_del x:%d z:%d rotate:%d shape:%u", uVar42, uVar45, uVar48,
-                                    in_stack_fffffffffffffe80);
-                uVar49 = (undefined4)((ulong)uVar48 >> 32);
-                uVar44 = (undefined4)((ulong)uVar42 >> 32);
-                uVar47 = (undefined4)((ulong)uVar45 >> 32);
+                pLVar27 = logger::default_logger();
+                pLVar27->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4397, "Received loc_del x:%d z:%d rotate:%d shape:%u",
+                             (((uint64_t)uVar42 << 32) | (uint32_t)iVar35),
+                             (((uint64_t)uVar43 << 32) | (uint32_t)iVar37),
+                             (((uint64_t)uVar44 << 32) | (uint32_t)((unsigned int)(bVar5 & 3))),
+                             (((uint64_t)uVar45 << 32) | (uint32_t)((unsigned int)bVar29)));
             }
             if ((((iVar35 < 104) && (-1 < iVar35)) && (-1 < iVar37)) && (iVar37 < 104)) {
-                LocChangeCreate(local_50, local_50->m_playerLevel, iVar35, iVar37, uVar8, 4294967295,
-                                CONCAT44(uVar44, (uint)bVar7), CONCAT44(uVar47, (uint)(bVar5 & 3)),
-                                CONCAT44(uVar49, 31), in_stack_fffffffffffffe80 & 18446744069414584320,
-                                CONCAT44(uVar13, 4294967295));
+                LocChangeCreate(local_50, local_50->field_51984, iVar35, iVar37, (unsigned int)bVar7, -1,
+                                (unsigned int)bVar29, (unsigned int)(bVar5 & 3), '\x1f', 0, -1);
             }
             break;
         case 5:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
-            uVar15 = pSVar19->g4();
-            local_88 = CONCAT44(local_88._4_4_, uVar15);
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
-            uVar14 = pSVar21->g4s();
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+            uVar14 = pSVar19->g4();
+            local_88 = (Logger*)(((uint64_t)local_88._4_4_ << 32) | (uint32_t)uVar14);
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
+            uVar13 = pSVar21->g4s();
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             bVar5 = pPVar20->g1();
             pCVar34 = local_50;
-            iVar35 = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
-            lVar40 = (ulong)(bVar5 & 7) + (long)*(int*)&local_50->field_1115288;
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            lVar41 = (unsigned long)(bVar5 >> 4 & 7) + (long)*(int*)&local_50->field_1115284;
+            lVar40 = (unsigned long)(bVar5 & 7) + (long)*(int*)&local_50->field_1115288;
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar19->g2();
-            uVar15 = (uint)local_88;
-            local_74 = (uint)uVar10;
+            uVar14 = (unsigned int)local_88;
+            local_74 = (unsigned int)uVar10;
             iVar37 = (int)lVar40;
+            iVar35 = (int)lVar41;
             if (pCVar34->field_54760 != '\0') {
-                uVar27 = logger::default_logger();
-                logger::Logger::Log(uVar27, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4907, "Received obj_count x:%d z:%d type:%d ocount:%d count:%d",
-                                    CONCAT44(uVar44, iVar35), CONCAT44(uVar47, iVar37), CONCAT44(uVar49, local_74),
-                                    CONCAT44(uVar50, uVar14), CONCAT44(uVar13, uVar15));
+                pLVar27 = logger::default_logger();
+                pLVar27->Log(
+                    false, 5,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                    "client_network.cpp",
+                    4907, "Received obj_count x:%d z:%d type:%d ocount:%d count:%d",
+                    (((uint64_t)uVar42 << 32) | (uint32_t)iVar35), (((uint64_t)uVar43 << 32) | (uint32_t)iVar37),
+                    (((uint64_t)uVar44 << 32) | (uint32_t)local_74), (((uint64_t)uVar45 << 32) | (uint32_t)uVar13),
+                    (((uint64_t)uVar15 << 32) | (uint32_t)uVar14));
             }
             if (103 < iVar35) {
                 return;
@@ -6075,195 +5402,184 @@ namespace jag::oldscape {
             if (103 < iVar37) {
                 return;
             }
-            local_80 =
-                (hashtable<
-                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                    eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)CONCAT44(local_80._4_4_,
-                                                                                                         uVar14);
+            local_80 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>,
+                                  eastl::allocator,
+                                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
+                                  true>*)(((uint64_t)local_80._4_4_ << 32) | (uint32_t)uVar13);
+            iVar37 = local_50->field_51984;
+            puVar31 = local_50->field_1120504;
             local_a8 = lVar40;
-            local_a0.begin();
-            local_90->end();
-            bVar9 = eastl::operator!=((eastl*)&local_a0, (hashtable_iterator_base*)local_90, extraout_RDX_01);
-            if (bVar9) {
+            local_a0 =
+                ((list<console::Line>*)(puVar31 + lVar40 * 32 + lVar41 * 3328 + (long)iVar37 * 346112 + 56))->begin();
+            local_90 =
+                ((list<console::Line>*)(puVar31 + lVar40 * 32 + lVar41 * 3328 + (long)iVar37 * 346112 + 56))->end();
+            cVar4 = local_a0 != local_90;
+            if (cVar4) {
                 uVar36 = local_74 & 32767;
                 do {
-                    pvVar25 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_a0);
-                    lVar40 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar25);
+                    pvVar25 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)*local_a0;
+                    lVar40 = pvVar25->end();
                     uVar38 = local_74;
-                    if ((*(uint*)(lVar40 + 24) == uVar36) && (*(int*)(lVar40 + 28) == (int)local_80)) {
-                        *(uint*)(lVar40 + 28) = (uint)local_88;
-                        local_48.List(local_74);
-                        new (&local_70) rs2lib::CoordGrid(local_50->m_playerLevel, iVar35, (int)local_a8);
-                        weak_ptr<dash3d::Decor>::weak_ptr(local_f0, (weak_ptr*)pvVar25);
-                        ScriptRunner::SetActiveObj(&local_70, local_f0);
-                        local_f0->~weak_ptr();
-                        lVar40 = shared_ptr<configdecoder::ObjType>::operator->(
-                            (shared_ptr<configdecoder::ObjType>*)&local_48);
-                        ScriptRunner::ExecuteScript(46, uVar38, *(undefined4*)(lVar40 + 672), 500000);
-                        local_48.~shared_ptr();
+                    if ((*(unsigned int*)(lVar40 + 24) == uVar36) && (*(int*)(lVar40 + 28) == (int)local_80)) {
+                        *(unsigned int*)(lVar40 + 28) = (unsigned int)local_88;
+                        local_48 = configdecoder::ObjType::List(local_74);
+                        local_70 = rs2lib::CoordGrid(local_50->field_51984, iVar35, (int)local_a8);
+                        local_f0 = weak_ptr(*pvVar25);
+                        local_70.SetActiveObj(local_f0, clientObj);
+                        lVar40 = local_48.operator->();
+                        ScriptRunner::ExecuteScript(46, uVar38, *(int*)(lVar40 + 672), 500000);
                         break;
                     }
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_a0);
-                    bVar9 = eastl::operator!=((eastl*)&local_a0, (hashtable_iterator_base*)local_90, extraout_RDX_02);
-                } while (bVar9);
+                    ++local_a0;
+                    cVar4 = local_a0 != local_90;
+                } while (cVar4);
             }
             pCVar34 = local_50;
             lVar40 = local_a8;
             ShowObject(local_50, iVar35, (int)local_a8);
-            iVar37 = pCVar34->m_playerLevel;
+            iVar37 = pCVar34->field_51984;
             goto LAB_100116569;
         case 6:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar19->g1();
             pCVar34 = local_50;
             local_70.m_level = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
             local_a0.m_level = (bVar5 & 7) + *(int*)&local_50->field_1115288;
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             uVar10 = pPVar20->g2();
-            local_54 = (uint)uVar10;
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            local_54 = (unsigned int)uVar10;
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar19->g1();
-            pCVar23 = (Client*)local_48.p2_alt2();
+            pCVar23 = (Client*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pCVar23->g2();
-            local_90[0] = (uint)uVar10;
+            local_90._0_4_ = (uint32_t)uVar10;
             if (pCVar34->field_54760 != '\0') {
                 pCVar23 = (Client*)logger::default_logger();
-                logger::Logger::Log(pCVar23, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4757, "Received map_anim x:%d z:%d spotanim:%d height:%d time:%d",
-                                    CONCAT44(uVar44, local_70.m_level), CONCAT44(uVar47, local_a0.m_level),
-                                    CONCAT44(uVar49, local_90[0]), CONCAT44(uVar50, (uint)bVar5),
-                                    CONCAT44(uVar13, local_54));
+                pCVar23->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4757, "Received map_anim x:%d z:%d spotanim:%d height:%d time:%d",
+                             (((uint64_t)uVar42 << 32) | (uint32_t)local_70.m_level),
+                             (((uint64_t)uVar43 << 32) | (uint32_t)local_a0.m_level),
+                             (((uint64_t)uVar44 << 32) | (uint32_t)local_90._0_4_),
+                             (((uint64_t)uVar45 << 32) | (uint32_t)((unsigned int)bVar5)),
+                             (((uint64_t)uVar15 << 32) | (uint32_t)local_54));
             }
             if ((((int)local_70.m_level < 104) && (-1 < (int)local_70.m_level)) &&
                 ((-1 < (int)local_a0.m_level && ((int)local_a0.m_level < 104)))) {
                 local_70.m_level = local_70.m_level << 7 | 64;
                 local_a0.m_level = local_a0.m_level << 7 | 64;
-                iVar35 = GetAvH(pCVar23, local_70.m_level, local_a0.m_level, pCVar34->m_playerLevel);
-                local_58 = iVar35 - (uint)bVar5;
+                iVar35 = GetAvH(pCVar23, local_70.m_level, local_a0.m_level, pCVar34->field_51984);
+                local_58 = iVar35 - (unsigned int)bVar5;
                 make_shared<MapSpotAnim, int&, int&, int&, int&, int, int&, int&>(
-                    (jag*)&local_48, (int*)local_90, &pCVar34->m_playerLevel, (int*)&local_70, (int*)&local_a0,
-                    (int*)&local_58, (int*)&local_54, &pCVar34->field_8488);
-                (&pCVar34->field_7164616, (shared_ptr*)&local_48)->push_back();
-                local_48.~shared_ptr();
+                    (int*)&local_48, (int*)&local_90, &pCVar34->field_51984, (int*)&local_70, (int*)&local_a0,
+                    (int*)&local_58, (int*)&local_54);
+                pCVar34->field_7164616.push_back(local_48);
             }
             break;
         case 7:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            LVar32 = (LocShapeID)superPacket;
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar22->g1();
-            local_74 = CONCAT31(local_74._1_3_, bVar5);
-            local_80 =
-                (hashtable<
-                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                    eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
-                    CONCAT44(local_80._4_4_, (uint)(bVar5 & 3));
-            local_88 = CONCAT44(local_88._4_4_, (uint)(bVar5 >> 2));
-            uVar8 = constants::LocShape::ToLayer();
-            local_b0 = CONCAT31(local_b0._1_3_, uVar8);
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            local_74 = (((uint32_t)local_74._1_3_ << 8) | (uint8_t)bVar5);
+            local_80 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>,
+                                  eastl::allocator,
+                                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
+                                  true>*)(((uint64_t)local_80._4_4_ << 32) | (uint32_t)((unsigned int)(bVar5 & 3)));
+            local_88 = (Logger*)(((uint64_t)local_88._4_4_ << 32) | (uint32_t)((unsigned int)(bVar5 >> 2)));
+            uVar8 = ((LocShape*)(unsigned long)(bVar5 >> 2))->ToLayer(LVar32);
+            local_b0 = (((uint32_t)local_b0._1_3_ << 8) | (uint8_t)uVar8);
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar19->g1();
             pCVar34 = local_50;
             iVar35 = (bVar5 >> 4 & 7) + *(int*)&local_50->field_1115284;
             uVar36 = (bVar5 & 7) + *(int*)&local_50->field_1115288;
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar21->g2();
-            local_a8 = CONCAT44(local_a8._4_4_, (uint)uVar10);
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_a8 = (((uint64_t)local_a8._4_4_ << 32) | (uint32_t)((unsigned int)uVar10));
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             local_ac = pSVar22->g1s();
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             local_ab = pSVar19->g1s();
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             local_b8 = pSVar22->g2();
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar22->g2();
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             local_a9 = pSVar21->g1s();
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             local_aa = pPVar20->g1s();
-            uVar15 = (uint)local_88;
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            uVar14 = (unsigned int)local_88;
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             local_b6 = pSVar21->g2();
-            uVar14 = (int)local_80;
+            uVar13 = (int)local_80;
             if (pCVar34->field_54760 != '\0') {
-                uVar27 = logger::default_logger();
-                uVar45 = CONCAT44(uVar47, uVar36);
-                uVar42 = CONCAT44(uVar44, iVar35);
-                param_3 = (SuperPacket*)0;
-                logger::Logger::Log(uVar27, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4815, "Received p_locmerge x:%d z:%d id:%d rotate:%d shape:%u", uVar42, uVar45,
-                                    CONCAT44(uVar49, (uint)uVar10), CONCAT44(uVar50, uVar14), CONCAT44(uVar13, uVar15));
-                uVar44 = (undefined4)((ulong)uVar42 >> 32);
-                uVar47 = (undefined4)((ulong)uVar45 >> 32);
+                pLVar27 = logger::default_logger();
+                pLVar27->Log(
+                    false, 5,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                    "client_network.cpp",
+                    4815, "Received p_locmerge x:%d z:%d id:%d rotate:%d shape:%u",
+                    (((uint64_t)uVar42 << 32) | (uint32_t)iVar35), (((uint64_t)uVar43 << 32) | (uint32_t)uVar36),
+                    (((uint64_t)uVar44 << 32) | (uint32_t)((unsigned int)uVar10)),
+                    (((uint64_t)uVar45 << 32) | (uint32_t)uVar13), (((uint64_t)uVar15 << 32) | (uint32_t)uVar14));
             }
-            new (&local_48) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(param_3);
+            local_48 = shared_ptr();
             if (local_50->field_51988 == (int)local_a8) {
-                shared_ptr<ClientPlayer>::operator=((shared_ptr<ClientPlayer>*)&local_48,
-                                                    (shared_ptr*)local_50->field_52016);
+                local_48 = local_50->field_52016;
             } else {
-                psVar29 = (shared_ptr*)std::array<shared_ptr<ClientPlayer>, 2048ul>::operator[](
-                    (array<shared_ptr<ClientPlayer>, 2048ul>*)&local_50->field_19216, local_a8 & 4294967295);
-                shared_ptr<ClientPlayer>::operator=((shared_ptr<ClientPlayer>*)&local_48, psVar29);
+                clientPlayer = &local_50->field_19216[local_a8 & 4294967295];
+                local_48 = *clientPlayer;
             }
-            bVar9 = operator!=((shared_ptr*)&local_48, (_func_decltype_nullptr*)0);
+            bVar9 = local_48 != nullptr;
             if (bVar9) {
                 local_d8 = local_48.end();
-                psVar29 = (shared_ptr*)configdecoder::LocType::List((uint)uVar10);
-                new (&local_70) shared_ptr<dash3d::Decor>(psVar29);
+                groundDecor_00 = (shared_ptr<dash3d::GroundDecor>*)configdecoder::LocType::List((unsigned int)uVar10);
+                local_70 = shared_ptr(groundDecor_00);
                 local_e0 = local_70.end();
                 pCVar34 = local_50;
-                uVar38 = *(uint*)(local_e0 + 184 + (ulong)((byte)local_74 & 1) * 4);
-                local_c0 = (ulong)uVar38;
-                uVar2 = *(uint*)(local_e0 + 184 + (ulong)((local_74 & 1) == 0) * 4);
-                local_a8 = (ulong)uVar2;
+                uVar38 = *(unsigned int*)(local_e0 + 184 + (unsigned long)((uint8_t)local_74 & 1) * 4);
+                local_c0 = (unsigned long)uVar38;
+                uVar1 = *(unsigned int*)(local_e0 + 184 + (unsigned long)((local_74 & 1) == 0) * 4);
+                local_a8 = (unsigned long)uVar1;
                 iVar39 = ((int)uVar38 >> 1) + iVar35;
-                iVar37 = ((int)uVar2 >> 1) + uVar36;
+                iVar37 = ((int)uVar1 >> 1) + uVar36;
                 local_74 = uVar36;
-                local_c8 = ClientBuild::Read3DArray<int>((Array*)&ClientBuild::m_groundh, local_50->m_playerLevel,
+                local_c8 = ClientBuild::Read3DArray<int>((Array<int>*)&ClientBuild::m_groundh, local_50->field_51984,
                                                          iVar39, iVar37);
-                iVar37 = ClientBuild::Read3DArray<int>((Array*)&ClientBuild::m_groundh, pCVar34->m_playerLevel,
+                iVar37 = ClientBuild::Read3DArray<int>((Array<int>*)&ClientBuild::m_groundh, pCVar34->field_51984,
                                                        ((int)local_c0 + 1 >> 1) + iVar35, iVar37);
                 iVar12 = ((int)local_a8 + 1 >> 1) + local_74;
-                local_c4 = ClientBuild::Read3DArray<int>((Array*)&ClientBuild::m_groundh, pCVar34->m_playerLevel,
+                local_c4 = ClientBuild::Read3DArray<int>((Array<int>*)&ClientBuild::m_groundh, pCVar34->field_51984,
                                                          iVar39, iVar12);
-                iVar12 = ClientBuild::Read3DArray<int>((Array*)&ClientBuild::m_groundh, pCVar34->m_playerLevel, iVar39,
-                                                       iVar12);
-                iVar12 = iVar37 + local_c8 + local_c4 + iVar12 >> 2;
+                iVar12 = ClientBuild::Read3DArray<int>((Array<int>*)&ClientBuild::m_groundh, pCVar34->field_51984,
+                                                       iVar39, iVar12);
+                iVar39 = iVar37 + local_c8 + local_c4;
                 iVar37 = (int)local_c0 * 64 + iVar35 * 128;
-                uVar36 = (int)local_a8 * 64 + local_74 * 128;
-                local_a8 = (ulong)uVar36;
-                uVar46 = CONCAT44(uVar47, uVar36);
-                uVar43 = CONCAT44(uVar44, iVar12);
-                local_a0.GetModelLit((int)local_e0, (uint)local_88, (int)local_80, pCVar34->m_playerLevel, iVar37,
-                                     iVar12);
-                bVar9 = operator!=((shared_ptr*)&local_a0, (_func_decltype_nullptr*)0);
+                local_a8 = (unsigned long)((int)local_a8 * 64 + local_74 * 128);
+                configdecoder::LocType::GetModelLit((int)&local_a0, (int)local_e0, (unsigned int)local_88,
+                                                    (int)local_80, pCVar34->field_51984, iVar37);
+                bVar9 = local_a0 != nullptr;
                 uVar3 = local_b6;
                 uVar10 = local_b8;
                 if (bVar9) {
-                    LocChangeCreate(local_50, local_50->m_playerLevel, iVar35, local_74, (undefined1)local_b0,
-                                    4294967295, uVar43 & 18446744069414584320, uVar46 & 18446744069414584320, 31,
+                    LocChangeCreate(local_50, local_50->field_51984, iVar35, local_74, local_b0 & 255, -1, 0, 0, '\x1f',
                                     local_b8 + 1, local_b6 + 1);
-                    iVar39 = local_50->field_8488;
-                    *(uint*)(local_d8 + 1140) = (uint)uVar10 + iVar39;
-                    *(uint*)(local_d8 + 1144) = (uint)uVar3 + iVar39;
-                    shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)(local_d8 + 1160),
-                                                            (shared_ptr*)&local_a0);
+                    iVar2 = local_50->field_8488;
+                    *(unsigned int*)(local_d8 + 1140) = (unsigned int)uVar10 + iVar2;
+                    *(unsigned int*)(local_d8 + 1144) = (unsigned int)uVar3 + iVar2;
+                    (*((local_d8 + 1160))) = local_a0;
                     *(int*)(local_d8 + 1148) = iVar37;
                     *(int*)(local_d8 + 1156) = (int)local_a8;
-                    *(int*)(local_d8 + 1152) = iVar12;
+                    *(int*)(local_d8 + 1152) = iVar39 + iVar12 >> 2;
                     cVar4 = local_ac;
                     if (local_ac < local_a9) {
                         cVar4 = local_a9;
@@ -6276,180 +5592,169 @@ namespace jag::oldscape {
                     if (local_aa < local_ab) {
                         cVar33 = local_ab;
                     }
-                    cVar31 = local_ab;
+                    cVar30 = local_ab;
                     if (local_aa < local_ab) {
-                        cVar31 = local_aa;
+                        cVar30 = local_aa;
                     }
                     *(int*)(local_d8 + 1176) = cVar6 + iVar35;
                     *(int*)(local_d8 + 1184) = cVar4 + iVar35;
-                    *(uint*)(local_d8 + 1180) = (int)cVar31 + local_74;
-                    *(uint*)(local_d8 + 1188) = (int)cVar33 + local_74;
+                    *(unsigned int*)(local_d8 + 1180) = (int)cVar30 + local_74;
+                    *(unsigned int*)(local_d8 + 1188) = (int)cVar33 + local_74;
                 }
-                local_a0.~shared_ptr();
-                local_70.~shared_ptr();
             }
-            local_48.~shared_ptr();
             break;
         case 8:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             cVar4 = pSVar22->g1();
-            local_88 = CONCAT71(local_88._1_7_, cVar4 == '\x01');
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_88 = (Logger*)(((uint64_t)local_88._1_7_ << 8) | (uint8_t)(cVar4 == '\x01'));
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar22->g1();
             pCVar34 = local_50;
-            lVar40 = (ulong)(bVar5 >> 4 & 7) + (long)*(int*)&local_50->field_1115284;
-            lVar41 = (ulong)(bVar5 & 7) + (long)*(int*)&local_50->field_1115288;
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            lVar40 = (unsigned long)(bVar5 >> 4 & 7) + (long)*(int*)&local_50->field_1115284;
+            lVar41 = (unsigned long)(bVar5 & 7) + (long)*(int*)&local_50->field_1115288;
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             uVar8 = pPVar20->g1();
-            local_80 =
-                (hashtable<
-                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                    eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)CONCAT71(local_80._1_7_,
-                                                                                                         uVar8);
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
-            uVar15 = pPVar20->g4();
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            local_80 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>,
+                                  eastl::allocator,
+                                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
+                                  true>*)(((uint64_t)local_80._1_7_ << 8) | (uint8_t)uVar8);
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
+            uVar14 = pPVar20->g4();
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar11 = pSVar21->g2();
-            local_a8 = CONCAT62(local_a8._2_6_, uVar11);
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_a8 = (((uint64_t)local_a8._2_6_ << 16) | (uint16_t)uVar11);
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             uVar11 = pSVar22->g2();
-            local_74 = CONCAT22(local_74._2_2_, uVar11);
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_74 = (((uint32_t)local_74._2_2_ << 16) | (uint16_t)uVar11);
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar22->g1();
-            local_c0 = CONCAT71(local_c0._1_7_, uVar8);
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            local_c0 = (((uint64_t)local_c0._1_7_ << 8) | (uint8_t)uVar8);
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             uVar10 = pPVar20->g2();
-            uVar36 = (uint)uVar10;
-            uVar38 = (uint)(byte)local_80;
+            uVar36 = (unsigned int)uVar10;
+            uVar38 = (unsigned int)(uint8_t)local_80;
             iVar37 = (int)lVar41;
             iVar35 = (int)lVar40;
             if (pCVar34->field_54760 != '\0') {
-                uVar27 = logger::default_logger();
-                logger::Logger::Log(uVar27, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4540, "Received obj_add_v3 x:%d z:%d type:%d count:%d enabledOpsBitMask:%u",
-                                    CONCAT44(uVar44, iVar35), CONCAT44(uVar47, iVar37), CONCAT44(uVar49, uVar36),
-                                    CONCAT44(uVar50, uVar15), CONCAT44(uVar13, uVar38));
+                pLVar27 = logger::default_logger();
+                pLVar27->Log(
+                    false, 5,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                    "client_network.cpp",
+                    4540, "Received obj_add_v3 x:%d z:%d type:%d count:%d enabledOpsBitMask:%u",
+                    (((uint64_t)uVar42 << 32) | (uint32_t)iVar35), (((uint64_t)uVar43 << 32) | (uint32_t)iVar37),
+                    (((uint64_t)uVar44 << 32) | (uint32_t)uVar36), (((uint64_t)uVar45 << 32) | (uint32_t)uVar14),
+                    (((uint64_t)uVar15 << 32) | (uint32_t)uVar38));
             }
-            uVar2 = local_74;
+            uVar1 = local_74;
             if (((iVar35 < 104) && (-1 < iVar35)) && ((-1 < iVar37 && (iVar37 < 104)))) {
-                local_80 =
-                    (hashtable<eastl::string,
-                               eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                               eastl::allocator,
-                               eastl::use_first<
-                                   eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                               eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                               eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
-                        CONCAT44(local_80._4_4_, uVar38);
-                uVar10 = (ushort)local_a8;
-                local_a8 = CONCAT44(local_a8._4_4_, (uint)(byte)local_c0);
-                local_b0 = uVar15;
-                make_shared<ClientObj>((jag*)&local_48);
+                local_80 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>,
+                                      eastl::allocator,
+                                      eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                                      eastl::equal_to<eastl::string>, eastl::hash<eastl::string>,
+                                      eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy,
+                                      false, true, true>*)(((uint64_t)local_80._4_4_ << 32) | (uint32_t)uVar38);
+                uVar10 = (unsigned short)local_a8;
+                local_a8 = (((uint64_t)local_a8._4_4_ << 32) | (uint32_t)((unsigned int)(uint8_t)local_c0));
+                local_b0 = uVar14;
+                make_shared<ClientObj>((ReturnValue*)&local_48);
                 pAVar26 = (AnimationWrapper*)local_48.end();
                 pCVar34 = local_50;
-                *(uint*)(pAVar26->m_source + 8) = uVar36;
-                *(undefined4*)(pAVar26->m_source + 12) = local_b0;
+                *(unsigned int*)(pAVar26->m_source + 8) = uVar36;
+                *(LocLayer*)(pAVar26->m_source + 12) = local_b0;
                 iVar12 = local_50->field_8492;
-                pAVar26->field_32 = (uVar2 & 65535) + iVar12;
-                pAVar26->field_36 = (uint)uVar10 + iVar12;
-                pAVar26->field_40 = (byte)local_a8;
+                pAVar26->field_32 = (uVar1 & 65535) + iVar12;
+                pAVar26->field_36 = (unsigned int)uVar10 + iVar12;
+                pAVar26->field_40 = (bool)(uint8_t)local_a8;
                 pAVar26->field_41 = (bool)local_a8._1_1_;
-                *(undefined2*)&pAVar26->field_42 = local_a8._2_2_;
-                pAVar26->field_44 = (undefined1)local_88;
+                *(uint16_t*)&pAVar26->field_42 = local_a8._2_2_;
+                pAVar26->field_44 = (uint8_t)local_88;
                 local_74 = uVar36;
-                pAVar26->SetReadyAnim(SUB81(local_80, 0));
-                (pCVar34->m_highlightManager, (shared_ptr*)&local_48, pCVar34->m_playerLevel, iVar35, iVar37)
-                    ->OnObjAdded();
-                ((pCVar34->field_1120504 + lVar41 * 32 + lVar40 * 3328 + (long)pCVar34->m_playerLevel * 346112 + 56),
-                 (shared_ptr*)&local_48)
-                    ->push_back();
+                pAVar26->SetReadyAnim((unsigned char)local_80);
+                pCVar34->m_highlightManager->OnObjAdded(local_48, pCVar34->field_51984, iVar35, iVar37);
+                ((list<shared_ptr<ClientObj>>*)(pCVar34->field_1120504 + lVar41 * 32 + lVar40 * 3328 +
+                                                (long)pCVar34->field_51984 * 346112 + 56))
+                    ->push_back(local_48);
                 ShowObject(pCVar34, iVar35, iVar37);
                 uVar36 = local_74;
-                local_70.List(local_74);
-                new (&local_a0) rs2lib::CoordGrid(pCVar34->m_playerLevel, iVar35, iVar37);
-                weak_ptr<dash3d::Decor>::weak_ptr(local_128, (weak_ptr*)&local_48);
-                ScriptRunner::SetActiveObj(&local_a0, local_128);
-                local_128->~weak_ptr();
-                lVar40 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)&local_70);
-                ScriptRunner::ExecuteScript(39, uVar36, *(undefined4*)(lVar40 + 672), 500000);
-                RunUpdateObjStackTrigger(pCVar34, pCVar34->m_playerLevel, iVar35, iVar37);
-                local_70.~shared_ptr();
-                local_48.~shared_ptr();
+                local_70 = configdecoder::ObjType::List(local_74);
+                local_a0 = rs2lib::CoordGrid(pCVar34->field_51984, iVar35, iVar37);
+                local_128 = weak_ptr(local_48);
+                local_a0.SetActiveObj(local_128, clientObj_00);
+                lVar40 = local_70.operator->();
+                ScriptRunner::ExecuteScript(39, uVar36, *(int*)(lVar40 + 672), 500000);
+                RunUpdateObjStackTrigger(pCVar34, pCVar34->field_51984, iVar35, iVar37);
             }
             break;
         case 9:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            LVar32 = (LocShapeID)superPacket;
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             uVar8 = pSVar22->g1();
-            local_80 =
-                (hashtable<
-                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                    eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)CONCAT71(local_80._1_7_,
-                                                                                                         uVar8);
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            local_80 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>,
+                                  eastl::allocator,
+                                  eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                                  eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
+                                  true>*)(((uint64_t)local_80._1_7_ << 8) | (uint8_t)uVar8);
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar19->g1();
-            bVar30 = bVar5 >> 2;
-            uVar8 = constants::LocShape::ToLayer(bVar30);
-            local_88 = CONCAT71(local_88._1_7_, uVar8);
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            bVar29 = bVar5 >> 2;
+            uVar8 = ((LocShape*)(unsigned long)bVar29)->ToLayer(LVar32);
+            local_88 = (Logger*)(((uint64_t)local_88._1_7_ << 8) | (uint8_t)uVar8);
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar21->g2();
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             bVar7 = pSVar21->g1();
-            uVar50 = (undefined4)(in_stack_fffffffffffffe80 >> 32);
             iVar37 = (bVar7 >> 4 & 7) + *(int*)&local_50->field_1115284;
             iVar35 = (bVar7 & 7) + *(int*)&local_50->field_1115288;
             if (local_50->field_54760 != '\0') {
-                uVar27 = logger::default_logger();
-                uVar51 = CONCAT44(uVar13, (uint)bVar30);
-                in_stack_fffffffffffffe80 = CONCAT44(uVar50, (uint)(bVar5 & 3));
-                uVar48 = CONCAT44(uVar49, (uint)uVar10);
-                uVar45 = CONCAT44(uVar47, iVar35);
-                uVar42 = CONCAT44(uVar44, iVar37);
-                logger::Logger::Log(uVar27, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4366, "Received loc_add_change_v2 x:%d z:%d id:%d rotate:%d shape:%u", uVar42,
-                                    uVar45, uVar48, in_stack_fffffffffffffe80, uVar51);
-                uVar13 = (undefined4)((ulong)uVar51 >> 32);
-                uVar44 = (undefined4)((ulong)uVar42 >> 32);
-                uVar47 = (undefined4)((ulong)uVar45 >> 32);
-                uVar49 = (undefined4)((ulong)uVar48 >> 32);
+                pLVar27 = logger::default_logger();
+                pLVar27->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4366, "Received loc_add_change_v2 x:%d z:%d id:%d rotate:%d shape:%u",
+                             (((uint64_t)uVar42 << 32) | (uint32_t)iVar37),
+                             (((uint64_t)uVar43 << 32) | (uint32_t)iVar35),
+                             (((uint64_t)uVar44 << 32) | (uint32_t)((unsigned int)uVar10)),
+                             (((uint64_t)uVar45 << 32) | (uint32_t)((unsigned int)(bVar5 & 3))),
+                             (((uint64_t)uVar15 << 32) | (uint32_t)((unsigned int)bVar29)));
             }
             if ((((iVar37 < 104) && (-1 < iVar37)) && (-1 < iVar35)) && (iVar35 < 104)) {
-                LocChangeCreate(local_50, local_50->m_playerLevel, iVar37, iVar35, local_88 & 255, (uint)uVar10,
-                                CONCAT44(uVar44, (uint)bVar30), CONCAT44(uVar47, (uint)(bVar5 & 3)),
-                                CONCAT44(uVar49, (uint)(byte)local_80),
-                                in_stack_fffffffffffffe80 & 18446744069414584320, CONCAT44(uVar13, 4294967295));
+                LocChangeCreate(local_50, local_50->field_51984, iVar37, iVar35, (unsigned int)(uint8_t)local_88,
+                                (unsigned int)uVar10, (unsigned int)bVar29, (unsigned int)(bVar5 & 3),
+                                (uint8_t)local_80, 0, -1);
             }
             break;
         case 10:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar21->g2();
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
-            uVar36 = pSVar19->g4();
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
+            uVar15 = pSVar19->g4();
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             bVar5 = pPVar20->g1();
-            lVar41 = (ulong)(bVar5 >> 4 & 7) + (long)*(int*)&local_50->field_1115284;
-            lVar40 = (ulong)(bVar5 & 7) + (long)*(int*)&local_50->field_1115288;
+            lVar41 = (unsigned long)(bVar5 >> 4 & 7) + (long)*(int*)&local_50->field_1115284;
+            lVar40 = (unsigned long)(bVar5 & 7) + (long)*(int*)&local_50->field_1115288;
+            uVar36 = (unsigned int)uVar10;
             iVar37 = (int)lVar40;
             iVar35 = (int)lVar41;
             if (local_50->field_54760 != '\0') {
-                uVar27 = logger::default_logger();
-                logger::Logger::Log(uVar27, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4584, "Received obj_del x:%d z:%d type:%d count:%d", CONCAT44(uVar44, iVar35),
-                                    CONCAT44(uVar47, iVar37), CONCAT44(uVar49, (uint)uVar10), CONCAT44(uVar50, uVar36));
+                pLVar27 = logger::default_logger();
+                pLVar27->Log(
+                    false, 5,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                    "client_network.cpp",
+                    4584, "Received obj_del x:%d z:%d type:%d count:%d", (((uint64_t)uVar42 << 32) | (uint32_t)iVar35),
+                    (((uint64_t)uVar43 << 32) | (uint32_t)iVar37), (((uint64_t)uVar44 << 32) | (uint32_t)uVar36),
+                    (((uint64_t)uVar45 << 32) | (uint32_t)uVar15));
             }
             if (103 < iVar35) {
                 return;
@@ -6463,107 +5768,105 @@ namespace jag::oldscape {
             if (103 < iVar37) {
                 return;
             }
-            iVar12 = local_50->m_playerLevel;
-            puVar32 = local_50->field_1120504;
-            cVar4 = ((puVar32 + lVar40 * 32 + lVar41 * 3328 + (long)iVar12 * 346112 + 56))->empty();
-            if (cVar4 != '\0') {
+            this_01 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>,
+                                 eastl::allocator,
+                                 eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
+                                 eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
+                                 true>*)(local_50->field_1120504 + lVar40 * 32 + lVar41 * 3328 +
+                                         (long)local_50->field_51984 * 346112 + 56);
+            cVar4 = this_01->empty();
+            if (cVar4) {
                 return;
             }
-            eastl::list<console::Line, eastl::allocator>::begin(local_118);
-            eastl::list<console::Line, eastl::allocator>::end(local_110);
+            local_118 = this_01->begin();
+            local_110 = this_01->end();
             eastl::find_if<eastl::ListIterator<shared_ptr<ClientObj>, shared_ptr<ClientObj>*, shared_ptr<ClientObj>&>,
                            (shared::ZoneProt::ID)->ZonePacket(core::SuperPacket&)::__18>(
-                (eastl*)&local_a0, local_118, local_110, (ulong)uVar10 | (ulong)uVar36 << 32);
-            local_80 =
-                (hashtable<
-                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
-                    eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)(puVar32 + lVar40 * 32 +
-                                                                                                 lVar41 * 3328 +
-                                                                                                 (long)iVar12 * 346112 +
-                                                                                                 56);
-            local_48.end();
-            bVar9 = eastl::operator!=((eastl*)&local_a0, (hashtable_iterator_base*)&local_48, extraout_RDX_03);
+                (ListIterator<shared_ptr<ClientObj>, shared_ptr<ClientObj>*, shared_ptr<ClientObj>&>*)&local_a0,
+                (ListIterator<shared_ptr<ClientObj>, shared_ptr<ClientObj>*, shared_ptr<ClientObj>&>*)&local_118,
+                (__18*)&local_110);
+            local_80 = this_01;
+            local_48 = this_01->end();
+            cVar4 = local_a0 != local_48;
             pCVar34 = local_50;
-            if (bVar9) {
-                local_48.List((uint)uVar10);
-                new (&local_70) rs2lib::CoordGrid(pCVar34->m_playerLevel, iVar35, iVar37);
-                pwVar28 = (weak_ptr*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)&local_a0);
-                weak_ptr<dash3d::Decor>::weak_ptr(local_108, pwVar28);
-                ScriptRunner::SetActiveObj(&local_70, local_108);
-                local_108->~weak_ptr();
-                lVar41 = shared_ptr<configdecoder::ObjType>::operator->((shared_ptr<configdecoder::ObjType>*)&local_48);
-                ScriptRunner::ExecuteScript(40, (ulong)uVar10, *(undefined4*)(lVar41 + 672), 500000);
-                new (&local_f8)
-                    eastl::ListIterator<shared_ptr<rs2lib::worldmap::MapElement>,
-                                        shared_ptr<rs2lib::worldmap::MapElement> const*,
-                                        shared_ptr<rs2lib::worldmap::MapElement> const&>((ListIterator*)&local_a0);
-                eastl::list<shared_ptr<ClientObj>, eastl::allocator>::erase(local_90, local_80, local_f8);
-                local_48.~shared_ptr();
+            if (cVar4) {
+                local_48 = configdecoder::ObjType::List(uVar36);
+                local_70 = rs2lib::CoordGrid(pCVar34->field_51984, iVar35, iVar37);
+                groundDecor = (weak_ptr<dash3d::GroundDecor>*)*local_a0;
+                local_108 = weak_ptr(*groundDecor);
+                local_70.SetActiveObj(local_108, clientObj_01);
+                lVar41 = local_48.operator->();
+                ScriptRunner::ExecuteScript(40, uVar36, *(int*)(lVar41 + 672), 500000);
+                new (&local_f8) eastl::ListIterator(&local_a0);
+                eastl::list<shared_ptr<ClientObj>>::erase(&local_90, (list<shared_ptr<ClientObj>>*)local_80, local_f8);
             }
             ShowObject(pCVar34, iVar35, iVar37);
-            iVar37 = pCVar34->m_playerLevel;
+            iVar37 = pCVar34->field_51984;
         LAB_100116569:
             RunUpdateObjStackTrigger(pCVar34, iVar37, iVar35, (int)lVar40);
             break;
         case 11:
-            new (&local_48) SuperShuffledPacketFactory(param_3);
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            local_48 = SuperShuffledPacketFactory(superPacket);
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pSVar19->g2();
             local_80 =
                 (hashtable<
-                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>,
-                    eastl::allocator,
-                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int, eastl::allocator>>>,
+                    eastl::string, eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>, eastl::allocator,
+                    eastl::use_first<eastl::pair<eastl::stringconst, eastl::vector<unsigned int>>>,
                     eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)(ulong)uVar10;
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+                    eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)(unsigned long)uVar10;
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             uVar10 = pPVar20->g2();
-            local_88 = CONCAT44(local_88._4_4_, (uint)uVar10);
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            local_88 = (Logger*)(((uint64_t)local_88._4_4_ << 32) | (uint32_t)((unsigned int)uVar10));
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             cVar4 = pSVar21->g1s();
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar19->g1();
-            local_5c = (uint)bVar5;
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
-            local_90[0] = pSVar22->g3s();
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            local_5c = (unsigned int)bVar5;
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
+            local_90._0_4_ = pSVar22->g3s();
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             cVar6 = pPVar20->g1s();
-            pSVar22 = (ShuffledPacket2*)local_48.p2_alt2();
+            pSVar22 = (ShuffledPacket2*)ShuffledPacketFactory::p2_alt2();
             bVar5 = pSVar22->g1();
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             bVar7 = pSVar19->g1();
-            local_34 = (uint)bVar7;
-            pSVar21 = (ShuffledPacket4*)local_48.p2_alt2();
+            local_34 = (unsigned int)bVar7;
+            pSVar21 = (ShuffledPacket4*)ShuffledPacketFactory::p2_alt2();
             bVar7 = pSVar21->g1();
-            local_58 = (uint)bVar7 << 2;
-            pSVar19 = (ShuffledPacket3*)local_48.p2_alt2();
+            local_58 = (unsigned int)bVar7 << 2;
+            pSVar19 = (ShuffledPacket3*)ShuffledPacketFactory::p2_alt2();
             local_38 = pSVar19->g3s();
-            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)local_48.p2_alt2();
+            pPVar20 = (PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>*)
+                ShuffledPacketFactory::p2_alt2();
             bVar7 = pPVar20->g1();
             pCVar34 = local_50;
             local_70.m_level = (bVar7 >> 4 & 7) + *(int*)&local_50->field_1115284;
             local_a0.m_level = (bVar7 & 7) + *(int*)&local_50->field_1115288;
-            pCVar23 = (Client*)local_48.p2_alt2();
+            pCVar23 = (Client*)ShuffledPacketFactory::p2_alt2();
             uVar10 = pCVar23->g2();
-            local_54 = (uint)uVar10;
+            local_54 = (unsigned int)uVar10;
             iVar35 = (int)cVar4 + local_70.m_level;
             iVar37 = (int)cVar6 + local_a0.m_level;
             if (pCVar34->field_54760 != '\0') {
                 pCVar23 = (Client*)logger::default_logger();
-                logger::Logger::Log(pCVar23, 0, 5,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                    "osclient/client_network.cpp",
-                                    4720,
-                                    "Received projanim x:%i z:%i x2:%i z2:%i sourceEntity:%i targetEntity:%i "
-                                    "spotanim:%i h1:%i h2:%i t1:%i t2:%i angle:%i startpos:%i",
-                                    CONCAT44(uVar44, local_70.m_level), CONCAT44(uVar47, local_a0.m_level),
-                                    CONCAT44(uVar49, iVar35), CONCAT44(uVar50, iVar37), CONCAT44(uVar13, local_38),
-                                    CONCAT44(uVar15, local_90[0]), CONCAT44(uVar14, local_54), (uint)bVar5 * 4,
-                                    local_58, (int)local_80, (uint)local_88, local_5c, local_34);
+                pCVar23->Log(false, 5,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                             "client_network.cpp",
+                             4720,
+                             "Received projanim x:%i z:%i x2:%i z2:%i sourceEntity:%i targetEntity:%i spotanim:%i "
+                             "h1:%i h2:%i t1:%i t2:%i angle:%i startpos:%i",
+                             (((uint64_t)uVar42 << 32) | (uint32_t)local_70.m_level),
+                             (((uint64_t)uVar43 << 32) | (uint32_t)local_a0.m_level),
+                             (((uint64_t)uVar44 << 32) | (uint32_t)iVar35),
+                             (((uint64_t)uVar45 << 32) | (uint32_t)iVar37),
+                             (((uint64_t)uVar15 << 32) | (uint32_t)local_38),
+                             (((uint64_t)uVar14 << 32) | (uint32_t)local_90._0_4_),
+                             (((uint64_t)uVar13 << 32) | (uint32_t)local_54), (unsigned int)bVar5 * 4, local_58,
+                             (int)local_80, (unsigned int)local_88, local_5c, local_34);
             }
             if (103 < (int)local_70.m_level) {
                 return;
@@ -6594,70 +5897,63 @@ namespace jag::oldscape {
             }
             local_70.m_level = local_70.m_level << 7 | 64;
             local_a0.m_level = local_a0.m_level << 7 | 64;
-            iVar12 = GetAvH(pCVar23, local_70.m_level, local_a0.m_level, pCVar34->m_playerLevel);
-            local_78 = iVar12 + (uint)bVar5 * -4;
+            iVar12 = GetAvH(pCVar23, local_70.m_level, local_a0.m_level, pCVar34->field_51984);
+            local_78 = iVar12 + (unsigned int)bVar5 * -4;
             local_b4 = (int)local_80 + pCVar34->field_8488;
-            local_cc = pCVar34->field_8488 + (uint)local_88;
+            local_cc = pCVar34->field_8488 + (unsigned int)local_88;
             pCVar23 = (Client*)&local_48;
             make_shared<ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&, int&>(
-                (jag*)pCVar23, (int*)&local_54, &pCVar34->m_playerLevel, (int*)&local_70, (int*)&local_a0,
+                (int*)pCVar23, (int*)&local_54, &pCVar34->field_51984, (int*)&local_70, (int*)&local_a0,
                 (int*)&local_78, &local_b4, &local_cc, (int*)&local_5c, (int*)&local_34, (int*)&local_38,
-                (int*)local_90, (int*)&local_58);
-            pCVar24 = (ClientProj*)shared_ptr<ClientProj>::operator->((shared_ptr<ClientProj>*)pCVar23);
+                (int*)&local_90);
+            pCVar24 = (ClientProj*)(*pCVar23).operator->();
             uVar36 = iVar35 * 128 | 64;
             uVar38 = iVar37 * 128 | 64;
-            iVar35 = GetAvH(pCVar23, uVar36, uVar38, pCVar34->m_playerLevel);
+            iVar35 = GetAvH(pCVar23, uVar36, uVar38, pCVar34->field_51984);
             pCVar34 = local_50;
             pCVar24->SetTarget(uVar36, uVar38, iVar35 - local_58, (int)local_80 + local_50->field_8488);
-            (&pCVar34->field_7164584, (shared_ptr*)&local_48)->push_back();
+            pCVar34->field_7164584.push_back(local_48);
         LAB_1001154e6:
-            local_48.~shared_ptr();
         }
     }
 
 } // namespace jag::oldscape
 
 namespace jag::network {
-    // 0x100b0f6d0, 160 bytes, inline, placed by class name
-    // operator==(IPAddress const&, IPAddress const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(IPAddress const&, IPAddress
-   const&) */
-
-    ulong operator==(IPAddress* param_1, IPAddress* param_2) {
-        int iVar1;
+    // 0x100b0f6d0
+    unsigned long operator==(const IPAddress& ipAddress1, const IPAddress& ipAddress2) {
         int iVar2;
         bool bVar3;
-        ushort* puVar4;
-        ushort* puVar5;
-        ushort* puVar6;
-        undefined7 extraout_var;
-        ulong uVar7;
+        unsigned short* arg1;
+        unsigned short* arg2;
+        unsigned short* arg3;
+        uint64_t extraout_var;
+        unsigned long uVar4;
 
-        iVar1 = param_1->field_8;
-        if (iVar1 == param_2->field_8) {
+        int iVar1 = ipAddress1.field_8;
+        if (iVar1 == ipAddress2.field_8) {
             if (iVar1 == 1) {
-                puVar4 = std::begin<unsigned short const, 8ul>((unsigned short*)&param_1->field_12);
-                puVar5 = std::end<unsigned short const, 8ul>((unsigned short*)&param_1->field_12);
-                puVar6 = std::begin<unsigned short const, 8ul>((unsigned short*)&param_2->field_12);
-                bVar3 = eastl::equal<unsigned short const*, unsigned short const*>(puVar4, puVar5, puVar6);
-                uVar7 = CONCAT71(extraout_var, bVar3) & 4294967295;
+                arg1 = std::begin<unsigned short const, 8ul>(&ipAddress1.field_12);
+                arg2 = std::end<unsigned short const, 8ul>(&ipAddress1.field_12);
+                arg3 = std::begin<unsigned short const, 8ul>(&ipAddress2.field_12);
+                bVar3 = eastl::equal<unsigned short const*, unsigned short const*>(arg1, arg2, arg3);
+                uVar4 = (((uint64_t)extraout_var << 8) | (uint8_t)bVar3) & 4294967295;
             } else {
                 if (iVar1 != 0) {
-                    /* WARNING: Subroutine does not return */
                     LogAssertAlways(
                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/network/IPAddress.h",
                         123, "Unknow IP type");
                 }
-                iVar2._0_2_ = param_1->field_12;
-                iVar2._2_2_ = param_1->field_14;
-                iVar1._0_2_ = param_2->field_12;
-                iVar1._2_2_ = param_2->field_14;
-                uVar7 = CONCAT71((int7)((ulong)param_1 >> 8), iVar2 == iVar1);
+                iVar2._0_2_ = ipAddress1.field_12;
+                iVar2._2_2_ = ipAddress1.field_14;
+                iVar1._0_2_ = ipAddress2.field_12;
+                iVar1._2_2_ = ipAddress2.field_14;
+                uVar4 = (((uint64_t)((int64_t)((unsigned long)ipAddress1 >> 8)) << 8) | (uint8_t)(iVar2 == iVar1));
             }
         } else {
-            uVar7 = 0;
+            uVar4 = 0;
         }
-        return uVar7 & 4294967295;
+        return uVar4 & 4294967295;
     }
 
 } // namespace jag::network

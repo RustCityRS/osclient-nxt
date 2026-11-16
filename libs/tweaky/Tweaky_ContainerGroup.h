@@ -1,708 +1,525 @@
 // libs/tweaky/Tweaky_ContainerGroup.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.tweaky
 
 namespace jag {
-    // 0x100a536e0, 128 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Container* placement_new<tweak::Container, int, int, char const (&) [1]>(void*, int&&, int&&, char const (&) [1])
-    Container* placement_new<tweak::Container, int, int, char const (&)[1]>(void* param_1, int* param_2, int* param_3,
-                                                                            char* param_4) {
-        int iVar1;
-        int iVar2;
-        eastl::string local_58[32];
-        allocator local_38[8];
+    // 0x100a536e0
+    tweak::Container* placement_new<tweak::Container, int, int, char const (&)[1]>(void* arg1, int&& arg2, int&& arg3,
+                                                                                   char const (&arg4)[1]) {
 
-        iVar1 = *param_2;
-        iVar2 = *param_3;
-        eastl::allocator::allocator(local_38, "EASTL basic_string");
-        eastl::string::basic_string(local_58, param_4, local_38);
-        tweak::Container::Container(param_1, iVar1, iVar2, (basic_string*)local_58);
-        eastl::string::~basic_string(local_58);
-        return param_1;
+        eastl::string local_58(arg4);
+        new (arg1) tweak::Container((int)arg2, (int)arg3, local_58);
+        return arg1;
     }
 
-    // 0x100a53760, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Container>* placement_new<ref_counter_shared<tweak::Container>, int, tweak::Container*&>(void*, int&&, tweak::Container*&)
-    ref_counter_shared*
-    placement_new<ref_counter_shared<tweak::Container>, int, tweak::Container*&>(void* param_1, int* param_2,
-                                                                                 Container** param_3) {
-        ref_counter_shared<tweak::Container>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100a53760
+    ref_counter_shared<tweak::Container>*
+    placement_new<ref_counter_shared<tweak::Container>, int, tweak::Container*&>(void* arg1, int&& arg2,
+                                                                                 tweak::Container*& arg3) {
+        new (arg1) ref_counter_shared<tweak::Container>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a53780, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::Container>(ref_counter_base*, tweak::Container*, tweak::Container::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::Container>(ref_counter_base* param_1, Container* param_2,
-                                                                 enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
+    // 0x100a53780
+    void
+    shared_ptr_do_enable_shared_from_this<tweak::Container>(ref_counter_base* ref_counter_base,
+                                                            tweak::Container* container,
+                                                            tweak::Container::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)container);
+            local_38 = weak_ptr(local_48);
+            container->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a538d0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Container>::ref_counter_shared(unsigned long, tweak::Container*): jumps straight to the base-object constructor
+    // 0x100a538e0
+    ref_counter_shared<tweak::Container>::ref_counter_shared(unsigned long arg1, tweak::Container* container)
+        : ref_counter_base() {}
 
-    // 0x100a538e0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Container>::ref_counter_shared(unsigned long, tweak::Container*)
-    void ref_counter_shared<tweak::Container>::ref_counter_shared(ulong param_1, Container* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7490 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(Container**)(this + 24) = param_2;
-    }
-
-    // 0x100a53920, 96 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Container>::DeleteData()
-    /* ref_counter_shared<tweak::SizeControl>::DeleteData() */
-
-    void ref_counter_shared<tweak::SizeControl>::DeleteData() {
+    // 0x100a53920
+    void ref_counter_shared<tweak::Container>::DeleteData() {
         long lVar1;
-        ulong uVar2;
+        ref_counter_shared<tweak::SizeControl> _vtbl* prVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar1 = 0;
-                uVar2 = 0;
+                prVar2 = nullptr;
                 do {
-                    (*(code*)**(undefined8**)(*(long*)(this + 24) + lVar1))(*(long*)(this + 24) + lVar1);
-                    uVar2 = uVar2 + 1;
+                    (*(void (*)(...)) *
+                     *(uint64_t**)((long)&(this[3]._vptr)->_dtor + lVar1))((long)&(this[3]._vptr)->_dtor + lVar1);
+                    prVar2 = (ref_counter_shared<tweak::SizeControl> _vtbl*)((long)&prVar2->_dtor + 1);
                     lVar1 = lVar1 + 304;
-                } while (uVar2 < *(ulong*)(this + 16));
+                } while (prVar2 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x100a54ca0, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::SizeControl* placement_new<tweak::SizeControl>(void*)
-    SizeControl* placement_new<tweak::SizeControl>(void* param_1) {
-        tweak::SizeControl::SizeControl(param_1);
-        return param_1;
+    // 0x100a54ca0
+    tweak::SizeControl* placement_new<tweak::SizeControl>(void* arg1) {
+        new (arg1) tweak::SizeControl();
+        return arg1;
     }
 
-    // 0x100a54cc0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::SizeControl>* placement_new<ref_counter_shared<tweak::SizeControl>, int, tweak::SizeControl*&>(void*, int&&, tweak::SizeControl*&)
-    ref_counter_shared*
-    placement_new<ref_counter_shared<tweak::SizeControl>, int, tweak::SizeControl*&>(void* param_1, int* param_2,
-                                                                                     SizeControl** param_3) {
-        ref_counter_shared<tweak::SizeControl>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100a54cc0
+    ref_counter_shared<tweak::SizeControl>*
+    placement_new<ref_counter_shared<tweak::SizeControl>, int, tweak::SizeControl*&>(void* arg1, int&& arg2,
+                                                                                     tweak::SizeControl*& arg3) {
+        new (arg1) ref_counter_shared<tweak::SizeControl>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a54ce0, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::SizeControl>(ref_counter_base*, tweak::SizeControl*, tweak::SizeControl::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::SizeControl>(ref_counter_base* param_1, SizeControl* param_2,
-                                                                   enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
+    // 0x100a54ce0
+    void shared_ptr_do_enable_shared_from_this<tweak::SizeControl>(
+        ref_counter_base* ref_counter_base, tweak::SizeControl* sizeControl,
+        tweak::SizeControl::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)sizeControl);
+            local_38 = weak_ptr(local_48);
+            sizeControl->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a54db0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::SizeControl>::ref_counter_shared(unsigned long, tweak::SizeControl*): jumps straight to the base-object constructor
+    // 0x100a54dc0
+    ref_counter_shared<tweak::SizeControl>::ref_counter_shared(unsigned long arg1, tweak::SizeControl* sizeControl)
+        : ref_counter_base() {}
 
-    // 0x100a54dc0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::SizeControl>::ref_counter_shared(unsigned long, tweak::SizeControl*)
-    void ref_counter_shared<tweak::SizeControl>::ref_counter_shared(ulong param_1, SizeControl* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7430 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(SizeControl**)(this + 24) = param_2;
+    // 0x100a54e00
+    tweak::Button* placement_new<tweak::Button, char const*&>(void* arg1, const char*& arg2) {
+        new (arg1) tweak::Button(arg2);
+        return arg1;
     }
 
-    // 0x100a54e00, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Button* placement_new<tweak::Button, char const*&>(void*, char const*&)
-    Button* placement_new<tweak::Button, char const*&>(void* param_1, char** param_2) {
-        tweak::Button::Button(param_1, *param_2);
-        return param_1;
+    // 0x100a54e20
+    ref_counter_shared<tweak::Button>*
+    placement_new<ref_counter_shared<tweak::Button>, int, tweak::Button*&>(void* arg1, int&& arg2,
+                                                                           tweak::Button*& arg3) {
+        new (arg1) ref_counter_shared<tweak::Button>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a54e20, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Button>* placement_new<ref_counter_shared<tweak::Button>, int, tweak::Button*&>(void*, int&&, tweak::Button*&)
-    ref_counter_shared* placement_new<ref_counter_shared<tweak::Button>, int, tweak::Button*&>(void* param_1,
-                                                                                               int* param_2,
-                                                                                               Button** param_3) {
-        ref_counter_shared<tweak::Button>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
+    // 0x100a54e40
+    void shared_ptr_do_enable_shared_from_this<tweak::Button>(ref_counter_base* ref_counter_base, tweak::Button* button,
+                                                              tweak::Button::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-    // 0x100a54e40, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::Button>(ref_counter_base*, tweak::Button*, tweak::Button::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::Button>(ref_counter_base* param_1, Button* param_2,
-                                                              enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
-
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)button);
+            local_38 = weak_ptr(local_48);
+            button->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a54f20, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Button>::ref_counter_shared(unsigned long, tweak::Button*): jumps straight to the base-object constructor
+    // 0x100a54f30
+    ref_counter_shared<tweak::Button>::ref_counter_shared(unsigned long arg1, tweak::Button* button)
+        : ref_counter_base() {}
 
-    // 0x100a54f30, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Button>::ref_counter_shared(unsigned long, tweak::Button*)
-    void ref_counter_shared<tweak::Button>::ref_counter_shared(ulong param_1, Button* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7460 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(Button**)(this + 24) = param_2;
-    }
-
-    // 0x100a54f70, 96 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Button>::DeleteData()
-    /* ref_counter_shared<tweak::CheckBox>::DeleteData() */
-
-    void ref_counter_shared<tweak::CheckBox>::DeleteData() {
+    // 0x100a54f70
+    void ref_counter_shared<tweak::Button>::DeleteData() {
         long lVar1;
-        ulong uVar2;
+        ref_counter_shared<tweak::CheckBox> _vtbl* prVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar1 = 0;
-                uVar2 = 0;
+                prVar2 = nullptr;
                 do {
-                    (*(code*)**(undefined8**)(*(long*)(this + 24) + lVar1))(*(long*)(this + 24) + lVar1);
-                    uVar2 = uVar2 + 1;
+                    (*(void (*)(...)) *
+                     *(uint64_t**)((long)&(this[3]._vptr)->_dtor + lVar1))((long)&(this[3]._vptr)->_dtor + lVar1);
+                    prVar2 = (ref_counter_shared<tweak::CheckBox> _vtbl*)((long)&prVar2->_dtor + 1);
                     lVar1 = lVar1 + 224;
-                } while (uVar2 < *(ulong*)(this + 16));
+                } while (prVar2 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x100a54fd0, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::CheckBox* placement_new<tweak::CheckBox, char const*&, bool&>(void*, char const*&, bool&)
-    CheckBox* placement_new<tweak::CheckBox, char const*&, bool&>(void* param_1, char** param_2, bool* param_3) {
-        tweak::CheckBox::CheckBox(param_1, *param_2, *param_3);
-        return param_1;
+    // 0x100a54fd0
+    tweak::CheckBox* placement_new<tweak::CheckBox, char const*&, bool&>(void* arg1, const char*& arg2, bool& arg3) {
+        new (arg1) tweak::CheckBox(arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a54ff0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::CheckBox>* placement_new<ref_counter_shared<tweak::CheckBox>, int, tweak::CheckBox*&>(void*, int&&, tweak::CheckBox*&)
-    ref_counter_shared* placement_new<ref_counter_shared<tweak::CheckBox>, int, tweak::CheckBox*&>(void* param_1,
-                                                                                                   int* param_2,
-                                                                                                   CheckBox** param_3) {
-        ref_counter_shared<tweak::CheckBox>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100a54ff0
+    ref_counter_shared<tweak::CheckBox>*
+    placement_new<ref_counter_shared<tweak::CheckBox>, int, tweak::CheckBox*&>(void* arg1, int&& arg2,
+                                                                               tweak::CheckBox*& arg3) {
+        new (arg1) ref_counter_shared<tweak::CheckBox>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a55010, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::CheckBox>(ref_counter_base*, tweak::CheckBox*, tweak::CheckBox::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::CheckBox>(ref_counter_base* param_1, CheckBox* param_2,
-                                                                enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
+    // 0x100a55010
+    void
+    shared_ptr_do_enable_shared_from_this<tweak::CheckBox>(ref_counter_base* ref_counter_base,
+                                                           tweak::CheckBox* checkBox,
+                                                           tweak::CheckBox::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)checkBox);
+            local_38 = weak_ptr(local_48);
+            checkBox->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a55170, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::CheckBox>::ref_counter_shared(unsigned long, tweak::CheckBox*): jumps straight to the base-object constructor
+    // 0x100a55180
+    ref_counter_shared<tweak::CheckBox>::ref_counter_shared(unsigned long arg1, tweak::CheckBox* checkBox)
+        : ref_counter_base() {}
 
-    // 0x100a55180, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::CheckBox>::ref_counter_shared(unsigned long, tweak::CheckBox*)
-    void ref_counter_shared<tweak::CheckBox>::ref_counter_shared(ulong param_1, CheckBox* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7480 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(CheckBox**)(this + 24) = param_2;
+    // 0x100a55b00
+    tweak::CheckBox* placement_new<tweak::CheckBox, char const*&>(void* arg1, const char*& arg2) {
+        new (arg1) tweak::CheckBox(arg2);
+        return arg1;
     }
 
-    // 0x100a55b00, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::CheckBox* placement_new<tweak::CheckBox, char const*&>(void*, char const*&)
-    CheckBox* placement_new<tweak::CheckBox, char const*&>(void* param_1, char** param_2) {
-        tweak::CheckBox::CheckBox(param_1, *param_2);
-        return param_1;
+    // 0x100a55bc0
+    tweak::EditField* placement_new<tweak::EditField, char const*&, int&>(void* arg1, const char*& arg2, int& arg3) {
+        new (arg1) tweak::EditField(arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a55bc0, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::EditField* placement_new<tweak::EditField, char const*&, int&>(void*, char const*&, int&)
-    EditField* placement_new<tweak::EditField, char const*&, int&>(void* param_1, char** param_2, int* param_3) {
-        tweak::EditField::EditField(param_1, *param_2, *param_3);
-        return param_1;
+    // 0x100a55be0
+    ref_counter_shared<tweak::EditField>*
+    placement_new<ref_counter_shared<tweak::EditField>, int, tweak::EditField*&>(void* arg1, int&& arg2,
+                                                                                 tweak::EditField*& arg3) {
+        new (arg1) ref_counter_shared<tweak::EditField>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a55be0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::EditField>* placement_new<ref_counter_shared<tweak::EditField>, int, tweak::EditField*&>(void*, int&&, tweak::EditField*&)
-    ref_counter_shared*
-    placement_new<ref_counter_shared<tweak::EditField>, int, tweak::EditField*&>(void* param_1, int* param_2,
-                                                                                 EditField** param_3) {
-        ref_counter_shared<tweak::EditField>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
+    // 0x100a55c00
+    void
+    shared_ptr_do_enable_shared_from_this<tweak::EditField>(ref_counter_base* ref_counter_base,
+                                                            tweak::EditField* editField,
+                                                            tweak::EditField::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-    // 0x100a55c00, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::EditField>(ref_counter_base*, tweak::EditField*, tweak::EditField::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::EditField>(ref_counter_base* param_1, EditField* param_2,
-                                                                 enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
-
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)editField);
+            local_38 = weak_ptr(local_48);
+            editField->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a55d40, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::EditField>::ref_counter_shared(unsigned long, tweak::EditField*): jumps straight to the base-object constructor
+    // 0x100a55d50
+    ref_counter_shared<tweak::EditField>::ref_counter_shared(unsigned long arg1, tweak::EditField* editField)
+        : ref_counter_base() {}
 
-    // 0x100a55d50, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::EditField>::ref_counter_shared(unsigned long, tweak::EditField*)
-    void ref_counter_shared<tweak::EditField>::ref_counter_shared(ulong param_1, EditField* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7498 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(EditField**)(this + 24) = param_2;
+    // 0x100a55d90
+    tweak::Enum* placement_new<tweak::Enum, char const*&, StringEnum const*&, int*&>(void* arg1, const char*& arg2,
+                                                                                     const StringEnum*& arg3,
+                                                                                     int*& arg4) {
+        new (arg1) tweak::Enum(arg2, arg3, arg4);
+        return arg1;
     }
 
-    // 0x100a55d90, 48 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Enum* placement_new<tweak::Enum, char const*&, StringEnum const*&, int*&>(void*, char const*&, StringEnum const*&, int*&)
-    Enum* placement_new<tweak::Enum, char const*&, StringEnum_const*&, int*&>(void* param_1, char** param_2,
-                                                                              StringEnum** param_3, int** param_4) {
-        tweak::Enum::Enum(param_1, *param_2, *param_3, *param_4);
-        return param_1;
+    // 0x100a55dc0
+    ref_counter_shared<tweak::Enum>*
+    placement_new<ref_counter_shared<tweak::Enum>, int, tweak::Enum*&>(void* arg1, int&& arg2, tweak::Enum*& arg3) {
+        new (arg1) ref_counter_shared<tweak::Enum>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a55dc0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Enum>* placement_new<ref_counter_shared<tweak::Enum>, int, tweak::Enum*&>(void*, int&&, tweak::Enum*&)
-    ref_counter_shared* placement_new<ref_counter_shared<tweak::Enum>, int, tweak::Enum*&>(void* param_1, int* param_2,
-                                                                                           Enum** param_3) {
-        ref_counter_shared<tweak::Enum>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
+    // 0x100a55de0
+    void shared_ptr_do_enable_shared_from_this<tweak::Enum>(ref_counter_base* ref_counter_base, tweak::Enum* arg2,
+                                                            tweak::Enum::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-    // 0x100a55de0, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::Enum>(ref_counter_base*, tweak::Enum*, tweak::Enum::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::Enum>(ref_counter_base* param_1, Enum* param_2,
-                                                            enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
-
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)arg2);
+            local_38 = weak_ptr(local_48);
+            arg2->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a55e70, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Enum>::ref_counter_shared(unsigned long, tweak::Enum*): jumps straight to the base-object constructor
+    // 0x100a55e80
+    ref_counter_shared<tweak::Enum>::ref_counter_shared(unsigned long arg1, tweak::Enum* arg2) : ref_counter_base() {}
 
-    // 0x100a55e80, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Enum>::ref_counter_shared(unsigned long, tweak::Enum*)
-    void ref_counter_shared<tweak::Enum>::ref_counter_shared(ulong param_1, Enum* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7448 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(Enum**)(this + 24) = param_2;
-    }
-
-    // 0x100a55ec0, 96 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Enum>::DeleteData()
-    /* ref_counter_shared<tweak::Swatch>::DeleteData() */
-
-    void ref_counter_shared<tweak::Swatch>::DeleteData() {
+    // 0x100a55ec0
+    void ref_counter_shared<tweak::Enum>::DeleteData() {
         long lVar1;
-        ulong uVar2;
+        ref_counter_shared<tweak::Swatch> _vtbl* prVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar1 = 0;
-                uVar2 = 0;
+                prVar2 = nullptr;
                 do {
-                    (*(code*)**(undefined8**)(*(long*)(this + 24) + lVar1))(*(long*)(this + 24) + lVar1);
-                    uVar2 = uVar2 + 1;
+                    (*(void (*)(...)) *
+                     *(uint64_t**)((long)&(this[3]._vptr)->_dtor + lVar1))((long)&(this[3]._vptr)->_dtor + lVar1);
+                    prVar2 = (ref_counter_shared<tweak::Swatch> _vtbl*)((long)&prVar2->_dtor + 1);
                     lVar1 = lVar1 + 336;
-                } while (uVar2 < *(ulong*)(this + 16));
+                } while (prVar2 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x100a57ae0, 48 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Swatch* placement_new<tweak::Swatch, float*&, float*&, float*&, decltype(nullptr)>(void*, float*&, float*&, float*&, decltype(nullptr)&&)
-    Swatch* placement_new<tweak::Swatch, float*&, float*&, float*&, decltype(nullptr)>(
-        void* param_1, float** param_2, float** param_3, float** param_4, _func_decltype_nullptr** param_5) {
-        tweak::Swatch::Swatch(param_1, *param_2, *param_3, *param_4, (float*)0);
-        return param_1;
+    // 0x100a57ae0
+    tweak::Swatch*
+    placement_new<tweak::Swatch, float*&, float*&, float*&, decltype(nullptr)>(void* arg1, float*& arg2, float*& arg3,
+                                                                               float*& arg4, decltype(nullptr)&& arg5) {
+        new (arg1) tweak::Swatch(arg2, arg3, arg4, nullptr);
+        return arg1;
     }
 
-    // 0x100a57b10, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Swatch>* placement_new<ref_counter_shared<tweak::Swatch>, int, tweak::Swatch*&>(void*, int&&, tweak::Swatch*&)
-    ref_counter_shared* placement_new<ref_counter_shared<tweak::Swatch>, int, tweak::Swatch*&>(void* param_1,
-                                                                                               int* param_2,
-                                                                                               Swatch** param_3) {
-        ref_counter_shared<tweak::Swatch>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100a57b10
+    ref_counter_shared<tweak::Swatch>*
+    placement_new<ref_counter_shared<tweak::Swatch>, int, tweak::Swatch*&>(void* arg1, int&& arg2,
+                                                                           tweak::Swatch*& arg3) {
+        new (arg1) ref_counter_shared<tweak::Swatch>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a57b30, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::Swatch>(ref_counter_base*, tweak::Swatch*, tweak::Swatch::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::Swatch>(ref_counter_base* param_1, Swatch* param_2,
-                                                              enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
+    // 0x100a57b30
+    void shared_ptr_do_enable_shared_from_this<tweak::Swatch>(ref_counter_base* ref_counter_base, tweak::Swatch* swatch,
+                                                              tweak::Swatch::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)swatch);
+            local_38 = weak_ptr(local_48);
+            swatch->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a57bc0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Swatch>::ref_counter_shared(unsigned long, tweak::Swatch*): jumps straight to the base-object constructor
+    // 0x100a57bd0
+    ref_counter_shared<tweak::Swatch>::ref_counter_shared(unsigned long arg1, tweak::Swatch* swatch)
+        : ref_counter_base() {}
 
-    // 0x100a57bd0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Swatch>::ref_counter_shared(unsigned long, tweak::Swatch*)
-    void ref_counter_shared<tweak::Swatch>::ref_counter_shared(ulong param_1, Swatch* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7470 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(Swatch**)(this + 24) = param_2;
+    // 0x100a57c10
+    tweak::Swatch* placement_new<tweak::Swatch, float*&, float*&, float*&, float*&>(void* arg1, float*& arg2,
+                                                                                    float*& arg3, float*& arg4,
+                                                                                    float*& arg5) {
+        new (arg1) tweak::Swatch(arg2, arg3, arg4, arg5);
+        return arg1;
     }
 
-    // 0x100a57c10, 48 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Swatch* placement_new<tweak::Swatch, float*&, float*&, float*&, float*&>(void*, float*&, float*&, float*&, float*&)
-    /* tweak::Swatch* placement_new<tweak::Swatch, float*, float*, float*, float*>(void*,
-   float*&&, float*&&, float*&&, float*&&) */
-
-    Swatch* placement_new<tweak::Swatch, float*, float*, float*, float*>(void* param_1, float** param_2,
-                                                                         float** param_3, float** param_4,
-                                                                         float** param_5) {
-        tweak::Swatch::Swatch(param_1, *param_2, *param_3, *param_4, *param_5);
-        return param_1;
+    // 0x100a57c40
+    tweak::Container* placement_new<tweak::Container, char const*&>(void* arg1, const char*& arg2) {
+        new (arg1) tweak::Container(arg2);
+        return arg1;
     }
 
-    // 0x100a57c40, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Container* placement_new<tweak::Container, char const*&>(void*, char const*&)
-    Container* placement_new<tweak::Container, char const*&>(void* param_1, char** param_2) {
-        tweak::Container::Container(param_1, *param_2);
-        return param_1;
+    // 0x100a58cb0
+    tweak::GradientSlider*
+    placement_new<tweak::GradientSlider, char const*&, float, float, float>(void* arg1, const char*& arg2, float&& arg3,
+                                                                            float&& arg4, float&& arg5) {
+        new (arg1) tweak::GradientSlider(arg2, arg3, arg4, arg5);
+        return arg1;
     }
 
-    // 0x100a58cb0, 48 bytes, inline, placed by debug map only (low confidence)
-    // tweak::GradientSlider* placement_new<tweak::GradientSlider, char const*&, float, float, float>(void*, char const*&, float&&, float&&, float&&)
-    /* tweak::GradientSlider* placement_new<tweak::GradientSlider, char const*&, float&,
-   float&, float&>(void*, char const*&, float&, float&, float&) */
-
-    GradientSlider* placement_new<tweak::GradientSlider, char const*&, float&, float&, float&>(
-        void* param_1, char** param_2, float* param_3, float* param_4, float* param_5) {
-        tweak::GradientSlider::GradientSlider(param_1, *param_2, *param_3, *param_4, *param_5);
-        return param_1;
+    // 0x100a58ce0
+    ref_counter_shared<tweak::GradientSlider>*
+    placement_new<ref_counter_shared<tweak::GradientSlider>, int, tweak::GradientSlider*&>(
+        void* arg1, int&& arg2, tweak::GradientSlider*& arg3) {
+        new (arg1) ref_counter_shared<tweak::GradientSlider>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a58ce0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::GradientSlider>* placement_new<ref_counter_shared<tweak::GradientSlider>, int, tweak::GradientSlider*&>(void*, int&&, tweak::GradientSlider*&)
-    ref_counter_shared* jag::placement_new<ref_counter_shared<tweak::GradientSlider>, int, tweak::GradientSlider*&>(
-        void* param_1, int* param_2, GradientSlider** param_3) {
-        ref_counter_shared<tweak::GradientSlider>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
+    // 0x100a58d00
+    void shared_ptr_do_enable_shared_from_this<tweak::GradientSlider>(
+        ref_counter_base* ref_counter_base, tweak::GradientSlider* gradientSlider,
+        tweak::GradientSlider::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-    // 0x100a58d00, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::GradientSlider>(ref_counter_base*, tweak::GradientSlider*, tweak::GradientSlider::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::GradientSlider>(ref_counter_base* param_1,
-                                                                      GradientSlider* param_2,
-                                                                      enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
-
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)gradientSlider);
+            local_38 = weak_ptr(local_48);
+            gradientSlider->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a58d90, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::GradientSlider>::ref_counter_shared(unsigned long, tweak::GradientSlider*): jumps straight to the base-object constructor
+    // 0x100a58da0
+    ref_counter_shared<tweak::GradientSlider>::ref_counter_shared(unsigned long arg1,
+                                                                  tweak::GradientSlider* gradientSlider)
+        : ref_counter_base() {}
 
-    // 0x100a58da0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::GradientSlider>::ref_counter_shared(unsigned long, tweak::GradientSlider*)
-    void ref_counter_shared<tweak::GradientSlider>::ref_counter_shared(ulong param_1, GradientSlider* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7440 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(GradientSlider**)(this + 24) = param_2;
+    // 0x100a597c0
+    tweak::GradientSlider* placement_new<tweak::GradientSlider, char const (&)[10], float, float, float&>(
+        void* arg1, char const (&arg2)[10], float&& arg3, float&& arg4, float& arg5) {
+        new (arg1) tweak::GradientSlider(arg2, arg3, arg4, arg5);
+        return arg1;
     }
 
-    // 0x100a597c0, 48 bytes, inline, placed by debug map only (low confidence)
-    // tweak::GradientSlider* placement_new<tweak::GradientSlider, char const (&) [10], float, float, float&>(void*, char const (&) [10], float&&, float&&, float&)
-    /* tweak::GradientSlider* placement_new<tweak::GradientSlider, char const (&) [11],
-   float, float, float>(void*, char const (&) [11], float&&, float&&, float&&) */
-
-    GradientSlider* placement_new<tweak::GradientSlider, char const (&)[11], float, float, float>(
-        void* param_1, char* param_2, float* param_3, float* param_4, float* param_5) {
-        tweak::GradientSlider::GradientSlider(param_1, param_2, *param_3, *param_4, *param_5);
-        return param_1;
+    // 0x100a5a1a0
+    tweak::Button* placement_new<tweak::Button, char const (&)[2]>(void* arg1, char const (&arg2)[2]) {
+        new (arg1) tweak::Button(arg2);
+        return arg1;
     }
 
-    // 0x100a5a1a0, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Button* placement_new<tweak::Button, char const (&) [2]>(void*, char const (&) [2])
-    Button* placement_new<tweak::Button, char const (&)[2]>(void* param_1, char* param_2) {
-        tweak::Button::Button(param_1, param_2);
-        return param_1;
+    // 0x100a5acb0
+    tweak::Button* placement_new<tweak::Button, char const*&, int&>(void* arg1, const char*& arg2, int& arg3) {
+        new (arg1) tweak::Button(arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a5acb0, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Button* placement_new<tweak::Button, char const*&, int&>(void*, char const*&, int&)
-    Button* placement_new<tweak::Button, char const*&, int&>(void* param_1, char** param_2, int* param_3) {
-        tweak::Button::Button(param_1, *param_2, *param_3);
-        return param_1;
+    // 0x100a5b670
+    tweak::ColourPicker* placement_new<tweak::ColourPicker, char const*&, bool, math::Range<float>&>(
+        void* arg1, const char*& arg2, bool&& arg3, math::Range<float>& range) {
+        new (arg1) tweak::ColourPicker(arg2, arg3, range);
+        return arg1;
     }
 
-    // 0x100a5b670, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::ColourPicker* placement_new<tweak::ColourPicker, char const*&, bool, math::Range<float>&>(void*, char const*&, bool&&, math::Range<float>&)
-    /* tweak::ColourPicker* placement_new<tweak::ColourPicker, char const*&, bool&,
-   math::Range<float>&>(void*, char const*&, bool&, math::Range<float>&) */
-
-    ColourPicker* placement_new<tweak::ColourPicker, char const*&, bool&, math::Range<float>&>(void* param_1,
-                                                                                               char** param_2,
-                                                                                               bool* param_3,
-                                                                                               Range* param_4) {
-        tweak::ColourPicker::ColourPicker(param_1, *param_2, *param_3, param_4);
-        return param_1;
+    // 0x100a5b690
+    ref_counter_shared<tweak::ColourPicker>*
+    placement_new<ref_counter_shared<tweak::ColourPicker>, int, tweak::ColourPicker*&>(void* arg1, int&& arg2,
+                                                                                       tweak::ColourPicker*& arg3) {
+        new (arg1) ref_counter_shared<tweak::ColourPicker>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a5b690, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::ColourPicker>* placement_new<ref_counter_shared<tweak::ColourPicker>, int, tweak::ColourPicker*&>(void*, int&&, tweak::ColourPicker*&)
-    ref_counter_shared*
-    placement_new<ref_counter_shared<tweak::ColourPicker>, int, tweak::ColourPicker*&>(void* param_1, int* param_2,
-                                                                                       ColourPicker** param_3) {
-        ref_counter_shared<tweak::ColourPicker>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
+    // 0x100a5b6b0
+    void shared_ptr_do_enable_shared_from_this<tweak::ColourPicker>(
+        ref_counter_base* ref_counter_base, tweak::ColourPicker* colourPicker,
+        tweak::ColourPicker::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-    // 0x100a5b6b0, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::ColourPicker>(ref_counter_base*, tweak::ColourPicker*, tweak::ColourPicker::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::ColourPicker>(ref_counter_base* param_1, ColourPicker* param_2,
-                                                                    enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
-
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)colourPicker);
+            local_38 = weak_ptr(local_48);
+            colourPicker->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a5b740, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::ColourPicker>::ref_counter_shared(unsigned long, tweak::ColourPicker*): jumps straight to the base-object constructor
+    // 0x100a5b750
+    ref_counter_shared<tweak::ColourPicker>::ref_counter_shared(unsigned long arg1, tweak::ColourPicker* colourPicker)
+        : ref_counter_base() {}
 
-    // 0x100a5b750, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::ColourPicker>::ref_counter_shared(unsigned long, tweak::ColourPicker*)
-    void ref_counter_shared<tweak::ColourPicker>::ref_counter_shared(ulong param_1, ColourPicker* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7438 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(ColourPicker**)(this + 24) = param_2;
+    // 0x100a5ca30
+    tweak::ColourPicker*
+    placement_new<tweak::ColourPicker, char const*&, bool, math::Range<float>&, math::Range<float>&>(
+        void* arg1, const char*& arg2, bool&& arg3, math::Range<float>& range1, math::Range<float>& range2) {
+        new (arg1) tweak::ColourPicker(arg2, arg3, range1, range2);
+        return arg1;
     }
 
-    // 0x100a5ca30, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::ColourPicker* placement_new<tweak::ColourPicker, char const*&, bool, math::Range<float>&, math::Range<float>&>(void*, char const*&, bool&&, math::Range<float>&, math::Range<float>&)
-    /* tweak::ColourPicker* placement_new<tweak::ColourPicker, char const*&, bool&,
-   math::Range<float>&, math::Range<float>&>(void*, char const*&, bool&,
-   math::Range<float>&, math::Range<float>&) */
-
-    ColourPicker*
-    jag::placement_new<tweak::ColourPicker, char const*&, bool&, math::Range<float>&, math::Range<float>&>(
-        void* param_1, char** param_2, bool* param_3, Range* param_4, Range* param_5) {
-        tweak::ColourPicker::ColourPicker(param_1, *param_2, *param_3, param_4, param_5);
-        return param_1;
+    // 0x100a5dd30
+    tweak::Label* placement_new<tweak::Label, char const*&>(void* arg1, const char*& arg2) {
+        new (arg1) tweak::Label(arg2);
+        return arg1;
     }
 
-    // 0x100a5dd30, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Label* placement_new<tweak::Label, char const*&>(void*, char const*&)
-    Label* placement_new<tweak::Label, char const*&>(void* param_1, char** param_2) {
-        tweak::Label::Label(param_1, *param_2);
-        return param_1;
+    // 0x100a5dd50
+    ref_counter_shared<tweak::Label>*
+    placement_new<ref_counter_shared<tweak::Label>, int, tweak::Label*&>(void* arg1, int&& arg2, tweak::Label*& arg3) {
+        new (arg1) ref_counter_shared<tweak::Label>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a5dd50, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Label>* placement_new<ref_counter_shared<tweak::Label>, int, tweak::Label*&>(void*, int&&, tweak::Label*&)
-    ref_counter_shared*
-    placement_new<ref_counter_shared<tweak::Label>, int, tweak::Label*&>(void* param_1, int* param_2, Label** param_3) {
-        ref_counter_shared<tweak::Label>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
+    // 0x100a5dd70
+    void shared_ptr_do_enable_shared_from_this<tweak::Label>(ref_counter_base* ref_counter_base, tweak::Label* label,
+                                                             tweak::Label::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-    // 0x100a5dd70, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::Label>(ref_counter_base*, tweak::Label*, tweak::Label::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::Label>(ref_counter_base* param_1, Label* param_2,
-                                                             enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
-
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)label);
+            local_38 = weak_ptr(local_48);
+            label->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a5de50, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Label>::ref_counter_shared(unsigned long, tweak::Label*): jumps straight to the base-object constructor
+    // 0x100a5de60
+    ref_counter_shared<tweak::Label>::ref_counter_shared(unsigned long arg1, tweak::Label* label)
+        : ref_counter_base() {}
 
-    // 0x100a5de60, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Label>::ref_counter_shared(unsigned long, tweak::Label*)
-    void ref_counter_shared<tweak::Label>::ref_counter_shared(ulong param_1, Label* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7458 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(Label**)(this + 24) = param_2;
+    // 0x100a5dea0
+    tweak::Container* placement_new<tweak::Container, char const*&, bool&>(void* arg1, const char*& arg2, bool& arg3) {
+        new (arg1) tweak::Container(arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a5dea0, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Container* placement_new<tweak::Container, char const*&, bool&>(void*, char const*&, bool&)
-    Container* placement_new<tweak::Container, char const*&, bool&>(void* param_1, char** param_2, bool* param_3) {
-        tweak::Container::Container(param_1, *param_2, *param_3);
-        return param_1;
+    // 0x100a5e580
+    tweak::Settings* placement_new<tweak::Settings, eastl::string const&, tweak::ContainerGroup&>(
+        void* arg1, const eastl::string& str, tweak::ContainerGroup& containerGroup) {
+        new (arg1) tweak::Settings(str, containerGroup);
+        return arg1;
     }
 
-    // 0x100a5e580, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Settings* placement_new<tweak::Settings, eastl::string const&, tweak::ContainerGroup&>(void*, eastl::string const&, tweak::ContainerGroup&)
-    Settings* jag::placement_new<tweak::Settings, eastl::stringconst&, tweak::ContainerGroup&>(
-        void* param_1, basic_string* param_2, ContainerGroup* param_3) {
-        tweak::Settings::Settings(param_1, param_2, param_3);
-        return param_1;
+    // 0x100a5e5a0
+    ref_counter_shared<tweak::Settings>*
+    placement_new<ref_counter_shared<tweak::Settings>, int, tweak::Settings*&>(void* arg1, int&& arg2,
+                                                                               tweak::Settings*& arg3) {
+        new (arg1) ref_counter_shared<tweak::Settings>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100a5e5a0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Settings>* placement_new<ref_counter_shared<tweak::Settings>, int, tweak::Settings*&>(void*, int&&, tweak::Settings*&)
-    ref_counter_shared* placement_new<ref_counter_shared<tweak::Settings>, int, tweak::Settings*&>(void* param_1,
-                                                                                                   int* param_2,
-                                                                                                   Settings** param_3) {
-        ref_counter_shared<tweak::Settings>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
+    // 0x100a5e5c0
+    void
+    shared_ptr_do_enable_shared_from_this<tweak::Settings>(ref_counter_base* ref_counter_base,
+                                                           tweak::Settings* settings,
+                                                           tweak::Settings::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-    // 0x100a5e5c0, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<tweak::Settings>(ref_counter_base*, tweak::Settings*, tweak::Settings::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<tweak::Settings>(ref_counter_base* param_1, Settings* param_2,
-                                                                enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
-
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)settings);
+            local_38 = weak_ptr(local_48);
+            settings->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x100a5e650, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Settings>::ref_counter_shared(unsigned long, tweak::Settings*): jumps straight to the base-object constructor
+    // 0x100a5e660
+    ref_counter_shared<tweak::Settings>::ref_counter_shared(unsigned long arg1, tweak::Settings* settings)
+        : ref_counter_base() {}
 
-    // 0x100a5e660, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Settings>::ref_counter_shared(unsigned long, tweak::Settings*)
-    void ref_counter_shared<tweak::Settings>::ref_counter_shared(ulong param_1, Settings* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7488 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(Settings**)(this + 24) = param_2;
-    }
-
-    // 0x100a5e6a0, 96 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<tweak::Settings>::DeleteData()
+    // 0x100a5e6a0
     void ref_counter_shared<tweak::Settings>::DeleteData() {
         long lVar1;
-        ulong uVar2;
+        ref_counter_shared<tweak::Settings> _vtbl* prVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar1 = 0;
-                uVar2 = 0;
+                prVar2 = nullptr;
                 do {
-                    (*(code*)**(undefined8**)(*(long*)(this + 24) + lVar1))(*(long*)(this + 24) + lVar1);
-                    uVar2 = uVar2 + 1;
+                    (*(void (*)(...)) *
+                     *(uint64_t**)((long)&(this[3]._vptr)->_dtor + lVar1))((long)&(this[3]._vptr)->_dtor + lVar1);
+                    prVar2 = (ref_counter_shared<tweak::Settings> _vtbl*)((long)&prVar2->_dtor + 1);
                     lVar1 = lVar1 + 448;
-                } while (uVar2 < *(ulong*)(this + 16));
+                } while (prVar2 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x100a5e780, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::Container* placement_new<tweak::Container, eastl::string const&>(void*, eastl::string const&)
-    Container* placement_new<tweak::Container, eastl::stringconst&>(void* param_1, basic_string* param_2) {
-        tweak::Container::Container(param_1, param_2);
-        return param_1;
+    // 0x100a5e780
+    tweak::Container* placement_new<tweak::Container, eastl::string const&>(void* arg1, const eastl::string& str) {
+        new (arg1) tweak::Container(str);
+        return arg1;
     }
 
-    // 0x100a61dd0, 32 bytes, inline, placed by debug map only (low confidence)
-    // tweak::CheckBox* placement_new<tweak::CheckBox, char const (&) [15]>(void*, char const (&) [15])
-    CheckBox* placement_new<tweak::CheckBox, char const (&)[15]>(void* param_1, char* param_2) {
-        tweak::CheckBox::CheckBox(param_1, param_2);
-        return param_1;
+    // 0x100a61dd0
+    tweak::CheckBox* placement_new<tweak::CheckBox, char const (&)[15]>(void* arg1, char const (&arg2)[15]) {
+        new (arg1) tweak::CheckBox(arg2);
+        return arg1;
     }
 
 } // namespace jag
@@ -713,294 +530,203 @@ namespace jag::tweak {
     public:
         // virtual methods in vtable order
         virtual ~ContainerGroup();
-        OnMouseOver(float, float);
-        void SetMouseOver(bool);
-        void SetTweaky(weak_ptr<Tweaky>);
-        AddPage(eastl::string const&);
-        PageInfo* GetPage(eastl::string const&);
-        void SetSelectedPage(int);
+        uint64_t OnMouseOver(float arg1, float arg2);
+        void SetMouseOver(bool arg1);
+        void SetTweaky(weak_ptr<Tweaky> tweaky);
+        ContainerGroup* AddPage(const eastl::string& str);
+        PageInfo* GetPage(const eastl::string& str);
+        void SetSelectedPage(int arg1);
         void Sort();
-        void GetCurrentPage();
+        PageInfo* GetCurrentPage();
 
-        // data members, from how the methods use this: 296 bytes, the first 216 are Control
-        char _unknown_216[64];
-        int field_280; // offset 280
-        char _unknown_284[12];
+    private:
+        uint8_t _unknown_216[64];
+        int field_280;
+        uint8_t _unknown_284[12];
     };
 
     class PageInfo {
     public:
         ~PageInfo();
-        PageInfo(PageInfo&&);
-        PageInfo(PageInfo const&);
-        PageInfo* operator=(PageInfo&&);
+        PageInfo(PageInfo&& pageInfo);
+        PageInfo(const PageInfo& pageInfo);
+        PageInfo* operator=(PageInfo&& pageInfo);
 
-        // data members, from how the methods use this: 74 bytes
-        char _unknown_0[48];
-        undefined8 field_48; // offset 48
-        char _unknown_56[2];
-        undefined8 field_58; // offset 58
-        undefined8 field_66; // offset 66
+    private:
+        uint8_t _unknown_0[48];
+        uint64_t field_48;
+        uint8_t _unknown_56[2];
+        uint64_t field_58;
+        uint64_t field_66;
     };
 
-    // 0x100a44de0, 16 bytes, complete-object destructor, inline, placed by class name
-    // ContainerGroup::GetPage(eastl::string const&)::$_15::~$_15(): jumps straight to the base-object destructor
+    // 0x100a51d70
+    ContainerGroup::GetPage(eastl::string const&)::$_15::~$_15() {}
 
-    // 0x100a51d70, 16 bytes, base-object destructor, inline, placed by class name
-    // ContainerGroup::GetPage(eastl::string const&)::$_15::~$_15()
-    /* ~$_15() */
-
-    void ContainerGroup::GetPage(eastl::stringconst&)::$_15::~__15() {
-        ~basic_string();
+    // 0x100a52b10
+    ContainerGroup::~ContainerGroup() {
+        field_288.~shared_ptr();
+        field_248.~vector();
+        field_216.~basic_string();
     }
 
-    // 0x100a52b10, 80 bytes, base-object destructor, inline, placed by class name and debug map
-    // ContainerGroup::~ContainerGroup()
-    void ContainerGroup::~ContainerGroup() {
-        field_0 = &PTR__OptionStore_100f1e020;
-        (&field_288)->~shared_ptr();
-        (&field_248)->~vector();
-        (&field_216)->~basic_string();
-        ~Control();
-    }
-
-    // 0x100a54d70, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // SizeControl::SizeControl(): jumps straight to the base-object constructor
-
-    // 0x100a54d80, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // SizeControl::SizeControl()
-    void SizeControl::SizeControl() {
-        new (this) Container();
-        field_0 = &PTR__RadioGroup_100f1de18;
+    // 0x100a54d80
+    SizeControl::SizeControl() : Container() {
         SetDirection(1);
     }
 
-    // 0x100a5e860, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // PageInfo::PageInfo(PageInfo&&): jumps straight to the base-object constructor
-
-    // 0x100a5e950, 80 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // PageInfo::PageInfo(PageInfo&&)
-    void PageInfo::PageInfo(PageInfo* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-
-        new (this) eastl::string(param_1);
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)&field_32, (shared_ptr*)&param_1->field_32);
-        uVar1 = param_1->field_48;
-        uVar2 = *(undefined8*)&param_1->field_56;
-        uVar3 = param_1->field_66;
-        field_58 = param_1->field_58;
+    // 0x100a5e950
+    PageInfo::PageInfo(PageInfo&& pageInfo) : eastl::string(pageInfo) {
+        field_32.shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(pageInfo.field_32);
+        uint64_t uVar1 = pageInfo.field_48;
+        uint64_t uVar2 = *(uint64_t*)&pageInfo.field_56;
+        uint64_t uVar3 = pageInfo.field_66;
+        field_58 = pageInfo.field_58;
         field_66 = uVar3;
         field_48 = uVar1;
-        *(undefined8*)&field_56 = uVar2;
+        *(uint64_t*)&field_56 = uVar2;
     }
 
-    // 0x100a5eb30, 32 bytes, inline, placed by class name and debug map
-    // ContainerGroup::GetPage(eastl::string const&)::$_15::operator()(PageInfo const&) const
-    /* ContainerGroup::GetPage(eastl::string
-   const&)::$_15::TEMPNAMEPLACEHOLDERVALUE(PageInfo const&) const */
-
-    void ContainerGroup::GetPage(eastl::stringconst&)::$_15::operator()(PageInfo* param_1) {
-        eastl::operator==((basic_string*)param_1, (basic_string*)this);
+    // 0x100a5eb30
+    void ContainerGroup::GetPage(eastl::string const&)::$_15::operator()(const PageInfo& pageInfo) const {
+        pageInfo == *this;
     }
 
-    // 0x100a5f0f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // PageInfo::PageInfo(PageInfo const&): jumps straight to the base-object constructor
-
-    // 0x100a5f1c0, 80 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // PageInfo::PageInfo(PageInfo const&)
-    void PageInfo::PageInfo(PageInfo* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-
-        new (this) eastl::string(param_1);
-        new (&field_32, (shared_ptr*)&param_1->field_32) shared_ptr<oldscape::dash3d::Decor>();
-        uVar1 = param_1->field_48;
-        uVar2 = *(undefined8*)&param_1->field_56;
-        uVar3 = param_1->field_66;
-        field_58 = param_1->field_58;
+    // 0x100a5f1c0
+    PageInfo::PageInfo(const PageInfo& pageInfo) : eastl::string(pageInfo), field_32(&pageInfo.field_32) {
+        uint64_t uVar1 = pageInfo.field_48;
+        uint64_t uVar2 = *(uint64_t*)&pageInfo.field_56;
+        uint64_t uVar3 = pageInfo.field_66;
+        field_58 = pageInfo.field_58;
         field_66 = uVar3;
         field_48 = uVar1;
-        *(undefined8*)&field_56 = uVar2;
+        *(uint64_t*)&field_56 = uVar2;
     }
 
-    // 0x100a5f2b0, 64 bytes, inline, placed by debug map only (low confidence)
-    // PageInfo::operator=(PageInfo&&)
-    /* PageInfo::TEMPNAMEPLACEHOLDERVALUE(PageInfo&&) */
-
-    PageInfo* PageInfo::operator=(PageInfo* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-
-        eastl::string::operator=((eastl::string*)this, (basic_string*)param_1);
-        shared_ptr<Container>::operator=((shared_ptr<Container>*)&field_32, (shared_ptr*)&param_1->field_32);
-        uVar1 = *(undefined8*)&param_1->field_56;
-        uVar2 = param_1->field_58;
-        uVar3 = param_1->field_66;
-        field_48 = param_1->field_48;
-        *(undefined8*)&field_56 = uVar1;
+    // 0x100a5f2b0
+    PageInfo* PageInfo::operator=(PageInfo&& pageInfo) {
+        *this = pageInfo;
+        field_32 = pageInfo.field_32;
+        uint64_t uVar1 = *(uint64_t*)&pageInfo.field_56;
+        uint64_t uVar2 = pageInfo.field_58;
+        uint64_t uVar3 = pageInfo.field_66;
+        field_48 = pageInfo.field_48;
+        *(uint64_t*)&field_56 = uVar1;
         field_58 = uVar2;
         field_66 = uVar3;
         return this;
     }
 
-    // 0x100a5f8c0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // Event::Event(Event const&): jumps straight to the base-object constructor
+    // 0x100a5f8d0
+    Event::Event(const Event& event) : shared_ptr(event), field_16(event.field_16) {}
 
-    // 0x100a5f8d0, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Event::Event(Event const&)
-    /* render::KeepAliveSharedPtrAndOwner::KeepAliveSharedPtrAndOwner(render::KeepAliveSharedPtrAndOwner
-   const&) */
-
-    void render::KeepAliveSharedPtrAndOwner::KeepAliveSharedPtrAndOwner(KeepAliveSharedPtrAndOwner* param_1) {
-        new (this) shared_ptr<oldscape::dash3d::Decor>(param_1);
-        field_16 = param_1->field_16;
+    // 0x100a61480
+    PageInfo* ContainerGroup::GetCurrentPage() {
+        return (PageInfo*)field_248[(long)field_280];
     }
 
-    // 0x100a61480, 32 bytes, inline, placed by class name and debug map
-    // ContainerGroup::GetCurrentPage()
-    void ContainerGroup::GetCurrentPage() {
-        eastl::vector<PageInfo, eastl::allocator>::operator[]((vector<PageInfo, eastl::allocator>*)&field_248,
-                                                              (long)field_280);
-    }
-
-    // 0x100a635c0, 336 bytes, placed by debug map only (low confidence)
-    // SizeControl::Initialise()::$_20::operator()(Event const&) const
-    /* SizeControl::Initialise()::$_20::TEMPNAMEPLACEHOLDERVALUE(Event const&)
-   const */
-
-    void SizeControl::Initialise()::$_20::operator()(Event* param_1) {
-        bool bVar1;
-        char cVar2;
-        SystemSettings* pSVar3;
-        Control* pCVar4;
-        Tweaky* pTVar5;
+    // 0x100a635c0
+    void SizeControl::Initialise()::$_20::operator()(const Event& event) const {
+        SystemSettings* pSVar2;
+        Control* pCVar3;
+        Tweaky* pTVar4;
         shared_ptr local_28;
 
-        if (param_1->field_16 == 2) {
-            weak_ptr<oldscape::rs2lib::IfType>::lock();
-            bVar1 = shared_ptr::operator_cast_to_bool(&local_28);
-            if (bVar1) {
-                pSVar3 = (SystemSettings*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_28);
-                cVar2 = pSVar3->GetSoftwareNameAsSettingPath();
-                if (cVar2 != '\0') {
-                    pTVar5 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_28);
-                    pTVar5->SetMinimised(false);
-                    pCVar4 = (Control*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-                    pCVar4->SetText("Shrink");
+        if (event.field_16 == 2) {
+            local_28 = ((field_0 + 104))->lock();
+            if (shared_ptr::operator_cast_to_bool(&local_28)) {
+                pSVar2 = (SystemSettings*)local_28.operator->();
+                if (pSVar2->GetSoftwareNameAsSettingPath()) {
+                    pTVar4 = (Tweaky*)local_28.operator->();
+                    pTVar4->SetMinimised(false);
+                    pCVar3 = (Control*)event.operator->();
+                    pCVar3->SetText("Shrink");
                     goto LAB_100a636e4;
                 }
             }
-            bVar1 = shared_ptr::operator_cast_to_bool(&local_28);
-            if (bVar1) {
-                pTVar5 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_28);
-                pTVar5->SetMinimised(true);
-                pCVar4 = (Control*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-                pCVar4->SetText("Expand");
+            if (shared_ptr::operator_cast_to_bool(&local_28)) {
+                pTVar4 = (Tweaky*)local_28.operator->();
+                pTVar4->SetMinimised(true);
+                pCVar3 = (Control*)event.operator->();
+                pCVar3->SetText("Expand");
             }
         } else {
-            if (param_1->field_16 != 1) {
+            if (event.field_16 != 1) {
                 return;
             }
-            weak_ptr<oldscape::rs2lib::IfType>::lock();
-            bVar1 = shared_ptr::operator_cast_to_bool(&local_28);
-            if (bVar1) {
-                pSVar3 = (SystemSettings*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_28);
-                cVar2 = pSVar3->GetSoftwareNameAsSettingPath();
-                if (cVar2 != '\0') {
-                    pCVar4 = (Control*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-                    pCVar4->SetText("Expand");
+            local_28 = ((field_0 + 104))->lock();
+            if (shared_ptr::operator_cast_to_bool(&local_28)) {
+                pSVar2 = (SystemSettings*)local_28.operator->();
+                if (pSVar2->GetSoftwareNameAsSettingPath()) {
+                    pCVar3 = (Control*)event.operator->();
+                    pCVar3->SetText("Expand");
                     goto LAB_100a636e4;
                 }
             }
-            pCVar4 = (Control*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-            pCVar4->SetText("Shrink");
+            pCVar3 = (Control*)event.operator->();
+            pCVar3->SetText("Shrink");
         }
     LAB_100a636e4:
-        local_28.~shared_ptr();
     }
 
-    // 0x100a63710, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Tweaky::IsMinimised()
-    /* SystemSettings::GetSoftwareNameAsSettingPath() const */
-
-    undefined1 SystemSettings::GetSoftwareNameAsSettingPath() {
+    // 0x100a63710
+    bool Tweaky::IsMinimised() {
         return m_softwareNameAsSettingPath;
     }
 
-    // 0x100a63720, 16 bytes, inline, placed by class name and debug map
-    // Tweaky::SetMinimised(bool)
-    void Tweaky::SetMinimised(bool param_1) {
-        m_minimised = param_1;
+    // 0x100a63720
+    void Tweaky::SetMinimised(bool arg1) {
+        m_minimised = arg1;
     }
 
-    // 0x100a64020, 336 bytes, placed by debug map only (low confidence)
-    // SizeControl::Initialise()::$_21::operator()(Event const&) const
-    /* SizeControl::Initialise()::$_21::TEMPNAMEPLACEHOLDERVALUE(Event const&)
-   const */
-
-    void SizeControl::Initialise()::$_21::operator()(Event* param_1) {
-        bool bVar1;
-        char cVar2;
-        Tweaky* pTVar3;
-        Control* pCVar4;
+    // 0x100a64020
+    void SizeControl::Initialise()::$_21::operator()(const Event& event) const {
+        Tweaky* pTVar2;
+        Control* pCVar3;
         shared_ptr local_28;
 
-        if (param_1->field_16 == 2) {
-            weak_ptr<oldscape::rs2lib::IfType>::lock();
-            bVar1 = shared_ptr::operator_cast_to_bool(&local_28);
-            if (bVar1) {
-                pTVar3 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_28);
-                cVar2 = pTVar3->IsAttached();
-                if (cVar2 != '\0') {
-                    pTVar3 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_28);
-                    pTVar3->SetAttached(false);
-                    pCVar4 = (Control*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-                    pCVar4->SetText("Attach");
+        if (event.field_16 == 2) {
+            local_28 = ((field_0 + 104))->lock();
+            if (shared_ptr::operator_cast_to_bool(&local_28)) {
+                pTVar2 = (Tweaky*)local_28.operator->();
+                if (pTVar2->IsAttached()) {
+                    pTVar2 = (Tweaky*)local_28.operator->();
+                    pTVar2->SetAttached(false);
+                    pCVar3 = (Control*)event.operator->();
+                    pCVar3->SetText("Attach");
                     goto LAB_100a64144;
                 }
             }
-            bVar1 = shared_ptr::operator_cast_to_bool(&local_28);
-            if (bVar1) {
-                pTVar3 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_28);
-                pTVar3->SetAttached(true);
-                pCVar4 = (Control*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-                pCVar4->SetText("Detach");
+            if (shared_ptr::operator_cast_to_bool(&local_28)) {
+                pTVar2 = (Tweaky*)local_28.operator->();
+                pTVar2->SetAttached(true);
+                pCVar3 = (Control*)event.operator->();
+                pCVar3->SetText("Detach");
             }
         } else {
-            if (param_1->field_16 != 1) {
+            if (event.field_16 != 1) {
                 return;
             }
-            weak_ptr<oldscape::rs2lib::IfType>::lock();
-            bVar1 = shared_ptr::operator_cast_to_bool(&local_28);
-            if (bVar1) {
-                pTVar3 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_28);
-                cVar2 = pTVar3->IsAttached();
-                if (cVar2 != '\0') {
-                    pCVar4 = (Control*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-                    pCVar4->SetText("Detach");
+            local_28 = ((field_0 + 104))->lock();
+            if (shared_ptr::operator_cast_to_bool(&local_28)) {
+                pTVar2 = (Tweaky*)local_28.operator->();
+                if (pTVar2->IsAttached()) {
+                    pCVar3 = (Control*)event.operator->();
+                    pCVar3->SetText("Detach");
                     goto LAB_100a64144;
                 }
             }
-            pCVar4 = (Control*)shared_ptr<Control>::operator->((shared_ptr<Control>*)param_1);
-            pCVar4->SetText("Attach");
+            pCVar3 = (Control*)event.operator->();
+            pCVar3->SetText("Attach");
         }
     LAB_100a64144:
-        local_28.~shared_ptr();
     }
 
-    // 0x100a64170, 64 bytes, inline, placed by class name and debug map
-    // Tweaky::SetAttached(bool)
-    void Tweaky::SetAttached(bool param_1) {
-        undefined1 local_20[16];
+    // 0x100a64170
+    void Tweaky::SetAttached(bool arg1) {
+        uint8_t local_20[16];
 
-        m_attached = param_1;
+        m_attached = arg1;
         field_132 = 0;
         field_136 = 0;
         new (local_20) oldscape::dash3d::GridRect(0, 0, 0, 0);
@@ -1010,279 +736,199 @@ namespace jag::tweak {
         field_116 = local_20._12_4_;
     }
 
-    // 0x100a64aa0, 96 bytes, placed by debug map only (low confidence)
-    // SizeControl::Initialise()::$_22::operator()(Event const&) const
-    /* SizeControl::Initialise()::$_22::TEMPNAMEPLACEHOLDERVALUE(Event const&)
-   const */
-
-    void SizeControl::Initialise()::$_22::operator()(Event* param_1) {
+    // 0x100a64aa0
+    void SizeControl::Initialise()::$_22::operator()(const Event& event) const {
         shared_ptr local_20;
 
-        if (param_1->field_16 == 2) {
-            weak_ptr<oldscape::rs2lib::IfType>::lock();
-            if (shared_ptr::operator_cast_to_bool(&local_20)) {
-                shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)(Tweaky*)&local_20);
+        if (event.field_16 == 2) {
+            local_20 = ((field_0 + 104))->lock();
+            if (shared_ptr::operator_cast_to_bool(&local_20) != '\0') {
+                (*((shared_ptr<Tweaky>*)(Tweaky*)&local_20)).operator->();
                 local_20.ToggleControlMinHeight();
             }
-            local_20.~shared_ptr();
         }
     }
 
 } // namespace jag::tweak
 
 namespace jag::fixedfunction {
-    // 0x100a5f8f0, 80 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<std::__bind<std::function<void (tweak::Event
-   const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void
-   (tweak::Event const&)> const&, tweak::Event const&>&&) */
+    // 0x100a5f8f0
+    function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&& bind) {
+        _lambda_void__void___1_ local_28;
+        _lambda_void__jag__BaseApp___1_ local_20;
+        _lambda_void___1_ local_18;
 
-    void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>, void>(
-        function<void(BaseApp*), 128ul, 16ul, (Methods)0>* this, __bind* param_1) {
-        _func_void_void_ptr_void_ptr* p_Var1;
-        _func_void_void_ptr_BaseApp_ptr* p_Var2;
-        _func_void_void_ptr* p_Var3;
-        _lambda_void__void___1_ local_28[8];
-        _lambda_void__jag__BaseApp___1_ local_20[8];
-        _lambda_void___1_ local_18[8];
-
-        *(undefined8*)this = 0;
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>::__bind(
-            (__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>*)(this + 16), param_1);
-        p_Var1 = fixedfunction::function::function(std::__bind&&)::{
+        *(uint64_t*)this = 0;
+        new ((this + 16)) std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>(bind);
+        uint64_t uVar1 = fixedfunction::function::function(std::__bind&&)::{
             lambda(void*, void*) #1
         }
-        ::operator_cast_to_function_pointer(local_28);
-        *(_func_void_void_ptr_void_ptr**)(this + 144) = p_Var1;
-        p_Var2 = fixedfunction::function::function(std::__bind&&)::{
+        ::operator_cast_to_function_pointer(&local_28);
+        *(uint64_t*)(this + 144) = uVar1;
+        uVar1 = fixedfunction::function::function(std::__bind&&)::{
             lambda(void*, BaseApp*) #1
         }
-        ::operator_cast_to_function_pointer(local_20);
-        *(_func_void_void_ptr_BaseApp_ptr**)this = p_Var2;
-        p_Var3 = fixedfunction::function::function(std::__bind&&)::{
+        ::operator_cast_to_function_pointer(&local_20);
+        *(uint64_t*)this = uVar1;
+        uVar1 = fixedfunction::function::function(std::__bind&&)::{
             lambda(void*) #1
         }
-        ::operator_cast_to_function_pointer(local_18);
-        *(_func_void_void_ptr**)(this + 152) = p_Var3;
+        ::operator_cast_to_function_pointer(&local_18);
+        *(uint64_t*)(this + 152) = uVar1;
     }
 
-    // 0x100a5f950, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*, void*)#1}::operator void (*)(void*, void*)() const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<std::__bind<std::function<void (tweak::Event
-   const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void
-   (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*,
-   void*)#1}::operator void (*)(void*, void*)() const */
-
-    _func_void_void_ptr_void_ptr* function::function(std::__bind&&)::{
+    // 0x100a5f950
+    function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&&)::{
         lambda(void*, void*) #1
     }
-    ::operator_cast_to_function_pointer() {
-        return (_func_void_void_ptr_void_ptr*)PTR___invoke_100ee95d0;
+    ::operator void (*)(void*, void*)() const {
+        return PTR___invoke_100ee95d0;
     }
 
-    // 0x100a5f960, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*, BaseApp*)#1}::operator void (*)(void*, BaseApp*)() const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<std::__bind<std::function<void (tweak::Event
-   const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void
-   (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*,
-   BaseApp*)#1}::operator void (*)(void*, BaseApp*)() const */
-
-    _func_void_void_ptr_BaseApp_ptr* function::function(std::__bind&&)::{
+    // 0x100a5f960
+    function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&&)::{
         lambda(void*, BaseApp*) #1
     }
-    ::operator_cast_to_function_pointer() {
-        return (_func_void_void_ptr_BaseApp_ptr*)PTR_BaseApp___100ee95c8;
+    ::operator void (*)(void*, BaseApp*)() const {
+        return PTR_BaseApp___100ee95c8;
     }
 
-    // 0x100a5f970, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*)#1}::operator void (*)(void*)() const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<std::__bind<std::function<void (tweak::Event
-   const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void
-   (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*)#1}::operator
-   void (*)(void*)() const */
-
-    _func_void_void_ptr* function::function(std::__bind&&)::{
+    // 0x100a5f970
+    function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&&)::{
         lambda(void*) #1
     }
-    ::operator_cast_to_function_pointer() {
-        return (_func_void_void_ptr*)PTR___invoke_100ee95c0;
+    ::operator void (*)(void*)() const {
+        return PTR___invoke_100ee95c0;
     }
 
-    // 0x100a5fac0, 32 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*, void*)#1}::__invoke(void*, void*)
-    /* __invoke(void*, void*) */
-
+    // 0x100a5fac0
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>, void>(
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>&&)::{
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&&)::{
         lambda(void*, void*) #1
     }
-    ::__invoke(void* param_1, void* param_2) {
-        operator()(param_1, param_1, param_2);
+    ::__invoke(void* arg1, void* arg2) {
+        operator()(arg1, arg1, arg2);
     }
 
-    // 0x100a5fae0, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*, void*)#1}::operator()(void*, void*) const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<std::__bind<std::function<void (tweak::Event
-   const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void
-   (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*,
-   void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, void*) const */
-
+    // 0x100a5fae0
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>, void>(
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>&&)::{
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&&)::{
         lambda(void*, void*) #1
     }
-    ::operator()(void* param_1, void* param_2) {
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>::__bind(param_2, param_1);
+    ::operator()(void* arg1, void* arg2) const {
+        new (arg2) std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>(*arg1);
     }
 
-    // 0x100a5fbb0, 32 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*, BaseApp*)#1}::__invoke(void*, BaseApp*)
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<std::__bind<std::function<void (tweak::Event
-   const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void
-   (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*,
-   BaseApp*)#1}::__invoke(void*, BaseApp*) */
-
+    // 0x100a5fbb0
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>, void>(
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>&&)::{
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&&)::{
         lambda(void*, BaseApp*) #1
     }
-    ::BaseApp__(_lambda_void__jag__BaseApp___1_* param_1, BaseApp* param_2) {
-        operator()(param_1, param_1, param_2);
+    ::__invoke(void* arg1, BaseApp* baseApp) {
+        operator()(arg1, arg1, baseApp);
     }
 
-    // 0x100a5fbd0, 32 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*, BaseApp*)#1}::operator()(void*, BaseApp*) const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<std::__bind<std::function<void (tweak::Event
-   const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void
-   (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*,
-   BaseApp*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, BaseApp*) const */
-
+    // 0x100a5fbd0
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>, void>(
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>&&)::{
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&&)::{
         lambda(void*, BaseApp*) #1
     }
-    ::operator()(void* param_1, BaseApp * param_2) {
-        BaseApp* local_10;
-
-        local_10 = param_2;
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>::operator()(param_1,
-                                                                                                      &local_10);
+    ::operator()(void* arg1, BaseApp * baseApp) const {
+        BaseApp* local_10 = baseApp;
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>::operator()(arg1, &local_10);
     }
 
-    // 0x100a5fd00, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*)#1}::__invoke(void*)
-    /* __invoke(void*) */
-
+    // 0x100a5fd00
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>, void>(
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>&&)::{
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&&)::{
         lambda(void*) #1
     }
-    ::__invoke(void* param_1) {
-        operator()(param_1, param_1);
+    ::__invoke(void* arg1) {
+        operator()(arg1, arg1);
     }
 
-    // 0x100a5fd10, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void (tweak::Event const&)> const&, tweak::Event const&>&&)::{lambda(void*)#1}::operator()(void*) const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<std::__bind<std::function<void (tweak::Event
-   const&)> const&, tweak::Event const&>, void>(std::__bind<std::function<void
-   (tweak::Event const&)> const&, tweak::Event
-   const&>&&)::{lambda(void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*) const */
-
+    // 0x100a5fd10
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>, void>(
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>&&)::{
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>, void>(
+        std::__bind<std::function<void(tweak::Event const&)> const&, tweak::Event const&>&&)::{
         lambda(void*) #1
     }
-    ::operator()(void* param_1) {
-        std::__bind<std::function<void(tweak::Event_const&)> const&, tweak::Event_const&>::~__bind(param_1);
+    ::operator()(void* arg1) const {
+        arg1->~__bind();
     }
 
 } // namespace jag::fixedfunction
 
 namespace jag::math {
-    // 0x100a535b0, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ColourStorage8888<RGBA8StorageLayout>::ColourStorage8888(unsigned int)
-    void ColourStorage8888<RGBA8StorageLayout>::ColourStorage8888(uint param_1) {
-        Set(this, param_1);
+    // 0x100a535b0
+    ColourStorage8888<RGBA8StorageLayout>::ColourStorage8888(unsigned int arg1) {
+        Set(this, arg1);
     }
 
-    // 0x100a535c0, 112 bytes, inline, placed by debug map only (low confidence)
-    // ColourStorage8888<RGBA8StorageLayout>::Set(unsigned int)
-    void ColourStorage8888<RGBA8StorageLayout>::Set(uint param_1) {
-        ColourStorage8888<RGBA8StorageLayout> CVar1;
-
-        CVar1 = (ColourStorage8888<RGBA8StorageLayout>)extract_bits(param_1, 24, 8);
+    // 0x100a535c0
+    void ColourStorage8888<RGBA8StorageLayout>::Set(unsigned int arg1) {
+        ColourStorage8888<RGBA8StorageLayout> CVar1 = (ColourStorage8888<RGBA8StorageLayout>)extract_bits(arg1, 24, 8);
         this[3] = CVar1;
-        CVar1 = (ColourStorage8888<RGBA8StorageLayout>)extract_bits(param_1, 16, 8);
+        CVar1 = (ColourStorage8888<RGBA8StorageLayout>)extract_bits(arg1, 16, 8);
         this[2] = CVar1;
-        CVar1 = (ColourStorage8888<RGBA8StorageLayout>)extract_bits(param_1, 8, 8);
+        CVar1 = (ColourStorage8888<RGBA8StorageLayout>)extract_bits(arg1, 8, 8);
         this[1] = CVar1;
-        CVar1 = (ColourStorage8888<RGBA8StorageLayout>)extract_bits(param_1, 0, 8);
+        CVar1 = (ColourStorage8888<RGBA8StorageLayout>)extract_bits(arg1, 0, 8);
         *this = CVar1;
     }
 
-    // 0x100a5ff60, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ColourStorage8888<RGBA8StorageLayout>::ColourStorage8888(float, float, float, float)
-    void ColourStorage8888<RGBA8StorageLayout>::ColourStorage8888(float param_1, float param_2, float param_3,
-                                                                  float param_4) {
-        Set(this, param_1, param_2, param_3, param_4);
+    // 0x100a5ff60
+    ColourStorage8888<RGBA8StorageLayout>::ColourStorage8888(float arg1, float arg2, float arg3, float arg4) {
+        Set(this, arg1, arg2, arg3, arg4);
     }
 
-    // 0x100a5ff70, 96 bytes, inline, placed by debug map only (low confidence)
-    // float RoundToDecimalPlaces<float>(float, unsigned int)
-    float RoundToDecimalPlaces<float>(float param_1, uint param_2) {
-        uint uVar1;
+    // 0x100a5ff70
+    float RoundToDecimalPlaces<float>(float arg1, unsigned int arg2) {
+        unsigned int uVar1;
         float fVar3;
 
-        if (param_2 == 0) {
+        if (arg2 == 0) {
             fVar3 = 1.0;
         } else {
             uVar1 = 1;
             do {
                 uVar1 = uVar1 * 10;
-                param_1 = param_1 * 10.0;
-                param_2 = param_2 - 1;
-            } while (param_2 != 0);
+                arg1 = arg1 * 10.0;
+                arg2 = arg2 - 1;
+            } while (arg2 != 0);
             fVar3 = (float)uVar1;
         }
-        return (float)floor(param_1) / fVar3;
+        return (float)::floor(arg1) / fVar3;
     }
 
 } // namespace jag::math
 
-// 0x100a597a0, 16 bytes, placed by debug map only (low confidence)
-// abs(float)
-ulong abs(float param_1) {
-    undefined4 in_XMM0_Db;
+// 0x100a597a0
+unsigned long abs(float arg1) {
+    uint32_t in_XMM0_Db;
 
-    return CONCAT44(in_XMM0_Db, param_1) & 9223372034707292159;
+    return (((uint64_t)in_XMM0_Db << 32) | (uint32_t)arg1) & 9223372034707292159;
 }
 
-// 0x100a597b0, 16 bytes, placed by debug map only (low confidence)
-// floor(float)
-void floor(float param_1) {
+// 0x100a597b0
+void floor(float arg1) {
     _floorf();
 }
 
 namespace jag::render {
-    // 0x100a5f8c0: the linker folded this into tweak::Event::Event(tweak::Event const&), which has identical code
-    KeepAliveSharedPtrAndOwner::KeepAliveSharedPtrAndOwner(KeepAliveSharedPtrAndOwner const&);
-
-    // 0x100a5f8d0: the linker folded this into tweak::Event::Event(tweak::Event const&), which has identical code
-    KeepAliveSharedPtrAndOwner::KeepAliveSharedPtrAndOwner(KeepAliveSharedPtrAndOwner const&);
+    // 0x100a5f8d0: KeepAliveSharedPtrAndOwner::KeepAliveSharedPtrAndOwner(KeepAliveSharedPtrAndOwner const&) has the same machine code as tweak::Event::Event(tweak::Event const&)
 
 } // namespace jag::render

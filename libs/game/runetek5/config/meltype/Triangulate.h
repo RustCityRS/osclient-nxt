@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/meltype/Triangulate.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,29 +7,25 @@ namespace jag::game {
     class Triangulate {
     public:
         class SourcePoint;
-        ConvertPolygon(eastl::vector<int, eastl::allocator>&, eastl::vector<math::Point<int>, eastl::allocator> const&);
-        bool TestPolygonWinding(eastl::vector<SourcePoint, BucketAllocatorEASTL> const&);
-        uint ProcessPolygonList(eastl::vector<int, eastl::allocator>&,
-                                eastl::vector<SourcePoint, BucketAllocatorEASTL>&, bool);
-        long Cross(eastl::vector<SourcePoint, BucketAllocatorEASTL> const&, int, int, int);
-        PointInTriangle(eastl::vector<SourcePoint, BucketAllocatorEASTL> const&, int, int, int, int);
+        void ConvertPolygon(eastl::vector<int>& arg1, const eastl::vector<math::Point<int>>& points);
+        bool TestPolygonWinding(const eastl::vector<SourcePoint>& sourcePoints);
+        unsigned int ProcessPolygonList(eastl::vector<int>& arg1, eastl::vector<SourcePoint>& sourcePoints, bool arg3);
+        long Cross(const eastl::vector<SourcePoint>& sourcePoints, int arg2, int arg3, int arg4);
+        void PointInTriangle(const eastl::vector<SourcePoint>& sourcePoints, int arg2, int arg3, int arg4, int arg5);
     };
 
     class Triangulate::SourcePoint {
     public:
         int GetIndex() const;
-        SourcePoint(math::Point<int> const&, int);
-        SourcePoint(SourcePoint&&);
-        SourcePoint* operator=(SourcePoint&&);
+        SourcePoint(const math::Point<int>& point, int arg2);
+        SourcePoint(SourcePoint&& sourcePoint);
+        SourcePoint* operator=(SourcePoint&& sourcePoint);
 
-        // data members, from how the methods use this: 16 bytes
-        undefined4 field_0; // offset 0
-        undefined4 field_4; // offset 4
-        int m_index;        // offset 8
-        char _unknown_12[4];
+    private:
+        uint32_t field_0;
+        uint32_t field_4;
+        int m_index;
+        uint8_t _unknown_12[4];
     };
-
-    // 0x100517bb0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // Triangulate::SourcePoint::SourcePoint(math::Point<int> const&, int): jumps straight to the base-object constructor
 
 } // namespace jag::game

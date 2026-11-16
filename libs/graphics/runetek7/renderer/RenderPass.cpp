@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/renderer/RenderPass.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
@@ -8,147 +7,103 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~RenderPass();
-        virtual PreparePass(RT7Core&, EffectManager&, SceneViewData const&, DrawableQueue&);
-        virtual BeginPass(render::DrawCallState&, render::RenderContext&, EffectManager&, SceneViewData const&,
-                          DrawableQueue const&);
+        virtual void PreparePass(RT7Core& arg1, EffectManager& arg2, const SceneViewData& arg3, DrawableQueue& arg4);
+        virtual uint8_t BeginPass(render::DrawCallState& arg1, render::RenderContext& arg2, EffectManager& arg3,
+                                  const SceneViewData& arg4, const DrawableQueue& arg5);
         virtual void __pure_slot_5() = 0;
-        RenderDebug(EffectManager&, DrawableQueue&);
-        RegisterTweakVarsOcclusion(tweak::Container&);
-        EndPass(render::DrawCallState&, render::RenderContext&, EffectManager&, DrawableQueue const&);
-        uint GetRenderPassType() const;
-        RenderPass(RenderPassType);
-        void RegisterTweakVars(tweak::Container&);
-        static /* 4 bytes */ m_useAsyncReprojection; // = 1
-        static /* 8 bytes */ m_useAsyncRasterisation;
-        static eastl::vector<RenderPass*, eastl::allocator> /* 32 bytes */
-            m_renderPassList;                               // = vector<RenderPass*,eastl::allocator>()
+        void RenderDebug(EffectManager& arg1, DrawableQueue& arg2);
+        void RegisterTweakVarsOcclusion(tweak::Container& arg1);
+        void EndPass(render::DrawCallState& arg1, render::RenderContext& arg2, EffectManager& arg3,
+                     const DrawableQueue& arg4);
+        RenderPassType GetRenderPassType() const;
+        RenderPass(RenderPassType renderPassType);
+        void RegisterTweakVars(tweak::Container& container);
+        static int32_t m_useAsyncReprojection; // = 1
+        static bool m_useAsyncRasterisation;
+        static eastl::vector<RenderPass*> m_renderPassList; // = vector<RenderPass*>()
 
-        // data members, from how the methods use this: 16 bytes
-        undefined** field_0;   // offset 0, vtable pointer
-        uint m_renderPassType; // offset 8
-        char _unknown_12[4];
+    private:
+        RenderPassType m_renderPassType;
+        uint8_t _unknown_12[4];
     };
 
     class RenderPassBitSet {
     public:
-        SetBits(unsigned int);
-        uint GetBits() const;
+        void SetBits(unsigned int arg1);
+        TextureFormatBitSet GetBits() const;
         RenderPassBitSet();
-        Clear();
-        AddRenderPass(unsigned int);
-        HasShadowMapPass() const;
-        HasRenderPass(unsigned int) const;
-        void RemoveRenderPass(unsigned int);
+        void Clear();
+        void AddRenderPass(unsigned int arg1);
+        bool HasShadowMapPass() const;
+        bool HasRenderPass(unsigned int arg1) const;
+        void RemoveRenderPass(unsigned int arg1);
 
-        // data members, from how the methods use this: 4 bytes
-        uint m_bits; // offset 0
+    private:
+        TextureFormatBitSet m_bits;
     };
 
-    // 0x100f43a1c, 4 bytes, __data
-    RenderPass::m_useAsyncReprojection = 1;
+    // 0x100f43a1c
+    int32_t RenderPass::m_useAsyncReprojection = 1;
 
-    // 0x103bbd3e8, 8 bytes, __common; zero-initialised
-    RenderPass::m_useAsyncRasterisation;
+    // 0x103bbd3e8
+    bool RenderPass::m_useAsyncRasterisation;
 
-    // 0x103bbd3f0, 32 bytes, __common; set at startup by ___cxx_global_var_init.247
-    eastl::vector<RenderPass*, eastl::allocator> RenderPass::m_renderPassList = vector<RenderPass*, eastl::allocator>();
+    // 0x103bbd3f0, set at startup by ___cxx_global_var_init.247
+    eastl::vector<RenderPass*> RenderPass::m_renderPassList = vector<RenderPass*>();
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    RenderPass::PreparePass(RT7Core&, EffectManager&, SceneViewData const&, DrawableQueue&);
+    // 0x100009e70: RenderPass::PreparePass(RT7Core&, EffectManager&, SceneViewData const&, DrawableQueue&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    RenderPass::RenderDebug(EffectManager&, DrawableQueue&);
+    // 0x100009e70: RenderPass::RenderDebug(EffectManager&, DrawableQueue&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    RenderPass::RegisterTweakVarsOcclusion(tweak::Container&);
+    // 0x100009e70: RenderPass::RegisterTweakVarsOcclusion(tweak::Container&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    RenderPass::EndPass(render::DrawCallState&, render::RenderContext&, EffectManager&, DrawableQueue const&);
+    // 0x100009e70: RenderPass::EndPass(render::DrawCallState&, render::RenderContext&, EffectManager&, DrawableQueue const&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    uint RenderPass::GetRenderPassType() const;
+    // 0x100024170: RenderPass::GetRenderPassType() const has the same machine code as oldscape::option::IScriptOption::GetId() const
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    RenderPass::BeginPass(render::DrawCallState&, render::RenderContext&, EffectManager&, SceneViewData const&,
-                          DrawableQueue const&);
+    // 0x10002d860: RenderPass::BeginPass(render::DrawCallState&, render::RenderContext&, EffectManager&, SceneViewData const&, DrawableQueue const&) has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x1007e3e20, 48 bytes, base-object constructor, placed by class name and debug map
-    // RenderPass::RenderPass(RenderPassType)
-    void RenderPass::RenderPass(uint param_2) {
-        RenderPass* local_10;
-
-        field_0 = &PTR__RenderPass_100f14d40;
-        m_renderPassType = param_2;
-        local_10 = this;
-        m_renderPassList.push_back(&local_10);
+    // 0x1007e3e20
+    RenderPass::RenderPass(RenderPassType renderPassType) : m_renderPassType(renderPassType) {
+        m_renderPassList.push_back(this);
     }
 
-    // 0x1007e3eb0, 112 bytes, base-object destructor, placed by class name and debug map
-    // RenderPass::~RenderPass()
-    void RenderPass::~RenderPass() {
-        function** ppfVar1;
-        function** ppfVar2;
-        RenderPass** ppRVar3;
-        RenderPass** ppRVar4;
-        RenderPass* local_28;
+    // 0x1007e3eb0
+    RenderPass::~RenderPass() {
+        function<bool_(int, int, int, int)>** arg1;
+        function<bool_(int, int, int, int)>** arg2;
 
-        field_0 = &PTR__RenderPass_100f14d40;
-        ppfVar1 = (function**)m_renderPassList.HeapBeginPtr();
-        ppfVar2 = (function**)m_renderPassList.end();
-        local_28 = this;
-        ppRVar3 = (RenderPass**)
-            eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-                ppfVar1, ppfVar2, (function**)&local_28);
-        ppRVar4 = (RenderPass**)m_renderPassList.end();
-        if (ppRVar3 != ppRVar4) {
-            m_renderPassList.erase(ppRVar3);
+        arg1 = (function<bool_(int, int, int, int)>**)m_renderPassList.HeapBeginPtr();
+        arg2 = (function<bool_(int, int, int, int)>**)m_renderPassList.end();
+        RenderPass* local_28 = this;
+        RenderPass** arg1_00 = (RenderPass**)
+            eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(arg1, arg2,
+                                                                                                             local_28);
+        auto ppRVar1 = m_renderPassList.end();
+        if (arg1_00 != ppRVar1) {
+            m_renderPassList.erase(arg1_00);
         }
     }
 
-    // 0x1007e3f70, 16 bytes, complete-object destructor, placed by class name and debug map
-    // RenderPass::~RenderPass(): jumps straight to the base-object destructor
-
-    // 0x1007e3f80, 16 bytes, deleting destructor, placed by class name and debug map
-    // RenderPass::~RenderPass()
-    void RenderPass::~RenderPass() {
-        code* pcVar1;
-
-        /* WARNING: Does not return */
-        pcVar1 = (code*)invalidInstructionException();
-        (*pcVar1)();
-    }
-
-    // 0x1007e3f90, 192 bytes, placed by class name and debug map
-    // RenderPass::RegisterTweakVars(tweak::Container&)
-    void RenderPass::RegisterTweakVars(Container* param_1) {
-        long* plVar1;
-        long* plVar2;
-
-        param_1->AddCheckBox("Use Async Rasterisation", (bool*)&m_useAsyncRasterisation);
-        param_1->AddCheckBox("Use Async Reprojection", (bool*)&m_useAsyncReprojection);
-        plVar1 = (long*)m_renderPassList.HeapBeginPtr();
-        plVar2 = (long*)m_renderPassList.end();
+    // 0x1007e3f90
+    void RenderPass::RegisterTweakVars(tweak::Container& container) {
+        container.AddCheckBox("Use Async Rasterisation", m_useAsyncRasterisation);
+        container.AddCheckBox("Use Async Reprojection", m_useAsyncReprojection);
+        auto plVar1 = m_renderPassList.HeapBeginPtr();
+        auto plVar2 = m_renderPassList.end();
         while (true) {
             if (plVar1 == plVar2) {
                 return;
             }
             if (*plVar1 == 0)
                 break;
-            (**(code**)(*(long*)*plVar1 + 56))((long*)*plVar1, param_1);
+            (**(void (**)(...))(*(long*)*plVar1 + 56))((long*)*plVar1, container);
             plVar1 = plVar1 + 1;
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("renderPass != nullptr",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/renderer/"
                   "RenderPass.cpp",
-                  38, (char*)0);
-    }
-
-    // 0x100804670, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.247
-    void ___cxx_global_var_init_247() {
-        new (&RenderPass::m_renderPassList) eastl::vector<RenderPass*, eastl::allocator>();
-        ___cxa_atexit(PTR__vector_100ee6d68, &RenderPass::m_renderPassList, 4294967296);
+                  38, nullptr);
     }
 
 } // namespace jag::graphics

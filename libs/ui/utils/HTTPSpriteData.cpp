@@ -1,280 +1,194 @@
 // libs/ui/utils/HTTPSpriteData.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.ui
 
 #include "HTTPSpriteData.h"
 
 namespace jag::ui {
-    // 0x100f3e6c0, 560 bytes, __data; set at startup by ___cxx_global_var_init.625
-    eastl::fixed_string<char, 512, true, eastl::allocator> HTTPSpriteData::m_defaultBaseURL =
-        fixed_string<char, 512, true, eastl::allocator>();
+    // 0x100f3e6c0, set at startup by ___cxx_global_var_init.625
+    eastl::fixed_string<char, 512> HTTPSpriteData::m_defaultBaseURL = fixed_string<char, 512>();
 
-    // 0x1000b7910: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectName() const, which has identical code
-    shared_ptr HTTPSpriteData::GetTexture() const;
+    // 0x1000b7910: HTTPSpriteData::GetTexture() const has the same machine code as oldscape::minimenu::MinimenuEntry::GetSubjectName() const
 
-    // 0x100676720, 96 bytes, base-object constructor, placed by class name
-    // HTTPSpriteData::HTTPSpriteData(int)
-    void HTTPSpriteData::HTTPSpriteData(int param_1) {
-        undefined4 in_register_00000034;
-
-        eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-        field_24 = param_1;
-        field_32 = (char*)0;
-        field_40 = (char*)0;
-        std::unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>::unique_ptr<true, void>(
-            (unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>*)&field_48);
-        new (m_texture, (_func_decltype_nullptr*)CONCAT44(in_register_00000034)
-                            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1));
+    // 0x100676720
+    HTTPSpriteData::HTTPSpriteData(int arg1)
+        : eastl::basic_string<char, BucketAllocatorEASTL>(), field_24(arg1), field_32(0), field_40(0) {
+        field_48.unique_ptr<true, void>();
+        new (m_texture) shared_ptr();
     }
 
-    // 0x1006767a0, 16 bytes, complete-object constructor, placed by class name
-    // HTTPSpriteData::HTTPSpriteData(int): jumps straight to the base-object constructor
-
-    // 0x1006767b0, 96 bytes, base-object constructor, placed by class name
-    // HTTPSpriteData::HTTPSpriteData(eastl::basic_string<char, BucketAllocatorEASTL>&&)
-    void HTTPSpriteData::HTTPSpriteData(basic_string* param_1) {
-        new (this) eastl::basic_string<char, BucketAllocatorEASTL>();
-        field_24 = 4294967295;
-        field_32 = (char*)0;
-        field_40 = (char*)0;
-        std::unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>::unique_ptr<true, void>(
-            (unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>*)&field_48);
-        new (m_texture, (_func_decltype_nullptr*)param_1)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x1006767b0
+    HTTPSpriteData::HTTPSpriteData(eastl::basic_string<char, BucketAllocatorEASTL>&& str)
+        : eastl::basic_string<char, BucketAllocatorEASTL>(str), field_24(4294967295), field_32(0), field_40(0) {
+        field_48.unique_ptr<true, void>();
+        new (m_texture) shared_ptr();
     }
 
-    // 0x100676810, 16 bytes, complete-object constructor, placed by class name
-    // HTTPSpriteData::HTTPSpriteData(eastl::basic_string<char, BucketAllocatorEASTL>&&): jumps straight to the base-object constructor
+    // 0x100676820
+    uint8_t* HTTPSpriteData::Service(StringView stringView) {
+        uint8_t* this_01;
+        bool cVar2;
+        HTTPRequest* pHVar3;
+        unsigned long uVar4;
+        uint64_t uVar5;
+        char* pcVar6;
+        uint8_t** ppuVar7;
+        ReturnValue local_460;
 
-    // 0x100676820, 608 bytes, placed by class name
-    // HTTPSpriteData::Service(StringView)
-    undefined* HTTPSpriteData::Service(StringView param_1) {
-        undefined1* this_00;
-        undefined1* this_01;
-        bool bVar1;
-        char cVar2;
-        char cVar3;
-        HTTPRequest* pHVar4;
-        ulong uVar5;
-        undefined8 uVar6;
-        char* pcVar7;
-        undefined** ppuVar8;
-        SharedArray<std::unique_ptr<oldscape::rs2lib::worldmap::LocationData,
-                                    std::default_delete<oldscape::rs2lib::worldmap::LocationData>>>* this_02;
-        HTTPSpriteData local_460[14];
-        long local_38;
-
-        this_02 = (SharedArray<std::unique_ptr<oldscape::rs2lib::worldmap::LocationData,
-                                               std::default_delete<oldscape::rs2lib::worldmap::LocationData>>>*)
-                      param_1.field_0;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_00 = m_texture;
-        bVar1 = this_00->operator_cast_to_bool();
-        if (bVar1) {
-            ppuVar8 = &DataStatus::READY;
-        } else {
+        uint8_t* this_00 = m_texture;
+        bool cVar1 = this_00->operator_cast_to_bool();
+        if (!cVar1) {
             this_01 = &field_48;
-            bVar1 = this_01->operator_cast_to_bool();
-            if (!bVar1) {
-                bucket_make_unique<http::HTTPRequest>((jag*)local_460);
-                std::unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>::operator=(
-                    (unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>*)this_01, (unique_ptr*)local_460);
-                local_460->~unique_ptr();
-                pcVar7 = field_32;
-                if (pcVar7 != (char*)0) {
-                    pHVar4 =
-                        (HTTPRequest*)std::unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>::operator->(
-                            (unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>*)this_01);
-                    pHVar4->SetProxyUserName(pcVar7);
-                    pHVar4 =
-                        (HTTPRequest*)std::unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>::operator->(
-                            (unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>*)this_01);
-                    pHVar4->SetProxyPassword(field_40);
+            cVar1 = this_01->operator_cast_to_bool();
+            if (!cVar1) {
+                bucket_make_unique<http::HTTPRequest>(&local_460);
+                *this_01 = local_460;
+                pcVar6 = (char*)field_32;
+                if (pcVar6 != nullptr) {
+                    pHVar3 = (HTTPRequest*)(*this_01).operator->();
+                    pHVar3->SetProxyUserName(pcVar6);
+                    pHVar3 = (HTTPRequest*)(*this_01).operator->();
+                    pHVar3->SetProxyPassword(field_40);
                 }
-                cVar2 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-                cVar3 = this_02->empty();
-                if (cVar2 != '\0') {
-                    if (cVar3 != '\0') {
-                        /* WARNING: Subroutine does not return */
+                cVar1 = empty();
+                cVar2 = stringView->empty();
+                if (cVar1) {
+                    if (cVar2) {
                         LogAssert("!baseURL.empty()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/utils/"
                                   "HTTPSpriteData.cpp",
-                                  40, (char*)0);
+                                  40, nullptr);
                     }
                     if (field_24 == 4294967295) {
-                        /* WARNING: Subroutine does not return */
                         LogAssert("m_imageID != -1",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/utils/"
                                   "HTTPSpriteData.cpp",
-                                  41, (char*)0);
+                                  41, nullptr);
                     }
-                    new (local_460) eastl::fixed_string<char, 1024, true, eastl::allocator>();
-                    uVar5 = this_02->HeapBeginPtr();
-                    uVar6 = this_02->end();
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 1024ul, 1ul, 0ul, true, eastl::allocator>>::
-                        sprintf((char*)local_460, "%.*s/img/image_%d.png", uVar5 & 4294967295, uVar6, (ulong)field_24);
-                    pHVar4 =
-                        (HTTPRequest*)std::unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>::operator->(
-                            (unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>*)this_01);
-                    pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    pHVar4->Get(pcVar7);
-                    /* WARNING: Subroutine does not return */
-                    local_460->~fixed_string();
+                    local_460 = eastl::fixed_string<char, 1024>();
+                    uVar4 = stringView->HeapBeginPtr();
+                    uVar5 = stringView->end();
+                    local_460.sprintf("%.*s/img/image_%d.png", uVar4 & 4294967295, uVar5, (unsigned long)field_24);
+                    pHVar3 = (HTTPRequest*)(*this_01).operator->();
+                    pcVar6 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    pHVar3->Get(pcVar6);
                 }
-                if (cVar3 == '\0') {
-                    /* WARNING: Subroutine does not return */
+                if (!cVar2) {
                     LogAssert("baseURL.empty()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/utils/"
                               "HTTPSpriteData.cpp",
-                              49, (char*)0);
+                              49, nullptr);
                 }
-                pHVar4 = (HTTPRequest*)std::unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>::operator->(
-                    (unique_ptr<http::HTTPRequest, BucketDeleter<http::HTTPRequest>>*)this_01);
-                pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                pHVar4->Get(pcVar7);
+                pHVar3 = (HTTPRequest*)(*this_01).operator->();
+                pcVar6 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                pHVar3->Get(pcVar6);
             }
-            pHVar4 = (HTTPRequest*)this_01->get();
-            MakeTextureFromRequest(local_460, pHVar4);
-            shared_ptr<render::Texture2D>::operator=((shared_ptr<render::Texture2D>*)this_00, (shared_ptr*)local_460);
-            local_460->~shared_ptr();
-            bVar1 = this_00->operator_cast_to_bool();
-            ppuVar8 = &DataStatus::NOTLOADED;
-            if (bVar1) {
-                this_01->reset(0);
+            pHVar3 = (HTTPRequest*)this_01->get();
+            MakeTextureFromRequest(&local_460, pHVar3);
+            *this_00 = local_460;
+            cVar1 = this_00->operator_cast_to_bool();
+            ppuVar7 = &DataStatus::NOTLOADED;
+            if (cVar1) {
+                this_01->reset(nullptr);
             }
+        } else {
+            ppuVar7 = &DataStatus::READY;
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return *ppuVar8;
+        return *ppuVar7;
     }
 
-    // 0x100676b40, 768 bytes, placed by class name
-    // HTTPSpriteData::MakeTextureFromRequest(http::HTTPRequest const*)
-    HTTPSpriteData* HTTPSpriteData::MakeTextureFromRequest(HTTPRequest* param_1) {
-        LoginManager* this_00;
-        int iVar1;
-        int iVar2;
-        uint uVar3;
-        uint uVar4;
-        uint uVar5;
-        undefined4 uVar6;
-        undefined4 uVar7;
-        basic_string<char, BucketAllocatorEASTL>* this_01;
-        undefined8 uVar8;
-        undefined8 uVar9;
-        Array* pAVar10;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* this_02;
-        undefined8 uVar11;
-        char* pcVar12;
-        undefined8 in_stack_ffffffffffffff38;
-        undefined4 uVar13;
-        undefined8 in_stack_ffffffffffffff40;
-        undefined4 uVar14;
-        uint in_stack_ffffffffffffff60;
-        undefined1 local_98[8];
-        RGBAImage local_90;
-        long local_38;
+    // 0x100676b40
+    auto HTTPSpriteData::MakeTextureFromRequest(const http::HTTPRequest* httpRequest) {
+        LoginManager* loginManager;
+        bool cVar1;
+        char cVar2;
+        unsigned int arg2;
+        unsigned int uVar4;
+        unsigned int arg4;
+        uint32_t uVar5;
+        uint32_t uVar6;
+        Logger* pLVar7;
+        uint64_t uVar8;
+        char* str2;
+        uint8_t auVar9[16];
+        uint64_t in_stack_ffffffffffffff38;
+        uint64_t in_stack_ffffffffffffff40;
+        uint8_t local_98[8];
 
-        uVar13 = (undefined4)((ulong)in_stack_ffffffffffffff38 >> 32);
-        uVar14 = (undefined4)((ulong)in_stack_ffffffffffffff40 >> 32);
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (param_1 == (HTTPRequest*)0) {
-            uVar8 = logger::default_logger();
-            logger::Logger::Log(
-                uVar8, 0, 2,
+        uint32_t uVar10 = (uint32_t)((unsigned long)in_stack_ffffffffffffff38 >> 32);
+        uint32_t uVar11 = (uint32_t)((unsigned long)in_stack_ffffffffffffff40 >> 32);
+        if (httpRequest == nullptr) {
+            pLVar7 = logger::default_logger();
+            pLVar7->Log(
+                false, 2,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/utils/HTTPSpriteData.cpp", 69,
                 "Attempting to create a texture from a null request");
-            /* WARNING: Subroutine does not return */
             LogAssertAlways(
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/utils/HTTPSpriteData.cpp", 70,
-                (char*)0);
+                nullptr);
         }
-        iVar1 = param_1->GetState();
-        if (iVar1 == 2) {
-            uVar8 = logger::default_logger();
-            uVar9 = param_1->GetText();
-            pcVar12 = "Failed to download image from \'%s\' over HTTP";
-            uVar11 = 105;
+        int iVar3 = httpRequest->GetState();
+        if (iVar3 == 2) {
+            pLVar7 = logger::default_logger();
+            uVar8 = httpRequest->GetText();
+            str2 = "Failed to download image from \'%s\' over HTTP";
+            iVar3 = 105;
         LAB_100676c6a:
-            logger::Logger::Log(
-                uVar8, 0, 2,
+            pLVar7->Log(
+                false, 2,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/utils/HTTPSpriteData.cpp",
-                uVar11, pcVar12, uVar9);
-        } else if (iVar1 == 1) {
-            this_01 = (basic_string<char, BucketAllocatorEASTL>*)param_1->GetContentType();
-            iVar1 = eastl::basic_string<char, BucketAllocatorEASTL>::compare(this_01, "image/png");
-            if (iVar1 != 0) {
-                uVar8 = logger::default_logger();
-                param_1->GetContentType();
-                uVar9 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                param_1->GetText();
-                pcVar12 = "Received an unsupported content type (\'%s\') for HTTP image at \'%s\'";
-                uVar11 = 99;
+                iVar3, str2, uVar8);
+        } else if (iVar3 == 1) {
+            iVar3 = ((basic_string<char, BucketAllocatorEASTL>*)httpRequest->GetContentType())->compare("image/png");
+            if (iVar3 != 0) {
+                pLVar7 = logger::default_logger();
+                httpRequest->GetContentType();
+                uVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                httpRequest->GetText();
+                str2 = "Received an unsupported content type (\'%s\') for HTTP image at \'%s\'";
+                iVar3 = 99;
                 goto LAB_100676c6a;
             }
             new ((local_98 + 8)) RGBAImage();
-            pAVar10 = (Array*)param_1->GetMSAASampleCount();
-            PNGDecoder::LoadFromMemory((RGBAImage*)(local_98 + 8), pAVar10);
-            iVar1 = ((local_98 + 8))->GetX();
-            if (iVar1 < 4097) {
-                iVar1 = ((local_98 + 8))->GetZ();
-                if (4096 < iVar1)
+            auVar9 = httpRequest->GetMSAASampleCount();
+            ((local_98 + 8))->LoadFromMemory(*auVar9._0_8_, *auVar9._8_8_);
+            iVar3 = ((local_98 + 8))->GetX();
+            if (iVar3 < 4097) {
+                iVar3 = ((local_98 + 8))->GetZ();
+                if (4096 < iVar3)
                     goto LAB_100676da6;
-                iVar1 = ((local_98 + 8))->GetX();
-                iVar2 = ((local_98 + 8))->GetZ();
+                cVar1 = ((local_98 + 8))->GetX();
+                cVar2 = ((local_98 + 8))->GetZ();
                 new (local_98) callstack::Callstack();
                 local_98->AddFormatType(5);
-                this_00 = (LoginManager*)(local_98 + 8);
-                uVar3 = this_00->GetX();
-                uVar4 = this_00->GetZ();
-                this_02 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
-                                                 std::default_delete<LoadingScreenScript::AnimLayer>>,
-                                 eastl::allocator>*)this_00->GetDevCredentialsOutputDirectory();
-                uVar5 = this_02->data();
+                loginManager = (LoginManager*)(local_98 + 8);
+                arg2 = loginManager->GetX();
+                uVar4 = loginManager->GetZ();
+                arg4 = ((Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)
+                            loginManager->GetDevCredentialsOutputDirectory())
+                           ->data();
                 graphicutils::CreateHALTexture2D<render::Texture2D>(
-                    (shared_ptr*)this, (graphicutils*)(ulong)uVar3, uVar4, uVar5, &DAT_00000001, iVar1 * iVar2 * 4, 0,
-                    true, false, (bool)local_98[0], (TextureFormatBitSet)0, in_stack_ffffffffffffff60);
+                    (unsigned int)&result, arg2, (unsigned char*)(unsigned long)uVar4, arg4, 1,
+                    (bool)(cVar1 * cVar2 * '\x04'), false, true, (TextureFormatBitSet)0, local_98._0_4_);
             } else {
             LAB_100676da6:
-                uVar8 = logger::default_logger();
-                uVar6 = ((local_98 + 8))->GetX();
-                uVar7 = ((local_98 + 8))->GetZ();
-                uVar9 = param_1->GetText();
-                logger::Logger::Log(
-                    uVar8, 0, 2,
+                pLVar7 = logger::default_logger();
+                uVar5 = ((local_98 + 8))->GetX();
+                uVar6 = ((local_98 + 8))->GetZ();
+                uVar8 = httpRequest->GetText();
+                pLVar7->Log(
+                    false, 2,
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/utils/HTTPSpriteData.cpp",
                     93, "Received an invalid/unsupported size (%dx%d) for HTTP image at \'%s\'",
-                    CONCAT44(uVar13, uVar6), CONCAT44(uVar14, uVar7), uVar9);
-                new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
+                    (((uint64_t)uVar10 << 32) | (uint32_t)uVar5), (((uint64_t)uVar11 << 32) | (uint32_t)uVar6), uVar8);
+                auto result;
             }
             ((local_98 + 8))->~RGBAImage();
             goto LAB_100676c7b;
         }
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        new (&result) shared_ptr();
     LAB_100676c7b:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return this;
-    }
-
-    // 0x100680bf0, 128 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.625
-    void ___cxx_global_var_init_625() {
-        if (*PTR_m_defaultBaseURL_100ee4650 == '\0') {
-            if (___cxa_guard_acquire(PTR_m_defaultBaseURL_100ee4650) != 0) {
-                new (PTR_m_defaultBaseURL_100ee6410) eastl::fixed_string<char, 512, true, eastl::allocator>();
-                ___cxa_atexit(PTR__fixed_string_100ee6c98, PTR_m_defaultBaseURL_100ee6410, 4294967296);
-                ___cxa_guard_release(PTR_m_defaultBaseURL_100ee4650);
-            }
-        }
+        return result;
     }
 
 } // namespace jag::ui

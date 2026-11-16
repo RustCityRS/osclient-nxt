@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/animation/AnimationSampler.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -12,28 +11,21 @@ namespace jag::graphics {
         virtual ~AnimationSampler();
         virtual void __pure_slot_2() = 0;
         virtual void __pure_slot_3() = 0;
-        virtual void ApplyBoneTransforms(
-            math::Vector3T<float>&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            math::Matrix44T<float> const&) const;
+        virtual void ApplyBoneTransforms(math::Vector3T<float>& vector3,
+                                         const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                         const eastl::vector_map<unsigned short, unsigned short>& arg3,
+                                         const math::Matrix44T<float>& matrix44) const;
         virtual void __pure_slot_5() = 0;
         virtual void Reset();
-        void ConcatenateArrays(
-            WrapArray<float>&, WrapArray<float const> const&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            Array<float, eastl::allocator> const&);
-        void SetWalkMergeDataProvider(shared_ptr<WalkMergeDataProvider> const&);
-        AnimationSampler(AnimationSampler const&);
+        void ConcatenateArrays(WrapArray<float>& wrapArray1, const WrapArray<float const>& wrapArray2,
+                               const eastl::vector_map<unsigned short, unsigned short>& arg3, const Array<float>& arg4);
+        void SetWalkMergeDataProvider(const shared_ptr<WalkMergeDataProvider>& walkMergeDataProvider);
+        AnimationSampler(const AnimationSampler& animationSampler);
         AnimationSampler();
 
-        // data members, from how the methods use this: 25 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        undefined1 field_24; // offset 24
+    private:
+        uint8_t _unknown_8[16];
+        uint8_t field_24;
     };
 
     class AnimationSampler::FrameInterpolationData {
@@ -41,70 +33,56 @@ namespace jag::graphics {
         FrameInterpolationData();
     };
 
-    // 0x100950480, 288 bytes, inline, placed by class name and debug map
-    // AnimationSampler::ConcatenateArrays(WrapArray<float>&, WrapArray<float const> const&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&, Array<float, eastl::allocator> const&)
-    void AnimationSampler::ConcatenateArrays(WrapArray* param_1, WrapArray* param_2, vector_map* param_3,
-                                             Array* param_4) {
-        ushort uVar1;
-        ushort uVar2;
-        int iVar3;
-        void* pvVar4;
-        void* pvVar5;
-        ushort* puVar6;
-        ushort* puVar7;
-        ulong uVar8;
+    // 0x100950480
+    void AnimationSampler::ConcatenateArrays(WrapArray<float>& wrapArray1, const WrapArray<float const>& wrapArray2,
+                                             const eastl::vector_map<unsigned short, unsigned short>& arg3,
+                                             const Array<float>& arg4) {
+        unsigned short uVar1;
+        unsigned short uVar2;
+        unsigned long uVar8;
 
-        iVar3 = param_4->end();
-        pvVar4 = (void*)WrapArray<float>::operator[]((WrapArray<float>*)param_1, 0);
-        pvVar5 = (void*)Array<float, eastl::allocator>::operator[]((Array<float, eastl::allocator>*)param_4, 0);
-        _memcpy(pvVar4, pvVar5, (ulong)(uint)(iVar3 * 4));
-        puVar6 = (ushort*)param_3->HeapBeginPtr();
-        puVar7 = (ushort*)param_3->end();
+        int iVar3 = arg4.end();
+        void* pvVar4 = &wrapArray1[0];
+        void* pvVar5 = &arg4[0];
+        _memcpy(pvVar4, pvVar5, (unsigned long)(unsigned int)(iVar3 * 4));
+        auto puVar6 = arg3.HeapBeginPtr();
+        auto puVar7 = arg3.end();
         while (true) {
             if (puVar6 == puVar7) {
                 return;
             }
             uVar1 = *puVar6;
             uVar2 = puVar6[1];
-            if ((uint)uVar2 * iVar3 == 0)
+            if ((unsigned int)uVar2 * iVar3 == 0)
                 break;
-            uVar8 = param_2->HeapBeginPtr();
-            if ((uint)uVar1 * iVar3 < uVar8) {
-                pvVar4 = (void*)WrapArray<float const>::operator[]((WrapArray<float const>*)param_2,
-                                                                   (ulong)((uint)uVar1 * iVar3));
+            uVar8 = wrapArray2.HeapBeginPtr();
+            if ((unsigned int)uVar1 * iVar3 < uVar8) {
+                pvVar4 = (void*)wrapArray2[(unsigned long)((unsigned int)uVar1 * iVar3)];
             } else {
-                pvVar4 = (void*)Array<float, eastl::allocator>::operator[]((Array<float, eastl::allocator>*)param_4, 0);
+                pvVar4 = &arg4[0];
             }
-            pvVar5 = (void*)WrapArray<float>::operator[]((WrapArray<float>*)param_1, (ulong)((uint)uVar2 * iVar3));
-            _memcpy(pvVar5, pvVar4, (ulong)(uint)(iVar3 * 4));
+            pvVar5 = &wrapArray1[(unsigned long)((unsigned int)uVar2 * iVar3)];
+            _memcpy(pvVar5, pvVar4, (unsigned long)(unsigned int)(iVar3 * 4));
             puVar6 = puVar6 + 2;
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("labelSlotIndex != 0",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/animation/"
                   "AnimationSampler.h",
                   151, "AnimationState: Label data requested with a label slot of 0 - this is reserved!");
     }
 
-    // 0x100953fa0, 16 bytes, inline, placed by class name
-    // AnimationSampler::SetWalkMergeDataProvider(shared_ptr<WalkMergeDataProvider> const&)
-    void AnimationSampler::SetWalkMergeDataProvider(shared_ptr* param_1) {
-        shared_ptr<WalkMergeDataProvider>::operator=((shared_ptr<WalkMergeDataProvider>*)&field_8, param_1);
+    // 0x100953fa0
+    void AnimationSampler::SetWalkMergeDataProvider(const shared_ptr<WalkMergeDataProvider>& walkMergeDataProvider) {
+        field_8 = walkMergeDataProvider;
     }
 
-    // 0x10096c3a0, 64 bytes, base-object constructor, inline, placed by class name
-    // AnimationSampler::AnimationSampler(AnimationSampler const&)
-    void AnimationSampler::AnimationSampler(AnimationSampler* param_1) {
-        field_0 = &PTR__OptionStore_100f1bb10;
-        new (&field_8, (shared_ptr*)&param_1->field_8) shared_ptr<oldscape::dash3d::Decor>();
-        field_24 = param_1->field_24;
-    }
+    // 0x10096c3a0
+    AnimationSampler::AnimationSampler(const AnimationSampler& animationSampler)
+        : field_8(&animationSampler.field_8), field_24(animationSampler.field_24) {}
 
-    // 0x100991870, 32 bytes, base-object destructor, inline, placed by class name
-    // AnimationSampler::~AnimationSampler()
-    void AnimationSampler::~AnimationSampler() {
-        field_0 = &PTR__OptionStore_100f1bb10;
-        (&field_8)->~shared_ptr();
+    // 0x100991870
+    AnimationSampler::~AnimationSampler() {
+        field_8.~shared_ptr();
     }
 
 } // namespace jag::graphics

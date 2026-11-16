@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/model/GeometryBatchInstance.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.oldscape.jagex3
@@ -11,46 +10,34 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual void Release();
-        GetDrawableElementPool();
-        TerrainPatch_DE* Create<TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&,
-                                math::OBB&, float&, render::InputAssemblerState*>(
-            TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&, math::OBB&, float&,
-            render::InputAssemblerState*&&);
-        WaterPatch_DE*
-        Create<WaterPatch&, math::OBB&, float&, render::InputAssemblerState*>(WaterPatch&, math::OBB&, float&,
-                                                                              render::InputAssemblerState*&&);
-        DrawableElementPool(math::OBB const&, unsigned int, float);
+        void GetDrawableElementPool();
+        TerrainPatch_DE* Create<TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul> const&, math::OBB&, float&,
+                                render::InputAssemblerState*>(TerrainPatch& terrainPatch,
+                                                              const eastl::fixed_vector<unsigned char, 256ul>& arg2,
+                                                              math::OBB& obb, float& arg4,
+                                                              render::InputAssemblerState*&& arg5);
+        WaterPatch_DE* Create<WaterPatch&, math::OBB&, float&, render::InputAssemblerState*>(
+            WaterPatch& waterPatch, math::OBB& obb, float& arg3, render::InputAssemblerState*&& arg4);
+        DrawableElementPool(const math::OBB& obb, unsigned int arg2, float arg3);
         ParticleSystem_DE* Create<shared_ptr<ParticleSystem>, math::OBB&, float&, unsigned int, bool>(
-            shared_ptr<ParticleSystem>&&, math::OBB&, float&, unsigned int&&, bool&&);
+            shared_ptr<ParticleSystem>&& particleSystem, math::OBB& obb, float& arg3, unsigned int&& arg4, bool&& arg5);
+        GeometryBatch_DE* Create<math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks> const*&, unsigned int,
+                                 GeometryBatchInstance&>(math::OBB& obb, float& arg2,
+                                                         const eastl::vector_map<int, FaceGroupRenderMasks>*& arg3,
+                                                         unsigned int&& arg4,
+                                                         GeometryBatchInstance& geometryBatchInstance);
         GeometryBatch_DE*
-        Create<math::OBB&, float&,
-               eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                                 eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-               unsigned int, GeometryBatchInstance&>(
-            math::OBB&, float&,
-            eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-            unsigned int&&, GeometryBatchInstance&);
-        GeometryBatch_DE*
-        Create<math::OBB&, float&,
-               eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                                 eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-               unsigned int&, GeometryBatchInstance&>(
-            math::OBB&, float&,
-            eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-            unsigned int&, GeometryBatchInstance&);
+        Create<math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks> const*&, unsigned int&,
+               GeometryBatchInstance&>(math::OBB& obb, float& arg2,
+                                       const eastl::vector_map<int, FaceGroupRenderMasks>*& arg3, unsigned int& arg4,
+                                       GeometryBatchInstance& geometryBatchInstance);
         ParticleSystem_DE* Create<ModularParticleSystemDrawable&, math::OBB const&, float&, unsigned int, bool, bool>(
-            ModularParticleSystemDrawable&, math::OBB const&, float&, unsigned int&&, bool&&, bool&&);
+            ModularParticleSystemDrawable& modularParticleSystemDrawable, const math::OBB& obb, float& arg3,
+            unsigned int&& arg4, bool&& arg5, bool&& arg6);
         BillboardBatch_DE*
-        Create<float&,
-               eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                                 eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-               BillboardBatchInstance&>(
-            float&,
-            eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-            BillboardBatchInstance&);
+        Create<float&, eastl::vector_map<int, FaceGroupRenderMasks> const*&, BillboardBatchInstance&>(
+            float& arg1, const eastl::vector_map<int, FaceGroupRenderMasks>*& arg2,
+            BillboardBatchInstance& billboardBatchInstance);
         SkyBox_DE* Create<>();
         DrawableElementPool();
         LightProbe_DE* Create<>();
@@ -60,643 +47,543 @@ namespace jag::graphics {
     {
     public:
         // virtual methods in vtable order
-        virtual void Transform(math::Matrix44T<float> const&);
-        virtual void Translate(math::Vector3T<float> const&);
-        virtual void Rotate(math::QuaternionT<float> const&, bool);
-        virtual void Rotate90(Rotation90, bool);
+        virtual void Transform(const math::Matrix44T<float>& matrix44);
+        virtual void Translate(const math::Vector3T<float>& vector3);
+        virtual void Rotate(const math::QuaternionT<float>& quaternion, bool arg2);
+        virtual void Rotate90(Rotation90 rotation90, bool arg2);
         virtual ~GeometryBatchInstance();
-        virtual GatherDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&);
-        virtual void RenderDebug(RenderPassType, DrawableElement&) const;
+        virtual void GatherDrawableElements(DrawableQueue& arg1, RT7Core& arg2, const SceneViewData& arg3,
+                                            const EffectManager& arg4);
+        virtual void RenderDebug(RenderPassType renderPassType, DrawableElement& drawableElement) const;
         RenderMaterial GetMaterial();
         RenderMaterial GetMaterial() const;
         void GetGeometryBatch();
         void GetGeometryBatch() const;
-        GetSourceModelExternalIndexList();
-        GetVertexAnimation() const;
-        void Reserve(GeometryBatchCombineHelper const&);
-        void Append(GeometryBatchInstance const&, bool);
-        GeometryBatchInstance(Model&, unsigned short);
+        uint8_t* GetSourceModelExternalIndexList();
+        uint8_t* GetVertexAnimation() const;
+        void Reserve(const GeometryBatchCombineHelper& geometryBatchCombineHelper);
+        void Append(const GeometryBatchInstance& geometryBatchInstance, bool arg2);
+        GeometryBatchInstance(Model& model, unsigned short arg2);
         void SetInstanceDebugColour();
-        GeometryBatchInstance(GeometryBatchInstance&&, Model&);
+        GeometryBatchInstance(GeometryBatchInstance&& geometryBatchInstance, Model& model);
         void UpdateShadowRenderFlags();
-        GeometryBatchInstance(GeometryBatchInstance const&, Model&, bool);
-        GeometryBatchInstance(Model&, shared_ptr<GeometryBatch> const&);
-        void SetDefaultLODs(EffectManager const&, RenderPassType, SceneViewData const&, float, math::OBB const&);
-        void SetLodLevel(LodPassType, int);
+        GeometryBatchInstance(const GeometryBatchInstance& geometryBatchInstance, Model& model, bool arg3);
+        GeometryBatchInstance(Model& model, const shared_ptr<GeometryBatch>& geometryBatch);
+        void SetDefaultLODs(const EffectManager& effectManager, RenderPassType renderPassType,
+                            const SceneViewData& sceneViewData, float arg4, const math::OBB& obb);
+        void SetLodLevel(LodPassType lodPassType, int arg2);
         void IsTransformed() const;
-        void SetTransformed(bool);
+        void SetTransformed(bool arg1);
         void GetAABB() const;
-        void SetAnimationStateProvider(shared_ptr<AnimationStateProvider> const&);
-        void UpdateAnimation(ThreadPool&, unsigned int, math::Matrix44T<float> const&);
+        void SetAnimationStateProvider(const shared_ptr<AnimationStateProvider>& animationStateProvider);
+        void UpdateAnimation(ThreadPool& threadPool, unsigned int arg2, const math::Matrix44T<float>& matrix44);
         void EndUpdateAnimation();
-        LoadMeshFromModelRawRT7(PacketView&, unsigned int);
-        void SetInitialSource(int, unsigned char, int);
-        void ChangeSourceExternalID(int, int);
-        void ChangeSourceExternalIDs(int);
-        GetFirstMaterialIDFromSource() const;
-        ulong GetFirstSequenceIDFromSource() const;
-        void BuildMaterialIDListFromSource(eastl::fixed_vector<int, 128ul, true, eastl::allocator>&) const;
-        void SetInitialMaterial(Material const&, bool);
+        uint32_t LoadMeshFromModelRawRT7(PacketView& packetView, unsigned int arg2);
+        void SetInitialSource(int arg1, unsigned char arg2, int arg3);
+        void ChangeSourceExternalID(int arg1, int arg2);
+        void ChangeSourceExternalIDs(int arg1);
+        uint32_t GetFirstMaterialIDFromSource() const;
+        unsigned long GetFirstSequenceIDFromSource() const;
+        void BuildMaterialIDListFromSource(eastl::fixed_vector<int, 128ul>& arg1) const;
+        void SetInitialMaterial(const Material& material, bool arg2);
         void BakeBatchFlags();
-        void BakeTile(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char,
-                      unsigned char);
-        void
-        BakeHSLColors(eastl::fixed_map<int, Material const*, 64ul, true, eastl::less<int>, eastl::allocator> const&);
-        void BakeMaterialInfoAndTextureMeta(
-            eastl::fixed_map<int, Material const*, 64ul, true, eastl::less<int>, eastl::allocator> const&,
-            eastl::fixed_map<int, ModelTextureMeta, 64ul, true, eastl::less<int>, eastl::allocator> const&);
+        void BakeTile(unsigned char arg1, unsigned char arg2, unsigned char arg3, unsigned char arg4,
+                      unsigned char arg5, unsigned char arg6, unsigned char arg7);
+        void BakeHSLColors(eastl::fixed_map<int, Material const*, 64ul> const& fixed_map);
+        void BakeMaterialInfoAndTextureMeta(eastl::fixed_map<int, Material const*, 64ul> const& fixed_map1,
+                                            const eastl::fixed_map<int, ModelTextureMeta, 64ul>& fixed_map2);
         void SortSections();
-        int IsCombinableWith(GeometryBatchInstance const&, bool, bool, bool, TextureAtlas&);
-        void Assign(GeometryBatchInstance const&);
+        bool IsCombinableWith(const GeometryBatchInstance& geometryBatchInstance, bool arg2, bool arg3, bool arg4,
+                              TextureAtlas& textureAtlas);
+        void Assign(const GeometryBatchInstance& geometryBatchInstance);
         void DestroyRenderingResources();
-        void TransformNormals(math::QuaternionT<float> const&, bool);
-        void Scale(math::Vector3T<float> const&);
-        void HillChange(graphics::HillChange, int, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL> const&,
-                        Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL> const&,
-                        LocationHelpers::LocationHillChangeData const&);
-        void Rematerial(Array<unsigned short, eastl::allocator> const&, Array<unsigned short, eastl::allocator> const&);
-        void RematerialSingle(unsigned short, unsigned short);
-        void AmbientAdjust(unsigned short);
-        void TintAdjust(signed char, signed char, signed char, unsigned char);
-        void SetTint(math::Vector4T<float>);
+        void TransformNormals(const math::QuaternionT<float>& quaternion, bool arg2);
+        void Scale(const math::Vector3T<float>& vector3);
+        void HillChange(graphics::HillChange arg1, int arg2, const Array<Array<int>>& arg3,
+                        const Array<Array<int>>& arg4, const LocationHelpers::LocationHillChangeData& arg5);
+        void Rematerial(const Array<unsigned short>& arg1, const Array<unsigned short>& arg2);
+        void RematerialSingle(unsigned short arg1, unsigned short arg2);
+        void AmbientAdjust(unsigned short arg1);
+        void TintAdjust(signed char arg1, signed char arg2, signed char arg3, unsigned char arg4);
+        void SetTint(math::Vector4T<float> vector4);
         void InitRenderPassEffects();
-        GetTint() const;
-        void UpdateForwardPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&,
-                                     EffectManager const&, float, float, bool, TextureInclusionMode const*,
-                                     math::OBB const&, unsigned char, RenderPassType);
+        uint8_t[16] GetTint() const;
+        void UpdateForwardPassEffect(DrawableSortKey& drawableSortKey, DrawableSortKeyType drawableSortKeyType,
+                                     RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                     const EffectManager& effectManager, float arg6, float arg7, bool arg8,
+                                     const TextureInclusionMode* textureInclusionMode, const math::OBB& obb,
+                                     unsigned char arg11, RenderPassType renderPassType);
         void GetAnimatesTransparency() const;
-        GetAnimatedColourType() const;
-        GetLodLevel(LodPassType) const;
-        void UpdateGeometryPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&,
-                                      EffectManager const&, float, float, bool, TextureInclusionMode const*,
-                                      RenderPassType);
-        void UpdateShadowPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&,
-                                    EffectManager const&, float, float, bool, TextureInclusionMode const*);
-        void UpdateMiniMapPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&,
-                                     EffectManager const&, float, float, TextureInclusionMode const*);
-        void UpdateObjectHighlightPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&,
-                                             EffectManager const&, float, float, bool, TextureInclusionMode const*,
-                                             DrawableGroupLayer);
+        uint8_t GetAnimatedColourType() const;
+        uint32_t GetLodLevel(LodPassType lodPassType) const;
+        void UpdateGeometryPassEffect(DrawableSortKey& drawableSortKey, DrawableSortKeyType drawableSortKeyType,
+                                      RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                      const EffectManager& effectManager, float arg6, float arg7, bool arg8,
+                                      const TextureInclusionMode* textureInclusionMode, RenderPassType renderPassType);
+        void UpdateShadowPassEffect(DrawableSortKey& drawableSortKey, DrawableSortKeyType drawableSortKeyType,
+                                    RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                    const EffectManager& effectManager, float arg6, float arg7, bool arg8,
+                                    const TextureInclusionMode* textureInclusionMode);
+        void UpdateMiniMapPassEffect(DrawableSortKey& drawableSortKey, DrawableSortKeyType drawableSortKeyType,
+                                     RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                     const EffectManager& effectManager, float arg6, float arg7,
+                                     const TextureInclusionMode* textureInclusionMode);
+        void UpdateObjectHighlightPassEffect(DrawableSortKey& drawableSortKey, DrawableSortKeyType drawableSortKeyType,
+                                             RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                             const EffectManager& effectManager, float arg6, float arg7, bool arg8,
+                                             const TextureInclusionMode* textureInclusionMode,
+                                             DrawableGroupLayer drawableGroupLayer);
         void CreateRenderingResources();
-        void GatherDrawableElements(
-            DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&,
-            eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*,
-            unsigned char);
+        void GatherDrawableElements(DrawableQueue& drawableQueue, RT7Core& rt7Core, const SceneViewData& sceneViewData,
+                                    const EffectManager& effectManager,
+                                    const eastl::vector_map<int, FaceGroupRenderMasks>* arg5, unsigned char arg6);
         void IsHidden() const;
-        void GetRenderingCameraDistances(float&, float&, float&, math::OBB&, bool, SceneViewData const&);
-        ulong CastsShadow() const;
+        void GetRenderingCameraDistances(float& arg1, float& arg2, float& arg3, math::OBB& obb, bool arg5,
+                                         const SceneViewData& sceneViewData);
+        unsigned long CastsShadow() const;
         void Prefetch() const;
-        void SetPointLightIndicesVertexData(bool);
+        void SetPointLightIndicesVertexData(bool arg1);
         void ClearAnimationState();
-        GetApproxMaterialInfoList() const;
-        static /* 4 bytes */ m_renderDepthEnabled;              // = 1
-        static /* 4 bytes */ m_alphaTestThresholdOverrideValue; // = 127
-        static /* 4 bytes */ m_debugLodInstanceColourPassType;
-        static /* 1 bytes */ m_debugLodInstanceColourEnabled;
-        static /* 1 bytes */ m_showWorldAABB;
-        static /* 1 bytes */ m_showWorldOBB;
-        static /* 1 bytes */ m_alphaTestThresholdOverride;
+        uint8_t* GetApproxMaterialInfoList() const;
+        static int32_t m_renderDepthEnabled;              // = 1
+        static int32_t m_alphaTestThresholdOverrideValue; // = 127
+        static int32_t m_debugLodInstanceColourPassType;
+        static bool m_debugLodInstanceColourEnabled;
+        static bool m_showWorldAABB;
+        static bool m_showWorldOBB;
+        static bool m_alphaTestThresholdOverride;
 
-        // data members, from how the methods use this: 896 bytes, the first 84 are ModelParticleSource
-        char _unknown_84[572];
-        Model* field_656; // offset 656
-        char _unknown_664[96];
-        undefined8 field_760; // offset 760
-        undefined4 field_768; // offset 768
-        char _unknown_772[108];
-        undefined8 field_880; // offset 880
-        undefined8 field_888; // offset 888
+    private:
+        uint8_t _unknown_84[572];
+        Model* field_656;
+        uint8_t _unknown_664[96];
+        uint64_t field_760;
+        uint32_t field_768;
+        uint8_t _unknown_772[108];
+        uint64_t field_880;
+        uint64_t field_888;
+        uint8_t _unknown_896[384];
     };
 
-    // 0x10036bfd0, 16 bytes, inline, placed by class name and debug map
-    // GeometryBatchInstance::GetGeometryBatch()
-    /* GeometryBatchInstance::GetGeometryBatch() const */
-
+    // 0x10036bfd0
     void GeometryBatchInstance::GetGeometryBatch() {
-        shared_ptr<GeometryBatch>::operator*((shared_ptr<GeometryBatch>*)field_24);
+        **field_24;
     }
 
-    // 0x10036db80, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // GeometryBatchInstance::GetSourceModelExternalIndexList()
-    /* game::ObjType::GetRecolourDest() const */
-
-    undefined1* game::ObjType::GetRecolourDest() {
+    // 0x10036db80
+    uint8_t* GeometryBatchInstance::GetSourceModelExternalIndexList() {
         return &field_696;
     }
 
-    // 0x1007bb910, 240 bytes, inline, placed by class header (inline)
-    // WaterPatch_DE* DrawableElementPool<WaterPatch_DE>::Create<WaterPatch&, math::OBB&, float&, render::InputAssemblerState*>(WaterPatch&, math::OBB&, float&, render::InputAssemblerState*&&)
+    // 0x1007bb910
     WaterPatch_DE*
     DrawableElementPool<WaterPatch_DE>::Create<WaterPatch&, math::OBB&, float&, render::InputAssemblerState*>(
-        WaterPatch* param_1, OBB* param_2, float* param_3, InputAssemblerState** param_4) {
-        int iVar1;
-        int iVar2;
-        undefined4 uVar3;
-        Option<game::option::EnumBrightness>* this;
+        WaterPatch& waterPatch, math::OBB& obb, float& arg3, render::InputAssemblerState*&& arg4) {
+        uint32_t uVar3;
         WaterPatch_DE* this_00;
-        undefined8 uVar4;
+        Logger* this_01;
 
-        this = (Option<game::option::EnumBrightness>*)GetDrawableElementPool();
-        iVar1 = GetValue();
-        iVar2 = capacity();
+        auto fastPool = GetDrawableElementPool();
+        int iVar1 = fastPool->GetValue();
+        int iVar2 = fastPool->capacity();
         if (iVar1 < iVar2) {
-            this_00 =
-                FastPool<WaterPatch_DE, int>::Create<WaterPatch&, math::OBB&, float&, render::InputAssemblerState*>(
-                    (FastPool<WaterPatch_DE, int>*)this, param_1, param_2, param_3, param_4);
+            this_00 = fastPool->Create<WaterPatch&, math::OBB&, float&, render::InputAssemblerState*>(waterPatch, obb,
+                                                                                                      arg3, arg4);
         } else {
-            uVar4 = logger::default_logger();
-            uVar3 = GetValue();
-            logger::Logger::Log(uVar4, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/renderer/DrawableElement.h",
-                                142, "%s requires more entries in pool, size: %d", "Create", uVar3);
-            this_00 = operator_new(192);
-            WaterPatch_DE::WaterPatch_DE(this_00, param_1, param_2, *param_3, *param_4);
+            this_01 = logger::default_logger();
+            uVar3 = fastPool->GetValue();
+            this_01->Log(false, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                         "renderer/DrawableElement.h",
+                         142, "%s requires more entries in pool, size: %d", "Create", uVar3);
+            this_00 = (WaterPatch_DE*)operator new(192);
+            new (this_00) WaterPatch_DE(waterPatch, obb, arg3, arg4);
         }
         return this_00;
     }
 
-    // 0x1007d3210, 256 bytes, inline, placed by class header (inline)
-    // ParticleSystem_DE* DrawableElementPool<ParticleSystem_DE>::Create<shared_ptr<ParticleSystem>, math::OBB&, float&, unsigned int, bool>(shared_ptr<ParticleSystem>&&, math::OBB&, float&, unsigned int&&, bool&&)
+    // 0x1007d3210
     ParticleSystem_DE*
     DrawableElementPool<ParticleSystem_DE>::Create<shared_ptr<ParticleSystem>, math::OBB&, float&, unsigned int, bool>(
-        shared_ptr* param_1, OBB* param_2, float* param_3, uint* param_4, bool* param_5) {
-        int iVar1;
-        int iVar2;
-        undefined4 uVar3;
-        ParticleSystem_DE* this;
-        undefined8 uVar4;
+        shared_ptr<ParticleSystem>&& particleSystem, math::OBB& obb, float& arg3, unsigned int&& arg4, bool&& arg5) {
+        uint32_t uVar3;
+        ParticleSystem_DE* particleSystem_DE;
+        Logger* this_00;
 
         GetDrawableElementPool();
-        iVar1 = (&GetDrawableElementPool()::pool)->GetValue();
-        iVar2 = (&GetDrawableElementPool()::pool)->capacity();
+        int iVar1 = ((Option<game::option::EnumBrightness>*)&GetDrawableElementPool()::pool)->GetValue();
+        int iVar2 = ((FastPool<audio::SoundInstance, int>*)&GetDrawableElementPool()::pool)->capacity();
         if (iVar1 < iVar2) {
-            this = FastPool<ParticleSystem_DE, int>::Create<shared_ptr<ParticleSystem>, math::OBB&, float&,
-                                                            unsigned int, bool>(
-                (FastPool<ParticleSystem_DE, int>*)&GetDrawableElementPool()::pool, param_1, param_2, param_3, param_4,
-                param_5);
+            particleSystem_DE = ((FastPool<ParticleSystem_DE, int>*)&GetDrawableElementPool()::pool)
+                                    ->Create<shared_ptr<ParticleSystem>, math::OBB&, float&, unsigned int, bool>(
+                                        particleSystem, obb, arg3, arg4, arg5);
         } else {
-            uVar4 = logger::default_logger();
-            uVar3 = (&GetDrawableElementPool()::pool)->GetValue();
-            logger::Logger::Log(uVar4, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/particles/../renderer/DrawableElement.h",
-                                142, "%s requires more entries in pool, size: %d", "Create", uVar3);
-            this = operator_new(144);
-            ParticleSystem_DE::ParticleSystem_DE(this, param_1, param_2, *param_3, *param_4, *param_5);
+            this_00 = logger::default_logger();
+            uVar3 = ((Option<game::option::EnumBrightness>*)&GetDrawableElementPool()::pool)->GetValue();
+            this_00->Log(false, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                         "particles/../renderer/DrawableElement.h",
+                         142, "%s requires more entries in pool, size: %d", "Create", uVar3);
+            particleSystem_DE = (ParticleSystem_DE*)operator new(144);
+            new (particleSystem_DE) ParticleSystem_DE(particleSystem, obb, arg3, arg4, arg5);
         }
-        return this;
+        return particleSystem_DE;
     }
 
-    // 0x1007dd520, 16 bytes, inline, placed by class name
-    // GeometryBatchInstance::GetVertexAnimation() const
-    undefined1* GeometryBatchInstance::GetVertexAnimation() {
+    // 0x1007dd520
+    uint8_t* GeometryBatchInstance::GetVertexAnimation() const {
         return &field_800;
     }
 
-    // 0x10080de80, 112 bytes, inline, placed by class name
-    // GeometryBatchInstance::SetLodLevel(LodPassType, int)
-    void GeometryBatchInstance::SetLodLevel(int param_2, int param_3) {
-        int iVar1;
-        GeometryBatch* this_00;
-        int* piVar2;
+    // 0x10080de80
+    void GeometryBatchInstance::SetLodLevel(LodPassType lodPassType, int arg2) {
         int local_2c[3];
 
         local_2c[1] = 0;
-        local_2c[0] = param_3;
-        this_00 = (GeometryBatch*)shared_ptr<GeometryBatch>::operator->((shared_ptr<GeometryBatch>*)field_24);
-        local_2c[2] = this_00->GetNumLods();
-        local_2c[2] = local_2c[2] + -1;
-        iVar1 = math::Clamp<int>(local_2c, local_2c + 1, local_2c + 2);
-        piVar2 = (int*)std::array<unsigned int, 3ul>::operator[]((array<unsigned int, 3ul>*)&field_760, (long)param_2);
+        local_2c[0] = arg2;
+        local_2c[2] = ((GeometryBatch*)(*field_24).operator->())->GetNumLods();
+        local_2c[2] = local_2c[2] - 1;
+        int iVar1 = math::Clamp<int>(*local_2c, *(local_2c + 1), *(local_2c + 2));
+        int* piVar2 = &field_760[(long)(int)lodPassType];
         *piVar2 = iVar1;
     }
 
-    // 0x100811250, 32 bytes, inline, placed by class name
-    // GeometryBatchInstance::GetAnimatesTransparency() const
-    void GeometryBatchInstance::GetAnimatesTransparency() {
-        (&field_800)->GetAnimatesTransparency();
+    // 0x100811250
+    void GeometryBatchInstance::GetAnimatesTransparency() const {
+        field_800.GetAnimatesTransparency();
     }
 
-    // 0x100811270, 112 bytes, inline, placed by class name
-    // GeometryBatchInstance::GetAnimatedColourType() const
-    undefined1 GeometryBatchInstance::GetAnimatedColourType() {
-        bool bVar1;
-        undefined1 uVar3;
-        shared_ptr* this_00;
-        shared_ptr<AnimationStateProvider>* psVar4;
-        long* plVar5;
-        undefined1* this_01;
+    // 0x100811270
+    uint8_t GeometryBatchInstance::GetAnimatedColourType() const {
+        shared_ptr<AnimationStateProvider>* psVar3;
+        long* plVar4;
 
-        this_01 = &field_800;
-        this_00 = (shared_ptr*)GetMaterial((GeometryBatchInstance*)this_01);
-        bVar1 = shared_ptr::operator_cast_to_bool(this_00);
-        uVar3 = 2;
-        if (bVar1) {
-            psVar4 = (shared_ptr<AnimationStateProvider>*)GetMaterial((GeometryBatchInstance*)this_01);
-            plVar5 = (long*)shared_ptr<AnimationStateProvider>::operator->(psVar4);
-            if ((**(code**)(*plVar5 + 56))(plVar5) != '\x02') {
-                psVar4 = (shared_ptr<AnimationStateProvider>*)GetMaterial((GeometryBatchInstance*)this_01);
-                plVar5 = (long*)shared_ptr<AnimationStateProvider>::operator->(psVar4);
-                uVar3 = (**(code**)(*plVar5 + 56))(plVar5);
+        uint8_t* this_01 = &field_800;
+        char cVar1 = (GetMaterial((GeometryBatchInstance*)this_01))->operator_cast_to_bool();
+        uint8_t uVar2 = 2;
+        if (cVar1) {
+            psVar3 = (shared_ptr<AnimationStateProvider>*)GetMaterial((GeometryBatchInstance*)this_01);
+            plVar4 = (long*)(*psVar3).operator->();
+            cVar1 = (**(void (**)(...))(*plVar4 + 56))(plVar4);
+            if (cVar1 != '\x02') {
+                psVar3 = (shared_ptr<AnimationStateProvider>*)GetMaterial((GeometryBatchInstance*)this_01);
+                plVar4 = (long*)(*psVar3).operator->();
+                uVar2 = (**(void (**)(...))(*plVar4 + 56))(plVar4);
             }
         }
-        return uVar3;
+        return uVar2;
     }
 
-    // 0x1008113c0, 32 bytes, inline, placed by class name
-    // GeometryBatchInstance::GetLodLevel(LodPassType) const
-    undefined4 GeometryBatchInstance::GetLodLevel(int param_2) {
-        undefined4* puVar1;
-
-        puVar1 = (undefined4*)std::array<unsigned int, 3ul>::operator[]((array<unsigned int, 3ul>*)&field_760,
-                                                                        (long)param_2);
+    // 0x1008113c0
+    uint32_t GeometryBatchInstance::GetLodLevel(LodPassType lodPassType) const {
+        uint32_t* puVar1 = &field_760[(long)(int)lodPassType];
         return *puVar1;
     }
 
-    // 0x1008134a0, 32 bytes, inline, placed by class name
-    // GeometryBatchInstance::IsHidden() const
-    void GeometryBatchInstance::IsHidden() {
-        (m_material, 10)->GetOption();
+    // 0x1008134a0
+    void GeometryBatchInstance::IsHidden() const {
+        m_material->GetOption(10);
     }
 
-    // 0x100813620, 256 bytes, inline, placed by class header (inline)
-    // GeometryBatch_DE* DrawableElementPool<GeometryBatch_DE>::Create<math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator> > const*&, unsigned int, GeometryBatchInstance&>(math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator> > const*&, unsigned int&&, GeometryBatchInstance&)
+    // 0x100813620
     GeometryBatch_DE* DrawableElementPool<GeometryBatch_DE>::Create<
-        math::OBB&, float&,
-        eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                          eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-        unsigned int, GeometryBatchInstance&>(OBB* param_1, float* param_2, vector_map** param_3, uint* param_4,
-                                              GeometryBatchInstance* param_5) {
-        int iVar1;
-        int iVar2;
-        undefined4 uVar3;
-        GeometryBatch_DE* this;
-        undefined8 uVar4;
+        math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks> const*&, unsigned int, GeometryBatchInstance&>(
+        math::OBB& obb, float& arg2, const eastl::vector_map<int, FaceGroupRenderMasks>*& arg3, unsigned int&& arg4,
+        GeometryBatchInstance& geometryBatchInstance) {
+        uint32_t uVar3;
+        GeometryBatch_DE* geometryBatch_DE;
+        Logger* this_00;
 
         GetDrawableElementPool();
-        iVar1 = (&GetDrawableElementPool()::pool)->GetValue();
-        iVar2 = (&GetDrawableElementPool()::pool)->capacity();
+        int iVar1 = ((Option<game::option::EnumBrightness>*)&GetDrawableElementPool()::pool)->GetValue();
+        int iVar2 = ((FastPool<audio::SoundInstance, int>*)&GetDrawableElementPool()::pool)->capacity();
         if (iVar1 < iVar2) {
-            this = FastPool<GeometryBatch_DE, int>::Create<
-                math::OBB&, float&,
-                eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-                unsigned int&, GeometryBatchInstance&>(
-                (FastPool<GeometryBatch_DE, int>*)&GetDrawableElementPool()::pool, param_1, param_2, param_3, param_4,
-                param_5);
+            geometryBatch_DE =
+                ((FastPool<GeometryBatch_DE, int>*)&GetDrawableElementPool()::pool)
+                    ->Create<math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks> const*&, unsigned int&,
+                             GeometryBatchInstance&>(obb, arg2, arg3, arg4, geometryBatchInstance);
         } else {
-            uVar4 = logger::default_logger();
-            uVar3 = (&GetDrawableElementPool()::pool)->GetValue();
-            logger::Logger::Log(uVar4, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/renderer/DrawableElement.h",
-                                142, "%s requires more entries in pool, size: %d", "Create", uVar3);
-            this = operator_new(160);
-            GeometryBatch_DE::GeometryBatch_DE(this, param_1, *param_2, *param_3, *param_4, param_5);
+            this_00 = logger::default_logger();
+            uVar3 = ((Option<game::option::EnumBrightness>*)&GetDrawableElementPool()::pool)->GetValue();
+            this_00->Log(false, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                         "renderer/DrawableElement.h",
+                         142, "%s requires more entries in pool, size: %d", "Create", uVar3);
+            geometryBatch_DE = (GeometryBatch_DE*)operator new(160);
+            new (geometryBatch_DE) GeometryBatch_DE(obb, arg2, arg3, arg4, geometryBatchInstance);
         }
-        return this;
+        return geometryBatch_DE;
     }
 
-    // 0x100813790, 256 bytes, inline, placed by class header (inline)
-    // GeometryBatch_DE* DrawableElementPool<GeometryBatch_DE>::Create<math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator> > const*&, unsigned int&, GeometryBatchInstance&>(math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator> > const*&, unsigned int&, GeometryBatchInstance&)
+    // 0x100813790
     GeometryBatch_DE* DrawableElementPool<GeometryBatch_DE>::Create<
-        math::OBB&, float&,
-        eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                          eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-        unsigned int&, GeometryBatchInstance&>(OBB* param_1, float* param_2, vector_map** param_3, uint* param_4,
-                                               GeometryBatchInstance* param_5) {
-        int iVar1;
-        int iVar2;
-        undefined4 uVar3;
-        GeometryBatch_DE* this;
-        undefined8 uVar4;
+        math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks> const*&, unsigned int&,
+        GeometryBatchInstance&>(math::OBB& obb, float& arg2, const eastl::vector_map<int, FaceGroupRenderMasks>*& arg3,
+                                unsigned int& arg4, GeometryBatchInstance& geometryBatchInstance) {
+        uint32_t uVar3;
+        GeometryBatch_DE* geometryBatch_DE;
+        Logger* this_00;
 
         GetDrawableElementPool();
-        iVar1 = (&GetDrawableElementPool()::pool)->GetValue();
-        iVar2 = (&GetDrawableElementPool()::pool)->capacity();
+        int iVar1 = ((Option<game::option::EnumBrightness>*)&GetDrawableElementPool()::pool)->GetValue();
+        int iVar2 = ((FastPool<audio::SoundInstance, int>*)&GetDrawableElementPool()::pool)->capacity();
         if (iVar1 < iVar2) {
-            this = FastPool<GeometryBatch_DE, int>::Create<
-                math::OBB&, float&,
-                eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*&,
-                unsigned int&, GeometryBatchInstance&>(
-                (FastPool<GeometryBatch_DE, int>*)&GetDrawableElementPool()::pool, param_1, param_2, param_3, param_4,
-                param_5);
+            geometryBatch_DE =
+                ((FastPool<GeometryBatch_DE, int>*)&GetDrawableElementPool()::pool)
+                    ->Create<math::OBB&, float&, eastl::vector_map<int, FaceGroupRenderMasks> const*&, unsigned int&,
+                             GeometryBatchInstance&>(obb, arg2, arg3, arg4, geometryBatchInstance);
         } else {
-            uVar4 = logger::default_logger();
-            uVar3 = (&GetDrawableElementPool()::pool)->GetValue();
-            logger::Logger::Log(uVar4, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/renderer/DrawableElement.h",
-                                142, "%s requires more entries in pool, size: %d", "Create", uVar3);
-            this = operator_new(160);
-            GeometryBatch_DE::GeometryBatch_DE(this, param_1, *param_2, *param_3, *param_4, param_5);
+            this_00 = logger::default_logger();
+            uVar3 = ((Option<game::option::EnumBrightness>*)&GetDrawableElementPool()::pool)->GetValue();
+            this_00->Log(false, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                         "renderer/DrawableElement.h",
+                         142, "%s requires more entries in pool, size: %d", "Create", uVar3);
+            geometryBatch_DE = (GeometryBatch_DE*)operator new(160);
+            new (geometryBatch_DE) GeometryBatch_DE(obb, arg2, arg3, arg4, geometryBatchInstance);
         }
-        return this;
+        return geometryBatch_DE;
     }
 
-    // 0x100813980, 64 bytes, inline, placed by class name
-    // GeometryBatchInstance::CastsShadow() const
-    ulong GeometryBatchInstance::CastsShadow() {
-        ulong uVar2;
+    // 0x100813980
+    unsigned long GeometryBatchInstance::CastsShadow() const {
+        unsigned long uVar2;
 
-        if ((m_material, 7)->GetOption() == '\0') {
+        if (m_material->GetOption(7) == '\0') {
             uVar2 = 0;
         } else {
-            uVar2 = (&field_8)->GetPos();
+            uVar2 = field_8.GetPos();
             uVar2 = uVar2 & 18446744073709551361;
         }
         return uVar2;
     }
 
-    // 0x1008185e0, 32 bytes, inline, placed by class name
-    // GeometryBatchInstance::SetPointLightIndicesVertexData(bool)
-    void GeometryBatchInstance::SetPointLightIndicesVertexData(bool param_1) {
-        (m_material, 11, param_1)->SetOption();
+    // 0x1008185e0
+    void GeometryBatchInstance::SetPointLightIndicesVertexData(bool arg1) {
+        m_material->SetOption(11, arg1);
     }
 
-    // 0x1008188d0, 32 bytes, inline, placed by class name
-    // GeometryBatchInstance::ClearAnimationState()
+    // 0x1008188d0
     void GeometryBatchInstance::ClearAnimationState() {
-        (&field_800)->ClearAnimationStateProvider();
+        field_800.ClearAnimationStateProvider();
     }
 
-    // 0x10081bcb0, 16 bytes, inline, placed by class name
-    // GeometryBatchInstance::GetApproxMaterialInfoList() const
-    undefined1* GeometryBatchInstance::GetApproxMaterialInfoList() {
+    // 0x10081bcb0
+    uint8_t* GeometryBatchInstance::GetApproxMaterialInfoList() const {
         return &field_664;
     }
 
-    // 0x10092fa10, 224 bytes, inline, placed by class header (inline)
-    // LightProbe_DE* DrawableElementPool<LightProbe_DE>::Create<>()
+    // 0x10092fa10
     LightProbe_DE* DrawableElementPool<LightProbe_DE>::Create<>() {
-        int iVar1;
-        int iVar2;
-        undefined4 uVar3;
-        LightProbe_DE* this_00;
-        undefined8 uVar4;
+        uint32_t uVar3;
+        LightProbe_DE* lightProbe_DE;
+        Logger* this_00;
 
         GetDrawableElementPool();
-        iVar1 = (&GetDrawableElementPool()::pool)->GetValue();
-        iVar2 = (&GetDrawableElementPool()::pool)->capacity();
+        int iVar1 = ((Option<game::option::EnumBrightness>*)&GetDrawableElementPool()::pool)->GetValue();
+        int iVar2 = ((FastPool<audio::SoundInstance, int>*)&GetDrawableElementPool()::pool)->capacity();
         if (iVar1 < iVar2) {
-            this_00 =
-                FastPool<LightProbe_DE, int>::Create<>((FastPool<LightProbe_DE, int>*)&GetDrawableElementPool()::pool);
+            lightProbe_DE = ((FastPool<LightProbe_DE, int>*)&GetDrawableElementPool()::pool)->Create<>();
         } else {
-            uVar4 = logger::default_logger();
-            uVar3 = (&GetDrawableElementPool()::pool)->GetValue();
-            logger::Logger::Log(uVar4, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/renderer/DrawableElement.h",
-                                142, "%s requires more entries in pool, size: %d", "Create", uVar3);
-            this_00 = operator_new(112);
-            this_00->field_0 = (undefined*)0;
-            *(undefined8*)&this_00->field_8 = 0;
-            *(undefined8*)&this_00->field_16 = 0;
-            *(undefined8*)&this_00->field_24 = 0;
-            *(undefined8*)&this_00->field_32 = 0;
-            *(undefined8*)&this_00->field_40 = 0;
-            *(undefined8*)&this_00->field_48 = 0;
-            *(undefined8*)&this_00->field_56 = 0;
-            *(undefined8*)&this_00->field_64 = 0;
-            *(undefined8*)&this_00->field_72 = 0;
-            *(undefined8*)&this_00->field_80 = 0;
-            *(undefined8*)&this_00->field_88 = 0;
-            *(undefined8*)&this_00->field_96 = 0;
-            this_00->field_104 = (PointLightShadows*)0;
-            LightProbe_DE::LightProbe_DE(this_00);
+            this_00 = logger::default_logger();
+            uVar3 = ((Option<game::option::EnumBrightness>*)&GetDrawableElementPool()::pool)->GetValue();
+            this_00->Log(false, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                         "renderer/DrawableElement.h",
+                         142, "%s requires more entries in pool, size: %d", "Create", uVar3);
+            lightProbe_DE = (LightProbe_DE*)operator new(112);
+            lightProbe_DE->_vptr = nullptr;
+            *(uint64_t*)&lightProbe_DE->field_8 = 0;
+            *(uint64_t*)&lightProbe_DE->field_16 = 0;
+            *(uint64_t*)&lightProbe_DE->field_24 = 0;
+            *(uint64_t*)&lightProbe_DE->field_32 = 0;
+            *(uint64_t*)&lightProbe_DE->field_40 = 0;
+            *(uint64_t*)&lightProbe_DE->field_48 = 0;
+            *(uint64_t*)&lightProbe_DE->field_56 = 0;
+            *(uint64_t*)&lightProbe_DE->field_64 = 0;
+            *(uint64_t*)&lightProbe_DE->field_72 = 0;
+            *(uint64_t*)&lightProbe_DE->field_80 = 0;
+            *(uint64_t*)&lightProbe_DE->field_88 = 0;
+            *(uint64_t*)&lightProbe_DE->field_96 = 0;
+            lightProbe_DE->field_104 = nullptr;
+            new (lightProbe_DE) LightProbe_DE();
         }
-        return this_00;
+        return lightProbe_DE;
     }
 
 } // namespace jag::graphics
 
 namespace jag::oldscape::dash3d {
-    // 0x10036bff0, 96 bytes, placed by debug map only (low confidence)
-    // CombineOperation::UpdateLabelOffset(jag::graphics::Model const&, unsigned short&, std::function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const* (jag::graphics::GeometryBatch const&)>) const
-    /* CombineOperation::UpdateLabelOffset(jag::graphics::Model const&, unsigned
-   short&, std::function<eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned
-   short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>,
-   eastl::allocator> > const* (jag::graphics::GeometryBatch const&)>) const */
+    // 0x10036bff0
+    void CombineOperation::UpdateLabelOffset(
+        const jag::graphics::Model& model, unsigned short& arg2,
+        std::function<eastl::vector_map<unsigned short, unsigned short> const*(jag::graphics::GeometryBatch const&)>
+            callback) const {
+        unique_ptr<jag::graphics::GeometryBatchInstance,
+                   MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*
+            geometryBatchInstance1;
+        unique_ptr<jag::graphics::GeometryBatchInstance,
+                   MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*
+            geometryBatchInstance2;
 
-    void CombineOperation::UpdateLabelOffset(undefined8 param_1_00, Model* param_1, ushort* param_2,
-                                             undefined8 param_4) {
-        Layout* this;
-        undefined8 uVar1;
-        vector<EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        undefined8 uVar2;
-        ushort uVar3;
-
-        this = (Layout*)param_1->GetBatchList();
-        uVar1 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                        eastl::allocator>>::Layout::HeapBeginPtr(this);
-        this_00 = (vector<EntityHighlight*, BucketAllocatorEASTL>*)param_1->GetBatchList();
-        uVar2 = eastl::vector<EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-        uVar3 = eastl::accumulate<
+        auto this_00 = model.GetBatchList();
+        geometryBatchInstance1 =
+            (unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*)
+                this_00->HeapBeginPtr();
+        auto this_01 = model.GetBatchList();
+        geometryBatchInstance2 =
+            (unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*)this_01->end();
+        arg2 = eastl::accumulate<
             std::unique_ptr<jag::graphics::GeometryBatchInstance,
                             MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter> const*,
             unsigned short,
-            (jag::graphics::Model_const&)
+            (jag::graphics::Model const&)
                 ->UpdateLabelOffset(unsigned short&,
-                                    std::function<eastl::vector_map<
-                                        unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                        eastl::vector<eastl::pair<unsigned short, unsigned short>,
-                                                      eastl::allocator>> const*(jag::graphics::GeometryBatch_const&)>)
-                    const ::__9>(uVar1, uVar2, *param_2, param_4);
-        *param_2 = uVar3;
+                                    std::function<eastl::vector_map<unsigned short, unsigned short> const*(
+                                        jag::graphics::GeometryBatch const&)>) const ::__9>(
+            geometryBatchInstance1, geometryBatchInstance2, arg2, (__9*)callback);
     }
 
-    // 0x10036c440, 32 bytes, placed by debug map only (low confidence)
-    // AnimateOperation::GetNextPose(ResolvedModel const&, OperationRecordEntry const*) const
-    AnimateOperation* AnimateOperation::GetNextPose(ResolvedModel* param_1, OperationRecordEntry* param_2) {
-        new (this) shared_ptr<Decor>((shared_ptr*)&param_1->field_64);
+    // 0x10036c440
+    AnimateOperation* AnimateOperation::GetNextPose(const ResolvedModel& resolvedModel,
+                                                    const OperationRecordEntry* operationRecordEntry) const {
+        new (this) shared_ptr(resolvedModel.field_64);
         return this;
     }
 
-    // 0x10036c460, 80 bytes, placed by debug map only (low confidence)
-    // AnimateOperation::IsEqual(Operation const&) const
-    undefined8 AnimateOperation::IsEqual(Operation* param_1) {
-        PoseStateRSeven* pPVar2;
-        PoseStateRSeven* pPVar3;
-        undefined8 uVar4;
+    // 0x10036c460
+    bool AnimateOperation::IsEqual(const Operation& operation) const {
+        PoseStateRSeven* poseStateRSeven1;
+        PoseStateRSeven* poseStateRSeven2;
+        uint64_t uVar2;
 
-        if (param_1->GetPos() == 0) {
-            pPVar2 = (PoseStateRSeven*)shared_ptr<PoseStateRSeven>::operator*((shared_ptr<PoseStateRSeven>*)field_64);
-            pPVar3 =
-                (PoseStateRSeven*)shared_ptr<PoseStateRSeven>::operator*((shared_ptr<PoseStateRSeven>*)(param_1 + 4));
-            uVar4 = dash3d::operator==(pPVar2, pPVar3);
+        if (operation.GetPos() == 0) {
+            poseStateRSeven1 = (PoseStateRSeven*)**field_64;
+            poseStateRSeven2 = (PoseStateRSeven*)*(*((operation + 4)));
+            uVar2 = *poseStateRSeven1 == *poseStateRSeven2;
         } else {
-            uVar4 = 0;
+            uVar2 = 0;
         }
-        return uVar4;
+        return uVar2;
     }
 
-    // 0x10036c4b0, 224 bytes, placed by debug map only (low confidence)
-    // DashAnimateOperation::GetNextPose(ResolvedModel const&, OperationRecordEntry const*) const
-    DashAnimateOperation* DashAnimateOperation::GetNextPose(ResolvedModel* param_1, OperationRecordEntry* param_2) {
-        Array* pAVar2;
-        shared_ptr local_40;
+    // 0x10036c4b0
+    DashAnimateOperation* DashAnimateOperation::GetNextPose(const ResolvedModel& resolvedModel,
+                                                            const OperationRecordEntry* operationRecordEntry) const {
+        Array<int>* arg4;
+        ReturnValue local_40;
 
-        if ((&param_1->field_88)->operator_cast_to_bool()) {
-            pAVar2 = (Array*)shared_ptr<Array<int, eastl::allocator>>::operator*(
-                (shared_ptr<Array<int, eastl::allocator>>*)&param_1->field_88);
-            make_shared<MaskedDashPoseStateRSeven, shared_ptr<AnimFrameSet> const&, int const&, ResolvedModel_const&,
-                        Array<int, eastl::allocator>&, bool const&>((jag*)&local_40, (shared_ptr*)&param_1->field_64,
-                                                                    (int*)&param_1->field_80, (ResolvedModel*)param_2,
-                                                                    pAVar2, (bool*)&param_1->field_104);
-            shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-                (shared_ptr<RSevenDebugPresetProvider>*)this, &local_40);
-            local_40.~shared_ptr();
+        if (resolvedModel.field_88->operator_cast_to_bool() == '\0') {
+            make_shared<DashPoseStateRSeven, shared_ptr<AnimFrameSet> const&, int const&, ResolvedModel const&>(
+                &local_40, (shared_ptr<AnimFrameSet>*)resolvedModel.field_64, (int*)resolvedModel.field_80,
+                (ResolvedModel*)operationRecordEntry);
+            shared_ptr<FileRSevenDebugPresetProvider, void>(local_40);
         } else {
-            make_shared<DashPoseStateRSeven, shared_ptr<AnimFrameSet> const&, int const&, ResolvedModel_const&>(
-                (jag*)&local_40, (shared_ptr*)&param_1->field_64, (int*)&param_1->field_80, (ResolvedModel*)param_2);
-            shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-                (shared_ptr<RSevenDebugPresetProvider>*)this, &local_40);
-            local_40.~shared_ptr();
+            arg4 = (Array<int>*)*resolvedModel.field_88;
+            make_shared<MaskedDashPoseStateRSeven, shared_ptr<AnimFrameSet> const&, int const&, ResolvedModel const&,
+                        Array<int>&, bool const&>(&local_40, (shared_ptr<AnimFrameSet>*)resolvedModel.field_64,
+                                                  (int*)resolvedModel.field_80, (ResolvedModel*)operationRecordEntry,
+                                                  arg4, (bool*)resolvedModel.field_104);
+            shared_ptr<FileRSevenDebugPresetProvider, void>(local_40);
         }
         return this;
     }
 
-    // 0x10036c700, 64 bytes, placed by debug map only (low confidence)
-    // DashAnimateOperation::IsEqual(Operation const&) const
-    undefined4 DashAnimateOperation::IsEqual(Operation* param_1) {
+    // 0x10036c700
+    bool DashAnimateOperation::IsEqual(const Operation& operation) const {
         bool bVar1;
-        shared_ptr* extraout_RDX;
 
-        if ((param_1->GetPos() == 2) &&
-            (bVar1 = operator==((jag*)&field_64, (shared_ptr*)(param_1 + 4), extraout_RDX), bVar1)) {
-            return CONCAT31((int3)((uint)field_80 >> 8), field_80 == *(int*)&param_1[5].field_0);
+        if ((operation.GetPos() == 2) && (bVar1 = field_64 == (*((operation + 4))), bVar1)) {
+            return field_80 == *(int*)&operation[5]._vptr;
         }
         return 0;
     }
 
-    // 0x10036c740, 704 bytes, placed by debug map only (low confidence)
-    // AnimateBaseOperation::Apply(ResolvedModel const&, OperationRecordEntry const*) const
-    AnimateBaseOperation* AnimateBaseOperation::Apply(ResolvedModel* param_1, OperationRecordEntry* param_2) {
-        undefined* puVar1;
-        bool bVar3;
-        shared_ptr* this_00;
-        Model* pMVar4;
-        PoseStateRSeven* pPVar5;
-        shared_ptr* this_01;
-        undefined1 local_158[112];
-        shared_ptr local_60;
-        shared_ptr local_50;
-        shared_ptr local_40;
+    // 0x10036c740
+    AnimateBaseOperation* AnimateBaseOperation::Apply(const ResolvedModel& resolvedModel,
+                                                      const OperationRecordEntry* operationRecordEntry) const {
+        PoseStateRSeven* poseStateRSeven;
+        OperationRecordEntry* in_RCX;
+        ResolvedModel local_e8;
+        shared_ptr<PoseStateRSeven> local_60;
+        ReturnValue local_50;
+        ReturnValue local_40;
 
-        (**(code**)(param_1->field_0 + 40))(&local_60);
-        this_00 = (shared_ptr*)param_2->GetModel();
-        pMVar4 = (Model*)shared_ptr<jag::graphics::Model>::operator*((shared_ptr<jag::graphics::Model>*)this_00);
-        pPVar5 = (PoseStateRSeven*)shared_ptr<PoseStateRSeven>::operator*((shared_ptr<PoseStateRSeven>*)&local_60);
-        LoadTransparencyAffectedLabels((AnimateBaseOperation*)param_1, pMVar4, pPVar5);
-        local_158->GetLocalTransform();
-        puVar1 = PTR_IDENTITY_100ee6730;
-        bVar3 = jag::math::operator!=((Matrix44T*)local_158, (Matrix44T*)PTR_IDENTITY_100ee6730);
-        if (bVar3) {
-            local_158->GetLocalTransform();
-            ((local_158 + 112))->operator_cast_to_Matrix43T();
-            make_shared<TransformedPoseStateRSeven, jag::math::Matrix43T<float>>((jag*)&local_40,
-                                                                                 (Matrix43T*)(local_158 + 112));
+        OperationRecordEntry* local_68 = in_RCX;
+        (**(void (**)(...))(*(long*)resolvedModel + 40))(&local_60);
+        auto this_00 = operationRecordEntry->GetModel();
+        Model* model = (Model*)**this_00;
+        poseStateRSeven = (PoseStateRSeven*)*local_60;
+        LoadTransparencyAffectedLabels((AnimateBaseOperation*)resolvedModel, model, poseStateRSeven);
+        ResolvedModel local_158 = operationRecordEntry->GetLocalTransform();
+        if (local_158 != *PTR_IDENTITY_100ee6730) {
+            local_158 = operationRecordEntry->GetLocalTransform();
+            local_e8.operator_cast_to_Matrix43T();
+            make_shared<TransformedPoseStateRSeven, jag::math::Matrix43T<float>>(&local_40,
+                                                                                 (Matrix43T<float>*)&local_e8);
             make_shared<ChainedPoseStateRSeven, shared_ptr<TransformedPoseStateRSeven>, shared_ptr<PoseStateRSeven>&>(
-                (jag*)&local_50, &local_40, &local_60);
-            shared_ptr<PoseStateRSeven>::operator=((shared_ptr<PoseStateRSeven>*)&local_60, &local_50);
-            local_50.~shared_ptr();
-            local_40.~shared_ptr();
+                &local_50, &local_40, &local_60);
+            local_60 = local_50;
         }
-        new (local_158) ResolvedModel();
-        this_01 = (shared_ptr*)param_2->GetAnimationState();
-        bVar3 = shared_ptr::operator_cast_to_bool(this_01);
-        if (bVar3) {
-            make_shared<ChainedPoseStateRSeven, shared_ptr<PoseStateRSeven> const&, shared_ptr<PoseStateRSeven>&>(
-                (jag*)&local_40, this_01, &local_60);
-            shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-                (shared_ptr<RSevenDebugPresetProvider>*)&local_50, &local_40);
-            new ((local_158 + 112)) ResolvedModel(this_00, &local_50, *(Matrix44T*)puVar1);
-            ResolvedModel::operator=((ResolvedModel*)local_158, (ResolvedModel*)(local_158 + 112));
-            ((local_158 + 112))->~ResolvedModel();
-            local_50.~shared_ptr();
-            local_40.~shared_ptr();
+        local_158 = ResolvedModel();
+        auto this_01 = operationRecordEntry->GetAnimationState();
+        if (shared_ptr::operator_cast_to_bool(this_01) == '\0') {
+            local_e8 = ResolvedModel(*this_00, local_60, in_RCX);
+            local_158 = local_e8;
         } else {
-            new ((local_158 + 112)) ResolvedModel(this_00, &local_60, *(Matrix44T*)puVar1);
-            ResolvedModel::operator=((ResolvedModel*)local_158, (ResolvedModel*)(local_158 + 112));
-            ((local_158 + 112))->~ResolvedModel();
+            make_shared<ChainedPoseStateRSeven, shared_ptr<PoseStateRSeven> const&, shared_ptr<PoseStateRSeven>&>(
+                &local_40, (shared_ptr<PoseStateRSeven>*)this_01, &local_60);
+            local_50.shared_ptr<FileRSevenDebugPresetProvider, void>(local_40);
+            local_e8 = ResolvedModel(*this_00, local_50, in_RCX);
+            local_158 = local_e8;
         }
-        SeparateFacesByLabelTransparency((AnimateBaseOperation*)this, param_1, (ResolvedModel*)param_2,
-                                         (OperationRecordEntry*)local_158);
-        local_158->~ResolvedModel();
-        local_60.~shared_ptr();
-        return (AnimateBaseOperation*)this;
+        *this = resolvedModel.SeparateFacesByLabelTransparency(*operationRecordEntry, local_158, local_68);
+        return this;
     }
 
-    // 0x10036ca00, 288 bytes, placed by debug map only (low confidence)
-    // AnimateBaseOperation::LoadTransparencyAffectedLabels(jag::graphics::Model const&, PoseStateRSeven const&) const
-    void AnimateBaseOperation::LoadTransparencyAffectedLabels(Model* param_1, PoseStateRSeven* param_2) {
-        bool bVar1;
+    // 0x10036ca00
+    void AnimateBaseOperation::LoadTransparencyAffectedLabels(const jag::graphics::Model& model,
+                                                              const PoseStateRSeven& poseStateRSeven) const {
         Layout* pLVar2;
         unique_ptr<jag::graphics::GeometryBatchInstance,
                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* this_00;
         GeometryBatchInstance* pGVar3;
-        ushort* puVar4;
-        ushort* puVar5;
-        vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                   eastl::vector<unsigned short, eastl::allocator>>* this_01;
-        undefined1* this_02;
-        float fVar6;
-        vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                   eastl::vector<unsigned short, eastl::allocator>>
-            local_60[40];
+        unsigned short* arg1;
+        unsigned short* puVar4;
+        float extraout_XMM0_Da;
+        vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<unsigned short>>
+            local_60;
         unique_ptr<jag::graphics::GeometryBatchInstance,
                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* local_38;
 
-        this_02 = &field_16;
-        bVar1 = this_02->Ready();
-        if (!bVar1) {
-            eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<unsigned short, eastl::allocator>>::vector_set(local_60);
-            eastl::optional<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                              eastl::vector<unsigned short, eastl::allocator>>>::
-            operator=((optional<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                                  eastl::vector<unsigned short, eastl::allocator>>>*)this_02,
-                      (vector_set*)local_60);
-            eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<unsigned short, eastl::allocator>>::~vector_set(local_60);
-            pLVar2 = (Layout*)param_1->GetBatchList();
+        uint8_t* this_02 = field_16;
+        if (this_02->Ready() == '\0') {
+            local_60 = eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
+                                         eastl::vector<unsigned short>>();
+            this_02->operator=(&local_60);
+            pLVar2 = (Layout*)model.GetBatchList();
             this_00 = (unique_ptr<jag::graphics::GeometryBatchInstance,
                                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar2);
+                          pLVar2->HeapBeginPtr();
             local_38 = (unique_ptr<jag::graphics::GeometryBatchInstance,
                                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
                            pLVar2->end();
             if (this_00 != local_38) {
                 do {
-                    pGVar3 = (GeometryBatchInstance*)
-                                 std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                                 MakeUniquePool<jag::graphics::GeometryBatchInstance,
-                                                                3072>::UniquePoolDeleter>::operator->(this_00);
+                    pGVar3 = (GeometryBatchInstance*)(*this_00).operator->();
                     pGVar3 = (GeometryBatchInstance*)pGVar3->GetGeometryBatch();
                     pLVar2 = (Layout*)pGVar3->GetMaterial();
-                    puVar4 = (ushort*)eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                            eastl::allocator>>::Layout::HeapBeginPtr(pLVar2);
-                    puVar5 = (ushort*)pLVar2->end();
-                    for (; puVar4 != puVar5; puVar4 = puVar4 + 2) {
-                        fVar6 = (float)(*(code*)param_2->field_0[2])(param_2, *puVar4);
-                        if (fVar6 < 0.0) {
-                            this_01 =
-                                (vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                            eastl::vector<unsigned short, eastl::allocator>>*)
-                                    eastl::optional<
-                                        eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                                          eastl::vector<unsigned short, eastl::allocator>>>::
-                                    operator->((optional<eastl::vector_set<
-                                                    unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                                    eastl::vector<unsigned short, eastl::allocator>>>*)this_02);
-                            eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                              eastl::vector<unsigned short, eastl::allocator>>::insert(this_01, puVar4);
+                    arg1 = (unsigned short*)pLVar2->HeapBeginPtr();
+                    puVar4 = (unsigned short*)pLVar2->end();
+                    for (; arg1 != puVar4; arg1 = arg1 + 2) {
+                        (poseStateRSeven._vptr->GetLabelTransparencyDelta)(poseStateRSeven, (unsigned long)*arg1);
+                        if (extraout_XMM0_Da < 0.0) {
+                            ((vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
+                                         eastl::vector<unsigned short>>*)(*this_02)
+                                 .operator->())
+                                ->insert(*arg1);
                         }
                     }
                     this_00 = this_00 + 8;
@@ -705,376 +592,318 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x10036cbd0, 592 bytes, placed by debug map only (low confidence)
-    // AnimateBaseOperation::SeparateFacesByLabelTransparency(ResolvedModel const&, ResolvedModel const&, OperationRecordEntry const*) const
-    ResolvedModel* AnimateBaseOperation::SeparateFacesByLabelTransparency(ResolvedModel* param_1,
-                                                                          ResolvedModel* param_2,
-                                                                          OperationRecordEntry* param_3) {
-        Matrix44T MVar1;
-        Matrix44T MVar2;
-        OperationRecordEntry* this_00;
-        char cVar3;
-        uint uVar4;
-        vector<game::MapSquare::MapSquarePos, eastl::allocator>* this_01;
-        long lVar5;
-        ResolvedModel* this_02;
-        shared_ptr* psVar6;
-        shared_ptr* psVar7;
-        shared_ptr<jag::graphics::Model>* this_03;
-        undefined8 uVar8;
-        Model* pMVar9;
-        Layout* this_04;
+    // 0x10036cbd0
+    ResolvedModel
+    AnimateBaseOperation::SeparateFacesByLabelTransparency(const ResolvedModel& resolvedModel1,
+                                                           const ResolvedModel& resolvedModel2,
+                                                           const OperationRecordEntry* operationRecordEntry) const {
+        unsigned int uVar2;
+        ResolvedModel* this_01;
+        shared_ptr<jag::graphics::Model>* psVar4;
+        shared_ptr<PoseStateRSeven>* psVar5;
+        uint64_t uVar6;
+        Model* pMVar7;
+        Layout* this_02;
         unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* this_05;
+                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* this_03;
         unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* puVar10;
-        GeometryBatchInstance* pGVar11;
-        AnimateBaseOperation* this_06;
-        OperationRecordEntry* in_R8;
-        undefined1 local_f8[72];
-        undefined8 uStack_b0;
-        undefined8 local_a8;
-        undefined8 uStack_a0;
-        undefined8 local_98;
-        undefined8 uStack_90;
-        undefined8 local_88;
+                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* puVar8;
+        GeometryBatchInstance* geometryBatchInstance;
+        vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
+                               MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>>*
+            matrix44;
+        ReturnValue local_f8;
+        ReturnValue local_b8;
         BatchDestroy<eastl::vector<
             std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                            MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-            eastl::allocator>>
-            local_70[32];
+                            MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>>
+            local_70;
         ResolvedModel* local_50;
-        OperationRecordEntry* local_48;
-        Operation local_40;
+        shared_ptr<jag::graphics::Model> local_40;
 
-        this_01 =
-            (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)
-                eastl::optional<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                                  eastl::vector<unsigned short, eastl::allocator>>>::
-                operator->(
-                    (optional<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                                eastl::vector<unsigned short, eastl::allocator>>>*)&param_1->field_16);
-        lVar5 = eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(this_01);
-        if (lVar5 == 0) {
-            new (this) ResolvedModel(param_3);
+        ResolvedModel* pRVar9 = resolvedModel2;
+        if (((vector<game::MapSquare::MapSquarePos>*)(*field_16).operator->())->size() == 0) {
+            ResolvedModel result(resolvedModel2);
         } else {
-            cVar3 = CanReusePreviousTransparencyBatching((AnimateBaseOperation*)param_1, param_2, in_R8);
-            if (cVar3 == '\0') {
-                this_03 = (shared_ptr<jag::graphics::Model>*)param_3->GetModel();
-                uVar8 = shared_ptr<jag::graphics::Model>::operator*(this_03);
-                local_40.CloneModel(param_1, uVar8, 2);
-                graphicutils::BatchDestroy<eastl::vector<
-                    std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                    eastl::allocator>>::BatchDestroy<>(local_70);
-                pMVar9 =
-                    (Model*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)&local_40);
-                uVar4 = pMVar9->GetBatchCount();
-                local_70->reserve((ulong)uVar4 * 2);
-                local_50 = (ResolvedModel*)this;
-                local_48 = param_3;
-                pMVar9 =
-                    (Model*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)&local_40);
-                this_04 = (Layout*)pMVar9->GetBatchList();
-                this_05 = (unique_ptr<jag::graphics::GeometryBatchInstance,
+            if (CanReusePreviousTransparencyBatching(resolvedModel1, operationRecordEntry) == '\0') {
+                psVar4 = (shared_ptr<jag::graphics::Model>*)resolvedModel2.GetModel();
+                uVar6 = **psVar4;
+                matrix44 = (vector<std::unique_ptr<
+                                jag::graphics::GeometryBatchInstance,
+                                MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>>*)2;
+                local_40.CloneModel(this, uVar6);
+                local_70.BatchDestroy<>();
+                pMVar7 = (Model*)local_40.operator->();
+                uVar2 = pMVar7->GetBatchCount();
+                local_70.reserve((unsigned long)uVar2 * 2);
+                local_50 = &result;
+                pMVar7 = (Model*)local_40.operator->();
+                this_02 = (Layout*)pMVar7->GetBatchList();
+                this_03 = (unique_ptr<jag::graphics::GeometryBatchInstance,
                                       MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_04);
-                puVar10 = (unique_ptr<jag::graphics::GeometryBatchInstance,
-                                      MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                              this_04->end();
-                if (this_05 != puVar10) {
+                              this_02->HeapBeginPtr();
+                puVar8 = (unique_ptr<jag::graphics::GeometryBatchInstance,
+                                     MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
+                             this_02->end();
+                if (this_03 != puVar8) {
                     do {
-                        pGVar11 = (GeometryBatchInstance*)
-                            std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                            MakeUniquePool<jag::graphics::GeometryBatchInstance,
-                                                           3072>::UniquePoolDeleter>::operator*(this_05);
-                        pMVar9 = (Model*)shared_ptr<jag::graphics::Model>::operator*(
-                            (shared_ptr<jag::graphics::Model>*)&local_40);
-                        SeparateBatchByLabelTransparency((AnimateBaseOperation*)param_1, pGVar11, pMVar9,
-                                                         (vector*)local_70);
-                        this_05 = this_05 + 8;
-                    } while (this_05 != puVar10);
+                        geometryBatchInstance = (GeometryBatchInstance*)**this_03;
+                        pMVar7 = (Model*)*local_40;
+                        matrix44 = &local_70;
+                        SeparateBatchByLabelTransparency(*geometryBatchInstance, *pMVar7, local_70);
+                        this_03 = this_03 + 8;
+                    } while (this_03 != puVar8);
                 }
-                this_06 = (AnimateBaseOperation*)&local_40;
-                pMVar9 =
-                    (Model*)shared_ptr<jag::graphics::Model>::operator*((shared_ptr<jag::graphics::Model>*)this_06);
-                this_00 = local_48;
-                this = (AnimateBaseOperation*)local_50;
-                ReplaceModelBatches(this_06, pMVar9, (vector*)local_70);
-                psVar6 = (shared_ptr*)this_00->GetAnimationState();
-                ((local_f8 + 64))->GetLocalTransform();
-                MVar2._8_8_ = uStack_b0;
-                MVar2._0_8_ = local_f8._64_8_;
-                MVar2._16_8_ = local_a8;
-                MVar2._24_8_ = uStack_a0;
-                MVar2._32_8_ = local_98;
-                MVar2._40_8_ = uStack_90;
-                MVar2._48_8_ = local_88;
-                new (this) ResolvedModel((shared_ptr*)&local_40, psVar6, MVar2);
-                local_70->~BatchDestroy();
-                local_40.~shared_ptr();
+                pMVar7 = (Model*)**&local_40;
+                pRVar9 = resolvedModel2;
+                &result = local_50;
+                ReplaceModelBatches(&local_40, pMVar7, &local_70);
+                psVar5 = (shared_ptr<PoseStateRSeven>*)pRVar9->GetAnimationState();
+                local_b8 = pRVar9->GetLocalTransform();
+                new (&result) ResolvedModel(local_40, *psVar5, matrix44);
             } else {
-                this_02 = (ResolvedModel*)in_R8->GetOutputModel();
-                psVar6 = (shared_ptr*)this_02->GetModel();
-                psVar7 = (shared_ptr*)param_3->GetAnimationState();
-                local_f8->GetLocalTransform();
-                MVar1._8_8_ = local_f8._8_8_;
-                MVar1._0_8_ = local_f8._0_8_;
-                MVar1._16_8_ = local_f8._16_8_;
-                MVar1._24_8_ = local_f8._24_8_;
-                MVar1._32_8_ = local_f8._32_8_;
-                MVar1._40_8_ = local_f8._40_8_;
-                MVar1._48_8_ = local_f8._48_8_;
-                new (this) ResolvedModel(psVar6, psVar7, MVar1);
+                this_01 = operationRecordEntry->GetOutputModel();
+                psVar4 = (shared_ptr<jag::graphics::Model>*)this_01->GetModel();
+                psVar5 = (shared_ptr<PoseStateRSeven>*)resolvedModel2.GetAnimationState();
+                local_f8 = resolvedModel2.GetLocalTransform();
+                new (&result) ResolvedModel(*psVar4, *psVar5, pRVar9);
             }
         }
-        return (ResolvedModel*)this;
+        return result;
     }
 
 } // namespace jag::oldscape::dash3d
 
 namespace jag {
-    // 0x10036c0e0, 176 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type make_shared<oldscape::dash3d::ChainedPoseStateRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven> const&, shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven> >(shared_ptr<oldscape::dash3d::PoseStateRSeven> const&, shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>&&)
-    jag*
-    jag::make_shared<oldscape::dash3d::ChainedPoseStateRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven> const&,
-                     shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>>(shared_ptr* param_1,
-                                                                               shared_ptr* param_2) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10036c0e0
+    shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type
+    make_shared<oldscape::dash3d::ChainedPoseStateRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven> const&,
+                shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>>(
+        const shared_ptr<oldscape::dash3d::PoseStateRSeven>& poseStateRSeven,
+        shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>&& transformedPoseStateRSeven) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_3c;
         ChainedPoseStateRSeven* local_38[2];
 
-        pvVar1 = (void*)aligned_alloc(80, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(80, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type result;
         } else {
             local_38[0] = placement_new<oldscape::dash3d::ChainedPoseStateRSeven,
                                         shared_ptr<oldscape::dash3d::PoseStateRSeven> const&,
                                         shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>>(
-                (void*)((long)pvVar1 + 32), param_1, param_2);
+                (void*)((long)arg1 + 32), poseStateRSeven, transformedPoseStateRSeven);
             local_3c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::dash3d::ChainedPoseStateRSeven>, int,
-                                   oldscape::dash3d::ChainedPoseStateRSeven*&>(pvVar1, &local_3c, local_38);
-            prVar2->~AutoSingleton(local_38[0]);
-            prVar2->~AutoSingleton(local_38[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_38[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::dash3d::ChainedPoseStateRSeven>, int,
+                              oldscape::dash3d::ChainedPoseStateRSeven*&>(arg1, &local_3c, local_38);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_38[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10036c190, 160 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::dash3d::TransformedPoseStateRSeven>::type make_shared<oldscape::dash3d::TransformedPoseStateRSeven, math::Matrix43T<float> >(math::Matrix43T<float>&&)
-    jag* make_shared<oldscape::dash3d::TransformedPoseStateRSeven, math::Matrix43T<float>>(Matrix43T* param_1) {
-        void* pvVar1;
-        ref_counter_shared_trivial* prVar2;
+    // 0x10036c190
+    shared_ptr_if_not_array<oldscape::dash3d::TransformedPoseStateRSeven>::type
+    make_shared<oldscape::dash3d::TransformedPoseStateRSeven, math::Matrix43T<float>>(
+        math::Matrix43T<float>&& matrix43) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_34;
         TransformedPoseStateRSeven* local_30[2];
 
-        pvVar1 = (void*)aligned_alloc(80, 16);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(16);
+        auto arg1 = aligned_alloc(80, 16);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::dash3d::TransformedPoseStateRSeven>::type result;
         } else {
             local_30[0] = placement_new<oldscape::dash3d::TransformedPoseStateRSeven, math::Matrix43T<float>>(
-                (void*)((long)pvVar1 + 16), param_1);
+                (void*)((long)arg1 + 16), matrix43);
             local_34 = 1;
-            prVar2 = placement_new<ref_counter_shared_trivial<oldscape::dash3d::TransformedPoseStateRSeven>, int,
-                                   oldscape::dash3d::TransformedPoseStateRSeven*&>(pvVar1, &local_34, local_30);
-            prVar2->~AutoSingleton(local_30[0]);
-            prVar2->~AutoSingleton(local_30[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_30[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared_trivial<oldscape::dash3d::TransformedPoseStateRSeven>, int,
+                              oldscape::dash3d::TransformedPoseStateRSeven*&>(arg1, &local_34, local_30);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_30[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10036c2b0, 208 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::dash3d::ShiftedLabelRangePoseStateRSeven>::type make_shared<oldscape::dash3d::ShiftedLabelRangePoseStateRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven> const&, unsigned short const&, unsigned short const&, unsigned short const&, unsigned short const&, unsigned short const&, unsigned short const&>(shared_ptr<oldscape::dash3d::PoseStateRSeven> const&, unsigned short const&, unsigned short const&, unsigned short const&, unsigned short const&, unsigned short const&, unsigned short const&)
-    jag*
-    jag::make_shared<oldscape::dash3d::ShiftedLabelRangePoseStateRSeven,
-                     shared_ptr<oldscape::dash3d::PoseStateRSeven> const&, unsigned short const&, unsigned short const&,
-                     unsigned short const&, unsigned short const&, unsigned short const&, unsigned short const&>(
-        shared_ptr* param_1, ushort* param_2, ushort* param_3, ushort* param_4, ushort* param_5, ushort* param_6,
-        ushort* param_7) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10036c2b0
+    shared_ptr_if_not_array<oldscape::dash3d::ShiftedLabelRangePoseStateRSeven>::type
+    make_shared<oldscape::dash3d::ShiftedLabelRangePoseStateRSeven,
+                shared_ptr<oldscape::dash3d::PoseStateRSeven> const&, unsigned short const&, unsigned short const&,
+                unsigned short const&, unsigned short const&, unsigned short const&, unsigned short const&>(
+        const shared_ptr<oldscape::dash3d::PoseStateRSeven>& poseStateRSeven, const unsigned short& arg2,
+        const unsigned short& arg3, const unsigned short& arg4, const unsigned short& arg5, const unsigned short& arg6,
+        const unsigned short& arg7) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        unsigned short* in_stack_00000010;
         int local_44;
         ShiftedLabelRangePoseStateRSeven* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(80, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(80, 8);
+        if (arg1 == nullptr) {
+            new (poseStateRSeven) shared_ptr();
         } else {
             local_40[0] = placement_new<oldscape::dash3d::ShiftedLabelRangePoseStateRSeven,
                                         shared_ptr<oldscape::dash3d::PoseStateRSeven> const&, unsigned short const&,
                                         unsigned short const&, unsigned short const&, unsigned short const&,
                                         unsigned short const&, unsigned short const&>(
-                (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6, param_7);
+                (void*)((long)arg1 + 32), (shared_ptr<oldscape::dash3d::PoseStateRSeven>*)arg2, arg3, arg4, arg5, arg6,
+                arg7, in_stack_00000010);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::dash3d::ShiftedLabelRangePoseStateRSeven>, int,
-                                   oldscape::dash3d::ShiftedLabelRangePoseStateRSeven*&>(pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::dash3d::ShiftedLabelRangePoseStateRSeven>, int,
+                              oldscape::dash3d::ShiftedLabelRangePoseStateRSeven*&>(arg1, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (poseStateRSeven) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return poseStateRSeven;
     }
 
-    // 0x10036c380, 176 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type make_shared<oldscape::dash3d::ChainedPoseStateRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven>&, shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(shared_ptr<oldscape::dash3d::PoseStateRSeven>&, shared_ptr<oldscape::dash3d::PoseStateRSeven>&)
-    /* shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type
-   make_shared<oldscape::dash3d::ChainedPoseStateRSeven,
-   shared_ptr<oldscape::dash3d::PoseStateRSeven> const&,
-   shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(shared_ptr<oldscape::dash3d::PoseStateRSeven>
-   const&, shared_ptr<oldscape::dash3d::PoseStateRSeven>&) */
-
-    jag*
-    jag::make_shared<oldscape::dash3d::ChainedPoseStateRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven> const&,
-                     shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(shared_ptr* param_1, shared_ptr* param_2) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10036c380
+    shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type
+    make_shared<oldscape::dash3d::ChainedPoseStateRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven>&,
+                shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(
+        shared_ptr<oldscape::dash3d::PoseStateRSeven>& poseStateRSeven1,
+        shared_ptr<oldscape::dash3d::PoseStateRSeven>& poseStateRSeven2) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_3c;
         ChainedPoseStateRSeven* local_38[2];
 
-        pvVar1 = (void*)aligned_alloc(80, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(80, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type result;
         } else {
             local_38[0] = placement_new<oldscape::dash3d::ChainedPoseStateRSeven,
                                         shared_ptr<oldscape::dash3d::PoseStateRSeven> const&,
-                                        shared_ptr<oldscape::dash3d::PoseStateRSeven>&>((void*)((long)pvVar1 + 32),
-                                                                                        param_1, param_2);
+                                        shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(
+                (void*)((long)arg1 + 32), poseStateRSeven1, poseStateRSeven2);
             local_3c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::dash3d::ChainedPoseStateRSeven>, int,
-                                   oldscape::dash3d::ChainedPoseStateRSeven*&>(pvVar1, &local_3c, local_38);
-            prVar2->~AutoSingleton(local_38[0]);
-            prVar2->~AutoSingleton(local_38[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_38[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::dash3d::ChainedPoseStateRSeven>, int,
+                              oldscape::dash3d::ChainedPoseStateRSeven*&>(arg1, &local_3c, local_38);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_38[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10036c590, 192 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::dash3d::MaskedDashPoseStateRSeven>::type make_shared<oldscape::dash3d::MaskedDashPoseStateRSeven, shared_ptr<oldscape::dash3d::AnimFrameSet> const&, int const&, oldscape::dash3d::ResolvedModel const&, Array<int, eastl::allocator>&, bool const&>(shared_ptr<oldscape::dash3d::AnimFrameSet> const&, int const&, oldscape::dash3d::ResolvedModel const&, Array<int, eastl::allocator>&, bool const&)
-    jag*
-    jag::make_shared<oldscape::dash3d::MaskedDashPoseStateRSeven, shared_ptr<oldscape::dash3d::AnimFrameSet> const&,
-                     int const&, oldscape::dash3d::ResolvedModel_const&, Array<int, eastl::allocator>&, bool const&>(
-        shared_ptr* param_1, int* param_2, ResolvedModel* param_3, Array* param_4, bool* param_5) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10036c590
+    shared_ptr_if_not_array<oldscape::dash3d::MaskedDashPoseStateRSeven>::type
+    make_shared<oldscape::dash3d::MaskedDashPoseStateRSeven, shared_ptr<oldscape::dash3d::AnimFrameSet> const&,
+                int const&, oldscape::dash3d::ResolvedModel const&, Array<int>&, bool const&>(
+        const shared_ptr<oldscape::dash3d::AnimFrameSet>& animFrameSet, const int& arg2,
+        const oldscape::dash3d::ResolvedModel& resolvedModel, Array<int>& arg4, const bool& arg5) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_44;
         MaskedDashPoseStateRSeven* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(240, 16);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(16);
+        auto arg1 = aligned_alloc(240, 16);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::dash3d::MaskedDashPoseStateRSeven>::type result;
         } else {
-            local_40[0] =
-                placement_new<oldscape::dash3d::MaskedDashPoseStateRSeven,
-                              shared_ptr<oldscape::dash3d::AnimFrameSet> const&, int const&,
-                              oldscape::dash3d::ResolvedModel_const&, Array<int, eastl::allocator>&, bool const&>(
-                    (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5);
+            local_40[0] = placement_new<oldscape::dash3d::MaskedDashPoseStateRSeven,
+                                        shared_ptr<oldscape::dash3d::AnimFrameSet> const&, int const&,
+                                        oldscape::dash3d::ResolvedModel const&, Array<int>&, bool const&>(
+                (void*)((long)arg1 + 32), animFrameSet, arg2, resolvedModel, arg4, arg5);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::dash3d::MaskedDashPoseStateRSeven>, int,
-                                   oldscape::dash3d::MaskedDashPoseStateRSeven*&>(pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::dash3d::MaskedDashPoseStateRSeven>, int,
+                              oldscape::dash3d::MaskedDashPoseStateRSeven*&>(arg1, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10036c650, 176 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::dash3d::DashPoseStateRSeven>::type make_shared<oldscape::dash3d::DashPoseStateRSeven, shared_ptr<oldscape::dash3d::AnimFrameSet> const&, int const&, oldscape::dash3d::ResolvedModel const&>(shared_ptr<oldscape::dash3d::AnimFrameSet> const&, int const&, oldscape::dash3d::ResolvedModel const&)
-    jag* jag::make_shared<oldscape::dash3d::DashPoseStateRSeven, shared_ptr<oldscape::dash3d::AnimFrameSet> const&,
-                          int const&, oldscape::dash3d::ResolvedModel_const&>(shared_ptr* param_1, int* param_2,
-                                                                              ResolvedModel* param_3) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10036c650
+    shared_ptr_if_not_array<oldscape::dash3d::DashPoseStateRSeven>::type
+    make_shared<oldscape::dash3d::DashPoseStateRSeven, shared_ptr<oldscape::dash3d::AnimFrameSet> const&, int const&,
+                oldscape::dash3d::ResolvedModel const&>(const shared_ptr<oldscape::dash3d::AnimFrameSet>& animFrameSet,
+                                                        const int& arg2,
+                                                        const oldscape::dash3d::ResolvedModel& resolvedModel) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_44;
         DashPoseStateRSeven* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(208, 16);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(16);
+        auto arg1 = aligned_alloc(208, 16);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::dash3d::DashPoseStateRSeven>::type result;
         } else {
             local_40[0] =
                 placement_new<oldscape::dash3d::DashPoseStateRSeven, shared_ptr<oldscape::dash3d::AnimFrameSet> const&,
-                              int const&, oldscape::dash3d::ResolvedModel_const&>((void*)((long)pvVar1 + 32), param_1,
-                                                                                  param_2, param_3);
+                              int const&, oldscape::dash3d::ResolvedModel const&>((void*)((long)arg1 + 32),
+                                                                                  animFrameSet, arg2, resolvedModel);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::dash3d::DashPoseStateRSeven>, int,
-                                   oldscape::dash3d::DashPoseStateRSeven*&>(pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::dash3d::DashPoseStateRSeven>, int,
+                              oldscape::dash3d::DashPoseStateRSeven*&>(arg1, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10036cb20, 176 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type make_shared<oldscape::dash3d::ChainedPoseStateRSeven, shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>, shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>&&, shared_ptr<oldscape::dash3d::PoseStateRSeven>&)
-    jag*
-    jag::make_shared<oldscape::dash3d::ChainedPoseStateRSeven, shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>,
-                     shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(shared_ptr* param_1, shared_ptr* param_2) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10036cb20
+    shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type
+    make_shared<oldscape::dash3d::ChainedPoseStateRSeven, shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>,
+                shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(
+        shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>&& transformedPoseStateRSeven,
+        shared_ptr<oldscape::dash3d::PoseStateRSeven>& poseStateRSeven) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_3c;
         ChainedPoseStateRSeven* local_38[2];
 
-        pvVar1 = (void*)aligned_alloc(80, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(80, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::dash3d::ChainedPoseStateRSeven>::type result;
         } else {
             local_38[0] = placement_new<oldscape::dash3d::ChainedPoseStateRSeven,
                                         shared_ptr<oldscape::dash3d::TransformedPoseStateRSeven>,
-                                        shared_ptr<oldscape::dash3d::PoseStateRSeven>&>((void*)((long)pvVar1 + 32),
-                                                                                        param_1, param_2);
+                                        shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(
+                (void*)((long)arg1 + 32), transformedPoseStateRSeven, poseStateRSeven);
             local_3c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::dash3d::ChainedPoseStateRSeven>, int,
-                                   oldscape::dash3d::ChainedPoseStateRSeven*&>(pvVar1, &local_3c, local_38);
-            prVar2->~AutoSingleton(local_38[0]);
-            prVar2->~AutoSingleton(local_38[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_38[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::dash3d::ChainedPoseStateRSeven>, int,
+                              oldscape::dash3d::ChainedPoseStateRSeven*&>(arg1, &local_3c, local_38);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_38[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag
 
 namespace jag::math {
-    // 0x10036c230, 128 bytes, inline, placed by debug map only (low confidence)
-    // Matrix44T<float>::operator Matrix43T<float><float>() const
-    Matrix44T* Matrix44T::operator_cast_to_Matrix43T() {
+    // 0x10036c230
+    Matrix44T<float>::operator Matrix43T<float><float>() const {
         Vector4T<float>* in_RSI;
-        undefined8 local_58[2];
-        undefined8 local_48[2];
-        undefined8 local_38[2];
-        undefined8 local_28[2];
+        uint64_t local_58[2];
+        uint64_t local_48[2];
+        uint64_t local_38[2];
+        uint64_t local_28[2];
 
         local_58[0] = in_RSI->GetXYZ();
         local_48[0] = (in_RSI + 16)->GetXYZ();
         local_38[0] = (in_RSI + 32)->GetXYZ();
         local_28[0] = (in_RSI + 48)->GetXYZ();
-        new (this) Matrix43T<float>(local_58, local_48, local_38, local_28);
+        new (this) Matrix43T<float>(*local_58, *local_48, *local_38, *local_28);
         return this;
     }
 
 } // namespace jag::math
 
 namespace jag::oldscape {
-    // 0x10036c430, 16 bytes, inline, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread::GetRT7Core()
+    // 0x10036c430
     void OSRenderCore_RenderThread::GetRT7Core() {
-        (&field_8)->get();
+        field_8.get();
     }
 
 } // namespace jag::oldscape

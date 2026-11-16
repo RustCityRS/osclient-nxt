@@ -1,540 +1,385 @@
 // libs/graphics/runetek7/renderer/renderpasses/DeferredShadowPass.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "DeferredShadowPass.h"
 
 namespace jag::graphics {
-    // 0x1007a46f0, 464 bytes, base-object constructor, placed by class name and debug map
-    // DeferredShadowPass::DeferredShadowPass()
-    void DeferredShadowPass::DeferredShadowPass() {
-        undefined1* this_00;
-
-        FullscreenQuadPass::FullscreenQuadPass();
-        field_0 = &PTR__DeferredShadowPass_100f140b0;
-        this_00 = &field_624;
+    // 0x1007a46f0
+    DeferredShadowPass::DeferredShadowPass() : FullscreenQuadPass(15) {
+        uint8_t* this_00 = &field_624;
         new (this_00) EffectList();
-        new (&field_640, (_func_decltype_nullptr*)15) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_656, (_func_decltype_nullptr*)15) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_672, "uCustomProjectionMatrix", 30, 0, 14) render::ShaderProgramVariable();
-        new (field_704, "uSceneInvProjSunlightViewMatrix", 30, 0, 14) render::ShaderProgramVariable();
-        new (field_736, "uInvViewSpaceSunDirection", 2, 0, 14) render::ShaderProgramVariable();
-        this_00->Set(89, 1);
-        this_00->Set(29, 1);
-        this_00->Set(30, 1);
-        this_00->Set(37, 1);
-        this_00->Set(6, 0);
-        this_00->Set(114, 0);
-        this_00->Set(31, 1);
-        this_00->Set(32, 1);
-        this_00->Set(33, 1);
-        this_00->Set(34, 1);
-        this_00->Set(79, 1);
-        this_00->Set(106, 1);
-        (*(code*)field_0[8])(this);
+        new (&field_640) shared_ptr();
+        new (field_656) shared_ptr();
+        new (field_672) render::ShaderProgramVariable("uCustomProjectionMatrix", 30, false, 14);
+        new (field_704) render::ShaderProgramVariable("uSceneInvProjSunlightViewMatrix", 30, false, 14);
+        new (field_736) render::ShaderProgramVariable("uInvViewSpaceSunDirection", 2, false, 14);
+        this_00->Set(89, true);
+        this_00->Set(29, true);
+        this_00->Set(30, true);
+        this_00->Set(37, true);
+        this_00->Set(6, false);
+        this_00->Set(114, false);
+        this_00->Set(31, true);
+        this_00->Set(32, true);
+        this_00->Set(33, true);
+        this_00->Set(34, true);
+        this_00->Set(79, true);
+        this_00->Set(106, true);
+        CreateRenderingResources();
     }
 
-    // 0x1007a49d0, 16 bytes, complete-object constructor, placed by class name
-    // DeferredShadowPass::DeferredShadowPass(): jumps straight to the base-object constructor
-
-    // 0x1007a49e0, 64 bytes, base-object destructor, placed by class name
-    // DeferredShadowPass::~DeferredShadowPass()
-    void DeferredShadowPass::~DeferredShadowPass() {
-        field_0 = &PTR__DeferredShadowPass_100f140b0;
+    // 0x1007a49e0
+    DeferredShadowPass::~DeferredShadowPass() {
         field_656->~shared_ptr();
-        (&field_640)->~shared_ptr();
-        ~FullscreenQuadPass();
+        field_640.~shared_ptr();
     }
 
-    // 0x1007a4a20, 16 bytes, complete-object destructor, placed by class name
-    // DeferredShadowPass::~DeferredShadowPass(): jumps straight to the base-object destructor
+    // 0x1007a4a50
+    uint32_t DeferredShadowPass::BeginPass(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                           EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                           const DrawableQueue& drawableQueue) {
+        RenderTargets* pRVar3;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_00;
+        uint64_t* puVar4;
+        int* piVar5;
+        OutputMergerState* pOVar6;
+        uint8_t local_a8[112];
 
-    // 0x1007a4a30, 32 bytes, deleting destructor, placed by class name
-    // DeferredShadowPass::~DeferredShadowPass()
-    void DeferredShadowPass::~DeferredShadowPass() {
-        ~DeferredShadowPass(this);
-        operator_delete(this);
-    }
-
-    // 0x1007a4a50, 368 bytes, placed by class name
-    // DeferredShadowPass::BeginPass(render::DrawCallState&, render::RenderContext&, EffectManager&, SceneViewData const&, DrawableQueue const&)
-    ulong DeferredShadowPass::BeginPass(DrawCallState* param_1, RenderContext* param_2, EffectManager* param_3,
-                                        SceneViewData* param_4, DrawableQueue* param_5) {
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        undefined7 extraout_var;
-        RenderTargets* pRVar4;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_00;
-        undefined8* puVar5;
-        int* piVar6;
-        Viewport* pVVar7;
-        OutputMergerState* this_01;
-        undefined1* this_02;
-        undefined1 local_a8[112];
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        cVar1 = (&param_4->field_432)->empty();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+        if (sceneViewData.field_432.empty() != '\0') {
             LogAssert("!viewData.m_renderTargetViewports.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "renderer/renderpasses/DeferredShadowPass.cpp",
-                      54, (char*)0);
+                      54, nullptr);
         }
-        this_02 = field_656;
-        bVar2 = this_02->operator_cast_to_bool();
-        if (bVar2) {
-            pRVar4 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                (shared_ptr<render::RenderTargets>*)this_02);
-            this_00 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    pRVar4->GetColourTargetTextures();
-            puVar5 = (undefined8*)eastl::vector<
-                render::Texture*,
-                eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_00, 0);
-            piVar6 = (int*)(*puVar5)->second();
-            new ((local_a8 + 24)) eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator>();
-            new (local_a8) render::Viewport(0, 0, *piVar6, piVar6[1], 0.0, 1.0);
-            ((local_a8 + 24))->push_back(local_a8);
-            pVVar7 = (Viewport*)param_1->GetOutputMergerState();
-            uVar3 = ((local_a8 + 24))->HeapBeginPtr();
-            render::OutputMergerState::SetViewports(pVVar7, uVar3);
-            this_01 = (OutputMergerState*)param_1->GetOutputMergerState();
-            pRVar4 = (RenderTargets*)this_02->end();
-            this_01->SetRenderTargets(pRVar4);
+        uint8_t* this_01 = field_656;
+        uint32_t uVar2 = this_01->operator_cast_to_bool();
+        if ((char)uVar2 != '\0') {
+            pRVar3 = (RenderTargets*)(*this_01).operator->();
+            this_00 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                          pRVar3->GetColourTargetTextures();
+            puVar4 = (uint64_t*)(*this_00)[0];
+            piVar5 = (int*)(*puVar4)->second();
+            new ((local_a8 + 24)) eastl::fixed_vector<render::Viewport, 2ul>();
+            new (local_a8) render::Viewport(0, 0, *piVar5, piVar5[1], 0.0, 1.0);
+            ((local_a8 + 24))->push_back(*local_a8);
+            pOVar6 = drawCallState.GetOutputMergerState();
+            pOVar6->SetViewports((Viewport*)((local_a8 + 24))->HeapBeginPtr(), 1);
+            pOVar6 = drawCallState.GetOutputMergerState();
+            pRVar3 = (RenderTargets*)this_01->end();
+            pOVar6->SetRenderTargets(pRVar3);
             ((local_a8 + 24))->~fixed_vector();
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return CONCAT71(extraout_var, bVar2) & 4294967295;
+        return uVar2;
     }
 
-    // 0x1007a4bc0, 624 bytes, placed by class name
-    // DeferredShadowPass::Render(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&)
-    void DeferredShadowPass::Render(RT7Core* param_1, DrawCallState* param_2, EffectManager* param_3,
-                                    SceneViewData* param_4, DrawableQueue* param_5) {
-        EffectManager* this_00;
-        bool bVar1;
+    // 0x1007a4bc0
+    void DeferredShadowPass::Render(RT7Core& rt7Core, const render::DrawCallState& drawCallState,
+                                    EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                    DrawableQueue& drawableQueue) {
         RenderTargets* this_01;
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* this_02;
-        uint* puVar2;
-        SunlightDirectLighting* this_03;
-        undefined8* puVar3;
-        Viewport* pVVar4;
-        ShaderManager* pSVar5;
+        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>* this_02;
+        unsigned int* puVar2;
+        FogEffect* this_03;
+        uint64_t* puVar3;
+        Viewport* viewport;
+        ShaderManager* pSVar4;
         shared_ptr<Shader>* this_04;
-        Shader* this_05;
-        ShaderProgram* pSVar6;
-        RenderPipelineState* this_06;
-        InputAssemblerState* this_07;
-        VertexBuffer* pVVar7;
-        RenderContext* pRVar8;
-        SceneViewData* extraout_RDX;
-        RT7Core* this_08;
-        EffectList EVar9;
+        Shader* pSVar5;
+        ShaderProgram* shaderProgram;
+        InputAssemblerState* this_06;
+        VertexBuffer* vertexBuffer;
+        RenderContext* renderContext;
+        RenderContext* renderContext_00;
+        RT7Core* this_07;
         Data local_d8;
-        undefined8 uStack_b0;
+        uint64_t uStack_b0;
         DrawCallState local_a0;
-        DrawCallState* local_70;
-        RT7Core* local_68;
-        SunlightDirectLighting* local_60;
-        undefined1 local_58[16];
-        SceneViewData* local_48;
+        FogEffect* local_60;
+        uint8_t local_58[16];
         RenderContext* local_40;
-        EffectManager* local_38;
 
-        local_70 = param_2;
-        local_68 = param_1;
-        local_48 = param_4;
-        local_38 = param_3;
-        bVar1 = field_656->operator_cast_to_bool();
-        if (bVar1) {
-            this_08 = (RT7Core*)&field_640;
-            bVar1 = this_08->operator_cast_to_bool();
-            if (bVar1) {
-                local_40 = (RenderContext*)this_08->GetRenderContext();
-                this_01 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                    (shared_ptr<render::RenderTargets>*)&field_640);
-                this_02 =
-                    (compressed_pair_imp<
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)
-                        this_01->GetDepthStencilTargetTexture();
-                puVar2 = (uint*)eastl::compressed_pair_imp<
-                    eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(this_02);
-                this_00 = local_38;
-                this_03 = EffectManager::GetEffect<SunlightDirectLighting>(local_38);
-                puVar3 = (undefined8*)this_03->GetDefaultValue();
+        if (field_656->operator_cast_to_bool()) {
+            this_07 = (RT7Core*)&field_640;
+            if (this_07->operator_cast_to_bool()) {
+                local_40 = (RenderContext*)this_07->GetRenderContext();
+                this_01 = (RenderTargets*)field_640.operator->();
+                this_02 = (compressed_pair_imp<
+                           eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                           eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>*)
+                              this_01->GetDepthStencilTargetTexture();
+                puVar2 = (unsigned int*)this_02->second();
+                this_03 = effectManager.GetEffect<SunlightDirectLighting>(106);
+                puVar3 = (uint64_t*)this_03->GetDefaultValue();
                 local_d8._0_8_ = *puVar3;
                 local_d8._8_8_ = puVar3[1];
                 local_d8._16_8_ = puVar3[2];
                 local_d8._24_8_ = puVar3[3];
                 local_d8._32_8_ = puVar3[4];
                 uStack_b0 = puVar3[5];
-                pVVar4 = (Viewport*)eastl::vector<
-                    render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (vector<render::Viewport,
-                            eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>*)&local_48
-                        ->field_432,
-                    0);
-                new (&local_a0) math::Point<float>((float)*puVar2, (float)puVar2[1]);
+                viewport = &sceneViewData->field_432[0];
+                local_a0 = math::Point((float)*puVar2, (float)puVar2[1]);
                 local_60 = this_03;
-                this_03->SetViewportLookupScale(pVVar4, (Vector2T*)&local_a0);
-                pRVar8 = (RenderContext*)&local_a0;
-                new (&local_a0) render::DrawCallState(local_70);
-                FullscreenQuadPass::QuadBeginRender((DrawCallState*)pRVar8, (RenderContext*)&local_a0, extraout_RDX);
-                pSVar5 = (ShaderManager*)local_68->GetShaderManager();
-                local_58 = this_00->BuildShaderEffectList((EffectList*)&field_624);
-                EVar9 = (EffectList)255;
-                pRVar8 = (RenderContext*)local_58;
-                this_04 = (shared_ptr<Shader>*)pSVar5->GetShader(25, this_00, pRVar8, &field_16, 0);
-                this_05 = (Shader*)shared_ptr<Shader>::operator->(this_04);
-                pSVar6 = (ShaderProgram*)this_05->GetProgram();
-                this_06 = (RenderPipelineState*)local_a0.GetRenderPipelineState();
-                this_06->SetShaderProgram(pSVar6);
-                this_07 = (InputAssemblerState*)local_a0.GetInputAssemblerState();
-                pVVar7 = (VertexBuffer*)(&field_112)->GetBoneIDMap();
-                this_07->SetVertexStreamData((VertexDeclaration*)&field_16, pVVar7);
-                SetShaderConstants(this, &local_a0, local_38, pRVar8, pSVar6, local_48);
-                shared_ptr<Shader>::operator*(this_04);
-                EffectManager::SetShaderConstants((DrawCallState*)local_38, (RenderContext*)&local_a0,
-                                                  (Shader*)local_40, EVar9);
-                QuadEndRender(&local_a0, local_40);
-                local_60->SetData(&local_d8);
-                local_a0.~DrawCallState();
+                this_03->SetViewportLookupScale(*viewport, local_a0);
+                local_a0 = render::DrawCallState(drawCallState);
+                local_a0.QuadBeginRender(local_a0, *renderContext_00, effectManager);
+                pSVar4 = rt7Core.GetShaderManager();
+                local_58 = effectManager.BuildShaderEffectList(field_624);
+                renderContext = (RenderContext*)local_58;
+                this_04 = (shared_ptr<Shader>*)ShaderManager::GetShader((ShaderType)pSVar4, *25, effectManager,
+                                                                        *renderContext, (unsigned char)&field_16, 0);
+                pSVar5 = (Shader*)(*this_04).operator->();
+                shaderProgram = pSVar5->GetProgram();
+                ((RenderPipelineState*)local_a0.GetRenderPipelineState())->SetShaderProgram(shaderProgram);
+                this_06 = (InputAssemblerState*)local_a0.GetInputAssemblerState();
+                vertexBuffer = (VertexBuffer*)field_112.GetBoneIDMap();
+                this_06->SetVertexStreamData(&field_16, vertexBuffer);
+                SetShaderConstants(local_a0, effectManager, *renderContext, *shaderProgram, *sceneViewData);
+                pSVar5 = (Shader*)**this_04;
+                effectManager.SetShaderConstants(local_a0, *local_40, *pSVar5, (EffectList)255);
+                QuadEndRender(local_a0, *local_40);
+                local_60->SetData(local_d8);
                 return;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("m_ShadowBufferRT && m_GBufferRT",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/renderer/"
                   "renderpasses/DeferredShadowPass.cpp",
-                  83, (char*)0);
+                  83, nullptr);
     }
 
-    // 0x1007a4ea0, 688 bytes, placed by class name
-    // DeferredShadowPass::SetShaderConstants(render::DrawCallState&, EffectManager&, render::RenderContext&, render::ShaderProgram const&, SceneViewData const&)
-    void DeferredShadowPass::SetShaderConstants(DrawCallState* param_1, EffectManager* param_2, RenderContext* param_3,
-                                                ShaderProgram* param_4, SceneViewData* param_5) {
-        DrawCallState* this_00;
-        int iVar1;
-        undefined8* puVar2;
-        HashedString* pHVar3;
-        SunlightShadows* this_01;
-        Matrix44T* pMVar4;
-        BillboardBatch* this_02;
-        Vector4T<float>* this_03;
-        RenderPipelineState* pRVar5;
-        RenderTargets* pRVar6;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_04;
-        Texture* pTVar7;
-        undefined4 uVar8;
-        undefined4 uVar9;
-        Vector4T<float> local_138[16];
-        Matrix44T local_128;
-        undefined8 uStack_f0;
-        Matrix44T local_e8;
-        undefined4 uStack_b0;
-        undefined4 uStack_ac;
-        Matrix44T local_a8;
-        undefined8 uStack_70;
-        undefined8 local_68[2];
-        undefined8 local_58[2];
-        undefined8 local_48[2];
-        DrawCallState* local_38;
-
-        local_38 = param_1;
-        param_4->SetShaderConstMatrix4((HashedString*)field_672, 1, (Matrix44T*)&field_560, 1);
-        puVar2 = (undefined8*)param_5->GetScreen();
-        local_128._0_8_ = *puVar2;
-        local_128._8_8_ = puVar2[1];
-        local_128._16_8_ = puVar2[2];
-        local_128._24_8_ = puVar2[3];
-        local_128._32_8_ = puVar2[4];
-        local_128._40_8_ = puVar2[5];
-        local_128._48_8_ = puVar2[6];
-        uStack_f0 = puVar2[7];
-        local_128.Invert(0);
-        pHVar3 = (HashedString*)graphics::operator*((graphics*)10);
-        param_4->SetShaderConstMatrix4(pHVar3, 1, &local_128, 1);
-        puVar2 = (undefined8*)param_5->GetImmediateThreadPool();
-        local_a8._0_8_ = *puVar2;
-        local_a8._8_8_ = puVar2[1];
-        local_a8._16_8_ = puVar2[2];
-        local_a8._24_8_ = puVar2[3];
-        local_a8._32_8_ = puVar2[4];
-        local_a8._40_8_ = puVar2[5];
-        local_a8._48_8_ = puVar2[6];
-        uStack_70 = puVar2[7];
-        local_a8.Invert(0);
-        local_e8._48_4_ = local_a8._48_4_;
-        local_e8._52_4_ = local_a8._52_4_;
-        uStack_b0 = (undefined4)uStack_70;
-        uStack_ac = uStack_70._4_4_;
-        local_e8._32_4_ = local_a8._32_4_;
-        local_e8._36_4_ = local_a8._36_4_;
-        local_e8._40_4_ = local_a8._40_4_;
-        local_e8._44_4_ = local_a8._44_4_;
-        local_e8._16_4_ = local_a8._16_4_;
-        local_e8._20_4_ = local_a8._20_4_;
-        local_e8._24_4_ = local_a8._24_4_;
-        local_e8._28_4_ = local_a8._28_4_;
-        local_e8._0_4_ = local_a8._0_4_;
-        local_e8._4_4_ = local_a8._4_4_;
-        local_e8._8_4_ = local_a8._8_4_;
-        local_e8._12_4_ = local_a8._12_4_;
-        uVar8 = local_a8._16_4_;
-        uVar9 = local_a8._20_4_;
-        this_01 = (SunlightShadows*)EffectManager::GetEffect<SunlightDirectLighting>(param_2, 30);
-        pMVar4 = (Matrix44T*)this_01->GetSunlightViewTransform();
-        math::Matrix44T<float>::operator*=((Matrix44T<float>*)&local_e8, pMVar4);
-        param_4->SetShaderConstMatrix4((HashedString*)field_704, 1, &local_e8, 1);
-        this_02 = (BillboardBatch*)EffectManager::GetEffect<SunlightDirectLighting>(param_2, 29);
-        this_03 = (Vector4T<float>*)this_02->GetBillboardLabelIDMap();
-        local_48[0] = this_03->GetXYZ();
-        local_48[1]._0_4_ = uVar8;
-        math::Vector4T<float>::Vector4T(local_138, (Vector3T*)local_48, 0.0);
-        pMVar4 = (Matrix44T*)param_5->GetScreen();
-        local_68[0] = math::operator*((Vector4T*)local_138, pMVar4);
-        local_68[1]._0_4_ = uVar8;
-        local_68[1]._4_4_ = uVar9;
-        local_58[0] = local_68->GetXYZ();
-        local_58[1]._0_4_ = uVar8;
-        local_58->Normalize();
-        new (local_68) math::Vector4T<float>(local_58, 0.0);
-        param_4->SetShaderConstVector3((HashedString*)field_736, (Vector3T*)local_68);
-        this_00 = local_38;
-        pRVar5 = (RenderPipelineState*)local_38->GetRenderPipelineState();
-        pRVar6 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-            (shared_ptr<render::RenderTargets>*)&field_640);
-        this_04 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                      pRVar6->GetColourTargetTextures();
-        puVar2 = (undefined8*)
-            eastl::vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                          eastl::allocator>>::operator[](this_04, 0);
-        pTVar7 = (Texture*)*puVar2;
-        pHVar3 = (HashedString*)graphics::operator*((graphics*)106);
-        iVar1 = param_4->GetConstIndex(pHVar3);
-        pRVar5->SetPSTextureSamplerPair(0, pTVar7, iVar1, 0, false);
-        pRVar5 = (RenderPipelineState*)this_00->GetRenderPipelineState();
-        pRVar6 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-            (shared_ptr<render::RenderTargets>*)&field_640);
-        pTVar7 = (Texture*)pRVar6->GetDepthStencilTargetTexture();
-        pHVar3 = (HashedString*)graphics::operator*((graphics*)107);
-        iVar1 = param_4->GetConstIndex(pHVar3);
-        pRVar5->SetPSTextureSamplerPair(1, pTVar7, iVar1, 0, false);
+    // 0x1007a4ea0
+    void DeferredShadowPass::SetShaderConstants(render::DrawCallState& drawCallState, EffectManager& effectManager,
+                                                render::RenderContext& renderContext,
+                                                const render::ShaderProgram& shaderProgram,
+                                                const SceneViewData& sceneViewData) {
+        shaderProgram.SetShaderConstMatrix4(field_672, 1, &field_560, 1);
+        auto pRVar2 = sceneViewData.GetScreen();
+        ReturnValue local_128 = *pRVar2;
+        ReturnValue RStack_120 = pRVar2[1];
+        ReturnValue local_118 = pRVar2[2];
+        ReturnValue RStack_110 = pRVar2[3];
+        ReturnValue local_108 = pRVar2[4];
+        ReturnValue RStack_100 = pRVar2[5];
+        ReturnValue local_f8 = pRVar2[6];
+        ReturnValue RStack_f0 = pRVar2[7];
+        local_128 = math::Matrix44T<float>::Invert(nullptr);
+        auto pHVar3 = graphics::operator*(10);
+        shaderProgram.SetShaderConstMatrix4(pHVar3, 1, &local_128, 1);
+        pRVar2 = (ReturnValue*)sceneViewData.GetImmediateThreadPool();
+        ReturnValue local_a8 = *pRVar2;
+        ReturnValue RStack_a0 = pRVar2[1];
+        ReturnValue local_98 = pRVar2[2];
+        ReturnValue RStack_90 = pRVar2[3];
+        ReturnValue local_88 = pRVar2[4];
+        ReturnValue RStack_80 = pRVar2[5];
+        ReturnValue local_78 = pRVar2[6];
+        ReturnValue RStack_70 = pRVar2[7];
+        local_a8 = math::Matrix44T<float>::Invert(nullptr);
+        ReturnValue local_b8 = local_78;
+        ReturnValue RStack_b0 = RStack_70;
+        ReturnValue local_c8 = local_88;
+        ReturnValue RStack_c0 = RStack_80;
+        uint32_t local_d8 = local_98._0_4_;
+        uint32_t uStack_d4 = local_98._4_4_;
+        uint32_t uStack_d0 = RStack_90._0_4_;
+        uint32_t uStack_cc = RStack_90._4_4_;
+        ReturnValue local_e8 = local_a8;
+        ReturnValue RStack_e0 = RStack_a0;
+        uint32_t uVar9 = local_98._0_4_;
+        uint32_t uVar10 = local_98._4_4_;
+        auto this_01 = effectManager.GetEffect<SunlightDirectLighting>(30);
+        auto pMVar4 = this_01->GetSunlightViewTransform();
+        local_e8 *= pMVar4;
+        shaderProgram.SetShaderConstMatrix4(field_704, 1, &local_e8, 1);
+        auto this_02 = effectManager.GetEffect<SunlightDirectLighting>(29);
+        uint64_t local_48 = ((Vector4T<float>*)this_02->GetBillboardLabelIDMap())->GetXYZ();
+        uint32_t local_40 = uVar9;
+        Vector4T<float> local_138(local_48, 0.0);
+        pMVar4 = (Matrix44T<float>*)sceneViewData.GetScreen();
+        uint64_t local_68 = local_138 * *pMVar4;
+        uint32_t uStack_60 = uVar9;
+        uint32_t uStack_5c = uVar10;
+        ReturnValue local_58 = (ReturnValue)local_68.GetXYZ();
+        uint32_t local_50 = uVar9;
+        local_58 = math::Vector3T<float>::Normalize();
+        new (&local_68) math::Vector4T(local_58, 0.0);
+        shaderProgram.SetShaderConstVector3(field_736, &local_68);
+        auto pRVar5 = drawCallState.GetRenderPipelineState();
+        auto pRVar6 = field_640.operator->();
+        auto this_04 = pRVar6->GetColourTargetTextures();
+        uint64_t* puVar7 = (uint64_t*)(*this_04)[0];
+        Texture* pTVar8 = (Texture*)*puVar7;
+        pHVar3 = (HashedString*)graphics::operator*(106);
+        int iVar1 = shaderProgram.GetConstIndex(*pHVar3);
+        pRVar5->SetPSTextureSamplerPair(0, pTVar8, iVar1, nullptr, false);
+        pRVar5 = (RenderPipelineState*)drawCallState.GetRenderPipelineState();
+        pRVar6 = (RenderTargets*)field_640.operator->();
+        pTVar8 = (Texture*)pRVar6->GetDepthStencilTargetTexture();
+        pHVar3 = (HashedString*)graphics::operator*(107);
+        iVar1 = shaderProgram.GetConstIndex(*pHVar3);
+        pRVar5->SetPSTextureSamplerPair(1, pTVar8, iVar1, nullptr, false);
     }
 
-    // 0x1007a5170, 1168 bytes, placed by class name
-    // DeferredShadowPass::BlurPass(render::RenderContext&, render::DrawCallState const&, EffectManager&, SceneViewData const&, ShaderManager&)
-    void DeferredShadowPass::BlurPass(RenderContext* param_1, DrawCallState* param_2, EffectManager* param_3,
-                                      SceneViewData* param_4, ShaderManager* param_5) {
+    // 0x1007a5170
+    void DeferredShadowPass::BlurPass(render::RenderContext& renderContext, const render::DrawCallState& drawCallState,
+                                      EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                      ShaderManager& shaderManager) {
         bool bVar1;
-        EffectManager* pEVar2;
-        bool bVar3;
-        uint uVar4;
-        int iVar5;
-        MapArea* this_00;
-        long lVar6;
-        RenderTargets* pRVar7;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* pvVar8;
-        undefined8* puVar9;
+        int iVar3;
+        unsigned int arg3;
         shared_ptr<Shader>* this_01;
-        RenderPipelineState* pRVar10;
-        Shader* pSVar11;
-        ShaderProgram* pSVar12;
+        RenderPipelineState* pRVar8;
+        Shader* pSVar9;
+        ShaderProgram* pSVar10;
         InputAssemblerState* this_02;
-        VertexBuffer* pVVar13;
-        Viewport* pVVar14;
-        HashedString* pHVar15;
-        Matrix44T* pMVar16;
-        Texture* pTVar17;
-        SceneViewData* extraout_RDX;
-        RenderContext* pRVar18;
-        DrawCallState local_118;
-        Matrix44T local_e8;
-        undefined8 uStack_b0;
-        EffectList local_a0[16];
-        EffectManager* local_90;
-        ShaderManager* local_88;
-        GeometryBatch* local_80;
-        vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>* local_78;
-        Matrix44T* local_70;
-        shared_ptr<render::RenderTargets>* local_68;
-        VertexDeclaration* local_60;
-        RenderContext* local_58;
-        shared_ptr<render::RenderTargets>* local_50;
+        VertexBuffer* vertexBuffer;
+        Viewport* viewport;
+        HashedString* pHVar11;
+        Matrix44T<float>* matrix44;
+        ReturnValue* pRVar12;
+        Texture* pTVar13;
+        RenderContext* renderContext_00;
+        uint8_t local_e8[16];
+        ReturnValue local_d8;
+        ReturnValue RStack_d0;
+        ReturnValue local_c8;
+        ReturnValue RStack_c0;
+        ReturnValue local_b8;
+        ReturnValue RStack_b0;
         float local_48;
         float local_44;
-        DeferredShadowPass* local_40;
-        SceneViewData* local_38;
 
-        local_88 = param_5;
-        local_58 = param_1;
-        local_40 = this;
-        local_38 = param_4;
-        this_00 = (MapArea*)Instance();
-        lVar6 = this_00->GetOrigin();
-        if (*(int*)(lVar6 + 84) < 4) {
-            /* WARNING: Subroutine does not return */
+        DeferredShadowPass* local_40 = this;
+        SceneViewData* local_38 = sceneViewData;
+        long lVar4 = ((MapArea*)Instance())->GetOrigin();
+        if (*(int*)(lVar4 + 84) < 4) {
             LogAssert("RenderDevice::Instance().GetDeviceCaps().m_MaxTextureOffset >= 4",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "renderer/renderpasses/DeferredShadowPass.cpp",
-                      128, (char*)0);
+                      128, nullptr);
         }
-        local_68 = (shared_ptr<render::RenderTargets>*)local_40->field_656;
-        local_90 = param_3;
-        pRVar7 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(local_68);
-        pvVar8 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                     pRVar7->GetColourTargetTextures();
-        puVar9 = (undefined8*)
-            eastl::vector<render::Texture*,
-                          eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](pvVar8,
-                                                                                                                 0);
-        lVar6 = (*puVar9)->second();
-        if (*(int*)(lVar6 + 12) != 20) {
-            /* WARNING: Subroutine does not return */
+        shared_ptr<render::RenderTargets>* local_68 = (shared_ptr<render::RenderTargets>*)local_40->field_656;
+        RenderTargets* pRVar5 = (RenderTargets*)(*local_68).operator->();
+        auto pvVar6 = pRVar5->GetColourTargetTextures();
+        uint64_t* puVar7 = (uint64_t*)(*pvVar6)[0];
+        lVar4 = (*puVar7)->second();
+        if (*(int*)(lVar4 + 12) != 20) {
             LogAssert("m_ShadowBufferRT->GetColourTargetTextures()[0]->GetDesc().m_Format == FORMAT_L8R8_UNORM",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "renderer/renderpasses/DeferredShadowPass.cpp",
                       129, "Format of shadow buffer must be FORMAT_L8R8_UNORM for geometry aware blur");
         }
-        EffectList::EffectList(local_a0);
-        local_a0->Set(114, 0);
-        local_a0->Set(106, 1);
-        new (&local_118) render::DrawCallState(param_2);
-        local_60 = (VertexDeclaration*)&local_40->field_16;
-        local_80 = (GeometryBatch*)&local_40->field_112;
-        local_78 =
-            (vector<render::Viewport,
-                    eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>*)&local_38->field_432;
-        local_70 = (Matrix44T*)&local_40->field_560;
-        local_50 = (shared_ptr<render::RenderTargets>*)&local_40->field_640;
-        bVar3 = true;
+        EffectList local_a0;
+        local_a0.Set(114, false);
+        local_a0.Set(106, true);
+        DrawCallState local_118(drawCallState);
+        VertexDeclaration* local_60 = (VertexDeclaration*)&local_40->field_16;
+        GeometryBatch* local_80 = (GeometryBatch*)&local_40->field_112;
+        vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true>>* local_78 =
+            (vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true>>*)&local_38->field_432;
+        Matrix44T<float>* local_70 = (Matrix44T<float>*)&local_40->field_560;
+        shared_ptr<render::RenderTargets>* local_50 = (shared_ptr<render::RenderTargets>*)&local_40->field_640;
+        DeferredShadowPass* sceneViewData_00 = local_40;
+        bool bVar2 = true;
         do {
-            bVar1 = bVar3;
+            bVar1 = bVar2;
             if (!bVar1) {
-                local_a0->Set(114, 1);
+                local_a0.Set(114, true);
             }
-            pRVar18 = local_58;
-            local_58->FlushTextureCache();
-            FullscreenQuadPass::QuadBeginRender((DrawCallState*)pRVar18, (RenderContext*)&local_118, extraout_RDX);
-            pEVar2 = local_90;
-            local_e8._0_16_ = local_90->BuildShaderEffectList(local_a0);
-            this_01 = (shared_ptr<Shader>*)local_88->GetShader(19, pEVar2, &local_e8, local_60, 0, 4294967295);
-            pRVar10 = (RenderPipelineState*)local_118.GetRenderPipelineState();
-            pSVar11 = (Shader*)shared_ptr<Shader>::operator->(this_01);
-            pSVar12 = (ShaderProgram*)pSVar11->GetProgram();
-            pRVar10->SetShaderProgram(pSVar12);
+            renderContext.FlushTextureCache();
+            renderContext.QuadBeginRender(local_118, *renderContext_00, *sceneViewData_00);
+            local_e8 = effectManager.BuildShaderEffectList(local_a0);
+            this_01 = (shared_ptr<Shader>*)ShaderManager::GetShader((ShaderType)shaderManager, *19, effectManager,
+                                                                    *local_e8, (unsigned char)local_60, 0);
+            pRVar8 = (RenderPipelineState*)local_118.GetRenderPipelineState();
+            pSVar9 = (Shader*)(*this_01).operator->();
+            pSVar10 = pSVar9->GetProgram();
+            pRVar8->SetShaderProgram(pSVar10);
             this_02 = (InputAssemblerState*)local_118.GetInputAssemblerState();
-            pVVar13 = (VertexBuffer*)local_80->GetBoneIDMap();
-            this_02->SetVertexStreamData(local_60, pVVar13);
-            uVar4 = eastl::vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                                  eastl::allocator>>::back(local_78);
-            pVVar14 = (Viewport*)local_118.GetOutputMergerState();
-            render::OutputMergerState::SetViewports(pVVar14, uVar4);
-            pSVar11 = (Shader*)shared_ptr<Shader>::operator->(this_01);
-            pSVar12 = (ShaderProgram*)pSVar11->GetProgram();
-            pHVar15 = (HashedString*)graphics::operator*((graphics*)9);
-            pMVar16 = (Matrix44T*)local_38->GetOrigin();
-            pSVar12->SetShaderConstMatrix4(pHVar15, 1, pMVar16, 1);
-            pHVar15 = (HashedString*)graphics::operator*((graphics*)4);
-            pSVar12->SetShaderConstMatrix4(pHVar15, 1, local_70, 1);
-            puVar9 = (undefined8*)local_38->GetOrigin();
-            local_e8._0_8_ = *puVar9;
-            local_e8._8_8_ = puVar9[1];
-            local_e8._16_8_ = puVar9[2];
-            local_e8._24_8_ = puVar9[3];
-            local_e8._32_8_ = puVar9[4];
-            local_e8._40_8_ = puVar9[5];
-            local_e8._48_8_ = puVar9[6];
-            uStack_b0 = puVar9[7];
-            local_e8.Invert(0);
-            pHVar15 = (HashedString*)graphics::operator*((graphics*)11);
-            pSVar12->SetShaderConstMatrix4(pHVar15, 1, &local_e8, 1);
-            pRVar10 = (RenderPipelineState*)local_118.GetRenderPipelineState();
-            pRVar7 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(local_50);
-            pvVar8 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    pRVar7->GetColourTargetTextures();
-            puVar9 = (undefined8*)
-                eastl::vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                              eastl::allocator>>::operator[](pvVar8, 0);
-            pTVar17 = (Texture*)*puVar9;
-            pHVar15 = (HashedString*)graphics::operator*((graphics*)106);
-            iVar5 = pSVar12->GetConstIndex(pHVar15);
-            pRVar10->SetPSTextureSamplerPair(0, pTVar17, iVar5, 0, false);
-            pRVar10 = (RenderPipelineState*)local_118.GetRenderPipelineState();
-            pRVar7 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(local_50);
-            pTVar17 = (Texture*)pRVar7->GetDepthStencilTargetTexture();
-            pHVar15 = (HashedString*)graphics::operator*((graphics*)107);
-            iVar5 = pSVar12->GetConstIndex(pHVar15);
-            pRVar10->SetPSTextureSamplerPair(1, pTVar17, iVar5, 0, false);
-            pRVar10 = (RenderPipelineState*)local_118.GetRenderPipelineState();
-            pRVar7 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(local_68);
-            pvVar8 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    pRVar7->GetColourTargetTextures();
-            puVar9 = (undefined8*)
-                eastl::vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                              eastl::allocator>>::operator[](pvVar8, 0);
-            pTVar17 = (Texture*)*puVar9;
-            pHVar15 = (HashedString*)graphics::operator*((graphics*)110);
-            iVar5 = pSVar12->GetConstIndex(pHVar15);
-            pRVar10->SetPSTextureSamplerPair(2, pTVar17, iVar5, 0, false);
-            local_38->GetNearFarPlaneDistances(&local_48, &local_44);
-            pHVar15 = (HashedString*)graphics::operator*((graphics*)104);
-            pSVar12->SetShaderConstFloat4(pHVar15, local_44 * local_48, local_48 - local_44, local_44, 0.0);
-            local_40->QuadEndRender(&local_118, local_58);
-            bVar3 = false;
+            vertexBuffer = (VertexBuffer*)local_80->GetBoneIDMap();
+            this_02->SetVertexStreamData(local_60, vertexBuffer);
+            viewport = (Viewport*)local_78->back();
+            local_118.GetOutputMergerState()->SetViewports(viewport, 1);
+            pSVar9 = (Shader*)(*this_01).operator->();
+            pSVar10 = pSVar9->GetProgram();
+            pHVar11 = (HashedString*)graphics::operator*(9);
+            matrix44 = (Matrix44T<float>*)local_38->GetOrigin();
+            pSVar10->SetShaderConstMatrix4(pHVar11, 1, matrix44, 1);
+            pHVar11 = (HashedString*)graphics::operator*(4);
+            pSVar10->SetShaderConstMatrix4(pHVar11, 1, local_70, 1);
+            pRVar12 = (ReturnValue*)local_38->GetOrigin();
+            local_e8._0_8_ = *pRVar12;
+            local_e8._8_8_ = pRVar12[1];
+            local_d8 = pRVar12[2];
+            RStack_d0 = pRVar12[3];
+            local_c8 = pRVar12[4];
+            RStack_c0 = pRVar12[5];
+            local_b8 = pRVar12[6];
+            RStack_b0 = pRVar12[7];
+            *local_e8 = math::Matrix44T<float>::Invert(nullptr);
+            pHVar11 = (HashedString*)graphics::operator*(11);
+            pSVar10->SetShaderConstMatrix4(pHVar11, 1, local_e8, 1);
+            pRVar8 = (RenderPipelineState*)local_118.GetRenderPipelineState();
+            pRVar5 = (RenderTargets*)(*local_50).operator->();
+            pvVar6 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                         pRVar5->GetColourTargetTextures();
+            puVar7 = (uint64_t*)(*pvVar6)[0];
+            pTVar13 = (Texture*)*puVar7;
+            pHVar11 = (HashedString*)graphics::operator*(106);
+            iVar3 = pSVar10->GetConstIndex(*pHVar11);
+            pRVar8->SetPSTextureSamplerPair(0, pTVar13, iVar3, nullptr, false);
+            pRVar8 = (RenderPipelineState*)local_118.GetRenderPipelineState();
+            pRVar5 = (RenderTargets*)(*local_50).operator->();
+            pTVar13 = (Texture*)pRVar5->GetDepthStencilTargetTexture();
+            pHVar11 = (HashedString*)graphics::operator*(107);
+            iVar3 = pSVar10->GetConstIndex(*pHVar11);
+            pRVar8->SetPSTextureSamplerPair(1, pTVar13, iVar3, nullptr, false);
+            pRVar8 = (RenderPipelineState*)local_118.GetRenderPipelineState();
+            pRVar5 = (RenderTargets*)(*local_68).operator->();
+            pvVar6 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                         pRVar5->GetColourTargetTextures();
+            puVar7 = (uint64_t*)(*pvVar6)[0];
+            pTVar13 = (Texture*)*puVar7;
+            pHVar11 = (HashedString*)graphics::operator*(110);
+            arg3 = pSVar10->GetConstIndex(*pHVar11);
+            sceneViewData_00 = (DeferredShadowPass*)(unsigned long)arg3;
+            pRVar8->SetPSTextureSamplerPair(2, pTVar13, arg3, nullptr, false);
+            local_38->GetNearFarPlaneDistances(local_48, local_44);
+            pHVar11 = (HashedString*)graphics::operator*(104);
+            pSVar10->SetShaderConstFloat4(pHVar11, local_44 * local_48, local_48 - local_44, local_44, 0.0);
+            local_40->QuadEndRender(local_118, renderContext);
+            bVar2 = false;
         } while (bVar1);
-        local_118.~DrawCallState();
     }
 
-    // 0x1007a5660, 256 bytes, placed by class name
-    // DeferredShadowPass::RenderDebug(EffectManager&, DrawableQueue&)
-    void DeferredShadowPass::RenderDebug(EffectManager* param_1, DrawableQueue* param_2) {
-        undefined8 uVar1;
-        char cVar2;
+    // 0x1007a5660
+    void DeferredShadowPass::RenderDebug(EffectManager& effectManager, DrawableQueue& drawableQueue) {
+        uint64_t uVar1;
         long* plVar3;
         RenderTargets* this_00;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_01;
-        undefined8* puVar4;
-        ImVec4 local_58[16];
-        Point<float> local_48[8];
-        Point<float> local_40[8];
-        undefined1 local_38[8];
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_01;
+        uint64_t* puVar4;
+        ImVec4 local_58;
+        Point<float> local_48;
+        Point<float> local_40;
+        uint8_t local_38[8];
 
-        cVar2 = param_1->IsEnabled();
-        if (cVar2 != '\0') {
-            plVar3 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar3 != (long*)0) {
-                this_00 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                    (shared_ptr<render::RenderTargets>*)field_656);
-                this_01 = (vector<render::Texture*,
-                                  eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
+        if (effectManager.IsEnabled(118) != '\0') {
+            plVar3 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar3 != nullptr) {
+                this_00 = (RenderTargets*)(*field_656).operator->();
+                this_01 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
                               this_00->GetColourTargetTextures();
-                puVar4 = (undefined8*)eastl::vector<
-                    render::Texture*,
-                    eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_01, 0);
+                puVar4 = (uint64_t*)(*this_01)[0];
                 uVar1 = *puVar4;
-                ImVec4::ImVec4(local_58, 0.0, 0.0, 0.5, 0.5);
-                math::Point<float>::Point(local_48, 0.0, 0.0);
-                math::Point<float>::Point(local_40, 1.0, 1.0);
+                local_58 = ImVec4(0.0, 0.0, 0.5, 0.5);
+                local_48 = math::Point(0.0, 0.0);
+                local_40 = math::Point(1.0, 1.0);
                 new (local_38) oldscape::sidebars::SideBarData(-1, 0);
-                (**(code**)(*plVar3 + 112))(plVar3, uVar1, local_58, local_48, local_40, 0, 0, 0,
-                                            (SideBarData*)local_38);
+                (**(void (**)(...))(*plVar3 + 112))(plVar3, uVar1, &local_58, &local_48, &local_40, 0, 0, 0,
+                                                    (SideBarData*)local_38);
             }
         }
     }

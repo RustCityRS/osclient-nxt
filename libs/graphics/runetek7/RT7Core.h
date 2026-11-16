@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/RT7Core.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.oldscape.osrendercore
@@ -10,70 +9,72 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~RT7Core();
-        virtual void OnWindowResize(math::Rect<unsigned int> const&);
+        virtual void OnWindowResize(const math::Rect<unsigned int>& rect);
         virtual void OnEndFrame();
-        GetViewportHeight() const;
-        uint GetViewportWidth() const;
-        GetResourceProvider();
-        uint* GetMSAASampleCount();
-        GetGeometryPass();
-        GetForwardLightingPass();
+        uint32_t GetViewportHeight() const;
+        unsigned int GetViewportWidth() const;
+        void GetResourceProvider();
+        unsigned int* GetMSAASampleCount();
+        uint8_t* GetGeometryPass();
+        uint8_t* GetForwardLightingPass();
         LoginManager GetSSAOContext();
-        GetSkyBoxManager();
-        GetMaterialManager();
-        shared_ptr GetGBufferRT();
-        shared_ptr GetGBufferRT() const;
+        SkyBoxManager* GetSkyBoxManager();
+        MaterialManager* GetMaterialManager();
+        shared_ptr<render::RenderTargets>* GetGBufferRT();
+        shared_ptr<render::RenderTargets>* GetGBufferRT() const;
         shared_ptr GetForwardLightingRT();
-        GetObjectHighlightPass();
-        GetPostProcessController();
+        uint8_t* GetObjectHighlightPass();
+        PostProcessController* GetPostProcessController();
         PostProcessManager GetPostProcessManager();
-        GetForwardDepthTexture();
-        GetSSAOPass();
-        shared_ptr GetSSAORT();
+        uint64_t GetForwardDepthTexture();
+        uint8_t* GetSSAOPass();
+        shared_ptr<render::RenderTargets>* GetSSAORT();
         int GetClippingRectangle() const;
-        GetGeometryQueryManager();
+        uint8_t* GetGeometryQueryManager();
         ThreadPool GetImmediateThreadPool();
-        GetRenderTargetsManager();
-        shared_ptr GetShadowBufferRT();
-        GetDeferredShadowPass();
-        GetWaterCausticsPass();
-        GetTextureManager();
-        GetEffectManager();
+        uint8_t* GetRenderTargetsManager();
+        uint8_t* GetShadowBufferRT();
+        uint8_t* GetDeferredShadowPass();
+        RenderPass* GetWaterCausticsPass();
+        TextureManager* GetTextureManager();
+        EffectManager* GetEffectManager();
         void GetRenderContext();
-        void GetObjectSpriteRT(unsigned long);
-        GetForwardOcclusionRenderPass();
-        GetDepthDownsamplePass();
+        shared_ptr* GetObjectSpriteRT(unsigned long arg1);
+        uint8_t* GetForwardOcclusionRenderPass();
+        uint8_t* GetDepthDownsamplePass();
         void GetTerrainPatchRenderer();
         void GetWaterPatchRenderer();
-        GetEquirectangularEffect();
-        GetDrawableBatchRenderers();
-        GetQueryPass();
-        void GetGeometryBatchRenderer();
+        uint8_t* GetEquirectangularEffect();
+        RT7Core* GetDrawableBatchRenderers();
+        uint8_t* GetQueryPass();
+        GeometryBatch_DE* GetGeometryBatchRenderer();
         void SetClippingRectToViewport();
-        void GetBillboardBatchRenderer();
-        GetWaterReflectionPass();
-        GetParticleManager();
+        BillboardBatch_DE* GetBillboardBatchRenderer();
+        uint8_t* GetWaterReflectionPass();
+        uint8_t* GetParticleManager();
         void GetParticleRenderer();
         void GetInterfaceWidth() const;
         void GetInterfaceHeight() const;
-        GetShaderManager();
-        GetGUIManager();
+        ShaderManager* GetShaderManager();
+        GUIManager* GetGUIManager();
         void GetBackBufferWidth() const;
         void GetBackBufferHeight() const;
-        SoundInstance GetScaleManager();
+        ScaleManager* GetScaleManager();
         void GetSkyBoxRenderer();
-        GetPSTextureSlotManager();
-        GetRenderToTexture();
-        void GetLightProbeRenderer();
-        RT7Core(Js5ResourceProvider&, RT7GraphicsArchiveBundle&, MaterialRawProvider&, TextureDataProvider&,
-                IConfigProvider*, unsigned int, unsigned int, unsigned int, unsigned int);
+        uint8_t* GetPSTextureSlotManager();
+        RenderToTextureHelper* GetRenderToTexture();
+        LightProbeRenderer* GetLightProbeRenderer();
+        RT7Core(Js5ResourceProvider& js5ResourceProvider, RT7GraphicsArchiveBundle& rt7GraphicsArchiveBundle,
+                MaterialRawProvider& materialRawProvider, TextureDataProvider& textureDataProvider,
+                IConfigProvider* iConfigProvider, unsigned int arg6, unsigned int arg7, unsigned int arg8,
+                unsigned int arg9);
         void Shutdown();
-        byte Initialise(SystemSettings*);
-        SetViewportRTSize(unsigned int, unsigned int);
-        byte InitRenderers();
-        ulong InitRenderTargets(int);
-        InitSSAO();
-        byte InitPostProcessing();
+        uint8_t Initialise(SystemSettings* systemSettings);
+        uint32_t SetViewportRTSize(unsigned int arg1, unsigned int arg2);
+        uint8_t InitRenderers();
+        unsigned long InitRenderTargets(int arg1);
+        uint32_t InitSSAO();
+        uint8_t InitPostProcessing();
         void DestroyPostProcessing();
         void DestroySSAO();
         void DestroyRenderers();
@@ -81,480 +82,383 @@ namespace jag::graphics {
         void MainLogic();
         void BeginFrame();
         void EndFrame();
-        void PerformComposition(render::RenderTargets const*, render::Viewport const&);
-        void SetClippingRectangle(int, int, int, int, bool);
-        GetScissorRectFromClippingRect() const;
-        bool ClippingTest(int, int, int, int);
-        bool CanUseGBuffer(render::RenderTargets*, render::RenderTargets*);
+        void PerformComposition(const render::RenderTargets* renderTargets, const render::Viewport& viewport);
+        void SetClippingRectangle(int arg1, int arg2, int arg3, int arg4, bool arg5);
+        auto GetScissorRectFromClippingRect() const;
+        bool ClippingTest(int arg1, int arg2, int arg3, int arg4);
+        bool CanUseGBuffer(render::RenderTargets* renderTargets1, render::RenderTargets* renderTargets2);
         void CreateRenderingResources();
         void DestroyRenderingResources();
         RT7Core* GetDepthFormats() const;
-        static /* 64 bytes */ m_MSAAQuality__;          // initialised in its definition
-        static StringEnum /* 16 bytes */ m_MSAAQuality; // = StringEnum((StringEnumEntry *)&m_MSAAQuality__, 4)
-        static /* 8 bytes */ m_rasteriserDiscard;
+        static int32_t m_MSAAQuality__[16]; // initialised in its definition
+        static StringEnum m_MSAAQuality;    // = StringEnum((StringEnumEntry *)&m_MSAAQuality__, 4)
+        static int64_t m_rasteriserDiscard;
 
-        // data members, from how the methods use this: 22364 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined1 field_8;  // offset 8
-        char _unknown_9[3];
-        undefined4 field_12;  // offset 12
-        undefined** field_16; // offset 16
-        char _unknown_24[8];
-        Js5ResourceProvider* field_32;    // offset 32
-        undefined8 field_40;              // offset 40
-        undefined8 field_48;              // offset 48
-        undefined8 field_56;              // offset 56
-        undefined8 field_64;              // offset 64
-        undefined8 field_72;              // offset 72
-        Js5ArchiveSettings* field_80;     // offset 80
-        Js5ArchiveSettings* field_88;     // offset 88
-        Js5ArchiveSettings* field_96;     // offset 96
-        uint m_viewportWidth;             // offset 104
-        uint field_108;                   // offset 108
-        int m_clippingRectangle;          // offset 112
-        int field_116;                    // offset 116
-        int field_120;                    // offset 120
-        int field_124;                    // offset 124
-        int field_128;                    // offset 128
-        int field_132;                    // offset 132
-        uint m_mSAASampleCount;           // offset 136
-        uint field_140;                   // offset 140
-        ThreadPool m_immediateThreadPool; // offset 144
-        char _unknown_344[104];
-        PostProcessManager m_postProcessManager; // offset 448
-        char _unknown_1688[9880];
-        RenderTargetsManager* field_11568; // offset 11568
-        char _unknown_11576[32];
-        undefined8 m_drawableBatchRenderers; // offset 11608
-        shared_ptr m_gBufferRT;              // offset 11616
-        shared_ptr m_sSAORT;                 // offset 11632
-        shared_ptr m_forwardLightingRT;      // offset 11648
-        shared_ptr m_shadowBufferRT;         // offset 11664
-        shared_ptr field_11680;              // offset 11680
-        char _unknown_11696[1432];
-        shared_ptr field_13128;     // offset 13128
-        LoginManager m_sSAOContext; // offset 13144
-        char _unknown_13520[8648];
-        SoundInstance m_scaleManager; // offset 22168
+    private:
+        uint8_t field_8;
+        uint8_t _unknown_9[3];
+        uint32_t field_12;
+        uint8_t** field_16;
+        uint8_t _unknown_24[8];
+        Js5ResourceProvider* field_32;
+        uint64_t field_40;
+        uint64_t field_48;
+        uint64_t field_56;
+        uint64_t field_64;
+        uint64_t field_72;
+        Js5ArchiveSettings* field_80;
+        Js5ArchiveSettings* field_88;
+        MaterialManager* field_96;
+        unsigned int m_viewportWidth;
+        unsigned int field_108;
+        int m_clippingRectangle;
+        int field_116;
+        int field_120;
+        int field_124;
+        int field_128;
+        int field_132;
+        unsigned int m_mSAASampleCount;
+        unsigned int field_140;
+        ThreadPool m_immediateThreadPool;
+        uint8_t _unknown_344[104];
+        PostProcessManager m_postProcessManager;
+        uint8_t _unknown_1688[9920];
+        uint64_t m_drawableBatchRenderers;
+        shared_ptr m_gBufferRT;
+        uint8_t m_sSAORT[16];
+        shared_ptr m_forwardLightingRT;
+        uint8_t m_shadowBufferRT[16];
+        uint8_t _unknown_11680[1464];
+        LoginManager m_sSAOContext;
+        uint8_t _unknown_13520[8648];
+        SoundInstance m_scaleManager;
     };
 
     class RT7GraphicsArchiveBundle {
     public:
-        RT7GraphicsArchiveBundle(Js5ArchiveSettings const&, Js5ArchiveSettings const&, Js5ArchiveSettings const&,
-                                 Js5ArchiveSettings const&, Js5ArchiveSettings const&, Js5ArchiveSettings const&,
-                                 Js5ArchiveSettings const&, Js5ArchiveSettings const&);
+        RT7GraphicsArchiveBundle(
+            const Js5ArchiveSettings& js5ArchiveSettings1, const Js5ArchiveSettings& js5ArchiveSettings2,
+            const Js5ArchiveSettings& js5ArchiveSettings3, const Js5ArchiveSettings& js5ArchiveSettings4,
+            const Js5ArchiveSettings& js5ArchiveSettings5, const Js5ArchiveSettings& js5ArchiveSettings6,
+            const Js5ArchiveSettings& js5ArchiveSettings7, const Js5ArchiveSettings& js5ArchiveSettings8);
 
-        // data members, from how the methods use this: 64 bytes
-        Js5ArchiveSettings* field_0;  // offset 0
-        Js5ArchiveSettings* field_8;  // offset 8
-        Js5ArchiveSettings* field_16; // offset 16
-        Js5ArchiveSettings* field_24; // offset 24
-        Js5ArchiveSettings* field_32; // offset 32
-        Js5ArchiveSettings* field_40; // offset 40
-        Js5ArchiveSettings* field_48; // offset 48
-        Js5ArchiveSettings* field_56; // offset 56
+    private:
+        Js5ArchiveSettings* field_0;
+        Js5ArchiveSettings* field_8;
+        Js5ArchiveSettings* field_16;
+        Js5ArchiveSettings* field_24;
+        Js5ArchiveSettings* field_32;
+        Js5ArchiveSettings* field_40;
+        Js5ArchiveSettings* field_48;
+        Js5ArchiveSettings* field_56;
     };
 
-    // 0x1001bc560, 48 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // RT7GraphicsArchiveBundle::RT7GraphicsArchiveBundle(Js5ArchiveSettings const&, Js5ArchiveSettings const&, Js5ArchiveSettings const&, Js5ArchiveSettings const&, Js5ArchiveSettings const&, Js5ArchiveSettings const&, Js5ArchiveSettings const&, Js5ArchiveSettings const&)
-    void RT7GraphicsArchiveBundle::RT7GraphicsArchiveBundle(Js5ArchiveSettings* param_1, Js5ArchiveSettings* param_2,
-                                                            Js5ArchiveSettings* param_3, Js5ArchiveSettings* param_4,
-                                                            Js5ArchiveSettings* param_5, Js5ArchiveSettings* param_6,
-                                                            Js5ArchiveSettings* param_7, Js5ArchiveSettings* param_8) {
-        RT7GraphicsArchiveBundle(this, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8);
+    // 0x1001bc560
+    RT7GraphicsArchiveBundle::RT7GraphicsArchiveBundle(
+        const Js5ArchiveSettings& js5ArchiveSettings1, const Js5ArchiveSettings& js5ArchiveSettings2,
+        const Js5ArchiveSettings& js5ArchiveSettings3, const Js5ArchiveSettings& js5ArchiveSettings4,
+        const Js5ArchiveSettings& js5ArchiveSettings5, const Js5ArchiveSettings& js5ArchiveSettings6,
+        const Js5ArchiveSettings& js5ArchiveSettings7, const Js5ArchiveSettings& js5ArchiveSettings8) {
+        RT7GraphicsArchiveBundle(js5ArchiveSettings1, js5ArchiveSettings2, js5ArchiveSettings3, js5ArchiveSettings4,
+                                 js5ArchiveSettings5, js5ArchiveSettings6, js5ArchiveSettings7, js5ArchiveSettings8);
     }
 
-    // 0x1001bca40, 16 bytes, inline, placed by class name and debug map
-    // RT7Core::GetGeometryPass()
-    undefined1* RT7Core::GetGeometryPass() {
+    // 0x1001bca40
+    uint8_t* RT7Core::GetGeometryPass() {
         return &field_2128;
     }
 
-    // 0x1001bca60, 16 bytes, inline, placed by class name
-    // RT7Core::GetForwardLightingPass()
-    undefined1* RT7Core::GetForwardLightingPass() {
+    // 0x1001bca60
+    uint8_t* RT7Core::GetForwardLightingPass() {
         return &field_3792;
     }
 
-    // 0x1001c2250, 16 bytes, inline, placed by class name
-    // RT7Core::GetSSAOContext()
-    undefined1* RT7Core::GetSSAOContext() {
+    // 0x1001c2250
+    LoginManager RT7Core::GetSSAOContext() {
         return m_sSAOContext;
     }
 
-    // 0x1001c2450, 16 bytes, inline, placed by class name
-    // RT7Core::GetSkyBoxManager()
-    undefined1* RT7Core::GetSkyBoxManager() {
-        return m_scaleManager + 136;
+    // 0x1001c2450
+    SkyBoxManager* RT7Core::GetSkyBoxManager() {
+        return (SkyBoxManager*)(m_scaleManager + 136);
     }
 
-    // 0x1001c3aa0, 16 bytes, inline, placed by class name
-    // RT7Core::GetMaterialManager()
-    undefined1* RT7Core::GetMaterialManager() {
-        return &field_13824;
+    // 0x1001c3aa0
+    MaterialManager* RT7Core::GetMaterialManager() {
+        return (MaterialManager*)&field_13824;
     }
 
-    // 0x1001c4610, 16 bytes, inline, placed by class name
-    // RT7Core::GetGBufferRT()
-    /* RT7Core::GetGBufferRT() const */
-
-    undefined1* RT7Core::GetGBufferRT() {
-        return m_gBufferRT;
+    // 0x1001c4610
+    shared_ptr<render::RenderTargets>* RT7Core::GetGBufferRT() {
+        return (shared_ptr<render::RenderTargets>*)m_gBufferRT;
     }
 
-    // 0x1001c4640, 16 bytes, inline, placed by class name
-    // RT7Core::GetForwardLightingRT()
-    undefined1* RT7Core::GetForwardLightingRT() {
+    // 0x1001c4640
+    shared_ptr RT7Core::GetForwardLightingRT() {
         return m_forwardLightingRT;
     }
 
-    // 0x1001c4860, 16 bytes, inline, placed by class name
-    // RT7Core::GetObjectHighlightPass()
-    undefined1* RT7Core::GetObjectHighlightPass() {
+    // 0x1001c4860
+    uint8_t* RT7Core::GetObjectHighlightPass() {
         return &field_4672;
     }
 
-    // 0x1001c4870, 16 bytes, inline, placed by class name
-    // RT7Core::GetPostProcessController()
-    undefined1* RT7Core::GetPostProcessController() {
-        return &field_11760;
+    // 0x1001c4870
+    PostProcessController* RT7Core::GetPostProcessController() {
+        return (PostProcessController*)&field_11760;
     }
 
-    // 0x1001c4880, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // RT7Core::GetPostProcessManager()
-    /* GeometryBatch::GetVertexDataBuffer() */
-
-    undefined1* GeometryBatch::GetVertexDataBuffer() {
+    // 0x1001c4880
+    PostProcessManager RT7Core::GetPostProcessManager() {
         return &field_448;
     }
 
-    // 0x1001c4890, 80 bytes, inline, placed by class name
-    // RT7Core::GetForwardDepthTexture()
-    undefined8 RT7Core::GetForwardDepthTexture() {
-        bool bVar1;
-        RenderTargets* this_00;
-        shared_ptr<render::RenderTargets>* this_01;
-
-        this_01 = (shared_ptr<render::RenderTargets>*)m_gBufferRT;
-        bVar1 = this_01->operator_cast_to_bool();
-        if (!bVar1) {
+    // 0x1001c4890
+    uint64_t RT7Core::GetForwardDepthTexture() {
+        shared_ptr<render::RenderTargets>* this_01 = (shared_ptr<render::RenderTargets>*)m_gBufferRT;
+        if (!(this_01->operator_cast_to_bool())) {
             this_01 = (shared_ptr<render::RenderTargets>*)m_forwardLightingRT;
-            bVar1 = this_01->operator_cast_to_bool();
-            if (!bVar1) {
+            if (!(this_01->operator_cast_to_bool())) {
                 return 0;
             }
         }
-        this_00 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(this_01);
-        return this_00->GetDepthStencilTargetTexture();
+        return ((RenderTargets*)(*this_01).operator->())->GetDepthStencilTargetTexture();
     }
 
-    // 0x1001d0720, 16 bytes, inline, placed by class name
-    // RT7Core::GetSSAOPass()
-    undefined1* RT7Core::GetSSAOPass() {
+    // 0x1001d0720
+    uint8_t* RT7Core::GetSSAOPass() {
         return &field_6096;
     }
 
-    // 0x1001d0770, 16 bytes, inline, placed by class name
-    // RT7Core::GetSSAORT()
-    undefined1* RT7Core::GetSSAORT() {
-        return m_sSAORT;
+    // 0x1001d0770
+    shared_ptr<render::RenderTargets>* RT7Core::GetSSAORT() {
+        return (shared_ptr<render::RenderTargets>*)m_sSAORT;
     }
 
-    // 0x1003dae40, 16 bytes, inline, placed by class name
-    // RT7Core::GetGeometryQueryManager()
-    undefined1* RT7Core::GetGeometryQueryManager() {
+    // 0x1003dae40
+    uint8_t* RT7Core::GetGeometryQueryManager() {
         return m_scaleManager + 104;
     }
 
-    // 0x100465480, 16 bytes, inline, placed by class name
-    // RT7Core::GetShadowBufferRT()
-    undefined1* RT7Core::GetShadowBufferRT() {
+    // 0x100465480
+    uint8_t* RT7Core::GetShadowBufferRT() {
         return m_shadowBufferRT;
     }
 
-    // 0x100467d30, 16 bytes, inline, placed by class name
-    // RT7Core::GetDeferredShadowPass()
-    undefined1* RT7Core::GetDeferredShadowPass() {
+    // 0x100467d30
+    uint8_t* RT7Core::GetDeferredShadowPass() {
         return &field_9984;
     }
 
-    // 0x100469010, 16 bytes, inline, placed by class name
-    // RT7Core::GetWaterCausticsPass()
-    undefined1* RT7Core::GetWaterCausticsPass() {
-        return &field_10752;
+    // 0x100469010
+    RenderPass* RT7Core::GetWaterCausticsPass() {
+        return (RenderPass*)&field_10752;
     }
 
-    // 0x1005f8070, 16 bytes, inline, placed by class name
-    // RT7Core::GetTextureManager()
-    undefined1* RT7Core::GetTextureManager() {
-        return &field_14384;
+    // 0x1005f8070
+    TextureManager* RT7Core::GetTextureManager() {
+        return (TextureManager*)&field_14384;
     }
 
-    // 0x1005f84c0, 16 bytes, inline, placed by class name
-    // RT7Core::GetEffectManager()
-    undefined1* RT7Core::GetEffectManager() {
-        return &field_21136;
+    // 0x1005f84c0
+    EffectManager* RT7Core::GetEffectManager() {
+        return (EffectManager*)&field_21136;
     }
 
-    // 0x1005f8800, 32 bytes, inline, placed by class name
-    // RT7Core::GetRenderContext()
+    // 0x1005f8800
     void RT7Core::GetRenderContext() {
-        RenderDevice* this_00;
-
-        this_00 = (RenderDevice*)Instance();
-        this_00->GetPrimaryRenderContext();
+        ((RenderDevice*)Instance())->GetPrimaryRenderContext();
     }
 
-    // 0x1006ac7c0, 32 bytes, inline, placed by class name
-    // RT7Core::GetObjectSpriteRT(unsigned long)
-    void RT7Core::GetObjectSpriteRT(ulong param_1) {
-        std::array<shared_ptr<render::RenderTargets>, 4ul>::operator[](
-            (array<shared_ptr<render::RenderTargets>, 4ul>*)&field_11696, param_1);
+    // 0x1006ac7c0
+    shared_ptr* RT7Core::GetObjectSpriteRT(unsigned long arg1) {
+        return (shared_ptr*)field_11696[arg1];
     }
 
-    // 0x1007a8ea0, 48 bytes, inline, placed by class name
-    // RT7Core::GetForwardOcclusionRenderPass()
-    undefined1* RT7Core::GetForwardOcclusionRenderPass() {
-        char cVar1;
-        undefined1* puVar2;
-
-        cVar1 = (&field_2128)->GetOcclusionEnabled();
-        puVar2 = &field_3792;
-        if (cVar1 != '\0') {
+    // 0x1007a8ea0
+    uint8_t* RT7Core::GetForwardOcclusionRenderPass() {
+        bool cVar1 = field_2128.GetOcclusionEnabled();
+        uint8_t* puVar2 = &field_3792;
+        if (cVar1) {
             puVar2 = &field_2128;
         }
         return puVar2;
     }
 
-    // 0x1007ae2e0, 16 bytes, inline, placed by class name
-    // RT7Core::GetDepthDownsamplePass()
-    undefined1* RT7Core::GetDepthDownsamplePass() {
+    // 0x1007ae2e0
+    uint8_t* RT7Core::GetDepthDownsamplePass() {
         return &field_9056;
     }
 
-    // 0x1007c6620, 32 bytes, inline, placed by class name
-    // RT7Core::GetTerrainPatchRenderer()
+    // 0x1007c6620
     void RT7Core::GetTerrainPatchRenderer() {
-        std::unique_ptr<TerrainPatchRenderer, std::default_delete<TerrainPatchRenderer>>::operator*(
-            (unique_ptr<TerrainPatchRenderer, std::default_delete<TerrainPatchRenderer>>*)&field_11560);
+        *field_11560;
     }
 
-    // 0x1007c8d60, 32 bytes, inline, placed by class name
-    // RT7Core::GetWaterPatchRenderer()
+    // 0x1007c8d60
     void RT7Core::GetWaterPatchRenderer() {
-        std::unique_ptr<WaterPatchRenderer, std::default_delete<WaterPatchRenderer>>::operator*(
-            (unique_ptr<WaterPatchRenderer, std::default_delete<WaterPatchRenderer>>*)&field_11552);
+        *field_11552;
     }
 
-    // 0x1007de930, 16 bytes, inline, placed by class name
-    // RT7Core::GetEquirectangularEffect()
-    undefined1* RT7Core::GetEquirectangularEffect() {
+    // 0x1007de930
+    uint8_t* RT7Core::GetEquirectangularEffect() {
         return &field_13112;
     }
 
-    // 0x1007e1e50, 16 bytes, inline, placed by class name
-    // RT7Core::GetDrawableBatchRenderers()
-    undefined8* RT7Core::GetDrawableBatchRenderers() {
-        return &m_drawableBatchRenderers;
+    // 0x1007e1e50
+    RT7Core* RT7Core::GetDrawableBatchRenderers() {
+        return (RT7Core*)&m_drawableBatchRenderers;
     }
 
-    // 0x100813740, 16 bytes, inline, placed by class name
-    // RT7Core::GetQueryPass()
-    undefined1* RT7Core::GetQueryPass() {
+    // 0x100813740
+    uint8_t* RT7Core::GetQueryPass() {
         return &field_2944;
     }
 
-    // 0x100838600, 32 bytes, inline, placed by class name
-    // RT7Core::GetGeometryBatchRenderer()
-    void RT7Core::GetGeometryBatchRenderer() {
-        std::unique_ptr<GeometryBatchRenderer, std::default_delete<GeometryBatchRenderer>>::operator*(
-            (unique_ptr<GeometryBatchRenderer, std::default_delete<GeometryBatchRenderer>>*)&field_11576);
+    // 0x100838600
+    GeometryBatch_DE* RT7Core::GetGeometryBatchRenderer() {
+        return (GeometryBatch_DE*)*field_11576;
     }
 
-    // 0x100861330, 64 bytes, inline, placed by class name
-    // RT7Core::SetClippingRectToViewport()
+    // 0x100861330
     void RT7Core::SetClippingRectToViewport() {
-        int iVar1;
-        int iVar2;
-
-        iVar1 = GetBackBufferWidth(this);
-        iVar2 = GetBackBufferHeight(this);
-        SetClippingRectangle(this, 0, 0, iVar1, iVar2, true);
+        int arg3 = GetBackBufferWidth();
+        int arg4 = GetBackBufferHeight();
+        SetClippingRectangle(0, 0, arg3, arg4, true);
     }
 
-    // 0x100887e40, 32 bytes, inline, placed by class name
-    // RT7Core::GetBillboardBatchRenderer()
-    void RT7Core::GetBillboardBatchRenderer() {
-        std::unique_ptr<BillboardBatchRenderer, std::default_delete<BillboardBatchRenderer>>::operator*(
-            (unique_ptr<BillboardBatchRenderer, std::default_delete<BillboardBatchRenderer>>*)&field_11584);
+    // 0x100887e40
+    BillboardBatch_DE* RT7Core::GetBillboardBatchRenderer() {
+        return (BillboardBatch_DE*)*field_11584;
     }
 
-    // 0x1008a7250, 16 bytes, inline, placed by class name
-    // RT7Core::GetWaterReflectionPass()
-    undefined1* RT7Core::GetWaterReflectionPass() {
+    // 0x1008a7250
+    uint8_t* RT7Core::GetWaterReflectionPass() {
         return &field_8192;
     }
 
-    // 0x1008a75e0, 16 bytes, inline, placed by class name
-    // RT7Core::GetParticleManager()
-    undefined1* RT7Core::GetParticleManager() {
+    // 0x1008a75e0
+    uint8_t* RT7Core::GetParticleManager() {
         return &field_20664;
     }
 
-    // 0x1008a7a10, 32 bytes, inline, placed by class name
-    // RT7Core::GetParticleRenderer()
+    // 0x1008a7a10
     void RT7Core::GetParticleRenderer() {
-        std::unique_ptr<ParticleSystemRenderer, std::default_delete<ParticleSystemRenderer>>::operator*(
-            (unique_ptr<ParticleSystemRenderer, std::default_delete<ParticleSystemRenderer>>*)&field_11568);
+        *field_11568;
     }
 
-    // 0x1008eb6f0, 48 bytes, inline, placed by class name
-    // RT7Core::GetInterfaceWidth() const
-    void RT7Core::GetInterfaceWidth() {
-        int iVar1;
-
-        iVar1 = GetBackBufferWidth(this);
-        (m_scaleManager, iVar1, false)->ScreenToInterfaceSize();
+    // 0x1008eb6f0
+    void RT7Core::GetInterfaceWidth() const {
+        m_scaleManager->ScreenToInterfaceSize(GetBackBufferWidth(), false);
     }
 
-    // 0x1008eb720, 48 bytes, inline, placed by class name
-    // RT7Core::GetInterfaceHeight() const
-    void RT7Core::GetInterfaceHeight() {
-        int iVar1;
-
-        iVar1 = GetBackBufferHeight(this);
-        (m_scaleManager, iVar1, false)->ScreenToInterfaceSize();
+    // 0x1008eb720
+    void RT7Core::GetInterfaceHeight() const {
+        m_scaleManager->ScreenToInterfaceSize(GetBackBufferHeight(), false);
     }
 
-    // 0x1008f2970, 16 bytes, inline, placed by class name
-    // RT7Core::GetShaderManager()
-    undefined1* RT7Core::GetShaderManager() {
-        return &field_13640;
+    // 0x1008f2970
+    ShaderManager* RT7Core::GetShaderManager() {
+        return (ShaderManager*)&field_13640;
     }
 
-    // 0x1008f3b50, 16 bytes, inline, placed by class name
-    // RT7Core::GetGUIManager()
-    undefined1* RT7Core::GetGUIManager() {
-        return &field_18352;
+    // 0x1008f3b50
+    GUIManager* RT7Core::GetGUIManager() {
+        return (GUIManager*)&field_18352;
     }
 
-    // 0x1008f3b60, 32 bytes, inline, placed by class name
-    // RT7Core::GetBackBufferWidth() const
-    void RT7Core::GetBackBufferWidth() {
-        RenderContext* this_00;
-
-        this_00 = (RenderContext*)GetRenderContext(this);
-        this_00->GetBackBufferWidth();
+    // 0x1008f3b60
+    void RT7Core::GetBackBufferWidth() const {
+        ((RenderContext*)GetRenderContext())->GetBackBufferWidth();
     }
 
-    // 0x1008f3b80, 32 bytes, inline, placed by class name
-    // RT7Core::GetBackBufferHeight() const
-    void RT7Core::GetBackBufferHeight() {
-        RenderContext* this_00;
-
-        this_00 = (RenderContext*)GetRenderContext(this);
-        this_00->GetBackBufferHeight();
+    // 0x1008f3b80
+    void RT7Core::GetBackBufferHeight() const {
+        ((RenderContext*)GetRenderContext())->GetBackBufferHeight();
     }
 
-    // 0x1008fa030, 16 bytes, inline, placed by class name
-    // RT7Core::GetScaleManager()
-    undefined1* RT7Core::GetScaleManager() {
-        return m_scaleManager;
+    // 0x1008fa030
+    ScaleManager* RT7Core::GetScaleManager() {
+        return (ScaleManager*)m_scaleManager;
     }
 
-    // 0x10091bf10, 32 bytes, inline, placed by class name and debug map
-    // RT7Core::GetSkyBoxRenderer()
+    // 0x10091bf10
     void RT7Core::GetSkyBoxRenderer() {
-        std::unique_ptr<SkyBoxRenderer, std::default_delete<SkyBoxRenderer>>::operator*(
-            (unique_ptr<SkyBoxRenderer, std::default_delete<SkyBoxRenderer>>*)&field_11592);
+        *field_11592;
     }
 
-    // 0x10092cf90, 16 bytes, inline, placed by class name and debug map
-    // RT7Core::GetPSTextureSlotManager()
-    undefined1* RT7Core::GetPSTextureSlotManager() {
+    // 0x10092cf90
+    uint8_t* RT7Core::GetPSTextureSlotManager() {
         return &field_20992;
     }
 
-    // 0x1009329e0, 16 bytes, inline, placed by class name
-    // RT7Core::GetRenderToTexture()
-    undefined1* RT7Core::GetRenderToTexture() {
-        return m_sSAOContext + 56;
+    // 0x1009329e0
+    RenderToTextureHelper* RT7Core::GetRenderToTexture() {
+        return (RenderToTextureHelper*)(m_sSAOContext + 56);
     }
 
-    // 0x10093f3e0, 32 bytes, inline, placed by class name
-    // RT7Core::GetLightProbeRenderer()
-    void RT7Core::GetLightProbeRenderer() {
-        std::unique_ptr<LightProbeRenderer, std::default_delete<LightProbeRenderer>>::operator*(
-            (unique_ptr<LightProbeRenderer, std::default_delete<LightProbeRenderer>>*)&field_11600);
+    // 0x10093f3e0
+    LightProbeRenderer* RT7Core::GetLightProbeRenderer() {
+        return (LightProbeRenderer*)*field_11600;
     }
 
 } // namespace jag::graphics
 
 namespace jag::oldscape {
-    // 0x1001bc680, 960 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread_RSeven::InitialiseEffects()
+    // 0x1001bc680
     void OSRenderCore_RenderThread_RSeven::InitialiseEffects() {
-        RT7Core* this_00;
-        EffectManager* pEVar1;
-        SunlightDirectLighting* pSVar2;
-
-        this_00 =
-            (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-        pEVar1 = (EffectManager*)this_00->GetEffectManager();
-        pEVar1->EnableEffect(7, 1);
-        pEVar1->EnableEffect(20, 1);
-        pEVar1->EnableEffect(22, 1);
-        pEVar1->EnableEffect(23, 1);
-        pEVar1->EnableEffect(25, 1);
-        pEVar1->EnableEffect(59, 1);
-        pEVar1->EnableEffect(27, 1);
-        pEVar1->EnableEffect(29, 1);
-        pEVar1->EnableEffect(35, 1);
-        pEVar1->SetEffectQuality(35, 2);
-        pEVar1->EnableEffect(30, 1);
-        pEVar1->EnableEffect(34, 1);
-        pEVar1->SetEffectQuality(30, 3);
-        pEVar1->EnableEffect(37, 1);
-        pEVar1->EnableEffect(50, 1);
-        pEVar1->EnableEffect(51, 1);
-        pEVar1->EnableEffect(57, 1);
-        pEVar1->EnableEffect(60, 1);
-        pEVar1->EnableEffect(26, 1);
-        pEVar1->EnableEffect(55, 1);
-        pEVar1->EnableEffect(56, 1);
-        pEVar1->EnableEffect(61, 1);
-        pEVar1->EnableEffect(63, 1);
-        pEVar1->EnableEffect(67, 1);
-        pEVar1->EnableEffect(68, 1);
-        pEVar1->EnableEffect(70, 1);
-        pEVar1->EnableEffect(75, 1);
-        pEVar1->EnableEffect(74, 1);
-        pEVar1->EnableEffect(76, 1);
-        pEVar1->EnableEffect(78, 1);
-        pEVar1->EnableEffect(77, 1);
-        pEVar1->EnableEffect(79, 1);
-        pEVar1->EnableEffect(80, 1);
-        pEVar1->EnableEffect(81, 1);
-        pEVar1->EnableEffect(82, 1);
-        pEVar1->EnableEffect(83, 1);
-        pEVar1->EnableEffect(84, 1);
-        pEVar1->EnableEffect(85, 1);
-        pEVar1->EnableEffect(86, 1);
-        pEVar1->EnableEffect(87, 1);
-        pEVar1->EnableEffect(88, 1);
-        pEVar1->EnableEffect(94, 1);
-        pEVar1->EnableEffect(99, 1);
-        pEVar1->EnableEffect(101, 1);
-        pEVar1->EnableEffect(106, 1);
-        pEVar1->EnableEffect(54, 1);
-        pEVar1->EnableEffect(45, 1);
-        pEVar1->EnableEffect(47, 1);
-        pEVar1->EnableEffect(114, 1);
-        pEVar1->EnableEffect(92, 1);
-        pSVar2 = jag::graphics::EffectManager::GetEffect<jag::graphics::SunlightDirectLighting>(pEVar1, 48);
-        (*(code*)pSVar2->field_0[9])(pSVar2);
+        EffectManager* this_01 = ((RT7Core*)field_8.operator->())->GetEffectManager();
+        this_01->EnableEffect(7, true);
+        this_01->EnableEffect(20, true);
+        this_01->EnableEffect(22, true);
+        this_01->EnableEffect(23, true);
+        this_01->EnableEffect(25, true);
+        this_01->EnableEffect(59, true);
+        this_01->EnableEffect(27, true);
+        this_01->EnableEffect(29, true);
+        this_01->EnableEffect(35, true);
+        this_01->SetEffectQuality(35, 2);
+        this_01->EnableEffect(30, true);
+        this_01->EnableEffect(34, true);
+        this_01->SetEffectQuality(30, 3);
+        this_01->EnableEffect(37, true);
+        this_01->EnableEffect(50, true);
+        this_01->EnableEffect(51, true);
+        this_01->EnableEffect(57, true);
+        this_01->EnableEffect(60, true);
+        this_01->EnableEffect(26, true);
+        this_01->EnableEffect(55, true);
+        this_01->EnableEffect(56, true);
+        this_01->EnableEffect(61, true);
+        this_01->EnableEffect(63, true);
+        this_01->EnableEffect(67, true);
+        this_01->EnableEffect(68, true);
+        this_01->EnableEffect(70, true);
+        this_01->EnableEffect(75, true);
+        this_01->EnableEffect(74, true);
+        this_01->EnableEffect(76, true);
+        this_01->EnableEffect(78, true);
+        this_01->EnableEffect(77, true);
+        this_01->EnableEffect(79, true);
+        this_01->EnableEffect(80, true);
+        this_01->EnableEffect(81, true);
+        this_01->EnableEffect(82, true);
+        this_01->EnableEffect(83, true);
+        this_01->EnableEffect(84, true);
+        this_01->EnableEffect(85, true);
+        this_01->EnableEffect(86, true);
+        this_01->EnableEffect(87, true);
+        this_01->EnableEffect(88, true);
+        this_01->EnableEffect(94, true);
+        this_01->EnableEffect(99, true);
+        this_01->EnableEffect(101, true);
+        this_01->EnableEffect(106, true);
+        this_01->EnableEffect(54, true);
+        this_01->EnableEffect(45, true);
+        this_01->EnableEffect(47, true);
+        this_01->EnableEffect(114, true);
+        this_01->EnableEffect(92, true);
+        this_01->GetEffect<jag::graphics::SunlightDirectLighting>(48)->CreateRenderingResources();
     }
 
 } // namespace jag::oldscape

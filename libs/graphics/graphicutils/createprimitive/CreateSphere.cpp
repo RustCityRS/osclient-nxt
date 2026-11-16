@@ -1,192 +1,179 @@
 // libs/graphics/graphicutils/createprimitive/CreateSphere.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics.graphicutils
 
 #include "CreateSphere.h"
 
 namespace jag::graphicutils {
-    // 0x100bb6cd0, 16 bytes, placed by debug map only (low confidence)
-    // GetSphereVertexCount(unsigned int, unsigned int)
-    int GetSphereVertexCount(uint param_1, uint param_2) {
-        return (param_2 - 1) * param_1 + 2;
+    // 0x100bb6cd0
+    int GetSphereVertexCount(unsigned int arg1, unsigned int arg2) {
+        return (arg2 - 1) * arg1 + 2;
     }
 
-    // 0x100bb6ce0, 112 bytes, placed by debug map only (low confidence)
-    // GetSphereHorzVertSegCount(unsigned int*, unsigned int*, unsigned int)
-    void GetSphereHorzVertSegCount(uint* param_1, uint* param_2, uint param_3) {
-        uint* puVar1;
-        uint local_2c[3];
+    // 0x100bb6ce0
+    void GetSphereHorzVertSegCount(unsigned int* arg1, unsigned int* arg2, unsigned int arg3) {
+        unsigned int* puVar1;
+        unsigned int local_2c[3];
 
-        if (((param_1 != (uint*)0) && (param_2 != (uint*)0)) && (param_3 != 0)) {
+        if (((arg1 != nullptr) && (arg2 != nullptr)) && (arg3 != 0)) {
             local_2c[2] = 3;
-            local_2c[0] = param_3;
-            puVar1 = std::max<unsigned int>(local_2c, local_2c + 2);
-            *param_1 = *puVar1;
-            local_2c[2] = param_3 + 1 >> 1;
+            local_2c[0] = arg3;
+            puVar1 = std::max<unsigned int>(*local_2c, *(local_2c + 2));
+            *arg1 = *puVar1;
+            local_2c[2] = arg3 + 1 >> 1;
             local_2c[1] = 2;
-            puVar1 = std::max<unsigned int>(local_2c + 2, local_2c + 1);
-            *param_2 = *puVar1;
+            puVar1 = std::max<unsigned int>(*(local_2c + 2), *(local_2c + 1));
+            *arg2 = *puVar1;
         }
     }
 
-    // 0x100bb6d60, 32 bytes, placed by debug map only (low confidence)
-    // GetSphereTriListIndexCount(unsigned int, unsigned int)
-    int GetSphereTriListIndexCount(uint param_1, uint param_2) {
-        return ((param_2 - 2) * param_1 + param_1) * 6;
+    // 0x100bb6d60
+    int GetSphereTriListIndexCount(unsigned int arg1, unsigned int arg2) {
+        return ((arg2 - 2) * arg1 + arg1) * 6;
     }
 
-    // 0x100bb6d80, 32 bytes, placed by debug map only (low confidence)
-    // GetSphereLineListIndexCount(unsigned int, unsigned int)
-    int GetSphereLineListIndexCount(uint param_1, uint param_2) {
-        return (param_2 * 2 + -1) * param_1 * 2;
+    // 0x100bb6d80
+    int GetSphereLineListIndexCount(unsigned int arg1, unsigned int arg2) {
+        return (arg2 * 2 - 1) * arg1 * 2;
     }
 
-    // 0x100bb6da0, 1232 bytes, placed by debug map only (low confidence)
-    // CreateSphereVertices(math::Vector3T<float>*, math::Vector3T<float>*, math::Vector2T<float>*, unsigned int, unsigned int, unsigned int)
-    void CreateSphereVertices(Vector3T* param_1, Vector3T* param_2, Vector2T* param_3, uint param_4, uint param_5,
-                              uint param_6) {
-        Vector3T* pVVar1;
-        Vector2T* this;
-        Vector3T* pVVar3;
-        vector* pvVar4;
-        float* pfVar5;
-        Layout* pLVar6;
-        Vector2T<float>* pVVar7;
-        Vector4T<float>* this_00;
-        uint uVar9;
-        float fVar10;
+    // 0x100bb6da0
+    void CreateSphereVertices(math::Vector3T<float>* vector31, math::Vector3T<float>* vector32,
+                              math::Vector2T<float>* vector2, unsigned int arg4, unsigned int arg5, unsigned int arg6) {
+        Vector3T<float>* pVVar1;
+        ReturnValue* pRVar3;
+        float* pfVar4;
+        Vector2T<float>* pVVar5;
+        Vector4T<float>* vector4T;
+        unsigned int uVar7;
+        float fVar8;
         ColourHSL local_c0;
         Vector2T<float>* local_b0;
         float local_a4;
         float local_a0;
         float local_9c;
         float local_98;
-        uint local_90;
+        unsigned int local_90;
         float local_8c;
-        Vector3T* local_88;
-        Vector3T<int> local_80[16];
-        Vector3T<int> local_68[12];
-        Vector3T* local_58;
+        Vector3T<int> local_80;
+        Vector3T<int> local_68;
+        Vector3T<float>* local_58;
         ColourHSL local_48;
-        Vector2T* local_38;
 
-        local_88 = param_2;
-        local_38 = param_3;
-        if (GetSphereVertexCount(param_5, param_6) != 0) {
-            math::Vector3T<int>::Vector3T(local_80);
-            math::Vector3T<int>::Vector3T(local_68);
-            new (&local_48) math::ColourHSL(0.0, 1.0, 0.0);
-            local_80->SetXYZ((Vector3T*)&local_48);
-            if (param_1 == (Vector3T*)0) {
-                local_58 = (Vector3T*)0;
+        Vector3T<float>* local_88 = vector32;
+        Vector2T<float>* local_38 = vector2;
+        if (GetSphereVertexCount(arg5, arg6) != 0) {
+            local_80 = math::Vector3T();
+            local_68 = math::Vector3T();
+            local_48 = math::ColourHSL(0.0, 1.0, 0.0);
+            local_80.SetXYZ(local_48);
+            if (vector31 == nullptr) {
+                local_58 = nullptr;
             } else {
-                param_1->SetXYZ(local_80);
-                local_58 = param_1 + (ulong)param_4;
+                vector31->SetXYZ(local_80);
+                local_58 = vector31 + (unsigned long)arg4;
             }
-            fVar10 = 0.0;
-            new (&local_c0) math::ColourHSL(0.0, 0.0, 0.0);
-            local_48._0_8_ = math::operator-((Vector3T*)local_80, (Vector3T*)&local_c0);
-            local_48.field_8 = fVar10;
-            pVVar3 = (Vector3T*)local_48.Normalize();
-            local_68->SetXYZ(pVVar3);
-            uVar9 = param_6;
+            fVar8 = 0.0;
+            local_c0 = math::ColourHSL(0.0, 0.0, 0.0);
+            local_48._0_8_ = local_80 - local_c0;
+            local_48.field_8 = fVar8;
+            pRVar3 = local_48 = math::Vector3T<float>::Normalize();
+            local_68.SetXYZ(*pRVar3);
+            uVar7 = arg6;
             pVVar1 = local_88;
-            if (local_88 == (Vector3T*)0) {
-                this_00 = (Vector4T<float>*)0;
+            if (local_88 == nullptr) {
+                vector4T = nullptr;
             } else {
-                pVVar3 = (Vector3T*)local_68;
-                local_88->SetXYZ(pVVar3);
-                this_00 = (Vector4T<float>*)(pVVar1 + (ulong)param_4);
+                local_88->SetXYZ(local_68);
+                vector4T = (Vector4T<float>*)(pVVar1 + (unsigned long)arg4);
             }
-            this = local_38;
-            if (local_38 == (Vector2T*)0) {
-                pVVar7 = (Vector2T<float>*)0;
-                local_38 = (Vector2T*)0;
+            pVVar5 = local_38;
+            if (local_38 == nullptr) {
+                pVVar5 = nullptr;
+                local_38 = nullptr;
             } else {
-                pvVar4 = local_68->SSOBeginPtr(pVVar3);
-                local_38 = (Vector2T*)CONCAT44(local_38._4_4_, *(float*)pvVar4 * 0.5 + 0.5);
-                pfVar5 = (float*)local_68->y();
-                new (&local_48) math::Point<float>(local_38._0_4_, *pfVar5 * 0.5 + 0.5);
-                math::Vector2T<float>::operator=((Vector2T<float>*)this, (Vector2T*)&local_48);
-                pVVar7 = (Vector2T<float>*)(this + (ulong)param_4);
+                pfVar4 = (float*)local_68.SSOBeginPtr();
+                local_38 = (Vector2T<float>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)(*pfVar4 * 0.5 + 0.5));
+                pfVar4 = (float*)local_68.y();
+                local_48 = math::Point(local_38._0_4_, *pfVar4 * 0.5 + 0.5);
+                *pVVar5 = local_48;
+                pVVar5 = pVVar5 + (unsigned long)arg4;
             }
-            if (1 < uVar9) {
-                local_8c = (float)uVar9;
-                uVar9 = 1;
+            if (1 < uVar7) {
+                local_8c = (float)uVar7;
+                uVar7 = 1;
                 do {
-                    math::SinCos(&local_a4, &local_a0, ((float)uVar9 * 3.1415927) / local_8c);
-                    local_90 = uVar9;
-                    if (param_5 != 0) {
-                        uVar9 = 0;
+                    math::SinCos(&local_a4, &local_a0, ((float)uVar7 * 3.1415927f) / local_8c);
+                    local_90 = uVar7;
+                    if (arg5 != 0) {
+                        uVar7 = 0;
                         do {
-                            local_98 = ((float)uVar9 * 6.2831855) / (float)param_5;
-                            local_38 = (Vector2T*)CONCAT44(local_38._4_4_, local_a4);
-                            local_b0 = pVVar7;
+                            local_98 = ((float)uVar7 * 6.2831855f) / (float)arg5;
+                            local_38 = (Vector2T<float>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)local_a4);
+                            local_b0 = pVVar5;
                             local_9c = (float)::cos(local_98);
                             local_9c = local_9c * local_38._0_4_;
-                            local_88 = (Vector3T*)CONCAT44(local_88._4_4_, local_a0);
-                            fVar10 = (float)::sin(local_98);
-                            new (&local_48) math::ColourHSL(local_9c, local_88._0_4_, local_38._0_4_ * fVar10);
-                            local_80->SetXYZ((Vector3T*)&local_48);
-                            pVVar3 = local_58;
-                            if (local_58 == (Vector3T*)0) {
-                                local_58 = (Vector3T*)0;
+                            local_88 = (Vector3T<float>*)(((uint64_t)local_88._4_4_ << 32) | (uint32_t)local_a0);
+                            fVar8 = (float)::sin(local_98);
+                            local_48 = math::ColourHSL(local_9c, local_88._0_4_, local_38._0_4_ * fVar8);
+                            local_80.SetXYZ(local_48);
+                            pVVar1 = local_58;
+                            if (local_58 == nullptr) {
+                                local_58 = nullptr;
                             } else {
                                 local_58->SetXYZ(local_80);
-                                local_58 = pVVar3 + (ulong)param_4;
+                                local_58 = pVVar1 + (unsigned long)arg4;
                             }
-                            fVar10 = 0.0;
-                            new (&local_c0) math::ColourHSL(0.0, 0.0, 0.0);
-                            local_48._0_8_ = math::operator-((Vector3T*)local_80, (Vector3T*)&local_c0);
-                            local_48.field_8 = fVar10;
-                            pLVar6 = (Layout*)local_48.Normalize();
-                            local_68->SetXYZ(pLVar6);
-                            if (this_00 == (Vector4T<float>*)0) {
-                                this_00 = (Vector4T<float>*)0;
+                            fVar8 = 0.0;
+                            local_c0 = math::ColourHSL(0.0, 0.0, 0.0);
+                            local_48._0_8_ = local_80 - local_c0;
+                            local_48.field_8 = fVar8;
+                            pRVar3 = local_48 = math::Vector3T<float>::Normalize();
+                            local_68.SetXYZ(*pRVar3);
+                            if (vector4T == nullptr) {
+                                vector4T = nullptr;
                             } else {
-                                pLVar6 = (Layout*)local_68;
-                                math::Vector4T<float>::SetXYZ(this_00, (Vector3T*)local_68);
-                                this_00 = this_00 + (ulong)param_4;
+                                vector4T->SetXYZ(local_68);
+                                vector4T = vector4T + (unsigned long)arg4;
                             }
-                            pVVar7 = local_b0;
-                            if (local_b0 == (Vector2T<float>*)0) {
-                                pVVar7 = (Vector2T<float>*)0;
+                            pVVar5 = local_b0;
+                            if (local_b0 == nullptr) {
+                                pVVar5 = nullptr;
                             } else {
-                                pvVar4 = local_68->SSOBeginPtr(pLVar6);
-                                local_38 = (Vector2T*)CONCAT44(local_38._4_4_, *(float*)pvVar4 * 0.5 + 0.5);
-                                pfVar5 = (float*)local_68->y();
-                                new (&local_48) math::Point<float>(local_38._0_4_, *pfVar5 * 0.5 + 0.5);
-                                math::Vector2T<float>::operator=(pVVar7, (Vector2T*)&local_48);
-                                pVVar7 = pVVar7 + (ulong)param_4;
+                                pfVar4 = (float*)local_68.SSOBeginPtr();
+                                local_38 = (Vector2T<float>*)(((uint64_t)local_38._4_4_ << 32) |
+                                                              (uint32_t)(*pfVar4 * 0.5 + 0.5));
+                                pfVar4 = (float*)local_68.y();
+                                local_48 = math::Point(local_38._0_4_, *pfVar4 * 0.5 + 0.5);
+                                *pVVar5 = local_48;
+                                pVVar5 = pVVar5 + (unsigned long)arg4;
                             }
-                            uVar9 = uVar9 + 1;
-                        } while (param_5 != uVar9);
+                            uVar7 = uVar7 + 1;
+                        } while (arg5 != uVar7);
                     }
-                    uVar9 = local_90 + 1;
-                } while (uVar9 != param_6);
+                    uVar7 = local_90 + 1;
+                } while (uVar7 != arg6);
             }
-            new (&local_48) math::ColourHSL(0.0, -1.0, 0.0);
-            local_80->SetXYZ((Vector3T*)&local_48);
-            if (local_58 != (Vector3T*)0) {
+            local_48 = math::ColourHSL(0.0, -1.0, 0.0);
+            local_80.SetXYZ(local_48);
+            if (local_58 != nullptr) {
                 local_58->SetXYZ(local_80);
             }
-            fVar10 = 0.0;
-            new (&local_c0) math::ColourHSL(0.0, 0.0, 0.0);
-            local_48._0_8_ = math::operator-((Vector3T*)local_80, (Vector3T*)&local_c0);
-            local_48.field_8 = fVar10;
-            pVVar3 = (Vector3T*)local_48.Normalize();
-            local_68->SetXYZ(pVVar3);
-            if (this_00 != (Vector4T<float>*)0) {
-                pVVar3 = (Vector3T*)local_68;
-                math::Vector4T<float>::SetXYZ(this_00, pVVar3);
+            fVar8 = 0.0;
+            local_c0 = math::ColourHSL(0.0, 0.0, 0.0);
+            local_48._0_8_ = local_80 - local_c0;
+            local_48.field_8 = fVar8;
+            pRVar3 = local_48 = math::Vector3T<float>::Normalize();
+            local_68.SetXYZ(*pRVar3);
+            if (vector4T != nullptr) {
+                vector4T->SetXYZ(local_68);
             }
-            if (pVVar7 != (Vector2T<float>*)0) {
-                pvVar4 = local_68->SSOBeginPtr(pVVar3);
-                local_38 = (Vector2T*)CONCAT44(local_38._4_4_, *(float*)pvVar4 * 0.5 + 0.5);
-                pfVar5 = (float*)local_68->y();
-                new (&local_48) math::Point<float>(local_38._0_4_, *pfVar5 * 0.5 + 0.5);
-                math::Vector2T<float>::operator=(pVVar7, (Vector2T*)&local_48);
+            if (pVVar5 != nullptr) {
+                pfVar4 = (float*)local_68.SSOBeginPtr();
+                local_38 = (Vector2T<float>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)(*pfVar4 * 0.5 + 0.5));
+                pfVar4 = (float*)local_68.y();
+                local_48 = math::Point(local_38._0_4_, *pfVar4 * 0.5 + 0.5);
+                *pVVar5 = local_48;
             }
         }
     }

@@ -1,474 +1,365 @@
 // libs/oldscape/jagex3/dash3d/MousePickingHelper.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "MousePickingHelper.h"
 
 namespace jag::oldscape::dash3d {
-    // 0x100f37e14, 4 bytes, __data
-    MousePickingHelper::m_useAABBMouseCheck = 1;
+    // 0x100f37e14
+    int32_t MousePickingHelper::m_useAABBMouseCheck = 1;
 
-    // 0x103949e60, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseCheck;
+    // 0x103949e60
+    int32_t MousePickingHelper::m_mouseCheck;
 
-    // 0x103949e64, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseX;
+    // 0x103949e64
+    int32_t MousePickingHelper::m_mouseX;
 
-    // 0x103949e68, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseY;
+    // 0x103949e68
+    int32_t MousePickingHelper::m_mouseY;
 
-    // 0x103949e6c, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseWorldLineCalculated;
+    // 0x103949e6c
+    int32_t MousePickingHelper::m_mouseWorldLineCalculated;
 
-    // 0x103949e70, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseLineWorldCentreX;
+    // 0x103949e70
+    int32_t MousePickingHelper::m_mouseLineWorldCentreX;
 
-    // 0x103949e74, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseLineWorldCentreY;
+    // 0x103949e74
+    int32_t MousePickingHelper::m_mouseLineWorldCentreY;
 
-    // 0x103949e78, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseLineWorldCentreZ;
+    // 0x103949e78
+    int32_t MousePickingHelper::m_mouseLineWorldCentreZ;
 
-    // 0x103949e7c, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseLineWorldRadiusX;
+    // 0x103949e7c
+    int32_t MousePickingHelper::m_mouseLineWorldRadiusX;
 
-    // 0x103949e80, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseLineWorldRadiusY;
+    // 0x103949e80
+    int32_t MousePickingHelper::m_mouseLineWorldRadiusY;
 
-    // 0x103949e84, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseLineWorldRadiusZ;
+    // 0x103949e84
+    int32_t MousePickingHelper::m_mouseLineWorldRadiusZ;
 
-    // 0x103949e88, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseLineWorldAbsRadiusX;
+    // 0x103949e88
+    int32_t MousePickingHelper::m_mouseLineWorldAbsRadiusX;
 
-    // 0x103949e8c, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseLineWorldAbsRadiusY;
+    // 0x103949e8c
+    int32_t MousePickingHelper::m_mouseLineWorldAbsRadiusY;
 
-    // 0x103949e90, 4 bytes, __common; zero-initialised
-    MousePickingHelper::m_mouseLineWorldAbsRadiusZ;
+    // 0x103949e90
+    int32_t MousePickingHelper::m_mouseLineWorldAbsRadiusZ;
 
-    // 0x103949e94, 16 bytes, __common; set at startup by ___cxx_global_var_init.110
-    jag::math::Rect<unsigned int> MousePickingHelper::m_viewportRect = Rect<unsigned int>((Rect*)PTR_ZERO_100ee6690);
+    // 0x103949e94, set at startup by ___cxx_global_var_init.110
+    jag::math::Rect<unsigned int> MousePickingHelper::m_viewportRect =
+        Rect<unsigned int>((Rect<int>*)PTR_ZERO_100ee6690);
 
-    // 0x103949ea4, 12 bytes, __common; zero-initialised
-    MousePickingHelper::m_viewportFov;
+    // 0x103949ea4
+    uint8_t MousePickingHelper::m_viewportFov[12];
 
-    // 0x103949eb0, 64 bytes, __common; set at startup by ___cxx_global_var_init.111
+    // 0x103949eb0, set at startup by ___cxx_global_var_init.111
     jag::math::Matrix44T<float> MousePickingHelper::m_viewProjectionMatrixRSeven = Matrix44T<float>();
 
-    // 0x103949ef0, 8 bytes, __common; zero-initialised
-    MousePickingHelper::m_pickedEntityCount;
+    // 0x103949ef0
+    int64_t MousePickingHelper::m_pickedEntityCount;
 
-    // 0x103949ef8, 8040 bytes, __common; zero-initialised
-    MousePickingHelper::m_pickedEntityTypecode;
+    // 0x103949ef8, set at startup by ___cxx_global_var_init.112
+    eastl::fixed_vector<long long, 1000ul> MousePickingHelper::m_pickedEntityTypecode =
+        fixed_vector<long long, 1000ul>(1000);
 
-    // 0x100342e90, 80 bytes, placed by class name and debug map
-    // MousePickingHelper::GetPackedTypeCodeLoc(int, int, int, bool, int, LocLayer)
-    ulong MousePickingHelper::GetPackedTypeCodeLoc(uint param_1, uint param_2, uint param_3, int param_4, uint param_5,
-                                                   uint param_6) {
-        ulong uVar1;
-        ulong uVar2;
+    // 0x100342e90
+    unsigned long MousePickingHelper::GetPackedTypeCodeLoc(int arg1, int arg2, int arg3, bool arg4, int arg5,
+                                                           LocLayer locLayer) {
+        uint32_t in_register_00000009;
 
-        uVar2 = (ulong)(param_6 & 3) << 52 | (ulong)param_5 << 20 |
-                (ulong)((param_3 & 3) * 16384 + ((param_2 & 127) << 7 | param_1 & 127) + 131072);
-        uVar1 = uVar2 | 524288;
-        if (param_4 == 0) {
+        unsigned long uVar2 = (unsigned long)(locLayer & 3) << 52 | (unsigned long)(unsigned int)arg5 << 20 |
+                              (unsigned long)((arg3 & 3U) * 16384 + ((arg2 & 127U) << 7 | arg1 & 127U) + 131072);
+        unsigned long uVar1 = uVar2 | 524288;
+        if ((((uint32_t)in_register_00000009 << 8) | (uint8_t)arg4) == 0) {
             uVar1 = uVar2;
         }
         return uVar1;
     }
 
-    // 0x100343190, 16 bytes, placed by class name and debug map
-    // MousePickingHelper::GetEntityIdFromTypecode(long long)
-    void MousePickingHelper::GetEntityIdFromTypecode(longlong param_1) {
-        core::math::MathTool::UnsignedRightShift(param_1, '\x14');
+    // 0x100343190
+    void MousePickingHelper::GetEntityIdFromTypecode(long long arg1) {
+        core::math::MathTool::UnsignedRightShift(arg1, '\x14');
     }
 
-    // 0x10034def0, 64 bytes, placed by class name
-    // MousePickingHelper::AdjustAABBRadiiForPicking(int&, int&, bool)
-    void MousePickingHelper::AdjustAABBRadiiForPicking(int* param_1, int* param_2, bool param_3) {
+    // 0x10034def0
+    void MousePickingHelper::AdjustAABBRadiiForPicking(int& arg1, int& arg2, bool arg3) {
         int iVar1;
 
-        if (*param_1 < 32) {
-            *param_1 = 32;
-            iVar1 = *param_2;
+        if (arg1 < 32) {
+            arg1 = 32;
+            iVar1 = arg2;
         } else {
-            iVar1 = *param_2;
+            iVar1 = arg2;
         }
         if (iVar1 < 32) {
-            *param_2 = 32;
+            arg2 = 32;
         }
-        if (param_3) {
-            *param_1 = *param_1 + 8;
-            *param_2 = *param_2 + 8;
+        if (arg3) {
+            arg1 = arg1 + 8;
+            arg2 = arg2 + 8;
             return;
         }
     }
 
-    // 0x10035f530, 16 bytes, placed by class name
-    // MousePickingHelper::GetPickedEntityCount()
-    undefined4 MousePickingHelper::GetPickedEntityCount() {
+    // 0x10035f530
+    void MousePickingHelper::GetPickedEntityCount() {
         return m_pickedEntityCount;
     }
 
-    // 0x10035f540, 16 bytes, placed by class name
-    // MousePickingHelper::IsPlayerTypecode(long long)
-    bool MousePickingHelper::IsPlayerTypecode(longlong param_1) {
-        return GetEntityTypeFromTypecode(param_1) == 0;
+    // 0x10035f540
+    bool MousePickingHelper::IsPlayerTypecode(long long arg1) {
+        return GetEntityTypeFromTypecode((long long)this) == 0;
     }
 
-    // 0x10035f550, 32 bytes, placed by class name
-    // MousePickingHelper::GetEntityTypeFromTypecode(long long)
-    uint MousePickingHelper::GetEntityTypeFromTypecode(longlong param_1) {
-        return core::math::MathTool::UnsignedRightShift(param_1, '\x10') & 7;
+    // 0x10035f550
+    unsigned int MousePickingHelper::GetEntityTypeFromTypecode(long long arg1) {
+        return core::math::MathTool::UnsignedRightShift(arg1, '\x10') & 7;
     }
 
-    // 0x10035f570, 32 bytes, placed by class name
-    // MousePickingHelper::IsNpcTypecode(long long)
-    bool MousePickingHelper::IsNpcTypecode(longlong param_1) {
-        return GetEntityTypeFromTypecode(param_1) == 1;
+    // 0x10035f570
+    bool MousePickingHelper::IsNpcTypecode(long long arg1) {
+        return GetEntityTypeFromTypecode((long long)this) == 1;
     }
 
-    // 0x10035f590, 32 bytes, placed by class name
-    // MousePickingHelper::IsLocTypecode(long long)
-    bool MousePickingHelper::IsLocTypecode(longlong param_1) {
-        return GetEntityTypeFromTypecode(param_1) == 2;
+    // 0x10035f590
+    bool MousePickingHelper::IsLocTypecode(long long arg1) {
+        return GetEntityTypeFromTypecode((long long)this) == 2;
     }
 
-    // 0x10035f5b0, 32 bytes, placed by class name
-    // MousePickingHelper::IsObjTypecode(long long)
-    bool MousePickingHelper::IsObjTypecode(longlong param_1) {
-        return GetEntityTypeFromTypecode(param_1) == 3;
+    // 0x10035f5b0
+    bool MousePickingHelper::IsObjTypecode(long long arg1) {
+        return GetEntityTypeFromTypecode((long long)this) == 3;
     }
 
-    // 0x10035f5d0, 32 bytes, placed by class name
-    // MousePickingHelper::IsActiveEntityTypecode(long long)
-    ulong MousePickingHelper::IsActiveEntityTypecode(longlong param_1) {
-        if (param_1 == 0) {
+    // 0x10035f5d0
+    unsigned long MousePickingHelper::IsActiveEntityTypecode(long long arg1) {
+        if (arg1 == 0) {
             return 0;
         }
-        return GetEntityInactiveFromTypecode(param_1) ^ 1;
+        return GetEntityInactiveFromTypecode(arg1) ^ 1;
     }
 
-    // 0x10035f5f0, 32 bytes, placed by class name
-    // MousePickingHelper::GetEntityInactiveFromTypecode(long long)
-    byte MousePickingHelper::GetEntityInactiveFromTypecode(longlong param_1) {
-        return core::math::MathTool::UnsignedRightShift(param_1, '\x13') & 1;
+    // 0x10035f5f0
+    uint8_t MousePickingHelper::GetEntityInactiveFromTypecode(long long arg1) {
+        return core::math::MathTool::UnsignedRightShift(arg1, '\x13') & 1;
     }
 
-    // 0x10035f610, 32 bytes, placed by class name
-    // MousePickingHelper::GetPickedEntityTypecode(int)
-    undefined8 MousePickingHelper::GetPickedEntityTypecode(int param_1) {
-        undefined8* puVar1;
-
-        puVar1 = (undefined8*)eastl::
-            vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true,
-                                                                 eastl::allocator>>*)&m_pickedEntityTypecode,
-                (long)param_1);
+    // 0x10035f610
+    void MousePickingHelper::GetPickedEntityTypecode(int arg1) {
+        uint64_t* puVar1 = &m_pickedEntityTypecode[(long)arg1];
         return *puVar1;
     }
 
-    // 0x10035f670, 32 bytes, placed by class name
-    // MousePickingHelper::GetPickedEntityX(int)
-    void MousePickingHelper::GetPickedEntityX(int param_1) {
-        longlong* plVar1;
-
-        plVar1 = (longlong*)eastl::
-            vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true,
-                                                                 eastl::allocator>>*)&m_pickedEntityTypecode,
-                (long)param_1);
+    // 0x10035f670
+    void MousePickingHelper::GetPickedEntityX(int arg1) {
+        long long* plVar1 = &m_pickedEntityTypecode[(long)arg1];
         GetEntityXFromTypecode(*plVar1);
     }
 
-    // 0x10035f690, 16 bytes, placed by class name
-    // MousePickingHelper::GetEntityXFromTypecode(long long)
-    uint MousePickingHelper::GetEntityXFromTypecode(longlong param_1) {
-        return core::math::MathTool::UnsignedRightShift(param_1, '\0') & 127;
+    // 0x10035f690
+    unsigned int MousePickingHelper::GetEntityXFromTypecode(long long arg1) {
+        return core::math::MathTool::UnsignedRightShift(arg1, '\0') & 127;
     }
 
-    // 0x10035f6a0, 32 bytes, placed by class name
-    // MousePickingHelper::GetPickedEntityZ(int)
-    void MousePickingHelper::GetPickedEntityZ(int param_1) {
-        longlong* plVar1;
-
-        plVar1 = (longlong*)eastl::
-            vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true,
-                                                                 eastl::allocator>>*)&m_pickedEntityTypecode,
-                (long)param_1);
+    // 0x10035f6a0
+    void MousePickingHelper::GetPickedEntityZ(int arg1) {
+        long long* plVar1 = &m_pickedEntityTypecode[(long)arg1];
         GetEntityZFromTypecode(*plVar1);
     }
 
-    // 0x10035f6c0, 32 bytes, placed by class name
-    // MousePickingHelper::GetEntityZFromTypecode(long long)
-    uint MousePickingHelper::GetEntityZFromTypecode(longlong param_1) {
-        return core::math::MathTool::UnsignedRightShift(param_1, '\a') & 127;
+    // 0x10035f6c0
+    unsigned int MousePickingHelper::GetEntityZFromTypecode(long long arg1) {
+        return core::math::MathTool::UnsignedRightShift(arg1, '\a') & 127;
     }
 
-    // 0x10035f6e0, 32 bytes, placed by class name
-    // MousePickingHelper::GetPickedEntityLevel(int)
-    void MousePickingHelper::GetPickedEntityLevel(int param_1) {
-        longlong* plVar1;
-
-        plVar1 = (longlong*)eastl::
-            vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true,
-                                                                 eastl::allocator>>*)&m_pickedEntityTypecode,
-                (long)param_1);
+    // 0x10035f6e0
+    void MousePickingHelper::GetPickedEntityLevel(int arg1) {
+        long long* plVar1 = &m_pickedEntityTypecode[(long)arg1];
         GetEntityLevelFromTypecode(*plVar1);
     }
 
-    // 0x10035f700, 32 bytes, placed by class name
-    // MousePickingHelper::GetEntityLevelFromTypecode(long long)
-    uint MousePickingHelper::GetEntityLevelFromTypecode(longlong param_1) {
-        return core::math::MathTool::UnsignedRightShift(param_1, '\x0e') & 3;
+    // 0x10035f700
+    unsigned int MousePickingHelper::GetEntityLevelFromTypecode(long long arg1) {
+        return core::math::MathTool::UnsignedRightShift(arg1, '\x0e') & 3;
     }
 
-    // 0x10035f720, 32 bytes, placed by class name
-    // MousePickingHelper::GetPickedEntityType(int)
-    void MousePickingHelper::GetPickedEntityType(int param_1) {
-        longlong* plVar1;
-
-        plVar1 = (longlong*)eastl::
-            vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true,
-                                                                 eastl::allocator>>*)&m_pickedEntityTypecode,
-                (long)param_1);
+    // 0x10035f720
+    void MousePickingHelper::GetPickedEntityType(int arg1) {
+        long long* plVar1 = &m_pickedEntityTypecode[(long)arg1];
         GetEntityTypeFromTypecode(*plVar1);
     }
 
-    // 0x10035f740, 32 bytes, placed by class name
-    // MousePickingHelper::GetPickedEntityInactive(int)
-    void MousePickingHelper::GetPickedEntityInactive(int param_1) {
-        longlong* plVar1;
-
-        plVar1 = (longlong*)eastl::
-            vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true,
-                                                                 eastl::allocator>>*)&m_pickedEntityTypecode,
-                (long)param_1);
+    // 0x10035f740
+    void MousePickingHelper::GetPickedEntityInactive(int arg1) {
+        long long* plVar1 = &m_pickedEntityTypecode[(long)arg1];
         GetEntityInactiveFromTypecode(*plVar1);
     }
 
-    // 0x10035f760, 32 bytes, placed by class name
-    // MousePickingHelper::GetPickedEntityId(int)
-    void MousePickingHelper::GetPickedEntityId(int param_1) {
-        longlong* plVar1;
-
-        plVar1 = (longlong*)eastl::
-            vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true,
-                                                                 eastl::allocator>>*)&m_pickedEntityTypecode,
-                (long)param_1);
+    // 0x10035f760
+    void MousePickingHelper::GetPickedEntityId(int arg1) {
+        long long* plVar1 = &m_pickedEntityTypecode[(long)arg1];
         GetEntityIdFromTypecode(*plVar1);
     }
 
-    // 0x10035f780, 32 bytes, placed by class name
-    // MousePickingHelper::GetPickedLocLayer(int)
-    undefined1 MousePickingHelper::GetPickedLocLayer(int param_1) {
-        longlong* plVar2;
-
-        plVar2 = (longlong*)eastl::
-            vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true,
-                                                                 eastl::allocator>>*)&m_pickedEntityTypecode,
-                (long)param_1);
+    // 0x10035f780
+    void MousePickingHelper::GetPickedLocLayer(int arg1) {
+        long long* plVar2 = &m_pickedEntityTypecode[(long)arg1];
         return GetLocLayerFromTypecode(*plVar2);
     }
 
-    // 0x10035f7a0, 32 bytes, placed by class name
-    // MousePickingHelper::GetLocLayerFromTypecode(long long)
-    uint MousePickingHelper::GetLocLayerFromTypecode(longlong param_1) {
-        return core::math::MathTool::UnsignedRightShift(param_1, '4') & 3;
+    // 0x10035f7a0
+    unsigned int MousePickingHelper::GetLocLayerFromTypecode(long long arg1) {
+        return core::math::MathTool::UnsignedRightShift(arg1, '4') & 3;
     }
 
-    // 0x10035f7c0, 48 bytes, placed by class name
-    // MousePickingHelper::OverwriteEntityCoordInTypecode(long long, int, int, int)
-    ulong MousePickingHelper::OverwriteEntityCoordInTypecode(longlong param_1, int param_2, int param_3, int param_4) {
-        return (long)param_3 | param_1 & 18446744073709486080U | (long)param_2 << 14 | (long)param_4 << 7;
+    // 0x10035f7c0
+    unsigned long MousePickingHelper::OverwriteEntityCoordInTypecode(long long arg1, int arg2, int arg3, int arg4) {
+        return (long)arg3 | arg1 & 18446744073709486080U | (long)arg2 << 14 | (long)arg4 << 7;
     }
 
-    // 0x10035f7f0, 64 bytes, placed by class name
-    // MousePickingHelper::GetPackedTypeCode(int, int, int, int, bool, int)
-    long MousePickingHelper::GetPackedTypeCode(int param_1, int param_2, int param_3, int param_4, bool param_5,
-                                               int param_6) {
-        long lVar1;
-        ulong uVar2;
-        undefined3 in_register_00000081;
+    // 0x10035f7f0
+    long MousePickingHelper::GetPackedTypeCode(int arg1, int arg2, int arg3, int arg4, bool arg5, int arg6) {
+        uint32_t in_register_00000081;
 
-        uVar2 = (ulong)((param_4 & 7U) << 16 | (param_3 & 3U) << 14 | (param_2 & 127U) << 7 | param_1 & 127U);
-        lVar1 = (ulong)(uint)param_6 * 1048576 + uVar2 + 524288;
-        if (CONCAT31(in_register_00000081, param_5) == 0) {
-            lVar1 = (ulong)(uint)param_6 * 1048576 + uVar2;
+        unsigned long uVar2 = (unsigned long)((arg4 & 7U) << 16 | (arg3 & 3U) << 14 | (arg2 & 127U) << 7 | arg1 & 127U);
+        long lVar1 = (unsigned long)(unsigned int)arg6 * 1048576 + uVar2 + 524288;
+        if ((((uint32_t)in_register_00000081 << 8) | (uint8_t)arg5) == 0) {
+            lVar1 = (unsigned long)(unsigned int)arg6 * 1048576 + uVar2;
         }
         return lVar1;
     }
 
-    // 0x10035f830, 48 bytes, placed by class name
-    // MousePickingHelper::SetMouseCoords(int, int, bool)
-    void MousePickingHelper::SetMouseCoords(int param_1, int param_2, bool param_3) {
-        m_mouseX = param_1;
-        m_mouseY = param_2;
-        m_mouseCheck = param_3;
+    // 0x10035f830
+    void MousePickingHelper::SetMouseCoords(int arg1, int arg2, bool arg3) {
+        m_mouseX = arg1;
+        m_mouseY = arg2;
+        m_mouseCheck = arg3;
         m_pickedEntityCount = 0;
         m_mouseWorldLineCalculated = 0;
     }
 
-    // 0x10035f860, 48 bytes, placed by class name
-    // MousePickingHelper::AddPickingEntity(long long)
-    void MousePickingHelper::AddPickingEntity(longlong param_1) {
-        longlong* plVar1;
-        ulong uVar2;
-
-        uVar2 = (ulong)m_pickedEntityCount;
+    // 0x10035f860
+    void MousePickingHelper::AddPickingEntity(long long arg1) {
+        unsigned long arg1_00 = (unsigned long)m_pickedEntityCount;
         m_pickedEntityCount = m_pickedEntityCount + 1;
-        plVar1 = (longlong*)eastl::
-            vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<long long, eastl::fixed_vector_allocator<8ul, 1000ul, 8ul, 0ul, true,
-                                                                 eastl::allocator>>*)&m_pickedEntityTypecode,
-                uVar2);
-        *plVar1 = param_1;
+        long long* plVar1 = &m_pickedEntityTypecode[arg1_00];
+        *plVar1 = arg1;
     }
 
-    // 0x10035f890, 112 bytes, placed by class name
-    // MousePickingHelper::SortPickingEntities(game::CoordGrid)
-    void MousePickingHelper::SortPickingEntities(CoordGrid param_1) {
-        undefined8 uVar1;
-        long lVar2;
-        long lVar3;
-        undefined1 local_30[8];
-
-        uVar1 = m_pickedEntityTypecode.HeapBeginPtr();
-        lVar2 = m_pickedEntityTypecode.HeapBeginPtr();
-        lVar3 = (long)m_pickedEntityCount;
-        new (local_30) sidebars::SideBarData((int)((ulong)this >> 32), param_1.field_0);
-        eastl::sort<long long*, (game::CoordGrid)->SortPickingEntities()::DistanceFromCamera>(uVar1, lVar2 + lVar3 * 8,
-                                                                                              local_30);
+    // 0x10035f890
+    void MousePickingHelper::SortPickingEntities(game::CoordGrid coordGrid) {
+        auto arg1 = m_pickedEntityTypecode.HeapBeginPtr();
+        long lVar1 = m_pickedEntityTypecode.HeapBeginPtr();
+        long lVar2 = (long)m_pickedEntityCount;
+        DistanceFromCamera local_30(coordGrid.field_4, coordGrid.field_8);
+        eastl::sort<long long*, MousePickingHelper::SortPickingEntities(game::CoordGrid)::DistanceFromCamera>(
+            arg1, (lVar1 + lVar2 * 8), local_30);
     }
 
-    // 0x10035f910, 16 bytes, placed by class name
-    // MousePickingHelper::IsMousePickingEnabled()
-    undefined1 MousePickingHelper::IsMousePickingEnabled() {
+    // 0x10035f910
+    void MousePickingHelper::IsMousePickingEnabled() {
         return m_mouseCheck;
     }
 
-    // 0x10035f920, 32 bytes, placed by class name
-    // MousePickingHelper::HasCheckedScreenCoordLastRender(int, int)
-    bool MousePickingHelper::HasCheckedScreenCoordLastRender(int param_1, int param_2) {
-        return param_2 == m_mouseY && param_1 == m_mouseX;
+    // 0x10035f920
+    bool MousePickingHelper::HasCheckedScreenCoordLastRender(int arg1, int arg2) {
+        return arg2 == m_mouseY && arg1 == m_mouseX;
     }
 
-    // 0x10035f940, 16 bytes, placed by class name
-    // MousePickingHelper::GetMouseScreenX()
-    undefined4 MousePickingHelper::GetMouseScreenX() {
+    // 0x10035f940
+    void MousePickingHelper::GetMouseScreenX() {
         return m_mouseX;
     }
 
-    // 0x10035f950, 16 bytes, placed by class name
-    // MousePickingHelper::GetMouseScreenY()
-    undefined4 MousePickingHelper::GetMouseScreenY() {
+    // 0x10035f950
+    void MousePickingHelper::GetMouseScreenY() {
         return m_mouseY;
     }
 
-    // 0x10035f960, 416 bytes, placed by class name
-    // MousePickingHelper::CheckCalculateMouseWorldVector(Pix3D const&)
-    void MousePickingHelper::CheckCalculateMouseWorldVector(Pix3D* param_1) {
-        undefined4 uVar1;
+    // 0x10035f960
+    void MousePickingHelper::CheckCalculateMouseWorldVector(const Pix3D& pix3D) {
         int iVar2;
         int iVar3;
-        int iVar4;
+        unsigned int uVar4;
         int iVar5;
+        int arg1;
         int iVar6;
         int iVar7;
-        int iVar8;
-        LocationData local_68;
-        LocationData local_58;
+        MousePickingHelper* local_68;
+        unsigned int local_60;
+        Vector3T<int>* local_58;
+        int local_4c;
         int local_48;
-        int local_44;
+        unsigned int local_44;
         int local_40;
-        int local_3c;
-        int local_38;
+        unsigned int local_3c;
+        unsigned int local_38;
         int local_34;
 
-        iVar4 = world::m_cameraCosX;
+        int iVar1 = dash3d::world::m_cameraCosX;
         if (m_mouseWorldLineCalculated == '\0') {
-            local_34 = world::m_cameraSinX;
-            local_58._12_4_ = world::m_cameraSinY;
-            local_48 = world::m_cameraCosY;
-            iVar2 = param_1->GetRenderDepth();
-            iVar3 = local_34;
-            iVar5 = m_mouseX - param_1->m_xOrigin;
-            iVar8 = param_1->m_zoom;
-            local_38 = (iVar5 * 50) / iVar8;
-            iVar7 = m_mouseY - param_1->m_yOrigin;
-            iVar6 = (iVar7 * 50) / iVar8;
-            local_40 = (iVar5 * iVar2) / iVar8;
-            iVar8 = (iVar7 * iVar2) / iVar8;
-            local_44 = Pix3D::InvRotateYAroundX(iVar6, 50, iVar4, local_34);
-            iVar5 = Pix3D::InvRotateZAroundX(iVar6, 50, iVar4, iVar3);
-            local_3c = Pix3D::InvRotateYAroundX(iVar8, iVar2, iVar4, iVar3);
-            iVar3 = Pix3D::InvRotateZAroundX(iVar8, iVar2, iVar4, iVar3);
-            iVar8 = local_38;
-            iVar4 = local_48;
-            uVar1 = local_58._12_4_;
-            local_34 = Pix3D::InvRotateXAroundY(local_38, iVar5, local_48, local_58._12_4_);
-            local_38 = Pix3D::InvRotateZAroundY(iVar8, iVar5, iVar4, uVar1);
-            iVar8 = local_40;
-            iVar2 = Pix3D::InvRotateXAroundY(local_40, iVar3, iVar4, uVar1);
-            iVar4 = Pix3D::InvRotateZAroundY(iVar8, iVar3, iVar4, uVar1);
+            local_34 = dash3d::world::m_cameraSinX;
+            local_4c = dash3d::world::m_cameraSinY;
+            local_48 = dash3d::world::m_cameraCosY;
+            iVar3 = pix3D.GetRenderDepth();
+            iVar2 = local_34;
+            iVar5 = m_mouseX - pix3D.m_xOrigin;
+            iVar7 = pix3D.m_zoom;
+            local_38 = (iVar5 * 50) / iVar7;
+            iVar6 = m_mouseY - pix3D.m_yOrigin;
+            arg1 = (iVar6 * 50) / iVar7;
+            local_40 = (iVar5 * iVar3) / iVar7;
+            iVar7 = (iVar6 * iVar3) / iVar7;
+            local_44 = Pix3D::InvRotateYAroundX(arg1, 50, iVar1, local_34);
+            iVar5 = Pix3D::InvRotateZAroundX(arg1, 50, iVar1, iVar2);
+            local_3c = Pix3D::InvRotateYAroundX(iVar7, iVar3, iVar1, iVar2);
+            iVar3 = Pix3D::InvRotateZAroundX(iVar7, iVar3, iVar1, iVar2);
+            uVar4 = local_38;
+            iVar7 = local_48;
+            iVar1 = local_4c;
+            local_34 = Pix3D::InvRotateXAroundY(local_38, iVar5, local_48, local_4c);
+            local_38 = Pix3D::InvRotateZAroundY(uVar4, iVar5, iVar7, iVar1);
+            iVar2 = local_40;
+            iVar5 = Pix3D::InvRotateXAroundY(local_40, iVar3, iVar7, iVar1);
+            uVar4 = Pix3D::InvRotateZAroundY(iVar2, iVar3, iVar7, iVar1);
             new (&local_68) rs2lib::worldmap::LocationData(local_34, local_44, local_38);
-            new (&local_58) rs2lib::worldmap::LocationData(iVar2, local_3c, iVar4);
-            SetMouseWorldVector(local_68._0_8_, local_68.field_8, local_58._0_8_, local_58.field_8);
+            new (&local_58) rs2lib::worldmap::LocationData(iVar5, local_3c, uVar4);
+            SetMouseWorldVector(local_68, (Vector3T<int>*)(unsigned long)local_60, local_58);
         }
     }
 
-    // 0x10035fb90, 320 bytes, placed by class name
-    // MousePickingHelper::SetMouseWorldVector(jag::math::Vector3T<int>, jag::math::Vector3T<int>)
-    void MousePickingHelper::SetMouseWorldVector(undefined8 param_1, type* param_2, undefined8 param_3,
-                                                 undefined4 param_4) {
-        int iVar1;
-        vector* pvVar2;
-        int* piVar3;
-        undefined4 uVar4;
-        undefined4 uVar5;
-        undefined8 local_40;
-        undefined4 local_38;
-        undefined8 local_30;
-        undefined4 local_28;
+    // 0x10035fb90
+    void MousePickingHelper::SetMouseWorldVector(jag::math::Vector3T<int> vector31, jag::math::Vector3T<int> vector32) {
+        Vector3T<int>* local_30[2];
 
-        uVar5 = (undefined4)((ulong)param_2 >> 32);
-        uVar4 = SUB84(param_2, 0);
-        local_40 = param_1;
-        local_38 = uVar4;
-        local_30 = param_3;
-        local_28 = param_4;
-        pvVar2 = local_30.SSOBeginPtr(param_2);
-        iVar1 = *(int*)pvVar2;
-        pvVar2 = local_40.SSOBeginPtr((type*)CONCAT44(uVar5, uVar4));
-        m_mouseLineWorldCentreX = (iVar1 + *(int*)pvVar2) / 2;
-        piVar3 = (int*)local_30.y();
-        iVar1 = *piVar3;
-        piVar3 = (int*)local_40.y();
-        m_mouseLineWorldCentreY = (iVar1 + *piVar3) / 2;
-        piVar3 = (int*)local_30.second();
-        iVar1 = *piVar3;
-        piVar3 = (int*)local_40.second();
-        m_mouseLineWorldCentreZ = (iVar1 + *piVar3) / 2;
-        pvVar2 = local_30.SSOBeginPtr((type*)CONCAT44(uVar5, uVar4));
-        iVar1 = *(int*)pvVar2;
-        pvVar2 = local_40.SSOBeginPtr((type*)CONCAT44(uVar5, uVar4));
-        m_mouseLineWorldRadiusX = (iVar1 - *(int*)pvVar2) / 2;
-        piVar3 = (int*)local_30.y();
-        iVar1 = *piVar3;
-        piVar3 = (int*)local_40.y();
-        m_mouseLineWorldRadiusY = (iVar1 - *piVar3) / 2;
-        piVar3 = (int*)local_30.second();
-        iVar1 = *piVar3;
-        piVar3 = (int*)local_40.second();
-        m_mouseLineWorldRadiusZ = (iVar1 - *piVar3) / 2;
+        uint32_t local_38 = (uint32_t)vector31;
+        local_30[0] = vector32;
+        auto piVar2 = local_30->SSOBeginPtr();
+        int iVar1 = *piVar2;
+        piVar2 = (int*)(this).SSOBeginPtr();
+        m_mouseLineWorldCentreX = (iVar1 + *piVar2) / 2;
+        piVar2 = (int*)local_30->y();
+        iVar1 = *piVar2;
+        piVar2 = (int*)(this).y();
+        m_mouseLineWorldCentreY = (iVar1 + *piVar2) / 2;
+        piVar2 = (int*)local_30->second();
+        iVar1 = *piVar2;
+        piVar2 = (int*)(this).second();
+        m_mouseLineWorldCentreZ = (iVar1 + *piVar2) / 2;
+        piVar2 = (int*)local_30->SSOBeginPtr();
+        iVar1 = *piVar2;
+        piVar2 = (int*)(this).SSOBeginPtr();
+        m_mouseLineWorldRadiusX = (iVar1 - *piVar2) / 2;
+        piVar2 = (int*)local_30->y();
+        iVar1 = *piVar2;
+        piVar2 = (int*)(this).y();
+        m_mouseLineWorldRadiusY = (iVar1 - *piVar2) / 2;
+        piVar2 = (int*)local_30->second();
+        iVar1 = *piVar2;
+        piVar2 = (int*)(this).second();
+        m_mouseLineWorldRadiusZ = (iVar1 - *piVar2) / 2;
         m_mouseLineWorldAbsRadiusX = -m_mouseLineWorldRadiusX;
         if (-m_mouseLineWorldRadiusX < 0) {
             m_mouseLineWorldAbsRadiusX = m_mouseLineWorldRadiusX;
@@ -484,635 +375,519 @@ namespace jag::oldscape::dash3d {
         m_mouseWorldLineCalculated = 1;
     }
 
-    // 0x10035fcd0, 160 bytes, placed by class name
-    // MousePickingHelper::GetMouseWorldVector(jag::math::Vector3T<int>&, jag::math::Vector3T<int>&)
-    void MousePickingHelper::GetMouseWorldVector(Vector3T* param_1, Vector3T* param_2) {
-        undefined1 auVar1[12];
-        LocationData local_58;
-        LocationData local_48;
-        Vector3T local_38[16];
+    // 0x10035fcd0
+    void MousePickingHelper::GetMouseWorldVector(jag::math::Vector3T<int>& vector31,
+                                                 jag::math::Vector3T<int>& vector32) {
+        uint8_t auVar1[12];
+        Vector3T<int> local_38;
 
-        new (&local_58)
-            rs2lib::worldmap::LocationData(m_mouseLineWorldCentreX, m_mouseLineWorldCentreY, m_mouseLineWorldCentreZ);
-        new (&local_48)
-            rs2lib::worldmap::LocationData(m_mouseLineWorldRadiusX, m_mouseLineWorldRadiusY, m_mouseLineWorldRadiusZ);
-        local_38._0_12_ = jag::math::operator-((Vector3T*)&local_58, (Vector3T*)&local_48);
-        jag::math::Vector3T<int>::operator=((Vector3T<int>*)param_1, local_38);
-        auVar1 = jag::math::operator+((Vector3T*)&local_58, (Vector3T*)&local_48);
+        LocationData local_58(m_mouseLineWorldCentreX, m_mouseLineWorldCentreY, m_mouseLineWorldCentreZ);
+        LocationData local_48(m_mouseLineWorldRadiusX, m_mouseLineWorldRadiusY, m_mouseLineWorldRadiusZ);
+        local_38._0_12_ = local_58 - local_48;
+        vector31 = local_38;
+        auVar1 = local_58 + local_48;
         local_38._0_12_ = auVar1;
-        jag::math::Vector3T<int>::operator=((Vector3T<int>*)param_2, local_38);
+        vector32 = local_38;
     }
 
-    // 0x10035fda0, 16 bytes, placed by class name
-    // MousePickingHelper::GetViewProjectionMatrix()
-    undefined1* MousePickingHelper::GetViewProjectionMatrix() {
+    // 0x10035fda0
+    void MousePickingHelper::GetViewProjectionMatrix() {
         return &m_viewProjectionMatrixRSeven;
     }
 
-    // 0x10035fdb0, 32 bytes, placed by class name
-    // MousePickingHelper::SetViewProjectionMatrix(jag::math::Matrix44T<float>)
-    void MousePickingHelper::SetViewProjectionMatrix(Matrix44T param_1) {
-        jag::math::Matrix44T<float>::operator=((Matrix44T<float>*)&m_viewProjectionMatrixRSeven, &param_1);
+    // 0x10035fdb0
+    void MousePickingHelper::SetViewProjectionMatrix(jag::math::Matrix44T<float> matrix44) {
+        Matrix44T<float> MStack0000000000000008;
+
+        m_viewProjectionMatrixRSeven = MStack0000000000000008;
     }
 
-    // 0x10035fdd0, 912 bytes, placed by class name
-    // MousePickingHelper::CalculateMouseWorldVectorRSeven(jag::math::Vector2T<int>, jag::math::Vector3T<int>&, jag::math::Vector3T<int>&)
-    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-    /* MousePickingHelper::CalculateMouseWorldVectorRSeven(jag::math::Vector2T<int>,
-   jag::math::Vector3T<int>&, jag::math::Vector3T<int>&) */
+    // 0x10035fdd0
+    void MousePickingHelper::CalculateMouseWorldVectorRSeven(jag::math::Vector2T<int> vector2,
+                                                             jag::math::Vector3T<int>& vector31,
+                                                             jag::math::Vector3T<int>& vector32) {
+        uint64_t local_d8;
+        float fStack_d0;
+        uint32_t uStack_cc;
+        ReturnValue local_c8;
+        unsigned int local_5c;
+        uint64_t local_48;
 
-    void MousePickingHelper::CalculateMouseWorldVectorRSeven(undefined8 param_1, type* param_2,
-                                                             Vector3T<int>* param_3) {
-        float fVar1;
-        vector* pvVar2;
-        int* piVar3;
-        float* pfVar4;
-        type* ptVar5;
-        Matrix44T* this;
-        float fVar7;
-        undefined4 uVar8;
-        undefined1 local_d8[16];
-        Matrix44T local_c8;
-        undefined8 uStack_90;
-        undefined8 local_88;
-        LocationData local_78;
-        Point<float> local_60[4];
-        uint local_5c;
-        undefined8 local_58;
-        float fStack_50;
-        undefined4 uStack_4c;
-        undefined8 local_48;
-        float fStack_40;
-        undefined4 uStack_3c;
-        float local_34;
-
-        ptVar5 = param_2;
-        local_88 = param_1;
-        pvVar2 = local_88.SSOBeginPtr(param_2);
-        local_34 = (float)*(int*)pvVar2;
-        piVar3 = (int*)local_88.y();
-        jag::math::Point<float>::Point(local_60, local_34, (float)*piVar3);
-        pvVar2 = m_viewportRect.SSOBeginPtr(ptVar5);
-        local_34 = (float)*(int*)pvVar2;
-        piVar3 = (int*)m_viewportRect.y();
-        new (&local_c8) jag::math::Point<float>(local_34, (float)*piVar3);
-        jag::math::Vector2T<float>::operator-=((Vector2T<float>*)local_60, (Vector2T*)&local_c8);
-        piVar3 = (int*)m_viewportRect.second();
-        local_34 = (float)*piVar3;
-        piVar3 = (int*)m_viewportRect.qw();
-        new (&local_c8) jag::math::Point<float>(local_34, (float)*piVar3);
-        jag::math::Vector2T<float>::operator/=((Vector2T<float>*)local_60, (Vector2T*)&local_c8);
-        local_58 = jag::math::operator*(2.0, (Vector2T*)local_60);
-        new (&local_48) jag::math::Vector2T<float>(1.0);
-        local_c8._0_8_ = jag::math::operator-((Vector2T*)&local_58, (Vector2T*)&local_48);
-        jag::math::Vector2T<float>::operator=((Vector2T<float>*)local_60, (Vector2T*)&local_c8);
+        int* piVar2 = (int*)(vector2).SSOBeginPtr();
+        float local_34 = (float)*piVar2;
+        piVar2 = (int*)(vector2).y();
+        Point<float> local_60(local_34, (float)*piVar2);
+        piVar2 = (int*)m_viewportRect.SSOBeginPtr();
+        local_34 = (float)*piVar2;
+        piVar2 = (int*)m_viewportRect.y();
+        new (&local_c8) jag::math::Point(local_34, (float)*piVar2);
+        local_60 -= local_c8;
+        piVar2 = (int*)m_viewportRect.second();
+        local_34 = (float)*piVar2;
+        piVar2 = (int*)m_viewportRect.qw();
+        new (&local_c8) jag::math::Point(local_34, (float)*piVar2);
+        local_60 /= &local_c8;
+        uint64_t local_58 = *2.0 * local_60;
+        new (&local_48) jag::math::Vector2T(1.0);
+        local_c8 = (ReturnValue)local_58 - local_48;
+        local_60 = local_c8;
         local_5c = local_5c ^ 2147483648;
-        local_c8._48_8_ = _DAT_103949ee0;
-        uStack_90 = uRam0000000103949ee8;
-        local_c8._32_8_ = _DAT_103949ed0;
-        local_c8._40_8_ = uRam0000000103949ed8;
-        local_c8._16_8_ = _DAT_103949ec0;
-        local_c8._24_8_ = uRam0000000103949ec8;
-        local_c8._0_8_ = _m_viewProjectionMatrixRSeven;
-        local_c8._8_8_ = uRam0000000103949eb8;
-        this = &local_c8;
-        ptVar5 = (type*)0;
-        Invert(0);
-        pvVar2 = local_60->SSOBeginPtr(ptVar5);
-        local_34 = *(float*)pvVar2;
-        pfVar4 = (float*)local_60->y();
-        fVar7 = *pfVar4;
-        uVar8 = 0;
-        new (&local_48) ImVec4(local_34, fVar7, -1.0, 1.0);
-        local_58 = jag::math::operator*((Vector4T*)&local_48, this);
-        fStack_50 = fVar7;
-        uStack_4c = uVar8;
-        pfVar4 = (float*)local_58.qw();
-        jag::math::Vector4T<float>::operator/=((Vector4T<float>*)&local_58, *pfVar4);
-        pvVar2 = local_60->SSOBeginPtr(this);
-        local_34 = *(float*)pvVar2;
-        pfVar4 = (float*)local_60->y();
-        fVar7 = *pfVar4;
-        uVar8 = 0;
-        new (&local_78) ImVec4(local_34, fVar7, 1.0, 1.0);
-        local_48 = jag::math::operator*((Vector4T*)&local_78, this);
-        fStack_40 = fVar7;
-        uStack_3c = uVar8;
-        pfVar4 = (float*)local_48.qw();
-        jag::math::Vector4T<float>::operator/=((Vector4T<float>*)&local_48, *pfVar4);
-        pfVar4 = (float*)local_58.y();
-        if (0.0 < *pfVar4) {
-            pfVar4 = (float*)local_48.y();
-            if (*pfVar4 <= 0.0 && *pfVar4 != 0.0) {
-                local_78._0_8_ = jag::math::operator-((Vector4T*)&local_48, (Vector4T*)&local_58);
-                local_78.field_8 = (int)fVar7;
-                local_78._12_4_ = uVar8;
-                pfVar4 = (float*)local_58.y();
-                local_34 = -1.0 - *pfVar4;
-                pfVar4 = (float*)local_78.y();
-                jag::math::Vector4T<float>::operator*=((Vector4T<float>*)&local_78, local_34 / *pfVar4);
-                local_d8._0_8_ = jag::math::operator+((Vector4T*)&local_58, (Vector4T*)&local_78);
-                this = (Matrix44T*)local_d8;
-                local_d8._8_4_ = fVar7;
-                local_d8._12_4_ = uVar8;
-                jag::math::Rect<float>::operator=((Rect<float>*)&local_48, (Rect*)this);
+        uint64_t local_98 = _DAT_103949ee0;
+        uint64_t uStack_90 = reinterpret_cast<const uint64_t*>(&m_viewProjectionMatrixRSeven)[7];
+        uint64_t local_a8 = _DAT_103949ed0;
+        uint64_t uStack_a0 = reinterpret_cast<const uint64_t*>(&m_viewProjectionMatrixRSeven)[5];
+        uint64_t local_b8 = _DAT_103949ec0;
+        uint64_t uStack_b0 = reinterpret_cast<const uint64_t*>(&m_viewProjectionMatrixRSeven)[3];
+        local_c8 = m_viewProjectionMatrixRSeven;
+        uint64_t uStack_c0 = reinterpret_cast<const uint64_t*>(&m_viewProjectionMatrixRSeven)[1];
+        local_c8 = jag::math::Matrix44T<float>::Invert(nullptr);
+        auto pfVar3 = local_60.SSOBeginPtr();
+        local_34 = *pfVar3;
+        pfVar3 = (float*)local_60.y();
+        float fVar4 = *pfVar3;
+        uint32_t uVar5 = 0;
+        new (&local_48) ImVec4(local_34, fVar4, -1.0, 1.0);
+        local_58 = local_48 * local_c8;
+        float fStack_50 = fVar4;
+        uint32_t uStack_4c = uVar5;
+        pfVar3 = (float*)local_58.qw();
+        local_58 /= *pfVar3;
+        pfVar3 = (float*)local_60.SSOBeginPtr();
+        local_34 = *pfVar3;
+        pfVar3 = (float*)local_60.y();
+        fVar4 = *pfVar3;
+        uVar5 = 0;
+        LocationData local_78(local_34, fVar4, 1.0, 1.0);
+        local_48 = local_78 * local_c8;
+        float fStack_40 = fVar4;
+        uint32_t uStack_3c = uVar5;
+        pfVar3 = (float*)local_48.qw();
+        local_48 /= *pfVar3;
+        pfVar3 = (float*)local_58.y();
+        if (0.0 < *pfVar3) {
+            pfVar3 = (float*)local_48.y();
+            if (*pfVar3 <= 0.0 && *pfVar3 != 0.0) {
+                local_78._0_8_ = local_48 - local_58;
+                local_78.field_8 = (int)fVar4;
+                local_78._12_4_ = uVar5;
+                pfVar3 = (float*)local_58.y();
+                local_34 = -1.0 - *pfVar3;
+                pfVar3 = (float*)local_78.y();
+                local_78 *= (local_34 / *pfVar3);
+                local_d8 = local_58 + local_78;
+                fStack_d0 = fVar4;
+                uStack_cc = uVar5;
+                local_48 = local_d8;
             }
         }
-        pvVar2 = local_58.SSOBeginPtr(this);
-        fVar7 = *(float*)pvVar2;
-        pfVar4 = (float*)local_58.y();
-        fVar1 = *pfVar4;
-        pfVar4 = (float*)local_58.second();
-        new (&local_78) rs2lib::worldmap::LocationData((int)fVar7, (int)fVar1, (int)*pfVar4);
-        jag::math::Vector3T<int>::operator=((Vector3T<int>*)param_2, (Vector3T*)&local_78);
-        pvVar2 = local_48.SSOBeginPtr((type*)&local_78);
-        fVar7 = *(float*)pvVar2;
-        pfVar4 = (float*)local_48.y();
-        fVar1 = *pfVar4;
-        pfVar4 = (float*)local_48.second();
-        new (&local_78) rs2lib::worldmap::LocationData((int)fVar7, (int)fVar1, (int)*pfVar4);
-        jag::math::Vector3T<int>::operator=(param_3, (Vector3T*)&local_78);
+        pfVar3 = (float*)local_58.SSOBeginPtr();
+        fVar4 = *pfVar3;
+        pfVar3 = (float*)local_58.y();
+        float fVar1 = *pfVar3;
+        pfVar3 = (float*)local_58.second();
+        local_78 = rs2lib::worldmap::LocationData((int)fVar4, (int)fVar1, (int)*pfVar3);
+        vector31 = local_78;
+        pfVar3 = (float*)local_48.SSOBeginPtr();
+        fVar4 = *pfVar3;
+        pfVar3 = (float*)local_48.y();
+        fVar1 = *pfVar3;
+        pfVar3 = (float*)local_48.second();
+        local_78 = rs2lib::worldmap::LocationData((int)fVar4, (int)fVar1, (int)*pfVar3);
+        vector32 = local_78;
     }
 
-    // 0x1003601a0, 272 bytes, placed by class name
-    // MousePickingHelper::GetGroundIntersection(world&, jag::math::Vector3T<int>, jag::math::Vector3T<int>, jag::math::Vector3T<int>&, jag::math::Vector3T<int>&)
-    void MousePickingHelper::GetGroundIntersection(undefined8 param_1, undefined8 param_2, undefined4 param_3,
-                                                   undefined8 param_4, undefined4 param_5, undefined8 param_6,
-                                                   undefined8 param_7) {
-        vector* pvVar1;
-        int* piVar2;
-        undefined8 local_78;
-        undefined4 local_70;
-        undefined8 local_68;
-        undefined4 local_60;
-        ColourHSL local_58;
-        ColourHSL local_48;
-        float local_38;
-        float local_34;
+    // 0x1003601a0
+    void MousePickingHelper::GetGroundIntersection(world& world, jag::math::Vector3T<int> vector31,
+                                                   jag::math::Vector3T<int> vector32,
+                                                   jag::math::Vector3T<int>& vector33,
+                                                   jag::math::Vector3T<int>& vector34) {
+        Vector3T<float>* in_stack_00000008;
 
-        local_78 = param_2;
-        local_70 = param_3;
-        local_68 = param_4;
-        local_60 = param_5;
-        jag::math::operator-((Vector3T*)&local_68, (Vector3T*)&local_78);
-        pvVar1 = local_78.SSOBeginPtr((type*)(Vector3T*)&local_78);
-        local_38 = (float)*(int*)pvVar1;
-        piVar2 = (int*)local_78.y();
-        local_34 = (float)*piVar2;
-        piVar2 = (int*)local_78.second();
-        new (&local_58) jag::math::ColourHSL(local_38, local_34, (float)*piVar2);
-        pvVar1 = local_68.SSOBeginPtr((type*)(Vector3T*)&local_78);
-        local_38 = (float)*(int*)pvVar1;
-        piVar2 = (int*)local_68.y();
-        local_34 = (float)*piVar2;
-        piVar2 = (int*)local_68.second();
-        new (&local_48) jag::math::ColourHSL(local_38, local_34, (float)*piVar2);
-        jag::math::operator-((Vector3T*)&local_48, (Vector3T*)&local_58);
-        RecurseGroundIntersection(local_58._0_8_, local_58.field_8, local_48._0_8_, local_48.field_8, param_1, param_6,
-                                  param_7, 4);
+        uint32_t local_60 = (uint32_t)vector33;
+        uint32_t local_70 = (uint32_t)vector31;
+        vector32 - world;
+        int* piVar1 = (int*)(world).SSOBeginPtr();
+        float local_38 = (float)*piVar1;
+        piVar1 = (int*)(world).y();
+        float local_34 = (float)*piVar1;
+        piVar1 = (int*)(world).second();
+        ColourHSL local_58(local_38, local_34, (float)*piVar1);
+        piVar1 = (int*)(vector32).SSOBeginPtr();
+        local_38 = (float)*piVar1;
+        piVar1 = (int*)(vector32).y();
+        local_34 = (float)*piVar1;
+        piVar1 = (int*)(vector32).second();
+        ColourHSL local_48(local_38, local_34, (float)*piVar1);
+        local_48 - local_58;
+        RecurseGroundIntersection((world*)this, (Vector3T<float>*)vector34, in_stack_00000008, (Vector3T<int>*)4,
+                                  vector33, (int)vector34);
     }
 
-    // 0x1003602b0, 832 bytes, placed by neighbouring functions
-    // RecurseGroundIntersection(world&, jag::math::Vector3T<float>, jag::math::Vector3T<float>, jag::math::Vector3T<int>&, jag::math::Vector3T<int>&, int)
-    ulong RecurseGroundIntersection(undefined8 param_1_00, float param_2, undefined8 param_3, undefined4 param_4,
-                                    world* param_1, Vector3T<int>* param_6, Vector3T<int>* param_7, uint param_8) {
+    // 0x1003602b0
+    unsigned long RecurseGroundIntersection(world& world, jag::math::Vector3T<float> vector31,
+                                            jag::math::Vector3T<float> vector32, jag::math::Vector3T<int>& vector33,
+                                            jag::math::Vector3T<int>& vector34, int arg6) {
         Vector3T<int>* pVVar1;
         float fVar2;
         float fVar3;
         int iVar4;
-        int iVar7;
-        vector* pvVar8;
-        float* pfVar9;
-        int* piVar10;
-        uint* puVar11;
-        ulong uVar12;
-        undefined8 uVar13;
-        type* ptVar15;
-        float fVar16;
+        unsigned int arg2;
+        int iVar6;
+        float* pfVar7;
+        int* piVar8;
+        unsigned int* puVar9;
+        unsigned long uVar10;
+        uint32_t in_XMM0_Da;
+        uint32_t in_XMM0_Db;
+        float in_XMM1_Da;
         LocationData local_e0;
         LocationData local_d0;
-        undefined8 local_c0;
-        undefined4 local_b8;
-        undefined8 local_b0;
-        float local_a8;
-        undefined8 local_80;
+        Vector3T<float> local_c0;
+        uint64_t local_b0[2];
+        unsigned long local_a0;
         float local_70;
-        int local_6c;
-        undefined8 local_68;
-        float local_58;
-        undefined4 uStack_54;
-        undefined4 uStack_50;
-        undefined4 uStack_4c;
-        undefined8 local_48;
+        unsigned int local_6c;
+        uint64_t local_48;
         float local_40;
-        float local_38;
-        bool local_31;
 
-        local_c0 = param_3;
-        local_b8 = param_4;
-        local_68 = param_1_00;
-        local_b0 = jag::math::operator-((Vector3T*)&local_c0, (Vector3T*)&local_68);
-        local_38 = (float)(int)param_8 * 0.001;
-        local_80 = local_68;
-        fVar16 = local_38 + 1.0;
-        local_58 = 0.0;
-        uStack_54 = 0;
-        uStack_50 = 0;
-        uStack_4c = 0;
-        local_31 = 0.0 < fVar16;
-        uVar13 = local_68;
-        if (0.0 < fVar16) {
-            local_6c = param_8 - 1;
-            local_a8 = param_2;
-            local_70 = fVar16;
+        uint64_t local_68 = (((uint64_t)in_XMM0_Db << 32) | (uint32_t)in_XMM0_Da);
+        float local_60 = in_XMM1_Da;
+        local_b0[0] = local_c0 - local_68;
+        float local_78 = local_60;
+        float local_38 = (float)(int)vector33 * 0.001;
+        uint64_t local_80 = local_68;
+        float fVar11 = local_38 + 1.0;
+        float local_58 = 0.0;
+        uint32_t uStack_54 = 0;
+        uint32_t uStack_50 = 0;
+        uint32_t uStack_4c = 0;
+        bool local_31 = 0.0 < fVar11;
+        if (0.0 < fVar11) {
+            local_6c = (int)vector33 - 1;
+            local_a0 = (unsigned long)vector33 & 4294967295;
+            local_70 = fVar11;
             do {
-                local_48 = jag::math::operator*((Vector3T*)&local_b0, local_58);
-                local_40 = fVar16;
-                jag::math::Vector3T<float>::operator+=((Vector3T<float>*)&local_48, (Vector3T*)&local_68);
-                pvVar8 = local_48.SSOBeginPtr((type*)(Vector3T*)&local_68);
-                fVar2 = *(float*)pvVar8;
-                pfVar9 = (float*)local_48.y();
-                fVar3 = *pfVar9;
-                pfVar9 = (float*)local_48.second();
-                ptVar15 = (type*)(ulong)(uint)(int)fVar2;
-                new (&local_e0) rs2lib::worldmap::LocationData((int)fVar2, (int)fVar3, (int)*pfVar9);
-                pvVar8 = local_e0.SSOBeginPtr(ptVar15);
-                iVar7 = world::m_groundPickingLevel;
-                iVar4 = *(int*)pvVar8;
-                piVar10 = (int*)local_e0.second();
-                ptVar15 = (type*)(ulong)(uint)(iVar4 >> 7);
-                new (&local_d0) rs2lib::worldmap::LocationData(iVar4 >> 7, iVar7, *piVar10 >> 7);
-                pvVar8 = local_d0.SSOBeginPtr(ptVar15);
-                uVar12 = (ulong) * (uint*)pvVar8;
-                if (world::m_minX <= (int)*(uint*)pvVar8) {
-                    puVar11 = (uint*)local_d0.second();
-                    uVar12 = (ulong)*puVar11;
-                    if (world::m_minZ <= (int)*puVar11) {
-                        pvVar8 = local_d0.SSOBeginPtr(ptVar15);
-                        uVar12 = (ulong) * (uint*)pvVar8;
-                        if ((int)*(uint*)pvVar8 < world::m_maxX) {
-                            puVar11 = (uint*)local_d0.second();
-                            uVar12 = (ulong)*puVar11;
-                            if ((int)*puVar11 < world::m_maxZ) {
-                                piVar10 = (int*)local_d0.y();
-                                if (*piVar10 < 3) {
-                                    piVar10 = (int*)local_d0.y();
-                                    iVar4 = *piVar10;
-                                    pvVar8 = local_48.SSOBeginPtr(ptVar15);
-                                    fVar2 = *(float*)pvVar8;
-                                    pfVar9 = (float*)local_48.second();
-                                    ptVar15 = (type*)(ulong)(uint)((int)fVar2 >> 7);
-                                    if (ClientBuild::IsLinkBelow(iVar4 + 1, (int)fVar2 >> 7, (int)*pfVar9 >> 7) !=
+                local_48 = *local_58 * *local_b0;
+                local_40 = fVar11;
+                local_48 += local_68;
+                pfVar7 = (float*)local_48.SSOBeginPtr();
+                fVar2 = *pfVar7;
+                pfVar7 = (float*)local_48.y();
+                fVar3 = *pfVar7;
+                pfVar7 = (float*)local_48.second();
+                local_e0 = rs2lib::worldmap::LocationData((int)fVar2, (int)fVar3, (int)*pfVar7);
+                piVar8 = (int*)local_e0.SSOBeginPtr();
+                arg2 = dash3d::world::m_groundPickingLevel;
+                iVar4 = *piVar8;
+                piVar8 = (int*)local_e0.second();
+                local_d0 = rs2lib::worldmap::LocationData(iVar4 >> 7, arg2, *piVar8 >> 7);
+                puVar9 = (unsigned int*)local_d0.SSOBeginPtr();
+                uVar10 = (unsigned long)*puVar9;
+                if (dash3d::world::m_minX <= (int)*puVar9) {
+                    puVar9 = (unsigned int*)local_d0.second();
+                    uVar10 = (unsigned long)*puVar9;
+                    if (dash3d::world::m_minZ <= (int)*puVar9) {
+                        puVar9 = (unsigned int*)local_d0.SSOBeginPtr();
+                        uVar10 = (unsigned long)*puVar9;
+                        if ((int)*puVar9 < dash3d::world::m_maxX) {
+                            puVar9 = (unsigned int*)local_d0.second();
+                            uVar10 = (unsigned long)*puVar9;
+                            if ((int)*puVar9 < dash3d::world::m_maxZ) {
+                                piVar8 = (int*)local_d0.y();
+                                if (*piVar8 < 3) {
+                                    piVar8 = (int*)local_d0.y();
+                                    iVar4 = *piVar8;
+                                    pfVar7 = (float*)local_48.SSOBeginPtr();
+                                    fVar2 = *pfVar7;
+                                    pfVar7 = (float*)local_48.second();
+                                    if (ClientBuild::IsLinkBelow(iVar4 + 1, (int)fVar2 >> 7, (int)*pfVar7 >> 7) !=
                                         '\0') {
                                         local_d0.field_4 = local_d0.field_4 + 1;
                                     }
                                 }
-                                piVar10 = (int*)local_d0.y();
-                                iVar4 = *piVar10;
-                                pvVar8 = local_e0.SSOBeginPtr(ptVar15);
-                                iVar7 = *(int*)pvVar8;
-                                piVar10 = (int*)local_e0.second();
-                                iVar7 = param_1->GetGroundHeightAtFinePos(iVar4, iVar7, *piVar10);
-                                piVar10 = (int*)local_e0.y();
-                                iVar4 = *piVar10;
-                                if (iVar4 < -iVar7) {
-                                    jag::math::Vector3T<int>::operator=(param_6, (Vector3T*)&local_d0);
-                                    uVar12 = jag::math::Vector3T<int>::operator=(param_7, (Vector3T*)&local_e0);
-                                    pVVar1 = param_7 + 4;
+                                piVar8 = (int*)local_d0.y();
+                                iVar4 = *piVar8;
+                                piVar8 = (int*)local_e0.SSOBeginPtr();
+                                iVar6 = *piVar8;
+                                piVar8 = (int*)local_e0.second();
+                                iVar6 = world.GetGroundHeightAtFinePos(iVar4, iVar6, *piVar8);
+                                piVar8 = (int*)local_e0.y();
+                                iVar4 = *piVar8;
+                                if (iVar4 < -iVar6) {
+                                    *vector31 = local_d0;
+                                    uVar10 = *vector32 = local_e0;
+                                    pVVar1 = (Vector3T<int>*)(vector32 + 4);
                                     *(int*)pVVar1 = -*(int*)pVVar1;
-                                    if ((int)(ulong)param_8 != 1) {
-                                        local_58 = (float)(~-(uint)(0.0 < local_58) & (uint)local_58 |
-                                                           (uint)(local_58 - local_38) & -(uint)(0.0 < local_58));
-                                        fVar16 = param_2;
-                                        uVar12 = RecurseGroundIntersection((int)local_80, param_2, local_48, local_40,
-                                                                           param_1, param_6, param_7, local_6c);
+                                    if ((int)local_a0 != 1) {
+                                        local_58 = (float)(~-(unsigned int)(0.0 < local_58) & (unsigned int)local_58 |
+                                                           (unsigned int)(local_58 - local_38) &
+                                                               -(unsigned int)(0.0 < local_58));
+                                        fVar11 = local_78;
+                                        uVar10 = RecurseGroundIntersection(world, vector31, vector32,
+                                                                           (Vector3T<int>*)(unsigned long)local_6c,
+                                                                           vector34, arg6);
                                     }
                                 } else {
-                                    uVar12 = local_80.SetXYZ((Vector3T*)&local_48);
+                                    uVar10 = local_80.SetXYZ(local_48);
                                 }
-                                if (iVar4 < -iVar7) {
-                                    uVar13 = 0;
+                                if (iVar4 < -iVar6) {
+                                    local_68 = 0;
                                     break;
                                 }
                             }
                         }
                     }
                 }
-                uVar13 = CONCAT71((int7)(uVar12 >> 8), 1);
+                local_68 = (((uint64_t)((int64_t)(uVar10 >> 8)) << 8) | (uint8_t)1);
                 local_58 = local_58 + local_38;
                 local_31 = local_58 < local_70;
             } while (local_31);
         }
-        return CONCAT71((int7)((ulong)uVar13 >> 8), local_31) & 18446744073709551361;
+        return local_31 & 18446744073709551361;
     }
 
-    // 0x1003605f0, 336 bytes, placed by class name
-    // MousePickingHelper::DoesMouseIntersectModelPoints(ModelLit const&, int*, int*, int)
-    bool MousePickingHelper::DoesMouseIntersectModelPoints(ModelLit* param_1, int* param_2, int* param_3, int param_4) {
+    // 0x1003605f0
+    bool MousePickingHelper::DoesMouseIntersectModelPoints(const ModelLit& modelLit, int* arg2, int* arg3, int arg4) {
         int iVar1;
         int iVar2;
-        byte bVar4;
+        int arg3_00;
+        int arg4_00;
+        int arg5;
+        uint8_t bVar4;
         int* piVar5;
-        ulong uVar6;
+        unsigned long arg1;
 
-        if ((**(code**)(param_1->field_0 + 56))() != '\0') {
-            /* WARNING: Subroutine does not return */
+        if ((**(void (**)(...))(field_0 + 56))() != '\0') {
             LogAssert("!model.IsForRSeven()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "MousePickingHelper.cpp",
                       423, "Point intersection test only supports SD models.");
         }
-        if (0 < *(int*)((long)&param_1[5].field_8 + 3)) {
-            uVar6 = 0;
+        if (0 < field_96) {
+            arg1 = 0;
             do {
-                piVar5 = (int*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)((long)&param_1[13].field_0 + 3), uVar6);
+                piVar5 = &field_224[arg1];
                 if (*piVar5 != -2) {
-                    piVar5 = (int*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)((long)&param_1[6].field_0 + 2), uVar6);
+                    piVar5 = &field_104[arg1];
                     iVar1 = *piVar5;
-                    piVar5 = (int*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)((long)&param_1[7].field_8 + 1), uVar6);
+                    piVar5 = &field_128[arg1];
                     iVar2 = *piVar5;
-                    piVar5 = (int*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)&param_1[8].field_16, uVar6);
+                    piVar5 = &field_152[arg1];
+                    arg3_00 = *(int*)((long)&modelLit._vptr + (long)iVar1 * 4);
                     bVar4 = 4;
-                    if ((param_2[iVar1] != -1) && (param_2[iVar2] != -1)) {
-                        if (param_2[*piVar5] != -1) {
-                            bVar4 =
-                                IsMouseRoughlyInsideTriangle(param_3[iVar1], param_3[iVar2], param_3[*piVar5],
-                                                             param_2[iVar1], param_2[iVar2], param_2[*piVar5], param_4);
+                    if ((arg3_00 != -1) &&
+                        (arg4_00 = *(int*)((long)&modelLit._vptr + (long)iVar2 * 4), arg4_00 != -1)) {
+                        arg5 = *(int*)((long)&modelLit._vptr + (long)*piVar5 * 4);
+                        if (arg5 != -1) {
+                            bVar4 = IsMouseRoughlyInsideTriangle(
+                                (MousePickingHelper*)(unsigned long)(unsigned int)arg2[iVar1], arg2[iVar2],
+                                arg2[*piVar5], arg3_00, arg4_00, arg5, (int)arg3, (int)modelLit);
                         }
                     }
                     if ((bVar4 & 3) != 0)
                         goto LAB_100360725;
                 }
-                uVar6 = uVar6 + 1;
-            } while ((long)uVar6 < (long)*(int*)((long)&param_1[5].field_8 + 3));
+                arg1 = arg1 + 1;
+            } while ((long)arg1 < (long)field_96);
         }
         bVar4 = 2;
     LAB_100360725:
         return bVar4 != 2;
     }
 
-    // 0x100360740, 112 bytes, placed by class name
-    // MousePickingHelper::IsMouseRoughlyInsideTriangle(int, int, int, int, int, int, int)
-    undefined4 MousePickingHelper::IsMouseRoughlyInsideTriangle(int param_1, int param_2, int param_3, int param_4,
-                                                                int param_5, int param_6, int param_7) {
-        int iVar1;
-
-        iVar1 = m_mouseY + param_7;
-        if ((((param_1 <= iVar1) || (param_2 <= iVar1)) || (param_3 <= iVar1)) &&
-            (((iVar1 = m_mouseY - param_7, iVar1 <= param_1 || (iVar1 <= param_2)) || (iVar1 <= param_3)))) {
-            iVar1 = m_mouseX + param_7;
-            if (((param_4 <= iVar1) || (param_5 <= iVar1)) || (param_6 <= iVar1)) {
-                iVar1 = m_mouseX - param_7;
-                return CONCAT31((int3)((uint)iVar1 >> 8), iVar1 <= param_6 || (iVar1 <= param_5 || iVar1 <= param_4));
+    // 0x100360740
+    bool MousePickingHelper::IsMouseRoughlyInsideTriangle(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6,
+                                                          int arg7) {
+        int iVar1 = m_mouseY + arg6;
+        if (((((int)this <= iVar1) || (arg1 <= iVar1)) || (arg2 <= iVar1)) &&
+            (((iVar1 = m_mouseY - arg6, iVar1 <= (int)this || (iVar1 <= arg1)) || (iVar1 <= arg2)))) {
+            iVar1 = m_mouseX + arg6;
+            if (((arg3 <= iVar1) || (arg4 <= iVar1)) || (arg5 <= iVar1)) {
+                iVar1 = m_mouseX - arg6;
+                return iVar1 <= arg5 || (iVar1 <= arg4 || iVar1 <= arg3);
             }
         }
         return 0;
     }
 
-    // 0x1003607b0, 112 bytes, placed by class name
-    // MousePickingHelper::IsAABBWithinMaxViewDistanceFromCamera(ModelLit::AABB const&, int, int)
-    void MousePickingHelper::IsAABBWithinMaxViewDistanceFromCamera(AABB* param_1, int param_2, int param_3) {
-        int iVar1;
-        vector* pvVar2;
-        int* piVar3;
-        Vector3T<int>* this;
-        Vector3T<int> local_50[16];
-        Vector3T<int> local_40[16];
-
-        jag::math::Vector3T<int>::Vector3T(local_50);
-        this = local_40;
-        jag::math::Vector3T<int>::Vector3T(this);
-        GetMouseWorldVector((Vector3T*)local_50, (Vector3T*)this);
-        pvVar2 = local_50->SSOBeginPtr(this);
-        iVar1 = *(int*)pvVar2;
-        piVar3 = (int*)local_50->second();
-        IsAABBWithinMaxViewDistance(param_1, param_2 - iVar1, param_3 - *piVar3);
+    // 0x1003607b0
+    void MousePickingHelper::IsAABBWithinMaxViewDistanceFromCamera(const ModelLit::AABB& aabb, int arg2, int arg3) {
+        Vector3T<int> local_50;
+        Vector3T<int> local_40;
+        GetMouseWorldVector(&local_50, &local_40);
+        auto piVar2 = local_50.SSOBeginPtr();
+        int iVar1 = *piVar2;
+        piVar2 = (int*)local_50.second();
+        IsAABBWithinMaxViewDistance(aabb, arg2 - iVar1, arg3 - *piVar2);
     }
 
-    // 0x100360820, 64 bytes, placed by class name
-    // MousePickingHelper::IsAABBWithinMaxViewDistance(ModelLit::AABB const&, int, int)
-    bool MousePickingHelper::IsAABBWithinMaxViewDistance(AABB* param_1, int param_2, int param_3) {
-        bool bVar1;
-
-        bVar1 = false;
-        if (((-5185 < param_1->field_12 + param_2) && (param_2 - param_1->field_12 < 5185)) &&
-            (-5185 < param_1->field_20 + param_3)) {
-            bVar1 = param_3 - param_1->field_20 < 5185;
+    // 0x100360820
+    bool MousePickingHelper::IsAABBWithinMaxViewDistance(const ModelLit::AABB& aabb, int arg2, int arg3) {
+        bool bVar1 = false;
+        if (((-5185 < aabb.field_12 + arg2) && (arg2 - aabb.field_12 < 5185)) && (-5185 < aabb.field_20 + arg3)) {
+            bVar1 = arg3 - aabb.field_20 < 5185;
         }
         return bVar1;
     }
 
-    // 0x100360860, 224 bytes, placed by class name
-    // MousePickingHelper::SetupPickingHelper(jag::graphics::PickingHelper&)
-    void MousePickingHelper::SetupPickingHelper(PickingHelper* param_1) {
-        int iVar1;
-        int iVar2;
-        vector* pvVar3;
-        int* piVar4;
-        ImVec4 local_48[16];
-        Point<float> local_38[12];
-        float local_2c;
-        float local_28;
-        float local_24;
-
-        pvVar3 = m_viewportRect.SSOBeginPtr(param_1);
-        local_24 = (float)*(int*)pvVar3;
-        piVar4 = (int*)m_viewportRect.y();
-        local_2c = (float)*piVar4;
-        piVar4 = (int*)m_viewportRect.second();
-        local_28 = (float)*piVar4;
-        piVar4 = (int*)m_viewportRect.qw();
-        ImVec4::ImVec4(local_48, local_24, local_2c, local_28, (float)*piVar4);
-        iVar1 = GetMouseScreenX();
-        local_24 = (float)iVar1;
-        piVar4 = (int*)m_viewportRect.qw();
-        iVar1 = *piVar4;
-        iVar2 = GetMouseScreenY();
-        jag::math::Point<float>::Point(local_38, local_24, (float)(iVar1 - iVar2));
-        ResetPointTest((Matrix44T*)&m_viewProjectionMatrixRSeven, local_48, local_38, false, 5.0);
+    // 0x100360860
+    void MousePickingHelper::SetupPickingHelper(jag::graphics::PickingHelper& pickingHelper) {
+        auto piVar1 = m_viewportRect.SSOBeginPtr();
+        float local_24 = (float)*piVar1;
+        piVar1 = (int*)m_viewportRect.y();
+        float local_2c = (float)*piVar1;
+        piVar1 = (int*)m_viewportRect.second();
+        float local_28 = (float)*piVar1;
+        piVar1 = (int*)m_viewportRect.qw();
+        ImVec4 local_48(local_24, local_2c, local_28, (float)*piVar1);
+        int iVar2 = GetMouseScreenX();
+        local_24 = (float)iVar2;
+        piVar1 = (int*)m_viewportRect.qw();
+        iVar2 = *piVar1;
+        int iVar3 = GetMouseScreenY();
+        Point<float> local_38(local_24, (float)(iVar2 - iVar3));
+        pickingHelper.ResetPointTest(m_viewProjectionMatrixRSeven, local_48, local_38, false, 5.0);
     }
 
-    // 0x100360940, 48 bytes, placed by class name
-    // MousePickingHelper::SetViewportDimensions(jag::math::Rect<int>, int)
-    void MousePickingHelper::SetViewportDimensions(Rect* param_1, undefined4 param_2) {
-        jag::math::Rect<unsigned int>::operator=((Rect<unsigned int>*)&m_viewportRect, param_1);
-        m_viewportFov = param_2;
+    // 0x100360940
+    void MousePickingHelper::SetViewportDimensions(jag::math::Rect<int> rect, int arg2) {
+        m_viewportRect = *rect;
+        m_viewportFov = arg2;
     }
 
-    // 0x100360970, 16 bytes, placed by class name
-    // MousePickingHelper::GetViewportFov()
-    undefined4 MousePickingHelper::GetViewportFov() {
+    // 0x100360970
+    void MousePickingHelper::GetViewportFov() {
         return m_viewportFov;
     }
 
-    // 0x100360980, 32 bytes, placed by class name
-    // MousePickingHelper::GetViewportRect()
-    MousePickingHelper* MousePickingHelper::GetViewportRect() {
-        new (this) jag::math::Rect<unsigned int>((Rect*)&m_viewportRect);
-        return this;
+    // 0x100360980
+    auto MousePickingHelper::GetViewportRect() {
+        return auto(m_viewportRect);
     }
 
-    // 0x1003609a0, 32 bytes, placed by class name
-    // MousePickingHelper::Sign(int, int, int, int, int, int)
-    int MousePickingHelper::Sign(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6) {
-        return (param_6 - param_2) * (param_3 - param_5) + (param_4 - param_6) * (param_1 - param_5);
+    // 0x1003609a0
+    int MousePickingHelper::Sign(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
+        return (arg6 - arg2) * (arg3 - arg5) + (arg4 - arg6) * (arg1 - arg5);
     }
 
-    // 0x1003609c0, 176 bytes, placed by class name
-    // MousePickingHelper::IsMouseInsideTriangle(int, int, int, int, int, int)
-    undefined4 MousePickingHelper::IsMouseInsideTriangle(int param_1, int param_2, int param_3, int param_4,
-                                                         int param_5, int param_6) {
-        int iVar1;
-        uint uVar2;
-        uint uVar3;
-        uint uVar4;
-        int iVar5;
-
-        iVar1 = m_mouseY;
-        iVar5 = m_mouseX;
-        uVar2 = Sign(m_mouseX, m_mouseY, param_4, param_1, param_5, param_2);
-        uVar3 = Sign(iVar5, iVar1, param_5, param_2, param_6, param_3);
-        uVar4 = Sign(iVar5, iVar1, param_6, param_3, param_4, param_1);
-        iVar5 = -((int)(uVar4 ^ uVar3 | uVar2 ^ uVar3) >> 31);
-        return CONCAT31((int3)((uint)iVar5 >> 8), iVar5 == 0);
+    // 0x1003609c0
+    void MousePickingHelper::IsMouseInsideTriangle(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
+        int arg2_00 = m_mouseY;
+        int iVar4 = m_mouseX;
+        unsigned int uVar1 = Sign(m_mouseX, m_mouseY, arg4, arg1, arg5, arg2);
+        unsigned int uVar2 = Sign(iVar4, arg2_00, arg5, arg2, arg6, arg3);
+        unsigned int uVar3 = Sign(iVar4, arg2_00, arg6, arg3, arg4, arg1);
+        iVar4 = -((int)(uVar3 ^ uVar2 | uVar1 ^ uVar2) >> 31);
+        return iVar4 == 0;
     }
 
-    // 0x10037fb80, 176 bytes, placed by class name
-    // MousePickingHelper::SortPickingEntities(game::CoordGrid)::DistanceFromCamera::operator()(long long const&, long long const&)
-    /* MousePickingHelper::SortPickingEntities(game::CoordGrid)::DistanceFromCamera::TEMPNAMEPLACEHOLDERVALUE(long
-   long const&, long long const&) */
+    // 0x10037fb80
+    bool
+    MousePickingHelper::SortPickingEntities(game::CoordGrid)::DistanceFromCamera::operator()(const long long& arg1,
+                                                                                             const long long& arg2) {
+        uint8_t local_50[16];
 
-    bool MousePickingHelper::SortPickingEntities(game::CoordGrid)::DistanceFromCamera::operator()(longlong* param_1,
-                                                                                                  longlong* param_2) {
-        longlong lVar1;
-        int iVar2;
-        int iVar3;
-        undefined1 local_50[16];
-        undefined8 local_40;
-        undefined8 local_38;
-
-        lVar1 = *param_1;
-        iVar2 = GetEntityXFromTypecode(lVar1);
-        iVar3 = GetEntityZFromTypecode(lVar1);
+        long long lVar1 = arg1;
+        int iVar2 = GetEntityXFromTypecode(lVar1);
+        int iVar3 = GetEntityZFromTypecode(lVar1);
         new (local_50) sidebars::SideBarData(iVar2, iVar3);
-        lVar1 = *param_2;
+        lVar1 = arg2;
         iVar2 = GetEntityXFromTypecode(lVar1);
         iVar3 = GetEntityZFromTypecode(lVar1);
         new ((local_50 + 8)) sidebars::SideBarData(iVar2, iVar3);
-        local_40 = jag::math::operator-((Vector2T*)local_50, (Vector2T*)this);
-        iVar2 = local_40.LengthSq();
-        local_38 = jag::math::operator-((Vector2T*)(local_50 + 8), (Vector2T*)this);
-        iVar3 = local_38.LengthSq();
+        iVar2 = (*local_50 - *this).LengthSq();
+        iVar3 = ((*((local_50 + 8))) - *this).LengthSq();
         return iVar3 < iVar2;
-    }
-
-    // 0x10038f900, 32 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.110
-    void ___cxx_global_var_init_110() {
-        new (&MousePickingHelper::m_viewportRect) jag::math::Rect<unsigned int>(PTR_ZERO_100ee6690);
-    }
-
-    // 0x10038f920, 32 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.111
-    void ___cxx_global_var_init_111() {
-        new (&MousePickingHelper::m_viewProjectionMatrixRSeven) jag::math::Matrix44T<float>();
     }
 
 } // namespace jag::oldscape::dash3d
 
 namespace jag {
-    // 0x100342ee0, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientLocAnim>::type make_shared<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool&, decltype(nullptr), int&>(int&, int&&, int&, int&, int&, int&, int&, bool&, decltype(nullptr)&&, int&)
-    jag*
-    jag::make_shared<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool&, decltype(nullptr), int&>(
-        int* param_1, int* param_2, int* param_3, int* param_4, int* param_5, int* param_6, int* param_7, bool* param_8,
-        _func_decltype_nullptr** param_9, int* param_10) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100342ee0
+    shared_ptr_if_not_array<oldscape::ClientLocAnim>::type
+    make_shared<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool&, decltype(nullptr), int&>(
+        int& arg1, int&& arg2, int& arg3, int& arg4, int& arg5, int& arg6, int& arg7, bool& arg8,
+        decltype(nullptr)&& arg9, int& arg10) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000028;
         int local_44;
         ClientLocAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(96, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] =
                 placement_new<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool&,
-                              decltype(nullptr), int&>((void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4,
-                                                       param_5, param_6, param_7, param_8, param_9, param_10);
+                              decltype(nullptr), int&>((void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7,
+                                                       (int*)arg8, (bool*)arg9, (void**)arg10, in_stack_00000028);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x100342fc0, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientLocAnim>::type make_shared<oldscape::ClientLocAnim, int&, int&, int&, int&, int&, int&, int&, bool&, decltype(nullptr), int&>(int&, int&, int&, int&, int&, int&, int&, bool&, decltype(nullptr)&&, int&)
-    jag*
-    jag::make_shared<oldscape::ClientLocAnim, int&, int&, int&, int&, int&, int&, int&, bool&, decltype(nullptr), int&>(
-        int* param_1, int* param_2, int* param_3, int* param_4, int* param_5, int* param_6, int* param_7, bool* param_8,
-        _func_decltype_nullptr** param_9, int* param_10) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100342fc0
+    shared_ptr_if_not_array<oldscape::ClientLocAnim>::type
+    make_shared<oldscape::ClientLocAnim, int&, int&, int&, int&, int&, int&, int&, bool&, decltype(nullptr), int&>(
+        int& arg1, int& arg2, int& arg3, int& arg4, int& arg5, int& arg6, int& arg7, bool& arg8,
+        decltype(nullptr)&& arg9, int& arg10) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000028;
         int local_44;
         ClientLocAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(96, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] =
                 placement_new<oldscape::ClientLocAnim, int&, int&, int&, int&, int&, int&, int&, bool&,
-                              decltype(nullptr), int&>((void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4,
-                                                       param_5, param_6, param_7, param_8, param_9, param_10);
+                              decltype(nullptr), int&>((void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7,
+                                                       (int*)arg8, (bool*)arg9, (void**)arg10, in_stack_00000028);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x1003430b0, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientLocAnim>::type make_shared<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool&, decltype(nullptr), int&>(int&, int&&, int&&, int&, int&, int&, int&, bool&, decltype(nullptr)&&, int&)
-    jag*
-    jag::make_shared<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool&, decltype(nullptr), int&>(
-        int* param_1, int* param_2, int* param_3, int* param_4, int* param_5, int* param_6, int* param_7, bool* param_8,
-        _func_decltype_nullptr** param_9, int* param_10) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1003430b0
+    shared_ptr_if_not_array<oldscape::ClientLocAnim>::type
+    make_shared<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool&, decltype(nullptr), int&>(
+        int& arg1, int&& arg2, int&& arg3, int& arg4, int& arg5, int& arg6, int& arg7, bool& arg8,
+        decltype(nullptr)&& arg9, int& arg10) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000028;
         int local_44;
         ClientLocAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(96, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] =
                 placement_new<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool&, decltype(nullptr),
-                              int&>((void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6,
-                                    param_7, param_8, param_9, param_10);
+                              int&>((void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7, (int*)arg8,
+                                    (bool*)arg9, (void**)arg10, in_stack_00000028);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
 } // namespace jag

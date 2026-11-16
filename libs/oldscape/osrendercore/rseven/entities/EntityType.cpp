@@ -1,13 +1,11 @@
 // libs/oldscape/osrendercore/rseven/entities/EntityType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.osrendercore
 
 namespace jag::oldscape::rseven {
-    // 0x1001d1890, 160 bytes, placed by debug map only (low confidence)
-    // GetEntityTypeString(EntityType)
-    char* GetEntityTypeString(int param_1) {
-        switch (param_1) {
+    // 0x1001d1890
+    char* GetEntityTypeString(EntityType entityType) {
+        switch (entityType) {
         case 0:
             return "LOCATION";
         case 1:
@@ -28,7 +26,7 @@ namespace jag::oldscape::rseven {
         case 10:
             return "MAPSQUARE";
         default:
-            if (param_1 == 128) {
+            if (entityType == 128) {
                 return "STATIC_GEOMETRY";
             }
         switchD_1001d18b1_caseD_4:

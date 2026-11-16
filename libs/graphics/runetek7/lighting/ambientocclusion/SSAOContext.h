@@ -1,44 +1,41 @@
 // libs/graphics/runetek7/lighting/ambientocclusion/SSAOContext.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class SSAOContext {
     public:
-        GetSSAOParams();
-        GetNativeContext();
+        void GetSSAOParams();
+        AuthLibWrapper* GetNativeContext();
         SSAOContext();
         ~SSAOContext();
         void Destroy();
-        Init();
-        void Render(render::RenderTargets&, render::Texture const*, render::Texture const*, render::Viewport const&,
-                    math::Matrix44T<float> const&, math::Matrix44T<float> const&);
+        void Init();
+        void Render(render::RenderTargets& renderTargets, const render::Texture* texture1,
+                    const render::Texture* texture2, const render::Viewport& viewport,
+                    const math::Matrix44T<float>& matrix441, const math::Matrix44T<float>& matrix442);
 
-        // data members, from how the methods use this: 56 bytes
-        char _unknown_0[48];
-        undefined8 m_pNativeContext; // offset 48
+    private:
+        uint8_t _unknown_0[48];
+        uint64_t m_pNativeContext;
     };
 
     class SSAOParams {
     public:
         SSAOParams();
 
-        // data members, from how the methods use this: 52 bytes
-        undefined8 field_0;  // offset 0
-        undefined8 field_8;  // offset 8
-        undefined4 field_16; // offset 16
-        undefined8 field_20; // offset 20
-        undefined8 field_28; // offset 28
-        undefined4 field_36; // offset 36
-        undefined1 field_40; // offset 40
-        char _unknown_41[3];
-        undefined4 field_44; // offset 44
-        char _unknown_48[4];
+    private:
+        uint64_t field_0;
+        uint64_t field_8;
+        uint32_t field_16;
+        uint64_t field_20;
+        uint64_t field_28;
+        uint32_t field_36;
+        uint8_t field_40;
+        uint8_t _unknown_41[3];
+        uint32_t field_44;
+        uint8_t _unknown_48[4];
     };
-
-    // 0x1001d4a50, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // SSAOParams::SSAOParams(): jumps straight to the base-object constructor
 
 } // namespace jag::graphics

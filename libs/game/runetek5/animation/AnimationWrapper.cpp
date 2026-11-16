@@ -1,140 +1,94 @@
 // libs/game/runetek5/animation/AnimationWrapper.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "AnimationWrapper.h"
 
 namespace jag::game {
-    // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    int AnimationWrapper::GetSourceID() const;
+    // 0x100024170: AnimationWrapper::GetSourceID() const has the same machine code as oldscape::option::IScriptOption::GetId() const
 
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    shared_ptr AnimationWrapper::GetSource() const;
+    // 0x1000b9950: AnimationWrapper::GetSource() const has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x1001174c0: the linker folded this into oldscape::ClientObj::SetEnabledOpsBitMask(unsigned char), which has identical code
-    AnimationWrapper::SetReadyAnim(bool);
+    // 0x1001174c0: AnimationWrapper::SetReadyAnim(bool) has the same machine code as oldscape::ClientObj::SetEnabledOpsBitMask(unsigned char)
 
-    // 0x1001cdf70: the linker folded this into StaticPointLight::SetRGB(unsigned int), which has identical code
-    AnimationWrapper::SetAnimationLateness(int);
+    // 0x1001cdf70: AnimationWrapper::SetAnimationLateness(int) has the same machine code as StaticPointLight::SetRGB(unsigned int)
 
-    // 0x1003f6590: the linker folded this into AnimationWrapper::GetAnimationParameters() const, which has identical code
-    AnimationWrapper::GetAnimationParameters();
+    // 0x1003f6590: AnimationWrapper::GetAnimationParameters() has the same machine code as AnimationWrapper::GetAnimationParameters() const
 
-    // 0x1003fab80: the linker folded this into WaterType::OverrideDefaultWaterType() const, which has identical code
-    bool AnimationWrapper::IsReadyAnim() const;
+    // 0x1003fab80: AnimationWrapper::IsReadyAnim() const has the same machine code as WaterType::OverrideDefaultWaterType() const
 
-    // 0x100657ad0, 224 bytes, base-object constructor, placed by class name and debug map
-    // AnimationWrapper::AnimationWrapper(AssetBuilder&, ConfigProvider const&, int, unsigned int, graphics::AnimationLoopBehaviour, bool, bool)
-    void AnimationWrapper::AnimationWrapper(AssetBuilder* param_1, ConfigProvider* param_2, int param_3,
-                                            undefined4 param_4, uint param_6, undefined1 param_7, bool param_8) {
-        new (this) MakeSharedPool<AnimationWrapper, 512>();
-        field_0 = param_1;
-        m_sourceID = param_3;
-        new (m_source, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_32 = param_6;
-        field_36 = param_4;
-        field_40 = param_7;
-        field_41 = param_8;
-        std::unique_ptr<graphics::AnimationParameters,
-                        MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                           void>(
-            (unique_ptr<graphics::AnimationParameters,
-                        MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
-        m_readyAnim = false;
+    // 0x100657ad0
+    AnimationWrapper::AnimationWrapper(AssetBuilder& assetBuilder, const ConfigProvider& configProvider, int arg3,
+                                       unsigned int arg4, graphics::AnimationLoopBehaviour animationLoopBehaviour,
+                                       bool arg6, bool arg7)
+        : MakeSharedPool<AnimationWrapper, 512>(), field_0(assetBuilder), m_sourceID(arg3),
+          field_32(animationLoopBehaviour), field_36(arg4), field_40(arg6), field_41(arg7) {
+        field_48.unique_ptr<true, void>();
+        m_readyAnim = '\0';
         field_57 = 0;
         field_60 = -1;
         m_animationLateness = 0;
         field_68 = 0;
         new (&field_72) BuildRequest<graphics::Animation, BuildAnimationMain>();
-        std::function<void(int, int, int, int, int, int)>::function(
-            (function<void(int, int, int, int, int, int)>*)&field_112);
-        LoadSeq(this, param_2);
+        new (&field_112) std::function<void(int, int, int, int, int, int)>();
+        LoadSeq(configProvider);
     }
 
-    // 0x100657cd0, 32 bytes, complete-object constructor, placed by class name and debug map
-    // AnimationWrapper::AnimationWrapper(AssetBuilder&, ConfigProvider const&, int, unsigned int, graphics::AnimationLoopBehaviour, bool, bool)
-    void AnimationWrapper::AnimationWrapper() {
-        AnimationWrapper();
-    }
+    // 0x100657cf0
+    uint64_t AnimationWrapper::Build(const ConfigProvider& configProvider, unsigned int arg2,
+                                     const shared_ptr<graphics::Model>& model, unsigned int arg4) {
 
-    // 0x100657cf0, 112 bytes, placed by class name and debug map
-    // AnimationWrapper::Build(ConfigProvider const&, unsigned int, shared_ptr<graphics::Model> const&, unsigned int)
-    undefined8 AnimationWrapper::Build(ConfigProvider* param_1, uint param_2, shared_ptr* param_3, uint param_4) {
-        shared_ptr* this_00;
-
-        if (HasFinishedBuilding(this) == '\0') {
-            this_00 = (shared_ptr*)LoadSeq(this, param_1);
-            if (!shared_ptr::operator_cast_to_bool(this_00)) {
+        if (!(HasFinishedBuilding())) {
+            if (!((LoadSeq(configProvider))->operator_cast_to_bool())) {
                 return 0;
             }
-            GenerateAnimation(this, param_2, param_3, param_4);
+            GenerateAnimation(arg2, model, arg4);
         }
-        return IsReady(this);
+        return IsReady();
     }
 
-    // 0x100657d60, 352 bytes, placed by class name and debug map
-    // AnimationWrapper::GenerateAnimation(unsigned int, shared_ptr<graphics::Model> const&, unsigned int)
-    void AnimationWrapper::GenerateAnimation(uint param_1, shared_ptr* param_2, uint param_3) {
-        undefined1* this_00;
-        shared_ptr<SeqType>* this_01;
-        char cVar2;
-        SeqType* pSVar3;
-        undefined* puVar4;
-        vector* this_02;
-        Skybox* this_03;
-        shared_ptr* psVar5;
-        AssetBuilder* pAVar6;
-        MakeUniquePool<graphics::AnimationParameters, 512> local_60[8];
+    // 0x100657d60
+    void AnimationWrapper::GenerateAnimation(unsigned int arg1, const shared_ptr<graphics::Model>& model,
+                                             unsigned int arg3) {
+        uint8_t* buildRequest;
+        shared_ptr<SeqType>* this_00;
+        SeqType* pSVar2;
+        shared_ptr<graphics::Animation>* psVar4;
+        MakeUniquePool<graphics::AnimationParameters, 512> local_60;
         shared_ptr<SeqType>* local_58;
         bool* local_50;
-        uint* local_48;
-        uint local_3c;
+        unsigned int* local_48;
         int local_38;
-        uint local_34;
+        unsigned int local_34;
 
-        local_3c = param_3;
-        if (!(&field_48)->operator_cast_to_bool()) {
-            if (field_68 != param_1) {
-                field_68 = param_1;
-                (&field_72)->Clear();
+        unsigned int local_3c = arg3;
+        if (!((&field_48)->operator_cast_to_bool())) {
+            if (field_68 != arg1) {
+                field_68 = arg1;
+                field_72.Clear();
             }
             local_58 = (shared_ptr<SeqType>*)m_source;
-            pSVar3 = (SeqType*)shared_ptr<SeqType>::operator->(local_58);
-            pAVar6 = field_0;
-            this_00 = &field_72;
-            puVar4 = (undefined*)pSVar3->GetAnimation(pAVar6, this_00, param_1, param_2);
-            if (puVar4 == DataStatus::READY) {
-                cVar2 = this_00->IsTaskDone();
-                if (cVar2 != '\0') {
-                    cVar2 = this_00->IsEmpty();
-                    if (cVar2 == '\0') {
-                        this_02 = this_00->SSOBeginPtr(pAVar6);
-                        this_03 = (Skybox*)shared_ptr<graphics::Animation>::operator->(
-                            (shared_ptr<graphics::Animation>*)this_02);
-                        cVar2 = this_03->ShowSkybox();
-                        if (cVar2 != '\0') {
-                            psVar5 = (shared_ptr*)this_00->SSOBeginPtr(pAVar6);
-                            this_01 = local_58;
+            pSVar2 = (SeqType*)(*local_58).operator->();
+            buildRequest = &field_72;
+            if ((uint8_t*)pSVar2->GetAnimation(*field_0, *buildRequest, arg1, model) == DataStatus::READY) {
+                if (buildRequest->IsTaskDone()) {
+                    if (!(buildRequest->IsEmpty())) {
+                        psVar4 = (shared_ptr<graphics::Animation>*)buildRequest->SSOBeginPtr();
+                        if (((Skybox*)(*psVar4).operator->())->ShowSkybox()) {
+                            psVar4 = (shared_ptr<graphics::Animation>*)buildRequest->SSOBeginPtr();
+                            this_00 = local_58;
                             local_48 = &field_36;
-                            local_50 = (bool*)&field_40;
-                            pSVar3 = (SeqType*)shared_ptr<SeqType>::operator->(local_58);
-                            local_38 = pSVar3->GetLoops();
-                            pSVar3 = (SeqType*)shared_ptr<SeqType>::operator->(this_01);
-                            local_34 = pSVar3->GetMaxLoops();
+                            local_50 = &field_40;
+                            pSVar2 = (SeqType*)(*local_58).operator->();
+                            local_38 = pSVar2->GetLoops();
+                            pSVar2 = (SeqType*)(*this_00).operator->();
+                            local_34 = pSVar2->GetMaxLoops();
                             MakeUniquePool<graphics::AnimationParameters, 512>::MakeUnique<
                                 shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour&,
                                 unsigned int&, unsigned int&, bool&, int, unsigned int, bool&>(
-                                local_60, psVar5, (AnimationLoopBehaviour*)&field_32, local_48, &local_3c, local_50,
-                                &local_38, &local_34, &field_41);
-                            std::unique_ptr<graphics::AnimationParameters,
-                                            MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-                            operator=(
-                                (unique_ptr<
-                                    graphics::AnimationParameters,
-                                    MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48,
-                                (unique_ptr*)local_60);
-                            local_60->~unique_ptr();
+                                &local_60, psVar4, &field_32, local_48, &local_3c, local_50, &local_38, &local_34,
+                                &field_41);
+                            field_48 = local_60;
                         }
                     }
                 }
@@ -142,207 +96,153 @@ namespace jag::game {
         }
     }
 
-    // 0x1006580a0, 240 bytes, placed by class name and debug map
-    // AnimationWrapper::Update(unsigned int, int)
-    void AnimationWrapper::Update(uint param_1, int param_2) {
-        undefined1* this_00;
-        undefined1* this_01;
+    // 0x1006580a0
+    void AnimationWrapper::Update(unsigned int arg1, int arg2) {
+        uint8_t* this_01;
         SeqType* pSVar1;
         AnimationParameters* pAVar2;
-        bool bVar3;
-        int iVar5;
+        int iVar4;
 
-        this_00 = &field_48;
-        bVar3 = this_00->operator_cast_to_bool();
-        if (bVar3) {
+        uint8_t* this_00 = &field_48;
+        if (this_00->operator_cast_to_bool()) {
             this_01 = m_source;
-            bVar3 = this_01->operator_cast_to_bool();
-            if (bVar3) {
-                pSVar1 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_01);
+            if (this_01->operator_cast_to_bool()) {
+                pSVar1 = (SeqType*)(*this_01).operator->();
                 pSVar1->CleanCache();
-                pSVar1 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_01);
-                iVar5 = pSVar1->GetPreanimMove();
-                if ((iVar5 == 3) && (0 < param_2)) {
+                pSVar1 = (SeqType*)(*this_01).operator->();
+                iVar4 = pSVar1->GetPreanimMove();
+                if ((iVar4 == 3) && (0 < arg2)) {
                     field_57 = 1;
                 } else {
-                    pSVar1 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_01);
-                    iVar5 = pSVar1->GetPreanimMove();
-                    if (iVar5 == 1) {
-                        pAVar2 =
-                            (AnimationParameters*)
-                                std::unique_ptr<graphics::AnimationParameters,
-                                                MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-                                operator->(
-                                    (unique_ptr<graphics::AnimationParameters,
-                                                MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)
-                                        this_00);
-                        if (param_2 < 1) {
+                    pSVar1 = (SeqType*)(*this_01).operator->();
+                    iVar4 = pSVar1->GetPreanimMove();
+                    if (iVar4 == 1) {
+                        pAVar2 = (AnimationParameters*)(*this_00).operator->();
+                        if (arg2 < 1) {
                             pAVar2->SetDelay(0);
                         } else {
-                            pAVar2->SetDelayResumeAtTime(param_1);
+                            pAVar2->SetDelayResumeAtTime(arg1);
                         }
                     }
-                    pAVar2 =
-                        (AnimationParameters*)
-                            std::unique_ptr<graphics::AnimationParameters,
-                                            MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<graphics::AnimationParameters,
-                                            MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)
-                                    this_00);
-                    pAVar2->Update(param_1);
-                    pAVar2 =
-                        (AnimationParameters*)
-                            std::unique_ptr<graphics::AnimationParameters,
-                                            MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-                            operator->(
-                                (unique_ptr<graphics::AnimationParameters,
-                                            MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)
-                                    this_00);
-                    if (pAVar2->IsDelayed() == '\0') {
-                        ProcessAudio(this);
+                    pAVar2 = (AnimationParameters*)(*this_00).operator->();
+                    pAVar2->Update(arg1);
+                    pAVar2 = (AnimationParameters*)(*this_00).operator->();
+                    if (!(pAVar2->IsDelayed())) {
+                        ProcessAudio();
                     }
                 }
             }
         }
     }
 
-    // 0x1006581b0, 528 bytes, placed by class name and debug map
-    // AnimationWrapper::ProcessAudio()
+    // 0x1006581b0
     void AnimationWrapper::ProcessAudio() {
-        undefined1* this_00;
-        uint uVar1;
-        bool bVar2;
-        char cVar3;
-        byte bVar4;
-        int iVar6;
-        int iVar7;
-        AnimationParameters* this_01;
-        SeqType* pSVar8;
+        uint8_t* this_00;
+        unsigned int uVar1;
+        uint8_t bVar3;
+        int iVar5;
+        int arg4;
+        SeqType* pSVar6;
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_02;
-        Array<VarValue, eastl::allocator>* this_03;
-        uint* puVar9;
-        ulong uVar10;
-        ulong uVar11;
-        uint uVar12;
+        Array<VarValue>* this_03;
+        unsigned int* puVar7;
+        unsigned long uVar8;
+        unsigned long arg1;
+        bool bVar9;
+        unsigned int arg1_00;
 
-        this_01 =
-            (AnimationParameters*)std::unique_ptr<
-                graphics::AnimationParameters, MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-            operator->((unique_ptr<graphics::AnimationParameters,
-                                   MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
-        iVar6 = this_01->GetCurrentIndex();
-        if (iVar6 != field_60) {
+        int iVar4 = ((AnimationParameters*)field_48.operator->())->GetCurrentIndex();
+        if (iVar4 != field_60) {
             this_00 = m_source;
-            bVar2 = this_00->operator_cast_to_bool();
-            if (bVar2) {
-                if (iVar6 == 0) {
-                    uVar11 = 18446744073709551615;
+            if (this_00->operator_cast_to_bool()) {
+                if (iVar4 == 0) {
+                    arg1 = 18446744073709551615;
                 } else {
-                    uVar11 = (ulong)field_60;
+                    arg1 = (unsigned long)field_60;
                 }
-                pSVar8 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_00);
-                cVar3 = pSVar8->HasSounds();
-                if (cVar3 != '\0') {
-                    pSVar8 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_00);
-                    this_02 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pSVar8->GetSounds();
-                    bVar2 = false;
+                pSVar6 = (SeqType*)(*this_00).operator->();
+                if (pSVar6->HasSounds()) {
+                    pSVar6 = (SeqType*)(*this_00).operator->();
+                    this_02 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pSVar6->GetSounds();
+                    bVar9 = false;
                     do {
-                        uVar11 = uVar11 + 1;
-                        if ((long)iVar6 <= (long)uVar11) {
-                            bVar2 = true;
+                        arg1 = arg1 + 1;
+                        if ((long)iVar4 <= (long)arg1) {
+                            bVar9 = true;
                         }
-                        iVar7 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_02);
-                        if ((long)iVar7 <= (long)uVar11)
+                        iVar5 = this_02->end();
+                        if ((long)iVar5 <= (long)arg1)
                             break;
-                        this_03 = (Array<VarValue, eastl::allocator>*)
-                            Array<Array<unsigned int, eastl::allocator>, eastl::allocator>::operator[](
-                                (Array<Array<unsigned int, eastl::allocator>, eastl::allocator>*)this_02, uVar11);
-                        cVar3 = this_03->empty();
-                        if (cVar3 == '\0') {
-                            puVar9 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                                (Array<unsigned int, eastl::allocator>*)this_03, 0);
-                            uVar1 = *puVar9;
-                            uVar12 = uVar1 >> 8;
-                            uVar10 = this_03->end();
-                            if (1 < uVar10) {
-                                iVar7 = this_03->end();
-                                iVar7 = math::Rand(iVar7);
-                                if (0 < iVar7) {
-                                    puVar9 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                                        (Array<unsigned int, eastl::allocator>*)this_03, (long)iVar7);
-                                    uVar12 = *puVar9;
+                        this_03 = (Array<VarValue>*)(*this_02)[arg1];
+                        if (!(this_03->empty())) {
+                            puVar7 = (unsigned int*)(*this_03)[0];
+                            uVar1 = *puVar7;
+                            arg1_00 = uVar1 >> 8;
+                            uVar8 = this_03->end();
+                            if (1 < uVar8) {
+                                iVar5 = this_03->end();
+                                iVar5 = math::Rand(iVar5);
+                                if (0 < iVar5) {
+                                    puVar7 = (unsigned int*)(*this_03)[(long)iVar5];
+                                    arg1_00 = *puVar7;
                                 }
                             }
-                            pSVar8 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_00);
-                            bVar4 = pSVar8->GetVolume((uint)uVar11);
-                            pSVar8 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_00);
-                            pSVar8->GetRandomRateForSound((uint)uVar11);
+                            pSVar6 = (SeqType*)(*this_00).operator->();
+                            bVar3 = pSVar6->GetVolume((unsigned int)arg1);
+                            pSVar6 = (SeqType*)(*this_00).operator->();
+                            iVar5 = pSVar6->GetRandomRateForSound((unsigned int)arg1);
                             if ((&field_112)->operator_cast_to_bool()) {
-                                pSVar8 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)this_00);
-                                iVar7 = pSVar8->GetTertiaryVolumeFactor();
+                                pSVar6 = (SeqType*)(*this_00).operator->();
+                                arg4 = pSVar6->GetTertiaryVolumeFactor();
                                 std::function<void(int, int, int, int, int, int)>::operator()(
-                                    (int)&field_112, uVar12, uVar1 >> 5 & 7, (uint)bVar4, iVar7, uVar1 & 31);
+                                    (function<void(int, int, int, int, int, int)>*)&field_112, arg1_00, uVar1 >> 5 & 7,
+                                    (unsigned int)bVar3, arg4, uVar1 & 31, iVar5);
                             }
                         }
-                    } while (!bVar2);
+                    } while (!bVar9);
                 }
             }
         }
-        field_60 = iVar6;
+        field_60 = iVar4;
     }
 
-    // 0x1006583c0, 272 bytes, placed by class name and debug map
-    // AnimationWrapper::ApplyToAnimationState(int, graphics::AnimationState&, bool)
-    void AnimationWrapper::ApplyToAnimationState(int param_1, AnimationState* param_2, bool param_3) {
+    // 0x1006583c0
+    void AnimationWrapper::ApplyToAnimationState(int arg1, graphics::AnimationState& animationState, bool arg3) {
         SeqType* this_00;
-        shared_ptr* this_01;
-        AnimationParameters* pAVar3;
-        shared_ptr* extraout_RDX;
-        shared_ptr local_40;
+        AnimationParameters* animationParameters;
+        shared_ptr<SeqGroupType> local_40;
 
-        if (IsReady(this) == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (!(IsReady())) {
             LogAssert("IsReady()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/animation/"
                       "AnimationWrapper.cpp",
                       118, "AnimationWrapper: Cannot update animation state when not ready for use!");
         }
-        if (param_3) {
-            this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)m_source);
-            this_01 = (shared_ptr*)this_00->GetSeqGroup();
-            if (shared_ptr::operator_cast_to_bool(this_01)) {
-                static_pointer_cast<graphics::WalkMergeDataProvider, shared_ptr<SeqGroupType>>(&local_40, (jag*)this_01,
-                                                                                               extraout_RDX);
-                param_2->SetAnimationChannelTransformMask(param_1, &local_40);
-                local_40.~shared_ptr();
+        if (arg3) {
+            this_00 = (SeqType*)(*m_source).operator->();
+            if ((this_00->GetSeqGroup())->operator_cast_to_bool()) {
+                static_pointer_cast<graphics::WalkMergeDataProvider, shared_ptr<SeqGroupType>>(&local_40);
+                animationState.SetAnimationChannelTransformMask(arg1, local_40);
             }
         } else {
-            new (&local_40) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            param_2->SetAnimationChannelTransformMask(param_1, &local_40);
-            local_40.~shared_ptr();
-            param_2->ResetChannel(1 - param_1);
+            local_40 = shared_ptr();
+            animationState.SetAnimationChannelTransformMask(arg1, local_40);
+            animationState.ResetChannel(1 - arg1);
         }
-        pAVar3 = (AnimationParameters*)std::unique_ptr<
-            graphics::AnimationParameters, MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-        operator*((unique_ptr<graphics::AnimationParameters,
-                              MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
-        param_2->SetAnimationOnChannel(pAVar3, param_1);
+        animationParameters = (AnimationParameters*)*field_48;
+        animationState.SetAnimationOnChannel(*animationParameters, arg1);
     }
 
-    // 0x100658510, 80 bytes, placed by class name and debug map
-    // AnimationWrapper::MayMove(int)
-    bool AnimationWrapper::MayMove(int param_1) {
+    // 0x100658510
+    bool AnimationWrapper::MayMove(int arg1) {
         SeqType* this_00;
-        bool bVar1;
         int iVar2;
-        bool bVar3;
 
-        bVar1 = m_source->operator_cast_to_bool();
-        bVar3 = true;
-        if (bVar1) {
-            this_00 = (SeqType*)shared_ptr<SeqType>::operator->((shared_ptr<SeqType>*)m_source);
-            if (param_1 < 1) {
+        bool cVar1 = m_source->operator_cast_to_bool();
+        bool bVar3 = true;
+        if (cVar1) {
+            this_00 = (SeqType*)(*m_source).operator->();
+            if (arg1 < 1) {
                 iVar2 = this_00->GetPostanimMove();
             } else {
                 iVar2 = this_00->GetPreanimMove();
@@ -352,29 +252,16 @@ namespace jag::game {
         return bVar3;
     }
 
-    // 0x100658730, 96 bytes, placed by class name and debug map
-    // AnimationWrapper::ShouldBeFinished() const
-    bool AnimationWrapper::ShouldBeFinished() {
+    // 0x100658730
+    bool AnimationWrapper::ShouldBeFinished() const {
         int iVar1;
         bool bVar2;
-        int iVar3;
-        AnimationParameters* pAVar5;
 
-        pAVar5 =
-            (AnimationParameters*)std::unique_ptr<
-                graphics::AnimationParameters, MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-            operator->((unique_ptr<graphics::AnimationParameters,
-                                   MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
-        iVar3 = pAVar5->GetTicksThroughAnimation();
+        auto pAVar5 = field_48.operator->();
+        int iVar3 = pAVar5->GetTicksThroughAnimation();
         if ((field_32 & 4294967293) == 0) {
             iVar1 = m_animationLateness;
-            pAVar5 =
-                (AnimationParameters*)
-                    std::unique_ptr<graphics::AnimationParameters,
-                                    MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-                    operator->(
-                        (unique_ptr<graphics::AnimationParameters,
-                                    MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
+            pAVar5 = (AnimationParameters*)field_48.operator->();
             bVar2 = pAVar5->GetAnimationLength() <= iVar3 + iVar1;
         } else {
             bVar2 = false;
@@ -382,29 +269,16 @@ namespace jag::game {
         return bVar2;
     }
 
-    // 0x100658790, 96 bytes, placed by class name and debug map
-    // AnimationWrapper::ShouldBeFinishedOrLooping() const
-    bool AnimationWrapper::ShouldBeFinishedOrLooping() {
-        uint uVar1;
-        int iVar2;
-        AnimationParameters* pAVar3;
-        int iVar4;
+    // 0x100658790
+    bool AnimationWrapper::ShouldBeFinishedOrLooping() const {
         int iVar5;
 
-        pAVar3 =
-            (AnimationParameters*)std::unique_ptr<
-                graphics::AnimationParameters, MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-            operator->((unique_ptr<graphics::AnimationParameters,
-                                   MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
-        iVar4 = pAVar3->GetTicksThroughAnimation();
-        uVar1 = field_32;
-        iVar2 = m_animationLateness;
-        pAVar3 =
-            (AnimationParameters*)std::unique_ptr<
-                graphics::AnimationParameters, MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::
-            operator->((unique_ptr<graphics::AnimationParameters,
-                                   MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>*)&field_48);
-        if (uVar1 == 2) {
+        auto pAVar3 = field_48.operator->();
+        int iVar4 = pAVar3->GetTicksThroughAnimation();
+        AnimationLoopBehaviour AVar1 = field_32;
+        int iVar2 = m_animationLateness;
+        pAVar3 = (AnimationParameters*)field_48.operator->();
+        if (AVar1 == 2) {
             iVar5 = pAVar3->GetAnimationLength();
         } else {
             iVar5 = pAVar3->GetPreLoopLength();
@@ -415,13 +289,15 @@ namespace jag::game {
 } // namespace jag::game
 
 namespace jag {
-    // 0x1006584e0, 32 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr<graphics::WalkMergeDataProvider> static_pointer_cast<graphics::WalkMergeDataProvider, shared_ptr<game::SeqGroupType> >(shared_ptr<game::SeqGroupType> const&)
-    shared_ptr* jag::static_pointer_cast<graphics::WalkMergeDataProvider, shared_ptr<game::SeqGroupType>>(
-        shared_ptr* __return_storage_ptr__, jag* this, shared_ptr* param_1) {
-        shared_ptr<graphics::WalkMergeDataProvider>::shared_ptr<game::SeqGroupType>(__return_storage_ptr__,
-                                                                                    (shared_ptr_static_cast*)this);
-        return __return_storage_ptr__;
+    // 0x1006584e0
+    shared_ptr<graphics::WalkMergeDataProvider>
+    static_pointer_cast<graphics::WalkMergeDataProvider, shared_ptr<game::SeqGroupType>>(
+        const shared_ptr<game::SeqGroupType>& seqGroupType) {
+        shared_ptr<game::SeqGroupType>* in_RSI;
+        shared_ptr_static_cast local_18;
+
+        seqGroupType.shared_ptr<game::SeqGroupType>(*in_RSI, local_18);
+        return seqGroupType;
     }
 
 } // namespace jag

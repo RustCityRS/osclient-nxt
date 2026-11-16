@@ -1,22 +1,21 @@
 // libs/core/utils/CRC.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.core
 
 namespace jag {
-    // 0x100cc5ba0, 80 bytes, placed by debug map only (low confidence)
-    // CRC32(unsigned char const*, unsigned long, unsigned int)
-    uint CRC32(uchar* param_1, ulong param_2, uint param_3) {
-        ulong uVar1;
+    // 0x100cc5ba0
+    unsigned int CRC32(const unsigned char* arg1, unsigned long arg2, unsigned int arg3) {
+        unsigned long uVar1;
 
-        if (param_2 != 0) {
+        if (arg2 != 0) {
             uVar1 = 0;
             do {
-                param_3 = param_3 >> 8 ^ *(uint*)(&CRCTable32 + (ulong)(param_3 & 255 ^ (uint)param_1[uVar1]) * 4);
+                arg3 = arg3 >> 8 ^
+                       *(unsigned int*)(&CRCTable32 + (unsigned long)(arg3 & 255 ^ (unsigned int)arg1[uVar1]) * 4);
                 uVar1 = uVar1 + 1;
-            } while (param_2 != uVar1);
+            } while (arg2 != uVar1);
         }
-        return ~param_3;
+        return ~arg3;
     }
 
 } // namespace jag

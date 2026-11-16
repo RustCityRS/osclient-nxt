@@ -1,111 +1,109 @@
 // libs/ui/components/Panel.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.ui
 
 #include "Panel.h"
 
 namespace jag::ui {
-    // 0x1006a5860, 96 bytes, placed by class name and debug map
-    // Panel::DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator> >&, int)
-    void Panel::DecodeTypedComponentProperties(PacketT* param_1, int param_2) {
-        char cVar1;
-        byte bVar2;
-        ushort uVar3;
-
-        uVar3 = param_1->g2();
-        field_432 = (uint)uVar3;
-        uVar3 = param_1->g2();
-        field_436 = (uint)uVar3;
-        cVar1 = param_1->g1();
-        field_569 = cVar1 == '\x01';
-        bVar2 = param_1->g1();
-        field_572 = (uint)bVar2;
+    // 0x1006a5860
+    void Panel::DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2) {
+        unsigned short uVar3 = arg1.g2();
+        field_432 = (unsigned int)uVar3;
+        uVar3 = arg1.g2();
+        field_436 = (unsigned int)uVar3;
+        char cVar1 = arg1.g1();
+        field_569[0] = cVar1 == '\x01';
+        uint8_t bVar2 = arg1.g1();
+        field_572 = (unsigned int)bVar2;
     }
 
-    // 0x1006a58c0, 304 bytes, placed by class name and debug map
-    // Panel::MainDraw(ComponentDependencies const&, int, int, float)
-    void Panel::MainDraw(ComponentDependencies* param_1, int param_2, int param_3, float param_4) {
-        undefined8* puVar1;
-        char cVar2;
-        int iVar3;
-        int iVar4;
-        undefined4 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* pvVar8;
+    // 0x1006a58c0
+    void Panel::MainDraw(const ComponentDependencies& componentDependencies, int arg2, int arg3, float arg4) {
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        uint64_t extraout_var_01;
+        uint64_t extraout_var_02;
 
-        uVar6 = GetStreamCountLastMix();
-        uVar7 = GetMinMapX();
-        iVar3 = (**(code**)(field_0 + 408))(this);
-        iVar3 = param_2 - iVar3;
-        iVar4 = (**(code**)(field_0 + 416))(this);
-        iVar4 = param_3 - iVar4;
-        pvVar8 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(**(
-            code**)(field_0 + 320))(this);
-        cVar2 = eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-            pvVar8);
-        if (cVar2 == '\0') {
-            (**(code**)(**(long**)(param_1 + 48) + 8))(param_4, *(long**)(param_1 + 48), pvVar8, iVar3, iVar4, param_2,
-                                                       param_3, uVar6, uVar7);
+        uint64_t uVar5 = GetStreamCountLastMix();
+        uint64_t uVar6 = GetMinMapX();
+        uint8_t uVar2 = GetScrollXPos();
+        int iVar7 = arg2 - (int)(((uint64_t)extraout_var << 8) | (uint8_t)uVar2);
+        uVar2 = GetScrollYPos();
+        int iVar8 = arg3 - (int)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar2);
+        uVar2 = GetStaticChildrenWithOptionalRenderOrder();
+        if (!(((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)extraout_var_01
+                                                                                        << 8) |
+                                                                                       (uint8_t)uVar2))
+                  ->empty())) {
+            (**(void (**)(...))(**(long**)(componentDependencies + 48) + 8))(
+                arg4, *(long**)(componentDependencies + 48),
+                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)extraout_var_01
+                                                                                         << 8) |
+                                                                                        (uint8_t)uVar2),
+                iVar7, iVar8, arg2, arg3, uVar5, uVar6);
         }
-        pvVar8 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(**(
-            code**)(field_0 + 328))(this);
-        cVar2 = eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-            pvVar8);
-        if (cVar2 == '\0') {
-            (**(code**)(**(long**)(param_1 + 48) + 8))(param_4, *(long**)(param_1 + 48), pvVar8, iVar3, iVar4, param_2,
-                                                       param_3, uVar6, uVar7);
+        uVar2 = GetDynamicChildrenWithOptionalRenderOrder();
+        if (!(((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)extraout_var_02
+                                                                                        << 8) |
+                                                                                       (uint8_t)uVar2))
+                  ->empty())) {
+            (**(void (**)(...))(**(long**)(componentDependencies + 48) + 8))(
+                arg4, *(long**)(componentDependencies + 48),
+                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)extraout_var_02
+                                                                                         << 8) |
+                                                                                        (uint8_t)uVar2),
+                iVar7, iVar8, arg2, arg3, uVar5, uVar6);
         }
-        puVar1 = *(undefined8**)(param_1 + 48);
-        uVar5 = GetCombinedID();
-        (**(code**)*puVar1)(param_4, puVar1, uVar5, iVar3, iVar4, param_2, param_3, uVar6, uVar7);
+        uint64_t* puVar1 = *(uint64_t**)(componentDependencies + 48);
+        uint32_t uVar4 = GetCombinedID();
+        (**(void (**)(...))*puVar1)(arg4, puVar1, uVar4, iVar7, iVar8, arg2, arg3, uVar5, uVar6);
     }
 
-    // 0x1006a59f0, 336 bytes, placed by class name and debug map
-    // Panel::UpdateLayout(bool)
-    undefined8 Panel::UpdateLayout(bool param_1) {
-        char cVar1;
-        int iVar2;
-        int iVar3;
+    // 0x1006a59f0
+    uint64_t Panel::UpdateLayout(bool arg1) {
+        uint8_t uVar2;
+        uint8_t uVar3;
+        int arg3;
+        int arg4;
         int iVar4;
-        int iVar5;
-        vector* pvVar6;
-        undefined8 uVar7;
-        undefined7 in_register_00000031;
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        uint64_t uVar5;
+        uint64_t extraout_var_01;
+        uint64_t extraout_var_02;
+        uint64_t in_register_00000031;
+        unsigned int uVar6;
         float extraout_XMM0_Da;
         float extraout_XMM0_Db;
-        int local_44;
-        undefined1 local_40[4];
-        int iStack_3c;
+        uint64_t local_40;
         float local_38;
         float fStack_34;
 
-        if (((int)CONCAT71(in_register_00000031, param_1) == 0) && (m_layoutDirty == '\0')) {
-            uVar7 = 0;
+        if (((int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) == 0) && (m_layoutDirty == '\0')) {
+            uVar5 = 0;
         } else {
-            cVar1 = (&field_440)->empty();
-            if (cVar1 != '\0') {
-                cVar1 = (&field_504)->empty();
-                if (cVar1 != '\0') {
+            if (field_440.empty()) {
+                if (field_504.empty()) {
                     return 1;
                 }
             }
-            iVar2 = GetStreamCountLastMix();
-            iVar3 = GetMinMapX();
-            iVar4 = (**(code**)(field_0 + 424))(this);
-            iVar5 = (**(code**)(field_0 + 432))(this);
+            arg3 = GetStreamCountLastMix();
+            arg4 = GetMinMapX();
+            uVar2 = GetScrollWidth();
+            uVar3 = GetScrollHeight();
+            iVar4 = (int)(((uint64_t)extraout_var << 8) | (uint8_t)uVar2);
             if (iVar4 != 0) {
-                iVar2 = iVar4;
+                arg3 = iVar4;
             }
-            if (iVar5 != 0) {
-                iVar3 = iVar5;
+            iVar4 = (int)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar3);
+            if (iVar4 != 0) {
+                arg4 = iVar4;
             }
-            _local_40 = GetTotalRequiredSize(this);
-            local_44 = 0;
-            iVar4 = iVar2 - (int)_local_40;
-            if (field_569 != false) {
-                iVar4 = iVar3 - iStack_3c;
+            uVar5 = GetTotalRequiredSize();
+            local_40._4_4_ = (int)((unsigned long)uVar5 >> 32);
+            uVar6 = arg3 - (int)uVar5;
+            if (field_569[0] != '\0') {
+                uVar6 = arg4 - local_40._4_4_;
             }
             local_38 = extraout_XMM0_Da;
             if (extraout_XMM0_Da == 0.0) {
@@ -115,201 +113,181 @@ namespace jag::ui {
             if (extraout_XMM0_Db == 0.0) {
                 fStack_34 = 1.0;
             }
-            pvVar6 = (vector*)(**(code**)(field_0 + 320))(this);
-            UpdateComponentListLayout(this, pvVar6, iVar2, iVar3, iVar4, (UIPoint*)local_40, &local_44);
-            pvVar6 = (vector*)(**(code**)(field_0 + 328))(this);
-            UpdateComponentListLayout(this, pvVar6, iVar2, iVar3, iVar4, (UIPoint*)local_40, &local_44);
+            local_40 = uVar5;
+            uVar2 = GetStaticChildrenWithOptionalRenderOrder();
+            UpdateComponentListLayout((vector<ComponentContainer>*)this,
+                                      (int)(((uint64_t)extraout_var_01 << 8) | (uint8_t)uVar2), arg3, arg4,
+                                      (UIPoint*)(unsigned long)uVar6, (int*)&local_40);
+            uVar2 = GetDynamicChildrenWithOptionalRenderOrder();
+            UpdateComponentListLayout((vector<ComponentContainer>*)this,
+                                      (int)(((uint64_t)extraout_var_02 << 8) | (uint8_t)uVar2), arg3, arg4,
+                                      (UIPoint*)(unsigned long)uVar6, (int*)&local_40);
             m_layoutDirty = 0;
-            uVar7 = 1;
+            uVar5 = 1;
         }
-        return uVar7;
+        return uVar5;
     }
 
-    // 0x1006a5b40, 112 bytes, placed by class name and debug map
-    // Panel::GetTotalRequiredSize() const
-    undefined8 Panel::GetTotalRequiredSize() {
-        vector* pvVar1;
-        undefined8* puVar2;
-        undefined8 extraout_XMM0_Qa;
-        undefined8 extraout_XMM0_Qa_00;
-        undefined1 local_30[24];
-        undefined8 local_18;
+    // 0x1006a5b40
+    ReturnValue Panel::GetTotalRequiredSize() const {
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        uint64_t extraout_XMM0_Qa;
+        uint64_t extraout_XMM0_Qa_00;
 
-        pvVar1 = (vector*)(**(code**)(field_0 + 320))();
-        local_30._0_8_ = GetRequiredSize(this, pvVar1);
-        local_30._8_8_ = extraout_XMM0_Qa;
-        pvVar1 = (vector*)(**(code**)(field_0 + 328))(this);
-        local_30._16_8_ = GetRequiredSize(this, pvVar1);
-        local_18 = extraout_XMM0_Qa_00;
-        puVar2 = (undefined8*)local_30->Accumulate((UIPoint*)(local_30 + 16));
-        return *puVar2;
+        uint8_t uVar1 = GetStaticChildrenWithOptionalRenderOrder();
+        ReturnValue local_30 = (ReturnValue)GetRequiredSize(
+            *((vector<ComponentContainer>*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1)));
+        uint64_t local_28 = extraout_XMM0_Qa;
+        uVar1 = GetDynamicChildrenWithOptionalRenderOrder();
+        uint64_t local_20 =
+            GetRequiredSize(*((vector<ComponentContainer>*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar1)));
+        uint64_t local_18 = extraout_XMM0_Qa_00;
+        ReturnValue* pRVar2 = local_30 = UIPoint::Accumulate(local_20);
+        return *pRVar2;
     }
 
-    // 0x1006a5bb0, 624 bytes, placed by class name and debug map
-    // Panel::UpdateComponentListLayout(eastl::vector<ComponentContainer, eastl::allocator> const&, int, int, int, UIPoint const&, int&)
-    void Panel::UpdateComponentListLayout(vector* param_1, int param_2, int param_3, int param_4, UIPoint* param_5,
-                                          int* param_6) {
+    // 0x1006a5bb0
+    void Panel::UpdateComponentListLayout(const eastl::vector<ComponentContainer>& componentContainers, int arg2,
+                                          int arg3, int arg4, const UIPoint& uiPoint, int& arg6) {
         char cVar1;
         int iVar2;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_00;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* pcVar3;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01;
-        WorldmapAreaMetadata* this_02;
-        undefined8 uVar4;
+        unsigned int arg1;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* this;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
+        WorldmapAreaMetadata* this_01;
+        uint64_t uVar4;
         int extraout_var;
+        uint32_t in_register_00000034;
         int iVar5;
         float extraout_XMM0_Da;
         float extraout_XMM0_Da_00;
         float extraout_XMM0_Db;
         float extraout_XMM0_Db_00;
         float fVar6;
+        int* in_stack_00000008;
 
-        this_00 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>*)param_1->HeapBeginPtr();
-        pcVar3 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)param_1->end();
-        if (this_00 != pcVar3) {
+        this = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator,
+                                    0>*)((Layout*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg2))
+                   ->HeapBeginPtr();
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* pcVar3 =
+            (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator,
+                                 0>*)((vector<oldscape::dash3d::EntityHighlight*,
+                                              BucketAllocatorEASTL>*)(((uint64_t)in_register_00000034 << 32) |
+                                                                      (uint32_t)arg2))
+                ->end();
+        if (this != pcVar3) {
             do {
-                this_01 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                    eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(this_00);
-                this_02 =
-                    (WorldmapAreaMetadata*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-                        this_01);
-                if (this_02 != (WorldmapAreaMetadata*)0) {
-                    uVar4 = this_02->CalculateSize();
-                    iVar2 = (int)uVar4;
-                    iVar5 = (int)((ulong)uVar4 >> 32);
-                    if (field_569 == false) {
+                this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)second();
+                this_01 = (WorldmapAreaMetadata*)this_00->end();
+                if (this_01 != nullptr) {
+                    uVar4 = this_01->CalculateSize();
+                    iVar5 = (int)uVar4;
+                    iVar2 = (int)((unsigned long)uVar4 >> 32);
+                    if (componentContainers[569] == (vector<ComponentContainer>)0) {
                         fVar6 = extraout_XMM0_Db;
                         if (extraout_XMM0_Db == 0.0) {
                             fVar6 = 1.0;
                         }
-                        if (iVar5 != 0) {
+                        if (iVar2 != 0) {
                             fVar6 = extraout_XMM0_Db;
                         }
-                        this_02->SetCurrentWidth((int)((extraout_XMM0_Da_00 * (float)param_4) / param_5->field_8) +
-                                                 iVar2);
-                        cVar1 = this_02->GetModeHeight();
+                        this_01->SetCurrentWidth((int)((extraout_XMM0_Da_00 * (float)(int)uiPoint) / (float)arg6[2]) +
+                                                 iVar5);
+                        cVar1 = this_01->GetModeHeight();
                         if (cVar1 == '\x04') {
-                            iVar2 = this_02->GetStreamCountLastMix();
-                            iVar5 = (iVar2 * field_76) / field_72;
+                            iVar2 = this_01->GetStreamCountLastMix();
+                            iVar2 = (iVar2 * *(int*)(componentContainers + 76)) / *(int*)(componentContainers + 72);
                         } else {
-                            iVar5 = (int)(fVar6 * (float)param_3) + iVar5;
+                            iVar2 = (int)(fVar6 * (float)arg4) + iVar2;
                         }
-                        this_02->SetBottomLine(iVar5);
-                        this_02->CalculatePosition();
-                        this_02->SetCurrentX(*param_6);
-                        this_02->SetCurrentY((int)(extraout_XMM0_Db_00 * (float)param_3) + extraout_var);
-                        iVar2 = this_02->GetStreamCountLastMix();
+                        this_01->SetBottomLine(iVar2);
+                        this_01->CalculatePosition();
+                        this_01->SetCurrentX(*in_stack_00000008);
+                        this_01->SetCurrentY((int)(extraout_XMM0_Db_00 * (float)arg4) + extraout_var);
+                        iVar2 = this_01->GetStreamCountLastMix();
                     } else {
                         fVar6 = extraout_XMM0_Da_00;
                         if (extraout_XMM0_Da_00 == 0.0) {
                             fVar6 = 1.0;
                         }
-                        if (iVar2 != 0) {
+                        if (iVar5 != 0) {
                             fVar6 = extraout_XMM0_Da_00;
                         }
-                        this_02->SetBottomLine((int)((extraout_XMM0_Db * (float)param_4) / param_5->field_12) + iVar5);
-                        cVar1 = this_02->GetTextAlpha();
+                        this_01->SetBottomLine((int)((extraout_XMM0_Db * (float)(int)uiPoint) / (float)arg6[3]) +
+                                               iVar2);
+                        cVar1 = this_01->GetTextAlpha();
                         if (cVar1 == '\x04') {
-                            iVar2 = this_02->GetMinMapX();
-                            iVar2 = (iVar2 * field_72) / field_76;
+                            iVar2 = this_01->GetMinMapX();
+                            arg1 = (iVar2 * *(int*)(componentContainers + 72)) / *(int*)(componentContainers + 76);
                         } else {
-                            iVar2 = (int)(fVar6 * (float)param_2) + iVar2;
+                            arg1 = (int)(fVar6 * (float)arg3) + iVar5;
                         }
-                        this_02->SetCurrentWidth(iVar2);
-                        iVar2 = this_02->CalculatePosition();
-                        this_02->SetCurrentX((int)(extraout_XMM0_Da * (float)param_2) + iVar2);
-                        this_02->SetCurrentY(*param_6);
-                        iVar2 = this_02->GetMinMapX();
+                        this_01->SetCurrentWidth(arg1);
+                        iVar2 = this_01->CalculatePosition();
+                        this_01->SetCurrentX((int)(extraout_XMM0_Da * (float)arg3) + iVar2);
+                        this_01->SetCurrentY(*in_stack_00000008);
+                        iVar2 = this_01->GetMinMapX();
                     }
-                    *param_6 = *param_6 + iVar2 + field_572;
+                    *in_stack_00000008 = *in_stack_00000008 + iVar2 + *(int*)(componentContainers + 572);
                 }
-                this_00 = this_00 + 24;
-            } while (this_00 != pcVar3);
+                this = this + 24;
+            } while (this != pcVar3);
         }
     }
 
-    // 0x1006a5e20, 240 bytes, placed by class name and debug map
-    // Panel::GetRequiredSize(eastl::vector<ComponentContainer, eastl::allocator> const&) const
-    undefined8 Panel::GetRequiredSize(vector* param_1) {
-        bool bVar1;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_00;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* pcVar2;
+    // 0x1006a5e20
+    uint64_t Panel::GetRequiredSize(const eastl::vector<ComponentContainer>& componentContainers) const {
         shared_ptr* this_01;
         shared_ptr<Component>* this_02;
-        Component* this_03;
         int iVar3;
-        undefined8 extraout_XMM0_Qa;
-        undefined1 local_58[24];
-        int local_40;
-        int iStack_3c;
+        uint64_t extraout_XMM0_Qa;
+        uint64_t local_58;
+        uint64_t local_50;
 
-        new (&local_40) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1);
-        this_00 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>*)param_1->HeapBeginPtr();
-        pcVar2 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)param_1->end();
-        local_58._16_8_ = this;
+        shared_ptr local_40;
+        auto this_00 = componentContainers.HeapBeginPtr();
+        auto pcVar2 = componentContainers.end();
         if (this_00 == pcVar2) {
             iVar3 = 0;
         } else {
             iVar3 = 0;
             do {
-                this_01 = (shared_ptr*)
-                    eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(this_00);
-                bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-                if (bVar1) {
-                    this_02 = (shared_ptr<Component>*)eastl::compressed_pair_imp<
-                        std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                        0>::second(this_00);
-                    this_03 = (Component*)shared_ptr<Component>::operator->(this_02);
-                    local_58._0_8_ = this_03->CalculateSize();
-                    local_58._8_8_ = extraout_XMM0_Qa;
-                    local_40.Accumulate(local_58);
+                this_01 = (shared_ptr*)this_00->second();
+                if (shared_ptr::operator_cast_to_bool(this_01) != '\0') {
+                    this_02 = (shared_ptr<Component>*)this_00->second();
+                    local_58 = ((Component*)(*this_02).operator->())->CalculateSize();
+                    local_50 = extraout_XMM0_Qa;
+                    local_40 = UIPoint::Accumulate(local_58);
                     iVar3 = iVar3 + 1;
                 }
                 this_00 = this_00 + 24;
             } while (this_00 != pcVar2);
         }
         if (1 < iVar3) {
-            iVar3 = (iVar3 + -1) * *(uint*)(local_58._16_8_ + 572);
-            if (*(bool*)(local_58._16_8_ + 569) == false) {
-                local_40 = local_40 + iVar3;
+            iVar3 = (iVar3 - 1) * field_572;
+            if (field_569[0] == '\0') {
+                local_40[0]._0_4_ = local_40[0]._0_4_ + iVar3;
             } else {
-                iStack_3c = iStack_3c + iVar3;
+                local_40[0]._4_4_ = local_40[0]._4_4_ + iVar3;
             }
         }
-        return CONCAT44(iStack_3c, local_40);
+        return (((uint64_t)local_40[0]._4_4_ << 32) | (uint32_t)local_40[0]._0_4_);
     }
 
-    // 0x1006a5f50, 96 bytes, placed by class name
-    // Panel::LoadStyleSheetVisuals(StyleSheet const&)
-    void Panel::LoadStyleSheetVisuals(StyleSheet* param_1) {
-        uint* puVar2;
-        undefined1 local_20[8];
+    // 0x1006a5f50
+    void Panel::LoadStyleSheetVisuals(const StyleSheet& styleSheet) {
+        unsigned int* puVar2;
+        optional<int> local_20;
 
-        StyleSheet::GetPropertyValue<int>((StyleSheet*)local_20, param_1, 587, 1);
-        if (local_20->IsActive()) {
-            puVar2 = (uint*)eastl::optional<int>::value();
+        StyleSheet::GetPropertyValue<int>(&local_20, (StyleEntryID)styleSheet, true);
+        if (local_20.IsActive() != '\0') {
+            puVar2 = (unsigned int*)local_20.value();
             field_572 = *puVar2;
             m_layoutDirty = 1;
         }
     }
 
-    // 0x1006ad6e0: the linker folded this into Grid::~Grid(), which has identical code
-    Panel::~Panel();
-
-    // 0x1006ad6f0: the linker folded this into Grid::~Grid(), which has identical code
-    Panel::~Panel();
-
-    // 0x1006b2db0: the linker folded this into Grid::~Grid(), which has identical code
-    Panel::~Panel();
+    // 0x1006b2db0: Panel::~Panel() has the same machine code as Grid::~Grid()
 
 } // namespace jag::ui

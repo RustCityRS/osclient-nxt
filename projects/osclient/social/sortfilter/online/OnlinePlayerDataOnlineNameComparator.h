@@ -1,6 +1,5 @@
 // projects/osclient/social/sortfilter/online/OnlinePlayerDataOnlineNameComparator.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,71 +8,56 @@ namespace jag::oldscape::social {
     class OnlinePlayerDataOnlineNameComparator {
     public:
         // virtual methods in vtable order
-        virtual void Compare(FriendData const&, FriendData const&) const;
-        OnlinePlayerDataOnlineNameComparator(bool);
-        void Compare(FriendChatUser const&, FriendChatUser const&) const;
+        virtual void Compare(const FriendData& friendData1, const FriendData& friendData2) const;
+        OnlinePlayerDataOnlineNameComparator(bool arg1);
+        void Compare(const FriendChatUser& friendChatUser1, const FriendChatUser& friendChatUser2) const;
     };
 
-    // 0x100170ce0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataOnlineNameComparator<FriendData>::OnlinePlayerDataOnlineNameComparator(bool): jumps straight to the base-object constructor
+    // 0x100170d00
+    OnlinePlayerDataOnlineNameComparator<FriendData>::OnlinePlayerDataOnlineNameComparator(bool arg1)
+        : ChainablePlayerDataComparator<FriendData>() {}
 
-    // 0x100170d00, 48 bytes, base-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataOnlineNameComparator<FriendData>::OnlinePlayerDataOnlineNameComparator(bool)
-    void OnlinePlayerDataOnlineNameComparator<FriendData>::OnlinePlayerDataOnlineNameComparator(bool param_1) {
-        new (this) ChainablePlayerDataComparator<FriendData>();
-        *(undefined**)this = PTR_vtable_100ee8bf0 + 16;
-        this[16] = (OnlinePlayerDataOnlineNameComparator<FriendData>)param_1;
-    }
-
-    // 0x100170d30, 112 bytes, inline, placed by class name and debug map
-    // OnlinePlayerDataOnlineNameComparator<FriendData>::Compare(FriendData const&, FriendData const&) const
-    void OnlinePlayerDataOnlineNameComparator<FriendData>::Compare(FriendData* param_1, FriendData* param_2) {
+    // 0x100170d30
+    void OnlinePlayerDataOnlineNameComparator<FriendData>::Compare(const FriendData& friendData1,
+                                                                   const FriendData& friendData2) const {
         DisplayName* this_00;
-        DisplayName* pDVar1;
+        DisplayName* displayName;
 
-        if ((param_1->field_136 == 0) || (param_2->field_136 == 0)) {
-            GetChainedCompare(param_1, param_2);
+        if ((friendData1.field_136 == 0) || (friendData2.field_136 == 0)) {
+            GetChainedCompare(friendData1, friendData2);
         } else {
-            if (this[16] == (OnlinePlayerDataOnlineNameComparator<FriendData>)0) {
-                this_00 = (DisplayName*)param_2->second();
-                pDVar1 = (DisplayName*)param_1->second();
+            if (*(char*)&this[2]._vptr == '\0') {
+                this_00 = (DisplayName*)friendData2.second();
+                displayName = (DisplayName*)friendData1.second();
             } else {
-                this_00 = (DisplayName*)param_1->second();
-                pDVar1 = (DisplayName*)param_2->second();
+                this_00 = (DisplayName*)friendData1.second();
+                displayName = (DisplayName*)friendData2.second();
             }
-            this_00->CompareTo(pDVar1);
+            this_00->CompareTo(*displayName);
         }
     }
 
-    // 0x1001753c0, 16 bytes, complete-object constructor, inline, placed by class name
-    // OnlinePlayerDataOnlineNameComparator<FriendChatUser>::OnlinePlayerDataOnlineNameComparator(bool): jumps straight to the base-object constructor
+    // 0x1001753e0
+    OnlinePlayerDataOnlineNameComparator<FriendChatUser>::OnlinePlayerDataOnlineNameComparator(bool arg1)
+        : ChainablePlayerDataComparator<FriendChatUser>() {}
 
-    // 0x1001753e0, 48 bytes, base-object constructor, inline, placed by class name
-    // OnlinePlayerDataOnlineNameComparator<FriendChatUser>::OnlinePlayerDataOnlineNameComparator(bool)
-    void OnlinePlayerDataOnlineNameComparator<FriendChatUser>::OnlinePlayerDataOnlineNameComparator(bool param_1) {
-        new (this) ChainablePlayerDataComparator<FriendChatUser>();
-        *(undefined**)this = PTR_vtable_100ee8bf8 + 16;
-        this[16] = (OnlinePlayerDataOnlineNameComparator<FriendChatUser>)param_1;
-    }
-
-    // 0x100175410, 112 bytes, inline, placed by class name
-    // OnlinePlayerDataOnlineNameComparator<FriendChatUser>::Compare(FriendChatUser const&, FriendChatUser const&) const
-    void OnlinePlayerDataOnlineNameComparator<FriendChatUser>::Compare(FriendChatUser* param_1,
-                                                                       FriendChatUser* param_2) {
+    // 0x100175410
+    void OnlinePlayerDataOnlineNameComparator<FriendChatUser>::Compare(const FriendChatUser& friendChatUser1,
+                                                                       const FriendChatUser& friendChatUser2) const {
         DisplayName* this_00;
-        DisplayName* pDVar1;
+        DisplayName* displayName;
 
-        if ((param_1->field_136 == 0) || (param_2->field_136 == 0)) {
-            GetChainedCompare(param_1, param_2);
+        if ((friendChatUser1.field_136 == 0) || (friendChatUser2.field_136 == 0)) {
+            GetChainedCompare(friendChatUser1, friendChatUser2);
         } else {
-            if (this[16] == (OnlinePlayerDataOnlineNameComparator<FriendChatUser>)0) {
-                this_00 = (DisplayName*)param_2->second();
-                pDVar1 = (DisplayName*)param_1->second();
+            if (*(char*)&this[2]._vptr == '\0') {
+                this_00 = (DisplayName*)friendChatUser2.second();
+                displayName = (DisplayName*)friendChatUser1.second();
             } else {
-                this_00 = (DisplayName*)param_1->second();
-                pDVar1 = (DisplayName*)param_2->second();
+                this_00 = (DisplayName*)friendChatUser1.second();
+                displayName = (DisplayName*)friendChatUser2.second();
             }
-            this_00->CompareTo(pDVar1);
+            this_00->CompareTo(*displayName);
         }
     }
 

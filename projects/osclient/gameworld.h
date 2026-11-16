@@ -1,68 +1,61 @@
 // projects/osclient/gameworld.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape {
     class GameWorld {
     public:
-        ListFetch();
-        GetByID(int);
+        uint64_t ListFetch();
+        GameWorld* GetByID(int arg1);
         GameWorld();
-        byte IsBeta() const;
+        bool IsBeta() const;
         ~GameWorld();
-        void QuickSort(Array<std::unique_ptr<GameWorld, std::default_delete<GameWorld>>, eastl::allocator>&, int, int,
-                       std::array<int, 4ul>&, std::array<int, 4ul>&);
-        byte IsMembers() const;
-        void ListSort(int, bool, int, bool);
-        void ListSort(int, int, int, bool, int, bool);
+        void QuickSort(Array<std::unique_ptr<GameWorld>>& gameWorlds, int arg2, int arg3, std::array<int, 4ul>& arg4,
+                       std::array<int, 4ul>& arg5);
+        bool IsMembers() const;
+        void ListSort(int arg1, bool arg2, int arg3, bool arg4);
+        void ListSort(int arg1, int arg2, int arg3, bool arg4, int arg5, bool arg6);
         void ListStart();
-        ListNext();
-        byte IsQuickChat() const;
-        byte IsPVP() const;
-        byte IsLootShare() const;
-        byte IsDeadman() const;
-        byte IsNoSave() const;
-        byte IsSeasonal() const;
-        byte IsPvpArena() const;
-        byte IsSpeedrunWorld() const;
-        byte IsFreshStart() const;
+        void ListNext();
+        bool IsQuickChat() const;
+        bool IsPVP() const;
+        bool IsLootShare() const;
+        bool IsDeadman() const;
+        bool IsNoSave() const;
+        bool IsSeasonal() const;
+        bool IsPvpArena() const;
+        bool IsSpeedrunWorld() const;
+        bool IsFreshStart() const;
         void HasWorldListDownloadStarted();
-        void ListReorder(int, int);
-        int CompareTo(GameWorld const&, GameWorld const&, int, bool, int, bool);
-        ulong CompareTo(GameWorld const&, GameWorld const&, int, bool);
-        static /* 16 bytes */ m_dirs;     // = { 1, 1, 1, 1 }
-        static /* 16 bytes */ m_ordering; // = { 0, 1, 2, 3 }
-        static /* 24 bytes */ m_list;
-        static /* 4 bytes */ m_num;
-        static /* 4 bytes */ m_next;
-        static /* 8 bytes */ m_gameworldListDownloadRequest;
+        void ListReorder(int arg1, int arg2);
+        int CompareTo(const GameWorld& gameWorld1, const GameWorld& gameWorld2, int arg3, bool arg4, int arg5,
+                      bool arg6);
+        unsigned long CompareTo(const GameWorld& gameWorld1, const GameWorld& gameWorld2, int arg3, bool arg4);
+        static int32_t m_dirs[4];     // = { 1, 1, 1, 1 }
+        static int32_t m_ordering[4]; // = { 0, 1, 2, 3 }
+        static Array<std::unique_ptr<GameWorld>> m_list;
+        static int32_t m_num;
+        static int32_t m_next;
+        static unique_ptr<http::HTTPRequest> m_gameworldListDownloadRequest;
 
-        // data members, from how the methods use this: 128 bytes
-        char _unknown_0[4];
-        undefined1 field_4; // offset 4
-        undefined1 field_5; // offset 5
-        byte field_6;       // offset 6
-        undefined1 field_7; // offset 7
-        undefined4 field_8; // offset 8
-        char _unknown_12[68];
-        undefined4 field_80; // offset 80
-        char _unknown_84[36];
-        undefined4 field_120; // offset 120
-        char _unknown_124[4];
+    private:
+        uint8_t _unknown_0[4];
+        uint8_t field_4;
+        uint8_t field_5;
+        uint8_t field_6;
+        uint8_t field_7;
+        uint32_t field_8;
+        uint8_t _unknown_12[68];
+        uint32_t field_80;
+        uint8_t _unknown_84[36];
+        uint32_t field_120;
+        uint8_t _unknown_124[4];
     };
 
-    // 0x1001134a0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // GameWorld::GameWorld(): jumps straight to the base-object constructor
-
-    // 0x1001134f0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // GameWorld::~GameWorld(): jumps straight to the base-object destructor
-
-    // 0x10012f5b0, 128 bytes, base-object constructor, inline, placed by class name
-    // GameWorld::GameWorld()
-    void GameWorld::GameWorld() {
-        *(undefined8*)this = 0;
+    // 0x10012f5b0
+    GameWorld::GameWorld() {
+        *(uint64_t*)this = 0;
         field_8 = 0;
         new (&field_16) eastl::string();
         new (&field_48) eastl::string();
@@ -71,12 +64,11 @@ namespace jag::oldscape {
         field_120 = 0;
     }
 
-    // 0x10012f630, 48 bytes, base-object destructor, inline, placed by class name
-    // GameWorld::~GameWorld()
-    void GameWorld::~GameWorld() {
-        (&field_88)->~basic_string();
-        (&field_48)->~basic_string();
-        (&field_16)->~basic_string();
+    // 0x10012f630
+    GameWorld::~GameWorld() {
+        field_88.~basic_string();
+        field_48.~basic_string();
+        field_16.~basic_string();
     }
 
 } // namespace jag::oldscape

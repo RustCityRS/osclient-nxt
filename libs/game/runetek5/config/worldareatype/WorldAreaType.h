@@ -1,324 +1,235 @@
 // libs/game/runetek5/config/worldareatype/WorldAreaType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
 
+namespace jag {
+    // 0x100455e30
+    game::MapSquare*
+    placement_new<game::MapSquare, graphics::GraphNode*&, shared_ptr<game::World>, int&, int&,
+                  shared_ptr<game::ClientCompositeData>&>(void* arg1, graphics::GraphNode*& arg2,
+                                                          shared_ptr<game::World>&& world, int& arg4, int& arg5,
+                                                          shared_ptr<game::ClientCompositeData>& clientCompositeData) {
+        new (arg1) game::MapSquare(arg2, world, arg4, arg5, clientCompositeData);
+        return arg1;
+    }
+
+    // 0x100455e50
+    MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>*
+    placement_new<MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>,
+                  MakeSharedPool<game::MapSquare, 32>::RefCounterAndData*&, game::MapSquare*>(
+        void* arg1, MakeSharedPool<game::MapSquare, 32>::RefCounterAndData*& arg2, game::MapSquare*&& arg3) {
+        new (arg1) MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>(arg2, arg3);
+        return arg1;
+    }
+
+    // 0x100456500
+    MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>::MakeSharedPoolRefCounter(
+        void* arg1, game::MapSquare* mapSquare)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7b50 + 16;
+        *(void**)(this + 16) = arg1;
+        *(MapSquare**)(this + 24) = mapSquare;
+    }
+
+    // 0x100456540
+    void MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<game::MapSquare, 32>::deallocate(arg1);
+    }
+
+    // 0x10045cc10
+    game::CombinedLocationSection*
+    placement_new<game::CombinedLocationSection, graphics::GraphNode*&, shared_ptr<game::World> const&, int&, int&,
+                  int&, shared_ptr<game::LocType>&, game::LocData&, bool&, short&, short&, math::AABB&, int&>(
+        void* arg1, graphics::GraphNode*& arg2, const shared_ptr<game::World>& world, int& arg4, int& arg5, int& arg6,
+        shared_ptr<game::LocType>& locType, game::LocData& locData, bool& arg9, short& arg10, short& arg11,
+        math::AABB& aabb, int& arg13) {
+        new (arg1) game::CombinedLocationSection(arg2, world, arg4, arg5, arg6, locType, locData, arg9, (int)*arg10,
+                                                 (int)*arg11, aabb, arg13);
+        return arg1;
+    }
+
+    // 0x10045cc90
+    MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512>>*
+    placement_new<
+        MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512>>,
+        MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData*&, game::CombinedLocationSection*>(
+        void* arg1, MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData*& arg2,
+        game::CombinedLocationSection*&& arg3) {
+        new (arg1)
+            MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512>>(
+                arg2, arg3);
+        return arg1;
+    }
+
+    // 0x10045ccb0
+    void shared_ptr_do_enable_shared_from_this<game::CombinedLocationSection>(
+        ref_counter_base* ref_counter_base, game::CombinedLocationSection* combinedLocationSection,
+        game::CombinedLocationSection::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
+
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)combinedLocationSection);
+            local_38 = weak_ptr(local_48);
+            combinedLocationSection->field_192.__internal_set_weak_ptr(local_38);
+        }
+    }
+
+    // 0x10045d3d0
+    MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512>>::
+        MakeSharedPoolRefCounter(void* arg1, game::CombinedLocationSection* combinedLocationSection)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7ab0 + 16;
+        *(void**)(this + 16) = arg1;
+        *(CombinedLocationSection**)(this + 24) = combinedLocationSection;
+    }
+
+    // 0x10045d410
+    void MakeSharedPoolRefCounter<game::CombinedLocationSection,
+                                  MakeSharedPool<game::CombinedLocationSection, 512>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<game::CombinedLocationSection, 512>::deallocate(arg1);
+    }
+
+} // namespace jag
+
 namespace jag::game {
     class BuildCombinedLocationResult_GroupSection {
     public:
-        BuildCombinedLocationResult_GroupSection(BuildCombinedLocationResult_GroupSection const&);
+        BuildCombinedLocationResult_GroupSection(
+            const BuildCombinedLocationResult_GroupSection& buildCombinedLocationResult_GroupSection);
         ~BuildCombinedLocationResult_GroupSection();
-        BuildCombinedLocationResult_GroupSection(BuildCombinedLocationResult_GroupSection&&);
+        BuildCombinedLocationResult_GroupSection(
+            BuildCombinedLocationResult_GroupSection&& buildCombinedLocationResult_GroupSection);
         BuildCombinedLocationResult_GroupSection();
 
-        // data members, from how the methods use this: 192 bytes
-        undefined4 field_0; // offset 0
-        char _unknown_4[4];
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
-        undefined8 field_40; // offset 40
-        AABB field_48;       // offset 48
-        undefined4 field_84; // offset 84
-        LocData field_88;    // offset 88
-        char _unknown_120[20];
-        undefined2 field_140; // offset 140
-        char _unknown_142[34];
-        undefined4 field_176; // offset 176
-        undefined1 field_180; // offset 180
-        char _unknown_181[3];
-        undefined4 field_184; // offset 184
-        undefined1 field_188; // offset 188
-        char _unknown_189[3];
+    private:
+        uint32_t field_0;
+        uint8_t _unknown_4[4];
+        uint64_t field_8;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
+        uint64_t field_40;
+        AABB field_48;
+        uint32_t field_84;
+        LocData field_88;
+        uint8_t _unknown_120[20];
+        uint16_t field_140;
+        uint8_t _unknown_142[34];
+        uint32_t field_176;
+        uint8_t field_180;
+        uint8_t _unknown_181[3];
+        uint32_t field_184;
+        uint8_t field_188;
+        uint8_t _unknown_189[3];
     };
 
     class WorldAreaType {
     public:
         // virtual methods in vtable order
         virtual ~WorldAreaType();
-        virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
-        virtual PostDecode();
-        GetColour() const;
-        void HasImpostorsForMapSquare(int, int);
-        ulong FillImpostorForCompositeZone(ClientCompositeZone&, int, int, int);
-        WorldAreaType(BaseTemplateConfigTypeList<WorldAreaType>*, int);
+        virtual uint8_t* DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2);
+        virtual void PostDecode();
+        uint32_t GetColour() const;
+        void HasImpostorsForMapSquare(int arg1, int arg2);
+        unsigned long FillImpostorForCompositeZone(ClientCompositeZone& clientCompositeZone, int arg2, int arg3,
+                                                   int arg4);
+        WorldAreaType(BaseTemplateConfigTypeList<WorldAreaType>* baseTemplateConfigTypeList, int arg2);
 
-        // data members, from how the methods use this: 168 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        BaseTemplateConfigTypeList* field_24; // offset 24
-        int field_32;                         // offset 32
-        char _unknown_36[20];
-        undefined4 m_colour; // offset 56
-        char _unknown_60[108];
+    private:
+        uint8_t _unknown_8[16];
+        BaseTemplateConfigTypeList<WorldAreaType>* field_24;
+        int field_32;
+        uint8_t _unknown_36[20];
+        uint32_t m_colour;
+        uint8_t _unknown_60[108];
     };
 
-    // 0x100456dd0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // CoordGridSize::CoordGridSize(CoordGrid const&, int, int): jumps straight to the base-object constructor
-
-    // 0x100456f20, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // CoordGridSize::CoordGridSize(CoordGrid const&, int, int)
-    /* graphics::ModelParticleSource::VertexBonePos::VertexBonePos(math::Vector3T<float>
-   const&, int, int) */
-
-    void graphics::ModelParticleSource::VertexBonePos::VertexBonePos(Vector3T* param_1, int param_2, int param_3) {
-        field_8 = *(undefined4*)(param_1 + 8);
-        field_0 = *(undefined8*)param_1;
-        field_12 = param_2;
-        field_16 = param_3;
+    // 0x100456f20
+    CoordGridSize::CoordGridSize(const CoordGrid& coordGrid, int arg2, int arg3) : field_8(coordGrid.field_8) {
+        unsigned int uVar1 = coordGrid.field_4;
+        field_0 = coordGrid.field_0;
+        field_4 = uVar1;
+        field_12 = arg2;
+        field_16 = arg3;
     }
 
-    // 0x10045b560, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // BuildCombinedLocationResult_GroupSection::BuildCombinedLocationResult_GroupSection(BuildCombinedLocationResult_GroupSection const&): jumps straight to the base-object constructor
-
-    // 0x10045b580, 192 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // BuildCombinedLocationResult_GroupSection::BuildCombinedLocationResult_GroupSection(BuildCombinedLocationResult_GroupSection const&)
-    void BuildCombinedLocationResult_GroupSection::BuildCombinedLocationResult_GroupSection(
-        BuildCombinedLocationResult_GroupSection* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined4 uVar5;
-        undefined4 uVar6;
-        undefined1 uVar7;
-        undefined1 uVar8;
-        undefined3 uVar9;
-
-        uVar5 = param_1->field_0;
-        uVar6 = *(undefined4*)&param_1->field_4;
-        uVar1 = param_1->field_8;
-        uVar2 = param_1->field_16;
-        uVar3 = param_1->field_24;
-        uVar4 = param_1->field_40;
-        field_32 = param_1->field_32;
+    // 0x10045b580
+    BuildCombinedLocationResult_GroupSection::BuildCombinedLocationResult_GroupSection(
+        const BuildCombinedLocationResult_GroupSection& buildCombinedLocationResult_GroupSection) {
+        uint32_t uVar5 = buildCombinedLocationResult_GroupSection.field_0;
+        uint32_t uVar6 = *(uint32_t*)&buildCombinedLocationResult_GroupSection.field_4;
+        uint64_t uVar1 = buildCombinedLocationResult_GroupSection.field_8;
+        uint64_t uVar2 = buildCombinedLocationResult_GroupSection.field_16;
+        uint64_t uVar3 = buildCombinedLocationResult_GroupSection.field_24;
+        uint64_t uVar4 = buildCombinedLocationResult_GroupSection.field_40;
+        field_32 = buildCombinedLocationResult_GroupSection.field_32;
         field_40 = uVar4;
         field_16 = uVar2;
         field_24 = uVar3;
         field_0 = uVar5;
-        *(undefined4*)&field_4 = uVar6;
+        *(uint32_t*)&field_4 = uVar6;
         field_8 = uVar1;
-        new (field_48, (AABB*)param_1->field_48) math::AABB();
-        *(undefined8*)(field_48 + 32) = *(undefined8*)(param_1->field_48 + 32);
-        new (field_88, (LocData*)param_1->field_88) LocData();
-        field_140 = param_1->field_140;
-        new (&field_144, (shared_ptr*)&param_1->field_144) shared_ptr<oldscape::dash3d::Decor>();
-        new (&field_160, (shared_ptr*)&param_1->field_160) shared_ptr<oldscape::dash3d::Decor>();
-        uVar6 = param_1->field_176;
-        uVar8 = param_1->field_180;
-        uVar9 = *(undefined3*)&param_1->field_181;
-        uVar5 = param_1->field_184;
-        uVar7 = param_1->field_188;
-        *(undefined3*)&field_181 = *(undefined3*)&param_1->field_181;
+        new (field_48) math::AABB(buildCombinedLocationResult_GroupSection.field_48);
+        *(uint64_t*)(field_48 + 32) = *(uint64_t*)(buildCombinedLocationResult_GroupSection.field_48 + 32);
+        new (field_88) LocData(buildCombinedLocationResult_GroupSection.field_88);
+        field_140 = buildCombinedLocationResult_GroupSection.field_140;
+        new (&field_144) shared_ptr(&buildCombinedLocationResult_GroupSection.field_144);
+        new (&field_160) shared_ptr(&buildCombinedLocationResult_GroupSection.field_160);
+        uVar6 = buildCombinedLocationResult_GroupSection.field_176;
+        uint8_t uVar8 = buildCombinedLocationResult_GroupSection.field_180;
+        uint32_t uVar9 = *(uint32_t*)&buildCombinedLocationResult_GroupSection.field_181;
+        uVar5 = buildCombinedLocationResult_GroupSection.field_184;
+        uint8_t uVar7 = buildCombinedLocationResult_GroupSection.field_188;
+        *(uint32_t*)&field_181 = *(uint32_t*)&buildCombinedLocationResult_GroupSection.field_181;
         field_184 = uVar5;
         field_188 = uVar7;
         field_176 = uVar6;
         field_180 = uVar8;
-        *(undefined3*)&field_181 = uVar9;
+        *(uint32_t*)&field_181 = uVar9;
     }
 
-    // 0x10045c8c0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // BuildCombinedLocationResult_GroupSection::~BuildCombinedLocationResult_GroupSection(): jumps straight to the base-object destructor
-
-    // 0x10045c8d0, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // BuildCombinedLocationResult_GroupSection::~BuildCombinedLocationResult_GroupSection()
-    void BuildCombinedLocationResult_GroupSection::~BuildCombinedLocationResult_GroupSection() {
-        (&field_160)->~shared_ptr();
-        (&field_144)->~shared_ptr();
+    // 0x10045c8d0
+    BuildCombinedLocationResult_GroupSection::~BuildCombinedLocationResult_GroupSection() {
+        field_160.~shared_ptr();
+        field_144.~shared_ptr();
     }
 
-    // 0x1004c8300, 16 bytes, complete-object destructor, inline, placed by class name
-    // WorldAreaType::~WorldAreaType(): jumps straight to the base-object destructor
-
-    // 0x1004c8310, 32 bytes, deleting destructor, inline, placed by class name
-    // WorldAreaType::~WorldAreaType()
-    void WorldAreaType::~WorldAreaType() {
-        ~WorldAreaType(this);
-        operator_delete(this);
+    // 0x1004c92f0
+    WorldAreaType::~WorldAreaType() {
+        field_160.~map();
+        field_112.~map();
+        field_64.~map();
     }
 
-    // 0x1004c92f0, 64 bytes, base-object destructor, inline, placed by class name
-    // WorldAreaType::~WorldAreaType()
-    void WorldAreaType::~WorldAreaType() {
-        field_0 = &PTR__WorldAreaType_100f01cb0;
-        (&field_160)->~map();
-        eastl::map<void*, eastl::pair<void*, void (*)(void*)>, eastl::less<void*>, eastl::allocator>::~map(
-            (map<void*, eastl::pair<void*, void (*)(void*)>, eastl::less<void*>, eastl::allocator>*)&field_112);
-        (&field_64)->~map();
-        ~ConfigType();
-    }
+    // 0x1005d9c10
+    WorldAreaType::WorldAreaType(BaseTemplateConfigTypeList<WorldAreaType>* baseTemplateConfigTypeList, int arg2)
+        : ConfigType<WorldAreaType>(baseTemplateConfigTypeList, arg2), MakeSharedPool<WorldAreaType, 1024>(),
+          m_colour(0) {
 
-    // 0x1005d9c00, 16 bytes, complete-object constructor, inline, placed by class name
-    // WorldAreaType::WorldAreaType(BaseTemplateConfigTypeList<WorldAreaType>*, int): jumps straight to the base-object constructor
-
-    // 0x1005d9c10, 208 bytes, base-object constructor, inline, placed by class name
-    // WorldAreaType::WorldAreaType(BaseTemplateConfigTypeList<WorldAreaType>*, int)
-    void WorldAreaType::WorldAreaType(BaseTemplateConfigTypeList* param_1, int param_2) {
-        allocator local_30[8];
-
-        new (this) ConfigType<WorldAreaType>(param_1, param_2);
-        new (this) MakeSharedPool<WorldAreaType, 1024>();
-        field_0 = &PTR__WorldAreaType_100f01cb0;
-        m_colour = 0;
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)&field_64);
-        eastl::allocator::allocator(local_30, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)&field_112);
-        eastl::allocator::allocator(local_30, "EASTL set");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)&field_160);
+        new (&field_64) eastl::map(local_30);
+        new (&field_112) eastl::map(local_30);
+        new (&field_160) eastl::map(local_30);
     }
 
 } // namespace jag::game
 
-namespace jag {
-    // 0x100455e30, 32 bytes, inline, placed by debug map only (low confidence)
-    // game::MapSquare* placement_new<game::MapSquare, graphics::GraphNode*&, shared_ptr<game::World>, int&, int&, shared_ptr<game::ClientCompositeData>&>(void*, graphics::GraphNode*&, shared_ptr<game::World>&&, int&, int&, shared_ptr<game::ClientCompositeData>&)
-    MapSquare* jag::placement_new<game::MapSquare, graphics::GraphNode*&, shared_ptr<game::World>, int&, int&,
-                                  shared_ptr<game::ClientCompositeData>&>(void* param_1, GraphNode** param_2,
-                                                                          shared_ptr* param_3, int* param_4,
-                                                                          int* param_5, shared_ptr* param_6) {
-        game::MapSquare::MapSquare(param_1, *param_2, param_3, *param_4, *param_5, param_6);
-        return param_1;
-    }
-
-    // 0x100455e50, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32> >* placement_new<MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32> >, MakeSharedPool<game::MapSquare, 32>::RefCounterAndData*&, game::MapSquare*>(void*, MakeSharedPool<game::MapSquare, 32>::RefCounterAndData*&, game::MapSquare*&&)
-    MakeSharedPoolRefCounter*
-    jag::placement_new<MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>,
-                       MakeSharedPool<game::MapSquare, 32>::RefCounterAndData*&, game::MapSquare*>(
-        void* param_1, RefCounterAndData** param_2, MapSquare** param_3) {
-        MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>::MakeSharedPoolRefCounter(
-            param_1, *param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x1004564f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32> >::MakeSharedPoolRefCounter(void*, game::MapSquare*): jumps straight to the base-object constructor
-
-    // 0x100456500, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32> >::MakeSharedPoolRefCounter(void*, game::MapSquare*)
-    void MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>::MakeSharedPoolRefCounter(
-        MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>* this, void* param_1,
-        MapSquare* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7b50 + 16;
-        *(void**)(this + 16) = param_1;
-        *(MapSquare**)(this + 24) = param_2;
-    }
-
-    // 0x100456540, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32> >::DeleteSelf()
-    void MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>::DeleteSelf(
-        MakeSharedPoolRefCounter<game::MapSquare, MakeSharedPool<game::MapSquare, 32>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<game::MapSquare, 32>::deallocate(pvVar1);
-    }
-
-    // 0x10045cc10, 128 bytes, inline, placed by debug map only (low confidence)
-    // game::CombinedLocationSection* placement_new<game::CombinedLocationSection, graphics::GraphNode*&, shared_ptr<game::World> const&, int&, int&, int&, shared_ptr<game::LocType>&, game::LocData&, bool&, short&, short&, math::AABB&, int&>(void*, graphics::GraphNode*&, shared_ptr<game::World> const&, int&, int&, int&, shared_ptr<game::LocType>&, game::LocData&, bool&, short&, short&, math::AABB&, int&)
-    CombinedLocationSection*
-    jag::placement_new<game::CombinedLocationSection, graphics::GraphNode*&, shared_ptr<game::World> const&, int&, int&,
-                       int&, shared_ptr<game::LocType>&, game::LocData&, bool&, short&, short&, math::AABB&, int&>(
-        void* param_1, GraphNode** param_2, shared_ptr* param_3, int* param_4, int* param_5, int* param_6,
-        shared_ptr* param_7, LocData* param_8, bool* param_9, short* param_10, short* param_11, AABB* param_12,
-        int* param_13) {
-        game::CombinedLocationSection::CombinedLocationSection(param_1, *param_2, param_3, *param_4, *param_5, *param_6,
-                                                               param_7, param_8, *param_9, (int)*param_10,
-                                                               (int)*param_11, param_12, *param_13);
-        return param_1;
-    }
-
-    // 0x10045cc90, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512> >* placement_new<MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512> >, MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData*&, game::CombinedLocationSection*>(void*, MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData*&, game::CombinedLocationSection*&&)
-    MakeSharedPoolRefCounter* jag::placement_new<
-        MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512>>,
-        MakeSharedPool<game::CombinedLocationSection, 512>::RefCounterAndData*&, game::CombinedLocationSection*>(
-        void* param_1, RefCounterAndData** param_2, CombinedLocationSection** param_3) {
-        MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512>>::
-            MakeSharedPoolRefCounter(param_1, *param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x10045ccb0, 160 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<game::CombinedLocationSection>(ref_counter_base*, game::CombinedLocationSection*, game::CombinedLocationSection::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<game::CombinedLocationSection>(ref_counter_base* param_1,
-                                                                              CombinedLocationSection* param_2,
-                                                                              enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
-
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_192, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
-        }
-    }
-
-    // 0x10045d3c0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512> >::MakeSharedPoolRefCounter(void*, game::CombinedLocationSection*): jumps straight to the base-object constructor
-
-    // 0x10045d3d0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512> >::MakeSharedPoolRefCounter(void*, game::CombinedLocationSection*)
-    void
-    jag::MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512>>::
-        MakeSharedPoolRefCounter(MakeSharedPoolRefCounter<game::CombinedLocationSection,
-                                                          MakeSharedPool<game::CombinedLocationSection, 512>>* this,
-                                 void* param_1, CombinedLocationSection* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7ab0 + 16;
-        *(void**)(this + 16) = param_1;
-        *(CombinedLocationSection**)(this + 24) = param_2;
-    }
-
-    // 0x10045d410, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512> >::DeleteSelf()
-    void
-    jag::MakeSharedPoolRefCounter<game::CombinedLocationSection, MakeSharedPool<game::CombinedLocationSection, 512>>::
-        DeleteSelf(MakeSharedPoolRefCounter<game::CombinedLocationSection,
-                                            MakeSharedPool<game::CombinedLocationSection, 512>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<game::CombinedLocationSection, 512>::deallocate(pvVar1);
-    }
-
-} // namespace jag
-
 namespace jag::graphics {
-    // 0x10045ae90, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // FaceGroupRenderMasks::FaceGroupRenderMasks(): jumps straight to the base-object constructor
+    // 0x10045b180
+    FaceGroupRenderMasks::FaceGroupRenderMasks() : field_0(0) {}
 
-    // 0x10045b180, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // FaceGroupRenderMasks::FaceGroupRenderMasks()
-    /* ui::ComponentPinchConfig::ComponentPinchConfig() */
-
-    void ui::ComponentPinchConfig::ComponentPinchConfig() {
-        field_0 = 0;
-    }
-
-    // 0x10045b180: the linker folded this into FaceGroupRenderMasks::FaceGroupRenderMasks(), which has identical code
-    ModelTextureMeta::ModelTextureMeta();
+    // 0x10045b180: ModelTextureMeta::ModelTextureMeta() has the same machine code as FaceGroupRenderMasks::FaceGroupRenderMasks()
 
 } // namespace jag::graphics
 
 namespace jag::ui {
-    // 0x10045ae90: the linker folded this into graphics::FaceGroupRenderMasks::FaceGroupRenderMasks(), which has identical code
-    ComponentPinchConfig::ComponentPinchConfig();
+    // 0x10045ae90: ComponentPinchConfig::ComponentPinchConfig() has the same machine code as graphics::FaceGroupRenderMasks::FaceGroupRenderMasks()
 
 } // namespace jag::ui

@@ -1,55 +1,30 @@
 // libs/oldscape/rs2lib/util/HttpSpriteData.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "HttpSpriteData.h"
 
 namespace jag::oldscape::rs2lib {
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    HttpSpriteData::GetSprite() const;
+    // 0x100009d50: HttpSpriteData::GetSprite() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x1001fc330, 112 bytes, base-object constructor, placed by class name and debug map
-    // HttpSpriteData::HttpSpriteData(eastl::string const&)
-    void HttpSpriteData::HttpSpriteData(basic_string* param_1) {
-        basic_string* pbVar1;
-
-        std::make_unique<http::HTTPRequest>();
-        new (field_8, (_func_decltype_nullptr*)param_1) shared_ptr<worldmap::WorldmapAreaMetadata>();
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() ==
-            '\0') {
-            pbVar1 =
-                (basic_string*)std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>::operator->(
-                    (unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>*)this);
-            pbVar1->Get();
+    // 0x1001fc330
+    HttpSpriteData::HttpSpriteData(const eastl::string& str) {
+        *this = std::make_unique<http::HTTPRequest>();
+        new (field_8) shared_ptr();
+        if (str.empty() == '\0') {
+            ((HTTPRequest*)(*this).operator->())->Get(str);
         }
     }
 
-    // 0x1001fc410, 16 bytes, complete-object constructor, placed by class name and debug map
-    // HttpSpriteData::HttpSpriteData(eastl::string const&): jumps straight to the base-object constructor
+    // 0x1001fc420
+    HttpSpriteData::HttpSpriteData(std::unique_ptr<http::HTTPRequest>&& httpRequest)
+        : std::unique_ptr<http::HTTPRequest>(httpRequest) {}
 
-    // 0x1001fc420, 48 bytes, base-object constructor, placed by class name and debug map
-    // HttpSpriteData::HttpSpriteData(std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest> >&&)
-    /* HttpSpriteData::HttpSpriteData(std::unique_ptr<http::HTTPRequest,
-   std::default_delete<http::HTTPRequest> >&&) */
-
-    void HttpSpriteData::HttpSpriteData(unique_ptr* param_1) {
-        new (this) std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>(param_1);
-        new (field_8, (_func_decltype_nullptr*)param_1) shared_ptr<worldmap::WorldmapAreaMetadata>();
-    }
-
-    // 0x1001fc460, 16 bytes, complete-object constructor, placed by class name and debug map
-    // HttpSpriteData::HttpSpriteData(std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest> >&&): jumps straight to the base-object constructor
-
-    // 0x1001fc470, 144 bytes, base-object constructor, placed by class name and debug map
-    // HttpSpriteData::HttpSpriteData(http::HTTPRequest const&)
-    void HttpSpriteData::HttpSpriteData(HTTPRequest* param_1) {
-        std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>::unique_ptr<true, void>(
-            (_func_decltype_nullptr*)this);
-        new (field_8, (_func_decltype_nullptr*)param_1) shared_ptr<worldmap::WorldmapAreaMetadata>();
-        if ((undefined*)ServiceRequest(this, param_1) == DataStatus::NOTLOADED) {
-            /* WARNING: Subroutine does not return */
+    // 0x1001fc470
+    HttpSpriteData::HttpSpriteData(const http::HTTPRequest& httpRequest) {
+        unique_ptr<true, void>(httpRequest);
+        new (field_8) shared_ptr();
+        if ((uint8_t*)ServiceRequest(httpRequest) == DataStatus::NOTLOADED) {
             LogAssert("status != DataStatus::NOTLOADED",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/util/"
                       "HttpSpriteData.cpp",
@@ -57,73 +32,59 @@ namespace jag::oldscape::rs2lib {
         }
     }
 
-    // 0x1001fc510, 256 bytes, placed by class name and debug map
-    // HttpSpriteData::ServiceRequest(http::HTTPRequest const&)
-    undefined* HttpSpriteData::ServiceRequest(HTTPRequest* param_1) {
-        uint uVar2;
-        basic_string<char, BucketAllocatorEASTL>* this_00;
-        Array* pAVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined** ppuVar7;
-        shared_ptr local_38;
+    // 0x1001fc510
+    uint8_t* HttpSpriteData::ServiceRequest(const http::HTTPRequest& httpRequest) {
+        Array<unsigned char>* arg1;
+        Logger* this_01;
+        uint64_t uVar4;
+        ReturnValue local_38;
 
-        uVar2 = param_1->GetState();
-        ppuVar7 = &DataStatus::MISSING;
+        unsigned int uVar2 = httpRequest.GetState();
+        uint8_t** ppuVar5 = &DataStatus::MISSING;
         if ((uVar2 & 4294967293) != 0) {
             if (uVar2 == 1) {
-                this_00 = (basic_string<char, BucketAllocatorEASTL>*)param_1->GetContentType();
-                if (eastl::basic_string<char, BucketAllocatorEASTL>::compare(this_00, "image/png") == 0) {
-                    pAVar4 = (Array*)param_1->GetMSAASampleCount();
-                    local_38.createPix32FromPNGData(pAVar4);
-                    shared_ptr<graphics::Pix32>::operator=((shared_ptr<graphics::Pix32>*)field_8, &local_38);
-                    local_38.~shared_ptr();
+                if (((basic_string<char, BucketAllocatorEASTL>*)httpRequest.GetContentType())->compare("image/png") ==
+                    0) {
+                    arg1 = (Array<unsigned char>*)httpRequest.GetMSAASampleCount();
+                    local_38 = javapal::Pix32Tools::createPix32FromPNGData(*arg1);
+                    *field_8 = local_38;
                 }
-                if (field_8->operator_cast_to_bool()) {
-                    ppuVar7 = &DataStatus::READY;
+                if (field_8->operator_cast_to_bool() == '\0') {
+                    this_01 = logger::default_logger();
+                    uVar4 = httpRequest.GetText();
+                    this_01->Log(false, 8,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
+                                 "rs2lib/util/HttpSpriteData.cpp",
+                                 77, "Unable to load HTTP image received from \'%s\'", uVar4);
                 } else {
-                    uVar5 = logger::default_logger();
-                    uVar6 = param_1->GetText();
-                    logger::Logger::Log(uVar5, 0, 8,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                        "oldscape/rs2lib/util/HttpSpriteData.cpp",
-                                        77, "Unable to load HTTP image received from \'%s\'", uVar6);
+                    ppuVar5 = &DataStatus::READY;
                 }
             } else {
-                ppuVar7 = &DataStatus::NOTLOADED;
+                ppuVar5 = &DataStatus::NOTLOADED;
             }
         }
-        return *ppuVar7;
+        return *ppuVar5;
     }
 
-    // 0x1001fc610, 16 bytes, complete-object constructor, placed by class name and debug map
-    // HttpSpriteData::HttpSpriteData(http::HTTPRequest const&): jumps straight to the base-object constructor
+    // 0x1001fc620
+    uint8_t* HttpSpriteData::Service() {
+        uint8_t** ppuVar2;
+        HTTPRequest* httpRequest;
+        uint8_t* puVar3;
 
-    // 0x1001fc620, 128 bytes, placed by class name and debug map
-    // HttpSpriteData::Service()
-    undefined* HttpSpriteData::Service() {
-        bool bVar1;
-        undefined** ppuVar2;
-        HTTPRequest* pHVar3;
-        undefined* puVar4;
-
-        bVar1 = field_8->operator_cast_to_bool();
-        if (bVar1) {
-            ppuVar2 = &DataStatus::READY;
-        } else {
-            bVar1 = operator_cast_to_bool();
-            if (bVar1) {
-                pHVar3 =
-                    (HTTPRequest*)std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>::operator*(
-                        (unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>*)this);
-                puVar4 = (undefined*)ServiceRequest(this, pHVar3);
-                if ((puVar4 == DataStatus::MISSING) || (puVar4 == DataStatus::READY)) {
-                    reset(pHVar3);
-                    return puVar4;
+        if (!(field_8->operator_cast_to_bool())) {
+            if (operator_cast_to_bool()) {
+                httpRequest = (HTTPRequest*)**this;
+                puVar3 = (uint8_t*)ServiceRequest(*httpRequest);
+                if ((puVar3 == DataStatus::MISSING) || (puVar3 == DataStatus::READY)) {
+                    reset(httpRequest);
+                    return puVar3;
                 }
-                return puVar4;
+                return puVar3;
             }
             ppuVar2 = &DataStatus::MISSING;
+        } else {
+            ppuVar2 = &DataStatus::READY;
         }
         return *ppuVar2;
     }

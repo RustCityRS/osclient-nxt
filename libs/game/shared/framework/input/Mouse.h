@@ -1,57 +1,53 @@
 // libs/game/shared/framework/input/Mouse.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class Mouse {
     public:
-        GetScaledMousePosition() const;
-        GetOldestClick() const;
-        Mouse(input::InputHandler&, graphics::ScaleManager&);
-        void Init(input::InputHandler&, graphics::ScaleManager&);
+        uint8_t* GetScaledMousePosition() const;
+        uint64_t GetOldestClick() const;
+        Mouse(input::InputHandler& inputHandler, graphics::ScaleManager& scaleManager);
+        void Init(input::InputHandler& inputHandler, graphics::ScaleManager& scaleManager);
         ~Mouse();
-        void SetPosition(float, float, graphics::ScaleManager const&);
-        void OnMove(float, float, graphics::ScaleManager const&);
-        GetAndRemoveOldestMove();
-        void OnScroll(float, float, float, float);
-        void DoClick(float, float, MouseEventType, MouseButton, graphics::ScaleManager const&);
+        void SetPosition(float arg1, float arg2, const graphics::ScaleManager& scaleManager);
+        void OnMove(float arg1, float arg2, const graphics::ScaleManager& scaleManager);
+        uint64_t GetAndRemoveOldestMove();
+        void OnScroll(float arg1, float arg2, float arg3, float arg4);
+        void DoClick(float arg1, float arg2, MouseEventType mouseEventType, MouseButton mouseButton,
+                     const graphics::ScaleManager& scaleManager);
         void Reset();
 
-        // data members, from how the methods use this: 10452 bytes
-        InputHandler* field_0; // offset 0
-        char _unknown_8[420];
-        float field_428; // offset 428
-        char _unknown_432[2000];
-        uint field_2432; // offset 2432
-        uint field_2436; // offset 2436
-        char _unknown_2440[8000];
-        uint field_10440; // offset 10440
-        uint field_10444; // offset 10444
-        char _unknown_10448[4];
+    private:
+        InputHandler* field_0;
+        uint8_t _unknown_8[420];
+        float field_428;
+        uint8_t _unknown_432[2000];
+        unsigned int field_2432;
+        unsigned int field_2436;
+        uint8_t _unknown_2440[8000];
+        unsigned int field_10440;
+        unsigned int field_10444;
+        uint8_t _unknown_10448[4];
     };
 
     class MouseEvent {
     public:
         MouseEvent();
 
-        // data members, from how the methods use this: 40 bytes
-        char _unknown_0[32];
-        undefined4 field_32; // offset 32
-        char _unknown_36[4];
+    private:
+        uint8_t _unknown_0[32];
+        uint32_t field_32;
+        uint8_t _unknown_36[4];
     };
 
-    // 0x1004282f0, 48 bytes, inline, placed by class name and debug map
-    // Mouse::GetOldestClick() const
-    undefined8 Mouse::GetOldestClick() {
-        undefined8 uVar1;
-
+    // 0x1004282f0
+    uint64_t Mouse::GetOldestClick() const {
         if (field_2436 == field_2432) {
             return 0;
         }
-        uVar1 = std::array<MouseEvent, 50ul>::operator[]((array<MouseEvent, 50ul>*)&field_432, (ulong)field_2436);
-        return uVar1;
+        return field_432[(unsigned long)field_2436];
     }
 
 } // namespace jag::game

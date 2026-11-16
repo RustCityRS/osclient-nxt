@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/effects/globalenvironmentmapping/GlobalEnvironmentMapping.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
@@ -10,8 +9,7 @@ namespace jag::graphics {
     public:
         ClipPlaneShaderConsts();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
     class GlobalEnvironmentMapping : public Effect // base inferred from shared vtable slots
@@ -20,43 +18,45 @@ namespace jag::graphics {
         class ShaderConsts;
         // virtual methods in vtable order
         virtual ~GlobalEnvironmentMapping();
-        virtual Initialise();
-        virtual void SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const;
-        virtual byte CreateRenderingResources();
+        virtual uint8_t Initialise();
+        virtual void SetShaderConstants(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                        Shader& shader) const;
+        virtual uint8_t CreateRenderingResources();
         virtual void DestroyRenderingResources();
-        void SetClearColour(math::Vector4T<float> const&);
-        void SetSpecularHorizonOcclusionScale(float, long long, unsigned long long);
-        void SetEnvironmentMapIrradianceScale(float, long long, unsigned long long);
-        GlobalEnvironmentMapping(RT7Core&);
-        GetCurrentTexture(bool) const;
-        void SetTexture(shared_ptr<render::TextureCube> const&, unsigned long long, unsigned long long);
+        void SetClearColour(const math::Vector4T<float>& vector4);
+        void SetSpecularHorizonOcclusionScale(float arg1, long long arg2, unsigned long long arg3);
+        void SetEnvironmentMapIrradianceScale(float arg1, long long arg2, unsigned long long arg3);
+        GlobalEnvironmentMapping(RT7Core& rt7Core);
+        uint64_t GetCurrentTexture(bool arg1) const;
+        void SetTexture(const shared_ptr<render::TextureCube>& textureCube, unsigned long long arg2,
+                        unsigned long long arg3);
         void ClearTextures();
-        void SetTextureOverride(shared_ptr<render::TextureCube> const&, unsigned long long);
+        void SetTextureOverride(const shared_ptr<render::TextureCube>& textureCube, unsigned long long arg2);
         void DestroyTextures();
-        void MainLogic(unsigned long long, EffectManager&);
-        void RenderBlendedQuadToFace(render::RenderContext&, render::RenderTargets*, render::Texture const*,
-                                     render::Texture const*, int, float);
-        static /* 4 bytes */ SPECULAR_HORIZON_OCCLUSION_SCALE_DEFAULT;       // = 1066192077
-        static float /* 4 bytes */ ENVIRONMENT_MAP_IRRADIANCE_SCALE_DEFAULT; // = 2.75f
+        void MainLogic(unsigned long long arg1, EffectManager& effectManager);
+        void RenderBlendedQuadToFace(render::RenderContext& renderContext, render::RenderTargets* renderTargets,
+                                     const render::Texture* texture1, const render::Texture* texture2, int arg5,
+                                     float arg6);
+        static int32_t SPECULAR_HORIZON_OCCLUSION_SCALE_DEFAULT; // = 1066192077
+        static float ENVIRONMENT_MAP_IRRADIANCE_SCALE_DEFAULT;   // = 2.75f
 
-        // data members, from how the methods use this: 592 bytes, the first 8 are Effect
-        uint field_8; // offset 8
-        char _unknown_12[4];
-        RT7Core* field_16; // offset 16
-        char _unknown_24[24];
-        ulong field_48;       // offset 48
-        ulong field_56;       // offset 56
-        shared_ptr field_64;  // offset 64
-        shared_ptr field_80;  // offset 80
-        shared_ptr field_96;  // offset 96
-        uint field_112;       // offset 112
-        undefined1 field_116; // offset 116
-        char field_117;       // offset 117
-        char _unknown_118[90];
-        shared_ptr field_208; // offset 208
-        undefined1 field_224; // offset 224
-        char _unknown_225[175];
-        InputAssemblerState field_400; // offset 400
+    private:
+        GraphicsQuality field_8;
+        uint8_t _unknown_12[4];
+        RT7Core* field_16;
+        uint8_t _unknown_24[24];
+        unsigned long field_48;
+        unsigned long field_56;
+        shared_ptr field_64;
+        shared_ptr field_80;
+        shared_ptr field_96;
+        unsigned int field_112;
+        uint8_t field_116;
+        char field_117;
+        uint8_t _unknown_118[90];
+        shared_ptr field_208;
+        uint8_t _unknown_224[176];
+        InputAssemblerState field_400;
     };
 
     class GlobalEnvironmentMapping::ShaderConsts {
@@ -64,79 +64,53 @@ namespace jag::graphics {
         ShaderConsts();
     };
 
-    // 0x100441a30, 16 bytes, inline, placed by class name and debug map
-    // GlobalEnvironmentMapping::SetClearColour(math::Vector4T<float> const&)
-    void GlobalEnvironmentMapping::SetClearColour(Vector4T* param_1) {
-        math::Rect<float>::operator=((Rect<float>*)&field_128, (Rect*)param_1);
+    // 0x100441a30
+    void GlobalEnvironmentMapping::SetClearColour(const math::Vector4T<float>& vector4) {
+        field_128 = vector4;
     }
 
-    // 0x10048fcb0, 48 bytes, inline, placed by class name
-    // GlobalEnvironmentMapping::SetSpecularHorizonOcclusionScale(float, long long, unsigned long long)
-    void GlobalEnvironmentMapping::SetSpecularHorizonOcclusionScale(float param_1, longlong param_2,
-                                                                    ulonglong param_3) {
-        float local_c;
-
-        local_c = param_1;
-        (&field_144, &local_c, param_2, param_3)->SetValue();
+    // 0x10048fcb0
+    void GlobalEnvironmentMapping::SetSpecularHorizonOcclusionScale(float arg1, long long arg2,
+                                                                    unsigned long long arg3) {
+        field_144.SetValue(arg1, arg2, arg3);
     }
 
-    // 0x10048fcf0, 48 bytes, inline, placed by class name
-    // GlobalEnvironmentMapping::SetEnvironmentMapIrradianceScale(float, long long, unsigned long long)
-    void GlobalEnvironmentMapping::SetEnvironmentMapIrradianceScale(float param_1, longlong param_2,
-                                                                    ulonglong param_3) {
-        float local_c;
-
-        local_c = param_1;
-        (&field_176, &local_c, param_2, param_3)->SetValue();
+    // 0x10048fcf0
+    void GlobalEnvironmentMapping::SetEnvironmentMapIrradianceScale(float arg1, long long arg2,
+                                                                    unsigned long long arg3) {
+        field_176.SetValue(arg1, arg2, arg3);
     }
 
-    // 0x10092d710, 16 bytes, complete-object constructor, inline, placed by class name
-    // GlobalEnvironmentMapping::ShaderConsts::ShaderConsts(): jumps straight to the base-object constructor
+    // 0x100938170
+    GlobalEnvironmentMapping::ShaderConsts::ShaderConsts() : math::Vector4T() {}
 
-    // 0x100938170, 16 bytes, base-object constructor, inline, placed by class name
-    // GlobalEnvironmentMapping::ShaderConsts::ShaderConsts()
-    /* ClipPlaneShaderConsts::ClipPlaneShaderConsts() */
-
-    void ClipPlaneShaderConsts::ClipPlaneShaderConsts() {
-        new (this) math::Vector4T<float>();
-    }
-
-    // 0x100938170: the linker folded this into GlobalEnvironmentMapping::ShaderConsts::ShaderConsts(), which has identical code
-    ClipPlaneShaderConsts::ClipPlaneShaderConsts();
+    // 0x100938170: ClipPlaneShaderConsts::ClipPlaneShaderConsts() has the same machine code as GlobalEnvironmentMapping::ShaderConsts::ShaderConsts()
 
 } // namespace jag::graphics
 
 namespace jag::math {
-    // 0x100441d60, 224 bytes, placed by debug map only (low confidence)
-    // ColourStorage8888<ARGB8StorageLayout> operator*<ARGB8StorageLayout>(ColourStorage8888<ARGB8StorageLayout>, float)
-    /* ColourStorage8888<ARGB8StorageLayout>
-   TEMPNAMEPLACEHOLDERVALUE(ColourStorage8888<ARGB8StorageLayout>,
-   float) */
-
-    uint operator*(uint param_1) {
-        int iVar1;
-        uint uVar2;
+    // 0x100441d60
+    ColourStorage8888<ARGB8StorageLayout> operator*
+        <ARGB8StorageLayout>(ColourStorage8888<ARGB8StorageLayout> colourStorage8888, float arg2) {
         Callstack local_28;
-
-        new (&local_28) callstack::Callstack();
-        local_28._4_4_ = RoundFloatToInt((float)(param_1 >> 16 & 255) * 1.5);
+        local_28._4_4_ = RoundFloatToInt((float)((unsigned int)((unsigned long)colourStorage8888 >> 16) & 255) * 1.5);
+        local_28.field_8 = 0;
+        local_28._9_3_ = 0;
+        local_28._12_4_ = 255;
+        int iVar1 = Clamp<int>((int*)&local_28.field_4, (int*)&local_28.field_8, (int*)&local_28.field_12);
+        local_28.m_stackFrames._0_3_ = (((uint32_t)((char)iVar1) << 16) | (uint16_t)((uint16_t)local_28.m_stackFrames));
+        local_28._4_4_ = RoundFloatToInt((float)(uint8_t)((unsigned long)colourStorage8888 >> 8) * 1.5);
         local_28.field_8 = 0;
         local_28._9_3_ = 0;
         local_28._12_4_ = 255;
         iVar1 = Clamp<int>((int*)&local_28.field_4, (int*)&local_28.field_8, (int*)&local_28.field_12);
-        local_28.m_stackFrames._0_3_ = CONCAT12((char)iVar1, (undefined2)local_28.m_stackFrames);
-        local_28._4_4_ = RoundFloatToInt((float)(param_1 >> 8 & 255) * 1.5);
+        local_28.m_stackFrames._0_2_ = (((uint16_t)((char)iVar1) << 8) | (uint8_t)((uint8_t)local_28.m_stackFrames));
+        local_28._4_4_ = RoundFloatToInt((float)((unsigned int)colourStorage8888 & 255) * 1.5);
         local_28.field_8 = 0;
         local_28._9_3_ = 0;
         local_28._12_4_ = 255;
-        iVar1 = Clamp<int>((int*)&local_28.field_4, (int*)&local_28.field_8, (int*)&local_28.field_12);
-        local_28.m_stackFrames._0_2_ = CONCAT11((char)iVar1, (undefined1)local_28.m_stackFrames);
-        local_28._4_4_ = RoundFloatToInt((float)(param_1 & 255) * 1.5);
-        local_28.field_8 = 0;
-        local_28._9_3_ = 0;
-        local_28._12_4_ = 255;
-        uVar2 = Clamp<int>((int*)&local_28.field_4, (int*)&local_28.field_8, (int*)&local_28.field_12);
-        local_28.m_stackFrames = uVar2 & 255;
+        local_28.m_stackFrames =
+            Clamp<int>((int*)&local_28.field_4, (int*)&local_28.field_8, (int*)&local_28.field_12) & 255;
         return local_28.m_stackFrames;
     }
 

@@ -1,58 +1,57 @@
 // libs/js5/network/Js5HTTPQueueRequest.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class Js5HTTPQueueRequest {
     public:
-        GetPriority() const;
-        void SetProxyPassword(char const*);
-        Js5HTTPQueueRequest(
-            unsigned int, unsigned int, int, int, unsigned int, bool,
-            std::function<void(unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&,
-                               PacketT<Array<unsigned char, eastl::allocator>>&&, bool)>,
-            std::function<void(unsigned int, unsigned int, bool)>, PacketT<Array<unsigned char, eastl::allocator>>&&,
-            Priority const*);
-        void SetProxyUserName(char const*);
-        uint GetKey() const;
+        Priority* GetPriority() const;
+        void SetProxyPassword(const char* configProvider);
+        Js5HTTPQueueRequest(unsigned int arg1, unsigned int arg2, int arg3, int arg4, unsigned int arg5, bool arg6,
+                            std::function<void(unsigned int, unsigned int, PacketT<Array<unsigned char>>&,
+                                               PacketT<Array<unsigned char>>&&, bool)>
+                                callback1,
+                            std::function<void(unsigned int, unsigned int, bool)> callback2,
+                            PacketT<Array<unsigned char>>&& arg9, const Priority* priority);
+        void SetProxyUserName(const char* str);
+        unsigned int GetKey() const;
         ~Js5HTTPQueueRequest();
         void Service();
-        char IsComplete();
+        bool IsComplete();
         bool IsFailed();
-        void Send(eastl::string const&);
+        void Send(const eastl::string& str);
         void DownloadComplete();
         void DownloadFailed();
 
-        // data members, from how the methods use this: 224 bytes
-        undefined4 field_0;  // offset 0
-        undefined4 field_4;  // offset 4
-        undefined4 field_8;  // offset 8
-        undefined4 field_12; // offset 12
-        bool field_16;       // offset 16
-        char _unknown_17[3];
-        undefined4 field_20;   // offset 20
-        VBOMapper field_24;    // offset 24
-        undefined8 m_priority; // offset 56
-        char _unknown_64[104];
-        VBOMapper field_168; // offset 168
-        char m_complete;     // offset 200
-        char field_201;      // offset 201
-        char _unknown_202[6];
-        char* m_pProxyUserName; // offset 208
-        char* m_pProxyPassword; // offset 216
+    private:
+        unsigned int field_0;
+        unsigned int field_4;
+        int field_8;
+        int field_12;
+        bool field_16;
+        uint8_t _unknown_17[3];
+        unsigned int field_20;
+        VBOMapper field_24;
+        Priority* m_pPriority;
+        uint8_t _unknown_64[96];
+        uint8_t field_160;
+        uint8_t _unknown_161[7];
+        VBOMapper field_168;
+        char m_complete;
+        char field_201;
+        uint8_t _unknown_202[6];
+        char* m_pProxyUserName;
+        ConfigProvider* m_pProxyPassword;
     };
 
-    // 0x1009f1790, 16 bytes, inline, placed by class name and debug map
-    // Js5HTTPQueueRequest::SetProxyUserName(char const*)
-    void Js5HTTPQueueRequest::SetProxyUserName(char* param_1) {
-        m_pProxyUserName = param_1;
+    // 0x1009f1790
+    void Js5HTTPQueueRequest::SetProxyUserName(const char* str) {
+        m_pProxyUserName = str;
     }
 
-    // 0x1009f17a0, 16 bytes, inline, placed by class name and debug map
-    // Js5HTTPQueueRequest::GetKey() const
-    uint Js5HTTPQueueRequest::GetKey() {
+    // 0x1009f17a0
+    unsigned int Js5HTTPQueueRequest::GetKey() const {
         return field_4 << 8 | field_0;
     }
 

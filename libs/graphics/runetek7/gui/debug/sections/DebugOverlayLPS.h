@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/gui/debug/sections/DebugOverlayLPS.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics
@@ -10,184 +9,122 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayLPS();
-        virtual void RegisterTweakyVars(tweak::Container&);
-        virtual void DrawImpl(int, int);
-        virtual UpdateImpl(unsigned long long);
-        DebugOverlayLPS(DebugOverlay&, bool);
+        virtual void RegisterTweakyVars(tweak::Container& container);
+        virtual void DrawImpl(int arg1, int arg2);
+        virtual uint8_t UpdateImpl(unsigned long long arg1);
+        DebugOverlayLPS(DebugOverlay& debugOverlay, bool arg2);
 
-        // data members, from how the methods use this: 98680 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[104];
-        int field_112; // offset 112
-        char _unknown_116[4];
-        bool field_120; // offset 120
-        char _unknown_121[98535];
-        ulong field_98656;      // offset 98656
-        undefined8 field_98664; // offset 98664
-        float field_98672;      // offset 98672
-        char _unknown_98676[4];
+    private:
+        uint8_t _unknown_8[104];
+        int field_112;
+        uint8_t _unknown_116[4];
+        bool field_120;
+        uint8_t _unknown_121[98535];
+        unsigned long field_98656;
+        uint64_t field_98664;
+        float field_98672;
+        uint8_t _unknown_98676[4];
     };
 
-    // 0x1008a6390, 96 bytes, base-object constructor, placed by class name
-    // DebugOverlayLPS::DebugOverlayLPS(DebugOverlay&, bool)
-    void DebugOverlayLPS::DebugOverlayLPS(DebugOverlay* param_1, bool param_2) {
-        undefined7 in_register_00000011;
-
-        new (1065353216)
-            DebugOverlayGraphSection(this, param_1, 2, CONCAT71(in_register_00000011, param_2) & 4294967295, 0);
-        field_0 = &PTR__DebugOverlayMemory_100f17f68;
-        field_98656 = 0;
-        field_98664 = 250000000;
-        field_98672 = 0.0;
-        (&field_128)->SetHighIsGood();
+    // 0x1008a6390
+    DebugOverlayLPS::DebugOverlayLPS(DebugOverlay& debugOverlay, bool arg2)
+        : DebugOverlayGraphSection(debugOverlay, 2, arg2, 0, 1.0), field_98656(0), field_98664(250000000),
+          field_98672(0.0) {
+        field_128.SetHighIsGood();
     }
 
-    // 0x1008a63f0, 16 bytes, complete-object constructor, placed by class name
-    // DebugOverlayLPS::DebugOverlayLPS(DebugOverlay&, bool): jumps straight to the base-object constructor
+    // 0x1008a6400
+    void DebugOverlayLPS::DrawImpl(int arg1, int arg2) {
+        uint32_t extraout_var;
+        FontAlign FVar8;
+        uint32_t extraout_var_00;
+        float fVar9;
+        uint8_t local_270[8];
+        Callstack local_268;
 
-    // 0x1008a6400, 784 bytes, placed by class name
-    // DebugOverlayLPS::DrawImpl(int, int)
-    void DebugOverlayLPS::DrawImpl(int param_1, int param_2) {
-        ulong* puVar1;
-        undefined1* this_00;
-        ulong uVar2;
-        uint uVar3;
-        int iVar4;
-        uint uVar5;
-        undefined4 uVar6;
-        uint uVar7;
-        GraphicsApp* this_01;
-        FPSCounter* this_02;
-        float fVar8;
-        undefined1 local_270[8];
-        Callstack local_268[35];
-        undefined8 local_38;
-
-        local_38 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        local_270._4_4_ = param_1;
-        this_01 = (GraphicsApp*)Instance();
-        this_02 = (FPSCounter*)this_01->GetFPSCounter();
-        uVar3 = this_02->GetLastFrameDurationNS();
-        puVar1 = &field_98656;
-        uVar2 = *puVar1;
-        *puVar1 = *puVar1 - (ulong)uVar3;
-        if (*puVar1 == 0 || SBORROW8(uVar2, (ulong)uVar3) != (long)*puVar1 < 0) {
-            fVar8 = (float)this_02->GetAlpha();
-            field_98672 = fVar8;
+        local_270._4_4_ = arg1;
+        auto this_01 = GraphicsApp::Instance();
+        auto this_02 = this_01->GetFPSCounter();
+        unsigned int uVar4 = this_02->GetLastFrameDurationNS();
+        unsigned long* puVar1 = &field_98656;
+        unsigned long uVar2 = *puVar1;
+        *puVar1 = *puVar1 - (unsigned long)uVar4;
+        if (*puVar1 == 0 || SBORROW8(uVar2, (unsigned long)uVar4) != (long)*puVar1 < 0) {
+            fVar9 = (float)this_02->GetAlpha();
+            field_98672 = fVar9;
             field_98656 = field_98664;
         }
         new ((local_270 + 8)) callstack::Callstack();
-        new (&local_268[0].field_8) eastl::fixed_string<char, 512, true, eastl::allocator>();
-        this_00 = &field_128;
-        uVar3 = this_00->GetMean();
+        new (&local_268[0].field_8) eastl::fixed_string<char, 512>();
+        uint8_t* this_00 = &field_128;
+        uVar4 = this_00->GetMean();
         new (local_270) callstack::Callstack();
-        iVar4 = this_00->GetMean();
-        local_270->SetRedGreenGradient(iVar4, 0, 50);
-        fVar8 = field_98672;
-        uVar5 = local_270->GetX();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            &local_268[0].field_8, (double)fVar8, "LPS : %.1f <col=%X>[Mean : %d]", (ulong)uVar5, (ulong)uVar3);
-        ((local_270 + 8))->SetRedGreenGradient((int)(long)field_98672, 0, 50);
-        uVar6 = ((local_270 + 8))->GetX();
-        (*(code*)field_0[7])(this, &local_268[0].field_8, local_270._4_4_, param_2, uVar6, 255, 2);
-        uVar3 = (*(code*)field_0[8])(this, 1);
-        if (uVar3 != 0) {
-            iVar4 = this_00->GetMin();
-            if (48 < iVar4) {
-                iVar4 = this_00->GetMax();
-                if (iVar4 < 52)
+        int iVar5 = this_00->GetMean();
+        *local_270 = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(iVar5, 0, 50);
+        fVar9 = field_98672;
+        unsigned int uVar6 = local_270->GetX();
+        local_268[0].field_8.sprintf("LPS : %.1f <col=%X>[Mean : %d]", (double)fVar9, (unsigned long)uVar6,
+                                     (unsigned long)uVar4);
+        *((local_270 + 8)) =
+            math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient((int)(long)field_98672, 0, 50);
+        iVar5 = ((local_270 + 8))->GetX();
+        DrawTextString((int)&local_268 + 8, local_270._4_4_, arg2, iVar5, 255);
+        uint8_t uVar3 = CalculateLineAlpha((int)this);
+        FontAlign FVar7 = (((uint32_t)extraout_var << 8) | (uint8_t)uVar3);
+        if (FVar7 != 0) {
+            iVar5 = this_00->GetMin();
+            if (48 < iVar5) {
+                iVar5 = this_00->GetMax();
+                if (iVar5 < 52)
                     goto LAB_1008a66bd;
             }
-            iVar4 = this_00->GetMax();
-            ((local_270 + 8))->SetRedGreenGradient(iVar4, 0, 50);
-            uVar5 = ((local_270 + 8))->GetX();
-            uVar7 = this_00->GetMax();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                sprintf(&local_268[0].field_8, "Peak LPS: %d", (ulong)uVar7);
-            (*(code*)field_0[7])(this, &local_268[0].field_8, local_270._4_4_, param_2 - field_112,
-                                 uVar5 & 4294967040 | uVar3, uVar3, 2);
-            uVar3 = (*(code*)field_0[8])(this, 2);
-            if (uVar3 != 0) {
-                iVar4 = this_00->GetMin();
-                ((local_270 + 8))->SetRedGreenGradient(iVar4, 0, 50);
-                uVar5 = ((local_270 + 8))->GetX();
-                uVar7 = this_00->GetMin();
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                    sprintf(&local_268[0].field_8, "Lowest LPS: %d", (ulong)uVar7);
-                (*(code*)field_0[7])(this, &local_268[0].field_8, local_270._4_4_, param_2 + field_112 * -2,
-                                     uVar5 & 4294967040 | uVar3, uVar3, 2);
+            iVar5 = this_00->GetMax();
+            *((local_270 + 8)) = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(iVar5, 0, 50);
+            FVar8 = ((local_270 + 8))->GetX();
+            uVar4 = this_00->GetMax();
+            local_268[0].field_8.sprintf("Peak LPS: %d", (unsigned long)uVar4);
+            DrawTextString((int)&local_268 + 8, local_270._4_4_, arg2 - field_112, FVar8 & 4294967040 | FVar7, FVar7);
+            uVar3 = CalculateLineAlpha((int)this);
+            FVar7 = (((uint32_t)extraout_var_00 << 8) | (uint8_t)uVar3);
+            if (FVar7 != 0) {
+                iVar5 = this_00->GetMin();
+                *((local_270 + 8)) =
+                    math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(iVar5, 0, 50);
+                FVar8 = ((local_270 + 8))->GetX();
+                uVar4 = this_00->GetMin();
+                local_268[0].field_8.sprintf("Lowest LPS: %d", (unsigned long)uVar4);
+                DrawTextString((int)&local_268 + 8, local_270._4_4_, arg2 + field_112 * -2, FVar8 & 4294967040 | FVar7,
+                               FVar7);
             }
         }
     LAB_1008a66bd:
-        /* WARNING: Subroutine does not return */
         local_268[0].field_8.~fixed_string();
     }
 
-    // 0x1008a6710, 80 bytes, placed by class name
-    // DebugOverlayLPS::UpdateImpl(unsigned long long)
-    undefined1 DebugOverlayLPS::UpdateImpl(ulonglong param_1) {
-        GraphicsApp* this_00;
-        EntityHighlightState* this_01;
-        float fVar1;
-
-        this_00 = (GraphicsApp*)Instance();
-        this_01 = (EntityHighlightState*)this_00->GetFPSCounter();
-        fVar1 = (float)this_01->GetAlpha();
-        (&field_128, param_1, (int)(long)fVar1)->RecordValue();
-        (&field_128, 60)->SetMaximum();
+    // 0x1008a6710
+    uint8_t DebugOverlayLPS::UpdateImpl(unsigned long long arg1) {
+        auto this_00 = GraphicsApp::Instance();
+        auto this_01 = this_00->GetFPSCounter();
+        float fVar1 = (float)this_01->GetAlpha();
+        field_128.RecordValue(arg1, (int)(long)fVar1);
+        field_128.SetMaximum(60);
         return 1;
     }
 
-    // 0x1008a6760, 32 bytes, placed by class name
-    // DebugOverlayLPS::RegisterTweakyVars(tweak::Container&)
-    void DebugOverlayLPS::RegisterTweakyVars(Container* param_1) {
-        param_1->AddCheckBox("Display Logic-Loops-Per-Second", &field_120);
+    // 0x1008a6760
+    void DebugOverlayLPS::RegisterTweakyVars(tweak::Container& container) {
+        container.AddCheckBox("Display Logic-Loops-Per-Second", field_120);
     }
 
-    // 0x1008cc420, 16 bytes, complete-object destructor, inline, placed by class name
-    // DebugOverlayLPS::~DebugOverlayLPS(): jumps straight to the base-object destructor
+    // 0x1008cc420: DebugOverlayMainFPS::~DebugOverlayMainFPS() has the same machine code as DebugOverlayLPS::~DebugOverlayLPS()
 
-    // 0x1008cc420: the linker folded this into DebugOverlayLPS::~DebugOverlayLPS(), which has identical code
-    DebugOverlayMainFPS::~DebugOverlayMainFPS();
+    // 0x1008cc420: DebugOverlayRenderFPS::~DebugOverlayRenderFPS() has the same machine code as DebugOverlayLPS::~DebugOverlayLPS()
 
-    // 0x1008cc420: the linker folded this into DebugOverlayLPS::~DebugOverlayLPS(), which has identical code
-    DebugOverlayRenderFPS::~DebugOverlayRenderFPS();
+    // 0x1008cfe90
+    DebugOverlayLPS::~DebugOverlayLPS() {}
 
-    // 0x1008cc420: the linker folded this into DebugOverlayLPS::~DebugOverlayLPS(), which has identical code
-    DebugOverlayParticlesRender::~DebugOverlayParticlesRender();
+    // 0x1008cfe90: DebugOverlayParticlesRender::~DebugOverlayParticlesRender() has the same machine code as DebugOverlayLPS::~DebugOverlayLPS()
 
-    // 0x1008cc420: the linker folded this into DebugOverlayLPS::~DebugOverlayLPS(), which has identical code
-    DebugOverlayParticlesSimulation::~DebugOverlayParticlesSimulation();
-
-    // 0x1008cc430, 32 bytes, deleting destructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // DebugOverlayLPS::~DebugOverlayLPS()
-    /* DebugOverlayMemory::~DebugOverlayMemory() */
-
-    void DebugOverlayMemory::~DebugOverlayMemory() {
-        ~DebugOverlayMemory(this);
-        operator_delete(this);
-    }
-
-    // 0x1008cc430: the linker folded this into DebugOverlayLPS::~DebugOverlayLPS(), which has identical code
-    DebugOverlayParticlesRender::~DebugOverlayParticlesRender();
-
-    // 0x1008cc430: the linker folded this into DebugOverlayLPS::~DebugOverlayLPS(), which has identical code
-    DebugOverlayParticlesSimulation::~DebugOverlayParticlesSimulation();
-
-    // 0x1008cfe90, 16 bytes, base-object destructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // DebugOverlayLPS::~DebugOverlayLPS()
-    /* DebugOverlayMemory::~DebugOverlayMemory() */
-
-    void DebugOverlayMemory::~DebugOverlayMemory() {
-        ~DebugOverlayGraphSection();
-    }
-
-    // 0x1008cfe90: the linker folded this into DebugOverlayLPS::~DebugOverlayLPS(), which has identical code
-    DebugOverlayParticlesRender::~DebugOverlayParticlesRender();
-
-    // 0x1008cfe90: the linker folded this into DebugOverlayLPS::~DebugOverlayLPS(), which has identical code
-    DebugOverlayParticlesSimulation::~DebugOverlayParticlesSimulation();
+    // 0x1008cfe90: DebugOverlayParticlesSimulation::~DebugOverlayParticlesSimulation() has the same machine code as DebugOverlayLPS::~DebugOverlayLPS()
 
 } // namespace jag

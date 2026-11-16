@@ -1,37 +1,30 @@
 // libs/perf/perfmodule/PerfModuleReporter.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::perf {
     class PerfModuleReporter {
     public:
-        long FindResult(int) const;
-        AllFinished();
-        AllSucceeded();
-        int GetSummedResults(int const*, unsigned long) const;
-        void GetWeightedSummedResults(int const*, float const*, unsigned long) const;
-        ulong GetAverageResult(int const*, unsigned long) const;
-        GetWeightedAverageResult(int const*, float const*, unsigned long) const;
+        long FindResult(int arg1) const;
+        uint64_t AllFinished();
+        uint64_t AllSucceeded();
+        int GetSummedResults(const int* arg1, unsigned long arg2) const;
+        void GetWeightedSummedResults(const int* arg1, const float* arg2, unsigned long arg3) const;
+        unsigned long GetAverageResult(const int* arg1, unsigned long arg2) const;
+        uint64_t GetWeightedAverageResult(const int* arg1, const float* arg2, unsigned long arg3) const;
         void PrintResults() const;
-        void GetResult(int);
+        void GetResult(int arg1);
 
-        // data members, from how the methods use this: 16 bytes
-        char _unknown_0[16];
+    private:
+        uint8_t _unknown_0[8];
+        int field_8;
+        uint8_t _unknown_12[4];
     };
 
-    // 0x100bc4d50, 32 bytes, inline, placed by class name and debug map
-    // PerfModuleReporter::GetResult(int)
-    void PerfModuleReporter::GetResult(int param_1) {
-        int local_c;
-
-        local_c = param_1;
-        eastl::vector_map<int, PerfModuleResult, eastl::less<int>, eastl::allocator,
-                          eastl::vector<eastl::pair<int, PerfModuleResult>, eastl::allocator>>::
-        operator[]((vector_map<int, PerfModuleResult, eastl::less<int>, eastl::allocator,
-                               eastl::vector<eastl::pair<int, PerfModuleResult>, eastl::allocator>>*)&field_8,
-                   &local_c);
+    // 0x100bc4d50
+    void PerfModuleReporter::GetResult(int arg1) {
+        field_8[arg1];
     }
 
 } // namespace jag::perf

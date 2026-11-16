@@ -1,6 +1,5 @@
 // projects/osclient/debug/DebugDisplay.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -12,25 +11,18 @@ namespace jag::oldscape {
         virtual void DrawDebug();
         DebugDisplay();
         ~DebugDisplay();
-        void SetVisible(bool);
-        static /* 8 bytes */ m_self; // = 0
+        void SetVisible(bool arg1);
+        static int64_t m_self; // = 0
     };
 
-    // 0x100f36f48, 8 bytes, __data
-    DebugDisplay<RSevenDebugDisplay>::m_self = 0;
+    // 0x100f36f48
+    int64_t DebugDisplay<RSevenDebugDisplay>::m_self = 0;
 
-    // 0x1000620c0, 176 bytes, base-object constructor, inline, placed by class name and debug map
-    // DebugDisplay<RSevenDebugDisplay>::DebugDisplay()
-    void DebugDisplay<RSevenDebugDisplay>::DebugDisplay() {
-        allocator local_28[8];
+    // 0x1000620c0
+    DebugDisplay<RSevenDebugDisplay>::DebugDisplay() : jag::debug::DebugUIElement() {
 
-        new (this) jag::debug::DebugUIElement();
-        *(undefined**)this = PTR_vtable_100ee88d8 + 16;
-        eastl::allocator::allocator(local_28, "EASTL basic_string");
-        new ((this + 16)) eastl::string("", local_28);
-        this[48] = (DebugDisplay<RSevenDebugDisplay>)0;
+        new ((this + 2)) eastl::string("");
         if (*(long*)PTR_m_self_100ee6ae0 != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("!m_self",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/debug/"
                       "DebugDisplay.h",
@@ -38,84 +30,69 @@ namespace jag::oldscape {
         }
     }
 
-    // 0x100062250, 64 bytes, base-object destructor, inline, placed by class name and debug map
-    // DebugDisplay<RSevenDebugDisplay>::~DebugDisplay()
-    void DebugDisplay<RSevenDebugDisplay>::~DebugDisplay() {
-        *(undefined**)this = PTR_vtable_100ee88d8 + 16;
-        *(undefined8*)PTR_m_self_100ee6ae0 = 0;
-        ((this + 16))->~basic_string();
-        ~DebugUIElement();
+    // 0x100062250
+    DebugDisplay<RSevenDebugDisplay>::~DebugDisplay() {
+        *(uint64_t*)PTR_m_self_100ee6ae0 = 0;
+        ((this + 2))->~basic_string();
     }
 
-    // 0x100062a40, 80 bytes, inline, placed by class name
-    // DebugDisplay<RSevenDebugDisplay>::DrawDebug()
+    // 0x100062a40
     void DebugDisplay<RSevenDebugDisplay>::DrawDebug() {
-        char* pcVar2;
+        char* str;
 
-        if (this[48] != (DebugDisplay<RSevenDebugDisplay>)0) {
-            pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            if (ImGui::Begin(pcVar2, (bool*)(this + 48), 0) != '\0') {
-                (**(code**)(*(long*)this + 48))(this);
+        if (*(char*)&this[6]._vptr != '\0') {
+            str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            if (ImGui::Begin(str, (this + 6), 0) != '\0') {
+                (*this->_vptr[1]._dtor)(this);
             }
             ImGui::End();
         }
     }
 
-    // 0x1000b0520, 208 bytes, inline, placed by class name
-    // DebugDisplay<RSevenDebugDisplay>::SetVisible(bool)
-    void DebugDisplay<RSevenDebugDisplay>::SetVisible(bool param_1) {
-        undefined* puVar1;
-        RSevenDebugDisplay* this;
-        DebugUIManager* pDVar2;
-        RSevenDebugDisplay* this_00;
-        unique_ptr<jag::debug::DebugUIElement, std::default_delete<jag::debug::DebugUIElement>> local_40[8];
-        unique_ptr<RSevenDebugDisplay, std::default_delete<RSevenDebugDisplay>> local_38[8];
+    // 0x1000b0520
+    void DebugDisplay<RSevenDebugDisplay>::SetVisible(bool arg1) {
+        RSevenDebugDisplay* rSevenDebugDisplay;
+        DebugUIManager* this_00;
+        unique_ptr<jag::debug::DebugUIElement> local_40;
+        unique_ptr<RSevenDebugDisplay> local_38;
 
-        puVar1 = PTR_m_self_100ee6ae0;
+        uint8_t* puVar1 = PTR_m_self_100ee6ae0;
         if (*(long*)PTR_m_self_100ee6ae0 == 0) {
-            this = operator_new(448);
-            this_00 = this;
-            RSevenDebugDisplay::RSevenDebugDisplay(this);
-            *(RSevenDebugDisplay**)puVar1 = this;
-            pDVar2 = (DebugUIManager*)this_00->Instance();
-            std::unique_ptr<RSevenDebugDisplay, std::default_delete<RSevenDebugDisplay>>::unique_ptr<true, void>(
-                local_38, *(RSevenDebugDisplay**)puVar1);
-            std::unique_ptr<jag::debug::DebugUIElement, std::default_delete<jag::debug::DebugUIElement>>::unique_ptr<
-                RSevenDebugDisplay, std::default_delete<RSevenDebugDisplay>, void, void>(local_40,
-                                                                                         (unique_ptr*)local_38);
-            pDVar2->TransferOwnership(local_40);
-            std::unique_ptr<jag::debug::DebugUIElement, std::default_delete<jag::debug::DebugUIElement>>::~unique_ptr(
-                local_40);
-            std::unique_ptr<RSevenDebugDisplay, std::default_delete<RSevenDebugDisplay>>::~unique_ptr(local_38);
+            rSevenDebugDisplay = (RSevenDebugDisplay*)operator new(448);
+            new (rSevenDebugDisplay) RSevenDebugDisplay();
+            *(RSevenDebugDisplay**)puVar1 = rSevenDebugDisplay;
+            this_00 = (DebugUIManager*)rSevenDebugDisplay->Instance();
+            local_38.unique_ptr<true, void>(*(RSevenDebugDisplay**)puVar1);
+            local_40.unique_ptr<RSevenDebugDisplay, std::default_delete<RSevenDebugDisplay>, void, void>(local_38);
+            this_00->TransferOwnership(&local_40);
         }
-        *(bool*)(*(long*)puVar1 + 48) = param_1;
+        *(bool*)(*(long*)puVar1 + 48) = arg1;
     }
 
 } // namespace jag::oldscape
 
 namespace jag {
-    // 0x100062170, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::FileRSevenDebugPresetProvider>::type make_shared<oldscape::FileRSevenDebugPresetProvider>()
-    jag* make_shared<oldscape::FileRSevenDebugPresetProvider>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100062170
+    shared_ptr_if_not_array<oldscape::FileRSevenDebugPresetProvider>::type
+    make_shared<oldscape::FileRSevenDebugPresetProvider>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         FileRSevenDebugPresetProvider* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(112, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(112, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::FileRSevenDebugPresetProvider>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::FileRSevenDebugPresetProvider>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::FileRSevenDebugPresetProvider>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::FileRSevenDebugPresetProvider>, int,
-                                   oldscape::FileRSevenDebugPresetProvider*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::FileRSevenDebugPresetProvider>, int,
+                              oldscape::FileRSevenDebugPresetProvider*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

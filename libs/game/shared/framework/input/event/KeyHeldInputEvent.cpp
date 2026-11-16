@@ -1,109 +1,86 @@
 // libs/game/shared/framework/input/event/KeyHeldInputEvent.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.shared
 
 #include "KeyHeldInputEvent.h"
 
 namespace jag::game {
-    // 0x1002699e0: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::UpdateUserDetails::GetID() const, which has identical code
-    KeyHeldInputEvent::GetEventType() const;
+    // 0x1002699e0: KeyHeldInputEvent::GetEventType() const has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::UpdateUserDetails::GetID() const
 
-    // 0x1006e4570, 16 bytes, complete-object constructor, placed by class name and debug map
-    // KeyHeldInputEvent::KeyHeldInputEvent(PacketT<Array<unsigned char, eastl::allocator> >&): jumps straight to the base-object constructor
-
-    // 0x1006e45b0, 144 bytes, placed by class name and debug map
-    // KeyHeldInputEvent::EventOccurred(MouseEvent const*, eastl::vector<KeyEvent, eastl::allocator> const&, unsigned int, Keyboard&) const
-    ulong KeyHeldInputEvent::EventOccurred(MouseEvent* param_1, vector* param_2, uint param_3, Keyboard* param_4) {
-        char cVar1;
-        long lVar2;
+    // 0x1006e45b0
+    unsigned long KeyHeldInputEvent::EventOccurred(const MouseEvent* mouseEvent,
+                                                   const eastl::vector<KeyEvent>& keyEvents, unsigned int arg3,
+                                                   Keyboard& keyboard) const {
+        bool cVar1;
         int* piVar3;
-        ulong uVar4;
-        uint uVar5;
-        ulong uVar6;
-        undefined8 unaff_R12;
-        undefined1* this_00;
-        bool bVar7;
+        unsigned long uVar4;
+        unsigned int uVar5;
+        unsigned long arg1;
+        uint64_t unaff_R12;
 
-        this_00 = &field_8;
-        lVar2 = this_00->end();
-        bVar7 = lVar2 != 0;
-        if (bVar7) {
-            piVar3 = (int*)Array<unsigned int, eastl::allocator>::operator[](
-                (Array<unsigned int, eastl::allocator>*)this_00, 0);
-            cVar1 = param_4->IsKeyDown(*piVar3);
-            if (cVar1 != '\0') {
+        uint8_t* this_00 = &field_8;
+        bool bVar6 = this_00->end() != 0;
+        if (bVar6) {
+            piVar3 = (int*)(*this_00)[0];
+            cVar1 = keyboard.IsKeyDown(*piVar3);
+            if (cVar1) {
                 uVar5 = 1;
                 do {
-                    uVar6 = (ulong)uVar5;
+                    arg1 = (unsigned long)uVar5;
                     uVar4 = this_00->end();
-                    bVar7 = uVar6 < uVar4;
-                    if (uVar4 <= uVar6)
+                    bVar6 = arg1 < uVar4;
+                    if (uVar4 <= arg1)
                         break;
-                    piVar3 = (int*)Array<unsigned int, eastl::allocator>::operator[](
-                        (Array<unsigned int, eastl::allocator>*)this_00, uVar6);
-                    cVar1 = param_4->IsKeyDown(*piVar3);
+                    piVar3 = (int*)(*this_00)[arg1];
+                    cVar1 = keyboard.IsKeyDown(*piVar3);
                     uVar5 = uVar5 + 1;
-                } while (cVar1 != '\0');
+                } while (cVar1);
             }
         }
-        return (CONCAT71((int7)((ulong)unaff_R12 >> 8), bVar7) ^ 1) & 4294967295;
+        return ((((uint64_t)((int64_t)((unsigned long)unaff_R12 >> 8)) << 8) | (uint8_t)bVar6) ^ 1) & 4294967295;
     }
 
-    // 0x1006e4660, 192 bytes, base-object constructor, placed by class name and debug map
-    // KeyHeldInputEvent::KeyHeldInputEvent(PacketT<Array<unsigned char, eastl::allocator> >&)
-    void KeyHeldInputEvent::KeyHeldInputEvent(PacketT* param_1) {
-        undefined1* this_00;
-        byte bVar1;
-        uint uVar2;
-        uint* puVar3;
-        ulong uVar4;
+    // 0x1006e4660
+    KeyHeldInputEvent::KeyHeldInputEvent(PacketT<Array<unsigned char>>& arg1) : InputEvent() {
+        unsigned int uVar2;
+        unsigned int* puVar3;
+        unsigned long arg1_00;
 
-        new (this) InputEvent();
-        field_0 = &PTR__KeyHeldInputEvent_100f11660;
-        this_00 = &field_8;
-        new (this_00) Array<unsigned int, eastl::allocator>();
-        bVar1 = param_1->g1();
-        this_00->set_max_size((ulong)bVar1, 0);
+        uint8_t* this_00 = &field_8;
+        new (this_00) Array<unsigned int>();
+        uint8_t bVar1 = arg1.g1();
+        this_00->set_max_size((unsigned long)bVar1, 0);
         if (bVar1 != 0) {
-            uVar4 = 0;
+            arg1_00 = 0;
             do {
-                uVar2 = param_1->g1();
-                puVar3 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                    (Array<unsigned int, eastl::allocator>*)this_00, uVar4);
+                uVar2 = arg1.g1();
+                puVar3 = (unsigned int*)(*this_00)[arg1_00];
                 *puVar3 = uVar2 & 255;
-                uVar4 = uVar4 + 1;
-            } while (bVar1 != uVar4);
+                arg1_00 = arg1_00 + 1;
+            } while (bVar1 != arg1_00);
         }
     }
 
-    // 0x1006e4740, 128 bytes, placed by class name
-    // KeyHeldInputEvent::Pack(PacketT<Array<unsigned char, eastl::allocator> >&) const
-    void KeyHeldInputEvent::Pack(PacketT* param_1) {
-        ulong uVar1;
-        long lVar2;
-        uint* puVar3;
-        ulong uVar4;
-        uint uVar5;
-        undefined1* this_00;
+    // 0x1006e4740
+    void KeyHeldInputEvent::Pack(PacketT<Array<unsigned char>>& arg1) const {
+        ID* pIVar2;
+        unsigned long uVar3;
+        unsigned int uVar4;
+        unsigned long arg1_00;
 
-        this_00 = &field_8;
-        uVar1 = this_00->end();
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, uVar1);
-        lVar2 = this_00->end();
-        if (lVar2 != 0) {
-            uVar5 = 1;
-            uVar1 = 0;
+        uint8_t* this_00 = &field_8;
+        auto id = this_00->end();
+        arg1.p1<unsigned long>(id);
+        if (this_00->end() != 0) {
+            uVar4 = 1;
+            arg1_00 = 0;
             do {
-                puVar3 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                    (Array<unsigned int, eastl::allocator>*)this_00, uVar1);
-                PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-                    (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (ulong)*puVar3);
-                uVar1 = (ulong)uVar5;
-                uVar4 = this_00->end();
-                uVar5 = uVar5 + 1;
-            } while (uVar1 < uVar4);
+                pIVar2 = (ID*)(*this_00)[arg1_00];
+                arg1.p1<unsigned long>(*pIVar2);
+                arg1_00 = (unsigned long)uVar4;
+                uVar3 = this_00->end();
+                uVar4 = uVar4 + 1;
+            } while (arg1_00 < uVar3);
         }
     }
 

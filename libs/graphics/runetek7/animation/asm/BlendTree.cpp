@@ -1,45 +1,36 @@
 // libs/graphics/runetek7/animation/asm/BlendTree.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.system.osclient
 
 namespace jag::graphics {
     class BlendTree {
     public:
-        GetRoot() const;
-        SetRoot(BlendTreeNode*);
+        void GetRoot() const;
+        void SetRoot(BlendTreeNode* arg1);
         BlendTree();
-        GetBlendTreeAsString();
+        auto GetBlendTreeAsString();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+    private:
+        long* field_0;
     };
 
-    // 0x100009d10: the linker folded this into eastl::string::Layout::HeapBeginPtr(), which has identical code
-    BlendTree::GetRoot() const;
+    // 0x100009d10: BlendTree::GetRoot() const has the same machine code as eastl::string::Layout::HeapBeginPtr()
 
-    // 0x10000b400: the linker folded this into eastl::string::Layout::SetHeapBeginPtr(char*), which has identical code
-    BlendTree::SetRoot(BlendTreeNode*);
+    // 0x10000b400: BlendTree::SetRoot(BlendTreeNode*) has the same machine code as eastl::string::Layout::SetHeapBeginPtr(char*)
 
-    // 0x100045a10: the linker folded this into eastl::rbtree_iterator<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator> >, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator> >*, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator> >&>::rbtree_iterator(), which has identical code
-    BlendTree::BlendTree();
+    // 0x100045a10: BlendTree::BlendTree() has the same machine code as eastl::rbtree_iterator<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>*, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>&>::rbtree_iterator()
 
-    // 0x100045c10: the linker folded this into eastl::rbtree_iterator<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator> >, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator> >*, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator> >&>::rbtree_iterator(), which has identical code
-    BlendTree::BlendTree();
+    // 0x100045c10: BlendTree::BlendTree() has the same machine code as eastl::rbtree_iterator<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>*, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>&>::rbtree_iterator()
 
-    // 0x10095d580, 96 bytes, placed by class name and debug map
-    // BlendTree::GetBlendTreeAsString()
-    BlendTree* BlendTree::GetBlendTreeAsString() {
-        long* in_RSI;
-        allocator local_20[8];
+    // 0x10095d580
+    auto BlendTree::GetBlendTreeAsString() {
 
-        if ((long*)*in_RSI == (long*)0) {
-            eastl::allocator::allocator(local_20, "EASTL basic_string");
-            new (this) eastl::string("Empty", local_20);
+        if (field_0 == nullptr) {
+            auto result("Empty");
         } else {
-            (**(code**)(*(long*)*in_RSI + 56))(this);
+            (**(void (**)(...))(*field_0 + 56))(&result);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag::graphics

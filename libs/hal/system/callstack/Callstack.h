@@ -1,6 +1,5 @@
 // libs/hal/system/callstack/Callstack.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.system.callstack
@@ -11,205 +10,148 @@ namespace jag::callstack {
         int GetStackFrames() const;
         Callstack();
         void GetStack() const;
-        void Capture(int);
+        void Capture(int arg1);
         void Reset();
-        GetFrameAddress(int) const;
+        uint64_t GetFrameAddress(int arg1) const;
 
-        // data members, from how the methods use this: 16 bytes
-        int m_stackFrames; // offset 0
-        char _unknown_4[4];
-        undefined1 field_8; // offset 8
-        char _unknown_9[7];
+    private:
+        int m_stackFrames;
+        uint8_t _unknown_4[4];
+        uint8_t field_8;
+        uint8_t _unknown_9[7];
     };
 
     class CallstackResolved {
     public:
-        GetStack();
+        void GetStack();
         ~CallstackResolved();
-        CallstackResolved(Callstack const&);
-        void Resolve(Callstack const&);
-        GetLRUCacheMutex();
-        void CheckForCachedResolutions(Callstack const&);
-        void ResolveStack(Callstack const&);
+        CallstackResolved(const Callstack& callstack);
+        void Resolve(const Callstack& callstack);
+        void GetLRUCacheMutex();
+        void CheckForCachedResolutions(const Callstack& callstack);
+        void ResolveStack(const Callstack& callstack);
         void CacheResolvedEntries();
         void TrimStackOfGarbage();
-        GetLRUCache();
+        void GetLRUCache();
         void ExpireOldCacheEntries();
-        ulong FindStackIndexForBaseAddress(unsigned long);
-        void Output(char const*) const;
-        Get(char const*) const;
-        static /* 32 bytes */ m_filters;
+        unsigned long FindStackIndexForBaseAddress(unsigned long arg1);
+        void Output(const char* str) const;
+        auto Get(const char* str) const;
+        static eastl::basic_string::Layout m_filters;
 
-        // data members, from how the methods use this: 16 bytes
-        long field_0;             // offset 0
-        ResolvedAddress* field_8; // offset 8
+    private:
+        long field_0;
+        ResolvedAddress* field_8;
     };
 
-    // 0x100189fa0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // CallstackResolved::~CallstackResolved(): jumps straight to the base-object destructor
-
-    // 0x1004c1af0, 16 bytes, inline, placed by class name
-    // Callstack::GetStack() const
-    void Callstack::GetStack() {
-        (&field_8)->data();
+    // 0x1004c1af0
+    void Callstack::GetStack() const {
+        field_8.data();
     }
 
-    // 0x100cad9d0, 32 bytes, inline, placed by class name and debug map
-    // Callstack::GetFrameAddress(int) const
-    undefined8 Callstack::GetFrameAddress(int param_1) {
-        undefined8* puVar1;
+    // 0x100cad9d0
+    uint64_t Callstack::GetFrameAddress(int arg1) const {
+        uint64_t* puVar1;
 
-        if (param_1 < m_stackFrames) {
-            puVar1 = (undefined8*)std::array<unsigned long, 100ul>::operator[]((array<unsigned long, 100ul>*)&field_8,
-                                                                               (long)param_1);
+        if (arg1 < m_stackFrames) {
+            puVar1 = &field_8[(long)arg1];
             return *puVar1;
         }
         return 0;
     }
 
-    // 0x100cadad0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ResolvedAddress::operator=(ResolvedAddress const&)
-    /* ResolvedAddress::TEMPNAMEPLACEHOLDERVALUE(ResolvedAddress const&)
-    */
-
-    ResolvedAddress* ResolvedAddress::operator=(ResolvedAddress* param_1) {
-        ulong uVar1;
-        undefined4 uVar2;
-
-        field_0 = param_1->field_0;
-        eastl::fixed_string<char, 512, false, eastl::allocator>::operator=(
-            (fixed_string<char, 512, false, eastl::allocator>*)&field_8, (fixed_string*)&param_1->field_8);
-        eastl::fixed_string<char, 256, false, eastl::allocator>::operator=(
-            (fixed_string<char, 256, false, eastl::allocator>*)&field_544, (fixed_string*)&param_1->field_544);
-        uVar2 = *(undefined4*)&param_1->field_828;
-        uVar1 = param_1->field_832;
-        field_824 = param_1->field_824;
-        *(undefined4*)&field_828 = uVar2;
+    // 0x100cadad0
+    ResolvedAddress* ResolvedAddress::operator=(const ResolvedAddress& resolvedAddress) {
+        field_0 = resolvedAddress.field_0;
+        field_8 = resolvedAddress.field_8;
+        field_544 = resolvedAddress.field_544;
+        uint32_t uVar2 = *(uint32_t*)&resolvedAddress.field_828;
+        unsigned long uVar1 = resolvedAddress.field_832;
+        field_824 = resolvedAddress.field_824;
+        *(uint32_t*)&field_828 = uVar2;
         field_832 = uVar1;
         return this;
     }
 
-    // 0x100cadb50, 16 bytes, placed by debug map only (low confidence)
-    // CallstackResolved::ExpireOldCacheEntries()
+    // 0x100cadb50
     void CallstackResolved::ExpireOldCacheEntries() {}
 
-    // 0x100cadb60, 112 bytes, placed by debug map only (low confidence)
-    // CallstackResolved::FindStackIndexForBaseAddress(unsigned long)
-    ulong CallstackResolved::FindStackIndexForBaseAddress(ulong param_1) {
-        int iVar1;
+    // 0x100cadb60
+    unsigned long CallstackResolved::FindStackIndexForBaseAddress(unsigned long arg1) {
         long lVar2;
-        ulong uVar3;
+        unsigned long arg1_00;
 
-        iVar1 = size();
+        int iVar1 = size();
         if (0 < iVar1) {
-            uVar3 = 0;
+            arg1_00 = 0;
             do {
-                lVar2 = eastl::vector<ResolvedAddress, eastl::allocator>::operator[](
-                    (vector<ResolvedAddress, eastl::allocator>*)this, uVar3);
-                if (*(ulong*)(lVar2 + 832) == param_1) {
-                    return uVar3 & 4294967295;
+                lVar2 = (*this)[arg1_00];
+                if (*(unsigned long*)(lVar2 + 832) == arg1) {
+                    return arg1_00 & 4294967295;
                 }
-                uVar3 = uVar3 + 1;
+                arg1_00 = arg1_00 + 1;
                 iVar1 = size();
-            } while ((long)uVar3 < (long)iVar1);
+            } while ((long)arg1_00 < (long)iVar1);
         }
         return 4294967295;
     }
 
-    // 0x100cadd70, 224 bytes, inline, placed by debug map only (low confidence)
-    // char const* ResolvedAddress::Format<eastl::fixed_string<char, 16384, false, eastl::allocator> >(eastl::fixed_string<char, 16384, false, eastl::allocator>&) const
-    char* ResolvedAddress::Format<eastl::fixed_string<char, 16384, false, eastl::allocator>>(fixed_string* param_1) {
-        ulong uVar1;
-        char cVar2;
-        undefined8 uVar3;
+    // 0x100cadd70
+    char const* ResolvedAddress::Format<eastl::fixed_string<char, 16384, false>>(
+        eastl::fixed_string<char, 16384, false>& str) const {
+        uint64_t uVar3;
 
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 16384ul, 1ul, 0ul, false, eastl::allocator>>::
-            append_sprintf((char*)param_1, "%012llX", field_0);
-        cVar2 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        if (cVar2 == '\0') {
+        str.append_sprintf("%012llX", field_0);
+        if (!(field_544.empty())) {
             uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 16384ul, 1ul, 0ul, false, eastl::allocator>>::
-                append_sprintf((char*)param_1, &DAT_100e624e9, uVar3);
+            str.append_sprintf(", %s", uVar3);
             if (field_824 != 0) {
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 16384ul, 1ul, 0ul, false, eastl::allocator>>::
-                    append_sprintf((char*)param_1, &DAT_100e624ee);
+                str.append_sprintf("(%d)");
             }
         }
-        cVar2 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        if (cVar2 == '\0') {
+        if (!(field_8.empty())) {
             uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 16384ul, 1ul, 0ul, false, eastl::allocator>>::
-                append_sprintf((char*)param_1, &DAT_100e624f3, uVar3);
+            str.append_sprintf(": %s", uVar3);
         }
-        uVar1 = field_832;
-        if ((uVar1 != 0) && (uVar1 < (ulong)field_0)) {
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 16384ul, 1ul, 0ul, false, eastl::allocator>>::
-                append_sprintf((char*)param_1, " + %d", (ulong)(uint)((int)field_0 - (int)uVar1));
+        unsigned long uVar1 = field_832;
+        if ((uVar1 != 0) && (uVar1 < (unsigned long)field_0)) {
+            str.append_sprintf(" + %d", (unsigned long)(unsigned int)((int)field_0 - (int)uVar1));
         }
         return (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
     }
 
-    // 0x100cafa50, 128 bytes, inline, placed by class name
-    // void trail_with_dashes<eastl::fixed_string<char, 256, true, eastl::allocator> >(int, eastl::fixed_string<char, 256, true, eastl::allocator>&)
-    void trail_with_dashes<eastl::fixed_string<char, 256, true, eastl::allocator>>(int param_1, fixed_string* param_2) {
-        int iVar1;
-
-        if ((eastl::basic_string<char,
-                                 eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size() &
-             18446744071562067968) != 0) {
-            /* WARNING: Subroutine does not return */
+    // 0x100cafa50
+    void trail_with_dashes<eastl::fixed_string<char, 256>>(int arg1, eastl::fixed_string<char, 256>& str) {
+        if ((str.size() & 18446744071562067968) != 0) {
             LogAssert("stringOut.length() <= (eastl_size_t)std::numeric_limits<int>::max()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/system/callstack/"
                       "Callstack.cpp",
-                      55, (char*)0);
+                      55, nullptr);
         }
-        iVar1 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        if (iVar1 < param_1) {
-            iVar1 = param_1 - iVar1;
+        int iVar1 = str.size();
+        if (iVar1 < arg1) {
+            iVar1 = arg1 - iVar1;
             do {
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 4096ul, 1ul, 0ul, true, eastl::allocator>>::
-                operator+=(
-                    (basic_string<char, eastl::fixed_vector_allocator<1ul, 4096ul, 1ul, 0ul, true, eastl::allocator>>*)
-                        param_2,
-                    "-");
-                iVar1 = iVar1 + -1;
+                str += "-";
+                iVar1 = iVar1 - 1;
             } while (iVar1 != 0);
         }
     }
 
-    // 0x100cafae0, 128 bytes, inline, placed by class name
-    // void trail_with_dashes<eastl::fixed_string<char, 128, true, eastl::allocator> >(int, eastl::fixed_string<char, 128, true, eastl::allocator>&)
-    void trail_with_dashes<eastl::fixed_string<char, 128, true, eastl::allocator>>(int param_1, fixed_string* param_2) {
-        int iVar1;
-
-        if ((eastl::basic_string<char,
-                                 eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size() &
-             18446744071562067968) != 0) {
-            /* WARNING: Subroutine does not return */
+    // 0x100cafae0
+    void trail_with_dashes<eastl::fixed_string<char, 128>>(int arg1, eastl::fixed_string<char, 128>& str) {
+        if ((str.size() & 18446744071562067968) != 0) {
             LogAssert("stringOut.length() <= (eastl_size_t)std::numeric_limits<int>::max()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/system/callstack/"
                       "Callstack.cpp",
-                      55, (char*)0);
+                      55, nullptr);
         }
-        iVar1 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        if (iVar1 < param_1) {
-            iVar1 = param_1 - iVar1;
+        int iVar1 = str.size();
+        if (iVar1 < arg1) {
+            iVar1 = arg1 - iVar1;
             do {
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 4096ul, 1ul, 0ul, true, eastl::allocator>>::
-                operator+=(
-                    (basic_string<char, eastl::fixed_vector_allocator<1ul, 4096ul, 1ul, 0ul, true, eastl::allocator>>*)
-                        param_2,
-                    "-");
-                iVar1 = iVar1 + -1;
+                str += "-";
+                iVar1 = iVar1 - 1;
             } while (iVar1 != 0);
         }
     }

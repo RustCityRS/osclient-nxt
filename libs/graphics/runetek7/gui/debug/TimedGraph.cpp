@@ -1,571 +1,426 @@
 // libs/graphics/runetek7/gui/debug/TimedGraph.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "TimedGraph.h"
 
 namespace jag {
-    // 0x1008fa680, 1824 bytes, placed by class name and debug map
-    // TimedGraph::Draw(graphics::GUIManager&, int, int, int, int, unsigned long long, int, int)
-    void TimedGraph::Draw(GUIManager* param_1, int param_2, int param_3, int param_4, int param_5, ulonglong param_6,
-                          int param_7, int param_8) {
-        bool bVar1;
-        int iVar2;
-        undefined4 uVar3;
+    // 0x1008fa680
+    void TimedGraph::Draw(graphics::GUIManager& guiManager, int arg2, int arg3, int arg4, int arg5,
+                          unsigned long long arg6, int arg7, int arg8) {
+        EnumOptionToggle enumOptionToggle2;
+        bool cVar1;
+        uint32_t uVar3;
         int iVar4;
-        long lVar5;
         int* piVar6;
         long lVar7;
-        undefined4* puVar8;
-        uint uVar9;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        int iVar10;
-        TimedGraph* pTVar11;
-        ulong uVar12;
-        int iVar13;
-        int iVar14;
-        double dVar15;
-        undefined1 auVar16[16];
-        undefined1 auVar17[16];
-        undefined1 local_930[8];
-        double local_928;
-        double dStack_920;
-        double local_918;
-        undefined8 uStack_910;
-        undefined8 local_900;
+        ShaderVariablePrecision* pSVar8;
+        uint32_t* puVar9;
+        EnumOptionToggle* pEVar10;
+        unsigned int uVar11;
+        unsigned long uVar13;
+        int arg1;
+        TextureType textureType;
+        uint8_t auVar16[16];
+        uint8_t auVar17[16];
+        list<TimedGraph::Element, eastl::fixed_node_allocator<32ul, 3072ul, 8ul, 0ul, true>> local_930;
+        ListIterator<TimedGraph::Element, TimedGraph::Element const*, TimedGraph::Element const&>* local_900;
         ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
                      shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
                      shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>
             local_8f8[8];
         double local_8f0;
-        double local_8e8;
-        ulong local_8e0;
-        double local_8d8;
-        GUIManager* local_8d0;
         double local_8c8;
-        undefined8 uStack_8c0;
+        uint64_t uStack_8c0;
         int local_8ac;
-        TimedGraph* local_8a8;
         int local_8a0;
-        int local_89c;
-        int local_898[2];
+        ReturnValue local_898;
         double local_890;
-        Callstack local_888;
-        undefined8 local_878;
-        int local_86c;
-        int local_868;
-        int local_864;
-        vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true, eastl::allocator>> local_860[2088];
-        long local_38;
+        uint64_t local_878;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        field_98428 = param_7;
-        local_8d0 = param_1;
-        local_8a8 = this;
-        local_89c = param_2;
-        local_868 = param_3;
-        new (&field_98432, param_2, param_3, param_4, param_5) oldscape::dash3d::GridRect();
-        local_864 = param_5;
-        if (256 < param_5) {
-            /* WARNING: Subroutine does not return */
+        field_98428 = arg7;
+        int local_868 = arg3;
+        new (&field_98432) oldscape::dash3d::GridRect(arg2, arg3, arg4, arg5);
+        if (256 < arg5) {
             LogAssert("height <= 256",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "debug/TimedGraph.cpp",
-                      104, (char*)0);
+                      104, nullptr);
         }
-        local_8d0->AddColouredRectangle(local_89c, local_868, (ulong)(uint)param_4, param_5, param_8, 1);
-        if (512 < param_4) {
-            /* WARNING: Subroutine does not return */
+        guiManager.AddColouredRectangle(arg2, local_868, arg4, arg5, arg8, 1);
+        if (512 < arg4) {
             LogAssert("width <= 512",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "debug/TimedGraph.cpp",
-                      110, (char*)0);
+                      110, nullptr);
         }
-        eastl::fixed_vector<int, 512ul, true, eastl::allocator>::fixed_vector((ulong)local_860);
-        local_898[0] = 0;
-        eastl::vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true, eastl::allocator>>::assign(
-            local_860, local_898);
-        pTVar11 = local_8a8;
-        lVar5 = (long)param_7 * 1000;
-        auVar16._8_4_ = (int)((ulong)lVar5 >> 32);
+        fixed_vector<int, 512ul> local_860((long)arg4);
+        local_898._0_4_ = 0;
+        local_860.assign(local_898);
+        TimedGraph* this_00 = this;
+        long lVar5 = (long)arg7 * 1000;
+        auVar16._8_4_ = (int)((unsigned long)lVar5 >> 32);
         auVar16._0_8_ = lVar5;
         auVar16._12_4_ = 1160773632;
-        dStack_920 = auVar16._8_8_ - 1.9342813113834067e+25;
-        local_928 = dStack_920 + ((double)CONCAT44(1127219200, (int)lVar5) - 4503599627370496.0);
-        local_8d8 = (double)param_4;
-        local_898->end();
-        local_918 = (double)(param_4 + -1);
-        uStack_910 = 0;
-        local_8e8 = (double)local_864;
-        iVar4 = 2147483647;
-        iVar2 = 0;
-        local_86c = 0;
-        local_878 = (ulong)local_878._4_4_ << 32;
-        iVar13 = 0;
-        dVar15 = local_8d8;
-        local_8e0 = (ulong)(uint)param_4;
+        double local_928 = auVar16._8_8_ - 1.9342813113834067e+25 +
+                           ((double)(((uint64_t)1127219200 << 32) | (uint32_t)((int)lVar5)) - 4503599627370496.0);
+        local_898 = end();
+        double local_918 = (double)(arg4 - 1);
+        double local_8e8 = (double)(int)(EnumOptionToggle)arg5;
+        int iVar12 = 2147483647;
+        int iVar2 = 0;
+        int local_86c = 0;
+        local_878 = (unsigned long)local_878._4_4_ << 32;
+        int iVar14 = 0;
+        double dVar15 = (double)arg4;
+        unsigned long local_8e0 = (unsigned long)(unsigned int)arg4;
         do {
             local_8f0 = dVar15;
             local_8a0 = iVar2;
-            local_888.begin();
-            bVar1 = eastl::operator==((eastl*)local_898, (hashtable_iterator_base*)&local_888, extraout_RDX);
+            local_888 = this_00->begin();
+            cVar1 = local_898 == local_888;
             iVar2 = local_8a0;
-            if (bVar1)
+            if (cVar1)
                 goto joined_r0x0001008fabaa;
-            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator--(
-                (ListIterator<console::Line, console::Line*, console::Line&>*)local_898);
-            piVar6 = (int*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                (ListIterator<console::Line, console::Line*, console::Line&>*)local_898);
+            --local_898;
+            piVar6 = (int*)*local_898;
             local_8ac = *piVar6;
-            local_888._12_4_ = iVar13;
-            if (iVar13 < local_8ac) {
+            local_888._12_4_ = iVar14;
+            if (iVar14 < local_8ac) {
                 local_888._12_4_ = local_8ac;
             }
-            if (local_8ac < iVar4) {
-                iVar4 = local_8ac;
+            if (local_8ac < iVar12) {
+                iVar12 = local_8ac;
             }
-            lVar5 = param_6 - *(long*)(piVar6 + 2);
-            auVar17._8_4_ = (int)((ulong)lVar5 >> 32);
+            lVar5 = arg6 - *(long*)(piVar6 + 2);
+            auVar17._8_4_ = (int)((unsigned long)lVar5 >> 32);
             auVar17._0_8_ = lVar5;
             auVar17._12_4_ = 1160773632;
-            dVar15 = local_8d8 - (((auVar17._8_8_ - 1.9342813113834067e+25) +
-                                   ((double)CONCAT44(1127219200, (int)lVar5) - 4503599627370496.0)) *
-                                  local_8d8) /
-                                     local_928;
-            uVar9 = (uint)local_878 & 255;
+            dVar15 = (double)arg4 -
+                     (((auVar17._8_8_ - 1.9342813113834067e+25) +
+                       ((double)(((uint64_t)1127219200 << 32) | (uint32_t)((int)lVar5)) - 4503599627370496.0)) *
+                      (double)arg4) /
+                         local_928;
+            uVar11 = (unsigned int)local_878 & 255;
             if (dVar15 < 0.0) {
-                uVar9 = 1;
+                uVar11 = 1;
             }
-            local_878 = CONCAT44(local_878._4_4_, uVar9);
+            local_878 = (((uint64_t)local_878._4_4_ << 32) | (uint32_t)uVar11);
             if (dVar15 <= 0.0) {
                 dVar15 = 0.0;
             }
-            local_8c8 = (double)(~-(ulong)(dVar15 < local_8d8) & (ulong)local_918 |
-                                 (ulong)dVar15 & -(ulong)(dVar15 < local_8d8));
-            uStack_8c0 = uStack_910;
+            local_8c8 = (double)(~-(unsigned long)(dVar15 < (double)arg4) & (unsigned long)local_918 |
+                                 (unsigned long)dVar15 & -(unsigned long)(dVar15 < (double)arg4));
+            uStack_8c0 = 0;
             local_890 = (double)local_8ac * local_8e8;
-            iVar2 = eastl::max<int>(pTVar11->m_maximum, 1);
-            uVar9 = (uint)(0 < *piVar6);
+            iVar2 = eastl::max<int>(this_00->m_maximum, 1);
+            textureType = (unsigned int)(0 < *piVar6);
             if ((int)(local_890 / (double)iVar2) != 0) {
-                uVar9 = (int)(local_890 / (double)iVar2);
+                textureType = (int)(local_890 / (double)iVar2);
             }
-            if (uVar9 != 0) {
-                local_890 = (double)CONCAT44(local_890._4_4_, iVar4);
+            if (textureType != 0) {
+                local_890 = (double)(((uint64_t)local_890._4_4_ << 32) | (uint32_t)iVar12);
                 iVar2 = (int)local_8c8;
-                iVar13 = (int)local_8f0;
-                uVar12 = (ulong)iVar2;
-                if (iVar2 < iVar13) {
-                    lVar5 = local_860->HeapBeginPtr();
-                    lVar7 = local_860->HeapBeginPtr();
-                    eastl::fill<unsigned int>((uint*)(lVar5 + uVar12 * 4 + 4), (uint*)(lVar7 + (long)iVar13 * 4),
-                                              uVar9);
+                iVar14 = (int)local_8f0;
+                uVar13 = (unsigned long)iVar2;
+                if (iVar2 < iVar14) {
+                    lVar5 = local_860.HeapBeginPtr();
+                    lVar7 = local_860.HeapBeginPtr();
+                    eastl::fill<unsigned int>((lVar5 + uVar13 * 4 + 4), (unsigned int*)(lVar7 + (long)iVar14 * 4),
+                                              textureType);
                 }
-                if (iVar2 == iVar13) {
-                    piVar6 =
-                        (int*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true,
-                                                                               eastl::allocator>>::operator[](local_860,
-                                                                                                              uVar12);
-                    uVar3 = eastl::max<int>(*piVar6, uVar9);
-                    puVar8 = (undefined4*)
-                        eastl::vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true,
-                                                                         eastl::allocator>>::operator[](local_860,
-                                                                                                        uVar12);
+                if (iVar2 == iVar14) {
+                    pSVar8 = &local_860[uVar13];
+                    uVar3 = eastl::max<int>(*pSVar8, textureType);
+                    puVar9 = &local_860[uVar13];
                 } else {
-                    piVar6 =
-                        (int*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true,
-                                                                               eastl::allocator>>::operator[](local_860,
-                                                                                                              uVar12);
-                    uVar3 = eastl::max<int>(*piVar6, uVar9);
-                    puVar8 = (undefined4*)
-                        eastl::vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true,
-                                                                         eastl::allocator>>::operator[](local_860,
-                                                                                                        uVar12);
-                    *puVar8 = uVar3;
-                    iVar4 = local_890._0_4_;
-                    if ((int)local_8e0 <= iVar13)
+                    pSVar8 = &local_860[uVar13];
+                    uVar3 = eastl::max<int>(*pSVar8, textureType);
+                    puVar9 = &local_860[uVar13];
+                    *puVar9 = uVar3;
+                    iVar12 = local_890._0_4_;
+                    if ((int)local_8e0 <= iVar14)
                         goto LAB_1008fa860;
-                    piVar6 = (int*)
-                        eastl::vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true,
-                                                                         eastl::allocator>>::operator[](local_860,
-                                                                                                        (long)iVar13);
-                    uVar3 = eastl::max<int>(*piVar6, uVar9);
-                    puVar8 = (undefined4*)
-                        eastl::vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true,
-                                                                         eastl::allocator>>::operator[](local_860,
-                                                                                                        (long)iVar13);
+                    pSVar8 = &local_860[(long)iVar14];
+                    uVar3 = eastl::max<int>(*pSVar8, textureType);
+                    puVar9 = &local_860[(long)iVar14];
                 }
-                *puVar8 = uVar3;
-                iVar4 = local_890._0_4_;
+                *puVar9 = uVar3;
+                iVar12 = local_890._0_4_;
             }
         LAB_1008fa860:
-            pTVar11 = local_8a8;
+            this_00 = this;
             iVar2 = local_8ac + local_8a0;
             local_86c = local_86c + 1;
-            iVar13 = local_888._12_4_;
+            iVar14 = local_888._12_4_;
             dVar15 = local_8c8;
         } while ((local_878 & 1) == 0);
-        local_888.begin();
-        bVar1 = eastl::operator!=((eastl*)local_898, (hashtable_iterator_base*)&local_888, extraout_RDX_00);
-        iVar13 = local_888._12_4_;
-        if (bVar1) {
-            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator--(
-                (ListIterator<console::Line, console::Line*, console::Line&>*)local_898);
-            local_888.begin();
-            new (&local_900) eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                                 shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                                 shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(
-                (ListIterator*)&local_888);
-            eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>::ListIterator(local_8f8,
-                                                                                                         (ListIterator*)
-                                                                                                             local_898);
-            eastl::list<TimedGraph::Element,
-                        eastl::fixed_node_allocator<32ul, 3072ul, 8ul, 0ul, true, eastl::allocator>>::erase(local_930,
-                                                                                                            pTVar11,
-                                                                                                            local_900);
-            iVar13 = local_888._12_4_;
+        Callstack local_888 = begin();
+        cVar1 = local_898 != local_888;
+        iVar14 = local_888._12_4_;
+        if (cVar1) {
+            --local_898;
+            local_888 = this_00->begin();
+            new (&local_900) eastl::ListIterator(&local_888);
+            new (local_8f8) eastl::ListIterator(&local_898);
+            eastl::list<TimedGraph::Element, eastl::fixed_node_allocator<32ul, 3072ul, 8ul, 0ul, true>>::erase(
+                &local_930,
+                (ListIterator<TimedGraph::Element, TimedGraph::Element const*, TimedGraph::Element const&>*)this_00,
+                local_900);
+            iVar14 = local_888._12_4_;
         }
     joined_r0x0001008fabaa:
         if (local_86c != 0) {
-            pTVar11->m_mean = iVar2 / local_86c;
-            *(int*)&pTVar11->field_98460 = iVar13;
-            pTVar11->m_min = iVar4;
+            this_00->m_mean = iVar2 / local_86c;
+            *(int*)&this_00->field_98460 = iVar14;
+            this_00->m_min = iVar12;
         }
-        local_878 = local_860->size();
+        local_878 = local_860.size();
         iVar2 = (int)local_878;
         if (0 < iVar2) {
-            local_868 = local_868 + local_864;
-            iVar13 = 0;
+            local_868 = local_868 + (EnumOptionToggle)arg5;
+            iVar14 = 0;
             do {
-                uVar12 = (ulong)iVar13;
-                piVar6 =
-                    (int*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true,
-                                                                           eastl::allocator>>::operator[](local_860,
-                                                                                                          uVar12);
-                iVar4 = *piVar6;
-                if (iVar4 != 0) {
-                    iVar10 = iVar13;
+                uVar13 = (unsigned long)iVar14;
+                pEVar10 = &local_860[uVar13];
+                enumOptionToggle2 = *pEVar10;
+                if (enumOptionToggle2 != 0) {
+                    iVar12 = iVar14;
                     do {
-                        uVar12 = uVar12 + 1;
-                        if ((long)iVar2 <= (long)uVar12) {
-                            iVar10 = (int)local_878;
+                        uVar13 = uVar13 + 1;
+                        if ((long)iVar2 <= (long)uVar13) {
+                            iVar12 = (int)local_878;
                             break;
                         }
-                        piVar6 = (int*)
-                            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 512ul, 4ul, 0ul, true,
-                                                                             eastl::allocator>>::operator[](local_860,
-                                                                                                            uVar12);
-                        iVar10 = iVar10 + 1;
-                    } while (*piVar6 == iVar4);
-                    if (iVar10 != -1) {
-                        new (&local_888) callstack::Callstack();
-                        if (local_8a8->field_98424 == '\0') {
-                            local_888.SetRedGreenGradient(iVar4, local_864, 0);
+                        pEVar10 = &local_860[uVar13];
+                        iVar12 = iVar12 + 1;
+                    } while (*pEVar10 == enumOptionToggle2);
+                    if (iVar12 != -1) {
+                        local_888 = callstack::Callstack();
+                        if (field_98424 == '\0') {
+                            local_888 = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(
+                                enumOptionToggle2, (EnumOptionToggle)arg5, 0);
                         } else {
-                            local_888.SetRedGreenGradient(iVar4, 0, local_864);
+                            local_888 = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(
+                                enumOptionToggle2, 0, (EnumOptionToggle)arg5);
                         }
-                        iVar4 = eastl::min<graphics::GraphicsQuality>(local_864, iVar4);
-                        local_8c8 = (double)CONCAT44(local_8c8._4_4_, iVar4);
+                        iVar4 = eastl::min<graphics::GraphicsQuality>((EnumOptionToggle)arg5, enumOptionToggle2);
+                        local_8c8 = (double)(((uint64_t)local_8c8._4_4_ << 32) | (uint32_t)iVar4);
                         iVar4 = local_868 - iVar4;
-                        iVar14 = iVar13 + local_89c;
-                        uVar9 = local_888.GetX();
-                        local_8d0->AddColouredRectangle(iVar14, iVar4, iVar10 - iVar13, (ulong)local_8c8 & 4294967295,
-                                                        uVar9 & 4294967040 | param_8, 1);
-                        iVar13 = iVar10 + -1;
+                        arg1 = iVar14 + arg2;
+                        uVar11 = local_888.GetX();
+                        guiManager.AddColouredRectangle(arg1, iVar4, iVar12 - iVar14, local_8c8._0_4_,
+                                                        uVar11 & 4294967040 | arg8, 1);
+                        iVar14 = iVar12 - 1;
                     }
                 }
-                iVar13 = iVar13 + 1;
-            } while (iVar13 < (int)(uint)local_878);
-        }
-        local_860->~fixed_vector();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                iVar14 = iVar14 + 1;
+            } while (iVar14 < (int)(unsigned int)local_878);
         }
     }
 
-    // 0x1008fb720, 432 bytes, placed by class name
-    // TimedGraph::RecordValue(unsigned long long, int)
-    void TimedGraph::RecordValue(ulonglong param_1, int param_2) {
-        ulong uVar1;
-        char cVar2;
-        bool bVar3;
-        int* piVar4;
-        long lVar5;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
-        ulong uVar6;
-        undefined1 local_60[8];
-        list<console::Line, eastl::allocator> local_58[8];
-        undefined8 local_50;
-        undefined8 local_48;
-        list<console::Line, eastl::allocator> local_40[8];
-        int local_38[2];
-        ulonglong local_30;
+    // 0x1008fb720
+    void TimedGraph::RecordValue(unsigned long long arg1, int arg2) {
+        unsigned long uVar1;
+        bool cVar2;
+        int* piVar3;
+        long lVar4;
+        unsigned long uVar5;
+        list<TimedGraph::Element, eastl::fixed_node_allocator<32ul, 3072ul, 8ul, 0ul, true>> local_60;
+        ReturnValue local_58;
+        ListIterator<TimedGraph::Element, TimedGraph::Element const*, TimedGraph::Element const&>* local_50;
+        ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
+                     shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
+                     shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>
+            local_48[8];
+        ReturnValue local_40;
+        ReturnValue local_38;
+        unsigned long long local_30;
 
-        if (param_1 != 0) {
+        if (arg1 != 0) {
             cVar2 = empty();
-            if ((cVar2 == '\0') &&
-                (piVar4 = (int*)
-                     eastl::list<TimedGraph::Element,
-                                 eastl::fixed_node_allocator<32ul, 3072ul, 8ul, 0ul, true, eastl::allocator>>::back(),
-                 *piVar4 == param_2)) {
+            if ((!cVar2) && (piVar3 = (int*)back(), *piVar3 == arg2)) {
                 return;
             }
-            local_38[0] = param_2;
-            local_30 = param_1;
+            local_38._0_4_ = arg2;
+            local_30 = arg1;
             push_back(local_38);
-            if (m_maximum < param_2) {
-                m_maximum = param_2;
+            if (m_maximum < arg2) {
+                m_maximum = arg2;
             }
-            local_38->begin();
-            lVar5 = eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-            uVar1 = *(ulong*)(lVar5 + 8);
+            local_38 = begin();
+            lVar4 = *local_38;
+            uVar1 = *(unsigned long*)(lVar4 + 8);
             field_98416 = uVar1;
-            uVar6 = param_1 + (long)field_98428 * -1100;
-            if (uVar1 < uVar6) {
-                local_38->begin();
-                eastl::list<console::Line, eastl::allocator>::end(local_58);
-                bVar3 = eastl::operator!=((eastl*)local_38, (hashtable_iterator_base*)local_58, extraout_RDX);
-                if (bVar3) {
+            uVar5 = arg1 + (long)field_98428 * -1100;
+            if (uVar1 < uVar5) {
+                local_38 = begin();
+                local_58 = end();
+                cVar2 = local_38 != local_58;
+                if (cVar2) {
                     do {
-                        lVar5 = eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                        if (uVar6 <= *(ulong*)(lVar5 + 8))
+                        lVar4 = *local_38;
+                        if (uVar5 <= *(unsigned long*)(lVar4 + 8))
                             break;
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                        bVar3 =
-                            eastl::operator!=((eastl*)local_38, (hashtable_iterator_base*)local_58, extraout_RDX_00);
-                    } while (bVar3);
+                        ++local_38;
+                        cVar2 = local_38 != local_58;
+                    } while (cVar2);
                 }
-                eastl::list<console::Line, eastl::allocator>::begin(local_40);
-                bVar3 = eastl::operator!=((eastl*)local_38, (hashtable_iterator_base*)local_40, extraout_RDX_01);
-                if (bVar3) {
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator--(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                    eastl::list<console::Line, eastl::allocator>::begin(local_40);
-                    bVar3 = eastl::operator!=((eastl*)local_38, (hashtable_iterator_base*)local_40, extraout_RDX_02);
-                    if (bVar3) {
-                        eastl::list<console::Line, eastl::allocator>::begin(local_40);
-                        new (&local_50)
-                            eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(local_40);
-                        new (&local_48)
-                            eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                                shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(local_38);
-                        eastl::list<TimedGraph::Element,
-                                    eastl::fixed_node_allocator<32ul, 3072ul, 8ul, 0ul, true, eastl::allocator>>::
-                            erase(local_60, this, local_50, local_48);
+                local_40 = begin();
+                cVar2 = local_38 != local_40;
+                if (cVar2) {
+                    --local_38;
+                    local_40 = begin();
+                    cVar2 = local_38 != local_40;
+                    if (cVar2) {
+                        local_40 = begin();
+                        new (&local_50) eastl::ListIterator(&local_40);
+                        new (local_48) eastl::ListIterator(&local_38);
+                        eastl::list<TimedGraph::Element, eastl::fixed_node_allocator<32ul, 3072ul, 8ul, 0ul, true>>::
+                            erase(&local_60,
+                                  (ListIterator<TimedGraph::Element, TimedGraph::Element const*,
+                                                TimedGraph::Element const&>*)this,
+                                  local_50);
                     }
                 }
-                eastl::list<console::Line, eastl::allocator>::begin(local_40);
-                lVar5 = eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)local_40);
-                field_98416 = *(ulong*)(lVar5 + 8);
+                local_40 = begin();
+                lVar4 = *local_40;
+                field_98416 = *(unsigned long*)(lVar4 + 8);
             }
         }
     }
 
-    // 0x1008fba30, 304 bytes, placed by class name
-    // TimedGraph::PrintMeanRecordedValues(char const*) const
-    void TimedGraph::PrintMeanRecordedValues(char* param_1) {
-        undefined8 uVar1;
-        vector* this_00;
-        long lVar2;
-        long lVar3;
-        type* ptVar4;
-        undefined4 uVar5;
+    // 0x1008fba30
+    void TimedGraph::PrintMeanRecordedValues(const char* str) const {
+        uint32_t uVar4;
 
-        uVar1 = logger::default_logger();
-        logger::Logger::Log(uVar1, 1, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
-                            "gui/debug/TimedGraph.cpp",
-                            51, "\n%s", param_1);
-        uVar1 = logger::default_logger();
-        logger::Logger::Log(uVar1, 1, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
-                            "gui/debug/TimedGraph.cpp",
-                            52, "-------------------------------------------------------------");
-        uVar1 = logger::default_logger();
-        ptVar4 = (type*)&DAT_00000001;
-        logger::Logger::Log(uVar1, 1, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
-                            "gui/debug/TimedGraph.cpp",
-                            53, "\tMeanValue \tElapsedTime");
-        this_00 = (&field_98464, ptVar4)->SSOBeginPtr();
-        lVar2 = this_00->HeapBeginPtr();
-        lVar3 = this_00->end();
+        auto pLVar1 = logger::default_logger();
+        pLVar1->Log(true, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/debug/"
+                    "TimedGraph.cpp",
+                    51, "\n%s", str);
+        pLVar1 = logger::default_logger();
+        pLVar1->Log(true, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/debug/"
+                    "TimedGraph.cpp",
+                    52, "-------------------------------------------------------------");
+        pLVar1 = logger::default_logger();
+        pLVar1->Log(true, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/debug/"
+                    "TimedGraph.cpp",
+                    53, "\tMeanValue \tElapsedTime");
+        auto this_00 = field_98464.SSOBeginPtr();
+        long lVar2 = this_00->HeapBeginPtr();
+        long lVar3 = this_00->end();
         for (; lVar2 != lVar3; lVar2 = lVar2 + 20) {
-            uVar5 = (undefined4)((ulong)param_1 >> 32);
-            uVar1 = logger::default_logger();
-            param_1 = (char*)CONCAT44(uVar5, *(undefined4*)(lVar2 + 4));
-            logger::Logger::Log((double)*(float*)(lVar2 + 16), uVar1, 1, 7,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/gui/debug/TimedGraph.cpp",
-                                56, "\t%d\t\t%f", param_1);
+            uVar4 = (uint32_t)((unsigned long)str >> 32);
+            pLVar1 = logger::default_logger();
+            str = (char*)(((uint64_t)uVar4 << 32) | (uint32_t)(*(uint32_t*)(lVar2 + 4)));
+            pLVar1->Log(true, 7,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
+                        "debug/TimedGraph.cpp",
+                        56, "\t%d\t\t%f", (double)*(float*)(lVar2 + 16), str);
         }
     }
 
-    // 0x1008fbb60, 176 bytes, placed by class name
-    // TimedGraph::GetTotal(unsigned long long, int) const
-    int TimedGraph::GetTotal(ulonglong param_1, int param_2) {
-        char cVar1;
-        bool bVar2;
-        long lVar3;
-        int* piVar4;
-        undefined4 extraout_EDX;
-        undefined4 extraout_var;
-        int iVar5;
-        undefined8 local_38;
-        undefined8 local_30;
+    // 0x1008fbb60
+    int TimedGraph::GetTotal(unsigned long long arg1, int arg2) const {
+        long lVar2;
+        int* piVar3;
+        uint64_t local_38;
+        uint64_t local_30;
 
-        cVar1 = empty();
-        iVar5 = 0;
-        if (cVar1 == '\0') {
-            local_30 = eastl::list<console::Line, eastl::allocator>::end();
-            local_38 = eastl::list<console::Line, eastl::allocator>::begin();
-            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator--(
-                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_30);
-            lVar3 = eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_30);
-            iVar5 = 0;
-            if (param_1 - (long)param_2 <= *(ulong*)(lVar3 + 8)) {
-                iVar5 = 0;
+        bool cVar1 = empty();
+        int iVar4 = 0;
+        if (!cVar1) {
+            local_30 = end();
+            local_38 = begin();
+            --local_30;
+            lVar2 = *local_30;
+            iVar4 = 0;
+            if (arg1 - (long)arg2 <= *(unsigned long*)(lVar2 + 8)) {
+                iVar4 = 0;
                 do {
-                    piVar4 = (int*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_30);
-                    iVar5 = iVar5 + *piVar4;
-                    bVar2 = eastl::operator==((eastl*)&local_30, (hashtable_iterator_base*)&local_38,
-                                              (hashtable_iterator_base*)CONCAT44(extraout_var, extraout_EDX));
-                    if (bVar2) {
-                        return iVar5;
+                    piVar3 = (int*)*local_30;
+                    iVar4 = iVar4 + *piVar3;
+                    cVar1 = local_30 == local_38;
+                    if (cVar1) {
+                        return iVar4;
                     }
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator--(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_30);
-                    lVar3 = eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_30);
-                } while (param_1 - (long)param_2 <= *(ulong*)(lVar3 + 8));
+                    --local_30;
+                    lVar2 = *local_30;
+                } while (arg1 - (long)arg2 <= *(unsigned long*)(lVar2 + 8));
             }
         }
-        return iVar5;
+        return iVar4;
     }
 
-    // 0x1008fbc10, 48 bytes, placed by class name
-    // TimedGraph::Reset()
+    // 0x1008fbc10
     void TimedGraph::Reset() {
-        (&field_98464)->Reset();
+        field_98464.Reset();
         clear();
         m_maximum = 0;
         m_mean = 0;
-        *(undefined8*)&m_min = 0;
+        *(uint64_t*)&m_min = 0;
     }
 
-    // 0x1008fbd10, 880 bytes, placed by class name
-    // TimedGraph::DrawMarkers(graphics::GUIManager&, graphics::FontHelpers&, graphics::Font&, int, int, int, int, unsigned long long, int, int)
-    void TimedGraph::DrawMarkers(GUIManager* param_1, FontHelpers* param_2, Font* param_3, int param_4, int param_5,
-                                 int param_6, int param_7, ulonglong param_8, int param_9, int param_10) {
-        char cVar1;
-        undefined4 uVar2;
-        byte bVar3;
-        byte bVar4;
-        int iVar5;
-        uint uVar6;
-        uint uVar7;
-        uint uVar8;
-        vector* this_01;
-        FontMetrics* this_02;
-        undefined1 uVar9;
-        ulong uVar10;
-        type* ptVar11;
-        StringView SVar12;
-        StringView SVar13;
-        StringView SVar14;
-        TextFlags in_stack_fffffffffffffdf8;
-        undefined4 in_stack_fffffffffffffdfc;
-        TextProperties local_1f8;
-        optional<int> local_1d0[8];
+    // 0x1008fbd10
+    void TimedGraph::DrawMarkers(graphics::GUIManager& guiManager, graphics::FontHelpers& fontHelpers,
+                                 graphics::Font& font, int arg4, int arg5, int arg6, int arg7, unsigned long long arg8,
+                                 int arg9, int arg10) {
         StringView local_1c8;
         StringView local_1b8;
         StringView local_1a8;
-        undefined1 local_178[8];
+        uint8_t local_178[8];
         Callstack local_170;
-        int local_160[74];
-        undefined8 local_38;
+        unsigned int local_160[74];
 
-        local_38 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
         local_160[0] = 1;
-        local_170._4_4_ = param_5;
-        new (&local_170.field_8) graphics::TextFlags(local_160, 1);
-        new (&local_1f8) graphics::TextProperties(param_3, in_stack_fffffffffffffdf8);
+        local_170._4_4_ = arg5;
+        new (&local_170.field_8) graphics::TextFlags(local_160);
+        TextProperties local_1f8(font, local_170.field_8);
         local_160[0] = 128;
-        eastl::optional<int>::optional(local_1d0, local_160);
-        uVar2 = local_170._4_4_;
-        ptVar11 = (type*)(ulong)(param_10 | 4294967040);
-        local_1f8.SetColours(ptVar11, local_1d0);
-        this_01 = param_3->SSOBeginPtr(ptVar11);
-        this_02 =
-            (FontMetrics*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)this_01);
-        bVar3 = this_02->GetMaxAscent();
-        bVar4 = this_02->GetMaxDescent();
-        local_170._4_4_ = uVar2 + param_7;
-        param_1->AddColouredRectangle(param_4, uVar2 + param_7, param_6, (uint)bVar4 + (uint)bVar3, param_10 / 2);
-        new (local_160) eastl::fixed_string<char, 256, true, eastl::allocator>();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            (char*)local_160, "%d secs", (ulong)(uint)param_9);
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_1c8,
-                                                                                      (fixed_string*)local_160);
-        SVar12.field_8._0_4_ = param_4;
-        SVar12.field_0 = (ulong)&local_1c8;
-        SVar12.field_8._4_4_ = 0;
-        param_2->DrawString(SVar12, local_170._4_4_, 0, (uint)&local_1f8,
-                            (TextProperties*)CONCAT44(in_stack_fffffffffffffdfc, 1));
+        optional<int> local_1d0(*local_160);
+        uint32_t uVar2 = local_170._4_4_;
+        local_1f8.SetColours(arg10 | 4294967040, &local_1d0);
+        auto this_01 = font.SSOBeginPtr();
+        FontMetrics* this_02 = (FontMetrics*)**this_01;
+        uint8_t bVar3 = this_02->GetMaxAscent();
+        uint8_t bVar4 = this_02->GetMaxDescent();
+        local_170._4_4_ = uVar2 + arg7;
+        guiManager.AddColouredRectangle(arg4, uVar2 + arg7, arg6, (unsigned int)bVar4 + (unsigned int)bVar3, arg10 / 2,
+                                        1);
+        new (local_160) eastl::fixed_string<char, 256>();
+        local_160->sprintf("%d secs", (unsigned long)(unsigned int)arg9);
+        local_1c8.StringView<eastl::fixed_string<char, 40>>(*local_160);
+        fontHelpers.DrawString(&local_1c8, arg4, local_170._4_4_, 0, local_1f8);
         new (local_178) callstack::Callstack();
         new ((local_178 + 8)) callstack::Callstack();
-        cVar1 = ((TimedGraph*)this)->field_98424;
-        iVar5 = GetMean((TimedGraph*)this);
-        if (cVar1 == '\0') {
-            local_178->SetRedGreenGradient(iVar5, ((TimedGraph*)this)->m_maximum, 0);
-            iVar5 = GetMax((TimedGraph*)this);
-            ((local_178 + 8))->SetRedGreenGradient(iVar5, ((TimedGraph*)this)->m_maximum, 0);
+        bool cVar1 = field_98424;
+        int iVar5 = GetMean();
+        if (!cVar1) {
+            *local_178 = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(iVar5, m_maximum, 0);
+            iVar5 = GetMax();
+            *((local_178 + 8)) =
+                math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(iVar5, m_maximum, 0);
         } else {
-            local_178->SetRedGreenGradient(iVar5, 0, ((TimedGraph*)this)->m_maximum);
-            iVar5 = GetMax((TimedGraph*)this);
-            ((local_178 + 8))->SetRedGreenGradient(iVar5, 0, ((TimedGraph*)this)->m_maximum);
+            *local_178 = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(iVar5, 0, m_maximum);
+            iVar5 = GetMax();
+            *((local_178 + 8)) =
+                math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(iVar5, 0, m_maximum);
         }
-        uVar6 = local_178->GetX();
-        uVar7 = GetMean((TimedGraph*)this);
-        uVar10 = (ulong)uVar7;
-        uVar7 = ((local_178 + 8))->GetX();
-        uVar8 = GetMax((TimedGraph*)this);
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            (char*)local_160, "[<col=%08X>%d avg</col>, <col=%08X>%d max</col>]",
-            (ulong)(uVar6 & 4278189824 | param_10 | 16777216), uVar10,
-            (ulong)(param_10 | uVar7 & 4278189824 | 16777216), (ulong)uVar8);
-        uVar9 = (undefined1)uVar10;
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_1b8,
-                                                                                      (fixed_string*)local_160);
-        SVar14.field_8 = (uchar*)this_02;
-        SVar14.field_0 = (ulong)&local_1b8;
-        iVar5 = graphics::FontHelpers::GetStringWidth(SVar14, (FontMetrics*)0, (bool)uVar9);
-        graphics::TextProperties::ClearFlag(&local_1f8, 1);
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_1a8,
-                                                                                      (fixed_string*)local_160);
-        SVar13.field_8._0_4_ = (param_6 / 2 + param_4) - iVar5 / 2;
-        SVar13.field_0 = (ulong)&local_1a8;
-        SVar13.field_8._4_4_ = 0;
-        param_2->DrawString(SVar13, local_170._4_4_, 0, (uint)&local_1f8,
-                            (TextProperties*)CONCAT44(in_stack_fffffffffffffdfc, 1));
-        /* WARNING: Subroutine does not return */
-        local_160->~fixed_string();
+        unsigned int uVar6 = local_178->GetX();
+        unsigned int uVar7 = GetMean();
+        unsigned int uVar8 = ((local_178 + 8))->GetX();
+        unsigned int uVar9 = GetMax();
+        local_160->sprintf("[<col=%08X>%d avg</col>, <col=%08X>%d max</col>]",
+                           (unsigned long)(uVar6 & 4278189824 | arg10 | 16777216), (unsigned long)uVar7,
+                           (unsigned long)(arg10 | uVar8 & 4278189824 | 16777216), (unsigned long)uVar9);
+        local_1b8.StringView<eastl::fixed_string<char, 40>>(*local_160);
+        iVar5 = graphics::FontHelpers::GetStringWidth(&local_1b8, *this_02, false);
+        local_1f8.ClearFlag(1);
+        local_1a8.StringView<eastl::fixed_string<char, 40>>(*local_160);
+        fontHelpers.DrawString(&local_1a8, (arg6 / 2 + arg4) - iVar5 / 2, local_170._4_4_, 0, local_1f8);
     }
 
 } // namespace jag

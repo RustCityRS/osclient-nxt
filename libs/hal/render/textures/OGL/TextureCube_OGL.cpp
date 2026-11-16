@@ -1,150 +1,111 @@
 // libs/hal/render/textures/OGL/TextureCube_OGL.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "libs/hal/render/textures/TextureCube.h"
 
 namespace jag::render {
-    // 0x100bcc2d0, 48 bytes, base-object constructor, placed by class name and debug map
-    // TextureCube::TextureCube(char const*)
-    void TextureCube::TextureCube(char* param_1) {
-        new (this) Texture(param_1);
-        field_0 = (undefined**)(PTR_vtable_100ee8650 + 16);
-        field_16 = 34067;
-    }
+    // 0x100bcc2d0
+    TextureCube::TextureCube(const char* str) : Texture(str), field_16(34067) {}
 
-    // 0x100bcc300, 16 bytes, complete-object constructor, placed by class name and debug map
-    // TextureCube::TextureCube(char const*): jumps straight to the base-object constructor
+    // 0x100bcc310
+    uint32_t TextureCube::Create(const Texture::Desc& desc,
+                                 std::array<ResourceDataT<unsigned char const> const*, 6ul> const& resourceDatas) {
+        void* arg8;
+        CubeFace CVar13;
+        char* str1;
+        char* str2;
+        long* plVar17;
+        uint64_t* puVar18;
+        unsigned long uVar19;
+        Singleton<RenderDevice>* this_04;
+        uint8_t local_b0[28];
+        uint32_t local_94;
+        String local_90;
 
-    // 0x100bcc310, 896 bytes, placed by class name and debug map
-    // TextureCube::Create(Texture::Desc const&, std::array<ResourceDataT<unsigned char const> const*, 6ul> const&)
-    /* TextureCube::Create(Texture::Desc const&,
-   std::array<ResourceDataT<unsigned char const> const*, 6ul> const&) */
-
-    undefined4 TextureCube::Create(Desc* param_1, array* param_2) {
-        uint uVar1;
-        uint uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        int iVar7;
-        int iVar8;
-        int iVar9;
-        int iVar10;
-        char cVar11;
-        undefined4 uVar12;
-        MapArea* pMVar13;
-        long lVar14;
-        RenderDevice* this_00;
-        RenderContext* this_01;
-        ImmediateRenderContext* pIVar15;
-        char* pcVar16;
-        char* pcVar17;
-        long* plVar18;
-        undefined8 uVar19;
-        ulong uVar20;
-        Singleton<RenderDevice>* this_02;
-        ActiveTextureSaveRestore local_c0;
-        undefined1 local_b0[28];
-        undefined4 local_94;
-        String local_90[88];
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if (field_296 != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("!m_GLTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/OGL/"
                       "TextureCube_OGL.cpp",
                       26, "Call Destroy() before calling Create() again");
         }
-        pMVar13 = (MapArea*)Instance();
-        lVar14 = pMVar13->GetOrigin();
-        this_00 = (RenderDevice*)pMVar13->Instance();
-        this_01 = (RenderContext*)this_00->GetCurrentThreadRenderContext();
-        pIVar15 = (ImmediateRenderContext*)this_01->GetImmediateContext();
-        new (&local_c0) ActiveTextureSaveRestore(pIVar15);
+        auto pMVar15 = Instance();
+        long lVar16 = pMVar15->GetOrigin();
+        ImmediateRenderContext* immediateRenderContext =
+            (((RenderDevice*)pMVar15->Instance())->GetCurrentThreadRenderContext())->GetImmediateContext();
+        ActiveTextureSaveRestore local_c0(*immediateRenderContext);
         GenerateBindTextures(34067);
-        cVar11 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        if (cVar11 == '\0') {
+        if (!(field_96.empty())) {
             local_94 = field_296;
-            pcVar16 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            local_b0._16_8_ = lVar14;
-            pcVar17 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
-            Instrumentation::String::String(local_90, pcVar16, pcVar17);
-            5890->~AutoSingleton(local_94, local_90);
-            lVar14 = local_b0._16_8_;
-            local_90->~String();
+            str1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            local_b0._16_8_ = lVar16;
+            str2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+            local_90 = Instrumentation::String(str1, str2);
+            5890->~AutoSingleton();
+            lVar16 = local_b0._16_8_;
         }
-        iVar7 = param_1->field_0;
-        iVar8 = param_1->field_4;
-        iVar9 = param_1->field_8;
-        iVar10 = param_1->field_12;
-        uVar19 = *(undefined8*)&param_1->field_16;
-        uVar3 = *(undefined8*)&param_1->field_24;
-        uVar4 = *(undefined8*)&param_1->field_32;
-        uVar5 = *(undefined8*)&param_1->field_40;
-        uVar6 = *(undefined8*)&param_1->field_56;
-        field_72 = param_1->field_48;
-        field_80 = uVar6;
-        field_56 = uVar4;
-        field_64 = uVar5;
-        field_40 = uVar19;
-        field_48 = uVar3;
-        field_24 = iVar7;
-        field_28 = iVar8;
-        field_32 = iVar9;
-        field_36 = iVar10;
-        SetFaceMipLevels(param_1);
-        new (local_b0) GLFormat(param_1->field_12);
-        if (*(char*)(lVar14 + 330) == '\0') {
-            uVar20 = 0;
+        int iVar8 = desc.field_0;
+        int iVar9 = desc.field_4;
+        int iVar10 = desc.field_8;
+        int iVar11 = desc.field_12;
+        uint64_t uVar3 = *(uint64_t*)&desc.field_16;
+        uint64_t uVar4 = *(uint64_t*)&desc.field_24;
+        uint64_t uVar5 = *(uint64_t*)&desc.field_32;
+        uint64_t uVar6 = *(uint64_t*)&desc.field_40;
+        uint64_t uVar7 = *(uint64_t*)&desc.field_56;
+        field_72 = desc.field_48;
+        field_80 = uVar7;
+        field_56 = uVar5;
+        field_64 = uVar6;
+        field_40 = uVar3;
+        field_48 = uVar4;
+        field_24 = iVar8;
+        field_28 = iVar9;
+        field_32 = iVar10;
+        field_36 = iVar11;
+        SetFaceMipLevels(desc);
+        new (local_b0) GLFormat(desc.field_12);
+        if (*(char*)(lVar16 + 330) == '\0') {
+            uVar19 = 0;
             do {
-                GetCubeMapFace((int)uVar20);
-                std::array<ResourceDataT<unsigned char const> const*, 6ul>::operator[](
-                    (array<ResourceDataT<unsigned char const> const*, 6ul>*)param_2, uVar20);
-                CreateCubeFaceTopLevelMip();
-                uVar20 = uVar20 + 1;
-            } while (uVar20 != 6);
+                CVar13 = GetCubeMapFace((int)uVar19);
+                puVar18 = &resourceDatas[uVar19];
+                CreateCubeFaceTopLevelMip((TextureCube*)resourceDatas, CVar13, desc,
+                                          (ResourceDataT<unsigned char const>*)*puVar18);
+                uVar19 = uVar19 + 1;
+            } while (uVar19 != 6);
         } else {
             if (local_b0._12_4_ == 0) {
                 local_b0._12_4_ = local_b0._0_4_;
             }
-            (*___glewTexStorage2D)(34067, field_88, local_b0._12_4_, param_1->field_0, param_1->field_4);
+            (*___glewTexStorage2D)(34067, field_88, local_b0._12_4_);
             CheckGlErrorInternal("glTexStorage2D",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureCube_OGL.cpp",
                                  57);
-            uVar20 = 0;
+            uVar19 = 0;
             do {
-                plVar18 = (long*)std::array<ResourceDataT<unsigned char const> const*, 6ul>::operator[](
-                    (array<ResourceDataT<unsigned char const> const*, 6ul>*)param_2, uVar20);
-                if (((long*)*plVar18 != (long*)0) && (lVar14 = *(long*)*plVar18, lVar14 != 0)) {
-                    uVar12 = GetCubeMapFace((int)uVar20);
-                    UpdateOnCurrentThread(this, uVar12, 0, 0, 0, param_1->field_0, param_1->field_4, param_1->field_12,
-                                          lVar14);
+                plVar17 = &resourceDatas[uVar19];
+                if (((uint64_t*)*plVar17 != nullptr) && (arg8 = *(void**)*plVar17, arg8 != nullptr)) {
+                    CVar13 = GetCubeMapFace((int)uVar19);
+                    UpdateOnCurrentThread(CVar13, 0, 0, 0, desc.field_0, desc.field_4, desc.field_12, arg8);
                 }
-                uVar20 = uVar20 + 1;
-            } while (uVar20 != 6);
+                uVar19 = uVar19 + 1;
+            } while (uVar19 != 6);
         }
-        uVar1 = field_88;
-        uVar2 = param_1->field_24;
+        unsigned int uVar1 = field_88;
+        unsigned int uVar2 = desc.field_24;
         if ((1 < uVar1) && (uVar2 < 2)) {
-            this_02 = (Singleton<RenderDevice>*)(ulong)(uint)param_1->field_12;
-            cVar11 = IsCompressedFormat();
-            if (cVar11 == '\0') {
-                pMVar13 = (MapArea*)this_02->Instance();
-                lVar14 = pMVar13->GetOrigin();
-                if (*(char*)(lVar14 + 336) == '\0') {
-                    uVar19 = logger::default_logger();
-                    logger::Logger::Log(uVar19, 0, 3,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                        "render/textures/OGL/TextureCube_OGL.cpp",
-                                        88, "Auto-generating mips isn\'t supported on this device. Disabling mips.");
+            this_04 = (Singleton<RenderDevice>*)(unsigned long)(unsigned int)desc.field_12;
+            if (!(IsCompressedFormat(desc.field_12))) {
+                pMVar15 = (MapArea*)this_04->Instance();
+                lVar16 = pMVar15->GetOrigin();
+                if (*(char*)(lVar16 + 336) == '\0') {
+                    (logger::default_logger())
+                        ->Log(false, 3,
+                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                              "textures/OGL/TextureCube_OGL.cpp",
+                              88, "Auto-generating mips isn\'t supported on this device. Disabling mips.");
                     field_88 = 1;
                 } else {
                     (*___glewGenerateMipmap)(34067);
@@ -158,115 +119,91 @@ namespace jag::render {
         }
         if (1 < uVar1) {
             if (uVar2 < 2) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("textureDesc.m_DataMipLevels > 1",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/"
                           "OGL/TextureCube_OGL.cpp",
-                          94, (char*)0);
+                          94, nullptr);
             }
-            CreateSubLevelMips(this, param_1->field_24, param_2);
+            CreateSubLevelMips(desc.field_24, resourceDatas);
         }
     LAB_100bcc61d:
-        uVar12 = FinaliseCreate("TextureCube", param_1);
-        local_c0.~ActiveTextureSaveRestore();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar12;
+        uint32_t uVar14 = FinaliseCreate("TextureCube", desc);
+        return uVar14;
     }
 
-    // 0x100bcc6a0, 720 bytes, placed by class name and debug map
-    // TextureCube::UpdateOnCurrentThread(CubeFace, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, Format, void const*)
-    void TextureCube::UpdateOnCurrentThread(undefined4 param_2, uint param_3, uint param_4, uint param_5, uint param_6,
-                                            uint param_7, uint param_8, long param_9) {
-        char cVar2;
-        int iVar3;
-        undefined4 uVar4;
-        RenderDevice* this_00;
-        RenderContext* this_01;
-        ImmediateRenderContext* this_02;
-        uint* puVar5;
-        MapArea* this_03;
+    // 0x100bcc6a0
+    void TextureCube::UpdateOnCurrentThread(CubeFace cubeFace, unsigned int arg2, unsigned int arg3, unsigned int arg4,
+                                            unsigned int arg5, unsigned int arg6, Format format, const void* arg8) {
+        int iVar2;
+        uint32_t uVar3;
+        ImmediateRenderContext* immediateRenderContext;
+        unsigned int* puVar5;
         long lVar6;
-        unique_lock<std::mutex>* this_05;
-        Singleton<RenderDevice>* this_06;
+        unique_lock<std::mutex>* this_04;
+        Singleton<RenderDevice>* this_05;
         ActiveTextureSaveRestore local_70;
-        unique_lock<std::mutex> local_60[16];
+        unique_lock<std::mutex> local_60;
         GLFormat local_50;
-        uint local_3c;
-        uint local_34;
 
-        local_34 = param_6;
-        if (param_9 == 0) {
-            /* WARNING: Subroutine does not return */
+        if (arg8 == nullptr) {
             LogAssert("pSrcTexelData != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/OGL/"
                       "TextureCube_OGL.cpp",
-                      145, (char*)0);
+                      145, nullptr);
         }
-        iVar3 = GetNativeTextureId();
-        if (iVar3 != 0) {
-            iVar3 = GetMaxLineWidth();
-            if (iVar3 != -1) {
-                ValidateUpdateParams(param_3, param_4, param_5, 0, local_34, param_7, 1);
-                cVar2 = ((TextureCube*)this)->UseGLWriteMutex();
-                if (cVar2 == '\0') {
-                    this_05 = local_60;
-                    std::unique_lock<std::mutex>::unique_lock(this_05);
+        auto pTVar4 = GetNativeTextureId();
+        if ((int)pTVar4 != 0) {
+            iVar2 = GetMaxLineWidth();
+            if (iVar2 != -1) {
+                ValidateUpdateParams(arg2, arg3, arg4, 0, arg5, arg6, 1);
+                if (!(UseGLWriteMutex())) {
+                    this_04 = &local_60;
+                    new (this_04) std::unique_lock<std::mutex>();
                 } else {
-                    this_05 = local_60;
-                    std::unique_lock<std::mutex>::unique_lock(this_05, (mutex*)&field_368);
+                    this_04 = &local_60;
+                    new (this_04) std::unique_lock<std::mutex>(field_368);
                 }
-                this_00 = (RenderDevice*)this_05->Instance();
-                this_01 = (RenderContext*)this_00->GetCurrentThreadRenderContext();
-                this_02 = (ImmediateRenderContext*)this_01->GetImmediateContext();
-                new (&local_70) ActiveTextureSaveRestore(this_02);
-                this_02->BindTexture(this, 0);
-                new (&local_50) GLFormat(param_8);
-                cVar2 = IsCompressedFormat(param_8);
-                if (cVar2 == '\0') {
-                    this_06 = (Singleton<RenderDevice>*)(ulong)param_8;
-                    iVar3 = GetFormatDepthBits();
-                    if (iVar3 != 0) {
-                        this_03 = (MapArea*)this_06->Instance();
-                        lVar6 = this_03->GetOrigin();
+                immediateRenderContext =
+                    (((RenderDevice*)this_04->Instance())->GetCurrentThreadRenderContext())->GetImmediateContext();
+                local_70 = ActiveTextureSaveRestore(*immediateRenderContext);
+                immediateRenderContext->BindTexture(*this, 0);
+                local_50 = GLFormat(format);
+                if (!(IsCompressedFormat(format))) {
+                    this_05 = (Singleton<RenderDevice>*)(unsigned long)format;
+                    iVar2 = GetFormatDepthBits(format);
+                    if (iVar2 != 0) {
+                        lVar6 = ((MapArea*)this_05->Instance())->GetOrigin();
                         if (*(char*)(lVar6 + 152) == '\0') {
-                            /* WARNING: Subroutine does not return */
                             LogAssert("GetFormatDepthBits(format) == 0 || "
                                       "RenderDevice::Instance().GetDeviceCaps().m_DepthTextureLoad",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                       "render/textures/OGL/TextureCube_OGL.cpp",
-                                      177, (char*)0);
+                                      177, nullptr);
                         }
                     }
-                    _glTexSubImage2D(param_2, param_3, param_4, param_5, local_34, param_7, local_50.field_0._4_4_,
-                                     local_50.field_0._8_4_, param_9);
+                    _glTexSubImage2D(cubeFace, arg2, arg3, arg4, arg5, arg6, local_50.field_0._4_4_,
+                                     local_50.field_0._8_4_, arg8);
                     CheckGlErrorInternal("glTexSubImage2D",
                                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                          "render/textures/OGL/TextureCube_OGL.cpp",
                                          187);
                 LAB_100bcc91a:
-                    local_70.~ActiveTextureSaveRestore();
-                    std::unique_lock<std::mutex>::~unique_lock(local_60);
                     return;
                 }
-                if (((param_4 | param_5) & 3) != 0) {
-                    /* WARNING: Subroutine does not return */
+                if (((arg3 | arg4) & 3) != 0) {
                     LogAssert("x % 4 == 0 && y % 4 == 0",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "textures/OGL/TextureCube_OGL.cpp",
-                              161, (char*)0);
+                              161, nullptr);
                 }
                 local_50._16_4_ = 4;
-                puVar5 = std::max<unsigned int>(&local_34, (uint*)&local_50.field_16);
+                puVar5 = std::max<unsigned int>(arg5, local_50.field_16);
                 if ((*puVar5 & 3) == 0) {
-                    local_3c = 4;
-                    puVar5 = std::max<unsigned int>(&param_7, &local_3c);
+                    puVar5 = std::max<unsigned int>(arg6, 4);
                     if ((*puVar5 & 3) == 0) {
-                        uVar4 = GetImageByteSize(local_34, param_7, param_8, param_3);
-                        (*___glewCompressedTexSubImage2D)(param_2, param_3, param_4, param_5, local_34, param_7,
-                                                          local_50.field_0._0_4_, uVar4, param_9);
+                        uVar3 = GetImageByteSize(arg5, arg6, format, arg2);
+                        (*___glewCompressedTexSubImage2D)(cubeFace, arg2, arg3, arg4, arg5, arg6,
+                                                          local_50.field_0._0_4_, uVar3, arg8);
                         CheckGlErrorInternal("glCompressedTexSubImage2D",
                                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                              "hal/render/textures/OGL/TextureCube_OGL.cpp",
@@ -274,254 +211,217 @@ namespace jag::render {
                         goto LAB_100bcc91a;
                     }
                 }
-                /* WARNING: Subroutine does not return */
                 LogAssert("std::max(width, 4u) % 4 == 0 && std::max(height, 4u) % 4 == 0",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/"
                           "OGL/TextureCube_OGL.cpp",
-                          162, (char*)0);
+                          162, nullptr);
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("(GetNativeTextureId() > 0) && (GetType() != TEXTURE_TYPE_UNKNOWN)",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/OGL/"
                   "TextureCube_OGL.cpp",
-                  146, (char*)0);
+                  146, nullptr);
     }
 
-    // 0x100bcc980, 240 bytes, placed by class name and debug map
-    // TextureCube::CreateCubeFaceTopLevelMip(CubeFace, Texture::Desc const&, ResourceDataT<unsigned char const> const*)
-    void TextureCube::CreateCubeFaceTopLevelMip(undefined8 param_1, undefined4 param_2, undefined4* param_3,
-                                                undefined8* param_4) {
-        undefined4 uVar1;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        int iVar5;
-        char* pcVar6;
-        undefined1 local_40[16];
+    // 0x100bcc980
+    void TextureCube::CreateCubeFaceTopLevelMip(CubeFace cubeFace, const Texture::Desc& desc,
+                                                const ResourceDataT<unsigned char const>* resourceData) {
+        uint64_t uVar2;
+        uint64_t uVar3;
+        int arg3;
+        char* str1;
+        uint8_t local_40[16];
 
-        new (local_40) GLFormat(param_3[3]);
-        uVar1 = param_3[3];
-        if (IsCompressedFormat(uVar1) == '\0') {
-            if (param_4 == (undefined8*)0) {
-                uVar4 = 0;
+        new (local_40) GLFormat(desc.field_12);
+        Format format = desc.field_12;
+        if (IsCompressedFormat(format) == '\0') {
+            if (resourceData == nullptr) {
+                uVar3 = 0;
             } else {
-                uVar4 = *param_4;
+                uVar3 = *(uint64_t*)resourceData;
             }
-            _glTexImage2D(param_2, param_3[9], local_40._0_4_, *param_3, param_3[1], 0, local_40._4_4_, local_40._8_4_,
-                          uVar4);
-            pcVar6 = "glTexImage2D";
-            iVar5 = 227;
+            _glTexImage2D(cubeFace, desc.field_36, local_40._0_4_, desc.field_0, desc.field_4, 0, local_40._4_4_,
+                          local_40._8_4_, uVar3);
+            str1 = "glTexImage2D";
+            arg3 = 227;
         } else {
-            uVar4 = 0;
-            uVar3 = GetImageByteSize(*param_3, param_3[1], uVar1, 0);
-            if (param_4 != (undefined8*)0) {
-                uVar4 = *param_4;
+            uVar3 = 0;
+            uVar2 = GetImageByteSize(desc.field_0, desc.field_4, format, 0);
+            if (resourceData != nullptr) {
+                uVar3 = *(uint64_t*)resourceData;
             }
-            (*___glewCompressedTexImage2D)(param_2, param_3[9], local_40._0_4_, *param_3, param_3[1], 0, uVar3, uVar4);
-            pcVar6 = "glCompressedTexImage2D";
-            iVar5 = 213;
+            (*___glewCompressedTexImage2D)(cubeFace, desc.field_36, local_40._0_4_, desc.field_0, desc.field_4, 0,
+                                           uVar2, uVar3);
+            str1 = "glCompressedTexImage2D";
+            arg3 = 213;
         }
-        CheckGlErrorInternal(pcVar6,
+        CheckGlErrorInternal(str1,
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "textures/OGL/TextureCube_OGL.cpp",
-                             iVar5);
+                             arg3);
     }
 
-    // 0x100bcca70, 592 bytes, placed by class name and debug map
-    // TextureCube::CreateSubLevelMips(unsigned int, std::array<ResourceDataT<unsigned char const> const*, 6ul> const&)
-    /* TextureCube::CreateSubLevelMips(unsigned int,
-   std::array<ResourceDataT<unsigned char const> const*, 6ul> const&) */
-
-    void TextureCube::CreateSubLevelMips(uint param_1, array* param_2) {
-        undefined4 uVar2;
+    // 0x100bcca70
+    void
+    TextureCube::CreateSubLevelMips(unsigned int arg1,
+                                    std::array<ResourceDataT<unsigned char const> const*, 6ul> const& resourceDatas) {
+        CubeFace CVar2;
         int iVar3;
-        MapArea* this_00;
         long* plVar4;
-        ulong uVar5;
-        undefined8 uVar6;
-        char* pcVar7;
-        uint uVar8;
-        ulong uVar9;
-        ulong uVar10;
-        undefined1 local_88[24];
-        long local_70;
-        ulong local_68;
-        ulong local_60;
-        ulong local_58;
-        ulong local_50;
-        uint local_44;
-        undefined4 local_40;
-        undefined4 local_3c;
-        TextureCube* local_38;
+        void* arg8;
+        char* str1;
+        unsigned int arg5;
+        unsigned long uVar6;
+        unsigned long uVar7;
+        uint8_t local_88[24];
+        unsigned long local_50;
+        CubeFace local_3c;
 
-        local_88._16_8_ = param_2;
-        this_00 = (MapArea*)Instance();
-        local_70 = this_00->GetOrigin();
-        local_38 = this;
+        local_88._16_8_ = resourceDatas;
+        long local_70 = ((MapArea*)Instance())->GetOrigin();
+        TextureCube* local_38 = this;
         new (local_88) GLFormat(field_36);
-        local_40 = local_88._0_4_;
-        local_60 = (ulong)(uint)local_88._4_4_;
-        local_58 = (ulong)(uint)local_88._8_4_;
-        local_68 = (ulong)param_1;
-        uVar5 = 0;
-        local_44 = param_1;
+        uint32_t local_40 = local_88._0_4_;
+        unsigned long local_60 = (unsigned long)(unsigned int)local_88._4_4_;
+        unsigned long local_58 = (unsigned long)(unsigned int)local_88._8_4_;
+        unsigned long local_68 = (unsigned long)arg1;
+        unsigned long uVar5 = 0;
+        unsigned int local_44 = arg1;
         while (true) {
-            uVar2 = GetCubeMapFace((int)uVar5);
-            uVar10 = 1;
-            if (1 < param_1) {
-                uVar8 = local_38->field_24;
-                uVar9 = (ulong)local_38->field_28;
-                uVar10 = 1;
+            CVar2 = GetCubeMapFace((int)uVar5);
+            uVar7 = 1;
+            if (1 < arg1) {
+                arg5 = local_38->field_24;
+                uVar6 = (unsigned long)local_38->field_28;
+                uVar7 = 1;
                 local_50 = uVar5;
-                local_3c = uVar2;
+                local_3c = CVar2;
                 do {
-                    uVar9 = uVar9 >> 1;
-                    uVar8 = uVar8 >> 1;
-                    iVar3 = GetImageByteSize(uVar8, uVar9, local_38->field_36);
+                    uVar6 = uVar6 >> 1;
+                    arg5 = arg5 >> 1;
+                    iVar3 = GetImageByteSize(arg5, (unsigned int)uVar6, local_38->field_36, 0);
                     if (iVar3 == 0) {
-                        /* WARNING: Subroutine does not return */
                         LogAssert("mipImageSize > 0",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "textures/OGL/TextureCube_OGL.cpp",
-                                  248, (char*)0);
+                                  248, nullptr);
                     }
-                    plVar4 = (long*)std::array<ResourceDataT<unsigned char const> const*, 6ul>::operator[](
-                        (array<ResourceDataT<unsigned char const> const*, 6ul>*)local_88._16_8_, local_50);
+                    plVar4 = (long*)(*local_88._16_8_)[local_50];
                     if (*plVar4 == 0) {
-                        uVar6 = 0;
-                    } else if (uVar10 < *(uint*)&local_38->field_48) {
-                        uVar6 = *(undefined8*)(*plVar4 + uVar10 * 24);
+                        arg8 = nullptr;
+                    } else if (uVar7 < *(unsigned int*)&local_38->field_48) {
+                        arg8 = *(void**)(*plVar4 + uVar7 * 24);
                     } else {
-                        uVar6 = 0;
+                        arg8 = nullptr;
                     }
                     if (*(char*)(local_70 + 330) == '\0') {
                         if (IsCompressedFormat(local_38->field_36) == '\0') {
-                            _glTexImage2D(local_3c, uVar10 & 4294967295, local_40, uVar8, uVar9, 0, local_60, local_58,
-                                          uVar6);
-                            pcVar7 = "glTexImage2D";
+                            _glTexImage2D(local_3c, uVar7 & 4294967295, local_40, arg5, uVar6, 0, local_60, local_58,
+                                          arg8);
+                            str1 = "glTexImage2D";
                             iVar3 = 289;
                         } else {
-                            (*___glewCompressedTexImage2D)(local_3c, uVar10 & 4294967295, local_40);
-                            pcVar7 = "glCompressedTexImage2D";
+                            (*___glewCompressedTexImage2D)(local_3c, uVar7 & 4294967295, local_40);
+                            str1 = "glCompressedTexImage2D";
                             iVar3 = 275;
                         }
-                        CheckGlErrorInternal(pcVar7,
+                        CheckGlErrorInternal(str1,
                                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                              "hal/render/textures/OGL/TextureCube_OGL.cpp",
                                              iVar3);
                     } else {
-                        UpdateOnCurrentThread(local_38, local_3c, uVar10 & 4294967295, 0, 0, uVar8, uVar9,
-                                              local_38->field_36, uVar6);
+                        UpdateOnCurrentThread(local_38, local_3c, (unsigned int)uVar7, 0, 0, arg5, (unsigned int)uVar6,
+                                              local_38->field_36, arg8);
                     }
-                    uVar10 = uVar10 + 1;
-                } while (uVar10 != local_68);
+                    uVar7 = uVar7 + 1;
+                } while (uVar7 != local_68);
                 uVar5 = local_50;
-                param_1 = local_44;
+                arg1 = local_44;
             }
-            if ((uint)uVar10 != param_1)
+            if ((unsigned int)uVar7 != arg1)
                 break;
             uVar5 = uVar5 + 1;
             if (uVar5 == 6) {
                 return;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("iMip == maxLevels",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/OGL/"
                   "TextureCube_OGL.cpp",
-                  297, (char*)0);
+                  297, nullptr);
     }
 
-    // 0x100bcccc0, 48 bytes, placed by class name and debug map
-    // TextureCube::Create(Texture::Desc const&)
-    void TextureCube::Create(Desc* param_1) {
-        undefined8 local_38;
-        undefined8 uStack_30;
-        undefined8 local_28;
-        undefined8 uStack_20;
-        undefined8 local_18;
-        undefined8 uStack_10;
-
-        local_18 = 0;
-        uStack_10 = 0;
-        local_28 = 0;
-        uStack_20 = 0;
-        local_38 = 0;
-        uStack_30 = 0;
-        Create(this, param_1, (array*)&local_38);
+    // 0x100bcccc0
+    void TextureCube::Create(const Texture::Desc& desc) {
+        uint64_t local_18 = 0;
+        uint64_t uStack_10 = 0;
+        uint64_t local_28 = 0;
+        uint64_t uStack_20 = 0;
+        uint64_t uStack_30 = 0;
+        Create(desc, 0);
     }
 
-    // 0x100bcccf0, 560 bytes, placed by class name and debug map
-    // TextureCube::Update(CubeFace, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, Format, void const*)
-    void TextureCube::Update(undefined4 param_2, uint param_3, uint param_4, uint param_5, uint param_6, uint param_7,
-                             undefined4 param_8, uchar* param_9) {
-        bool bVar1;
-        int iVar2;
-        uint uVar3;
+    // 0x100bcccf0
+    void TextureCube::Update(CubeFace cubeFace, unsigned int arg2, unsigned int arg3, unsigned int arg4,
+                             unsigned int arg5, unsigned int arg6, Format format, const void* arg8) {
+        bool arg3_00;
+        int iVar1;
+        unsigned int uVar2;
         RenderDevice* pRVar4;
         Singleton<RenderDevice>* this_00;
-        WrapArrayValueCopy<unsigned char, eastl::allocator>* this_01;
-        WrapArrayValueCopy<unsigned char, eastl::allocator> local_178[48];
-        undefined1 local_148[92];
-        function local_d8;
+        WrapArrayValueCopy<unsigned char>* this_01;
+        WrapArrayValueCopy<unsigned char> local_178;
+        uint8_t local_148[92];
+        unsigned int local_e0;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        iVar2 = GetNativeTextureId();
-        if (iVar2 != 0) {
-            iVar2 = GetMaxLineWidth();
-            local_148._24_4_ = param_6;
-            local_148._20_4_ = param_5;
-            if (iVar2 != -1) {
-                if (param_9 == (uchar*)0) {
-                    /* WARNING: Subroutine does not return */
+        unsigned int local_ec = arg4;
+        unsigned int local_e8 = arg5;
+        CubeFace local_e4 = cubeFace;
+        unsigned int local_dc = arg3;
+        auto pTVar3 = GetNativeTextureId();
+        if ((int)pTVar3 != 0) {
+            iVar1 = GetMaxLineWidth();
+            local_148._24_4_ = local_e8;
+            local_148._20_4_ = local_ec;
+            if (iVar1 != -1) {
+                if (arg8 == nullptr) {
                     LogAssert("pSrcTexelData",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "textures/OGL/TextureCube_OGL.cpp",
-                              119, (char*)0);
+                              119, nullptr);
                 }
-                ValidateUpdateParams(param_3, param_4, param_5, 0, param_6, param_7, 1);
-                this_00 = (Singleton<RenderDevice>*)(ulong)(uint)local_148._24_4_;
-                uVar3 = GetImageByteSize(this_00, param_7, param_8, param_3);
+                local_e0 = arg2;
+                ValidateUpdateParams(arg2, local_dc, local_ec, 0, local_e8, arg6, 1);
+                this_00 = (Singleton<RenderDevice>*)(unsigned long)(unsigned int)local_148._24_4_;
+                uVar2 = GetImageByteSize(local_148._24_4_, arg6, format, arg2);
                 pRVar4 = (RenderDevice*)this_00->Instance();
-                bVar1 = (bool)pRVar4->ShouldDefer();
-                this_01 = local_178;
-                WrapArrayValueCopy<unsigned char, eastl::allocator>::WrapArrayValueCopy(this_01, param_9, (ulong)uVar3,
-                                                                                        bVar1);
+                arg3_00 = (bool)pRVar4->ShouldDefer();
+                this_01 = &local_178;
+                new (this_01) WrapArrayValueCopy<unsigned char>(arg8, (unsigned long)uVar2, arg3_00);
                 pRVar4 = (RenderDevice*)this_01->Instance();
-                local_148._8_4_ = param_2;
-                local_148._12_4_ = param_3;
-                local_148._16_4_ = param_4;
-                local_148._28_4_ = param_7;
-                local_148._32_4_ = param_8;
+                local_148._8_4_ = local_e4;
+                local_148._12_4_ = local_e0;
+                local_148._16_4_ = local_dc;
+                local_148._28_4_ = arg6;
+                local_148._32_4_ = format;
                 local_148._0_8_ = this;
-                new ((local_148 + 40)) WrapArrayValueCopy<unsigned char, eastl::allocator>(local_178);
+                new ((local_148 + 40)) WrapArrayValueCopy<unsigned char>(local_178);
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                     TextureCube::Update(CubeFace, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int,
-                                        Format, void_const*)::__9,
-                    void>((function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
-                          (__9*)local_148);
-                pRVar4->RunOnRenderThread(&local_d8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                                        Format, void const*)::__9,
+                    void>(local_d8, (__9*)local_148);
+                pRVar4->RunOnRenderThread(*local_d8);
                 Update(CubeFace, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, Format,
-                       void_const*)::$_9::~__9((__9*)local_148);
-                local_178->~WrapArrayValueCopy();
-                if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-                    /* WARNING: Subroutine does not return */
-                    ___stack_chk_fail();
-                }
+                       void const*)::$_9::~__9((__9*)local_148);
                 return;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("(GetNativeTextureId() > 0) && (GetType() != TEXTURE_TYPE_UNKNOWN)",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/OGL/"
                   "TextureCube_OGL.cpp",
-                  118, (char*)0);
+                  118, nullptr);
     }
-
-    // 0x100bccf30, 16 bytes, complete-object destructor, placed by class name and debug map
-    // TextureCube::Update(CubeFace, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, Format, void const*)::$_9::~$_9(): jumps straight to the base-object destructor
 
 } // namespace jag::render

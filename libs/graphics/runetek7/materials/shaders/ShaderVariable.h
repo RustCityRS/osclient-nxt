@@ -1,16 +1,14 @@
 // libs/graphics/runetek7/materials/shaders/ShaderVariable.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
-    // 0x1008f2dc0, 16 bytes, inline, placed by debug map only (low confidence)
-    // operator*(ShaderVariable)
-    /* TEMPNAMEPLACEHOLDERVALUE(ShaderVariable) */
+    // 0x1008f2dc0
+    void operator*(ShaderVariable shaderVariable) {
+        unsigned long in_RSI;
 
-    void operator*(uint param_1) {
-        std::array<render::ShaderProgramVariable, 272ul>::operator[]((ulong)param_1);
+        (*((array<render::ShaderProgramVariable, 272ul>*)(unsigned long)shaderVariable))[in_RSI];
     }
 
 } // namespace jag::graphics

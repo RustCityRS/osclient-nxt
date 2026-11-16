@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/jstring/pixfont_generic.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,109 +7,121 @@ namespace jag::oldscape::jstring {
     class PixfontGeneric {
     public:
         class TransparentFontColour;
-        PixfontGeneric(Array<signed char, eastl::allocator>&);
+        PixfontGeneric(Array<signed char>& arg1);
         ~PixfontGeneric();
-        PixfontGeneric(PixfontGeneric&&);
-        void DrawStringMultiline(eastl::string const&, int, int, int, int, int, int, int, int, int, graphics::Pix2D&);
-        CharWid(char16_t) const;
-        CharHei(char16_t) const;
-        CharBearingX(char16_t) const;
-        CharBearingY(char16_t) const;
-        PixfontGeneric(Array<signed char, eastl::allocator>&&, Array<int, eastl::allocator>&&,
-                       Array<int, eastl::allocator>&&, Array<int, eastl::allocator>&&, Array<int, eastl::allocator>&&,
-                       SharedArray<unsigned int>&&, SharedArray<Array<unsigned char, eastl::allocator>>&&);
-        void UnpackMetrics(Array<signed char, eastl::allocator>&);
-        int StringWid(eastl::string const&);
-        int SplitString(eastl::string const&, Array<int, eastl::allocator>&, Array<eastl::string, eastl::allocator>&);
-        int PredictWidthMultiline(eastl::string const&, int);
-        PredictLinesMultiline(eastl::string const&, int);
-        PixfontGeneric* Escape(char const*, unsigned long);
-        GetCentreStringSubStringRect(int, int, eastl::string const&, int, int);
-        ulong SupportedTag(eastl::string&);
-        void DrawString(eastl::string const&, int, int, int, int, graphics::Pix2D&);
-        void ResetState(int, int);
-        void DrawStringInner(eastl::string const&, int, int, graphics::Pix2D&, int, int, int,
-                             Array<int, eastl::allocator> const&, Array<int, eastl::allocator> const&);
-        void DrawStringTrans(eastl::string const&, int, int, int, int, int, graphics::Pix2D&);
-        void DrawStringUpwards(eastl::string const&, int, int, int, int, graphics::Pix2D&);
-        void DrawStringUpwardsInner(eastl::string const&, int, int, graphics::Pix2D&);
-        void RightString(eastl::string const&, int, int, int, int, graphics::Pix2D&);
-        void RightStringTrans(eastl::string const&, int, int, int, int, int, graphics::Pix2D&);
-        void RightStringUpwards(eastl::string const&, int, int, int, int, graphics::Pix2D&);
-        void CentreString(eastl::string const&, int, int, int, int, graphics::Pix2D&);
-        void CentreStringTrans(eastl::string const&, int, int, int, int, int, graphics::Pix2D&);
-        void CentreStringUpwards(eastl::string const&, int, int, int, int, graphics::Pix2D&);
-        void CentreStringScanline(eastl::string const&, int, int, int, int, graphics::Pix2D&, int, int, int,
-                                  Array<int, eastl::allocator> const&, Array<int, eastl::allocator> const&);
-        void JustifyString(eastl::string&, int, int, int, int, int, graphics::Pix2D&);
-        void CalculateSpaceWidth(eastl::string&, int);
-        ulong DrawStringMultiline(eastl::string const&, int, int, int, int, int, int, int, int, int, int,
-                                  graphics::Pix2D&);
-        DrawTextRunSlice(jag::graphics::TextRunSlice const&, int, int, unsigned int, unsigned int, graphics::Pix2D&,
-                         int);
-        void PlotLetter(Array<unsigned char, eastl::allocator> const&, int, int, int, int, int, graphics::Pix2D&);
-        void DrawStringColourPattern(eastl::string const&, int, int, int, int,
-                                     eastl::vector<int, eastl::allocator> const&, graphics::Pix2D&);
-        void DrawStringInnerCustomOffsetsAndColours(eastl::string const&, int, int, Array<int, eastl::allocator>&,
-                                                    Array<int, eastl::allocator>&, Array<int, eastl::allocator>&,
-                                                    graphics::Pix2D&);
-        void CentreStringColourPattern(eastl::string const&, int, int, int, int,
-                                       eastl::vector<int, eastl::allocator> const&, graphics::Pix2D&);
-        void CentreStringWave(eastl::string const&, int, int, int, int, int,
-                              eastl::vector<int, eastl::allocator> const&, graphics::Pix2D&);
-        void CentreStringWave2(eastl::string const&, int, int, int, int, int,
-                               eastl::vector<int, eastl::allocator> const&, graphics::Pix2D&);
-        void CentreStringWave3(eastl::string const&, int, int, int, int, int, int,
-                               eastl::vector<int, eastl::allocator> const&, graphics::Pix2D&);
-        void DrawstringAntiMacro(eastl::string const&, int, int, int, int, int, graphics::Pix2D&);
-        void UpdateState(eastl::string&);
-        void PlotLetterUpwards(Array<unsigned char, eastl::allocator> const&, int, int, int, int, int,
-                               graphics::Pix2D&);
-        void PlotLetterUpwardsTrans(Array<unsigned char, eastl::allocator> const&, int, int, int, int,
-                                    TransparentFontColour const&, graphics::Pix2D&);
-        void PlotLetterTrans(Array<unsigned char, eastl::allocator> const&, int, int, int, int,
-                             TransparentFontColour const&, graphics::Pix2D&);
-        void PlotLetter(SharedArray<unsigned int>&, Array<unsigned char, eastl::allocator> const&, int, int, int, int,
-                        int, int, int);
-        void PlotLetterTransInner(SharedArray<unsigned int>&, Array<unsigned char, eastl::allocator> const&, int, int,
-                                  int, int, int, int, TransparentFontColour const&);
-        void PlotLetterUpwards(SharedArray<unsigned int>&, Array<unsigned char, eastl::allocator> const&, int, int, int,
-                               int, int, int, int, int);
-        void PlotLetterUpwardsTransInner(SharedArray<unsigned int>&, Array<unsigned char, eastl::allocator> const&, int,
-                                         int, int, int, int, int, int, TransparentFontColour const&);
-        void PlotLetterScanline(Array<unsigned char, eastl::allocator> const&, int, int, int, int, int, int, int, int,
-                                Array<int, eastl::allocator> const&, Array<int, eastl::allocator> const&,
-                                graphics::Pix2D&);
-        void PlotLetterScanline(SharedArray<unsigned int>&, Array<unsigned char, eastl::allocator> const&, int, int,
-                                int, int, int, int, int, int, int, Array<int, eastl::allocator> const&,
-                                Array<int, eastl::allocator> const&);
-        int KernPair(std::array<Array<signed char, eastl::allocator>, 256ul>&,
-                     std::array<Array<signed char, eastl::allocator>, 256ul>&, std::array<int, 256ul>&,
-                     std::array<int, 256ul>&, std::array<int, 256ul>&, int, int);
-        static /* 4 bytes */ m_alpha;         // = 255
-        static /* 4 bytes */ m_currentShadow; // = -1
-        static /* 4 bytes */ m_strikeout;     // = -1
-        static /* 4 bytes */ m_underline;     // = -1
-        static /* 4 bytes */ m_defaultShadow; // = -1
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_inlineImages;
-        static Array<eastl::string, eastl::allocator> /* 24 bytes */
-            m_lines;                                  // = Array<eastl::string,eastl::allocator>(100)
-        static /* 4 bytes */ m_extraSpaceWidth;
-        static /* 4 bytes */ m_currentCol;
-        static Array<int, eastl::allocator> /* 24 bytes */ m_empty; // = Array<int,eastl::allocator>()
-        static jag::math::Random /* 8 bytes */ m_rand;              // = Random(123456789, 31415821)
-        static /* 4 bytes */ m_defaultCol;
-        static /* 4 bytes */ m_extraSpacePos;
+        PixfontGeneric(PixfontGeneric&& pixfontGeneric);
+        void DrawStringMultiline(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7,
+                                 int arg8, int arg9, int arg10, graphics::Pix2D& pix2D);
+        uint32_t CharWid(char16_t arg1) const;
+        uint32_t CharHei(char16_t arg1) const;
+        uint32_t CharBearingX(char16_t arg1) const;
+        uint32_t CharBearingY(char16_t arg1) const;
+        PixfontGeneric(Array<signed char>&& arg1, Array<int>&& arg2, Array<int>&& arg3, Array<int>&& arg4,
+                       Array<int>&& arg5, SharedArray<unsigned int>&& sharedArray1,
+                       SharedArray<Array<unsigned char>>&& sharedArray2);
+        void UnpackMetrics(Array<signed char>& arg1);
+        int StringWid(const eastl::string& str);
+        int SplitString(const eastl::string& str, Array<int>& arg2, Array<eastl::string>& strs);
+        int PredictWidthMultiline(const eastl::string& str, int arg2);
+        uint32_t PredictLinesMultiline(const eastl::string& str, int arg2);
+        auto Escape(const char* str, unsigned long arg2);
+        dash3d::GridRect GetCentreStringSubStringRect(int arg1, int arg2, const eastl::string& str, int arg4, int arg5);
+        unsigned long SupportedTag(eastl::string& str);
+        void DrawString(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, graphics::Pix2D& pix2D);
+        void ResetState(int arg1, int arg2);
+        void DrawStringInner(const eastl::string& str, int arg2, int arg3, graphics::Pix2D& pix2D, int arg5, int arg6,
+                             int arg7, const Array<int>& arg8, const Array<int>& arg9);
+        void DrawStringTrans(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6,
+                             graphics::Pix2D& pix2D);
+        void DrawStringUpwards(const eastl::string& str, int arg2, int arg3, int arg4, int arg5,
+                               graphics::Pix2D& pix2D);
+        void DrawStringUpwardsInner(const eastl::string& str, int arg2, int arg3, graphics::Pix2D& pix2D);
+        void RightString(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, graphics::Pix2D& pix2D);
+        void RightStringTrans(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6,
+                              graphics::Pix2D& pix2D);
+        void RightStringUpwards(const eastl::string& str, int arg2, int arg3, int arg4, int arg5,
+                                graphics::Pix2D& pix2D);
+        void CentreString(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, graphics::Pix2D& pix2D);
+        void CentreStringTrans(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6,
+                               graphics::Pix2D& pix2D);
+        void CentreStringUpwards(const eastl::string& str, int arg2, int arg3, int arg4, int arg5,
+                                 graphics::Pix2D& pix2D);
+        void CentreStringScanline(const eastl::string& str, int arg2, int arg3, int arg4, int arg5,
+                                  graphics::Pix2D& pix2D, int arg7, int arg8, int arg9, const Array<int>& arg10,
+                                  const Array<int>& arg11);
+        void JustifyString(eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6,
+                           graphics::Pix2D& pix2D);
+        void CalculateSpaceWidth(eastl::string& str, int arg2);
+        unsigned long DrawStringMultiline(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6,
+                                          int arg7, int arg8, int arg9, int arg10, int arg11, graphics::Pix2D& pix2D);
+        uint64_t DrawTextRunSlice(const jag::graphics::TextRunSlice& textRunSlice, int arg2, int arg3,
+                                  unsigned int arg4, unsigned int arg5, graphics::Pix2D& pix2D, int arg7);
+        void PlotLetter(const Array<unsigned char>& arg1, int arg2, int arg3, int arg4, int arg5, int arg6,
+                        graphics::Pix2D& pix2D);
+        void DrawStringColourPattern(const eastl::string& str, int arg2, int arg3, int arg4, int arg5,
+                                     const eastl::vector<int>& arg6, graphics::Pix2D& pix2D);
+        void DrawStringInnerCustomOffsetsAndColours(const eastl::string& str, int arg2, int arg3, Array<int>& arg4,
+                                                    Array<int>& arg5, Array<int>& arg6, graphics::Pix2D& pix2D);
+        void CentreStringColourPattern(const eastl::string& str, int arg2, int arg3, int arg4, int arg5,
+                                       const eastl::vector<int>& arg6, graphics::Pix2D& pix2D);
+        void CentreStringWave(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6,
+                              const eastl::vector<int>& arg7, graphics::Pix2D& pix2D);
+        void CentreStringWave2(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6,
+                               const eastl::vector<int>& arg7, graphics::Pix2D& pix2D);
+        void CentreStringWave3(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7,
+                               const eastl::vector<int>& arg8, graphics::Pix2D& pix2D);
+        void DrawstringAntiMacro(const eastl::string& str, int arg2, int arg3, int arg4, int arg5, int arg6,
+                                 graphics::Pix2D& pix2D);
+        void UpdateState(eastl::string& str);
+        void PlotLetterUpwards(const Array<unsigned char>& arg1, int arg2, int arg3, int arg4, int arg5, int arg6,
+                               graphics::Pix2D& pix2D);
+        void PlotLetterUpwardsTrans(const Array<unsigned char>& arg1, int arg2, int arg3, int arg4, int arg5,
+                                    const TransparentFontColour& transparentFontColour, graphics::Pix2D& pix2D);
+        void PlotLetterTrans(const Array<unsigned char>& arg1, int arg2, int arg3, int arg4, int arg5,
+                             const TransparentFontColour& transparentFontColour, graphics::Pix2D& pix2D);
+        void PlotLetter(SharedArray<unsigned int>& sharedArray, const Array<unsigned char>& arg2, int arg3, int arg4,
+                        int arg5, int arg6, int arg7, int arg8, int arg9);
+        void PlotLetterTransInner(SharedArray<unsigned int>& sharedArray, const Array<unsigned char>& arg2, int arg3,
+                                  int arg4, int arg5, int arg6, int arg7, int arg8,
+                                  const TransparentFontColour& transparentFontColour);
+        void PlotLetterUpwards(SharedArray<unsigned int>& sharedArray, const Array<unsigned char>& arg2, int arg3,
+                               int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10);
+        void PlotLetterUpwardsTransInner(SharedArray<unsigned int>& sharedArray, const Array<unsigned char>& arg2,
+                                         int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9,
+                                         const TransparentFontColour& transparentFontColour);
+        void PlotLetterScanline(const Array<unsigned char>& arg1, int arg2, int arg3, int arg4, int arg5, int arg6,
+                                int arg7, int arg8, int arg9, const Array<int>& arg10, const Array<int>& arg11,
+                                graphics::Pix2D& pix2D);
+        void PlotLetterScanline(SharedArray<unsigned int>& sharedArray, const Array<unsigned char>& arg2, int arg3,
+                                int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11,
+                                const Array<int>& arg12, const Array<int>& arg13);
+        int KernPair(std::array<Array<signed char>, 256ul>& arg1, std::array<Array<signed char>, 256ul>& arg2,
+                     std::array<int, 256ul>& arg3, std::array<int, 256ul>& arg4, std::array<int, 256ul>& arg5, int arg6,
+                     int arg7);
+        static int32_t m_alpha;         // = 255
+        static int32_t m_currentShadow; // = -1
+        static int32_t m_strikeout;     // = -1
+        static int32_t m_underline;     // = -1
+        static int32_t m_defaultShadow; // = -1
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_inlineImages;                  // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static Array<eastl::string> m_lines; // = Array<eastl::string>(100)
+        static int32_t m_extraSpaceWidth;
+        static int32_t m_currentCol;
+        static Array<int> m_empty;       // = Array<int>()
+        static jag::math::Random m_rand; // = Random(123456789, 31415821)
+        static int32_t m_defaultCol;
+        static int32_t m_extraSpacePos;
 
-        // data members, from how the methods use this: 1176 bytes
-        int field_0;  // offset 0
-        int field_4;  // offset 4
-        int field_8;  // offset 8
-        int field_12; // offset 12
-        int field_16; // offset 16
-        char _unknown_20[28];
-        undefined1 field_48; // offset 48
-        char _unknown_49[1127];
+    private:
+        int field_0;
+        int field_4;
+        int field_8;
+        int field_12;
+        int field_16;
+        uint8_t _unknown_20[28];
+        uint8_t field_48;
+        uint8_t _unknown_49[1127];
     };
 
     class PixfontGeneric::TransparentFontColour {
@@ -118,96 +129,67 @@ namespace jag::oldscape::jstring {
         TransparentFontColour();
     };
 
-    // 0x1000e1a80, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // PixfontGeneric::PixfontGeneric(Array<signed char, eastl::allocator>&): jumps straight to the base-object constructor
-
-    // 0x1000e1a90, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // PixfontGeneric::~PixfontGeneric(): jumps straight to the base-object destructor
-
-    // 0x10012d1f0, 240 bytes, base-object constructor, inline, placed by class name
-    // PixfontGeneric::PixfontGeneric(Array<signed char, eastl::allocator>&)
-    void PixfontGeneric::PixfontGeneric(Array* param_1) {
-        field_0 = 0;
-        new (&field_24) SharedArray<unsigned int>();
-        new (&field_1072) Array<int, eastl::allocator>();
-        new (&field_1096) Array<int, eastl::allocator>();
-        new (&field_1120) Array<int, eastl::allocator>();
-        new (&field_1144) Array<int, eastl::allocator>();
-        new (&field_1168) Array<signed char, eastl::allocator>();
-        UnpackMetrics(this, param_1);
+    // 0x10012d1f0
+    PixfontGeneric::PixfontGeneric(Array<signed char>& arg1) : field_0(0) {
+        UnpackMetrics(arg1);
     }
 
-    // 0x10012d3b0, 96 bytes, base-object destructor, inline, placed by class name
-    // PixfontGeneric::~PixfontGeneric()
-    void PixfontGeneric::~PixfontGeneric() {
-        (&field_1168)->~Array();
-        (&field_1144)->~Array();
-        (&field_1120)->~Array();
-        (&field_1096)->~Array();
-        (&field_1072)->~Array();
-        (&field_24)->~SharedArray();
+    // 0x10012d3b0
+    PixfontGeneric::~PixfontGeneric() {
+        field_1168.~Array();
+        field_1144.~Array();
+        field_1120.~Array();
+        field_1096.~Array();
+        field_1072.~Array();
+        field_24.~SharedArray();
     }
 
-    // 0x100145d40, 16 bytes, complete-object constructor, inline, placed by class name
-    // PixfontGeneric::PixfontGeneric(PixfontGeneric&&): jumps straight to the base-object constructor
-
-    // 0x100145d50, 176 bytes, base-object constructor, inline, placed by class name
-    // PixfontGeneric::PixfontGeneric(PixfontGeneric&&)
-    void PixfontGeneric::PixfontGeneric(PixfontGeneric* param_1) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-
-        field_16 = param_1->field_16;
-        iVar1 = param_1->field_4;
-        iVar2 = param_1->field_8;
-        iVar3 = param_1->field_12;
-        field_0 = param_1->field_0;
+    // 0x100145d50
+    PixfontGeneric::PixfontGeneric(PixfontGeneric&& pixfontGeneric) : field_16(pixfontGeneric.field_16) {
+        int iVar1 = pixfontGeneric.field_4;
+        int iVar2 = pixfontGeneric.field_8;
+        int iVar3 = pixfontGeneric.field_12;
+        field_0 = pixfontGeneric.field_0;
         field_4 = iVar1;
         field_8 = iVar2;
         field_12 = iVar3;
-        new (&field_24, (SharedArray*)&param_1->field_24) SharedArray<Array<unsigned char, eastl::allocator>>();
-        _memcpy(&field_48, &param_1->field_48, 1024);
-        new (&field_1072, (Array*)&param_1->field_1072) Array<int, eastl::allocator>();
-        new (&field_1096, (Array*)&param_1->field_1096) Array<int, eastl::allocator>();
-        new (&field_1120, (Array*)&param_1->field_1120) Array<int, eastl::allocator>();
-        new (&field_1144, (Array*)&param_1->field_1144) Array<int, eastl::allocator>();
-        new (&field_1168, (Array*)&param_1->field_1168) Array<signed char, eastl::allocator>();
+        new (&field_24) SharedArray(&pixfontGeneric.field_24);
+        _memcpy(&field_48, &pixfontGeneric.field_48, 1024);
+        new (&field_1072) Array<int>(&pixfontGeneric.field_1072);
+        new (&field_1096) Array<int>(&pixfontGeneric.field_1096);
+        new (&field_1120) Array<int>(&pixfontGeneric.field_1120);
+        new (&field_1144) Array<int>(&pixfontGeneric.field_1144);
+        new (&field_1168) Array<signed char>(&pixfontGeneric.field_1168);
     }
 
-    // 0x1002be5b0, 32 bytes, inline, placed by debug map only (low confidence)
-    // SanitiseAndConvertWideChar(char16_t)
-    undefined1 SanitiseAndConvertWideChar(wchar16 param_1) {
-        undefined6 in_register_0000003a;
+    // 0x1002be5b0
+    void SanitiseAndConvertWideChar(char16_t arg1) {
+        uint64_t in_register_0000003a;
 
-        if ((int)CONCAT62(in_register_0000003a, param_1) == 160) {
-            param_1 = L' ';
+        if ((int)(((uint64_t)in_register_0000003a << 16) | (uint16_t)arg1) == 160) {
+            arg1 = L' ';
         }
-        return stringtools::WideToCP1252(param_1);
+        return stringtools::WideToCP1252(arg1);
     }
 
-    // 0x1002be930, 32 bytes, inline, placed by debug map only (low confidence)
-    // SanitiseWideChar(char16_t)
-    int SanitiseWideChar(wchar16 param_1) {
-        int iVar1;
-        undefined2 in_register_0000003a;
+    // 0x1002be930
+    int SanitiseWideChar(char16_t arg1) {
+        uint16_t in_register_0000003a;
 
-        iVar1 = 32;
-        if (CONCAT22(in_register_0000003a, param_1) != 160) {
-            iVar1 = CONCAT22(in_register_0000003a, param_1);
+        int iVar1 = 32;
+        if ((((uint32_t)in_register_0000003a << 16) | (uint16_t)arg1) != 160) {
+            iVar1 = (((uint32_t)in_register_0000003a << 16) | (uint16_t)arg1);
         }
         return iVar1;
     }
 
-    // 0x1002c2f10, 32 bytes, inline, placed by debug map only (low confidence)
-    // SanitiseChar(unsigned char)
-    undefined4 SanitiseChar(uchar param_1) {
-        undefined4 uVar1;
-        undefined3 in_register_00000039;
+    // 0x1002c2f10
+    void SanitiseChar(unsigned char arg1) {
+        uint32_t in_register_00000039;
 
-        uVar1 = 32;
-        if (param_1 != 160) {
-            uVar1 = CONCAT31(in_register_00000039, param_1);
+        uint32_t uVar1 = 32;
+        if (arg1 != 160) {
+            uVar1 = (((uint32_t)in_register_00000039 << 8) | (uint8_t)arg1);
         }
         return uVar1;
     }
@@ -215,31 +197,24 @@ namespace jag::oldscape::jstring {
 } // namespace jag::oldscape::jstring
 
 namespace jag::oldscape::graphics {
-    // 0x1002c3b40, 176 bytes, inline, placed by debug map only (low confidence)
-    // BlendPixel(unsigned int, unsigned int, unsigned int, unsigned int)
-    uint BlendPixel(uint param_1, uint param_2, uint param_3, uint param_4) {
-        int iVar1;
-        uint uVar2;
-        uint uVar3;
-
-        if (253 < param_2 - 1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1002c3b40
+    unsigned int BlendPixel(unsigned int arg1, unsigned int arg2, unsigned int arg3, unsigned int arg4) {
+        if (253 < arg2 - 1) {
             LogAssert("srcA > 0 && srcA < 255",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/graphics/"
                       "Pix2D.h",
                       49, "BlendPixel is only valid for sources that are not fully transparent or fully opaque");
         }
-        if (255 - param_2 != param_3) {
-            /* WARNING: Subroutine does not return */
+        if (255 - arg2 != arg3) {
             LogAssert("complementSrcA == (255 - srcA)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/graphics/"
                       "Pix2D.h",
                       50, "Precalculated inverse alpha is incorrect");
         }
-        uVar3 = (param_4 >> 24) * param_3 >> 8;
-        uVar2 = param_2 + uVar3 + 1;
-        iVar1 = ComputeCompositeRGB(param_4, uVar3);
-        uVar3 = ComputeCompositeRGB(param_1 + iVar1, (uint)(65280 / (ulong)uVar2));
+        unsigned int uVar3 = (arg4 >> 24) * arg3 >> 8;
+        unsigned int uVar2 = arg2 + uVar3 + 1;
+        int iVar1 = ComputeCompositeRGB(arg4, uVar3);
+        uVar3 = ComputeCompositeRGB(arg1 + iVar1, (unsigned int)(65280 / (unsigned long)uVar2));
         return uVar3 | uVar2 * 16777216;
     }
 

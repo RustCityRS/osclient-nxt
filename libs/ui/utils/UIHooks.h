@@ -1,6 +1,5 @@
 // libs/ui/utils/UIHooks.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,15 +9,9 @@ namespace jag::ui {
         // virtual methods in vtable order
         virtual ~UIHookProperties();
         UIHookProperties();
-
-        // data members, from how the methods use this: 8 bytes
-        undefined* field_0; // offset 0, vtable pointer
     };
 
-    // 0x10054d350, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // UIHookProperties::UIHookProperties()
-    void UIHookProperties::UIHookProperties() {
-        field_0 = PTR_vtable_100ee7d88 + 16;
-    }
+    // 0x10054d350
+    UIHookProperties::UIHookProperties() {}
 
 } // namespace jag::ui

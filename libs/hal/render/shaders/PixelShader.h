@@ -1,6 +1,5 @@
 // libs/hal/render/shaders/PixelShader.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,70 +8,64 @@ namespace jag::render {
     public:
         // virtual methods in vtable order
         virtual ~PixelShader();
-        virtual GetShaderType() const;
+        virtual uint64_t GetShaderType() const;
         PixelShader();
-        void CreateFromSourceString(char const*, unsigned char);
-        void PrepareForReuse(char const*, unsigned char);
-        CreateFromBinary(unsigned long);
-        static /* 8 bytes */ SHADER_TYPE_NAME; // = "PixelShader"
-        static /* 4 bytes */ m_count;
+        void CreateFromSourceString(const char* str, unsigned char arg2);
+        void PrepareForReuse(const char* str, unsigned char arg2);
+        uint8_t CreateFromBinary(unsigned long arg1);
+        static const char* SHADER_TYPE_NAME; // = "PixelShader"
+        static int32_t m_count;
 
-        // data members, from how the methods use this: 88 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[32];
-        undefined1 field_40; // offset 40
-        undefined1 field_41; // offset 41
-        char _unknown_42[6];
-        RadialHighlightState field_48; // offset 48
-        int field_72;                  // offset 72
-        char _unknown_76[12];
+    private:
+        uint8_t _unknown_8[33];
+        uint8_t field_41;
+        uint8_t _unknown_42[6];
+        RadialHighlightState field_48;
+        TextWrapMode field_72;
+        uint8_t _unknown_76[12];
     };
 
     class PixelShaderSourceStream {
     public:
         // virtual methods in vtable order
         virtual ~PixelShaderSourceStream();
-        PixelShaderSourceStream(ShaderVariablePrecision, ShaderVariablePrecision, ShaderVariablePrecision,
-                                ShaderVariablePrecision, ShaderVariablePrecision, ShaderVariablePrecision,
-                                unsigned int);
+        PixelShaderSourceStream(ShaderVariablePrecision shaderVariablePrecision1,
+                                ShaderVariablePrecision shaderVariablePrecision2,
+                                ShaderVariablePrecision shaderVariablePrecision3,
+                                ShaderVariablePrecision shaderVariablePrecision4,
+                                ShaderVariablePrecision shaderVariablePrecision5,
+                                ShaderVariablePrecision shaderVariablePrecision6, unsigned int arg7);
 
-        // data members, from how the methods use this: 136 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        char _unknown_8[8];
-        undefined* field_16; // offset 16
-        char _unknown_24[104];
-        undefined* field_128; // offset 128
+    private:
+        uint8_t _unknown_8[8];
+        uint8_t* field_16;
+        uint8_t _unknown_24[104];
+        uint8_t* field_128;
     };
 
-    // 0x100bde800, 48 bytes, complete-object destructor, inline, placed by class header (inline)
-    // PixelShaderSourceStream::~PixelShaderSourceStream()
-    void PixelShaderSourceStream::~PixelShaderSourceStream() {
-        ~ComputeShaderSourceStream();
+    // 0x100bde800
+    PixelShaderSourceStream::~PixelShaderSourceStream() {
         (&field_128)->~ios();
     }
 
-    // 0x100bf6590, 16 bytes, inline, placed by class name and debug map
-    // PixelShader::GetShaderType() const
-    undefined8 PixelShader::GetShaderType() {
+    // 0x100bf6590
+    uint64_t PixelShader::GetShaderType() const {
         return 35632;
     }
 
-    // 0x100c042b0, 32 bytes, inline, placed by class name
-    // PixelShader::CreateFromSourceString(char const*, unsigned char)
-    void PixelShader::CreateFromSourceString(char* param_1, uchar param_2) {
-        CreateFromSourceString(SHADER_TYPE_NAME, param_1, param_2);
+    // 0x100c042b0
+    void PixelShader::CreateFromSourceString(const char* str, unsigned char arg2) {
+        CreateFromSourceString(SHADER_TYPE_NAME, str, arg2);
     }
 
-    // 0x100c04330, 32 bytes, inline, placed by class name
-    // PixelShader::PrepareForReuse(char const*, unsigned char)
-    void PixelShader::PrepareForReuse(char* param_1, uchar param_2) {
-        PrepareForReuse(SHADER_TYPE_NAME, param_1, param_2);
+    // 0x100c04330
+    void PixelShader::PrepareForReuse(const char* str, unsigned char arg2) {
+        PrepareForReuse(SHADER_TYPE_NAME, str, arg2);
     }
 
-    // 0x100c05930, 32 bytes, inline, placed by class name
-    // PixelShader::CreateFromBinary(unsigned long)
-    undefined1 PixelShader::CreateFromBinary(ulong param_1) {
-        CreateFromBinary(SHADER_TYPE_NAME, param_1);
+    // 0x100c05930
+    uint8_t PixelShader::CreateFromBinary(unsigned long arg1) {
+        CreateFromBinary(SHADER_TYPE_NAME, arg1);
         return 1;
     }
 

@@ -1,133 +1,111 @@
 // libs/game/runetek5/scene/regions/RegionRotate.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 namespace jag::game {
     class RegionRotate {
     public:
-        int RegionRotateX(int, int, Rotation90);
-        int RegionRotateZ(int, int, Rotation90);
-        int RegionRotateFineX(int, int, Rotation90);
-        int RegionRotateFineZ(int, int, Rotation90);
-        ulong RegionRotateLocationX(int, int, int, int, int, int);
-        ulong RegionRotateLocationZ(int, int, int, int, int, int);
-
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        int RegionRotateX(int arg1, int arg2, Rotation90 rotation90);
+        int RegionRotateZ(int arg1, int arg2, Rotation90 rotation90);
+        int RegionRotateFineX(int arg1, int arg2, Rotation90 rotation90);
+        int RegionRotateFineZ(int arg1, int arg2, Rotation90 rotation90);
+        int RegionRotateLocationX(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+        int RegionRotateLocationZ(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
     };
 
-    // 0x1003c5470, 48 bytes, placed by class name and debug map
-    // RegionRotate::RegionRotateX(int, int, Rotation90)
-    int RegionRotate::RegionRotateX(int param_1_00, int param_1, int param_2) {
-        if (param_2 != 0) {
-            if ((char)param_2 == '\x02') {
-                return 7 - param_1_00;
+    // 0x1003c5470
+    int RegionRotate::RegionRotateX(int arg1, int arg2, Rotation90 rotation90) {
+        if (rotation90 != 0) {
+            if ((char)rotation90 == '\x02') {
+                return 7 - arg1;
             }
-            if ((char)param_2 == '\x01') {
-                return param_1;
+            if ((char)rotation90 == '\x01') {
+                return arg2;
             }
-            param_1_00 = 7 - param_1;
+            arg1 = 7 - arg2;
         }
-        return param_1_00;
+        return arg1;
     }
 
-    // 0x1003c54a0, 48 bytes, placed by class name and debug map
-    // RegionRotate::RegionRotateZ(int, int, Rotation90)
-    int RegionRotate::RegionRotateZ(int param_1_00, int param_1, int param_2) {
-        if (param_2 == 0) {
-            return param_1;
+    // 0x1003c54a0
+    int RegionRotate::RegionRotateZ(int arg1, int arg2, Rotation90 rotation90) {
+        if (rotation90 == 0) {
+            return arg2;
         }
-        if ((char)param_2 == '\x02') {
-            param_1_00 = 7 - param_1;
-        } else if ((char)param_2 == '\x01') {
-            return 7 - param_1_00;
+        if ((char)rotation90 == '\x02') {
+            arg1 = 7 - arg2;
+        } else if ((char)rotation90 == '\x01') {
+            return 7 - arg1;
         }
-        return param_1_00;
+        return arg1;
     }
 
-    // 0x1003c54d0, 48 bytes, placed by class name and debug map
-    // RegionRotate::RegionRotateFineX(int, int, Rotation90)
-    int RegionRotate::RegionRotateFineX(int param_1_00, int param_1, int param_2) {
-        if (param_2 != 0) {
-            if ((char)param_2 == '\x02') {
-                return 1023 - param_1_00;
+    // 0x1003c54d0
+    int RegionRotate::RegionRotateFineX(int arg1, int arg2, Rotation90 rotation90) {
+        if (rotation90 != 0) {
+            if ((char)rotation90 == '\x02') {
+                return 1023 - arg1;
             }
-            if ((char)param_2 == '\x01') {
-                return param_1;
+            if ((char)rotation90 == '\x01') {
+                return arg2;
             }
-            param_1_00 = 1023 - param_1;
+            arg1 = 1023 - arg2;
         }
-        return param_1_00;
+        return arg1;
     }
 
-    // 0x1003c5500, 48 bytes, placed by class name and debug map
-    // RegionRotate::RegionRotateFineZ(int, int, Rotation90)
-    int RegionRotate::RegionRotateFineZ(int param_1_00, int param_1, int param_2) {
-        if (param_2 == 0) {
-            return param_1;
+    // 0x1003c5500
+    int RegionRotate::RegionRotateFineZ(int arg1, int arg2, Rotation90 rotation90) {
+        if (rotation90 == 0) {
+            return arg2;
         }
-        if ((char)param_2 == '\x02') {
-            param_1_00 = 1023 - param_1;
-        } else if ((char)param_2 == '\x01') {
-            return 1023 - param_1_00;
+        if ((char)rotation90 == '\x02') {
+            arg1 = 1023 - arg2;
+        } else if ((char)rotation90 == '\x01') {
+            return 1023 - arg1;
         }
-        return param_1_00;
+        return arg1;
     }
 
-    // 0x1003c5530, 80 bytes, placed by class name and debug map
-    // RegionRotate::RegionRotateLocationX(int, int, int, int, int, int)
-    ulong RegionRotate::RegionRotateLocationX(int param_1, int param_2, int param_3, int param_4, int param_5,
-                                              int param_6) {
-        ulong uVar1;
-        uint uVar2;
-
-        uVar1 = (ulong)this & 4294967295;
-        uVar2 = param_2 & 3;
-        if (uVar2 != 0) {
-            if (uVar2 == 2) {
-                if ((param_5 & 1U) == 0) {
-                    param_4 = param_3;
+    // 0x1003c5530
+    int RegionRotate::RegionRotateLocationX(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
+        unsigned int uVar1 = arg3 & 3;
+        if (uVar1 != 0) {
+            if (uVar1 == 2) {
+                if ((arg6 & 1U) == 0) {
+                    arg5 = arg4;
                 }
-                return (ulong)(8 - (param_4 + (int)this));
+                return 8 - (arg5 + arg1);
             }
-            if (uVar2 == 1) {
-                return (ulong)(uint)param_1;
+            if (uVar1 == 1) {
+                return arg2;
             }
-            if ((param_5 & 1U) == 0) {
-                param_3 = param_4;
+            if ((arg6 & 1U) == 0) {
+                arg4 = arg5;
             }
-            uVar1 = (ulong)(8 - (param_3 + param_1));
+            arg1 = 8 - (arg4 + arg2);
         }
-        return uVar1;
+        return arg1;
     }
 
-    // 0x1003c5580, 80 bytes, placed by class name and debug map
-    // RegionRotate::RegionRotateLocationZ(int, int, int, int, int, int)
-    ulong RegionRotate::RegionRotateLocationZ(int param_1, int param_2, int param_3, int param_4, int param_5,
-                                              int param_6) {
-        ulong uVar1;
-        uint uVar2;
-
-        uVar2 = param_2 & 3;
-        if (uVar2 == 0) {
-            return (ulong)(uint)param_1;
+    // 0x1003c5580
+    int RegionRotate::RegionRotateLocationZ(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
+        unsigned int uVar1 = arg3 & 3;
+        if (uVar1 == 0) {
+            return arg2;
         }
-        if (uVar2 == 2) {
-            if ((param_5 & 1U) == 0) {
-                param_3 = param_4;
+        if (uVar1 == 2) {
+            if ((arg6 & 1U) == 0) {
+                arg4 = arg5;
             }
-            uVar1 = (ulong)(8 - (param_3 + param_1));
-        } else {
-            uVar1 = (ulong)this & 4294967295;
-            if (uVar2 == 1) {
-                if ((param_5 & 1U) == 0) {
-                    param_4 = param_3;
-                }
-                return (ulong)(8 - (param_4 + (int)this));
+            arg1 = 8 - (arg4 + arg2);
+        } else if (uVar1 == 1) {
+            if ((arg6 & 1U) == 0) {
+                arg5 = arg4;
             }
+            return 8 - (arg5 + arg1);
         }
-        return uVar1;
+        return arg1;
     }
 
 } // namespace jag::game

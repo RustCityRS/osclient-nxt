@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/materials/shaders/basic/model/billboard/ModelBillboardFS.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
@@ -8,117 +7,93 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~ModelBillboardFS();
-        virtual GetSource(EffectManager const&, EffectList const&) const;
+        virtual ModelBillboardFS* GetSource(const EffectManager& effectManager, const EffectList& effectList) const;
         ModelBillboardFS();
 
-        // data members, from how the methods use this: 48 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
-        char _unknown_40[8];
+    private:
+        uint64_t field_8;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
+        uint8_t _unknown_40[8];
     };
 
-    // 0x100022b10: the linker folded this into oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    ModelBillboardFS::~ModelBillboardFS();
+    // 0x100022b10: ModelBillboardFS::~ModelBillboardFS() has the same machine code as oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption()
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    ModelBillboardFS::~ModelBillboardFS();
+    // 0x10002a770: ModelBillboardFS::~ModelBillboardFS() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10004a690: the linker folded this into oldscape::option::ScriptOption<bool, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    ModelBillboardFS::~ModelBillboardFS();
-
-    // 0x1008949d0, 160 bytes, base-object constructor, placed by class name and debug map
-    // ModelBillboardFS::ModelBillboardFS()
-    void ModelBillboardFS::ModelBillboardFS() {
-        EffectList local_68[16];
-        initializer_list<EffectType> local_58[16];
-        EffectList local_48[16];
-        undefined4* local_38;
-        undefined8 local_30;
-        undefined4 local_26;
-        undefined2 local_22;
-
-        std::initializer_list<EffectType>::initializer_list(local_58);
-        EffectList::EffectList(local_68, local_58);
-        local_26 = 807223355;
-        local_22 = 17721;
-        local_38 = &local_26;
-        local_30 = 6;
-        EffectList::EffectList(local_48, (initializer_list*)&local_38);
+    // 0x1008949d0
+    ModelBillboardFS::ModelBillboardFS() {
+        initializer_list<EffectType> local_58;
+        EffectList local_68(local_58);
+        uint32_t local_26 = 807223355;
+        uint16_t local_22 = 17721;
+        uint64_t local_30 = 6;
+        EffectList local_48(&local_26);
         new (this) ShaderSource(local_68, local_48);
-        field_0 = &PTR__ScriptOption_100f175a8;
         new (&field_40) TextureAtlasLookup();
     }
 
-    // 0x100894a80, 16 bytes, complete-object constructor, placed by class name and debug map
-    // ModelBillboardFS::ModelBillboardFS(): jumps straight to the base-object constructor
+    // 0x100894a90
+    ModelBillboardFS* ModelBillboardFS::GetSource(const EffectManager& effectManager,
+                                                  const EffectList& effectList) const {
+        basic_ostream<char, std::char_traits<char> _>* basic_ostream;
+        char* pcVar4;
+        EffectList* in_RCX;
+        uint8_t local_170[280];
 
-    // 0x100894a90, 592 bytes, placed by class name and debug map
-    // ModelBillboardFS::GetSource(EffectManager const&, EffectList const&) const
-    ModelBillboardFS* ModelBillboardFS::GetSource(EffectManager* param_1, EffectList* param_2) {
-        ostream* poVar1;
-        char cVar2;
-        char cVar3;
-        char* pcVar5;
-        undefined1 local_170[280];
-        TextureAtlasLookup local_58[24];
-        char local_31;
-
-        new (local_170) RT7PixelShaderSourceStream();
-        local_31 = EffectList::Contains();
-        cVar2 = EffectList::Contains();
-        if (cVar2 == '\0') {
-            cVar2 = '\0';
+        new (local_170) RT7PixelShaderSourceStream(effectManager, *in_RCX, 1, 1, 1, 1, 1, 1, 24);
+        char local_31 = in_RCX->Contains(59);
+        char cVar1 = in_RCX->Contains(48);
+        if (!cVar1) {
+            cVar1 = '\0';
         } else {
-            cVar2 = EffectList::Contains();
+            cVar1 = in_RCX->Contains(29);
         }
-        cVar3 = EffectList::Contains();
-        poVar1 = (ostream*)(local_170 + 16);
-        std::operator<<(poVar1, "in vec4 vVertexAlbedo;\n");
-        std::operator<<(poVar1, "in vec2 vTextureUV;\n");
-        std::operator<<(poVar1, "flat in vec2 vMaterialSettingsSlotXY;\n");
-        if (cVar2 == '\0') {
-            if (EffectList::Contains() != '\0')
+        bool cVar2 = in_RCX->Contains(64);
+        basic_ostream = (basic_ostream<char, std::char_traits<char> _>*)(local_170 + 16);
+        std::operator<<(basic_ostream, "in vec4 vVertexAlbedo;\n");
+        std::operator<<(basic_ostream, "in vec2 vTextureUV;\n");
+        std::operator<<(basic_ostream, "flat in vec2 vMaterialSettingsSlotXY;\n");
+        if (!cVar1) {
+            if (in_RCX->Contains(57) != '\0')
                 goto LAB_100894b7d;
         } else {
         LAB_100894b7d:
-            pcVar5 = (char*)shadersourceprovider::GetShaderString(68);
-            std::operator<<(poVar1, pcVar5);
+            pcVar4 = shadersourceprovider::GetShaderString(68);
+            std::operator<<(basic_ostream, pcVar4);
         }
-        std::operator<<(poVar1, "uniform vec4 uAtlasMeta;\nuniform sampler2D uTextureAtlas;\nuniform sampler2D "
-                                "uTextureAtlasSettings;\nuniform float uAlphaTestThreshold;\n");
-        local_58->BuildFSFragment(&param_1->field_40);
-        std::operator<<(poVar1, (basic_string*)local_58);
-        local_58->~basic_string();
-        if (cVar2 == '\0') {
-            cVar2 = EffectList::Contains();
-            if (cVar2 == '\0')
+        std::operator<<(basic_ostream, "uniform vec4 uAtlasMeta;\nuniform sampler2D uTextureAtlas;\nuniform sampler2D "
+                                       "uTextureAtlasSettings;\nuniform float uAlphaTestThreshold;\n");
+        auto local_58 = effectManager.field_40.BuildFSFragment(*in_RCX, 2);
+        std::operator<<(basic_ostream,
+                        (basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> _>*)&local_58);
+        if (!cVar1) {
+            cVar1 = in_RCX->Contains(57);
+            if (!cVar1)
                 goto LAB_100894bf9;
         }
-        pcVar5 = (char*)shadersourceprovider::GetShaderString(67);
-        std::operator<<(poVar1, pcVar5);
+        pcVar4 = shadersourceprovider::GetShaderString(67);
+        std::operator<<(basic_ostream, pcVar4);
     LAB_100894bf9:
-        if (cVar3 != '\0') {
-            local_58->BuildFSFragment();
-            std::operator<<(poVar1, (basic_string*)local_58);
-            local_58->~basic_string();
+        if (cVar2) {
+            local_58 = BloomHDR::BuildFSFragment();
+            std::operator<<(basic_ostream,
+                            (basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> _>*)&local_58);
         }
         if (local_31 == '\0') {
-            pcVar5 = (char*)shadersourceprovider::GetShaderString(92);
-            std::operator<<(poVar1, pcVar5);
-            pcVar5 = (char*)shadersourceprovider::GetShaderString(30);
-            std::operator<<(poVar1, pcVar5);
+            pcVar4 = shadersourceprovider::GetShaderString(92);
+            std::operator<<(basic_ostream, pcVar4);
+            pcVar4 = shadersourceprovider::GetShaderString(30);
+            std::operator<<(basic_ostream, pcVar4);
         } else {
-            pcVar5 = (char*)shadersourceprovider::GetShaderString(93);
-            std::operator<<(poVar1, pcVar5);
-            pcVar5 = (char*)shadersourceprovider::GetShaderString(32);
-            std::operator<<(poVar1, pcVar5);
+            pcVar4 = shadersourceprovider::GetShaderString(93);
+            std::operator<<(basic_ostream, pcVar4);
+            pcVar4 = shadersourceprovider::GetShaderString(32);
+            std::operator<<(basic_ostream, pcVar4);
         }
-        ((ModelBillboardFS*)this)->str();
-        local_170->~RT7PixelShaderSourceStream();
-        return (ModelBillboardFS*)this;
+        *this = local_170->str();
+        return this;
     }
 
 } // namespace jag::graphics

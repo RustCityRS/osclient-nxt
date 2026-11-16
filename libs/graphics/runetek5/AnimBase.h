@@ -1,6 +1,5 @@
 // libs/graphics/runetek5/AnimBase.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics
@@ -8,147 +7,111 @@
 namespace jag::graphics {
     class AnimBase {
     public:
-        uint GetBaseID();
-        GetLabelSetToJointMap() const;
-        GetJointMoveMap();
-        ushort GetTransformCount() const;
+        unsigned int GetBaseID();
+        uint8_t* GetLabelSetToJointMap() const;
+        uint8_t* GetJointMoveMap();
+        unsigned short GetTransformCount() const;
         AnimBase();
-        AnimBase(unsigned int, PacketT<Array<unsigned char, eastl::allocator>>&);
+        AnimBase(unsigned int arg1, PacketT<Array<unsigned char>>& arg2);
         void BuildParentJoints();
-        GetOriginTransformIDByJointID(unsigned int);
-        void GetTransformLabels(unsigned int) const;
-        void DebugDrawBindPose(math::Matrix44T<float> const&, unsigned char) const;
-        void GetBindPose(unsigned char) const;
-        void GetJointTreeLevels(unsigned char) const;
-        GetTransformType(unsigned int) const;
-        void GetJointByOriginMappedID(unsigned int, unsigned char);
-        GetMaxLabelID() const;
+        uint16_t GetOriginTransformIDByJointID(unsigned int arg1);
+        void GetTransformLabels(unsigned int arg1) const;
+        void DebugDrawBindPose(const math::Matrix44T<float>& matrix44, unsigned char arg2) const;
+        Array<Joint>* GetBindPose(unsigned char arg1) const;
+        void GetJointTreeLevels(unsigned char arg1) const;
+        uint8_t GetTransformType(unsigned int arg1) const;
+        Joint* GetJointByOriginMappedID(unsigned int arg1, unsigned char arg2);
+        uint16_t GetMaxLabelID() const;
         int GetNumJoints() const;
         ~AnimBase();
 
-        // data members, from how the methods use this: 272 bytes
-        undefined1 field_0; // offset 0
-        char _unknown_1[3];
-        uint m_baseID;           // offset 4
-        ushort m_transformCount; // offset 8
-        char _unknown_10[174];
-        undefined2 m_maxLabelID; // offset 184
-        char _unknown_186[78];
-        short m_numJoints; // offset 264
-        char _unknown_266[6];
+    private:
+        uint8_t field_0;
+        uint8_t _unknown_1[3];
+        unsigned int m_baseID;
+        unsigned short m_transformCount;
+        uint8_t _unknown_10[174];
+        uint16_t m_maxLabelID;
+        uint8_t _unknown_186[78];
+        short m_numJoints;
+        uint8_t _unknown_266[6];
     };
 
-    // 0x1009782c0, 32 bytes, inline, placed by class name and debug map
-    // AnimBase::GetOriginTransformIDByJointID(unsigned int)
-    undefined2 AnimBase::GetOriginTransformIDByJointID(uint param_1) {
-        undefined2* puVar1;
-
-        puVar1 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-            (Array<unsigned short, eastl::allocator>*)&field_160, (ulong)param_1);
+    // 0x1009782c0
+    uint16_t AnimBase::GetOriginTransformIDByJointID(unsigned int arg1) {
+        uint16_t* puVar1 = &field_160[(unsigned long)arg1];
         return *puVar1;
     }
 
-    // 0x1009782e0, 32 bytes, inline, placed by class name and debug map
-    // AnimBase::GetTransformLabels(unsigned int) const
-    void AnimBase::GetTransformLabels(uint param_1) {
-        Array<Array<unsigned short, eastl::allocator>, eastl::allocator>::operator[](
-            (Array<Array<unsigned short, eastl::allocator>, eastl::allocator>*)&field_40, (ulong)param_1);
+    // 0x1009782e0
+    void AnimBase::GetTransformLabels(unsigned int arg1) const {
+        field_40[(unsigned long)arg1];
     }
 
-    // 0x1009785d0, 32 bytes, inline, placed by class name and debug map
-    // AnimBase::GetBindPose(unsigned char) const
-    void AnimBase::GetBindPose(uchar param_1) {
-        undefined7 in_register_00000031;
+    // 0x1009785d0
+    Array<Joint>* AnimBase::GetBindPose(unsigned char arg1) const {
+        uint64_t in_register_00000031;
 
-        Array<Array<Joint, eastl::allocator>, eastl::allocator>::operator[](
-            (Array<Array<Joint, eastl::allocator>, eastl::allocator>*)&field_64,
-            CONCAT71(in_register_00000031, param_1) & 4294967295);
+        return (Array<Joint>*)field_64[(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) & 4294967295];
     }
 
-    // 0x1009786c0, 32 bytes, inline, placed by class name and debug map
-    // AnimBase::GetJointTreeLevels(unsigned char) const
-    void AnimBase::GetJointTreeLevels(uchar param_1) {
-        undefined7 in_register_00000031;
+    // 0x1009786c0
+    void AnimBase::GetJointTreeLevels(unsigned char arg1) const {
+        uint64_t in_register_00000031;
 
-        Array<Array<short, eastl::allocator>, eastl::allocator>::operator[](
-            (Array<Array<short, eastl::allocator>, eastl::allocator>*)&field_88,
-            CONCAT71(in_register_00000031, param_1) & 4294967295);
+        field_88[(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) & 4294967295];
     }
 
-    // 0x10097ab50, 32 bytes, inline, placed by class name
-    // AnimBase::GetTransformType(unsigned int) const
-    undefined1 AnimBase::GetTransformType(uint param_1) {
-        undefined1* puVar1;
-
-        puVar1 = (undefined1*)Array<AnimTransform, eastl::allocator>::operator[](
-            (Array<AnimTransform, eastl::allocator>*)&field_16, (ulong)param_1);
+    // 0x10097ab50
+    uint8_t AnimBase::GetTransformType(unsigned int arg1) const {
+        uint8_t* puVar1 = &field_16[(unsigned long)arg1];
         return *puVar1;
     }
 
-    // 0x10097af00, 128 bytes, inline, placed by class name
-    // AnimBase::GetJointByOriginMappedID(unsigned int, unsigned char)
-    void AnimBase::GetJointByOriginMappedID(uint param_1, uchar param_2) {
-        short sVar1;
-        short sVar2;
-        short* psVar3;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        Array<Joint, eastl::allocator>* this_01;
-        undefined7 in_register_00000011;
-        ulong uVar4;
+    // 0x10097af00
+    Joint* AnimBase::GetJointByOriginMappedID(unsigned int arg1, unsigned char arg2) {
+        uint64_t in_register_00000011;
 
-        psVar3 = (short*)Array<short, eastl::allocator>::operator[]((Array<short, eastl::allocator>*)&field_112,
-                                                                    (ulong)param_1);
-        sVar1 = *psVar3;
-        uVar4 = CONCAT71(in_register_00000011, param_2) & 4294967295;
-        this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-            Array<Array<Joint, eastl::allocator>, eastl::allocator>::operator[](
-                (Array<Array<Joint, eastl::allocator>, eastl::allocator>*)&field_64, uVar4);
-        sVar2 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
+        short* psVar3 = &field_112[(unsigned long)arg1];
+        short sVar1 = *psVar3;
+        unsigned long arg1_00 = (((uint64_t)in_register_00000011 << 8) | (uint8_t)arg2) & 4294967295;
+        short sVar2 = ((vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_64[arg1_00])->end();
         if ((int)sVar2 <= (int)sVar1) {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "jointIndex < static_cast<decltype(jointIndex)>(m_poses[bindID].size())",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek5/AnimBase.h",
-                62, (char*)0);
+                62, nullptr);
         }
-        this_01 = (Array<Joint, eastl::allocator>*)Array<Array<Joint, eastl::allocator>, eastl::allocator>::operator[](
-            (Array<Array<Joint, eastl::allocator>, eastl::allocator>*)&field_64, uVar4);
-        Array<Joint, eastl::allocator>::operator[](this_01, (long)(int)sVar1);
+        Array<Joint>* this_01 = &field_64[arg1_00];
+        return (Joint*)(*this_01)[(long)(int)sVar1];
     }
 
-    // 0x100983a10, 16 bytes, inline, placed by class name
-    // AnimBase::GetMaxLabelID() const
-    undefined2 AnimBase::GetMaxLabelID() {
+    // 0x100983a10
+    uint16_t AnimBase::GetMaxLabelID() const {
         return m_maxLabelID;
     }
 
-    // 0x100984360, 16 bytes, inline, placed by class name
-    // AnimBase::GetNumJoints() const
-    int AnimBase::GetNumJoints() {
+    // 0x100984360
+    int AnimBase::GetNumJoints() const {
         return (int)m_numJoints;
     }
 
-    // 0x100993f50, 16 bytes, complete-object destructor, inline, placed by class name
-    // AnimBase::~AnimBase(): jumps straight to the base-object destructor
-
-    // 0x100993f60, 112 bytes, base-object destructor, inline, placed by class name
-    // AnimBase::~AnimBase()
-    void AnimBase::~AnimBase() {
-        (&field_240)->~Array();
-        (&field_192)->~map();
-        (&field_160)->~Array();
-        (&field_136)->~Array();
-        (&field_112)->~Array();
-        (&field_88)->~Array();
-        (&field_64)->~Array();
-        (&field_40)->~Array();
-        (&field_16)->~Array();
+    // 0x100993f60
+    AnimBase::~AnimBase() {
+        field_240.~Array();
+        field_192.~map();
+        field_160.~Array();
+        field_136.~Array();
+        field_112.~Array();
+        field_88.~Array();
+        field_64.~Array();
+        field_40.~Array();
+        field_16.~Array();
     }
 
 } // namespace jag::graphics
 
-// 0x1009786e0, 32 bytes, placed by debug map only (low confidence)
-// pow(float, float)
-void pow(float param_1, float param_2) {
-    _exp2f(param_1 * -0.0740006);
+// 0x1009786e0
+void pow(float arg1, float arg2) {
+    _exp2f(arg1 * -0.0740006);
 }

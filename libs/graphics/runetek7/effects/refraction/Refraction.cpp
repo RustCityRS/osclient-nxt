@@ -1,34 +1,19 @@
 // libs/graphics/runetek7/effects/refraction/Refraction.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "Refraction.h"
 
 namespace jag::graphics {
-    // 0x100067280: the linker folded this into game::console::Snow::GetSnowPiles() const, which has identical code
-    Refraction::GetRefractionRT() const;
+    // 0x100067280: Refraction::GetRefractionRT() const has the same machine code as game::console::Snow::GetSnowPiles() const
 
-    // 0x100918320, 80 bytes, base-object constructor, placed by class name
-    // Refraction::Refraction(RT7Core&)
-    void Refraction::Refraction(RT7Core* param_1) {
-        new (this) ShaderEffect(param_1);
-        field_0 = &PTR__Refraction_100f191f0;
-        field_24 = 4294967295;
-        field_28 = 4294967295;
-        field_32 = 0;
-        new (field_40, (_func_decltype_nullptr*)param_1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-    }
+    // 0x100918320
+    Refraction::Refraction(RT7Core& rt7Core)
+        : ShaderEffect(rt7Core), field_24(4294967295), field_28(4294967295), field_32(0) {}
 
-    // 0x100918370, 16 bytes, complete-object constructor, placed by class name
-    // Refraction::Refraction(RT7Core&): jumps straight to the base-object constructor
-
-    // 0x100918380, 80 bytes, placed by class name
-    // Refraction::Initialise()
+    // 0x100918380
     bool Refraction::Initialise() {
-        uint uVar1;
-
-        uVar1 = field_16->GetPSTextureSlotManager();
+        unsigned int uVar1 = field_16->GetPSTextureSlotManager();
         uVar1 = ShaderResourceSlotManager::RegisterSlotID(uVar1);
         field_24 = uVar1;
         uVar1 = field_16->GetPSTextureSlotManager();
@@ -37,212 +22,149 @@ namespace jag::graphics {
         return uVar1 != 4294967295 && field_24 != 4294967295;
     }
 
-    // 0x1009183d0, 48 bytes, placed by class name
-    // Refraction::IsSupported() const
-    bool Refraction::IsSupported() {
-        MapArea* this_00;
-        long lVar1;
-
-        this_00 = (MapArea*)Instance();
-        lVar1 = this_00->GetOrigin();
+    // 0x1009183d0
+    bool Refraction::IsSupported() const {
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
         return *(char*)(lVar1 + 146) != '\0' && *(char*)(lVar1 + 145) != '\0';
     }
 
-    // 0x100918400, 480 bytes, placed by class name
-    // Refraction::CreateRefractionTexture(std::array<render::Texture::Desc, 2ul> const&, render::Texture::Desc const&)
-    /* Refraction::CreateRefractionTexture(std::array<render::Texture::Desc, 2ul>
-   const&, render::Texture::Desc const&) */
+    // 0x100918400
+    bool Refraction::CreateRefractionTexture(const std::array<render::Texture::Desc, 2ul>& descs,
+                                             const render::Texture::Desc& desc) {
+        RenderTargets* pRVar6;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_01;
+        uint64_t* puVar7;
+        long lVar8;
+        long* plVar9;
+        unsigned int local_78;
+        uint64_t uStack_70;
+        uint64_t uStack_60;
+        uint64_t local_58;
+        uint64_t uStack_40;
+        shared_ptr<oldscape::RSevenDebugPresetProvider> local_30;
 
-    bool Refraction::CreateRefractionTexture(array* param_1, Desc* param_2) {
-        undefined1* this_00;
-        undefined4 uVar1;
-        undefined4 uVar2;
-        undefined4 uVar3;
-        bool bVar4;
-        uint* puVar5;
-        undefined8 uVar6;
-        RenderTargets* pRVar7;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_01;
-        undefined8* puVar8;
-        long lVar9;
-        long* plVar10;
-        undefined8 local_f8;
-        undefined8 uStack_f0;
-        undefined8 local_e8;
-        undefined8 uStack_e0;
-        undefined8 local_d8;
-        undefined8 uStack_d0;
-        undefined8 local_c8;
-        undefined8 uStack_c0;
-        undefined8 local_b8;
-        undefined8 uStack_b0;
-        undefined8 local_a8;
-        undefined8 uStack_a0;
-        undefined8 local_98;
-        undefined8 uStack_90;
-        undefined8 local_88;
-        undefined8 uStack_80;
-        uint local_78;
-        uint uStack_74;
-        undefined8 uStack_70;
-        undefined4 local_68;
-        undefined4 uStack_64;
-        undefined8 uStack_60;
-        undefined8 local_58;
-        undefined8 uStack_50;
-        undefined8 local_48;
-        undefined8 uStack_40;
-        shared_ptr<oldscape::RSevenDebugPresetProvider> local_30[16];
-
-        local_88 = *(undefined8*)(param_1 + 112);
-        uStack_80 = *(undefined8*)(param_1 + 120);
-        local_98 = *(undefined8*)(param_1 + 96);
-        uStack_90 = *(undefined8*)(param_1 + 104);
-        local_a8 = *(undefined8*)(param_1 + 80);
-        uStack_a0 = *(undefined8*)(param_1 + 88);
-        local_b8 = *(undefined8*)(param_1 + 64);
-        uStack_b0 = *(undefined8*)(param_1 + 72);
-        local_f8 = *(undefined8*)param_1;
-        uStack_f0 = *(undefined8*)(param_1 + 8);
-        local_e8 = *(undefined8*)(param_1 + 16);
-        uStack_e0 = *(undefined8*)(param_1 + 24);
-        local_d8 = *(undefined8*)(param_1 + 32);
-        uStack_d0 = *(undefined8*)(param_1 + 40);
-        local_c8 = *(undefined8*)(param_1 + 48);
-        uStack_c0 = *(undefined8*)(param_1 + 56);
-        puVar5 = (uint*)std::array<render::Texture::Desc, 2ul>::operator[]((ulong)&local_f8);
+        uint64_t local_88 = *(uint64_t*)(descs + 112);
+        uint64_t uStack_80 = *(uint64_t*)(descs + 120);
+        uint64_t local_98 = *(uint64_t*)(descs + 96);
+        uint64_t uStack_90 = *(uint64_t*)(descs + 104);
+        uint64_t local_a8 = *(uint64_t*)(descs + 80);
+        uint64_t uStack_a0 = *(uint64_t*)(descs + 88);
+        uint64_t local_b8 = *(uint64_t*)(descs + 64);
+        uint64_t uStack_b0 = *(uint64_t*)(descs + 72);
+        uint64_t local_f8 = *(uint64_t*)descs;
+        uint64_t uStack_f0 = *(uint64_t*)(descs + 8);
+        uint64_t local_e8 = *(uint64_t*)(descs + 16);
+        uint64_t uStack_e0 = *(uint64_t*)(descs + 24);
+        uint64_t local_d8 = *(uint64_t*)(descs + 32);
+        uint64_t uStack_d0 = *(uint64_t*)(descs + 40);
+        uint64_t local_c8 = *(uint64_t*)(descs + 48);
+        uint64_t uStack_c0 = *(uint64_t*)(descs + 56);
+        unsigned int* puVar5 = &local_f8[(unsigned long)descs];
         *puVar5 = *puVar5 >> 1;
         puVar5[1] = puVar5[1] >> 1;
-        *(undefined1*)(puVar5 + 8) = 0;
+        *(uint8_t*)(puVar5 + 8) = 0;
         puVar5[4] = 1;
-        uVar1 = param_2->field_0;
-        uVar2 = param_2->field_4;
-        uStack_70._0_4_ = param_2->field_8;
-        uStack_70._4_4_ = param_2->field_12;
-        uVar3 = param_2->field_20;
-        uStack_60._0_4_ = param_2->field_24;
-        uStack_60._4_4_ = param_2->field_28;
-        local_58._0_1_ = param_2->field_32;
-        local_58._1_3_ = *(undefined3*)&param_2->field_33;
-        local_58._4_4_ = param_2->field_36;
-        uStack_50 = *(undefined8*)&param_2->field_40;
-        local_48 = param_2->field_48;
-        uStack_40._0_1_ = param_2->field_56;
-        uStack_40._1_3_ = *(undefined3*)&param_2->field_57;
-        uStack_40._4_4_ = param_2->field_60;
-        _local_78 = CONCAT44((uint)uVar2 >> 1, (uint)uVar1 >> 1);
-        _local_68 = CONCAT44(uVar3, 1);
-        this_00 = field_40;
-        bVar4 = this_00->operator_cast_to_bool();
-        if (bVar4) {
-            /* WARNING: Subroutine does not return */
+        uint32_t uVar1 = desc.field_0;
+        uint32_t uVar2 = desc.field_4;
+        uStack_70._0_4_ = desc.field_8;
+        uStack_70._4_4_ = desc.field_12;
+        uint32_t uVar3 = desc.field_20;
+        uStack_60._0_4_ = desc.field_24;
+        uStack_60._4_4_ = desc.field_28;
+        local_58._0_1_ = desc.field_32;
+        local_58._1_3_ = *(uint32_t*)&desc.field_33;
+        local_58._4_4_ = desc.field_36;
+        uint64_t uStack_50 = *(uint64_t*)&desc.field_40;
+        uint64_t local_48 = desc.field_48;
+        uStack_40._0_1_ = desc.field_56;
+        uStack_40._1_3_ = *(uint32_t*)&desc.field_57;
+        uStack_40._4_4_ = desc.field_60;
+        _local_78 = (((uint64_t)((unsigned int)uVar2 >> 1) << 32) | (uint32_t)((unsigned int)uVar1 >> 1));
+        _local_68 = (((uint64_t)uVar3 << 32) | (uint32_t)1);
+        uint8_t* this_00 = field_40;
+        if (this_00->operator_cast_to_bool()) {
             LogAssert("!m_refractionRT",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/effects/"
                       "refraction/Refraction.cpp",
-                      44, (char*)0);
+                      44, nullptr);
         }
-        uVar6 = field_16->GetRenderTargetsManager();
-        local_30->Register(uVar6, "RefractionRT", 35866, &local_f8, 1, &local_78, 0, 1);
-        shared_ptr<render::RenderTargets>::operator=((shared_ptr<render::RenderTargets>*)this_00,
-                                                     (shared_ptr*)local_30);
-        local_30->~shared_ptr();
-        bVar4 = this_00->operator_cast_to_bool();
-        if (bVar4) {
-            pRVar7 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                (shared_ptr<render::RenderTargets>*)this_00);
-            this_01 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    pRVar7->GetColourTargetTextures();
-            puVar8 = (undefined8*)eastl::vector<
-                render::Texture*,
-                eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_01, 0);
-            plVar10 = (long*)*puVar8;
-            lVar9 = this_01->Instance();
-            (**(code**)(*plVar10 + 24))(plVar10, lVar9 + 272, 0);
-            pRVar7 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                (shared_ptr<render::RenderTargets>*)this_00);
-            plVar10 = (long*)pRVar7->GetDepthStencilTargetTexture();
-            lVar9 = pRVar7->Instance();
-            (**(code**)(*plVar10 + 24))(plVar10, lVar9 + 80, 0);
+        local_30.Register((char*)field_16->GetRenderTargetsManager(), 14748683, *35866, (int)&local_f8, DAT_00000001,
+                          (unsigned int)&local_78, false);
+        *this_00 = local_30;
+        if (this_00->operator_cast_to_bool()) {
+            pRVar6 = (RenderTargets*)(*this_00).operator->();
+            this_01 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                          pRVar6->GetColourTargetTextures();
+            puVar7 = (uint64_t*)(*this_01)[0];
+            plVar9 = (long*)*puVar7;
+            lVar8 = this_01->Instance();
+            (**(void (**)(...))(*plVar9 + 24))(plVar9, lVar8 + 272, 0);
+            pRVar6 = (RenderTargets*)(*this_00).operator->();
+            plVar9 = (long*)pRVar6->GetDepthStencilTargetTexture();
+            lVar8 = pRVar6->Instance();
+            (**(void (**)(...))(*plVar9 + 24))(plVar9, lVar8 + 80, 0);
         }
-        lVar9 = this_00->end();
-        return lVar9 != 0;
+        lVar8 = this_00->end();
+        return lVar8 != 0;
     }
 
-    // 0x1009185f0, 48 bytes, placed by class name
-    // Refraction::DestroyRefractionTexture()
+    // 0x1009185f0
     void Refraction::DestroyRefractionTexture() {
-        RenderTargetsManager* this_00;
-
-        this_00 = (RenderTargetsManager*)field_16->GetRenderTargetsManager();
-        this_00->Unregister(field_40);
+        ((RenderTargetsManager*)field_16->GetRenderTargetsManager())->Unregister(*field_40);
     }
 
-    // 0x100918620, 400 bytes, placed by class name
-    // Refraction::SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const
-    void Refraction::SetShaderConstants(DrawCallState* param_1, RenderContext* param_2, Shader* param_3) {
-        undefined1* this_00;
-        uint uVar1;
-        int iVar2;
-        ShaderProgram* this_01;
-        long lVar3;
-        RenderTargets* pRVar4;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* pvVar5;
-        undefined8* puVar6;
-        HashedString* pHVar7;
+    // 0x100918620
+    void Refraction::SetShaderConstants(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                        Shader& shader) const {
+        unsigned int arg1;
+        int iVar1;
+        RenderTargets* pRVar3;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* pvVar4;
+        uint64_t* puVar5;
+        HashedString* pHVar6;
         RenderPipelineState* this_02;
-        Texture* pTVar8;
-        ImVec4 local_58[16];
-        uint* local_48;
+        Texture* pTVar7;
+        ImVec4 local_58;
+        unsigned int* local_48;
         RenderPipelineState* local_40;
-        uint local_34;
+        unsigned int local_34;
 
-        this_01 = (ShaderProgram*)param_3->GetProgram();
-        this_00 = field_40;
-        lVar3 = this_00->end();
-        if (lVar3 == 0) {
-            /* WARNING: Subroutine does not return */
+        auto this_01 = shader.GetProgram();
+        uint8_t* this_00 = field_40;
+        long lVar2 = this_00->end();
+        if (lVar2 == 0) {
             LogAssert("m_refractionRT.get()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/effects/"
                       "refraction/Refraction.cpp",
                       64, "No valid destination render target for render target resolve");
         }
-        lVar3 = this_00->end();
-        if (lVar3 != 0) {
-            pRVar4 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                (shared_ptr<render::RenderTargets>*)this_00);
-            pvVar5 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    pRVar4->GetColourTargetTextures();
-            puVar6 = (undefined8*)
-                eastl::vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                              eastl::allocator>>::operator[](pvVar5, 0);
-            local_48 = (uint*)(*puVar6)->second();
-            local_40 = (RenderPipelineState*)param_1->GetRenderPipelineState();
+        lVar2 = this_00->end();
+        if (lVar2 != 0) {
+            pRVar3 = (RenderTargets*)(*this_00).operator->();
+            pvVar4 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                         pRVar3->GetColourTargetTextures();
+            puVar5 = (uint64_t*)(*pvVar4)[0];
+            local_48 = (unsigned int*)(*puVar5)->second();
+            local_40 = (RenderPipelineState*)drawCallState.GetRenderPipelineState();
             local_34 = field_24;
-            pRVar4 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                (shared_ptr<render::RenderTargets>*)this_00);
-            pvVar5 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    pRVar4->GetColourTargetTextures();
-            puVar6 = (undefined8*)
-                eastl::vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                              eastl::allocator>>::operator[](pvVar5, 0);
-            pTVar8 = (Texture*)*puVar6;
-            pHVar7 = (HashedString*)graphics::operator*((graphics*)66);
-            iVar2 = this_01->GetConstIndex(pHVar7);
-            local_40->SetPSTextureSamplerPair(local_34, pTVar8, iVar2, 0, true);
-            this_02 = (RenderPipelineState*)param_1->GetRenderPipelineState();
-            uVar1 = field_28;
-            pRVar4 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                (shared_ptr<render::RenderTargets>*)this_00);
-            pTVar8 = (Texture*)pRVar4->GetDepthStencilTargetTexture();
-            pHVar7 = (HashedString*)graphics::operator*((graphics*)67);
-            iVar2 = this_01->GetConstIndex(pHVar7);
-            this_02->SetPSTextureSamplerPair(uVar1, pTVar8, iVar2, 0, true);
-            ImVec4::ImVec4(local_58, (float)local_48[2], 0.0, (float)*local_48, (float)local_48[1]);
-            pHVar7 = (HashedString*)graphics::operator*((graphics*)69);
-            this_01->SetShaderConstVector4(pHVar7, local_58);
+            pRVar3 = (RenderTargets*)(*this_00).operator->();
+            pvVar4 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                         pRVar3->GetColourTargetTextures();
+            puVar5 = (uint64_t*)(*pvVar4)[0];
+            pTVar7 = (Texture*)*puVar5;
+            pHVar6 = (HashedString*)graphics::operator*(66);
+            iVar1 = this_01->GetConstIndex(*pHVar6);
+            local_40->SetPSTextureSamplerPair(local_34, pTVar7, iVar1, nullptr, true);
+            this_02 = (RenderPipelineState*)drawCallState.GetRenderPipelineState();
+            arg1 = field_28;
+            pRVar3 = (RenderTargets*)(*this_00).operator->();
+            pTVar7 = (Texture*)pRVar3->GetDepthStencilTargetTexture();
+            pHVar6 = (HashedString*)graphics::operator*(67);
+            iVar1 = this_01->GetConstIndex(*pHVar6);
+            this_02->SetPSTextureSamplerPair(arg1, pTVar7, iVar1, nullptr, true);
+            local_58 = ImVec4((float)local_48[2], 0.0, (float)*local_48, (float)local_48[1]);
+            pHVar6 = (HashedString*)graphics::operator*(69);
+            this_01->SetShaderConstVector4(pHVar6, &local_58);
         }
     }
 

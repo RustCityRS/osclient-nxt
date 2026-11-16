@@ -1,6 +1,5 @@
 // projects/osclient/social/sortfilter/online/OnlinePlayerDataRankComparator.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,65 +8,43 @@ namespace jag::oldscape::social {
     class OnlinePlayerDataRankComparator {
     public:
         // virtual methods in vtable order
-        virtual ulong Compare(FriendData const&, FriendData const&) const;
-        OnlinePlayerDataRankComparator(bool);
-        ulong Compare(FriendChatUser const&, FriendChatUser const&) const;
+        virtual unsigned long Compare(const FriendData& friendData1, const FriendData& friendData2) const;
+        OnlinePlayerDataRankComparator(bool arg1);
+        unsigned long Compare(const FriendChatUser& friendChatUser1, const FriendChatUser& friendChatUser2) const;
     };
 
-    // 0x100176030, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataRankComparator<FriendData>::OnlinePlayerDataRankComparator(bool): jumps straight to the base-object constructor
+    // 0x100176050
+    OnlinePlayerDataRankComparator<FriendData>::OnlinePlayerDataRankComparator(bool arg1)
+        : ChainablePlayerDataComparator<FriendData>() {}
 
-    // 0x100176050, 48 bytes, base-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataRankComparator<FriendData>::OnlinePlayerDataRankComparator(bool)
-    void OnlinePlayerDataRankComparator<FriendData>::OnlinePlayerDataRankComparator(bool param_1) {
-        new (this) ChainablePlayerDataComparator<FriendData>();
-        *(undefined**)this = PTR_vtable_100ee8bb0 + 16;
-        this[16] = (OnlinePlayerDataRankComparator<FriendData>)param_1;
-    }
-
-    // 0x100176080, 48 bytes, inline, placed by class name and debug map
-    // OnlinePlayerDataRankComparator<FriendData>::Compare(FriendData const&, FriendData const&) const
-    ulong OnlinePlayerDataRankComparator<FriendData>::Compare(FriendData* param_1, FriendData* param_2) {
-        uint uVar1;
-        ulong uVar2;
-
-        uVar1 = *(int*)&param_1->field_176 - *(int*)&param_2->field_176;
+    // 0x100176080
+    unsigned long OnlinePlayerDataRankComparator<FriendData>::Compare(const FriendData& friendData1,
+                                                                      const FriendData& friendData2) const {
+        unsigned int uVar1 = *(int*)&friendData1.field_176 - *(int*)&friendData2.field_176;
         if (uVar1 == 0) {
-            uVar2 = GetChainedCompare(param_1, param_2);
-            return uVar2;
+            return GetChainedCompare(friendData1, friendData2);
         }
-        if (this[16] == (OnlinePlayerDataRankComparator<FriendData>)0) {
-            uVar1 = *(int*)&param_2->field_176 - *(int*)&param_1->field_176;
+        if (*(char*)&this[2]._vptr == '\0') {
+            uVar1 = *(int*)&friendData2.field_176 - *(int*)&friendData1.field_176;
         }
-        return (ulong)uVar1;
+        return (unsigned long)uVar1;
     }
 
-    // 0x1001761f0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataRankComparator<FriendChatUser>::OnlinePlayerDataRankComparator(bool): jumps straight to the base-object constructor
+    // 0x100176210
+    OnlinePlayerDataRankComparator<FriendChatUser>::OnlinePlayerDataRankComparator(bool arg1)
+        : ChainablePlayerDataComparator<FriendChatUser>() {}
 
-    // 0x100176210, 48 bytes, base-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataRankComparator<FriendChatUser>::OnlinePlayerDataRankComparator(bool)
-    void OnlinePlayerDataRankComparator<FriendChatUser>::OnlinePlayerDataRankComparator(bool param_1) {
-        new (this) ChainablePlayerDataComparator<FriendChatUser>();
-        *(undefined**)this = PTR_vtable_100ee8bb8 + 16;
-        this[16] = (OnlinePlayerDataRankComparator<FriendChatUser>)param_1;
-    }
-
-    // 0x100176240, 48 bytes, inline, placed by class name and debug map
-    // OnlinePlayerDataRankComparator<FriendChatUser>::Compare(FriendChatUser const&, FriendChatUser const&) const
-    ulong OnlinePlayerDataRankComparator<FriendChatUser>::Compare(FriendChatUser* param_1, FriendChatUser* param_2) {
-        uint uVar1;
-        ulong uVar2;
-
-        uVar1 = *(int*)&param_1->field_176 - *(int*)&param_2->field_176;
+    // 0x100176240
+    unsigned long OnlinePlayerDataRankComparator<FriendChatUser>::Compare(const FriendChatUser& friendChatUser1,
+                                                                          const FriendChatUser& friendChatUser2) const {
+        unsigned int uVar1 = *(int*)&friendChatUser1.field_176 - *(int*)&friendChatUser2.field_176;
         if (uVar1 == 0) {
-            uVar2 = GetChainedCompare(param_1, param_2);
-            return uVar2;
+            return GetChainedCompare(friendChatUser1, friendChatUser2);
         }
-        if (this[16] == (OnlinePlayerDataRankComparator<FriendChatUser>)0) {
-            uVar1 = *(int*)&param_2->field_176 - *(int*)&param_1->field_176;
+        if (*(char*)&this[2]._vptr == '\0') {
+            uVar1 = *(int*)&friendChatUser2.field_176 - *(int*)&friendChatUser1.field_176;
         }
-        return (ulong)uVar1;
+        return (unsigned long)uVar1;
     }
 
 } // namespace jag::oldscape::social

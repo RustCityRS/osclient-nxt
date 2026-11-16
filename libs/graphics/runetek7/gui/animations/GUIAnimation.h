@@ -1,446 +1,307 @@
 // libs/graphics/runetek7/gui/animations/GUIAnimation.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class GUIAnimation {
     public:
-        uint GetTarget() const;
-        uint GetTargetMode() const;
-        GUIAnimation(PacketT<Array<unsigned char, eastl::allocator>>&,
-                     Array<GUIAnimationCurve, eastl::allocator> const&);
-        void LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&,
-                            Array<GUIAnimationCurve, eastl::allocator> const&);
-        GUIAnimation(GUIAnimationCurve const&, GUIAnimationTarget, GUIAnimationTargetMode);
-        GUIAnimation(math::EasingType, bool, GUIAnimationTarget, GUIAnimationTargetMode);
-        void AddOutput(int);
-        bool AddOutputImpl<int&>(int&);
-        void AddOutput(float);
-        bool AddOutputImpl<float&>(float&);
-        bool AddOutputImpl<GUIAnimationRGB>(GUIAnimationRGB&&);
-        bool AddOutputImpl<math::Vector2T<float>>(math::Vector2T<float>&&);
-        bool AddOutputImpl<math::Vector2T<int>>(math::Vector2T<int>&&);
-        bool AddOutputImpl<float>(float&&);
-        Evaluate(float) const;
-        GenerateNextOutputInSequence(std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                  math::Vector2T<int>, GUIAnimationRGB>,
-                                     std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                  math::Vector2T<int>, GUIAnimationRGB>) const;
+        unsigned int GetTarget() const;
+        unsigned int GetTargetMode() const;
+        GUIAnimation(PacketT<Array<unsigned char>>& arg1, const Array<GUIAnimationCurve>& guiAnimationCurves);
+        void LoadFromPacket(PacketT<Array<unsigned char>>& arg1, const Array<GUIAnimationCurve>& guiAnimationCurves);
+        GUIAnimation(const GUIAnimationCurve& guiAnimationCurve, GUIAnimationTarget guiAnimationTarget,
+                     GUIAnimationTargetMode guiAnimationTargetMode);
+        GUIAnimation(math::EasingType easingType, bool arg2, GUIAnimationTarget guiAnimationTarget,
+                     GUIAnimationTargetMode guiAnimationTargetMode);
+        void AddOutput(int arg1);
+        bool AddOutputImpl<int&>(int& arg1);
+        void AddOutput(float arg1);
+        bool AddOutputImpl<float&>(float& arg1);
+        bool AddOutputImpl<GUIAnimationRGB>(GUIAnimationRGB&& guiAnimationRGB);
+        bool AddOutputImpl<math::Vector2T<float>>(math::Vector2T<float>&& vector2);
+        bool AddOutputImpl<math::Vector2T<int>>(math::Vector2T<int>&& vector2);
+        bool AddOutputImpl<float>(float&& arg1);
+        GUIAnimation* Evaluate(float arg1) const;
+        uint8_t[16] GenerateNextOutputInSequence(
+            std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                         GUIAnimationRGB>
+                arg1,
+            std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                         GUIAnimationRGB>
+                arg2) const;
         ~GUIAnimation();
 
-        // data members, from how the methods use this: 32 bytes
-        long field_0;      // offset 0
-        int field_8;       // offset 8
-        uint field_12;     // offset 12
-        uint m_target;     // offset 16
-        uint m_targetMode; // offset 20
-        float field_24;    // offset 24
-        char _unknown_28[4];
+    private:
+        GUIAnimationCurve* field_0;
+        EasingType field_8;
+        unsigned int field_12;
+        unsigned int m_target;
+        unsigned int m_targetMode;
+        float field_24;
+        uint8_t _unknown_28[4];
     };
 
     class GUIAnimationRGB {
     public:
-        GUIAnimationRGB(int, int, int);
-        Lerp(GUIAnimationRGB, float) const;
-        Delta(GUIAnimationRGB) const;
-        uint EvalAdd(unsigned int) const;
-        uint EvalMultiply(unsigned int) const;
-        uint EvalDelta(unsigned int, unsigned int) const;
-        uint AsUint() const;
-        GUIAnimationRGB(unsigned int);
+        GUIAnimationRGB(int arg1, int arg2, int arg3);
+        uint64_t Lerp(GUIAnimationRGB guiAnimationRGB, float arg2) const;
+        uint64_t Delta(GUIAnimationRGB guiAnimationRGB) const;
+        unsigned int EvalAdd(unsigned int arg1) const;
+        unsigned int EvalMultiply(unsigned int arg1) const;
+        unsigned int EvalDelta(unsigned int arg1, unsigned int arg2) const;
+        unsigned int AsUint() const;
+        GUIAnimationRGB(unsigned int arg1);
 
-        // data members, from how the methods use this: 12 bytes
-        short field_0;  // offset 0
-        ushort field_2; // offset 2
-        short field_4;  // offset 4
-        char _unknown_6[6];
+    private:
+        short field_0;
+        unsigned short field_2;
+        short field_4;
+        uint8_t _unknown_6[6];
     };
 
-    // 0x1008f4f10, 208 bytes, inline, placed by class name and debug map
-    // bool GUIAnimation::AddOutputImpl<int&>(int&)
-    bool GUIAnimation::AddOutputImpl<int&>(int* param_1) {
-        char cVar1;
+    // 0x1008f4f10
+    bool GUIAnimation::AddOutputImpl<int&>(int& arg1) {
         variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
             pvVar2;
         long lVar3;
         long lVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this;
+        Logger* this_00;
+        uint64_t uVar5;
+        uint64_t uVar6;
         variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>
-            local_38[16];
+            local_38;
 
-        std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                     GUIAnimationRGB>::variant<int&, 0, 0, 0, int, 2ul, 0>((int*)local_38);
-        this = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(param_1 + 6);
-        cVar1 =
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this);
-        if (cVar1 == '\0') {
+        local_38.variant<int&, 0, 0, 0, int, 2ul, 0>(arg1);
+        float* this_01 = &field_24;
+        if (this_01->empty() == '\0') {
             pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                              GUIAnimationRGB>*)
-                eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                           math::Vector2T<int>, GUIAnimationRGB>,
-                              BucketAllocatorEASTL>::
-                operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                math::Vector2T<int>, GUIAnimationRGB>,
-                                   BucketAllocatorEASTL>*)this,
-                           0);
-            lVar3 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                 GUIAnimationRGB>::index(pvVar2);
-            lVar4 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                 GUIAnimationRGB>::index(local_38);
-            if (lVar3 != lVar4) {
-                uVar5 = logger::default_logger();
-                uVar6 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                     math::Vector2T<int>, GUIAnimationRGB>::index(local_38);
-                pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                  GUIAnimationRGB>*)
-                    eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                               math::Vector2T<int>, GUIAnimationRGB>,
-                                  BucketAllocatorEASTL>::
-                    operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                    math::Vector2T<int>, GUIAnimationRGB>,
-                                       BucketAllocatorEASTL>*)this,
-                               0);
-                uVar7 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                     math::Vector2T<int>, GUIAnimationRGB>::index(pvVar2);
-                logger::Logger::Log(
-                    uVar5, 0, 2,
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
-                    "animations/GUIAnimation.h",
-                    53,
-                    "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
-                    uVar6, uVar7);
-                return false;
-            }
-        }
-        push_back(local_38);
-        return true;
-    }
-
-    // 0x1008f5040, 208 bytes, inline, placed by class name and debug map
-    // bool GUIAnimation::AddOutputImpl<float&>(float&)
-    bool GUIAnimation::AddOutputImpl<float&>(float* param_1) {
-        char cVar1;
-        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
-            pvVar2;
-        long lVar3;
-        long lVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this;
-        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>
-            local_38[16];
-
-        std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                     GUIAnimationRGB>::variant<float&, 0, 0, 0, float, 3ul, 0>((float*)local_38);
-        this = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(param_1 + 6);
-        cVar1 =
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this);
-        if (cVar1 == '\0') {
-            pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                              GUIAnimationRGB>*)
-                eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                           math::Vector2T<int>, GUIAnimationRGB>,
-                              BucketAllocatorEASTL>::
-                operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                math::Vector2T<int>, GUIAnimationRGB>,
-                                   BucketAllocatorEASTL>*)this,
-                           0);
-            lVar3 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                 GUIAnimationRGB>::index(pvVar2);
-            lVar4 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                 GUIAnimationRGB>::index(local_38);
-            if (lVar3 != lVar4) {
-                uVar5 = logger::default_logger();
-                uVar6 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                     math::Vector2T<int>, GUIAnimationRGB>::index(local_38);
-                pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                  GUIAnimationRGB>*)
-                    eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                               math::Vector2T<int>, GUIAnimationRGB>,
-                                  BucketAllocatorEASTL>::
-                    operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                    math::Vector2T<int>, GUIAnimationRGB>,
-                                       BucketAllocatorEASTL>*)this,
-                               0);
-                uVar7 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                     math::Vector2T<int>, GUIAnimationRGB>::index(pvVar2);
-                logger::Logger::Log(
-                    uVar5, 0, 2,
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
-                    "animations/GUIAnimation.h",
-                    53,
-                    "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
-                    uVar6, uVar7);
-                return false;
-            }
-        }
-        push_back(local_38);
-        return true;
-    }
-
-    // 0x1008f5190, 208 bytes, inline, placed by class name and debug map
-    // bool GUIAnimation::AddOutputImpl<GUIAnimationRGB>(GUIAnimationRGB&&)
-    bool GUIAnimation::AddOutputImpl<GUIAnimationRGB>(GUIAnimationRGB* param_1) {
-        char cVar1;
-        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
-            pvVar2;
-        long lVar3;
-        long lVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        GUIAnimationRGB* this;
-        GUIAnimationRGB local_38;
-
-        std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                     GUIAnimationRGB>::variant<GUIAnimationRGB, 0, 0, 0, GUIAnimationRGB, 6ul, 0>(&local_38);
-        this = param_1 + 2;
-        cVar1 = empty();
-        if (cVar1 == '\0') {
-            pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                              GUIAnimationRGB>*)
-                eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                           math::Vector2T<int>, GUIAnimationRGB>,
-                              BucketAllocatorEASTL>::
-                operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                math::Vector2T<int>, GUIAnimationRGB>,
-                                   BucketAllocatorEASTL>*)this,
-                           0);
-            lVar3 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                 GUIAnimationRGB>::index(pvVar2);
+                              GUIAnimationRGB>*)(*this_01)[0];
+            lVar3 = pvVar2->index();
             lVar4 = local_38.index();
             if (lVar3 != lVar4) {
-                uVar5 = logger::default_logger();
-                uVar6 = local_38.index();
+                this_00 = logger::default_logger();
+                uVar5 = local_38.index();
                 pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                  GUIAnimationRGB>*)
-                    eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                               math::Vector2T<int>, GUIAnimationRGB>,
-                                  BucketAllocatorEASTL>::
-                    operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                    math::Vector2T<int>, GUIAnimationRGB>,
-                                       BucketAllocatorEASTL>*)this,
-                               0);
-                uVar7 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                     math::Vector2T<int>, GUIAnimationRGB>::index(pvVar2);
-                logger::Logger::Log(
-                    uVar5, 0, 2,
+                                  GUIAnimationRGB>*)(*this_01)[0];
+                uVar6 = pvVar2->index();
+                this_00->Log(
+                    false, 2,
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                     "animations/GUIAnimation.h",
                     53,
                     "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
-                    uVar6, uVar7);
+                    uVar5, uVar6);
                 return false;
             }
         }
-        push_back((variant*)&local_38);
+        this_01->push_back(local_38);
         return true;
     }
 
-    // 0x1008f5260, 208 bytes, inline, placed by class name and debug map
-    // bool GUIAnimation::AddOutputImpl<math::Vector2T<float> >(math::Vector2T<float>&&)
-    bool GUIAnimation::AddOutputImpl<math::Vector2T<float>>(Vector2T* param_1) {
-        char cVar1;
+    // 0x1008f5040
+    bool GUIAnimation::AddOutputImpl<float&>(float& arg1) {
         variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
             pvVar2;
         long lVar3;
         long lVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this;
-        Vector2T local_38[16];
-
-        std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                     GUIAnimationRGB>::variant<math::Vector2T<float>, 0, 0, 0, math::Vector2T<float>, 4ul, 0>(local_38);
-        this = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(param_1 + 24);
-        cVar1 =
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this);
-        if (cVar1 == '\0') {
-            pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                              GUIAnimationRGB>*)
-                eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                           math::Vector2T<int>, GUIAnimationRGB>,
-                              BucketAllocatorEASTL>::
-                operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                math::Vector2T<int>, GUIAnimationRGB>,
-                                   BucketAllocatorEASTL>*)this,
-                           0);
-            lVar3 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                 GUIAnimationRGB>::index(pvVar2);
-            lVar4 = local_38->index();
-            if (lVar3 != lVar4) {
-                uVar5 = logger::default_logger();
-                uVar6 = local_38->index();
-                pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                  GUIAnimationRGB>*)
-                    eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                               math::Vector2T<int>, GUIAnimationRGB>,
-                                  BucketAllocatorEASTL>::
-                    operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                    math::Vector2T<int>, GUIAnimationRGB>,
-                                       BucketAllocatorEASTL>*)this,
-                               0);
-                uVar7 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                     math::Vector2T<int>, GUIAnimationRGB>::index(pvVar2);
-                logger::Logger::Log(
-                    uVar5, 0, 2,
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
-                    "animations/GUIAnimation.h",
-                    53,
-                    "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
-                    uVar6, uVar7);
-                return false;
-            }
-        }
-        push_back(local_38);
-        return true;
-    }
-
-    // 0x1008f5330, 208 bytes, inline, placed by class name and debug map
-    // bool GUIAnimation::AddOutputImpl<math::Vector2T<int> >(math::Vector2T<int>&&)
-    bool GUIAnimation::AddOutputImpl<math::Vector2T<int>>(Vector2T* param_1) {
-        char cVar1;
-        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
-            pvVar2;
-        long lVar3;
-        long lVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this;
-        Vector2T local_38[16];
-
-        std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                     GUIAnimationRGB>::variant<math::Vector2T<int>, 0, 0, 0, math::Vector2T<int>, 5ul, 0>(local_38);
-        this = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(param_1 + 24);
-        cVar1 =
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this);
-        if (cVar1 == '\0') {
-            pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                              GUIAnimationRGB>*)
-                eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                           math::Vector2T<int>, GUIAnimationRGB>,
-                              BucketAllocatorEASTL>::
-                operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                math::Vector2T<int>, GUIAnimationRGB>,
-                                   BucketAllocatorEASTL>*)this,
-                           0);
-            lVar3 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                 GUIAnimationRGB>::index(pvVar2);
-            lVar4 = local_38->index();
-            if (lVar3 != lVar4) {
-                uVar5 = logger::default_logger();
-                uVar6 = local_38->index();
-                pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                  GUIAnimationRGB>*)
-                    eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                               math::Vector2T<int>, GUIAnimationRGB>,
-                                  BucketAllocatorEASTL>::
-                    operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                    math::Vector2T<int>, GUIAnimationRGB>,
-                                       BucketAllocatorEASTL>*)this,
-                               0);
-                uVar7 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                     math::Vector2T<int>, GUIAnimationRGB>::index(pvVar2);
-                logger::Logger::Log(
-                    uVar5, 0, 2,
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
-                    "animations/GUIAnimation.h",
-                    53,
-                    "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
-                    uVar6, uVar7);
-                return false;
-            }
-        }
-        push_back(local_38);
-        return true;
-    }
-
-    // 0x1008f5400, 208 bytes, inline, placed by class name and debug map
-    // bool GUIAnimation::AddOutputImpl<float>(float&&)
-    bool GUIAnimation::AddOutputImpl<float>(float* param_1) {
-        char cVar1;
-        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
-            pvVar2;
-        long lVar3;
-        long lVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this;
+        Logger* this_00;
+        uint64_t uVar5;
+        uint64_t uVar6;
         variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>
-            local_38[16];
+            local_38;
 
-        std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                     GUIAnimationRGB>::variant<float, 0, 0, 0, float, 3ul, 0>((float*)local_38);
-        this = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(param_1 + 6);
-        cVar1 =
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this);
-        if (cVar1 == '\0') {
+        local_38.variant<float&, 0, 0, 0, float, 3ul, 0>(arg1);
+        float* this_01 = &field_24;
+        if (this_01->empty() == '\0') {
             pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                              GUIAnimationRGB>*)
-                eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                           math::Vector2T<int>, GUIAnimationRGB>,
-                              BucketAllocatorEASTL>::
-                operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                math::Vector2T<int>, GUIAnimationRGB>,
-                                   BucketAllocatorEASTL>*)this,
-                           0);
-            lVar3 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                 GUIAnimationRGB>::index(pvVar2);
-            lVar4 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                 GUIAnimationRGB>::index(local_38);
+                              GUIAnimationRGB>*)(*this_01)[0];
+            lVar3 = pvVar2->index();
+            lVar4 = local_38.index();
             if (lVar3 != lVar4) {
-                uVar5 = logger::default_logger();
-                uVar6 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                     math::Vector2T<int>, GUIAnimationRGB>::index(local_38);
+                this_00 = logger::default_logger();
+                uVar5 = local_38.index();
                 pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
-                                  GUIAnimationRGB>*)
-                    eastl::vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                               math::Vector2T<int>, GUIAnimationRGB>,
-                                  BucketAllocatorEASTL>::
-                    operator[]((vector<std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                                    math::Vector2T<int>, GUIAnimationRGB>,
-                                       BucketAllocatorEASTL>*)this,
-                               0);
-                uVar7 = std::variant<unsigned char, unsigned int, int, float, math::Vector2T<float>,
-                                     math::Vector2T<int>, GUIAnimationRGB>::index(pvVar2);
-                logger::Logger::Log(
-                    uVar5, 0, 2,
+                                  GUIAnimationRGB>*)(*this_01)[0];
+                uVar6 = pvVar2->index();
+                this_00->Log(
+                    false, 2,
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                     "animations/GUIAnimation.h",
                     53,
                     "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
-                    uVar6, uVar7);
+                    uVar5, uVar6);
                 return false;
             }
         }
-        push_back(local_38);
+        this_01->push_back(local_38);
         return true;
     }
 
-    // 0x100902400, 32 bytes, base-object constructor, inline, placed by class header (inline)
-    // GUIAnimationRGB::GUIAnimationRGB(unsigned int)
-    void GUIAnimationRGB::GUIAnimationRGB(uint param_1) {
-        field_0 = (short)((param_1 & 16711935) >> 16);
-        field_2 = (ushort)(param_1 >> 8) & 255;
-        field_4 = (short)(param_1 & 16711935);
+    // 0x1008f5190
+    bool GUIAnimation::AddOutputImpl<GUIAnimationRGB>(GUIAnimationRGB&& guiAnimationRGB) {
+        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
+            pvVar2;
+        long lVar3;
+        long lVar4;
+        Logger* this_00;
+        uint64_t uVar5;
+        uint64_t uVar6;
+        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>
+            local_38;
+
+        local_38.variant<GUIAnimationRGB, 0, 0, 0, GUIAnimationRGB, 6ul, 0>(guiAnimationRGB);
+        float* this_01 = &field_24;
+        if (this_01->empty() == '\0') {
+            pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                              GUIAnimationRGB>*)(*this_01)[0];
+            lVar3 = pvVar2->index();
+            lVar4 = local_38.index();
+            if (lVar3 != lVar4) {
+                this_00 = logger::default_logger();
+                uVar5 = local_38.index();
+                pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                                  GUIAnimationRGB>*)(*this_01)[0];
+                uVar6 = pvVar2->index();
+                this_00->Log(
+                    false, 2,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
+                    "animations/GUIAnimation.h",
+                    53,
+                    "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
+                    uVar5, uVar6);
+                return false;
+            }
+        }
+        this_01->push_back(local_38);
+        return true;
     }
 
-    // 0x10090f380, 16 bytes, complete-object destructor, inline, placed by class name
-    // GUIAnimation::~GUIAnimation(): jumps straight to the base-object destructor
+    // 0x1008f5260
+    bool GUIAnimation::AddOutputImpl<math::Vector2T<float>>(math::Vector2T<float>&& vector2) {
+        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
+            pvVar2;
+        long lVar3;
+        long lVar4;
+        Logger* this_00;
+        uint64_t uVar5;
+        uint64_t uVar6;
+        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>
+            local_38;
 
-    // 0x10090f390, 16 bytes, base-object destructor, inline, placed by class name
-    // GUIAnimation::~GUIAnimation()
-    void GUIAnimation::~GUIAnimation() {
-        (&field_24)->~vector();
+        local_38.variant<math::Vector2T<float>, 0, 0, 0, math::Vector2T<float>, 4ul, 0>(vector2);
+        float* this_01 = &field_24;
+        if (this_01->empty() == '\0') {
+            pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                              GUIAnimationRGB>*)(*this_01)[0];
+            lVar3 = pvVar2->index();
+            lVar4 = local_38.index();
+            if (lVar3 != lVar4) {
+                this_00 = logger::default_logger();
+                uVar5 = local_38.index();
+                pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                                  GUIAnimationRGB>*)(*this_01)[0];
+                uVar6 = pvVar2->index();
+                this_00->Log(
+                    false, 2,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
+                    "animations/GUIAnimation.h",
+                    53,
+                    "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
+                    uVar5, uVar6);
+                return false;
+            }
+        }
+        this_01->push_back(local_38);
+        return true;
     }
+
+    // 0x1008f5330
+    bool GUIAnimation::AddOutputImpl<math::Vector2T<int>>(math::Vector2T<int>&& vector2) {
+        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
+            pvVar2;
+        long lVar3;
+        long lVar4;
+        Logger* this_00;
+        uint64_t uVar5;
+        uint64_t uVar6;
+        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>
+            local_38;
+
+        local_38.variant<math::Vector2T<int>, 0, 0, 0, math::Vector2T<int>, 5ul, 0>(vector2);
+        float* this_01 = &field_24;
+        if (this_01->empty() == '\0') {
+            pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                              GUIAnimationRGB>*)(*this_01)[0];
+            lVar3 = pvVar2->index();
+            lVar4 = local_38.index();
+            if (lVar3 != lVar4) {
+                this_00 = logger::default_logger();
+                uVar5 = local_38.index();
+                pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                                  GUIAnimationRGB>*)(*this_01)[0];
+                uVar6 = pvVar2->index();
+                this_00->Log(
+                    false, 2,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
+                    "animations/GUIAnimation.h",
+                    53,
+                    "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
+                    uVar5, uVar6);
+                return false;
+            }
+        }
+        this_01->push_back(local_38);
+        return true;
+    }
+
+    // 0x1008f5400
+    bool GUIAnimation::AddOutputImpl<float>(float&& arg1) {
+        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>*
+            pvVar2;
+        long lVar3;
+        long lVar4;
+        Logger* this_00;
+        uint64_t uVar5;
+        uint64_t uVar6;
+        variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>, GUIAnimationRGB>
+            local_38;
+
+        local_38.variant<float, 0, 0, 0, float, 3ul, 0>(arg1);
+        float* this_01 = &field_24;
+        if (this_01->empty() == '\0') {
+            pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                              GUIAnimationRGB>*)(*this_01)[0];
+            lVar3 = pvVar2->index();
+            lVar4 = local_38.index();
+            if (lVar3 != lVar4) {
+                this_00 = logger::default_logger();
+                uVar5 = local_38.index();
+                pvVar2 = (variant<unsigned char, unsigned int, int, float, math::Vector2T<float>, math::Vector2T<int>,
+                                  GUIAnimationRGB>*)(*this_01)[0];
+                uVar6 = pvVar2->index();
+                this_00->Log(
+                    false, 2,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
+                    "animations/GUIAnimation.h",
+                    53,
+                    "Could not add animation output due to type mismatch with existing outputs (got %d, expected %d)",
+                    uVar5, uVar6);
+                return false;
+            }
+        }
+        this_01->push_back(local_38);
+        return true;
+    }
+
+    // 0x100902400
+    GUIAnimationRGB::GUIAnimationRGB(unsigned int arg1) {
+        field_0 = (short)((arg1 & 16711935) >> 16);
+        field_2 = (unsigned short)(arg1 >> 8) & 255;
+        field_4 = (short)(arg1 & 16711935);
+    }
+
+    // 0x10090f390
+    GUIAnimation::~GUIAnimation() {}
 
 } // namespace jag::graphics

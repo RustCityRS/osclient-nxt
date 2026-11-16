@@ -1,337 +1,227 @@
 // libs/framework/baseapp/BaseApp.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.system.osclient
 
 #include "BaseApp.h"
 
 namespace jag {
-    // 0x103bdd1d8, 8 bytes, __common; zero-initialised
-    BaseApp::m_pApp;
+    // 0x103bdd1d8
+    int64_t BaseApp::m_pApp;
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::PauseAudio();
+    // 0x100009e70: BaseApp::PauseAudio() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::OsxOpenUrls(Array<eastl::string, eastl::allocator>&&);
+    // 0x100009e70: BaseApp::OsxOpenUrls(Array<eastl::string>&&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::ResumeAudio();
+    // 0x100009e70: BaseApp::ResumeAudio() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::MainShutdown();
+    // 0x100009e70: BaseApp::MainShutdown() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::MainWindowInit(SystemInitParams const&);
+    // 0x100009e70: BaseApp::MainWindowInit(SystemInitParams const&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::DeviceLostFocus();
+    // 0x100009e70: BaseApp::DeviceLostFocus() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::KeepAliveUpdate();
+    // 0x100009e70: BaseApp::KeepAliveUpdate() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::SetPresentEnabled(bool);
+    // 0x100009e70: BaseApp::SetPresentEnabled(bool) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::MainWindowShutdown();
+    // 0x100009e70: BaseApp::MainWindowShutdown() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::SetFastUpdateLoopEnabled(bool);
+    // 0x100009e70: BaseApp::SetFastUpdateLoopEnabled(bool) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::SetPostLogicTickCallback(eastl::function<bool()> const&);
+    // 0x100009e70: BaseApp::SetPostLogicTickCallback(eastl::function<bool ()> const&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::Resize(float, float);
+    // 0x100009e70: BaseApp::Resize(float, float) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    BaseApp::Configure(SystemInitParams&);
+    // 0x100009e70: BaseApp::Configure(SystemInitParams&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    BaseApp::GetInputHAL();
+    // 0x100029ea0: BaseApp::GetInputHAL() has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    BaseApp::GetFastUpdateLoopEnabled() const;
+    // 0x100029ea0: BaseApp::GetFastUpdateLoopEnabled() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    BaseApp::GetView() const;
+    // 0x100029ea0: BaseApp::GetView() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    BaseApp::GetWindow() const;
+    // 0x100029ea0: BaseApp::GetWindow() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    BaseApp::OnMainInit(SystemInitParams const&);
+    // 0x10002d860: BaseApp::OnMainInit(SystemInitParams const&) has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    BaseApp::GetPresentEnabled() const;
+    // 0x10002d860: BaseApp::GetPresentEnabled() const has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x100c99120, 176 bytes, base-object constructor, placed by class name and debug map
-    // BaseApp::BaseApp()
-    void BaseApp::BaseApp() {
-        Logger* pLVar1;
+    // 0x100c99120
+    BaseApp::BaseApp() {
+        Logger* logger;
 
-        field_0 = &PTR__BaseApp_100f29c70;
-        *(undefined2*)&field_8 = 0;
-        *(undefined8*)field_16 = 0;
-        *(undefined8*)(field_16 + 8) = 0;
-        *(undefined8*)(field_16 + 16) = 0;
-        *(undefined8*)(field_16 + 24) = 0;
+        *(uint16_t*)&field_8 = 0;
+        *(uint64_t*)field_16 = 0;
+        *(uint64_t*)(field_16 + 8) = 0;
+        *(uint64_t*)(field_16 + 16) = 0;
+        *(uint64_t*)(field_16 + 24) = 0;
         field_48 = 0;
         field_56 = 0;
         field_64 = 0;
         new (field_16) SystemInitParams();
-        pLVar1 = (Logger*)logger::default_logger();
-        new (&field_72, pLVar1) logger::LoggerAssertionPresenter();
-        new (&field_88, (IAssertPresenter*)&field_72) ScopedAssertionPresenter();
+        logger = logger::default_logger();
+        new (&field_72) logger::LoggerAssertionPresenter(*logger);
+        new (&field_88) ScopedAssertionPresenter(field_72);
         m_exitCode = 0;
-        eastl::fixed_queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>, 4ul, true>::
-            fixed_queue((fixed_queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
-                                     4ul, true>*)&field_104);
+        new (&field_104)
+            eastl::fixed_queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>, 4ul,
+                               true>();
         new (&field_1064) std::mutex();
     }
 
-    // 0x100c991f0, 80 bytes, base-object destructor, placed by class name and debug map
-    // BaseApp::~BaseApp()
-    void BaseApp::~BaseApp() {
-        field_0 = &PTR__BaseApp_100f29c70;
+    // 0x100c991f0
+    BaseApp::~BaseApp() {
         (&field_1064)->~mutex();
-        eastl::fixed_queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>, 4ul, true>::
-            ~fixed_queue((fixed_queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
-                                      4ul, true>*)&field_104);
-        (&field_88)->~ScopedAssertionPresenter();
+        field_104.~fixed_queue();
+        field_88.~ScopedAssertionPresenter();
         field_16->~SystemInitParams();
     }
 
-    // 0x100c99250, 16 bytes, complete-object destructor, placed by class name and debug map
-    // BaseApp::~BaseApp(): jumps straight to the base-object destructor
-
-    // 0x100c99260, 16 bytes, deleting destructor, placed by class name and debug map
-    // BaseApp::~BaseApp()
-    void BaseApp::~BaseApp() {
-        code* pcVar1;
-
-        /* WARNING: Does not return */
-        pcVar1 = (code*)invalidInstructionException();
-        (*pcVar1)();
-    }
-
-    // 0x100c99270, 128 bytes, placed by class name and debug map
-    // BaseApp::QueueMainThreadEvent(fixedfunction::function<void (BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const&)
-    void BaseApp::QueueMainThreadEvent(function* param_1) {
+    // 0x100c99270
+    void BaseApp::QueueMainThreadEvent(
+        fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const& callback) {
         BaseApp* local_20;
 
         if (this_thread::IsMainThread() == '\0') {
-            new (&local_20) std::scoped_lock<std::mutex>((mutex*)&field_1064);
-            eastl::queue<
-                fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
-                eastl::fixed_list<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>, 4ul,
-                                  true, eastl::allocator>>::
-                push((queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
-                            eastl::fixed_list<
-                                fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>, 4ul,
-                                true, eastl::allocator>>*)&field_104,
-                     param_1);
-            local_20.~scoped_lock();
+            new (&local_20) std::scoped_lock(field_1064);
+            field_104.push(callback);
         } else {
             local_20 = this;
             fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::operator()(
-                (function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>*)param_1, &local_20);
+                (function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>*)callback, &local_20);
         }
     }
 
-    // 0x100c99300, 304 bytes, placed by class name and debug map
-    // BaseApp::RunSynchronousMainThreadEvent(fixedfunction::function<void (BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const&)
-    void BaseApp::RunSynchronousMainThreadEvent(function* param_1) {
+    // 0x100c99300
+    void BaseApp::RunSynchronousMainThreadEvent(
+        fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const& callback) {
         Fence* local_160;
-        function* local_158;
-        scoped_lock<std::mutex> local_150[8];
-        function local_148;
+        function<void_(BaseApp*), _128ul, _16ul, _(fixedfunction::Methods) 0>* local_158;
+        scoped_lock<std::mutex> local_150;
+        BaseApp* local_148[21];
         Fence local_a0;
         long local_28;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (this_thread::IsMainThread() == '\0') {
-            new (&local_a0) Fence();
-            std::scoped_lock<std::mutex>::scoped_lock(local_150, (mutex*)&field_1064);
+        if (!(this_thread::IsMainThread())) {
+            local_a0 = Fence();
+            local_150 = std::scoped_lock(field_1064);
             local_160 = &local_a0;
-            local_158 = param_1;
+            local_158 = callback;
             fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::function<
                 BaseApp::RunSynchronousMainThreadEvent(
                     fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const&)::__0,
-                void>((function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_148, (__0*)&local_160);
-            eastl::queue<
-                fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
-                eastl::fixed_list<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>, 4ul,
-                                  true, eastl::allocator>>::
-                push((queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
-                            eastl::fixed_list<
-                                fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>, 4ul,
-                                true, eastl::allocator>>*)&field_104,
-                     &local_148);
-            fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_148);
-            std::scoped_lock<std::mutex>::~scoped_lock(local_150);
+                void>((function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>*)local_148, (__0*)&local_160);
+            field_104.push(*local_148);
             local_a0.Wait();
-            local_a0.~Fence();
         } else {
-            local_148.field_0 = (long)this;
+            local_148[0] = this;
             fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::operator()(
-                (function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>*)param_1, (BaseApp**)&local_148);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                (function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>*)callback, local_148);
         }
     }
 
-    // 0x100c99470, 32 bytes, placed by class name and debug map
-    // BaseApp::UpdateInternal()
+    // 0x100c99470
     void BaseApp::UpdateInternal() {
         this_thread::SetMainThread(false);
-        ExecuteMainThreadEvents(this);
+        ExecuteMainThreadEvents();
     }
 
-    // 0x100c99490, 352 bytes, placed by class name and debug map
-    // BaseApp::ExecuteMainThreadEvents()
+    // 0x100c99490
     void BaseApp::ExecuteMainThreadEvents() {
-        undefined1* this_00;
-        undefined1* puVar1;
-        char cVar2;
-        function* pfVar3;
-        int iVar4;
+        function<void_(BaseApp*), _128ul, _16ul, _(fixedfunction::Methods) 0>* callback;
+        int iVar2;
         BaseApp* local_e8;
-        BaseApp* local_e0;
         function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_e0 = this;
-        cVar2 = this_thread::IsMainThread();
-        if (cVar2 == '\0') {
-            /* WARNING: Subroutine does not return */
+        BaseApp* local_e0 = this;
+        bool cVar1 = this_thread::IsMainThread();
+        if (!cVar1) {
             LogAssert(
                 "this_thread::IsMainThread()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/framework/baseapp/BaseApp.cpp",
-                67, (char*)0);
+                67, nullptr);
         }
-        puVar1 = &local_e0->field_1064;
-        this_00 = &local_e0->field_104;
+        uint8_t* mutex = &local_e0->field_1064;
+        uint8_t* this_00 = &local_e0->field_104;
         do {
-            new (local_d8) math::Vector2T<int>();
-            new (&local_e8) std::scoped_lock<std::mutex>(puVar1);
-            cVar2 = this_00->empty();
-            iVar4 = 3;
-            if (cVar2 == '\0') {
-                pfVar3 = (function*)eastl::queue<
+            new (local_d8) math::Vector2T();
+            new (&local_e8) std::scoped_lock(*mutex);
+            cVar1 = this_00->empty();
+            iVar2 = 3;
+            if (!cVar1) {
+                callback = (function<void_(BaseApp*), _128ul, _16ul, _(fixedfunction::Methods) 0>*)eastl::queue<
                     fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
                     eastl::fixed_list<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
-                                      4ul, true, eastl::allocator>>::front();
-                fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::operator=(
-                    (function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>*)local_d8, pfVar3);
-                iVar4 = 0;
+                                      4ul>>::front();
+                *local_d8 = *callback;
+                iVar2 = 0;
                 eastl::queue<
                     fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
                     eastl::fixed_list<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
-                                      4ul, true, eastl::allocator>>::
-                    pop((queue<fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>,
-                               eastl::fixed_list<
-                                   fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>, 4ul,
-                                   true, eastl::allocator>>*)this_00);
+                                      4ul>>::pop();
             }
-            local_e8.~scoped_lock();
-            if (cVar2 == '\0') {
+            if (!cVar1) {
                 local_e8 = local_e0;
                 fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::operator()(
                     (function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>*)local_d8, &local_e8);
-                iVar4 = 0;
+                iVar2 = 0;
             }
-            fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                local_d8);
-        } while (iVar4 == 0);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        } while (iVar2 == 0);
     }
 
 } // namespace jag
 
 namespace jag::fixedfunction {
-    // 0x100c9a1e0, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{lambda(void*, void*)#1}::__invoke(void*, void*)
-    /* __invoke(void*, void*) */
-
+    // 0x100c9a1e0
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{
         lambda(void*, void*) #1
     }
-    ::__invoke(void* param_1, void* param_2) {
-        operator()(param_1, param_2);
+    ::__invoke(void* arg1, void* arg2) {
+        operator()(this, arg1, arg2);
     }
 
-    // 0x100c9a1f0, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{lambda(void*, void*)#1}::operator()(void*, void*) const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<BaseApp::RunSynchronousMainThreadEvent(function<void
-   (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0,
-   void>(BaseApp::RunSynchronousMainThreadEvent(function<void
-   (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{lambda(void*,
-   void*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, void*) const */
-
+    // 0x100c9a1f0
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{
         lambda(void*, void*) #1
     }
-    ::operator()(void* param_1, void* param_2) {
-        undefined8 uVar1;
-
-        uVar1 = *(undefined8*)((long)param_1 + 8);
-        *(undefined8*)param_2 = *(undefined8*)param_1;
-        *(undefined8*)((long)param_2 + 8) = uVar1;
+    ::operator()(void* arg1, void* arg2) const {
+        uint64_t uVar1 = *(uint64_t*)(this + 8);
+        *(uint64_t*)arg1 = *(uint64_t*)this;
+        *(uint64_t*)((long)arg1 + 8) = uVar1;
     }
 
-    // 0x100c9a200, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{lambda(void*, BaseApp*)#1}::__invoke(void*, BaseApp*)
+    // 0x100c9a200
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{
         lambda(void*, BaseApp*) #1
     }
-    ::BaseApp__(void* param_1, BaseApp* param_2) {
-        operator()(param_1, param_2);
+    ::__invoke(void* arg1, BaseApp* baseApp) {
+        operator()(this, arg1, baseApp);
     }
 
-    // 0x100c9a210, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{lambda(void*, BaseApp*)#1}::operator()(void*, BaseApp*) const
-    /* function<void (BaseApp*), 128ul, 16ul,
-   (Methods)0>::function<BaseApp::RunSynchronousMainThreadEvent(function<void
-   (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0,
-   void>(BaseApp::RunSynchronousMainThreadEvent(function<void
-   (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{lambda(void*,
-   BaseApp*)#1}::TEMPNAMEPLACEHOLDERVALUE(void*, BaseApp*) const */
-
+    // 0x100c9a210
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{
         lambda(void*, BaseApp*) #1
     }
-    ::operator()(void* param_1, BaseApp * param_2) {
+    ::operator()(void* arg1, BaseApp * baseApp) const {
         (function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)
-            ->RunSynchronousMainThreadEvent()::$_0::operator()(param_1, param_2);
+            ->RunSynchronousMainThreadEvent()::$_0::operator()((__0*)this, arg1);
     }
 
-    // 0x100c9a250, 16 bytes, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(BaseApp::RunSynchronousMainThreadEvent(function<void (BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{lambda(void*)#1}::__invoke(void*)
-    /* __invoke(void*) */
-
+    // 0x100c9a250
     void function<void(BaseApp*), 128ul, 16ul, (Methods)0>::function<
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0, void>(
         BaseApp::RunSynchronousMainThreadEvent(function<void(BaseApp*), 128ul, 16ul, (Methods)0> const&)::$_0&&)::{
         lambda(void*) #1
     }
-    ::__invoke(void* param_1) {}
+    ::__invoke(void* arg1) {}
 
 } // namespace jag::fixedfunction

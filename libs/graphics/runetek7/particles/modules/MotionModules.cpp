@@ -1,155 +1,125 @@
 // libs/graphics/runetek7/particles/modules/MotionModules.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #include "MotionModules.h"
 
 namespace jag::graphics {
     namespace {
-        // 0x1007cee50, 352 bytes, inline, placed by debug map only (low confidence)
-        // void UpdateParticleSystemsImpl<eastl::vector<ParticleSystem*, eastl::allocator> >(std::vector<std::future<void>, std::allocator<std::future<void> > >&, unsigned long, eastl::vector<ParticleSystem*, eastl::allocator>&, ThreadPool&, float)
-        /* void graphics::(anonymous
-   namespace)::UpdateParticleSystemsImpl<eastl::vector<ParticleSystem*,
-   eastl::allocator> >(std::vector<std::future<void>, std::allocator<std::future<void> > >&,
-   unsigned long, eastl::vector<ParticleSystem*, eastl::allocator>&,
-   ThreadPool&, float) */
-
-        void(anonymous namespace)::UpdateParticleSystemsImpl<eastl::vector<ParticleSystem*, eastl::allocator>>(
-            vector* param_1, ulong param_2, vector* param_3, ThreadPool* param_4, float param_5) {
-            ulong uVar1;
-            ulong uVar2;
-            ulong* puVar3;
-            undefined8* puVar4;
-            ulong uVar5;
-            ulong uVar6;
-            ulong uVar7;
-            vector* local_70;
+        // 0x1007cee50
+        void UpdateParticleSystemsImpl<eastl::vector<ParticleSystem*>>(
+            std::vector<std::future<void>, std::allocator<std::future<void>>>& futures, unsigned long arg2,
+            eastl::vector<ParticleSystem*>& particleSystems, ThreadPool& threadPool, float arg5) {
+            unsigned long uVar1;
+            unsigned long* puVar3;
+            uint64_t* puVar4;
+            unsigned long uVar5;
+            unsigned long uVar6;
+            unsigned long arg1;
+            vector<ParticleSystem*>* local_70;
             float local_68;
-            ulong local_60;
-            ulong local_58;
-            ulong local_50;
-            ulong local_40;
+            unsigned long local_60;
+            unsigned long local_58;
+            ReturnValue local_40;
 
-            local_50 = param_2;
-            uVar2 = param_3->size();
+            unsigned long uVar2 = particleSystems.size();
             if (uVar2 != 0) {
-                uVar7 = 0;
-                local_70 = (vector*)((uVar2 - 1) / local_50);
-                local_40 = 1;
-                puVar3 = std::max<unsigned long>((ulong*)&local_70, &local_40);
+                arg1 = 0;
+                local_70 = (vector<ParticleSystem*>*)((uVar2 - 1) / arg2);
+                local_40 = (ReturnValue)1;
+                puVar3 = std::max<unsigned long>(local_70, local_40);
                 uVar1 = *puVar3;
-                local_70 = (vector*)(uVar2 - 1);
-                puVar3 = std::min<unsigned long>(&local_50, (ulong*)&local_70);
+                local_70 = (vector<ParticleSystem*>*)(uVar2 - 1);
+                puVar3 = std::min<unsigned long>(arg2, local_70);
                 uVar6 = *puVar3;
                 if (uVar6 != 0) {
                     uVar5 = 0;
                     do {
-                        uVar7 = uVar5 + uVar1;
-                        if (uVar2 <= uVar7) {
-                            /* WARNING: Subroutine does not return */
+                        arg1 = uVar5 + uVar1;
+                        if (uVar2 <= arg1) {
                             LogAssert("indexMax < systemCount",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                       "runetek7/particles/ParticleManager.cpp",
-                                      42, (char*)0);
+                                      42, nullptr);
                         }
-                        local_70 = param_3;
-                        local_68 = param_5;
+                        local_70 = particleSystems;
+                        local_68 = arg5;
                         local_60 = uVar5;
-                        local_58 = uVar7;
-                        ThreadPool::AddTask<UpdateParticleSystemsImpl<eastl::vector<ParticleSystem*, eastl::allocator>>(
-                            std::vector<std::future<void>, std::allocator<std::future<void>>>&, unsigned long,
-                            eastl::vector<ParticleSystem*, eastl::allocator>&, ThreadPool&, float)::_lambda() _1_>(
-                            (ThreadPool*)&local_40, (char*)param_4, (vector*)&local_70);
-                        param_1->push_back((future*)&local_40);
-                        local_40.~future();
+                        local_58 = arg1;
+                        ThreadPool::AddTask<UpdateParticleSystemsImpl<eastl::vector<ParticleSystem*>>(
+                            std::vector<std::future<void>>&, unsigned long, eastl::vector<ParticleSystem*>&,
+                            ThreadPool&, float)::_lambda() _1_>(&local_40, (char*)threadPool,
+                                                                (vector<ParticleSystem*>*)&local_70);
+                        futures.push_back(local_40);
                         uVar6 = uVar6 - 1;
-                        uVar5 = uVar7;
+                        uVar5 = arg1;
                     } while (uVar6 != 0);
                 }
-                if (uVar7 < uVar2) {
+                if (arg1 < uVar2) {
                     do {
-                        puVar4 = (undefined8*)eastl::vector<ParticleSystem*, eastl::allocator>::operator[](
-                            (vector<ParticleSystem*, eastl::allocator>*)param_3, uVar7);
-                        (*puVar4)->Update(param_5);
-                        uVar7 = uVar7 + 1;
-                    } while (uVar2 != uVar7);
+                        puVar4 = &particleSystems[arg1];
+                        (*puVar4)->Update(arg5);
+                        arg1 = arg1 + 1;
+                    } while (uVar2 != arg1);
                 }
             }
         }
 
-        // 0x1007cf060, 352 bytes, inline, placed by debug map only (low confidence)
-        // void UpdateParticleSystemsImpl<eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator> >(std::vector<std::future<void>, std::allocator<std::future<void> > >&, unsigned long, eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator>&, ThreadPool&, float)
-        /* void graphics::(anonymous
-   namespace)::UpdateParticleSystemsImpl<eastl::vector<shared_ptr<ModularParticleSystem>,
-   eastl::allocator> >(std::vector<std::future<void>, std::allocator<std::future<void> > >&,
-   unsigned long, eastl::vector<shared_ptr<ModularParticleSystem>,
-   eastl::allocator>&, ThreadPool&, float) */
-
-        void(anonymous namespace)::UpdateParticleSystemsImpl<
-            eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator>>(vector* param_1, ulong param_2,
-                                                                                vector* param_3, ThreadPool* param_4,
-                                                                                float param_5) {
-            ulong uVar1;
-            ulong uVar2;
-            ulong* puVar3;
+        // 0x1007cf060
+        void UpdateParticleSystemsImpl<eastl::vector<shared_ptr<ModularParticleSystem>>>(
+            std::vector<std::future<void>, std::allocator<std::future<void>>>& futures, unsigned long arg2,
+            eastl::vector<shared_ptr<ModularParticleSystem>>& modularParticleSystems, ThreadPool& threadPool,
+            float arg5) {
+            unsigned long uVar1;
+            unsigned long* puVar3;
             shared_ptr<ModularParticleSystem>* this_00;
-            ModularParticleSystem* this_01;
-            ulong uVar4;
-            ulong uVar5;
-            ulong uVar6;
-            vector* local_70;
+            unsigned long uVar4;
+            unsigned long uVar5;
+            unsigned long arg1;
+            vector<shared_ptr<ModularParticleSystem>>* local_70;
             float local_68;
-            ulong local_60;
-            ulong local_58;
-            ulong local_50;
-            ulong local_40;
+            unsigned long local_60;
+            unsigned long local_58;
+            ReturnValue local_40;
 
-            local_50 = param_2;
-            uVar2 = param_3->size();
+            unsigned long uVar2 = modularParticleSystems.size();
             if (uVar2 != 0) {
-                uVar6 = 0;
-                local_70 = (vector*)((uVar2 - 1) / local_50);
-                local_40 = 1;
-                puVar3 = std::max<unsigned long>((ulong*)&local_70, &local_40);
+                arg1 = 0;
+                local_70 = (vector<shared_ptr<ModularParticleSystem>>*)((uVar2 - 1) / arg2);
+                local_40 = (ReturnValue)1;
+                puVar3 = std::max<unsigned long>(local_70, local_40);
                 uVar1 = *puVar3;
-                local_70 = (vector*)(uVar2 - 1);
-                puVar3 = std::min<unsigned long>(&local_50, (ulong*)&local_70);
+                local_70 = (vector<shared_ptr<ModularParticleSystem>>*)(uVar2 - 1);
+                puVar3 = std::min<unsigned long>(arg2, local_70);
                 uVar5 = *puVar3;
                 if (uVar5 != 0) {
                     uVar4 = 0;
                     do {
-                        uVar6 = uVar4 + uVar1;
-                        if (uVar2 <= uVar6) {
-                            /* WARNING: Subroutine does not return */
+                        arg1 = uVar4 + uVar1;
+                        if (uVar2 <= arg1) {
                             LogAssert("indexMax < systemCount",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                       "runetek7/particles/ParticleManager.cpp",
-                                      42, (char*)0);
+                                      42, nullptr);
                         }
-                        local_70 = param_3;
-                        local_68 = param_5;
+                        local_70 = modularParticleSystems;
+                        local_68 = arg5;
                         local_60 = uVar4;
-                        local_58 = uVar6;
-                        ThreadPool::AddTask<UpdateParticleSystemsImpl<
-                            eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator>>(
-                            std::vector<std::future<void>, std::allocator<std::future<void>>>&, unsigned long,
-                            eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator>&, ThreadPool&,
-                            float)::_lambda() _1_>((ThreadPool*)&local_40, (char*)param_4, (vector*)&local_70);
-                        param_1->push_back((future*)&local_40);
-                        local_40.~future();
+                        local_58 = arg1;
+                        ThreadPool::AddTask<UpdateParticleSystemsImpl<eastl::vector<shared_ptr<ModularParticleSystem>>>(
+                            std::vector<std::future<void>>&, unsigned long,
+                            eastl::vector<shared_ptr<ModularParticleSystem>>&, ThreadPool&, float)::_lambda() _1_>(
+                            &local_40, (char*)threadPool, (vector<shared_ptr<ModularParticleSystem>>*)&local_70);
+                        futures.push_back(local_40);
                         uVar5 = uVar5 - 1;
-                        uVar4 = uVar6;
+                        uVar4 = arg1;
                     } while (uVar5 != 0);
                 }
-                if (uVar6 < uVar2) {
+                if (arg1 < uVar2) {
                     do {
-                        this_00 = (shared_ptr<ModularParticleSystem>*)
-                            eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator>::operator[](
-                                (vector<shared_ptr<ModularParticleSystem>, eastl::allocator>*)param_3, uVar6);
-                        this_01 = (ModularParticleSystem*)shared_ptr<ModularParticleSystem>::operator->(this_00);
-                        this_01->Update(param_5);
-                        uVar6 = uVar6 + 1;
-                    } while (uVar2 != uVar6);
+                        this_00 = &modularParticleSystems[arg1];
+                        ((ModularParticleSystem*)(*this_00).operator->())->Update(arg5);
+                        arg1 = arg1 + 1;
+                    } while (uVar2 != arg1);
                 }
             }
         }
@@ -159,32 +129,33 @@ namespace jag::graphics {
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x1007cf7b0, 176 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<graphics::ModularParticleSystem>::type make_shared<graphics::ModularParticleSystem, shared_ptr<graphics::ModularParticleSystemTemplate> const&, shared_ptr<graphics::VFXAttachmentInfo> const&>(shared_ptr<graphics::ModularParticleSystemTemplate> const&, shared_ptr<graphics::VFXAttachmentInfo> const&)
-    jag* jag::make_shared<graphics::ModularParticleSystem, shared_ptr<graphics::ModularParticleSystemTemplate> const&,
-                          shared_ptr<graphics::VFXAttachmentInfo> const&>(shared_ptr* param_1, shared_ptr* param_2) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1007cf7b0
+    shared_ptr_if_not_array<graphics::ModularParticleSystem>::type
+    make_shared<graphics::ModularParticleSystem, shared_ptr<graphics::ModularParticleSystemTemplate> const&,
+                shared_ptr<graphics::VFXAttachmentInfo> const&>(
+        const shared_ptr<graphics::ModularParticleSystemTemplate>& modularParticleSystemTemplate,
+        const shared_ptr<graphics::VFXAttachmentInfo>& vfxAttachmentInfo) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_3c;
         ModularParticleSystem* local_38[2];
 
-        pvVar1 = (void*)aligned_alloc(1744, 16);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(16);
+        auto arg1 = aligned_alloc(1744, 16);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<graphics::ModularParticleSystem>::type result;
         } else {
             local_38[0] = placement_new<graphics::ModularParticleSystem,
                                         shared_ptr<graphics::ModularParticleSystemTemplate> const&,
-                                        shared_ptr<graphics::VFXAttachmentInfo> const&>((void*)((long)pvVar1 + 32),
-                                                                                        param_1, param_2);
+                                        shared_ptr<graphics::VFXAttachmentInfo> const&>(
+                (void*)((long)arg1 + 32), modularParticleSystemTemplate, vfxAttachmentInfo);
             local_3c = 1;
-            prVar2 = placement_new<ref_counter_shared<graphics::ModularParticleSystem>, int,
-                                   graphics::ModularParticleSystem*&>(pvVar1, &local_3c, local_38);
-            prVar2->~AutoSingleton(local_38[0]);
-            prVar2->~AutoSingleton(local_38[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_38[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<graphics::ModularParticleSystem>, int,
+                              graphics::ModularParticleSystem*&>(arg1, &local_3c, local_38);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_38[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

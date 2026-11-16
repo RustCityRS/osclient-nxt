@@ -1,269 +1,216 @@
 // projects/osclient/input/InputFieldKeyboardHandler.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "InputFieldKeyboardHandler.h"
 
 namespace jag::oldscape {
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    InputFieldKeyboardHandler::ResetState();
+    // 0x100009e70: InputFieldKeyboardHandler::ResetState() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100017c60, 64 bytes, base-object constructor, placed by class name
-    // InputFieldKeyboardHandler::InputFieldKeyboardHandler()
-    void InputFieldKeyboardHandler::InputFieldKeyboardHandler() {
-        InputHandler* in_RSI;
+    // 0x100017c60
+    InputFieldKeyboardHandler::InputFieldKeyboardHandler()
+        : oldscape::input::InputHandler(), field_24(false), field_25(0), field_26(0) {}
 
-        new (this) input::InputHandler(in_RSI);
-        field_0 = &PTR_KeyPressed_100ef0d90;
-        new (&field_8, (_func_decltype_nullptr*)in_RSI) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_24 = false;
-        field_25 = 0;
-        field_26 = 0;
-    }
-
-    // 0x100017cb0, 16 bytes, complete-object constructor, placed by class name
-    // InputFieldKeyboardHandler::InputFieldKeyboardHandler(): jumps straight to the base-object constructor
-
-    // 0x100017cc0, 240 bytes, placed by class name
-    // InputFieldKeyboardHandler::SetFocusedComponent(shared_ptr<rs2lib::IfType>)
-    void InputFieldKeyboardHandler::SetFocusedComponent(shared_ptr param_1) {
-        char cVar2;
-        IfType* this_00;
+    // 0x100017cc0
+    void InputFieldKeyboardHandler::SetFocusedComponent(shared_ptr<rs2lib::IfType> ifType) {
         InputField* this_01;
-        Client* this_02;
-        list<HookReq, eastl::allocator>* this_03;
-        shared_ptr* in_RSI;
-        undefined1 local_98[128];
+        uint8_t local_98[128];
 
-        ClearFocusedComponent(this);
-        if (shared_ptr::operator_cast_to_bool(in_RSI)) {
-            weak_ptr<rs2lib::IfType>::operator=((weak_ptr<rs2lib::IfType>*)&field_8, in_RSI);
-            this_00 = (IfType*)shared_ptr<rs2lib::IfType>::operator->((shared_ptr<rs2lib::IfType>*)in_RSI);
-            this_01 = (InputField*)this_00->GetInputFieldWrapper();
-            if (this_01 != (InputField*)0) {
+        ClearFocusedComponent();
+        if (ifType->operator_cast_to_bool()) {
+            field_8 = *ifType;
+            this_01 = ((IfType*)(*ifType).operator->())->GetInputFieldWrapper();
+            if (this_01 != nullptr) {
                 this_01->SetFocus(true);
-                cVar2 = this_01[5].field_32.empty();
-                if (cVar2 == '\0') {
+                if (!(this_01[5].field_32.empty())) {
                     new (local_98) HookReq();
-                    shared_ptr<rs2lib::IfType>::operator=((shared_ptr<rs2lib::IfType>*)(local_98 + 32), in_RSI);
-                    Array<HookArg, eastl::allocator>::operator=((Array<HookArg, eastl::allocator>*)local_98,
-                                                                (Array*)&this_01[5].field_32);
-                    this_02 = (Client*)Client::Instance();
-                    this_03 = (list<HookReq, eastl::allocator>*)this_02->GetHookQueue();
-                    eastl::list<HookReq, eastl::allocator>::push_back(this_03, (HookReq*)local_98);
-                    local_98->~HookReq();
+                    (*((local_98 + 32))) = *ifType;
+                    *local_98 = this_01[5].field_32;
+                    Client::Instance()->GetHookQueue()->push_back(*local_98);
                 }
             }
         }
     }
 
-    // 0x100017db0, 256 bytes, placed by class name
-    // InputFieldKeyboardHandler::ClearFocusedComponent()
+    // 0x100017db0
     void InputFieldKeyboardHandler::ClearFocusedComponent() {
-        IfType* this_00;
-        Client* this_01;
-        list<HookReq, eastl::allocator>* this_02;
-        char cVar2;
-        InputField* this_03;
-        undefined1 local_a0[128];
-        shared_ptr local_20;
+        InputField* this_01;
+        uint8_t local_a0[128];
 
-        weak_ptr<rs2lib::IfType>::lock();
-        weak_ptr<rs2lib::IfType>::reset();
+        shared_ptr local_20 = field_8.lock();
+        field_8.reset();
         if (shared_ptr::operator_cast_to_bool(&local_20)) {
-            this_00 = (IfType*)shared_ptr<rs2lib::IfType>::operator->((shared_ptr<rs2lib::IfType>*)&local_20);
-            this_03 = (InputField*)this_00->GetInputFieldWrapper();
-            if (this_03 != (InputField*)0) {
-                this_03->SetFocus(false);
-                cVar2 = this_03[5].field_32.empty();
-                if (cVar2 == '\0') {
+            this_01 = ((IfType*)local_20.operator->())->GetInputFieldWrapper();
+            if (this_01 != nullptr) {
+                this_01->SetFocus(false);
+                if (!(this_01[5].field_32.empty())) {
                     new (local_a0) HookReq();
-                    shared_ptr<rs2lib::IfType>::operator=((shared_ptr<rs2lib::IfType>*)(local_a0 + 32), &local_20);
-                    Array<HookArg, eastl::allocator>::operator=((Array<HookArg, eastl::allocator>*)local_a0,
-                                                                (Array*)&this_03[5].field_32);
-                    this_01 = (Client*)Client::Instance();
-                    this_02 = (list<HookReq, eastl::allocator>*)this_01->GetHookQueue();
-                    eastl::list<HookReq, eastl::allocator>::push_back(this_02, (HookReq*)local_a0);
-                    local_a0->~HookReq();
+                    (*((local_a0 + 32))) = local_20;
+                    *local_a0 = this_01[5].field_32;
+                    Client::Instance()->GetHookQueue()->push_back(*local_a0);
                 }
             }
         }
-        local_20.~shared_ptr();
     }
 
-    // 0x100017f30, 1280 bytes, placed by class name
-    // InputFieldKeyboardHandler::HandleKeyDown(int)
-    ulong InputFieldKeyboardHandler::HandleKeyDown(int param_1) {
-        char cVar2;
-        IfType* pIVar4;
-        InputField* this_00;
-        long lVar5;
-        Client* this_01;
-        list<HookReq, eastl::allocator>* this_02;
-        shared_ptr* this_03;
-        undefined1 local_b8[128];
+    // 0x100017f30
+    unsigned long InputFieldKeyboardHandler::HandleKeyDown(int arg1) {
+        uint8_t local_b8[128];
         shared_ptr local_38;
 
-        this_03 = &local_38;
-        weak_ptr<rs2lib::IfType>::lock();
-        if (!shared_ptr::operator_cast_to_bool(this_03)) {
+        shared_ptr* this_02 = &local_38;
+        *this_02 = field_8.lock();
+        bool cVar1 = shared_ptr::operator_cast_to_bool(this_02);
+        if (!cVar1) {
         LAB_100017fce:
-            this_03 = (shared_ptr*)0;
+            this_02 = nullptr;
             goto switchD_100018005_caseD_e;
         }
-        pIVar4 = (IfType*)shared_ptr<rs2lib::IfType>::operator->((shared_ptr<rs2lib::IfType>*)&local_38);
-        this_00 = (InputField*)pIVar4->GetInputField();
-        if ((this_00 == (InputField*)0) || (cVar2 = this_00->Is64BitOS(), cVar2 == '\0'))
+        auto pIVar3 = local_38.operator->();
+        auto pIVar4 = pIVar3->GetInputField();
+        if ((pIVar4 == nullptr) || (cVar1 = pIVar4->Is64BitOS(), !cVar1))
             goto LAB_100017fce;
-        cVar2 = this_00->HasFocus();
-        if (cVar2 == '\0') {
-            /* WARNING: Subroutine does not return */
+        cVar1 = pIVar4->HasFocus();
+        if (!cVar1) {
             LogAssert("inputField->HasFocus()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/input/"
                       "InputFieldKeyboardHandler.cpp",
                       73, "The InputField referenced by the InputFieldKeyboardHandler does not know it is in focus");
         }
-        cVar2 = HandleArrowKeyDown(this, this_00, param_1);
-        if (cVar2 != '\0')
+        cVar1 = HandleArrowKeyDown(pIVar4, arg1);
+        if (cVar1)
             goto LAB_100017fca;
-        this_03 = (shared_ptr*)0;
-        switch (param_1) {
+        this_02 = nullptr;
+        switch (arg1) {
         case 13:
-            ClearFocusedComponent(this);
-            this_03 = (shared_ptr*)&DAT_00000001;
+            ClearFocusedComponent();
+            this_02 = (shared_ptr*)&DAT_00000001;
             break;
         case 48:
-            cVar2 = KeysModified(this);
-            if (cVar2 != '\0') {
-                this_00->SelectAll();
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (cVar1) {
+                pIVar4->SelectAll();
+                this_02 = (shared_ptr*)&DAT_00000001;
                 break;
             }
             goto LAB_100017fca;
         case 65:
-            cVar2 = KeysModified(this);
-            if (cVar2 != '\0') {
-                this_00->CutSelection();
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (cVar1) {
+                pIVar4->CutSelection();
+                this_02 = (shared_ptr*)&DAT_00000001;
                 break;
             }
             goto LAB_100017fca;
         case 66:
-            cVar2 = KeysModified(this);
-            if (cVar2 != '\0') {
-                this_00->CopySelection();
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (cVar1) {
+                pIVar4->CopySelection();
+                this_02 = (shared_ptr*)&DAT_00000001;
                 break;
             }
             goto LAB_100017fca;
         case 67:
-            cVar2 = KeysModified(this);
-            if (cVar2 != '\0') {
-                this_00->PasteFromClipboard();
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (cVar1) {
+                pIVar4->PasteFromClipboard();
+                this_02 = (shared_ptr*)&DAT_00000001;
                 break;
             }
         LAB_100017fca:
-            this_03 = (shared_ptr*)CONCAT71((int7)((ulong)this_03 >> 8), 1);
+            this_02 = (shared_ptr*)(((uint64_t)((int64_t)((unsigned long)this_02 >> 8)) << 8) | (uint8_t)1);
             break;
         case 84:
-            if (this_00->GetMaxLevels() == 0) {
-                this_00->TypeCharacter(10);
-                this_03 = (shared_ptr*)&DAT_00000001;
-            } else if ((field_24 == false) || (cVar2 = this_00->IsMultiline(), cVar2 == '\0')) {
-                pIVar4 = (IfType*)shared_ptr<rs2lib::IfType>::operator->((shared_ptr<rs2lib::IfType>*)&local_38);
-                lVar5 = pIVar4->GetInputFieldWrapper();
-                if (lVar5 != 0) {
+            if (pIVar4->GetMaxLevels() == 0) {
+                pIVar4->TypeCharacter(10);
+                this_02 = (shared_ptr*)&DAT_00000001;
+            } else if ((field_24 == false) || (cVar1 = pIVar4->IsMultiline(), !cVar1)) {
+                pIVar3 = (IfType*)local_38.operator->();
+                pIVar4 = pIVar3->GetInputFieldWrapper();
+                if (pIVar4 != nullptr) {
                     new (local_b8) HookReq();
-                    shared_ptr<rs2lib::IfType>::operator=((shared_ptr<rs2lib::IfType>*)(local_b8 + 32), &local_38);
-                    this_03 = (shared_ptr*)(lVar5 + 1640);
-                    Array<HookArg, eastl::allocator>::operator=((Array<HookArg, eastl::allocator>*)local_b8,
-                                                                (Array*)this_03);
-                    this_01 = (Client*)Client::Instance();
-                    this_02 = (list<HookReq, eastl::allocator>*)this_01->GetHookQueue();
-                    eastl::list<HookReq, eastl::allocator>::push_back(this_02, (HookReq*)local_b8);
-                    local_b8->~HookReq();
+                    (*((local_b8 + 32))) = local_38;
+                    this_02 = (shared_ptr*)pIVar4[5].m_placeholderContents;
+                    *local_b8 = *this_02;
+                    Client::Instance()->GetHookQueue()->push_back(*local_b8);
                 }
-                ClearFocusedComponent(this);
-                this_03 = (shared_ptr*)CONCAT71((int7)((ulong)this_03 >> 8), 1);
+                ClearFocusedComponent();
+                this_02 = (shared_ptr*)(((uint64_t)((int64_t)((unsigned long)this_02 >> 8)) << 8) | (uint8_t)1);
             } else {
-                this_00->TypeCharacter(10);
-                this_03 = (shared_ptr*)&DAT_00000001;
+                pIVar4->TypeCharacter(10);
+                this_02 = (shared_ptr*)&DAT_00000001;
             }
             break;
         case 85:
-            cVar2 = KeysModified(this);
-            if (cVar2 == '\0') {
-                this_00->Backspace();
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (!cVar1) {
+                pIVar4->Backspace();
+                this_02 = (shared_ptr*)&DAT_00000001;
             } else {
-                this_00->BackspaceWord();
-                this_03 = (shared_ptr*)&DAT_00000001;
+                pIVar4->BackspaceWord();
+                this_02 = (shared_ptr*)&DAT_00000001;
             }
             break;
         case 101:
-            cVar2 = KeysModified(this);
-            if (cVar2 == '\0') {
-                this_00->Delete();
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (!cVar1) {
+                pIVar4->Delete();
+                this_02 = (shared_ptr*)&DAT_00000001;
             } else {
-                this_00->DeleteWord();
-                this_03 = (shared_ptr*)&DAT_00000001;
+                pIVar4->DeleteWord();
+                this_02 = (shared_ptr*)&DAT_00000001;
             }
             break;
         case 102:
-            cVar2 = KeysModified(this);
-            if (cVar2 == '\0') {
-                this_00->LineHome(field_24);
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (!cVar1) {
+                pIVar4->LineHome(field_24);
+                this_02 = (shared_ptr*)&DAT_00000001;
             } else {
-                this_00->FullHome(field_24);
-                this_03 = (shared_ptr*)&DAT_00000001;
+                pIVar4->FullHome(field_24);
+                this_02 = (shared_ptr*)&DAT_00000001;
             }
             break;
         case 103:
-            cVar2 = KeysModified(this);
-            if (cVar2 == '\0') {
-                this_00->LineEnd(field_24);
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (!cVar1) {
+                pIVar4->LineEnd(field_24);
+                this_02 = (shared_ptr*)&DAT_00000001;
             } else {
-                this_00->FullEnd(field_24);
-                this_03 = (shared_ptr*)&DAT_00000001;
+                pIVar4->FullEnd(field_24);
+                this_02 = (shared_ptr*)&DAT_00000001;
             }
             break;
         case 104:
-            cVar2 = KeysModified(this);
-            if (cVar2 == '\0') {
-                this_00->PageUp(field_24);
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (!cVar1) {
+                pIVar4->PageUp(field_24);
+                this_02 = (shared_ptr*)&DAT_00000001;
             } else {
-                this_00->PageUpNoScroll(field_24);
-                this_03 = (shared_ptr*)&DAT_00000001;
+                pIVar4->PageUpNoScroll(field_24);
+                this_02 = (shared_ptr*)&DAT_00000001;
             }
             break;
         case 105:
-            cVar2 = KeysModified(this);
-            if (cVar2 == '\0') {
-                this_00->PageDown(field_24);
-                this_03 = (shared_ptr*)&DAT_00000001;
+            cVar1 = KeysModified();
+            if (!cVar1) {
+                pIVar4->PageDown(field_24);
+                this_02 = (shared_ptr*)&DAT_00000001;
             } else {
-                this_00->PageDownNoScroll(field_24);
-                this_03 = (shared_ptr*)&DAT_00000001;
+                pIVar4->PageDownNoScroll(field_24);
+                this_02 = (shared_ptr*)&DAT_00000001;
             }
         }
     switchD_100018005_caseD_e:
-        local_38.~shared_ptr();
-        return (ulong)this_03 & 4294967295;
+        return (unsigned long)this_02 & 4294967295;
     }
 
-    // 0x1000186d0, 32 bytes, placed by class name
-    // InputFieldKeyboardHandler::ModifierKeyPressed(int)
-    undefined8 InputFieldKeyboardHandler::ModifierKeyPressed(int param_1) {
-        if (param_1 == 86) {
+    // 0x1000186d0
+    uint64_t InputFieldKeyboardHandler::ModifierKeyPressed(int arg1) {
+        if (arg1 == 86) {
             field_26 = 1;
         } else {
-            if (param_1 != 107) {
+            if (arg1 != 107) {
                 return 0;
             }
             field_25 = 1;
@@ -271,28 +218,27 @@ namespace jag::oldscape {
         return 1;
     }
 
-    // 0x100018740, 16 bytes, placed by class name
-    // InputFieldKeyboardHandler::KeyRepeat(int, unsigned long long)
-    void InputFieldKeyboardHandler::KeyRepeat(int param_1, ulonglong param_2) {
-        (*(code*)*field_0)();
+    // 0x100018740
+    void InputFieldKeyboardHandler::KeyRepeat(int arg1, unsigned long long arg2) {
+        uint32_t in_register_00000034;
+
+        KeyPressed((int)this, (((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1));
     }
 
-    // 0x100018750, 48 bytes, placed by class name
-    // InputFieldKeyboardHandler::KeyReleased(int, unsigned long long)
-    undefined8 InputFieldKeyboardHandler::KeyReleased(int param_1, ulonglong param_2) {
-        if ((ModifierKeyReleased(this, param_1) == '\0') && (param_1 == 81)) {
+    // 0x100018750
+    uint64_t InputFieldKeyboardHandler::KeyReleased(int arg1, unsigned long long arg2) {
+        if ((ModifierKeyReleased(arg1) == '\0') && (arg1 == 81)) {
             field_24 = false;
         }
         return 0;
     }
 
-    // 0x100018780, 32 bytes, placed by class name
-    // InputFieldKeyboardHandler::ModifierKeyReleased(int)
-    undefined8 InputFieldKeyboardHandler::ModifierKeyReleased(int param_1) {
-        if (param_1 == 86) {
+    // 0x100018780
+    uint64_t InputFieldKeyboardHandler::ModifierKeyReleased(int arg1) {
+        if (arg1 == 86) {
             field_26 = 0;
         } else {
-            if (param_1 != 107) {
+            if (arg1 != 107) {
                 return 0;
             }
             field_25 = 0;
@@ -300,96 +246,84 @@ namespace jag::oldscape {
         return 1;
     }
 
-    // 0x1000187a0, 240 bytes, placed by class name
-    // InputFieldKeyboardHandler::KeyTyped(char16_t, unsigned long long)
-    undefined4 InputFieldKeyboardHandler::KeyTyped(wchar16 param_1, ulonglong param_2) {
-        char cVar2;
-        byte bVar3;
-        undefined4 uVar4;
-        IfType* pIVar5;
+    // 0x1000187a0
+    uint32_t InputFieldKeyboardHandler::KeyTyped(char16_t arg1, unsigned long long arg2) {
+        uint8_t bVar2;
+        uint32_t uVar3;
+        IfType* pIVar4;
         InputField* this_00;
         KeyConsumptionMap* this_01;
-        Client* this_02;
-        shared_ptr local_30;
 
-        weak_ptr<rs2lib::IfType>::lock();
+        shared_ptr local_30 = field_8.lock();
         if (shared_ptr::operator_cast_to_bool(&local_30)) {
-            pIVar5 = (IfType*)shared_ptr<rs2lib::IfType>::operator->((shared_ptr<rs2lib::IfType>*)&local_30);
-            this_00 = (InputField*)pIVar5->GetInputField();
-            if (this_00 != (InputField*)0) {
-                cVar2 = this_00->Is64BitOS();
-                if (cVar2 != '\0') {
-                    pIVar5 = (IfType*)shared_ptr<rs2lib::IfType>::operator->((shared_ptr<rs2lib::IfType>*)&local_30);
-                    this_01 = (KeyConsumptionMap*)pIVar5->GetInputFieldKeyMap();
-                    if (this_01 != (KeyConsumptionMap*)0) {
-                        cVar2 = this_01->UseChar(param_1);
-                        if (cVar2 != '\0') {
-                            bVar3 = stringtools::WideToCP1252(param_1);
-                            cVar2 = this_00->TypeCharacter((uint)bVar3);
-                            if (cVar2 != '\0') {
-                                this_02 = (Client*)Client::Instance();
-                                this_02->ComponentUpdated(&local_30);
+            pIVar4 = (IfType*)local_30.operator->();
+            this_00 = (InputField*)pIVar4->GetInputField();
+            if (this_00 != nullptr) {
+                if (this_00->Is64BitOS()) {
+                    pIVar4 = (IfType*)local_30.operator->();
+                    this_01 = pIVar4->GetInputFieldKeyMap();
+                    if (this_01 != nullptr) {
+                        if (this_01->UseChar(arg1)) {
+                            bVar2 = stringtools::WideToCP1252(arg1);
+                            if (this_00->TypeCharacter((unsigned int)bVar2)) {
+                                Client::Instance()->ComponentUpdated(local_30);
                             }
                         }
-                        uVar4 = this_01->ConsumeChar(param_1);
+                        uVar3 = this_01->ConsumeChar(arg1);
                         goto LAB_10001885a;
                     }
                 }
             }
         }
-        uVar4 = 0;
+        uVar3 = 0;
     LAB_10001885a:
-        local_30.~shared_ptr();
-        return uVar4;
+        return uVar3;
     }
 
-    // 0x1000188f0, 304 bytes, placed by class name
-    // InputFieldKeyboardHandler::TextCommandReceived(int, unsigned long long)
-    ulong InputFieldKeyboardHandler::TextCommandReceived(int param_1, ulonglong param_2) {
-        char cVar2;
+    // 0x1000188f0
+    unsigned long InputFieldKeyboardHandler::TextCommandReceived(int arg1, unsigned long long arg2) {
         IfType* this_00;
         InputField* this_01;
-        undefined7 uVar4;
-        ulong uVar3;
-        shared_ptr local_30;
+        uint64_t uVar3;
+        unsigned long uVar2;
 
-        weak_ptr<rs2lib::IfType>::lock();
-        if (shared_ptr::operator_cast_to_bool(&local_30)) {
-            this_00 = (IfType*)shared_ptr<rs2lib::IfType>::operator->((shared_ptr<rs2lib::IfType>*)&local_30);
+        shared_ptr local_30 = field_8.lock();
+        bool cVar1 = shared_ptr::operator_cast_to_bool(&local_30);
+        if (cVar1) {
+            this_00 = (IfType*)local_30.operator->();
             this_01 = (InputField*)this_00->GetInputField();
-            if ((this_01 != (InputField*)0) && (cVar2 = this_01->Is64BitOS(), cVar2 != '\0')) {
-                cVar2 = this_01->HasFocus();
-                if (cVar2 == '\0') {
-                    /* WARNING: Subroutine does not return */
+            if ((this_01 != nullptr) && (cVar1 = this_01->Is64BitOS(), cVar1)) {
+                cVar1 = this_01->HasFocus();
+                if (!cVar1) {
                     LogAssert(
                         "inputField->HasFocus()",
                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/input/"
                         "InputFieldKeyboardHandler.cpp",
                         272, "The InputField referenced by the InputFieldKeyboardHandler does not know it is in focus");
                 }
-                uVar4 = (undefined7)((ulong)&local_30 >> 8);
-                switch (param_1) {
+                uVar3 = (uint64_t)((unsigned long)&local_30 >> 8);
+                switch (arg1) {
                 case 0:
-                    uVar3 = CONCAT71(uVar4, 1);
+                    uVar2 = (((uint64_t)uVar3 << 8) | (uint8_t)1);
                     this_01->CopySelection();
                     break;
                 case 1:
-                    uVar3 = CONCAT71(uVar4, 1);
+                    uVar2 = (((uint64_t)uVar3 << 8) | (uint8_t)1);
                     this_01->CutSelection();
                     break;
                 case 2:
-                    uVar3 = CONCAT71(uVar4, 1);
+                    uVar2 = (((uint64_t)uVar3 << 8) | (uint8_t)1);
                     this_01->PasteFromClipboard();
                     break;
                 case 3:
                     this_01->SelectWord();
-                    uVar3 = CONCAT71(uVar4, 1);
-                    this_01->ShowEditMenu();
+                    uVar2 = (((uint64_t)uVar3 << 8) | (uint8_t)1);
+                    rs2lib::InputField::ShowEditMenu();
                     break;
                 case 4:
                     this_01->SelectAll();
-                    uVar3 = CONCAT71(uVar4, 1);
-                    this_01->ShowEditMenu();
+                    uVar2 = (((uint64_t)uVar3 << 8) | (uint8_t)1);
+                    rs2lib::InputField::ShowEditMenu();
                     break;
                 default:
                     goto switchD_100018987_default;
@@ -398,31 +332,23 @@ namespace jag::oldscape {
             }
         }
     switchD_100018987_default:
-        uVar3 = 0;
+        uVar2 = 0;
     LAB_100018997:
-        local_30.~shared_ptr();
-        return uVar3 & 4294967295;
+        return uVar2 & 4294967295;
     }
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    InputFieldKeyboardHandler::PointerDrag(int, int, int, unsigned long long);
+    // 0x100029ea0: InputFieldKeyboardHandler::PointerDrag(int, int, int, unsigned long long) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    InputFieldKeyboardHandler::WheelScroll(int, unsigned long long);
+    // 0x100029ea0: InputFieldKeyboardHandler::WheelScroll(int, unsigned long long) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    InputFieldKeyboardHandler::PointerCancel(int, int, unsigned long long);
+    // 0x100029ea0: InputFieldKeyboardHandler::PointerCancel(int, int, unsigned long long) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    InputFieldKeyboardHandler::PointerRelease(int, int, int, int, unsigned long long);
+    // 0x100029ea0: InputFieldKeyboardHandler::PointerRelease(int, int, int, int, unsigned long long) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    InputFieldKeyboardHandler::OnLowLevelMouseDown(int, int, int, int);
+    // 0x100029ea0: InputFieldKeyboardHandler::OnLowLevelMouseDown(int, int, int, int) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    InputFieldKeyboardHandler::KeyboardInputFocusChange(int, unsigned long long);
+    // 0x100029ea0: InputFieldKeyboardHandler::KeyboardInputFocusChange(int, unsigned long long) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    InputFieldKeyboardHandler::MouseMove(int, int, unsigned long long);
+    // 0x100029ea0: InputFieldKeyboardHandler::MouseMove(int, int, unsigned long long) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
 } // namespace jag::oldscape

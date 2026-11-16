@@ -1,42 +1,30 @@
 // libs/graphics/graphicutils/createprimitive/CreateCube.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphicutils {
-    // 0x1007aebb0, 256 bytes, inline, placed by debug map only (low confidence)
-    // void CreateCubeSharedTriListIndices<unsigned short>(unsigned short*, unsigned short, bool)
-    void CreateCubeSharedTriListIndices<unsigned short>(ushort* param_1, ushort param_2, bool param_3) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        undefined8* puVar8;
-        long lVar9;
-        undefined4 local_68;
-        undefined4 uStack_64;
-        undefined4 uStack_60;
-        undefined4 uStack_5c;
-        undefined8 local_58;
-        undefined8 uStack_50;
-        undefined8 local_48;
-        undefined8 uStack_40;
-        undefined8 local_38;
-        undefined8 uStack_30;
-        undefined8 local_28;
+    // 0x1007aebb0
+    void CreateCubeSharedTriListIndices<unsigned short>(unsigned short* arg1, unsigned short arg2, bool arg3) {
+        uint32_t local_68;
+        uint32_t uStack_64;
+        uint32_t uStack_60;
+        uint32_t uStack_5c;
+        uint64_t local_58;
+        uint64_t uStack_50;
+        uint64_t local_48;
+        uint64_t uStack_40;
+        uint64_t local_38;
+        uint64_t uStack_30;
+        uint64_t local_28;
 
-        if (param_1 == (ushort*)0) {
-            /* WARNING: Subroutine does not return */
+        if (arg1 == nullptr) {
             LogAssert("pIndexDataOut",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
                       "createprimitive/CreateCube.h",
-                      41, (char*)0);
+                      41, nullptr);
         }
-        if (param_3) {
+        if (arg3) {
             local_28 = 1970350606974979;
             local_38 = 1125917086777344;
             uStack_30 = 1688858450526209;
@@ -61,26 +49,26 @@ namespace jag::graphicutils {
             uStack_60 = 196609;
             uStack_5c = 262149;
         }
-        puVar8 = (undefined8*)local_68.data();
-        uVar1 = puVar8[1];
-        uVar2 = puVar8[2];
-        uVar3 = puVar8[3];
-        uVar4 = puVar8[4];
-        uVar5 = puVar8[5];
-        uVar6 = puVar8[6];
-        uVar7 = puVar8[7];
-        *(undefined8*)param_1 = *puVar8;
-        *(undefined8*)(param_1 + 4) = uVar1;
-        *(undefined8*)(param_1 + 8) = uVar2;
-        *(undefined8*)(param_1 + 12) = uVar3;
-        *(undefined8*)(param_1 + 16) = uVar4;
-        *(undefined8*)(param_1 + 20) = uVar5;
-        *(undefined8*)(param_1 + 24) = uVar6;
-        *(undefined8*)(param_1 + 28) = uVar7;
-        *(undefined8*)(param_1 + 32) = puVar8[8];
-        lVar9 = 0;
+        auto puVar8 = local_68.data();
+        uint64_t uVar1 = puVar8[1];
+        uint64_t uVar2 = puVar8[2];
+        uint64_t uVar3 = puVar8[3];
+        uint64_t uVar4 = puVar8[4];
+        uint64_t uVar5 = puVar8[5];
+        uint64_t uVar6 = puVar8[6];
+        uint64_t uVar7 = puVar8[7];
+        *(uint64_t*)arg1 = *puVar8;
+        *(uint64_t*)(arg1 + 4) = uVar1;
+        *(uint64_t*)(arg1 + 8) = uVar2;
+        *(uint64_t*)(arg1 + 12) = uVar3;
+        *(uint64_t*)(arg1 + 16) = uVar4;
+        *(uint64_t*)(arg1 + 20) = uVar5;
+        *(uint64_t*)(arg1 + 24) = uVar6;
+        *(uint64_t*)(arg1 + 28) = uVar7;
+        *(uint64_t*)(arg1 + 32) = puVar8[8];
+        long lVar9 = 0;
         do {
-            param_1[lVar9] = param_1[lVar9] + param_2;
+            arg1[lVar9] = arg1[lVar9] + arg2;
             lVar9 = lVar9 + 1;
         } while (lVar9 != 36);
     }

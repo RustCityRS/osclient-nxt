@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/particles/Particle.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics
@@ -8,41 +7,41 @@
 namespace jag::graphics {
     class Particle {
     public:
-        GetPosition() const;
-        GetViewDst() const;
+        void GetPosition() const;
+        uint32_t GetViewDst() const;
         float GetSize() const;
         LocData GetRGBA() const;
         float GetRotation2D() const;
-        Particle* operator=(Particle&&);
-        Particle(ParticleEmitter const&, float, float, float, float, float, float, unsigned int, bool, bool);
-        static /* 8 bytes */ m_enableFrameInterpolation; // = 1
-        static /* 1 bytes */ m_showParticles;            // = 1
-        static /* 1 bytes */ m_showOverdraw;             // = 0
-        static /* 1 bytes */ m_showWorldAABB;            // = 0
+        Particle* operator=(Particle&& particle);
+        Particle(const ParticleEmitter& particleEmitter, float arg2, float arg3, float arg4, float arg5, float arg6,
+                 float arg7, unsigned int arg8, bool arg9, bool arg10);
+        static int64_t m_enableFrameInterpolation; // = 1
+        static bool m_showParticles;               // = 1
+        static bool m_showOverdraw;                // = 0
+        static bool m_showWorldAABB;               // = 0
 
-        // data members, from how the methods use this: 100 bytes
-        undefined4 field_0;   // offset 0
-        undefined4 field_4;   // offset 4
-        undefined4 field_8;   // offset 8
-        undefined4 m_viewDst; // offset 12
-        char _unknown_16[12];
-        float field_28;      // offset 28
-        float m_size;        // offset 32
-        float field_36;      // offset 36
-        float field_40;      // offset 40
-        float field_44;      // offset 44
-        undefined8 field_48; // offset 48
-        undefined8 field_56; // offset 56
-        float m_rotation2D;  // offset 64
-        LocData m_rGBA;      // offset 68
+    private:
+        uint32_t field_0;
+        uint32_t field_4;
+        uint32_t field_8;
+        uint32_t m_viewDst;
+        uint8_t _unknown_16[12];
+        float field_28;
+        float m_size;
+        float field_36;
+        float field_40;
+        float field_44;
+        uint64_t field_48;
+        uint64_t field_56;
+        float m_rotation2D;
+        LocData m_rGBA;
     };
 
     class ParticleModuleUpdateParams {
     public:
         ParticleModuleUpdateParams();
 
-        // data members, from how the methods use this: 52 bytes
-        char _unknown_0[52];
+        uint8_t _unknown_0[52];
     };
 
     class ParticleModuleUpdateState {
@@ -52,14 +51,15 @@ namespace jag::graphics {
 
     class ParticleRGBA {
     public:
-        ParticleRGBA(float, float, float, float);
+        ParticleRGBA(float arg1, float arg2, float arg3, float arg4);
     };
 
     template <typename...> // 1 instantiations, e.g. <math::Vector2T<float> >
     class ParticleVertexData {
     public:
         ParticleVertexData();
-        ParticleVertexData<math::Vector2T<float>>* operator=(ParticleVertexData<math::Vector2T<float>> const&);
+        ParticleVertexData<math::Vector2T<float>>*
+        operator=(const ParticleVertexData<math::Vector2T<float>>& particleVertexData);
     };
 
     template <
@@ -69,18 +69,20 @@ namespace jag::graphics {
         class SplatOp;
         ParticleVertexDataProxy<>();
         ParticleVertexDataProxy<ParticleData::PositionTimeData>*
-        operator=(ParticleVertexDataProxy<ParticleData::PositionTimeData> const&);
-        ParticleVertexDataProxy<math::Vector3T<float>>* operator+=(math::Vector3T<float> const&);
-        ParticleVertexDataProxy<math::Vector3T<float>>* operator=(math::Vector3T<float>&&);
+        operator=(const ParticleVertexDataProxy<ParticleData::PositionTimeData>& particleVertexDataProxy);
+        ParticleVertexDataProxy<math::Vector3T<float>>* operator+=(const math::Vector3T<float>& vector3);
+        ParticleVertexDataProxy<math::Vector3T<float>>* operator=(math::Vector3T<float>&& vector3);
         ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>*
-        operator=(math::ColourStorage8888<math::ABGR8StorageLayout>&&);
-        ParticleVertexDataProxy(ParticleData::PositionTimeData&&);
-        ParticleVertexDataProxy<ParticleData::PositionTimeData>* operator=(ParticleData::PositionTimeData&&);
-        ParticleVertexDataProxy(math::Vector3T<float>&&);
-        ParticleVertexDataProxy(math::ColourStorage8888<math::ABGR8StorageLayout>&&);
-        ParticleVertexDataProxy(ParticleData::MaterialSlotRotationData&&);
-        ParticleVertexDataProxy(ParticleData::UVAnimationData&&);
-        ParticleVertexDataProxy<math::Vector3T<float> const&, float&>(math::Vector3T<float> const&, float&);
+        operator=(math::ColourStorage8888<math::ABGR8StorageLayout>&& uvAnimationData);
+        ParticleVertexDataProxy(ParticleData::PositionTimeData&& positionTimeData);
+        ParticleVertexDataProxy<ParticleData::PositionTimeData>*
+        operator=(ParticleData::PositionTimeData&& positionTimeData);
+        ParticleVertexDataProxy(math::Vector3T<float>&& vector3);
+        ParticleVertexDataProxy(math::ColourStorage8888<math::ABGR8StorageLayout>&& colourStorage8888);
+        ParticleVertexDataProxy(ParticleData::MaterialSlotRotationData&& materialSlotRotationData);
+        ParticleVertexDataProxy(ParticleData::UVAnimationData&& uvAnimationData);
+        ParticleVertexDataProxy<math::Vector3T<float> const&, float&>(const math::Vector3T<float>& vector3,
+                                                                      float& arg2);
     };
 
     template <typename...> // 1 instantiations, e.g.
@@ -89,457 +91,311 @@ namespace jag::graphics {
         ~SplatOp();
     };
 
-    // 0x1007d0da0, 64 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ParticleVertexDataProxy<ParticleData::PositionTimeData>::ParticleVertexDataProxy<>()
-    void ParticleVertexDataProxy<ParticleData::PositionTimeData>::ParticleVertexDataProxy<>() {
-        undefined1 local_28[12];
-        undefined4 local_1c;
+    // 0x1007d0da0
+    ParticleVertexDataProxy<ParticleData::PositionTimeData>::ParticleVertexDataProxy<>() {
+        uint8_t local_28[12];
 
-        new (local_28) math::Vector3T<int>();
-        local_1c = 0;
+        new (local_28) math::Vector3T();
+        uint32_t local_1c = 0;
         ParticleVertexDataProxy(this, (PositionTimeData*)local_28);
     }
 
-    // 0x1007d0de0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ParticleVertexData<math::Vector2T<float> >::ParticleVertexData(): jumps straight to the base-object constructor
+    // 0x1007d0df0
+    ParticleVertexDataProxy<math::Vector3T<float>>::ParticleVertexDataProxy<>() {
 
-    // 0x1007d0df0, 48 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ParticleVertexDataProxy<math::Vector3T<float> >::ParticleVertexDataProxy<>()
-    void ParticleVertexDataProxy<math::Vector3T<float>>::ParticleVertexDataProxy<>() {
-        Vector3T<int> local_28[16];
-
-        math::Vector3T<int>::Vector3T(local_28);
-        ParticleVertexDataProxy(this, (Vector3T*)local_28);
+        Vector3T<int> local_28;
+        ParticleVertexDataProxy(this, &local_28);
     }
 
-    // 0x1007d0e20, 48 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout> >::ParticleVertexDataProxy<>()
-    void ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>::ParticleVertexDataProxy<>() {
-        undefined1 local_20[8];
+    // 0x1007d0e20
+    ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>::ParticleVertexDataProxy<>() {
+        uint8_t local_20[8];
 
         new (local_20) callstack::Callstack();
-        ParticleVertexDataProxy(this, (ColourStorage8888*)local_20);
+        ParticleVertexDataProxy(this, (ColourStorage8888<math::ABGR8StorageLayout>*)local_20);
     }
 
-    // 0x1007d0e50, 32 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>::ParticleVertexDataProxy<>()
-    void ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>::ParticleVertexDataProxy<>() {
-        undefined4 local_10[2];
+    // 0x1007d0e50
+    ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>::ParticleVertexDataProxy<>() {
+        uint32_t local_10[2];
 
         local_10[0] = 0;
         ParticleVertexDataProxy(this, (MaterialSlotRotationData*)local_10);
     }
 
-    // 0x1007d0e70, 48 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ParticleVertexDataProxy<ParticleData::UVAnimationData>::ParticleVertexDataProxy<>()
-    void ParticleVertexDataProxy<ParticleData::UVAnimationData>::ParticleVertexDataProxy<>() {
-        ulong in_RAX;
-        undefined8 local_18;
+    // 0x1007d0e70
+    ParticleVertexDataProxy<ParticleData::UVAnimationData>::ParticleVertexDataProxy<>() {
+        unsigned long in_RAX;
 
-        local_18 = in_RAX & 18446744073709486080;
-        new (((long)&local_18 + 2)) eastl::bitset<4ul, unsigned char>();
+        uint64_t local_18 = in_RAX & 18446744073709486080;
+        new ((bitset<4ul, unsigned char>*)((long)&local_18 + 2)) eastl::bitset();
         local_18._3_1_ = 0;
         ParticleVertexDataProxy(this, (UVAnimationData*)&local_18);
     }
 
-    // 0x1007d0f20, 80 bytes, inline, placed by debug map only (low confidence)
-    // ParticleVertexDataProxy<ParticleData::PositionTimeData>::operator=(ParticleVertexDataProxy<ParticleData::PositionTimeData> const&)
-    /* ParticleVertexDataProxy<ParticleData::PositionTimeData>::TEMPNAMEPLACEHOLDERVALUE(ParticleVertexDataProxy<ParticleData::PositionTimeData>&&)
-    */
-
+    // 0x1007d0f20
     ParticleVertexDataProxy<ParticleData::PositionTimeData>*
-    ParticleVertexDataProxy<ParticleData::PositionTimeData>::operator=(ParticleVertexDataProxy* param_1) {
-        long lVar1;
-
-        lVar1 = 0;
+    ParticleVertexDataProxy<ParticleData::PositionTimeData>::operator=(
+        const ParticleVertexDataProxy<ParticleData::PositionTimeData>& particleVertexDataProxy) {
+        long lVar1 = 0;
         do {
-            math::PlaneT<float>::operator=((PlaneT<float>*)(this + lVar1), (PlaneT*)(param_1 + lVar1));
+            (*((this + lVar1))) = (*((particleVertexDataProxy + lVar1)));
             lVar1 = lVar1 + 16;
         } while (lVar1 != 64);
         return this;
     }
 
-    // 0x1007d0fb0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ParticleVertexData<math::Vector2T<float> >::operator=(ParticleVertexData<math::Vector2T<float> > const&)
-    /* ParticleVertexData<math::Vector2T<float>
-   >::TEMPNAMEPLACEHOLDERVALUE(ParticleVertexData<math::Vector2T<float> >&&) */
-
-    ParticleVertexData<math::Vector2T<float>>*
-    ParticleVertexData<math::Vector2T<float>>::operator=(ParticleVertexData* param_1) {
-        long lVar1;
-
-        lVar1 = 0;
+    // 0x1007d0fb0
+    ParticleVertexData<math::Vector2T<float>>* ParticleVertexData<math::Vector2T<float>>::operator=(
+        const ParticleVertexData<math::Vector2T<float>>& particleVertexData) {
+        long lVar1 = 0;
         do {
-            math::Vector2T<float>::operator=((Vector2T<float>*)(this + lVar1), (Vector2T*)(param_1 + lVar1));
+            (*((this + lVar1))) = (*((particleVertexData + lVar1)));
             lVar1 = lVar1 + 8;
         } while (lVar1 != 32);
         return this;
     }
 
-    // 0x1007d16c0, 16 bytes, inline, placed by debug map only (low confidence)
-    // ParticleData::GetCount() const
-    void ParticleData::GetCount() {
-        (&field_120)->size();
+    // 0x1007d16c0
+    void ParticleData::GetCount() const {
+        field_120.size();
     }
 
-    // 0x1007dba90, 32 bytes, inline, placed by class header (inline)
-    // ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout> >::operator=(math::ColourStorage8888<math::ABGR8StorageLayout>&&)
-    /* ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>::TEMPNAMEPLACEHOLDERVALUE(ParticleData::MaterialSlotRotationData&&)
-    */
-
+    // 0x1007dba90
     ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>*
-    ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>::operator=(MaterialSlotRotationData* param_1) {
-        undefined4 uVar1;
+    ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>::operator=(
+        math::ColourStorage8888<math::ABGR8StorageLayout>&& uvAnimationData) {
+        uint32_t uVar1;
 
-        uVar1 = *(undefined4*)param_1;
-        *(undefined4*)(this + 12) = uVar1;
-        *(undefined4*)(this + 8) = uVar1;
-        *(undefined4*)(this + 4) = uVar1;
-        *(undefined4*)this = uVar1;
+        uVar1._0_1_ = uvAnimationData.field_0;
+        uVar1._1_2_ = *(uint16_t*)&uvAnimationData.field_1;
+        uVar1._3_1_ = uvAnimationData.field_3;
+        *(uint32_t*)(this + 12) = uVar1;
+        *(uint32_t*)(this + 8) = uVar1;
+        *(uint32_t*)(this + 4) = uVar1;
+        *(uint32_t*)this = uVar1;
         return this;
     }
 
-    // 0x1007eb510, 80 bytes, inline, placed by class name
-    // Particle::operator=(Particle&&)
-    /* Particle::TEMPNAMEPLACEHOLDERVALUE(Particle&&) */
-
-    Particle* Particle::operator=(Particle* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        float fVar5;
-        float fVar6;
-        float fVar7;
-
-        SetXYZ(param_1);
-        m_viewDst = param_1->m_viewDst;
-        (&field_16, (Vector3T*)&param_1->field_16)->SetXYZ();
-        fVar5 = param_1->m_size;
-        fVar6 = param_1->field_36;
-        fVar7 = param_1->field_40;
-        uVar1 = *(undefined8*)&param_1->field_44;
-        uVar2 = *(undefined8*)((long)&param_1->field_48 + 4);
-        uVar3 = *(undefined8*)((long)&param_1->field_56 + 3);
-        uVar4 = *(undefined8*)((long)&param_1->m_rotation2D + 3);
-        field_28 = param_1->field_28;
+    // 0x1007eb510
+    Particle* Particle::operator=(Particle&& particle) {
+        SetXYZ(particle);
+        m_viewDst = particle.m_viewDst;
+        field_16.SetXYZ(particle.field_16);
+        float fVar5 = particle.m_size;
+        float fVar6 = particle.field_36;
+        float fVar7 = particle.field_40;
+        uint64_t uVar1 = *(uint64_t*)&particle.field_44;
+        uint64_t uVar2 = *(uint64_t*)((long)&particle.field_48 + 4);
+        uint64_t uVar3 = *(uint64_t*)((long)&particle.field_56 + 3);
+        uint64_t uVar4 = *(uint64_t*)((long)&particle.m_rotation2D + 3);
+        field_28 = particle.field_28;
         m_size = fVar5;
         field_36 = fVar6;
         field_40 = fVar7;
-        *(undefined8*)&field_44 = uVar1;
-        *(undefined8*)((long)&field_48 + 4) = uVar2;
-        *(undefined8*)((long)&field_56 + 3) = uVar3;
-        *(undefined8*)((long)&m_rotation2D + 3) = uVar4;
+        *(uint64_t*)&field_44 = uVar1;
+        *(uint64_t*)((long)&field_48 + 4) = uVar2;
+        *(uint64_t*)((long)&field_56 + 3) = uVar3;
+        *(uint64_t*)((long)&m_rotation2D + 3) = uVar4;
         return this;
     }
 
-    // 0x1007fab00, 64 bytes, base-object destructor, inline, placed by class header (inline)
-    // ParticleVertexDataProxy<ParticleData::PositionTimeData>::SplatOp::~SplatOp()
-    void ParticleVertexDataProxy<ParticleData::PositionTimeData>::SplatOp::~SplatOp() {
-        PlaneT* pPVar1;
-
-        pPVar1 = (PlaneT*)math::PlaneT<float>::operator=((PlaneT<float>*)(*(PlaneT**)this + 16), *(PlaneT**)this);
-        pPVar1 = (PlaneT*)math::PlaneT<float>::operator=((PlaneT<float>*)(*(long*)this + 32), pPVar1);
-        math::PlaneT<float>::operator=((PlaneT<float>*)(*(long*)this + 48), pPVar1);
+    // 0x1007fab00
+    ParticleVertexDataProxy<ParticleData::PositionTimeData>::SplatOp::~SplatOp() {
+        PositionTimeData* pPVar1 = (PositionTimeData*)(*((PlaneT<float>*)&(*(PositionTimeData**)this)->field_16)) =
+            (*(*(PositionTimeData**)this));
+        pPVar1 = (PositionTimeData*)(*((PlaneT<float>*)(*(long*)this + 32))) = *pPVar1;
+        (*((PlaneT<float>*)(*(long*)this + 48))) = *pPVar1;
     }
 
-    // 0x1007fb3a0, 32 bytes, base-object destructor, inline, placed by class header (inline)
-    // ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>::SplatOp::~SplatOp()
-    /* ParticleVertexDataProxy<ParticleData::UVAnimationData>::SplatOp::~SplatOp()
-    */
-
-    void ParticleVertexDataProxy<ParticleData::UVAnimationData>::SplatOp::~SplatOp() {
-        undefined4 uVar1;
-
-        uVar1 = **(undefined4**)this;
-        (*(undefined4**)this)[1] = uVar1;
-        *(undefined4*)(*(long*)this + 8) = uVar1;
-        *(undefined4*)(*(long*)this + 12) = uVar1;
+    // 0x1007fb3a0
+    ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>::SplatOp::~SplatOp() {
+        uint32_t uVar1 = **(uint32_t**)this;
+        (*(uint32_t**)this)[1] = uVar1;
+        *(uint32_t*)(*(long*)this + 8) = uVar1;
+        *(uint32_t*)(*(long*)this + 12) = uVar1;
     }
 
-    // 0x1007fb500, 64 bytes, base-object destructor, inline, placed by class header (inline)
-    // ParticleVertexDataProxy<math::Vector3T<float> >::SplatOp::~SplatOp()
-    void ParticleVertexDataProxy<math::Vector3T<float>>::SplatOp::~SplatOp() {
-        Vector3T* pVVar1;
-
-        pVVar1 = (Vector3T*)((*(Vector3T**)this + 12))->SetXYZ(*(Vector3T**)this);
-        pVVar1 = (Vector3T*)((*(long*)this + 24))->SetXYZ(pVVar1);
-        ((*(long*)this + 36))->SetXYZ(pVVar1);
+    // 0x1007fb500
+    ParticleVertexDataProxy<math::Vector3T<float>>::SplatOp::~SplatOp() {
+        Vector3T<float>* pVVar1 =
+            (Vector3T<float>*)((Vector4T<float>*)(*(Vector3T<float>**)this + 12))->SetXYZ(*(*(Vector3T<float>**)this));
+        pVVar1 = (Vector3T<float>*)((Vector4T<float>*)(*(long*)this + 24))->SetXYZ(*pVVar1);
+        ((Vector4T<float>*)(*(long*)this + 36))->SetXYZ(*pVVar1);
     }
-
-    // 0x100829240, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // ParticleModuleUpdateParams::ParticleModuleUpdateParams(): jumps straight to the base-object constructor
 
 } // namespace jag::graphics
 
 namespace jag::graphics::helpers {
     class ParticleDataRefProxy {
     public:
-        ParticleDataRefProxy(unsigned long, ParticleData*);
-        ParticleDataRefProxy* operator=(ParticleDataValueProxy const&);
-        ParticleDataRefProxy* operator=(ParticleDataRefProxy&&);
+        ParticleDataRefProxy(unsigned long arg1, ParticleData* particleData);
+        ParticleDataRefProxy* operator=(const ParticleDataValueProxy& particleDataValueProxy);
+        ParticleDataRefProxy* operator=(ParticleDataRefProxy&& particleDataRefProxy);
         operator ParticleDataValueProxy() const;
 
-        // data members, from how the methods use this: 16 bytes
-        ulong field_0;         // offset 0
-        ParticleData* field_8; // offset 8
+    private:
+        unsigned long field_0;
+        ParticleData* field_8;
     };
 
     class ParticleDataValueProxy {
     public:
-        ParticleDataValueProxy(unsigned long, ParticleData*);
-        bool operator>(ParticleDataValueProxy const&) const;
+        ParticleDataValueProxy(unsigned long arg1, ParticleData* particleData);
+        bool operator>(const ParticleDataValueProxy& particleDataValueProxy) const;
 
-        // data members, from how the methods use this: 212 bytes
-        undefined4 field_0;  // offset 0
-        undefined4 field_4;  // offset 4
-        undefined4 field_8;  // offset 8
-        undefined4 field_12; // offset 12
-        undefined4 field_16; // offset 16
-        char _unknown_20[144];
-        undefined8 field_164; // offset 164
-        undefined8 field_172; // offset 172
-        undefined8 field_180; // offset 180
-        undefined8 field_188; // offset 188
-        undefined8 field_196; // offset 196
-        undefined8 field_204; // offset 204
+    private:
+        uint32_t field_0;
+        uint32_t field_4;
+        uint32_t field_8;
+        uint32_t field_12;
+        uint32_t field_16;
+        uint8_t _unknown_20[144];
+        uint64_t field_164;
+        uint64_t field_172;
+        uint64_t field_180;
+        uint64_t field_188;
+        uint64_t field_196;
+        uint64_t field_204;
     };
 
     class ParticleSOAIterator {
     public:
-        operator++();
-        ParticleSOAIterator(unsigned long, ParticleData*);
-        operator!=(ParticleSOAIterator const&) const;
-        long operator-(ParticleSOAIterator const&) const;
-        operator+(unsigned long) const;
+        void operator++();
+        ParticleSOAIterator(unsigned long arg1, ParticleData* particleData);
+        uint64_t operator!=(const ParticleSOAIterator& particleSOAIterator) const;
+        long operator-(const ParticleSOAIterator& particleSOAIterator) const;
+        ParticleSOAIterator operator+(unsigned long arg1) const;
         ParticleDataRefProxy operator*() const;
-        operator-(unsigned long) const;
+        ParticleSOAIterator operator-(unsigned long arg1) const;
         reverse_iterator<char*>* operator--();
-        ulong operator>=(ParticleSOAIterator const&) const;
-        operator<(ParticleSOAIterator const&) const;
+        unsigned long operator>=(const ParticleSOAIterator& particleSOAIterator) const;
+        uint64_t operator<(const ParticleSOAIterator& particleSOAIterator) const;
 
-        // data members, from how the methods use this: 16 bytes
-        ulong field_0;         // offset 0
-        ParticleData* field_8; // offset 8
+    private:
+        unsigned long field_0;
+        ParticleData* field_8;
     };
 
-    // 0x1007d1110, 16 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // ParticleDataValueProxy::ParticleDataValueProxy(unsigned long, ParticleData*): jumps straight to the base-object constructor
+    // 0x1007d1120
+    ParticleDataRefProxy::ParticleDataRefProxy(unsigned long arg1, ParticleData* particleData)
+        : field_0(arg1), field_8(particleData) {}
 
-    // 0x1007d1120, 16 bytes, base-object constructor, placed by debug map only (low confidence)
-    // ParticleDataRefProxy::ParticleDataRefProxy(unsigned long, ParticleData*)
-    void ParticleDataRefProxy::ParticleDataRefProxy(ulong param_1, ParticleData* param_2) {
-        field_0 = param_1;
-        field_8 = param_2;
-    }
-
-    // 0x1007d1130, 16 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // ParticleDataRefProxy::ParticleDataRefProxy(unsigned long, ParticleData*): jumps straight to the base-object constructor
-
-    // 0x1007d1140, 384 bytes, placed by debug map only (low confidence)
-    // ParticleDataRefProxy::operator=(ParticleDataValueProxy const&)
-    /* ParticleDataRefProxy::TEMPNAMEPLACEHOLDERVALUE(ParticleDataValueProxy
-   const&) */
-
-    ParticleDataRefProxy* ParticleDataRefProxy::operator=(ParticleDataValueProxy* param_1) {
-        undefined4 uVar1;
-        undefined8 uVar2;
-        undefined4* puVar3;
-        ParticleVertexDataProxy<math::Vector3T<float>>* this_00;
-        ParticleVertexDataProxy<ParticleData::PositionTimeData>* this_01;
-        ParticleVertexData<math::Vector2T<float>>* this_02;
-        undefined8* puVar4;
-
-        uVar1 = param_1->field_0;
-        puVar3 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)field_8, field_0);
+    // 0x1007d1140
+    ParticleDataRefProxy* ParticleDataRefProxy::operator=(const ParticleDataValueProxy& particleDataValueProxy) {
+        uint32_t uVar1 = particleDataValueProxy.field_0;
+        uint32_t* puVar3 = (uint32_t*)(*field_8)[field_0];
         *puVar3 = uVar1;
-        uVar1 = param_1->field_4;
-        puVar3 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_24, field_0);
+        uVar1 = particleDataValueProxy.field_4;
+        puVar3 = &field_8->field_24[field_0];
         *puVar3 = uVar1;
-        uVar1 = param_1->field_8;
-        puVar3 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_48, field_0);
+        uVar1 = particleDataValueProxy.field_8;
+        puVar3 = &field_8->field_48[field_0];
         *puVar3 = uVar1;
-        this_00 = (ParticleVertexDataProxy<math::Vector3T<float>>*)
-            eastl::vector<ParticleVertexDataProxy<math::Vector3T<float>>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<math::Vector3T<float>>, SafeBucketAllocatorEASTL>*)&field_8->field_168,
-                field_0);
-        ParticleVertexDataProxy<math::Vector3T<float>>::operator=(this_00,
-                                                                  (ParticleVertexDataProxy*)&param_1->field_116);
-        uVar1 = param_1->field_12;
-        puVar3 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_72, field_0);
+        ParticleVertexDataProxy<math::Vector3T<float>>* this_00 = &field_8->field_168[field_0];
+        *this_00 = particleDataValueProxy.field_116;
+        uVar1 = particleDataValueProxy.field_12;
+        puVar3 = &field_8->field_72[field_0];
         *puVar3 = uVar1;
-        uVar1 = param_1->field_16;
-        puVar3 = (undefined4*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_96, field_0);
+        uVar1 = particleDataValueProxy.field_16;
+        puVar3 = &field_8->field_96[field_0];
         *puVar3 = uVar1;
-        this_01 = (ParticleVertexDataProxy<ParticleData::PositionTimeData>*)eastl::
-            vector<ParticleVertexDataProxy<ParticleData::PositionTimeData>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<ParticleData::PositionTimeData>, SafeBucketAllocatorEASTL>*)&field_8
-                    ->field_120,
-                field_0);
-        ParticleVertexDataProxy<ParticleData::PositionTimeData>::operator=(
-            this_01, (ParticleVertexDataProxy*)&param_1->field_20);
-        this_02 = (ParticleVertexData<math::Vector2T<float>>*)
-            eastl::vector<ParticleVertexData<math::Vector2T<float>>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexData<math::Vector2T<float>>, SafeBucketAllocatorEASTL>*)&field_8->field_144,
-                field_0);
-        ParticleVertexData<math::Vector2T<float>>::operator=(this_02, (ParticleVertexData*)&param_1->field_84);
-        puVar4 = (undefined8*)eastl::vector<ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>,
-                                            SafeBucketAllocatorEASTL>::
-        operator[]((vector<ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>,
-                           SafeBucketAllocatorEASTL>*)&field_8->field_192,
-                   field_0);
-        uVar2 = param_1->field_172;
-        *puVar4 = param_1->field_164;
+        ParticleVertexDataProxy<ParticleData::PositionTimeData>* this_01 = &field_8->field_120[field_0];
+        *this_01 = particleDataValueProxy.field_20;
+        ParticleVertexData<math::Vector2T<float>>* this_02 = &field_8->field_144[field_0];
+        *this_02 = particleDataValueProxy.field_84;
+        uint64_t* puVar4 = &field_8->field_192[field_0];
+        uint64_t uVar2 = particleDataValueProxy.field_172;
+        *puVar4 = particleDataValueProxy.field_164;
         puVar4[1] = uVar2;
-        puVar4 = (undefined8*)
-            eastl::vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>, SafeBucketAllocatorEASTL>::
-            operator[]((vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>,
-                               SafeBucketAllocatorEASTL>*)&field_8->field_216,
-                       field_0);
-        uVar2 = param_1->field_188;
-        *puVar4 = param_1->field_180;
+        puVar4 = &field_8->field_216[field_0];
+        uVar2 = particleDataValueProxy.field_188;
+        *puVar4 = particleDataValueProxy.field_180;
         puVar4[1] = uVar2;
-        puVar4 = (undefined8*)
-            eastl::vector<ParticleVertexDataProxy<ParticleData::UVAnimationData>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<ParticleData::UVAnimationData>, SafeBucketAllocatorEASTL>*)&field_8
-                    ->field_240,
-                field_0);
-        uVar2 = param_1->field_204;
-        *puVar4 = param_1->field_196;
+        puVar4 = &field_8->field_240[field_0];
+        uVar2 = particleDataValueProxy.field_204;
+        *puVar4 = particleDataValueProxy.field_196;
         puVar4[1] = uVar2;
         return this;
     }
 
-    // 0x1007d12c0, 576 bytes, placed by debug map only (low confidence)
-    // ParticleDataRefProxy::operator=(ParticleDataRefProxy&&)
-    /* ParticleDataRefProxy::TEMPNAMEPLACEHOLDERVALUE(ParticleDataRefProxy&&)
-    */
+    // 0x1007d12c0
+    ParticleDataRefProxy* ParticleDataRefProxy::operator=(ParticleDataRefProxy&& particleDataRefProxy) {
+        ParticleVertexDataProxy<math::Vector3T<float> _>* particleVertexDataProxy1;
+        ParticleVertexDataProxy<math::Vector3T<float> _>* particleVertexDataProxy2;
+        ParticleVertexDataProxy<ParticleData::PositionTimeData>* particleVertexDataProxy1_00;
+        ParticleVertexDataProxy<ParticleData::PositionTimeData>* particleVertexDataProxy2_00;
+        ParticleVertexData<math::Vector2T<float> _>* particleVertexData1;
+        ParticleVertexData<math::Vector2T<float> _>* particleVertexData2;
+        ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout> _>* particleVertexDataProxy1_01;
+        ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout> _>* particleVertexDataProxy2_01;
+        ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>* particleVertexDataProxy1_02;
+        ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>* particleVertexDataProxy2_02;
+        ParticleVertexDataProxy<ParticleData::UVAnimationData>* particleVertexDataProxy1_03;
+        ParticleVertexDataProxy<ParticleData::UVAnimationData>* particleVertexDataProxy2_03;
 
-    ParticleDataRefProxy* ParticleDataRefProxy::operator=(ParticleDataRefProxy* param_1) {
-        float* pfVar1;
-        float* pfVar2;
-        ParticleVertexDataProxy* pPVar3;
-        ParticleVertexDataProxy* pPVar4;
-        ParticleVertexData* pPVar5;
-        ParticleVertexData* pPVar6;
-
-        pfVar1 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)field_8, field_0);
-        pfVar2 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)field_8, param_1->field_0);
-        std::swap<float>(pfVar1, pfVar2);
-        pfVar1 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_24, field_0);
-        pfVar2 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_24, param_1->field_0);
-        std::swap<float>(pfVar1, pfVar2);
-        pfVar1 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_48, field_0);
-        pfVar2 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_48, param_1->field_0);
-        std::swap<float>(pfVar1, pfVar2);
-        pPVar3 = (ParticleVertexDataProxy*)
-            eastl::vector<ParticleVertexDataProxy<math::Vector3T<float>>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<math::Vector3T<float>>, SafeBucketAllocatorEASTL>*)&field_8->field_168,
-                field_0);
-        pPVar4 = (ParticleVertexDataProxy*)
-            eastl::vector<ParticleVertexDataProxy<math::Vector3T<float>>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<math::Vector3T<float>>, SafeBucketAllocatorEASTL>*)&field_8->field_168,
-                param_1->field_0);
-        std::swap<ParticleVertexDataProxy<math::Vector3T<float>>>(pPVar3, pPVar4);
-        pfVar1 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_72, field_0);
-        pfVar2 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_72, param_1->field_0);
-        std::swap<float>(pfVar1, pfVar2);
-        pfVar1 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_96, field_0);
-        pfVar2 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::operator[](
-            (vector<float, SafeBucketAllocatorEASTL>*)&field_8->field_96, param_1->field_0);
-        std::swap<float>(pfVar1, pfVar2);
-        pPVar3 = (ParticleVertexDataProxy*)eastl::
-            vector<ParticleVertexDataProxy<ParticleData::PositionTimeData>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<ParticleData::PositionTimeData>, SafeBucketAllocatorEASTL>*)&field_8
-                    ->field_120,
-                field_0);
-        pPVar4 = (ParticleVertexDataProxy*)eastl::
-            vector<ParticleVertexDataProxy<ParticleData::PositionTimeData>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<ParticleData::PositionTimeData>, SafeBucketAllocatorEASTL>*)&field_8
-                    ->field_120,
-                param_1->field_0);
-        std::swap<ParticleVertexDataProxy<ParticleData::PositionTimeData>>(pPVar3, pPVar4);
-        pPVar5 = (ParticleVertexData*)
-            eastl::vector<ParticleVertexData<math::Vector2T<float>>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexData<math::Vector2T<float>>, SafeBucketAllocatorEASTL>*)&field_8->field_144,
-                field_0);
-        pPVar6 = (ParticleVertexData*)
-            eastl::vector<ParticleVertexData<math::Vector2T<float>>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexData<math::Vector2T<float>>, SafeBucketAllocatorEASTL>*)&field_8->field_144,
-                param_1->field_0);
-        std::swap<ParticleVertexData<math::Vector2T<float>>>(pPVar5, pPVar6);
-        pPVar3 = (ParticleVertexDataProxy*)eastl::vector<
-            ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>, SafeBucketAllocatorEASTL>::
-        operator[]((vector<ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>,
-                           SafeBucketAllocatorEASTL>*)&field_8->field_192,
-                   field_0);
-        pPVar4 = (ParticleVertexDataProxy*)eastl::vector<
-            ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>, SafeBucketAllocatorEASTL>::
-        operator[]((vector<ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>,
-                           SafeBucketAllocatorEASTL>*)&field_8->field_192,
-                   param_1->field_0);
-        std::swap<ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>>(pPVar3, pPVar4);
-        pPVar3 = (ParticleVertexDataProxy*)
-            eastl::vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>, SafeBucketAllocatorEASTL>::
-            operator[]((vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>,
-                               SafeBucketAllocatorEASTL>*)&field_8->field_216,
-                       field_0);
-        pPVar4 = (ParticleVertexDataProxy*)
-            eastl::vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>, SafeBucketAllocatorEASTL>::
-            operator[]((vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>,
-                               SafeBucketAllocatorEASTL>*)&field_8->field_216,
-                       param_1->field_0);
-        std::swap<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>>(pPVar3, pPVar4);
-        pPVar3 = (ParticleVertexDataProxy*)
-            eastl::vector<ParticleVertexDataProxy<ParticleData::UVAnimationData>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<ParticleData::UVAnimationData>, SafeBucketAllocatorEASTL>*)&field_8
-                    ->field_240,
-                field_0);
-        pPVar4 = (ParticleVertexDataProxy*)
-            eastl::vector<ParticleVertexDataProxy<ParticleData::UVAnimationData>, SafeBucketAllocatorEASTL>::operator[](
-                (vector<ParticleVertexDataProxy<ParticleData::UVAnimationData>, SafeBucketAllocatorEASTL>*)&field_8
-                    ->field_240,
-                param_1->field_0);
-        std::swap<ParticleVertexDataProxy<ParticleData::UVAnimationData>>(pPVar3, pPVar4);
+        float* pfVar1 = (float*)(*field_8)[field_0];
+        float* pfVar2 = (float*)(*field_8)[particleDataRefProxy.field_0];
+        std::swap<float>(*pfVar1, *pfVar2);
+        pfVar1 = &field_8->field_24[field_0];
+        pfVar2 = &field_8->field_24[particleDataRefProxy.field_0];
+        std::swap<float>(*pfVar1, *pfVar2);
+        pfVar1 = &field_8->field_48[field_0];
+        pfVar2 = &field_8->field_48[particleDataRefProxy.field_0];
+        std::swap<float>(*pfVar1, *pfVar2);
+        particleVertexDataProxy1 = (ParticleVertexDataProxy<math::Vector3T<float> _>*)field_8->field_168[field_0];
+        particleVertexDataProxy2 =
+            (ParticleVertexDataProxy<math::Vector3T<float> _>*)field_8->field_168[particleDataRefProxy.field_0];
+        std::swap<ParticleVertexDataProxy<math::Vector3T<float>>>(*particleVertexDataProxy1, *particleVertexDataProxy2);
+        pfVar1 = &field_8->field_72[field_0];
+        pfVar2 = &field_8->field_72[particleDataRefProxy.field_0];
+        std::swap<float>(*pfVar1, *pfVar2);
+        pfVar1 = &field_8->field_96[field_0];
+        pfVar2 = &field_8->field_96[particleDataRefProxy.field_0];
+        std::swap<float>(*pfVar1, *pfVar2);
+        particleVertexDataProxy1_00 =
+            (ParticleVertexDataProxy<ParticleData::PositionTimeData>*)field_8->field_120[field_0];
+        particleVertexDataProxy2_00 =
+            (ParticleVertexDataProxy<ParticleData::PositionTimeData>*)field_8->field_120[particleDataRefProxy.field_0];
+        std::swap<ParticleVertexDataProxy<ParticleData::PositionTimeData>>(*particleVertexDataProxy1_00,
+                                                                           *particleVertexDataProxy2_00);
+        particleVertexData1 = (ParticleVertexData<math::Vector2T<float> _>*)field_8->field_144[field_0];
+        particleVertexData2 =
+            (ParticleVertexData<math::Vector2T<float> _>*)field_8->field_144[particleDataRefProxy.field_0];
+        std::swap<ParticleVertexData<math::Vector2T<float>>>(*particleVertexData1, *particleVertexData2);
+        particleVertexDataProxy1_01 =
+            (ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout> _>*)field_8->field_192[field_0];
+        particleVertexDataProxy2_01 = (ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout> _>*)
+                                          field_8->field_192[particleDataRefProxy.field_0];
+        std::swap<ParticleVertexDataProxy<math::ColourStorage8888<math::ABGR8StorageLayout>>>(
+            *particleVertexDataProxy1_01, *particleVertexDataProxy2_01);
+        particleVertexDataProxy1_02 =
+            (ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>*)field_8->field_216[field_0];
+        particleVertexDataProxy2_02 = (ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>*)
+                                          field_8->field_216[particleDataRefProxy.field_0];
+        std::swap<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>>(*particleVertexDataProxy1_02,
+                                                                                   *particleVertexDataProxy2_02);
+        particleVertexDataProxy1_03 =
+            (ParticleVertexDataProxy<ParticleData::UVAnimationData>*)field_8->field_240[field_0];
+        particleVertexDataProxy2_03 =
+            (ParticleVertexDataProxy<ParticleData::UVAnimationData>*)field_8->field_240[particleDataRefProxy.field_0];
+        std::swap<ParticleVertexDataProxy<ParticleData::UVAnimationData>>(*particleVertexDataProxy1_03,
+                                                                          *particleVertexDataProxy2_03);
         return this;
     }
 
-    // 0x1007d1650, 16 bytes, base-object constructor, placed by debug map only (low confidence)
-    // ParticleSOAIterator::ParticleSOAIterator(unsigned long, ParticleData*)
-    void ParticleSOAIterator::ParticleSOAIterator(ulong param_1, ParticleData* param_2) {
-        field_0 = param_1;
-        field_8 = param_2;
-    }
+    // 0x1007d1650
+    ParticleSOAIterator::ParticleSOAIterator(unsigned long arg1, ParticleData* particleData)
+        : field_0(arg1), field_8(particleData) {}
 
-    // 0x1007d1660, 16 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // ParticleSOAIterator::ParticleSOAIterator(unsigned long, ParticleData*): jumps straight to the base-object constructor
+    // 0x1007d1670
+    void SortParticleData(ParticleData& particleData) {
+        __5* in_R8;
 
-    // 0x1007d1670, 80 bytes, placed by debug map only (low confidence)
-    // SortParticleData(ParticleData&)
-    void SortParticleData(ParticleData* param_1) {
-        ulong uVar1;
-        ParticleSOAIterator local_30;
-        ParticleSOAIterator local_20;
-
-        new (&local_30) ParticleSOAIterator(0, param_1);
-        uVar1 = param_1->GetCount();
-        new (&local_20) ParticleSOAIterator(uVar1, param_1);
-        eastl::sort<ParticleSOAIterator, SortParticleData(ParticleData&)::__5>(local_30.field_0, local_30.field_8,
-                                                                               local_20.field_0, local_20.field_8);
+        ParticleSOAIterator local_30(0, particleData);
+        unsigned long arg1 = particleData.GetCount();
+        ParticleSOAIterator local_20(arg1, particleData);
+        eastl::sort<ParticleSOAIterator, SortParticleData(*(ParticleData&))::__5>(local_30, local_20, in_R8);
     }
 
 } // namespace jag::graphics::helpers

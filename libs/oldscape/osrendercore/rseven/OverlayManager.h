@@ -1,6 +1,5 @@
 // libs/oldscape/osrendercore/rseven/OverlayManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,194 +7,138 @@ namespace jag::oldscape::rseven {
     class OverlayManager {
     public:
         class ModelOverlay;
-        OverlayManager(jag::graphics::RT7Core&);
-        void Render(unsigned int, int, jag::graphics::EffectManager&, jag::graphics::SceneViewData const&,
-                    render::Viewport const&,
+        OverlayManager(jag::graphics::RT7Core& rt7Core);
+        void Render(unsigned int arg1, int arg2, jag::graphics::EffectManager& effectManager,
+                    const jag::graphics::SceneViewData& sceneViewData, const render::Viewport& viewport,
                     std::function<bool(std::array<jag::math::IntersectionType, 10ul>&, jag::math::Frustum&,
-                                       jag::math::Frustum const&, int, jag::math::AABB const&, jag::math::OBB const&)>&,
-                    jag::graphics::GraphRoot*);
-        CreateProjectionMatrix(render::Viewport const&, RenderState::OverlayViewportState const&);
-        void UpdateModels(RenderState::OverlayRSeven*, RenderState::OverlayRSeven*);
-        void UpdateModel(ModelOverlay&, RenderState::OverlayRSeven const&);
-        void SetModelUnlit(jag::graphics::Model&);
+                                       jag::math::Frustum const&, int, jag::math::AABB const&, jag::math::OBB const&)>&
+                        callback,
+                    jag::graphics::GraphRoot* graphRoot);
+        OverlayManager* CreateProjectionMatrix(const render::Viewport& viewport,
+                                               const RenderState::OverlayViewportState& overlayViewportState);
+        void UpdateModels(RenderState::OverlayRSeven* overlayRSeven1, RenderState::OverlayRSeven* overlayRSeven2);
+        void UpdateModel(ModelOverlay& modelOverlay, const RenderState::OverlayRSeven& overlayRSeven);
+        void SetModelUnlit(jag::graphics::Model& model);
         ~OverlayManager();
 
-        // data members, from how the methods use this: 6344 bytes
-        RT7Core* field_0; // offset 0
-        char _unknown_8[6336];
+    private:
+        RT7Core* field_0;
+        uint8_t _unknown_8[6336];
     };
 
     class OverlayManager::ModelOverlay {
     public:
         ~ModelOverlay();
-        ModelOverlay(ModelOverlay&&);
+        ModelOverlay(ModelOverlay&& modelOverlay);
         ModelOverlay();
 
-        // data members, from how the methods use this: 48 bytes
-        char _unknown_0[16];
-        OverlayViewportState field_16; // offset 16
+    private:
+        uint8_t _unknown_0[16];
+        OverlayViewportState field_16;
     };
 
     class SamplerOverride {
     public:
-        SamplerOverride(jag::graphics::RT7Core&, render::SamplerState const*);
+        SamplerOverride(jag::graphics::RT7Core& rt7Core, const render::SamplerState* samplerState);
         ~SamplerOverride();
 
-        // data members, from how the methods use this: 24 bytes
-        RT7Core* field_0;      // offset 0
-        SamplerState* field_8; // offset 8
-        char _unknown_16[8];
+    private:
+        RT7Core* field_0;
+        SamplerState* field_8;
+        uint8_t _unknown_16[8];
     };
 
-    // 0x1001eb700, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // OverlayManager::ModelOverlay::ModelOverlay(OverlayManager::ModelOverlay&&): jumps straight to the base-object constructor
-
-    // 0x1001eb710, 64 bytes, base-object constructor, inline, placed by class name and debug map
-    // OverlayManager::ModelOverlay::ModelOverlay(OverlayManager::ModelOverlay&&)
-    void OverlayManager::ModelOverlay::ModelOverlay(ModelOverlay* param_1) {
-        shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<RSevenDebugPresetProvider>*)this, (shared_ptr*)param_1);
-        new (field_16, (OverlayViewportState*)param_1->field_16) RenderState::OverlayViewportState();
+    // 0x1001eb710
+    OverlayManager::ModelOverlay::ModelOverlay(OverlayManager::ModelOverlay&& modelOverlay) {
+        shared_ptr<FileRSevenDebugPresetProvider, void>(modelOverlay);
+        new (field_16) RenderState::OverlayViewportState(modelOverlay.field_16);
     }
 
-    // 0x1001eb7a0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // OverlayManager::ModelOverlay::ModelOverlay(): jumps straight to the base-object constructor
+    // 0x1001eb7b0
+    OverlayManager::ModelOverlay::ModelOverlay() : shared_ptr() {}
 
-    // 0x1001eb7b0, 48 bytes, base-object constructor, inline, placed by class name and debug map
-    // OverlayManager::ModelOverlay::ModelOverlay()
-    void OverlayManager::ModelOverlay::ModelOverlay() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        new (field_16) RenderState::OverlayViewportState();
-    }
-
-    // 0x1001ec4f0, 208 bytes, inline, placed by debug map only (low confidence)
-    // SamplerOverride::SamplerOverride(jag::graphics::RT7Core&, render::SamplerState const*)::$_1::operator()(shared_ptr<jag::graphics::TextureAtlas>&) const
-    /* SamplerOverride::SamplerOverride(jag::graphics::RT7Core&,
-   render::SamplerState
-   const*)::$_1::TEMPNAMEPLACEHOLDERVALUE(shared_ptr<jag::graphics::TextureAtlas>&) const */
-
-    void SamplerOverride::SamplerOverride(jag::graphics::RT7Core&,
-                                          render::SamplerState_const*)::$_1::operator()(shared_ptr* param_1) {
-        TextureAtlas* pTVar1;
-        MaterialManager* this_00;
-        SamplerState* pSVar2;
-        long lVar3;
-        pair local_98[24];
-        TextureAtlas* local_80;
+    // 0x1001ec4f0
+    void SamplerOverride::SamplerOverride(jag::graphics::RT7Core&, render::SamplerState const*)::$_1::operator()(
+        shared_ptr<jag::graphics::TextureAtlas>& textureAtlas) const {
         pair<jag::graphics::TextureAtlas* const, render::SamplerState> local_78[80];
-        long local_28;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_80 = (TextureAtlas*)param_1->end();
-        pTVar1 = (TextureAtlas*)shared_ptr<jag::graphics::TextureAtlas>::operator->(
-            (shared_ptr<jag::graphics::TextureAtlas>*)param_1);
-        this_00 = (MaterialManager*)pTVar1->GetTexture();
-        pSVar2 = (SamplerState*)this_00->GetDefaultMaterial();
-        eastl::pair<jag::graphics::TextureAtlas* const, render::SamplerState>::pair<jag::graphics::TextureAtlas*, void>(
-            local_78, &local_80, pSVar2);
-        eastl::hashtable<jag::graphics::TextureAtlas*,
-                         eastl::pair<jag::graphics::TextureAtlas* const, render::SamplerState>, eastl::allocator,
-                         eastl::use_first<eastl::pair<jag::graphics::TextureAtlas* const, render::SamplerState>>,
-                         eastl::equal_to<jag::graphics::TextureAtlas*>, eastl::hash<jag::graphics::TextureAtlas*>,
-                         eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                         true>::insert(local_98);
-        eastl::pair<jag::graphics::TextureAtlas* const, render::SamplerState>::~pair(local_78);
-        pTVar1 = (TextureAtlas*)shared_ptr<jag::graphics::TextureAtlas>::operator->(
-            (shared_ptr<jag::graphics::TextureAtlas>*)param_1);
-        lVar3 = param_1->Instance();
-        pTVar1->SetSamplerState((SamplerState*)(lVar3 + 80));
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        long lVar2 = *(long*)this;
+        auto local_80 = textureAtlas.end();
+        auto pTVar1 = textureAtlas.operator->();
+        auto this_00 = pTVar1->GetTexture();
+        auto samplerState = this_00->GetDefaultMaterial();
+        local_78->pair<jag::graphics::TextureAtlas*, void>(local_80, *samplerState);
+        auto local_98 = ((lVar2 + 16))->insert(*local_78);
+        pTVar1 = (TextureAtlas*)textureAtlas.operator->();
+        lVar2 = textureAtlas.Instance();
+        pTVar1->SetSamplerState((lVar2 + 80));
     }
 
-    // 0x1001eda30, 16 bytes, complete-object destructor, inline, placed by class name
-    // OverlayManager::~OverlayManager(): jumps straight to the base-object destructor
-
-    // 0x1001eda40, 48 bytes, base-object destructor, inline, placed by class name
-    // OverlayManager::~OverlayManager()
-    void OverlayManager::~OverlayManager() {
-        (&field_6336)->~vector();
-        (&field_8)->~Renderer();
+    // 0x1001eda40
+    OverlayManager::~OverlayManager() {
+        field_6336.~vector();
+        field_8.~Renderer();
     }
 
 } // namespace jag::oldscape::rseven
 
 namespace jag {
-    // 0x1001eb7e0, 32 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::rseven::DynamicGeometry* placement_new<oldscape::rseven::DynamicGeometry, decltype(nullptr)>(void*, decltype(nullptr)&&)
-    DynamicGeometry*
-    placement_new<oldscape::rseven::DynamicGeometry, decltype(nullptr)>(void* param_1,
-                                                                        _func_decltype_nullptr** param_2) {
-        oldscape::rseven::DynamicGeometry::DynamicGeometry(param_1, (GraphNode*)0);
-        return param_1;
+    // 0x1001eb7e0
+    oldscape::rseven::DynamicGeometry*
+    placement_new<oldscape::rseven::DynamicGeometry, decltype(nullptr)>(void* arg1, decltype(nullptr)&& arg2) {
+        new (arg1) oldscape::rseven::DynamicGeometry(nullptr);
+        return arg1;
     }
 
-    // 0x1001eb800, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rseven::DynamicGeometry>* placement_new<ref_counter_shared<oldscape::rseven::DynamicGeometry>, int, oldscape::rseven::DynamicGeometry*&>(void*, int&&, oldscape::rseven::DynamicGeometry*&)
-    ref_counter_shared*
-    jag::placement_new<ref_counter_shared<oldscape::rseven::DynamicGeometry>, int, oldscape::rseven::DynamicGeometry*&>(
-        void* param_1, int* param_2, DynamicGeometry** param_3) {
-        ref_counter_shared<oldscape::rseven::DynamicGeometry>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x1001eb800
+    ref_counter_shared<oldscape::rseven::DynamicGeometry>*
+    placement_new<ref_counter_shared<oldscape::rseven::DynamicGeometry>, int, oldscape::rseven::DynamicGeometry*&>(
+        void* arg1, int&& arg2, oldscape::rseven::DynamicGeometry*& arg3) {
+        new (arg1) ref_counter_shared<oldscape::rseven::DynamicGeometry>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x1001eb8b0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rseven::DynamicGeometry>::ref_counter_shared(unsigned long, oldscape::rseven::DynamicGeometry*): jumps straight to the base-object constructor
+    // 0x1001eb8c0
+    ref_counter_shared<oldscape::rseven::DynamicGeometry>::ref_counter_shared(
+        unsigned long arg1, oldscape::rseven::DynamicGeometry* dynamicGeometry)
+        : ref_counter_base() {}
 
-    // 0x1001eb8c0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rseven::DynamicGeometry>::ref_counter_shared(unsigned long, oldscape::rseven::DynamicGeometry*)
-    void ref_counter_shared<oldscape::rseven::DynamicGeometry>::ref_counter_shared(ulong param_1,
-                                                                                   DynamicGeometry* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7920 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(DynamicGeometry**)(this + 24) = param_2;
-    }
-
-    // 0x1001eb900, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rseven::DynamicGeometry>::DeleteData()
-    /* ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta::AddMember>::DeleteData()
-    */
-
-    void ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta::AddMember>::DeleteData() {
+    // 0x1001eb900
+    void ref_counter_shared<oldscape::rseven::DynamicGeometry>::DeleteData() {
         long lVar1;
-        ulong uVar2;
+        ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta::AddMember> _vtbl* prVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar1 = 0;
-                uVar2 = 0;
+                prVar2 = nullptr;
                 do {
-                    (*(code*)**(undefined8**)(*(long*)(this + 24) + lVar1))(*(long*)(this + 24) + lVar1);
-                    uVar2 = uVar2 + 1;
+                    (*(void (*)(...)) *
+                     *(uint64_t**)((long)&(this[3]._vptr)->_dtor + lVar1))((long)&(this[3]._vptr)->_dtor + lVar1);
+                    prVar2 = (ref_counter_shared<
+                              oldscape::rs2lib::social::ClanSettingsDelta::AddMember> _vtbl*)((long)&prVar2->_dtor + 1);
                     lVar1 = lVar1 + 80;
-                } while (uVar2 < *(ulong*)(this + 16));
+                } while (prVar2 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
 } // namespace jag
 
 namespace jag::math {
-    // 0x1001eb9f0, 144 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // Matrix44T<float>::Matrix44T(Vector4T<float>&&, Vector4T<float>&&, Vector4T<float>&&, Vector4T<float>&&)
-    void Matrix44T<float>::Matrix44T(Vector4T* param_1, Vector4T* param_2, Vector4T* param_3, Vector4T* param_4) {
-        long lVar1;
-
-        lVar1 = 0;
+    // 0x1001eb9f0
+    Matrix44T<float>::Matrix44T(Vector4T<float>&& vector41, Vector4T<float>&& vector42, Vector4T<float>&& vector43,
+                                Vector4T<float>&& vector44) {
+        long lVar1 = 0;
         do {
-            new ((this + lVar1)) Vector4T<float>();
+            new ((this + lVar1)) Vector4T();
             lVar1 = lVar1 + 16;
         } while (lVar1 != 64);
-        Rect<float>::operator=((Rect<float>*)this, (Rect*)param_1);
-        Rect<float>::operator=((Rect<float>*)(this + 16), (Rect*)param_2);
-        Rect<float>::operator=((Rect<float>*)(this + 32), (Rect*)param_3);
-        Rect<float>::operator=((Rect<float>*)(this + 48), (Rect*)param_4);
+        *this = vector41;
+        (*((this + 16))) = vector42;
+        (*((this + 32))) = vector43;
+        (*((this + 48))) = vector44;
     }
 
 } // namespace jag::math

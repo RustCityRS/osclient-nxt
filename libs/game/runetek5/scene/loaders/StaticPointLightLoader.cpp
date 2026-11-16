@@ -1,172 +1,128 @@
 // libs/game/runetek5/scene/loaders/StaticPointLightLoader.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "StaticPointLightLoader.h"
 
 namespace jag::game {
-    // 0x100009d00: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second(), which has identical code
-    StaticPointLightLoader::GetPointLightList();
+    // 0x100009d00: StaticPointLightLoader::GetPointLightList() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second()
 
-    // 0x1003dd5a0, 1568 bytes, placed by class name and debug map
-    // StaticPointLightLoader::Load(Js5ResourceProvider*, HeightMap const&)
-    uint StaticPointLightLoader::Load(Js5ResourceProvider* param_1, HeightMap* param_2) {
-        undefined1* this_00;
+    // 0x1003dd5a0
+    unsigned int StaticPointLightLoader::Load(Js5ResourceProvider* js5ResourceProvider, const HeightMap& heightMap) {
         float fVar1;
         float fVar2;
-        uint uVar3;
-        bool bVar4;
-        char cVar5;
+        unsigned int uVar3;
         int iVar6;
-        undefined4 uVar7;
-        long lVar8;
-        vector* pvVar9;
-        undefined* puVar10;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_01;
-        vector<eastl::fixed_vector<eastl::fixed_vector<ClientCompositeZone, 10ul, true, eastl::allocator>, 10ul, true,
-                                   eastl::allocator>,
-               eastl::fixed_vector_allocator<2440ul, 4ul, 8ul, 0ul, true, eastl::allocator>>* this_02;
-        vector<eastl::fixed_vector<ClientCompositeZone, 10ul, true, eastl::allocator>,
-               eastl::fixed_vector_allocator<240ul, 10ul, 8ul, 0ul, true, eastl::allocator>>* this_03;
-        vector<ClientCompositeZone, eastl::fixed_vector_allocator<20ul, 10ul, 4ul, 0ul, true, eastl::allocator>>*
-            this_04;
+        long lVar7;
+        vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>* pvVar8;
+        uint8_t* puVar9;
+        vector<eastl::fixed_vector<eastl::fixed_vector<ClientCompositeZone, 10ul>, 10ul>,
+               eastl::fixed_vector_allocator<2440ul, 4ul, 8ul, 0ul, true>>* this_02;
+        vector<eastl::fixed_vector<ClientCompositeZone, 10ul>,
+               eastl::fixed_vector_allocator<240ul, 10ul, 8ul, 0ul, true>>* this_03;
+        vector<ClientCompositeZone, eastl::fixed_vector_allocator<20ul, 10ul, 4ul, 0ul, true>>* this_04;
         ClientCompositeZone* this_05;
         vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>* this_06;
-        ulong uVar11;
-        Vector3T* pVVar12;
-        uint* puVar13;
-        shared_ptr<StaticPointLight>* psVar14;
-        shared_ptr<StaticPointLight>* psVar15;
-        StaticPointLight* pSVar16;
-        Vector2T<int>* pVVar17;
-        Vector3T<float>* pVVar18;
-        float* pfVar19;
-        CoordMapSquare* pCVar20;
-        uint uVar21;
-        ulong uVar22;
-        StaticPointLightLoader* pSVar23;
-        uint* in_R8;
-        shared_ptr* this_07;
-        Vector3T<unsigned int> local_e8[16];
+        unsigned long uVar10;
+        unsigned int* puVar11;
+        shared_ptr<StaticPointLight>* psVar12;
+        shared_ptr<StaticPointLight>* psVar13;
+        StaticPointLight* pSVar14;
+        Vector2T<int>* pVVar15;
+        Vector3T<float>* pVVar16;
+        float* pfVar17;
+        CoordMapSquare* pCVar18;
+        unsigned int uVar19;
+        StaticPointLightLoader* pSVar21;
+        Vector3T<unsigned int> local_e8;
         ColourHSL local_d8;
-        shared_ptr local_c8;
-        undefined8 local_b8;
-        ulong local_b0;
-        ulong local_a8;
-        ulong local_a0;
+        unsigned int local_c8[4];
+        uint64_t local_b8;
+        unsigned long local_b0;
+        unsigned long local_a8;
+        unsigned long local_a0;
         Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>, BucketAllocatorEASTL>* local_98;
-        ulong local_90;
+        unsigned long local_90;
         vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>* local_88;
-        HeightMap* local_80;
-        ulong local_78;
-        shared_ptr* local_70;
-        uint local_64;
-        uint local_60;
-        uint local_5c;
-        Js5ResourceProvider* local_58;
+        unsigned long local_78;
+        unsigned int local_64;
+        unsigned int local_60;
+        unsigned int local_5c;
         float local_4c;
-        StaticPointLightLoader* local_48;
-        uint local_3c;
-        undefined8 local_38;
+        unsigned int local_3c;
+        unsigned int local_38;
+        unsigned int local_34;
 
-        local_80 = param_2;
-        local_58 = param_1;
-        if (param_1 == (Js5ResourceProvider*)0) {
-            /* WARNING: Subroutine does not return */
+        Js5ResourceProvider* local_58 = js5ResourceProvider;
+        if (js5ResourceProvider == nullptr) {
             LogAssert("resourceProvider",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "loaders/StaticPointLightLoader.cpp",
-                      18, (char*)0);
+                      18, nullptr);
         }
-        this_07 = (shared_ptr*)field_8;
-        local_48 = this;
-        bVar4 = shared_ptr::operator_cast_to_bool(this_07);
-        uVar22 = 1;
-        if (bVar4) {
-            lVar8 = shared_ptr<ClientCompositeData>::operator->((shared_ptr<ClientCompositeData>*)this_07);
-            uVar22 = ((lVar8 + 9800))->size();
+        shared_ptr<ClientCompositeData>* this_07 = (shared_ptr<ClientCompositeData>*)field_8;
+        StaticPointLightLoader* local_48 = this;
+        bool cVar4 = this_07->operator_cast_to_bool();
+        unsigned long uVar20 = 1;
+        if (cVar4) {
+            lVar7 = (*this_07).operator->();
+            uVar20 = ((lVar7 + 9800))->size();
         }
-        this_00 = &local_48->field_48;
-        cVar5 = this_00->empty();
-        if (cVar5 != '\0') {
-            this_00->set_max_size(uVar22, 0);
+        uint8_t* this_00 = &local_48->field_48;
+        cVar4 = this_00->empty();
+        if (cVar4) {
+            this_00->set_max_size(uVar20, 0);
         }
-        bVar4 = operator==(this_07, (_func_decltype_nullptr*)0);
-        local_70 = this_07;
-        if (bVar4) {
-            pvVar9 = (vector*)
-                Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>, BucketAllocatorEASTL>::
-                operator[](
-                    (Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>, BucketAllocatorEASTL>*)
-                        this_00,
-                    0);
-            in_R8 = (uint*)(ulong)local_48->field_4;
-            puVar10 = (undefined*)LoadMapSquarePointLightList(local_48, pvVar9, local_58, local_48->field_0,
-                                                              local_48->field_4);
-            local_38._4_4_ = (uint)CONCAT71((int7)((ulong)puVar10 >> 8),
-                                            puVar10 == DataStatus::MISSING || puVar10 == DataStatus::READY);
+        bool bVar5 = *this_07 == nullptr;
+        shared_ptr<ClientCompositeData>* local_70 = this_07;
+        if (bVar5) {
+            pvVar8 = (vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>*)(*this_00)[0];
+            puVar9 =
+                (uint8_t*)LoadMapSquarePointLightList(local_48, pvVar8, local_58, local_48->field_0, local_48->field_4);
+            local_34 = (unsigned int)(((uint64_t)((int64_t)((unsigned long)puVar9 >> 8)) << 8) |
+                                      (uint8_t)(puVar9 == DataStatus::MISSING || puVar9 == DataStatus::READY));
         } else {
-            lVar8 = shared_ptr<ClientCompositeData>::operator->((shared_ptr<ClientCompositeData>*)this_07);
-            lVar8 = ((lVar8 + 9800))->size();
-            if (lVar8 == 0) {
-                local_38._4_4_ = 1;
+            lVar7 = (*this_07).operator->();
+            lVar7 = ((lVar7 + 9800))->size();
+            if (lVar7 == 0) {
+                local_34 = 1;
             } else {
-                local_38._4_4_ = (uint)CONCAT71((int7)((ulong)lVar8 >> 8), 1);
-                uVar22 = 0;
+                local_34 = (unsigned int)(((uint64_t)((int64_t)((unsigned long)lVar7 >> 8)) << 8) | (uint8_t)1);
+                uVar20 = 0;
                 do {
-                    this_01 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                        Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>, BucketAllocatorEASTL>::
-                        operator[]((Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>,
-                                          BucketAllocatorEASTL>*)this_00,
-                                   uVar22);
-                    cVar5 = eastl::vector<
-                        int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(this_01);
-                    if (cVar5 != '\0') {
-                        pvVar9 = (vector*)Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>,
-                                                BucketAllocatorEASTL>::
-                        operator[]((Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>,
-                                          BucketAllocatorEASTL>*)this_00,
-                                   uVar22);
-                        lVar8 = shared_ptr<ClientCompositeData>::operator->((shared_ptr<ClientCompositeData>*)this_07);
-                        puVar13 =
-                            (uint*)eastl::vector<eastl::pair<unsigned int, unsigned int>, eastl::allocator>::operator[](
-                                (vector<eastl::pair<unsigned int, unsigned int>, eastl::allocator>*)(lVar8 + 9800),
-                                uVar22);
-                        uVar21 = *puVar13;
-                        lVar8 = shared_ptr<ClientCompositeData>::operator->((shared_ptr<ClientCompositeData>*)this_07);
-                        lVar8 = eastl::vector<eastl::pair<unsigned int, unsigned int>, eastl::allocator>::operator[](
-                            (vector<eastl::pair<unsigned int, unsigned int>, eastl::allocator>*)(lVar8 + 9800), uVar22);
-                        in_R8 = (uint*)(ulong) * (uint*)(lVar8 + 4);
-                        puVar10 = (undefined*)LoadMapSquarePointLightList(local_48, pvVar9, local_58, uVar21,
-                                                                          *(uint*)(lVar8 + 4));
-                        uVar21 = local_38._4_4_ & 255;
-                        local_38._4_4_ = uVar21;
-                        if (puVar10 != DataStatus::MISSING) {
-                            local_38._4_4_ = 0;
+                    cVar4 = ((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(*this_00)[uVar20])
+                                ->empty();
+                    if (cVar4) {
+                        pvVar8 = (vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>*)(*this_00)[uVar20];
+                        lVar7 = (*this_07).operator->();
+                        puVar11 = (unsigned int*)(*((lVar7 + 9800)))[uVar20];
+                        uVar19 = *puVar11;
+                        lVar7 = (*this_07).operator->();
+                        lVar7 = (*((lVar7 + 9800)))[uVar20];
+                        puVar9 = (uint8_t*)LoadMapSquarePointLightList(local_48, pvVar8, local_58, uVar19,
+                                                                       *(unsigned int*)(lVar7 + 4));
+                        uVar19 = local_34 & 255;
+                        local_34 = uVar19;
+                        if (puVar9 != DataStatus::MISSING) {
+                            local_34 = 0;
                         }
-                        if (puVar10 == DataStatus::READY) {
-                            local_38._4_4_ = uVar21;
+                        if (puVar9 == DataStatus::READY) {
+                            local_34 = uVar19;
                         }
                         this_07 = local_70;
                     }
-                    uVar22 = uVar22 + 1;
-                    lVar8 = shared_ptr<ClientCompositeData>::operator->((shared_ptr<ClientCompositeData>*)this_07);
-                    uVar11 = ((lVar8 + 9800))->size();
-                } while (uVar22 < uVar11);
+                    uVar20 = uVar20 + 1;
+                    lVar7 = (*this_07).operator->();
+                    uVar10 = ((lVar7 + 9800))->size();
+                } while (uVar20 < uVar10);
             }
         }
-        if ((local_38._4_4_ & 1) != 0) {
-            bVar4 = operator==(this_07, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                pvVar9 = (vector*)
-                    Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>, BucketAllocatorEASTL>::
-                    operator[]((Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>,
-                                      BucketAllocatorEASTL>*)this_00,
-                               0);
-                pSVar23 = local_48;
-                eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>::operator=(
-                    (vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>*)&local_48->field_24, pvVar9);
+        if ((local_34 & 1) != 0) {
+            bVar5 = *this_07 == nullptr;
+            if (bVar5) {
+                pvVar8 = (vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>*)(*this_00)[0];
+                pSVar21 = local_48;
+                local_48->field_24 = *pvVar8;
             } else {
                 local_88 = (vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>*)&local_48->field_24;
                 local_98 =
@@ -174,337 +130,252 @@ namespace jag::game {
                         this_00;
                 local_88->clear();
                 local_3c = 0;
-                uVar22 = 0;
+                uVar20 = 0;
                 do {
                     do {
-                        local_78 = uVar22 + 1;
-                        uVar11 = 0;
-                        local_90 = uVar22;
+                        local_78 = uVar20 + 1;
+                        uVar10 = 0;
+                        local_90 = uVar20;
                         do {
-                            this_02 =
-                                (vector<eastl::fixed_vector<
-                                            eastl::fixed_vector<ClientCompositeZone, 10ul, true, eastl::allocator>,
-                                            10ul, true, eastl::allocator>,
-                                        eastl::fixed_vector_allocator<2440ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                    shared_ptr<ClientCompositeData>::operator->(
-                                        (shared_ptr<ClientCompositeData>*)this_07);
-                            this_03 =
-                                (vector<eastl::fixed_vector<ClientCompositeZone, 10ul, true, eastl::allocator>,
-                                        eastl::fixed_vector_allocator<240ul, 10ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                    eastl::vector<
-                                        eastl::fixed_vector<
-                                            eastl::fixed_vector<ClientCompositeZone, 10ul, true, eastl::allocator>,
-                                            10ul, true, eastl::allocator>,
-                                        eastl::fixed_vector_allocator<2440ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                    operator[](this_02, (ulong)local_3c);
-                            this_04 = (vector<ClientCompositeZone, eastl::fixed_vector_allocator<
-                                                                       20ul, 10ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                eastl::vector<eastl::fixed_vector<ClientCompositeZone, 10ul, true, eastl::allocator>,
-                                              eastl::fixed_vector_allocator<240ul, 10ul, 8ul, 0ul, true,
-                                                                            eastl::allocator>>::operator[](this_03,
-                                                                                                           local_78);
-                            local_b0 = uVar11 + 1;
-                            local_a0 = uVar11;
-                            this_05 = (ClientCompositeZone*)
-                                eastl::vector<ClientCompositeZone,
-                                              eastl::fixed_vector_allocator<20ul, 10ul, 4ul, 0ul, true,
-                                                                            eastl::allocator>>::operator[](this_04,
-                                                                                                           local_b0);
-                            cVar5 = this_05->IsValid();
-                            if (cVar5 != '\0') {
-                                uVar21 = this_05->field_4;
+                            this_02 = (vector<eastl::fixed_vector<eastl::fixed_vector<ClientCompositeZone, 10ul>, 10ul>,
+                                              eastl::fixed_vector_allocator<2440ul, 4ul, 8ul, 0ul, true>>*)(*this_07)
+                                          .operator->();
+                            this_03 = (vector<eastl::fixed_vector<ClientCompositeZone, 10ul>,
+                                              eastl::fixed_vector_allocator<240ul, 10ul, 8ul, 0ul, true>>*)(*this_02)
+                                [(unsigned long)local_3c];
+                            this_04 =
+                                (vector<ClientCompositeZone, eastl::fixed_vector_allocator<20ul, 10ul, 4ul, 0ul,
+                                                                                           true>>*)(*this_03)[local_78];
+                            local_b0 = uVar10 + 1;
+                            local_a0 = uVar10;
+                            this_05 = (ClientCompositeZone*)(*this_04)[local_b0];
+                            cVar4 = this_05->IsValid();
+                            if (cVar4) {
+                                uVar19 = this_05->field_4;
                                 uVar3 = this_05->field_8;
-                                this_06 = (vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>*)
-                                    Array<eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>,
-                                          BucketAllocatorEASTL>::operator[](local_98, (ulong)(uint)this_05->field_16);
-                                lVar8 =
-                                    eastl::vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>::size(
-                                        this_06);
-                                if (lVar8 != 0) {
-                                    local_64 = (uVar21 & 7) * 1024;
-                                    local_58 = (Js5ResourceProvider*)(ulong)local_64;
+                                this_06 =
+                                    (vector<shared_ptr<oldscape::dash3d::ModelUnlit>, BucketAllocatorEASTL>*)(*local_98)
+                                        [(unsigned long)(unsigned int)this_05->field_16];
+                                lVar7 = this_06->size();
+                                if (lVar7 != 0) {
+                                    local_64 = (uVar19 & 7) * 1024;
+                                    local_58 = (Js5ResourceProvider*)(unsigned long)local_64;
                                     local_64 = local_64 + 1023;
                                     local_60 = (uVar3 & 7) * 1024;
-                                    local_a8 = (ulong)local_60;
+                                    local_a8 = (unsigned long)local_60;
                                     local_60 = local_60 + 1023;
-                                    uVar22 = 0;
+                                    uVar20 = 0;
                                     do {
-                                        psVar14 = (shared_ptr<StaticPointLight>*)eastl::
-                                            vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>::operator[](
-                                                (vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>*)this_06,
-                                                uVar22);
-                                        pVVar17 = (Vector2T<int>*)shared_ptr<StaticPointLight>::operator->(psVar14);
-                                        pVVar12 = (Vector3T*)pVVar17->y();
-                                        math::Vector3T<unsigned int>::Vector3T<float>(local_e8, pVVar12);
-                                        pCVar20 = (CoordMapSquare*)shared_ptr<StaticPointLight>::operator->(psVar14);
-                                        iVar6 = pCVar20->GetX();
-                                        if ((((iVar6 == this_05->field_0) &&
-                                              (puVar13 = (uint*)math::Vector3T<unsigned int>::operator[](local_e8, 0),
-                                               (uint)local_58 <= *puVar13)) &&
-                                             (puVar13 = (uint*)math::Vector3T<unsigned int>::operator[](local_e8, 0),
-                                              *puVar13 <= local_64)) &&
-                                            ((puVar13 = (uint*)math::Vector3T<unsigned int>::operator[](local_e8, 2),
-                                              (uint)local_a8 <= *puVar13 &&
-                                                  (puVar13 =
-                                                       (uint*)math::Vector3T<unsigned int>::operator[](local_e8, 2),
-                                                   *puVar13 <= local_60)))) {
-                                            puVar13 = (uint*)math::Vector3T<unsigned int>::operator[](local_e8, 0);
-                                            local_38._0_4_ = (RegionRotate*)(*puVar13 & 1023);
-                                            puVar13 = (uint*)math::Vector3T<unsigned int>::operator[](local_e8, 2);
-                                            local_5c = *puVar13 & 1023;
-                                            local_4c = (float)local_38->RegionRotateFineX(local_5c, this_05->field_12);
-                                            local_38._0_4_ =
-                                                (RegionRotate*)local_38->RegionRotateFineZ(local_5c, this_05->field_12);
-                                            local_b8 = psVar14->end();
-                                            local_4c = (float)(uint)((int)local_90 * 1024 + (int)local_4c);
-                                            puVar13 = (uint*)math::Vector3T<unsigned int>::operator[](local_e8, 1);
-                                            new (&local_d8) math::ColourHSL(
-                                                local_4c, (float)*puVar13,
-                                                (float)(uint)((int)local_a0 * 1024 + (int)(RegionRotate*)local_38));
+                                        psVar12 = (shared_ptr<StaticPointLight>*)(*this_06)[uVar20];
+                                        pVVar15 = (Vector2T<int>*)(*psVar12).operator->();
+                                        pVVar16 = (Vector3T<float>*)pVVar15->y();
+                                        local_e8.Vector3T<float>(*pVVar16);
+                                        pCVar18 = (CoordMapSquare*)(*psVar12).operator->();
+                                        iVar6 = pCVar18->GetX();
+                                        if ((((iVar6 == this_05->field_0) && (puVar11 = (unsigned int*)local_e8[0],
+                                                                              (unsigned int)local_58 <= *puVar11)) &&
+                                             (puVar11 = (unsigned int*)local_e8[0], *puVar11 <= local_64)) &&
+                                            ((puVar11 = (unsigned int*)local_e8[2],
+                                              (unsigned int)local_a8 <= *puVar11 &&
+                                                  (puVar11 = (unsigned int*)local_e8[2], *puVar11 <= local_60)))) {
+                                            puVar11 = &local_e8[0];
+                                            local_38 = *puVar11 & 1023;
+                                            puVar11 = &local_e8[2];
+                                            local_5c = *puVar11 & 1023;
+                                            local_4c = (float)RegionRotate::RegionRotateFineX(
+                                                local_38, local_5c, (unsigned int)(uint8_t)this_05->field_12);
+                                            local_38 = RegionRotate::RegionRotateFineZ(
+                                                local_38, local_5c, (unsigned int)(uint8_t)this_05->field_12);
+                                            local_b8 = psVar12->end();
+                                            local_4c = (float)(unsigned int)((int)local_90 * 1024 + (int)local_4c);
+                                            puVar11 = &local_e8[1];
+                                            local_d8 = math::ColourHSL(local_4c, (float)*puVar11,
+                                                                       (float)((int)local_a0 * 1024 + local_38));
                                             MakeSharedPool<StaticPointLight, 64>::MakeShared<
                                                 StaticPointLight*, math::Vector3T<float>, unsigned int&>(
-                                                &local_c8, (MakeSharedPool<StaticPointLight, 64>*)&local_b8,
-                                                (StaticPointLight**)&local_d8, (Vector3T*)&local_3c, in_R8);
-                                            eastl::vector<shared_ptr<StaticPointLight>,
-                                                          BucketAllocatorEASTL>::push_back(local_88, &local_c8);
-                                            local_c8.~shared_ptr();
+                                                (StaticPointLight**)local_c8, (Vector3T<float>*)&local_b8,
+                                                (unsigned int*)&local_d8);
+                                            local_88->push_back(*local_c8);
                                         }
-                                        uVar22 = uVar22 + 1;
-                                        uVar11 = eastl::vector<shared_ptr<oldscape::dash3d::ModelUnlit>,
-                                                               BucketAllocatorEASTL>::size(this_06);
-                                    } while (uVar22 < uVar11);
+                                        uVar20 = uVar20 + 1;
+                                        uVar10 = this_06->size();
+                                    } while (uVar20 < uVar10);
                                 }
                             }
-                            uVar11 = local_b0;
+                            uVar10 = local_b0;
                             this_07 = local_70;
                         } while (local_b0 != 8);
-                        uVar22 = local_78;
+                        uVar20 = local_78;
                     } while (local_78 != 8);
                     local_3c = local_3c + 1;
-                    uVar22 = 0;
+                    uVar20 = 0;
                 } while (local_3c < 4);
-                pSVar23 = local_48;
+                pSVar21 = local_48;
             }
-            psVar14 = (shared_ptr<StaticPointLight>*)(&pSVar23->field_24)->HeapBeginPtr();
-            psVar15 = (shared_ptr<StaticPointLight>*)(&pSVar23->field_24)->end();
-            for (; psVar14 != psVar15; psVar14 = psVar14 + 16) {
-                pSVar16 = (StaticPointLight*)shared_ptr<StaticPointLight>::operator->(psVar14);
-                cVar5 = pSVar16->GetUseTerrainHeight();
-                pSVar23 = local_48;
-                if (cVar5 != '\0') {
-                    uVar21 = local_48->field_0;
-                    pVVar17 = (Vector2T<int>*)shared_ptr<StaticPointLight>::operator->(psVar14);
-                    pVVar18 = (Vector3T<float>*)pVVar17->y();
-                    pfVar19 = (float*)math::Vector3T<float>::operator[](pVVar18, 0);
-                    fVar1 = *pfVar19;
-                    uVar3 = pSVar23->field_4;
-                    pVVar17 = (Vector2T<int>*)shared_ptr<StaticPointLight>::operator->(psVar14);
-                    pVVar18 = (Vector3T<float>*)pVVar17->y();
-                    pfVar19 = (float*)math::Vector3T<float>::operator[](pVVar18, 2);
-                    fVar2 = *pfVar19;
-                    pCVar20 = (CoordMapSquare*)shared_ptr<StaticPointLight>::operator->(psVar14);
-                    uVar7 = pCVar20->GetX();
-                    local_80->GetTileHeight(&local_c8, uVar7, ((int)fVar1 >> 7) + uVar21 * 64,
-                                            ((int)fVar2 >> 7) + uVar3 * 64, 1, 0);
-                    pSVar16 = (StaticPointLight*)shared_ptr<StaticPointLight>::operator->(psVar14);
-                    pSVar16->AddTerrainHeight(local_c8._0_4_);
+            psVar12 = (shared_ptr<StaticPointLight>*)pSVar21->field_24.HeapBeginPtr();
+            psVar13 = (shared_ptr<StaticPointLight>*)pSVar21->field_24.end();
+            for (; psVar12 != psVar13; psVar12 = psVar12 + 16) {
+                pSVar14 = (StaticPointLight*)(*psVar12).operator->();
+                cVar4 = pSVar14->GetUseTerrainHeight();
+                pSVar21 = local_48;
+                if (cVar4) {
+                    uVar19 = local_48->field_0;
+                    pVVar15 = (Vector2T<int>*)(*psVar12).operator->();
+                    pVVar16 = (Vector3T<float>*)pVVar15->y();
+                    pfVar17 = (float*)(*pVVar16)[0];
+                    fVar1 = *pfVar17;
+                    uVar3 = pSVar21->field_4;
+                    pVVar15 = (Vector2T<int>*)(*psVar12).operator->();
+                    pVVar16 = (Vector3T<float>*)pVVar15->y();
+                    pfVar17 = (float*)(*pVVar16)[2];
+                    fVar2 = *pfVar17;
+                    pCVar18 = (CoordMapSquare*)(*psVar12).operator->();
+                    iVar6 = pCVar18->GetX();
+                    heightMap.GetTileHeight(*local_c8, iVar6, ((int)fVar1 >> 7) + uVar19 * 64,
+                                            ((int)fVar2 >> 7) + uVar3 * 64, true, 0);
+                    pSVar14 = (StaticPointLight*)(*psVar12).operator->();
+                    pSVar14->AddTerrainHeight(local_c8[0]);
                 }
             }
         }
-        return local_38._4_4_ & 4294967041;
+        return local_34 & 4294967041;
     }
 
-    // 0x1003ddd00, 1376 bytes, placed by class name and debug map
-    // StaticPointLightLoader::LoadMapSquarePointLightList(eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>&, Js5ResourceProvider*, unsigned int, unsigned int)
-    undefined* StaticPointLightLoader::LoadMapSquarePointLightList(vector* param_1, Js5ResourceProvider* param_2,
-                                                                   uint param_3, uint param_4) {
-        byte bVar1;
-        char cVar2;
-        byte bVar3;
-        undefined4 uVar4;
-        undefined* puVar5;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* this_00;
+    // 0x1003ddd00
+    uint8_t* StaticPointLightLoader::LoadMapSquarePointLightList(
+        eastl::vector<shared_ptr<StaticPointLight>, BucketAllocatorEASTL>& staticPointLights,
+        Js5ResourceProvider* js5ResourceProvider, unsigned int arg3, unsigned int arg4) {
+        uint8_t bVar1;
+        uint8_t bVar3;
+        uint32_t uVar4;
         StaticPointLight* pSVar6;
-        PacketT* pPVar7;
-        SwipeState* this_01;
-        StaticPointLight* pSVar8;
-        shared_ptr<StaticPointLight>* this_02;
-        shared_ptr<StaticPointLight>* psVar9;
-        Vector2T<int>* pVVar10;
-        Layout* pLVar11;
-        vector* pvVar12;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* pcVar13;
-        float* pfVar14;
-        undefined8 uVar15;
-        CoordMapSquare* pCVar16;
-        uint uVar17;
-        int iVar18;
-        int iVar19;
-        shared_ptr local_1a0;
-        undefined1 local_190[28];
-        uint local_174;
-        vector* local_170;
-        uint local_168;
-        uint local_164;
+        PacketT<Array<unsigned char> _>* arg1;
+        shared_ptr<StaticPointLight>* this_03;
+        shared_ptr<StaticPointLight>* psVar7;
+        StaticPointLight* staticPointLight;
+        Vector2T<int>* pVVar8;
+        Layout* pLVar9;
+        float* pfVar10;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* pcVar11;
+        Logger* pLVar12;
+        CoordMapSquare* pCVar13;
+        uint64_t extraout_RAX;
+        unsigned int uVar14;
+        int iVar15;
+        int iVar16;
+        shared_ptr<oldscape::RSevenDebugPresetProvider> local_190;
+        uint8_t* local_180;
+        unsigned int local_174;
         float local_160;
         float local_15c;
         LogStream local_158;
         LogStream local_c8;
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_170 = param_1;
-        local_168 = param_4;
-        local_164 = param_3;
-        new (&local_1a0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1);
-        puVar5 = (undefined*)param_2->GetFile(&local_1a0, Js5Archive::JS5_MAPS, param_4 << 7 | param_3, 7,
-                                              (Priority*)Priority::HIGH, true, false, false);
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_1a0;
+        auto puVar5 = js5ResourceProvider->GetFile(local_1a0, *(Js5Archive::JS5_MAPS), arg4 << 7 | arg3, 7,
+                                                   (Priority*)Priority::HIGH, true, false, false);
         if (puVar5 == DataStatus::READY) {
-            this_00 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                          shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                              (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_1a0);
-            bVar1 = this_00->g1();
-            pSVar6 = (StaticPointLight*)(ulong)(uint)bVar1;
-            local_170->reserve((ulong)pSVar6);
+            bVar1 = ((PacketReaderMixin<PacketT<Array<unsigned char>>>*)local_1a0.operator->())->g1();
+            staticPointLights.reserve((unsigned long)(unsigned int)bVar1);
             if (bVar1 != 0) {
-                uVar17 = 0;
-                local_190._16_8_ = puVar5;
+                uVar14 = 0;
+                local_180 = puVar5;
                 do {
-                    MakeSharedPool<StaticPointLight, 64>::MakeShared<>((shared_ptr*)local_190,
-                                                                       (MakeSharedPool<StaticPointLight, 64>*)pSVar6);
-                    pSVar6 = (StaticPointLight*)shared_ptr<StaticPointLight>::operator->(
-                        (shared_ptr<StaticPointLight>*)local_190);
-                    pPVar7 = (PacketT*)shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator*(
-                        (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_1a0);
-                    pSVar6->Initialise(pPVar7);
-                    this_01 =
-                        (SwipeState*)shared_ptr<StaticPointLight>::operator->((shared_ptr<StaticPointLight>*)local_190);
-                    pSVar6 = (StaticPointLight*)(ulong)field_0;
-                    this_01->SetStartPosition(field_0, field_4);
-                    pSVar8 = (StaticPointLight*)shared_ptr<StaticPointLight>::operator->(
-                        (shared_ptr<StaticPointLight>*)local_190);
-                    cVar2 = pSVar8->IsValid();
-                    pvVar12 = local_170;
-                    if (cVar2 == '\0') {
-                        pVVar10 = (Vector2T<int>*)shared_ptr<StaticPointLight>::operator->(
-                            (shared_ptr<StaticPointLight>*)local_190);
-                        pLVar11 = (Layout*)pVVar10->y();
-                        pvVar12 = eastl::string::Layout::SSOBeginPtr(pLVar11, (type*)pSVar6);
-                        local_15c = *(float*)pvVar12 + 64.0;
-                        pVVar10 = (Vector2T<int>*)shared_ptr<StaticPointLight>::operator->(
-                            (shared_ptr<StaticPointLight>*)local_190);
-                        pcVar13 = (compressed_pair_imp<
-                                   std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                   eastl::allocator, 0>*)pVVar10->y();
-                        pfVar14 = (float*)eastl::compressed_pair_imp<
-                            std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>::second(pcVar13);
-                        local_160 = *pfVar14 + 64.0;
-                        uVar15 = logger::default_logger();
-                        new (&local_c8) logger::LogStream((LogStream*)&LOGGER_SCENE);
-                        pCVar16 = (CoordMapSquare*)shared_ptr<StaticPointLight>::operator->(
-                            (shared_ptr<StaticPointLight>*)local_190);
-                        uVar4 = pCVar16->GetX();
-                        pVVar10 = (Vector2T<int>*)shared_ptr<StaticPointLight>::operator->(
-                            (shared_ptr<StaticPointLight>*)local_190);
-                        iVar19 = (int)local_15c;
-                        iVar18 = (int)local_160;
-                        pVVar10 = (Vector2T<int>*)pVVar10->y();
-                        pfVar14 = (float*)pVVar10->y();
-                        pSVar6 = (StaticPointLight*)0;
-                        logger::Logger::Log(
-                            uVar15, 0, &local_c8, 3,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
-                            "loaders/StaticPointLightLoader.cpp",
-                            174,
-                            "Invalid pointlight data (index %d) found at tile %d,%u,%u,%d,%d (height %d) - skipping",
-                            uVar17, uVar4, local_164, local_168, iVar19 >> 7, iVar18 >> 7, (int)*pfVar14);
-                        local_c8.~LogStream();
-                        puVar5 = (undefined*)local_190._16_8_;
+                    MakeSharedPool<StaticPointLight, 64>::MakeShared<>();
+                    pSVar6 = (StaticPointLight*)local_190.operator->();
+                    arg1 = (PacketT<Array<unsigned char> _>*)*local_1a0;
+                    pSVar6->Initialise(*arg1);
+                    ((SwipeState*)local_190.operator->())->SetStartPosition(field_0, field_4);
+                    pSVar6 = (StaticPointLight*)local_190.operator->();
+                    if (pSVar6->IsValid() == '\0') {
+                        pVVar8 = (Vector2T<int>*)local_190.operator->();
+                        pLVar9 = (Layout*)pVVar8->y();
+                        pfVar10 = (float*)pLVar9->SSOBeginPtr();
+                        local_15c = *pfVar10 + 64.0;
+                        pVVar8 = (Vector2T<int>*)local_190.operator->();
+                        pcVar11 =
+                            (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)pVVar8->y();
+                        pfVar10 = (float*)pcVar11->second();
+                        local_160 = *pfVar10 + 64.0;
+                        pLVar12 = logger::default_logger();
+                        local_c8 = logger::LogStream(LOGGER_SCENE);
+                        pCVar13 = (CoordMapSquare*)local_190.operator->();
+                        uVar4 = pCVar13->GetX();
+                        pVVar8 = (Vector2T<int>*)local_190.operator->();
+                        iVar16 = (int)local_15c;
+                        iVar15 = (int)local_160;
+                        pVVar8 = (Vector2T<int>*)pVVar8->y();
+                        pfVar10 = (float*)pVVar8->y();
+                        ((uint8_t)pLVar12)
+                            ->Log(nullptr, (LogLevel)&local_c8, 3, 14419976, 174,
+                                  "Invalid pointlight data (index %d) found at tile %d,%u,%u,%d,%d (height %d) - "
+                                  "skipping",
+                                  uVar14, uVar4, arg3, arg4, iVar16 >> 7, iVar15 >> 7, (int)*pfVar10);
+                        puVar5 = local_180;
                     } else {
-                        local_174 = uVar17;
-                        this_02 = (shared_ptr<StaticPointLight>*)local_170->HeapBeginPtr();
-                        psVar9 = (shared_ptr<StaticPointLight>*)pvVar12->end();
-                        if (this_02 == psVar9) {
+                        local_174 = uVar14;
+                        this_03 = (shared_ptr<StaticPointLight>*)staticPointLights.HeapBeginPtr();
+                        psVar7 = (shared_ptr<StaticPointLight>*)staticPointLights.end();
+                        if (this_03 == psVar7) {
                             local_15c = 0.0;
                         } else {
                             local_15c = 0.0;
                             do {
-                                pSVar8 = (StaticPointLight*)shared_ptr<StaticPointLight>::operator*(this_02);
-                                pSVar6 = (StaticPointLight*)shared_ptr<StaticPointLight>::operator*(
-                                    (shared_ptr<StaticPointLight>*)local_190);
-                                bVar3 = StaticPointLight::operator==(pSVar8, pSVar6);
+                                pSVar6 = (StaticPointLight*)**this_03;
+                                staticPointLight = (StaticPointLight*)*local_190;
+                                bVar3 = *pSVar6 == *staticPointLight;
                                 if (bVar3 != 0) {
-                                    pVVar10 = (Vector2T<int>*)shared_ptr<StaticPointLight>::operator->(
-                                        (shared_ptr<StaticPointLight>*)local_190);
-                                    pLVar11 = (Layout*)pVVar10->y();
-                                    pvVar12 = eastl::string::Layout::SSOBeginPtr(pLVar11, (type*)pSVar6);
-                                    local_15c = *(float*)pvVar12 + 64.0;
-                                    pVVar10 = (Vector2T<int>*)shared_ptr<StaticPointLight>::operator->(
-                                        (shared_ptr<StaticPointLight>*)local_190);
-                                    pcVar13 = (compressed_pair_imp<
-                                               std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>*)pVVar10->y();
-                                    pfVar14 = (float*)eastl::compressed_pair_imp<
-                                        std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                        eastl::allocator, 0>::second(pcVar13);
-                                    local_160 = *pfVar14 + 64.0;
-                                    uVar15 = logger::default_logger();
-                                    new (&local_158) logger::LogStream((LogStream*)&LOGGER_SCENE);
-                                    pCVar16 = (CoordMapSquare*)shared_ptr<StaticPointLight>::operator->(
-                                        (shared_ptr<StaticPointLight>*)local_190);
-                                    uVar4 = pCVar16->GetX();
-                                    pVVar10 = (Vector2T<int>*)shared_ptr<StaticPointLight>::operator->(
-                                        (shared_ptr<StaticPointLight>*)local_190);
-                                    iVar19 = (int)local_15c;
-                                    iVar18 = (int)local_160;
-                                    pVVar10 = (Vector2T<int>*)pVVar10->y();
-                                    pfVar14 = (float*)pVVar10->y();
-                                    pSVar6 = (StaticPointLight*)0;
-                                    logger::Logger::Log(
-                                        uVar15, 0, &local_158, 3,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
-                                        "runetek5/scene/loaders/StaticPointLightLoader.cpp",
-                                        190, "Duplicate light found at tile %d,%u,%u,%d,%d (height %d) - skipping",
-                                        uVar4, local_164, local_168, iVar19 >> 7, iVar18 >> 7, (int)*pfVar14);
-                                    uVar15 = local_158.~LogStream();
-                                    local_15c = (float)CONCAT71((int7)((ulong)uVar15 >> 8), 1);
+                                    pVVar8 = (Vector2T<int>*)local_190.operator->();
+                                    pLVar9 = (Layout*)pVVar8->y();
+                                    pfVar10 = (float*)pLVar9->SSOBeginPtr();
+                                    local_15c = *pfVar10 + 64.0;
+                                    pVVar8 = (Vector2T<int>*)local_190.operator->();
+                                    pcVar11 =
+                                        (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)
+                                            pVVar8->y();
+                                    pfVar10 = (float*)pcVar11->second();
+                                    local_160 = *pfVar10 + 64.0;
+                                    pLVar12 = logger::default_logger();
+                                    local_158 = logger::LogStream(LOGGER_SCENE);
+                                    pCVar13 = (CoordMapSquare*)local_190.operator->();
+                                    uVar4 = pCVar13->GetX();
+                                    pVVar8 = (Vector2T<int>*)local_190.operator->();
+                                    iVar16 = (int)local_15c;
+                                    iVar15 = (int)local_160;
+                                    pVVar8 = (Vector2T<int>*)pVVar8->y();
+                                    pfVar10 = (float*)pVVar8->y();
+                                    ((uint8_t)pLVar12)
+                                        ->Log(nullptr, (LogLevel)&local_158, 3, 14419976, 190,
+                                              "Duplicate light found at tile %d,%u,%u,%d,%d (height %d) - skipping",
+                                              uVar4, arg3, arg4, iVar16 >> 7, iVar15 >> 7, (int)*pfVar10);
+                                    local_15c = (float)(((uint64_t)((int64_t)((unsigned long)extraout_RAX >> 8)) << 8) |
+                                                        (uint8_t)1);
                                 }
-                                this_02 = this_02 + 16;
-                            } while ((bVar3 | this_02 == psVar9) != 1);
+                                this_03 = this_03 + 16;
+                            } while ((bVar3 | this_03 == psVar7) != 1);
                         }
-                        uVar17 = local_174;
-                        puVar5 = (undefined*)local_190._16_8_;
-                        pSVar8 = (StaticPointLight*)local_190;
-                        if (((uint)local_15c & 1) == 0) {
-                            local_170->push_back(pSVar8);
-                            pSVar6 = pSVar8;
+                        uVar14 = local_174;
+                        puVar5 = local_180;
+                        if (((unsigned int)local_15c & 1) == 0) {
+                            staticPointLights.push_back(local_190);
                         }
                     }
-                    local_190->~shared_ptr();
-                    uVar17 = uVar17 + 1;
-                } while (uVar17 != bVar1);
+                    uVar14 = uVar14 + 1;
+                } while (uVar14 != bVar1);
             }
         } else if (puVar5 == DataStatus::MISSING) {
-            local_170->clear();
-        }
-        local_1a0.~shared_ptr();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            staticPointLights.clear();
         }
         return puVar5;
     }
 
-    // 0x1003de5e0, 64 bytes, placed by class name and debug map
-    // StaticPointLightLoader::Destroy()
+    // 0x1003de5e0
     void StaticPointLightLoader::Destroy() {
         field_0 = 0;
         field_4 = 0;
-        shared_ptr<ClientCompositeData>::reset();
-        (&field_24)->clear();
-        (&field_48)->clear();
+        field_8->reset();
+        field_24.clear();
+        field_48.clear();
     }
 
 } // namespace jag::game

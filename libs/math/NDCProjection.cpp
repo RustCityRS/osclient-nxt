@@ -1,57 +1,43 @@
 // libs/math/NDCProjection.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.math
 
 namespace jag::math {
-    // 0x100c60e80, 192 bytes, placed by debug map only (low confidence)
-    // NDCProjectGetNDCProjectionValue(OBB const&, Matrix44T<float> const&)
-    void NDCProjectGetNDCProjectionValue(OBB* param_1, Matrix44T* param_2) {
-        float* pfVar1;
-        undefined1 local_d8[80];
-        Vector4T local_88[16];
-        Vector4T local_78[16];
-        undefined8 local_68;
-        undefined8 uStack_60;
-        undefined8 local_58[2];
-        undefined8 local_48[2];
-        undefined8 local_38;
-        undefined8 uStack_30;
+    // 0x100c60e80
+    void NDCProjectGetNDCProjectionValue(const OBB& obb, const Matrix44T<float>& matrix44) {
+        Matrix44T<float> local_98;
+        Vector4T<float> local_88;
+        Vector4T<float> local_78;
+        uint64_t local_68;
+        uint64_t uStack_60;
+        uint64_t local_58[2];
+        uint64_t local_48[2];
 
-        local_d8->GetTransform();
-        operator*((math*)(local_d8 + 64), (Matrix44T*)local_d8, param_2);
-        local_38 = operator+((Vector4T*)(local_d8 + 64), local_88);
-        local_d8._0_8_ = operator+((Vector4T*)&local_38, local_78);
+        auto local_d8 = obb.GetTransform();
+        &local_98*& local_d8;
+        uint64_t local_38 = local_98 + local_88;
+        local_d8[0] = (ReturnValue)local_38 + local_78;
         local_38 = local_68;
-        uStack_30 = uStack_60;
-        pfVar1 = (float*)local_38.qw();
-        local_58[0] = operator*((Vector4T*)local_d8, 1.0 / *pfVar1);
+        uint64_t uStack_30 = uStack_60;
+        auto pfVar1 = local_38.qw();
+        local_58[0] = &local_d8 * (1.0 / *pfVar1);
         local_48[0] = local_58->GetXYZ();
         local_48->LengthSq();
     }
 
-    // 0x100c60f40, 32 bytes, inline, placed by debug map only (low confidence)
-    // operator*(Matrix44T<float> const&, Matrix44T<float> const&)
-    /* TEMPNAMEPLACEHOLDERVALUE(Matrix44T<float> const&,
-   Matrix44T<float> const&) */
-
-    math* operator*(Matrix44T* param_1, Matrix44T* param_2) {
-        MatrixMultSSE(param_1, param_2);
-        return this;
+    // 0x100c60f40
+    Matrix44T<float>* operator*(const Matrix44T<float>& matrix441, const Matrix44T<float>& matrix442) {
+        internal::MatrixMultSSE(matrix441, matrix442);
+        return matrix441;
     }
 
-    // 0x100c60ff0, 80 bytes, inline, placed by debug map only (low confidence)
-    // Vector4T<float> operator+<float>(Vector4T<float> const&, Vector4T<float> const&)
-    /* Vector4T<float> TEMPNAMEPLACEHOLDERVALUE(Vector4T<float> const&,
-   Vector4T<float> const&) */
+    // 0x100c60ff0
+    Vector4T<float> operator+ <float>(const Vector4T<float>& vector41, const Vector4T<float>& vector42) {
+        uint8_t auVar1[16];
 
-    undefined1[16] operator+(Vector4T * param_1, Vector4T * param_2) {
-        undefined1 auVar1[16];
-        ImVec4 local_18[16];
-
-        ImVec4::ImVec4(local_18, *(float*)param_2 + *(float*)param_1, *(float*)(param_2 + 4) + *(float*)(param_1 + 4),
-                       *(float*)(param_2 + 8) + *(float*)(param_1 + 8),
-                       *(float*)(param_2 + 12) + *(float*)(param_1 + 12));
+        ImVec4 local_18(*(float*)vector42 + *(float*)vector41, *(float*)(vector42 + 4) + *(float*)(vector41 + 4),
+                        *(float*)(vector42 + 8) + *(float*)(vector41 + 8),
+                        *(float*)(vector42 + 12) + *(float*)(vector41 + 12));
         auVar1[0] = local_18[0];
         auVar1[1] = local_18[1];
         auVar1[2] = local_18[2];
@@ -71,17 +57,12 @@ namespace jag::math {
         return auVar1;
     }
 
-    // 0x100c61040, 80 bytes, inline, placed by debug map only (low confidence)
-    // Vector4T<float> operator*<float>(Vector4T<float> const&, float)
-    /* Vector4T<float> TEMPNAMEPLACEHOLDERVALUE(Vector4T<float> const&,
-   float) */
+    // 0x100c61040
+    Vector4T<float> operator* <float>(const Vector4T<float>& vector4, float arg2) {
+        uint8_t auVar1[16];
 
-    undefined1[16] operator*(Vector4T * param_1, float param_2) {
-        undefined1 auVar1[16];
-        ImVec4 local_18[16];
-
-        ImVec4::ImVec4(local_18, *(float*)param_1 * param_2, *(float*)(param_1 + 4) * param_2,
-                       *(float*)(param_1 + 8) * param_2, param_2 * *(float*)(param_1 + 12));
+        ImVec4 local_18(*(float*)vector4 * arg2, *(float*)(vector4 + 4) * arg2, *(float*)(vector4 + 8) * arg2,
+                        arg2 * *(float*)(vector4 + 12));
         auVar1[0] = local_18[0];
         auVar1[1] = local_18[1];
         auVar1[2] = local_18[2];
@@ -101,63 +82,52 @@ namespace jag::math {
         return auVar1;
     }
 
-    // 0x100c610d0, 384 bytes, placed by debug map only (low confidence)
-    // NDCProjectGetSphericalNDCRadius(Sphere const&, Matrix44T<float> const&, Matrix44T<float> const&)
-    void NDCProjectGetSphericalNDCRadius(Sphere* param_1, Matrix44T* param_2, Matrix44T* param_3) {
-        vector* pvVar1;
-        float* pfVar2;
-        float fVar3;
-        undefined8 local_a8;
-        undefined8 uStack_a0;
-        undefined8 local_98;
-        undefined8 uStack_90;
-        undefined8 local_88[2];
-        undefined8 local_78[2];
-        undefined8 local_68[2];
-        undefined8 local_58[3];
-        undefined8 local_40;
-        float local_34;
+    // 0x100c610d0
+    void NDCProjectGetSphericalNDCRadius(const Sphere& sphere, const Matrix44T<float>& matrix441,
+                                         const Matrix44T<float>& matrix442) {
+        float arg1;
+        uint64_t local_a8;
+        uint64_t uStack_a0;
+        uint64_t local_88[2];
+        uint64_t local_78[2];
+        uint64_t local_68[2];
+        uint64_t local_58[3];
 
-        pvVar1 = param_1->SSOBeginPtr(param_2);
-        new (&local_a8) Vector4T<float>(pvVar1, 1.0);
-        local_98 = local_a8;
-        uStack_90 = uStack_a0;
-        local_34 = (float)param_1->GetOutlineRadiusAdjustment();
-        pfVar2 = (float*)local_98.second();
-        *pfVar2 = local_34 + *pfVar2;
-        Vector4T<float>::operator*=((Vector4T<float>*)&local_a8, param_2);
-        Vector4T<float>::operator*=((Vector4T<float>*)&local_98, param_2);
-        local_58[0] = operator-((Vector4T*)&local_98, (Vector4T*)&local_a8);
-        local_40 = local_58->GetXYZ();
+        auto vector3 = sphere.SSOBeginPtr();
+        new (&local_a8) Vector4T(*vector3, 1.0);
+        uint64_t local_98 = local_a8;
+        uint64_t uStack_90 = uStack_a0;
+        float local_34 = (float)sphere.GetOutlineRadiusAdjustment();
+        auto pfVar1 = local_98.second();
+        *pfVar1 = local_34 + *pfVar1;
+        local_a8 *= matrix441;
+        local_98 *= matrix441;
+        local_58[0] = local_98 - local_a8;
+        uint64_t local_40 = local_58->GetXYZ();
         local_34 = (float)local_40.Length();
-        Rect<float>::operator=((Rect<float>*)&local_98, (Rect*)&local_a8);
-        pfVar2 = (float*)local_98.second();
-        *pfVar2 = local_34 + *pfVar2;
-        Vector4T<float>::operator*=((Vector4T<float>*)&local_a8, param_3);
-        Vector4T<float>::operator*=((Vector4T<float>*)&local_98, param_3);
+        local_98 = local_a8;
+        pfVar1 = (float*)local_98.second();
+        *pfVar1 = local_34 + *pfVar1;
+        local_a8 *= matrix442;
+        local_98 *= matrix442;
         local_88[0] = local_98.GetXYZ();
-        pfVar2 = (float*)local_98.qw();
-        local_40 = operator/((Vector3T*)local_88, *pfVar2);
+        pfVar1 = (float*)local_98.qw();
+        local_40 = local_88 / *pfVar1;
         local_68[0] = local_a8.GetXYZ();
-        pfVar2 = (float*)local_98.qw();
-        local_78[0] = operator/((Vector3T*)local_68, *pfVar2);
-        local_58[0] = operator-((Vector3T*)&local_40, (Vector3T*)local_78);
-        fVar3 = (float)local_58->LengthSq();
-        ::abs(fVar3);
+        pfVar1 = (float*)local_98.qw();
+        local_78[0] = local_68 / *pfVar1;
+        local_58[0] = local_40 - *local_78;
+        arg1 = (float)local_58->LengthSq();
+        ::abs(arg1);
     }
 
-    // 0x100c61290, 80 bytes, inline, placed by debug map only (low confidence)
-    // Vector4T<float> operator-<float>(Vector4T<float> const&, Vector4T<float> const&)
-    /* Vector4T<float> TEMPNAMEPLACEHOLDERVALUE(Vector4T<float> const&,
-   Vector4T<float> const&) */
+    // 0x100c61290
+    Vector4T<float> operator- <float>(const Vector4T<float>& vector41, const Vector4T<float>& vector42) {
+        uint8_t auVar1[16];
 
-    undefined1[16] operator-(Vector4T * param_1, Vector4T * param_2) {
-        undefined1 auVar1[16];
-        ImVec4 local_18[16];
-
-        ImVec4::ImVec4(local_18, *(float*)param_1 - *(float*)param_2, *(float*)(param_1 + 4) - *(float*)(param_2 + 4),
-                       *(float*)(param_1 + 8) - *(float*)(param_2 + 8),
-                       *(float*)(param_1 + 12) - *(float*)(param_2 + 12));
+        ImVec4 local_18(*(float*)vector41 - *(float*)vector42, *(float*)(vector41 + 4) - *(float*)(vector42 + 4),
+                        *(float*)(vector41 + 8) - *(float*)(vector42 + 8),
+                        *(float*)(vector41 + 12) - *(float*)(vector42 + 12));
         auVar1[0] = local_18[0];
         auVar1[1] = local_18[1];
         auVar1[2] = local_18[2];
@@ -177,152 +147,112 @@ namespace jag::math {
         return auVar1;
     }
 
-    // 0x100c612f0, 64 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float> operator-<float>(Vector3T<float> const&, Vector3T<float> const&)
-    /* Vector3T<float> TEMPNAMEPLACEHOLDERVALUE(Vector3T<float> const&,
-   Vector3T<float> const&) */
+    // 0x100c612f0
+    Vector3T<float> operator- <float>(const Vector3T<float>& vector31, const Vector3T<float>& vector32) {
+        uint64_t uVar1;
 
-    undefined8 operator-(Vector3T* param_1, Vector3T* param_2) {
-        undefined8 uVar1;
-        ColourHSL local_18;
-
-        new (&local_18) ColourHSL(*(float*)param_1 - *(float*)param_2, *(float*)(param_1 + 4) - *(float*)(param_2 + 4),
-                                  *(float*)(param_1 + 8) - *(float*)(param_2 + 8));
+        ColourHSL local_18(*(float*)vector31 - *(float*)vector32, *(float*)(vector31 + 4) - *(float*)(vector32 + 4),
+                           *(float*)(vector31 + 8) - *(float*)(vector32 + 8));
         uVar1._0_4_ = local_18.field_0;
         uVar1._4_4_ = local_18.field_4;
         return uVar1;
     }
 
-    // 0x100c61330, 80 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float> operator/<float>(Vector3T<float> const&, float)
-    /* Vector3T<float> TEMPNAMEPLACEHOLDERVALUE(Vector3T<float> const&,
-   float) */
+    // 0x100c61330
+    Vector3T<float> operator/ <float>(const Vector3T<float>& vector3, float arg2) {
+        uint64_t uVar1;
 
-    undefined8 operator/(Vector3T* param_1, float param_2) {
-        undefined8 uVar1;
-        float fVar2;
-        ColourHSL local_18;
-
-        fVar2 = 1.0 / param_2;
-        new (&local_18)
-            ColourHSL(*(float*)param_1 * fVar2, *(float*)(param_1 + 4) * fVar2, fVar2 * *(float*)(param_1 + 8));
+        float fVar2 = 1.0 / arg2;
+        ColourHSL local_18(*(float*)vector3 * fVar2, *(float*)(vector3 + 4) * fVar2, fVar2 * *(float*)(vector3 + 8));
         uVar1._0_4_ = local_18.field_0;
         uVar1._4_4_ = local_18.field_4;
         return uVar1;
     }
 
-    // 0x100c61390, 320 bytes, placed by debug map only (low confidence)
-    // NDCProjectGetSphericalNDCRadius2(Sphere const&, Matrix44T<float> const&)
-    float NDCProjectGetSphericalNDCRadius2(Sphere* param_1, Matrix44T* param_2) {
-        vector* pvVar1;
-        Vector4T<float>* this;
-        Vector4T<float>* this_00;
-        float fVar3;
-        undefined4 uVar4;
-        array<Vector3T<float>, 2ul> local_68[24];
-        ulong local_50;
-        float local_44;
-        undefined8 local_40[2];
+    // 0x100c61390
+    float NDCProjectGetSphericalNDCRadius2(const Sphere& sphere, const Matrix44T<float>& matrix44) {
+        uint64_t local_40[2];
 
-        std::array<Vector3T<float>, 2ul>::array(local_68);
-        pvVar1 = param_1->SSOBeginPtr(param_2);
-        this = (Vector4T<float>*)std::array<Vector3T<float>, 2ul>::operator[](local_68, 0);
-        Vector4T<float>::SetXYZ(this, (Vector3T*)pvVar1);
-        pvVar1 = param_1->SSOBeginPtr(pvVar1);
-        fVar3 = (float)param_1->GetOutlineRadiusAdjustment();
-        local_50 = operator*((Vector3T*)PTR_UP_100ee66d0, fVar3);
-        local_40[0] = operator+((Vector3T*)pvVar1, (Vector3T*)&local_50);
-        this_00 = (Vector4T<float>*)std::array<Vector3T<float>, 2ul>::operator[](local_68, 1);
-        Vector4T<float>::SetXYZ(this_00, (Vector3T*)local_40);
-        local_40[0] = WorldPosToClipPos((Vector3T*)this, param_2);
-        Vector4T<float>::SetXYZ(this, (Vector3T*)local_40);
-        local_40[0] = WorldPosToClipPos((Vector3T*)this_00, param_2);
-        Vector4T<float>::SetXYZ(this_00, (Vector3T*)local_40);
-        local_40[0] = operator-((Vector3T*)this, (Vector3T*)this_00);
-        uVar4 = local_40->Length();
-        local_40[0] = CONCAT44(local_40[0]._4_4_, uVar4);
+        array<Vector3T<float>, 2ul> local_68;
+        auto pVVar1 = sphere.SSOBeginPtr();
+        Vector4T<float>* vector4T = &local_68[0];
+        vector4T->SetXYZ(*pVVar1);
+        pVVar1 = (Vector3T<float>*)sphere.SSOBeginPtr();
+        float fVar2 = (float)sphere.GetOutlineRadiusAdjustment();
+        unsigned long local_50 = fVar2 * PTR_UP_100ee66d0;
+        local_40[0] = *pVVar1 + local_50;
+        Vector4T<float>* this_00 = &local_68[1];
+        this_00->SetXYZ(*local_40);
+        local_40[0] = WorldPosToClipPos((Vector3T<float>*)vector4T, matrix44);
+        vector4T->SetXYZ(*local_40);
+        local_40[0] = WorldPosToClipPos((Vector3T<float>*)this_00, matrix44);
+        this_00->SetXYZ(*local_40);
+        local_40[0] = *vector4T - *this_00;
+        uint32_t uVar3 = local_40->Length();
+        local_40[0] = (((uint64_t)local_40[0]._4_4_ << 32) | (uint32_t)uVar3);
         local_50 = local_50 & 18446744069414584320;
-        local_44 = 2.0;
-        fVar3 = Clamp<float>((float*)local_40, (float*)&local_50, &local_44);
-        return fVar3 * 0.5;
+        float local_44 = 2.0;
+        fVar2 = Clamp<float>((float*)local_40, (float*)&local_50, &local_44);
+        return fVar2 * 0.5;
     }
 
-    // 0x100c614f0, 64 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float> operator+<float>(Vector3T<float> const&, Vector3T<float> const&)
-    /* Vector3T<float> TEMPNAMEPLACEHOLDERVALUE(Vector3T<float> const&,
-   Vector3T<float> const&) */
+    // 0x100c614f0
+    Vector3T<float> operator+ <float>(const Vector3T<float>& vector31, const Vector3T<float>& vector32) {
+        uint64_t uVar1;
 
-    undefined8 operator+(Vector3T* param_1, Vector3T* param_2) {
-        undefined8 uVar1;
-        ColourHSL local_18;
-
-        new (&local_18) ColourHSL(*(float*)param_2 + *(float*)param_1, *(float*)(param_2 + 4) + *(float*)(param_1 + 4),
-                                  *(float*)(param_2 + 8) + *(float*)(param_1 + 8));
+        ColourHSL local_18(*(float*)vector32 + *(float*)vector31, *(float*)(vector32 + 4) + *(float*)(vector31 + 4),
+                           *(float*)(vector32 + 8) + *(float*)(vector31 + 8));
         uVar1._0_4_ = local_18.field_0;
         uVar1._4_4_ = local_18.field_4;
         return uVar1;
     }
 
-    // 0x100c61530, 64 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float> operator*<float>(float, Vector3T<float> const&)
-    /* Vector3T<float> TEMPNAMEPLACEHOLDERVALUE(Vector3T<float> const&,
-   float) */
+    // 0x100c61530
+    Vector3T<float> operator* <float>(float arg1, const Vector3T<float>& vector3) {
+        uint64_t uVar1;
 
-    undefined8 operator*(Vector3T* param_1, float param_2) {
-        undefined8 uVar1;
-        ColourHSL local_18;
-
-        new (&local_18)
-            ColourHSL(*(float*)param_1 * param_2, *(float*)(param_1 + 4) * param_2, param_2 * *(float*)(param_1 + 8));
+        ColourHSL local_18(*(float*)vector3 * arg1, *(float*)(vector3 + 4) * arg1, arg1 * *(float*)(vector3 + 8));
         uVar1._0_4_ = local_18.field_0;
         uVar1._4_4_ = local_18.field_4;
         return uVar1;
     }
 
-    // 0x100c61570, 256 bytes, inline, placed by debug map only (low confidence)
-    // WorldPosToClipPos(Vector3T<float> const&, Matrix44T<float> const&)
-    undefined8 WorldPosToClipPos(Vector3T* param_1, Matrix44T* param_2) {
-        vector* pvVar1;
-        float* pfVar2;
-        undefined8 uVar3;
-        float fVar4;
-        ImVec4 local_48[24];
-        undefined1 local_30[16];
-        float local_20;
-        float local_1c;
+    // 0x100c61570
+    void WorldPosToClipPos(const Vector3T<float>& vector3, const Matrix44T<float>& matrix44) {
+        uint64_t uVar2;
+        uint8_t local_30[16];
 
-        pvVar1 = param_1->SSOBeginPtr(param_2);
-        local_30._12_4_ = *(undefined4*)pvVar1;
-        pfVar2 = (float*)param_1->y();
-        local_20 = *pfVar2;
-        pfVar2 = (float*)param_1->second();
-        fVar4 = 1.0;
-        if (*pfVar2 != 0.0) {
-            pfVar2 = (float*)param_1->second();
-            fVar4 = *pfVar2;
+        auto pfVar1 = vector3.SSOBeginPtr();
+        local_30._12_4_ = *pfVar1;
+        pfVar1 = (float*)vector3.y();
+        float local_20 = *pfVar1;
+        pfVar1 = (float*)vector3.second();
+        float arg3 = 1.0;
+        if (*pfVar1 != 0.0) {
+            pfVar1 = (float*)vector3.second();
+            arg3 = *pfVar1;
         }
-        local_1c = 1.0;
-        ImVec4::ImVec4(local_48, (float)local_30._12_4_, local_20, fVar4, 1.0);
-        Vector4T<float>::operator*=((Vector4T<float>*)local_48, param_2);
-        pfVar2 = (float*)local_48->qw();
-        local_1c = local_1c / *pfVar2;
-        pvVar1 = local_48->SSOBeginPtr(param_2);
-        local_30._12_4_ = *(float*)pvVar1 * local_1c;
-        pfVar2 = (float*)local_48->y();
-        local_20 = *pfVar2 * local_1c;
-        pfVar2 = (float*)local_48->second();
-        new (local_30) ColourHSL((float)local_30._12_4_, local_20, local_1c * *pfVar2);
-        uVar3._0_4_ = (float)local_30._0_4_;
-        uVar3._4_4_ = (float)local_30._4_4_;
-        return uVar3;
+        float local_1c = 1.0;
+        ImVec4 local_48((float)local_30._12_4_, local_20, arg3, 1.0);
+        local_48 *= matrix44;
+        pfVar1 = (float*)local_48.qw();
+        local_1c = local_1c / *pfVar1;
+        pfVar1 = (float*)local_48.SSOBeginPtr();
+        local_30._12_4_ = *pfVar1 * local_1c;
+        pfVar1 = (float*)local_48.y();
+        local_20 = *pfVar1 * local_1c;
+        pfVar1 = (float*)local_48.second();
+        new (local_30) ColourHSL((float)local_30._12_4_, local_20, local_1c * *pfVar1);
+        uVar2._0_4_ = (float)local_30._0_4_;
+        uVar2._4_4_ = (float)local_30._4_4_;
+        return uVar2;
     }
 
 } // namespace jag::math
 
-// 0x100c61380, 16 bytes, placed by debug map only (low confidence)
-// abs(float)
-ulong abs(float param_1) {
-    undefined4 in_XMM0_Db;
+// 0x100c61380
+unsigned long abs(float arg1) {
+    uint32_t in_XMM0_Db;
 
-    return CONCAT44(in_XMM0_Db, param_1) & 9223372034707292159;
+    return (((uint64_t)in_XMM0_Db << 32) | (uint32_t)arg1) & 9223372034707292159;
 }

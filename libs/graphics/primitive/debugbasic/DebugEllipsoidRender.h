@@ -1,6 +1,5 @@
 // libs/graphics/primitive/debugbasic/DebugEllipsoidRender.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics.primitive.debugbasic
@@ -8,375 +7,323 @@
 namespace jag {
     class DebugEllipsoidRender {
     public:
-        DebugEllipsoidRender(int);
-        CreateRenderingResources();
+        DebugEllipsoidRender(int arg1);
+        uint64_t CreateRenderingResources();
         void DestroyRenderingResources();
-        void Render(render::RenderContext&, render::DrawCallState const&, ViewTransforms const&,
-                    eastl::vector<eastl::pair<DebugEllipsoid<DebugDataBasic> const*, float>, eastl::allocator> const&,
-                    bool);
+        void Render(render::RenderContext& renderContext, const render::DrawCallState& drawCallState,
+                    const ViewTransforms& viewTransforms,
+                    eastl::vector<eastl::pair<DebugEllipsoid<DebugDataBasic> const*, float>> const& pairs, bool arg5);
         void OnEndFrame();
         ~DebugEllipsoidRender();
 
-        // data members, from how the methods use this: 708 bytes
-        char _unknown_0[8];
-        ulong field_8;            // offset 8
-        PrimVertPosCol* field_16; // offset 16
-        char _unknown_24[288];
-        InputAssemblerState field_312; // offset 312
-        InputAssemblerState field_504; // offset 504
-        uint field_696;                // offset 696
-        uint field_700;                // offset 700
-        char _unknown_704[4];
+    private:
+        uint8_t _unknown_0[8];
+        unsigned long field_8;
+        PrimVertPosCol* field_16;
+        uint8_t _unknown_24[288];
+        InputAssemblerState field_312;
+        InputAssemblerState field_504;
+        unsigned int field_696;
+        unsigned int field_700;
+        uint8_t _unknown_704[4];
     };
 
-    // 0x1009c1ea0, 400 bytes, base-object constructor, placed by class name
-    // DebugEllipsoidRender::DebugEllipsoidRender(int)
-    void DebugEllipsoidRender::DebugEllipsoidRender(int param_1) {
-        uint* puVar1;
-        uint* puVar2;
-        uint uVar3;
-        Vector3T* pVVar4;
-
-        new (this) Array<PrimVertPosCol, eastl::allocator>();
-        new (&field_24) Array<PrimVertPosCol, eastl::allocator>();
-        new (&field_48) render::DynamicBuffer<render::VertexBuffer>();
-        new (&field_136) render::IndexBuffer();
-        new (&field_224) render::IndexBuffer();
+    // 0x1009c1ea0
+    DebugEllipsoidRender::DebugEllipsoidRender(int arg1) : Array<PrimVertPosCol>() {
         new (field_312) render::InputAssemblerState();
         new (field_504) render::InputAssemblerState();
-        puVar1 = &field_696;
+        unsigned int* arg1_00 = &field_696;
         field_696 = 30;
         field_700 = 30;
-        puVar2 = &field_700;
-        graphicutils::GetSphereHorzVertSegCount(puVar1, puVar2, 30);
-        uVar3 = graphicutils::GetSphereVertexCount(*puVar1, *puVar2);
-        (&field_24, (ulong)(param_1 * uVar3), 0)->set_max_size();
-        set_max_size((ulong)uVar3, 0);
-        pVVar4 = (Vector3T*)Array<PrimVertPosCol, eastl::allocator>::operator[](
-            (Array<PrimVertPosCol, eastl::allocator>*)this, 0);
-        graphicutils::CreateSphereVertices(pVVar4, (Vector3T*)0, (Vector2T*)0, 28, *puVar1, *puVar2);
-        CreateRenderingResources(this);
+        unsigned int* arg2 = &field_700;
+        graphicutils::GetSphereHorzVertSegCount(arg1_00, arg2, 30);
+        unsigned int uVar1 = graphicutils::GetSphereVertexCount(*arg1_00, *arg2);
+        field_24.set_max_size((unsigned long)(arg1 * uVar1), 0);
+        set_max_size((unsigned long)uVar1, 0);
+        graphicutils::CreateSphereVertices((Vector3T<float>*)(*this)[0], nullptr, nullptr, 28, *arg1_00, *arg2);
+        CreateRenderingResources();
     }
 
-    // 0x1009c2030, 576 bytes, placed by class name
-    // DebugEllipsoidRender::CreateRenderingResources()
-    undefined8 DebugEllipsoidRender::CreateRenderingResources() {
-        byte bVar1;
-        uint uVar2;
-        ulong uVar3;
-        uint* puVar4;
-        undefined8 uVar5;
-        undefined1* puVar6;
-        ulong uVar7;
-        int iVar8;
-        ulong uVar9;
-        ulong uVar10;
-        Array<unsigned int, eastl::allocator> local_58[24];
-        int local_40;
-        uint local_3c;
-        int local_38;
-        byte local_31;
+    // 0x1009c2030
+    uint64_t DebugEllipsoidRender::CreateRenderingResources() {
+        unsigned int* puVar4;
+        unsigned long uVar9;
+        unsigned long uVar10;
 
-        uVar2 = graphicutils::GetSphereVertexCount(field_696, field_700);
-        uVar3 = (&field_24)->end();
-        uVar7 = 0;
+        unsigned int uVar2 = graphicutils::GetSphereVertexCount(field_696, field_700);
+        unsigned long uVar3 = field_24.end();
+        unsigned long uVar7 = 0;
         uVar3 = uVar3 / uVar2;
-        local_3c = uVar2;
-        local_38 = graphicutils::GetSphereTriListIndexCount(field_696, field_700);
-        iVar8 = (int)uVar3;
-        Array<unsigned int, eastl::allocator>::Array(local_58, (ulong)(uint)(local_38 * iVar8));
+        unsigned int local_3c = uVar2;
+        int local_38 = graphicutils::GetSphereTriListIndexCount(field_696, field_700);
+        int iVar8 = (int)uVar3;
+        Array<unsigned int> local_58((unsigned long)(unsigned int)(local_38 * iVar8));
         if (0 < iVar8) {
             uVar2 = 0;
             uVar9 = 0;
             do {
-                puVar4 = (uint*)Array<unsigned int, eastl::allocator>::operator[](local_58, uVar7);
+                puVar4 = &local_58[uVar7];
                 graphicutils::CreateSphereTriListIndices<unsigned int>(puVar4, uVar2, field_696, field_700, false);
                 uVar9 = uVar9 + 1;
                 uVar2 = uVar2 + local_3c;
-                uVar7 = (ulong)(uint)((int)uVar7 + local_38);
+                uVar7 = (unsigned long)(unsigned int)((int)uVar7 + local_38);
             } while (uVar9 != (uVar3 & 4294967295));
         }
-        local_40 = iVar8 * 4;
-        uVar7 = (ulong)(uint)(local_38 * local_40);
-        uVar5 = local_58->data();
-        local_31 = (&field_136, uVar7, 0, uVar5, 5125)->Create();
-        local_58->~Array();
+        int local_40 = iVar8 * 4;
+        uVar2 = local_38 * local_40;
+        uVar7 = (unsigned long)uVar2;
+        auto pvVar5 = local_58.data();
+        uint8_t local_31 = field_136.Create(uVar2, 0, pvVar5, 5125);
         local_38 = graphicutils::GetSphereLineListIndexCount(field_696, field_700);
-        Array<unsigned int, eastl::allocator>::Array(local_58, (ulong)(uint)(local_38 * iVar8));
+        local_58 = Array<unsigned int>((unsigned long)(unsigned int)(local_38 * iVar8));
         if (0 < iVar8) {
             uVar9 = 0;
             uVar7 = 0;
             uVar10 = 0;
             do {
-                puVar4 = (uint*)Array<unsigned int, eastl::allocator>::operator[](local_58, uVar9);
-                graphicutils::CreateSphereLineListIndices<unsigned int>(puVar4, (uint)uVar7, field_696, field_700);
+                puVar4 = &local_58[uVar9];
+                graphicutils::CreateSphereLineListIndices<unsigned int>(puVar4, (unsigned int)uVar7, field_696,
+                                                                        field_700);
                 uVar10 = uVar10 + 1;
-                uVar7 = (ulong)((uint)uVar7 + local_3c);
-                uVar9 = (ulong)(uint)((int)uVar9 + local_38);
+                uVar7 = (unsigned long)((unsigned int)uVar7 + local_3c);
+                uVar9 = (unsigned long)(unsigned int)((int)uVar9 + local_38);
             } while (uVar10 != (uVar3 & 4294967295));
         }
-        iVar8 = local_40 * local_38;
-        uVar5 = local_58->data();
-        bVar1 = (&field_224, iVar8, 0, uVar5, 5125)->Create();
+        uVar2 = local_40 * local_38;
+        pvVar5 = (void*)local_58.data();
+        uint8_t bVar1 = field_224.Create(uVar2, 0, pvVar5, 5125);
         bVar1 = local_31 & bVar1;
-        local_58->~Array();
-        puVar6 = field_312;
-        new (puVar6) std::__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>(4);
-        render::InputAssemblerState::SetIndexBuffer((IndexBuffer*)puVar6, (uint)&field_136);
+        uint8_t* puVar6 = field_312;
+        new (puVar6) std::__cxx_atomic_base_impl(4);
+        render::InputAssemblerState::SetIndexBuffer(puVar6, (unsigned int)&field_136);
         puVar6->SetFlags(1);
         puVar6 = field_504;
-        new (puVar6) std::__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>(1);
-        render::InputAssemblerState::SetIndexBuffer((IndexBuffer*)puVar6, (uint)&field_224);
+        new (puVar6) std::__cxx_atomic_base_impl(1);
+        render::InputAssemblerState::SetIndexBuffer(puVar6, (unsigned int)&field_224);
         puVar6->SetFlags(1);
-        return CONCAT71((int7)(uVar7 >> 8), bVar1);
+        return bVar1;
     }
 
-    // 0x1009c2270, 16 bytes, complete-object constructor, placed by class name
-    // DebugEllipsoidRender::DebugEllipsoidRender(int): jumps straight to the base-object constructor
-
-    // 0x1009c2480, 80 bytes, placed by class name
-    // DebugEllipsoidRender::DestroyRenderingResources()
+    // 0x1009c2480
     void DebugEllipsoidRender::DestroyRenderingResources() {
         field_312->Destroy();
         field_504->Destroy();
-        (&field_136)->Destroy();
-        (&field_224)->Destroy();
-        (&field_48)->Destroy();
+        field_136.Destroy();
+        field_224.Destroy();
+        field_48.Destroy();
     }
 
-    // 0x1009c24d0, 1120 bytes, placed by class name
-    // DebugEllipsoidRender::Render(render::RenderContext&, render::DrawCallState const&, ViewTransforms const&, eastl::vector<eastl::pair<DebugEllipsoid<DebugDataBasic> const*, float>, eastl::allocator> const&, bool)
-    void DebugEllipsoidRender::Render(RenderContext* param_1, DrawCallState* param_2, ViewTransforms* param_3,
-                                      vector* param_4, bool param_5) {
-        undefined1* puVar1;
+    // 0x1009c24d0
+    void
+    DebugEllipsoidRender::Render(render::RenderContext& renderContext, const render::DrawCallState& drawCallState,
+                                 const ViewTransforms& viewTransforms,
+                                 eastl::vector<eastl::pair<DebugEllipsoid<DebugDataBasic> const*, float>> const& pairs,
+                                 bool arg5) {
+        uint8_t* puVar1;
         Layout* this_00;
-        char cVar2;
-        uint uVar3;
-        int iVar4;
-        undefined4 uVar5;
-        undefined8* puVar6;
-        vector* pvVar7;
-        float* pfVar8;
-        Vector3T* pVVar9;
-        Vector4T<float>* this_02;
-        long lVar10;
-        void* pvVar11;
-        PrimitiveShaderFamily* pPVar12;
-        ShaderProgram* this_03;
-        RenderPipelineState* this_04;
-        Matrix44T* pMVar13;
-        VertexDeclaration* pVVar14;
-        VertexBuffer* pVVar15;
-        CoordMapSquare* this_05;
-        int iVar16;
-        math* this_06;
-        math* pmVar17;
-        undefined3 in_register_00000089;
-        ulong uVar18;
-        undefined8 uVar19;
-        float fVar20;
-        undefined4 uVar21;
-        undefined8 local_118;
+        DebugEllipsoidRender* pDVar2;
+        unsigned int uVar4;
+        int iVar5;
+        PrimitiveType primitiveType;
+        uint64_t* puVar6;
+        float* pfVar7;
+        Vector3T<float>* pVVar8;
+        long lVar9;
+        void* arg3;
+        ShaderProgram* this_04;
+        Matrix44T<float>* matrix44;
+        VertexDeclaration* pVVar10;
+        VertexBuffer* pVVar11;
+        int iVar12;
+        unsigned long arg1;
+        uint32_t in_register_00000089;
+        unsigned long uVar13;
+        float fVar14;
+        Rect<float> local_118;
         float fStack_110;
-        undefined4 uStack_10c;
-        Matrix44T local_108;
-        undefined8* local_c8;
-        undefined8* local_c0;
-        undefined1 local_98[92];
+        uint32_t uStack_10c;
+        DrawCallState local_108;
+        uint64_t* local_c8;
+        uint64_t* local_c0;
+        Float4 local_98;
+        long local_70;
+        unsigned long local_68;
+        DebugEllipsoidRender* local_60;
+        unsigned long local_58;
+        Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>* local_50;
+        unsigned int local_44;
+        float local_40;
         float local_3c;
-        undefined4 local_38;
+        uint32_t local_38;
         int local_34;
 
-        cVar2 = param_4->empty();
-        if (cVar2 == '\0') {
-            pmVar17 = (math*)(ulong)field_700;
-            local_38 = CONCAT31(in_register_00000089, param_5);
-            uVar3 = graphicutils::GetSphereVertexCount(field_696, field_700);
-            uVar18 = (ulong)uVar3;
-            puVar6 = (undefined8*)param_4->HeapBeginPtr();
-            local_c0 = (undefined8*)param_4->end();
+        if (pairs.empty() == '\0') {
+            local_38 = (((uint32_t)in_register_00000089 << 8) | (uint8_t)arg5);
+            uVar4 = graphicutils::GetSphereVertexCount(field_696, field_700);
+            uVar13 = (unsigned long)uVar4;
+            puVar6 = (uint64_t*)pairs.HeapBeginPtr();
+            local_c0 = (uint64_t*)pairs.end();
             puVar1 = &field_24;
-            local_98._56_8_ = this;
-            local_98._64_8_ = uVar18;
-            local_98._72_8_ = puVar1;
+            local_60 = this;
+            local_58 = uVar13;
+            local_50 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)puVar1;
             if (puVar6 == local_c0) {
                 local_34 = 0;
             } else {
-                lVar10 = 0;
+                lVar9 = 0;
                 local_34 = 0;
-                local_98._48_8_ = uVar18;
+                local_68 = uVar13;
                 do {
-                    this_06 = (math*)local_98;
-                    pVVar9 = (Vector3T*)*puVar6;
-                    local_98._84_4_ = *(undefined4*)(pVVar9 + 24);
-                    this_00 = (Layout*)(pVVar9 + 12);
+                    pVVar8 = (Vector3T<float>*)*puVar6;
+                    local_44 = *(unsigned int*)(pVVar8 + 24);
+                    this_00 = (Layout*)(pVVar8 + 12);
                     local_c8 = puVar6;
-                    local_98._40_8_ = lVar10;
-                    pvVar7 = eastl::string::Layout::SSOBeginPtr(this_00, (type*)pmVar17);
-                    local_98._88_4_ = *(undefined4*)pvVar7;
-                    pfVar8 = (float*)this_00->y();
-                    local_3c = *pfVar8;
-                    pfVar8 = (float*)this_00->second();
-                    uVar21 = 0;
-                    fVar20 = local_3c;
-                    math::Matrix33Scaling<float>(this_06, (float)local_98._88_4_, local_3c, *pfVar8);
-                    new (&local_108) math::Matrix44T<float>(this_06, pVVar9);
-                    if (0 < (int)local_98._64_4_) {
-                        uVar18 = 0;
+                    local_70 = lVar9;
+                    pfVar7 = (float*)this_00->SSOBeginPtr();
+                    local_40 = *pfVar7;
+                    pfVar7 = (float*)this_00->y();
+                    local_3c = *pfVar7;
+                    pfVar7 = (float*)this_00->second();
+                    fVar14 = local_3c;
+                    math::Matrix33Scaling<float>(local_40, local_3c, *pfVar7);
+                    local_108 = math::Matrix44T<float>(local_98, *pVVar8);
+                    if (0 < (int)local_58) {
+                        uVar13 = 0;
                         do {
-                            pVVar9 = (Vector3T*)Array<PrimVertPosCol, eastl::allocator>::operator[](
-                                (Array<PrimVertPosCol, eastl::allocator>*)local_98._56_8_, uVar18);
-                            local_98._0_8_ = math::operator*(pVVar9, &local_108);
-                            this_06 = (math*)(long)(local_98._40_4_ + (int)uVar18);
-                            local_98._8_4_ = fVar20;
-                            this_02 = (Vector4T<float>*)Array<PrimVertPosCol, eastl::allocator>::operator[](
-                                (Array<PrimVertPosCol, eastl::allocator>*)puVar1, (ulong)this_06);
-                            math::Vector4T<float>::SetXYZ(this_02, (Vector3T*)local_98);
-                            uVar19 = math::Colour4FromA8R8G8B8(local_98._84_4_);
-                            fStack_110 = fVar20;
-                            uStack_10c = uVar21;
-                            local_118 = uVar19;
-                            new (local_98) math::Float4((Vector4T*)&local_118);
-                            lVar10 = Array<PrimVertPosCol, eastl::allocator>::operator[](
-                                (Array<PrimVertPosCol, eastl::allocator>*)puVar1, (ulong)this_06);
-                            *(undefined8*)(lVar10 + 12) = local_98._0_8_;
-                            *(ulong*)(lVar10 + 20) = CONCAT44(local_98._12_4_, local_98._8_4_);
-                            uVar18 = uVar18 + 1;
-                        } while (local_98._48_8_ != uVar18);
+                            pVVar8 = (Vector3T<float>*)(*local_60)[uVar13];
+                            local_98[0]._0_8_ = *pVVar8 * local_108;
+                            arg1 = (unsigned long)((int)local_70 + (int)uVar13);
+                            local_98[0].field_8 = fVar14;
+                            ((Vector4T<float>*)(*puVar1)[arg1])->SetXYZ(local_98);
+                            math::Colour4FromA8R8G8B8(local_44);
+                            fStack_110 = fVar14;
+                            uStack_10c = 0;
+                            local_98 = math::Float4(local_118);
+                            lVar9 = (*puVar1)[arg1];
+                            *(uint64_t*)(lVar9 + 12) = local_98[0]._0_8_;
+                            *(unsigned long*)(lVar9 + 20) =
+                                (((uint64_t)local_98[0].field_12 << 32) | (uint32_t)local_98[0].field_8);
+                            uVar13 = uVar13 + 1;
+                        } while (local_68 != uVar13);
                     }
                     local_34 = local_34 + 1;
                     puVar6 = local_c8 + 2;
-                    lVar10 = local_98._40_8_ + local_98._48_8_;
-                    pmVar17 = this_06;
+                    lVar9 = local_70 + local_68;
                 } while (puVar6 != local_c0);
             }
-            uVar19 = local_98._56_8_;
-            puVar1 = (undefined1*)(local_98._56_8_ + 48);
-            iVar16 = local_98._64_4_ * local_34;
-            pvVar11 = (void*)local_98._72_8_->data();
-            puVar1->Update(0, iVar16 * 28, pvVar11);
-            pMVar13 = &local_108;
-            new (pMVar13) render::DrawCallState(param_2);
-            pPVar12 = (PrimitiveShaderFamily*)pMVar13->Instance();
-            this_03 = (ShaderProgram*)pPVar12->GetShaderProgram(1);
-            this_04 = (RenderPipelineState*)local_108.GetRenderPipelineState();
-            this_04->SetShaderProgram(this_03);
-            new (local_98) HashedString("uWorldMat");
-            this_03->SetShaderConstMatrix4(local_98, 1, PTR_IDENTITY_100ee6730, 1);
-            new (local_98) HashedString("uViewProjMat");
-            pMVar13 = (Matrix44T*)param_3->GetImmediateThreadPool();
-            this_03->SetShaderConstMatrix4(local_98, 1, pMVar13, 1);
+            pDVar2 = local_60;
+            puVar1 = &local_60->field_48;
+            iVar12 = (int)local_58 * local_34;
+            arg3 = (void*)local_50->data();
+            puVar1->Update(0, iVar12 * 28, arg3);
+            local_108 = render::DrawCallState(drawCallState);
+            this_04 = ((PrimitiveShaderFamily*)local_108.Instance())->GetShaderProgram(1);
+            ((RenderPipelineState*)local_108.GetRenderPipelineState())->SetShaderProgram(this_04);
+            local_98 = HashedString("uWorldMat");
+            this_04->SetShaderConstMatrix4(&local_98, 1, PTR_IDENTITY_100ee6730, 1);
+            local_98 = HashedString("uViewProjMat");
+            matrix44 = (Matrix44T<float>*)viewTransforms.GetImmediateThreadPool();
+            this_04->SetShaderConstMatrix4(&local_98, 1, matrix44, 1);
             if ((char)local_38 == '\0') {
-                pVVar14 = (VertexDeclaration*)this_03->second();
-                pVVar15 = (VertexBuffer*)puVar1->CurrentBuffer();
-                ((uVar19 + 312))->SetVertexStreamData(pVVar14, pVVar15);
-                local_108.SetInputAssemblerState((InputAssemblerState*)(uVar19 + 312));
-                iVar16 = graphicutils::GetSphereTriListIndexCount(*(uint*)(uVar19 + 696), *(uint*)(uVar19 + 700));
-                iVar16 = iVar16 * local_34;
+                pVVar10 = (VertexDeclaration*)this_04->second();
+                pVVar11 = (VertexBuffer*)puVar1->CurrentBuffer();
+                pDVar2->field_312->SetVertexStreamData(pVVar10, pVVar11);
+                local_108.SetInputAssemblerState(pDVar2->field_312);
+                iVar12 = graphicutils::GetSphereTriListIndexCount(pDVar2->field_696, pDVar2->field_700);
+                iVar12 = iVar12 * local_34;
             } else {
-                pVVar14 = (VertexDeclaration*)this_03->second();
-                pVVar15 = (VertexBuffer*)puVar1->CurrentBuffer();
-                ((uVar19 + 504))->SetVertexStreamData(pVVar14, pVVar15);
-                local_108.SetInputAssemblerState((InputAssemblerState*)(uVar19 + 504));
-                iVar4 = param_4->size();
-                iVar16 = graphicutils::GetSphereLineListIndexCount(*(uint*)(uVar19 + 696), *(uint*)(uVar19 + 700));
-                iVar16 = iVar16 * iVar4;
+                pVVar10 = (VertexDeclaration*)this_04->second();
+                pVVar11 = (VertexBuffer*)puVar1->CurrentBuffer();
+                pDVar2->field_504->SetVertexStreamData(pVVar10, pVVar11);
+                local_108.SetInputAssemblerState(pDVar2->field_504);
+                iVar5 = pairs.size();
+                iVar12 = graphicutils::GetSphereLineListIndexCount(pDVar2->field_696, pDVar2->field_700);
+                iVar12 = iVar12 * iVar5;
             }
-            lVar10 = local_108.second();
-            *(int*)(lVar10 + 12) = iVar16;
-            this_05 = (CoordMapSquare*)local_108.GetInputAssemblerState();
-            uVar5 = this_05->GetX();
-            lVar10 = local_108.second();
-            uVar21 = *(undefined4*)(lVar10 + 12);
-            lVar10 = local_108.second();
-            param_1->DrawIndexedPrimitives(&local_108, uVar5, uVar21, *(undefined4*)(lVar10 + 16));
-            local_108.~DrawCallState();
+            lVar9 = local_108.second();
+            *(int*)(lVar9 + 12) = iVar12;
+            primitiveType = ((CoordMapSquare*)local_108.GetInputAssemblerState())->GetX();
+            lVar9 = local_108.second();
+            uVar4 = *(unsigned int*)(lVar9 + 12);
+            lVar9 = local_108.second();
+            renderContext.DrawIndexedPrimitives(&local_108, primitiveType, uVar4, *(unsigned int*)(lVar9 + 16));
         }
     }
 
-    // 0x1009c2930, 16 bytes, placed by class name
-    // DebugEllipsoidRender::OnEndFrame()
+    // 0x1009c2930
     void DebugEllipsoidRender::OnEndFrame() {
-        (&field_48)->RotateBuffers();
+        field_48.RotateBuffers();
     }
 
-    // 0x1009c92f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // DebugEllipsoidRender::~DebugEllipsoidRender(): jumps straight to the base-object destructor
-
-    // 0x1009cd0f0, 96 bytes, base-object destructor, inline, placed by class name
-    // DebugEllipsoidRender::~DebugEllipsoidRender()
-    void DebugEllipsoidRender::~DebugEllipsoidRender() {
+    // 0x1009cd0f0
+    DebugEllipsoidRender::~DebugEllipsoidRender() {
         field_504->~InputAssemblerState();
         field_312->~InputAssemblerState();
-        (&field_224)->~IndexBuffer();
-        (&field_136)->~IndexBuffer();
-        (&field_48)->~DynamicBuffer();
-        (&field_24)->~Array();
-        ~Array();
+        field_224.~IndexBuffer();
+        field_136.~IndexBuffer();
+        field_48.~DynamicBuffer();
+        field_24.~Array();
     }
 
 } // namespace jag
 
 namespace jag::graphicutils {
-    // 0x1009c2280, 512 bytes, inline, placed by debug map only (low confidence)
-    // void CreateSphereLineListIndices<unsigned int>(unsigned int*, unsigned int, unsigned int, unsigned int)
-    void CreateSphereLineListIndices<unsigned int>(uint* param_1, uint param_2, uint param_3, uint param_4) {
-        uint uVar1;
-        uint* puVar2;
-        uint* puVar3;
-        uint* puVar4;
-        ulong uVar5;
-        uint uVar6;
+    // 0x1009c2280
+    void CreateSphereLineListIndices<unsigned int>(unsigned int* arg1, unsigned int arg2, unsigned int arg3,
+                                                   unsigned int arg4) {
+        unsigned int* puVar2;
+        unsigned int* puVar3;
+        unsigned int* puVar4;
+        unsigned long uVar5;
+        unsigned int uVar6;
         int iVar7;
-        uint uVar8;
-        uint uVar9;
+        unsigned int uVar8;
+        unsigned int uVar9;
         int iVar10;
-        uint uVar11;
-        uint local_4c;
-        uint local_48;
-        uint local_44;
-        uint local_40;
-        uint local_3c;
+        unsigned int uVar11;
+        unsigned int local_4c;
+        unsigned int local_48;
+        unsigned int local_44;
+        unsigned int local_40;
+        unsigned int local_3c;
         int local_38;
 
-        if (param_1 == (uint*)0) {
-            /* WARNING: Subroutine does not return */
+        if (arg1 == nullptr) {
             LogAssert("pIndexDataOut",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
                       "createprimitive/CreateSphere.h",
-                      123, (char*)0);
+                      123, nullptr);
         }
-        uVar1 = GetSphereVertexCount(param_3, param_4);
-        if (param_1 != (uint*)0) {
-            puVar2 = param_1;
-            if (param_3 == 0) {
+        unsigned int uVar1 = GetSphereVertexCount(arg3, arg4);
+        if (arg1 != nullptr) {
+            puVar2 = arg1;
+            if (arg3 == 0) {
                 uVar11 = 0;
             } else {
                 local_44 = uVar1 - 1;
-                local_38 = param_4 * 2;
+                local_38 = arg4 * 2;
                 uVar6 = 0;
                 uVar11 = 0;
                 do {
                     uVar6 = uVar6 + 1;
-                    if (param_4 != 0) {
+                    if (arg4 != 0) {
                         local_40 = uVar11;
                         local_3c = uVar6;
                         uVar9 = 0;
-                        uVar11 = param_4;
+                        uVar11 = arg4;
                         do {
                             uVar8 = uVar6;
                             puVar3 = puVar2;
                             *puVar3 = uVar9;
                             puVar3[1] = uVar8;
-                            local_4c = uVar8 + param_3;
+                            local_4c = uVar8 + arg3;
                             local_48 = local_44;
-                            puVar4 = std::min<unsigned int>(&local_4c, &local_48);
+                            puVar4 = std::min<unsigned int>(local_4c, local_48);
                             if (uVar1 <= *puVar4) {
-                                /* WARNING: Subroutine does not return */
                                 LogAssert("nextVertex < vertexCount",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                           "graphics/graphicutils/createprimitive/CreateSphere.h",
-                                          147, (char*)0);
+                                          147, nullptr);
                             }
                             uVar11 = uVar11 - 1;
                             puVar2 = puVar3 + 2;
@@ -387,16 +334,16 @@ namespace jag::graphicutils {
                         uVar11 = local_40 + local_38;
                         uVar6 = local_3c;
                     }
-                } while (uVar6 != param_3);
+                } while (uVar6 != arg3);
             }
-            uVar1 = param_2;
-            if (param_4 != 1) {
+            uVar1 = arg2;
+            if (arg4 != 1) {
                 iVar10 = 0;
                 iVar7 = 0;
                 do {
-                    if (param_3 != 0) {
-                        uVar6 = iVar7 * param_3 + 1;
-                        uVar9 = param_3;
+                    if (arg3 != 0) {
+                        uVar6 = iVar7 * arg3 + 1;
+                        uVar9 = arg3;
                         do {
                             *puVar2 = uVar6;
                             uVar6 = iVar10 + uVar9;
@@ -404,25 +351,24 @@ namespace jag::graphicutils {
                             puVar2 = puVar2 + 2;
                             uVar9 = uVar9 - 1;
                         } while (uVar9 != 0);
-                        uVar11 = uVar11 + param_3 * 2;
+                        uVar11 = uVar11 + arg3 * 2;
                     }
                     iVar7 = iVar7 + 1;
-                    iVar10 = iVar10 + param_3;
-                } while (iVar7 != param_4 - 1);
+                    iVar10 = iVar10 + arg3;
+                } while (iVar7 != arg4 - 1);
             }
-            uVar6 = GetSphereLineListIndexCount(param_3, param_4);
+            uVar6 = GetSphereLineListIndexCount(arg3, arg4);
             if (uVar11 != uVar6) {
-                /* WARNING: Subroutine does not return */
                 LogAssert(
                     "indexCount == static_cast<IndexType>(GetSphereLineListIndexCount(horzSegments, vertSegments))",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
                     "createprimitive/CreateSphere.h",
-                    171, (char*)0);
+                    171, nullptr);
             }
             if (uVar11 != 0) {
                 uVar5 = 0;
                 do {
-                    param_1[uVar5] = param_1[uVar5] + uVar1;
+                    arg1[uVar5] = arg1[uVar5] + uVar1;
                     uVar5 = uVar5 + 1;
                 } while (uVar11 != uVar5);
             }

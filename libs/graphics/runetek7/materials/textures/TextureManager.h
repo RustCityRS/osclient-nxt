@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/materials/textures/TextureManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.oldscape.osrendercore
@@ -10,529 +9,446 @@ namespace jag::graphics {
     public:
         void ClearCache();
         TextureAtlasManager GetTextureAtlasManager();
-        GetSpriteAtlasManager();
+        SpriteAtlasManager* GetSpriteAtlasManager();
         bool UseCompressedTextures() const;
-        GetMaterialSettings(TextureAtlasMaterialSettings&, unsigned int);
-        TextureType* GetTextureData(TextureType const*, unsigned int, render::TextureFormatBitSet);
-        void AllocateImageData(unsigned int);
-        void Initialise(RT7Core*, Js5ResourceProvider*, TextureDataProvider*);
+        uint32_t GetMaterialSettings(TextureAtlasMaterialSettings& textureAtlasMaterialSettings, unsigned int arg2);
+        auto GetTextureData(const TextureType* textureType, unsigned int arg2,
+                            render::TextureFormatBitSet textureFormatBitSet);
+        void AllocateImageData(unsigned int arg1);
+        void Initialise(RT7Core* rt7Core, Js5ResourceProvider* js5ResourceProvider,
+                        TextureDataProvider* textureDataProvider);
         void Destroy();
         void CreateRenderingResources();
         void DestroyRenderingResources();
         void MainLogic();
         void MainDraw();
         void UpdateCaches();
-        void RenderDebug(render::DrawCallState const&, int, int, std::function<char const*(int, int)> const&,
-                         std::function<bool()> const&, FontHelpers&, TextProperties&);
-        TextureType* GetHALTexture(TextureType const*, unsigned int, render::TextureFormatBitSet, bool, bool);
-        ulong GetTextureCacheKey(unsigned int, TextureType const*, render::TextureFormatBitSet&, bool);
-        void Rebuild2DTo3D(unsigned char*, int, int, int);
-        TextureType* GetCubeTextureData(unsigned int, render::TextureFormatBitSet);
-        TextureManager* GetHALTextureCube(unsigned int, render::TextureFormatBitSet, bool);
-        GetDefaultTextureCube(int, bool);
+        void RenderDebug(const render::DrawCallState& drawCallState, int arg2, int arg3,
+                         std::function<char const*(int, int)> const& callback1, const std::function<bool()>& callback2,
+                         FontHelpers& fontHelpers, TextProperties& textProperties);
+        auto GetHALTexture(const TextureType* textureType, unsigned int arg2,
+                           render::TextureFormatBitSet textureFormatBitSet, bool arg4, bool arg5);
+        unsigned long GetTextureCacheKey(unsigned int arg1, const TextureType* textureType,
+                                         render::TextureFormatBitSet& textureFormatBitSet, bool arg4);
+        void Rebuild2DTo3D(unsigned char* arg1, int arg2, int arg3, int arg4);
+        auto GetCubeTextureData(unsigned int arg1, render::TextureFormatBitSet textureFormatBitSet);
+        auto GetHALTextureCube(unsigned int arg1, render::TextureFormatBitSet textureFormatBitSet, bool arg3);
+        auto GetDefaultTextureCube(int arg1, bool arg2);
         TextureManager();
         ~TextureManager();
-        static /* 20 bytes */ DEBUG_ATLAS_RESOLUTION; // = { 256, 0, 0, 0, 0 }
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullTextureData;
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullTexture;
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullTextureCube;
-        static /* 1 bytes */ DEBUG_ATLASES;
-        static /* 15 bytes */ DEBUG_SPRITE_ATLASES;
-        static /* 16 bytes */ DEBUG_ATLAS_BACKGROUND_COLOUR;
-        static /* 1 bytes */ DEBUG_SPRITE_ATLAS_USAGE;
-        static /* 1 bytes */ DEBUG_TEXTURE_ATLAS_USAGE;
-        static /* 1 bytes */ DEBUG_TEXTURE_ATLAS_MATERIAL_SETTINGS;
+        static int32_t DEBUG_ATLAS_RESOLUTION[5]; // = { 256, 0, 0, 0, 0 }
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullTextureData; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullTexture; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullTextureCube; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
+        static bool DEBUG_ATLASES;
+        static uint8_t DEBUG_SPRITE_ATLASES[15];
+        static math::Vector4T<float> DEBUG_ATLAS_BACKGROUND_COLOUR;
+        static bool DEBUG_SPRITE_ATLAS_USAGE;
+        static bool DEBUG_TEXTURE_ATLAS_USAGE;
+        static bool DEBUG_TEXTURE_ATLAS_MATERIAL_SETTINGS;
 
-        // data members, from how the methods use this: 3972 bytes
-        RT7Core* field_0;              // offset 0
-        Js5ResourceProvider* field_8;  // offset 8
-        TextureDataProvider* field_16; // offset 16
-        char _unknown_24[792];
-        TextureAtlasManager m_textureAtlasManager; // offset 816
-        char _unknown_3704[256];
-        undefined8 field_3960; // offset 3960
-        char _unknown_3968[4];
+    private:
+        RT7Core* field_0;
+        Js5ResourceProvider* field_8;
+        TextureDataProvider* field_16;
+        uint8_t _unknown_24[264];
+        unsigned long long field_288;
+        uint8_t _unknown_296[520];
+        TextureAtlasManager m_textureAtlasManager;
+        uint8_t _unknown_3704[256];
+        uint64_t field_3960;
+        uint8_t _unknown_3968[4];
     };
 
-    // 0x1001c4530, 32 bytes, inline, placed by class name and debug map
-    // TextureManager::ClearCache()
+    // 0x1001c4530
     void TextureManager::ClearCache() {
-        (&field_552)->clear();
+        field_552.clear();
     }
 
-    // 0x100428210, 16 bytes, inline, placed by class name
-    // TextureManager::GetSpriteAtlasManager()
-    undefined1* TextureManager::GetSpriteAtlasManager() {
-        return &field_3704;
+    // 0x100428210
+    SpriteAtlasManager* TextureManager::GetSpriteAtlasManager() {
+        return (SpriteAtlasManager*)&field_3704;
     }
 
-    // 0x1007ba5a0, 48 bytes, inline, placed by class name
-    // TextureManager::UseCompressedTextures() const
-    bool TextureManager::UseCompressedTextures() {
-        MapArea* this_00;
-        RenderDeviceCaps* this_01;
-
-        this_00 = (MapArea*)Instance();
-        this_01 = (RenderDeviceCaps*)this_00->GetOrigin();
-        if (this_01->GetCompressedTextures() == '\0') {
+    // 0x1007ba5a0
+    bool TextureManager::UseCompressedTextures() const {
+        auto this_00 = Instance();
+        if (((RenderDeviceCaps*)this_00->GetOrigin())->GetCompressedTextures() == '\0') {
             return false;
         }
         return TextureAtlasManager::GetTargetTextureMode() != 2;
     }
 
-    // 0x10087d800, 2576 bytes, inline, placed by class name
-    // TextureManager::RenderDebug(render::DrawCallState const&, int, int, std::function<char const* (int, int)> const&, std::function<bool ()> const&, FontHelpers&, TextProperties&)::$_19::operator()(shared_ptr<TextureAtlas>&) const
-    /* TextureManager::RenderDebug(render::DrawCallState const&, int, int,
-   std::function<char const* (int, int)> const&, std::function<bool ()> const&,
-   FontHelpers&,
-   TextProperties&)::$_19::TEMPNAMEPLACEHOLDERVALUE(shared_ptr<TextureAtlas>&)
-   const */
-
-    void TextureManager::RenderDebug(render::DrawCallState_const&, int, int,
+    // 0x10087d800
+    void TextureManager::RenderDebug(render::DrawCallState const&, int, int,
                                      std::function<char const*(int, int)> const&, std::function<bool()> const&,
-                                     FontHelpers&, TextProperties&)::$_19::operator()(shared_ptr* param_1) {
-        undefined4 uVar1;
+                                     FontHelpers&,
+                                     TextProperties&)::$_19::operator()(shared_ptr<TextureAtlas>& textureAtlas) const {
         int iVar2;
         int iVar3;
-        int iVar4;
-        uint uVar5;
+        int* piVar4;
+        int* piVar5;
         int* piVar6;
-        int* piVar7;
-        int* piVar8;
-        char cVar9;
-        undefined4 uVar10;
-        int iVar11;
-        undefined4 uVar12;
-        TextureAtlas* pTVar13;
-        undefined8 uVar14;
-        vector* pvVar15;
+        bool cVar7;
+        Layout* pLVar12;
         EntityHighlightGlobalState* this_00;
-        Layout* pLVar16;
-        GUIManager* this_01;
-        undefined4* puVar17;
-        undefined8 uVar18;
-        type* ptVar19;
-        pair* ppVar20;
-        pair* ppVar21;
-        uint* puVar22;
-        vector<math::Rect<float>, BucketAllocatorEASTL>* this_02;
-        Vector4T* pVVar23;
-        float* pfVar24;
-        long lVar25;
-        uint* puVar26;
-        int iVar27;
-        ulong uVar28;
-        TextureAtlasUsageMap* pTVar29;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_03;
-        __19* p_Var30;
-        float fVar31;
-        float fVar32;
-        float fVar33;
-        float fVar34;
-        undefined8 in_stack_fffffffffffffef8;
-        undefined4 uVar35;
-        undefined4 uVar36;
-        TextureAtlasUsageMap local_f8;
+        unsigned int* puVar14;
+        pair<int, eastl::vector<int, BucketAllocatorEASTL> _>* ppVar15;
+        pair<int, eastl::vector<int, BucketAllocatorEASTL> _>* ppVar16;
+        vector<math::Rect<float>, BucketAllocatorEASTL>* pvVar17;
+        Rect<float>* rect;
+        float* pfVar18;
+        long lVar20;
+        unsigned int* puVar21;
+        unsigned long arg1;
+        float fVar24;
+        float fVar25;
+        float fVar26;
+        float fVar27;
+        uint32_t uVar28;
         Float4 local_b0;
-        uint* local_90;
-        ulong local_88;
+        GUIManager* local_90;
+        unsigned long local_88;
         Layout* local_80;
-        vector<unsigned int, eastl::allocator>* local_78;
-        uint local_6c;
-        uint local_68;
-        uint local_64;
-        uint local_60[2];
-        long local_58;
+        vector<unsigned int>* local_78;
+        unsigned int local_6c;
+        unsigned int local_68;
+        unsigned int local_64;
+        unsigned int local_60;
+        unsigned int local_5c;
         GUIManager* local_48;
-        uint* local_40;
-        __19* local_38;
 
-        uVar35 = (undefined4)((ulong)in_stack_fffffffffffffef8 >> 32);
-        local_58 = *(long*)(this + 40);
-        uVar14 = *(undefined8*)this;
-        uVar36 = **(undefined4**)(this + 8);
-        uVar1 = **(undefined4**)(this + 16);
-        uVar12 = **(undefined4**)(this + 24);
-        uVar10 = math::R8G8B8A8FromColour4((Vector4T*)&DEBUG_ATLAS_BACKGROUND_COLOUR);
-        uVar14->AddColouredRectangle(uVar36, uVar1, uVar12, uVar12, uVar10, CONCAT44(uVar35, 1));
-        local_40 = *(uint**)this;
-        iVar11 = **(int**)(this + 8);
-        iVar27 = **(int**)(this + 16);
-        iVar2 = **(int**)(this + 24);
-        pTVar13 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)param_1);
-        uVar14 = pTVar13->GetTexture();
-        0->AddElement(0, 1065353216, 1065353216, local_40, iVar11, iVar27, iVar2 + iVar11, iVar2 + iVar27, 4294967295,
-                      uVar14, 1);
-        iVar11 = **(int**)(this + 32);
-        pTVar29 = (TextureAtlasUsageMap*)(ulong)(uint)(**(int**)(this + 8) - iVar11);
-        iVar27 = **(int**)(this + 24) + iVar11 * 2 + -1;
-        uVar14 = CONCAT44((int)((ulong)uVar14 >> 32), 865730559);
-        local_38 = this;
-        (*(GUIManager**)this)->AddOutline(pTVar29, **(int**)(this + 16) - iVar11, iVar27, iVar27, iVar11, uVar14, 1);
-        new (&local_f8) TextureAtlasUsageMap();
-        if ((DEBUG_TEXTURE_ATLAS_USAGE != '\0') || (cVar9 = ((local_58 + 3928))->empty(), cVar9 == '\0')) {
-            pTVar13 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)param_1);
-            pTVar29 = &local_f8;
-            pTVar13->GetUsageMap(pTVar29);
+        long local_58 = *(long*)(this + 40);
+        GUIManager* pGVar13 = *(GUIManager**)this;
+        int iVar9 = **(int**)(this + 8);
+        int iVar22 = **(int**)(this + 16);
+        int iVar1 = **(int**)(this + 24);
+        unsigned int uVar8 = math::R8G8B8A8FromColour4(DEBUG_ATLAS_BACKGROUND_COLOUR);
+        pGVar13->AddColouredRectangle(iVar9, iVar22, iVar1, iVar1, uVar8, 1);
+        GUIManager* local_40 = *(GUIManager**)this;
+        iVar9 = **(int**)(this + 8);
+        iVar22 = **(int**)(this + 16);
+        iVar1 = **(int**)(this + 24);
+        auto pTVar10 = textureAtlas.operator->();
+        auto pTVar11 = pTVar10->GetTexture();
+        local_40->AddElement(iVar9, iVar22, iVar1 + iVar9, iVar1 + iVar22, 4294967295, 0.0, 0.0, 1.0, 1.0, pTVar11, 1);
+        iVar9 = **(int**)(this + 32);
+        iVar22 = **(int**)(this + 24) + iVar9 * 2 - 1;
+        uint64_t uVar19 = (((uint64_t)((int)((unsigned long)pTVar11 >> 32)) << 32) | (uint32_t)865730559);
+        __19* local_38 = this;
+        (*(GUIManager**)this)
+            ->AddOutline(**(int**)(this + 8) - iVar9, **(int**)(this + 16) - iVar9, iVar22, iVar22, iVar9, 865730559,
+                         1);
+        TextureAtlasUsageMap local_f8;
+        if ((DEBUG_TEXTURE_ATLAS_USAGE != '\0') || (cVar7 = ((local_58 + 3928))->empty(), !cVar7)) {
+            pTVar10 = (TextureAtlas*)textureAtlas.operator->();
+            pTVar10->GetUsageMap(local_f8);
         }
-        p_Var30 = local_38;
+        __19* p_Var23 = local_38;
         if (DEBUG_TEXTURE_ATLAS_USAGE != '\0') {
-            pvVar15 = local_f8.SSOBeginPtr(pTVar29);
-            this_00 = (EntityHighlightGlobalState*)pvVar15->HeapBeginPtr();
-            local_48 = (GUIManager*)pvVar15->end();
+            pLVar12 = (Layout*)local_f8.SSOBeginPtr();
+            this_00 = (EntityHighlightGlobalState*)pLVar12->HeapBeginPtr();
+            local_48 = (GUIManager*)pLVar12->end();
             if ((GUIManager*)this_00 != local_48) {
                 do {
-                    uVar36 = (undefined4)((ulong)uVar14 >> 32);
-                    local_40 = *(uint**)p_Var30;
-                    iVar11 = **(int**)(p_Var30 + 8);
-                    fVar31 = (float)this_00->GetOverbright();
-                    iVar27 = **(int**)(p_Var30 + 24);
-                    iVar2 = **(int**)(p_Var30 + 16);
-                    fVar32 = (float)this_00->GetAlpha();
-                    iVar3 = **(int**)(p_Var30 + 24);
-                    fVar33 = (float)this_00->GetBrightpassThreshold();
-                    iVar4 = **(int**)(p_Var30 + 24);
-                    fVar34 = (float)this_00->GetOutlineRadiusAdjustment();
-                    uVar14 = CONCAT44(uVar36, 1);
-                    local_40->AddColouredRectangle((int)((float)iVar27 * fVar31) + iVar11,
-                                                   (int)((float)iVar3 * fVar32) + iVar2, (int)((float)iVar4 * fVar33),
-                                                   (int)((float)**(int**)(p_Var30 + 24) * fVar34), 16711782, uVar14);
+                    uVar28 = (uint32_t)((unsigned long)uVar19 >> 32);
+                    local_40 = *(GUIManager**)p_Var23;
+                    iVar9 = **(int**)(p_Var23 + 8);
+                    fVar24 = (float)this_00->GetOverbright();
+                    iVar22 = **(int**)(p_Var23 + 24);
+                    iVar1 = **(int**)(p_Var23 + 16);
+                    fVar25 = (float)this_00->GetAlpha();
+                    iVar2 = **(int**)(p_Var23 + 24);
+                    fVar26 = (float)this_00->GetBrightpassThreshold();
+                    iVar3 = **(int**)(p_Var23 + 24);
+                    fVar27 = (float)this_00->GetOutlineRadiusAdjustment();
+                    uVar19 = (((uint64_t)uVar28 << 32) | (uint32_t)1);
+                    local_40->AddColouredRectangle((int)((float)iVar22 * fVar24) + iVar9,
+                                                   (int)((float)iVar2 * fVar25) + iVar1, (int)((float)iVar3 * fVar26),
+                                                   (int)((float)**(int**)(p_Var23 + 24) * fVar27), 16711782, 1);
                     this_00 = (EntityHighlightGlobalState*)&this_00->m_playerNPCAttackOpPriority;
-                    p_Var30 = local_38;
+                    p_Var23 = local_38;
                 } while ((GUIManager*)this_00 != local_48);
             }
-            pLVar16 = (Layout*)local_f8.second();
-            this_01 = (GUIManager*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar16);
-            local_48 = (GUIManager*)pLVar16->end();
-            if (this_01 != local_48) {
+            pLVar12 = (Layout*)local_f8.second();
+            pGVar13 = (GUIManager*)pLVar12->HeapBeginPtr();
+            local_48 = (GUIManager*)pLVar12->end();
+            if (pGVar13 != local_48) {
                 do {
-                    uVar36 = (undefined4)((ulong)uVar14 >> 32);
-                    local_40 = *(uint**)p_Var30;
-                    iVar11 = **(int**)(p_Var30 + 8);
-                    fVar31 = (float)this_01->GetOverbright();
-                    iVar27 = **(int**)(p_Var30 + 24);
-                    iVar2 = **(int**)(p_Var30 + 16);
-                    fVar32 = (float)this_01->GetAlpha();
-                    iVar3 = **(int**)(p_Var30 + 24);
-                    fVar33 = (float)this_01->GetBrightpassThreshold();
-                    iVar4 = **(int**)(p_Var30 + 24);
-                    fVar34 = (float)this_01->GetOutlineRadiusAdjustment();
-                    uVar14 = CONCAT44(uVar36, 1);
-                    local_40->AddColouredRectangle((int)((float)iVar27 * fVar31) + iVar11,
-                                                   (int)((float)iVar3 * fVar32) + iVar2, (int)((float)iVar4 * fVar33),
-                                                   (int)((float)**(int**)(p_Var30 + 24) * fVar34), 4278190182, uVar14);
-                    this_01 = (GUIManager*)&this_01->field_16;
-                    p_Var30 = local_38;
-                } while (this_01 != local_48);
+                    uVar28 = (uint32_t)((unsigned long)uVar19 >> 32);
+                    local_40 = *(GUIManager**)p_Var23;
+                    iVar9 = **(int**)(p_Var23 + 8);
+                    fVar24 = (float)pGVar13->GetOverbright();
+                    iVar22 = **(int**)(p_Var23 + 24);
+                    iVar1 = **(int**)(p_Var23 + 16);
+                    fVar25 = (float)pGVar13->GetAlpha();
+                    iVar2 = **(int**)(p_Var23 + 24);
+                    fVar26 = (float)pGVar13->GetBrightpassThreshold();
+                    iVar3 = **(int**)(p_Var23 + 24);
+                    fVar27 = (float)pGVar13->GetOutlineRadiusAdjustment();
+                    uVar19 = (((uint64_t)uVar28 << 32) | (uint32_t)1);
+                    local_40->AddColouredRectangle((int)((float)iVar22 * fVar24) + iVar9,
+                                                   (int)((float)iVar2 * fVar25) + iVar1, (int)((float)iVar3 * fVar26),
+                                                   (int)((float)**(int**)(p_Var23 + 24) * fVar27), 4278190182, 1);
+                    pGVar13 = (GUIManager*)&pGVar13->field_16;
+                    p_Var23 = local_38;
+                } while (pGVar13 != local_48);
             }
         }
-        this_03 =
-            (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(local_58 + 3928);
-        cVar9 = eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-            this_03);
-        uVar36 = (undefined4)((ulong)uVar14 >> 32);
-        if (cVar9 == '\0') {
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_01 =
+            (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(local_58 + 3928);
+        cVar7 = this_01->empty();
+        uVar28 = (uint32_t)((unsigned long)uVar19 >> 32);
+        if (!cVar7) {
             local_80 = (Layout*)local_f8.GetMaterial();
-            iVar11 = this_03->size();
-            uVar36 = (undefined4)((ulong)uVar14 >> 32);
-            if (0 < iVar11) {
-                uVar28 = 0;
-                local_78 = (vector<unsigned int, eastl::allocator>*)this_03;
+            iVar9 = this_01->size();
+            uVar28 = (uint32_t)((unsigned long)uVar19 >> 32);
+            if (0 < iVar9) {
+                arg1 = 0;
+                local_78 = (vector<unsigned int>*)this_01;
                 do {
-                    puVar17 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](
-                        (vector<int, eastl::allocator>*)this_03, uVar28);
-                    pLVar16 = local_80;
-                    uVar36 = *puVar17;
-                    local_60[1] = 8913151;
-                    if (uVar28 == *(uint*)(local_58 + 3960)) {
-                        local_60[1] = 16711935;
+                    puVar14 = (unsigned int*)(*this_01)[arg1];
+                    pLVar12 = local_80;
+                    uVar8 = *puVar14;
+                    local_5c = 8913151;
+                    if (arg1 == *(unsigned int*)(local_58 + 3960)) {
+                        local_5c = 16711935;
                     }
-                    local_88 = uVar28;
-                    uVar18 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                            eastl::allocator>>::Layout::HeapBeginPtr(local_80);
-                    ptVar19 = (type*)pLVar16->end();
-                    ppVar20 = std::operator()(uVar18, ptVar19, uVar36);
-                    ppVar21 = (pair*)pLVar16->end();
-                    if (ppVar20 != ppVar21) {
-                        puVar22 = (uint*)((ppVar20 + 8))->HeapBeginPtr();
-                        local_90 = (uint*)((ppVar20 + 8))->end();
-                        if (puVar22 != local_90) {
+                    local_88 = arg1;
+                    ppVar15 = (pair<int, eastl::vector<int, BucketAllocatorEASTL> _>*)local_80->HeapBeginPtr();
+                    ppVar16 = (pair<int, eastl::vector<int, BucketAllocatorEASTL> _>*)pLVar12->end();
+                    ppVar15 = std::operator()(
+                        ppVar15, ppVar16,
+                        (_lambda_eastl__pair<
+                            int, eastl::vector<int, BucketAllocatorEASTL> _> _const___1_*)(unsigned long)uVar8);
+                    ppVar16 = (pair<int, eastl::vector<int, BucketAllocatorEASTL> _>*)pLVar12->end();
+                    if (ppVar15 != ppVar16) {
+                        pGVar13 = (GUIManager*)((ppVar15 + 8))->HeapBeginPtr();
+                        local_90 = (GUIManager*)((ppVar15 + 8))->end();
+                        if (pGVar13 != local_90) {
                             do {
-                                uVar36 = (undefined4)((ulong)uVar14 >> 32);
-                                uVar5 = *puVar22;
-                                if ((long)(int)uVar5 < 0) {
-                                    pvVar15 = local_f8.SSOBeginPtr(ptVar19);
-                                    pVVar23 =
-                                        (Vector4T*)eastl::vector<math::Rect<float>, BucketAllocatorEASTL>::operator[](
-                                            (vector<math::Rect<float>, BucketAllocatorEASTL>*)pvVar15, (ulong)~uVar5);
+                                uVar28 = (uint32_t)((unsigned long)uVar19 >> 32);
+                                uVar8 = *(unsigned int*)&pGVar13->field_0;
+                                if ((long)(int)uVar8 < 0) {
+                                    pvVar17 = (vector<math::Rect<float>, BucketAllocatorEASTL>*)local_f8.SSOBeginPtr();
+                                    rect = (Rect<float>*)(*pvVar17)[(unsigned long)~uVar8];
                                 } else {
-                                    this_02 = (vector<math::Rect<float>, BucketAllocatorEASTL>*)local_f8.second();
-                                    pVVar23 =
-                                        (Vector4T*)eastl::vector<math::Rect<float>, BucketAllocatorEASTL>::operator[](
-                                            this_02, (long)(int)uVar5 - 1);
+                                    pvVar17 = (vector<math::Rect<float>, BucketAllocatorEASTL>*)local_f8.second();
+                                    rect = (Rect<float>*)(*pvVar17)[(long)(int)uVar8 - 1];
                                 }
-                                new (&local_b0) math::Float4(pVVar23);
-                                local_40 = puVar22;
-                                local_b0.Scale((float)**(int**)(p_Var30 + 24));
+                                local_b0 = math::Float4(*rect);
+                                local_40 = pGVar13;
+                                local_b0.Scale((float)**(int**)(p_Var23 + 24));
                                 local_b0.Grow(2.0);
-                                local_48 = *(GUIManager**)p_Var30;
-                                iVar11 = **(int**)(p_Var30 + 8);
-                                pvVar15 = local_b0.SSOBeginPtr(pVVar23);
-                                fVar31 = *(float*)pvVar15;
-                                iVar27 = **(int**)(p_Var30 + 16);
-                                pfVar24 = (float*)local_b0.y();
-                                fVar32 = *pfVar24;
-                                pfVar24 = (float*)local_b0.second();
-                                fVar33 = *pfVar24;
-                                pfVar24 = (float*)local_b0.qw();
-                                p_Var30 = local_38;
-                                uVar14 = CONCAT44(uVar36, local_60[1]);
-                                ptVar19 = (type*)(ulong)(uint)((int)fVar31 + iVar11);
-                                local_48->AddOutline(ptVar19, (int)fVar32 + iVar27, (int)fVar33, (int)*pfVar24, 2,
-                                                     uVar14, 1);
-                                puVar22 = local_40 + 1;
-                            } while (puVar22 != local_90);
+                                local_48 = *(GUIManager**)p_Var23;
+                                iVar9 = **(int**)(p_Var23 + 8);
+                                pfVar18 = (float*)local_b0.SSOBeginPtr();
+                                fVar24 = *pfVar18;
+                                iVar22 = **(int**)(p_Var23 + 16);
+                                pfVar18 = (float*)local_b0.y();
+                                fVar25 = *pfVar18;
+                                pfVar18 = (float*)local_b0.second();
+                                fVar26 = *pfVar18;
+                                pfVar18 = (float*)local_b0.qw();
+                                p_Var23 = local_38;
+                                uVar19 = (((uint64_t)uVar28 << 32) | (uint32_t)local_5c);
+                                local_48->AddOutline((int)fVar24 + iVar9, (int)fVar25 + iVar22, (int)fVar26,
+                                                     (int)*pfVar18, 2, local_5c, 1);
+                                pGVar13 = (GUIManager*)((long)&local_40->field_0 + 4);
+                            } while (pGVar13 != local_90);
                         }
                     }
-                    this_03 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                        local_78;
-                    uVar28 = local_88 + 1;
-                    iVar11 = eastl::vector<unsigned int, eastl::allocator>::size(local_78);
-                    uVar36 = (undefined4)((ulong)uVar14 >> 32);
-                } while ((long)uVar28 < (long)iVar11);
+                    this_01 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)local_78;
+                    arg1 = local_88 + 1;
+                    iVar9 = local_78->size();
+                    uVar28 = (uint32_t)((unsigned long)uVar19 >> 32);
+                } while ((long)arg1 < (long)iVar9);
             }
         }
-        if ((**(int**)(p_Var30 + 8) <= **(int**)(p_Var30 + 48)) &&
-            (**(int**)(p_Var30 + 48) <= **(int**)(p_Var30 + 8) + **(int**)(p_Var30 + 24))) {
-            if ((**(int**)(p_Var30 + 16) <= **(int**)(p_Var30 + 56)) &&
-                (**(int**)(p_Var30 + 56) <= **(int**)(p_Var30 + 16) + **(int**)(p_Var30 + 24))) {
-                pTVar13 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)param_1);
-                uVar14 = pTVar13->GetTexture();
-                p_Var30 = local_38;
-                **(undefined8**)(local_38 + 64) = uVar14;
+        if ((**(int**)(p_Var23 + 8) <= **(int**)(p_Var23 + 48)) &&
+            (**(int**)(p_Var23 + 48) <= **(int**)(p_Var23 + 8) + **(int**)(p_Var23 + 24))) {
+            if ((**(int**)(p_Var23 + 16) <= **(int**)(p_Var23 + 56)) &&
+                (**(int**)(p_Var23 + 56) <= **(int**)(p_Var23 + 16) + **(int**)(p_Var23 + 24))) {
+                pTVar10 = (TextureAtlas*)textureAtlas.operator->();
+                uVar19 = pTVar10->GetTexture();
+                p_Var23 = local_38;
+                **(uint64_t**)(local_38 + 64) = uVar19;
                 local_48._0_4_ = (float)(**(int**)(local_38 + 48) - **(int**)(local_38 + 8));
                 local_40._0_4_ = (float)**(int**)(local_38 + 24);
-                puVar22 = (uint*)(**(undefined8**)(local_38 + 64))->second();
-                **(int**)(p_Var30 + 72) = (int)(((float)*puVar22 * local_48._0_4_) / local_40._0_4_);
-                local_48 =
-                    (GUIManager*)CONCAT44(local_48._4_4_, (float)(**(int**)(p_Var30 + 56) - **(int**)(p_Var30 + 16)));
-                local_40 = (uint*)CONCAT44(local_40._4_4_, (float)**(int**)(p_Var30 + 24));
-                lVar25 = (**(undefined8**)(p_Var30 + 64))->second();
-                **(int**)(p_Var30 + 80) = (int)(((float)*(uint*)(lVar25 + 4) * local_48._0_4_) / local_40._0_4_);
-                new (&local_b0) eastl::vector<eastl::pair<int, int>, eastl::allocator>();
-                pTVar13 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)param_1);
-                cVar9 = pTVar13->GetDetailsAtPosition((int*)&local_6c, (int*)&local_68, (int*)&local_64, local_60,
-                                                      (vector*)&local_b0, **(int**)(local_38 + 72),
-                                                      **(int**)(local_38 + 80));
-                if (cVar9 == '\0') {
-                    eastl::basic_string<char, BucketAllocatorEASTL>::operator=(
-                        *(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88), "Slot: Empty");
+                puVar14 =
+                    (unsigned int*)((compressed_pair_imp<
+                                        eastl::basic_string<
+                                            char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>,
+                                        0>*)**(uint64_t**)(local_38 + 64))
+                        ->second();
+                **(int**)(p_Var23 + 72) = (int)(((float)*puVar14 * local_48._0_4_) / local_40._0_4_);
+                local_48 = (GUIManager*)(((uint64_t)local_48._4_4_ << 32) |
+                                         (uint32_t)((float)(**(int**)(p_Var23 + 56) - **(int**)(p_Var23 + 16))));
+                local_40 = (GUIManager*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)((float)**(int**)(p_Var23 + 24)));
+                lVar20 =
+                    ((compressed_pair_imp<
+                         eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                         eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>*)**(uint64_t**)(p_Var23 + 64))
+                        ->second();
+                **(int**)(p_Var23 + 80) =
+                    (int)(((float)*(unsigned int*)(lVar20 + 4) * local_48._0_4_) / local_40._0_4_);
+                local_b0 = eastl::vector<eastl::pair<int, int>>();
+                pTVar10 = (TextureAtlas*)textureAtlas.operator->();
+                cVar7 = pTVar10->GetDetailsAtPosition(local_6c, local_68, local_64, local_60, local_b0,
+                                                      **(int**)(local_38 + 72), **(int**)(local_38 + 80));
+                if (!cVar7) {
+                    (*(*(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88))) = "Slot: Empty";
                 } else {
-                    uVar14 = CONCAT44(uVar36, local_60[0]);
-                    eastl::basic_string<char, BucketAllocatorEASTL>::sprintf(
-                        (char*)*(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88),
-                        "Slot: %d,%d<br>Texture ID: %d (Resolution: %ux%u)<br>Materials:", (ulong)local_6c,
-                        (ulong)local_68, (ulong)local_64, (ulong)local_60[0], uVar14);
-                    puVar22 = (uint*)local_b0.HeapBeginPtr();
-                    puVar26 = (uint*)local_b0.end();
-                    uVar36 = (undefined4)((ulong)uVar14 >> 32);
-                    p_Var30 = local_38;
-                    for (; local_38 = p_Var30, puVar22 != puVar26; puVar22 = puVar22 + 2) {
-                        uVar18 = std::function<char const*(int, int)>::operator()(
-                            *(function<char const*(int, int)>**)(p_Var30 + 96), 32, *puVar22);
-                        eastl::basic_string<char, BucketAllocatorEASTL>::append_sprintf(
-                            *(char**)(p_Var30 + 88), "<br>\t%s<br>\t\tID: %d<br>\t\tUsage: ", uVar18, (ulong)*puVar22);
-                        p_Var30 = local_38;
-                        uVar5 = puVar22[1];
-                        if (uVar5 == 0) {
-                            eastl::basic_string<char, BucketAllocatorEASTL>::append(
-                                *(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88), "Albedo");
-                        } else if (uVar5 == 1) {
-                            eastl::basic_string<char, BucketAllocatorEASTL>::append(
-                                *(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88), "Normal/HDR");
-                        } else if (uVar5 == 2) {
-                            eastl::basic_string<char, BucketAllocatorEASTL>::append(
-                                *(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88), "Metalness/Roughness");
+                    (*(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88))
+                        ->sprintf("Slot: %d,%d<br>Texture ID: %d (Resolution: %ux%u)<br>Materials:",
+                                  (unsigned long)local_6c, (unsigned long)local_68, (unsigned long)local_64,
+                                  (unsigned long)local_60, (((uint64_t)uVar28 << 32) | (uint32_t)local_60));
+                    puVar14 = (unsigned int*)local_b0.HeapBeginPtr();
+                    puVar21 = (unsigned int*)local_b0.end();
+                    p_Var23 = local_38;
+                    for (; local_38 = p_Var23, puVar14 != puVar21; puVar14 = puVar14 + 2) {
+                        uVar19 = std::function<char const*(int, int)>::operator()(
+                            *(function<char const*(int, int)>**)(p_Var23 + 96), 32, *puVar14);
+                        (*(basic_string<char, BucketAllocatorEASTL>**)(p_Var23 + 88))
+                            ->append_sprintf("<br>\t%s<br>\t\tID: %d<br>\t\tUsage: ", uVar19, (unsigned long)*puVar14);
+                        p_Var23 = local_38;
+                        uVar8 = puVar14[1];
+                        if (uVar8 == 0) {
+                            (*(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88))->append("Albedo");
+                        } else if (uVar8 == 1) {
+                            (*(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88))->append("Normal/HDR");
+                        } else if (uVar8 == 2) {
+                            (*(basic_string<char, BucketAllocatorEASTL>**)(local_38 + 88))
+                                ->append("Metalness/Roughness");
                         }
-                        if (**(char**)(p_Var30 + 104) != '\0') {
-                            eastl::vector<int, eastl::allocator>::push_back(
-                                *(vector<int, eastl::allocator>**)(p_Var30 + 112), (int*)puVar22);
+                        if (**(char**)(p_Var23 + 104) != '\0') {
+                            (*(vector<int>**)(p_Var23 + 112))->push_back(*puVar14);
                         }
-                        uVar36 = (undefined4)((ulong)uVar14 >> 32);
-                        p_Var30 = local_38;
+                        p_Var23 = local_38;
                     }
                 }
-                p_Var30 = local_38;
-                piVar6 = *(int**)(local_38 + 8);
-                piVar7 = *(int**)(local_38 + 24);
-                piVar8 = *(int**)(local_38 + 120);
-                iVar11 = *piVar8 + *piVar7 + *piVar6;
-                *piVar6 = iVar11;
-                if (*(int*)(*(long*)(local_38 + 128) + 8) < iVar11 + *piVar7) {
-                    *piVar6 = 32;
-                    **(int**)(local_38 + 16) = **(int**)(local_38 + 16) - (*piVar8 + *piVar7);
+                p_Var23 = local_38;
+                piVar4 = *(int**)(local_38 + 8);
+                piVar5 = *(int**)(local_38 + 24);
+                piVar6 = *(int**)(local_38 + 120);
+                iVar9 = *piVar6 + *piVar5 + *piVar4;
+                *piVar4 = iVar9;
+                if (*(int*)(*(long*)(local_38 + 128) + 8) < iVar9 + *piVar5) {
+                    *piVar4 = 32;
+                    **(int**)(local_38 + 16) = **(int**)(local_38 + 16) - (*piVar6 + *piVar5);
                 }
-                piVar8 = *(int**)(local_38 + 136);
-                *piVar8 = *piVar6;
-                piVar6 = *(int**)(local_38 + 144);
-                *piVar6 = **(int**)(local_38 + 16);
-                **(int**)(local_38 + 72) = *piVar7 / 2 + (*piVar8 - **(int**)(local_38 + 72));
-                **(int**)(local_38 + 80) = *piVar7 / 2 + (*piVar6 - **(int**)(local_38 + 80));
-                local_b0.~vector();
+                piVar6 = *(int**)(local_38 + 136);
+                *piVar6 = *piVar4;
+                piVar4 = *(int**)(local_38 + 144);
+                *piVar4 = **(int**)(local_38 + 16);
+                **(int**)(local_38 + 72) = *piVar5 / 2 + (*piVar6 - **(int**)(local_38 + 72));
+                **(int**)(local_38 + 80) = *piVar5 / 2 + (*piVar4 - **(int**)(local_38 + 80));
             }
         }
-        piVar6 = *(int**)(p_Var30 + 8);
-        piVar7 = *(int**)(p_Var30 + 24);
-        piVar8 = *(int**)(p_Var30 + 120);
-        iVar11 = *piVar8 + *piVar7 + *piVar6;
-        *piVar6 = iVar11;
-        if (*(int*)(*(long*)(p_Var30 + 128) + 8) < iVar11 + *piVar7) {
-            *piVar6 = 32;
-            **(int**)(p_Var30 + 16) = **(int**)(p_Var30 + 16) - (*piVar8 + *piVar7);
+        piVar4 = *(int**)(p_Var23 + 8);
+        piVar5 = *(int**)(p_Var23 + 24);
+        piVar6 = *(int**)(p_Var23 + 120);
+        iVar9 = *piVar6 + *piVar5 + *piVar4;
+        *piVar4 = iVar9;
+        if (*(int*)(*(long*)(p_Var23 + 128) + 8) < iVar9 + *piVar5) {
+            *piVar4 = 32;
+            **(int**)(p_Var23 + 16) = **(int**)(p_Var23 + 16) - (*piVar6 + *piVar5);
         }
         if (DEBUG_TEXTURE_ATLAS_MATERIAL_SETTINGS != '\0') {
-            iVar11 = *piVar6;
-            uVar14 = *(undefined8*)p_Var30;
-            uVar1 = **(undefined4**)(p_Var30 + 16);
-            iVar27 = *piVar7;
-            uVar12 = math::R8G8B8A8FromColour4((Vector4T*)&DEBUG_ATLAS_BACKGROUND_COLOUR);
-            uVar14->AddColouredRectangle(iVar11, uVar1, iVar27, iVar27, uVar12, CONCAT44(uVar36, 1));
-            uVar14 = *(undefined8*)local_38;
-            iVar11 = **(int**)(local_38 + 8);
-            iVar27 = **(int**)(local_38 + 16);
-            iVar2 = **(int**)(local_38 + 24);
-            pTVar13 = (TextureAtlas*)shared_ptr<TextureAtlas>::operator->((shared_ptr<TextureAtlas>*)param_1);
-            uVar18 = pTVar13->GetSettingsTexture();
-            0->AddElement(0, 1065353216, 1065353216, uVar14, iVar11, iVar27, iVar2 + iVar11, iVar2 + iVar27, 4294967295,
-                          uVar18, 1);
-            iVar11 = **(int**)(local_38 + 32);
-            iVar27 = **(int**)(local_38 + 24) + iVar11 * 2 + -1;
+            iVar9 = *piVar4;
+            pGVar13 = *(GUIManager**)p_Var23;
+            iVar22 = **(int**)(p_Var23 + 16);
+            iVar1 = *piVar5;
+            uVar8 = math::R8G8B8A8FromColour4(DEBUG_ATLAS_BACKGROUND_COLOUR);
+            pGVar13->AddColouredRectangle(iVar9, iVar22, iVar1, iVar1, uVar8, 1);
+            pGVar13 = *(GUIManager**)local_38;
+            iVar9 = **(int**)(local_38 + 8);
+            iVar22 = **(int**)(local_38 + 16);
+            iVar1 = **(int**)(local_38 + 24);
+            pTVar10 = (TextureAtlas*)textureAtlas.operator->();
+            pTVar11 = (Texture*)pTVar10->GetSettingsTexture();
+            pGVar13->AddElement(iVar9, iVar22, iVar1 + iVar9, iVar1 + iVar22, 4294967295, 0.0, 0.0, 1.0, 1.0, pTVar11,
+                                1);
+            iVar9 = **(int**)(local_38 + 32);
+            iVar22 = **(int**)(local_38 + 24) + iVar9 * 2 - 1;
             (*(GUIManager**)local_38)
-                ->AddOutline(**(int**)(local_38 + 8) - iVar11, **(int**)(local_38 + 16) - iVar11, iVar27, iVar27,
-                             iVar11, 865730559, 1);
-            piVar6 = *(int**)(local_38 + 8);
-            piVar7 = *(int**)(local_38 + 24);
-            piVar8 = *(int**)(local_38 + 120);
-            iVar11 = *piVar8 + *piVar7 + *piVar6;
-            *piVar6 = iVar11;
-            if (*(int*)(*(long*)(local_38 + 128) + 8) < iVar11 + *piVar7) {
-                *piVar6 = 32;
-                **(int**)(local_38 + 16) = **(int**)(local_38 + 16) - (*piVar8 + *piVar7);
+                ->AddOutline(**(int**)(local_38 + 8) - iVar9, **(int**)(local_38 + 16) - iVar9, iVar22, iVar22, iVar9,
+                             865730559, 1);
+            piVar4 = *(int**)(local_38 + 8);
+            piVar5 = *(int**)(local_38 + 24);
+            piVar6 = *(int**)(local_38 + 120);
+            iVar9 = *piVar6 + *piVar5 + *piVar4;
+            *piVar4 = iVar9;
+            if (*(int*)(*(long*)(local_38 + 128) + 8) < iVar9 + *piVar5) {
+                *piVar4 = 32;
+                **(int**)(local_38 + 16) = **(int**)(local_38 + 16) - (*piVar6 + *piVar5);
             }
         }
-        local_f8.~TextureAtlasUsageMap();
     }
 
-    // 0x10087e400, 16 bytes, inline, placed by class name
-    // TextureManager::RenderDebug(render::DrawCallState const&, int, int, std::function<char const* (int, int)> const&, std::function<bool ()> const&, FontHelpers&, TextProperties&)::$_19::operator()(shared_ptr<TextureAtlas>&) const::{lambda(eastl::pair<int, eastl::vector<int, BucketAllocatorEASTL> > const&)#1}::operator()(eastl::pair<int, eastl::vector<int, BucketAllocatorEASTL> > const&) const
-    /* TextureManager::RenderDebug(render::DrawCallState const&, int, int,
-   std::function<char const* (int, int)> const&, std::function<bool ()> const&,
-   FontHelpers&,
-   TextProperties&)::$_19::TEMPNAMEPLACEHOLDERVALUE(shared_ptr<TextureAtlas>&)
-   const::{lambda(eastl::pair<int, eastl::vector<int, BucketAllocatorEASTL> >
-   const&)#1}::TEMPNAMEPLACEHOLDERVALUE(eastl::pair<int, eastl::vector<int,
-   BucketAllocatorEASTL> > const&) const */
-
-    _func_TEMPNAMEPLACEHOLDERVALUE_shared_ptr_ptr* const ::{
+    // 0x10087e400
+    uint32_t TextureManager::RenderDebug(render::DrawCallState const&, int, int,
+                                         std::function<char const*(int, int)> const&, std::function<bool()> const&,
+                                         FontHelpers&,
+                                         TextProperties&)::$_19::operator()(shared_ptr<TextureAtlas>&) const ::{
         lambda(eastl::pair<int, eastl::vector<int, BucketAllocatorEASTL>> const&) #1
     }
-    ::operator()(_lambda_eastl__pair<int, eastl::vector<int, BucketAllocatorEASTL>> const___1_* this, pair * param_1) {
-        return (_func_TEMPNAMEPLACEHOLDERVALUE_shared_ptr_ptr*)(ulong)CONCAT31((int3)((uint) * (int*)param_1 >> 8),
-                                                                               *(int*)param_1 == *(int*)this);
+    ::operator()(const eastl::pair<int, eastl::vector<int, BucketAllocatorEASTL>>& arg1) const {
+        return *(int*)arg1 == *(int*)this;
     }
 
-    // 0x10097ed20, 16 bytes, complete-object constructor, inline, placed by class name
-    // TextureManager::TextureManager(): jumps straight to the base-object constructor
+    // 0x10098e260
+    TextureManager::TextureManager() {
 
-    // 0x10097ee70, 16 bytes, complete-object destructor, inline, placed by class name
-    // TextureManager::~TextureManager(): jumps straight to the base-object destructor
-
-    // 0x10098e260, 448 bytes, base-object constructor, inline, placed by class name
-    // TextureManager::TextureManager()
-    void TextureManager::TextureManager() {
-        eastl::string local_58[32];
-        allocator local_38[8];
-
-        eastl::allocator::allocator(local_38, "EASTL basic_string");
-        eastl::string::basic_string(local_58, "HAL Texture Cache", local_38);
-        new (&field_24, (basic_string*)local_58, 32, 30.0)
-            KeepAliveCache<unsigned long long, render::Texture,
-                           eastl::map<unsigned long long, shared_ptr<render::Texture>, eastl::less<unsigned long long>,
-                                      eastl::allocator>>();
-        eastl::string::~basic_string(local_58);
-        eastl::allocator::allocator(local_38, "EASTL basic_string");
-        eastl::string::basic_string(local_58, "HAL Texture Cube Cache", local_38);
-        new (&field_288, (basic_string*)local_58, 32, 30.0)
+        eastl::string local_58("HAL Texture Cache");
+        new (&field_24) KeepAliveCache<unsigned long long, render::Texture,
+                                       eastl::map<unsigned long long, shared_ptr<render::Texture>>>(local_58, 32, 30.0);
+        local_58 = eastl::string("HAL Texture Cube Cache");
+        new (&field_288)
             KeepAliveCache<unsigned long long, render::TextureCube,
-                           eastl::map<unsigned long long, shared_ptr<render::TextureCube>,
-                                      eastl::less<unsigned long long>, eastl::allocator>>();
-        eastl::string::~basic_string(local_58);
-        eastl::allocator::allocator(local_38, "EASTL basic_string");
-        eastl::string::basic_string(local_58, "Texture Data Cache", local_38);
-        new (&field_552, (basic_string*)local_58, 1024, 30.0)
-            KeepAliveCache<unsigned long long, TextureData,
-                           eastl::map<unsigned long long, shared_ptr<TextureData>, eastl::less<unsigned long long>,
-                                      eastl::allocator>>();
-        eastl::string::~basic_string(local_58);
+                           eastl::map<unsigned long long, shared_ptr<render::TextureCube>>>(local_58, 32, 30.0);
+        local_58 = eastl::string("Texture Data Cache");
+        new (&field_552)
+            KeepAliveCache<unsigned long long, TextureData, eastl::map<unsigned long long, shared_ptr<TextureData>>>(
+                local_58, 1024, 30.0);
         new (m_textureAtlasManager) TextureAtlasManager();
         new (&field_3704) SpriteAtlasManager();
-        new (&field_3928) eastl::vector<int, eastl::allocator>();
+        new (&field_3928) eastl::vector<int>();
         field_3960 = 18446744073709551615;
     }
 
-    // 0x100991050, 96 bytes, base-object destructor, inline, placed by class name
-    // TextureManager::~TextureManager()
-    void TextureManager::~TextureManager() {
-        (&field_3928)->~vector();
-        (&field_3704)->~SpriteAtlasManager();
+    // 0x100991050
+    TextureManager::~TextureManager() {
+        field_3928.~vector();
+        field_3704.~SpriteAtlasManager();
         m_textureAtlasManager->~TextureAtlasManager();
-        (&field_552)->~KeepAliveCache();
-        (&field_288)->~KeepAliveCache();
-        (&field_24)->~KeepAliveCache();
+        field_552.~KeepAliveCache();
+        field_24.~KeepAliveCache();
     }
 
 } // namespace jag::graphics
 
 namespace jag::oldscape {
-    // 0x1001c4550, 192 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread_RSeven::UpdateGBufferRenderTargets()
+    // 0x1001c4550
     void OSRenderCore_RenderThread_RSeven::UpdateGBufferRenderTargets() {
-        byte bVar1;
-        RT7Core* pRVar2;
-        EffectManager* pEVar3;
-        shared_ptr<render::RenderTargets>* this_00;
-        RenderTargets* this_01;
-        undefined1* this_02;
-        ulong local_38[3];
-        long local_20;
+        unsigned long local_38[3];
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_02 = &field_8;
-        pRVar2 =
-            (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)this_02);
-        pEVar3 = (EffectManager*)pRVar2->GetEffectManager();
-        bVar1 = pEVar3->IsEnabled(110);
-        pRVar2 =
-            (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)this_02);
-        pEVar3 = (EffectManager*)pRVar2->GetEffectManager();
-        pEVar3->EnableEffect(115, (ulong)bVar1);
+        uint8_t* this_02 = &field_8;
+        RT7Core* pRVar1 = (RT7Core*)(*this_02).operator->();
+        auto pEVar2 = pRVar1->GetEffectManager();
+        bool arg2 = (bool)pEVar2->IsEnabled(110);
+        pRVar1 = (RT7Core*)(*this_02).operator->();
+        pEVar2 = pRVar1->GetEffectManager();
+        pEVar2->EnableEffect(115, arg2);
         local_38[0] = 0;
         local_38[1] = 1;
-        pRVar2 =
-            (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)this_02);
-        this_00 = (shared_ptr<render::RenderTargets>*)pRVar2->GetGBufferRT();
-        this_01 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(this_00);
-        this_01->SetEnabledRenderTargets((ulong)bVar1 + 1, local_38);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        pRVar1 = (RT7Core*)(*this_02).operator->();
+        auto this_00 = pRVar1->GetGBufferRT();
+        ((RenderTargets*)(*this_00).operator->())->SetEnabledRenderTargets((unsigned long)arg2 + 1, local_38);
     }
 
 } // namespace jag::oldscape

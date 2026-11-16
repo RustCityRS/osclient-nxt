@@ -1,508 +1,393 @@
 // libs/game/runetek5/scene/PointLightShadowRenderer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "PointLightShadowRenderer.h"
 
 namespace jag::game {
-    // 0x10047cf70, 3152 bytes, placed by class name and debug map
-    // PointLightShadowRenderer::RenderPointLightShadows(unsigned int, int, graphics::EffectManager&, graphics::SceneViewData const&, graphics::GraphRoot*)
-    void PointLightShadowRenderer::RenderPointLightShadows(uint param_1, int param_2, EffectManager* param_3,
-                                                           SceneViewData* param_4, GraphRoot* param_5) {
+    // 0x10047cf70
+    void PointLightShadowRenderer::RenderPointLightShadows(unsigned int arg1, int arg2,
+                                                           graphics::EffectManager& effectManager,
+                                                           const graphics::SceneViewData& sceneViewData,
+                                                           graphics::GraphRoot* graphRoot) {
         Layout* this_00;
         PointLightShadowPassVisTestFunctor* pPVar1;
-        Renderer* this_01;
-        char cVar2;
-        bool bVar3;
-        byte bVar4;
-        int iVar5;
-        int iVar6;
-        undefined4 uVar7;
-        RT7Core* pRVar8;
-        RenderContext* this_02;
-        unique_ptr* this_03;
-        unique_ptr<graphicutils::TextureAtlasSlotPacker, std::default_delete<graphicutils::TextureAtlasSlotPacker>>*
-            puVar9;
-        Material* pMVar10;
-        long lVar11;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar12;
-        RenderTargets* pRVar13;
-        undefined8 uVar14;
-        undefined8 uVar15;
-        ulong uVar16;
-        PointLightSM* pPVar17;
-        LightSource* pLVar18;
-        PointLightSM* pPVar19;
-        long* plVar20;
-        vector* pvVar21;
-        ViewTransforms* pVVar22;
-        QuaternionT* pQVar23;
-        Frustum* pFVar24;
-        Frustum* pFVar25;
-        SceneViewData* this_04;
-        vector<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>, eastl::allocator>* this_05;
-        ulong uVar26;
-        char* pcVar27;
-        RenderPass* pRVar28;
-        GraphNode* pGVar29;
-        CoordMapSquare* pCVar30;
-        vector* this_06;
-        undefined4 in_register_00000014;
-        PointLightSM* pPVar31;
-        type* ptVar32;
-        RT7Core* this_07;
-        RenderContext* this_08;
-        PointLightShadowRenderer* pPVar33;
-        float fVar34;
+        Renderer* pairs;
+        uint8_t bVar3;
+        int iVar4;
+        int arg4;
+        CubeFace cubeFace;
+        RT7Core* pRVar5;
+        RenderContext* this_01;
+        unique_ptr<graphicutils::TextureAtlasSlotPacker>* puVar6;
+        Material* pMVar7;
+        long lVar8;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar9;
+        RenderTargets* renderTargets;
+        VisibleShadowCastingLightInfo* visibleShadowCastingLightInfo1;
+        unsigned long uVar10;
+        weak_ptr<oldscape::rs2lib::IfType>* pwVar11;
+        LightSource* pLVar12;
+        PointLightSM* pPVar13;
+        long* plVar14;
+        Vector3T<float>* pVVar15;
+        ViewTransforms* viewTransforms;
+        QuaternionT<float>* quaternion;
+        Frustum* pFVar16;
+        Frustum* frustum;
+        SceneViewData* pSVar17;
+        vector<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>>* this_03;
+        unsigned long uVar18;
+        char* pcVar19;
+        weak_ptr<oldscape::rs2lib::IfType>* pwVar20;
+        EffectManager* effectManager_00;
+        CoordMapSquare* pCVar21;
+        Layout* this_05;
+        RT7Core* this_06;
+        RenderContext* this_07;
+        PointLightShadowRenderer* pPVar22;
+        float fVar23;
+        uint64_t uVar24;
         float in_XMM1_Da;
         float in_XMM1_Db;
+        uint8_t auVar25[16];
         Camera local_14f0;
-        PointLightSM* local_14a0;
+        weak_ptr<oldscape::rs2lib::IfType>* local_14a0;
         PointLightShadows* local_1498;
         CoordMapSquare local_1490;
         int iStack_1484;
-        undefined8 local_1480;
-        vector<PointLightShadowRenderer::PointLightSMJobData, BucketAllocatorEASTL> local_1478[24];
+        uint64_t local_1480;
+        vector<PointLightShadowRenderer::PointLightSMJobData, BucketAllocatorEASTL> local_1478;
         shared_ptr local_1460;
-        undefined1 local_1450[40];
-        PointLightSM* local_1428;
-        EffectManager* local_1420;
-        SceneViewData* local_1418;
-        PointLightShadowRenderer* local_1410;
+        uint8_t local_1450[40];
+        weak_ptr<oldscape::rs2lib::IfType>* local_1428;
         RT7Core* local_1408;
         PointLightSM* local_1400;
-        undefined** local_13f8[4];
-        undefined1 local_13d8[12];
+        PointLightSM_vtbl* local_13f8[4];
+        uint8_t local_13d8[12];
         float fStack_13cc;
-        Sphere local_1378[33];
-        undefined1 local_10d8[8];
-        ColourStorage8888<math::ARGB8StorageLayout> local_10d0[4];
-        ColourStorage8888<math::ARGB8StorageLayout> local_10cc[4];
-        array<graphics::SceneViewData, 6ul> local_10c8[4];
-        ColourStorage8888<math::ARGB8StorageLayout> local_10c4[4028];
-        array<eastl::vector<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>, eastl::allocator>,
-              6ul>
-            local_108[192];
-        array<bool, 6ul> local_48[16];
-        long local_38;
+        SceneViewData local_1378;
+        uint8_t local_10d8[8];
+        ColourStorage8888<math::ARGB8StorageLayout> local_10d0;
+        ColourStorage8888<math::ARGB8StorageLayout> local_10cc;
+        array<graphics::SceneViewData, 6ul> local_10c8;
+        ColourStorage8888<math::ARGB8StorageLayout> local_10c4;
+        array<eastl::vector<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>>, 6ul> local_108[192];
+        array<bool, 6ul> local_48;
 
-        local_1450._32_4_ = param_1;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_1450._24_8_ = param_5;
-        local_1418 = param_4;
-        cVar2 = param_3->IsEnabled(35, CONCAT44(in_register_00000014, param_2));
-        uVar14._4_4_ = local_1450._4_4_;
-        uVar14._0_1_ = local_1450[0];
-        uVar14._1_1_ = local_1450[1];
-        uVar14._2_1_ = local_1450[2];
-        uVar14._3_1_ = local_1450[3];
-        if (cVar2 == '\0') {
-            RenderPointLightShadows(unsigned int, int, graphics::EffectManager&, graphics::SceneViewData_const&,
+        local_1450._32_4_ = arg1;
+        local_1450._24_8_ = graphRoot;
+        SceneViewData* local_1418 = sceneViewData;
+        char cVar2 = effectManager.IsEnabled(35);
+        uVar24._4_4_ = local_1450._4_4_;
+        uVar24._0_1_ = local_1450[0];
+        uVar24._1_1_ = local_1450[1];
+        uVar24._2_1_ = local_1450[2];
+        uVar24._3_1_ = local_1450[3];
+        if (!cVar2) {
+            RenderPointLightShadows(unsigned int, int, graphics::EffectManager&, graphics::SceneViewData const&,
                                     graphics::GraphRoot*)::clearAtlas = '\0';
         } else {
-            local_1420 = param_3;
-            local_1498 =
-                (PointLightShadows*)graphics::EffectManager::GetEffect<graphics::SunlightDirectLighting>(param_3);
-            pRVar8 = (RT7Core*)local_1498->GetPointLightSMManager();
-            local_1410 = this;
-            local_1408 = pRVar8;
+            local_1498 = (PointLightShadows*)effectManager.GetEffect<graphics::SunlightDirectLighting>(35);
+            pRVar5 = (RT7Core*)local_1498->GetPointLightSMManager();
+            local_1408 = pRVar5;
             if ((graphics::PointLightSMManager::m_ClearShadowMapDepthAtlas != '\0') ||
-                (RenderPointLightShadows(unsigned int, int, graphics::EffectManager&, graphics::SceneViewData_const&,
+                (RenderPointLightShadows(unsigned int, int, graphics::EffectManager&, graphics::SceneViewData const&,
                                          graphics::GraphRoot*)::clearAtlas == '\0')) {
-                this_07 = pRVar8;
-                pRVar8->ResetActivePointLightSMPasses();
-                this_02 = (RenderContext*)this_07->GetRenderContext();
-                this_03 = (unique_ptr*)pRVar8->GetPixelBuffer();
-                bVar3 = std::unique_ptr::operator_cast_to_bool(this_03);
-                pRVar8 = local_1408;
-                if (!bVar3) {
-                    /* WARNING: Subroutine does not return */
+                this_06 = pRVar5;
+                pRVar5->ResetActivePointLightSMPasses();
+                this_01 = (RenderContext*)this_06->GetRenderContext();
+                cVar2 = (pRVar5->GetPixelBuffer())->operator_cast_to_bool();
+                pRVar5 = local_1408;
+                if (!cVar2) {
                     LogAssert("pointLightSMManager.GetShadowCubeMapAtlasPacker()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "scene/PointLightShadowRenderer.cpp",
-                              44, (char*)0);
+                              44, nullptr);
                 }
-                puVar9 = (unique_ptr<graphicutils::TextureAtlasSlotPacker,
-                                     std::default_delete<graphicutils::TextureAtlasSlotPacker>>*)
-                             local_1408->GetPixelBuffer();
-                pMVar10 =
-                    (Material*)
-                        std::unique_ptr<graphicutils::TextureAtlasSlotPacker,
-                                        std::default_delete<graphicutils::TextureAtlasSlotPacker>>::operator->(puVar9);
-                iVar5 = pMVar10->GetNormalEmissiveMapID();
-                puVar9 =
-                    (unique_ptr<graphicutils::TextureAtlasSlotPacker,
-                                std::default_delete<graphicutils::TextureAtlasSlotPacker>>*)pRVar8->GetPixelBuffer();
-                pMVar10 =
-                    (Material*)
-                        std::unique_ptr<graphicutils::TextureAtlasSlotPacker,
-                                        std::default_delete<graphicutils::TextureAtlasSlotPacker>>::operator->(puVar9);
-                iVar6 = pMVar10->GetNormalEmissiveMapID();
+                puVar6 = (unique_ptr<graphicutils::TextureAtlasSlotPacker>*)local_1408->GetPixelBuffer();
+                pMVar7 = (Material*)(*puVar6).operator->();
+                iVar4 = pMVar7->GetNormalEmissiveMapID();
+                puVar6 = (unique_ptr<graphicutils::TextureAtlasSlotPacker>*)pRVar5->GetPixelBuffer();
+                pMVar7 = (Material*)(*puVar6).operator->();
+                arg4 = pMVar7->GetNormalEmissiveMapID();
                 in_XMM1_Da = 1.0;
                 in_XMM1_Db = 0.0;
-                new (local_10d8) render::Viewport(0, 0, iVar5, iVar6, 0.0, 1.0);
-                this_02->SetViewports(local_10d8, 1);
-                this_08 = this_02;
-                this_02->SetScissorRectangle(false, local_10d8);
-                lVar11 = this_08->Instance();
-                this_02->SetDepthStencilState((DepthStencilState*)(lVar11 + 720));
-                pvVar12 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pRVar8->GetCursorMutex();
-                pRVar13 = (RenderTargets*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-                    pvVar12);
-                this_02->ClearDepthStencilTarget(pRVar13, 1.0, 0, 2);
-                RenderPointLightShadows(unsigned int, int, graphics::EffectManager&, graphics::SceneViewData_const&,
+                new (local_10d8) render::Viewport(0, 0, iVar4, arg4, 0.0, 1.0);
+                this_01->SetViewports(local_10d8, 1);
+                this_07 = this_01;
+                this_01->SetScissorRectangle(false, *local_10d8);
+                lVar8 = this_07->Instance();
+                this_01->SetDepthStencilState((lVar8 + 720));
+                pvVar9 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pRVar5->GetCursorMutex();
+                renderTargets = (RenderTargets*)pvVar9->end();
+                this_01->ClearDepthStencilTarget(renderTargets, 1.0, 0, 2);
+                RenderPointLightShadows(unsigned int, int, graphics::EffectManager&, graphics::SceneViewData const&,
                                         graphics::GraphRoot*)::clearAtlas = '\x01';
                 graphics::PointLightSMManager::m_ClearShadowMapDepthAtlas = '\0';
             }
-            pPVar33 = local_1410;
-            uVar14 = local_1410->field_32->HeapBeginPtr();
-            uVar15 = pPVar33->field_32->end();
+            pPVar22 = this;
+            visibleShadowCastingLightInfo1 = (VisibleShadowCastingLightInfo*)field_32->HeapBeginPtr();
+            auVar25 = pPVar22->field_32->end();
             eastl::sort<VisibleShadowCastingLightInfo*,
                         unsigned int->RenderPointLightShadows(
-                            int, graphics::EffectManager&, graphics::SceneViewData_const&, graphics::GraphRoot*)::__9>(
-                uVar14, uVar15);
-            pPVar33->field_16->field_8 = (GraphNode*)local_1418;
-            eastl::vector<PointLightShadowRenderer::PointLightSMJobData, BucketAllocatorEASTL>::vector();
-            uVar16 = pPVar33->field_32->size();
-            eastl::vector<PointLightShadowRenderer::PointLightSMJobData, BucketAllocatorEASTL>::reserve(local_1478,
-                                                                                                        uVar16);
-            bVar4 = pPVar33->field_32->empty();
-            local_1420->EnableEffect(36, bVar4 ^ 1);
-            this_00 = (Layout*)pPVar33->field_32;
-            pPVar17 = (PointLightSM*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_00);
-            local_14a0 = (PointLightSM*)this_00->end();
-            if (pPVar17 != local_14a0) {
+                            int, graphics::EffectManager&, graphics::SceneViewData const&, graphics::GraphRoot*)::__9>(
+                visibleShadowCastingLightInfo1, auVar25._0_8_, auVar25._8_8_);
+            pPVar22->field_16->field_8 = (GraphNode*)local_1418;
+            local_1478 = eastl::vector<PointLightShadowRenderer::PointLightSMJobData, BucketAllocatorEASTL>();
+            uVar10 = pPVar22->field_32->size();
+            local_1478.reserve(uVar10);
+            bVar3 = pPVar22->field_32->empty();
+            effectManager.EnableEffect(36, (bool)(bVar3 ^ 1));
+            this_00 = (Layout*)pPVar22->field_32;
+            pwVar11 = (weak_ptr<oldscape::rs2lib::IfType>*)this_00->HeapBeginPtr();
+            local_14a0 = (weak_ptr<oldscape::rs2lib::IfType>*)this_00->end();
+            if (pwVar11 != local_14a0) {
                 local_1450._16_8_ = 0;
                 do {
-                    local_1428 = pPVar17;
-                    weak_ptr<oldscape::rs2lib::IfType>::lock();
-                    bVar3 = shared_ptr::operator_cast_to_bool(&local_1460);
-                    if (bVar3) {
-                        pLVar18 =
-                            (LightSource*)shared_ptr<LightSource>::operator->((shared_ptr<LightSource>*)&local_1460);
-                        pPVar19 = (PointLightSM*)pLVar18->GetPointLightSM();
-                        if (pPVar19 == (PointLightSM*)0) {
-                            pPVar19 = (PointLightSM*)local_1408->AllocPointLightSM();
-                            pLVar18 = (LightSource*)shared_ptr<LightSource>::operator->(
-                                (shared_ptr<LightSource>*)&local_1460);
-                            pPVar17 = pPVar19;
-                            pLVar18->SetPointLightSM(pPVar19);
+                    local_1428 = pwVar11;
+                    local_1460 = pwVar11->lock();
+                    cVar2 = shared_ptr::operator_cast_to_bool(&local_1460);
+                    if (cVar2) {
+                        pLVar12 = (LightSource*)local_1460.operator->();
+                        pPVar13 = pLVar12->GetPointLightSM();
+                        if (pPVar13 == nullptr) {
+                            pPVar13 = (PointLightSM*)local_1408->AllocPointLightSM();
+                            pLVar12 = (LightSource*)local_1460.operator->();
+                            pLVar12->SetPointLightSM(pPVar13);
                         }
-                        local_1400 = pPVar19;
-                        if (pPVar19 != (PointLightSM*)0) {
+                        local_1400 = pPVar13;
+                        if (pPVar13 != nullptr) {
                             new (local_10d8) PointLightSMJobData();
-                            pPVar19 = local_1400;
-                            local_10d8 = (undefined1[8])local_1400;
-                            pLVar18 = (LightSource*)shared_ptr<LightSource>::operator->(
-                                (shared_ptr<LightSource>*)&local_1460);
-                            uVar14 = pLVar18->GetWorldSphere();
+                            pPVar13 = local_1400;
+                            local_10d8 = (uint8_t[8])local_1400;
+                            pLVar12 = (LightSource*)local_1460.operator->();
+                            uVar24 = pLVar12->GetWorldSphere();
                             local_1450._8_4_ = in_XMM1_Da;
                             local_1450._12_4_ = in_XMM1_Db;
-                            local_1450._0_8_ = uVar14;
+                            local_1450._0_8_ = uVar24;
                             if (graphics::PointLightSMManager::m_showShadowCastingLights != '\0') {
-                                plVar20 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-                                if (plVar20 != (long*)0) {
-                                    pvVar21 = local_1450->SSOBeginPtr(pPVar17);
-                                    fVar34 = (float)local_1450->GetOutlineRadiusAdjustment();
-                                    math::Sphere::Sphere(local_1378, (Vector3T*)pvVar21, fVar34);
-                                    pLVar18 = (LightSource*)shared_ptr<LightSource>::operator->(
-                                        (shared_ptr<LightSource>*)&local_1460);
-                                    pPVar17 = (PointLightSM*)pLVar18->GetPointLightSM();
-                                    iVar5 = pPVar17->GetLODLevel();
-                                    uVar14 = graphics::GetShadowMapLodColour(iVar5);
+                                plVar14 = DebugPrimitiveCollectorBasic::GetCollector("");
+                                if (plVar14 != nullptr) {
+                                    pVVar15 = (Vector3T<float>*)local_1450->SSOBeginPtr();
+                                    fVar23 = (float)local_1450->GetOutlineRadiusAdjustment();
+                                    local_1378 = math::Sphere(*pVVar15, fVar23);
+                                    pLVar12 = (LightSource*)local_1460.operator->();
+                                    pPVar13 = pLVar12->GetPointLightSM();
+                                    iVar4 = pPVar13->GetLODLevel();
+                                    uVar24 = graphics::GetShadowMapLodColour(iVar4);
                                     local_13d8._8_4_ = in_XMM1_Da;
                                     fStack_13cc = in_XMM1_Db;
-                                    local_13d8._0_8_ = uVar14;
-                                    new (&local_1490) math::ColourStorage8888<math::ARGB8StorageLayout>(local_13d8);
-                                    iVar5 = local_1490.GetX();
-                                    new (&local_14f0) oldscape::sidebars::SideBarData(iVar5, 2);
-                                    pPVar17 = (PointLightSM*)local_1378;
-                                    (**(code**)(*plVar20 + 32))(plVar20, (PointLightSM*)local_1378, &local_14f0);
-                                    pPVar33 = local_1410;
-                                    pPVar19 = local_1400;
+                                    local_13d8._0_8_ = uVar24;
+                                    local_1490 = math::ColourStorage8888(local_13d8);
+                                    iVar4 = local_1490.GetX();
+                                    local_14f0 = oldscape::sidebars::SideBarData(iVar4, 2);
+                                    (**(void (**)(...))(*plVar14 + 32))(plVar14, &local_1378, &local_14f0);
+                                    pPVar22 = this;
+                                    pPVar13 = local_1400;
                                 }
                             }
-                            pPVar31 = pPVar17;
                             if (graphics::PointLightSMManager::m_showShadowCastingLightDst != '\0') {
-                                plVar20 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-                                pPVar31 = pPVar17;
-                                if (plVar20 != (long*)0) {
-                                    pPVar31 = (PointLightSM*)pPVar33->field_40;
-                                    pvVar21 = local_1450->SSOBeginPtr(pPVar17);
-                                    new (local_1378) oldscape::sidebars::SideBarData(-1, 2);
-                                    (**(code**)(*plVar20 + 24))(plVar20, pPVar31, pvVar21);
-                                    pPVar19 = local_1400;
+                                plVar14 = DebugPrimitiveCollectorBasic::GetCollector("");
+                                if (plVar14 != nullptr) {
+                                    pVVar15 = pPVar22->field_40;
+                                    uVar24 = local_1450->SSOBeginPtr();
+                                    local_1378 = oldscape::sidebars::SideBarData(-1, 2);
+                                    (**(void (**)(...))(*plVar14 + 24))(plVar14, pVVar15, uVar24);
+                                    pPVar13 = local_1400;
                                 }
                             }
-                            pVVar22 = (ViewTransforms*)local_1418->SSOBeginPtr(pPVar31);
-                            pvVar21 = local_1408->SSOBeginPtr(pPVar31);
-                            iVar5 = pPVar19->ComputeLinearLightLODLevel(local_1450, pVVar22, *(float*)(pvVar21 + 28));
-                            if (iVar5 == -1) {
-                                /* WARNING: Subroutine does not return */
+                            viewTransforms = (ViewTransforms*)local_1418->SSOBeginPtr();
+                            lVar8 = local_1408->SSOBeginPtr();
+                            iVar4 = pPVar13->ComputeLinearLightLODLevel(*local_1450, *viewTransforms,
+                                                                        *(float*)(lVar8 + 28));
+                            if (iVar4 == -1) {
                                 LogAssert("lodLevel != -1",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/"
                                           "runetek5/scene/PointLightShadowRenderer.cpp",
-                                          113, (char*)0);
+                                          113, nullptr);
                             }
-                            pPVar19->SetLODLevel(iVar5);
-                            uVar16 = 0;
+                            pPVar13->SetLODLevel(iVar4);
+                            uVar10 = 0;
                             do {
-                                uVar7 = render::GetCubeMapFace((int)uVar16);
-                                local_1490.GetShadowCubeMapFaceViewport(local_1400, uVar7);
-                                ptVar32 = (type*)0;
-                                new (&local_14f0) jag::Camera();
-                                fVar34 = (float)math::Deg2Rad(90.0);
-                                local_14f0.SetVerticalFov(fVar34);
+                                render::GetCubeMapFace((int)uVar10);
+                                local_1490.GetShadowCubeMapFaceViewport((CubeFace)local_1400);
+                                local_14f0 = jag::Camera(0);
+                                fVar23 = (float)math::Deg2Rad(90.0);
+                                local_14f0.SetVerticalFov(fVar23);
                                 local_14f0.SetAspect((float)((int)local_1490._8_4_ / iStack_1484));
                                 local_14f0.SetNearClip(0.1);
-                                fVar34 = (float)local_1450->GetOutlineRadiusAdjustment();
-                                local_14f0.SetFarClip(fVar34);
-                                pvVar21 = local_1450->SSOBeginPtr(ptVar32);
-                                local_14f0.SetPos(pvVar21);
+                                fVar23 = (float)local_1450->GetOutlineRadiusAdjustment();
+                                local_14f0.SetFarClip(fVar23);
+                                pVVar15 = (Vector3T<float>*)local_1450->SSOBeginPtr();
+                                local_14f0.SetPos(*pVVar15);
                                 in_XMM1_Da = -1.0;
                                 in_XMM1_Db = 0.0;
                                 new (local_13d8) math::QuaternionT<float>(0.0, -1.0, 0.0, 0.0);
-                                local_1378->CUBEMAP_FACE_CAMERA_ROTATIONS(local_13d8);
-                                pQVar23 = (QuaternionT*)std::array<math::QuaternionT<float>, 6ul>::operator[](
-                                    (array<math::QuaternionT<float>, 6ul>*)local_1378, uVar16);
-                                local_14f0.SetRot(pQVar23);
-                                new (local_1378) graphics::SceneViewData();
-                                local_1378->SetTransforms(&local_14f0);
-                                local_13f8[2] = (undefined**)local_1480;
-                                local_13f8[0] = (undefined**)local_1490._0_8_;
+                                local_1378 = graphicutils::CUBEMAP_FACE_CAMERA_ROTATIONS(*local_13d8);
+                                quaternion = &local_1378[uVar10];
+                                local_14f0.SetRot(*quaternion);
+                                local_1378 = graphics::SceneViewData();
+                                local_1378.SetTransforms(local_14f0);
+                                local_13f8[2] = (PointLightSM_vtbl*)local_1480;
+                                local_13f8[0] = (PointLightSM_vtbl*)local_1490._0_8_;
                                 new ((local_14f0.m_pos + 12)) eastl::allocator("EASTL fixed_vector");
-                                eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator>::fixed_vector(
-                                    (QuaternionT<float>*)local_13d8, local_13f8, 1);
-                                local_1378->SetRenderTargetViewports(local_13d8);
-                                local_13d8->~fixed_vector();
-                                pvVar12 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                                              local_1408->GetCursorMutex();
-                                local_1378[18]._8_8_ =
-                                    eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-                                        pvVar12);
-                                pFVar24 = (Frustum*)local_1418->GetTranslation();
-                                pFVar25 = (Frustum*)local_1378->GetTranslation();
-                                cVar2 = pFVar24->TestIntersection(pFVar25);
-                                uVar14 = std::array<bool, 6ul>::operator[](local_48, uVar16);
-                                *(bool*)uVar14 = cVar2 != '\0';
-                                if (cVar2 != '\0') {
-                                    this_04 = (SceneViewData*)std::array<graphics::SceneViewData, 6ul>::operator[](
-                                        local_10c8, uVar16);
-                                    graphics::SceneViewData::operator=(this_04, (SceneViewData*)local_1378);
-                                    pPVar1 = local_1410->field_16;
-                                    pPVar1->field_0 = (Layout*)local_1378;
-                                    math::PlaneT<float>::operator=((PlaneT<float>*)pPVar1->field_16,
-                                                                   (PlaneT*)local_1450);
-                                    if ((GraphRoot*)local_1450._24_8_ != (GraphRoot*)0) {
-                                        this_05 =
-                                            (vector<
-                                                std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>,
-                                                eastl::allocator>*)
-                                                std::array<eastl::vector<std::pair<graphics::GraphEntity*,
-                                                                                   graphics::GraphEntityTransformData>,
-                                                                         eastl::allocator>,
-                                                           6ul>::operator[](local_108, uVar16);
-                                        eastl::vector<
-                                            std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>,
-                                            eastl::allocator>::reserve(this_05, 768);
-                                        pFVar24 = (Frustum*)local_1378->GetTranslation();
-                                        local_1450._24_8_->VisibilityTest(this_05, local_1450._32_4_, pFVar24, 6, 6,
-                                                                          local_1410->field_24, (AABB*)0, (Frustum*)0);
-                                        uVar26 = eastl::vector<
-                                            std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>,
-                                            eastl::allocator>::size(this_05);
-                                        if (768 < uVar26) {
-                                            uVar14 = logger::default_logger();
-                                            logger::Logger::Log(
-                                                uVar14, 0, 3,
-                                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                                "game/runetek5/scene/PointLightShadowRenderer.cpp",
-                                                164, "POINT_LIGHT_FACE_ENTITY_COUNT initial capacity exceeded");
+                                new (local_13d8) eastl::fixed_vector<render::Viewport, 2ul>(local_13f8, DAT_00000001);
+                                local_1378.SetRenderTargetViewports(*local_13d8);
+                                pvVar9 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
+                                             local_1408->GetCursorMutex();
+                                local_1378._368_8_ = pvVar9->end();
+                                pFVar16 = (Frustum*)local_1418->GetTranslation();
+                                frustum = (Frustum*)local_1378.GetTranslation();
+                                cVar2 = pFVar16->TestIntersection(*frustum);
+                                uVar24 = local_48[uVar10];
+                                *(bool*)uVar24 = cVar2;
+                                if (cVar2) {
+                                    pSVar17 = &local_10c8[uVar10];
+                                    *pSVar17 = local_1378;
+                                    pPVar1 = field_16;
+                                    pPVar1->field_0 = (Layout*)&local_1378;
+                                    *pPVar1->field_16 = *local_1450;
+                                    if ((GraphRoot*)local_1450._24_8_ != nullptr) {
+                                        this_03 = (vector<
+                                                   std::pair<graphics::GraphEntity*,
+                                                             graphics::GraphEntityTransformData>>*)(*local_108)[uVar10];
+                                        this_03->reserve(768);
+                                        pFVar16 = (Frustum*)local_1378.GetTranslation();
+                                        local_1450._24_8_->VisibilityTest(*this_03, local_1450._32_4_, *pFVar16, 6, 6,
+                                                                          *field_24, nullptr, nullptr);
+                                        uVar18 = this_03->size();
+                                        if (768 < uVar18) {
+                                            (logger::default_logger())
+                                                ->Log(
+                                                    false, 3,
+                                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
+                                                    "libs/game/runetek5/scene/PointLightShadowRenderer.cpp",
+                                                    164, "POINT_LIGHT_FACE_ENTITY_COUNT initial capacity exceeded");
                                         }
                                     }
                                 }
-                                local_1378->~SceneViewData();
-                                local_14f0.~Camera();
-                                uVar16 = uVar16 + 1;
-                            } while (uVar16 != 6);
-                            eastl::vector<PointLightShadowRenderer::PointLightSMJobData,
-                                          BucketAllocatorEASTL>::push_back(local_1478,
-                                                                           (PointLightSMJobData*)local_10d8);
+                                uVar10 = uVar10 + 1;
+                            } while (uVar10 != 6);
+                            local_1478.push_back(*local_10d8);
                             if (graphics::PointLightSMManager::m_cullOccludedShadowCasters != '\0') {
-                                lVar11 = eastl::vector<PointLightShadowRenderer::PointLightSMJobData,
-                                                       BucketAllocatorEASTL>::operator[](local_1478, local_1450._16_8_);
-                                uVar16 = 0;
+                                lVar8 = local_1478[local_1450._16_8_];
+                                uVar10 = 0;
                                 do {
-                                    pcVar27 = (char*)std::array<bool, 6ul>::operator[](
-                                        (array<bool, 6ul>*)(lVar11 + 4240), uVar16);
-                                    if (*pcVar27 != '\0') {
-                                        pvVar21 = (vector*)
-                                            std::array<eastl::vector<std::pair<graphics::GraphEntity*,
-                                                                               graphics::GraphEntityTransformData>,
-                                                                     eastl::allocator>,
-                                                       6ul>::
-                                            operator[](
-                                                (array<eastl::vector<std::pair<graphics::GraphEntity*,
-                                                                               graphics::GraphEntityTransformData>,
-                                                                     eastl::allocator>,
-                                                       6ul>*)(lVar11 + 4048),
-                                                uVar16);
-                                        CullOccludedShadowCasters(pvVar21);
+                                    pcVar19 = (char*)(*((lVar8 + 4240)))[uVar10];
+                                    if (*pcVar19 != '\0') {
+                                        CullOccludedShadowCasters((
+                                            vector<std::pair<graphics::GraphEntity*,
+                                                             graphics::GraphEntityTransformData>>*)(*((lVar8 +
+                                                                                                       4048)))[uVar10]);
                                     }
-                                    uVar16 = uVar16 + 1;
-                                } while (uVar16 != 6);
+                                    uVar10 = uVar10 + 1;
+                                } while (uVar10 != 6);
                             }
                             local_1450._16_8_ = local_1450._16_8_ + 1;
-                            local_10d8->~PointLightSMJobData();
-                            pPVar33 = local_1410;
+                            pPVar22 = this;
                         }
                     }
-                    local_1460.~shared_ptr();
-                    pPVar17 = (PointLightSM*)&local_1428->field_24;
-                } while (pPVar17 != local_14a0);
+                    pwVar11 = local_1428 + 24;
+                } while (pwVar11 != local_14a0);
             }
-            lVar11 =
-                eastl::vector<PointLightShadowRenderer::PointLightSMJobData, BucketAllocatorEASTL>::size(local_1478);
-            if (lVar11 != 0) {
-                pPVar17 = (PointLightSM*)0;
+            lVar8 = local_1478.size();
+            if (lVar8 != 0) {
+                pwVar11 = nullptr;
                 do {
-                    local_1408 = (RT7Core*)
-                        eastl::vector<PointLightShadowRenderer::PointLightSMJobData, BucketAllocatorEASTL>::operator[](
-                            local_1478, (ulong)pPVar17);
+                    local_1408 = &local_1478[(unsigned long)pwVar11];
                     local_1418 = (SceneViewData*)&local_1408->field_16;
                     local_1450._32_8_ = &local_1408->field_4048;
-                    uVar16 = 0;
-                    local_1428 = pPVar17;
+                    uVar10 = 0;
+                    local_1428 = pwVar11;
                     do {
-                        lVar11 = eastl::vector<PointLightShadowRenderer::PointLightSMJobData,
-                                               BucketAllocatorEASTL>::operator[](local_1478, (ulong)pPVar17);
-                        pcVar27 = (char*)std::array<bool, 6ul>::operator[]((array<bool, 6ul>*)(lVar11 + 4240), uVar16);
-                        if (*pcVar27 != '\0') {
-                            local_1400 = (PointLightSM*)std::array<graphics::SceneViewData, 6ul>::operator[](
-                                (array<graphics::SceneViewData, 6ul>*)local_1418, uVar16);
-                            pPVar17 = (PointLightSM*)local_1408->field_0;
-                            uVar7 = render::GetCubeMapFace((int)uVar16);
-                            pRVar28 = (RenderPass*)pPVar17->GetShadowCubeMapFacePass(uVar7);
-                            local_1400->RenderPassPushBack(pRVar28);
-                            this_01 = local_1410->field_8;
-                            pvVar21 = (vector*)std::array<
-                                eastl::vector<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>,
-                                              eastl::allocator>,
-                                6ul>::operator[]((array<eastl::vector<std::pair<graphics::GraphEntity*,
-                                                                                graphics::GraphEntityTransformData>,
-                                                                      eastl::allocator>,
-                                                        6ul>*)local_1450._32_8_,
-                                                 uVar16);
-                            if ((GraphRoot*)local_1450._24_8_ == (GraphRoot*)0) {
-                                pGVar29 = (GraphNode*)0;
+                        lVar8 = local_1478[(unsigned long)pwVar11];
+                        pcVar19 = (char*)(*((lVar8 + 4240)))[uVar10];
+                        if (*pcVar19 != '\0') {
+                            local_1400 = (PointLightSM*)(*local_1418)[uVar10];
+                            pPVar13 = (PointLightSM*)local_1408->_vptr;
+                            cubeFace = render::GetCubeMapFace((int)uVar10);
+                            local_1400->RenderPassPushBack((RenderPass*)pPVar13->GetShadowCubeMapFacePass(cubeFace));
+                            pairs = field_8;
+                            pSVar17 = (SceneViewData*)(*local_1450._32_8_)[uVar10];
+                            if ((GraphRoot*)local_1450._24_8_ == nullptr) {
+                                effectManager_00 = nullptr;
                             } else {
-                                pGVar29 = (GraphNode*)local_1450._24_8_->GetRoot();
+                                effectManager_00 = (EffectManager*)local_1450._24_8_->GetRoot();
                             }
-                            local_10d8 = (undefined1[8])((ulong)local_10d8 & 18446744069414584320);
+                            local_10d8 = (uint8_t[8])((unsigned long)local_10d8 & 18446744069414584320);
                             new (local_10d8) callstack::Callstack();
-                            this_01->RenderView(pvVar21, local_1400, pGVar29, local_1420, true, local_10d8);
-                            pPVar17 = local_1428;
+                            graphics::Renderer::RenderView(pairs, pSVar17, local_1400, effectManager_00,
+                                                           (uint8_t)effectManager, &DAT_00000001);
+                            pwVar11 = local_1428;
                             if (graphics::PointLightSMManager::m_showPointLightFaceCameraFrustums != '\0') {
-                                new (local_10d8) math::ColourStorage8888<math::ARGB8StorageLayout>(1.0, 1.0, 0.0, 0.0);
-                                new ((local_10d8 + 4))
-                                    math::ColourStorage8888<math::ARGB8StorageLayout>(1.0, 0.0, 1.0, 0.0);
-                                math::ColourStorage8888<math::ARGB8StorageLayout>::ColourStorage8888(local_10d0, 1.0,
-                                                                                                     0.0, 0.0, 1.0);
-                                math::ColourStorage8888<math::ARGB8StorageLayout>::ColourStorage8888(local_10cc, 1.0,
-                                                                                                     1.0, 1.0, 0.0);
-                                new (local_10c8) math::ColourStorage8888<math::ARGB8StorageLayout>(1.0, 0.0, 1.0, 1.0);
-                                math::ColourStorage8888<math::ARGB8StorageLayout>::ColourStorage8888(local_10c4, 1.0,
-                                                                                                     1.0, 0.0, 1.0);
-                                plVar20 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-                                if (plVar20 != (long*)0) {
-                                    pvVar21 = (vector*)local_1400->GetTranslation();
-                                    pCVar30 = (CoordMapSquare*)
-                                        std::array<math::ColourStorage8888<math::ARGB8StorageLayout>, 6ul>::operator[](
-                                            (array<math::ColourStorage8888<math::ARGB8StorageLayout>, 6ul>*)local_10d8,
-                                            uVar16);
-                                    iVar5 = pCVar30->GetX();
-                                    new (local_1378) oldscape::sidebars::SideBarData(iVar5, 3);
-                                    (**(code**)(*plVar20 + 96))(plVar20, pvVar21, PTR_IDENTITY_100ee6730, local_1378);
+                                new (local_10d8) math::ColourStorage8888(1.0, 1.0, 0.0, 0.0);
+                                new ((local_10d8 + 4)) math::ColourStorage8888(1.0, 0.0, 1.0, 0.0);
+                                local_10d0 = math::ColourStorage8888(1.0, 0.0, 0.0, 1.0);
+                                local_10cc = math::ColourStorage8888(1.0, 1.0, 1.0, 0.0);
+                                local_10c8 = math::ColourStorage8888(1.0, 0.0, 1.0, 1.0);
+                                local_10c4 = math::ColourStorage8888(1.0, 1.0, 0.0, 1.0);
+                                plVar14 = DebugPrimitiveCollectorBasic::GetCollector("");
+                                if (plVar14 != nullptr) {
+                                    uVar24 = local_1400->GetTranslation();
+                                    pCVar21 = (CoordMapSquare*)(*local_10d8)[uVar10];
+                                    iVar4 = pCVar21->GetX();
+                                    local_1378 = oldscape::sidebars::SideBarData(iVar4, 3);
+                                    (**(void (**)(...))(*plVar14 + 96))(plVar14, uVar24, PTR_IDENTITY_100ee6730,
+                                                                        &local_1378);
                                 }
-                                plVar20 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-                                if (plVar20 != (long*)0) {
-                                    this_06 = local_1400->SSOBeginPtr(pvVar21);
-                                    pvVar21 = this_06->SSOBeginPtr(pvVar21);
-                                    math::Sphere::Sphere(local_1378, (Vector3T*)pvVar21, 50.0);
-                                    pCVar30 = (CoordMapSquare*)
-                                        std::array<math::ColourStorage8888<math::ARGB8StorageLayout>, 6ul>::operator[](
-                                            (array<math::ColourStorage8888<math::ARGB8StorageLayout>, 6ul>*)local_10d8,
-                                            uVar16);
-                                    iVar5 = pCVar30->GetX();
-                                    new (local_13d8) oldscape::sidebars::SideBarData(iVar5, 3);
-                                    (**(code**)(*plVar20 + 32))(plVar20, local_1378, (SideBarData*)local_13d8);
+                                plVar14 = DebugPrimitiveCollectorBasic::GetCollector("");
+                                if (plVar14 != nullptr) {
+                                    this_05 = (Layout*)local_1400->SSOBeginPtr();
+                                    pVVar15 = (Vector3T<float>*)this_05->SSOBeginPtr();
+                                    local_1378 = math::Sphere(*pVVar15, 50.0);
+                                    pCVar21 = (CoordMapSquare*)(*local_10d8)[uVar10];
+                                    iVar4 = pCVar21->GetX();
+                                    new (local_13d8) oldscape::sidebars::SideBarData(iVar4, 3);
+                                    (**(void (**)(...))(*plVar14 + 32))(plVar14, &local_1378, (SideBarData*)local_13d8);
                                 }
                             }
                             local_1400->RenderPassPopBack();
                         }
-                        uVar16 = uVar16 + 1;
-                    } while (uVar16 != 6);
-                    pPVar17 = (PointLightSM*)((long)&pPVar17->field_0 + 1);
-                    pPVar19 = (PointLightSM*)
-                        eastl::vector<PointLightShadowRenderer::PointLightSMJobData, BucketAllocatorEASTL>::size(
-                            local_1478);
-                } while (pPVar17 < pPVar19);
+                        uVar10 = uVar10 + 1;
+                    } while (uVar10 != 6);
+                    pwVar11 = pwVar11 + 1;
+                    pwVar20 = (weak_ptr<oldscape::rs2lib::IfType>*)local_1478.size();
+                } while (pwVar11 < pwVar20);
             }
-            local_1420->EnableEffect(36, 0);
+            effectManager.EnableEffect(36, false);
             local_1498->Update();
-            eastl::vector<PointLightShadowRenderer::PointLightSMJobData, BucketAllocatorEASTL>::~vector(local_1478);
-            uVar14 = local_1450._0_8_;
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            local_1450._0_8_ = uVar14;
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            uVar24 = local_1450._0_8_;
         }
     }
 
-    // 0x10047e080, 128 bytes, placed by class name
-    // PointLightShadowRenderer::CullOccludedShadowCasters(eastl::vector<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>, eastl::allocator>&)
-    /* PointLightShadowRenderer::CullOccludedShadowCasters(eastl::vector<std::pair<graphics::GraphEntity*,
-   graphics::GraphEntityTransformData>, eastl::allocator>&) */
-
-    void PointLightShadowRenderer::CullOccludedShadowCasters(vector* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        pair* ppVar3;
-        pair* ppVar4;
-
+    // 0x10047e080
+    void PointLightShadowRenderer::CullOccludedShadowCasters(
+        eastl::vector<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>>& pairs) {
         if (graphics::PointLightSMManager::m_cullOccludedShadowCasters == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("graphics::PointLightSMManager::m_cullOccludedShadowCasters",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "PointLightShadowRenderer.cpp",
-                      263, (char*)0);
+                      263, nullptr);
         }
-        uVar1 = param_1->HeapBeginPtr();
-        uVar2 = param_1->end();
-        ppVar3 = std::remove_if<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>*,
-                                PointLightShadowRenderer::CullOccludedShadowCasters(
-                                    eastl::vector<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>,
-                                                  eastl::allocator>&)::__10>(uVar1, uVar2, param_1);
-        ppVar4 = (pair*)param_1->end();
-        param_1->erase(ppVar3, ppVar4);
+        auto ppVar1 = pairs.HeapBeginPtr();
+        auto ppVar2 = pairs.end();
+        ppVar1 = std::remove_if<
+            std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>*,
+            PointLightShadowRenderer::CullOccludedShadowCasters(
+                *(eastl::vector<std::pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>>&))::__10>(
+            ppVar1, ppVar2, (__10*)pairs);
+        ppVar2 = (pair<graphics::GraphEntity*, graphics::GraphEntityTransformData>*)pairs.end();
+        pairs.erase(ppVar1, ppVar2);
     }
 
-    // 0x10048bfb0, 32 bytes, placed by class name
-    // PointLightShadowRenderer::RenderPointLightShadows(unsigned int, int, graphics::EffectManager&, graphics::SceneViewData const&, graphics::GraphRoot*)::$_9::operator()(VisibleShadowCastingLightInfo const&, VisibleShadowCastingLightInfo const&) const
-    /* PointLightShadowRenderer::RenderPointLightShadows(unsigned int, int,
-   graphics::EffectManager&, graphics::SceneViewData const&,
-   graphics::GraphRoot*)::$_9::TEMPNAMEPLACEHOLDERVALUE(VisibleShadowCastingLightInfo
-   const&, VisibleShadowCastingLightInfo const&) const */
-
-    undefined8 PointLightShadowRenderer::RenderPointLightShadows(
-        unsigned int, int, graphics::EffectManager&, graphics::SceneViewData_const&,
-        graphics::GraphRoot*)::$_9::operator()(VisibleShadowCastingLightInfo* param_1,
-                                               VisibleShadowCastingLightInfo* param_2) {
-        return CONCAT71((int7)(param_1->field_16 >> 8), param_2->field_16 < param_1->field_16);
+    // 0x10048bfb0
+    uint64_t PointLightShadowRenderer::RenderPointLightShadows(
+        unsigned int, int, graphics::EffectManager&, graphics::SceneViewData const&,
+        graphics::GraphRoot*)::$_9::operator()(const VisibleShadowCastingLightInfo& visibleShadowCastingLightInfo1,
+                                               const VisibleShadowCastingLightInfo& visibleShadowCastingLightInfo2)
+        const {
+        return visibleShadowCastingLightInfo1.field_16 < field_16;
     }
 
 } // namespace jag::game

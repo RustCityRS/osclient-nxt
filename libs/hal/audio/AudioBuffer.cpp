@@ -1,531 +1,425 @@
 // libs/hal/audio/AudioBuffer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.audio
 
 #include "AudioBuffer.h"
 
 namespace jag::hal::audio {
-    // 0x10000b2a0: the linker folded this into eastl::string::Layout::GetHeapSize() const, which has identical code
-    AudioBuffer::Format() const;
+    // 0x10000b2a0: AudioBuffer::Format() const has the same machine code as eastl::string::Layout::GetHeapSize() const
 
-    // 0x100198190: the linker folded this into oldscape::PacketJ<Array<unsigned char, eastl::allocator> >::~PacketJ(), which has identical code
-    AudioBuffer::AudioDataContainer::~AudioDataContainer();
+    // 0x1001d9030: AudioBuffer::AudioDataContainer::~AudioDataContainer() has the same machine code as oldscape::VBOMapper::~VBOMapper()
 
-    // 0x1001d9030: the linker folded this into oldscape::VBOMapper::~VBOMapper(), which has identical code
-    AudioBuffer::AudioDataContainer::~AudioDataContainer();
+    // 0x1004198f0: AudioBuffer::NumberOfChannels() const has the same machine code as game::GraphicsDefaults::GetNpcChatTimeout() const
 
-    // 0x1004198f0: the linker folded this into game::GraphicsDefaults::GetNpcChatTimeout() const, which has identical code
-    AudioBuffer::NumberOfChannels() const;
+    // 0x100444920: AudioBuffer::GetMaximumSamples() const has the same machine code as game::LocationContainer::GetMapSquareX() const
 
-    // 0x100444920: the linker folded this into game::LocationContainer::GetMapSquareX() const, which has identical code
-    uint AudioBuffer::GetMaximumSamples() const;
+    // 0x1006211f0: AudioBuffer::SampleRate() const has the same machine code as game::Camera::GetLookatMode() const
 
-    // 0x1006211f0: the linker folded this into game::Camera::GetLookatMode() const, which has identical code
-    AudioBuffer::SampleRate() const;
+    // 0x100b8be30
+    AudioBuffer::AudioBuffer(int arg1, int arg2, int arg3, const AudioFormat* audioFormat, bool arg5)
+        : SampleReadable(), field_8(audioFormat) {
+        unsigned int uVar1;
 
-    // 0x100b8be30, 272 bytes, base-object constructor, placed by class name and debug map
-    // AudioBuffer::AudioBuffer(int, int, int, AudioFormat const*, bool)
-    void AudioBuffer::AudioBuffer(int param_1, int param_2, int param_3, AudioFormat* param_4, bool param_5) {
-        uint uVar1;
-        AudioDataContainer* this_00;
-        uint uVar2;
-        ulong uVar3;
-
-        new (this) SampleReadable();
-        field_0 = &PTR__AudioBuffer_100f26780;
-        field_8 = param_4;
-        new (&field_16) std::array<AudioBuffer::AudioDataContainer, 2ul>();
-        uVar2 = param_1 * param_4->field_12;
+        unsigned int uVar2 = arg1 * audioFormat->field_12;
         field_192 = uVar2;
-        field_196 = param_2;
-        field_200 = param_3;
-        field_204 = param_3;
+        field_196 = arg2;
+        field_200 = arg3;
+        field_204 = arg3;
         field_208 = 0;
-        m_maximumSamples = uVar2 >> (*(byte*)&field_8->field_16 & 31);
+        m_maximumSamples = uVar2 >> (*(uint8_t*)&field_8->field_16 & 31);
         if (field_8->field_20 == false) {
-            param_2 = 1;
+            arg2 = 1;
         }
-        uVar3 = 0;
+        unsigned long arg1_00 = 0;
         while (true) {
             uVar1 = 1;
             if (field_8->field_20 == false) {
                 uVar1 = field_196;
             }
-            if (uVar1 <= uVar3)
+            if (uVar1 <= arg1_00)
                 break;
-            this_00 = (AudioDataContainer*)std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, uVar3);
-            this_00->Resize(param_2 * uVar2);
-            uVar3 = uVar3 + 1;
+            ((AudioDataContainer*)field_16[arg1_00])->Resize(arg2 * uVar2);
+            arg1_00 = arg1_00 + 1;
         }
     }
 
-    // 0x100b8bf80, 224 bytes, placed by class name and debug map
-    // AudioBuffer::AudioDataContainer::Resize(unsigned int)
-    void AudioBuffer::AudioDataContainer::Resize(uint param_1) {
-        char cVar1;
-        undefined8 uVar2;
-        uchar* puVar3;
-
-        cVar1 = (&field_24)->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x100b8bf80
+    void AudioBuffer::AudioDataContainer::Resize(unsigned int arg1) {
+        if (field_24.empty() == '\0') {
             LogAssert("m_DataByteView.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
-                      546, (char*)0);
+                      546, nullptr);
         }
-        Reset(this);
-        field_80 = param_1;
-        set_max_size((ulong)param_1, 5);
-        uVar2 = Array<unsigned char, eastl::allocator>::operator[]((Array<unsigned char, eastl::allocator>*)this, 0);
-        ___bzero(uVar2);
-        puVar3 = (uchar*)Array<unsigned char, eastl::allocator>::operator[](
-            (Array<unsigned char, eastl::allocator>*)this, 0);
-        new (&field_24, puVar3, (ulong)param_1) WrapArray<unsigned char>();
-        if ((param_1 & 1) == 0) {
-            puVar3 = (uchar*)Array<unsigned char, eastl::allocator>::operator[](
-                (Array<unsigned char, eastl::allocator>*)this, 0);
-            new (&field_56, puVar3, (ulong)(param_1 >> 1)) WrapArray<unsigned char>();
-            if ((param_1 & 3) == 0) {
-                puVar3 = (uchar*)Array<unsigned char, eastl::allocator>::operator[](
-                    (Array<unsigned char, eastl::allocator>*)this, 0);
-                new (&field_40, puVar3, (ulong)(param_1 >> 2)) WrapArray<unsigned char>();
+        Reset();
+        field_80 = arg1;
+        set_max_size((unsigned long)arg1, 5);
+        ___bzero((*this)[0]);
+        Particle* pPVar3 = (Particle*)(*this)[0];
+        new (&field_24) WrapArray(pPVar3, (unsigned long)arg1);
+        if ((arg1 & 1) == 0) {
+            pPVar3 = (Particle*)(*this)[0];
+            new (&field_56) WrapArray(pPVar3, (unsigned long)(arg1 >> 1));
+            if ((arg1 & 3) == 0) {
+                pPVar3 = (Particle*)(*this)[0];
+                new (&field_40) WrapArray(pPVar3, (unsigned long)(arg1 >> 2));
             }
         }
     }
 
-    // 0x100b8c060, 16 bytes, complete-object constructor, placed by class name and debug map
-    // AudioBuffer::AudioBuffer(int, int, int, AudioFormat const*, bool): jumps straight to the base-object constructor
-
-    // 0x100b8c070, 176 bytes, base-object constructor, placed by class name and debug map
-    // AudioBuffer::AudioBuffer(int, AudioFormat const*)
-    void AudioBuffer::AudioBuffer(int param_1, AudioFormat* param_2) {
-        AudioDataContainer* this_00;
-
-        new (this) SampleReadable();
-        field_0 = &PTR__AudioBuffer_100f26780;
-        field_8 = param_2;
-        new (&field_16) std::array<AudioBuffer::AudioDataContainer, 2ul>();
-        field_192 = param_1;
-        field_196 = 1;
-        field_200 = 0;
-        field_204 = 0;
-        field_208 = 1;
-        m_maximumSamples = (uint)param_1 >> (*(byte*)&field_8->field_16 & 31);
-        this_00 = (AudioDataContainer*)std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-            (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, 0);
-        this_00->Resize(param_1);
+    // 0x100b8c070
+    AudioBuffer::AudioBuffer(int arg1, const AudioFormat* audioFormat)
+        : SampleReadable(), field_8(audioFormat), field_192(arg1), field_196(1), field_200(0), field_204(0),
+          field_208(1) {
+        m_maximumSamples = (unsigned int)arg1 >> (*(uint8_t*)&field_8->field_16 & 31);
+        ((AudioDataContainer*)field_16[0])->Resize(arg1);
     }
 
-    // 0x100b8c120, 16 bytes, complete-object constructor, placed by class name and debug map
-    // AudioBuffer::AudioBuffer(int, AudioFormat const*): jumps straight to the base-object constructor
-
-    // 0x100b8c130, 256 bytes, base-object constructor, placed by class name and debug map
-    // AudioBuffer::AudioBuffer(unsigned char*, int, int, int, AudioFormat const*)
-    void AudioBuffer::AudioBuffer(uchar* param_1, int param_2, int param_3, int param_4, AudioFormat* param_5) {
-        long lVar1;
-        int iVar2;
-        uint uVar3;
-
-        new (this) SampleReadable();
-        field_0 = &PTR__AudioBuffer_100f26780;
-        field_8 = param_5;
-        new (&field_16) std::array<AudioBuffer::AudioDataContainer, 2ul>();
-        uVar3 = param_2 * param_5->field_12;
+    // 0x100b8c130
+    AudioBuffer::AudioBuffer(unsigned char* arg1, int arg2, int arg3, int arg4, const AudioFormat* audioFormat)
+        : SampleReadable(), field_8(audioFormat) {
+        unsigned int uVar3 = arg2 * audioFormat->field_12;
         field_192 = uVar3;
-        field_196 = param_3;
-        field_200 = param_4;
-        field_204 = param_4;
+        field_196 = arg3;
+        field_200 = arg4;
+        field_204 = arg4;
         field_208 = 0;
-        m_maximumSamples = uVar3 >> (*(byte*)&field_8->field_16 & 31);
-        iVar2 = 1;
+        m_maximumSamples = uVar3 >> (*(uint8_t*)&field_8->field_16 & 31);
+        int iVar2 = 1;
         if (field_8->field_20 != false) {
-            iVar2 = param_3;
+            iVar2 = arg3;
         }
         uVar3 = iVar2 * uVar3;
-        lVar1 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-            (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, 0);
-        new ((lVar1 + 24)) WrapArray<unsigned char>(param_1, (ulong)uVar3);
-        new ((lVar1 + 56)) WrapArray<unsigned char>(param_1, (ulong)(uVar3 >> 1));
-        new ((lVar1 + 40)) WrapArray<unsigned char>(param_1, (ulong)(uVar3 >> 2));
+        long lVar1 = field_16[0];
+        new ((lVar1 + 24)) WrapArray(arg1, (unsigned long)uVar3);
+        new ((lVar1 + 56)) WrapArray(arg1, (unsigned long)(uVar3 >> 1));
+        new ((lVar1 + 40)) WrapArray(arg1, (unsigned long)(uVar3 >> 2));
     }
 
-    // 0x100b8c230, 16 bytes, complete-object constructor, placed by class name and debug map
-    // AudioBuffer::AudioBuffer(unsigned char*, int, int, int, AudioFormat const*): jumps straight to the base-object constructor
-
-    // 0x100b8c240, 80 bytes, placed by class name and debug map
-    // AudioBuffer::GetReadOffsetSamples(unsigned int) const
-    int AudioBuffer::GetReadOffsetSamples(uint param_1) {
-        AudioFormat* pAVar1;
+    // 0x100b8c240
+    int AudioBuffer::GetReadOffsetSamples(unsigned int arg1) const {
         int iVar2;
         long lVar3;
 
-        pAVar1 = field_8;
+        AudioFormat* pAVar1 = field_8;
         if (pAVar1->field_20 == false) {
-            lVar3 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, (ulong)param_1);
-            iVar2 = *(int*)(lVar3 + 76) >> (*(byte*)&pAVar1->field_16 & 31);
+            lVar3 = field_16[(unsigned long)arg1];
+            iVar2 = *(int*)(lVar3 + 76) >> (*(uint8_t*)&pAVar1->field_16 & 31);
         } else {
-            lVar3 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, 0);
-            iVar2 = (*(int*)(lVar3 + 76) >> (*(byte*)&pAVar1->field_16 & 31)) * field_196;
+            lVar3 = field_16[0];
+            iVar2 = (*(int*)(lVar3 + 76) >> (*(uint8_t*)&pAVar1->field_16 & 31)) * field_196;
         }
         return iVar2;
     }
 
-    // 0x100b8c2a0, 80 bytes, placed by class name and debug map
-    // AudioBuffer::GetWriteOffsetSamples(unsigned int) const
-    int AudioBuffer::GetWriteOffsetSamples(uint param_1) {
-        AudioFormat* pAVar1;
+    // 0x100b8c2a0
+    int AudioBuffer::GetWriteOffsetSamples(unsigned int arg1) const {
         int iVar2;
         long lVar3;
 
-        pAVar1 = field_8;
+        AudioFormat* pAVar1 = field_8;
         if (pAVar1->field_20 == false) {
-            lVar3 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, (ulong)param_1);
-            iVar2 = *(int*)(lVar3 + 72) >> (*(byte*)&pAVar1->field_16 & 31);
+            lVar3 = field_16[(unsigned long)arg1];
+            iVar2 = *(int*)(lVar3 + 72) >> (*(uint8_t*)&pAVar1->field_16 & 31);
         } else {
-            lVar3 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, 0);
-            iVar2 = (*(int*)(lVar3 + 72) >> (*(byte*)&pAVar1->field_16 & 31)) * field_196;
+            lVar3 = field_16[0];
+            iVar2 = (*(int*)(lVar3 + 72) >> (*(uint8_t*)&pAVar1->field_16 & 31)) * field_196;
         }
         return iVar2;
     }
 
-    // 0x100b8c2f0, 336 bytes, placed by class name and debug map
-    // AudioBuffer::ClearSamples(unsigned int, unsigned int, unsigned int)
-    void AudioBuffer::ClearSamples(uint param_1, uint param_2, uint param_3) {
-        bool bVar1;
-        AudioFormat* pAVar2;
-        long lVar3;
-        ulong uVar4;
-        undefined8 uVar5;
-        uint uVar6;
-        Layout* this_00;
-        uint local_38;
+    // 0x100b8c2f0
+    void AudioBuffer::ClearSamples(unsigned int arg1, unsigned int arg2, unsigned int arg3) {
+        unsigned int local_38;
 
-        pAVar2 = field_8;
-        bVar1 = pAVar2->field_20;
-        uVar6 = m_maximumSamples;
+        AudioFormat* pAVar2 = field_8;
+        bool bVar1 = pAVar2->field_20;
+        unsigned int uVar6 = m_maximumSamples;
         if (bVar1 != false) {
             uVar6 = uVar6 * field_196;
         }
-        if (uVar6 < param_2 + param_1) {
+        if (uVar6 < arg2 + arg1) {
             local_38 = m_maximumSamples;
             if (bVar1 != false) {
                 local_38 = local_38 * field_196;
             }
-            local_38 = (param_2 + param_1) % local_38;
-            param_2 = param_2 - local_38;
+            local_38 = (arg2 + arg1) % local_38;
+            arg2 = arg2 - local_38;
         } else {
             local_38 = 0;
         }
-        uVar4 = 0;
+        unsigned long uVar4 = 0;
         if (bVar1 == false) {
-            uVar4 = (ulong)param_3;
+            uVar4 = (unsigned long)arg3;
         }
-        lVar3 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-            (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, uVar4);
+        long lVar3 = field_16[uVar4];
         uVar6 = pAVar2->field_12;
-        this_00 = (Layout*)(lVar3 + 24);
-        uVar4 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(this_00);
-        if (uVar4 < (param_1 + param_2) * uVar6) {
-            /* WARNING: Subroutine does not return */
+        Layout* this_00 = (Layout*)(lVar3 + 24);
+        uVar4 = this_00->HeapBeginPtr();
+        if (uVar4 < (arg1 + arg2) * uVar6) {
             LogAssert("writeOffsetSamples * m_DataFormat->m_SampleSizeInBytes + nsamples * "
                       "m_DataFormat->m_SampleSizeInBytes <= dataContainer.m_DataByteView.size()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
-                      85, (char*)0);
+                      85, nullptr);
         }
-        uVar5 = WrapArray<unsigned char>::operator[]((WrapArray<unsigned char>*)this_00,
-                                                     (ulong)(param_1 * field_8->field_12));
+        uint64_t uVar5 = (*this_00)[(unsigned long)(arg1 * field_8->field_12)];
         ___bzero(uVar5);
         if (local_38 != 0) {
             uVar6 = field_8->field_12;
-            uVar4 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_00);
+            uVar4 = this_00->HeapBeginPtr();
             if (uVar4 < uVar6 * local_38) {
-                /* WARNING: Subroutine does not return */
                 LogAssert(
                     "nWrappedSamples * m_DataFormat->m_SampleSizeInBytes <= dataContainer.m_DataByteView.size()",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
-                    91, (char*)0);
+                    91, nullptr);
             }
-            uVar5 = WrapArray<unsigned char>::operator[]((WrapArray<unsigned char>*)this_00, 0);
+            uVar5 = (*this_00)[0];
             ___bzero(uVar5, local_38 * field_8->field_12);
         }
     }
 
-    // 0x100b8c440, 272 bytes, placed by class name and debug map
-    // AudioBuffer::WriteByteData(unsigned char const*, unsigned long, unsigned long)
-    void AudioBuffer::WriteByteData(uchar* param_1, ulong param_2, ulong param_3) {
+    // 0x100b8c440
+    void AudioBuffer::WriteByteData(const unsigned char* arg1, unsigned long arg2, unsigned long arg3) {
         int iVar1;
         long lVar2;
-        void* pvVar4;
-        undefined8 uVar5;
-        int iVar6;
+        int iVar5;
 
         if (field_8->field_21 == false) {
-            uVar5 = logger::default_logger();
-            logger::Logger::Log(
-                uVar5, 0, 2,
-                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp", 100,
-                "AUDIO ERROR: Trying to write binary data into an audio buffer with a non-encoded format. Use "
-                "WriteSample or change the buffer type.");
-        } else if (param_3 != 0) {
-            lVar2 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, 0);
-            if ((param_1 == (uchar*)0) || (iVar6 = (int)param_3, *(int*)(lVar2 + 80) < iVar6)) {
-                /* WARNING: Subroutine does not return */
+            (logger::default_logger())
+                ->Log(false, 2,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
+                      100,
+                      "AUDIO ERROR: Trying to write binary data into an audio buffer with a non-encoded format. Use "
+                      "WriteSample or change the buffer type.");
+        } else if (arg3 != 0) {
+            lVar2 = field_16[0];
+            if ((arg1 == nullptr) || (iVar5 = (int)arg3, *(int*)(lVar2 + 80) < iVar5)) {
                 LogAssert(
                     "val && static_cast<int>(size) <= dataPoint.m_BytesCanBeWritten",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
-                    109, (char*)0);
+                    109, nullptr);
             }
-            if (param_1 != (uchar*)0) {
+            if (arg1 != nullptr) {
                 iVar1 = *(int*)(lVar2 + 72);
-                if (((lVar2 + 24))->HeapBeginPtr() < (long)iVar1 + param_3) {
-                    /* WARNING: Subroutine does not return */
+                if (((lVar2 + 24))->HeapBeginPtr() < (long)iVar1 + arg3) {
                     LogAssert("dataPoint.m_WriteOffsetBytes + size <= dataPoint.m_DataByteView.size()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                               "AudioBuffer.cpp",
-                              112, (char*)0);
+                              112, nullptr);
                 }
-                pvVar4 = (void*)WrapArray<unsigned char>::operator[]((WrapArray<unsigned char>*)(lVar2 + 24),
-                                                                     (long)*(int*)(lVar2 + 72));
-                _memcpy(pvVar4, param_1 + param_2, param_3);
+                _memcpy((void*)(*((lVar2 + 24)))[(long)*(int*)(lVar2 + 72)], arg1 + arg2, arg3);
             }
-            *(int*)(lVar2 + 72) = *(int*)(lVar2 + 72) + iVar6;
-            *(int*)(lVar2 + 80) = *(int*)(lVar2 + 80) - iVar6;
+            *(int*)(lVar2 + 72) = *(int*)(lVar2 + 72) + iVar5;
+            *(int*)(lVar2 + 80) = *(int*)(lVar2 + 80) - iVar5;
         }
     }
 
-    // 0x100b8c550, 304 bytes, placed by class name and debug map
-    // AudioBuffer::ConsumedSamples(unsigned int, bool)
-    void AudioBuffer::ConsumedSamples(uint param_1, bool param_2) {
+    // 0x100b8c550
+    void AudioBuffer::ConsumedSamples(unsigned int arg1, bool arg2) {
         int* piVar1;
         bool bVar2;
-        uint uVar3;
+        uint8_t uVar3;
+        uint32_t extraout_var;
         long lVar4;
         int iVar5;
-        ulong uVar6;
-        uint uVar7;
+        unsigned int uVar6;
 
-        uVar6 = 0;
+        unsigned long arg1_00 = 0;
         while (true) {
             bVar2 = field_8->field_20;
-            uVar7 = 1;
+            uVar6 = 1;
             if (bVar2 == false) {
-                uVar7 = field_196;
+                uVar6 = field_196;
             }
-            if (uVar7 <= uVar6) {
+            if (uVar6 <= arg1_00) {
                 return;
             }
-            if (param_2) {
-                uVar7 = param_1;
+            if (arg2) {
+                uVar6 = arg1;
                 if (bVar2 != false) {
-                    uVar7 = field_196 * param_1;
+                    uVar6 = field_196 * arg1;
                 }
-                uVar3 = (*(code*)field_0[9])(this, uVar6 & 4294967295);
-                ClearSamples(this, uVar3, uVar7, (uint)uVar6);
+                uVar3 = GetReadOffsetSamples((unsigned int)this);
+                ClearSamples((((uint32_t)extraout_var << 8) | (uint8_t)uVar3), uVar6, (unsigned int)arg1_00);
             }
-            iVar5 = field_8->field_12 * param_1;
-            lVar4 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, uVar6);
-            uVar7 = *(int*)(lVar4 + 76) + iVar5;
-            *(uint*)(lVar4 + 76) = uVar7;
-            *(uint*)(lVar4 + 76) = uVar7 % field_192;
+            iVar5 = field_8->field_12 * arg1;
+            lVar4 = field_16[arg1_00];
+            uVar6 = *(int*)(lVar4 + 76) + iVar5;
+            *(unsigned int*)(lVar4 + 76) = uVar6;
+            *(unsigned int*)(lVar4 + 76) = uVar6 % field_192;
             *(int*)(lVar4 + 80) = *(int*)(lVar4 + 80) + iVar5;
             piVar1 = (int*)(lVar4 + 84);
             *piVar1 = *piVar1 - iVar5;
             if (*piVar1 < 0)
                 break;
             if ((int)field_192 < *(int*)(lVar4 + 80)) {
-                /* WARNING: Subroutine does not return */
                 LogAssert(
                     "dataPoint.m_BytesCanBeWritten <= static_cast<int>(m_DataLengthBytes)",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
                     137, "Read too many bytes");
             }
-            uVar6 = uVar6 + 1;
+            arg1_00 = arg1_00 + 1;
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("dataPoint.m_BytesCanBeRead >= 0",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
                   136, "Read too many bytes");
     }
 
-    // 0x100b8c680, 272 bytes, placed by class name and debug map
-    // AudioBuffer::WroteSamples(unsigned int)
-    void AudioBuffer::WroteSamples(uint param_1) {
-        uint uVar1;
-        uint uVar2;
+    // 0x100b8c680
+    void AudioBuffer::WroteSamples(unsigned int arg1) {
+        unsigned int uVar1;
+        unsigned int uVar2;
         int iVar3;
         long lVar4;
         int iVar5;
-        ulong uVar6;
+        unsigned long arg1_00;
 
         if (field_208 == '\0') {
-            iVar5 = param_1 * field_8->field_12;
-            uVar6 = 0;
+            iVar5 = arg1 * field_8->field_12;
+            arg1_00 = 0;
             while (true) {
                 uVar1 = 1;
                 if (field_8->field_20 == false) {
                     uVar1 = field_196;
                 }
-                if (uVar1 <= uVar6)
+                if (uVar1 <= arg1_00)
                     break;
-                lVar4 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                    (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, uVar6);
+                lVar4 = field_16[arg1_00];
                 uVar2 = *(int*)(lVar4 + 72) + iVar5;
-                *(uint*)(lVar4 + 72) = uVar2;
+                *(unsigned int*)(lVar4 + 72) = uVar2;
                 uVar1 = field_192;
-                *(uint*)(lVar4 + 72) = uVar2 % uVar1;
+                *(unsigned int*)(lVar4 + 72) = uVar2 % uVar1;
                 iVar3 = *(int*)(lVar4 + 84) + iVar5;
                 *(int*)(lVar4 + 84) = iVar3;
                 *(int*)(lVar4 + 80) = *(int*)(lVar4 + 80) - iVar5;
                 if ((int)uVar1 < iVar3) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("dataPoint.m_BytesCanBeRead <= static_cast<int>(m_DataLengthBytes)",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                               "AudioBuffer.cpp",
                               157, "Wrote too many bytes");
                 }
                 if (*(int*)(lVar4 + 80) < 0) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("dataPoint.m_BytesCanBeWritten >= 0",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                               "AudioBuffer.cpp",
                               158, "Wrote too many bytes");
                 }
-                uVar6 = uVar6 + 1;
+                arg1_00 = arg1_00 + 1;
             }
         }
     }
 
-    // 0x100b8c790, 272 bytes, placed by class name and debug map
-    // AudioBuffer::Reset(int, bool)
-    void AudioBuffer::Reset(int param_1, bool param_2) {
+    // 0x100b8c790
+    void AudioBuffer::Reset(int arg1, bool arg2) {
         bool bVar1;
-        uint uVar2;
+        uint8_t uVar2;
+        uint32_t extraout_var;
         long lVar3;
-        ulong uVar4;
-        uint uVar5;
+        unsigned int uVar4;
 
-        uVar4 = 0;
+        unsigned long arg1_00 = 0;
         while (true) {
             bVar1 = field_8->field_20;
-            uVar5 = 1;
+            uVar4 = 1;
             if (bVar1 == false) {
-                uVar5 = field_196;
+                uVar4 = field_196;
             }
-            if (uVar5 <= uVar4)
+            if (uVar4 <= arg1_00)
                 break;
-            lVar3 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, uVar4);
-            if ((param_1 & 3U) != 0) {
-                *(undefined4*)(lVar3 + 76) = 0;
+            lVar3 = field_16[arg1_00];
+            if ((arg1 & 3U) != 0) {
+                *(uint32_t*)(lVar3 + 76) = 0;
             }
-            if ((param_1 & 5U) != 0) {
-                uVar5 = 0;
-                if (param_2) {
-                    uVar5 = field_192;
+            if ((arg1 & 5U) != 0) {
+                uVar4 = 0;
+                if (arg2) {
+                    uVar4 = field_192;
                 }
-                *(uint*)(lVar3 + 84) = uVar5;
+                *(unsigned int*)(lVar3 + 84) = uVar4;
             }
             if (field_208 == '\0') {
-                if ((param_1 & 9U) != 0) {
-                    *(undefined4*)(lVar3 + 72) = 0;
+                if ((arg1 & 9U) != 0) {
+                    *(uint32_t*)(lVar3 + 72) = 0;
                 }
-                if ((param_1 & 17U) != 0) {
-                    uVar5 = 0;
-                    if (!param_2) {
-                        uVar5 = field_192;
+                if ((arg1 & 17U) != 0) {
+                    uVar4 = 0;
+                    if (!arg2) {
+                        uVar4 = field_192;
                     }
-                    *(uint*)(lVar3 + 80) = uVar5;
+                    *(unsigned int*)(lVar3 + 80) = uVar4;
                 }
-                if ((param_1 & 33U) != 0) {
-                    uVar5 = m_maximumSamples;
+                if ((arg1 & 33U) != 0) {
+                    uVar4 = m_maximumSamples;
                     if (bVar1 != false) {
-                        uVar5 = uVar5 * field_196;
+                        uVar4 = uVar4 * field_196;
                     }
-                    uVar2 = (*(code*)field_0[9])(this, uVar4 & 4294967295);
-                    ClearSamples(this, uVar2, uVar5, (uint)uVar4);
+                    uVar2 = GetReadOffsetSamples((unsigned int)this);
+                    ClearSamples((((uint32_t)extraout_var << 8) | (uint8_t)uVar2), uVar4, (unsigned int)arg1_00);
                 }
             }
-            uVar4 = uVar4 + 1;
+            arg1_00 = arg1_00 + 1;
         }
     }
 
-    // 0x100b8c8a0, 448 bytes, placed by class name and debug map
-    // AudioBuffer::ReadSample(unsigned int, unsigned int, bool) const
-    float AudioBuffer::ReadSample(uint param_1, uint param_2, bool param_3) {
+    // 0x100b8c8a0
+    float AudioBuffer::ReadSample(unsigned int arg1, unsigned int arg2, bool arg3) const {
         AudioFormat* pAVar1;
-        uint uVar2;
-        undefined8 uVar3;
-        long lVar4;
-        float* pfVar5;
-        float fVar6;
+        uint8_t uVar2;
+        uint64_t extraout_var;
+        long lVar3;
+        float* pfVar4;
+        unsigned int uVar5;
 
-        fVar6 = 0.0;
-        if (param_1 < field_196) {
-            uVar2 = (*(code*)field_0[2])(0);
-            if (uVar2 < param_2) {
-                uVar3 = logger::default_logger();
-                logger::Logger::Log(
-                    uVar3, 0, 2,
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
-                    212, "Audio buffer is over-running");
+        float fVar6 = 0.0;
+        if (arg1 < field_196) {
+            uVar2 = GetNumberSamplesCanBeRead((unsigned int)this);
+            if ((unsigned int)(((uint64_t)extraout_var << 8) | (uint8_t)uVar2) < arg2) {
+                (logger::default_logger())
+                    ->Log(false, 2,
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
+                          "AudioBuffer.cpp",
+                          212, "Audio buffer is over-running");
             }
             pAVar1 = field_8;
             if (pAVar1->field_20 == false) {
-                lVar4 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                    (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, (ulong)param_1);
-                uVar2 = (param_2 * pAVar1->field_12 + *(int*)(lVar4 + 76)) % field_192;
+                lVar3 = field_16[(unsigned long)arg1];
+                uVar5 = (arg2 * pAVar1->field_12 + *(int*)(lVar3 + 76)) % field_192;
             } else {
-                lVar4 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                    (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, 0);
-                uVar2 = field_196;
-                uVar2 = ((param_2 * uVar2 + param_1) * pAVar1->field_12 + *(int*)(lVar4 + 76) * uVar2) %
-                        (uVar2 * field_192);
+                lVar3 = field_16[0];
+                uVar5 = field_196;
+                uVar5 = ((arg2 * uVar5 + arg1) * pAVar1->field_12 + *(int*)(lVar3 + 76) * uVar5) % (uVar5 * field_192);
             }
-            pfVar5 =
-                (float*)WrapArray<unsigned char>::operator[]((WrapArray<unsigned char>*)(lVar4 + 24), (ulong)uVar2);
+            pfVar4 = (float*)(*((lVar3 + 24)))[(unsigned long)uVar5];
             pAVar1 = field_8;
             if ((pAVar1 == (AudioFormat*)AudioFormat::FLOAT) ||
                 (pAVar1 == (AudioFormat*)AudioFormat::FLOAT_INTERLEAVED)) {
-                fVar6 = *pfVar5;
+                fVar6 = *pfVar4;
             } else if ((pAVar1 == (AudioFormat*)AudioFormat::PCM8) ||
                        (pAVar1 == (AudioFormat*)AudioFormat::PCM8_INTERLEAVED)) {
-                fVar6 = (float)*(byte*)pfVar5;
-                if (param_3) {
-                    fVar6 = fVar6 * 0.007874016;
+                fVar6 = (float)*(uint8_t*)pfVar4;
+                if (arg3) {
+                    fVar6 = fVar6 * 0.007874016f;
                 }
             } else if ((pAVar1 == (AudioFormat*)AudioFormat::UPCM8) ||
                        (pAVar1 == (AudioFormat*)AudioFormat::UPCM8_INTERLEAVED)) {
-                fVar6 = (float)*(byte*)pfVar5;
-                if (param_3) {
-                    fVar6 = fVar6 * 0.003921569;
+                fVar6 = (float)*(uint8_t*)pfVar4;
+                if (arg3) {
+                    fVar6 = fVar6 * 0.003921569f;
                 }
             } else if ((pAVar1 == (AudioFormat*)AudioFormat::PCM16) ||
                        (pAVar1 == (AudioFormat*)AudioFormat::PCM16_INTERLEAVED)) {
-                fVar6 = (float)(int)*(short*)pfVar5;
-                if (param_3) {
+                fVar6 = (float)(int)*(short*)pfVar4;
+                if (arg3) {
                     fVar6 = fVar6 * 3.051851e-05;
                 }
             } else {
                 if ((pAVar1 != (AudioFormat*)AudioFormat::UPCM16) &&
                     (pAVar1 != (AudioFormat*)AudioFormat::UPCM16_INTERLEAVED)) {
-                    /* WARNING: Subroutine does not return */
                     LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                                     "AudioBuffer.cpp",
                                     281, "Can\'t read samples from this buffer format");
                 }
-                fVar6 = (float)(int)*(short*)pfVar5;
-                if (param_3) {
+                fVar6 = (float)(int)*(short*)pfVar4;
+                if (arg3) {
                     fVar6 = fVar6 * 1.5259022e-05;
                 }
             }
@@ -533,314 +427,255 @@ namespace jag::hal::audio {
         return fVar6;
     }
 
-    // 0x100b8cad0, 480 bytes, placed by class name and debug map
-    // AudioBuffer::WriteSample(float, unsigned int, unsigned int, bool)
-    void AudioBuffer::WriteSample(float param_1, uint param_2, uint param_3, bool param_4) {
+    // 0x100b8cad0
+    void AudioBuffer::WriteSample(float arg1, unsigned int arg2, unsigned int arg3, bool arg4) {
         AudioFormat* pAVar1;
-        uint uVar2;
+        unsigned int uVar2;
         long lVar3;
         float* pfVar4;
-        undefined8 uVar5;
+        uint64_t uVar5;
 
-        if ((field_208 == '\0') && (param_2 < field_196)) {
-            uVar2 = GetNumberSamplesCanBeWritten(this, param_2);
-            if (uVar2 <= param_3) {
-                /* WARNING: Subroutine does not return */
+        if ((field_208 == '\0') && (arg2 < field_196)) {
+            uVar2 = GetNumberSamplesCanBeWritten(arg2);
+            if (uVar2 <= arg3) {
                 LogAssertAlways(
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
                     302, "Audio buffer is over-running");
             }
             pAVar1 = field_8;
             if (pAVar1->field_20 == false) {
-                lVar3 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                    (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, (ulong)param_2);
-                uVar2 = (param_3 * pAVar1->field_12 + *(int*)(lVar3 + 72)) % field_192;
+                lVar3 = field_16[(unsigned long)arg2];
+                uVar2 = (arg3 * pAVar1->field_12 + *(int*)(lVar3 + 72)) % field_192;
             } else {
-                lVar3 = std::array<AudioBuffer::AudioDataContainer, 2ul>::operator[](
-                    (array<AudioBuffer::AudioDataContainer, 2ul>*)&field_16, 0);
+                lVar3 = field_16[0];
                 uVar2 = field_196;
-                uVar2 = ((param_3 * uVar2 + param_2) * pAVar1->field_12 + *(int*)(lVar3 + 72) * uVar2) %
-                        (uVar2 * field_192);
+                uVar2 = ((arg3 * uVar2 + arg2) * pAVar1->field_12 + *(int*)(lVar3 + 72) * uVar2) % (uVar2 * field_192);
             }
-            pfVar4 =
-                (float*)WrapArray<unsigned char>::operator[]((WrapArray<unsigned char>*)(lVar3 + 24), (ulong)uVar2);
+            pfVar4 = (float*)(*((lVar3 + 24)))[(unsigned long)uVar2];
             pAVar1 = field_8;
             if ((pAVar1 == (AudioFormat*)AudioFormat::FLOAT) ||
                 (pAVar1 == (AudioFormat*)AudioFormat::FLOAT_INTERLEAVED)) {
-                *pfVar4 = param_1 + *pfVar4;
+                *pfVar4 = arg1 + *pfVar4;
             } else {
                 if ((pAVar1 == (AudioFormat*)AudioFormat::PCM8) ||
                     (pAVar1 == (AudioFormat*)AudioFormat::PCM8_INTERLEAVED)) {
-                    if (param_4) {
-                        param_1 = param_1 * 127.0;
+                    if (arg4) {
+                        arg1 = arg1 * 127.0;
                     }
                 } else {
                     if ((pAVar1 != (AudioFormat*)AudioFormat::UPCM8) &&
                         (pAVar1 != (AudioFormat*)AudioFormat::UPCM8_INTERLEAVED)) {
                         if ((pAVar1 == (AudioFormat*)AudioFormat::PCM16) ||
                             (pAVar1 == (AudioFormat*)AudioFormat::PCM16_INTERLEAVED)) {
-                            if (param_4) {
-                                param_1 = param_1 * 32767.0;
+                            if (arg4) {
+                                arg1 = arg1 * 32767.0;
                             }
                         } else {
                             if ((pAVar1 != (AudioFormat*)AudioFormat::UPCM16) &&
                                 (pAVar1 != (AudioFormat*)AudioFormat::UPCM16_INTERLEAVED)) {
                                 uVar5 = pAVar1->HeapBeginPtr();
-                                /* WARNING: Subroutine does not return */
                                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                                 "hal/audio/AudioBuffer.cpp",
                                                 356, "Can\'t read samples from this buffer format: %s", uVar5);
                             }
-                            if (param_4) {
-                                param_1 = param_1 * 32767.5 + 32767.5;
+                            if (arg4) {
+                                arg1 = arg1 * 32767.5 + 32767.5;
                             }
                         }
-                        *(char*)pfVar4 = *(char*)pfVar4 + (char)(int)param_1;
-                        *(char*)((long)pfVar4 + 1) = *(char*)((long)pfVar4 + 1) + (char)((uint)(int)param_1 >> 8);
+                        *(char*)pfVar4 = *(char*)pfVar4 + (char)(int)arg1;
+                        *(char*)((long)pfVar4 + 1) = *(char*)((long)pfVar4 + 1) + (char)((unsigned int)(int)arg1 >> 8);
                         return;
                     }
-                    if (param_4) {
-                        param_1 = param_1 * 127.5 + 127.5;
+                    if (arg4) {
+                        arg1 = arg1 * 127.5 + 127.5;
                     }
                 }
-                *(char*)pfVar4 = *(char*)pfVar4 + (char)(int)param_1;
+                *(char*)pfVar4 = *(char*)pfVar4 + (char)(int)arg1;
             }
         }
     }
 
-    // 0x100b8cce0, 48 bytes, placed by class name and debug map
-    // AudioBuffer::SplitIntoChannelSpecificPan(unsigned int, float) const
-    void AudioBuffer::SplitIntoChannelSpecificPan(uint param_1, float param_2) {
-        float fVar1;
-
-        fVar1 = param_2 * 0.7853982 + 0.7853982;
-        if ((param_1 & 1) == 0) {
-            ::cos(fVar1);
+    // 0x100b8cce0
+    void AudioBuffer::SplitIntoChannelSpecificPan(unsigned int arg1, float arg2) const {
+        float arg1_00 = arg2 * 0.7853982f + 0.7853982f;
+        if ((arg1 & 1) == 0) {
+            ::cos(arg1_00);
             return;
         }
-        ::sin(fVar1);
+        ::sin(arg1_00);
     }
 
-    // 0x100b8cd30, 432 bytes, placed by class name and debug map
-    // AudioBuffer::WriteFromInterleavedPacket(unsigned char*, unsigned int, unsigned int, unsigned int, unsigned int)
-    void AudioBuffer::WriteFromInterleavedPacket(uchar* param_1, uint param_2, uint param_3, uint param_4,
-                                                 uint param_5) {
-        undefined4 uVar1;
-        int iVar2;
-        uint uVar3;
-        uint uVar4;
-        WrapArray<float>* this_00;
-        undefined4* puVar5;
-        uint uVar6;
-        ulong uVar7;
+    // 0x100b8cd30
+    void AudioBuffer::WriteFromInterleavedPacket(unsigned char* arg1, unsigned int arg2, unsigned int arg3,
+                                                 unsigned int arg4, unsigned int arg5) {
+        uint32_t uVar1;
+        unsigned int uVar4;
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        uint32_t* puVar5;
+        unsigned int arg1_00;
+        unsigned int uVar6;
+        unsigned long uVar7;
 
-        iVar2 = GetWriteOffsetSamples(this, 0);
-        uVar3 = (*(code*)field_0[10])(this);
-        if (uVar3 < iVar2 + param_4) {
-            /* WARNING: Subroutine does not return */
+        int iVar3 = GetWriteOffsetSamples(0);
+        uint8_t uVar2 = GetMaximumSamples();
+        if ((unsigned int)(((uint64_t)extraout_var << 8) | (uint8_t)uVar2) < iVar3 + arg4) {
             LogAssert("(GetWriteOffsetSamples(0) + nsamples) <= GetMaximumSamples()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
                       372,
                       "Wrapping shouldn\'t be an issue here because this method is used for filling the AudioBuffer "
                       "for the first time, but it\'s showing signs of wrapping...");
         }
-        if ((field_196 != param_5) || (field_8->field_20 != false)) {
-            /* WARNING: Subroutine does not return */
+        if ((field_196 != arg5) || (field_8->field_20 != false)) {
             LogAssert("m_NumberOfChannels == channels && !m_DataFormat->m_interleaved",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
-                      375, (char*)0);
+                      375, nullptr);
         }
-        if ((ulong)param_3 < (ulong)(field_196 * param_4) * 4) {
-            /* WARNING: Subroutine does not return */
+        if ((unsigned long)arg3 < (unsigned long)(field_196 * arg4) * 4) {
             LogAssert("m_NumberOfChannels * nsamples * sizeof(float) <= bufferSize",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/AudioBuffer.cpp",
-                      379, (char*)0);
+                      379, nullptr);
         }
         if (field_196 != 0) {
-            uVar3 = 0;
+            arg1_00 = 0;
             do {
-                this_00 = (WrapArray<float>*)(*(code*)field_0[8])(this, uVar3);
-                uVar4 = GetWriteOffsetSamples(this, uVar3);
-                if (param_4 != 0) {
-                    uVar7 = (ulong)param_4;
-                    uVar6 = uVar3;
+                uVar2 = GetData((unsigned int)this);
+                uVar4 = GetWriteOffsetSamples(arg1_00);
+                if (arg4 != 0) {
+                    uVar7 = (unsigned long)arg4;
+                    uVar6 = arg1_00;
                     do {
-                        uVar1 = *(undefined4*)(param_1 + (ulong)uVar6 * 4 + (ulong)param_2);
-                        puVar5 = (undefined4*)WrapArray<float>::operator[](this_00, (ulong)uVar4);
+                        uVar1 = *(uint32_t*)(arg1 + (unsigned long)uVar6 * 4 + (unsigned long)arg2);
+                        puVar5 = (uint32_t*)(*((WrapArray<float>*)(((uint64_t)extraout_var_00 << 8) |
+                                                                   (uint8_t)uVar2)))[(unsigned long)uVar4];
                         *puVar5 = uVar1;
                         uVar4 = uVar4 + 1;
-                        uVar6 = uVar6 + param_5;
+                        uVar6 = uVar6 + arg5;
                         uVar7 = uVar7 - 1;
                     } while (uVar7 != 0);
                 }
-                uVar3 = uVar3 + 1;
-            } while (uVar3 < field_196);
+                arg1_00 = arg1_00 + 1;
+            } while (arg1_00 < field_196);
         }
     }
 
-    // 0x100b8cee0, 544 bytes, placed by class name and debug map
-    // AudioBuffer::WriteSamples(SampleReadable&, unsigned int, unsigned int, unsigned int&, unsigned int&, bool, float, float)
-    void AudioBuffer::WriteSamples(SampleReadable* param_1, uint param_2, uint param_3, uint* param_4, uint* param_5,
-                                   bool param_6, float param_7, float param_8) {
-        uint uVar1;
-        uint uVar2;
-        uint uVar3;
-        uint uVar4;
-        uint uVar5;
-        WrapArray* pWVar6;
-        WrapArray* pWVar7;
-        float fVar8;
-        float fVar9;
-        float fVar10;
-        float fVar11;
+    // 0x100b8cee0
+    void AudioBuffer::WriteSamples(SampleReadable& sampleReadable, unsigned int arg2, unsigned int arg3,
+                                   unsigned int& arg4, unsigned int& arg5, bool arg6, float arg7, float arg8) {
+        uint8_t uVar1;
+        uint64_t extraout_var;
+        uint32_t in_register_00000034;
+        uint64_t in_register_00000089;
 
-        *param_4 = 0;
-        *param_5 = 0;
-        if (((field_208 == '\0') && (uVar1 = (**(code**)(param_1->field_0 + 24))(param_1), param_2 < uVar1)) &&
-            (param_3 < field_196)) {
-            uVar1 = GetNumberSamplesCanBeWritten(this, param_3);
-            uVar2 = (**(code**)(param_1->field_0 + 16))(param_1, param_2);
-            uVar3 = (*(code*)field_0[5])(this);
-            fVar8 = (float)uVar3;
-            uVar3 = (**(code**)(param_1->field_0 + 40))();
-            fVar10 = (float)uVar3;
-            if (fVar8 == fVar10) {
-                uVar3 = uVar1;
-                if (uVar2 < uVar1) {
-                    uVar3 = uVar2;
-                }
-                fVar11 = 1.0;
-            } else {
-                fVar11 = fVar8 / fVar10;
-                uVar3 = (uint)(long)((float)uVar2 * fVar11);
-                if ((int)uVar1 <= (int)uVar3) {
-                    uVar3 = uVar1;
-                }
-            }
-            if ((uVar2 != 0) && (uVar1 != 0)) {
-                if ((uVar3 == 0) && (fVar11 != 1.0)) {
-                    *param_5 = 0;
-                } else {
-                    if (!param_6) {
-                        fVar9 = (float)SplitIntoChannelSpecificPan((AudioBuffer*)param_1, param_3, param_8);
-                        uVar1 = GetWriteOffsetSamples(this, param_3);
-                        pWVar6 = (WrapArray*)(*(code*)field_0[8])(this, param_3);
-                        uVar2 = (*(code*)field_0[10])(this);
-                        pWVar7 = (WrapArray*)(**(code**)(param_1->field_0 + 64))(param_1, param_2);
-                        uVar4 = (**(code**)(param_1->field_0 + 72))(param_1, param_2);
-                        uVar5 = (**(code**)(param_1->field_0 + 80))();
-                        ReSample((AudioBuffer*)param_1, pWVar7, pWVar6, uVar4, uVar5, uVar1, uVar2, fVar8, fVar10,
-                                 fVar11, uVar3, param_7 * fVar9);
-                    }
-                    *param_5 = uVar3;
-                    uVar2 = math::RoundFloatToInt(((float)(int)uVar3 * fVar10) / fVar8);
-                }
-                *param_4 = uVar2;
+        long* plVar2 = (long*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg2);
+        arg5 = 0;
+        *(uint32_t*)(((uint64_t)in_register_00000089 << 8) | (uint8_t)arg6) = 0;
+        if (*(char*)&sampleReadable[26]._vptr == '\0') {
+            uVar1 = (**(void (**)(...))(*plVar2 + 24))(plVar2);
+            if ((arg3 < (unsigned int)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1)) &&
+                ((unsigned int)arg4 < *(unsigned int*)((long)&sampleReadable[24]._vptr + 4))) {
+                GetNumberSamplesCanBeWritten((AudioBuffer*)sampleReadable, (unsigned int)arg4);
+                (**(void (**)(...))(*plVar2 + 16))(arg2);
+                (sampleReadable._vptr[2]._x7e___2)(sampleReadable);
             }
         }
     }
 
-    // 0x100b8d100, 512 bytes, placed by class name and debug map
-    // AudioBuffer::ReSample(WrapArray<float> const&, WrapArray<float>&, unsigned int, unsigned int, unsigned int, unsigned int, float, float, float, unsigned int, float)
-    void AudioBuffer::ReSample(WrapArray* param_1, WrapArray* param_2, uint param_3, uint param_4, uint param_5,
-                               uint param_6, float param_7, float param_8, float param_9, uint param_10,
-                               float param_11) {
+    // 0x100b8d100
+    void AudioBuffer::ReSample(const WrapArray<float>& wrapArray1, WrapArray<float>& wrapArray2, unsigned int arg3,
+                               unsigned int arg4, unsigned int arg5, unsigned int arg6, float arg7, float arg8,
+                               float arg9, unsigned int arg10, float arg11) {
         float fVar1;
         float* pfVar2;
-        undefined8 uVar3;
-        ulong uVar4;
-        uint uVar5;
-        uint uVar6;
+        unsigned long uVar3;
+        unsigned int uVar4;
+        unsigned int uVar5;
+        float fVar6;
         float fVar7;
         float fVar8;
-        float fVar9;
 
-        if (param_10 != 0) {
-            uVar4 = 0;
+        if (arg10 != 0) {
+            uVar3 = 0;
             do {
-                if (param_7 == param_8) {
-                    uVar5 = (uint)uVar4;
+                if (arg7 == arg8) {
+                    uVar4 = (unsigned int)uVar3;
                 LAB_100b8d178:
-                    pfVar2 = (float*)WrapArray<float>::operator[]((WrapArray<float>*)param_1, (ulong)(uVar5 + param_3));
-                    fVar9 = *pfVar2;
+                    pfVar2 = &wrapArray1[(unsigned long)(uVar4 + arg3)];
+                    fVar8 = *pfVar2;
                 } else {
-                    if (param_9 == 2.0) {
-                        uVar5 = (uint)(uVar4 >> 1) & 2147483647;
+                    if (arg9 == 2.0) {
+                        uVar4 = (unsigned int)(uVar3 >> 1) & 2147483647;
                         goto LAB_100b8d178;
                     }
-                    fVar7 = ((float)(uVar4 & 4294967295) * param_8) / param_7;
-                    fVar8 = (float)floor(fVar7);
-                    uVar5 = (int)(long)fVar8 + param_3;
-                    if (param_4 <= uVar5) {
-                        uVar5 = param_4 - 1;
+                    fVar6 = ((float)(uVar3 & 4294967295) * arg8) / arg7;
+                    fVar7 = (float)::floor(fVar6);
+                    uVar4 = (int)(long)fVar7 + arg3;
+                    if (arg4 <= uVar4) {
+                        uVar4 = arg4 - 1;
                     }
-                    fVar9 = (float)ceil(fVar7);
-                    uVar6 = (int)(long)fVar9 + param_3;
-                    if (param_4 <= uVar6) {
-                        uVar6 = uVar5;
+                    fVar8 = (float)ceil(fVar6);
+                    uVar5 = (int)(long)fVar8 + arg3;
+                    if (arg4 <= uVar5) {
+                        uVar5 = uVar4;
                     }
-                    pfVar2 = (float*)WrapArray<float>::operator[]((WrapArray<float>*)param_1, (ulong)uVar5);
-                    fVar9 = *pfVar2;
-                    pfVar2 = (float*)WrapArray<float>::operator[]((WrapArray<float>*)param_1, (ulong)uVar6);
+                    pfVar2 = &wrapArray1[(unsigned long)uVar4];
+                    fVar8 = *pfVar2;
+                    pfVar2 = &wrapArray1[(unsigned long)uVar5];
                     fVar1 = *pfVar2;
-                    fVar7 = fVar7 - fVar8;
-                    if ((fVar7 < 0.0) || (1.0 < fVar7)) {
-                        uVar3 = logger::default_logger();
-                        logger::Logger::Log(
-                            (double)fVar7, uVar3, 0, 2,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
-                            "AudioBuffer.cpp",
-                            509,
-                            "Invalid audio resampling ratio, it needs to be in the range of 0 -> 1, ratio used was %f");
-                        fVar7 = 1.0;
+                    fVar6 = fVar6 - fVar7;
+                    if ((fVar6 < 0.0) || (1.0 < fVar6)) {
+                        (logger::default_logger())
+                            ->Log(false, 2,
+                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
+                                  "AudioBuffer.cpp",
+                                  509,
+                                  "Invalid audio resampling ratio, it needs to be in the range of 0 -> 1, ratio used "
+                                  "was %f",
+                                  (double)fVar6);
+                        fVar6 = 1.0;
                     }
-                    fVar9 = (fVar1 - fVar9) * fVar7 + fVar9;
+                    fVar8 = (fVar1 - fVar8) * fVar6 + fVar8;
                 }
-                uVar5 = param_6;
-                if (param_5 < param_6) {
-                    uVar5 = 0;
+                uVar4 = arg6;
+                if (arg5 < arg6) {
+                    uVar4 = 0;
                 }
-                pfVar2 = (float*)WrapArray<float>::operator[]((WrapArray<float>*)param_2, (ulong)(param_5 - uVar5));
-                *pfVar2 = fVar9 * param_11 + *pfVar2;
-                uVar4 = uVar4 + 1;
-                param_5 = param_5 + 1;
-            } while (param_10 != uVar4);
+                pfVar2 = &wrapArray2[(unsigned long)(arg5 - uVar4)];
+                *pfVar2 = fVar8 * arg11 + *pfVar2;
+                uVar3 = uVar3 + 1;
+                arg5 = arg5 + 1;
+            } while (arg10 != uVar3);
         }
     }
 
-    // 0x100b8d3a0, 64 bytes, placed by class name and debug map
-    // AudioBuffer::AudioDataContainer::Reset()
+    // 0x100b8d3a0
     void AudioBuffer::AudioDataContainer::Reset() {
         field_72 = 0;
-        *(undefined8*)&field_80 = 0;
-        new (&field_24) shared_ptr<oldscape::DBTableIndex>();
-        new (&field_40) shared_ptr<oldscape::DBTableIndex>();
-        new (&field_56) shared_ptr<oldscape::DBTableIndex>();
+        *(uint64_t*)&field_80 = 0;
+        new (&field_24) shared_ptr();
+        new (&field_40) shared_ptr();
+        new (&field_56) shared_ptr();
         clear();
     }
 
 } // namespace jag::hal::audio
 
-// 0x100b8cd10, 16 bytes, placed by neighbouring functions
-// cos(float)
-void cos(float param_1) {
+// 0x100b8cd10
+void cos(float arg1) {
     _cosf();
 }
 
-// 0x100b8cd20, 16 bytes, placed by neighbouring functions
-// sin(float)
-void sin(float param_1) {
+// 0x100b8cd20
+void sin(float arg1) {
     _sinf();
 }
 
-// 0x100b8d380, 16 bytes, placed by neighbouring functions
-// floor(float)
-void floor(float param_1) {
+// 0x100b8d380
+void floor(float arg1) {
     _floorf();
 }
 
-// 0x100b8d390, 16 bytes, placed by neighbouring functions
-// ceil(float)
-void ceil(float param_1) {
+// 0x100b8d390
+void ceil(float arg1) {
     _ceilf();
 }

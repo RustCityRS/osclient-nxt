@@ -1,149 +1,124 @@
 // libs/oldscape/rs2lib/configdecoder/VarBitType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "VarBitType.h"
 
 namespace jag::oldscape::configdecoder {
-    // 0x101677c38, 8 bytes, __common; zero-initialised
-    VarBitType::m_pConfigClient;
+    // 0x101677c38
+    int64_t VarBitType::m_pConfigClient;
 
-    // 0x101677c40, 5376 bytes, __common; zero-initialised
-    VarBitType::m_recentUse;
+    // 0x101677c40
+    LRUHashCache<VarBitType, 64ul, 65ul, false, unsigned long long> VarBitType::m_recentUse;
 
-    // 0x101679140, 128 bytes, __common; zero-initialised
-    VarBitType::m_maskLookUp;
+    // 0x101679140
+    uint8_t VarBitType::m_maskLookUp[128];
 
-    // 0x100237360, 16 bytes, placed by class name and debug map
-    // VarBitType::Init(jagex3::Js5*)
-    void VarBitType::Init(Js5* param_1) {
-        m_pConfigClient = param_1;
+    // 0x100237360
+    void VarBitType::Init(jagex3::Js5* js5) {
+        m_pConfigClient = js5;
     }
 
-    // 0x100237370, 304 bytes, placed by class name and debug map
-    // VarBitType::List(int)
-    VarBitType* VarBitType::List(int param_1) {
-        bool bVar1;
-        shared_ptr* psVar2;
-        undefined* puVar3;
-        VarBitType* this_00;
-        PacketJ* pPVar4;
-        ulonglong local_50;
-        shared_ptr local_48;
-        shared_ptr local_38;
+    // 0x100237370
+    auto VarBitType::List(int arg1) {
+        shared_ptr<midi2::MidiPlayerMainThread>* midiPlayerMainThread;
+        VarBitType* varBitType;
+        PacketJ<Array<unsigned char> _>* packetJ;
+        ReturnValue local_48;
+        unsigned long long local_38[2];
 
-        local_38._0_8_ = (long)param_1;
-        psVar2 = (shared_ptr*)LRUHashCache<VarBitType, 64ul, 65ul, false, unsigned long long>::Find(
-            (ulonglong*)&m_recentUse);
-        bVar1 = operator!=(psVar2, (_func_decltype_nullptr*)0);
+        local_38[0] = (long)arg1;
+        midiPlayerMainThread = (shared_ptr<midi2::MidiPlayerMainThread>*)m_recentUse.Find(*local_38);
+        bool bVar1 = *midiPlayerMainThread != nullptr;
         if (bVar1) {
-            new (this) shared_ptr<dash3d::Decor>(psVar2);
-            return this;
+            return auto(midiPlayerMainThread);
         }
-        new (&local_38) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        make_shared<VarBitType>((jag*)&local_48);
-        puVar3 = (undefined*)m_pConfigClient->GetFile((int)&local_38, 14, (array*)(ulong)(uint)param_1);
-        if ((puVar3 == DataStatus::READY) || (bVar1 = operator!=(&local_38, (_func_decltype_nullptr*)0), bVar1)) {
-            this_00 = (VarBitType*)shared_ptr<VarBitType>::operator->((shared_ptr<VarBitType>*)&local_48);
-            pPVar4 = (PacketJ*)shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator*(
-                (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)&local_38);
-            Decode(this_00, pPVar4);
+        new (local_38) shared_ptr();
+        make_shared<VarBitType>(&local_48);
+        if (((uint8_t*)m_pConfigClient->GetFile(*local_38, 14, arg1, nullptr) == DataStatus::READY) ||
+            (bVar1 = *local_38 != nullptr, bVar1)) {
+            varBitType = (VarBitType*)local_48.operator->();
+            packetJ = (PacketJ<Array<unsigned char> _>*)**local_38;
+            Decode(varBitType, packetJ);
         }
-        local_50 = (long)param_1;
-        m_recentUse.Put(&local_48, 1, &local_50);
-        shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<RSevenDebugPresetProvider>*)this, &local_48);
-        local_48.~shared_ptr();
-        local_38.~shared_ptr();
-        return this;
+        m_recentUse.Put(local_48, 1, (long)arg1);
+        result.shared_ptr<FileRSevenDebugPresetProvider, void>(local_48);
+        return result;
     }
 
-    // 0x1002375d0, 64 bytes, placed by class name and debug map
-    // VarBitType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&)
-    void VarBitType::Decode(PacketJ* param_1) {
-        byte bVar1;
+    // 0x1002375d0
+    void VarBitType::Decode(PacketJ<Array<unsigned char>>& packetJ) {
+        uint8_t bVar1;
 
         while (true) {
-            bVar1 = param_1->g1();
+            bVar1 = packetJ.g1();
             if (bVar1 == 0)
                 break;
-            Decode(this, param_1, (uint)bVar1);
+            Decode(packetJ, (unsigned int)bVar1);
         }
     }
 
-    // 0x100237700, 32 bytes, placed by class name and debug map
-    // VarBitType::GetVarbitValue(int)
-    uint VarBitType::GetVarbitValue(int param_1) {
-        return param_1 >> ((byte)field_4 & 31) & (&m_maskLookUp)[(long)(int)field_8 - (long)(int)field_4];
+    // 0x100237700
+    unsigned int VarBitType::GetVarbitValue(int arg1) {
+        return arg1 >> ((uint8_t)field_4 & 31) & (&m_maskLookUp)[(int)field_8 - (long)(int)field_4];
     }
 
-    // 0x100237720, 160 bytes, placed by class name and debug map
-    // VarBitType::SetVarbitValue(int, int, bool*)
-    uint VarBitType::SetVarbitValue(int param_1, int param_2, bool* param_3) {
-        int iVar1;
-        undefined8 uVar2;
-        byte bVar3;
-        uint uVar4;
+    // 0x100237720
+    unsigned int VarBitType::SetVarbitValue(int arg1, int arg2, bool* arg3) {
+        uint8_t bVar2;
 
-        uVar4 = field_4;
-        iVar1 = (&m_maskLookUp)[(long)(int)field_8 - (long)(int)uVar4];
-        if ((param_2 < 0) || (iVar1 < param_2)) {
-            uVar2 = logger::default_logger();
-            logger::Logger::Log(uVar2, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "configdecoder/VarBitType.cpp",
-                                54, "VarBitType: Varbit setting overflow! %i, %i", param_2, iVar1);
-            if (param_3 != (bool*)0) {
-                *param_3 = false;
+        unsigned int uVar1 = field_4;
+        unsigned int uVar3 = (&m_maskLookUp)[(int)field_8 - (long)(int)uVar1];
+        if ((arg2 < 0) || ((int)uVar3 < arg2)) {
+            (logger::default_logger())
+                ->Log(false, 3,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
+                      "configdecoder/VarBitType.cpp",
+                      54, "VarBitType: Varbit setting overflow! %i, %i", (unsigned long)(unsigned int)arg2,
+                      (unsigned long)uVar3);
+            if (arg3 != nullptr) {
+                *arg3 = false;
             }
         } else {
-            if (param_3 != (bool*)0) {
-                *param_3 = true;
+            if (arg3 != nullptr) {
+                *arg3 = true;
             }
-            bVar3 = (byte)uVar4;
-            uVar4 = iVar1 << (bVar3 & 31);
-            param_1 = param_2 << (bVar3 & 31) & uVar4 | ~uVar4 & param_1;
+            bVar2 = (uint8_t)uVar1;
+            uVar3 = uVar3 << (bVar2 & 31);
+            arg1 = arg2 << (bVar2 & 31) & uVar3 | ~uVar3 & arg1;
         }
-        return param_1;
+        return arg1;
     }
 
-    // 0x1002377c0, 128 bytes, placed by class name and debug map
-    // VarBitType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&, int)
-    void VarBitType::Decode(PacketJ* param_1, int param_2) {
-        byte bVar1;
-        ushort uVar2;
-        undefined8 in_RAX;
-        undefined4 uVar4;
-        undefined8 uVar3;
+    // 0x1002377c0
+    void VarBitType::Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2) {
+        uint8_t bVar1;
+        unsigned short uVar2;
+        uint64_t in_RAX;
 
-        uVar4 = (undefined4)((ulong)in_RAX >> 32);
-        if (param_2 == 1) {
-            uVar2 = param_1->g2();
-            field_0 = (uint)uVar2;
-            bVar1 = param_1->g1();
-            field_4 = (uint)bVar1;
-            bVar1 = param_1->g1();
-            field_8 = (uint)bVar1;
+        uint32_t uVar3 = (uint32_t)((unsigned long)in_RAX >> 32);
+        if (arg2 == 1) {
+            uVar2 = packetJ.g2();
+            field_0 = (unsigned int)uVar2;
+            bVar1 = packetJ.g1();
+            field_4 = (unsigned int)bVar1;
+            bVar1 = packetJ.g1();
+            field_8 = (unsigned int)bVar1;
         } else {
-            uVar3 = logger::default_logger();
-            logger::Logger::Log(uVar3, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "configdecoder/VarBitType.cpp",
-                                93, "Error unrecognised .varbit config code: %d", CONCAT44(uVar4, param_2));
+            (logger::default_logger())
+                ->Log(false, 8,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
+                      "configdecoder/VarBitType.cpp",
+                      93, "Error unrecognised .varbit config code: %d", (((uint64_t)uVar3 << 32) | (uint32_t)arg2));
         }
     }
 
-    // 0x100237840, 64 bytes, placed by class name and debug map
-    // VarBitType::InitMaskLoopUpTable()
+    // 0x100237840
     void VarBitType::InitMaskLoopUpTable() {
-        int iVar1;
-        long lVar2;
-
-        iVar1 = 2;
-        lVar2 = 0;
+        int iVar1 = 2;
+        long lVar2 = 0;
         do {
-            *(int*)((long)&m_maskLookUp + lVar2) = iVar1 + -1;
+            *(int*)((long)&m_maskLookUp + lVar2) = iVar1 - 1;
             iVar1 = iVar1 * 2;
             lVar2 = lVar2 + 4;
         } while (lVar2 != 128);
@@ -152,28 +127,27 @@ namespace jag::oldscape::configdecoder {
 } // namespace jag::oldscape::configdecoder
 
 namespace jag {
-    // 0x100237540, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::configdecoder::VarBitType>::type make_shared<oldscape::configdecoder::VarBitType>()
-    jag* make_shared<oldscape::configdecoder::VarBitType>() {
-        void* pvVar1;
-        ref_counter_shared_trivial* prVar2;
+    // 0x100237540
+    shared_ptr_if_not_array<oldscape::configdecoder::VarBitType>::type
+    make_shared<oldscape::configdecoder::VarBitType>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         VarBitType* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(32, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(32, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::configdecoder::VarBitType>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::configdecoder::VarBitType>((void*)((long)pvVar1 + 16));
+            local_28[0] = placement_new<oldscape::configdecoder::VarBitType>((void*)((long)arg1 + 16));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>, int,
-                                   oldscape::configdecoder::VarBitType*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>, int,
+                              oldscape::configdecoder::VarBitType*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

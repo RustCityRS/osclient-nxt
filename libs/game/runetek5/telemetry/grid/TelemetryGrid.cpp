@@ -1,88 +1,73 @@
 // libs/game/runetek5/telemetry/grid/TelemetryGrid.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 namespace jag::game {
     class TelemetryGrid {
     public:
         TelemetryGrid();
-        ulong GetGroupIndexById(int) const;
-        int AddGroup(TelemetryGridGroup&&, int);
+        unsigned long GetGroupIndexById(int arg1) const;
+        int AddGroup(TelemetryGridGroup&& telemetryGridGroup, int arg2);
 
-        // data members, from how the methods use this: 16 bytes
-        long field_0; // offset 0
-        long field_8; // offset 8
+    private:
+        long field_0;
+        long field_8;
     };
 
-    // 0x1003b72b0, 64 bytes, base-object constructor, placed by class name and debug map
-    // TelemetryGrid::TelemetryGrid()
-    void TelemetryGrid::TelemetryGrid() {
-        new (this) eastl::vector<TelemetryGridGroup, eastl::allocator>();
+    // 0x1003b72b0
+    TelemetryGrid::TelemetryGrid() : eastl::vector<TelemetryGridGroup>() {
         reserve(2);
     }
 
-    // 0x1003b7350, 16 bytes, complete-object constructor, placed by class name and debug map
-    // TelemetryGrid::TelemetryGrid(): jumps straight to the base-object constructor
+    // 0x1003b7360
+    unsigned long TelemetryGrid::GetGroupIndexById(int arg1) const {
+        unsigned long uVar3;
+        unsigned long arg1_00;
 
-    // 0x1003b7360, 112 bytes, placed by class name and debug map
-    // TelemetryGrid::GetGroupIndexById(int) const
-    ulong TelemetryGrid::GetGroupIndexById(int param_1) {
-        long lVar2;
-        CoordMapSquare* this_00;
-        ulong uVar3;
-        ulong uVar4;
-
-        lVar2 = size();
-        if (lVar2 != 0) {
-            uVar4 = 0;
+        if (size() != 0) {
+            arg1_00 = 0;
             do {
-                this_00 = (CoordMapSquare*)eastl::vector<TelemetryGridGroup, eastl::allocator>::operator[](
-                    (vector<TelemetryGridGroup, eastl::allocator>*)this, uVar4);
-                if (this_00->GetX() == param_1) {
-                    return uVar4;
+                if (((CoordMapSquare*)(*this)[arg1_00])->GetX() == arg1) {
+                    return arg1_00;
                 }
-                uVar4 = (ulong)((int)uVar4 + 1);
+                arg1_00 = (unsigned long)((int)arg1_00 + 1);
                 uVar3 = size();
-            } while (uVar4 < uVar3);
+            } while (arg1_00 < uVar3);
         }
         return 4294967295;
     }
 
-    // 0x1003b7440, 224 bytes, placed by class name and debug map
-    // TelemetryGrid::AddGroup(TelemetryGridGroup&&, int)
-    int TelemetryGrid::AddGroup(TelemetryGridGroup* param_1, int param_2) {
+    // 0x1003b7440
+    int TelemetryGrid::AddGroup(TelemetryGridGroup&& telemetryGridGroup, int arg2) {
         int iVar1;
-        long lVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
+        Logger* this_00;
+        char* str2;
 
-        lVar2 = size();
+        long lVar2 = size();
         if (lVar2 == 5) {
-            uVar3 = logger::default_logger();
-            pcVar5 = "Reached group limit";
-            uVar4 = 29;
+            this_00 = logger::default_logger();
+            str2 = "Reached group limit";
+            iVar1 = 29;
         } else {
-            iVar1 = param_1->GetX();
-            iVar1 = GetGroupIndexById(this, iVar1);
+            iVar1 = telemetryGridGroup.GetX();
+            iVar1 = GetGroupIndexById(iVar1);
             if (iVar1 == -1) {
-                if (param_2 == -1) {
-                    param_2 = size();
+                if (arg2 == -1) {
+                    arg2 = size();
                 }
                 lVar2 = HeapBeginPtr();
-                insert((TelemetryGridGroup*)((long)param_2 * 136 + lVar2), param_1);
-                return param_2;
+                insert((TelemetryGridGroup*)((long)arg2 * 136 + lVar2), telemetryGridGroup);
+                return arg2;
             }
-            uVar3 = logger::default_logger();
-            param_1->GetX();
-            pcVar5 = "Already have group with id: %d";
-            uVar4 = 34;
+            this_00 = logger::default_logger();
+            telemetryGridGroup.GetX();
+            str2 = "Already have group with id: %d";
+            iVar1 = 34;
         }
-        logger::Logger::Log(uVar3, 0, 2,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
-                            "telemetry/grid/TelemetryGrid.cpp",
-                            uVar4, pcVar5);
+        this_00->Log(false, 2,
+                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/telemetry/"
+                     "grid/TelemetryGrid.cpp",
+                     iVar1, str2);
         return -1;
     }
 

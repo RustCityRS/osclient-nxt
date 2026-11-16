@@ -1,31 +1,22 @@
 // libs/graphics/runetek7/animation/AnimationState.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
 
 namespace jag {
-    // 0x10066ece0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // FastPool_iterator<audio::SoundInstance, int>::FastPool_iterator(FastPool<audio::SoundInstance, int>*, int): jumps straight to the base-object constructor
-
-    // 0x10066ecf0, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // FastPool_iterator<audio::SoundInstance, int>::FastPool_iterator(FastPool<audio::SoundInstance, int>*, int)
-    /* ImGuiPlotArrayGetterData::ImGuiPlotArrayGetterData(float const*, int) */
-
-    void ImGuiPlotArrayGetterData::ImGuiPlotArrayGetterData(float* param_1, int param_2) {
-        *(float**)this = param_1;
-        *(int*)(this + 8) = param_2;
+    // 0x10066ecf0
+    FastPool_iterator<audio::SoundInstance, int>::FastPool_iterator(FastPool<audio::SoundInstance, int>* fastPool,
+                                                                    int arg2) {
+        *(FastPool<audio::SoundInstance, int>**)this = fastPool;
+        *(int*)(this + 8) = arg2;
     }
 
-    // 0x10066ed00, 80 bytes, inline, placed by debug map only (low confidence)
-    // FastPool_iterator<audio::SoundInstance, int>::Increment()
-    void FastPool_iterator<audio::SoundInstance, int>::Increment(FastPool_iterator<audio::SoundInstance, int>* this) {
-        int iVar1;
+    // 0x10066ed00
+    void FastPool_iterator<audio::SoundInstance, int>::Increment() {
         int iVar2;
 
-        iVar1 = *(int*)(this + 8);
+        int iVar1 = *(int*)(this + 8);
         *(int*)(this + 8) = iVar1 + 1;
         if (-2 < iVar1) {
             iVar2 = (*(Option<game::option::EnumBrightness>**)this)->GetValue();
@@ -33,85 +24,66 @@ namespace jag {
                 return;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("m_Index >= 0 && m_Index <= static_cast<int>(m_pPool->size())",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/FastPool.h", 82,
-                  (char*)0);
+                  nullptr);
     }
 
-    // 0x10066ef30, 32 bytes, inline, placed by debug map only (low confidence)
-    // VorbisJs5Resource* placement_new<VorbisJs5Resource, hal::audio::AudioAPI*>(void*, hal::audio::AudioAPI*&&)
-    VorbisJs5Resource* placement_new<VorbisJs5Resource, hal::audio::AudioAPI*>(void* param_1, AudioAPI** param_2) {
-        VorbisJs5Resource::VorbisJs5Resource(param_1, *param_2);
-        return param_1;
+    // 0x10066ef30
+    VorbisJs5Resource* placement_new<VorbisJs5Resource, hal::audio::AudioAPI*>(void* arg1,
+                                                                               hal::audio::AudioAPI*&& arg2) {
+        new (arg1) VorbisJs5Resource(arg2);
+        return arg1;
     }
 
-    // 0x10066ef50, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<VorbisJs5Resource>* placement_new<ref_counter_shared<VorbisJs5Resource>, int, VorbisJs5Resource*&>(void*, int&&, VorbisJs5Resource*&)
-    ref_counter_shared*
-    placement_new<ref_counter_shared<VorbisJs5Resource>, int, VorbisJs5Resource*&>(void* param_1, int* param_2,
-                                                                                   VorbisJs5Resource** param_3) {
-        ref_counter_shared<VorbisJs5Resource>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x10066ef50
+    ref_counter_shared<VorbisJs5Resource>*
+    placement_new<ref_counter_shared<VorbisJs5Resource>, int, VorbisJs5Resource*&>(void* arg1, int&& arg2,
+                                                                                   VorbisJs5Resource*& arg3) {
+        new (arg1) ref_counter_shared<VorbisJs5Resource>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x10066ef70, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<VorbisJs5Resource>::ref_counter_shared(unsigned long, VorbisJs5Resource*): jumps straight to the base-object constructor
+    // 0x10066ef80
+    ref_counter_shared<VorbisJs5Resource>::ref_counter_shared(unsigned long arg1, VorbisJs5Resource* vorbisJs5Resource)
+        : ref_counter_base() {}
 
-    // 0x10066ef80, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<VorbisJs5Resource>::ref_counter_shared(unsigned long, VorbisJs5Resource*)
-    void ref_counter_shared<VorbisJs5Resource>::ref_counter_shared(ulong param_1, VorbisJs5Resource* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7268 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(VorbisJs5Resource**)(this + 24) = param_2;
+    // 0x10066fb10
+    eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>*
+    placement_new<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>(void* arg1) {
+        *(uint64_t*)((long)arg1 + 32) = 0;
+        *(uint64_t*)((long)arg1 + 40) = 0;
+        *(uint64_t*)((long)arg1 + 16) = 0;
+        *(uint64_t*)((long)arg1 + 24) = 0;
+        *(uint64_t*)arg1 = 0;
+        *(uint64_t*)((long)arg1 + 8) = 0;
+        *(uint64_t*)((long)arg1 + 48) = 0;
+        new (arg1) eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>();
+        return arg1;
     }
 
-    // 0x10066fb10, 48 bytes, inline, placed by debug map only (low confidence)
-    // eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>* placement_new<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>(void*)
-    fixed_stack* placement_new<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>(void* param_1) {
-        *(undefined8*)((long)param_1 + 32) = 0;
-        *(undefined8*)((long)param_1 + 40) = 0;
-        *(undefined8*)((long)param_1 + 16) = 0;
-        *(undefined8*)((long)param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)((long)param_1 + 8) = 0;
-        *(undefined8*)((long)param_1 + 48) = 0;
-        eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>::fixed_stack(param_1);
-        return param_1;
+    // 0x10066fb40
+    ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>*
+    placement_new<ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>, int,
+                  eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>*&>(
+        void* arg1, int&& arg2, eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>*& arg3) {
+        new (arg1)
+            ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x10066fb40, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true> >* placement_new<ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true> >, int, eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>*&>(void*, int&&, eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>*&)
-    ref_counter_shared*
-    jag::placement_new<ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>, int,
-                       eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>*&>(void* param_1,
-                                                                                             int* param_2,
-                                                                                             fixed_stack** param_3) {
-        ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>::ref_counter_shared(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x10066fc90
+    ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>::ref_counter_shared(
+        unsigned long arg1, eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>* fixed_stack)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee71a0 + 16;
+        *(unsigned long*)(this + 16) = arg1;
+        *(fixed_stack<shared_ptr<hal::audio::AudioBuffer>, _1ul, true>**)(this + 24) = fixed_stack;
     }
 
-    // 0x10066fc80, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true> >::ref_counter_shared(unsigned long, eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>*): jumps straight to the base-object constructor
-
-    // 0x10066fc90, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true> >::ref_counter_shared(unsigned long, eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>*)
-    void ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>::ref_counter_shared(
-        ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>* this, ulong param_1,
-        fixed_stack* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee71a0 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(fixed_stack**)(this + 24) = param_2;
-    }
-
-    // 0x10066fcd0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true> >::DeleteData()
-    void ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>::DeleteData(
-        ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>* this) {
-        ulong uVar1;
+    // 0x10066fcd0
+    void ref_counter_shared<eastl::fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>>::DeleteData() {
+        unsigned long uVar1;
         long lVar2;
 
         if (*(long*)(this + 24) != 0) {
@@ -119,131 +91,99 @@ namespace jag {
                 lVar2 = 0;
                 uVar1 = 0;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~fixed_stack();
+                    ((fixed_stack<shared_ptr<hal::audio::AudioBuffer>, 1ul, true>*)(*(long*)(this + 24) + lVar2))
+                        ->~fixed_stack();
                     uVar1 = uVar1 + 1;
                     lVar2 = lVar2 + 56;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (uVar1 < *(unsigned long*)(this + 16));
             }
-            *(undefined8*)(this + 24) = 0;
+            *(uint64_t*)(this + 24) = 0;
         }
     }
 
-    // 0x10066fda0, 32 bytes, inline, placed by debug map only (low confidence)
-    // hal::audio::AudioBuffer* placement_new<hal::audio::AudioBuffer, unsigned int, hal::audio::AudioFormat const*&>(void*, unsigned int&&, hal::audio::AudioFormat const*&)
-    AudioBuffer*
-    placement_new<hal::audio::AudioBuffer, unsigned int, hal::audio::AudioFormat_const*&>(void* param_1, uint* param_2,
-                                                                                          AudioFormat** param_3) {
-        hal::audio::AudioBuffer::AudioBuffer(param_1, *param_2, *param_3);
-        return param_1;
+    // 0x10066fda0
+    hal::audio::AudioBuffer* placement_new<hal::audio::AudioBuffer, unsigned int, hal::audio::AudioFormat const*&>(
+        void* arg1, unsigned int&& arg2, const hal::audio::AudioFormat*& arg3) {
+        new (arg1) hal::audio::AudioBuffer(arg2, arg3);
+        return arg1;
     }
 
-    // 0x10066ffa0, 48 bytes, inline, placed by debug map only (low confidence)
-    // hal::audio::AudioBuffer* placement_new<hal::audio::AudioBuffer, unsigned int&, unsigned int&, unsigned int&, hal::audio::AudioFormat const*&, bool>(void*, unsigned int&, unsigned int&, unsigned int&, hal::audio::AudioFormat const*&, bool&&)
-    /* hal::audio::AudioBuffer* placement_new<hal::audio::AudioBuffer, int&, int,
-   unsigned int const&, hal::audio::AudioFormat const*&, bool>(void*, int&, int&&, unsigned int
-   const&, hal::audio::AudioFormat const*&, bool&&) */
-
-    AudioBuffer*
-    jag::placement_new<hal::audio::AudioBuffer, int&, int, unsigned int const&, hal::audio::AudioFormat_const*&, bool>(
-        void* param_1, int* param_2, int* param_3, uint* param_4, AudioFormat** param_5, bool* param_6) {
-        hal::audio::AudioBuffer::AudioBuffer(param_1, *param_2, *param_3, *param_4, *param_5, *param_6);
-        return param_1;
+    // 0x10066ffa0
+    hal::audio::AudioBuffer*
+    placement_new<hal::audio::AudioBuffer, unsigned int&, unsigned int&, unsigned int&, hal::audio::AudioFormat const*&,
+                  bool>(void* arg1, unsigned int& arg2, unsigned int& arg3, unsigned int& arg4,
+                        const hal::audio::AudioFormat*& arg5, bool&& arg6) {
+        new (arg1) hal::audio::AudioBuffer(arg2, arg3, arg4, arg5, arg6);
+        return arg1;
     }
 
-    // 0x1006712c0, 32 bytes, inline, placed by debug map only (low confidence)
-    // graphics::AnimationState* placement_new<graphics::AnimationState>(void*)
-    AnimationState* placement_new<graphics::AnimationState>(void* param_1) {
-        graphics::AnimationState::AnimationState(param_1, 2);
-        return param_1;
+    // 0x1006712c0
+    graphics::AnimationState* placement_new<graphics::AnimationState>(void* arg1) {
+        new (arg1) graphics::AnimationState(2);
+        return arg1;
     }
 
-    // 0x1006712e0, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256> >* placement_new<MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256> >, MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData*&, graphics::AnimationState*>(void*, MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData*&, graphics::AnimationState*&&)
-    MakeSharedPoolRefCounter* jag::placement_new<
-        MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>,
-        MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData*&, graphics::AnimationState*>(
-        void* param_1, RefCounterAndData** param_2, AnimationState** param_3) {
-        MakeSharedPoolRefCounter<graphics::AnimationState,
-                                 MakeSharedPool<graphics::AnimationState, 256>>::MakeSharedPoolRefCounter(param_1,
-                                                                                                          *param_2,
-                                                                                                          *param_3);
-        return param_1;
+    // 0x1006712e0
+    MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>*
+    placement_new<MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>,
+                  MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData*&, graphics::AnimationState*>(
+        void* arg1, MakeSharedPool<graphics::AnimationState, 256>::RefCounterAndData*& arg2,
+        graphics::AnimationState*&& arg3) {
+        new (arg1) MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>(
+            arg2, arg3);
+        return arg1;
     }
 
-    // 0x1006719f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256> >::MakeSharedPoolRefCounter(void*, graphics::AnimationState*): jumps straight to the base-object constructor
-
-    // 0x100671a00, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256> >::MakeSharedPoolRefCounter(void*, graphics::AnimationState*)
-    void jag::MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>::
-        MakeSharedPoolRefCounter(
-            MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>* this,
-            void* param_1, AnimationState* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7bb8 + 16;
-        *(void**)(this + 16) = param_1;
-        *(AnimationState**)(this + 24) = param_2;
+    // 0x100671a00
+    MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>::
+        MakeSharedPoolRefCounter(void* arg1, graphics::AnimationState* animationState)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7bb8 + 16;
+        *(void**)(this + 16) = arg1;
+        *(AnimationState**)(this + 24) = animationState;
     }
 
-    // 0x100671a40, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256> >::DeleteSelf()
+    // 0x100671a40
     void
-    jag::MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>::DeleteSelf(
-        MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<graphics::AnimationState, 256>::deallocate(pvVar1);
+    MakeSharedPoolRefCounter<graphics::AnimationState, MakeSharedPool<graphics::AnimationState, 256>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<graphics::AnimationState, 256>::deallocate(arg1);
     }
 
-    // 0x100672240, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512> >* placement_new<MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512> >, MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData*&, game::AnimationWrapper*>(void*, MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData*&, game::AnimationWrapper*&&)
-    MakeSharedPoolRefCounter*
-    jag::placement_new<MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>,
-                       MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData*&, game::AnimationWrapper*>(
-        void* param_1, RefCounterAndData** param_2, AnimationWrapper** param_3) {
-        MakeSharedPoolRefCounter<game::AnimationWrapper,
-                                 MakeSharedPool<game::AnimationWrapper, 512>>::MakeSharedPoolRefCounter(param_1,
-                                                                                                        *param_2,
-                                                                                                        *param_3);
-        return param_1;
+    // 0x100672240
+    MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>*
+    placement_new<MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>,
+                  MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData*&, game::AnimationWrapper*>(
+        void* arg1, MakeSharedPool<game::AnimationWrapper, 512>::RefCounterAndData*& arg2,
+        game::AnimationWrapper*&& arg3) {
+        new (arg1)
+            MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>(arg2, arg3);
+        return arg1;
     }
 
-    // 0x100673180, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512> >::MakeSharedPoolRefCounter(void*, game::AnimationWrapper*): jumps straight to the base-object constructor
-
-    // 0x100673190, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512> >::MakeSharedPoolRefCounter(void*, game::AnimationWrapper*)
-    void jag::MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>::
-        MakeSharedPoolRefCounter(
-            MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>* this,
-            void* param_1, AnimationWrapper* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7a40 + 16;
-        *(void**)(this + 16) = param_1;
-        *(AnimationWrapper**)(this + 24) = param_2;
+    // 0x100673190
+    MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>::
+        MakeSharedPoolRefCounter(void* arg1, game::AnimationWrapper* animationWrapper)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7a40 + 16;
+        *(void**)(this + 16) = arg1;
+        *(AnimationWrapper**)(this + 24) = animationWrapper;
     }
 
-    // 0x1006731d0, 48 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512> >::DeleteData()
-    void jag::MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>::DeleteData(
-        MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>* this) {
-        if (*(AnimationWrapper**)(this + 24) != (AnimationWrapper*)0) {
+    // 0x1006731d0
+    void MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>::DeleteData() {
+        if (*(AnimationWrapper**)(this + 24) != nullptr) {
             (*(AnimationWrapper**)(this + 24))->~AnimationWrapper();
-            *(undefined8*)(this + 24) = 0;
+            *(uint64_t*)(this + 24) = 0;
         }
     }
 
-    // 0x100673200, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512> >::DeleteSelf()
-    void jag::MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>::DeleteSelf(
-        MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<game::AnimationWrapper, 512>::deallocate(pvVar1);
+    // 0x100673200
+    void MakeSharedPoolRefCounter<game::AnimationWrapper, MakeSharedPool<game::AnimationWrapper, 512>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<game::AnimationWrapper, 512>::deallocate(arg1);
     }
 
 } // namespace jag
@@ -253,239 +193,202 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~AnimationInfoBlendTreeNode();
-        virtual void GetPose(WrapArray<JointPose>, Array<LabelData, eastl::allocator> const&,
-                             math::Matrix44T<float> const&);
-        virtual GetBindInfo() const;
-        virtual Reset(unsigned int);
+        virtual void GetPose(WrapArray<JointPose> wrapArray, const Array<LabelData>& labelDatas,
+                             const math::Matrix44T<float>& matrix44);
+        virtual uint8_t* GetBindInfo() const;
+        virtual void Reset(unsigned int arg1);
         virtual char* GetTypeString() const;
-        virtual GetTreeAsString() const;
-        Update(unsigned int);
+        virtual auto GetTreeAsString() const;
+        void Update(unsigned int arg1);
         AnimationInfoBlendTreeNode();
-        void SetAnim(AnimationInfo&);
+        void SetAnim(AnimationInfo& animationInfo);
 
-        // data members, from how the methods use this: 148 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined1 field_8;  // offset 8
-        char _unknown_9[3];
-        undefined8 field_12; // offset 12
-        undefined4 field_20; // offset 20
-        ColourHSL field_24;  // offset 24
-        char _unknown_40[32];
-        shared_ptr field_72; // offset 72
-        undefined1 field_88; // offset 88
-        char _unknown_89[15];
-        undefined1 field_104; // offset 104
-        char _unknown_105[43];
+    private:
+        uint8_t field_8;
+        uint8_t _unknown_9[15];
+        ColourHSL field_24;
+        AnimationInfo field_40;
+        uint8_t _unknown_80[24];
+        unsigned char field_104;
+        uint8_t _unknown_105[43];
     };
 
     class AnimationState {
     public:
         // virtual methods in vtable order
         virtual ~AnimationState();
-        virtual void GetBoneTransforms(
-            WrapArray<math::Matrix43T<float>>&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            math::Matrix44T<float> const&) const;
-        virtual void ApplyBoneTransforms(
-            math::Vector3T<float>&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            math::Matrix44T<float> const&) const;
-        virtual void GetLabelData(
-            WrapArray<float>&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            AnimationLabelType) const;
-        virtual void UpdateFromCurrentTime(Array<LabelData, eastl::allocator> const&, math::Matrix44T<float> const&);
-        virtual byte GetAnimatesTransparency() const;
-        virtual GetAnimatedColourType() const;
+        virtual void GetBoneTransforms(WrapArray<math::Matrix43T<float>>& wrapArray,
+                                       const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                       const eastl::vector_map<unsigned short, unsigned short>& arg3,
+                                       const math::Matrix44T<float>& matrix44) const;
+        virtual void ApplyBoneTransforms(math::Vector3T<float>& vector3,
+                                         const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                         const eastl::vector_map<unsigned short, unsigned short>& arg3,
+                                         const math::Matrix44T<float>& matrix44) const;
+        virtual void GetLabelData(WrapArray<float>& wrapArray,
+                                  const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                  AnimationLabelType animationLabelType) const;
+        virtual void UpdateFromCurrentTime(const Array<LabelData>& labelDatas, const math::Matrix44T<float>& matrix44);
+        virtual bool GetAnimatesTransparency() const;
+        virtual uint8_t GetAnimatedColourType() const;
         void InvalidateSampled();
-        AnimationState(unsigned int);
+        AnimationState(unsigned int arg1);
         void ClearState();
-        void SetAnimationOnChannel(AnimationParameters const&, unsigned int);
-        void UpdateState(unsigned long long, unsigned long long, bool, shared_ptr<Animation> const&, bool,
-                         AnimatedColourType, unsigned int, int, AnimationLoopBehaviour, bool);
-        bool NeedsRT5Animation(unsigned int) const;
-        void SelectBasicAnimationSampler(unsigned int);
-        GetChannel0BlendTreeNode();
-        GetChannel1BlendTreeNode();
+        void SetAnimationOnChannel(const AnimationParameters& animationParameters, unsigned int arg2);
+        void UpdateState(unsigned long long arg1, unsigned long long arg2, bool arg3,
+                         const shared_ptr<Animation>& animation, bool arg5, AnimatedColourType animatedColourType,
+                         unsigned int arg7, int arg8, AnimationLoopBehaviour animationLoopBehaviour, bool arg10);
+        bool NeedsRT5Animation(unsigned int arg1) const;
+        void SelectBasicAnimationSampler(unsigned int arg1);
+        uint8_t* GetChannel0BlendTreeNode();
+        uint8_t* GetChannel1BlendTreeNode();
         void ClearDebugDrawInformation();
         void SetupBlendTreeAnimationSampler();
-        uint CanAnimationChannelBlend(unsigned int) const;
+        bool CanAnimationChannelBlend(unsigned int arg1) const;
         void SelectAnimationSampler();
-        void SetAnimationChannelTransformMask(int, shared_ptr<WalkMergeDataProvider> const&);
-        void ResetChannel(int);
+        void SetAnimationChannelTransformMask(int arg1, const shared_ptr<WalkMergeDataProvider>& walkMergeDataProvider);
+        void ResetChannel(int arg1);
         void UpdatePausedAnimations();
-        static /* 4 bytes */ m_useSmoothSkinning;             // = 1
-        static /* 4 bytes */ m_curveDebugStepSize;            // = 1036831949
-        static float /* 4 bytes */ m_curveDebugHeight;        // = 8.0f
-        static /* 4 bytes */ m_curveDebugTransformCount;      // = 1
-        static /* 1 bytes */ m_RT5TransformsForWalkMerge;     // = 1
-        static /* 1 bytes */ m_RT5TransformsForLowBoneBases;  // = 1
-        static /* 1 bytes */ m_RT5TransformForLowBoneBaseMax; // = 20
-        static /* 1 bytes */ m_defaultBlendTreeBlendMode;     // = 2
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullAnimationState;
-        static /* 1 bytes */ m_highlightRT5Transforms;
-        static /* 3 bytes */ m_renderCurveDebug;
-        static /* 4 bytes */ m_curveDebugFirstTransform;
-        static /* 1 bytes */ m_curveDebugLimitToRange;
-        static /* 3 bytes */ m_curveScrubMode;
-        static /* 4 bytes */ m_curveScrubTime;
-        static /* 1 bytes */ m_drawDebugSkeleton;
-        static /* 1 bytes */ m_drawDebugSkeletonOnBlend;
-        static /* 1 bytes */ m_RT5TransformsForAll;
-        static /* 1 bytes */ m_useRuntimeCurves;
-        static /* 4 bytes */ m_useRT7SamplerAsyncPath;
+        static int32_t m_useSmoothSkinning;             // = 1
+        static int32_t m_curveDebugStepSize;            // = 1036831949
+        static float m_curveDebugHeight;                // = 8.0f
+        static int32_t m_curveDebugTransformCount;      // = 1
+        static bool m_RT5TransformsForWalkMerge;        // = 1
+        static bool m_RT5TransformsForLowBoneBases;     // = 1
+        static uint8_t m_RT5TransformForLowBoneBaseMax; // = 20
+        static uint8_t m_defaultBlendTreeBlendMode;     // = 2
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullAnimationState; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
+        static bool m_highlightRT5Transforms;
+        static bool m_renderCurveDebug;
+        static int32_t m_curveDebugFirstTransform;
+        static bool m_curveDebugLimitToRange;
+        static bool m_curveScrubMode;
+        static int32_t m_curveScrubTime;
+        static bool m_drawDebugSkeleton;
+        static bool m_drawDebugSkeletonOnBlend;
+        static bool m_RT5TransformsForAll;
+        static bool m_useRuntimeCurves;
+        static int32_t m_useRT7SamplerAsyncPath;
 
-        // data members, from how the methods use this: 3788 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        undefined1 field_12; // offset 12
-        char _unknown_13[11];
-        byte m_animatesTransparency;     // offset 24
-        undefined1 m_animatedColourType; // offset 25
-        char _unknown_26[296];
-        undefined2 field_322; // offset 322
-        char _unknown_324[4];
-        undefined8 field_328;           // offset 328
-        undefined8 field_336;           // offset 336
-        ulonglong field_344;            // offset 344
-        ulonglong field_352;            // offset 352
-        shared_ptr field_360;           // offset 360
-        RT7AnimationSampler* field_376; // offset 376
-        long field_384;                 // offset 384
-        char _unknown_392[744];
-        BaseConfigTypeList field_1136; // offset 1136
-        char _unknown_1240[1472];
-        DebugUIElement field_2712; // offset 2712
-        char _unknown_2721[79];
-        DebugUIElement field_2800; // offset 2800
-        char _unknown_2809[79];
-        DebugUIElement field_2888; // offset 2888
-        char _unknown_2897[79];
-        DebugUIElement field_2976; // offset 2976
-        char _unknown_2985[79];
-        DebugUIElement field_3064; // offset 3064
-        char _unknown_3073[103];
-        DebugUIElement field_3176; // offset 3176
-        char _unknown_3185[103];
-        DebugUIElement field_3288; // offset 3288
-        char _unknown_3297[103];
-        DebugUIElement field_3400; // offset 3400
-        char _unknown_3409[103];
-        DebugUIElement field_3512; // offset 3512
-        char _unknown_3521[127];
-        undefined1 field_3648; // offset 3648
-        char _unknown_3649[55];
-        long field_3704; // offset 3704
-        long field_3712; // offset 3712
-        long field_3720; // offset 3720
-        long field_3728; // offset 3728
-        char _unknown_3736[36];
-        ColourHSL field_3772; // offset 3772
+    private:
+        unsigned int field_8;
+        uint8_t field_12;
+        uint8_t _unknown_13[11];
+        bool m_animatesTransparency;
+        uint8_t m_animatedColourType;
+        uint8_t _unknown_26[296];
+        uint16_t field_322;
+        uint8_t _unknown_324[4];
+        uint64_t field_328;
+        uint64_t field_336;
+        unsigned long long field_344;
+        unsigned long long field_352;
+        uint8_t _unknown_360[16];
+        RT7AnimationSampler* field_376;
+        long field_384;
+        uint8_t _unknown_392[744];
+        BaseConfigTypeList field_1136;
+        uint8_t _unknown_1240[1472];
+        DebugUIElement field_2712;
+        uint8_t _unknown_2721[79];
+        DebugUIElement field_2800;
+        uint8_t _unknown_2809[79];
+        DebugUIElement field_2888;
+        uint8_t _unknown_2897[79];
+        DebugUIElement field_2976;
+        uint8_t _unknown_2985[79];
+        DebugUIElement field_3064;
+        uint8_t _unknown_3073[103];
+        DebugUIElement field_3176;
+        uint8_t _unknown_3185[103];
+        DebugUIElement field_3288;
+        uint8_t _unknown_3297[103];
+        DebugUIElement field_3400;
+        uint8_t _unknown_3409[103];
+        DebugUIElement field_3512;
+        uint8_t _unknown_3521[127];
+        uint8_t field_3648;
+        uint8_t _unknown_3649[55];
+        long field_3704;
+        long field_3712;
+        long field_3720;
+        long field_3728;
+        uint8_t _unknown_3736[36];
+        ColourHSL field_3772;
     };
 
-    // 0x10066a0f0, 32 bytes, inline, placed by class name and debug map
-    // AnimationState::InvalidateSampled()
+    // 0x10066a0f0
     void AnimationState::InvalidateSampled() {
         bool in_SIL;
 
-        std::atomic<bool>::operator=((atomic<bool>*)&field_324, in_SIL);
+        field_324 = in_SIL;
     }
 
-    // 0x10098afc0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // AnimationInfoBlendTreeNode::AnimationInfoBlendTreeNode(): jumps straight to the base-object constructor
-
-    // 0x10098aff0, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // AnimationInfoBlendTreeNode::~AnimationInfoBlendTreeNode(): jumps straight to the base-object destructor
-
-    // 0x10098bc60, 144 bytes, inline, placed by class header (inline)
-    // AnimationInfoBlendTreeNode::SetAnim(AnimationInfo&)
-    void AnimationInfoBlendTreeNode::SetAnim(AnimationInfo* param_1) {
-        undefined1* this_00;
+    // 0x10098bc60
+    void AnimationInfoBlendTreeNode::SetAnim(AnimationInfo& animationInfo) {
+        shared_ptr<oldscape::midi2::MidiPlayerMainThread>* midiPlayerMainThread;
         NXTRenderCanvas* pNVar1;
         shared_ptr<AnimKeyFrameSet>* psVar2;
-        RT7Core* this_01;
-        shared_ptr* psVar3;
-        AnimKeyFrameSet* this_02;
+        RT7Core* this_00;
+        shared_ptr<AnimBase>* animBase;
 
-        AnimationInfo::operator=((AnimationInfo*)&field_40, param_1);
-        this_00 = field_72;
-        if (operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0)) {
-            pNVar1 = (NXTRenderCanvas*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
+        *field_40 = animationInfo;
+        midiPlayerMainThread = (shared_ptr<oldscape::midi2::MidiPlayerMainThread>*)(field_40 + 32);
+        if (*midiPlayerMainThread != nullptr) {
+            pNVar1 = (NXTRenderCanvas*)(*midiPlayerMainThread).operator->();
             psVar2 = (shared_ptr<AnimKeyFrameSet>*)pNVar1->GetPixelBuffer();
-            this_01 = (RT7Core*)shared_ptr<AnimKeyFrameSet>::operator->(psVar2);
-            psVar3 = (shared_ptr*)this_01->GetMSAASampleCount();
-            shared_ptr<AnimBase>::operator=((shared_ptr<AnimBase>*)&field_88, psVar3);
-            pNVar1 = (NXTRenderCanvas*)shared_ptr<Animation>::operator->((shared_ptr<Animation>*)this_00);
+            this_00 = (RT7Core*)(*psVar2).operator->();
+            animBase = (shared_ptr<AnimBase>*)this_00->GetMSAASampleCount();
+            field_88 = *animBase;
+            pNVar1 = (NXTRenderCanvas*)(*midiPlayerMainThread).operator->();
             psVar2 = (shared_ptr<AnimKeyFrameSet>*)pNVar1->GetPixelBuffer();
-            this_02 = (AnimKeyFrameSet*)shared_ptr<AnimKeyFrameSet>::operator->(psVar2);
-            field_104 = this_02->GetBindID();
+            field_104 = ((AnimKeyFrameSet*)(*psVar2).operator->())->GetBindID();
         } else {
-            BindInfo::operator=((BindInfo*)&field_88, (BindInfo*)&BlendTreeNode::EmptyBindInfo);
+            field_88 = (*((BindInfo*)&BlendTreeNode::EmptyBindInfo));
         }
     }
 
-    // 0x10098d220, 32 bytes, deleting destructor, inline, placed by class header (inline)
-    // AnimationInfoBlendTreeNode::~AnimationInfoBlendTreeNode()
-    void AnimationInfoBlendTreeNode::~AnimationInfoBlendTreeNode() {
-        ~AnimationInfoBlendTreeNode(this);
-        operator_delete(this);
-    }
-
-    // 0x10098d240, 16 bytes, inline, placed by class header (inline)
-    // AnimationInfoBlendTreeNode::GetTypeString() const
-    char* AnimationInfoBlendTreeNode::GetTypeString() {
+    // 0x10098d240
+    char* AnimationInfoBlendTreeNode::GetTypeString() const {
         return "Anim";
     }
 
-    // 0x10098d250, 208 bytes, inline, placed by class header (inline)
-    // AnimationInfoBlendTreeNode::GetTreeAsString() const
-    AnimationInfoBlendTreeNode* AnimationInfoBlendTreeNode::GetTreeAsString() {
-        char* pcVar2;
-        long* in_RSI;
-        eastl::string local_50[32];
-        allocator local_30[8];
+    // 0x10098d250
+    auto AnimationInfoBlendTreeNode::GetTreeAsString() const {
+        uint8_t uVar2;
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        eastl::string local_50;
 
-        if (operator==((shared_ptr*)(in_RSI + 9), (_func_decltype_nullptr*)0)) {
-            pcVar2 = (char*)(**(code**)(*in_RSI + 48))();
-            eastl::allocator::allocator(local_30, "EASTL basic_string");
-            eastl::string::basic_string(local_50, pcVar2, local_30);
-            eastl::operator+((eastl*)this, (basic_string*)local_50, (value_type*)"[NULL]");
-            eastl::string::~basic_string(local_50);
+        if ((*((field_40 + 32))) == nullptr) {
+            uVar2 = GetTypeString();
+            local_50 = eastl::string((char*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar2));
+            result + local_50;
         } else {
-            pcVar2 = (char*)(**(code**)(*in_RSI + 48))();
-            new (local_50) eastl::allocator("EASTL basic_string");
-            new (this) eastl::string(pcVar2, local_50);
+            uVar2 = GetTypeString();
+            auto result((char*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar2));
         }
-        return this;
+        return result;
     }
 
-    // 0x10098d320, 16 bytes, inline, placed by class name
-    // AnimationState::GetAnimatedColourType() const
-    undefined1 AnimationState::GetAnimatedColourType() {
+    // 0x10098d320
+    uint8_t AnimationState::GetAnimatedColourType() const {
         return m_animatedColourType;
     }
 
 } // namespace jag::graphics
 
 namespace jag::render {
-    // 0x10066ece0: the linker folded this into FastPool_iterator<audio::SoundInstance, int>::FastPool_iterator(FastPool<audio::SoundInstance, int>*, int), which has identical code
-    QueryView::QueryView(shared_ptr<Query>*, unsigned int);
-
-    // 0x10066ecf0: the linker folded this into FastPool_iterator<audio::SoundInstance, int>::FastPool_iterator(FastPool<audio::SoundInstance, int>*, int), which has identical code
-    QueryView::QueryView(shared_ptr<Query>*, unsigned int);
+    // 0x10066ecf0: QueryView::QueryView(shared_ptr<Query>*, unsigned int) has the same machine code as FastPool_iterator<audio::SoundInstance, int>::FastPool_iterator(FastPool<audio::SoundInstance, int>*, int)
 
 } // namespace jag::render
 
-// 0x10066fa80, 16 bytes, placed by debug map only (low confidence)
-// decltype ((static_cast<void (*&std::__invoke<void (*&)(jag::audio::SoundInstance*), jag::audio::SoundInstance*>(void (*&)(jag::audio::SoundInstance*), jag::audio::SoundInstance*&&))(jag::audio::SoundInstance*)>({parm#1}))(static_cast<jag::audio::SoundInstance*>({parm#2})))
-void __ZNSt3__1L8__invokeIRPFvPN3jag5audio13SoundInstanceEEJS4_EEEDTclscT_fp_spscT0_fp0_EEOS8_DpOS9_(
-    undefined8* param_1, undefined8* param_2) {
-    (*(code*)*param_1)(*param_2);
+// 0x10066fa80
+decltype((static_cast<void (*&std::__invoke<void (*&)(jag::audio::SoundInstance*), jag::audio::SoundInstance*>(
+              void (*&)(jag::audio::SoundInstance*), jag::audio::SoundInstance*&&))(jag::audio::SoundInstance*)>(
+    { parm #1 }))(static_cast<jag::audio::SoundInstance*>({ parm #2 }))arg1) {
+    uint64_t* in_RSI;
+
+    return (**(void (**)(...))arg1)(*in_RSI);
 }

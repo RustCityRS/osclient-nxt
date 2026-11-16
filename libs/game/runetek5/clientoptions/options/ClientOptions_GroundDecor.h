@@ -1,6 +1,5 @@
 // libs/game/runetek5/clientoptions/options/ClientOptions_GroundDecor.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,9 +9,7 @@ namespace jag::game::option {
     public:
         // virtual methods in vtable order
         virtual ~GroundDecor();
-        GroundDecor(graphics::RT7Core&, Settings&, char const*);
-
-        // data members, from how the methods use this: 193 bytes, the first 193 are CutsceneSubtitles
+        GroundDecor(graphics::RT7Core& rt7Core, Settings& settings, const char* str);
     };
 
 } // namespace jag::game::option

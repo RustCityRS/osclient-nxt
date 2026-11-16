@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/caustics/CausticsManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,53 +10,44 @@ namespace jag::graphics {
         Frustum GetCullFrustum() const;
         ViewTransforms GetViewTransforms() const;
         float GetCausticsPlaneHeight() const;
-        CausticsManager(render::RenderTargetsManager&);
+        CausticsManager(render::RenderTargetsManager& renderTargetsManager);
         ~CausticsManager();
         void Destroy();
-        void Initialise(Config const&);
-        void CreateRenderingResources(Config const&);
+        void Initialise(const Config& config);
+        void CreateRenderingResources(const Config& config);
         void DestroyRenderingResources();
-        GetCausticsMapViewport() const;
-        GetCausticsComputeMapViewport() const;
-        void GetCausticsIntegerMapRenderTargets(render::RenderTargetData&);
-        void GetCausticsFloatMapRenderTargets(render::RenderTargetData&);
-        void GetCausticsComputeMapRenderTargets(render::RenderTargetData&);
-        CreateRenderTargets(Config const&);
-        GetCausticsIntegerMapAtlas() const;
-        GetCausticsFloatMapAtlas() const;
-        GetCausticsComputeMapAtlas() const;
-        void Update(ViewTransforms const&, float);
+        CausticsManager* GetCausticsMapViewport() const;
+        CausticsManager* GetCausticsComputeMapViewport() const;
+        void GetCausticsIntegerMapRenderTargets(render::RenderTargetData& renderTargetData);
+        void GetCausticsFloatMapRenderTargets(render::RenderTargetData& renderTargetData);
+        void GetCausticsComputeMapRenderTargets(render::RenderTargetData& renderTargetData);
+        uint64_t CreateRenderTargets(const Config& config);
+        uint64_t GetCausticsIntegerMapAtlas() const;
+        uint64_t GetCausticsFloatMapAtlas() const;
+        void GetCausticsComputeMapAtlas() const;
+        void Update(const ViewTransforms& viewTransforms, float arg2);
 
-        // data members, from how the methods use this: 448 bytes
-        undefined8 field_0; // offset 0
-        char _unknown_8[8];
-        Frustum m_cullFrustum; // offset 16
-        char _unknown_120[56];
-        ViewTransforms m_viewTransforms; // offset 176
-        char _unknown_328[56];
-        float m_causticsPlaneHeight; // offset 384
-        char _unknown_388[4];
-        shared_ptr field_392;            // offset 392
-        shared_ptr field_408;            // offset 408
-        shared_ptr field_424;            // offset 424
-        RenderTargetsManager* field_440; // offset 440
+    private:
+        uint64_t field_0;
+        uint8_t _unknown_8[8];
+        Frustum m_cullFrustum;
+        uint8_t _unknown_120[56];
+        ViewTransforms m_viewTransforms;
+        uint8_t _unknown_328[56];
+        float m_causticsPlaneHeight;
+        uint8_t _unknown_388[52];
+        RenderTargetsManager* field_440;
     };
 
     class CausticsManager::Config {
     public:
         Config();
 
-        // data members, from how the methods use this: 8 bytes
-        undefined8 field_0; // offset 0
+    private:
+        uint64_t field_0;
     };
 
-    // 0x10092d090, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // CausticsManager::Config::Config(): jumps straight to the base-object constructor
-
-    // 0x100938150, 32 bytes, base-object constructor, inline, placed by class name
-    // CausticsManager::Config::Config()
-    void CausticsManager::Config::Config() {
-        field_0 = 8796093023232;
-    }
+    // 0x100938150
+    CausticsManager::Config::Config() : field_0(8796093023232) {}
 
 } // namespace jag::graphics

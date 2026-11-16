@@ -1,62 +1,62 @@
 // libs/graphics/runetek7/materials/shaders/ShaderManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class ShaderManager {
     public:
-        UniqueShaderCount() const;
-        ShaderManager(unsigned long);
-        void Initialise(EffectManager const*);
-        void InitialisePreloadFromDisk(SystemSettings*);
+        unsigned int UniqueShaderCount() const;
+        ShaderManager(unsigned long arg1);
+        void Initialise(const EffectManager* effectManager);
+        void InitialisePreloadFromDisk(SystemSettings* systemSettings);
         void Destroy();
-        void SerialisePermutations(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&) const;
+        void SerialisePermutations(PacketT<Array<unsigned char>>& arg1) const;
         void DestroyRenderingResources();
         void Clear();
-        void GetShader(ShaderType, EffectManager const&, EffectList const&, render::VertexDeclaration const&,
-                       unsigned char, RenderPassType);
-        shared_ptr* LoadShader(ShaderType, EffectManager const&, EffectList const&, render::VertexDeclaration const&,
-                               unsigned long long, unsigned char, RenderPassType);
+        void GetShader(ShaderType shaderType, const EffectManager& effectManager, const EffectList& effectList,
+                       const render::VertexDeclaration& vertexDeclaration, unsigned char arg5,
+                       RenderPassType renderPassType);
+        shared_ptr* LoadShader(ShaderType shaderType, const EffectManager& effectManager, const EffectList& effectList,
+                               const render::VertexDeclaration& vertexDeclaration, unsigned long long arg5,
+                               unsigned char arg6, RenderPassType renderPassType);
         void CreateRenderingResources();
-        void ReloadShadersFromSource(ShaderReloadMode);
+        void ReloadShadersFromSource(ShaderReloadMode shaderReloadMode);
         void MainLogic();
         void StartShaderPreload();
         void UseDefaultPermutations();
-        ulong DeserialisePermutations(eastl::vector<ShaderPermutation, eastl::allocator>&,
-                                      PacketT<Array<unsigned char, BucketAllocatorEASTL>>&) const;
+        unsigned long DeserialisePermutations(eastl::vector<ShaderPermutation>& shaderPermutations,
+                                              PacketT<Array<unsigned char>>& arg2) const;
         void PreloadShaders();
         bool IsPreloadingShaders() const;
-        GetUniqueShaders() const;
-        int CountShadersOfType(ShaderType) const;
-        int CountShadersOfTypeUsingEffect(ShaderType, EffectType) const;
-        void AppendPermutationHTML(std::basic_stringstream<char, std::char_traits<char>, std::allocator<char>>&,
-                                   ShaderType, eastl::bitset<121ul, unsigned long long> const&, bool) const;
-        void AppendPermutationStr(eastl::fixed_string<char, 260, true, eastl::allocator>&,
-                                  eastl::bitset<121ul, unsigned long long> const&, bool, ShaderSource const&) const;
-        void SerialisePermutationsToString(
-            std::basic_stringstream<char, std::char_traits<char>, std::allocator<char>>&) const;
+        auto GetUniqueShaders() const;
+        int CountShadersOfType(ShaderType shaderType) const;
+        int CountShadersOfTypeUsingEffect(ShaderType shaderType, EffectType effectType) const;
+        void AppendPermutationHTML(std::basic_stringstream<char>& basic_stringstream, ShaderType shaderType,
+                                   const eastl::bitset<121ul, unsigned long long>& bitset, bool arg4) const;
+        void AppendPermutationStr(eastl::fixed_string<char, 260>& str,
+                                  const eastl::bitset<121ul, unsigned long long>& bitset, bool arg3,
+                                  const ShaderSource& shaderSource) const;
+        void SerialisePermutationsToString(std::basic_stringstream<char>& basic_stringstream) const;
         void CacheSize() const;
         ~ShaderManager();
 
-        // data members, from how the methods use this: 184 bytes
-        SpriteReference* field_0; // offset 0
-        SpriteReference* field_8; // offset 8
-        char _unknown_16[56];
-        uint field_72;       // offset 72
-        undefined4 field_76; // offset 76
-        undefined1 field_80; // offset 80
-        char _unknown_81[39];
-        int field_120; // offset 120
-        char _unknown_124[36];
-        shared_ptr field_160;     // offset 160
-        EffectManager* field_176; // offset 176
+    private:
+        pair<int, shared_ptr<game::DebugStringProvider::IStringPool>>* field_0;
+        pair<int, shared_ptr<game::DebugStringProvider::IStringPool>>* field_8;
+        uint8_t _unknown_16[56];
+        unsigned int field_72;
+        uint32_t field_76;
+        uint8_t field_80;
+        uint8_t _unknown_81[39];
+        int field_120;
+        uint8_t _unknown_124[36];
+        shared_ptr field_160;
+        EffectManager* field_176;
     };
 
-    // 0x100891e80, 48 bytes, inline, placed by class name and debug map
-    // ShaderManager::IsPreloadingShaders() const
-    bool ShaderManager::IsPreloadingShaders() {
+    // 0x100891e80
+    bool ShaderManager::IsPreloadingShaders() const {
         int iVar1;
         bool bVar2;
         int iVar3;
@@ -65,164 +65,124 @@ namespace jag::graphics {
             bVar2 = false;
         } else {
             iVar1 = field_120;
-            iVar3 = (&field_88)->size();
+            iVar3 = field_88.size();
             bVar2 = iVar1 < iVar3;
         }
         return bVar2;
     }
 
-    // 0x10089b9d0, 128 bytes, inline, placed by class name
-    // ShaderManager::Destroy()::$_1::operator()(Filename const&, int, eastl::string const&) const
-    /* ShaderManager::Destroy()::$_1::TEMPNAMEPLACEHOLDERVALUE(Filename const&, int,
-   eastl::string const&) const */
-
-    void ShaderManager::Destroy()::$_1::operator()(Filename* param_1, int param_2, basic_string* param_3) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-
-        uVar1 = logger::default_logger();
-        uVar2 = param_1->GetName();
-        uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        logger::Logger::Log(uVar1, 0, 3,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
-                            "materials/shaders/ShaderManager.cpp",
-                            56, "Failed to save %s shader preload list to %s (%d: %s)", "PreloadList", uVar2, param_2,
-                            uVar3);
+    // 0x10089b9d0
+    void ShaderManager::Destroy()::$_1::operator()(const Filename& filename, int arg2, const eastl::string& str) const {
+        auto this_00 = logger::default_logger();
+        auto pcVar1 = GetName();
+        uint64_t uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        this_00->Log(false, 3,
+                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                     "materials/shaders/ShaderManager.cpp",
+                     56, "Failed to save %s shader preload list to %s (%d: %s)", "PreloadList", pcVar1,
+                     (unsigned long)filename & 4294967295, uVar2);
     }
 
-    // 0x10089cc70, 272 bytes, inline, placed by class name
-    // ShaderManager::StartShaderPreload()::$_2::operator()(Filename const&, Array<unsigned char, eastl::allocator>) const
-    /* ShaderManager::StartShaderPreload()::$_2::TEMPNAMEPLACEHOLDERVALUE(Filename
-   const&, Array<unsigned char, eastl::allocator>) const */
+    // 0x10089cc70
+    void ShaderManager::StartShaderPreload()::$_2::operator()(const Filename& filename,
+                                                              Array<unsigned char> arg2) const {
+        Logger* pLVar2;
+        char* pcVar3;
+        Array<unsigned char, BucketAllocatorEASTL> local_40;
 
-    void ShaderManager::StartShaderPreload()::$_2::operator()(undefined8* param_1, Filename* param_2, Array* param_3) {
-        ShaderManager* this;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        ShaderManager* this_00;
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>> local_60[32];
-        Array<unsigned char, BucketAllocatorEASTL> local_40[24];
-
-        this = (ShaderManager*)*param_1;
-        Array<unsigned char, BucketAllocatorEASTL>::Array<eastl::allocator>(local_40, param_3);
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::PacketT(local_60, (Array*)local_40);
-        this_00 = (ShaderManager*)local_40;
-        this_00->~Array();
-        if (DeserialisePermutations(this_00, (vector*)&field_88, (PacketT*)local_60) == '\0') {
-            uVar2 = logger::default_logger();
-            uVar3 = param_2->GetName();
-            logger::Logger::Log(uVar2, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/materials/shaders/ShaderManager.cpp",
-                                241, "Shader preload list loaded from %s failed deserialisation, so using defaults",
-                                uVar3);
-            UseDefaultPermutations(this);
+        ShaderManager* this_00 = field_0;
+        local_40.Array<eastl::allocator>(*arg2);
+        PacketT<Array<unsigned char, BucketAllocatorEASTL>> local_60(&local_40);
+        if (DeserialisePermutations(&local_40, (vector<ShaderPermutation>*)&this_00->field_88, &local_60) == '\0') {
+            pLVar2 = logger::default_logger();
+            pcVar3 = filename.GetName();
+            pLVar2->Log(false, 8,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                        "materials/shaders/ShaderManager.cpp",
+                        241, "Shader preload list loaded from %s failed deserialisation, so using defaults", pcVar3);
+            UseDefaultPermutations(this_00);
         } else {
-            uVar2 = logger::default_logger();
-            uVar3 = param_2->GetName();
-            logger::Logger::Log(uVar2, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/materials/shaders/ShaderManager.cpp",
-                                236, "Shader preload list loaded from %s", uVar3);
-            field_80 = 1;
+            pLVar2 = logger::default_logger();
+            pcVar3 = filename.GetName();
+            pLVar2->Log(false, 8,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                        "materials/shaders/ShaderManager.cpp",
+                        236, "Shader preload list loaded from %s", pcVar3);
+            this_00->field_80 = 1;
         }
-        local_60->~PacketT();
     }
 
-    // 0x10089d6d0, 144 bytes, inline, placed by class name
-    // ShaderManager::StartShaderPreload()::$_3::operator()(Filename const&, int, eastl::string const&) const
-    /* ShaderManager::StartShaderPreload()::$_3::TEMPNAMEPLACEHOLDERVALUE(Filename
-   const&, int, eastl::string const&) const */
-
-    void ShaderManager::StartShaderPreload()::$_3::operator()(Filename* param_1, int param_2, basic_string* param_3) {
-        ShaderManager* this;
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined4 in_register_00000034;
-
-        this = *(ShaderManager**)param_1;
-        uVar1 = logger::default_logger();
-        uVar2 = (CONCAT44(in_register_00000034, param_2))->GetName();
-        uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        logger::Logger::Log(uVar1, 0, 3,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
-                            "materials/shaders/ShaderManager.cpp",
-                            247, "Failed to load %s shader preload list at %s (%d: %s), so using defaults",
-                            "PreloadList", uVar2, (ulong)param_3 & 4294967295, uVar3);
-        UseDefaultPermutations(this);
+    // 0x10089d6d0
+    void ShaderManager::StartShaderPreload()::$_3::operator()(const Filename& filename, int arg2,
+                                                              const eastl::string& str) const {
+        ShaderManager* this_00 = field_0;
+        auto this_01 = logger::default_logger();
+        auto pcVar1 = filename.GetName();
+        uint64_t uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        this_01->Log(false, 3,
+                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                     "materials/shaders/ShaderManager.cpp",
+                     247, "Failed to load %s shader preload list at %s (%d: %s), so using defaults", "PreloadList",
+                     pcVar1, (unsigned long)(unsigned int)arg2, uVar2);
+        UseDefaultPermutations(this_00);
     }
 
-    // 0x1008a9180, 16 bytes, inline, placed by class name
-    // ShaderManager::CacheSize() const
-    void ShaderManager::CacheSize() {
+    // 0x1008a9180
+    void ShaderManager::CacheSize() const {
         size();
     }
 
-    // 0x10097ee80, 16 bytes, complete-object destructor, inline, placed by class name
-    // ShaderManager::~ShaderManager(): jumps straight to the base-object destructor
-
-    // 0x1009910b0, 144 bytes, base-object destructor, inline, placed by class name
-    // ShaderManager::~ShaderManager()
-    void ShaderManager::~ShaderManager() {
-        Destroy(this);
+    // 0x1009910b0
+    ShaderManager::~ShaderManager() {
+        Destroy();
         field_160->~shared_ptr();
-        (&field_128)->~basic_string();
-        (&field_88)->~vector();
-        (&field_40)->~vector();
-        ~vector_map();
+        field_128.~basic_string();
+        field_88.~vector();
+        field_40.~vector();
     }
 
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x1008915f0, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<graphics::Shader>::type make_shared<graphics::Shader, graphics::ShaderType&, std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> > const&, std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> > const&, unsigned long&, graphics::EffectList const&, render::VertexDeclaration const&, graphics::EffectManager const&, unsigned char&, graphics::RenderPassType&>(graphics::ShaderType&, std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> > const&, std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> > const&, unsigned long&, graphics::EffectList const&, render::VertexDeclaration const&, graphics::EffectManager const&, unsigned char&, graphics::RenderPassType&)
-    /* shared_ptr_if_not_array<graphics::Shader>::type make_shared<graphics::Shader,
-   graphics::ShaderType&, std::basic_string<char, std::char_traits<char>,
-   BucketAllocatorSTL<char> > const&, std::basic_string<char, std::char_traits<char>,
-   BucketAllocatorSTL<char> > const&, unsigned long&, graphics::EffectList const&,
-   render::VertexDeclaration const&, graphics::EffectManager const&, unsigned char&,
-   graphics::RenderPassType&>(graphics::ShaderType&, std::basic_string<char,
-   std::char_traits<char>, BucketAllocatorSTL<char> > const&, std::basic_string<char,
-   std::char_traits<char>, BucketAllocatorSTL<char> > const&, unsigned long&,
-   graphics::EffectList const&, render::VertexDeclaration const&,
-   graphics::EffectManager const&, unsigned char&, graphics::RenderPassType&) */
-
-    jag* jag::make_shared<graphics::Shader, graphics::ShaderType&,
-                          std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> const&,
-                          std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> const&,
-                          unsigned long&, graphics::EffectList_const&, render::VertexDeclaration_const&,
-                          graphics::EffectManager_const&, unsigned char&, graphics::RenderPassType&>(
-        ShaderType* param_1, basic_string* param_2, basic_string* param_3, ulong* param_4, EffectList* param_5,
-        VertexDeclaration* param_6, EffectManager* param_7, uchar* param_8, RenderPassType* param_9) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1008915f0
+    shared_ptr_if_not_array<graphics::Shader>::type
+    make_shared<graphics::Shader, graphics::ShaderType&,
+                std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> const&,
+                std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> const&, unsigned long&,
+                graphics::EffectList const&, render::VertexDeclaration const&, graphics::EffectManager const&,
+                unsigned char&, graphics::RenderPassType&>(
+        graphics::ShaderType& shaderType,
+        const std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>& str1,
+        const std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>& str2, unsigned long& arg4,
+        const graphics::EffectList& effectList, const render::VertexDeclaration& vertexDeclaration,
+        const graphics::EffectManager& effectManager, unsigned char& arg8, graphics::RenderPassType& renderPassType) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        RenderPassType* in_stack_00000020;
         int local_44;
         Shader* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(1952, 16);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(16);
+        auto arg1 = aligned_alloc(1952, 16);
+        if (arg1 == nullptr) {
+            new (shaderType) shared_ptr();
         } else {
             local_40[0] =
                 placement_new<graphics::Shader, graphics::ShaderType&,
                               std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> const&,
                               std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> const&,
-                              unsigned long&, graphics::EffectList_const&, render::VertexDeclaration_const&,
-                              graphics::EffectManager_const&, unsigned char&, graphics::RenderPassType&>(
-                    (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8,
-                    param_9);
+                              unsigned long&, graphics::EffectList const&, render::VertexDeclaration const&,
+                              graphics::EffectManager const&, unsigned char&, graphics::RenderPassType&>(
+                    (void*)((long)arg1 + 32), (ShaderType*)str1, str2,
+                    (basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> _>*)arg4,
+                    (unsigned long*)effectList, (EffectList*)vertexDeclaration, (VertexDeclaration*)effectManager,
+                    (EffectManager*)arg8, (unsigned char*)renderPassType, in_stack_00000020);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<graphics::Shader>, int, graphics::Shader*&>(pvVar1, &local_44,
-                                                                                                  local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<graphics::Shader>, int, graphics::Shader*&>(arg1, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (shaderType) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return shaderType;
     }
 
 } // namespace jag

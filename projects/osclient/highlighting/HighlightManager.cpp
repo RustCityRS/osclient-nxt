@@ -1,668 +1,479 @@
 // projects/osclient/highlighting/HighlightManager.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "HighlightManager.h"
 #include "libs/oldscape/jagex3/dash3d/AnimFrameSet.h"
 
 namespace jag::oldscape::highlight {
-    // 0x10000cbc0, 928 bytes, base-object constructor, placed by class name
-    // HighlightManager::HighlightManager()
-    void HighlightManager::HighlightManager() {
-        undefined1* this_00;
-        array<HighlightChannelProperties, 32ul>* this_01;
-        array<HighlightChannelProperties, 32ul>* this_02;
-        array<HighlightChannelProperties, 32ul>* this_03;
-        array<HighlightChannelProperties, 32ul>* this_04;
-        array<HighlightChannelProperties, 32ul>* this_05;
-        array<HighlightChannelProperties, 32ul>* this_06;
-        array<HighlightChannelProperties, 32ul>* this_07;
-        array<HighlightChannelProperties, 32ul>* this_08;
+    // 0x10000cbc0
+    HighlightManager::HighlightManager() : HighlightSaveHandler() {
         long lVar1;
-        ulong uVar2;
-        char cVar3;
-        allocator local_38[8];
+        char cVar2;
 
-        new (this) HighlightSaveHandler();
-        this_00 = &field_640;
+        uint8_t* this_00 = &field_640;
         new (this_00) std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>();
         field_4096 = 0;
         field_4100 = 0;
         field_4104 = 0;
         field_4108 = 0;
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_4112, local_38) eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                    eastl::equal_to<long long>, eastl::allocator, false>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_4168, local_38) eastl::hash_map<eastl::string, unsigned int, eastl::hash<eastl::string>,
-                                                    eastl::equal_to<eastl::string>, eastl::allocator, false>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_4224, local_38)
-            eastl::hash_map<int, HighlightedGroup, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_4280, local_38)
-            eastl::hash_map<int, HighlightedGroup, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_4336, local_38)
-            eastl::hash_map<int, HighlightedGroup, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_4392, local_38) eastl::hash_map<OpGroup, HighlightedGroup, eastl::hash<OpGroup>,
-                                                    eastl::equal_to<OpGroup>, eastl::allocator, false>();
-        new (&field_4448) std::array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                     eastl::equal_to<long long>, eastl::allocator, false>,
-                                     25600ul>();
-        new (&field_1438048) std::array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                        eastl::equal_to<long long>, eastl::allocator, false>,
-                                        25600ul>();
-        new (&field_2871648) std::array<
-            eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>,
-            25600ul>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_4305248, local_38) eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                       eastl::equal_to<long long>, eastl::allocator, false>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_4305304, local_38) eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                       eastl::equal_to<long long>, eastl::allocator, false>();
-        eastl::allocator::allocator(local_38, "EASTL hash_map");
-        new (&field_4305360, local_38)
-            eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>();
-        field_4305416 = 0;
+        new (&field_4112) eastl::hash_map<long long, unsigned int>(local_38);
+        new (&field_4168) eastl::hash_map<eastl::string, unsigned int>(local_38);
+        new (&field_4224) eastl::hash_map<int, HighlightedGroup>(local_38);
+        new (&field_4280) eastl::hash_map<int, HighlightedGroup>(local_38);
+        new (&field_4336) eastl::hash_map<int, HighlightedGroup>(local_38);
+        new (&field_4392) eastl::hash_map<OpGroup, HighlightedGroup>(local_38);
+        new (&field_4448) std::array<eastl::hash_map<long long, unsigned int>, 25600ul>();
+        new (&field_1438048) std::array<eastl::hash_map<long long, unsigned int>, 25600ul>();
+        new (&field_2871648) std::array<eastl::hash_map<int, unsigned int>, 25600ul>();
+        new (&field_4305248) eastl::hash_map<long long, unsigned int>(local_38);
+        new (&field_4305304) eastl::hash_map<long long, unsigned int>(local_38);
+        new (&field_4305360) eastl::hash_map<int, unsigned int>(local_38);
+        field_4305416 = false;
         field_4305417 = false;
         field_4305418 = false;
-        uVar2 = 0;
-        this_01 = (array<HighlightChannelProperties, 32ul>*)
-            std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)this_00, 0);
-        this_02 = (array<HighlightChannelProperties, 32ul>*)
-            std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)this_00, 2);
-        this_03 = (array<HighlightChannelProperties, 32ul>*)
-            std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)this_00, 4);
-        this_04 = (array<HighlightChannelProperties, 32ul>*)
-            std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)this_00, 6);
-        this_05 = (array<HighlightChannelProperties, 32ul>*)
-            std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)this_00, 7);
-        this_06 = (array<HighlightChannelProperties, 32ul>*)
-            std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)this_00, 1);
-        this_07 = (array<HighlightChannelProperties, 32ul>*)
-            std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)this_00, 3);
-        this_08 = (array<HighlightChannelProperties, 32ul>*)
-            std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)this_00, 5);
+        unsigned long arg1 = 0;
+        array<HighlightChannelProperties, 32ul>* this_01 = (array<HighlightChannelProperties, 32ul>*)(*this_00)[0];
+        array<HighlightChannelProperties, 32ul>* this_02 = (array<HighlightChannelProperties, 32ul>*)(*this_00)[2];
+        array<HighlightChannelProperties, 32ul>* this_03 = (array<HighlightChannelProperties, 32ul>*)(*this_00)[4];
+        array<HighlightChannelProperties, 32ul>* this_04 = (array<HighlightChannelProperties, 32ul>*)(*this_00)[6];
+        array<HighlightChannelProperties, 32ul>* this_05 = (array<HighlightChannelProperties, 32ul>*)(*this_00)[7];
+        array<HighlightChannelProperties, 32ul>* this_06 = (array<HighlightChannelProperties, 32ul>*)(*this_00)[1];
+        array<HighlightChannelProperties, 32ul>* this_07 = (array<HighlightChannelProperties, 32ul>*)(*this_00)[3];
+        array<HighlightChannelProperties, 32ul>* this_08 = (array<HighlightChannelProperties, 32ul>*)(*this_00)[5];
         do {
-            lVar1 = std::array<HighlightChannelProperties, 32ul>::operator[](this_01, uVar2);
-            cVar3 = (char)uVar2;
-            *(char*)(lVar1 + 10) = cVar3;
-            lVar1 = std::array<HighlightChannelProperties, 32ul>::operator[](this_02, uVar2);
-            *(char*)(lVar1 + 10) = cVar3;
-            lVar1 = std::array<HighlightChannelProperties, 32ul>::operator[](this_03, uVar2);
-            *(char*)(lVar1 + 10) = cVar3;
-            lVar1 = std::array<HighlightChannelProperties, 32ul>::operator[](this_04, uVar2);
-            *(char*)(lVar1 + 10) = cVar3;
-            lVar1 = std::array<HighlightChannelProperties, 32ul>::operator[](this_05, uVar2);
-            *(char*)(lVar1 + 10) = cVar3;
-            lVar1 = std::array<HighlightChannelProperties, 32ul>::operator[](this_06, uVar2);
-            cVar3 = cVar3 + ' ';
-            *(char*)(lVar1 + 10) = cVar3;
-            lVar1 = std::array<HighlightChannelProperties, 32ul>::operator[](this_07, uVar2);
-            *(char*)(lVar1 + 10) = cVar3;
-            lVar1 = std::array<HighlightChannelProperties, 32ul>::operator[](this_08, uVar2);
-            *(char*)(lVar1 + 10) = cVar3;
-            uVar2 = uVar2 + 1;
-        } while (uVar2 != 32);
+            lVar1 = (*this_01)[arg1];
+            cVar2 = (char)arg1;
+            *(char*)(lVar1 + 10) = cVar2;
+            lVar1 = (*this_02)[arg1];
+            *(char*)(lVar1 + 10) = cVar2;
+            lVar1 = (*this_03)[arg1];
+            *(char*)(lVar1 + 10) = cVar2;
+            lVar1 = (*this_04)[arg1];
+            *(char*)(lVar1 + 10) = cVar2;
+            lVar1 = (*this_05)[arg1];
+            *(char*)(lVar1 + 10) = cVar2;
+            lVar1 = (*this_06)[arg1];
+            cVar2 = cVar2 + ' ';
+            *(char*)(lVar1 + 10) = cVar2;
+            lVar1 = (*this_07)[arg1];
+            *(char*)(lVar1 + 10) = cVar2;
+            lVar1 = (*this_08)[arg1];
+            *(char*)(lVar1 + 10) = cVar2;
+            arg1 = arg1 + 1;
+        } while (arg1 != 32);
     }
 
-    // 0x10000d090, 16 bytes, complete-object constructor, placed by class name
-    // HighlightManager::HighlightManager(): jumps straight to the base-object constructor
-
-    // 0x10000d0a0, 336 bytes, base-object destructor, placed by class name
-    // HighlightManager::~HighlightManager()
-    void HighlightManager::~HighlightManager() {
-        SaveToFiles(this);
-        (&field_4305360)->~hash_map();
-        (&field_4305304)->~hash_map();
-        (&field_4305248)->~hash_map();
-        (&field_2871648)->~array();
-        (&field_1438048)->~array();
-        (&field_4448)->~array();
-        (&field_4392)->~hash_map();
-        (&field_4336)->~hash_map();
-        (&field_4280)->~hash_map();
-        (&field_4224)->~hash_map();
-        (&field_4168)->~hash_map();
-        (&field_4112)->~hash_map();
-        ~HighlightSaveHandler();
+    // 0x10000d0a0
+    HighlightManager::~HighlightManager() {
+        SaveToFiles();
+        field_4305360.~hash_map();
+        field_4305304.~hash_map();
+        field_4305248.~hash_map();
+        field_2871648.~array();
+        field_1438048.~array();
+        field_4448.~array();
+        field_4392.~hash_map();
+        field_4336.~hash_map();
+        field_4280.~hash_map();
+        field_4224.~hash_map();
+        field_4168.~hash_map();
+        field_4112.~hash_map();
     }
 
-    // 0x10000d1f0, 96 bytes, placed by class name
-    // HighlightManager::SaveToFiles()
+    // 0x10000d1f0
     void HighlightManager::SaveToFiles() {
-        SaveChanges((hash_map*)&field_4168, (hash_map*)&field_4224, (hash_map*)&field_4280, (hash_map*)&field_4336,
-                    (hash_map*)&field_4392, (array*)&field_4448, (array*)&field_1438048, (array*)&field_2871648,
-                    (array*)&field_640);
+        SaveChanges(field_4168, field_4224, field_4280, field_4336, field_4392, field_4448, field_1438048,
+                    field_2871648, field_640);
     }
 
-    // 0x10000d260, 16 bytes, complete-object destructor, placed by class name
-    // HighlightManager::~HighlightManager(): jumps straight to the base-object destructor
-
-    // 0x10000dc40, 256 bytes, placed by class name
-    // HighlightManager::ResetAll()
+    // 0x10000dc40
     void HighlightManager::ResetAll() {
-        hashtable<int, eastl::pair<int const, minimenu::MinimenuOp>, eastl::allocator,
-                  eastl::use_first<eastl::pair<int const, minimenu::MinimenuOp>>, eastl::equal_to<int>,
-                  eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy,
-                  false, true, true>* this_00;
         hashtable<LoadingScreenScript::Keyframe*, eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>,
                   eastl::allocator, eastl::use_first<eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>>,
                   eastl::equal_to<LoadingScreenScript::Keyframe*>, eastl::hash<LoadingScreenScript::Keyframe*>,
                   eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*
             phVar1;
-        ulong uVar2;
 
-        uVar2 = 0;
+        unsigned long uVar2 = 0;
         do {
-            this_00 = (hashtable<int, eastl::pair<int const, minimenu::MinimenuOp>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, minimenu::MinimenuOp>>, eastl::equal_to<int>,
-                                 eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                 eastl::prime_rehash_policy, false, true, true>*)
-                std::array<
-                    eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>,
-                    25600ul>::operator[]((array<eastl::hash_map<int, unsigned int, eastl::hash<int>,
-                                                                eastl::equal_to<int>, eastl::allocator, false>,
-                                                25600ul>*)&field_2871648,
-                                         uVar2);
-            eastl::hashtable<int, eastl::pair<int const, minimenu::MinimenuOp>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, minimenu::MinimenuOp>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::clear(this_00);
+            ((hashtable<int, eastl::pair<int const, minimenu::MinimenuOp>, eastl::allocator,
+                        eastl::use_first<eastl::pair<int const, minimenu::MinimenuOp>>, eastl::equal_to<int>,
+                        eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
+                        eastl::prime_rehash_policy, false, true, true>*)field_2871648[uVar2])
+                ->clear();
             uVar2 = uVar2 + 1;
         } while (uVar2 != 25600);
         uVar2 = 0;
         do {
-            phVar1 = (hashtable<LoadingScreenScript::Keyframe*,
-                                eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>, eastl::allocator,
-                                eastl::use_first<eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>>,
-                                eastl::equal_to<LoadingScreenScript::Keyframe*>,
-                                eastl::hash<LoadingScreenScript::Keyframe*>, eastl::mod_range_hashing,
-                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
-                std::array<
-                    eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                                    eastl::allocator, false>,
-                    25600ul>::operator[]((array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                                eastl::equal_to<long long>, eastl::allocator, false>,
-                                                25600ul>*)&field_4448,
-                                         uVar2);
-            eastl::hashtable<LoadingScreenScript::Keyframe*,
-                             eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>>,
-                             eastl::equal_to<LoadingScreenScript::Keyframe*>,
-                             eastl::hash<LoadingScreenScript::Keyframe*>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::clear(phVar1);
+            phVar1 = &field_4448[uVar2];
+            phVar1->clear();
             uVar2 = uVar2 + 1;
         } while (uVar2 != 25600);
         uVar2 = 0;
         do {
-            phVar1 = (hashtable<LoadingScreenScript::Keyframe*,
-                                eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>, eastl::allocator,
-                                eastl::use_first<eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>>,
-                                eastl::equal_to<LoadingScreenScript::Keyframe*>,
-                                eastl::hash<LoadingScreenScript::Keyframe*>, eastl::mod_range_hashing,
-                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
-                std::array<
-                    eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                                    eastl::allocator, false>,
-                    25600ul>::operator[]((array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                                eastl::equal_to<long long>, eastl::allocator, false>,
-                                                25600ul>*)&field_1438048,
-                                         uVar2);
-            eastl::hashtable<LoadingScreenScript::Keyframe*,
-                             eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>>,
-                             eastl::equal_to<LoadingScreenScript::Keyframe*>,
-                             eastl::hash<LoadingScreenScript::Keyframe*>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::clear(phVar1);
+            phVar1 = &field_1438048[uVar2];
+            phVar1->clear();
             uVar2 = uVar2 + 1;
         } while (uVar2 != 25600);
-        (&field_4112)->clear();
-        (&field_4224)->clear();
-        (&field_4280)->clear();
-        (&field_4336)->clear();
-        (&field_4168)->clear();
-        (&field_4392)->clear();
-        ResetRegionHighlights(this);
+        field_4112.clear();
+        field_4224.clear();
+        field_4280.clear();
+        field_4336.clear();
+        field_4168.clear();
+        field_4392.clear();
+        ResetRegionHighlights();
     }
 
-    // 0x10000de50, 64 bytes, placed by class name
-    // HighlightManager::ResetRegionHighlights()
+    // 0x10000de50
     void HighlightManager::ResetRegionHighlights() {
-        (&field_4305248)->clear();
-        (&field_4305304)->clear();
-        (&field_4305360)->clear();
+        field_4305248.clear();
+        field_4305304.clear();
+        field_4305360.clear();
     }
 
-    // 0x10000de90, 80 bytes, placed by class name
-    // HighlightManager::OnMapRebuild(int, int, int, int)
-    void HighlightManager::OnMapRebuild(int param_1, int param_2, int param_3, int param_4) {
-        field_4096 = param_1 >> 6;
-        field_4104 = param_2 >> 6;
-        field_4100 = param_3 + param_1 + -1 >> 6;
-        field_4108 = param_2 + param_4 + -1 >> 6;
-        if (param_3 + param_1 < 6401) {
-            ResetRegionHighlights(this);
+    // 0x10000de90
+    void HighlightManager::OnMapRebuild(int arg1, int arg2, int arg3, int arg4) {
+        field_4096 = arg1 >> 6;
+        field_4104 = arg2 >> 6;
+        field_4100 = arg3 + arg1 - 1 >> 6;
+        field_4108 = arg2 + arg4 - 1 >> 6;
+        if (arg3 + arg1 < 6401) {
+            ResetRegionHighlights();
         }
     }
 
-    // 0x10000dee0, 144 bytes, placed by class name
-    // HighlightManager::ForEachLoadedMapSquare(std::function<void (rs2lib::CoordMapSquare const&)>)
-    /* HighlightManager::ForEachLoadedMapSquare(std::function<void
-   (rs2lib::CoordMapSquare const&)>) */
-
-    void HighlightManager::ForEachLoadedMapSquare(function<void(rs2lib::CoordMapSquare_const&)>* param_2) {
+    // 0x10000dee0
+    void HighlightManager::ForEachLoadedMapSquare(std::function<void(rs2lib::CoordMapSquare const&)> callback) {
         bool bVar1;
-        int iVar2;
-        int iVar3;
-        undefined1 local_38[8];
+        int arg2;
+        uint8_t local_38[8];
 
-        iVar3 = field_4096;
-        if ((iVar3 < 100) && (iVar3 <= field_4100)) {
+        int arg1 = field_4096;
+        if ((arg1 < 100) && (arg1 <= field_4100)) {
             do {
-                iVar2 = field_4104;
+                arg2 = field_4104;
                 if (field_4104 <= field_4108) {
                     do {
-                        new (local_38) sidebars::SideBarData(iVar3, iVar2);
-                        std::function<void(rs2lib::CoordMapSquare_const&)>::operator()(param_2,
-                                                                                       (CoordMapSquare*)local_38);
-                        bVar1 = iVar2 < field_4108;
-                        iVar2 = iVar2 + 1;
+                        new (local_38) sidebars::SideBarData(arg1, arg2);
+                        std::function<void(rs2lib::CoordMapSquare const&)>::operator()(
+                            (function<void(rs2lib::CoordMapSquare const&)>*)callback, (CoordMapSquare*)local_38);
+                        bVar1 = arg2 < field_4108;
+                        arg2 = arg2 + 1;
                     } while (bVar1);
                 }
-                bVar1 = iVar3 < field_4100;
-                iVar3 = iVar3 + 1;
+                bVar1 = arg1 < field_4100;
+                arg1 = arg1 + 1;
             } while (bVar1);
         }
     }
 
-    // 0x10000df80, 1968 bytes, placed by class name
-    // HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short, unsigned char, dash3d::EntityHighlightBitFlags)
-    bool HighlightManager::ConfigureChannel(int param_2, uint param_3, undefined2 param_4, undefined2 param_5,
-                                            int param_6, undefined2 param_7) {
-        bool bVar1;
-        char cVar2;
-        int iVar3;
-        array<HighlightChannelProperties, 32ul>* this_00;
-        HighlightChannelProperties* this_01;
-        undefined2* puVar4;
-        longlong* plVar5;
-        basic_string* pbVar6;
-        long lVar7;
-        Client* this_02;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
-        hashtable_iterator_base* extraout_RDX_03;
-        hashtable_iterator_base* extraout_RDX_04;
-        hashtable_iterator_base* extraout_RDX_05;
-        hashtable_iterator_base* extraout_RDX_06;
-        hashtable_iterator_base* extraout_RDX_07;
-        hashtable_iterator_base* extraout_RDX_08;
-        hashtable_iterator_base* extraout_RDX_09;
-        hashtable_iterator_base* extraout_RDX_10;
-        function<void(rs2lib::CoordMapSquare_const&)>* this_03;
-        hashtable_iterator_base local_158[16];
+    // 0x10000df80
+    bool HighlightManager::ConfigureChannel(HighlightCategory highlightCategory, int arg2, unsigned short arg3,
+                                            unsigned short arg4, unsigned char arg5,
+                                            dash3d::EntityHighlightBitFlags entityHighlightBitFlags) {
+        bool result;
+        uint8_t* uint8_t;
+        bool cVar1;
+        long long* plVar4;
+        eastl::string* str;
+        long lVar5;
+        uint64_t in_register_00000012;
+        ReturnValue result;
+        uint32_t in_register_0000003c;
+        function<void(rs2lib::CoordMapSquare const&)>* this_04;
+        uint64_t in_register_00000081;
+        unsigned short in_stack_00000008;
+        ReturnValue local_158;
         HighlightManager* local_148;
-        uint* puStack_140;
+        unsigned int* puStack_140;
         bool* local_138;
         HighlightManager* local_130;
-        uint* puStack_128;
+        unsigned int* puStack_128;
         bool* local_120;
         HighlightManager* local_118;
-        uint* puStack_110;
+        unsigned int* puStack_110;
         bool* local_108;
-        uint local_fc;
-        undefined8 local_f8;
-        undefined8 uStack_f0;
-        undefined8 local_e8;
-        undefined8 uStack_e0;
-        int local_d4;
-        uint local_d0;
-        bool local_c9;
-        function<void(rs2lib::CoordMapSquare_const&)> local_c8[48];
-        function<void(rs2lib::CoordMapSquare_const&)> local_98[48];
-        function<void(rs2lib::CoordMapSquare_const&)> local_68[48];
+        ReturnValue local_f8;
+        uint64_t uStack_f0;
+        ReturnValue local_e8;
+        uint64_t uStack_e0;
+        function<void(rs2lib::CoordMapSquare const&)> local_c8[48];
+        function<void(rs2lib::CoordMapSquare const&)> local_98[48];
+        function<void(rs2lib::CoordMapSquare const&)> local_68[48];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_d0 = param_3;
-        if (31 < param_3) {
-            /* WARNING: Subroutine does not return */
+        HighlightManager* this_03 =
+            (HighlightManager*)(((uint64_t)in_register_0000003c << 32) | (uint32_t)highlightCategory);
+        unsigned int local_fc = (unsigned int)(((uint64_t)in_register_00000012 << 16) | (uint16_t)arg3);
+        unsigned int local_d0 = local_fc;
+        if (31 < local_fc) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                             "highlighting/HighlightManager.cpp",
                             133, "Highlight channel ID must be between 0 and %d (inclusive) - Got %d", 31,
-                            (ulong)param_3);
+                            (((uint64_t)in_register_00000012 << 16) | (uint16_t)arg3) & 4294967295);
         }
-        local_d4 = param_6;
-        this_00 = (array<HighlightChannelProperties, 32ul>*)
-            std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, (long)param_2);
-        local_fc = param_3;
-        this_01 = (HighlightChannelProperties*)std::array<HighlightChannelProperties, 32ul>::operator[](
-            this_00, (long)(int)param_3);
-        local_c9 = (bool)this_01->IsEnabled();
-        puVar4 = (undefined2*)std::array<HighlightChannelProperties, 32ul>::operator[](this_00, (long)(int)local_d0);
-        *puVar4 = param_4;
-        puVar4[1] = param_5;
-        *(char*)(puVar4 + 2) = (char)local_d4;
-        puVar4[4] = param_7;
-        switch (param_2) {
+        EntityHighlightBitFlags local_d4 = entityHighlightBitFlags;
+        array<HighlightChannelProperties, 32ul>* this_00 = &this_03->field_640[(long)arg2];
+        HighlightChannelProperties* this_01 = (HighlightChannelProperties*)(*this_00)[(long)(int)local_fc];
+        bool local_c9 = (bool)this_01->IsEnabled();
+        &result = (ReturnValue*)(long)(int)local_d0;
+        unsigned short* puVar3 = (unsigned short*)(*this_00)[(unsigned long)&result];
+        *puVar3 = arg4;
+        puVar3[1] = (unsigned short)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg5);
+        *(char*)(puVar3 + 2) = (char)local_d4;
+        puVar3[4] = in_stack_00000008;
+        switch (arg2) {
         case 0:
-            local_d4 = param_2;
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_e8) eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(0, 0);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar1 = eastl::operator!=((eastl*)&local_f8, local_158, extraout_RDX);
-            if (bVar1) {
+            uint8_t = &this_03->field_4112;
+            local_d4 = arg2;
+            local_f8 = uint8_t->begin();
+            new (&local_e8) eastl::hashtable_iterator(nullptr, nullptr);
+            &result = &local_158;
+            result = uint8_t->end();
+            cVar1 = local_f8 != result;
+            if (cVar1) {
                 do {
                     local_e8 = local_f8;
                     uStack_e0 = uStack_f0;
-                    eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)&local_e8);
-                    lVar7 = local_f8.HeapBeginPtr();
-                    cVar2 = EntityNeedsUpdateOnConfigureChannel(this, lVar7 + 8, 0, local_d0, local_c9);
-                    if (cVar2 != '\0') {
-                        plVar5 = (longlong*)local_f8.HeapBeginPtr();
-                        UpdateUniqueNPCHighlightOrRemoveIfReused(this, *plVar5);
+                    ++local_e8;
+                    lVar5 = local_f8.HeapBeginPtr();
+                    cVar1 =
+                        EntityNeedsUpdateOnConfigureChannel(this_03, (unsigned int*)(lVar5 + 8), 0, local_d0, local_c9);
+                    if (cVar1) {
+                        plVar4 = (long long*)local_f8.HeapBeginPtr();
+                        UpdateUniqueNPCHighlightOrRemoveIfReused(this_03, *plVar4);
                     }
                     local_f8 = local_e8;
                     uStack_f0 = uStack_e0;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar1 = eastl::operator!=((eastl*)&local_f8, local_158, extraout_RDX_00);
-                } while (bVar1);
+                    local_158 = uint8_t->end();
+                    &result = &local_158;
+                    cVar1 = local_f8 != local_158;
+                } while (cVar1);
             }
-            param_2 = local_d4;
+            arg2 = local_d4;
             break;
         case 1:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_01);
-            if (bVar1) {
+            local_f8 = this_03->field_4224.begin();
+            &result = &local_e8;
+            result = this_03->field_4224.end();
+            cVar1 = local_f8 != result;
+            if (cVar1) {
                 do {
-                    lVar7 = local_f8.HeapBeginPtr();
-                    cVar2 = EntityNeedsUpdateOnConfigureChannel(this, (HighlightedGroup*)(lVar7 + 8), 1, local_d0,
-                                                                local_c9);
-                    if (cVar2 != '\0') {
-                        UpdateCachedHighlights(this, (HighlightedGroup*)(lVar7 + 8));
+                    lVar5 = local_f8.HeapBeginPtr();
+                    cVar1 =
+                        EntityNeedsUpdateOnConfigureChannel(this_03, (unsigned int*)(lVar5 + 8), 1, local_d0, local_c9);
+                    if (cVar1) {
+                        UpdateCachedHighlights(this_03, (HighlightedGroup*)(lVar5 + 8));
                     }
-                    eastl::hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>*)&local_f8);
-                    bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_02);
-                } while (bVar1);
+                    ++local_f8;
+                    &result = &local_e8;
+                    cVar1 = local_f8 != local_e8;
+                } while (cVar1);
             }
             break;
         case 3:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_03);
-            if (bVar1) {
+            local_f8 = this_03->field_4280.begin();
+            &result = &local_e8;
+            result = this_03->field_4280.end();
+            cVar1 = local_f8 != result;
+            if (cVar1) {
                 do {
-                    lVar7 = local_f8.HeapBeginPtr();
-                    cVar2 = EntityNeedsUpdateOnConfigureChannel(this, (HighlightedGroup*)(lVar7 + 8), 3, local_d0,
-                                                                local_c9);
-                    if (cVar2 != '\0') {
-                        UpdateCachedHighlights(this, (HighlightedGroup*)(lVar7 + 8));
+                    lVar5 = local_f8.HeapBeginPtr();
+                    cVar1 =
+                        EntityNeedsUpdateOnConfigureChannel(this_03, (unsigned int*)(lVar5 + 8), 3, local_d0, local_c9);
+                    if (cVar1) {
+                        UpdateCachedHighlights(this_03, (HighlightedGroup*)(lVar5 + 8));
                     }
-                    eastl::hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>*)&local_f8);
-                    bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_04);
-                } while (bVar1);
+                    ++local_f8;
+                    &result = &local_e8;
+                    cVar1 = local_f8 != local_e8;
+                } while (cVar1);
             }
             break;
         case 5:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_05);
-            if (bVar1) {
+            local_f8 = this_03->field_4336.begin();
+            &result = &local_e8;
+            result = this_03->field_4336.end();
+            cVar1 = local_f8 != result;
+            if (cVar1) {
                 do {
-                    lVar7 = local_f8.HeapBeginPtr();
-                    cVar2 = EntityNeedsUpdateOnConfigureChannel(this, (HighlightedGroup*)(lVar7 + 8), 5, local_d0,
-                                                                local_c9);
-                    if (cVar2 != '\0') {
-                        UpdateCachedHighlights(this, (HighlightedGroup*)(lVar7 + 8));
+                    lVar5 = local_f8.HeapBeginPtr();
+                    cVar1 =
+                        EntityNeedsUpdateOnConfigureChannel(this_03, (unsigned int*)(lVar5 + 8), 5, local_d0, local_c9);
+                    if (cVar1) {
+                        UpdateCachedHighlights(this_03, (HighlightedGroup*)(lVar5 + 8));
                     }
-                    eastl::hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>*)&local_f8);
-                    bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_06);
-                } while (bVar1);
+                    ++local_f8;
+                    &result = &local_e8;
+                    cVar1 = local_f8 != local_e8;
+                } while (cVar1);
             }
             break;
         case 6:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_07);
-            if (bVar1) {
+            local_f8 = this_03->field_4168.begin();
+            &result = &local_e8;
+            result = this_03->field_4168.end();
+            cVar1 = local_f8 != result;
+            if (cVar1) {
                 do {
-                    pbVar6 = (basic_string*)local_f8.HeapBeginPtr();
-                    cVar2 = EntityNeedsUpdateOnConfigureChannel(this, pbVar6 + 32, 6, local_d0, local_c9);
-                    if (cVar2 != '\0') {
-                        UpdateUniquePlayerHighlight(this, pbVar6);
+                    str = (eastl::string*)local_f8.HeapBeginPtr();
+                    cVar1 =
+                        EntityNeedsUpdateOnConfigureChannel(this_03, (unsigned int*)(str + 32), 6, local_d0, local_c9);
+                    if (cVar1) {
+                        UpdateUniquePlayerHighlight(this_03, str);
                     }
-                    eastl::hashtable_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<eastl::string, eastl::allocator>>, false, false>::
-                    operator++((hashtable_iterator<
-                                eastl::pair<unsigned int const, eastl::vector<eastl::string, eastl::allocator>>, false,
-                                false>*)&local_f8);
-                    bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_08);
-                } while (bVar1);
+                    ++local_f8;
+                    &result = &local_e8;
+                    cVar1 = local_f8 != local_e8;
+                } while (cVar1);
             }
             break;
         case 8:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_09);
-            if (bVar1) {
+            local_f8 = this_03->field_4392.begin();
+            &result = &local_e8;
+            result = this_03->field_4392.end();
+            cVar1 = local_f8 != result;
+            if (cVar1) {
                 do {
-                    lVar7 = local_f8.HeapBeginPtr();
-                    cVar2 = EntityNeedsUpdateOnConfigureChannel(this, (HighlightedGroup*)(lVar7 + 360), 8, local_d0,
+                    lVar5 = local_f8.HeapBeginPtr();
+                    cVar1 = EntityNeedsUpdateOnConfigureChannel(this_03, (unsigned int*)(lVar5 + 360), 8, local_d0,
                                                                 local_c9);
-                    if (cVar2 != '\0') {
-                        UpdateCachedHighlights(this, (HighlightedGroup*)(lVar7 + 360));
+                    if (cVar1) {
+                        UpdateCachedHighlights(this_03, (HighlightedGroup*)(lVar5 + 360));
                     }
-                    eastl::hashtable_iterator<eastl::pair<OpGroup_const, HighlightedGroup>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<OpGroup_const, HighlightedGroup>, true, false>*)&local_f8);
-                    bVar1 = eastl::operator!=((eastl*)&local_f8, (hashtable_iterator_base*)&local_e8, extraout_RDX_10);
-                } while (bVar1);
+                    ++local_f8;
+                    &result = &local_e8;
+                    cVar1 = local_f8 != local_e8;
+                } while (cVar1);
             }
         }
-        this_02 = (Client*)Client::Instance();
-        iVar3 = this_02->IsMapBuildRegionMode();
-        if (iVar3 == 0) {
-            if (param_2 == 7) {
+        auto this_02 = Client::Instance();
+        int iVar2 = this_02->IsMapBuildRegionMode();
+        if (iVar2 == 0) {
+            if (arg2 == 7) {
                 puStack_110 = &local_d0;
                 local_108 = &local_c9;
-                local_118 = this;
-                std::function<void(rs2lib::CoordMapSquare_const&)>::function<
+                local_118 = this_03;
+                std::function<void(rs2lib::CoordMapSquare const&)>::function<
                     HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short,
                                                        unsigned char, dash3d::EntityHighlightBitFlags)::__2,
-                    void>(local_c8);
-                ForEachLoadedMapSquare(this, local_c8);
-                this_03 = local_c8;
-            } else if (param_2 == 4) {
+                    void>(local_c8, &result);
+                ForEachLoadedMapSquare(this_03, (function<void_(rs2lib::CoordMapSquare const&)>*)local_c8);
+                this_04 = local_c8;
+            } else if (arg2 == 4) {
                 puStack_128 = &local_d0;
                 local_120 = &local_c9;
-                local_130 = this;
-                std::function<void(rs2lib::CoordMapSquare_const&)>::function<
+                local_130 = this_03;
+                std::function<void(rs2lib::CoordMapSquare const&)>::function<
                     HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short,
                                                        unsigned char, dash3d::EntityHighlightBitFlags)::__1,
-                    void>(local_98);
-                ForEachLoadedMapSquare(this, local_98);
-                this_03 = local_98;
+                    void>(local_98, &result);
+                ForEachLoadedMapSquare(this_03, (function<void_(rs2lib::CoordMapSquare const&)>*)local_98);
+                this_04 = local_98;
             } else {
-                if (param_2 != 2)
+                if (arg2 != 2)
                     goto LAB_10000e6b9;
                 puStack_140 = &local_d0;
                 local_138 = &local_c9;
-                local_148 = this;
-                std::function<void(rs2lib::CoordMapSquare_const&)>::function<
+                local_148 = this_03;
+                std::function<void(rs2lib::CoordMapSquare const&)>::function<
                     HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short,
                                                        unsigned char, dash3d::EntityHighlightBitFlags)::__0,
-                    void>(local_68);
-                ForEachLoadedMapSquare(this, local_68);
-                this_03 = local_68;
+                    void>(local_68, &result);
+                ForEachLoadedMapSquare(this_03, (function<void_(rs2lib::CoordMapSquare const&)>*)local_68);
+                this_04 = local_68;
             }
-            std::function<void(rs2lib::CoordMapSquare_const&)>::~function(this_03);
+            this_04->~function();
         } else {
-            cVar2 = ShouldRebuildRegionHighlightsForChannel(this, local_d0, param_2);
-            if (param_2 == 7) {
-                UpdateTilesOnConfigureChannel(this, (hash_map*)&field_4305360, local_d0, local_c9);
-                if (cVar2 != '\0') {
-                    field_4305416 = 1;
+            cVar1 = ShouldRebuildRegionHighlightsForChannel(this_03, local_d0, arg2);
+            if (arg2 == 7) {
+                UpdateTilesOnConfigureChannel(this_03, (hash_map<int, unsigned int>*)&this_03->field_4305360, local_d0,
+                                              local_c9);
+                if (cVar1) {
+                    this_03->field_4305416 = true;
                 }
-            } else if (param_2 == 4) {
-                UpdateObjsOnConfigureChannel(this, (hash_map*)&field_4305304, local_d0, local_c9);
-                if (cVar2 != '\0') {
-                    field_4305418 = true;
+            } else if (arg2 == 4) {
+                UpdateObjsOnConfigureChannel(this_03, (hash_map<long long, unsigned int>*)&this_03->field_4305304,
+                                             local_d0, local_c9);
+                if (cVar1) {
+                    this_03->field_4305418 = true;
                 }
-            } else if ((param_2 == 2) &&
-                       (UpdateLocsOnConfigureChannel(this, (hash_map*)&field_4305248, local_d0, local_c9),
-                        cVar2 != '\0')) {
-                field_4305417 = true;
+            } else if ((arg2 == 2) &&
+                       (UpdateLocsOnConfigureChannel(
+                            this_03, (hash_map<long long, unsigned int>*)&this_03->field_4305248, local_d0, local_c9),
+                        cVar1)) {
+                this_03->field_4305417 = true;
             }
         }
     LAB_10000e6b9:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
         return local_fc < 32;
     }
 
-    // 0x10000e7c0, 80 bytes, placed by class name
-    // HighlightManager::EntityNeedsUpdateOnConfigureChannel(unsigned int const&, HighlightCategory, int, bool) const
-    byte HighlightManager::EntityNeedsUpdateOnConfigureChannel(uint* param_1, undefined8 param_3, uint param_4,
-                                                               char param_5) {
-        uint uVar1;
-        bool bVar2;
-
-        uVar1 = GetActiveChannelFromBitmask(this, *param_1);
-        bVar2 = false;
-        if (((*param_1 >> (param_4 & 31) & 1) != 0) && (param_5 != '\0')) {
-            bVar2 = uVar1 == 4294967295 || (int)param_4 < (int)uVar1;
+    // 0x10000e7c0
+    uint8_t HighlightManager::EntityNeedsUpdateOnConfigureChannel(const unsigned int& arg1,
+                                                                  HighlightCategory highlightCategory, int arg3,
+                                                                  bool arg4) const {
+        int iVar1 = GetActiveChannelFromBitmask(arg1, highlightCategory);
+        bool bVar2 = false;
+        if (((arg1 >> (arg3 & 31U) & 1) != 0) && (arg4)) {
+            bVar2 = iVar1 == -1 || arg3 < iVar1;
         }
-        return uVar1 == param_4 | bVar2;
+        return iVar1 == arg3 | bVar2;
     }
 
-    // 0x10000e810, 304 bytes, placed by class name
-    // HighlightManager::UpdateUniqueNPCHighlightOrRemoveIfReused(long long)
-    void HighlightManager::UpdateUniqueNPCHighlightOrRemoveIfReused(longlong param_1) {
-        int iVar1;
+    // 0x10000e810
+    void HighlightManager::UpdateUniqueNPCHighlightOrRemoveIfReused(long long arg1) {
         int iVar2;
-        Client* this_00;
-        ClientNpc* this_01;
-        HighlightChannelProperties* pHVar3;
-        undefined8 uVar4;
+        HighlightChannelProperties* highlightChannelProperties;
+        int* arg1_00;
         OpGroup local_198;
-        ulonglong local_30;
 
-        local_30 = param_1;
-        iVar1 = ClientNpc::GetShortIDFromUID((int)param_1);
-        this_00 = (Client*)Client::Instance();
-        this_01 = (ClientNpc*)this_00->GetClientNpc(iVar1);
-        if (this_01 != (ClientNpc*)0) {
+        long long local_30 = arg1;
+        int iVar1 = ClientNpc::GetShortIDFromUID(arg1);
+        auto this_00 = Client::Instance();
+        auto this_01 = this_00->GetClientNpc(iVar1);
+        if (this_01 != nullptr) {
             iVar1 = CreactionCycleFromNPCKey(local_30);
             iVar2 = this_01->GetCreationCycle();
             if (iVar1 == iVar2) {
-                pHVar3 = GetHighlightProperties<long long>(this, &local_30, &field_4112, 0);
-                if (pHVar3 == (HighlightChannelProperties*)0) {
-                    uVar4 = shared_ptr<configdecoder::NpcType>::operator->(
-                        (shared_ptr<configdecoder::NpcType>*)&this_01->field_1024);
-                    pHVar3 = GetGroupHighlightProperties<int>(this, uVar4, &field_4224, 1);
-                    if (pHVar3 == (HighlightChannelProperties*)0) {
-                        local_198.Create(this_01);
-                        pHVar3 = GetGroupHighlightProperties<OpGroup>(this, &local_198, &field_4392, 8);
-                        local_198.~OpGroup();
+                highlightChannelProperties = GetHighlightProperties<long long>(
+                    this, &local_30, (hash_map<long long, unsigned int>*)&field_4112, 0);
+                if (highlightChannelProperties == nullptr) {
+                    arg1_00 = (int*)this_01->field_1024.operator->();
+                    highlightChannelProperties = GetGroupHighlightProperties<int>(
+                        this, arg1_00, (hash_map<int, HighlightedGroup>*)&field_4224, 1);
+                    if (highlightChannelProperties == nullptr) {
+                        local_198 = OpGroup::Create(*this_01);
+                        highlightChannelProperties = GetGroupHighlightProperties<OpGroup>(
+                            this, &local_198, (hash_map<OpGroup, HighlightedGroup>*)&field_4392, 8);
                     }
                 }
-                this_01->SetHighlight(pHVar3);
+                this_01->SetHighlight(highlightChannelProperties);
             } else {
-                (&field_4112, &local_30)->erase();
+                field_4112.erase(local_30);
             }
         }
     }
 
-    // 0x10000e940, 208 bytes, placed by class name
-    // HighlightManager::UpdateUniquePlayerHighlight(eastl::string const&)
-    void HighlightManager::UpdateUniquePlayerHighlight(basic_string* param_1) {
-        bool bVar1;
-        long lVar2;
-        shared_ptr* this_00;
-        shared_ptr* psVar3;
-        DisplayName* this_01;
-        basic_string* pbVar4;
-        HighlightChannelProperties* pHVar5;
-        ClientPlayer* this_02;
+    // 0x10000e940
+    void HighlightManager::UpdateUniquePlayerHighlight(const eastl::string& str) {
+        long lVar4;
+        eastl::string* str1;
+        HighlightChannelProperties* highlightChannelProperties;
 
-        lVar2 = Client::Instance();
-        this_00 = (shared_ptr*)((lVar2 + 19216))->begin();
-        psVar3 = (shared_ptr*)((lVar2 + 19216))->end();
+        Client::Instance();
+        shared_ptr* this_00 = (shared_ptr*)std::array<shared_ptr<ClientPlayer>, 2048ul>::begin();
+        shared_ptr* psVar3 = (shared_ptr*)std::array<shared_ptr<ClientPlayer>, 2048ul>::end();
         if (this_00 != psVar3) {
             do {
-                bVar1 = shared_ptr::operator_cast_to_bool(this_00);
-                if (bVar1) {
-                    lVar2 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)this_00);
-                    this_01 = (DisplayName*)shared_ptr<rs2lib::social::DisplayName>::operator->(
-                        (shared_ptr<rs2lib::social::DisplayName>*)(lVar2 + 992));
-                    pbVar4 = (basic_string*)this_01->GetDisplayName();
-                    bVar1 = eastl::operator==(pbVar4, param_1);
-                    if (bVar1) {
-                        pHVar5 = GetHighlightProperties<eastl::string>(this, param_1, &field_4168, 6);
-                        this_02 =
-                            (ClientPlayer*)shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)this_00);
-                        this_02->SetHighlight(pHVar5);
+                if (shared_ptr::operator_cast_to_bool(this_00) != '\0') {
+                    lVar4 = (*this_00).operator->();
+                    str1 = ((DisplayName*)(*((lVar4 + 992))).operator->())->GetDisplayName();
+                    if (*str1 == str) {
+                        highlightChannelProperties = GetHighlightProperties<eastl::string>(
+                            this, str, (hash_map<eastl::string, unsigned int>*)&field_4168, 6);
+                        ((ClientPlayer*)(*this_00).operator->())->SetHighlight(highlightChannelProperties);
                     }
                 }
                 this_00 = this_00 + 1;
@@ -670,2911 +481,2124 @@ namespace jag::oldscape::highlight {
         }
     }
 
-    // 0x10000ea30, 480 bytes, placed by class name
-    // HighlightManager::UpdateCachedHighlights(HighlightedGroup&)
-    void HighlightManager::UpdateCachedHighlights(HighlightedGroup* param_1) {
-        Client* this_00;
-        undefined8 uVar1;
+    // 0x10000ea30
+    void HighlightManager::UpdateCachedHighlights(HighlightedGroup& highlightedGroup) {
         function<void(EntityWithCoord<ClientObj>&)> local_158[48];
         function<void(EntityWithCoord<dash3d::Sprite>&)> local_128[48];
         function<void(EntityWithCoord<dash3d::GroundDecor>&)> local_f8[48];
         function<void(EntityWithCoord<dash3d::Decor>&)> local_c8[48];
         function<void(EntityWithCoord<dash3d::Wall>&)> local_98[48];
-        function<void(ClientNpc_const&)> local_68[56];
+        function<void(ClientNpc const&)> local_68[56];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_00 = (Client*)Client::Instance();
-        std::function<void(ClientNpc_const&)>::function<
-            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__3, void>(local_68, this);
-        uVar1 = this_00->GetNpcList();
-        param_1->ForEachNPC(local_68, uVar1);
-        std::function<void(ClientNpc_const&)>::~function(local_68);
+        auto this_00 = Client::Instance();
+        std::function<void(ClientNpc const&)>::function<
+            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__3, void>(local_68, (__3*)this);
+        auto clientNpcs = this_00->GetNpcList();
+        highlightedGroup.ForEachNPC(local_68, *clientNpcs);
         std::function<void(EntityWithCoord<dash3d::Wall>&)>::function<
-            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__4, void>(local_98, this);
-        param_1->ForEachWall(local_98);
-        std::function<void(EntityWithCoord<dash3d::Wall>&)>::~function(local_98);
+            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__4, void>(local_98, (__4*)this);
+        highlightedGroup.ForEachWall(local_98);
         std::function<void(EntityWithCoord<dash3d::Decor>&)>::function<
-            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__5, void>(local_c8, this);
-        param_1->ForEachDecor(local_c8);
-        std::function<void(EntityWithCoord<dash3d::Decor>&)>::~function(local_c8);
+            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__5, void>(local_c8, (__5*)this);
+        highlightedGroup.ForEachDecor(local_c8);
         std::function<void(EntityWithCoord<dash3d::GroundDecor>&)>::function<
-            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__6, void>(local_f8, this);
-        param_1->ForEachGroundDecor(local_f8);
-        std::function<void(EntityWithCoord<dash3d::GroundDecor>&)>::~function(local_f8);
+            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__6, void>(local_f8, (__6*)this);
+        highlightedGroup.ForEachGroundDecor(local_f8);
         std::function<void(EntityWithCoord<dash3d::Sprite>&)>::function<
-            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__7, void>(local_128, this);
-        param_1->ForEachScenery(local_128);
-        std::function<void(EntityWithCoord<dash3d::Sprite>&)>::~function(local_128);
+            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__7, void>(local_128, (__7*)this);
+        highlightedGroup.ForEachScenery(local_128);
         std::function<void(EntityWithCoord<ClientObj>&)>::function<
-            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__8, void>(local_158, this);
-        param_1->ForEachObj(local_158);
-        std::function<void(EntityWithCoord<ClientObj>&)>::~function(local_158);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::__8, void>(local_158, (__8*)this);
+        highlightedGroup.ForEachObj(local_158);
     }
 
-    // 0x10000ec80, 192 bytes, placed by class name
-    // HighlightManager::UpdateLocsOnConfigureChannel(eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>, eastl::allocator, false>&, int, bool)
-    void HighlightManager::UpdateLocsOnConfigureChannel(hash_map* param_1, int param_2, bool param_3) {
-        undefined1 uVar1;
-        bool bVar2;
-        longlong* plVar4;
-        undefined7 in_register_00000009;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        eastl local_58[16];
-        hashtable_iterator_base local_48[20];
-        undefined4 local_34;
+    // 0x10000ec80
+    void HighlightManager::UpdateLocsOnConfigureChannel(eastl::hash_map<long long, unsigned int>& arg1, int arg2,
+                                                        bool arg3) {
+        bool arg4;
+        long long* plVar2;
+        uint64_t in_register_00000009;
 
-        local_34 = (undefined4)CONCAT71(in_register_00000009, param_3);
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar2 = eastl::operator!=(local_58, local_48, extraout_RDX);
-        if (bVar2) {
-            uVar1 = (undefined1)local_34;
+        uint32_t local_34 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+        auto local_58 = arg1.begin();
+        auto local_48 = arg1.end();
+        bool cVar1 = local_58 != local_48;
+        if (cVar1) {
+            arg4 = local_34._0_1_;
             do {
-                plVar4 = (longlong*)local_58->HeapBeginPtr();
-                if (EntityNeedsUpdateOnConfigureChannel(this, plVar4 + 1, 2, param_2, uVar1) != '\0') {
-                    UpdateUniqueLocHighlight(this, *plVar4);
+                plVar2 = (long long*)local_58.HeapBeginPtr();
+                cVar1 = EntityNeedsUpdateOnConfigureChannel(*((plVar2 + 1)), 2, arg2, arg4);
+                if (cVar1) {
+                    UpdateUniqueLocHighlight(*plVar2);
                 }
-                eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::operator++(
-                    (hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)local_58);
-                bVar2 = eastl::operator!=(local_58, local_48, extraout_RDX_00);
-            } while (bVar2);
+                ++local_58;
+                cVar1 = local_58 != local_48;
+            } while (cVar1);
         }
     }
 
-    // 0x10000ed40, 192 bytes, placed by class name
-    // HighlightManager::UpdateObjsOnConfigureChannel(eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>, eastl::allocator, false>&, int, bool)
-    void HighlightManager::UpdateObjsOnConfigureChannel(hash_map* param_1, int param_2, bool param_3) {
-        undefined1 uVar1;
-        bool bVar2;
-        longlong* plVar4;
-        undefined7 in_register_00000009;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        eastl local_58[16];
-        hashtable_iterator_base local_48[20];
-        undefined4 local_34;
+    // 0x10000ed40
+    void HighlightManager::UpdateObjsOnConfigureChannel(eastl::hash_map<long long, unsigned int>& arg1, int arg2,
+                                                        bool arg3) {
+        bool arg4;
+        long long* plVar2;
+        uint64_t in_register_00000009;
 
-        local_34 = (undefined4)CONCAT71(in_register_00000009, param_3);
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar2 = eastl::operator!=(local_58, local_48, extraout_RDX);
-        if (bVar2) {
-            uVar1 = (undefined1)local_34;
+        uint32_t local_34 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+        auto local_58 = arg1.begin();
+        auto local_48 = arg1.end();
+        bool cVar1 = local_58 != local_48;
+        if (cVar1) {
+            arg4 = local_34._0_1_;
             do {
-                plVar4 = (longlong*)local_58->HeapBeginPtr();
-                if (EntityNeedsUpdateOnConfigureChannel(this, plVar4 + 1, 4, param_2, uVar1) != '\0') {
-                    UpdateUniqueObjHighlight(this, *plVar4);
+                plVar2 = (long long*)local_58.HeapBeginPtr();
+                cVar1 = EntityNeedsUpdateOnConfigureChannel(*((plVar2 + 1)), 4, arg2, arg4);
+                if (cVar1) {
+                    UpdateUniqueObjHighlight(*plVar2);
                 }
-                eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::operator++(
-                    (hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)local_58);
-                bVar2 = eastl::operator!=(local_58, local_48, extraout_RDX_00);
-            } while (bVar2);
+                ++local_58;
+                cVar1 = local_58 != local_48;
+            } while (cVar1);
         }
     }
 
-    // 0x10000ee00, 192 bytes, placed by class name
-    // HighlightManager::UpdateTilesOnConfigureChannel(eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>&, int, bool)
-    void HighlightManager::UpdateTilesOnConfigureChannel(hash_map* param_1, int param_2, bool param_3) {
-        undefined1 uVar1;
-        bool bVar2;
-        int* piVar4;
-        undefined7 in_register_00000009;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        eastl local_58[16];
-        hashtable_iterator_base local_48[20];
-        undefined4 local_34;
+    // 0x10000ee00
+    void HighlightManager::UpdateTilesOnConfigureChannel(eastl::hash_map<int, unsigned int>& arg1, int arg2,
+                                                         bool arg3) {
+        bool arg4;
+        int* piVar2;
+        uint64_t in_register_00000009;
 
-        local_34 = (undefined4)CONCAT71(in_register_00000009, param_3);
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar2 = eastl::operator!=(local_58, local_48, extraout_RDX);
-        if (bVar2) {
-            uVar1 = (undefined1)local_34;
+        uint32_t local_34 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+        auto local_58 = arg1.begin();
+        auto local_48 = arg1.end();
+        bool cVar1 = local_58 != local_48;
+        if (cVar1) {
+            arg4 = local_34._0_1_;
             do {
-                piVar4 = (int*)local_58->HeapBeginPtr();
-                if (EntityNeedsUpdateOnConfigureChannel(this, piVar4 + 1, 7, param_2, uVar1) != '\0') {
-                    UpdateUniqueTileHighlight(this, *piVar4);
+                piVar2 = (int*)local_58.HeapBeginPtr();
+                cVar1 = EntityNeedsUpdateOnConfigureChannel(*((piVar2 + 1)), 7, arg2, arg4);
+                if (cVar1) {
+                    UpdateUniqueTileHighlight(*piVar2);
                 }
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>::operator++(
-                    (hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>*)local_58);
-                bVar2 = eastl::operator!=(local_58, local_48, extraout_RDX_00);
-            } while (bVar2);
+                ++local_58;
+                cVar1 = local_58 != local_48;
+            } while (cVar1);
         }
     }
 
-    // 0x10000ef60, 112 bytes, placed by class name
-    // HighlightManager::ServiceRegionHighlights()
+    // 0x10000ef60
     void HighlightManager::ServiceRegionHighlights() {
-        Client* this_00;
-
-        this_00 = (Client*)Client::Instance();
-        if ((this_00->IsMapBuildRegionMode() != 0) &&
-            ((((bool)field_4305416 != false || (field_4305417 != false)) || (field_4305418 != false)))) {
-            RebuildRegionHighlights(this, (bool)field_4305416, field_4305417, field_4305418);
+        if ((Client::Instance()->IsMapBuildRegionMode() != 0) &&
+            (((field_4305416 != false || (field_4305417 != false)) || (field_4305418 != false)))) {
+            RebuildRegionHighlights(field_4305416, field_4305417, field_4305418);
         }
-        field_4305416 = 0;
+        field_4305416 = false;
         field_4305417 = false;
         field_4305418 = false;
     }
 
-    // 0x10000efd0, 800 bytes, placed by class name
-    // HighlightManager::RebuildRegionHighlights(bool, bool, bool)
-    void HighlightManager::RebuildRegionHighlights(bool param_1, bool param_2, bool param_3) {
-        char cVar1;
-        bool bVar2;
+    // 0x10000efd0
+    void HighlightManager::RebuildRegionHighlights(bool arg1, bool arg2, bool arg3) {
+        bool cVar1;
         int iVar3;
-        int iVar4;
-        undefined4 uVar5;
-        undefined8* puVar6;
-        int* piVar7;
-        longlong* plVar8;
-        undefined7 in_register_00000009;
-        undefined7 in_register_00000011;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
-        hashtable_iterator_base* extraout_RDX_03;
-        hashtable_iterator_base* extraout_RDX_04;
-        hashtable_iterator_base* phVar9;
-        undefined7 in_register_00000031;
-        hashtable_iterator<eastl::pair<int const, unsigned int>, true, false> local_a8[16];
-        hashtable_iterator_base local_98[16];
+        uint64_t* puVar4;
+        hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                  eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>, eastl::equal_to<eastl::string>,
+                  eastl::hash<eastl::string>, eastl::mod_range_hashing, eastl::default_ranged_hash,
+                  eastl::prime_rehash_policy, false, true, true>* phVar5;
+        int* piVar6;
+        long long* plVar7;
+        uint64_t in_register_00000009;
+        uint64_t in_register_00000011;
+        uint64_t in_register_00000031;
+        ReturnValue local_a8;
+        ReturnValue local_98;
         CoordZoneSource local_88;
-        Client* local_70;
-        array<eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>,
-              25600ul>* local_68;
-        array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                              eastl::allocator, false>,
-              25600ul>* local_60;
-        array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                              eastl::allocator, false>,
-              25600ul>* local_58;
         int local_4c;
-        undefined4 local_48;
-        undefined4 local_44;
-        undefined4 local_40;
         int local_3c;
         int local_38;
-        int local_34;
 
-        local_48 = (undefined4)CONCAT71(in_register_00000009, param_3);
-        local_44 = (undefined4)CONCAT71(in_register_00000011, param_2);
-        local_40 = (undefined4)CONCAT71(in_register_00000031, param_1);
-        local_70 = (Client*)Client::Instance();
-        iVar3 = local_70->IsMapBuildRegionMode();
-        if (iVar3 == 0) {
-            /* WARNING: Subroutine does not return */
+        uint32_t local_48 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+        uint32_t local_44 = (uint32_t)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg2);
+        uint32_t local_40 = (uint32_t)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1);
+        auto local_70 = Client::Instance();
+        int iVar2 = local_70->IsMapBuildRegionMode();
+        if (iVar2 == 0) {
             LogAssert("client->IsMapBuildRegionMode()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/highlighting/"
                       "HighlightManager.cpp",
-                      1547, (char*)0);
+                      1547, nullptr);
         }
-        local_68 =
-            (array<eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>,
-                   25600ul>*)&field_2871648;
-        local_60 = (array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                                          eastl::allocator, false>,
-                          25600ul>*)&field_4448;
-        local_58 = (array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                                          eastl::allocator, false>,
-                          25600ul>*)&field_1438048;
-        local_34 = 0;
+        array<eastl::hash_map<int, unsigned int>, 25600ul>* local_68 =
+            (array<eastl::hash_map<int, unsigned int>, 25600ul>*)&field_2871648;
+        array<eastl::hash_map<long long, unsigned int>, 25600ul>* local_60 =
+            (array<eastl::hash_map<long long, unsigned int>, 25600ul>*)&field_4448;
+        array<eastl::hash_map<long long, unsigned int>, 25600ul>* local_58 =
+            (array<eastl::hash_map<long long, unsigned int>, 25600ul>*)&field_1438048;
+        int local_34 = 0;
         do {
-            iVar3 = 0;
+            iVar2 = 0;
             do {
-                iVar4 = 0;
-                local_4c = iVar3;
+                iVar3 = 0;
+                local_4c = iVar2;
                 do {
-                    puVar6 = (undefined8*)local_70->GetMapBuildRegionZoneSource(local_34, iVar3, iVar4);
-                    local_88._0_8_ = *puVar6;
-                    local_88._8_8_ = puVar6[1];
+                    puVar4 = (uint64_t*)local_70->GetMapBuildRegionZoneSource(local_34, iVar2, iVar3);
+                    local_88._0_8_ = *puVar4;
+                    local_88._8_8_ = puVar4[1];
                     cVar1 = local_88.IsSet();
-                    if (cVar1 != '\0') {
-                        local_38 = iVar4;
-                        iVar3 = local_88.GetMapSquareX();
-                        iVar4 = local_88.GetMapSquareZ();
-                        local_3c = GetMapSquareIndex(iVar3, iVar4);
+                    if (cVar1) {
+                        local_38 = iVar3;
+                        iVar2 = local_88.GetMapSquareX();
+                        iVar3 = local_88.GetMapSquareZ();
+                        local_3c = GetMapSquareIndex(iVar2, iVar3);
                         if ((char)local_40 != '\0') {
-                            std::array<eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>,
-                                                       eastl::allocator, false>,
-                                       25600ul>::operator[](local_68, (long)local_3c);
-                            eastl::hashtable<
-                                eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                                eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                                eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-                            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>,
-                                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                             true>::end();
-                            phVar9 = extraout_RDX;
-                            while (bVar2 = eastl::operator!=((eastl*)local_a8, local_98, phVar9), bVar2) {
-                                piVar7 = (int*)local_a8->HeapBeginPtr();
-                                uVar5 = GetActiveChannelFromBitmask(this, piVar7[1], 7);
-                                cVar1 = ShouldRebuildRegionHighlightsForChannel(this, uVar5, 7);
-                                if (cVar1 != '\0') {
-                                    UpdateUniqueTileHighlight(this, *piVar7);
+                            phVar5 =
+                                (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>,
+                                           eastl::allocator,
+                                           eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                           eastl::equal_to<eastl::string>, eastl::hash<eastl::string>,
+                                           eastl::mod_range_hashing, eastl::default_ranged_hash,
+                                           eastl::prime_rehash_policy, false, true, true>*)(*local_68)[(long)local_3c];
+                            local_a8 = phVar5->begin();
+                            local_98 = phVar5->end();
+                            while (cVar1 = local_a8 != local_98, cVar1) {
+                                piVar6 = (int*)local_a8.HeapBeginPtr();
+                                iVar2 = GetActiveChannelFromBitmask(piVar6[1], 7);
+                                cVar1 = ShouldRebuildRegionHighlightsForChannel(iVar2, 7);
+                                if (cVar1) {
+                                    UpdateUniqueTileHighlight(*piVar6);
                                 }
-                                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, true,
-                                                          false>::operator++(local_a8);
-                                phVar9 = extraout_RDX_00;
+                                ++local_a8;
                             }
                         }
-                        iVar3 = local_4c;
+                        iVar2 = local_4c;
                         if ((char)local_44 != '\0') {
-                            std::array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                       eastl::equal_to<long long>, eastl::allocator, false>,
-                                       25600ul>::operator[](local_60, (long)local_3c);
-                            eastl::hashtable<
-                                eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                                eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                                eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-                            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>,
-                                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                             true>::end();
-                            phVar9 = extraout_RDX_01;
-                            while (bVar2 = eastl::operator!=((eastl*)local_a8, local_98, phVar9), bVar2) {
-                                plVar8 = (longlong*)local_a8->HeapBeginPtr();
-                                uVar5 = GetActiveChannelFromBitmask(this, (int)plVar8[1], 2);
-                                cVar1 = ShouldRebuildRegionHighlightsForChannel(this, uVar5, 2);
-                                if (cVar1 != '\0') {
-                                    UpdateUniqueLocHighlight(this, *plVar8);
+                            phVar5 =
+                                (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>,
+                                           eastl::allocator,
+                                           eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                           eastl::equal_to<eastl::string>, eastl::hash<eastl::string>,
+                                           eastl::mod_range_hashing, eastl::default_ranged_hash,
+                                           eastl::prime_rehash_policy, false, true, true>*)(*local_60)[(long)local_3c];
+                            local_a8 = phVar5->begin();
+                            local_98 = phVar5->end();
+                            while (cVar1 = local_a8 != local_98, cVar1) {
+                                plVar7 = (long long*)local_a8.HeapBeginPtr();
+                                iVar3 = GetActiveChannelFromBitmask(*(unsigned int*)(plVar7 + 1), 2);
+                                cVar1 = ShouldRebuildRegionHighlightsForChannel(iVar3, 2);
+                                if (cVar1) {
+                                    UpdateUniqueLocHighlight(*plVar7);
                                 }
-                                eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::
-                                operator++(
-                                    (hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)
-                                        local_a8);
-                                phVar9 = extraout_RDX_02;
+                                ++local_a8;
                             }
                         }
-                        iVar4 = local_38;
+                        iVar3 = local_38;
                         if ((char)local_48 != '\0') {
-                            std::array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                       eastl::equal_to<long long>, eastl::allocator, false>,
-                                       25600ul>::operator[](local_58, (long)local_3c);
-                            eastl::hashtable<
-                                eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                                eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                                eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-                            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>,
-                                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                             true>::end();
-                            phVar9 = extraout_RDX_03;
-                            while (bVar2 = eastl::operator!=((eastl*)local_a8, local_98, phVar9), bVar2) {
-                                plVar8 = (longlong*)local_a8->HeapBeginPtr();
-                                uVar5 = GetActiveChannelFromBitmask(this, (int)plVar8[1], 4);
-                                cVar1 = ShouldRebuildRegionHighlightsForChannel(this, uVar5, 4);
-                                if (cVar1 != '\0') {
-                                    UpdateUniqueObjHighlight(this, *plVar8);
+                            phVar5 =
+                                (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>,
+                                           eastl::allocator,
+                                           eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                           eastl::equal_to<eastl::string>, eastl::hash<eastl::string>,
+                                           eastl::mod_range_hashing, eastl::default_ranged_hash,
+                                           eastl::prime_rehash_policy, false, true, true>*)(*local_58)[(long)local_3c];
+                            local_a8 = phVar5->begin();
+                            local_98 = phVar5->end();
+                            while (cVar1 = local_a8 != local_98, cVar1) {
+                                plVar7 = (long long*)local_a8.HeapBeginPtr();
+                                iVar3 = GetActiveChannelFromBitmask(*(unsigned int*)(plVar7 + 1), 4);
+                                cVar1 = ShouldRebuildRegionHighlightsForChannel(iVar3, 4);
+                                if (cVar1) {
+                                    UpdateUniqueObjHighlight(*plVar7);
                                 }
-                                eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::
-                                operator++(
-                                    (hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)
-                                        local_a8);
-                                phVar9 = extraout_RDX_04;
+                                ++local_a8;
                             }
-                            iVar4 = local_38;
+                            iVar3 = local_38;
                         }
                     }
-                    iVar4 = iVar4 + 1;
-                } while (iVar4 != 13);
-                iVar3 = iVar3 + 1;
-            } while (iVar3 != 13);
+                    iVar3 = iVar3 + 1;
+                } while (iVar3 != 13);
+                iVar2 = iVar2 + 1;
+            } while (iVar2 != 13);
             local_34 = local_34 + 1;
         } while (local_34 != 4);
     }
 
-    // 0x10000f2f0, 144 bytes, placed by class name
-    // HighlightManager::GetActiveChannelFromBitmask(unsigned int, HighlightCategory) const
-    int HighlightManager::GetActiveChannelFromBitmask(uint param_1, int param_3) {
-        char cVar1;
+    // 0x10000f2f0
+    int HighlightManager::GetActiveChannelFromBitmask(unsigned int arg1, HighlightCategory highlightCategory) const {
+        bool cVar1;
         int iVar2;
         array<HighlightChannelProperties, 32ul>* this_00;
-        HighlightChannelProperties* this_01;
-        uint local_34;
 
-        local_34 = param_1;
+        unsigned int local_34 = arg1;
         do {
             if (local_34 == 0) {
                 return -1;
             }
             iVar2 = jag::graphics::FindClearLSB(&local_34);
-            this_00 = (array<HighlightChannelProperties, 32ul>*)
-                std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                    (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, (long)param_3);
-            this_01 = (HighlightChannelProperties*)std::array<HighlightChannelProperties, 32ul>::operator[](
-                this_00, (long)iVar2);
-            cVar1 = this_01->IsEnabled();
-        } while (cVar1 == '\0');
+            this_00 = &field_640[(long)(int)highlightCategory];
+            cVar1 = ((HighlightChannelProperties*)(*this_00)[(long)iVar2])->IsEnabled();
+        } while (!cVar1);
         return iVar2;
     }
 
-    // 0x10000f380, 1520 bytes, placed by class name
-    // HighlightManager::UpdateUniqueLocHighlight(long long)
-    void HighlightManager::UpdateUniqueLocHighlight(longlong param_1) {
+    // 0x10000f380
+    void HighlightManager::UpdateUniqueLocHighlight(long long arg1) {
         HighlightManager* pHVar1;
-        char cVar2;
-        bool bVar3;
+        int iVar3;
         int iVar4;
         int iVar5;
-        undefined4 uVar6;
-        CoordGrid* pCVar7;
-        undefined8 uVar8;
-        HighlightChannelProperties* pHVar9;
-        shared_ptr<configdecoder::LocType>* this_00;
-        LocType* pLVar10;
-        long lVar11;
-        undefined8* puVar12;
-        undefined8* puVar13;
-        unkbyte10 Var14;
-        CoordGrid local_260[22];
+        hash_map<long long, unsigned int>* phVar6;
+        HighlightChannelProperties* pHVar7;
+        shared_ptr<configdecoder::LocType>* this_01;
+        LocType* locType;
+        world* pwVar8;
+        long lVar9;
+        uint64_t* puVar10;
+        uint64_t* puVar11;
+        unkbyte10 Var12;
         CoordGrid local_f8;
-        undefined1 local_e8[16];
+        CoordGrid local_e8;
         shared_ptr local_d8;
         shared_ptr local_c8;
-        EntityHighlight* local_b8;
         HighlightChannelProperties* local_b0;
-        CoordGrid* local_a8;
-        undefined1* local_a0;
-        array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                              eastl::allocator, false>,
-              25600ul>* local_98;
-        undefined1* local_90;
-        undefined1* local_88;
+        Client* local_a8;
+        hash_map<long long, unsigned int>* local_a0;
+        array<eastl::hash_map<long long, unsigned int>, 25600ul>* local_98;
+        hash_map<int, HighlightedGroup>* local_90;
+        hash_map<OpGroup, HighlightedGroup>* local_88;
         shared_ptr local_80;
         shared_ptr local_70;
         CoordGrid local_60;
-        GraphicsApp* local_50;
-        CoordGrid* local_48;
-        HighlightManager* local_40;
+        unique_ptr<dash3d::world>* local_48;
         int local_34;
 
-        local_50 = (GraphicsApp*)param_1;
-        local_40 = this;
-        pCVar7 = (CoordGrid*)Client::Instance();
-        CoordFromStaticEntityKey((highlight*)&local_f8, (longlong)local_50);
-        rs2lib::CoordGrid::CoordGrid(local_260, 0, 0, 0);
-        FindNextOccurrenceOfStoredHighlight((highlight*)&local_60, &local_f8, local_260, true);
-        cVar2 = local_60.IsSet();
-        if (cVar2 != '\0') {
-            local_a0 = &local_40->field_4305248;
-            local_98 = (array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                              eastl::equal_to<long long>, eastl::allocator, false>,
-                              25600ul>*)&local_40->field_4448;
-            local_90 = &local_40->field_4280;
-            local_88 = &local_40->field_4392;
-            local_48 = pCVar7 + 1199;
-            local_a8 = pCVar7;
+        long long local_50 = arg1;
+        HighlightManager* local_40 = this;
+        auto this_00 = Client::Instance();
+        CoordFromStaticEntityKey((long long)&local_f8);
+        CoordGrid local_260(0, 0, 0);
+        FindNextOccurrenceOfStoredHighlight(&local_60, &local_f8, (uint8_t)&local_260);
+        bool cVar2 = local_60.IsSet();
+        if (cVar2) {
+            local_a0 = (hash_map<long long, unsigned int>*)&local_40->field_4305248;
+            local_98 = (array<eastl::hash_map<long long, unsigned int>, 25600ul>*)&local_40->field_4448;
+            local_90 = (hash_map<int, HighlightedGroup>*)&local_40->field_4280;
+            local_88 = (hash_map<OpGroup, HighlightedGroup>*)&local_40->field_4392;
+            local_48 = (unique_ptr<dash3d::world>*)&this_00->field_19184;
+            local_a8 = this_00;
             do {
-                cVar2 = ClientConstants::IsCoordInBuildArea(&local_60);
-                if (cVar2 != '\0') {
-                    local_e8->WorldCoordFromBuildCoord(pCVar7);
-                    local_34 = CreactionCycleFromNPCKey((longlong)local_50);
-                    cVar2 = local_e8->InRegion();
+                cVar2 = ClientConstants::IsCoordInBuildArea(local_60);
+                if (cVar2) {
+                    local_e8 = this_00->WorldCoordFromBuildCoord(local_60);
+                    local_34 = CreactionCycleFromNPCKey(local_50);
+                    cVar2 = local_e8.InRegion();
                     pHVar1 = local_40;
-                    if (cVar2 == '\0') {
-                        uVar8 = GetLocHighlightMap(local_40, (CoordGrid*)local_e8);
-                        pHVar9 = GetHighlightProperties<long long>(pHVar1, &local_50, uVar8, 2);
+                    if (!cVar2) {
+                        phVar6 = GetLocHighlightMap(local_40, &local_e8);
+                        pHVar7 = GetHighlightProperties<long long>(pHVar1, &local_50, phVar6, 2);
                     } else {
-                        local_260->WorldCoordToSourceCoord(pCVar7);
-                        iVar5 = local_34;
-                        iVar4 = local_260->ToBitPacked();
-                        local_80._0_8_ = UniqueStaticEntityKey(iVar5, iVar4);
+                        local_260.WorldCoordToSourceCoord(this_00);
+                        iVar4 = local_34;
+                        iVar3 = local_260.ToBitPacked();
+                        local_80._0_8_ = UniqueStaticEntityKey(iVar4, iVar3);
                         pHVar1 = local_40;
-                        iVar5 = GetActiveChannel<long long>(local_40, &local_50, local_a0, 2);
-                        iVar4 = GetMapSquareIndex(local_260);
-                        uVar8 = std::array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                           eastl::equal_to<long long>, eastl::allocator, false>,
-                                           25600ul>::operator[](local_98, (long)iVar4);
-                        iVar4 = GetActiveChannel<long long>(pHVar1, &local_80, uVar8, 2);
-                        uVar6 = LowestNonNegativeNumberOrMinusOne(iVar5, iVar4);
-                        pHVar9 = (HighlightChannelProperties*)GetHighlightProperties(pHVar1, uVar6, 2);
+                        iVar4 = GetActiveChannel<long long>(local_40, &local_50, local_a0, 2);
+                        iVar3 = GetMapSquareIndex(&local_260);
+                        phVar6 = (hash_map<long long, unsigned int>*)(*local_98)[(long)iVar3];
+                        iVar3 = GetActiveChannel<long long>(pHVar1, (long long*)&local_80, phVar6, 2);
+                        iVar4 = LowestNonNegativeNumberOrMinusOne(iVar4, iVar3);
+                        pHVar7 = (HighlightChannelProperties*)GetHighlightProperties(pHVar1, iVar4, 2);
                     }
-                    if ((pHVar9 == (HighlightChannelProperties*)0) &&
-                        (pHVar9 = GetGroupHighlightProperties<int>(local_40, &local_34, local_90, 3),
-                         pHVar9 == (HighlightChannelProperties*)0)) {
-                        this_00 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(local_34);
-                        pLVar10 = (LocType*)shared_ptr<configdecoder::LocType>::operator*(this_00);
-                        local_260->Create(pLVar10);
-                        pHVar9 = GetGroupHighlightProperties<OpGroup>(local_40, (Client*)local_260, local_88, 8);
-                        local_260->~OpGroup();
+                    if ((pHVar7 == nullptr) &&
+                        (pHVar7 = GetGroupHighlightProperties<int>(local_40, &local_34, local_90, 3),
+                         pHVar7 == nullptr)) {
+                        this_01 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(local_34);
+                        locType = (LocType*)**this_01;
+                        local_260 = OpGroup::Create(*locType);
+                        pHVar7 = GetGroupHighlightProperties<OpGroup>(local_40, &local_260, local_88, 8);
                     }
-                    local_b0 = pHVar9;
-                    eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::vector();
-                    iVar5 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                        (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)local_48);
+                    local_b0 = pHVar7;
+                    local_260 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>();
+                    pwVar8 = (world*)(*local_48).operator->();
                     iVar4 = local_60.GetX();
-                    local_60.GetZ();
-                    local_60.GetPos();
-                    dash3d::world::GetWall((int)&local_80, iVar5, iVar4);
-                    bVar3 = shared_ptr::operator_cast_to_bool(&local_80);
-                    if (bVar3) {
-                        lVar11 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_80);
-                        iVar5 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar11 + 56));
-                        if (iVar5 == local_34) {
-                            local_d8._0_8_ = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_80);
+                    iVar3 = local_60.GetZ();
+                    iVar5 = local_60.GetPos();
+                    local_80 = pwVar8->GetWall(iVar4, iVar3, iVar5);
+                    cVar2 = shared_ptr::operator_cast_to_bool(&local_80);
+                    if (cVar2) {
+                        lVar9 = local_80.operator->();
+                        iVar4 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar9 + 56));
+                        if (iVar4 == local_34) {
+                            local_d8._0_8_ = local_80.operator->();
                             local_d8._0_8_ = local_d8._0_8_ + 64;
-                            local_260->push_back((EntityHighlight**)&local_d8);
+                            local_260.push_back(local_d8);
                         }
                     }
-                    iVar5 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                        (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)local_48);
+                    pwVar8 = (world*)(*local_48).operator->();
                     iVar4 = local_60.GetX();
-                    local_60.GetZ();
-                    local_60.GetPos();
-                    dash3d::world::GetDecor((int)&local_d8, iVar5, iVar4);
-                    bVar3 = shared_ptr::operator_cast_to_bool(&local_d8);
-                    if (bVar3) {
-                        lVar11 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_d8);
-                        iVar5 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar11 + 64));
-                        if (iVar5 == local_34) {
-                            local_70._0_8_ =
-                                shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_d8);
+                    iVar3 = local_60.GetZ();
+                    iVar5 = local_60.GetPos();
+                    local_d8 = pwVar8->GetDecor(iVar4, iVar3, iVar5);
+                    cVar2 = shared_ptr::operator_cast_to_bool(&local_d8);
+                    if (cVar2) {
+                        lVar9 = local_d8.operator->();
+                        iVar4 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar9 + 64));
+                        if (iVar4 == local_34) {
+                            local_70._0_8_ = local_d8.operator->();
                             local_70._0_8_ = local_70._0_8_ + 76;
-                            local_260->push_back((EntityHighlight**)&local_70);
+                            local_260.push_back(local_70);
                         }
                     }
-                    iVar5 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                        (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)local_48);
+                    pwVar8 = (world*)(*local_48).operator->();
                     iVar4 = local_60.GetX();
-                    local_60.GetZ();
-                    local_60.GetPos();
-                    dash3d::world::GetScene((int)&local_70, iVar5, iVar4);
-                    bVar3 = shared_ptr::operator_cast_to_bool(&local_70);
-                    if (bVar3) {
-                        lVar11 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)&local_70);
-                        iVar5 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar11 + 80));
-                        if (iVar5 == local_34) {
-                            local_c8._0_8_ =
-                                shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)&local_70);
+                    iVar3 = local_60.GetZ();
+                    iVar5 = local_60.GetPos();
+                    local_70 = pwVar8->GetScene(iVar4, iVar3, iVar5);
+                    cVar2 = shared_ptr::operator_cast_to_bool(&local_70);
+                    if (cVar2) {
+                        lVar9 = local_70.operator->();
+                        iVar4 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar9 + 80));
+                        if (iVar4 == local_34) {
+                            local_c8._0_8_ = local_70.operator->();
                             local_c8._0_8_ = local_c8._0_8_ + 92;
-                            local_260->push_back((EntityHighlight**)&local_c8);
+                            local_260.push_back(local_c8);
                         }
                     }
-                    iVar5 = std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                        (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)local_48);
+                    pwVar8 = (world*)(*local_48).operator->();
                     iVar4 = local_60.GetX();
-                    local_60.GetZ();
-                    local_60.GetPos();
-                    dash3d::world::GetGd((int)&local_c8, iVar5, iVar4);
-                    bVar3 = shared_ptr::operator_cast_to_bool(&local_c8);
-                    if (bVar3) {
-                        lVar11 =
-                            shared_ptr<dash3d::GroundDecor>::operator->((shared_ptr<dash3d::GroundDecor>*)&local_c8);
-                        iVar5 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar11 + 32));
-                        if (iVar5 == local_34) {
-                            lVar11 = shared_ptr<dash3d::GroundDecor>::operator->(
-                                (shared_ptr<dash3d::GroundDecor>*)&local_c8);
-                            local_b8 = (EntityHighlight*)(lVar11 + 44);
-                            local_260->push_back(&local_b8);
+                    iVar3 = local_60.GetZ();
+                    iVar5 = local_60.GetPos();
+                    local_c8 = pwVar8->GetGd(iVar4, iVar3, iVar5);
+                    cVar2 = shared_ptr::operator_cast_to_bool(&local_c8);
+                    if (cVar2) {
+                        lVar9 = local_c8.operator->();
+                        iVar4 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar9 + 32));
+                        if (iVar4 == local_34) {
+                            lVar9 = local_c8.operator->();
+                            local_260.push_back((EntityHighlight*)(lVar9 + 44));
                         }
                     }
-                    cVar2 = local_260->empty();
-                    if (cVar2 == '\0') {
-                        Var14 = HighlightChannelProperties::CreateHighlightData(local_b0);
-                        puVar12 = (undefined8*)local_260->HeapBeginPtr();
-                        puVar13 = (undefined8*)local_260->end();
-                        for (; puVar12 != puVar13; puVar12 = puVar12 + 1) {
-                            *(unkbyte10*)*puVar12 = Var14;
+                    cVar2 = local_260.empty();
+                    if (!cVar2) {
+                        Var12 = HighlightChannelProperties::CreateHighlightData(local_b0);
+                        puVar10 = (uint64_t*)local_260.HeapBeginPtr();
+                        puVar11 = (uint64_t*)local_260.end();
+                        for (; puVar10 != puVar11; puVar10 = puVar10 + 1) {
+                            *(unkbyte10*)*puVar10 = Var12;
                         }
                     }
-                    local_c8.~shared_ptr();
-                    local_70.~shared_ptr();
-                    local_d8.~shared_ptr();
-                    local_80.~shared_ptr();
-                    local_260->~vector();
-                    pCVar7 = local_a8;
+                    this_00 = local_a8;
                 }
-                FindNextOccurrenceOfStoredHighlight((highlight*)local_260, &local_f8, &local_60, false);
+                FindNextOccurrenceOfStoredHighlight(&local_260, &local_f8, (uint8_t)((CommandLine*)&local_60));
                 local_60.m_z = local_260[0].m_z;
                 local_60.m_level = local_260[0].m_level;
                 local_60.m_x = local_260[0].m_x;
                 cVar2 = local_60.IsSet();
-            } while (cVar2 != '\0');
+            } while (cVar2);
         }
     }
 
-    // 0x10000f970, 896 bytes, placed by class name
-    // HighlightManager::UpdateUniqueObjHighlight(long long)
-    void HighlightManager::UpdateUniqueObjHighlight(longlong param_1) {
+    // 0x10000f970
+    void HighlightManager::UpdateUniqueObjHighlight(long long arg1) {
         HighlightManager* pHVar1;
-        char cVar2;
-        bool bVar3;
+        int iVar3;
         int iVar4;
-        int iVar5;
-        undefined4 uVar6;
-        CoordGrid* pCVar7;
-        undefined8 uVar8;
-        Language* pLVar9;
-        ObjType* pOVar10;
-        Client* pCVar11;
-        shared_ptr* this_00;
-        long lVar12;
-        SystemSettings* this_01;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* phVar13;
-        CoordGrid local_210[22];
-        undefined1 local_a8[16];
+        Client* pCVar5;
+        hash_map<long long, unsigned int>* phVar6;
+        HighlightChannelProperties* arg1_00;
+        ObjType* objType;
+        list<console::Line>* this_00;
+        shared_ptr* this_01;
+        long lVar7;
+        CoordGrid local_a8;
         CoordGrid local_98;
-        undefined1* local_88;
-        array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                              eastl::allocator, false>,
-              25600ul>* local_80;
-        undefined1* local_78;
-        undefined1* local_70;
-        list<console::Line, eastl::allocator> local_68[16];
+        hash_map<long long, unsigned int>* local_88;
+        array<eastl::hash_map<long long, unsigned int>, 25600ul>* local_80;
+        hash_map<int, HighlightedGroup>* local_78;
+        hash_map<OpGroup, HighlightedGroup>* local_70;
+        ReturnValue local_68;
         CoordGrid local_58;
-        longlong local_48;
-        HighlightManager* local_40;
         int local_34;
 
-        local_48 = param_1;
-        local_40 = this;
-        CoordFromStaticEntityKey((highlight*)&local_98, param_1);
-        rs2lib::CoordGrid::CoordGrid(local_210, 0, 0, 0);
-        FindNextOccurrenceOfStoredHighlight((highlight*)&local_58, &local_98, local_210, true);
-        cVar2 = local_58.IsSet();
-        if (cVar2 != '\0') {
-            local_88 = &local_40->field_4305304;
-            local_80 = (array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                              eastl::equal_to<long long>, eastl::allocator, false>,
-                              25600ul>*)&local_40->field_1438048;
-            local_78 = &local_40->field_4336;
-            local_70 = &local_40->field_4392;
+        long long local_48 = arg1;
+        HighlightManager* local_40 = this;
+        CoordFromStaticEntityKey((long long)&local_98);
+        CoordGrid local_210(0, 0, 0);
+        FindNextOccurrenceOfStoredHighlight(&local_58, &local_98, (uint8_t)&local_210);
+        bool cVar2 = local_58.IsSet();
+        if (cVar2) {
+            local_88 = (hash_map<long long, unsigned int>*)&local_40->field_4305304;
+            local_80 = (array<eastl::hash_map<long long, unsigned int>, 25600ul>*)&local_40->field_1438048;
+            local_78 = (hash_map<int, HighlightedGroup>*)&local_40->field_4336;
+            local_70 = (hash_map<OpGroup, HighlightedGroup>*)&local_40->field_4392;
             do {
-                cVar2 = ClientConstants::IsCoordInBuildArea(&local_58);
-                if (cVar2 != '\0') {
-                    pCVar7 = (CoordGrid*)Client::Instance();
-                    local_a8->WorldCoordFromBuildCoord(pCVar7);
+                cVar2 = ClientConstants::IsCoordInBuildArea(local_58);
+                if (cVar2) {
+                    pCVar5 = Client::Instance();
+                    local_a8 = pCVar5->WorldCoordFromBuildCoord(local_58);
                     local_34 = CreactionCycleFromNPCKey(local_48);
-                    cVar2 = local_a8->InRegion();
+                    cVar2 = local_a8.InRegion();
                     pHVar1 = local_40;
-                    if (cVar2 == '\0') {
-                        uVar8 = GetObjHighlightMap(local_40, (CoordGrid*)local_a8);
-                        pLVar9 = (Language*)GetHighlightProperties<long long>(pHVar1, &local_48, uVar8);
+                    if (!cVar2) {
+                        phVar6 = GetObjHighlightMap(local_40, &local_a8);
+                        arg1_00 = GetHighlightProperties<long long>(pHVar1, &local_48, phVar6, 4);
                     } else {
-                        pCVar7 = (CoordGrid*)Client::Instance();
-                        local_210->WorldCoordToSourceCoord(pCVar7);
-                        iVar5 = local_34;
-                        iVar4 = local_210->ToBitPacked();
-                        local_68._0_8_ = UniqueStaticEntityKey(iVar5, iVar4);
+                        pCVar5 = Client::Instance();
+                        local_210.WorldCoordToSourceCoord(pCVar5);
+                        iVar4 = local_34;
+                        iVar3 = local_210.ToBitPacked();
+                        local_68[0] = (ReturnValue)UniqueStaticEntityKey(iVar4, iVar3);
                         pHVar1 = local_40;
-                        iVar5 = GetActiveChannel<long long>(local_40, &local_48, local_88, 4);
-                        iVar4 = GetMapSquareIndex(local_210);
-                        uVar8 = std::array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                           eastl::equal_to<long long>, eastl::allocator, false>,
-                                           25600ul>::operator[](local_80, (long)iVar4);
-                        iVar4 = GetActiveChannel<long long>(pHVar1, local_68, uVar8);
-                        uVar6 = LowestNonNegativeNumberOrMinusOne(iVar5, iVar4);
-                        pLVar9 = (Language*)GetHighlightProperties(pHVar1, uVar6, 4);
+                        iVar4 = GetActiveChannel<long long>(local_40, &local_48, local_88, 4);
+                        iVar3 = GetMapSquareIndex(&local_210);
+                        phVar6 = (hash_map<long long, unsigned int>*)(*local_80)[(long)iVar3];
+                        iVar3 = GetActiveChannel<long long>(pHVar1, &local_68, phVar6, 4);
+                        iVar4 = LowestNonNegativeNumberOrMinusOne(iVar4, iVar3);
+                        arg1_00 = (HighlightChannelProperties*)GetHighlightProperties(pHVar1, iVar4, 4);
                     }
-                    if (pLVar9 == (Language*)0) {
-                        pLVar9 = (Language*)GetGroupHighlightProperties<int>(local_40, &local_34, local_78);
-                        if (pLVar9 == (Language*)0) {
-                            local_68->List(local_34);
-                            pOVar10 = (ObjType*)shared_ptr<configdecoder::ObjType>::operator*(
-                                (shared_ptr<configdecoder::ObjType>*)local_68);
-                            local_210->Create(pOVar10);
-                            local_68->~shared_ptr();
-                            pLVar9 =
-                                (Language*)GetGroupHighlightProperties<OpGroup>(local_40, (Client*)local_210, local_70);
-                            local_210->~OpGroup();
+                    if (arg1_00 == nullptr) {
+                        arg1_00 = GetGroupHighlightProperties<int>(local_40, &local_34, local_78, 5);
+                        if (arg1_00 == nullptr) {
+                            local_68 = configdecoder::ObjType::List(local_34);
+                            objType = (ObjType*)*local_68;
+                            local_210 = OpGroup::Create(*objType);
+                            arg1_00 = GetGroupHighlightProperties<OpGroup>(local_40, &local_210, local_70, 8);
                         }
                     }
-                    pCVar11 = (Client*)Client::Instance();
-                    pCVar11->GetObjectsOnTile(&local_58);
-                    local_210->begin();
-                    eastl::list<console::Line, eastl::allocator>::end(local_68);
-                    phVar13 = extraout_RDX;
-                    while (bVar3 = eastl::operator!=((eastl*)local_210, (hashtable_iterator_base*)local_68, phVar13),
-                           bVar3) {
-                        this_00 =
-                            (shared_ptr*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)local_210);
-                        bVar3 = shared_ptr::operator_cast_to_bool(this_00);
-                        if ((bVar3) && (lVar12 = shared_ptr<ClientObj>::operator->((shared_ptr<ClientObj>*)this_00),
-                                        *(int*)(lVar12 + 24) == local_34)) {
-                            this_01 =
-                                (SystemSettings*)shared_ptr<ClientObj>::operator->((shared_ptr<ClientObj>*)this_00);
-                            this_01->SetLanguage(pLVar9);
-                            pCVar11 = (Client*)Client::Instance();
-                            iVar5 = local_58.GetZ();
-                            iVar4 = local_58.GetPos();
-                            pCVar11->ShowObject(iVar5, iVar4);
+                    pCVar5 = Client::Instance();
+                    this_00 = (list<console::Line>*)pCVar5->GetObjectsOnTile(local_58);
+                    local_210 = this_00->begin();
+                    local_68 = this_00->end();
+                    while (cVar2 = local_210 != local_68, cVar2) {
+                        this_01 = (shared_ptr*)*local_210;
+                        cVar2 = shared_ptr::operator_cast_to_bool(this_01);
+                        if ((cVar2) && (lVar7 = (*this_01).operator->(), *(int*)(lVar7 + 24) == local_34)) {
+                            ((SystemSettings*)(*this_01).operator->())->SetLanguage(arg1_00);
+                            pCVar5 = Client::Instance();
+                            iVar4 = local_58.GetZ();
+                            iVar3 = local_58.GetPos();
+                            pCVar5->ShowObject(iVar4, iVar3);
                         }
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)local_210);
-                        phVar13 = extraout_RDX_00;
+                        ++local_210;
                     }
                 }
-                FindNextOccurrenceOfStoredHighlight((highlight*)local_210, &local_98, &local_58, false);
+                FindNextOccurrenceOfStoredHighlight(&local_210, &local_98, (uint8_t)((CommandLine*)&local_58));
                 local_58.m_z = local_210[0].m_z;
                 local_58.m_level = local_210[0].m_level;
                 local_58.m_x = local_210[0].m_x;
                 cVar2 = local_58.IsSet();
-            } while (cVar2 != '\0');
+            } while (cVar2);
         }
     }
 
-    // 0x10000fcf0, 624 bytes, placed by class name
-    // HighlightManager::UpdateUniqueTileHighlight(int)
-    void HighlightManager::UpdateUniqueTileHighlight(int param_1) {
+    // 0x10000fcf0
+    void HighlightManager::UpdateUniqueTileHighlight(int arg1) {
         HighlightManager* pHVar1;
-        char cVar2;
-        int iVar3;
+        unsigned int uVar3;
         int iVar4;
         int iVar5;
-        undefined4 uVar6;
-        CoordGrid* pCVar7;
-        world* this_00;
-        undefined8 uVar8;
-        unkbyte10 Var9;
-        CoordGrid local_a8;
-        CoordGrid* local_98;
-        CoordGrid* local_90;
-        undefined1* local_88;
-        array<eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>,
-              25600ul>* local_80;
+        int iVar6;
+        world* this_01;
+        hash_map<int, unsigned int>* phVar7;
+        Client* local_98;
+        unique_ptr<dash3d::world>* local_90;
+        hash_map<int, unsigned int>* local_88;
+        array<eastl::hash_map<int, unsigned int>, 25600ul>* local_80;
         CoordGrid local_78;
         EntityHighlight local_68;
         HighlightChannelProperties* local_58;
-        CoordGrid local_50;
-        HighlightManager* local_40;
-        int local_38;
-        undefined4 local_34;
+        CommandLine_vtbl* local_50;
+        EnumOptionToggle local_48;
+        int local_34;
 
-        local_40 = this;
-        local_38 = param_1;
-        pCVar7 = (CoordGrid*)Client::Instance();
-        new (&local_a8) rs2lib::CoordGrid(local_38);
+        HighlightManager* local_40 = this;
+        int local_38 = arg1;
+        auto this_00 = Client::Instance();
+        CoordGrid local_a8(local_38);
         new (&local_50) rs2lib::CoordGrid(0, 0, 0);
-        FindNextOccurrenceOfStoredHighlight((highlight*)&local_78, &local_a8, &local_50, true);
-        cVar2 = local_78.IsSet();
-        if (cVar2 != '\0') {
-            local_88 = &local_40->field_4305360;
-            local_80 =
-                (array<
-                    eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>,
-                    25600ul>*)&local_40->field_2871648;
-            local_90 = pCVar7 + 1199;
-            local_98 = pCVar7;
+        FindNextOccurrenceOfStoredHighlight(&local_78, &local_a8, (uint8_t)((CoordGrid*)&local_50));
+        bool cVar2 = local_78.IsSet();
+        if (cVar2) {
+            local_88 = (hash_map<int, unsigned int>*)&local_40->field_4305360;
+            local_80 = (array<eastl::hash_map<int, unsigned int>, 25600ul>*)&local_40->field_2871648;
+            local_90 = (unique_ptr<dash3d::world>*)&this_00->field_19184;
+            local_98 = this_00;
             do {
-                cVar2 = ClientConstants::IsCoordInBuildArea(&local_78);
-                if (cVar2 != '\0') {
-                    local_50.WorldCoordFromBuildCoord(pCVar7);
+                cVar2 = ClientConstants::IsCoordInBuildArea(local_78);
+                if (cVar2) {
+                    local_50 = this_00->WorldCoordFromBuildCoord(local_78);
                     cVar2 = local_50.InRegion();
                     pHVar1 = local_40;
-                    if (cVar2 == '\0') {
-                        uVar8 = GetTileHighlightMap(local_40, &local_50);
-                        local_58 = GetHighlightProperties<int>(pHVar1, &local_38, uVar8, 7);
+                    if (!cVar2) {
+                        phVar7 = GetTileHighlightMap(local_40, (CoordGrid*)&local_50);
+                        iVar5 = 7;
+                        local_58 = GetHighlightProperties<int>(pHVar1, &local_38, phVar7, 7);
                     } else {
-                        local_68.WorldCoordToSourceCoord(pCVar7);
+                        local_68.WorldCoordToSourceCoord(this_00);
                         local_34 = local_50.ToBitPacked();
                         pHVar1 = local_40;
                         iVar4 = GetActiveChannel<int>(local_40, &local_34, local_88, 7);
                         local_34 = local_68.ToBitPacked();
                         iVar5 = GetMapSquareIndex((CoordGrid*)&local_68);
-                        uVar8 = std::array<eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>,
-                                                           eastl::allocator, false>,
-                                           25600ul>::operator[](local_80, (long)iVar5);
-                        iVar5 = GetActiveChannel<int>(pHVar1, &local_34, uVar8, 7);
-                        uVar6 = LowestNonNegativeNumberOrMinusOne(iVar4, iVar5);
-                        local_58 = (HighlightChannelProperties*)GetHighlightProperties(pHVar1, uVar6, 7);
+                        phVar7 = (hash_map<int, unsigned int>*)(*local_80)[(long)iVar5];
+                        iVar5 = 7;
+                        iVar6 = GetActiveChannel<int>(pHVar1, &local_34, phVar7, 7);
+                        iVar4 = LowestNonNegativeNumberOrMinusOne(iVar4, iVar6);
+                        local_58 = (HighlightChannelProperties*)GetHighlightProperties(pHVar1, iVar4, 7);
                     }
-                    iVar4 = local_78.GetX();
-                    iVar5 = local_78.GetZ();
-                    iVar3 = local_78.GetPos();
-                    iVar4 = ClientBuild::GetLinkBelowLevel(iVar4, iVar5, iVar3);
-                    this_00 = (world*)std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                        (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)local_90);
-                    iVar5 = local_78.GetZ();
-                    iVar3 = local_78.GetPos();
-                    Var9 = HighlightChannelProperties::CreateHighlightData(local_58);
-                    local_68._0_10_ = Var9;
-                    this_00->SetTileHighlight(iVar4, iVar5, iVar3, &local_68);
-                    pCVar7 = local_98;
+                    uVar3 = local_78.GetX();
+                    iVar4 = local_78.GetZ();
+                    iVar6 = local_78.GetPos();
+                    iVar5 = ((ClientBuild*)(unsigned long)uVar3)->GetLinkBelowLevel(iVar4, iVar6, iVar5);
+                    this_01 = (world*)(*local_90).operator->();
+                    iVar4 = local_78.GetZ();
+                    iVar6 = local_78.GetPos();
+                    local_68._0_10_ = HighlightChannelProperties::CreateHighlightData(local_58);
+                    this_01->SetTileHighlight(iVar5, iVar4, iVar6, local_68);
+                    this_00 = local_98;
                 }
-                FindNextOccurrenceOfStoredHighlight((highlight*)&local_50, &local_a8, &local_78, false);
-                local_78.m_z = local_50.m_z;
-                local_78.m_level = local_50.m_level;
-                local_78.m_x = local_50.m_x;
+                FindNextOccurrenceOfStoredHighlight((CoordGrid*)&local_50, &local_a8,
+                                                    (uint8_t)((CommandLine*)&local_78));
+                local_78.m_z = local_48;
+                local_78._0_8_ = local_50;
                 cVar2 = local_78.IsSet();
-            } while (cVar2 != '\0');
+            } while (cVar2);
         }
     }
 
-    // 0x10000ff80, 2432 bytes, placed by class name
-    // HighlightManager::ClearHighlights(HighlightCategory, int)
-    void HighlightManager::ClearHighlights(undefined4 param_2, uint param_3) {
-        longlong lVar1;
-        HighlightManager* pHVar2;
-        uint uVar3;
-        bool bVar4;
+    // 0x10000ff80
+    void HighlightManager::ClearHighlights(HighlightCategory highlightCategory, int arg2) {
+        uint8_t* puVar1;
+        HighlightManager* this_00;
+        unsigned int uVar2;
+        bool cVar4;
         int iVar5;
-        longlong* plVar6;
-        undefined8 uVar7;
-        basic_string* pbVar8;
-        long lVar9;
-        long lVar10;
-        int* piVar11;
-        OpGroup* pOVar12;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
-        hashtable_iterator_base* extraout_RDX_03;
-        hashtable_iterator_base* extraout_RDX_04;
-        hashtable_iterator_base* extraout_RDX_05;
-        hashtable_iterator_base* extraout_RDX_06;
-        hashtable_iterator_base* extraout_RDX_07;
-        hashtable_iterator_base* extraout_RDX_08;
-        hashtable_iterator_base* extraout_RDX_09;
-        hashtable_iterator_base* extraout_RDX_10;
-        hashtable_iterator_base* extraout_RDX_11;
-        hashtable_iterator_base* extraout_RDX_12;
-        hashtable_iterator_base* extraout_RDX_13;
-        hashtable_iterator_base* extraout_RDX_14;
-        hashtable_iterator_base* extraout_RDX_15;
-        hashtable_iterator_base* extraout_RDX_16;
-        hashtable_iterator_base* extraout_RDX_17;
-        hashtable_iterator_base* extraout_RDX_18;
-        hashtable_iterator_base* extraout_RDX_19;
-        hashtable_iterator_base* extraout_RDX_20;
-        ulong uVar13;
+        long long* plVar6;
+        eastl::string* pbVar7;
+        hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                  eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>, eastl::equal_to<eastl::string>,
+                  eastl::hash<eastl::string>, eastl::mod_range_hashing, eastl::default_ranged_hash,
+                  eastl::prime_rehash_policy, false, true, true>* phVar8;
+        hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                  eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>, eastl::equal_to<eastl::string>,
+                  eastl::hash<eastl::string>, eastl::mod_range_hashing, eastl::default_ranged_hash,
+                  eastl::prime_rehash_policy, false, true, true>* phVar9;
+        int* piVar10;
+        OpGroup* opGroup;
         CoordGrid local_78;
-        uint local_5c;
-        undefined8 local_58;
-        undefined8 uStack_50;
-        undefined8 local_48;
-        undefined8 uStack_40;
+        ReturnValue local_58;
+        uint64_t uStack_50;
+        ReturnValue local_48;
+        uint64_t uStack_40;
 
-        uVar13 = (ulong)param_3;
-        if (31 < param_3) {
-            /* WARNING: Subroutine does not return */
+        if (31 < (unsigned int)arg2) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                             "highlighting/HighlightManager.cpp",
-                            327, "Highlight channel ID must be between 0 and %d (inclusive) - Got %d", 31, uVar13);
+                            327, "Highlight channel ID must be between 0 and %d (inclusive) - Got %d", 31,
+                            (unsigned long)(unsigned int)arg2);
         }
-        local_5c = param_3;
-        switch (param_2) {
+        HighlightManager* local_68 = this;
+        unsigned int local_5c = arg2;
+        switch (highlightCategory) {
         case 0:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_58) eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                (hashtable_iterator*)&local_48);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX);
-            if (bVar4) {
+            puVar1 = &field_4112;
+            local_48 = puVar1->begin();
+            new (&local_58) eastl::hashtable_iterator(&local_48);
+            local_78 = puVar1->end();
+            cVar4 = local_48 != local_78;
+            if (cVar4) {
                 do {
-                    eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)&local_58);
-                    uVar7 = local_48.HeapBeginPtr();
-                    bVar4 = RemoveEntityHighlight<long long>((HighlightManager*)this, uVar7, &field_4112, param_3, 0);
-                    if (bVar4) {
-                        plVar6 = (longlong*)local_48.HeapBeginPtr();
-                        UpdateUniqueNPCHighlightOrRemoveIfReused((HighlightManager*)this, *plVar6);
+                    ++local_58;
+                    plVar6 = (long long*)local_48.HeapBeginPtr();
+                    if (RemoveEntityHighlight<long long>(local_68, plVar6, (hash_map<long long, unsigned int>*)puVar1,
+                                                         arg2, 0)) {
+                        plVar6 = (long long*)local_48.HeapBeginPtr();
+                        UpdateUniqueNPCHighlightOrRemoveIfReused(local_68, *plVar6);
                     }
                     local_48 = local_58;
                     uStack_40 = uStack_50;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_00);
-                } while (bVar4);
+                    local_78 = puVar1->end();
+                    cVar4 = local_48 != local_78;
+                } while (cVar4);
             }
             break;
         case 1:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_58) eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                (hashtable_iterator*)&local_48);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_01);
-            if (bVar4) {
+            puVar1 = &field_4224;
+            local_48 = puVar1->begin();
+            new (&local_58) eastl::hashtable_iterator(&local_48);
+            local_78 = puVar1->end();
+            cVar4 = local_48 != local_78;
+            if (cVar4) {
                 do {
-                    eastl::hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>*)&local_58);
-                    piVar11 = (int*)local_48.HeapBeginPtr();
-                    RemoveNPCTypeHighlight(this, *piVar11, param_3);
+                    ++local_58;
+                    piVar10 = (int*)local_48.HeapBeginPtr();
+                    RemoveNPCTypeHighlight(*piVar10, arg2);
                     local_48 = local_58;
                     uStack_40 = uStack_50;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_02);
-                } while (bVar4);
+                    local_78 = puVar1->end();
+                    cVar4 = local_48 != local_78;
+                } while (cVar4);
             }
             break;
         case 2:
-            lVar9 = (&field_4448)->begin();
-            lVar10 = (&field_4448)->end();
-            if (lVar9 != lVar10) {
+            phVar8 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                                eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
+                std::array<eastl::hash_map<long long, unsigned int>, 25600ul>::begin();
+            phVar9 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                                eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
+                std::array<eastl::hash_map<long long, unsigned int>, 25600ul>::end();
+            if (phVar8 != phVar9) {
                 do {
-                    eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                                     eastl::equal_to<eastl::string>, eastl::hash<eastl::string>,
-                                     eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy,
-                                     false, true, true>::begin();
-                    new (&local_58)
-                        eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                            (hashtable_iterator*)&local_48);
+                    local_48 = phVar8->begin();
+                    new (&local_58) eastl::hashtable_iterator(&local_48);
                     while (true) {
-                        param_3 = (uint)uVar13;
-                        eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                         eastl::use_first<eastl::pair<int const, HighlightedGroup>>,
-                                         eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                         true>::end();
-                        bVar4 =
-                            eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_03);
-                        if (!bVar4)
+                        local_78 = phVar8->end();
+                        cVar4 = local_48 != local_78;
+                        if (!cVar4)
                             break;
-                        eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::operator++(
-                            (hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)&local_58);
-                        plVar6 = (longlong*)local_48.HeapBeginPtr();
-                        lVar1 = *plVar6;
-                        iVar5 = CreactionCycleFromNPCKey(lVar1);
-                        uVar3 = local_5c;
-                        uVar13 = (ulong)local_5c;
-                        CoordFromStaticEntityKey((highlight*)&local_78, lVar1);
-                        RemoveLocHighlight((HighlightManager*)this, iVar5, &local_78, uVar3, false);
+                        ++local_58;
+                        plVar6 = (long long*)local_48.HeapBeginPtr();
+                        iVar5 = CreactionCycleFromNPCKey(*plVar6);
+                        arg2 = local_5c;
+                        CoordFromStaticEntityKey((long long)&local_78);
+                        RemoveLocHighlight(local_68, iVar5, &local_78, arg2, false);
                         local_48 = local_58;
                         uStack_40 = uStack_50;
                     }
-                    lVar9 = lVar9 + 56;
-                } while (lVar9 != lVar10);
+                    phVar8 = phVar8 + 56;
+                } while (phVar8 != phVar9);
             }
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_58) eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                (hashtable_iterator*)&local_48);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_15);
-            if (bVar4) {
+            puVar1 = &local_68->field_4305248;
+            local_48 = puVar1->begin();
+            new (&local_58) eastl::hashtable_iterator(&local_48);
+            local_78 = puVar1->end();
+            cVar4 = local_48 != local_78;
+            if (cVar4) {
                 do {
-                    eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)&local_58);
-                    plVar6 = (longlong*)local_48.HeapBeginPtr();
-                    lVar1 = *plVar6;
-                    iVar5 = CreactionCycleFromNPCKey(lVar1);
-                    CoordFromStaticEntityKey((highlight*)&local_78, lVar1);
-                    RemoveLocHighlight((HighlightManager*)this, iVar5, &local_78, param_3, false);
+                    ++local_58;
+                    plVar6 = (long long*)local_48.HeapBeginPtr();
+                    iVar5 = CreactionCycleFromNPCKey(*plVar6);
+                    CoordFromStaticEntityKey((long long)&local_78);
+                    RemoveLocHighlight(local_68, iVar5, &local_78, arg2, false);
                     local_48 = local_58;
                     uStack_40 = uStack_50;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_16);
-                } while (bVar4);
+                    local_78 = puVar1->end();
+                    cVar4 = local_48 != local_78;
+                } while (cVar4);
             }
             break;
         case 3:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_58) eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                (hashtable_iterator*)&local_48);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_04);
-            if (bVar4) {
+            puVar1 = &field_4280;
+            local_48 = puVar1->begin();
+            new (&local_58) eastl::hashtable_iterator(&local_48);
+            local_78 = puVar1->end();
+            cVar4 = local_48 != local_78;
+            if (cVar4) {
                 do {
-                    eastl::hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>*)&local_58);
-                    piVar11 = (int*)local_48.HeapBeginPtr();
-                    RemoveLocTypeHighlight(this, *piVar11, param_3);
+                    ++local_58;
+                    piVar10 = (int*)local_48.HeapBeginPtr();
+                    RemoveLocTypeHighlight(*piVar10, arg2);
                     local_48 = local_58;
                     uStack_40 = uStack_50;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_05);
-                } while (bVar4);
+                    local_78 = puVar1->end();
+                    cVar4 = local_48 != local_78;
+                } while (cVar4);
             }
             break;
         case 4:
-            lVar9 = (&field_1438048)->begin();
-            lVar10 = (&field_1438048)->end();
-            if (lVar9 != lVar10) {
+            phVar8 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                                eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
+                std::array<eastl::hash_map<long long, unsigned int>, 25600ul>::begin();
+            phVar9 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                                eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
+                std::array<eastl::hash_map<long long, unsigned int>, 25600ul>::end();
+            if (phVar8 != phVar9) {
                 do {
-                    eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                                     eastl::equal_to<eastl::string>, eastl::hash<eastl::string>,
-                                     eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy,
-                                     false, true, true>::begin();
-                    new (&local_58)
-                        eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                            (hashtable_iterator*)&local_48);
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_06);
-                    if (bVar4) {
-                        do {
-                            eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::
-                            operator++((
-                                hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)&local_58);
-                            plVar6 = (longlong*)local_48.HeapBeginPtr();
-                            lVar1 = *plVar6;
-                            iVar5 = CreactionCycleFromNPCKey(lVar1);
-                            pHVar2 = (HighlightManager*)this;
-                            CoordFromStaticEntityKey((highlight*)&local_78, lVar1);
-                            RemoveObjHighlight(pHVar2, iVar5, &local_78, local_5c, false);
-                            local_48 = local_58;
-                            uStack_40 = uStack_50;
-                            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>,
-                                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                             true>::end();
-                            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78,
-                                                      extraout_RDX_07);
-                        } while (bVar4);
+                    local_48 = phVar8->begin();
+                    new (&local_58) eastl::hashtable_iterator(&local_48);
+                    local_78 = phVar8->end();
+                    cVar4 = local_48 != local_78;
+                    while (cVar4) {
+                        ++local_58;
+                        plVar6 = (long long*)local_48.HeapBeginPtr();
+                        iVar5 = CreactionCycleFromNPCKey(*plVar6);
+                        this = local_68;
+                        CoordFromStaticEntityKey((long long)&local_78);
+                        RemoveObjHighlight(iVar5, local_78, local_5c, false);
+                        local_48 = local_58;
+                        uStack_40 = uStack_50;
+                        local_78 = phVar8->end();
+                        cVar4 = local_48 != local_78;
                     }
-                    lVar9 = lVar9 + 56;
-                } while (lVar9 != lVar10);
+                    phVar8 = phVar8 + 56;
+                } while (phVar8 != phVar9);
             }
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_58) eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                (hashtable_iterator*)&local_48);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_17);
-            uVar3 = local_5c;
-            if (bVar4) {
+            puVar1 = &field_4305304;
+            local_48 = puVar1->begin();
+            new (&local_58) eastl::hashtable_iterator(&local_48);
+            local_78 = puVar1->end();
+            cVar4 = local_48 != local_78;
+            uVar2 = local_5c;
+            if (cVar4) {
                 do {
-                    eastl::hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>*)&local_58);
-                    plVar6 = (longlong*)local_48.HeapBeginPtr();
-                    lVar1 = *plVar6;
-                    iVar5 = CreactionCycleFromNPCKey(lVar1);
-                    CoordFromStaticEntityKey((highlight*)&local_78, lVar1);
-                    RemoveObjHighlight((HighlightManager*)this, iVar5, &local_78, uVar3, false);
+                    ++local_58;
+                    plVar6 = (long long*)local_48.HeapBeginPtr();
+                    iVar5 = CreactionCycleFromNPCKey(*plVar6);
+                    CoordFromStaticEntityKey((long long)&local_78);
+                    RemoveObjHighlight(local_68, iVar5, &local_78, uVar2, false);
                     local_48 = local_58;
                     uStack_40 = uStack_50;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_18);
-                } while (bVar4);
+                    local_78 = puVar1->end();
+                    cVar4 = local_48 != local_78;
+                } while (cVar4);
             }
             break;
         case 5:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_58) eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                (hashtable_iterator*)&local_48);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_08);
-            if (bVar4) {
+            puVar1 = &field_4336;
+            local_48 = puVar1->begin();
+            new (&local_58) eastl::hashtable_iterator(&local_48);
+            local_78 = puVar1->end();
+            cVar4 = local_48 != local_78;
+            if (cVar4) {
                 do {
-                    eastl::hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<int const, HighlightedGroup>, true, false>*)&local_58);
-                    piVar11 = (int*)local_48.HeapBeginPtr();
-                    RemoveObjTypeHighlight(this, *piVar11, param_3);
+                    ++local_58;
+                    piVar10 = (int*)local_48.HeapBeginPtr();
+                    RemoveObjTypeHighlight(*piVar10, arg2);
                     local_48 = local_58;
                     uStack_40 = uStack_50;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_09);
-                } while (bVar4);
+                    local_78 = puVar1->end();
+                    cVar4 = local_48 != local_78;
+                } while (cVar4);
             }
             break;
         case 6:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_58) eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                (hashtable_iterator*)&local_48);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            uVar3 = local_5c;
-            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_10);
-            if (bVar4) {
+            puVar1 = &field_4168;
+            local_48 = puVar1->begin();
+            new (&local_58) eastl::hashtable_iterator(&local_48);
+            local_78 = puVar1->end();
+            uVar2 = local_5c;
+            cVar4 = local_48 != local_78;
+            if (cVar4) {
                 do {
-                    eastl::hashtable_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<eastl::string, eastl::allocator>>, false, false>::
-                    operator++((hashtable_iterator<
-                                eastl::pair<unsigned int const, eastl::vector<eastl::string, eastl::allocator>>, false,
-                                false>*)&local_58);
-                    uVar7 = local_48.HeapBeginPtr();
-                    bVar4 = RemoveEntityHighlight<eastl::string>((HighlightManager*)this, uVar7, &field_4168, uVar3, 6);
-                    if (bVar4) {
-                        pbVar8 = (basic_string*)local_48.HeapBeginPtr();
-                        UpdateUniquePlayerHighlight((HighlightManager*)this, pbVar8);
+                    ++local_58;
+                    pbVar7 = (eastl::string*)local_48.HeapBeginPtr();
+                    if (RemoveEntityHighlight<eastl::string>(
+                            local_68, pbVar7, (hash_map<eastl::string, unsigned int>*)puVar1, uVar2, 6)) {
+                        pbVar7 = (eastl::string*)local_48.HeapBeginPtr();
+                        UpdateUniquePlayerHighlight(local_68, pbVar7);
                     }
                     local_48 = local_58;
                     uStack_40 = uStack_50;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_11);
-                } while (bVar4);
+                    local_78 = puVar1->end();
+                    cVar4 = local_48 != local_78;
+                } while (cVar4);
             }
             break;
         case 7:
-            lVar9 = (&field_2871648)->begin();
-            lVar10 = (&field_2871648)->end();
-            uVar3 = local_5c;
-            if (lVar9 != lVar10) {
+            phVar8 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                                eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
+                std::array<eastl::hash_map<int, unsigned int>, 25600ul>::begin();
+            phVar9 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                                eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
+                std::array<eastl::hash_map<int, unsigned int>, 25600ul>::end();
+            uVar2 = local_5c;
+            if (phVar8 != phVar9) {
                 do {
-                    eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                                     eastl::equal_to<eastl::string>, eastl::hash<eastl::string>,
-                                     eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy,
-                                     false, true, true>::begin();
-                    new (&local_58)
-                        eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                            (hashtable_iterator*)&local_48);
+                    local_48 = phVar8->begin();
+                    new (&local_58) eastl::hashtable_iterator(&local_48);
                     while (true) {
-                        eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                         eastl::use_first<eastl::pair<int const, HighlightedGroup>>,
-                                         eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                         true>::end();
-                        bVar4 =
-                            eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_12);
-                        if (!bVar4)
+                        local_78 = phVar8->end();
+                        cVar4 = local_48 != local_78;
+                        if (!cVar4)
                             break;
-                        eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>::operator++(
-                            (hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>*)&local_58);
-                        piVar11 = (int*)local_48.HeapBeginPtr();
-                        new (&local_78) rs2lib::CoordGrid(*piVar11);
-                        RemoveTileHighlight((HighlightManager*)this, &local_78, uVar3, false);
+                        ++local_58;
+                        piVar10 = (int*)local_48.HeapBeginPtr();
+                        local_78 = rs2lib::CoordGrid(*piVar10);
+                        RemoveTileHighlight(local_68, &local_78, uVar2, false);
                         local_48 = local_58;
                         uStack_40 = uStack_50;
                     }
-                    lVar9 = lVar9 + 56;
-                } while (lVar9 != lVar10);
+                    phVar8 = phVar8 + 56;
+                } while (phVar8 != phVar9);
             }
-            pHVar2 = (HighlightManager*)this;
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_58) eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                (hashtable_iterator*)&local_48);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_19);
-            uVar3 = local_5c;
-            if (bVar4) {
+            this_00 = local_68;
+            puVar1 = &local_68->field_4305360;
+            local_48 = puVar1->begin();
+            new (&local_58) eastl::hashtable_iterator(&local_48);
+            local_78 = puVar1->end();
+            cVar4 = local_48 != local_78;
+            uVar2 = local_5c;
+            if (cVar4) {
                 do {
-                    eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<int const, unsigned int>, true, false>*)&local_58);
-                    piVar11 = (int*)local_48.HeapBeginPtr();
-                    new (&local_78) rs2lib::CoordGrid(*piVar11);
-                    RemoveTileHighlight(pHVar2, &local_78, uVar3, false);
+                    ++local_58;
+                    piVar10 = (int*)local_48.HeapBeginPtr();
+                    local_78 = rs2lib::CoordGrid(*piVar10);
+                    RemoveTileHighlight(this_00, &local_78, uVar2, false);
                     local_48 = local_58;
                     uStack_40 = uStack_50;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_20);
-                } while (bVar4);
+                    local_78 = puVar1->end();
+                    cVar4 = local_48 != local_78;
+                } while (cVar4);
             }
             break;
         case 8:
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            new (&local_58) eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                (hashtable_iterator*)&local_48);
-            eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::end();
-            bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_13);
-            if (bVar4) {
+            puVar1 = &field_4392;
+            local_48 = puVar1->begin();
+            new (&local_58) eastl::hashtable_iterator(&local_48);
+            local_78 = puVar1->end();
+            cVar4 = local_48 != local_78;
+            if (cVar4) {
                 do {
-                    eastl::hashtable_iterator<eastl::pair<OpGroup_const, HighlightedGroup>, true, false>::operator++(
-                        (hashtable_iterator<eastl::pair<OpGroup_const, HighlightedGroup>, true, false>*)&local_58);
-                    pOVar12 = (OpGroup*)local_48.HeapBeginPtr();
-                    RemoveOpGroupHighlight(this, pOVar12, param_3);
+                    ++local_58;
+                    opGroup = (OpGroup*)local_48.HeapBeginPtr();
+                    RemoveOpGroupHighlight(*opGroup, arg2);
                     local_48 = local_58;
                     uStack_40 = uStack_50;
-                    eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                     eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                     eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar4 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_78, extraout_RDX_14);
-                } while (bVar4);
+                    local_78 = puVar1->end();
+                    cVar4 = local_48 != local_78;
+                } while (cVar4);
             }
             break;
         default:
-            /* WARNING: Subroutine does not return */
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                             "highlighting/HighlightManager.cpp",
                             486, "Invalid highlight category");
         }
     }
 
-    // 0x100010a70: the linker folded this into TypeIDFromStaticEntityKey(long long), which has identical code
-    CreactionCycleFromNPCKey(long long);
+    // 0x100010a70: CreactionCycleFromNPCKey(long long) has the same machine code as TypeIDFromStaticEntityKey(long long)
 
-    // 0x100010aa0, 192 bytes, placed by class name
-    // HighlightManager::RemoveLocHighlight(int, rs2lib::CoordGrid const&, unsigned int, bool)
-    void HighlightManager::RemoveLocHighlight(int param_1, CoordGrid* param_2, uint param_3, bool param_4) {
-        CoordGrid* pCVar1;
-        undefined8 uVar2;
-        int iVar4;
-        undefined7 in_register_00000081;
+    // 0x100010aa0
+    void HighlightManager::RemoveLocHighlight(int arg1, const rs2lib::CoordGrid& coordGrid, unsigned int arg3,
+                                              bool arg4) {
+        uint64_t in_register_00000081;
         CoordGrid local_48;
-        longlong local_38;
 
-        if ((int)CONCAT71(in_register_00000081, param_4) == 0) {
-            new (&local_48) rs2lib::CoordGrid(param_2);
+        if ((int)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg4) == 0) {
+            local_48 = rs2lib::CoordGrid(coordGrid);
         } else {
-            pCVar1 = (CoordGrid*)Client::Instance();
-            local_48.WorldCoordToSourceCoord(pCVar1);
+            local_48.WorldCoordToSourceCoord(Client::Instance());
         }
-        uVar2 = GetLocHighlightMap(this, &local_48);
-        iVar4 = local_48.ToBitPacked();
-        local_38 = UniqueStaticEntityKey(param_1, iVar4);
-        if (RemoveEntityHighlight<long long>(this, &local_38, uVar2, param_3, 2)) {
-            UpdateUniqueLocHighlight(this, local_38);
+        auto arg2_00 = GetLocHighlightMap(local_48);
+        int arg2 = local_48.ToBitPacked();
+        long long local_38 = UniqueStaticEntityKey(arg1, arg2);
+        if (RemoveEntityHighlight<long long>(this, &local_38, arg2_00, arg3, 2)) {
+            UpdateUniqueLocHighlight(local_38);
         }
-        UpdateSave(this, &local_48, 2, param_3, 0);
+        UpdateSave(local_48, 2, arg3, false);
     }
 
-    // 0x100010b60, 192 bytes, placed by class name
-    // HighlightManager::RemoveObjHighlight(int, rs2lib::CoordGrid const&, unsigned int, bool)
-    void HighlightManager::RemoveObjHighlight(int param_1, CoordGrid* param_2, uint param_3, bool param_4) {
-        CoordGrid* pCVar1;
-        undefined8 uVar2;
-        int iVar4;
-        undefined7 in_register_00000081;
+    // 0x100010b60
+    void HighlightManager::RemoveObjHighlight(int arg1, const rs2lib::CoordGrid& coordGrid, unsigned int arg3,
+                                              bool arg4) {
+        uint64_t in_register_00000081;
         CoordGrid local_48;
-        longlong local_38;
 
-        if ((int)CONCAT71(in_register_00000081, param_4) == 0) {
-            new (&local_48) rs2lib::CoordGrid(param_2);
+        if ((int)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg4) == 0) {
+            local_48 = rs2lib::CoordGrid(coordGrid);
         } else {
-            pCVar1 = (CoordGrid*)Client::Instance();
-            local_48.WorldCoordToSourceCoord(pCVar1);
+            local_48.WorldCoordToSourceCoord(Client::Instance());
         }
-        uVar2 = GetObjHighlightMap(this, &local_48);
-        iVar4 = local_48.ToBitPacked();
-        local_38 = UniqueStaticEntityKey(param_1, iVar4);
-        if (RemoveEntityHighlight<long long>(this, &local_38, uVar2, param_3, 4)) {
-            UpdateUniqueObjHighlight(this, local_38);
+        auto arg2_00 = GetObjHighlightMap(local_48);
+        int arg2 = local_48.ToBitPacked();
+        long long local_38 = UniqueStaticEntityKey(arg1, arg2);
+        if (RemoveEntityHighlight<long long>(this, &local_38, arg2_00, arg3, 4)) {
+            UpdateUniqueObjHighlight(local_38);
         }
-        UpdateSave(this, &local_48, 4, param_3, 0);
+        UpdateSave(local_48, 4, arg3, false);
     }
 
-    // 0x100010d80, 176 bytes, placed by class name
-    // HighlightManager::RemoveTileHighlight(rs2lib::CoordGrid const&, unsigned int, bool)
-    void HighlightManager::RemoveTileHighlight(CoordGrid* param_1, uint param_2, bool param_3) {
-        CoordGrid* pCVar1;
-        undefined8 uVar2;
-        undefined7 in_register_00000009;
+    // 0x100010d80
+    void HighlightManager::RemoveTileHighlight(const rs2lib::CoordGrid& coordGrid, unsigned int arg2, bool arg3) {
+        uint64_t in_register_00000009;
         CoordGrid local_38;
 
-        if ((int)CONCAT71(in_register_00000009, param_3) == 0) {
-            new (&local_38) rs2lib::CoordGrid(param_1);
+        if ((int)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3) == 0) {
+            local_38 = rs2lib::CoordGrid(coordGrid);
         } else {
-            pCVar1 = (CoordGrid*)Client::Instance();
-            local_38.WorldCoordToSourceCoord(pCVar1);
+            local_38.WorldCoordToSourceCoord(Client::Instance());
         }
-        uVar2 = GetTileHighlightMap(this, &local_38);
+        auto arg2_00 = GetTileHighlightMap(local_38);
         local_38._12_4_ = local_38.ToBitPacked();
-        if (RemoveEntityHighlight<int>(this, &local_38.field_12, uVar2, param_2, 7)) {
-            UpdateUniqueTileHighlight(this, local_38._12_4_);
+        if (RemoveEntityHighlight<int>(this, (int*)&local_38.field_12, arg2_00, arg2, 7)) {
+            UpdateUniqueTileHighlight(local_38._12_4_);
         }
-        UpdateSave(this, &local_38, 7, param_2, 0);
+        UpdateSave(local_38, 7, arg2, false);
     }
 
-    // 0x100010e30, 80 bytes, placed by class name
-    // HighlightManager::RemoveNPCTypeHighlight(int, unsigned int)
-    void HighlightManager::RemoveNPCTypeHighlight(int param_1, uint param_2) {
-        int local_1c;
-
-        local_1c = param_1;
-        RemoveGroupHighlight<int>(this, &local_1c, &field_4224, param_2, 1);
-        UpdateSave(this, 1, param_2, 0);
+    // 0x100010e30
+    void HighlightManager::RemoveNPCTypeHighlight(int arg1, unsigned int arg2) {
+        int local_1c = arg1;
+        RemoveGroupHighlight<int>(this, &local_1c, (hash_map<int, HighlightedGroup>*)&field_4224, arg2, 1);
+        UpdateSave(1, arg2, false);
     }
 
-    // 0x100010e80, 80 bytes, placed by class name
-    // HighlightManager::RemoveLocTypeHighlight(int, unsigned int)
-    void HighlightManager::RemoveLocTypeHighlight(int param_1, uint param_2) {
-        int local_1c;
-
-        local_1c = param_1;
-        RemoveGroupHighlight<int>(this, &local_1c, &field_4280, param_2, 3);
-        UpdateSave(this, 3, param_2, 0);
+    // 0x100010e80
+    void HighlightManager::RemoveLocTypeHighlight(int arg1, unsigned int arg2) {
+        int local_1c = arg1;
+        RemoveGroupHighlight<int>(this, &local_1c, (hash_map<int, HighlightedGroup>*)&field_4280, arg2, 3);
+        UpdateSave(3, arg2, false);
     }
 
-    // 0x100010ed0, 80 bytes, placed by class name
-    // HighlightManager::RemoveObjTypeHighlight(int, unsigned int)
-    void HighlightManager::RemoveObjTypeHighlight(int param_1, uint param_2) {
-        int local_1c;
-
-        local_1c = param_1;
-        RemoveGroupHighlight<int>(this, &local_1c, &field_4336, param_2, 5);
-        UpdateSave(this, 5, param_2, 0);
+    // 0x100010ed0
+    void HighlightManager::RemoveObjTypeHighlight(int arg1, unsigned int arg2) {
+        int local_1c = arg1;
+        RemoveGroupHighlight<int>(this, &local_1c, (hash_map<int, HighlightedGroup>*)&field_4336, arg2, 5);
+        UpdateSave(5, arg2, false);
     }
 
-    // 0x100010f20, 64 bytes, placed by class name
-    // HighlightManager::RemoveOpGroupHighlight(OpGroup const&, unsigned int)
-    void HighlightManager::RemoveOpGroupHighlight(OpGroup* param_1, uint param_2) {
-        RemoveGroupHighlight<OpGroup>(this, param_1, &field_4392, param_2, 8);
-        UpdateSave(this, 8, param_2, 0);
+    // 0x100010f20
+    void HighlightManager::RemoveOpGroupHighlight(const OpGroup& opGroup, unsigned int arg2) {
+        RemoveGroupHighlight<OpGroup>(this, opGroup, (hash_map<OpGroup, HighlightedGroup>*)&field_4392, arg2, 8);
+        UpdateSave(8, arg2, false);
     }
 
-    // 0x100010fb0, 80 bytes, placed by class name
-    // HighlightManager::AddNewChannelToMask(int, unsigned int*, HighlightCategory)
-    bool HighlightManager::AddNewChannelToMask(uint param_1, uint* param_2, undefined4 param_4) {
-        int iVar1;
-        int iVar2;
-        uint uVar3;
-
-        iVar1 = GetActiveChannelFromBitmask(this, *param_2, param_4);
-        uVar3 = *param_2 | 1 << (param_1 & 31);
-        *param_2 = uVar3;
-        iVar2 = GetActiveChannelFromBitmask(this, uVar3, param_4);
+    // 0x100010fb0
+    bool HighlightManager::AddNewChannelToMask(int arg1, unsigned int* arg2, HighlightCategory highlightCategory) {
+        int iVar1 = GetActiveChannelFromBitmask(*arg2, highlightCategory);
+        unsigned int arg1_00 = *arg2 | 1 << (arg1 & 31U);
+        *arg2 = arg1_00;
+        int iVar2 = GetActiveChannelFromBitmask(arg1_00, highlightCategory);
         return iVar1 != iVar2;
     }
 
-    // 0x100011000, 80 bytes, placed by class name
-    // HighlightManager::AddNPCHighlight(int, int, unsigned int)
-    void HighlightManager::AddNPCHighlight(int param_1, int param_2, uint param_3) {
-        longlong local_20;
-
-        local_20 = UniqueNPCKey(param_1, param_2);
-        if (AddEntityHighlight<long long>(this, &local_20, &field_4112, param_3, 0)) {
-            UpdateUniqueNPCHighlightOrRemoveIfReused(this, local_20);
+    // 0x100011000
+    void HighlightManager::AddNPCHighlight(int arg1, int arg2, unsigned int arg3) {
+        long long local_20 = UniqueNPCKey(arg1, arg2);
+        if (AddEntityHighlight<long long>(this, &local_20, (hash_map<long long, unsigned int>*)&field_4112, arg3, 0)) {
+            UpdateUniqueNPCHighlightOrRemoveIfReused(local_20);
         }
     }
 
-    // 0x100011090, 112 bytes, placed by neighbouring functions
-    // UnpackCoord(int, bool, int*)
-    highlight* UnpackCoord(int param_1, bool param_2, int* param_3) {
-        CoordGrid* pCVar2;
-        undefined7 in_register_00000011;
-        undefined1 local_38[16];
+    // 0x100011090
+    rs2lib::CoordGrid UnpackCoord(int arg1, bool arg2, int* arg3) {
+        uint64_t in_register_00000011;
+        ReturnValue local_38;
+        uint32_t local_30;
 
-        new (this) rs2lib::CoordGrid(param_1);
-        if ((int)CONCAT71(in_register_00000011, param_2) != 0) {
-            if (InRegion() != '\0') {
-                pCVar2 = (CoordGrid*)Client::Instance();
-                local_38->WorldCoordToSourceCoord(pCVar2);
-                field_8 = local_38._8_4_;
-                *(undefined8*)this = local_38._0_8_;
-                if (param_3 != (int*)0) {
-                    *param_3 = param_1;
+        rs2lib::CoordGrid result(arg1);
+        if ((int)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg2) != 0) {
+            if (result.InRegion() != '\0') {
+                local_38.WorldCoordToSourceCoord(Client::Instance());
+                *(uint32_t*)(&result + 1) = local_30;
+                result = local_38;
+                if (arg3 != nullptr) {
+                    *arg3 = arg1;
                 }
             }
         }
-        return this;
+        return result;
     }
 
-    // 0x100011100, 192 bytes, placed by class name
-    // HighlightManager::AddLocHighlight(int, rs2lib::CoordGrid const&, unsigned int, bool, bool)
-    void HighlightManager::AddLocHighlight(int param_1, CoordGrid* param_2, uint param_3, bool param_4, bool param_5) {
-        CoordGrid* pCVar1;
-        undefined8 uVar2;
-        int iVar4;
-        undefined7 in_register_00000081;
-        undefined3 in_register_00000089;
+    // 0x100011100
+    void HighlightManager::AddLocHighlight(int arg1, const rs2lib::CoordGrid& coordGrid, unsigned int arg3, bool arg4,
+                                           bool arg5) {
+        uint64_t in_register_00000081;
+        uint32_t in_register_00000089;
         CoordGrid local_50;
-        longlong local_40;
 
         register0x00000089 = in_register_00000089;
-        if ((int)CONCAT71(in_register_00000081, param_4) == 0) {
-            new (&local_50) rs2lib::CoordGrid(param_2);
+        if ((int)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg4) == 0) {
+            local_50 = rs2lib::CoordGrid(coordGrid);
         } else {
-            pCVar1 = (CoordGrid*)Client::Instance();
-            local_50.WorldCoordToSourceCoord(pCVar1);
+            local_50.WorldCoordToSourceCoord(Client::Instance());
         }
-        uVar2 = GetLocHighlightMap(this, &local_50);
-        iVar4 = local_50.ToBitPacked();
-        local_40 = UniqueStaticEntityKey(param_1, iVar4);
-        if (AddEntityHighlight<long long>(this, &local_40, uVar2, param_3, 2)) {
-            UpdateUniqueLocHighlight(this, local_40);
+        auto arg2_00 = GetLocHighlightMap(local_50);
+        int arg2 = local_50.ToBitPacked();
+        long long local_40 = UniqueStaticEntityKey(arg1, arg2);
+        if (AddEntityHighlight<long long>(this, &local_40, arg2_00, arg3, 2)) {
+            UpdateUniqueLocHighlight(local_40);
         }
-        UpdateSave(this, &local_50, 2, param_3, (undefined1)param_5);
+        UpdateSave(local_50, 2, arg3, arg5);
     }
 
-    // 0x100011220, 128 bytes, placed by class name
-    // HighlightManager::UpdateSave(rs2lib::CoordGrid const&, HighlightCategory, int, bool)
-    void HighlightManager::UpdateSave(CoordGrid* param_1, int param_3, int param_4, int param_5) {
+    // 0x100011220
+    void HighlightManager::UpdateSave(const rs2lib::CoordGrid& coordGrid, HighlightCategory highlightCategory, int arg3,
+                                      bool arg4) {
         array<HighlightChannelProperties, 32ul>* this_00;
-        EntityHighlight* this_01;
-        char cVar1;
-        undefined1 local_30[8];
+        uint32_t in_register_00000081;
+        uint8_t local_30[8];
 
-        if (param_5 == 0) {
-            cVar1 = param_1->InRegion();
-            if (cVar1 == '\0') {
-                this_00 = (array<HighlightChannelProperties, 32ul>*)
-                    std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                        (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, (long)param_3);
-                this_01 =
-                    (EntityHighlight*)std::array<HighlightChannelProperties, 32ul>::operator[](this_00, (long)param_4);
-                cVar1 = this_01->SaveToFileEnable();
-                if (cVar1 != '\0') {
-                    new (local_30) rs2lib::CoordMapSquare(param_1);
-                    OnHighlightUpdate(param_3, local_30);
+        if ((((uint32_t)in_register_00000081 << 8) | (uint8_t)arg4) == 0) {
+            if (!(coordGrid.InRegion())) {
+                this_00 = &field_640[(long)(int)highlightCategory];
+                if (((EntityHighlight*)(*this_00)[(long)arg3])->SaveToFileEnable()) {
+                    new (local_30) rs2lib::CoordMapSquare(coordGrid);
+                    OnHighlightUpdate(highlightCategory, *local_30);
                 }
             }
         }
     }
 
-    // 0x1000112a0, 192 bytes, placed by class name
-    // HighlightManager::AddObjHighlight(int, rs2lib::CoordGrid const&, unsigned int, bool, bool)
-    void HighlightManager::AddObjHighlight(int param_1, CoordGrid* param_2, uint param_3, bool param_4, bool param_5) {
-        CoordGrid* pCVar1;
-        undefined8 uVar2;
-        int iVar4;
-        undefined7 in_register_00000081;
-        undefined3 in_register_00000089;
+    // 0x1000112a0
+    void HighlightManager::AddObjHighlight(int arg1, const rs2lib::CoordGrid& coordGrid, unsigned int arg3, bool arg4,
+                                           bool arg5) {
+        uint64_t in_register_00000081;
+        uint32_t in_register_00000089;
         CoordGrid local_50;
-        longlong local_40;
 
         register0x00000089 = in_register_00000089;
-        if ((int)CONCAT71(in_register_00000081, param_4) == 0) {
-            new (&local_50) rs2lib::CoordGrid(param_2);
+        if ((int)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg4) == 0) {
+            local_50 = rs2lib::CoordGrid(coordGrid);
         } else {
-            pCVar1 = (CoordGrid*)Client::Instance();
-            local_50.WorldCoordToSourceCoord(pCVar1);
+            local_50.WorldCoordToSourceCoord(Client::Instance());
         }
-        uVar2 = GetObjHighlightMap(this, &local_50);
-        iVar4 = local_50.ToBitPacked();
-        local_40 = UniqueStaticEntityKey(param_1, iVar4);
-        if (AddEntityHighlight<long long>(this, &local_40, uVar2, param_3, 4)) {
-            UpdateUniqueObjHighlight(this, local_40);
+        auto arg2_00 = GetObjHighlightMap(local_50);
+        int arg2 = local_50.ToBitPacked();
+        long long local_40 = UniqueStaticEntityKey(arg1, arg2);
+        if (AddEntityHighlight<long long>(this, &local_40, arg2_00, arg3, 4)) {
+            UpdateUniqueObjHighlight(local_40);
         }
-        UpdateSave(this, &local_50, 4, param_3, (undefined1)param_5);
+        UpdateSave(local_50, 4, arg3, arg5);
     }
 
-    // 0x1000113b0, 96 bytes, placed by class name
-    // HighlightManager::AddPlayerHighlight(eastl::string const&, unsigned int, bool)
-    void HighlightManager::AddPlayerHighlight(basic_string* param_1, uint param_2, bool param_3) {
-        bool bVar1;
-
-        bVar1 = AddEntityHighlight<eastl::string>(this, param_1, &field_4168, param_2, 6);
-        if (bVar1) {
-            UpdateUniquePlayerHighlight(this, param_1);
+    // 0x1000113b0
+    void HighlightManager::AddPlayerHighlight(const eastl::string& str, unsigned int arg2, bool arg3) {
+        if (AddEntityHighlight<eastl::string>(this, str, (hash_map<eastl::string, unsigned int>*)&field_4168, arg2,
+                                              6)) {
+            UpdateUniquePlayerHighlight(str);
         }
-        UpdateSave(this, 6, param_2, param_3);
+        UpdateSave(6, arg2, arg3);
     }
 
-    // 0x100011450, 96 bytes, placed by class name
-    // HighlightManager::UpdateSave(HighlightCategory, int, bool)
-    void HighlightManager::UpdateSave(int param_2, int param_3, int param_4) {
+    // 0x100011450
+    void HighlightManager::UpdateSave(HighlightCategory highlightCategory, int arg2, bool arg3) {
         array<HighlightChannelProperties, 32ul>* this_00;
-        EntityHighlight* this_01;
+        uint32_t in_register_00000009;
 
-        if (param_4 == 0) {
-            this_00 = (array<HighlightChannelProperties, 32ul>*)
-                std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                    (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, (long)param_2);
-            this_01 =
-                (EntityHighlight*)std::array<HighlightChannelProperties, 32ul>::operator[](this_00, (long)param_3);
-            if (this_01->SaveToFileEnable() != '\0') {
-                OnHighlightUpdate(param_2);
+        if ((((uint32_t)in_register_00000009 << 8) | (uint8_t)arg3) == 0) {
+            this_00 = &field_640[(long)(int)highlightCategory];
+            if (((EntityHighlight*)(*this_00)[(long)arg2])->SaveToFileEnable() != '\0') {
+                OnHighlightUpdate(highlightCategory);
             }
         }
     }
 
-    // 0x1000114b0, 176 bytes, placed by class name
-    // HighlightManager::AddTileHighlight(rs2lib::CoordGrid const&, unsigned int, bool, bool)
-    void HighlightManager::AddTileHighlight(CoordGrid* param_1, uint param_2, bool param_3, bool param_4) {
-        CoordGrid* pCVar1;
-        undefined8 uVar2;
-        undefined7 in_register_00000009;
+    // 0x1000114b0
+    void HighlightManager::AddTileHighlight(const rs2lib::CoordGrid& coordGrid, unsigned int arg2, bool arg3,
+                                            bool arg4) {
+        uint64_t in_register_00000009;
         CoordGrid local_40;
 
-        if ((int)CONCAT71(in_register_00000009, param_3) == 0) {
-            new (&local_40) rs2lib::CoordGrid(param_1);
+        if ((int)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3) == 0) {
+            local_40 = rs2lib::CoordGrid(coordGrid);
         } else {
-            pCVar1 = (CoordGrid*)Client::Instance();
-            local_40.WorldCoordToSourceCoord(pCVar1);
+            local_40.WorldCoordToSourceCoord(Client::Instance());
         }
-        uVar2 = GetTileHighlightMap(this, &local_40);
+        auto arg2_00 = GetTileHighlightMap(local_40);
         local_40._12_4_ = local_40.ToBitPacked();
-        if (AddEntityHighlight<int>(this, &local_40.field_12, uVar2, param_2, 7)) {
-            UpdateUniqueTileHighlight(this, local_40._12_4_);
+        if (AddEntityHighlight<int>(this, (int*)&local_40.field_12, arg2_00, arg2, 7)) {
+            UpdateUniqueTileHighlight(local_40._12_4_);
         }
-        UpdateSave(this, &local_40, 7, param_2, param_4);
+        UpdateSave(local_40, 7, arg2, arg4);
     }
 
-    // 0x1000115f0, 400 bytes, placed by class name
-    // HighlightManager::AddNPCTypeHighlight(int, unsigned int, bool)
-    void HighlightManager::AddNPCTypeHighlight(int param_1, uint param_2, bool param_3) {
-        char cVar1;
-        int iVar3;
-        uint uVar4;
-        HighlightedGroup* pHVar5;
+    // 0x1000115f0
+    void HighlightManager::AddNPCTypeHighlight(int arg1, unsigned int arg2, bool arg3) {
+        bool cVar1;
+        int iVar2;
+        int arg1_00;
+        HighlightedGroup* highlightedGroup;
         array<HighlightChannelProperties, 32ul>* this_00;
-        HighlightChannelProperties* this_01;
         Client* this_02;
-        long lVar6;
-        uint* puVar7;
-        undefined7 in_register_00000009;
-        int iVar8;
-        ulong uVar9;
-        SeparatedIndexCount local_60[2];
-        uint local_4c;
+        long lVar3;
+        int* piVar4;
+        uint64_t in_register_00000009;
+        int arg1_01;
+        SeparatedIndexCount local_60;
+        unsigned int local_4c;
         HighlightedGroup* local_48;
-        uint local_3c;
-        uint local_38;
+        uint32_t local_38;
         char local_31;
 
-        if (param_2 < 32) {
-            uVar9 = CONCAT71(in_register_00000009, param_3) & 4294967295;
-            local_3c = param_1;
-            pHVar5 = (HighlightedGroup*)eastl::hash_map<
-                int, HighlightedGroup, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator,
-                false>::operator[]((hash_map<int, HighlightedGroup, eastl::hash<int>, eastl::equal_to<int>,
-                                             eastl::allocator, false>*)&field_4224,
-                                   (int*)&local_3c);
-            if (*(int*)pHVar5 == 0) {
-                local_38 = (uint)CONCAT71(in_register_00000009, param_3);
-                *(int*)pHVar5 = 1 << ((byte)param_2 & 31);
-                local_48 = pHVar5;
-                this_00 = (array<HighlightChannelProperties, 32ul>*)
-                    std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                        (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, 1);
-                this_01 = (HighlightChannelProperties*)std::array<HighlightChannelProperties, 32ul>::operator[](
-                    this_00, (ulong)param_2);
-                local_31 = this_01->IsEnabled();
-                this_02 = (Client*)Client::Instance();
-                iVar3 = this_02->GetLastNpcNum();
-                if (iVar3 < 1) {
+        if (arg2 < 32) {
+            highlightedGroup = (HighlightedGroup*)field_4224[arg1];
+            if (*(int*)highlightedGroup == 0) {
+                local_38 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+                *(int*)highlightedGroup = 1 << ((uint8_t)arg2 & 31);
+                local_48 = highlightedGroup;
+                this_00 = &field_640[1];
+                local_31 = ((HighlightChannelProperties*)(*this_00)[(unsigned long)arg2])->IsEnabled();
+                this_02 = Client::Instance();
+                iVar2 = this_02->GetLastNpcNum();
+                if (iVar2 < 1) {
                 } else {
-                    iVar8 = 0;
-                    local_4c = param_2;
+                    arg1_01 = 0;
+                    local_4c = arg2;
                     do {
-                        uVar4 = this_02->GetLastNpcId(iVar8);
-                        lVar6 = this_02->GetClientNpc(uVar4);
-                        if (lVar6 != 0) {
-                            if (((lVar6 + 1024))->operator_cast_to_bool()) {
-                                puVar7 = (uint*)shared_ptr<configdecoder::NpcType>::operator->(
-                                    (shared_ptr<configdecoder::NpcType>*)(lVar6 + 1024));
-                                if (*puVar7 == local_3c) {
-                                    dash3d::AnimateBaseOperation::SeparatedIndexCount::SeparatedIndexCount(
-                                        local_60, (ulong)local_3c, (ulong)uVar4);
-                                    local_48->CacheEntity(local_60);
-                                }
+                        arg1_00 = this_02->GetLastNpcId(arg1_01);
+                        lVar3 = this_02->GetClientNpc(arg1_00);
+                        if (lVar3 != 0) {
+                            cVar1 = ((lVar3 + 1024))->operator_cast_to_bool();
+                            if ((cVar1) && (piVar4 = (int*)(*((lVar3 + 1024))).operator->(), *piVar4 == arg1)) {
+                                local_60 = dash3d::AnimateBaseOperation::SeparatedIndexCount(arg1, arg1_00);
+                                local_48->CacheEntity(local_60);
                             }
                         }
-                        iVar8 = iVar8 + 1;
-                    } while (iVar3 != iVar8);
-                    this = (HighlightManager*)this;
-                    param_2 = local_4c;
+                        arg1_01 = arg1_01 + 1;
+                    } while (iVar2 != arg1_01);
+                    this = this;
+                    arg2 = local_4c;
                 }
-                uVar9 = (ulong)local_38;
-                pHVar5 = local_48;
+                arg3 = (uint8_t)local_38;
+                highlightedGroup = local_48;
                 cVar1 = local_31;
             } else {
-                cVar1 = AddNewChannelToMask(this, param_2, pHVar5, 1);
+                cVar1 = AddNewChannelToMask(arg2, highlightedGroup, 1);
             }
-            if (cVar1 != '\0') {
-                UpdateCachedHighlights(this, pHVar5);
+            if (cVar1) {
+                UpdateCachedHighlights(*highlightedGroup);
             }
-            UpdateSave(this, 1, param_2, uVar9 & 255);
+            UpdateSave(1, arg2, arg3);
         }
     }
 
-    // 0x1000117d0, 1248 bytes, placed by class name
-    // HighlightManager::AddLocTypeHighlight(int, unsigned int, bool)
-    void HighlightManager::AddLocTypeHighlight(int param_1, uint param_2, bool param_3) {
+    // 0x1000117d0
+    void HighlightManager::AddLocTypeHighlight(int arg1, unsigned int arg2, bool arg3) {
         int iVar1;
-        char cVar2;
-        bool bVar3;
-        int iVar4;
-        HighlightedGroup* pHVar5;
+        bool cVar2;
+        int iVar3;
+        HighlightedGroup* highlightedGroup;
         array<HighlightChannelProperties, 32ul>* this_00;
-        HighlightChannelProperties* this_01;
-        long lVar6;
-        undefined7 in_register_00000009;
-        int iVar7;
-        int iVar8;
-        ulong uVar9;
-        shared_ptr in_stack_fffffffffffffef8;
-        shared_ptr<dash3d::Decor> asStack_f6[6];
-        shared_ptr<RSevenDebugPresetProvider> local_f0[16];
-        shared_ptr<dash3d::Decor> local_e0[16];
-        shared_ptr<dash3d::Decor> local_d0[16];
+        long lVar4;
+        uint64_t in_register_00000009;
+        int arg2_00;
+        int arg3_00;
+        shared_ptr<dash3d::Decor> local_100;
+        shared_ptr<RSevenDebugPresetProvider> local_f0;
+        shared_ptr<dash3d::Decor> local_e0;
+        shared_ptr<dash3d::Decor> local_d0;
         shared_ptr local_c0;
-        CoordGrid* local_b0;
+        Client* local_b0;
         CoordGrid local_a0;
         shared_ptr local_90;
         shared_ptr local_80;
-        EntityWithCoord<dash3d::Decor> local_70[24];
-        uint local_58;
-        uint local_54;
-        undefined8 local_50;
+        CoordGrid local_70;
+        unsigned int local_58;
+        uint32_t local_54;
+        world* local_50;
         HighlightedGroup* local_48;
         int local_40;
-        int local_3c;
         int local_38;
         char local_31;
 
-        if (param_2 < 32) {
-            uVar9 = CONCAT71(in_register_00000009, param_3) & 4294967295;
-            local_3c = param_1;
-            pHVar5 = (HighlightedGroup*)eastl::hash_map<
-                int, HighlightedGroup, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator,
-                false>::operator[]((hash_map<int, HighlightedGroup, eastl::hash<int>, eastl::equal_to<int>,
-                                             eastl::allocator, false>*)&field_4280,
-                                   &local_3c);
-            if (*(int*)pHVar5 == 0) {
-                local_54 = (uint)CONCAT71(in_register_00000009, param_3);
-                *(int*)pHVar5 = 1 << ((byte)param_2 & 31);
-                local_48 = pHVar5;
-                this_00 = (array<HighlightChannelProperties, 32ul>*)
-                    std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                        (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, 3);
-                local_58 = param_2;
-                this_01 = (HighlightChannelProperties*)std::array<HighlightChannelProperties, 32ul>::operator[](
-                    this_00, (ulong)param_2);
-                local_31 = this_01->IsEnabled();
-                local_b0 = (CoordGrid*)Client::Instance();
-                local_50 = ((local_b0 + 1199))->get();
+        if (arg2 < 32) {
+            highlightedGroup = (HighlightedGroup*)field_4280[arg1];
+            if (*(int*)highlightedGroup == 0) {
+                local_54 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+                *(int*)highlightedGroup = 1 << ((uint8_t)arg2 & 31);
+                local_48 = highlightedGroup;
+                this_00 = &field_640[3];
+                local_58 = arg2;
+                local_31 = ((HighlightChannelProperties*)(*this_00)[(unsigned long)arg2])->IsEnabled();
+                local_b0 = Client::Instance();
+                local_50 = (world*)local_b0->field_19184.get();
                 local_38 = 0;
                 do {
-                    iVar7 = 0;
+                    arg2_00 = 0;
                     do {
-                        iVar8 = 0;
+                        arg3_00 = 0;
                         do {
                             iVar1 = local_38;
-                            new (&local_a0) rs2lib::CoordGrid(local_38, iVar7, iVar8);
-                            local_70->WorldCoordFromBuildCoord(local_b0);
-                            local_40 = local_70->ToBitPacked();
-                            dash3d::world::GetWall((int)&local_a0, (int)local_50, iVar1);
-                            bVar3 = local_a0.operator_cast_to_bool();
-                            if (bVar3) {
-                                lVar6 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_a0);
-                                iVar4 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar6 + 56));
-                                iVar1 = local_3c;
-                                if (iVar4 == local_3c) {
-                                    shared_ptr<dash3d::Decor>::shared_ptr(local_e0, (shared_ptr*)&local_a0);
-                                    EntityWithCoord<dash3d::Decor>::EntityWithCoord(local_70, local_40, iVar1,
-                                                                                    in_stack_fffffffffffffef8);
+                            local_a0 = rs2lib::CoordGrid(local_38, arg2_00, arg3_00);
+                            local_70 = local_b0->WorldCoordFromBuildCoord(local_a0);
+                            local_40 = local_70.ToBitPacked();
+                            local_a0 = local_50->GetWall(iVar1, arg2_00, arg3_00);
+                            cVar2 = local_a0.operator_cast_to_bool();
+                            if (cVar2) {
+                                lVar4 = local_a0.operator->();
+                                iVar3 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar4 + 56));
+                                iVar1 = arg1;
+                                if (iVar3 == arg1) {
+                                    local_e0 = shared_ptr(&local_a0);
+                                    local_70 = EntityWithCoord(local_40, iVar1, &local_e0);
                                     local_48->CacheEntity(local_70);
-                                    local_70->~EntityWithCoord();
-                                    local_e0->~shared_ptr();
                                 }
                             }
-                            dash3d::world::GetDecor((int)&local_90, (int)local_50, local_38);
-                            bVar3 = shared_ptr::operator_cast_to_bool(&local_90);
-                            if (bVar3) {
-                                lVar6 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_90);
-                                iVar4 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar6 + 64));
-                                iVar1 = local_3c;
-                                if (iVar4 == local_3c) {
-                                    shared_ptr<dash3d::Decor>::shared_ptr(local_d0, &local_90);
-                                    EntityWithCoord<dash3d::Decor>::EntityWithCoord(local_70, local_40, iVar1,
-                                                                                    in_stack_fffffffffffffef8);
+                            local_90 = local_50->GetDecor(local_38, arg2_00, arg3_00);
+                            cVar2 = shared_ptr::operator_cast_to_bool(&local_90);
+                            if (cVar2) {
+                                lVar4 = local_90.operator->();
+                                iVar3 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar4 + 64));
+                                iVar1 = arg1;
+                                if (iVar3 == arg1) {
+                                    local_d0 = shared_ptr(&local_90);
+                                    local_70 = EntityWithCoord(local_40, iVar1, &local_d0);
                                     local_48->CacheEntity(local_70);
-                                    local_70->~EntityWithCoord();
-                                    local_d0->~shared_ptr();
                                 }
                             }
-                            dash3d::world::GetScene((int)&local_80, (int)local_50, local_38);
-                            bVar3 = shared_ptr::operator_cast_to_bool(&local_80);
-                            if (bVar3) {
-                                lVar6 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)&local_80);
-                                iVar4 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar6 + 80));
-                                iVar1 = local_3c;
-                                if (iVar4 == local_3c) {
-                                    shared_ptr<dash3d::Decor>::shared_ptr(asStack_f6 + -10, &local_80);
-                                    EntityWithCoord<dash3d::Decor>::EntityWithCoord(local_70, local_40, iVar1,
-                                                                                    in_stack_fffffffffffffef8);
+                            local_80 = local_50->GetScene(local_38, arg2_00, arg3_00);
+                            cVar2 = shared_ptr::operator_cast_to_bool(&local_80);
+                            if (cVar2) {
+                                lVar4 = local_80.operator->();
+                                iVar3 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar4 + 80));
+                                iVar1 = arg1;
+                                if (iVar3 == arg1) {
+                                    local_100 = shared_ptr(&local_80);
+                                    local_70 = EntityWithCoord(local_40, iVar1, &local_100);
                                     local_48->CacheEntity(local_70);
-                                    local_70->~EntityWithCoord();
-                                    ((asStack_f6 + -10))->~shared_ptr();
                                 }
                             }
-                            dash3d::world::GetGd((int)&local_c0, (int)local_50, local_38);
-                            bVar3 = shared_ptr::operator_cast_to_bool(&local_c0);
-                            if (bVar3) {
-                                lVar6 = shared_ptr<dash3d::GroundDecor>::operator->(
-                                    (shared_ptr<dash3d::GroundDecor>*)&local_c0);
-                                iVar4 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar6 + 32));
-                                iVar1 = local_3c;
-                                if (iVar4 == local_3c) {
-                                    new (local_f0) shared_ptr<dash3d::Decor>(&local_c0);
-                                    EntityWithCoord<dash3d::Decor>::EntityWithCoord(local_70, local_40, iVar1,
-                                                                                    in_stack_fffffffffffffef8);
+                            local_c0 = local_50->GetGd(local_38, arg2_00, arg3_00);
+                            cVar2 = shared_ptr::operator_cast_to_bool(&local_c0);
+                            if (cVar2) {
+                                lVar4 = local_c0.operator->();
+                                iVar3 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar4 + 32));
+                                iVar1 = arg1;
+                                if (iVar3 == arg1) {
+                                    local_f0 = shared_ptr(&local_c0);
+                                    local_70 = EntityWithCoord(local_40, iVar1, &local_f0);
                                     local_48->CacheEntity(local_70);
-                                    local_70->~EntityWithCoord();
-                                    local_f0->~shared_ptr();
                                 }
                             }
-                            local_c0.~shared_ptr();
-                            local_80.~shared_ptr();
-                            local_90.~shared_ptr();
-                            local_a0.~shared_ptr();
-                            iVar8 = iVar8 + 1;
-                        } while (iVar8 != 103);
-                        iVar7 = iVar7 + 1;
-                    } while (iVar7 != 103);
+                            arg3_00 = arg3_00 + 1;
+                        } while (arg3_00 != 103);
+                        arg2_00 = arg2_00 + 1;
+                    } while (arg2_00 != 103);
                     local_38 = local_38 + 1;
                 } while (local_38 != 4);
-                uVar9 = (ulong)local_54;
+                arg3 = (uint8_t)local_54;
                 local_38 = 4;
-                this = (HighlightManager*)this;
-                param_2 = local_58;
-                pHVar5 = local_48;
+                this = this;
+                arg2 = local_58;
+                highlightedGroup = local_48;
                 cVar2 = local_31;
             } else {
-                cVar2 = AddNewChannelToMask(this, param_2, pHVar5, 3);
+                cVar2 = AddNewChannelToMask(arg2, highlightedGroup, 3);
             }
-            if (cVar2 != '\0') {
-                UpdateCachedHighlights(this, pHVar5);
+            if (cVar2) {
+                UpdateCachedHighlights(*highlightedGroup);
             }
-            UpdateSave(this, 3, param_2, uVar9 & 255);
+            UpdateSave(3, arg2, arg3);
         }
     }
 
-    // 0x100011d40, 624 bytes, placed by class name
-    // HighlightManager::AddObjTypeHighlight(int, unsigned int, bool)
-    void HighlightManager::AddObjTypeHighlight(int param_1, uint param_2, bool param_3) {
-        list<console::Line, eastl::allocator>* this_00;
-        char cVar1;
-        bool bVar2;
-        HighlightedGroup* pHVar3;
-        array<HighlightChannelProperties, 32ul>* this_01;
-        HighlightChannelProperties* this_02;
+    // 0x100011d40
+    void HighlightManager::AddObjTypeHighlight(int arg1, unsigned int arg2, bool arg3) {
+        bool cVar1;
+        HighlightedGroup* highlightedGroup;
+        array<HighlightChannelProperties, 32ul>* this_00;
+        list<console::Line>* this_02;
         shared_ptr* this_03;
-        long lVar4;
-        undefined7 in_register_00000009;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* phVar5;
-        int iVar6;
-        ulong uVar7;
-        shared_ptr in_stack_ffffffffffffff58;
-        list<console::Line, eastl::allocator> local_98[2];
-        list<console::Line, eastl::allocator> alStack_96[6];
+        long lVar2;
+        uint64_t in_register_00000009;
+        int arg3_00;
+        ReturnValue local_a0;
+        ReturnValue local_98;
         CoordGrid local_90;
-        shared_ptr<dash3d::Decor> local_78[16];
+        shared_ptr<dash3d::Decor> local_78;
         Client* local_68;
         HighlightedGroup* local_58;
         int local_50;
-        int local_4c;
-        uint local_48;
-        uint local_44;
-        int local_40;
+        unsigned int local_48;
+        uint32_t local_44;
         int local_3c;
         int local_38;
         char local_31;
 
-        if (param_2 < 32) {
-            uVar7 = CONCAT71(in_register_00000009, param_3) & 4294967295;
-            local_40 = param_1;
-            pHVar3 = (HighlightedGroup*)eastl::hash_map<
-                int, HighlightedGroup, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator,
-                false>::operator[]((hash_map<int, HighlightedGroup, eastl::hash<int>, eastl::equal_to<int>,
-                                             eastl::allocator, false>*)&field_4336,
-                                   &local_40);
-            if (*(int*)pHVar3 == 0) {
-                local_44 = (uint)CONCAT71(in_register_00000009, param_3);
-                *(int*)pHVar3 = 1 << ((byte)param_2 & 31);
-                local_58 = pHVar3;
-                this_01 = (array<HighlightChannelProperties, 32ul>*)
-                    std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                        (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, 5);
-                local_48 = param_2;
-                this_02 = (HighlightChannelProperties*)std::array<HighlightChannelProperties, 32ul>::operator[](
-                    this_01, (ulong)param_2);
-                local_31 = this_02->IsEnabled();
+        if (arg2 < 32) {
+            highlightedGroup = (HighlightedGroup*)field_4336[arg1];
+            if (*(int*)highlightedGroup == 0) {
+                local_44 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+                *(int*)highlightedGroup = 1 << ((uint8_t)arg2 & 31);
+                local_58 = highlightedGroup;
+                this_00 = &field_640[5];
+                local_48 = arg2;
+                local_31 = ((HighlightChannelProperties*)(*this_00)[(unsigned long)arg2])->IsEnabled();
                 local_38 = 0;
-                local_68 = (Client*)Client::Instance();
-                this_00 = local_98 + -8;
+                local_68 = Client::Instance();
                 do {
                     local_3c = 0;
                     do {
-                        iVar6 = 0;
+                        arg3_00 = 0;
                         do {
-                            new (&local_90) rs2lib::CoordGrid(local_38, local_3c, iVar6);
-                            local_68->GetObjectsOnTile(&local_90);
-                            eastl::list<console::Line, eastl::allocator>::begin(this_00);
-                            eastl::list<console::Line, eastl::allocator>::end(local_98);
-                            phVar5 = extraout_RDX;
-                            while (bVar2 =
-                                       eastl::operator!=((eastl*)this_00, (hashtable_iterator_base*)local_98, phVar5),
-                                   bVar2) {
-                                this_03 = (shared_ptr*)
-                                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                        (ListIterator<console::Line, console::Line*, console::Line&>*)this_00);
-                                bVar2 = shared_ptr::operator_cast_to_bool(this_03);
-                                if ((bVar2) &&
-                                    (lVar4 = shared_ptr<ClientObj>::operator->((shared_ptr<ClientObj>*)this_03),
-                                     *(int*)(lVar4 + 24) == local_40)) {
-                                    local_50 = rs2lib::CoordGrid::BitPack(local_38, local_3c, iVar6);
-                                    local_4c = local_40;
-                                    shared_ptr<dash3d::Decor>::shared_ptr(local_78, this_03);
-                                    new (&local_90)
-                                        EntityWithCoord<dash3d::Decor>(local_50, local_4c, in_stack_ffffffffffffff58);
-                                    local_58->CacheEntity((EntityWithCoord*)&local_90);
-                                    local_90.~EntityWithCoord();
-                                    local_78->~shared_ptr();
+                            local_90 = rs2lib::CoordGrid(local_38, local_3c, arg3_00);
+                            this_02 = (list<console::Line>*)local_68->GetObjectsOnTile(local_90);
+                            local_a0 = this_02->begin();
+                            local_98 = this_02->end();
+                            while (cVar1 = local_a0 != local_98, cVar1) {
+                                this_03 = (shared_ptr*)*local_a0;
+                                cVar1 = shared_ptr::operator_cast_to_bool(this_03);
+                                if ((cVar1) && (lVar2 = (*this_03).operator->(), *(int*)(lVar2 + 24) == arg1)) {
+                                    local_50 = rs2lib::CoordGrid::BitPack(local_38, local_3c, arg3_00);
+                                    local_78 = shared_ptr(this_03);
+                                    local_90 = EntityWithCoord(local_50, arg1, &local_78);
+                                    local_58->CacheEntity(local_90);
                                 }
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)this_00);
-                                phVar5 = extraout_RDX_00;
+                                ++local_a0;
                             }
-                            iVar6 = iVar6 + 1;
-                        } while (iVar6 != 103);
+                            arg3_00 = arg3_00 + 1;
+                        } while (arg3_00 != 103);
                         local_3c = local_3c + 1;
                     } while (local_3c != 103);
                     local_38 = local_38 + 1;
                 } while (local_38 != 4);
-                uVar7 = (ulong)local_44;
+                arg3 = (uint8_t)local_44;
                 local_3c = 103;
                 local_38 = 4;
-                this = (HighlightManager*)this;
-                pHVar3 = local_58;
-                param_2 = local_48;
+                this = this;
+                highlightedGroup = local_58;
+                arg2 = local_48;
                 cVar1 = local_31;
             } else {
-                cVar1 = AddNewChannelToMask(this, param_2, pHVar3, 5);
+                cVar1 = AddNewChannelToMask(arg2, highlightedGroup, 5);
             }
-            if (cVar1 != '\0') {
-                UpdateCachedHighlights(this, pHVar3);
+            if (cVar1) {
+                UpdateCachedHighlights(*highlightedGroup);
             }
-            UpdateSave(this, 5, param_2, uVar7 & 255);
+            UpdateSave(5, arg2, arg3);
         }
     }
 
-    // 0x100011fd0, 2352 bytes, placed by class name
-    // HighlightManager::AddOpGroupHighlight(OpGroup const&, unsigned int, bool)
-    void HighlightManager::AddOpGroupHighlight(OpGroup* param_1, uint param_2, bool param_3) {
-        Client* pCVar1;
-        char cVar2;
-        bool bVar3;
-        uint uVar4;
+    // 0x100011fd0
+    void HighlightManager::AddOpGroupHighlight(const OpGroup& opGroup, unsigned int arg2, bool arg3) {
+        unsigned int uVar1;
+        Client* pCVar2;
+        bool cVar3;
+        char cVar4;
         int iVar5;
-        HighlightedGroup* pHVar6;
+        int iVar6;
+        HighlightedGroup* highlightedGroup;
         array<HighlightChannelProperties, 32ul>* this_00;
-        HighlightChannelProperties* this_01;
-        shared_ptr* this_02;
-        ClientObj* pCVar7;
-        long lVar8;
-        ClientNpc* pCVar9;
-        uint* puVar10;
-        shared_ptr<configdecoder::LocType>* psVar11;
-        LocType* pLVar12;
-        undefined7 in_register_00000009;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* phVar13;
-        ulong uVar14;
-        int iVar15;
-        shared_ptr in_stack_fffffffffffffd88;
-        shared_ptr<dash3d::Decor> local_108[16];
-        shared_ptr<RSevenDebugPresetProvider> local_f8[16];
-        shared_ptr<dash3d::Decor> local_e8[16];
-        shared_ptr<dash3d::Decor> local_d8[16];
-        shared_ptr<dash3d::Decor> local_c8[16];
+        list<console::Line>* this_02;
+        shared_ptr* this_03;
+        ClientObj* clientObj;
+        long lVar7;
+        ClientNpc* clientNpc;
+        int* piVar8;
+        shared_ptr<configdecoder::LocType>* psVar9;
+        LocType* pLVar10;
+        uint64_t in_register_00000009;
+        uint32_t uVar11;
+        int iVar12;
+        OpGroup local_270;
+        shared_ptr<dash3d::Decor> local_108;
+        shared_ptr<RSevenDebugPresetProvider> local_f8;
+        shared_ptr<dash3d::Decor> local_e8;
+        shared_ptr<dash3d::Decor> local_d8;
+        shared_ptr<dash3d::Decor> local_c8;
         shared_ptr local_b8;
         CoordGrid local_a8;
         shared_ptr local_98;
         CoordGrid local_88;
         Client* local_70;
         HighlightManager* local_68;
-        int local_60;
+        world* local_60;
         OpGroup* local_58;
-        uint local_50;
-        uint local_4c;
+        unsigned int local_50;
+        uint32_t local_4c;
         HighlightedGroup* local_48;
         int local_40;
         int local_3c;
         int local_38;
         char local_31;
 
-        if (31 < param_2) {
+        if (31 < arg2) {
             return;
         }
-        uVar14 = CONCAT71(in_register_00000009, param_3) & 4294967295;
-        pHVar6 = (HighlightedGroup*)eastl::hash_map<
-            OpGroup, HighlightedGroup, eastl::hash<OpGroup>, eastl::equal_to<OpGroup>, eastl::allocator,
-            false>::operator[]((hash_map<OpGroup, HighlightedGroup, eastl::hash<OpGroup>, eastl::equal_to<OpGroup>,
-                                         eastl::allocator, false>*)&field_4392,
-                               param_1);
-        if (*(int*)pHVar6 == 0) {
-            *(int*)pHVar6 = 1 << ((byte)param_2 & 31);
-            this_00 = (array<HighlightChannelProperties, 32ul>*)
-                std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                    (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, 8);
-            this_01 = (HighlightChannelProperties*)std::array<HighlightChannelProperties, 32ul>::operator[](
-                this_00, (ulong)param_2);
-            local_31 = this_01->IsEnabled();
-            local_70 = (Client*)Client::Instance();
-            iVar15 = param_1->field_0;
-            uVar4 = (uint)CONCAT71(in_register_00000009, param_3);
-            if (iVar15 == 2) {
-                local_58 = param_1;
-                iVar15 = local_70->GetLastNpcNum();
-                cVar2 = local_31;
-                if (iVar15 < 1)
+        highlightedGroup = (HighlightedGroup*)field_4392[opGroup];
+        if (*(int*)highlightedGroup == 0) {
+            *(int*)highlightedGroup = 1 << ((uint8_t)arg2 & 31);
+            this_00 = &field_640[8];
+            local_31 = ((HighlightChannelProperties*)(*this_00)[(unsigned long)arg2])->IsEnabled();
+            local_70 = Client::Instance();
+            uVar1 = opGroup.field_0;
+            uVar11 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+            if (uVar1 == 2) {
+                local_58 = opGroup;
+                iVar12 = local_70->GetLastNpcNum();
+                cVar3 = local_31;
+                if (iVar12 < 1)
                     goto joined_r0x000100012757;
-                iVar5 = 0;
+                iVar6 = 0;
                 local_68 = this;
-                local_50 = param_2;
-                local_4c = uVar4;
-                local_48 = pHVar6;
+                local_50 = arg2;
+                local_4c = uVar11;
+                local_48 = highlightedGroup;
                 do {
-                    pCVar1 = local_70;
-                    uVar4 = local_70->GetLastNpcId(iVar5);
-                    pCVar9 = (ClientNpc*)pCVar1->GetClientNpc(uVar4);
-                    if (pCVar9 != (ClientNpc*)0) {
-                        (((long)register0x00000020 + -624))->Create(pCVar9);
-                        cVar2 = (((long)register0x00000020 + -624))->MatchPattern(local_58, true);
-                        if (cVar2 != '\0') {
-                            puVar10 = (uint*)shared_ptr<configdecoder::NpcType>::operator->(
-                                (shared_ptr<configdecoder::NpcType>*)&pCVar9->field_1024);
-                            new (&local_88)
-                                dash3d::AnimateBaseOperation::SeparatedIndexCount((ulong)*puVar10, (ulong)uVar4);
-                            local_48->CacheEntity((NpcUID*)&local_88);
+                    pCVar2 = local_70;
+                    iVar5 = local_70->GetLastNpcId(iVar6);
+                    clientNpc = (ClientNpc*)pCVar2->GetClientNpc(iVar5);
+                    if (clientNpc != nullptr) {
+                        local_270 = OpGroup::Create(*clientNpc);
+                        cVar3 = local_270.MatchPattern(*local_58, true);
+                        if (cVar3) {
+                            piVar8 = (int*)clientNpc->field_1024.operator->();
+                            local_88 = dash3d::AnimateBaseOperation::SeparatedIndexCount(*piVar8, iVar5);
+                            local_48->CacheEntity(local_88);
                         }
-                        (((long)register0x00000020 + -624))->~OpGroup();
                     }
-                    iVar5 = iVar5 + 1;
-                } while (iVar15 != iVar5);
-            } else if (iVar15 == 3) {
+                    iVar6 = iVar6 + 1;
+                } while (iVar12 != iVar6);
+            } else if (uVar1 == 3) {
                 local_68 = this;
-                local_58 = param_1;
-                local_50 = param_2;
-                local_4c = uVar4;
-                local_48 = pHVar6;
-                _local_60 = (&local_70->field_19184)->get();
+                local_58 = opGroup;
+                local_50 = arg2;
+                local_4c = uVar11;
+                local_48 = highlightedGroup;
+                local_60 = (world*)local_70->field_19184.get();
                 local_38 = 0;
-                pCVar1 = (Client*)((long)register0x00000020 + -624);
                 do {
                     local_40 = 0;
                     do {
-                        iVar15 = 0;
+                        iVar12 = 0;
                         do {
                             iVar5 = local_38;
-                            new (&local_88) rs2lib::CoordGrid(local_38, local_40, iVar15);
-                            pCVar1->WorldCoordFromBuildCoord(local_70);
-                            local_3c = pCVar1->ToBitPacked();
-                            dash3d::world::GetWall((int)&local_88, (int)_local_60, iVar5);
-                            bVar3 = local_88.operator_cast_to_bool();
-                            if (bVar3) {
-                                lVar8 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)&local_88);
-                                iVar5 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar8 + 56));
-                                psVar11 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(iVar5);
-                                pLVar12 = (LocType*)shared_ptr<configdecoder::LocType>::operator*(psVar11);
-                                pCVar1->Create(pLVar12);
-                                cVar2 = pCVar1->MatchPattern(local_58, true);
-                                pCVar1->~OpGroup();
-                                if (cVar2 != '\0') {
-                                    shared_ptr<dash3d::Decor>::shared_ptr(local_108, (shared_ptr*)&local_88);
-                                    new (pCVar1)
-                                        EntityWithCoord<dash3d::Decor>(local_3c, iVar5, in_stack_fffffffffffffd88);
-                                    local_48->CacheEntity(pCVar1);
-                                    pCVar1->~EntityWithCoord();
-                                    local_108->~shared_ptr();
+                            iVar6 = local_40;
+                            local_88 = rs2lib::CoordGrid(local_38, local_40, iVar12);
+                            local_270 = local_70->WorldCoordFromBuildCoord(local_88);
+                            local_3c = local_270.ToBitPacked();
+                            local_88 = local_60->GetWall(iVar5, iVar6, iVar12);
+                            cVar3 = local_88.operator_cast_to_bool();
+                            if (cVar3) {
+                                lVar7 = local_88.operator->();
+                                iVar6 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar7 + 56));
+                                psVar9 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(iVar6);
+                                pLVar10 = (LocType*)**psVar9;
+                                local_270 = OpGroup::Create(*pLVar10);
+                                cVar3 = local_270.MatchPattern(*local_58, true);
+                                if (cVar3) {
+                                    local_108 = shared_ptr(&local_88);
+                                    local_270 = EntityWithCoord(local_3c, iVar6, &local_108);
+                                    local_48->CacheEntity(local_270);
                                 }
                             }
-                            dash3d::world::GetDecor((int)&local_a8, (int)_local_60, local_38);
-                            bVar3 = local_a8.operator_cast_to_bool();
-                            if (bVar3) {
-                                lVar8 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)&local_a8);
-                                iVar5 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar8 + 64));
-                                psVar11 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(iVar5);
-                                pLVar12 = (LocType*)shared_ptr<configdecoder::LocType>::operator*(psVar11);
-                                pCVar1->Create(pLVar12);
-                                cVar2 = pCVar1->MatchPattern(local_58, true);
-                                pCVar1->~OpGroup();
-                                if (cVar2 != '\0') {
-                                    shared_ptr<dash3d::Decor>::shared_ptr(local_e8, (shared_ptr*)&local_a8);
-                                    new (pCVar1)
-                                        EntityWithCoord<dash3d::Decor>(local_3c, iVar5, in_stack_fffffffffffffd88);
-                                    local_48->CacheEntity(pCVar1);
-                                    pCVar1->~EntityWithCoord();
-                                    local_e8->~shared_ptr();
+                            local_a8 = local_60->GetDecor(local_38, local_40, iVar12);
+                            cVar3 = local_a8.operator_cast_to_bool();
+                            if (cVar3) {
+                                lVar7 = local_a8.operator->();
+                                iVar6 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar7 + 64));
+                                psVar9 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(iVar6);
+                                pLVar10 = (LocType*)**psVar9;
+                                local_270 = OpGroup::Create(*pLVar10);
+                                cVar3 = local_270.MatchPattern(*local_58, true);
+                                if (cVar3) {
+                                    local_e8 = shared_ptr(&local_a8);
+                                    local_270 = EntityWithCoord(local_3c, iVar6, &local_e8);
+                                    local_48->CacheEntity(local_270);
                                 }
                             }
-                            dash3d::world::GetScene((int)&local_98, (int)_local_60, local_38);
-                            bVar3 = shared_ptr::operator_cast_to_bool(&local_98);
-                            if (bVar3) {
-                                lVar8 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)&local_98);
-                                iVar5 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar8 + 80));
-                                psVar11 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(iVar5);
-                                pLVar12 = (LocType*)shared_ptr<configdecoder::LocType>::operator*(psVar11);
-                                pCVar1->Create(pLVar12);
-                                cVar2 = pCVar1->MatchPattern(local_58, true);
-                                pCVar1->~OpGroup();
-                                if (cVar2 != '\0') {
-                                    shared_ptr<dash3d::Decor>::shared_ptr(local_d8, &local_98);
-                                    new (pCVar1)
-                                        EntityWithCoord<dash3d::Decor>(local_3c, iVar5, in_stack_fffffffffffffd88);
-                                    local_48->CacheEntity(pCVar1);
-                                    pCVar1->~EntityWithCoord();
-                                    local_d8->~shared_ptr();
+                            local_98 = local_60->GetScene(local_38, local_40, iVar12);
+                            cVar3 = shared_ptr::operator_cast_to_bool(&local_98);
+                            if (cVar3) {
+                                lVar7 = local_98.operator->();
+                                iVar6 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar7 + 80));
+                                psVar9 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(iVar6);
+                                pLVar10 = (LocType*)**psVar9;
+                                local_270 = OpGroup::Create(*pLVar10);
+                                cVar3 = local_270.MatchPattern(*local_58, true);
+                                if (cVar3) {
+                                    local_d8 = shared_ptr(&local_98);
+                                    local_270 = EntityWithCoord(local_3c, iVar6, &local_d8);
+                                    local_48->CacheEntity(local_270);
                                 }
                             }
-                            dash3d::world::GetGd((int)&local_b8, (int)_local_60, local_38);
-                            bVar3 = shared_ptr::operator_cast_to_bool(&local_b8);
-                            if (bVar3) {
-                                lVar8 = shared_ptr<dash3d::GroundDecor>::operator->(
-                                    (shared_ptr<dash3d::GroundDecor>*)&local_b8);
-                                iVar5 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(longlong*)(lVar8 + 32));
-                                psVar11 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(iVar5);
-                                pLVar12 = (LocType*)shared_ptr<configdecoder::LocType>::operator*(psVar11);
-                                pCVar1->Create(pLVar12);
-                                cVar2 = pCVar1->MatchPattern(local_58, true);
-                                pCVar1->~OpGroup();
-                                if (cVar2 != '\0') {
-                                    new (local_f8) shared_ptr<dash3d::Decor>(&local_b8);
-                                    new (pCVar1)
-                                        EntityWithCoord<dash3d::Decor>(local_3c, iVar5, in_stack_fffffffffffffd88);
-                                    local_48->CacheEntity(pCVar1);
-                                    pCVar1->~EntityWithCoord();
-                                    local_f8->~shared_ptr();
+                            local_b8 = local_60->GetGd(local_38, local_40, iVar12);
+                            cVar3 = shared_ptr::operator_cast_to_bool(&local_b8);
+                            if (cVar3) {
+                                lVar7 = local_b8.operator->();
+                                iVar6 = dash3d::MousePickingHelper::GetEntityIdFromTypecode(*(long long*)(lVar7 + 32));
+                                psVar9 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(iVar6);
+                                pLVar10 = (LocType*)**psVar9;
+                                local_270 = OpGroup::Create(*pLVar10);
+                                cVar3 = local_270.MatchPattern(*local_58, true);
+                                if (cVar3) {
+                                    local_f8 = shared_ptr(&local_b8);
+                                    local_270 = EntityWithCoord(local_3c, iVar6, &local_f8);
+                                    local_48->CacheEntity(local_270);
                                 }
                             }
-                            local_b8.~shared_ptr();
-                            local_98.~shared_ptr();
-                            local_a8.~shared_ptr();
-                            local_88.~shared_ptr();
-                            iVar15 = iVar15 + 1;
-                        } while (iVar15 != 103);
+                            iVar12 = iVar12 + 1;
+                        } while (iVar12 != 103);
                         local_40 = local_40 + 1;
                     } while (local_40 != 103);
                     local_38 = local_38 + 1;
                     local_40 = 103;
                 } while (local_38 != 4);
             } else {
-                cVar2 = local_31;
-                if (iVar15 != 4)
+                cVar3 = local_31;
+                if (uVar1 != 4)
                     goto joined_r0x000100012757;
                 local_38 = 0;
                 local_68 = this;
-                local_58 = param_1;
-                local_50 = param_2;
-                local_4c = uVar4;
-                local_48 = pHVar6;
+                local_58 = opGroup;
+                local_50 = arg2;
+                local_4c = uVar11;
+                local_48 = highlightedGroup;
                 do {
                     local_3c = 0;
                     do {
-                        iVar15 = 0;
+                        iVar12 = 0;
                         do {
-                            iVar5 = local_3c;
-                            new (&local_a8) rs2lib::CoordGrid(local_38, local_3c, iVar15);
-                            pCVar1 = local_70;
-                            local_88.WorldCoordFromBuildCoord(local_70);
+                            iVar6 = local_3c;
+                            local_a8 = rs2lib::CoordGrid(local_38, local_3c, iVar12);
+                            pCVar2 = local_70;
+                            local_88 = local_70->WorldCoordFromBuildCoord(local_a8);
                             local_40 = local_88.ToBitPacked();
-                            local_60 = iVar15;
-                            new (&local_88) rs2lib::CoordGrid(local_38, iVar5, iVar15);
-                            pCVar1->GetObjectsOnTile(&local_88);
-                            local_a8.begin();
-                            local_98.end();
-                            phVar13 = extraout_RDX;
-                            while (bVar3 = eastl::operator!=((eastl*)&local_a8, (hashtable_iterator_base*)&local_98,
-                                                             phVar13),
-                                   bVar3) {
-                                this_02 = (shared_ptr*)
-                                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_a8);
-                                bVar3 = shared_ptr::operator_cast_to_bool(this_02);
-                                if (bVar3) {
-                                    pCVar7 =
-                                        (ClientObj*)shared_ptr<ClientObj>::operator*((shared_ptr<ClientObj>*)this_02);
-                                    (((long)register0x00000020 + -624))->Create(pCVar7);
-                                    cVar2 = (((long)register0x00000020 + -624))->MatchPattern(local_58, true);
-                                    (((long)register0x00000020 + -624))->~OpGroup();
+                            local_60 = (world*)(((uint64_t)local_60._4_4_ << 32) | (uint32_t)iVar12);
+                            local_88 = rs2lib::CoordGrid(local_38, iVar6, iVar12);
+                            this_02 = (list<console::Line>*)pCVar2->GetObjectsOnTile(local_88);
+                            local_a8 = this_02->begin();
+                            local_98 = this_02->end();
+                            while (cVar3 = local_a8 != local_98, cVar3) {
+                                this_03 = (shared_ptr*)*local_a8;
+                                cVar3 = shared_ptr::operator_cast_to_bool(this_03);
+                                if (!cVar3) {
+                                    cVar4 = '\0';
                                 } else {
-                                    cVar2 = '\0';
+                                    clientObj = (ClientObj*)**this_03;
+                                    local_270 = OpGroup::Create(*clientObj);
+                                    cVar4 = local_270.MatchPattern(*local_58, true);
+                                    if (cVar3) {
+                                    }
                                 }
-                                if (cVar2 != '\0') {
-                                    lVar8 = shared_ptr<ClientObj>::operator->((shared_ptr<ClientObj>*)this_02);
-                                    iVar15 = *(int*)(lVar8 + 24);
-                                    shared_ptr<dash3d::Decor>::shared_ptr(local_c8, this_02);
-                                    new (&local_88)
-                                        EntityWithCoord<dash3d::Decor>(local_40, iVar15, in_stack_fffffffffffffd88);
-                                    local_48->CacheEntity((EntityWithCoord*)&local_88);
-                                    local_88.~EntityWithCoord();
-                                    local_c8->~shared_ptr();
+                                if (cVar4) {
+                                    lVar7 = (*this_03).operator->();
+                                    iVar12 = *(int*)(lVar7 + 24);
+                                    local_c8 = shared_ptr(this_03);
+                                    local_88 = EntityWithCoord(local_40, iVar12, &local_c8);
+                                    local_48->CacheEntity(local_88);
                                 }
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)&local_a8);
-                                phVar13 = extraout_RDX_00;
+                                ++local_a8;
                             }
-                            iVar15 = local_60 + 1;
-                        } while (iVar15 != 103);
+                            iVar12 = (int)local_60 + 1;
+                        } while (iVar12 != 103);
                         local_3c = local_3c + 1;
                     } while (local_3c != 103);
                     local_38 = local_38 + 1;
                     local_3c = 103;
                 } while (local_38 != 4);
             }
-            uVar14 = (ulong)local_4c;
-            pHVar6 = local_48;
+            arg3 = (uint8_t)local_4c;
+            highlightedGroup = local_48;
             this = local_68;
-            param_2 = local_50;
-            cVar2 = local_31;
+            arg2 = local_50;
+            cVar3 = local_31;
         } else {
-            cVar2 = AddNewChannelToMask(this, param_2, pHVar6, 8);
+            cVar3 = AddNewChannelToMask(arg2, highlightedGroup, 8);
         }
     joined_r0x000100012757:
-        if (cVar2 != '\0') {
-            UpdateCachedHighlights(this, pHVar6);
+        if (cVar3) {
+            UpdateCachedHighlights(*highlightedGroup);
         }
-        UpdateSave(this, 8, param_2, uVar14 & 255);
+        UpdateSave(8, arg2, arg3);
     }
 
-    // 0x100012970, 80 bytes, placed by class name
-    // HighlightManager::RemoveNPCHighlight(int, int, unsigned int)
-    void HighlightManager::RemoveNPCHighlight(int param_1, int param_2, uint param_3) {
-        longlong local_20;
-
-        local_20 = UniqueNPCKey(param_1, param_2);
-        if (RemoveEntityHighlight<long long>(this, &local_20, &field_4112, param_3, 0)) {
-            UpdateUniqueNPCHighlightOrRemoveIfReused(this, local_20);
+    // 0x100012970
+    void HighlightManager::RemoveNPCHighlight(int arg1, int arg2, unsigned int arg3) {
+        long long local_20 = UniqueNPCKey(arg1, arg2);
+        if (RemoveEntityHighlight<long long>(this, &local_20, (hash_map<long long, unsigned int>*)&field_4112, arg3,
+                                             0)) {
+            UpdateUniqueNPCHighlightOrRemoveIfReused(local_20);
         }
     }
 
-    // 0x1000129c0, 96 bytes, placed by class name
-    // HighlightManager::RemovePlayerHighlight(eastl::string const&, unsigned int)
-    void HighlightManager::RemovePlayerHighlight(basic_string* param_1, uint param_2) {
-        bool bVar1;
-
-        bVar1 = RemoveEntityHighlight<eastl::string>(this, param_1, &field_4168, param_2, 6);
-        if (bVar1) {
-            UpdateUniquePlayerHighlight(this, param_1);
+    // 0x1000129c0
+    void HighlightManager::RemovePlayerHighlight(const eastl::string& str, unsigned int arg2) {
+        if (RemoveEntityHighlight<eastl::string>(this, str, (hash_map<eastl::string, unsigned int>*)&field_4168, arg2,
+                                                 6)) {
+            UpdateUniquePlayerHighlight(str);
         }
-        UpdateSave(this, 6, param_2, 0);
+        UpdateSave(6, arg2, false);
     }
 
-    // 0x100012dc0, 160 bytes, placed by class name
-    // HighlightManager::IsLocHighlighted(int, int, unsigned int, bool)
-    void HighlightManager::IsLocHighlighted(int param_1, int param_2, uint param_3, bool param_4) {
-        hash_map* phVar1;
-        int iVar3;
+    // 0x100012dc0
+    void HighlightManager::IsLocHighlighted(int arg1, int arg2, unsigned int arg3, bool arg4) {
         CoordGrid local_48;
-        longlong local_38;
 
-        if ((ShouldRebuildRegionHighlightsForChannel(this, param_3, 2) != '\0') && (field_4305417 != false)) {
-            ServiceRegionHighlights(this);
+        if ((ShouldRebuildRegionHighlightsForChannel(arg3, 2) != '\0') && (field_4305417 != false)) {
+            ServiceRegionHighlights();
         }
-        UnpackCoord((highlight*)&local_48, param_2, param_4, (int*)0);
-        phVar1 = (hash_map*)GetLocHighlightMap(this, &local_48);
-        iVar3 = local_48.ToBitPacked();
-        local_38 = UniqueStaticEntityKey(param_1, iVar3);
-        IsEntityHighlighted<long long>(this, &local_38, phVar1, param_3);
+        UnpackCoord((ReturnValue*)&local_48, arg2, arg4, nullptr);
+        auto arg2_01 = GetLocHighlightMap(local_48);
+        int arg2_00 = local_48.ToBitPacked();
+        long long local_38 = UniqueStaticEntityKey(arg1, arg2_00);
+        IsEntityHighlighted<long long>(this, &local_38, arg2_01, arg3);
     }
 
-    // 0x100012e60, 160 bytes, placed by class name
-    // HighlightManager::IsObjHighlighted(int, int, unsigned int, bool)
-    void HighlightManager::IsObjHighlighted(int param_1, int param_2, uint param_3, bool param_4) {
-        hash_map* phVar1;
-        int iVar3;
+    // 0x100012e60
+    void HighlightManager::IsObjHighlighted(int arg1, int arg2, unsigned int arg3, bool arg4) {
         CoordGrid local_48;
-        longlong local_38;
 
-        if ((ShouldRebuildRegionHighlightsForChannel(this, param_3, 4) != '\0') && (field_4305418 != false)) {
-            ServiceRegionHighlights(this);
+        if ((ShouldRebuildRegionHighlightsForChannel(arg3, 4) != '\0') && (field_4305418 != false)) {
+            ServiceRegionHighlights();
         }
-        UnpackCoord((highlight*)&local_48, param_2, param_4, (int*)0);
-        phVar1 = (hash_map*)GetObjHighlightMap(this, &local_48);
-        iVar3 = local_48.ToBitPacked();
-        local_38 = UniqueStaticEntityKey(param_1, iVar3);
-        IsEntityHighlighted<long long>(this, &local_38, phVar1, param_3);
+        UnpackCoord((ReturnValue*)&local_48, arg2, arg4, nullptr);
+        auto arg2_01 = GetObjHighlightMap(local_48);
+        int arg2_00 = local_48.ToBitPacked();
+        long long local_38 = UniqueStaticEntityKey(arg1, arg2_00);
+        IsEntityHighlighted<long long>(this, &local_38, arg2_01, arg3);
     }
 
-    // 0x100012f00, 144 bytes, placed by class name
-    // HighlightManager::IsTileHighlighted(int, unsigned int, bool)
-    void HighlightManager::IsTileHighlighted(int param_1, uint param_2, bool param_3) {
-        hash_map* phVar1;
+    // 0x100012f00
+    void HighlightManager::IsTileHighlighted(int arg1, unsigned int arg2, bool arg3) {
         CoordGrid local_38;
 
-        if ((ShouldRebuildRegionHighlightsForChannel(this, param_2, 7) != '\0') && (field_4305416 != '\0')) {
-            ServiceRegionHighlights(this);
+        if ((ShouldRebuildRegionHighlightsForChannel(arg2, 7) != '\0') && (field_4305416 != false)) {
+            ServiceRegionHighlights();
         }
-        UnpackCoord((highlight*)&local_38, param_1, param_3, (int*)0);
-        phVar1 = (hash_map*)GetTileHighlightMap(this, &local_38);
+        UnpackCoord((ReturnValue*)&local_38, arg1, arg3, nullptr);
+        auto arg2_00 = GetTileHighlightMap(local_38);
         local_38._12_4_ = local_38.ToBitPacked();
-        IsEntityHighlighted<int>(this, (int*)&local_38.field_12, phVar1, param_2);
+        IsEntityHighlighted<int>(this, (int*)&local_38.field_12, arg2_00, arg2);
     }
 
-    // 0x100013030, 48 bytes, placed by class name
-    // HighlightManager::IsNPCTypeHighlighted(int, unsigned int)
-    void HighlightManager::IsNPCTypeHighlighted(int param_1, uint param_2) {
-        int local_c;
-
-        local_c = param_1;
-        IsGroupHighlighted<int>(this, &local_c, (hash_map*)&field_4224, param_2);
+    // 0x100013030
+    void HighlightManager::IsNPCTypeHighlighted(int arg1, unsigned int arg2) {
+        int local_c = arg1;
+        IsGroupHighlighted<int>(this, &local_c, (hash_map<int, HighlightedGroup>*)&field_4224, arg2);
     }
 
-    // 0x100013100, 48 bytes, placed by class name
-    // HighlightManager::IsLocTypeHighlighted(int, unsigned int)
-    void HighlightManager::IsLocTypeHighlighted(int param_1, uint param_2) {
-        int local_c;
-
-        local_c = param_1;
-        IsGroupHighlighted<int>(this, &local_c, (hash_map*)&field_4280, param_2);
+    // 0x100013100
+    void HighlightManager::IsLocTypeHighlighted(int arg1, unsigned int arg2) {
+        int local_c = arg1;
+        IsGroupHighlighted<int>(this, &local_c, (hash_map<int, HighlightedGroup>*)&field_4280, arg2);
     }
 
-    // 0x100013130, 48 bytes, placed by class name
-    // HighlightManager::IsObjTypeHighlighted(int, unsigned int)
-    void HighlightManager::IsObjTypeHighlighted(int param_1, uint param_2) {
-        int local_c;
-
-        local_c = param_1;
-        IsGroupHighlighted<int>(this, &local_c, (hash_map*)&field_4336, param_2);
+    // 0x100013130
+    void HighlightManager::IsObjTypeHighlighted(int arg1, unsigned int arg2) {
+        int local_c = arg1;
+        IsGroupHighlighted<int>(this, &local_c, (hash_map<int, HighlightedGroup>*)&field_4336, arg2);
     }
 
-    // 0x100013160, 32 bytes, placed by class name
-    // HighlightManager::IsOpGroupHighlighted(OpGroup const&, unsigned int)
-    void HighlightManager::IsOpGroupHighlighted(OpGroup* param_1, uint param_2) {
-        IsGroupHighlighted<OpGroup>(this, param_1, (hash_map*)&field_4392, param_2);
+    // 0x100013160
+    void HighlightManager::IsOpGroupHighlighted(const OpGroup& opGroup, unsigned int arg2) {
+        IsGroupHighlighted<OpGroup>(this, opGroup, (hash_map<OpGroup, HighlightedGroup>*)&field_4392, arg2);
     }
 
-    // 0x100013810, 64 bytes, placed by class name
-    // HighlightManager::GetHighlightProperties(int, HighlightCategory) const
-    undefined8 HighlightManager::GetHighlightProperties(uint param_1, int param_3) {
+    // 0x100013810
+    uint64_t HighlightManager::GetHighlightProperties(int arg1, HighlightCategory highlightCategory) const {
         array<HighlightChannelProperties, 32ul>* this_00;
-        undefined8 uVar1;
 
-        if (param_1 < 32) {
-            this_00 = (array<HighlightChannelProperties, 32ul>*)
-                std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                    (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, (long)param_3);
-            uVar1 = std::array<HighlightChannelProperties, 32ul>::operator[](this_00, (long)(int)param_1);
-            return uVar1;
+        if ((unsigned int)arg1 < 32) {
+            this_00 = &field_640[(long)(int)highlightCategory];
+            return (*this_00)[(long)arg1];
         }
         return 0;
     }
 
-    // 0x100013e90, 560 bytes, placed by class name
-    // HighlightManager::OnNPCAdded(shared_ptr<ClientNpc> const&)
-    void HighlightManager::OnNPCAdded(shared_ptr* param_1) {
-        HighlightManager* pHVar1;
-        bool bVar2;
-        undefined4 uVar3;
-        int iVar4;
-        ClientNpc* pCVar6;
-        int* piVar7;
-        longlong* plVar8;
-        long lVar9;
-        undefined8 uVar10;
-        HighlightChannelProperties* pHVar11;
-        HighlightChannelProperties* pHVar12;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        OpGroup local_1c8;
-        undefined8 local_60;
-        undefined8 local_58;
-        NpcUID local_48[4];
+    // 0x100013e90
+    void HighlightManager::OnNPCAdded(const shared_ptr<ClientNpc>& clientNpc) {
+        int* piVar5;
+        long long* plVar6;
+        hashtable_iterator<eastl::pair<long long const, unsigned int>, true, false>* local_60[2];
         HighlightChannelProperties* local_38;
 
-        pCVar6 = (ClientNpc*)shared_ptr<ClientNpc>::operator->((shared_ptr<ClientNpc>*)param_1);
-        uVar3 = pCVar6->GetCreationCycle();
-        local_38 = (HighlightChannelProperties*)CONCAT44(local_38._4_4_, uVar3);
-        pCVar6 = (ClientNpc*)shared_ptr<ClientNpc>::operator->((shared_ptr<ClientNpc>*)param_1);
-        iVar4 = pCVar6->GetUID();
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar2 = eastl::operator!=((eastl*)&local_1c8, (hashtable_iterator_base*)local_48, extraout_RDX);
-        if (bVar2) {
+        auto pCVar4 = clientNpc.operator->();
+        uint32_t uVar2 = pCVar4->GetCreationCycle();
+        local_38 = (HighlightChannelProperties*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)uVar2);
+        pCVar4 = (ClientNpc*)clientNpc.operator->();
+        int arg1 = pCVar4->GetUID();
+        uint8_t* this_01 = &field_4112;
+        OpGroup local_1c8 = this_01->begin();
+        auto local_48 = this_01->end();
+        bool cVar1 = local_1c8 != local_48;
+        if (cVar1) {
             do {
-                piVar7 = (int*)local_1c8.HeapBeginPtr();
-                if (iVar4 == *piVar7) {
-                    plVar8 = (longlong*)local_1c8.HeapBeginPtr();
-                    if (CreactionCycleFromNPCKey(*plVar8) != (int)local_38) {
-                        new (&local_60)
-                            eastl::hashtable_iterator<eastl::pair<eastl::stringconst, unsigned int>, false, false>(
-                                (hashtable_iterator*)&local_1c8);
-                        eastl::hashtable<
-                            LoadingScreenScript::Keyframe*,
-                            eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>, eastl::allocator,
-                            eastl::use_first<eastl::pair<LoadingScreenScript::Keyframe* const, unsigned int>>,
-                            eastl::equal_to<LoadingScreenScript::Keyframe*>,
-                            eastl::hash<LoadingScreenScript::Keyframe*>, eastl::mod_range_hashing,
-                            eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                            true>::erase(local_48, &field_4112, local_60, local_58);
+                piVar5 = (int*)local_1c8.HeapBeginPtr();
+                if (arg1 == *piVar5) {
+                    plVar6 = (long long*)local_1c8.HeapBeginPtr();
+                    if (CreactionCycleFromNPCKey(*plVar6) != (int)local_38) {
+                        new (local_60) eastl::hashtable_iterator(&local_1c8);
+                        local_48 = this_01->erase(local_60[0]);
                     }
                     break;
                 }
-                eastl::hashtable_iterator<eastl::pair<int const, SubInterface>, false, false>::operator++(
-                    (hashtable_iterator<eastl::pair<int const, SubInterface>, false, false>*)local_48, (int)&local_1c8);
-                eastl::hashtable<int, eastl::pair<int const, HighlightedGroup>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, HighlightedGroup>>, eastl::equal_to<int>,
-                                 eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                 eastl::prime_rehash_policy, false, true, true>::end();
-                bVar2 = eastl::operator!=((eastl*)&local_1c8, (hashtable_iterator_base*)local_48, extraout_RDX_00);
-            } while (bVar2);
+                local_48++;
+                local_48 = this_01->end();
+                cVar1 = local_1c8 != local_48;
+            } while (cVar1);
         }
-        local_1c8._0_8_ = UniqueNPCKey(iVar4, (int)local_38);
-        pHVar1 = (HighlightManager*)this;
-        local_38 = GetHighlightProperties<long long>((HighlightManager*)this, &local_1c8, &field_4112, 0);
-        lVar9 = shared_ptr<ClientNpc>::operator->((shared_ptr<ClientNpc>*)param_1);
-        uVar10 = shared_ptr<configdecoder::NpcType>::operator->((shared_ptr<configdecoder::NpcType>*)(lVar9 + 1024));
-        new (&local_1c8) NpcUID(iVar4);
-        pHVar11 = CacheAndGetGroupHighlightProperties<int, NpcUID>(pHVar1, uVar10, &pHVar1->field_4224, &local_1c8, 1);
-        if (local_38 != (HighlightChannelProperties*)0) {
-            pHVar11 = local_38;
+        local_1c8._0_8_ = UniqueNPCKey(arg1, (int)local_38);
+        HighlightManager* this_00 = this;
+        local_38 = GetHighlightProperties<long long>(this, (long long*)&local_1c8,
+                                                     (hash_map<long long, unsigned int>*)this_01, 0);
+        long lVar7 = clientNpc.operator->();
+        piVar5 = (int*)(*((lVar7 + 1024))).operator->();
+        local_1c8 = NpcUID(arg1);
+        auto pHVar8 = CacheAndGetGroupHighlightProperties<int, NpcUID>(
+            this_00, piVar5, (hash_map<int, HighlightedGroup>*)&this_00->field_4224, (NpcUID*)&local_1c8, 1);
+        if (local_38 != nullptr) {
+            pHVar8 = local_38;
         }
-        pCVar6 = (ClientNpc*)shared_ptr<ClientNpc>::operator*((shared_ptr<ClientNpc>*)param_1);
-        local_1c8.Create(pCVar6);
-        NpcUID::NpcUID(local_48, iVar4);
-        pHVar12 =
-            CacheAndGetGroupHighlightProperties<OpGroup, NpcUID>(pHVar1, &local_1c8, &pHVar1->field_4392, local_48, 8);
-        if (pHVar11 != (HighlightChannelProperties*)0) {
-            pHVar12 = pHVar11;
+        pCVar4 = (ClientNpc*)*clientNpc;
+        local_1c8 = OpGroup::Create(*pCVar4);
+        local_48 = NpcUID(arg1);
+        auto highlightChannelProperties = CacheAndGetGroupHighlightProperties<OpGroup, NpcUID>(
+            this_00, &local_1c8, (hash_map<OpGroup, HighlightedGroup>*)&this_00->field_4392, &local_48, 8);
+        if (pHVar8 != nullptr) {
+            highlightChannelProperties = pHVar8;
         }
-        if (pHVar12 != (HighlightChannelProperties*)0) {
-            pCVar6 = (ClientNpc*)shared_ptr<ClientNpc>::operator->((shared_ptr<ClientNpc>*)param_1);
-            pCVar6->SetHighlight(pHVar12);
+        if (highlightChannelProperties != nullptr) {
+            pCVar4 = (ClientNpc*)clientNpc.operator->();
+            pCVar4->SetHighlight(highlightChannelProperties);
         }
-        local_1c8.~OpGroup();
     }
 
-    // 0x100014300, 576 bytes, placed by class name
-    // HighlightManager::OnWallLocAdded(shared_ptr<dash3d::Wall> const&, int, int, int, int)
-    void HighlightManager::OnWallLocAdded(shared_ptr* param_1, int param_2, int param_3, int param_4, int param_5) {
-        shared_ptr sVar1;
-        shared_ptr sVar2;
-        int iVar4;
-        int iVar5;
-        undefined8 uVar6;
-        long lVar7;
-        HighlightChannelProperties* pHVar8;
-        HighlightChannelProperties* pHVar9;
-        shared_ptr<configdecoder::LocType>* this;
-        LocType* pLVar10;
-        undefined4 in_register_00000034;
-        unkbyte10 Var11;
-        undefined8 in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor> aEStack_1e6[350];
-        undefined1 local_88[16];
-        EntityWithCoord<dash3d::Decor> local_78[24];
-        shared_ptr<dash3d::Decor> local_60[16];
-        shared_ptr<dash3d::Decor> local_50[16];
-        shared_ptr* local_40;
-        int local_34;
+    // 0x100014300
+    void HighlightManager::OnWallLocAdded(const shared_ptr<dash3d::Wall>& wall, int arg2, int arg3, int arg4,
+                                          int arg5) {
+        long lVar6;
+        unkbyte10 Var7;
+        uint8_t local_88[16];
 
-        local_40 = (shared_ptr*)CONCAT44(in_register_00000034, param_2);
-        local_34 = param_3;
-        if (!operator!=(local_40, (_func_decltype_nullptr*)0)) {
-            /* WARNING: Subroutine does not return */
+        int local_34 = arg2;
+        if (!wall != nullptr) {
             LogAssert("wall != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/highlighting/"
                       "HighlightManager.cpp",
-                      1390, (char*)0);
+                      1390, nullptr);
         }
-        iVar4 = Client::Instance();
-        local_88->WorldCoordFromBuildCoord(iVar4, param_4, param_5);
-        iVar5 = local_88->ToBitPacked();
-        uVar6 = GetLocHighlightMap((HighlightManager*)param_1, (CoordGrid*)local_88);
-        lVar7 = UniqueStaticEntityKey(local_34, iVar5);
-        pHVar8 = GetHighlightProperties<long long>((HighlightManager*)param_1, aEStack_1e6 + -10, uVar6, 2);
-        iVar4 = local_34;
-        shared_ptr<dash3d::Decor>::shared_ptr(local_60, local_40);
-        sVar1.field_8 = lVar7;
-        sVar1._0_8_ = in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor>::EntityWithCoord(aEStack_1e6 + -10, iVar5, iVar4, sVar1);
-        pHVar9 = CacheAndGetGroupHighlightProperties<int, EntityWithCoord<dash3d::Wall>>(
-            (HighlightManager*)param_1, &local_34, &param_1[267].field_8, aEStack_1e6 + -10, 3);
-        (aEStack_1e6 + -10)->~EntityWithCoord();
-        local_60->~shared_ptr();
-        if (pHVar8 != (HighlightChannelProperties*)0) {
-            pHVar9 = pHVar8;
+        auto pCVar3 = Client::Instance();
+        local_88->WorldCoordFromBuildCoord((int)pCVar3, arg3, arg4);
+        int arg2_00 = local_88->ToBitPacked();
+        auto arg2_01 = GetLocHighlightMap(*local_88);
+        local_1f0._0_8_ = UniqueStaticEntityKey(local_34, arg2_00);
+        auto pHVar4 = GetHighlightProperties<long long>(this, (long long*)&local_1f0, arg2_01, 2);
+        int iVar1 = local_34;
+        shared_ptr<dash3d::Decor> local_60(wall);
+        OpGroup local_1f0(arg2_00, iVar1, &local_60);
+        auto pHVar5 = CacheAndGetGroupHighlightProperties<int, EntityWithCoord<dash3d::Wall>>(
+            this, &local_34, (hash_map<int, HighlightedGroup>*)&field_4280, (EntityWithCoord<dash3d::Wall>*)&local_1f0,
+            3);
+        if (pHVar4 != nullptr) {
+            pHVar5 = pHVar4;
         }
-        this = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(local_34);
-        pLVar10 = (LocType*)shared_ptr<configdecoder::LocType>::operator*(this);
-        ((aEStack_1e6 + -10))->Create(pLVar10);
-        iVar4 = local_34;
-        shared_ptr<dash3d::Decor>::shared_ptr(local_50, local_40);
-        sVar2.field_8 = lVar7;
-        sVar2._0_8_ = in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor>::EntityWithCoord(local_78, iVar5, iVar4, sVar2);
-        pHVar8 = CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<dash3d::Wall>>(
-            (HighlightManager*)param_1, aEStack_1e6 + -10, &param_1[274].field_8, local_78, 8);
-        local_78->~EntityWithCoord();
-        local_50->~shared_ptr();
-        if (pHVar9 != (HighlightChannelProperties*)0) {
-            pHVar8 = pHVar9;
+        auto this_00 = configdecoder::LocType::List(local_34);
+        LocType* locType = (LocType*)**this_00;
+        local_1f0 = OpGroup::Create(*locType);
+        iVar1 = local_34;
+        shared_ptr<dash3d::Decor> local_50(wall);
+        EntityWithCoord<dash3d::Decor> local_78(arg2_00, iVar1, &local_50);
+        pHVar4 = CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<dash3d::Wall>>(
+            this, &local_1f0, (hash_map<OpGroup, HighlightedGroup>*)&field_4392, &local_78, 8);
+        if (pHVar5 != nullptr) {
+            pHVar4 = pHVar5;
         }
-        if (pHVar8 != (HighlightChannelProperties*)0) {
-            Var11 = HighlightChannelProperties::CreateHighlightData(pHVar8);
-            lVar7 = shared_ptr<dash3d::Wall>::operator->((shared_ptr<dash3d::Wall>*)local_40);
-            *(unkbyte10*)(lVar7 + 64) = Var11;
+        if (pHVar4 != nullptr) {
+            Var7 = HighlightChannelProperties::CreateHighlightData(pHVar4);
+            lVar6 = wall.operator->();
+            *(unkbyte10*)(lVar6 + 64) = Var7;
         }
-        ((aEStack_1e6 + -10))->~OpGroup();
     }
 
-    // 0x1000146c0, 576 bytes, placed by class name
-    // HighlightManager::OnDecorLocAdded(shared_ptr<dash3d::Decor> const&, int, int, int, int)
-    void HighlightManager::OnDecorLocAdded(shared_ptr* param_1, int param_2, int param_3, int param_4, int param_5) {
-        shared_ptr sVar1;
-        shared_ptr sVar2;
-        int iVar4;
-        int iVar5;
-        undefined8 uVar6;
-        long lVar7;
-        HighlightChannelProperties* pHVar8;
-        HighlightChannelProperties* pHVar9;
-        shared_ptr<configdecoder::LocType>* this;
-        LocType* pLVar10;
-        undefined4 in_register_00000034;
-        unkbyte10 Var11;
-        undefined8 in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor> aEStack_1e6[350];
-        undefined1 local_88[16];
-        EntityWithCoord<dash3d::Decor> local_78[24];
-        shared_ptr<dash3d::Decor> local_60[16];
-        shared_ptr<dash3d::Decor> local_50[16];
-        shared_ptr* local_40;
-        int local_34;
+    // 0x1000146c0
+    void HighlightManager::OnDecorLocAdded(const shared_ptr<dash3d::Decor>& decor, int arg2, int arg3, int arg4,
+                                           int arg5) {
+        long lVar6;
+        unkbyte10 Var7;
+        uint8_t local_88[16];
 
-        local_40 = (shared_ptr*)CONCAT44(in_register_00000034, param_2);
-        local_34 = param_3;
-        if (!operator!=(local_40, (_func_decltype_nullptr*)0)) {
-            /* WARNING: Subroutine does not return */
+        int local_34 = arg2;
+        if (!decor != nullptr) {
             LogAssert("decor != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/highlighting/"
                       "HighlightManager.cpp",
-                      1415, (char*)0);
+                      1415, nullptr);
         }
-        iVar4 = Client::Instance();
-        local_88->WorldCoordFromBuildCoord(iVar4, param_4, param_5);
-        iVar5 = local_88->ToBitPacked();
-        uVar6 = GetLocHighlightMap((HighlightManager*)param_1, (CoordGrid*)local_88);
-        lVar7 = UniqueStaticEntityKey(local_34, iVar5);
-        pHVar8 = GetHighlightProperties<long long>((HighlightManager*)param_1, aEStack_1e6 + -10, uVar6, 2);
-        iVar4 = local_34;
-        shared_ptr<dash3d::Decor>::shared_ptr(local_60, local_40);
-        sVar1.field_8 = lVar7;
-        sVar1._0_8_ = in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor>::EntityWithCoord(aEStack_1e6 + -10, iVar5, iVar4, sVar1);
-        pHVar9 = CacheAndGetGroupHighlightProperties<int, EntityWithCoord<dash3d::Decor>>(
-            (HighlightManager*)param_1, &local_34, &param_1[267].field_8, aEStack_1e6 + -10, 3);
-        (aEStack_1e6 + -10)->~EntityWithCoord();
-        local_60->~shared_ptr();
-        if (pHVar8 != (HighlightChannelProperties*)0) {
-            pHVar9 = pHVar8;
+        auto pCVar3 = Client::Instance();
+        local_88->WorldCoordFromBuildCoord((int)pCVar3, arg3, arg4);
+        int arg2_00 = local_88->ToBitPacked();
+        auto arg2_01 = GetLocHighlightMap(*local_88);
+        local_1f0._0_8_ = UniqueStaticEntityKey(local_34, arg2_00);
+        auto pHVar4 = GetHighlightProperties<long long>(this, (long long*)&local_1f0, arg2_01, 2);
+        int iVar1 = local_34;
+        shared_ptr<dash3d::Decor> local_60(decor);
+        OpGroup local_1f0(arg2_00, iVar1, &local_60);
+        auto pHVar5 = CacheAndGetGroupHighlightProperties<int, EntityWithCoord<dash3d::Decor>>(
+            this, &local_34, (hash_map<int, HighlightedGroup>*)&field_4280, (EntityWithCoord<dash3d::Decor>*)&local_1f0,
+            3);
+        if (pHVar4 != nullptr) {
+            pHVar5 = pHVar4;
         }
-        this = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(local_34);
-        pLVar10 = (LocType*)shared_ptr<configdecoder::LocType>::operator*(this);
-        ((aEStack_1e6 + -10))->Create(pLVar10);
-        iVar4 = local_34;
-        shared_ptr<dash3d::Decor>::shared_ptr(local_50, local_40);
-        sVar2.field_8 = lVar7;
-        sVar2._0_8_ = in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor>::EntityWithCoord(local_78, iVar5, iVar4, sVar2);
-        pHVar8 = CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<dash3d::Decor>>(
-            (HighlightManager*)param_1, aEStack_1e6 + -10, &param_1[274].field_8, local_78, 8);
-        local_78->~EntityWithCoord();
-        local_50->~shared_ptr();
-        if (pHVar9 != (HighlightChannelProperties*)0) {
-            pHVar8 = pHVar9;
+        auto this_00 = configdecoder::LocType::List(local_34);
+        LocType* locType = (LocType*)**this_00;
+        local_1f0 = OpGroup::Create(*locType);
+        iVar1 = local_34;
+        shared_ptr<dash3d::Decor> local_50(decor);
+        EntityWithCoord<dash3d::Decor> local_78(arg2_00, iVar1, &local_50);
+        pHVar4 = CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<dash3d::Decor>>(
+            this, &local_1f0, (hash_map<OpGroup, HighlightedGroup>*)&field_4392, &local_78, 8);
+        if (pHVar5 != nullptr) {
+            pHVar4 = pHVar5;
         }
-        if (pHVar8 != (HighlightChannelProperties*)0) {
-            Var11 = HighlightChannelProperties::CreateHighlightData(pHVar8);
-            lVar7 = shared_ptr<dash3d::Decor>::operator->((shared_ptr<dash3d::Decor>*)local_40);
-            *(unkbyte10*)(lVar7 + 76) = Var11;
+        if (pHVar4 != nullptr) {
+            Var7 = HighlightChannelProperties::CreateHighlightData(pHVar4);
+            lVar6 = decor.operator->();
+            *(unkbyte10*)(lVar6 + 76) = Var7;
         }
-        ((aEStack_1e6 + -10))->~OpGroup();
     }
 
-    // 0x100014a80, 576 bytes, placed by class name
-    // HighlightManager::OnGroundDecorLocAdded(shared_ptr<dash3d::GroundDecor> const&, int, int, int, int)
-    void HighlightManager::OnGroundDecorLocAdded(shared_ptr* param_1, int param_2, int param_3, int param_4,
-                                                 int param_5) {
-        shared_ptr sVar1;
-        shared_ptr sVar2;
-        int iVar4;
-        int iVar5;
-        undefined8 uVar6;
-        long lVar7;
-        HighlightChannelProperties* pHVar8;
-        HighlightChannelProperties* pHVar9;
-        shared_ptr<configdecoder::LocType>* this;
-        LocType* pLVar10;
-        undefined4 in_register_00000034;
-        unkbyte10 Var11;
-        undefined8 in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor> aEStack_1e6[350];
-        undefined1 local_88[16];
-        EntityWithCoord<dash3d::Decor> local_78[24];
-        shared_ptr<dash3d::Decor> local_60[16];
-        shared_ptr<dash3d::Decor> local_50[16];
-        shared_ptr* local_40;
-        int local_34;
+    // 0x100014a80
+    void HighlightManager::OnGroundDecorLocAdded(const shared_ptr<dash3d::GroundDecor>& groundDecor, int arg2, int arg3,
+                                                 int arg4, int arg5) {
+        long lVar6;
+        unkbyte10 Var7;
+        uint8_t local_88[16];
 
-        local_40 = (shared_ptr*)CONCAT44(in_register_00000034, param_2);
-        local_34 = param_3;
-        if (!operator!=(local_40, (_func_decltype_nullptr*)0)) {
-            /* WARNING: Subroutine does not return */
+        int local_34 = arg2;
+        if (!groundDecor != nullptr) {
             LogAssert("groundDecor != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/highlighting/"
                       "HighlightManager.cpp",
-                      1440, (char*)0);
+                      1440, nullptr);
         }
-        iVar4 = Client::Instance();
-        local_88->WorldCoordFromBuildCoord(iVar4, param_4, param_5);
-        iVar5 = local_88->ToBitPacked();
-        uVar6 = GetLocHighlightMap((HighlightManager*)param_1, (CoordGrid*)local_88);
-        lVar7 = UniqueStaticEntityKey(local_34, iVar5);
-        pHVar8 = GetHighlightProperties<long long>((HighlightManager*)param_1, aEStack_1e6 + -10, uVar6, 2);
-        iVar4 = local_34;
-        shared_ptr<dash3d::Decor>::shared_ptr(local_60, local_40);
-        sVar1.field_8 = lVar7;
-        sVar1._0_8_ = in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor>::EntityWithCoord(aEStack_1e6 + -10, iVar5, iVar4, sVar1);
-        pHVar9 = CacheAndGetGroupHighlightProperties<int, EntityWithCoord<dash3d::GroundDecor>>(
-            (HighlightManager*)param_1, &local_34, &param_1[267].field_8, aEStack_1e6 + -10, 3);
-        (aEStack_1e6 + -10)->~EntityWithCoord();
-        local_60->~shared_ptr();
-        if (pHVar8 != (HighlightChannelProperties*)0) {
-            pHVar9 = pHVar8;
+        auto pCVar3 = Client::Instance();
+        local_88->WorldCoordFromBuildCoord((int)pCVar3, arg3, arg4);
+        int arg2_00 = local_88->ToBitPacked();
+        auto arg2_01 = GetLocHighlightMap(*local_88);
+        local_1f0._0_8_ = UniqueStaticEntityKey(local_34, arg2_00);
+        auto pHVar4 = GetHighlightProperties<long long>(this, (long long*)&local_1f0, arg2_01, 2);
+        int iVar1 = local_34;
+        shared_ptr<dash3d::Decor> local_60(groundDecor);
+        OpGroup local_1f0(arg2_00, iVar1, &local_60);
+        auto pHVar5 = CacheAndGetGroupHighlightProperties<int, EntityWithCoord<dash3d::GroundDecor>>(
+            this, &local_34, (hash_map<int, HighlightedGroup>*)&field_4280,
+            (EntityWithCoord<dash3d::GroundDecor>*)&local_1f0, 3);
+        if (pHVar4 != nullptr) {
+            pHVar5 = pHVar4;
         }
-        this = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(local_34);
-        pLVar10 = (LocType*)shared_ptr<configdecoder::LocType>::operator*(this);
-        ((aEStack_1e6 + -10))->Create(pLVar10);
-        iVar4 = local_34;
-        shared_ptr<dash3d::Decor>::shared_ptr(local_50, local_40);
-        sVar2.field_8 = lVar7;
-        sVar2._0_8_ = in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor>::EntityWithCoord(local_78, iVar5, iVar4, sVar2);
-        pHVar8 = CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<dash3d::GroundDecor>>(
-            (HighlightManager*)param_1, aEStack_1e6 + -10, &param_1[274].field_8, local_78, 8);
-        local_78->~EntityWithCoord();
-        local_50->~shared_ptr();
-        if (pHVar9 != (HighlightChannelProperties*)0) {
-            pHVar8 = pHVar9;
+        auto this_00 = configdecoder::LocType::List(local_34);
+        LocType* locType = (LocType*)**this_00;
+        local_1f0 = OpGroup::Create(*locType);
+        iVar1 = local_34;
+        shared_ptr<dash3d::Decor> local_50(groundDecor);
+        EntityWithCoord<dash3d::Decor> local_78(arg2_00, iVar1, &local_50);
+        pHVar4 = CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<dash3d::GroundDecor>>(
+            this, &local_1f0, (hash_map<OpGroup, HighlightedGroup>*)&field_4392, &local_78, 8);
+        if (pHVar5 != nullptr) {
+            pHVar4 = pHVar5;
         }
-        if (pHVar8 != (HighlightChannelProperties*)0) {
-            Var11 = HighlightChannelProperties::CreateHighlightData(pHVar8);
-            lVar7 = shared_ptr<dash3d::GroundDecor>::operator->((shared_ptr<dash3d::GroundDecor>*)local_40);
-            *(unkbyte10*)(lVar7 + 44) = Var11;
+        if (pHVar4 != nullptr) {
+            Var7 = HighlightChannelProperties::CreateHighlightData(pHVar4);
+            lVar6 = groundDecor.operator->();
+            *(unkbyte10*)(lVar6 + 44) = Var7;
         }
-        ((aEStack_1e6 + -10))->~OpGroup();
     }
 
-    // 0x100014e40, 576 bytes, placed by class name
-    // HighlightManager::OnSceneryLocAdded(shared_ptr<dash3d::Sprite> const&, int, int, int, int)
-    void HighlightManager::OnSceneryLocAdded(shared_ptr* param_1, int param_2, int param_3, int param_4, int param_5) {
-        shared_ptr sVar1;
-        shared_ptr sVar2;
-        int iVar4;
-        int iVar5;
-        undefined8 uVar6;
-        long lVar7;
-        HighlightChannelProperties* pHVar8;
-        HighlightChannelProperties* pHVar9;
-        shared_ptr<configdecoder::LocType>* this;
-        LocType* pLVar10;
-        undefined4 in_register_00000034;
-        unkbyte10 Var11;
-        undefined8 in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor> aEStack_1e6[350];
-        undefined1 local_88[16];
-        EntityWithCoord<dash3d::Decor> local_78[24];
-        shared_ptr<dash3d::Decor> local_60[16];
-        shared_ptr<dash3d::Decor> local_50[16];
-        shared_ptr* local_40;
-        int local_34;
+    // 0x100014e40
+    void HighlightManager::OnSceneryLocAdded(const shared_ptr<dash3d::Sprite>& sprite, int arg2, int arg3, int arg4,
+                                             int arg5) {
+        long lVar6;
+        unkbyte10 Var7;
+        uint8_t local_88[16];
 
-        local_40 = (shared_ptr*)CONCAT44(in_register_00000034, param_2);
-        local_34 = param_3;
-        if (!operator!=(local_40, (_func_decltype_nullptr*)0)) {
-            /* WARNING: Subroutine does not return */
+        int local_34 = arg2;
+        if (!sprite != nullptr) {
             LogAssert("scenery != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/highlighting/"
                       "HighlightManager.cpp",
-                      1465, (char*)0);
+                      1465, nullptr);
         }
-        iVar4 = Client::Instance();
-        local_88->WorldCoordFromBuildCoord(iVar4, param_4, param_5);
-        iVar5 = local_88->ToBitPacked();
-        uVar6 = GetLocHighlightMap((HighlightManager*)param_1, (CoordGrid*)local_88);
-        lVar7 = UniqueStaticEntityKey(local_34, iVar5);
-        pHVar8 = GetHighlightProperties<long long>((HighlightManager*)param_1, aEStack_1e6 + -10, uVar6, 2);
-        iVar4 = local_34;
-        shared_ptr<dash3d::Decor>::shared_ptr(local_60, local_40);
-        sVar1.field_8 = lVar7;
-        sVar1._0_8_ = in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor>::EntityWithCoord(aEStack_1e6 + -10, iVar5, iVar4, sVar1);
-        pHVar9 = CacheAndGetGroupHighlightProperties<int, EntityWithCoord<dash3d::Sprite>>(
-            (HighlightManager*)param_1, &local_34, &param_1[267].field_8, aEStack_1e6 + -10, 3);
-        (aEStack_1e6 + -10)->~EntityWithCoord();
-        local_60->~shared_ptr();
-        if (pHVar8 != (HighlightChannelProperties*)0) {
-            pHVar9 = pHVar8;
+        auto pCVar3 = Client::Instance();
+        local_88->WorldCoordFromBuildCoord((int)pCVar3, arg3, arg4);
+        int arg2_00 = local_88->ToBitPacked();
+        auto arg2_01 = GetLocHighlightMap(*local_88);
+        local_1f0._0_8_ = UniqueStaticEntityKey(local_34, arg2_00);
+        auto pHVar4 = GetHighlightProperties<long long>(this, (long long*)&local_1f0, arg2_01, 2);
+        int iVar1 = local_34;
+        shared_ptr<dash3d::Decor> local_60(sprite);
+        OpGroup local_1f0(arg2_00, iVar1, &local_60);
+        auto pHVar5 = CacheAndGetGroupHighlightProperties<int, EntityWithCoord<dash3d::Sprite>>(
+            this, &local_34, (hash_map<int, HighlightedGroup>*)&field_4280,
+            (EntityWithCoord<dash3d::Sprite>*)&local_1f0, 3);
+        if (pHVar4 != nullptr) {
+            pHVar5 = pHVar4;
         }
-        this = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(local_34);
-        pLVar10 = (LocType*)shared_ptr<configdecoder::LocType>::operator*(this);
-        ((aEStack_1e6 + -10))->Create(pLVar10);
-        iVar4 = local_34;
-        shared_ptr<dash3d::Decor>::shared_ptr(local_50, local_40);
-        sVar2.field_8 = lVar7;
-        sVar2._0_8_ = in_stack_fffffffffffffe08;
-        EntityWithCoord<dash3d::Decor>::EntityWithCoord(local_78, iVar5, iVar4, sVar2);
-        pHVar8 = CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<dash3d::Sprite>>(
-            (HighlightManager*)param_1, aEStack_1e6 + -10, &param_1[274].field_8, local_78, 8);
-        local_78->~EntityWithCoord();
-        local_50->~shared_ptr();
-        if (pHVar9 != (HighlightChannelProperties*)0) {
-            pHVar8 = pHVar9;
+        auto this_00 = configdecoder::LocType::List(local_34);
+        LocType* locType = (LocType*)**this_00;
+        local_1f0 = OpGroup::Create(*locType);
+        iVar1 = local_34;
+        shared_ptr<dash3d::Decor> local_50(sprite);
+        EntityWithCoord<dash3d::Decor> local_78(arg2_00, iVar1, &local_50);
+        pHVar4 = CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<dash3d::Sprite>>(
+            this, &local_1f0, (hash_map<OpGroup, HighlightedGroup>*)&field_4392, &local_78, 8);
+        if (pHVar5 != nullptr) {
+            pHVar4 = pHVar5;
         }
-        if (pHVar8 != (HighlightChannelProperties*)0) {
-            Var11 = HighlightChannelProperties::CreateHighlightData(pHVar8);
-            lVar7 = shared_ptr<dash3d::Sprite>::operator->((shared_ptr<dash3d::Sprite>*)local_40);
-            *(unkbyte10*)(lVar7 + 92) = Var11;
-        }
-        ((aEStack_1e6 + -10))->~OpGroup();
-    }
-
-    // 0x100015200, 560 bytes, placed by class name
-    // HighlightManager::OnObjAdded(shared_ptr<ClientObj> const&, int, int, int)
-    void HighlightManager::OnObjAdded(shared_ptr* param_1, int param_2, int param_3, int param_4) {
-        shared_ptr sVar1;
-        shared_ptr sVar2;
-        shared_ptr* this_00;
-        int iVar3;
-        int iVar4;
-        undefined8 uVar5;
-        long lVar6;
-        undefined8 uVar7;
-        long lVar8;
-        Language* pLVar9;
-        ClientObj* pCVar10;
-        Language* pLVar11;
-        SystemSettings* this_01;
-        OpGroup aOStackY_a9f8[128];
-        long in_stack_fffffffffffffe10;
-        undefined1 local_90[16];
-        EntityWithCoord<dash3d::Decor> local_80[24];
-        shared_ptr<dash3d::Decor> local_68[16];
-        shared_ptr<dash3d::Decor> local_58[16];
-        Language* local_48;
-        int local_3c;
-        shared_ptr* local_38;
-
-        local_38 = (shared_ptr*)CONCAT44(local_38._4_4_, param_4);
-        iVar3 = Client::Instance();
-        local_90->WorldCoordFromBuildCoord(iVar3, param_2, param_3);
-        iVar4 = local_90->ToBitPacked();
-        uVar5 = GetObjHighlightMap(this, (CoordGrid*)local_90);
-        lVar6 = shared_ptr<ClientObj>::operator->((shared_ptr<ClientObj>*)param_1);
-        uVar7 = UniqueStaticEntityKey(*(int*)(lVar6 + 24), iVar4);
-        local_48 = (Language*)GetHighlightProperties<long long>(this, aOStackY_a9f8 + 128, uVar5, 4);
-        lVar6 = shared_ptr<ClientObj>::operator->((shared_ptr<ClientObj>*)param_1);
-        lVar8 = shared_ptr<ClientObj>::operator->((shared_ptr<ClientObj>*)param_1);
-        iVar3 = *(int*)(lVar8 + 24);
-        local_38 = param_1;
-        shared_ptr<dash3d::Decor>::shared_ptr(local_68, param_1);
-        sVar1.field_8 = in_stack_fffffffffffffe10;
-        sVar1._0_8_ = uVar7;
-        local_3c = iVar4;
-        new ((aOStackY_a9f8 + 128)) EntityWithCoord<dash3d::Decor>(iVar4, iVar3, sVar1);
-        pLVar9 = (Language*)CacheAndGetGroupHighlightProperties<int, EntityWithCoord<ClientObj>>(
-            this, lVar6 + 24, &field_4336, aOStackY_a9f8 + 128, 5);
-        ((aOStackY_a9f8 + 128))->~EntityWithCoord();
-        local_68->~shared_ptr();
-        this_00 = local_38;
-        if (local_48 != (Language*)0) {
-            pLVar9 = local_48;
-        }
-        pCVar10 = (ClientObj*)shared_ptr<ClientObj>::operator*((shared_ptr<ClientObj>*)local_38);
-        (aOStackY_a9f8 + 128)->Create(pCVar10);
-        lVar6 = shared_ptr<ClientObj>::operator->((shared_ptr<ClientObj>*)this_00);
-        iVar3 = *(int*)(lVar6 + 24);
-        shared_ptr<dash3d::Decor>::shared_ptr(local_58, this_00);
-        sVar2.field_8 = in_stack_fffffffffffffe10;
-        sVar2._0_8_ = uVar7;
-        EntityWithCoord<dash3d::Decor>::EntityWithCoord(local_80, local_3c, iVar3, sVar2);
-        pLVar11 = (Language*)CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<ClientObj>>(
-            this, aOStackY_a9f8 + 128, &field_4392, local_80, 8);
-        local_80->~EntityWithCoord();
-        local_58->~shared_ptr();
-        if (pLVar9 != (Language*)0) {
-            pLVar11 = pLVar9;
-        }
-        if (pLVar11 != (Language*)0) {
-            this_01 = (SystemSettings*)shared_ptr<ClientObj>::operator->((shared_ptr<ClientObj>*)this_00);
-            this_01->SetLanguage(pLVar11);
-        }
-        (aOStackY_a9f8 + 128)->~OpGroup();
-    }
-
-    // 0x1000155b0, 80 bytes, placed by class name
-    // HighlightManager::OnPlayerAdded(ClientPlayer&)
-    void HighlightManager::OnPlayerAdded(ClientPlayer* param_1) {
-        DisplayName* this_00;
-        undefined8 uVar1;
-        HighlightChannelProperties* pHVar2;
-
-        this_00 = (DisplayName*)shared_ptr<rs2lib::social::DisplayName>::operator->(
-            (shared_ptr<rs2lib::social::DisplayName>*)&param_1->field_992);
-        uVar1 = this_00->GetDisplayName();
-        pHVar2 = GetHighlightProperties<eastl::string>(this, uVar1, &field_4168, 6);
-        if (pHVar2 != (HighlightChannelProperties*)0) {
-            param_1->SetHighlight(pHVar2);
+        if (pHVar4 != nullptr) {
+            Var7 = HighlightChannelProperties::CreateHighlightData(pHVar4);
+            lVar6 = sprite.operator->();
+            *(unkbyte10*)(lVar6 + 92) = Var7;
         }
     }
 
-    // 0x100015600, 192 bytes, placed by class name
-    // HighlightManager::OnTileAdded(int, int, int)
-    void HighlightManager::OnTileAdded(int param_1, int param_2, int param_3) {
-        int iVar1;
-        undefined8 uVar2;
-        HighlightChannelProperties* pHVar3;
-        long lVar4;
+    // 0x100015200
+    void HighlightManager::OnObjAdded(const shared_ptr<ClientObj>& clientObj, int arg2, int arg3, int arg4) {
+        uint8_t local_90[16];
+        shared_ptr<ClientObj>* local_38;
+
+        local_38 = (shared_ptr<ClientObj>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)arg4);
+        auto pCVar2 = Client::Instance();
+        local_90->WorldCoordFromBuildCoord((int)pCVar2, arg2, arg3);
+        int arg2_00 = local_90->ToBitPacked();
+        auto arg2_01 = GetObjHighlightMap(*local_90);
+        long lVar3 = clientObj.operator->();
+        local_1f8._0_8_ = UniqueStaticEntityKey(*(int*)(lVar3 + 24), arg2_00);
+        auto local_48 = GetHighlightProperties<long long>(this, (long long*)&local_1f8, arg2_01, 4);
+        lVar3 = clientObj.operator->();
+        long lVar4 = clientObj.operator->();
+        int iVar1 = *(int*)(lVar4 + 24);
+        local_38 = clientObj;
+        shared_ptr<dash3d::Decor> local_68(clientObj);
+        int local_3c = arg2_00;
+        OpGroup local_1f8(arg2_00, iVar1, &local_68);
+        auto pHVar5 = CacheAndGetGroupHighlightProperties<int, EntityWithCoord<ClientObj>>(
+            this, (int*)(lVar3 + 24), (hash_map<int, HighlightedGroup>*)&field_4336,
+            (EntityWithCoord<ClientObj>*)&local_1f8, 5);
+        shared_ptr<ClientObj>* this_00 = local_38;
+        if (local_48 != nullptr) {
+            pHVar5 = local_48;
+        }
+        ClientObj* clientObj_00 = (ClientObj*)**local_38;
+        local_1f8 = OpGroup::Create(*clientObj_00);
+        lVar3 = (*this_00).operator->();
+        iVar1 = *(int*)(lVar3 + 24);
+        shared_ptr<dash3d::Decor> local_58(this_00);
+        EntityWithCoord<dash3d::Decor> local_80(local_3c, iVar1, &local_58);
+        auto arg1 = CacheAndGetGroupHighlightProperties<OpGroup, EntityWithCoord<ClientObj>>(
+            this, &local_1f8, (hash_map<OpGroup, HighlightedGroup>*)&field_4392, &local_80, 8);
+        if (pHVar5 != nullptr) {
+            arg1 = pHVar5;
+        }
+        if (arg1 != nullptr) {
+            ((SystemSettings*)(*this_00).operator->())->SetLanguage(arg1);
+        }
+    }
+
+    // 0x1000155b0
+    void HighlightManager::OnPlayerAdded(ClientPlayer& clientPlayer) {
+        eastl::string* str = ((DisplayName*)clientPlayer.field_992.operator->())->GetDisplayName();
+        auto highlightChannelProperties =
+            GetHighlightProperties<eastl::string>(this, str, (hash_map<eastl::string, unsigned int>*)&field_4168, 6);
+        if (highlightChannelProperties != nullptr) {
+            clientPlayer.SetHighlight(highlightChannelProperties);
+        }
+    }
+
+    // 0x100015600
+    void HighlightManager::OnTileAdded(int arg1, int arg2, int arg3) {
         world* this_00;
-        undefined1 local_50[16];
+        uint8_t local_50[16];
         EntityHighlight local_40;
 
-        iVar1 = Client::Instance();
-        local_50->WorldCoordFromBuildCoord(iVar1, param_1, param_2);
+        auto pCVar1 = Client::Instance();
+        local_50->WorldCoordFromBuildCoord((int)pCVar1, arg1, arg2);
         local_40._12_4_ = local_50->ToBitPacked();
-        uVar2 = GetTileHighlightMap(this, (CoordGrid*)local_50);
-        pHVar3 = GetHighlightProperties<int>(this, &local_40.field_12, uVar2, 7);
-        if (pHVar3 != (HighlightChannelProperties*)0) {
-            lVar4 = Client::Instance();
-            this_00 = (world*)std::unique_ptr<dash3d::world, std::default_delete<dash3d::world>>::operator->(
-                (unique_ptr<dash3d::world, std::default_delete<dash3d::world>>*)(lVar4 + 19184));
-            local_40._0_10_ = HighlightChannelProperties::CreateHighlightData(pHVar3);
-            this_00->SetTileHighlight(param_1, param_2, param_3, &local_40);
+        auto arg2_00 = GetTileHighlightMap(*local_50);
+        auto highlightChannelProperties = GetHighlightProperties<int>(this, (int*)&local_40.field_12, arg2_00, 7);
+        if (highlightChannelProperties != nullptr) {
+            pCVar1 = Client::Instance();
+            this_00 = (world*)pCVar1->field_19184.operator->();
+            local_40._0_10_ = HighlightChannelProperties::CreateHighlightData(highlightChannelProperties);
+            this_00->SetTileHighlight(arg1, arg2, arg3, local_40);
         }
     }
 
-    // 0x1000156c0, 32 bytes, placed by class name
-    // HighlightManager::RebuildRegionHighlights()
+    // 0x1000156c0
     void HighlightManager::RebuildRegionHighlights() {
-        RebuildRegionHighlights(this, true, true, true);
+        RebuildRegionHighlights(true, true, true);
     }
 
-    // 0x1000156f0, 192 bytes, placed by class name
-    // HighlightManager::AddEntityHighlight(unsigned int&, unsigned int, HighlightCategory) const
-    ulong HighlightManager::AddEntityHighlight(uint* param_1, uint param_2, int param_4) {
+    // 0x1000156f0
+    unsigned long HighlightManager::AddEntityHighlight(unsigned int& arg1, unsigned int arg2,
+                                                       HighlightCategory highlightCategory) const {
         int iVar1;
         int iVar2;
         array<HighlightChannelProperties, 32ul>* this_00;
-        HighlightChannelProperties* this_01;
-        ulong uVar3;
-        uint uVar4;
+        unsigned long uVar3;
+        unsigned int uVar4;
 
-        if (31 < param_2) {
-            /* WARNING: Subroutine does not return */
+        if (31 < arg2) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                             "highlighting/HighlightManager.cpp",
-                            1621, "Highlight channel ID %d is too large. Must be between 0 and %d", (ulong)param_2, 31);
+                            1621, "Highlight channel ID %d is too large. Must be between 0 and %d", (unsigned long)arg2,
+                            31);
         }
-        if (*param_1 == 0) {
-            *param_1 = 1 << ((byte)param_2 & 31);
-            this_00 = (array<HighlightChannelProperties, 32ul>*)
-                std::array<std::array<HighlightChannelProperties, 32ul>, 9ul>::operator[](
-                    (array<std::array<HighlightChannelProperties, 32ul>, 9ul>*)&field_640, (long)param_4);
-            this_01 = (HighlightChannelProperties*)std::array<HighlightChannelProperties, 32ul>::operator[](
-                this_00, (ulong)param_2);
-            uVar4 = this_01->IsEnabled();
-            uVar3 = (ulong)uVar4;
+        if (arg1 == 0) {
+            arg1 = 1 << ((uint8_t)arg2 & 31);
+            this_00 = &field_640[(long)(int)highlightCategory];
+            uVar4 = ((HighlightChannelProperties*)(*this_00)[(unsigned long)arg2])->IsEnabled();
+            uVar3 = (unsigned long)uVar4;
         } else {
-            iVar1 = GetActiveChannelFromBitmask(this, *param_1, param_4);
-            uVar4 = *param_1 | 1 << (param_2 & 31);
-            *param_1 = uVar4;
-            iVar2 = GetActiveChannelFromBitmask(this, uVar4, param_4);
-            uVar3 = CONCAT71((int7)((ulong)param_1 >> 8), iVar1 != iVar2);
+            iVar1 = GetActiveChannelFromBitmask(arg1, highlightCategory);
+            uVar4 = arg1 | 1 << (arg2 & 31);
+            arg1 = uVar4;
+            iVar2 = GetActiveChannelFromBitmask(uVar4, highlightCategory);
+            uVar3 = (((uint64_t)((int64_t)((unsigned long)arg1 >> 8)) << 8) | (uint8_t)(iVar1 != iVar2));
         }
         return uVar3 & 4294967295;
     }
 
-    // 0x1000157b0, 48 bytes, placed by class name
-    // HighlightManager::GetHighlightProperties(unsigned int const&, HighlightCategory) const
-    void HighlightManager::GetHighlightProperties(undefined4* param_1, undefined4 param_3) {
-        undefined4 uVar1;
-
-        uVar1 = GetActiveChannelFromBitmask(this, *param_1);
-        GetHighlightProperties(this, uVar1, param_3);
+    // 0x1000157b0
+    void HighlightManager::GetHighlightProperties(const unsigned int& arg1, HighlightCategory highlightCategory) const {
+        GetHighlightProperties(GetActiveChannelFromBitmask(arg1, highlightCategory), highlightCategory);
     }
 
-    // 0x100032350, 80 bytes, placed by class name
-    // HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short, unsigned char, dash3d::EntityHighlightBitFlags)::$_0::operator()(rs2lib::CoordMapSquare const&) const
-    /* HighlightManager::ConfigureChannel(HighlightCategory,
-   int, unsigned short, unsigned short, unsigned char,
-   dash3d::EntityHighlightBitFlags)::$_0::TEMPNAMEPLACEHOLDERVALUE(rs2lib::CoordMapSquare
-   const&) const */
-
-    void HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short, unsigned char,
-                                            dash3d::EntityHighlightBitFlags)::$_0::operator()(CoordMapSquare* param_1) {
-        HighlightManager* this_00;
-        hash_map* phVar1;
-        int iVar2;
-
-        this_00 = *(HighlightManager**)this;
-        iVar2 = GetMapSquareIndex(param_1);
-        phVar1 = (hash_map*)
-            std::array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                                       eastl::allocator, false>,
-                       25600ul>::operator[]((array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                                   eastl::equal_to<long long>, eastl::allocator, false>,
-                                                   25600ul>*)&this_00->field_4448,
-                                            (long)iVar2);
-        UpdateLocsOnConfigureChannel(this_00, phVar1, **(int**)(this + 8), *(bool*)*(undefined8*)(this + 16));
+    // 0x100032350
+    void HighlightManager::ConfigureChannel(
+        HighlightCategory, int, unsigned short, unsigned short, unsigned char,
+        dash3d::EntityHighlightBitFlags)::$_0::operator()(const rs2lib::CoordMapSquare& coordMapSquare) const {
+        HighlightManager* this_00 = *(HighlightManager**)this;
+        int iVar1 = GetMapSquareIndex(coordMapSquare);
+        hash_map<long long, unsigned int>* arg1 = &this_00->field_4448[(long)iVar1];
+        UpdateLocsOnConfigureChannel(this_00, arg1, **(int**)(this + 8), *(bool*)*(uint64_t*)(this + 16));
     }
 
-    // 0x100032cd0, 80 bytes, placed by class name
-    // HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short, unsigned char, dash3d::EntityHighlightBitFlags)::$_1::operator()(rs2lib::CoordMapSquare const&) const
-    /* HighlightManager::ConfigureChannel(HighlightCategory,
-   int, unsigned short, unsigned short, unsigned char,
-   dash3d::EntityHighlightBitFlags)::$_1::TEMPNAMEPLACEHOLDERVALUE(rs2lib::CoordMapSquare
-   const&) const */
-
-    void HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short, unsigned char,
-                                            dash3d::EntityHighlightBitFlags)::$_1::operator()(CoordMapSquare* param_1) {
-        HighlightManager* this_00;
-        hash_map* phVar1;
-        int iVar2;
-
-        this_00 = *(HighlightManager**)this;
-        iVar2 = GetMapSquareIndex(param_1);
-        phVar1 = (hash_map*)
-            std::array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>, eastl::equal_to<long long>,
-                                       eastl::allocator, false>,
-                       25600ul>::operator[]((array<eastl::hash_map<long long, unsigned int, eastl::hash<long long>,
-                                                                   eastl::equal_to<long long>, eastl::allocator, false>,
-                                                   25600ul>*)&this_00->field_1438048,
-                                            (long)iVar2);
-        UpdateObjsOnConfigureChannel(this_00, phVar1, **(int**)(this + 8), *(bool*)*(undefined8*)(this + 16));
+    // 0x100032cd0
+    void HighlightManager::ConfigureChannel(
+        HighlightCategory, int, unsigned short, unsigned short, unsigned char,
+        dash3d::EntityHighlightBitFlags)::$_1::operator()(const rs2lib::CoordMapSquare& coordMapSquare) const {
+        HighlightManager* this_00 = *(HighlightManager**)this;
+        int iVar1 = GetMapSquareIndex(coordMapSquare);
+        hash_map<long long, unsigned int>* arg1 = &this_00->field_1438048[(long)iVar1];
+        UpdateObjsOnConfigureChannel(this_00, arg1, **(int**)(this + 8), *(bool*)*(uint64_t*)(this + 16));
     }
 
-    // 0x100033600, 80 bytes, placed by class name
-    // HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short, unsigned char, dash3d::EntityHighlightBitFlags)::$_2::operator()(rs2lib::CoordMapSquare const&) const
-    /* HighlightManager::ConfigureChannel(HighlightCategory,
-   int, unsigned short, unsigned short, unsigned char,
-   dash3d::EntityHighlightBitFlags)::$_2::TEMPNAMEPLACEHOLDERVALUE(rs2lib::CoordMapSquare
-   const&) const */
+    // 0x100033600
+    void HighlightManager::ConfigureChannel(
+        HighlightCategory, int, unsigned short, unsigned short, unsigned char,
+        dash3d::EntityHighlightBitFlags)::$_2::operator()(const rs2lib::CoordMapSquare& coordMapSquare) const {
+        hash_map<int, unsigned int>* arg1;
 
-    void HighlightManager::ConfigureChannel(HighlightCategory, int, unsigned short, unsigned short, unsigned char,
-                                            dash3d::EntityHighlightBitFlags)::$_2::operator()(CoordMapSquare* param_1) {
-        HighlightManager* this_00;
-        hash_map* phVar1;
-        int iVar2;
-
-        this_00 = *(HighlightManager**)this;
-        iVar2 = GetMapSquareIndex(param_1);
-        phVar1 = (hash_map*)std::array<
-            eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>,
-            25600ul>::operator[]((array<eastl::hash_map<int, unsigned int, eastl::hash<int>, eastl::equal_to<int>,
-                                                        eastl::allocator, false>,
-                                        25600ul>*)&this_00->field_2871648,
-                                 (long)iVar2);
-        UpdateTilesOnConfigureChannel(this_00, phVar1, **(int**)(this + 8), *(bool*)*(undefined8*)(this + 16));
+        HighlightManager* this_00 = *(HighlightManager**)this;
+        int iVar1 = GetMapSquareIndex(coordMapSquare);
+        arg1 = &this_00->field_2871648[(long)iVar1];
+        UpdateTilesOnConfigureChannel(this_00, arg1, **(int**)(this + 8), *(bool*)*(uint64_t*)(this + 16));
     }
 
-    // 0x100035f50, 80 bytes, placed by class name
-    // HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::$_3::operator()(ClientNpc const&) const
-    /* HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::$_3::TEMPNAMEPLACEHOLDERVALUE(ClientNpc
-   const&) const */
-
-    void HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::$_3::operator()(ClientNpc* param_1) {
-        HighlightManager* this_00;
-        longlong lVar1;
-        int iVar2;
-        int iVar3;
-
-        this_00 = *(HighlightManager**)this;
-        iVar2 = param_1->GetUID();
-        iVar3 = param_1->GetCreationCycle();
-        lVar1 = UniqueNPCKey(iVar2, iVar3);
-        UpdateUniqueNPCHighlightOrRemoveIfReused(this_00, lVar1);
+    // 0x100035f50
+    void
+    HighlightManager::UpdateCachedHighlights(HighlightedGroup&)::$_3::operator()(const ClientNpc& clientNpc) const {
+        HighlightManager* this_00 = field_0;
+        int arg1_00 = clientNpc.GetUID();
+        int arg2 = clientNpc.GetCreationCycle();
+        long long arg1 = UniqueNPCKey(arg1_00, arg2);
+        UpdateUniqueNPCHighlightOrRemoveIfReused(this_00, arg1);
     }
 
 } // namespace jag::oldscape::highlight
 
 namespace jag::graphics {
-    // 0x100010f60: the linker folded this into jag::FindClearLSB(unsigned int*), which has identical code
-    FindClearLSB(unsigned int*);
+    // 0x100010f60: FindClearLSB(unsigned int*) has the same machine code as jag::FindClearLSB(unsigned int*)
 
 } // namespace jag::graphics
 
 namespace jag::oldscape::dash3d {
-    // 0x1000117c0: the linker folded this into highlight::NpcUID::NpcUID(int, int), which has identical code
-    AnimateBaseOperation::SeparatedIndexCount::SeparatedIndexCount(unsigned long, unsigned long);
+    // 0x1000117c0: AnimateBaseOperation::SeparatedIndexCount::SeparatedIndexCount(unsigned long, unsigned long) has the same machine code as highlight::NpcUID::NpcUID(int, int)
 
 } // namespace jag::oldscape::dash3d

@@ -1,19 +1,17 @@
 // libs/oldscape/rs2lib/constants/MapConstants.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::constants {
     class MapConstants {
     public:
-        bool IsRegionCoord(int);
+        bool IsRegionCoord(int arg1);
     };
 
-    // 0x10012d990, 16 bytes, inline, placed by class name and debug map
-    // MapConstants::IsRegionCoord(int)
-    bool MapConstants::IsRegionCoord(int param_1) {
-        return 6399 < param_1;
+    // 0x10012d990
+    bool MapConstants::IsRegionCoord(int arg1) {
+        return 6399 < arg1;
     }
 
 } // namespace jag::oldscape::constants

@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/loctype/LocType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -12,167 +11,172 @@ namespace jag::game {
         class MultiLocTypeCache;
         // virtual methods in vtable order
         virtual ~LocType();
-        virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
+        virtual uint8_t* DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2);
         virtual void PostDecode();
-        GetOpNames() const;
-        GetName() const;
-        uint GetMapElement() const;
-        uint GetMapSceneIcon() const;
-        ShouldMapSceneIconRotate() const;
-        GetMapSceneIconRotate90Offset() const;
-        ShouldMapSceneIconMirror() const;
-        ushort GetWallWidth() const;
-        GetMinimumLODLevelOverride() const;
-        GetIndoorsOverride() const;
-        void SetMultiLocIndex(int);
-        ulong IncrementMultiLocIndex();
-        GetBackgroundSound() const;
-        GenerateBackgroundSoundRandomRate() const;
-        GetBackgroundSoundVolume() const;
-        GetBackgroundSoundDropoffRange() const;
-        GetBackgroundSoundRange() const;
+        uint8_t* GetOpNames() const;
+        uint8_t* GetName() const;
+        unsigned int GetMapElement() const;
+        unsigned int GetMapSceneIcon() const;
+        bool ShouldMapSceneIconRotate() const;
+        uint8_t GetMapSceneIconRotate90Offset() const;
+        bool ShouldMapSceneIconMirror() const;
+        unsigned short GetWallWidth() const;
+        uint8_t GetMinimumLODLevelOverride() const;
+        uint8_t GetIndoorsOverride() const;
+        void SetMultiLocIndex(int arg1);
+        unsigned long IncrementMultiLocIndex();
+        uint32_t GetBackgroundSound() const;
+        uint64_t GenerateBackgroundSoundRandomRate() const;
+        uint32_t GetBackgroundSoundVolume() const;
+        uint32_t GetBackgroundSoundDropoffRange() const;
+        uint32_t GetBackgroundSoundRange() const;
         long GetRandomSounds() const;
-        GetRandomSoundShape() const;
-        GetBackgroundSoundRateMin() const;
-        GetBackgroundSoundRateMax() const;
-        GetRandomSoundMin() const;
-        GetRandomSoundMax() const;
-        GetDefaultAnimation() const;
-        HasParticles() const;
-        byte IsMultiLoc() const;
+        uint32_t GetRandomSoundShape() const;
+        uint32_t GetBackgroundSoundRateMin() const;
+        uint32_t GetBackgroundSoundRateMax() const;
+        uint32_t GetRandomSoundMin() const;
+        uint32_t GetRandomSoundMax() const;
+        uint32_t GetDefaultAnimation() const;
+        bool HasParticles() const;
+        bool IsMultiLoc() const;
         bool IsActive() const;
-        GetPostOffset() const;
-        bool RaiseEntities(LocShape, bool) const;
-        uint GetRaiseObjectGroundDecor(LocShape) const;
-        GetModelList() const;
-        GetVFXAttachmentsRawData() const;
+        float* GetPostOffset() const;
+        bool RaiseEntities(LocShape locShape, bool arg2) const;
+        unsigned int GetRaiseObjectGroundDecor(LocShape locShape) const;
+        uint8_t* GetModelList() const;
+        uint8_t* GetVFXAttachmentsRawData() const;
         ColourHSL GetResize() const;
-        GetOffset() const;
-        uint GetHillChangeType() const;
-        IsRuneTek5Only() const;
+        uint8_t* GetOffset() const;
+        unsigned int GetHillChangeType() const;
+        bool IsRuneTek5Only() const;
         void GetCustomBounding() const;
-        UseRandomAnimFrame() const;
-        IsHighDetailOnly() const;
-        UseFastPickingTests() const;
-        byte IsExamineOnly() const;
+        uint8_t UseRandomAnimFrame() const;
+        bool IsHighDetailOnly() const;
+        uint8_t UseFastPickingTests() const;
+        bool IsExamineOnly() const;
         bool HasHighlightOverride() const;
-        uint GetHighlightOverride() const;
-        byte HasVFX() const;
+        unsigned int GetHighlightOverride() const;
+        bool HasVFX() const;
         int GetMultiLocIndex() const;
-        GetMultiLoc(shared_ptr<LocType>&, int, bool);
-        LocType(BaseTemplateConfigTypeList<LocType>*, int);
+        uint8_t* GetMultiLoc(shared_ptr<LocType>& locType, int arg2, bool arg3);
+        LocType(BaseTemplateConfigTypeList<LocType>* baseTemplateConfigTypeList, int arg2);
         void MakeLocationSoundData();
-        bool GetLocationOnFlatGround(LocType const&, int, HeightMap const&, int, unsigned int, unsigned int, Rotation90,
-                                     bool) const;
-        GetGridWidth(Rotation90) const;
-        GetGridLength(Rotation90) const;
-        ulong GetLocationHeight(LocType const&, HeightMap const&, int, unsigned int, unsigned int, Rotation90,
-                                bool) const;
-        GetHillData(Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&,
-                    Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&, LocType const&, HeightMap const&,
-                    int, unsigned int, unsigned int, Rotation90, bool) const;
-        int GetMaxRemoveRoofLevel(LinkMap const&, int, unsigned int, unsigned int, Rotation90) const;
-        GetMultiLocValue(int&, int&, int&, int&, PlayerVarDomain const*, ConfigProvider*) const;
-        GetMultiLoc(shared_ptr<LocType>&, PlayerVarDomain const*, ConfigProvider*);
-        ulong CheckModel(LocShape);
-        Logger* GetModels(graphics::RT7Core*, AssetBuilder&, BuildRequest<graphics::Model, BuildModelMain>&, LocShape,
-                          Rotation90, bool, LocTypeCustomisation const*, AssetJobPriority);
-        ulong GetModelHash(LocShape) const;
-        ulong GetAnimation() const;
-        Matrix44T<float>* GetLocationWorldMatrix(math::Matrix44T<float> const&, Rotation90);
-        CastsShadows(LocShape) const;
-        uint GetHillChangeParam() const;
-        IsFindable() const;
-        GetAnims() const;
+        bool GetLocationOnFlatGround(const LocType& locType, int arg2, const HeightMap& heightMap, int arg4,
+                                     unsigned int arg5, unsigned int arg6, Rotation90 rotation90, bool arg8) const;
+        uint32_t GetGridWidth(Rotation90 rotation90) const;
+        uint32_t GetGridLength(Rotation90 rotation90) const;
+        unsigned long GetLocationHeight(const LocType& locType, const HeightMap& heightMap, int arg3, unsigned int arg4,
+                                        unsigned int arg5, Rotation90 rotation90, bool arg7) const;
+        uint64_t GetHillData(Array<Array<int>>& arg1, Array<Array<int>>& arg2, const LocType& locType,
+                             const HeightMap& heightMap, int arg5, unsigned int arg6, unsigned int arg7,
+                             Rotation90 rotation90, bool arg9) const;
+        int GetMaxRemoveRoofLevel(const LinkMap& linkMap, int arg2, unsigned int arg3, unsigned int arg4,
+                                  Rotation90 rotation90) const;
+        uint8_t* GetMultiLocValue(int& arg1, int& arg2, int& arg3, int& arg4, const PlayerVarDomain* playerVarDomain,
+                                  ConfigProvider* configProvider) const;
+        uint8_t* GetMultiLoc(shared_ptr<LocType>& locType, const PlayerVarDomain* playerVarDomain,
+                             ConfigProvider* configProvider);
+        unsigned long CheckModel(LocShape locShape);
+        LocTypeCustomisation* GetModels(graphics::RT7Core* rt7Core, AssetBuilder& assetBuilder,
+                                        BuildRequest<graphics::Model, BuildModelMain>& buildRequest, LocShape locShape,
+                                        Rotation90 rotation90, bool arg6,
+                                        const LocTypeCustomisation* locTypeCustomisation,
+                                        AssetJobPriority assetJobPriority);
+        unsigned long GetModelHash(LocShape locShape) const;
+        unsigned long GetAnimation() const;
+        auto GetLocationWorldMatrix(const math::Matrix44T<float>& matrix44, Rotation90 rotation90);
+        uint64_t CastsShadows(LocShape locShape) const;
+        unsigned int GetHillChangeParam() const;
+        bool IsFindable() const;
+        uint8_t* GetAnims() const;
         bool IsPotentialGroundDecor() const;
         bool HasSound() const;
-        GetBackgroundSoundShape() const;
+        uint32_t GetBackgroundSoundShape() const;
         bool GetBackgroundSoundDistanceFiltered() const;
-        GetBackgroundSoundDistanceFilterFrequencyHzHigh() const;
-        GetBackgroundSoundDistanceFilterFrequencyHzLow() const;
-        GetBackgroundSoundDistanceFilterQ() const;
+        uint32_t GetBackgroundSoundDistanceFilterFrequencyHzHigh() const;
+        uint32_t GetBackgroundSoundDistanceFilterFrequencyHzLow() const;
+        uint32_t GetBackgroundSoundDistanceFilterQ() const;
         bool GetRandomSoundDistanceFiltered() const;
-        GetRandomSoundDistanceFilterFrequencyHzHigh() const;
-        GetRandomSoundDistanceFilterFrequencyHzLow() const;
-        GetRandomSoundDistanceFilterQ() const;
+        uint32_t GetRandomSoundDistanceFilterFrequencyHzHigh() const;
+        uint32_t GetRandomSoundDistanceFilterFrequencyHzLow() const;
+        uint32_t GetRandomSoundDistanceFilterQ() const;
 
-        // data members, from how the methods use this: 1032 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        Js5HTTPQueueRequest* field_24; // offset 24
-        int field_32;                  // offset 32
-        char _unknown_36[4];
-        shared_ptr field_40; // offset 40
-        char _unknown_56[456];
-        undefined1 field_512;      // offset 512
-        undefined1 m_runeTek5Only; // offset 513
-        char _unknown_514[102];
-        ColourHSL m_resize; // offset 616
-        char _unknown_632[8];
-        undefined1 m_pPostOffset[4]; // offset 640
-        char _unknown_644[8];
-        undefined1 field_652; // offset 652
-        char _unknown_653[171];
-        undefined1 field_824;      // offset 824
-        undefined1 field_825;      // offset 825
-        undefined1 field_826;      // offset 826
-        undefined1 field_827;      // offset 827
-        undefined1 field_828;      // offset 828
-        undefined1 m_hasParticles; // offset 829
-        char _unknown_830[2];
-        uint m_hillChangeType;                // offset 832
-        uint m_hillChangeParam;               // offset 836
-        short field_840;                      // offset 840
-        short field_842;                      // offset 842
-        undefined1 field_844;                 // offset 844
-        undefined1 field_845;                 // offset 845
-        undefined1 field_846;                 // offset 846
-        undefined1 field_847;                 // offset 847
-        undefined1 m_minimumLODLevelOverride; // offset 848
-        undefined1 m_indoorsOverride;         // offset 849
-        char _unknown_850[14];
-        undefined1 field_864; // offset 864
-        char _unknown_865[3];
-        uint m_highlightOverride; // offset 868
-        char _unknown_872[48];
-        undefined1 field_920;        // offset 920
-        undefined1 m_highDetailOnly; // offset 921
-        char _unknown_922[2];
-        uint field_924;       // offset 924
-        uint field_928;       // offset 928
-        undefined4 field_932; // offset 932
-        undefined1 field_936; // offset 936
-        undefined1 field_937; // offset 937
-        char _unknown_938[2];
-        uint field_940;        // offset 940
-        ushort m_wallWidth;    // offset 944
-        bool field_946;        // offset 946
-        undefined1 field_947;  // offset 947
-        uint field_948;        // offset 948
-        uint field_952;        // offset 952
-        undefined1 m_findable; // offset 956
-        byte m_examineOnly;    // offset 957
-        char _unknown_958[2];
-        uint field_960;                          // offset 960
-        uint m_mapElement;                       // offset 964
-        uint m_mapSceneIcon;                     // offset 968
-        undefined1 field_972;                    // offset 972
-        undefined1 m_mapSceneIconRotate90Offset; // offset 973
-        undefined1 field_974;                    // offset 974
-        char _unknown_975[25];
-        uint field_1000;     // offset 1000
-        uint field_1004;     // offset 1004
-        int m_multiLocIndex; // offset 1008
-        char _unknown_1012[4];
-        shared_ptr field_1016; // offset 1016
+    private:
+        uint8_t _unknown_8[16];
+        Js5HTTPQueueRequest* field_24;
+        int field_32;
+        uint8_t _unknown_36[4];
+        shared_ptr field_40;
+        uint8_t _unknown_56[456];
+        uint8_t field_512;
+        uint8_t m_runeTek5Only;
+        uint8_t _unknown_514[102];
+        ColourHSL m_resize;
+        uint8_t _unknown_632[8];
+        uint8_t m_pPostOffset[4];
+        uint8_t _unknown_644[8];
+        uint8_t field_652;
+        uint8_t _unknown_653[171];
+        uint8_t field_824;
+        uint8_t field_825;
+        uint8_t field_826;
+        uint8_t field_827;
+        uint8_t field_828;
+        uint8_t m_hasParticles;
+        uint8_t _unknown_830[2];
+        unsigned int m_hillChangeType;
+        unsigned int m_hillChangeParam;
+        short field_840;
+        short field_842;
+        uint8_t field_844;
+        uint8_t field_845;
+        uint8_t field_846;
+        uint8_t field_847;
+        uint8_t m_minimumLODLevelOverride;
+        uint8_t m_indoorsOverride;
+        uint8_t _unknown_850[14];
+        uint8_t field_864;
+        uint8_t _unknown_865[3];
+        unsigned int m_highlightOverride;
+        uint8_t _unknown_872[48];
+        uint8_t field_920;
+        uint8_t m_highDetailOnly;
+        uint8_t _unknown_922[2];
+        unsigned int field_924;
+        unsigned int field_928;
+        uint32_t field_932;
+        uint8_t field_936;
+        uint8_t field_937;
+        uint8_t _unknown_938[2];
+        unsigned int field_940;
+        unsigned short m_wallWidth;
+        bool field_946;
+        uint8_t field_947;
+        unsigned int field_948;
+        unsigned int field_952;
+        uint8_t m_findable;
+        uint8_t m_examineOnly;
+        uint8_t _unknown_958[2];
+        unsigned int field_960;
+        unsigned int m_mapElement;
+        unsigned int m_mapSceneIcon;
+        uint8_t field_972;
+        uint8_t m_mapSceneIconRotate90Offset;
+        uint8_t field_974;
+        uint8_t _unknown_975[25];
+        unsigned int field_1000;
+        unsigned int field_1004;
+        int m_multiLocIndex;
+        uint8_t _unknown_1012[4];
+        shared_ptr field_1016;
     };
 
     class LocType::AnimationWithWeights {
     public:
         AnimationWithWeights();
 
-        // data members, from how the methods use this: 8 bytes
-        undefined8 field_0; // offset 0
+    private:
+        uint64_t field_0;
     };
 
     class LocType::LocationSoundData {
@@ -181,802 +185,604 @@ namespace jag::game {
         ~LocationSoundData();
         LocationSoundData();
 
-        // data members, from how the methods use this: 104 bytes
-        undefined8 field_0;  // offset 0
-        undefined8 field_8;  // offset 8
-        undefined1 field_16; // offset 16
-        char _unknown_17[3];
-        int field_20;        // offset 20
-        int field_24;        // offset 24
-        undefined4 field_28; // offset 28
-        undefined1 field_32; // offset 32
-        char _unknown_33[3];
-        undefined8 field_36; // offset 36
-        undefined8 field_44; // offset 44
-        undefined4 field_52; // offset 52
-        char _unknown_56[24];
-        undefined4 field_80; // offset 80
-        undefined1 field_84; // offset 84
-        char _unknown_85[3];
-        undefined8 field_88; // offset 88
-        undefined4 field_96; // offset 96
-        char _unknown_100[4];
+    private:
+        uint64_t field_0;
+        uint64_t field_8;
+        uint8_t field_16;
+        uint8_t _unknown_17[3];
+        int field_20;
+        int field_24;
+        uint32_t field_28;
+        uint8_t field_32;
+        uint8_t _unknown_33[3];
+        uint64_t field_36;
+        uint64_t field_44;
+        uint32_t field_52;
+        uint8_t _unknown_56[24];
+        uint32_t field_80;
+        uint8_t field_84;
+        uint8_t _unknown_85[3];
+        uint64_t field_88;
+        uint32_t field_96;
+        uint8_t _unknown_100[4];
     };
 
     class LocType::MultiLocTypeCache {
     public:
         MultiLocTypeCache();
         ~MultiLocTypeCache();
-        GetMultiLoc(shared_ptr<LocType>&, shared_ptr<LocType> const&, PlayerVarDomain const*, ConfigProvider*);
+        uint8_t* GetMultiLoc(shared_ptr<LocType>& locType1, const shared_ptr<LocType>& locType2,
+                             const PlayerVarDomain* playerVarDomain, ConfigProvider* configProvider);
 
-        // data members, from how the methods use this: 80 bytes
-        char _unknown_0[8];
-        long field_8;        // offset 8
-        shared_ptr field_16; // offset 16
-        shared_ptr field_32; // offset 32
-        char _unknown_48[8];
-        shared_ptr field_56; // offset 56
-        undefined* field_72; // offset 72
+    private:
+        uint8_t _unknown_0[8];
+        long field_8;
+        shared_ptr field_16;
+        shared_ptr field_32;
+        uint8_t _unknown_48[24];
+        uint8_t* field_72;
     };
 
     class LocTypeCustomisation {
     public:
-        GetModelList() const;
-        GetRecolourDest() const;
-        GetRematerialDest() const;
-        static /* 16 bytes */ nextUniqueID; // = { 1, 0, 0, 0 }
+        void GetModelList() const;
+        Option<float>* GetRecolourDest() const;
+        uint8_t* GetRematerialDest() const;
+        static int32_t nextUniqueID[4]; // = { 1, 0, 0, 0 }
     };
 
-    // 0x100f3c870, 16 bytes, __data
-    LocTypeCustomisation::nextUniqueID = {1, 0, 0, 0};
+    // 0x100f3c870
+    int32_t LocTypeCustomisation::nextUniqueID[4] = {1, 0, 0, 0};
 
-    // 0x1003c2160, 16 bytes, inline, placed by class name and debug map
-    // LocType::GetMapElement() const
-    uint LocType::GetMapElement() {
+    // 0x1003c2160
+    unsigned int LocType::GetMapElement() const {
         return m_mapElement;
     }
 
-    // 0x1003c21c0, 16 bytes, inline, placed by class name and debug map
-    // LocType::GetMapSceneIcon() const
-    uint LocType::GetMapSceneIcon() {
+    // 0x1003c21c0
+    unsigned int LocType::GetMapSceneIcon() const {
         return m_mapSceneIcon;
     }
 
-    // 0x1003c4bf0, 16 bytes, inline, placed by class name
-    // LocType::ShouldMapSceneIconRotate() const
-    undefined1 LocType::ShouldMapSceneIconRotate() {
+    // 0x1003c4bf0
+    bool LocType::ShouldMapSceneIconRotate() const {
         return field_972;
     }
 
-    // 0x1003c4c00, 16 bytes, inline, placed by class name
-    // LocType::GetMapSceneIconRotate90Offset() const
-    undefined1 LocType::GetMapSceneIconRotate90Offset() {
+    // 0x1003c4c00
+    uint8_t LocType::GetMapSceneIconRotate90Offset() const {
         return m_mapSceneIconRotate90Offset;
     }
 
-    // 0x1003c4c10, 16 bytes, inline, placed by class name
-    // LocType::ShouldMapSceneIconMirror() const
-    undefined1 LocType::ShouldMapSceneIconMirror() {
+    // 0x1003c4c10
+    bool LocType::ShouldMapSceneIconMirror() const {
         return field_974;
     }
 
-    // 0x1003dc7b0, 16 bytes, inline, placed by class name
-    // LocType::GetWallWidth() const
-    ushort LocType::GetWallWidth() {
+    // 0x1003dc7b0
+    unsigned short LocType::GetWallWidth() const {
         return m_wallWidth;
     }
 
-    // 0x10040ca50, 16 bytes, inline, placed by class name
-    // LocType::GetMinimumLODLevelOverride() const
-    undefined1 LocType::GetMinimumLODLevelOverride() {
+    // 0x10040ca50
+    uint8_t LocType::GetMinimumLODLevelOverride() const {
         return m_minimumLODLevelOverride;
     }
 
-    // 0x10040ca60, 16 bytes, inline, placed by class name
-    // LocType::GetIndoorsOverride() const
-    undefined1 LocType::GetIndoorsOverride() {
+    // 0x10040ca60
+    uint8_t LocType::GetIndoorsOverride() const {
         return m_indoorsOverride;
     }
 
-    // 0x10041c9e0, 64 bytes, inline, placed by class name
-    // LocType::SetMultiLocIndex(int)
-    void LocType::SetMultiLocIndex(int param_1) {
-        int iVar1;
-        undefined8 in_RAX;
-        int* piVar2;
+    // 0x10041c9e0
+    void LocType::SetMultiLocIndex(int arg1) {
+        uint64_t in_RAX;
         int local_18;
         int local_14;
 
-        _local_18 = CONCAT44((int)((ulong)in_RAX >> 32), param_1);
-        iVar1 = (&field_976)->end();
-        _local_18 = CONCAT44(iVar1 + -1, local_18);
-        piVar2 = std::min<int>(&local_14, &local_18);
+        _local_18 = (((uint64_t)((int)((unsigned long)in_RAX >> 32)) << 32) | (uint32_t)arg1);
+        int iVar1 = field_976.end();
+        _local_18 = (((uint64_t)(iVar1 - 1) << 32) | (uint32_t)local_18);
+        auto piVar2 = std::min<int>(local_14, local_18);
         m_multiLocIndex = *piVar2;
     }
 
-    // 0x10041ca70, 64 bytes, inline, placed by class name
-    // LocType::IncrementMultiLocIndex()
-    ulong LocType::IncrementMultiLocIndex() {
-        ulong uVar1;
-        ulong uVar2;
-
-        uVar2 = (long)m_multiLocIndex + 1;
-        uVar1 = (&field_976)->end();
+    // 0x10041ca70
+    unsigned long LocType::IncrementMultiLocIndex() {
+        unsigned long uVar2 = (long)m_multiLocIndex + 1;
+        unsigned long uVar1 = field_976.end();
         m_multiLocIndex = (int)(uVar2 % uVar1);
         return uVar2 / uVar1;
     }
 
-    // 0x10042add0, 16 bytes, complete-object constructor, inline, placed by class name
-    // LocType::MultiLocTypeCache::MultiLocTypeCache(): jumps straight to the base-object constructor
+    // 0x10042c2d0
+    uint32_t LocType::GetBackgroundSound() const {
+        uint32_t* puVar3;
 
-    // 0x10042af60, 16 bytes, complete-object destructor, inline, placed by class name
-    // LocType::MultiLocTypeCache::~MultiLocTypeCache(): jumps straight to the base-object destructor
-
-    // 0x10042c2d0, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSound() const
-    undefined4 LocType::GetBackgroundSound() {
-        bool bVar1;
-        undefined4 uVar2;
-        undefined4* puVar3;
-
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 4294967295;
-        if (bVar1) {
-            puVar3 = (undefined4*)shared_ptr<LocType::LocationSoundData>::operator->(
-                (shared_ptr<LocType::LocationSoundData>*)field_1016);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 4294967295;
+        if (cVar1) {
+            puVar3 = (uint32_t*)(*field_1016).operator->();
             uVar2 = *puVar3;
         }
         return uVar2;
     }
 
-    // 0x10042c310, 64 bytes, inline, placed by class name
-    // LocType::GenerateBackgroundSoundRandomRate() const
-    undefined8 LocType::GenerateBackgroundSoundRandomRate() {
-        bool bVar1;
-        undefined8 uVar2;
-        LocationSoundData* this_00;
-
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 256;
-        if (bVar1) {
-            this_00 = (LocationSoundData*)shared_ptr<LocType::LocationSoundData>::operator->(
-                (shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = this_00->GenerateBackgroundSoundRandomRate();
+    // 0x10042c310
+    uint64_t LocType::GenerateBackgroundSoundRandomRate() const {
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint64_t uVar2 = 256;
+        if (cVar1) {
+            uVar2 = ((LocationSoundData*)(*field_1016).operator->())->GenerateBackgroundSoundRandomRate();
         }
         return uVar2;
     }
 
-    // 0x10042c350, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundVolume() const
-    undefined4 LocType::GetBackgroundSoundVolume() {
-        bool bVar1;
-        undefined4 uVar2;
+    // 0x10042c350
+    uint32_t LocType::GetBackgroundSoundVolume() const {
         long lVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 255;
-        if (bVar1) {
-            lVar3 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = *(undefined4*)(lVar3 + 12);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 255;
+        if (cVar1) {
+            lVar3 = (*field_1016).operator->();
+            uVar2 = *(uint32_t*)(lVar3 + 12);
         }
         return uVar2;
     }
 
-    // 0x10042c390, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundDropoffRange() const
-    undefined4 LocType::GetBackgroundSoundDropoffRange() {
-        bool bVar1;
-        undefined4 uVar2;
+    // 0x10042c390
+    uint32_t LocType::GetBackgroundSoundDropoffRange() const {
         long lVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 0;
-        if (bVar1) {
-            lVar3 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = *(undefined4*)(lVar3 + 8);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 0;
+        if (cVar1) {
+            lVar3 = (*field_1016).operator->();
+            uVar2 = *(uint32_t*)(lVar3 + 8);
         }
         return uVar2;
     }
 
-    // 0x10042c3d0, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundRange() const
-    undefined4 LocType::GetBackgroundSoundRange() {
-        bool bVar1;
-        undefined4 uVar2;
+    // 0x10042c3d0
+    uint32_t LocType::GetBackgroundSoundRange() const {
         long lVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 0;
-        if (bVar1) {
-            lVar3 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = *(undefined4*)(lVar3 + 4);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 0;
+        if (cVar1) {
+            lVar3 = (*field_1016).operator->();
+            uVar2 = *(uint32_t*)(lVar3 + 4);
         }
         return uVar2;
     }
 
-    // 0x10042c5d0, 64 bytes, inline, placed by class name
-    // LocType::GetRandomSounds() const
-    long LocType::GetRandomSounds() {
+    // 0x10042c5d0
+    long LocType::GetRandomSounds() const {
         long lVar2;
 
-        if (field_1016->operator_cast_to_bool()) {
-            lVar2 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            lVar2 = lVar2 + 56;
-        } else {
+        if (field_1016->operator_cast_to_bool() == '\0') {
             lVar2 = 0;
+        } else {
+            lVar2 = (*field_1016).operator->();
+            lVar2 = lVar2 + 56;
         }
         return lVar2;
     }
 
-    // 0x10042c630, 64 bytes, inline, placed by class name
-    // LocType::GetRandomSoundShape() const
-    undefined4 LocType::GetRandomSoundShape() {
-        bool bVar1;
-        undefined4 uVar2;
+    // 0x10042c630
+    uint32_t LocType::GetRandomSoundShape() const {
         long lVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 0;
-        if (bVar1) {
-            lVar3 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = *(undefined4*)(lVar3 + 80);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 0;
+        if (cVar1) {
+            lVar3 = (*field_1016).operator->();
+            uVar2 = *(uint32_t*)(lVar3 + 80);
         }
         return uVar2;
     }
 
-    // 0x10042c670, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundRateMin() const
-    undefined4 LocType::GetBackgroundSoundRateMin() {
-        bool bVar1;
-        undefined4 uVar2;
+    // 0x10042c670
+    uint32_t LocType::GetBackgroundSoundRateMin() const {
         long lVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 256;
-        if (bVar1) {
-            lVar3 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = *(undefined4*)(lVar3 + 20);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 256;
+        if (cVar1) {
+            lVar3 = (*field_1016).operator->();
+            uVar2 = *(uint32_t*)(lVar3 + 20);
         }
         return uVar2;
     }
 
-    // 0x10042c6b0, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundRateMax() const
-    undefined4 LocType::GetBackgroundSoundRateMax() {
-        bool bVar1;
-        undefined4 uVar2;
+    // 0x10042c6b0
+    uint32_t LocType::GetBackgroundSoundRateMax() const {
         long lVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 256;
-        if (bVar1) {
-            lVar3 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = *(undefined4*)(lVar3 + 24);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 256;
+        if (cVar1) {
+            lVar3 = (*field_1016).operator->();
+            uVar2 = *(uint32_t*)(lVar3 + 24);
         }
         return uVar2;
     }
 
-    // 0x10042c6f0, 64 bytes, inline, placed by class name
-    // LocType::GetRandomSoundMin() const
-    undefined4 LocType::GetRandomSoundMin() {
-        bool bVar1;
-        undefined4 uVar2;
+    // 0x10042c6f0
+    uint32_t LocType::GetRandomSoundMin() const {
         long lVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 0;
-        if (bVar1) {
-            lVar3 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = *(undefined4*)(lVar3 + 48);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 0;
+        if (cVar1) {
+            lVar3 = (*field_1016).operator->();
+            uVar2 = *(uint32_t*)(lVar3 + 48);
         }
         return uVar2;
     }
 
-    // 0x10042c730, 64 bytes, inline, placed by class name
-    // LocType::GetRandomSoundMax() const
-    undefined4 LocType::GetRandomSoundMax() {
-        bool bVar1;
-        undefined4 uVar2;
+    // 0x10042c730
+    uint32_t LocType::GetRandomSoundMax() const {
         long lVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 0;
-        if (bVar1) {
-            lVar3 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = *(undefined4*)(lVar3 + 52);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 0;
+        if (cVar1) {
+            lVar3 = (*field_1016).operator->();
+            uVar2 = *(uint32_t*)(lVar3 + 52);
         }
         return uVar2;
     }
 
-    // 0x10042c770, 64 bytes, inline, placed by class name
-    // LocType::GetDefaultAnimation() const
-    undefined4 LocType::GetDefaultAnimation() {
-        undefined4 uVar1;
-        long lVar2;
-        undefined4* puVar3;
+    // 0x10042c770
+    uint32_t LocType::GetDefaultAnimation() const {
+        uint32_t* puVar3;
 
-        lVar2 = (&field_896)->end();
-        uVar1 = 4294967295;
+        long lVar2 = field_896.end();
+        uint32_t uVar1 = 4294967295;
         if (lVar2 == 1) {
-            puVar3 = (undefined4*)Array<LocType::AnimationWithWeights, eastl::allocator>::operator[](
-                (Array<LocType::AnimationWithWeights, eastl::allocator>*)&field_896, 0);
+            puVar3 = &field_896[0];
             uVar1 = *puVar3;
         }
         return uVar1;
     }
 
-    // 0x10042c8c0, 16 bytes, inline, placed by class name
-    // LocType::HasParticles() const
-    undefined1 LocType::HasParticles() {
+    // 0x10042c8c0
+    bool LocType::HasParticles() const {
         return m_hasParticles;
     }
 
-    // 0x10042d3c0, 32 bytes, inline, placed by class name
-    // LocType::IsMultiLoc() const
-    byte LocType::IsMultiLoc() {
-        byte bVar1;
-
-        bVar1 = (&field_976)->empty();
-        return bVar1 ^ 1;
+    // 0x10042d3c0
+    bool LocType::IsMultiLoc() const {
+        return field_976.empty() ^ 1;
     }
 
-    // 0x10042d430, 16 bytes, inline, placed by class name
-    // LocType::IsActive() const
-    bool LocType::IsActive() {
+    // 0x10042d430
+    bool LocType::IsActive() const {
         return field_940 == 1;
     }
 
-    // 0x10042d4a0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocType::GetPostOffset() const
-    /* graphics::SceneViewData::GetStippleNearClipParams() const */
-
-    float* graphics::SceneViewData::GetStippleNearClipParams() {
+    // 0x10042d4a0
+    float* LocType::GetPostOffset() const {
         return &m_stippleNearClipParams;
     }
 
-    // 0x10042e6e0, 80 bytes, inline, placed by class name
-    // LocType::RaiseEntities(LocShape, bool) const
-    bool LocType::RaiseEntities(char param_2, int param_3) {
-        if (param_3 == 0) {
-            if ((LocShapes::IsCentrePieceShape(param_2) != '\0') && (field_948 == 1)) {
+    // 0x10042e6e0
+    bool LocType::RaiseEntities(LocShape locShape, bool arg2) const {
+        uint32_t in_register_00000011;
+
+        if ((((uint32_t)in_register_00000011 << 8) | (uint8_t)arg2) == 0) {
+            if ((LocShapes::IsCentrePieceShape(locShape & 255) != '\0') && (field_948 == 1)) {
                 return true;
             }
-            if (param_2 == '\x16') {
+            if ((char)locShape == '\x16') {
                 return field_952 != 0;
             }
         }
         return false;
     }
 
-    // 0x10042e730, 32 bytes, inline, placed by class name
-    // LocType::GetRaiseObjectGroundDecor(LocShape) const
-    uint LocType::GetRaiseObjectGroundDecor(char param_2) {
-        uint uVar1;
-
-        uVar1 = 0;
-        if (param_2 == '\x16') {
+    // 0x10042e730
+    unsigned int LocType::GetRaiseObjectGroundDecor(LocShape locShape) const {
+        unsigned int uVar1 = 0;
+        if ((char)locShape == '\x16') {
             uVar1 = field_952;
         }
         return uVar1;
     }
 
-    // 0x10042eb10, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocType::GetModelList() const
-    /* BuildTerrainMain::GetRequestData() */
-
-    undefined1* BuildTerrainMain::GetRequestData() {
+    // 0x10042eb10
+    uint8_t* LocType::GetModelList() const {
         return m_requestData;
     }
 
-    // 0x10042f3e0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocType::GetVFXAttachmentsRawData() const
-    /* ObjType::GetOffset2D() const */
-
-    undefined1* ObjType::GetOffset2D() {
+    // 0x10042f3e0
+    uint8_t* LocType::GetVFXAttachmentsRawData() const {
         return &field_872;
     }
 
-    // 0x10042fe60, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // LocType::GetResize() const
-    /* graphics::BillboardBatchInstance::GetApproxMaterialInfoList() const */
-
-    undefined1* graphics::BillboardBatchInstance::GetApproxMaterialInfoList() {
+    // 0x10042fe60
+    ColourHSL LocType::GetResize() const {
         return &field_616;
     }
 
-    // 0x10042ff30, 16 bytes, inline, placed by class name
-    // LocType::GetOffset() const
-    undefined1* LocType::GetOffset() {
+    // 0x10042ff30
+    uint8_t* LocType::GetOffset() const {
         return m_resize + 12;
     }
 
-    // 0x10042ff40, 16 bytes, inline, placed by class name
-    // LocType::GetHillChangeType() const
-    uint LocType::GetHillChangeType() {
+    // 0x10042ff40
+    unsigned int LocType::GetHillChangeType() const {
         return m_hillChangeType;
     }
 
-    // 0x100430640, 16 bytes, inline, placed by class name
-    // LocType::IsRuneTek5Only() const
-    undefined1 LocType::IsRuneTek5Only() {
+    // 0x100430640
+    bool LocType::IsRuneTek5Only() const {
         return m_runeTek5Only;
     }
 
-    // 0x100430d40, 32 bytes, inline, placed by class name
-    // LocType::GetCustomBounding() const
-    void LocType::GetCustomBounding() {
-        (&field_856)->get();
+    // 0x100430d40
+    void LocType::GetCustomBounding() const {
+        field_856.get();
     }
 
-    // 0x100430e50, 16 bytes, inline, placed by class name
-    // LocType::UseRandomAnimFrame() const
-    undefined1 LocType::UseRandomAnimFrame() {
+    // 0x100430e50
+    uint8_t LocType::UseRandomAnimFrame() const {
         return field_920;
     }
 
-    // 0x100430e90, 16 bytes, inline, placed by class name
-    // LocType::IsHighDetailOnly() const
-    undefined1 LocType::IsHighDetailOnly() {
+    // 0x100430e90
+    bool LocType::IsHighDetailOnly() const {
         return m_highDetailOnly;
     }
 
-    // 0x1004310f0, 16 bytes, inline, placed by class name
-    // LocType::UseFastPickingTests() const
-    undefined1 LocType::UseFastPickingTests() {
+    // 0x1004310f0
+    uint8_t LocType::UseFastPickingTests() const {
         return field_864;
     }
 
-    // 0x1004314d0, 16 bytes, inline, placed by class name
-    // LocType::IsExamineOnly() const
-    byte LocType::IsExamineOnly() {
+    // 0x1004314d0
+    bool LocType::IsExamineOnly() const {
         return m_examineOnly;
     }
 
-    // 0x1004315a0, 16 bytes, inline, placed by class name
-    // LocType::HasHighlightOverride() const
-    bool LocType::HasHighlightOverride() {
+    // 0x1004315a0
+    bool LocType::HasHighlightOverride() const {
         return m_highlightOverride != 9;
     }
 
-    // 0x1004315b0, 16 bytes, inline, placed by class name
-    // LocType::GetHighlightOverride() const
-    uint LocType::GetHighlightOverride() {
+    // 0x1004315b0
+    unsigned int LocType::GetHighlightOverride() const {
         return m_highlightOverride;
     }
 
-    // 0x100431b90, 128 bytes, base-object constructor, inline, placed by class name
-    // LocType::MultiLocTypeCache::MultiLocTypeCache()
-    void LocType::MultiLocTypeCache::MultiLocTypeCache() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        new (field_16, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_32, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_48) eastl::optional<option::EnumOptionToggle>();
-        new (field_56, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x100431b90
+    LocType::MultiLocTypeCache::MultiLocTypeCache() : shared_ptr() {
+        new (field_16) shared_ptr();
+        new (field_32) shared_ptr();
+        new (&field_48) eastl::optional();
+        new (&field_56) shared_ptr();
     }
 
-    // 0x100431d10, 64 bytes, base-object destructor, inline, placed by class name
-    // LocType::MultiLocTypeCache::~MultiLocTypeCache()
-    void LocType::MultiLocTypeCache::~MultiLocTypeCache() {
-        field_56->~shared_ptr();
+    // 0x100431d10
+    LocType::MultiLocTypeCache::~MultiLocTypeCache() {
+        field_56.~shared_ptr();
         field_32->~shared_ptr();
         field_16->~shared_ptr();
-        ~shared_ptr();
     }
 
-    // 0x100431d90, 32 bytes, inline, placed by class name
-    // LocType::LocationSoundData::GenerateBackgroundSoundRandomRate() const
-    int LocType::LocationSoundData::GenerateBackgroundSoundRandomRate() {
-        int iVar1;
-
-        iVar1 = field_20;
+    // 0x100431d90
+    int LocType::LocationSoundData::GenerateBackgroundSoundRandomRate() const {
+        int iVar1 = field_20;
         return math::Rand(field_24 - iVar1) + iVar1;
     }
 
-    // 0x100449880, 32 bytes, inline, placed by class name
-    // LocType::HasVFX() const
-    byte LocType::HasVFX() {
-        byte bVar1;
-
-        bVar1 = (&field_872)->empty();
-        return bVar1 ^ 1;
+    // 0x100449880
+    bool LocType::HasVFX() const {
+        return field_872.empty() ^ 1;
     }
 
-    // 0x10051b040, 16 bytes, complete-object destructor, inline, placed by class name
-    // LocType::~LocType(): jumps straight to the base-object destructor
-
-    // 0x10051b050, 256 bytes, base-object destructor, inline, placed by class name
-    // LocType::~LocType()
-    void LocType::~LocType() {
-        field_0 = &PTR__LocType_100f038c8;
+    // 0x10051b050
+    LocType::~LocType() {
         field_1016->~shared_ptr();
-        (&field_976)->~Array();
-        (&field_896)->~Array();
-        (&field_872)->~Array();
-        (&field_856)->~unique_ptr();
-        (&field_800)->~Array();
-        (&field_776)->~Array();
-        (&field_752)->~Array();
-        (&field_728)->~Array();
-        (&field_704)->~Array();
-        (&field_680)->~Array();
-        (&field_656)->~Array();
-        (&field_592)->~Array();
-        (&field_568)->~Array();
-        (&field_544)->~Array();
-        (&field_520)->~Array();
-        (&field_480)->~basic_string();
-        (&field_56)->~fixed_vector();
-        ~ConfigType();
+        field_976.~Array();
+        field_896.~Array();
+        field_872.~Array();
+        field_856.~unique_ptr();
+        field_800.~Array();
+        field_776.~Array();
+        field_752.~Array();
+        field_728.~Array();
+        field_704.~Array();
+        field_680.~Array();
+        field_656.~Array();
+        field_592.~Array();
+        field_568.~Array();
+        field_544.~Array();
+        field_520.~Array();
+        field_480.~basic_string();
+        field_56.~fixed_vector();
     }
 
-    // 0x100525640, 16 bytes, inline, placed by class name
-    // LocType::GetMultiLocIndex() const
-    int LocType::GetMultiLocIndex() {
+    // 0x100525640
+    int LocType::GetMultiLocIndex() const {
         return m_multiLocIndex;
     }
 
-    // 0x100527420, 112 bytes, inline, placed by class name
-    // LocType::MakeLocationSoundData()
+    // 0x100527420
     void LocType::MakeLocationSoundData() {
-        undefined1* this_00;
-        MakeSharedPool<LocType::LocationSoundData, 512>* in_RSI;
-        shared_ptr local_28;
+        shared_ptr<LocType::LocationSoundData> local_28;
 
-        this_00 = field_1016;
-        if (!this_00->operator_cast_to_bool()) {
-            MakeSharedPool<LocType::LocationSoundData, 512>::MakeShared<>(&local_28, in_RSI);
-            shared_ptr<LocType::LocationSoundData>::operator=((shared_ptr<LocType::LocationSoundData>*)this_00,
-                                                              &local_28);
-            local_28.~shared_ptr();
+        uint8_t* this_00 = field_1016;
+        if (this_00->operator_cast_to_bool() == '\0') {
+            MakeSharedPool<LocType::LocationSoundData, 512>::MakeShared<>();
+            *this_00 = local_28;
         }
-        shared_ptr<LocType::LocationSoundData>::operator*((shared_ptr<LocType::LocationSoundData>*)this_00);
+        **this_00;
     }
 
-    // 0x1005296e0, 32 bytes, deleting destructor, inline, placed by class name
-    // LocType::~LocType()
-    void LocType::~LocType() {
-        ~LocType(this);
-        operator_delete(this);
+    // 0x10052b100
+    LocType::LocationSoundData::~LocationSoundData() {
+        field_56.~Array();
     }
 
-    // 0x10052b0f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // LocType::LocationSoundData::~LocationSoundData(): jumps straight to the base-object destructor
+    // 0x10052b2e0
+    LocType::LocationSoundData::LocationSoundData()
+        : MakeSharedPool<LocType::LocationSoundData, 512>(), field_0(4294967295), field_8(1095216660480), field_16(0),
+          field_20(256), field_24(256), field_28(0), field_32(0), field_36(1161527296), field_44(1065353216),
+          field_52(0), field_80(0), field_84(0), field_88(1161527296), field_96(1065353216) {}
 
-    // 0x10052b100, 16 bytes, base-object destructor, inline, placed by class name
-    // LocType::LocationSoundData::~LocationSoundData()
-    void LocType::LocationSoundData::~LocationSoundData() {
-        (&field_56)->~Array();
-    }
+    // 0x100533b50
+    LocType::AnimationWithWeights::AnimationWithWeights() : field_0(433791696895) {}
 
-    // 0x10052b2d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // LocType::LocationSoundData::LocationSoundData(): jumps straight to the base-object constructor
-
-    // 0x10052b2e0, 128 bytes, base-object constructor, inline, placed by class name
-    // LocType::LocationSoundData::LocationSoundData()
-    void LocType::LocationSoundData::LocationSoundData() {
-        new (this) MakeSharedPool<LocType::LocationSoundData, 512>();
-        field_0 = 4294967295;
-        field_8 = 1095216660480;
-        field_16 = 0;
-        field_20 = 256;
-        field_24 = 256;
-        field_28 = 0;
-        field_32 = 0;
-        field_36 = 1161527296;
-        field_44 = 1065353216;
-        field_52 = 0;
-        new (&field_56) Array<int, eastl::allocator>();
-        field_80 = 0;
-        field_84 = 0;
-        field_88 = 1161527296;
-        field_96 = 1065353216;
-    }
-
-    // 0x100533b40, 16 bytes, complete-object constructor, inline, placed by class name
-    // LocType::AnimationWithWeights::AnimationWithWeights(): jumps straight to the base-object constructor
-
-    // 0x100533b50, 32 bytes, base-object constructor, inline, placed by class name
-    // LocType::AnimationWithWeights::AnimationWithWeights()
-    void LocType::AnimationWithWeights::AnimationWithWeights() {
-        field_0 = 433791696895;
-    }
-
-    // 0x100625640, 16 bytes, inline, placed by class name
-    // LocType::GetHillChangeParam() const
-    uint LocType::GetHillChangeParam() {
+    // 0x100625640
+    unsigned int LocType::GetHillChangeParam() const {
         return m_hillChangeParam;
     }
 
-    // 0x10064b6e0, 16 bytes, inline, placed by class name
-    // LocType::IsFindable() const
-    undefined1 LocType::IsFindable() {
+    // 0x10064b6e0
+    bool LocType::IsFindable() const {
         return m_findable;
     }
 
-    // 0x10064b6f0, 16 bytes, inline, placed by class name
-    // LocType::GetAnims() const
-    undefined1* LocType::GetAnims() {
+    // 0x10064b6f0
+    uint8_t* LocType::GetAnims() const {
         return &field_896;
     }
 
-    // 0x10064b700, 48 bytes, inline, placed by class name
-    // LocType::IsPotentialGroundDecor() const
-    bool LocType::IsPotentialGroundDecor() {
+    // 0x10064b700
+    bool LocType::IsPotentialGroundDecor() const {
         if ((field_940 == 0) && (field_937 == '\0')) {
             return field_932 != 1;
         }
         return false;
     }
 
-    // 0x10064b730, 32 bytes, inline, placed by class name
-    // LocType::HasSound() const
-    bool LocType::HasSound() {
-        long lVar1;
-
-        lVar1 = field_1016->end();
-        return lVar1 != 0;
+    // 0x10064b730
+    bool LocType::HasSound() const {
+        return field_1016->end() != 0;
     }
 
-    // 0x10064b750, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundShape() const
-    undefined4 LocType::GetBackgroundSoundShape() {
-        bool bVar1;
-        undefined4 uVar2;
+    // 0x10064b750
+    uint32_t LocType::GetBackgroundSoundShape() const {
         long lVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        uVar2 = 0;
-        if (bVar1) {
-            lVar3 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar2 = *(undefined4*)(lVar3 + 28);
+        bool cVar1 = field_1016->operator_cast_to_bool();
+        uint32_t uVar2 = 0;
+        if (cVar1) {
+            lVar3 = (*field_1016).operator->();
+            uVar2 = *(uint32_t*)(lVar3 + 28);
         }
         return uVar2;
     }
 
-    // 0x10064b790, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundDistanceFiltered() const
-    bool LocType::GetBackgroundSoundDistanceFiltered() {
-        bool bVar1;
+    // 0x10064b790
+    bool LocType::GetBackgroundSoundDistanceFiltered() const {
         long lVar2;
+        bool bVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        if (bVar1) {
-            lVar2 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            bVar1 = *(char*)(lVar2 + 32) != '\0';
+        if (field_1016->operator_cast_to_bool() == '\0') {
+            bVar3 = false;
         } else {
-            bVar1 = false;
+            lVar2 = (*field_1016).operator->();
+            bVar3 = *(char*)(lVar2 + 32) != '\0';
         }
-        return bVar1;
+        return bVar3;
     }
 
-    // 0x10064b7d0, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundDistanceFilterFrequencyHzHigh() const
-    undefined4 LocType::GetBackgroundSoundDistanceFilterFrequencyHzHigh() {
+    // 0x10064b7d0
+    uint32_t LocType::GetBackgroundSoundDistanceFilterFrequencyHzHigh() const {
         long lVar1;
-        undefined4 uVar3;
+        uint32_t uVar3;
 
-        if (field_1016->operator_cast_to_bool()) {
-            lVar1 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar3 = *(undefined4*)(lVar1 + 36);
-        } else {
+        if (field_1016->operator_cast_to_bool() == '\0') {
             uVar3 = 1161527296;
-        }
-        return uVar3;
-    }
-
-    // 0x10064b810, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundDistanceFilterFrequencyHzLow() const
-    undefined4 LocType::GetBackgroundSoundDistanceFilterFrequencyHzLow() {
-        long lVar1;
-        bool bVar2;
-        undefined4 uVar3;
-
-        bVar2 = field_1016->operator_cast_to_bool();
-        uVar3 = 0;
-        if (bVar2) {
-            lVar1 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar3 = *(undefined4*)(lVar1 + 40);
-        }
-        return uVar3;
-    }
-
-    // 0x10064b850, 64 bytes, inline, placed by class name
-    // LocType::GetBackgroundSoundDistanceFilterQ() const
-    undefined4 LocType::GetBackgroundSoundDistanceFilterQ() {
-        long lVar1;
-        undefined4 uVar3;
-
-        if (field_1016->operator_cast_to_bool()) {
-            lVar1 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar3 = *(undefined4*)(lVar1 + 44);
         } else {
-            uVar3 = 1065353216;
+            lVar1 = (*field_1016).operator->();
+            uVar3 = *(uint32_t*)(lVar1 + 36);
         }
         return uVar3;
     }
 
-    // 0x10064b890, 64 bytes, inline, placed by class name
-    // LocType::GetRandomSoundDistanceFiltered() const
-    bool LocType::GetRandomSoundDistanceFiltered() {
-        bool bVar1;
+    // 0x10064b810
+    uint32_t LocType::GetBackgroundSoundDistanceFilterFrequencyHzLow() const {
+        long lVar1;
+
+        bool cVar2 = field_1016->operator_cast_to_bool();
+        uint32_t uVar3 = 0;
+        if (cVar2) {
+            lVar1 = (*field_1016).operator->();
+            uVar3 = *(uint32_t*)(lVar1 + 40);
+        }
+        return uVar3;
+    }
+
+    // 0x10064b850
+    uint32_t LocType::GetBackgroundSoundDistanceFilterQ() const {
+        long lVar1;
+        uint32_t uVar3;
+
+        if (field_1016->operator_cast_to_bool() == '\0') {
+            uVar3 = 1065353216;
+        } else {
+            lVar1 = (*field_1016).operator->();
+            uVar3 = *(uint32_t*)(lVar1 + 44);
+        }
+        return uVar3;
+    }
+
+    // 0x10064b890
+    bool LocType::GetRandomSoundDistanceFiltered() const {
         long lVar2;
+        bool bVar3;
 
-        bVar1 = field_1016->operator_cast_to_bool();
-        if (bVar1) {
-            lVar2 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            bVar1 = *(char*)(lVar2 + 84) != '\0';
+        if (field_1016->operator_cast_to_bool() == '\0') {
+            bVar3 = false;
         } else {
-            bVar1 = false;
+            lVar2 = (*field_1016).operator->();
+            bVar3 = *(char*)(lVar2 + 84) != '\0';
         }
-        return bVar1;
+        return bVar3;
     }
 
-    // 0x10064b8d0, 64 bytes, inline, placed by class name
-    // LocType::GetRandomSoundDistanceFilterFrequencyHzHigh() const
-    undefined4 LocType::GetRandomSoundDistanceFilterFrequencyHzHigh() {
+    // 0x10064b8d0
+    uint32_t LocType::GetRandomSoundDistanceFilterFrequencyHzHigh() const {
         long lVar1;
-        undefined4 uVar3;
+        uint32_t uVar3;
 
-        if (field_1016->operator_cast_to_bool()) {
-            lVar1 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar3 = *(undefined4*)(lVar1 + 88);
-        } else {
+        if (field_1016->operator_cast_to_bool() == '\0') {
             uVar3 = 1161527296;
-        }
-        return uVar3;
-    }
-
-    // 0x10064b910, 64 bytes, inline, placed by class name
-    // LocType::GetRandomSoundDistanceFilterFrequencyHzLow() const
-    undefined4 LocType::GetRandomSoundDistanceFilterFrequencyHzLow() {
-        long lVar1;
-        bool bVar2;
-        undefined4 uVar3;
-
-        bVar2 = field_1016->operator_cast_to_bool();
-        uVar3 = 0;
-        if (bVar2) {
-            lVar1 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar3 = *(undefined4*)(lVar1 + 92);
-        }
-        return uVar3;
-    }
-
-    // 0x10064b950, 64 bytes, inline, placed by class name
-    // LocType::GetRandomSoundDistanceFilterQ() const
-    undefined4 LocType::GetRandomSoundDistanceFilterQ() {
-        long lVar1;
-        undefined4 uVar3;
-
-        if (field_1016->operator_cast_to_bool()) {
-            lVar1 =
-                shared_ptr<LocType::LocationSoundData>::operator->((shared_ptr<LocType::LocationSoundData>*)field_1016);
-            uVar3 = *(undefined4*)(lVar1 + 96);
         } else {
+            lVar1 = (*field_1016).operator->();
+            uVar3 = *(uint32_t*)(lVar1 + 88);
+        }
+        return uVar3;
+    }
+
+    // 0x10064b910
+    uint32_t LocType::GetRandomSoundDistanceFilterFrequencyHzLow() const {
+        long lVar1;
+
+        bool cVar2 = field_1016->operator_cast_to_bool();
+        uint32_t uVar3 = 0;
+        if (cVar2) {
+            lVar1 = (*field_1016).operator->();
+            uVar3 = *(uint32_t*)(lVar1 + 92);
+        }
+        return uVar3;
+    }
+
+    // 0x10064b950
+    uint32_t LocType::GetRandomSoundDistanceFilterQ() const {
+        long lVar1;
+        uint32_t uVar3;
+
+        if (field_1016->operator_cast_to_bool() == '\0') {
             uVar3 = 1065353216;
+        } else {
+            lVar1 = (*field_1016).operator->();
+            uVar3 = *(uint32_t*)(lVar1 + 96);
         }
         return uVar3;
     }

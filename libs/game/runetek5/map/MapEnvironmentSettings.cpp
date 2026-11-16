@@ -1,38 +1,27 @@
 // libs/game/runetek5/map/MapEnvironmentSettings.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "MapEnvironmentSettings.h"
 
 namespace jag::game {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    MapEnvironmentSettings::GetLightingSettings() const;
+    // 0x100009ca0: MapEnvironmentSettings::GetLightingSettings() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100067280: the linker folded this into console::Snow::GetSnowPiles() const, which has identical code
-    MapEnvironmentSettings::GetFogSettings();
+    // 0x100067280: MapEnvironmentSettings::GetFogSettings() has the same machine code as console::Snow::GetSnowPiles() const
 
-    // 0x100067280: the linker folded this into console::Snow::GetSnowPiles() const, which has identical code
-    MapEnvironmentSettings::GetFogSettings() const;
+    // 0x100067280: MapEnvironmentSettings::GetFogSettings() const has the same machine code as console::Snow::GetSnowPiles() const
 
-    // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
-    MapEnvironmentSettings::GetScatteringSettings() const;
+    // 0x100102fc0: MapEnvironmentSettings::GetScatteringSettings() const has the same machine code as oldscape::rs2lib::InputField::GetPlaceholderContents() const
 
-    // 0x10016ea80: the linker folded this into oldscape::minimenu::Minimenu::GetPlayerOps() const, which has identical code
-    MapEnvironmentSettings::GetToneMapSettings() const;
+    // 0x10016ea80: MapEnvironmentSettings::GetToneMapSettings() const has the same machine code as oldscape::minimenu::Minimenu::GetPlayerOps() const
 
-    // 0x1001c4880: the linker folded this into graphics::RT7Core::GetPostProcessManager(), which has identical code
-    MapEnvironmentSettings::GetBloomSettings() const;
+    // 0x1001c4880: MapEnvironmentSettings::GetBloomSettings() const has the same machine code as graphics::RT7Core::GetPostProcessManager()
 
-    // 0x100417fb0: the linker folded this into NPCType::GetHeadIconGraphic() const, which has identical code
-    MapEnvironmentSettings::GetColourGradingSettings() const;
+    // 0x100417fb0: MapEnvironmentSettings::GetColourGradingSettings() const has the same machine code as NPCType::GetHeadIconGraphic() const
 
-    // 0x1004af590, 192 bytes, base-object constructor, placed by class name and debug map
-    // MapEnvironmentSettings::MapEnvironmentSettings()
-    void MapEnvironmentSettings::MapEnvironmentSettings() {
-        new (this) MakeSharedPool<MapEnvironmentSettings, 48>();
-        new (this) EnvLightingSettings();
-        new (&field_40) EnvFogSettings();
+    // 0x1004af590
+    MapEnvironmentSettings::MapEnvironmentSettings()
+        : MakeSharedPool<MapEnvironmentSettings, 48>(), EnvLightingSettings() {
         new (&m_scatteringSettings) EnvScatteringSettings();
         new (&m_volumetricSettings) EnvVolumetricSettings();
         new (&m_toneMapSettings) EnvToneMapSettings();
@@ -41,33 +30,26 @@ namespace jag::game {
         new (&m_reflectionSettings) EnvReflectionSettings();
         new (&field_528) EnvColourGradingSettings();
         new (&m_pLightProbeSettings) EnvLightProbeSettings();
-        SetToDefaults(this);
+        SetToDefaults();
     }
 
-    // 0x1004af6f0, 128 bytes, placed by class name and debug map
-    // MapEnvironmentSettings::SetToDefaults()
+    // 0x1004af6f0
     void MapEnvironmentSettings::SetToDefaults() {
         SetDefaults();
-        (&field_40)->SetDefaults();
-        (&m_scatteringSettings)->SetDefaults();
-        (&m_volumetricSettings)->SetDefaults();
-        (&m_toneMapSettings)->SetDefaults();
-        (&m_bloomSettings)->SetDefaults();
+        field_40.SetDefaults();
+        m_scatteringSettings.SetDefaults();
+        m_volumetricSettings.SetDefaults();
+        m_toneMapSettings.SetDefaults();
+        m_bloomSettings.SetDefaults();
         m_skySettings->SetDefaults();
-        (&m_reflectionSettings)->SetDefaults();
-        (&field_528)->SetDefaults();
-        (&m_pLightProbeSettings)->SetDefaults();
+        m_reflectionSettings.SetDefaults();
+        field_528.SetDefaults();
+        m_pLightProbeSettings.SetDefaults();
     }
 
-    // 0x1004af770, 16 bytes, complete-object constructor, placed by class name and debug map
-    // MapEnvironmentSettings::MapEnvironmentSettings(): jumps straight to the base-object constructor
-
-    // 0x1004af780, 336 bytes, base-object constructor, placed by class name and debug map
-    // MapEnvironmentSettings::MapEnvironmentSettings(PacketT<Array<unsigned char, eastl::allocator> >&)
-    void MapEnvironmentSettings::MapEnvironmentSettings(PacketT* param_1) {
-        new (this) MakeSharedPool<MapEnvironmentSettings, 48>();
-        new (this) EnvLightingSettings();
-        new (&field_40) EnvFogSettings();
+    // 0x1004af780
+    MapEnvironmentSettings::MapEnvironmentSettings(PacketT<Array<unsigned char>>& arg1)
+        : MakeSharedPool<MapEnvironmentSettings, 48>(), EnvLightingSettings() {
         new (&m_scatteringSettings) EnvScatteringSettings();
         new (&m_volumetricSettings) EnvVolumetricSettings();
         new (&m_toneMapSettings) EnvToneMapSettings();
@@ -76,273 +58,219 @@ namespace jag::game {
         new (&m_reflectionSettings) EnvReflectionSettings();
         new (&field_528) EnvColourGradingSettings();
         new (&m_pLightProbeSettings) EnvLightProbeSettings();
-        Set(param_1);
-        (&field_40, param_1)->Set();
-        (&m_scatteringSettings, param_1)->Set();
-        (&m_volumetricSettings, param_1)->Set();
-        (&m_toneMapSettings, param_1)->Set();
-        (&m_bloomSettings, param_1)->Set();
-        (m_skySettings, param_1)->Set();
-        (&m_reflectionSettings, param_1)->Set();
-        (&field_528, param_1)->Set();
-        (&m_pLightProbeSettings, param_1)->Set();
+        Set(arg1);
+        field_40.Set(arg1);
+        m_scatteringSettings.Set(arg1);
+        m_volumetricSettings.Set(arg1);
+        m_toneMapSettings.Set(arg1);
+        m_bloomSettings.Set(arg1);
+        m_skySettings->Set(arg1);
+        m_reflectionSettings.Set(arg1);
+        field_528.Set(arg1);
+        m_pLightProbeSettings.Set(arg1);
     }
 
-    // 0x1004af920, 16 bytes, complete-object constructor, placed by class name and debug map
-    // MapEnvironmentSettings::MapEnvironmentSettings(PacketT<Array<unsigned char, eastl::allocator> >&): jumps straight to the base-object constructor
-
-    // 0x1004af940, 192 bytes, placed by class name and debug map
-    // MapEnvironmentSettings::ApplyOverride(EnvironmentOverride const&)
-    void MapEnvironmentSettings::ApplyOverride(EnvironmentOverride* param_1) {
-        if (param_1->HasAnyOverrides() != '\0') {
-            ApplyOverride(param_1);
-            (&field_40, param_1)->ApplyOverride();
-            (&m_scatteringSettings, param_1)->ApplyOverride();
-            (&m_volumetricSettings, param_1)->ApplyOverride();
-            (&m_toneMapSettings, param_1)->ApplyOverride();
-            (&m_bloomSettings, param_1)->ApplyOverride();
-            (m_skySettings, param_1)->ApplyOverride();
-            (&m_reflectionSettings, param_1)->ApplyOverride();
-            (&field_528, param_1)->ApplyOverride();
-            (&m_pLightProbeSettings, param_1)->ApplyOverride();
+    // 0x1004af940
+    void MapEnvironmentSettings::ApplyOverride(const EnvironmentOverride& environmentOverride) {
+        if (environmentOverride.HasAnyOverrides() != '\0') {
+            ApplyOverride(environmentOverride);
+            field_40.ApplyOverride(environmentOverride);
+            m_scatteringSettings.ApplyOverride(environmentOverride);
+            m_volumetricSettings.ApplyOverride(environmentOverride);
+            m_toneMapSettings.ApplyOverride(environmentOverride);
+            m_bloomSettings.ApplyOverride(environmentOverride);
+            m_skySettings->ApplyOverride(environmentOverride);
+            m_reflectionSettings.ApplyOverride(environmentOverride);
+            field_528.ApplyOverride(environmentOverride);
+            m_pLightProbeSettings.ApplyOverride(environmentOverride);
         }
     }
 
-    // 0x1004afa80, 464 bytes, placed by class name and debug map
-    // MapEnvironmentSettings::GetSkyBoxCubeMap(shared_ptr<render::TextureCube>&, graphics::RT7Core*, ConfigProvider*) const
-    undefined* MapEnvironmentSettings::GetSkyBoxCubeMap(shared_ptr* param_1, RT7Core* param_2,
-                                                        ConfigProvider* param_3) {
-        bool bVar1;
-        char cVar2;
-        int iVar3;
-        TextureFormatBitSet TVar4;
-        uint uVar5;
-        shared_ptr* psVar6;
-        shared_ptr<SkyBoxType>* this_00;
-        ChangeLocationRequest* this_01;
-        MapArea* pMVar7;
+    // 0x1004afa80
+    uint8_t* MapEnvironmentSettings::GetSkyBoxCubeMap(shared_ptr<render::TextureCube>& textureCube,
+                                                      graphics::RT7Core* rt7Core,
+                                                      ConfigProvider* configProvider) const {
+        bool cVar1;
+        unsigned int arg1;
+        GpuMemoryProfile gpuMemoryProfile1;
+        shared_ptr* psVar3;
+        shared_ptr<SkyBoxType>* psVar4;
+        TextureManager* this_01;
+        MapArea* pMVar5;
         RenderDeviceCaps* this_02;
-        RenderDevice* this_03;
-        long lVar8;
-        undefined** ppuVar9;
-        char cVar10;
-        undefined1* this_04;
-        Callstack* this_05;
-        Singleton<render::RenderDevice>* pSVar11;
-        shared_ptr local_48;
-        AutoSingleton<ShaderThreadPoolSingleton> local_38[8];
-        TextureFormatBitSet local_30[2];
+        long lVar6;
+        uint8_t** ppuVar7;
+        unsigned int arg1_00;
+        Singleton<render::RenderDevice>* pSVar8;
+        ReturnValue local_48;
+        AutoSingleton<ShaderThreadPoolSingleton> local_38;
+        TextureFormatBitSet local_30;
 
-        local_38->~AutoSingleton("Sky_Box");
-        this_04 = m_skySettings;
-        iVar3 = this_04->GetX();
-        if (iVar3 == -1) {
+        uint8_t* this_04 = m_skySettings;
+        int iVar2 = this_04->GetX();
+        if (iVar2 == -1) {
         LAB_1004afc0e:
-            ppuVar9 = &DataStatus::MISSING;
+            ppuVar7 = &DataStatus::MISSING;
         } else {
-            psVar6 = (shared_ptr*)this_04->second();
-            bVar1 = shared_ptr::operator_cast_to_bool(psVar6);
-            if (!bVar1) {
-                iVar3 = this_04->GetX();
-                psVar6 = ConfigProvider::GetConfig<SkyBoxType>(param_3, iVar3, (DataStatus**)0);
-                this_04->SetSkyBox(psVar6);
+            psVar3 = (shared_ptr*)this_04->second();
+            cVar1 = shared_ptr::operator_cast_to_bool(psVar3);
+            if (!cVar1) {
+                iVar2 = this_04->GetX();
+                psVar4 = configProvider->GetConfig<SkyBoxType>(iVar2, nullptr);
+                this_04->SetSkyBox(*psVar4);
             }
-            psVar6 = (shared_ptr*)this_04->second();
-            bVar1 = shared_ptr::operator_cast_to_bool(psVar6);
-            if (bVar1) {
-                this_00 = (shared_ptr<SkyBoxType>*)this_04->second();
-                this_01 = (ChangeLocationRequest*)shared_ptr<SkyBoxType>::operator->(this_00);
-                iVar3 = this_01->GetSeqDelay();
-                if (iVar3 == -1)
+            psVar3 = (shared_ptr*)this_04->second();
+            cVar1 = shared_ptr::operator_cast_to_bool(psVar3);
+            if (cVar1) {
+                psVar4 = (shared_ptr<SkyBoxType>*)this_04->second();
+                arg1 = ((ChangeLocationRequest*)(*psVar4).operator->())->GetSeqDelay();
+                if (arg1 == 4294967295)
                     goto LAB_1004afc0e;
-                TVar4.m_bits = param_2->GetTextureManager();
-                this_05 = (Callstack*)local_30;
-                callstack::Callstack::Callstack(this_05);
-                pMVar7 = (MapArea*)this_05->Instance();
-                this_02 = (RenderDeviceCaps*)pMVar7->GetOrigin();
-                cVar2 = this_02->GetCompressedTextures();
-                cVar10 = '\x05';
-                if (cVar2 != '\0') {
-                    this_03 = (RenderDevice*)this_02->Instance();
-                    uVar5 = this_03->GetGpuMemoryProfile();
-                    pSVar11 = (Singleton<render::RenderDevice>*)(ulong)uVar5;
-                    cVar2 = render::operator<(pSVar11, 1);
-                    if (cVar2 != '\0') {
-                        pMVar7 = (MapArea*)pSVar11->Instance();
-                        lVar8 = pMVar7->GetOrigin();
-                        cVar10 = (*(char*)(lVar8 + 161) == '\0') * '\x02';
+                this_01 = rt7Core->GetTextureManager();
+                local_30 = callstack::Callstack();
+                pMVar5 = (MapArea*)&local_30->Instance();
+                this_02 = (RenderDeviceCaps*)pMVar5->GetOrigin();
+                cVar1 = this_02->GetCompressedTextures();
+                arg1_00 = 5;
+                if (cVar1) {
+                    gpuMemoryProfile1 = ((RenderDevice*)this_02->Instance())->GetGpuMemoryProfile();
+                    pSVar8 = (Singleton<render::RenderDevice>*)(unsigned long)gpuMemoryProfile1;
+                    cVar1 = render::operator<(gpuMemoryProfile1, 1);
+                    if (cVar1) {
+                        pMVar5 = (MapArea*)pSVar8->Instance();
+                        lVar6 = pMVar5->GetOrigin();
+                        arg1_00 = (unsigned int)(*(char*)(lVar6 + 161) == '\0') * 2;
                     }
                 }
-                pSVar11 = (Singleton<render::RenderDevice>*)local_30;
-                pSVar11->AddFormatType(cVar10);
-                pMVar7 = (MapArea*)pSVar11->Instance();
-                lVar8 = pMVar7->GetOrigin();
-                if (*(char*)(lVar8 + 147) != '\0') {
-                    local_30->AddFormatType(7);
+                pSVar8 = &local_30;
+                pSVar8->AddFormatType(arg1_00);
+                pMVar5 = (MapArea*)pSVar8->Instance();
+                lVar6 = pMVar5->GetOrigin();
+                if (*(char*)(lVar6 + 147) != '\0') {
+                    local_30.AddFormatType(7);
                 }
-                graphics::TextureManager::GetHALTextureCube((uint)&local_48, TVar4, SUB41(iVar3, 0));
-                shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)param_1, &local_48);
-                local_48.~shared_ptr();
-                bVar1 = shared_ptr::operator_cast_to_bool(param_1);
-                if (bVar1) {
-                    ppuVar9 = &DataStatus::READY;
+                local_48 = this_01->GetHALTextureCube(arg1, local_30[0], false);
+                textureCube = local_48;
+                cVar1 = textureCube.operator_cast_to_bool();
+                if (cVar1) {
+                    ppuVar7 = &DataStatus::READY;
                     goto LAB_1004afc1e;
                 }
             }
-            ppuVar9 = &DataStatus::NOTLOADED;
+            ppuVar7 = &DataStatus::NOTLOADED;
         }
     LAB_1004afc1e:
-        return *ppuVar9;
+        return *ppuVar7;
     }
 
-    // 0x1004afc60, 336 bytes, placed by class name and debug map
-    // MapEnvironmentSettings::GetSkyBoxModel(shared_ptr<graphics::Model>&, graphics::RT7Core*, ConfigProvider*, AssetBuilder&) const
-    undefined* MapEnvironmentSettings::GetSkyBoxModel(shared_ptr* param_1, RT7Core* param_2, ConfigProvider* param_3,
-                                                      AssetBuilder* param_4) {
-        bool bVar1;
-        int iVar3;
-        shared_ptr* psVar4;
-        shared_ptr<SkyBoxType>* this_00;
-        SkyBoxType* this_01;
-        BuildRequest* pBVar5;
-        undefined* puVar6;
-        Layout* pLVar7;
-        vector* this_02;
-        Model* this_03;
-        undefined** ppuVar8;
-        undefined1* this_04;
-        AutoSingleton<ShaderThreadPoolSingleton> local_38[8];
+    // 0x1004afc60
+    uint8_t* MapEnvironmentSettings::GetSkyBoxModel(shared_ptr<graphics::Model>& model, graphics::RT7Core* rt7Core,
+                                                    ConfigProvider* configProvider, AssetBuilder& assetBuilder) const {
+        shared_ptr* psVar3;
+        shared_ptr<SkyBoxType>* psVar4;
+        SkyBoxType* this_00;
+        BuildRequest<graphics::Model, BuildModelMain>* buildRequest;
+        uint8_t* puVar5;
+        Layout* pLVar6;
+        shared_ptr<graphics::Model>* psVar7;
+        uint8_t** ppuVar8;
+        AutoSingleton<ShaderThreadPoolSingleton> local_38;
 
-        local_38->~AutoSingleton("Sky_Box");
-        this_04 = m_skySettings;
-        iVar3 = this_04->GetX();
-        if (iVar3 == -1) {
+        uint8_t* this_02 = m_skySettings;
+        int iVar2 = this_02->GetX();
+        if (iVar2 == -1) {
             ppuVar8 = &DataStatus::MISSING;
         } else {
-            psVar4 = (shared_ptr*)this_04->second();
-            bVar1 = shared_ptr::operator_cast_to_bool(psVar4);
-            if (!bVar1) {
-                iVar3 = this_04->GetX();
-                psVar4 = ConfigProvider::GetConfig<SkyBoxType>(param_3, iVar3, (DataStatus**)0);
-                this_04->SetSkyBox(psVar4);
+            psVar3 = (shared_ptr*)this_02->second();
+            if (!(shared_ptr::operator_cast_to_bool(psVar3))) {
+                iVar2 = this_02->GetX();
+                psVar4 = configProvider->GetConfig<SkyBoxType>(iVar2, nullptr);
+                this_02->SetSkyBox(*psVar4);
             }
-            psVar4 = (shared_ptr*)this_04->second();
-            bVar1 = shared_ptr::operator_cast_to_bool(psVar4);
-            if (bVar1) {
-                this_00 = (shared_ptr<SkyBoxType>*)this_04->second();
-                this_01 = (SkyBoxType*)shared_ptr<SkyBoxType>::operator->(this_00);
-                pBVar5 = (BuildRequest*)this_04->second();
-                puVar6 = (undefined*)this_01->GetStaticSkyModel(param_2, param_4, pBVar5);
-                if (puVar6 == DataStatus::NOTLOADED) {
-                    return puVar6;
+            psVar3 = (shared_ptr*)this_02->second();
+            if (!(shared_ptr::operator_cast_to_bool(psVar3))) {
+                ppuVar8 = &DataStatus::NOTLOADED;
+            } else {
+                psVar4 = (shared_ptr<SkyBoxType>*)this_02->second();
+                this_00 = (SkyBoxType*)(*psVar4).operator->();
+                buildRequest = (BuildRequest<graphics::Model, BuildModelMain>*)this_02->second();
+                puVar5 = (uint8_t*)this_00->GetStaticSkyModel(rt7Core, assetBuilder, *buildRequest);
+                if (puVar5 == DataStatus::NOTLOADED) {
+                    return puVar5;
                 }
-                if (puVar6 == DataStatus::MISSING) {
-                    return puVar6;
+                if (puVar5 == DataStatus::MISSING) {
+                    return puVar5;
                 }
-                pLVar7 = (Layout*)this_04->second();
-                this_02 = eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)param_2);
-                this_03 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_02);
-                if (this_03->TexturesReady() == '\0') {
+                pLVar6 = (Layout*)this_02->second();
+                psVar7 = (shared_ptr<graphics::Model>*)pLVar6->SSOBeginPtr();
+                if (!(((Model*)(*psVar7).operator->())->TexturesReady())) {
                     return DataStatus::NOTLOADED;
                 }
-                pLVar7 = (Layout*)this_04->second();
-                psVar4 = (shared_ptr*)eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)param_2);
-                shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)param_1, psVar4);
+                pLVar6 = (Layout*)this_02->second();
+                psVar7 = (shared_ptr<graphics::Model>*)pLVar6->SSOBeginPtr();
+                model = *psVar7;
                 ppuVar8 = &DataStatus::READY;
-            } else {
-                ppuVar8 = &DataStatus::NOTLOADED;
             }
         }
         return *ppuVar8;
     }
 
-    // 0x1004afdb0, 176 bytes, placed by class name and debug map
-    // MapEnvironmentSettings::GetEnvironmentCubeMap(shared_ptr<render::TextureCube>&, graphics::RT7Core*, int) const
-    undefined* MapEnvironmentSettings::GetEnvironmentCubeMap(shared_ptr* param_1, RT7Core* param_2, int param_3) {
-        int iVar2;
-        undefined** ppuVar3;
-        shared_ptr<oldscape::RSevenDebugPresetProvider> local_38[16];
-        AutoSingleton<ShaderThreadPoolSingleton> local_28[8];
+    // 0x1004afdb0
+    uint8_t* MapEnvironmentSettings::GetEnvironmentCubeMap(shared_ptr<render::TextureCube>& textureCube,
+                                                           graphics::RT7Core* rt7Core, int arg3) const {
+        uint8_t** ppuVar2;
+        ReturnValue local_38;
+        AutoSingleton<ShaderThreadPoolSingleton> local_28;
 
-        local_28->~AutoSingleton("Environment_Map");
-        if (param_3 == -1) {
-            ppuVar3 = &DataStatus::MISSING;
+        if (arg3 == -1) {
+            ppuVar2 = &DataStatus::MISSING;
         } else {
-            iVar2 = param_2->GetTextureManager();
-            local_38->GetDefaultTextureCube(iVar2, SUB41(param_3, 0));
-            shared_ptr<render::TextureCube>::operator=((shared_ptr<render::TextureCube>*)param_1,
-                                                       (shared_ptr*)local_38);
-            local_38->~shared_ptr();
-            if (shared_ptr::operator_cast_to_bool(param_1)) {
-                ppuVar3 = &DataStatus::READY;
+            local_38 = rt7Core->GetTextureManager()->GetDefaultTextureCube(arg3, true);
+            textureCube = local_38;
+            if (textureCube.operator_cast_to_bool() == '\0') {
+                ppuVar2 = &DataStatus::NOTLOADED;
             } else {
-                ppuVar3 = &DataStatus::NOTLOADED;
+                ppuVar2 = &DataStatus::READY;
             }
         }
-        return *ppuVar3;
+        return *ppuVar2;
     }
 
-    // 0x1004afe60, 224 bytes, placed by class name and debug map
-    // MapEnvironmentSettings::operator==(MapEnvironmentSettings const&) const
-    /* MapEnvironmentSettings::TEMPNAMEPLACEHOLDERVALUE(MapEnvironmentSettings
-   const&) const */
-
-    undefined8 MapEnvironmentSettings::operator==(MapEnvironmentSettings* param_1) {
-        char cVar1;
-        undefined8 uVar2;
-
-        cVar1 = EnvLightingSettings::operator==((EnvLightingSettings*)this, (EnvLightingSettings*)param_1);
-        if (((((cVar1 == '\0') ||
-               (cVar1 = EnvFogSettings::operator==((EnvFogSettings*)&field_40, (EnvFogSettings*)&param_1->field_40),
-                cVar1 == '\0')) ||
-              (cVar1 = EnvScatteringSettings::operator==((EnvScatteringSettings*)&m_scatteringSettings,
-                                                         (EnvScatteringSettings*)&param_1->m_scatteringSettings),
-               cVar1 == '\0')) ||
-             ((cVar1 = EnvToneMapSettings::operator==((EnvToneMapSettings*)&m_toneMapSettings,
-                                                      (EnvToneMapSettings*)&param_1->m_toneMapSettings),
-               cVar1 == '\0' || (cVar1 = EnvBloomSettings::operator==((EnvBloomSettings*)&m_bloomSettings,
-                                                                      (EnvBloomSettings*)&param_1->m_bloomSettings),
-                                 cVar1 == '\0')))) ||
-            ((cVar1 =
-                  EnvSkySettings::operator==((EnvSkySettings*)m_skySettings, (EnvSkySettings*)param_1->m_skySettings),
-              cVar1 == '\0' ||
-                  ((cVar1 = EnvReflectionSettings::operator==((EnvReflectionSettings*)&m_reflectionSettings,
-                                                              (EnvReflectionSettings*)&param_1->m_reflectionSettings),
-                    cVar1 == '\0' ||
-                        (cVar1 = EnvColourGradingSettings::operator==((EnvColourGradingSettings*)&field_528,
-                                                                      (EnvColourGradingSettings*)&param_1->field_528),
-                         cVar1 == '\0')))))) {
+    // 0x1004afe60
+    uint64_t MapEnvironmentSettings::operator==(const MapEnvironmentSettings& mapEnvironmentSettings) const {
+        bool cVar1 = *this == mapEnvironmentSettings;
+        if (((((!cVar1) || (cVar1 = field_40 == mapEnvironmentSettings.field_40, !cVar1)) ||
+              (cVar1 = m_scatteringSettings == mapEnvironmentSettings.m_scatteringSettings, !cVar1)) ||
+             ((cVar1 = m_toneMapSettings == mapEnvironmentSettings.m_toneMapSettings,
+               !cVar1 || (cVar1 = m_bloomSettings == mapEnvironmentSettings.m_bloomSettings, !cVar1)))) ||
+            ((cVar1 = *m_skySettings == mapEnvironmentSettings.m_skySettings,
+              !cVar1 || ((cVar1 = m_reflectionSettings == mapEnvironmentSettings.m_reflectionSettings,
+                          !cVar1 || (cVar1 = field_528 == mapEnvironmentSettings.field_528, !cVar1)))))) {
             return 0;
         }
-        uVar2 = EnvLightProbeSettings::operator==((EnvLightProbeSettings*)&m_pLightProbeSettings,
-                                                  (EnvLightProbeSettings*)&param_1->m_pLightProbeSettings);
-        return uVar2;
+        return m_pLightProbeSettings == mapEnvironmentSettings.m_pLightProbeSettings;
     }
 
-    // 0x1004aff80, 240 bytes, placed by class name and debug map
-    // MapEnvironmentSettings::hash() const
-    ulong MapEnvironmentSettings::hash() {
-        ulong uVar1;
-        ulong local_20;
-
-        local_20 = 0;
-        uVar1 = hash();
+    // 0x1004aff80
+    unsigned long MapEnvironmentSettings::hash() const {
+        return local_20 = 0;
+        unsigned long uVar1 = hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&field_40)->hash();
+        uVar1 = field_40.hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&m_scatteringSettings)->hash();
+        uVar1 = m_scatteringSettings.hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&m_toneMapSettings)->hash();
+        uVar1 = m_toneMapSettings.hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&m_bloomSettings)->hash();
+        uVar1 = m_bloomSettings.hash();
         hash_combine(&local_20, uVar1);
         uVar1 = m_skySettings->hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&m_reflectionSettings)->hash();
+        uVar1 = m_reflectionSettings.hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&field_528)->hash();
+        uVar1 = field_528.hash();
         hash_combine(&local_20, uVar1);
-        uVar1 = (&m_pLightProbeSettings)->hash();
+        uVar1 = m_pLightProbeSettings.hash();
         hash_combine(&local_20, uVar1);
         return local_20;
     }

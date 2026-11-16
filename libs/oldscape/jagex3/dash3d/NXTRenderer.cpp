@@ -1,439 +1,327 @@
 // libs/oldscape/jagex3/dash3d/NXTRenderer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "NXTRenderer.h"
 
 namespace jag::oldscape::dash3d {
-    // 0x10394be68, 8 bytes, __common; zero-initialised
-    NXTRenderer::m_pInstance;
+    // 0x10394be68
+    int64_t NXTRenderer::m_pInstance;
 
-    // 0x10000b400: the linker folded this into eastl::string::Layout::SetHeapBeginPtr(char*), which has identical code
-    NXTRenderer::FrameBarrierCallback::FrameBarrierCallback(NXTRenderer*);
+    // 0x10000b400: NXTRenderer::FrameBarrierCallback::FrameBarrierCallback(NXTRenderer*) has the same machine code as eastl::string::Layout::SetHeapBeginPtr(char*)
 
-    // 0x10002a630: the linker folded this into eastl::fixed_vector_allocator<8ul, 20ul, 4ul, 0ul, true, eastl::allocator>::set_name(char const*), which has identical code
-    NXTRenderer::FrameBarrierCallback::FrameBarrierCallback(NXTRenderer*);
+    // 0x10002a630: NXTRenderer::FrameBarrierCallback::FrameBarrierCallback(NXTRenderer*) has the same machine code as eastl::fixed_vector_allocator<8ul, 20ul, 4ul, 0ul, true>::set_name(char const*)
 
-    // 0x100365f60, 80 bytes, placed by class name and debug map
-    // NXTRenderer::GetInstancePtr()
+    // 0x100365f60
     NXTRenderer* NXTRenderer::GetInstancePtr() {
-        NXTRenderer* this;
+        NXTRenderer* nXTRenderer;
 
-        if (m_pInstance == (NXTRenderer*)0) {
-            this = operator_new(960);
-            NXTRenderer(this);
-            m_pInstance = this;
+        if (m_pInstance == nullptr) {
+            nXTRenderer = (NXTRenderer*)operator new(960);
+            NXTRenderer(nXTRenderer);
+            m_pInstance = nXTRenderer;
         }
         return m_pInstance;
     }
 
-    // 0x100365fc0, 320 bytes, placed by class name and debug map
-    // NXTRenderer::InitColTabAndUploadTextureData(bool, bool, TextureProvider&)
-    undefined8 NXTRenderer::InitColTabAndUploadTextureData(bool param_1, bool param_2, TextureProvider* param_3) {
-        undefined1* this_00;
-        char cVar1;
-        void* pvVar2;
-        ulong uVar3;
-        undefined7 in_register_00000031;
-        map local_58[48];
+    // 0x100365fc0
+    uint64_t NXTRenderer::InitColTabAndUploadTextureData(bool arg1, bool arg2, TextureProvider& textureProvider) {
+        uint8_t* this_00;
+        unsigned long uVar3;
+        uint64_t in_register_00000031;
+        map<int, Array<unsigned int>> local_58;
 
-        if ((int)CONCAT71(in_register_00000031, param_1) != 0) {
+        if ((int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) != 0) {
             Pix3D::InitColourTable((double)m_gamma);
-            (&field_768, 65536, 5)->set_max_size();
-            pvVar2 = (void*)(&field_768)->data();
-            _memcpy(pvVar2, &Pix3D::m_colourTable, 262144);
+            field_768.set_max_size(65536, 5);
+            _memcpy((void*)field_768.data(), &Pix3D::m_colourTable, 262144);
         }
-        if (param_2) {
-            (**(code**)(param_3->field_0 + 8))(local_58, param_3);
+        if (arg2) {
+            (**(void (**)(...))(textureProvider.field_0 + 8))(&local_58, textureProvider);
             this_00 = &field_792;
-            eastl::map<int, Array<unsigned int, eastl::allocator>, eastl::less<int>, eastl::allocator>::operator=(
-                (map<int, Array<unsigned int, eastl::allocator>, eastl::less<int>, eastl::allocator>*)this_00,
-                local_58);
-            local_58->~map();
-            cVar1 = this_00->empty();
-            if (cVar1 == '\0') {
+            *this_00 = local_58;
+            if (this_00->empty() == '\0') {
                 uVar3 = this_00->capacity();
-                new (local_58) Array<int, eastl::allocator>(uVar3);
-                Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)&field_912, (Array*)local_58);
-                local_58->~Array();
+                local_58 = Array<int>(uVar3);
+                field_912 = local_58;
                 uVar3 = this_00->capacity();
-                new (local_58) Array<int, eastl::allocator>(uVar3);
-                Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)&field_936, (Array*)local_58);
-                local_58->~Array();
+                local_58 = Array<int>(uVar3);
+                field_936 = local_58;
                 return 1;
             }
         }
         return 0;
     }
 
-    // 0x100366140, 336 bytes, placed by class name and debug map
-    // NXTRenderer::UpdateTextureOffsets(TextureProvider&)
-    void NXTRenderer::UpdateTextureOffsets(TextureProvider* param_1) {
-        undefined4 uVar1;
-        char cVar2;
-        long* plVar4;
+    // 0x100366140
+    void NXTRenderer::UpdateTextureOffsets(TextureProvider& textureProvider) {
+        uint32_t uVar1;
         long lVar5;
-        undefined4* puVar6;
-        OSRenderCore_LogicThread_JavaStyle* pOVar7;
-        int* piVar8;
-        int* piVar9;
-        ulong uVar10;
-        ulong uVar11;
-        undefined1 local_58[16];
-        Array<int, eastl::allocator>* local_48;
-        Array<int, eastl::allocator>* local_40;
-        uint local_34;
+        uint32_t* puVar6;
+        OSRenderCore_LogicThread_JavaStyle* this_00;
+        int* arg1;
+        int* arg2;
+        unsigned long arg1_00;
+        unsigned long uVar7;
+        shared_ptr<RSevenDebugPresetProvider> local_58;
+        Array<int>* local_40;
+        unsigned int local_34;
 
-        plVar4 = (long*)OSRenderCore_AudioThread::Instance();
-        cVar2 = (((long)plVar4 + *(long*)(*plVar4 + -24)))->IsLogicThread();
-        if (cVar2 == '\0') {
-            /* WARNING: Subroutine does not return */
+        auto plVar4 = OSRenderCore_AudioThread::Instance();
+        if (!(((OSRenderCore_LogicThread_Common*)((long)plVar4 + *(long*)(*plVar4 - 24)))->IsLogicThread())) {
             LogAssert("OSRenderCore_LogicThread::Instance().IsLogicThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "NXTRenderer.cpp",
-                      155, (char*)0);
+                      155, nullptr);
         }
-        local_48 = (Array<int, eastl::allocator>*)&field_912;
-        cVar2 = local_48->empty();
-        if (cVar2 == '\0') {
-            pOVar7 = (OSRenderCore_LogicThread_JavaStyle*)param_1;
-            local_34 = (**(code**)(param_1->field_0 + 48))();
-            local_40 = (Array<int, eastl::allocator>*)&field_936;
+        Array<int>* local_48 = (Array<int>*)&field_912;
+        if (!(local_48->empty())) {
+            local_34 = (**(void (**)(...))(textureProvider.field_0 + 48))(textureProvider);
+            local_40 = (Array<int>*)&field_936;
             if (0 < (int)local_34) {
-                uVar11 = (ulong)local_34;
-                uVar10 = 0;
+                uVar7 = (unsigned long)local_34;
+                arg1_00 = 0;
                 do {
-                    (**(code**)param_1->field_0)((OSRenderCore_LogicThread_JavaStyle*)local_58, param_1,
-                                                 uVar10 & 4294967295);
-                    if (operator!=((shared_ptr*)local_58, (_func_decltype_nullptr*)0)) {
-                        lVar5 = shared_ptr<Texture>::operator->((shared_ptr<Texture>*)local_58);
-                        uVar1 = *(undefined4*)(lVar5 + 160);
-                        puVar6 = (undefined4*)Array<int, eastl::allocator>::operator[](local_48, uVar10);
+                    (**(void (**)(...))textureProvider.field_0)(&local_58, textureProvider, arg1_00 & 4294967295);
+                    if (local_58 != nullptr) {
+                        lVar5 = local_58.operator->();
+                        uVar1 = *(uint32_t*)(lVar5 + 160);
+                        puVar6 = (uint32_t*)(*local_48)[arg1_00];
                         *puVar6 = uVar1;
-                        lVar5 = shared_ptr<Texture>::operator->((shared_ptr<Texture>*)local_58);
-                        uVar1 = *(undefined4*)(lVar5 + 164);
-                        puVar6 = (undefined4*)Array<int, eastl::allocator>::operator[](local_40, uVar10);
+                        lVar5 = local_58.operator->();
+                        uVar1 = *(uint32_t*)(lVar5 + 164);
+                        puVar6 = (uint32_t*)(*local_40)[arg1_00];
                         *puVar6 = uVar1;
                     }
-                    pOVar7 = (OSRenderCore_LogicThread_JavaStyle*)local_58;
-                    local_58->~shared_ptr();
-                    uVar10 = uVar10 + 1;
-                } while (uVar11 != uVar10);
+                    arg1_00 = arg1_00 + 1;
+                } while (uVar7 != arg1_00);
             }
-            pOVar7 = (OSRenderCore_LogicThread_JavaStyle*)pOVar7->Instance();
-            piVar8 = (int*)local_48->data();
-            piVar9 = (int*)local_40->data();
-            pOVar7->SetTextureOffsets(piVar8, piVar9, local_34);
+            this_00 = OSRenderCore_LogicThread_JavaStyle::Instance();
+            arg1 = (int*)local_48->data();
+            arg2 = (int*)local_40->data();
+            this_00->SetTextureOffsets(arg1, arg2, local_34);
         }
     }
 
-    // 0x1003670d0, 80 bytes, placed by class name
-    // NXTRenderer::GetInstance()
+    // 0x1003670d0
     NXTRenderer* NXTRenderer::GetInstance() {
-        NXTRenderer* this;
+        NXTRenderer* nXTRenderer;
 
-        if (m_pInstance == (NXTRenderer*)0) {
-            this = operator_new(960);
-            NXTRenderer(this);
-            m_pInstance = this;
+        if (m_pInstance == nullptr) {
+            nXTRenderer = (NXTRenderer*)operator new(960);
+            NXTRenderer(nXTRenderer);
+            m_pInstance = nXTRenderer;
         }
         return m_pInstance;
     }
 
-    // 0x100367120, 16 bytes, complete-object constructor, placed by class name
-    // NXTRenderer::NXTRenderer(): jumps straight to the base-object constructor
-
-    // 0x100367130, 96 bytes, placed by class name
-    // NXTRenderer::SetGamma(float)
-    void NXTRenderer::SetGamma(float param_1) {
-        TextureCache* this_00;
-
-        m_gamma = param_1;
-        if ((&Pix3D::m_textureProvider)->operator_cast_to_bool()) {
-            this_00 = (TextureCache*)shared_ptr<TextureProvider>::operator*(
-                (shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider);
-            this_00->SetGamma((double)m_gamma);
+    // 0x100367130
+    void NXTRenderer::SetGamma(float arg1) {
+        m_gamma = arg1;
+        if ((&Pix3D::m_textureProvider)->operator_cast_to_bool() != '\0') {
+            ((TextureCache*)*(*((shared_ptr<TextureProvider>*)&Pix3D::m_textureProvider)))->SetGamma((double)m_gamma);
             NXTPix3D::m_needColTabUpdate = 1;
             NXTPix3D::m_needUploadTextureData = 1;
         }
     }
 
-    // 0x100367190, 16 bytes, placed by class name
-    // NXTRenderer::GetGamma()
+    // 0x100367190
     float NXTRenderer::GetGamma() {
         return m_gamma;
     }
 
-    // 0x100367200, 16 bytes, placed by class name
-    // NXTRenderer::FlipPermitRendering()
+    // 0x100367200
     void NXTRenderer::FlipPermitRendering() {
         m_permitRendering = (bool)(m_permitRendering ^ 1);
     }
 
-    // 0x100367210, 16 bytes, placed by class name
-    // NXTRenderer::SetPermitRendering(bool)
-    void NXTRenderer::SetPermitRendering(bool param_1) {
-        m_permitRendering = param_1;
+    // 0x100367210
+    void NXTRenderer::SetPermitRendering(bool arg1) {
+        m_permitRendering = arg1;
     }
 
-    // 0x100367220, 128 bytes, placed by class name
-    // NXTRenderer::Shutdown()
+    // 0x100367220
     void NXTRenderer::Shutdown() {
-        char cVar1;
-        undefined8 uVar2;
-        long* plVar3;
-
-        uVar2 = logger::default_logger();
-        logger::Logger::Log(uVar2, 0, 5,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/"
-                            "dash3d/NXTRenderer.cpp",
-                            96, "NXTRenderer attempting shutdown");
-        plVar3 = (long*)OSRenderCore_RenderThread::Instance();
-        cVar1 = (((long)plVar3 + *(long*)(*plVar3 + -24)))->IsRenderThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        (logger::default_logger())
+            ->Log(false, 5,
+                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
+                  "NXTRenderer.cpp",
+                  96, "NXTRenderer attempting shutdown");
+        auto pOVar2 = OSRenderCore_RenderThread::Instance();
+        if (((OSRenderCore_RenderThread_Common*)(pOVar2->field_32 + (long)(pOVar2->_vptr[-3].GetUISize - 32)))
+                ->IsRenderThread() == '\0') {
             LogAssert("OSRenderCore_RenderThread::Instance().IsRenderThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "NXTRenderer.cpp",
-                      97, (char*)0);
+                      97, nullptr);
         }
-        (&field_608)->Shutdown();
+        field_608.Shutdown();
     }
 
-    // 0x1003672e0, 64 bytes, placed by class name
-    // NXTRenderer::LogicThread_Init()
+    // 0x1003672e0
     void NXTRenderer::LogicThread_Init() {
-        char cVar1;
-        long* plVar2;
-
-        plVar2 = (long*)OSRenderCore_AudioThread::Instance();
-        cVar1 = (((long)plVar2 + *(long*)(*plVar2 + -24)))->IsLogicThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        auto plVar2 = OSRenderCore_AudioThread::Instance();
+        if (((OSRenderCore_LogicThread_Common*)((long)plVar2 + *(long*)(*plVar2 - 24)))->IsLogicThread() == '\0') {
             LogAssert("OSRenderCore_LogicThread::Instance().IsLogicThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "NXTRenderer.cpp",
-                      107, (char*)0);
+                      107, nullptr);
         }
     }
 
-    // 0x100367320, 64 bytes, placed by class name
-    // NXTRenderer::RenderThread_Init()
+    // 0x100367320
     void NXTRenderer::RenderThread_Init() {
-        char cVar1;
-        long* plVar2;
-
-        plVar2 = (long*)OSRenderCore_RenderThread::Instance();
-        cVar1 = (((long)plVar2 + *(long*)(*plVar2 + -24)))->IsRenderThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        auto pOVar2 = OSRenderCore_RenderThread::Instance();
+        if (((OSRenderCore_RenderThread_Common*)(pOVar2->field_32 + (long)(pOVar2->_vptr[-3].GetUISize - 32)))
+                ->IsRenderThread() == '\0') {
             LogAssert("OSRenderCore_RenderThread::Instance().IsRenderThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "NXTRenderer.cpp",
-                      112, (char*)0);
+                      112, nullptr);
         }
     }
 
-    // 0x100367360, 256 bytes, placed by class name
-    // NXTRenderer::RenderThead_Service(bool)
-    void NXTRenderer::RenderThead_Service(bool param_1) {
-        undefined1* this_00;
-        char cVar1;
-        long* plVar2;
-        OSRenderCore_RenderThread* pOVar3;
-        ulonglong uVar4;
-        ulonglong uVar5;
+    // 0x100367360
+    void NXTRenderer::RenderThead_Service(bool arg1) {
+        unsigned long long uVar3;
+        unsigned long long uVar4;
 
-        plVar2 = (long*)OSRenderCore_RenderThread::Instance();
-        cVar1 = (((long)plVar2 + *(long*)(*plVar2 + -24)))->IsRenderThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        auto pOVar2 = OSRenderCore_RenderThread::Instance();
+        if (!(((OSRenderCore_RenderThread_Common*)(pOVar2->field_32 + (long)(pOVar2->_vptr[-3].GetUISize - 32)))
+                  ->IsRenderThread())) {
             LogAssert("OSRenderCore_RenderThread::Instance().IsRenderThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "NXTRenderer.cpp",
-                      117, (char*)0);
+                      117, nullptr);
         }
-        this_00 = &field_608;
-        cVar1 = this_00->IsShutdown();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+        uint8_t* this_00 = &field_608;
+        if (this_00->IsShutdown()) {
             LogAssert("!m_frameBarrier.IsShutdown()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "NXTRenderer.cpp",
-                      118, (char*)0);
+                      118, nullptr);
         }
-        cVar1 = this_00->IsShutdown();
-        if (cVar1 == '\0') {
-            pOVar3 = (OSRenderCore_RenderThread*)OSRenderCore_RenderThread::Instance();
-            pOVar3->UpdateWindowProperties();
-            uVar4 = SystemTimer::GetTimeNS<std::chrono::steady_clock>((SystemTimer*)pOVar3);
+        if (!(this_00->IsShutdown())) {
+            pOVar2 = OSRenderCore_RenderThread::Instance();
+            pOVar2->UpdateWindowProperties();
+            uVar3 = SystemTimer::GetTimeNS<std::chrono::steady_clock>();
             this_00->Wait();
-            pOVar3 = (OSRenderCore_RenderThread*)OSRenderCore_RenderThread::Instance();
-            pOVar3->ApplyWindowSetOptions();
-            uVar5 = SystemTimer::GetTimeNS<std::chrono::steady_clock>((SystemTimer*)pOVar3);
-            *(ulonglong*)&field_600->field_16 = uVar5 - uVar4;
-            pOVar3 = (OSRenderCore_RenderThread*)OSRenderCore_RenderThread::Instance();
-            pOVar3->OnBeginFrame();
-            RenderThread_ServiceUploadables(this, false, (Array*)&field_840, (map*)&field_864);
-            RenderThread_RenderFrontBuffer(this, param_1);
+            pOVar2 = OSRenderCore_RenderThread::Instance();
+            pOVar2->ApplyWindowSetOptions();
+            uVar4 = SystemTimer::GetTimeNS<std::chrono::steady_clock>();
+            *(unsigned long long*)&field_600->field_16 = uVar4 - uVar3;
+            pOVar2 = OSRenderCore_RenderThread::Instance();
+            pOVar2->OnBeginFrame();
+            RenderThread_ServiceUploadables(false, field_840, field_864);
+            RenderThread_RenderFrontBuffer(arg1);
         }
     }
 
-    // 0x100367490, 288 bytes, placed by class name
-    // NXTRenderer::RenderThread_ServiceUploadables(bool, Array<unsigned int, eastl::allocator>&, eastl::map<int, Array<unsigned int, eastl::allocator>, eastl::less<int>, eastl::allocator>&)
-    void NXTRenderer::RenderThread_ServiceUploadables(bool param_1, Array* param_2, map* param_3) {
-        uchar* puVar1;
-        long lVar2;
-        Array<game::VarValue, eastl::allocator>* this_00;
-        ulong uVar3;
-        char cVar4;
-        OSRenderCore_RenderThread_JavaStyle* pOVar5;
-        OSRenderCore_RenderThread_RSeven* pOVar6;
-        byte bVar7;
-        uint local_38;
-        uint local_34;
+    // 0x100367490
+    void NXTRenderer::RenderThread_ServiceUploadables(bool arg1, Array<unsigned int>& arg2,
+                                                      eastl::map<int, Array<unsigned int>>& arg3) {
+        unsigned char* puVar2;
+        OSRenderCore_RenderThread_JavaStyle* pOVar3;
+        unsigned long uVar5;
+        Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>* this_01;
+        uint8_t arg1_00;
+        unsigned int local_38;
+        unsigned int local_34;
 
-        cVar4 = param_2->empty();
-        if (cVar4 == '\0') {
-            pOVar5 = (OSRenderCore_RenderThread_JavaStyle*)param_2;
-            puVar1 = (uchar*)param_2->data();
-            pOVar5 = (OSRenderCore_RenderThread_JavaStyle*)pOVar5->Instance();
-            pOVar5->UploadColTab(puVar1);
-            param_2->clear();
+        if (!(arg2.empty())) {
+            puVar2 = (unsigned char*)arg2.data();
+            pOVar3 = OSRenderCore_RenderThread_JavaStyle::Instance();
+            pOVar3->UploadColTab(puVar2);
+            arg2.clear();
         }
-        pOVar6 = (OSRenderCore_RenderThread_RSeven*)param_3;
-        cVar4 = param_3->empty();
-        if (cVar4 == '\0') {
-            lVar2 = param_3->capacity();
-            if (lVar2 != 0) {
-                bVar7 = 0;
+        if (!(arg3.empty())) {
+            if (arg3.capacity() != 0) {
+                arg1_00 = 0;
                 do {
-                    local_38 = (uint)bVar7;
-                    this_00 = (Array<game::VarValue, eastl::allocator>*)
-                        eastl::map<int, Array<unsigned int, eastl::allocator>, eastl::less<int>,
-                                   eastl::allocator>::operator[]((map<int, Array<unsigned int, eastl::allocator>,
-                                                                      eastl::less<int>, eastl::allocator>*)param_3,
-                                                                 (int*)&local_38);
-                    cVar4 = this_00->empty();
-                    if (cVar4 == '\0') {
-                        local_34 = (uint)bVar7;
-                        pOVar5 = (OSRenderCore_RenderThread_JavaStyle*)
-                            eastl::map<int, Array<unsigned int, eastl::allocator>, eastl::less<int>,
-                                       eastl::allocator>::operator[]((map<int, Array<unsigned int, eastl::allocator>,
-                                                                          eastl::less<int>, eastl::allocator>*)param_3,
-                                                                     (int*)&local_34);
-                        puVar1 = (uchar*)pOVar5->data();
-                        pOVar5 = (OSRenderCore_RenderThread_JavaStyle*)pOVar5->Instance();
-                        pOVar5->UploadTexture(bVar7, puVar1);
+                    local_38 = (unsigned int)arg1_00;
+                    if (!(((Array<game::VarValue>*)arg3[local_38])->empty())) {
+                        local_34 = (unsigned int)arg1_00;
+                        this_01 = &arg3[local_34];
+                        puVar2 = (unsigned char*)this_01->data();
+                        pOVar3 = OSRenderCore_RenderThread_JavaStyle::Instance();
+                        pOVar3->UploadTexture(arg1_00, puVar2);
                     }
-                    bVar7 = bVar7 + 1;
-                    uVar3 = param_3->capacity();
-                } while (bVar7 < uVar3);
+                    arg1_00 = arg1_00 + 1;
+                    uVar5 = arg3.capacity();
+                } while (arg1_00 < uVar5);
             }
-            param_3->clear();
-            pOVar6 = (OSRenderCore_RenderThread_RSeven*)param_3;
+            arg3.clear();
         }
-        pOVar6 = (OSRenderCore_RenderThread_RSeven*)pOVar6->Instance();
+        auto pOVar6 = OSRenderCore_RenderThread_RSeven::Instance();
         pOVar6->UpdateGamma(m_gamma);
-        pOVar6 = (OSRenderCore_RenderThread_RSeven*)pOVar6->Instance();
+        pOVar6 = OSRenderCore_RenderThread_RSeven::Instance();
         pOVar6->CheckRebuild();
     }
 
-    // 0x1003675b0, 64 bytes, placed by class name
-    // NXTRenderer::RenderThread_RenderFrontBuffer(bool)
-    void NXTRenderer::RenderThread_RenderFrontBuffer(bool param_1) {
-        NXTRenderCanvas* this_00;
-        undefined7 in_register_00000031;
-        bool bVar1;
+    // 0x1003675b0
+    void NXTRenderer::RenderThread_RenderFrontBuffer(bool arg1) {
+        uint64_t in_register_00000031;
+        bool arg1_00;
 
-        this_00 = (NXTRenderCanvas*)RenderThread_GetRenderCanvas(this);
-        if ((int)CONCAT71(in_register_00000031, param_1) == 0) {
-            bVar1 = false;
+        auto this_00 = RenderThread_GetRenderCanvas();
+        if ((int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) == 0) {
+            arg1_00 = false;
         } else {
-            bVar1 = m_permitRendering != false;
+            arg1_00 = m_permitRendering != false;
         }
-        this_00->RenderThread_Render(bVar1);
+        this_00->RenderThread_Render(arg1_00);
     }
 
-    // 0x1003675f0, 96 bytes, placed by class name
-    // NXTRenderer::OnThreadsReadyForFlip()
+    // 0x1003675f0
     void NXTRenderer::OnThreadsReadyForFlip() {
-        undefined8* puVar1;
+        unsigned int* in_RSI;
 
-        puVar1 = (undefined8*)OSRenderCore_RenderThread::Instance();
-        (**(code**)*puVar1)(puVar1);
-        std::swap<NXTRenderCanvas*>(&field_592, &field_600);
-        Array<unsigned int, eastl::allocator>::operator=((Array<unsigned int, eastl::allocator>*)&field_840,
-                                                         (Array*)&field_768);
-        eastl::map<int, Array<unsigned int, eastl::allocator>, eastl::less<int>, eastl::allocator>::operator=(
-            (map<int, Array<unsigned int, eastl::allocator>, eastl::less<int>, eastl::allocator>*)&field_864,
-            (map*)&field_792);
+        OSRenderCore_RenderThread::Instance()->GetUISize(in_RSI);
+        std::swap<NXTRenderCanvas*>(field_592, field_600);
+        field_840 = field_768;
+        field_864 = field_792;
     }
 
-    // 0x100367670, 208 bytes, placed by class name
-    // NXTRenderer::PresentFrontBuffer(NXTRenderCanvas*)
-    longlong* NXTRenderer::PresentFrontBuffer(NXTRenderCanvas* param_1) {
-        longlong* plVar1;
-        char cVar2;
-        int iVar3;
-        long* plVar4;
-        ulonglong uVar5;
-        ulonglong uVar6;
-        SystemTimer* pSVar7;
-
-        plVar4 = (long*)OSRenderCore_AudioThread::Instance();
-        cVar2 = (((long)plVar4 + *(long*)(*plVar4 + -24)))->IsLogicThread();
-        if (cVar2 == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x100367670
+    long long* NXTRenderer::PresentFrontBuffer(NXTRenderCanvas* nxtRenderCanvas) {
+        auto plVar4 = OSRenderCore_AudioThread::Instance();
+        if (((OSRenderCore_LogicThread_Common*)((long)plVar4 + *(long*)(*plVar4 - 24)))->IsLogicThread() == '\0') {
             LogAssert("OSRenderCore_LogicThread::Instance().IsLogicThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "NXTRenderer.cpp",
-                      177, (char*)0);
+                      177, nullptr);
         }
-        plVar1 = *(longlong**)&param_1[4].field_24;
-        pSVar7 = (SystemTimer*)&param_1[1].field_24;
-        iVar3 = (*(NXTRenderCanvas**)&param_1[4].field_16)->GetLastNumVerts();
-        pSVar7->AddSample((long)iVar3);
-        uVar5 = SystemTimer::GetTimeNS<std::chrono::steady_clock>(pSVar7);
-        pSVar7 = (SystemTimer*)&param_1[4].m_screenSize;
-        pSVar7->Wait();
-        uVar6 = SystemTimer::GetTimeNS<std::chrono::steady_clock>(pSVar7);
-        param_1[1].field_80.AddSample(uVar6 - uVar5);
-        param_1->AddSample(*plVar1);
-        (&param_1->field_56, plVar1[1])->AddSample();
-        (&param_1->field_112, plVar1[2])->AddSample();
+        long long* plVar1 = *(long long**)&nxtRenderCanvas[4].field_24;
+        int iVar3 = (*(NXTRenderCanvas**)&nxtRenderCanvas[4].field_16)->GetLastNumVerts();
+        nxtRenderCanvas[1].field_24.AddSample((long)iVar3);
+        unsigned long long uVar5 = SystemTimer::GetTimeNS<std::chrono::steady_clock>();
+        nxtRenderCanvas[4].m_screenSize.Wait();
+        unsigned long long uVar6 = SystemTimer::GetTimeNS<std::chrono::steady_clock>();
+        nxtRenderCanvas[1].field_80.AddSample(uVar6 - uVar5);
+        nxtRenderCanvas->AddSample(*plVar1);
+        nxtRenderCanvas->field_56.AddSample(plVar1[1]);
+        nxtRenderCanvas->field_112.AddSample(plVar1[2]);
         return plVar1;
     }
 
-    // 0x100367740, 576 bytes, base-object constructor, placed by class name
-    // NXTRenderer::NXTRenderer()
-    void NXTRenderer::NXTRenderer() {
-        NXTRenderCanvas* this_00;
-        long lVar1;
-
-        new (this) datastructure::RollingAverageCounter(15);
-        new (field_56, 15) datastructure::RollingAverageCounter();
-        new (field_112, 15) datastructure::RollingAverageCounter();
-        new (field_168, 15) datastructure::RollingAverageCounter();
-        new (field_224, 15) datastructure::RollingAverageCounter();
-        field_288 = 1061997773;
-        m_permitRendering = true;
-        m_gamma = 0.8;
-        lVar1 = 0;
-        this_00 = (NXTRenderCanvas*)field_304;
+    // 0x100367740
+    NXTRenderer::NXTRenderer()
+        : datastructure::RollingAverageCounter(15), field_56(15), field_112(15), field_168(15), field_224(15),
+          field_288(1061997773), m_permitRendering(true), m_gamma(0.8) {
+        long lVar1 = 0;
+        NXTRenderCanvas* this_00 = (NXTRenderCanvas*)field_304;
         do {
-            NXTRenderCanvas::NXTRenderCanvas(this_00);
-            lVar1 = lVar1 + -144;
+            new (this_00) NXTRenderCanvas();
+            lVar1 = lVar1 - 144;
             this_00 = this_00 + 1;
         } while (lVar1 != -288);
-        field_592 = (NXTRenderCanvas*)0;
-        field_600 = (NXTRenderCanvas*)0;
-        new (&field_608, this) FrameBarrier();
+        field_592 = nullptr;
+        field_600 = nullptr;
+        new (&field_608) FrameBarrier(this);
         new (&field_768) LogicToRenderData();
         new (&field_840) LogicToRenderData();
-        new (&field_912) Array<int, eastl::allocator>();
-        new (&field_936) Array<int, eastl::allocator>();
+        new (&field_912) Array<int>();
+        new (&field_936) Array<int>();
         NXTPix3D::m_needColTabUpdate = 1;
         field_592 = (NXTRenderCanvas*)field_304;
         field_600 = (NXTRenderCanvas*)&field_448;

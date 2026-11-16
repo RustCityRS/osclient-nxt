@@ -1,31 +1,24 @@
 // libs/hal/system/GlobalInitialize.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.system.osclient
 
 namespace jag {
-    // 0x1000093e0, 16 bytes, placed by debug map only (low confidence)
-    // NxtGlobalInitialize()
+    // 0x1000093e0
     void NxtGlobalInitialize() {
         CRTHeapCreate();
         callstack::CrashHandler::SetTopLevelExceptionHandler();
     }
 
-    // 0x1000093f0, 16 bytes, placed by debug map only (low confidence)
-    // NxtGlobalDestroy()
+    // 0x1000093f0
     void NxtGlobalDestroy() {
         callstack::CrashHandler::RemoveTopLevelExceptionHandler();
     }
 
 } // namespace jag
 
-// 0x100009400, 32 bytes, placed by debug map only (low confidence)
-// HelperNxtGlobalInitialize()
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* HelperNxtGlobalInitialize() */
-
+// 0x100009400
 void HelperNxtGlobalInitialize() {
     jag::NxtGlobalInitialize();
     _atexit(jag::NxtGlobalDestroy);

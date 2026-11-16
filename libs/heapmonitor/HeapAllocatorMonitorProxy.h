@@ -1,6 +1,5 @@
 // libs/heapmonitor/HeapAllocatorMonitorProxy.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.system.osclient
@@ -8,99 +7,70 @@
 namespace jag {
     class HeapAllocatorMonitorProxy {
     public:
-        PopZoneContext();
-        PushZoneContext(void*, void*);
-        PopZone();
-        PushZone(char const*);
+        void PopZoneContext();
+        void PushZoneContext(void* arg1, void* arg2);
+        void PopZone();
+        void PushZone(const char* arg1);
         HeapAllocatorMonitorProxy();
         ~HeapAllocatorMonitorProxy();
-        SaveMemoryUsageToXML(std::function<void(char const*, unsigned long)> const&) const;
-        SaveMemoryUsageToConsole() const;
-        SaveMemoryUsageBottomUpToConsole() const;
-        GetZoneContext();
-        GetZone();
-        GetTotalMemory() const;
-        MonitorAlloc(void*, unsigned long);
-        void MonitorAlignedAlloc(void*, unsigned long, unsigned long);
-        MonitorFree(void*);
-        void MonitorAlignedFree(void*);
-        static /* 8 bytes */ m_allocations;
-        static /* 8 bytes */ m_frees;
+        void SaveMemoryUsageToXML(std::function<void(char const*, unsigned long)> const& arg1) const;
+        void SaveMemoryUsageToConsole() const;
+        void SaveMemoryUsageBottomUpToConsole() const;
+        uint64_t GetZoneContext();
+        uint64_t GetZone();
+        uint64_t GetTotalMemory() const;
+        void MonitorAlloc(void* arg1, unsigned long arg2);
+        void MonitorAlignedAlloc(void* arg1, unsigned long arg2, unsigned long arg3);
+        void MonitorFree(void* arg1);
+        void MonitorAlignedFree(void* arg1);
+        static int64_t m_allocations;
+        static int64_t m_frees;
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
-    // 0x103bdd1b0, 8 bytes, __common; zero-initialised
-    HeapAllocatorMonitorProxy::m_allocations;
+    // 0x103bdd1b0
+    int64_t HeapAllocatorMonitorProxy::m_allocations;
 
-    // 0x103bdd1b8, 8 bytes, __common; zero-initialised
-    HeapAllocatorMonitorProxy::m_frees;
+    // 0x103bdd1b8
+    int64_t HeapAllocatorMonitorProxy::m_frees;
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorMonitorProxy::PopZoneContext();
+    // 0x100009e70: HeapAllocatorMonitorProxy::PopZoneContext() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorMonitorProxy::PushZoneContext(void*, void*);
+    // 0x100009e70: HeapAllocatorMonitorProxy::PushZoneContext(void*, void*) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorMonitorProxy::PopZone();
+    // 0x100009e70: HeapAllocatorMonitorProxy::PopZone() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorMonitorProxy::PushZone(char const*);
+    // 0x100009e70: HeapAllocatorMonitorProxy::PushZone(char const*) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorMonitorProxy::HeapAllocatorMonitorProxy();
+    // 0x100009e70: HeapAllocatorMonitorProxy::HeapAllocatorMonitorProxy() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorMonitorProxy::~HeapAllocatorMonitorProxy();
+    // 0x100009e70: HeapAllocatorMonitorProxy::~HeapAllocatorMonitorProxy() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorMonitorProxy::SaveMemoryUsageToXML(std::function<void(char const*, unsigned long)> const&) const;
+    // 0x100009e70: HeapAllocatorMonitorProxy::SaveMemoryUsageToXML(std::function<void (char const*, unsigned long)> const&) const has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorMonitorProxy::SaveMemoryUsageToConsole() const;
+    // 0x100009e70: HeapAllocatorMonitorProxy::SaveMemoryUsageToConsole() const has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorMonitorProxy::SaveMemoryUsageBottomUpToConsole() const;
+    // 0x100009e70: HeapAllocatorMonitorProxy::SaveMemoryUsageBottomUpToConsole() const has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    HeapAllocatorMonitorProxy::GetZoneContext();
+    // 0x100029ea0: HeapAllocatorMonitorProxy::GetZoneContext() has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    HeapAllocatorMonitorProxy::GetZone();
+    // 0x100029ea0: HeapAllocatorMonitorProxy::GetZone() has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    HeapAllocatorMonitorProxy::GetTotalMemory() const;
+    // 0x100029ea0: HeapAllocatorMonitorProxy::GetTotalMemory() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    HeapAllocatorMonitorProxy::HeapAllocatorMonitorProxy();
-
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    HeapAllocatorMonitorProxy::~HeapAllocatorMonitorProxy();
-
-    // 0x100c92b30, 32 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // HeapAllocatorMonitorProxy::MonitorAlloc(void*, unsigned long)
-    /* HeapAllocatorMonitorProxy::MonitorAlignedAlloc(void*, unsigned long, unsigned long) */
-
-    void HeapAllocatorMonitorProxy::MonitorAlignedAlloc(void* param_1, ulong param_2, ulong param_3) {
+    // 0x100c92b30
+    void HeapAllocatorMonitorProxy::MonitorAlloc(void* arg1, unsigned long arg2) {
         m_allocations = m_allocations + 1;
     }
 
-    // 0x100c92b30: the linker folded this into HeapAllocatorMonitorProxy::MonitorAlloc(void*, unsigned long), which has identical code
-    HeapAllocatorMonitorProxy::MonitorAlignedAlloc(void*, unsigned long, unsigned long);
+    // 0x100c92b30: HeapAllocatorMonitorProxy::MonitorAlignedAlloc(void*, unsigned long, unsigned long) has the same machine code as HeapAllocatorMonitorProxy::MonitorAlloc(void*, unsigned long)
 
-    // 0x100c92b90, 32 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // HeapAllocatorMonitorProxy::MonitorFree(void*)
-    /* HeapAllocatorMonitorProxy::MonitorAlignedFree(void*) */
-
-    void HeapAllocatorMonitorProxy::MonitorAlignedFree(void* param_1) {
+    // 0x100c92b90
+    void HeapAllocatorMonitorProxy::MonitorFree(void* arg1) {
         m_frees = m_frees + 1;
     }
 
-    // 0x100c92b90: the linker folded this into HeapAllocatorMonitorProxy::MonitorFree(void*), which has identical code
-    HeapAllocatorMonitorProxy::MonitorAlignedFree(void*);
+    // 0x100c92b90: HeapAllocatorMonitorProxy::MonitorAlignedFree(void*) has the same machine code as HeapAllocatorMonitorProxy::MonitorFree(void*)
 
 } // namespace jag

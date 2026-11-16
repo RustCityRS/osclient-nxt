@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/entities/CombinedLocationSection.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,167 +9,130 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~CombinedLocationSection();
-        virtual IsAnimatable() const;
+        virtual bool IsAnimatable() const;
         virtual bool UsesTrianglePicking() const;
-        virtual UsesFastPickingTests() const;
-        virtual PickTest(graphics::PickingHelper&);
-        virtual void AddPickableEntity(World&, math::Matrix44T<float> const&);
-        virtual void NotifyInteracted(unsigned int);
-        virtual void NotifyMouseover(unsigned int);
-        virtual void NotifyPickable(unsigned int, bool, float);
+        virtual bool UsesFastPickingTests() const;
+        virtual uint64_t PickTest(graphics::PickingHelper& pickingHelper);
+        virtual void AddPickableEntity(World& world, const math::Matrix44T<float>& matrix44);
+        virtual void NotifyInteracted(unsigned int arg1);
+        virtual void NotifyMouseover(unsigned int arg1);
+        virtual void NotifyPickable(unsigned int arg1, bool arg2, float arg3);
         virtual void GetID() const;
         virtual shared_ptr GetLocationType() const;
-        virtual GetShape() const;
-        virtual GetRotation90() const;
-        virtual GetTransform() const;
+        virtual uint8_t GetShape() const;
+        virtual uint8_t GetRotation90() const;
+        virtual math::RotTransScale GetTransform() const;
         virtual void GetLocationLength() const;
         virtual void GetLocationWidth() const;
         virtual int GetAttachedWallWidth() const;
-        GetParentLocationType() const;
+        uint8_t* GetParentLocationType() const;
         void ActivateRoofRemove();
         void Hide();
         void DeactivateRoofRemove();
         void Unhide();
-        IsHidden() const;
+        bool IsHidden() const;
         EntityHighlightState GetHighlightState();
-        CombinedLocationSection(graphics::GraphNode*, shared_ptr<World> const&, int, int, int,
-                                shared_ptr<LocType> const&, LocData const&, bool, int, int, math::AABB const&, int);
+        CombinedLocationSection(graphics::GraphNode* graphNode, const shared_ptr<World>& world, int arg3, int arg4,
+                                int arg5, const shared_ptr<LocType>& locType, const LocData& locData, bool arg8,
+                                int arg9, int arg10, const math::AABB& aabb, int arg12);
         CombinedLocationSection();
-        UpdateHeightMap(HeightChangeType);
-        GetOwner() const;
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullSection;
+        uint64_t UpdateHeightMap(HeightChangeType heightChangeType);
+        uint64_t GetOwner() const;
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullSection; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
 
-        // data members, from how the methods use this: 332 bytes, the first 220 are LocationInterface
-        char _unknown_220[12];
-        shared_ptr m_locationType; // offset 232
-        undefined1 m_shape;        // offset 248
-        undefined1 m_rotation90;   // offset 249
-        char _unknown_250[50];
-        undefined1 field_300; // offset 300
-        char _unknown_301[1];
-        short field_302;           // offset 302
-        short field_304;           // offset 304
-        undefined1 m_hidden;       // offset 306
-        undefined1 field_307;      // offset 307
-        short m_attachedWallWidth; // offset 308
-        char _unknown_310[2];
-        EntityHighlightState m_highlightState; // offset 312
+    private:
+        uint8_t _unknown_220[12];
+        shared_ptr m_locationType;
+        uint8_t m_shape;
+        uint8_t m_rotation90;
+        uint8_t _unknown_250[50];
+        bool field_300;
+        uint8_t _unknown_301[1];
+        short field_302;
+        short field_304;
+        uint8_t m_hidden;
+        uint8_t field_307;
+        short m_attachedWallWidth;
+        uint8_t _unknown_310[2];
+        EntityHighlightState m_highlightState;
     };
 
-    // 0x100446790, 32 bytes, inline, placed by class name and debug map
-    // CombinedLocationSection::ActivateRoofRemove()
+    // 0x100446790
     void CombinedLocationSection::ActivateRoofRemove() {
         field_307 = 1;
-        UpdateHeightMap(this, 2);
+        UpdateHeightMap(2);
     }
 
-    // 0x1004467b0, 32 bytes, inline, placed by class name and debug map
-    // CombinedLocationSection::Hide()
+    // 0x1004467b0
     void CombinedLocationSection::Hide() {
         m_hidden = 1;
-        UpdateHeightMap(this, 2);
+        UpdateHeightMap(2);
     }
 
-    // 0x1004468c0, 32 bytes, inline, placed by class name and debug map
-    // CombinedLocationSection::DeactivateRoofRemove()
+    // 0x1004468c0
     void CombinedLocationSection::DeactivateRoofRemove() {
         field_307 = 0;
-        UpdateHeightMap(this, 1);
+        UpdateHeightMap(1);
     }
 
-    // 0x1004468e0, 32 bytes, inline, placed by class name and debug map
-    // CombinedLocationSection::Unhide()
+    // 0x1004468e0
     void CombinedLocationSection::Unhide() {
         m_hidden = 0;
-        UpdateHeightMap(this, 1);
+        UpdateHeightMap(1);
     }
 
-    // 0x100446a50, 16 bytes, inline, placed by class name and debug map
-    // CombinedLocationSection::IsHidden() const
-    undefined1 CombinedLocationSection::IsHidden() {
+    // 0x100446a50
+    bool CombinedLocationSection::IsHidden() const {
         return m_hidden;
     }
 
-    // 0x1004491a0, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // CombinedLocationSection::GetHighlightState()
-    /* MapSquarePointLights::GetLightSourcesDynamic() const */
-
-    undefined1* MapSquarePointLights::GetLightSourcesDynamic() {
+    // 0x1004491a0
+    EntityHighlightState CombinedLocationSection::GetHighlightState() {
         return &field_312;
     }
 
-    // 0x10044b630, 16 bytes, complete-object destructor, inline, placed by class name
-    // CombinedLocationSection::~CombinedLocationSection(): jumps straight to the base-object destructor
-
-    // 0x10044b640, 32 bytes, deleting destructor, inline, placed by class name
-    // CombinedLocationSection::~CombinedLocationSection()
-    void CombinedLocationSection::~CombinedLocationSection() {
-        ~CombinedLocationSection(this);
-        operator_delete(this);
+    // 0x10044b660
+    void CombinedLocationSection::GetID() const {
+        ((GameToken*)(*m_locationType).operator->())->GetStatus();
     }
 
-    // 0x10044b660, 32 bytes, inline, placed by class name
-    // CombinedLocationSection::GetID() const
-    void CombinedLocationSection::GetID() {
-        GameToken* this_00;
-
-        this_00 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-        this_00->GetStatus();
-    }
-
-    // 0x10044b680, 16 bytes, inline, placed by class name
-    // CombinedLocationSection::GetShape() const
-    undefined1 CombinedLocationSection::GetShape() {
+    // 0x10044b680
+    uint8_t CombinedLocationSection::GetShape() const {
         return m_shape;
     }
 
-    // 0x10044b690, 16 bytes, inline, placed by class name
-    // CombinedLocationSection::GetRotation90() const
-    undefined1 CombinedLocationSection::GetRotation90() {
+    // 0x10044b690
+    uint8_t CombinedLocationSection::GetRotation90() const {
         return m_rotation90;
     }
 
-    // 0x10044b6a0, 32 bytes, inline, placed by class name
-    // CombinedLocationSection::GetTransform() const
-    CombinedLocationSection* CombinedLocationSection::GetTransform() {
-        long in_RSI;
-
-        new (this) math::RotTransScale((RotTransScale*)(in_RSI + 252));
-        return this;
+    // 0x10044b6a0
+    math::RotTransScale CombinedLocationSection::GetTransform() const {
+        math::RotTransScale result;
+        new (&result) math::RotTransScale(field_252);
+        return result;
     }
 
-    // 0x10044b6c0, 48 bytes, inline, placed by class name
-    // CombinedLocationSection::GetLocationLength() const
-    void CombinedLocationSection::GetLocationLength() {
-        LocType* pLVar1;
-
-        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-        pLVar1->GetGridLength(m_rotation90);
+    // 0x10044b6c0
+    void CombinedLocationSection::GetLocationLength() const {
+        ((LocType*)(*m_locationType).operator->())->GetGridLength((unsigned int)m_rotation90);
     }
 
-    // 0x10044b6f0, 48 bytes, inline, placed by class name
-    // CombinedLocationSection::GetLocationWidth() const
-    void CombinedLocationSection::GetLocationWidth() {
-        LocType* pLVar1;
-
-        pLVar1 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-        pLVar1->GetGridWidth(m_rotation90);
+    // 0x10044b6f0
+    void CombinedLocationSection::GetLocationWidth() const {
+        ((LocType*)(*m_locationType).operator->())->GetGridWidth((unsigned int)m_rotation90);
     }
 
-    // 0x10044b720, 16 bytes, inline, placed by class name
-    // CombinedLocationSection::GetAttachedWallWidth() const
-    int CombinedLocationSection::GetAttachedWallWidth() {
+    // 0x10044b720
+    int CombinedLocationSection::GetAttachedWallWidth() const {
         return (int)m_attachedWallWidth;
     }
 
-    // 0x10044d7a0, 64 bytes, base-object destructor, inline, placed by class name
-    // CombinedLocationSection::~CombinedLocationSection()
-    void CombinedLocationSection::~CombinedLocationSection() {
-        field_0 = &PTR__CombinedLocationSection_100f00430;
+    // 0x10044d7a0
+    CombinedLocationSection::~CombinedLocationSection() {
         field_8 = &PTR__CombinedLocationSection_100f005c8;
         m_locationType->~shared_ptr();
-        ~LocationInterface();
     }
 
 } // namespace jag::game

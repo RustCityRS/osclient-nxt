@@ -1,165 +1,115 @@
 // libs/ui/components/Carousel.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.ui
 
 #include "Carousel.h"
 
 namespace jag::ui {
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    Carousel::GetSwipeable() const;
+    // 0x100029ea0: Carousel::GetSwipeable() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    Carousel::RequiresSeparatePreviousValueTrigger() const;
+    // 0x10002d860: Carousel::RequiresSeparatePreviousValueTrigger() const has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x100269b00: the linker folded this into oldscape::rs2lib::social::ClanSettingsDelta::SetOwner::GetID() const, which has identical code
-    Carousel::GetType() const;
+    // 0x100269b00: Carousel::GetType() const has the same machine code as oldscape::rs2lib::social::ClanSettingsDelta::SetOwner::GetID() const
 
-    // 0x1005fa390: the linker folded this into game::option::WindowMode::IsAvailable(game::option::OptionClient) const, which has identical code
-    Carousel::SupportsMargin(Component::MarginType) const;
+    // 0x1005fa390: Carousel::SupportsMargin(Component::MarginType) const has the same machine code as game::option::WindowMode::IsAvailable(game::option::OptionClient) const
 
-    // 0x10068b240, 368 bytes, base-object constructor, placed by class name
-    // Carousel::Carousel()
-    void Carousel::Carousel() {
-        undefined1* this_00;
-
-        new (this) Component();
-        new (m_valueRepresentation) ComponentSingleValueMultiOptionMixin();
+    // 0x10068b240
+    Carousel::Carousel() : Component() {
         new (this) MakeSharedPool<Carousel, 32>();
-        field_0 = &PTR__Carousel_100f0e680;
-        *(undefined***)m_valueRepresentation = &PTR__Carousel_100f0e7c0;
+        *(uint8_t***)m_valueRepresentation = &PTR__Carousel_100f0e7c0;
         new (field_400) SpriteData();
         new (field_448) SpriteData();
-        this_00 = field_496;
+        uint8_t* this_00 = field_496;
         new (this_00) TextData();
         field_560 = 20;
         field_562 = 20;
         field_564 = 10;
         new (&field_568) eastl::fixed_vector<Carousel::Entry, 5ul, true, BucketAllocatorEASTL>();
-        m_entrySelectedByIndex = 65535;
+        field_928 = 65535;
         field_930 = 65535;
-        new (&field_932, 255) Margin();
+        new (&field_932) Margin(255);
         field_936 = 0.0;
-        new (&field_940, 0, 3) ButtonElement();
-        new (field_968, 0, 3) ButtonElement();
-        (*(code*)field_0[4])(this, 1);
+        new (&field_940) ButtonElement(0, 3);
+        new (field_968) ButtonElement(0, 3);
+        SetEnabled((uint8_t)this);
         this_00->SetTextHAlign(1);
         this_00->SetTextVAlign(1);
     }
 
-    // 0x10068b460, 16 bytes, complete-object constructor, placed by class name
-    // Carousel::Carousel(): jumps straight to the base-object constructor
+    // 0x10068b470
+    void Carousel::MainLogic(const ComponentDependencies& componentDependencies, int arg2, int arg3, bool arg4,
+                             bool arg5, bool arg6, bool arg7) {
+        unsigned short arg1;
+        int iVar3;
+        char* pcVar4;
+        Margin local_38;
 
-    // 0x10068b470, 512 bytes, placed by class name
-    // Carousel::MainLogic(ComponentDependencies const&, int, int, bool, bool, bool, bool)
-    void Carousel::MainLogic(ComponentDependencies* param_1, int param_2, int param_3, bool param_4, bool param_5,
-                             bool param_6, bool param_7) {
-        bool bVar1;
-        bool bVar2;
-        ushort uVar3;
-        int iVar4;
-        char* pcVar5;
-        int iVar6;
-        undefined7 in_register_00000081;
-        undefined7 in_register_00000089;
-        ulong uVar7;
-        ulong uVar8;
-        ButtonElement* pBVar9;
-        Margin local_4c;
-        int local_48;
-        int local_44;
-        int local_40;
-        int local_3c;
-        Margin local_38[2];
-
-        uVar7 = CONCAT71(in_register_00000089, param_5) & 4294967295;
-        uVar8 = CONCAT71(in_register_00000081, param_4) & 4294967295;
-        local_48 = param_2;
-        local_44 = param_3;
-        local_40 = GetStreamCountLastMix();
-        local_3c = GetMinMapX();
+        int local_40 = GetStreamCountLastMix();
+        int local_3c = GetMinMapX();
         local_38[0] = (Margin)field_400->GetVisualMargin();
-        local_4c = (Margin)(&field_932, local_38)->GetValidOr();
-        local_4c.ApplyTo(&local_48, &local_44, &local_40, &local_3c);
-        pBVar9._0_4_ = (ButtonElement*)((float)*(undefined8*)(param_1 + 60) - (float)local_48);
-        iVar6 = (int)(local_3c - (uint)field_562) / 2;
-        local_38[0] = (Margin)pBVar9._0_4_->UpdateLogic(&field_940, field_564, iVar6, field_560, field_562, param_6,
-                                                        uVar8, uVar7, (undefined4)pBVar9._0_4_,
-                                                        (int)((ulong) * (undefined8*)(param_1 + 60) >> 32));
-        bVar1 = local_38->empty();
-        local_38[0] = (Margin)pBVar9._0_4_->UpdateLogic(field_968, local_40 - ((uint)field_564 + (uint)field_560),
-                                                        iVar6, field_560, field_562, param_6, uVar8, uVar7);
-        bVar2 = local_38->empty();
-        iVar6 = 1;
-        if (!bVar2) {
-            iVar6 = -(uint)bVar1;
+        ((Margin)field_932.GetValidOr(&local_38)).ApplyTo(arg2, arg3, local_40, local_3c);
+        int iVar5 = (int)(local_3c - (unsigned int)field_562) / 2;
+        uint8_t arg8 = (uint8_t)((float)*(uint64_t*)(componentDependencies + 60) - (float)arg2);
+        local_38[0] =
+            (Margin)field_940.UpdateLogic((Vector2T<float>*)(unsigned long)field_564, iVar5, (unsigned int)field_560,
+                                          (unsigned int)field_562, (unsigned int)arg6, arg4, arg5, (bool)arg8);
+        uint8_t bVar1 = local_38.empty();
+        local_38[0] = (Margin)field_968->UpdateLogic(
+            (Vector2T<float>*)(unsigned long)(local_40 - ((unsigned int)field_564 + (unsigned int)field_560)), iVar5,
+            (unsigned int)field_560, (unsigned int)field_562, (unsigned int)arg6, arg4, arg5, (bool)arg8);
+        bool cVar2 = local_38.empty();
+        iVar5 = 1;
+        if (!cVar2) {
+            iVar5 = -(unsigned int)bVar1;
         }
-        if (iVar6 != 0) {
-            uVar3 = WrapSelectedEntryOffset(this, iVar6);
-            if (uVar3 != m_entrySelectedByIndex) {
+        if (iVar5 != 0) {
+            arg1 = WrapSelectedEntryOffset(iVar5);
+            if (arg1 != field_928) {
                 do {
-                    pcVar5 = (char*)
-                        eastl::vector<Carousel::Entry,
-                                      eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                        operator[](
-                            (vector<Carousel::Entry, eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true,
-                                                                                   BucketAllocatorEASTL>>*)&field_568,
-                            (ulong)uVar3);
-                    if (*pcVar5 != '\0')
+                    pcVar4 = &field_568[(unsigned long)arg1];
+                    if (*pcVar4 != '\0')
                         break;
-                    iVar4 = math::sign<int>(iVar6);
-                    iVar6 = iVar6 + iVar4;
-                    uVar3 = WrapSelectedEntryOffset(this, iVar6);
-                } while (uVar3 != m_entrySelectedByIndex);
+                    iVar3 = math::sign<int>(iVar5);
+                    iVar5 = iVar5 + iVar3;
+                    arg1 = WrapSelectedEntryOffset(iVar5);
+                } while (arg1 != field_928);
             }
-            if (uVar3 != m_entrySelectedByIndex) {
-                SetEntrySelectedByIndex(this, uVar3, true);
+            if (arg1 != field_928) {
+                SetEntrySelectedByIndex(arg1, true);
             }
         }
-        if (param_6) {
-            ApplyScroll(this, (float)*(int*)(param_1 + 68) * 0.2);
+        if (arg6) {
+            ApplyScroll((float)*(int*)(componentDependencies + 68) * 0.2);
         }
     }
 
-    // 0x10068b680, 192 bytes, placed by class name
-    // Carousel::WrapSelectedEntryOffset(int) const
-    short Carousel::WrapSelectedEntryOffset(int param_1) {
-        undefined1* this_00;
-        ushort uVar1;
-        long lVar2;
-        char cVar3;
+    // 0x10068b680
+    short Carousel::WrapSelectedEntryOffset(int arg1) const {
         short sVar4;
-        int iVar5;
-        int iVar6;
-        short sVar7;
 
-        this_00 = &field_568;
-        cVar3 = this_00->empty();
-        if (cVar3 != '\0') {
-            /* WARNING: Subroutine does not return */
+        uint8_t* this_00 = &field_568;
+        if (this_00->empty() != '\0') {
             LogAssert(
                 "!m_entries.empty()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/Carousel.cpp", 317,
-                (char*)0);
+                nullptr);
         }
-        if (131070 < param_1 + 65535U) {
-            /* WARNING: Subroutine does not return */
+        if (131070 < arg1 + 65535U) {
             LogAssert(
                 "(offset >= -0xFFFF) && (offset <= 0xFFFF)",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/Carousel.cpp", 318,
-                (char*)0);
+                nullptr);
         }
-        uVar1 = m_entrySelectedByIndex;
-        iVar5 = this_00->size();
-        lVar2 = (long)(int)((uint)uVar1 + param_1) % (long)iVar5;
+        unsigned short uVar1 = field_928;
+        int iVar5 = this_00->size();
+        long lVar2 = (long)(int)((unsigned int)uVar1 + arg1) % (long)iVar5;
         iVar5 = (int)lVar2;
-        sVar7 = (short)lVar2;
+        short sVar7 = (short)lVar2;
         if (iVar5 < 0) {
             sVar4 = this_00->size();
             sVar7 = sVar4 + sVar7;
         } else {
-            iVar6 = this_00->size();
-            if (iVar6 < iVar5) {
+            if (this_00->size() < iVar5) {
                 sVar4 = this_00->size();
                 sVar7 = sVar7 - sVar4;
             }
@@ -167,774 +117,582 @@ namespace jag::ui {
         return sVar7;
     }
 
-    // 0x10068b7a0, 64 bytes, placed by class name
-    // Carousel::SetEntrySelectedByIndex(unsigned short, bool)
-    void Carousel::SetEntrySelectedByIndex(ushort param_1, bool param_2) {
-        char cVar1;
-        undefined3 in_register_00000011;
+    // 0x10068b7a0
+    void Carousel::SetEntrySelectedByIndex(unsigned short arg1, bool arg2) {
+        uint32_t in_register_00000011;
 
-        cVar1 = HasRecentValueChange(this);
-        m_entrySelectedByIndex = param_1;
-        if ((CONCAT31(in_register_00000011, param_2) == 0) && (cVar1 == '\0')) {
-            field_930 = param_1;
+        bool cVar1 = HasRecentValueChange();
+        field_928 = arg1;
+        if (((((uint32_t)in_register_00000011 << 8) | (uint8_t)arg2) == 0) && (!cVar1)) {
+            field_930 = arg1;
         }
     }
 
-    // 0x10068b7e0, 272 bytes, placed by class name
-    // Carousel::ApplyScroll(float)
-    void Carousel::ApplyScroll(float param_1) {
-        ushort uVar1;
-        int iVar2;
-        char cVar3;
-        undefined1 uVar4;
-        undefined1 extraout_AL;
-        undefined1 extraout_AH;
-        undefined1 extraout_AH_00;
-        undefined2 extraout_var;
-        undefined4 extraout_var_00;
-        int iVar5;
-        float fVar6;
+    // 0x10068b7e0
+    void Carousel::ApplyScroll(float arg1) {
+        unsigned short arg1_00;
+        int iVar1;
+        uint8_t uVar3;
+        uint8_t extraout_AL;
+        uint8_t extraout_AH;
+        uint8_t extraout_AH_00;
+        uint16_t extraout_var;
+        uint32_t extraout_var_00;
+        int arg1_01;
+        float fVar4;
 
-        cVar3 = (&field_568)->empty();
-        if (cVar3 == '\0') {
-            fVar6 = param_1 + field_936;
-            iVar5 = 0;
-            if (1.0 <= fVar6) {
-                iVar5 = 0;
+        if (field_568.empty() == '\0') {
+            fVar4 = arg1 + field_936;
+            arg1_01 = 0;
+            if (1.0 <= fVar4) {
+                arg1_01 = 0;
                 do {
-                    iVar5 = iVar5 + 1;
-                    fVar6 = fVar6 + -1.0;
-                } while (1.0 <= fVar6);
+                    arg1_01 = arg1_01 + 1;
+                    fVar4 = fVar4 - 1.0;
+                } while (1.0 <= fVar4);
             }
-            field_936 = fVar6;
-            if (fVar6 <= -1.0) {
+            field_936 = fVar4;
+            if (fVar4 <= -1.0) {
                 do {
-                    iVar5 = iVar5 + -1;
-                    fVar6 = fVar6 + 1.0;
-                } while (fVar6 <= -1.0);
-                field_936 = fVar6;
+                    arg1_01 = arg1_01 - 1;
+                    fVar4 = fVar4 + 1.0;
+                } while (fVar4 <= -1.0);
+                field_936 = fVar4;
             }
-            if (iVar5 != 0) {
+            if (arg1_01 != 0) {
                 while (true) {
-                    uVar4 = WrapSelectedEntryOffset(this, iVar5);
-                    uVar1 = CONCAT11(extraout_AH, uVar4);
-                    if ((CONCAT11(extraout_AH, uVar4) == m_entrySelectedByIndex) ||
-                        (eastl::vector<Carousel::Entry,
-                                       eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                         operator[](
-                             (vector<Carousel::Entry, eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true,
-                                                                                    BucketAllocatorEASTL>>*)&field_568,
-                             (ulong)uVar1),
-                         *(char*)CONCAT44(extraout_var_00,
-                                          CONCAT22(extraout_var, CONCAT11(extraout_AH_00, extraout_AL))) != '\0'))
+                    uVar3 = WrapSelectedEntryOffset(arg1_01);
+                    arg1_00 = (((uint16_t)extraout_AH << 8) | (uint8_t)uVar3);
+                    if (((((uint16_t)extraout_AH << 8) | (uint8_t)uVar3) == field_928) ||
+                        (field_568[(unsigned long)arg1_00],
+                         *(char*)(((uint64_t)extraout_var_00 << 32) |
+                                  (uint32_t)((((uint32_t)extraout_var << 16) |
+                                              (uint16_t)((((uint16_t)extraout_AH_00 << 8) | (uint8_t)extraout_AL))))) !=
+                             '\0'))
                         break;
-                    iVar2 = math::sign<int>(iVar5);
-                    iVar5 = iVar5 + iVar2;
+                    iVar1 = math::sign<int>(arg1_01);
+                    arg1_01 = arg1_01 + iVar1;
                 }
-                if (uVar1 != m_entrySelectedByIndex) {
-                    SetEntrySelectedByIndex(this, uVar1, true);
+                if (arg1_00 != field_928) {
+                    SetEntrySelectedByIndex(arg1_00, true);
                 }
             }
         }
     }
 
-    // 0x10068b8f0, 176 bytes, placed by class name
-    // Carousel::MainDraw(ComponentDependencies const&, int, int, float)
-    void Carousel::MainDraw(ComponentDependencies* param_1, int param_2, int param_3, float param_4) {
-        TextureManager* this_00;
-        SpriteAtlasManager* pSVar1;
-        char cVar2;
+    // 0x10068b8f0
+    void Carousel::MainDraw(const ComponentDependencies& componentDependencies, int arg2, int arg3, float arg4) {
+        SpriteAtlasManager* spriteAtlasManager;
 
-        cVar2 = (&field_568)->empty();
-        if (cVar2 == '\0') {
-            this_00 = (TextureManager*)(*(RT7Core**)(param_1 + 16))->GetTextureManager();
-            pSVar1 = (SpriteAtlasManager*)this_00->GetSpriteAtlasManager();
-            PrepareEntryIcons(this, pSVar1);
-            UpdateAnimations(this, param_4);
-            DrawBackground(this, *(RT7Core**)(param_1 + 16), param_2, param_3);
-            DrawSelectedEntry(this, *(RT7Core**)(param_1 + 16), *(FontManager**)(param_1 + 8), *(FontHelpers**)param_1,
-                              param_2, param_3);
-            DrawButtons(this, *(RT7Core**)(param_1 + 16), param_2, param_3);
+        if (field_568.empty() == '\0') {
+            spriteAtlasManager =
+                ((*(RT7Core**)(componentDependencies + 16))->GetTextureManager())->GetSpriteAtlasManager();
+            PrepareEntryIcons(*spriteAtlasManager);
+            UpdateAnimations(arg4);
+            DrawBackground(*(RT7Core**)(componentDependencies + 16), arg2, arg3);
+            DrawSelectedEntry(*(RT7Core**)(componentDependencies + 16), *(FontManager**)(componentDependencies + 8),
+                              *(FontHelpers**)componentDependencies, arg2, arg3);
+            DrawButtons(*(RT7Core**)(componentDependencies + 16), arg2, arg3);
         }
     }
 
-    // 0x10068b9a0, 400 bytes, placed by class name
-    // Carousel::PrepareEntryIcons(graphics::SpriteAtlasManager&)
-    ulong Carousel::PrepareEntryIcons(SpriteAtlasManager* param_1) {
-        bool bVar1;
-        shared_ptr* psVar3;
+    // 0x10068b9a0
+    unsigned long Carousel::PrepareEntryIcons(graphics::SpriteAtlasManager& spriteAtlasManager) {
         shared_ptr* psVar4;
-        SpriteAtlasReference* this_00;
-        shared_ptr* psVar5;
-        undefined1 uVar6;
-        undefined8 unaff_R13;
-        undefined7 uVar7;
-        shared_ptr local_60;
-        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_50[16];
-        long local_40;
+        uint8_t uVar5;
+        uint64_t unaff_R13;
+        ReturnValue local_60;
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_50;
+        long long local_40;
 
-        psVar3 = (shared_ptr*)(&field_568)->HeapBeginPtr();
-        psVar4 = (shared_ptr*)(&field_568)->end();
-        uVar7 = (undefined7)((ulong)unaff_R13 >> 8);
-        if (psVar3 == psVar4) {
-            uVar6 = 1;
+        auto psVar2 = field_568.HeapBeginPtr();
+        auto psVar3 = field_568.end();
+        uint64_t uVar6 = (uint64_t)((unsigned long)unaff_R13 >> 8);
+        if (psVar2 == psVar3) {
+            uVar5 = 1;
         } else {
-            uVar6 = 1;
-            psVar3 = psVar3 + 3;
+            uVar5 = 1;
+            psVar2 = psVar2 + 3;
             do {
-                if ((long)*(int*)(psVar3 + -1) == 18446744073709551615) {
-                    if (psVar3[-1].field_8 != -1) {
-                        psVar3[-1].field_8 = -1;
-                        shared_ptr<graphics::SpriteAtlasReference>::reset();
+                if ((long)*(int*)(psVar2 - 1) == 18446744073709551615) {
+                    if (psVar2[-1].field_8 != -1) {
+                        psVar2[-1].field_8 = -1;
+                        psVar2->reset();
                     }
                 } else {
-                    if (psVar3[-1].field_8 == -1) {
-                        psVar3[-1].field_8 = (long)*(int*)(psVar3 + -1) | 262144;
-                        shared_ptr<graphics::SpriteAtlasReference>::reset();
+                    if (psVar2[-1].field_8 == -1) {
+                        psVar2[-1].field_8 = (long)*(int*)(psVar2 - 1) | 262144;
+                        psVar2->reset();
                     }
-                    bVar1 = shared_ptr::operator_cast_to_bool(psVar3);
-                    if (!bVar1) {
-                        local_40 = psVar3[-1].field_8;
-                        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>::shared_ptr(
-                            local_50, (_func_decltype_nullptr*)0);
-                        graphics::SpriteAtlasManager::GetSpriteReference(&local_60, param_1, local_40, local_50, 2);
-                        shared_ptr<graphics::SpriteAtlasReference>::operator=(
-                            (shared_ptr<graphics::SpriteAtlasReference>*)psVar3, &local_60);
-                        local_60.~shared_ptr();
-                        local_50->~shared_ptr();
+                    if (!(shared_ptr::operator_cast_to_bool(psVar2))) {
+                        local_40 = psVar2[-1].field_8;
+                        local_50 = shared_ptr();
+                        local_60 = spriteAtlasManager.GetSpriteReference(local_40, local_50, 2);
+                        *psVar2 = local_60;
                     }
-                    bVar1 = shared_ptr::operator_cast_to_bool(psVar3);
-                    if (bVar1) {
-                        this_00 = (SpriteAtlasReference*)shared_ptr<graphics::SpriteAtlasReference>::operator->(
-                            (shared_ptr<graphics::SpriteAtlasReference>*)psVar3);
-                        if (this_00->IsReady() != '\0') {
-                            uVar6 = 0;
+                    if (shared_ptr::operator_cast_to_bool(psVar2)) {
+                        if (((SpriteAtlasReference*)(*psVar2).operator->())->IsReady()) {
+                            uVar5 = 0;
                         }
-                        uVar7 = 0;
+                        uVar6 = 0;
                     }
                 }
-                psVar5 = psVar3 + 1;
-                psVar3 = psVar3 + 4;
-            } while (psVar5 != psVar4);
+                psVar4 = psVar2 + 1;
+                psVar2 = psVar2 + 4;
+            } while (psVar4 != psVar3);
         }
-        return CONCAT71(uVar7, uVar6) & 4294967295;
+        return uVar5 & 4294967295;
     }
 
-    // 0x10068bb30, 80 bytes, placed by class name
-    // Carousel::UpdateAnimations(float)
-    void Carousel::UpdateAnimations(float param_1) {
+    // 0x10068bb30
+    void Carousel::UpdateAnimations(float arg1) {
         if (IsEnabled() != '\0') {
-            (&field_940, param_1)->UpdateAnimations();
-            (field_968, param_1)->UpdateAnimations();
+            field_940.UpdateAnimations(arg1);
+            field_968->UpdateAnimations(arg1);
         }
     }
 
-    // 0x10068bb80, 400 bytes, placed by class name
-    // Carousel::DrawBackground(graphics::RT7Core*, int, int)
-    void Carousel::DrawBackground(RT7Core* param_1, int param_2, int param_3) {
-        undefined1* this_00;
-        bool bVar1;
+    // 0x10068bb80
+    void Carousel::DrawBackground(graphics::RT7Core* rt7Core, int arg2, int arg3) {
         int iVar2;
-        int iVar3;
-        uint uVar4;
-        TextureManager* this_01;
-        SpriteAtlasManager* pSVar5;
-        undefined* puVar6;
+        int arg5;
+        unsigned int arg6;
         shared_ptr* this_02;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_03;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* this_03;
         shared_ptr* this_04;
         MapArea* this_05;
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_06;
-        Texture* pTVar7;
+        Texture* texture;
         SpriteAtlas* this_07;
-        FastPool<audio::SoundInstance, int>* this_08;
-        long lVar8;
-        undefined8 uVar9;
-        undefined8 uVar10;
+        long lVar4;
+        Logger* this_09;
 
-        this_00 = field_400;
-        this_01 = (TextureManager*)param_1->GetTextureManager();
-        pSVar5 = (SpriteAtlasManager*)this_01->GetSpriteAtlasManager();
-        puVar6 = (undefined*)this_00->LoadSpriteAtlasReference(pSVar5, false);
-        if (puVar6 == DataStatus::READY) {
+        uint8_t* this_00 = field_400;
+        SpriteAtlasManager* spriteAtlasManager = rt7Core->GetTextureManager()->GetSpriteAtlasManager();
+        if ((uint8_t*)this_00->LoadSpriteAtlasReference(*spriteAtlasManager, false) == DataStatus::READY) {
             this_02 = (shared_ptr*)this_00->GetDefaultValue();
-            bVar1 = shared_ptr::operator_cast_to_bool(this_02);
-            if (bVar1) {
-                this_03 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>*)
-                              shared_ptr<graphics::SpriteAtlasReference>::operator->(
-                                  (shared_ptr<graphics::SpriteAtlasReference>*)this_02);
-                this_04 = (shared_ptr*)
-                    eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(this_03);
-                bVar1 = shared_ptr::operator_cast_to_bool(this_04);
-                if (bVar1) {
-                    this_05 = (MapArea*)shared_ptr<graphics::SpriteAtlas>::operator->(
-                        (shared_ptr<graphics::SpriteAtlas>*)this_04);
+            if (!(shared_ptr::operator_cast_to_bool(this_02))) {
+                this_09 = logger::default_logger();
+                iVar2 = 361;
+            } else {
+                this_03 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)(*this_02)
+                              .operator->();
+                this_04 = (shared_ptr*)this_03->second();
+                if (shared_ptr::operator_cast_to_bool(this_04)) {
+                    this_05 = (MapArea*)(*this_04).operator->();
                     this_06 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_05->GetOrigin();
-                    pTVar7 =
-                        (Texture*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_06);
-                    if (pTVar7 == (Texture*)0) {
+                    texture = (Texture*)this_06->end();
+                    if (texture == nullptr) {
                         return;
                     }
-                    this_07 = (SpriteAtlas*)shared_ptr<graphics::SpriteAtlas>::operator->(
-                        (shared_ptr<graphics::SpriteAtlas>*)this_04);
-                    this_08 =
-                        (FastPool<audio::SoundInstance, int>*)shared_ptr<graphics::SpriteAtlasReference>::operator->(
-                            (shared_ptr<graphics::SpriteAtlasReference>*)this_02);
-                    iVar2 = FastPool<audio::SoundInstance, int>::capacity(this_08);
-                    lVar8 = this_07->GetSpriteRenderMapping(iVar2);
+                    this_07 = (SpriteAtlas*)(*this_04).operator->();
+                    iVar2 = ((FastPool<audio::SoundInstance, int>*)(*this_02).operator->())->capacity();
+                    lVar4 = this_07->GetSpriteRenderMapping(iVar2);
                     iVar2 = GetStreamCountLastMix();
-                    iVar3 = GetMinMapX();
-                    uVar4 = GetRGBA();
-                    this_00->DrawSpriteSlice(param_1, param_2, param_3, iVar2, iVar3, uVar4, (Rect*)(lVar8 + 88),
-                                             pTVar7, 0.0);
+                    arg5 = GetMinMapX();
+                    arg6 = GetRGBA();
+                    this_00->DrawSpriteSlice(*rt7Core, arg2, arg3, iVar2, arg5, arg6, *((lVar4 + 88)), texture, 0.0);
                     return;
                 }
-                uVar9 = logger::default_logger();
-                uVar10 = 369;
-            } else {
-                uVar9 = logger::default_logger();
-                uVar10 = 361;
+                this_09 = logger::default_logger();
+                iVar2 = 369;
             }
-            logger::Logger::Log(
-                uVar9, 0, 2,
+            this_09->Log(
+                false, 2,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/Carousel.cpp",
-                uVar10, "Invalid sprite atlas reference!");
+                iVar2, "Invalid sprite atlas reference!");
         }
     }
 
-    // 0x10068bd10, 720 bytes, placed by class name
-    // Carousel::DrawSelectedEntry(graphics::RT7Core*, graphics::FontManager*, graphics::FontHelpers*, int, int)
-    void Carousel::DrawSelectedEntry(RT7Core* param_1, FontManager* param_2, FontHelpers* param_3, int param_4,
-                                     int param_5) {
-        int iVar1;
-        bool bVar2;
-        char cVar3;
-        int iVar4;
-        undefined4 uVar5;
-        uint uVar6;
-        long lVar7;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_00;
+    // 0x10068bd10
+    void Carousel::DrawSelectedEntry(graphics::RT7Core* rt7Core, graphics::FontManager* fontManager,
+                                     graphics::FontHelpers* fontHelpers, int arg4, int arg5) {
+        int iVar3;
+        unsigned int uVar4;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* this_00;
         shared_ptr* this_01;
         MapArea* this_02;
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_03;
         SpriteAtlas* this_04;
-        FastPool<audio::SoundInstance, int>* this_05;
-        undefined8 uVar8;
-        int iVar9;
-        shared_ptr* psVar10;
-        StringView SVar11;
-        undefined4 in_stack_ffffffffffffff68;
-        undefined4 in_stack_ffffffffffffff6c;
+        shared_ptr* psVar7;
         StringView local_90;
         TextProperties local_80;
-        Margin local_58;
         int local_54;
-        TextData* local_50;
-        RT7Core* local_48;
-        int local_40;
-        int local_3c;
-        int local_38;
-        int local_34;
+        Texture* local_50;
 
-        iVar9 = (uint)field_560 + (uint)field_564 * 2;
-        local_40 = param_4 + iVar9;
-        local_48 = param_1;
-        local_3c = param_5;
-        local_38 = GetStreamCountLastMix();
-        local_38 = local_38 + iVar9 * -2;
-        local_34 = GetMinMapX();
+        int iVar6 = (unsigned int)field_560 + (unsigned int)field_564 * 2;
+        int local_40 = arg4 + iVar6;
+        RT7Core* local_48 = rt7Core;
+        int local_3c = arg5;
+        int iVar2 = GetStreamCountLastMix();
+        EnumOptionToggle local_38 = iVar2 + iVar6 * -2;
+        EnumOptionToggle local_34 = GetMinMapX();
         local_80.m_pFont._0_4_ = field_400->GetVisualMargin();
-        local_58 = (Margin)(&field_932, (Margin*)&local_80)->GetValidOr();
-        local_58.ApplyTo(&local_40, &local_3c, &local_38, &local_34);
-        lVar7 = eastl::vector<Carousel::Entry,
-                              eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-        operator[]((vector<Carousel::Entry,
-                           eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)&field_568,
-                   (ulong)m_entrySelectedByIndex);
-        if (*(int*)(lVar7 + 32) == -1) {
-            local_48 = (RT7Core*)param_3;
-            cVar3 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar3 == '\0') {
-                local_50 = (TextData*)field_496;
-                iVar9 = local_50->GetEndPosition();
-                new (&local_80) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                psVar10 = (shared_ptr*)param_2->GetFont(iVar9, (shared_ptr*)&local_80);
-                local_80.~shared_ptr();
-                bVar2 = shared_ptr::operator_cast_to_bool(psVar10);
-                if (bVar2) {
-                    new (&local_80) graphics::TextProperties(psVar10);
-                    uVar6 = GetRGBA();
-                    local_50->PopulateTextProperties(&local_80, uVar6, field_100);
-                    StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
-                        &local_90, (fixed_string*)(lVar7 + 8));
-                    SVar11.field_8._0_4_ = local_40;
-                    SVar11.field_0 = (ulong)&local_90;
-                    SVar11.field_8._4_4_ = 0;
-                    local_48->DrawStringMultiline(
-                        SVar11, local_3c, local_38, local_34, 0, (uint*)&local_80,
-                        (TextProperties*)CONCAT44(in_stack_ffffffffffffff6c, in_stack_ffffffffffffff68));
+        ((Margin)field_932.GetValidOr(&local_80)).ApplyTo(local_40, local_3c, local_38, local_34);
+        long lVar5 = field_568[(unsigned long)field_928];
+        if (*(int*)(lVar5 + 32) == -1) {
+            local_48 = (RT7Core*)fontHelpers;
+            if (!(((lVar5 + 8))->empty())) {
+                local_50 = (Texture*)field_496;
+                iVar2 = local_50->GetEndPosition();
+                local_80 = shared_ptr();
+                psVar7 = (shared_ptr*)fontManager->GetFont(iVar2, local_80);
+                if (shared_ptr::operator_cast_to_bool(psVar7)) {
+                    local_80 = graphics::TextProperties(*psVar7);
+                    uVar4 = GetRGBA();
+                    local_50->PopulateTextProperties(local_80, uVar4, field_100);
+                    local_90.StringView<eastl::fixed_string<char, 40>>(*((lVar5 + 8)));
+                    local_48->DrawStringMultiline(&local_90, local_40, local_3c, local_38, local_34, nullptr, local_80);
                 }
             }
         } else {
-            psVar10 = (shared_ptr*)(lVar7 + 48);
-            bVar2 = shared_ptr::operator_cast_to_bool(psVar10);
-            if (bVar2) {
-                this_00 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>*)
-                              shared_ptr<graphics::SpriteAtlasReference>::operator->(
-                                  (shared_ptr<graphics::SpriteAtlasReference>*)psVar10);
-                this_01 = (shared_ptr*)
-                    eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(this_00);
-                bVar2 = shared_ptr::operator_cast_to_bool(this_01);
-                if (bVar2) {
-                    this_02 = (MapArea*)shared_ptr<graphics::SpriteAtlas>::operator->(
-                        (shared_ptr<graphics::SpriteAtlas>*)this_01);
-                    this_03 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_02->GetOrigin();
-                    local_50 = (TextData*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-                        this_03);
-                    this_04 = (SpriteAtlas*)shared_ptr<graphics::SpriteAtlas>::operator->(
-                        (shared_ptr<graphics::SpriteAtlas>*)this_01);
-                    this_05 =
-                        (FastPool<audio::SoundInstance, int>*)shared_ptr<graphics::SpriteAtlasReference>::operator->(
-                            (shared_ptr<graphics::SpriteAtlasReference>*)psVar10);
-                    iVar9 = FastPool<audio::SoundInstance, int>::capacity(this_05);
-                    lVar7 = this_04->GetSpriteRenderMapping(iVar9);
-                    iVar4 = eastl::min<graphics::GraphicsQuality>(local_38, local_34);
-                    local_40 = local_40 + (local_38 - iVar4) / 2;
-                    local_3c = local_3c + (local_34 - iVar4) / 2;
-                    local_48 = (RT7Core*)local_48->GetGUIManager();
-                    iVar1 = local_3c;
-                    iVar9 = local_40;
-                    local_54 = local_40 + iVar4;
-                    iVar4 = iVar4 + local_3c;
-                    uVar5 = GetRGBA();
-                    local_48->AddElement(iVar9, iVar1, local_54, iVar4, uVar5, lVar7 + 88, local_50, 1);
+            psVar7 = (shared_ptr*)(lVar5 + 48);
+            if (shared_ptr::operator_cast_to_bool(psVar7)) {
+                this_00 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)(*psVar7)
+                              .operator->();
+                this_01 = (shared_ptr*)this_00->second();
+                if (!(shared_ptr::operator_cast_to_bool(this_01))) {
+                    (logger::default_logger())
+                        ->Log(false, 2,
+                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
+                              "Carousel.cpp",
+                              405, "Invalid sprite atlas reference!");
                 } else {
-                    uVar8 = logger::default_logger();
-                    logger::Logger::Log(uVar8, 0, 2,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/"
-                                        "components/Carousel.cpp",
-                                        405, "Invalid sprite atlas reference!");
+                    this_02 = (MapArea*)(*this_01).operator->();
+                    this_03 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_02->GetOrigin();
+                    local_50 = (Texture*)this_03->end();
+                    this_04 = (SpriteAtlas*)(*this_01).operator->();
+                    iVar2 = ((FastPool<audio::SoundInstance, int>*)(*psVar7).operator->())->capacity();
+                    lVar5 = this_04->GetSpriteRenderMapping(iVar2);
+                    iVar3 = eastl::min<graphics::GraphicsQuality>(local_38, local_34);
+                    local_40 = local_40 + (int)(local_38 - iVar3) / 2;
+                    local_3c = local_3c + (int)(local_34 - iVar3) / 2;
+                    local_48 = (RT7Core*)local_48->GetGUIManager();
+                    iVar6 = local_3c;
+                    iVar2 = local_40;
+                    local_54 = local_40 + iVar3;
+                    iVar3 = iVar3 + local_3c;
+                    uVar4 = GetRGBA();
+                    local_48->AddElement(iVar2, iVar6, local_54, iVar3, uVar4, *((lVar5 + 88)), local_50, 1);
                 }
             }
         }
     }
 
-    // 0x10068bfe0, 704 bytes, placed by class name
-    // Carousel::DrawButtons(graphics::RT7Core*, int, int)
-    void Carousel::DrawButtons(RT7Core* param_1, int param_2, int param_3) {
-        undefined1* this_00;
-        uint uVar1;
-        bool bVar2;
-        byte bVar3;
-        int iVar4;
+    // 0x10068bfe0
+    void Carousel::DrawButtons(graphics::RT7Core* rt7Core, int arg2, int arg3) {
+        unsigned int uVar1;
+        uint8_t bVar3;
+        bool bVar4;
         int iVar5;
-        TextureManager* this_01;
-        SpriteAtlasManager* pSVar6;
-        undefined* puVar7;
+        int iVar6;
         shared_ptr* this_02;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_03;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* this_03;
         shared_ptr* this_04;
         MapArea* this_05;
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_06;
         SpriteAtlas* this_07;
-        FastPool<audio::SoundInstance, int>* this_08;
-        undefined8 uVar8;
-        undefined8 uVar9;
-        Margin local_78[4];
+        Logger* this_09;
+        ReturnValue local_78;
         ButtonElement* local_68;
         Texture* local_60;
         ButtonElement* local_58;
-        undefined8 local_50;
+        uint64_t local_50;
         Margin* local_48;
         Margin local_40;
         int local_3c;
-        uint local_38;
-        uint local_34;
+        unsigned int local_38;
+        unsigned int local_34;
 
-        this_00 = field_448;
-        this_01 = (TextureManager*)param_1->GetTextureManager();
-        pSVar6 = (SpriteAtlasManager*)this_01->GetSpriteAtlasManager();
-        puVar7 = (undefined*)this_00->LoadSpriteAtlasReference(pSVar6, false);
-        if (puVar7 == DataStatus::READY) {
-            local_50 = CONCAT44(local_50._4_4_, param_3);
-            local_3c = param_2;
+        uint8_t* this_00 = field_448;
+        SpriteAtlasManager* spriteAtlasManager = rt7Core->GetTextureManager()->GetSpriteAtlasManager();
+        if ((uint8_t*)this_00->LoadSpriteAtlasReference(*spriteAtlasManager, false) == DataStatus::READY) {
+            local_50 = (((uint64_t)local_50._4_4_ << 32) | (uint32_t)arg3);
+            local_3c = arg2;
             this_02 = (shared_ptr*)this_00->GetDefaultValue();
-            bVar2 = shared_ptr::operator_cast_to_bool(this_02);
-            if (bVar2) {
-                this_03 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>*)
-                              shared_ptr<graphics::SpriteAtlasReference>::operator->(
-                                  (shared_ptr<graphics::SpriteAtlasReference>*)this_02);
-                this_04 = (shared_ptr*)
-                    eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(this_03);
-                bVar2 = shared_ptr::operator_cast_to_bool(this_04);
-                if (bVar2) {
-                    this_05 = (MapArea*)shared_ptr<graphics::SpriteAtlas>::operator->(
-                        (shared_ptr<graphics::SpriteAtlas>*)this_04);
+            if (!(shared_ptr::operator_cast_to_bool(this_02))) {
+                this_09 = logger::default_logger();
+                iVar5 = 448;
+            } else {
+                this_03 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)(*this_02)
+                              .operator->();
+                this_04 = (shared_ptr*)this_03->second();
+                if (shared_ptr::operator_cast_to_bool(this_04)) {
+                    this_05 = (MapArea*)(*this_04).operator->();
                     this_06 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_05->GetOrigin();
-                    local_60 =
-                        (Texture*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_06);
-                    if (local_60 == (Texture*)0) {
+                    local_60 = (Texture*)this_06->end();
+                    if (local_60 == nullptr) {
                         return;
                     }
                     local_48 = (Margin*)&field_932;
-                    local_78[0] = (Margin)field_400->GetVisualMargin();
-                    local_40 = (Margin)local_48->GetValidOr(local_78);
-                    this_07 = (SpriteAtlas*)shared_ptr<graphics::SpriteAtlas>::operator->(
-                        (shared_ptr<graphics::SpriteAtlas>*)this_04);
-                    this_08 =
-                        (FastPool<audio::SoundInstance, int>*)shared_ptr<graphics::SpriteAtlasReference>::operator->(
-                            (shared_ptr<graphics::SpriteAtlasReference>*)this_02);
-                    iVar4 = FastPool<audio::SoundInstance, int>::capacity(this_08);
-                    local_48 = (Margin*)this_07->GetSpriteRenderMapping(iVar4);
-                    iVar4 = local_3c;
-                    local_38 = (uint)field_564 + (uint)local_40.field_0 + local_3c;
-                    uVar1 = (uint)local_40 >> 16;
-                    iVar5 = GetStreamCountLastMix();
-                    local_3c = (iVar4 + iVar5) - ((uint)field_560 + (uint)field_564 + (uVar1 & 255));
-                    iVar4 = GetMinMapX();
+                    local_78[0]._0_4_ = field_400->GetVisualMargin();
+                    local_40 = (Margin)local_48->GetValidOr(&local_78);
+                    this_07 = (SpriteAtlas*)(*this_04).operator->();
+                    iVar5 = ((FastPool<audio::SoundInstance, int>*)(*this_02).operator->())->capacity();
+                    local_48 = (Margin*)this_07->GetSpriteRenderMapping(iVar5);
+                    iVar5 = local_3c;
+                    local_38 = (unsigned int)field_564 + (unsigned int)local_40.field_0 + local_3c;
+                    uVar1 = (unsigned int)local_40 >> 16;
+                    iVar6 = GetStreamCountLastMix();
+                    local_3c = (iVar5 + iVar6) - ((unsigned int)field_560 + (unsigned int)field_564 + (uVar1 & 255));
+                    iVar5 = GetMinMapX();
                     bVar3 = local_40.GetHeight();
-                    local_34 = (uint)field_562;
-                    iVar4 = (int)(((uint)bVar3 + iVar4) - local_34) / 2 + (int)local_50;
+                    local_34 = (unsigned int)field_562;
+                    iVar5 = (int)(((unsigned int)bVar3 + iVar5) - local_34) / 2 + (int)local_50;
                     local_68 = (ButtonElement*)&field_940;
-                    local_58 = (ButtonElement*)CONCAT44(local_58._4_4_, (uint)field_560);
+                    local_58 = (ButtonElement*)(((uint64_t)local_58._4_4_ << 32) | (uint32_t)((unsigned int)field_560));
                     local_50 = GetRGBA();
-                    bVar2 = (bool)IsEnabled();
+                    bVar4 = (bool)IsEnabled();
                     local_48 = (Margin*)((long)local_48 + 88);
-                    local_68->Draw(param_1, local_38, iVar4, (ushort)local_58, (ushort)local_34, (uint)local_50, bVar2,
-                                   local_60, local_48, this_00, false);
+                    local_68->Draw(*rt7Core, local_38, iVar5, (unsigned short)local_58, (unsigned short)local_34,
+                                   (unsigned int)local_50, bVar4, local_60, *local_48, *this_00, false);
                     local_58 = (ButtonElement*)field_968;
-                    local_38 = (uint)field_560;
-                    local_34 = (uint)field_562;
+                    local_38 = (unsigned int)field_560;
+                    local_34 = (unsigned int)field_562;
                     local_50 = GetRGBA();
-                    bVar2 = (bool)IsEnabled();
-                    local_78->FlipHorizontally();
-                    local_58->Draw(param_1, local_3c, iVar4, (ushort)local_38, (ushort)local_34, (uint)local_50, bVar2,
-                                   local_60, local_78, this_00, false);
+                    bVar4 = (bool)IsEnabled();
+                    local_78 = local_48->FlipHorizontally();
+                    local_58->Draw(*rt7Core, local_3c, iVar5, (unsigned short)local_38, (unsigned short)local_34,
+                                   (unsigned int)local_50, bVar4, local_60, local_78, *this_00, false);
                     return;
                 }
-                uVar8 = logger::default_logger();
-                uVar9 = 456;
-            } else {
-                uVar8 = logger::default_logger();
-                uVar9 = 448;
+                this_09 = logger::default_logger();
+                iVar5 = 456;
             }
-            logger::Logger::Log(
-                uVar8, 0, 2,
+            this_09->Log(
+                false, 2,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/Carousel.cpp",
-                uVar9, "Invalid sprite atlas reference!");
+                iVar5, "Invalid sprite atlas reference!");
         }
     }
 
-    // 0x10068c2a0, 672 bytes, placed by class name
-    // Carousel::DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator> >&, int)
-    void Carousel::DecodeTypedComponentProperties(PacketT* param_1, int param_2) {
-        undefined1* this_00;
-        int iVar1;
-        char cVar2;
-        byte bVar3;
-        ushort uVar4;
-        short sVar5;
-        ushort uVar6;
+    // 0x10068c2a0
+    void Carousel::DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2) {
+        int arg2_00;
+        uint8_t bVar1;
+        unsigned short uVar4;
         Margin in_EAX;
-        uint uVar7;
-        undefined4 uVar8;
-        long lVar9;
-        long lVar10;
-        ulong uVar11;
-        undefined8 uVar12;
-        undefined8 uVar13;
-        undefined8 local_38;
+        uint32_t uVar6;
+        long lVar8;
+        Logger* this_01;
+        uint64_t uVar10;
+        uint64_t local_38;
 
         local_38._0_4_ = in_EAX;
-        cVar2 = param_1->g1();
-        (*(code*)field_0[4])(this, cVar2 == '\x01');
-        this_00 = &field_568;
-        uVar4 = param_1->g2();
-        this_00->resize((ulong)uVar4);
-        lVar9 = this_00->capacity();
-        local_38 = CONCAT44(param_2, local_38._0_4_);
-        if (lVar9 == 0) {
-            uVar4 = param_1->g2();
-            this_00->resize((ulong)uVar4);
-            lVar9 = this_00->HeapBeginPtr();
-            lVar10 = this_00->end();
-            for (; lVar9 != lVar10; lVar9 = lVar9 + 64) {
-                uVar8 = param_1->g4s();
-                *(undefined4*)(lVar9 + 32) = uVar8;
+        arg1.g1();
+        SetEnabled((uint8_t)this);
+        uint8_t* this_00 = &field_568;
+        unsigned short uVar2 = arg1.g2();
+        this_00->resize((unsigned long)uVar2);
+        long lVar7 = this_00->capacity();
+        local_38 = (((uint64_t)arg2 << 32) | (uint32_t)local_38._0_4_);
+        if (lVar7 == 0) {
+            uVar2 = arg1.g2();
+            this_00->resize((unsigned long)uVar2);
+            lVar7 = this_00->HeapBeginPtr();
+            lVar8 = this_00->end();
+            for (; lVar7 != lVar8; lVar7 = lVar7 + 64) {
+                uVar6 = arg1.g4s();
+                *(uint32_t*)(lVar7 + 32) = uVar6;
             }
         } else {
-            lVar9 = this_00->HeapBeginPtr();
-            lVar10 = this_00->end();
-            for (; lVar9 != lVar10; lVar9 = lVar9 + 64) {
-                PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                    eastl::basic_string<char, BucketAllocatorEASTL>>(
-                    (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1,
-                    (basic_string*)(lVar9 + 8), false);
+            lVar7 = this_00->HeapBeginPtr();
+            lVar8 = this_00->end();
+            for (; lVar7 != lVar8; lVar7 = lVar7 + 64) {
+                arg1.gStringCP1252ToUTF8<eastl::basic_string<char, BucketAllocatorEASTL>>((lVar7 + 8), false);
             }
-            param_1->g2();
+            arg1.g2();
         }
-        uVar11 = this_00->size();
-        if (65533 < uVar11) {
-            /* WARNING: Subroutine does not return */
+        unsigned long uVar9 = this_00->size();
+        if (65533 < uVar9) {
             LogAssert(
                 "m_entries.size() < MAX_ENTRY_COUNT",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/Carousel.cpp", 118,
-                (char*)0);
+                nullptr);
         }
-        uVar4 = param_1->g2();
-        uVar7 = this_00->size();
-        if (uVar7 == uVar4) {
-            sVar5 = this_00->size();
-            if (sVar5 != 0) {
-                uVar4 = 0;
+        uVar2 = arg1.g2();
+        if (this_00->size() == uVar2) {
+            if (this_00->size() != 0) {
+                uVar2 = 0;
                 do {
-                    uVar8 = param_1->g4s();
-                    lVar9 =
-                        eastl::vector<Carousel::Entry,
-                                      eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                        operator[](
-                            (vector<Carousel::Entry,
-                                    eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)
-                                this_00,
-                            (ulong)uVar4);
-                    *(undefined4*)(lVar9 + 4) = uVar8;
-                    uVar4 = uVar4 + 1;
-                    uVar6 = this_00->size();
-                } while (uVar4 < uVar6);
+                    uVar6 = arg1.g4s();
+                    lVar7 = (*this_00)[(unsigned long)uVar2];
+                    *(uint32_t*)(lVar7 + 4) = uVar6;
+                    uVar2 = uVar2 + 1;
+                    uVar4 = this_00->size();
+                } while (uVar2 < uVar4);
             }
-            uVar4 = param_1->g2();
-            m_entrySelectedByIndex = uVar4;
-            field_930 = uVar4;
-            uVar11 = this_00->size();
-            if (uVar11 <= uVar4) {
-                /* WARNING: Subroutine does not return */
+            uVar2 = arg1.g2();
+            field_928 = uVar2;
+            field_930 = uVar2;
+            uVar9 = this_00->size();
+            if (uVar9 <= uVar2) {
                 LogAssert(
                     "m_selectedEntryIndex < m_entries.size()",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/Carousel.cpp",
-                    136, (char*)0);
+                    136, nullptr);
             }
-            uVar4 = param_1->g2();
-            field_560 = uVar4;
-            uVar4 = param_1->g2();
-            field_562 = uVar4;
-            uVar4 = param_1->g2();
-            field_564 = uVar4;
-            new (&local_38) Margin(param_1);
-            field_932 = (byte)local_38;
+            uVar2 = arg1.g2();
+            field_560 = uVar2;
+            uVar2 = arg1.g2();
+            field_562 = uVar2;
+            uVar2 = arg1.g2();
+            field_564 = uVar2;
+            new (&local_38) Margin(arg1);
+            field_932 = (uint8_t)local_38;
             field_933 = local_38._1_1_;
             field_934 = local_38._2_1_;
             field_935 = local_38._3_1_;
-            bVar3 = param_1->g1();
-            field_100 = ~bVar3;
-            uVar8 = param_1->g4();
-            field_96 = uVar8;
-            iVar1 = local_38._4_4_;
-            (field_496, param_1, local_38._4_4_)->DecodeTextData();
-            (field_448, param_1, iVar1)->DecodeSpriteData();
-            (field_400, param_1, iVar1)->DecodeSpriteData();
+            bVar1 = arg1.g1();
+            field_100 = ~bVar1;
+            uVar6 = arg1.g4();
+            field_96 = uVar6;
+            arg2_00 = local_38._4_4_;
+            field_496->DecodeTextData(arg1, local_38._4_4_);
+            field_448->DecodeSpriteData(arg1, arg2_00);
+            field_400->DecodeSpriteData(arg1, arg2_00);
         } else {
-            uVar12 = logger::default_logger();
-            uVar13 = this_00->size();
-            logger::Logger::Log(
-                uVar12, 0, 2,
+            this_01 = logger::default_logger();
+            uVar10 = this_00->size();
+            this_01->Log(
+                false, 2,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/Carousel.cpp", 124,
-                "Carousel entry encoding mismatch - expected %u values but got %u", uVar13, uVar4);
+                "Carousel entry encoding mismatch - expected %u values but got %u", uVar10, (unsigned long)uVar2);
         }
     }
 
-    // 0x10068c5b0, 224 bytes, placed by class name
-    // Carousel::LoadStyleSheetVisuals(StyleSheet const&)
-    void Carousel::LoadStyleSheetVisuals(StyleSheet* param_1) {
-        StyleSheet::LoadPropertyValueIfSet<unsigned char>(param_1, &field_100, 205, 1);
-        StyleSheet::LoadPropertyValueIfSet<unsigned int>(param_1, &field_96, 204, 1);
-        StyleSheet::LoadPropertyValueIfSet<unsigned short>(param_1, &field_560, 206, 1);
-        StyleSheet::LoadPropertyValueIfSet<unsigned short>(param_1, &field_562, 207, 1);
-        StyleSheet::LoadPropertyValueIfSet<unsigned short>(param_1, &field_564, 208, 1);
-        (&field_932, 237, param_1)->LoadFromStylesheet();
-        (field_496, 229, param_1)->LoadStyleSheetTextData();
-        (field_400, 219, param_1)->LoadStyleSheetSpriteData();
-        (field_448, 209, param_1)->LoadStyleSheetSpriteData();
+    // 0x10068c5b0
+    void Carousel::LoadStyleSheetVisuals(const StyleSheet& styleSheet) {
+        styleSheet.LoadPropertyValueIfSet<unsigned char>(field_100, 205, true);
+        styleSheet.LoadPropertyValueIfSet<unsigned int>(field_96, 204, true);
+        styleSheet.LoadPropertyValueIfSet<unsigned short>(field_560, 206, true);
+        styleSheet.LoadPropertyValueIfSet<unsigned short>(field_562, 207, true);
+        styleSheet.LoadPropertyValueIfSet<unsigned short>(field_564, 208, true);
+        field_932.LoadFromStylesheet(237, styleSheet);
+        field_496->LoadStyleSheetTextData(229, styleSheet);
+        field_400->LoadStyleSheetSpriteData(219, styleSheet);
+        field_448->LoadStyleSheetSpriteData(209, styleSheet);
     }
 
-    // 0x10068c6e0, 112 bytes, placed by class name
-    // Carousel::GetEntryIndexById(int) const
-    undefined2 Carousel::GetEntryIndexById(int param_1) {
-        undefined2 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        Entry* pEVar4;
-        Entry* pEVar5;
-        pair* ppVar6;
-        undefined1* this_00;
-        int local_1c;
+    // 0x10068c6e0
+    uint16_t Carousel::GetEntryIndexById(int arg1) const {
+        uint16_t uVar1;
+        __25* in_RCX;
 
-        this_00 = &field_568;
-        local_1c = param_1;
-        uVar2 = this_00->HeapBeginPtr();
-        uVar3 = this_00->end();
-        pEVar4 =
-            eastl::find<Carousel::Entry_const*, int, int->GetEntryIndexById() const ::__25>(uVar2, uVar3, &local_1c);
-        pEVar5 = (Entry*)this_00->end();
-        if (pEVar4 == pEVar5) {
+        uint8_t* this_00 = &field_568;
+        int local_1c = arg1;
+        auto pEVar2 = this_00->HeapBeginPtr();
+        auto pEVar3 = this_00->end();
+        pEVar2 = eastl::find<Carousel::Entry const*, int, int->GetEntryIndexById() const ::__25>(pEVar2, pEVar3,
+                                                                                                 &local_1c, in_RCX);
+        pEVar3 = (Entry*)this_00->end();
+        if (pEVar2 == pEVar3) {
             uVar1 = 65535;
         } else {
-            ppVar6 = (pair*)this_00->HeapBeginPtr();
-            uVar1 = eastl::distance<eastl::pair<eastl::fixed_string<char, 16, true, eastl::allocator>, unsigned int>*>(
-                ppVar6, (pair*)pEVar4);
+            pEVar3 = (Entry*)this_00->HeapBeginPtr();
+            uVar1 = eastl::distance<eastl::pair<eastl::fixed_string<char, 16>, unsigned int>*>(pEVar3, pEVar2);
         }
         return uVar1;
     }
 
-    // 0x10068c7a0, 80 bytes, placed by class name
-    // Carousel::SetEntryEnabled(int, bool)
-    bool Carousel::SetEntryEnabled(int param_1, bool param_2) {
-        undefined1 uVar1;
-        undefined1 extraout_AL;
-        undefined1 extraout_AH;
-        undefined1 extraout_AH_00;
-        undefined2 extraout_var;
-        undefined4 extraout_var_00;
+    // 0x10068c7a0
+    bool Carousel::SetEntryEnabled(int arg1, bool arg2) {
+        uint8_t extraout_AL;
+        uint8_t extraout_AH;
+        uint8_t extraout_AH_00;
+        uint16_t extraout_var;
+        uint32_t extraout_var_00;
 
-        uVar1 = GetEntryIndexById(this, param_1);
-        if (CONCAT11(extraout_AH, uVar1) != -1) {
-            eastl::vector<Carousel::Entry,
-                          eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-            operator[](
-                (vector<Carousel::Entry,
-                        eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)&field_568,
-                (ulong)CONCAT11(extraout_AH, uVar1));
-            *(bool*)CONCAT44(extraout_var_00, CONCAT22(extraout_var, CONCAT11(extraout_AH_00, extraout_AL))) = param_2;
+        uint8_t uVar1 = GetEntryIndexById(arg1);
+        if ((((uint16_t)extraout_AH << 8) | (uint8_t)uVar1) != -1) {
+            field_568[(unsigned long)(((uint16_t)extraout_AH << 8) | (uint8_t)uVar1)];
+            *(bool*)(((uint64_t)extraout_var_00 << 32) |
+                     (uint32_t)((((uint32_t)extraout_var << 16) |
+                                 (uint16_t)((((uint16_t)extraout_AH_00 << 8) | (uint8_t)extraout_AL))))) = arg2;
         }
-        return CONCAT11(extraout_AH, uVar1) != 65535;
+        return uVar1 != 65535;
     }
 
-    // 0x10068c7f0, 64 bytes, placed by class name
-    // Carousel::GetEntryEnabled(int) const
-    bool Carousel::GetEntryEnabled(int param_1) {
-        ushort uVar1;
+    // 0x10068c7f0
+    bool Carousel::GetEntryEnabled(int arg1) const {
         char* pcVar2;
         bool bVar3;
 
-        uVar1 = GetEntryIndexById(this, param_1);
+        unsigned short uVar1 = GetEntryIndexById(arg1);
         if (uVar1 == 65535) {
             bVar3 = false;
         } else {
-            pcVar2 =
-                (char*)eastl::vector<Carousel::Entry,
-                                     eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                operator[](
-                    (vector<Carousel::Entry,
-                            eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)&field_568,
-                    (ulong)uVar1);
+            pcVar2 = &field_568[(unsigned long)uVar1];
             bVar3 = *pcVar2 != '\0';
         }
         return bVar3;
     }
 
-    // 0x10068c870, 64 bytes, placed by class name
-    // Carousel::SetSelectedEntry(int, bool)
-    bool Carousel::SetSelectedEntry(int param_1, bool param_2) {
-        undefined1 uVar1;
-        undefined1 extraout_AH;
+    // 0x10068c870
+    bool Carousel::SetSelectedEntry(int arg1, bool arg2) {
+        uint8_t extraout_AH;
 
-        uVar1 = GetEntryIndexById(this, param_1);
-        if (CONCAT11(extraout_AH, uVar1) != -1) {
-            SetEntrySelectedByIndex(this, CONCAT11(extraout_AH, uVar1), param_2);
+        uint8_t uVar1 = GetEntryIndexById(arg1);
+        if ((((uint16_t)extraout_AH << 8) | (uint8_t)uVar1) != -1) {
+            SetEntrySelectedByIndex((((uint16_t)extraout_AH << 8) | (uint8_t)uVar1), arg2);
         }
-        return CONCAT11(extraout_AH, uVar1) != 65535;
+        return uVar1 != 65535;
     }
 
-    // 0x10068c8d0, 96 bytes, placed by class name
-    // Carousel::AddEntry(int, eastl::basic_string<char, BucketAllocatorEASTL> const&)
-    uint Carousel::AddEntry(int param_1, basic_string* param_2) {
-        uint uVar1;
+    // 0x10068c8d0
+    unsigned int Carousel::AddEntry(int arg1, const eastl::basic_string<char, BucketAllocatorEASTL>& str) {
         int local_24;
 
-        uVar1 = HasEntry(this, param_1);
+        unsigned int uVar1 = HasEntry(arg1);
         if ((char)uVar1 == '\0') {
-            eastl::vector<Carousel::Entry,
-                          eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>::
-                emplace_back<int&, eastl::basic_string<char, BucketAllocatorEASTL> const&>(
-                    (vector<Carousel::Entry,
-                            eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)&field_568,
-                    &local_24, param_2);
-            if (m_entrySelectedByIndex == 65535) {
-                m_entrySelectedByIndex = 0;
+            field_568.emplace_back<int&, eastl::basic_string<char, BucketAllocatorEASTL> const&>(local_24, str);
+            if (field_928 == 65535) {
+                field_928 = 0;
                 field_930 = 0;
             }
         }
         return uVar1 ^ 1;
     }
 
-    // 0x10068c9d0, 96 bytes, placed by class name
-    // Carousel::AddEntry(int, int)
-    uint Carousel::AddEntry(int param_1, int param_2) {
-        uint uVar1;
-        int local_20;
-        int local_1c;
-
-        local_20 = param_1;
-        local_1c = param_2;
-        uVar1 = HasEntry(this, param_1);
+    // 0x10068c9d0
+    unsigned int Carousel::AddEntry(int arg1, int arg2) {
+        unsigned int uVar1 = HasEntry(arg1);
         if ((char)uVar1 == '\0') {
-            eastl::vector<Carousel::Entry, eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true,
-                                                                         BucketAllocatorEASTL>>::emplace_back<int&,
-                                                                                                              int&>(
-                (vector<Carousel::Entry,
-                        eastl::fixed_vector_allocator<64ul, 5ul, 8ul, 0ul, true, BucketAllocatorEASTL>>*)&field_568,
-                &local_20, &local_1c);
-            if (m_entrySelectedByIndex == 65535) {
-                m_entrySelectedByIndex = 0;
+            field_568.emplace_back<int&, int&>(arg1, arg2);
+            if (field_928 == 65535) {
+                field_928 = 0;
                 field_930 = 0;
             }
         }
         return uVar1 ^ 1;
     }
 
-    // 0x10068cab0, 48 bytes, placed by class name
-    // Carousel::ClearEntries()
+    // 0x10068cab0
     void Carousel::ClearEntries() {
-        (&field_568)->clear();
-        m_entrySelectedByIndex = 65535;
+        field_568.clear();
+        field_928 = 65535;
         field_930 = 65535;
     }
 
-    // 0x10068cb80, 96 bytes, placed by class name
-    // Carousel::ProcessSwipeMovement(math::Vector2T<int> const&, math::Vector2T<int> const&, float)
-    undefined8 Carousel::ProcessSwipeMovement(Vector2T* param_1, Vector2T* param_2, float param_3) {
+    // 0x10068cb80
+    uint64_t Carousel::ProcessSwipeMovement(const math::Vector2T<int>& vector21, const math::Vector2T<int>& vector22,
+                                            float arg3) {
         int iVar1;
         int iVar3;
 
         if (IsEnabled() != '\0') {
-            iVar1 = *(int*)param_2;
+            iVar1 = *(int*)vector22;
             iVar3 = GetStreamCountLastMix();
-            ApplyScroll(this, ((float)-iVar1 + (float)-iVar1) / (float)iVar3);
+            ApplyScroll(((float)-iVar1 + (float)-iVar1) / (float)iVar3);
         }
         return 1;
     }
 
-    // 0x1006acf00: the linker folded this into Button::GetValueRepresentation(), which has identical code
-    ComponentSingleValueMultiOptionMixin Carousel::GetValueRepresentation();
+    // 0x1006acf00: Carousel::GetValueRepresentation() has the same machine code as Button::GetValueRepresentation()
 
-    // 0x1006c5d10, 16 bytes, placed by class name
-    // Carousel::GetEntryIndexById(int) const::$_25::operator()(Carousel::Entry const&, int) const
-    /* Carousel::GetEntryIndexById(int)
-   const::$_25::TEMPNAMEPLACEHOLDERVALUE(Carousel::Entry const&, int) const */
-
-    _func_GetEntryIndexById_int* const ::$_25::operator()(Entry * param_1, int param_2) {
-        undefined7 in_register_00000001;
-
-        return (_func_GetEntryIndexById_int*)CONCAT71(in_register_00000001, param_1->field_4 == param_2);
+    // 0x1006c5d10
+    bool Carousel::GetEntryIndexById(int) const ::$_25::operator()(const Carousel::Entry& entry, int arg2) const {
+        return *(int*)(this + 4) == (int)entry;
     }
 
 } // namespace jag::ui

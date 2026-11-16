@@ -1,156 +1,132 @@
 // libs/framework/graphicsapp/MainLoopFrameTimer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.framework.graphicsapp
 
 #include "MainLoopFrameTimer.h"
 
 namespace jag {
-    // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    int MainLoopFrameTimer::GetLogicTick() const;
+    // 0x100024170: MainLoopFrameTimer::GetLogicTick() const has the same machine code as oldscape::option::IScriptOption::GetId() const
 
-    // 0x100064280: the linker folded this into eastl::optional<eastl::vector<char, eastl::allocator> >::operator bool() const, which has identical code
-    MainLoopFrameTimer::GetFastUpdateLoopEnabled() const;
+    // 0x100064280: MainLoopFrameTimer::GetFastUpdateLoopEnabled() const has the same machine code as eastl::optional<eastl::vector<char>>::operator bool() const
 
-    // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    int MainLoopFrameTimer::GetFrameCount() const;
+    // 0x100066b70: MainLoopFrameTimer::GetFrameCount() const has the same machine code as oldscape::widgets::Widget::GetTextColour() const
 
-    // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    int MainLoopFrameTimer::GetMainLoopRate() const;
+    // 0x100073980: MainLoopFrameTimer::GetMainLoopRate() const has the same machine code as math::Rect<int>::MinY() const
 
-    // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    uint MainLoopFrameTimer::GetMainLoopInterval() const;
+    // 0x1000b9960: MainLoopFrameTimer::GetMainLoopInterval() const has the same machine code as oldscape::ScriptVarType::GetID() const
 
-    // 0x10019bbb0: the linker folded this into SystemSettings::GetModeGame() const, which has identical code
-    long MainLoopFrameTimer::GetUniqueLoopID() const;
+    // 0x10019bbb0: MainLoopFrameTimer::GetUniqueLoopID() const has the same machine code as SystemSettings::GetModeGame() const
 
-    // 0x100b03950, 64 bytes, placed by class name and debug map
-    // MainLoopFrameTimer::SetMainLoopInterval(unsigned int)
-    void MainLoopFrameTimer::SetMainLoopInterval(uint param_1) {
-        if (m_mainLoopInterval != param_1) {
-            m_mainLoopInterval = param_1;
-            m_mainLoopRate = (int)(1000 / (ulong)param_1);
-            field_24 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this) - m_mainLoopInterval;
+    // 0x100b03950
+    void MainLoopFrameTimer::SetMainLoopInterval(unsigned int arg1) {
+        if (m_mainLoopInterval != arg1) {
+            m_mainLoopInterval = arg1;
+            m_mainLoopRate = (int)(1000 / (unsigned long)arg1);
+            field_24 = SystemTimer::GetTimeMS<std::chrono::steady_clock>() - m_mainLoopInterval;
             field_12 = 0;
         }
     }
 
-    // 0x100b03f50, 208 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<OpenGLView>::type make_shared<OpenGLView, float, float, float, float, Window*, input::Input*>(float&&, float&&, float&&, float&&, Window*&&, input::Input*&&)
-    jag* make_shared<OpenGLView, float, float, float, float, Window*, input::Input*>(float* param_1, float* param_2,
-                                                                                     float* param_3, float* param_4,
-                                                                                     Window** param_5,
-                                                                                     Input** param_6) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100b03f50
+    shared_ptr_if_not_array<OpenGLView>::type
+    make_shared<OpenGLView, float, float, float, float, Window*, input::Input*>(float&& arg1, float&& arg2,
+                                                                                float&& arg3, float&& arg4,
+                                                                                Window*&& arg5, input::Input*&& arg6) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        Input** in_stack_00000008;
         int local_44;
         OpenGLView* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(408, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(408, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] = placement_new<OpenGLView, float, float, float, float, Window*, input::Input*>(
-                (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6);
+                (void*)((long)arg1_00 + 32), arg2, arg3, arg4, (float*)arg5, (Window**)arg6, in_stack_00000008);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<OpenGLView>, int, OpenGLView*&>(pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<OpenGLView>, int, OpenGLView*&>(arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x100b04370, 32 bytes, placed by class name
-    // MainLoopFrameTimer::MainInit()
+    // 0x100b04370
     void MainLoopFrameTimer::MainInit() {
-        field_24 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this);
+        field_24 = SystemTimer::GetTimeMS<std::chrono::steady_clock>();
     }
 
-    // 0x100b04ca0, 192 bytes, placed by class name
-    // MainLoopFrameTimer::Update(unsigned long long)
-    uint MainLoopFrameTimer::Update(ulonglong param_1) {
-        int iVar1;
-        ulonglong uVar2;
-        ulonglong uVar3;
-        ulong uVar4;
-        uint uVar5;
-        MainLoopFrameTimer* this_00;
-
-        this_00 = (MainLoopFrameTimer*)&field_98720;
+    // 0x100b04ca0
+    unsigned int MainLoopFrameTimer::Update(unsigned long long arg1) {
+        MainLoopFrameTimer* this_00 = (MainLoopFrameTimer*)&field_98720;
         this_00->Update();
-        uVar3 = field_98704;
-        uVar2 = SystemTimer::GetTimeNS<std::chrono::steady_clock>((SystemTimer*)this_00);
-        field_98704 = uVar2;
+        unsigned long long uVar2 = field_98704;
+        unsigned long long arg3 = SystemTimer::GetTimeNS<std::chrono::steady_clock>();
+        field_98704 = arg3;
         if (m_renderingDisabled == '\0') {
-            uVar3 = WaitUntilMaxFPS(this_00, param_1, uVar3, uVar2);
-            field_98704 = uVar3;
+            uVar2 = WaitUntilMaxFPS(this_00, arg1, uVar2, arg3);
+            field_98704 = uVar2;
         }
         m_uniqueLoopID = m_uniqueLoopID + 1;
-        uVar4 = SystemTimer::ConvertNStoMS(field_98704);
-        if (uVar4 < field_24) {
-            /* WARNING: Subroutine does not return */
+        unsigned long uVar3 = SystemTimer::ConvertNStoMS(field_98704);
+        if (uVar3 < field_24) {
             LogAssert("frameStartTimeMS >= m_firstMainLoopMS",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/framework/graphicsapp/"
                       "MainLoopFrameTimer.cpp",
-                      45, (char*)0);
+                      45, nullptr);
         }
-        iVar1 = (int)((uVar4 - field_24) / (ulong)m_mainLoopInterval);
-        uVar5 = iVar1 - field_12;
-        if (100 < uVar5) {
-            field_12 = iVar1 + -100;
-            uVar5 = 100;
+        int iVar1 = (int)((uVar3 - field_24) / (unsigned long)m_mainLoopInterval);
+        unsigned int uVar4 = iVar1 - field_12;
+        if (100 < uVar4) {
+            field_12 = iVar1 - 100;
+            uVar4 = 100;
         }
-        return uVar5;
+        return uVar4;
     }
 
-    // 0x100b04d70, 48 bytes, placed by class name
-    // MainLoopFrameTimer::MainLogic()
+    // 0x100b04d70
     void MainLoopFrameTimer::MainLogic() {
-        (&field_48)->RecordLogicLoop();
+        field_48.RecordLogicLoop();
         m_logicTick = m_logicTick + 1;
         field_12 = field_12 + 1;
     }
 
-    // 0x100b04fd0, 16 bytes, placed by class name
-    // MainLoopFrameTimer::PostFrameUpdate()
+    // 0x100b04fd0
     void MainLoopFrameTimer::PostFrameUpdate() {
         m_frameCount = m_frameCount + 1;
     }
 
-    // 0x100b06030, 96 bytes, placed by class name
-    // MainLoopFrameTimer::WaitUntilMaxFPS(unsigned long long, unsigned long long, unsigned long long)
-    ulonglong MainLoopFrameTimer::WaitUntilMaxFPS(ulonglong param_1, ulonglong param_2, ulonglong param_3) {
-        long lVar1;
-        duration local_28[8];
-        long local_20;
+    // 0x100b06030
+    unsigned long long MainLoopFrameTimer::WaitUntilMaxFPS(unsigned long long arg1, unsigned long long arg2,
+                                                           unsigned long long arg3) {
+        unsigned long long uVar1;
+        type* arg2_00;
+        duration<long long, std::ratio<1l, 1000000000l>> local_28;
+        unsigned long long local_20;
 
-        if (param_1 != 0) {
+        if (arg1 != 0) {
+            arg2_00 = (type*)(arg3 - arg2);
             local_20 = 0;
-            lVar1 = 1000000000 / param_1 - (param_3 - param_2);
-            if (param_3 - param_2 <= 1000000000 / param_1 && lVar1 != 0) {
-                local_20 = lVar1;
-                std::chrono::duration<long long, std::ratio<1l, 1000000000l>>::duration<unsigned long long>(
-                    (ulonglong*)local_28, (type*)&local_20);
-                std::this_thread::sleep_for(local_28);
+            uVar1 = (long)(1000000000 / arg1) - (long)arg2_00;
+            if (arg2_00 <= (type*)(1000000000 / arg1) && uVar1 != 0) {
+                local_20 = uVar1;
+                local_28.duration<unsigned long long>(local_20, arg2_00);
+                std::this_thread::sleep_for(&local_28);
             }
-            param_3 = param_3 + local_20;
+            arg3 = arg3 + local_20;
         }
-        return param_3;
+        return arg3;
     }
 
-    // 0x100b060c0, 80 bytes, placed by class name
-    // MainLoopFrameTimer::WaitUntilMaxFPS(unsigned long long)
-    void MainLoopFrameTimer::WaitUntilMaxFPS(ulonglong param_1) {
-        ulonglong uVar1;
-        ulonglong uVar2;
-
-        uVar2 = field_98704;
-        uVar1 = SystemTimer::GetTimeNS<std::chrono::steady_clock>((SystemTimer*)this);
+    // 0x100b060c0
+    void MainLoopFrameTimer::WaitUntilMaxFPS(unsigned long long arg1) {
+        unsigned long long uVar1 = field_98704;
+        unsigned long long arg3 = SystemTimer::GetTimeNS<std::chrono::steady_clock>();
+        field_98704 = arg3;
+        uVar1 = WaitUntilMaxFPS(arg1, uVar1, arg3);
         field_98704 = uVar1;
-        uVar2 = WaitUntilMaxFPS((MainLoopFrameTimer*)this, param_1, uVar2, uVar1);
-        field_98704 = uVar2;
     }
 
 } // namespace jag

@@ -1,442 +1,345 @@
 // libs/graphics/runetek7/particles/ParticleSystem.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "ParticleSystem.h"
 
 namespace jag::graphics {
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    ParticleSystem::GetTransformedTriangle(unsigned int, math::Vector4T<float> (&)[3]);
+    // 0x100009e70: ParticleSystem::GetTransformedTriangle(unsigned int, math::Vector4T<float> (&) [3]) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100049810: the linker folded this into oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const, which has identical code
-    ParticleMaterial ParticleSystem::GetMaterial();
+    // 0x100049810: ParticleSystem::GetMaterial() has the same machine code as oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const
 
-    // 0x1007ccff0, 144 bytes, placed by class name and debug map
-    // ParticleSystem::GetEffectors(eastl::vector<ParticleEffector const*, BucketAllocatorEASTL>&, unsigned int) const
-    void ParticleSystem::GetEffectors(vector* param_1, uint param_2) {
+    // 0x1007ccff0
+    void ParticleSystem::GetEffectors(eastl::vector<ParticleEffector const*, BucketAllocatorEASTL>& particleEffectors,
+                                      unsigned int arg2) const {
         ParticleEffector* in_RAX;
-        ParticleEffector* this_00;
-        ParticleEffector* pPVar1;
-        uint* puVar2;
-        ParticleEffector* local_38;
+        unsigned int* puVar2;
 
-        local_38 = in_RAX;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        this_00 = (ParticleEffector*)(&field_42800)->HeapBeginPtr();
-        pPVar1 = (ParticleEffector*)(&field_42800)->end();
+        ParticleEffector* local_38 = in_RAX;
+        particleEffectors.clear();
+        auto this_00 = field_42800.HeapBeginPtr();
+        auto pPVar1 = field_42800.end();
         if (this_00 != pPVar1) {
             do {
-                puVar2 = (uint*)this_00->data();
-                if (*puVar2 == param_2) {
+                puVar2 = (unsigned int*)this_00->data();
+                if (*puVar2 == arg2) {
                     local_38 = this_00;
-                    param_1->push_back(&local_38);
+                    particleEffectors.push_back(local_38);
                 }
                 this_00 = (ParticleEffector*)&this_00->field_72;
             } while (this_00 != pPVar1);
         }
     }
 
-    // 0x1007ce900, 16 bytes, placed by class name
-    // ParticleSystem::CreateRenderingResources()
+    // 0x1007ce900
     void ParticleSystem::CreateRenderingResources() {}
 
-    // 0x1007ce910, 96 bytes, placed by class name
-    // ParticleSystem::DestroyRenderingResources()
+    // 0x1007ce910
     void ParticleSystem::DestroyRenderingResources() {
-        shared_ptr local_28;
 
         m_material->DestroyRenderingResources();
-        new (&local_28) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        (m_material, &local_28)->SetTextureAtlasReference();
-        local_28.~shared_ptr();
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_28;
+        m_material->SetTextureAtlasReference(local_28);
     }
 
-    // 0x1007d16e0, 288 bytes, base-object constructor, placed by class name
-    // ParticleSystem::ParticleSystem(ParticleManager*)
-    void ParticleSystem::ParticleSystem(ParticleManager* param_1) {
-        new (this) Drawable(9);
-        new (&field_16) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
-        new (this) MakeSharedPool<ParticleSystem, 32>();
-        field_0 = &PTR__ParticleSystem_100f14c70;
-        new (&field_32) math::AABB();
-        new (m_material) ParticleMaterial();
-        field_624 = param_1;
+    // 0x1007d16e0
+    ParticleSystem::ParticleSystem(ParticleManager* particleManager)
+        : Drawable(9), MakeSharedPool<ParticleSystem, 32>(), field_624(particleManager) {
         field_632 = '\0';
         field_633 = '\0';
         field_634 = '\0';
         field_635 = '\0';
-        new (&field_640) eastl::fixed_vector<ParticleEmitter, 4ul, true, eastl::allocator>();
-        new (&field_42800) eastl::vector<ParticleEffector, eastl::allocator>();
+        new (&field_640) eastl::fixed_vector<ParticleEmitter, 4ul>();
+        new (&field_42800) eastl::vector<ParticleEffector>();
         m_particleCount = 0;
         new (&field_42848) std::optional<math::Matrix44T<float>>();
         this[1].m_material[8] = 0;
-        (m_material, 0)->InitRenderPassEffects();
-        (field_624, this)->RegisterSystem();
+        m_material->InitRenderPassEffects(0);
+        field_624->RegisterSystem(this);
     }
 
-    // 0x1007d18c0, 16 bytes, complete-object constructor, placed by class name
-    // ParticleSystem::ParticleSystem(ParticleManager*): jumps straight to the base-object constructor
-
-    // 0x1007d18d0, 160 bytes, base-object destructor, placed by class name
-    // ParticleSystem::~ParticleSystem()
-    void ParticleSystem::~ParticleSystem() {
-        field_0 = &PTR__ParticleSystem_100f14c70;
-        DestroyRenderingResources(this);
-        (field_624, this)->UnregisterSystem();
-        (&field_42800)->~vector();
-        (&field_640)->~fixed_vector();
+    // 0x1007d18d0
+    ParticleSystem::~ParticleSystem() {
+        DestroyRenderingResources();
+        field_624->UnregisterSystem(this);
+        field_42800.~vector();
+        field_640.~fixed_vector();
         m_material->~ParticleMaterial();
-        (&field_16)->~enable_shared_from_this();
-        ~AutoSingleton();
+        field_16.~enable_shared_from_this();
     }
 
-    // 0x1007d1970, 16 bytes, complete-object destructor, placed by class name
-    // ParticleSystem::~ParticleSystem(): jumps straight to the base-object destructor
-
-    // 0x1007d1980, 32 bytes, deleting destructor, placed by class name
-    // ParticleSystem::~ParticleSystem()
-    void ParticleSystem::~ParticleSystem() {
-        ~ParticleSystem(this);
-        operator_delete(this);
-    }
-
-    // 0x1007d19a0, 80 bytes, placed by class name
-    // ParticleSystem::DisableEmitters()
+    // 0x1007d19a0
     void ParticleSystem::DisableEmitters() {
-        ParticleEmitter* this_00;
-        ParticleEmitter* pPVar1;
-
-        this_00 = (ParticleEmitter*)(&field_640)->HeapBeginPtr();
-        pPVar1 = (ParticleEmitter*)(&field_640)->end();
+        auto this_00 = field_640.HeapBeginPtr();
+        auto pPVar1 = field_640.end();
         for (; this_00 != pPVar1; this_00 = (ParticleEmitter*)&this_00->field_10528) {
             this_00->SetEnabled(false);
         }
     }
 
-    // 0x1007d1a00, 128 bytes, placed by class name
-    // ParticleSystem::Update(float)
-    void ParticleSystem::Update(float param_1) {
-        undefined1* this_00;
-        eastl* peVar1;
-        undefined8 uVar2;
-        ParticleEmitter* pPVar3;
-        ParticleEmitter* pPVar4;
-        undefined1 local_24[4];
+    // 0x1007d1a00
+    void ParticleSystem::Update(float arg1) {
+        uint8_t local_24[4];
 
-        (&field_32)->Reset();
+        field_32.Reset();
         m_particleCount = 0;
-        this_00 = &field_640;
-        peVar1 = (eastl*)this_00->HeapBeginPtr();
-        uVar2 = this_00->end();
-        pPVar3 = eastl::remove_if<ParticleEmitter*, float->Update()::__6>(peVar1, uVar2, local_24, this);
-        pPVar4 = (ParticleEmitter*)this_00->end();
-        this_00->erase(pPVar3, pPVar4);
+        uint8_t* this_00 = &field_640;
+        auto pPVar1 = this_00->HeapBeginPtr();
+        auto pPVar2 = this_00->end();
+        pPVar1 = eastl::remove_if<ParticleEmitter*, float->Update()::__6>(pPVar1, pPVar2, (__6*)local_24);
+        pPVar2 = (ParticleEmitter*)this_00->end();
+        this_00->erase(pPVar1, pPVar2);
     }
 
-    // 0x1007d1b50, 144 bytes, placed by class name
-    // ParticleSystem::UnregisterModelEmitter(shared_ptr<ModelParticleSource> const&)
-    void ParticleSystem::UnregisterModelEmitter(shared_ptr* param_1) {
-        ParticleEmitter* pPVar3;
-        ParticleEmitter* this_00;
-        vector* this_01;
-        shared_ptr* extraout_RDX;
-        shared_ptr* psVar4;
-        undefined1* this_02;
+    // 0x1007d1b50
+    void ParticleSystem::UnregisterModelEmitter(const shared_ptr<ModelParticleSource>& modelParticleSource) {
+        ParticleEmitter* pPVar1;
+        shared_ptr<oldscape::midi2::MidiRequest>* midiRequest1;
+        ParticleEmitter* particleEmitter;
+        uint8_t* this_00;
 
-        psVar4 = param_1;
         if (field_624->ParticlesReady() != '\0') {
-            this_02 = &field_640;
-            pPVar3 = (ParticleEmitter*)this_02->end();
-            this_00 = (ParticleEmitter*)this_02->HeapBeginPtr();
-            if (this_00 != pPVar3) {
+            this_00 = &field_640;
+            pPVar1 = (ParticleEmitter*)this_00->end();
+            particleEmitter = (ParticleEmitter*)this_00->HeapBeginPtr();
+            if (particleEmitter != pPVar1) {
                 do {
-                    this_01 = this_00->SSOBeginPtr(psVar4);
-                    psVar4 = param_1;
-                    if (operator==((jag*)this_01, param_1, extraout_RDX)) {
-                        this_02->erase(this_00);
+                    midiRequest1 = (shared_ptr<oldscape::midi2::MidiRequest>*)particleEmitter->SSOBeginPtr();
+                    if (*midiRequest1 == modelParticleSource) {
+                        this_00->erase(particleEmitter);
                         return;
                     }
-                    this_00 = (ParticleEmitter*)&this_00->field_10528;
-                } while (this_00 != pPVar3);
+                    particleEmitter = (ParticleEmitter*)&particleEmitter->field_10528;
+                } while (particleEmitter != pPVar1);
             }
         }
     }
 
-    // 0x1007d1c80, 352 bytes, placed by class name
-    // ParticleSystem::RegisterModelEmitter(shared_ptr<ModelParticleSource> const&, math::Vector3T<float> const&, math::Vector3T<float> const&, math::Vector3T<float> const&, bool, bool)
-    void ParticleSystem::RegisterModelEmitter(shared_ptr* param_1, Vector3T* param_2, Vector3T* param_3,
-                                              Vector3T* param_4, bool param_5, bool param_6) {
-        Vector3T* pVVar1;
-        Vector3T* pVVar2;
-        vector<ParticleEmitter, eastl::fixed_vector_allocator<10528ul, 4ul, 16ul, 0ul, true, eastl::allocator>>*
-            this_00;
-        ParticleSystem* pPVar3;
-        Vector3T* pVVar4;
-        char cVar5;
-        bool bVar6;
-        ParticleEmitter* this_01;
-        ParticleEmitter* pPVar7;
-        vector* this_02;
-        ulong uVar8;
-        ParticleEmitter* this_03;
-        shared_ptr* extraout_RDX;
-        undefined1* this_04;
-        shared_ptr* psVar9;
-        undefined3 in_register_00000089;
+    // 0x1007d1c80
+    void ParticleSystem::RegisterModelEmitter(const shared_ptr<ModelParticleSource>& modelParticleSource,
+                                              const math::Vector3T<float>& vector31,
+                                              const math::Vector3T<float>& vector32,
+                                              const math::Vector3T<float>& vector33, bool arg5, bool arg6) {
+        ParticleSystem* pPVar1;
+        Vector3T<float>* vector33_00;
+        ParticleEmitter* particleEmitter;
+        ParticleEmitter* pPVar4;
+        shared_ptr<oldscape::midi2::MidiRequest>* midiRequest1;
+        unsigned long uVar5;
+        ParticleEmitter* this_00;
+        Layout* pLVar6;
+        uint64_t in_register_00000081;
+        uint32_t in_register_00000089;
+        bool in_stack_00000008;
         ParticleSystem* local_68;
-        Vector3T* local_60;
-        Vector3T* local_58;
-        vector<ParticleEmitter, eastl::fixed_vector_allocator<10528ul, 4ul, 16ul, 0ul, true, eastl::allocator>>*
-            local_50;
+        Layout* local_50;
         ParticleSystem* local_48;
-        Vector3T* local_40;
-        undefined4 local_34;
+        Vector3T<float>* local_40;
 
-        local_34 = CONCAT31(in_register_00000089, param_5);
-        psVar9 = param_1;
-        cVar5 = field_624->ParticlesReady();
-        if (cVar5 != '\0') {
-            this_04 = &field_640;
-            local_60 = param_3;
-            local_58 = param_2;
-            local_48 = this;
-            local_40 = param_4;
-            this_01 = (ParticleEmitter*)this_04->HeapBeginPtr();
-            local_50 = (vector<ParticleEmitter,
-                               eastl::fixed_vector_allocator<10528ul, 4ul, 16ul, 0ul, true, eastl::allocator>>*)this_04;
-            pPVar7 = (ParticleEmitter*)this_04->end();
-            if (this_01 == pPVar7) {
-                this_03 = (ParticleEmitter*)0;
+        uint32_t local_34 = (((uint32_t)in_register_00000089 << 8) | (uint8_t)arg6);
+        if ((*(ParticleManager**)(modelParticleSource + 624))->ParticlesReady() != '\0') {
+            pLVar6 = (Layout*)(modelParticleSource + 640);
+            local_48 = (ParticleSystem*)modelParticleSource;
+            local_40 = (Vector3T<float>*)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg5);
+            particleEmitter = (ParticleEmitter*)pLVar6->HeapBeginPtr();
+            local_50 = pLVar6;
+            pPVar4 = (ParticleEmitter*)pLVar6->end();
+            if (particleEmitter == pPVar4) {
+                this_00 = nullptr;
             } else {
-                this_03 = (ParticleEmitter*)0;
+                this_00 = nullptr;
                 do {
-                    this_02 = this_01->SSOBeginPtr(psVar9);
-                    psVar9 = param_1;
-                    bVar6 = operator==((jag*)this_02, param_1, extraout_RDX);
-                    if (bVar6) {
-                        this_03 = this_01;
+                    midiRequest1 = (shared_ptr<oldscape::midi2::MidiRequest>*)particleEmitter->SSOBeginPtr();
+                    if (*midiRequest1 == vector31) {
+                        this_00 = particleEmitter;
                         break;
                     }
-                    this_01 = (ParticleEmitter*)&this_01->field_10528;
-                } while (this_01 != pPVar7);
+                    particleEmitter = (ParticleEmitter*)&particleEmitter->field_10528;
+                } while (particleEmitter != pPVar4);
             }
-            this_00 = local_50;
-            pVVar2 = local_58;
-            pVVar1 = local_60;
-            if (this_03 == (ParticleEmitter*)0) {
-                uVar8 = eastl::vector<ParticleEmitter, eastl::fixed_vector_allocator<10528ul, 4ul, 16ul, 0ul, true,
-                                                                                     eastl::allocator>>::size(local_50);
-                pPVar3 = local_48;
-                if (4095 < uVar8) {
+            pLVar6 = local_50;
+            if (this_00 == nullptr) {
+                uVar5 = local_50->size();
+                pPVar1 = local_48;
+                if (4095 < uVar5) {
                     return;
                 }
                 local_68 = local_48;
-                this_03 =
-                    eastl::vector<ParticleEmitter,
-                                  eastl::fixed_vector_allocator<10528ul, 4ul, 16ul, 0ul, true, eastl::allocator>>::
-                        emplace_back<shared_ptr<ModelParticleSource> const&, ParticleManager*&, ParticleSystem*>(
-                            this_00, param_1, &local_48->field_624, &local_68);
-                pPVar3->field_632 = '\x01';
+                this_00 = eastl::vector<ParticleEmitter, eastl::fixed_vector_allocator<10528ul, 4ul, 16ul, 0ul, true>>::
+                    emplace_back<shared_ptr<ModelParticleSource> const&, ParticleManager*&, ParticleSystem*>(
+                        (vector<ParticleEmitter, eastl::fixed_vector_allocator<10528ul, 4ul, 16ul, 0ul, true>>*)pLVar6,
+                        (shared_ptr<ModelParticleSource>*)vector31, &local_48->field_624, &local_68);
+                pPVar1->field_632 = '\x01';
             }
-            pVVar4 = local_40;
-            if (this_03 != (ParticleEmitter*)0) {
+            vector33_00 = local_40;
+            if (this_00 != nullptr) {
                 if ((char)local_34 != '\0') {
-                    this_03->SetEnabled(false);
+                    this_00->SetEnabled(false);
                 }
-                this_03->Hide(param_6);
-                this_03->UpdatePosition(pVVar2, pVVar1, pVVar4);
+                this_00->Hide(in_stack_00000008);
+                this_00->UpdatePosition(vector32, vector33, *vector33_00);
             }
         }
     }
 
-    // 0x1007d1ec0, 144 bytes, placed by class name
-    // ParticleSystem::UnregisterModelEffector(shared_ptr<ModelParticleSource> const&)
-    void ParticleSystem::UnregisterModelEffector(shared_ptr* param_1) {
-        ParticleEffector* pPVar3;
-        ParticleEffector* this_00;
-        vector* this_01;
-        shared_ptr* extraout_RDX;
-        shared_ptr* psVar4;
-        undefined1* this_02;
+    // 0x1007d1ec0
+    void ParticleSystem::UnregisterModelEffector(const shared_ptr<ModelParticleSource>& modelParticleSource) {
+        ParticleEffector* pPVar1;
+        shared_ptr<oldscape::midi2::MidiRequest>* midiRequest1;
+        ParticleEffector* particleEffector;
+        uint8_t* this_00;
 
-        psVar4 = param_1;
         if (field_624->ParticlesReady() != '\0') {
-            this_02 = &field_42800;
-            pPVar3 = (ParticleEffector*)this_02->end();
-            this_00 = (ParticleEffector*)this_02->HeapBeginPtr();
-            if (this_00 != pPVar3) {
+            this_00 = &field_42800;
+            pPVar1 = (ParticleEffector*)this_00->end();
+            particleEffector = (ParticleEffector*)this_00->HeapBeginPtr();
+            if (particleEffector != pPVar1) {
                 do {
-                    this_01 = this_00->SSOBeginPtr(psVar4);
-                    psVar4 = param_1;
-                    if (operator==((jag*)this_01, param_1, extraout_RDX)) {
-                        this_02->erase(this_00);
+                    midiRequest1 = (shared_ptr<oldscape::midi2::MidiRequest>*)particleEffector->SSOBeginPtr();
+                    if (*midiRequest1 == modelParticleSource) {
+                        this_00->erase(particleEffector);
                         return;
                     }
-                    this_00 = (ParticleEffector*)&this_00->field_72;
-                } while (this_00 != pPVar3);
+                    particleEffector = (ParticleEffector*)&particleEffector->field_72;
+                } while (particleEffector != pPVar1);
             }
         }
     }
 
-    // 0x1007d1fb0, 272 bytes, placed by class name
-    // ParticleSystem::RegisterModelEffector(shared_ptr<ModelParticleSource> const&, math::Vector3T<float> const&, math::Matrix33T<float> const&)
-    void ParticleSystem::RegisterModelEffector(shared_ptr* param_1, Vector3T* param_2, Matrix33T* param_3) {
-        undefined1* this_00;
-        vector<oldscape::dash3d::TileHighlightGenerator::OutputTriangle, eastl::allocator>* this_01;
+    // 0x1007d1fb0
+    void ParticleSystem::RegisterModelEffector(const shared_ptr<ModelParticleSource>& modelParticleSource,
+                                               const math::Vector3T<float>& vector3,
+                                               const math::Matrix33T<float>& matrix33) {
+        uint8_t* this_00;
+        vector<oldscape::dash3d::TileHighlightGenerator::OutputTriangle>* this_01;
         ParticleEffector* this_02;
-        ParticleEffector* pPVar5;
-        vector* this_03;
-        ulong uVar6;
-        ParticleEffector* this_04;
-        shared_ptr* extraout_RDX;
-        shared_ptr* psVar7;
-        ParticleSystem* local_50;
-        vector<oldscape::dash3d::TileHighlightGenerator::OutputTriangle, eastl::allocator>* local_38;
+        ParticleEffector* pPVar3;
+        shared_ptr<oldscape::midi2::MidiRequest>* midiRequest1;
+        unsigned long uVar4;
+        ParticleEffector* this_03;
+        vector<oldscape::dash3d::TileHighlightGenerator::OutputTriangle>* local_38;
 
-        psVar7 = param_1;
         if (field_624->ParticlesReady() != '\0') {
             this_00 = &field_42800;
             this_02 = (ParticleEffector*)this_00->HeapBeginPtr();
-            local_38 = (vector<oldscape::dash3d::TileHighlightGenerator::OutputTriangle, eastl::allocator>*)this_00;
-            pPVar5 = (ParticleEffector*)this_00->end();
-            if (this_02 == pPVar5) {
-                this_04 = (ParticleEffector*)0;
+            local_38 = (vector<oldscape::dash3d::TileHighlightGenerator::OutputTriangle>*)this_00;
+            pPVar3 = (ParticleEffector*)this_00->end();
+            if (this_02 == pPVar3) {
+                this_03 = nullptr;
             } else {
-                this_04 = (ParticleEffector*)0;
+                this_03 = nullptr;
                 do {
-                    this_03 = this_02->SSOBeginPtr(psVar7);
-                    psVar7 = param_1;
-                    if (operator==((jag*)this_03, param_1, extraout_RDX)) {
-                        this_04 = this_02;
+                    midiRequest1 = (shared_ptr<oldscape::midi2::MidiRequest>*)this_02->SSOBeginPtr();
+                    if (*midiRequest1 == modelParticleSource) {
+                        this_03 = this_02;
                         break;
                     }
                     this_02 = (ParticleEffector*)&this_02->field_72;
-                } while (this_02 != pPVar5);
+                } while (this_02 != pPVar3);
             }
             this_01 = local_38;
-            if (this_04 == (ParticleEffector*)0) {
-                uVar6 = eastl::vector<oldscape::dash3d::TileHighlightGenerator::OutputTriangle, eastl::allocator>::size(
-                    local_38);
-                if (4095 < uVar6) {
+            if (this_03 == nullptr) {
+                uVar4 = local_38->size();
+                if (4095 < uVar4) {
                     return;
                 }
-                local_50 = this;
-                this_04 = eastl::vector<ParticleEffector, eastl::allocator>::emplace_back<
-                    shared_ptr<ModelParticleSource> const&, ParticleManager*&, ParticleSystem*>(
-                    (vector<ParticleEffector, eastl::allocator>*)this_01, param_1, &field_624, &local_50);
+                this_03 =
+                    this_01->emplace_back<shared_ptr<ModelParticleSource> const&, ParticleManager*&, ParticleSystem*>(
+                        modelParticleSource, field_624, this);
             }
-            if (this_04 != (ParticleEffector*)0) {
-                this_04->UpdatePosition(param_2, param_3);
+            if (this_03 != nullptr) {
+                this_03->UpdatePosition(vector3, matrix33);
             }
         }
     }
 
-    // 0x1007d21d0, 240 bytes, placed by class name
-    // ParticleSystem::KeepActiveParticleEmitters(eastl::vector<shared_ptr<ModelParticleSource>, eastl::allocator> const&)
-    void ParticleSystem::KeepActiveParticleEmitters(vector* param_1) {
-        bool bVar1;
+    // 0x1007d21d0
+    void ParticleSystem::KeepActiveParticleEmitters(
+        const eastl::vector<shared_ptr<ModelParticleSource>>& modelParticleSources) {
+        shared_ptr<oldscape::midi2::MidiRequest>* midiRequest1;
         bool bVar2;
-        ParticleEmitter* this_00;
-        ParticleEmitter* pPVar3;
-        ParticleEmitter* pPVar4;
-        vector* this_01;
-        shared_ptr* extraout_RDX;
-        undefined1* this_02;
-        ParticleEmitter* pPVar5;
+        bool bVar3;
+        shared_ptr<oldscape::midi2::MidiRequest>* psVar4;
+        shared_ptr<oldscape::midi2::MidiRequest>* midiRequest2;
+        ParticleEmitter* particleEmitter;
 
-        this_02 = &field_640;
-        pPVar5 = (ParticleEmitter*)param_1;
-        this_00 = (ParticleEmitter*)this_02->HeapBeginPtr();
-        pPVar3 = (ParticleEmitter*)this_02->end();
-        if (this_00 != pPVar3) {
+        uint8_t* this_00 = &field_640;
+        particleEmitter = (ParticleEmitter*)this_00->HeapBeginPtr();
+        auto pPVar1 = this_00->end();
+        if (particleEmitter != pPVar1) {
             do {
-                pPVar3 = (ParticleEmitter*)param_1->HeapBeginPtr();
-                pPVar4 = (ParticleEmitter*)param_1->end();
-                if (pPVar3 == pPVar4) {
+                midiRequest2 = (shared_ptr<oldscape::midi2::MidiRequest>*)modelParticleSources.HeapBeginPtr();
+                psVar4 = (shared_ptr<oldscape::midi2::MidiRequest>*)modelParticleSources.end();
+                if (midiRequest2 == psVar4) {
                 LAB_1007d2299:
-                    pPVar3 = (ParticleEmitter*)this_02->erase(this_00);
-                    pPVar5 = this_00;
+                    particleEmitter = (ParticleEmitter*)this_00->erase(particleEmitter);
                 } else {
                     do {
-                        this_01 = this_00->SSOBeginPtr(pPVar5);
-                        pPVar5 = pPVar3;
-                        bVar2 = operator==((jag*)this_01, (shared_ptr*)pPVar3, extraout_RDX);
-                        bVar1 = true;
-                        if (bVar2)
+                        midiRequest1 = (shared_ptr<oldscape::midi2::MidiRequest>*)particleEmitter->SSOBeginPtr();
+                        bVar3 = *midiRequest1 == *midiRequest2;
+                        bVar2 = true;
+                        if (bVar3)
                             break;
-                        pPVar3 = (ParticleEmitter*)&pPVar3->m_emitterTemplate;
-                        bVar1 = false;
-                    } while (pPVar3 != pPVar4);
-                    if (!bVar1)
+                        midiRequest2 = midiRequest2 + 16;
+                        bVar2 = false;
+                    } while (midiRequest2 != psVar4);
+                    if (!bVar2)
                         goto LAB_1007d2299;
-                    pPVar3 = (ParticleEmitter*)&this_00->field_10528;
+                    particleEmitter = (ParticleEmitter*)&particleEmitter->field_10528;
                 }
-                pPVar4 = (ParticleEmitter*)this_02->end();
-                this_00 = pPVar3;
-            } while (pPVar3 != pPVar4);
+                pPVar1 = (ParticleEmitter*)this_00->end();
+            } while (particleEmitter != pPVar1);
         }
     }
 
-    // 0x1007d22c0, 2912 bytes, placed by class name
-    // ParticleSystem::GatherDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&)
-    void ParticleSystem::GatherDrawableElements(DrawableQueue* param_1, RT7Core* param_2, SceneViewData* param_3,
-                                                EffectManager* param_4) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined4 uVar3;
-        uint uVar4;
-        MaterialManager* pMVar5;
+    // 0x1007d22c0
+    void ParticleSystem::GatherDrawableElements(DrawableQueue& drawableQueue, RT7Core& rt7Core,
+                                                const SceneViewData& sceneViewData,
+                                                const EffectManager& effectManager) {
+        Drawable_vtbl* pDVar1;
+        bool cVar2;
+        uint32_t uVar3;
+        RenderPassType renderPassType;
+        RenderPassBitSet* renderPassBitSet;
+        MaterialManager* materialManager;
         TextureManager* this_00;
-        TextureAtlasManager* pTVar6;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* this_01;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* pAVar7;
-        long lVar8;
-        vector* pvVar9;
-        CommandLine* pCVar10;
-        long* plVar11;
-        long* plVar12;
-        ParticleSystem_DE* pPVar13;
-        ulong uVar14;
-        ulong uVar15;
-        uint uVar16;
-        BucketAllocatorEASTL* extraout_RDX;
-        BucketAllocatorEASTL* extraout_RDX_00;
-        BucketAllocatorEASTL* pBVar17;
-        BucketAllocatorEASTL* pBVar18;
-        float fVar19;
-        shared_ptr local_a8;
+        TextureAtlasManager* textureAtlasManager;
+        Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>* this_01;
+        Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>* pAVar4;
+        long lVar5;
+        Layout* this_02;
+        Vector3T<float>* vector3;
+        CommandLine* pCVar6;
+        long* plVar7;
+        long* plVar8;
+        ParticleSystem_DE* pPVar9;
+        unsigned long uVar10;
+        unsigned long uVar11;
+        PlayerDataComparator<oldscape::social::FriendChatUser>* pPVar12;
+        float fVar13;
+        DrawableSortKey in_stack_ffffffffffffff28;
+        Drawable local_a8;
         float local_94;
-        uint local_90;
+        unsigned int local_90;
         bool local_89;
         OBB local_88;
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if ((*PTR_m_showParticles_100ee6a58 != '\0') && (field_635 == '\0')) {
-            pMVar5 = (MaterialManager*)param_3->GetRenderPassBits();
-            cVar2 = (m_material, (RenderPassBitSet*)pMVar5)->CanRenderInPasses();
-            if (cVar2 != '\0') {
+            renderPassBitSet = sceneViewData.GetRenderPassBits();
+            cVar2 = m_material->CanRenderInPasses(*renderPassBitSet);
+            if (cVar2) {
                 if (field_632 != '\0') {
-                    pMVar5 = (MaterialManager*)param_2->GetMaterialManager();
-                    this_00 = (TextureManager*)param_2->GetTextureManager();
-                    pTVar6 = (TextureAtlasManager*)this_00->GetTextureAtlasManager();
-                    UpdateMaterials(this, pMVar5, pTVar6);
+                    materialManager = rt7Core.GetMaterialManager();
+                    this_00 = rt7Core.GetTextureManager();
+                    textureAtlasManager = (TextureAtlasManager*)this_00->GetTextureAtlasManager();
+                    UpdateMaterials(*materialManager, *textureAtlasManager);
                     field_633 = '\0';
                     field_634 = '\0';
-                    this_01 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
-                                                     std::default_delete<LoadingScreenScript::AnimLayer>>,
-                                     eastl::allocator>*)(&field_640)
-                                  ->HeapBeginPtr();
-                    pAVar7 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
-                                                    std::default_delete<LoadingScreenScript::AnimLayer>>,
-                                    eastl::allocator>*)(&field_640)
-                                 ->end();
-                    for (; this_01 != pAVar7; this_01 = this_01 + 10528) {
-                        lVar8 = this_01->data();
-                        if (*(char*)(lVar8 + 112) == '\0') {
+                    this_01 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)field_640.HeapBeginPtr();
+                    pAVar4 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)field_640.end();
+                    for (; this_01 != pAVar4; this_01 = this_01 + 10528) {
+                        lVar5 = this_01->data();
+                        if (*(char*)(lVar5 + 112) == '\0') {
                             field_634 = '\x01';
                         } else {
                             field_633 = '\x01';
@@ -444,547 +347,496 @@ namespace jag::graphics {
                     }
                     field_632 = '\0';
                 }
-                (&field_42848)->reset();
-                pvVar9 = param_3->SSOBeginPtr(pMVar5);
-                pvVar9 = pvVar9->SSOBeginPtr(pMVar5);
-                local_94 = (float)(&field_32, (Vector3T*)pvVar9)->GetDistanceToPoint();
-                new (&local_88) math::OBB();
-                (&field_32, &local_88)->GetOBB();
+                field_42848.reset();
+                this_02 = (Layout*)sceneViewData.SSOBeginPtr();
+                vector3 = (Vector3T<float>*)this_02->SSOBeginPtr();
+                local_94 = (float)field_32.GetDistanceToPoint(*vector3);
+                local_88 = math::OBB();
+                field_32.GetOBB(local_88);
                 if (*PTR_m_showOverdraw_100ee6a50 == '\0') {
-                    plVar11 = (long*)(&param_3->field_520)->HeapBeginPtr();
-                    plVar12 = (long*)(&param_3->field_520)->end();
-                    for (; plVar11 != plVar12; plVar11 = plVar11 + 1) {
-                        if (*plVar11 == 0) {
-                            /* WARNING: Subroutine does not return */
+                    plVar7 = (long*)sceneViewData.field_520.HeapBeginPtr();
+                    plVar8 = (long*)sceneViewData.field_520.end();
+                    for (; plVar7 != plVar8; plVar7 = plVar7 + 1) {
+                        if (*plVar7 == 0) {
                             LogAssert("renderPass",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                       "runetek7/particles/ParticleSystem.cpp",
-                                      323, (char*)0);
+                                      323, nullptr);
                         }
-                        uVar4 = (*plVar11)->GetPos();
-                        if (14 < uVar4) {
+                        renderPassType = (*plVar7)->GetPos();
+                        if (14 < renderPassType) {
                         LAB_1007d2526:
-                            /* WARNING: Subroutine does not return */
                             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                             "graphics/runetek7/particles/ParticleSystem.cpp",
-                                            373, "Unknown render pass (%d)", (ulong)uVar4);
+                                            373, "Unknown render pass (%d)", (unsigned long)renderPassType);
                         }
-                        if ((21000U >> (uVar4 & 31) & 1) != 0)
+                        if ((21000U >> (renderPassType & 31) & 1) != 0)
                             goto LAB_1007d2550;
-                        if ((20U >> (uVar4 & 31) & 1) == 0) {
-                            if (uVar4 != 0)
+                        if ((20U >> (renderPassType & 31) & 1) == 0) {
+                            if (renderPassType != 0)
                                 goto LAB_1007d2526;
                             cVar2 = CastsShadow();
-                            if ((cVar2 != '\0') && (cVar2 = param_4->IsEnabled(37), cVar2 != '\0')) {
-                                fVar19 = (float)(-(uint)(0.0 < local_94) & (uint)(local_94 + 0.5));
-                                lVar8 = (long)fVar19;
-                                uVar4 = (uint)(long)(fVar19 - 9.223372e+18) & (uint)(lVar8 >> 63);
-                                new (&local_a8)
+                            if ((cVar2) && (cVar2 = effectManager.IsEnabled(37), cVar2)) {
+                                fVar13 = (float)(-(unsigned int)(0.0 < local_94) & (unsigned int)(local_94 + 0.5));
+                                lVar5 = (long)fVar13;
+                                local_a8 =
                                     eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(
-                                        (EntityHighlight**)((ulong)((uint)lVar8 | uVar4) * -16777216 +
-                                                                    72057594021150720 &
-                                                                72057594021150720 |
-                                                            144115188075855872),
-                                        (BucketAllocatorEASTL*)(ulong)uVar4);
-                                uVar1 = local_a8._0_8_;
+                                        (PlayerDataComparator<
+                                            oldscape::social::
+                                                FriendChatUser>*)((unsigned long)((unsigned int)lVar5 |
+                                                                                  (unsigned int)(long)(fVar13 -
+                                                                                                       9.223372e+18) &
+                                                                                      (unsigned int)(lVar5 >> 63)) *
+                                                                              -16777216 +
+                                                                          72057594021150720 &
+                                                                      72057594021150720 |
+                                                                  144115188075855872));
+                                pDVar1 = local_a8._vptr;
                                 if (field_633 != '\0') {
                                     local_a8.shared_from_this();
                                     local_90 = GetPos();
                                     local_89 = true;
-                                    pPVar13 = DrawableElementPool<ParticleSystem_DE>::Create<
+                                    pPVar9 = DrawableElementPool<ParticleSystem_DE>::Create<
                                         shared_ptr<ParticleSystem>, math::OBB&, float&, unsigned int, bool>(
-                                        &local_a8, &local_88, &local_94, &local_90, &local_89);
-                                    local_a8.~shared_ptr();
-                                    std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                        (unique_ptr<DrawableElement, DrawableElementDeleter>*)&local_a8,
-                                        (DrawableElement*)pPVar13);
-                                    param_1->AddDrawable(uVar1, &local_a8, this, 4, 0);
-                                    local_a8.~unique_ptr();
+                                        local_a8, local_88, local_94, local_90, local_89);
+                                    local_a8.unique_ptr<true, void>(pPVar9);
+                                    drawableQueue.AddDrawable((DrawableSortKey)effectManager, *pDVar1, &local_a8,
+                                                              (DrawableGroupType)this, 4);
                                 }
                                 if (field_634 != '\0') {
                                     local_a8.shared_from_this();
                                     local_90 = GetPos();
                                     local_89 = false;
-                                    pPVar13 = DrawableElementPool<ParticleSystem_DE>::Create<
+                                    pPVar9 = DrawableElementPool<ParticleSystem_DE>::Create<
                                         shared_ptr<ParticleSystem>, math::OBB&, float&, unsigned int, bool>(
-                                        &local_a8, &local_88, &local_94, &local_90, &local_89);
-                                    local_a8.~shared_ptr();
-                                    std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                        (unique_ptr<DrawableElement, DrawableElementDeleter>*)&local_a8,
-                                        (DrawableElement*)pPVar13);
-                                    param_1->AddDrawable(uVar1, &local_a8, this, 5, 0);
-                                    local_a8.~unique_ptr();
+                                        local_a8, local_88, local_94, local_90, local_89);
+                                    local_a8.unique_ptr<true, void>(pPVar9);
+                                    drawableQueue.AddDrawable((DrawableSortKey)effectManager, *pDVar1, &local_a8,
+                                                              (DrawableGroupType)this, 5);
                                 }
                             }
                             goto LAB_1007d2550;
                         }
-                        pCVar10 = (CommandLine*)param_1->GetDrawableGroup(uVar4, 5);
-                        uVar3 = pCVar10->GetPos();
-                        pBVar17 = extraout_RDX_00;
+                        pCVar6 = drawableQueue.GetDrawableGroup(renderPassType, 5);
+                        uVar3 = pCVar6->GetPos();
                         switch (uVar3) {
                         case 0:
-                            fVar19 = (float)((uint)(local_94 + 0.5) & -(uint)(0.0 < local_94));
-                            uVar15 = (ulong)fVar19;
-                            pBVar17 =
-                                (BucketAllocatorEASTL*)(((long)(fVar19 - 9.223372e+18) & (long)uVar15 >> 63 | uVar15)
-                                                        << 24);
-                            pBVar18 = (BucketAllocatorEASTL*)((ulong)pBVar17 | 144115188092567552);
+                            fVar13 = (float)((unsigned int)(local_94 + 0.5) & -(unsigned int)(0.0 < local_94));
+                            uVar11 = (unsigned long)fVar13;
+                            pPVar12 =
+                                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(fVar13 -
+                                                                                                  9.223372e+18) &
+                                                                                               (long)uVar11 >> 63 |
+                                                                                           uVar11)
+                                                                                              << 24 |
+                                                                                          144115188092567552);
                             break;
                         case 1:
-                            fVar19 = (float)((uint)(local_94 + 0.5) & -(uint)(0.0 < local_94));
-                            lVar8 = (long)fVar19;
-                            uVar16 = (uint)(long)(fVar19 - 9.223372e+18) & (uint)(lVar8 >> 63);
-                            pBVar17 = (BucketAllocatorEASTL*)(ulong)uVar16;
-                            uVar15 = (ulong)((uint)lVar8 | uVar16) * -16777216 + 72057594021150720 & 72057594021150720;
+                            fVar13 = (float)((unsigned int)(local_94 + 0.5) & -(unsigned int)(0.0 < local_94));
+                            lVar5 = (long)fVar13;
+                            uVar11 = (unsigned long)((unsigned int)lVar5 | (unsigned int)(long)(fVar13 - 9.223372e+18) &
+                                                                               (unsigned int)(lVar5 >> 63)) *
+                                             -16777216 +
+                                         72057594021150720 &
+                                     72057594021150720;
                             goto LAB_1007d2903;
                         case 2:
-                            uVar14 = ((long)(float)((uint)(local_94 + 0.5) & -(uint)(0.0 < local_94)) & 4294967295U)
+                            uVar10 = ((long)(float)((unsigned int)(local_94 + 0.5) & -(unsigned int)(0.0 < local_94)) &
+                                      4294967295U)
                                      << 8;
-                            uVar15 = 144115188075856127;
+                            uVar11 = 144115188075856127;
                             goto LAB_1007d290d;
                         case 3:
-                            fVar19 = (float)((uint)(local_94 + 0.5) & -(uint)(0.0 < local_94));
-                            uVar15 = (ulong)fVar19;
-                            uVar15 = (long)(fVar19 - 9.223372e+18) & (long)uVar15 >> 63 | uVar15;
-                            pBVar17 = (BucketAllocatorEASTL*)(uVar15 * 256);
-                            uVar15 = uVar15 * -256 + 1099511627520;
+                            fVar13 = (float)((unsigned int)(local_94 + 0.5) & -(unsigned int)(0.0 < local_94));
+                            uVar11 = (unsigned long)fVar13;
+                            uVar11 =
+                                ((long)(fVar13 - 9.223372e+18) & (long)uVar11 >> 63 | uVar11) * -256 + 1099511627520;
                         LAB_1007d2903:
-                            uVar14 = 144115188075855872;
+                            uVar10 = 144115188075855872;
                         LAB_1007d290d:
-                            pBVar18 = (BucketAllocatorEASTL*)(uVar15 | uVar14);
+                            pPVar12 = (PlayerDataComparator<oldscape::social::FriendChatUser>*)(uVar11 | uVar10);
                             break;
                         case 4:
-                            fVar19 = (float)((uint)(local_94 + 0.5) & -(uint)(0.0 < local_94));
-                            lVar8 = (long)fVar19;
-                            pBVar18 =
-                                (BucketAllocatorEASTL*)((ulong)((uint)lVar8 | (uint)(long)(fVar19 - 9.223372e+18) &
-                                                                                  (uint)(lVar8 >> 63))
-                                                            << 32 |
-                                                        50266112);
+                            fVar13 = (float)((unsigned int)(local_94 + 0.5) & -(unsigned int)(0.0 < local_94));
+                            lVar5 = (long)fVar13;
+                            pPVar12 =
+                                (PlayerDataComparator<
+                                    oldscape::social::
+                                        FriendChatUser>*)((unsigned long)((unsigned int)lVar5 |
+                                                                          (unsigned int)(long)(fVar13 - 9.223372e+18) &
+                                                                              (unsigned int)(lVar5 >> 63))
+                                                              << 32 |
+                                                          50266112);
                             break;
                         case 5:
-                            fVar19 = (float)((uint)(local_94 + 0.5) & -(uint)(0.0 < local_94));
-                            uVar15 = (ulong)fVar19;
-                            pBVar17 =
-                                (BucketAllocatorEASTL*)(((long)(fVar19 - 9.223372e+18) & (long)uVar15 >> 63 | uVar15) *
-                                                        -4294967296);
-                            pBVar18 = pBVar17 + -4261412864;
+                            fVar13 = (float)((unsigned int)(local_94 + 0.5) & -(unsigned int)(0.0 < local_94));
+                            uVar11 = (unsigned long)fVar13;
+                            pPVar12 =
+                                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(fVar13 -
+                                                                                                  9.223372e+18) &
+                                                                                               (long)uVar11 >> 63 |
+                                                                                           uVar11) *
+                                                                                              -4294967296 -
+                                                                                          4261412864);
                             break;
                         default:
-                            /* WARNING: Subroutine does not return */
                             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                             "graphics/runetek7/particles/../renderer/DrawableSortKey.h",
                                             177, "Unknown sort key type");
                         }
-                        new (&local_a8)
-                            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(pBVar18,
-                                                                                                              pBVar17);
-                        uVar1 = local_a8._0_8_;
+                        local_a8 =
+                            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(pPVar12);
+                        pDVar1 = local_a8._vptr;
                         if (field_633 != '\0') {
                             local_a8.shared_from_this();
                             local_90 = GetPos();
                             local_89 = true;
-                            pPVar13 =
+                            pPVar9 =
                                 DrawableElementPool<ParticleSystem_DE>::Create<shared_ptr<ParticleSystem>, math::OBB&,
                                                                                float&, unsigned int, bool>(
-                                    &local_a8, &local_88, &local_94, &local_90, &local_89);
-                            local_a8.~shared_ptr();
-                            std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                (unique_ptr<DrawableElement, DrawableElementDeleter>*)&local_a8,
-                                (DrawableElement*)pPVar13);
-                            param_1->AddDrawable(uVar1, &local_a8, this, 4, uVar4);
-                            local_a8.~unique_ptr();
+                                    local_a8, local_88, local_94, local_90, local_89);
+                            local_a8.unique_ptr<true, void>(pPVar9);
+                            drawableQueue.AddDrawable((DrawableSortKey)effectManager, *pDVar1, &local_a8,
+                                                      (DrawableGroupType)this, 4);
                         }
                         if (field_634 != '\0') {
                             local_a8.shared_from_this();
                             local_90 = GetPos();
                             local_89 = false;
-                            pPVar13 =
+                            pPVar9 =
                                 DrawableElementPool<ParticleSystem_DE>::Create<shared_ptr<ParticleSystem>, math::OBB&,
                                                                                float&, unsigned int, bool>(
-                                    &local_a8, &local_88, &local_94, &local_90, &local_89);
-                            local_a8.~shared_ptr();
-                            std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                (unique_ptr<DrawableElement, DrawableElementDeleter>*)&local_a8,
-                                (DrawableElement*)pPVar13);
-                            param_1->AddDrawable(uVar1, &local_a8, this, 5, uVar4);
-                            local_a8.~unique_ptr();
+                                    local_a8, local_88, local_94, local_90, local_89);
+                            local_a8.unique_ptr<true, void>(pPVar9);
+                            drawableQueue.AddDrawable((DrawableSortKey)effectManager, *pDVar1, &local_a8,
+                                                      (DrawableGroupType)this, 5);
                         }
                     LAB_1007d2550:
                     }
                 } else {
-                    lVar8 = param_3->GetRenderPass(4);
-                    if (lVar8 != 0) {
-                        pCVar10 = (CommandLine*)param_1->GetDrawableGroup(4, 5);
-                        uVar3 = pCVar10->GetPos();
-                        pBVar17 = extraout_RDX;
+                    lVar5 = sceneViewData.GetRenderPass(4);
+                    if (lVar5 != 0) {
+                        pCVar6 = drawableQueue.GetDrawableGroup(4, 5);
+                        uVar3 = pCVar6->GetPos();
                         switch (uVar3) {
                         case 0:
-                            fVar19 = (float)(-(uint)(0.0 < local_94) & (uint)(local_94 + 0.5));
-                            uVar15 = (ulong)fVar19;
-                            pBVar17 =
-                                (BucketAllocatorEASTL*)(((long)(fVar19 - 9.223372e+18) & (long)uVar15 >> 63 | uVar15)
-                                                        << 24);
-                            pBVar18 = (BucketAllocatorEASTL*)((ulong)pBVar17 | 144115188092567552);
+                            fVar13 = (float)(-(unsigned int)(0.0 < local_94) & (unsigned int)(local_94 + 0.5));
+                            uVar11 = (unsigned long)fVar13;
+                            pPVar12 =
+                                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(fVar13 -
+                                                                                                  9.223372e+18) &
+                                                                                               (long)uVar11 >> 63 |
+                                                                                           uVar11)
+                                                                                              << 24 |
+                                                                                          144115188092567552);
                             break;
                         case 1:
-                            fVar19 = (float)(-(uint)(0.0 < local_94) & (uint)(local_94 + 0.5));
-                            lVar8 = (long)fVar19;
-                            pBVar17 =
-                                (BucketAllocatorEASTL*)((ulong)((uint)lVar8 | (uint)(long)(fVar19 - 9.223372e+18) &
-                                                                                  (uint)(lVar8 >> 63)) *
-                                                                -16777216 +
-                                                            72057594021150720 &
-                                                        72057594021150720);
-                            pBVar18 = (BucketAllocatorEASTL*)((ulong)pBVar17 | 144115188075855872);
+                            fVar13 = (float)(-(unsigned int)(0.0 < local_94) & (unsigned int)(local_94 + 0.5));
+                            lVar5 = (long)fVar13;
+                            pPVar12 =
+                                (PlayerDataComparator<
+                                    oldscape::social::
+                                        FriendChatUser>*)((unsigned long)((unsigned int)lVar5 |
+                                                                          (unsigned int)(long)(fVar13 - 9.223372e+18) &
+                                                                              (unsigned int)(lVar5 >> 63)) *
+                                                                      -16777216 +
+                                                                  72057594021150720 &
+                                                              72057594021150720 |
+                                                          144115188075855872);
                             break;
                         case 2:
-                            pBVar18 = (BucketAllocatorEASTL*)(((long)(float)(-(uint)(0.0 < local_94) &
-                                                                             (uint)(local_94 + 0.5)) &
-                                                               4294967295U) *
-                                                                  256 +
-                                                              144115188075856127);
+                            pPVar12 =
+                                (PlayerDataComparator<
+                                    oldscape::social::FriendChatUser>*)(((long)(float)(-(unsigned int)(0.0 < local_94) &
+                                                                                       (unsigned int)(local_94 + 0.5)) &
+                                                                         4294967295U) *
+                                                                            256 +
+                                                                        144115188075856127);
                             break;
                         case 3:
-                            fVar19 = (float)(-(uint)(0.0 < local_94) & (uint)(local_94 + 0.5));
-                            uVar15 = (ulong)fVar19;
-                            uVar15 = (long)(fVar19 - 9.223372e+18) & (long)uVar15 >> 63 | uVar15;
-                            pBVar17 = (BucketAllocatorEASTL*)(uVar15 * 256);
-                            pBVar18 = (BucketAllocatorEASTL*)(uVar15 * -256 + 1099511627520 | 144115188075855872);
+                            fVar13 = (float)(-(unsigned int)(0.0 < local_94) & (unsigned int)(local_94 + 0.5));
+                            uVar11 = (unsigned long)fVar13;
+                            pPVar12 =
+                                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(fVar13 -
+                                                                                                  9.223372e+18) &
+                                                                                               (long)uVar11 >> 63 |
+                                                                                           uVar11) *
+                                                                                                  -256 +
+                                                                                              1099511627520 |
+                                                                                          144115188075855872);
                             break;
                         case 4:
-                            fVar19 = (float)(-(uint)(0.0 < local_94) & (uint)(local_94 + 0.5));
-                            lVar8 = (long)fVar19;
-                            pBVar18 =
-                                (BucketAllocatorEASTL*)((ulong)((uint)lVar8 | (uint)(long)(fVar19 - 9.223372e+18) &
-                                                                                  (uint)(lVar8 >> 63))
-                                                            << 32 |
-                                                        50266112);
+                            fVar13 = (float)(-(unsigned int)(0.0 < local_94) & (unsigned int)(local_94 + 0.5));
+                            lVar5 = (long)fVar13;
+                            pPVar12 =
+                                (PlayerDataComparator<
+                                    oldscape::social::
+                                        FriendChatUser>*)((unsigned long)((unsigned int)lVar5 |
+                                                                          (unsigned int)(long)(fVar13 - 9.223372e+18) &
+                                                                              (unsigned int)(lVar5 >> 63))
+                                                              << 32 |
+                                                          50266112);
                             break;
                         case 5:
-                            fVar19 = (float)(-(uint)(0.0 < local_94) & (uint)(local_94 + 0.5));
-                            uVar15 = (ulong)fVar19;
-                            pBVar17 =
-                                (BucketAllocatorEASTL*)(((long)(fVar19 - 9.223372e+18) & (long)uVar15 >> 63 | uVar15) *
-                                                        -4294967296);
-                            pBVar18 = pBVar17 + -4261412864;
+                            fVar13 = (float)(-(unsigned int)(0.0 < local_94) & (unsigned int)(local_94 + 0.5));
+                            uVar11 = (unsigned long)fVar13;
+                            pPVar12 =
+                                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(fVar13 -
+                                                                                                  9.223372e+18) &
+                                                                                               (long)uVar11 >> 63 |
+                                                                                           uVar11) *
+                                                                                              -4294967296 -
+                                                                                          4261412864);
                             break;
                         default:
-                            /* WARNING: Subroutine does not return */
                             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                             "graphics/runetek7/particles/../renderer/DrawableSortKey.h",
                                             177, "Unknown sort key type");
                         }
-                        new (&local_a8)
-                            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(pBVar18,
-                                                                                                              pBVar17);
+                        local_a8 =
+                            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(pPVar12);
                         local_a8.shared_from_this();
                         local_90 = GetPos();
                         local_89 = false;
-                        pPVar13 = DrawableElementPool<ParticleSystem_DE>::Create<shared_ptr<ParticleSystem>, math::OBB&,
-                                                                                 float&, unsigned int, bool>(
-                            &local_a8, &local_88, &local_94, &local_90, &local_89);
-                        local_a8.~shared_ptr();
-                        std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                            (unique_ptr<DrawableElement, DrawableElementDeleter>*)&local_a8, (DrawableElement*)pPVar13);
-                        param_1->AddDrawable(local_a8._0_8_, &local_a8, this, 5, 4);
-                        local_a8.~unique_ptr();
+                        pPVar9 = DrawableElementPool<ParticleSystem_DE>::Create<shared_ptr<ParticleSystem>, math::OBB&,
+                                                                                float&, unsigned int, bool>(
+                            local_a8, local_88, local_94, local_90, local_89);
+                        local_a8.unique_ptr<true, void>(pPVar9);
+                        drawableQueue.AddDrawable(in_stack_ffffffffffffff28, *local_a8._vptr, &local_a8,
+                                                  (DrawableGroupType)this, 5);
                     }
                 }
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x1007d2e20, 896 bytes, placed by class name
-    // ParticleSystem::UpdateMaterials(MaterialManager const&, TextureAtlasManager&)
-    void ParticleSystem::UpdateMaterials(MaterialManager* param_1, TextureAtlasManager* param_2) {
-        int iVar1;
-        uint uVar2;
-        TextureAtlasManager* pTVar3;
-        Layout* this_00;
-        char cVar4;
-        int iVar5;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* this_01;
-        long lVar6;
-        undefined8 uVar7;
-        undefined8 uVar8;
-        Material** ppMVar9;
-        Material** ppMVar10;
-        MaterialManager* pMVar11;
-        ParticleEmitter* this_02;
-        ParticleEmitter* pPVar12;
-        Skybox* this_03;
-        TextureAtlasReference* this_04;
-        TextureAtlas* this_05;
-        short sVar13;
-        undefined1* puVar14;
-        ushort uVar15;
-        bool bVar16;
-        Layout local_88[24];
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* local_70;
-        ParticleSystem* local_68;
-        TextureAtlasManager* local_60;
-        Layout* local_58;
-        MaterialManager* local_50;
-        shared_ptr local_48;
+    // 0x1007d2e20
+    void ParticleSystem::UpdateMaterials(const MaterialManager& materialManager,
+                                         TextureAtlasManager& textureAtlasManager) {
+        unsigned int uVar1;
+        int iVar2;
+        bool cVar3;
+        int iVar4;
+        long lVar5;
+        Material** ppMVar6;
+        Material** ppMVar7;
+        ReturnValue this_04;
+        Material* this_06;
+        TextureAtlasReference* this_07;
+        short sVar9;
+        unsigned short arg1;
+        bool bVar11;
+        vector<Material const*, BucketAllocatorEASTL> local_88[24];
+        ReturnValue local_48;
         int local_34;
 
-        local_60 = param_2;
-        local_50 = param_1;
-        eastl::vector<Material_const*, BucketAllocatorEASTL>::vector();
-        puVar14 = &field_640;
-        local_68 = this;
-        this_01 =
-            (Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-                   eastl::allocator>*)puVar14->HeapBeginPtr();
-        local_70 =
-            (Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-                   eastl::allocator>*)puVar14->end();
-        local_58 = (Layout*)puVar14;
-        if (this_01 == local_70) {
+        new (local_88) eastl::vector<Material const*, BucketAllocatorEASTL>();
+        uint8_t* puVar10 = &field_640;
+        auto this_03 = puVar10->HeapBeginPtr();
+        auto local_70 = puVar10->end();
+        Layout* local_58 = (Layout*)puVar10;
+        if (this_03 == local_70) {
             local_34 = -1;
-            sVar13 = 0;
+            sVar9 = 0;
         } else {
             local_34 = -1;
-            sVar13 = 0;
+            sVar9 = 0;
             do {
-                lVar6 = this_01->data();
-                iVar1 = *(int*)(lVar6 + 104);
-                uVar7 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                        Layout::HeapBeginPtr(local_88);
-                uVar8 = local_88->end();
-                ppMVar9 = eastl::find_if<Material_const**,
-                                         (MaterialManager_const&)->UpdateMaterials(TextureAtlasManager&)::__7>(
-                    uVar7, uVar8, iVar1);
-                ppMVar10 = (Material**)local_88->end();
-                if (ppMVar9 == ppMVar10) {
-                    pMVar11 = (MaterialManager*)local_50->GetMaterial(iVar1);
-                    cVar4 = pMVar11->ShowSkybox();
-                    if (cVar4 != '\0') {
-                        cVar4 = pMVar11->IsRT7();
-                        if (cVar4 == '\0') {
-                            bVar16 = 0 < sVar13;
-                            sVar13 = -1;
-                            if (bVar16) {
-                                /* WARNING: Subroutine does not return */
+                lVar5 = this_03->data();
+                uVar1 = *(unsigned int*)(lVar5 + 104);
+                ppMVar6 = (Material**)local_88->HeapBeginPtr();
+                ppMVar7 = (Material**)local_88->end();
+                ppMVar6 = eastl::find_if<Material const**,
+                                         (MaterialManager const&)->UpdateMaterials(TextureAtlasManager&)::__7>(
+                    ppMVar6, ppMVar7, (__7*)(unsigned long)uVar1);
+                ppMVar7 = (Material**)local_88->end();
+                if (ppMVar6 == ppMVar7) {
+                    this_04 = (ReturnValue)materialManager.GetMaterial(uVar1);
+                    cVar3 = this_04->ShowSkybox();
+                    if (cVar3) {
+                        cVar3 = this_04->IsRT7();
+                        if (!cVar3) {
+                            bVar11 = 0 < sVar9;
+                            sVar9 = -1;
+                            if (bVar11) {
                                 LogAssert("rt7flag <= 0",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                           "graphics/runetek7/particles/ParticleSystem.cpp",
                                           490, "ParticleSystem cannot mix RT5 materials with RT7 materials");
                             }
                         } else {
-                            bVar16 = sVar13 < 0;
-                            sVar13 = 1;
-                            if (bVar16) {
-                                /* WARNING: Subroutine does not return */
+                            bVar11 = sVar9 < 0;
+                            sVar9 = 1;
+                            if (bVar11) {
                                 LogAssert("rt7flag >= 0",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                           "graphics/runetek7/particles/ParticleSystem.cpp",
                                           485, "ParticleSystem cannot mix RT5 materials with RT7 materials");
                             }
                         }
-                        iVar5 = pMVar11->GetSeqDelay();
-                        iVar1 = local_34;
-                        if (iVar5 != -1) {
-                            if ((local_34 != -1) && (iVar5 = pMVar11->GetSeqDelay(), iVar1 != iVar5)) {
-                                /* WARNING: Subroutine does not return */
+                        iVar4 = this_04->GetSeqDelay();
+                        iVar2 = local_34;
+                        if (iVar4 != -1) {
+                            if ((local_34 != -1) && (iVar4 = this_04->GetSeqDelay(), iVar2 != iVar4)) {
                                 LogAssert("viewportMapID == -1 || viewportMapID == material.GetViewportMapID()",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                           "graphics/runetek7/particles/ParticleSystem.cpp",
-                                          495, (char*)0);
+                                          495, nullptr);
                             }
-                            local_34 = pMVar11->GetSeqDelay();
+                            local_34 = this_04->GetSeqDelay();
                         }
-                        local_48._0_8_ = pMVar11;
-                        local_88->push_back((Material**)&local_48);
+                        local_48[0] = this_04;
+                        local_88->push_back(local_48);
                     }
                 }
-                this_01 = this_01 + 10528;
-            } while (this_01 != local_70);
+                this_03 = this_03 + 10528;
+            } while (this_03 != local_70);
         }
-        puVar14 = local_68->m_material;
-        puVar14->SetOption(0, 0 < sVar13);
-        pMVar11 = local_50;
-        pTVar3 = local_60;
-        lVar6 = puVar14->GetTextureAtlasReference();
-        if (lVar6 != 0) {
-            new (&local_48) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            puVar14->SetTextureAtlasReference(&local_48);
-            local_48.~shared_ptr();
+        puVar10 = m_material;
+        puVar10->SetOption(0, 0 < sVar9);
+        lVar5 = puVar10->GetTextureAtlasReference();
+        if (lVar5 != 0) {
+            local_48 = shared_ptr();
+            puVar10->SetTextureAtlasReference(local_48);
         }
-        local_48.GetSharedAtlasRefFromMaterials(pTVar3, (vector*)graphicutils::TextureAtlasUsage::USAGE_COMPRESSED);
-        puVar14->SetTextureAtlasReference(&local_48);
-        local_48.~shared_ptr();
-        lVar6 = puVar14->GetTextureAtlasReference();
-        if (lVar6 == 0) {
-            local_48.GetDummySharedMaterialReference(pTVar3);
-            puVar14->SetTextureAtlasReference(&local_48);
-            local_48.~shared_ptr();
-            lVar6 = puVar14->GetTextureAtlasReference();
-            if (lVar6 == 0) {
-                /* WARNING: Subroutine does not return */
+        local_48.GetSharedAtlasRefFromMaterials(
+            textureAtlasManager,
+            *((vector<Material const*, BucketAllocatorEASTL>*)graphicutils::TextureAtlasUsage::USAGE_COMPRESSED));
+        puVar10->SetTextureAtlasReference(local_48);
+        lVar5 = puVar10->GetTextureAtlasReference();
+        if (lVar5 == 0) {
+            local_48 = textureAtlasManager.GetDummySharedMaterialReference(
+                (TextureAtlasUsage*)graphicutils::TextureAtlasUsage::USAGE_COMPRESSED);
+            puVar10->SetTextureAtlasReference(local_48);
+            lVar5 = puVar10->GetTextureAtlasReference();
+            if (lVar5 == 0) {
                 LogAssert("m_material.GetTextureAtlasReference() != nullptr",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                           "particles/ParticleSystem.cpp",
-                          517, (char*)0);
+                          517, nullptr);
             }
         }
-        puVar14->SetEndPosition(local_34);
-        this_00 = local_58;
-        this_02 = (ParticleEmitter*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(local_58);
-        pPVar12 = (ParticleEmitter*)this_00->end();
-        for (; this_02 != pPVar12; this_02 = (ParticleEmitter*)&this_02->field_10528) {
-            lVar6 = this_02->data();
-            uVar2 = *(uint*)(lVar6 + 104);
-            this_03 = (Skybox*)pMVar11->GetMaterial(uVar2);
-            if ((uVar2 == 4294967295) || (cVar4 = this_03->ShowSkybox(), cVar4 == '\0')) {
-                uVar15 = 0;
+        puVar10->SetEndPosition(local_34);
+        Layout* this_01 = local_58;
+        auto this_05 = local_58->HeapBeginPtr();
+        auto pPVar8 = this_01->end();
+        for (; this_05 != pPVar8; this_05 = (ParticleEmitter*)&this_05->field_10528) {
+            lVar5 = this_05->data();
+            uVar1 = *(unsigned int*)(lVar5 + 104);
+            this_06 = materialManager.GetMaterial(uVar1);
+            if ((uVar1 == 4294967295) || (cVar3 = this_06->ShowSkybox(), !cVar3)) {
+                arg1 = 0;
             } else {
-                this_04 = (TextureAtlasReference*)puVar14->GetTextureAtlasReference();
-                this_05 = (TextureAtlas*)this_04->GetTextureAtlas();
-                this_05->GetMaterialSettingsSlotXY((ushort*)&local_48, uVar2);
-                uVar15 = local_48._0_2_;
+                this_07 = (TextureAtlasReference*)puVar10->GetTextureAtlasReference();
+                ((TextureAtlas*)this_07->GetTextureAtlas())->GetMaterialSettingsSlotXY(local_48, uVar1);
+                arg1 = local_48[0]._0_2_;
             }
-            this_02->SetAtlasMaterialSettingsSlotXY(uVar15);
+            this_05->SetAtlasMaterialSettingsSlotXY(arg1);
         }
-        local_88->~vector();
     }
 
-    // 0x1007d3340, 112 bytes, placed by class name
-    // ParticleSystem::TranslateParticles(math::Vector3T<float> const&)
-    void ParticleSystem::TranslateParticles(Vector3T* param_1) {
-        ParticleEmitter* pPVar2;
-        ParticleEmitter* this_00;
-
-        this_00 = (ParticleEmitter*)(&field_640)->HeapBeginPtr();
-        pPVar2 = (ParticleEmitter*)(&field_640)->end();
+    // 0x1007d3340
+    void ParticleSystem::TranslateParticles(const math::Vector3T<float>& vector3) {
+        auto this_00 = field_640.HeapBeginPtr();
+        auto pPVar2 = field_640.end();
         for (; this_00 != pPVar2; this_00 = (ParticleEmitter*)&this_00->field_10528) {
             if (this_00->IsHidden() == '\0') {
-                this_00->TranslateParticles(param_1);
+                this_00->TranslateParticles(vector3);
             }
         }
     }
 
-    // 0x1007d33b0, 176 bytes, placed by class name
-    // ParticleSystem::RenderDebug(RenderPassType, DrawableElement&) const
-    void ParticleSystem::RenderDebug() {
+    // 0x1007d33b0
+    void ParticleSystem::RenderDebug(RenderPassType renderPassType, DrawableElement& drawableElement) const {
         long* plVar1;
-        ParticleEmitter* this_00;
-        ParticleEmitter* pPVar2;
         AABB local_48;
 
         if (*PTR_m_showWorldAABB_100ee6a60 != '\0') {
-            new (&local_48) math::AABB((AABB*)&field_32);
-            plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar1 != (long*)0) {
+            local_48 = math::AABB(field_32);
+            plVar1 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar1 != nullptr) {
                 new (&local_48.field_32) oldscape::sidebars::SideBarData(-1, 3);
-                (**(code**)(*plVar1 + 72))(plVar1, &local_48, &local_48.field_32);
+                (**(void (**)(...))(*plVar1 + 72))(plVar1, &local_48, &local_48.field_32);
             }
         }
-        this_00 = (ParticleEmitter*)(&field_640)->HeapBeginPtr();
-        pPVar2 = (ParticleEmitter*)(&field_640)->end();
+        auto this_00 = field_640.HeapBeginPtr();
+        auto pPVar2 = field_640.end();
         for (; this_00 != pPVar2; this_00 = (ParticleEmitter*)&this_00->field_10528) {
             this_00->RenderDebug();
         }
     }
 
-    // 0x1007d3460, 144 bytes, placed by class name
-    // ParticleSystem::CalculateViewDistanceAndSort(math::Matrix44T<float> const&)
-    undefined8 ParticleSystem::CalculateViewDistanceAndSort(Matrix44T* param_1) {
+    // 0x1007d3460
+    uint64_t ParticleSystem::CalculateViewDistanceAndSort(const math::Matrix44T<float>& matrix44) {
         float fVar2;
         float fVar1;
         float fVar4;
         float fVar3;
         char extraout_AL;
-        undefined7 extraout_var;
+        uint64_t extraout_var;
         type* ptVar5;
         type* ptVar6;
-        undefined7 uVar7;
-        undefined7 extraout_var_00;
-        undefined8 local_28;
+        uint64_t extraout_var_00;
+        uint64_t local_28;
 
-        std::operator==((optional*)&field_42848, param_1);
-        uVar7 = extraout_var;
+        &field_42848 == matrix44;
+        uint64_t uVar7 = extraout_var;
         if (extraout_AL == '\0') {
-            std::optional<math::Matrix44T<float>>::operator=((optional<math::Matrix44T<float>>*)&field_42848, param_1);
-            local_28 = CalculateViewDistances(this, param_1);
-            ptVar5 = std::get<0ul, float, float>((pair*)&local_28);
-            ptVar6 = std::get<1ul, float, float>((pair*)&local_28);
+            (&field_42848)->operator=(matrix44);
+            local_28 = CalculateViewDistances(matrix44);
+            ptVar5 = std::get<0ul, float, float>(local_28);
+            ptVar6 = std::get<1ul, float, float>(local_28);
             fVar1 = *(float*)ptVar5;
             fVar2 = *(float*)ptVar5;
             fVar3 = *(float*)ptVar6;
             fVar4 = *(float*)ptVar6;
-            uVar7 = (undefined7)((ulong)ptVar6 >> 8);
+            uVar7 = (uint64_t)((unsigned long)ptVar6 >> 8);
             this[1].m_material[8] = (0.0 < fVar4 || fVar3 == 0.0) && (0.0 < fVar2 || fVar1 == 0.0);
             if ((0.0 < fVar4 || fVar3 == 0.0) && (0.0 < fVar2 || fVar1 == 0.0)) {
-                SortParticles(this);
+                SortParticles();
                 uVar7 = extraout_var_00;
             }
         }
-        return CONCAT71(uVar7, this[1].m_material[8]);
+        return this[1].m_material[8];
     }
 
-    // 0x1007d3570, 320 bytes, placed by class name
-    // ParticleSystem::CalculateViewDistances(math::Matrix44T<float> const&)
-    undefined8 ParticleSystem::CalculateViewDistances(Matrix44T* param_1) {
-        float* pfVar2;
-        ParticleEmitter* this_00;
-        ParticleEmitter* pPVar3;
-        ImVec4 local_68[16];
-        undefined8 local_58;
-        undefined8 local_50;
-        float local_44;
-        float local_40;
-        float local_3c;
-        float local_38;
-        float local_34;
+    // 0x1007d3570
+    uint64_t ParticleSystem::CalculateViewDistances(const math::Matrix44T<float>& matrix44) {
+        uint64_t local_58;
+        uint64_t local_50;
 
-        local_38 = 3.4028235e+38;
-        local_34 = -3.4028235e+38;
-        pfVar2 = (float*)math::Matrix44T<float>::operator()((Matrix44T<float>*)param_1, 2);
-        local_44 = *pfVar2;
-        pfVar2 = (float*)math::Matrix44T<float>::operator()((Matrix44T<float>*)param_1, 6);
-        local_40 = *pfVar2;
-        pfVar2 = (float*)math::Matrix44T<float>::operator()((Matrix44T<float>*)param_1, 10);
-        local_3c = *pfVar2;
-        pfVar2 = (float*)math::Matrix44T<float>::operator()((Matrix44T<float>*)param_1, 14);
-        ImVec4::ImVec4(local_68, local_44, local_40, local_3c, *pfVar2);
-        this_00 = (ParticleEmitter*)(&field_640)->HeapBeginPtr();
-        pPVar3 = (ParticleEmitter*)(&field_640)->end();
+        float local_38 = 3.4028235e+38;
+        float local_34 = -3.4028235e+38;
+        float* pfVar2 = (float*)math::Matrix44T<float>::operator()(matrix44, 2);
+        float local_44 = *pfVar2;
+        pfVar2 = (float*)math::Matrix44T<float>::operator()(matrix44, 6);
+        float local_40 = *pfVar2;
+        pfVar2 = (float*)math::Matrix44T<float>::operator()(matrix44, 10);
+        float local_3c = *pfVar2;
+        pfVar2 = (float*)math::Matrix44T<float>::operator()(matrix44, 14);
+        ImVec4 local_68(local_44, local_40, local_3c, *pfVar2);
+        auto this_00 = field_640.HeapBeginPtr();
+        auto pPVar3 = field_640.end();
         if (this_00 != pPVar3) {
             do {
                 if (this_00->IsHidden() == '\0') {
                     local_50 = this_00->CalculateViewDistances(local_68);
-                    pfVar2 = std::min<float>((float*)&local_50, &local_38);
+                    pfVar2 = std::min<float>(local_50, local_38);
                     local_38 = *pfVar2;
-                    pfVar2 = std::max<float>((float*)((long)&local_50 + 4), &local_34);
+                    pfVar2 = std::max<float>(*((float*)((long)&local_50 + 4)), local_34);
                     local_34 = *pfVar2;
                 }
                 this_00 = (ParticleEmitter*)&this_00->field_10528;
             } while (this_00 != pPVar3);
         }
-        std::pair<float, float>::pair<float&, float&, false>((pair<float, float>*)&local_58, &local_38, &local_34);
+        local_58.pair<float&, float&, false>(local_38, local_34);
         return local_58;
     }
 
-    // 0x1007d36d0, 96 bytes, placed by class name
-    // ParticleSystem::SortParticles()
+    // 0x1007d36d0
     void ParticleSystem::SortParticles() {
-        ParticleEmitter* pPVar2;
-        ParticleEmitter* this_00;
-
-        this_00 = (ParticleEmitter*)(&field_640)->HeapBeginPtr();
-        pPVar2 = (ParticleEmitter*)(&field_640)->end();
+        auto this_00 = field_640.HeapBeginPtr();
+        auto pPVar2 = field_640.end();
         for (; this_00 != pPVar2; this_00 = (ParticleEmitter*)&this_00->field_10528) {
             if (this_00->IsHidden() == '\0') {
                 this_00->SortParticles();
@@ -992,85 +844,72 @@ namespace jag::graphics {
         }
     }
 
-    // 0x1007d3820, 160 bytes, placed by class name
-    // ParticleSystem::ContainsEmitterSource(shared_ptr<ModelParticleSource> const&) const
-    ulong ParticleSystem::ContainsEmitterSource(shared_ptr* param_1) {
+    // 0x1007d3820
+    unsigned long
+    ParticleSystem::ContainsEmitterSource(const shared_ptr<ModelParticleSource>& modelParticleSource) const {
         bool bVar1;
-        Layout* this_00;
-        Layout* pLVar2;
-        vector* pvVar3;
-        shared_ptr* extraout_RDX;
-        shared_ptr* extraout_RDX_00;
-        shared_ptr* psVar4;
-        undefined1* this_01;
-        bool bVar5;
+        shared_ptr<oldscape::midi2::MidiRequest>* psVar3;
 
-        this_01 = &field_640;
-        psVar4 = param_1;
-        this_00 = (Layout*)this_01->HeapBeginPtr();
-        pLVar2 = (Layout*)this_01->end();
-        bVar5 = this_00 == pLVar2;
-        if (!bVar5) {
-            pvVar3 = eastl::string::Layout::SSOBeginPtr(this_00, (type*)psVar4);
-            psVar4 = param_1;
-            bVar1 = operator==((jag*)pvVar3, param_1, extraout_RDX);
+        uint8_t* this_01 = &field_640;
+        auto this_00 = this_01->HeapBeginPtr();
+        auto pLVar2 = this_01->end();
+        bool bVar4 = this_00 == pLVar2;
+        if (!bVar4) {
+            psVar3 = (shared_ptr<oldscape::midi2::MidiRequest>*)this_00->SSOBeginPtr();
+            bVar1 = *psVar3 == modelParticleSource;
             while (!bVar1) {
                 this_00 = this_00 + 10528;
-                bVar5 = this_00 == pLVar2;
-                if (bVar5)
+                bVar4 = this_00 == pLVar2;
+                if (bVar4)
                     break;
-                pvVar3 = eastl::string::Layout::SSOBeginPtr(this_00, (type*)psVar4);
-                psVar4 = param_1;
-                bVar1 = operator==((jag*)pvVar3, param_1, extraout_RDX_00);
+                psVar3 = (shared_ptr<oldscape::midi2::MidiRequest>*)this_00->SSOBeginPtr();
+                bVar1 = *psVar3 == modelParticleSource;
             }
         }
-        return (CONCAT71((int7)((ulong)this_01 >> 8), bVar5) ^ 1) & 4294967295;
+        return ((((uint64_t)((int64_t)((unsigned long)this_01 >> 8)) << 8) | (uint8_t)bVar4) ^ 1) & 4294967295;
     }
 
-    // 0x1007d38c0, 160 bytes, placed by class name
-    // ParticleSystem::CanBatchEmitterSource(MaterialManager const&, shared_ptr<ModelParticleSource> const&) const
-    ulong ParticleSystem::CanBatchEmitterSource(MaterialManager* param_1, shared_ptr* param_2) {
-        char cVar1;
-        ParticleEmitter* this_00;
-        ParticleEmitter* pPVar2;
-        undefined8 unaff_R13;
-        ulong uVar3;
+    // 0x1007d38c0
+    unsigned long
+    ParticleSystem::CanBatchEmitterSource(const MaterialManager& materialManager,
+                                          const shared_ptr<ModelParticleSource>& modelParticleSource) const {
+        bool cVar1;
+        uint64_t unaff_R13;
 
-        this_00 = (ParticleEmitter*)(&field_640)->HeapBeginPtr();
-        pPVar2 = (ParticleEmitter*)(&field_640)->end();
-        uVar3 = CONCAT71((int7)((ulong)unaff_R13 >> 8), this_00 == pPVar2);
+        auto this_00 = field_640.HeapBeginPtr();
+        auto pPVar2 = field_640.end();
+        unsigned long uVar3 =
+            (((uint64_t)((int64_t)((unsigned long)unaff_R13 >> 8)) << 8) | (uint8_t)(this_00 == pPVar2));
         if (this_00 != pPVar2) {
-            cVar1 = this_00->CanBatch(param_1, param_2);
-            while (cVar1 != '\0') {
+            cVar1 = this_00->CanBatch(materialManager, modelParticleSource);
+            while (cVar1) {
                 this_00 = (ParticleEmitter*)&this_00->field_10528;
-                uVar3 = CONCAT71((int7)(uVar3 >> 8), this_00 == pPVar2);
+                uVar3 = (((uint64_t)((int64_t)(uVar3 >> 8)) << 8) | (uint8_t)(this_00 == pPVar2));
                 if (this_00 == pPVar2)
                     break;
-                cVar1 = this_00->CanBatch(param_1, param_2);
+                cVar1 = this_00->CanBatch(materialManager, modelParticleSource);
             }
         }
         return uVar3 & 4294967295;
     }
 
-    // 0x1007d3960, 432 bytes, placed by class name
-    // ParticleSystem::GetParticleSystemForEmitter(RT7Core&, eastl::fixed_vector<shared_ptr<ParticleSystem>, 1ul, true, eastl::allocator>&, shared_ptr<ModelParticleSource> const&)
-    ulong ParticleSystem::GetParticleSystemForEmitter(RT7Core* param_1, fixed_vector* param_2, shared_ptr* param_3) {
-        bool bVar1;
-        char cVar2;
-        int iVar3;
+    // 0x1007d3960
+    unsigned long
+    ParticleSystem::GetParticleSystemForEmitter(RT7Core& rt7Core,
+                                                eastl::fixed_vector<shared_ptr<ParticleSystem>, 1ul>& particleSystems,
+                                                const shared_ptr<ModelParticleSource>& modelParticleSource) {
+        bool cVar2;
         shared_ptr<ParticleSystem>* psVar4;
         ParticleSystem* pPVar5;
         MaterialManager* pMVar6;
-        long lVar7;
-        ulong unaff_RBX;
-        ulong uVar8;
-        undefined1 auVar9[16];
-        shared_ptr local_58;
-        undefined8 local_48;
+        unsigned long unaff_RBX;
+        unsigned long arg1;
+        shared_ptr<ParticleSystem> local_58;
+        uint64_t local_48;
         ParticleSystem* local_38;
 
-        iVar3 = param_2->size();
-        bVar1 = 0 < iVar3;
+        int iVar3 = particleSystems.size();
+        bool bVar1 = 0 < iVar3;
         if (iVar3 < 1) {
         LAB_1007d39f3:
             if (bVar1) {
@@ -1078,98 +917,67 @@ namespace jag::graphics {
             }
         } else {
             unaff_RBX = 0;
-            psVar4 = (shared_ptr<ParticleSystem>*)
-                eastl::vector<shared_ptr<ParticleSystem>,
-                              eastl::fixed_vector_allocator<16ul, 1ul, 8ul, 0ul, true, eastl::allocator>>::
-                operator[]((vector<shared_ptr<ParticleSystem>,
-                                   eastl::fixed_vector_allocator<16ul, 1ul, 8ul, 0ul, true, eastl::allocator>>*)param_2,
-                           0);
-            pPVar5 = (ParticleSystem*)shared_ptr<ParticleSystem>::operator->(psVar4);
-            cVar2 = ContainsEmitterSource(pPVar5, param_3);
-            if (cVar2 == '\0') {
+            psVar4 = &particleSystems[0];
+            pPVar5 = (ParticleSystem*)(*psVar4).operator->();
+            cVar2 = ContainsEmitterSource(pPVar5, modelParticleSource);
+            if (!cVar2) {
                 unaff_RBX = 0;
                 do {
                     unaff_RBX = unaff_RBX + 1;
-                    iVar3 = param_2->size();
+                    iVar3 = particleSystems.size();
                     bVar1 = (long)unaff_RBX < (long)iVar3;
                     if ((long)iVar3 <= (long)unaff_RBX)
                         goto LAB_1007d39f3;
-                    psVar4 = (shared_ptr<ParticleSystem>*)
-                        eastl::vector<shared_ptr<ParticleSystem>,
-                                      eastl::fixed_vector_allocator<16ul, 1ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[]((vector<shared_ptr<ParticleSystem>,
-                                           eastl::fixed_vector_allocator<16ul, 1ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                       param_2,
-                                   unaff_RBX);
-                    pPVar5 = (ParticleSystem*)shared_ptr<ParticleSystem>::operator->(psVar4);
-                    cVar2 = ContainsEmitterSource(pPVar5, param_3);
-                } while (cVar2 == '\0');
+                    psVar4 = &particleSystems[unaff_RBX];
+                    pPVar5 = (ParticleSystem*)(*psVar4).operator->();
+                    cVar2 = ContainsEmitterSource(pPVar5, modelParticleSource);
+                } while (!cVar2);
             }
             if (bVar1) {
                 return unaff_RBX;
             }
         }
-        iVar3 = param_2->size();
+        iVar3 = particleSystems.size();
         bVar1 = 0 < iVar3;
         if (iVar3 < 1) {
         LAB_1007d3a9b:
-            uVar8 = unaff_RBX;
+            arg1 = unaff_RBX;
         } else {
-            psVar4 = (shared_ptr<ParticleSystem>*)
-                eastl::vector<shared_ptr<ParticleSystem>,
-                              eastl::fixed_vector_allocator<16ul, 1ul, 8ul, 0ul, true, eastl::allocator>>::
-                operator[]((vector<shared_ptr<ParticleSystem>,
-                                   eastl::fixed_vector_allocator<16ul, 1ul, 8ul, 0ul, true, eastl::allocator>>*)param_2,
-                           0);
-            local_38 = (ParticleSystem*)shared_ptr<ParticleSystem>::operator->(psVar4);
-            pMVar6 = (MaterialManager*)param_1->GetMaterialManager();
+            psVar4 = &particleSystems[0];
+            local_38 = (ParticleSystem*)(*psVar4).operator->();
+            pMVar6 = rt7Core.GetMaterialManager();
             pPVar5 = local_38;
-            local_38 = (ParticleSystem*)param_3;
-            cVar2 = CanBatchEmitterSource(pPVar5, pMVar6, param_3);
-            uVar8 = 0;
-            if (cVar2 == '\0') {
-                uVar8 = 0;
+            local_38 = (ParticleSystem*)modelParticleSource;
+            cVar2 = CanBatchEmitterSource(pPVar5, pMVar6, modelParticleSource);
+            arg1 = 0;
+            if (!cVar2) {
+                arg1 = 0;
                 do {
-                    uVar8 = uVar8 + 1;
-                    iVar3 = param_2->size();
-                    bVar1 = (long)uVar8 < (long)iVar3;
-                    if ((long)iVar3 <= (long)uVar8)
+                    arg1 = arg1 + 1;
+                    iVar3 = particleSystems.size();
+                    bVar1 = (long)arg1 < (long)iVar3;
+                    if ((long)iVar3 <= (long)arg1)
                         goto LAB_1007d3a9b;
-                    psVar4 = (shared_ptr<ParticleSystem>*)
-                        eastl::vector<shared_ptr<ParticleSystem>,
-                                      eastl::fixed_vector_allocator<16ul, 1ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[]((vector<shared_ptr<ParticleSystem>,
-                                           eastl::fixed_vector_allocator<16ul, 1ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                       param_2,
-                                   uVar8);
-                    pPVar5 = (ParticleSystem*)shared_ptr<ParticleSystem>::operator->(psVar4);
-                    pMVar6 = (MaterialManager*)param_1->GetMaterialManager();
-                    cVar2 = CanBatchEmitterSource(pPVar5, pMVar6, (shared_ptr*)local_38);
-                } while (cVar2 == '\0');
+                    psVar4 = &particleSystems[arg1];
+                    pPVar5 = (ParticleSystem*)(*psVar4).operator->();
+                    pMVar6 = rt7Core.GetMaterialManager();
+                    cVar2 = CanBatchEmitterSource(pPVar5, pMVar6, (shared_ptr<ModelParticleSource>*)local_38);
+                } while (!cVar2);
             }
         }
         if (!bVar1) {
-            auVar9 = param_1->GetParticleManager();
-            local_48 = auVar9._0_8_;
-            MakeSharedPool<ParticleSystem, 32>::MakeShared<ParticleManager*>(
-                &local_58, (MakeSharedPool<ParticleSystem, 32>*)&local_48, auVar9._8_8_);
-            param_2->push_back(&local_58);
-            local_58.~shared_ptr();
-            lVar7 = param_2->size();
-            uVar8 = lVar7 - 1;
+            local_48 = rt7Core.GetParticleManager();
+            MakeSharedPool<ParticleSystem, 32>::MakeShared<ParticleManager*>((ParticleManager**)&local_58);
+            particleSystems.push_back(local_58);
+            arg1 = particleSystems.size() - 1;
         }
-        return uVar8;
+        return arg1;
     }
 
-    // 0x1007f7320, 32 bytes, placed by class name
-    // ParticleSystem::UpdateMaterials(MaterialManager const&, TextureAtlasManager&)::$_7::operator()(Material const*) const
-    /* ParticleSystem::UpdateMaterials(MaterialManager const&,
-   TextureAtlasManager&)::$_7::TEMPNAMEPLACEHOLDERVALUE(Material
-   const*) const */
-
-    bool ParticleSystem::UpdateMaterials(MaterialManager_const&,
-                                         TextureAtlasManager&)::$_7::operator()(Material* param_1) {
-        return param_1->GetZ() == *(int*)this;
+    // 0x1007f7320
+    bool ParticleSystem::UpdateMaterials(MaterialManager const&,
+                                         TextureAtlasManager&)::$_7::operator()(const Material* material) const {
+        return material->GetZ() == *(int*)this;
     }
 
 } // namespace jag::graphics

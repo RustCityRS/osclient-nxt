@@ -1,70 +1,65 @@
 // libs/hal/system/web/osx/Web_OSX.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.system.web
 
 namespace jag {
     class Web {
     public:
-        void
-        ParseKeyValueParams(eastl::string const&,
-                            eastl::vector<eastl::pair<eastl::string const, eastl::string const>, eastl::allocator>&);
-        ulong OpenURL(eastl::string const&, bool);
-        bool ValidateURL(eastl::string const&);
-        void OpenURLOverlaid(eastl::string const&);
+        void ParseKeyValueParams(const eastl::string& str,
+                                 eastl::vector<eastl::pair<eastl::string const, eastl::string const>>& pairs);
+        unsigned long OpenURL(const eastl::string& str, bool arg2);
+        bool ValidateURL(const eastl::string& str);
+        void OpenURLOverlaid(const eastl::string& str);
+
+        uint8_t _unknown_0[1];
     };
 
-    // 0x1007a1140, 256 bytes, placed by class name and debug map
-    // Web::OpenURL(eastl::string const&, bool)
-    ulong Web::OpenURL(basic_string* param_1, bool param_2) {
-        undefined* puVar1;
-        char cVar2;
-        undefined8 uVar3;
+    // 0x1007a1140
+    unsigned long Web::OpenURL(const eastl::string& str, bool arg2) {
+        uint8_t* puVar1;
+        uint64_t uVar3;
         ID IVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        ulong uVar7;
+        uint64_t uVar5;
+        uint64_t uVar6;
+        unsigned long uVar7;
 
-        cVar2 = ValidateURL(param_1);
-        if (cVar2 == '\0') {
+        bool cVar2 = ValidateURL((eastl::string*)this);
+        if (!cVar2) {
             uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             IVar4 = NSString::stringWithUTF8String_((ID)&_OBJC_CLASS___NSString, "stringWithUTF8String:", uVar3);
             uVar3 = _objc_retainAutoreleasedReturnValue(IVar4);
             IVar4 = NSURL::URLWithString_((ID)&_OBJC_CLASS___NSURL, "URLWithString:", uVar3);
             uVar5 = _objc_retainAutoreleasedReturnValue(IVar4);
-            (*(code*)PTR__objc_release_100ee9e60)(uVar3);
+            (*(void (*)(...))PTR__objc_release_100ee9e60)(uVar3);
             IVar4 = NSWorkspace::sharedWorkspace((ID)&_OBJC_CLASS___NSWorkspace, "sharedWorkspace");
             uVar6 = _objc_retainAutoreleasedReturnValue(IVar4);
-            cVar2 = (*(code*)PTR__objc_msgSend_100ee9e50)(uVar6, "openURL:", uVar5);
+            cVar2 = (*(void (*)(...))PTR__objc_msgSend_100ee9e50)(uVar6, "openURL:", uVar5);
             puVar1 = PTR__objc_release_100ee9e60;
-            uVar7 = CONCAT71((int7)((ulong)uVar3 >> 8), cVar2 != '\0');
-            (*(code*)PTR__objc_release_100ee9e60)(uVar6);
-            (*(code*)puVar1)(uVar5);
+            uVar7 = (((uint64_t)((int64_t)((unsigned long)uVar3 >> 8)) << 8) | (uint8_t)(cVar2));
+            (*(void (*)(...))PTR__objc_release_100ee9e60)(uVar6);
+            (*(void (*)(...))puVar1)(uVar5);
         } else {
             uVar7 = 0;
         }
         return uVar7 & 4294967295;
     }
 
-    // 0x1007a1240, 80 bytes, placed by class name and debug map
-    // Web::ValidateURL(eastl::string const&)
-    bool Web::ValidateURL(basic_string* param_1) {
-        int iVar1;
-        bool bVar2;
-
-        bVar2 = false;
-        iVar1 = param_1->compare(0, 7, "http://");
+    // 0x1007a1240
+    bool Web::ValidateURL(const eastl::string& str) {
+        bool bVar2 = false;
+        int iVar1 = str.compare(0, 7, "http://");
         if (iVar1 != 0) {
-            iVar1 = param_1->compare(0, 8, "https://");
+            iVar1 = str.compare(0, 8, "https://");
             bVar2 = iVar1 != 0;
         }
         return bVar2;
     }
 
-    // 0x1007a1290, 16 bytes, placed by class name and debug map
-    // Web::OpenURLOverlaid(eastl::string const&)
-    void Web::OpenURLOverlaid(basic_string* param_1) {
-        OpenURL(param_1, false);
+    // 0x1007a1290
+    void Web::OpenURLOverlaid(const eastl::string& str) {
+        bool in_DL;
+
+        OpenURL(nullptr, in_DL);
     }
 
 } // namespace jag

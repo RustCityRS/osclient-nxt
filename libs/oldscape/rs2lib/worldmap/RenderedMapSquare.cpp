@@ -1,1571 +1,1204 @@
 // libs/oldscape/rs2lib/worldmap/RenderedMapSquare.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "RenderedMapSquare.h"
 
 namespace jag::oldscape::rs2lib::worldmap {
-    // 0x100fd5b80, 3336 bytes, __common; set at startup by ___cxx_global_var_init.128
+    // 0x100fd5b80, set at startup by ___cxx_global_var_init.128
     LRUCache<graphics::Pix32> RenderedMapSquare::m_renderedMapSquareSpriteCache =
         LRUCache<graphics::Pix32>(37748736, "mapsqLRU");
 
-    // 0x100fd6888, 8 bytes, __common; set at startup by ___cxx_global_var_init.132
-    RenderedMapSquare::m_toolkit = this;
+    // 0x100fd6888, set at startup by ___cxx_global_var_init.132
+    int64_t RenderedMapSquare::m_toolkit = this;
 
-    // 0x100fd6890, 16 bytes, __common; set at startup by ___cxx_global_var_init.133
-    RenderedMapSquare::m_toolkit2D = (**(code**)*RenderedMapSquare::m_toolkit)();
+    // 0x100fd6890, set at startup by ___cxx_global_var_init.133
+    uint8_t RenderedMapSquare::m_toolkit2D[16] = (**(code**)*RenderedMapSquare::m_toolkit)();
 
-    // 0x10020d5c0, 672 bytes, placed by class name and debug map
-    // RenderedMapSquare::CreateMapTextLabelForMapElement(configdecoder::MapElementType const&) const
-    MapTextLabel* RenderedMapSquare::CreateMapTextLabelForMapElement(MapElementType* param_1) {
-        undefined1* puVar1;
-        char cVar2;
-        bool bVar3;
-        uint uVar4;
-        int iVar5;
-        int iVar6;
-        long lVar7;
-        PixfontGeneric* pPVar8;
-        int* piVar9;
-        basic_string* pbVar10;
-        MapTextLabel* pMVar11;
-        ulong uVar12;
-        undefined1 auVar13[16];
-        eastl::string local_a0[32];
-        ulong local_80;
-        hashtable_iterator_base local_78[24];
+    // 0x10020d5c0
+    MapTextLabel*
+    RenderedMapSquare::CreateMapTextLabelForMapElement(const configdecoder::MapElementType& mapElementType) const {
+        unsigned int uVar2;
+        int iVar3;
+        int iVar4;
+        long lVar5;
+        PixfontGeneric* pPVar6;
+        int* piVar7;
+        eastl::string* str;
+        MapTextLabel* this_01;
+        unsigned long arg1;
+        uint8_t auVar8[16];
+        eastl::string local_a0;
+        unsigned long local_80;
+        obj_iterator local_78;
         shared_ptr<jstring::PixfontGeneric>* local_60;
-        eastl local_58[28];
+        eastl local_58;
         int local_3c;
         MapLabelSize local_38;
 
-        puVar1 = &param_1->field_16;
-        cVar2 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        if ((cVar2 == '\0') && (cVar2 = field_152->empty(), cVar2 == '\0')) {
-            local_38.field_0 = (MapLabelSizeImpl*)((ulong)local_38.field_0._4_4_ << 32);
-            local_58._0_16_ = (field_152, (int*)&local_38)->find();
+        uint8_t* this_00 = &mapElementType.field_16;
+        bool cVar1 = this_00->empty();
+        if ((!cVar1) && (cVar1 = field_152->empty(), !cVar1)) {
+            local_38.field_0 = (MapLabelSizeImpl*)((unsigned long)local_38.field_0._4_4_ << 32);
+            local_58._0_16_ = field_152->find(local_38);
             local_78._0_16_ = field_152->end();
-            bVar3 = eastl::operator==(local_58, local_78, local_78._8_8_);
-            if (!bVar3) {
-                local_38.field_0 = (MapLabelSizeImpl*)MapLabelSize::FromSize(param_1->field_56);
-                cVar2 = local_38.Equals((MapLabelSize*)&MapLabelSize::NULL_SIZE);
-                if (cVar2 == '\0') {
+            cVar1 = local_58 == local_78;
+            if (!cVar1) {
+                local_38.field_0 = (MapLabelSizeImpl*)MapLabelSize::FromSize(mapElementType.field_56);
+                cVar1 = local_38.Equals(*((MapLabelSize*)&MapLabelSize::NULL_SIZE));
+                if (!cVar1) {
                     local_3c = local_38.GetSize();
-                    auVar13 = (field_152, &local_3c)->find();
-                    local_58._0_16_ = auVar13;
-                    auVar13 = field_152->end();
-                    local_78._0_16_ = auVar13;
-                    bVar3 = eastl::operator==(local_58, local_78, auVar13._8_8_);
-                    if (!bVar3) {
-                        auVar13 = (field_152, &local_3c)->find();
-                        local_58._0_16_ = auVar13;
-                        lVar7 = local_58->HeapBeginPtr();
-                        local_60 = (shared_ptr<jstring::PixfontGeneric>*)(lVar7 + 8);
-                        pPVar8 = (PixfontGeneric*)shared_ptr<jstring::PixfontGeneric>::operator->(local_60);
-                        uVar4 = pPVar8->PredictLinesMultiline(puVar1, 1000000);
-                        new (local_58) Array<eastl::string, eastl::allocator>();
-                        local_58->set_max_size((long)(int)uVar4, 3);
-                        new (local_78) Array<int, eastl::allocator>();
-                        pPVar8 = (PixfontGeneric*)shared_ptr<jstring::PixfontGeneric>::operator->(local_60);
-                        pPVar8->SplitString(puVar1, local_78, local_58);
-                        iVar5 = local_58->end();
-                        piVar9 = (int*)shared_ptr<jstring::PixfontGeneric>::operator->(local_60);
-                        local_80 = (ulong)(uint)(iVar5 * *piVar9);
-                        if ((int)uVar4 < 1) {
-                            iVar5 = 0;
+                    auVar8 = field_152->find(local_3c);
+                    local_58._0_16_ = auVar8;
+                    auVar8 = field_152->end();
+                    local_78._0_16_ = auVar8;
+                    cVar1 = local_58 == local_78;
+                    if (!cVar1) {
+                        auVar8 = field_152->find(local_3c);
+                        local_58._0_16_ = auVar8;
+                        lVar5 = local_58.HeapBeginPtr();
+                        local_60 = (shared_ptr<jstring::PixfontGeneric>*)(lVar5 + 8);
+                        pPVar6 = (PixfontGeneric*)(*local_60).operator->();
+                        uVar2 = pPVar6->PredictLinesMultiline(*this_00, 1000000);
+                        new (&local_58) Array<eastl::string>();
+                        local_58.set_max_size((long)(int)uVar2, 3);
+                        local_78 = Array<int>();
+                        pPVar6 = (PixfontGeneric*)(*local_60).operator->();
+                        pPVar6->SplitString(*this_00, local_78, local_58);
+                        iVar3 = local_58.end();
+                        piVar7 = (int*)(*local_60).operator->();
+                        local_80 = (unsigned long)(unsigned int)(iVar3 * *piVar7);
+                        if ((int)uVar2 < 1) {
+                            iVar3 = 0;
                         } else {
-                            uVar12 = 0;
-                            iVar5 = 0;
+                            arg1 = 0;
+                            iVar3 = 0;
                             do {
-                                pPVar8 = (PixfontGeneric*)shared_ptr<jstring::PixfontGeneric>::operator->(local_60);
-                                pbVar10 = (basic_string*)Array<eastl::string, eastl::allocator>::operator[](
-                                    (Array<eastl::string, eastl::allocator>*)local_58, uVar12);
-                                iVar6 = pPVar8->StringWid(pbVar10);
-                                if (iVar5 < iVar6) {
-                                    iVar5 = iVar6;
+                                pPVar6 = (PixfontGeneric*)(*local_60).operator->();
+                                str = &local_58[arg1];
+                                iVar4 = pPVar6->StringWid(*str);
+                                if (iVar3 < iVar4) {
+                                    iVar3 = iVar4;
                                 }
-                                uVar12 = uVar12 + 1;
-                            } while (uVar4 != uVar12);
+                                arg1 = arg1 + 1;
+                            } while (uVar2 != arg1);
                         }
-                        pMVar11 = operator_new(48);
-                        eastl::string::basic_string(local_a0, (basic_string*)puVar1);
-                        MapTextLabel::MapTextLabel(pMVar11, local_a0, iVar5,
-                                                   (int)(((uint)(local_80 >> 31) & 1) + (int)local_80) >> 1, &local_38);
-                        eastl::string::~basic_string(local_a0);
-                        local_78->~Array();
-                        local_58->~Array();
-                        return pMVar11;
+                        this_01 = (MapTextLabel*)operator new(48);
+                        local_a0 = eastl::string(*this_00);
+                        new (this_01)
+                            MapTextLabel(&local_a0, iVar3,
+                                         (int)(((unsigned int)(local_80 >> 31) & 1) + (int)local_80) >> 1, local_38);
+                        local_58.~Array();
+                        return this_01;
                     }
                 }
             }
         }
-        return (MapTextLabel*)0;
+        return nullptr;
     }
 
-    // 0x100210bc0, 32 bytes, placed by class name
-    // RenderedMapSquare::ResetCaches()
+    // 0x100210bc0
     void RenderedMapSquare::ResetCaches() {
         m_renderedMapSquareSpriteCache.Reset();
     }
 
-    // 0x100210be0, 32 bytes, placed by class name
-    // RenderedMapSquare::CleanCaches()
+    // 0x100210be0
     void RenderedMapSquare::CleanCaches() {
         m_renderedMapSquareSpriteCache.Clean(5);
     }
 
-    // 0x100210c90, 16 bytes, placed by class name
-    // RenderedMapSquare::RemoveCacheSoftReferences()
+    // 0x100210c90
     void RenderedMapSquare::RemoveCacheSoftReferences() {}
 
-    // 0x100210ca0, 208 bytes, base-object constructor, placed by class name
-    // RenderedMapSquare::RenderedMapSquare(int, int, int, eastl::hash_map<int, shared_ptr<jstring::PixfontGeneric>, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false> const&)
-    void RenderedMapSquare::RenderedMapSquare(int param_1, int param_2, int param_3, hash_map* param_4) {
-        allocator local_50[8];
-        undefined1* local_40;
-        undefined1* local_38;
-
-        local_40 = field_8;
-        new (local_40) shared_ptr<WorldmapAreaMetadata>(0);
-        local_38 = &field_24;
-        new (local_38) eastl::list<shared_ptr<MapZoneData>, eastl::allocator>();
-        new (&field_64) eastl::list<shared_ptr<MapElement>, eastl::allocator>();
-        eastl::allocator::allocator(local_50, "EASTL hash_map");
-        new (&field_96, local_50) eastl::hash_map<int, shared_ptr<MapElement>, eastl::hash<int>, eastl::equal_to<int>,
-                                                  eastl::allocator, false>();
-        field_152 = param_4;
-        field_0 = param_1;
-        field_4 = param_2;
-        field_56 = param_3 | 4278190080;
+    // 0x100210ca0
+    RenderedMapSquare::RenderedMapSquare(int arg1, int arg2, int arg3,
+                                         const eastl::hash_map<int, shared_ptr<jstring::PixfontGeneric>>& arg4) {
+        uint8_t* local_40 = &field_8;
+        new (local_40) shared_ptr();
+        uint8_t* local_38 = &field_24;
+        new (local_38) eastl::list<shared_ptr<MapZoneData>>();
+        new (&field_64) eastl::list<shared_ptr<MapElement>>();
+        new (&field_96) eastl::hash_map<int, shared_ptr<MapElement>>(local_50);
+        field_152 = arg4;
+        field_0 = arg1;
+        field_4 = arg2;
+        field_56 = arg3 | 4278190080;
     }
 
-    // 0x100210d80, 16 bytes, complete-object constructor, placed by class name
-    // RenderedMapSquare::RenderedMapSquare(int, int, int, eastl::hash_map<int, shared_ptr<jstring::PixfontGeneric>, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false> const&): jumps straight to the base-object constructor
-
-    // 0x100210d90, 160 bytes, placed by class name
-    // RenderedMapSquare::RenderToScreen(int, int, int, graphics::Pix2D&)
-    void RenderedMapSquare::RenderToScreen(int param_1, int param_2, int param_3, Pix2D* param_4) {
+    // 0x100210d90
+    void RenderedMapSquare::RenderToScreen(int arg1, int arg2, int arg3, graphics::Pix2D& pix2D) {
         int iVar1;
-        shared_ptr* this_00;
-        undefined8 uVar3;
+        uint64_t uVar3;
 
-        this_00 = (shared_ptr*)GetCachedRenderedMapSquareSprite(field_0, field_4, field_60);
-        if (!operator==(this_00, (_func_decltype_nullptr*)0)) {
+        auto objType =
+            GetCachedRenderedMapSquareSprite((RenderedMapSquare*)(unsigned long)field_0, field_4, field_60, arg3);
+        if (!*objType == nullptr) {
             iVar1 = field_60;
-            uVar3 = shared_ptr<graphics::Pix32>::operator*((shared_ptr<graphics::Pix32>*)this_00);
-            if (iVar1 * 64 == param_3) {
-                (**(code**)(param_4->field_0 + 168))(param_4, uVar3, param_1, param_2);
+            uVar3 = **objType;
+            if (iVar1 * 64 == arg3) {
+                (**(void (**)(...))(pix2D.field_0 + 168))(pix2D, uVar3, arg1, arg2);
             } else {
-                (**(code**)(param_4->field_0 + 208))(param_4, uVar3, param_1, param_2, param_3, param_3);
+                (**(void (**)(...))(pix2D.field_0 + 208))(pix2D, uVar3, arg1, arg2, arg3, arg3);
             }
         }
     }
 
-    // 0x100210e30, 32 bytes, placed by class name
-    // RenderedMapSquare::GetCachedRenderedMapSquareSprite(int, int, int)
-    void RenderedMapSquare::GetCachedRenderedMapSquareSprite(int param_1, int param_2, int param_3) {
-        ulonglong uVar1;
-
-        uVar1 = GetMapSquarePixelStrideHash(param_1, param_2, param_3);
-        m_renderedMapSquareSpriteCache.Find(uVar1);
+    // 0x100210e30
+    void RenderedMapSquare::GetCachedRenderedMapSquareSprite(int arg1, int arg2, int arg3) {
+        m_renderedMapSquareSpriteCache.Find(GetMapSquarePixelStrideHash((int)this, arg1, arg2));
     }
 
-    // 0x100210e50, 64 bytes, placed by class name
-    // RenderedMapSquare::ExtractSquareData(shared_ptr<MapSquareData> const&, eastl::list<shared_ptr<StaticMapElement>, eastl::allocator>&)
-    void RenderedMapSquare::ExtractSquareData(shared_ptr* param_1, list* param_2) {
-        (&field_96)->clear();
-        shared_ptr<MapSquareData>::operator=((shared_ptr<MapSquareData>*)field_8, param_1);
-        ExtractStaticMapElements(this, param_2);
+    // 0x100210e50
+    void RenderedMapSquare::ExtractSquareData(const shared_ptr<MapSquareData>& mapSquareData,
+                                              eastl::list<shared_ptr<StaticMapElement>>& staticMapElements) {
+        field_96.clear();
+        field_8 = mapSquareData;
+        ExtractStaticMapElements(staticMapElements);
     }
 
-    // 0x100210ed0, 496 bytes, placed by class name
-    // RenderedMapSquare::ExtractStaticMapElements(eastl::list<shared_ptr<StaticMapElement>, eastl::allocator>&)
-    void RenderedMapSquare::ExtractStaticMapElements(list* param_1) {
-        bool bVar1;
+    // 0x100210ed0
+    void RenderedMapSquare::ExtractStaticMapElements(eastl::list<shared_ptr<StaticMapElement>>& staticMapElements) {
         int iVar2;
-        shared_ptr<StaticMapElement>* psVar3;
-        StaticMapElement* this_00;
-        long lVar4;
-        long lVar5;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        shared_ptr local_80;
+        shared_ptr<StaticMapElement>* psVar4;
+        long lVar6;
+        long lVar7;
+        ReturnValue local_80;
         MapTextLabel* local_70;
         CoordGrid* local_68;
         CoordGrid* local_60;
-        list<shared_ptr<MapElement>, eastl::allocator>* local_58;
-        list* local_50;
-        shared_ptr local_48;
-        Vector2T<int> local_38[8];
+        list<shared_ptr<MapElement>>* local_58;
+        list<shared_ptr<StaticMapElement>>* local_50;
+        ReturnValue local_38;
 
-        jag::math::Vector2T<int>::Vector2T(local_38);
-        local_48.begin();
-        local_38[0] = (Vector2T<int>)local_48._0_1_;
-        local_38[1] = (Vector2T<int>)local_48._1_1_;
-        local_38[2] = (Vector2T<int>)local_48._2_1_;
-        local_38[3] = (Vector2T<int>)local_48._3_1_;
-        local_38[4] = (Vector2T<int>)local_48._4_1_;
-        local_38[5] = (Vector2T<int>)local_48._5_1_;
-        local_38[6] = (Vector2T<int>)local_48._6_1_;
-        local_38[7] = (Vector2T<int>)local_48._7_1_;
-        local_48.end();
-        bVar1 = eastl::operator!=((eastl*)local_38, (hashtable_iterator_base*)&local_48, extraout_RDX);
-        if (bVar1) {
-            local_58 = (list<shared_ptr<MapElement>, eastl::allocator>*)&field_64;
-            local_50 = param_1;
+        new (&local_38) jag::math::Vector2T();
+        auto local_48 = staticMapElements.begin();
+        local_38 = local_48[0];
+        local_48 = staticMapElements.end();
+        bool cVar1 = local_38 != local_48;
+        if (cVar1) {
+            local_58 = (list<shared_ptr<MapElement>>*)&field_64;
+            local_50 = staticMapElements;
             do {
-                psVar3 = (shared_ptr<StaticMapElement>*)
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                this_00 = (StaticMapElement*)shared_ptr<StaticMapElement>::operator->(psVar3);
-                iVar2 = this_00->GetMelTypeId();
-                lVar4 = configdecoder::MapElementType::List(iVar2);
-                if (*(char*)(lVar4 + 68) != '\0') {
-                    psVar3 = (shared_ptr<StaticMapElement>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                    lVar4 = shared_ptr<StaticMapElement>::operator->(psVar3);
-                    iVar2 = ((lVar4 + 8))->GetMapSquareX();
-                    if (iVar2 == field_0) {
-                        psVar3 = (shared_ptr<StaticMapElement>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                        lVar4 = shared_ptr<StaticMapElement>::operator->(psVar3);
-                        iVar2 = ((lVar4 + 8))->GetMapSquareZ();
+                psVar4 = (shared_ptr<StaticMapElement>*)*local_38;
+                iVar2 = ((StaticMapElement*)(*psVar4).operator->())->GetMelTypeId();
+                if (configdecoder::MapElementType::List(iVar2)->field_68 != '\0') {
+                    psVar4 = (shared_ptr<StaticMapElement>*)*local_38;
+                    lVar6 = (*psVar4).operator->();
+                    if (((lVar6 + 8))->GetMapSquareX() == field_0) {
+                        psVar4 = (shared_ptr<StaticMapElement>*)*local_38;
+                        lVar6 = (*psVar4).operator->();
+                        iVar2 = ((lVar6 + 8))->GetMapSquareZ();
                         if (iVar2 == field_4) {
-                            psVar3 = (shared_ptr<StaticMapElement>*)
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                            lVar4 = shared_ptr<StaticMapElement>::operator->(psVar3);
-                            local_68 = (CoordGrid*)(lVar4 + 8);
-                            psVar3 = (shared_ptr<StaticMapElement>*)
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                            lVar4 = shared_ptr<StaticMapElement>::operator->(psVar3);
-                            local_60 = (CoordGrid*)(lVar4 + 8);
-                            psVar3 = (shared_ptr<StaticMapElement>*)
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                            lVar4 = shared_ptr<StaticMapElement>::operator->(psVar3);
-                            psVar3 = (shared_ptr<StaticMapElement>*)
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)local_38);
-                            lVar5 = shared_ptr<StaticMapElement>::operator->(psVar3);
-                            local_70 = (MapTextLabel*)CreateMapTextLabelForMapElement(this, *(int*)(lVar5 + 44));
-                            make_shared<StaticMapElement, CoordGrid_const&, CoordGrid_const&, int const&,
-                                        MapTextLabel*>((jag*)&local_80, local_68, local_60, (int*)(lVar4 + 44),
-                                                       &local_70);
-                            shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-                                (shared_ptr<RSevenDebugPresetProvider>*)&local_48, &local_80);
-                            local_80.~shared_ptr();
-                            eastl::list<shared_ptr<MapElement>, eastl::allocator>::push_back(local_58, &local_48);
-                            local_48.~shared_ptr();
+                            psVar4 = (shared_ptr<StaticMapElement>*)*local_38;
+                            lVar6 = (*psVar4).operator->();
+                            local_68 = (CoordGrid*)(lVar6 + 8);
+                            psVar4 = (shared_ptr<StaticMapElement>*)*local_38;
+                            lVar6 = (*psVar4).operator->();
+                            local_60 = (CoordGrid*)(lVar6 + 8);
+                            psVar4 = (shared_ptr<StaticMapElement>*)*local_38;
+                            lVar6 = (*psVar4).operator->();
+                            psVar4 = (shared_ptr<StaticMapElement>*)*local_38;
+                            lVar7 = (*psVar4).operator->();
+                            local_70 = (MapTextLabel*)CreateMapTextLabelForMapElement(*(int*)(lVar7 + 44));
+                            make_shared<StaticMapElement, CoordGrid const&, CoordGrid const&, int const&,
+                                        MapTextLabel*>(&local_80, local_68, local_60, (int*)(lVar6 + 44), &local_70);
+                            local_48.shared_ptr<FileRSevenDebugPresetProvider, void>(local_80);
+                            local_58->push_back(local_48);
+                            staticMapElements = local_50;
                         }
                     }
                 }
-                eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::operator++(
-                    (ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>*)&local_48,
-                    (int)(eastl*)local_38);
-                local_48.end();
-                bVar1 = eastl::operator!=((eastl*)local_38, (hashtable_iterator_base*)&local_48, extraout_RDX_00);
-            } while (bVar1);
+                local_48++;
+                local_48 = staticMapElements.end();
+                cVar1 = local_38 != local_48;
+            } while (cVar1);
         }
     }
 
-    // 0x1002110c0, 224 bytes, placed by class name
-    // RenderedMapSquare::ExtractZoneData(eastl::list<shared_ptr<MapZoneData>, eastl::allocator>&, eastl::list<shared_ptr<StaticMapElement>, eastl::allocator>&)
-    void RenderedMapSquare::ExtractZoneData(list* param_1, list* param_2) {
-        SoundInstance* this_00;
-        PlayerGroup* this_01;
-        bool bVar1;
-        int iVar2;
-        shared_ptr* this_02;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        list<console::Line, eastl::allocator> local_48[8];
-        list<console::Line, eastl::allocator> local_40[8];
+    // 0x1002110c0
+    void RenderedMapSquare::ExtractZoneData(eastl::list<shared_ptr<MapZoneData>>& mapZoneDatas,
+                                            eastl::list<shared_ptr<StaticMapElement>>& staticMapElements) {
+        shared_ptr<MapZoneData>* this_00;
 
-        (&field_96)->clear();
-        eastl::list<console::Line, eastl::allocator>::begin(local_48);
-        eastl::list<console::Line, eastl::allocator>::end(local_40);
-        bVar1 = eastl::operator!=((eastl*)local_48, (hashtable_iterator_base*)local_40, extraout_RDX);
-        if (bVar1) {
+        field_96.clear();
+        auto local_48 = mapZoneDatas.begin();
+        auto local_40 = mapZoneDatas.end();
+        bool cVar1 = local_48 != local_40;
+        if (cVar1) {
             do {
-                this_02 = (shared_ptr*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)local_48);
-                this_00 = (SoundInstance*)shared_ptr<MapZoneData>::operator->((shared_ptr<MapZoneData>*)this_02);
-                iVar2 = this_00->GetSoundShape();
-                if (iVar2 == field_0) {
-                    this_01 = (PlayerGroup*)shared_ptr<MapZoneData>::operator->((shared_ptr<MapZoneData>*)this_02);
-                    iVar2 = this_01->GetUpdateNumber();
-                    if (iVar2 == field_4) {
-                        (&field_24, this_02)->push_back();
+                this_00 = (shared_ptr<MapZoneData>*)*local_48;
+                if (((SoundInstance*)(*this_00).operator->())->GetSoundShape() == field_0) {
+                    if (((PlayerGroup*)(*this_00).operator->())->GetUpdateNumber() == field_4) {
+                        field_24.push_back(*this_00);
                     }
                 }
-                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)local_48);
-                bVar1 = eastl::operator!=((eastl*)local_48, (hashtable_iterator_base*)local_40, extraout_RDX_00);
-            } while (bVar1);
+                ++local_48;
+                cVar1 = local_48 != local_40;
+            } while (cVar1);
         }
-        ExtractStaticMapElements(this, param_2);
+        ExtractStaticMapElements(staticMapElements);
     }
 
-    // 0x100211230, 176 bytes, placed by class name
-    // RenderedMapSquare::RederiveMapElements()
+    // 0x100211230
     void RenderedMapSquare::RederiveMapElements() {
-        long lVar1;
-        bool bVar2;
-        undefined8* puVar3;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        undefined8 local_48;
-        undefined8 uStack_40;
-        undefined8 local_30;
-        undefined8 uStack_28;
+        long lVar2;
+        uint64_t* puVar3;
+        ReturnValue local_48;
+        uint64_t uStack_28;
 
-        new (&local_48) eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(0, 0);
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
+        new (&local_48) eastl::hashtable_iterator(nullptr, nullptr);
+        uint8_t* this_00 = &field_96;
+        auto local_30 = this_00->begin();
         local_48 = local_30;
-        uStack_40 = uStack_28;
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar2 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_30, extraout_RDX);
-        if (bVar2) {
+        uint64_t uStack_40 = uStack_28;
+        local_30 = this_00->end();
+        bool cVar1 = local_48 != local_30;
+        if (cVar1) {
             do {
-                lVar1 = local_48.HeapBeginPtr();
-                puVar3 = (undefined8*)shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)(lVar1 + 8));
-                (**(code**)*puVar3)(puVar3);
-                eastl::hashtable_iterator<eastl::pair<int const, shared_ptr<MapElement>>, false, false>::operator++(
-                    (hashtable_iterator<eastl::pair<int const, shared_ptr<MapElement>>, false, false>*)&local_30,
-                    (int)(Layout*)&local_48);
-                eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                                 eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-                bVar2 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_30, extraout_RDX_00);
-            } while (bVar2);
+                lVar2 = local_48.HeapBeginPtr();
+                puVar3 = (uint64_t*)(*((lVar2 + 8))).operator->();
+                (**(void (**)(...))*puVar3)(puVar3);
+                local_30++;
+                local_30 = this_00->end();
+                cVar1 = local_48 != local_30;
+            } while (cVar1);
         }
     }
 
-    // 0x100211350, 624 bytes, placed by class name
-    // RenderedMapSquare::PrerenderSquare(int, std::unique_ptr<OverlayShapes, std::default_delete<OverlayShapes> >&, shared_ptr<Array<graphics::Pix8, eastl::allocator> >&, jagex3::Js5&, jagex3::Js5&)
-    /* RenderedMapSquare::PrerenderSquare(int,
-   std::unique_ptr<OverlayShapes,
-   std::default_delete<OverlayShapes> >&,
-   shared_ptr<Array<graphics::Pix8, eastl::allocator> >&,
-   jagex3::Js5&, jagex3::Js5&) */
-
-    void RenderedMapSquare::PrerenderSquare(int param_1, unique_ptr* param_2, shared_ptr* param_3, Js5* param_4,
-                                            Js5* param_5) {
-        undefined1* this_00;
-        int iVar1;
-        OffscreenSoftwarePixToolkit* this_01;
-        bool bVar2;
-        char cVar3;
-        byte bVar4;
-        shared_ptr* psVar5;
-        long lVar6;
-        shared_ptr<MapZoneData>* this_02;
-        undefined* puVar7;
-        PacketJ* pPVar8;
-        Pix32* pPVar9;
-        Array* pAVar10;
-        BlendedGround* pBVar11;
-        ErrorCapture local_3c0[17];
-        shared_ptr local_70;
-        shared_ptr local_60;
-        unique_ptr* local_50;
-        shared_ptr* local_48;
+    // 0x100211350
+    void RenderedMapSquare::PrerenderSquare(int arg1, std::unique_ptr<OverlayShapes>& overlayShapes,
+                                            shared_ptr<Array<graphics::Pix8>>& pix8s, jagex3::Js5& js51,
+                                            jagex3::Js5& js52) {
+        OffscreenSoftwarePixToolkit* this_00;
+        bool cVar2;
+        uint8_t bVar3;
+        shared_ptr<midi2::MidiPlayerMainThread>* midiPlayerMainThread;
+        long lVar4;
+        shared_ptr<MapZoneData>* this_01;
+        uint8_t* puVar5;
+        Pix32* pix32;
+        Array<graphics::Pix8>* pAVar6;
+        BlendedGround* pBVar7;
+        ErrorCapture local_3c0;
+        shared_ptr<WorldmapAreaMetadata> local_70;
+        ReturnValue local_60;
         int local_40;
         int local_3c;
-        unique_ptr<BlendedGround, std::default_delete<BlendedGround>> local_38[8];
+        ReturnValue local_38;
 
-        field_60 = param_1;
-        this_00 = field_8;
-        local_50 = param_2;
-        local_48 = param_3;
-        bVar2 = operator==((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
-        if ((bVar2) && (cVar3 = (&field_24)->empty(), cVar3 != '\0')) {
+        field_60 = arg1;
+        uint8_t* objType = &field_8;
+        bool bVar1 = *objType == nullptr;
+        int iVar8 = (int)pix8s;
+        if ((bVar1) && (cVar2 = field_24.empty(), cVar2)) {
             return;
         }
-        psVar5 = (shared_ptr*)GetCachedRenderedMapSquareSprite(field_0, field_4, param_1);
-        bVar2 = operator!=(psVar5, (_func_decltype_nullptr*)0);
-        if (!bVar2) {
-            ErrorCapture::ErrorCapture(local_3c0, true);
-            bVar4 = UnpackAreaGeography(this, param_4, local_3c0);
-            local_3c0->IsRaised();
-            new (&local_70) shared_ptr<WorldmapAreaMetadata>(param_4);
-            bVar2 = operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
-            if (bVar2) {
-                lVar6 = shared_ptr<MapSquareData>::operator->((shared_ptr<MapSquareData>*)this_00);
+        midiPlayerMainThread = (shared_ptr<midi2::MidiPlayerMainThread>*)GetCachedRenderedMapSquareSprite(
+            (RenderedMapSquare*)(unsigned long)field_0, field_4, arg1, iVar8);
+        bVar1 = *midiPlayerMainThread != nullptr;
+        if (!bVar1) {
+            local_3c0 = ErrorCapture(true);
+            bVar3 = UnpackAreaGeography(js51, local_3c0);
+            local_3c0.IsRaised();
+            local_70 = shared_ptr();
+            bVar1 = *objType != nullptr;
+            if (bVar1) {
+                lVar4 = (*objType).operator->();
             } else {
-                local_60.begin();
-                this_02 = (shared_ptr<MapZoneData>*)
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_60);
-                lVar6 = shared_ptr<MapZoneData>::operator->(this_02);
+                local_60 = field_24.begin();
+                this_01 = (shared_ptr<MapZoneData>*)*local_60;
+                lVar4 = (*this_01).operator->();
             }
-            iVar1 = *(int*)(lVar6 + 128);
-            puVar7 = (undefined*)param_5->RequestGroupDownload(iVar1);
-            if ((bVar4 & puVar7 == DataStatus::READY) != 0) {
-                param_5->GetFile(&local_70, iVar1);
-                pPVar8 = (PacketJ*)local_70.end();
-                local_38->FromPNG(pPVar8);
+            iVar8 = *(int*)(lVar4 + 128);
+            puVar5 = (uint8_t*)js52.RequestGroupDownload(iVar8);
+            if ((bVar3 & puVar5 == DataStatus::READY) != 0) {
+                js52.GetFile(local_70, iVar8);
+                local_38 = BlendedGround::FromPNG((PacketJ<Array<unsigned char> _>*)local_70.end());
                 local_40 = field_60 << 6;
                 local_3c = local_40;
-                make_shared<graphics::Pix32, int&, int&>((jag*)&local_60, &local_40, &local_3c);
-                this_01 = m_toolkit;
-                pPVar9 = (Pix32*)shared_ptr<graphics::Pix32>::operator*((shared_ptr<graphics::Pix32>*)&local_60);
-                this_01->SetDestination(pPVar9);
-                bVar2 = operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
-                if (bVar2) {
-                    pAVar10 = (Array*)shared_ptr<Array<graphics::Pix8, eastl::allocator>>::operator*(
-                        (shared_ptr<Array<graphics::Pix8, eastl::allocator>>*)local_48);
-                    pBVar11 =
-                        (BlendedGround*)std::unique_ptr<BlendedGround, std::default_delete<BlendedGround>>::operator*(
-                            local_38);
-                    RenderSquare(this, local_50, pAVar10, pBVar11);
+                make_shared<graphics::Pix32, int&, int&>(&local_60, &local_40, &local_3c);
+                this_00 = m_toolkit;
+                pix32 = (Pix32*)*local_60;
+                this_00->SetDestination(*pix32);
+                bVar1 = *objType != nullptr;
+                if (bVar1) {
+                    pAVar6 = (Array<graphics::Pix8>*)pix8s;
+                    pBVar7 = (BlendedGround*)*local_38;
+                    RenderSquare(overlayShapes, *pAVar6, *pBVar7);
                 } else {
-                    pAVar10 = (Array*)shared_ptr<Array<graphics::Pix8, eastl::allocator>>::operator*(
-                        (shared_ptr<Array<graphics::Pix8, eastl::allocator>>*)local_48);
-                    pBVar11 =
-                        (BlendedGround*)std::unique_ptr<BlendedGround, std::default_delete<BlendedGround>>::operator*(
-                            local_38);
-                    RenderZones(this, local_50, pAVar10, pBVar11);
+                    pAVar6 = (Array<graphics::Pix8>*)pix8s;
+                    pBVar7 = (BlendedGround*)*local_38;
+                    RenderZones(overlayShapes, *pAVar6, *pBVar7);
                 }
                 CacheRenderedMapSquareSprite(&local_60, field_0, field_4, field_60);
-                ResetAreaGeography(this);
-                local_60.~shared_ptr();
-                std::unique_ptr<BlendedGround, std::default_delete<BlendedGround>>::~unique_ptr(local_38);
+                ResetAreaGeography();
             }
-            local_70.~shared_ptr();
-            local_3c0->~LanguageMessage();
         }
     }
 
-    // 0x1002115c0, 672 bytes, placed by class name
-    // RenderedMapSquare::UnpackAreaGeography(jagex3::Js5&, ErrorCapture&)
-    ulong RenderedMapSquare::UnpackAreaGeography(Js5* param_1, ErrorCapture* param_2) {
-        undefined1* this_00;
-        bool bVar1;
-        char cVar2;
-        byte bVar3;
+    // 0x1002115c0
+    unsigned long RenderedMapSquare::UnpackAreaGeography(jagex3::Js5& js5, ErrorCapture& errorCapture) {
+        bool cVar2;
+        uint8_t bVar3;
         int iVar4;
         int iVar5;
         PackableArea* pPVar6;
-        char* pcVar7;
-        shared_ptr<MapZoneData>* psVar8;
-        MapZoneData* pMVar9;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
-        undefined7 uVar11;
-        ulong uVar10;
-        undefined8 local_40;
-        undefined8 local_38;
+        char* str2;
+        shared_ptr<MapZoneData>* psVar7;
+        MapZoneData* pMVar8;
+        uint64_t uVar11;
+        unsigned long uVar10;
+        ReturnValue local_40;
+        ReturnValue local_38;
 
-        (&field_96)->clear();
-        this_00 = field_8;
-        bVar1 = operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
-        if (bVar1) {
-            pPVar6 = (PackableArea*)shared_ptr<MapSquareData>::operator->((shared_ptr<MapSquareData>*)this_00);
-            pPVar6->UnpackAreaGeography(param_1, param_2);
-            cVar2 = param_2->IsRaised();
-            if (cVar2 != '\0') {
-                param_2->second();
-                pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                /* WARNING: Subroutine does not return */
+        field_96.clear();
+        uint8_t* puVar9 = &field_8;
+        if (*puVar9 != nullptr) {
+            pPVar6 = (PackableArea*)(*puVar9).operator->();
+            pPVar6->UnpackAreaGeography(js5, errorCapture);
+            cVar2 = errorCapture.IsRaised();
+            if (cVar2) {
+                errorCapture.second();
+                str2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
                                 "worldmap/RenderedMapSquare.cpp",
-                                485, pcVar7);
+                                485, str2);
             }
-            pPVar6 = (PackableArea*)shared_ptr<MapSquareData>::operator->((shared_ptr<MapSquareData>*)this_00);
+            pPVar6 = (PackableArea*)(*puVar9).operator->();
             cVar2 = pPVar6->HasGeography();
-            if (cVar2 == '\0') {
+            if (!cVar2) {
             LAB_100211845:
                 uVar10 = 0;
             } else {
-                pPVar6 = (PackableArea*)shared_ptr<MapSquareData>::operator*((shared_ptr<MapSquareData>*)this_00);
-                ExtractLocMapElements(this, 0, 0, 64, 64, pPVar6);
-                uVar10 = CONCAT71((int7)((ulong)this >> 8), 1);
+                pPVar6 = (PackableArea*)**puVar9;
+                ExtractLocMapElements(0, 0, 64, 64, *pPVar6);
+                uVar10 = (((uint64_t)((int64_t)((unsigned long)this >> 8)) << 8) | (uint8_t)1);
             }
         } else {
-            new (&local_40) jag::math::Vector2T<int>();
-            local_38.begin();
+            new (&local_40) jag::math::Vector2T();
+            puVar9 = &field_24;
+            local_38 = puVar9->begin();
             local_40 = local_38;
-            local_38.end();
-            bVar1 = eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_38, extraout_RDX);
-            uVar11 = (undefined7)((ulong)&field_24 >> 8);
-            uVar10 = CONCAT71(uVar11, 1);
-            if (bVar1) {
-                uVar10 = CONCAT71(uVar11, 1);
+            local_38 = puVar9->end();
+            cVar2 = local_40 != local_38;
+            uVar11 = (uint64_t)((unsigned long)puVar9 >> 8);
+            uVar10 = (((uint64_t)uVar11 << 8) | (uint8_t)1);
+            if (cVar2) {
+                uVar10 = (((uint64_t)uVar11 << 8) | (uint8_t)1);
                 do {
-                    psVar8 = (shared_ptr<MapZoneData>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                    pPVar6 = (PackableArea*)shared_ptr<MapZoneData>::operator->(psVar8);
-                    pPVar6->UnpackAreaGeography(param_1, param_2);
-                    cVar2 = param_2->IsRaised();
-                    if (cVar2 != '\0')
+                    psVar7 = (shared_ptr<MapZoneData>*)*local_40;
+                    pPVar6 = (PackableArea*)(*psVar7).operator->();
+                    pPVar6->UnpackAreaGeography(js5, errorCapture);
+                    cVar2 = errorCapture.IsRaised();
+                    if (cVar2)
                         goto LAB_100211845;
-                    psVar8 = (shared_ptr<MapZoneData>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                    pPVar6 = (PackableArea*)shared_ptr<MapZoneData>::operator->(psVar8);
+                    psVar7 = (shared_ptr<MapZoneData>*)*local_40;
+                    pPVar6 = (PackableArea*)(*psVar7).operator->();
                     bVar3 = pPVar6->HasGeography();
-                    uVar10 = CONCAT71((int7)(uVar10 >> 8), (byte)uVar10 & bVar3);
-                    eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::operator++(
-                        (ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>*)&local_38,
-                        (int)(ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                    local_38.end();
-                    bVar1 = eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_38, extraout_RDX_00);
-                } while (bVar1);
+                    uVar10 = (((uint64_t)((int64_t)(uVar10 >> 8)) << 8) | (uint8_t)((uint8_t)uVar10 & bVar3));
+                    local_38++;
+                    local_38 = puVar9->end();
+                    cVar2 = local_40 != local_38;
+                } while (cVar2);
             }
             if ((char)uVar10 != '\0') {
-                local_38.begin();
+                local_38 = puVar9->begin();
                 local_40 = local_38;
-                local_38.end();
-                bVar1 = eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_38, extraout_RDX_01);
-                if (bVar1) {
+                local_38 = puVar9->end();
+                cVar2 = local_40 != local_38;
+                if (cVar2) {
                     do {
-                        psVar8 = (shared_ptr<MapZoneData>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                        pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
-                        iVar4 = pMVar9->GetTargetZoneX();
-                        psVar8 = (shared_ptr<MapZoneData>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                        pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
-                        iVar5 = pMVar9->GetTargetZoneZ();
-                        psVar8 = (shared_ptr<MapZoneData>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                        pPVar6 = (PackableArea*)shared_ptr<MapZoneData>::operator*(psVar8);
-                        ExtractLocMapElements(this, iVar4 * 8, iVar5 * 8, 8, 8, pPVar6);
-                        eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::
-                        operator++(
-                            (ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>*)&local_38,
-                            (int)(ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                        local_38.end();
-                        bVar1 =
-                            eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_38, extraout_RDX_02);
-                    } while (bVar1);
+                        psVar7 = (shared_ptr<MapZoneData>*)*local_40;
+                        pMVar8 = (MapZoneData*)(*psVar7).operator->();
+                        iVar4 = pMVar8->GetTargetZoneX();
+                        psVar7 = (shared_ptr<MapZoneData>*)*local_40;
+                        pMVar8 = (MapZoneData*)(*psVar7).operator->();
+                        iVar5 = pMVar8->GetTargetZoneZ();
+                        psVar7 = (shared_ptr<MapZoneData>*)*local_40;
+                        pPVar6 = (PackableArea*)**psVar7;
+                        ExtractLocMapElements(iVar4 * 8, iVar5 * 8, 8, 8, *pPVar6);
+                        local_38++;
+                        local_38 = puVar9->end();
+                        cVar2 = local_40 != local_38;
+                    } while (cVar2);
                 }
             }
         }
         return uVar10 & 4294967295;
     }
 
-    // 0x100211970, 240 bytes, placed by class name
-    // RenderedMapSquare::RenderSquare(std::unique_ptr<OverlayShapes, std::default_delete<OverlayShapes> > const&, Array<graphics::Pix8, eastl::allocator>&, BlendedGround&)
-    /* RenderedMapSquare::RenderSquare(std::unique_ptr<OverlayShapes,
-   std::default_delete<OverlayShapes> > const&,
-   Array<graphics::Pix8, eastl::allocator>&,
-   BlendedGround&) */
-
-    void RenderedMapSquare::RenderSquare(unique_ptr* param_1, Array* param_2, BlendedGround* param_3) {
-        undefined1* this_00;
+    // 0x100211970
+    void RenderedMapSquare::RenderSquare(const std::unique_ptr<OverlayShapes>& overlayShapes,
+                                         Array<graphics::Pix8>& pix8s, BlendedGround& blendedGround) {
         PackableArea* pPVar1;
-        unique_ptr* puVar2;
-        int iVar3;
-        int iVar4;
+        unique_ptr<OverlayShapes, std::default_delete<OverlayShapes> _>* overlayShapes_00;
+        int iVar2;
 
-        this_00 = field_8;
-        iVar4 = 0;
+        uint8_t* this_00 = &field_8;
+        int iVar3 = 0;
         do {
-            iVar3 = 0;
+            iVar2 = 0;
             do {
-                pPVar1 = (PackableArea*)shared_ptr<MapSquareData>::operator*((shared_ptr<MapSquareData>*)this_00);
-                RenderGround(this, iVar4, iVar3, pPVar1, param_1, param_3);
-                pPVar1 = (PackableArea*)shared_ptr<MapSquareData>::operator*((shared_ptr<MapSquareData>*)this_00);
-                puVar2 = param_1;
-                RenderAdditionalOverlays(this, iVar4, iVar3, pPVar1, param_1);
-                iVar3 = iVar3 + 1;
-            } while (iVar3 != 64);
-            iVar4 = iVar4 + 1;
-        } while (iVar4 != 64);
-        iVar4 = 0;
+                pPVar1 = (PackableArea*)**this_00;
+                RenderGround(iVar3, iVar2, *pPVar1, overlayShapes, blendedGround);
+                pPVar1 = (PackableArea*)**this_00;
+                overlayShapes_00 = overlayShapes;
+                RenderAdditionalOverlays(iVar3, iVar2, *pPVar1, overlayShapes);
+                iVar2 = iVar2 + 1;
+            } while (iVar2 != 64);
+            iVar3 = iVar3 + 1;
+        } while (iVar3 != 64);
+        iVar3 = 0;
         do {
-            iVar3 = 0;
+            iVar2 = 0;
             do {
-                pPVar1 = (PackableArea*)shared_ptr<MapSquareData>::operator*((shared_ptr<MapSquareData>*)this_00);
-                RenderTile(this, iVar4, iVar3, pPVar1, puVar2, param_2);
-                iVar3 = iVar3 + 1;
-            } while (iVar3 != 64);
-            iVar4 = iVar4 + 1;
-        } while (iVar4 != 64);
+                pPVar1 = (PackableArea*)**this_00;
+                RenderTile(iVar3, iVar2, *pPVar1, *overlayShapes_00, pix8s);
+                iVar2 = iVar2 + 1;
+            } while (iVar2 != 64);
+            iVar3 = iVar3 + 1;
+        } while (iVar3 != 64);
     }
 
-    // 0x100211a70, 1152 bytes, placed by class name
-    // RenderedMapSquare::RenderZones(std::unique_ptr<OverlayShapes, std::default_delete<OverlayShapes> > const&, Array<graphics::Pix8, eastl::allocator>&, BlendedGround&)
-    /* RenderedMapSquare::RenderZones(std::unique_ptr<OverlayShapes,
-   std::default_delete<OverlayShapes> > const&,
-   Array<graphics::Pix8, eastl::allocator>&,
-   BlendedGround&) */
-
-    void RenderedMapSquare::RenderZones(unique_ptr* param_1, Array* param_2, BlendedGround* param_3) {
-        uint uVar1;
+    // 0x100211a70
+    void RenderedMapSquare::RenderZones(const std::unique_ptr<OverlayShapes>& overlayShapes,
+                                        Array<graphics::Pix8>& pix8s, BlendedGround& blendedGround) {
+        unsigned int uVar1;
+        bool bVar2;
         RenderedMapSquare* pRVar3;
-        bool bVar4;
+        list<console::Line>* this_00;
         int iVar5;
         int iVar6;
         int iVar7;
         shared_ptr<MapZoneData>* psVar8;
         MapZoneData* pMVar9;
-        undefined1* puVar10;
         PackableArea* pPVar11;
-        array<bool, 64ul>* this_00;
+        array<bool, 64ul>* this_01;
         char* pcVar12;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
-        hashtable_iterator_base* phVar13;
-        ulong uVar14;
-        ulong uVar15;
-        unique_ptr* in_R8;
-        ulong uVar16;
-        array<std::array<bool, 64ul>, 64ul> local_1078[4096];
+        unsigned long uVar13;
+        unsigned long uVar14;
+        unique_ptr<OverlayShapes, std::default_delete<OverlayShapes> _>* in_R8;
+        unsigned long arg1;
+        array<std::array<bool, 64ul>, 64ul> local_1078;
         array<bool, 64ul>* local_78;
-        ulong local_58;
-        undefined1* local_48;
-        undefined8 local_40;
-        undefined8 local_38;
+        unsigned long local_58;
+        ReturnValue local_38;
 
-        ___bzero(local_1078, 4096);
-        new (&local_38) jag::math::Vector2T<int>();
-        local_40.begin();
+        ___bzero(&local_1078, 4096);
+        new (&local_38) jag::math::Vector2T();
+        uint8_t* puVar10 = &field_24;
+        auto local_40 = puVar10->begin();
         local_38 = local_40;
-        local_48 = &field_24;
-        local_40.end();
-        bVar4 = eastl::operator!=((eastl*)&local_38, (hashtable_iterator_base*)&local_40, extraout_RDX);
-        if (bVar4) {
+        list<console::Line>* local_48 = (list<console::Line>*)puVar10;
+        local_40 = puVar10->end();
+        bool cVar4 = local_38 != local_40;
+        if (cVar4) {
             do {
-                psVar8 = (shared_ptr<MapZoneData>*)
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                pMVar9 = (MapZoneData*)(*psVar8).operator->();
                 iVar5 = pMVar9->GetTargetZoneX();
-                psVar8 = (shared_ptr<MapZoneData>*)
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                pMVar9 = (MapZoneData*)(*psVar8).operator->();
                 iVar6 = pMVar9->GetTargetZoneX();
                 if (iVar5 * 8 < iVar6 * 8 + 8) {
-                    uVar14 = (ulong)(iVar5 * 8);
+                    uVar13 = (unsigned long)(iVar5 * 8);
                     do {
-                        psVar8 = (shared_ptr<MapZoneData>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                        pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                        psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                        pMVar9 = (MapZoneData*)(*psVar8).operator->();
                         iVar5 = pMVar9->GetTargetZoneZ();
-                        psVar8 = (shared_ptr<MapZoneData>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                        pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                        psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                        pMVar9 = (MapZoneData*)(*psVar8).operator->();
                         iVar6 = pMVar9->GetTargetZoneZ();
-                        pRVar3 = (RenderedMapSquare*)this;
-                        uVar15 = uVar14;
+                        pRVar3 = this;
+                        uVar14 = uVar13;
                         if (iVar5 * 8 < iVar6 * 8 + 8) {
-                            local_78 = (array<bool, 64ul>*)std::array<std::array<bool, 64ul>, 64ul>::operator[](
-                                local_1078, uVar14);
-                            uVar16 = (long)(iVar5 * 8);
-                            local_58 = uVar14;
+                            local_78 = &local_1078[uVar13];
+                            arg1 = (long)(iVar5 * 8);
+                            local_58 = uVar13;
                             do {
-                                uVar14 = local_58;
-                                puVar10 = (undefined1*)std::array<bool, 64ul>::operator[](local_78, uVar16);
+                                uVar13 = local_58;
+                                puVar10 = (uint8_t*)(*local_78)[arg1];
                                 *puVar10 = 1;
-                                psVar8 = (shared_ptr<MapZoneData>*)
-                                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                                pPVar11 = (PackableArea*)shared_ptr<MapZoneData>::operator*(psVar8);
-                                in_R8 = param_1;
-                                RenderGround(pRVar3, (int)uVar14, (int)uVar16, pPVar11, param_1, param_3);
-                                psVar8 = (shared_ptr<MapZoneData>*)
-                                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                                pPVar11 = (PackableArea*)shared_ptr<MapZoneData>::operator*(psVar8);
-                                RenderAdditionalOverlays(pRVar3, (int)local_58, (int)uVar16, pPVar11, in_R8);
-                                psVar8 = (shared_ptr<MapZoneData>*)
-                                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                                pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                                psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                                pPVar11 = (PackableArea*)**psVar8;
+                                in_R8 = overlayShapes;
+                                RenderGround(pRVar3, (int)uVar13, (int)arg1, pPVar11, overlayShapes, blendedGround);
+                                psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                                pPVar11 = (PackableArea*)**psVar8;
+                                RenderAdditionalOverlays(pRVar3, (int)local_58, (int)arg1, pPVar11, in_R8);
+                                psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                                pMVar9 = (MapZoneData*)(*psVar8).operator->();
                                 iVar5 = pMVar9->GetTargetZoneZ();
-                                bVar4 = (long)uVar16 < (long)(iVar5 * 8 + 7);
-                                uVar15 = local_58;
-                                uVar16 = uVar16 + 1;
-                            } while (bVar4);
+                                bVar2 = (long)arg1 < (long)(iVar5 * 8 + 7);
+                                uVar14 = local_58;
+                                arg1 = arg1 + 1;
+                            } while (bVar2);
                         }
-                        uVar14 = uVar15 + 1;
-                        psVar8 = (shared_ptr<MapZoneData>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                        pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                        uVar13 = uVar14 + 1;
+                        psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                        pMVar9 = (MapZoneData*)(*psVar8).operator->();
                         iVar5 = pMVar9->GetTargetZoneX();
-                    } while ((long)uVar15 < (long)(iVar5 * 8 + 7));
+                    } while ((long)uVar14 < (long)(iVar5 * 8 + 7));
                 }
-                eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::operator++(
-                    (ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>*)&local_40,
-                    (int)(ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                local_40.end();
-                bVar4 = eastl::operator!=((eastl*)&local_38, (hashtable_iterator_base*)&local_40, extraout_RDX_00);
-            } while (bVar4);
+                local_40++;
+                local_40 = local_48->end();
+                cVar4 = local_38 != local_40;
+            } while (cVar4);
         }
-        uVar14 = 0;
+        uVar13 = 0;
         do {
-            this_00 = (array<bool, 64ul>*)std::array<std::array<bool, 64ul>, 64ul>::operator[](local_1078, uVar14);
+            this_01 = &local_1078[uVar13];
             iVar5 = 63;
-            uVar15 = 0;
+            uVar14 = 0;
             do {
-                pcVar12 = (char*)std::array<bool, 64ul>::operator[](this_00, uVar15);
+                pcVar12 = (char*)(*this_01)[uVar14];
                 if (*pcVar12 == '\0') {
-                    uVar1 = ((RenderedMapSquare*)this)->field_60;
-                    in_R8 = (unique_ptr*)(ulong)uVar1;
-                    (**(code**)(*m_toolkit2D + 32))(m_toolkit2D, (int)uVar14* uVar1, uVar1* iVar5, uVar1, in_R8,
-                                                    ((RenderedMapSquare*)this)->field_56);
+                    uVar1 = field_60;
+                    in_R8 = (unique_ptr<OverlayShapes, std::default_delete<OverlayShapes> _>*)(unsigned long)uVar1;
+                    (**(void (**)(...))(*m_toolkit2D + 32))(m_toolkit2D, (int)uVar13* uVar1, uVar1* iVar5, uVar1, in_R8,
+                                                            field_56);
                 }
-                uVar15 = uVar15 + 1;
-                iVar5 = iVar5 + -1;
-            } while (uVar15 != 64);
-            uVar14 = uVar14 + 1;
-        } while (uVar14 != 64);
-        local_40.begin();
+                this_00 = local_48;
+                uVar14 = uVar14 + 1;
+                iVar5 = iVar5 - 1;
+            } while (uVar14 != 64);
+            uVar13 = uVar13 + 1;
+        } while (uVar13 != 64);
+        local_40 = local_48->begin();
         local_38 = local_40;
-        local_40.end();
-        phVar13 = extraout_RDX_01;
-        while (bVar4 = eastl::operator!=((eastl*)&local_38, (hashtable_iterator_base*)&local_40, phVar13), bVar4) {
-            psVar8 =
-                (shared_ptr<MapZoneData>*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-            pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+        local_40 = this_00->end();
+        while (cVar4 = local_38 != local_40, cVar4) {
+            psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+            pMVar9 = (MapZoneData*)(*psVar8).operator->();
             iVar6 = pMVar9->GetTargetZoneX();
-            psVar8 =
-                (shared_ptr<MapZoneData>*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-            pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+            psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+            pMVar9 = (MapZoneData*)(*psVar8).operator->();
             iVar7 = pMVar9->GetTargetZoneX();
             iVar5 = iVar6 * 8;
             if (iVar6 * 8 < iVar7 * 8 + 8) {
                 do {
-                    psVar8 = (shared_ptr<MapZoneData>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                    pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                    psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                    pMVar9 = (MapZoneData*)(*psVar8).operator->();
                     iVar6 = pMVar9->GetTargetZoneZ();
                     iVar6 = iVar6 * 8;
-                    psVar8 = (shared_ptr<MapZoneData>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                    pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                    psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                    pMVar9 = (MapZoneData*)(*psVar8).operator->();
                     iVar7 = pMVar9->GetTargetZoneZ();
-                    pRVar3 = (RenderedMapSquare*)this;
+                    pRVar3 = this;
                     if (iVar6 < iVar7 * 8 + 8) {
                         do {
-                            psVar8 = (shared_ptr<MapZoneData>*)
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                            pPVar11 = (PackableArea*)shared_ptr<MapZoneData>::operator*(psVar8);
-                            RenderTile(pRVar3, iVar5, iVar6, pPVar11, in_R8, param_2);
-                            psVar8 = (shared_ptr<MapZoneData>*)
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                            pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                            psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                            pPVar11 = (PackableArea*)**psVar8;
+                            RenderTile(pRVar3, iVar5, iVar6, pPVar11, in_R8, pix8s);
+                            psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                            pMVar9 = (MapZoneData*)(*psVar8).operator->();
                             iVar7 = pMVar9->GetTargetZoneZ();
-                            bVar4 = iVar6 < iVar7 * 8 + 7;
+                            bVar2 = iVar6 < iVar7 * 8 + 7;
                             iVar6 = iVar6 + 1;
-                        } while (bVar4);
+                        } while (bVar2);
                     }
-                    psVar8 = (shared_ptr<MapZoneData>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_38);
-                    pMVar9 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar8);
+                    psVar8 = (shared_ptr<MapZoneData>*)*local_38;
+                    pMVar9 = (MapZoneData*)(*psVar8).operator->();
                     iVar6 = pMVar9->GetTargetZoneX();
-                    bVar4 = iVar5 < iVar6 * 8 + 7;
+                    bVar2 = iVar5 < iVar6 * 8 + 7;
                     iVar5 = iVar5 + 1;
-                } while (bVar4);
+                } while (bVar2);
             }
-            eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::operator++(
-                (ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>*)&local_40,
-                (int)&local_38);
-            local_40.end();
-            phVar13 = extraout_RDX_02;
+            local_40++;
+            local_40 = local_48->end();
         }
     }
 
-    // 0x100211ef0, 112 bytes, placed by class name
-    // RenderedMapSquare::CacheRenderedMapSquareSprite(shared_ptr<graphics::Pix32> const&, int, int, int)
-    void RenderedMapSquare::CacheRenderedMapSquareSprite(shared_ptr* param_1, int param_2, int param_3, int param_4) {
-        int iVar1;
-        Layout* this;
-        ulonglong uVar2;
-
-        this = (Layout*)shared_ptr<graphics::Pix32>::operator->((shared_ptr<graphics::Pix32>*)param_1);
-        iVar1 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                        eastl::allocator>>::Layout::HeapBeginPtr(this);
-        uVar2 = GetMapSquarePixelStrideHash(param_2, param_3, param_4);
-        m_renderedMapSquareSpriteCache.Put(param_1, iVar1 * 4, uVar2);
+    // 0x100211ef0
+    void RenderedMapSquare::CacheRenderedMapSquareSprite(const shared_ptr<graphics::Pix32>& pix32, int arg2, int arg3,
+                                                         int arg4) {
+        int iVar1 = ((Layout*)pix32.operator->())->HeapBeginPtr();
+        unsigned long long arg3_00 = GetMapSquarePixelStrideHash(arg2, arg3, arg4);
+        m_renderedMapSquareSpriteCache.Put(pix32, iVar1 * 4, arg3_00);
     }
 
-    // 0x100211f60, 224 bytes, placed by class name
-    // RenderedMapSquare::ResetAreaGeography()
+    // 0x100211f60
     void RenderedMapSquare::ResetAreaGeography() {
-        bool bVar1;
-        PackableArea* pPVar2;
+        bool cVar2;
+        PackableArea* pPVar3;
         shared_ptr<MapZoneData>* this_00;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        undefined8 local_30;
-        undefined8 local_28;
+        uint8_t* this_01;
+        ReturnValue local_30;
+        ReturnValue local_28;
 
-        bVar1 = operator!=((shared_ptr*)field_8, (_func_decltype_nullptr*)0);
-        if (bVar1) {
-            pPVar2 = (PackableArea*)shared_ptr<MapSquareData>::operator->((shared_ptr<MapSquareData>*)field_8);
-            pPVar2->ResetAreaGeography();
+        if (field_8 != nullptr) {
+            pPVar3 = (PackableArea*)field_8.operator->();
+            pPVar3->ResetAreaGeography();
         } else {
-            new (&local_30) jag::math::Vector2T<int>();
-            local_28.begin();
+            new (&local_30) jag::math::Vector2T();
+            this_01 = &field_24;
+            local_28 = this_01->begin();
             local_30 = local_28;
-            local_28.end();
-            bVar1 = eastl::operator!=((eastl*)&local_30, (hashtable_iterator_base*)&local_28, extraout_RDX);
-            if (bVar1) {
+            local_28 = this_01->end();
+            cVar2 = local_30 != local_28;
+            if (cVar2) {
                 do {
-                    this_00 = (shared_ptr<MapZoneData>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_30);
-                    pPVar2 = (PackableArea*)shared_ptr<MapZoneData>::operator->(this_00);
-                    pPVar2->ResetAreaGeography();
-                    eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::operator++(
-                        (ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>*)&local_28,
-                        (int)(ListIterator<console::Line, console::Line*, console::Line&>*)&local_30);
-                    local_28.end();
-                    bVar1 = eastl::operator!=((eastl*)&local_30, (hashtable_iterator_base*)&local_28, extraout_RDX_00);
-                } while (bVar1);
+                    this_00 = (shared_ptr<MapZoneData>*)*local_30;
+                    pPVar3 = (PackableArea*)(*this_00).operator->();
+                    pPVar3->ResetAreaGeography();
+                    local_28++;
+                    local_28 = this_01->end();
+                    cVar2 = local_30 != local_28;
+                } while (cVar2);
             }
         }
     }
 
-    // 0x100212040, 96 bytes, placed by class name
-    // RenderedMapSquare::RenderMapElements(int, int, int, eastl::hash_set<int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>&, graphics::Pix2D&)
-    void RenderedMapSquare::RenderMapElements(int param_1, int param_2, int param_3, hash_set* param_4,
-                                              Pix2D* param_5) {
-        RenderLocMapElements(this, param_1, param_2, param_4, param_3, param_5);
-        RenderStaticMapElements(this, param_1, param_2, param_4, param_3, param_5);
+    // 0x100212040
+    void RenderedMapSquare::RenderMapElements(int arg1, int arg2, int arg3, eastl::hash_set<int>& hash_set,
+                                              graphics::Pix2D& pix2D) {
+        RenderLocMapElements(arg1, arg2, hash_set, arg3, pix2D);
+        RenderStaticMapElements(arg1, arg2, hash_set, arg3, pix2D);
     }
 
-    // 0x1002120a0, 528 bytes, placed by class name
-    // RenderedMapSquare::RenderLocMapElements(int, int, eastl::hash_set<int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false> const&, int, graphics::Pix2D&)
-    void RenderedMapSquare::RenderLocMapElements(int param_1, int param_2, hash_set* param_3, int param_4,
-                                                 Pix2D* param_5) {
-        bool bVar1;
+    // 0x1002120a0
+    void RenderedMapSquare::RenderLocMapElements(int arg1, int arg2, const eastl::hash_set<int>& hash_set, int arg4,
+                                                 graphics::Pix2D& pix2D) {
+        int iVar2;
         int iVar3;
-        int iVar4;
-        int* piVar5;
-        long lVar6;
-        MapElement* this_01;
-        MapElementType* this_02;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        int iVar7;
-        undefined1 auVar8[16];
-        undefined1 local_a8[16];
-        hashtable_iterator_base local_98[16];
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_88[24];
-        undefined1* local_70;
-        hashtable_iterator_base local_50[16];
-        int local_40;
+        int* piVar4;
+        long lVar5;
+        MapElement* this_02;
+        int arg2_00;
+        uint8_t auVar6[16];
+        uint8_t local_a8[16];
+        obj_iterator local_98;
+        uint8_t local_50[16];
         float local_3c;
         float local_38;
-        float local_34;
 
-        local_34 = (float)param_1;
-        eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-            local_88, (hash_node*)0, (hash_node**)0);
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        local_88[0] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[0];
-        local_88[1] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[1];
-        local_88[2] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[2];
-        local_88[3] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[3];
-        local_88[4] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[4];
-        local_88[5] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[5];
-        local_88[6] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[6];
-        local_88[7] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[7];
-        local_88[8] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[8];
-        local_88[9] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[9];
-        local_88[10] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[10];
-        local_88[11] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[11];
-        local_88[12] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[12];
-        local_88[13] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[13];
-        local_88[14] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[14];
-        local_88[15] = (hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>)local_50[15];
-        local_70 = &field_96;
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar1 = eastl::operator!=((eastl*)local_88, local_50, extraout_RDX);
-        if (bVar1) {
-            local_38 = (float)param_4 * 0.015625;
-            local_3c = (float)param_4 * -0.0078125;
+        float local_34 = (float)arg1;
+        eastl::hashtable_iterator local_88(nullptr, nullptr);
+        uint8_t* this_00 = &field_96;
+        *local_50 = this_00->begin();
+        local_88[0] = (ReturnValue)local_50._0_8_;
+        local_88[1] = (ReturnValue)local_50._8_8_;
+        hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
+                  eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
+                  eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy,
+                  false, true, true>* local_70 =
+            (hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
+                       eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
+                       eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
+                       eastl::prime_rehash_policy, false, true, true>*)this_00;
+        *local_50 = this_00->end();
+        bool cVar1 = local_88 != *local_50;
+        if (cVar1) {
+            local_38 = (float)arg4 * 0.015625f;
+            local_3c = (float)arg4 * -0.0078125f;
             local_34 = (float)(int)local_34 + local_3c;
-            local_3c = (float)(param_2 + param_4) + local_3c;
+            local_3c = (float)(arg2 + arg4) + local_3c;
             do {
-                piVar5 = (int*)local_88->HeapBeginPtr();
-                new (local_a8) rs2lib::CoordGrid(*piVar5);
-                iVar3 = local_a8->GetZ();
-                iVar4 = local_a8->GetPos();
-                lVar6 = local_88->HeapBeginPtr();
-                this_01 = (MapElement*)shared_ptr<MapElement>::operator*((shared_ptr<MapElement>*)(lVar6 + 8));
-                if (this_01->IsValid() != '\0') {
-                    iVar7 = (int)((float)iVar3 * local_38 + local_34);
-                    iVar4 = (int)(local_3c - (float)iVar4 * local_38);
-                    this_01->field_32 = iVar7;
-                    this_01->field_36 = iVar4;
-                    iVar3 = (**(code**)(this_01->field_0 + 8))(this_01);
-                    this_02 = (MapElementType*)configdecoder::MapElementType::List(iVar3);
-                    local_40 = this_02->GetID();
-                    auVar8 = param_3->find(&local_40);
-                    local_50 = (hashtable_iterator_base[16])auVar8;
-                    auVar8 = param_3->end();
-                    local_98 = (hashtable_iterator_base[16])auVar8;
-                    bVar1 = eastl::operator==((eastl*)local_50, local_98, auVar8._8_8_);
-                    if (bVar1) {
-                        RenderMapElement((RenderedMapSquare*)this, this_01, iVar7, iVar4, local_38, param_5);
+                piVar4 = (int*)local_88.HeapBeginPtr();
+                new (local_a8) rs2lib::CoordGrid(*piVar4);
+                iVar2 = local_a8->GetZ();
+                iVar3 = local_a8->GetPos();
+                lVar5 = local_88.HeapBeginPtr();
+                this_02 = (MapElement*)*(*((lVar5 + 8)));
+                cVar1 = this_02->IsValid();
+                if (cVar1) {
+                    arg2_00 = (int)((float)iVar2 * local_38 + local_34);
+                    iVar3 = (int)(local_3c - (float)iVar3 * local_38);
+                    this_02->field_32 = arg2_00;
+                    this_02->field_36 = iVar3;
+                    iVar2 = (**(void (**)(...))(this_02->field_0 + 8))(this_02);
+                    auVar6 = hash_set.find(configdecoder::MapElementType::List(iVar2)->GetID());
+                    local_50 = auVar6;
+                    auVar6 = hash_set.end();
+                    &local_98 = (obj_iterator[16])auVar6;
+                    cVar1 = *local_50 == local_98;
+                    if (cVar1) {
+                        RenderMapElement(*this_02, arg2_00, iVar3, local_38, pix2D);
                     }
                 }
-                eastl::hashtable_iterator<eastl::pair<int const, shared_ptr<MapElement>>, false, false>::operator++(
-                    (hashtable_iterator<eastl::pair<int const, shared_ptr<MapElement>>, false, false>*)local_50,
-                    (int)(eastl*)local_88);
-                eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                                 eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-                bVar1 = eastl::operator!=((eastl*)local_88, local_50, extraout_RDX_00);
-            } while (bVar1);
+                (*local_50)++;
+                *local_50 = local_70->end();
+                cVar1 = local_88 != *local_50;
+            } while (cVar1);
         }
     }
 
-    // 0x1002122b0, 592 bytes, placed by class name
-    // RenderedMapSquare::RenderStaticMapElements(int, int, eastl::hash_set<int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false> const&, int, graphics::Pix2D&)
-    void RenderedMapSquare::RenderStaticMapElements(int param_1, int param_2, hash_set* param_3, int param_4,
-                                                    Pix2D* param_5) {
-        bool bVar1;
+    // 0x1002122b0
+    void RenderedMapSquare::RenderStaticMapElements(int arg1, int arg2, const eastl::hash_set<int>& hash_set, int arg4,
+                                                    graphics::Pix2D& pix2D) {
+        int iVar2;
         int iVar3;
-        int iVar4;
-        shared_ptr<MapElement>* psVar5;
-        MapElement* pMVar6;
-        long lVar7;
-        long* plVar8;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        float fVar9;
-        undefined1 auVar10[16];
-        undefined1 local_80[16];
-        undefined8 local_58;
-        undefined1 local_50[16];
-        int local_40;
+        shared_ptr<MapElement>* psVar4;
+        MapElement* pMVar5;
+        long lVar6;
+        long* plVar7;
+        float fVar8;
+        uint8_t auVar9[16];
+        uint8_t local_80[16];
+        ReturnValue local_58;
+        uint8_t local_50[16];
         float local_38;
-        float local_34;
 
-        local_34 = (float)param_1;
-        new (&local_58) jag::math::Vector2T<int>();
-        local_50->begin();
-        local_58 = local_50._0_8_;
-        local_50->end();
-        bVar1 = eastl::operator!=((eastl*)&local_58, (hashtable_iterator_base*)local_50, extraout_RDX);
-        if (bVar1) {
-            local_38 = (float)param_4 * 0.015625;
+        float local_34 = (float)arg1;
+        new (&local_58) jag::math::Vector2T();
+        uint8_t* this_00 = &field_64;
+        *local_50 = this_00->begin();
+        local_58 = (ReturnValue)local_50._0_8_;
+        *local_50 = this_00->end();
+        bool cVar1 = local_58 != *local_50;
+        if (cVar1) {
+            local_38 = (float)arg4 * 0.015625f;
             local_34 = (float)(int)local_34;
             do {
-                psVar5 = (shared_ptr<MapElement>*)
-                    eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                        (ListIterator<console::Line, console::Line*, console::Line&>*)&local_58);
-                pMVar6 = (MapElement*)shared_ptr<MapElement>::operator->(psVar5);
-                if (pMVar6->IsValid() != '\0') {
-                    psVar5 = (shared_ptr<MapElement>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_58);
-                    lVar7 = shared_ptr<MapElement>::operator->(psVar5);
-                    iVar3 = ((lVar7 + 8))->GetLocalX();
-                    psVar5 = (shared_ptr<MapElement>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_58);
-                    lVar7 = shared_ptr<MapElement>::operator->(psVar5);
-                    iVar4 = ((lVar7 + 8))->GetLocalZ();
-                    fVar9 = (float)iVar3 * local_38 + local_34;
-                    psVar5 = (shared_ptr<MapElement>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_58);
-                    lVar7 = shared_ptr<MapElement>::operator->(psVar5);
-                    *(int*)(lVar7 + 32) = (int)fVar9;
-                    fVar9 = (float)(63 - iVar4) * local_38 + (float)param_2;
-                    psVar5 = (shared_ptr<MapElement>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_58);
-                    lVar7 = shared_ptr<MapElement>::operator->(psVar5);
-                    *(int*)(lVar7 + 36) = (int)fVar9;
-                    psVar5 = (shared_ptr<MapElement>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_58);
-                    plVar8 = (long*)shared_ptr<MapElement>::operator->(psVar5);
-                    local_40 = (**(code**)(*plVar8 + 8))(plVar8);
-                    auVar10 = param_3->find(&local_40);
-                    local_50 = auVar10;
-                    auVar10 = param_3->end();
-                    local_80 = auVar10;
-                    bVar1 = eastl::operator!=((eastl*)local_50, (hashtable_iterator_base*)local_80, auVar10._8_8_);
-                    if (!bVar1) {
-                        psVar5 = (shared_ptr<MapElement>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_58);
-                        pMVar6 = (MapElement*)shared_ptr<MapElement>::operator*(psVar5);
-                        psVar5 = (shared_ptr<MapElement>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_58);
-                        lVar7 = shared_ptr<MapElement>::operator->(psVar5);
-                        iVar3 = *(int*)(lVar7 + 32);
-                        psVar5 = (shared_ptr<MapElement>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_58);
-                        lVar7 = shared_ptr<MapElement>::operator->(psVar5);
-                        RenderMapElement((RenderedMapSquare*)this, pMVar6, iVar3, *(int*)(lVar7 + 36), local_38,
-                                         param_5);
+                psVar4 = (shared_ptr<MapElement>*)*local_58;
+                pMVar5 = (MapElement*)(*psVar4).operator->();
+                cVar1 = pMVar5->IsValid();
+                if (cVar1) {
+                    psVar4 = (shared_ptr<MapElement>*)*local_58;
+                    lVar6 = (*psVar4).operator->();
+                    iVar2 = ((lVar6 + 8))->GetLocalX();
+                    psVar4 = (shared_ptr<MapElement>*)*local_58;
+                    lVar6 = (*psVar4).operator->();
+                    iVar3 = ((lVar6 + 8))->GetLocalZ();
+                    fVar8 = (float)iVar2 * local_38 + local_34;
+                    psVar4 = (shared_ptr<MapElement>*)*local_58;
+                    lVar6 = (*psVar4).operator->();
+                    *(int*)(lVar6 + 32) = (int)fVar8;
+                    fVar8 = (float)(63 - iVar3) * local_38 + (float)arg2;
+                    psVar4 = (shared_ptr<MapElement>*)*local_58;
+                    lVar6 = (*psVar4).operator->();
+                    *(int*)(lVar6 + 36) = (int)fVar8;
+                    psVar4 = (shared_ptr<MapElement>*)*local_58;
+                    plVar7 = (long*)(*psVar4).operator->();
+                    auVar9 = hash_set.find((**(void (**)(...))(*plVar7 + 8))(plVar7));
+                    local_50 = auVar9;
+                    auVar9 = hash_set.end();
+                    local_80 = auVar9;
+                    cVar1 = *local_50 != *local_80;
+                    if (!cVar1) {
+                        psVar4 = (shared_ptr<MapElement>*)*local_58;
+                        pMVar5 = (MapElement*)**psVar4;
+                        psVar4 = (shared_ptr<MapElement>*)*local_58;
+                        lVar6 = (*psVar4).operator->();
+                        iVar2 = *(int*)(lVar6 + 32);
+                        psVar4 = (shared_ptr<MapElement>*)*local_58;
+                        lVar6 = (*psVar4).operator->();
+                        RenderMapElement(*pMVar5, iVar2, *(int*)(lVar6 + 36), local_38, pix2D);
                     }
                 }
-                eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::operator++(
-                    (ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>*)local_50,
-                    (int)(eastl*)&local_58);
-                local_50->end();
-                bVar1 = eastl::operator!=((eastl*)&local_58, (hashtable_iterator_base*)local_50, extraout_RDX_00);
-            } while (bVar1);
+                (*local_50)++;
+                *local_50 = this_00->end();
+                cVar1 = local_58 != *local_50;
+            } while (cVar1);
         }
     }
 
-    // 0x100212500, 400 bytes, placed by class name
-    // RenderedMapSquare::RenderMapElementHighlights(eastl::hash_set<int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false> const&, int, int, graphics::Pix2D&)
-    void RenderedMapSquare::RenderMapElementHighlights(hash_set* param_1, int param_2, int param_3, Pix2D* param_4) {
-        int iVar1;
-        bool bVar2;
-        long lVar4;
-        MapElement* this_01;
-        long* plVar5;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        RenderedMapSquare* this_02;
-        undefined1 auVar6[16];
-        eastl local_a0[16];
-        hashtable_iterator_base local_90[16];
-        undefined1 local_80[16];
-        undefined1 local_70[16];
+    // 0x100212500
+    void RenderedMapSquare::RenderMapElementHighlights(const eastl::hash_set<int>& hash_set, int arg2, int arg3,
+                                                       graphics::Pix2D& pix2D) {
+        int arg3_00;
+        long lVar2;
+        long* plVar3;
+        MapElementType* mapElementType;
+        uint8_t auVar4[16];
+        uint8_t local_80[16];
+        uint8_t local_70[16];
         MapElementType* local_60;
         int local_3c;
 
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar2 = eastl::operator!=(local_a0, local_90, extraout_RDX);
-        if (bVar2) {
+        auto local_a0 = field_96.begin();
+        auto local_90 = field_96.end();
+        bool cVar1 = local_a0 != local_90;
+        if (cVar1) {
             do {
-                lVar4 = local_a0->HeapBeginPtr();
-                this_02 = (RenderedMapSquare*)(lVar4 + 8);
-                this_01 = (MapElement*)shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)this_02);
-                if (this_01->IsValid() != '\0') {
-                    plVar5 = (long*)shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)this_02);
-                    local_3c = (**(code**)(*plVar5 + 8))(plVar5);
-                    auVar6 = param_1->find(&local_3c);
-                    local_80 = auVar6;
-                    auVar6 = param_1->end();
-                    local_70 = auVar6;
-                    bVar2 = eastl::operator!=((eastl*)local_80, (hashtable_iterator_base*)local_70, auVar6._8_8_);
-                    if (bVar2) {
-                        local_60 = (MapElementType*)configdecoder::MapElementType::List(local_3c);
-                        lVar4 = shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)this_02);
-                        iVar1 = *(int*)(lVar4 + 32);
-                        lVar4 = shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)this_02);
-                        RenderHighlight(this_02, local_60, iVar1, *(int*)(lVar4 + 36), param_2, param_3, param_4);
+                lVar2 = local_a0.HeapBeginPtr();
+                mapElementType = (MapElementType*)(lVar2 + 8);
+                cVar1 = ((MapElement*)(*mapElementType).operator->())->IsValid();
+                if (cVar1) {
+                    plVar3 = (long*)(*mapElementType).operator->();
+                    local_3c = (**(void (**)(...))(*plVar3 + 8))(plVar3);
+                    auVar4 = hash_set.find(local_3c);
+                    local_80 = auVar4;
+                    auVar4 = hash_set.end();
+                    local_70 = auVar4;
+                    cVar1 = *local_80 != *local_70;
+                    if (cVar1) {
+                        local_60 = configdecoder::MapElementType::List(local_3c);
+                        lVar2 = (*mapElementType).operator->();
+                        arg3_00 = *(int*)(lVar2 + 32);
+                        lVar2 = (*mapElementType).operator->();
+                        RenderHighlight(mapElementType, (int)local_60, arg3_00, *(int*)(lVar2 + 36), arg2,
+                                        (Pix2D*)(unsigned long)(unsigned int)arg3);
                     }
                 }
-                eastl::hashtable_iterator<
-                    eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>>, true, false>::
-                operator++((hashtable_iterator<
-                            eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>>, true,
-                            false>*)local_a0);
-                bVar2 = eastl::operator!=(local_a0, local_90, extraout_RDX_00);
-            } while (bVar2);
+                ++local_a0;
+                cVar1 = local_a0 != local_90;
+            } while (cVar1);
         }
-        RenderStaticMapElementHighlights((RenderedMapSquare*)this, param_1, param_2, param_3, param_4);
+        RenderStaticMapElementHighlights(hash_set, arg2, (unsigned int)arg3, pix2D);
     }
 
-    // 0x100212690, 288 bytes, placed by class name
-    // RenderedMapSquare::RenderHighlight(configdecoder::MapElementType const&, int, int, int, int, graphics::Pix2D&)
-    void RenderedMapSquare::RenderHighlight(MapElementType* param_1, int param_2, int param_3, int param_4, int param_5,
-                                            Pix2D* param_6) {
+    // 0x100212690
+    void RenderedMapSquare::RenderHighlight(const configdecoder::MapElementType& mapElementType, int arg2, int arg3,
+                                            int arg4, int arg5, graphics::Pix2D& pix2D) {
         int iVar1;
-        undefined8 uVar3;
+        uint64_t uVar3;
         long lVar4;
-        shared_ptr<graphics::Pix32> local_48[20];
+        uint32_t in_register_00000034;
+        long* in_stack_00000008;
+        ReturnValue local_48;
 
-        local_48->GetSprite(SUB81(param_1, 0));
-        if (!operator==((shared_ptr*)local_48, (_func_decltype_nullptr*)0)) {
-            uVar3 = shared_ptr<graphics::Pix32>::operator*(local_48);
-            lVar4 = shared_ptr<graphics::Pix32>::operator->(local_48);
+        local_48.GetSprite((MapElementType*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg2), false);
+        if (!local_48 == nullptr) {
+            uVar3 = *local_48;
+            lVar4 = local_48.operator->();
             iVar1 = *(int*)(lVar4 + 24);
-            lVar4 = shared_ptr<graphics::Pix32>::operator->(local_48);
-            (**(code**)(param_6->field_0 + 176))(param_6, uVar3, param_2 - iVar1 / 2,
-                                                 param_3 - *(int*)(lVar4 + 28) / 2);
-            if (param_4 % param_5 < param_5 / 2) {
-                (**(code**)(param_6->field_0 + 112))(param_6, param_2, param_3, 15, 16776960, 128);
-                (**(code**)(param_6->field_0 + 104))(param_6, param_2, param_3, 7, 16777215);
+            lVar4 = local_48.operator->();
+            (**(void (**)(...))(*in_stack_00000008 + 176))(in_stack_00000008, uVar3, arg3 - iVar1 / 2,
+                                                           arg4 - *(int*)(lVar4 + 28) / 2);
+            if (arg5 % (int)pix2D < (int)(((unsigned int)((unsigned long)pix2D >> 31) & 1) + (int)pix2D) >> 1) {
+                (**(void (**)(...))(*in_stack_00000008 + 112))(in_stack_00000008, arg3, arg4, 15, 16776960, 128);
+                (**(void (**)(...))(*in_stack_00000008 + 104))(in_stack_00000008, arg3, arg4, 7, 16777215);
             }
         }
-        local_48->~shared_ptr();
     }
 
-    // 0x1002127b0, 368 bytes, placed by class name
-    // RenderedMapSquare::RenderStaticMapElementHighlights(eastl::hash_set<int, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false> const&, int, int, graphics::Pix2D&)
-    void RenderedMapSquare::RenderStaticMapElementHighlights(hash_set* param_1, int param_2, int param_3,
-                                                             Pix2D* param_4) {
-        bool bVar1;
-        int iVar3;
-        shared_ptr* psVar4;
-        MapElement* this_00;
-        long* plVar5;
+    // 0x1002127b0
+    void RenderedMapSquare::RenderStaticMapElementHighlights(const eastl::hash_set<int>& hash_set, int arg2, int arg3,
+                                                             graphics::Pix2D& pix2D) {
+        int iVar2;
+        shared_ptr<dash3d::GroundDecor>* groundDecor;
+        long* plVar3;
         MapElementType* this_01;
-        long lVar6;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        RenderedMapSquare* this_02;
-        undefined1 auVar7[16];
-        undefined1 local_88[16];
-        eastl local_78[16];
-        hashtable_iterator_base local_68[16];
-        list<console::Line, eastl::allocator> local_58[8];
-        list<console::Line, eastl::allocator> local_50[8];
-        int local_3c;
+        long lVar4;
+        MapElementType* mapElementType;
+        uint8_t auVar5[16];
+        uint8_t local_88[16];
+        eastl local_78;
+        obj_iterator local_68;
 
-        eastl::list<console::Line, eastl::allocator>::begin(local_58);
-        eastl::list<console::Line, eastl::allocator>::end(local_50);
-        bVar1 = eastl::operator!=((eastl*)local_58, (hashtable_iterator_base*)local_50, extraout_RDX);
-        if (bVar1) {
+        Pix2D* local_48 = pix2D;
+        auto local_58 = field_64.begin();
+        auto local_50 = field_64.end();
+        bool cVar1 = local_58 != local_50;
+        if (cVar1) {
             do {
-                psVar4 = (shared_ptr*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)local_58);
-                new (local_88) shared_ptr<dash3d::Decor>(psVar4);
-                this_00 = (MapElement*)shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)local_88);
-                if (this_00->IsValid() != '\0') {
-                    plVar5 = (long*)shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)local_88);
-                    iVar3 = (**(code**)(*plVar5 + 8))(plVar5);
-                    this_01 = (MapElementType*)configdecoder::MapElementType::List(iVar3);
-                    local_3c = this_01->GetID();
-                    auVar7 = param_1->find(&local_3c);
-                    local_78 = (eastl[16])auVar7;
-                    auVar7 = param_1->end();
-                    local_68 = (hashtable_iterator_base[16])auVar7;
-                    bVar1 = eastl::operator!=(local_78, local_68, auVar7._8_8_);
-                    if (bVar1) {
-                        lVar6 = shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)local_88);
-                        iVar3 = *(int*)(lVar6 + 32);
-                        this_02 = (RenderedMapSquare*)local_88;
-                        lVar6 = shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)local_88);
-                        RenderHighlight(this_02, this_01, iVar3, *(int*)(lVar6 + 36), param_2, param_3, param_4);
+                groundDecor = (shared_ptr<dash3d::GroundDecor>*)*local_58;
+                new (local_88) shared_ptr(groundDecor);
+                cVar1 = ((MapElement*)(*local_88).operator->())->IsValid();
+                if (cVar1) {
+                    plVar3 = (long*)(*local_88).operator->();
+                    iVar2 = (**(void (**)(...))(*plVar3 + 8))(plVar3);
+                    this_01 = configdecoder::MapElementType::List(iVar2);
+                    auVar5 = hash_set.find(this_01->GetID());
+                    &local_78 = (eastl[16])auVar5;
+                    auVar5 = hash_set.end();
+                    &local_68 = (obj_iterator[16])auVar5;
+                    cVar1 = local_78 != local_68;
+                    if (cVar1) {
+                        lVar4 = (*local_88).operator->();
+                        iVar2 = *(int*)(lVar4 + 32);
+                        mapElementType = (MapElementType*)local_88;
+                        lVar4 = (*local_88).operator->();
+                        RenderHighlight(mapElementType, (int)this_01, iVar2, *(int*)(lVar4 + 36), arg2,
+                                        (Pix2D*)(unsigned long)(unsigned int)arg3);
                     }
                 }
-                local_88->~shared_ptr();
-                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator++(
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)local_58);
-                bVar1 = eastl::operator!=((eastl*)local_58, (hashtable_iterator_base*)local_50, extraout_RDX_00);
-            } while (bVar1);
+                ++local_58;
+                cVar1 = local_58 != local_50;
+            } while (cVar1);
         }
     }
 
-    // 0x100212930, 560 bytes, placed by class name
-    // RenderedMapSquare::GetMapElementsAtScreenCoord(int, int, int, int, int)
-    RenderedMapSquare* RenderedMapSquare::GetMapElementsAtScreenCoord(int param_1, int param_2, int param_3,
-                                                                      int param_4, int param_5) {
-        bool bVar1;
-        char cVar2;
-        long lVar3;
-        MapElement* pMVar4;
-        shared_ptr<MapElement>* psVar5;
-        shared_ptr* psVar6;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
+    // 0x100212930
+    RenderedMapSquare* RenderedMapSquare::GetMapElementsAtScreenCoord(int arg1, int arg2, int arg3, int arg4,
+                                                                      int arg5) {
+        hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                  eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>, eastl::equal_to<eastl::string>,
+                  eastl::hash<eastl::string>, eastl::mod_range_hashing, eastl::default_ranged_hash,
+                  eastl::prime_rehash_policy, false, true, true>* this_00;
+        bool cVar1;
+        long lVar2;
+        MapElement* pMVar3;
+        shared_ptr<MapElement>* psVar4;
+        uint32_t in_register_00000034;
+        list<console::Line>* this_01;
         int in_stack_00000008;
-        undefined8 local_68;
-        undefined8 uStack_60;
-        undefined8 local_50;
-        undefined8 uStack_48;
-        undefined8 local_40;
+        ReturnValue local_68;
+        uint64_t uStack_60;
+        ReturnValue local_50;
+        uint64_t uStack_48;
+        ReturnValue local_40;
 
-        new (this) eastl::list<shared_ptr<MapElement>, eastl::allocator>();
-        if ((((param_2 <= param_5) && (param_3 <= in_stack_00000008)) && (param_5 < param_2 + param_4)) &&
-            (in_stack_00000008 < param_4 + param_3)) {
-            new (&local_68) eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(0, 0);
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
+        new (this) eastl::list<shared_ptr<MapElement>>();
+        if ((((arg2 <= arg5) && (arg3 <= in_stack_00000008)) && (arg5 < arg2 + arg4)) &&
+            (in_stack_00000008 < arg4 + arg3)) {
+            new (&local_68) eastl::hashtable_iterator(nullptr, nullptr);
+            this_00 = (hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
+                                 eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
+                                 eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
+                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
+                                 true>*)((((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1) + 96);
+            local_50 = this_00->begin();
             local_68 = local_50;
             uStack_60 = uStack_48;
-            eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                             eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                             eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            bVar1 = eastl::operator!=((eastl*)&local_68, (hashtable_iterator_base*)&local_50, extraout_RDX);
-            if (bVar1) {
+            local_50 = this_00->end();
+            cVar1 = local_68 != local_50;
+            if (cVar1) {
                 do {
-                    lVar3 = local_68.HeapBeginPtr();
-                    pMVar4 = (MapElement*)shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)(lVar3 + 8));
-                    cVar2 = pMVar4->IsValid();
-                    if (cVar2 != '\0') {
-                        lVar3 = local_68.HeapBeginPtr();
-                        pMVar4 = (MapElement*)shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)(lVar3 + 8));
-                        cVar2 = pMVar4->Contains(param_5, in_stack_00000008);
-                        if (cVar2 != '\0') {
-                            lVar3 = local_68.HeapBeginPtr();
-                            ((RenderedMapSquare*)this)->push_back((shared_ptr*)(lVar3 + 8));
+                    lVar2 = local_68.HeapBeginPtr();
+                    pMVar3 = (MapElement*)(*((lVar2 + 8))).operator->();
+                    cVar1 = pMVar3->IsValid();
+                    if (cVar1) {
+                        lVar2 = local_68.HeapBeginPtr();
+                        pMVar3 = (MapElement*)(*((lVar2 + 8))).operator->();
+                        cVar1 = pMVar3->Contains(arg5, in_stack_00000008);
+                        if (cVar1) {
+                            lVar2 = local_68.HeapBeginPtr();
+                            push_back(*((lVar2 + 8)));
                         }
                     }
-                    eastl::hashtable_iterator<eastl::pair<int const, shared_ptr<MapElement>>, false, false>::operator++(
-                        (hashtable_iterator<eastl::pair<int const, shared_ptr<MapElement>>, false, false>*)&local_50,
-                        (int)(Layout*)&local_68);
-                    eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                                     eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                                     eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                     eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-                    bVar1 = eastl::operator!=((eastl*)&local_68, (hashtable_iterator_base*)&local_50, extraout_RDX_00);
-                } while (bVar1);
+                    local_50++;
+                    local_50 = this_00->end();
+                    cVar1 = local_68 != local_50;
+                } while (cVar1);
             }
-            new (&local_50) jag::math::Vector2T<int>();
-            local_40.begin();
+            new (&local_50) jag::math::Vector2T();
+            this_01 = (list<console::Line>*)((((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1) + 64);
+            local_40 = this_01->begin();
             local_50 = local_40;
-            local_40.end();
-            bVar1 = eastl::operator!=((eastl*)&local_50, (hashtable_iterator_base*)&local_40, extraout_RDX_01);
-            if (bVar1) {
+            local_40 = this_01->end();
+            cVar1 = local_50 != local_40;
+            if (cVar1) {
                 do {
-                    psVar5 = (shared_ptr<MapElement>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_50);
-                    pMVar4 = (MapElement*)shared_ptr<MapElement>::operator->(psVar5);
-                    cVar2 = pMVar4->IsValid();
-                    if (cVar2 != '\0') {
-                        psVar5 = (shared_ptr<MapElement>*)
-                            eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                (ListIterator<console::Line, console::Line*, console::Line&>*)&local_50);
-                        pMVar4 = (MapElement*)shared_ptr<MapElement>::operator->(psVar5);
-                        cVar2 = pMVar4->Contains(param_5, in_stack_00000008);
-                        if (cVar2 != '\0') {
-                            psVar6 = (shared_ptr*)
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)&local_50);
-                            ((RenderedMapSquare*)this)->push_back(psVar6);
+                    psVar4 = (shared_ptr<MapElement>*)*local_50;
+                    pMVar3 = (MapElement*)(*psVar4).operator->();
+                    cVar1 = pMVar3->IsValid();
+                    if (cVar1) {
+                        psVar4 = (shared_ptr<MapElement>*)*local_50;
+                        pMVar3 = (MapElement*)(*psVar4).operator->();
+                        cVar1 = pMVar3->Contains(arg5, in_stack_00000008);
+                        if (cVar1) {
+                            psVar4 = (shared_ptr<MapElement>*)*local_50;
+                            push_back(*psVar4);
                         }
                     }
-                    eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::operator++(
-                        (ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>*)&local_40,
-                        (int)(eastl*)&local_50);
-                    local_40.end();
-                    bVar1 = eastl::operator!=((eastl*)&local_50, (hashtable_iterator_base*)&local_40, extraout_RDX_02);
-                } while (bVar1);
+                    local_40++;
+                    local_40 = this_01->end();
+                    cVar1 = local_50 != local_40;
+                } while (cVar1);
             }
-        }
-        return (RenderedMapSquare*)this;
-    }
-
-    // 0x100212b90, 368 bytes, placed by class name
-    // RenderedMapSquare::GetAllMapElements()
-    RenderedMapSquare* RenderedMapSquare::GetAllMapElements() {
-        bool bVar1;
-        shared_ptr* psVar2;
-        long lVar3;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        hashtable_iterator_base* extraout_RDX_02;
-        undefined8 local_60;
-        undefined8 uStack_58;
-        undefined8 local_50;
-        undefined8 local_48;
-        undefined8 uStack_40;
-
-        new (this) eastl::list<shared_ptr<MapElement>, eastl::allocator>();
-        new (&local_50) jag::math::Vector2T<int>();
-        local_48.begin();
-        local_50 = local_48;
-        local_48.end();
-        bVar1 = eastl::operator!=((eastl*)&local_50, (hashtable_iterator_base*)&local_48, extraout_RDX);
-        if (bVar1) {
-            do {
-                psVar2 = (shared_ptr*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)&local_50);
-                push_back(psVar2);
-                eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::operator++(
-                    (ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>*)&local_48,
-                    (int)(ListIterator<console::Line, console::Line*, console::Line&>*)&local_50);
-                local_48.end();
-                bVar1 = eastl::operator!=((eastl*)&local_50, (hashtable_iterator_base*)&local_48, extraout_RDX_00);
-            } while (bVar1);
-        }
-        new (&local_48) eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(0, 0);
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        local_48 = local_60;
-        uStack_40 = uStack_58;
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar1 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_60, extraout_RDX_01);
-        if (bVar1) {
-            do {
-                lVar3 = local_48.HeapBeginPtr();
-                push_back((shared_ptr*)(lVar3 + 8));
-                eastl::hashtable_iterator<eastl::pair<int const, shared_ptr<MapElement>>, false, false>::operator++(
-                    (hashtable_iterator<eastl::pair<int const, shared_ptr<MapElement>>, false, false>*)&local_60,
-                    (int)(Layout*)&local_48);
-                eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                                 eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-                bVar1 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_60, extraout_RDX_02);
-            } while (bVar1);
         }
         return this;
     }
 
-    // 0x100212d00, 352 bytes, placed by class name
-    // RenderedMapSquare::GetFluId(int, int)
-    undefined1 RenderedMapSquare::GetFluId(int param_1, int param_2) {
-        bool bVar1;
-        undefined1 uVar2;
-        char cVar3;
-        PackableArea* pPVar4;
-        shared_ptr<MapZoneData>* psVar5;
-        MapZoneData* pMVar6;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        undefined8 local_48;
-        undefined8 local_40;
+    // 0x100212b90
+    auto RenderedMapSquare::GetAllMapElements() {
+        shared_ptr<MapElement>* mapElement;
+        long lVar2;
+        uint64_t uStack_58;
+        ReturnValue local_50;
 
-        bVar1 = operator!=((shared_ptr*)field_8, (_func_decltype_nullptr*)0);
-        if (bVar1) {
-            pPVar4 = (PackableArea*)shared_ptr<MapSquareData>::operator->((shared_ptr<MapSquareData>*)field_8);
-            uVar2 = pPVar4->GetFluId(param_1, param_2);
+        auto result;
+        new (&local_50) jag::math::Vector2T();
+        uint8_t* puVar3 = &field_64;
+        auto local_48 = puVar3->begin();
+        local_50 = local_48;
+        local_48 = puVar3->end();
+        bool cVar1 = local_50 != local_48;
+        if (cVar1) {
+            do {
+                mapElement = (shared_ptr<MapElement>*)*local_50;
+                result.push_back(*mapElement);
+                local_48++;
+                local_48 = puVar3->end();
+                cVar1 = local_50 != local_48;
+            } while (cVar1);
+        }
+        new (&local_48) eastl::hashtable_iterator(nullptr, nullptr);
+        puVar3 = &field_96;
+        auto local_60 = puVar3->begin();
+        local_48 = local_60;
+        uint64_t uStack_40 = uStack_58;
+        local_60 = puVar3->end();
+        cVar1 = local_48 != local_60;
+        if (cVar1) {
+            do {
+                lVar2 = local_48.HeapBeginPtr();
+                result.push_back(*((lVar2 + 8)));
+                local_60++;
+                local_60 = puVar3->end();
+                cVar1 = local_48 != local_60;
+            } while (cVar1);
+        }
+        return result;
+    }
+
+    // 0x100212d00
+    uint64_t RenderedMapSquare::GetFluId(int arg1, int arg2) {
+        bool cVar2;
+        bool cVar3;
+        PackableArea* pPVar4;
+        uint64_t uVar5;
+        shared_ptr<MapZoneData>* psVar6;
+        MapZoneData* pMVar7;
+        uint8_t* this_00;
+        ReturnValue local_48;
+        ReturnValue local_40;
+
+        if (field_8 != nullptr) {
+            pPVar4 = (PackableArea*)field_8.operator->();
+            uVar5 = pPVar4->GetFluId(arg1, arg2);
         } else {
-            cVar3 = (&field_24)->empty();
-            if (cVar3 == '\0') {
-                new (&local_40) jag::math::Vector2T<int>();
-                local_48.begin();
+            this_00 = &field_24;
+            cVar2 = this_00->empty();
+            if (!cVar2) {
+                new (&local_40) jag::math::Vector2T();
+                local_48 = this_00->begin();
                 local_40 = local_48;
-                local_48.end();
-                bVar1 = eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_48, extraout_RDX);
-                uVar2 = 0;
-                if (bVar1) {
-                    psVar5 = (shared_ptr<MapZoneData>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                    pMVar6 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar5);
-                    cVar3 = pMVar6->TargetContainsMapTile(param_1, param_2);
-                    if (cVar3 == '\0') {
+                local_48 = this_00->end();
+                cVar2 = local_40 != local_48;
+                if (cVar2) {
+                    psVar6 = (shared_ptr<MapZoneData>*)*local_40;
+                    pMVar7 = (MapZoneData*)(*psVar6).operator->();
+                    cVar3 = pMVar7->TargetContainsMapTile(arg1, arg2);
+                    if (!cVar3) {
                         do {
-                            eastl::ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*, shared_ptr<Headbar>&>::
-                            operator++((ListIterator<shared_ptr<Headbar>, shared_ptr<Headbar>*,
-                                                     shared_ptr<Headbar>&>*)&local_48,
-                                       (int)(eastl*)&local_40);
-                            local_48.end();
-                            bVar1 = eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_48,
-                                                      extraout_RDX_00);
-                            uVar2 = bVar1;
-                            if (!bVar1)
-                                goto joined_r0x000100212e42;
-                            psVar5 = (shared_ptr<MapZoneData>*)
-                                eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                                    (ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                            pMVar6 = (MapZoneData*)shared_ptr<MapZoneData>::operator->(psVar5);
-                            cVar3 = pMVar6->TargetContainsMapTile(param_1, param_2);
-                        } while (cVar3 == '\0');
+                            local_48++;
+                            local_48 = this_00->end();
+                            cVar2 = local_40 != local_48;
+                            if (!cVar2)
+                                goto LAB_100212e44;
+                            psVar6 = (shared_ptr<MapZoneData>*)*local_40;
+                            pMVar7 = (MapZoneData*)(*psVar6).operator->();
+                            cVar3 = pMVar7->TargetContainsMapTile(arg1, arg2);
+                        } while (!cVar3);
                     }
-                    psVar5 = (shared_ptr<MapZoneData>*)
-                        eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(
-                            (ListIterator<console::Line, console::Line*, console::Line&>*)&local_40);
-                    pPVar4 = (PackableArea*)shared_ptr<MapZoneData>::operator->(psVar5);
-                    uVar2 = pPVar4->GetFluId(param_1, param_2);
-                }
-            joined_r0x000100212e42:
-                if (bVar1 != false) {
-                    return uVar2;
+                    psVar6 = (shared_ptr<MapZoneData>*)*local_40;
+                    pPVar4 = (PackableArea*)(*psVar6).operator->();
+                    uVar5 = pPVar4->GetFluId(arg1, arg2);
+                    if (cVar2) {
+                        return uVar5;
+                    }
                 }
             }
-            uVar2 = 255;
+        LAB_100212e44:
+            uVar5 = 4294967295;
         }
-        return uVar2;
+        return uVar5;
     }
 
-    // 0x100212e60, 32 bytes, placed by class name
-    // RenderedMapSquare::GetMapSquarePixelStrideHash(int, int, int)
-    long RenderedMapSquare::GetMapSquarePixelStrideHash(int param_1, int param_2, int param_3) {
-        return (long)(param_1 << 8 | param_2 | param_3 << 16);
+    // 0x100212e60
+    long RenderedMapSquare::GetMapSquarePixelStrideHash(int arg1, int arg2, int arg3) {
+        return (long)(arg1 << 8 | arg2 | arg3 << 16);
     }
 
-    // 0x100213020, 560 bytes, placed by class name
-    // RenderedMapSquare::ExtractLocMapElements(int, int, int, int, PackableArea&)
-    void RenderedMapSquare::ExtractLocMapElements(int param_1, int param_2, int param_3, int param_4,
-                                                  PackableArea* param_5) {
-        ulong uVar1;
+    // 0x100213020
+    void RenderedMapSquare::ExtractLocMapElements(int arg1, int arg2, int arg3, int arg4, PackableArea& packableArea) {
+        unsigned long arg1_00;
+        bool cVar1;
         char cVar2;
-        char cVar3;
-        int iVar4;
-        array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>, 4096ul>* this_00;
-        SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>* this_01;
-        ulong uVar5;
-        unique_ptr<LocationData, std::default_delete<LocationData>>* this_02;
-        int* piVar6;
-        shared_ptr* psVar7;
-        char cVar8;
-        ulong uVar9;
-        bool bVar10;
-        ulong local_50;
+        int iVar3;
+        array<SharedArray<std::unique_ptr<LocationData>>, 4096ul>* this_00;
+        SharedArray<std::unique_ptr<LocationData>>* this_01;
+        unsigned long uVar4;
+        unique_ptr<LocationData>* this_02;
+        int* piVar5;
+        shared_ptr<configdecoder::LocType>* locType;
+        char cVar6;
+        unsigned long uVar7;
+        bool bVar8;
+        unsigned long local_50;
         long local_40;
         long local_38;
 
-        if (0 < param_3) {
-            local_38 = (long)param_1;
+        if (0 < arg3) {
+            local_38 = (long)arg1;
             do {
-                if (0 < param_4) {
-                    local_40 = (long)param_2;
+                if (0 < arg4) {
+                    local_40 = (long)arg2;
                     do {
-                        iVar4 = param_5->GetMaxLevels();
-                        if (0 < iVar4) {
+                        iVar3 = packableArea.GetMaxLevels();
+                        if (0 < iVar3) {
                             local_50 = 0;
-                            cVar3 = '\0';
+                            cVar2 = '\0';
                             do {
-                                this_00 =
-                                    (array<
-                                        SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                                        4096ul>*)
-                                        Array<std::array<SharedArray<std::unique_ptr<
-                                                             LocationData, std::default_delete<LocationData>>>,
-                                                         4096ul>,
-                                              eastl::allocator>::
-                                        operator[](
-                                            (Array<std::array<SharedArray<std::unique_ptr<
-                                                                  LocationData, std::default_delete<LocationData>>>,
-                                                              4096ul>,
-                                                   eastl::allocator>*)&param_5->field_136,
-                                            local_50);
-                                this_01 = (SharedArray<
-                                           std::unique_ptr<LocationData, std::default_delete<LocationData>>>*)
-                                    std::array<
-                                        SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                                        4096ul>::operator[](this_00, local_40 + ((int)local_38 << 6));
-                                cVar2 = this_01->empty();
-                                cVar8 = '\n';
-                                if (cVar2 == '\0') {
-                                    uVar5 = this_01->HeapBeginPtr();
-                                    if (uVar5 != 0) {
-                                        uVar9 = 1;
+                                this_00 = &packableArea.field_136[local_50];
+                                this_01 = (SharedArray<std::unique_ptr<LocationData>>*)(*this_00)[local_40 +
+                                                                                                  ((int)local_38 << 6)];
+                                cVar1 = this_01->empty();
+                                cVar6 = '\n';
+                                if (!cVar1) {
+                                    uVar4 = this_01->HeapBeginPtr();
+                                    if (uVar4 != 0) {
+                                        uVar7 = 1;
                                         do {
-                                            uVar1 = uVar9 - 1;
-                                            if (*(ulong*)this_01 <= uVar1) {
-                                                /* WARNING: Subroutine does not return */
+                                            arg1_00 = uVar7 - 1;
+                                            if (*(unsigned long*)this_01 <= arg1_00) {
                                                 LogAssert("(index < m_Size)",
                                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/"
                                                           "OSRS-OS1669-BOXR/libs/jtl/SharedArray.h",
-                                                          299, "Index of %d outside range 0 to %d", uVar1,
-                                                          *(ulong*)this_01 - 1);
+                                                          299, "Index of %d outside range 0 to %d", arg1_00,
+                                                          *(unsigned long*)this_01 - 1);
                                             }
-                                            this_02 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                                shared_ptr<std::unique_ptr<LocationData,
-                                                                           std::default_delete<LocationData>>[]>::
-                                                operator[](
-                                                    (shared_ptr<std::unique_ptr<
-                                                         LocationData, std::default_delete<LocationData>>[]>*)(this_01 +
-                                                                                                               8),
-                                                    uVar1);
-                                            piVar6 =
-                                                (int*)std::unique_ptr<LocationData, std::default_delete<LocationData>>::
-                                                operator->(this_02);
-                                            psVar7 = (shared_ptr*)configdecoder::LocType::List(*piVar6);
-                                            cVar2 = HasMeltype(psVar7);
-                                            if (cVar2 != '\0') {
-                                                AddMapElementForLoc(this, psVar7, (int)local_50, (int)local_38,
-                                                                    (int)local_40, param_5);
-                                                cVar3 = '\x01';
+                                            this_02 = (unique_ptr<LocationData>*)(*(
+                                                (shared_ptr<std::unique_ptr<LocationData>[]>*)(this_01 + 8)))[arg1_00];
+                                            piVar5 = (int*)(*this_02).operator->();
+                                            locType = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(
+                                                *piVar5);
+                                            cVar1 = HasMeltype(locType);
+                                            if (cVar1) {
+                                                AddMapElementForLoc(*locType, (int)local_50, (int)local_38,
+                                                                    (int)local_40, packableArea);
+                                                cVar2 = '\x01';
                                                 break;
                                             }
-                                            bVar10 = uVar9 < uVar5;
-                                            uVar9 = uVar9 + 1;
-                                        } while (bVar10);
+                                            bVar8 = uVar7 < uVar4;
+                                            uVar7 = uVar7 + 1;
+                                        } while (bVar8);
                                     }
-                                    cVar8 = cVar3 * '\b';
+                                    cVar6 = cVar2 * '\b';
                                 }
-                                if ((cVar8 != '\n') && (cVar8 != '\0'))
+                                if ((cVar6 != '\n') && (cVar6))
                                     break;
                                 local_50 = local_50 + 1;
-                                iVar4 = param_5->GetMaxLevels();
-                            } while ((long)local_50 < (long)iVar4);
+                                iVar3 = packableArea.GetMaxLevels();
+                            } while ((long)local_50 < (long)iVar3);
                         }
                         local_40 = local_40 + 1;
-                    } while (local_40 < param_4 + param_2);
+                    } while (local_40 < arg4 + arg2);
                 }
                 local_38 = local_38 + 1;
-            } while (local_38 < param_3 + param_1);
+            } while (local_38 < arg3 + arg1);
         }
     }
 
-    // 0x100213250, 176 bytes, placed by class name
-    // RenderedMapSquare::HasMeltype(shared_ptr<configdecoder::LocType> const&)
-    undefined8 RenderedMapSquare::HasMeltype(shared_ptr* param_1) {
-        char cVar1;
-        long lVar2;
+    // 0x100213250
+    void RenderedMapSquare::HasMeltype(const shared_ptr<configdecoder::LocType>& locType) {
         int* piVar3;
-        shared_ptr<configdecoder::LocType>* this;
-        ulong uVar4;
-        ulong uVar5;
+        shared_ptr<configdecoder::LocType>* shared_ptr;
+        unsigned long uVar4;
+        unsigned long arg1;
 
-        lVar2 = shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-        cVar1 = ((lVar2 + 488))->empty();
-        lVar2 = shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-        if (cVar1 == '\0') {
+        long lVar2 = locType.operator->();
+        bool cVar1 = ((lVar2 + 488))->empty();
+        lVar2 = locType.operator->();
+        if (!cVar1) {
             lVar2 = ((lVar2 + 488))->end();
             if (lVar2 != 0) {
-                uVar5 = 0;
+                arg1 = 0;
                 do {
-                    lVar2 =
-                        shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-                    piVar3 = (int*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)(lVar2 + 488), uVar5);
-                    this = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(*piVar3);
-                    lVar2 = shared_ptr<configdecoder::LocType>::operator->(this);
+                    lVar2 = locType.operator->();
+                    piVar3 = (int*)(*((lVar2 + 488)))[arg1];
+                    shared_ptr = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(*piVar3);
+                    lVar2 = (*shared_ptr).operator->();
                     if (*(int*)(lVar2 + 432) != -1) {
                         return 1;
                     }
-                    uVar5 = uVar5 + 1;
-                    lVar2 =
-                        shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
+                    arg1 = arg1 + 1;
+                    lVar2 = locType.operator->();
                     uVar4 = ((lVar2 + 488))->end();
-                } while (uVar5 < uVar4);
+                } while (arg1 < uVar4);
             }
         } else if (*(int*)(lVar2 + 432) != -1) {
             return 1;
@@ -1573,896 +1206,699 @@ namespace jag::oldscape::rs2lib::worldmap {
         return 0;
     }
 
-    // 0x100213300, 752 bytes, placed by class name
-    // RenderedMapSquare::AddMapElementForLoc(shared_ptr<configdecoder::LocType> const&, int, int, int, PackableArea&)
-    void RenderedMapSquare::AddMapElementForLoc(shared_ptr* param_1, int param_2, int param_3, int param_4,
-                                                PackableArea* param_5) {
-        undefined1* this_00;
-        RenderedMapSquare* this_01;
-        char cVar2;
+    // 0x100213300
+    void RenderedMapSquare::AddMapElementForLoc(const shared_ptr<configdecoder::LocType>& locType, int arg2, int arg3,
+                                                int arg4, PackableArea& packableArea) {
         int iVar3;
         int iVar4;
         long lVar5;
         MapElementType* pMVar6;
-        StaticMapElement* this_03;
-        MapTextLabel* pMVar7;
-        MultiLocMapElement* this_04;
-        int* piVar8;
-        long* plVar9;
-        shared_ptr<MapElement>* this_05;
-        int iVar10;
-        _func_decltype_nullptr* p_Var11;
-        int iVar12;
-        int iVar13;
+        StaticMapElement* this_01;
+        MapTextLabel* mapTextLabel;
+        MultiLocMapElement* this_02;
+        int* piVar7;
+        shared_ptr<MapElement>* this_03;
+        int iVar9;
+        int arg2_00;
+        int arg3_00;
         CoordGrid local_258;
-        CoordGrid local_248;
-        CoordGrid local_238;
-        shared_ptr local_218;
         int local_208;
-        undefined1 local_1f8[456];
+        uint8_t local_1f8[456];
 
-        local_1f8._448_8_ = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        new (&local_248) rs2lib::CoordGrid(param_2, field_0 * 64 + param_3, field_4 * 64 + param_4);
-        this_00 = field_8;
-        if (operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0)) {
-            lVar5 = shared_ptr<MapSquareData>::operator->((shared_ptr<MapSquareData>*)this_00);
+        CoordGrid local_248(arg2, field_0 * 64 + arg3, field_4 * 64 + arg4);
+        uint8_t* midiPlayerMainThread = &field_8;
+        if (*midiPlayerMainThread != nullptr) {
+            lVar5 = (*midiPlayerMainThread).operator->();
             iVar4 = *(int*)(lVar5 + 168);
-            lVar5 = shared_ptr<MapSquareData>::operator->((shared_ptr<MapSquareData>*)this_00);
-            iVar12 = *(int*)(lVar5 + 160) * 64 + param_3;
-            lVar5 = shared_ptr<MapSquareData>::operator->((shared_ptr<MapSquareData>*)this_00);
-            iVar10 = *(int*)(lVar5 + 164) * 64 + param_4;
-            iVar13 = param_4;
+            lVar5 = (*midiPlayerMainThread).operator->();
+            arg2_00 = *(int*)(lVar5 + 160) * 64 + arg3;
+            lVar5 = (*midiPlayerMainThread).operator->();
+            iVar9 = *(int*)(lVar5 + 164) * 64 + arg4;
+            arg3_00 = arg4;
         } else {
-            iVar4 = param_5->GetGLCoreProfileVerMinor();
-            iVar3 = param_5->field_160;
-            iVar10 = (**(code**)(*(long*)param_5 + 16))(param_5);
-            iVar13 = param_4;
-            iVar12 = iVar3 * 64 + param_3 + iVar10 * 8;
-            iVar10 = param_5->field_164 * 64 + param_4;
-            iVar3 = (**(code**)(*(long*)param_5 + 24))(param_5);
-            iVar10 = iVar10 + iVar3 * 8;
+            iVar4 = packableArea.GetGLCoreProfileVerMinor();
+            iVar3 = packableArea.field_160;
+            iVar9 = (**(void (**)(...))(packableArea.field_0 + 16))(packableArea);
+            arg3_00 = arg4;
+            arg2_00 = iVar3 * 64 + arg3 + iVar9 * 8;
+            iVar9 = packableArea.field_164 * 64 + arg4;
+            iVar3 = (**(void (**)(...))(packableArea.field_0 + 24))(packableArea);
+            iVar9 = iVar9 + iVar3 * 8;
         }
-        p_Var11 = (_func_decltype_nullptr*)(ulong)(uint)(iVar4 + param_2);
-        new (&local_238) rs2lib::CoordGrid(iVar4 + param_2, iVar12, iVar10);
-        new (&local_218) shared_ptr<WorldmapAreaMetadata>(p_Var11);
-        lVar5 = shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-        this_01 = (RenderedMapSquare*)this;
-        cVar2 = ((lVar5 + 488))->empty();
-        if (cVar2 == '\0') {
-            this_04 = operator_new(80);
-            piVar8 = (int*)shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-            MultiLocMapElement::MultiLocMapElement(this_04, &local_238, &local_248, *piVar8, this_01);
-            shared_ptr<MapElement>::reset<MultiLocMapElement, void>((shared_ptr<MapElement>*)&local_218, this_04);
+        CoordGrid local_238(iVar4 + arg2, arg2_00, iVar9);
+        shared_ptr<WorldmapAreaMetadata> local_218;
+        lVar5 = locType.operator->();
+        if (((lVar5 + 488))->empty() == '\0') {
+            this_02 = (MultiLocMapElement*)operator new(80);
+            piVar7 = (int*)locType.operator->();
+            new (this_02) MultiLocMapElement(local_238, local_248, *piVar7, *this);
+            local_218.reset<MultiLocMapElement, void>(this_02);
         } else {
-            lVar5 = shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-            pMVar6 = (MapElementType*)configdecoder::MapElementType::List(*(int*)(lVar5 + 432));
-            this_03 = operator_new(64);
+            lVar5 = locType.operator->();
+            pMVar6 = configdecoder::MapElementType::List(*(int*)(lVar5 + 432));
+            this_01 = (StaticMapElement*)operator new(64);
             iVar4 = pMVar6->m_iD;
-            pMVar7 = (MapTextLabel*)CreateMapTextLabelForMapElement(this_01, pMVar6);
-            StaticMapElement::StaticMapElement(this_03, &local_238, &local_248, iVar4, pMVar7);
-            shared_ptr<MapElement>::reset<StaticMapElement, void>((shared_ptr<MapElement>*)&local_218, this_03);
+            mapTextLabel = (MapTextLabel*)CreateMapTextLabelForMapElement(this, pMVar6);
+            new (this_01) StaticMapElement(local_238, local_248, iVar4, mapTextLabel);
+            local_218.reset<StaticMapElement, void>(this_01);
         }
-        plVar9 = (long*)shared_ptr<MapElement>::operator->((shared_ptr<MapElement>*)&local_218);
-        iVar4 = (**(code**)(*plVar9 + 8))(plVar9);
-        pMVar6 = (MapElementType*)configdecoder::MapElementType::List(iVar4);
+        auto plVar8 = local_218.operator->();
+        iVar4 = (**(void (**)(...))(*plVar8 + 8))(plVar8);
+        pMVar6 = configdecoder::MapElementType::List(iVar4);
         new (local_1f8) configdecoder::MapElementType(pMVar6);
         if (local_1f8[68] != '\0') {
-            new (&local_258) rs2lib::CoordGrid(0, param_3, iVar13);
+            local_258 = rs2lib::CoordGrid(0, arg3, arg3_00);
             local_208 = local_258.ToBitPacked();
-            this_05 = (shared_ptr<MapElement>*)
-                eastl::hash_map<int, shared_ptr<MapElement>, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator,
-                                false>::operator[]((hash_map<int, shared_ptr<MapElement>, eastl::hash<int>,
-                                                             eastl::equal_to<int>, eastl::allocator, false>*)&this_01
-                                                       ->field_96,
-                                                   &local_208);
-            shared_ptr<MapElement>::operator=(this_05, &local_218);
-        }
-        local_1f8->~MapElementType();
-        local_218.~shared_ptr();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_1f8._448_8_) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            this_03 = &field_96[local_208];
+            *this_03 = local_218;
         }
     }
 
-    // 0x100213890, 48 bytes, placed by class name
-    // RenderedMapSquare::CreateMapTextLabelForMapElement(int) const
-    void RenderedMapSquare::CreateMapTextLabelForMapElement(int param_1) {
-        MapElementType* pMVar1;
-
-        pMVar1 = (MapElementType*)configdecoder::MapElementType::List(param_1);
-        CreateMapTextLabelForMapElement(this, pMVar1);
+    // 0x100213890
+    void RenderedMapSquare::CreateMapTextLabelForMapElement(int arg1) const {
+        CreateMapTextLabelForMapElement(configdecoder::MapElementType::List(arg1));
     }
 
-    // 0x100213940, 512 bytes, placed by class name
-    // RenderedMapSquare::RenderGround(int, int, PackableArea&, std::unique_ptr<OverlayShapes, std::default_delete<OverlayShapes> > const&, BlendedGround&)
-    /* RenderedMapSquare::RenderGround(int, int,
-   PackableArea&,
-   std::unique_ptr<OverlayShapes,
-   std::default_delete<OverlayShapes> > const&,
-   BlendedGround&) */
-
-    void RenderedMapSquare::RenderGround(int param_1, int param_2, PackableArea* param_3, unique_ptr* param_4,
-                                         BlendedGround* param_5) {
-        byte bVar1;
-        short sVar2;
-        ushort uVar3;
+    // 0x100213940
+    void RenderedMapSquare::RenderGround(int arg1, int arg2, PackableArea& packableArea,
+                                         const std::unique_ptr<OverlayShapes>& overlayShapes,
+                                         BlendedGround& blendedGround) {
+        uint8_t bVar1;
         int iVar4;
         int iVar5;
-        array<unsigned short, 4096ul>* paVar6;
-        short* psVar7;
-        ushort* puVar8;
         array<unsigned char, 4096ul>* paVar9;
         char* pcVar10;
         OverlayShapes* this_00;
-        byte* pbVar11;
-        undefined* puVar12;
+        uint8_t* pbVar11;
+        uint8_t* puVar12;
         int iVar13;
-        ulong uVar14;
         int local_34;
 
-        paVar6 =
-            (array<unsigned short, 4096ul>*)Array<std::array<unsigned short, 4096ul>, eastl::allocator>::operator[](
-                (Array<std::array<unsigned short, 4096ul>, eastl::allocator>*)&param_3->field_8, 0);
-        uVar14 = (ulong)(param_1 * 64 + param_2);
-        psVar7 = (short*)std::array<unsigned short, 4096ul>::operator[](paVar6, uVar14);
-        sVar2 = *psVar7;
-        paVar6 =
-            (array<unsigned short, 4096ul>*)Array<std::array<unsigned short, 4096ul>, eastl::allocator>::operator[](
-                (Array<std::array<unsigned short, 4096ul>, eastl::allocator>*)&param_3->field_32, 0);
-        puVar8 = (ushort*)std::array<unsigned short, 4096ul>::operator[](paVar6, uVar14);
-        uVar3 = *puVar8;
+        array<unsigned short, 4096ul>* paVar6 = &packableArea.field_8[0];
+        unsigned long arg1_00 = (unsigned long)(arg1 * 64 + arg2);
+        short* psVar7 = (short*)(*paVar6)[arg1_00];
+        short sVar2 = *psVar7;
+        paVar6 = &packableArea.field_32[0];
+        unsigned short* puVar8 = (unsigned short*)(*paVar6)[arg1_00];
+        unsigned short uVar3 = *puVar8;
         if (sVar2 == 0 && uVar3 == 0) {
             iVar5 = field_60;
-            (**(code**)(m_toolkit2D->field_0 + 32))(m_toolkit2D, iVar5* param_1, (63 - param_2) * iVar5, iVar5, iVar5,
-                                                    field_56);
+            (**(void (**)(...))(m_toolkit2D->field_0 + 32))(m_toolkit2D, iVar5* arg1, (63 - arg2) * iVar5, iVar5, iVar5,
+                                                            field_56);
         }
         if (uVar3 == 0) {
             local_34 = 16711935;
         } else {
             iVar5 = FloorColourUtils::GetFloColour(uVar3 - 1, field_56);
-            paVar9 =
-                (array<unsigned char, 4096ul>*)Array<std::array<unsigned char, 4096ul>, eastl::allocator>::operator[](
-                    (Array<std::array<unsigned char, 4096ul>, eastl::allocator>*)&param_3->field_56, 0);
-            pcVar10 = (char*)std::array<unsigned char, 4096ul>::operator[](paVar9, uVar14);
+            paVar9 = &packableArea.field_56[0];
+            pcVar10 = (char*)(*paVar9)[arg1_00];
             local_34 = iVar5;
             if (*pcVar10 == '\0') {
                 iVar4 = field_60;
-                iVar13 = (63 - param_2) * iVar4;
+                iVar13 = (63 - arg2) * iVar4;
                 puVar12 = m_toolkit2D->field_0;
                 goto LAB_100213b27;
             }
         }
-        iVar5 = GetBlendedGroundColour(this, param_1, param_2, param_3, param_5);
+        iVar5 = GetBlendedGroundColour(arg1, arg2, packableArea, blendedGround);
         if (uVar3 != 0) {
-            this_00 = (OverlayShapes*)std::unique_ptr<OverlayShapes, std::default_delete<OverlayShapes>>::operator->(
-                (unique_ptr<OverlayShapes, std::default_delete<OverlayShapes>>*)param_4);
+            this_00 = (OverlayShapes*)overlayShapes.operator->();
             iVar4 = field_60;
-            paVar9 =
-                (array<unsigned char, 4096ul>*)Array<std::array<unsigned char, 4096ul>, eastl::allocator>::operator[](
-                    (Array<std::array<unsigned char, 4096ul>, eastl::allocator>*)&param_3->field_56, 0);
-            pbVar11 = (byte*)std::array<unsigned char, 4096ul>::operator[](paVar9, uVar14);
+            paVar9 = &packableArea.field_56[0];
+            pbVar11 = (uint8_t*)(*paVar9)[arg1_00];
             bVar1 = *pbVar11;
-            paVar9 =
-                (array<unsigned char, 4096ul>*)Array<std::array<unsigned char, 4096ul>, eastl::allocator>::operator[](
-                    (Array<std::array<unsigned char, 4096ul>, eastl::allocator>*)&param_3->field_80, 0);
-            pbVar11 = (byte*)std::array<unsigned char, 4096ul>::operator[](paVar9, uVar14);
-            this_00->DrawOverlayShape(param_1 * iVar4, (63 - param_2) * iVar4, iVar5, local_34, iVar4, iVar4,
-                                      (uint)bVar1, (uint)*pbVar11, m_toolkit2D);
+            paVar9 = &packableArea.field_80[0];
+            pbVar11 = (uint8_t*)(*paVar9)[arg1_00];
+            this_00->DrawOverlayShape(arg1 * iVar4, (63 - arg2) * iVar4, iVar5, local_34, iVar4, iVar4,
+                                      (unsigned int)bVar1, (unsigned int)*pbVar11, *m_toolkit2D);
             return;
         }
         iVar4 = field_60;
-        iVar13 = (63 - param_2) * iVar4;
+        iVar13 = (63 - arg2) * iVar4;
         puVar12 = m_toolkit2D->field_0;
     LAB_100213b27:
-        (**(code**)(puVar12 + 32))(m_toolkit2D, param_1* iVar4, iVar13, iVar4, iVar4, iVar5);
+        (**(void (**)(...))(puVar12 + 32))(m_toolkit2D, arg1* iVar4, iVar13, iVar4, iVar4, iVar5);
     }
 
-    // 0x100213b40, 432 bytes, placed by class name
-    // RenderedMapSquare::RenderAdditionalOverlays(int, int, PackableArea&, std::unique_ptr<OverlayShapes, std::default_delete<OverlayShapes> > const&)
-    /* RenderedMapSquare::RenderAdditionalOverlays(int, int,
-   PackableArea&,
-   std::unique_ptr<OverlayShapes,
-   std::default_delete<OverlayShapes> > const&) */
-
-    void RenderedMapSquare::RenderAdditionalOverlays(int param_1, int param_2, PackableArea* param_3,
-                                                     unique_ptr* param_4) {
-        byte bVar1;
+    // 0x100213b40
+    void RenderedMapSquare::RenderAdditionalOverlays(int arg1, int arg2, PackableArea& packableArea,
+                                                     const std::unique_ptr<OverlayShapes>& overlayShapes) {
+        uint8_t bVar1;
         int iVar2;
-        int iVar3;
-        ulong uVar4;
+        unsigned long arg1_00;
         OverlayShapes* this_00;
-        byte* pbVar5;
+        uint8_t* pbVar4;
         array<unsigned short, 4096ul>* this_01;
-        ushort* puVar6;
-        array<unsigned char, 4096ul>* paVar7;
-        char* pcVar8;
-        ulong uVar9;
+        unsigned short* puVar5;
+        array<unsigned char, 4096ul>* paVar6;
+        char* pcVar7;
+        unsigned long arg1_01;
 
-        iVar3 = param_3->GetMaxLevels();
+        int iVar3 = packableArea.GetMaxLevels();
         if (1 < iVar3) {
-            uVar4 = (ulong)(param_1 * 64 + param_2);
-            uVar9 = 1;
+            arg1_00 = (unsigned long)(arg1 * 64 + arg2);
+            arg1_01 = 1;
             do {
-                this_01 = (array<unsigned short, 4096ul>*)
-                    Array<std::array<unsigned short, 4096ul>, eastl::allocator>::operator[](
-                        (Array<std::array<unsigned short, 4096ul>, eastl::allocator>*)&param_3->field_32, uVar9);
-                puVar6 = (ushort*)std::array<unsigned short, 4096ul>::operator[](this_01, uVar4);
-                if (*puVar6 != 0) {
-                    iVar3 = FloorColourUtils::GetFloColour(*puVar6 - 1, field_56);
-                    paVar7 = (array<unsigned char, 4096ul>*)
-                        Array<std::array<unsigned char, 4096ul>, eastl::allocator>::operator[](
-                            (Array<std::array<unsigned char, 4096ul>, eastl::allocator>*)&param_3->field_56, uVar9);
-                    pcVar8 = (char*)std::array<unsigned char, 4096ul>::operator[](paVar7, uVar4);
-                    if (*pcVar8 == '\0') {
+                this_01 = &packableArea.field_32[arg1_01];
+                puVar5 = (unsigned short*)(*this_01)[arg1_00];
+                if (*puVar5 != 0) {
+                    iVar3 = FloorColourUtils::GetFloColour(*puVar5 - 1, field_56);
+                    paVar6 = &packableArea.field_56[arg1_01];
+                    pcVar7 = (char*)(*paVar6)[arg1_00];
+                    if (*pcVar7 == '\0') {
                         iVar2 = field_60;
-                        (**(code**)(m_toolkit2D->field_0 + 32))(m_toolkit2D, iVar2* param_1, iVar2 * (63 - param_2),
-                                                                iVar2, iVar2, iVar3);
+                        (**(void (**)(...))(m_toolkit2D->field_0 + 32))(m_toolkit2D, iVar2* arg1, iVar2 * (63 - arg2),
+                                                                        iVar2, iVar2, iVar3);
                     } else {
-                        this_00 = (OverlayShapes*)
-                                      std::unique_ptr<OverlayShapes, std::default_delete<OverlayShapes>>::operator->(
-                                          (unique_ptr<OverlayShapes, std::default_delete<OverlayShapes>>*)param_4);
+                        this_00 = (OverlayShapes*)overlayShapes.operator->();
                         iVar2 = field_60;
-                        paVar7 = (array<unsigned char, 4096ul>*)
-                            Array<std::array<unsigned char, 4096ul>, eastl::allocator>::operator[](
-                                (Array<std::array<unsigned char, 4096ul>, eastl::allocator>*)&param_3->field_56, uVar9);
-                        pbVar5 = (byte*)std::array<unsigned char, 4096ul>::operator[](paVar7, uVar4);
-                        bVar1 = *pbVar5;
-                        paVar7 = (array<unsigned char, 4096ul>*)
-                            Array<std::array<unsigned char, 4096ul>, eastl::allocator>::operator[](
-                                (Array<std::array<unsigned char, 4096ul>, eastl::allocator>*)&param_3->field_80, uVar9);
-                        pbVar5 = (byte*)std::array<unsigned char, 4096ul>::operator[](paVar7, uVar4);
-                        this_00->DrawOverlayShape(iVar2 * param_1, iVar2 * (63 - param_2), 0, iVar3, iVar2, iVar2,
-                                                  (uint)bVar1, (uint)*pbVar5, m_toolkit2D);
+                        paVar6 = &packableArea.field_56[arg1_01];
+                        pbVar4 = (uint8_t*)(*paVar6)[arg1_00];
+                        bVar1 = *pbVar4;
+                        paVar6 = &packableArea.field_80[arg1_01];
+                        pbVar4 = (uint8_t*)(*paVar6)[arg1_00];
+                        this_00->DrawOverlayShape(iVar2 * arg1, iVar2 * (63 - arg2), 0, iVar3, iVar2, iVar2,
+                                                  (unsigned int)bVar1, (unsigned int)*pbVar4, *m_toolkit2D);
                     }
                 }
-                uVar9 = uVar9 + 1;
-                iVar3 = param_3->GetMaxLevels();
-            } while ((long)uVar9 < (long)iVar3);
+                arg1_01 = arg1_01 + 1;
+                iVar3 = packableArea.GetMaxLevels();
+            } while ((long)arg1_01 < (long)iVar3);
         }
     }
 
-    // 0x100213cf0, 80 bytes, placed by class name
-    // RenderedMapSquare::RenderTile(int, int, PackableArea&, std::unique_ptr<OverlayShapes, std::default_delete<OverlayShapes> > const&, Array<graphics::Pix8, eastl::allocator>&)
-    /* RenderedMapSquare::RenderTile(int, int,
-   PackableArea&,
-   std::unique_ptr<OverlayShapes,
-   std::default_delete<OverlayShapes> > const&,
-   Array<graphics::Pix8, eastl::allocator>&) */
-
-    void RenderedMapSquare::RenderTile(int param_1, int param_2, PackableArea* param_3, unique_ptr* param_4,
-                                       Array* param_5) {
-        RenderWall(this, param_1, param_2, param_3);
-        RenderMsi(this, param_1, param_2, param_3, param_5);
+    // 0x100213cf0
+    void RenderedMapSquare::RenderTile(int arg1, int arg2, PackableArea& packableArea,
+                                       const std::unique_ptr<OverlayShapes>& overlayShapes,
+                                       Array<graphics::Pix8>& pix8s) {
+        RenderWall(arg1, arg2, packableArea);
+        RenderMsi(arg1, arg2, packableArea, pix8s);
     }
 
-    // 0x100213d60, 1856 bytes, placed by class name
-    // RenderedMapSquare::RenderWall(int, int, PackableArea&)
-    void RenderedMapSquare::RenderWall(int param_1, int param_2, PackableArea* param_3) {
-        char cVar1;
-        int iVar2;
+    // 0x100213d60
+    void RenderedMapSquare::RenderWall(int arg1, int arg2, PackableArea& packableArea) {
+        bool cVar1;
         int iVar3;
-        array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>, 4096ul>* this_00;
-        SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>* this_01;
-        ulong uVar4;
-        unique_ptr<LocationData, std::default_delete<LocationData>>* puVar5;
+        array<SharedArray<std::unique_ptr<LocationData>>, 4096ul>* this_00;
+        SharedArray<std::unique_ptr<LocationData>>* this_01;
+        unsigned long uVar4;
+        unique_ptr<LocationData>* puVar5;
         long lVar6;
         int* piVar7;
         shared_ptr<configdecoder::LocType>* this_02;
-        ulong uVar8;
-        ulong uVar9;
+        unsigned long arg1_00;
+        unsigned long arg1_01;
+        unsigned long uVar8;
+        int iVar9;
         int iVar10;
-        int iVar11;
-        shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>* this_03;
-        undefined4 uVar12;
+        shared_ptr<std::unique_ptr<LocationData>[]>* this_03;
+        uint32_t uVar11;
 
-        iVar2 = param_3->GetMaxLevels();
+        int iVar2 = packableArea.GetMaxLevels();
         if (0 < iVar2) {
-            iVar2 = 63 - param_2;
-            uVar8 = 0;
+            iVar2 = 63 - arg2;
+            arg1_00 = 0;
             do {
-                this_00 = (array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                                 4096ul>*)
-                    Array<std::array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                                     4096ul>,
-                          eastl::allocator>::
-                    operator[](
-                        (Array<std::array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                                          4096ul>,
-                               eastl::allocator>*)&param_3->field_136,
-                        uVar8);
-                this_01 = (SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>*)
-                    std::array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                               4096ul>::operator[](this_00, (long)(param_1 * 64 + param_2));
+                this_00 = &packableArea.field_136[arg1_00];
+                this_01 = (SharedArray<std::unique_ptr<LocationData>>*)(*this_00)[(long)(arg1 * 64 + arg2)];
                 cVar1 = this_01->empty();
-                if ((cVar1 == '\0') && (uVar4 = this_01->HeapBeginPtr(), uVar4 != 0)) {
-                    this_03 =
-                        (shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>*)(this_01 + 8);
-                    uVar9 = 0;
+                if ((!cVar1) && (uVar4 = this_01->HeapBeginPtr(), uVar4 != 0)) {
+                    this_03 = (shared_ptr<std::unique_ptr<LocationData>[]>*)(this_01 + 8);
+                    arg1_01 = 0;
                     do {
-                        if (*(ulong*)this_01 <= uVar9) {
-                            /* WARNING: Subroutine does not return */
+                        if (*(unsigned long*)this_01 <= arg1_01) {
                             LogAssert("(index < m_Size)",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/"
                                       "SharedArray.h",
-                                      299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                      299, "Index of %d outside range 0 to %d", arg1_01, *(unsigned long*)this_01 - 1);
                         }
-                        puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                            shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::operator[](
-                                this_03, uVar9);
-                        lVar6 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(puVar5);
-                        cVar1 = constants::LocShape::IsWallShape(*(int*)(lVar6 + 4));
-                        if (cVar1 != '\0') {
-                            if (*(ulong*)this_01 <= uVar9) {
-                                /* WARNING: Subroutine does not return */
+                        uVar8 = arg1_01;
+                        puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                        iVar3 = (int)uVar8;
+                        lVar6 = (*puVar5).operator->();
+                        cVar1 = ((LocShape*)(unsigned long)*(unsigned int*)(lVar6 + 4))->IsWallShape(iVar3);
+                        if (cVar1) {
+                            if (*(unsigned long*)this_01 <= arg1_01) {
                                 LogAssert("(index < m_Size)",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/"
                                           "SharedArray.h",
-                                          299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                          299, "Index of %d outside range 0 to %d", arg1_01,
+                                          *(unsigned long*)this_01 - 1);
                             }
-                            puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)shared_ptr<
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::operator[](this_03,
-                                                                                                                uVar9);
-                            piVar7 = (int*)std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                puVar5);
+                            puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                            piVar7 = (int*)(*puVar5).operator->();
                             this_02 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(*piVar7);
-                            lVar6 = shared_ptr<configdecoder::LocType>::operator->(this_02);
-                            uVar12 = 4291559424;
+                            lVar6 = (*this_02).operator->();
+                            uVar11 = 4291559424;
                             if (*(int*)(lVar6 + 200) == 0) {
-                                uVar12 = 4291611852;
+                                uVar11 = 4291611852;
                             }
-                            if (*(ulong*)this_01 <= uVar9) {
-                                /* WARNING: Subroutine does not return */
+                            if (*(unsigned long*)this_01 <= arg1_01) {
                                 LogAssert("(index < m_Size)",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/"
                                           "SharedArray.h",
-                                          299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                          299, "Index of %d outside range 0 to %d", arg1_01,
+                                          *(unsigned long*)this_01 - 1);
                             }
-                            puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)shared_ptr<
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::operator[](this_03,
-                                                                                                                uVar9);
-                            lVar6 =
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(puVar5);
+                            puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                            lVar6 = (*puVar5).operator->();
                             iVar3 = (int)this;
                             if (*(int*)(lVar6 + 4) == 0) {
-                                if (*(ulong*)this_01 <= uVar9) {
-                                    /* WARNING: Subroutine does not return */
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar9);
-                                lVar6 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                    puVar5);
-                                RenderOrthogonalWall(iVar3, param_1, param_2, *(int*)(lVar6 + 8));
+                                puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                lVar6 = (*puVar5).operator->();
+                                RenderOrthogonalWall(iVar3, arg1, arg2, *(int*)(lVar6 + 8));
                             }
-                            if (*(ulong*)this_01 <= uVar9) {
-                                /* WARNING: Subroutine does not return */
+                            if (*(unsigned long*)this_01 <= arg1_01) {
                                 LogAssert("(index < m_Size)",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/"
                                           "SharedArray.h",
-                                          299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                          299, "Index of %d outside range 0 to %d", arg1_01,
+                                          *(unsigned long*)this_01 - 1);
                             }
-                            puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)shared_ptr<
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::operator[](this_03,
-                                                                                                                uVar9);
-                            lVar6 =
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(puVar5);
+                            puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                            lVar6 = (*puVar5).operator->();
                             if (*(int*)(lVar6 + 4) == 2) {
-                                if (*(ulong*)this_01 <= uVar9) {
-                                    /* WARNING: Subroutine does not return */
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar9);
-                                lVar6 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                    puVar5);
-                                RenderOrthogonalWall(iVar3, param_1, param_2, *(int*)(lVar6 + 8));
-                                if (*(ulong*)this_01 <= uVar9) {
-                                    /* WARNING: Subroutine does not return */
+                                puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                lVar6 = (*puVar5).operator->();
+                                RenderOrthogonalWall(iVar3, arg1, arg2, *(int*)(lVar6 + 8));
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar9);
-                                lVar6 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                    puVar5);
-                                RenderOrthogonalWall(iVar3, param_1, param_2, *(int*)(lVar6 + 8) + 1);
+                                puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                lVar6 = (*puVar5).operator->();
+                                RenderOrthogonalWall(iVar3, arg1, arg2, *(int*)(lVar6 + 8) + 1);
                             }
-                            if (*(ulong*)this_01 <= uVar9) {
-                                /* WARNING: Subroutine does not return */
+                            if (*(unsigned long*)this_01 <= arg1_01) {
                                 LogAssert("(index < m_Size)",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/"
                                           "SharedArray.h",
-                                          299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                          299, "Index of %d outside range 0 to %d", arg1_01,
+                                          *(unsigned long*)this_01 - 1);
                             }
-                            puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)shared_ptr<
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::operator[](this_03,
-                                                                                                                uVar9);
-                            lVar6 =
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(puVar5);
+                            puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                            lVar6 = (*puVar5).operator->();
                             if (*(int*)(lVar6 + 4) == 3) {
-                                if (*(ulong*)this_01 <= uVar9) {
-                                    /* WARNING: Subroutine does not return */
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar9);
-                                lVar6 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                    puVar5);
+                                puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                lVar6 = (*puVar5).operator->();
                                 if (*(int*)(lVar6 + 8) == 0) {
-                                    (**(code**)(*m_toolkit2D + 56))(m_toolkit2D, field_60* param_1, field_60* iVar2, 1,
-                                                                    uVar12);
+                                    (**(void (**)(...))(*m_toolkit2D + 56))(m_toolkit2D, field_60* arg1,
+                                                                            field_60* iVar2, 1, uVar11);
                                 }
-                                if (*(ulong*)this_01 <= uVar9) {
-                                    /* WARNING: Subroutine does not return */
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar9);
-                                lVar6 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                    puVar5);
+                                puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                lVar6 = (*puVar5).operator->();
                                 if (*(int*)(lVar6 + 8) == 1) {
                                     iVar3 = field_60;
-                                    (**(code**)(*m_toolkit2D + 56))(m_toolkit2D, iVar3 + iVar3 * param_1 + -1,
-                                                                    iVar3 * iVar2, 1, uVar12);
+                                    (**(void (**)(...))(*m_toolkit2D + 56))(m_toolkit2D, iVar3 + iVar3 * arg1 - 1,
+                                                                            iVar3 * iVar2, 1, uVar11);
                                 }
-                                if (*(ulong*)this_01 <= uVar9) {
-                                    /* WARNING: Subroutine does not return */
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar9);
-                                lVar6 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                    puVar5);
+                                puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                lVar6 = (*puVar5).operator->();
                                 if (*(int*)(lVar6 + 8) == 2) {
                                     iVar3 = field_60;
-                                    (**(code**)(*m_toolkit2D + 56))(m_toolkit2D, iVar3 + iVar3 * param_1 + -1,
-                                                                    iVar3 + iVar3 * iVar2 + -1, 1, uVar12);
+                                    (**(void (**)(...))(*m_toolkit2D + 56))(m_toolkit2D, iVar3 + iVar3 * arg1 - 1,
+                                                                            iVar3 + iVar3 * iVar2 - 1, 1, uVar11);
                                 }
-                                if (*(ulong*)this_01 <= uVar9) {
-                                    /* WARNING: Subroutine does not return */
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar9);
-                                lVar6 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                    puVar5);
+                                puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                lVar6 = (*puVar5).operator->();
                                 if (*(int*)(lVar6 + 8) == 3) {
                                     iVar3 = field_60;
-                                    (**(code**)(*m_toolkit2D + 56))(m_toolkit2D, iVar3* param_1,
-                                                                    iVar3 + iVar3 * iVar2 + -1, 1, uVar12);
+                                    (**(void (**)(...))(*m_toolkit2D + 56))(m_toolkit2D, iVar3* arg1,
+                                                                            iVar3 + iVar3 * iVar2 - 1, 1, uVar11);
                                 }
                             }
-                            if (*(ulong*)this_01 <= uVar9) {
-                                /* WARNING: Subroutine does not return */
+                            if (*(unsigned long*)this_01 <= arg1_01) {
                                 LogAssert("(index < m_Size)",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/"
                                           "SharedArray.h",
-                                          299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                          299, "Index of %d outside range 0 to %d", arg1_01,
+                                          *(unsigned long*)this_01 - 1);
                             }
-                            puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)shared_ptr<
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::operator[](this_03,
-                                                                                                                uVar9);
-                            lVar6 =
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(puVar5);
+                            puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                            lVar6 = (*puVar5).operator->();
                             if (*(int*)(lVar6 + 4) == 9) {
-                                if (*(ulong*)this_01 <= uVar9) {
-                                    /* WARNING: Subroutine does not return */
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar9, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar5 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar9);
-                                lVar6 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                    puVar5);
+                                puVar5 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                lVar6 = (*puVar5).operator->();
                                 iVar3 = field_60;
-                                if ((*(byte*)(lVar6 + 8) & 1) == 0) {
+                                if ((*(uint8_t*)(lVar6 + 8) & 1) == 0) {
                                     if (0 < iVar3) {
-                                        iVar10 = 0;
-                                        iVar11 = -1;
+                                        iVar9 = 0;
+                                        iVar10 = -1;
                                         do {
-                                            (**(code**)(*m_toolkit2D + 56))(m_toolkit2D, param_1* iVar3 + iVar10,
-                                                                            iVar3 * (64 - param_2) + iVar11, 1, uVar12);
-                                            iVar10 = iVar10 + 1;
+                                            (**(void (**)(...))(*m_toolkit2D + 56))(m_toolkit2D, arg1* iVar3 + iVar9,
+                                                                                    iVar3 * (64 - arg2) + iVar10, 1,
+                                                                                    uVar11);
+                                            iVar9 = iVar9 + 1;
                                             iVar3 = field_60;
-                                            iVar11 = iVar11 + -1;
-                                        } while (iVar10 < iVar3);
+                                            iVar10 = iVar10 - 1;
+                                        } while (iVar9 < iVar3);
                                     }
                                 } else if (0 < iVar3) {
-                                    iVar10 = 0;
+                                    iVar9 = 0;
                                     do {
-                                        (**(code**)(*m_toolkit2D + 56))(m_toolkit2D, param_1* iVar3 + iVar10,
-                                                                        iVar3 * iVar2 + iVar10, 1, uVar12);
-                                        iVar10 = iVar10 + 1;
+                                        (**(void (**)(...))(*m_toolkit2D + 56))(m_toolkit2D, arg1* iVar3 + iVar9,
+                                                                                iVar3 * iVar2 + iVar9, 1, uVar11);
+                                        iVar9 = iVar9 + 1;
                                         iVar3 = field_60;
-                                    } while (iVar10 < iVar3);
+                                    } while (iVar9 < iVar3);
                                 }
                             }
                         }
-                        uVar9 = uVar9 + 1;
-                    } while (uVar9 != uVar4);
+                        arg1_01 = arg1_01 + 1;
+                    } while (arg1_01 != uVar4);
                 }
-                uVar8 = uVar8 + 1;
-                iVar3 = param_3->GetMaxLevels();
-            } while ((long)uVar8 < (long)iVar3);
+                arg1_00 = arg1_00 + 1;
+                iVar3 = packableArea.GetMaxLevels();
+            } while ((long)arg1_00 < (long)iVar3);
         }
     }
 
-    // 0x1002144a0, 704 bytes, placed by class name
-    // RenderedMapSquare::RenderMsi(int, int, PackableArea&, Array<graphics::Pix8, eastl::allocator>&)
-    void RenderedMapSquare::RenderMsi(int param_1, int param_2, PackableArea* param_3, Array* param_4) {
-        char cVar1;
-        int iVar2;
-        array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>, 4096ul>* this_00;
-        SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>* this_01;
-        ulong uVar3;
-        unique_ptr<LocationData, std::default_delete<LocationData>>* puVar4;
+    // 0x1002144a0
+    void RenderedMapSquare::RenderMsi(int arg1, int arg2, PackableArea& packableArea, Array<graphics::Pix8>& pix8s) {
+        bool cVar1;
+        array<SharedArray<std::unique_ptr<LocationData>>, 4096ul>* this_00;
+        SharedArray<std::unique_ptr<LocationData>>* this_01;
+        unsigned long uVar3;
+        unique_ptr<LocationData>* puVar4;
         long lVar5;
         int* piVar6;
         shared_ptr<configdecoder::LocType>* this_02;
-        undefined8 uVar7;
-        ulong uVar8;
+        uint64_t uVar7;
+        unsigned long arg1_00;
+        unsigned long uVar8;
         int iVar9;
         long* plVar10;
-        shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>* this_03;
-        ulong uVar11;
+        shared_ptr<std::unique_ptr<LocationData>[]>* this_03;
+        unsigned long arg1_01;
 
-        iVar2 = param_3->GetMaxLevels();
+        int iVar2 = packableArea.GetMaxLevels();
         if (0 < iVar2) {
-            uVar8 = 0;
+            arg1_00 = 0;
             do {
-                this_00 = (array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                                 4096ul>*)
-                    Array<std::array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                                     4096ul>,
-                          eastl::allocator>::
-                    operator[](
-                        (Array<std::array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                                          4096ul>,
-                               eastl::allocator>*)&param_3->field_136,
-                        uVar8);
-                this_01 = (SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>*)
-                    std::array<SharedArray<std::unique_ptr<LocationData, std::default_delete<LocationData>>>,
-                               4096ul>::operator[](this_00, (long)(param_1 * 64 + param_2));
+                this_00 = &packableArea.field_136[arg1_00];
+                this_01 = (SharedArray<std::unique_ptr<LocationData>>*)(*this_00)[(long)(arg1 * 64 + arg2)];
                 cVar1 = this_01->empty();
-                if (cVar1 == '\0') {
+                if (!cVar1) {
                     uVar3 = this_01->HeapBeginPtr();
                     if (uVar3 != 0) {
-                        this_03 =
-                            (shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>*)(this_01 +
-                                                                                                              8);
-                        uVar11 = 0;
+                        this_03 = (shared_ptr<std::unique_ptr<LocationData>[]>*)(this_01 + 8);
+                        arg1_01 = 0;
                         do {
-                            if (*(ulong*)this_01 <= uVar11) {
-                                /* WARNING: Subroutine does not return */
+                            if (*(unsigned long*)this_01 <= arg1_01) {
                                 LogAssert("(index < m_Size)",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/"
                                           "SharedArray.h",
-                                          299, "Index of %d outside range 0 to %d", uVar11, *(ulong*)this_01 - 1);
+                                          299, "Index of %d outside range 0 to %d", arg1_01,
+                                          *(unsigned long*)this_01 - 1);
                             }
-                            puVar4 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)shared_ptr<
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::operator[](this_03,
-                                                                                                                uVar11);
-                            lVar5 =
-                                std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(puVar4);
-                            cVar1 = constants::LocShape::IsCentrePieceShape(*(int*)(lVar5 + 4));
-                            if (cVar1 == '\0') {
-                                if (*(ulong*)this_01 <= uVar11) {
-                                    /* WARNING: Subroutine does not return */
+                            uVar8 = arg1_01;
+                            puVar4 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                            iVar2 = (int)uVar8;
+                            lVar5 = (*puVar4).operator->();
+                            cVar1 = ((LocShape*)(unsigned long)*(unsigned int*)(lVar5 + 4))->IsCentrePieceShape(iVar2);
+                            if (!cVar1) {
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar11, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar4 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar11);
-                                lVar5 = std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                    puVar4);
-                                cVar1 = constants::LocShape::IsGroundDecorShape(*(int*)(lVar5 + 4));
-                                if (cVar1 != '\0')
+                                uVar8 = arg1_01;
+                                puVar4 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                iVar2 = (int)uVar8;
+                                lVar5 = (*puVar4).operator->();
+                                cVar1 =
+                                    ((LocShape*)(unsigned long)*(unsigned int*)(lVar5 + 4))->IsGroundDecorShape(iVar2);
+                                if (cVar1)
                                     goto LAB_100214682;
                             } else {
                             LAB_100214682:
-                                if (*(ulong*)this_01 <= uVar11) {
-                                    /* WARNING: Subroutine does not return */
+                                if (*(unsigned long*)this_01 <= arg1_01) {
                                     LogAssert("(index < m_Size)",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "jtl/SharedArray.h",
-                                              299, "Index of %d outside range 0 to %d", uVar11, *(ulong*)this_01 - 1);
+                                              299, "Index of %d outside range 0 to %d", arg1_01,
+                                              *(unsigned long*)this_01 - 1);
                                 }
-                                puVar4 = (unique_ptr<LocationData, std::default_delete<LocationData>>*)
-                                    shared_ptr<std::unique_ptr<LocationData, std::default_delete<LocationData>>[]>::
-                                    operator[](this_03, uVar11);
-                                piVar6 =
-                                    (int*)std::unique_ptr<LocationData, std::default_delete<LocationData>>::operator->(
-                                        puVar4);
+                                puVar4 = (unique_ptr<LocationData>*)(*this_03)[arg1_01];
+                                piVar6 = (int*)(*puVar4).operator->();
                                 this_02 = (shared_ptr<configdecoder::LocType>*)configdecoder::LocType::List(*piVar6);
-                                lVar5 = shared_ptr<configdecoder::LocType>::operator->(this_02);
+                                lVar5 = (*this_02).operator->();
                                 if (*(int*)(lVar5 + 436) != -1) {
-                                    lVar5 = shared_ptr<configdecoder::LocType>::operator->(this_02);
+                                    lVar5 = (*this_02).operator->();
                                     if (*(int*)(lVar5 + 436) == 46) {
                                     LAB_100214580:
                                         plVar10 = m_toolkit2D;
-                                        lVar5 = shared_ptr<configdecoder::LocType>::operator->(this_02);
-                                        uVar7 = Array<graphics::Pix8, eastl::allocator>::operator[](
-                                            (Array<graphics::Pix8, eastl::allocator>*)param_4,
-                                            (long)*(int*)(lVar5 + 436));
+                                        lVar5 = (*this_02).operator->();
+                                        uVar7 = pix8s[(long)*(int*)(lVar5 + 436)];
                                         iVar2 = field_60;
                                         iVar9 = iVar2 * 2 + 1;
                                     } else {
-                                        lVar5 = shared_ptr<configdecoder::LocType>::operator->(this_02);
+                                        lVar5 = (*this_02).operator->();
                                         plVar10 = m_toolkit2D;
                                         if (*(int*)(lVar5 + 436) == 52)
                                             goto LAB_100214580;
-                                        lVar5 = shared_ptr<configdecoder::LocType>::operator->(this_02);
-                                        uVar7 = Array<graphics::Pix8, eastl::allocator>::operator[](
-                                            (Array<graphics::Pix8, eastl::allocator>*)param_4,
-                                            (long)*(int*)(lVar5 + 436));
+                                        lVar5 = (*this_02).operator->();
+                                        uVar7 = pix8s[(long)*(int*)(lVar5 + 436)];
                                         iVar2 = field_60;
                                         iVar9 = iVar2 * 2;
                                     }
-                                    (**(code**)(*plVar10 + 216))(plVar10, uVar7, iVar2* param_1, iVar2 * (63 - param_2),
-                                                                 iVar9, iVar9);
+                                    (**(void (**)(...))(*plVar10 + 216))(plVar10, uVar7, iVar2* arg1,
+                                                                         iVar2 * (63 - arg2), iVar9, iVar9);
                                 }
                             }
-                            uVar11 = uVar11 + 1;
-                        } while (uVar3 != uVar11);
+                            arg1_01 = arg1_01 + 1;
+                        } while (uVar3 != arg1_01);
                     }
                 }
-                uVar8 = uVar8 + 1;
-                iVar2 = param_3->GetMaxLevels();
-            } while ((long)uVar8 < (long)iVar2);
+                arg1_00 = arg1_00 + 1;
+                iVar2 = packableArea.GetMaxLevels();
+            } while ((long)arg1_00 < (long)iVar2);
         }
     }
 
-    // 0x100214760, 96 bytes, placed by class name
-    // RenderedMapSquare::GetBlendedGroundColour(int, int, PackableArea&, BlendedGround&)
-    ulong RenderedMapSquare::GetBlendedGroundColour(int param_1, int param_2, PackableArea* param_3,
-                                                    BlendedGround* param_4) {
-        array<unsigned short, 4096ul>* this_00;
-        short* psVar1;
-        ulong uVar2;
+    // 0x100214760
+    unsigned long RenderedMapSquare::GetBlendedGroundColour(int arg1, int arg2, PackableArea& packableArea,
+                                                            BlendedGround& blendedGround) {
+        unsigned long uVar2;
 
-        this_00 =
-            (array<unsigned short, 4096ul>*)Array<std::array<unsigned short, 4096ul>, eastl::allocator>::operator[](
-                (Array<std::array<unsigned short, 4096ul>, eastl::allocator>*)&param_3->field_8, 0);
-        psVar1 = (short*)std::array<unsigned short, 4096ul>::operator[](this_00, (long)(param_1 * 64 + param_2));
+        array<unsigned short, 4096ul>* this_00 = &packableArea.field_8[0];
+        short* psVar1 = (short*)(*this_00)[(long)(arg1 * 64 + arg2)];
         if (*psVar1 == 0) {
-            uVar2 = (ulong)field_56;
+            uVar2 = (unsigned long)field_56;
         } else {
-            uVar2 = param_4->GetBlendedGroundColour(param_1, param_2);
+            uVar2 = blendedGround.GetBlendedGroundColour(arg1, arg2);
         }
         return uVar2;
     }
 
-    // 0x1002147d0, 224 bytes, placed by class name
-    // RenderedMapSquare::RenderOrthogonalWall(int, int, int, int)
-    void RenderedMapSquare::RenderOrthogonalWall(int param_1, int param_2, int param_3, int param_4) {
+    // 0x1002147d0
+    void RenderedMapSquare::RenderOrthogonalWall(int arg1, int arg2, int arg3, int arg4) {
         int iVar1;
         int iVar2;
-        undefined4 in_register_0000003c;
-        long lVar3;
+        uint32_t in_register_0000003c;
 
-        lVar3 = CONCAT44(in_register_0000003c, param_1);
-        switch (param_4 % 4) {
+        long lVar3 = (((uint64_t)in_register_0000003c << 32) | (uint32_t)arg1);
+        switch (arg4 % 4) {
         case 0:
-            iVar2 = param_2 * *(int*)(lVar3 + 60);
-            iVar1 = (63 - param_3) * *(int*)(lVar3 + 60);
+            iVar2 = arg2 * *(int*)(lVar3 + 60);
+            iVar1 = (63 - arg3) * *(int*)(lVar3 + 60);
             lVar3 = *m_toolkit2D;
             break;
         case 1:
-            (**(code**)(*m_toolkit2D + 56))(m_toolkit2D, param_2**(int*)(lVar3 + 60),
-                                            (63 - param_3) * *(int*)(lVar3 + 60));
+            (**(void (**)(...))(*m_toolkit2D + 56))(m_toolkit2D, arg2**(int*)(lVar3 + 60),
+                                                    (63 - arg3) * *(int*)(lVar3 + 60));
             return;
         case 2:
             iVar1 = *(int*)(lVar3 + 60);
-            iVar2 = param_2 * iVar1 + iVar1 + -1;
-            iVar1 = (63 - param_3) * iVar1;
+            iVar2 = arg2 * iVar1 + iVar1 - 1;
+            iVar1 = (63 - arg3) * iVar1;
             lVar3 = *m_toolkit2D;
             break;
         case 3:
             iVar1 = *(int*)(lVar3 + 60);
-            (**(code**)(*m_toolkit2D + 56))(m_toolkit2D, param_2* iVar1, iVar1 + (63 - param_3) * iVar1 + -1);
+            (**(void (**)(...))(*m_toolkit2D + 56))(m_toolkit2D, arg2* iVar1, iVar1 + (63 - arg3) * iVar1 - 1);
         default:
             return;
         }
-        (**(code**)(lVar3 + 72))(m_toolkit2D, iVar2, iVar1);
+        (**(void (**)(...))(lVar3 + 72))(m_toolkit2D, iVar2, iVar1);
     }
 
-    // 0x1002148f0, 128 bytes, placed by class name
-    // RenderedMapSquare::RenderMapElement(MapElement&, int, int, float, graphics::Pix2D&)
-    void RenderedMapSquare::RenderMapElement(MapElement* param_1, int param_2, int param_3, float param_4,
-                                             Pix2D* param_5) {
-        int iVar1;
-        MapElementType* pMVar2;
-
-        iVar1 = (**(code**)(param_1->field_0 + 8))(param_1);
-        pMVar2 = (MapElementType*)configdecoder::MapElementType::List(iVar1);
-        RenderMapElementSprite(this, pMVar2, param_2, param_3, param_5);
-        RenderMapElementTextLabel(this, param_1, pMVar2, param_2, param_3, param_4, param_5);
+    // 0x1002148f0
+    void RenderedMapSquare::RenderMapElement(MapElement& mapElement, int arg2, int arg3, float arg4,
+                                             graphics::Pix2D& pix2D) {
+        auto mapElementType =
+            configdecoder::MapElementType::List((**(void (**)(...))(mapElement.field_0 + 8))(mapElement));
+        RenderMapElementSprite(*mapElementType, arg2, arg3, pix2D);
+        RenderMapElementTextLabel(mapElement, *mapElementType, arg2, arg3, arg4, pix2D);
     }
 
-    // 0x100214970, 208 bytes, placed by class name
-    // RenderedMapSquare::RenderMapElementSprite(configdecoder::MapElementType const&, int, int, graphics::Pix2D&)
-    void RenderedMapSquare::RenderMapElementSprite(MapElementType* param_1, int param_2, int param_3, Pix2D* param_4) {
-        undefined8 uVar1;
+    // 0x100214970
+    void RenderedMapSquare::RenderMapElementSprite(const configdecoder::MapElementType& mapElementType, int arg2,
+                                                   int arg3, graphics::Pix2D& pix2D) {
+        int iVar2;
         int iVar3;
-        int iVar4;
-        shared_ptr<graphics::Pix32> local_48[20];
+        Pix32* pPVar4;
+        uint64_t uVar5;
+        RenderedMapSquare* pRVar6;
+        ReturnValue local_48;
 
-        local_48->GetSprite(SUB81(param_1, 0));
-        if (operator!=((shared_ptr*)local_48, (_func_decltype_nullptr*)0)) {
-            shared_ptr<graphics::Pix32>::operator*(local_48);
-            iVar3 = GetHorizontalOffset();
-            shared_ptr<graphics::Pix32>::operator*(local_48);
-            iVar4 = GetVerticalOffset();
-            uVar1 = shared_ptr<graphics::Pix32>::operator*(local_48);
-            (**(code**)(param_4->field_0 + 176))(param_4, uVar1, iVar3 + param_2, iVar4 + param_3);
+        local_48.GetSprite(mapElementType, false);
+        if (local_48 != nullptr) {
+            pRVar6 = &local_48;
+            pPVar4 = (Pix32*)**pRVar6;
+            iVar2 = GetHorizontalOffset(pRVar6, pPVar4, mapElementType.field_376);
+            pRVar6 = &local_48;
+            pPVar4 = (Pix32*)**pRVar6;
+            iVar3 = GetVerticalOffset(pRVar6, pPVar4, mapElementType.field_380);
+            uVar5 = *local_48;
+            (**(void (**)(...))(pix2D.field_0 + 176))(pix2D, uVar5, iVar2 + arg2, iVar3 + arg3);
         }
-        local_48->~shared_ptr();
     }
 
-    // 0x100214a40, 416 bytes, placed by class name
-    // RenderedMapSquare::RenderMapElementTextLabel(MapElement&, configdecoder::MapElementType const&, int, int, float, graphics::Pix2D&)
-    void RenderedMapSquare::RenderMapElementTextLabel(MapElement* param_1, MapElementType* param_2, int param_3,
-                                                      int param_4, float param_5, Pix2D* param_6) {
-        int iVar1;
-        uint uVar2;
-        char cVar3;
-        basic_string* pbVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        long lVar8;
-        int* piVar9;
-        undefined1 auVar10[16];
-        hashtable_iterator_base local_78[16];
+    // 0x100214a40
+    void RenderedMapSquare::RenderMapElementTextLabel(MapElement& mapElement,
+                                                      const configdecoder::MapElementType& mapElementType, int arg3,
+                                                      int arg4, float arg5, graphics::Pix2D& pix2D) {
+        int arg4_00;
+        unsigned int uVar1;
+        eastl::string* str;
+        Logger* this_00;
+        uint64_t uVar3;
+        long lVar4;
+        int* piVar5;
+        uint8_t auVar6[16];
+        obj_iterator local_78;
         PixfontGeneric* local_58;
-        eastl local_50[20];
+        eastl local_50;
         int local_38;
-        float local_34;
 
-        local_34 = param_5;
-        cVar3 = (**(code**)(param_1->field_0 + 24))(param_1);
-        if (cVar3 != '\0') {
-            pbVar5 = (basic_string*)(**(code**)(param_1->field_0 + 16))(param_1);
-            cVar3 = ((pbVar5 + 40))->ShouldRenderAtScale(local_34);
-            if (cVar3 != '\0') {
-                local_38 = ((pbVar5 + 40))->GetSize();
-                local_50._0_16_ = (field_152, &local_38)->find();
-                local_78 = (hashtable_iterator_base[16])field_152->end();
-                if (eastl::operator==(local_50, local_78, local_78._8_8_)) {
-                    uVar6 = logger::default_logger();
-                    uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    logger::Logger::Log(uVar6, 1, 3,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                        "oldscape/rs2lib/worldmap/RenderedMapSquare.cpp",
-                                        921, "Skipping label because font size is wrong: %s", uVar7);
+        float local_34 = arg5;
+        if ((**(void (**)(...))(mapElement.field_0 + 24))(mapElement)) {
+            str = (eastl::string*)(**(void (**)(...))(mapElement.field_0 + 16))(mapElement);
+            if (((str + 40))->ShouldRenderAtScale(local_34)) {
+                local_38 = ((str + 40))->GetSize();
+                local_50._0_16_ = field_152->find(local_38);
+                &local_78 = (obj_iterator[16])field_152->end();
+                if (!(local_50 == local_78)) {
+                    auVar6 = field_152->find(local_38);
+                    local_50._0_16_ = auVar6;
+                    lVar4 = local_50.HeapBeginPtr();
+                    local_58 = (PixfontGeneric*)(*((lVar4 + 8))).operator->();
+                    arg4_00 = *(int*)(str + 32);
+                    local_34 = *(float*)(str + 36);
+                    uVar1 = mapElementType.field_48;
+                    piVar5 = (int*)(*((lVar4 + 8))).operator->();
+                    local_58->DrawStringMultiline(*str, arg3 - arg4_00 / 2, arg4, arg4_00, (int)local_34,
+                                                  uVar1 | 4278190080, 0, 1, 0, *piVar5 / 2, pix2D);
                 } else {
-                    auVar10 = (field_152, &local_38)->find();
-                    local_50._0_16_ = auVar10;
-                    lVar8 = local_50->HeapBeginPtr();
-                    local_58 = (PixfontGeneric*)shared_ptr<jstring::PixfontGeneric>::operator->(
-                        (shared_ptr<jstring::PixfontGeneric>*)(lVar8 + 8));
-                    iVar1 = *(int*)(pbVar5 + 32);
-                    local_34 = *(float*)(pbVar5 + 36);
-                    uVar2 = param_2->field_48;
-                    piVar9 = (int*)shared_ptr<jstring::PixfontGeneric>::operator->(
-                        (shared_ptr<jstring::PixfontGeneric>*)(lVar8 + 8));
-                    local_58->DrawStringMultiline(pbVar5, param_3 - iVar1 / 2, param_4, iVar1, (int)local_34,
-                                                  uVar2 | 4278190080, 0, 1, 0, *piVar9 / 2, param_6);
+                    this_00 = logger::default_logger();
+                    uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    this_00->Log(true, 3,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
+                                 "rs2lib/worldmap/RenderedMapSquare.cpp",
+                                 921, "Skipping label because font size is wrong: %s", uVar3);
                 }
             }
         }
     }
 
-    // 0x100214be0, 48 bytes, placed by class name
-    // RenderedMapSquare::GetHorizontalOffset(graphics::Pix32&, game::MapElementHorizontalAlign)
-    int RenderedMapSquare::GetHorizontalOffset(undefined8 param_1_00, long param_1, int param_3) {
-        int iVar1;
-
-        iVar1 = 0;
-        if (param_3 != 0) {
-            if (param_3 == 1) {
-                return -(*(int*)(param_1 + 24) / 2);
+    // 0x100214be0
+    int RenderedMapSquare::GetHorizontalOffset(graphics::Pix32& pix32,
+                                               game::MapElementHorizontalAlign mapElementHorizontalAlign) {
+        int iVar1 = 0;
+        if (mapElementHorizontalAlign != 0) {
+            if (mapElementHorizontalAlign == 1) {
+                return -((int)pix32.field_24 / 2);
             }
-            iVar1 = -*(int*)(param_1 + 24);
+            iVar1 = -pix32.field_24;
         }
         return iVar1;
     }
 
-    // 0x100214c10, 48 bytes, placed by class name
-    // RenderedMapSquare::GetVerticalOffset(graphics::Pix32&, game::MapElementVerticalAlign)
-    int RenderedMapSquare::GetVerticalOffset(undefined8 param_1_00, long param_1, int param_3) {
-        int iVar1;
-
-        iVar1 = 0;
-        if (param_3 != 0) {
-            if (param_3 == 1) {
-                return -(*(int*)(param_1 + 28) / 2);
+    // 0x100214c10
+    int RenderedMapSquare::GetVerticalOffset(graphics::Pix32& pix32,
+                                             game::MapElementVerticalAlign mapElementVerticalAlign) {
+        int iVar1 = 0;
+        if (mapElementVerticalAlign != 0) {
+            if (mapElementVerticalAlign == 1) {
+                return -((int)pix32.field_28 / 2);
             }
-            iVar1 = -*(int*)(param_1 + 28);
+            iVar1 = -pix32.field_28;
         }
         return iVar1;
     }
 
-    // 0x100214c60, 112 bytes, placed by class name
-    // RenderedMapSquare::GetMeltype(shared_ptr<configdecoder::LocType> const&)
-    undefined8 RenderedMapSquare::GetMeltype(shared_ptr* param_1) {
-        char cVar1;
-        long lVar3;
-        LocType* this;
-        shared_ptr* this_00;
+    // 0x100214c60
+    MapElementType* RenderedMapSquare::GetMeltype(const shared_ptr<configdecoder::LocType>& locType) {
+        LocType locType;
 
-        lVar3 = shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-        cVar1 = ((lVar3 + 488))->empty();
-        if (cVar1 == '\0') {
-            this =
-                (LocType*)shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-            this_00 = (shared_ptr*)GetMultiLoc();
-            if (!shared_ptr::operator_cast_to_bool(this_00)) {
-                return 0;
+        long lVar2 = locType.operator->();
+        if (!(((lVar2 + 488))->empty())) {
+            locType = (LocType*)locType.operator->();
+            if (!((locType.GetMultiLoc())->operator_cast_to_bool())) {
+                return nullptr;
             }
         }
-        lVar3 = shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-        if (*(int*)(lVar3 + 432) == -1) {
-            return 0;
+        lVar2 = locType.operator->();
+        if (*(int*)(lVar2 + 432) == -1) {
+            return nullptr;
         }
-        lVar3 = shared_ptr<configdecoder::LocType>::operator->((shared_ptr<configdecoder::LocType>*)param_1);
-        return configdecoder::MapElementType::List(*(int*)(lVar3 + 432));
-    }
-
-    // 0x100227ab0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.128
-    void ___cxx_global_var_init_128() {
-        new (&RenderedMapSquare::m_renderedMapSquareSpriteCache) LRUCache<graphics::Pix32>(37748736, "mapsqLRU");
-        ___cxa_atexit(PTR__LRUCache_100ee6990, &RenderedMapSquare::m_renderedMapSquareSpriteCache, 4294967296);
-    }
-
-    // 0x100227af0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.132
-    void ___cxx_global_var_init_132() {
-        OffscreenSoftwarePixToolkit* this;
-
-        this = operator_new(6437456);
-        graphics::OffscreenSoftwarePixToolkit::OffscreenSoftwarePixToolkit(this);
-        RenderedMapSquare::m_toolkit = this;
-    }
-
-    // 0x100227b30, 32 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.133
-    void ___cxx_global_var_init_133() {
-        RenderedMapSquare::m_toolkit2D = (**(code**)*RenderedMapSquare::m_toolkit)();
+        lVar2 = locType.operator->();
+        return configdecoder::MapElementType::List(*(int*)(lVar2 + 432));
     }
 
 } // namespace jag::oldscape::rs2lib::worldmap

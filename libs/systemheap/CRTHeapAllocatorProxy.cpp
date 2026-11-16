@@ -1,95 +1,77 @@
 // libs/systemheap/CRTHeapAllocatorProxy.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.systemheap
 
 #include "CRTHeapAllocatorProxy.h"
 
 namespace jag::systemheap {
-    // 0x100c92490, 128 bytes, placed by class name and debug map
-    // CrtHeapAllocatorProxy::GrabCallStack(unsigned long*, unsigned int)
-    void CrtHeapAllocatorProxy::GrabCallStack(ulong* param_1, uint param_2) {
-        uint uVar2;
+    // 0x100c92490
+    void CrtHeapAllocatorProxy::GrabCallStack(unsigned long* arg1, unsigned int arg2) {
+        unsigned int uVar2;
 
-        if (param_1 == (ulong*)0) {
-            /* WARNING: Subroutine does not return */
+        if (arg1 == nullptr) {
             LogAssert("pFirstFrame",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/systemheap/"
                       "CRTHeapAllocatorProxy.cpp",
-                      12, (char*)0);
+                      12, nullptr);
         }
         if (IsValid() == '\0') {
             uVar2 = GetLevel();
-            ___bzero(param_1, (ulong)uVar2 << 3);
+            ___bzero(arg1, (unsigned long)uVar2 << 3);
         } else {
             uVar2 = GetLevel();
-            callstack::capture_stack_back_trace((ulong)param_2, (ulong)uVar2, param_1);
+            callstack::capture_stack_back_trace((unsigned long)arg2, (unsigned long)uVar2, arg1);
         }
     }
 
-    // 0x100c926f0: the linker folded this into CrtHeapAllocatorProxy::Free(void*, unsigned int), which has identical code
-    CrtHeapAllocatorProxy::AlignedFree(void*, unsigned int);
+    // 0x100c926f0: CrtHeapAllocatorProxy::AlignedFree(void*, unsigned int) has the same machine code as CrtHeapAllocatorProxy::Free(void*, unsigned int)
 
-    // 0x100c92720: the linker folded this into CrtHeapAllocatorProxy::GetUsed() const, which has identical code
-    CrtHeapAllocatorProxy::GetZoneContext();
+    // 0x100c92720: CrtHeapAllocatorProxy::GetZoneContext() has the same machine code as CrtHeapAllocatorProxy::GetUsed() const
 
-    // 0x100c92720: the linker folded this into CrtHeapAllocatorProxy::GetUsed() const, which has identical code
-    CrtHeapAllocatorProxy::GetZone();
+    // 0x100c92720: CrtHeapAllocatorProxy::GetZone() has the same machine code as CrtHeapAllocatorProxy::GetUsed() const
 
-    // 0x100c92730: the linker folded this into CrtHeapAllocatorProxy::PushZoneContext(void*, void*), which has identical code
-    CrtHeapAllocatorProxy::PopZoneContext();
+    // 0x100c92730: CrtHeapAllocatorProxy::PopZoneContext() has the same machine code as CrtHeapAllocatorProxy::PushZoneContext(void*, void*)
 
-    // 0x100c92730: the linker folded this into CrtHeapAllocatorProxy::PushZoneContext(void*, void*), which has identical code
-    CrtHeapAllocatorProxy::PopZone();
+    // 0x100c92730: CrtHeapAllocatorProxy::PopZone() has the same machine code as CrtHeapAllocatorProxy::PushZoneContext(void*, void*)
 
-    // 0x100c92730: the linker folded this into CrtHeapAllocatorProxy::PushZoneContext(void*, void*), which has identical code
-    CrtHeapAllocatorProxy::PushZone(char const*);
+    // 0x100c92730: CrtHeapAllocatorProxy::PushZone(char const*) has the same machine code as CrtHeapAllocatorProxy::PushZoneContext(void*, void*)
 
-    // 0x100c92730: the linker folded this into CrtHeapAllocatorProxy::PushZoneContext(void*, void*), which has identical code
-    CrtHeapAllocatorProxy::SaveMemoryUsageToXML(std::function<void(char const*, unsigned long)> const&) const;
+    // 0x100c92730: CrtHeapAllocatorProxy::SaveMemoryUsageToXML(std::function<void (char const*, unsigned long)> const&) const has the same machine code as CrtHeapAllocatorProxy::PushZoneContext(void*, void*)
 
-    // 0x100c92730: the linker folded this into CrtHeapAllocatorProxy::PushZoneContext(void*, void*), which has identical code
-    CrtHeapAllocatorProxy::SaveMemoryUsageToConsole() const;
+    // 0x100c92730: CrtHeapAllocatorProxy::SaveMemoryUsageToConsole() const has the same machine code as CrtHeapAllocatorProxy::PushZoneContext(void*, void*)
 
-    // 0x100c92730: the linker folded this into CrtHeapAllocatorProxy::PushZoneContext(void*, void*), which has identical code
-    CrtHeapAllocatorProxy::SaveMemoryUsageBottomUpToConsole() const;
+    // 0x100c92730: CrtHeapAllocatorProxy::SaveMemoryUsageBottomUpToConsole() const has the same machine code as CrtHeapAllocatorProxy::PushZoneContext(void*, void*)
 
 } // namespace jag::systemheap
 
 namespace jag {
-    // 0x100c92510, 96 bytes, placed by neighbouring functions
-    // CRTHeapCreate()
+    // 0x100c92510
     void CRTHeapCreate() {
-        CrtHeapAllocatorProxy* this;
-        HeapInterface* this_00;
-
-        this = _malloc(24);
-        systemheap::CrtHeapAllocatorProxy::CrtHeapAllocatorProxy(this, 24);
-        passThroughProxy = this;
-        this_00 = _malloc(512);
-        HeapInterface::HeapInterface(this_00, (HeapAllocatorProxy*)this, 16);
+        auto crtHeapAllocatorProxy = _malloc(24);
+        new (crtHeapAllocatorProxy) systemheap::CrtHeapAllocatorProxy(24);
+        passThroughProxy = crtHeapAllocatorProxy;
+        auto this_00 = _malloc(512);
+        new (this_00) HeapInterface(crtHeapAllocatorProxy, 16);
         HeapInterface::SetInstance(this_00);
     }
 
-    // 0x100c92580, 144 bytes, placed by neighbouring functions
-    // CRTHeapDestroy()
+    // 0x100c92580
     void CRTHeapDestroy() {
-        HeapInterface* this;
-        VarDomainType* local_18;
+        DebugDataBasic* in_RSI;
 
-        this = (HeapInterface*)HeapInterface::Instance();
-        AssertOnMemoryLeaks();
-        local_18 = (VarDomainType*)GetAllocatorProxy();
+        auto heapInterface = HeapInterface::Instance();
+        heapInterface->AssertOnMemoryLeaks();
+        auto local_18 = heapInterface->GetAllocatorProxy();
         if (local_18 != passThroughProxy) {
-            (**(code**)(local_18->field_0 + 72))(local_18);
-            PopAllocatorProxy();
+            local_18->AddAABB(in_RSI);
+            heapInterface->PopAllocatorProxy();
             safe_delete<game::VarDomainType>(&local_18);
         }
-        (**(code**)passThroughProxy->field_0)();
+        std::destroy_at(passThroughProxy);
         _free(passThroughProxy);
-        passThroughProxy = (VarDomainType*)0;
-        ~HeapInterface();
-        _free(this);
+        passThroughProxy = nullptr;
+        heapInterface->~HeapInterface();
+        _free(heapInterface);
         HeapInterface::ClearInstance();
     }
 

@@ -1,6 +1,5 @@
 // libs/graphics/primitive/debugbasic/DebugPrimitiveCollectorBasic.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,552 +8,378 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~DebugPrimitiveCollectorBasic();
-        virtual void AddTri(math::Vector3T<float> const&, math::Vector3T<float> const&, math::Vector3T<float> const&,
-                            DebugDataBasic const&);
-        virtual void AddLine(math::Vector3T<float> const&, math::Vector3T<float> const&, DebugDataBasic const&);
-        virtual void AddSphere(math::Sphere const&, DebugDataBasic const&);
-        virtual void AddEllipsoid(math::Vector3T<float> const&, math::Vector3T<float> const&, DebugDataBasic const&);
-        virtual void AddCapsule(math::Capsule3D const&, DebugDataBasic const&);
-        virtual void AddCone(math::Matrix44T<float> const&, DebugDataBasic const&);
-        virtual void AddCylinder(math::Matrix44T<float> const&, DebugDataBasic const&);
-        virtual void AddAABB(math::AABB const&, DebugDataBasic const&);
-        virtual void AddOBB(math::OBB const&, DebugDataBasic const&);
-        virtual void AddAxes(math::Vector3T<float> const&, math::Matrix33T<float> const&, float, DebugDataBasic const&);
-        virtual void AddFrustum(math::Frustum const&, math::Matrix44T<float> const&, DebugDataBasic const&);
-        virtual void AddPlane(math::Vector3T<float> const&, math::PlaneT<float> const&, int, int,
-                              DebugDataBasic const&);
-        virtual void AddImage2D(render::Texture const*, math::Rect<float> const&, math::Vector2T<float> const&,
-                                math::Vector2T<float> const&, bool, bool, bool, DebugDataBasic const&);
-        virtual void AddImageCube(render::Texture const*, math::Rect<float> const&, bool, bool, DebugDataBasic const&);
-        virtual void AddImage3D(render::Texture const*, math::Rect<float> const&, bool, bool, DebugDataBasic const&);
-        virtual void AddText(math::Vector3T<float> const&, eastl::string const&, DebugDataBasic const&);
-        virtual void AddText2D(math::Vector2T<float> const&, eastl::string const&, DebugDataBasic const&);
-        virtual void AddRect2D(math::Rect<int> const&, bool, DebugDataBasic const&);
-        virtual void AddCircle2D(math::Vector2T<float> const&, float, bool, DebugDataBasic const&);
-        void CreateCollector(char const*, DebugPrimitiveCollector<DebugDataBasic>::Config&);
-        DebugPrimitiveCollectorBasic(DebugPrimitiveCollector<DebugDataBasic>::Config const&);
-        void DestroyCollector(char const*);
+        virtual void AddTri(const math::Vector3T<float>& vector31, const math::Vector3T<float>& vector32,
+                            const math::Vector3T<float>& vector33, const DebugDataBasic& debugDataBasic);
+        virtual void AddLine(const math::Vector3T<float>& vector31, const math::Vector3T<float>& vector32,
+                             const DebugDataBasic& debugDataBasic);
+        virtual void AddSphere(const math::Sphere& sphere, const DebugDataBasic& debugDataBasic);
+        virtual void AddEllipsoid(const math::Vector3T<float>& vector31, const math::Vector3T<float>& vector32,
+                                  const DebugDataBasic& debugDataBasic);
+        virtual void AddCapsule(const math::Capsule3D& capsule3D, const DebugDataBasic& debugDataBasic);
+        virtual void AddCone(const math::Matrix44T<float>& matrix44, const DebugDataBasic& debugDataBasic);
+        virtual void AddCylinder(const math::Matrix44T<float>& matrix44, const DebugDataBasic& debugDataBasic);
+        virtual void AddAABB(const math::AABB& aabb, const DebugDataBasic& debugDataBasic);
+        virtual void AddOBB(const math::OBB& obb, const DebugDataBasic& debugDataBasic);
+        virtual void AddAxes(const math::Vector3T<float>& vector3, const math::Matrix33T<float>& matrix33, float arg3,
+                             const DebugDataBasic& debugDataBasic);
+        virtual void AddFrustum(const math::Frustum& frustum, const math::Matrix44T<float>& matrix44,
+                                const DebugDataBasic& debugDataBasic);
+        virtual void AddPlane(const math::Vector3T<float>& vector3, const math::PlaneT<float>& plane, int arg3,
+                              int arg4, const DebugDataBasic& debugDataBasic);
+        virtual void AddImage2D(const render::Texture* texture, const math::Rect<float>& rect,
+                                const math::Vector2T<float>& vector21, const math::Vector2T<float>& vector22, bool arg5,
+                                bool arg6, bool arg7, const DebugDataBasic& debugDataBasic);
+        virtual void AddImageCube(const render::Texture* texture, const math::Rect<float>& rect, bool arg3, bool arg4,
+                                  const DebugDataBasic& debugDataBasic);
+        virtual void AddImage3D(const render::Texture* texture, const math::Rect<float>& rect, bool arg3, bool arg4,
+                                const DebugDataBasic& debugDataBasic);
+        virtual void AddText(const math::Vector3T<float>& vector3, const eastl::string& str,
+                             const DebugDataBasic& debugDataBasic);
+        virtual void AddText2D(const math::Vector2T<float>& vector2, const eastl::string& str,
+                               const DebugDataBasic& debugDataBasic);
+        virtual void AddRect2D(const math::Rect<int>& rect, bool arg2, const DebugDataBasic& debugDataBasic);
+        virtual void AddCircle2D(const math::Vector2T<float>& vector2, float arg2, bool arg3,
+                                 const DebugDataBasic& debugDataBasic);
+        void CreateCollector(const char* str, DebugPrimitiveCollector<DebugDataBasic>::Config& config);
+        DebugPrimitiveCollectorBasic(const DebugPrimitiveCollector<DebugDataBasic>::Config& config);
+        void DestroyCollector(const char* str);
         void DestroyAllCollectors();
-        void GetCollector(char const*);
+        long* GetCollector(const char* str);
         void Clear();
-        static /* 2544 bytes */ m_GlobalCollectors;
+        static vector<unsigned long, eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true>> m_GlobalCollectors;
 
-        // data members, from how the methods use this: 5752 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[544];
-        undefined8 field_552; // offset 552
-        undefined8 field_560; // offset 560
-        undefined8 field_568; // offset 568
-        undefined8 field_576; // offset 576
-        undefined8 field_584; // offset 584
-        undefined8 field_592; // offset 592
-        undefined8 field_600; // offset 600
-        undefined8 field_608; // offset 608
-        undefined4 field_616; // offset 616
-        char _unknown_620[5132];
+    private:
+        uint8_t _unknown_8[544];
+        uint64_t field_552;
+        uint64_t field_560;
+        uint64_t field_568;
+        uint64_t field_576;
+        uint64_t field_584;
+        uint64_t field_592;
+        uint64_t field_600;
+        uint64_t field_608;
+        uint32_t field_616;
+        uint8_t _unknown_620[5132];
     };
 
     template <
         typename...> // 17 instantiations, e.g. <DebugAABB<DebugDataBasic> >, <DebugCapsule<DebugDataBasic> >, <DebugCircle2D<DebugDataBasic> >
     class DebugPrimitiveRenderGroups {
     public:
-        DebugPrimitiveRenderGroups(int);
+        DebugPrimitiveRenderGroups(int arg1);
         ~DebugPrimitiveRenderGroups();
         void Clear();
-        void AddPrimitive(DebugTri<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugLine<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugEllipsoid<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugCapsule<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugCone<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugCylinder<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugAABB<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugOBB<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugFrustum<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugPlane<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugImage2D<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugImageCube<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugImage3D<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugText<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugText2D<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugRect2D<DebugDataBasic> const&, unsigned int);
-        void AddPrimitive(DebugCircle2D<DebugDataBasic> const&, unsigned int);
-        void GetRenderGroup(unsigned int);
+        void AddPrimitive(const DebugTri<DebugDataBasic>& debugTri, unsigned int arg2);
+        void AddPrimitive(const DebugLine<DebugDataBasic>& debugLine, unsigned int arg2);
+        void AddPrimitive(const DebugEllipsoid<DebugDataBasic>& debugEllipsoid, unsigned int arg2);
+        void AddPrimitive(const DebugCapsule<DebugDataBasic>& debugCapsule, unsigned int arg2);
+        void AddPrimitive(const DebugCone<DebugDataBasic>& debugCone, unsigned int arg2);
+        void AddPrimitive(const DebugCylinder<DebugDataBasic>& debugCylinder, unsigned int arg2);
+        void AddPrimitive(const DebugAABB<DebugDataBasic>& debugAABB, unsigned int arg2);
+        void AddPrimitive(const DebugOBB<DebugDataBasic>& debugOBB, unsigned int arg2);
+        void AddPrimitive(const DebugFrustum<DebugDataBasic>& debugFrustum, unsigned int arg2);
+        void AddPrimitive(const DebugPlane<DebugDataBasic>& debugPlane, unsigned int arg2);
+        void AddPrimitive(const DebugImage2D<DebugDataBasic>& debugImage2D, unsigned int arg2);
+        void AddPrimitive(const DebugImageCube<DebugDataBasic>& debugImageCube, unsigned int arg2);
+        void AddPrimitive(const DebugImage3D<DebugDataBasic>& debugImage3D, unsigned int arg2);
+        void AddPrimitive(const DebugText<DebugDataBasic>& debugText, unsigned int arg2);
+        void AddPrimitive(const DebugText2D<DebugDataBasic>& debugText2D, unsigned int arg2);
+        void AddPrimitive(const DebugRect2D<DebugDataBasic>& debugRect2D, unsigned int arg2);
+        void AddPrimitive(const DebugCircle2D<DebugDataBasic>& debugCircle2D, unsigned int arg2);
+        void GetRenderGroup(unsigned int arg1);
     };
 
-    // 0x1009c5ba0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugTri<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5bb0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugLine<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5bc0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugEllipsoid<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5bd0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCapsule<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5be0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCone<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5bf0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCylinder<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c00, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugAABB<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c10, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugOBB<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c20, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugFrustum<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c30, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugPlane<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c40, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugImage2D<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c50, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugImageCube<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c60, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugImage3D<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c70, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugText<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c80, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugText2D<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5c90, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugRect2D<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5ca0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCircle2D<DebugDataBasic> >::DebugPrimitiveRenderGroups(int): jumps straight to the base-object constructor
-
-    // 0x1009c5cb0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugRect2D<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5cc0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugText2D<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5cd0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugText<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5ce0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugImage3D<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5cf0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugImageCube<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d00, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugImage2D<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d10, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugPlane<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d20, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugFrustum<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d30, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugOBB<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d40, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugAABB<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d50, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCylinder<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d60, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCone<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d70, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCapsule<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d80, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugEllipsoid<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5d90, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugLine<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c5da0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugTri<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009c6070, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugTri<DebugDataBasic> >::Clear()
+    // 0x1009c6070
     void DebugPrimitiveRenderGroups<DebugTri<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugTri<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugTri<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c60c0, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugLine<DebugDataBasic> >::Clear()
+    // 0x1009c60c0
     void DebugPrimitiveRenderGroups<DebugLine<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugLine<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugLine<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6110, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugEllipsoid<DebugDataBasic> >::Clear()
+    // 0x1009c6110
     void DebugPrimitiveRenderGroups<DebugEllipsoid<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugEllipsoid<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugEllipsoid<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6160, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCapsule<DebugDataBasic> >::Clear()
+    // 0x1009c6160
     void DebugPrimitiveRenderGroups<DebugCapsule<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugCapsule<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugCapsule<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c61b0, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCone<DebugDataBasic> >::Clear()
+    // 0x1009c61b0
     void DebugPrimitiveRenderGroups<DebugCone<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugCone<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugCone<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6200, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCylinder<DebugDataBasic> >::Clear()
+    // 0x1009c6200
     void DebugPrimitiveRenderGroups<DebugCylinder<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugCylinder<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugCylinder<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6250, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugAABB<DebugDataBasic> >::Clear()
+    // 0x1009c6250
     void DebugPrimitiveRenderGroups<DebugAABB<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugAABB<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugAABB<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c62a0, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugOBB<DebugDataBasic> >::Clear()
+    // 0x1009c62a0
     void DebugPrimitiveRenderGroups<DebugOBB<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugOBB<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugOBB<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c62f0, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugFrustum<DebugDataBasic> >::Clear()
+    // 0x1009c62f0
     void DebugPrimitiveRenderGroups<DebugFrustum<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugFrustum<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugFrustum<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6340, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugPlane<DebugDataBasic> >::Clear()
+    // 0x1009c6340
     void DebugPrimitiveRenderGroups<DebugPlane<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugPlane<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugPlane<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6390, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugImage2D<DebugDataBasic> >::Clear()
+    // 0x1009c6390
     void DebugPrimitiveRenderGroups<DebugImage2D<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugImage2D<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugImage2D<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c63e0, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugImageCube<DebugDataBasic> >::Clear()
+    // 0x1009c63e0
     void DebugPrimitiveRenderGroups<DebugImageCube<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugImageCube<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugImageCube<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6430, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugImage3D<DebugDataBasic> >::Clear()
+    // 0x1009c6430
     void DebugPrimitiveRenderGroups<DebugImage3D<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugImage3D<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugImage3D<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6480, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugText<DebugDataBasic> >::Clear()
+    // 0x1009c6480
     void DebugPrimitiveRenderGroups<DebugText<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugText<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugText<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c64d0, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugText2D<DebugDataBasic> >::Clear()
+    // 0x1009c64d0
     void DebugPrimitiveRenderGroups<DebugText2D<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugText2D<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugText2D<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6520, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugRect2D<DebugDataBasic> >::Clear()
+    // 0x1009c6520
     void DebugPrimitiveRenderGroups<DebugRect2D<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugRect2D<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugRect2D<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009c6570, 80 bytes, inline, placed by debug map only (low confidence)
-    // DebugPrimitiveRenderGroups<DebugCircle2D<DebugDataBasic> >::Clear()
+    // 0x1009c6570
     void DebugPrimitiveRenderGroups<DebugCircle2D<DebugDataBasic>>::Clear() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = ((this + 64))->begin();
-        lVar2 = ((this + 64))->end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::pair<int, int>>* this_00 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugCircle2D<DebugDataBasic> const*, float>>, 8ul>::begin();
+        vector<eastl::pair<int, int>>* pvVar1 = (vector<eastl::pair<int, int>>*)
+            std::array<eastl::vector<eastl::pair<DebugCircle2D<DebugDataBasic> const*, float>>, 8ul>::end();
+        for (; this_00 != pvVar1; this_00 = this_00 + 32) {
+            this_00->clear();
         }
     }
 
-    // 0x1009cbe80, 16 bytes, complete-object destructor, inline, placed by class name
-    // DebugPrimitiveCollectorBasic::~DebugPrimitiveCollectorBasic(): jumps straight to the base-object destructor
-
-    // 0x1009cbe90, 32 bytes, deleting destructor, inline, placed by class name
-    // DebugPrimitiveCollectorBasic::~DebugPrimitiveCollectorBasic()
-    void DebugPrimitiveCollectorBasic::~DebugPrimitiveCollectorBasic() {
-        ~DebugPrimitiveCollectorBasic(this);
-        operator_delete(this);
-    }
-
-    // 0x1009cc150, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugRect2D<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugRect2D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc150
+    DebugPrimitiveRenderGroups<DebugRect2D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc210, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugText2D<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugText2D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc210
+    DebugPrimitiveRenderGroups<DebugText2D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc2d0, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugText<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugText<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc2d0
+    DebugPrimitiveRenderGroups<DebugText<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc390, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugImage3D<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugImage3D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc390
+    DebugPrimitiveRenderGroups<DebugImage3D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc450, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugImageCube<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugImageCube<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc450
+    DebugPrimitiveRenderGroups<DebugImageCube<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc510, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugImage2D<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugImage2D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc510
+    DebugPrimitiveRenderGroups<DebugImage2D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc5d0, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugPlane<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugPlane<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc5d0
+    DebugPrimitiveRenderGroups<DebugPlane<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc690, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugFrustum<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugFrustum<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc690
+    DebugPrimitiveRenderGroups<DebugFrustum<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc750, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugOBB<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugOBB<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc750
+    DebugPrimitiveRenderGroups<DebugOBB<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc810, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugAABB<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugAABB<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc810
+    DebugPrimitiveRenderGroups<DebugAABB<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc8d0, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugCylinder<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugCylinder<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc8d0
+    DebugPrimitiveRenderGroups<DebugCylinder<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cc990, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugCone<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugCone<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cc990
+    DebugPrimitiveRenderGroups<DebugCone<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cca50, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugCapsule<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugCapsule<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cca50
+    DebugPrimitiveRenderGroups<DebugCapsule<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009ccb10, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugEllipsoid<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugEllipsoid<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009ccb10
+    DebugPrimitiveRenderGroups<DebugEllipsoid<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009ccbd0, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugLine<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugLine<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009ccbd0
+    DebugPrimitiveRenderGroups<DebugLine<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009ccc90, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugTri<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugTri<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009ccc90
+    DebugPrimitiveRenderGroups<DebugTri<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
-    // 0x1009cd550, 240 bytes, base-object destructor, inline, placed by class name
-    // DebugPrimitiveCollectorBasic::~DebugPrimitiveCollectorBasic()
-    void DebugPrimitiveCollectorBasic::~DebugPrimitiveCollectorBasic() {
-        field_0 = &PTR__DebugPrimitiveCollectorBasic_100f1ca60;
-        (&field_5744)->~DebugPrimitiveRenderGroups();
-        (&field_5424)->~DebugPrimitiveRenderGroups();
-        (&field_5104)->~DebugPrimitiveRenderGroups();
-        (&field_4784)->~DebugPrimitiveRenderGroups();
-        (&field_4464)->~DebugPrimitiveRenderGroups();
-        (&field_4144)->~DebugPrimitiveRenderGroups();
-        (&field_3824)->~DebugPrimitiveRenderGroups();
-        (&field_3504)->~DebugPrimitiveRenderGroups();
-        (&field_3184)->~DebugPrimitiveRenderGroups();
-        (&field_2864)->~DebugPrimitiveRenderGroups();
-        (&field_2544)->~DebugPrimitiveRenderGroups();
-        (&field_2224)->~DebugPrimitiveRenderGroups();
-        (&field_1904)->~DebugPrimitiveRenderGroups();
-        (&field_1584)->~DebugPrimitiveRenderGroups();
-        (&field_1264)->~DebugPrimitiveRenderGroups();
-        (&field_944)->~DebugPrimitiveRenderGroups();
-        (&field_624)->~DebugPrimitiveRenderGroups();
-        ~DebugPrimitiveCollector();
+    // 0x1009cd550
+    DebugPrimitiveCollectorBasic::~DebugPrimitiveCollectorBasic() {
+        field_5744.~DebugPrimitiveRenderGroups();
+        field_5424.~DebugPrimitiveRenderGroups();
+        field_5104.~DebugPrimitiveRenderGroups();
+        field_4784.~DebugPrimitiveRenderGroups();
+        field_4464.~DebugPrimitiveRenderGroups();
+        field_4144.~DebugPrimitiveRenderGroups();
+        field_3824.~DebugPrimitiveRenderGroups();
+        field_3504.~DebugPrimitiveRenderGroups();
+        field_3184.~DebugPrimitiveRenderGroups();
+        field_2864.~DebugPrimitiveRenderGroups();
+        field_2544.~DebugPrimitiveRenderGroups();
+        field_2224.~DebugPrimitiveRenderGroups();
+        field_1904.~DebugPrimitiveRenderGroups();
+        field_1584.~DebugPrimitiveRenderGroups();
+        field_1264.~DebugPrimitiveRenderGroups();
+        field_944.~DebugPrimitiveRenderGroups();
+        field_624.~DebugPrimitiveRenderGroups();
     }
 
-    // 0x1009cd640, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugCircle2D<DebugDataBasic> >::~DebugPrimitiveRenderGroups(): jumps straight to the base-object destructor
-
-    // 0x1009cd650, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // DebugPrimitiveRenderGroups<DebugCircle2D<DebugDataBasic> >::~DebugPrimitiveRenderGroups()
-    void DebugPrimitiveRenderGroups<DebugCircle2D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
+    // 0x1009cd650
+    DebugPrimitiveRenderGroups<DebugCircle2D<DebugDataBasic>>::~DebugPrimitiveRenderGroups() {
         ((this + 64))->~array();
-        ~mutex();
     }
 
 } // namespace jag

@@ -1,431 +1,345 @@
 // libs/graphics/runetek7/gui/GUIManager.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "GUIManager.h"
 
 namespace jag::graphics {
-    // 0x100f44330, 16 bytes, __data
-    GUIManager::m_enableRendering = {1, 0, 0, 0};
+    // 0x100f44330
+    int32_t GUIManager::m_enableRendering[4] = {1, 0, 0, 0};
 
-    // 0x103bc0468, 32 bytes, __common; set at startup by ___cxx_global_var_init.91
-    eastl::vector<int, eastl::allocator> GUIManager::m_quadIndices;
+    // 0x103bc0468, set at startup by ___cxx_global_var_init.91
+    eastl::vector<int> GUIManager::m_quadIndices;
 
-    // 0x103bc0488, 1 bytes, __common; zero-initialised
-    GUIManager::m_skipTiledElements;
+    // 0x103bc0488
+    bool GUIManager::m_skipTiledElements;
 
-    // 0x103bc0489, 1 bytes, __common; zero-initialised
-    GUIManager::m_skipRotatedElements;
+    // 0x103bc0489
+    bool GUIManager::m_skipRotatedElements;
 
-    // 0x103bc048a, 6 bytes, __common; zero-initialised
-    GUIManager::m_skipLineElements;
+    // 0x103bc048a
+    int16_t GUIManager::m_skipLineElements;
 
-    // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    int GUIManager::GetProjectionMode() const;
+    // 0x100024170: GUIManager::GetProjectionMode() const has the same machine code as oldscape::option::IScriptOption::GetId() const
 
-    // 0x1000fa830: the linker folded this into oldscape::graphics::NXTPixScreen::GetWidth() const, which has identical code
-    uint GUIManager::GetLastViewportWidth() const;
+    // 0x1000fa830: GUIManager::GetLastViewportWidth() const has the same machine code as oldscape::graphics::NXTPixScreen::GetWidth() const
 
-    // 0x1000fa840: the linker folded this into oldscape::graphics::NXTPixScreen::GetHeight() const, which has identical code
-    uint GUIManager::GetLastViewportHeight() const;
+    // 0x1000fa840: GUIManager::GetLastViewportHeight() const has the same machine code as oldscape::graphics::NXTPixScreen::GetHeight() const
 
-    // 0x1008e5070, 48 bytes, placed by class name and debug map
-    // GUIManager::AddTexturedRectangle(int, int, int, int, unsigned int, float, float, float, float, render::Texture const*, GUIManager::BlendMode)
-    void GUIManager::AddTexturedRectangle() {
-        AddElementInner();
+    // 0x1008e5070
+    void GUIManager::AddTexturedRectangle(int arg1, int arg2, int arg3, int arg4, unsigned int arg5, float arg6,
+                                          float arg7, float arg8, float arg9, const render::Texture* texture,
+                                          GUIManager::BlendMode blendMode) {
+        AddElementInner(arg1, arg2, arg3 + arg1, arg4 + arg2, arg5, arg6, arg7, arg8, arg9, texture, nullptr, false,
+                        blendMode, 1, 1);
     }
 
-    // 0x1008e5710, 32 bytes, placed by class name and debug map
-    // GUIManager::AddHorizontalLine(int, int, int, int, unsigned int, GUIManager::BlendMode)
-    void GUIManager::AddHorizontalLine() {
-        AddColouredRectangle();
+    // 0x1008e5710
+    void GUIManager::AddHorizontalLine(int arg1, int arg2, int arg3, int arg4, unsigned int arg5,
+                                       GUIManager::BlendMode blendMode) {
+        AddColouredRectangle(arg1, arg2, arg3, arg4, arg5, blendMode);
     }
 
-    // 0x1008eac50, 352 bytes, base-object constructor, placed by class name
-    // GUIManager::GUIManager()
-    void GUIManager::GUIManager() {
-        vector* this_00;
-
-        field_0 = (RT7Core*)0;
-        m_projectionMode = 1;
-        new (&field_16) EffectList();
-        m_lastViewportWidth = 4294967295;
-        m_lastViewportHeight = 4294967295;
-        new (&field_40) eastl::stack<render::DrawCallState, eastl::vector<render::DrawCallState, eastl::allocator>>();
-        field_72 = 0;
-        field_76 = 2;
-        field_80 = 0;
-        field_84 = 0;
-        field_88 = (Mixer*)0;
-        *(undefined1(*)[16])((long)&field_88 + 1) = (undefined1[16])0;
-        *(undefined8*)&field_108 = 4575657221408423937;
-        new (field_120) internal::VertexSetupRingArray<GUIManagerVertexBase<short>>();
-        new (field_632) internal::VertexSetupRingArray<GUIManagerVertexBase<float>>();
-        new (field_1144) internal::VertexSetupRingArray<GUIManagerLineVertex>();
-        new (field_1656) internal::VertexSetupDynamic();
-        new (&field_2200) eastl::vector<float, eastl::allocator>();
-        m_projectionOverride = 4294967295;
+    // 0x1008eac50
+    GUIManager::GUIManager()
+        : field_0(nullptr), m_projectionMode(1), m_lastViewportWidth(4294967295), m_lastViewportHeight(4294967295),
+          field_72(0), field_76(2), field_80(0), field_84(0), field_88(nullptr) {
+        *(uint8_t(*)[16])((long)&field_88 + 1) = (uint8_t[16])0;
+        field_108 = 1;
+        field_112 = 1.0;
+        new (&field_120) internal::VertexSetupRingArray<GUIManagerVertexBase<short>>();
+        new (&field_632) internal::VertexSetupRingArray<GUIManagerVertexBase<float>>();
+        new (&field_1144) internal::VertexSetupRingArray<GUIManagerLineVertex>();
+        new (&field_1656) internal::VertexSetupDynamic();
+        new (&field_2200) eastl::vector<float>();
+        field_2232 = 4294967295;
         field_2236 = 4294967295;
         field_2240 = 4294967295;
         field_2244 = 4294967295;
         field_2248 = false;
         field_2252 = 0;
         field_2256 = 0;
-        eastl::vector<float, eastl::allocator>::resize((ulong)&field_2200);
-        this_00 = (&field_40, (type*)8)->SSOBeginPtr();
-        this_00->reserve(8);
+        field_2200.resize(8);
+        ((vector<render::DrawCallState>*)field_40.SSOBeginPtr())->reserve(8);
     }
 
-    // 0x1008eaef0, 16 bytes, complete-object constructor, placed by class name
-    // GUIManager::GUIManager(): jumps straight to the base-object constructor
-
-    // 0x1008eaf00, 176 bytes, base-object destructor, placed by class name
-    // GUIManager::~GUIManager()
-    void GUIManager::~GUIManager() {
-        Destroy(this);
-        (&field_2200)->~vector();
-        field_1656->~VertexSetupDynamic();
-        field_1144->~VertexSetupRingArray();
-        field_632->~VertexSetupRingArray();
-        field_120->~VertexSetupRingArray();
-        (&field_40)->~stack();
+    // 0x1008eaf00
+    GUIManager::~GUIManager() {
+        Destroy();
+        field_2200.~vector();
+        field_1656.~VertexSetupDynamic();
+        field_1144.~VertexSetupRingArray();
+        field_632.~VertexSetupRingArray();
+        field_120.~VertexSetupRingArray();
+        field_40.~stack();
     }
 
-    // 0x1008eafb0, 64 bytes, placed by class name
-    // GUIManager::Destroy()
+    // 0x1008eafb0
     void GUIManager::Destroy() {
-        (&field_16, 60)->Remove();
-        field_88 = (Mixer*)0;
-        field_96 = (Texture*)0;
-        DestroyRenderingResources(this);
+        field_16.Remove(60);
+        field_88 = nullptr;
+        field_96 = nullptr;
+        DestroyRenderingResources();
         m_lastViewportWidth = 4294967295;
         m_lastViewportHeight = 4294967295;
-        ResetBatchState(this);
+        ResetBatchState();
     }
 
-    // 0x1008eaff0, 16 bytes, complete-object destructor, placed by class name
-    // GUIManager::~GUIManager(): jumps straight to the base-object destructor
-
-    // 0x1008eb000, 96 bytes, placed by class name
-    // GUIManager::Initialise(RT7Core*)
-    undefined1 GUIManager::Initialise(RT7Core* param_1) {
-        undefined1* puVar1;
-
-        field_0 = param_1;
-        CreateRenderingResources(this);
-        puVar1 = &field_16;
-        puVar1->Add(60);
-        puVar1->Add(70);
-        puVar1->Add(71);
-        puVar1->Add(81);
-        puVar1->Add(80);
+    // 0x1008eb000
+    uint8_t GUIManager::Initialise(RT7Core* rt7Core) {
+        field_0 = rt7Core;
+        CreateRenderingResources();
+        uint8_t* this_00 = &field_16;
+        this_00->Add(60);
+        this_00->Add(70);
+        this_00->Add(71);
+        this_00->Add(81);
+        this_00->Add(80);
         return 1;
     }
 
-    // 0x1008eb060, 1344 bytes, placed by class name
-    // GUIManager::CreateRenderingResources()
-    ulong GUIManager::CreateRenderingResources() {
-        uint uVar1;
-        int iVar2;
-        ulong uVar3;
-        long lVar4;
-        undefined8 uVar5;
-        byte bVar6;
-        ShaderProgramVariable local_2e0;
-        ShaderProgramVariable local_2b8;
-        ShaderProgramVariable local_290;
-        ShaderProgramVariable local_268;
-        ShaderProgramVariable local_240;
-        ShaderProgramVariable local_218;
-        ShaderProgramVariable local_1f0;
-        ShaderProgramVariable local_1c8;
-        ShaderProgramVariable local_1a0;
-        ShaderProgramVariable local_178;
-        ShaderProgramVariable local_150;
-        ShaderProgramVariable local_128;
-        ShaderProgramVariable local_100;
-        ShaderProgramVariable local_d8;
-        ShaderProgramVariable local_b0;
-        ShaderProgramVariable local_88;
-        ShaderProgramVariable local_60;
-        AutoSingleton<ShaderThreadPoolSingleton> local_38[2];
-        byte local_36;
-        byte local_35;
-        byte local_34;
-        byte local_33;
-        byte local_32;
-        byte local_31;
+    // 0x1008eb060
+    unsigned long GUIManager::CreateRenderingResources() {
+        AutoSingleton<ShaderThreadPoolSingleton> local_38;
 
-        local_38->~AutoSingleton("GUI_Manager");
-        uVar1 = graphics::operator*((graphics*)213);
-        local_100.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)235);
-        local_d8.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)237);
-        local_b0.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)239);
-        local_88.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)240);
-        local_60.GetVertexElementDesc(uVar1);
-        uVar3 = local_100.data();
-        local_36 = render::VertexDeclaration::Create((VertexElementDesc*)&field_648, uVar3, (void*)5, 0);
-        iVar2 = (&field_648, 0)->GetVertexStride();
-        if (iVar2 != 36) {
-            /* WARNING: Subroutine does not return */
+        auto pSVar2 = graphics::operator*(213);
+        VertexElementDesc local_100 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(235);
+        VertexElementDesc local_d8 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(237);
+        VertexElementDesc local_b0 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(239);
+        VertexElementDesc local_88 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(240);
+        VertexElementDesc local_60 = pSVar2->GetVertexElementDesc(0);
+        auto pVVar3 = local_100.data();
+        uint8_t local_36 = field_648.Create(pVVar3, 5, nullptr, 0);
+        int iVar1 = field_648.GetVertexStride(0);
+        if (iVar1 != 36) {
             LogAssert(
                 "m_vertexPreciseTriangle.m_vertexDeclaration.GetVertexStride() == sizeof(GUIManagerVertexPrecise)",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                 "GUIManager.cpp",
-                1835, (char*)0);
+                1835, nullptr);
         }
-        uVar1 = graphics::operator*((graphics*)208);
-        local_2e0.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)235);
-        local_2b8.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)237);
-        local_290.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)239);
-        local_268.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)240);
-        local_240.GetVertexElementDesc(uVar1);
-        uVar3 = local_2e0.data();
-        local_35 = render::VertexDeclaration::Create((VertexElementDesc*)&field_136, uVar3, (void*)5, 0);
-        iVar2 = (&field_136, 0)->GetVertexStride();
-        if (iVar2 != 32) {
-            /* WARNING: Subroutine does not return */
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(208);
+        VertexElementDesc local_2e0 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(235);
+        VertexElementDesc local_2b8 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(237);
+        VertexElementDesc local_290 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(239);
+        VertexElementDesc local_268 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(240);
+        VertexElementDesc local_240 = pSVar2->GetVertexElementDesc(0);
+        pVVar3 = (VertexElementDesc*)local_2e0.data();
+        uint8_t local_35 = field_136.Create(pVVar3, 5, nullptr, 0);
+        iVar1 = field_136.GetVertexStride(0);
+        if (iVar1 != 32) {
             LogAssert("m_vertexTriangle.m_vertexDeclaration.GetVertexStride() == sizeof(GUIManagerVertex)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      1853, (char*)0);
+                      1853, nullptr);
         }
-        uVar1 = graphics::operator*((graphics*)208);
-        local_218.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)235);
-        local_1f0.GetVertexElementDesc(uVar1);
-        uVar3 = local_218.data();
-        local_34 = render::VertexDeclaration::Create((VertexElementDesc*)&field_1160, uVar3, (void*)2, 0);
-        iVar2 = (&field_1160, 0)->GetVertexStride();
-        if (iVar2 != 8) {
-            /* WARNING: Subroutine does not return */
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(208);
+        VertexElementDesc local_218 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(235);
+        VertexElementDesc local_1f0 = pSVar2->GetVertexElementDesc(0);
+        pVVar3 = (VertexElementDesc*)local_218.data();
+        uint8_t local_34 = field_1160.Create(pVVar3, 2, nullptr, 0);
+        iVar1 = field_1160.GetVertexStride(0);
+        if (iVar1 != 8) {
             LogAssert("m_vertexLine.m_vertexDeclaration.GetVertexStride() == sizeof(GUIManagerLineVertex)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      1865, (char*)0);
+                      1865, nullptr);
         }
-        uVar1 = graphics::operator*((graphics*)208);
-        local_1c8.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)235);
-        local_1a0.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)237);
-        local_178.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)239);
-        local_150.GetVertexElementDesc(uVar1);
-        uVar1 = graphics::operator*((graphics*)240);
-        local_128.GetVertexElementDesc(uVar1);
-        uVar3 = local_1c8.data();
-        local_33 = render::VertexDeclaration::Create((VertexElementDesc*)&field_1672, uVar3, (void*)5, 0);
-        iVar2 = (&field_1672, 0)->GetVertexStride();
-        if (iVar2 != 32) {
-            /* WARNING: Subroutine does not return */
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(208);
+        VertexElementDesc local_1c8 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(235);
+        VertexElementDesc local_1a0 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(237);
+        VertexElementDesc local_178 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(239);
+        VertexElementDesc local_150 = pSVar2->GetVertexElementDesc(0);
+        pSVar2 = (ShaderProgramVariable*)graphics::operator*(240);
+        VertexElementDesc local_128 = pSVar2->GetVertexElementDesc(0);
+        pVVar3 = (VertexElementDesc*)local_1c8.data();
+        uint8_t local_33 = field_1672.Create(pVVar3, 5, nullptr, 0);
+        iVar1 = field_1672.GetVertexStride(0);
+        if (iVar1 != 32) {
             LogAssert("m_vertexDynamic.m_vertexDeclaration.GetVertexStride() == sizeof(GUIManagerVertex)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      1883, (char*)0);
+                      1883, nullptr);
         }
-        (&field_744, 512, 0)->set_max_size();
-        (&field_232, 16384, 0)->set_max_size();
-        (&field_1256, 32768, 0)->set_max_size();
-        (&field_1960, 2048)->reserve();
-        new (&local_100) Array<unsigned short, eastl::allocator>();
-        graphicutils::CreateQuadListIndices<unsigned short>((Array*)&local_100, 4096);
-        lVar4 = local_100.end();
-        if (lVar4 != 24576) {
-            /* WARNING: Subroutine does not return */
+        field_744.set_max_size(512, 0);
+        field_232.set_max_size(16384, 0);
+        field_1256.set_max_size(32768, 0);
+        field_1960.reserve(2048);
+        local_100 = Array<unsigned short>();
+        graphicutils::CreateQuadListIndices<unsigned short>(local_100, 4096);
+        if (local_100.end() != 24576) {
             LogAssert("quadIndexData.size() == (MAX_QUADS * 6)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      1895, (char*)0);
+                      1895, nullptr);
         }
-        uVar5 = local_100.data();
-        local_32 = (&field_352, 49152, 0, uVar5, 5123)->Create();
-        uVar5 = local_100.data();
-        local_31 = (&field_864, 1536, 0, uVar5, 5123)->Create();
-        (&field_2080, 2048)->reserve();
-        render::InputAssemblerState::SetIndexBuffer((IndexBuffer*)field_440, (uint)&field_352);
-        render::InputAssemblerState::SetIndexBuffer((IndexBuffer*)field_952, (uint)&field_864);
-        bVar6 = local_36 & local_35 & local_34 & local_33 & local_32 & local_31;
-        (field_440, 1)->SetFlags();
-        (field_952, 1)->SetFlags();
-        (field_1768, 1)->SetFlags();
-        (field_1464, 1)->SetFlags();
-        ResetBatchState(this);
-        local_100.~Array();
-        return CONCAT71((int7)((ulong)&local_100 >> 8), bVar6) & 4294967295;
+        auto pvVar5 = local_100.data();
+        uint8_t local_32 = field_352.Create(49152, 0, pvVar5, 5123);
+        pvVar5 = (void*)local_100.data();
+        uint8_t local_31 = field_864.Create(1536, 0, pvVar5, 5123);
+        field_2080.reserve(2048);
+        render::InputAssemblerState::SetIndexBuffer(field_440, (unsigned int)&field_352);
+        render::InputAssemblerState::SetIndexBuffer(field_952, (unsigned int)&field_864);
+        uint8_t bVar6 = local_36 & local_35 & local_34 & local_33 & local_32 & local_31;
+        field_440->SetFlags(1);
+        field_952->SetFlags(1);
+        field_1768->SetFlags(1);
+        field_1464->SetFlags(1);
+        ResetBatchState();
+        return bVar6 & 4294967295;
     }
 
-    // 0x1008eb5d0, 96 bytes, placed by class name
-    // GUIManager::DestroyRenderingResources()
+    // 0x1008eb5d0
     void GUIManager::DestroyRenderingResources() {
-        AutoSingleton<ShaderThreadPoolSingleton> local_18[8];
+        AutoSingleton<ShaderThreadPoolSingleton> local_18;
 
-        local_18->~AutoSingleton("GUI_Manager");
-        field_120->Destroy();
-        field_632->Destroy();
-        field_1144->Destroy();
-        field_1656->Destroy();
+        field_120.Destroy();
+        field_632.Destroy();
+        field_1144.Destroy();
+        field_1656.Destroy();
     }
 
-    // 0x1008eb630, 80 bytes, placed by class name
-    // GUIManager::ResetBatchState()
+    // 0x1008eb630
     void GUIManager::ResetBatchState() {
         field_80 = 0;
         field_256 = 0;
         field_768 = 0;
         field_1280 = 0;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        field_1960.clear();
+        field_2080.clear();
     }
 
-    // 0x1008eb680, 112 bytes, placed by class name
-    // GUIManager::SetProjection(ProjectionMode, int, int)
-    void GUIManager::SetProjection(int param_2, uint param_3, uint param_4) {
-        uint uVar1;
-        uint uVar2;
-
-        uVar1 = m_lastViewportWidth;
-        uVar2 = m_lastViewportHeight;
-        if (param_2 == 2) {
-            m_lastViewportWidth = param_3;
+    // 0x1008eb680
+    void GUIManager::SetProjection(ProjectionMode projectionMode, int arg2, int arg3) {
+        unsigned int uVar1 = m_lastViewportWidth;
+        unsigned int uVar2 = m_lastViewportHeight;
+        if (projectionMode == 2) {
+            m_lastViewportWidth = arg2;
         } else {
             m_lastViewportWidth = field_0->GetInterfaceWidth();
-            param_4 = field_0->GetInterfaceHeight();
+            arg3 = field_0->GetInterfaceHeight();
         }
-        m_lastViewportHeight = param_4;
-        if (((uVar1 != m_lastViewportWidth) || (uVar2 != param_4)) || (m_projectionMode != param_2)) {
-            m_projectionMode = param_2;
-            UpdateProjection(this, true);
+        m_lastViewportHeight = arg3;
+        if (((uVar1 != m_lastViewportWidth) || (uVar2 != arg3)) || (m_projectionMode != projectionMode)) {
+            m_projectionMode = projectionMode;
+            UpdateProjection(true);
         }
     }
 
-    // 0x1008eb750, 416 bytes, placed by class name
-    // GUIManager::UpdateProjection(bool)
-    void GUIManager::UpdateProjection(bool param_1) {
-        uint uVar1;
-        uint uVar2;
-        uint uVar3;
-        uint uVar4;
-        EffectManager* pEVar5;
-        SunlightDirectLighting* this_00;
-        uint uVar6;
-        uint uVar7;
-        uint uVar8;
-        uint uVar9;
-        float fVar10;
-        Matrix44T local_78;
+    // 0x1008eb750
+    void GUIManager::UpdateProjection(bool arg1) {
+        unsigned int uVar3;
+        unsigned int uVar4;
+        unsigned int uVar5;
+        unsigned int uVar6;
+        unsigned int uVar7;
+        unsigned int uVar8;
+        float fVar9;
+        Matrix44T<float> local_78;
 
-        uVar1 = m_lastViewportWidth;
-        uVar2 = m_lastViewportHeight;
+        unsigned int uVar1 = m_lastViewportWidth;
+        unsigned int uVar2 = m_lastViewportHeight;
         if (m_projectionMode == 1) {
             uVar4 = field_0->GetInterfaceWidth();
             m_lastViewportWidth = uVar4;
             uVar4 = field_0->GetInterfaceHeight();
             m_lastViewportHeight = uVar4;
         }
-        if (((param_1) || (uVar1 != m_lastViewportWidth)) || (uVar2 != m_lastViewportHeight)) {
+        if (((arg1) || (uVar1 != m_lastViewportWidth)) || (uVar2 != m_lastViewportHeight)) {
             uVar1 = m_lastViewportWidth;
             uVar2 = m_lastViewportHeight;
             uVar4 = field_2240;
-            uVar9 = 0;
-            uVar6 = uVar2;
-            uVar8 = uVar1;
+            uVar8 = 0;
+            uVar5 = uVar2;
+            uVar7 = uVar1;
             if ((int)uVar4 < 0) {
-                uVar7 = 0;
+                uVar6 = 0;
             } else {
-                uVar7 = 0;
+                uVar6 = 0;
                 if (m_projectionMode == 1) {
-                    fVar10 = (float)(int)uVar1 / (float)(int)uVar2;
+                    fVar9 = (float)(int)uVar1 / (float)(int)uVar2;
                     uVar3 = field_2244;
-                    uVar7 = m_projectionOverride;
-                    uVar9 = field_2236;
-                    if (fVar10 <= (float)(int)uVar4 / (float)(int)uVar3) {
-                        uVar6 = (uint)((float)(int)uVar4 / fVar10);
-                        uVar9 = uVar9 - (int)(uVar6 - uVar3) / 2;
-                        uVar8 = uVar4;
+                    uVar6 = field_2232;
+                    uVar8 = field_2236;
+                    if (fVar9 <= (float)(int)uVar4 / (float)(int)uVar3) {
+                        uVar5 = (unsigned int)((float)(int)uVar4 / fVar9);
+                        uVar8 = uVar8 - (int)(uVar5 - uVar3) / 2;
+                        uVar7 = uVar4;
                     } else {
-                        uVar8 = (uint)(fVar10 * (float)(int)uVar3);
-                        uVar7 = uVar7 - (int)(uVar8 - uVar4) / 2;
-                        uVar6 = uVar3;
+                        uVar7 = (unsigned int)(fVar9 * (float)(int)uVar3);
+                        uVar6 = uVar6 - (int)(uVar7 - uVar4) / 2;
+                        uVar5 = uVar3;
                     }
                 }
             }
             field_2248 =
-                (int)uVar2 < (int)(uVar6 + uVar9) || ((int)uVar1 < (int)(uVar8 + uVar7) || (int)(uVar7 | uVar9) < 0);
-            new (&local_78) math::Matrix44T<float>();
-            math::Matrix44OrthographicLH<float>(
-                (float)(int)uVar7, (float)(int)(uVar8 + uVar7), (float)(int)(m_lastViewportHeight - (uVar6 + uVar9)),
-                (float)(int)(m_lastViewportHeight - uVar9), 1036831949, 1167867904, &local_78, 0);
-            pEVar5 = (EffectManager*)field_0->GetEffectManager();
-            this_00 = EffectManager::GetEffect<SunlightDirectLighting>(pEVar5, 80);
-            this_00->SetTransforms(&local_78);
+                (int)uVar2 < (int)(uVar5 + uVar8) || ((int)uVar1 < (int)(uVar7 + uVar6) || (int)(uVar6 | uVar8) < 0);
+            local_78 = math::Matrix44T<float>();
+            math::Matrix44OrthographicLH<float>(local_78, (float)(int)uVar6, (float)(int)(uVar7 + uVar6),
+                                                (float)(int)(m_lastViewportHeight - (uVar5 + uVar8)),
+                                                (float)(int)(m_lastViewportHeight - uVar8), 0.1, 5000.0, 0);
+            field_0->GetEffectManager()->GetEffect<SunlightDirectLighting>(80)->SetTransforms(local_78);
         }
     }
 
-    // 0x1008eb8f0, 96 bytes, placed by class name
-    // GUIManager::Begin(render::DrawCallState const&)
-    void GUIManager::Begin(DrawCallState* param_1) {
-        char cVar1;
-
-        Render(this, (SamplerState*)0);
-        cVar1 = eastl::internal::function_detail<16, void()>::HaveManager((function_detail<16, void()>*)param_1);
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x1008eb8f0
+    void GUIManager::Begin(const render::DrawCallState& drawCallState) {
+        Render(nullptr);
+        if (drawCallState.HaveManager() == '\0') {
             LogAssert("drawCallState.HasOutputMergerState()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      98, (char*)0);
+                      98, nullptr);
         }
-        (&field_40, param_1)->push();
+        field_40.push(drawCallState);
         field_72 = 1;
     }
 
-    // 0x1008eb950, 2528 bytes, placed by class name
-    // GUIManager::Render(render::SamplerState const*)
-    void GUIManager::Render(SamplerState* param_1) {
-        undefined1* puVar1;
-        undefined1* puVar2;
-        char cVar3;
-        uint uVar4;
-        int iVar5;
-        long lVar6;
-        DrawCallState* pDVar7;
-        Layout* this_00;
-        RT7Core* this_01;
-        ulong uVar8;
-        void* pvVar9;
-        VertexBuffer* pVVar10;
-        ShaderManager* pSVar11;
-        shared_ptr* psVar12;
-        RenderPipelineState* pRVar13;
-        Shader* pSVar14;
-        ShaderProgram* pSVar15;
-        OutputMergerState* this_02;
-        NpcUID* in_RDX;
-        Singleton<render::BuiltinStates>* this_03;
-        EntityHighlight** ppEVar16;
-        bool bVar17;
-        undefined1 auVar18[16];
+    // 0x1008eb950
+    void GUIManager::Render(const render::SamplerState* samplerState) {
+        uint8_t* puVar1;
+        bool cVar2;
+        unsigned int uVar3;
+        int iVar4;
+        long lVar5;
+        DrawCallState* pDVar6;
+        compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* this_00;
+        Layout* this_01;
+        RT7Core* this_02;
+        unsigned long uVar7;
+        void* pvVar8;
+        VertexBuffer* pVVar9;
+        ShaderManager* pSVar10;
+        shared_ptr<Shader>* psVar11;
+        RenderPipelineState* pRVar12;
+        Shader* pSVar13;
+        ShaderProgram* pSVar14;
+        Singleton<render::BuiltinStates>* this_04;
+        PlayerDataComparator<oldscape::social::FriendChatUser>* playerDataComparator;
+        bool arg2;
         EffectList in_stack_ffffffffffffff68;
         DrawCallState local_88;
-        eastl local_50[8];
-        DrawCallState* local_48;
-        EffectList* local_40;
+        eastl local_50;
+        EffectManager* local_48;
+        VertexDeclaration* local_40;
         RenderContext* local_38;
 
         if (field_80 != 0) {
-            eastl::destruct<oldscape::highlight::NpcUID*>(local_50, (NpcUID*)"GUIManager::Render", in_RDX);
-            UpdateProjection(this, false);
-            if ((field_88 == (Mixer*)0) || (field_76 == 3)) {
+            eastl::destruct<oldscape::highlight::NpcUID*>(&local_50);
+            UpdateProjection(false);
+            if ((field_88 == nullptr) || (field_76 == 3)) {
                 puVar1 = &field_16;
                 puVar1->Remove(60);
                 puVar1->Remove(72);
@@ -433,870 +347,781 @@ namespace jag::graphics {
             } else {
                 puVar1 = &field_16;
                 puVar1->Add(60);
-                uVar4 = field_88->GetStreamCountLastMix();
-                puVar1->Set(70, 1 < uVar4);
-                puVar1->Set(72, field_96 != (Texture*)0);
-                if (field_96 == (Texture*)0) {
-                    bVar17 = false;
+                uVar3 = field_88->GetStreamCountLastMix();
+                puVar1->Set(70, 1 < uVar3);
+                puVar1->Set(72, field_96 != nullptr);
+                if (field_96 == nullptr) {
+                    arg2 = false;
                 } else {
-                    bVar17 = field_104 != '\0';
+                    arg2 = field_104 != false;
                 }
-                puVar1->Set(73, bVar17);
+                puVar1->Set(73, arg2);
             }
-            this_03 = (Singleton<render::BuiltinStates>*)&field_16;
-            local_40 = (EffectList*)this_03;
-            this_03->Set(71, field_108 == 2);
-            lVar6 = this_03->Instance();
+            this_04 = (Singleton<render::BuiltinStates>*)&field_16;
+            local_40 = (VertexDeclaration*)this_04;
+            this_04->Set(71, field_108 == 2);
+            lVar5 = this_04->Instance();
             if (field_108 == 2) {
-                lVar6 = this_03->Instance();
-                ppEVar16 = (EntityHighlight**)(lVar6 + 1904);
+                lVar5 = this_04->Instance();
+                playerDataComparator = (PlayerDataComparator<oldscape::social::FriendChatUser>*)(lVar5 + 1904);
             } else if (field_108 == 1) {
-                lVar6 = this_03->Instance();
-                ppEVar16 = (EntityHighlight**)(lVar6 + 1676);
+                lVar5 = this_04->Instance();
+                playerDataComparator = (PlayerDataComparator<oldscape::social::FriendChatUser>*)(lVar5 + 1676);
             } else {
-                ppEVar16 = (EntityHighlight**)(lVar6 + 1524);
+                playerDataComparator = (PlayerDataComparator<oldscape::social::FriendChatUser>*)(lVar5 + 1524);
             }
-            local_48 = (DrawCallState*)field_0->GetEffectManager();
-            puVar1 = &field_40;
-            cVar3 = puVar1->empty();
-            if (cVar3 != '\0') {
-                /* WARNING: Subroutine does not return */
+            local_48 = field_0->GetEffectManager();
+            cVar2 = field_40.empty();
+            if (cVar2) {
                 LogAssert("!m_drawCallStates.empty()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                           "GUIManager.cpp",
                           1594, "Ensure Begin() is called with a valid DrawCallState before Render()");
             }
-            pDVar7 = (DrawCallState*)puVar1->top();
-            new (&local_88) render::DrawCallState(pDVar7);
-            auVar18 = local_88.GetRenderPipelineState();
+            pDVar6 = (DrawCallState*)eastl::stack<render::DrawCallState, eastl::vector<render::DrawCallState>>::top();
+            local_88 = render::DrawCallState(*pDVar6);
+            this_00 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
+                          local_88.GetRenderPipelineState();
             eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL,
-                                       2>::compressed_pair_imp(auVar18._0_8_, ppEVar16, auVar18._8_8_);
-            pDVar7 = &local_88;
-            this_00 = (Layout*)pDVar7->GetRenderPipelineState();
-            lVar6 = pDVar7->Instance();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::
-                Layout::SetHeapSize(this_00, lVar6 + 1080);
-            pDVar7 = &local_88;
-            this_01 = (RT7Core*)pDVar7->GetRenderPipelineState();
-            lVar6 = pDVar7->Instance();
-            this_01->SetRasteriserState((RasteriserState*)(lVar6 + 1308));
-            local_38 = (RenderContext*)this_01->GetRenderContext();
+                                       2>::compressed_pair_imp(this_00, playerDataComparator);
+            pDVar6 = &local_88;
+            this_01 = (Layout*)pDVar6->GetRenderPipelineState();
+            lVar5 = pDVar6->Instance();
+            this_01->SetHeapSize((lVar5 + 1080));
+            pDVar6 = &local_88;
+            this_02 = (RT7Core*)pDVar6->GetRenderPipelineState();
+            lVar5 = pDVar6->Instance();
+            this_02->SetRasteriserState((lVar5 + 1308));
+            local_38 = (RenderContext*)this_02->GetRenderContext();
             switch (field_76) {
             case 0:
-                uVar4 = field_80;
-                uVar8 = (&field_744)->end();
-                if (uVar8 < uVar4) {
-                    /* WARNING: Subroutine does not return */
+                uVar3 = field_80;
+                uVar7 = field_744.end();
+                if (uVar7 < uVar3) {
                     LogAssert("m_currentBatchSize <= m_vertexPreciseTriangle.m_vertexDataBuffer.size()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1608, (char*)0);
+                              1608, nullptr);
                 }
                 if (field_80 * 4 != field_768) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("m_currentBatchSize * 4 == m_vertexPreciseTriangle.m_vertexDataBufferPos",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1609, (char*)0);
+                              1609, nullptr);
                 }
                 if (m_enableRendering != '\0') {
-                    uVar4 = field_80;
-                    pvVar9 = (void*)(&field_744)->data();
-                    (&field_776, 0, uVar4 * 144, pvVar9)->Update();
-                    pVVar10 = (VertexBuffer*)(&field_776)->CurrentBuffer();
-                    (field_952, (VertexDeclaration*)&field_648, pVVar10)->SetVertexStreamData();
+                    uVar3 = field_80;
+                    pvVar8 = (void*)field_744.data();
+                    field_776.Update(0, uVar3 * 144, pvVar8);
+                    pVVar9 = (VertexBuffer*)field_776.CurrentBuffer();
+                    field_952->SetVertexStreamData(&field_648, pVVar9);
                     local_88.SetInputAssemblerState(field_952);
-                    puVar2 = field_632;
-                    cVar3 = UpdateShader((shared_ptr*)puVar2, local_40);
-                    if (cVar3 != '\0') {
-                        pSVar11 = (ShaderManager*)field_0->GetShaderManager();
+                    puVar1 = &field_632;
+                    cVar2 = UpdateShader((shared_ptr<Shader>*)puVar1, (EffectList*)local_40);
+                    if (cVar2) {
+                        pSVar10 = field_0->GetShaderManager();
                         in_stack_ffffffffffffff68 = (EffectList)255;
-                        psVar12 = (shared_ptr*)pSVar11->GetShader(15, local_48, local_40, &field_648, 0);
-                        shared_ptr<Shader>::operator=((shared_ptr<Shader>*)puVar2, psVar12);
+                        psVar11 = (shared_ptr<Shader>*)ShaderManager::GetShader(
+                            (ShaderType)pSVar10, *15, *local_48, *local_40, (unsigned char)&field_648, 0);
+                        *puVar1 = *psVar11;
                     }
-                    pRVar13 = (RenderPipelineState*)local_88.GetRenderPipelineState();
-                    pSVar14 = (Shader*)shared_ptr<Shader>::operator->((shared_ptr<Shader>*)puVar2);
-                    pSVar15 = (ShaderProgram*)pSVar14->GetProgram();
-                    pRVar13->SetShaderProgram(pSVar15);
-                    shared_ptr<Shader>::operator*((shared_ptr<Shader>*)puVar2);
-                    EffectManager::SetShaderConstants(local_48, (RenderContext*)&local_88, (Shader*)local_38,
-                                                      in_stack_ffffffffffffff68);
-                    if ((field_88 != (Mixer*)0) && (cVar3 = local_40->Contains(60), cVar3 != '\0')) {
-                        pSVar14 = (Shader*)shared_ptr<Shader>::operator*((shared_ptr<Shader>*)puVar2);
-                        DiffuseMap::SetShaderConstants(&local_88, local_38, pSVar14, (Texture*)field_88, 14, param_1);
+                    pRVar12 = (RenderPipelineState*)local_88.GetRenderPipelineState();
+                    pSVar13 = (Shader*)(*puVar1).operator->();
+                    pSVar14 = pSVar13->GetProgram();
+                    pRVar12->SetShaderProgram(pSVar14);
+                    pSVar13 = (Shader*)**puVar1;
+                    local_48->SetShaderConstants(local_88, *local_38, *pSVar13, in_stack_ffffffffffffff68);
+                    if ((field_88 != nullptr) && (cVar2 = local_40->Contains(60), cVar2)) {
+                        pSVar13 = (Shader*)**puVar1;
+                        DiffuseMap::SetShaderConstants(local_88, *local_38, *pSVar13, *field_88, 14, samplerState);
                     }
                     local_38->DrawIndexedPrimitives(&local_88, 4, field_80 * 6, 0);
                 }
                 break;
             case 1:
-                uVar4 = field_80;
-                puVar2 = &field_2080;
-                uVar8 = puVar2->size();
-                if (uVar8 != uVar4) {
-                    /* WARNING: Subroutine does not return */
+                uVar3 = field_80;
+                puVar1 = &field_2080;
+                uVar7 = puVar1->size();
+                if (uVar7 != uVar3) {
                     LogAssert("m_currentBatchSize == m_vertexDynamic.m_indexDataBuffer.size()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1639, (char*)0);
+                              1639, nullptr);
                 }
                 if (m_enableRendering != '\0') {
-                    iVar5 = puVar2->size();
-                    pvVar9 = (void*)puVar2->HeapBeginPtr();
-                    (&field_2112, 0, iVar5 * 2, pvVar9)->Update();
-                    iVar5 = (&field_1960)->size();
-                    pvVar9 = (void*)(&field_1960)->HeapBeginPtr();
-                    (&field_1992, 0, iVar5 << 5, pvVar9)->Update();
-                    pVVar10 = (VertexBuffer*)(&field_1992)->CurrentBuffer();
-                    puVar2 = field_1768;
-                    puVar2->SetVertexStreamData((VertexDeclaration*)&field_1672, pVVar10);
-                    uVar4 = (&field_2112)->CurrentBuffer();
-                    render::InputAssemblerState::SetIndexBuffer((IndexBuffer*)puVar2, uVar4);
-                    local_88.SetInputAssemblerState(puVar2);
-                    puVar2 = field_1656;
-                    cVar3 = UpdateShader((shared_ptr*)puVar2, local_40);
-                    if (cVar3 != '\0') {
-                        pSVar11 = (ShaderManager*)field_0->GetShaderManager();
+                    iVar4 = puVar1->size();
+                    pvVar8 = (void*)puVar1->HeapBeginPtr();
+                    field_2112.Update(0, iVar4 * 2, pvVar8);
+                    iVar4 = field_1960.size();
+                    pvVar8 = (void*)field_1960.HeapBeginPtr();
+                    field_1992.Update(0, iVar4 << 5, pvVar8);
+                    pVVar9 = (VertexBuffer*)field_1992.CurrentBuffer();
+                    puVar1 = field_1768;
+                    puVar1->SetVertexStreamData(&field_1672, pVVar9);
+                    uVar3 = field_2112.CurrentBuffer();
+                    render::InputAssemblerState::SetIndexBuffer(puVar1, uVar3);
+                    local_88.SetInputAssemblerState(puVar1);
+                    puVar1 = &field_1656;
+                    cVar2 = UpdateShader((shared_ptr<Shader>*)puVar1, (EffectList*)local_40);
+                    if (cVar2) {
+                        pSVar10 = field_0->GetShaderManager();
                         in_stack_ffffffffffffff68 = (EffectList)255;
-                        psVar12 = (shared_ptr*)pSVar11->GetShader(15, local_48, local_40, &field_1672, 0);
-                        shared_ptr<Shader>::operator=((shared_ptr<Shader>*)puVar2, psVar12);
+                        psVar11 = (shared_ptr<Shader>*)ShaderManager::GetShader(
+                            (ShaderType)pSVar10, *15, *local_48, *local_40, (unsigned char)&field_1672, 0);
+                        *puVar1 = *psVar11;
                     }
-                    pRVar13 = (RenderPipelineState*)local_88.GetRenderPipelineState();
-                    pSVar14 = (Shader*)shared_ptr<Shader>::operator->((shared_ptr<Shader>*)puVar2);
-                    pSVar15 = (ShaderProgram*)pSVar14->GetProgram();
-                    pRVar13->SetShaderProgram(pSVar15);
-                    shared_ptr<Shader>::operator*((shared_ptr<Shader>*)puVar2);
-                    EffectManager::SetShaderConstants(local_48, (RenderContext*)&local_88, (Shader*)local_38,
-                                                      in_stack_ffffffffffffff68);
-                    if ((field_88 != (Mixer*)0) && (cVar3 = local_40->Contains(60), cVar3 != '\0')) {
-                        pSVar14 = (Shader*)shared_ptr<Shader>::operator*((shared_ptr<Shader>*)puVar2);
-                        DiffuseMap::SetShaderConstants(&local_88, local_38, pSVar14, (Texture*)field_88, 14, param_1);
-                        if ((field_96 != (Texture*)0) && (cVar3 = local_40->Contains(72), cVar3 != '\0')) {
-                            pSVar14 = (Shader*)shared_ptr<Shader>::operator*((shared_ptr<Shader>*)puVar2);
-                            DiffuseMap::SetShaderConstantsMask(&local_88, local_38, pSVar14, field_96, 15, param_1);
+                    pRVar12 = (RenderPipelineState*)local_88.GetRenderPipelineState();
+                    pSVar13 = (Shader*)(*puVar1).operator->();
+                    pSVar14 = pSVar13->GetProgram();
+                    pRVar12->SetShaderProgram(pSVar14);
+                    pSVar13 = (Shader*)**puVar1;
+                    local_48->SetShaderConstants(local_88, *local_38, *pSVar13, in_stack_ffffffffffffff68);
+                    if ((field_88 != nullptr) && (cVar2 = local_40->Contains(60), cVar2)) {
+                        pSVar13 = (Shader*)**puVar1;
+                        DiffuseMap::SetShaderConstants(local_88, *local_38, *pSVar13, *field_88, 14, samplerState);
+                        if ((field_96 != nullptr) && (cVar2 = local_40->Contains(72), cVar2)) {
+                            pSVar13 = (Shader*)**puVar1;
+                            DiffuseMap::SetShaderConstantsMask(local_88, *local_38, *pSVar13, *field_96, 15,
+                                                               samplerState);
                         }
                     }
                     local_38->DrawIndexedPrimitives(&local_88, 4, field_80, 0);
                 }
                 break;
             case 2:
-                uVar4 = field_80;
-                uVar8 = (&field_232)->end();
-                if (uVar8 < uVar4) {
-                    /* WARNING: Subroutine does not return */
+                uVar3 = field_80;
+                uVar7 = field_232.end();
+                if (uVar7 < uVar3) {
                     LogAssert("m_currentBatchSize <= m_vertexTriangle.m_vertexDataBuffer.size()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1675, (char*)0);
+                              1675, nullptr);
                 }
                 if (field_80 * 4 != field_256) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("m_currentBatchSize * 4 == m_vertexTriangle.m_vertexDataBufferPos",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1676, (char*)0);
+                              1676, nullptr);
                 }
                 if (m_enableRendering != '\0') {
-                    uVar4 = field_80;
-                    pvVar9 = (void*)(&field_232)->data();
-                    (&field_264, 0, uVar4 << 7, pvVar9)->Update();
-                    pVVar10 = (VertexBuffer*)(&field_264)->CurrentBuffer();
-                    (field_440, (VertexDeclaration*)&field_136, pVVar10)->SetVertexStreamData();
+                    uVar3 = field_80;
+                    pvVar8 = (void*)field_232.data();
+                    field_264.Update(0, uVar3 << 7, pvVar8);
+                    pVVar9 = (VertexBuffer*)field_264.CurrentBuffer();
+                    field_440->SetVertexStreamData(&field_136, pVVar9);
                     local_88.SetInputAssemblerState(field_440);
-                    puVar2 = field_120;
-                    cVar3 = UpdateShader((shared_ptr*)puVar2, local_40);
-                    if (cVar3 != '\0') {
-                        pSVar11 = (ShaderManager*)field_0->GetShaderManager();
+                    puVar1 = &field_120;
+                    cVar2 = UpdateShader((shared_ptr<Shader>*)puVar1, (EffectList*)local_40);
+                    if (cVar2) {
+                        pSVar10 = field_0->GetShaderManager();
                         in_stack_ffffffffffffff68 = (EffectList)255;
-                        psVar12 = (shared_ptr*)pSVar11->GetShader(15, local_48, local_40, &field_136, 0);
-                        shared_ptr<Shader>::operator=((shared_ptr<Shader>*)puVar2, psVar12);
+                        psVar11 = (shared_ptr<Shader>*)ShaderManager::GetShader(
+                            (ShaderType)pSVar10, *15, *local_48, *local_40, (unsigned char)&field_136, 0);
+                        *puVar1 = *psVar11;
                     }
-                    pRVar13 = (RenderPipelineState*)local_88.GetRenderPipelineState();
-                    pSVar14 = (Shader*)shared_ptr<Shader>::operator->((shared_ptr<Shader>*)puVar2);
-                    pSVar15 = (ShaderProgram*)pSVar14->GetProgram();
-                    pRVar13->SetShaderProgram(pSVar15);
-                    shared_ptr<Shader>::operator*((shared_ptr<Shader>*)puVar2);
-                    EffectManager::SetShaderConstants(local_48, (RenderContext*)&local_88, (Shader*)local_38,
-                                                      in_stack_ffffffffffffff68);
-                    if ((field_88 != (Mixer*)0) && (cVar3 = local_40->Contains(60), cVar3 != '\0')) {
-                        pSVar14 = (Shader*)shared_ptr<Shader>::operator*((shared_ptr<Shader>*)puVar2);
-                        DiffuseMap::SetShaderConstants(&local_88, local_38, pSVar14, (Texture*)field_88, 14, param_1);
-                        if ((field_96 != (Texture*)0) && (cVar3 = local_40->Contains(72), cVar3 != '\0')) {
-                            pSVar14 = (Shader*)shared_ptr<Shader>::operator*((shared_ptr<Shader>*)puVar2);
-                            DiffuseMap::SetShaderConstantsMask(&local_88, local_38, pSVar14, field_96, 15, param_1);
+                    pRVar12 = (RenderPipelineState*)local_88.GetRenderPipelineState();
+                    pSVar13 = (Shader*)(*puVar1).operator->();
+                    pSVar14 = pSVar13->GetProgram();
+                    pRVar12->SetShaderProgram(pSVar14);
+                    pSVar13 = (Shader*)**puVar1;
+                    local_48->SetShaderConstants(local_88, *local_38, *pSVar13, in_stack_ffffffffffffff68);
+                    if ((field_88 != nullptr) && (cVar2 = local_40->Contains(60), cVar2)) {
+                        pSVar13 = (Shader*)**puVar1;
+                        DiffuseMap::SetShaderConstants(local_88, *local_38, *pSVar13, *field_88, 14, samplerState);
+                        if ((field_96 != nullptr) && (cVar2 = local_40->Contains(72), cVar2)) {
+                            pSVar13 = (Shader*)**puVar1;
+                            DiffuseMap::SetShaderConstantsMask(local_88, *local_38, *pSVar13, *field_96, 15,
+                                                               samplerState);
                         }
                     }
                     local_38->DrawIndexedPrimitives(&local_88, 4, field_80 * 6, 0);
                 }
                 break;
             case 3:
-                uVar4 = field_80;
-                uVar8 = (&field_1256)->end();
-                if (uVar8 < uVar4) {
-                    /* WARNING: Subroutine does not return */
+                uVar3 = field_80;
+                uVar7 = field_1256.end();
+                if (uVar7 < uVar3) {
                     LogAssert("m_currentBatchSize <= m_vertexLine.m_vertexDataBuffer.size()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1713, (char*)0);
+                              1713, nullptr);
                 }
                 if (field_80 * 2 != field_1280) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("m_currentBatchSize * 2 == m_vertexLine.m_vertexDataBufferPos",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1714, (char*)0);
+                              1714, nullptr);
                 }
                 if (m_enableRendering != '\0') {
-                    uVar4 = field_80;
-                    pvVar9 = (void*)(&field_1256)->data();
-                    (&field_1288, 0, uVar4 << 4, pvVar9)->Update();
-                    pVVar10 = (VertexBuffer*)(&field_1288)->CurrentBuffer();
-                    (field_1464, (VertexDeclaration*)&field_1160, pVVar10)->SetVertexStreamData();
+                    uVar3 = field_80;
+                    pvVar8 = (void*)field_1256.data();
+                    field_1288.Update(0, uVar3 << 4, pvVar8);
+                    pVVar9 = (VertexBuffer*)field_1288.CurrentBuffer();
+                    field_1464->SetVertexStreamData(&field_1160, pVVar9);
                     local_88.SetInputAssemblerState(field_1464);
-                    puVar2 = field_1144;
-                    cVar3 = UpdateShader((shared_ptr*)puVar2, local_40);
-                    if (cVar3 != '\0') {
-                        pSVar11 = (ShaderManager*)field_0->GetShaderManager();
+                    puVar1 = &field_1144;
+                    cVar2 = UpdateShader((shared_ptr<Shader>*)puVar1, (EffectList*)local_40);
+                    if (cVar2) {
+                        pSVar10 = field_0->GetShaderManager();
                         in_stack_ffffffffffffff68 = (EffectList)255;
-                        psVar12 = (shared_ptr*)pSVar11->GetShader(16, local_48, local_40, &field_1160, 0);
-                        shared_ptr<Shader>::operator=((shared_ptr<Shader>*)puVar2, psVar12);
+                        psVar11 = (shared_ptr<Shader>*)ShaderManager::GetShader(
+                            (ShaderType)pSVar10, *16, *local_48, *local_40, (unsigned char)&field_1160, 0);
+                        *puVar1 = *psVar11;
                     }
-                    pRVar13 = (RenderPipelineState*)local_88.GetRenderPipelineState();
-                    pSVar14 = (Shader*)shared_ptr<Shader>::operator->((shared_ptr<Shader>*)puVar2);
-                    pSVar15 = (ShaderProgram*)pSVar14->GetProgram();
-                    pRVar13->SetShaderProgram(pSVar15);
-                    shared_ptr<Shader>::operator*((shared_ptr<Shader>*)puVar2);
-                    EffectManager::SetShaderConstants(local_48, (RenderContext*)&local_88, (Shader*)local_38,
-                                                      in_stack_ffffffffffffff68);
-                    local_38->DrawPrimitives(&local_88, 1, 0, field_80 * 2);
+                    pRVar12 = (RenderPipelineState*)local_88.GetRenderPipelineState();
+                    pSVar13 = (Shader*)(*puVar1).operator->();
+                    pSVar14 = pSVar13->GetProgram();
+                    pRVar12->SetShaderProgram(pSVar14);
+                    pSVar13 = (Shader*)**puVar1;
+                    local_48->SetShaderConstants(local_88, *local_38, *pSVar13, in_stack_ffffffffffffff68);
+                    local_38->DrawPrimitives(local_88, 1, 0, field_80 * 2);
                 }
             }
-            local_38->SetInputAssemblerState(0);
-            pDVar7 = (DrawCallState*)puVar1->top();
-            this_02 = (OutputMergerState*)pDVar7->GetOutputMergerState();
-            this_02->SetClearFlags(0);
+            local_38->SetInputAssemblerState(nullptr);
+            pDVar6 = (DrawCallState*)eastl::stack<render::DrawCallState, eastl::vector<render::DrawCallState>>::top();
+            pDVar6->GetOutputMergerState()->SetClearFlags(0);
             field_2252 = field_2252 + 1;
-            ResetBatchState(this);
-            local_88.~DrawCallState();
+            ResetBatchState();
         }
     }
 
-    // 0x1008ec340, 96 bytes, placed by class name
-    // GUIManager::End()
+    // 0x1008ec340
     void GUIManager::End() {
-        char cVar1;
-
-        Render(this, (SamplerState*)0);
+        Render(nullptr);
         field_72 = 0;
         field_108 = 0;
-        cVar1 = (&field_40)->empty();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+        if (field_40.empty() != '\0') {
             LogAssert("!m_drawCallStates.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      112, (char*)0);
+                      112, nullptr);
         }
-        (&field_40)->pop();
+        eastl::stack<render::DrawCallState, eastl::vector<render::DrawCallState>>::pop();
     }
 
-    // 0x1008ec4f0, 80 bytes, placed by class name
-    // GUIManager::AddColouredRectangle(int, int, int, int, unsigned int, GUIManager::BlendMode)
-    void GUIManager::AddColouredRectangle() {
-        AddElementInner((GUIManager*)0, 0, 1065353216, 1065353216);
+    // 0x1008ec4f0
+    void GUIManager::AddColouredRectangle(int arg1, int arg2, int arg3, int arg4, unsigned int arg5,
+                                          GUIManager::BlendMode blendMode) {
+        AddElementInner(arg1, arg2, arg3 + arg1, arg4 + arg2, arg5, 0.0, 0.0, 1.0, 1.0, nullptr, nullptr, false,
+                        blendMode, 1, 1);
     }
 
-    // 0x1008ec540, 1840 bytes, placed by class name
-    // GUIManager::AddElementInner(int, int, int, int, unsigned int, float, float, float, float, render::Texture const*, render::Texture const*, bool, GUIManager::BlendMode, unsigned int, unsigned int)
-    void GUIManager::AddElementInner(float param_6, float param_7, float param_8, float param_9, GUIManager* this,
-                                     int param_1, int param_2, int param_3, int param_4, undefined4 param_5,
-                                     Texture* param_10, Texture* param_11, undefined1 param_12, int param_14,
-                                     int param_15, int param_16) {
-        int iVar1;
-        uint uVar2;
-        char cVar4;
-        int* piVar5;
-        array<short, 2ul>* paVar6;
-        undefined2* puVar7;
-        short* psVar8;
-        float* pfVar9;
-        undefined4* puVar10;
-        undefined2 uVar11;
-        undefined2 uVar12;
-        short sVar13;
-        short sVar14;
+    // 0x1008ec540
+    void GUIManager::AddElementInner(int arg1, int arg2, int arg3, int arg4, unsigned int arg5, float arg6, float arg7,
+                                     float arg8, float arg9, const render::Texture* texture1,
+                                     const render::Texture* texture2, bool arg12, GUIManager::BlendMode blendMode,
+                                     unsigned int arg14, unsigned int arg15) {
+        uint16_t uVar11;
+        uint16_t uVar12;
         float fVar15;
         float fVar16;
-        undefined1 local_88[16];
-        undefined1 local_78[16];
-        float local_68;
-        float local_64;
-        float local_5c;
-        Array<GUIManagerVertexBase<short>, eastl::allocator>* local_58;
-        float local_4c;
-        float local_48;
-        float local_44;
-        float local_40;
+        uint8_t local_88[16];
+        uint8_t local_78[16];
+        Array<GUIManagerVertexBase<short>>* local_58;
         float local_3c;
         float local_38;
-        float local_34;
 
-        local_68 = param_8;
-        local_64 = param_9;
-        local_44 = param_6;
-        local_40 = param_7;
-        cVar4 = (&field_40)->empty();
-        if (cVar4 != '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar4 = field_40.empty();
+        if (cVar4) {
             LogAssert("!m_drawCallStates.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
                       760,
                       "Ensure Begin() is called with a valid DrawCallState before submitting GUI elements to draw");
         }
-        cVar4 = (field_0, param_1, param_2, param_3, param_4)->ClippingTest();
-        if (cVar4 == '\0') {
+        cVar4 = field_0->ClippingTest(arg1, arg2, arg3, arg4);
+        if (!cVar4) {
             return;
         }
         if ((field_84 <= field_80) ||
-            (cVar4 = IsStateChangeNeeded(this, &param_14, 2, param_5, param_10, param_11, param_12), cVar4 != '\0')) {
-            Render(this, (SamplerState*)0);
-            SetBatchMode(this, 2);
-            if (param_10 != (Texture*)0) {
-                cVar4 = param_10->IsCreated();
-                if (cVar4 == '\0') {
-                    /* WARNING: Subroutine does not return */
+            (cVar4 = IsStateChangeNeeded(blendMode, 2, arg5, texture1, texture2, arg12), cVar4)) {
+            Render(nullptr);
+            SetBatchMode(2);
+            if (texture1 != nullptr) {
+                cVar4 = texture1->IsCreated();
+                if (!cVar4) {
                     LogAssert("texture->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
                               778, "GUIManager texture being added that has no native resources");
                 }
-                field_88 = (Mixer*)param_10;
+                field_88 = texture1;
             }
-            field_108 = param_14;
-            if ((param_11 != (Texture*)0) && (cVar4 = param_11->IsCreated(), cVar4 == '\0')) {
-                /* WARNING: Subroutine does not return */
+            field_108 = blendMode;
+            if ((texture2 != nullptr) && (cVar4 = texture2->IsCreated(), !cVar4)) {
                 LogAssert("!textureMask || textureMask->IsCreated()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                           "GUIManager.cpp",
                           782, "GUIManager textureMask being added that has no native resources");
             }
-            field_96 = param_11;
-            field_104 = param_12;
+            field_96 = texture2;
+            field_104 = arg12;
         }
-        local_4c = local_44;
-        local_34 = local_40;
-        if ((param_15 == 1) && (param_16 == 1)) {
-            local_38 = local_68;
-            local_3c = local_64;
+        float local_4c = arg6;
+        float local_34 = arg7;
+        if ((arg14 == 1) && (arg15 == 1)) {
+            local_38 = arg8;
+            local_3c = arg9;
         } else {
-            local_38 = local_68 + (local_68 - local_44) * (float)(param_15 - 1);
-            local_3c = local_64 + (local_64 - local_40) * (float)(param_16 - 1);
+            local_38 = arg8 + (arg8 - arg6) * (float)(arg14 - 1);
+            local_3c = arg9 + (arg9 - arg7) * (float)(arg15 - 1);
         }
-        piVar5 = (int*)field_0->GetPixelBuffer();
-        iVar1 = *piVar5;
+        auto piVar5 = field_0->GetPixelBuffer();
+        int iVar1 = *piVar5;
         if (iVar1 != -1) {
-            if (param_3 - param_1 < 1) {
+            if (arg3 - arg1 < 1) {
             joined_r0x0001008ec798:
-                uVar12 = (undefined2)param_1;
+                uVar12 = (uint16_t)arg1;
             } else {
-                fVar16 = (float)(param_3 - param_1);
+                fVar16 = (float)(arg3 - arg1);
                 fVar15 = local_38 - local_4c;
-                if (!(iVar1 - param_1 == 0 || iVar1 < param_1)) {
-                    local_4c = local_4c + ((float)(iVar1 - param_1) * fVar15) / fVar16;
-                    param_1 = iVar1;
+                if (!(iVar1 - arg1 == 0 || iVar1 < arg1)) {
+                    local_4c = local_4c + ((float)(iVar1 - arg1) * fVar15) / fVar16;
+                    arg1 = iVar1;
                 }
-                uVar12 = (undefined2)param_1;
+                uVar12 = (uint16_t)arg1;
                 iVar1 = piVar5[2];
-                if (param_3 <= iVar1)
+                if (arg3 <= iVar1)
                     goto joined_r0x0001008ec798;
-                local_38 = local_38 - (fVar15 * (float)(param_3 - iVar1)) / fVar16;
-                param_3 = iVar1;
+                local_38 = local_38 - (fVar15 * (float)(arg3 - iVar1)) / fVar16;
+                arg3 = iVar1;
             }
-            if (0 < param_4 - param_2) {
-                uVar11 = (undefined2)param_3;
-                fVar16 = (float)(param_4 - param_2);
+            if (0 < arg4 - arg2) {
+                uVar11 = (uint16_t)arg3;
+                fVar16 = (float)(arg4 - arg2);
                 fVar15 = local_3c - local_34;
                 iVar1 = piVar5[1];
-                if (!(iVar1 - param_2 == 0 || iVar1 < param_2)) {
-                    local_34 = local_34 + ((float)(iVar1 - param_2) * fVar15) / fVar16;
-                    param_2 = iVar1;
+                if (!(iVar1 - arg2 == 0 || iVar1 < arg2)) {
+                    local_34 = local_34 + ((float)(iVar1 - arg2) * fVar15) / fVar16;
+                    arg2 = iVar1;
                 }
                 iVar1 = piVar5[3];
-                local_58 = (Array<GUIManagerVertexBase<short>, eastl::allocator>*)CONCAT44(local_58._4_4_, param_2);
-                if (iVar1 < param_4) {
-                    local_3c = local_3c - (fVar15 * (float)(param_4 - iVar1)) / fVar16;
-                    param_4 = iVar1;
+                local_58 = (Array<GUIManagerVertexBase<short>>*)(((uint64_t)local_58._4_4_ << 32) | (uint32_t)arg2);
+                if (iVar1 < arg4) {
+                    local_3c = local_3c - (fVar15 * (float)(arg4 - iVar1)) / fVar16;
+                    arg4 = iVar1;
                 }
                 goto joined_r0x0001008ec84c;
             }
         }
-        uVar11 = (undefined2)param_3;
-        uVar12 = (undefined2)param_1;
-        local_58 = (Array<GUIManagerVertexBase<short>, eastl::allocator>*)CONCAT44(local_58._4_4_, param_2);
+        uVar11 = (uint16_t)arg3;
+        uVar12 = (uint16_t)arg1;
+        local_58 = (Array<GUIManagerVertexBase<short>>*)(((uint64_t)local_58._4_4_ << 32) | (uint32_t)arg2);
     joined_r0x0001008ec84c:
-        if (param_10 == (Texture*)0) {
+        if (texture1 == nullptr) {
             local_34 = -65000.0;
             local_4c = -65000.0;
             local_3c = -65000.0;
             local_38 = -65000.0;
         }
-        fVar15 = local_68 - local_44;
-        uVar2 = m_lastViewportHeight;
+        fVar15 = arg8 - arg6;
+        unsigned int uVar2 = m_lastViewportHeight;
         if (0.0 <= fVar15) {
-            local_88 = ZEXT416((uint)fVar15);
+            local_88 = (unsigned __int128)((unsigned int)fVar15);
         } else {
             local_88._4_4_ = 2147483648;
             local_88._0_4_ = -fVar15;
             local_88._8_4_ = 2147483648;
             local_88._12_4_ = 2147483648;
-            std::swap<float>(&local_44, &local_68);
+            std::swap<float>(arg6, arg8);
         }
-        fVar15 = local_64 - local_40;
+        fVar15 = arg9 - arg7;
         if (0.0 <= fVar15) {
-            local_78 = ZEXT416((uint)fVar15);
+            local_78 = (unsigned __int128)((unsigned int)fVar15);
         } else {
             local_78._4_4_ = 2147483648;
             local_78._0_4_ = -fVar15;
             local_78._8_4_ = 2147483648;
             local_78._12_4_ = 2147483648;
-            std::swap<float>(&local_40, &local_64);
+            std::swap<float>(arg7, arg9);
         }
-        if (param_15 == 1) {
+        if (arg14 == 1) {
             local_88._0_8_ = local_88._0_8_ ^ 9223372039002259456;
             local_88._8_4_ = local_88._8_4_ ^ 2147483648;
             local_88._12_4_ = local_88._12_4_ ^ 2147483648;
         }
-        sVar14 = (short)uVar2;
-        sVar13 = sVar14 - (short)local_58;
-        sVar14 = sVar14 - (short)param_4;
-        local_58 = (Array<GUIManagerVertexBase<short>, eastl::allocator>*)&field_232;
-        if (param_16 == 1) {
+        short sVar14 = (short)uVar2;
+        short sVar13 = sVar14 - (short)local_58;
+        sVar14 = sVar14 - (short)arg4;
+        local_58 = (Array<GUIManagerVertexBase<short>>*)&field_232;
+        if (arg15 == 1) {
             local_78._0_8_ = local_78._0_8_ ^ 9223372039002259456;
             local_78._8_4_ = local_78._8_4_ ^ 2147483648;
             local_78._12_4_ = local_78._12_4_ ^ 2147483648;
         }
         uVar2 = field_256;
         field_256 = uVar2 + 1;
-        paVar6 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](local_58,
-                                                                                                      (ulong)uVar2);
-        local_5c = local_44;
-        local_48 = local_40;
-        puVar7 = (undefined2*)std::array<short, 2ul>::operator[](paVar6, 0);
+        array<short, 2ul>* paVar6 = (array<short, 2ul>*)(*local_58)[(unsigned long)uVar2];
+        float local_5c = arg6;
+        float local_48 = arg7;
+        uint16_t* puVar7 = (uint16_t*)(*paVar6)[0];
         *puVar7 = uVar12;
-        psVar8 = (short*)std::array<short, 2ul>::operator[](paVar6, 1);
+        short* psVar8 = (short*)(*paVar6)[1];
         *psVar8 = sVar13;
-        *(undefined4*)(paVar6 + 4) = param_5;
+        *(unsigned int*)(paVar6 + 4) = arg5;
         ((paVar6 + 8))->Set(local_4c, local_34);
-        pfVar9 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 16), 0);
+        float* pfVar9 = (float*)(*((paVar6 + 16)))[0];
         *pfVar9 = local_5c;
-        pfVar9 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 16), 1);
+        pfVar9 = (float*)(*((paVar6 + 16)))[1];
         *pfVar9 = local_48;
-        puVar10 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 24), 0);
+        uint32_t* puVar10 = (uint32_t*)(*((paVar6 + 24)))[0];
         *puVar10 = local_88._0_4_;
-        puVar10 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 24), 1);
+        puVar10 = (uint32_t*)(*((paVar6 + 24)))[1];
         *puVar10 = local_78._0_4_;
         uVar2 = field_256;
         field_256 = uVar2 + 1;
-        paVar6 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](local_58,
-                                                                                                      (ulong)uVar2);
-        local_5c = local_44;
-        local_48 = local_40;
-        puVar7 = (undefined2*)std::array<short, 2ul>::operator[](paVar6, 0);
+        paVar6 = (array<short, 2ul>*)(*local_58)[(unsigned long)uVar2];
+        local_5c = arg6;
+        local_48 = arg7;
+        puVar7 = (uint16_t*)(*paVar6)[0];
         *puVar7 = uVar11;
-        psVar8 = (short*)std::array<short, 2ul>::operator[](paVar6, 1);
+        psVar8 = (short*)(*paVar6)[1];
         *psVar8 = sVar13;
-        *(undefined4*)(paVar6 + 4) = param_5;
+        *(unsigned int*)(paVar6 + 4) = arg5;
         ((paVar6 + 8))->Set(local_38, local_34);
-        pfVar9 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 16), 0);
+        pfVar9 = (float*)(*((paVar6 + 16)))[0];
         *pfVar9 = local_5c;
-        pfVar9 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 16), 1);
+        pfVar9 = (float*)(*((paVar6 + 16)))[1];
         *pfVar9 = local_48;
-        puVar10 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 24), 0);
+        puVar10 = (uint32_t*)(*((paVar6 + 24)))[0];
         *puVar10 = local_88._0_4_;
-        puVar10 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 24), 1);
+        puVar10 = (uint32_t*)(*((paVar6 + 24)))[1];
         *puVar10 = local_78._0_4_;
         uVar2 = field_256;
         field_256 = uVar2 + 1;
-        paVar6 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](local_58,
-                                                                                                      (ulong)uVar2);
-        local_48 = local_44;
-        local_34 = local_40;
-        puVar7 = (undefined2*)std::array<short, 2ul>::operator[](paVar6, 0);
+        paVar6 = (array<short, 2ul>*)(*local_58)[(unsigned long)uVar2];
+        local_48 = arg6;
+        local_34 = arg7;
+        puVar7 = (uint16_t*)(*paVar6)[0];
         *puVar7 = uVar11;
-        psVar8 = (short*)std::array<short, 2ul>::operator[](paVar6, 1);
+        psVar8 = (short*)(*paVar6)[1];
         *psVar8 = sVar14;
-        *(undefined4*)(paVar6 + 4) = param_5;
+        *(unsigned int*)(paVar6 + 4) = arg5;
         ((paVar6 + 8))->Set(local_38, local_3c);
-        pfVar9 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 16), 0);
+        pfVar9 = (float*)(*((paVar6 + 16)))[0];
         *pfVar9 = local_48;
-        pfVar9 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 16), 1);
+        pfVar9 = (float*)(*((paVar6 + 16)))[1];
         *pfVar9 = local_34;
-        puVar10 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 24), 0);
+        puVar10 = (uint32_t*)(*((paVar6 + 24)))[0];
         *puVar10 = local_88._0_4_;
-        puVar10 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 24), 1);
+        puVar10 = (uint32_t*)(*((paVar6 + 24)))[1];
         *puVar10 = local_78._0_4_;
         uVar2 = field_256;
         field_256 = uVar2 + 1;
-        paVar6 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](local_58,
-                                                                                                      (ulong)uVar2);
-        local_34 = local_44;
-        local_38 = local_40;
-        puVar7 = (undefined2*)std::array<short, 2ul>::operator[](paVar6, 0);
+        paVar6 = (array<short, 2ul>*)(*local_58)[(unsigned long)uVar2];
+        local_34 = arg6;
+        local_38 = arg7;
+        puVar7 = (uint16_t*)(*paVar6)[0];
         *puVar7 = uVar12;
-        psVar8 = (short*)std::array<short, 2ul>::operator[](paVar6, 1);
+        psVar8 = (short*)(*paVar6)[1];
         *psVar8 = sVar14;
-        *(undefined4*)(paVar6 + 4) = param_5;
+        *(unsigned int*)(paVar6 + 4) = arg5;
         ((paVar6 + 8))->Set(local_4c, local_3c);
-        pfVar9 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 16), 0);
+        pfVar9 = (float*)(*((paVar6 + 16)))[0];
         *pfVar9 = local_34;
-        pfVar9 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 16), 1);
+        pfVar9 = (float*)(*((paVar6 + 16)))[1];
         *pfVar9 = local_38;
-        puVar10 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 24), 0);
+        puVar10 = (uint32_t*)(*((paVar6 + 24)))[0];
         *puVar10 = local_88._0_4_;
-        puVar10 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 24), 1);
+        puVar10 = (uint32_t*)(*((paVar6 + 24)))[1];
         *puVar10 = local_78._0_4_;
         field_80 = field_80 + 1;
     }
 
-    // 0x1008ecc70, 80 bytes, placed by class name
-    // GUIManager::AddTexturedRectangleMasked(int, int, int, int, unsigned int, float, float, float, float, render::Texture const*, render::Texture const*, bool, GUIManager::BlendMode)
-    void GUIManager::AddTexturedRectangleMasked() {
-        AddElementInner();
+    // 0x1008ecc70
+    void GUIManager::AddTexturedRectangleMasked(int arg1, int arg2, int arg3, int arg4, unsigned int arg5, float arg6,
+                                                float arg7, float arg8, float arg9, const render::Texture* texture1,
+                                                const render::Texture* texture2, bool arg12,
+                                                GUIManager::BlendMode blendMode) {
+        AddElementInner(arg1, arg2, arg3 + arg1, arg4 + arg2, arg5, arg6, arg7, arg8, arg9, texture1, texture2, arg12,
+                        blendMode, 1, 1);
     }
 
-    // 0x1008eccc0, 48 bytes, placed by class name
-    // GUIManager::AddColouredTriangleList(eastl::vector<int, eastl::allocator> const&, eastl::vector<int, eastl::allocator> const&, unsigned int, GUIManager::BlendMode, bool)
-    void GUIManager::AddColouredTriangleList() {
-        AddTriangleListInner((GUIManager*)0, 0);
+    // 0x1008eccc0
+    void GUIManager::AddColouredTriangleList(const eastl::vector<int>& arg1, const eastl::vector<int>& arg2,
+                                             unsigned int arg3, GUIManager::BlendMode blendMode, bool arg5) {
+        AddTriangleListInner(arg1, arg2, 0, arg3, 0.0, 0.0, nullptr, blendMode, arg5);
     }
 
-    // 0x1008eccf0, 1552 bytes, placed by class name
-    // GUIManager::AddTriangleListInner(eastl::vector<int, eastl::allocator> const&, eastl::vector<int, eastl::allocator> const&, unsigned int, unsigned int, float, float, render::Texture const*, GUIManager::BlendMode, bool)
-    void GUIManager::AddTriangleListInner(undefined4 param_5, float param_6, GUIManager* this,
-                                          vector<unsigned int, eastl::allocator>* param_1,
-                                          vector<unsigned int, eastl::allocator>* param_2, uint param_3,
-                                          undefined4 param_4, Texture* param_7, int param_9, char param_10) {
-        undefined1* puVar1;
-        undefined4 uVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        Texture* pTVar5;
-        GUIManager* this_00;
-        vector<unsigned int, eastl::allocator>* pvVar6;
-        char cVar7;
+    // 0x1008eccf0
+    void GUIManager::AddTriangleListInner(const eastl::vector<int>& arg1, const eastl::vector<int>& arg2,
+                                          unsigned int arg3, unsigned int arg4, float arg5, float arg6,
+                                          const render::Texture* texture, GUIManager::BlendMode blendMode, bool arg9) {
+        uint32_t uVar2;
+        uint64_t uVar4;
+        vector<int>* pvVar6;
         bool bVar8;
-        char cVar9;
-        uint uVar10;
-        int iVar11;
-        long lVar12;
-        int* piVar13;
-        ulong uVar14;
-        int* piVar15;
-        ulong uVar16;
+        unsigned long uVar13;
+        unsigned long uVar15;
         array<short, 2ul>* this_01;
-        undefined2* puVar17;
-        undefined4* puVar18;
-        ulong uVar19;
-        uint uVar20;
-        int iVar21;
-        float fVar22;
-        undefined1 local_c0[24];
-        undefined1 local_a8[16];
-        ulong local_98;
-        ulong local_90;
-        ulong local_78;
-        ulong local_70;
-        ulong local_68;
-        ulong local_60;
-        GUIManager* local_58;
-        ulong local_48;
-        vector<unsigned int, eastl::allocator>* local_40;
-        float local_38;
-        undefined4 local_34;
+        uint16_t* puVar16;
+        uint32_t* puVar17;
+        unsigned int* puVar18;
+        unsigned long uVar20;
+        int iVar22;
+        float fVar23;
+        uint8_t local_c0[24];
+        uint8_t local_a8[16];
 
-        local_34 = param_4;
-        lVar12 = eastl::vector<unsigned int, eastl::allocator>::size(param_2);
-        if (6148914691236517205 < (ulong)(lVar12 * -6148914691236517205)) {
-            /* WARNING: Subroutine does not return */
+        unsigned int local_34 = arg4;
+        long lVar11 = arg2.size();
+        if (6148914691236517205 < (unsigned long)(lVar11 * -6148914691236517205)) {
             LogAssert("indices.size() % 3 == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      1236, (char*)0);
+                      1236, nullptr);
         }
-        local_98 = (ulong)(param_3 & 2);
-        if (((param_3 & 2) != 0) && (param_7 == (Texture*)0)) {
-            /* WARNING: Subroutine does not return */
+        unsigned long local_98 = (unsigned long)(arg3 & 2);
+        if (((arg3 & 2) != 0) && (texture == nullptr)) {
             LogAssert("(triangleListFlags & TRIANGLE_LIST_HAS_UV) ? (texture != nullptr) : true",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      1237, (char*)0);
+                      1237, nullptr);
         }
-        cVar7 = (&field_40)->empty();
-        cVar9 = param_10;
-        if (cVar7 != '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar7 = field_40.empty();
+        bool bVar3 = arg9;
+        if (cVar7) {
             LogAssert("!m_drawCallStates.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
                       1238,
                       "Ensure Begin() is called with a valid DrawCallState before submitting GUI elements to draw");
         }
-        iVar11 = (int)local_98;
-        param_3 = param_3 & 1;
-        local_90 = (ulong)param_3;
-        uVar20 = iVar11 + 2U | param_3;
-        local_60 = (ulong)uVar20;
-        local_70 = (ulong)(param_3 + 2);
-        local_68 = (ulong)(param_3 + 3);
-        uVar10 = param_3 + 3;
-        if (iVar11 == 0) {
-            uVar10 = param_3 + 2;
+        int iVar10 = (int)local_98;
+        unsigned int uVar19 = arg3 & 1;
+        unsigned long local_90 = (unsigned long)uVar19;
+        unsigned int uVar21 = iVar10 + 2U | uVar19;
+        unsigned long local_60 = (unsigned long)uVar21;
+        unsigned long local_70 = (unsigned long)(uVar19 + 2);
+        unsigned long local_68 = (unsigned long)(uVar19 + 3);
+        unsigned int uVar9 = uVar19 + 3;
+        if (iVar10 == 0) {
+            uVar9 = uVar19 + 2;
         }
-        local_38 = (float)-(uint)(iVar11 == 0);
-        if ((iVar11 != 0) + uVar10 != uVar20) {
-            /* WARNING: Subroutine does not return */
+        float local_38 = (float)-(unsigned int)(iVar10 == 0);
+        if ((iVar10 != 0) + uVar9 != uVar21) {
             LogAssert("nextOffset == pointElementCount",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      1250, (char*)0);
+                      1250, nullptr);
         }
-        local_58 = this;
-        piVar13 = (int*)field_0->GetPixelBuffer();
-        new (local_c0) oldscape::dash3d::GridRect(*piVar13, piVar13[1], piVar13[2] - *piVar13, piVar13[3] - piVar13[1]);
-        local_40 = param_2;
-        if (cVar9 == '\0') {
-            lVar12 = eastl::vector<unsigned int, eastl::allocator>::size(param_1);
-            pvVar6 = param_1;
-            if (lVar12 == 0) {
+        GUIManager* local_58 = this;
+        auto piVar12 = field_0->GetPixelBuffer();
+        new (local_c0) oldscape::dash3d::GridRect(*piVar12, piVar12[1], piVar12[2] - *piVar12, piVar12[3] - piVar12[1]);
+        vector<int>* local_40 = arg2;
+        if (bVar3 == false) {
+            lVar11 = arg1.size();
+            pvVar6 = arg1;
+            if (lVar11 == 0) {
                 return;
             }
-            uVar16 = 0;
-            uVar19 = 1;
+            uVar15 = 0;
+            uVar20 = 1;
             do {
-                piVar13 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)pvVar6,
-                                                                                 uVar16);
-                iVar11 = *piVar13;
-                piVar13 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)pvVar6,
-                                                                                 uVar19);
-                new (local_a8) oldscape::sidebars::SideBarData(iVar11, *piVar13);
-                bVar8 = math::Rect<int>::IsInside<int>((Rect<int>*)local_c0, (Point*)local_a8);
+                piVar12 = (int*)(*pvVar6)[uVar15];
+                iVar10 = *piVar12;
+                piVar12 = (int*)(*pvVar6)[uVar20];
+                new (local_a8) oldscape::sidebars::SideBarData(iVar10, *piVar12);
+                bVar8 = local_c0->IsInside<int>(*local_a8);
                 bVar3 = true;
                 if (bVar8)
                     break;
-                iVar11 = (int)local_60;
-                uVar16 = (ulong)((iVar11 + (int)uVar19) - 1);
-                uVar14 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar6);
-                uVar19 = (ulong)(uint)((int)uVar19 + iVar11);
+                iVar10 = (int)local_60;
+                uVar15 = (unsigned long)((iVar10 + (int)uVar20) - 1);
+                uVar13 = pvVar6->size();
+                uVar20 = (unsigned long)(unsigned int)((int)uVar20 + iVar10);
                 bVar3 = false;
-            } while (uVar16 < uVar14);
+            } while (uVar15 < uVar13);
             if (!bVar3) {
                 return;
             }
         }
         pvVar6 = local_40;
-        pTVar5 = param_7;
-        local_48 = eastl::vector<unsigned int, eastl::allocator>::size(param_1);
-        this_00 = local_58;
-        uVar19 = (local_48 & 4294967295) / (local_60 & 4294967295);
-        puVar1 = local_58->field_1656;
-        uVar10 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar6);
-        local_78 = uVar19;
-        cVar9 = puVar1->HasRoom((uint)uVar19, uVar10);
-        if ((cVar9 == '\0') ||
-            (cVar9 = IsStateChangeNeeded(this_00, &param_9, 1, local_34, pTVar5, 0, 0), cVar9 != '\0')) {
-            Render(this_00, (SamplerState*)0);
+        Texture* pTVar5 = texture;
+        unsigned long local_48 = arg1.size();
+        GUIManager* this_00 = local_58;
+        uVar20 = (local_48 & 4294967295) / (local_60 & 4294967295);
+        uint8_t* puVar1 = &local_58->field_1656;
+        uVar9 = pvVar6->size();
+        unsigned long local_78 = uVar20;
+        cVar7 = puVar1->HasRoom((unsigned int)uVar20, uVar9);
+        if ((!cVar7) ||
+            (cVar7 = IsStateChangeNeeded(this_00, &blendMode, 1, local_34, pTVar5, nullptr, false), cVar7)) {
+            Render(this_00, nullptr);
             SetBatchMode(this_00, 1);
-            if (pTVar5 != (Texture*)0) {
-                cVar9 = pTVar5->IsCreated();
-                if (cVar9 == '\0') {
-                    /* WARNING: Subroutine does not return */
+            if (pTVar5 != nullptr) {
+                cVar7 = pTVar5->IsCreated();
+                if (!cVar7) {
                     LogAssert("texture->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
                               1288, "GUIManager texture being added that has no native resources");
                 }
-                this_00->field_88 = (Mixer*)pTVar5;
+                this_00->field_88 = pTVar5;
             }
-            this_00->field_108 = param_9;
+            this_00->field_108 = blendMode;
         }
         local_a8._8_8_ = &this_00->field_1960;
-        iVar11 = local_a8._8_8_->size();
-        piVar13 = (int*)pvVar6->HeapBeginPtr();
-        piVar15 = (int*)pvVar6->end();
-        if (piVar13 != piVar15) {
+        iVar10 = local_a8._8_8_->size();
+        piVar12 = (int*)pvVar6->HeapBeginPtr();
+        auto piVar14 = pvVar6->end();
+        if (piVar12 != piVar14) {
             puVar1 = &local_58->field_2080;
             do {
-                uVar19 = puVar1->size();
-                uVar16 = puVar1->capacity();
-                if (uVar16 <= uVar19) {
-                    /* WARNING: Subroutine does not return */
+                uVar20 = puVar1->size();
+                uVar15 = puVar1->capacity();
+                if (uVar15 <= uVar20) {
                     LogAssert("m_vertexDynamic.m_indexDataBuffer.size() < m_vertexDynamic.m_indexDataBuffer.capacity()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1298, (char*)0);
+                              1298, nullptr);
                 }
-                local_a8._0_2_ = (short)*piVar13 + (short)iVar11;
-                puVar1->push_back(local_a8);
-                if (65535 < (uint)(*piVar13 + iVar11)) {
-                    /* WARNING: Subroutine does not return */
+                local_a8._0_2_ = (short)*piVar12 + (short)iVar10;
+                puVar1->push_back(*local_a8);
+                if (65535 < (unsigned int)(*piVar12 + iVar10)) {
                     LogAssert("startIndex + index <= std::numeric_limits<uint16>::max()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1300, (char*)0);
+                              1300, nullptr);
                 }
-                piVar13 = piVar13 + 1;
-            } while (piVar13 != piVar15);
+                piVar12 = piVar12 + 1;
+            } while (piVar12 != piVar14);
         }
-        iVar11 = eastl::vector<unsigned int, eastl::allocator>::size(local_40);
-        local_58->field_80 = local_58->field_80 + iVar11;
-        if ((uint)local_60 <= (uint)local_48) {
-            local_c0._16_8_ = ZEXT48((int)local_90 * 3 - 1);
-            local_70 = (ulong)((uint)local_70 | (uint)local_38);
-            local_68 = (ulong)((uint)local_68 | (uint)local_38);
-            uVar10 = (uint)local_78;
+        iVar10 = local_40->size();
+        local_58->field_80 = local_58->field_80 + iVar10;
+        if ((unsigned int)local_60 <= (unsigned int)local_48) {
+            local_c0._16_8_ = (uint64_t)((int)local_90 * 3 - 1);
+            local_70 = (unsigned long)((unsigned int)local_70 | (unsigned int)local_38);
+            local_68 = (unsigned long)((unsigned int)local_68 | (unsigned int)local_38);
+            uVar9 = (unsigned int)local_78;
             local_78 = local_78 & 4294967295;
-            if (uVar10 < 2) {
+            if (uVar9 < 2) {
                 local_78 = 1;
             }
-            uVar19 = 0;
-            uVar16 = 0;
+            uVar20 = 0;
+            uVar15 = 0;
             do {
-                pvVar6 = param_1;
-                pTVar5 = param_7;
-                iVar11 = (int)uVar19;
-                puVar18 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](
-                    (vector<int, eastl::allocator>*)param_1, uVar19);
-                uVar2 = *puVar18;
-                piVar13 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)pvVar6,
-                                                                                 (ulong)(iVar11 + 1));
-                local_48 = CONCAT44(local_48._4_4_, (float)*piVar13);
+                pvVar6 = arg1;
+                pTVar5 = texture;
+                iVar10 = (int)uVar20;
+                puVar17 = &arg1[uVar20];
+                uVar2 = *puVar17;
+                piVar12 = (int*)(*pvVar6)[(unsigned long)(iVar10 + 1)];
+                local_48 = (((uint64_t)local_48._4_4_ << 32) | (uint32_t)((float)*piVar12));
                 if ((int)local_90 != 0) {
-                    puVar18 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](
-                        (vector<int, eastl::allocator>*)pvVar6, (ulong)(uint)(local_c0._16_4_ + iVar11));
+                    puVar18 = (unsigned int*)(*pvVar6)[(unsigned long)(unsigned int)(local_c0._16_4_ + iVar10)];
                     local_34 = *puVar18;
                 }
-                local_40 = (vector<unsigned int, eastl::allocator>*)CONCAT44(local_40._4_4_, param_5);
-                fVar22 = param_6;
+                local_40 = (vector<int>*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)arg5);
+                fVar23 = arg6;
                 if ((int)local_98 != 0) {
-                    piVar13 = (int*)eastl::vector<int, eastl::allocator>::operator[](
-                        (vector<int, eastl::allocator>*)pvVar6, (ulong)(uint)((int)local_70 + iVar11));
-                    local_40 = (vector<unsigned int, eastl::allocator>*)CONCAT44(local_40._4_4_,
-                                                                                 (float)*piVar13 * 9.536743e-07);
-                    piVar13 = (int*)eastl::vector<int, eastl::allocator>::operator[](
-                        (vector<int, eastl::allocator>*)pvVar6, (ulong)(uint)((int)local_68 + iVar11));
-                    fVar22 = (float)*piVar13 * 9.536743e-07;
+                    piVar12 = (int*)(*pvVar6)[(unsigned long)(unsigned int)((int)local_70 + iVar10)];
+                    local_40 =
+                        (vector<int>*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)((float)*piVar12 * 9.536743e-07));
+                    piVar12 = (int*)(*pvVar6)[(unsigned long)(unsigned int)((int)local_68 + iVar10)];
+                    fVar23 = (float)*piVar12 * 9.536743e-07;
                 }
                 uVar4 = local_a8._8_8_;
-                if (pTVar5 == (Texture*)0) {
-                    fVar22 = -65000.0;
-                    local_40 = (vector<unsigned int, eastl::allocator>*)CONCAT44(local_40._4_4_, 3346917376);
+                if (pTVar5 == nullptr) {
+                    fVar23 = -65000.0;
+                    local_40 = (vector<int>*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)3346917376);
                 }
-                local_48 = CONCAT44(local_48._4_4_, (float)(int)local_58->m_lastViewportHeight - (float)local_48);
-                local_38 = fVar22;
-                uVar19 = local_a8._8_8_->size();
-                uVar14 = uVar4->capacity();
+                local_48 = (((uint64_t)local_48._4_4_ << 32) |
+                            (uint32_t)((float)(int)local_58->m_lastViewportHeight - (float)local_48));
+                local_38 = fVar23;
+                uVar20 = local_a8._8_8_->size();
+                uVar13 = uVar4->capacity();
                 uVar4 = local_a8._8_8_;
-                if (uVar14 <= uVar19) {
-                    /* WARNING: Subroutine does not return */
+                if (uVar13 <= uVar20) {
                     LogAssert(
                         "m_vertexDynamic.m_vertexDataBuffer.size() < m_vertexDynamic.m_vertexDataBuffer.capacity()",
                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                         "GUIManager.cpp",
-                        1336, (char*)0);
+                        1336, nullptr);
                 }
                 local_a8._8_8_->push_back_uninitialized();
                 this_01 = (array<short, 2ul>*)uVar4->back();
-                iVar21 = (int)(float)local_48;
-                puVar17 = (undefined2*)std::array<short, 2ul>::operator[](this_01, 0);
-                *puVar17 = (short)uVar2;
-                puVar17 = (undefined2*)std::array<short, 2ul>::operator[](this_01, 1);
-                *puVar17 = (short)iVar21;
-                *(undefined4*)(this_01 + 4) = local_34;
+                iVar22 = (int)(float)local_48;
+                puVar16 = (uint16_t*)(*this_01)[0];
+                *puVar16 = (short)uVar2;
+                puVar16 = (uint16_t*)(*this_01)[1];
+                *puVar16 = (short)iVar22;
+                *(unsigned int*)(this_01 + 4) = local_34;
                 ((this_01 + 8))->Set(local_40._0_4_, local_38);
-                puVar18 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(this_01 + 16), 0);
-                *puVar18 = 0;
-                puVar18 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(this_01 + 16), 1);
-                *puVar18 = 0;
-                puVar18 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(this_01 + 24), 0);
-                *puVar18 = 1065353216;
-                puVar18 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(this_01 + 24), 1);
-                *puVar18 = 1065353216;
-                uVar16 = uVar16 + 1;
-                uVar19 = (ulong)(iVar11 + (uint)local_60);
-            } while (uVar16 != local_78);
+                puVar17 = (uint32_t*)(*((this_01 + 16)))[0];
+                *puVar17 = 0;
+                puVar17 = (uint32_t*)(*((this_01 + 16)))[1];
+                *puVar17 = 0;
+                puVar17 = (uint32_t*)(*((this_01 + 24)))[0];
+                *puVar17 = 1065353216;
+                puVar17 = (uint32_t*)(*((this_01 + 24)))[1];
+                *puVar17 = 1065353216;
+                uVar15 = uVar15 + 1;
+                uVar20 = (unsigned long)(iVar10 + (unsigned int)local_60);
+            } while (uVar15 != local_78);
         }
     }
 
-    // 0x1008ed300, 3328 bytes, placed by class name
-    // GUIManager::AddHorizontalGradientRectangle(int, int, int, int, unsigned int, unsigned int, GUIManager::BlendMode, int, bool)
-    void GUIManager::AddHorizontalGradientRectangle(ulong param_2_00, uint param_2, int param_3, uint param_4,
-                                                    uint param_5, uint param_6, int param_8, int param_9,
-                                                    char param_10) {
-        undefined1* this_00;
-        uint uVar1;
-        Array<GUIManagerVertexBase<short>, eastl::allocator>* pAVar2;
-        char cVar3;
-        uint* puVar4;
+    // 0x1008ed300
+    void GUIManager::AddHorizontalGradientRectangle(int arg1, int arg2, int arg3, int arg4, unsigned int arg5,
+                                                    unsigned int arg6, GUIManager::BlendMode blendMode, int arg8,
+                                                    bool arg9) {
+        uint8_t* this_00;
+        unsigned int uVar1;
+        Array<GUIManagerVertexBase<short>>* pAVar2;
         array<short, 2ul>* paVar5;
         short* psVar6;
-        undefined4* puVar7;
-        undefined2* puVar8;
-        uint uVar9;
-        uint uVar10;
-        int iVar11;
-        undefined2 uVar12;
+        uint32_t* puVar7;
+        uint16_t* puVar8;
+        uint32_t in_register_00000034;
+        uint16_t uVar12;
         short sVar13;
         int iVar14;
         short sVar15;
         int iVar16;
-        undefined2 uVar17;
+        uint16_t uVar17;
         bool bVar18;
-        uint local_60;
         int local_5c;
-        Array<GUIManagerVertexBase<short>, eastl::allocator>* local_58;
         int local_4c;
-        ulong local_48;
-        uint local_40;
-        uint local_38;
         short local_34;
         short local_32;
 
-        local_48 = param_2_00;
-        cVar3 = (&field_40)->empty();
-        if (cVar3 != '\0') {
-            /* WARNING: Subroutine does not return */
+        unsigned long local_48 = (((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1);
+        bool cVar3 = field_40.empty();
+        if (cVar3) {
             LogAssert("!m_drawCallStates.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
                       218,
                       "Ensure Begin() is called with a valid DrawCallState before submitting GUI elements to draw");
         }
-        local_40 = param_3 + (int)local_48;
-        uVar9 = param_4 + param_2;
-        local_58 = (Array<GUIManagerVertexBase<short>, eastl::allocator>*)(ulong)param_4;
-        cVar3 = (field_0, (int)local_48, param_2, local_40, uVar9)->ClippingTest();
-        if (cVar3 == '\0') {
+        unsigned int local_40 = arg3 + (int)local_48;
+        unsigned int uVar9 = arg4 + arg2;
+        Array<GUIManagerVertexBase<short>>* local_58 =
+            (Array<GUIManagerVertexBase<short>>*)(unsigned long)(unsigned int)arg4;
+        cVar3 = field_0->ClippingTest((int)local_48, arg2, local_40, uVar9);
+        if (!cVar3) {
             return;
         }
         if (field_80 < field_84) {
-            cVar3 = IsStateChangeNeeded(this, &field_108, 2, param_5, 0, 0, 0);
-            if ((cVar3 != '\0') || (cVar3 = IsStateChangeNeeded(this, &field_108, 2, param_6, 0, 0, 0), cVar3 != '\0'))
+            cVar3 = IsStateChangeNeeded(field_108, 2, arg5, nullptr, nullptr, false);
+            if ((cVar3) || (cVar3 = IsStateChangeNeeded(field_108, 2, arg6, nullptr, nullptr, false), cVar3))
                 goto LAB_1008ed3d9;
         } else {
         LAB_1008ed3d9:
-            Render(this, (SamplerState*)0);
-            SetBatchMode(this, 2);
-            field_108 = param_8;
+            Render(nullptr);
+            SetBatchMode(2);
+            field_108 = blendMode;
         }
-        puVar4 = (uint*)field_0->GetPixelBuffer();
-        uVar10 = *puVar4;
-        iVar11 = 0;
+        auto puVar4 = field_0->GetPixelBuffer();
+        unsigned int uVar10 = *puVar4;
+        int iVar11 = 0;
         if (uVar10 != 4294967295) {
-            if (0 < param_3) {
+            if (0 < arg3) {
                 iVar16 = (int)local_48;
                 local_48 = local_48 & 4294967295;
                 if (iVar16 < (int)uVar10) {
-                    local_48 = (ulong)uVar10;
+                    local_48 = (unsigned long)uVar10;
                 }
                 if ((int)puVar4[2] < (int)local_40) {
                     local_40 = puVar4[2];
@@ -1304,14 +1129,14 @@ namespace jag::graphics {
             }
             if (0 < (int)local_58) {
                 uVar1 = puVar4[1];
-                iVar11 = uVar1 - param_2;
+                iVar11 = uVar1 - arg2;
                 bVar18 = iVar11 == 0;
-                if (bVar18 || (int)uVar1 < (int)param_2) {
+                if (bVar18 || (int)uVar1 < arg2) {
                     iVar11 = 0;
                 }
                 uVar10 = puVar4[3];
-                if (!bVar18 && (int)param_2 <= (int)uVar1) {
-                    param_2 = uVar1;
+                if (!bVar18 && arg2 <= (int)uVar1) {
+                    arg2 = uVar1;
                 }
                 iVar16 = uVar9 - uVar10;
                 if (iVar16 == 0 || (int)uVar9 < (int)uVar10) {
@@ -1324,919 +1149,740 @@ namespace jag::graphics {
         iVar16 = 0;
         uVar10 = uVar9;
     LAB_1008ed45a:
-        if ((uint)local_48 != local_40) {
-            iVar14 = m_lastViewportHeight - param_2;
+        if ((unsigned int)local_48 != local_40) {
+            iVar14 = m_lastViewportHeight - arg2;
             local_5c = m_lastViewportHeight - uVar10;
             this_00 = &field_232;
-            local_58 = (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00;
-            if ((param_9 < 1) || (iVar14 - local_5c <= param_9 * 2)) {
+            local_58 = (Array<GUIManagerVertexBase<short>>*)this_00;
+            if ((arg8 < 1) || (iVar14 - local_5c <= arg8 * 2)) {
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00, (ulong)uVar9);
-                sVar13 = (short)iVar14 + -5;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+                paVar5 = (array<short, 2ul>*)(*this_00)[(unsigned long)uVar9];
+                sVar13 = (short)iVar14 - 5;
+                puVar8 = (uint16_t*)(*paVar5)[0];
                 *puVar8 = (short)local_48;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 1);
+                psVar6 = (short*)(*paVar5)[1];
                 *psVar6 = sVar13;
-                *(uint*)(paVar5 + 4) = param_5;
+                *(unsigned int*)(paVar5 + 4) = arg5;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00, (ulong)uVar9);
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
-                uVar12 = (undefined2)local_40;
+                paVar5 = (array<short, 2ul>*)(*this_00)[(unsigned long)uVar9];
+                puVar8 = (uint16_t*)(*paVar5)[0];
+                uVar12 = (uint16_t)local_40;
                 *puVar8 = uVar12;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 1);
+                psVar6 = (short*)(*paVar5)[1];
                 *psVar6 = sVar13;
-                *(uint*)(paVar5 + 4) = param_6;
+                *(unsigned int*)(paVar5 + 4) = arg6;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 pAVar2 = local_58;
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    local_58, (ulong)uVar9);
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+                paVar5 = (array<short, 2ul>*)(*local_58)[(unsigned long)uVar9];
+                puVar8 = (uint16_t*)(*paVar5)[0];
                 *puVar8 = uVar12;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
-                uVar12 = (undefined2)local_5c;
+                puVar8 = (uint16_t*)(*paVar5)[1];
+                uVar12 = (uint16_t)local_5c;
                 *puVar8 = uVar12;
-                *(uint*)(paVar5 + 4) = param_6;
+                *(unsigned int*)(paVar5 + 4) = arg6;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    pAVar2, (ulong)uVar9);
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+                paVar5 = (array<short, 2ul>*)(*pAVar2)[(unsigned long)uVar9];
+                puVar8 = (uint16_t*)(*paVar5)[0];
                 *puVar8 = (short)local_48;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+                puVar8 = (uint16_t*)(*paVar5)[1];
                 *puVar8 = uVar12;
-                *(uint*)(paVar5 + 4) = param_5;
+                *(unsigned int*)(paVar5 + 4) = arg5;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 field_80 = field_80 + 1;
             } else {
-                local_60 = param_5;
-                local_38 = param_6;
                 local_34 = (short)local_48;
                 local_32 = (short)local_40;
-                if (param_10 != '\0') {
-                    std::swap<unsigned int>(&local_60, &local_38);
-                    std::swap<short>(&local_34, &local_32);
+                if (arg9) {
+                    std::swap<unsigned int>(arg5, arg6);
+                    std::swap<short>(local_34, local_32);
                 }
-                local_4c = iVar11 - param_9;
-                if (param_9 <= iVar11) {
+                local_4c = iVar11 - arg8;
+                if (arg8 <= iVar11) {
                     local_4c = 0;
                 }
-                iVar11 = param_9 - iVar16;
-                if (iVar11 == 0 || param_9 < iVar16) {
+                iVar11 = arg8 - iVar16;
+                if (iVar11 == 0 || arg8 < iVar16) {
                     iVar11 = 0;
                 }
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00, (ulong)uVar9);
+                paVar5 = (array<short, 2ul>*)(*this_00)[(unsigned long)uVar9];
                 sVar13 = local_34;
-                uVar9 = local_38;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 0);
+                uVar9 = arg6;
+                psVar6 = (short*)(*paVar5)[0];
                 *psVar6 = sVar13;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 1);
+                psVar6 = (short*)(*paVar5)[1];
                 *psVar6 = (short)iVar14;
-                *(uint*)(paVar5 + 4) = uVar9;
+                *(unsigned int*)(paVar5 + 4) = uVar9;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00, (ulong)uVar9);
+                paVar5 = (array<short, 2ul>*)(*this_00)[(unsigned long)uVar9];
                 sVar13 = local_32;
-                uVar9 = local_38;
+                uVar9 = arg6;
                 iVar14 = local_4c + iVar14;
                 local_4c = iVar14;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 0);
+                psVar6 = (short*)(*paVar5)[0];
                 *psVar6 = sVar13;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+                puVar8 = (uint16_t*)(*paVar5)[1];
                 *puVar8 = (short)iVar14;
-                *(uint*)(paVar5 + 4) = uVar9;
+                *(unsigned int*)(paVar5 + 4) = uVar9;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 pAVar2 = local_58;
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    local_58, (ulong)uVar9);
+                paVar5 = (array<short, 2ul>*)(*local_58)[(unsigned long)uVar9];
                 sVar13 = local_32;
-                uVar9 = local_38;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 0);
+                uVar9 = arg6;
+                psVar6 = (short*)(*paVar5)[0];
                 *psVar6 = sVar13;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+                puVar8 = (uint16_t*)(*paVar5)[1];
                 *puVar8 = (short)local_4c;
-                *(uint*)(paVar5 + 4) = uVar9;
+                *(unsigned int*)(paVar5 + 4) = uVar9;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    pAVar2, (ulong)uVar9);
+                paVar5 = (array<short, 2ul>*)(*pAVar2)[(unsigned long)uVar9];
                 sVar13 = local_34;
-                uVar9 = local_60;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 0);
+                uVar9 = arg5;
+                psVar6 = (short*)(*paVar5)[0];
                 *psVar6 = sVar13;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
-                uVar12 = (undefined2)local_4c;
+                puVar8 = (uint16_t*)(*paVar5)[1];
+                uVar12 = (uint16_t)local_4c;
                 *puVar8 = uVar12;
-                *(uint*)(paVar5 + 4) = uVar9;
+                *(unsigned int*)(paVar5 + 4) = uVar9;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 pAVar2 = local_58;
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    local_58, (ulong)uVar9);
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+                paVar5 = (array<short, 2ul>*)(*local_58)[(unsigned long)uVar9];
+                puVar8 = (uint16_t*)(*paVar5)[0];
                 *puVar8 = (short)local_48;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+                puVar8 = (uint16_t*)(*paVar5)[1];
                 *puVar8 = uVar12;
-                *(uint*)(paVar5 + 4) = param_5;
+                *(unsigned int*)(paVar5 + 4) = arg5;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    pAVar2, (ulong)uVar9);
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
-                uVar17 = (undefined2)local_40;
+                paVar5 = (array<short, 2ul>*)(*pAVar2)[(unsigned long)uVar9];
+                puVar8 = (uint16_t*)(*paVar5)[0];
+                uVar17 = (uint16_t)local_40;
                 *puVar8 = uVar17;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+                puVar8 = (uint16_t*)(*paVar5)[1];
                 *puVar8 = uVar12;
-                *(uint*)(paVar5 + 4) = param_6;
+                *(unsigned int*)(paVar5 + 4) = arg6;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 pAVar2 = local_58;
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    local_58, (ulong)uVar9);
+                paVar5 = (array<short, 2ul>*)(*local_58)[(unsigned long)uVar9];
                 sVar15 = (short)iVar11 + (short)local_5c;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+                puVar8 = (uint16_t*)(*paVar5)[0];
                 *puVar8 = uVar17;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 1);
+                psVar6 = (short*)(*paVar5)[1];
                 *psVar6 = sVar15;
-                *(uint*)(paVar5 + 4) = param_6;
+                *(unsigned int*)(paVar5 + 4) = arg6;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    pAVar2, (ulong)uVar9);
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+                paVar5 = (array<short, 2ul>*)(*pAVar2)[(unsigned long)uVar9];
+                puVar8 = (uint16_t*)(*paVar5)[0];
                 *puVar8 = (short)local_48;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 1);
+                psVar6 = (short*)(*paVar5)[1];
                 *psVar6 = sVar15;
-                *(uint*)(paVar5 + 4) = param_5;
+                *(unsigned int*)(paVar5 + 4) = arg5;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    pAVar2, (ulong)uVar9);
+                paVar5 = (array<short, 2ul>*)(*pAVar2)[(unsigned long)uVar9];
                 sVar13 = local_34;
-                uVar9 = local_60;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 0);
+                uVar9 = arg5;
+                psVar6 = (short*)(*paVar5)[0];
                 *psVar6 = sVar13;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 1);
+                psVar6 = (short*)(*paVar5)[1];
                 *psVar6 = sVar15;
-                *(uint*)(paVar5 + 4) = uVar9;
+                *(unsigned int*)(paVar5 + 4) = uVar9;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 pAVar2 = local_58;
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    local_58, (ulong)uVar9);
+                paVar5 = (array<short, 2ul>*)(*local_58)[(unsigned long)uVar9];
                 sVar13 = local_32;
-                uVar9 = local_38;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 0);
+                uVar9 = arg6;
+                psVar6 = (short*)(*paVar5)[0];
                 *psVar6 = sVar13;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 1);
+                psVar6 = (short*)(*paVar5)[1];
                 *psVar6 = sVar15;
-                *(uint*)(paVar5 + 4) = uVar9;
+                *(unsigned int*)(paVar5 + 4) = uVar9;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    pAVar2, (ulong)uVar9);
+                paVar5 = (array<short, 2ul>*)(*pAVar2)[(unsigned long)uVar9];
                 sVar13 = local_32;
-                uVar9 = local_38;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 0);
+                uVar9 = arg6;
+                psVar6 = (short*)(*paVar5)[0];
                 *psVar6 = sVar13;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 1);
+                psVar6 = (short*)(*paVar5)[1];
                 *psVar6 = sVar15;
-                *(uint*)(paVar5 + 4) = uVar9;
+                *(unsigned int*)(paVar5 + 4) = uVar9;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 uVar9 = field_256;
                 field_256 = uVar9 + 1;
-                paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-                    pAVar2, (ulong)uVar9);
+                paVar5 = (array<short, 2ul>*)(*pAVar2)[(unsigned long)uVar9];
                 sVar13 = local_34;
-                uVar9 = local_38;
-                psVar6 = (short*)std::array<short, 2ul>::operator[](paVar5, 0);
+                uVar9 = arg6;
+                psVar6 = (short*)(*paVar5)[0];
                 *psVar6 = sVar13;
-                puVar8 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+                puVar8 = (uint16_t*)(*paVar5)[1];
                 *puVar8 = (short)local_5c;
-                *(uint*)(paVar5 + 4) = uVar9;
+                *(unsigned int*)(paVar5 + 4) = uVar9;
                 ((paVar5 + 8))->Set(-65000.0, -65000.0);
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[0];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 16)))[1];
                 *puVar7 = 3346917376;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[0];
                 *puVar7 = 1065353216;
-                puVar7 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+                puVar7 = (uint32_t*)(*((paVar5 + 24)))[1];
                 *puVar7 = 1065353216;
                 field_80 = field_80 + 3;
             }
         }
     }
 
-    // 0x1008ee000, 80 bytes, placed by class name
-    // GUIManager::IsStateChangeNeeded(GUIManager::BlendMode&, GUIManager::BatchMode, unsigned int, render::Texture const*, render::Texture const*, bool) const
-    bool GUIManager::IsStateChangeNeeded(int* param_1, int param_3, char param_4, Mixer* param_5, Texture* param_6,
-                                         char param_7) {
-        if ((*param_1 == 0) && (param_4 == -1)) {
-            *param_1 = field_108;
+    // 0x1008ee000
+    bool GUIManager::IsStateChangeNeeded(GUIManager::BlendMode& blendMode, GUIManager::BatchMode batchMode,
+                                         unsigned int arg3, const render::Texture* texture1,
+                                         const render::Texture* texture2, bool arg6) const {
+        if ((blendMode == 0) && ((arg3 & 255) == 255)) {
+            blendMode = field_108;
         }
-        if (((field_76 == param_3) && (((param_5 == (Mixer*)0 || (field_88 == param_5)) && (field_96 == param_6)))) &&
-            (field_104 == param_7)) {
-            return *param_1 != field_108;
+        if (((field_76 == batchMode) &&
+             (((texture1 == nullptr || (field_88 == texture1)) && (field_96 == texture2)))) &&
+            (field_104 == arg6)) {
+            return blendMode != field_108;
         }
         return true;
     }
 
-    // 0x1008ee050, 160 bytes, placed by class name
-    // GUIManager::SetBatchMode(GUIManager::BatchMode)
-    void GUIManager::SetBatchMode(undefined4 param_2) {
-        uint uVar1;
+    // 0x1008ee050
+    void GUIManager::SetBatchMode(GUIManager::BatchMode batchMode) {
+        unsigned int uVar1;
 
-        field_76 = param_2;
-        switch (param_2) {
+        field_76 = batchMode;
+        switch (batchMode) {
         case 0:
-            uVar1 = (&field_744)->end();
+            uVar1 = field_744.end();
             break;
         case 1:
-            uVar1 = (&field_1960)->size();
+            uVar1 = field_1960.size();
             goto LAB_1008ee0ce;
         case 2:
-            uVar1 = (&field_232)->end();
+            uVar1 = field_232.end();
             break;
         case 3:
-            uVar1 = (&field_1256)->end();
+            uVar1 = field_1256.end();
             uVar1 = uVar1 >> 1;
             goto LAB_1008ee0ce;
         default:
             field_84 = 0;
-            /* WARNING: Subroutine does not return */
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "gui/GUIManager.cpp",
-                            1370, (char*)0);
+                            1370, nullptr);
         }
         uVar1 = uVar1 >> 2;
     LAB_1008ee0ce:
         field_84 = uVar1;
     }
 
-    // 0x1008ee1a0, 144 bytes, placed by class name
-    // GUIManager::AddTexturedTriangleList(eastl::vector<int, eastl::allocator> const&, eastl::vector<int, eastl::allocator> const&, unsigned int, render::Texture*, GUIManager::BlendMode, bool)
-    void GUIManager::AddTexturedTriangleList(undefined8 param_1, undefined8 param_2, undefined4 param_3, long param_4,
-                                             ulong param_6, undefined1 param_7) {
-        if (param_4 == 0) {
-            /* WARNING: Subroutine does not return */
+    // 0x1008ee1a0
+    void GUIManager::AddTexturedTriangleList(const eastl::vector<int>& arg1, const eastl::vector<int>& arg2,
+                                             unsigned int arg3, render::Texture* texture,
+                                             GUIManager::BlendMode blendMode, bool arg6) {
+        uint32_t in_register_00000014;
+        uint32_t in_register_00000084;
+        uint64_t in_register_00000089;
+        bool in_stack_00000008;
+
+        unsigned long uVar1 = (((uint64_t)in_register_00000089 << 8) | (uint8_t)arg6);
+        if ((Texture*)(((uint64_t)in_register_00000084 << 32) | (uint32_t)blendMode) == nullptr) {
             LogAssert("texture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      350, "Use AddColouredTriangleList if there is no texture", 0, param_6, param_6 & 4294967295);
+                      350, "Use AddColouredTriangleList if there is no texture", 0, uVar1, uVar1 & 4294967295);
         }
-        AddTriangleListInner((GUIManager*)3212836864, 3212836864, this, param_1, param_2, 2, param_3, param_4,
-                             param_6 & 4294967295, param_7);
+        AddTriangleListInner(
+            (GUIManager*)arg1, arg2, (vector<int>*)(((uint64_t)in_register_00000014 << 32) | (uint32_t)arg3), 2,
+            (unsigned int)texture, -1.0, -1.0, (Texture*)(((uint64_t)in_register_00000084 << 32) | (uint32_t)blendMode),
+            (BlendMode)uVar1, in_stack_00000008);
     }
 
-    // 0x1008ee230, 192 bytes, placed by class name
-    // GUIManager::AddOutline(int, int, int, int, int, unsigned int, GUIManager::BlendMode)
-    void GUIManager::AddOutline(int param_1, int param_2, int param_3, int param_4, int param_5, undefined4 param_6,
-                                undefined4 param_8) {
-        AddColouredRectangle();
-        AddColouredRectangle(this, param_1, (param_4 + param_2) - param_5, param_3, param_5, param_6, param_8);
-        param_4 = param_4 + param_5 * -2;
-        AddColouredRectangle(this, param_1, param_2 + param_5, param_5, param_4, param_6, param_8);
-        AddColouredRectangle(this, (param_3 + param_1) - param_5, param_2 + param_5, param_5, param_4, param_6,
-                             param_8);
+    // 0x1008ee230
+    void GUIManager::AddOutline(int arg1, int arg2, int arg3, int arg4, int arg5, unsigned int arg6,
+                                GUIManager::BlendMode blendMode) {
+        AddColouredRectangle(arg1, arg2, arg3, arg5, arg6, blendMode);
+        AddColouredRectangle(arg1, (arg4 + arg2) - arg5, arg3, arg5, arg6, blendMode);
+        int arg4_00 = arg4 + arg5 * -2;
+        AddColouredRectangle(arg1, arg2 + arg5, arg5, arg4_00, arg6, blendMode);
+        AddColouredRectangle((arg3 + arg1) - arg5, arg2 + arg5, arg5, arg4_00, arg6, blendMode);
     }
 
-    // 0x1008ee2f0, 48 bytes, placed by class name
-    // GUIManager::AddVerticalLine(int, int, int, int, unsigned int, GUIManager::BlendMode)
-    void GUIManager::AddVerticalLine() {
-        AddColouredRectangle();
+    // 0x1008ee2f0
+    void GUIManager::AddVerticalLine(int arg1, int arg2, int arg3, int arg4, unsigned int arg5,
+                                     GUIManager::BlendMode blendMode) {
+        AddColouredRectangle(arg1, arg2, arg4, arg3, arg5, blendMode);
     }
 
-    // 0x1008ee320, 400 bytes, placed by class name
-    // GUIManager::AddSprite(int, int, int, int, unsigned int, shared_ptr<SpriteAtlasReference> const&, GUIManager::BlendMode)
-    void GUIManager::AddSprite(int param_1, int param_2, int param_3, int param_4, undefined4 param_5,
-                               shared_ptr* param_6, undefined4 param_8) {
-        bool bVar1;
-        int iVar2;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_00;
-        shared_ptr* this_01;
-        SpriteAtlas* this_02;
-        FastPool<audio::SoundInstance, int>* this_03;
-        long lVar3;
-        MapArea* this_04;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_05;
-        undefined8 uVar4;
-        EntityHighlightState* this_06;
-        undefined4 uVar5;
-        undefined4 uVar6;
-        undefined4 uVar7;
-        undefined4 uVar8;
-
-        if ((param_3 < 1) && (param_4 < 1)) {
-            /* WARNING: Subroutine does not return */
+    // 0x1008ee320
+    void GUIManager::AddSprite(int arg1, int arg2, int arg3, int arg4, unsigned int arg5,
+                               const shared_ptr<SpriteAtlasReference>& spriteAtlasReference,
+                               GUIManager::BlendMode blendMode) {
+        if ((arg3 < 1) && (arg4 < 1)) {
             LogAssert("width > 0 || height > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      380, (char*)0);
+                      380, nullptr);
         }
-        bVar1 = shared_ptr::operator_cast_to_bool(param_6);
-        if (!bVar1) {
-            /* WARNING: Subroutine does not return */
+        if (!(spriteAtlasReference.operator_cast_to_bool())) {
             LogAssert("reference",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      382, (char*)0);
+                      382, nullptr);
         }
-        this_00 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>*)
-                      shared_ptr<SpriteAtlasReference>::operator->((shared_ptr<SpriteAtlasReference>*)param_6);
-        this_01 = (shared_ptr*)
-            eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>::second(this_00);
-        bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-        if (!bVar1) {
-            /* WARNING: Subroutine does not return */
+        auto this_00 = spriteAtlasReference.operator->();
+        auto this_01 = this_00->second();
+        if (!(shared_ptr::operator_cast_to_bool(this_01))) {
             LogAssert("atlas",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      384, (char*)0);
+                      384, nullptr);
         }
-        this_02 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)this_01);
-        this_03 = (FastPool<audio::SoundInstance, int>*)shared_ptr<SpriteAtlasReference>::operator->(
-            (shared_ptr<SpriteAtlasReference>*)param_6);
-        iVar2 = FastPool<audio::SoundInstance, int>::capacity(this_03);
-        lVar3 = this_02->GetSpriteRenderMapping(iVar2);
-        this_06 = (EntityHighlightState*)(lVar3 + 88);
-        uVar5 = this_06->GetOverbright();
-        uVar6 = this_06->GetAlpha();
-        uVar7 = this_06->MaxU();
-        uVar8 = this_06->MaxV();
-        this_04 = (MapArea*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)this_01);
-        this_05 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_04->GetOrigin();
-        uVar4 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_05);
-        AddElement(uVar5, uVar6, uVar7, uVar8, this, param_1, param_2, param_3 + param_1, param_4 + param_2, param_5,
-                   uVar4, param_8);
+        long lVar2 = ((SpriteAtlas*)(*this_01).operator->())
+                         ->GetSpriteRenderMapping(
+                             ((FastPool<audio::SoundInstance, int>*)spriteAtlasReference.operator->())->capacity());
+        EntityHighlightState* this_06 = (EntityHighlightState*)(lVar2 + 88);
+        float arg6 = (float)this_06->GetOverbright();
+        float arg7 = (float)this_06->GetAlpha();
+        float arg8 = (float)this_06->MaxU();
+        float arg9 = (float)this_06->MaxV();
+        MapArea* this_04 = (MapArea*)(*this_01).operator->();
+        auto this_05 = this_04->GetOrigin();
+        auto texture = this_05->end();
+        AddElement(arg1, arg2, arg3 + arg1, arg4 + arg2, arg5, arg6, arg7, arg8, arg9, texture, blendMode);
     }
 
-    // 0x1008ee4b0, 544 bytes, placed by class name
-    // GUIManager::AddSpriteTiled(int, int, int, int, unsigned int, shared_ptr<SpriteAtlasReference> const&, GUIManager::BlendMode)
-    void GUIManager::AddSpriteTiled(int param_1, int param_2, int param_3, int param_4, undefined4 param_5,
-                                    shared_ptr* param_6, undefined4 param_8) {
-        EntityHighlightState* this_00;
-        undefined4 uVar1;
-        undefined4 uVar2;
-        undefined4 uVar3;
-        bool bVar4;
-        int iVar5;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_01;
-        shared_ptr* this_02;
-        SpriteAtlas* this_03;
-        FastPool<audio::SoundInstance, int>* this_04;
-        long lVar6;
-        MapArea* this_05;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_06;
-        undefined8 uVar7;
-        undefined4* puVar8;
-        vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>* this_07;
-        undefined1 local_78[36];
-        undefined4 local_54;
-        int local_50;
-        int local_4c;
-        int local_48;
-        int local_44;
-        undefined8 local_40;
-        undefined4 local_38;
-        undefined4 local_34;
+    // 0x1008ee4b0
+    void GUIManager::AddSpriteTiled(int arg1, int arg2, int arg3, int arg4, unsigned int arg5,
+                                    const shared_ptr<SpriteAtlasReference>& spriteAtlasReference,
+                                    GUIManager::BlendMode blendMode) {
+        uint8_t local_78[36];
 
-        local_54 = param_5;
         new (local_78) ClippingState(field_0);
         local_78._24_8_ = this;
-        local_50 = param_2;
-        local_4c = param_1;
-        (field_0, param_1, param_2, param_3, param_4, false)->SetClippingRectangle();
-        bVar4 = shared_ptr::operator_cast_to_bool(param_6);
-        if (!bVar4) {
-            /* WARNING: Subroutine does not return */
+        field_0->SetClippingRectangle(arg1, arg2, arg3, arg4, false);
+        if (!(spriteAtlasReference.operator_cast_to_bool())) {
             LogAssert("reference",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      395, (char*)0);
+                      395, nullptr);
         }
-        this_01 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>*)
-                      shared_ptr<SpriteAtlasReference>::operator->((shared_ptr<SpriteAtlasReference>*)param_6);
-        this_02 = (shared_ptr*)
-            eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>::second(this_01);
-        bVar4 = shared_ptr::operator_cast_to_bool(this_02);
-        if (!bVar4) {
-            /* WARNING: Subroutine does not return */
+        auto this_01 = spriteAtlasReference.operator->();
+        auto this_02 = this_01->second();
+        if (!(shared_ptr::operator_cast_to_bool(this_02))) {
             LogAssert("atlas",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      397, (char*)0);
+                      397, nullptr);
         }
-        local_48 = param_4;
-        local_44 = param_3;
-        this_03 = (SpriteAtlas*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)this_02);
-        this_04 = (FastPool<audio::SoundInstance, int>*)shared_ptr<SpriteAtlasReference>::operator->(
-            (shared_ptr<SpriteAtlasReference>*)param_6);
-        iVar5 = FastPool<audio::SoundInstance, int>::capacity(this_04);
-        lVar6 = this_03->GetSpriteRenderMapping(iVar5);
-        this_00 = (EntityHighlightState*)(lVar6 + 88);
-        local_40._0_4_ = (GUIManager*)this_00->GetOverbright();
-        local_40._4_4_ = this_00->GetAlpha();
-        local_38 = this_00->MaxU();
-        local_34 = this_00->MaxV();
-        this_05 = (MapArea*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)this_02);
-        this_06 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_05->GetOrigin();
-        uVar7 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_06);
-        this_07 = (vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>*)(lVar6 + 8);
-        puVar8 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                this_07, 0);
-        uVar1 = *puVar8;
-        puVar8 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                this_07, 1);
-        uVar2 = *puVar8;
-        puVar8 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                this_07, 2);
-        uVar3 = *puVar8;
-        puVar8 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                this_07, 3);
-        AddElementTiled((GUIManager*)local_40, local_40._4_4_, local_38, local_34, local_78._24_8_, local_4c, local_50,
-                        local_44 + local_4c, local_48 + local_50, local_54, uVar7, param_8, uVar1, uVar2, uVar3,
-                        *puVar8, 0, 0);
-        local_78->~ClippingState();
+        long lVar2 = ((SpriteAtlas*)(*this_02).operator->())
+                         ->GetSpriteRenderMapping(
+                             ((FastPool<audio::SoundInstance, int>*)spriteAtlasReference.operator->())->capacity());
+        EntityHighlightState* this_00 = (EntityHighlightState*)(lVar2 + 88);
+        float local_40 = (float)this_00->GetOverbright();
+        float local_3c = (float)this_00->GetAlpha();
+        float local_38 = (float)this_00->MaxU();
+        float local_34 = (float)this_00->MaxV();
+        MapArea* this_05 = (MapArea*)(*this_02).operator->();
+        auto this_06 = this_05->GetOrigin();
+        auto texture = this_06->end();
+        vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true>>* this_07 =
+            (vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true>>*)(lVar2 + 8);
+        unsigned int* puVar3 = (unsigned int*)(*this_07)[0];
+        unsigned int arg12 = *puVar3;
+        puVar3 = (unsigned int*)(*this_07)[1];
+        unsigned int arg13 = *puVar3;
+        puVar3 = (unsigned int*)(*this_07)[2];
+        unsigned int arg14 = *puVar3;
+        puVar3 = (unsigned int*)(*this_07)[3];
+        AddElementTiled((GUIManager*)local_78._24_8_, arg1, arg2, arg3 + arg1, arg4 + arg2, arg5, local_40, local_3c,
+                        local_38, local_34, texture, blendMode, arg12, arg13, arg14, *puVar3, 0, 0);
     }
 
-    // 0x1008ee6e0, 704 bytes, placed by class name
-    // GUIManager::AddElementTiled(int, int, int, int, unsigned int, float, float, float, float, render::Texture const*, GUIManager::BlendMode, unsigned int, unsigned int, unsigned int, unsigned int, int, int)
-    void GUIManager::AddElementTiled(
-        GUIManager* param_1, float param_7, float param_8, float param_9, GUIManager* this, undefined8 param_6,
-        int param_2, int param_3, int param_4, undefined4 param_5,
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* param_10,
-        undefined4 param_12, int param_13, int param_14, int param_15, int param_16, int param_17, int param_18) {
-        uint* puVar1;
-        long lVar2;
-        ulong uVar3;
-        int iVar4;
-        int iVar5;
-        uint uVar6;
-        ulong uVar7;
-        int iVar8;
-        int iVar9;
-        int iVar10;
-        float fVar11;
-        float fVar12;
-        float fVar13;
+    // 0x1008ee6e0
+    void GUIManager::AddElementTiled(int arg1, int arg2, int arg3, int arg4, unsigned int arg5, float arg6, float arg7,
+                                     float arg8, float arg9, const render::Texture* texture,
+                                     GUIManager::BlendMode blendMode, unsigned int arg12, unsigned int arg13,
+                                     unsigned int arg14, unsigned int arg15, int arg16, int arg17) {
+        unsigned int uVar1;
+        EnumOptionToggle enumOptionToggle1;
+        unsigned int* puVar2;
+        long lVar3;
+        EnumOptionToggle EVar4;
+        int arg1_00;
+        EnumOptionToggle EVar5;
+        int arg4_00;
+        int iVar6;
+        EnumOptionToggle enumOptionToggle1_00;
+        float fVar7;
+        float fVar8;
+        float fVar9;
 
         if (m_skipTiledElements == '\0') {
-            puVar1 = (uint*)eastl::compressed_pair_imp<
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(param_10);
-            uVar6 = *puVar1;
-            fVar11 = (float)::abs(param_8 - (float)param_1._0_4_);
-            fVar11 = fVar11 * (float)uVar6;
-            lVar2 = eastl::compressed_pair_imp<
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(param_10);
-            uVar6 = *(uint*)(lVar2 + 4);
-            fVar12 = (float)::abs(param_9 - param_7);
-            fVar12 = fVar12 * (float)uVar6;
-            iVar5 = (int)param_6;
-            fVar13 = (float)ceil((float)(param_3 - iVar5) / fVar11);
-            iVar10 = (int)fVar13;
-            fVar13 = (float)ceil((float)(param_4 - param_2) / fVar12);
-            if (param_17 != 0) {
-                iVar10 = eastl::min<GraphicsQuality>(iVar10, param_17);
-                fVar11 = (float)(param_3 - iVar5) / (float)iVar10;
+            puVar2 = (unsigned int*)texture->second();
+            uVar1 = *puVar2;
+            fVar7 = (float)::abs(arg8 - arg6);
+            fVar7 = fVar7 * (float)uVar1;
+            lVar3 = texture->second();
+            uVar1 = *(unsigned int*)(lVar3 + 4);
+            fVar8 = (float)::abs(arg9 - arg7);
+            fVar8 = fVar8 * (float)uVar1;
+            fVar9 = (float)ceil((float)(arg3 - arg1) / fVar7);
+            enumOptionToggle1_00 = (EnumOptionToggle)fVar9;
+            fVar9 = (float)ceil((float)(arg4 - arg2) / fVar8);
+            if (arg16 != 0) {
+                enumOptionToggle1_00 = eastl::min<GraphicsQuality>(enumOptionToggle1_00, arg16);
+                fVar7 = (float)(arg3 - arg1) / (float)(int)enumOptionToggle1_00;
             }
-            uVar3 = (ulong)(uint)(int)fVar13;
-            if (param_18 != 0) {
-                uVar3 = eastl::min<GraphicsQuality>((int)fVar13);
-                fVar12 = (float)(param_4 - param_2) / (float)(int)uVar3;
+            enumOptionToggle1 = (EnumOptionToggle)fVar9;
+            if (arg17 != 0) {
+                enumOptionToggle1 = eastl::min<GraphicsQuality>(enumOptionToggle1, arg17);
+                fVar8 = (float)(arg4 - arg2) / (float)(int)enumOptionToggle1;
             }
-            if ((((param_13 == 0) && (param_14 == 0)) && (param_16 == 0)) && (param_15 == 0)) {
-                AddElementInner(param_1._0_4_, param_7, param_8, param_9, this, param_6, param_2,
-                                (int)(fVar11 * (float)iVar10) + iVar5, (int)(fVar12 * (float)(int)uVar3) + param_2,
-                                param_5, param_10, 0, 0, param_12, iVar10, uVar3);
-            } else if (0 < iVar10) {
-                iVar5 = iVar5 + param_13;
-                iVar4 = 0;
+            if ((((arg12 == 0) && (arg13 == 0)) && (arg15 == 0)) && (arg14 == 0)) {
+                AddElementInner(arg1, arg2, (int)(fVar7 * (float)(int)enumOptionToggle1_00) + arg1,
+                                (int)(fVar8 * (float)(int)enumOptionToggle1) + arg2, arg5, arg6, arg7, arg8, arg9,
+                                texture, nullptr, false, blendMode, enumOptionToggle1_00, enumOptionToggle1);
+            } else if (0 < (int)enumOptionToggle1_00) {
+                arg1_00 = arg1 + arg12;
+                EVar4 = 0;
                 do {
-                    if (0 < (int)uVar3) {
-                        uVar7 = uVar3 & 4294967295;
-                        iVar9 = param_2;
+                    if (0 < (int)enumOptionToggle1) {
+                        iVar6 = arg2;
+                        EVar5 = enumOptionToggle1;
                         do {
-                            iVar8 = iVar9 + param_16 + (int)fVar12;
-                            AddElementInner(param_1._0_4_, param_7, param_8, param_9, this, iVar5, iVar9 + param_16,
-                                            (int)fVar11 + iVar5, iVar8, param_5, param_10, 0, 0, param_12, 1, 1);
-                            iVar9 = iVar8 + param_15;
-                            uVar6 = (int)uVar7 - 1;
-                            uVar7 = (ulong)uVar6;
-                        } while (uVar6 != 0);
+                            arg4_00 = iVar6 + arg15 + (int)fVar8;
+                            AddElementInner(arg1_00, iVar6 + arg15, (int)fVar7 + arg1_00, arg4_00, arg5, arg6, arg7,
+                                            arg8, arg9, texture, nullptr, false, blendMode, 1, 1);
+                            iVar6 = arg4_00 + arg14;
+                            EVar5 = EVar5 - 1;
+                        } while (EVar5 != 0);
                     }
-                    iVar5 = iVar5 + param_14 + param_13 + (int)fVar11;
-                    iVar4 = iVar4 + 1;
-                } while (iVar4 != iVar10);
+                    arg1_00 = arg1_00 + arg13 + arg12 + (int)fVar7;
+                    EVar4 = EVar4 + 1;
+                } while (EVar4 != enumOptionToggle1_00);
             }
         }
     }
 
-    // 0x1008ee9b0, 1424 bytes, placed by class name
-    // GUIManager::AddElementRotated(int, int, int, int, unsigned int, float, float, float, float, render::Texture const*, GUIManager::BlendMode, float, int, int)
-    void GUIManager::AddElementRotated(float param_6, float param_7, float param_8, float param_9, float param_5_00,
-                                       GUIManager* this, type* param_7_00, int param_2, int param_3, int param_4,
-                                       undefined4 param_5, undefined8 param_10, undefined4 param_13, int param_14,
-                                       int param_15) {
-        vector* pvVar1;
-        float* pfVar2;
-        Layout* pLVar3;
-        Vector2T<int>* pVVar4;
-        undefined4* puVar5;
-        type* ptVar6;
-        Vector2T* pVVar7;
-        undefined8 in_stack_ffffffffffffff08;
-        undefined4 uVar8;
-        undefined8 in_stack_ffffffffffffff10;
-        undefined4 uVar9;
-        undefined8 in_stack_ffffffffffffff18;
-        undefined4 uVar10;
-        Matrix22T<float> local_d0[16];
-        Vector2T<int> local_c0[8];
-        Vector2T<int> local_b8[8];
-        Vector2T<int> local_b0[8];
-        Vector2T<int> local_a8[8];
-        undefined4 local_94;
-        undefined4 local_90;
-        undefined4 local_8c;
-        undefined4 local_88;
-        undefined4 local_84;
-        Vector2T<int> local_80[12];
-        float local_74;
-        float local_70;
+    // 0x1008ee9b0
+    void GUIManager::AddElementRotated(int arg1, int arg2, int arg3, int arg4, unsigned int arg5, float arg6,
+                                       float arg7, float arg8, float arg9, const render::Texture* texture,
+                                       GUIManager::BlendMode blendMode, float arg12, int arg13, int arg14) {
+        float* pfVar1;
+        Layout* pLVar2;
+        Vector2T<int>* pVVar3;
+        Matrix22T<float> local_d0;
+        Vector2T<int> local_c0;
+        Vector2T<int> local_b8;
+        Vector2T<int> local_b0;
+        Vector2T<int> local_a8;
+        float local_94;
+        float local_90;
+        float local_8c;
+        float local_88;
+        float local_84;
+        Vector2T<int> local_80;
         float local_6c;
         float local_68;
-        float local_64;
-        float local_60;
         float local_5c;
-        int local_58;
-        int local_54;
-        int local_50;
-        int local_4c;
-        undefined8 local_48;
-        undefined4 uStack_40;
-        undefined4 uStack_3c;
+        float local_48;
+        uint32_t uStack_44;
+        uint32_t uStack_40;
+        uint32_t uStack_3c;
 
-        uVar8 = (undefined4)((ulong)in_stack_ffffffffffffff08 >> 32);
-        uVar9 = (undefined4)((ulong)in_stack_ffffffffffffff10 >> 32);
-        uVar10 = (undefined4)((ulong)in_stack_ffffffffffffff18 >> 32);
-        local_58 = (int)param_7_00;
-        local_74 = param_6;
-        local_70 = param_8;
-        local_64 = param_7;
-        local_60 = param_9;
-        local_54 = param_2;
-        local_50 = param_3;
-        local_4c = param_4;
-        if (param_5_00 == 0.0) {
-            AddElementInner();
+        if (arg12 == 0.0) {
+            AddElementInner(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, texture, nullptr, false, blendMode, 1,
+                            1);
         } else if (m_skipRotatedElements == '\0') {
-            local_5c = param_5_00;
-            if (param_8 < param_6) {
-                std::swap<float>(&local_74, &local_70);
-                param_7_00 = (type*)&local_50;
-                std::swap<int>(&local_58, (int*)param_7_00);
+            local_5c = arg12;
+            if (arg8 < arg6) {
+                std::swap<float>(arg6, arg8);
+                std::swap<int>(arg1, arg3);
             }
-            if (local_60 < local_64) {
-                std::swap<float>(&local_64, &local_60);
-                param_7_00 = (type*)&local_4c;
-                std::swap<int>(&local_54, (int*)param_7_00);
+            if (arg9 < arg7) {
+                std::swap<float>(arg7, arg9);
+                std::swap<int>(arg2, arg4);
             }
-            math::Vector2T<int>::Vector2T(local_80);
-            if (param_14 == -999999) {
-                local_48._0_4_ = (GUIManager*)((float)(local_50 + local_58) * 0.5);
-                pvVar1 = local_80->SSOBeginPtr(param_7_00);
-                /* WARNING: Store size is inaccurate */
-                *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-                local_48._0_4_ = (GUIManager*)((float)(local_4c + local_54) * 0.5);
+            local_80 = math::Vector2T();
+            if (arg13 == -999999) {
+                local_48 = (float)(arg3 + arg1) * 0.5;
+                pfVar1 = (float*)local_80.SSOBeginPtr();
+                *pfVar1 = local_48;
+                local_48 = (float)(arg4 + arg2) * 0.5;
             } else {
-                local_48._0_4_ = (GUIManager*)(float)param_14;
-                pvVar1 = local_80->SSOBeginPtr(param_7_00);
-                /* WARNING: Store size is inaccurate */
-                *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-                local_48._0_4_ = (GUIManager*)(float)param_15;
+                local_48 = (float)arg13;
+                pfVar1 = (float*)local_80.SSOBeginPtr();
+                *pfVar1 = local_48;
+                local_48 = (float)arg14;
             }
-            pfVar2 = (float*)local_80->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            math::Vector2T<int>::Vector2T(local_c0);
-            math::Vector2T<int>::Vector2T(local_b8);
-            math::Vector2T<int>::Vector2T(local_b0);
-            math::Vector2T<int>::Vector2T(local_a8);
-            local_48._0_4_ = (GUIManager*)(float)local_58;
-            pvVar1 = local_80->SSOBeginPtr(param_7_00);
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *(float*)pvVar1);
-            pvVar1 = local_c0->SSOBeginPtr(param_7_00);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)(float)local_54;
-            pfVar2 = (float*)local_80->y();
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *pfVar2);
-            pfVar2 = (float*)local_c0->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)(float)local_50;
-            pvVar1 = local_80->SSOBeginPtr(param_7_00);
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *(float*)pvVar1);
-            pvVar1 = local_b8->SSOBeginPtr(param_7_00);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)(float)local_54;
-            pfVar2 = (float*)local_80->y();
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *pfVar2);
-            pfVar2 = (float*)local_b8->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)(float)local_50;
-            pvVar1 = local_80->SSOBeginPtr(param_7_00);
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *(float*)pvVar1);
-            pvVar1 = local_a8->SSOBeginPtr(param_7_00);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)(float)local_4c;
-            pfVar2 = (float*)local_80->y();
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *pfVar2);
-            pfVar2 = (float*)local_a8->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)(float)local_58;
-            pvVar1 = local_80->SSOBeginPtr(param_7_00);
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *(float*)pvVar1);
-            pvVar1 = local_b0->SSOBeginPtr(param_7_00);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)(float)local_4c;
-            pfVar2 = (float*)local_80->y();
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *pfVar2);
-            pfVar2 = (float*)local_b0->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
+            pfVar1 = (float*)local_80.y();
+            *pfVar1 = local_48;
+            local_c0 = math::Vector2T();
+            local_b8 = math::Vector2T();
+            local_b0 = math::Vector2T();
+            local_a8 = math::Vector2T();
+            local_48 = (float)arg1;
+            pfVar1 = (float*)local_80.SSOBeginPtr();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_c0.SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = (float)arg2;
+            pfVar1 = (float*)local_80.y();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_c0.y();
+            *pfVar1 = local_48;
+            local_48 = (float)arg3;
+            pfVar1 = (float*)local_80.SSOBeginPtr();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_b8.SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = (float)arg2;
+            pfVar1 = (float*)local_80.y();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_b8.y();
+            *pfVar1 = local_48;
+            local_48 = (float)arg3;
+            pfVar1 = (float*)local_80.SSOBeginPtr();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_a8.SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = (float)arg4;
+            pfVar1 = (float*)local_80.y();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_a8.y();
+            *pfVar1 = local_48;
+            local_48 = (float)arg1;
+            pfVar1 = (float*)local_80.SSOBeginPtr();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_b0.SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = (float)arg4;
+            pfVar1 = (float*)local_80.y();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_b0.y();
+            *pfVar1 = local_48;
             math::SinCos(&local_6c, &local_68, local_5c);
-            math::Matrix22T<float>::Matrix22T(local_d0);
-            local_48._0_4_ = (GUIManager*)local_68;
-            ptVar6 = (type*)0;
-            pLVar3 = (Layout*)math::Matrix22T<float>::operator[](local_d0, 0);
-            pvVar1 = eastl::string::Layout::SSOBeginPtr(pLVar3, ptVar6);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_6c;
-            pVVar4 = (Vector2T<int>*)math::Matrix22T<float>::operator[](local_d0, 0);
-            pfVar2 = (float*)pVVar4->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)-local_6c;
-            local_48._4_4_ = 2147483648;
+            local_d0 = math::Matrix22T<float>();
+            local_48 = local_68;
+            pLVar2 = &local_d0[0];
+            pfVar1 = (float*)pLVar2->SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = local_6c;
+            pVVar3 = &local_d0[0];
+            pfVar1 = (float*)pVVar3->y();
+            *pfVar1 = local_48;
+            local_48 = -local_6c;
+            uStack_44 = 2147483648;
             uStack_40 = 2147483648;
             uStack_3c = 2147483648;
-            ptVar6 = (type*)&DAT_00000001;
-            pLVar3 = (Layout*)math::Matrix22T<float>::operator[](local_d0, 1);
-            pvVar1 = eastl::string::Layout::SSOBeginPtr(pLVar3, ptVar6);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_68;
-            pVVar4 = (Vector2T<int>*)math::Matrix22T<float>::operator[](local_d0, 1);
-            pfVar2 = (float*)pVVar4->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_c0, (Matrix22T*)local_d0);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_b8, (Matrix22T*)local_d0);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_a8, (Matrix22T*)local_d0);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_b0, (Matrix22T*)local_d0);
-            pVVar7 = (Vector2T*)local_80;
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_c0, pVVar7);
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_b8, pVVar7);
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_b0, pVVar7);
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_a8, pVVar7);
-            pvVar1 = local_c0->SSOBeginPtr(pVVar7);
-            /* WARNING: Load size is inaccurate */
-            local_48._0_4_ = *(GUIManager**)pvVar1;
-            puVar5 = (undefined4*)local_c0->y();
-            local_5c = (float)*puVar5;
-            pvVar1 = local_b8->SSOBeginPtr(pVVar7);
-            local_94 = *(undefined4*)pvVar1;
-            puVar5 = (undefined4*)local_b8->y();
-            local_90 = *puVar5;
-            pvVar1 = local_a8->SSOBeginPtr(pVVar7);
-            local_8c = *(undefined4*)pvVar1;
-            puVar5 = (undefined4*)local_a8->y();
-            local_88 = *puVar5;
-            pvVar1 = local_b0->SSOBeginPtr(pVVar7);
-            local_84 = *(undefined4*)pvVar1;
-            puVar5 = (undefined4*)local_b0->y();
-            AddElementInnerClipped((GUIManager*)local_48, local_5c, local_94, local_90, local_8c, local_88, local_84,
-                                   *puVar5, this, param_5, param_10, 0, 0, param_13, CONCAT44(uVar8, local_74),
-                                   CONCAT44(uVar9, local_64), CONCAT44(uVar10, local_70), CONCAT44(1, local_60));
+            pLVar2 = &local_d0[1];
+            pfVar1 = (float*)pLVar2->SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = local_68;
+            pVVar3 = &local_d0[1];
+            pfVar1 = (float*)pVVar3->y();
+            *pfVar1 = local_48;
+            local_c0 *= &local_d0;
+            local_b8 *= &local_d0;
+            local_a8 *= &local_d0;
+            local_b0 *= &local_d0;
+            local_c0 += local_80;
+            local_b8 += local_80;
+            local_b0 += local_80;
+            local_a8 += local_80;
+            pfVar1 = (float*)local_c0.SSOBeginPtr();
+            local_48 = *pfVar1;
+            pfVar1 = (float*)local_c0.y();
+            local_5c = *pfVar1;
+            pfVar1 = (float*)local_b8.SSOBeginPtr();
+            local_94 = *pfVar1;
+            pfVar1 = (float*)local_b8.y();
+            local_90 = *pfVar1;
+            pfVar1 = (float*)local_a8.SSOBeginPtr();
+            local_8c = *pfVar1;
+            pfVar1 = (float*)local_a8.y();
+            local_88 = *pfVar1;
+            pfVar1 = (float*)local_b0.SSOBeginPtr();
+            local_84 = *pfVar1;
+            pfVar1 = (float*)local_b0.y();
+            AddElementInnerClipped(local_48, local_5c, local_94, local_90, local_8c, local_88, local_84, *pfVar1, arg5,
+                                   arg6, arg7, arg8, arg9, texture, nullptr, false, blendMode);
         }
     }
 
-    // 0x1008ef150, 1616 bytes, placed by class name
-    // GUIManager::AddElementInnerClipped(float, float, float, float, float, float, float, float, unsigned int, float, float, float, float, render::Texture const*, render::Texture const*, bool, GUIManager::BlendMode)
-    void GUIManager::AddElementInnerClipped(float param_1, undefined4 param_2, float param_3, float param_4,
-                                            float param_5, float param_6, float param_7, float param_8,
-                                            GUIManager* this, undefined4 param_9, Texture* param_14, Texture* param_15,
-                                            undefined1 param_16, int param_14_00, float param_10, float param_11,
-                                            float param_12, float param_13) {
-        undefined1* this_00;
-        uint uVar1;
-        char cVar3;
-        int* piVar4;
-        array<short, 2ul>* paVar5;
-        undefined2* puVar6;
-        float* pfVar7;
-        undefined4* puVar8;
-        int iVar9;
-        int iVar10;
+    // 0x1008ef150
+    void GUIManager::AddElementInnerClipped(float arg1, float arg2, float arg3, float arg4, float arg5, float arg6,
+                                            float arg7, float arg8, unsigned int arg9, float arg10, float arg11,
+                                            float arg12, float arg13, const render::Texture* texture1,
+                                            const render::Texture* texture2, bool arg16,
+                                            GUIManager::BlendMode blendMode) {
         float fVar11;
-        float fVar12;
-        float local_88;
-        int local_70;
-        undefined1 local_68[16];
-        float local_50;
-        float local_4c;
-        float local_48;
-        float local_44;
-        float local_40;
-        float local_3c;
-        float local_38;
-        float local_34;
+        uint8_t local_68[16];
 
-        local_68._0_4_ = param_2;
-        local_70 = param_14_00;
-        local_4c = param_7;
-        local_48 = param_5;
-        local_44 = param_8;
-        local_40 = param_6;
-        local_3c = param_3;
-        local_38 = param_4;
-        local_34 = param_1;
-        cVar3 = (&field_40)->empty();
-        if (cVar3 != '\0') {
-            /* WARNING: Subroutine does not return */
+        local_68._0_4_ = arg2;
+        float local_4c = arg7;
+        float local_48 = arg5;
+        float local_44 = arg8;
+        float local_40 = arg6;
+        float local_3c = arg3;
+        float local_38 = arg4;
+        float local_34 = arg1;
+        bool cVar3 = field_40.empty();
+        if (cVar3) {
             LogAssert("!m_drawCallStates.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
                       893,
                       "Ensure Begin() is called with a valid DrawCallState before submitting GUI elements to draw");
         }
-        piVar4 = (int*)field_0->GetPixelBuffer();
+        auto piVar4 = field_0->GetPixelBuffer();
         if (piVar4[2] != -1) {
             fVar11 = (float)piVar4[2];
             if ((((fVar11 < local_34) && (fVar11 < local_3c)) && (fVar11 < local_4c)) && (fVar11 < local_48)) {
@@ -2258,664 +1904,566 @@ namespace jag::graphics {
             }
         }
         if ((field_84 <= field_80) ||
-            (cVar3 = IsStateChangeNeeded(this, &local_70, 2, param_9, param_14, param_15, param_16), cVar3 != '\0')) {
-            Render(this, (SamplerState*)0);
-            SetBatchMode(this, 2);
-            if (param_14 != (Texture*)0) {
-                cVar3 = param_14->IsCreated();
-                if (cVar3 == '\0') {
-                    /* WARNING: Subroutine does not return */
+            (cVar3 = IsStateChangeNeeded(blendMode, 2, arg9, texture1, texture2, arg16), cVar3)) {
+            Render(nullptr);
+            SetBatchMode(2);
+            if (texture1 != nullptr) {
+                cVar3 = texture1->IsCreated();
+                if (!cVar3) {
                     LogAssert("texture->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
                               918, "GUIManager texture being added that has no native resources");
                 }
-                field_88 = (Mixer*)param_14;
+                field_88 = texture1;
             }
-            field_108 = local_70;
-            if ((param_15 != (Texture*)0) && (cVar3 = param_15->IsCreated(), cVar3 == '\0')) {
-                /* WARNING: Subroutine does not return */
+            field_108 = blendMode;
+            if ((texture2 != nullptr) && (cVar3 = texture2->IsCreated(), !cVar3)) {
                 LogAssert("!textureMask || textureMask->IsCreated()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                           "GUIManager.cpp",
                           922, "GUIManager textureMask being added that has no native resources");
             }
-            field_96 = param_15;
-            field_104 = param_16;
+            field_96 = texture2;
+            field_104 = arg16;
         }
-        if (param_14 == (Texture*)0) {
-            param_10 = -65000.0;
-            param_12 = -65000.0;
-            param_11 = -65000.0;
-            param_13 = -65000.0;
+        if (texture1 == nullptr) {
+            arg10 = -65000.0;
+            arg12 = -65000.0;
+            arg11 = -65000.0;
+            arg13 = -65000.0;
         }
-        local_50 = (float)(int)m_lastViewportHeight;
-        local_88 = param_12 - param_10;
+        float local_50 = (float)(int)m_lastViewportHeight;
+        float local_88 = arg12 - arg10;
         if (local_88 < 0.0) {
             local_88 = -local_88;
-            std::swap<float>(&param_10, &param_12);
+            std::swap<float>(arg10, arg12);
         }
         local_44 = local_50 - local_44;
         fVar11 = local_50 - (float)local_68._0_4_;
         local_40 = local_50 - local_40;
         local_50 = local_50 - local_38;
-        this_00 = &field_232;
-        fVar12 = param_13 - param_11;
+        uint8_t* this_00 = &field_232;
+        float fVar12 = arg13 - arg11;
         if (0.0 <= fVar12) {
-            local_68 = ZEXT416((uint)fVar12);
+            local_68 = (unsigned __int128)((unsigned int)fVar12);
         } else {
             local_68._4_4_ = 2147483648;
             local_68._0_4_ = -fVar12;
             local_68._8_4_ = 2147483648;
             local_68._12_4_ = 2147483648;
-            std::swap<float>(&param_11, &param_13);
+            std::swap<float>(arg11, arg13);
         }
         local_88 = -local_88;
         local_68._0_8_ = local_68._0_8_ ^ 9223372039002259456;
         local_68._8_4_ = local_68._8_4_ ^ 2147483648;
         local_68._12_4_ = local_68._12_4_ ^ 2147483648;
-        uVar1 = field_256;
+        unsigned int uVar1 = field_256;
         field_256 = uVar1 + 1;
-        paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-            (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00, (ulong)uVar1);
-        iVar9 = (int)local_34;
-        local_38 = param_10;
-        local_34 = param_11;
-        puVar6 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+        array<short, 2ul>* paVar5 = (array<short, 2ul>*)(*this_00)[(unsigned long)uVar1];
+        int iVar9 = (int)local_34;
+        local_38 = arg10;
+        local_34 = arg11;
+        uint16_t* puVar6 = (uint16_t*)(*paVar5)[0];
         *puVar6 = (short)iVar9;
-        puVar6 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+        puVar6 = (uint16_t*)(*paVar5)[1];
         *puVar6 = (short)(int)fVar11;
-        *(undefined4*)(paVar5 + 4) = param_9;
+        *(unsigned int*)(paVar5 + 4) = arg9;
         ((paVar5 + 8))->Set(local_38, local_34);
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+        float* pfVar7 = (float*)(*((paVar5 + 16)))[0];
         *pfVar7 = local_38;
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+        pfVar7 = (float*)(*((paVar5 + 16)))[1];
         *pfVar7 = local_34;
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+        pfVar7 = (float*)(*((paVar5 + 24)))[0];
         *pfVar7 = local_88;
-        puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+        uint32_t* puVar8 = (uint32_t*)(*((paVar5 + 24)))[1];
         *puVar8 = local_68._0_4_;
         uVar1 = field_256;
         field_256 = uVar1 + 1;
-        paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-            (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00, (ulong)uVar1);
+        paVar5 = (array<short, 2ul>*)(*this_00)[(unsigned long)uVar1];
         iVar9 = (int)local_3c;
-        iVar10 = (int)local_50;
-        local_38 = param_12;
-        local_34 = param_11;
-        local_3c = param_10;
-        puVar6 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+        int iVar10 = (int)local_50;
+        local_38 = arg12;
+        local_34 = arg11;
+        local_3c = arg10;
+        puVar6 = (uint16_t*)(*paVar5)[0];
         *puVar6 = (short)iVar9;
-        puVar6 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+        puVar6 = (uint16_t*)(*paVar5)[1];
         *puVar6 = (short)iVar10;
-        *(undefined4*)(paVar5 + 4) = param_9;
+        *(unsigned int*)(paVar5 + 4) = arg9;
         ((paVar5 + 8))->Set(local_38, local_34);
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+        pfVar7 = (float*)(*((paVar5 + 16)))[0];
         *pfVar7 = local_3c;
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+        pfVar7 = (float*)(*((paVar5 + 16)))[1];
         *pfVar7 = local_34;
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+        pfVar7 = (float*)(*((paVar5 + 24)))[0];
         *pfVar7 = local_88;
-        puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+        puVar8 = (uint32_t*)(*((paVar5 + 24)))[1];
         *puVar8 = local_68._0_4_;
         uVar1 = field_256;
         field_256 = uVar1 + 1;
-        paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-            (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00, (ulong)uVar1);
+        paVar5 = (array<short, 2ul>*)(*this_00)[(unsigned long)uVar1];
         iVar9 = (int)local_48;
         iVar10 = (int)local_40;
-        local_48 = param_12;
-        local_38 = param_13;
-        local_3c = param_10;
-        local_34 = param_11;
-        puVar6 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+        local_48 = arg12;
+        local_38 = arg13;
+        local_3c = arg10;
+        local_34 = arg11;
+        puVar6 = (uint16_t*)(*paVar5)[0];
         *puVar6 = (short)iVar9;
-        puVar6 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+        puVar6 = (uint16_t*)(*paVar5)[1];
         *puVar6 = (short)iVar10;
-        *(undefined4*)(paVar5 + 4) = param_9;
+        *(unsigned int*)(paVar5 + 4) = arg9;
         ((paVar5 + 8))->Set(local_48, local_38);
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+        pfVar7 = (float*)(*((paVar5 + 16)))[0];
         *pfVar7 = local_3c;
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+        pfVar7 = (float*)(*((paVar5 + 16)))[1];
         *pfVar7 = local_34;
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+        pfVar7 = (float*)(*((paVar5 + 24)))[0];
         *pfVar7 = local_88;
-        puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+        puVar8 = (uint32_t*)(*((paVar5 + 24)))[1];
         *puVar8 = local_68._0_4_;
         uVar1 = field_256;
         field_256 = uVar1 + 1;
-        paVar5 = (array<short, 2ul>*)Array<GUIManagerVertexBase<short>, eastl::allocator>::operator[](
-            (Array<GUIManagerVertexBase<short>, eastl::allocator>*)this_00, (ulong)uVar1);
+        paVar5 = (array<short, 2ul>*)(*this_00)[(unsigned long)uVar1];
         iVar10 = (int)local_4c;
         iVar9 = (int)local_44;
-        local_34 = param_10;
-        local_4c = param_13;
-        local_3c = param_11;
-        puVar6 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 0);
+        local_34 = arg10;
+        local_4c = arg13;
+        local_3c = arg11;
+        puVar6 = (uint16_t*)(*paVar5)[0];
         *puVar6 = (short)iVar10;
-        puVar6 = (undefined2*)std::array<short, 2ul>::operator[](paVar5, 1);
+        puVar6 = (uint16_t*)(*paVar5)[1];
         *puVar6 = (short)iVar9;
-        *(undefined4*)(paVar5 + 4) = param_9;
+        *(unsigned int*)(paVar5 + 4) = arg9;
         ((paVar5 + 8))->Set(local_34, local_4c);
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 0);
+        pfVar7 = (float*)(*((paVar5 + 16)))[0];
         *pfVar7 = local_34;
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 16), 1);
+        pfVar7 = (float*)(*((paVar5 + 16)))[1];
         *pfVar7 = local_3c;
-        pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 0);
+        pfVar7 = (float*)(*((paVar5 + 24)))[0];
         *pfVar7 = local_88;
-        puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar5 + 24), 1);
+        puVar8 = (uint32_t*)(*((paVar5 + 24)))[1];
         *puVar8 = local_68._0_4_;
         field_80 = field_80 + 1;
     }
 
-    // 0x1008ef7a0, 1408 bytes, placed by class name
-    // GUIManager::AddElementPrecise(float, float, float, float, unsigned int, float, float, float, float, render::Texture const*, GUIManager::BlendMode, float, int, int)
-    void GUIManager::AddElementPrecise(float param_1, float param_2, float param_3, float param_4, float param_6,
-                                       float param_7, float param_8, float param_9, GUIManager* this, type* param_10_00,
-                                       undefined8 param_10, undefined4 param_12, int param_13, int param_14,
-                                       float param_15) {
-        vector* pvVar1;
-        float* pfVar2;
-        Layout* pLVar3;
-        Vector2T<int>* pVVar4;
-        undefined4* puVar5;
-        type* ptVar6;
-        Vector2T* pVVar7;
-        Matrix22T<float> local_d8[16];
-        Vector2T<int> local_c8[8];
-        Vector2T<int> local_c0[8];
-        Vector2T<int> local_b8[8];
-        Vector2T<int> local_a0[8];
-        undefined4 local_94;
-        undefined4 local_90;
-        undefined4 local_8c;
-        undefined4 local_88;
-        undefined4 local_84;
-        undefined4 local_80;
-        undefined4 local_7c;
-        Vector2T<int> local_78[8];
-        float local_70;
-        float local_6c;
+    // 0x1008ef7a0
+    void GUIManager::AddElementPrecise(float arg1, float arg2, float arg3, float arg4, unsigned int arg5, float arg6,
+                                       float arg7, float arg8, float arg9, const render::Texture* texture,
+                                       GUIManager::BlendMode blendMode, float arg12, int arg13, int arg14) {
+        float* pfVar1;
+        Layout* pLVar2;
+        Vector2T<int>* pVVar3;
+        Matrix22T<float> local_d8;
+        Vector2T<int> local_c8;
+        Vector2T<int> local_c0;
+        Vector2T<int> local_b8;
+        Vector2T<int> local_a0;
+        float local_90;
+        float local_8c;
+        float local_88;
+        float local_84;
+        float local_80;
+        float local_7c;
+        Vector2T<int> local_78;
         float local_68;
         float local_64;
-        float local_60;
-        float local_5c;
-        float local_58;
-        float local_54;
-        float local_50;
-        float local_4c;
-        undefined8 local_48;
-        undefined4 uStack_40;
-        undefined4 uStack_3c;
+        float local_48;
+        uint32_t uStack_44;
+        uint32_t uStack_40;
+        uint32_t uStack_3c;
 
-        local_70 = param_6;
-        local_6c = param_8;
-        local_60 = param_7;
-        local_5c = param_9;
-        local_58 = param_1;
-        local_54 = param_2;
-        local_50 = param_3;
-        local_4c = param_4;
-        if (param_15 == 0.0) {
-            AddElementPreciseInner();
+        if (arg12 == 0.0) {
+            AddElementPreciseInner(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, texture, nullptr, false,
+                                   blendMode, 1, 1);
         } else if (m_skipRotatedElements == '\0') {
-            local_94 = SUB84(param_10_00, 0);
-            if (param_8 < param_6) {
-                std::swap<float>(&local_70, &local_6c);
-                param_10_00 = (type*)&local_50;
-                std::swap<float>(&local_58, (float*)param_10_00);
+            if (arg8 < arg6) {
+                std::swap<float>(arg6, arg8);
+                std::swap<float>(arg1, arg3);
             }
-            if (local_5c < local_60) {
-                std::swap<float>(&local_60, &local_5c);
-                param_10_00 = (type*)&local_4c;
-                std::swap<float>(&local_54, (float*)param_10_00);
+            if (arg9 < arg7) {
+                std::swap<float>(arg7, arg9);
+                std::swap<float>(arg2, arg4);
             }
-            math::Vector2T<int>::Vector2T(local_78);
-            if (param_13 == -999999) {
-                local_48._0_4_ = (GUIManager*)((local_50 + local_58) * 0.5);
-                pvVar1 = local_78->SSOBeginPtr(param_10_00);
-                /* WARNING: Store size is inaccurate */
-                *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-                local_48._0_4_ = (GUIManager*)((local_4c + local_54) * 0.5);
+            local_78 = math::Vector2T();
+            if (arg13 == -999999) {
+                local_48 = (arg3 + arg1) * 0.5;
+                pfVar1 = (float*)local_78.SSOBeginPtr();
+                *pfVar1 = local_48;
+                local_48 = (arg4 + arg2) * 0.5;
             } else {
-                local_48._0_4_ = (GUIManager*)(float)param_13;
-                pvVar1 = local_78->SSOBeginPtr(param_10_00);
-                /* WARNING: Store size is inaccurate */
-                *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-                local_48._0_4_ = (GUIManager*)(float)param_14;
+                local_48 = (float)arg13;
+                pfVar1 = (float*)local_78.SSOBeginPtr();
+                *pfVar1 = local_48;
+                local_48 = (float)arg14;
             }
-            pfVar2 = (float*)local_78->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            math::Vector2T<int>::Vector2T(local_b8);
-            math::Vector2T<int>::Vector2T(local_c8);
-            math::Vector2T<int>::Vector2T(local_a0);
-            math::Vector2T<int>::Vector2T(local_c0);
-            local_48._0_4_ = (GUIManager*)local_58;
-            pvVar1 = local_78->SSOBeginPtr(param_10_00);
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *(float*)pvVar1);
-            pvVar1 = local_b8->SSOBeginPtr(param_10_00);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_54;
-            pfVar2 = (float*)local_78->y();
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *pfVar2);
-            pfVar2 = (float*)local_b8->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_50;
-            pvVar1 = local_78->SSOBeginPtr(param_10_00);
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *(float*)pvVar1);
-            pvVar1 = local_c8->SSOBeginPtr(param_10_00);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_54;
-            pfVar2 = (float*)local_78->y();
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *pfVar2);
-            pfVar2 = (float*)local_c8->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_50;
-            pvVar1 = local_78->SSOBeginPtr(param_10_00);
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *(float*)pvVar1);
-            pvVar1 = local_c0->SSOBeginPtr(param_10_00);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_4c;
-            pfVar2 = (float*)local_78->y();
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *pfVar2);
-            pfVar2 = (float*)local_c0->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_58;
-            pvVar1 = local_78->SSOBeginPtr(param_10_00);
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *(float*)pvVar1);
-            pvVar1 = local_a0->SSOBeginPtr(param_10_00);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_4c;
-            pfVar2 = (float*)local_78->y();
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *pfVar2);
-            pfVar2 = (float*)local_a0->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            math::SinCos(&local_68, &local_64, param_15);
-            math::Matrix22T<float>::Matrix22T(local_d8);
-            local_48._0_4_ = (GUIManager*)local_64;
-            ptVar6 = (type*)0;
-            pLVar3 = (Layout*)math::Matrix22T<float>::operator[](local_d8, 0);
-            pvVar1 = eastl::string::Layout::SSOBeginPtr(pLVar3, ptVar6);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_68;
-            pVVar4 = (Vector2T<int>*)math::Matrix22T<float>::operator[](local_d8, 0);
-            pfVar2 = (float*)pVVar4->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)-local_68;
-            local_48._4_4_ = 2147483648;
+            pfVar1 = (float*)local_78.y();
+            *pfVar1 = local_48;
+            local_b8 = math::Vector2T();
+            local_c8 = math::Vector2T();
+            local_a0 = math::Vector2T();
+            local_c0 = math::Vector2T();
+            local_48 = arg1;
+            pfVar1 = (float*)local_78.SSOBeginPtr();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_b8.SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = arg2;
+            pfVar1 = (float*)local_78.y();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_b8.y();
+            *pfVar1 = local_48;
+            local_48 = arg3;
+            pfVar1 = (float*)local_78.SSOBeginPtr();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_c8.SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = arg2;
+            pfVar1 = (float*)local_78.y();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_c8.y();
+            *pfVar1 = local_48;
+            local_48 = arg3;
+            pfVar1 = (float*)local_78.SSOBeginPtr();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_c0.SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = arg4;
+            pfVar1 = (float*)local_78.y();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_c0.y();
+            *pfVar1 = local_48;
+            local_48 = arg1;
+            pfVar1 = (float*)local_78.SSOBeginPtr();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_a0.SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = arg4;
+            pfVar1 = (float*)local_78.y();
+            local_48 = local_48 - *pfVar1;
+            pfVar1 = (float*)local_a0.y();
+            *pfVar1 = local_48;
+            math::SinCos(&local_68, &local_64, arg12);
+            local_d8 = math::Matrix22T<float>();
+            local_48 = local_64;
+            pLVar2 = &local_d8[0];
+            pfVar1 = (float*)pLVar2->SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = local_68;
+            pVVar3 = &local_d8[0];
+            pfVar1 = (float*)pVVar3->y();
+            *pfVar1 = local_48;
+            local_48 = -local_68;
+            uStack_44 = 2147483648;
             uStack_40 = 2147483648;
             uStack_3c = 2147483648;
-            ptVar6 = (type*)&DAT_00000001;
-            pLVar3 = (Layout*)math::Matrix22T<float>::operator[](local_d8, 1);
-            pvVar1 = eastl::string::Layout::SSOBeginPtr(pLVar3, ptVar6);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar1 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_64;
-            pVVar4 = (Vector2T<int>*)math::Matrix22T<float>::operator[](local_d8, 1);
-            pfVar2 = (float*)pVVar4->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar2 = (GUIManager*)local_48;
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_b8, (Matrix22T*)local_d8);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_c8, (Matrix22T*)local_d8);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_c0, (Matrix22T*)local_d8);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_a0, (Matrix22T*)local_d8);
-            pVVar7 = (Vector2T*)local_78;
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_b8, pVVar7);
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_c8, pVVar7);
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_a0, pVVar7);
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_c0, pVVar7);
-            pvVar1 = local_b8->SSOBeginPtr(pVVar7);
-            /* WARNING: Load size is inaccurate */
-            local_48._0_4_ = *(GUIManager**)pvVar1;
-            puVar5 = (undefined4*)local_b8->y();
-            local_90 = *puVar5;
-            pvVar1 = local_c8->SSOBeginPtr(pVVar7);
-            local_8c = *(undefined4*)pvVar1;
-            puVar5 = (undefined4*)local_c8->y();
-            local_88 = *puVar5;
-            pvVar1 = local_c0->SSOBeginPtr(pVVar7);
-            local_84 = *(undefined4*)pvVar1;
-            puVar5 = (undefined4*)local_c0->y();
-            local_80 = *puVar5;
-            pvVar1 = local_a0->SSOBeginPtr(pVVar7);
-            local_7c = *(undefined4*)pvVar1;
-            puVar5 = (undefined4*)local_a0->y();
-            AddElementPreciseInnerClipped((GUIManager*)local_48, local_90, local_8c, local_88, local_84, local_80,
-                                          local_7c, *puVar5, this, local_94, param_10, 0, 0, param_12, local_70,
-                                          local_60, local_6c, local_5c);
+            pLVar2 = &local_d8[1];
+            pfVar1 = (float*)pLVar2->SSOBeginPtr();
+            *pfVar1 = local_48;
+            local_48 = local_64;
+            pVVar3 = &local_d8[1];
+            pfVar1 = (float*)pVVar3->y();
+            *pfVar1 = local_48;
+            local_b8 *= &local_d8;
+            local_c8 *= &local_d8;
+            local_c0 *= &local_d8;
+            local_a0 *= &local_d8;
+            local_b8 += local_78;
+            local_c8 += local_78;
+            local_a0 += local_78;
+            local_c0 += local_78;
+            pfVar1 = (float*)local_b8.SSOBeginPtr();
+            local_48 = *pfVar1;
+            pfVar1 = (float*)local_b8.y();
+            local_90 = *pfVar1;
+            pfVar1 = (float*)local_c8.SSOBeginPtr();
+            local_8c = *pfVar1;
+            pfVar1 = (float*)local_c8.y();
+            local_88 = *pfVar1;
+            pfVar1 = (float*)local_c0.SSOBeginPtr();
+            local_84 = *pfVar1;
+            pfVar1 = (float*)local_c0.y();
+            local_80 = *pfVar1;
+            pfVar1 = (float*)local_a0.SSOBeginPtr();
+            local_7c = *pfVar1;
+            pfVar1 = (float*)local_a0.y();
+            AddElementPreciseInnerClipped(local_48, local_90, local_8c, local_88, local_84, local_80, local_7c, *pfVar1,
+                                          arg5, arg6, arg7, arg8, arg9, texture, nullptr, false, blendMode);
         }
     }
 
-    // 0x1008efd20, 2032 bytes, placed by class name
-    // GUIManager::AddElementPreciseInner(float, float, float, float, unsigned int, float, float, float, float, render::Texture const*, render::Texture const*, bool, GUIManager::BlendMode, unsigned int, unsigned int)
-    void GUIManager::AddElementPreciseInner(float param_1, undefined4 param_2, float param_3, undefined4 param_4,
-                                            float param_6, float param_7, float param_8, float param_9,
-                                            GUIManager* this, undefined4 param_5, Texture* param_10, Texture* param_11,
-                                            uint param_13, int param_14, int param_15, int param_16) {
-        undefined1* this_00;
-        uint uVar1;
-        RT7Core* this_01;
-        Texture* this_02;
-        char cVar2;
-        int iVar3;
-        int iVar4;
-        int* piVar5;
-        array<float, 2ul>* paVar6;
-        float* pfVar7;
-        undefined4* puVar8;
-        int iVar9;
-        int iVar10;
-        float fVar11;
-        float fVar12;
-        float fVar13;
-        float fVar14;
-        int local_a0;
+    // 0x1008efd20
+    void GUIManager::AddElementPreciseInner(float arg1, float arg2, float arg3, float arg4, unsigned int arg5,
+                                            float arg6, float arg7, float arg8, float arg9,
+                                            const render::Texture* texture1, const render::Texture* texture2,
+                                            bool arg12, GUIManager::BlendMode blendMode, unsigned int arg14,
+                                            unsigned int arg15) {
+        uint8_t* this_00;
+        unsigned int uVar1;
+        int* piVar3;
+        array<float, 2ul>* paVar4;
+        float* pfVar5;
+        uint32_t* puVar6;
+        bool arg6_00;
+        uint64_t in_register_00000081;
+        float fVar7;
+        float fVar8;
+        float fVar9;
+        float fVar10;
         float local_9c;
-        undefined1 local_98[16];
-        undefined1 local_88[16];
-        Texture* local_70;
-        float local_68;
-        float local_64;
-        float local_54;
+        uint8_t local_98[16];
+        uint8_t local_88[16];
         float local_50;
         float local_4c;
-        float local_48;
-        float local_44;
-        float local_40;
-        float local_3c;
         float local_38;
         float local_34;
 
-        local_98._0_4_ = param_4;
-        local_88._0_4_ = param_2;
-        local_a0 = param_14;
-        local_70 = param_10;
-        local_68 = param_8;
-        local_64 = param_9;
-        local_54 = param_1;
-        local_48 = param_6;
-        local_44 = param_7;
-        local_40 = (float)param_13;
-        local_3c = param_3;
-        cVar2 = (&field_40)->empty();
-        if (cVar2 != '\0') {
-            /* WARNING: Subroutine does not return */
+        float local_40 = (float)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg12);
+        local_98._0_4_ = arg4;
+        local_88._0_4_ = arg2;
+        Texture* local_70 = texture1;
+        float local_54 = arg1;
+        float local_3c = arg3;
+        bool cVar2 = field_40.empty();
+        if (cVar2) {
             LogAssert("!m_drawCallStates.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
                       978,
                       "Ensure Begin() is called with a valid DrawCallState before submitting GUI elements to draw");
         }
-        this_01 = field_0;
-        iVar10 = (int)local_54;
-        iVar9 = (int)(float)local_88._0_4_;
-        iVar3 = math::RoundFloatToInt(local_3c);
-        iVar4 = math::RoundFloatToInt((float)local_98._0_4_);
-        cVar2 = this_01->ClippingTest(iVar10, iVar9, iVar3, iVar4);
-        fVar11 = local_40;
-        this_02 = local_70;
-        if (cVar2 != '\0') {
+        RT7Core* this_01 = field_0;
+        int arg1_00 = (int)local_54;
+        int arg2_00 = (int)(float)local_88._0_4_;
+        int arg3_00 = math::RoundFloatToInt(local_3c);
+        int arg4_00 = math::RoundFloatToInt((float)local_98._0_4_);
+        cVar2 = this_01->ClippingTest(arg1_00, arg2_00, arg3_00, arg4_00);
+        Texture* this_02 = local_70;
+        if (cVar2) {
+            arg6_00 = (uint8_t)local_40;
             if ((field_84 <= field_80) ||
-                (cVar2 = IsStateChangeNeeded(this, &local_a0, 0, param_5, local_70, param_11, (uint)local_40 & 255),
-                 cVar2 != '\0')) {
-                Render(this, (SamplerState*)0);
-                SetBatchMode(this, 0);
-                if (this_02 != (Texture*)0) {
+                (cVar2 = IsStateChangeNeeded(blendMode, 0, arg5, local_70, texture2, arg6_00), cVar2)) {
+                Render(nullptr);
+                SetBatchMode(0);
+                if (this_02 != nullptr) {
                     cVar2 = this_02->IsCreated();
-                    if (cVar2 == '\0') {
-                        /* WARNING: Subroutine does not return */
+                    if (!cVar2) {
                         LogAssert("texture->IsCreated()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                   "runetek7/gui/GUIManager.cpp",
                                   996, "GUIManager texture being added that has no native resources");
                     }
-                    field_88 = (Mixer*)this_02;
+                    field_88 = this_02;
                 }
-                field_108 = local_a0;
-                if ((param_11 != (Texture*)0) && (cVar2 = param_11->IsCreated(), cVar2 == '\0')) {
-                    /* WARNING: Subroutine does not return */
+                field_108 = blendMode;
+                if ((texture2 != nullptr) && (cVar2 = texture2->IsCreated(), !cVar2)) {
                     LogAssert("!textureMask || textureMask->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
                               1000, "GUIManager textureMask being added that has no native resources");
                 }
-                field_96 = param_11;
-                field_104 = SUB41(fVar11, 0);
+                field_96 = texture2;
+                field_104 = arg6_00;
             }
-            local_40 = local_48;
-            local_34 = local_44;
-            if ((param_15 == 1) && (param_16 == 1)) {
-                local_38 = local_68;
-                fVar11 = local_64;
+            local_40 = arg6;
+            local_34 = arg7;
+            if ((arg14 == 1) && (arg15 == 1)) {
+                local_38 = arg8;
+                fVar7 = arg9;
             } else {
-                local_38 = local_68 + (local_68 - local_48) * (float)(param_15 - 1);
-                fVar11 = local_64 + (local_64 - local_44) * (float)(param_16 - 1);
+                local_38 = arg8 + (arg8 - arg6) * (float)(arg14 - 1);
+                fVar7 = arg9 + (arg9 - arg7) * (float)(arg15 - 1);
             }
-            (param_11)._0_4_ = fVar11;
-            piVar5 = (int*)field_0->GetPixelBuffer();
+            (texture2)._0_4_ = fVar7;
+            piVar3 = (int*)field_0->GetPixelBuffer();
             local_4c = (float)local_98._0_4_;
             local_50 = (float)local_88._0_4_;
             local_9c = local_3c;
-            if (*piVar5 != -1) {
-                fVar12 = local_3c - local_54;
-                fVar11 = (float)local_98._0_4_ - (float)local_88._0_4_;
-                if (0.0 < fVar12) {
-                    fVar14 = (float)*piVar5;
-                    fVar13 = local_38 - local_40;
-                    if (local_54 < fVar14) {
-                        local_40 = local_40 + ((fVar14 - local_54) * fVar13) / fVar12;
-                        local_54 = fVar14;
+            if (*piVar3 != -1) {
+                fVar8 = local_3c - local_54;
+                fVar7 = (float)local_98._0_4_ - (float)local_88._0_4_;
+                if (0.0 < fVar8) {
+                    fVar10 = (float)*piVar3;
+                    fVar9 = local_38 - local_40;
+                    if (local_54 < fVar10) {
+                        local_40 = local_40 + ((fVar10 - local_54) * fVar9) / fVar8;
+                        local_54 = fVar10;
                     }
-                    fVar14 = (float)piVar5[2];
-                    if (fVar14 < local_3c) {
-                        local_38 = local_38 + ((fVar14 - local_3c) * fVar13) / fVar12;
-                        local_9c = fVar14;
+                    fVar10 = (float)piVar3[2];
+                    if (fVar10 < local_3c) {
+                        local_38 = local_38 + ((fVar10 - local_3c) * fVar9) / fVar8;
+                        local_9c = fVar10;
                     }
                 }
-                if (0.0 < fVar11) {
-                    local_50 = (float)piVar5[1];
-                    fVar12 = (param_11)._0_4_ - local_34;
+                if (0.0 < fVar7) {
+                    local_50 = (float)piVar3[1];
+                    fVar8 = (texture2)._0_4_ - local_34;
                     if (local_50 <= (float)local_88._0_4_) {
                         local_50 = (float)local_88._0_4_;
                     } else {
-                        local_34 = local_34 + ((local_50 - (float)local_88._0_4_) * fVar12) / fVar11;
+                        local_34 = local_34 + ((local_50 - (float)local_88._0_4_) * fVar8) / fVar7;
                     }
-                    fVar13 = (float)piVar5[3];
-                    if (fVar13 < (float)local_98._0_4_) {
-                        (param_11)._0_4_ = (param_11)._0_4_ + ((fVar13 - (float)local_98._0_4_) * fVar12) / fVar11;
-                        local_4c = fVar13;
+                    fVar9 = (float)piVar3[3];
+                    if (fVar9 < (float)local_98._0_4_) {
+                        (texture2)._0_4_ = (texture2)._0_4_ + ((fVar9 - (float)local_98._0_4_) * fVar8) / fVar7;
+                        local_4c = fVar9;
                     }
                 }
             }
-            if (this_02 == (Texture*)0) {
+            if (this_02 == nullptr) {
                 local_40 = -65000.0;
-                (param_11)._0_4_ = -65000.0;
+                (texture2)._0_4_ = -65000.0;
                 local_34 = -65000.0;
                 local_38 = -65000.0;
             }
             local_3c = (float)(int)m_lastViewportHeight;
-            fVar11 = local_68 - local_48;
-            if (0.0 <= fVar11) {
-                local_98 = ZEXT416((uint)fVar11);
+            fVar7 = arg8 - arg6;
+            if (0.0 <= fVar7) {
+                local_98 = (unsigned __int128)((unsigned int)fVar7);
             } else {
                 local_98._4_4_ = 2147483648;
-                local_98._0_4_ = -fVar11;
+                local_98._0_4_ = -fVar7;
                 local_98._8_4_ = 2147483648;
                 local_98._12_4_ = 2147483648;
-                std::swap<float>(&local_48, &local_68);
+                std::swap<float>(arg6, arg8);
             }
-            fVar11 = local_64 - local_44;
-            if (0.0 <= fVar11) {
-                local_88 = ZEXT416((uint)fVar11);
+            fVar7 = arg9 - arg7;
+            if (0.0 <= fVar7) {
+                local_88 = (unsigned __int128)((unsigned int)fVar7);
             } else {
                 local_88._4_4_ = 2147483648;
-                local_88._0_4_ = -fVar11;
+                local_88._0_4_ = -fVar7;
                 local_88._8_4_ = 2147483648;
                 local_88._12_4_ = 2147483648;
-                std::swap<float>(&local_44, &local_64);
+                std::swap<float>(arg7, arg9);
             }
-            if (param_15 == 1) {
+            if (arg14 == 1) {
                 local_98._0_8_ = local_98._0_8_ ^ 9223372039002259456;
                 local_98._8_4_ = local_98._8_4_ ^ 2147483648;
                 local_98._12_4_ = local_98._12_4_ ^ 2147483648;
             }
-            fVar11 = local_3c - local_50;
+            fVar7 = local_3c - local_50;
             local_3c = local_3c - local_4c;
             this_00 = &field_744;
-            if (param_16 == 1) {
+            if (arg15 == 1) {
                 local_88._0_8_ = local_88._0_8_ ^ 9223372039002259456;
                 local_88._8_4_ = local_88._8_4_ ^ 2147483648;
                 local_88._12_4_ = local_88._12_4_ ^ 2147483648;
             }
             uVar1 = field_768;
             field_768 = uVar1 + 1;
-            local_70._0_4_ = fVar11;
-            paVar6 = (array<float, 2ul>*)Array<GUIManagerVertexBase<float>, eastl::allocator>::operator[](
-                (Array<GUIManagerVertexBase<float>, eastl::allocator>*)this_00, (ulong)uVar1);
-            local_4c = local_48;
-            local_50 = local_44;
-            pfVar7 = (float*)std::array<float, 2ul>::operator[](paVar6, 0);
-            *pfVar7 = local_54;
-            pfVar7 = (float*)std::array<float, 2ul>::operator[](paVar6, 1);
-            *pfVar7 = local_70._0_4_;
-            *(undefined4*)(paVar6 + 8) = param_5;
-            ((paVar6 + 12))->Set(local_40, local_34);
-            pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 20), 0);
-            *pfVar7 = local_4c;
-            pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 20), 1);
-            *pfVar7 = local_50;
-            puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 28), 0);
-            *puVar8 = local_98._0_4_;
-            puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 28), 1);
-            *puVar8 = local_88._0_4_;
+            local_70._0_4_ = fVar7;
+            paVar4 = (array<float, 2ul>*)(*this_00)[(unsigned long)uVar1];
+            local_4c = arg6;
+            local_50 = arg7;
+            pfVar5 = (float*)(*paVar4)[0];
+            *pfVar5 = local_54;
+            pfVar5 = (float*)(*paVar4)[1];
+            *pfVar5 = local_70._0_4_;
+            *(unsigned int*)(paVar4 + 8) = arg5;
+            ((paVar4 + 12))->Set(local_40, local_34);
+            pfVar5 = (float*)(*((paVar4 + 20)))[0];
+            *pfVar5 = local_4c;
+            pfVar5 = (float*)(*((paVar4 + 20)))[1];
+            *pfVar5 = local_50;
+            puVar6 = (uint32_t*)(*((paVar4 + 28)))[0];
+            *puVar6 = local_98._0_4_;
+            puVar6 = (uint32_t*)(*((paVar4 + 28)))[1];
+            *puVar6 = local_88._0_4_;
             uVar1 = field_768;
             field_768 = uVar1 + 1;
-            paVar6 = (array<float, 2ul>*)Array<GUIManagerVertexBase<float>, eastl::allocator>::operator[](
-                (Array<GUIManagerVertexBase<float>, eastl::allocator>*)this_00, (ulong)uVar1);
-            local_4c = local_48;
-            local_50 = local_44;
-            pfVar7 = (float*)std::array<float, 2ul>::operator[](paVar6, 0);
-            *pfVar7 = local_9c;
-            pfVar7 = (float*)std::array<float, 2ul>::operator[](paVar6, 1);
-            *pfVar7 = local_70._0_4_;
-            *(undefined4*)(paVar6 + 8) = param_5;
-            ((paVar6 + 12))->Set(local_38, local_34);
-            pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 20), 0);
-            *pfVar7 = local_4c;
-            pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 20), 1);
-            *pfVar7 = local_50;
-            puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 28), 0);
-            *puVar8 = local_98._0_4_;
-            puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 28), 1);
-            *puVar8 = local_88._0_4_;
+            paVar4 = (array<float, 2ul>*)(*this_00)[(unsigned long)uVar1];
+            local_4c = arg6;
+            local_50 = arg7;
+            pfVar5 = (float*)(*paVar4)[0];
+            *pfVar5 = local_9c;
+            pfVar5 = (float*)(*paVar4)[1];
+            *pfVar5 = local_70._0_4_;
+            *(unsigned int*)(paVar4 + 8) = arg5;
+            ((paVar4 + 12))->Set(local_38, local_34);
+            pfVar5 = (float*)(*((paVar4 + 20)))[0];
+            *pfVar5 = local_4c;
+            pfVar5 = (float*)(*((paVar4 + 20)))[1];
+            *pfVar5 = local_50;
+            puVar6 = (uint32_t*)(*((paVar4 + 28)))[0];
+            *puVar6 = local_98._0_4_;
+            puVar6 = (uint32_t*)(*((paVar4 + 28)))[1];
+            *puVar6 = local_88._0_4_;
             uVar1 = field_768;
             field_768 = uVar1 + 1;
-            paVar6 = (array<float, 2ul>*)Array<GUIManagerVertexBase<float>, eastl::allocator>::operator[](
-                (Array<GUIManagerVertexBase<float>, eastl::allocator>*)this_00, (ulong)uVar1);
-            local_70 = (Texture*)CONCAT44(local_70._4_4_, local_48);
-            local_34 = local_44;
-            pfVar7 = (float*)std::array<float, 2ul>::operator[](paVar6, 0);
-            *pfVar7 = local_9c;
-            pfVar7 = (float*)std::array<float, 2ul>::operator[](paVar6, 1);
-            *pfVar7 = local_3c;
-            *(undefined4*)(paVar6 + 8) = param_5;
-            ((paVar6 + 12))->Set(local_38, (param_11)._0_4_);
-            puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 20), 0);
-            *puVar8 = local_70._0_4_;
-            pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 20), 1);
-            *pfVar7 = local_34;
-            puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 28), 0);
-            *puVar8 = local_98._0_4_;
-            puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 28), 1);
-            *puVar8 = local_88._0_4_;
+            paVar4 = (array<float, 2ul>*)(*this_00)[(unsigned long)uVar1];
+            local_70 = (Texture*)(((uint64_t)local_70._4_4_ << 32) | (uint32_t)arg6);
+            local_34 = arg7;
+            pfVar5 = (float*)(*paVar4)[0];
+            *pfVar5 = local_9c;
+            pfVar5 = (float*)(*paVar4)[1];
+            *pfVar5 = local_3c;
+            *(unsigned int*)(paVar4 + 8) = arg5;
+            ((paVar4 + 12))->Set(local_38, (texture2)._0_4_);
+            puVar6 = (uint32_t*)(*((paVar4 + 20)))[0];
+            *puVar6 = local_70._0_4_;
+            pfVar5 = (float*)(*((paVar4 + 20)))[1];
+            *pfVar5 = local_34;
+            puVar6 = (uint32_t*)(*((paVar4 + 28)))[0];
+            *puVar6 = local_98._0_4_;
+            puVar6 = (uint32_t*)(*((paVar4 + 28)))[1];
+            *puVar6 = local_88._0_4_;
             uVar1 = field_768;
             field_768 = uVar1 + 1;
-            paVar6 = (array<float, 2ul>*)Array<GUIManagerVertexBase<float>, eastl::allocator>::operator[](
-                (Array<GUIManagerVertexBase<float>, eastl::allocator>*)this_00, (ulong)uVar1);
-            local_34 = local_48;
-            local_38 = local_44;
-            pfVar7 = (float*)std::array<float, 2ul>::operator[](paVar6, 0);
-            *pfVar7 = local_54;
-            pfVar7 = (float*)std::array<float, 2ul>::operator[](paVar6, 1);
-            *pfVar7 = local_3c;
-            *(undefined4*)(paVar6 + 8) = param_5;
-            ((paVar6 + 12))->Set(local_40, (param_11)._0_4_);
-            pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 20), 0);
-            *pfVar7 = local_34;
-            pfVar7 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 20), 1);
-            *pfVar7 = local_38;
-            puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 28), 0);
-            *puVar8 = local_98._0_4_;
-            puVar8 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar6 + 28), 1);
-            *puVar8 = local_88._0_4_;
+            paVar4 = (array<float, 2ul>*)(*this_00)[(unsigned long)uVar1];
+            local_34 = arg6;
+            local_38 = arg7;
+            pfVar5 = (float*)(*paVar4)[0];
+            *pfVar5 = local_54;
+            pfVar5 = (float*)(*paVar4)[1];
+            *pfVar5 = local_3c;
+            *(unsigned int*)(paVar4 + 8) = arg5;
+            ((paVar4 + 12))->Set(local_40, (texture2)._0_4_);
+            pfVar5 = (float*)(*((paVar4 + 20)))[0];
+            *pfVar5 = local_34;
+            pfVar5 = (float*)(*((paVar4 + 20)))[1];
+            *pfVar5 = local_38;
+            puVar6 = (uint32_t*)(*((paVar4 + 28)))[0];
+            *puVar6 = local_98._0_4_;
+            puVar6 = (uint32_t*)(*((paVar4 + 28)))[1];
+            *puVar6 = local_88._0_4_;
             field_80 = field_80 + 1;
         }
     }
 
-    // 0x1008f0510, 1584 bytes, placed by class name
-    // GUIManager::AddElementPreciseInnerClipped(float, float, float, float, float, float, float, float, unsigned int, float, float, float, float, render::Texture const*, render::Texture const*, bool, GUIManager::BlendMode)
-    void GUIManager::AddElementPreciseInnerClipped(float param_1, undefined4 param_2, float param_3, float param_4,
-                                                   float param_5, float param_6, float param_7, float param_8,
-                                                   GUIManager* this, undefined4 param_9, Texture* param_14,
-                                                   Texture* param_15, undefined1 param_16, int param_14_00,
-                                                   float param_10, float param_11, float param_12, float param_13) {
-        undefined1* this_00;
-        uint uVar1;
-        char cVar2;
-        int* piVar3;
-        array<float, 2ul>* paVar4;
-        float* pfVar5;
-        undefined4* puVar6;
+    // 0x1008f0510
+    void GUIManager::AddElementPreciseInnerClipped(float arg1, float arg2, float arg3, float arg4, float arg5,
+                                                   float arg6, float arg7, float arg8, unsigned int arg9, float arg10,
+                                                   float arg11, float arg12, float arg13,
+                                                   const render::Texture* texture1, const render::Texture* texture2,
+                                                   bool arg16, GUIManager::BlendMode blendMode) {
         float fVar7;
-        float fVar8;
-        float fVar9;
-        float local_88;
-        int local_6c;
-        undefined1 local_68[16];
-        float local_4c;
-        float local_48;
-        float local_44;
-        float local_40;
-        float local_3c;
-        float local_38;
-        float local_34;
+        uint8_t local_68[16];
 
-        local_68._0_4_ = param_2;
-        local_6c = param_14_00;
-        local_48 = param_5;
-        local_44 = param_6;
-        local_40 = param_3;
-        local_3c = param_4;
-        local_38 = param_8;
-        local_34 = param_1;
-        cVar2 = (&field_40)->empty();
-        if (cVar2 != '\0') {
-            /* WARNING: Subroutine does not return */
+        local_68._0_4_ = arg2;
+        float local_48 = arg5;
+        float local_44 = arg6;
+        float local_40 = arg3;
+        float local_3c = arg4;
+        float local_38 = arg8;
+        float local_34 = arg1;
+        bool cVar2 = field_40.empty();
+        if (cVar2) {
             LogAssert("!m_drawCallStates.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
                       1111,
                       "Ensure Begin() is called with a valid DrawCallState before submitting GUI elements to draw");
         }
-        piVar3 = (int*)field_0->GetPixelBuffer();
+        auto piVar3 = field_0->GetPixelBuffer();
         if (piVar3[2] != -1) {
             fVar7 = (float)piVar3[2];
-            if ((((fVar7 < local_34) && (fVar7 < local_40)) && (fVar7 < param_7)) && (fVar7 < local_48)) {
+            if ((((fVar7 < local_34) && (fVar7 < local_40)) && (fVar7 < arg7)) && (fVar7 < local_48)) {
                 return;
             }
             fVar7 = (float)*piVar3;
-            if (((local_34 < fVar7) && (local_40 < fVar7)) && ((param_7 < fVar7 && (local_48 < fVar7)))) {
+            if (((local_34 < fVar7) && (local_40 < fVar7)) && ((arg7 < fVar7 && (local_48 < fVar7)))) {
                 return;
             }
             fVar7 = (float)piVar3[3];
@@ -2928,178 +2476,165 @@ namespace jag::graphics {
             }
         }
         if ((field_84 <= field_80) ||
-            (cVar2 = IsStateChangeNeeded(this, &local_6c, 0, param_9, param_14, param_15, param_16), cVar2 != '\0')) {
-            Render(this, (SamplerState*)0);
-            SetBatchMode(this, 0);
-            if (param_14 != (Texture*)0) {
-                cVar2 = param_14->IsCreated();
-                if (cVar2 == '\0') {
-                    /* WARNING: Subroutine does not return */
+            (cVar2 = IsStateChangeNeeded(blendMode, 0, arg9, texture1, texture2, arg16), cVar2)) {
+            Render(nullptr);
+            SetBatchMode(0);
+            if (texture1 != nullptr) {
+                cVar2 = texture1->IsCreated();
+                if (!cVar2) {
                     LogAssert("texture->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
                               1136, "GUIManager texture being added that has no native resources");
                 }
-                field_88 = (Mixer*)param_14;
+                field_88 = texture1;
             }
-            field_108 = local_6c;
-            if ((param_15 != (Texture*)0) && (cVar2 = param_15->IsCreated(), cVar2 == '\0')) {
-                /* WARNING: Subroutine does not return */
+            field_108 = blendMode;
+            if ((texture2 != nullptr) && (cVar2 = texture2->IsCreated(), !cVar2)) {
                 LogAssert("!textureMask || textureMask->IsCreated()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                           "GUIManager.cpp",
                           1140, "GUIManager textureMask being added that has no native resources");
             }
-            field_96 = param_15;
-            field_104 = param_16;
+            field_96 = texture2;
+            field_104 = arg16;
         }
-        if (param_14 == (Texture*)0) {
-            param_10 = -65000.0;
-            param_12 = -65000.0;
-            param_11 = -65000.0;
-            param_13 = -65000.0;
+        if (texture1 == nullptr) {
+            arg10 = -65000.0;
+            arg12 = -65000.0;
+            arg11 = -65000.0;
+            arg13 = -65000.0;
         }
-        local_4c = (float)(int)m_lastViewportHeight;
-        local_88 = param_12 - param_10;
+        float local_4c = (float)(int)m_lastViewportHeight;
+        float local_88 = arg12 - arg10;
         if (local_88 < 0.0) {
             local_88 = -local_88;
-            std::swap<float>(&param_10, &param_12);
+            std::swap<float>(arg10, arg12);
         }
         fVar7 = local_4c - local_38;
-        fVar8 = local_4c - (float)local_68._0_4_;
+        float fVar8 = local_4c - (float)local_68._0_4_;
         local_44 = local_4c - local_44;
         local_4c = local_4c - local_3c;
-        this_00 = &field_744;
-        fVar9 = param_13 - param_11;
+        uint8_t* this_00 = &field_744;
+        float fVar9 = arg13 - arg11;
         if (0.0 <= fVar9) {
-            local_68 = ZEXT416((uint)fVar9);
+            local_68 = (unsigned __int128)((unsigned int)fVar9);
         } else {
             local_68._4_4_ = 2147483648;
             local_68._0_4_ = -fVar9;
             local_68._8_4_ = 2147483648;
             local_68._12_4_ = 2147483648;
-            std::swap<float>(&param_11, &param_13);
+            std::swap<float>(arg11, arg13);
         }
         local_88 = -local_88;
         local_68._0_8_ = local_68._0_8_ ^ 9223372039002259456;
         local_68._8_4_ = local_68._8_4_ ^ 2147483648;
         local_68._12_4_ = local_68._12_4_ ^ 2147483648;
-        uVar1 = field_768;
+        unsigned int uVar1 = field_768;
         field_768 = uVar1 + 1;
-        paVar4 = (array<float, 2ul>*)Array<GUIManagerVertexBase<float>, eastl::allocator>::operator[](
-            (Array<GUIManagerVertexBase<float>, eastl::allocator>*)this_00, (ulong)uVar1);
-        local_38 = param_10;
-        local_3c = param_11;
-        pfVar5 = (float*)std::array<float, 2ul>::operator[](paVar4, 0);
+        array<float, 2ul>* paVar4 = (array<float, 2ul>*)(*this_00)[(unsigned long)uVar1];
+        local_38 = arg10;
+        local_3c = arg11;
+        float* pfVar5 = (float*)(*paVar4)[0];
         *pfVar5 = local_34;
-        pfVar5 = (float*)std::array<float, 2ul>::operator[](paVar4, 1);
+        pfVar5 = (float*)(*paVar4)[1];
         *pfVar5 = fVar8;
-        *(undefined4*)(paVar4 + 8) = param_9;
+        *(unsigned int*)(paVar4 + 8) = arg9;
         ((paVar4 + 12))->Set(local_38, local_3c);
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 20), 0);
+        pfVar5 = (float*)(*((paVar4 + 20)))[0];
         *pfVar5 = local_38;
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 20), 1);
+        pfVar5 = (float*)(*((paVar4 + 20)))[1];
         *pfVar5 = local_3c;
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 28), 0);
+        pfVar5 = (float*)(*((paVar4 + 28)))[0];
         *pfVar5 = local_88;
-        puVar6 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 28), 1);
+        uint32_t* puVar6 = (uint32_t*)(*((paVar4 + 28)))[1];
         *puVar6 = local_68._0_4_;
         uVar1 = field_768;
         field_768 = uVar1 + 1;
-        paVar4 = (array<float, 2ul>*)Array<GUIManagerVertexBase<float>, eastl::allocator>::operator[](
-            (Array<GUIManagerVertexBase<float>, eastl::allocator>*)this_00, (ulong)uVar1);
-        local_38 = param_12;
-        local_34 = param_11;
-        local_3c = param_10;
-        pfVar5 = (float*)std::array<float, 2ul>::operator[](paVar4, 0);
+        paVar4 = (array<float, 2ul>*)(*this_00)[(unsigned long)uVar1];
+        local_38 = arg12;
+        local_34 = arg11;
+        local_3c = arg10;
+        pfVar5 = (float*)(*paVar4)[0];
         *pfVar5 = local_40;
-        pfVar5 = (float*)std::array<float, 2ul>::operator[](paVar4, 1);
+        pfVar5 = (float*)(*paVar4)[1];
         *pfVar5 = local_4c;
-        *(undefined4*)(paVar4 + 8) = param_9;
+        *(unsigned int*)(paVar4 + 8) = arg9;
         ((paVar4 + 12))->Set(local_38, local_34);
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 20), 0);
+        pfVar5 = (float*)(*((paVar4 + 20)))[0];
         *pfVar5 = local_3c;
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 20), 1);
+        pfVar5 = (float*)(*((paVar4 + 20)))[1];
         *pfVar5 = local_34;
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 28), 0);
+        pfVar5 = (float*)(*((paVar4 + 28)))[0];
         *pfVar5 = local_88;
-        puVar6 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 28), 1);
+        puVar6 = (uint32_t*)(*((paVar4 + 28)))[1];
         *puVar6 = local_68._0_4_;
         uVar1 = field_768;
         field_768 = uVar1 + 1;
-        paVar4 = (array<float, 2ul>*)Array<GUIManagerVertexBase<float>, eastl::allocator>::operator[](
-            (Array<GUIManagerVertexBase<float>, eastl::allocator>*)this_00, (ulong)uVar1);
-        local_3c = param_12;
-        local_38 = param_13;
-        local_40 = param_10;
-        local_34 = param_11;
-        pfVar5 = (float*)std::array<float, 2ul>::operator[](paVar4, 0);
+        paVar4 = (array<float, 2ul>*)(*this_00)[(unsigned long)uVar1];
+        local_3c = arg12;
+        local_38 = arg13;
+        local_40 = arg10;
+        local_34 = arg11;
+        pfVar5 = (float*)(*paVar4)[0];
         *pfVar5 = local_48;
-        pfVar5 = (float*)std::array<float, 2ul>::operator[](paVar4, 1);
+        pfVar5 = (float*)(*paVar4)[1];
         *pfVar5 = local_44;
-        *(undefined4*)(paVar4 + 8) = param_9;
+        *(unsigned int*)(paVar4 + 8) = arg9;
         ((paVar4 + 12))->Set(local_3c, local_38);
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 20), 0);
+        pfVar5 = (float*)(*((paVar4 + 20)))[0];
         *pfVar5 = local_40;
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 20), 1);
+        pfVar5 = (float*)(*((paVar4 + 20)))[1];
         *pfVar5 = local_34;
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 28), 0);
+        pfVar5 = (float*)(*((paVar4 + 28)))[0];
         *pfVar5 = local_88;
-        puVar6 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 28), 1);
+        puVar6 = (uint32_t*)(*((paVar4 + 28)))[1];
         *puVar6 = local_68._0_4_;
         uVar1 = field_768;
         field_768 = uVar1 + 1;
-        paVar4 = (array<float, 2ul>*)Array<GUIManagerVertexBase<float>, eastl::allocator>::operator[](
-            (Array<GUIManagerVertexBase<float>, eastl::allocator>*)this_00, (ulong)uVar1);
-        local_34 = param_10;
-        local_48 = param_13;
-        local_40 = param_11;
-        pfVar5 = (float*)std::array<float, 2ul>::operator[](paVar4, 0);
-        *pfVar5 = param_7;
-        pfVar5 = (float*)std::array<float, 2ul>::operator[](paVar4, 1);
+        paVar4 = (array<float, 2ul>*)(*this_00)[(unsigned long)uVar1];
+        local_34 = arg10;
+        local_48 = arg13;
+        local_40 = arg11;
+        pfVar5 = (float*)(*paVar4)[0];
+        *pfVar5 = arg7;
+        pfVar5 = (float*)(*paVar4)[1];
         *pfVar5 = fVar7;
-        *(undefined4*)(paVar4 + 8) = param_9;
+        *(unsigned int*)(paVar4 + 8) = arg9;
         ((paVar4 + 12))->Set(local_34, local_48);
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 20), 0);
+        pfVar5 = (float*)(*((paVar4 + 20)))[0];
         *pfVar5 = local_34;
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 20), 1);
+        pfVar5 = (float*)(*((paVar4 + 20)))[1];
         *pfVar5 = local_40;
-        pfVar5 = (float*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 28), 0);
+        pfVar5 = (float*)(*((paVar4 + 28)))[0];
         *pfVar5 = local_88;
-        puVar6 = (undefined4*)math::Vector2T<float>::operator[]((Vector2T<float>*)(paVar4 + 28), 1);
+        puVar6 = (uint32_t*)(*((paVar4 + 28)))[1];
         *puVar6 = local_68._0_4_;
         field_80 = field_80 + 1;
     }
 
-    // 0x1008f0b60, 2032 bytes, placed by class name
-    // GUIManager::AddElementRotatedTiled(int, int, int, int, unsigned int, float, float, float, float, render::Texture const*, GUIManager::BlendMode, float, int, int)
-    void GUIManager::AddElementRotatedTiled(
-        float param_6, float param_7, float param_8, float param_9, float param_5_00, GUIManager* this,
-        type* param_7_00, int param_2, float param_3, float param_4, uint param_5,
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* param_10,
-        undefined4 param_13, int param_14, int param_15) {
-        uint uVar1;
-        uint* puVar2;
+    // 0x1008f0b60
+    void GUIManager::AddElementRotatedTiled(int arg1, int arg2, int arg3, int arg4, unsigned int arg5, float arg6,
+                                            float arg7, float arg8, float arg9, const render::Texture* texture,
+                                            GUIManager::BlendMode blendMode, float arg12, int arg13, int arg14) {
+        unsigned int uVar1;
+        unsigned int* puVar2;
         long lVar3;
-        vector* pvVar4;
-        float* pfVar5;
+        float* pfVar4;
+        uint32_t* puVar5;
         Layout* pLVar6;
         Vector2T<int>* pVVar7;
         int iVar8;
-        type* ptVar9;
-        Vector2T<int>* this_00;
-        int iVar10;
+        int iVar9;
+        float fVar10;
         float fVar11;
-        float fVar12;
-        Matrix22T<float> local_d0[16];
-        Vector2T<int> local_b8[8];
-        uint local_ac;
-        Vector2T<int> local_a8[8];
-        Vector2T<int> local_a0[8];
-        Vector2T<int> local_98[8];
-        Vector2T<int> local_90[8];
+        Matrix22T<float> local_d0;
+        Vector2T<int> local_b8;
+        unsigned int local_ac;
+        Vector2T<int> local_a8;
+        Vector2T<int> local_a0;
+        Vector2T<int> local_98;
+        Vector2T<int> local_90;
         float local_78;
         float local_74;
         float local_70;
@@ -3108,627 +2643,555 @@ namespace jag::graphics {
         float local_64;
         float local_60;
         float local_5c;
-        ulong local_58;
+        unsigned long local_58;
         float local_50;
         float local_4c;
-        undefined8 local_48;
-        undefined4 uStack_40;
-        undefined4 uStack_3c;
+        float local_48;
+        uint32_t uStack_44;
+        uint32_t uStack_40;
+        uint32_t uStack_3c;
         float local_38;
         float local_34;
 
         if (m_skipTiledElements == '\0' && m_skipRotatedElements == '\0') {
-            fVar11 = SUB84(param_7_00, 0);
-            local_6c = param_3;
-            local_68 = param_4;
-            local_5c = param_5_00;
-            puVar2 = (uint*)eastl::compressed_pair_imp<
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(param_10);
+            local_6c = (float)arg3;
+            local_68 = (float)arg4;
+            local_5c = arg12;
+            puVar2 = (unsigned int*)texture->second();
             local_34 = (float)*puVar2;
-            local_50 = (float)::abs(param_8 - param_6);
+            local_50 = (float)::abs(arg8 - arg6);
             local_50 = local_50 * local_34;
-            lVar3 = eastl::compressed_pair_imp<
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(param_10);
-            local_34 = (float)*(uint*)(lVar3 + 4);
-            local_4c = (float)::abs(param_9 - param_7);
+            lVar3 = texture->second();
+            local_34 = (float)*(unsigned int*)(lVar3 + 4);
+            local_4c = (float)::abs(arg9 - arg7);
             local_4c = local_4c * local_34;
-            math::Vector2T<int>::Vector2T(local_a8);
-            if (param_14 == -999999) {
-                local_34 = local_50 * 0.5 + (float)(int)fVar11;
-                pvVar4 = local_a8->SSOBeginPtr(param_7_00);
-                *(float*)pvVar4 = local_34;
-                local_34 = local_4c * 0.5 + (float)param_2;
+            local_a8 = math::Vector2T();
+            if (arg13 == -999999) {
+                local_34 = local_50 * 0.5 + (float)arg1;
+                pfVar4 = (float*)local_a8.SSOBeginPtr();
+                *pfVar4 = local_34;
+                local_34 = local_4c * 0.5 + (float)arg2;
             } else {
-                local_34 = (float)param_14;
-                pvVar4 = local_a8->SSOBeginPtr(param_7_00);
-                *(float*)pvVar4 = local_34;
-                local_34 = (float)param_15;
+                local_34 = (float)arg13;
+                pfVar4 = (float*)local_a8.SSOBeginPtr();
+                *pfVar4 = local_34;
+                local_34 = (float)arg14;
             }
-            this_00 = local_a8;
-            local_60 = (float)param_2;
-            pfVar5 = (float*)this_00->y();
-            *pfVar5 = local_34;
-            math::Vector2T<int>::Vector2T(local_a0);
-            math::Vector2T<int>::Vector2T(local_b8);
-            math::Vector2T<int>::Vector2T(local_98);
-            math::Vector2T<int>::Vector2T(local_90);
-            local_38 = (float)(int)fVar11;
-            local_64 = fVar11;
-            pvVar4 = this_00->SSOBeginPtr(param_7_00);
-            local_34 = local_38 - *(float*)pvVar4;
-            pvVar4 = local_a0->SSOBeginPtr(param_7_00);
-            *(float*)pvVar4 = local_34;
-            local_34 = (float)param_2;
-            pfVar5 = (float*)this_00->y();
-            local_48._0_4_ = (GUIManager*)(local_34 - *pfVar5);
-            pfVar5 = (float*)local_a0->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar5 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)(local_50 + local_38);
-            pvVar4 = this_00->SSOBeginPtr(param_7_00);
-            local_58._0_4_ = (float)(GUIManager*)local_48 - *(float*)pvVar4;
-            pvVar4 = local_b8->SSOBeginPtr(param_7_00);
-            *(float*)pvVar4 = (float)local_58;
-            pfVar5 = (float*)this_00->y();
-            local_58._0_4_ = local_34 - *pfVar5;
-            pfVar5 = (float*)local_b8->y();
-            *pfVar5 = (float)local_58;
-            pvVar4 = this_00->SSOBeginPtr(param_7_00);
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *(float*)pvVar4);
-            pvVar4 = local_90->SSOBeginPtr(param_7_00);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar4 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)(local_4c + local_34);
-            pfVar5 = (float*)this_00->y();
-            local_58._0_4_ = (float)(GUIManager*)local_48 - *pfVar5;
-            pfVar5 = (float*)local_90->y();
-            *pfVar5 = (float)local_58;
-            pvVar4 = this_00->SSOBeginPtr(param_7_00);
-            local_58 = CONCAT44(local_58._4_4_, local_38 - *(float*)pvVar4);
-            pvVar4 = local_98->SSOBeginPtr(param_7_00);
-            *(float*)pvVar4 = (float)local_58;
-            pfVar5 = (float*)this_00->y();
-            local_48._0_4_ = (GUIManager*)((float)(GUIManager*)local_48 - *pfVar5);
-            pfVar5 = (float*)local_98->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar5 = (GUIManager*)local_48;
+            local_60 = (float)arg2;
+            pfVar4 = (float*)local_a8.y();
+            *pfVar4 = local_34;
+            local_a0 = math::Vector2T();
+            local_b8 = math::Vector2T();
+            local_98 = math::Vector2T();
+            local_90 = math::Vector2T();
+            local_38 = (float)arg1;
+            local_64 = (float)arg1;
+            pfVar4 = (float*)local_a8.SSOBeginPtr();
+            local_34 = local_38 - *pfVar4;
+            pfVar4 = (float*)local_a0.SSOBeginPtr();
+            *pfVar4 = local_34;
+            local_34 = (float)arg2;
+            pfVar4 = (float*)local_a8.y();
+            local_48 = local_34 - *pfVar4;
+            pfVar4 = (float*)local_a0.y();
+            *pfVar4 = local_48;
+            local_48 = local_50 + local_38;
+            pfVar4 = (float*)local_a8.SSOBeginPtr();
+            local_58._0_4_ = local_48 - *pfVar4;
+            pfVar4 = (float*)local_b8.SSOBeginPtr();
+            *pfVar4 = (float)local_58;
+            pfVar4 = (float*)local_a8.y();
+            local_58._0_4_ = local_34 - *pfVar4;
+            pfVar4 = (float*)local_b8.y();
+            *pfVar4 = (float)local_58;
+            pfVar4 = (float*)local_a8.SSOBeginPtr();
+            local_48 = local_48 - *pfVar4;
+            pfVar4 = (float*)local_90.SSOBeginPtr();
+            *pfVar4 = local_48;
+            local_48 = local_4c + local_34;
+            pfVar4 = (float*)local_a8.y();
+            local_58._0_4_ = local_48 - *pfVar4;
+            pfVar4 = (float*)local_90.y();
+            *pfVar4 = (float)local_58;
+            pfVar4 = (float*)local_a8.SSOBeginPtr();
+            local_58 = (((uint64_t)local_58._4_4_ << 32) | (uint32_t)(local_38 - *pfVar4));
+            puVar5 = (uint32_t*)local_98.SSOBeginPtr();
+            *puVar5 = (float)local_58;
+            pfVar4 = (float*)local_a8.y();
+            local_48 = local_48 - *pfVar4;
+            pfVar4 = (float*)local_98.y();
+            *pfVar4 = local_48;
             math::SinCos(&local_74, &local_70, local_5c);
-            math::Matrix22T<float>::Matrix22T(local_d0);
-            local_48._0_4_ = (GUIManager*)local_70;
+            local_d0 = math::Matrix22T<float>();
+            local_48 = local_70;
             local_58 = 0;
-            ptVar9 = (type*)0;
-            pLVar6 = (Layout*)math::Matrix22T<float>::operator[](local_d0, 0);
-            pvVar4 = eastl::string::Layout::SSOBeginPtr(pLVar6, ptVar9);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar4 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)-local_74;
-            local_48._4_4_ = 2147483648;
+            pLVar6 = &local_d0[0];
+            pfVar4 = (float*)pLVar6->SSOBeginPtr();
+            *pfVar4 = local_48;
+            local_48 = -local_74;
+            uStack_44 = 2147483648;
             uStack_40 = 2147483648;
             uStack_3c = 2147483648;
-            pVVar7 = (Vector2T<int>*)math::Matrix22T<float>::operator[](local_d0, 0);
-            pfVar5 = (float*)pVVar7->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar5 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_74;
-            ptVar9 = (type*)&DAT_00000001;
-            pLVar6 = (Layout*)math::Matrix22T<float>::operator[](local_d0, 1);
-            pvVar4 = eastl::string::Layout::SSOBeginPtr(pLVar6, ptVar9);
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pvVar4 = (GUIManager*)local_48;
-            local_48._0_4_ = (GUIManager*)local_70;
-            pVVar7 = (Vector2T<int>*)math::Matrix22T<float>::operator[](local_d0, 1);
-            pfVar5 = (float*)pVVar7->y();
-            /* WARNING: Store size is inaccurate */
-            *(GUIManager**)pfVar5 = (GUIManager*)local_48;
-            math::Vector2T<float>::operator*=((Vector2T<float>*)this_00, (Matrix22T*)local_d0);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_a0, (Matrix22T*)local_d0);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_b8, (Matrix22T*)local_d0);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_90, (Matrix22T*)local_d0);
-            math::Vector2T<float>::operator*=((Vector2T<float>*)local_98, (Matrix22T*)local_d0);
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_a0, (Vector2T*)this_00);
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_b8, (Vector2T*)this_00);
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_98, (Vector2T*)this_00);
-            pVVar7 = this_00;
-            math::Vector2T<float>::operator+=((Vector2T<float>*)local_90, (Vector2T*)this_00);
-            pvVar4 = local_a0->SSOBeginPtr(pVVar7);
-            /* WARNING: Load size is inaccurate */
-            local_48._0_4_ = *(GUIManager**)pvVar4;
-            pvVar4 = local_b8->SSOBeginPtr(pVVar7);
-            local_48._0_4_ = (GUIManager*)eastl::min<float>((float)(GUIManager*)local_48, *(float*)pvVar4);
-            pvVar4 = local_98->SSOBeginPtr(pVVar7);
-            local_5c = *(float*)pvVar4;
-            pvVar4 = local_90->SSOBeginPtr(pVVar7);
-            fVar11 = (float)eastl::min<float>(local_5c, *(float*)pvVar4);
-            fVar11 = (float)eastl::min<float>((float)(GUIManager*)local_48, fVar11);
-            local_38 = fVar11 - local_38;
-            pvVar4 = this_00->SSOBeginPtr(pVVar7);
-            *(float*)pvVar4 = local_38;
-            pfVar5 = (float*)local_a0->y();
-            local_38 = *pfVar5;
-            pfVar5 = (float*)local_b8->y();
-            local_38 = (float)eastl::min<float>(local_38, *pfVar5);
-            pfVar5 = (float*)local_98->y();
-            /* WARNING: Load size is inaccurate */
-            local_48._0_4_ = *(GUIManager**)pfVar5;
-            pfVar5 = (float*)local_90->y();
-            fVar11 = (float)eastl::min<float>((float)(GUIManager*)local_48, *pfVar5);
-            fVar11 = (float)eastl::min<float>(local_38, fVar11);
-            local_34 = fVar11 - local_34;
-            pfVar5 = (float*)this_00->y();
-            *pfVar5 = local_34;
-            math::Vector2T<float>::operator-=((Vector2T<float>*)local_a0, (Vector2T*)this_00);
-            math::Vector2T<float>::operator-=((Vector2T<float>*)local_b8, (Vector2T*)this_00);
-            math::Vector2T<float>::operator-=((Vector2T<float>*)local_90, (Vector2T*)this_00);
-            math::Vector2T<float>::operator-=((Vector2T<float>*)local_98, (Vector2T*)this_00);
+            pVVar7 = &local_d0[0];
+            pfVar4 = (float*)pVVar7->y();
+            *pfVar4 = local_48;
+            local_48 = local_74;
+            pLVar6 = &local_d0[1];
+            pfVar4 = (float*)pLVar6->SSOBeginPtr();
+            *pfVar4 = local_48;
+            local_48 = local_70;
+            pVVar7 = &local_d0[1];
+            pfVar4 = (float*)pVVar7->y();
+            *pfVar4 = local_48;
+            local_a8 *= &local_d0;
+            local_a0 *= &local_d0;
+            local_b8 *= &local_d0;
+            local_90 *= &local_d0;
+            local_98 *= &local_d0;
+            local_a0 += local_a8;
+            local_b8 += local_a8;
+            local_98 += local_a8;
+            local_90 += local_a8;
+            pfVar4 = (float*)local_a0.SSOBeginPtr();
+            local_48 = *pfVar4;
+            pfVar4 = (float*)local_b8.SSOBeginPtr();
+            local_48 = (float)eastl::min<float>(local_48, *pfVar4);
+            pfVar4 = (float*)local_98.SSOBeginPtr();
+            local_5c = *pfVar4;
+            pfVar4 = (float*)local_90.SSOBeginPtr();
+            fVar10 = (float)eastl::min<float>(local_5c, *pfVar4);
+            fVar10 = (float)eastl::min<float>(local_48, fVar10);
+            local_38 = fVar10 - local_38;
+            pfVar4 = (float*)local_a8.SSOBeginPtr();
+            *pfVar4 = local_38;
+            pfVar4 = (float*)local_a0.y();
+            local_38 = *pfVar4;
+            pfVar4 = (float*)local_b8.y();
+            local_38 = (float)eastl::min<float>(local_38, *pfVar4);
+            pfVar4 = (float*)local_98.y();
+            local_48 = *pfVar4;
+            pfVar4 = (float*)local_90.y();
+            fVar10 = (float)eastl::min<float>(local_48, *pfVar4);
+            fVar10 = (float)eastl::min<float>(local_38, fVar10);
+            local_34 = fVar10 - local_34;
+            pfVar4 = (float*)local_a8.y();
+            *pfVar4 = local_34;
+            local_a0 -= local_a8;
+            local_b8 -= local_a8;
+            local_90 -= local_a8;
+            local_98 -= local_a8;
             iVar8 = (int)local_6c - (int)local_64;
-            iVar10 = (int)local_68 - (int)local_60;
+            iVar9 = (int)local_68 - (int)local_60;
             local_34 = local_70;
-            local_48._0_4_ = (GUIManager*)::abs(local_70 * local_50);
+            local_48 = (float)::abs(local_70 * local_50);
             local_38 = local_74;
             local_78 = (float)::abs(local_74 * local_4c);
-            local_78 = local_78 + (float)(GUIManager*)local_48;
+            local_78 = local_78 + local_48;
             local_34 = (float)::abs(local_34 * local_4c);
             local_60 = (float)::abs(local_38 * local_50);
             local_60 = local_60 + local_34;
-            fVar11 = (float)ceil((float)iVar8 / local_78);
-            fVar12 = (float)ceil((float)iVar10 / local_60);
-            if (0 < (int)fVar11) {
-                local_ac = (int)fVar11;
+            fVar10 = (float)ceil((float)iVar8 / local_78);
+            fVar11 = (float)ceil((float)iVar9 / local_60);
+            if (0 < (int)fVar10) {
+                local_ac = (int)fVar10;
                 do {
-                    if (0 < (int)fVar12) {
+                    if (0 < (int)fVar11) {
                         local_34 = (float)(int)(float)local_58 * local_78;
                         iVar8 = 0;
                         do {
-                            pvVar4 = local_a0->SSOBeginPtr(this_00);
-                            local_48._0_4_ = (GUIManager*)(*(float*)pvVar4 + local_34);
-                            pfVar5 = (float*)local_a0->y();
+                            pfVar4 = (float*)local_a0.SSOBeginPtr();
+                            local_48 = *pfVar4 + local_34;
+                            pfVar4 = (float*)local_a0.y();
                             local_38 = (float)iVar8 * local_60;
-                            local_50 = *pfVar5 + local_38;
-                            pvVar4 = local_b8->SSOBeginPtr(this_00);
-                            local_4c = *(float*)pvVar4 + local_34;
-                            pfVar5 = (float*)local_b8->y();
-                            local_6c = *pfVar5 + local_38;
-                            pvVar4 = local_90->SSOBeginPtr(this_00);
-                            local_68 = *(float*)pvVar4 + local_34;
-                            pfVar5 = (float*)local_90->y();
-                            local_64 = *pfVar5 + local_38;
-                            pvVar4 = local_98->SSOBeginPtr(this_00);
-                            local_5c = *(float*)pvVar4 + local_34;
-                            pfVar5 = (float*)local_98->y();
-                            this_00 = (Vector2T<int>*)(ulong)param_5;
-                            AddElementInnerClipped((GUIManager*)local_48, local_50, local_4c, local_6c, local_68,
-                                                   local_64, local_5c, local_38 + *pfVar5, this, this_00, param_10, 0,
-                                                   0, param_13, param_6, param_7, param_8, param_9);
+                            local_50 = *pfVar4 + local_38;
+                            pfVar4 = (float*)local_b8.SSOBeginPtr();
+                            local_4c = *pfVar4 + local_34;
+                            pfVar4 = (float*)local_b8.y();
+                            local_6c = *pfVar4 + local_38;
+                            pfVar4 = (float*)local_90.SSOBeginPtr();
+                            local_68 = *pfVar4 + local_34;
+                            pfVar4 = (float*)local_90.y();
+                            local_64 = *pfVar4 + local_38;
+                            pfVar4 = (float*)local_98.SSOBeginPtr();
+                            local_5c = *pfVar4 + local_34;
+                            pfVar4 = (float*)local_98.y();
+                            AddElementInnerClipped(local_48, local_50, local_4c, local_6c, local_68, local_64, local_5c,
+                                                   local_38 + *pfVar4, arg5, arg6, arg7, arg8, arg9, texture, nullptr,
+                                                   false, blendMode);
                             iVar8 = iVar8 + 1;
-                        } while ((int)fVar12 != iVar8);
+                        } while ((int)fVar11 != iVar8);
                     }
                     uVar1 = (int)local_58 + 1;
-                    local_58 = (ulong)uVar1;
+                    local_58 = (unsigned long)uVar1;
                 } while (uVar1 != local_ac);
             }
         }
     }
 
-    // 0x1008f1380, 560 bytes, placed by class name
-    // GUIManager::AddElementIn3DSpace(math::Vector3T<float> const&, int, int, math::Matrix44T<float> const&, math::Matrix44T<float> const&, unsigned int, float, float, float, float, render::Texture*, GUIManager::BlendMode, bool, int, int)
-    void GUIManager::AddElementIn3DSpace(GUIManager* param_1_00, undefined4 param_8, undefined4 param_9,
-                                         undefined4 param_10, GUIManager* this, Vector3T* param_1, int param_2,
-                                         int param_3, Matrix44T* param_4, Matrix44T* param_5, undefined4 param_6,
-                                         undefined8 param_11, undefined4 param_13, char param_14, int param_15,
-                                         int param_16) {
+    // 0x1008f1380
+    void GUIManager::AddElementIn3DSpace(const math::Vector3T<float>& vector3, int arg2, int arg3,
+                                         const math::Matrix44T<float>& matrix441,
+                                         const math::Matrix44T<float>& matrix442, unsigned int arg6, float arg7,
+                                         float arg8, float arg9, float arg10, render::Texture* texture,
+                                         GUIManager::BlendMode blendMode, bool arg13, int arg14, int arg15) {
         float* pfVar1;
-        vector* pvVar2;
-        undefined4* puVar3;
-        float fVar4;
-        Vector4T<float> local_48[20];
+        uint32_t* puVar2;
         float local_34;
 
-        math::Vector4T<float>::Vector4T(local_48, param_1, 1.0);
-        math::Vector4T<float>::operator*=(local_48, param_5);
-        math::Vector4T<float>::operator*=(local_48, param_4);
-        if (param_14 == '\0') {
-            pfVar1 = (float*)local_48->second();
+        Vector4T<float> local_48(vector3, 1.0);
+        local_48 *= matrix442;
+        local_48 *= matrix441;
+        if (arg13) {
+            pfVar1 = (float*)local_48.qw();
             local_34 = *pfVar1;
-            pvVar2 = local_48->SSOBeginPtr(param_4);
-            *(float*)pvVar2 = *(float*)pvVar2 / local_34;
-            pfVar1 = (float*)local_48->second();
+            pfVar1 = (float*)local_48.SSOBeginPtr();
+            *pfVar1 = *pfVar1 / local_34;
+            pfVar1 = (float*)local_48.qw();
         } else {
-            pfVar1 = (float*)local_48->qw();
+            pfVar1 = (float*)local_48.second();
             local_34 = *pfVar1;
-            pvVar2 = local_48->SSOBeginPtr(param_4);
-            *(float*)pvVar2 = *(float*)pvVar2 / local_34;
-            pfVar1 = (float*)local_48->qw();
+            pfVar1 = (float*)local_48.SSOBeginPtr();
+            *pfVar1 = *pfVar1 / local_34;
+            pfVar1 = (float*)local_48.second();
         }
         local_34 = *pfVar1;
-        pfVar1 = (float*)local_48->y();
+        pfVar1 = (float*)local_48.y();
         *pfVar1 = *pfVar1 / local_34;
-        pvVar2 = local_48->SSOBeginPtr(param_4);
-        fVar4 = (float)::abs(*(float*)pvVar2);
-        if (fVar4 < 0.0005) {
-            pvVar2 = local_48->SSOBeginPtr(param_4);
-            *(undefined4*)pvVar2 = 0;
+        pfVar1 = (float*)local_48.SSOBeginPtr();
+        float fVar3 = (float)::abs(*pfVar1);
+        if (fVar3 < 0.0005) {
+            puVar2 = (uint32_t*)local_48.SSOBeginPtr();
+            *puVar2 = 0;
         }
-        pfVar1 = (float*)local_48->y();
-        fVar4 = (float)::abs(*pfVar1);
-        if (fVar4 < 0.0005) {
-            puVar3 = (undefined4*)local_48->y();
-            *puVar3 = 0;
+        pfVar1 = (float*)local_48.y();
+        fVar3 = (float)::abs(*pfVar1);
+        if (fVar3 < 0.0005) {
+            puVar2 = (uint32_t*)local_48.y();
+            *puVar2 = 0;
         }
-        pvVar2 = local_48->SSOBeginPtr(param_4);
-        local_34 = (float)(int)m_lastViewportWidth * (*(float*)pvVar2 * 0.5 + 0.5);
-        pfVar1 = (float*)local_48->y();
-        fVar4 = (float)(int)m_lastViewportHeight * (*pfVar1 * 0.5 + 0.5) - (float)param_16;
-        AddElementInner(param_1_00._0_4_, param_8, param_9, param_10, this, (int)(local_34 - (float)param_15),
-                        (int)fVar4, (int)((float)param_2 + (local_34 - (float)param_15)), (int)((float)param_3 + fVar4),
-                        param_6, param_11, 0, 0, param_13, 1, 1);
+        pfVar1 = (float*)local_48.SSOBeginPtr();
+        local_34 = (float)(int)m_lastViewportWidth * (*pfVar1 * 0.5 + 0.5);
+        pfVar1 = (float*)local_48.y();
+        fVar3 = (float)(int)m_lastViewportHeight * (*pfVar1 * 0.5 + 0.5) - (float)arg15;
+        AddElementInner((int)(local_34 - (float)arg14), (int)fVar3, (int)((float)arg2 + (local_34 - (float)arg14)),
+                        (int)((float)arg3 + fVar3), arg6, arg7, arg8, arg9, arg10, texture, nullptr, false, blendMode,
+                        1, 1);
     }
 
-    // 0x1008f1630, 816 bytes, placed by class name
-    // GUIManager::AddTriangleListInner(eastl::vector<float, eastl::allocator> const&, eastl::vector<int, eastl::allocator> const&, unsigned int, GUIManager::BlendMode)
-    void GUIManager::AddTriangleListInner(vector<unsigned int, eastl::allocator>* param_1,
-                                          vector<unsigned int, eastl::allocator>* param_2, undefined4 param_3,
-                                          int param_5) {
-        undefined1* this_00;
-        undefined1* this_01;
+    // 0x1008f1630
+    void GUIManager::AddTriangleListInner(const eastl::vector<float>& arg1, const eastl::vector<int>& arg2,
+                                          unsigned int arg3, GUIManager::BlendMode blendMode) {
+        uint8_t* this_01;
         float fVar1;
         float fVar2;
-        char cVar3;
-        uint uVar4;
-        int iVar5;
-        long lVar6;
-        ulong uVar7;
-        int* piVar8;
-        int* piVar9;
-        ulong uVar10;
-        ulong uVar11;
+        unsigned long uVar10;
+        unsigned long uVar11;
         array<short, 2ul>* this_02;
-        undefined2* puVar12;
+        uint16_t* puVar12;
         float* pfVar13;
-        ulong uVar14;
-        uint uVar15;
-        uint local_48;
-        int local_3c;
-        ushort local_32;
 
-        local_3c = param_5;
-        lVar6 = eastl::vector<unsigned int, eastl::allocator>::size(param_2);
-        if (6148914691236517205 < (ulong)(lVar6 * -6148914691236517205)) {
-            /* WARNING: Subroutine does not return */
+        long lVar6 = arg2.size();
+        if (6148914691236517205 < (unsigned long)(lVar6 * -6148914691236517205)) {
             LogAssert("indices.size() % 3 == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
-                      1195, (char*)0);
+                      1195, nullptr);
         }
-        cVar3 = (&field_40)->empty();
-        if (cVar3 != '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar3 = field_40.empty();
+        if (cVar3) {
             LogAssert("!m_drawCallStates.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
                       1196,
                       "Ensure Begin() is called with a valid DrawCallState before submitting GUI elements to draw");
         }
-        uVar7 = eastl::vector<unsigned int, eastl::allocator>::size(param_1);
-        uVar15 = (uint)(uVar7 >> 1) & 2147483647;
-        uVar4 = eastl::vector<unsigned int, eastl::allocator>::size(param_2);
-        cVar3 = (field_1656, uVar15, uVar4)->HasRoom();
-        if (cVar3 != '\0') {
-            cVar3 = IsStateChangeNeeded(this, &local_3c, 1, param_3, 0, 0, 0);
-            if (cVar3 == '\0')
+        unsigned long uVar7 = arg1.size();
+        unsigned int arg1_00 = (unsigned int)(uVar7 >> 1) & 2147483647;
+        unsigned int uVar4 = arg2.size();
+        cVar3 = field_1656.HasRoom(arg1_00, uVar4);
+        if (cVar3) {
+            cVar3 = IsStateChangeNeeded(blendMode, 1, arg3, nullptr, nullptr, false);
+            if (!cVar3)
                 goto LAB_1008f173b;
         }
-        Render(this, (SamplerState*)0);
-        SetBatchMode(this, 1);
-        field_108 = local_3c;
+        Render(nullptr);
+        SetBatchMode(1);
+        field_108 = blendMode;
     LAB_1008f173b:
-        this_00 = &field_1960;
-        iVar5 = this_00->size();
-        piVar8 = (int*)param_2->HeapBeginPtr();
-        piVar9 = (int*)param_2->end();
+        uint8_t* this_00 = &field_1960;
+        int iVar5 = this_00->size();
+        auto piVar8 = arg2.HeapBeginPtr();
+        auto piVar9 = arg2.end();
         if (piVar8 != piVar9) {
             this_01 = &field_2080;
             do {
                 uVar10 = this_01->size();
                 uVar11 = this_01->capacity();
                 if (uVar11 <= uVar10) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("m_vertexDynamic.m_indexDataBuffer.size() < m_vertexDynamic.m_indexDataBuffer.capacity()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1212, (char*)0);
+                              1212, nullptr);
                 }
-                local_32 = (short)*piVar8 + (short)iVar5;
-                this_01->push_back(&local_32);
-                if (65535 < (uint)(*piVar8 + iVar5)) {
-                    /* WARNING: Subroutine does not return */
+                this_01->push_back((short)*piVar8 + (short)iVar5);
+                if (65535 < (unsigned int)(*piVar8 + iVar5)) {
                     LogAssert("startIndex + index <= std::numeric_limits<uint16>::max()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "gui/GUIManager.cpp",
-                              1214, (char*)0);
+                              1214, nullptr);
                 }
                 piVar8 = piVar8 + 1;
             } while (piVar8 != piVar9);
         }
-        iVar5 = eastl::vector<unsigned int, eastl::allocator>::size(param_2);
+        iVar5 = arg2.size();
         field_80 = field_80 + iVar5;
-        local_48 = (uint)uVar7;
+        unsigned int local_48 = (unsigned int)uVar7;
         if (1 < local_48) {
             uVar7 = 1;
-            if (1 < uVar15) {
-                uVar7 = (ulong)uVar15;
+            if (1 < arg1_00) {
+                uVar7 = (unsigned long)arg1_00;
             }
             uVar10 = 0;
             do {
-                pfVar13 = (float*)eastl::vector<float, eastl::allocator>::operator[](
-                    (vector<float, eastl::allocator>*)param_1, uVar10);
+                pfVar13 = &arg1[uVar10];
                 fVar1 = *pfVar13;
-                pfVar13 = (float*)eastl::vector<float, eastl::allocator>::operator[](
-                    (vector<float, eastl::allocator>*)param_1, uVar10 + 1);
+                pfVar13 = &arg1[uVar10 + 1];
                 uVar4 = m_lastViewportHeight;
                 fVar2 = *pfVar13;
                 uVar11 = this_00->size();
-                uVar14 = this_00->capacity();
-                if (uVar14 <= uVar11) {
-                    /* WARNING: Subroutine does not return */
+                if (this_00->capacity() <= uVar11) {
                     LogAssert(
                         "m_vertexDynamic.m_vertexDataBuffer.size() < m_vertexDynamic.m_vertexDataBuffer.capacity()",
                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                         "GUIManager.cpp",
-                        1227, (char*)0);
+                        1227, nullptr);
                 }
                 this_00->push_back_uninitialized();
                 this_02 = (array<short, 2ul>*)this_00->back();
-                puVar12 = (undefined2*)std::array<short, 2ul>::operator[](this_02, 0);
+                puVar12 = (uint16_t*)(*this_02)[0];
                 *puVar12 = (short)(int)fVar1;
-                puVar12 = (undefined2*)std::array<short, 2ul>::operator[](this_02, 1);
+                puVar12 = (uint16_t*)(*this_02)[1];
                 *puVar12 = (short)(int)((float)(int)uVar4 - fVar2);
-                *(undefined4*)(this_02 + 4) = param_3;
+                *(unsigned int*)(this_02 + 4) = arg3;
                 ((this_02 + 8))->Set(-65000.0, -65000.0);
-                ((this_02 + 16))->SetToZero();
-                ((this_02 + 24))->SetToOne();
+                *((this_02 + 16)) = math::Vector2T<float>::SetToZero();
+                *((this_02 + 24)) = math::Vector2T<float>::SetToOne();
                 uVar10 = uVar10 + 2;
             } while (uVar7 * 2 != uVar10);
         }
     }
 
-    // 0x1008f1bd0, 1168 bytes, placed by class name
-    // GUIManager::AddLineIn3DSpace(math::Vector3T<float> const&, math::Vector3T<float> const&, float, math::Matrix44T<float> const&, math::Matrix44T<float> const&, unsigned int, GUIManager::BlendMode, bool)
-    void GUIManager::AddLineIn3DSpace(float param_3, GUIManager* this, Vector3T* param_1, Vector3T* param_2,
-                                      Matrix44T* param_4, Matrix44T* param_5, undefined4 param_6, undefined4 param_8,
-                                      char param_9) {
+    // 0x1008f1bd0
+    void GUIManager::AddLineIn3DSpace(const math::Vector3T<float>& vector31, const math::Vector3T<float>& vector32,
+                                      float arg3, const math::Matrix44T<float>& matrix441,
+                                      const math::Matrix44T<float>& matrix442, unsigned int arg6,
+                                      GUIManager::BlendMode blendMode, bool arg8) {
         float* pfVar2;
-        Vector2T* pVVar3;
-        vector* pvVar4;
-        float fVar5;
-        Vector4T<float> local_88[16];
-        Point<float> local_78[8];
-        Point<float> local_70[8];
-        Vector2T<int> local_68[12];
-        undefined8 local_58;
-        undefined8 local_48;
+        ReturnValue* vector2;
+        float arg4;
+        Vector4T<float> local_88;
+        Point<float> local_78;
+        Point<float> local_70;
+        Vector2T<int> local_68;
+        ReturnValue local_58;
+        float local_48;
+        float local_44;
         float local_34;
 
-        if (!math::operator==(param_1, param_2)) {
-            math::Vector4T<float>::Vector4T(local_88, param_1, 1.0);
-            math::Vector4T<float>::operator*=(local_88, param_5);
-            math::Vector4T<float>::operator*=(local_88, param_4);
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 3);
+        if (!vector31 == vector32) {
+            local_88 = math::Vector4T(vector31, 1.0);
+            local_88 *= matrix442;
+            local_88 *= matrix441;
+            pfVar2 = &local_88[3];
             local_34 = *pfVar2;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
+            pfVar2 = &local_88[0];
             *pfVar2 = *pfVar2 / local_34;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 3);
+            pfVar2 = &local_88[3];
             local_34 = *pfVar2;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
+            pfVar2 = &local_88[1];
             *pfVar2 = *pfVar2 / local_34;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 3);
+            pfVar2 = &local_88[3];
             local_34 = *pfVar2;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 2);
+            pfVar2 = &local_88[2];
             *pfVar2 = *pfVar2 / local_34;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
+            pfVar2 = &local_88[0];
             local_34 = (float)(int)m_lastViewportWidth * (*pfVar2 * 0.5 + 0.5);
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
+            pfVar2 = &local_88[0];
             *pfVar2 = local_34;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
+            pfVar2 = &local_88[1];
             local_34 = (float)(int)m_lastViewportHeight * (*pfVar2 * 0.5 + 0.5);
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
+            pfVar2 = &local_88[1];
             *pfVar2 = local_34;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
-            /* WARNING: Load size is inaccurate */
-            local_48._0_4_ = *(GUIManager**)pfVar2;
+            pfVar2 = &local_88[0];
+            local_48 = *pfVar2;
             local_34 = (float)(int)m_lastViewportHeight;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
+            pfVar2 = &local_88[1];
             local_34 = local_34 - *pfVar2;
-            local_88->Set(param_2, 1.0);
-            math::Vector4T<float>::operator*=(local_88, param_5);
-            math::Vector4T<float>::operator*=(local_88, param_4);
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 3);
-            (param_2)._0_4_ = *pfVar2;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
-            *pfVar2 = *pfVar2 / (param_2)._0_4_;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 3);
-            (param_2)._0_4_ = *pfVar2;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
-            *pfVar2 = *pfVar2 / (param_2)._0_4_;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 3);
-            (param_2)._0_4_ = *pfVar2;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 2);
-            *pfVar2 = *pfVar2 / (param_2)._0_4_;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
-            (param_2)._0_4_ = (float)(int)m_lastViewportWidth * (*pfVar2 * 0.5 + 0.5);
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
-            *pfVar2 = (param_2)._0_4_;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
-            (param_2)._0_4_ = (float)(int)m_lastViewportHeight * (*pfVar2 * 0.5 + 0.5);
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
-            *pfVar2 = (param_2)._0_4_;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 0);
-            (param_2)._0_4_ = *pfVar2;
-            local_48._4_4_ = (float)(int)m_lastViewportHeight;
-            pfVar2 = (float*)math::Vector4T<float>::operator[](local_88, 1);
-            fVar5 = local_48._4_4_ - *pfVar2;
-            if (((float)(GUIManager*)local_48 != (param_2)._0_4_) || (local_34 != fVar5)) {
-                if (param_9 != '\0') {
-                    local_48._4_4_ = fVar5;
-                    math::Point<float>::Point(local_78, (float)(GUIManager*)local_48, local_34);
-                    math::Point<float>::Point(local_70, (param_2)._0_4_, local_48._4_4_);
-                    math::Vector2T<int>::Vector2T(local_68);
-                    local_58 = math::operator-((Vector2T*)local_70, (Vector2T*)local_78);
-                    pVVar3 = (Vector2T*)local_58.Normalize();
-                    math::Vector2T<float>::operator=((Vector2T<float>*)local_68, pVVar3);
-                    local_34 = param_3 + -1.0;
-                    local_58 = math::operator*(local_34, (Vector2T*)local_68);
-                    math::Vector2T<float>::operator-=((Vector2T<float>*)local_78, (Vector2T*)&local_58);
-                    local_58 = math::operator*(local_34, (Vector2T*)local_68);
-                    pVVar3 = (Vector2T*)&local_58;
-                    math::Vector2T<float>::operator+=((Vector2T<float>*)local_70, pVVar3);
-                    pvVar4 = local_78->SSOBeginPtr(pVVar3);
-                    /* WARNING: Load size is inaccurate */
-                    local_48._0_4_ = *(GUIManager**)pvVar4;
-                    pfVar2 = (float*)local_78->y();
+            local_88.Set(vector32, 1.0);
+            local_88 *= matrix442;
+            local_88 *= matrix441;
+            pfVar2 = &local_88[3];
+            (vector32)._0_4_ = *pfVar2;
+            pfVar2 = &local_88[0];
+            *pfVar2 = *pfVar2 / (vector32)._0_4_;
+            pfVar2 = &local_88[3];
+            (vector32)._0_4_ = *pfVar2;
+            pfVar2 = &local_88[1];
+            *pfVar2 = *pfVar2 / (vector32)._0_4_;
+            pfVar2 = &local_88[3];
+            (vector32)._0_4_ = *pfVar2;
+            pfVar2 = &local_88[2];
+            *pfVar2 = *pfVar2 / (vector32)._0_4_;
+            pfVar2 = &local_88[0];
+            (vector32)._0_4_ = (float)(int)m_lastViewportWidth * (*pfVar2 * 0.5 + 0.5);
+            pfVar2 = &local_88[0];
+            *pfVar2 = (vector32)._0_4_;
+            pfVar2 = &local_88[1];
+            (vector32)._0_4_ = (float)(int)m_lastViewportHeight * (*pfVar2 * 0.5 + 0.5);
+            pfVar2 = &local_88[1];
+            *pfVar2 = (vector32)._0_4_;
+            pfVar2 = &local_88[0];
+            (vector32)._0_4_ = *pfVar2;
+            local_44 = (float)(int)m_lastViewportHeight;
+            pfVar2 = &local_88[1];
+            arg4 = local_44 - *pfVar2;
+            if ((local_48 != (vector32)._0_4_) || (local_34 != arg4)) {
+                if (arg8) {
+                    local_44 = arg4;
+                    local_78 = math::Point(local_48, local_34);
+                    local_70 = math::Point((vector32)._0_4_, local_44);
+                    local_68 = math::Vector2T();
+                    local_58 = (ReturnValue)local_70 - local_78;
+                    vector2 = local_58 = math::Vector2T<float>::Normalize();
+                    local_68 = *vector2;
+                    local_34 = arg3 - 1.0;
+                    local_58 = (ReturnValue)local_68 * *local_34;
+                    local_78 -= local_58;
+                    local_58 = (ReturnValue)local_68 * *local_34;
+                    local_70 += local_58;
+                    pfVar2 = (float*)local_78.SSOBeginPtr();
+                    local_48 = *pfVar2;
+                    pfVar2 = (float*)local_78.y();
                     local_34 = *pfVar2;
-                    pvVar4 = local_70->SSOBeginPtr(pVVar3);
-                    (param_2)._0_4_ = *(float*)pvVar4;
-                    pfVar2 = (float*)local_70->y();
-                    fVar5 = *pfVar2;
+                    pfVar2 = (float*)local_70.SSOBeginPtr();
+                    (vector32)._0_4_ = *pfVar2;
+                    pfVar2 = (float*)local_70.y();
+                    arg4 = *pfVar2;
                 }
-                AddGeneralLine((GUIManager*)local_48, local_34, (param_2)._0_4_, fVar5, param_3, this, param_6, param_8,
-                               0);
+                AddGeneralLine(local_48, local_34, (vector32)._0_4_, arg4, arg3, arg6, blendMode, false);
             }
         }
     }
 
-    // 0x1008f2110, 1408 bytes, placed by class name
-    // GUIManager::AddGeneralLine(float, float, float, float, float, unsigned int, GUIManager::BlendMode, bool)
-    void GUIManager::AddGeneralLine(float param_1, float param_2, float param_3, float param_4, float param_5,
-                                    GUIManager* this, int param_6, int param_8, char param_9) {
-        undefined1* this_00;
-        uint uVar1;
-        char cVar2;
+    // 0x1008f2110
+    void GUIManager::AddGeneralLine(float arg1, float arg2, float arg3, float arg4, float arg5, unsigned int arg6,
+                                    GUIManager::BlendMode blendMode, bool arg8) {
+        uint8_t* this_00;
+        unsigned int uVar1;
+        bool cVar2;
         int* piVar3;
         array<short, 2ul>* paVar4;
-        undefined2* puVar5;
-        Vector2T* pVVar6;
-        vector* pvVar7;
-        uint* puVar8;
-        undefined4* puVar9;
-        Vector2T<int>* pVVar10;
-        int iVar11;
-        float fVar12;
-        Point<float> local_88[8];
-        Point<float> local_80[8];
-        Vector2T<int> local_78[8];
-        undefined8 local_70;
+        uint16_t* puVar5;
+        ReturnValue* vector2;
+        uint32_t* puVar6;
+        unsigned int* puVar7;
+        int iVar8;
+        float fVar9;
+        Point<float> local_88;
+        Point<float> local_80;
+        Vector2T<int> local_78;
+        ReturnValue local_70;
         float local_68;
-        undefined4 uStack_64;
-        undefined4 uStack_60;
-        undefined4 uStack_5c;
-        int local_4c;
+        uint32_t uStack_64;
+        uint32_t uStack_60;
+        uint32_t uStack_5c;
         float local_48;
-        int local_44;
-        undefined8 local_40;
+        unsigned int local_44;
+        uint64_t local_40;
         float local_34;
 
-        if ((m_skipLineElements == '\0') && ((param_1 != param_3 || (param_2 != param_4)))) {
-            local_68 = param_1;
-            local_4c = param_8;
-            local_48 = param_2;
-            local_44 = param_6;
-            local_34 = param_5;
+        if ((m_skipLineElements == '\0') && ((arg1 != arg3 || (arg2 != arg4)))) {
+            local_68 = arg1;
+            local_48 = arg2;
+            local_44 = arg6;
+            local_34 = arg5;
             piVar3 = (int*)field_0->GetPixelBuffer();
-            if ((piVar3[2] == -1) || (((((fVar12 = (float)piVar3[2], local_68 <= fVar12 || (param_3 <= fVar12)) &&
-                                         (((float)*piVar3 <= local_68 || ((float)*piVar3 <= param_3)))) &&
-                                        ((local_48 <= (float)piVar3[3] || (param_4 <= (float)piVar3[3])))) &&
-                                       (((float)piVar3[1] <= local_48 || ((float)piVar3[1] <= param_4)))))) {
-                if (param_9 == '\0') {
-                    if ((field_76 == 2) && (((local_68 == param_3 || (local_48 == param_4)) && (local_34 == 1.0)))) {
-                        AddColouredRectangle(this, (int)local_68, (int)local_48, (int)((1.0 - local_68) + param_3),
-                                             (int)((1.0 - local_48) + param_4), local_44, param_8);
+            if ((piVar3[2] == -1) || (((((fVar9 = (float)piVar3[2], local_68 <= fVar9 || (arg3 <= fVar9)) &&
+                                         (((float)*piVar3 <= local_68 || ((float)*piVar3 <= arg3)))) &&
+                                        ((local_48 <= (float)piVar3[3] || (arg4 <= (float)piVar3[3])))) &&
+                                       (((float)piVar3[1] <= local_48 || ((float)piVar3[1] <= arg4)))))) {
+                if (!arg8) {
+                    if ((field_76 == 2) && (((local_68 == arg3 || (local_48 == arg4)) && (local_34 == 1.0)))) {
+                        AddColouredRectangle((int)local_68, (int)local_48, (int)((1.0 - local_68) + arg3),
+                                             (int)((1.0 - local_48) + arg4), local_44, blendMode);
                         return;
                     }
-                    cVar2 = IsStateChangeNeeded(this, &local_4c, 3, local_44, 0, 0, 0);
-                    if ((cVar2 != '\0') || (local_34 != 1.0)) {
-                        math::Point<float>::Point(local_88, local_68, local_48);
-                        math::Point<float>::Point(local_80, param_3, param_4);
-                        math::Vector2T<int>::Vector2T(local_78);
-                        local_70 = math::operator-((Vector2T*)local_80, (Vector2T*)local_88);
-                        pVVar6 = (Vector2T*)local_70.Normalize();
-                        local_40 = math::operator*(local_34, pVVar6);
-                        pVVar6 = (Vector2T*)&local_40;
-                        math::Vector2T<float>::operator=((Vector2T<float>*)local_78, pVVar6);
-                        pvVar7 = local_78->SSOBeginPtr(pVVar6);
-                        local_34 = *(float*)pvVar7;
-                        puVar8 = (uint*)local_78->y();
-                        local_68 = (float)(*puVar8 ^ 2147483648);
+                    cVar2 = IsStateChangeNeeded(blendMode, 3, local_44, nullptr, nullptr, false);
+                    if ((cVar2) || (local_34 != 1.0)) {
+                        local_88 = math::Point(local_68, local_48);
+                        local_80 = math::Point(arg3, arg4);
+                        local_78 = math::Vector2T();
+                        local_70 = (ReturnValue)local_80 - local_88;
+                        vector2 = local_70 = math::Vector2T<float>::Normalize();
+                        local_40 = *vector2 * *local_34;
+                        local_78 = local_40;
+                        puVar6 = (uint32_t*)local_78.SSOBeginPtr();
+                        local_34 = (float)*puVar6;
+                        puVar7 = (unsigned int*)local_78.y();
+                        local_68 = (float)(*puVar7 ^ 2147483648);
                         uStack_64 = 2147483648;
                         uStack_60 = 2147483648;
                         uStack_5c = 2147483648;
-                        pvVar7 = local_78->SSOBeginPtr(pVVar6);
-                        *(float*)pvVar7 = local_68;
-                        puVar9 = (undefined4*)local_78->y();
-                        *puVar9 = local_34;
-                        pVVar10 = local_78;
-                        local_40 = math::operator-((Vector2T*)local_88, (Vector2T*)local_78);
-                        pvVar7 = local_40.SSOBeginPtr(pVVar10);
-                        local_34 = *(float*)pvVar7;
+                        puVar7 = (unsigned int*)local_78.SSOBeginPtr();
+                        *puVar7 = (unsigned int)local_68;
+                        puVar6 = (uint32_t*)local_78.y();
+                        *puVar6 = local_34;
+                        local_40 = local_88 - local_78;
+                        puVar6 = (uint32_t*)local_40.SSOBeginPtr();
+                        local_34 = (float)*puVar6;
                         this_00 = &field_2200;
-                        puVar9 = (undefined4*)eastl::vector<float, eastl::allocator>::operator[](
-                            (vector<float, eastl::allocator>*)this_00, 0);
-                        *puVar9 = local_34;
-                        local_40 = math::operator-((Vector2T*)local_88, (Vector2T*)local_78);
-                        puVar9 = (undefined4*)local_40.y();
-                        local_34 = (float)*puVar9;
-                        puVar9 = (undefined4*)eastl::vector<float, eastl::allocator>::operator[](
-                            (vector<float, eastl::allocator>*)this_00, 1);
-                        *puVar9 = local_34;
-                        pVVar10 = local_78;
-                        local_40 = math::operator-((Vector2T*)local_80, (Vector2T*)local_78);
-                        pvVar7 = local_40.SSOBeginPtr(pVVar10);
-                        local_34 = *(float*)pvVar7;
-                        puVar9 = (undefined4*)eastl::vector<float, eastl::allocator>::operator[](
-                            (vector<float, eastl::allocator>*)this_00, 2);
-                        *puVar9 = local_34;
-                        local_40 = math::operator-((Vector2T*)local_80, (Vector2T*)local_78);
-                        puVar9 = (undefined4*)local_40.y();
-                        local_34 = (float)*puVar9;
-                        puVar9 = (undefined4*)eastl::vector<float, eastl::allocator>::operator[](
-                            (vector<float, eastl::allocator>*)this_00, 3);
-                        *puVar9 = local_34;
-                        pVVar10 = local_78;
-                        local_40 = math::operator+((Vector2T*)local_80, (Vector2T*)local_78);
-                        pvVar7 = local_40.SSOBeginPtr(pVVar10);
-                        local_34 = *(float*)pvVar7;
-                        puVar9 = (undefined4*)eastl::vector<float, eastl::allocator>::operator[](
-                            (vector<float, eastl::allocator>*)this_00, 4);
-                        *puVar9 = local_34;
-                        local_40 = math::operator+((Vector2T*)local_80, (Vector2T*)local_78);
-                        puVar9 = (undefined4*)local_40.y();
-                        local_34 = (float)*puVar9;
-                        puVar9 = (undefined4*)eastl::vector<float, eastl::allocator>::operator[](
-                            (vector<float, eastl::allocator>*)this_00, 5);
-                        *puVar9 = local_34;
-                        pVVar10 = local_78;
-                        local_40 = math::operator+((Vector2T*)local_88, (Vector2T*)local_78);
-                        pvVar7 = local_40.SSOBeginPtr(pVVar10);
-                        local_34 = *(float*)pvVar7;
-                        puVar9 = (undefined4*)eastl::vector<float, eastl::allocator>::operator[](
-                            (vector<float, eastl::allocator>*)this_00, 6);
-                        *puVar9 = local_34;
-                        local_40 = math::operator+((Vector2T*)local_88, (Vector2T*)local_78);
-                        puVar9 = (undefined4*)local_40.y();
-                        local_34 = (float)*puVar9;
-                        puVar9 = (undefined4*)eastl::vector<float, eastl::allocator>::operator[](
-                            (vector<float, eastl::allocator>*)this_00, 7);
-                        *puVar9 = local_34;
-                        AddTriangleListInner(this, this_00, &m_quadIndices, local_44, local_4c);
+                        puVar6 = (uint32_t*)(*this_00)[0];
+                        *puVar6 = local_34;
+                        local_40 = local_88 - local_78;
+                        puVar6 = (uint32_t*)local_40.y();
+                        local_34 = (float)*puVar6;
+                        puVar6 = (uint32_t*)(*this_00)[1];
+                        *puVar6 = local_34;
+                        local_40 = local_80 - local_78;
+                        puVar6 = (uint32_t*)local_40.SSOBeginPtr();
+                        local_34 = (float)*puVar6;
+                        puVar6 = (uint32_t*)(*this_00)[2];
+                        *puVar6 = local_34;
+                        local_40 = local_80 - local_78;
+                        puVar6 = (uint32_t*)local_40.y();
+                        local_34 = (float)*puVar6;
+                        puVar6 = (uint32_t*)(*this_00)[3];
+                        *puVar6 = local_34;
+                        local_40 = local_80 + local_78;
+                        puVar6 = (uint32_t*)local_40.SSOBeginPtr();
+                        local_34 = (float)*puVar6;
+                        puVar6 = (uint32_t*)(*this_00)[4];
+                        *puVar6 = local_34;
+                        local_40 = local_80 + local_78;
+                        puVar6 = (uint32_t*)local_40.y();
+                        local_34 = (float)*puVar6;
+                        puVar6 = (uint32_t*)(*this_00)[5];
+                        *puVar6 = local_34;
+                        local_40 = local_88 + local_78;
+                        puVar6 = (uint32_t*)local_40.SSOBeginPtr();
+                        local_34 = (float)*puVar6;
+                        puVar6 = (uint32_t*)(*this_00)[6];
+                        *puVar6 = local_34;
+                        local_40 = local_88 + local_78;
+                        puVar6 = (uint32_t*)local_40.y();
+                        local_34 = (float)*puVar6;
+                        puVar6 = (uint32_t*)(*this_00)[7];
+                        *puVar6 = local_34;
+                        AddTriangleListInner(*this_00, m_quadIndices, local_44, blendMode);
                         return;
                     }
                 }
                 if (local_34 != 1.0) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert(
                         "thickness == 1.f",
                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
@@ -3736,70 +3199,62 @@ namespace jag::graphics {
                         1471,
                         "Lines with a thickness that is not 1 cannot be rendered using native line rasterisation.");
                 }
-                if (((field_84 <= field_80) || (local_34 != *(float*)&field_112)) ||
-                    (cVar2 = IsStateChangeNeeded(this, &local_4c, 3, local_44, 0, 0, 0), cVar2 != '\0')) {
-                    Render(this, (SamplerState*)0);
-                    SetBatchMode(this, 3);
-                    *(float*)&field_112 = local_34;
-                    field_108 = local_4c;
+                if (((field_84 <= field_80) || (local_34 != field_112)) ||
+                    (cVar2 = IsStateChangeNeeded(blendMode, 3, local_44, nullptr, nullptr, false), cVar2)) {
+                    Render(nullptr);
+                    SetBatchMode(3);
+                    field_112 = local_34;
+                    field_108 = blendMode;
                 }
                 local_48 = (float)(int)m_lastViewportHeight - local_48;
-                local_34 = (float)(int)m_lastViewportHeight - param_4;
+                local_34 = (float)(int)m_lastViewportHeight - arg4;
                 DoByteReorder<EndianSwap, int>(&local_44);
                 uVar1 = field_1280;
                 field_1280 = uVar1 + 1;
-                paVar4 = (array<short, 2ul>*)Array<GUIManagerLineVertex, eastl::allocator>::operator[](
-                    (Array<GUIManagerLineVertex, eastl::allocator>*)&field_1256, (ulong)uVar1);
-                iVar11 = (int)local_68;
-                puVar5 = (undefined2*)std::array<short, 2ul>::operator[](paVar4, 0);
-                *puVar5 = (short)iVar11;
-                iVar11 = (int)local_48;
-                puVar5 = (undefined2*)std::array<short, 2ul>::operator[](paVar4, 1);
-                *puVar5 = (short)iVar11;
-                *(int*)(paVar4 + 4) = local_44;
+                paVar4 = &field_1256[(unsigned long)uVar1];
+                iVar8 = (int)local_68;
+                puVar5 = (uint16_t*)(*paVar4)[0];
+                *puVar5 = (short)iVar8;
+                iVar8 = (int)local_48;
+                puVar5 = (uint16_t*)(*paVar4)[1];
+                *puVar5 = (short)iVar8;
+                *(unsigned int*)(paVar4 + 4) = local_44;
                 uVar1 = field_1280;
                 field_1280 = uVar1 + 1;
-                paVar4 = (array<short, 2ul>*)Array<GUIManagerLineVertex, eastl::allocator>::operator[](
-                    (Array<GUIManagerLineVertex, eastl::allocator>*)&field_1256, (ulong)uVar1);
-                iVar11 = (int)param_3;
-                puVar5 = (undefined2*)std::array<short, 2ul>::operator[](paVar4, 0);
-                *puVar5 = (short)iVar11;
-                iVar11 = (int)local_34;
-                puVar5 = (undefined2*)std::array<short, 2ul>::operator[](paVar4, 1);
-                *puVar5 = (short)iVar11;
-                *(int*)(paVar4 + 4) = local_44;
+                paVar4 = &field_1256[(unsigned long)uVar1];
+                iVar8 = (int)arg3;
+                puVar5 = (uint16_t*)(*paVar4)[0];
+                *puVar5 = (short)iVar8;
+                iVar8 = (int)local_34;
+                puVar5 = (uint16_t*)(*paVar4)[1];
+                *puVar5 = (short)iVar8;
+                *(unsigned int*)(paVar4 + 4) = local_44;
                 field_80 = field_80 + 1;
             }
         }
     }
 
-    // 0x1008f2c20, 208 bytes, placed by class name
-    // GUIManager::OnEndFrame()
+    // 0x1008f2c20
     void GUIManager::OnEndFrame() {
-        char cVar1;
-        undefined8 in_RAX;
-        undefined4 uVar3;
-        undefined8 uVar2;
+        uint64_t in_RAX;
 
-        uVar3 = (undefined4)((ulong)in_RAX >> 32);
+        uint32_t uVar2 = (uint32_t)((unsigned long)in_RAX >> 32);
         if (field_80 != 0) {
-            uVar2 = logger::default_logger();
-            logger::Logger::Log(uVar2, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
-                                "runetek7/gui/GUIManager.cpp",
-                                1762, "GUIManager frame ended while %u elements are still waiting to be rendered",
-                                CONCAT44(uVar3, field_80));
+            (logger::default_logger())
+                ->Log(false, 3,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
+                      "GUIManager.cpp",
+                      1762, "GUIManager frame ended while %u elements are still waiting to be rendered",
+                      (((uint64_t)uVar2 << 32) | (uint32_t)field_80));
         }
-        field_120->OnEndFrame();
-        field_632->OnEndFrame();
-        field_1144->OnEndFrame();
-        field_1656->OnEndFrame();
-        ResetBatchState(this);
+        field_120.OnEndFrame();
+        field_632.OnEndFrame();
+        field_1144.OnEndFrame();
+        field_1656.OnEndFrame();
+        ResetBatchState();
         field_2256 = field_2252;
         field_2252 = 0;
-        cVar1 = (&field_40)->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (field_40.empty() == '\0') {
             LogAssert("m_drawCallStates.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/gui/"
                       "GUIManager.cpp",
@@ -3807,98 +3262,73 @@ namespace jag::graphics {
         }
     }
 
-    // 0x1008f2d60, 48 bytes, placed by class name
-    // GUIManager::RemoveCurrentTexture(render::Texture const*)
-    void GUIManager::RemoveCurrentTexture(Texture* param_1) {
-        if ((Texture*)field_88 == param_1) {
+    // 0x1008f2d60
+    void GUIManager::RemoveCurrentTexture(const render::Texture* texture) {
+        if (field_88 == texture) {
             if (field_80 != 0) {
-                Render(this, (SamplerState*)0);
+                Render(nullptr);
             }
-            field_88 = (Mixer*)0;
+            field_88 = nullptr;
         }
     }
 
-    // 0x1008f2d90, 48 bytes, placed by class name
-    // GUIManager::RemoveCurrentTextureMask(render::Texture const*)
-    void GUIManager::RemoveCurrentTextureMask(Texture* param_1) {
-        if (field_96 == param_1) {
+    // 0x1008f2d90
+    void GUIManager::RemoveCurrentTextureMask(const render::Texture* texture) {
+        if (field_96 == texture) {
             if (field_80 != 0) {
-                Render(this, (SamplerState*)0);
+                Render(nullptr);
             }
-            field_96 = (Texture*)0;
+            field_96 = nullptr;
         }
     }
 
-    // 0x1008f3490, 48 bytes, placed by class name
-    // GUIManager::SetProjectionOverride(int, int, unsigned int, unsigned int)
-    void GUIManager::SetProjectionOverride(int param_1, int param_2, uint param_3, uint param_4) {
-        m_projectionOverride = param_1;
-        field_2236 = param_2;
-        field_2240 = param_3;
-        field_2244 = param_4;
-        UpdateProjection(this, true);
+    // 0x1008f3490
+    void GUIManager::SetProjectionOverride(int arg1, int arg2, unsigned int arg3, unsigned int arg4) {
+        field_2232 = arg1;
+        field_2236 = arg2;
+        field_2240 = arg3;
+        field_2244 = arg4;
+        UpdateProjection(true);
     }
 
-    // 0x1008f34c0, 32 bytes, placed by class name
-    // GUIManager::ResetProjectionOverride()
+    // 0x1008f34c0
     void GUIManager::ResetProjectionOverride() {
-        m_projectionOverride = 4294967295;
+        field_2232 = 4294967295;
         field_2236 = 4294967295;
         field_2240 = 4294967295;
         field_2244 = 4294967295;
-        UpdateProjection(this, true);
+        UpdateProjection(true);
     }
 
-    // 0x100916e10, 160 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.91
-    void ___cxx_global_var_init_91() {
-        allocator local_40[8];
-        mach_header* local_38;
-        undefined8 uStack_30;
-        undefined8 local_28;
-        long local_20;
-
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_28 = 12884901890;
-        local_38 = &__mh_execute_header;
-        uStack_30 = 2;
-        eastl::allocator::allocator(local_40, "EASTL vector");
-        new (&GUIManager::m_quadIndices) eastl::vector<int, eastl::allocator>(&local_38, 6, local_40);
+    // 0x100916e10
+    void ___cxx_global_var_init_91(void) {
+        uint64_t local_28 = 12884901890;
+        mach_header* local_38 = &__mh_execute_header;
+        uint64_t uStack_30 = 2;
+        new ((vector<int>*)&GUIManager::m_quadIndices) eastl::vector<int>(&local_38, *6);
         ___cxa_atexit(PTR__vector_100ee6d78, &GUIManager::m_quadIndices, 4294967296);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
 } // namespace jag::graphics
 
-// 0x1008f0b40, 16 bytes, placed by neighbouring functions
-// abs(float)
-ulong abs(float param_1) {
-    undefined4 in_XMM0_Db;
+// 0x1008f0b40
+unsigned long abs(float arg1) {
+    uint32_t in_XMM0_Db;
 
-    return CONCAT44(in_XMM0_Db, param_1) & 9223372034707292159;
+    return (((uint64_t)in_XMM0_Db << 32) | (uint32_t)arg1) & 9223372034707292159;
 }
 
-// 0x1008f0b50, 16 bytes, placed by neighbouring functions
-// ceil(float)
-void ceil(float param_1) {
+// 0x1008f0b50
+void ceil(float arg1) {
     _ceilf();
 }
 
 namespace jag {
-    // 0x1008e5780, 64 bytes, inline, placed by debug map only (low confidence)
-    // bool FromString<StringView, unsigned int>(StringView const&, unsigned int&, int)
-    bool FromString<StringView, unsigned int>(StringView* param_1, uint* param_2, int param_3) {
-        int in_ECX;
-        StringView SVar2;
-        StringView local_30;
+    // 0x1008e5780
+    bool FromString<StringView, unsigned int>(const StringView& stringView, unsigned int& arg2, int arg3) {
 
-        new (&local_30) StringView(param_1);
-        SVar2.field_8 = (uchar*)param_2;
-        SVar2.field_0 = (ulong)&local_30;
-        return (bool)FromText(SVar2, (uint*)(ulong)(uint)param_3, in_ECX);
+        StringView local_30(stringView);
+        return (bool)FromText(&local_30, arg2, arg3);
     }
 
 } // namespace jag

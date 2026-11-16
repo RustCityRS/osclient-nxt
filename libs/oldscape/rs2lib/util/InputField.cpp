@@ -1,21 +1,16 @@
 // libs/oldscape/rs2lib/util/InputField.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "InputField.h"
 
 namespace jag::oldscape::rs2lib {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    InputField::GetContents() const;
+    // 0x100009ca0: InputField::GetContents() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x1001fc6f0, 272 bytes, base-object constructor, placed by class name and debug map
-    // InputField::InputField()
-    void InputField::InputField() {
-        new (this) jag::graphics::TextRun();
-        new (m_placeholderContents) jag::graphics::TextRun();
+    // 0x1001fc6f0
+    InputField::InputField() : jag::graphics::TextRun() {
         m_hasFocus = '\0';
-        m_focusAllowed = true;
+        field_161 = true;
         field_162 = 0;
         field_163 = 0;
         field_168 = 0;
@@ -26,144 +21,119 @@ namespace jag::oldscape::rs2lib {
         m_filter = 0;
         m_caretIndex = 0;
         m_pSelectionStart = 0;
-        *(undefined8*)((long)&m_pSelectionStart + 4) = 0;
-        *(undefined8*)((long)&field_216 + 4) = 0;
+        *(uint64_t*)((long)&m_pSelectionStart + 4) = 0;
+        *(uint64_t*)((long)&field_216 + 4) = 0;
         field_228 = 4294967295;
         m_characterLimit = 4294967295;
         field_240 = 0;
         field_244 = 0;
         m_scrollX = 0;
         field_252 = 0;
-        std::function<void()>::function((_func_decltype_nullptr*)&field_256);
-        std::function<void()>::function((_func_decltype_nullptr*)&field_304);
         SetWrapMode(1);
-        (m_placeholderContents, 1)->SetWrapMode();
+        m_placeholderContents->SetWrapMode(1);
     }
 
-    // 0x1001fc830, 16 bytes, complete-object constructor, placed by class name
-    // InputField::InputField(): jumps straight to the base-object constructor
-
-    // 0x1001fc840, 144 bytes, placed by class name
-    // InputField::MainLogic()
+    // 0x1001fc840
     void InputField::MainLogic() {
-        int iVar1;
-        int iVar2;
-
         if (field_162 != '\0') {
             if (field_163 == '\0') {
                 field_163 = 1;
             } else {
                 field_162 = 0;
                 field_163 = 0;
-                MouseHoldRelease(this);
+                MouseHoldRelease();
             }
         }
-        iVar1 = field_176;
-        iVar2 = (int)((ulong)((long)(iVar1 + 1) * -2004318071) >> 32) + iVar1 + 1;
+        int iVar1 = field_176;
+        int iVar2 = (int)((unsigned long)((long)(iVar1 + 1) * -2004318071) >> 32) + iVar1 + 1;
         field_176 = iVar1 + ((iVar2 >> 5) - (iVar2 >> 31)) * -60 + 1;
         if (0 < field_224) {
-            field_224 = field_224 + -1;
+            field_224 = field_224 - 1;
         }
     }
 
-    // 0x1001fc8d0, 48 bytes, placed by class name
-    // InputField::MouseHoldRelease()
+    // 0x1001fc8d0
     void InputField::MouseHoldRelease() {
-        ulonglong uVar1;
-
-        uVar1 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this);
+        unsigned long long uVar1 = SystemTimer::GetTimeMS<std::chrono::steady_clock>();
         if (332 < uVar1 - field_168) {
-            ShowEditMenu((InputField*)this);
+            ShowEditMenu();
         }
     }
 
-    // 0x1001fc900, 240 bytes, placed by class name
-    // InputField::SetFocus(bool)
-    bool InputField::SetFocus(bool param_1) {
-        char cVar1;
-        BaseApp* this_00;
-        undefined7 in_register_00000031;
+    // 0x1001fc900
+    bool InputField::SetFocus(bool arg1) {
+        uint64_t in_register_00000031;
         char cVar2;
         __0 local_e0;
-        function local_d8;
+        function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[160];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((int)CONCAT71(in_register_00000031, param_1) == 0) {
+        if ((int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) == 0) {
             cVar2 = '\0';
         } else {
-            cVar2 = m_focusAllowed;
+            cVar2 = field_161;
         }
-        cVar1 = m_hasFocus;
+        bool cVar1 = m_hasFocus;
         m_hasFocus = cVar2;
-        this_00 = (BaseApp*)BaseApp::GetAppInstance();
-        if (this_00 != (BaseApp*)0) {
+        auto this_00 = BaseApp::GetAppInstance();
+        if (this_00 != nullptr) {
             local_e0.field_0 = this;
             fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                InputField::SetFocus(bool)::__0, void>(
-                (function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, &local_e0);
-            this_00->QueueMainThreadEvent(&local_d8);
-            fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                InputField::SetFocus(bool)::__0, void>(local_d8, &local_e0);
+            this_00->QueueMainThreadEvent(*local_d8);
         }
         if (m_hasFocus == '\0') {
-            SetSelection(this, m_caretIndex, m_caretIndex);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            SetSelection(m_caretIndex, m_caretIndex);
         }
         return cVar1 != cVar2;
     }
 
-    // 0x1001fca00, 208 bytes, placed by class name
-    // InputField::SetSelection(unsigned long, unsigned long)
-    ulong InputField::SetSelection(ulong param_1, ulong param_2) {
-        ulong uVar3;
-        undefined8 unaff_R12;
-        undefined7 uVar4;
+    // 0x1001fca00
+    unsigned long InputField::SetSelection(unsigned long arg1, unsigned long arg2) {
+        unsigned long uVar2;
+        uint64_t unaff_R12;
+        uint64_t uVar3;
 
-        if (Is64BitOS() == '\0') {
-            m_pSelectionStart = param_1;
-            m_caretIndex = param_2;
-            uVar3 = 0;
+        if (!(Is64BitOS())) {
+            m_pSelectionStart = arg1;
+            m_caretIndex = arg2;
+            uVar2 = 0;
         } else {
-            uVar3 = GetCodepointCount();
-            if (uVar3 < param_1) {
-                param_1 = GetCodepointCount();
+            uVar2 = GetCodepointCount();
+            if (uVar2 < arg1) {
+                arg1 = GetCodepointCount();
             }
-            uVar3 = GetCodepointCount();
-            if (uVar3 < param_2) {
-                param_2 = GetCodepointCount();
+            uVar2 = GetCodepointCount();
+            if (uVar2 < arg2) {
+                arg2 = GetCodepointCount();
             }
-            uVar4 = (undefined7)((ulong)unaff_R12 >> 8);
-            uVar3 = CONCAT71(uVar4, 1);
-            if (m_pSelectionStart == param_1) {
-                uVar3 = CONCAT71(uVar4, m_caretIndex != param_2);
+            uVar3 = (uint64_t)((unsigned long)unaff_R12 >> 8);
+            uVar2 = (((uint64_t)uVar3 << 8) | (uint8_t)1);
+            if (m_pSelectionStart == arg1) {
+                uVar2 = (((uint64_t)uVar3 << 8) | (uint8_t)(m_caretIndex != arg2));
             }
-            m_pSelectionStart = param_1;
-            if (m_caretIndex != param_2) {
-                m_caretIndex = param_2;
+            m_pSelectionStart = arg1;
+            if (m_caretIndex != arg2) {
+                m_caretIndex = arg2;
                 field_176 = 0;
-                UpdateScrollCaretVisible(this);
+                UpdateScrollCaretVisible();
             }
-            if ((char)uVar3 != '\0') {
+            if ((char)uVar2 != '\0') {
                 if ((&field_304)->operator_cast_to_bool()) {
                     std::function<void()>::operator()((function<void()>*)&field_304);
                 }
             }
         }
-        return uVar3 & 4294967295;
+        return uVar2 & 4294967295;
     }
 
-    // 0x1001fcad0, 48 bytes, placed by class name
-    // InputField::SetFocusAllowed(bool)
-    void InputField::SetFocusAllowed(bool param_1) {
+    // 0x1001fcad0
+    void InputField::SetFocusAllowed(bool arg1) {
         char cVar1;
-        undefined3 in_register_00000031;
+        uint32_t in_register_00000031;
 
-        m_focusAllowed = param_1;
-        if (CONCAT31(in_register_00000031, param_1) == 0) {
+        field_161 = arg1;
+        if ((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1) == 0) {
             cVar1 = '\0';
         } else {
             cVar1 = m_hasFocus;
@@ -171,625 +141,527 @@ namespace jag::oldscape::rs2lib {
         m_hasFocus = cVar1;
     }
 
-    // 0x1001fcb00, 272 bytes, placed by class name
-    // InputField::SetText(eastl::string)
-    ulong InputField::SetText(eastl::string* param_2) {
-        int iVar1;
-        ulong uVar2;
-        char* pcVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        char* pcVar6;
-        basic_string local_40[24];
+    // 0x1001fcb00
+    unsigned long InputField::SetText(eastl::string str) {
+        char* pcVar4;
 
-        eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
+        basic_string<char, BucketAllocatorEASTL> local_40;
         ConvertToUTF8(local_40);
-        uVar2 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        iVar1 = local_40->compare(0, uVar2, pcVar3);
+        unsigned long uVar2 = str->size();
+        char* pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        int iVar1 = eastl::basic_string<char, BucketAllocatorEASTL>::compare(&local_40, 0, uVar2, pcVar3);
         if (iVar1 != 0) {
-            uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::end();
-            pcVar3 = eastl::remove_if<char*, (eastl::string)->SetText()::__1>(uVar4, uVar5, this);
-            pcVar6 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
-            eastl::string::erase(param_2, pcVar3, pcVar6);
             pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar2 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+            pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+            pcVar3 = eastl::remove_if<char*, (eastl::string)->SetText()::__1>(pcVar3, pcVar4, (__1*)this);
+            pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+            str->erase(pcVar3, pcVar4);
+            pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            uVar2 = str->size();
             Set(pcVar3, uVar2);
-            SetScroll(this, m_scrollX, field_252);
-            CropToLimits(this);
-            OnTextChanged(this);
+            SetScroll(m_scrollX, field_252);
+            CropToLimits();
+            OnTextChanged();
         }
-        local_40->~basic_string();
-        return CONCAT71((int7)((ulong)param_2 >> 8), iVar1 != 0) & 4294967295;
+        return iVar1 != 0 & 4294967295;
     }
 
-    // 0x1001fcc90, 224 bytes, placed by class name
-    // InputField::SetScroll(int, int)
-    undefined8 InputField::SetScroll(int param_1, int param_2) {
-        uint uVar1;
+    // 0x1001fcc90
+    uint64_t InputField::SetScroll(int arg1, int arg2) {
+        int iVar1;
         int iVar2;
         int iVar4;
-        undefined4 extraout_var;
-        undefined8 uVar6;
+        uint32_t extraout_var;
+        uint64_t uVar5;
         int local_34;
         int local_30;
-        uint local_2c;
         int local_28[2];
 
-        local_2c = param_1;
-        local_28[0] = param_2;
+        local_28[0] = arg2;
         if (Is64BitOS() == '\0') {
-            m_scrollX = local_2c;
+            m_scrollX = arg1;
             field_252 = local_28[0];
-            uVar6 = 0;
+            uVar5 = 0;
         } else {
-            uVar1 = m_scrollX;
+            iVar1 = m_scrollX;
             iVar2 = field_252;
             iVar4 = GetWidth();
             local_34 = eastl::max<int>(0, (iVar4 - field_240) + 2);
             iVar4 = GetHeight();
             local_30 = eastl::max<int>(0, (iVar4 - field_244) + 1);
             local_28[1] = 0;
-            m_scrollX = jag::math::Clamp<int>((int*)&local_2c, local_28 + 1, &local_34);
+            iVar4 = jag::math::Clamp<int>(arg1, *(local_28 + 1), local_34);
+            m_scrollX = iVar4;
             local_28[1] = 0;
-            iVar4 = jag::math::Clamp<int>(local_28, local_28 + 1, &local_30);
+            iVar4 = jag::math::Clamp<int>(*local_28, *(local_28 + 1), local_30);
             field_252 = iVar4;
-            uVar6 = CONCAT71((int7)(CONCAT44(extraout_var, iVar4) >> 8), iVar2 != iVar4 || uVar1 != m_scrollX);
+            uVar5 = (((uint64_t)((int64_t)((((uint64_t)extraout_var << 32) | (uint32_t)iVar4) >> 8)) << 8) |
+                     (uint8_t)(iVar2 != iVar4 || iVar1 != m_scrollX));
         }
-        return uVar6;
+        return uVar5;
     }
 
-    // 0x1001fcd70, 288 bytes, placed by class name
-    // InputField::CropToLimits()
-    ulong InputField::CropToLimits() {
-        uint uVar2;
+    // 0x1001fcd70
+    unsigned long InputField::CropToLimits() {
+        unsigned int uVar2;
         int iVar3;
-        ulong uVar4;
+        unsigned long uVar4;
         long lVar5;
-        char* pcVar6;
-        ulong uVar7;
-        undefined8 unaff_R14;
-        ulong uVar8;
-        ulong uVar9;
-        basic_string local_40[24];
+        unsigned long uVar6;
+        uint64_t unaff_R14;
+        unsigned long uVar7;
+        unsigned long uVar8;
+        basic_string<char, BucketAllocatorEASTL> local_40;
 
         if (Is64BitOS() == '\0') {
-            uVar8 = 0;
+            uVar7 = 0;
         } else {
             uVar4 = GetCodepointCount();
-            uVar9 = m_characterLimit;
-            uVar8 = CONCAT71((int7)((ulong)unaff_R14 >> 8), uVar9 < uVar4);
-            if (uVar9 < uVar4) {
+            uVar8 = m_characterLimit;
+            uVar7 = (((uint64_t)((int64_t)((unsigned long)unaff_R14 >> 8)) << 8) | (uint8_t)(uVar8 < uVar4));
+            if (uVar8 < uVar4) {
                 uVar4 = GetCodepointCount();
-                Remove(uVar9, uVar4);
+                Remove(uVar8, uVar4);
             }
             uVar2 = GetAlphaTestThreshold();
             iVar3 = GetNumLines();
             if ((int)(uVar2 & 255) < iVar3) {
                 lVar5 = GetIndexAtLineOffset(0, uVar2 & 255);
-                eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
+                local_40 = eastl::basic_string<char, BucketAllocatorEASTL>();
                 ConvertToUTF8(local_40);
-                pcVar6 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                Set(pcVar6, lVar5 - 1U);
-                local_40->~basic_string();
-                uVar8 = CONCAT71((int7)(lVar5 - 1U >> 8), 1);
+                Set((char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin(), lVar5 - 1U);
+                uVar7 = (((uint64_t)((int64_t)(lVar5 - 1U >> 8)) << 8) | (uint8_t)1);
             }
-            if ((char)uVar8 != '\0') {
-                uVar9 = m_caretIndex;
+            if ((char)uVar7 != '\0') {
+                uVar8 = m_caretIndex;
                 uVar4 = m_pSelectionStart;
-                uVar7 = GetCodepointCount();
-                if (uVar7 < m_caretIndex) {
-                    uVar9 = uVar7;
+                uVar6 = GetCodepointCount();
+                if (uVar6 < m_caretIndex) {
+                    uVar8 = uVar6;
                 }
-                if (uVar7 < m_pSelectionStart) {
-                    uVar4 = uVar7;
+                if (uVar6 < m_pSelectionStart) {
+                    uVar4 = uVar6;
                 }
-                SetSelection(this, uVar4, uVar9);
+                SetSelection(uVar4, uVar8);
             }
         }
-        return uVar8 & 4294967295;
+        return uVar7 & 4294967295;
     }
 
-    // 0x1001fce90, 48 bytes, placed by class name
-    // InputField::OnTextChanged()
+    // 0x1001fce90
     void InputField::OnTextChanged() {
-        if ((&field_256)->operator_cast_to_bool()) {
+        if ((&field_256)->operator_cast_to_bool() != '\0') {
             std::function<void()>::operator()((function<void()>*)&field_256);
         }
     }
 
-    // 0x1001fcec0, 80 bytes, placed by class name
-    // InputField::SetPlaceholderText(eastl::string const&)
-    undefined1 InputField::SetPlaceholderText(basic_string* param_1) {
-        char* pcVar1;
-        ulong uVar2;
-
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        uVar2 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        ((param_1 + 80))->Set(pcVar1, uVar2);
+    // 0x1001fcec0
+    uint8_t InputField::SetPlaceholderText(const eastl::string& str) {
+        char* str_00 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        unsigned long arg2 = str.size();
+        m_placeholderContents->Set(str_00, arg2);
         return 1;
     }
 
-    // 0x1001fcf10, 208 bytes, placed by class name
-    // InputField::SetFont(jstring::PixfontGeneric const&)
-    ulong InputField::SetFont(PixfontGeneric* param_1) {
-        byte bVar1;
-        byte bVar2;
-        byte bVar3;
-        undefined8 unaff_R14;
-        undefined7 uVar6;
-        ulong uVar5;
-        OldScapeFontMetricConverter local_38;
+    // 0x1001fcf10
+    unsigned long InputField::SetFont(const jstring::PixfontGeneric& pixfontGeneric) {
+        uint64_t unaff_R14;
+        unsigned long uVar5;
 
-        bVar1 = m_hasFont;
-        uVar6 = (undefined7)((ulong)unaff_R14 >> 8);
-        local_38.Convert(0, param_1);
-        SetFontMetrics((shared_ptr*)&local_38);
-        (m_placeholderContents, (shared_ptr*)&local_38)->SetFontMetrics();
+        uint8_t bVar1 = m_hasFont;
+        uint64_t uVar6 = (uint64_t)((unsigned long)unaff_R14 >> 8);
+        auto local_38 = OldScapeFontMetricConverter::Convert(0, pixfontGeneric);
+        SetFontMetrics(local_38);
+        m_placeholderContents->SetFontMetrics(local_38);
         m_hasFont = 1;
-        bVar2 = SetScroll(this, m_scrollX, field_252);
-        bVar3 = SetSelection(this, m_pSelectionStart, m_caretIndex);
-        if (CropToLimits(this) == '\0') {
-            uVar5 = CONCAT71(uVar6, bVar1 ^ 1 | bVar2 | bVar3);
+        uint8_t bVar2 = SetScroll(m_scrollX, field_252);
+        uint8_t bVar3 = SetSelection(m_pSelectionStart, m_caretIndex);
+        if (CropToLimits() == '\0') {
+            uVar5 = (((uint64_t)uVar6 << 8) | (uint8_t)(bVar1 ^ 1 | bVar2 | bVar3));
         } else {
-            uVar5 = CONCAT71(uVar6, 1);
-            OnTextChanged(this);
+            uVar5 = (((uint64_t)uVar6 << 8) | (uint8_t)1);
+            OnTextChanged();
         }
-        local_38.~shared_ptr();
         return uVar5 & 4294967295;
     }
 
-    // 0x1001fcfe0, 80 bytes, placed by class name
-    // InputField::SetSize(int, int)
-    byte InputField::SetSize(int param_1, int param_2) {
-        bool bVar2;
-
-        bVar2 = true;
-        if (field_240 == param_1) {
-            bVar2 = field_244 != param_2;
+    // 0x1001fcfe0
+    uint8_t InputField::SetSize(int arg1, int arg2) {
+        bool bVar2 = true;
+        if (field_240 == arg1) {
+            bVar2 = field_244 != arg2;
         }
-        field_240 = param_1;
-        field_244 = param_2;
-        return SetScroll(this, m_scrollX, field_252) | bVar2;
+        field_240 = arg1;
+        field_244 = arg2;
+        return SetScroll(m_scrollX, field_252) | bVar2;
     }
 
-    // 0x1001fd030, 96 bytes, placed by class name
-    // InputField::SetMaxLineWidth(int)
-    ulong InputField::SetMaxLineWidth(int param_1) {
-        int iVar2;
-        int iVar3;
-        undefined8 unaff_R14;
-        undefined7 uVar5;
-        ulong uVar4;
+    // 0x1001fd030
+    unsigned long InputField::SetMaxLineWidth(int arg1) {
+        uint64_t unaff_R14;
 
-        iVar3 = 2147483647;
-        if ((uint)param_1 < 2147483647) {
-            iVar3 = param_1;
+        int arg1_00 = 2147483647;
+        if ((unsigned int)arg1 < 2147483647) {
+            arg1_00 = arg1;
         }
-        iVar2 = GetMaxLineWidth();
-        uVar5 = (undefined7)((ulong)unaff_R14 >> 8);
-        uVar4 = CONCAT71(uVar5, iVar3 == iVar2);
-        SetMaxLineWidth(iVar3);
-        (m_placeholderContents, iVar3)->SetMaxLineWidth();
-        if (CropToLimits(this) != '\0') {
-            OnTextChanged(this);
-            uVar4 = CONCAT71(uVar5, 1);
+        int iVar2 = GetMaxLineWidth();
+        uint64_t uVar4 = (uint64_t)((unsigned long)unaff_R14 >> 8);
+        unsigned long uVar3 = (((uint64_t)uVar4 << 8) | (uint8_t)(arg1_00 == iVar2));
+        SetMaxLineWidth(arg1_00);
+        m_placeholderContents->SetMaxLineWidth(arg1_00);
+        if (CropToLimits() != '\0') {
+            OnTextChanged();
+            uVar3 = (((uint64_t)uVar4 << 8) | (uint8_t)1);
         }
-        return uVar4 & 4294967295;
+        return uVar3 & 4294967295;
     }
 
-    // 0x1001fd090, 48 bytes, placed by class name
-    // InputField::SetMaxLineCount(unsigned char)
-    undefined4 InputField::SetMaxLineCount(uchar param_1) {
-        undefined4 uVar1;
-
-        SetMaxLineCount(param_1);
-        uVar1 = CropToLimits(this);
+    // 0x1001fd090
+    uint32_t InputField::SetMaxLineCount(unsigned char arg1) {
+        SetMaxLineCount(arg1);
+        uint32_t uVar1 = CropToLimits();
         if ((char)uVar1 != '\0') {
-            OnTextChanged(this);
+            OnTextChanged();
         }
         return uVar1;
     }
 
-    // 0x1001fd0c0, 48 bytes, placed by class name
-    // InputField::SetCharacterLimit(unsigned long)
-    undefined4 InputField::SetCharacterLimit(ulong param_1) {
-        undefined4 uVar1;
-
-        m_characterLimit = param_1;
-        uVar1 = CropToLimits(this);
+    // 0x1001fd0c0
+    uint32_t InputField::SetCharacterLimit(unsigned long arg1) {
+        m_characterLimit = arg1;
+        uint32_t uVar1 = CropToLimits();
         if ((char)uVar1 != '\0') {
-            OnTextChanged(this);
+            OnTextChanged();
         }
         return uVar1;
     }
 
-    // 0x1001fd0f0, 176 bytes, placed by class name
-    // InputField::SetAlignment(int, int)
-    undefined4 InputField::SetAlignment(int param_1, int param_2) {
-        undefined8 in_RAX;
-        undefined8 uVar1;
-        undefined4 uVar2;
-        undefined4 uVar4;
-        undefined8 uVar3;
+    // 0x1001fd0f0
+    uint32_t InputField::SetAlignment(int arg1, int arg2) {
+        uint64_t in_RAX;
+        Logger* pLVar1;
+        uint32_t uVar2;
+        uint64_t uVar3;
 
-        uVar4 = (undefined4)((ulong)in_RAX >> 32);
-        if (2 < (uint)param_1) {
-            uVar1 = logger::default_logger();
-            uVar3 = CONCAT44(uVar4, param_1);
-            logger::Logger::Log(uVar1, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "util/InputField.cpp",
-                                200, "InputField::SetAlignment: Invalid horizontal alignment. Given value: \'%d\'",
-                                uVar3);
-            uVar4 = (undefined4)((ulong)uVar3 >> 32);
+        uint32_t uVar4 = (uint32_t)((unsigned long)in_RAX >> 32);
+        if (2 < (unsigned int)arg1) {
+            pLVar1 = logger::default_logger();
+            uVar3 = (((uint64_t)uVar4 << 32) | (uint32_t)arg1);
+            pLVar1->Log(false, 2,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/util/"
+                        "InputField.cpp",
+                        200, "InputField::SetAlignment: Invalid horizontal alignment. Given value: \'%d\'", uVar3);
+            uVar4 = (uint32_t)((unsigned long)uVar3 >> 32);
         }
-        if ((uint)param_2 < 3) {
-            if ((uint)param_1 < 3) {
-                uVar2 = SetAlignment(param_1, param_2);
+        if ((unsigned int)arg2 < 3) {
+            if ((unsigned int)arg1 < 3) {
+                uVar2 = SetAlignment(arg1, arg2);
             } else {
                 uVar2 = 0;
             }
         } else {
-            uVar1 = logger::default_logger();
+            pLVar1 = logger::default_logger();
             uVar2 = 0;
-            logger::Logger::Log(uVar1, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "util/InputField.cpp",
-                                207, "InputField::SetAlignment: Invalid vertical alignment. Given value: \'%d\'",
-                                CONCAT44(uVar4, param_2));
+            pLVar1->Log(false, 2,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/util/"
+                        "InputField.cpp",
+                        207, "InputField::SetAlignment: Invalid vertical alignment. Given value: \'%d\'",
+                        (((uint64_t)uVar4 << 32) | (uint32_t)arg2));
         }
         return uVar2;
     }
 
-    // 0x1001fd1a0, 272 bytes, placed by class name
-    // InputField::SetInputFilter(InputFieldFilter)
-    ulong InputField::SetInputFilter(uint param_2) {
-        long lVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        char* pcVar4;
-        char* pcVar5;
-        long lVar6;
-        ulong uVar7;
-        basic_string local_48[24];
+    // 0x1001fd1a0
+    unsigned long InputField::SetInputFilter(InputFieldFilter inputFieldFilter) {
+        unsigned long arg2;
 
-        m_filter = param_2;
-        eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
+        m_filter = inputFieldFilter;
+        basic_string<char, BucketAllocatorEASTL> local_48;
         ConvertToUTF8(local_48);
-        lVar1 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::end();
-        pcVar4 = eastl::remove_if<char*, (InputFieldFilter)->SetInputFilter()::__2>(uVar2, uVar3, this);
-        pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
-        local_48->erase(pcVar4, pcVar5);
-        lVar6 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        if (lVar6 != lVar1) {
-            pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar7 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            Set(pcVar4, uVar7);
-            SetScroll(this, m_scrollX, field_252);
-            CropToLimits(this);
-            OnTextChanged(this);
+        long lVar1 = local_48.size();
+        char* pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        char* pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+        pcVar2 = eastl::remove_if<char*, (InputFieldFilter)->SetInputFilter()::__2>(pcVar2, pcVar3, (__2*)this);
+        pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+        local_48.erase(pcVar2, pcVar3);
+        long lVar4 = local_48.size();
+        if (lVar4 != lVar1) {
+            pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            arg2 = local_48.size();
+            Set(pcVar2, arg2);
+            SetScroll(m_scrollX, field_252);
+            CropToLimits();
+            OnTextChanged();
         }
-        local_48->~basic_string();
-        return CONCAT71((int7)((ulong)pcVar4 >> 8), lVar6 != lVar1) & 4294967295;
+        return lVar4 != lVar1 & 4294967295;
     }
 
-    // 0x1001fd2f0, 352 bytes, placed by class name
-    // InputField::UpdateScrollCaretVisible()
+    // 0x1001fd2f0
     void InputField::UpdateScrollCaretVisible() {
-        int iVar1;
-        int iVar2;
         int iVar3;
-        undefined8 uVar4;
-        vector* pvVar5;
-        int* piVar6;
-        type* ptVar7;
-        uint uVar8;
-        undefined1 local_78[32];
-        GridRect local_58;
-        int local_44;
-        Layout local_40[16];
+        int iVar4;
 
-        local_78->Slice((ulong)this, 0);
-        uVar4 = local_78->GetLastCursorPosition();
-        iVar1 = GetLineHeight();
-        new (local_40) dash3d::GridRect((int)uVar4 + -10, (int)((ulong)uVar4 >> 32) + -3, 20, iVar1 + 6);
-        ptVar7 = (type*)(ulong)m_scrollX;
-        new (&local_58) dash3d::GridRect(m_scrollX, field_252, field_240, field_244);
-        uVar8 = m_scrollX;
-        local_44 = field_252;
-        pvVar5 = eastl::string::Layout::SSOBeginPtr(local_40, ptVar7);
-        iVar1 = *(int*)pvVar5;
-        pvVar5 = local_58.SSOBeginPtr(ptVar7);
-        if (iVar1 < *(int*)pvVar5) {
-            pvVar5 = eastl::string::Layout::SSOBeginPtr(local_40, ptVar7);
-            uVar8 = *(uint*)pvVar5;
+        uint64_t uVar5 = (Slice(0, m_caretIndex)).GetLastCursorPosition();
+        int iVar1 = GetLineHeight();
+        Layout local_40((int)uVar5 - 10, (int)((unsigned long)uVar5 >> 32) - 3, 20, iVar1 + 6);
+        GridRect local_58(m_scrollX, field_252, field_240, field_244);
+        int iVar2 = m_scrollX;
+        int local_44 = field_252;
+        auto piVar6 = local_40.SSOBeginPtr();
+        iVar1 = *piVar6;
+        piVar6 = (int*)local_58.SSOBeginPtr();
+        if (iVar1 < *piVar6) {
+            piVar6 = (int*)local_40.SSOBeginPtr();
+            iVar2 = *piVar6;
         } else {
-            iVar1 = local_40->Right();
-            iVar2 = local_58.Right();
-            if (iVar2 < iVar1) {
-                iVar1 = local_40->Right();
-                uVar8 = iVar1 - field_240;
+            iVar1 = local_40.Right();
+            iVar3 = local_58.Right();
+            if (iVar3 < iVar1) {
+                iVar2 = local_40.Right();
+                iVar2 = iVar2 - field_240;
             }
         }
-        piVar6 = (int*)local_40->y();
+        piVar6 = (int*)local_40.y();
         iVar1 = *piVar6;
         piVar6 = (int*)local_58.y();
         if (iVar1 < *piVar6) {
-            piVar6 = (int*)local_40->y();
+            piVar6 = (int*)local_40.y();
             iVar1 = *piVar6;
         } else {
-            iVar2 = local_40->MaxZ();
-            iVar3 = local_58.MaxZ();
+            iVar3 = local_40.MaxZ();
+            iVar4 = local_58.MaxZ();
             iVar1 = local_44;
-            if (iVar3 < iVar2) {
-                iVar1 = local_40->MaxZ();
+            if (iVar4 < iVar3) {
+                iVar1 = local_40.MaxZ();
                 iVar1 = iVar1 - field_244;
             }
         }
-        SetScroll(this, uVar8, iVar1);
+        SetScroll(iVar2, iVar1);
     }
 
-    // 0x1001fd460, 176 bytes, placed by class name
-    // InputField::GetWord(unsigned long)
-    undefined1[16] InputField::GetWord(ulong param_1) {
-        undefined1 auVar1[16];
-        char cVar2;
-        uint* puVar3;
-        long lVar4;
+    // 0x1001fd460
+    uint8_t[16] InputField::GetWord(unsigned long arg1) {
+        uint8_t auVar1[16];
+        bool cVar2;
+        unsigned int* puVar3;
         long local_40;
-        ulong local_38;
-        int local_2c;
-        ulong local_28;
+        unsigned long local_38;
 
-        local_28 = GetCodepointCount();
-        local_2c = 0;
-        std::pair<unsigned long, unsigned long>::pair<int, unsigned long&, false>(
-            (pair<unsigned long, unsigned long>*)&local_40, &local_2c, &local_28);
-        lVar4 = param_1 + 1;
+        unsigned long local_28 = GetCodepointCount();
+        local_40.pair<int, unsigned long&, false>(0, local_28);
+        long lVar4 = arg1 + 1;
         do {
             if (lVar4 == 1)
                 goto LAB_1001fd4c8;
-            puVar3 = (uint*)GetCharacter(lVar4 - 2);
-            cVar2 = IsWordBreakChar(this, *puVar3);
-            lVar4 = lVar4 + -1;
-        } while (cVar2 == '\0');
+            puVar3 = (unsigned int*)GetCharacter(lVar4 - 2);
+            cVar2 = IsWordBreakChar(*puVar3);
+            lVar4 = lVar4 - 1;
+        } while (!cVar2);
         local_40 = lVar4;
     LAB_1001fd4c8:
-        if (param_1 < local_28) {
+        if (arg1 < local_28) {
             do {
-                puVar3 = (uint*)GetCharacter(param_1);
-                cVar2 = IsWordBreakChar(this, *puVar3);
-                if (cVar2 != '\0') {
-                    local_38 = param_1;
+                puVar3 = (unsigned int*)GetCharacter(arg1);
+                cVar2 = IsWordBreakChar(*puVar3);
+                if (cVar2) {
+                    local_38 = arg1;
                     break;
                 }
-                param_1 = param_1 + 1;
-            } while (param_1 < local_28);
+                arg1 = arg1 + 1;
+            } while (arg1 < local_28);
         }
         auVar1._8_8_ = local_38;
         auVar1._0_8_ = local_40;
         return auVar1;
     }
 
-    // 0x1001fd590, 176 bytes, placed by class name
-    // InputField::GetLine(unsigned long)
-    undefined1[16] InputField::GetLine(ulong param_1) {
-        undefined1 auVar1[16];
+    // 0x1001fd590
+    uint8_t[16] InputField::GetLine(unsigned long arg1) {
+        uint8_t auVar1[16];
         int* piVar2;
-        long lVar3;
         long local_40;
-        ulong local_38;
-        int local_2c;
-        ulong local_28;
+        unsigned long local_38;
 
-        local_28 = GetCodepointCount();
-        local_2c = 0;
-        std::pair<unsigned long, unsigned long>::pair<int, unsigned long&, false>(
-            (pair<unsigned long, unsigned long>*)&local_40, &local_2c, &local_28);
-        lVar3 = param_1 + 1;
+        unsigned long local_28 = GetCodepointCount();
+        local_40.pair<int, unsigned long&, false>(0, local_28);
+        long lVar3 = arg1 + 1;
         do {
             if (lVar3 == 1)
                 goto LAB_1001fd5ef;
             piVar2 = (int*)GetCharacter(lVar3 - 2);
-            lVar3 = lVar3 + -1;
+            lVar3 = lVar3 - 1;
         } while (*piVar2 != 10);
         local_40 = lVar3;
     LAB_1001fd5ef:
-        if (param_1 < local_28) {
+        if (arg1 < local_28) {
             do {
-                piVar2 = (int*)GetCharacter(param_1);
+                piVar2 = (int*)GetCharacter(arg1);
                 if (*piVar2 == 10) {
-                    local_38 = param_1;
+                    local_38 = arg1;
                     break;
                 }
-                param_1 = param_1 + 1;
-            } while (param_1 < local_28);
+                arg1 = arg1 + 1;
+            } while (arg1 < local_28);
         }
         auVar1._8_8_ = local_38;
         auVar1._0_8_ = local_40;
         return auVar1;
     }
 
-    // 0x1001fd640, 384 bytes, placed by class name
-    // InputField::MouseDown(int, int, bool, bool)
-    void InputField::MouseDown(int param_1, int param_2, bool param_3, bool param_4) {
-        uint uVar1;
+    // 0x1001fd640
+    void InputField::MouseDown(int arg1, int arg2, bool arg3, bool arg4) {
+        int iVar1;
         int iVar2;
-        undefined8 uVar3;
-        ulong uVar4;
-        undefined1 auVar5[16];
-        undefined1 auVar6[16];
+        uint64_t uVar3;
+        unsigned long arg1_00;
+        uint8_t auVar4[16];
 
         if (m_hasFont == 0) {
-            uVar4 = 0;
+            arg1_00 = 0;
         } else {
-            uVar1 = m_scrollX;
+            iVar1 = m_scrollX;
             iVar2 = field_252;
-            uVar3 = GetOriginForCurrentAlignment(this);
-            uVar4 = GetIndexAtPos((param_1 + uVar1) - (int)uVar3, (param_2 + iVar2) - (int)((ulong)uVar3 >> 32));
+            uVar3 = GetOriginForCurrentAlignment();
+            arg1_00 = GetIndexAtPos((arg1 + iVar1) - (int)uVar3, (arg2 + iVar2) - (int)((unsigned long)uVar3 >> 32));
         }
-        if ((param_3) && (param_4)) {
+        if ((arg3) && (arg4)) {
             field_188 = 1;
-            auVar6 = GetWord(this, uVar4);
-            auVar5 = GetWord(this, field_216);
-            CombineSelection(this, auVar5._0_8_, auVar5._8_8_, auVar6._0_8_, auVar6._8_8_);
-        } else if (param_3) {
+            GetWord(arg1_00);
+            auVar4 = GetWord(field_216);
+            CombineSelection(auVar4._0_8_, auVar4._8_8_);
+        } else if (arg3) {
             field_188 = 1;
-            SelectWord(this, uVar4);
-        } else if (param_4) {
-            SetSelection(this, field_216, uVar4);
+            SelectWord(arg1_00);
+        } else if (arg4) {
+            SetSelection(field_216, arg1_00);
         } else {
-            if ((field_224 < 1) || (uVar4 != field_216)) {
+            if ((field_224 < 1) || (arg1_00 != field_216)) {
                 field_188 = 0;
-                SetSelection(this, uVar4, uVar4);
-                field_216 = uVar4;
+                SetSelection(arg1_00, arg1_00);
+                field_216 = arg1_00;
             } else {
                 if (m_pSelectionStart == m_caretIndex) {
                     field_188 = 1;
-                    auVar6 = GetWord(this, uVar4);
+                    auVar4 = GetWord(arg1_00);
                 } else {
                     field_188 = 2;
-                    auVar6 = GetLine(this, uVar4);
+                    auVar4 = GetLine(arg1_00);
                 }
-                SetSelection(this, auVar6._0_8_, auVar6._8_8_);
+                SetSelection(auVar4._0_8_, auVar4._8_8_);
             }
             field_224 = 25;
         }
     }
 
-    // 0x1001fd7c0, 64 bytes, placed by class name
-    // InputField::GetOriginForCurrentAlignment() const
-    void InputField::GetOriginForCurrentAlignment() {
-        undefined4 uVar1;
+    // 0x1001fd7c0
+    void InputField::GetOriginForCurrentAlignment() const {
         int in_register_00000004;
         int local_18;
-        int local_14;
 
-        local_14 = in_register_00000004;
-        uVar1 = GetLeftOffsetForHorizontalAlignment(field_240);
-        _local_18 = CONCAT44(local_14, uVar1);
+        int local_14 = in_register_00000004;
+        uint32_t uVar1 = GetLeftOffsetForHorizontalAlignment(field_240);
+        _local_18 = (((uint64_t)local_14 << 32) | (uint32_t)uVar1);
         uVar1 = GetTopOffsetForVerticalAlignment(field_244);
-        _local_18 = CONCAT44(uVar1, local_18);
-        std::make_pair<int const&, int const&>(&local_18, &local_14);
+        _local_18 = (((uint64_t)uVar1 << 32) | (uint32_t)local_18);
+        std::make_pair<int const&, int const&>(local_18, local_14);
     }
 
-    // 0x1001fd800, 32 bytes, placed by class name
-    // InputField::CombineSelection(std::pair<unsigned long, unsigned long>, std::pair<unsigned long, unsigned long>)
-    /* InputField::CombineSelection(std::pair<unsigned long, unsigned long>,
-   std::pair<unsigned long, unsigned long>) */
+    // 0x1001fd800
+    void InputField::CombineSelection(std::pair<unsigned long, unsigned long> arg1,
+                                      std::pair<unsigned long, unsigned long> arg2) {
+        pair<unsigned long, unsigned long>* in_RCX;
+        pair<unsigned long, unsigned long>* in_R8;
 
-    void InputField::CombineSelection(InputField* param_1, ulong param_2, ulong param_3, ulong param_4, ulong param_5) {
-        if (param_4 < param_2) {
-            param_5 = param_4;
-            param_2 = param_3;
+        if (in_RCX < arg1) {
+            in_R8 = in_RCX;
+        } else {
+            arg2 = arg1;
         }
-        SetSelection(param_1, param_2, param_5);
+        SetSelection((unsigned long)arg2, (unsigned long)in_R8);
     }
 
-    // 0x1001fd820, 48 bytes, placed by class name
-    // InputField::SelectWord(unsigned long)
-    void InputField::SelectWord(ulong param_1) {
-        undefined1 auVar1[16];
+    // 0x1001fd820
+    void InputField::SelectWord(unsigned long arg1) {
+        uint8_t auVar1[16];
 
-        auVar1 = GetWord(this, param_1);
-        SetSelection(this, auVar1._0_8_, auVar1._8_8_);
+        auVar1 = GetWord(arg1);
+        SetSelection(auVar1._0_8_, auVar1._8_8_);
         field_216 = auVar1._0_8_;
     }
 
-    // 0x1001fd850, 272 bytes, placed by class name
-    // InputField::MouseHeld(int, int)
-    void InputField::MouseHeld(int param_1, int param_2) {
-        uint uVar1;
+    // 0x1001fd850
+    void InputField::MouseHeld(int arg1, int arg2) {
+        int iVar1;
         int iVar2;
-        char cVar3;
-        undefined8 uVar5;
-        ulong uVar6;
-        undefined1 auVar7[16];
-        undefined1 auVar8[16];
+        bool cVar3;
+        uint64_t uVar5;
+        unsigned long arg1_00;
+        uint8_t auVar6[16];
 
         if (field_162 == '\0') {
-            field_168 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this);
+            field_168 = SystemTimer::GetTimeMS<std::chrono::steady_clock>();
         }
         field_162 = 1;
         field_163 = 0;
-        if ((m_hasFont != 0) && (cVar3 = HasFocus(this), cVar3 != '\0')) {
-            uVar1 = m_scrollX;
+        if ((m_hasFont != 0) && (cVar3 = HasFocus(), cVar3)) {
+            iVar1 = m_scrollX;
             iVar2 = field_252;
-            uVar5 = GetOriginForCurrentAlignment(this);
-            uVar6 = GetIndexAtPos((param_1 + uVar1) - (int)uVar5, (param_2 + iVar2) - (int)((ulong)uVar5 >> 32));
-            iVar2 = field_188;
-            if (iVar2 == 2) {
-                auVar7 = GetLine(this, field_216);
-                auVar8 = GetLine(this, uVar6);
+            uVar5 = GetOriginForCurrentAlignment();
+            arg1_00 = GetIndexAtPos((arg1 + iVar1) - (int)uVar5, (arg2 + iVar2) - (int)((unsigned long)uVar5 >> 32));
+            iVar1 = field_188;
+            if (iVar1 == 2) {
+                auVar6 = GetLine(field_216);
+                GetLine(arg1_00);
             } else {
-                if (iVar2 != 1) {
-                    if (iVar2 == 0) {
-                        SetSelection(this, m_pSelectionStart, uVar6);
+                if (iVar1 != 1) {
+                    if (iVar1 == 0) {
+                        SetSelection(m_pSelectionStart, arg1_00);
                         return;
                     }
                     return;
                 }
-                auVar7 = GetWord(this, field_216);
-                auVar8 = GetWord(this, uVar6);
+                auVar6 = GetWord(field_216);
+                GetWord(arg1_00);
             }
-            CombineSelection(this, auVar7._0_8_, auVar7._8_8_, auVar8._0_8_, auVar8._8_8_);
+            CombineSelection(auVar6._0_8_, auVar6._8_8_);
         }
     }
 
-    // 0x1001fd960, 64 bytes, placed by class name
-    // InputField::ShowEditMenu()
+    // 0x1001fd960
     void InputField::ShowEditMenu() {
-        long* plVar2;
-        Input* this_00;
+        uint8_t uVar1;
+        uint64_t extraout_var;
 
-        plVar2 = (long*)BaseApp::GetAppInstance();
-        if (plVar2 != (long*)0) {
-            this_00 = (Input*)(**(code**)(*plVar2 + 88))(plVar2);
-            if (this_00 != (Input*)0) {
-                if (this_00->IsOnScreenKeyboardVisible() != '\0') {
+        auto pBVar3 = BaseApp::GetAppInstance();
+        if (pBVar3 != nullptr) {
+            uVar1 = pBVar3->GetInputHAL();
+            if ((Input*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1) != nullptr) {
+                if (((Input*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1))->IsOnScreenKeyboardVisible() != '\0') {
                     jag::input::Input::ShowEditMenu();
                 }
             }
         }
     }
 
-    // 0x1001fd9a0, 32 bytes, placed by class name
-    // InputField::DoCursorKey(unsigned long, bool)
-    void InputField::DoCursorKey(ulong param_1, bool param_2) {
-        undefined7 in_register_00000011;
-        ulong uVar1;
+    // 0x1001fd9a0
+    void InputField::DoCursorKey(unsigned long arg1, bool arg2) {
+        uint64_t in_register_00000011;
 
-        uVar1 = param_1;
-        if ((int)CONCAT71(in_register_00000011, param_2) != 0) {
-            uVar1 = m_pSelectionStart;
+        unsigned long arg1_00 = arg1;
+        if ((int)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg2) != 0) {
+            arg1_00 = m_pSelectionStart;
         }
-        SetSelection(this, uVar1, param_1);
+        SetSelection(arg1_00, arg1);
     }
 
-    // 0x1001fd9c0, 144 bytes, placed by class name
-    // InputField::IsCharAllowed(unsigned int)
-    ulong InputField::IsCharAllowed(uint param_1) {
-        char cVar1;
-        uint uVar2;
-        undefined8 unaff_RBX;
-        undefined7 uVar4;
-        ulong uVar3;
+    // 0x1001fd9c0
+    unsigned long InputField::IsCharAllowed(unsigned int arg1) {
+        unsigned int uVar2;
+        uint64_t unaff_RBX;
 
-        uVar4 = (undefined7)((ulong)unaff_RBX >> 8);
-        uVar3 = CONCAT71(uVar4, 1);
-        cVar1 = (char)param_1;
+        uint64_t uVar4 = (uint64_t)((unsigned long)unaff_RBX >> 8);
+        unsigned long uVar3 = (((uint64_t)uVar4 << 8) | (uint8_t)1);
+        bool cVar1 = (char)arg1;
         switch (m_filter) {
         case 1:
             uVar2 = is_ascii_alpha_numeric(cVar1);
@@ -802,181 +674,158 @@ namespace jag::oldscape::rs2lib {
             break;
         case 4:
             cVar1 = is_ascii_numeric(cVar1);
-            if (cVar1 == '\0') {
-                uVar3 = CONCAT71(uVar4, ((param_1 & 223) - 75 & 4294967293) == 0);
+            if (!cVar1) {
+                uVar3 = (((uint64_t)uVar4 << 8) | (uint8_t)(((arg1 & 223) - 75 & 4294967293) == 0));
             }
         default:
             goto switchD_1001fd9e8_default;
         }
-        uVar3 = (ulong)uVar2;
+        uVar3 = (unsigned long)uVar2;
     switchD_1001fd9e8_default:
         return uVar3 & 4294967295;
     }
 
-    // 0x1001fdae0, 112 bytes, placed by class name
-    // InputField::TypeCharacter(unsigned int)
-    undefined1 InputField::TypeCharacter(uint param_1) {
-        ulong uVar2;
-        uint local_14;
+    // 0x1001fdae0
+    uint8_t InputField::TypeCharacter(unsigned int arg1) {
+        unsigned long arg1_00;
+        unsigned int local_14;
 
-        if (IsCharAllowed(this, param_1) != '\0') {
-            RemoveSelection(this);
-            uVar2 = InsertCodepoints(&local_14, 1, m_caretIndex, (ulong)field_228);
-            SetSelection(this, uVar2, uVar2);
-            CropToLimits(this);
-            OnTextChanged(this);
+        if (IsCharAllowed(arg1) != '\0') {
+            RemoveSelection();
+            arg1_00 = InsertCodepoints(&local_14, 1, m_caretIndex, (unsigned long)field_228);
+            SetSelection(arg1_00, arg1_00);
+            CropToLimits();
+            OnTextChanged();
         }
         return 1;
     }
 
-    // 0x1001fdb50, 96 bytes, placed by class name
-    // InputField::RemoveSelection()
-    undefined4 InputField::RemoveSelection() {
-        undefined4 uVar1;
-        ulong uVar2;
+    // 0x1001fdb50
+    uint32_t InputField::RemoveSelection() {
+        unsigned long arg1;
 
-        uVar1 = HasSelection(this);
+        uint32_t uVar1 = HasSelection();
         if ((char)uVar1 != '\0') {
-            uVar2 = Remove(m_pSelectionStart, m_caretIndex);
-            OnTextChanged(this);
-            SetSelection(this, uVar2, uVar2);
-            field_216 = uVar2;
+            arg1 = Remove(m_pSelectionStart, m_caretIndex);
+            OnTextChanged();
+            SetSelection(arg1, arg1);
+            field_216 = arg1;
         }
         return uVar1;
     }
 
-    // 0x1001fdbb0, 48 bytes, placed by class name
-    // InputField::SelectAll()
+    // 0x1001fdbb0
     void InputField::SelectAll() {
-        ulong uVar1;
-
-        uVar1 = GetCodepointCount();
-        SetSelection(this, 0, uVar1);
+        unsigned long arg2 = GetCodepointCount();
+        SetSelection(0, arg2);
     }
 
-    // 0x1001fdbe0, 32 bytes, placed by class name
-    // InputField::SelectWord()
+    // 0x1001fdbe0
     void InputField::SelectWord() {
-        SelectWord(this, m_caretIndex);
+        SelectWord(m_caretIndex);
     }
 
-    // 0x1001fdc30, 80 bytes, placed by class name
-    // InputField::Backspace()
+    // 0x1001fdc30
     void InputField::Backspace() {
-        ulong uVar1;
+        unsigned long arg1;
 
-        if ((RemoveSelection(this) == '\0') && (m_caretIndex != 0)) {
-            uVar1 = Remove(m_caretIndex - 1);
-            OnTextChanged(this);
-            SetSelection(this, uVar1, uVar1);
+        if ((RemoveSelection() == '\0') && (m_caretIndex != 0)) {
+            arg1 = Remove(m_caretIndex - 1);
+            OnTextChanged();
+            SetSelection(arg1, arg1);
         }
     }
 
-    // 0x1001fdc80, 96 bytes, placed by class name
-    // InputField::Delete()
+    // 0x1001fdc80
     void InputField::Delete() {
-        ulong uVar1;
-        ulong uVar2;
+        unsigned long uVar1;
+        unsigned long uVar2;
 
-        if (RemoveSelection(this) == '\0') {
+        if (RemoveSelection() == '\0') {
             uVar1 = m_caretIndex;
             uVar2 = GetCodepointCount();
             if (uVar1 < uVar2) {
                 uVar1 = Remove(m_caretIndex);
-                OnTextChanged(this);
-                SetSelection(this, uVar1, uVar1);
+                OnTextChanged();
+                SetSelection(uVar1, uVar1);
             }
         }
     }
 
-    // 0x1001fdce0, 96 bytes, placed by class name
-    // InputField::BackspaceWord()
+    // 0x1001fdce0
     void InputField::BackspaceWord() {
-        ulong uVar1;
+        unsigned long uVar1;
 
-        if ((RemoveSelection(this) == '\0') && (m_caretIndex != 0)) {
-            uVar1 = GetWord(this, m_caretIndex - 1);
+        if ((RemoveSelection() == '\0') && (m_caretIndex != 0)) {
+            uVar1 = GetWord(m_caretIndex - 1);
             uVar1 = Remove(uVar1, m_caretIndex);
-            OnTextChanged(this);
-            SetSelection(this, uVar1, uVar1);
+            OnTextChanged();
+            SetSelection(uVar1, uVar1);
         }
     }
 
-    // 0x1001fdd40, 112 bytes, placed by class name
-    // InputField::DeleteWord()
+    // 0x1001fdd40
     void InputField::DeleteWord() {
-        ulong uVar1;
-        ulong uVar2;
-        ulong extraout_RDX;
+        unsigned long uVar1;
+        unsigned long uVar2;
+        unsigned long arg2;
 
-        if (RemoveSelection(this) == '\0') {
+        if (RemoveSelection() == '\0') {
             uVar1 = m_caretIndex;
             uVar2 = GetCodepointCount();
             if (uVar1 < uVar2) {
-                GetWord(this, m_caretIndex);
-                uVar1 = Remove(m_caretIndex, extraout_RDX);
-                OnTextChanged(this);
-                SetSelection(this, uVar1, uVar1);
+                GetWord(m_caretIndex);
+                uVar1 = Remove(m_caretIndex, arg2);
+                OnTextChanged();
+                SetSelection(uVar1, uVar1);
             }
         }
     }
 
-    // 0x1001fddb0, 48 bytes, placed by class name
-    // InputField::LineHome(bool)
-    void InputField::LineHome(bool param_1) {
-        ulong uVar1;
-
-        uVar1 = GetLine(this, m_caretIndex);
-        DoCursorKey(this, uVar1, param_1);
+    // 0x1001fddb0
+    void InputField::LineHome(bool arg1) {
+        DoCursorKey(GetLine(m_caretIndex), arg1);
     }
 
-    // 0x1001fdde0, 48 bytes, placed by class name
-    // InputField::LineEnd(bool)
-    void InputField::LineEnd(bool param_1) {
-        ulong extraout_RDX;
+    // 0x1001fdde0
+    void InputField::LineEnd(bool arg1) {
+        unsigned long arg1_00;
 
-        GetLine(this, m_caretIndex);
-        DoCursorKey(this, extraout_RDX, param_1);
+        GetLine(m_caretIndex);
+        DoCursorKey(arg1_00, arg1);
     }
 
-    // 0x1001fde10, 16 bytes, placed by class name
-    // InputField::FullHome(bool)
-    void InputField::FullHome(bool param_1) {
-        DoCursorKey(this, 0, param_1);
+    // 0x1001fde10
+    void InputField::FullHome(bool arg1) {
+        DoCursorKey(0, arg1);
     }
 
-    // 0x1001fde20, 48 bytes, placed by class name
-    // InputField::FullEnd(bool)
-    void InputField::FullEnd(bool param_1) {
-        ulong uVar1;
-
-        uVar1 = GetCodepointCount();
-        DoCursorKey(this, uVar1, param_1);
+    // 0x1001fde20
+    void InputField::FullEnd(bool arg1) {
+        DoCursorKey(GetCodepointCount(), arg1);
     }
 
-    // 0x1001fde50, 96 bytes, placed by class name
-    // InputField::Left(bool)
-    void InputField::Left(bool param_1) {
-        ulong uVar2;
+    // 0x1001fde50
+    void InputField::Left(bool arg1) {
+        unsigned long arg1_00;
 
-        if ((HasSelection(this) == '\0') || (param_1)) {
+        if ((HasSelection() == '\0') || (arg1)) {
             if (m_caretIndex == 0) {
                 return;
             }
-            uVar2 = m_caretIndex - 1;
+            arg1_00 = m_caretIndex - 1;
         } else {
-            uVar2 = eastl::min_alt<unsigned long>(m_pSelectionStart, m_caretIndex);
-            param_1 = false;
+            arg1_00 = eastl::min_alt<unsigned long>(m_pSelectionStart, m_caretIndex);
+            arg1 = false;
         }
-        DoCursorKey(this, uVar2, param_1);
+        DoCursorKey(arg1_00, arg1);
     }
 
-    // 0x1001fdeb0, 128 bytes, placed by class name
-    // InputField::Right(bool)
-    void InputField::Right(bool param_1) {
-        ulong uVar3;
+    // 0x1001fdeb0
+    void InputField::Right(bool arg1) {
+        unsigned long uVar3;
 
-        if ((HasSelection(this) == '\0') || (param_1)) {
+        if ((HasSelection() == '\0') || (arg1)) {
             uVar3 = m_caretIndex;
             if (GetCodepointCount() <= uVar3) {
                 return;
@@ -984,286 +833,205 @@ namespace jag::oldscape::rs2lib {
             uVar3 = m_caretIndex + 1;
         } else {
             uVar3 = eastl::max<unsigned long>(m_pSelectionStart, m_caretIndex);
-            param_1 = false;
+            arg1 = false;
         }
-        DoCursorKey(this, uVar3, param_1);
+        DoCursorKey(uVar3, arg1);
     }
 
-    // 0x1001fdf30, 64 bytes, placed by class name
-    // InputField::WordLeft(bool)
-    void InputField::WordLeft(bool param_1) {
-        ulong uVar1;
-
+    // 0x1001fdf30
+    void InputField::WordLeft(bool arg1) {
         if (m_caretIndex != 0) {
-            uVar1 = GetWord(this, m_caretIndex - 1);
-            DoCursorKey(this, uVar1, param_1);
+            DoCursorKey(GetWord(m_caretIndex - 1), arg1);
         }
     }
 
-    // 0x1001fdf70, 80 bytes, placed by class name
-    // InputField::WordRight(bool)
-    void InputField::WordRight(bool param_1) {
-        ulong uVar1;
-        ulong uVar2;
-        ulong extraout_RDX;
+    // 0x1001fdf70
+    void InputField::WordRight(bool arg1) {
+        unsigned long arg1_00;
 
-        uVar1 = m_caretIndex;
-        uVar2 = GetCodepointCount();
+        unsigned long uVar1 = m_caretIndex;
+        unsigned long uVar2 = GetCodepointCount();
         if (uVar1 < uVar2) {
-            GetWord(this, m_caretIndex + 1);
-            DoCursorKey(this, extraout_RDX, param_1);
+            GetWord(m_caretIndex + 1);
+            DoCursorKey(arg1_00, arg1);
         }
     }
 
-    // 0x1001fdfc0, 64 bytes, placed by class name
-    // InputField::Up(bool)
-    void InputField::Up(bool param_1) {
-        ulong uVar1;
-
+    // 0x1001fdfc0
+    void InputField::Up(bool arg1) {
         if (m_caretIndex != 0) {
-            uVar1 = GetIndexAtLineOffset(m_caretIndex, -1);
-            DoCursorKey(this, uVar1, param_1);
+            DoCursorKey(GetIndexAtLineOffset(m_caretIndex, -1), arg1);
         }
     }
 
-    // 0x1001fe000, 80 bytes, placed by class name
-    // InputField::Down(bool)
-    void InputField::Down(bool param_1) {
-        ulong uVar1;
-        ulong uVar2;
-
-        uVar2 = m_caretIndex;
-        uVar1 = GetCodepointCount();
+    // 0x1001fe000
+    void InputField::Down(bool arg1) {
+        unsigned long uVar2 = m_caretIndex;
+        unsigned long uVar1 = GetCodepointCount();
         if (uVar2 < uVar1) {
             uVar2 = GetIndexAtLineOffset(m_caretIndex, 1);
-            DoCursorKey(this, uVar2, param_1);
+            DoCursorKey(uVar2, arg1);
         }
     }
 
-    // 0x1001fe050, 80 bytes, placed by class name
-    // InputField::PageUp(bool)
-    void InputField::PageUp(bool param_1) {
+    // 0x1001fe050
+    void InputField::PageUp(bool arg1) {
         int iVar1;
-        ulong uVar2;
 
         if (m_caretIndex != 0) {
-            iVar1 = GetNumVisibleLines(this);
-            uVar2 = GetIndexAtLineOffset(m_caretIndex, -iVar1);
-            DoCursorKey(this, uVar2, param_1);
+            iVar1 = GetNumVisibleLines();
+            DoCursorKey(GetIndexAtLineOffset(m_caretIndex, -iVar1), arg1);
         }
     }
 
-    // 0x1001fe0c0, 96 bytes, placed by class name
-    // InputField::PageDown(bool)
-    void InputField::PageDown(bool param_1) {
-        ulong uVar1;
-        ulong uVar2;
-        int iVar3;
+    // 0x1001fe0c0
+    void InputField::PageDown(bool arg1) {
+        int arg2;
 
-        uVar1 = m_caretIndex;
-        uVar2 = GetCodepointCount();
+        unsigned long uVar1 = m_caretIndex;
+        unsigned long uVar2 = GetCodepointCount();
         if (uVar1 < uVar2) {
-            iVar3 = GetNumVisibleLines(this);
-            uVar1 = GetIndexAtLineOffset(m_caretIndex, iVar3);
-            DoCursorKey(this, uVar1, param_1);
+            arg2 = GetNumVisibleLines();
+            uVar1 = GetIndexAtLineOffset(m_caretIndex, arg2);
+            DoCursorKey(uVar1, arg1);
         }
     }
 
-    // 0x1001fe120, 96 bytes, placed by class name
-    // InputField::PageUpNoScroll(bool)
-    void InputField::PageUpNoScroll(bool param_1) {
-        ulong uVar1;
-        int iVar2;
-        undefined1 local_40[32];
+    // 0x1001fe120
+    void InputField::PageUpNoScroll(bool arg1) {
 
-        local_40->Slice((ulong)this, 0);
-        iVar2 = local_40->GetLastCursorPosition();
-        uVar1 = GetIndexAtPos(iVar2, field_252);
-        DoCursorKey(this, uVar1, param_1);
+        TextRunSlice local_40 = Slice(0, m_caretIndex);
+        DoCursorKey(GetIndexAtPos(local_40.GetLastCursorPosition(), field_252), arg1);
     }
 
-    // 0x1001fe180, 112 bytes, placed by class name
-    // InputField::PageDownNoScroll(bool)
-    void InputField::PageDownNoScroll(bool param_1) {
-        ulong uVar1;
-        int iVar2;
-        undefined1 local_40[32];
+    // 0x1001fe180
+    void InputField::PageDownNoScroll(bool arg1) {
 
-        local_40->Slice((ulong)this, 0);
-        iVar2 = local_40->GetLastCursorPosition();
-        uVar1 = GetIndexAtPos(iVar2, field_244 + field_252);
-        DoCursorKey(this, uVar1, param_1);
+        TextRunSlice local_40 = Slice(0, m_caretIndex);
+        DoCursorKey(GetIndexAtPos(local_40.GetLastCursorPosition(), field_244 + field_252), arg1);
     }
 
-    // 0x1001fe1f0, 48 bytes, placed by class name
-    // InputField::ScrollUpOneLine()
+    // 0x1001fe1f0
     void InputField::ScrollUpOneLine() {
-        int iVar1;
-        int iVar2;
-
-        iVar2 = field_252;
-        iVar1 = GetLineHeight();
+        int iVar2 = field_252;
+        int iVar1 = GetLineHeight();
         iVar2 = eastl::max<int>(0, iVar2 - iVar1);
         field_252 = iVar2;
     }
 
-    // 0x1001fe220, 96 bytes, placed by class name
-    // InputField::ScrollDownOneLine()
+    // 0x1001fe220
     void InputField::ScrollDownOneLine() {
-        int iVar1;
-        undefined4 uVar2;
-        int iVar3;
-
-        iVar1 = GetHeight();
-        uVar2 = eastl::max<int>(0, iVar1 - field_244);
+        int iVar1 = GetHeight();
+        auto enumOptionToggle1 = eastl::max<int>(0, iVar1 - field_244);
         iVar1 = field_252;
-        iVar3 = GetLineHeight();
-        iVar1 = eastl::min<jag::graphics::GraphicsQuality>(uVar2, iVar1 + iVar3);
+        int iVar2 = GetLineHeight();
+        iVar1 = eastl::min<jag::graphics::GraphicsQuality>(enumOptionToggle1, iVar1 + iVar2);
         field_252 = iVar1;
     }
 
-    // 0x1001fe280, 176 bytes, placed by class name
-    // InputField::CopySelection()
+    // 0x1001fe280
     void InputField::CopySelection() {
-        char cVar1;
-        TextRunSlice local_50;
-        basic_string local_30[24];
-        Clipboard local_18[8];
+        basic_string<char, BucketAllocatorEASTL> local_30;
+        Clipboard local_18;
 
-        local_50.Slice((ulong)this, m_pSelectionStart);
-        cVar1 = local_50.IsEmpty();
-        if (cVar1 == '\0') {
-            eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
+        TextRunSlice local_50 = Slice(m_pSelectionStart, m_caretIndex);
+        if (!(local_50.IsEmpty())) {
+            local_30 = eastl::basic_string<char, BucketAllocatorEASTL>();
             local_50.ConvertToUTF8(local_30);
-            cVar1 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar1 == '\0') {
-                Clipboard::Clipboard(local_18);
-                Clipboard::SetText<eastl::basic_string<char, BucketAllocatorEASTL>>((basic_string*)local_18);
-                local_18->~Clipboard();
+            if (!(local_30.empty())) {
+                local_18 = Clipboard();
+                local_18.SetText<eastl::basic_string<char, BucketAllocatorEASTL>>(local_30);
             }
-            local_30->~basic_string();
         }
     }
 
-    // 0x1001fe330, 48 bytes, placed by class name
-    // InputField::CutSelection()
+    // 0x1001fe330
     void InputField::CutSelection() {
-        if (HasSelection(this) != '\0') {
-            CopySelection(this);
-            RemoveSelection(this);
+        if (HasSelection() != '\0') {
+            CopySelection();
+            RemoveSelection();
         }
     }
 
-    // 0x1001fe360, 288 bytes, placed by class name
-    // InputField::PasteFromClipboard()
+    // 0x1001fe360
     void InputField::PasteFromClipboard() {
-        char cVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        char* pcVar4;
-        char* pcVar5;
-        ulong uVar6;
-        eastl::string local_48[32];
-        Clipboard local_28[8];
+        char* pcVar2;
+        char* pcVar3;
+        unsigned long uVar4;
 
-        Clipboard::Clipboard(local_28);
-        eastl::string::basic_string(local_48);
-        cVar1 = local_28->GetText(local_48);
-        if (cVar1 != '\0') {
-            cVar1 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar1 == '\0') {
-                uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::end();
-                pcVar4 = eastl::remove_if<char*, InputField::PasteFromClipboard()::__3>(uVar2, uVar3, this);
-                pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
-                eastl::string::erase(local_48, pcVar4, pcVar5);
-                RemoveSelection(this);
-                pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                uVar6 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                uVar6 = Insert(pcVar4, uVar6, m_caretIndex, 0);
-                SetSelection(this, uVar6, uVar6);
-                CropToLimits(this);
-                OnTextChanged(this);
+        Clipboard local_28;
+        eastl::string local_48;
+        if (local_28.GetText(local_48)) {
+            if (!(local_48.empty())) {
+                pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+                pcVar2 = eastl::remove_if<char*, InputField::PasteFromClipboard()::__3>(pcVar2, pcVar3, (__3*)this);
+                pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+                eastl::string::erase(&local_48, pcVar2, pcVar3);
+                RemoveSelection();
+                pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                uVar4 = local_48.size();
+                uVar4 = Insert(pcVar2, uVar4, m_caretIndex, 0);
+                SetSelection(uVar4, uVar4);
+                CropToLimits();
+                OnTextChanged();
             }
         }
-        eastl::string::~basic_string(local_48);
-        local_28->~Clipboard();
     }
 
-    // 0x1001fe4c0, 80 bytes, placed by class name
-    // InputField::GetKeyboardType()
-    undefined4 InputField::GetKeyboardType() {
-        char cVar1;
-        int iVar2;
-        undefined4 uVar3;
+    // 0x1001fe4c0
+    uint32_t InputField::GetKeyboardType() {
+        bool cVar1;
 
-        iVar2 = GetAliveCount();
-        uVar3 = 2;
+        int iVar2 = GetAliveCount();
+        uint32_t uVar3 = 2;
         if ((1 < iVar2 - 1U) && (uVar3 = 1, m_filter != 3)) {
-            cVar1 = IsMultiline(this);
+            cVar1 = IsMultiline();
             uVar3 = 7;
-            if (cVar1 == '\0') {
+            if (!cVar1) {
                 uVar3 = 0;
             }
         }
         return uVar3;
     }
 
-    // 0x100218af0, 224 bytes, placed by class name
-    // InputField::SetFocus(bool)::$_0::operator()(BaseApp*) const
-    /* InputField::SetFocus(bool)::$_0::TEMPNAMEPLACEHOLDERVALUE(BaseApp*)
-   const */
+    // 0x100218af0
+    void InputField::SetFocus(bool)::$_0::operator()(BaseApp* baseApp) const {
+        bool cVar2;
+        SoftKeyboardType SVar3;
+        uint64_t extraout_var;
+        basic_string<char, BucketAllocatorEASTL> local_50;
+        eastl local_38;
 
-    void InputField::SetFocus(bool)::$_0::operator()(BaseApp* param_1) {
-        InputField* this_00;
-        char cVar1;
-        undefined1 uVar2;
-        Input* this_01;
-        NpcUID* extraout_RDX;
-        basic_string<char, BucketAllocatorEASTL> local_50[24];
-        eastl local_38[8];
-
-        this_00 = field_0;
-        this_01 = (Input*)(*(code*)param_1->field_0[11])(param_1);
-        if (this_01 != (Input*)0) {
-            if ((this_00->m_hasFocus == '\0') && (cVar1 = this_01->IsOnScreenKeyboardVisible(), cVar1 != '\0')) {
+        InputField* this_00 = field_0;
+        uint8_t uVar1 = baseApp->GetInputHAL();
+        Input* this_01 = (Input*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1);
+        if (this_01 != nullptr) {
+            if ((this_00->m_hasFocus == '\0') && (cVar2 = this_01->IsOnScreenKeyboardVisible(), cVar2)) {
                 jag::input::Input::HideOnScreenKeyboard();
                 return;
             }
-            if ((this_00->m_hasFocus != '\0') && (cVar1 = this_01->IsOnScreenKeyboardVisible(), cVar1 == '\0')) {
-                uVar2 = GetKeyboardType(this_00);
-                eastl::destruct<highlight::NpcUID*>(local_38, (NpcUID*)"EASTL basic_string", extraout_RDX);
-                eastl::basic_string<char, BucketAllocatorEASTL>::basic_string((char*)local_50,
-                                                                              (BucketAllocatorEASTL*)"");
-                this_01->ShowOnScreenKeyboard(uVar2, local_50, (int)this_00->m_characterLimit, 0, 1);
-                eastl::basic_string<char, BucketAllocatorEASTL>::~basic_string(local_50);
+            if ((this_00->m_hasFocus != '\0') && (cVar2 = this_01->IsOnScreenKeyboardVisible(), !cVar2)) {
+                SVar3 = GetKeyboardType(this_00);
+                eastl::destruct<highlight::NpcUID*>(&local_38);
+                local_50 = eastl::basic_string<char, BucketAllocatorEASTL>("", &local_38);
+                this_01->ShowOnScreenKeyboard(SVar3 & 255, &local_50, (int)this_00->m_characterLimit, false, true);
             }
         }
     }
 
-    // 0x100218da0, 16 bytes, placed by class name
-    // InputField::SetInputFilter(InputFieldFilter)::$_2::operator()(unsigned char) const
-    /* InputField::SetInputFilter(InputFieldFilter)::$_2::TEMPNAMEPLACEHOLDERVALUE(unsigned
-   char) const */
+    // 0x100218da0
+    uint8_t InputField::SetInputFilter(InputFieldFilter)::$_2::operator()(unsigned char arg1) const {
+        uint32_t in_register_00000031;
 
-    byte InputField::SetInputFilter(InputFieldFilter)::$_2::operator()(uchar param_1) {
-        undefined3 in_register_00000031;
-
-        return IsCharAllowed(*(InputField**)this, CONCAT31(in_register_00000031, param_1)) ^ 1;
+        return IsCharAllowed(field_0, (((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1)) ^ 1;
     }
 
-    // 0x100218f90, 16 bytes, placed by class name
-    // InputField::PasteFromClipboard()::$_3::operator()(unsigned char) const
-    /* InputField::PasteFromClipboard()::$_3::TEMPNAMEPLACEHOLDERVALUE(unsigned
-   char) const */
+    // 0x100218f90
+    uint8_t InputField::PasteFromClipboard()::$_3::operator()(unsigned char arg1) const {
+        uint32_t in_register_00000031;
 
-    byte InputField::PasteFromClipboard()::$_3::operator()(uchar param_1) {
-        undefined3 in_register_00000031;
-
-        return IsCharAllowed(*(InputField**)this, CONCAT31(in_register_00000031, param_1)) ^ 1;
+        return IsCharAllowed(field_0, (((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1)) ^ 1;
     }
 
 } // namespace jag::oldscape::rs2lib

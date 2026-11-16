@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/midi2/midimixer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,44 +8,30 @@ namespace jag::oldscape::midi2 {
     public:
         // virtual methods in vtable order
         virtual ~MidiMixer();
-        virtual SubstreamStart();
-        virtual SubstreamNext();
-        virtual SelfMixCost();
-        virtual void DoMix(Array<int, eastl::allocator>&, int, int);
-        virtual void PretendToMix(int);
-        MidiMixer(MidiPlayer&);
-        void DoMix2(MidiNote&, Array<int, eastl::allocator>&, int, int, int);
-        void PretendToMix2(MidiNote&, int);
+        virtual auto SubstreamStart();
+        virtual auto SubstreamNext();
+        virtual uint64_t SelfMixCost();
+        virtual void DoMix(Array<int>& arg1, int arg2, int arg3);
+        virtual void PretendToMix(int arg1);
+        MidiMixer(MidiPlayer& midiPlayer);
+        void DoMix2(MidiNote& midiNote, Array<int>& arg2, int arg3, int arg4, int arg5);
+        void PretendToMix2(MidiNote& midiNote, int arg2);
 
-        // data members, from how the methods use this: 272 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[40];
-        undefined4 field_48; // offset 48
-        undefined1 field_52; // offset 52
-        char _unknown_53[43];
-        Mixer field_96;        // offset 96
-        undefined8 field_248;  // offset 248
-        MidiPlayer* field_256; // offset 256
-        undefined8 field_264;  // offset 264
+    private:
+        uint8_t _unknown_8[40];
+        uint32_t field_48;
+        uint8_t field_52;
+        uint8_t _unknown_53[43];
+        Mixer field_96;
+        uint64_t field_248;
+        MidiPlayer* field_256;
+        uint64_t field_264;
     };
 
-    // 0x1002d9940, 16 bytes, complete-object destructor, inline, placed by class name
-    // MidiMixer::~MidiMixer(): jumps straight to the base-object destructor
-
-    // 0x1002d9950, 32 bytes, deleting destructor, inline, placed by class name
-    // MidiMixer::~MidiMixer()
-    void MidiMixer::~MidiMixer() {
-        ~MidiMixer(this);
-        operator_delete(this);
-    }
-
-    // 0x1002dc470, 64 bytes, base-object destructor, inline, placed by class name
-    // MidiMixer::~MidiMixer()
-    void MidiMixer::~MidiMixer() {
-        field_0 = &PTR__MidiMixer_100efa158;
+    // 0x1002dc470
+    MidiMixer::~MidiMixer() {
         field_96->~Mixer();
-        (&field_72)->~SharedPtrList();
-        ~PCMStream();
+        field_72.~SharedPtrList();
     }
 
 } // namespace jag::oldscape::midi2

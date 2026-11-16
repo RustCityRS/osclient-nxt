@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/vartype/VarDomain.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.system.osclient
@@ -10,35 +9,18 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~VarDomain();
-        operator=(VarDomain const&);
-        VarDomain(VarDomain const&);
+        void operator=(const VarDomain& arg1);
+        VarDomain(const VarDomain& arg1);
         VarDomain();
-
-        // data members, from how the methods use this: 8 bytes
-        undefined* field_0; // offset 0, vtable pointer
     };
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    VarDomain::operator=(VarDomain const&);
+    // 0x100009ca0: VarDomain::operator=(VarDomain const&) has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    VarDomain::~VarDomain();
+    // 0x100009e70: VarDomain::~VarDomain() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x1004be5d0, 32 bytes, base-object constructor, inline, placed by class name and debug map
-    // VarDomain::VarDomain(VarDomain const&)
-    /* VarDomain::VarDomain() */
+    // 0x1004be5d0
+    VarDomain::VarDomain(const VarDomain& arg1) {}
 
-    void VarDomain::VarDomain() {
-        field_0 = PTR_vtable_100ee85f8 + 16;
-    }
-
-    // 0x1004be5d0: the linker folded this into VarDomain::VarDomain(VarDomain const&), which has identical code
-    VarDomain::VarDomain();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    VarDomain::~VarDomain();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    VarDomain::~VarDomain();
+    // 0x1004be5d0: VarDomain::VarDomain() has the same machine code as VarDomain::VarDomain(VarDomain const&)
 
 } // namespace jag::game

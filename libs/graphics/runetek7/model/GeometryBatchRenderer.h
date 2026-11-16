@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/model/GeometryBatchRenderer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,55 +8,52 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~GeometryBatchRenderer();
-        GetVertexDecl2();
-        GetVertexDecl();
-        GetVertexDecl(bool);
+        void GetVertexDecl2();
+        void GetVertexDecl();
+        void GetVertexDecl(bool arg1);
         GeometryBatchRenderer();
         void Destroy();
-        Initialise(RT7Core&);
-        CreateRenderingResources();
-        void Render(GeometryBatch_DE const&, render::RenderContext&, render::DrawCallState const&, SceneViewData const&,
-                    RenderPassType, EffectManager&);
-        void DrawHighlightedPrimitives(render::RenderContext&, render::DrawCallState&, GeometryBatch_DE const&,
-                                       render::PrimitiveType, Shader&);
+        uint32_t Initialise(RT7Core& rt7Core);
+        void CreateRenderingResources();
+        void Render(const GeometryBatch_DE& geometryBatch_DE, render::RenderContext& renderContext,
+                    const render::DrawCallState& drawCallState, const SceneViewData& sceneViewData,
+                    RenderPassType renderPassType, EffectManager& effectManager);
+        void DrawHighlightedPrimitives(render::RenderContext& renderContext, render::DrawCallState& drawCallState,
+                                       const GeometryBatch_DE& geometryBatch_DE, render::PrimitiveType primitiveType,
+                                       Shader& shader);
         void DrawPrimitives(
-            render::RenderContext&, render::DrawCallState&, GeometryBatch const&, unsigned int, render::PrimitiveType,
-            eastl::vector<SourceModelExternalIndexSectionRangeOnly, eastl::allocator> const&,
-            eastl::vector_map<int, FaceGroupRenderMasks, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, FaceGroupRenderMasks>, eastl::allocator>> const*,
-            unsigned char, render::QueryView*) const;
+            render::RenderContext& renderContext, render::DrawCallState& drawCallState,
+            const GeometryBatch& geometryBatch, unsigned int arg4, render::PrimitiveType primitiveType,
+            const eastl::vector<SourceModelExternalIndexSectionRangeOnly>& sourceModelExternalIndexSectionRangeOnlys,
+            const eastl::vector_map<int, FaceGroupRenderMasks>* arg7, unsigned char arg8,
+            render::QueryView* queryView) const;
         void InitialiseVertexDeclarations();
         void DestroyRenderingResources();
-        static render::VertexDeclaration /* 96 bytes */ m_vertexDecl;        // = VertexDeclaration()
-        static render::VertexDeclaration /* 96 bytes */ m_vertexDeclSkinned; // = VertexDeclaration()
+        static render::VertexDeclaration m_vertexDecl;        // = VertexDeclaration()
+        static render::VertexDeclaration m_vertexDeclSkinned; // = VertexDeclaration()
 
-        // data members, from how the methods use this: 736 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined4 field_8;  // offset 8
-        undefined4 field_12; // offset 12
-        char _unknown_16[720];
+    private:
+        uint32_t field_8;
+        uint32_t field_12;
+        uint8_t _unknown_16[720];
     };
 
-    // 0x10080c500, 16 bytes, inline, placed by class name and debug map
-    // GeometryBatchRenderer::GetVertexDecl2()
-    undefined1* GeometryBatchRenderer::GetVertexDecl2() {
+    // 0x10080c500
+    void GeometryBatchRenderer::GetVertexDecl2() {
         return &m_vertexDeclSkinned;
     }
 
-    // 0x10080c580, 16 bytes, inline, placed by class name and debug map
-    // GeometryBatchRenderer::GetVertexDecl()
-    undefined1* GeometryBatchRenderer::GetVertexDecl() {
+    // 0x10080c580
+    void GeometryBatchRenderer::GetVertexDecl() {
         return &m_vertexDecl;
     }
 
-    // 0x1008113e0, 32 bytes, inline, placed by class name
-    // GeometryBatchRenderer::GetVertexDecl(bool)
-    undefined1* GeometryBatchRenderer::GetVertexDecl(bool param_1) {
-        undefined1* puVar1;
-        undefined3 in_register_00000039;
+    // 0x1008113e0
+    void GeometryBatchRenderer::GetVertexDecl(bool arg1) {
+        uint32_t in_register_00000039;
 
-        puVar1 = &m_vertexDecl;
-        if (CONCAT31(in_register_00000039, param_1) != 0) {
+        uint8_t* puVar1 = &m_vertexDecl;
+        if ((((uint32_t)in_register_00000039 << 8) | (uint8_t)arg1) != 0) {
             puVar1 = &m_vertexDeclSkinned;
         }
         return puVar1;

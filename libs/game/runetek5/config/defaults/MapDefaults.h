@@ -1,20 +1,19 @@
 // libs/game/runetek5/config/defaults/MapDefaults.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class MapDefaults {
     public:
-        uint GetDefaultWaterType() const;
-        uint GetDefaultEnvironmentMap() const;
-        MapDefaults(PacketT<Array<unsigned char, eastl::allocator>>&);
+        unsigned int GetDefaultWaterType() const;
+        unsigned int GetDefaultEnvironmentMap() const;
+        MapDefaults(PacketT<Array<unsigned char>>& arg1);
 
-        // data members, from how the methods use this: 12 bytes
-        uint m_defaultEnvironmentMap; // offset 0
-        uint m_defaultWaterType;      // offset 4
-        char _unknown_8[4];
+    private:
+        unsigned int m_defaultEnvironmentMap;
+        unsigned int m_defaultWaterType;
+        uint8_t _unknown_8[4];
     };
 
 } // namespace jag::game

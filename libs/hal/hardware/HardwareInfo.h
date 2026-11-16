@@ -1,6 +1,5 @@
 // libs/hal/hardware/HardwareInfo.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -8,245 +7,195 @@
 namespace jag::hardware {
     class HardwareInfo {
     public:
-        GetCPUBrand() const;
-        GetCPUVendor() const;
+        void GetCPUBrand() const;
+        Option<float>* GetCPUVendor() const;
         int GetCPUSignature() const;
-        Is64BitOS() const;
+        bool Is64BitOS() const;
         int GetSystemMemoryMB() const;
-        void GetOSVersionAndBuild(OperatingSystem&, int&, int&, int&) const;
-        void GetOSVersion(OperatingSystem&, int&, int&) const;
+        void GetOSVersionAndBuild(OperatingSystem& operatingSystem, int& arg2, int& arg3, int& arg4) const;
+        void GetOSVersion(OperatingSystem& operatingSystem, int& arg2, int& arg3) const;
         ~HardwareInfo();
-        GetClientType() const;
-        uint GetNumLogicalProcessors() const;
+        uint8_t* GetClientType() const;
+        unsigned int GetNumLogicalProcessors() const;
         int GetNumPhyscicalProcessors() const;
-        GetCPUFeatureFlags() const;
-        GetDeviceFullName() const;
-        uint GetLegacyOSVersion() const;
-        GetGPUDriverDate() const;
-        GetDPI() const;
-        GetPhysicalScreenSize() const;
-        GetGpuMemoryMB() const;
+        uint64_t* GetCPUFeatureFlags() const;
+        uint8_t* GetDeviceFullName() const;
+        unsigned int GetLegacyOSVersion() const;
+        uint64_t GetGPUDriverDate() const;
+        uint32_t GetDPI() const;
+        auto GetPhysicalScreenSize() const;
+        uint32_t GetGpuMemoryMB() const;
         HardwareInfo();
         void Init();
         int GetGPUDriverYear() const;
         int ProcessIsTranslated();
-        GetProcessMemoryBytes(unsigned long long&, unsigned long long&, unsigned long long);
-        GetCPUUsage(int&, int&);
-        GetRefreshRate() const;
-        IsGPUDriverOutOfDate() const;
+        void GetProcessMemoryBytes(unsigned long long& arg1, unsigned long long& arg2, unsigned long long arg3);
+        uint64_t GetCPUUsage(int& arg1, int& arg2);
+        uint64_t GetRefreshRate() const;
+        bool IsGPUDriverOutOfDate() const;
         void InitPost();
-        IsBatteryCharging() const;
-        GetBatteryPercent() const;
-        HardwareInfo* GetMemoryStatistics();
+        bool IsBatteryCharging() const;
+        uint64_t GetBatteryPercent() const;
+        oldscape::dash3d::ModelLit::AABB GetMemoryStatistics();
 
-        // data members, from how the methods use this: 280 bytes
-        long field_0;       // offset 0
-        undefined1 field_8; // offset 8
-        char _unknown_9[7];
-        undefined1 field_16; // offset 16
-        char _unknown_17[47];
-        int m_numPhyscicalProcessors; // offset 64
-        uint m_numLogicalProcessors;  // offset 68
-        int m_systemMemoryMB;         // offset 72
-        char _unknown_76[12];
-        int m_cPUSignature; // offset 88
-        char _unknown_92[68];
-        undefined4 field_160;   // offset 160
-        uint field_164;         // offset 164
-        int field_168;          // offset 168
-        uint m_legacyOSVersion; // offset 172
-        undefined4 field_176;   // offset 176
-        undefined1 field_180;   // offset 180
-        char _unknown_181[3];
-        undefined8 m_gPUDriverDate; // offset 184
-        char _unknown_192[64];
-        undefined4 m_gpuMemoryMB; // offset 256
-        undefined1 field_260;     // offset 260
-        char _unknown_261[3];
-        undefined4 m_dPI; // offset 264
-        char _unknown_268[8];
-        undefined1 field_276; // offset 276
-        char _unknown_277[3];
+    private:
+        uint8_t _unknown_0[64];
+        int m_numPhyscicalProcessors;
+        unsigned int m_numLogicalProcessors;
+        int m_systemMemoryMB;
+        uint8_t _unknown_76[12];
+        int m_cPUSignature;
+        uint8_t _unknown_92[68];
+        uint32_t field_160;
+        unsigned int field_164;
+        int field_168;
+        unsigned int m_legacyOSVersion;
+        uint32_t field_176;
+        uint8_t field_180;
+        uint8_t _unknown_181[3];
+        uint64_t m_gPUDriverDate;
+        uint8_t _unknown_192[64];
+        uint32_t m_gpuMemoryMB;
+        uint8_t field_260;
+        uint8_t _unknown_261[3];
+        uint32_t m_dPI;
+        uint8_t _unknown_268[8];
+        uint8_t field_276;
+        uint8_t _unknown_277[3];
     };
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    HardwareInfo::GetCPUBrand() const;
+    // 0x100009ca0: HardwareInfo::GetCPUBrand() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x10002d850: the linker folded this into oldscape::option::Option<int>::GetDefaultValue() const, which has identical code
-    HardwareInfo::GetCPUVendor() const;
+    // 0x10002d850: HardwareInfo::GetCPUVendor() const has the same machine code as oldscape::option::Option<int>::GetDefaultValue() const
 
-    // 0x1000b7900: the linker folded this into oldscape::minimenu::MinimenuEntry::GetSubjectType() const, which has identical code
-    int HardwareInfo::GetCPUSignature() const;
+    // 0x1000b7900: HardwareInfo::GetCPUSignature() const has the same machine code as oldscape::minimenu::MinimenuEntry::GetSubjectType() const
 
-    // 0x100102f00: the linker folded this into oldscape::rs2lib::InputField::HasFont() const, which has identical code
-    HardwareInfo::Is64BitOS() const;
+    // 0x100102f00: HardwareInfo::Is64BitOS() const has the same machine code as oldscape::rs2lib::InputField::HasFont() const
 
-    // 0x10012dc00: the linker folded this into oldscape::graphics::NXTPixScreen::GetViewportX(), which has identical code
-    int HardwareInfo::GetSystemMemoryMB() const;
+    // 0x10012dc00: HardwareInfo::GetSystemMemoryMB() const has the same machine code as oldscape::graphics::NXTPixScreen::GetViewportX()
 
-    // 0x100146270, 32 bytes, inline, placed by class name and debug map
-    // HardwareInfo::GetOSVersionAndBuild(OperatingSystem&, int&, int&, int&) const
-    void HardwareInfo::GetOSVersionAndBuild(OperatingSystem* param_1, int* param_2, int* param_3, int* param_4) {
-        GetOSVersion(this, param_1, param_2, param_3);
-        *param_4 = field_176;
+    // 0x100146270
+    void HardwareInfo::GetOSVersionAndBuild(OperatingSystem& operatingSystem, int& arg2, int& arg3, int& arg4) const {
+        GetOSVersion(operatingSystem, arg2, arg3);
+        arg4 = field_176;
     }
 
-    // 0x1001462d0, 112 bytes, inline, placed by class name and debug map
-    // HardwareInfo::GetOSVersion(OperatingSystem&, int&, int&) const
-    void HardwareInfo::GetOSVersion(OperatingSystem* param_1, int* param_2, int* param_3) {
+    // 0x1001462d0
+    void HardwareInfo::GetOSVersion(OperatingSystem& operatingSystem, int& arg2, int& arg3) const {
         if (field_276 == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "m_initComplete",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/hardware/HardwareInfo.h",
-                107, (char*)0);
+                107, nullptr);
         }
-        *(undefined4*)param_1 = field_160;
-        *param_2 = field_164;
-        *param_3 = field_168;
+        *(uint32_t*)operatingSystem = field_160;
+        arg2 = field_164;
+        arg3 = field_168;
     }
 
-    // 0x1001a48c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // HardwareInfo::~HardwareInfo(): jumps straight to the base-object destructor
-
-    // 0x1001a48d0, 96 bytes, base-object destructor, inline, placed by class name
-    // HardwareInfo::~HardwareInfo()
-    void HardwareInfo::~HardwareInfo() {
-        (&field_224)->~basic_string();
-        (&field_192)->~basic_string();
-        (&field_128)->~basic_string();
-        (&field_96)->~basic_string();
-        (&field_32)->~basic_string();
-        ~basic_string();
-        ~AutoSingleton();
+    // 0x1001a48d0
+    HardwareInfo::~HardwareInfo() {
+        field_224.~basic_string();
+        field_192.~basic_string();
+        field_128.~basic_string();
+        field_96.~basic_string();
+        field_32.~basic_string();
     }
 
-    // 0x1001cd990: the linker folded this into graphics::PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
-    HardwareInfo::GetClientType() const;
+    // 0x1001cd990: HardwareInfo::GetClientType() const has the same machine code as graphics::PointLightIndicesEffect::GetVisiblePointLights()
 
-    // 0x1003f65a0: the linker folded this into EntityRoute::GetStalledTickCount() const, which has identical code
-    uint HardwareInfo::GetNumLogicalProcessors() const;
+    // 0x1003f65a0: HardwareInfo::GetNumLogicalProcessors() const has the same machine code as EntityRoute::GetStalledTickCount() const
 
-    // 0x100429b10: the linker folded this into game::StaticPointLight::GetRGB() const, which has identical code
-    int HardwareInfo::GetNumPhyscicalProcessors() const;
+    // 0x100429b10: HardwareInfo::GetNumPhyscicalProcessors() const has the same machine code as game::StaticPointLight::GetRGB() const
 
-    // 0x100443d40: the linker folded this into game::Entity::GetBoundingCapsule() const, which has identical code
-    HardwareInfo::GetCPUFeatureFlags() const;
+    // 0x100443d40: HardwareInfo::GetCPUFeatureFlags() const has the same machine code as game::Entity::GetBoundingCapsule() const
 
-    // 0x1004abeb0: the linker folded this into game::EnvironmentOverride::GetBloomOverrides() const, which has identical code
-    HardwareInfo::GetDeviceFullName() const;
+    // 0x1004abeb0: HardwareInfo::GetDeviceFullName() const has the same machine code as game::EnvironmentOverride::GetBloomOverrides() const
 
-    // 0x1006e4cf0, 64 bytes, inline, placed by class name
-    // HardwareInfo::GetLegacyOSVersion() const
-    uint HardwareInfo::GetLegacyOSVersion() {
+    // 0x1006e4cf0
+    unsigned int HardwareInfo::GetLegacyOSVersion() const {
         if (field_276 == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "m_initComplete",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/hardware/HardwareInfo.h",
-                121, (char*)0);
+                121, nullptr);
         }
         return m_legacyOSVersion;
     }
 
-    // 0x1006e4d30, 16 bytes, inline, placed by class name
-    // HardwareInfo::GetGPUDriverDate() const
-    undefined8 HardwareInfo::GetGPUDriverDate() {
+    // 0x1006e4d30
+    uint64_t HardwareInfo::GetGPUDriverDate() const {
         return m_gPUDriverDate;
     }
 
-    // 0x1008f3e90, 64 bytes, inline, placed by class name
-    // HardwareInfo::GetDPI() const
-    undefined4 HardwareInfo::GetDPI() {
+    // 0x1008f3e90
+    uint32_t HardwareInfo::GetDPI() const {
         if (field_276 == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "m_initComplete",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/hardware/HardwareInfo.h",
-                160, (char*)0);
+                160, nullptr);
         }
         return m_dPI;
     }
 
-    // 0x1008f3ed0, 80 bytes, inline, placed by class name
-    // HardwareInfo::GetPhysicalScreenSize() const
-    HardwareInfo* HardwareInfo::GetPhysicalScreenSize() {
-        long in_RSI;
-
-        if (*(char*)(in_RSI + 276) == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x1008f3ed0
+    auto HardwareInfo::GetPhysicalScreenSize() const {
+        if (field_276 == '\0') {
             LogAssert(
                 "m_initComplete",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/hardware/HardwareInfo.h",
-                162, (char*)0);
+                162, nullptr);
         }
-        new (this) math::Point<float>((Point*)(in_RSI + 268));
-        return this;
+        return auto(field_268);
     }
 
-    // 0x100930be0: the linker folded this into graphics::LightProbeRenderer::GetProbeEnvMapRes() const, which has identical code
-    HardwareInfo::GetGpuMemoryMB() const;
+    // 0x100930be0: HardwareInfo::GetGpuMemoryMB() const has the same machine code as graphics::LightProbeRenderer::GetProbeEnvMapRes() const
 
 } // namespace jag::hardware
 
 namespace jag {
-    // 0x1001472f0, 192 bytes, inline, placed by debug map only (low confidence)
-    // PacketT<Array<unsigned char, BucketAllocatorEASTL> >::p4_alt3(int)
-    void PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4_alt3(
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>* this, int param_1) {
-        long lVar1;
-        ulong uVar2;
-        undefined1* puVar3;
-
-        lVar1 = *(long*)(this + 24);
-        uVar2 = end();
+    // 0x1001472f0
+    void PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p4_alt3(int arg1) {
+        long lVar1 = *(long*)(this + 24);
+        unsigned long uVar2 = end();
         if (uVar2 < lVar1 + 4U) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_pos + 4 <= m_data.size()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/bytepacking/Packet.inl",
-                      793, (char*)0);
+                      793, nullptr);
         }
-        uVar2 = *(ulong*)(this + 24);
-        *(ulong*)(this + 24) = uVar2 + 1;
-        puVar3 = (undefined1*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, uVar2);
-        *puVar3 = (char)((uint)param_1 >> 16);
-        uVar2 = *(ulong*)(this + 24);
-        *(ulong*)(this + 24) = uVar2 + 1;
-        puVar3 = (undefined1*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, uVar2);
-        *puVar3 = (char)((uint)param_1 >> 24);
-        uVar2 = *(ulong*)(this + 24);
-        *(ulong*)(this + 24) = uVar2 + 1;
-        puVar3 = (undefined1*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, uVar2);
-        *puVar3 = (char)param_1;
-        uVar2 = *(ulong*)(this + 24);
-        *(ulong*)(this + 24) = uVar2 + 1;
-        puVar3 = (undefined1*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, uVar2);
-        *puVar3 = (char)((uint)param_1 >> 8);
+        uVar2 = *(unsigned long*)(this + 24);
+        *(unsigned long*)(this + 24) = uVar2 + 1;
+        uint8_t* puVar3 = (uint8_t*)(*this)[uVar2];
+        *puVar3 = (char)((unsigned int)arg1 >> 16);
+        uVar2 = *(unsigned long*)(this + 24);
+        *(unsigned long*)(this + 24) = uVar2 + 1;
+        puVar3 = (uint8_t*)(*this)[uVar2];
+        *puVar3 = (char)((unsigned int)arg1 >> 24);
+        uVar2 = *(unsigned long*)(this + 24);
+        *(unsigned long*)(this + 24) = uVar2 + 1;
+        puVar3 = (uint8_t*)(*this)[uVar2];
+        *puVar3 = (char)arg1;
+        uVar2 = *(unsigned long*)(this + 24);
+        *(unsigned long*)(this + 24) = uVar2 + 1;
+        puVar3 = (uint8_t*)(*this)[uVar2];
+        *puVar3 = (char)((unsigned int)arg1 >> 8);
     }
 
-    // 0x100147430, 48 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::midi2::MidiRequest* placement_new<oldscape::midi2::MidiRequest, oldscape::jagex3::Js5*, int&, int, int, bool>(void*, oldscape::jagex3::Js5*&&, int&, int&&, int&&, bool&&)
-    /* oldscape::midi2::MidiRequest* placement_new<oldscape::midi2::MidiRequest,
-   oldscape::jagex3::Js5*, int const&, int, int, bool>(void*, oldscape::jagex3::Js5*&&,
-   int const&, int&&, int&&, bool&&) */
-
-    MidiRequest* jag::placement_new<oldscape::midi2::MidiRequest, oldscape::jagex3::Js5*, int const&, int, int, bool>(
-        void* param_1, Js5** param_2, int* param_3, int* param_4, int* param_5, bool* param_6) {
-        oldscape::midi2::MidiRequest::MidiRequest(param_1, *param_2, *param_3, *param_4, *param_5, *param_6);
-        return param_1;
+    // 0x100147430
+    oldscape::midi2::MidiRequest*
+    placement_new<oldscape::midi2::MidiRequest, oldscape::jagex3::Js5*, int&, int, int, bool>(
+        void* arg1, oldscape::jagex3::Js5*&& arg2, int& arg3, int&& arg4, int&& arg5, bool&& arg6) {
+        new (arg1) oldscape::midi2::MidiRequest(arg2, arg3, arg4, arg5, arg6);
+        return arg1;
     }
 
-    // 0x100147460, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::midi2::MidiRequest>* placement_new<ref_counter_shared<oldscape::midi2::MidiRequest>, int, oldscape::midi2::MidiRequest*&>(void*, int&&, oldscape::midi2::MidiRequest*&)
-    ref_counter_shared*
-    jag::placement_new<ref_counter_shared<oldscape::midi2::MidiRequest>, int, oldscape::midi2::MidiRequest*&>(
-        void* param_1, int* param_2, MidiRequest** param_3) {
-        ref_counter_shared<oldscape::midi2::MidiRequest>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100147460
+    ref_counter_shared<oldscape::midi2::MidiRequest>*
+    placement_new<ref_counter_shared<oldscape::midi2::MidiRequest>, int, oldscape::midi2::MidiRequest*&>(
+        void* arg1, int&& arg2, oldscape::midi2::MidiRequest*& arg3) {
+        new (arg1) ref_counter_shared<oldscape::midi2::MidiRequest>((long)*arg2, arg3);
+        return arg1;
     }
 
 } // namespace jag

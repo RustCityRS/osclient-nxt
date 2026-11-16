@@ -1,186 +1,135 @@
 // libs/hal/render/textures/OGL/TextureRenderBuffer_OGL.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "TextureRenderBuffer_OGL.h"
 
 namespace jag::render {
-    // 0x100bccf40, 48 bytes, base-object constructor, placed by class name and debug map
-    // TextureRenderBuffer::TextureRenderBuffer(char const*)
-    void TextureRenderBuffer::TextureRenderBuffer(char* param_1) {
-        new (this) Texture(param_1);
-        field_0 = &PTR__TextureRenderBuffer_100f27d10;
-        field_16 = 36161;
-    }
+    // 0x100bccf40
+    TextureRenderBuffer::TextureRenderBuffer(const char* str) : Texture(str), field_16(36161) {}
 
-    // 0x100bccf70, 16 bytes, complete-object constructor, placed by class name and debug map
-    // TextureRenderBuffer::TextureRenderBuffer(char const*): jumps straight to the base-object constructor
-
-    // 0x100bccf80, 80 bytes, base-object destructor, placed by class name and debug map
-    // TextureRenderBuffer::~TextureRenderBuffer()
-    void TextureRenderBuffer::~TextureRenderBuffer() {
-        field_0 = &PTR__TextureRenderBuffer_100f27d10;
-        Destroy(this);
-        if (*(int*)field_296 == -1) {
-            *(undefined4*)field_296 = 0;
+    // 0x100bccf80
+    TextureRenderBuffer::~TextureRenderBuffer() {
+        Destroy();
+        if (field_296 == -1) {
+            field_296 = 0;
         }
-        ~Texture();
     }
 
-    // 0x100bcd0b0, 16 bytes, complete-object destructor, placed by class name and debug map
-    // TextureRenderBuffer::~TextureRenderBuffer(): jumps straight to the base-object destructor
+    // 0x100bcd0e0
+    void TextureRenderBuffer::Create(const Texture::Desc& desc) {
+        TextureType TVar1;
+        uint64_t uVar2;
+        uint64_t uVar4;
+        unsigned int uVar15;
+        char* str2;
+        int iVar16;
+        char* pcVar17;
+        uint8_t local_b0[24];
+        AutoSingleton<ShaderThreadPoolSingleton> local_98;
+        String local_90;
 
-    // 0x100bcd0c0, 32 bytes, deleting destructor, placed by class name and debug map
-    // TextureRenderBuffer::~TextureRenderBuffer()
-    void TextureRenderBuffer::~TextureRenderBuffer() {
-        ~TextureRenderBuffer(this);
-        operator_delete(this);
-    }
-
-    // 0x100bcd0e0, 656 bytes, placed by class name and debug map
-    // TextureRenderBuffer::Create(Texture::Desc const&)
-    void TextureRenderBuffer::Create(Desc* param_1) {
-        int iVar1;
-        undefined4 uVar2;
-        uint uVar3;
-        int iVar4;
-        int iVar5;
-        int iVar6;
-        undefined4 uVar7;
-        undefined4 uVar8;
-        undefined4 uVar9;
-        undefined4 uVar10;
-        undefined4 uVar11;
-        undefined4 uVar12;
-        undefined4 uVar13;
-        code* pcVar14;
-        uint uVar16;
-        undefined8 uVar17;
-        char* pcVar18;
-        int iVar19;
-        char* pcVar20;
-        undefined1 local_b0[24];
-        undefined1 local_98[8];
-        String local_90[88];
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        iVar19 = param_1->field_0;
-        iVar1 = param_1->field_4;
-        uVar17 = GetName();
-        1077936128->~AutoSingleton(local_98, "TextureRenderBuffer Create (width: %i, height: %i, name: %s)", iVar19,
-                                   iVar1, uVar17);
-        if (*(int*)field_296 != 0) {
-            /* WARNING: Subroutine does not return */
+        GetName();
+        if (field_296 != 0) {
             LogAssert("!m_GLTexture",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/OGL/"
                       "TextureRenderBuffer_OGL.cpp",
                       36, "Call Destroy() before calling Create() again");
         }
-        (*___glewGenRenderbuffers)(1, field_296);
+        (*___glewGenRenderbuffers)(1, &field_296);
         CheckGlErrorInternal("glGenRenderbuffers",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "textures/OGL/TextureRenderBuffer_OGL.cpp",
                              38);
-        (*___glewBindRenderbuffer)(field_16, *(undefined4*)field_296);
+        (*___glewBindRenderbuffer)(field_16, field_296);
         CheckGlErrorInternal("glBindRenderbuffer",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "textures/OGL/TextureRenderBuffer_OGL.cpp",
                              39);
-        pcVar14 = ___glewRenderbufferStorage;
-        if ((param_1->field_0 != 0) && (param_1->field_4 != 0)) {
-            uVar16 = param_1->field_16;
-            if (uVar16 < 2) {
-                iVar19 = field_16;
-                new (local_b0) GLFormat(param_1->field_12);
-                (*pcVar14)(iVar19, local_b0._0_4_, param_1->field_0, param_1->field_4);
-                pcVar20 = "glRenderbufferStorage";
-                iVar19 = 50;
+        void* pcVar13 = ___glewRenderbufferStorage;
+        if ((desc.field_0 != 0) && (desc.field_4 != 0)) {
+            uVar15 = desc.field_16;
+            if (uVar15 < 2) {
+                TVar1 = field_16;
+                new (local_b0) GLFormat(desc.field_12);
+                (*pcVar13)(TVar1, local_b0._0_4_, desc.field_0, desc.field_4);
+                pcVar17 = "glRenderbufferStorage";
+                iVar16 = 50;
             } else {
                 local_b0._16_8_ = ___glewRenderbufferStorageMultisample;
-                iVar19 = field_16;
-                new (local_b0) GLFormat(param_1->field_12);
-                (*(code*)local_b0._16_8_)(iVar19, uVar16, local_b0._0_4_, param_1->field_0, param_1->field_4);
-                pcVar20 = "glRenderbufferStorageMultisample";
-                iVar19 = 46;
+                TVar1 = field_16;
+                new (local_b0) GLFormat(desc.field_12);
+                (*(void (*)(...))local_b0._16_8_)(TVar1, uVar15, local_b0._0_4_, desc.field_0, desc.field_4);
+                pcVar17 = "glRenderbufferStorageMultisample";
+                iVar16 = 46;
             }
-            CheckGlErrorInternal(pcVar20,
+            CheckGlErrorInternal(pcVar17,
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureRenderBuffer_OGL.cpp",
-                                 iVar19);
+                                 iVar16);
         }
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() ==
-            '\0') {
-            uVar2 = *(undefined4*)field_296;
-            pcVar20 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            pcVar18 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
-            Instrumentation::String::String(local_90, pcVar20, pcVar18);
-            36161->~AutoSingleton(uVar2, local_90);
-            local_90->~String();
+        if (field_96.empty() == '\0') {
+            pcVar17 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            str2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+            local_90 = Instrumentation::String(pcVar17, str2);
+            36161->~AutoSingleton();
         }
-        uVar16 = param_1->field_0;
-        uVar3 = param_1->field_4;
-        iVar19 = param_1->field_8;
-        iVar1 = param_1->field_12;
-        uVar2 = param_1->field_16;
-        iVar4 = param_1->field_20;
-        iVar5 = param_1->field_24;
-        iVar6 = param_1->field_28;
-        uVar7 = *(undefined4*)&param_1->field_32;
-        uVar8 = param_1->field_36;
-        uVar9 = *(undefined4*)&param_1->field_40;
-        uVar10 = *(undefined4*)&param_1->field_44;
-        uVar11 = *(undefined4*)((long)&param_1->field_48 + 4);
-        uVar12 = *(undefined4*)&param_1->field_56;
-        uVar13 = param_1->field_60;
-        field_72 = *(undefined4*)&param_1->field_48;
-        field_76 = uVar11;
-        field_80 = uVar12;
-        field_84 = uVar13;
-        field_24 = uVar16;
-        field_28 = uVar3;
-        field_32 = iVar19;
-        field_36 = iVar1;
-        field_56 = uVar7;
-        field_60 = uVar8;
-        field_64 = uVar9;
-        field_68 = uVar10;
-        field_40 = uVar2;
-        field_44 = iVar4;
-        field_48 = iVar5;
-        field_52 = iVar6;
+        iVar16 = desc.field_0;
+        int iVar6 = desc.field_4;
+        int iVar7 = desc.field_8;
+        int iVar8 = desc.field_12;
+        uint32_t uVar9 = desc.field_16;
+        int iVar10 = desc.field_20;
+        int iVar11 = desc.field_24;
+        int iVar12 = desc.field_28;
+        uVar2._0_1_ = desc.field_32;
+        uVar2._1_3_ = *(uint32_t*)&desc.field_33;
+        uVar2._4_4_ = desc.field_36;
+        uint64_t uVar3 = *(uint64_t*)&desc.field_40;
+        uint32_t uVar5 = *(uint32_t*)((long)&desc.field_48 + 4);
+        uVar4._0_1_ = desc.field_56;
+        uVar4._1_3_ = *(uint32_t*)&desc.field_57;
+        uVar4._4_4_ = desc.field_60;
+        field_72 = *(uint32_t*)&desc.field_48;
+        field_76 = uVar5;
+        field_80 = (int)uVar4;
+        field_84 = (int)((unsigned long)uVar4 >> 32);
+        field_24 = iVar16;
+        field_28 = iVar6;
+        field_32 = iVar7;
+        field_36 = iVar8;
+        field_56 = (int)uVar2;
+        field_60 = (int)((unsigned long)uVar2 >> 32);
+        field_64 = (int)uVar3;
+        field_68 = (int)((unsigned long)uVar3 >> 32);
+        field_40 = uVar9;
+        field_44 = iVar10;
+        field_48 = iVar11;
+        field_52 = iVar12;
         field_84 = 35001;
-        uVar16 = GetTextureImageDataSize(field_16, field_24, field_28, field_32, field_36, field_88);
-        (field_272, "TextureRenderBuffer", uVar16)->Register();
-        (&field_8)->UndoMarkAsDead();
-        (*(code*)field_0[4])(this);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        uVar15 = GetTextureImageDataSize(field_16, field_24, field_28, field_32, field_36, field_88);
+        field_272->Register("TextureRenderBuffer", uVar15);
+        field_8.UndoMarkAsDead();
+        IsCreatedNative();
     }
 
-    // 0x100bcd370, 176 bytes, placed by class name and debug map
-    // TextureRenderBuffer::BindNativeBackBuffer(unsigned int)
-    void TextureRenderBuffer::BindNativeBackBuffer(uint param_1) {
-        undefined1 local_58[48];
-        undefined8 local_28;
-        undefined8 uStack_20;
+    // 0x100bcd370
+    void TextureRenderBuffer::BindNativeBackBuffer(unsigned int arg1) {
+        uint8_t local_58[48];
+        uint64_t local_28;
+        uint64_t uStack_20;
 
-        if (1 < *(int*)field_296 + 1U) {
-            /* WARNING: Subroutine does not return */
+        if (1 < field_296 + 1U) {
             LogAssert("!m_GLTexture || m_GLTexture == NATIVE_BACKBUFFER_RENDERBUFFER_ID",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/OGL/"
                       "TextureRenderBuffer_OGL.cpp",
                       75, "Call Destroy() before calling Create() again");
         }
-        *(undefined4*)field_296 = 4294967295;
+        field_296 = -1;
         new (local_58) Texture::Desc();
-        field_72 = (undefined4)local_28;
+        field_72 = (uint32_t)local_28;
         field_76 = local_28._4_4_;
-        *(undefined8*)&field_80 = uStack_20;
+        *(uint64_t*)&field_80 = uStack_20;
         field_56 = local_58._32_4_;
         field_60 = local_58._36_4_;
         field_64 = local_58._40_4_;
@@ -193,31 +142,29 @@ namespace jag::render {
         field_28 = local_58._4_4_;
         field_32 = local_58._8_4_;
         field_36 = local_58._12_4_;
-        field_36 = GetBackBufferFormat(param_1);
+        field_36 = GetBackBufferFormat(arg1);
         field_84 = 35001;
-        (&field_8, 3)->DisableMarkAsDead();
+        field_8.DisableMarkAsDead(3);
     }
 
-    // 0x100bcd420, 1120 bytes, placed by class name and debug map
-    // TextureRenderBuffer::GetBackBufferFormat(unsigned int)
-    undefined4 TextureRenderBuffer::GetBackBufferFormat(uint param_1) {
-        undefined4 uVar1;
-        undefined8 uVar2;
-        uint uVar3;
-        uint uVar4;
-        uint uVar5;
-        uint uVar6;
-        int local_50;
-        uint local_4c;
-        uint local_48;
-        uint local_44;
-        uint local_40;
-        int local_3c;
-        int local_38;
-        uint local_34;
+    // 0x100bcd420
+    void TextureRenderBuffer::GetBackBufferFormat(unsigned int arg1) {
+        uint32_t uVar1;
+        Logger* logger;
+        unsigned int uVar2;
+        unsigned int uVar3;
+        unsigned int uVar4;
+        unsigned int uVar5;
+        unsigned int local_4c;
+        unsigned int local_48;
+        unsigned int local_44;
+        unsigned int local_40;
+        unsigned int local_3c;
+        unsigned int local_38;
+        unsigned int local_34;
 
-        local_50 = 0;
-        (*___glewGetFramebufferAttachmentParameteriv)(36009, param_1, 36048, &local_50);
+        int local_50 = 0;
+        (*___glewGetFramebufferAttachmentParameteriv)(36009, arg1, 36048, &local_50);
         CheckGlErrorInternal("glGetFramebufferAttachmentParameteriv",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "textures/OGL/TextureRenderBuffer_OGL.cpp",
@@ -225,7 +172,7 @@ namespace jag::render {
         if (local_50 == 36161) {
             local_38 = 0;
             local_34 = 0;
-            (*___glewGetFramebufferAttachmentParameteriv)(36009, param_1, 36049, &local_38);
+            (*___glewGetFramebufferAttachmentParameteriv)(36009, arg1, 36049, &local_38);
             CheckGlErrorInternal("glGetFramebufferAttachmentParameteriv",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureRenderBuffer_OGL.cpp",
@@ -243,7 +190,7 @@ namespace jag::render {
                                      159);
             }
             uVar1 = GetFormatByRenderBufferFormat(local_34);
-        } else if (param_1 - 6145 < 2) {
+        } else if (arg1 - 6145 < 2) {
             local_38 = 0;
             local_34 = 0;
             (*___glewGetFramebufferAttachmentParameteriv)(36009, 6145, 33302, &local_38);
@@ -260,7 +207,6 @@ namespace jag::render {
                  (((local_38 != 24 || (uVar1 = 15, local_34 != 0)) &&
                    ((local_38 != 16 || (uVar1 = 22, local_34 != 0)))))) &&
                 ((local_38 != 32 || (uVar1 = 12, local_34 != 0)))) {
-                /* WARNING: Subroutine does not return */
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                 "textures/OGL/TextureRenderBuffer_OGL.cpp",
                                 196,
@@ -279,85 +225,83 @@ namespace jag::render {
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureRenderBuffer_OGL.cpp",
                                  211);
-            (*___glewGetFramebufferAttachmentParameteriv)(36009, param_1, 33296, &local_34);
+            (*___glewGetFramebufferAttachmentParameteriv)(36009, arg1, 33296, &local_34);
             CheckGlErrorInternal("glGetIntv(encoding)",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureRenderBuffer_OGL.cpp",
                                  214);
-            (*___glewGetFramebufferAttachmentParameteriv)(36009, param_1, 33297, &local_4c);
+            (*___glewGetFramebufferAttachmentParameteriv)(36009, arg1, 33297, &local_4c);
             CheckGlErrorInternal("glGetIntv(type)",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureRenderBuffer_OGL.cpp",
                                  215);
-            (*___glewGetFramebufferAttachmentParameteriv)(36009, param_1, 33298, &local_48);
+            (*___glewGetFramebufferAttachmentParameteriv)(36009, arg1, 33298, &local_48);
             CheckGlErrorInternal("glGetIntv(redBits)",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureRenderBuffer_OGL.cpp",
                                  216);
-            (*___glewGetFramebufferAttachmentParameteriv)(36009, param_1, 33299, &local_44);
+            (*___glewGetFramebufferAttachmentParameteriv)(36009, arg1, 33299, &local_44);
             CheckGlErrorInternal("glGetIntv(greenBits)",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureRenderBuffer_OGL.cpp",
                                  217);
-            (*___glewGetFramebufferAttachmentParameteriv)(36009, param_1, 33300, &local_40);
+            (*___glewGetFramebufferAttachmentParameteriv)(36009, arg1, 33300, &local_40);
             CheckGlErrorInternal("glGetIntv(blueBits)",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureRenderBuffer_OGL.cpp",
                                  218);
-            (*___glewGetFramebufferAttachmentParameteriv)(36009, param_1, 33301, &local_3c);
+            (*___glewGetFramebufferAttachmentParameteriv)(36009, arg1, 33301, &local_3c);
             CheckGlErrorInternal("glGetIntv(alphaBits)",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "textures/OGL/TextureRenderBuffer_OGL.cpp",
                                  219);
-            uVar3 = local_4c ^ 35863;
-            uVar5 = local_48 ^ 8;
-            uVar4 = local_44 ^ 8;
-            uVar6 = local_40 ^ 8;
-            if (((((local_38 != 6407 || uVar3 != 0) || (uVar4 != 0 || uVar5 != 0)) || uVar6 != 0) ||
+            uVar2 = local_4c ^ 35863;
+            uVar4 = local_48 ^ 8;
+            uVar3 = local_44 ^ 8;
+            uVar5 = local_40 ^ 8;
+            if (((((local_38 != 6407 || uVar2 != 0) || (uVar3 != 0 || uVar4 != 0)) || uVar5 != 0) ||
                  (uVar1 = 16, local_34 != 9729)) &&
-                (uVar1 = 17, (((local_38 != 6407 || uVar3 != 0) || (uVar4 != 0 || uVar5 != 0)) || uVar6 != 0) ||
+                (uVar1 = 17, (((local_38 != 6407 || uVar2 != 0) || (uVar3 != 0 || uVar4 != 0)) || uVar5 != 0) ||
                                  local_34 != 35904)) {
                 if (((local_3c != 8 ||
-                      (((local_38 != 6408 || uVar3 != 0) || (uVar4 != 0 || uVar5 != 0)) || uVar6 != 0)) ||
+                      (((local_38 != 6408 || uVar2 != 0) || (uVar3 != 0 || uVar4 != 0)) || uVar5 != 0)) ||
                      (uVar1 = 7, local_34 != 9729)) &&
                     (uVar1 = 8, (local_3c != 8 ||
-                                 (((local_38 != 6408 || uVar3 != 0) || (uVar4 != 0 || uVar5 != 0)) || uVar6 != 0)) ||
+                                 (((local_38 != 6408 || uVar2 != 0) || (uVar3 != 0 || uVar4 != 0)) || uVar5 != 0)) ||
                                     local_34 != 35904)) {
-                    uVar2 = logger::default_logger();
+                    logger = logger::default_logger();
                     uVar1 = 0;
-                    logger::Logger::Log(uVar2, 0, 5,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                        "render/textures/OGL/TextureRenderBuffer_OGL.cpp",
-                                        236,
-                                        "WARNING: Need a parameter -> format mapping for format %04X, encoding %04X, "
-                                        "type %04X, %d,%d,%d,%d",
-                                        local_38, local_34, local_4c, local_48, local_44, local_40, local_3c);
+                    logger->Log(false, 5,
+                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                "textures/OGL/TextureRenderBuffer_OGL.cpp",
+                                236,
+                                "WARNING: Need a parameter -> format mapping for format %04X, encoding %04X, type "
+                                "%04X, %d,%d,%d,%d",
+                                (unsigned long)local_38, (unsigned long)local_34, (unsigned long)local_4c,
+                                (unsigned long)local_48, (unsigned long)local_44, (unsigned long)local_40,
+                                (unsigned long)local_3c);
                 }
             }
         }
         return uVar1;
     }
 
-    // 0x100bcd880, 288 bytes, placed by class name and debug map
-    // TextureRenderBuffer::Destroy()
+    // 0x100bcd880
     void TextureRenderBuffer::Destroy() {
         __10 _Var1;
-        char cVar2;
         RenderDevice* pRVar3;
+        TextureRenderBuffer* this_00;
         Singleton<RenderDevice>* this_01;
-        __10 local_d0[2];
-        function local_c8;
+        __10 local_d0;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_c8[160];
         long local_28;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        _Var1.field_0 = *(undefined4*)field_296;
+        _Var1.field_0 = field_296;
         if (1 < _Var1.field_0 + 1) {
-            cVar2 = this_thread::IsMainThread();
-            if (cVar2 == '\0') {
-                pRVar3 = (RenderDevice*)((TextureRenderBuffer*)this)->Instance();
-                cVar2 = pRVar3->IsRenderThread();
-                if (cVar2 == '\0') {
-                    /* WARNING: Subroutine does not return */
+            this_00 = this;
+            if (!(this_thread::IsMainThread())) {
+                pRVar3 = (RenderDevice*)this_00->Instance();
+                if (!(pRVar3->IsRenderThread())) {
                     LogAssert("this_thread::IsMainThread() || RenderDevice::Instance().IsRenderThread()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "textures/OGL/TextureRenderBuffer_OGL.cpp",
@@ -367,41 +311,32 @@ namespace jag::render {
             field_272->Unregister();
             this_01 = (Singleton<RenderDevice>*)&field_8;
             this_01->MarkAsDead();
-            *(undefined4*)field_296 = 0;
+            field_296 = 0;
             pRVar3 = (RenderDevice*)this_01->Instance();
             local_d0[0].field_0 = _Var1.field_0;
             fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                TextureRenderBuffer::Destroy()::__10, void>(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8, local_d0);
-            pRVar3->RunOnRenderThread(&local_c8);
-            fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_c8);
+                TextureRenderBuffer::Destroy()::__10, void>(local_c8, &local_d0);
+            pRVar3->RunOnRenderThread(*local_c8);
         }
-        (&field_24)->SetToDefault();
+        field_24.SetToDefault();
         field_88 = 0;
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x100bcd9b0, 96 bytes, placed by class name and debug map
-    // TextureRenderBuffer::IsCreatedNative() const
-    ulong TextureRenderBuffer::IsCreatedNative() {
-        char cVar1;
-        undefined7 uVar3;
-        ulong uVar2;
+    // 0x100bcd9b0
+    unsigned long TextureRenderBuffer::IsCreatedNative() const {
+        uint64_t uVar3;
+        unsigned long uVar2;
 
-        cVar1 = IsCreated();
-        if (cVar1 == '\0') {
+        bool cVar1 = IsCreated();
+        if (!cVar1) {
             uVar2 = 0;
         } else {
-            uVar3 = (undefined7)((ulong)this >> 8);
-            if (*(int*)field_296 == -1) {
-                uVar2 = CONCAT71(uVar3, 1);
+            uVar3 = (uint64_t)((unsigned long)this >> 8);
+            if (field_296 == -1) {
+                uVar2 = (((uint64_t)uVar3 << 8) | (uint8_t)1);
             } else {
                 cVar1 = (*___glewIsRenderbuffer)();
-                uVar2 = CONCAT71(uVar3, cVar1 != '\0');
+                uVar2 = (((uint64_t)uVar3 << 8) | (uint8_t)(cVar1));
                 CheckGlErrorInternal("glIsRenderbuffer",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                      "textures/OGL/TextureRenderBuffer_OGL.cpp",
@@ -411,40 +346,31 @@ namespace jag::render {
         return uVar2 & 4294967295;
     }
 
-    // 0x100bcda20, 16 bytes, placed by class name and debug map
-    // TextureRenderBuffer::IsNativeBackBuffer() const
-    bool TextureRenderBuffer::IsNativeBackBuffer() {
-        return *(int*)field_296 == -1;
+    // 0x100bcda20
+    bool TextureRenderBuffer::IsNativeBackBuffer() const {
+        return field_296 == -1;
     }
 
-    // 0x100bcda30, 80 bytes, placed by class name and debug map
-    // TextureRenderBuffer::SetNativeBackBufferSize(unsigned int, unsigned int)
-    void TextureRenderBuffer::SetNativeBackBufferSize(uint param_1, uint param_2) {
-        if (IsNativeBackBuffer(this) == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x100bcda30
+    void TextureRenderBuffer::SetNativeBackBufferSize(unsigned int arg1, unsigned int arg2) {
+        if (IsNativeBackBuffer() == '\0') {
             LogAssert("IsNativeBackBuffer()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/textures/OGL/"
                       "TextureRenderBuffer_OGL.cpp",
-                      140, (char*)0);
+                      140, nullptr);
         }
-        field_24 = param_1;
-        field_28 = param_2;
+        field_24 = arg1;
+        field_28 = arg2;
     }
 
-    // 0x100bd9410, 112 bytes, placed by __FILE__ string
-    // TextureRenderBuffer::Destroy()::$_10::operator()(RenderContext&) const
-    /* TextureRenderBuffer::Destroy()::$_10::TEMPNAMEPLACEHOLDERVALUE(RenderContext&)
-   const */
-
-    void TextureRenderBuffer::Destroy()::$_10::operator()(RenderContext* param_1) {
-        char cVar1;
-
-        cVar1 = (*___glewIsRenderbuffer)(field_0);
+    // 0x100bd9410
+    void TextureRenderBuffer::Destroy()::$_10::operator()(RenderContext& renderContext) const {
+        bool cVar1 = (*___glewIsRenderbuffer)(field_0);
         CheckGlErrorInternal("glIsRenderbuffer",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "textures/OGL/TextureRenderBuffer_OGL.cpp",
                              100);
-        if (cVar1 != '\0') {
+        if (cVar1) {
             (*___glewDeleteRenderbuffers)(1, this);
             CheckGlErrorInternal("glDeleteRenderbuffers",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"

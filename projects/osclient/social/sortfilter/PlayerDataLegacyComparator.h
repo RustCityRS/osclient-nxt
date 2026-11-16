@@ -1,6 +1,5 @@
 // projects/osclient/social/sortfilter/PlayerDataLegacyComparator.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,85 +8,64 @@ namespace jag::oldscape::social {
     class PlayerDataLegacyComparator {
     public:
         // virtual methods in vtable order
-        virtual void Compare(FriendData const&, FriendData const&) const;
-        PlayerDataLegacyComparator(bool);
-        void Compare(IgnoreData const&, IgnoreData const&) const;
-        void Compare(FriendChatUser const&, FriendChatUser const&) const;
+        virtual void Compare(const FriendData& friendData1, const FriendData& friendData2) const;
+        PlayerDataLegacyComparator(bool arg1);
+        void Compare(const IgnoreData& ignoreData1, const IgnoreData& ignoreData2) const;
+        void Compare(const FriendChatUser& friendChatUser1, const FriendChatUser& friendChatUser2) const;
     };
 
-    // 0x100170260, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // PlayerDataLegacyComparator<FriendData>::PlayerDataLegacyComparator(bool): jumps straight to the base-object constructor
+    // 0x100170280
+    PlayerDataLegacyComparator<FriendData>::PlayerDataLegacyComparator(bool arg1)
+        : PlayerDataComparator<FriendData>() {}
 
-    // 0x100170280, 48 bytes, base-object constructor, inline, placed by class name and debug map
-    // PlayerDataLegacyComparator<FriendData>::PlayerDataLegacyComparator(bool)
-    void PlayerDataLegacyComparator<FriendData>::PlayerDataLegacyComparator(bool param_1) {
-        new (this) PlayerDataComparator<FriendData>();
-        *(undefined**)this = PTR_vtable_100ee8b88 + 16;
-        this[8] = (PlayerDataLegacyComparator<FriendData>)param_1;
-    }
+    // 0x1001702d0
+    void PlayerDataLegacyComparator<FriendData>::Compare(const FriendData& friendData1,
+                                                         const FriendData& friendData2) const {
+        FriendData* friendData;
 
-    // 0x1001702d0, 32 bytes, inline, placed by class name
-    // PlayerDataLegacyComparator<FriendData>::Compare(FriendData const&, FriendData const&) const
-    void PlayerDataLegacyComparator<FriendData>::Compare(FriendData* param_1, FriendData* param_2) {
-        FriendData* pFVar1;
-
-        if (this[8] == (PlayerDataLegacyComparator<FriendData>)0) {
-            pFVar1 = param_1;
-            param_1 = param_2;
+        if (*(char*)&this[1]._vptr == '\0') {
+            friendData = friendData1;
+            friendData1 = friendData2;
         } else {
-            pFVar1 = param_2;
+            friendData = friendData2;
         }
-        param_1->CompareTo(pFVar1);
+        friendData1.CompareTo(*friendData);
     }
 
-    // 0x100172ea0, 16 bytes, complete-object constructor, inline, placed by class name
-    // PlayerDataLegacyComparator<IgnoreData>::PlayerDataLegacyComparator(bool): jumps straight to the base-object constructor
+    // 0x100172ec0
+    PlayerDataLegacyComparator<IgnoreData>::PlayerDataLegacyComparator(bool arg1)
+        : PlayerDataComparator<IgnoreData>() {}
 
-    // 0x100172ec0, 48 bytes, base-object constructor, inline, placed by class name
-    // PlayerDataLegacyComparator<IgnoreData>::PlayerDataLegacyComparator(bool)
-    void PlayerDataLegacyComparator<IgnoreData>::PlayerDataLegacyComparator(bool param_1) {
-        new (this) PlayerDataComparator<IgnoreData>();
-        *(undefined**)this = PTR_vtable_100ee8b90 + 16;
-        this[8] = (PlayerDataLegacyComparator<IgnoreData>)param_1;
-    }
+    // 0x100172f10
+    void PlayerDataLegacyComparator<IgnoreData>::Compare(const IgnoreData& ignoreData1,
+                                                         const IgnoreData& ignoreData2) const {
+        IgnoreData* ignoreData;
 
-    // 0x100172f10, 32 bytes, inline, placed by class name
-    // PlayerDataLegacyComparator<IgnoreData>::Compare(IgnoreData const&, IgnoreData const&) const
-    void PlayerDataLegacyComparator<IgnoreData>::Compare(IgnoreData* param_1, IgnoreData* param_2) {
-        IgnoreData* pIVar1;
-
-        if (this[8] == (PlayerDataLegacyComparator<IgnoreData>)0) {
-            pIVar1 = param_1;
-            param_1 = param_2;
+        if (*(char*)&this[1]._vptr == '\0') {
+            ignoreData = ignoreData1;
+            ignoreData1 = ignoreData2;
         } else {
-            pIVar1 = param_2;
+            ignoreData = ignoreData2;
         }
-        param_1->CompareTo(pIVar1);
+        ignoreData1.CompareTo(*ignoreData);
     }
 
-    // 0x1001749b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // PlayerDataLegacyComparator<FriendChatUser>::PlayerDataLegacyComparator(bool): jumps straight to the base-object constructor
+    // 0x1001749d0
+    PlayerDataLegacyComparator<FriendChatUser>::PlayerDataLegacyComparator(bool arg1)
+        : PlayerDataComparator<FriendChatUser>() {}
 
-    // 0x1001749d0, 48 bytes, base-object constructor, inline, placed by class name
-    // PlayerDataLegacyComparator<FriendChatUser>::PlayerDataLegacyComparator(bool)
-    void PlayerDataLegacyComparator<FriendChatUser>::PlayerDataLegacyComparator(bool param_1) {
-        new (this) PlayerDataComparator<FriendChatUser>();
-        *(undefined**)this = PTR_vtable_100ee8b98 + 16;
-        this[8] = (PlayerDataLegacyComparator<FriendChatUser>)param_1;
-    }
+    // 0x100174a20
+    void PlayerDataLegacyComparator<FriendChatUser>::Compare(const FriendChatUser& friendChatUser1,
+                                                             const FriendChatUser& friendChatUser2) const {
+        FriendChatUser* friendChatUser;
 
-    // 0x100174a20, 32 bytes, inline, placed by class name
-    // PlayerDataLegacyComparator<FriendChatUser>::Compare(FriendChatUser const&, FriendChatUser const&) const
-    void PlayerDataLegacyComparator<FriendChatUser>::Compare(FriendChatUser* param_1, FriendChatUser* param_2) {
-        FriendData* pFVar1;
-
-        if (this[8] == (PlayerDataLegacyComparator<FriendChatUser>)0) {
-            pFVar1 = (FriendData*)param_1;
+        if (*(char*)&this[1]._vptr == '\0') {
+            friendChatUser = friendChatUser1;
         } else {
-            pFVar1 = (FriendData*)param_2;
-            param_2 = param_1;
+            friendChatUser = friendChatUser2;
+            friendChatUser2 = friendChatUser1;
         }
-        param_2->CompareTo(pFVar1);
+        friendChatUser2.CompareTo(*friendChatUser);
     }
 
 } // namespace jag::oldscape::social

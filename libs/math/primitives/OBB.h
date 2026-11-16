@@ -1,226 +1,170 @@
 // libs/math/primitives/OBB.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::math {
     class OBB {
     public:
-        GetCentrePos() const;
-        GetPos() const;
-        GetOri() const;
-        GetHalfSize();
-        GetHalfSize() const;
-        void SetHalfSize(Vector3T<float> const&);
-        OBB(Vector3T<float> const&, Matrix33T<float> const&, Vector3T<float> const&);
-        OBB* operator=(OBB const&);
-        OBB(OBB const&);
-        OBB(OBB&&);
+        void GetCentrePos() const;
+        void GetPos() const;
+        Option<float>* GetOri() const;
+        uint8_t* GetHalfSize();
+        uint8_t* GetHalfSize() const;
+        void SetHalfSize(const Vector3T<float>& vector3);
+        OBB(const Vector3T<float>& vector31, const Matrix33T<float>& matrix33, const Vector3T<float>& vector32);
+        OBB* operator=(const OBB& obb);
+        OBB(const OBB& obb);
+        OBB(OBB&& obb);
         OBB();
-        GetTransform() const;
-        void Set(Vector3T<float> const&, Matrix33T<float> const&, Vector3T<float> const&);
-        OBB(AABB const&);
-        void Set(AABB const&);
-        AABB* GetMinimumEnclosingAABB(AABB&) const;
-        AABB* GetMaximumContainedAABB(AABB&) const;
+        auto GetTransform() const;
+        void Set(const Vector3T<float>& vector31, const Matrix33T<float>& matrix33, const Vector3T<float>& vector32);
+        OBB(const AABB& aabb);
+        void Set(const AABB& aabb);
+        AABB* GetMinimumEnclosingAABB(AABB& aabb) const;
+        AABB* GetMaximumContainedAABB(AABB& aabb) const;
         void GetMinimumRadius() const;
-        Sphere* GetMinimumEnclosingSphere(Sphere&) const;
+        Sphere* GetMinimumEnclosingSphere(Sphere& sphere) const;
         void GetMaximumRadius() const;
-        Sphere* GetMaximumContainedSphere(Sphere&) const;
-        Sphere* GetApproxMinimumEnclosingSphere(Sphere&) const;
-        GetCornerPos(BoxCorner) const;
-        GetLocalCornerPos(BoxCorner) const;
-        bool IsInside(Vector3T<float> const&) const;
-        ulong IsInside(OBB const&) const;
-        void Transform(Matrix44T<float> const&);
+        Sphere* GetMaximumContainedSphere(Sphere& sphere) const;
+        Sphere* GetApproxMinimumEnclosingSphere(Sphere& sphere) const;
+        uint64_t GetCornerPos(BoxCorner boxCorner) const;
+        uint64_t GetLocalCornerPos(BoxCorner boxCorner) const;
+        bool IsInside(const Vector3T<float>& vector3) const;
+        unsigned long IsInside(const OBB& obb) const;
+        void Transform(const Matrix44T<float>& matrix44);
 
-        // data members, from how the methods use this: 72 bytes
-        float field_0;         // offset 0
-        float field_4;         // offset 4
-        float field_8;         // offset 8
-        undefined4 field_12;   // offset 12
-        undefined8 m_halfSize; // offset 16
-        undefined4 field_24;   // offset 24
-        undefined4 field_28;   // offset 28
-        Matrix33T field_32;    // offset 32
-        char _unknown_33[7];
-        undefined8 field_40; // offset 40
-        undefined8 field_48; // offset 48
-        undefined8 field_56; // offset 56
-        undefined4 field_64; // offset 64
-        char _unknown_68[4];
+    private:
+        float field_0;
+        float field_4;
+        float field_8;
+        uint32_t field_12;
+        uint64_t m_halfSize;
+        uint32_t field_24;
+        uint32_t field_28;
+        uint64_t field_32;
+        uint64_t field_40;
+        uint64_t field_48;
+        uint64_t field_56;
+        uint32_t field_64;
+        uint8_t _unknown_68[4];
     };
 
-    // 0x1007bbf00, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // OBB::OBB(Vector3T<float> const&, Matrix33T<float> const&, Vector3T<float> const&): jumps straight to the base-object constructor
-
-    // 0x1007bd480, 80 bytes, base-object constructor, inline, placed by class name
-    // OBB::OBB(Vector3T<float> const&, Matrix33T<float> const&, Vector3T<float> const&)
-    void OBB::OBB(Vector3T* param_1, Matrix33T* param_2, Vector3T* param_3) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-
-        field_8 = *(float*)(param_1 + 8);
-        uVar1 = *(undefined8*)param_1;
+    // 0x1007bd480
+    OBB::OBB(const Vector3T<float>& vector31, const Matrix33T<float>& matrix33, const Vector3T<float>& vector32) {
+        field_8 = *(float*)(vector31 + 8);
+        uint64_t uVar1 = *(uint64_t*)vector31;
         field_0 = (float)(int)uVar1;
-        field_4 = (float)(int)((ulong)uVar1 >> 32);
+        field_4 = (float)(int)((unsigned long)uVar1 >> 32);
         field_12 = 0;
-        m_halfSize = *(undefined8*)param_3;
-        field_24 = *(undefined4*)(param_3 + 8);
+        m_halfSize = *(uint64_t*)vector32;
+        field_24 = *(uint32_t*)(vector32 + 8);
         field_28 = 0;
-        uVar1 = *(undefined8*)(param_2 + 8);
-        uVar2 = *(undefined8*)(param_2 + 16);
-        uVar3 = *(undefined8*)(param_2 + 24);
-        *(undefined8*)&field_32 = *(undefined8*)param_2;
+        uVar1 = *(uint64_t*)(matrix33 + 8);
+        uint64_t uVar2 = *(uint64_t*)(matrix33 + 16);
+        uint64_t uVar3 = *(uint64_t*)(matrix33 + 24);
+        field_32 = *(uint64_t*)matrix33;
         field_40 = uVar1;
         field_48 = uVar2;
         field_56 = uVar3;
-        field_64 = *(undefined4*)(param_2 + 32);
+        field_64 = *(uint32_t*)(matrix33 + 32);
     }
 
-    // 0x1008cd7d0, 80 bytes, base-object constructor, inline, placed by class name
-    // OBB::OBB(OBB const&)
-    /* OBB::OBB(OBB&&) */
-
-    void OBB::OBB(OBB* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        float fVar4;
-        undefined7 uVar5;
-
-        field_8 = param_1->field_8;
-        fVar4 = param_1->field_4;
-        field_0 = param_1->field_0;
+    // 0x1008cd7d0
+    OBB::OBB(const OBB& obb) : field_8(obb.field_8) {
+        float fVar4 = obb.field_4;
+        field_0 = obb.field_0;
         field_4 = fVar4;
         field_12 = 0;
-        field_24 = param_1->field_24;
-        m_halfSize = param_1->m_halfSize;
+        field_24 = obb.field_24;
+        m_halfSize = obb.m_halfSize;
         field_28 = 0;
-        uVar5 = *(undefined7*)&param_1->field_33;
-        uVar1 = param_1->field_40;
-        uVar2 = param_1->field_48;
-        uVar3 = param_1->field_56;
-        field_32 = param_1->field_32;
-        *(undefined7*)&field_33 = uVar5;
+        uint64_t uVar1 = obb.field_40;
+        uint64_t uVar2 = obb.field_48;
+        uint64_t uVar3 = obb.field_56;
+        field_32 = obb.field_32;
         field_40 = uVar1;
         field_48 = uVar2;
         field_56 = uVar3;
-        field_64 = param_1->field_64;
+        field_64 = obb.field_64;
     }
 
-    // 0x10093f200, 16 bytes, complete-object constructor, inline, placed by class name
-    // OBB::OBB(): jumps straight to the base-object constructor
+    // 0x10093f210
+    OBB::OBB() : Vector3T(), field_12(0), field_28(0) {}
 
-    // 0x10093f210, 64 bytes, base-object constructor, inline, placed by class name
-    // OBB::OBB()
-    void OBB::OBB() {
-        new (this) Vector3T<int>();
-        field_12 = 0;
-        new (&m_halfSize) Vector3T<int>();
-        field_28 = 0;
-        new (&field_32) Matrix33T<float>();
+    // 0x100c60f60
+    auto OBB::GetTransform() const {
+        Matrix33T<float> local_80;
+        Matrix33T<float> local_58;
+
+        uint64_t* this_00 = &m_halfSize;
+        auto pfVar1 = this_00->SSOBeginPtr();
+        float local_30 = *pfVar1;
+        pfVar1 = (float*)this_00->y();
+        float local_2c = *pfVar1;
+        pfVar1 = (float*)this_00->second();
+        Matrix33Scaling<float>(local_30, local_2c, *pfVar1);
+        local_58* local_80;
+        return auto(local_58, *this);
     }
 
-    // 0x100c60f60, 144 bytes, inline, placed by class name
-    // OBB::GetTransform() const
-    OBB* OBB::GetTransform() {
-        Layout* this_00;
-        vector* pvVar1;
-        float* pfVar2;
-        type* in_RSI;
-        undefined1 local_80[40];
-        Matrix33T local_58[40];
-        float local_30;
-        float local_2c;
-
-        this_00 = (Layout*)(in_RSI + 16);
-        pvVar1 = eastl::string::Layout::SSOBeginPtr(this_00, in_RSI);
-        local_30 = *(float*)pvVar1;
-        pfVar2 = (float*)this_00->y();
-        local_2c = *pfVar2;
-        pfVar2 = (float*)this_00->second();
-        Matrix33Scaling<float>((math*)local_80, local_30, local_2c, *pfVar2);
-        math::operator*(local_58, (Matrix33T*)local_80);
-        new (this) Matrix44T<float>(local_58, in_RSI);
-        return this;
+    // 0x100c671d0
+    void OBB::Set(const Vector3T<float>& vector31, const Matrix33T<float>& matrix33, const Vector3T<float>& vector32) {
+        SetXYZ(vector31);
+        m_halfSize.SetXYZ(vector32);
+        field_32 = matrix33;
     }
 
-    // 0x100c671d0, 64 bytes, inline, placed by class name and debug map
-    // OBB::Set(Vector3T<float> const&, Matrix33T<float> const&, Vector3T<float> const&)
-    void OBB::Set(Vector3T* param_1, Matrix33T* param_2, Vector3T* param_3) {
-        SetXYZ(param_1);
-        (&m_halfSize, param_3)->SetXYZ();
-        Matrix33T<float>::operator=((Matrix33T<float>*)&field_32, param_2);
-    }
+    // 0x100c67700
+    Vector3T<float> Vector3Max<float>(const Vector3T<float>& vector31, const Vector3T<float>& vector32) {
+        uint64_t uVar2;
 
-    // 0x100c67700, 128 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float> Vector3Max<float>(Vector3T<float> const&, Vector3T<float> const&)
-    undefined8 Vector3Max<float>(Vector3T* param_1, Vector3T* param_2) {
-        float* pfVar1;
-        undefined8 uVar2;
-        ColourHSL local_30;
-        float local_20;
-        float local_1c;
-
-        pfVar1 = std::max<float>((float*)param_1, (float*)param_2);
-        local_20 = *pfVar1;
-        pfVar1 = std::max<float>((float*)(param_1 + 4), (float*)(param_2 + 4));
-        local_1c = *pfVar1;
-        pfVar1 = std::max<float>((float*)(param_1 + 8), (float*)(param_2 + 8));
-        new (&local_30) ColourHSL(local_20, local_1c, *pfVar1);
+        auto pfVar1 = std::max<float>(vector31, vector32);
+        float local_20 = *pfVar1;
+        pfVar1 = std::max<float>(*((vector31 + 4)), *((vector32 + 4)));
+        float local_1c = *pfVar1;
+        pfVar1 = std::max<float>(*((vector31 + 8)), *((vector32 + 8)));
+        ColourHSL local_30(local_20, local_1c, *pfVar1);
         uVar2._0_4_ = local_30.field_0;
         uVar2._4_4_ = local_30.field_4;
         return uVar2;
     }
 
-    // 0x100c67780, 128 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float> Vector3Min<float>(Vector3T<float> const&, Vector3T<float> const&)
-    undefined8 Vector3Min<float>(Vector3T* param_1, Vector3T* param_2) {
-        float* pfVar1;
-        undefined8 uVar2;
-        ColourHSL local_30;
-        float local_20;
-        float local_1c;
+    // 0x100c67780
+    Vector3T<float> Vector3Min<float>(const Vector3T<float>& vector31, const Vector3T<float>& vector32) {
+        uint64_t uVar2;
 
-        pfVar1 = std::min<float>((float*)param_1, (float*)param_2);
-        local_20 = *pfVar1;
-        pfVar1 = std::min<float>((float*)(param_1 + 4), (float*)(param_2 + 4));
-        local_1c = *pfVar1;
-        pfVar1 = std::min<float>((float*)(param_1 + 8), (float*)(param_2 + 8));
-        new (&local_30) ColourHSL(local_20, local_1c, *pfVar1);
+        auto pfVar1 = std::min<float>(vector31, vector32);
+        float local_20 = *pfVar1;
+        pfVar1 = std::min<float>(*((vector31 + 4)), *((vector32 + 4)));
+        float local_1c = *pfVar1;
+        pfVar1 = std::min<float>(*((vector31 + 8)), *((vector32 + 8)));
+        ColourHSL local_30(local_20, local_1c, *pfVar1);
         uVar2._0_4_ = local_30.field_0;
         uVar2._4_4_ = local_30.field_4;
         return uVar2;
     }
 
-    // 0x100c67860, 112 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float>::SloppyCompare(Vector3T<float> const&, float) const
-    bool Vector3T<float>::SloppyCompare(Vector3T* param_1, float param_2) {
-        float fVar1;
+    // 0x100c67860
+    bool Vector3T<float>::SloppyCompare(const Vector3T<float>& vector3, float arg2) const {
         float extraout_XMM0_Da;
 
-        fVar1 = (float)::abs(*(float*)this - *(float*)param_1);
-        if ((fVar1 < param_2) &&
-            (fVar1 = (float)::abs(*(float*)(this + 4) - *(float*)(param_1 + 4)), fVar1 < param_2)) {
-            ::abs(*(float*)(this + 8) - *(float*)(param_1 + 8));
-            return extraout_XMM0_Da < param_2;
+        float fVar1 = (float)::abs(*(float*)this - *(float*)vector3);
+        if ((fVar1 < arg2) && (fVar1 = (float)::abs(*(float*)(this + 4) - *(float*)(vector3 + 4)), fVar1 < arg2)) {
+            ::abs(*(float*)(this + 8) - *(float*)(vector3 + 8));
+            return extraout_XMM0_Da < arg2;
         }
         return false;
     }
 
-    // 0x100c6ba20, 16 bytes, inline, placed by class name
-    // OBB::GetMinimumRadius() const
-    void OBB::GetMinimumRadius() {
-        (&m_halfSize)->MinElement();
+    // 0x100c6ba20
+    void OBB::GetMinimumRadius() const {
+        m_halfSize.MinElement();
     }
 
-    // 0x100c6ba70, 16 bytes, inline, placed by class name
-    // OBB::GetMaximumRadius() const
-    void OBB::GetMaximumRadius() {
-        (&m_halfSize)->Length();
+    // 0x100c6ba70
+    void OBB::GetMaximumRadius() const {
+        m_halfSize.Length();
     }
 
 } // namespace jag::math

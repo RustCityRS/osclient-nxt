@@ -1,410 +1,298 @@
 // libs/ui/components/ComponentCollectionBase.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.ui
 
 #include "ComponentCollectionBase.h"
 
 namespace jag::ui {
-    // 0x100d43370, 96 bytes, __const
-    ComponentCollectionBase::DYNAMIC_COMPONENT_LIST_MIN_INITIAL_SIZE = {
+    // 0x100d43370
+    int32_t ComponentCollectionBase::DYNAMIC_COMPONENT_LIST_MIN_INITIAL_SIZE[24] = {
         50, 0, 1, 2, 1, 3, 2, 0, 0, 0, 1, 1, -1, -1, -1, -1, 0, 0, 1, 1, 1, 1, -1, -1,
     };
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ComponentCollectionBase::UpdateLayout(bool);
+    // 0x100029ea0: ComponentCollectionBase::UpdateLayout(bool) has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ComponentCollectionBase::IsLayoutDirty() const;
+    // 0x100029ea0: ComponentCollectionBase::IsLayoutDirty() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    ComponentCollectionBase::SupportsScrolling() const;
+    // 0x10002d860: ComponentCollectionBase::SupportsScrolling() const has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    ComponentCollectionBase::IsComponentCollection() const;
+    // 0x10002d860: ComponentCollectionBase::IsComponentCollection() const has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    ComponentCollectionBase::SupportsChildComponentType(ComponentType) const;
+    // 0x10002d860: ComponentCollectionBase::SupportsChildComponentType(ComponentType) const has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x100694910, 32 bytes, placed by class name and debug map
-    // ComponentCollectionBase::ChildDynamicIDExists(int) const
-    void ComponentCollectionBase::ChildDynamicIDExists(int param_1) {
-        shared_ptr* psVar1;
+    // 0x100694910
+    void ComponentCollectionBase::ChildDynamicIDExists(int arg1) const {
+        shared_ptr<oldscape::midi2::MidiPlayerMainThread>* midiPlayerMainThread;
 
-        psVar1 = (shared_ptr*)GetDynamicChild(this, param_1);
-        operator!=(psVar1, (_func_decltype_nullptr*)0);
+        midiPlayerMainThread = (shared_ptr<oldscape::midi2::MidiPlayerMainThread>*)GetDynamicChild(arg1);
+        *midiPlayerMainThread != nullptr;
     }
 
-    // 0x100694b40, 144 bytes, placed by class name and debug map
-    // ComponentCollectionBase::RootSetUnownedDynamicChild(int, shared_ptr<Component> const&)
-    void ComponentCollectionBase::RootSetUnownedDynamicChild(int param_1, shared_ptr* param_2) {
-        DynamicNestedChildren* this_00;
-        char cVar1;
-        uint uVar2;
-        int iVar3;
-        ComponentCollectionBase* this_01;
+    // 0x100694b40
+    void ComponentCollectionBase::RootSetUnownedDynamicChild(int arg1, const shared_ptr<Component>& component) {
+        bool cVar1;
+        unsigned int uVar2;
 
-        this_01 = (ComponentCollectionBase*)GetRootCollection(this);
-        if (this_01 != (ComponentCollectionBase*)0) {
-            if ((this_01 == this) && (cVar1 = (&this_01->field_392)->empty(), cVar1 != '\0')) {
+        auto this_00 = GetRootCollection((ReturnValue*)this);
+        if (this_00 != nullptr) {
+            if ((this_00 == this) && (cVar1 = this_00->field_392.empty(), cVar1)) {
                 return;
             }
-            cVar1 = (&this_01->field_392)->empty();
-            if (cVar1 != '\0') {
-                BuildDynamicNestedChildrenList(this_01);
+            cVar1 = this_00->field_392.empty();
+            if (cVar1) {
+                BuildDynamicNestedChildrenList(this_00);
             }
-            uVar2 = ComponentHelpers::GetCategoryID(param_1);
-            this_00 = (DynamicNestedChildren*)
-                eastl::vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>::operator[](
-                    (vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>*)&this_01->field_392,
-                    (ulong)uVar2);
-            iVar3 = ComponentHelpers::GetDynamicID(param_1);
-            this_00->Set(iVar3, param_2);
+            uVar2 = ComponentHelpers::GetCategoryID(arg1);
+            ((DynamicNestedChildren*)this_00->field_392[(unsigned long)uVar2])
+                ->Set(ComponentHelpers::GetDynamicID(arg1), component);
         }
     }
 
-    // 0x100694e40, 128 bytes, placed by class name and debug map
-    // ComponentCollectionBase::RootRemoveUnownedDynamicChild(shared_ptr<Component> const&)
-    void ComponentCollectionBase::RootRemoveUnownedDynamicChild(shared_ptr* param_1) {
-        Component* pCVar1;
+    // 0x100694e40
+    void ComponentCollectionBase::RootRemoveUnownedDynamicChild(const shared_ptr<Component>& component) {
+        unsigned int uVar2;
+        Component* pCVar4;
         DynamicNestedChildren* this_00;
-        char cVar2;
-        uint uVar3;
-        int iVar4;
-        long lVar5;
 
-        lVar5 = GetRootCollection(this);
-        if (lVar5 != 0) {
-            cVar2 = ((lVar5 + 392))->empty();
-            if (cVar2 == '\0') {
-                pCVar1 = (Component*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
-                uVar3 = pCVar1->GetDynamicID();
-                uVar3 = ComponentHelpers::GetCategoryID(uVar3);
-                this_00 = (DynamicNestedChildren*)
-                    eastl::vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>::operator[](
-                        (vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>*)(lVar5 + 392),
-                        (ulong)uVar3);
-                pCVar1 = (Component*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
-                uVar3 = pCVar1->GetDynamicID();
-                iVar4 = ComponentHelpers::GetDynamicID(uVar3);
-                this_00->Remove(iVar4);
+        auto pRVar3 = GetRootCollection((ReturnValue*)this);
+        if (pRVar3 != nullptr) {
+            if (((pRVar3 + 49))->empty() == '\0') {
+                pCVar4 = (Component*)component.operator->();
+                uVar2 = pCVar4->GetDynamicID();
+                uVar2 = ComponentHelpers::GetCategoryID(uVar2);
+                this_00 = (DynamicNestedChildren*)(*((pRVar3 + 49)))[(unsigned long)uVar2];
+                pCVar4 = (Component*)component.operator->();
+                uVar2 = pCVar4->GetDynamicID();
+                this_00->Remove(ComponentHelpers::GetDynamicID(uVar2));
             }
         }
     }
 
-    // 0x1006957a0, 208 bytes, placed by class name
-    // ComponentCollectionBase::DelAll()
+    // 0x1006957a0
     void ComponentCollectionBase::DelAll() {
-        bool bVar1;
-        char cVar2;
-        Layout* this_00;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_01;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* pcVar3;
-        shared_ptr* this_02;
-        shared_ptr<Component>* this_03;
-        long* plVar4;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_04;
-
-        this_00 = (Layout*)(*(code*)field_0[35])();
-        this_01 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_00);
-        pcVar3 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                      eastl::allocator, 0>*)this_00->end();
-        for (; this_01 != pcVar3; this_01 = this_01 + 24) {
-            this_02 = (shared_ptr*)
-                eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                           eastl::allocator, 0>::second(this_01);
-            bVar1 = shared_ptr::operator_cast_to_bool(this_02);
-            if (bVar1) {
-                this_03 = (shared_ptr<Component>*)
-                    eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                               eastl::allocator, 0>::second(this_01);
-                plVar4 = (long*)shared_ptr<Component>::operator->(this_03);
-                cVar2 = (**(code**)(*plVar4 + 104))(plVar4);
-                if (cVar2 != '\0') {
-                    this_04 =
-                        (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)eastl::compressed_pair_imp<
-                            std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>::second(this_01);
-                    plVar4 =
-                        (long*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_04);
-                    (**(code**)(*plVar4 + 360))(plVar4);
-                }
-            }
-        }
-        RootRemoveUnownedDynamicChildren(this, (vector*)this_00);
-        this_00->clear();
-        (&field_392)->clear();
+        (*this->_vptr[1]._x7e___2)();
     }
 
-    // 0x100695870, 256 bytes, placed by class name
-    // ComponentCollectionBase::RootRemoveUnownedDynamicChildren(eastl::vector<ComponentContainer, eastl::allocator> const&)
-    void ComponentCollectionBase::RootRemoveUnownedDynamicChildren(vector* param_1) {
-        char cVar1;
-        uint uVar2;
+    // 0x100695870
+    void ComponentCollectionBase::RootRemoveUnownedDynamicChildren(
+        const eastl::vector<ComponentContainer>& componentContainers) {
+        unsigned int uVar2;
         int iVar3;
         int iVar4;
-        undefined8 in_RAX;
-        long lVar5;
-        ComponentContainer* this_00;
+        uint64_t in_RAX;
+        ComponentContainer* componentContainer1;
         ComponentContainer* pCVar6;
-        Component* this_01;
-        DynamicNestedChildren* this_02;
         ComponentContainer* pCVar7;
-        undefined8 uStack_38;
 
-        uStack_38 = in_RAX;
-        lVar5 = GetRootCollection(this);
-        if (lVar5 != 0) {
-            cVar1 = ((lVar5 + 392))->empty();
-            if (cVar1 == '\0') {
-                this_00 = (ComponentContainer*)param_1->HeapBeginPtr();
-                pCVar6 = (ComponentContainer*)param_1->end();
-                if (this_00 != pCVar6) {
+        uint64_t uStack_38 = in_RAX;
+        auto pRVar5 = GetRootCollection((ReturnValue*)this);
+        if (pRVar5 != nullptr) {
+            if (((pRVar5 + 49))->empty() == '\0') {
+                componentContainer1 = (ComponentContainer*)componentContainers.HeapBeginPtr();
+                pCVar6 = (ComponentContainer*)componentContainers.end();
+                if (componentContainer1 != pCVar6) {
                     do {
-                        this_01 = (Component*)this_00->data();
-                        uVar2 = this_01->GetDynamicID();
+                        uVar2 = ((Component*)componentContainer1->data())->GetDynamicID();
                         uVar2 = ComponentHelpers::GetCategoryID(uVar2);
                         iVar3 = ComponentHelpers::EncodeDynamicID(uVar2, 0);
                         iVar4 = ComponentHelpers::GetMaxDynamicID(uVar2);
-                        uStack_38 = CONCAT44(iVar4 + iVar3, (undefined4)uStack_38);
-                        pCVar6 = (ComponentContainer*)param_1->end();
-                        pCVar6 = eastl::lower_bound<ComponentContainer_const*, int,
-                                                    bool (*)(ComponentContainer_const&, int)>(
-                            (ComponentContainer*)&this_00[1].field_8, pCVar6, (int*)((long)&uStack_38 + 4),
-                            (_func_bool_ComponentContainer_ptr_int*)PTR_ContainerDynamicIdInOrder_100ee6438);
-                        this_02 = (DynamicNestedChildren*)
-                            eastl::vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>::operator[](
-                                (vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>*)(lVar5 +
-                                                                                                            392),
-                                (ulong)uVar2);
-                        this_02->RemoveAll(this_00, pCVar6);
-                        pCVar7 = (ComponentContainer*)param_1->end();
-                        this_00 = pCVar6;
+                        uStack_38 = (((uint64_t)(iVar4 + iVar3) << 32) | (uint32_t)((uint32_t)uStack_38));
+                        pCVar6 = (ComponentContainer*)componentContainers.end();
+                        pCVar6 = eastl::lower_bound<ComponentContainer const*, int,
+                                                    bool (*)(ComponentContainer const&, int)>(
+                            &componentContainer1[1].field_8, pCVar6, *((int*)((long)&uStack_38 + 4)),
+                            PTR_ContainerDynamicIdInOrder_100ee6438);
+                        ((DynamicNestedChildren*)(*((pRVar5 + 49)))[(unsigned long)uVar2])
+                            ->RemoveAll(componentContainer1, pCVar6);
+                        pCVar7 = (ComponentContainer*)componentContainers.end();
+                        componentContainer1 = pCVar6;
                     } while (pCVar6 != pCVar7);
                 }
             }
         }
     }
 
-    // 0x1006959a0, 240 bytes, placed by class name
-    // ComponentCollectionBase::GetChildCombinedIDs(eastl::vector<unsigned int, BucketAllocatorEASTL>&) const
-    void ComponentCollectionBase::GetChildCombinedIDs(vector* param_1) {
-        Layout* this_00;
-        SharedArray<unsigned int>* this_01;
-        SharedArray<unsigned int>* pSVar1;
-        Component* this_02;
-        uint* puVar2;
-        uint* puVar3;
-        uint local_34;
+    // 0x1006959a0
+    void ComponentCollectionBase::GetChildCombinedIDs(eastl::vector<unsigned int, BucketAllocatorEASTL>& arg1) const {
+        uint64_t extraout_var;
+        unsigned int* puVar3;
+        unsigned int* puVar4;
+        unsigned int local_34;
 
-        this_00 = (Layout*)(*(code*)field_0[38])();
-        this_01 = (SharedArray<unsigned int>*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_00);
-        pSVar1 = (SharedArray<unsigned int>*)this_00->end();
+        uint8_t uVar1 = (*this->_vptr[1].SetEnabled)((uint8_t)this);
+        SharedArray<unsigned int>* this_00 =
+            (SharedArray<unsigned int>*)((Layout*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1))->HeapBeginPtr();
+        SharedArray<unsigned int>* pSVar2 =
+            (SharedArray<unsigned int>*)((vector<oldscape::dash3d::EntityHighlight*,
+                                                 BucketAllocatorEASTL>*)(((uint64_t)extraout_var << 8) |
+                                                                         (uint8_t)uVar1))
+                ->end();
         do {
-            if (this_01 == pSVar1) {
+            if (this_00 == pSVar2) {
                 return;
             }
-            this_02 = (Component*)this_01->data();
-            local_34 = this_02->GetCombinedID();
-            puVar2 = (uint*)param_1->HeapBeginPtr();
-            puVar3 = (uint*)param_1->end();
-            for (; puVar2 != puVar3; puVar2 = puVar2 + 1) {
-                if (*puVar2 == local_34) {
-                    /* WARNING: Subroutine does not return */
+            local_34 = ((Component*)this_00->data())->GetCombinedID();
+            puVar3 = (unsigned int*)arg1.HeapBeginPtr();
+            puVar4 = (unsigned int*)arg1.end();
+            for (; puVar3 != puVar4; puVar3 = puVar3 + 1) {
+                if (*puVar3 == local_34) {
                     LogAssert("id != combinedID",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
                               "ComponentCollectionBase.cpp",
-                              36, (char*)0);
+                              36, nullptr);
                 }
             }
-            param_1->push_back(&local_34);
-            this_01 = this_01 + 24;
+            arg1.push_back(local_34);
+            this_00 = this_00 + 24;
         } while (true);
     }
 
-    // 0x100695ac0, 384 bytes, placed by class name
-    // ComponentCollectionBase::GetDynamicChild(int) const
-    ComponentContainer* ComponentCollectionBase::GetDynamicChild(int param_1) {
-        char cVar1;
-        uint uVar2;
-        int iVar3;
+    // 0x100695ac0
+    ComponentContainer* ComponentCollectionBase::GetDynamicChild(int arg1) const {
+        unsigned int uVar3;
         int iVar4;
-        Layout* pLVar5;
-        ComponentContainer* pCVar6;
-        ComponentContainer* pCVar7;
-        ComponentContainer* pCVar8;
-        Component* this_00;
+        uint64_t extraout_var;
         long lVar9;
-        undefined8 uVar10;
-        undefined8 uVar11;
-        undefined1* this_01;
-        bool bVar12;
+        pair<shared_ptr<Component>, int>* arg1_00;
+        pair<shared_ptr<Component>, int>* arg2;
+        bool bVar11;
         int local_30;
-        uint local_2c;
 
-        local_2c = param_1;
-        if (64255 < (uint)param_1) {
-            /* WARNING: Subroutine does not return */
+        if (64255 < (unsigned int)arg1) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
                             "ComponentCollectionBase.cpp",
-                            83, (char*)0);
+                            83, nullptr);
         }
-        pLVar5 = (Layout*)(*(code*)field_0[39])();
-        pCVar6 = (ComponentContainer*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar5);
-        pCVar7 = (ComponentContainer*)pLVar5->end();
-        pCVar7 = eastl::lower_bound<ComponentContainer_const*, int, bool (*)(ComponentContainer_const&, int)>(
-            pCVar6, pCVar7, (int*)&local_2c,
-            (_func_bool_ComponentContainer_ptr_int*)PTR_ContainerDynamicIdInOrder_100ee6438);
-        pCVar8 = (ComponentContainer*)pLVar5->end();
+        uint8_t uVar1 = (*this->_vptr[1].SetForceDisabled)((uint8_t)this);
+        Layout* pLVar10 = (Layout*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1);
+        auto pCVar6 = pLVar10->HeapBeginPtr();
+        auto pCVar7 = pLVar10->end();
+        __41* arg4 = (__41*)PTR_ContainerDynamicIdInOrder_100ee6438;
+        pCVar7 = eastl::lower_bound<ComponentContainer const*, int, bool (*)(ComponentContainer const&, int)>(
+            pCVar6, pCVar7, (unsigned int)arg1, PTR_ContainerDynamicIdInOrder_100ee6438);
+        auto pCVar8 = pLVar10->end();
         if (pCVar7 != pCVar8) {
-            this_00 = (Component*)pCVar7->data();
-            uVar2 = this_00->GetDynamicID();
-            if (uVar2 == local_2c) {
+            uVar3 = ((Component*)pCVar7->data())->GetDynamicID();
+            if (uVar3 == (unsigned int)arg1) {
                 pCVar6 = (ComponentContainer*)pCVar7->second();
                 return pCVar6;
             }
         }
-        this_01 = &field_392;
-        cVar1 = this_01->empty();
-        if (cVar1 == '\0') {
-            iVar3 = ComponentHelpers::GetDynamicID(local_2c);
-            local_30 = iVar3;
-            uVar2 = ComponentHelpers::GetCategoryID(local_2c);
-            iVar4 = this_01->size();
-            if (iVar4 <= (int)uVar2) {
-                /* WARNING: Subroutine does not return */
+        uint8_t* this_01 = &field_392;
+        if (this_01->empty() == '\0') {
+            iVar4 = ComponentHelpers::GetDynamicID((unsigned int)arg1);
+            local_30 = iVar4;
+            uVar3 = ComponentHelpers::GetCategoryID((unsigned int)arg1);
+            if (this_01->size() <= (int)uVar3) {
                 LogAssert("categoryID < (int)m_dynamicNestedChildren.size()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
                           "ComponentCollectionBase.cpp",
-                          67, (char*)0);
+                          67, nullptr);
             }
-            lVar9 = eastl::vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>::operator[](
-                (vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>*)this_01, (ulong)uVar2);
-            pLVar5 = (Layout*)(lVar9 + 8);
-            uVar10 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar5);
-            uVar11 = pLVar5->end();
-            pCVar7 =
-                (ComponentContainer*)eastl::lower_bound<eastl::pair<shared_ptr<Component>, int> const*, int,
-                                                        int->GetDynamicChild() const ::__41>(uVar10, uVar11, &local_30);
-            pCVar8 = (ComponentContainer*)pLVar5->end();
+            lVar9 = (*this_01)[(unsigned long)uVar3];
+            pLVar10 = (Layout*)(lVar9 + 8);
+            arg1_00 = (pair<shared_ptr<Component>, int>*)pLVar10->HeapBeginPtr();
+            arg2 = (pair<shared_ptr<Component>, int>*)pLVar10->end();
+            pCVar7 = (ComponentContainer*)eastl::lower_bound<eastl::pair<shared_ptr<Component>, int> const*, int,
+                                                             int->GetDynamicChild() const ::__41>(arg1_00, arg2,
+                                                                                                  &local_30, arg4);
+            pCVar8 = (ComponentContainer*)pLVar10->end();
             if (pCVar7 == pCVar8) {
-                bVar12 = true;
+                bVar11 = true;
             } else {
-                bVar12 = *(int*)(pCVar7 + 1) != iVar3;
-                if (!bVar12) {
+                bVar11 = *(int*)(pCVar7 + 1) != iVar4;
+                if (!bVar11) {
                     pCVar6 = pCVar7;
                 }
             }
-            if (!bVar12) {
+            if (!bVar11) {
                 return pCVar6;
             }
         }
         return (ComponentContainer*)PTR_NullComponentShared_100ee6498;
     }
 
-    // 0x100695d20, 672 bytes, placed by class name
-    // ComponentCollectionBase::GetNextAvailableDynamicId(int) const
-    int ComponentCollectionBase::GetNextAvailableDynamicId(int param_1) {
-        char cVar2;
-        int iVar3;
+    // 0x100695d20
+    int ComponentCollectionBase::GetNextAvailableDynamicId(int arg1) const {
+        bool cVar1;
+        uint8_t uVar2;
         int iVar4;
-        uint uVar5;
-        undefined4 uVar6;
-        undefined4 uVar7;
-        ComponentCollectionBase* this_00;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_01;
+        uint32_t uVar5;
+        uint32_t uVar6;
+        uint64_t extraout_var;
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_01;
+        ComponentContainer* pCVar7;
         ComponentContainer* pCVar8;
         ComponentContainer* pCVar9;
-        ComponentContainer* pCVar10;
-        shared_ptr<Component>* psVar11;
-        Component* pCVar12;
-        DynamicNestedChildren* this_02;
-        undefined8 uVar13;
-        undefined8 uVar14;
-        shared_ptr* extraout_RDX;
-        int local_50[4];
+        shared_ptr<Component>* psVar10;
+        Component* pCVar11;
+        Logger* this_03;
+        uint64_t uVar12;
+        __42* arg3;
+        ReturnValue local_50;
         shared_ptr local_40;
 
-        if (234 < (uint)param_1) {
-            /* WARNING: Subroutine does not return */
+        if (234 < (unsigned int)arg1) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
                             "ComponentCollectionBase.cpp",
-                            92, (char*)0);
+                            92, nullptr);
         }
-        iVar3 = GetDynamicID();
+        int iVar3 = GetDynamicID();
         if (iVar3 == -1) {
-            this_01 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)(*(
-                code*)field_0[39])(this);
-            cVar2 =
-                eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                    this_01);
+            uVar2 = (*this->_vptr[1].SetForceDisabled)((uint8_t)this);
+            this_01 =
+                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)(((uint64_t)extraout_var << 8) |
+                                                                                        (uint8_t)uVar2);
+            cVar1 = this_01->empty();
             iVar3 = 0;
-            if (cVar2 == '\0') {
-                cVar2 = (&field_392)->empty();
-                if (cVar2 == '\0') {
-                    this_02 = (DynamicNestedChildren*)
-                        eastl::vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>::operator[](
-                            (vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>*)&field_392,
-                            (long)param_1);
-                    iVar3 = this_02->GetNextFreeId();
+            if (!cVar1) {
+                cVar1 = field_392.empty();
+                if (!cVar1) {
+                    iVar3 = ((DynamicNestedChildren*)field_392[(long)arg1])->GetNextFreeId();
                 } else {
                     iVar3 = 0;
-                    local_40._0_4_ = ComponentHelpers::EncodeDynamicID(param_1, 0);
-                    local_50[0] = ComponentHelpers::EncodeDynamicID(param_1 + 1, 0);
-                    pCVar8 = (ComponentContainer*)this_01->HeapBeginPtr();
-                    pCVar9 = (ComponentContainer*)this_01->end();
+                    local_40._0_4_ = ComponentHelpers::EncodeDynamicID(arg1, 0);
+                    local_50[0]._0_4_ = ComponentHelpers::EncodeDynamicID(arg1 + 1, 0);
+                    pCVar7 = (ComponentContainer*)this_01->HeapBeginPtr();
+                    pCVar8 = (ComponentContainer*)this_01->end();
+                    pCVar7 =
+                        eastl::lower_bound<ComponentContainer const*, int, bool (*)(ComponentContainer const&, int)>(
+                            pCVar7, pCVar8, local_40, PTR_ContainerDynamicIdInOrder_100ee6438);
+                    pCVar8 = (ComponentContainer*)this_01->end();
                     pCVar8 =
-                        eastl::lower_bound<ComponentContainer_const*, int, bool (*)(ComponentContainer_const&, int)>(
-                            pCVar8, pCVar9, (int*)&local_40,
-                            (_func_bool_ComponentContainer_ptr_int*)PTR_ContainerDynamicIdInOrder_100ee6438);
+                        eastl::lower_bound<ComponentContainer const*, int, bool (*)(ComponentContainer const&, int)>(
+                            pCVar7, pCVar8, local_50, PTR_ContainerDynamicIdInOrder_100ee6438);
                     pCVar9 = (ComponentContainer*)this_01->end();
-                    pCVar9 =
-                        eastl::lower_bound<ComponentContainer_const*, int, bool (*)(ComponentContainer_const&, int)>(
-                            pCVar8, pCVar9, local_50,
-                            (_func_bool_ComponentContainer_ptr_int*)PTR_ContainerDynamicIdInOrder_100ee6438);
-                    pCVar10 = (ComponentContainer*)this_01->end();
-                    if (pCVar8 != pCVar10) {
-                        psVar11 = (shared_ptr<Component>*)pCVar8->second();
-                        pCVar12 = (Component*)shared_ptr<Component>::operator->(psVar11);
-                        iVar4 = pCVar12->GetDynamicID();
+                    if (pCVar7 != pCVar9) {
+                        psVar10 = (shared_ptr<Component>*)pCVar7->second();
+                        pCVar11 = (Component*)(*psVar10).operator->();
+                        iVar4 = pCVar11->GetDynamicID();
                         if (iVar4 <= (int)local_40._0_4_) {
-                            pCVar10 = eastl::adjacent_find<ComponentContainer_const*, int->GetNextAvailableDynamicId()
-                                                                                          const ::__42>(pCVar8, pCVar9);
-                            if (pCVar10 == pCVar9) {
-                                iVar3 = eastl::distance<eastl::pair<int, oldscape::SpotAnimClient>*>((pair*)pCVar8,
-                                                                                                     (pair*)pCVar9);
+                            pCVar9 =
+                                eastl::adjacent_find<ComponentContainer const*, int->GetNextAvailableDynamicId()
+                                                                                    const ::__42>(pCVar7, pCVar8, arg3);
+                            if (pCVar9 == pCVar8) {
+                                iVar3 = eastl::distance<eastl::pair<int, oldscape::SpotAnimClient>*>(pCVar7, pCVar8);
                             } else {
-                                psVar11 = (shared_ptr<Component>*)pCVar10->second();
-                                pCVar12 = (Component*)shared_ptr<Component>::operator->(psVar11);
-                                uVar5 = pCVar12->GetDynamicID();
-                                iVar3 = ComponentHelpers::GetDynamicID(uVar5);
+                                psVar10 = (shared_ptr<Component>*)pCVar9->second();
+                                pCVar11 = (Component*)(*psVar10).operator->();
+                                iVar3 = ComponentHelpers::GetDynamicID(pCVar11->GetDynamicID());
                                 iVar3 = iVar3 + 1;
                             }
-                            iVar4 = ComponentHelpers::GetMaxDynamicID(param_1);
+                            iVar4 = ComponentHelpers::GetMaxDynamicID(arg1);
                             if (iVar4 <= iVar3) {
-                                uVar13 = logger::default_logger();
+                                this_03 = logger::default_logger();
                                 GetChildren();
-                                uVar14 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                uVar6 = GetStaticID();
-                                uVar7 = GetDynamicID();
-                                logger::Logger::Log(uVar13, 0, 2,
-                                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                    "libs/ui/components/ComponentCollectionBase.cpp",
-                                                    148,
-                                                    "Component \'%s\' (Static ID %d Dynamic ID %d) has ran out of free "
-                                                    "ids for category %d",
-                                                    uVar14, uVar6, uVar7, param_1);
+                                uVar12 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                uVar5 = GetStaticID();
+                                uVar6 = GetDynamicID();
+                                this_03->Log(false, 2,
+                                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/"
+                                             "components/ComponentCollectionBase.cpp",
+                                             148,
+                                             "Component \'%s\' (Static ID %d Dynamic ID %d) has ran out of free ids "
+                                             "for category %d",
+                                             uVar12, uVar5, uVar6, arg1);
                                 iVar3 = -1;
                             }
                         }
@@ -412,405 +300,315 @@ namespace jag::ui {
                 }
             }
         } else {
-            weak_ptr<oldscape::rs2lib::IfType>::lock();
-            static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&local_40, (jag*)local_50,
-                                                                                         extraout_RDX);
-            local_50->~shared_ptr();
-            if (!shared_ptr::operator_cast_to_bool(&local_40)) {
-                /* WARNING: Subroutine does not return */
+            local_50 = field_32.lock();
+            static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(
+                (shared_ptr<oldscape::ClientNpc>*)&local_40);
+            cVar1 = shared_ptr::operator_cast_to_bool(&local_40);
+            if (!cVar1) {
                 LogAssert("rootStaticContainer",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
                           "ComponentCollectionBase.cpp",
-                          161, (char*)0);
+                          161, nullptr);
             }
-            this_00 = (ComponentCollectionBase*)shared_ptr<ComponentCollectionBase>::operator->(
-                (shared_ptr<ComponentCollectionBase>*)&local_40);
-            iVar3 = GetNextAvailableDynamicId(this_00, param_1);
-            local_40.~shared_ptr();
+            iVar3 = GetNextAvailableDynamicId((ComponentCollectionBase*)local_40.operator->(), arg1);
         }
         return iVar3;
     }
 
-    // 0x100696070, 736 bytes, placed by class name
-    // ComponentCollectionBase::FindNext(shared_ptr<Component> const&) const
-    /* WARNING: Removing unreachable block (ram,4301873974) */
-    /* ComponentCollectionBase::FindNext(shared_ptr<Component> const&) const */
+    // 0x100696070
+    shared_ptr<Component>* ComponentCollectionBase::FindNext(const shared_ptr<Component>& component) const {
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        long* plVar4;
+        ComponentContainer* pCVar5;
+        shared_ptr<Component>* psVar6;
+        __43* in_RCX;
+        __44* p_Var7;
+        uint8_t local_36;
+        uint8_t local_35;
+        uint8_t local_34;
+        uint8_t local_32;
+        uint8_t local_31;
 
-    shared_ptr* ComponentCollectionBase::FindNext(shared_ptr* param_1) {
-        Layout* this_00;
-        Layout* this_01;
-        undefined8 uVar1;
-        undefined8 uVar2;
-        ComponentContainer* pCVar3;
-        ComponentContainer* pCVar4;
-        long* plVar5;
-        ComponentContainer* pCVar6;
-        shared_ptr* psVar7;
-        undefined1 local_36;
-        undefined1 local_35;
-        undefined1 local_34;
-        undefined1 local_33;
-        undefined1 local_32;
-        undefined1 local_31;
-
-        this_00 = (Layout*)(*(code*)field_0[38])();
-        this_01 = (Layout*)(*(code*)field_0[39])(this);
-        uVar1 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(this_00);
-        uVar2 = this_00->end();
-        pCVar3 = eastl::find<ComponentContainer_const*, shared_ptr<Component>,
-                             (shared_ptr<Component> const&)->FindNext() const ::__43>(uVar1, uVar2, param_1);
-        pCVar4 = (ComponentContainer*)this_00->end();
-        if (pCVar3 != pCVar4) {
-            uVar1 = this_00->end();
-            plVar5 = (long*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
-            local_36 = (**(code**)(*plVar5 + 16))(plVar5);
-            pCVar4 = eastl::find<ComponentContainer_const*, ComponentType,
-                                 (shared_ptr<Component> const&)->FindNext() const ::__44>(&pCVar3[1].field_8, uVar1,
-                                                                                          &local_36);
-            pCVar6 = (ComponentContainer*)this_00->end();
-            if (pCVar4 == pCVar6) {
-                uVar1 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-                uVar2 = this_01->end();
-                plVar5 = (long*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
-                local_35 = (**(code**)(*plVar5 + 16))(plVar5);
-                pCVar4 = eastl::find<ComponentContainer_const*, ComponentType,
-                                     (shared_ptr<Component> const&)->FindNext() const ::__44>(uVar1, uVar2, &local_35);
-                pCVar6 = (ComponentContainer*)this_01->end();
-                if (pCVar4 == pCVar6) {
-                    uVar1 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                            eastl::allocator>>::Layout::HeapBeginPtr(this_00);
-                    plVar5 = (long*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
-                    local_34 = (**(code**)(*plVar5 + 16))(plVar5);
-                    pCVar4 =
-                        eastl::find<ComponentContainer_const*, ComponentType,
-                                    (shared_ptr<Component> const&)->FindNext() const ::__44>(uVar1, pCVar3, &local_34);
-                    if (pCVar4 == pCVar3) {
-                        return param_1;
+        uint8_t uVar1 = (*this->_vptr[1].SetEnabled)((uint8_t)this);
+        Layout* this_00 = (Layout*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1);
+        uVar1 = (*this->_vptr[1].SetForceDisabled)((uint8_t)this);
+        Layout* this_01 = (Layout*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar1);
+        auto pCVar2 = this_00->HeapBeginPtr();
+        auto pCVar3 = this_00->end();
+        pCVar2 =
+            eastl::find<ComponentContainer const*, shared_ptr<Component>,
+                        (shared_ptr<Component> const&)->FindNext() const ::__43>(pCVar2, pCVar3, component, in_RCX);
+        pCVar3 = (ComponentContainer*)this_00->end();
+        if (pCVar2 != pCVar3) {
+            pCVar3 = (ComponentContainer*)this_00->end();
+            plVar4 = (long*)component.operator->();
+            p_Var7 = (__44*)*plVar4;
+            local_36 = (**(void (**)(...))(p_Var7 + 16))(plVar4);
+            pCVar3 = eastl::find<ComponentContainer const*, ComponentType,
+                                 (shared_ptr<Component> const&)->FindNext() const ::__44>(
+                (ComponentContainer*)&pCVar2[1].field_8, pCVar3, (ComponentType*)&local_36, p_Var7);
+            pCVar5 = (ComponentContainer*)this_00->end();
+            if (pCVar3 == pCVar5) {
+                pCVar3 = (ComponentContainer*)this_01->HeapBeginPtr();
+                pCVar5 = (ComponentContainer*)this_01->end();
+                plVar4 = (long*)component.operator->();
+                p_Var7 = (__44*)*plVar4;
+                local_35 = (**(void (**)(...))(p_Var7 + 16))(plVar4);
+                pCVar3 = eastl::find<ComponentContainer const*, ComponentType,
+                                     (shared_ptr<Component> const&)->FindNext() const ::__44>(
+                    pCVar3, pCVar5, (ComponentType*)&local_35, p_Var7);
+                pCVar5 = (ComponentContainer*)this_01->end();
+                if (pCVar3 == pCVar5) {
+                    pCVar3 = (ComponentContainer*)this_00->HeapBeginPtr();
+                    plVar4 = (long*)component.operator->();
+                    p_Var7 = (__44*)*plVar4;
+                    local_34 = (**(void (**)(...))(p_Var7 + 16))(plVar4);
+                    pCVar3 = eastl::find<ComponentContainer const*, ComponentType,
+                                         (shared_ptr<Component> const&)->FindNext() const ::__44>(
+                        pCVar3, pCVar2, (ComponentType*)&local_34, p_Var7);
+                    if (pCVar3 == pCVar2) {
+                        return component;
                     }
                 }
             }
-            psVar7 = (shared_ptr*)pCVar4->second();
-            return psVar7;
+            psVar6 = (shared_ptr<Component>*)pCVar3->second();
+            return psVar6;
         }
-        uVar1 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(this_01);
-        uVar2 = this_01->end();
-        pCVar3 = eastl::find<ComponentContainer_const*, shared_ptr<Component>,
-                             (shared_ptr<Component> const&)->FindNext() const ::__43>(uVar1, uVar2, param_1);
-        pCVar4 = (ComponentContainer*)this_01->end();
-        if (pCVar3 == pCVar4) {
-            uVar1 = logger::default_logger();
-            logger::Logger::Log(uVar1, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
-                                "ComponentCollectionBase.cpp",
-                                241, "Provided component could not be found in this ComponentCollection.");
-            return param_1;
+        pCVar2 = (ComponentContainer*)this_01->HeapBeginPtr();
+        pCVar3 = (ComponentContainer*)this_01->end();
+        pCVar2 =
+            eastl::find<ComponentContainer const*, shared_ptr<Component>,
+                        (shared_ptr<Component> const&)->FindNext() const ::__43>(pCVar2, pCVar3, component, in_RCX);
+        pCVar3 = (ComponentContainer*)this_01->end();
+        if (pCVar2 == pCVar3) {
+            (logger::default_logger())
+                ->Log(false, 2,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
+                      "ComponentCollectionBase.cpp",
+                      241, "Provided component could not be found in this ComponentCollection.");
+            return component;
         }
-        uVar1 = this_01->end();
-        plVar5 = (long*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
-        local_33 = (**(code**)(*plVar5 + 16))(plVar5);
-        pCVar4 =
-            eastl::find<ComponentContainer_const*, ComponentType,
-                        (shared_ptr<Component> const&)->FindNext() const ::__44>(&pCVar3[1].field_8, uVar1, &local_33);
-        pCVar6 = (ComponentContainer*)this_01->end();
-        if (pCVar4 == pCVar6) {
-            uVar1 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_00);
-            uVar2 = this_00->end();
-            plVar5 = (long*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
-            local_32 = (**(code**)(*plVar5 + 16))(plVar5);
-            pCVar4 = eastl::find<ComponentContainer_const*, ComponentType,
-                                 (shared_ptr<Component> const&)->FindNext() const ::__44>(uVar1, uVar2, &local_32);
-            pCVar6 = (ComponentContainer*)this_00->end();
-            if (pCVar4 == pCVar6) {
-                uVar1 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-                plVar5 = (long*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
-                local_31 = (**(code**)(*plVar5 + 16))(plVar5);
-                pCVar4 = eastl::find<ComponentContainer_const*, ComponentType,
-                                     (shared_ptr<Component> const&)->FindNext() const ::__44>(uVar1, pCVar3, &local_31);
-                if (pCVar4 == pCVar3) {
-                    return param_1;
+        pCVar3 = (ComponentContainer*)this_01->end();
+        plVar4 = (long*)component.operator->();
+        p_Var7 = (__44*)*plVar4;
+        uint8_t local_33 = (**(void (**)(...))(p_Var7 + 16))(plVar4);
+        pCVar3 = eastl::find<ComponentContainer const*, ComponentType,
+                             (shared_ptr<Component> const&)->FindNext() const ::__44>(
+            (ComponentContainer*)&pCVar2[1].field_8, pCVar3, (ComponentType*)&local_33, p_Var7);
+        pCVar5 = (ComponentContainer*)this_01->end();
+        if (pCVar3 == pCVar5) {
+            pCVar3 = (ComponentContainer*)this_00->HeapBeginPtr();
+            pCVar5 = (ComponentContainer*)this_00->end();
+            plVar4 = (long*)component.operator->();
+            p_Var7 = (__44*)*plVar4;
+            local_32 = (**(void (**)(...))(p_Var7 + 16))(plVar4);
+            pCVar3 = eastl::find<ComponentContainer const*, ComponentType,
+                                 (shared_ptr<Component> const&)->FindNext() const ::__44>(
+                pCVar3, pCVar5, (ComponentType*)&local_32, p_Var7);
+            pCVar5 = (ComponentContainer*)this_00->end();
+            if (pCVar3 == pCVar5) {
+                pCVar3 = (ComponentContainer*)this_01->HeapBeginPtr();
+                plVar4 = (long*)component.operator->();
+                p_Var7 = (__44*)*plVar4;
+                local_31 = (**(void (**)(...))(p_Var7 + 16))(plVar4);
+                pCVar3 = eastl::find<ComponentContainer const*, ComponentType,
+                                     (shared_ptr<Component> const&)->FindNext() const ::__44>(
+                    pCVar3, pCVar2, (ComponentType*)&local_31, p_Var7);
+                if (pCVar3 == pCVar2) {
+                    return component;
                 }
             }
         }
-        psVar7 = (shared_ptr*)pCVar4->second();
-        return psVar7;
+        psVar6 = (shared_ptr<Component>*)pCVar3->second();
+        return psVar6;
     }
 
-    // 0x1006963f0, 160 bytes, placed by class name
-    // ComponentCollectionBase::GetRootCollection()
-    ComponentCollectionBase* ComponentCollectionBase::GetRootCollection() {
-        shared_ptr* extraout_RDX;
-        shared_ptr<oldscape::RSevenDebugPresetProvider> local_38[16];
+    // 0x1006963f0
+    auto ComponentCollectionBase::GetRootCollection() {
+        auto result;
         shared_ptr local_28;
 
-        local_38->GetFocus();
-        static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&local_28, (jag*)local_38,
-                                                                                     extraout_RDX);
-        local_38->~shared_ptr();
-        if (!shared_ptr::operator_cast_to_bool(&local_28)) {
-            if (GetDynamicID() == -1)
+        auto local_38 = result.GetFocus();
+        static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(
+            (shared_ptr<oldscape::ClientNpc>*)&local_28);
+        if (shared_ptr::operator_cast_to_bool(&local_28) == '\0') {
+            if (result.GetDynamicID() == -1)
                 goto LAB_100696448;
         }
-        this = (ComponentCollectionBase*)local_28.end();
+        &result = (ReturnValue*)local_28.end();
     LAB_100696448:
-        local_28.~shared_ptr();
-        return this;
+        return result;
     }
 
-    // 0x100696490, 272 bytes, placed by class name
-    // ComponentCollectionBase::BuildDynamicNestedChildrenList()
+    // 0x100696490
     void ComponentCollectionBase::BuildDynamicNestedChildrenList() {
-        undefined1* this_00;
-        char cVar1;
-        int iVar2;
-        uint uVar3;
-        uint uVar4;
-        Layout* this_01;
-        SharedArray<unsigned int>* this_02;
-        SharedArray<unsigned int>* pSVar5;
-        Component* this_03;
-        DynamicNestedChildren* this_04;
-        shared_ptr* psVar6;
-
-        iVar2 = GetDynamicID();
-        if (iVar2 != -1) {
-            /* WARNING: Subroutine does not return */
+        if (GetDynamicID() != -1) {
             LogAssert("GetDynamicID() == -1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
                       "ComponentCollectionBase.cpp",
-                      312, (char*)0);
+                      312, nullptr);
         }
-        this_00 = &field_392;
-        cVar1 = this_00->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (field_392.empty() == '\0') {
             LogAssert("m_dynamicNestedChildren.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
                       "ComponentCollectionBase.cpp",
-                      313, (char*)0);
+                      313, nullptr);
         }
-        this_00->resize(235);
-        this_01 = (Layout*)(*(code*)field_0[35])(this);
-        this_02 = (SharedArray<unsigned int>*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        pSVar5 = (SharedArray<unsigned int>*)this_01->end();
-        for (; this_02 != pSVar5; this_02 = this_02 + 24) {
-            this_03 = (Component*)this_02->data();
-            uVar3 = this_03->GetDynamicID();
-            uVar4 = ComponentHelpers::GetCategoryID(uVar3);
-            this_04 = (DynamicNestedChildren*)
-                eastl::vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>::operator[](
-                    (vector<ComponentCollectionBase::DynamicNestedChildren, eastl::allocator>*)this_00, (ulong)uVar4);
-            iVar2 = ComponentHelpers::GetDynamicID(uVar3);
-            psVar6 = (shared_ptr*)this_02->second();
-            this_04->Set(iVar2, psVar6);
-        }
+        field_392.resize(235);
+        (*this->_vptr[1]._x7e___2)(this);
     }
 
-    // 0x1006965f0, 224 bytes, placed by class name
-    // ComponentCollectionBase::DynamicNestedChildren::Set(int, shared_ptr<Component> const&)
-    void ComponentCollectionBase::DynamicNestedChildren::Set(int param_1, shared_ptr* param_2) {
-        undefined1* this_00;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        pair* this_01;
-        pair* ppVar4;
-        pair<shared_ptr<Component>, int> local_50[28];
-        int local_34;
+    // 0x1006965f0
+    void ComponentCollectionBase::DynamicNestedChildren::Set(int arg1, const shared_ptr<Component>& component) {
+        __46* in_RCX;
+        pair<shared_ptr<Component>, int> local_50;
 
-        this_00 = &field_8;
-        local_34 = param_1;
-        uVar2 = this_00->HeapBeginPtr();
-        uVar3 = this_00->end();
-        this_01 = eastl::lower_bound<eastl::pair<shared_ptr<Component>, int>*, int,
-                                     int->Set(shared_ptr<Component> const&)::__46>(uVar2, uVar3, &local_34);
-        ppVar4 = (pair*)this_00->end();
-        if ((this_01 == ppVar4) || (*(int*)(this_01 + 16) != local_34)) {
-            eastl::pair<shared_ptr<Component>, int>::pair<int&, void>(local_50, param_2, &local_34);
-            this_00->insert(this_01, local_50);
-            local_50->~LRUHashCacheWrapper();
+        uint8_t* this_00 = &field_8;
+        ShaderVariablePrecision local_34 = arg1;
+        auto ppVar2 = this_00->HeapBeginPtr();
+        auto ppVar3 = this_00->end();
+        ppVar2 =
+            eastl::lower_bound<eastl::pair<shared_ptr<Component>, int>*, int,
+                               int->Set(shared_ptr<Component> const&)::__46>(ppVar2, ppVar3, (int*)&local_34, in_RCX);
+        ppVar3 = (pair<shared_ptr<Component>, int>*)this_00->end();
+        if ((ppVar2 == ppVar3) || (*(ShaderVariablePrecision*)(ppVar2 + 16) != local_34)) {
+            local_50.pair<int&, void>(component, local_34);
+            this_00->insert(ppVar2, local_50);
             field_40 = field_40 | local_34 == m_nextFreeId;
         } else {
-            shared_ptr<Component>::operator=((shared_ptr<Component>*)this_01, param_2);
-            *(int*)(this_01 + 16) = local_34;
+            *ppVar2 = component;
+            *(ShaderVariablePrecision*)(ppVar2 + 16) = local_34;
         }
         field_0 = eastl::max<int>(field_0, local_34);
     }
 
-    // 0x1006966d0, 144 bytes, placed by class name
-    // ComponentCollectionBase::DynamicNestedChildren::Remove(int)
-    void ComponentCollectionBase::DynamicNestedChildren::Remove(int param_1) {
-        undefined1* this_00;
-        char cVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        pair* ppVar4;
-        pair* ppVar5;
-        long lVar6;
-        int iVar7;
-        int local_2c;
+    // 0x1006966d0
+    void ComponentCollectionBase::DynamicNestedChildren::Remove(int arg1) {
+        bool cVar1;
+        long lVar4;
+        int iVar5;
+        __47* in_RCX;
 
-        this_00 = &field_8;
-        local_2c = param_1;
-        uVar2 = this_00->HeapBeginPtr();
-        uVar3 = this_00->end();
-        ppVar4 = eastl::lower_bound<eastl::pair<shared_ptr<Component>, int>*, int, int->Remove()::__47>(uVar2, uVar3,
-                                                                                                        &local_2c);
-        ppVar5 = (pair*)this_00->end();
-        if ((ppVar4 != ppVar5) && (*(int*)(ppVar4 + 16) == param_1)) {
-            this_00->erase(ppVar4);
+        uint8_t* this_00 = &field_8;
+        int local_2c = arg1;
+        auto ppVar2 = this_00->HeapBeginPtr();
+        auto ppVar3 = this_00->end();
+        ppVar2 = eastl::lower_bound<eastl::pair<shared_ptr<Component>, int>*, int, int->Remove()::__47>(
+            ppVar2, ppVar3, &local_2c, in_RCX);
+        ppVar3 = (pair<shared_ptr<Component>, int>*)this_00->end();
+        if ((ppVar2 != ppVar3) && (*(int*)(ppVar2 + 16) == arg1)) {
+            this_00->erase(ppVar2);
             field_40 = 1;
             cVar1 = this_00->empty();
-            iVar7 = -1;
-            if (cVar1 == '\0') {
-                lVar6 = this_00->back();
-                iVar7 = *(int*)(lVar6 + 16);
+            iVar5 = -1;
+            if (!cVar1) {
+                lVar4 = this_00->back();
+                iVar5 = *(int*)(lVar4 + 16);
             }
-            field_0 = iVar7;
+            field_0 = iVar5;
         }
     }
 
-    // 0x100696760, 192 bytes, placed by class name
-    // ComponentCollectionBase::DynamicNestedChildren::RemoveAll(ComponentContainer const*, ComponentContainer const*)
-    void ComponentCollectionBase::DynamicNestedChildren::RemoveAll(ComponentContainer* param_1,
-                                                                   ComponentContainer* param_2) {
-        undefined1* this_00;
-        char cVar1;
-        eastl* peVar2;
-        undefined8 uVar3;
-        pair* ppVar4;
-        pair* ppVar5;
-        long lVar6;
-        int iVar7;
-        ComponentContainer* local_30;
-        ComponentContainer* local_28;
+    // 0x100696760
+    void ComponentCollectionBase::DynamicNestedChildren::RemoveAll(const ComponentContainer* componentContainer1,
+                                                                   const ComponentContainer* componentContainer2) {
+        long lVar4;
 
-        this_00 = &field_8;
-        local_30 = param_1;
-        local_28 = param_2;
-        peVar2 = (eastl*)this_00->HeapBeginPtr();
-        uVar3 = this_00->end();
-        ppVar4 = eastl::remove_if<eastl::pair<shared_ptr<Component>, int>*,
-                                  (ComponentContainer_const*)->RemoveAll(ComponentContainer_const*)::__48>(
-            peVar2, uVar3, &local_30, &local_28);
-        if (local_30 != local_28) {
-            /* WARNING: Subroutine does not return */
+        uint8_t* this_00 = &field_8;
+        ComponentContainer* local_30 = componentContainer1;
+        auto ppVar2 = this_00->HeapBeginPtr();
+        auto ppVar3 = this_00->end();
+        ppVar2 = eastl::remove_if<eastl::pair<shared_ptr<Component>, int>*,
+                                  (ComponentContainer const*)->RemoveAll(ComponentContainer const*)::__48>(
+            ppVar2, ppVar3, (__48)&local_30);
+        if (local_30 != componentContainer2) {
             LogAssert("start == end",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
                       "ComponentCollectionBase.cpp",
                       422, "%s: could not find all components needed for removal", "RemoveAll");
         }
-        ppVar5 = (pair*)this_00->end();
-        this_00->erase(ppVar4, ppVar5);
+        ppVar3 = (pair<shared_ptr<Component>, int>*)this_00->end();
+        this_00->erase(ppVar2, ppVar3);
         field_40 = 1;
-        cVar1 = this_00->empty();
-        iVar7 = -1;
-        if (cVar1 == '\0') {
-            lVar6 = this_00->back();
-            iVar7 = *(int*)(lVar6 + 16);
+        bool cVar1 = this_00->empty();
+        int iVar5 = -1;
+        if (!cVar1) {
+            lVar4 = this_00->back();
+            iVar5 = *(int*)(lVar4 + 16);
         }
-        field_0 = iVar7;
+        field_0 = iVar5;
     }
 
-    // 0x100696880, 112 bytes, placed by class name
-    // ComponentCollectionBase::DynamicNestedChildren::IdUsed(int) const
-    bool ComponentCollectionBase::DynamicNestedChildren::IdUsed(int param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        pair* ppVar3;
-        pair* ppVar4;
-        undefined1* this_00;
-        undefined1 local_24[4];
+    // 0x100696880
+    bool ComponentCollectionBase::DynamicNestedChildren::IdUsed(int arg1) const {
+        pair<shared_ptr<Component>, int>* ppVar1;
+        pair<shared_ptr<Component>, int>* ppVar2;
+        __45* in_RCX;
+        uint8_t* this_00;
+        int local_24;
 
-        if (((field_40 != '\0') || (m_nextFreeId != param_1)) && (param_1 <= field_0)) {
+        if (((field_40 != '\0') || (m_nextFreeId != arg1)) && (arg1 <= field_0)) {
             this_00 = &field_8;
-            uVar1 = this_00->HeapBeginPtr();
-            uVar2 = this_00->end();
-            ppVar3 =
+            ppVar1 = (pair<shared_ptr<Component>, int>*)this_00->HeapBeginPtr();
+            ppVar2 = (pair<shared_ptr<Component>, int>*)this_00->end();
+            ppVar1 =
                 eastl::lower_bound<eastl::pair<shared_ptr<Component>, int> const*, int, int->IdUsed() const ::__45>(
-                    uVar1, uVar2, local_24);
-            ppVar4 = (pair*)this_00->end();
-            if (ppVar3 != ppVar4) {
-                return *(int*)(ppVar3 + 16) == param_1;
+                    ppVar1, ppVar2, &local_24, in_RCX);
+            ppVar2 = (pair<shared_ptr<Component>, int>*)this_00->end();
+            if (ppVar1 != ppVar2) {
+                return *(int*)(ppVar1 + 16) == arg1;
             }
         }
         return false;
     }
 
-    // 0x100696c40, 144 bytes, placed by class name
-    // ComponentCollectionBase::DynamicNestedChildren::UpdateNextFreeId() const
-    void ComponentCollectionBase::DynamicNestedChildren::UpdateNextFreeId() {
-        undefined1* this_00;
-        char cVar1;
+    // 0x100696c40
+    void ComponentCollectionBase::DynamicNestedChildren::UpdateNextFreeId() const {
+        uint8_t* this_00;
+        bool cVar1;
         long lVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        pair* ppVar5;
-        pair* ppVar6;
-        int iVar7;
+        pair<shared_ptr<Component>, int>* ppVar3;
+        pair<shared_ptr<Component>, int>* ppVar4;
+        int iVar5;
+        uint8_t auVar6[16];
 
         if (field_40 != '\0') {
             this_00 = &field_8;
             cVar1 = this_00->empty();
-            iVar7 = 0;
-            if (cVar1 == '\0') {
+            iVar5 = 0;
+            if (!cVar1) {
                 lVar2 = this_00->front();
                 if (*(int*)(lVar2 + 16) < 1) {
-                    uVar3 = this_00->HeapBeginPtr();
-                    uVar4 = this_00->end();
-                    ppVar5 = eastl::adjacent_find<eastl::pair<shared_ptr<Component>, int> const*,
+                    ppVar3 = (pair<shared_ptr<Component>, int>*)this_00->HeapBeginPtr();
+                    auVar6 = this_00->end();
+                    ppVar3 = eastl::adjacent_find<eastl::pair<shared_ptr<Component>, int> const*,
                                                   ComponentCollectionBase::DynamicNestedChildren::UpdateNextFreeId()
-                                                      const ::__49>(uVar3, uVar4);
-                    ppVar6 = (pair*)this_00->end();
-                    if (ppVar5 == ppVar6) {
-                        iVar7 = this_00->size();
+                                                      const ::__49>(ppVar3, auVar6._0_8_, auVar6._8_8_);
+                    ppVar4 = (pair<shared_ptr<Component>, int>*)this_00->end();
+                    if (ppVar3 == ppVar4) {
+                        iVar5 = this_00->size();
                     } else {
-                        iVar7 = *(int*)(ppVar5 + 16) + 1;
+                        iVar5 = *(int*)(ppVar3 + 16) + 1;
                     }
                 }
             }
-            m_nextFreeId = iVar7;
+            m_nextFreeId = iVar5;
             field_40 = 0;
         }
     }
 
-    // 0x1006d0590, 80 bytes, placed by class name
-    // ComponentCollectionBase::GetNextAvailableDynamicId(int) const::$_42::operator()(ComponentContainer const&, ComponentContainer const&) const
-    /* ComponentCollectionBase::GetNextAvailableDynamicId(int)
-   const::$_42::TEMPNAMEPLACEHOLDERVALUE(ComponentContainer const&,
-   ComponentContainer const&) const */
-
-    _func_GetNextAvailableDynamicId_int* const ::$_42::operator()(ComponentContainer * param_1,
-                                                                  ComponentContainer * param_2) {
-        int iVar1;
-        int iVar2;
-        shared_ptr<Component>* psVar3;
-        Component* pCVar4;
-
-        psVar3 = (shared_ptr<Component>*)param_2->second();
-        pCVar4 = (Component*)shared_ptr<Component>::operator->(psVar3);
-        iVar1 = pCVar4->GetDynamicID();
-        psVar3 = (shared_ptr<Component>*)param_1->second();
-        pCVar4 = (Component*)shared_ptr<Component>::operator->(psVar3);
-        iVar2 = pCVar4->GetDynamicID();
-        return (_func_GetNextAvailableDynamicId_int*)(ulong)CONCAT31((int3)((uint)(iVar2 + 1) >> 8), iVar2 + 1 < iVar1);
+    // 0x1006d0590
+    uint32_t ComponentCollectionBase::GetNextAvailableDynamicId(int) const ::$_42::operator()(
+        const ComponentContainer& componentContainer1, const ComponentContainer& componentContainer2) const {
+        auto psVar3 = componentContainer1.second();
+        Component* pCVar4 = (Component*)(*psVar3).operator->();
+        int iVar1 = pCVar4->GetDynamicID();
+        psVar3 = (shared_ptr<Component>*)second();
+        pCVar4 = (Component*)(*psVar3).operator->();
+        return pCVar4->GetDynamicID() + 1 < iVar1;
     }
 
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    ComponentCollectionBase::~ComponentCollectionBase();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    ComponentCollectionBase::~ComponentCollectionBase();
+    // 0x100c92b50: ComponentCollectionBase::~ComponentCollectionBase() has the same machine code as InlineFatalBreak()
 
 } // namespace jag::ui

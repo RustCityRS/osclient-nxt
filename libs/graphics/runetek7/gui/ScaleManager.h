@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/gui/ScaleManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,95 +8,80 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~ScaleManager();
-        virtual void OnWindowResize(math::Rect<unsigned int> const&);
+        virtual void OnWindowResize(const math::Rect<unsigned int>& rect);
         int GetTmpDPI() const;
         float GetSubScaleFactor() const;
         float GetGameScale();
-        void RequestInterfaceScaleOverride(unsigned int);
-        ScaleManager(RT7Core&);
+        void RequestInterfaceScaleOverride(unsigned int arg1);
+        ScaleManager(RT7Core& rt7Core);
         void UpdateInterfaceScaleFactors();
         void MainLogic();
-        void SetInterfaceScaleOverride(unsigned int);
+        void SetInterfaceScaleOverride(unsigned int arg1);
         void MainDraw();
-        void SetGameScale(float);
-        void SetInterfaceResolutionOverride(int, int);
+        void SetGameScale(float arg1);
+        void SetInterfaceResolutionOverride(int arg1, int arg2);
         void ResetInterfaceResolutionOverride();
         void ResetInterfaceScaleOverride();
-        void SetInterfaceDPIOverride(int, bool);
-        void SetInterfaceDPIOverrideInternal(int, bool);
+        void SetInterfaceDPIOverride(int arg1, bool arg2);
+        void SetInterfaceDPIOverrideInternal(int arg1, bool arg2);
         void ResetInterfaceDPIOverride();
-        void SetZoomRect(int, int, int, int);
+        void SetZoomRect(int arg1, int arg2, int arg3, int arg4);
         void ResetZoomRect();
-        void ScreenToInterfaceSize(int, bool) const;
-        float ScreenToInterfaceSize(float, bool) const;
-        void ScreenToInterfacePosition(int&, int&, bool) const;
-        void ScreenToInterfacePosition(float&, float&, bool) const;
-        void ScreenToInterfaceRect(math::Rect<int>&, bool) const;
-        void ScreenToInterfaceRect(math::Rect<float>&, bool) const;
-        void ScreenToInterfaceInsets(math::Rect<int>&, bool) const;
-        void InterfaceToScreenSize(int, bool) const;
-        float InterfaceToScreenSize(float, bool) const;
-        void InterfaceToScreenPosition(int&, int&, bool) const;
-        void InterfaceToScreenPosition(float&, float&, bool) const;
-        void InterfaceToScreenRect(math::Rect<int>&, bool) const;
-        void InterfaceToScreenRect(math::Rect<float>&, bool) const;
-        void SetTmpDPI(int, bool);
-        static /* 4 bytes */ OVERRIDE_INTERFACE_WIDTH_MIN;            // = 100
-        static /* 4 bytes */ OVERRIDE_INTERFACE_WIDTH_MAX;            // = 16000
-        static /* 4 bytes */ OVERRIDE_INTERFACE_HEIGHT_MIN;           // = 100
-        static /* 4 bytes */ OVERRIDE_INTERFACE_HEIGHT_MAX;           // = 12000
-        static /* 4 bytes */ OVERRIDE_INTERFACE_SCALE_MIN;            // = 10
-        static /* 4 bytes */ OVERRIDE_INTERFACE_SCALE_MAX;            // = 400
-        static /* 4 bytes */ OVERRIDE_INTERFACE_SCALE_DEFAULT;        // = 100
-        static /* 4 bytes */ OVERRIDE_INTERFACE_SCALE_LIMIT_WIDTH;    // = 800
-        static /* 296 bytes */ OVERRIDE_INTERFACE_SCALE_LIMIT_HEIGHT; // initialised in its definition
+        void ScreenToInterfaceSize(int arg1, bool arg2) const;
+        float ScreenToInterfaceSize(float arg1, bool arg2) const;
+        void ScreenToInterfacePosition(int& arg1, int& arg2, bool arg3) const;
+        void ScreenToInterfacePosition(float& arg1, float& arg2, bool arg3) const;
+        void ScreenToInterfaceRect(math::Rect<int>& rect, bool arg2) const;
+        void ScreenToInterfaceRect(math::Rect<float>& rect, bool arg2) const;
+        void ScreenToInterfaceInsets(math::Rect<int>& rect, bool arg2) const;
+        void InterfaceToScreenSize(int arg1, bool arg2) const;
+        float InterfaceToScreenSize(float arg1, bool arg2) const;
+        void InterfaceToScreenPosition(int& arg1, int& arg2, bool arg3) const;
+        void InterfaceToScreenPosition(float& arg1, float& arg2, bool arg3) const;
+        void InterfaceToScreenRect(math::Rect<int>& rect, bool arg2) const;
+        void InterfaceToScreenRect(math::Rect<float>& rect, bool arg2) const;
+        void SetTmpDPI(int arg1, bool arg2);
+        static int32_t OVERRIDE_INTERFACE_WIDTH_MIN;              // = 100
+        static int32_t OVERRIDE_INTERFACE_WIDTH_MAX;              // = 16000
+        static int32_t OVERRIDE_INTERFACE_HEIGHT_MIN;             // = 100
+        static int32_t OVERRIDE_INTERFACE_HEIGHT_MAX;             // = 12000
+        static int32_t OVERRIDE_INTERFACE_SCALE_MIN;              // = 10
+        static int32_t OVERRIDE_INTERFACE_SCALE_MAX;              // = 400
+        static int32_t OVERRIDE_INTERFACE_SCALE_DEFAULT;          // = 100
+        static int32_t OVERRIDE_INTERFACE_SCALE_LIMIT_WIDTH;      // = 800
+        static int32_t OVERRIDE_INTERFACE_SCALE_LIMIT_HEIGHT[74]; // initialised in its definition
 
-        // data members, from how the methods use this: 26176 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined1 field_8;  // offset 8
-        char _unknown_9[3];
-        undefined4 field_12; // offset 12
-        float field_16;      // offset 16
-        char _unknown_20[4];
-        RT7Core* field_24;   // offset 24
-        undefined1 field_32; // offset 32
-        char _unknown_33[3];
-        float m_gameScale; // offset 36
-        float field_40;    // offset 40
-        uint field_44;     // offset 44
-        char _unknown_48[16];
-        float field_64;             // offset 64
-        float field_68;             // offset 68
-        float field_72;             // offset 72
-        float field_76;             // offset 76
-        float field_80;             // offset 80
-        float field_84;             // offset 84
-        float m_subScaleFactor;     // offset 88
-        int m_interfaceDPIOverride; // offset 92
-        int m_tmpDPI;               // offset 96
-        char _unknown_100[26076];
+    private:
+        uint8_t field_8;
+        uint8_t _unknown_9[3];
+        uint32_t field_12;
+        float field_16;
+        uint8_t _unknown_20[4];
+        RT7Core* field_24;
+        uint8_t field_32;
+        uint8_t _unknown_33[3];
+        float m_gameScale;
+        float field_40;
+        unsigned int field_44;
+        uint8_t _unknown_48[16];
+        float field_64;
+        float field_68;
+        float field_72;
+        float field_76;
+        float field_80;
+        float field_84;
+        float m_subScaleFactor;
+        uint32_t m_interfaceDPIOverride;
+        int m_tmpDPI;
+        uint8_t _unknown_100[26076];
     };
 
-    // 0x1005ffdf0, 16 bytes, inline, placed by class name and debug map
-    // ScaleManager::RequestInterfaceScaleOverride(unsigned int)
-    void ScaleManager::RequestInterfaceScaleOverride(uint param_1) {
-        field_44 = param_1;
+    // 0x1005ffdf0
+    void ScaleManager::RequestInterfaceScaleOverride(unsigned int arg1) {
+        field_44 = arg1;
     }
 
-    // 0x1008fdf40, 16 bytes, complete-object destructor, inline, placed by class name
-    // ScaleManager::~ScaleManager(): jumps straight to the base-object destructor
-
-    // 0x1008fdf50, 32 bytes, deleting destructor, inline, placed by class name
-    // ScaleManager::~ScaleManager()
-    void ScaleManager::~ScaleManager() {
-        ~ScaleManager(this);
-        operator_delete(this);
-    }
-
-    // 0x100904f30, 16 bytes, base-object destructor, inline, placed by class name
-    // ScaleManager::~ScaleManager()
-    void ScaleManager::~ScaleManager() {
-        ~RenderDeviceCallback();
-    }
+    // 0x100904f30
+    ScaleManager::~ScaleManager() {}
 
 } // namespace jag::graphics

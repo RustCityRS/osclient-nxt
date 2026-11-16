@@ -1,61 +1,31 @@
 // libs/oldscape/jagex3/core/bytepacking/superpacket.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "superpacket.h"
 
 namespace jag::oldscape::core {
-    // 0x1000e2f20: the linker folded this into SystemSettings::SetModeGame(ModeGame const*), which has identical code
-    SuperPacket::SetEnc(Isaac&);
+    // 0x1000e2f20: SuperPacket::SetEnc(Isaac&) has the same machine code as SystemSettings::SetModeGame(ModeGame const*)
 
-    // 0x100348650, 64 bytes, placed by class name and debug map
-    // SuperPacket::GBitStart()
+    // 0x100348650
     void SuperPacket::GBitStart() {
-        undefined1 local_20[8];
-
-        std::make_unique<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit, SuperPacket&>(
-            (SuperPacket*)local_20);
-        std::unique_ptr<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit,
-                        std::default_delete<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit>>::
-        operator=((unique_ptr<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit,
-                              std::default_delete<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit>>*)&field_32,
-                  (unique_ptr*)local_20);
-        local_20->~unique_ptr();
+        auto local_20 = std::make_unique<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit, SuperPacket&>(*this);
+        field_32 = local_20;
     }
 
-    // 0x100348730, 48 bytes, placed by class name and debug map
-    // SuperPacket::gBit(int)
-    void SuperPacket::gBit(int param_1) {
-        Bit* this_00;
-
-        this_00 =
-            (Bit*)std::unique_ptr<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit,
-                                  std::default_delete<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit>>::
-            operator->(
-                (unique_ptr<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit,
-                            std::default_delete<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit>>*)&field_32);
-        this_00->gBit(param_1);
+    // 0x100348730
+    void SuperPacket::gBit(int arg1) {
+        ((Bit*)field_32.operator->())->gBit(arg1);
     }
 
-    // 0x100348870, 48 bytes, placed by class name and debug map
-    // SuperPacket::BitsLeft(int)
-    void SuperPacket::BitsLeft(int param_1) {
-        Bit* this_00;
-
-        this_00 =
-            (Bit*)std::unique_ptr<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit,
-                                  std::default_delete<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit>>::
-            operator->(
-                (unique_ptr<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit,
-                            std::default_delete<PacketT<Array<unsigned char, BucketAllocatorEASTL>>::Bit>>*)&field_32);
-        this_00->bitsLeft(param_1);
+    // 0x100348870
+    void SuperPacket::BitsLeft(int arg1) {
+        ((Bit*)field_32.operator->())->bitsLeft(arg1);
     }
 
-    // 0x1003488b0, 32 bytes, placed by class name and debug map
-    // SuperPacket::GBitEnd()
+    // 0x1003488b0
     void SuperPacket::GBitEnd() {
-        (&field_32, (Bit*)0)->reset();
+        field_32.reset(nullptr);
     }
 
 } // namespace jag::oldscape::core

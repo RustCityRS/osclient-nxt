@@ -1,6 +1,5 @@
 // libs/ui/components/RadioGroup.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,333 +9,253 @@ namespace jag::ui {
         class OptionData;
         // virtual methods in vtable order
         virtual ~RadioGroup();
-        virtual GetType() const;
-        virtual void MainLogic(ComponentDependencies const&, int, int, bool, bool, bool, bool);
-        virtual void MainDraw(ComponentDependencies const&, int, int, float);
-        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int);
-        virtual void SetMargin(Component::MarginType, Margin);
-        virtual Margin GetMargin(Component::MarginType) const;
-        virtual bool SupportsMargin(Component::MarginType) const;
+        virtual uint64_t GetType() const;
+        virtual void MainLogic(const ComponentDependencies& componentDependencies, int arg2, int arg3, bool arg4,
+                               bool arg5, bool arg6, bool arg7);
+        virtual void MainDraw(const ComponentDependencies& componentDependencies, int arg2, int arg3, float arg4);
+        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2);
+        virtual void SetMargin(Component::MarginType marginType, Margin margin);
+        virtual Margin GetMargin(Component::MarginType marginType) const;
+        virtual bool SupportsMargin(Component::MarginType marginType) const;
         virtual ComponentMultiValueMixin GetValueRepresentation();
-        virtual void LoadStyleSheetVisuals(StyleSheet const&);
-        virtual GetRecentValueChanges() const;
+        virtual void LoadStyleSheetVisuals(const StyleSheet& styleSheet);
+        virtual auto GetRecentValueChanges() const;
         virtual void ClearRecentValueChanges();
         RadioGroup();
-        CalculateLogicBounds(int, int) const;
-        bool CanChangeSelection(bool) const;
-        void SelectOptionByIndex(unsigned char, bool, bool, bool);
+        uint8_t[16] CalculateLogicBounds(int arg1, int arg2) const;
+        bool CanChangeSelection(bool arg1) const;
+        void SelectOptionByIndex(unsigned char arg1, bool arg2, bool arg3, bool arg4);
         bool OptionsUseRegularButtons() const;
-        void DebugDrawClickbounds(graphics::RT7Core*, int, int);
-        Setup(UIDataMappingProvider<int, StringView> const&);
-        ulong AddOption(int, eastl::basic_string<char, BucketAllocatorEASTL> const&);
-        bool RemoveOption(int);
+        void DebugDrawClickbounds(graphics::RT7Core* rt7Core, int arg2, int arg3);
+        uint32_t Setup(const UIDataMappingProvider<int, StringView>& uiDataMappingProvider);
+        unsigned long AddOption(int arg1, const eastl::string& str);
+        bool RemoveOption(int arg1);
         void ClearOptions();
-        bool HasOption(int);
-        GetSelectedValue(unsigned char) const;
-        long GetSelectedOption(unsigned char) const;
-        GetSelectedLabel(unsigned char) const;
-        bool SetOptionSelected(int, bool, bool);
-        GetOptionSelected(int) const;
-        bool SetOptionEnabled(int, bool);
-        bool GetOptionEnabled(int) const;
-        void SetVisualParams(unsigned char, unsigned char, unsigned char, unsigned char);
-        bool SetSelectionLimits(unsigned char, unsigned char);
+        bool HasOption(int arg1);
+        uint32_t GetSelectedValue(unsigned char arg1) const;
+        long GetSelectedOption(unsigned char arg1) const;
+        uint8_t* GetSelectedLabel(unsigned char arg1) const;
+        bool SetOptionSelected(int arg1, bool arg2, bool arg3);
+        uint64_t GetOptionSelected(int arg1) const;
+        bool SetOptionEnabled(int arg1, bool arg2);
+        bool GetOptionEnabled(int arg1) const;
+        void SetVisualParams(unsigned char arg1, unsigned char arg2, unsigned char arg3, unsigned char arg4);
+        bool SetSelectionLimits(unsigned char arg1, unsigned char arg2);
         bool CanSelectMultipleOptions() const;
-        long GetSelectedOption(unsigned char);
-        static /* 1 bytes */ m_debugDrawClickBounds; // = 0
+        long GetSelectedOption(unsigned char arg1);
+        static bool m_debugDrawClickBounds; // = 0
 
-        // data members, from how the methods use this: 616 bytes
-        char _unknown_0[4];
-        int field_4;     // offset 4
-        ushort field_8;  // offset 8
-        ushort field_10; // offset 10
-        ushort field_12; // offset 12
-        ushort field_14; // offset 14
-        uint field_16;   // offset 16
-        int field_20;    // offset 20
-        char _unknown_24[24];
-        uchar field_48; // offset 48
-        char _unknown_49[1];
-        char field_50; // offset 50
-        char field_51; // offset 51
-        char field_52; // offset 52
-        char field_53; // offset 53
-        char field_54; // offset 54
-        char _unknown_55[1];
-        int field_56;        // offset 56
-        int field_60;        // offset 60
-        int field_64;        // offset 64
-        int field_68;        // offset 68
-        int field_72;        // offset 72
-        int field_76;        // offset 76
-        int field_80;        // offset 80
-        int field_84;        // offset 84
-        int field_88;        // offset 88
-        int field_92;        // offset 92
-        undefined4 field_96; // offset 96
-        byte field_100;      // offset 100
-        char _unknown_101[1];
-        short field_102; // offset 102
-        char _unknown_104[8];
-        ComponentOpConfig field_112; // offset 112
-        char _unknown_256[8];
-        VisibleShadowCastingLightInfo field_264; // offset 264
-        ComponentSwipeConfig field_288;          // offset 288
-        char _unknown_293[59];
-        undefined1 field_352; // offset 352
-        char _unknown_353[3];
-        undefined4 field_356; // offset 356
-        char _unknown_360[32];
-        ComponentMultiValueMixin m_valueRepresentation; // offset 392
-        char _unknown_400[88];
-        byte field_488;  // offset 488
-        byte field_489;  // offset 489
-        byte field_490;  // offset 490
-        uchar field_491; // offset 491
-        uchar field_492; // offset 492
-        uchar field_493; // offset 493
-        uchar field_494; // offset 494
-        char _unknown_495[3];
-        byte field_498; // offset 498
-        char _unknown_499[3];
-        byte field_502; // offset 502
-        char _unknown_503[1];
-        SpriteData field_504; // offset 504
-        TextData field_552;   // offset 552
+    private:
+        unsigned short field_8;
+        unsigned short field_10;
+        unsigned short field_12;
+        unsigned short field_14;
+        unsigned int field_16;
+        int field_20;
+        uint8_t _unknown_24[24];
+        unsigned char field_48;
+        uint8_t _unknown_49[1];
+        uint8_t field_50;
+        uint8_t field_51;
+        uint8_t field_52;
+        uint8_t field_53;
+        char field_54;
+        uint8_t _unknown_55[1];
+        int field_56;
+        int field_60;
+        int field_64;
+        int field_68;
+        int field_72;
+        int field_76;
+        int field_80;
+        int field_84;
+        unsigned int field_88;
+        int field_92;
+        uint32_t field_96;
+        uint8_t field_100;
+        uint8_t _unknown_101[1];
+        short field_102;
+        uint8_t _unknown_104[8];
+        ComponentOpConfig field_112;
+        uint8_t _unknown_256[8];
+        VisibleShadowCastingLightInfo field_264;
+        ComponentSwipeConfig field_288;
+        uint8_t _unknown_293[59];
+        uint8_t field_352;
+        uint8_t _unknown_353[3];
+        uint32_t field_356;
+        uint8_t _unknown_360[32];
+        ComponentMultiValueMixin m_valueRepresentation;
+        int field_400;
+        uint8_t _unknown_404[84];
+        uint8_t field_488;
+        uint8_t field_489;
+        uint8_t field_490;
+        unsigned char field_491;
+        unsigned char field_492;
+        unsigned char field_493;
+        unsigned char field_494;
+        uint8_t _unknown_495[3];
+        uint8_t field_498;
+        uint8_t _unknown_499[3];
+        uint8_t field_502;
+        uint8_t _unknown_503[1];
+        SpriteData field_504;
+        TextData field_552;
     };
 
     class RadioGroup::OptionData {
     public:
         ~OptionData();
         void Selected() const;
-        OptionData(StringView);
-        void SetSelected(bool, bool);
-        OptionData(OptionData&&);
-        OptionData* operator=(OptionData&&);
+        OptionData(StringView stringView);
+        void SetSelected(bool arg1, bool arg2);
+        OptionData(OptionData&& optionData);
+        OptionData* operator=(OptionData&& optionData);
 
-        // data members, from how the methods use this: 60 bytes
-        char _unknown_0[24];
-        undefined1 field_24;    // offset 24
-        undefined3 field_25;    // offset 25
-        ButtonElement field_28; // offset 28
+    private:
+        uint8_t _unknown_0[24];
+        uint8_t field_24;
+        uint8_t field_25[3];
+        ButtonElement field_28;
     };
 
-    // 0x1006a74f0, 16 bytes, inline, placed by class name and debug map
-    // RadioGroup::OptionData::Selected() const
-    void RadioGroup::OptionData::Selected() {
+    // 0x1006a74f0
+    void RadioGroup::OptionData::Selected() const {
         field_28->IsToggled();
     }
 
-    // 0x1006a7c80, 16 bytes, inline, placed by class name and debug map
-    // RadioGroup::OptionsUseRegularButtons() const
-    bool RadioGroup::OptionsUseRegularButtons() {
+    // 0x1006a7c80
+    bool RadioGroup::OptionsUseRegularButtons() const {
         return field_493 == '\0';
     }
 
-    // 0x1006a8290, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // RadioGroup::OptionData::OptionData(StringView): jumps straight to the base-object constructor
-
-    // 0x1006a8850, 16 bytes, inline, placed by class name and debug map
-    // RadioGroup::CanSelectMultipleOptions() const
-    bool RadioGroup::CanSelectMultipleOptions() {
+    // 0x1006a8850
+    bool RadioGroup::CanSelectMultipleOptions() const {
         return 1 < field_489;
     }
 
-    // 0x1006a8900, 16 bytes, inline, placed by class name and debug map
-    // RadioGroup::OptionData::SetSelected(bool, bool)
-    void RadioGroup::OptionData::SetSelected(bool param_1, bool param_2) {
-        (field_28, param_1, param_2)->SetToggled();
+    // 0x1006a8900
+    void RadioGroup::OptionData::SetSelected(bool arg1, bool arg2) {
+        field_28->SetToggled(arg1, arg2);
     }
 
-    // 0x1006ae040, 16 bytes, complete-object destructor, inline, placed by class name
-    // RadioGroup::~RadioGroup(): jumps straight to the base-object destructor
-
-    // 0x1006ae050, 32 bytes, deleting destructor, inline, placed by class name
-    // RadioGroup::~RadioGroup()
-    void RadioGroup::~RadioGroup() {
-        ~RadioGroup(this);
-        operator_delete(this);
-    }
-
-    // 0x1006ae070, 16 bytes, inline, placed by class name
-    // RadioGroup::GetType() const
-    undefined8 RadioGroup::GetType() {
+    // 0x1006ae070
+    uint64_t RadioGroup::GetType() const {
         return 17;
     }
 
-    // 0x1006ae080, 16 bytes, inline, placed by class name
-    // RadioGroup::SupportsMargin(Component::MarginType) const
-    bool RadioGroup::SupportsMargin(undefined8 param_1, int param_2) {
-        return param_2 == 2;
+    // 0x1006ae080
+    bool RadioGroup::SupportsMargin(Component::MarginType marginType) const {
+        return marginType == 2;
     }
 
-    // 0x1006ae090, 32 bytes, inline, placed by class name
-    // RadioGroup::GetRecentValueChanges() const
-    RadioGroup* RadioGroup::GetRecentValueChanges() {
-        long in_RSI;
-
-        WrapArray<ComponentMultiValueMixin::ValueChangeEvent_const>::WrapArray<
+    // 0x1006ae090
+    auto RadioGroup::GetRecentValueChanges() const {
+        auto result;
+        result.WrapArray<
             eastl::fixed_vector<ComponentMultiValueMixin::ValueChangeEvent, 2ul, false, eastl::dummy_allocator>>(
-            (WrapArray<ComponentMultiValueMixin::ValueChangeEvent_const>*)this, (fixed_vector*)(in_RSI + 432));
-        return this;
+            field_432);
+        return result;
     }
 
-    // 0x1006ae0b0, 32 bytes, inline, placed by class name
-    // RadioGroup::ClearRecentValueChanges()
+    // 0x1006ae0b0
     void RadioGroup::ClearRecentValueChanges() {
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        field_432.clear();
     }
 
-    // 0x1006b2850, 64 bytes, base-object constructor, inline, placed by class name
-    // RadioGroup::OptionData::OptionData(StringView)
-    void RadioGroup::OptionData::OptionData(StringView param_1) {
-        StringView::to_owned_string<eastl::basic_string<char, BucketAllocatorEASTL>>((StringView*)this);
+    // 0x1006b2850
+    RadioGroup::OptionData::OptionData(StringView stringView) {
+        *this = stringView->to_owned_string<eastl::basic_string<char, BucketAllocatorEASTL>>();
         field_24 = 1;
-        new (field_28, 4, 4) ButtonElement();
+        new (field_28) ButtonElement(4, 4);
     }
 
-    // 0x1006b28d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // RadioGroup::OptionData::OptionData(RadioGroup::OptionData&&): jumps straight to the base-object constructor
-
-    // 0x1006b28e0, 48 bytes, base-object constructor, inline, placed by class name
-    // RadioGroup::OptionData::OptionData(RadioGroup::OptionData&&)
-    void RadioGroup::OptionData::OptionData(OptionData* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined1 uVar3;
-        undefined3 uVar4;
-        undefined1 uVar5;
-        undefined1 uVar6;
-        undefined1 uVar7;
-        undefined1 uVar8;
-
-        new (this) eastl::basic_string<char, BucketAllocatorEASTL>();
-        uVar3 = param_1->field_24;
-        uVar4 = param_1->field_25;
-        uVar5 = param_1->field_28[0];
-        uVar6 = param_1->field_28[1];
-        uVar7 = param_1->field_28[2];
-        uVar8 = param_1->field_28[3];
-        uVar1 = *(undefined8*)(param_1->field_28 + 4);
-        uVar2 = *(undefined8*)(param_1->field_28 + 18);
-        *(undefined8*)(field_28 + 10) = *(undefined8*)(param_1->field_28 + 10);
-        *(undefined8*)(field_28 + 18) = uVar2;
+    // 0x1006b28e0
+    RadioGroup::OptionData::OptionData(RadioGroup::OptionData&& optionData)
+        : eastl::basic_string<char, BucketAllocatorEASTL>(optionData) {
+        uint8_t uVar3 = optionData.field_24;
+        uint32_t uVar4 = optionData.field_25;
+        uint8_t uVar5 = optionData.field_28[0];
+        uint8_t uVar6 = optionData.field_28[1];
+        uint8_t uVar7 = optionData.field_28[2];
+        uint8_t uVar8 = optionData.field_28[3];
+        uint64_t uVar1 = *(uint64_t*)(optionData.field_28 + 4);
+        uint64_t uVar2 = *(uint64_t*)(optionData.field_28 + 18);
+        *(uint64_t*)(field_28 + 10) = *(uint64_t*)(optionData.field_28 + 10);
+        *(uint64_t*)(field_28 + 18) = uVar2;
         field_24 = uVar3;
         field_25 = uVar4;
         field_28[0] = uVar5;
         field_28[1] = uVar6;
         field_28[2] = uVar7;
         field_28[3] = uVar8;
-        *(undefined8*)(field_28 + 4) = uVar1;
+        *(uint64_t*)(field_28 + 4) = uVar1;
     }
 
-    // 0x1006b3080, 112 bytes, base-object destructor, inline, placed by class name
-    // RadioGroup::~RadioGroup()
-    void RadioGroup::~RadioGroup() {
-        NpcUID* extraout_RDX;
-        NpcUID* in_RSI;
-
-        *(undefined***)this = &PTR__RadioGroup_100f0f9e8;
-        *(undefined***)m_valueRepresentation = &PTR__RadioGroup_100f0fb08;
+    // 0x1006b3080
+    RadioGroup::~RadioGroup() {
+        *(uint8_t***)this = &PTR__RadioGroup_100f0f9e8;
+        *(uint8_t***)m_valueRepresentation = &PTR__RadioGroup_100f0fb08;
         field_552->~TextData();
         field_504->~Sprite();
-        (&field_432)->~fixed_vector();
-        (&field_400)->~vector_map();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)m_valueRepresentation, in_RSI, extraout_RDX);
-        ~Component();
+        field_432.~fixed_vector();
+        m_valueRepresentation->destruct<oldscape::highlight::NpcUID*>();
     }
 
-    // 0x1006d9400, 48 bytes, inline, placed by class name
-    // RadioGroup::OptionData::operator=(RadioGroup::OptionData&&)
-    /* RadioGroup::OptionData::TEMPNAMEPLACEHOLDERVALUE(RadioGroup::OptionData&&) */
-
-    OptionData* RadioGroup::OptionData::operator=(OptionData* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined3 uVar4;
-        undefined1 uVar5;
-        undefined1 uVar6;
-        undefined1 uVar7;
-        undefined1 uVar8;
-
-        eastl::basic_string<char, BucketAllocatorEASTL>::operator=((basic_string<char, BucketAllocatorEASTL>*)this,
-                                                                   (basic_string*)param_1);
-        uVar4 = param_1->field_25;
-        uVar5 = param_1->field_28[0];
-        uVar6 = param_1->field_28[1];
-        uVar7 = param_1->field_28[2];
-        uVar8 = param_1->field_28[3];
-        uVar1 = *(undefined8*)(param_1->field_28 + 4);
-        uVar2 = *(undefined8*)(param_1->field_28 + 10);
-        uVar3 = *(undefined8*)(param_1->field_28 + 18);
-        field_24 = param_1->field_24;
+    // 0x1006d9400
+    OptionData* RadioGroup::OptionData::operator=(RadioGroup::OptionData&& optionData) {
+        *this = optionData;
+        uint32_t uVar4 = optionData.field_25;
+        uint8_t uVar5 = optionData.field_28[0];
+        uint8_t uVar6 = optionData.field_28[1];
+        uint8_t uVar7 = optionData.field_28[2];
+        uint8_t uVar8 = optionData.field_28[3];
+        uint64_t uVar1 = *(uint64_t*)(optionData.field_28 + 4);
+        uint64_t uVar2 = *(uint64_t*)(optionData.field_28 + 10);
+        uint64_t uVar3 = *(uint64_t*)(optionData.field_28 + 18);
+        field_24 = optionData.field_24;
         field_25 = uVar4;
         field_28[0] = uVar5;
         field_28[1] = uVar6;
         field_28[2] = uVar7;
         field_28[3] = uVar8;
-        *(undefined8*)(field_28 + 4) = uVar1;
-        *(undefined8*)(field_28 + 10) = uVar2;
-        *(undefined8*)(field_28 + 18) = uVar3;
+        *(uint64_t*)(field_28 + 4) = uVar1;
+        *(uint64_t*)(field_28 + 10) = uVar2;
+        *(uint64_t*)(field_28 + 18) = uVar3;
         return this;
     }
 
-    // 0x1006d95f0, 256 bytes, inline, placed by class name
-    // RadioGroup::Setup(UIDataMappingProvider<int, StringView> const&)::$_57::operator()(int, StringView) const
-    /* RadioGroup::Setup(UIDataMappingProvider<int, StringView>
-   const&)::$_57::TEMPNAMEPLACEHOLDERVALUE(int, StringView) const */
-
-    void RadioGroup::Setup(UIDataMappingProvider<int, StringView> const&)::$_57::operator()(int param_1,
-                                                                                            StringView param_2) {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        uchar* extraout_RDX;
-        StringView SVar5;
-        OptionData local_b0[2];
+    // 0x1006d95f0
+    void
+    RadioGroup::Setup(UIDataMappingProvider<int, StringView> const&)::$_57::operator()(int arg1,
+                                                                                       StringView stringView) const {
+        Logger* this_00;
+        uint64_t uVar3;
+        OptionData local_b0;
         StringView local_38;
-        int local_24;
 
-        lVar1 = *(long*)this;
-        local_24 = param_1;
-        uVar2 = ((lVar1 + 400))->size();
-        if (uVar2 < 255) {
-            new (&local_38) StringView(param_2.field_0);
-            SVar5.field_8 = extraout_RDX;
-            SVar5.field_0 = (ulong)&local_38;
-            OptionData::OptionData(local_b0, SVar5);
-            eastl::pair<int, RadioGroup::OptionData>::pair<int, RadioGroup::OptionData, void>(
-                (pair<int, RadioGroup::OptionData>*)(local_b0[0].field_28 + 28), &local_24, local_b0);
-            eastl::vector_map<int, RadioGroup::OptionData, eastl::less<int>, BucketAllocatorEASTL,
-                              eastl::vector<eastl::pair<int, RadioGroup::OptionData>, BucketAllocatorEASTL>>::
-                insert<eastl::pair<int, RadioGroup::OptionData>, void>(
-                    (vector_map<int, RadioGroup::OptionData, eastl::less<int>, BucketAllocatorEASTL,
-                                eastl::vector<eastl::pair<int, RadioGroup::OptionData>, BucketAllocatorEASTL>>*)(lVar1 +
-                                                                                                                 400),
-                    (pair*)(local_b0[0].field_28 + 28));
+        long lVar1 = *(long*)this;
+        if (((lVar1 + 400))->size() < 255) {
+            local_38 = StringView(*stringView);
+            local_b0 = OptionData(&local_38);
+            ((local_b0[0].field_28 + 28))->pair<int, RadioGroup::OptionData, void>(arg1, local_b0);
+            ((lVar1 + 400))->insert<eastl::pair<int, RadioGroup::OptionData>, void>(*((local_b0[0].field_28 + 28)));
             ((local_b0[0].field_28 + 28))->~pair();
-            local_b0->~__alt();
         } else {
-            uVar3 = logger::default_logger();
-            uVar4 = param_2.field_0->end();
-            logger::Logger::Log(
-                uVar3, 0, 2,
+            this_00 = logger::default_logger();
+            uVar3 = stringView->end();
+            this_00->Log(
+                false, 2,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/RadioGroup.cpp",
-                207, "Cannot add option %s=%d as RadioGroup is already at the 255 option limit", uVar4, local_24);
+                207, "Cannot add option %s=%d as RadioGroup is already at the 255 option limit", uVar3, arg1);
         }
     }
 
-    // 0x1006d9700, 16 bytes, inline, placed by class name
-    // RadioGroup::Setup(UIDataMappingProvider<int, StringView> const&)::$_58::operator()(eastl::pair<int, RadioGroup::OptionData> const&, StringView) const
-    /* RadioGroup::Setup(UIDataMappingProvider<int, StringView>
-   const&)::$_58::TEMPNAMEPLACEHOLDERVALUE(eastl::pair<int, RadioGroup::OptionData> const&,
-   StringView) const */
-
-    void RadioGroup::Setup(UIDataMappingProvider<int, StringView> const&)::$_58::operator()(pair* param_1,
-                                                                                            StringView param_2) {
-        operator==((basic_string*)(param_1 + 8), (StringView*)param_2.field_0);
+    // 0x1006d9700
+    void RadioGroup::Setup(UIDataMappingProvider<int, StringView> const&)::$_58::operator()(
+        const eastl::pair<int, RadioGroup::OptionData>& arg1, StringView stringView) const {
+        (*((this + 8))) == arg1;
     }
 
 } // namespace jag::ui
@@ -350,14 +269,8 @@ namespace jag::tweak {
         virtual int GetRadioValue() const;
         void UntickAll();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+    private:
+        uint8_t _unknown_8[209];
     };
 
 } // namespace jag::tweak
-
-namespace jag::fixedfunction {
-    // 0x1006a7ff0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // function<void (int, StringView), 64ul, 16ul, (Methods)0>::function<ui::RadioGroup::Setup(ui::UIDataMappingProvider<int, StringView> const&)::$_57, void>(ui::RadioGroup::Setup(ui::UIDataMappingProvider<int, StringView> const&)::$_57&&): jumps straight to the base-object constructor
-
-} // namespace jag::fixedfunction

@@ -1,48 +1,48 @@
 // libs/hal/render/buffers/OGL/BufferInterfaceDec_OGL.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::render {
-    // 0x100c14ab0, 192 bytes, inline, placed by __FILE__ string
-    // BufferInterface::MapReadBuffer(char const*, unsigned int, unsigned int, unsigned int, LockType, unsigned int, unsigned int, unsigned int)
-    ResourceDataT<unsigned char const>* BufferInterface::MapReadBuffer(ResourceDataT<unsigned char const>* param_1,
-                                                                       undefined8 param_2, undefined8 param_3,
-                                                                       undefined4 param_4, undefined8 param_5,
-                                                                       undefined4 param_6, uint param_7) {
-        uchar* puVar1;
+    // 0x100c14ab0
+    BufferInterface* BufferInterface::MapReadBuffer(const char* str, unsigned int arg2, unsigned int arg3,
+                                                    unsigned int arg4, LockType lockType, unsigned int arg6,
+                                                    unsigned int arg7, unsigned int arg8) {
+        uint32_t in_register_00000014;
+        uint32_t in_register_00000084;
+        unsigned int in_stack_00000020;
 
-        if ((param_7 != 1) && (param_7 != 7)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg6 != 1) && (arg6 != 7)) {
             LogAssert("lockType == LockType::LOCK_TYPE_READ || lockType == LockType::LOCK_TYPE_READ_PERSISTENT",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/OGL/"
                       "BufferInterfaceDec_OGL.h",
-                      17, (char*)0, param_5, (ulong)param_7, CONCAT44((int)param_5, param_6));
+                      17, nullptr, (((uint64_t)in_register_00000084 << 32) | (uint32_t)arg4), (unsigned long)arg6,
+                      (((uint64_t)arg4 << 32) | (uint32_t)lockType));
         }
-        puVar1 = (uchar*)MapBuffer(param_2, param_3, param_4);
-        ResourceDataT<unsigned char const>::ResourceDataT(param_1, puVar1, 0, 0, false);
-        return param_1;
+        auto arg1 = MapBuffer((BufferInterface*)str, (char*)(((uint64_t)in_register_00000014 << 32) | (uint32_t)arg2),
+                              arg3, arg4, lockType, arg6, arg7, arg8, in_stack_00000020);
+        new (this) ResourceDataT(arg1, 0, 0, false);
+        return this;
     }
 
-    // 0x100c14bc0, 192 bytes, inline, placed by __FILE__ string
-    // BufferInterface::MapWriteBuffer(char const*, unsigned int, unsigned int, unsigned int, LockType, unsigned int, unsigned int, unsigned int)
-    ResourceDataT<unsigned char const>* BufferInterface::MapWriteBuffer(ResourceDataT<unsigned char const>* param_1,
-                                                                        undefined8 param_2, undefined8 param_3,
-                                                                        undefined4 param_4, undefined8 param_5,
-                                                                        undefined8 param_6, uint param_7) {
-        uchar* puVar1;
+    // 0x100c14bc0
+    BufferInterface* BufferInterface::MapWriteBuffer(const char* str, unsigned int arg2, unsigned int arg3,
+                                                     unsigned int arg4, LockType lockType, unsigned int arg6,
+                                                     unsigned int arg7, unsigned int arg8) {
+        uint32_t in_register_00000014;
+        uint32_t in_register_00000084;
+        unsigned int in_stack_00000020;
 
-        if ((param_7 == 7) || (param_7 == 1)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg6 == 7) || (arg6 == 1)) {
             LogAssert("lockType != LockType::LOCK_TYPE_READ && lockType != LockType::LOCK_TYPE_READ_PERSISTENT",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/OGL/"
                       "BufferInterfaceDec_OGL.h",
-                      22, (char*)0, param_5, (ulong)param_7, param_2);
+                      22, nullptr, (((uint64_t)in_register_00000084 << 32) | (uint32_t)arg4), (unsigned long)arg6, str);
         }
-        puVar1 = (uchar*)MapBuffer(param_2, param_3, param_4);
-        ResourceDataT<unsigned char const>::ResourceDataT(param_1, puVar1, 0, 0, false);
-        return param_1;
+        auto arg1 = MapBuffer((BufferInterface*)str, (char*)(((uint64_t)in_register_00000014 << 32) | (uint32_t)arg2),
+                              arg3, arg4, lockType, arg6, arg7, arg8, in_stack_00000020);
+        new (this) ResourceDataT(arg1, 0, 0, false);
+        return this;
     }
 
 } // namespace jag::render

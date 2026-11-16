@@ -1,317 +1,264 @@
 // libs/oldscape/jagex3/graphics/animation/OldscapeAnimCurve.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "OldscapeAnimCurve.h"
 
 namespace jag::oldscape::graphics::animation {
-    // 0x100320db0, 320 bytes, placed by class name and debug map
-    // OldscapeAnimCurve::LoadFromPacket(PacketJ<Array<unsigned char, eastl::allocator> >&, int)
-    ulong OldscapeAnimCurve::LoadFromPacket(PacketJ* param_1, int param_2) {
-        PacketJ PVar1;
-        char cVar2;
-        ushort uVar4;
-        PacketJ* pPVar5;
-        shared_ptr<OldscapeAnimKey>* psVar6;
-        ulong uVar7;
-        undefined4 in_register_00000034;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* this;
-        ulong uVar8;
-        shared_ptr local_58;
-        shared_ptr local_48;
+    // 0x100320db0
+    unsigned long OldscapeAnimCurve::LoadFromPacket(PacketJ<Array<unsigned char>>& packetJ, int arg2) {
+        shared_ptr<OldscapeAnimKey>* psVar5;
+        unsigned long arg1;
+        uint32_t in_register_00000034;
+        ReturnValue local_58;
 
-        this = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)CONCAT44(in_register_00000034,
-                                                                                             param_2);
-        uVar4 = g2();
-        PVar1 = (PacketJ)g1();
-        *param_1 = PVar1;
-        PVar1 = (PacketJ)g1();
-        param_1[3] = PVar1;
-        PVar1 = (PacketJ)g1();
-        param_1[4] = PVar1;
-        cVar2 = g1();
-        param_1[1] = (PacketJ)(cVar2 != '\0');
-        uVar8 = (ulong)uVar4;
-        ((param_1 + 8))->set_max_size(uVar8, 3);
-        new (&local_48) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        PacketReaderMixin<PacketT<Array<unsigned char>>>* packetReaderMixin =
+            (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(((uint64_t)in_register_00000034 << 32) |
+                                                                (uint32_t)arg2);
+        unsigned short uVar4 = packetReaderMixin->g2();
+        PacketJ<Array<unsigned char> _> PVar1 = (PacketJ<Array<unsigned char> _>)packetReaderMixin->g1();
+        packetJ = PVar1;
+        PVar1 = (PacketJ<Array<unsigned char> _>)packetReaderMixin->g1();
+        packetJ[3] = PVar1;
+        PVar1 = (PacketJ<Array<unsigned char> _>)packetReaderMixin->g1();
+        packetJ[4] = PVar1;
+        bool cVar2 = packetReaderMixin->g1();
+        packetJ[1] = (PacketJ<Array<unsigned char> _>)(cVar2);
+        unsigned long arg1_00 = (unsigned long)uVar4;
+        ((packetJ + 8))->set_max_size(arg1_00, 3);
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> local_48;
         if (uVar4 != 0) {
-            uVar7 = 0;
+            arg1 = 0;
             do {
-                make_shared<OldscapeAnimKey>((jag*)&local_58);
-                pPVar5 = (PacketJ*)shared_ptr<OldscapeAnimKey>::operator->((shared_ptr<OldscapeAnimKey>*)&local_58);
-                OldscapeAnimKey::LoadFromPacket(pPVar5, (int)this);
-                psVar6 = (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-                    (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)(param_1 + 8), uVar7);
-                shared_ptr<OldscapeAnimKey>::operator=(psVar6, &local_58);
-                if (operator!=(&local_48, (_func_decltype_nullptr*)0)) {
-                    psVar6 = (shared_ptr<OldscapeAnimKey>*)shared_ptr<OldscapeAnimKey>::operator->(
-                        (shared_ptr<OldscapeAnimKey>*)&local_48);
-                    shared_ptr<OldscapeAnimKey>::operator=(psVar6, &local_58);
+                make_shared<OldscapeAnimKey>(&local_58);
+                OldscapeAnimKey::LoadFromPacket(*((PacketJ<Array<unsigned char> _>*)local_58.operator->()),
+                                                (int)packetReaderMixin);
+                psVar5 = (shared_ptr<OldscapeAnimKey>*)(*((packetJ + 8)))[arg1];
+                *psVar5 = local_58;
+                if (local_48 != nullptr) {
+                    psVar5 = (shared_ptr<OldscapeAnimKey>*)local_48.operator->();
+                    *psVar5 = local_58;
                 }
-                shared_ptr<OldscapeAnimKey>::operator=((shared_ptr<OldscapeAnimKey>*)&local_48, &local_58);
-                local_58.~shared_ptr();
-                uVar7 = uVar7 + 1;
-            } while (uVar8 != uVar7);
+                local_48 = local_58;
+                arg1 = arg1 + 1;
+            } while (arg1_00 != arg1);
         }
-        local_48.~shared_ptr();
-        return uVar8;
+        return arg1_00;
     }
 
-    // 0x100321270, 288 bytes, placed by class name
-    // OldscapeAnimCurve::ConvertKeysToFrames()
+    // 0x100321270
     void OldscapeAnimCurve::ConvertKeysToFrames() {
-        undefined1* this_00;
-        int iVar1;
-        int iVar2;
-        shared_ptr<OldscapeAnimKey>* psVar3;
-        long lVar4;
-        undefined4* puVar5;
-        undefined4 uVar6;
+        uint32_t* puVar5;
+        uint32_t uVar6;
 
-        this_00 = &field_8;
-        psVar3 = (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-            (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)this_00, 0);
-        lVar4 = shared_ptr<OldscapeAnimKey>::operator->(psVar3);
-        m_start = *(undefined4*)(lVar4 + 16);
-        iVar1 = GetNumKeys(this);
-        psVar3 = (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-            (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)this_00, (long)(iVar1 + -1));
-        lVar4 = shared_ptr<OldscapeAnimKey>::operator->(psVar3);
-        m_end = *(undefined4*)(lVar4 + 16);
-        iVar1 = GetDuration(this);
-        (&field_88, (long)(iVar1 + 1), 3)->set_max_size();
-        iVar1 = GetStart(this);
-        iVar2 = GetEnd(this);
+        uint8_t* this_00 = &field_8;
+        shared_ptr<OldscapeAnimKey>* psVar3 = (shared_ptr<OldscapeAnimKey>*)(*this_00)[0];
+        long lVar4 = (*psVar3).operator->();
+        m_start = *(uint32_t*)(lVar4 + 16);
+        int iVar1 = GetNumKeys();
+        psVar3 = (shared_ptr<OldscapeAnimKey>*)(*this_00)[(long)(iVar1 - 1)];
+        lVar4 = (*psVar3).operator->();
+        m_end = *(uint32_t*)(lVar4 + 16);
+        iVar1 = GetDuration();
+        field_88.set_max_size((long)(iVar1 + 1), 3);
+        iVar1 = GetStart();
+        int iVar2 = GetEnd();
         if (iVar1 <= iVar2) {
             lVar4 = (long)iVar1;
             do {
                 iVar2 = (int)lVar4;
                 uVar6 = OldscapeAnimCurveSampler::SampleCurve(this, iVar2);
-                iVar1 = GetStart(this);
-                puVar5 = (undefined4*)Array<float, eastl::allocator>::operator[](
-                    (Array<float, eastl::allocator>*)&field_88, lVar4 - iVar1);
+                iVar1 = GetStart();
+                puVar5 = &field_88[lVar4 - iVar1];
                 *puVar5 = uVar6;
-                iVar1 = GetEnd(this);
+                iVar1 = GetEnd();
                 lVar4 = lVar4 + 1;
             } while (iVar2 < iVar1);
         }
         this_00->clear();
-        iVar1 = GetStart(this);
-        uVar6 = OldscapeAnimCurveSampler::SampleCurve(this, iVar1 + -1);
+        iVar1 = GetStart();
+        uVar6 = OldscapeAnimCurveSampler::SampleCurve(this, iVar1 - 1);
         field_120 = uVar6;
-        iVar1 = GetEnd(this);
+        iVar1 = GetEnd();
         uVar6 = OldscapeAnimCurveSampler::SampleCurve(this, iVar1 + 1);
         field_124 = uVar6;
     }
 
-    // 0x100321390, 48 bytes, placed by class name
-    // OldscapeAnimCurve::GetNumKeys() const
-    undefined8 OldscapeAnimCurve::GetNumKeys() {
-        char cVar1;
-        undefined8 uVar2;
-
-        cVar1 = (&field_8)->empty();
-        uVar2 = 0;
-        if (cVar1 == '\0') {
-            uVar2 = (&field_8)->end();
+    // 0x100321390
+    uint64_t OldscapeAnimCurve::GetNumKeys() const {
+        bool cVar1 = field_8.empty();
+        uint64_t uVar2 = 0;
+        if (!cVar1) {
+            uVar2 = field_8.end();
         }
         return uVar2;
     }
 
-    // 0x1003213c0, 48 bytes, placed by class name
-    // OldscapeAnimCurve::GetDuration()
+    // 0x1003213c0
     int OldscapeAnimCurve::GetDuration() {
-        int iVar1;
-        int iVar2;
-
-        iVar1 = GetEnd(this);
-        iVar2 = GetStart(this);
+        int iVar1 = GetEnd();
+        int iVar2 = GetStart();
         return iVar1 - iVar2;
     }
 
-    // 0x1003213f0, 16 bytes, placed by class name
-    // OldscapeAnimCurve::GetStart() const
-    undefined4 OldscapeAnimCurve::GetStart() {
+    // 0x1003213f0
+    uint32_t OldscapeAnimCurve::GetStart() const {
         return m_start;
     }
 
-    // 0x100321400, 16 bytes, placed by class name
-    // OldscapeAnimCurve::GetEnd() const
-    undefined4 OldscapeAnimCurve::GetEnd() {
+    // 0x100321400
+    uint32_t OldscapeAnimCurve::GetEnd() const {
         return m_end;
     }
 
-    // 0x100321470, 96 bytes, placed by class name
-    // OldscapeAnimCurve::GetValue(int)
-    undefined4 OldscapeAnimCurve::GetValue(int param_1) {
-        int iVar1;
-        undefined4* puVar3;
+    // 0x100321470
+    uint32_t OldscapeAnimCurve::GetValue(int arg1) {
+        uint32_t* puVar3;
 
-        iVar1 = GetStart(this);
-        if (param_1 < iVar1) {
+        int iVar1 = GetStart();
+        if (arg1 < iVar1) {
             puVar3 = &field_120;
         } else {
-            if (GetEnd(this) < param_1) {
+            if (GetEnd() < arg1) {
                 puVar3 = &field_124;
             } else {
-                puVar3 = (undefined4*)Array<float, eastl::allocator>::operator[](
-                    (Array<float, eastl::allocator>*)&field_88, (long)(param_1 - iVar1));
+                puVar3 = &field_88[(long)(arg1 - iVar1)];
             }
         }
         return *puVar3;
     }
 
-    // 0x1003214d0, 560 bytes, placed by class name
-    // OldscapeAnimCurve::GetKeyIndexAtTime(float)
-    int OldscapeAnimCurve::GetKeyIndexAtTime(float param_1) {
-        undefined1* puVar1;
+    // 0x1003214d0
+    int OldscapeAnimCurve::GetKeyIndexAtTime(float arg1) {
+        uint8_t* puVar1;
         bool bVar2;
-        int iVar3;
-        int iVar4;
         shared_ptr<OldscapeAnimKey>* psVar5;
         long lVar6;
-        shared_ptr* psVar7;
+        shared_ptr<configdecoder::ObjType>* objType;
+        int iVar7;
         int iVar8;
         int iVar9;
         int iVar10;
-        int iVar11;
 
         if (-1 < (long)field_80) {
             puVar1 = &field_8;
-            psVar5 = (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-                (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)puVar1, (long)field_80);
-            lVar6 = shared_ptr<OldscapeAnimKey>::operator->(psVar5);
-            if ((float)*(int*)(lVar6 + 16) <= param_1) {
-                psVar5 = (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-                    (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)puVar1, (long)field_80);
-                psVar7 = (shared_ptr*)shared_ptr<OldscapeAnimKey>::operator->(psVar5);
-                bVar2 = operator==(psVar7, (_func_decltype_nullptr*)0);
+            psVar5 = (shared_ptr<OldscapeAnimKey>*)(*puVar1)[(long)field_80];
+            lVar6 = (*psVar5).operator->();
+            if ((float)*(int*)(lVar6 + 16) <= arg1) {
+                psVar5 = (shared_ptr<OldscapeAnimKey>*)(*puVar1)[(long)field_80];
+                objType = (shared_ptr<configdecoder::ObjType>*)(*psVar5).operator->();
+                bVar2 = *objType == nullptr;
                 if (bVar2)
                     goto LAB_1003216e5;
-                psVar5 = (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-                    (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)puVar1, (long)field_80);
-                psVar5 = (shared_ptr<OldscapeAnimKey>*)shared_ptr<OldscapeAnimKey>::operator->(psVar5);
-                lVar6 = shared_ptr<OldscapeAnimKey>::operator->(psVar5);
-                if (param_1 < (float)*(int*)(lVar6 + 16))
+                psVar5 = (shared_ptr<OldscapeAnimKey>*)(*puVar1)[(long)field_80];
+                psVar5 = (shared_ptr<OldscapeAnimKey>*)(*psVar5).operator->();
+                lVar6 = (*psVar5).operator->();
+                if (arg1 < (float)*(int*)(lVar6 + 16))
                     goto LAB_1003216e5;
             }
         }
-        iVar3 = GetStart(this);
-        if (param_1 < (float)iVar3) {
+        int iVar3 = GetStart();
+        if (arg1 < (float)iVar3) {
             return -1;
         }
-        iVar3 = GetEnd(this);
-        if ((float)iVar3 < param_1) {
+        iVar3 = GetEnd();
+        if ((float)iVar3 < arg1) {
             return -1;
         }
-        iVar4 = GetNumKeys(this);
+        int iVar4 = GetNumKeys();
         iVar3 = field_80;
         if (0 < iVar4) {
-            iVar4 = iVar4 + -1;
+            iVar4 = iVar4 - 1;
             puVar1 = &field_8;
-            iVar11 = 0;
+            iVar10 = 0;
             do {
-                iVar10 = iVar4 + iVar11 >> 1;
-                psVar5 = (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-                    (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)puVar1, (long)iVar10);
-                lVar6 = shared_ptr<OldscapeAnimKey>::operator->(psVar5);
-                if ((float)*(int*)(lVar6 + 16) <= param_1) {
-                    psVar5 =
-                        (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-                            (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)puVar1, (long)iVar10);
-                    lVar6 = shared_ptr<OldscapeAnimKey>::operator->(psVar5);
+                iVar9 = iVar4 + iVar10 >> 1;
+                psVar5 = (shared_ptr<OldscapeAnimKey>*)(*puVar1)[(long)iVar9];
+                lVar6 = (*psVar5).operator->();
+                if ((float)*(int*)(lVar6 + 16) <= arg1) {
+                    psVar5 = (shared_ptr<OldscapeAnimKey>*)(*puVar1)[(long)iVar9];
+                    lVar6 = (*psVar5).operator->();
                     bVar2 = true;
-                    if (param_1 <= (float)*(int*)(lVar6 + 16))
+                    if (arg1 <= (float)*(int*)(lVar6 + 16))
                         goto LAB_1003216d2;
-                    iVar9 = iVar10 + 1;
-                    psVar5 =
-                        (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-                            (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)puVar1, (long)iVar9);
-                    lVar6 = shared_ptr<OldscapeAnimKey>::operator->(psVar5);
-                    iVar8 = iVar4;
-                    if ((float)*(int*)(lVar6 + 16) <= param_1)
+                    iVar8 = iVar9 + 1;
+                    psVar5 = (shared_ptr<OldscapeAnimKey>*)(*puVar1)[(long)iVar8];
+                    lVar6 = (*psVar5).operator->();
+                    iVar7 = iVar4;
+                    if ((float)*(int*)(lVar6 + 16) <= arg1)
                         goto LAB_100321697;
                 } else {
-                    iVar10 = iVar10 + -1;
-                    psVar5 =
-                        (shared_ptr<OldscapeAnimKey>*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-                            (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)puVar1, (long)iVar10);
-                    lVar6 = shared_ptr<OldscapeAnimKey>::operator->(psVar5);
+                    iVar9 = iVar9 - 1;
+                    psVar5 = (shared_ptr<OldscapeAnimKey>*)(*puVar1)[(long)iVar9];
+                    lVar6 = (*psVar5).operator->();
                     bVar2 = true;
+                    iVar7 = iVar9;
                     iVar8 = iVar10;
-                    iVar9 = iVar11;
-                    if (param_1 <= (float)*(int*)(lVar6 + 16)) {
+                    if (arg1 <= (float)*(int*)(lVar6 + 16)) {
                     LAB_100321697:
                         bVar2 = false;
-                        iVar10 = iVar3;
-                        iVar4 = iVar8;
-                        iVar11 = iVar9;
+                        iVar9 = iVar3;
+                        iVar4 = iVar7;
+                        iVar10 = iVar8;
                     }
                 }
-                iVar3 = iVar10;
-                iVar10 = iVar3;
-                if ((bVar2) || (iVar4 < iVar11))
+                iVar3 = iVar9;
+                iVar9 = iVar3;
+                if ((bVar2) || (iVar4 < iVar10))
                     goto LAB_1003216d2;
             } while (true);
         }
-        iVar10 = iVar3;
+        iVar9 = iVar3;
     LAB_1003216d2:
-        if (iVar10 != field_80) {
-            field_80 = iVar10;
+        if (iVar9 != field_80) {
+            field_80 = iVar9;
             field_76 = 1;
         }
     LAB_1003216e5:
         return field_80;
     }
 
-    // 0x100321700, 96 bytes, placed by class name
-    // OldscapeAnimCurve::GetKeyAtTime(float)
-    OldscapeAnimCurve* OldscapeAnimCurve::GetKeyAtTime(float param_1) {
-        int iVar1;
+    // 0x100321700
+    auto OldscapeAnimCurve::GetKeyAtTime(float arg1) {
         int iVar2;
-        shared_ptr* psVar3;
-        OldscapeAnimCurve* in_RSI;
+        shared_ptr<dash3d::GroundDecor>* groundDecor;
 
-        iVar1 = GetKeyIndexAtTime(in_RSI, param_1);
+        int iVar1 = GetKeyIndexAtTime(arg1);
         if (-1 < iVar1) {
-            iVar2 = (&in_RSI->field_8)->end();
+            iVar2 = field_8.end();
             if (iVar1 < iVar2) {
-                psVar3 = (shared_ptr*)Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>::operator[](
-                    (Array<shared_ptr<OldscapeAnimKey>, eastl::allocator>*)&in_RSI->field_8, (long)iVar1);
-                new (this) shared_ptr<dash3d::Decor>(psVar3);
-                return this;
+                groundDecor = &field_8[(long)iVar1];
+                return auto(groundDecor);
             }
         }
-        new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        return this;
+        new (&result) shared_ptr();
+        return result;
     }
 
 } // namespace jag::oldscape::graphics::animation
 
 namespace jag {
-    // 0x100321030, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::graphics::animation::OldscapeAnimKey>::type make_shared<oldscape::graphics::animation::OldscapeAnimKey>()
-    jag* make_shared<oldscape::graphics::animation::OldscapeAnimKey>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100321030
+    shared_ptr_if_not_array<oldscape::graphics::animation::OldscapeAnimKey>::type
+    make_shared<oldscape::graphics::animation::OldscapeAnimKey>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         OldscapeAnimKey* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(72, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(72, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::graphics::animation::OldscapeAnimKey>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::graphics::animation::OldscapeAnimKey>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::graphics::animation::OldscapeAnimKey>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::graphics::animation::OldscapeAnimKey>, int,
-                                   oldscape::graphics::animation::OldscapeAnimKey*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::graphics::animation::OldscapeAnimKey>, int,
+                              oldscape::graphics::animation::OldscapeAnimKey*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/effects/skybox/SkyBoxVertex.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,48 +8,32 @@ namespace jag::graphics {
     public:
         SkyBoxVertex();
 
-        // data members, from how the methods use this: 28 bytes
-        char _unknown_0[28];
+        uint8_t _unknown_0[28];
     };
 
-    // 0x100929000, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // SkyBoxVertex::SkyBoxVertex(): jumps straight to the base-object constructor
+    // 0x100929010
+    SkyBoxVertex::SkyBoxVertex() : math::Vector2T() {}
 
-    // 0x100929010, 48 bytes, base-object constructor, inline, placed by class name and debug map
-    // SkyBoxVertex::SkyBoxVertex()
-    void SkyBoxVertex::SkyBoxVertex() {
-        new (this) math::Vector2T<int>();
-        new (&field_8) math::Vector3T<int>();
-        new (&field_20) math::Vector3T<int>();
-    }
-
-    // 0x100929320, 48 bytes, inline, placed by debug map only (low confidence)
-    // ViewportMapEntry::operator=(ViewportMapEntry&&)
-    /* ViewportMapEntry::TEMPNAMEPLACEHOLDERVALUE(ViewportMapEntry&&) */
-
-    ViewportMapEntry* ViewportMapEntry::operator=(ViewportMapEntry* param_1) {
-        field_0 = param_1->field_0;
-        shared_ptr<render::Texture2D>::operator=((shared_ptr<render::Texture2D>*)&field_8,
-                                                 (shared_ptr*)&param_1->field_8);
-        field_24 = param_1->field_24;
+    // 0x100929320
+    ViewportMapEntry* ViewportMapEntry::operator=(ViewportMapEntry&& viewportMapEntry) {
+        field_0 = viewportMapEntry.field_0;
+        field_8 = viewportMapEntry.field_8;
+        field_24 = viewportMapEntry.field_24;
         return this;
     }
 
 } // namespace jag::graphics
 
 namespace jag::math {
-    // 0x100929ae0, 128 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // Matrix22T<float>::Matrix22T(float, float, float, float)
-    void Matrix22T<float>::Matrix22T(float param_1, float param_2, float param_3, float param_4) {
-        long lVar1;
-
-        lVar1 = 0;
+    // 0x100929ae0
+    Matrix22T<float>::Matrix22T(float arg1, float arg2, float arg3, float arg4) {
+        long lVar1 = 0;
         do {
-            new ((this + lVar1)) Vector2T<int>();
+            new ((this + lVar1)) Vector2T();
             lVar1 = lVar1 + 8;
         } while (lVar1 != 16);
-        Set(param_1, param_2);
-        ((this + 8))->Set(param_3, param_4);
+        Set(arg1, arg2);
+        ((this + 8))->Set(arg3, arg4);
     }
 
 } // namespace jag::math

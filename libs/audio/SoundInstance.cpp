@@ -1,45 +1,33 @@
 // libs/audio/SoundInstance.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.audio
 
 #include "SoundInstance.h"
 
 namespace jag::audio {
-    // 0x10000b300: the linker folded this into eastl::string::Layout::SetHeapSize(unsigned long), which has identical code
-    SoundInstance::SetOwner(void*);
+    // 0x10000b300: SoundInstance::SetOwner(void*) has the same machine code as eastl::string::Layout::SetHeapSize(unsigned long)
 
-    // 0x1000b7a80: the linker folded this into oldscape::minimenu::MinimenuEntry::GetObjCount() const, which has identical code
-    SoundInstance::GetLevel() const;
+    // 0x1000b7a80: SoundInstance::GetLevel() const has the same machine code as oldscape::minimenu::MinimenuEntry::GetObjCount() const
 
-    // 0x1000fa820: the linker folded this into oldscape::graphics::NXTPixScreen::GetClampedZoomValue() const, which has identical code
-    float SoundInstance::GetSoundSpatialSizeMax() const;
+    // 0x1000fa820: SoundInstance::GetSoundSpatialSizeMax() const has the same machine code as oldscape::graphics::NXTPixScreen::GetClampedZoomValue() const
 
-    // 0x1001f7270: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::SetMaxMapZ(int), which has identical code
-    SoundInstance::SetLevel(int);
+    // 0x1001f7270: SoundInstance::SetLevel(int) has the same machine code as oldscape::rs2lib::worldmap::WorldmapAreaMetadata::SetMaxMapZ(int)
 
-    // 0x1002111e0: the linker folded this into oldscape::rs2lib::worldmap::PackableArea::GetTargetMapSquareX(), which has identical code
-    int SoundInstance::GetSoundShape() const;
+    // 0x1002111e0: SoundInstance::GetSoundShape() const has the same machine code as oldscape::rs2lib::worldmap::PackableArea::GetTargetMapSquareX()
 
-    // 0x1002111f0: the linker folded this into oldscape::rs2lib::worldmap::PackableArea::GetTargetMapSquareZ(), which has identical code
-    int SoundInstance::GetSoundType() const;
+    // 0x1002111f0: SoundInstance::GetSoundType() const has the same machine code as oldscape::rs2lib::worldmap::PackableArea::GetTargetMapSquareZ()
 
-    // 0x10043c600: the linker folded this into game::LightType::GetJitterRadius() const, which has identical code
-    float SoundInstance::GetSoundSpatialSizeMin() const;
+    // 0x10043c600: SoundInstance::GetSoundSpatialSizeMin() const has the same machine code as game::LightType::GetJitterRadius() const
 
-    // 0x100b8a0c0, 224 bytes, base-object constructor, placed by class name and debug map
-    // SoundInstance::SoundInstance()
-    void SoundInstance::SoundInstance() {
-        field_0 = PTR_vtable_100ee8608 + 16;
-        field_8 = (void*)0;
-        field_16 = 0;
-        field_20 = 0;
-        new (field_24, (_func_decltype_nullptr*)0) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_40 = (VoiceInstance*)0;
-        m_loopCount = 0;
+    // 0x100b8a0c0
+    SoundInstance::SoundInstance() : field_8(nullptr), field_16(0), field_20(0) {
+        void* arg1 = nullptr;
+        new (field_24) shared_ptr();
+        field_40 = nullptr;
+        field_48 = 0;
         field_52 = 1.0;
         field_56 = 1.0;
-        m_preSendGain = 1.0;
+        field_60 = 1.0;
         field_64 = 0.0;
         field_68 = 0.0;
         field_72 = 1.0;
@@ -47,9 +35,9 @@ namespace jag::audio {
         field_80 = 0.0;
         m_soundSpatialSizeMin = 0.0;
         m_soundSpatialSizeMax = 0.0;
-        new (&m_position, 0.0, 0.0, 0.0) math::ColourHSL();
+        new (&m_position) math::ColourHSL(0.0, 0.0, 0.0);
         m_level = -1;
-        std::function<void(SoundInstance*)>::function((_func_decltype_nullptr*)&field_112);
+        new (&field_112) std::function<void(SoundInstance*)>(arg1);
         field_168 = false;
         m_bussID = 0;
         m_startDelay = 0;
@@ -60,102 +48,94 @@ namespace jag::audio {
         m_rate = 256;
     }
 
-    // 0x100b8a1b0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // SoundInstance::SoundInstance(): jumps straight to the base-object constructor
-
-    // 0x100b8a1c0, 32 bytes, placed by class name and debug map
-    // SoundInstance::Claim(shared_ptr<SoundResource> const&)
-    void SoundInstance::Claim(shared_ptr* param_1) {
+    // 0x100b8a1c0
+    void SoundInstance::Claim(const shared_ptr<SoundResource>& soundResource) {
         if (field_20 < 2) {
             field_20 = 2;
-            shared_ptr<SoundResource>::operator=((shared_ptr<SoundResource>*)field_24, param_1);
+            *field_24 = soundResource;
         }
     }
 
-    // 0x100b8a1e0, 32 bytes, placed by class name and debug map
-    // SoundInstance::Free()
+    // 0x100b8a1e0
     void SoundInstance::Free() {
-        if ((1 < field_20) && (field_40 != (VoiceInstance*)0)) {
+        if ((1 < field_20) && (field_40 != nullptr)) {
             field_40->Free();
         }
     }
 
-    // 0x100b8a200, 544 bytes, placed by class name and debug map
-    // SoundInstance::Update(float, shared_ptr<hal::audio::AudioRenderer> const&)
-    void SoundInstance::Update(float param_1, shared_ptr* param_2) {
-        bool bVar1;
-        char cVar2;
-        long* plVar3;
+    // 0x100b8a200
+    void SoundInstance::Update(float arg1, const shared_ptr<hal::audio::AudioRenderer>& audioRenderer) {
+        bool cVar1;
+        long* plVar2;
         shared_ptr* this_00;
-        AudioRenderer* pAVar4;
-        VoiceInstance* this_01;
-        AudioFormat* pAVar5;
+        AudioRenderer* this_01;
+        VoiceInstance* this_02;
+        AudioFormat* audioFormat;
 
         if (field_20 == 2) {
-            bVar1 = field_24->operator_cast_to_bool();
-            if (bVar1) {
-                plVar3 = (long*)shared_ptr<SoundResource>::operator->((shared_ptr<SoundResource>*)field_24);
-                cVar2 = (**(code**)(*plVar3 + 32))(plVar3);
-                if (cVar2 != '\0') {
+            cVar1 = field_24->operator_cast_to_bool();
+            if (cVar1) {
+                plVar2 = (long*)(*field_24).operator->();
+                cVar1 = (**(void (**)(...))(*plVar2 + 32))(plVar2);
+                if (cVar1) {
                     field_20 = 3;
                 }
             }
         }
         if (field_20 == 3) {
-            bVar1 = shared_ptr::operator_cast_to_bool(param_2);
-            if (!bVar1) {
+            cVar1 = audioRenderer.operator_cast_to_bool();
+            if (!cVar1) {
                 return;
             }
-            if (field_40 == (VoiceInstance*)0) {
-                plVar3 = (long*)shared_ptr<SoundResource>::operator->((shared_ptr<SoundResource>*)field_24);
-                this_00 = (shared_ptr*)(**(code**)(*plVar3 + 48))(plVar3);
-                bVar1 = shared_ptr::operator_cast_to_bool(this_00);
-                if (bVar1) {
-                    pAVar4 = (AudioRenderer*)shared_ptr<hal::audio::AudioRenderer>::operator->(
-                        (shared_ptr<hal::audio::AudioRenderer>*)param_2);
-                    this_01 = (VoiceInstance*)pAVar4->ClaimVoice(m_bussID);
-                    field_40 = this_01;
-                    if (this_01 == (VoiceInstance*)0) {
+            if (field_40 == nullptr) {
+                plVar2 = (long*)(*field_24).operator->();
+                this_00 = (shared_ptr*)(**(void (**)(...))(*plVar2 + 48))(plVar2);
+                cVar1 = shared_ptr::operator_cast_to_bool(this_00);
+                if (cVar1) {
+                    this_01 = (AudioRenderer*)audioRenderer.operator->();
+                    this_02 = (VoiceInstance*)this_01->ClaimVoice(m_bussID);
+                    field_40 = this_02;
+                    if (this_02 == nullptr) {
                         field_20 = 7;
                     } else {
-                        plVar3 = (long*)shared_ptr<SoundResource>::operator->((shared_ptr<SoundResource>*)field_24);
-                        pAVar5 = (AudioFormat*)(**(code**)(*plVar3 + 64))(plVar3);
-                        this_01->ConfigureVoice(this_00, pAVar5);
-                        bVar1 = (&field_112)->operator_cast_to_bool();
-                        if (bVar1) {
+                        plVar2 = (long*)(*field_24).operator->();
+                        audioFormat = (AudioFormat*)(**(void (**)(...))(*plVar2 + 64))(plVar2);
+                        this_02->ConfigureVoice(*this_00, audioFormat);
+                        cVar1 = (&field_112)->operator_cast_to_bool();
+                        if (cVar1) {
                             std::function<void(SoundInstance*)>::operator()((function<void(SoundInstance*)>*)&field_112,
                                                                             this);
                         }
-                        (field_40, field_76)->SetOrientationZMovement();
-                        (field_40, field_52, field_80)->SetPreSendControls();
-                        (field_40, m_loopCount)->SetLoopIterations();
-                        (field_40, m_bussID)->SetBussID();
-                        (field_40, m_soundType)->SetSoundType();
-                        (field_40, m_rate)->SetRate();
+                        field_40->SetOrientationZMovement(field_76);
+                        field_40->SetPreSendControls(field_52, field_80);
+                        field_40->SetLoopIterations(field_48);
+                        field_40->SetBussID(m_bussID);
+                        field_40->SetSoundType(m_soundType);
+                        field_40->SetRate(m_rate);
                         if (field_184 != '\0') {
                             field_40->Pause();
                         }
                     }
                     if (field_16 != '\0') {
-                        Start(this);
+                        Start();
                     }
                 }
             }
         }
-        if (((field_20 & 4294967294) == 4) && (field_40 != (VoiceInstance*)0)) {
-            cVar2 = field_40->IsFinished();
-            if ((cVar2 == '\0') && (cVar2 = field_40->IsSuspended(), cVar2 == '\0')) {
-                bVar1 = (&field_112)->operator_cast_to_bool();
-                if (bVar1) {
+        if (((field_20 & 4294967294) == 4) && (field_40 != nullptr)) {
+            cVar1 = field_40->IsFinished();
+            if ((!cVar1) && (cVar1 = field_40->IsSuspended(), !cVar1)) {
+                cVar1 = (&field_112)->operator_cast_to_bool();
+                if (cVar1) {
                     std::function<void(SoundInstance*)>::operator()((function<void(SoundInstance*)>*)&field_112, this);
                 }
-                (field_40, field_76)->SetOrientationZMovement();
-                UpdatePreSendControls(this, param_1);
+                field_40->SetOrientationZMovement(field_76);
+                UpdatePreSendControls(arg1);
                 if (0.0 < field_52) {
                     return;
                 }
                 if (field_20 == 5) {
-                    Suspend(this, 0.0);
+                    Suspend(0.0);
                     return;
                 }
                 return;
@@ -164,11 +144,10 @@ namespace jag::audio {
         }
     }
 
-    // 0x100b8a470, 80 bytes, placed by class name
-    // SoundInstance::Start()
+    // 0x100b8a470
     void SoundInstance::Start() {
         if (((m_startDelay < 1) && (field_168 == false)) && ((int)field_20 < 4)) {
-            if ((field_20 == 3) && (field_40 != (VoiceInstance*)0)) {
+            if ((field_20 == 3) && (field_40 != nullptr)) {
                 field_40->Start();
                 field_20 = 4;
             }
@@ -176,36 +155,32 @@ namespace jag::audio {
         }
     }
 
-    // 0x100b8a4e0, 112 bytes, placed by class name
-    // SoundInstance::UpdatePreSendControls(float)
-    void SoundInstance::UpdatePreSendControls(float param_1) {
+    // 0x100b8a4e0
+    void SoundInstance::UpdatePreSendControls(float arg1) {
         float fVar1;
-        float fVar2;
 
-        fVar2 = m_preSendGain;
+        float fVar2 = field_60;
         if (fVar2 != field_52) {
             if (field_68 <= 0.0) {
                 field_68 = 0.0;
             } else {
-                fVar1 = field_68 - param_1;
+                fVar1 = field_68 - arg1;
                 field_68 = fVar1;
                 fVar2 = ((field_64 - fVar1) * (fVar2 - field_56)) / field_64 + field_56;
             }
             field_52 = fVar2;
         }
-        (field_40, field_52, field_80)->SetPreSendControls();
+        field_40->SetPreSendControls(field_52, field_80);
     }
 
-    // 0x100b8a550, 96 bytes, placed by class name
-    // SoundInstance::Suspend(float)
-    void SoundInstance::Suspend(float param_1) {
-        uint uVar1;
-        uint uVar2;
+    // 0x100b8a550
+    void SoundInstance::Suspend(float arg1) {
+        unsigned int uVar1;
 
-        uVar2 = 6;
-        if (field_40 != (VoiceInstance*)0) {
+        unsigned int uVar2 = 6;
+        if (field_40 != nullptr) {
             uVar1 = field_20;
-            if (uVar1 == 5 && 0.0 < param_1) {
+            if (uVar1 == 5 && 0.0 < arg1) {
                 return;
             }
             if (uVar1 == 1) {
@@ -214,80 +189,73 @@ namespace jag::audio {
             if (uVar1 == 7) {
                 return;
             }
-            if (0.0 < param_1) {
-                SetPreSendGain(this, 0.0, param_1);
+            if (0.0 < arg1) {
+                SetPreSendGain(0.0, arg1);
                 uVar2 = 5;
             }
         }
         field_20 = uVar2;
     }
 
-    // 0x100b8a5b0, 32 bytes, placed by class name
-    // SoundInstance::StartDelayCount()
+    // 0x100b8a5b0
     void SoundInstance::StartDelayCount() {
         field_168 = false;
         if (m_startDelay == 0) {
-            Start(this);
+            Start();
             return;
         }
     }
 
-    // 0x100b8a5d0, 48 bytes, placed by class name
-    // SoundInstance::SetPreSendGain(float, float)
-    void SoundInstance::SetPreSendGain(float param_1, float param_2) {
-        if (0.0 < param_2) {
+    // 0x100b8a5d0
+    void SoundInstance::SetPreSendGain(float arg1, float arg2) {
+        if (0.0 < arg2) {
             field_56 = field_52;
-            field_64 = param_2;
-            field_68 = param_2;
-            m_preSendGain = param_1;
+            field_64 = arg2;
+            field_68 = arg2;
+            field_60 = arg1;
             return;
         }
-        SetPreSendGain(this, param_1);
+        SetPreSendGain(arg1);
     }
 
-    // 0x100b8a600, 32 bytes, placed by class name
-    // SoundInstance::FadeIn(float, float, float)
-    void SoundInstance::FadeIn(float param_1, float param_2, float param_3) {
-        field_52 = param_1;
-        SetPreSendGain(this, param_2, param_3);
+    // 0x100b8a600
+    void SoundInstance::FadeIn(float arg1, float arg2, float arg3) {
+        field_52 = arg1;
+        SetPreSendGain(arg2, arg3);
     }
 
-    // 0x100b8a670, 48 bytes, placed by class name
-    // SoundInstance::ProcessDelayedStart()
+    // 0x100b8a670
     void SoundInstance::ProcessDelayedStart() {
         int iVar1;
 
         if (((m_startDelay < 1) || (field_168 != false)) ||
-            (iVar1 = m_startDelay + -1, m_startDelay = iVar1, iVar1 != 0)) {
+            (iVar1 = m_startDelay - 1, m_startDelay = iVar1, iVar1 != 0)) {
             return;
         }
-        Start(this);
+        Start();
     }
 
-    // 0x100b8a6a0, 48 bytes, placed by class name
-    // SoundInstance::Pause()
+    // 0x100b8a6a0
     void SoundInstance::Pause() {
-        if (field_40 != (VoiceInstance*)0) {
+        if (field_40 != nullptr) {
             field_40->Pause();
         }
         field_184 = 1;
     }
 
-    // 0x100b8a6d0, 48 bytes, placed by class name
-    // SoundInstance::Resume()
+    // 0x100b8a6d0
     void SoundInstance::Resume() {
-        if (field_40 != (VoiceInstance*)0) {
+        if (field_40 != nullptr) {
             field_40->Resume();
         }
         field_184 = 0;
     }
 
-    // 0x100b8a700, 64 bytes, placed by class name
-    // SoundInstance::IsAudibleInBussChain(hal::audio::AudioAPI*) const
-    bool SoundInstance::IsAudibleInBussChain(AudioAPI* param_1) {
+    // 0x100b8a700
+    bool SoundInstance::IsAudibleInBussChain(hal::audio::AudioAPI* audioAPI) const {
         float extraout_XMM0_Da;
 
-        hal::audio::AudioAPI::GetMixBussTotalGain(param_1, m_bussID);
+        audioAPI->GetMixBussTotalGain(m_bussID);
         return 0.0 < extraout_XMM0_Da * field_52 * field_76;
     }
 

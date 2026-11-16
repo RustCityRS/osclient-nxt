@@ -1,760 +1,670 @@
 // projects/osclient/ScriptRunnerImpl_5000To5099.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "ScriptRunnerImpl.h"
 
 namespace jag::oldscape {
-    // 0x1001662f0, 6224 bytes, placed by class name and debug map
-    // ScriptRunnerImpl::ExecuteCommand5000To5099(ScriptOp, ClientScript const&, bool)
-    undefined1 ScriptRunnerImpl::ExecuteCommand5000To5099(ChatHistory* param_1, undefined4 param_2) {
+    // 0x1001662f0
+    uint8_t ScriptRunnerImpl::ExecuteCommand5000To5099(ScriptOp scriptOp, const ClientScript& clientScript, bool arg3) {
         PacketT<Array<unsigned char, BucketAllocatorEASTL>>* pPVar1;
-        ulong uVar2;
-        array<eastl::string, 1000ul>* paVar3;
-        bool bVar4;
-        char cVar5;
-        byte bVar6;
-        short sVar7;
-        short sVar8;
+        uint8_t* puVar2;
+        PublishingPlatformType publishingPlatformType;
+        bool bVar3;
+        bool cVar4;
+        uint8_t bVar5;
+        short sVar6;
+        int iVar8;
         int iVar9;
-        int iVar10;
-        undefined4 uVar11;
-        basic_string* pbVar12;
-        WordPack* this;
-        ServerConnection* pSVar13;
-        DisplayName* this_00;
-        basic_string* pbVar14;
-        undefined8 uVar15;
-        undefined8 uVar16;
-        shared_ptr* psVar17;
-        ListIterator<console::Line, console::Line*, console::Line&>* pLVar18;
-        long lVar19;
-        int* piVar20;
-        ChatLine* pCVar21;
-        undefined4* puVar22;
+        ChatTimestampMode CVar10;
+        uint32_t uVar11;
+        PublishingPlatformType* pPVar12;
+        Isaac* pIVar13;
+        ServerConnection* pSVar14;
+        Logger* this_03;
+        char* pcVar15;
+        shared_ptr<dash3d::GroundDecor>* psVar16;
+        ListIterator<console::Line, console::Line*, console::Line&>* pLVar17;
+        long lVar18;
+        int* piVar19;
+        ChatLine* pCVar20;
+        uint32_t* puVar21;
+        eastl::string* pbVar22;
         eastl::string* pbVar23;
-        int iVar24;
-        array<int, 1000ul>* paVar25;
-        undefined1 uVar26;
-        undefined1 auVar27[16];
-        shared_ptr local_98[2];
-        undefined1 local_78[64];
-        eastl local_38[8];
+        unsigned long uVar24;
+        ChatTimestampMode chatTimestampMode;
+        uint8_t* puVar26;
+        shared_ptr<dash3d::Decor> local_98;
+        uint8_t local_78[64];
+        eastl local_38;
 
-        uVar26 = 2;
-        pbVar12 = (basic_string*)Client::Instance();
-        switch (param_2) {
+        uint8_t uVar25 = 2;
+        auto this_00 = Client::Instance();
+        switch (scriptOp) {
         case 5000:
-            uVar11 = *(undefined4*)(pbVar12 + 53304);
+            uVar11 = *(uint32_t*)&this_00->field_53304;
             break;
         case 5001:
-            iVar9 = *(int*)(param_1 + 104092);
-            uVar2 = (long)iVar9 - 3;
-            *(int*)(param_1 + 104092) = (int)uVar2;
-            paVar25 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, uVar2);
-            *(undefined4*)(pbVar12 + 53304) = *puVar22;
-            piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9 - 2);
-            iVar24 = rs2lib::FriendPrivacyUtils::GetBySaveValue(*piVar20);
+            iVar9 = field_104092;
+            uVar24 = (long)iVar9 - 3;
+            field_104092 = (int)uVar24;
+            puVar26 = &field_100092;
+            puVar21 = (uint32_t*)(*puVar26)[uVar24];
+            *(uint32_t*)&this_00->field_53304 = *puVar21;
+            piVar19 = (int*)(*puVar26)[(long)iVar9 - 2];
+            iVar8 = rs2lib::FriendPrivacyUtils::GetBySaveValue(*piVar19);
             iVar9 = 1;
-            if (iVar24 != -1) {
-                iVar9 = iVar24;
+            if (iVar8 != -1) {
+                iVar9 = iVar8;
             }
-            *(int*)(pbVar12 + 53308) = iVar9;
-            puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)*(int*)(param_1 + 104092) + 2);
-            *(undefined4*)(pbVar12 + 53312) = *puVar22;
-            pSVar13 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)(pbVar12 + 19120));
-            uVar15 = pSVar13->GetOutgoingEncryption();
-            local_78->MakeClientMessage(80, uVar15);
+            *(int*)((long)&this_00->field_53304 + 4) = iVar9;
+            puVar21 = (uint32_t*)(*puVar26)[(long)field_104092 + 2];
+            this_00->field_53312 = *puVar21;
+            pSVar14 = (ServerConnection*)this_00->field_19120.operator->();
+            pIVar13 = pSVar14->GetOutgoingEncryption();
+            *local_78 = shared::ClientMessage::MakeClientMessage(80, *pIVar13);
             pPVar1 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)(local_78 + 8);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                pPVar1, *(undefined4*)(pbVar12 + 53304));
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                pPVar1, *(undefined4*)(pbVar12 + 53308));
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                pPVar1, *(undefined4*)(pbVar12 + 53312));
-            pSVar13 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)(pbVar12 + 19120));
-            pSVar13->SendClientMessage(local_78);
+            pPVar1->p1<shared::LoginProt::ID>(*(PublishingPlatformType*)&this_00->field_53304);
+            pPVar1->p1<shared::LoginProt::ID>(*(PublishingPlatformType*)((long)&this_00->field_53304 + 4));
+            pPVar1->p1<shared::LoginProt::ID>(this_00->field_53312);
+            pSVar14 = (ServerConnection*)this_00->field_19120.operator->();
+            pSVar14->SendClientMessage(*local_78);
             goto LAB_100166850;
         case 5002:
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = (int)((long)iVar9 - 1U);
-            pbVar14 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), (long)iVar9 - 1U);
-            iVar9 = *(int*)(param_1 + 104092);
-            uVar2 = (long)iVar9 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar2;
-            piVar20 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar2);
-            iVar24 = *piVar20;
-            puVar22 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092),
-                                                                       (long)iVar9 - 1);
-            uVar11 = *puVar22;
-            pSVar13 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)(pbVar12 + 19120));
-            uVar15 = pSVar13->GetOutgoingEncryption();
-            local_78->MakeClientMessage(84, uVar15);
-            iVar9 = PacketT<Array<unsigned char, eastl::allocator>>::predictLengthPStringUTF8ToCP1252<eastl::string>(
-                pbVar14, false);
+            uVar24 = (long)field_136096 - 1;
+            field_136096 = (int)uVar24;
+            pbVar23 = &field_104096[uVar24];
+            iVar9 = field_104092;
+            uVar24 = (long)iVar9 - 2;
+            field_104092 = (int)uVar24;
+            piVar19 = &field_100092[uVar24];
+            iVar8 = *piVar19;
+            pPVar12 = &field_100092[(long)iVar9 - 1];
+            publishingPlatformType = *pPVar12;
+            pSVar14 = (ServerConnection*)this_00->field_19120.operator->();
+            pIVar13 = pSVar14->GetOutgoingEncryption();
+            *local_78 = shared::ClientMessage::MakeClientMessage(84, *pIVar13);
+            iVar9 = PacketT<Array<unsigned char>>::predictLengthPStringUTF8ToCP1252<eastl::string>(*pbVar23, false);
             pPVar1 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)(local_78 + 8);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(pPVar1, iVar9 + 2);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringUTF8ToCP1252<
-                eastl::basic_string<char, BucketAllocatorEASTL>>(pPVar1, pbVar14, false);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(pPVar1, iVar24 + -1);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(pPVar1, uVar11);
-            pSVar13 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)(pbVar12 + 19120));
-            pSVar13->SendClientMessage(local_78);
+            pPVar1->p1<shared::LoginProt::ID>(iVar9 + 2);
+            pPVar1->pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(*pbVar23, false);
+            pPVar1->p1<shared::LoginProt::ID>(iVar8 - 1);
+            pPVar1->p1<shared::LoginProt::ID>(publishingPlatformType);
+            pSVar14 = (ServerConnection*)this_00->field_19120.operator->();
+            pSVar14->SendClientMessage(*local_78);
             goto LAB_100166850;
         case 5003:
-            iVar9 = *(int*)(param_1 + 104092);
-            uVar2 = (long)iVar9 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar2;
-            paVar25 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, uVar2);
-            iVar24 = *piVar20;
-            piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9 - 1);
-            psVar17 = (shared_ptr*)ChatHistory::GetLine(iVar24, *piVar20);
-            new (local_98) shared_ptr<dash3d::Decor>(psVar17);
-            bVar4 = operator!=(local_98, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                pLVar18 =
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)shared_ptr<ChatLine>::operator->(
-                        (shared_ptr<ChatLine>*)local_98);
-                puVar22 =
-                    (undefined4*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(pLVar18);
-                uVar11 = *puVar22;
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = uVar11;
-                lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                uVar11 = *(undefined4*)(lVar19 + 8);
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = uVar11;
-                lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                bVar4 = eastl::operator!=((basic_string*)(lVar19 + 88), (value_type*)"");
-                if (bVar4) {
-                    lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                    new (local_78) eastl::string((basic_string*)(lVar19 + 88));
+            iVar9 = field_104092;
+            uVar24 = (long)iVar9 - 2;
+            field_104092 = (int)uVar24;
+            puVar26 = &field_100092;
+            piVar19 = (int*)(*puVar26)[uVar24];
+            iVar8 = *piVar19;
+            piVar19 = (int*)(*puVar26)[(long)iVar9 - 1];
+            psVar16 = ChatHistory::GetLine(iVar8, *piVar19);
+            local_98 = shared_ptr(psVar16);
+            bVar3 = local_98 != nullptr;
+            if (bVar3) {
+                pLVar17 = (ListIterator<console::Line, console::Line*, console::Line&>*)local_98.operator->();
+                puVar21 = (uint32_t*)**pLVar17;
+                uVar11 = *puVar21;
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = uVar11;
+                lVar18 = local_98.operator->();
+                uVar11 = *(uint32_t*)(lVar18 + 8);
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = uVar11;
+                lVar18 = local_98.operator->();
+                bVar3 = (*((lVar18 + 88))) != (*((value_type*)""));
+                if (bVar3) {
+                    lVar18 = local_98.operator->();
+                    new (local_78) eastl::string(*((lVar18 + 88)));
                 } else {
-                    new (local_38) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_38);
+                    new (local_78) eastl::string("");
                 }
-                paVar3 = (array<eastl::string, 1000ul>*)(param_1 + 104096);
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                bVar4 = eastl::operator!=((basic_string*)(lVar19 + 136), (value_type*)"");
-                if (bVar4) {
-                    lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                    new (local_78) eastl::string((basic_string*)(lVar19 + 136));
+                puVar26 = &field_104096;
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+                *pbVar22 = local_78;
+                lVar18 = local_98.operator->();
+                bVar3 = (*((lVar18 + 136))) != (*((value_type*)""));
+                if (bVar3) {
+                    lVar18 = local_98.operator->();
+                    new (local_78) eastl::string(*((lVar18 + 136)));
                 } else {
-                    new (local_38) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_38);
+                    new (local_78) eastl::string("");
                 }
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                bVar4 = eastl::operator!=((basic_string*)(lVar19 + 168), (value_type*)"");
-                if (bVar4) {
-                    lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                    new (local_78) eastl::string((basic_string*)(lVar19 + 168));
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+                *pbVar22 = local_78;
+                lVar18 = local_98.operator->();
+                bVar3 = (*((lVar18 + 168))) != (*((value_type*)""));
+                if (bVar3) {
+                    lVar18 = local_98.operator->();
+                    new (local_78) eastl::string(*((lVar18 + 168)));
                 } else {
-                    new (local_38) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_38);
+                    new (local_78) eastl::string("");
                 }
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                pCVar21 = (ChatLine*)shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                cVar5 = pCVar21->IsFriend();
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+                *pbVar22 = local_78;
+                pCVar20 = (ChatLine*)local_98.operator->();
+                cVar4 = pCVar20->IsFriend();
                 iVar9 = 1;
-                if (cVar5 == '\0') {
-                    pCVar21 = (ChatLine*)shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                    bVar6 = pCVar21->IsIgnore();
-                    iVar9 = (uint)bVar6 * 2;
+                if (!cVar4) {
+                    pCVar20 = (ChatLine*)local_98.operator->();
+                    bVar5 = pCVar20->IsIgnore();
+                    iVar9 = (unsigned int)bVar5 * 2;
                 }
             } else {
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = 4294967295;
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = 0;
-                paVar3 = (array<eastl::string, 1000ul>*)(param_1 + 104096);
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::assign(pbVar23, "");
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::assign(pbVar23, "");
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = 4294967295;
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = 0;
+                puVar26 = &field_104096;
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+                eastl::string::assign(pbVar22, "");
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+                eastl::string::assign(pbVar22, "");
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
                 iVar9 = 0;
-                eastl::string::assign(pbVar23, "");
+                eastl::string::assign(pbVar22, "");
             }
-            iVar24 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar24 + 1;
+            iVar8 = field_104092;
+            field_104092 = iVar8 + 1;
             goto LAB_1001679be;
         case 5004:
-            paVar25 = (array<int, 1000ul>*)(param_1 + 100092);
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)((long)iVar9 - 1U);
-            piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9 - 1U);
-            pCVar21 = (ChatLine*)ChatHistory::GetLineByUID(*piVar20);
-            if (pCVar21 != (ChatLine*)0) {
-                iVar9 = pCVar21->field_80;
-                iVar24 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar24 + 1;
-                piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar24);
-                *piVar20 = iVar9;
-                uVar11 = pCVar21->field_8;
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = uVar11;
-                bVar4 = eastl::operator!=((basic_string*)&pCVar21->field_88, (value_type*)"");
-                if (bVar4) {
-                    new (local_78) eastl::string((basic_string*)&pCVar21->field_88);
+            puVar26 = &field_100092;
+            uVar24 = (long)field_104092 - 1;
+            field_104092 = (int)uVar24;
+            piVar19 = (int*)(*puVar26)[uVar24];
+            pCVar20 = ChatHistory::GetLineByUID(*piVar19);
+            if (pCVar20 != nullptr) {
+                iVar9 = pCVar20->field_80;
+                iVar8 = field_104092;
+                field_104092 = iVar8 + 1;
+                piVar19 = (int*)(*puVar26)[(long)iVar8];
+                *piVar19 = iVar9;
+                uVar11 = pCVar20->field_8;
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = uVar11;
+                bVar3 = pCVar20->field_88 != (*((value_type*)""));
+                if (bVar3) {
+                    new (local_78) eastl::string(pCVar20->field_88);
                 } else {
-                    new (local_98) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_98);
+                    new (local_78) eastl::string("");
                 }
-                paVar3 = (array<eastl::string, 1000ul>*)(param_1 + 104096);
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                bVar4 = eastl::operator!=((basic_string*)&pCVar21->field_136, (value_type*)"");
-                if (bVar4) {
-                    new (local_78) eastl::string((basic_string*)&pCVar21->field_136);
+                puVar26 = &field_104096;
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+                *pbVar22 = local_78;
+                bVar3 = pCVar20->field_136 != (*((value_type*)""));
+                if (bVar3) {
+                    new (local_78) eastl::string(pCVar20->field_136);
                 } else {
-                    new (local_98) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_98);
+                    new (local_78) eastl::string("");
                 }
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                bVar4 = eastl::operator!=((basic_string*)&pCVar21->field_168, (value_type*)"");
-                if (bVar4) {
-                    new (local_78) eastl::string((basic_string*)&pCVar21->field_168);
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+                *pbVar22 = local_78;
+                bVar3 = pCVar20->field_168 != (*((value_type*)""));
+                if (bVar3) {
+                    new (local_78) eastl::string(pCVar20->field_168);
                 } else {
-                    new (local_98) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_98);
+                    new (local_78) eastl::string("");
                 }
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                cVar5 = pCVar21->IsFriend();
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+                *pbVar22 = local_78;
+                cVar4 = pCVar20->IsFriend();
                 iVar9 = 1;
-                if (cVar5 == '\0') {
-                    bVar6 = pCVar21->IsIgnore();
-                    iVar9 = (uint)bVar6 * 2;
+                if (!cVar4) {
+                    bVar5 = pCVar20->IsIgnore();
+                    iVar9 = (unsigned int)bVar5 * 2;
                 }
             LAB_100167573:
-                iVar24 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar24 + 1;
-                piVar20 =
-                    (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar24);
-                *piVar20 = iVar9;
+                iVar8 = field_104092;
+                field_104092 = iVar8 + 1;
+                piVar19 = &field_100092[(long)iVar8];
+                *piVar19 = iVar9;
                 return true;
             }
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar9 + 1;
-            puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-            *puVar22 = 4294967295;
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar9 + 1;
-            puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-            *puVar22 = 0;
-            paVar3 = (array<eastl::string, 1000ul>*)(param_1 + 104096);
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar9 + 1;
-            pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-            eastl::string::assign(pbVar23, "");
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar9 + 1;
-            pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-            eastl::string::assign(pbVar23, "");
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar9 + 1;
-            pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-            eastl::string::assign(pbVar23, "");
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar9 + 1;
+            iVar9 = field_104092;
+            field_104092 = iVar9 + 1;
+            puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+            *puVar21 = 4294967295;
+            iVar9 = field_104092;
+            field_104092 = iVar9 + 1;
+            puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+            *puVar21 = 0;
+            puVar26 = &field_104096;
+            iVar9 = field_136096;
+            field_136096 = iVar9 + 1;
+            pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+            eastl::string::assign(pbVar22, "");
+            iVar9 = field_136096;
+            field_136096 = iVar9 + 1;
+            pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+            eastl::string::assign(pbVar22, "");
+            iVar9 = field_136096;
+            field_136096 = iVar9 + 1;
+            pbVar22 = (eastl::string*)(*puVar26)[(long)iVar9];
+            eastl::string::assign(pbVar22, "");
+            iVar9 = field_104092;
+            field_104092 = iVar9 + 1;
             goto LAB_1001671a7;
         case 5005:
-            uVar11 = *(undefined4*)(pbVar12 + 53308);
+            uVar11 = *(uint32_t*)((long)&this_00->field_53304 + 4);
             break;
         default:
             goto switchD_100166331_caseD_138e;
         case 5008:
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = (int)((long)iVar9 - 1U);
-            pbVar14 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), (long)iVar9 - 1U);
-            new (local_98) eastl::string(pbVar14);
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)((long)iVar9 - 1U);
-            piVar20 =
-                (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar9 - 1U);
-            local_78->BuildChatClientMessage(*piVar20, local_98, *(Language**)(pbVar12 + 8432), -1);
-            pSVar13 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)(pbVar12 + 19120));
-            pSVar13->SendClientMessage(local_78);
+            uVar24 = (long)field_136096 - 1;
+            field_136096 = (int)uVar24;
+            pbVar23 = &field_104096[uVar24];
+            local_98 = eastl::string(*pbVar23);
+            uVar24 = (long)field_104092 - 1;
+            field_104092 = (int)uVar24;
+            piVar19 = &field_100092[uVar24];
+            *local_78 = ChatHelper::BuildChatClientMessage(*piVar19, local_98, this_00->field_8432, -1);
+            pSVar14 = (ServerConnection*)this_00->field_19120.operator->();
+            pSVar14->SendClientMessage(*local_78);
             goto LAB_1001668f5;
         case 5009:
-            iVar9 = *(int*)(param_1 + 136096);
-            uVar2 = (long)iVar9 - 2;
-            *(int*)(param_1 + 136096) = (int)uVar2;
-            std::array<eastl::string, 1000ul>::operator[]((array<eastl::string, 1000ul>*)(param_1 + 104096),
-                                                          (long)iVar9 - 1);
-            pSVar13 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)(pbVar12 + 19120));
-            uVar15 = pSVar13->GetOutgoingEncryption();
-            local_78->MakeClientMessage(85, uVar15);
+            iVar9 = field_136096;
+            uVar24 = (long)iVar9 - 2;
+            field_136096 = (int)uVar24;
+            field_104096[(long)iVar9 - 1];
+            pSVar14 = (ServerConnection*)this_00->field_19120.operator->();
+            pIVar13 = pSVar14->GetOutgoingEncryption();
+            *local_78 = shared::ClientMessage::MakeClientMessage(85, *pIVar13);
             pPVar1 = (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)(local_78 + 8);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p2<int>(pPVar1, 0);
-            pbVar14 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar2);
-            sVar7 = pPVar1->size();
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::pStringUTF8ToCP1252<
-                eastl::basic_string<char, BucketAllocatorEASTL>>(pPVar1, pbVar14, false);
-            auVar27 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            eastl::destruct<highlight::NpcUID*>(local_38, (NpcUID*)"EASTL basic_string", auVar27._8_8_);
-            eastl::basic_string<char, BucketAllocatorEASTL>::basic_string((char*)local_98, auVar27._0_8_);
-            this = (WordPack*)std::unique_ptr<game::WordPack, std::default_delete<game::WordPack>>::operator->(
-                (unique_ptr<game::WordPack, std::default_delete<game::WordPack>>*)(pbVar12 + 54176));
-            PackUTF8AsCP1252(pPVar1, local_98);
-            sVar8 = pPVar1->size();
-            pPVar1->pSize2(sVar8 - sVar7);
-            pSVar13 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)(pbVar12 + 19120));
-            pSVar13->SendClientMessage(local_78);
-            local_98->~basic_string();
+            pPVar1->p2<int>(0);
+            pbVar23 = &field_104096[uVar24];
+            sVar6 = pPVar1->size();
+            pPVar1->pStringUTF8ToCP1252<eastl::basic_string<char, BucketAllocatorEASTL>>(*pbVar23, false);
+            pcVar15 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            eastl::destruct<highlight::NpcUID*>(&local_38);
+            local_98 = eastl::basic_string<char, BucketAllocatorEASTL>(pcVar15);
+            ((WordPack*)this_00->field_54176.operator->())->PackUTF8AsCP1252(*pPVar1, local_98);
+            pPVar1->pSize2(pPVar1->size() - sVar6);
+            pSVar14 = (ServerConnection*)this_00->field_19120.operator->();
+            pSVar14->SendClientMessage(*local_78);
         LAB_100166850:
-            local_78->~ClientMessage();
             goto LAB_1001679d1;
         case 5010:
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = (int)((long)iVar9 - 1U);
-            pbVar14 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), (long)iVar9 - 1U);
-            new (local_98) eastl::string(pbVar14);
-            iVar9 = *(int*)(param_1 + 104092);
-            uVar2 = (long)iVar9 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar2;
-            piVar20 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar2);
-            iVar24 = *piVar20;
-            piVar20 =
-                (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar9 - 1);
-            local_78->BuildChatClientMessage(iVar24, local_98, *(Language**)(pbVar12 + 8432), *piVar20);
-            pSVar13 =
-                (ServerConnection*)std::unique_ptr<ServerConnection, std::default_delete<ServerConnection>>::operator->(
-                    (unique_ptr<ServerConnection, std::default_delete<ServerConnection>>*)(pbVar12 + 19120));
-            pSVar13->SendClientMessage(local_78);
+            uVar24 = (long)field_136096 - 1;
+            field_136096 = (int)uVar24;
+            pbVar23 = &field_104096[uVar24];
+            local_98 = eastl::string(*pbVar23);
+            iVar9 = field_104092;
+            uVar24 = (long)iVar9 - 2;
+            field_104092 = (int)uVar24;
+            piVar19 = &field_100092[uVar24];
+            iVar8 = *piVar19;
+            piVar19 = &field_100092[(long)iVar9 - 1];
+            *local_78 = ChatHelper::BuildChatClientMessage(iVar8, local_98, this_00->field_8432, *piVar19);
+            pSVar14 = (ServerConnection*)this_00->field_19120.operator->();
+            pSVar14->SendClientMessage(*local_78);
         LAB_1001668f5:
-            local_78->~ClientMessage();
-            local_98->~basic_string();
             goto LAB_1001679d1;
         case 5015:
-            new (local_98) eastl::allocator("EASTL basic_string");
-            new (local_78) eastl::string("", local_98);
-            psVar17 = (shared_ptr*)(pbVar12 + 52016);
-            bVar4 = operator!=(psVar17, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                lVar19 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)psVar17);
-                bVar4 = operator!=((shared_ptr*)(lVar19 + 992), (_func_decltype_nullptr*)0);
-                if (!bVar4)
+            new (local_78) eastl::string("");
+            puVar26 = &this_00->field_52016;
+            bVar3 = *puVar26 != nullptr;
+            if (bVar3) {
+                lVar18 = (*puVar26).operator->();
+                bVar3 = (*((lVar18 + 992))) != nullptr;
+                if (!bVar3)
                     goto LAB_100166db1;
-                lVar19 = shared_ptr<ClientPlayer>::operator->((shared_ptr<ClientPlayer>*)psVar17);
-                this_00 = (DisplayName*)shared_ptr<rs2lib::social::DisplayName>::operator->(
-                    (shared_ptr<rs2lib::social::DisplayName>*)(lVar19 + 992));
-                pbVar12 = (basic_string*)this_00->GetDisplayName();
-                eastl::string::operator=((eastl::string*)local_78, pbVar12);
+                lVar18 = (*puVar26).operator->();
+                pbVar23 = ((DisplayName*)(*((lVar18 + 992))).operator->())->GetDisplayName();
+                *local_78 = pbVar23;
             } else {
             LAB_100166db1:
                 local_78->assign("");
             }
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar9 + 1;
-            pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), (long)iVar9);
-            eastl::string::operator=(pbVar23, (basic_string*)local_78);
+            iVar9 = field_136096;
+            field_136096 = iVar9 + 1;
+            pbVar22 = &field_104096[(long)iVar9];
+            *pbVar22 = local_78;
             goto LAB_100166dea;
         case 5016:
-            uVar11 = *(undefined4*)(pbVar12 + 53312);
+            uVar11 = this_00->field_53312;
             break;
         case 5017:
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)((long)iVar9 - 1U);
-            piVar20 =
-                (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar9 - 1U);
-            uVar11 = ChatHistory::GetHistoryLength(*piVar20);
+            uVar24 = (long)field_104092 - 1;
+            field_104092 = (int)uVar24;
+            piVar19 = &field_100092[uVar24];
+            uVar11 = ChatHistory::GetHistoryLength(*piVar19);
             goto LAB_100166a28;
         case 5018:
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)((long)iVar9 - 1U);
-            piVar20 =
-                (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar9 - 1U);
-            uVar11 = ChatHistory::GetNextActiveUID(*piVar20);
+            uVar24 = (long)field_104092 - 1;
+            field_104092 = (int)uVar24;
+            piVar19 = &field_100092[uVar24];
+            uVar11 = ChatHistory::GetNextActiveUID(*piVar19);
             goto LAB_100166a28;
         case 5019:
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)((long)iVar9 - 1U);
-            piVar20 =
-                (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar9 - 1U);
-            uVar11 = ChatHistory::GetPreviousActiveUID(*piVar20);
+            uVar24 = (long)field_104092 - 1;
+            field_104092 = (int)uVar24;
+            piVar19 = &field_100092[uVar24];
+            uVar11 = ChatHistory::GetPreviousActiveUID(*piVar19);
         LAB_100166a28:
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar9 + 1;
-            puVar22 =
-                (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar9);
-            *puVar22 = uVar11;
+            iVar9 = field_104092;
+            field_104092 = iVar9 + 1;
+            puVar21 = &field_100092[(long)iVar9];
+            *puVar21 = uVar11;
             goto LAB_1001679d1;
         case 5020:
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = (int)((long)iVar9 - 1U);
-            pbVar14 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), (long)iVar9 - 1U);
-            new (local_78) eastl::string(pbVar14);
+            uVar24 = (long)field_136096 - 1;
+            field_136096 = (int)uVar24;
+            pbVar23 = &field_104096[uVar24];
+            new (local_78) eastl::string(*pbVar23);
             iVar9 = local_78->comparei("errortest");
             if (iVar9 == 0) {
-                ((param_1 + 141000))->Raise("errorTest");
+                field_141000->Raise("errorTest");
             } else {
-                Client::DoCheat(pbVar12);
+                this_00->DoCheat(*local_78);
             }
-            local_78->~basic_string();
             return iVar9 != 0;
         case 5021:
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = (int)((long)iVar9 - 1U);
-            pbVar14 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), (long)iVar9 - 1U);
-            new (local_78) eastl::string(pbVar14);
-            eastl::string::make_lower();
+            uVar24 = (long)field_136096 - 1;
+            field_136096 = (int)uVar24;
+            pbVar23 = &field_104096[uVar24];
+            new (local_78) eastl::string(*pbVar23);
+            local_78->make_lower();
             local_78->trim();
-            eastl::string::operator=((eastl::string*)(pbVar12 + 53320), (basic_string*)local_78);
+            this_00->field_53320 = local_78;
             goto LAB_100166dea;
         case 5022:
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar9 + 1;
-            pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), (long)iVar9);
-            eastl::string::operator=(pbVar23, pbVar12 + 53320);
+            iVar9 = field_136096;
+            field_136096 = iVar9 + 1;
+            pbVar22 = &field_104096[(long)iVar9];
+            *pbVar22 = &this_00->field_53320;
             goto LAB_1001679d1;
         case 5023:
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = (int)((long)iVar9 - 1U);
-            pbVar12 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), (long)iVar9 - 1U);
-            new (local_78) eastl::string(pbVar12);
-            uVar15 = logger::default_logger();
-            uVar16 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            logger::Logger::Log(uVar15, 0, 5,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
-                                "ScriptRunnerImpl_5000To5099.cpp",
-                                302, uVar16);
+            uVar24 = (long)field_136096 - 1;
+            field_136096 = (int)uVar24;
+            pbVar23 = &field_104096[uVar24];
+            new (local_78) eastl::string(*pbVar23);
+            this_03 = logger::default_logger();
+            pcVar15 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            this_03->Log(false, 5,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                         "ScriptRunnerImpl_5000To5099.cpp",
+                         302, pcVar15);
         LAB_100166dea:
-            local_78->~basic_string();
             goto LAB_1001679d1;
         case 5024:
-            paVar25 = (array<int, 1000ul>*)(param_1 + 100092);
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)((long)iVar9 - 1U);
-            piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9 - 1U);
-            iVar9 = *piVar20;
-            iVar10 = paVar25->GetTimestampMode();
-            iVar24 = 2 - (uint)(iVar9 == 1);
+            uVar24 = (long)field_104092 - 1;
+            field_104092 = (int)uVar24;
+            piVar19 = &field_100092[uVar24];
+            iVar9 = *piVar19;
+            CVar10 = ChatHistory::GetTimestampMode();
+            chatTimestampMode = 2 - (iVar9 == 1);
             if (iVar9 == 0) {
-                iVar24 = 0;
+                chatTimestampMode = 0;
             }
-            if (iVar10 == iVar24) {
+            if (CVar10 == chatTimestampMode) {
                 return true;
             }
-            ChatHistory::SetTimestampMode();
+            ChatHistory::SetTimestampMode(chatTimestampMode);
             return true;
         case 5025:
-            uVar11 = param_1->GetTimestampMode();
+            uVar11 = ChatHistory::GetTimestampMode();
             break;
         case 5030:
-            iVar9 = *(int*)(param_1 + 104092);
-            uVar2 = (long)iVar9 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar2;
-            paVar25 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, uVar2);
-            iVar24 = *piVar20;
-            piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9 - 1);
-            psVar17 = (shared_ptr*)ChatHistory::GetLine(iVar24, *piVar20);
-            new (local_98) shared_ptr<dash3d::Decor>(psVar17);
-            bVar4 = operator!=(local_98, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                pLVar18 =
-                    (ListIterator<console::Line, console::Line*, console::Line&>*)shared_ptr<ChatLine>::operator->(
-                        (shared_ptr<ChatLine>*)local_98);
-                puVar22 =
-                    (undefined4*)eastl::ListIterator<console::Line, console::Line*, console::Line&>::operator*(pLVar18);
-                uVar11 = *puVar22;
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = uVar11;
-                lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                uVar11 = *(undefined4*)(lVar19 + 8);
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = uVar11;
-                lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                bVar4 = eastl::operator!=((basic_string*)(lVar19 + 88), (value_type*)"");
-                if (bVar4) {
-                    lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                    new (local_78) eastl::string((basic_string*)(lVar19 + 88));
+            iVar9 = field_104092;
+            uVar24 = (long)iVar9 - 2;
+            field_104092 = (int)uVar24;
+            puVar26 = &field_100092;
+            piVar19 = (int*)(*puVar26)[uVar24];
+            iVar8 = *piVar19;
+            piVar19 = (int*)(*puVar26)[(long)iVar9 - 1];
+            psVar16 = ChatHistory::GetLine(iVar8, *piVar19);
+            local_98 = shared_ptr(psVar16);
+            bVar3 = local_98 != nullptr;
+            if (bVar3) {
+                pLVar17 = (ListIterator<console::Line, console::Line*, console::Line&>*)local_98.operator->();
+                puVar21 = (uint32_t*)**pLVar17;
+                uVar11 = *puVar21;
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = uVar11;
+                lVar18 = local_98.operator->();
+                uVar11 = *(uint32_t*)(lVar18 + 8);
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = uVar11;
+                lVar18 = local_98.operator->();
+                bVar3 = (*((lVar18 + 88))) != (*((value_type*)""));
+                if (bVar3) {
+                    lVar18 = local_98.operator->();
+                    new (local_78) eastl::string(*((lVar18 + 88)));
                 } else {
-                    new (local_38) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_38);
+                    new (local_78) eastl::string("");
                 }
-                paVar3 = (array<eastl::string, 1000ul>*)(param_1 + 104096);
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                bVar4 = eastl::operator!=((basic_string*)(lVar19 + 136), (value_type*)"");
-                if (bVar4) {
-                    lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                    new (local_78) eastl::string((basic_string*)(lVar19 + 136));
+                puVar2 = &field_104096;
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                *pbVar22 = local_78;
+                lVar18 = local_98.operator->();
+                bVar3 = (*((lVar18 + 136))) != (*((value_type*)""));
+                if (bVar3) {
+                    lVar18 = local_98.operator->();
+                    new (local_78) eastl::string(*((lVar18 + 136)));
                 } else {
-                    new (local_38) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_38);
+                    new (local_78) eastl::string("");
                 }
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                bVar4 = eastl::operator!=((basic_string*)(lVar19 + 168), (value_type*)"");
-                if (bVar4) {
-                    lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                    new (local_78) eastl::string((basic_string*)(lVar19 + 200));
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                *pbVar22 = local_78;
+                lVar18 = local_98.operator->();
+                bVar3 = (*((lVar18 + 168))) != (*((value_type*)""));
+                if (bVar3) {
+                    lVar18 = local_98.operator->();
+                    new (local_78) eastl::string(*((lVar18 + 200)));
                 } else {
-                    new (local_38) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_38);
+                    new (local_78) eastl::string("");
                 }
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                pCVar21 = (ChatLine*)shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                cVar5 = pCVar21->IsFriend();
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                *pbVar22 = local_78;
+                pCVar20 = (ChatLine*)local_98.operator->();
+                cVar4 = pCVar20->IsFriend();
                 iVar9 = 1;
-                if (cVar5 == '\0') {
-                    pCVar21 = (ChatLine*)shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                    bVar6 = pCVar21->IsIgnore();
-                    iVar9 = (uint)bVar6 * 2;
+                if (!cVar4) {
+                    pCVar20 = (ChatLine*)local_98.operator->();
+                    bVar5 = pCVar20->IsIgnore();
+                    iVar9 = (unsigned int)bVar5 * 2;
                 }
-                iVar24 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar24 + 1;
-                piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar24);
-                *piVar20 = iVar9;
-                pCVar21 = (ChatLine*)shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                pbVar12 = (basic_string*)pCVar21->GetTimeStamp();
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, pbVar12);
-                lVar19 = shared_ptr<ChatLine>::operator->((shared_ptr<ChatLine>*)local_98);
-                iVar9 = *(int*)(lVar19 + 232);
+                iVar8 = field_104092;
+                field_104092 = iVar8 + 1;
+                piVar19 = (int*)(*puVar26)[(long)iVar8];
+                *piVar19 = iVar9;
+                pCVar20 = (ChatLine*)local_98.operator->();
+                pbVar23 = pCVar20->GetTimeStamp();
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                *pbVar22 = pbVar23;
+                lVar18 = local_98.operator->();
+                iVar9 = *(int*)(lVar18 + 232);
             } else {
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = 4294967295;
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = 0;
-                paVar3 = (array<eastl::string, 1000ul>*)(param_1 + 104096);
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::assign(pbVar23, "");
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::assign(pbVar23, "");
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::assign(pbVar23, "");
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = 0;
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = 4294967295;
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = 0;
+                puVar2 = &field_104096;
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                eastl::string::assign(pbVar22, "");
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                eastl::string::assign(pbVar22, "");
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                eastl::string::assign(pbVar22, "");
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = 0;
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
                 iVar9 = 0;
-                eastl::string::assign(pbVar23, "");
+                eastl::string::assign(pbVar22, "");
             }
-            iVar24 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar24 + 1;
+            iVar8 = field_104092;
+            field_104092 = iVar8 + 1;
         LAB_1001679be:
-            piVar20 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar24);
-            *piVar20 = iVar9;
-            local_98->~shared_ptr();
+            piVar19 = &field_100092[(long)iVar8];
+            *piVar19 = iVar9;
             goto LAB_1001679d1;
         case 5031:
-            paVar25 = (array<int, 1000ul>*)(param_1 + 100092);
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)((long)iVar9 - 1U);
-            piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9 - 1U);
-            pCVar21 = (ChatLine*)ChatHistory::GetLineByUID(*piVar20);
-            if (pCVar21 != (ChatLine*)0) {
-                iVar9 = pCVar21->field_80;
-                iVar24 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar24 + 1;
-                piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar24);
-                *piVar20 = iVar9;
-                uVar11 = pCVar21->field_8;
-                iVar9 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar9 + 1;
-                puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-                *puVar22 = uVar11;
-                bVar4 = eastl::operator!=((basic_string*)&pCVar21->field_88, (value_type*)"");
-                if (bVar4) {
-                    new (local_78) eastl::string((basic_string*)&pCVar21->field_88);
+            puVar26 = &field_100092;
+            uVar24 = (long)field_104092 - 1;
+            field_104092 = (int)uVar24;
+            piVar19 = (int*)(*puVar26)[uVar24];
+            pCVar20 = ChatHistory::GetLineByUID(*piVar19);
+            if (pCVar20 != nullptr) {
+                iVar9 = pCVar20->field_80;
+                iVar8 = field_104092;
+                field_104092 = iVar8 + 1;
+                piVar19 = (int*)(*puVar26)[(long)iVar8];
+                *piVar19 = iVar9;
+                uVar11 = pCVar20->field_8;
+                iVar9 = field_104092;
+                field_104092 = iVar9 + 1;
+                puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+                *puVar21 = uVar11;
+                bVar3 = pCVar20->field_88 != (*((value_type*)""));
+                if (bVar3) {
+                    new (local_78) eastl::string(pCVar20->field_88);
                 } else {
-                    new (local_98) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_98);
+                    new (local_78) eastl::string("");
                 }
-                paVar3 = (array<eastl::string, 1000ul>*)(param_1 + 104096);
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                bVar4 = eastl::operator!=((basic_string*)&pCVar21->field_136, (value_type*)"");
-                if (bVar4) {
-                    new (local_78) eastl::string((basic_string*)&pCVar21->field_136);
+                puVar2 = &field_104096;
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                *pbVar22 = local_78;
+                bVar3 = pCVar20->field_136 != (*((value_type*)""));
+                if (bVar3) {
+                    new (local_78) eastl::string(pCVar20->field_136);
                 } else {
-                    new (local_98) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_98);
+                    new (local_78) eastl::string("");
                 }
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                bVar4 = eastl::operator!=((basic_string*)&pCVar21->field_168, (value_type*)"");
-                if (bVar4) {
-                    new (local_78) eastl::string((basic_string*)&pCVar21->field_200);
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                *pbVar22 = local_78;
+                bVar3 = pCVar20->field_168 != (*((value_type*)""));
+                if (bVar3) {
+                    new (local_78) eastl::string(pCVar20->field_200);
                 } else {
-                    new (local_98) eastl::allocator("EASTL basic_string");
-                    new (local_78) eastl::string("", local_98);
+                    new (local_78) eastl::string("");
                 }
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, (basic_string*)local_78);
-                local_78->~basic_string();
-                cVar5 = pCVar21->IsFriend();
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                *pbVar22 = local_78;
+                cVar4 = pCVar20->IsFriend();
                 iVar9 = 1;
-                if (cVar5 == '\0') {
-                    bVar6 = pCVar21->IsIgnore();
-                    iVar9 = (uint)bVar6 * 2;
+                if (!cVar4) {
+                    bVar5 = pCVar20->IsIgnore();
+                    iVar9 = (unsigned int)bVar5 * 2;
                 }
-                iVar24 = *(int*)(param_1 + 104092);
-                *(int*)(param_1 + 104092) = iVar24 + 1;
-                piVar20 = (int*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar24);
-                *piVar20 = iVar9;
-                pbVar12 = (basic_string*)pCVar21->GetTimeStamp();
-                iVar9 = *(int*)(param_1 + 136096);
-                *(int*)(param_1 + 136096) = iVar9 + 1;
-                pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-                eastl::string::operator=(pbVar23, pbVar12);
-                iVar9 = pCVar21->field_232;
+                iVar8 = field_104092;
+                field_104092 = iVar8 + 1;
+                piVar19 = (int*)(*puVar26)[(long)iVar8];
+                *piVar19 = iVar9;
+                pbVar23 = pCVar20->GetTimeStamp();
+                iVar9 = field_136096;
+                field_136096 = iVar9 + 1;
+                pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+                *pbVar22 = pbVar23;
+                iVar9 = pCVar20->field_232;
                 goto LAB_100167573;
             }
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar9 + 1;
-            puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-            *puVar22 = 4294967295;
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar9 + 1;
-            puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-            *puVar22 = 0;
-            paVar3 = (array<eastl::string, 1000ul>*)(param_1 + 104096);
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar9 + 1;
-            pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-            eastl::string::assign(pbVar23, "");
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar9 + 1;
-            pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-            eastl::string::assign(pbVar23, "");
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar9 + 1;
-            pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-            eastl::string::assign(pbVar23, "");
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar9 + 1;
-            puVar22 = (undefined4*)std::array<int, 1000ul>::operator[](paVar25, (long)iVar9);
-            *puVar22 = 0;
-            iVar9 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar9 + 1;
-            pbVar23 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](paVar3, (long)iVar9);
-            eastl::string::assign(pbVar23, "");
-            iVar9 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar9 + 1;
+            iVar9 = field_104092;
+            field_104092 = iVar9 + 1;
+            puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+            *puVar21 = 4294967295;
+            iVar9 = field_104092;
+            field_104092 = iVar9 + 1;
+            puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+            *puVar21 = 0;
+            puVar2 = &field_104096;
+            iVar9 = field_136096;
+            field_136096 = iVar9 + 1;
+            pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+            eastl::string::assign(pbVar22, "");
+            iVar9 = field_136096;
+            field_136096 = iVar9 + 1;
+            pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+            eastl::string::assign(pbVar22, "");
+            iVar9 = field_136096;
+            field_136096 = iVar9 + 1;
+            pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+            eastl::string::assign(pbVar22, "");
+            iVar9 = field_104092;
+            field_104092 = iVar9 + 1;
+            puVar21 = (uint32_t*)(*puVar26)[(long)iVar9];
+            *puVar21 = 0;
+            iVar9 = field_136096;
+            field_136096 = iVar9 + 1;
+            pbVar22 = (eastl::string*)(*puVar2)[(long)iVar9];
+            eastl::string::assign(pbVar22, "");
+            iVar9 = field_104092;
+            field_104092 = iVar9 + 1;
         LAB_1001671a7:
-            puVar22 =
-                (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar9);
-            *puVar22 = 0;
+            puVar21 = &field_100092[(long)iVar9];
+            *puVar21 = 0;
             goto LAB_1001679d1;
         }
-        iVar9 = *(int*)(param_1 + 104092);
-        *(int*)(param_1 + 104092) = iVar9 + 1;
-        puVar22 =
-            (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar9);
-        *puVar22 = uVar11;
+        iVar9 = field_104092;
+        field_104092 = iVar9 + 1;
+        puVar21 = &field_100092[(long)iVar9];
+        *puVar21 = uVar11;
     LAB_1001679d1:
-        uVar26 = 1;
+        uVar25 = 1;
     switchD_100166331_caseD_138e:
-        return uVar26;
+        return uVar25;
     }
 
 } // namespace jag::oldscape

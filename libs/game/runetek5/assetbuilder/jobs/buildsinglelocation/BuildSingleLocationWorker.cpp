@@ -1,135 +1,108 @@
 // libs/game/runetek5/assetbuilder/jobs/buildsinglelocation/BuildSingleLocationWorker.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "BuildSingleLocationWorker.h"
 
 namespace jag::game {
-    // 0x100269ba0: the linker folded this into oldscape::rs2lib::social::ClanSettingsDelta::SetClanName::GetID() const, which has identical code
-    BuildSingleLocationWorker::GetWorkerJobType() const;
+    // 0x100269ba0: BuildSingleLocationWorker::GetWorkerJobType() const has the same machine code as oldscape::rs2lib::social::ClanSettingsDelta::SetClanName::GetID() const
 
-    // 0x100625800, 32 bytes, base-object constructor, placed by class name and debug map
-    // BuildSingleLocationWorker::BuildSingleLocationWorker()
-    void BuildSingleLocationWorker::BuildSingleLocationWorker() {
-        new (this) AssetWorker();
-        field_0 = &PTR__BuildFunctionWorker_100f0ca30;
-    }
+    // 0x100625800
+    BuildSingleLocationWorker::BuildSingleLocationWorker() : AssetWorker() {}
 
-    // 0x100625870, 16 bytes, complete-object constructor, placed by class name
-    // BuildSingleLocationWorker::BuildSingleLocationWorker(): jumps straight to the base-object constructor
+    // 0x100625880
+    uint8_t* BuildSingleLocationWorker::Service(int arg1) {
+        unsigned int uVar1;
+        ModelCopyType* modelCopyType;
+        RenderContext* renderContext;
+        Location* this_03;
+        fixed_vector<shared_ptr<graphics::TextureAtlasReference>, _1ul>* textureAtlasReferences;
+        uint8_t uVar7;
+        uint64_t in_stack_ffffffffffffff40;
+        int in_stack_ffffffffffffff48;
+        uint32_t local_a8[18];
+        shared_ptr<oldscape::ClientNpc> local_60;
+        shared_ptr<graphics::Model> local_50;
+        lock_guard<render::RenderContext> local_40;
 
-    // 0x100625880, 736 bytes, placed by class name
-    // BuildSingleLocationWorker::Service(int)
-    undefined* BuildSingleLocationWorker::Service(int param_1) {
-        shared_ptr* this_00;
-        uint uVar1;
-        undefined* puVar2;
-        bool bVar3;
-        char cVar4;
-        long lVar5;
-        MakeSharedPool<graphics::Model, 3072>* this_01;
-        Model* pMVar6;
-        MapArea* this_02;
-        RenderDevice* this_03;
-        RenderContext* pRVar7;
-        Model* pMVar8;
-        Location* this_04;
-        shared_ptr<graphics::Model>* this_05;
-        ModelCopyType* in_RCX;
-        undefined1 uVar9;
-        undefined1 auVar10[16];
-        undefined8 in_stack_ffffffffffffff40;
-        undefined4 uVar11;
-        Matrix44T local_a8;
-        shared_ptr local_60;
-        shared_ptr local_50;
-        shared_ptr local_40;
-
-        uVar11 = (undefined4)((ulong)in_stack_ffffffffffffff40 >> 32);
-        bVar3 = field_8->operator_cast_to_bool();
-        if (!bVar3) {
+        uint32_t uVar8 = (uint32_t)((unsigned long)in_stack_ffffffffffffff40 >> 32);
+        bool cVar3 = field_8->operator_cast_to_bool();
+        if (!cVar3) {
         LAB_100625978:
-            shared_ptr<void>::reset();
+            field_24.reset();
             return DataStatus::READY;
         }
-        lVar5 = field_8->end();
-        this_00 = (shared_ptr*)(lVar5 + 32);
-        bVar3 = shared_ptr::operator_cast_to_bool(this_00);
-        if (!bVar3)
+        long lVar4 = field_8->end();
+        shared_ptr* this_00 = (shared_ptr*)(lVar4 + 32);
+        cVar3 = shared_ptr::operator_cast_to_bool(this_00);
+        if (!cVar3)
             goto LAB_100625978;
-        this_01 = (MakeSharedPool<graphics::Model, 3072>*)shared_ptr<graphics::Model>::operator*(
-            (shared_ptr<graphics::Model>*)this_00);
-        local_a8._0_4_ = 1;
-        MakeSharedPool<graphics::Model, 3072>::MakeShared<graphics::Model&, graphics::ModelCopyType>(
-            &local_50, this_01, (Model*)&local_a8, in_RCX);
-        new (&local_a8) math::Matrix44T<float>();
-        pMVar8 = (Model*)(lVar5 + 56);
-        pMVar6 = pMVar8;
-        cVar4 = pMVar8->empty();
-        if (cVar4 == '\0') {
+        modelCopyType = (ModelCopyType*)**this_00;
+        local_a8[0] = 1;
+        MakeSharedPool<graphics::Model, 3072>::MakeShared<graphics::Model&, graphics::ModelCopyType>(&local_50,
+                                                                                                     modelCopyType);
+        new (local_a8) math::Matrix44T<float>();
+        Model* pMVar6 = (Model*)(lVar4 + 56);
+        Model* pMVar5 = pMVar6;
+        cVar3 = pMVar6->empty();
+        if (!cVar3) {
         LAB_10062591c:
-            if (*(int*)(lVar5 + 112) != 0) {
-                if (*(int*)(lVar5 + 112) == 3) {
-                    uVar1 = *(uint*)(lVar5 + 116);
-                    this_01 = (MakeSharedPool<graphics::Model, 3072>*)(ulong)((uVar1 & 255) << 2);
-                    uVar9 = 1;
-                    pMVar6 = (Model*)&local_a8;
-                    graphics::LocationHelpers::CalculateHillRotateMatrix(
-                        pMVar6, this_01, uVar1 >> 6 & 1020, uVar1 >> 14 & 1020, uVar1 >> 22 & 4294967292,
-                        *(undefined1*)(lVar5 + 48), pMVar8, CONCAT44(uVar11, *(undefined4*)(lVar5 + 52)));
+            if (*(int*)(lVar4 + 112) != 0) {
+                if (*(int*)(lVar4 + 112) == 3) {
+                    uVar1 = *(unsigned int*)(lVar4 + 116);
+                    uVar7 = 1;
+                    pMVar5 = (Model*)local_a8;
+                    pMVar5->CalculateHillRotateMatrix(
+                        *((Matrix44T<float>*)(unsigned long)((uVar1 & 255) << 2)), uVar1 >> 6 & 1020,
+                        uVar1 >> 14 & 1020, uVar1 >> 22 & 4294967292, (unsigned int)*(uint8_t*)(lVar4 + 48),
+                        (Rotation90)pMVar6,
+                        *((Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>*)(((uint64_t)uVar8 << 32) |
+                                                                                           (uint32_t)(*(
+                                                                                               uint32_t*)(lVar4 +
+                                                                                                          52)))),
+                        in_stack_ffffffffffffff48);
                     goto LAB_1006259f4;
                 }
-                pMVar6 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)&local_50);
-                pMVar6->StartTransform();
-                pMVar6 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)&local_50);
-                pMVar6->HillChange(*(undefined4*)(lVar5 + 112), *(undefined4*)(lVar5 + 116),
-                                   *(undefined4*)(lVar5 + 104), *(undefined4*)(lVar5 + 108), *(undefined1*)(lVar5 + 48),
-                                   pMVar8, lVar5 + 80, *(undefined4*)(lVar5 + 52));
-                pMVar6 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)&local_50);
-                this_01 = (MakeSharedPool<graphics::Model, 3072>*)&DAT_00000001;
-                pMVar6->EndTransform(true);
+                pMVar5 = (Model*)local_50.operator->();
+                pMVar5->StartTransform();
+                pMVar5 = (Model*)local_50.operator->();
+                pMVar5->HillChange(*(uint32_t*)(lVar4 + 112), *(uint32_t*)(lVar4 + 116), *(uint32_t*)(lVar4 + 104),
+                                   *(uint32_t*)(lVar4 + 108), *(uint8_t*)(lVar4 + 48), *pMVar6, *(lVar4 + 80),
+                                   *(uint32_t*)(lVar4 + 52));
+                pMVar5 = (Model*)local_50.operator->();
+                pMVar5->EndTransform(true);
             }
         } else {
-            pMVar6 = (Model*)(lVar5 + 80);
-            cVar4 = pMVar6->empty();
-            if (cVar4 == '\0')
+            pMVar5 = (Model*)(lVar4 + 80);
+            cVar3 = pMVar5->empty();
+            if (!cVar3)
                 goto LAB_10062591c;
         }
-        uVar9 = 0;
+        uVar7 = 0;
     LAB_1006259f4:
-        this_02 = (MapArea*)pMVar6->Instance();
-        lVar5 = this_02->GetOrigin();
-        if (*(char*)(lVar5 + 227) != '\0') {
-            this_03 = (RenderDevice*)this_02->Instance();
-            pRVar7 = (RenderContext*)this_03->GetCurrentThreadRenderContext();
-            new (&local_40) lock_guard<render::RenderContext>(pRVar7);
-            pMVar8 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)&local_50);
-            this_04 = (Location*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_00);
-            this_01 = (MakeSharedPool<graphics::Model, 3072>*)this_04->GetServerPosition();
-            pMVar8->SetTextureAtlasReferences(this_01);
-            pMVar8 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)&local_50);
-            pMVar8->ConstructFinishAndUpload();
-            local_40.~lock_guard();
+        auto this_01 = pMVar5->Instance();
+        lVar4 = this_01->GetOrigin();
+        if (*(char*)(lVar4 + 227) != '\0') {
+            renderContext = ((RenderDevice*)this_01->Instance())->GetCurrentThreadRenderContext();
+            local_40 = lock_guard<render::RenderContext>(*renderContext);
+            pMVar6 = (Model*)local_50.operator->();
+            this_03 = (Location*)(*this_00).operator->();
+            textureAtlasReferences =
+                (fixed_vector<shared_ptr<graphics::TextureAtlasReference>, _1ul>*)this_03->GetServerPosition();
+            pMVar6->SetTextureAtlasReferences(*textureAtlasReferences);
+            pMVar6 = (Model*)local_50.operator->();
+            pMVar6->ConstructFinishAndUpload();
         }
-        MakeSharedPool<BuildSingleLocationResultData, 160>::MakeShared<>(
-            &local_40, (MakeSharedPool<BuildSingleLocationResultData, 160>*)this_01);
-        this_05 = (shared_ptr<graphics::Model>*)shared_ptr<BuildSingleLocationResultData>::operator->(
-            (shared_ptr<BuildSingleLocationResultData>*)&local_40);
-        shared_ptr<graphics::Model>::operator=(this_05, &local_50);
-        lVar5 = shared_ptr<BuildSingleLocationResultData>::operator->(
-            (shared_ptr<BuildSingleLocationResultData>*)&local_40);
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)(lVar5 + 32), &local_a8);
-        auVar10 = shared_ptr<BuildSingleLocationResultData>::operator->(
-            (shared_ptr<BuildSingleLocationResultData>*)&local_40);
-        *(undefined1*)(auVar10._0_8_ + 16) = uVar9;
-        static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&local_60, (jag*)&local_40,
-                                                                                     auVar10._8_8_);
-        shared_ptr<void>::operator=((shared_ptr<void>*)&field_24, &local_60);
-        local_60.~shared_ptr();
-        puVar2 = DataStatus::READY;
-        local_40.~shared_ptr();
-        local_50.~shared_ptr();
+        MakeSharedPool<BuildSingleLocationResultData, 160>::MakeShared<>();
+        auto this_04 = local_40.operator->();
+        *this_04 = local_50;
+        lVar4 = local_40.operator->();
+        (*((lVar4 + 32))) = *local_a8;
+        lVar4 = local_40.operator->();
+        *(uint8_t*)(lVar4 + 16) = uVar7;
+        static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&local_60);
+        field_24 = local_60;
+        uint8_t* puVar2 = DataStatus::READY;
         return puVar2;
     }
 

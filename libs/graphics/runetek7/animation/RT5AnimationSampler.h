@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/animation/RT5AnimationSampler.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,124 +8,86 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~RT5AnimationSampler();
-        virtual void Update(Array<LabelData, eastl::allocator> const&, math::Matrix44T<float> const&);
-        virtual void GetRT5BoneTransforms(
-            WrapArray<math::Matrix43T<float>>&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            math::Matrix44T<float> const&) const;
-        virtual void GetLabelData(
-            WrapArray<float>&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            AnimationLabelType) const;
+        virtual void Update(const Array<LabelData>& labelDatas, const math::Matrix44T<float>& matrix44);
+        virtual void GetRT5BoneTransforms(WrapArray<math::Matrix43T<float>>& wrapArray,
+                                          const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                          const eastl::vector_map<unsigned short, unsigned short>& arg3,
+                                          const math::Matrix44T<float>& matrix44) const;
+        virtual void GetLabelData(WrapArray<float>& wrapArray,
+                                  const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                  AnimationLabelType animationLabelType) const;
         virtual void Reset();
-        GetVertexTransformData();
+        Option<float>* GetVertexTransformData();
         RT5AnimationSampler();
         void ClearWalkMergeData();
-        uint GetFrameFromTimeInRange(float&, float, unsigned int, Animation const&);
-        ulong GetFrameFromTime(float&, unsigned long long, Animation const&, int, AnimationLoopBehaviour);
-        void GetFramesBeforeAndAfter(unsigned int&, eastl::optional<unsigned int>&, float&, Animation const&,
-                                     unsigned long long, int, AnimationLoopBehaviour, bool);
-        void CalculateMaxBoneOrLabelIDsForFrames(int&, int&, int&, AnimationFrameRT5*, AnimationFrameRT5*);
-        void SetOverrideAnimationInfo(AnimationInfo*);
-        SetTransformMaskToggle(bool);
-        SetVertexTransformsOverride(VertexTransformData*);
-        RT5AnimationSampler(RT5AnimationSampler&&);
-        void SetAnimation(AnimationInfo const&);
+        unsigned int GetFrameFromTimeInRange(float& arg1, float arg2, unsigned int arg3, const Animation& animation);
+        unsigned long GetFrameFromTime(float& arg1, unsigned long long arg2, const Animation& animation, int arg4,
+                                       AnimationLoopBehaviour animationLoopBehaviour);
+        void GetFramesBeforeAndAfter(unsigned int& arg1, eastl::optional<unsigned int>& arg2, float& arg3,
+                                     const Animation& animation, unsigned long long arg5, int arg6,
+                                     AnimationLoopBehaviour animationLoopBehaviour, bool arg8);
+        void CalculateMaxBoneOrLabelIDsForFrames(int& arg1, int& arg2, int& arg3, AnimationFrameRT5* animationFrameRT51,
+                                                 AnimationFrameRT5* animationFrameRT52);
+        void SetOverrideAnimationInfo(AnimationInfo* animationInfo);
+        void SetTransformMaskToggle(bool arg1);
+        void SetVertexTransformsOverride(VertexTransformData* vertexTransformData);
+        RT5AnimationSampler(RT5AnimationSampler&& rt5AnimationSampler);
+        void SetAnimation(const AnimationInfo& animationInfo);
 
-        // data members, from how the methods use this: 6515872 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        shared_ptr field_8;  // offset 8
-        undefined1 field_24; // offset 24
-        char _unknown_25[7];
-        VertexTransformData field_32; // offset 32
-        char _unknown_72[8];
-        VertexTransformData* field_80;    // offset 80
-        undefined1 m_transformMaskToggle; // offset 88
-        char _unknown_89[55];
-        AnimationInfo* m_pOverrideAnimationInfo; // offset 144
-        char _unknown_152[6515720];
+    private:
+        uint8_t _unknown_8[16];
+        uint8_t field_24;
+        uint8_t _unknown_25[7];
+        VertexTransformData field_32;
+        uint8_t _unknown_72[8];
+        VertexTransformData* field_80;
+        uint8_t m_transformMaskToggle;
+        uint8_t _unknown_89[55];
+        AnimationInfo* m_pOverrideAnimationInfo;
+        uint8_t _unknown_152[6515720];
     };
 
-    // 0x10094f450, 112 bytes, inline, placed by class name and debug map
-    // RT5AnimationSampler::ClearWalkMergeData()
+    // 0x10094f450
     void RT5AnimationSampler::ClearWalkMergeData() {
-        shared_ptr local_28;
 
-        new (&local_28) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        shared_ptr<WalkMergeDataProvider>::operator=((shared_ptr<WalkMergeDataProvider>*)field_8, &local_28);
-        local_28.~shared_ptr();
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_28;
+        field_8 = local_28;
         m_transformMaskToggle = 1;
-        field_80 = (VertexTransformData*)0;
-        m_pOverrideAnimationInfo = (AnimationInfo*)0;
+        field_80 = nullptr;
+        m_pOverrideAnimationInfo = nullptr;
     }
 
-    // 0x100953fc0, 16 bytes, inline, placed by class name
-    // RT5AnimationSampler::SetOverrideAnimationInfo(AnimationInfo*)
-    void RT5AnimationSampler::SetOverrideAnimationInfo(AnimationInfo* param_1) {
-        m_pOverrideAnimationInfo = param_1;
+    // 0x100953fc0
+    void RT5AnimationSampler::SetOverrideAnimationInfo(AnimationInfo* animationInfo) {
+        m_pOverrideAnimationInfo = animationInfo;
     }
 
-    // 0x100953fd0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // RT5AnimationSampler::SetTransformMaskToggle(bool)
-    /* BlendTreeAnimationSampler::SetDrawDebugSkeleton(bool) */
-
-    void BlendTreeAnimationSampler::SetDrawDebugSkeleton(bool param_1) {
-        m_drawDebugSkeleton = param_1;
+    // 0x100953fd0
+    void RT5AnimationSampler::SetTransformMaskToggle(bool arg1) {
+        m_drawDebugSkeleton = arg1;
     }
 
-    // 0x100953fe0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // RT5AnimationSampler::SetVertexTransformsOverride(VertexTransformData*)
-    /* SimpleTwoNodeBlendTreeNode<unsigned long
-   long>::SetRightNode(BlendTreeNode*) */
-
-    void SimpleTwoNodeBlendTreeNode<unsigned long long>::SetRightNode(BlendTreeNode* param_1) {
-        *(BlendTreeNode**)(this + 80) = param_1;
+    // 0x100953fe0
+    void RT5AnimationSampler::SetVertexTransformsOverride(VertexTransformData* vertexTransformData) {
+        *(VertexTransformData**)(this + 80) = vertexTransformData;
     }
 
-    // 0x100960a20, 32 bytes, deleting destructor, inline, placed by class name
-    // RT5AnimationSampler::~RT5AnimationSampler()
-    void RT5AnimationSampler::~RT5AnimationSampler() {
-        ~RT5AnimationSampler(this);
-        operator_delete(this);
+    // 0x10096c4a0
+    RT5AnimationSampler::RT5AnimationSampler(RT5AnimationSampler&& rt5AnimationSampler)
+        : AnimationSampler(rt5AnimationSampler), field_32(rt5AnimationSampler.field_32),
+          m_transformMaskToggle(rt5AnimationSampler.m_transformMaskToggle), field_80(rt5AnimationSampler.field_80),
+          field_96(rt5AnimationSampler.field_96),
+          m_pOverrideAnimationInfo(rt5AnimationSampler.m_pOverrideAnimationInfo) {}
+
+    // 0x10098ba10
+    void RT5AnimationSampler::SetAnimation(const AnimationInfo& animationInfo) {
+        field_96 = animationInfo;
     }
 
-    // 0x10096c140, 16 bytes, complete-object constructor, inline, placed by class name
-    // RT5AnimationSampler::RT5AnimationSampler(RT5AnimationSampler&&): jumps straight to the base-object constructor
-
-    // 0x10096c4a0, 128 bytes, base-object constructor, inline, placed by class name
-    // RT5AnimationSampler::RT5AnimationSampler(RT5AnimationSampler&&)
-    void RT5AnimationSampler::RT5AnimationSampler(RT5AnimationSampler* param_1) {
-        new (this) AnimationSampler(param_1);
-        field_0 = &PTR__RT5AnimationSampler_100f1b028;
-        new (field_32, (VertexTransformData*)param_1->field_32) VertexTransformData();
-        m_transformMaskToggle = param_1->m_transformMaskToggle;
-        field_80 = param_1->field_80;
-        new (&field_96, (AnimationInfo*)&param_1->field_96) AnimationInfo();
-        m_pOverrideAnimationInfo = param_1->m_pOverrideAnimationInfo;
-    }
-
-    // 0x10098ba10, 16 bytes, inline, placed by class name
-    // RT5AnimationSampler::SetAnimation(AnimationInfo const&)
-    void RT5AnimationSampler::SetAnimation(AnimationInfo* param_1) {
-        AnimationInfo::operator=((AnimationInfo*)&field_96, param_1);
-    }
-
-    // 0x1009919f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // RT5AnimationSampler::~RT5AnimationSampler(): jumps straight to the base-object destructor
-
-    // 0x100991a00, 64 bytes, base-object destructor, inline, placed by class name
-    // RT5AnimationSampler::~RT5AnimationSampler()
-    void RT5AnimationSampler::~RT5AnimationSampler() {
-        field_0 = &PTR__RT5AnimationSampler_100f1b028;
-        (&field_96)->~Sprite();
+    // 0x100991a00
+    RT5AnimationSampler::~RT5AnimationSampler() {
+        field_96.~Sprite();
         field_32->~VertexTransformData();
-        ~AnimationSampler();
     }
 
 } // namespace jag::graphics

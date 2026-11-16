@@ -1,121 +1,106 @@
 // libs/oldscape/rs2lib/configdecoder/VarcType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "VarcType.h"
 
 namespace jag::oldscape::configdecoder {
-    // 0x10167e5e0, 8 bytes, __common; zero-initialised
-    VarcType::m_pConfigClient;
+    // 0x10167e5e0
+    int64_t VarcType::m_pConfigClient;
 
-    // 0x10167e5e8, 5376 bytes, __common; zero-initialised
-    VarcType::m_recentUse;
+    // 0x10167e5e8
+    LRUHashCache<VarcType, 64ul, 65ul, false, unsigned long long> VarcType::m_recentUse;
 
-    // 0x100238aa0, 16 bytes, placed by class name and debug map
-    // VarcType::Init(jagex3::Js5*)
-    void VarcType::Init(Js5* param_1) {
-        m_pConfigClient = param_1;
+    // 0x100238aa0
+    void VarcType::Init(jagex3::Js5* js5) {
+        m_pConfigClient = js5;
     }
 
-    // 0x100238ab0, 320 bytes, placed by class name and debug map
-    // VarcType::List(int)
-    shared_ptr* VarcType::List(int param_1) {
-        shared_ptr* psVar2;
-        undefined* puVar3;
-        VarcType* this;
-        PacketJ* pPVar4;
-        ulonglong local_50[2];
-        ulonglong local_40;
-        shared_ptr local_38;
+    // 0x100238ab0
+    shared_ptr<midi2::MidiPlayerMainThread>* VarcType::List(int arg1) {
+        shared_ptr<midi2::MidiPlayerMainThread>* midiPlayerMainThread;
+        VarcType* varcType;
+        PacketJ<Array<unsigned char> _>* packetJ;
+        unsigned long long local_50[2];
+        unsigned long long local_40;
+        ReturnValue local_38;
 
-        local_50[0] = (ulonglong)param_1;
-        psVar2 =
-            (shared_ptr*)LRUHashCache<VarcType, 64ul, 65ul, false, unsigned long long>::Find((ulonglong*)&m_recentUse);
-        if (operator!=(psVar2, (_func_decltype_nullptr*)0)) {
-            return psVar2;
+        local_50[0] = (unsigned long long)arg1;
+        midiPlayerMainThread = (shared_ptr<midi2::MidiPlayerMainThread>*)m_recentUse.Find(*local_50);
+        if (*midiPlayerMainThread != nullptr) {
+            return midiPlayerMainThread;
         }
-        new (local_50) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        puVar3 = (undefined*)m_pConfigClient->GetFile(
-            (int)(shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>*)local_50, 19, (array*)(ulong)(uint)param_1);
-        if (puVar3 == DataStatus::READY) {
-            make_shared<VarcType>((jag*)&local_38);
-            this = (VarcType*)shared_ptr<VarcType>::operator->((shared_ptr<VarcType>*)&local_38);
-            pPVar4 = (PacketJ*)shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator*(
-                (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)local_50);
-            Decode(this, pPVar4);
-            local_40 = (ulonglong)param_1;
-            psVar2 = (shared_ptr*)m_recentUse.Put(&local_38, 1, &local_40);
+        new (local_50) shared_ptr();
+        auto puVar2 = m_pConfigClient->GetFile(*local_50, 19, arg1, nullptr);
+        if (puVar2 == DataStatus::READY) {
+            make_shared<VarcType>(&local_38);
+            varcType = (VarcType*)local_38.operator->();
+            packetJ = (PacketJ<Array<unsigned char> _>*)**local_50;
+            Decode(varcType, packetJ);
+            local_40 = (unsigned long long)arg1;
+            midiPlayerMainThread = (shared_ptr<midi2::MidiPlayerMainThread>*)m_recentUse.Put(local_38, 1, local_40);
         } else {
-            if (puVar3 != DataStatus::MISSING)
+            if (puVar2 != DataStatus::MISSING)
                 goto LAB_100238ba4;
-            make_shared<VarcType>((jag*)&local_38);
-            local_40 = (ulonglong)param_1;
-            psVar2 = (shared_ptr*)m_recentUse.Put(&local_38, 1, &local_40);
+            make_shared<VarcType>(&local_38);
+            local_40 = (unsigned long long)arg1;
+            midiPlayerMainThread = (shared_ptr<midi2::MidiPlayerMainThread>*)m_recentUse.Put(local_38, 1, local_40);
         }
-        local_38.~shared_ptr();
     LAB_100238ba4:
-        local_50->~shared_ptr();
-        return psVar2;
+        return midiPlayerMainThread;
     }
 
-    // 0x100238d20, 48 bytes, placed by class name and debug map
-    // VarcType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&)
-    void VarcType::Decode(PacketJ* param_1) {
-        byte bVar1;
+    // 0x100238d20
+    void VarcType::Decode(PacketJ<Array<unsigned char>>& packetJ) {
+        uint8_t bVar1;
 
         while (true) {
-            bVar1 = param_1->g1();
+            bVar1 = packetJ.g1();
             if (bVar1 == 0)
                 break;
-            Decode(this, param_1, (uint)bVar1);
+            Decode(packetJ, (unsigned int)bVar1);
         }
     }
 
-    // 0x100238e40, 80 bytes, placed by class name and debug map
-    // VarcType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&, int)
-    void VarcType::Decode(PacketJ* param_1, int param_2) {
-        undefined8 in_RAX;
-        undefined4 uVar2;
-        undefined8 uVar1;
+    // 0x100238e40
+    void VarcType::Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2) {
+        uint64_t in_RAX;
 
-        uVar2 = (undefined4)((ulong)in_RAX >> 32);
-        if (param_2 == 2) {
+        uint32_t uVar1 = (uint32_t)((unsigned long)in_RAX >> 32);
+        if (arg2 == 2) {
             *this = (VarcType)1;
         } else {
-            uVar1 = logger::default_logger();
-            logger::Logger::Log(uVar1, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "configdecoder/VarcType.cpp",
-                                69, "Error unrecognised .varc config code: %d", CONCAT44(uVar2, param_2));
+            (logger::default_logger())
+                ->Log(false, 8,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
+                      "configdecoder/VarcType.cpp",
+                      69, "Error unrecognised .varc config code: %d", (((uint64_t)uVar1 << 32) | (uint32_t)arg2));
         }
     }
 
 } // namespace jag::oldscape::configdecoder
 
 namespace jag {
-    // 0x100238c90, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::configdecoder::VarcType>::type make_shared<oldscape::configdecoder::VarcType>()
-    jag* make_shared<oldscape::configdecoder::VarcType>() {
-        void* pvVar1;
-        ref_counter_shared_trivial* prVar2;
+    // 0x100238c90
+    shared_ptr_if_not_array<oldscape::configdecoder::VarcType>::type make_shared<oldscape::configdecoder::VarcType>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
-        VeccType* local_28[2];
+        VarcType* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(24, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(24, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::configdecoder::VarcType>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::configdecoder::VeccType>((void*)((long)pvVar1 + 16));
+            local_28[0] = placement_new<oldscape::configdecoder::VeccType>((void*)((long)arg1 + 16));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarcType>, int,
-                                   oldscape::configdecoder::VarcType*&>(pvVar1, &local_2c, (VarcType**)local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarcType>, int,
+                              oldscape::configdecoder::VarcType*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

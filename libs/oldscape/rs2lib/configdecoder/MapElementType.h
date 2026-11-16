@@ -1,123 +1,98 @@
 // libs/oldscape/rs2lib/configdecoder/MapElementType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::configdecoder {
     class MapElementType {
     public:
-        MapElementType(MapElementType const&);
+        MapElementType(const MapElementType& mapElementType);
         ~MapElementType();
-        MapElementType(int);
-        bool Init(jagex3::Js5*, jagex3::Js5*);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&);
+        MapElementType(int arg1);
+        bool Init(jagex3::Js5* js51, jagex3::Js5* js52);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ);
         void PostDecode();
-        void List(int);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&, int);
-        GetSprite(int) const;
-        GetSprite(bool) const;
-        MapElementType* GetFlashSprite();
-        MapElementType* GetWorldmapArrow();
+        MapElementType* List(int arg1);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2);
+        auto GetSprite(int arg1) const;
+        auto GetSprite(bool arg1) const;
+        auto GetFlashSprite();
+        auto GetWorldmapArrow();
         int GetID() const;
         void ResetCache();
-        static /* 8 bytes */ m_num;
-        static /* 20736 bytes */ m_spriteCache;
-        static /* 8 bytes */ m_pConfigClient;
-        static /* 8 bytes */ m_pSprites;
-        static /* 24 bytes */ m_list;
+        static int64_t m_num;
+        static LRUHashCache<graphics::Pix32, 256ul, 257ul, false, unsigned long long> m_spriteCache;
+        static int64_t m_pConfigClient;
+        static int64_t m_pSprites;
+        static Array<std::unique_ptr<MapElementType>> m_list;
 
-        // data members, from how the methods use this: 452 bytes
-        int m_iD;           // offset 0
-        undefined4 field_4; // offset 4
-        undefined4 field_8; // offset 8
-        char _unknown_12[36];
-        undefined4 field_48; // offset 48
-        undefined4 field_52; // offset 52
-        uint field_56;       // offset 56
-        undefined4 field_60; // offset 60
-        undefined4 field_64; // offset 64
-        undefined1 field_68; // offset 68
-        undefined1 field_69; // offset 69
-        bool field_70;       // offset 70
-        char _unknown_71[233];
-        undefined4 field_304; // offset 304
-        char _unknown_308[28];
-        int field_336;        // offset 336
-        int field_340;        // offset 340
-        int field_344;        // offset 344
-        int field_348;        // offset 348
-        undefined4 field_352; // offset 352
-        uint field_356;       // offset 356
-        uint field_360;       // offset 360
-        uint field_364;       // offset 364
-        int field_368;        // offset 368
-        int field_372;        // offset 372
-        uint field_376;       // offset 376
-        uint field_380;       // offset 380
-        char _unknown_384[48];
-        uint field_432;       // offset 432
-        undefined1 field_436; // offset 436
-        char _unknown_437[3];
-        uint field_440;       // offset 440
-        undefined4 field_444; // offset 444
-        char _unknown_448[4];
+    private:
+        int m_iD;
+        uint32_t field_4;
+        uint32_t field_8;
+        uint8_t _unknown_12[36];
+        uint32_t field_48;
+        uint32_t field_52;
+        unsigned int field_56;
+        uint32_t field_60;
+        uint32_t field_64;
+        uint8_t field_68;
+        uint8_t field_69;
+        bool field_70;
+        uint8_t _unknown_71[233];
+        uint32_t field_304;
+        uint8_t _unknown_308[28];
+        int field_336;
+        int field_340;
+        int field_344;
+        int field_348;
+        uint32_t field_352;
+        unsigned int field_356;
+        unsigned int field_360;
+        unsigned int field_364;
+        int field_368;
+        int field_372;
+        unsigned int field_376;
+        unsigned int field_380;
+        uint8_t _unknown_384[48];
+        unsigned int field_432;
+        uint8_t field_436;
+        uint8_t _unknown_437[3];
+        unsigned int field_440;
+        uint32_t field_444;
+        uint8_t _unknown_448[4];
     };
 
-    // 0x1002136b0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // MapElementType::MapElementType(MapElementType const&): jumps straight to the base-object constructor
-
-    // 0x100213770, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // MapElementType::~MapElementType(): jumps straight to the base-object destructor
-
-    // 0x100216fb0, 336 bytes, base-object constructor, inline, placed by class name
-    // MapElementType::MapElementType(MapElementType const&)
-    void MapElementType::MapElementType(MapElementType* param_1) {
-        undefined4 uVar1;
-        uint uVar2;
-        undefined4 uVar3;
-        int iVar4;
-        uint uVar5;
-        uint uVar6;
-        uint uVar7;
-        uint uVar8;
-        int iVar9;
-        int iVar10;
-        int iVar11;
-        int iVar12;
-        undefined1 uVar13;
-        undefined3 uVar14;
-
-        field_8 = param_1->field_8;
-        uVar1 = param_1->field_4;
-        m_iD = param_1->m_iD;
+    // 0x100216fb0
+    MapElementType::MapElementType(const MapElementType& mapElementType) : field_8(mapElementType.field_8) {
+        uint32_t uVar1 = mapElementType.field_4;
+        m_iD = mapElementType.m_iD;
         field_4 = uVar1;
-        new (&field_16, (basic_string*)&param_1->field_16) eastl::string();
-        *(undefined8*)((long)&field_60 + 3) = *(undefined8*)((long)&param_1->field_60 + 3);
-        uVar1 = param_1->field_52;
-        uVar2 = param_1->field_56;
-        uVar3 = param_1->field_60;
-        field_48 = param_1->field_48;
+        new (&field_16) eastl::string(mapElementType.field_16);
+        *(uint64_t*)((long)&field_60 + 3) = *(uint64_t*)((long)&mapElementType.field_60 + 3);
+        uVar1 = mapElementType.field_52;
+        unsigned int uVar2 = mapElementType.field_56;
+        uint32_t uVar3 = mapElementType.field_60;
+        field_48 = mapElementType.field_48;
         field_52 = uVar1;
         field_56 = uVar2;
         field_60 = uVar3;
-        new (&field_72, (fixed_vector*)&param_1->field_72)
-            eastl::fixed_vector<eastl::string, 5ul, true, eastl::allocator>();
-        new (&field_272, (basic_string*)&param_1->field_272) eastl::string();
-        field_304 = param_1->field_304;
-        new (&field_312, (Array*)&param_1->field_312) Array<int, eastl::allocator>();
-        iVar9 = param_1->field_336;
-        iVar10 = param_1->field_340;
-        iVar11 = param_1->field_344;
-        iVar12 = param_1->field_348;
-        uVar1 = param_1->field_352;
-        uVar6 = param_1->field_356;
-        uVar7 = param_1->field_360;
-        uVar8 = param_1->field_364;
-        iVar4 = param_1->field_372;
-        uVar2 = param_1->field_376;
-        uVar5 = param_1->field_380;
-        field_368 = param_1->field_368;
+        new (&field_72) eastl::fixed_vector<eastl::string, 5ul>(&mapElementType.field_72);
+        new (&field_272) eastl::string(mapElementType.field_272);
+        field_304 = mapElementType.field_304;
+        new (&field_312) Array<int>(&mapElementType.field_312);
+        int iVar9 = mapElementType.field_336;
+        int iVar10 = mapElementType.field_340;
+        int iVar11 = mapElementType.field_344;
+        int iVar12 = mapElementType.field_348;
+        uVar1 = mapElementType.field_352;
+        unsigned int uVar6 = mapElementType.field_356;
+        unsigned int uVar7 = mapElementType.field_360;
+        unsigned int uVar8 = mapElementType.field_364;
+        int iVar4 = mapElementType.field_372;
+        uVar2 = mapElementType.field_376;
+        unsigned int uVar5 = mapElementType.field_380;
+        field_368 = mapElementType.field_368;
         field_372 = iVar4;
         field_376 = uVar2;
         field_380 = uVar5;
@@ -129,60 +104,59 @@ namespace jag::oldscape::configdecoder {
         field_340 = iVar10;
         field_344 = iVar11;
         field_348 = iVar12;
-        new (&field_384, (Array*)&param_1->field_384) Array<int, eastl::allocator>();
-        new (&field_408, (Array*)&param_1->field_408) Array<signed char, eastl::allocator>();
-        uVar13 = param_1->field_436;
-        uVar14 = *(undefined3*)&param_1->field_437;
-        uVar2 = param_1->field_440;
-        uVar1 = param_1->field_444;
-        field_432 = param_1->field_432;
+        new (&field_384) Array<int>(&mapElementType.field_384);
+        new (&field_408) Array<signed char>(&mapElementType.field_408);
+        uint8_t uVar13 = mapElementType.field_436;
+        uint32_t uVar14 = *(uint32_t*)&mapElementType.field_437;
+        uVar2 = mapElementType.field_440;
+        uVar1 = mapElementType.field_444;
+        field_432 = mapElementType.field_432;
         field_436 = uVar13;
-        *(undefined3*)&field_437 = uVar14;
+        *(uint32_t*)&field_437 = uVar14;
         field_440 = uVar2;
         field_444 = uVar1;
     }
 
-    // 0x100217500, 96 bytes, base-object destructor, inline, placed by class name
-    // MapElementType::~MapElementType()
-    void MapElementType::~MapElementType() {
-        (&field_408)->~Array();
-        (&field_384)->~Array();
-        (&field_312)->~Array();
-        (&field_272)->~basic_string();
-        (&field_72)->~fixed_vector();
-        (&field_16)->~basic_string();
+    // 0x100217500
+    MapElementType::~MapElementType() {
+        field_408.~Array();
+        field_384.~Array();
+        field_312.~Array();
+        field_272.~basic_string();
+        field_72.~fixed_vector();
+        field_16.~basic_string();
     }
 
 } // namespace jag::oldscape::configdecoder
 
 namespace jag {
-    // 0x1002137d0, 192 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::rs2lib::worldmap::StaticMapElement>::type make_shared<oldscape::rs2lib::worldmap::StaticMapElement, oldscape::rs2lib::CoordGrid const&, oldscape::rs2lib::CoordGrid const&, int const&, oldscape::rs2lib::worldmap::MapTextLabel*>(oldscape::rs2lib::CoordGrid const&, oldscape::rs2lib::CoordGrid const&, int const&, oldscape::rs2lib::worldmap::MapTextLabel*&&)
-    jag* jag::make_shared<oldscape::rs2lib::worldmap::StaticMapElement, oldscape::rs2lib::CoordGrid_const&,
-                          oldscape::rs2lib::CoordGrid_const&, int const&, oldscape::rs2lib::worldmap::MapTextLabel*>(
-        CoordGrid* param_1, CoordGrid* param_2, int* param_3, MapTextLabel** param_4) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1002137d0
+    shared_ptr_if_not_array<oldscape::rs2lib::worldmap::StaticMapElement>::type
+    make_shared<oldscape::rs2lib::worldmap::StaticMapElement, oldscape::rs2lib::CoordGrid const&,
+                oldscape::rs2lib::CoordGrid const&, int const&, oldscape::rs2lib::worldmap::MapTextLabel*>(
+        const oldscape::rs2lib::CoordGrid& coordGrid1, const oldscape::rs2lib::CoordGrid& coordGrid2, const int& arg3,
+        oldscape::rs2lib::worldmap::MapTextLabel*&& arg4) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_44;
         StaticMapElement* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(96, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::rs2lib::worldmap::StaticMapElement>::type result;
         } else {
             local_40[0] = placement_new<oldscape::rs2lib::worldmap::StaticMapElement,
-                                        oldscape::rs2lib::CoordGrid_const&, oldscape::rs2lib::CoordGrid_const&,
+                                        oldscape::rs2lib::CoordGrid const&, oldscape::rs2lib::CoordGrid const&,
                                         int const&, oldscape::rs2lib::worldmap::MapTextLabel*>(
-                (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4);
+                (void*)((long)arg1 + 32), coordGrid1, coordGrid2, arg3, arg4);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::rs2lib::worldmap::StaticMapElement>, int,
-                                   oldscape::rs2lib::worldmap::StaticMapElement*&>(pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::rs2lib::worldmap::StaticMapElement>, int,
+                              oldscape::rs2lib::worldmap::StaticMapElement*&>(arg1, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

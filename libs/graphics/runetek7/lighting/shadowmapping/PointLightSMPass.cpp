@@ -1,408 +1,272 @@
 // libs/graphics/runetek7/lighting/shadowmapping/PointLightSMPass.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "PointLightSMPass.h"
 
 namespace jag::graphics {
-    // 0x1008ad900, 16 bytes, complete-object constructor, placed by class name and debug map
-    // PointLightSMPass::PointLightSMPass(PointLightSM*, render::CubeFace, ThreadPool*): jumps straight to the base-object constructor
-
-    // 0x1008ad910, 16 bytes, complete-object destructor, placed by class name and debug map
-    // PointLightSMPass::~PointLightSMPass(): jumps straight to the base-object destructor
-
-    // 0x1008af900, 160 bytes, base-object constructor, placed by class name
-    // PointLightSMPass::PointLightSMPass(PointLightSM*, render::CubeFace, ThreadPool*)
-    void PointLightSMPass::PointLightSMPass(vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* param_1,
-                                            undefined8 param_3, undefined8 param_4) {
-        BaseConfigTypeList* this_00;
-        undefined8 uVar1;
-
-        this_00 =
-            (BaseConfigTypeList*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(param_1);
-        uVar1 = this_00->GetConfigGroup();
-        new (this) ShadowPass(1, uVar1, param_4);
-        field_0 = &PTR__PointLightSMPass_100f183d0;
-        field_800 = param_1;
+    // 0x1008af900
+    PointLightSMPass::PointLightSMPass(PointLightSM* pointLightSM, render::CubeFace cubeFace, ThreadPool* threadPool) {
+        auto this_00 = pointLightSM->end();
+        auto renderTargetsManager = this_00->GetConfigGroup();
+        new (this) ShadowPass(1, renderTargetsManager, threadPool);
+        field_800 = pointLightSM;
         new (field_816) ViewTransforms();
         new (field_1024) math::OBB();
         new (field_1104) math::Sphere();
-        *(undefined8*)(field_1104 + 16) = 4294967295;
+        *(uint64_t*)(field_1104 + 16) = 4294967295;
         field_1128 = 4294967295;
     }
 
-    // 0x1008af9a0, 16 bytes, base-object destructor, placed by class name
-    // PointLightSMPass::~PointLightSMPass()
-    void PointLightSMPass::~PointLightSMPass() {
-        ~ShadowPass();
+    // 0x1008af9a0
+    PointLightSMPass::~PointLightSMPass() {}
+
+    // 0x1008af9d0
+    void PointLightSMPass::PreparePass(RT7Core& rt7Core, EffectManager& effectManager,
+                                       const SceneViewData& sceneViewData, DrawableQueue& drawableQueue) {
+        PreparePass(rt7Core, effectManager, sceneViewData, drawableQueue);
     }
 
-    // 0x1008af9b0, 32 bytes, deleting destructor, placed by class name
-    // PointLightSMPass::~PointLightSMPass()
-    void PointLightSMPass::~PointLightSMPass() {
-        ~PointLightSMPass(this);
-        operator_delete(this);
-    }
+    // 0x1008af9e0
+    uint64_t PointLightSMPass::BeginPass(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                         EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                         const DrawableQueue& drawableQueue) {
+        VertexDeclaration* vertexDeclaration;
+        compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* this_12;
+        uint8_t local_138[64];
 
-    // 0x1008af9d0, 16 bytes, placed by class name
-    // PointLightSMPass::PreparePass(RT7Core&, EffectManager&, SceneViewData const&, DrawableQueue&)
-    void PointLightSMPass::PreparePass(RT7Core* param_1, EffectManager* param_2, SceneViewData* param_3,
-                                       DrawableQueue* param_4) {
-        PreparePass(param_1, param_2, param_3, param_4);
-    }
-
-    // 0x1008af9e0, 1312 bytes, placed by class name
-    // PointLightSMPass::BeginPass(render::DrawCallState&, render::RenderContext&, EffectManager&, SceneViewData const&, DrawableQueue const&)
-    undefined8 PointLightSMPass::BeginPass(DrawCallState* param_1, RenderContext* param_2, EffectManager* param_3,
-                                           SceneViewData* param_4, DrawableQueue* param_5) {
-        undefined1* this_00;
-        EffectManager* pEVar1;
-        undefined1 uVar2;
-        bool bVar3;
-        uint uVar4;
-        ViewTransforms* this_01;
-        NXTPixToolkit* pNVar5;
-        Matrix44T* pMVar6;
-        long lVar7;
-        vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>* pvVar8;
-        AddMemberOldV1* this_02;
-        SunlightDirectLighting* pSVar9;
-        RT7Core* this_03;
-        vector* pvVar10;
-        Matrix44T* pMVar11;
-        Viewport* pVVar12;
-        OutputMergerState* pOVar13;
-        undefined8* puVar14;
-        PrimitiveShaderFamily* pPVar15;
-        ShaderProgram* this_04;
-        InputAssemblerState* this_05;
-        VertexDeclaration* pVVar16;
-        OSRenderCore_RenderThread_Common* pOVar17;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_06;
-        VertexBuffer* pVVar18;
-        RenderPipelineState* pRVar19;
-        compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* this_07;
-        Layout* this_08;
-        RenderToTextureHelper* this_09;
-        type* ptVar20;
-        DrawCallState* pDVar21;
-        undefined1 auVar22[16];
-        undefined1 local_138[64];
-        Matrix44T local_f8;
-        EffectManager* local_b0;
-        DrawCallState* local_a8;
-        RenderContext* local_a0;
-        DrawCallState local_98;
-        undefined4 local_68;
-        undefined4 local_64;
-        float local_60;
-        float local_5c;
-        ulong local_58;
-        ulong local_50;
-        DrawableQueue* local_48;
-        float local_40;
-        float local_3c;
-        float local_38;
-        float local_34;
-
-        local_40 = 0.0;
-        local_3c = 0.0;
-        local_58 = 0;
-        local_50 = 0;
-        local_b0 = param_3;
-        local_a8 = param_1;
-        local_a0 = param_2;
-        local_48 = param_5;
-        this_01 = (ViewTransforms*)param_4->SSOBeginPtr(param_1);
-        this_01->GetNearFarPlaneDistances(&local_40, &local_3c);
-        new (&local_f8) math::Vector3T<float>(3.4028235e+38);
-        new (&local_98) math::Vector3T<float>(-3.4028235e+38);
-        new ((local_138 + 32)) math::AABB((Vector3T*)&local_f8, (Vector3T*)&local_98);
-        pMVar6 = &local_f8;
-        new (pMVar6) math::Vector3T<float>(3.4028235e+38);
-        new (&local_98) math::Vector3T<float>(-3.4028235e+38);
-        new (local_138) math::AABB(pMVar6, (Vector3T*)&local_98);
-        local_38 = local_40;
-        local_34 = local_3c;
-        pNVar5 = (NXTPixToolkit*)param_4->SSOBeginPtr(pMVar6);
-        pMVar6 = (Matrix44T*)pNVar5->GetScreen();
-        uVar2 = UpdateLightViewMatrices(this, &local_38, &local_34, &local_58, &local_50, (AABB*)(local_138 + 32),
-                                        (AABB*)local_138, pMVar6, local_48);
-        local_48 = (DrawableQueue*)CONCAT71(local_48._1_7_, uVar2);
-        lVar7 = field_800->GetShadowParams();
-        if (*(int*)(lVar7 + 4) == 0) {
-            local_38 = local_40;
-            local_34 = local_3c;
+        DrawableQueue* local_48 = drawableQueue;
+        ((ViewTransforms*)sceneViewData.SSOBeginPtr())->GetNearFarPlaneDistances(0.0, 0.0);
+        Vector3T<float> local_f8(3.4028235e+38);
+        DrawCallState local_98(-3.4028235e+38);
+        new ((local_138 + 32)) math::AABB(&local_f8, &local_98);
+        local_f8 = math::Vector3T(3.4028235e+38);
+        local_98 = math::Vector3T(-3.4028235e+38);
+        new (local_138) math::AABB(&local_f8, &local_98);
+        float local_38 = 0.0;
+        float local_34 = 0.0;
+        auto pNVar3 = sceneViewData.SSOBeginPtr();
+        auto pMVar4 = pNVar3->GetScreen();
+        uint8_t uVar1 =
+            UpdateLightViewMatrices(local_38, local_34, 0, 0, *((local_138 + 32)), *local_138, *pMVar4, *local_48);
+        local_48 = (DrawableQueue*)(((uint64_t)local_48._1_7_ << 8) | (uint8_t)uVar1);
+        long lVar5 = field_800->GetShadowParams();
+        if (*(int*)(lVar5 + 4) == 0) {
+            local_38 = 0.0;
+            local_34 = 0.0;
         }
-        new (&local_f8) math::Matrix44T<float>();
-        local_68 = math::Deg2Rad(90.0);
-        pvVar8 = (vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>*)
-                     param_4->GetStaticChildren();
-        this_02 = (AddMemberOldV1*)
-            eastl::vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                          eastl::allocator>>::operator[](pvVar8, 0);
-        local_64 = this_02->GetViewAspectRatio();
-        local_60 = local_38;
-        local_5c = local_34;
-        uVar4 = this_02->GetID();
-        ptVar20 = (type*)(ulong)uVar4;
-        math::Matrix44PerspectiveFovLH<float>(local_68, local_64, local_60, local_5c, &local_f8);
-        this_00 = field_816;
-        pNVar5 = (NXTPixToolkit*)param_4->SSOBeginPtr(ptVar20);
-        pMVar6 = (Matrix44T*)pNVar5->GetScreen();
-        this_00->Set(pMVar6, &local_f8);
-        pEVar1 = local_b0;
-        ptVar20 = (type*)36;
-        pSVar9 = EffectManager::GetEffect<SunlightDirectLighting>(local_b0);
-        this_03 = (RT7Core*)param_4->SSOBeginPtr(ptVar20);
-        pMVar6 = (Matrix44T*)this_03->GetImmediateThreadPool();
-        pSVar9->SetLightViewProjTrans(pMVar6);
-        pvVar10 = param_4->SSOBeginPtr(pMVar6);
-        pvVar10 = pvVar10->SSOBeginPtr(pMVar6);
-        pSVar9->SetLightPos(pvVar10);
-        pSVar9->SetNearFarClip(local_40, local_3c);
-        pSVar9 = EffectManager::GetEffect<SunlightDirectLighting>(pEVar1, 79);
-        pMVar6 = (Matrix44T*)this_00->GetScreen();
-        this_00->GetOrigin();
-        ViewTransformsEffect::SetViewTransforms((Matrix44T*)pSVar9, pMVar6, local_38, local_34);
+        local_f8 = math::Matrix44T<float>();
+        float local_68 = (float)math::Deg2Rad(90.0);
+        auto pvVar6 = sceneViewData.GetStaticChildren();
+        AddMemberOldV1* this_03 = (AddMemberOldV1*)(*pvVar6)[0];
+        float local_64 = (float)this_03->GetViewAspectRatio();
+        float local_60 = local_38;
+        float local_5c = local_34;
+        auto mATRIX_PROJECTION_RANGE = this_03->GetID();
+        math::Matrix44PerspectiveFovLH<float>(local_f8, local_68, local_64, local_60, local_5c,
+                                              mATRIX_PROJECTION_RANGE);
+        uint8_t* this_00 = field_816;
+        pNVar3 = (NXTPixToolkit*)sceneViewData.SSOBeginPtr();
+        pMVar4 = (Matrix44T<float>*)pNVar3->GetScreen();
+        this_00->Set(*pMVar4, local_f8);
+        auto this_04 = effectManager.GetEffect<SunlightDirectLighting>(36);
+        RT7Core* this_05 = (RT7Core*)sceneViewData.SSOBeginPtr();
+        pMVar4 = (Matrix44T<float>*)this_05->GetImmediateThreadPool();
+        this_04->SetLightViewProjTrans(*pMVar4);
+        Layout* this_06 = (Layout*)sceneViewData.SSOBeginPtr();
+        auto vector3 = this_06->SSOBeginPtr();
+        this_04->SetLightPos(*vector3);
+        this_04->SetNearFarClip(0.0, 0.0);
+        auto this_07 = effectManager.GetEffect<SunlightDirectLighting>(79);
+        pMVar4 = (Matrix44T<float>*)this_00->GetScreen();
+        auto pMVar7 = this_00->GetOrigin();
+        this_07->SetViewTransforms(*pMVar4, *pMVar7, local_38, local_34);
         if (((((char)local_48 == '\0') && (PointLightSMManager::m_enableForcedUpdates == '\0')) &&
-             (*(ulong*)(field_1104 + 16) == local_58)) &&
-            (field_1128 == local_50)) {
-            pMVar11 = (Matrix44T*)this_00->GetScreen();
-            pNVar5 = (NXTPixToolkit*)param_4->SSOBeginPtr(pMVar6);
-            pMVar6 = (Matrix44T*)pNVar5->GetScreen();
-            bVar3 = math::operator!=(pMVar11, pMVar6);
-            if (!bVar3) {
-                pMVar6 = (Matrix44T*)this_00->GetOrigin();
-                bVar3 = math::operator!=(pMVar6, &local_f8);
-                if (!bVar3) {
+             (*(unsigned long*)(field_1104 + 16) == 0)) &&
+            (field_1128 == 0)) {
+            pMVar4 = (Matrix44T<float>*)this_00->GetScreen();
+            pNVar3 = (NXTPixToolkit*)sceneViewData.SSOBeginPtr();
+            pMVar7 = (Matrix44T<float>*)pNVar3->GetScreen();
+            if (!(*pMVar4 != *pMVar7)) {
+                pMVar4 = (Matrix44T<float>*)this_00->GetOrigin();
+                if (!(*pMVar4 != local_f8)) {
                     return 0;
                 }
             }
         }
-        pDVar21 = local_a8;
-        pVVar12 = (Viewport*)local_a8->GetOutputMergerState();
-        pvVar8 = (vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>*)
-                     param_4->GetStaticChildren();
-        uVar4 = eastl::vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                              eastl::allocator>>::operator[](pvVar8, 0);
-        render::OutputMergerState::SetViewports(pVVar12, uVar4);
-        pOVar13 = (OutputMergerState*)pDVar21->GetOutputMergerState();
-        puVar14 = (undefined8*)param_4->GetRenderTargets();
-        pOVar13->SetRenderTargets((RenderTargets*)*puVar14);
-        *(ulong*)(field_1104 + 16) = local_58;
-        field_1128 = local_50;
-        pDVar21 = &local_98;
-        render::DrawCallState::DrawCallState(pDVar21);
-        pPVar15 = (PrimitiveShaderFamily*)pDVar21->Instance();
-        this_04 = (ShaderProgram*)pPVar15->GetShaderProgram(0);
-        this_05 = (InputAssemblerState*)local_98.GetInputAssemblerState();
-        pVVar16 = (VertexDeclaration*)this_04->second();
-        pOVar17 = (OSRenderCore_RenderThread_Common*)
-            eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(field_800);
-        this_06 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>*)pOVar17->GetRenderStateNXT();
-        pVVar18 = (VertexBuffer*)
-            eastl::compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>::second(this_06);
-        this_05->SetVertexStreamData(pVVar16, pVVar18);
-        pRVar19 = (RenderPipelineState*)local_98.GetRenderPipelineState();
-        pRVar19->SetShaderProgram(this_04);
-        pDVar21 = &local_98;
-        this_07 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
-                      pDVar21->GetRenderPipelineState();
-        auVar22 = pDVar21->Instance();
+        DrawCallState* pDVar13 = drawCallState;
+        auto pOVar8 = drawCallState.GetOutputMergerState();
+        pvVar6 = sceneViewData.GetStaticChildren();
+        Viewport* pVVar9 = (Viewport*)(*pvVar6)[0];
+        pOVar8->SetViewports(pVVar9, 1);
+        pOVar8 = pDVar13->GetOutputMergerState();
+        auto puVar10 = sceneViewData.GetRenderTargets();
+        pOVar8->SetRenderTargets(*puVar10);
+        *(unsigned long*)(field_1104 + 16) = 0;
+        field_1128 = 0;
+        pDVar13 = &local_98;
+        new (pDVar13) render::DrawCallState();
+        ShaderProgram* this_09 = ((PrimitiveShaderFamily*)pDVar13->Instance())->GetShaderProgram(0);
+        auto this_10 = local_98.GetInputAssemblerState();
+        vertexDeclaration = (VertexDeclaration*)this_09->second();
+        auto pOVar11 = field_800->end();
+        auto this_11 = pOVar11->GetRenderStateNXT();
+        auto vertexBuffer = this_11->second();
+        this_10->SetVertexStreamData(vertexDeclaration, vertexBuffer);
+        auto pRVar12 = local_98.GetRenderPipelineState();
+        pRVar12->SetShaderProgram(this_09);
+        pDVar13 = &local_98;
+        this_12 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
+                      pDVar13->GetRenderPipelineState();
+        lVar5 = pDVar13->Instance();
         eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>::compressed_pair_imp(
-            this_07, (EntityHighlight**)(auVar22._0_8_ + 1524), auVar22._8_8_);
-        pDVar21 = &local_98;
-        pRVar19 = (RenderPipelineState*)pDVar21->GetRenderPipelineState();
-        lVar7 = pDVar21->Instance();
-        pRVar19->SetRasteriserState((RasteriserState*)(lVar7 + 1200));
-        pDVar21 = &local_98;
-        this_08 = (Layout*)pDVar21->GetRenderPipelineState();
-        lVar7 = pDVar21->Instance();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::Layout::
-            SetHeapSize(this_08, lVar7 + 900);
-        pVVar12 = (Viewport*)local_98.GetOutputMergerState();
-        pvVar8 = (vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>*)
-                     param_4->GetStaticChildren();
-        uVar4 = eastl::vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true,
-                                                                              eastl::allocator>>::operator[](pvVar8, 0);
-        render::OutputMergerState::SetViewports(pVVar12, uVar4);
-        pOVar13 = (OutputMergerState*)local_98.GetOutputMergerState();
-        puVar14 = (undefined8*)param_4->GetRenderTargets();
-        pOVar13->SetRenderTargets((RenderTargets*)*puVar14);
-        pOVar17 = (OSRenderCore_RenderThread_Common*)
-            eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(field_800);
-        this_09 = (RenderToTextureHelper*)pOVar17->GetRenderStateNXT();
-        this_09->RenderQuad(local_a0, &local_98);
-        local_98.~DrawCallState();
+            this_12, (PlayerDataComparator<oldscape::social::FriendChatUser>*)(lVar5 + 1524));
+        pDVar13 = &local_98;
+        pRVar12 = (RenderPipelineState*)pDVar13->GetRenderPipelineState();
+        lVar5 = pDVar13->Instance();
+        pRVar12->SetRasteriserState((lVar5 + 1200));
+        pDVar13 = &local_98;
+        auto this_13 = pDVar13->GetRenderPipelineState();
+        lVar5 = pDVar13->Instance();
+        this_13->SetHeapSize((lVar5 + 900));
+        pOVar8 = local_98.GetOutputMergerState();
+        pvVar6 = sceneViewData.GetStaticChildren();
+        pVVar9 = (Viewport*)(*pvVar6)[0];
+        pOVar8->SetViewports(pVVar9, 1);
+        pOVar8 = local_98.GetOutputMergerState();
+        puVar10 = (uint64_t*)sceneViewData.GetRenderTargets();
+        pOVar8->SetRenderTargets(*puVar10);
+        pOVar11 = (OSRenderCore_RenderThread_Common*)field_800->end();
+        ((RenderToTextureHelper*)pOVar11->GetRenderStateNXT())->RenderQuad(renderContext, local_98);
         return 1;
     }
 
-    // 0x1008aff00, 736 bytes, placed by class name
-    // PointLightSMPass::UpdateLightViewMatrices(float&, float&, unsigned long&, unsigned long&, math::AABB&, math::AABB&, math::Matrix44T<float> const&, DrawableQueue const&)
-    undefined8 PointLightSMPass::UpdateLightViewMatrices(float* param_1, float* param_2, ulong* param_3, ulong* param_4,
-                                                         AABB* param_5, AABB* param_6, Matrix44T* param_7,
-                                                         DrawableQueue* param_8) {
+    // 0x1008aff00
+    uint64_t PointLightSMPass::UpdateLightViewMatrices(float& arg1, float& arg2, unsigned long& arg3,
+                                                       unsigned long& arg4, math::AABB& aabb1, math::AABB& aabb2,
+                                                       const math::Matrix44T<float>& matrix44,
+                                                       const DrawableQueue& drawableQueue) {
         float fVar1;
         float* pfVar2;
-        ulong* puVar3;
-        char cVar4;
-        undefined4 uVar5;
+        unsigned long* puVar3;
+        RenderPassType renderPassType;
         Layout* this_00;
+        long lVar5;
         long lVar6;
-        long lVar7;
-        vector* pvVar8;
-        ulong uVar9;
-        Vector3T<float>* pVVar10;
-        float* pfVar11;
-        int iVar12;
-        NXTPixToolkit* pNVar13;
-        AABB* pAVar14;
-        undefined8 uVar15;
-        undefined1 local_138[40];
-        ulong* local_f8;
-        ulong* local_f0;
-        int local_e4;
-        OBB local_d8;
-        OBB local_88;
-        long local_38;
+        Vector3T<float>* pVVar7;
+        unsigned long uVar8;
+        float* pfVar9;
+        uint8_t local_138[40];
+        DrawableGroupType local_e4;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        new (&local_88) math::OBB();
-        new (&local_d8) math::OBB();
-        *param_3 = 0;
-        *param_4 = 0;
-        uVar15 = 0;
-        iVar12 = 0;
-        local_f8 = param_4;
-        local_f0 = param_3;
+        OBB local_88;
+        OBB local_d8;
+        arg3 = 0;
+        arg4 = 0;
+        uint64_t uVar10 = 0;
+        DrawableGroupType drawableGroupType = 0;
+        unsigned long* local_f8 = arg4;
+        unsigned long* local_f0 = arg3;
         do {
-            uVar5 = ((PointLightSMPass*)this)->GetPos();
-            local_e4 = iVar12;
-            this_00 = (Layout*)param_8->GetGroup(iVar12, uVar5);
-            lVar6 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_00);
+            renderPassType = GetPos();
+            local_e4 = drawableGroupType;
+            this_00 = (Layout*)drawableQueue.GetGroup(drawableGroupType, renderPassType);
+            lVar5 = this_00->HeapBeginPtr();
             local_138._32_8_ = this_00->end();
-            if (lVar6 != local_138._32_8_) {
+            if (lVar5 != local_138._32_8_) {
                 do {
-                    lVar7 = std::unique_ptr<DrawableElement, DrawableElementDeleter>::operator*(
-                        (unique_ptr<DrawableElement, DrawableElementDeleter>*)(lVar6 + 8));
-                    math::OBB::operator=(&local_88, (OBB*)(lVar7 + 16));
-                    math::OBB::operator=(&local_d8, &local_88);
-                    local_d8.Transform(param_7);
-                    new (local_138) math::AABB(&local_d8);
-                    if ((*(byte*)(lVar7 + 96) & 1) != 0) {
-                        pNVar13 = (NXTPixToolkit*)local_138;
-                        param_5->AddAABB(local_138);
-                        pvVar8 = local_138->SSOBeginPtr(pNVar13);
-                        uVar9 = pvVar8->hash();
+                    lVar6 = *(*((lVar5 + 8)));
+                    local_88 = (*((lVar6 + 16)));
+                    local_d8 = local_88;
+                    local_d8.Transform(matrix44);
+                    new (local_138) math::AABB(local_d8);
+                    if ((*(uint8_t*)(lVar6 + 96) & 1) != 0) {
+                        aabb1.AddAABB(*local_138);
+                        pVVar7 = (Vector3T<float>*)local_138->SSOBeginPtr();
+                        uVar8 = pVVar7->hash();
                         puVar3 = local_f0;
-                        hash_combine(local_f0, uVar9);
-                        pVVar10 = (Vector3T<float>*)local_138->GetScreen();
-                        uVar9 = pVVar10->hash();
-                        hash_combine(puVar3, uVar9);
+                        hash_combine(local_f0, uVar8);
+                        pVVar7 = (Vector3T<float>*)local_138->GetScreen();
+                        uVar8 = pVVar7->hash();
+                        hash_combine(puVar3, uVar8);
                     }
-                    if ((*(byte*)(lVar7 + 96) & 2) != 0) {
-                        pAVar14 = (AABB*)local_138;
-                        param_6->AddAABB(pAVar14);
-                        pvVar8 = param_6->SSOBeginPtr(pAVar14);
-                        uVar9 = pvVar8->hash();
+                    if ((*(uint8_t*)(lVar6 + 96) & 2) != 0) {
+                        aabb2.AddAABB(*local_138);
+                        pVVar7 = (Vector3T<float>*)aabb2.SSOBeginPtr();
+                        uVar8 = pVVar7->hash();
                         puVar3 = local_f8;
-                        hash_combine(local_f8, uVar9);
-                        pVVar10 = (Vector3T<float>*)param_6->GetScreen();
-                        uVar9 = pVVar10->hash();
-                        hash_combine(puVar3, uVar9);
+                        hash_combine(local_f8, uVar8);
+                        pVVar7 = (Vector3T<float>*)aabb2.GetScreen();
+                        uVar8 = pVVar7->hash();
+                        hash_combine(puVar3, uVar8);
                     }
-                    if ((*(byte*)(lVar7 + 96) & 8) != 0) {
-                        uVar15 = 1;
+                    if ((*(uint8_t*)(lVar6 + 96) & 8) != 0) {
+                        uVar10 = 1;
                     }
-                    lVar6 = lVar6 + 24;
-                } while (lVar6 != local_138._32_8_);
+                    lVar5 = lVar5 + 24;
+                } while (lVar5 != local_138._32_8_);
             }
-            iVar12 = local_e4 + 1;
-        } while (iVar12 != 13);
-        cVar4 = param_5->IsValid();
-        if (cVar4 != '\0') {
-            local_138._0_4_ = param_5->GetMinZ();
-            pfVar2 = param_1;
-            pfVar11 = std::max<float>((float*)local_138, param_1);
-            *pfVar2 = *pfVar11;
+            drawableGroupType = local_e4 + 1;
+        } while (drawableGroupType != 13);
+        if (aabb1.IsValid()) {
+            local_138._0_4_ = aabb1.GetMinZ();
+            pfVar2 = arg1;
+            pfVar9 = std::max<float>(*local_138, arg1);
+            *pfVar2 = *pfVar9;
             hash_combine<float>(local_f0, pfVar2);
         }
-        cVar4 = param_6->IsValid();
-        if (cVar4 != '\0') {
-            local_138._0_4_ = param_6->GetMaxZ();
-            pfVar2 = param_2;
-            pfVar11 = std::min<float>((float*)local_138, param_2);
-            fVar1 = *pfVar11;
+        if (aabb2.IsValid()) {
+            local_138._0_4_ = aabb2.GetMaxZ();
+            pfVar2 = arg2;
+            pfVar9 = std::min<float>(*local_138, arg2);
+            fVar1 = *pfVar9;
             *pfVar2 = fVar1;
             *pfVar2 = fVar1 + 0.1;
             hash_combine<float>(local_f8, pfVar2);
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar15;
+        return uVar10;
     }
 
-    // 0x1008b0210, 368 bytes, placed by class name
-    // PointLightSMPass::Render(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&)
-    void PointLightSMPass::Render(RT7Core* param_1, DrawCallState* param_2, EffectManager* param_3,
-                                  SceneViewData* param_4, DrawableQueue* param_5) {
-        undefined4 uVar1;
+    // 0x1008b0210
+    void PointLightSMPass::Render(RT7Core& rt7Core, const render::DrawCallState& drawCallState,
+                                  EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                  DrawableQueue& drawableQueue) {
         compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* this_00;
-        Layout* this_01;
-        long lVar2;
-        RenderPipelineState* pRVar3;
-        BuiltinStates* pBVar4;
-        RasteriserState* pRVar5;
-        DrawCallState* pDVar6;
-        undefined1 auVar7[16];
         DrawCallState local_70;
-        SceneViewData* local_40;
-        DrawableQueue* local_38;
 
-        pDVar6 = &local_70;
-        local_40 = param_4;
-        local_38 = param_5;
-        render::DrawCallState::DrawCallState(pDVar6, param_2);
+        DrawCallState* pDVar6 = &local_70;
+        new (pDVar6) render::DrawCallState(drawCallState);
         this_00 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
                       pDVar6->GetRenderPipelineState();
-        auVar7 = pDVar6->Instance();
+        long lVar2 = pDVar6->Instance();
         eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>::compressed_pair_imp(
-            this_00, (EntityHighlight**)(auVar7._0_8_ + 2208), auVar7._8_8_);
+            this_00, (PlayerDataComparator<oldscape::social::FriendChatUser>*)(lVar2 + 2208));
         pDVar6 = &local_70;
-        this_01 = (Layout*)pDVar6->GetRenderPipelineState();
+        auto this_01 = pDVar6->GetRenderPipelineState();
         lVar2 = pDVar6->Instance();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::Layout::
-            SetHeapSize(this_01, lVar2 + 780);
+        this_01->SetHeapSize((lVar2 + 780));
+        pDVar6 = &local_70;
+        auto pRVar3 = pDVar6->GetRenderPipelineState();
+        auto pBVar4 = pDVar6->Instance();
+        auto pAVar5 = pBVar4->GetShadowPassRS(1028);
+        pRVar3->SetRasteriserState(pAVar5);
+        unsigned int uVar1 = GetPos();
+        DrawableQueue::RenderGroup(drawableQueue, rt7Core, local_70, (DrawableGroupType)sceneViewData, 0,
+                                   *((EffectManager*)(unsigned long)uVar1));
         pDVar6 = &local_70;
         pRVar3 = (RenderPipelineState*)pDVar6->GetRenderPipelineState();
         pBVar4 = (BuiltinStates*)pDVar6->Instance();
-        pRVar5 = (RasteriserState*)pBVar4->GetShadowPassRS(1028);
-        pRVar3->SetRasteriserState(pRVar5);
+        pAVar5 = pBVar4->GetShadowPassRS(0);
+        pRVar3->SetRasteriserState(pAVar5);
         uVar1 = GetPos();
-        local_38->RenderGroup(param_1, &local_70, local_40, 0, uVar1, param_3);
-        pDVar6 = &local_70;
-        pRVar3 = (RenderPipelineState*)pDVar6->GetRenderPipelineState();
-        pBVar4 = (BuiltinStates*)pDVar6->Instance();
-        pRVar5 = (RasteriserState*)pBVar4->GetShadowPassRS(0);
-        pRVar3->SetRasteriserState(pRVar5);
+        DrawableQueue::RenderGroup(drawableQueue, rt7Core, local_70, (DrawableGroupType)sceneViewData, 1,
+                                   *((EffectManager*)(unsigned long)uVar1));
         uVar1 = GetPos();
-        local_38->RenderGroup(param_1, &local_70, local_40, 1, uVar1, param_3);
-        uVar1 = GetPos();
-        local_38->RenderGroup(param_1, &local_70, local_40, 2, uVar1, param_3);
-        local_70.~DrawCallState();
+        DrawableQueue::RenderGroup(drawableQueue, rt7Core, local_70, (DrawableGroupType)sceneViewData, 2,
+                                   *((EffectManager*)(unsigned long)uVar1));
     }
 
-    // 0x1008b03b0, 16 bytes, placed by class name
-    // PointLightSMPass::RenderDebug(EffectManager&, DrawableQueue&)
-    void PointLightSMPass::RenderDebug(EffectManager* param_1, DrawableQueue* param_2) {}
+    // 0x1008b03b0
+    void PointLightSMPass::RenderDebug(EffectManager& effectManager, DrawableQueue& drawableQueue) {}
 
 } // namespace jag::graphics

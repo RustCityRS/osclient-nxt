@@ -1,24 +1,17 @@
 // libs/hal/system/auth/Auth.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::auth {
-    // 0x100198e90, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // GameTokenResult::GameTokenResult(GameTokenResult const&)
-    void GameTokenResult::GameTokenResult(GameTokenResult* param_1) {
-        new (this) eastl::string(param_1);
-        field_32 = param_1->field_32;
-    }
+    // 0x100198e90
+    GameTokenResult::GameTokenResult(const GameTokenResult& gameTokenResult)
+        : eastl::string(gameTokenResult), field_32(gameTokenResult.field_32) {}
 
-    // 0x100198ed0, 80 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // GameTokenResult::GameTokenResult()
-    void GameTokenResult::GameTokenResult() {
-        allocator local_20[8];
+    // 0x100198ed0
+    GameTokenResult::GameTokenResult() {
 
-        eastl::allocator::allocator(local_20, "EASTL basic_string");
-        new (this) eastl::string("", local_20);
+        new (this) eastl::string("");
         field_32 = 4294967294;
     }
 

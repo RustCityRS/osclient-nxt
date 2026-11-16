@@ -1,50 +1,44 @@
 // libs/graphics/graphicutils/createprimitive/CreateCapsule.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphicutils {
-    // 0x1009bf5b0, 352 bytes, inline, placed by debug map only (low confidence)
-    // void CreateCapsuleTriListIndices<unsigned int>(unsigned int*, unsigned int, unsigned int, unsigned int)
-    void CreateCapsuleTriListIndices<unsigned int>(uint* param_1, uint param_2, uint param_3, uint param_4) {
-        int iVar1;
+    // 0x1009bf5b0
+    void CreateCapsuleTriListIndices<unsigned int>(unsigned int* arg1, unsigned int arg2, unsigned int arg3,
+                                                   unsigned int arg4) {
         int iVar2;
-        int iVar3;
-        ulong uVar4;
-        uint uVar5;
+        unsigned long uVar4;
+        unsigned int uVar5;
         int iVar6;
         int iVar7;
-        int iVar8;
-        uint uVar9;
-        uint uVar10;
+        unsigned int uVar10;
         int iVar11;
 
-        if (param_1 == (uint*)0) {
-            /* WARNING: Subroutine does not return */
+        if (arg1 == nullptr) {
             LogAssert("pIndexDataOut",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
                       "createprimitive/CreateCapsule.h",
-                      64, (char*)0);
+                      64, nullptr);
         }
-        iVar8 = -param_3;
-        iVar3 = 0;
-        iVar1 = 0;
-        uVar9 = 0;
+        int iVar8 = -arg3;
+        int iVar3 = 0;
+        int iVar1 = 0;
+        unsigned int uVar9 = 0;
         do {
             uVar5 = 0;
             do {
                 if ((uVar5 != 0) && (uVar9 != 0)) {
                     uVar10 = (iVar8 + uVar5) - 2;
-                    if (uVar9 == param_4) {
+                    if (uVar9 == arg4) {
                         iVar2 = 3;
                         iVar11 = 2;
                         iVar6 = 1;
                         iVar7 = iVar1;
                     } else {
-                        param_1[iVar1] = iVar3 + uVar5;
-                        param_1[(long)iVar1 + 1] = (iVar3 + uVar5) - 1;
-                        param_1[(long)iVar1 + 2] = uVar10;
+                        arg1[iVar1] = iVar3 + uVar5;
+                        arg1[iVar1 + 1] = (iVar3 + uVar5) - 1;
+                        arg1[iVar1 + 2] = uVar10;
                         if (uVar9 == 1) {
                             iVar1 = iVar1 + 3;
                             goto LAB_1009bf652;
@@ -54,24 +48,24 @@ namespace jag::graphicutils {
                         iVar6 = 4;
                         iVar7 = iVar1 + 3;
                     }
-                    param_1[iVar7] = iVar3 + uVar5;
+                    arg1[iVar7] = iVar3 + uVar5;
                     iVar11 = iVar11 + iVar1;
-                    param_1[iVar6 + iVar1] = uVar10;
+                    arg1[iVar6 + iVar1] = uVar10;
                     iVar1 = iVar2 + iVar1;
-                    param_1[iVar11] = (iVar8 + uVar5) - 1;
+                    arg1[iVar11] = (iVar8 + uVar5) - 1;
                 }
             LAB_1009bf652:
                 uVar5 = uVar5 + 1;
-            } while (uVar5 <= param_3);
+            } while (uVar5 <= arg3);
             uVar9 = uVar9 + 1;
-            iVar8 = iVar8 + param_3 + 1;
-            iVar3 = iVar3 + param_3 + 1;
-            if (param_4 < uVar9) {
-                uVar9 = GetCapsuleTriListIndexCount(param_3, param_4);
+            iVar8 = iVar8 + arg3 + 1;
+            iVar3 = iVar3 + arg3 + 1;
+            if (arg4 < uVar9) {
+                uVar9 = GetCapsuleTriListIndexCount(arg3, arg4);
                 if (uVar9 != 0) {
                     uVar4 = 0;
                     do {
-                        param_1[uVar4] = param_1[uVar4] + param_2;
+                        arg1[uVar4] = arg1[uVar4] + arg2;
                         uVar4 = uVar4 + 1;
                     } while (uVar9 != uVar4);
                 }
@@ -80,39 +74,32 @@ namespace jag::graphicutils {
         } while (true);
     }
 
-    // 0x1009bf710, 480 bytes, inline, placed by debug map only (low confidence)
-    // void CreateCapsuleLineListIndices<unsigned int>(unsigned int*, unsigned int, unsigned int, unsigned int)
-    void CreateCapsuleLineListIndices<unsigned int>(uint* param_1, uint param_2, uint param_3, uint param_4) {
+    // 0x1009bf710
+    void CreateCapsuleLineListIndices<unsigned int>(unsigned int* arg1, unsigned int arg2, unsigned int arg3,
+                                                    unsigned int arg4) {
         long lVar1;
-        uint uVar2;
-        uint* puVar3;
-        uint* puVar4;
-        ulong uVar5;
-        uint uVar6;
+        unsigned int* puVar3;
+        unsigned int* puVar4;
+        unsigned long uVar5;
+        unsigned int uVar6;
         long lVar7;
-        int iVar8;
-        uint uVar9;
-        uint uVar10;
-        uint* puVar11;
-        uint uVar12;
-        uint uVar13;
-        uint local_48;
-        uint local_44;
-        uint local_40;
-        uint local_3c;
+        unsigned int uVar9;
+        unsigned int uVar10;
+        unsigned int uVar13;
+        unsigned int local_48;
+        unsigned int local_44;
 
-        if (param_1 == (uint*)0) {
-            /* WARNING: Subroutine does not return */
+        if (arg1 == nullptr) {
             LogAssert("pIndexDataOut",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
                       "createprimitive/CreateCapsule.h",
-                      130, (char*)0);
+                      130, nullptr);
         }
-        uVar2 = GetCapsuleVertexCount(param_3, param_4);
-        local_40 = uVar2 - 1;
-        local_3c = 0;
-        uVar12 = 0;
-        puVar11 = param_1;
+        unsigned int uVar2 = GetCapsuleVertexCount(arg3, arg4);
+        unsigned int local_40 = uVar2 - 1;
+        unsigned int local_3c = 0;
+        unsigned int uVar12 = 0;
+        unsigned int* puVar11 = arg1;
         do {
             local_3c = local_3c + 1;
             uVar6 = 0;
@@ -123,25 +110,24 @@ namespace jag::graphicutils {
                 puVar3 = puVar11;
                 *puVar3 = uVar9;
                 puVar3[1] = uVar10;
-                local_48 = param_3 + 1 + uVar10;
+                local_48 = arg3 + 1 + uVar10;
                 local_44 = local_40;
-                puVar4 = std::min<unsigned int>(&local_48, &local_44);
+                puVar4 = std::min<unsigned int>(local_48, local_44);
                 if (uVar2 <= *puVar4) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("nextVertex < vertexCount",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                               "graphicutils/createprimitive/CreateCapsule.h",
-                              157, (char*)0);
+                              157, nullptr);
                 }
                 uVar6 = uVar6 + 1;
                 uVar12 = uVar12 + 2;
                 puVar11 = puVar3 + 2;
                 uVar13 = *puVar4;
                 uVar9 = uVar10;
-            } while (uVar6 <= param_4);
+            } while (uVar6 <= arg4);
             puVar11 = puVar3 + 2;
-        } while (local_3c <= param_3);
-        iVar8 = 0;
+        } while (local_3c <= arg3);
+        int iVar8 = 0;
         uVar2 = 0;
         do {
             uVar13 = uVar12;
@@ -156,26 +142,25 @@ namespace jag::graphicutils {
                 lVar1 = lVar7 + 2;
                 lVar7 = lVar7 + 2;
                 puVar3 = puVar11 + lVar1;
-            } while (uVar12 <= param_3);
+            } while (uVar12 <= arg3);
             puVar11 = puVar4 + 2;
             uVar2 = uVar2 + 1;
-            iVar8 = iVar8 + param_3;
+            iVar8 = iVar8 + arg3;
             uVar12 = uVar13 + (int)lVar7;
-        } while (uVar2 <= param_4);
-        iVar8 = GetCapsuleLineListIndexCount(param_3, param_4);
+        } while (uVar2 <= arg4);
+        iVar8 = GetCapsuleLineListIndexCount(arg3, arg4);
         if ((int)lVar7 + (uVar13 - iVar8) != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("indexCount == static_cast<IndexType>(GetCapsuleLineListIndexCount(horzSegments, vertSegments))",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/graphicutils/"
                       "createprimitive/CreateCapsule.h",
-                      178, (char*)0);
+                      178, nullptr);
         }
-        if ((int)((ulong)uVar13 + lVar7) != 0) {
+        if ((int)((unsigned long)uVar13 + lVar7) != 0) {
             uVar5 = 0;
             do {
-                param_1[uVar5] = param_1[uVar5] + param_2;
+                arg1[uVar5] = arg1[uVar5] + arg2;
                 uVar5 = uVar5 + 1;
-            } while (((ulong)uVar13 + lVar7 & 4294967295) != uVar5);
+            } while (((unsigned long)uVar13 + lVar7 & 4294967295) != uVar5);
         }
     }
 

@@ -1,127 +1,104 @@
 // libs/encryption/Isaac.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.encryption
 
 namespace jag {
     class Isaac {
     public:
-        Isaac(std::array<int, 4ul> const&);
-        void Init(std::array<int, 4ul> const&);
+        Isaac(const std::array<int, 4ul>& arg1);
+        void Init(const std::array<int, 4ul>& arg1);
         void Generate();
-        TakeNextValue();
-        PollNextValue();
+        uint32_t TakeNextValue();
+        uint32_t PollNextValue();
 
-        // data members, from how the methods use this: 2068 bytes
-        uint field_0; // offset 0
-        char _unknown_4[2048];
-        uint field_2052; // offset 2052
-        int field_2056;  // offset 2056
-        int field_2060;  // offset 2060
-        char _unknown_2064[4];
+    private:
+        unsigned int field_0;
+        uint8_t _unknown_4[2048];
+        unsigned int field_2052;
+        int field_2056;
+        int field_2060;
+        uint8_t _unknown_2064[4];
     };
 
-    // 0x100c6f310, 48 bytes, base-object constructor, placed by class name and debug map
-    // Isaac::Isaac(std::array<int, 4ul> const&)
-    /* Isaac::Isaac(std::array<int, 4ul> const&) */
-
-    void Isaac::Isaac(array* param_1) {
-        field_0 = 0;
-        field_2052 = 0;
-        field_2056 = 0;
-        field_2060 = 0;
-        Init(this, param_1);
+    // 0x100c6f310
+    Isaac::Isaac(const std::array<int, 4ul>& arg1) : field_0(0), field_2052(0), field_2056(0), field_2060(0) {
+        Init(arg1);
     }
 
-    // 0x100c6f340, 1216 bytes, placed by class name and debug map
-    // Isaac::Init(std::array<int, 4ul> const&)
-    /* Isaac::Init(std::array<int, 4ul> const&) */
-
-    void Isaac::Init(array* param_1) {
-        undefined1* this_00;
-        undefined4 uVar1;
-        undefined4* puVar2;
+    // 0x100c6f340
+    void Isaac::Init(const std::array<int, 4ul>& arg1) {
+        uint32_t uVar1;
+        uint32_t* puVar2;
         int* piVar3;
-        uint* puVar4;
-        uint uVar5;
-        uint uVar6;
-        uint uVar7;
+        unsigned int* puVar4;
+        unsigned int uVar5;
+        unsigned int uVar7;
         int iVar8;
-        uint uVar9;
         int iVar10;
-        ulong uVar11;
         int iVar12;
-        uint uVar13;
-        uint uVar14;
         int iVar15;
-        uint uVar16;
-        uint local_98[2];
-        uint* local_90;
+        unsigned int local_98[2];
+        unsigned int* local_90;
         int* local_88;
-        uint* local_80;
-        uint* local_78;
-        ulong local_70;
-        uint* local_68;
-        array<unsigned int, 256ul>* local_60;
-        ulong local_58;
-        uint* local_50;
-        array<unsigned int, 256ul>* local_48;
-        ulong local_40;
-        uint local_34;
+        unsigned int* local_80;
+        unsigned int* local_78;
+        unsigned long local_70;
+        unsigned int* local_68;
+        unsigned long local_58;
+        unsigned long local_40;
 
-        this_00 = &field_4;
+        uint8_t* this_00 = &field_4;
         local_98[0] = 0;
-        this_00->fill(local_98);
-        local_48 = (array<unsigned int, 256ul>*)&field_1028;
+        this_00->fill(*local_98);
+        array<unsigned int, 256ul>* local_48 = (array<unsigned int, 256ul>*)&field_1028;
         local_98[1] = 0;
-        std::array<unsigned int, 256ul>::fill(local_48, local_98 + 1);
-        uVar11 = 0;
+        local_48->fill(*(local_98 + 1));
+        unsigned long uVar11 = 0;
         do {
-            puVar2 = (undefined4*)std::array<int, 4ul>::operator[]((array<int, 4ul>*)param_1, uVar11);
+            puVar2 = &arg1[uVar11];
             uVar1 = *puVar2;
-            puVar2 =
-                (undefined4*)std::array<unsigned int, 256ul>::operator[]((array<unsigned int, 256ul>*)this_00, uVar11);
+            puVar2 = (uint32_t*)(*this_00)[uVar11];
             *puVar2 = uVar1;
             uVar11 = uVar11 + 1;
         } while (uVar11 != 4);
         local_58._0_4_ = 325574490;
-        local_50 = (uint*)2514026585;
-        local_34 = -1021952437;
-        uVar6 = 255990488;
-        uVar14 = 3643427448;
-        uVar16 = 2769960009;
-        uVar13 = 3304057371;
-        uVar9 = 811634969;
+        unsigned int* local_50 = (unsigned int*)2514026585;
+        unsigned int local_34 = -1021952437;
+        unsigned int uVar6 = 255990488;
+        unsigned int uVar14 = 3643427448;
+        unsigned int uVar16 = 2769960009;
+        unsigned int uVar13 = 3304057371;
+        unsigned int uVar9 = 811634969;
         uVar11 = 0;
-        local_60 = (array<unsigned int, 256ul>*)this_00;
+        array<unsigned int, 256ul>* local_60 = (array<unsigned int, 256ul>*)this_00;
         do {
             local_40 = uVar11;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_60, uVar11);
-            local_58 = CONCAT44(local_58._4_4_, (uint)local_58 + *piVar3);
-            local_90 = (uint*)(local_40 + 1);
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_60, (ulong)local_90);
-            local_50 = (uint*)(ulong)(uint)((int)local_50 + *piVar3);
+            piVar3 = (int*)(*local_60)[uVar11];
+            local_58 = (((uint64_t)local_58._4_4_ << 32) | (uint32_t)((unsigned int)local_58 + *piVar3));
+            local_90 = (unsigned int*)(local_40 + 1);
+            piVar3 = (int*)(*local_60)[(unsigned long)local_90];
+            local_50 = (unsigned int*)(unsigned long)(unsigned int)((int)local_50 + *piVar3);
             local_88 = (int*)(local_40 + 2);
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_60, (ulong)local_88);
+            piVar3 = (int*)(*local_60)[(unsigned long)local_88];
             local_34 = local_34 + *piVar3;
-            local_80 = (uint*)(local_40 + 3);
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_60, (ulong)local_80);
-            local_78 = (uint*)(local_40 + 4);
-            uVar5 = (int)local_50 << 11 ^ (uint)local_58;
-            local_58 = (ulong)uVar5;
+            local_80 = (unsigned int*)(local_40 + 3);
+            piVar3 = (int*)(*local_60)[(unsigned long)local_80];
+            local_78 = (unsigned int*)(local_40 + 4);
+            uVar5 = (int)local_50 << 11 ^ (unsigned int)local_58;
+            local_58 = (unsigned long)uVar5;
             iVar12 = uVar6 + uVar5 + *piVar3;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_60, (ulong)local_78);
+            piVar3 = (int*)(*local_60)[(unsigned long)local_78];
             local_70 = local_40 + 5;
             uVar6 = (int)local_50 + local_34 ^ local_34 >> 2;
-            local_50 = (uint*)(ulong)uVar6;
+            local_50 = (unsigned int*)(unsigned long)uVar6;
             uVar14 = uVar14 + uVar6 + *piVar3;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_60, local_70);
+            piVar3 = (int*)(*local_60)[local_70];
             iVar8 = *piVar3;
-            local_68 = (uint*)(local_40 + 6);
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_60, (ulong)local_68);
+            local_68 = (unsigned int*)(local_40 + 6);
+            piVar3 = (int*)(*local_60)[(unsigned long)local_68];
             iVar10 = *piVar3;
             uVar11 = local_40 + 7;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_60, uVar11);
+            piVar3 = (int*)(*local_60)[uVar11];
             local_34 = local_34 + iVar12 ^ iVar12 * 256;
             iVar15 = uVar16 + iVar8 + local_34;
             uVar6 = uVar14 >> 16 ^ uVar14 + iVar12;
@@ -132,50 +109,50 @@ namespace jag {
             uVar7 = (int)local_58 + uVar16;
             uVar13 = iVar8 * 256 ^ iVar8 + uVar13;
             uVar5 = (int)local_50 + uVar13;
-            local_50 = (uint*)(ulong)uVar5;
+            local_50 = (unsigned int*)(unsigned long)uVar5;
             uVar9 = uVar7 >> 9 ^ uVar7 + iVar8;
             local_34 = local_34 + uVar9;
             local_58._0_4_ = uVar5 + uVar7;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_48, local_40);
-            *piVar3 = (uint)local_58;
-            puVar2 = (undefined4*)std::array<unsigned int, 256ul>::operator[](local_48, (ulong)local_90);
+            piVar3 = (int*)(*local_48)[local_40];
+            *piVar3 = (unsigned int)local_58;
+            puVar2 = (uint32_t*)(*local_48)[(unsigned long)local_90];
             *puVar2 = (int)local_50;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[](local_48, (ulong)local_88);
+            piVar3 = (int*)(*local_48)[(unsigned long)local_88];
             *piVar3 = local_34;
-            puVar4 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, (ulong)local_80);
+            puVar4 = (unsigned int*)(*local_48)[(unsigned long)local_80];
             *puVar4 = uVar6;
-            puVar4 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, (ulong)local_78);
+            puVar4 = (unsigned int*)(*local_48)[(unsigned long)local_78];
             *puVar4 = uVar14;
-            puVar4 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, local_70);
+            puVar4 = (unsigned int*)(*local_48)[local_70];
             *puVar4 = uVar16;
-            puVar4 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, (ulong)local_68);
+            puVar4 = (unsigned int*)(*local_48)[(unsigned long)local_68];
             *puVar4 = uVar13;
-            puVar4 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, uVar11);
+            puVar4 = (unsigned int*)(*local_48)[uVar11];
             *puVar4 = uVar9;
             uVar11 = local_40 + 8;
         } while (local_40 < 248);
         uVar11 = 0;
         do {
             local_40 = uVar11;
-            local_60 = (array<unsigned int, 256ul>*)std::array<unsigned int, 256ul>::operator[](local_48, uVar11);
-            local_58 = CONCAT44(local_58._4_4_, (uint)local_58 + *(int*)local_60);
-            local_90 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, local_40 + 1);
-            local_50 = (uint*)(ulong)((int)local_50 + *local_90);
-            local_88 = (int*)std::array<unsigned int, 256ul>::operator[](local_48, local_40 + 2);
+            local_60 = (array<unsigned int, 256ul>*)(*local_48)[uVar11];
+            local_58 = (((uint64_t)local_58._4_4_ << 32) | (uint32_t)((unsigned int)local_58 + *(int*)local_60));
+            local_90 = (unsigned int*)(*local_48)[local_40 + 1];
+            local_50 = (unsigned int*)(unsigned long)((int)local_50 + *local_90);
+            local_88 = (int*)(*local_48)[local_40 + 2];
             local_34 = local_34 + *local_88;
-            local_80 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, local_40 + 3);
-            uVar5 = (int)local_50 << 11 ^ (uint)local_58;
-            local_58 = (ulong)uVar5;
+            local_80 = (unsigned int*)(*local_48)[local_40 + 3];
+            uVar5 = (int)local_50 << 11 ^ (unsigned int)local_58;
+            local_58 = (unsigned long)uVar5;
             iVar8 = uVar6 + uVar5 + *local_80;
-            local_78 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, local_40 + 4);
+            local_78 = (unsigned int*)(*local_48)[local_40 + 4];
             uVar6 = local_34 >> 2 ^ (int)local_50 + local_34;
-            local_70 = (ulong)uVar6;
+            local_70 = (unsigned long)uVar6;
             uVar5 = uVar14 + uVar6 + *local_78;
-            local_50 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, local_40 + 5);
+            local_50 = (unsigned int*)(*local_48)[local_40 + 5];
             uVar6 = *local_50;
-            local_68 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, local_40 + 6);
+            local_68 = (unsigned int*)(*local_48)[local_40 + 6];
             uVar14 = *local_68;
-            puVar4 = (uint*)std::array<unsigned int, 256ul>::operator[](local_48, local_40 + 7);
+            puVar4 = (unsigned int*)(*local_48)[local_40 + 7];
             local_34 = iVar8 * 256 ^ local_34 + iVar8;
             iVar12 = uVar16 + uVar6 + local_34;
             uVar6 = uVar5 >> 16 ^ uVar5 + iVar8;
@@ -197,96 +174,77 @@ namespace jag {
             *local_50 = uVar16;
             *local_68 = uVar13;
             *puVar4 = uVar9;
-            local_50 = (uint*)(ulong)uVar5;
+            local_50 = (unsigned int*)(unsigned long)uVar5;
             uVar11 = local_40 + 8;
             local_58._0_4_ = iVar8;
         } while (local_40 < 248);
-        Generate(this);
+        Generate();
         field_0 = 256;
     }
 
-    // 0x100c6f800, 16 bytes, complete-object constructor, placed by class name and debug map
-    // Isaac::Isaac(std::array<int, 4ul> const&): jumps straight to the base-object constructor
-
-    // 0x100c6f850, 336 bytes, placed by class name and debug map
-    // Isaac::Generate()
+    // 0x100c6f850
     void Isaac::Generate() {
-        undefined1* this_00;
-        uint uVar1;
-        int iVar2;
+        unsigned int uVar1;
         int* piVar3;
-        uint* puVar4;
-        ulong uVar5;
-        uint uVar6;
-        uint uVar7;
+        unsigned int* puVar4;
+        unsigned int uVar5;
+        unsigned int uVar6;
 
-        iVar2 = field_2060 + 1;
+        int iVar2 = field_2060 + 1;
         field_2060 = iVar2;
         field_2056 = field_2056 + iVar2;
-        this_00 = &field_1028;
-        uVar5 = 0;
+        uint8_t* this_00 = &field_1028;
+        unsigned long arg1 = 0;
         do {
-            puVar4 = (uint*)std::array<unsigned int, 256ul>::operator[]((array<unsigned int, 256ul>*)this_00, uVar5);
-            uVar6 = field_2052;
-            if ((uVar5 & 2) == 0) {
-                if ((uVar5 & 1) == 0) {
-                    uVar7 = uVar6 << 13;
+            puVar4 = (unsigned int*)(*this_00)[arg1];
+            uVar5 = field_2052;
+            if ((arg1 & 2) == 0) {
+                if ((arg1 & 1) == 0) {
+                    uVar6 = uVar5 << 13;
                 } else {
-                    uVar7 = uVar6 >> 6;
+                    uVar6 = uVar5 >> 6;
                 }
-            } else if ((uVar5 & 1) == 0) {
-                uVar7 = uVar6 * 4;
+            } else if ((arg1 & 1) == 0) {
+                uVar6 = uVar5 * 4;
             } else {
-                uVar7 = uVar6 >> 16;
+                uVar6 = uVar5 >> 16;
             }
             uVar1 = *puVar4;
-            field_2052 = uVar7 ^ uVar6;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[]((array<unsigned int, 256ul>*)this_00,
-                                                                       (ulong)((int)uVar5 + 128U & 255));
-            uVar6 = (uVar7 ^ uVar6) + *piVar3;
-            field_2052 = uVar6;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[]((array<unsigned int, 256ul>*)this_00,
-                                                                       (ulong)(uVar1 >> 2 & 255));
-            uVar6 = uVar6 + *piVar3 + field_2056;
-            *puVar4 = uVar6;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[]((array<unsigned int, 256ul>*)this_00,
-                                                                       (ulong)(uVar6 >> 10 & 255));
+            field_2052 = uVar6 ^ uVar5;
+            piVar3 = (int*)(*this_00)[(unsigned long)((int)arg1 + 128U & 255)];
+            uVar5 = (uVar6 ^ uVar5) + *piVar3;
+            field_2052 = uVar5;
+            piVar3 = (int*)(*this_00)[(unsigned long)(uVar1 >> 2 & 255)];
+            uVar5 = uVar5 + *piVar3 + field_2056;
+            *puVar4 = uVar5;
+            piVar3 = (int*)(*this_00)[(unsigned long)(uVar5 >> 10 & 255)];
             iVar2 = uVar1 + *piVar3;
             field_2056 = iVar2;
-            piVar3 = (int*)std::array<unsigned int, 256ul>::operator[]((array<unsigned int, 256ul>*)&field_4, uVar5);
+            piVar3 = &field_4[arg1];
             *piVar3 = iVar2;
-            uVar5 = uVar5 + 1;
-        } while (uVar5 != 256);
+            arg1 = arg1 + 1;
+        } while (arg1 != 256);
     }
 
-    // 0x100c6f9a0, 64 bytes, placed by class name and debug map
-    // Isaac::TakeNextValue()
-    undefined4 Isaac::TakeNextValue() {
-        undefined4* puVar1;
-        uint uVar2;
-
+    // 0x100c6f9a0
+    uint32_t Isaac::TakeNextValue() {
         if (field_0 == 0) {
-            Generate(this);
+            Generate();
             field_0 = 256;
         }
-        uVar2 = field_0 - 1;
+        unsigned int uVar2 = field_0 - 1;
         field_0 = uVar2;
-        puVar1 = (undefined4*)std::array<unsigned int, 256ul>::operator[]((array<unsigned int, 256ul>*)&field_4,
-                                                                          (ulong)uVar2);
+        uint32_t* puVar1 = &field_4[(unsigned long)uVar2];
         return *puVar1;
     }
 
-    // 0x100c6f9e0, 64 bytes, placed by class name and debug map
-    // Isaac::PollNextValue()
-    undefined4 Isaac::PollNextValue() {
-        undefined4* puVar1;
-
+    // 0x100c6f9e0
+    uint32_t Isaac::PollNextValue() {
         if (field_0 == 0) {
-            Generate(this);
+            Generate();
             field_0 = 256;
         }
-        puVar1 = (undefined4*)std::array<unsigned int, 256ul>::operator[]((array<unsigned int, 256ul>*)&field_4,
-                                                                          (ulong)(field_0 - 1));
+        uint32_t* puVar1 = &field_4[(unsigned long)(field_0 - 1)];
         return *puVar1;
     }
 

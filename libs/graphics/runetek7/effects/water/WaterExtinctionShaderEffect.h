@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/effects/water/WaterExtinctionShaderEffect.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,43 +8,35 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~WaterExtinctionShaderEffect();
-        virtual Initialise();
-        virtual void SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const;
-        virtual void BindConstBufferToShader(render::ShaderProgram const&) const;
-        virtual CreateRenderingResources();
+        virtual uint8_t Initialise();
+        virtual void SetShaderConstants(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                        Shader& shader) const;
+        virtual void BindConstBufferToShader(const render::ShaderProgram& shaderProgram) const;
+        virtual uint8_t CreateRenderingResources();
         virtual void DestroyRenderingResources();
         virtual void OnEndFrame();
-        void SetUniforms(render::ShaderProgram const&) const;
-        void SetParameters(WaterParameters const&, math::Matrix44T<float> const&);
-        WaterExtinctionShaderEffect(RT7Core&, int);
+        void SetUniforms(const render::ShaderProgram& shaderProgram) const;
+        void SetParameters(const WaterParameters& waterParameters, const math::Matrix44T<float>& matrix44);
+        WaterExtinctionShaderEffect(RT7Core& rt7Core, int arg2);
 
-        // data members, from how the methods use this: 72 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        char _unknown_12[4];
-        RT7Core* field_16; // offset 16
-        char _unknown_24[8];
-        ColourHSL field_32;  // offset 32
-        undefined8 field_48; // offset 48
-        undefined4 field_56; // offset 56
-        float field_60;      // offset 60
-        char _unknown_64[8];
+    private:
+        GraphicsQuality field_8;
+        uint8_t _unknown_12[4];
+        RT7Core* field_16;
+        uint8_t _unknown_24[8];
+        ColourHSL field_32;
+        uint64_t field_48;
+        uint32_t field_56;
+        float field_60;
+        uint8_t _unknown_64[8];
     };
 
-    // 0x10093d140, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // WaterExtinctionShaderEffect::WaterExtinctionShaderEffect(RT7Core&, int): jumps straight to the base-object constructor
-
-    // 0x10093d160, 128 bytes, base-object constructor, inline, placed by class name and debug map
-    // WaterExtinctionShaderEffect::WaterExtinctionShaderEffect(RT7Core&, int)
-    void WaterExtinctionShaderEffect::WaterExtinctionShaderEffect(RT7Core* param_1, int param_2) {
-        undefined* puVar1;
-
-        new (this) ShaderEffect(param_1);
-        field_0 = &PTR__RefCounterAndData_100f19988;
-        new (field_32, 45.0, 75.0, 300.0) math::ColourHSL();
-        puVar1 = PTR_ONE_100ee66d8;
-        field_56 = *(undefined4*)(PTR_ONE_100ee66d8 + 8);
-        field_48 = *(undefined8*)puVar1;
+    // 0x10093d160
+    WaterExtinctionShaderEffect::WaterExtinctionShaderEffect(RT7Core& rt7Core, int arg2)
+        : ShaderEffect(rt7Core), field_32(45.0, 75.0, 300.0) {
+        uint8_t* puVar1 = PTR_ONE_100ee66d8;
+        field_56 = *(uint32_t*)(PTR_ONE_100ee66d8 + 8);
+        field_48 = *(uint64_t*)puVar1;
         field_60 = 10.0;
         new (&field_64) math::Matrix44T<float>();
     }

@@ -1,30 +1,32 @@
 // libs/graphics/runetek7/fonts/Font.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class Font {
     public:
-        GetFontMetrics() const;
-        Font(shared_ptr<FontMetrics> const&, SpriteAtlasManager*, shared_ptr<SpriteAtlas> const&);
-        void LoadSpriteGlyphs(SpriteAtlasManager*, shared_ptr<SpriteAtlas> const&);
+        void GetFontMetrics() const;
+        Font(const shared_ptr<FontMetrics>& fontMetrics, SpriteAtlasManager* spriteAtlasManager,
+             const shared_ptr<SpriteAtlas>& spriteAtlas);
+        void LoadSpriteGlyphs(SpriteAtlasManager* spriteAtlasManager, const shared_ptr<SpriteAtlas>& spriteAtlas);
         void UpdateUVs();
-        Font(shared_ptr<FontMetrics> const&, VectorFontSource*, SpriteAtlasManager*, shared_ptr<SpriteAtlas> const&);
-        void LoadVectorGlyphs(VectorFontSource*, SpriteAtlasManager*, shared_ptr<SpriteAtlas> const&);
-        void GetUV(unsigned int) const;
-        GetCharactersTexture();
+        Font(const shared_ptr<FontMetrics>& fontMetrics, VectorFontSource* vectorFontSource,
+             SpriteAtlasManager* spriteAtlasManager, const shared_ptr<SpriteAtlas>& spriteAtlas);
+        void LoadVectorGlyphs(VectorFontSource* vectorFontSource, SpriteAtlasManager* spriteAtlasManager,
+                              const shared_ptr<SpriteAtlas>& spriteAtlas);
+        void GetUV(unsigned int arg1) const;
+        shared_ptr<oldscape::dash3d::GroundDecor>* GetCharactersTexture();
         ~Font();
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullFont;
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullFont; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
 
-        // data members, from how the methods use this: 56 bytes
-        char _unknown_0[8];
-        long field_8;                   // offset 8
-        shared_ptr field_16;            // offset 16
-        shared_ptr m_charactersTexture; // offset 32
-        undefined1 field_48;            // offset 48
-        char _unknown_49[7];
+    private:
+        uint8_t _unknown_0[8];
+        long field_8;
+        shared_ptr field_16;
+        shared_ptr m_charactersTexture;
+        uint8_t _unknown_48[8];
     };
 
     class FontKerningData {
@@ -32,35 +34,25 @@ namespace jag::graphics {
         ~FontKerningData();
         FontKerningData();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
-    // 0x1008e29a0, 64 bytes, inline, placed by class name and debug map
-    // Font::GetCharactersTexture()
-    undefined1* Font::GetCharactersTexture() {
-        bool bVar1;
+    // 0x1008e29a0
+    shared_ptr<oldscape::dash3d::GroundDecor>* Font::GetCharactersTexture() {
 
-        bVar1 = field_16->operator_cast_to_bool();
-        if (bVar1) {
-            bVar1 = m_charactersTexture->operator_cast_to_bool();
-            if (!bVar1) {
-                UpdateUVs(this);
+        if (field_16->operator_cast_to_bool()) {
+            if (!(m_charactersTexture->operator_cast_to_bool())) {
+                UpdateUVs();
             }
         }
-        return m_charactersTexture;
+        return (shared_ptr<oldscape::dash3d::GroundDecor>*)m_charactersTexture;
     }
 
-    // 0x100908440, 16 bytes, complete-object destructor, inline, placed by class name
-    // Font::~Font(): jumps straight to the base-object destructor
-
-    // 0x100908450, 64 bytes, base-object destructor, inline, placed by class name
-    // Font::~Font()
-    void Font::~Font() {
-        (&field_48)->~vector();
+    // 0x100908450
+    Font::~Font() {
+        field_48.~vector();
         m_charactersTexture->~shared_ptr();
         field_16->~shared_ptr();
-        ~shared_ptr();
     }
 
 } // namespace jag::graphics
@@ -68,10 +60,9 @@ namespace jag::graphics {
 namespace jag::oldscape {
     class FontHash {
     public:
-        operator()(Font const&) const;
+        uint32_t operator()(const Font& font) const;
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
 } // namespace jag::oldscape

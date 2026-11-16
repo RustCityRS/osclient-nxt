@@ -1,6 +1,5 @@
 // libs/logger/Logger.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,161 +8,125 @@ namespace jag::logger {
     public:
         // virtual methods in vtable order
         virtual ~DebugOutputSink();
-        virtual void Write(eastl::fixed_string<char, 2048, true, eastl::allocator> const&, LogLevel);
+        virtual void Write(const eastl::fixed_string<char, 2048>& str, LogLevel logLevel);
         DebugOutputSink();
-
-        // data members, from how the methods use this: 8 bytes
-        undefined** field_0; // offset 0, vtable pointer
     };
 
     class LogStream {
     public:
-        GetName() const;
-        GetGroup() const;
-        LogStream(LogStream const&);
-        LogStream(eastl::fixed_string<char, 32, true, eastl::allocator>,
-                  eastl::fixed_string<char, 32, true, eastl::allocator>, LogLevel);
+        void GetName() const;
+        uint8_t* GetGroup() const;
+        LogStream(const LogStream& logStream);
+        LogStream(eastl::fixed_string<char, 32> str1, eastl::fixed_string<char, 32> str2, LogLevel logLevel);
         ~LogStream();
 
-        // data members, from how the methods use this: 80 bytes
-        char _unknown_0[80];
+        uint8_t _unknown_0[80];
     };
 
     class Logger {
     public:
-        GetLogStreams();
-        Logger(shared_ptr<Sink> const&);
+        uint8_t* GetLogStreams();
+        Logger(const shared_ptr<Sink>& sink);
         ~Logger();
         Logger();
-        void SetLoggingIdentifier(std::function<void(eastl::fixed_string<char, 64, true, eastl::allocator>&)> const&);
-        void Log(bool, LogLevel, char const*, int, char const*, ...);
-        void LogMsg(bool, LogLevel, char const*, int, eastl::fixed_string<char, 2048, true, eastl::allocator> const&);
-        void Log(bool, LogStream, LogLevel, char const*, int, char const*, ...);
-        void LogVA(bool, LogLevel, char const*, int, char const*, __va_list_tag*);
-        void AddSink(shared_ptr<Sink> const&);
-        void RemoveSink(shared_ptr<Sink> const&);
-        void RegisterStream(eastl::fixed_string<char, 32, true, eastl::allocator>,
-                            eastl::fixed_string<char, 32, true, eastl::allocator>, LogLevel);
-        ulong TryLogOnce(char const*, int, eastl::fixed_string<char, 2048, true, eastl::allocator> const&);
-        static /* 144 bytes */ m_logLevels__;         // initialised in its definition
-        static StringEnum /* 16 bytes */ m_logLevels; // = StringEnum((StringEnumEntry *)&m_logLevels__, 9)
+        void SetLoggingIdentifier(std::function<void(eastl::fixed_string<char, 64>&)> const& callback);
+        void Log(bool arg1, LogLevel logLevel, const char* str1, int arg4, const char* str2, ...);
+        void LogMsg(bool arg1, LogLevel logLevel, const char* str1, int arg4,
+                    const eastl::fixed_string<char, 2048>& str2);
+        void Log(bool arg1, LogStream logStream, LogLevel logLevel, const char* str1, int arg5, const char* str2, ...);
+        void LogVA(bool arg1, LogLevel logLevel, const char* str1, int arg4, const char* str2,
+                   __va_list_tag* va_list_tag);
+        void AddSink(const shared_ptr<Sink>& sink);
+        void RemoveSink(const shared_ptr<Sink>& sink);
+        void RegisterStream(eastl::fixed_string<char, 32> str1, eastl::fixed_string<char, 32> str2, LogLevel logLevel);
+        unsigned int TryLogOnce(const char* str1, int arg2, const eastl::fixed_string<char, 2048>& str2);
+        static int32_t m_logLevels__[36]; // initialised in its definition
+        static StringEnum m_logLevels;    // = StringEnum((StringEnumEntry *)&m_logLevels__, 9)
 
-        // data members, from how the methods use this: 112 bytes
-        char _unknown_0[48];
-        int field_48; // offset 48
-        char _unknown_52[60];
+    private:
+        uint8_t _unknown_0[48];
+        int field_48;
+        uint8_t _unknown_52[60];
     };
 
-    // 0x100430b30, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // LogStream::LogStream(LogStream const&): jumps straight to the base-object constructor
+    // 0x100432390
+    LogStream::LogStream(const LogStream& logStream)
+        : eastl::fixed_string<char, 32>(logStream), field_72(&logStream.field_72) {}
 
-    // 0x100432390, 64 bytes, base-object constructor, inline, placed by class header (inline)
-    // LogStream::LogStream(LogStream const&)
-    void LogStream::LogStream(LogStream* param_1) {
-        new (this) eastl::fixed_string<char, 32, true, eastl::allocator>(param_1);
-        new (&field_72, (fixed_string*)&param_1->field_72) eastl::fixed_string<char, 32, true, eastl::allocator>();
+    // 0x100ca6de0
+    void Logger::SetLoggingIdentifier(std::function<void(eastl::fixed_string<char, 64>&)> const& callback) {
+        *this = callback;
     }
 
-    // 0x100c9d410, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // LogStream::LogStream(eastl::fixed_string<char, 32, true, eastl::allocator>, eastl::fixed_string<char, 32, true, eastl::allocator>, LogLevel): jumps straight to the base-object constructor
-
-    // 0x100c9d420, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // LogStream::~LogStream(): jumps straight to the base-object destructor
-
-    // 0x100ca6c50, 16 bytes, complete-object destructor, inline, placed by class name
-    // Logger::~Logger(): jumps straight to the base-object destructor
-
-    // 0x100ca6de0, 16 bytes, inline, placed by class name
-    // Logger::SetLoggingIdentifier(std::function<void (eastl::fixed_string<char, 64, true, eastl::allocator>&)> const&)
-    /* Logger::SetLoggingIdentifier(std::function<void (eastl::fixed_string<char, 64, true,
-   eastl::allocator>&)> const&) */
-
-    void Logger::SetLoggingIdentifier(function* param_1) {
-        std::function<void(eastl::fixed_string<char, 64, true, eastl::allocator>&)>::operator=(
-            (function<void(eastl::fixed_string<char, 64, true, eastl::allocator>&)>*)this, param_1);
-    }
-
-    // 0x100ca6ec0, 48 bytes, base-object destructor, inline, placed by class name
-    // Logger::~Logger()
-    void Logger::~Logger() {
-        (&field_104)->~vector();
-        (&field_56)->~map();
-        std::function<void(eastl::fixed_string<char, 64, true, eastl::allocator>&)>::~function(
-            (function<void(eastl::fixed_string<char, 64, true, eastl::allocator>&)>*)this);
+    // 0x100ca6ec0
+    Logger::~Logger() {
+        field_104.~vector();
+        field_56.~map();
     }
 
 } // namespace jag::logger
 
 namespace jag {
-    // 0x100430b50, 208 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<game::BuildSingleLocationMain>::type bucket_make_shared<game::BuildSingleLocationMain, int, shared_ptr<game::LocType>&, shared_ptr<game::LocType>&, shared_ptr<graphics::Model> const&, Rotation90, int&, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL> >(int&&, shared_ptr<game::LocType>&, shared_ptr<game::LocType>&, shared_ptr<graphics::Model> const&, Rotation90&&, int&, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&&, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&&)
-    jag* jag::bucket_make_shared<game::BuildSingleLocationMain, int, shared_ptr<game::LocType>&,
-                                 shared_ptr<game::LocType>&, shared_ptr<graphics::Model> const&, Rotation90, int&,
-                                 Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>,
-                                 Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>>(
-        int* param_1, shared_ptr* param_2, shared_ptr* param_3, shared_ptr* param_4, Rotation90* param_5, int* param_6,
-        Array* param_7, Array* param_8) {
-        BucketRefCounter* pBVar1;
-        managed_ptr_counter_and_data* local_48;
+    // 0x100430b50
+    shared_ptr_if_not_array<game::BuildSingleLocationMain>::type
+    bucket_make_shared<game::BuildSingleLocationMain, int, shared_ptr<game::LocType>&, shared_ptr<game::LocType>&,
+                       shared_ptr<graphics::Model> const&, Rotation90, int&,
+                       Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>,
+                       Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>>(
+        int&& arg1, shared_ptr<game::LocType>& locType1, shared_ptr<game::LocType>& locType2,
+        const shared_ptr<graphics::Model>& model, Rotation90&& rotation90, int& arg6,
+        Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&& arg7,
+        Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>&& arg8) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>* in_stack_00000018;
         BuildSingleLocationMain* local_40[2];
 
-        local_48 = (managed_ptr_counter_and_data*)BucketManager::Allocate(160, 0, 16);
-        if (local_48 == (managed_ptr_counter_and_data*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        auto local_48 = BucketManager::Allocate(160, 0, 16);
+        if (local_48 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] = placement_new<game::BuildSingleLocationMain, int, shared_ptr<game::LocType>&,
                                         shared_ptr<game::LocType>&, shared_ptr<graphics::Model> const&, Rotation90,
                                         int&, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>,
                                         Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>>(
-                local_48 + 48, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8);
-            pBVar1 = placement_new<BucketRefCounter<game::BuildSingleLocationMain>,
-                                   managed_ptr_counter_and_data<BucketRefCounter<game::BuildSingleLocationMain>,
-                                                                game::BuildSingleLocationMain>*&,
-                                   game::BuildSingleLocationMain*&>(local_48, &local_48, local_40);
-            pBVar1->~AutoSingleton(local_40[0]);
-            pBVar1->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(pBVar1, local_40[0]);
+                local_48 + 48, (int*)locType1, locType2, (shared_ptr<game::LocType>*)model,
+                (shared_ptr<graphics::Model>*)rotation90, (Rotation90*)arg6, (int*)arg7, arg8, in_stack_00000018);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<BucketRefCounter<game::BuildSingleLocationMain>,
+                              managed_ptr_counter_and_data<BucketRefCounter<game::BuildSingleLocationMain>,
+                                                           game::BuildSingleLocationMain>*&,
+                              game::BuildSingleLocationMain*&>(local_48, &local_48, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x100430ee0, 176 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<graphics::VFXAttachmentInfo>::type make_shared<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo::RawData const&, math::Matrix44T<float> const&>(graphics::VFXAttachmentInfo::RawData const&, math::Matrix44T<float> const&)
-    /* shared_ptr_if_not_array<graphics::VFXAttachmentInfo>::type
-   make_shared<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo::RawData
-   const&, math::Matrix44T<float>&>(graphics::VFXAttachmentInfo::RawData const&,
-   math::Matrix44T<float>&) */
-
-    jag*
-    jag::make_shared<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo::RawData_const&, math::Matrix44T<float>&>(
-        RawData* param_1, Matrix44T* param_2) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100430ee0
+    shared_ptr_if_not_array<graphics::VFXAttachmentInfo>::type
+    make_shared<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo::RawData const&,
+                math::Matrix44T<float> const&>(const graphics::VFXAttachmentInfo::RawData& rawData,
+                                               const math::Matrix44T<float>& matrix44) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_3c;
         VFXAttachmentInfo* local_38[2];
 
-        pvVar1 = (void*)aligned_alloc(256, 16);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(16);
+        auto arg1 = aligned_alloc(256, 16);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<graphics::VFXAttachmentInfo>::type result;
         } else {
-            local_38[0] = placement_new<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo::RawData_const&,
-                                        math::Matrix44T<float>&>((void*)((long)pvVar1 + 32), param_1, param_2);
+            local_38[0] = placement_new<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo::RawData const&,
+                                        math::Matrix44T<float>&>((void*)((long)arg1 + 32), rawData, matrix44);
             local_3c = 1;
-            prVar2 = placement_new<ref_counter_shared<graphics::VFXAttachmentInfo>, int, graphics::VFXAttachmentInfo*&>(
-                pvVar1, &local_3c, local_38);
-            prVar2->~AutoSingleton(local_38[0]);
-            prVar2->~AutoSingleton(local_38[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_38[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<graphics::VFXAttachmentInfo>, int, graphics::VFXAttachmentInfo*&>(
+                    arg1, &local_3c, local_38);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_38[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag
-
-namespace jag::game {
-    // 0x100431590, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // EntityHighlightVisualData::EntityHighlightVisualData(): jumps straight to the base-object constructor
-
-} // namespace jag::game

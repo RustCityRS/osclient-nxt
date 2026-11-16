@@ -1,435 +1,326 @@
 // libs/oldscape/rs2lib/configdecoder/NpcType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "NpcType.h"
 
 namespace jag::oldscape::configdecoder {
-    // 0x10103d438, 8 bytes, __common; zero-initialised
-    NpcType::m_pConfigClient;
+    // 0x10103d438
+    int64_t NpcType::m_pConfigClient;
 
-    // 0x10103d440, 8 bytes, __common; zero-initialised
-    NpcType::m_pModels;
+    // 0x10103d440
+    int64_t NpcType::m_pModels;
 
-    // 0x10103d448, 5376 bytes, __common; zero-initialised
-    NpcType::m_recentUse;
+    // 0x10103d448
+    LRUHashCache<NpcType, 64ul, 65ul, false, unsigned long long> NpcType::m_recentUse;
 
-    // 0x10103e948, 5376 bytes, __common; zero-initialised
-    NpcType::m_modelCache;
+    // 0x10103e948
+    LRUHashCache<dash3d::ModelLit, 64ul, 65ul, false, unsigned long long> NpcType::m_modelCache;
 
-    // 0x10022d580, 32 bytes, placed by class name and debug map
-    // NpcType::Init(jagex3::Js5*, jagex3::Js5*)
-    void NpcType::Init(Js5* param_1, Js5* param_2) {
-        m_pConfigClient = param_1;
-        m_pModels = param_2;
+    // 0x10022d580
+    void NpcType::Init(jagex3::Js5* js51, jagex3::Js5* js52) {
+        m_pConfigClient = js51;
+        m_pModels = js52;
     }
 
-    // 0x10022d5a0, 336 bytes, placed by class name and debug map
-    // NpcType::List(int)
-    NpcType* NpcType::List(int param_1) {
-        bool bVar1;
-        shared_ptr* psVar2;
-        int* piVar3;
-        NpcType* this_00;
-        shared_ptr in_stack_ffffffffffffffa8;
-        shared_ptr<dash3d::Decor> asStack_46[6];
-        shared_ptr local_40;
-        shared_ptr local_30;
+    // 0x10022d5a0
+    auto NpcType::List(int arg1) {
+        int* piVar2;
+        NpcType* npcType;
+        shared_ptr<dash3d::Decor> local_50;
+        ReturnValue local_40;
+        ReturnValue local_30;
 
-        local_30._0_8_ = (long)param_1;
-        psVar2 =
-            (shared_ptr*)LRUHashCache<NpcType, 64ul, 65ul, false, unsigned long long>::Find((ulonglong*)&m_recentUse);
-        new (this) shared_ptr<dash3d::Decor>(psVar2);
-        bVar1 = operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0);
-        if (!bVar1) {
-            new (&local_30) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            m_pConfigClient->GetFile((int)&local_30, 9, (array*)(ulong)(uint)param_1);
-            make_shared<NpcType>((jag*)&local_40);
-            shared_ptr<NpcType>::operator=((shared_ptr<NpcType>*)this, &local_40);
-            local_40.~shared_ptr();
-            piVar3 = (int*)shared_ptr<NpcType>::operator->((shared_ptr<NpcType>*)this);
-            *piVar3 = param_1;
-            bVar1 = operator!=(&local_30, (_func_decltype_nullptr*)0);
-            if (bVar1) {
-                this_00 = (NpcType*)shared_ptr<NpcType>::operator->((shared_ptr<NpcType>*)this);
-                shared_ptr<dash3d::Decor>::shared_ptr(asStack_46 + -10, &local_30);
-                Decode(this_00, in_stack_ffffffffffffffa8);
-                ((asStack_46 + -10))->~shared_ptr();
+        local_30[0] = (ReturnValue)(long)arg1;
+        auto groundDecor = m_recentUse.Find(local_30);
+        auto result(groundDecor);
+        if (!(result != nullptr)) {
+            local_30 = shared_ptr();
+            m_pConfigClient->GetFile(local_30, 9, arg1, nullptr);
+            make_shared<NpcType>(&local_40);
+            result = local_40;
+            piVar2 = (int*)(result).operator->();
+            *piVar2 = arg1;
+            if (local_30 != nullptr) {
+                npcType = (NpcType*)(result).operator->();
+                local_50 = shared_ptr(&local_30);
+                Decode(npcType, &local_50);
             }
-            shared_ptr<NpcType>::operator->((shared_ptr<NpcType>*)this);
-            local_40._0_8_ = (long)param_1;
-            m_recentUse.Put(this, 1, (ulonglong*)&local_40);
-            local_30.~shared_ptr();
+            (result).operator->();
+            local_40[0] = (ReturnValue)(long)arg1;
+            m_recentUse.Put(result, 1, local_40);
         }
-        return this;
+        return result;
     }
 
-    // 0x10022d820, 144 bytes, placed by class name and debug map
-    // NpcType::Decode(shared_ptr<PacketJ<Array<unsigned char, eastl::allocator> > >)
-    void NpcType::Decode(shared_ptr param_1) {
-        shared_ptr<dash3d::Decor>* this_00;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* pPVar1;
-        char cVar2;
-        shared_ptr* in_RSI;
-        shared_ptr<dash3d::Decor> asStackY_b8[128];
-        shared_ptr in_stack_ffffffffffffffc8;
+    // 0x10022d820
+    void NpcType::Decode(shared_ptr<PacketJ<Array<unsigned char>>> packetJ) {
+        shared_ptr<dash3d::Decor> local_38;
 
-        pPVar1 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                     shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)in_RSI);
-        cVar2 = pPVar1->g1();
-        if (cVar2 != '\0') {
-            this_00 = asStackY_b8 + 128;
+        PacketReaderMixin<PacketT<Array<unsigned char>>>* pPVar1 =
+            (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
+        uint8_t bVar2 = pPVar1->g1();
+        if (bVar2 != 0) {
             do {
-                shared_ptr<dash3d::Decor>::shared_ptr(this_00, in_RSI);
-                Decode(this, in_stack_ffffffffffffffc8, (int)this_00);
-                this_00->~shared_ptr();
-                pPVar1 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                             shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(
-                                 (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)in_RSI);
-                cVar2 = pPVar1->g1();
-            } while (cVar2 != '\0');
+                local_38 = shared_ptr(packetJ);
+                Decode(&local_38, (unsigned int)bVar2);
+                pPVar1 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
+                bVar2 = pPVar1->g1();
+            } while (bVar2 != 0);
         }
     }
 
-    // 0x10022d8b0, 16 bytes, placed by class name and debug map
-    // NpcType::PostDecode()
+    // 0x10022d8b0
     void NpcType::PostDecode() {}
 
-    // 0x10022d9b0, 3120 bytes, placed by class name and debug map
-    // NpcType::Decode(shared_ptr<PacketJ<Array<unsigned char, eastl::allocator> > >, int)
-    void NpcType::Decode(shared_ptr param_1, int param_2) {
-        byte bVar1;
+    // 0x10022d9b0
+    void NpcType::Decode(shared_ptr<PacketJ<Array<unsigned char>>> packetJ, int arg2) {
+        uint8_t bVar1;
         bool bVar2;
         char cVar3;
-        ushort uVar4;
-        undefined2 uVar5;
+        unsigned short uVar4;
+        uint16_t uVar5;
         short sVar6;
-        undefined4 uVar7;
-        uint* puVar8;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* pPVar9;
+        uint32_t uVar7;
+        unsigned int* puVar8;
+        PacketReaderMixin<PacketT<Array<unsigned char>>>* pPVar9;
         eastl::string* pbVar10;
-        basic_string* pbVar11;
-        int* piVar12;
-        undefined4* puVar13;
-        undefined2* puVar14;
-        undefined8 uVar15;
-        PacketJ* pPVar16;
-        uint uVar17;
-        int in_EDX;
-        uint uVar18;
-        ulong uVar19;
-        ulong uVar20;
-        undefined4 in_register_00000034;
-        shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>* this_00;
-        undefined1* puVar21;
-        int iVar22;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>> local_60[32];
-        ulong local_40;
-        Array<short, eastl::allocator>* local_38;
+        int* piVar11;
+        uint32_t* puVar12;
+        uint16_t* puVar13;
+        unsigned int uVar14;
+        unsigned int uVar15;
+        unsigned long uVar16;
+        unsigned long uVar17;
+        uint8_t* puVar18;
+        int iVar19;
+        PacketReaderMixin<PacketT<Array<unsigned char>>> local_60;
+        unsigned long local_40;
+        Array<short>* local_38;
 
-        this_00 = (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)CONCAT44(in_register_00000034, param_2);
-        switch (in_EDX) {
+        switch (arg2) {
         case 1:
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             bVar1 = pPVar9->g1();
-            (&field_48, (ulong)bVar1, 5)->set_max_size();
+            field_48.set_max_size((unsigned long)bVar1, 5);
             if (bVar1 != 0) {
-                uVar19 = 0;
+                uVar16 = 0;
                 do {
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    puVar8 = (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_48,
-                                                                             uVar19);
-                    *puVar8 = (uint)uVar4;
-                    uVar19 = uVar19 + 1;
-                } while (bVar1 != uVar19);
+                    puVar8 = &field_48[uVar16];
+                    *puVar8 = (unsigned int)uVar4;
+                    uVar16 = uVar16 + 1;
+                } while (bVar1 != uVar16);
             }
             break;
         case 2:
-            bVar2 = (bool)shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
-            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
-                local_60, bVar2);
-            eastl::string::operator=((eastl::string*)&field_8, (basic_string*)local_60);
-            local_60->~basic_string();
+            bVar2 = (bool)(*packetJ).operator->();
+            PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(&local_60, bVar2);
+            field_8 = &local_60;
             break;
         default:
-            if (in_EDX - 30U < 5) {
-                bVar2 = (bool)shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
-                PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
-                    local_60, bVar2);
-                puVar21 = &field_256;
-                uVar19 = (ulong)(in_EDX - 30U);
-                pbVar10 = (eastl::string*)eastl::vector<
-                    eastl::string, eastl::fixed_vector_allocator<32ul, 5ul, 8ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (vector<eastl::string, eastl::fixed_vector_allocator<32ul, 5ul, 8ul, 0ul, true, eastl::allocator>>*)
-                        puVar21,
-                    uVar19);
-                eastl::string::operator=(pbVar10, (basic_string*)local_60);
-                local_60->~basic_string();
-                pbVar11 = (basic_string*)eastl::vector<
-                    eastl::string, eastl::fixed_vector_allocator<32ul, 5ul, 8ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (vector<eastl::string, eastl::fixed_vector_allocator<32ul, 5ul, 8ul, 0ul, true, eastl::allocator>>*)
-                        puVar21,
-                    uVar19);
+            if (arg2 - 30U < 5) {
+                bVar2 = (bool)(*packetJ).operator->();
+                PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(&local_60, bVar2);
+                puVar18 = &field_256;
+                uVar16 = (unsigned long)(arg2 - 30U);
+                pbVar10 = (eastl::string*)(*puVar18)[uVar16];
+                *pbVar10 = &local_60;
                 cVar3 = core::stringtools::general::StringTools::EqualsIgnoreCase(
-                    pbVar11, (basic_string*)&constants::text::hidden);
-                if (cVar3 != '\0') {
-                    pbVar10 = (eastl::string*)eastl::vector<
-                        eastl::string, eastl::fixed_vector_allocator<32ul, 5ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<eastl::string,
-                                eastl::fixed_vector_allocator<32ul, 5ul, 8ul, 0ul, true, eastl::allocator>>*)puVar21,
-                        uVar19);
+                    *((eastl::string*)(*puVar18)[uVar16]), *((eastl::string*)&constants::text::hidden));
+                if (cVar3) {
+                    pbVar10 = (eastl::string*)(*puVar18)[uVar16];
                     eastl::string::assign(pbVar10, "");
                 }
             } else {
-                switch (in_EDX) {
+                switch (arg2) {
                 case 40:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     bVar1 = pPVar9->g1();
-                    local_38 = (Array<short, eastl::allocator>*)&field_160;
-                    uVar19 = (ulong)bVar1;
-                    local_38->set_max_size(uVar19, 5);
-                    (&field_184, uVar19, 5)->set_max_size();
+                    local_38 = (Array<short>*)&field_160;
+                    uVar16 = (unsigned long)bVar1;
+                    local_38->set_max_size(uVar16, 5);
+                    field_184.set_max_size(uVar16, 5);
                     if (bVar1 != 0) {
-                        uVar20 = 0;
+                        uVar17 = 0;
                         do {
-                            pPVar9 =
-                                (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                             uVar5 = pPVar9->g2();
-                            puVar14 = (undefined2*)Array<short, eastl::allocator>::operator[](local_38, uVar20);
-                            *puVar14 = uVar5;
-                            pPVar9 =
-                                (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                            puVar13 = (uint16_t*)(*local_38)[uVar17];
+                            *puVar13 = uVar5;
+                            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                             uVar5 = pPVar9->g2();
-                            puVar14 = (undefined2*)Array<short, eastl::allocator>::operator[](
-                                (Array<short, eastl::allocator>*)&field_184, uVar20);
-                            *puVar14 = uVar5;
-                            uVar20 = uVar20 + 1;
-                        } while (uVar19 != uVar20);
+                            puVar13 = &field_184[uVar17];
+                            *puVar13 = uVar5;
+                            uVar17 = uVar17 + 1;
+                        } while (uVar16 != uVar17);
                     }
                     break;
                 case 41:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     bVar1 = pPVar9->g1();
-                    local_38 = (Array<short, eastl::allocator>*)&field_208;
-                    uVar19 = (ulong)bVar1;
-                    local_38->set_max_size(uVar19, 5);
-                    (&field_232, uVar19, 5)->set_max_size();
+                    local_38 = (Array<short>*)&field_208;
+                    uVar16 = (unsigned long)bVar1;
+                    local_38->set_max_size(uVar16, 5);
+                    field_232.set_max_size(uVar16, 5);
                     if (bVar1 != 0) {
-                        uVar20 = 0;
+                        uVar17 = 0;
                         do {
-                            pPVar9 =
-                                (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                             uVar5 = pPVar9->g2();
-                            puVar14 = (undefined2*)Array<short, eastl::allocator>::operator[](local_38, uVar20);
-                            *puVar14 = uVar5;
-                            pPVar9 =
-                                (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                            puVar13 = (uint16_t*)(*local_38)[uVar17];
+                            *puVar13 = uVar5;
+                            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                             uVar5 = pPVar9->g2();
-                            puVar14 = (undefined2*)Array<short, eastl::allocator>::operator[](
-                                (Array<short, eastl::allocator>*)&field_232, uVar20);
-                            *puVar14 = uVar5;
-                            uVar20 = uVar20 + 1;
-                        } while (uVar19 != uVar20);
+                            puVar13 = &field_232[uVar17];
+                            *puVar13 = uVar5;
+                            uVar17 = uVar17 + 1;
+                        } while (uVar16 != uVar17);
                     }
                     break;
                 default:
-                    uVar15 = logger::default_logger();
-                    logger::Logger::Log(uVar15, 0, 8,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                        "oldscape/rs2lib/configdecoder/NpcType.cpp",
-                                        306, "Error unrecognised .npc config code: %i");
+                    (logger::default_logger())
+                        ->Log(false, 8,
+                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
+                              "configdecoder/NpcType.cpp",
+                              306, "Error unrecognised .npc config code: %i", arg2);
                     break;
                 case 60:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     bVar1 = pPVar9->g1();
-                    (&field_72, (ulong)bVar1, 5)->set_max_size();
+                    field_72.set_max_size((unsigned long)bVar1, 5);
                     if (bVar1 != 0) {
-                        uVar19 = 0;
+                        uVar16 = 0;
                         do {
-                            pPVar9 =
-                                (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                    shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                             uVar4 = pPVar9->g2();
-                            puVar8 = (uint*)Array<int, eastl::allocator>::operator[](
-                                (Array<int, eastl::allocator>*)&field_72, uVar19);
-                            *puVar8 = (uint)uVar4;
-                            uVar19 = uVar19 + 1;
-                        } while (bVar1 != uVar19);
+                            puVar8 = &field_72[uVar16];
+                            *puVar8 = (unsigned int)uVar4;
+                            uVar16 = uVar16 + 1;
+                        } while (bVar1 != uVar16);
                     }
                     break;
                 case 93:
                     field_456 = 0;
                     break;
                 case 95:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_460 = (uint)uVar4;
+                    field_460 = (unsigned int)uVar4;
                     break;
                 case 97:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_464 = (uint)uVar4;
+                    field_464 = (unsigned int)uVar4;
                     break;
                 case 98:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_468 = (uint)uVar4;
+                    field_468 = (unsigned int)uVar4;
                     break;
                 case 99:
                     field_472 = 1;
                     break;
                 case 100:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     cVar3 = pPVar9->g1s();
                     field_476 = (int)cVar3;
                     break;
                 case 101:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     cVar3 = pPVar9->g1s();
                     field_480 = cVar3 * 5;
                     break;
                 case 102:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     bVar1 = pPVar9->g1();
-                    uVar18 = 0;
+                    uVar15 = 0;
                     if (bVar1 != 0) {
-                        uVar17 = (uint)bVar1;
+                        uVar14 = (unsigned int)bVar1;
                         do {
-                            uVar18 = uVar18 + 1;
-                            bVar2 = 1 < uVar17;
-                            uVar17 = uVar17 >> 1;
+                            uVar15 = uVar15 + 1;
+                            bVar2 = 1 < uVar14;
+                            uVar14 = uVar14 >> 1;
                         } while (bVar2);
                     }
-                    local_38 = (Array<short, eastl::allocator>*)&field_584;
-                    eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
-                                                                     eastl::allocator>>::resize((ulong)local_38);
-                    local_40 = (ulong)uVar18;
-                    eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::
-                        resize((ulong)&m_headIconIndices);
-                    if (uVar18 != 0) {
-                        uVar19 = 0;
+                    local_38 = (Array<short>*)&field_584;
+                    uVar16 = (unsigned long)uVar15;
+                    local_38->resize(uVar16);
+                    local_40 = uVar16;
+                    m_headIconIndices->resize(uVar16);
+                    if (uVar15 != 0) {
+                        uVar16 = 0;
                         do {
-                            if ((bVar1 >> ((uint)uVar19 & 31) & 1) == 0) {
-                                puVar13 = (undefined4*)eastl::vector<
-                                    int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::
-                                operator[](
-                                    (vector<int,
-                                            eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                        local_38,
-                                    uVar19);
-                                *puVar13 = 4294967295;
-                                iVar22 = -1;
+                            if ((bVar1 >> ((unsigned int)uVar16 & 31) & 1) == 0) {
+                                puVar12 = (uint32_t*)(*local_38)[uVar16];
+                                *puVar12 = 4294967295;
+                                iVar19 = -1;
                             } else {
-                                pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                             shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(
-                                                 this_00);
+                                pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                                 uVar7 = pPVar9->gSmart2or4s();
-                                puVar13 = (undefined4*)eastl::vector<
-                                    int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::
-                                operator[](
-                                    (vector<int,
-                                            eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                        local_38,
-                                    uVar19);
-                                *puVar13 = uVar7;
-                                pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                             shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(
-                                                 this_00);
+                                puVar12 = (uint32_t*)(*local_38)[uVar16];
+                                *puVar12 = uVar7;
+                                pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                                 sVar6 = pPVar9->gSmart1Or2Minus1();
-                                iVar22 = (int)sVar6;
+                                iVar19 = (int)sVar6;
                             }
-                            piVar12 = (int*)eastl::vector<
-                                int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::
-                            operator[](
-                                (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true,
-                                                                           eastl::allocator>>*)&m_headIconIndices,
-                                uVar19);
-                            *piVar12 = iVar22;
-                            uVar19 = uVar19 + 1;
-                        } while (local_40 != uVar19);
+                            piVar11 = (int*)(*m_headIconIndices)[uVar16];
+                            *piVar11 = iVar19;
+                            uVar16 = uVar16 + 1;
+                        } while (local_40 != uVar16);
                     }
                     break;
                 case 103:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_484 = (uint)uVar4;
+                    field_484 = (unsigned int)uVar4;
                     break;
                 case 106:
                 case 118:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    uVar18 = (uint)uVar4;
+                    uVar15 = (unsigned int)uVar4;
                     if (uVar4 == 65535) {
-                        uVar18 = 4294967295;
+                        uVar15 = 4294967295;
                     }
-                    field_512 = uVar18;
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    field_512 = uVar15;
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    uVar18 = (uint)uVar4;
+                    uVar15 = (unsigned int)uVar4;
                     if (uVar4 == 65535) {
-                        uVar18 = 4294967295;
+                        uVar15 = 4294967295;
                     }
-                    field_516 = uVar18;
-                    uVar18 = 4294967295;
-                    if (in_EDX == 118) {
-                        pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                     shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    field_516 = uVar15;
+                    uVar15 = 4294967295;
+                    if (arg2 == 118) {
+                        pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                         uVar4 = pPVar9->g2();
-                        uVar18 = 4294967295;
+                        uVar15 = 4294967295;
                         if (uVar4 != 65535) {
-                            uVar18 = (uint)uVar4;
+                            uVar15 = (unsigned int)uVar4;
                         }
                     }
-                    local_38 = (Array<short, eastl::allocator>*)CONCAT44(local_38._4_4_, uVar18);
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    local_38 = (Array<short>*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)uVar15);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     bVar1 = pPVar9->g1();
-                    puVar21 = &field_488;
-                    puVar21->set_max_size((ulong)(bVar1 + 2), 5);
-                    uVar19 = 0;
+                    puVar18 = &field_488;
+                    puVar18->set_max_size((unsigned long)(bVar1 + 2), 5);
+                    uVar16 = 0;
                     do {
-                        pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                     shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                        pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                         uVar4 = pPVar9->g2();
-                        puVar8 = (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar21,
-                                                                                 uVar19);
-                        *puVar8 = (uint)uVar4;
-                        piVar12 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar21,
-                                                                                 uVar19);
-                        if (*piVar12 == 65535) {
-                            puVar13 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                                (Array<int, eastl::allocator>*)puVar21, uVar19);
-                            *puVar13 = 4294967295;
+                        puVar8 = (unsigned int*)(*puVar18)[uVar16];
+                        *puVar8 = (unsigned int)uVar4;
+                        piVar11 = (int*)(*puVar18)[uVar16];
+                        if (*piVar11 == 65535) {
+                            puVar12 = (uint32_t*)(*puVar18)[uVar16];
+                            *puVar12 = 4294967295;
                         }
-                        uVar19 = uVar19 + 1;
-                    } while (bVar1 + 1 != uVar19);
-                    puVar13 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)puVar21, (ulong)(bVar1 + 1));
-                    *puVar13 = local_38._0_4_;
+                        uVar16 = uVar16 + 1;
+                    } while (bVar1 + 1 != uVar16);
+                    puVar12 = (uint32_t*)(*puVar18)[(unsigned long)(bVar1 + 1)];
+                    *puVar12 = local_38._0_4_;
                     break;
                 case 107:
                     field_520 = 0;
@@ -441,564 +332,449 @@ namespace jag::oldscape::configdecoder {
                     field_522 = 1;
                     break;
                 case 114:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_124 = (uint)uVar4;
+                    field_124 = (unsigned int)uVar4;
                     break;
                 case 115:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_124 = (uint)uVar4;
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    field_124 = (unsigned int)uVar4;
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_128 = (uint)uVar4;
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    field_128 = (unsigned int)uVar4;
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_132 = (uint)uVar4;
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    field_132 = (unsigned int)uVar4;
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_136 = (uint)uVar4;
+                    field_136 = (unsigned int)uVar4;
                     break;
                 case 116:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_140 = (uint)uVar4;
+                    field_140 = (unsigned int)uVar4;
                     break;
                 case 117:
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_140 = (uint)uVar4;
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    field_140 = (unsigned int)uVar4;
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_144 = (uint)uVar4;
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    field_144 = (unsigned int)uVar4;
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_148 = (uint)uVar4;
-                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                                 shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+                    field_148 = (unsigned int)uVar4;
+                    pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
                     uVar4 = pPVar9->g2();
-                    field_152 = (uint)uVar4;
+                    field_152 = (unsigned int)uVar4;
                     break;
                 case 249:
-                    pPVar16 = (PacketJ*)shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator*(this_00);
-                    ParamTypeHelper::UnpackClientParams(pPVar16, (hash_map*)&field_528);
+                    ParamTypeHelper::UnpackClientParams(*((PacketJ<Array<unsigned char> _>*)**packetJ), field_528);
                 }
             }
             break;
         case 12:
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             bVar1 = pPVar9->g1();
-            field_40 = (uint)bVar1;
+            field_40 = (unsigned int)bVar1;
             break;
         case 13:
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             uVar4 = pPVar9->g2();
-            field_96 = (uint)uVar4;
+            field_96 = (unsigned int)uVar4;
             break;
         case 14:
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             uVar4 = pPVar9->g2();
-            field_108 = (uint)uVar4;
+            field_108 = (unsigned int)uVar4;
             break;
         case 15:
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             uVar4 = pPVar9->g2();
-            field_100 = (uint)uVar4;
+            field_100 = (unsigned int)uVar4;
             break;
         case 16:
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             uVar4 = pPVar9->g2();
-            field_104 = (uint)uVar4;
+            field_104 = (unsigned int)uVar4;
             break;
         case 17:
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             uVar4 = pPVar9->g2();
-            field_108 = (uint)uVar4;
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            field_108 = (unsigned int)uVar4;
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             uVar4 = pPVar9->g2();
-            field_112 = (uint)uVar4;
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            field_112 = (unsigned int)uVar4;
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             uVar4 = pPVar9->g2();
-            field_116 = (uint)uVar4;
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            field_116 = (unsigned int)uVar4;
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             uVar4 = pPVar9->g2();
-            field_120 = (uint)uVar4;
+            field_120 = (unsigned int)uVar4;
             break;
         case 18:
-            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                         shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator->(this_00);
+            pPVar9 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)(*packetJ).operator->();
             uVar4 = pPVar9->g2();
-            field_156 = (uint)uVar4;
+            field_156 = (unsigned int)uVar4;
         }
     }
 
-    // 0x10022e620, 1008 bytes, placed by class name and debug map
-    // NpcType::GetTempModel(SeqType*, int, SeqType*, int, NPCTypeCustomisation*)
-    NpcType* NpcType::GetTempModel(SeqType* param_1, int param_2, SeqType* param_3, int param_4,
-                                   NPCTypeCustomisation* param_5) {
-        char cVar1;
+    // 0x10022e620
+    auto NpcType::GetTempModel(SeqType* seqType1, int arg2, SeqType* seqType2, int arg4,
+                               NPCTypeCustomisation* npcTypeCustomisation) {
         bool bVar2;
         int iVar3;
-        shared_ptr* psVar4;
-        SeqType* pSVar5;
+        ModelLit* pMVar5;
         long* plVar6;
-        undefined4 in_register_00000014;
-        ModelLit* pMVar7;
-        undefined4 in_register_00000084;
-        ModelLit* pMVar8;
+        uint32_t in_register_00000014;
+        uint32_t in_register_00000084;
         CoordMapSquare* in_stack_00000008;
-        undefined8 in_stack_ffffffffffffff78;
-        undefined4 uVar9;
-        ulong local_70;
-        shared_ptr local_68;
-        shared_ptr local_58;
-        shared_ptr local_40;
+        uint64_t in_stack_ffffffffffffff78;
+        ReturnValue local_40;
 
-        uVar9 = (undefined4)((ulong)in_stack_ffffffffffffff78 >> 32);
-        pMVar8 = (ModelLit*)CONCAT44(in_register_00000084, param_4);
-        pMVar7 = (ModelLit*)CONCAT44(in_register_00000014, param_2);
-        cVar1 = param_1[1].field_224.empty();
-        if (cVar1 == '\0') {
-            GetMultiNpc((NpcType*)&local_68);
-            bVar2 = operator==(&local_68, (_func_decltype_nullptr*)0);
+        uint32_t uVar7 = (uint32_t)((unsigned long)in_stack_ffffffffffffff78 >> 32);
+        SeqType* seqType = (SeqType*)(((uint64_t)in_register_00000084 << 32) | (uint32_t)arg4);
+        SeqType* pSVar4 = (SeqType*)(((uint64_t)in_register_00000014 << 32) | (uint32_t)arg2);
+        if (seqType1[1].field_224.empty() == '\0') {
+            GetMultiNpc(&local_68, (NpcType*)seqType1);
+            bVar2 = local_68 == nullptr;
             if (bVar2) {
-                new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+                auto result;
             } else {
-                pSVar5 = (SeqType*)shared_ptr<NpcType>::operator->((shared_ptr<NpcType>*)&local_68);
-                GetTempModel(this, pSVar5, param_2, (SeqType*)(ulong)(uint)param_3, param_4,
-                             (NPCTypeCustomisation*)(ulong)(uint)param_5);
+                pSVar4 = (SeqType*)local_68.operator->();
+                GetTempModel(&result, pSVar4, arg2, (SeqType*)(unsigned long)(unsigned int)seqType2, arg4,
+                             (NPCTypeCustomisation*)(unsigned long)(unsigned int)npcTypeCustomisation);
             }
-            local_68.~shared_ptr();
-            return this;
+            return result;
         }
-        local_70 = (ulong)param_1->field_0;
+        unsigned long local_70 = (unsigned long)seqType1->field_0;
         if (65535 < (long)local_70) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_myId < 0x10000",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
                       "configdecoder/NpcType.cpp",
-                      343, (char*)0);
+                      343, nullptr);
         }
-        if (in_stack_00000008 != (CoordMapSquare*)0) {
+        if (in_stack_00000008 != nullptr) {
             iVar3 = in_stack_00000008->GetZ();
             local_70 = local_70 | (long)iVar3 << 16;
         }
         if (dash3d::g_usingRSeven != '\0') {
             local_70 = local_70 | 281474976710656;
         }
-        psVar4 = (shared_ptr*)LRUHashCache<dash3d::ModelLit, 64ul, 65ul, false, unsigned long long>::Find(
-            (ulonglong*)&m_modelCache);
-        new (&local_68) shared_ptr<dash3d::Decor>(psVar4);
-        psVar4 = (shared_ptr*)0;
-        bVar2 = operator==(&local_68, (_func_decltype_nullptr*)0);
+        auto groundDecor = m_modelCache.Find(local_70);
+        shared_ptr local_68(groundDecor);
+        bVar2 = local_68 == nullptr;
         if (bVar2) {
-            BuildModel((NpcType*)&local_58, (Array*)param_1, (NPCTypeCustomisation*)&param_1->field_48);
-            bVar2 = operator==(&local_58, (_func_decltype_nullptr*)0);
+            BuildModel(&local_58, (Array<int>*)seqType1, (NPCTypeCustomisation*)&seqType1->field_48);
+            bVar2 = local_58 == nullptr;
             if (bVar2) {
-                psVar4 = (shared_ptr*)0;
-                new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+                new (&result) shared_ptr();
             } else {
-                plVar6 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->((shared_ptr<dash3d::ModelUnlit>*)&local_58);
-                (**(code**)(*plVar6 + 72))(&local_40, plVar6, *(int*)&param_1[1].field_212 + 64,
-                                           *(int*)&param_1[1].field_216 + 850, 4294967266, 4294967246,
-                                           CONCAT44(uVar9, 4294967266));
-                shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_68, &local_40);
-                local_40.~shared_ptr();
-                psVar4 = &local_68;
-                m_modelCache.Put(psVar4, 1, &local_70);
+                plVar6 = (long*)local_58.operator->();
+                (**(void (**)(...))(*plVar6 + 72))(&local_40, plVar6, *(int*)&seqType1[1].field_212 + 64,
+                                                   *(int*)&seqType1[1].field_216 + 850, 4294967266, 4294967246,
+                                                   (((uint64_t)uVar7 << 32) | (uint32_t)4294967266));
+                local_68 = local_40;
+                m_modelCache.Put(local_68, 1, local_70);
             }
-            local_58.~shared_ptr();
             if (bVar2)
                 goto LAB_10022e974;
         }
-        new (&local_58) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(psVar4);
-        if ((pMVar7 == (ModelLit*)0) || (pMVar8 == (ModelLit*)0)) {
-            if (pMVar7 != (ModelLit*)0) {
-                iVar3 = shared_ptr<dash3d::ModelLit>::operator*((shared_ptr<dash3d::ModelLit>*)&local_68);
-                local_40.AnimateModel(pMVar7, iVar3, (uint)param_3);
-                shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_58, &local_40);
+        shared_ptr<ObjType> local_58;
+        if ((pSVar4 == nullptr) || (seqType == nullptr)) {
+            if (pSVar4 != nullptr) {
+                pMVar5 = (ModelLit*)*local_68;
+                local_40 = pSVar4->AnimateModel(*pMVar5, (unsigned int)seqType2, 1);
+                local_58 = local_40;
                 goto LAB_10022e913;
             }
-            if (pMVar8 != (ModelLit*)0) {
-                iVar3 = shared_ptr<dash3d::ModelLit>::operator*((shared_ptr<dash3d::ModelLit>*)&local_68);
-                local_40.AnimateModel(pMVar8, iVar3, (uint)param_5);
-                shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_58, &local_40);
+            if (seqType != nullptr) {
+                pMVar5 = (ModelLit*)*local_68;
+                local_40 = seqType->AnimateModel(*pMVar5, (unsigned int)npcTypeCustomisation, 1);
+                local_58 = local_40;
                 goto LAB_10022e913;
             }
-            if ((*(int*)&param_1[1].field_200 != 128) || (*(int*)&param_1[1].field_204 != 128)) {
-                plVar6 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_68);
-                (**(code**)(*plVar6 + 80))(&local_40, plVar6, 1, 1);
-                shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_58, &local_40);
+            if ((*(int*)&seqType1[1].field_200 != 128) || (*(int*)&seqType1[1].field_204 != 128)) {
+                plVar6 = (long*)local_68.operator->();
+                (**(void (**)(...))(*plVar6 + 80))(&local_40, plVar6, 1, 1);
+                local_58 = local_40;
                 goto LAB_10022e913;
             }
-            shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_58, &local_68);
+            local_58 = local_68;
         } else {
-            iVar3 = shared_ptr<dash3d::ModelLit>::operator*((shared_ptr<dash3d::ModelLit>*)&local_68);
-            local_40.SplitAnimateModel(pMVar7, iVar3, (SeqType*)(ulong)(uint)param_3, param_4);
-            shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_58, &local_40);
+            iVar3 = *local_68;
+            local_40.SplitAnimateModel(*pSVar4, iVar3, *((SeqType*)(unsigned long)(unsigned int)seqType2), arg4);
+            local_58 = local_40;
         LAB_10022e913:
-            local_40.~shared_ptr();
         }
-        if ((*(int*)&param_1[1].field_200 != 128) || (*(int*)&param_1[1].field_204 != 128)) {
-            plVar6 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_58);
-            (**(code**)(*plVar6 + 168))(plVar6, *(undefined4*)&param_1[1].field_200,
-                                        *(undefined4*)&param_1[1].field_204);
+        if ((*(int*)&seqType1[1].field_200 != 128) || (*(int*)&seqType1[1].field_204 != 128)) {
+            plVar6 = (long*)local_58.operator->();
+            (**(void (**)(...))(*plVar6 + 168))(plVar6, *(uint32_t*)&seqType1[1].field_200,
+                                                *(uint32_t*)&seqType1[1].field_204);
         }
-        shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<RSevenDebugPresetProvider>*)this, &local_58);
-        local_58.~shared_ptr();
+        result.shared_ptr<FileRSevenDebugPresetProvider, void>(local_58);
     LAB_10022e974:
-        local_68.~shared_ptr();
-        return this;
+        return result;
     }
 
-    // 0x10022ea10, 192 bytes, placed by class name and debug map
-    // NpcType::GetMultiNpc() const
-    NpcType* NpcType::GetMultiNpc() {
+    // 0x10022ea10
+    auto NpcType::GetMultiNpc() const {
         int iVar1;
         int iVar2;
-        long lVar3;
         int* piVar4;
-        long in_RSI;
-        ulong uVar5;
+        unsigned long arg1;
 
-        if (*(int*)(in_RSI + 512) == -1) {
-            if ((long)*(int*)(in_RSI + 516) != 18446744073709551615) {
-                piVar4 = (int*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&ClientVarCache::m_var, (long)*(int*)(in_RSI + 516));
+        if (field_512 == 4294967295) {
+            if ((long)(int)field_516 != 18446744073709551615) {
+                piVar4 = (int*)(*((Array<int>*)&ClientVarCache::m_var))[(long)(int)field_516];
                 iVar1 = *piVar4;
                 goto joined_r0x00010022ea5a;
             }
         } else {
-            iVar1 = ClientVarCache::GetVarbit(*(int*)(in_RSI + 512));
+            iVar1 = ClientVarCache::GetVarbit(field_512);
         joined_r0x00010022ea5a:
-            if ((-1 < iVar1) && (iVar2 = ((in_RSI + 488))->end(), iVar1 < iVar2 + -1)) {
-                uVar5 = (ulong)iVar1;
+            if ((-1 < iVar1) && (iVar2 = field_488.end(), iVar1 < iVar2 - 1)) {
+                arg1 = (unsigned long)iVar1;
                 goto LAB_10022ea9e;
             }
         }
-        lVar3 = ((in_RSI + 488))->end();
-        uVar5 = lVar3 - 1;
+        arg1 = field_488.end() - 1;
     LAB_10022ea9e:
-        piVar4 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)(in_RSI + 488), uVar5);
+        piVar4 = &field_488[arg1];
         if (*piVar4 == -1) {
-            new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+            auto result;
         } else {
-            List(this, *piVar4);
+            List(&result, *piVar4);
         }
-        return this;
+        return result;
     }
 
-    // 0x10022eb70, 1216 bytes, placed by class name and debug map
-    // NpcType::BuildModel(Array<int, eastl::allocator> const&, NPCTypeCustomisation const*) const
-    NpcType* NpcType::BuildModel(Array* param_1, NPCTypeCustomisation* param_2) {
-        Array<game::VarValue, eastl::allocator>* pAVar1;
+    // 0x10022eb70
+    NpcType* NpcType::BuildModel(const Array<int>& arg1, const NPCTypeCustomisation* npcTypeCustomisation) const {
         short sVar2;
         Js5* pJVar3;
-        char cVar4;
         bool bVar5;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_00;
         Layout* this_01;
         int* piVar6;
         vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_02;
-        int* piVar7;
-        long lVar8;
-        undefined1* puVar9;
-        uint* puVar10;
-        shared_ptr<dash3d::ModelUnlit>* this_03;
-        ulong uVar11;
-        shared_ptr* psVar12;
-        Array<game::VarValue, eastl::allocator>* pAVar13;
-        Array* pAVar14;
-        long* plVar15;
-        short* psVar16;
+        int* arg2;
+        unsigned long uVar8;
+        shared_ptr<dash3d::ModelUnlit>* psVar9;
+        Array<game::VarValue>* pAVar10;
+        Array<short>* pAVar11;
+        long* plVar12;
+        short* psVar13;
         LoginManager* in_RCX;
-        NPCTypeCustomisation* pNVar17;
-        ulong uVar18;
-        NpcType* this_04;
-        LoginManager* this_05;
-        undefined1 auVar19[16];
-        Array<int, eastl::allocator> local_a0[24];
-        Array<int, eastl::allocator> local_88[24];
-        LoginManager* local_68;
-        shared_ptr local_60;
-        shared_ptr local_48;
+        unsigned long uVar14;
+        Array<int>* pAVar15;
+        LoginManager* this_04;
+        eastl local_48;
 
-        Array<int, eastl::allocator>::Array(local_a0, (Array*)param_2);
-        if (in_RCX != (LoginManager*)0) {
-            this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                          in_RCX->second();
-            cVar4 =
-                eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                    this_00);
-            if (cVar4 == '\0') {
+        Array<int> local_a0(npcTypeCustomisation);
+        if (in_RCX != nullptr) {
+            if (!(((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)in_RCX->second())->empty())) {
                 this_01 = (Layout*)in_RCX->second();
-                piVar6 = (int*)eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                        eastl::allocator>>::Layout::HeapBeginPtr(this_01);
+                piVar6 = (int*)this_01->HeapBeginPtr();
                 this_02 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)in_RCX->second();
-                piVar7 = (int*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_02);
-                Array<int, eastl::allocator>::Array(local_88, piVar6, piVar7);
-                param_2 = (NPCTypeCustomisation*)local_88;
-                Array<int, eastl::allocator>::operator=(local_a0, (Array*)param_2);
-                local_88->~Array();
+                arg2 = (int*)this_02->end();
+                local_88 = Array<int>(piVar6, arg2);
+                local_a0 = local_88;
             }
         }
-        local_68 = in_RCX;
-        lVar8 = local_a0->end();
-        if (lVar8 == 0) {
+        LoginManager* local_68 = in_RCX;
+        long lVar7 = local_a0.end();
+        if (lVar7 == 0) {
             bVar5 = false;
         } else {
-            pNVar17 = (NPCTypeCustomisation*)0;
+            uVar14 = 0;
             bVar5 = false;
             do {
-                param_2 = pNVar17;
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[](local_a0, (ulong)pNVar17);
+                piVar6 = &local_a0[uVar14];
                 pJVar3 = m_pModels;
                 if (*piVar6 != -1) {
-                    puVar10 = (uint*)Array<int, eastl::allocator>::operator[](local_a0, (ulong)pNVar17);
-                    param_2 = (NPCTypeCustomisation*)(ulong)*puVar10;
-                    cVar4 = ((int)pJVar3)->RequestDownload(*puVar10);
-                    if (cVar4 == '\0') {
+                    piVar6 = &local_a0[uVar14];
+                    if (!(pJVar3->RequestDownload(*piVar6, 0))) {
                         bVar5 = true;
                     }
                 }
-                pNVar17 = (NPCTypeCustomisation*)&pNVar17->field_1;
-                puVar9 = (undefined1*)local_a0->end();
-            } while (pNVar17 < puVar9);
+                uVar14 = uVar14 + 1;
+                uVar8 = local_a0.end();
+            } while (uVar14 < uVar8);
         }
-        this_04 = (NpcType*)this;
+        NpcType* this_03 = this;
         if (bVar5) {
-            new ((NpcType*)this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+            new (this) shared_ptr();
             goto LAB_10022ef96;
         }
-        new (&local_60) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(param_2);
-        auVar19 = local_a0->end();
-        eastl::destruct<highlight::NpcUID*>((eastl*)&local_48, (NpcUID*)"EASTL vector", auVar19._8_8_);
-        new (local_88) eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>(
-            auVar19._0_8_, (BucketAllocatorEASTL*)&local_48);
-        lVar8 = local_a0->end();
-        if (lVar8 != 0) {
-            uVar18 = 0;
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> local_60;
+        uVar14 = local_a0.end();
+        eastl::destruct<highlight::NpcUID*>(&local_48);
+        Array<int> local_88(uVar14, local_48);
+        lVar7 = local_a0.end();
+        if (lVar7 != 0) {
+            uVar14 = 0;
             do {
                 pJVar3 = m_pModels;
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[](local_a0, uVar18);
-                local_48.Load(pJVar3, *piVar6, 0, false);
-                this_03 = (shared_ptr<dash3d::ModelUnlit>*)
-                    eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>::operator[](
-                        (vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>*)local_88, uVar18);
-                shared_ptr<dash3d::ModelUnlit>::operator=(this_03, &local_48);
-                local_48.~shared_ptr();
-                uVar18 = uVar18 + 1;
-                uVar11 = local_a0->end();
-            } while (uVar18 < uVar11);
+                piVar6 = &local_a0[uVar14];
+                local_48.Load(*pJVar3, *piVar6, 0, false);
+                psVar9 = &local_88[uVar14];
+                *psVar9 = local_48;
+                uVar14 = uVar14 + 1;
+                uVar8 = local_a0.end();
+            } while (uVar14 < uVar8);
         }
-        lVar8 = local_88->size();
-        if (lVar8 == 1) {
-            psVar12 = (shared_ptr*)eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>::operator[](
-                (vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>*)local_88, 0);
-            this_04 = (NpcType*)this;
-            this_05 = local_68;
-            pAVar14 = param_1;
-            shared_ptr<dash3d::ModelUnlit>::operator=((shared_ptr<dash3d::ModelUnlit>*)&local_60, psVar12);
-            bVar5 = operator==(&local_60, (_func_decltype_nullptr*)0);
+        lVar7 = local_88.size();
+        if (lVar7 == 1) {
+            psVar9 = &local_88[0];
+            this_03 = this;
+            this_04 = local_68;
+            pAVar15 = arg1;
+            local_60 = *psVar9;
+            bVar5 = local_60 == nullptr;
             if (bVar5) {
                 local_48.Combine(local_88);
-                shared_ptr<dash3d::ModelUnlit>::operator=((shared_ptr<dash3d::ModelUnlit>*)&local_60, &local_48);
+                local_60 = local_48;
                 goto LAB_10022edd9;
             }
         } else {
             local_48.Combine(local_88);
-            this_04 = (NpcType*)this;
-            this_05 = local_68;
-            pAVar14 = param_1;
-            shared_ptr<dash3d::ModelUnlit>::operator=((shared_ptr<dash3d::ModelUnlit>*)&local_60, &local_48);
+            this_03 = this;
+            this_04 = local_68;
+            pAVar15 = arg1;
+            local_60 = local_48;
         LAB_10022edd9:
-            local_48.~shared_ptr();
         }
-        pAVar1 = (Array<game::VarValue, eastl::allocator>*)(pAVar14 + 160);
-        cVar4 = pAVar1->empty();
-        if (cVar4 == '\0') {
-            new (&local_48) Array<short, eastl::allocator>(pAVar14 + 184);
-            if (this_05 != (LoginManager*)0) {
-                pAVar13 = (Array<game::VarValue, eastl::allocator>*)this_05->get_overflow_allocator();
-                cVar4 = pAVar13->empty();
-                if (cVar4 == '\0') {
-                    pAVar14 = (Array*)this_05->get_overflow_allocator();
-                    Array<short, eastl::allocator>::operator=((Array<short, eastl::allocator>*)&local_48, pAVar14);
+        Array<game::VarValue>* pAVar1 = (Array<game::VarValue>*)(pAVar15 + 160);
+        if (!(pAVar1->empty())) {
+            local_48 = Array<short>((pAVar15 + 184));
+            if (this_04 != nullptr) {
+                pAVar10 = (Array<game::VarValue>*)this_04->get_overflow_allocator();
+                if (!(pAVar10->empty())) {
+                    pAVar11 = (Array<short>*)this_04->get_overflow_allocator();
+                    local_48 = *pAVar11;
                 }
             }
-            lVar8 = pAVar1->end();
-            if (lVar8 != 0) {
-                uVar18 = 0;
+            lVar7 = pAVar1->end();
+            if (lVar7 != 0) {
+                uVar14 = 0;
                 do {
-                    plVar15 =
-                        (long*)shared_ptr<dash3d::ModelUnlit>::operator->((shared_ptr<dash3d::ModelUnlit>*)&local_60);
-                    psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                        (Array<short, eastl::allocator>*)pAVar1, uVar18);
-                    sVar2 = *psVar16;
-                    psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                        (Array<short, eastl::allocator>*)&local_48, uVar18);
-                    (**(code**)(*plVar15 + 160))(plVar15, (int)sVar2, (int)*psVar16);
-                    uVar18 = uVar18 + 1;
-                    uVar11 = pAVar1->end();
-                } while (uVar18 < uVar11);
+                    plVar12 = (long*)local_60.operator->();
+                    psVar13 = (short*)(*pAVar1)[uVar14];
+                    sVar2 = *psVar13;
+                    psVar13 = &local_48[uVar14];
+                    (**(void (**)(...))(*plVar12 + 160))(plVar12, (int)sVar2, (int)*psVar13);
+                    uVar14 = uVar14 + 1;
+                    uVar8 = pAVar1->end();
+                } while (uVar14 < uVar8);
             }
-            local_48.~Array();
-            pAVar14 = param_1;
-            this_04 = (NpcType*)this;
-            this_05 = local_68;
+            pAVar15 = arg1;
+            this_03 = this;
+            this_04 = local_68;
         }
-        pAVar1 = (Array<game::VarValue, eastl::allocator>*)(pAVar14 + 208);
-        cVar4 = pAVar1->empty();
-        if (cVar4 == '\0') {
-            new (&local_48) Array<short, eastl::allocator>(pAVar14 + 232);
-            if (this_05 != (LoginManager*)0) {
-                pAVar13 = (Array<game::VarValue, eastl::allocator>*)this_05->GetDevCredentialsOutputDirectory();
-                cVar4 = pAVar13->empty();
-                if (cVar4 == '\0') {
-                    pAVar14 = (Array*)this_05->GetDevCredentialsOutputDirectory();
-                    Array<short, eastl::allocator>::operator=((Array<short, eastl::allocator>*)&local_48, pAVar14);
+        pAVar1 = (Array<game::VarValue>*)(pAVar15 + 208);
+        if (!(pAVar1->empty())) {
+            local_48 = Array<short>((pAVar15 + 232));
+            if (this_04 != nullptr) {
+                pAVar10 = (Array<game::VarValue>*)this_04->GetDevCredentialsOutputDirectory();
+                if (!(pAVar10->empty())) {
+                    pAVar11 = (Array<short>*)this_04->GetDevCredentialsOutputDirectory();
+                    local_48 = *pAVar11;
                 }
             }
-            lVar8 = pAVar1->end();
-            if (lVar8 != 0) {
-                uVar18 = 0;
+            lVar7 = pAVar1->end();
+            if (lVar7 != 0) {
+                uVar14 = 0;
                 do {
-                    plVar15 =
-                        (long*)shared_ptr<dash3d::ModelUnlit>::operator->((shared_ptr<dash3d::ModelUnlit>*)&local_60);
-                    psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                        (Array<short, eastl::allocator>*)pAVar1, uVar18);
-                    sVar2 = *psVar16;
-                    psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                        (Array<short, eastl::allocator>*)&local_48, uVar18);
-                    (**(code**)(*plVar15 + 168))(plVar15, (int)sVar2, (int)*psVar16);
-                    uVar18 = uVar18 + 1;
-                    uVar11 = pAVar1->end();
-                } while (uVar18 < uVar11);
+                    plVar12 = (long*)local_60.operator->();
+                    psVar13 = (short*)(*pAVar1)[uVar14];
+                    sVar2 = *psVar13;
+                    psVar13 = &local_48[uVar14];
+                    (**(void (**)(...))(*plVar12 + 168))(plVar12, (int)sVar2, (int)*psVar13);
+                    uVar14 = uVar14 + 1;
+                    uVar8 = pAVar1->end();
+                } while (uVar14 < uVar8);
             }
-            local_48.~Array();
-            this_04 = (NpcType*)this;
+            this_03 = this;
         }
-        shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<RSevenDebugPresetProvider>*)this_04, &local_60);
-        local_88->~vector();
-        local_60.~shared_ptr();
+        this_03->shared_ptr<FileRSevenDebugPresetProvider, void>(local_60);
     LAB_10022ef96:
-        local_a0->~Array();
-        return this_04;
+        return this_03;
     }
 
-    // 0x10022f820, 176 bytes, placed by class name and debug map
-    // NpcType::GetHead(NPCTypeCustomisation*)
-    NpcType* NpcType::GetHead(NPCTypeCustomisation* param_1) {
-        char cVar1;
-        NPCTypeCustomisation* pNVar3;
-        shared_ptr<NpcType> local_38[16];
+    // 0x10022f820
+    auto NpcType::GetHead(NPCTypeCustomisation* npcTypeCustomisation) {
+        NpcType* this_00;
+        ReturnValue local_38;
 
-        cVar1 = param_1[5].field_43.empty();
-        if (cVar1 == '\0') {
-            GetMultiNpc((NpcType*)local_38);
-            if (operator==((shared_ptr*)local_38, (_func_decltype_nullptr*)0)) {
-                new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        if (field_488.empty() == '\0') {
+            GetMultiNpc(&local_38, this);
+            if (local_38 == nullptr) {
+                auto result;
             } else {
-                pNVar3 = (NPCTypeCustomisation*)shared_ptr<NpcType>::operator->(local_38);
-                GetHead(this, pNVar3);
+                this_00 = (NpcType*)local_38.operator->();
+                GetHead(&result, this_00, npcTypeCustomisation);
             }
-            local_38->~shared_ptr();
         } else {
-            BuildModel(this, (Array*)param_1, (NPCTypeCustomisation*)&param_1->field_72);
+            BuildModel(&result, (Array<int>*)this, (NPCTypeCustomisation*)&field_72);
         }
-        return this;
+        return result;
     }
 
-    // 0x10022f8e0, 96 bytes, placed by class name and debug map
-    // NpcType::GetMultiNpcOrThis() const
-    NpcType* NpcType::GetMultiNpcOrThis() {
-        char cVar1;
+    // 0x10022f8e0
+    NpcType* NpcType::GetMultiNpcOrThis() const {
         NpcType* pNVar2;
-        undefined1 local_30[16];
+        ReturnValue local_30;
 
-        cVar1 = (&field_488)->empty();
-        if (cVar1 == '\0') {
-            GetMultiNpc((NpcType*)local_30);
-            pNVar2 = (NpcType*)local_30->end();
-            local_30->~shared_ptr();
+        if (field_488.empty() == '\0') {
+            GetMultiNpc(&local_30, this);
+            pNVar2 = (NpcType*)local_30.end();
         } else {
-            pNVar2 = (NpcType*)0;
+            pNVar2 = nullptr;
         }
-        if (pNVar2 != (NpcType*)0) {
+        if (pNVar2 != nullptr) {
             this = pNVar2;
         }
         return this;
     }
 
-    // 0x10022f940, 144 bytes, placed by class name and debug map
-    // NpcType::GetSpecifiedMultiNpcOrThis(int) const
-    NpcType* NpcType::GetSpecifiedMultiNpcOrThis(int param_1) {
+    // 0x10022f940
+    NpcType* NpcType::GetSpecifiedMultiNpcOrThis(int arg1) const {
         int iVar1;
-        long lVar2;
-        int* piVar3;
         NpcType* pNVar4;
-        ulong uVar5;
-        undefined1 local_30[16];
+        unsigned long arg1_00;
+        ReturnValue local_30;
 
-        if ((param_1 < 0) || (iVar1 = (&field_488)->end(), iVar1 + -1 <= param_1)) {
-            lVar2 = (&field_488)->end();
-            uVar5 = lVar2 - 1;
+        if ((arg1 < 0) || (iVar1 = field_488.end(), iVar1 - 1 <= arg1)) {
+            arg1_00 = field_488.end() - 1;
         } else {
-            uVar5 = (ulong)param_1;
+            arg1_00 = (unsigned long)arg1;
         }
-        piVar3 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_488, uVar5);
+        int* piVar3 = &field_488[arg1_00];
         if (*piVar3 != -1) {
-            List((NpcType*)local_30, *piVar3);
-            pNVar4 = (NpcType*)local_30->end();
-            local_30->~shared_ptr();
-            if (pNVar4 != (NpcType*)0) {
+            List(&local_30, *piVar3);
+            pNVar4 = (NpcType*)local_30.end();
+            if (pNVar4 != nullptr) {
                 return pNVar4;
             }
         }
         return this;
     }
 
-    // 0x10022f9d0, 176 bytes, placed by class name and debug map
-    // NpcType::IsMultiNpcVisible()
+    // 0x10022f9d0
     bool NpcType::IsMultiNpcVisible() {
-        undefined1* this_00;
-        long lVar1;
-        char cVar2;
         int iVar3;
         int iVar4;
         int* piVar5;
-        ulong uVar6;
+        unsigned long arg1;
 
-        this_00 = &field_488;
-        cVar2 = this_00->empty();
-        if (cVar2 != '\0') {
+        uint8_t* this_00 = &field_488;
+        if (this_00->empty() != '\0') {
             return true;
         }
         if (field_512 == 4294967295) {
             if ((long)(int)field_516 != 18446744073709551615) {
-                piVar5 = (int*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&ClientVarCache::m_var, (long)(int)field_516);
+                piVar5 = (int*)(*((Array<int>*)&ClientVarCache::m_var))[(long)(int)field_516];
                 iVar3 = *piVar5;
                 goto joined_r0x00010022fa2d;
             }
@@ -1006,89 +782,63 @@ namespace jag::oldscape::configdecoder {
             iVar3 = ClientVarCache::GetVarbit(field_512);
         joined_r0x00010022fa2d:
             if ((-1 < iVar3) && (iVar4 = this_00->end(), iVar3 < iVar4)) {
-                uVar6 = (ulong)iVar3;
+                arg1 = (unsigned long)iVar3;
                 goto LAB_10022fa5d;
             }
         }
-        lVar1 = this_00->end();
-        uVar6 = lVar1 - 1;
+        arg1 = this_00->end() - 1;
     LAB_10022fa5d:
-        piVar5 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, uVar6);
+        piVar5 = (int*)(*this_00)[arg1];
         return *piVar5 != -1;
     }
 
-    // 0x10022fa80, 48 bytes, placed by class name and debug map
-    // NpcType::GetParam(int, eastl::string const&)
-    NpcType* NpcType::GetParam(int param_1, basic_string* param_2) {
-        basic_string* pbVar1;
-        basic_string* in_RCX;
-        undefined4 in_register_00000034;
-
-        pbVar1 = (basic_string*)ParamTypeHelper::GetParam((hash_map*)(CONCAT44(in_register_00000034, param_1) + 528),
-                                                          (int)param_2, in_RCX);
-        new (this) eastl::string(pbVar1);
-        return this;
+    // 0x10022fa80
+    auto NpcType::GetParam(int arg1, const eastl::string& str) {
+        auto str_00 = ParamTypeHelper::GetParam(&field_528, arg1, str);
+        return auto(*str_00);
     }
 
-    // 0x10022fab0, 32 bytes, placed by class name and debug map
-    // NpcType::GetParam(int, int)
-    void NpcType::GetParam(int param_1, int param_2) {
-        ParamTypeHelper::GetParam((hash_map*)&field_528, param_1, param_2);
+    // 0x10022fab0
+    void NpcType::GetParam(int arg1, int arg2) {
+        ParamTypeHelper::GetParam(&field_528, arg1, arg2);
     }
 
-    // 0x10022fad0, 32 bytes, placed by class name and debug map
-    // NpcType::ResetCache()
+    // 0x10022fad0
     void NpcType::ResetCache() {
         m_recentUse.Reset();
         m_modelCache.Reset();
     }
 
-    // 0x10022faf0, 96 bytes, placed by class name and debug map
-    // NpcType::GetHeadIconGraphic(int) const
-    undefined4 NpcType::GetHeadIconGraphic(int param_1) {
-        char cVar1;
-        ulong uVar2;
-        undefined4* puVar3;
-        undefined1* this_00;
-        undefined4 uVar4;
+    // 0x10022faf0
+    uint32_t NpcType::GetHeadIconGraphic(int arg1) const {
+        unsigned long uVar2;
+        uint32_t* puVar3;
 
-        this_00 = &field_584;
-        cVar1 = this_00->empty();
-        uVar4 = 4294967295;
-        if (cVar1 == '\0') {
+        uint8_t* this_00 = &field_584;
+        bool cVar1 = this_00->empty();
+        uint32_t uVar4 = 4294967295;
+        if (!cVar1) {
             uVar2 = this_00->size();
-            if ((ulong)(long)param_1 < uVar2) {
-                puVar3 = (undefined4*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        (long)param_1);
+            if ((unsigned long)(long)arg1 < uVar2) {
+                puVar3 = (uint32_t*)(*this_00)[(long)arg1];
                 uVar4 = *puVar3;
             }
         }
         return uVar4;
     }
 
-    // 0x10022fb50, 96 bytes, placed by class name and debug map
-    // NpcType::GetHeadIconIndex(int) const
-    undefined4 NpcType::GetHeadIconIndex(int param_1) {
-        char cVar1;
-        ulong uVar2;
-        undefined4* puVar3;
-        undefined1* this_00;
-        undefined4 uVar4;
+    // 0x10022fb50
+    uint32_t NpcType::GetHeadIconIndex(int arg1) const {
+        unsigned long uVar2;
+        uint32_t* puVar3;
 
-        this_00 = &field_584;
-        cVar1 = this_00->empty();
-        uVar4 = 4294967295;
-        if (cVar1 == '\0') {
+        uint8_t* this_00 = &field_584;
+        bool cVar1 = this_00->empty();
+        uint32_t uVar4 = 4294967295;
+        if (!cVar1) {
             uVar2 = this_00->size();
-            if ((ulong)(long)param_1 < uVar2) {
-                puVar3 = (undefined4*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                            this_00,
-                        (long)param_1);
+            if ((unsigned long)(long)arg1 < uVar2) {
+                puVar3 = (uint32_t*)(*this_00)[(long)arg1];
                 uVar4 = *puVar3;
             }
         }
@@ -1098,28 +848,26 @@ namespace jag::oldscape::configdecoder {
 } // namespace jag::oldscape::configdecoder
 
 namespace jag {
-    // 0x10022d790, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::configdecoder::NpcType>::type make_shared<oldscape::configdecoder::NpcType>()
-    jag* make_shared<oldscape::configdecoder::NpcType>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10022d790
+    shared_ptr_if_not_array<oldscape::configdecoder::NpcType>::type make_shared<oldscape::configdecoder::NpcType>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         NpcType* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(760, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(760, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::configdecoder::NpcType>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::configdecoder::NpcType>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::configdecoder::NpcType>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::configdecoder::NpcType>, int,
-                                   oldscape::configdecoder::NpcType*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::configdecoder::NpcType>, int,
+                              oldscape::configdecoder::NpcType*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

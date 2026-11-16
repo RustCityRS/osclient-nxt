@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/sound/wave_stream.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,187 +10,179 @@ namespace jag::oldscape::sound {
         virtual ~WaveStream();
         virtual WaveStream* SubstreamStart();
         virtual WaveStream* SubstreamNext();
-        virtual SelfMixCost();
-        virtual void DoMix(Array<int, eastl::allocator>&, int, int);
-        virtual void PretendToMix(int);
-        WaveStream* NewRatePercent(shared_ptr<Wave>&, int, int);
-        WaveStream* NewRatePercent(shared_ptr<Wave>&, int, int, int);
-        WaveStream* NewRatePercentFineVolPan(shared_ptr<Wave>&, int, int, int);
-        WaveStream* NewRateRaw(shared_ptr<Wave>&, int, int);
-        WaveStream* NewRateRaw(shared_ptr<Wave>&, int, int, int);
+        virtual uint64_t SelfMixCost();
+        virtual void DoMix(Array<int>& arg1, int arg2, int arg3);
+        virtual void PretendToMix(int arg1);
+        auto NewRatePercent(shared_ptr<Wave>& wave, int arg2, int arg3);
+        auto NewRatePercent(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
+        auto NewRatePercentFineVolPan(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
+        auto NewRateRaw(shared_ptr<Wave>& wave, int arg2, int arg3);
+        auto NewRateRaw(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
         int Priority();
         void MyWave();
-        WaveStream(shared_ptr<Wave> const&, int, int);
+        WaveStream(const shared_ptr<Wave>& wave, int arg2, int arg3);
         void SetMLRVol();
-        WaveStream(shared_ptr<Wave> const&, int, int, int);
-        WaveStream* NewRateRawFineVolPan(shared_ptr<Wave>&, int, int, int);
-        int GetLVol(int, int);
-        int GetRVol(int, int);
+        WaveStream(const shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
+        auto NewRateRawFineVolPan(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4);
+        int GetLVol(int arg1, int arg2);
+        int GetRVol(int arg1, int arg2);
         void SkipRampNounLink();
-        void SetLoopCount(int);
-        void SetLoopPoints(int, int);
-        void QueueVolume(int);
-        void ApplyVolume(int);
-        void SetVolPanFine(int, int);
+        void SetLoopCount(int arg1);
+        void SetLoopPoints(int arg1, int arg2);
+        void QueueVolume(int arg1);
+        void ApplyVolume(int arg1);
+        void SetVolPanFine(int arg1, int arg2);
         int GetPanFine();
-        void SetVolumeFine(int);
-        void SetPan(int);
-        uint GetVolumeFine();
-        void SetPanFine(int);
-        void SetVolPan(int, int);
+        void SetVolumeFine(int arg1);
+        void SetPan(int arg1);
+        unsigned int GetVolumeFine();
+        void SetPanFine(int arg1);
+        void SetVolPan(int arg1, int arg2);
         int GetVolume();
         int GetPan();
         int GetPosition();
-        uint GetPositionFine();
-        void SetPosition(int);
-        void SetPositionFine(int);
-        void SetReverse(bool);
+        unsigned int GetPositionFine();
+        void SetPosition(int arg1);
+        void SetPositionFine(int arg1);
+        void SetReverse(bool arg1);
         void SetReverseFromEnd();
         void FlipDirection();
-        void SetBidirectionalLoop(bool);
-        void RampVolume(int, int);
-        void RampVolPanFine(int, int, int);
-        void RampVolumeFine(int, int);
-        void RampVolPan(int, int, int);
-        void RampOut(int);
-        void SetRateRaw(int);
+        void SetBidirectionalLoop(bool arg1);
+        void RampVolume(int arg1, int arg2);
+        void RampVolPanFine(int arg1, int arg2, int arg3);
+        void RampVolumeFine(int arg1, int arg2);
+        void RampVolPan(int arg1, int arg2, int arg3);
+        void RampOut(int arg1);
+        void SetRateRaw(int arg1);
         int GetRateRaw();
         bool Isfinished();
         bool Isramping();
         void PullQueuedStateIntoWorker();
-        ulong MixBackwardSto(Array<int, eastl::allocator>&, int, int, int, int);
-        ulong MixForwardSto(Array<int, eastl::allocator>&, int, int, int, int);
-        int DoMixForwards1To1RampStereo(int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int,
-                                        int, int, int, int, int, int, int, int, WaveStream*);
-        int DoMixForwards1To1RampMono(Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int, int,
-                                      int, int, int, int, int, WaveStream*);
-        void DoMixForwardsRampStereo(int, int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&,
-                                     int, int, int, int, int, int, int, int, int, WaveStream*, int, int);
-        ulong DoMixForwardsRampMono(int, int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int,
-                                    int, int, int, int, int, int, WaveStream*, int, int);
-        FinaliseRamp();
-        int DoMixForwards1To1Stereo(int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int, int,
-                                    int, int, int, int, int, WaveStream*);
-        int DoMixForwards1To1Mono(Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int, int, int,
-                                  int, int, int, WaveStream*);
-        int DoMixForwardsStereo(int, int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int,
-                                int, int, int, int, int, int, WaveStream*, int, int);
-        ulong DoMixForwardsMono(int, int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int,
-                                int, int, int, int, int, WaveStream*, int, int);
-        int DoMixBackwards1To1RampStereo(int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int,
-                                         int, int, int, int, int, int, int, int, WaveStream*);
-        ulong DoMixBackwards1To1RampMono(Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int, int,
-                                         int, int, int, int, int, WaveStream*);
-        void DoMixBackwardsRampStereo(int, int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&,
-                                      int, int, int, int, int, int, int, int, int, WaveStream*, int, int);
-        ulong DoMixBackwardsRampMono(int, int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&,
-                                     int, int, int, int, int, int, int, WaveStream*, int, int);
-        int DoMixBackwards1To1Stereo(int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int,
-                                     int, int, int, int, int, int, WaveStream*);
-        ulong DoMixBackwards1To1Mono(Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int, int,
-                                     int, int, int, int, WaveStream*);
-        int DoMixBackwardsStereo(int, int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int,
-                                 int, int, int, int, int, int, WaveStream*, int, int);
-        ulong DoMixBackwardsMono(int, int, Array<signed char, eastl::allocator>&, Array<int, eastl::allocator>&, int,
-                                 int, int, int, int, int, WaveStream*, int, int);
+        unsigned long MixBackwardSto(Array<int>& arg1, int arg2, int arg3, int arg4, int arg5);
+        unsigned long MixForwardSto(Array<int>& arg1, int arg2, int arg3, int arg4, int arg5);
+        int DoMixForwards1To1RampStereo(int arg1, Array<signed char>& arg2, Array<int>& arg3, int arg4, int arg5,
+                                        int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12,
+                                        WaveStream* waveStream);
+        int DoMixForwards1To1RampMono(Array<signed char>& arg1, Array<int>& arg2, int arg3, int arg4, int arg5,
+                                      int arg6, int arg7, int arg8, int arg9, WaveStream* waveStream);
+        void DoMixForwardsRampStereo(int arg1, int arg2, Array<signed char>& arg3, Array<int>& arg4, int arg5, int arg6,
+                                     int arg7, int arg8, int arg9, int arg10, int arg11, int arg12, int arg13,
+                                     WaveStream* waveStream, int arg15, int arg16);
+        unsigned long DoMixForwardsRampMono(int arg1, int arg2, Array<signed char>& arg3, Array<int>& arg4, int arg5,
+                                            int arg6, int arg7, int arg8, int arg9, int arg10, int arg11,
+                                            WaveStream* waveStream, int arg13, int arg14);
+        uint64_t FinaliseRamp();
+        int DoMixForwards1To1Stereo(int arg1, Array<signed char>& arg2, Array<int>& arg3, int arg4, int arg5, int arg6,
+                                    int arg7, int arg8, int arg9, int arg10, WaveStream* waveStream);
+        int DoMixForwards1To1Mono(Array<signed char>& arg1, Array<int>& arg2, int arg3, int arg4, int arg5, int arg6,
+                                  int arg7, int arg8, WaveStream* waveStream);
+        int DoMixForwardsStereo(int arg1, int arg2, Array<signed char>& arg3, Array<int>& arg4, int arg5, int arg6,
+                                int arg7, int arg8, int arg9, int arg10, int arg11, WaveStream* waveStream, int arg13,
+                                int arg14);
+        unsigned long DoMixForwardsMono(int arg1, int arg2, Array<signed char>& arg3, Array<int>& arg4, int arg5,
+                                        int arg6, int arg7, int arg8, int arg9, int arg10, WaveStream* waveStream,
+                                        int arg12, int arg13);
+        int DoMixBackwards1To1RampStereo(int arg1, Array<signed char>& arg2, Array<int>& arg3, int arg4, int arg5,
+                                         int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12,
+                                         WaveStream* waveStream);
+        unsigned long DoMixBackwards1To1RampMono(Array<signed char>& arg1, Array<int>& arg2, int arg3, int arg4,
+                                                 int arg5, int arg6, int arg7, int arg8, int arg9,
+                                                 WaveStream* waveStream);
+        void DoMixBackwardsRampStereo(int arg1, int arg2, Array<signed char>& arg3, Array<int>& arg4, int arg5,
+                                      int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12,
+                                      int arg13, WaveStream* waveStream, int arg15, int arg16);
+        unsigned long DoMixBackwardsRampMono(int arg1, int arg2, Array<signed char>& arg3, Array<int>& arg4, int arg5,
+                                             int arg6, int arg7, int arg8, int arg9, int arg10, int arg11,
+                                             WaveStream* waveStream, int arg13, int arg14);
+        int DoMixBackwards1To1Stereo(int arg1, Array<signed char>& arg2, Array<int>& arg3, int arg4, int arg5, int arg6,
+                                     int arg7, int arg8, int arg9, int arg10, WaveStream* waveStream);
+        unsigned long DoMixBackwards1To1Mono(Array<signed char>& arg1, Array<int>& arg2, int arg3, int arg4, int arg5,
+                                             int arg6, int arg7, int arg8, WaveStream* waveStream);
+        int DoMixBackwardsStereo(int arg1, int arg2, Array<signed char>& arg3, Array<int>& arg4, int arg5, int arg6,
+                                 int arg7, int arg8, int arg9, int arg10, int arg11, WaveStream* waveStream, int arg13,
+                                 int arg14);
+        unsigned long DoMixBackwardsMono(int arg1, int arg2, Array<signed char>& arg3, Array<int>& arg4, int arg5,
+                                         int arg6, int arg7, int arg8, int arg9, int arg10, WaveStream* waveStream,
+                                         int arg12, int arg13);
 
-        // data members, from how the methods use this: 140 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        long field_24; // offset 24
-        char _unknown_32[16];
-        undefined4 field_48; // offset 48
-        undefined1 field_52; // offset 52
-        char _unknown_53[19];
-        uint field_72;        // offset 72
-        int field_76;         // offset 76
-        uint field_80;        // offset 80
-        int field_84;         // offset 84
-        uint field_88;        // offset 88
-        uint field_92;        // offset 92
-        uint field_96;        // offset 96
-        undefined1 field_100; // offset 100
-        char _unknown_101[3];
-        int m_loopCount; // offset 104
-        int field_108;   // offset 108
-        int field_112;   // offset 112
-        bool field_116;  // offset 116
-        char _unknown_117[3];
-        uint field_120; // offset 120
-        uint field_124; // offset 124
-        uint field_128; // offset 128
-        uint field_132; // offset 132
-        char _unknown_136[4];
+    private:
+        uint8_t _unknown_8[16];
+        long field_24;
+        uint8_t _unknown_32[16];
+        uint32_t field_48;
+        uint8_t field_52;
+        uint8_t _unknown_53[19];
+        unsigned int field_72;
+        int field_76;
+        unsigned int field_80;
+        int field_84;
+        unsigned int field_88;
+        unsigned int field_92;
+        unsigned int field_96;
+        uint8_t _unknown_100[4];
+        int field_104;
+        int field_108;
+        int field_112;
+        bool field_116;
+        uint8_t _unknown_117[3];
+        unsigned int field_120;
+        unsigned int field_124;
+        unsigned int field_128;
+        unsigned int field_132;
+        uint8_t _unknown_136[4];
     };
 
-    // 0x1002a1400, 112 bytes, inline, placed by class name and debug map
-    // WaveStream::GetLVol(int, int)
-    int WaveStream::GetLVol(int param_1, int param_2) {
+    // 0x1002a1400
+    int WaveStream::GetLVol(int arg1, int arg2) {
         float fVar1;
-        undefined4 in_XMM1_Db;
-        undefined4 in_XMM1_Dc;
-        undefined4 in_XMM1_Dd;
-        undefined1 in_XMM2[16];
-        undefined1 auVar2[16];
+        uint32_t in_XMM1_Db;
+        uint32_t in_XMM1_Dc;
+        uint32_t in_XMM1_Dd;
+        uint8_t in_XMM2[16];
+        uint8_t auVar2[16];
         float fVar3;
 
-        if (-1 < param_2) {
-            fVar1 = (float)(16384 - param_2) * 0.00012207031;
+        if (-1 < arg2) {
+            fVar1 = (float)(16384 - arg2) * 0.00012207031f;
             auVar2._4_4_ = in_XMM1_Db;
             auVar2._0_4_ = fVar1;
             auVar2._8_4_ = in_XMM1_Dc;
             auVar2._12_4_ = in_XMM1_Dd;
             auVar2 = rsqrtss(in_XMM2, auVar2);
             fVar3 = fVar1 * auVar2._0_4_;
-            param_1 = (int)((float)(~-(uint)(ABS(fVar1) < 1.1754944e-38) &
-                                    (uint)((fVar3 * auVar2._0_4_ + -3.0) * fVar3 * -0.5)) *
-                                (float)param_1 +
-                            0.5);
+            arg1 = (int)((float)(~-(unsigned int)(ABS(fVar1) < 1.1754944e-38) &
+                                 (unsigned int)((fVar3 * auVar2._0_4_ - 3.0) * fVar3 * -0.5)) *
+                             (float)arg1 +
+                         0.5);
         }
-        return param_1;
+        return arg1;
     }
 
-    // 0x1002a1470, 112 bytes, inline, placed by class name and debug map
-    // WaveStream::GetRVol(int, int)
-    int WaveStream::GetRVol(int param_1, int param_2) {
-        float fVar1;
-        undefined4 in_XMM1_Db;
-        undefined4 in_XMM1_Dc;
-        undefined4 in_XMM1_Dd;
-        undefined1 in_XMM2[16];
-        undefined1 auVar2[16];
-        float fVar3;
+    // 0x1002a1470
+    int WaveStream::GetRVol(int arg1, int arg2) {
+        uint32_t in_XMM1_Db;
+        uint32_t in_XMM1_Dc;
+        uint32_t in_XMM1_Dd;
+        uint8_t in_XMM2[16];
+        uint8_t auVar2[16];
 
-        if (param_2 < 0) {
-            return -param_1;
+        if (arg2 < 0) {
+            return -arg1;
         }
-        fVar1 = (float)param_2 * 0.00012207031;
+        float fVar1 = (float)arg2 * 0.00012207031f;
         auVar2._4_4_ = in_XMM1_Db;
         auVar2._0_4_ = fVar1;
         auVar2._8_4_ = in_XMM1_Dc;
         auVar2._12_4_ = in_XMM1_Dd;
         auVar2 = rsqrtss(in_XMM2, auVar2);
-        fVar3 = fVar1 * auVar2._0_4_;
-        return (
-            int)((float)(~-(uint)(ABS(fVar1) < 1.1754944e-38) & (uint)((fVar3 * auVar2._0_4_ + -3.0) * fVar3 * -0.5)) *
-                     (float)param_1 +
-                 0.5);
+        float fVar3 = fVar1 * auVar2._0_4_;
+        return (int)((float)(~-(unsigned int)(ABS(fVar1) < 1.1754944e-38) &
+                             (unsigned int)((fVar3 * auVar2._0_4_ - 3.0) * fVar3 * -0.5)) *
+                         (float)arg1 +
+                     0.5);
     }
 
-    // 0x1002a7660, 16 bytes, complete-object destructor, inline, placed by class name
-    // WaveStream::~WaveStream(): jumps straight to the base-object destructor
-
-    // 0x1002a7670, 32 bytes, deleting destructor, inline, placed by class name
-    // WaveStream::~WaveStream()
-    void WaveStream::~WaveStream() {
-        ~WaveStream(this);
-        operator_delete(this);
-    }
-
-    // 0x1002a8690, 16 bytes, base-object destructor, inline, placed by class name
-    // WaveStream::~WaveStream()
-    void WaveStream::~WaveStream() {
-        ~PCMStream();
-    }
+    // 0x1002a8690
+    WaveStream::~WaveStream() {}
 
 } // namespace jag::oldscape::sound

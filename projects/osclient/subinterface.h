@@ -1,133 +1,119 @@
 // projects/osclient/subinterface.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x1001170c0, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<game::VarContainerSparse>::type make_shared<game::VarContainerSparse>()
-    jag* make_shared<game::VarContainerSparse>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1001170c0
+    shared_ptr_if_not_array<game::VarContainerSparse>::type make_shared<game::VarContainerSparse>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         VarContainerSparse* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(96, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<game::VarContainerSparse>::type result;
         } else {
-            local_28[0] = placement_new<game::VarContainerSparse>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<game::VarContainerSparse>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<game::VarContainerSparse>, int, game::VarContainerSparse*&>(
-                pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<game::VarContainerSparse>, int, game::VarContainerSparse*&>(
+                    arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x100117430, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientObj>::type make_shared<oldscape::ClientObj>()
-    jag* make_shared<oldscape::ClientObj>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100117430
+    shared_ptr_if_not_array<oldscape::ClientObj>::type make_shared<oldscape::ClientObj>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         ClientObj* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(96, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::ClientObj>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::ClientObj>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::ClientObj>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientObj>, int, oldscape::ClientObj*&>(
-                pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientObj>, int, oldscape::ClientObj*&>(arg1, &local_2c,
+                                                                                                   local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x100117580, 16 bytes, inline, placed by debug map only (low confidence)
-    // ShuffledPacket3::g3s()
+    // 0x100117580
     void ShuffledPacket3::g3s() {
         g3s_alt2();
     }
 
-    // 0x100117590, 16 bytes, inline, placed by debug map only (low confidence)
-    // ShuffledPacket2::g3s()
+    // 0x100117590
     void ShuffledPacket2::g3s() {
         g3s_alt1();
     }
 
-    // 0x1001175a0, 240 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientProj>::type make_shared<oldscape::ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&, int&>(int&, int&, int&, int&, int&&, int&&, int&&, int&, int&, int&, int&, int&)
-    jag* make_shared<oldscape::ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&, int&>(
-        int* param_1, int* param_2, int* param_3, int* param_4, int* param_5, int* param_6, int* param_7, int* param_8,
-        int* param_9, int* param_10, int* param_11, int* param_12) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1001175a0
+    shared_ptr_if_not_array<oldscape::ClientProj>::type
+    make_shared<oldscape::ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&, int&>(
+        int& arg1, int& arg2, int& arg3, int& arg4, int&& arg5, int&& arg6, int&& arg7, int& arg8, int& arg9,
+        int& arg10, int& arg11, int& arg12) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000038;
         int local_44;
         ClientProj* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(224, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(224, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
-            local_40[0] =
-                placement_new<oldscape::ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&,
-                              int&>((void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6,
-                                    param_7, param_8, param_9, param_10, param_11, param_12);
+            local_40[0] = placement_new<oldscape::ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&,
+                                        int&, int&>((void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7,
+                                                    arg8, arg9, arg10, arg11, arg12, in_stack_00000038);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientProj>, int, oldscape::ClientProj*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientProj>, int, oldscape::ClientProj*&>(arg1_00, &local_44,
+                                                                                                     local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x100119b30, 160 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientNpc>::type make_shared<oldscape::ClientNpc, int&>(int&)
-    jag* make_shared<oldscape::ClientNpc, int&>(int* param_1) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100119b30
+    shared_ptr_if_not_array<oldscape::ClientNpc>::type make_shared<oldscape::ClientNpc, int&>(int& arg1) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_34;
         ClientNpc* local_30[2];
 
-        pvVar1 = (void*)aligned_alloc(1120, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(1120, 8);
+        if (arg1_00 == nullptr) {
+            shared_ptr_if_not_array<oldscape::ClientNpc>::type result;
         } else {
-            local_30[0] = placement_new<oldscape::ClientNpc, int&>((void*)((long)pvVar1 + 32), param_1);
+            local_30[0] = placement_new<oldscape::ClientNpc, int&>((void*)((long)arg1_00 + 32), arg1);
             local_34 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientNpc>, int, oldscape::ClientNpc*&>(
-                pvVar1, &local_34, local_30);
-            prVar2->~AutoSingleton(local_30[0]);
-            prVar2->~AutoSingleton(local_30[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_30[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientNpc>, int, oldscape::ClientNpc*&>(arg1_00, &local_34,
+                                                                                                   local_30);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_30[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10011a760, 80 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::gSmart2or4s()
-    uint PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gSmart2or4s(
-        PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this) {
-        ushort uVar1;
-        uint uVar2;
-        char* pcVar3;
+    // 0x10011a760
+    unsigned int PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gSmart2or4s() {
+        unsigned short uVar1;
+        unsigned int uVar2;
 
-        pcVar3 = (char*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, *(ulong*)(this + 24));
+        char* pcVar3 = (char*)(*this)[*(unsigned long*)(this + 24)];
         if (*pcVar3 < '\0') {
             uVar2 = g4(this);
             uVar2 = uVar2 & 2147483647;
@@ -135,21 +121,17 @@ namespace jag {
             uVar1 = g2(this);
             uVar2 = 4294967295;
             if (uVar1 != 32767) {
-                uVar2 = (uint)uVar1;
+                uVar2 = (unsigned int)uVar1;
             }
         }
         return uVar2;
     }
 
-    // 0x10011a7f0, 64 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::gSmart1Or2Minus1()
-    int PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gSmart1Or2Minus1(
-        PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this) {
+    // 0x10011a7f0
+    int PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gSmart1Or2Minus1() {
         short sVar2;
-        char* pcVar3;
 
-        pcVar3 = (char*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, *(ulong*)(this + 24));
+        char* pcVar3 = (char*)(*this)[*(unsigned long*)(this + 24)];
         if (*pcVar3 < '\0') {
             sVar2 = g2(this);
             sVar2 = sVar2 + 32767;
@@ -167,17 +149,8 @@ namespace jag::oldscape {
         SubInterface();
     };
 
-    // 0x100114a30, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // SubInterface::SubInterface(): jumps straight to the base-object constructor
-
-    // 0x1001303d0, 16 bytes, base-object constructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // SubInterface::SubInterface()
-    /* game::EnvironmentOverrideParam<game::ColourGradingEnvironmentOverrides::ColourRemap>::EnvironmentOverrideParam()
-    */
-
-    void
-    game::EnvironmentOverrideParam<game::ColourGradingEnvironmentOverrides::ColourRemap>::EnvironmentOverrideParam() {
+    // 0x1001303d0
+    SubInterface::SubInterface() {
         this[8] = (EnvironmentOverrideParam<game::ColourGradingEnvironmentOverrides::ColourRemap>)0;
     }
 

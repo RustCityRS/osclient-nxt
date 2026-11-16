@@ -1,61 +1,51 @@
 // libs/graphics/runetek5/ParticleRawLoader.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class ParticleRawLoader {
     public:
-        GetEmitterTypes() const;
-        GetEffectorTypes() const;
+        Option<float>* GetEmitterTypes() const;
+        uint8_t* GetEffectorTypes() const;
         int GetMaxEffectorID() const;
         int GetMaxEmitterID() const;
         ParticleRawLoader();
         ~ParticleRawLoader();
-        void Initialise(Js5ResourceProvider*, Js5ArchiveSettings const*, unsigned int, unsigned int);
+        void Initialise(Js5ResourceProvider* js5ResourceProvider, const Js5ArchiveSettings* js5ArchiveSettings,
+                        unsigned int arg3, unsigned int arg4);
         void Destruct();
         bool MainLogic();
 
-        // data members, from how the methods use this: 72 bytes
-        Js5ResourceProvider* field_0; // offset 0
-        Js5ArchiveSettings* field_8;  // offset 8
-        uint field_16;                // offset 16
-        uint field_20;                // offset 20
-        char _unknown_24[4];
-        int m_maxEmitterID; // offset 28
-        char _unknown_32[24];
-        int field_56;        // offset 56
-        int m_maxEffectorID; // offset 60
-        char _unknown_64[8];
+    private:
+        Js5ResourceProvider* field_0;
+        Js5ArchiveSettings* field_8;
+        unsigned int field_16;
+        unsigned int field_20;
+        uint8_t _unknown_24[4];
+        int m_maxEmitterID;
+        uint8_t _unknown_32[24];
+        int field_56;
+        int m_maxEffectorID;
+        uint8_t _unknown_64[8];
     };
 
-    // 0x1007ce3a0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // ParticleRawLoader::ParticleRawLoader(): jumps straight to the base-object constructor
-
-    // 0x1007ce560, 16 bytes, complete-object destructor, inline, placed by class name
-    // ParticleRawLoader::~ParticleRawLoader(): jumps straight to the base-object destructor
-
-    // 0x1007e5850, 80 bytes, base-object constructor, inline, placed by class name
-    // ParticleRawLoader::ParticleRawLoader()
-    void ParticleRawLoader::ParticleRawLoader() {
-        field_16 = 0;
-        field_20 = 0;
-        *(undefined8*)&field_24 = 0;
-        field_0 = (Js5ResourceProvider*)0;
-        field_8 = (Js5ArchiveSettings*)0;
-        new (&field_32) Array<ParticleEmitterRaw, eastl::allocator>();
+    // 0x1007e5850
+    ParticleRawLoader::ParticleRawLoader() : field_16(0), field_20(0) {
+        *(uint64_t*)&field_24 = 0;
+        field_0 = nullptr;
+        field_8 = nullptr;
+        new (&field_32) Array<ParticleEmitterRaw>();
         field_56 = 0;
         m_maxEffectorID = 0;
-        new (&field_64) Array<ParticleEffectorRaw, eastl::allocator>();
+        new (&field_64) Array<ParticleEffectorRaw>();
     }
 
-    // 0x1007e5990, 80 bytes, base-object destructor, inline, placed by class name
-    // ParticleRawLoader::~ParticleRawLoader()
-    void ParticleRawLoader::~ParticleRawLoader() {
-        Destruct(this);
-        (&field_64)->~Array();
-        (&field_32)->~Array();
+    // 0x1007e5990
+    ParticleRawLoader::~ParticleRawLoader() {
+        Destruct();
+        field_64.~Array();
+        field_32.~Array();
     }
 
 } // namespace jag::graphics

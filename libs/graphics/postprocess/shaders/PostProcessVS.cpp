@@ -1,25 +1,20 @@
 // libs/graphics/postprocess/shaders/PostProcessVS.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics.postprocess
 
 namespace jag::postprocess {
     class PostProcessVS {
     public:
-        PostProcessVS* BuildVSFragment();
-
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        auto BuildVSFragment();
     };
 
-    // 0x1009aeae0, 160 bytes, placed by class name and debug map
-    // PostProcessVS::BuildVSFragment()
-    PostProcessVS* PostProcessVS::BuildVSFragment() {
-        undefined1 local_128[280];
+    // 0x1009aeae0
+    auto PostProcessVS::BuildVSFragment() {
+        uint8_t local_128[280];
 
         new (local_128) render::VertexShaderSourceStream(2, 2, 1, 1, 1, 1, 24);
         std::operator<<(
-            (ostream*)(local_128 + 16),
+            (basic_ostream<char, std::char_traits<char> _>*)(local_128 + 16),
             "                                                                       \nattribute vec3 aPos;             "
             "                                      \nattribute vec2 aTexCoord;                                         "
             "     \n                                                                       \nout vec2 vTexCoord;       "
@@ -28,9 +23,8 @@ namespace jag::postprocess {
             "                                                    \n   vTexCoord = aTexCoord;                           "
             "                   \n   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);                    \n}           "
             "                                                           \n");
-        str();
-        local_128->~VertexShaderSourceStream();
-        return this;
+        auto result = local_128->str();
+        return result;
     }
 
 } // namespace jag::postprocess

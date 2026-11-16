@@ -1,46 +1,34 @@
 // libs/game/runetek5/memory/MemoryManagement.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 namespace jag {
-    // 0x1004b1fd0, 32 bytes, inline, placed by debug map only (low confidence)
-    // eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul, true, eastl::allocator>* placement_new<eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul, true, eastl::allocator>>(void*)
-    fixed_vector*
-    jag::placement_new<eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul,
-                                           true, eastl::allocator>>(void* param_1) {
-        eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul, true,
-                            eastl::allocator>::fixed_vector(param_1);
-        return param_1;
+    // 0x1004b1fd0
+    eastl::fixed_vector<eastl::vector<eastl::vector<int>>, 4ul>*
+    placement_new<eastl::fixed_vector<eastl::vector<eastl::vector<int>>, 4ul>>(void* arg1) {
+        new (arg1) eastl::fixed_vector<eastl::vector<eastl::vector<int>>, 4ul>();
+        return arg1;
     }
 
-    // 0x1004b1ff0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul, true, eastl::allocator> >* placement_new<ref_counter_shared<eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul, true, eastl::allocator> >, int, eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul, true, eastl::allocator>*&>(void*, int&&, eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul, true, eastl::allocator>*&)
-    ref_counter_shared* jag::placement_new<
-        ref_counter_shared<eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>,
-                                               4ul, true, eastl::allocator>>,
-        int,
-        eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul, true,
-                            eastl::allocator>*&>(void* param_1, int* param_2, fixed_vector** param_3) {
-        ref_counter_shared<eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>,
-                                               4ul, true, eastl::allocator>>::ref_counter_shared(param_1,
-                                                                                                 (long)*param_2,
-                                                                                                 *param_3);
-        return param_1;
+    // 0x1004b1ff0
+    ref_counter_shared<eastl::fixed_vector<eastl::vector<eastl::vector<int>>, 4ul>>*
+    placement_new<ref_counter_shared<eastl::fixed_vector<eastl::vector<eastl::vector<int>>, 4ul>>, int,
+                  eastl::fixed_vector<eastl::vector<eastl::vector<int>>, 4ul>*&>(
+        void* arg1, int&& arg2, eastl::fixed_vector<eastl::vector<eastl::vector<int>>, 4ul>*& arg3) {
+        new (arg1) ref_counter_shared<eastl::fixed_vector<eastl::vector<eastl::vector<int>>, 4ul>>((long)*arg2, arg3);
+        return arg1;
     }
 
 } // namespace jag
 
 namespace jag::game {
-    // 0x1004b00f0, 624 bytes, placed by __FILE__ string
-    // CreateMemoryBuckets()
+    // 0x1004b00f0
     void CreateMemoryBuckets() {
         if (this_thread::IsMainThread() == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/memory/"
                       "MemoryManagement.cpp",
-                      11, (char*)0);
+                      11, nullptr);
         }
         BucketManager::Init(512, 1024);
         BucketManager::CreateBucket(4, 2048, 4);

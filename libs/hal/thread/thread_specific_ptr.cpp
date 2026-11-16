@@ -1,165 +1,101 @@
 // libs/hal/thread/thread_specific_ptr.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.thread
 
 #include "thread_specific_ptr.h"
 
 namespace jag::detail {
-    // 0x100c95d80, 128 bytes, placed by debug map only (low confidence)
-    // get_tls_data(void*)
-    undefined8 get_tls_data(void* param_1) {
-        undefined8 uVar2;
+    // 0x100c95d80
+    void get_tls_data(void* arg1) {
+        rbtree<void*, eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>, eastl::less<void*>,
+               eastl::allocator, eastl::use_first<eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>>, true,
+               true>* this;
+        uint64_t uVar2;
         long lVar3;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base local_38[8];
-        void* local_30;
-        eastl local_28[8];
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_38;
 
-        local_30 = param_1;
+        void* local_30 = arg1;
         g_tlsMap();
-        (*(code*)g_tlsMap)();
-        eastl::rbtree<void*, eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>, eastl::less<void*>,
-                      eastl::allocator, eastl::use_first<eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>>,
-                      true, true>::find((void**)local_28);
+        this =
+            (rbtree<void*, eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>, eastl::less<void*>,
+                    eastl::allocator, eastl::use_first<eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>>,
+                    true, true>*)(*(void (*)(...))g_tlsMap)();
+        auto local_28 = find(local_30);
         g_tlsMap();
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        if (eastl::operator==(local_28, local_38, extraout_RDX)) {
-            uVar2 = 0;
+        local_38.end();
+        if (!(local_28 == local_38)) {
+            lVar3 = *local_28;
+            uVar2 = *(uint64_t*)(lVar3 + 8);
         } else {
-            lVar3 = eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator*(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                    local_28);
-            uVar2 = *(undefined8*)(lVar3 + 8);
+            uVar2 = 0;
         }
         return uVar2;
     }
 
-    // 0x100c95f00, 288 bytes, placed by debug map only (low confidence)
-    // set_tls_data(void*, void*, void (*)(void*))
-    void set_tls_data(void* param_1, void* param_2, _func_void_void_ptr* param_3) {
-        long lVar1;
-        undefined8 uVar2;
-        void* pvVar3;
-        _func_void_void_ptr* p_Var4;
-        bool bVar5;
-        hashtable_iterator_base* extraout_RDX;
-        undefined8 extraout_RDX_00;
-        pair local_80[16];
-        hashtable_iterator_base local_70[24];
-        undefined8 local_58;
-        undefined8 local_50;
+    // 0x100c95f00
+    void set_tls_data(void* arg1, void* arg2, void (*arg3)(void*)) {
+        GPUMemoryAllocatorZone* pGVar1;
+        rbtree<void*, eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>, eastl::less<void*>,
+               eastl::allocator, eastl::use_first<eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>>, true,
+               true>* prVar4;
+        long lVar5;
+        uint8_t auVar6[16];
+        ReturnValue local_80;
+        ReturnValue local_70;
+        uint8_t local_58[16];
         ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
                      shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
                      shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>
             local_48[8];
-        void* local_40;
-        void* local_38;
-        _func_void_void_ptr* local_30;
-        eastl local_28[8];
 
-        local_40 = param_1;
-        local_38 = param_2;
-        local_30 = param_3;
+        void* local_40 = arg1;
+        GPUMemoryAllocatorZone* local_38 = arg2;
+        void* local_30 = arg3;
         g_tlsMap();
-        (*(code*)g_tlsMap)();
-        eastl::rbtree<void*, eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>, eastl::less<void*>,
-                      eastl::allocator, eastl::use_first<eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>>,
-                      true, true>::find((void**)local_28);
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar5 = eastl::operator==(local_28, local_70, extraout_RDX);
-        p_Var4 = local_30;
-        if (bVar5) {
-            if (local_38 != (void*)0) {
-                local_58 = eastl::make_pair<void*&, void (*&)(void*)>(&local_38, (_func_void_void_ptr*)&local_30);
-                local_50 = extraout_RDX_00;
-                eastl::make_pair<void*&, eastl::pair<void*, void (*)(void*)>>((eastl*)local_70, &local_40,
-                                                                              (pair*)&local_58);
-                (*(code*)g_tlsMap)();
-                eastl::rbtree<void*, eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>, eastl::less<void*>,
-                              eastl::allocator,
-                              eastl::use_first<eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>>, true,
-                              true>::insert<eastl::pair<void*, eastl::pair<void*, void (*)(void*)>>, void>(local_80);
+        prVar4 =
+            (rbtree<void*, eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>, eastl::less<void*>,
+                    eastl::allocator, eastl::use_first<eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>>,
+                    true, true>*)(*(void (*)(...))g_tlsMap)();
+        auto local_28 = prVar4->find(local_40);
+        local_70.end();
+        bool cVar3 = local_28 == local_70;
+        void* pcVar2 = local_30;
+        if (!cVar3) {
+            if (local_30 != (void (*)(...))0) {
+                lVar5 = *local_28;
+                (*pcVar2)(*(uint64_t*)(lVar5 + 8));
             }
-        } else {
-            if (local_30 != (_func_void_void_ptr*)0) {
-                lVar1 = eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_28);
-                (*p_Var4)(*(void**)(lVar1 + 8));
-            }
-            pvVar3 = local_38;
-            if (local_38 == (void*)0) {
-                eastl::ListIterator<
-                    shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                    shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                    shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>::ListIterator(local_48,
-                                                                                             (ListIterator*)local_28);
-                uVar2 = (*(code*)g_tlsMap)();
-                eastl::rbtree<void*, eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>, eastl::less<void*>,
-                              eastl::allocator,
-                              eastl::use_first<eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>>, true,
-                              true>::erase(local_70, uVar2);
+            pGVar1 = local_38;
+            if (local_38 == nullptr) {
+                new (local_48) eastl::ListIterator(&local_28);
+                auVar6 = (*(void (*)(...))g_tlsMap)();
+                local_70 = auVar6._0_8_->erase(auVar6._8_8_);
             } else {
-                lVar1 = eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_28);
-                p_Var4 = local_30;
-                *(void**)(lVar1 + 8) = pvVar3;
-                lVar1 = eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_28);
-                *(_func_void_void_ptr**)(lVar1 + 16) = p_Var4;
+                lVar5 = *local_28;
+                pcVar2 = local_30;
+                *(GPUMemoryAllocatorZone**)(lVar5 + 8) = pGVar1;
+                lVar5 = *local_28;
+                *(void (**)(...))(lVar5 + 16) = pcVar2;
             }
+        } else if (local_38 != nullptr) {
+            local_58 = eastl::make_pair<void*&, void (*&)(void*)>(local_38, &local_30);
+            local_70 = eastl::make_pair<void*&, eastl::pair<void*, void (*)(void*)>>(local_40, *local_58);
+            prVar4 = (rbtree<void*, eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>, eastl::less<void*>,
+                             eastl::allocator,
+                             eastl::use_first<eastl::pair<void* const, eastl::pair<void*, void (*)(void*)>>>, true,
+                             true>*)(*(void (*)(...))g_tlsMap)();
+            local_80 = prVar4->insert<eastl::pair<void*, eastl::pair<void*, void (*)(void*)>>, void>(local_70);
         }
     }
 
 } // namespace jag::detail
 
-// 0x100c95e00, 32 bytes, placed by debug map only (low confidence)
-// TLS wrapper function for jag::detail::g_tlsMap
-void jag::detail::g_tlsMap() {
+// 0x100c95e00
+void jag::detail::g_tlsMap(void) {
     ___tls_init();
-    (*(code*)g_tlsMap)();
+    (*(void (*)(...))g_tlsMap)();
 }

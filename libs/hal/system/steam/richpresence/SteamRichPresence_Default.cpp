@@ -1,6 +1,5 @@
 // libs/hal/system/steam/richpresence/SteamRichPresence_Default.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.system.steam
 
 namespace jag {
@@ -8,42 +7,31 @@ namespace jag {
     public:
         SteamRichPresence();
         ~SteamRichPresence();
-        SetRichPresenceStatus(SteamRichDisplay, SteamRichDisplay) const;
-        SetRichPresenceStatusCustom(SteamRichDisplay, char const*) const;
+        uint8_t SetRichPresenceStatus(SteamRichDisplay steamRichDisplay1, SteamRichDisplay steamRichDisplay2) const;
+        uint8_t SetRichPresenceStatusCustom(SteamRichDisplay steamRichDisplay, const char* str) const;
         void ClearRichPresenceStatus() const;
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
-    // 0x1003ac0a0, 16 bytes, base-object constructor, placed by class name and debug map
-    // SteamRichPresence::SteamRichPresence()
-    void SteamRichPresence::SteamRichPresence() {}
+    // 0x1003ac0a0
+    SteamRichPresence::SteamRichPresence() {}
 
-    // 0x1003ac0b0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // SteamRichPresence::SteamRichPresence(): jumps straight to the base-object constructor
+    // 0x1003ac0c0
+    SteamRichPresence::~SteamRichPresence() {}
 
-    // 0x1003ac0c0, 16 bytes, base-object destructor, placed by class name and debug map
-    // SteamRichPresence::~SteamRichPresence()
-    void SteamRichPresence::~SteamRichPresence() {}
-
-    // 0x1003ac0d0, 16 bytes, complete-object destructor, placed by class name and debug map
-    // SteamRichPresence::~SteamRichPresence(): jumps straight to the base-object destructor
-
-    // 0x1003ac0e0, 16 bytes, placed by class name and debug map
-    // SteamRichPresence::SetRichPresenceStatus(SteamRichDisplay, SteamRichDisplay) const
-    undefined1 SteamRichPresence::SetRichPresenceStatus() {
+    // 0x1003ac0e0
+    uint8_t SteamRichPresence::SetRichPresenceStatus(SteamRichDisplay steamRichDisplay1,
+                                                     SteamRichDisplay steamRichDisplay2) const {
         return 1;
     }
 
-    // 0x1003ac0f0, 16 bytes, placed by class name and debug map
-    // SteamRichPresence::SetRichPresenceStatusCustom(SteamRichDisplay, char const*) const
-    undefined1 SteamRichPresence::SetRichPresenceStatusCustom() {
+    // 0x1003ac0f0
+    uint8_t SteamRichPresence::SetRichPresenceStatusCustom(SteamRichDisplay steamRichDisplay, const char* str) const {
         return 1;
     }
 
-    // 0x1003ac100, 16 bytes, placed by class name and debug map
-    // SteamRichPresence::ClearRichPresenceStatus() const
-    void SteamRichPresence::ClearRichPresenceStatus() {}
+    // 0x1003ac100
+    void SteamRichPresence::ClearRichPresenceStatus() const {}
 
 } // namespace jag

@@ -1,54 +1,46 @@
 // libs/testframework/TestResults.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::testframework {
     class TestResults {
     public:
-        GetResults() const;
+        void GetResults() const;
         int GetNumFailed() const;
-        void AddResult(TestResult const&);
+        void AddResult(const TestResult& testResult);
         void GetNumTests() const;
         ~TestResults();
 
-        // data members, from how the methods use this: 44 bytes
-        long field_0;        // offset 0
-        TestResult* field_8; // offset 8
-        char _unknown_16[16];
-        int field_32;    // offset 32
-        int m_numFailed; // offset 36
-        char _unknown_40[4];
+    private:
+        long field_0;
+        TestResult* field_8;
+        uint8_t _unknown_16[16];
+        int field_32;
+        int m_numFailed;
+        uint8_t _unknown_40[4];
     };
 
     class TestResultsWriter {
     public:
-        GetResultsFormatted() const;
-        void InitWriter(eastl::string const&, ResultsFormat);
-        void WriteResults(TestResults const&);
+        uint8_t* GetResultsFormatted() const;
+        void InitWriter(const eastl::string& str, ResultsFormat resultsFormat);
+        void WriteResults(const TestResults& testResults);
         ~TestResultsWriter();
 
-        // data members, from how the methods use this: 360 bytes
-        undefined1 field_0; // offset 0
-        char _unknown_1[7];
-        File field_8; // offset 8
-        char _unknown_32[328];
+    private:
+        uint8_t field_0;
+        uint8_t _unknown_1[7];
+        ClientCompositeZone field_8;
+        uint8_t _unknown_32[328];
     };
 
-    // 0x100ba59b0, 16 bytes, inline, placed by class name and debug map
-    // TestResults::GetNumTests() const
-    void TestResults::GetNumTests() {
+    // 0x100ba59b0
+    void TestResults::GetNumTests() const {
         size();
     }
 
-    // 0x100bb0790, 16 bytes, complete-object destructor, inline, placed by class name
-    // TestResults::~TestResults(): jumps straight to the base-object destructor
-
-    // 0x100bb0870, 16 bytes, base-object destructor, inline, placed by class name
-    // TestResults::~TestResults()
-    void TestResults::~TestResults() {
-        ~vector();
-    }
+    // 0x100bb0870
+    TestResults::~TestResults() {}
 
 } // namespace jag::testframework

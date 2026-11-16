@@ -1,103 +1,75 @@
 // libs/game/shared/movement/CoordGrid.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class CoordGrid {
     public:
-        CoordGrid(int, unsigned int, unsigned int);
-        byte operator!=(CoordGrid const&) const;
-        operator==(CoordGrid const&) const;
-        uint GetLocalX() const;
-        uint GetLocalZ() const;
-        CoordGrid(CoordFine const&);
-        CoordGrid(int, math::Vector3T<float> const&);
-        uint GetMapSquareX() const;
-        uint GetMapSquareZ() const;
+        CoordGrid(int arg1, unsigned int arg2, unsigned int arg3);
+        uint8_t operator!=(const CoordGrid& coordGrid) const;
+        uint32_t operator==(const CoordGrid& coordGrid) const;
+        CoordGrid(int waterNormalParamsEncoding, unsigned int waterNormalParamGroup, unsigned int arg3);
+        unsigned int GetLocalX() const;
+        unsigned int GetLocalZ() const;
+        CoordGrid(const CoordFine& coordFine);
+        CoordGrid(int arg1, const math::Vector3T<float>& vector3);
+        unsigned int GetMapSquareX() const;
+        unsigned int GetMapSquareZ() const;
         CoordGrid();
-        ulong FromString(StringView);
-        CoordGrid(int);
-        ToFine(bool) const;
-        bool operator<(CoordGrid const&) const;
-        uint ToBitPacked() const;
-        CoordGrid(int, unsigned int, unsigned int, unsigned int, unsigned int);
+        unsigned long FromString(StringView stringView);
+        CoordGrid(int arg1);
+        uint64_t ToFine(bool arg1) const;
+        bool operator<(const CoordGrid& coordGrid) const;
+        unsigned int ToBitPacked() const;
+        CoordGrid(int arg1, unsigned int arg2, unsigned int arg3, unsigned int arg4, unsigned int arg5);
 
-        // data members, from how the methods use this: 16 bytes
-        uint field_0; // offset 0
-        uint field_4; // offset 4
-        uint field_8; // offset 8
-        char _unknown_12[4];
+    private:
+        unsigned int field_0;
+        unsigned int field_4;
+        unsigned int field_8;
+        uint8_t _unknown_12[4];
     };
 
     class CoordGridSize {
     public:
-        CoordGridSize(CoordGrid const&, int, int);
+        CoordGridSize(const CoordGrid& coordGrid, int arg2, int arg3);
     };
 
-    // 0x1003ef3b0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // CoordGrid::CoordGrid(CoordFine const&): jumps straight to the base-object constructor
-
-    // 0x1003fddf0, 96 bytes, base-object constructor, inline, placed by class name
-    // CoordGrid::CoordGrid(CoordFine const&)
-    void CoordGrid::CoordGrid(CoordFine* param_1) {
-        float* pfVar1;
-
-        field_0 = param_1->field_0;
-        pfVar1 = (float*)math::Vector3T<float>::operator[]((Vector3T<float>*)&param_1->field_4, 0);
-        field_4 = (uint)(long)(*pfVar1 * 0.0078125);
-        pfVar1 = (float*)math::Vector3T<float>::operator[]((Vector3T<float>*)&param_1->field_4, 2);
-        field_8 = (uint)(long)(*pfVar1 * 0.0078125);
+    // 0x1003fddf0
+    CoordGrid::CoordGrid(const CoordFine& coordFine) : field_0(coordFine.field_0) {
+        float* pfVar1 = &coordFine.field_4[0];
+        field_4 = (unsigned int)(long)(*pfVar1 * 0.0078125f);
+        pfVar1 = &coordFine.field_4[2];
+        field_8 = (unsigned int)(long)(*pfVar1 * 0.0078125f);
     }
 
-    // 0x1004989d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // CoordGrid::CoordGrid(int, math::Vector3T<float> const&): jumps straight to the base-object constructor
-
-    // 0x100499660, 96 bytes, base-object constructor, inline, placed by class name
-    // CoordGrid::CoordGrid(int, math::Vector3T<float> const&)
-    void CoordGrid::CoordGrid(int param_1, Vector3T* param_2) {
-        float* pfVar1;
-
-        field_0 = param_1;
-        pfVar1 = (float*)math::Vector3T<float>::operator[]((Vector3T<float>*)param_2, 0);
-        field_4 = (uint)(long)(*pfVar1 * 0.0078125);
-        pfVar1 = (float*)math::Vector3T<float>::operator[]((Vector3T<float>*)param_2, 2);
-        field_8 = (uint)(long)(*pfVar1 * 0.0078125);
+    // 0x100499660
+    CoordGrid::CoordGrid(int arg1, const math::Vector3T<float>& vector3) : field_0(arg1) {
+        float* pfVar1 = &vector3[0];
+        field_4 = (unsigned int)(long)(*pfVar1 * 0.0078125f);
+        pfVar1 = &vector3[2];
+        field_8 = (unsigned int)(long)(*pfVar1 * 0.0078125f);
     }
 
-    // 0x1004c7d30, 16 bytes, inline, placed by class name
-    // CoordGrid::GetMapSquareX() const
-    uint CoordGrid::GetMapSquareX() {
+    // 0x1004c7d30
+    unsigned int CoordGrid::GetMapSquareX() const {
         return field_4 >> 6;
     }
 
-    // 0x1004c7d40, 16 bytes, inline, placed by class name
-    // CoordGrid::GetMapSquareZ() const
-    uint CoordGrid::GetMapSquareZ() {
+    // 0x1004c7d40
+    unsigned int CoordGrid::GetMapSquareZ() const {
         return field_8 >> 6;
     }
 
-    // 0x1004cc500, 16 bytes, complete-object constructor, inline, placed by class name
-    // CoordGrid::CoordGrid(): jumps straight to the base-object constructor
+    // 0x1004cc510
+    CoordGrid::CoordGrid() : field_0(4294967295), field_4(0), field_8(0) {}
 
-    // 0x1004cc510, 32 bytes, base-object constructor, inline, placed by class name
-    // CoordGrid::CoordGrid()
-    void CoordGrid::CoordGrid() {
-        field_0 = 4294967295;
-        field_4 = 0;
-        field_8 = 0;
-    }
-
-    // 0x1006e67f0, 16 bytes, complete-object constructor, inline, placed by class name
-    // CoordGrid::CoordGrid(int, unsigned int, unsigned int, unsigned int, unsigned int): jumps straight to the base-object constructor
-
-    // 0x1006e9a50, 48 bytes, base-object constructor, inline, placed by class name
-    // CoordGrid::CoordGrid(int, unsigned int, unsigned int, unsigned int, unsigned int)
-    void CoordGrid::CoordGrid(int param_1, uint param_2, uint param_3, uint param_4, uint param_5) {
-        field_0 = param_1;
-        field_4 = param_4 & 63 | param_2 << 6;
-        field_8 = param_5 & 63 | param_3 << 6;
+    // 0x1006e9a50
+    CoordGrid::CoordGrid(int arg1, unsigned int arg2, unsigned int arg3, unsigned int arg4, unsigned int arg5)
+        : field_0(arg1) {
+        field_4 = arg4 & 63 | arg2 << 6;
+        field_8 = arg5 & 63 | arg3 << 6;
     }
 
 } // namespace jag::game

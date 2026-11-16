@@ -1,359 +1,243 @@
 // libs/ui/console/ConsoleEditLine.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.ui
 
 #include "ConsoleEditLine.h"
 #include "libs/tweaky/TweakyEditLine.h"
 
 namespace jag::ui {
-    // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    int ConsoleEditLine::GetPos() const;
+    // 0x100073980: ConsoleEditLine::GetPos() const has the same machine code as math::Rect<int>::MinY() const
 
-    // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    int ConsoleEditLine::GetDrawOffset() const;
+    // 0x1000b9960: ConsoleEditLine::GetDrawOffset() const has the same machine code as oldscape::ScriptVarType::GetID() const
 
-    // 0x100681250, 1952 bytes, placed by class name and debug map
-    // ConsoleEditLine::Draw(int, int, int, int, shared_ptr<graphics::Font> const&, graphics::RT7Core*, graphics::FontHelpers*, int, std::function<void (eastl::fixed_string<char, 256, true, eastl::allocator>&, eastl::fixed_string<char, 256, true, eastl::allocator> const&)>*)
-    /* ConsoleEditLine::Draw(int, int, int, int, shared_ptr<graphics::Font> const&,
-   graphics::RT7Core*, graphics::FontHelpers*, int, std::function<void
-   (eastl::fixed_string<char, 256, true, eastl::allocator>&, eastl::fixed_string<char, 256, true,
-   eastl::allocator> const&)>*) */
-
-    void ConsoleEditLine::Draw(int param_1, int param_2, int param_3, int param_4, shared_ptr* param_5,
-                               RT7Core* param_6, FontHelpers* param_7, int param_8, function* param_9) {
-        undefined4 uVar1;
-        int iVar3;
-        uint uVar4;
-        int iVar5;
-        ulong uVar6;
-        Layout* pLVar7;
-        vector* pvVar8;
-        uchar* puVar9;
-        FontMetrics* this_00;
-        char* pcVar10;
+    // 0x100681250
+    void ConsoleEditLine::Draw(
+        int arg1, int arg2, int arg3, int arg4, const shared_ptr<graphics::Font>& font, graphics::RT7Core* rt7Core,
+        graphics::FontHelpers* fontHelpers, int arg8,
+        std::function<void(eastl::fixed_string<char, 256>&, eastl::fixed_string<char, 256> const&)>* callback) {
+        char* pcVar9;
+        long lVar10;
         long lVar11;
-        GraphicsApp* this_01;
-        undefined1 uVar12;
-        int iVar13;
-        long lVar14;
-        undefined4 in_register_00000014;
-        ulong uVar15;
-        fixed_string* pfVar16;
-        type* ptVar17;
-        int iVar18;
-        StringView SVar19;
-        StringView SVar20;
-        StringView SVar21;
-        StringView SVar22;
-        StringView SVar23;
-        StringView SVar24;
-        StringView SVar25;
-        StringView SVar26;
-        StringView SVar27;
-        TextProperties* in_stack_fffffffffffff928;
-        TextProperties* pTVar28;
-        StringView local_6c8;
+        uint32_t in_register_00000014;
+        unsigned long uVar13;
         StringView local_6b8;
-        undefined1 local_6a8[40];
+        uint8_t local_6a8[40];
         StringView local_680;
         StringView local_670;
         StringView local_660;
         StringView local_650;
         StringView local_640;
         StringView local_630;
-        TextProperties local_620;
         TextProperties local_5f8;
-        optional<unsigned int> local_5d0[8];
-        undefined8 local_5c8;
         int local_5c0;
         int local_5bc;
-        ulong local_5b8;
         long local_5b0;
-        undefined8 local_5a8;
-        undefined8 local_5a0;
-        TextFlags local_590[8];
-        TextProperties local_588[29];
-        fixed_string<char, 256, true, eastl::allocator> local_160[296];
-        undefined8 local_38;
+        TextProperties local_588;
 
-        local_5a0 = CONCAT44(in_register_00000014, param_2);
-        local_38 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        local_5c8 = param_6->GetGUIManager();
-        eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_160);
-        if (param_9 == (function*)0) {
-            pcVar10 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar6 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            local_160->assign(pcVar10, uVar6);
+        uint64_t local_5a0 = (((uint64_t)in_register_00000014 << 32) | (uint32_t)arg2);
+        int local_598 = arg4;
+        int local_594 = arg1;
+        auto local_5c8 = rt7Core->GetGUIManager();
+        fixed_string<char, 256> local_160;
+        if (callback == (function<void_(eastl::fixed_string<char, _256>&, eastl::fixed_string<char, _256> const&)>*)0) {
+            pcVar9 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            uVar13 = field_8.size();
+            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>::assign(
+                &local_160, pcVar9, uVar13);
         } else {
-            std::function<void(
-                eastl::fixed_string<char, 256, true, eastl::allocator>&,
-                eastl::fixed_string<char, 256, true, eastl::allocator> const&)>::operator()((fixed_string*)param_9,
-                                                                                            (fixed_string*)local_160);
+            std::function<void(eastl::fixed_string<char, 256>&, eastl::fixed_string<char, 256> const&)>::operator()(
+                (function<void(eastl::fixed_string<char, 256>&, eastl::fixed_string<char, 256> const&)>*)callback,
+                &local_160, (fixed_string<char, _256>*)&field_8);
         }
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>((StringView*)local_588,
-                                                                                      (fixed_string*)local_160);
-        uVar12 = (undefined1)m_pos;
-        pTVar28 = local_588;
-        local_6c8.substr((ulong)pTVar28, 0);
-        pLVar7 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)param_5);
-        pvVar8 = eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)pTVar28);
-        puVar9 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)pvVar8);
-        SVar24.field_8 = puVar9;
-        SVar24.field_0 = (ulong)&local_6c8;
-        local_5a8 = graphics::FontHelpers::GetStringWidth(SVar24, (FontMetrics*)&DAT_00000001, (bool)uVar12);
-        pfVar16 = (fixed_string*)local_160;
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_6b8, pfVar16);
-        pLVar7 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)param_5);
-        pvVar8 = eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)pfVar16);
-        puVar9 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)pvVar8);
-        SVar25.field_8 = puVar9;
-        SVar25.field_0 = (ulong)&local_6b8;
-        iVar3 = graphics::FontHelpers::GetStringWidth(SVar25, (FontMetrics*)&DAT_00000001, (bool)uVar12);
-        iVar18 = param_3 - (uint)param_1;
-        iVar5 = iVar18 / 5;
-        iVar13 = (int)local_5a8 - m_drawOffset;
-        if ((m_drawOffset < 1) || (iVar5 <= iVar13)) {
-            if (iVar13 <= iVar18 - iVar5)
+        local_588.StringView<eastl::fixed_string<char, 40>>(local_160);
+        StringView local_6c8 = ((unsigned long)&local_588)->substr(0);
+        auto pLVar6 = font.operator->();
+        auto psVar7 = pLVar6->SSOBeginPtr();
+        FontMetrics* pFVar8 = (FontMetrics*)**psVar7;
+        uint64_t local_5a8 = graphics::FontHelpers::GetStringWidth(&local_6c8, *pFVar8, true);
+        local_6b8.StringView<eastl::fixed_string<char, 40>>(local_160);
+        pLVar6 = (Layout*)font.operator->();
+        psVar7 = (shared_ptr<graphics::FontMetrics>*)pLVar6->SSOBeginPtr();
+        pFVar8 = (FontMetrics*)**psVar7;
+        int iVar2 = graphics::FontHelpers::GetStringWidth(&local_6b8, *pFVar8, true);
+        int iVar14 = arg3 - local_594;
+        int iVar4 = iVar14 / 5;
+        int iVar12 = (int)local_5a8 - m_drawOffset;
+        if ((m_drawOffset < 1) || (iVar4 <= iVar12)) {
+            if (iVar12 <= iVar14 - iVar4)
                 goto LAB_100681406;
-            iVar5 = iVar5 * 2 - iVar18;
+            iVar4 = iVar4 * 2 - iVar14;
         LAB_1006813f9:
-            iVar13 = eastl::max<int>(0, (int)local_5a8 + iVar5);
+            iVar12 = eastl::max<int>(0, (int)local_5a8 + iVar4);
         } else {
-            iVar13 = 0;
-            if (iVar18 <= iVar3) {
-                iVar5 = iVar5 * -2;
+            iVar12 = 0;
+            if (iVar14 <= iVar2) {
+                iVar4 = iVar4 * -2;
                 goto LAB_1006813f9;
             }
         }
-        m_drawOffset = iVar13;
+        m_drawOffset = iVar12;
     LAB_100681406:
-        new (local_6a8) graphics::ClippingState(param_6);
-        ptVar17 = (type*)(ulong)(uint)param_1;
-        param_6->SetClippingRectangle((uint)param_1, (int)local_5a0, iVar18, (param_4 - (int)local_5a0) + 1, false);
-        pLVar7 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)param_5);
-        pvVar8 = eastl::string::Layout::SSOBeginPtr(pLVar7, ptVar17);
-        this_00 = (FontMetrics*)pvVar8->end();
-        uVar4 = this_00->GetMaxAscent();
-        iVar5 = this_00->GetVerticalSpacing();
+        new (local_6a8) graphics::ClippingState(rt7Core);
+        rt7Core->SetClippingRectangle(local_594, (int)local_5a0, iVar14, (local_598 - (int)local_5a0) + 1, false);
+        pLVar6 = (Layout*)font.operator->();
+        auto this_00 = pLVar6->SSOBeginPtr();
+        pFVar8 = (FontMetrics*)this_00->end();
+        unsigned int uVar3 = pFVar8->GetMaxAscent();
+        iVar4 = pFVar8->GetVerticalSpacing();
         local_588[0].m_pFont._0_4_ = 1;
-        graphics::TextFlags::TextFlags(local_590, local_588, 1);
-        new (&local_620) graphics::TextProperties(param_5, SUB81(in_stack_fffffffffffff928, 0));
-        uVar1 = field_312;
-        eastl::optional<unsigned int>::optional(local_5d0, &field_316);
-        local_620.SetColours(uVar1, local_5d0);
-        local_5b8 = (ulong)((uVar4 & 255) - iVar5);
-        if (GetSelectionRange(this, &local_5c0, &local_5bc) != '\0') {
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>((StringView*)local_588,
-                                                                                          (fixed_string*)local_160);
-            uVar15 = (ulong)local_5c0;
-            pTVar28 = local_588;
-            uVar6 = uVar15;
-            ((local_6a8 + 24))->substr((ulong)pTVar28, 0);
-            uVar12 = (undefined1)uVar6;
-            pLVar7 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)param_5);
-            pvVar8 = eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)pTVar28);
-            puVar9 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)pvVar8);
-            SVar26.field_8 = puVar9;
-            SVar26.field_0 = (ulong)(local_6a8 + 24);
-            iVar3 = graphics::FontHelpers::GetStringWidth(SVar26, (FontMetrics*)&DAT_00000001, (bool)uVar12);
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>((StringView*)local_588,
-                                                                                          (fixed_string*)local_160);
-            lVar14 = (long)local_5bc;
-            pTVar28 = local_588;
-            local_5b0 = lVar14;
-            local_680.substr((ulong)pTVar28, 0);
-            uVar12 = (undefined1)lVar14;
-            pLVar7 = (Layout*)shared_ptr<graphics::Font>::operator->((shared_ptr<graphics::Font>*)param_5);
-            pvVar8 = eastl::string::Layout::SSOBeginPtr(pLVar7, (type*)pTVar28);
-            puVar9 = (uchar*)shared_ptr<graphics::FontMetrics>::operator*((shared_ptr<graphics::FontMetrics>*)pvVar8);
-            SVar27.field_8 = puVar9;
-            SVar27.field_0 = (ulong)&local_680;
-            iVar13 = graphics::FontHelpers::GetStringWidth(SVar27, (FontMetrics*)&DAT_00000001, (bool)uVar12);
-            new (local_588) eastl::fixed_string<char, 1024, true, eastl::allocator>();
-            pcVar10 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            local_588->assign(pcVar10, uVar15);
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_670,
-                                                                                          (fixed_string*)local_588);
-            SVar19.field_8._0_4_ = (uint)param_1 - m_drawOffset;
-            iVar18 = (int)local_5b8 + (int)local_5a0;
-            SVar19.field_0 = (ulong)&local_670;
-            SVar19.field_8._4_4_ = 0;
-            param_7->DrawString(SVar19, iVar18, 0, (uint)&local_620, in_stack_fffffffffffff928);
-            iVar3 = iVar3 + (uint)param_1;
-            iVar13 = iVar13 + (uint)param_1;
-            pTVar28 = (TextProperties*)0;
-            0->AddElement(0, 0, 0, local_5c8, iVar3 - m_drawOffset, iVar18, iVar13 - m_drawOffset, param_4, field_324,
-                          0, 1);
-            lVar14 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            local_588->assign((char*)(lVar14 + uVar15), local_5b0 - uVar15);
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_660,
-                                                                                          (fixed_string*)local_588);
-            iVar5 = m_drawOffset;
-            new (&local_5f8) graphics::TextProperties(&local_620, field_320);
-            SVar20.field_8._0_4_ = iVar3 - iVar5;
-            SVar20.field_0 = (ulong)&local_660;
-            SVar20.field_8._4_4_ = 0;
-            param_7->DrawString(SVar20, iVar18, 0, (uint)&local_5f8, pTVar28);
-            iVar5 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            if ((int)local_5b0 < iVar5) {
+        TextFlags local_590(&local_588);
+        TextProperties local_620(font, local_590[0]);
+        unsigned int uVar5 = field_312;
+        optional<unsigned int> local_5d0(field_316);
+        local_620.SetColours(uVar5, &local_5d0);
+        unsigned long local_5b8 = (unsigned long)((uVar3 & 255) - iVar4);
+        if (GetSelectionRange(local_5c0, local_5bc) != '\0') {
+            local_588.StringView<eastl::fixed_string<char, 40>>(local_160);
+            uVar13 = (unsigned long)local_5c0;
+            *((local_6a8 + 24)) = ((unsigned long)&local_588)->substr(0);
+            pLVar6 = (Layout*)font.operator->();
+            psVar7 = (shared_ptr<graphics::FontMetrics>*)pLVar6->SSOBeginPtr();
+            pFVar8 = (FontMetrics*)**psVar7;
+            iVar2 = graphics::FontHelpers::GetStringWidth((local_6a8 + 24), *pFVar8, true);
+            local_588.StringView<eastl::fixed_string<char, 40>>(local_160);
+            local_5b0 = (long)local_5bc;
+            local_680 = ((unsigned long)&local_588)->substr(0);
+            pLVar6 = (Layout*)font.operator->();
+            psVar7 = (shared_ptr<graphics::FontMetrics>*)pLVar6->SSOBeginPtr();
+            pFVar8 = (FontMetrics*)**psVar7;
+            iVar12 = graphics::FontHelpers::GetStringWidth(&local_680, *pFVar8, true);
+            local_588 = eastl::fixed_string<char, 1024>();
+            pcVar9 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 1024ul, 1ul, 0ul, true>>::assign(
+                &local_588, pcVar9, uVar13);
+            local_670.StringView<eastl::fixed_string<char, 40>>(local_588);
+            iVar14 = (int)local_5b8 + (int)local_5a0;
+            fontHelpers->DrawString(&local_670, local_594 - m_drawOffset, iVar14, 0, local_620);
+            iVar2 = iVar2 + local_594;
+            iVar12 = iVar12 + local_594;
+            local_5c8->AddElement(iVar2 - m_drawOffset, iVar14, iVar12 - m_drawOffset, local_598, field_324, 0.0, 0.0,
+                                  0.0, 0.0, nullptr, 1);
+            lVar10 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 1024ul, 1ul, 0ul, true>>::assign(
+                &local_588, (char*)(lVar10 + uVar13), local_5b0 - uVar13);
+            local_660.StringView<eastl::fixed_string<char, 40>>(local_588);
+            iVar4 = m_drawOffset;
+            local_5f8 = graphics::TextProperties(local_620, field_320);
+            fontHelpers->DrawString(&local_660, iVar2 - iVar4, iVar14, 0, local_5f8);
+            iVar4 = local_160.size();
+            if ((int)local_5b0 < iVar4) {
                 lVar11 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                lVar14 = local_5b0;
-                pcVar10 = (char*)(lVar11 + local_5b0);
-                lVar11 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                local_588->assign(pcVar10, lVar11 - lVar14);
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_650,
-                                                                                              (fixed_string*)local_588);
-                SVar21.field_8._0_4_ = iVar13 - m_drawOffset;
-                SVar21.field_0 = (ulong)&local_650;
-                SVar21.field_8._4_4_ = 0;
-                param_7->DrawString(SVar21, iVar18, 0, (uint)&local_620, pTVar28);
+                lVar10 = local_5b0;
+                pcVar9 = (char*)(lVar11 + local_5b0);
+                lVar11 = local_160.size();
+                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 1024ul, 1ul, 0ul, true>>::assign(
+                    &local_588, pcVar9, lVar11 - lVar10);
+                local_650.StringView<eastl::fixed_string<char, 40>>(local_588);
+                fontHelpers->DrawString(&local_650, iVar12 - m_drawOffset, iVar14, 0, local_620);
             }
-            /* WARNING: Subroutine does not return */
-            local_588->~fixed_string();
         }
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_640,
-                                                                                      (fixed_string*)local_160);
-        SVar22.field_8._0_4_ = (uint)param_1 - m_drawOffset;
-        SVar22.field_0 = (ulong)&local_640;
-        SVar22.field_8._4_4_ = 0;
-        param_7->DrawString(SVar22, (int)local_5b8 + (int)local_5a0, 0, (uint)&local_620, in_stack_fffffffffffff928);
-        if (0 < param_8) {
-            iVar5 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            if (param_8 < iVar5) {
-                new (&local_5f8) eastl::string();
-                pcVar10 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                local_5f8.assign(pcVar10, (long)param_8);
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
-                    &local_630, (fixed_string*)&local_5f8);
-                iVar5 = m_drawOffset;
-                graphics::TextProperties::TextProperties(local_588, &local_620, field_328, field_316);
-                SVar23.field_8._0_4_ = (uint)param_1 - iVar5;
-                SVar23.field_0 = (ulong)&local_630;
-                SVar23.field_8._4_4_ = 0;
-                param_7->DrawString(SVar23, (int)local_5b8 + (int)local_5a0, 0, (uint)local_588,
-                                    in_stack_fffffffffffff928);
-                local_5f8.~basic_string();
+        local_640.StringView<eastl::fixed_string<char, 40>>(local_160);
+        fontHelpers->DrawString(&local_640, local_594 - m_drawOffset, (int)local_5b8 + (int)local_5a0, 0, local_620);
+        if (0 < arg8) {
+            iVar4 = local_160.size();
+            if (arg8 < iVar4) {
+                local_5f8 = eastl::string();
+                pcVar9 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                local_5f8.assign(pcVar9, (long)arg8);
+                local_630.StringView<eastl::fixed_string<char, 40>>(local_5f8);
+                iVar4 = m_drawOffset;
+                local_588 = graphics::TextProperties(local_620, field_328, field_316);
+                fontHelpers->DrawString(&local_630, local_594 - iVar4, (int)local_5b8 + (int)local_5a0, 0, local_588);
             }
         }
         if (m_cursorShown != '\0') {
-            this_01 = (GraphicsApp*)BaseApp::GetAppInstance();
-            uVar4 = this_01->GetLogicTick();
-            if (15 < uVar4 / 30 + (uVar4 / 30) * -32 + uVar4 / 30 + uVar4) {
-                iVar5 = ((int)local_5a8 + (uint)param_1) - m_drawOffset;
-                0->AddElement(0, 0, 0, local_5c8, iVar5, (int)local_5a0 + 1, iVar5 + 1, param_4 + -1, field_312, 0, 0);
+            uVar5 = ((GraphicsApp*)BaseApp::GetAppInstance())->GetLogicTick();
+            if (15 < uVar5 / 30 + (uVar5 / 30) * -32 + uVar5 / 30 + uVar5) {
+                iVar4 = ((int)local_5a8 + local_594) - m_drawOffset;
+                local_5c8->AddElement(iVar4, (int)local_5a0 + 1, iVar4 + 1, local_598 - 1, field_312, 0.0, 0.0, 0.0,
+                                      0.0, nullptr, 0);
             }
         }
-        local_6a8->~ClippingState();
-        /* WARNING: Subroutine does not return */
-        local_160->~fixed_string();
     }
 
-    // 0x100681a00, 80 bytes, placed by class name and debug map
-    // ConsoleEditLine::GetSelectionRange(int&, int&) const
-    undefined8 ConsoleEditLine::GetSelectionRange(int* param_1, int* param_2) {
+    // 0x100681a00
+    uint64_t ConsoleEditLine::GetSelectionRange(int& arg1, int& arg2) const {
         int iVar1;
-        undefined8 uVar2;
+        uint64_t uVar2;
 
-        if ((field_304 == -1) || (field_304 == m_pos)) {
+        EnumOptionToggle enumOptionToggle2 = field_304;
+        if ((enumOptionToggle2 == 4294967295) || (enumOptionToggle2 == m_pos)) {
             uVar2 = 0;
         } else {
-            iVar1 = eastl::min<graphics::GraphicsQuality>();
-            *param_1 = iVar1;
+            iVar1 = eastl::min<graphics::GraphicsQuality>(m_pos, enumOptionToggle2);
+            arg1 = iVar1;
             iVar1 = eastl::max<int>(m_pos, field_304);
-            *param_2 = iVar1;
+            arg2 = iVar1;
             uVar2 = 1;
         }
         return uVar2;
     }
 
-    // 0x100681aa0, 80 bytes, placed by class name and debug map
-    // ConsoleEditLine::HandleChar(int)
-    undefined1 ConsoleEditLine::HandleChar(int param_1) {
-        uchar* extraout_RDX;
-        StringView SVar2;
+    // 0x100681aa0
+    uint8_t ConsoleEditLine::HandleChar(int arg1) {
         StringView local_30;
-        char local_19;
+        uint8_t local_19;
 
-        if (tweak::EditLine::SupportsKeyChar(param_1) != '\0') {
-            local_19 = stringtools::WideToCP1252((wchar16)param_1);
-            new (&local_30) StringView(&local_19);
-            SVar2.field_8 = extraout_RDX;
-            SVar2.field_0 = (ulong)&local_30;
-            Insert(this, SVar2);
+        if (tweak::EditLine::SupportsKeyChar(arg1) != '\0') {
+            local_19 = stringtools::WideToCP1252((char16_t)arg1);
+            local_30 = StringView(local_19);
+            Insert(&local_30);
         }
         return 1;
     }
 
-    // 0x100681b10, 112 bytes, placed by class name
-    // ConsoleEditLine::Insert(StringView)
-    void ConsoleEditLine::Insert(StringView param_1) {
-        char* pcVar1;
-        ulong uVar2;
-        int iVar3;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-
-        this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)param_1.field_0;
-        DeleteSelection(this);
-        iVar3 = m_pos;
-        pcVar1 = (char*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-        uVar2 = this_00->HeapBeginPtr();
-        (&field_8, (long)iVar3, 0, pcVar1, uVar2)->replace();
-        iVar3 = this_00->HeapBeginPtr();
-        m_pos = m_pos + iVar3;
+    // 0x100681b10
+    void ConsoleEditLine::Insert(StringView stringView) {
+        DeleteSelection();
+        EnumOptionToggle EVar1 = m_pos;
+        auto str = stringView->end();
+        unsigned long arg4 = stringView->HeapBeginPtr();
+        (&field_8)->replace((long)(int)EVar1, 0, str, arg4);
+        int iVar2 = stringView->HeapBeginPtr();
+        m_pos = m_pos + iVar2;
     }
 
-    // 0x100681b80, 784 bytes, placed by class name
-    // ConsoleEditLine::HandleKeyDown(int)
-    ulong ConsoleEditLine::HandleKeyDown(int param_1) {
-        char cVar1;
-        undefined8 unaff_R14;
-        ulong uVar3;
+    // 0x100681b80
+    unsigned long ConsoleEditLine::HandleKeyDown(int arg1) {
+        uint64_t unaff_R14;
 
-        uVar3 = CONCAT71((int7)((ulong)unaff_R14 >> 8), 1);
-        switch (param_1) {
+        unsigned long uVar3 = (((uint64_t)((int64_t)((unsigned long)unaff_R14 >> 8)) << 8) | (uint8_t)1);
+        switch (arg1) {
         case 0:
-            cVar1 = input::InputState::IsKeyDown(59);
-            if (cVar1 != '\0') {
-                m_pos = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+            if (input::InputState::IsKeyDown(59)) {
+                m_pos = field_8.size();
                 field_304 = 0;
                 field_308 = false;
             }
             break;
         case 7:
-            cVar1 = input::InputState::IsKeyDown(59);
-            if (cVar1 != '\0') {
-                ClipboardCut(this);
+            if (input::InputState::IsKeyDown(59)) {
+                ClipboardCut();
             }
             break;
         case 8:
-            cVar1 = input::InputState::IsKeyDown(59);
-            if (cVar1 != '\0') {
-                ClipboardCopy(this);
+            if (input::InputState::IsKeyDown(59)) {
+                ClipboardCopy();
             }
             break;
         case 9:
-            cVar1 = input::InputState::IsKeyDown(59);
-            if (cVar1 != '\0') {
-                ClipboardPaste(this);
+            if (input::InputState::IsKeyDown(59)) {
+                ClipboardPaste();
             }
             break;
         case 49:
             break;
         case 51:
-            cVar1 = input::InputState::IsKeyDown(59);
-            if (cVar1 == '\0') {
-                Backspace(this);
+            if (!(input::InputState::IsKeyDown(59))) {
+                Backspace();
             } else {
-                DelWordLeft(this);
+                DelWordLeft();
             }
             break;
         case 56:
@@ -412,31 +296,28 @@ namespace jag::ui {
             uVar3 = 0;
             break;
         default:
-            switch (param_1) {
+            switch (arg1) {
             case 63234:
-                cVar1 = input::InputState::IsKeyDown(59);
-                if (cVar1 == '\0') {
-                    Left(this);
+                if (!(input::InputState::IsKeyDown(59))) {
+                    Left();
                 } else {
-                    WordLeft(this);
+                    WordLeft();
                 }
                 break;
             case 63235:
-                cVar1 = input::InputState::IsKeyDown(59);
-                if (cVar1 == '\0') {
-                    Right(this);
+                if (!(input::InputState::IsKeyDown(59))) {
+                    Right();
                 } else {
-                    WordRight(this);
+                    WordRight();
                 }
                 break;
             default:
                 goto switchD_100681ba2_caseD_1;
             case 63272:
-                cVar1 = input::InputState::IsKeyDown(59);
-                if (cVar1 == '\0') {
-                    Delete(this);
+                if (!(input::InputState::IsKeyDown(59))) {
+                    Delete();
                 } else {
-                    DelWordRight(this);
+                    DelWordRight();
                 }
                 break;
             case 63273:
@@ -449,291 +330,217 @@ namespace jag::ui {
         return uVar3 & 4294967295;
     }
 
-    // 0x100681e90, 240 bytes, placed by class name
-    // ConsoleEditLine::ClipboardCopy()
+    // 0x100681e90
     void ConsoleEditLine::ClipboardCopy() {
-        char cVar1;
         int local_158;
         int local_154;
-        Clipboard local_150[8];
-        fixed_string<char, 40, true, eastl::allocator> local_148[296];
-        long local_20;
+        Clipboard local_150;
+        ReturnValue local_148;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        cVar1 = GetSelectionRange(this, &local_158, &local_154);
-        if (cVar1 != '\0') {
-            eastl::fixed_string<char, 256, true, eastl::allocator>::substr((ulong)local_148, (ulong)&field_8);
-            cVar1 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar1 == '\0') {
-                Clipboard::Clipboard(local_150);
-                Clipboard::SetText<eastl::basic_string<char, BucketAllocatorEASTL>>((basic_string*)local_150);
-                local_150->~Clipboard();
+        if (GetSelectionRange(local_158, local_154)) {
+            local_148 = field_8.substr((long)local_158, (long)local_154 - (long)local_158);
+            if (!(local_148.empty())) {
+                local_150 = Clipboard();
+                local_150.SetText<eastl::basic_string<char, BucketAllocatorEASTL>>(local_148);
             }
-            /* WARNING: Subroutine does not return */
-            eastl::fixed_string<char, 40, true, eastl::allocator>::~fixed_string(local_148);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
     }
 
-    // 0x100681f80, 144 bytes, placed by class name
-    // ConsoleEditLine::ClipboardPaste()
+    // 0x100681f80
     void ConsoleEditLine::ClipboardPaste() {
-        uchar* extraout_RDX;
-        StringView SVar2;
         StringView local_48;
-        eastl::string local_38[32];
-        Clipboard local_18[8];
 
-        Clipboard::Clipboard(local_18);
-        eastl::string::basic_string(local_38);
-        if (local_18->GetText(local_38) != '\0') {
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_48,
-                                                                                          (fixed_string*)local_38);
-            SVar2.field_8 = extraout_RDX;
-            SVar2.field_0 = (ulong)&local_48;
-            Insert(this, SVar2);
+        Clipboard local_18;
+        eastl::string local_38;
+        if (local_18.GetText(local_38) != '\0') {
+            local_48.StringView<eastl::fixed_string<char, 40>>(local_38);
+            Insert(&local_48);
         }
-        eastl::string::~basic_string(local_38);
-        local_18->~Clipboard();
     }
 
-    // 0x100682010, 32 bytes, placed by class name
-    // ConsoleEditLine::ClipboardCut()
+    // 0x100682010
     void ConsoleEditLine::ClipboardCut() {
-        ClipboardCopy(this);
-        DeleteSelection(this);
+        ClipboardCopy();
+        DeleteSelection();
     }
 
-    // 0x100682090, 80 bytes, placed by class name
-    // ConsoleEditLine::WordLeft()
+    // 0x100682090
     void ConsoleEditLine::WordLeft() {
-        int extraout_EDX;
-        StringView SVar2;
         StringView local_28;
 
         if (field_308 == false) {
-            field_304 = -1;
+            field_304 = 4294967295;
         }
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_28,
-                                                                                      (fixed_string*)&field_8);
-        SVar2.field_8._0_4_ = m_pos;
-        SVar2.field_0 = (ulong)&local_28;
-        SVar2.field_8._4_4_ = 0;
-        m_pos = ScanPreviousWordStart(SVar2, extraout_EDX);
+        local_28.StringView<eastl::fixed_string<char, 40>>(field_8);
+        m_pos = ScanPreviousWordStart(&local_28, m_pos);
     }
 
-    // 0x1006820e0, 96 bytes, placed by class name
-    // ConsoleEditLine::Left()
+    // 0x1006820e0
     void ConsoleEditLine::Left() {
-        int iVar1;
-
-        iVar1 = field_304;
+        EnumOptionToggle EVar1 = field_304;
         if (field_308 == false) {
-            if (iVar1 == -1)
+            if (EVar1 == 4294967295)
                 goto LAB_100682117;
-            iVar1 = eastl::min<graphics::GraphicsQuality>(iVar1, m_pos);
+            EVar1 = eastl::min<graphics::GraphicsQuality>(EVar1, m_pos);
         } else {
-            if (iVar1 == -1) {
+            if (EVar1 == 4294967295) {
                 field_304 = m_pos;
             }
         LAB_100682117:
-            if (m_pos < 1)
+            if ((int)m_pos < 1)
                 goto LAB_100682124;
-            iVar1 = m_pos + -1;
+            EVar1 = m_pos - 1;
         }
-        m_pos = iVar1;
+        m_pos = EVar1;
     LAB_100682124:
         if (field_308 == false) {
-            field_304 = -1;
+            field_304 = 4294967295;
         }
     }
 
-    // 0x100682140, 80 bytes, placed by class name
-    // ConsoleEditLine::WordRight()
+    // 0x100682140
     void ConsoleEditLine::WordRight() {
-        int extraout_EDX;
-        StringView SVar2;
         StringView local_28;
 
         if (field_308 == false) {
-            field_304 = -1;
+            field_304 = 4294967295;
         }
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_28,
-                                                                                      (fixed_string*)&field_8);
-        SVar2.field_8._0_4_ = m_pos;
-        SVar2.field_0 = (ulong)&local_28;
-        SVar2.field_8._4_4_ = 0;
-        m_pos = ScanNextWordStart(SVar2, extraout_EDX);
+        local_28.StringView<eastl::fixed_string<char, 40>>(field_8);
+        m_pos = ScanNextWordStart(&local_28, m_pos);
     }
 
-    // 0x100682190, 112 bytes, placed by class name
-    // ConsoleEditLine::Right()
+    // 0x100682190
     void ConsoleEditLine::Right() {
-        int iVar1;
-        int iVar2;
+        EnumOptionToggle EVar1;
 
-        iVar1 = field_304;
+        ShaderVariablePrecision shaderVariablePrecision1 = field_304;
         if (field_308 == false) {
-            if (iVar1 != -1) {
-                iVar1 = eastl::max<int>(iVar1, m_pos);
-                m_pos = iVar1;
+            if (shaderVariablePrecision1 != 4294967295) {
+                EVar1 = eastl::max<int>(shaderVariablePrecision1, m_pos);
+                m_pos = EVar1;
                 goto LAB_1006821e1;
             }
-        } else if (iVar1 == -1) {
+        } else if (shaderVariablePrecision1 == 4294967295) {
             field_304 = m_pos;
         }
-        iVar1 = m_pos;
-        iVar2 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        if (iVar1 < iVar2) {
+        EVar1 = m_pos;
+        int iVar2 = field_8.size();
+        if ((int)EVar1 < iVar2) {
             m_pos = m_pos + 1;
         }
     LAB_1006821e1:
         if (field_308 == false) {
-            field_304 = -1;
+            field_304 = 4294967295;
         }
     }
 
-    // 0x100682200, 64 bytes, placed by class name
-    // ConsoleEditLine::DelWordRight()
+    // 0x100682200
     void ConsoleEditLine::DelWordRight() {
-        int iVar1;
-        int iVar2;
-
-        iVar1 = m_pos;
-        WordRight(this);
-        iVar2 = m_pos - iVar1;
+        EnumOptionToggle EVar1 = m_pos;
+        WordRight();
+        int iVar2 = m_pos - EVar1;
         if (iVar2 != 0) {
-            (&field_8, (long)iVar1, (long)iVar2, "")->replace();
-            m_pos = iVar1;
+            field_8.replace((long)(int)EVar1, (long)iVar2, "");
+            m_pos = EVar1;
         }
     }
 
-    // 0x100682240, 64 bytes, placed by class name
-    // ConsoleEditLine::Delete()
+    // 0x100682240
     void ConsoleEditLine::Delete() {
-        if (DeleteSelection(this) == '\0') {
-            (&field_8, (long)m_pos, 1, 0, ' ')->replace();
+        if (DeleteSelection() == '\0') {
+            (&field_8)->replace((long)(int)m_pos, 1, 0, ' ');
         }
     }
 
-    // 0x100682280, 80 bytes, placed by class name
-    // ConsoleEditLine::DelWordLeft()
+    // 0x100682280
     void ConsoleEditLine::DelWordLeft() {
-        int iVar1;
-        int iVar2;
-
-        iVar2 = m_pos;
-        WordLeft(this);
-        iVar1 = m_pos;
-        iVar2 = iVar2 - iVar1;
-        if (iVar2 != 0) {
-            (&field_8, (long)iVar1, (long)iVar2, "")->replace();
-            m_pos = iVar1;
+        EnumOptionToggle EVar1 = m_pos;
+        WordLeft();
+        EnumOptionToggle EVar2 = m_pos;
+        int iVar3 = EVar1 - EVar2;
+        if (iVar3 != 0) {
+            field_8.replace((long)(int)EVar2, (long)iVar3, "");
+            m_pos = EVar2;
         }
     }
 
-    // 0x1006822d0, 128 bytes, placed by class name
-    // ConsoleEditLine::Backspace()
+    // 0x1006822d0
     void ConsoleEditLine::Backspace() {
-        undefined1* this_00;
-        int iVar1;
-        undefined1* puVar2;
-        int iVar4;
-        ulong uVar5;
+        uint8_t* this_00;
+        EnumOptionToggle EVar1;
+        uint8_t* puVar2;
+        EnumOptionToggle EVar4;
+        unsigned long arg1;
 
-        if ((DeleteSelection(this) == '\0') && (iVar1 = m_pos, 0 < iVar1)) {
+        if ((DeleteSelection() == '\0') && (EVar1 = m_pos, 0 < (int)EVar1)) {
             this_00 = &field_8;
-            iVar4 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            uVar5 = (long)m_pos - 1;
-            if (iVar1 == iVar4) {
-                puVar2 = (undefined1*)eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>*)
-                        this_00,
-                    uVar5);
+            EVar4 = this_00->size();
+            arg1 = (long)(int)m_pos - 1;
+            if (EVar1 == EVar4) {
+                puVar2 = (uint8_t*)(*this_00)[arg1];
                 *puVar2 = 0;
-                this_00->force_size((long)m_pos - 1);
+                this_00->force_size((long)(int)m_pos - 1);
             } else {
-                this_00->replace(uVar5, 1, 0, ' ');
+                this_00->replace(arg1, 1, 0, ' ');
             }
-            m_pos = m_pos + -1;
+            m_pos = m_pos - 1;
         }
     }
 
-    // 0x100682350, 32 bytes, placed by class name
-    // ConsoleEditLine::HandleKeyUp(int)
-    undefined8 ConsoleEditLine::HandleKeyUp(int param_1) {
-        if (param_1 == 49) {
+    // 0x100682350
+    uint64_t ConsoleEditLine::HandleKeyUp(int arg1) {
+        if (arg1 == 49) {
             return 1;
         }
-        if (param_1 == 56) {
+        if (arg1 == 56) {
             field_308 = false;
         }
         return 0;
     }
 
-    // 0x100682370, 128 bytes, placed by class name
-    // ConsoleEditLine::DeleteSelection()
-    undefined8 ConsoleEditLine::DeleteSelection() {
-        int iVar1;
+    // 0x100682370
+    uint64_t ConsoleEditLine::DeleteSelection() {
         int iVar2;
 
-        if (field_304 != -1) {
+        EnumOptionToggle EVar1 = field_304;
+        if (EVar1 != 4294967295) {
             field_308 = false;
-            if (field_304 != m_pos) {
-                iVar1 = eastl::min<graphics::GraphicsQuality>();
+            if (EVar1 != m_pos) {
+                EVar1 = eastl::min<graphics::GraphicsQuality>(m_pos, EVar1);
                 iVar2 = eastl::max<int>(m_pos, field_304);
-                (&field_8, (long)iVar1, (long)(iVar2 - iVar1), 0, ' ')->replace();
-                field_304 = -1;
-                m_pos = iVar1;
+                (&field_8)->replace((long)(int)EVar1, (long)(int)(iVar2 - EVar1), 0, ' ');
+                field_304 = 4294967295;
+                m_pos = EVar1;
                 return 1;
             }
-            field_304 = -1;
+            field_304 = 4294967295;
         }
         return 0;
     }
 
-    // 0x1006823f0, 112 bytes, placed by class name
-    // ConsoleEditLine::ValidatePosition()
+    // 0x1006823f0
     void ConsoleEditLine::ValidatePosition() {
-        undefined4 uVar1;
-        int iVar2;
-
-        iVar2 = m_pos;
-        uVar1 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        iVar2 = eastl::min<graphics::GraphicsQuality>(iVar2, uVar1);
-        iVar2 = eastl::max<int>(0, iVar2);
-        m_pos = iVar2;
-        iVar2 = field_304;
-        if (iVar2 != -1) {
-            uVar1 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            iVar2 = eastl::min<graphics::GraphicsQuality>(iVar2, uVar1);
-            iVar2 = eastl::max<int>(0, iVar2);
-            field_304 = iVar2;
+        EnumOptionToggle EVar3 = m_pos;
+        auto EVar1 = field_8.size();
+        auto SVar2 = eastl::min<graphics::GraphicsQuality>(EVar3, EVar1);
+        EVar3 = eastl::max<int>(0, SVar2);
+        m_pos = EVar3;
+        EVar3 = field_304;
+        if (EVar3 != 4294967295) {
+            EVar1 = field_8.size();
+            SVar2 = eastl::min<graphics::GraphicsQuality>(EVar3, EVar1);
+            EVar3 = eastl::max<int>(0, SVar2);
+            field_304 = EVar3;
         }
     }
 
 } // namespace jag::ui
 
 namespace jag::tweak {
-    // 0x100681af0: the linker folded this into ui::ConsoleEditLine::SupportsKeyChar(int), which has identical code
-    EditLine::SupportsKeyChar(int);
+    // 0x100681af0: EditLine::SupportsKeyChar(int) has the same machine code as ui::ConsoleEditLine::SupportsKeyChar(int)
 
-    // 0x100682030: the linker folded this into ui::ConsoleEditLine::Home(), which has identical code
-    EditLine::Home();
+    // 0x100682030: EditLine::Home() has the same machine code as ui::ConsoleEditLine::Home()
 
-    // 0x100682060: the linker folded this into ui::ConsoleEditLine::End(), which has identical code
-    EditLine::End();
+    // 0x100682060: EditLine::End() has the same machine code as ui::ConsoleEditLine::End()
 
 } // namespace jag::tweak

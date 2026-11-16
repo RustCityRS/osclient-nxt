@@ -1,130 +1,105 @@
 // libs/graphics/runetek7/effects/shadows/PointLightSMPassEffect.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "PointLightSMPassEffect.h"
 
 namespace jag::graphics {
-    // 0x100918920, 64 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::Initialise()
-    undefined4 PointLightSMPassEffect::Initialise() {
-        undefined4 uVar1;
-
-        uVar1 = (*(code*)field_0[9])();
-        if ((char)uVar1 != '\0') {
-            (&field_128, 0, (ShaderConsts*)&field_32)->Update();
+    // 0x100918920
+    unsigned long PointLightSMPassEffect::Initialise() {
+        char cVar1 = CreateRenderingResources();
+        if (cVar1) {
+            field_128.Update(0, &field_32);
         }
-        return uVar1;
+        return cVar1 & 4294967295;
     }
 
-    // 0x100918980, 48 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const
-    void PointLightSMPassEffect::SetShaderConstants(DrawCallState* param_1, RenderContext* param_2, Shader* param_3) {
-        RenderContext* extraout_RDX;
+    // 0x100918980
+    void PointLightSMPassEffect::SetShaderConstants(render::DrawCallState& drawCallState,
+                                                    render::RenderContext& renderContext, Shader& shader) const {
+        RenderContext* renderContext_00;
 
-        param_3->GetProgram();
-        SetShaderConstants(this, param_1, extraout_RDX, (ShaderProgram*)param_3);
+        shader.GetProgram();
+        SetShaderConstants(drawCallState, *renderContext_00, shader);
     }
 
-    // 0x1009189b0, 128 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::SetShaderConstants(render::DrawCallState&, render::RenderContext&, render::ShaderProgram const&) const
-    void PointLightSMPassEffect::SetShaderConstants(DrawCallState* param_1, RenderContext* param_2,
-                                                    ShaderProgram* param_3) {
-        uint uVar1;
-        MapArea* this_00;
-        long lVar2;
-        RenderPipelineState* this_01;
-        ShaderConstBuffer* pSVar3;
+    // 0x1009189b0
+    void PointLightSMPassEffect::SetShaderConstants(render::DrawCallState& drawCallState,
+                                                    render::RenderContext& renderContext,
+                                                    const render::ShaderProgram& shaderProgram) const {
+        ShaderConstBuffer* shaderConstBuffer;
 
-        this_00 = (MapArea*)Instance();
-        lVar2 = this_00->GetOrigin();
-        if (*(char*)(lVar2 + 120) == '\0') {
-            /* WARNING: Subroutine does not return */
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
+        if (*(char*)(lVar1 + 120) == '\0') {
             LogAssert("false",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/effects/"
                       "shadows/PointLightSMPassEffect.cpp",
                       36, "Uniform buffer required for point light shadows");
         }
-        this_01 = (RenderPipelineState*)param_1->GetRenderPipelineState();
-        uVar1 = field_200;
-        pSVar3 = (ShaderConstBuffer*)(&field_128)->CurrentBuffer();
-        this_01->SetPSShaderConstBuffer(uVar1, pSVar3);
+        RenderPipelineState* this_01 = (RenderPipelineState*)drawCallState.GetRenderPipelineState();
+        unsigned int arg1 = field_200;
+        shaderConstBuffer = (ShaderConstBuffer*)field_128.CurrentBuffer();
+        this_01->SetPSShaderConstBuffer(arg1, shaderConstBuffer);
     }
 
-    // 0x100918a30, 208 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::BindConstBufferToShader(render::ShaderProgram const&) const
-    void PointLightSMPassEffect::BindConstBufferToShader(ShaderProgram* param_1) {
-        uint uVar1;
-        uint uVar2;
-        int iVar3;
-        MapArea* this_00;
-        long lVar4;
-
-        this_00 = (MapArea*)Instance();
-        lVar4 = this_00->GetOrigin();
-        if (*(char*)(lVar4 + 120) == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x100918a30
+    void PointLightSMPassEffect::BindConstBufferToShader(const render::ShaderProgram& shaderProgram) const {
+        long lVar2 = ((MapArea*)Instance())->GetOrigin();
+        if (*(char*)(lVar2 + 120) == '\0') {
             LogAssert("false",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/effects/"
                       "shadows/PointLightSMPassEffect.cpp",
                       51, "Uniform buffer required for point light shadows");
         }
-        if (BindConstBufferToShader(render::ShaderProgram_const&)::pointLightShadowPassConstBlockName == '\0') {
-            iVar3 = ___cxa_guard_acquire(
-                &BindConstBufferToShader(render::ShaderProgram_const&)::pointLightShadowPassConstBlockName);
-            if (iVar3 != 0) {
-                new (&BindConstBufferToShader(render::ShaderProgram_const&)::pointLightShadowPassConstBlockName)
+        if (BindConstBufferToShader(render::ShaderProgram const&)::pointLightShadowPassConstBlockName == '\0') {
+            if (___cxa_guard_acquire(
+                    &BindConstBufferToShader(render::ShaderProgram const&)::pointLightShadowPassConstBlockName) != 0) {
+                new ((HashedString*)&BindConstBufferToShader(
+                    render::ShaderProgram const&)::pointLightShadowPassConstBlockName)
                     HashedString("PointLightShadowPass");
                 ___cxa_guard_release(
-                    &BindConstBufferToShader(render::ShaderProgram_const&)::pointLightShadowPassConstBlockName);
+                    &BindConstBufferToShader(render::ShaderProgram const&)::pointLightShadowPassConstBlockName);
             }
         }
-        uVar1 = field_200;
-        uVar2 = (&field_128)->GetAmplitude();
-        param_1->BindConstBufferSlot(
-            uVar1,
-            (HashedString*)&BindConstBufferToShader(render::ShaderProgram_const&)::pointLightShadowPassConstBlockName,
-            uVar2);
+        unsigned int arg1 = field_200;
+        unsigned int arg3 = field_128.GetAmplitude();
+        shaderProgram.BindConstBufferSlot(arg1,
+                                          *((HashedString*)&BindConstBufferToShader(
+                                              render::ShaderProgram const&)::pointLightShadowPassConstBlockName),
+                                          arg3);
     }
 
-    // 0x100918b00, 48 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::SetLightViewProjTrans(math::Matrix44T<float> const&)
-    void PointLightSMPassEffect::SetLightViewProjTrans(Matrix44T* param_1) {
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_32, param_1);
-        (&field_128, 0, (ShaderConsts*)&field_32)->Update();
+    // 0x100918b00
+    void PointLightSMPassEffect::SetLightViewProjTrans(const math::Matrix44T<float>& matrix44) {
+        field_32 = matrix44;
+        field_128.Update(0, &field_32);
     }
 
-    // 0x100918b30, 64 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::SetLightPos(math::Vector3T<float> const&)
-    void PointLightSMPassEffect::SetLightPos(Vector3T* param_1) {
-        (&field_96, param_1, 1.0)->Set();
-        (&field_128, 0, (ShaderConsts*)&field_32)->Update();
+    // 0x100918b30
+    void PointLightSMPassEffect::SetLightPos(const math::Vector3T<float>& vector3) {
+        field_96.Set(vector3, 1.0);
+        field_128.Update(0, &field_32);
     }
 
-    // 0x100918b70, 80 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::SetNearFarClip(float, float)
-    void PointLightSMPassEffect::SetNearFarClip(float param_1, float param_2) {
-        (&field_112, param_1, param_2 * param_2, 1.0 / (param_2 * param_2), 1.0 / param_2)->Set();
-        (&field_128, 0, (ShaderConsts*)&field_32)->Update();
+    // 0x100918b70
+    void PointLightSMPassEffect::SetNearFarClip(float arg1, float arg2) {
+        field_112.Set(arg1, arg2 * arg2, 1.0 / (arg2 * arg2), 1.0 / arg2);
+        field_128.Update(0, &field_32);
     }
 
-    // 0x100918bc0, 32 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::CreateRenderingResources()
+    // 0x100918bc0
     void PointLightSMPassEffect::CreateRenderingResources() {
-        (&field_128, 1, (ShaderConsts*)&field_32)->Create();
+        field_128.Create(1, &field_32);
     }
 
-    // 0x100918c00, 16 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::DestroyRenderingResources()
+    // 0x100918c00
     void PointLightSMPassEffect::DestroyRenderingResources() {
-        (&field_128)->Destroy();
+        field_128.Destroy();
     }
 
-    // 0x100918c10, 16 bytes, placed by class name and debug map
-    // PointLightSMPassEffect::OnEndFrame()
+    // 0x100918c10
     void PointLightSMPassEffect::OnEndFrame() {
-        (&field_128)->RotateBuffers();
+        field_128.RotateBuffers();
     }
 
 } // namespace jag::graphics

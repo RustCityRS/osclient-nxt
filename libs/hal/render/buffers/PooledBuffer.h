@@ -1,6 +1,5 @@
 // libs/hal/render/buffers/PooledBuffer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,1789 +10,1314 @@ namespace jag::render {
         PooledBuffer();
         ~PooledBuffer();
         void Destroy();
-        ulong Create(unsigned int, unsigned int, void const*);
-        PooledBuffer(PooledBuffer<IndexBuffer>&&);
-        PooledBuffer(PooledBuffer<VertexBuffer>&&);
-        PooledBuffer<IndexBuffer>* operator=(PooledBuffer<IndexBuffer>&&);
-        PooledBuffer<ShaderConstBuffer>* operator=(PooledBuffer<VertexBuffer>&&);
-        static /* 4 bytes */ POW2_ROUND_UP_MAX_SIZE;  // = 16384
-        static /* 4 bytes */ POW2_ROUND_UP_MAX_SIZE;  // = 16384
-        static /* 4 bytes */ POW2_ROUND_UP_MAX_SIZE;  // = 16384
-        static /* 20 bytes */ POW2_ROUND_UP_MAX_SIZE; // = { 16384, 16711935, 0, 0, 0 }
+        unsigned long Create(unsigned int arg1, unsigned int arg2, const void* arg3);
+        PooledBuffer(PooledBuffer<IndexBuffer>&& pooledBuffer);
+        PooledBuffer(PooledBuffer<VertexBuffer>&& pooledBuffer);
+        PooledBuffer<IndexBuffer>* operator=(PooledBuffer<IndexBuffer>&& pooledBuffer);
+        PooledBuffer<ShaderConstBuffer>* operator=(PooledBuffer<VertexBuffer>&& pooledBuffer);
+        static int32_t POW2_ROUND_UP_MAX_SIZE;    // = 16384
+        static int32_t POW2_ROUND_UP_MAX_SIZE;    // = 16384
+        static int32_t POW2_ROUND_UP_MAX_SIZE;    // = 16384
+        static int32_t POW2_ROUND_UP_MAX_SIZE[5]; // = { 16384, 16711935, 0, 0, 0 }
     };
 
-    // 0x100d997a0, 4 bytes, __const
-    PooledBuffer<IndexBuffer>::POW2_ROUND_UP_MAX_SIZE = 16384;
+    // 0x100d997a0
+    int32_t PooledBuffer<IndexBuffer>::POW2_ROUND_UP_MAX_SIZE = 16384;
 
-    // 0x100d997a4, 4 bytes, __const
-    PooledBuffer<VertexBuffer>::POW2_ROUND_UP_MAX_SIZE = 16384;
+    // 0x100d997a4
+    int32_t PooledBuffer<VertexBuffer>::POW2_ROUND_UP_MAX_SIZE = 16384;
 
-    // 0x100d997a8, 4 bytes, __const
-    PooledBuffer<ShaderConstBuffer>::POW2_ROUND_UP_MAX_SIZE = 16384;
+    // 0x100d997a8
+    int32_t PooledBuffer<ShaderConstBuffer>::POW2_ROUND_UP_MAX_SIZE = 16384;
 
-    // 0x100d997ac, 20 bytes, __const
-    PooledBuffer<PixelUnpackBuffer>::POW2_ROUND_UP_MAX_SIZE = {16384, 16711935, 0, 0, 0};
+    // 0x100d997ac
+    int32_t PooledBuffer<PixelUnpackBuffer>::POW2_ROUND_UP_MAX_SIZE[5] = {16384, 16711935, 0, 0, 0};
 
-    // 0x100c0ccc0, 16 bytes, base-object constructor, inline, placed by class name and debug map
-    // PooledBuffer<IndexBuffer>::PooledBuffer()
-    void PooledBuffer<IndexBuffer>::PooledBuffer() {
-        new (this) IndexBuffer();
-    }
+    // 0x100c0ccc0
+    PooledBuffer<IndexBuffer>::PooledBuffer() : IndexBuffer() {}
 
-    // 0x100c0ccf0, 16 bytes, complete-object constructor, inline, placed by class name
-    // PooledBuffer<IndexBuffer>::PooledBuffer(): jumps straight to the base-object constructor
-
-    // 0x100c0cd00, 48 bytes, base-object destructor, inline, placed by class name
-    // PooledBuffer<IndexBuffer>::~PooledBuffer()
-    void PooledBuffer<IndexBuffer>::~PooledBuffer() {
+    // 0x100c0cd00
+    PooledBuffer<IndexBuffer>::~PooledBuffer() {
         PooledBuffer<IndexBuffer>::Destroy();
-        ~IndexBuffer();
     }
 
-    // 0x100c0cd30, 560 bytes, inline, placed by class name
-    // PooledBuffer<IndexBuffer>::Destroy()
+    // 0x100c0cd30
     void PooledBuffer<IndexBuffer>::Destroy() {
-        char cVar1;
-        undefined1 uVar2;
-        undefined1 uVar3;
-        undefined1 uVar4;
-        undefined1 uVar5;
-        uint uVar6;
-        uint uVar7;
-        int iVar8;
-        undefined4 uVar9;
-        ulong uVar10;
-        long lVar11;
-        vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>* this_00;
-        uint* puVar12;
-        int* piVar13;
-        undefined8 uVar14;
-        undefined8 uVar15;
-        PooledBuffer<IndexBuffer>* this_01;
-        map<unsigned int, eastl::vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>,
-            eastl::less<unsigned int>, eastl::allocator>* this_02;
-        uint local_3c;
-        uint local_38;
-        uint local_34;
+        uint8_t bVar2;
+        uint8_t bVar3;
+        uint8_t bVar4;
+        uint8_t bVar5;
+        unsigned int uVar6;
+        unsigned int arg2;
+        int iVar7;
+        unsigned long uVar8;
+        long lVar9;
+        vector<internal::ManagedBuffer<IndexBuffer>>* this_00;
+        unsigned int* puVar10;
+        int* piVar11;
+        Logger* this_01;
+        uint64_t uVar12;
+        PooledBuffer<IndexBuffer>* this_02;
+        map<unsigned int, eastl::vector<internal::ManagedBuffer<IndexBuffer>>>* this_03;
+        unsigned int in_R8D;
+        unsigned int local_3c;
+        unsigned int local_38;
+        unsigned int local_34;
 
-        cVar1 = this_thread::IsMainThread();
-        if ((cVar1 == '\0') && (uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)) {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if ((!cVar1) && (uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)) {
             LogAssert(
                 "this_thread::IsMainThread() || (this->GetCreationFlags() & FORCE_NO_RECYCLING) == FORCE_NO_RECYCLING",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                 "PooledBuffer.cpp",
-                205, (char*)0);
+                205, nullptr);
         }
         cVar1 = IsCreated();
-        if ((((cVar1 != '\0') && (cVar1 = IsMapped(), cVar1 == '\0')) && (cVar1 = IsRecyclable(), cVar1 != '\0')) &&
-            ((cVar1 = IsDynamic(),
-              cVar1 != '\0' && (this_01 = this, uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)))) {
+        if ((((cVar1) && (cVar1 = IsMapped(), !cVar1)) && (cVar1 = IsRecyclable(), cVar1)) &&
+            ((cVar1 = IsDynamic(), cVar1 && (this_02 = this, uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)))) {
             if (*(int*)this != 3) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_livenessMethod == RenderResourceLivenessMethod::KEEP_ALIVE_EXTERNAL",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                           "PooledBuffer.cpp",
-                          230, (char*)0);
+                          230, nullptr);
             }
-            lVar11 = this_01->Instance();
-            this_02 = (map<unsigned int, eastl::vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>,
-                           eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 32);
+            lVar9 = this_02->Instance();
+            this_03 = (map<unsigned int, eastl::vector<internal::ManagedBuffer<IndexBuffer>>>*)(lVar9 + 32);
             local_3c = GetEndPosition();
-            this_00 = (vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>*)
-                eastl::map<unsigned int, eastl::vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>,
-                           eastl::less<unsigned int>, eastl::allocator>::operator[](this_02, &local_3c);
-            lVar11 = this_02->Instance();
+            this_00 = (vector<internal::ManagedBuffer<IndexBuffer>>*)(*this_03)[local_3c];
+            lVar9 = this_03->Instance();
             uVar6 = GetEndPosition();
-            uVar7 = eastl::vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>::size(this_00);
+            arg2 = this_00->size();
             local_38 = GetEndPosition();
-            puVar12 =
-                (uint*)eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                    (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 80),
-                    &local_38);
-            BufferPoolStats::RecordBufferDestruction("IndexBuffer", uVar6, uVar7, *puVar12);
+            puVar10 = (unsigned int*)(*((lVar9 + 80)))[local_38];
+            ((BufferPoolStats*)"IndexBuffer")
+                ->RecordBufferDestruction((char*)(unsigned long)uVar6, arg2, *puVar10, in_R8D);
             cVar1 = IsPermanent();
-            if (cVar1 != '\0') {
+            if (cVar1) {
                 local_34 = GetEndPosition();
-                piVar13 = (int*)
-                    eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                        (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 80),
-                        &local_34);
-                *piVar13 = *piVar13 + 1;
+                piVar11 = (int*)(*((lVar9 + 80)))[local_34];
+                *piVar11 = *piVar11 + 1;
             }
-            eastl::vector<internal::ManagedBuffer<IndexBuffer>,
-                          eastl::allocator>::emplace_back<PooledBuffer<IndexBuffer>>(this_00, (PooledBuffer*)this);
+            this_00->emplace_back<PooledBuffer<IndexBuffer>>(*this);
             return;
         }
         cVar1 = IsCreated();
-        if (((cVar1 != '\0') && (iVar8 = GetEndPosition(), iVar8 != 0)) &&
-            (uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)) {
-            uVar14 = logger::default_logger();
-            uVar15 = GetNativeBuffer();
-            uVar2 = IsCreated();
-            uVar3 = IsMapped();
-            uVar4 = IsRecyclable();
-            uVar5 = IsDynamic();
-            uVar9 = GetEndPosition();
-            logger::Logger::Log(uVar14, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "buffers/PooledBuffer.cpp",
-                                263,
-                                "Attempting to recycle invalid buffer (id: %u, created: %i, mapped: %i, recyclable: "
-                                "%i, dynamic: %i, physicalSize: %u)",
-                                uVar15, uVar2, uVar3, uVar4, uVar5, uVar9);
+        if (((cVar1) && (iVar7 = GetEndPosition(), iVar7 != 0)) &&
+            (uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)) {
+            this_01 = logger::default_logger();
+            uVar12 = GetNativeBuffer();
+            bVar2 = IsCreated();
+            bVar3 = IsMapped();
+            bVar4 = IsRecyclable();
+            bVar5 = IsDynamic();
+            uVar6 = GetEndPosition();
+            this_01->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
+                         "PooledBuffer.cpp",
+                         263,
+                         "Attempting to recycle invalid buffer (id: %u, created: %i, mapped: %i, recyclable: %i, "
+                         "dynamic: %i, physicalSize: %u)",
+                         uVar12, (unsigned long)bVar2, (unsigned long)bVar3, (unsigned long)bVar4, (unsigned long)bVar5,
+                         (unsigned long)uVar6);
         }
         Destroy();
     }
 
-    // 0x100c0cf90, 16 bytes, complete-object destructor, inline, placed by class name
-    // PooledBuffer<IndexBuffer>::~PooledBuffer(): jumps straight to the base-object destructor
+    // 0x100c0cfa0
+    unsigned long PooledBuffer<IndexBuffer>::Create(unsigned int arg1, unsigned int arg2, const void* arg3) {
+        unsigned int uVar2;
+        unsigned int uVar3;
+        unsigned int* puVar4;
+        ManagedBuffer<IndexBuffer>* pMVar6;
+        ManagedBuffer<IndexBuffer>* pMVar7;
+        rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>, eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true, true>* this_00;
+        unsigned long uVar9;
+        BufferCreationReason in_R8D;
+        void* pvVar10;
+        IndexBuffer* pIVar11;
+        bool bVar12;
+        uint8_t auVar13[16];
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_70;
+        rbtree_iterator<eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>> _>,
+                        eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>> _> const*,
+                        eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>> _> const&>*
+            local_68;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>>>>,
+               true, true>* local_60;
+        ReturnValue local_58;
+        ReturnValue local_40;
 
-    // 0x100c0cfa0, 1184 bytes, inline, placed by class name
-    // PooledBuffer<IndexBuffer>::Create(unsigned int, unsigned int, void const*)
-    ulong PooledBuffer<IndexBuffer>::Create(uint param_1, uint param_2, void* param_3) {
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        uint uVar4;
-        uint* puVar5;
-        long lVar6;
-        long lVar7;
-        undefined8 uVar8;
-        undefined8 uVar9;
-        ManagedBuffer* pMVar10;
-        ManagedBuffer* pMVar11;
-        PooledBuffer* pPVar12;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        ulong uVar13;
-        PooledBuffer<IndexBuffer>* this_00;
-        void* pvVar14;
-        Layout* this_02;
-        IndexBuffer* pIVar15;
-        hashtable_iterator_base local_70[8];
-        undefined8 local_68;
-        long local_60;
-        hashtable_iterator_base local_58[8];
-        uint local_40[2];
-        uint local_34;
-
-        if ((param_2 & 16) != 0) {
-            uVar3 = Create(param_1, param_2, param_3, 5123);
-            uVar13 = (ulong)uVar3;
+        if ((arg2 & 16) != 0) {
+            uVar2 = Create(arg1, arg2, arg3, 5123);
+            uVar9 = (unsigned long)uVar2;
             goto LAB_100c0d42d;
         }
-        this_00 = this;
-        local_34 = param_1;
-        if ((param_2 & 4) == 0) {
-            if (param_1 < 16385) {
-                local_34 = math::RoundUpToPowerOf2(param_1);
+        PooledBuffer<IndexBuffer>* pPVar8 = this;
+        unsigned int local_34 = arg1;
+        if ((arg2 & 4) == 0) {
+            if (arg1 < 16385) {
+                local_34 = math::RoundUpToPowerOf2(arg1);
             } else {
-                local_34 = math::RoundUpToMultiple(param_1, 16384);
+                local_34 = math::RoundUpToMultiple(arg1, 16384);
             }
-            local_40[0] = 16;
-            this_00 = (PooledBuffer<IndexBuffer>*)&local_34;
-            puVar5 = std::max<unsigned int>((uint*)this_00, local_40);
-            local_34 = *puVar5;
+            local_40._0_4_ = 16;
+            pPVar8 = (PooledBuffer<IndexBuffer>*)&local_34;
+            puVar4 = std::max<unsigned int>(*pPVar8, local_40);
+            local_34 = *puVar4;
         }
-        cVar1 = this_thread::IsMainThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if (!cVar1) {
             LogAssert("this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                       "PooledBuffer.cpp",
-                      83, (char*)0);
+                      83, nullptr);
         }
-        lVar6 = this_00->Instance();
-        eastl::rbtree<
-            unsigned int,
-            eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>>,
-            eastl::less<unsigned int>, eastl::allocator,
-            eastl::use_first<
-                eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>>>,
-            true, true>::lower_bound(local_40);
-        lVar7 = eastl::rbtree_iterator<
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-        operator*((rbtree_iterator<
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                      local_40);
-        this_02 = (Layout*)(lVar7 + 8);
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar2 = eastl::operator!=((eastl*)local_40, local_58, extraout_RDX);
-        if (bVar2) {
-            puVar5 = (uint*)eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator*(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                    local_40);
-            pMVar10 = (ManagedBuffer*)0;
-            bVar2 = true;
-            if (((float)*puVar5 <= (float)local_34 * 1.55) && ((param_2 & 4) == 0)) {
-                uVar8 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_02);
-                uVar9 = this_02->end();
-                pMVar10 = eastl::find_if<internal::ManagedBuffer<IndexBuffer>*,
-                                         unsigned int->Create(unsigned int, void_const*)::_lambda(
-                                             internal::ManagedBuffer<IndexBuffer> const&) _1_>(uVar8, uVar9);
-                pMVar11 = (ManagedBuffer*)this_02->end();
-                bVar2 = pMVar10 == pMVar11;
+        long lVar5 = pPVar8->Instance();
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>>>>,
+               true, true>* this_02 =
+            (rbtree<
+                unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>>>,
+                eastl::less<unsigned int>, eastl::allocator,
+                eastl::use_first<eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>>>>,
+                true, true>*)(lVar5 + 32);
+        local_40 = this_02->lower_bound(local_34);
+        lVar5 = *local_40;
+        Layout* this_03 = (Layout*)(lVar5 + 8);
+        local_58.end();
+        cVar1 = local_40 != local_58;
+        if (!cVar1) {
+            pMVar6 = nullptr;
+        } else {
+            puVar4 = (unsigned int*)*local_40;
+            pMVar6 = nullptr;
+            bVar12 = true;
+            if (((float)*puVar4 <= (float)local_34 * 1.55) && ((arg2 & 4) == 0)) {
+                pMVar6 = (ManagedBuffer<IndexBuffer>*)this_03->HeapBeginPtr();
+                auVar13 = this_03->end();
+                pMVar6 = eastl::find_if<internal::ManagedBuffer<IndexBuffer>*,
+                                        unsigned int->Create(unsigned int, void const*)::_lambda(
+                                            internal::ManagedBuffer<IndexBuffer> const&) _1_>(pMVar6, auVar13._0_8_,
+                                                                                              auVar13._8_8_);
+                pMVar7 = (ManagedBuffer<IndexBuffer>*)this_03->end();
+                bVar12 = pMVar6 == pMVar7;
             }
-            pIVar15 = (IndexBuffer*)this;
-            if (!bVar2) {
-                local_60 = lVar6 + 32;
-                if (pMVar10 == (ManagedBuffer*)0) {
-                    /* WARNING: Subroutine does not return */
+            pIVar11 = (IndexBuffer*)this;
+            if (!bVar12) {
+                local_60 = this_02;
+                if (pMVar6 == nullptr) {
                     LogAssert("bufferIt",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              157, (char*)0);
+                              157, nullptr);
                 }
-                PooledBuffer((PooledBuffer<IndexBuffer>*)(IndexBuffer*)this, (PooledBuffer*)pMVar10);
-                if (pIVar15->field_0 != 3) {
-                    /* WARNING: Subroutine does not return */
+                PooledBuffer((PooledBuffer<IndexBuffer>*)(IndexBuffer*)this, (PooledBuffer<IndexBuffer>*)pMVar6);
+                if (pIVar11->field_0 != 3) {
                     LogAssert("m_livenessMethod == RenderResourceLivenessMethod::KEEP_ALIVE_EXTERNAL",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              164, (char*)0);
+                              164, nullptr);
                 }
-                lVar6 = ((IndexBuffer*)this)->Instance();
-                cVar1 = pIVar15->IsPermanent();
-                if (cVar1 != '\0') {
-                    eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_40);
-                    eastl::rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>,
-                                  eastl::less<unsigned int>, eastl::allocator,
-                                  eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true,
-                                  true>::find((uint*)local_58);
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                        true, true>::end();
-                    bVar2 = eastl::operator!=((eastl*)local_58, local_70, extraout_RDX_01);
-                    if (!bVar2) {
-                        /* WARNING: Subroutine does not return */
+                lVar5 = ((AutoSingleton<internal::BufferPool<IndexBuffer>>*)(IndexBuffer*)this)->Instance();
+                this_00 =
+                    (rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>, eastl::less<unsigned int>,
+                            eastl::allocator, eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true,
+                            true>*)(lVar5 + 80);
+                cVar1 = pIVar11->IsPermanent();
+                if (cVar1) {
+                    puVar4 = (unsigned int*)*local_40;
+                    local_58 = this_00->find(*puVar4);
+                    local_70.end();
+                    cVar1 = local_58 != local_70;
+                    if (!cVar1) {
                         LogAssert("permanentBufferIt != numPermanentBuffers.end()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "buffers/PooledBuffer.cpp",
-                                  171, (char*)0);
+                                  171, nullptr);
                     }
-                    lVar7 = eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_58);
-                    *(int*)(lVar7 + 4) = *(int*)(lVar7 + 4) + -1;
-                    pIVar15 = (IndexBuffer*)this;
+                    lVar5 = *local_58;
+                    *(int*)(lVar5 + 4) = *(int*)(lVar5 + 4) - 1;
+                    pIVar11 = (IndexBuffer*)this;
                 }
-                uVar3 = pIVar15->GetEndPosition();
-                uVar4 = this_02->size();
-                puVar5 = (uint*)eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                puVar5 = (uint*)
-                    eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                        (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar6 + 80),
-                        puVar5);
-                BufferPoolStats::RecordBufferRecycle("IndexBuffer", uVar3, uVar4, *puVar5);
-                cVar1 = this_02->empty();
-                if (cVar1 != '\0') {
-                    new (&local_68)
-                        eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                            shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                            shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(local_40);
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<
-                            unsigned int const, eastl::vector<internal::ManagedBuffer<IndexBuffer>, eastl::allocator>>>,
-                        true, true>::erase(local_58, local_60, local_68);
+                uVar2 = pIVar11->GetEndPosition();
+                uVar3 = this_03->size();
+                puVar4 = (unsigned int*)*local_40;
+                puVar4 = (unsigned int*)(*this_00)[*puVar4];
+                BufferPoolStats::RecordBufferRecycle("IndexBuffer", uVar2, uVar3, *puVar4);
+                cVar1 = this_03->empty();
+                if (cVar1) {
+                    new (&local_68) eastl::ListIterator(&local_40);
+                    local_58 = local_60->erase(local_68);
                 }
-                uVar4 = pIVar15->GetEndPosition();
-                uVar3 = param_1;
-                if (uVar4 < param_1) {
-                    /* WARNING: Subroutine does not return */
+                uVar3 = pIVar11->GetEndPosition();
+                uVar2 = arg1;
+                if (uVar3 < arg1) {
                     LogAssert("this->GetPhysicalSizeInBytes() >= sizeInBytes",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              182, (char*)0);
+                              182, nullptr);
                 }
-                cVar1 = pIVar15->IsCreated();
-                pvVar14 = param_3;
-                if (cVar1 == '\0') {
-                    /* WARNING: Subroutine does not return */
+                cVar1 = pIVar11->IsCreated();
+                pvVar10 = arg3;
+                if (!cVar1) {
                     LogAssert("this->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              183, (char*)0);
+                              183, nullptr);
                 }
-                cVar1 = pIVar15->IsMapped();
-                if (cVar1 != '\0') {
-                    /* WARNING: Subroutine does not return */
+                cVar1 = pIVar11->IsMapped();
+                if (cVar1) {
                     LogAssert("!this->IsMapped()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              184, (char*)0);
+                              184, nullptr);
                 }
-                pIVar15->field_36 = uVar3;
-                uVar13 = CONCAT71((int7)((ulong)(lVar6 + 80) >> 8), 1);
-                if (pvVar14 != (void*)0) {
-                    pIVar15->Update(0, uVar3, pvVar14, 2);
+                pIVar11->field_36 = uVar2;
+                uVar9 = (((uint64_t)((int64_t)((unsigned long)this_00 >> 8)) << 8) | (uint8_t)1);
+                if (pvVar10 != nullptr) {
+                    pIVar11->Update(0, uVar2, pvVar10, 2);
                 }
                 goto LAB_100c0d42d;
             }
-        } else {
-            pMVar10 = (ManagedBuffer*)0;
         }
-        if ((param_2 & 4) == 0) {
-            eastl::rbtree<
-                unsigned int,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::less<unsigned int>, eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                true, true>::end();
-            bVar2 = eastl::operator==((eastl*)local_40, local_58, extraout_RDX_00);
-            if (bVar2) {
-                uVar8 = 1;
+        if ((arg2 & 4) == 0) {
+            local_58.end();
+            cVar1 = local_40 == local_58;
+            if (cVar1) {
+                uVar2 = 1;
                 goto LAB_100c0d35c;
             }
-            pPVar12 = (PooledBuffer*)this_02->end();
-            pvVar14 = param_3;
-            if (pMVar10 == (ManagedBuffer*)pPVar12) {
-                uVar8 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_02);
-                uVar9 = this_02->end();
+            pPVar8 = (PooledBuffer<IndexBuffer>*)this_03->end();
+            pvVar10 = arg3;
+            if (pMVar6 == (ManagedBuffer<IndexBuffer>*)pPVar8) {
+                pMVar6 = (ManagedBuffer<IndexBuffer>*)this_03->HeapBeginPtr();
+                auVar13 = this_03->end();
                 eastl::minmax_element<internal::ManagedBuffer<IndexBuffer> const*,
                                       internal::BufferPool<IndexBuffer>::OnEndFrame()::_lambda(
-                                          auto : 1_const &, auto : 2_const &) _1_>(uVar8, uVar9);
-                uVar8 = 2;
+                                          auto : 1 const&, auto : 2 const&) _1_>(pMVar6, auVar13._0_8_, auVar13._8_8_);
+                uVar2 = 2;
             } else {
-                uVar8 = 3;
+                uVar2 = 3;
             }
-            BufferPoolStats::RecordBufferCreation("IndexBuffer", local_34, 1, uVar8);
+            ((BufferPoolStats*)"IndexBuffer")->RecordBufferCreation((char*)(unsigned long)local_34, 1, uVar2, in_R8D);
         } else {
-            uVar8 = 0;
+            uVar2 = 0;
         LAB_100c0d35c:
-            BufferPoolStats::RecordBufferCreation("IndexBuffer", local_34, 1, uVar8);
-            pvVar14 = param_3;
+            ((BufferPoolStats*)"IndexBuffer")->RecordBufferCreation((char*)(unsigned long)local_34, 1, uVar2, in_R8D);
+            pvVar10 = arg3;
         }
-        uVar3 = param_1;
-        pIVar15 = (IndexBuffer*)this;
-        if ((pvVar14 == (void*)0) || (local_34 == param_1)) {
-            uVar4 = Create(local_34, param_2 | 43, pvVar14, 5123);
+        uVar2 = arg1;
+        pIVar11 = (IndexBuffer*)this;
+        if ((pvVar10 == nullptr) || (local_34 == arg1)) {
+            uVar3 = Create(local_34, arg2 | 43, pvVar10, 5123);
         } else {
-            uVar4 = Create(local_34, param_2 | 43, 0, 5123);
-            pIVar15->Update(0, uVar3, pvVar14, 0);
+            uVar3 = Create(local_34, arg2 | 43, nullptr, 5123);
+            pIVar11->Update(0, uVar2, pvVar10, 0);
         }
-        uVar13 = (ulong)uVar4;
-        pIVar15->field_36 = uVar3;
+        uVar9 = (unsigned long)uVar3;
+        pIVar11->field_36 = uVar2;
     LAB_100c0d42d:
-        return uVar13 & 4294967295;
+        return uVar9 & 4294967295;
     }
 
-    // 0x100c0d960, 16 bytes, complete-object constructor, inline, placed by class name
-    // PooledBuffer<IndexBuffer>::PooledBuffer(PooledBuffer<IndexBuffer>&&): jumps straight to the base-object constructor
+    // 0x100c0ee10
+    PooledBuffer<VertexBuffer>::PooledBuffer() : VertexBuffer() {}
 
-    // 0x100c0ee10, 16 bytes, base-object constructor, inline, placed by class name
-    // PooledBuffer<VertexBuffer>::PooledBuffer()
-    void PooledBuffer<VertexBuffer>::PooledBuffer() {
-        new (this) VertexBuffer();
-    }
-
-    // 0x100c0ee30, 16 bytes, complete-object constructor, inline, placed by class name
-    // PooledBuffer<VertexBuffer>::PooledBuffer(): jumps straight to the base-object constructor
-
-    // 0x100c0ee40, 48 bytes, base-object destructor, inline, placed by class name
-    // PooledBuffer<VertexBuffer>::~PooledBuffer()
-    void PooledBuffer<VertexBuffer>::~PooledBuffer() {
+    // 0x100c0ee40
+    PooledBuffer<VertexBuffer>::~PooledBuffer() {
         PooledBuffer<VertexBuffer>::Destroy();
-        ~VertexBuffer();
     }
 
-    // 0x100c0ee70, 560 bytes, inline, placed by class name
-    // PooledBuffer<VertexBuffer>::Destroy()
+    // 0x100c0ee70
     void PooledBuffer<VertexBuffer>::Destroy() {
-        char cVar1;
-        bool bVar2;
-        undefined1 uVar3;
-        undefined1 uVar4;
-        undefined1 uVar5;
-        uint uVar6;
-        uint uVar7;
-        int iVar8;
-        undefined4 uVar9;
-        ulong uVar10;
-        long lVar11;
-        vector<game::BuildCombinedLocationResult_CombinableGroup, eastl::allocator>* this_00;
-        uint* puVar12;
-        int* piVar13;
-        undefined8 uVar14;
-        undefined8 uVar15;
-        BucketAllocatorSTL* in_RSI;
-        PooledBuffer<VertexBuffer>* this_01;
-        map<unsigned int, eastl::vector<internal::ManagedBuffer<VertexBuffer>, eastl::allocator>,
-            eastl::less<unsigned int>, eastl::allocator>* this_02;
-        uint local_3c;
-        uint local_38;
-        uint local_34;
+        uint8_t bVar2;
+        uint8_t bVar3;
+        uint8_t bVar4;
+        uint8_t bVar5;
+        unsigned int uVar6;
+        unsigned int arg2;
+        int iVar7;
+        unsigned long uVar8;
+        long lVar9;
+        vector<game::BuildCombinedLocationResult_CombinableGroup>* this_00;
+        unsigned int* puVar10;
+        int* piVar11;
+        Logger* this_01;
+        uint64_t uVar12;
+        PooledBuffer<VertexBuffer>* this_02;
+        map<unsigned int, eastl::vector<internal::ManagedBuffer<VertexBuffer>>>* this_03;
+        unsigned int in_R8D;
+        unsigned int local_3c;
+        unsigned int local_38;
+        unsigned int local_34;
 
-        cVar1 = this_thread::IsMainThread();
-        if ((cVar1 == '\0') && (uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)) {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if ((!cVar1) && (uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)) {
             LogAssert(
                 "this_thread::IsMainThread() || (this->GetCreationFlags() & FORCE_NO_RECYCLING) == FORCE_NO_RECYCLING",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                 "PooledBuffer.cpp",
-                205, (char*)0);
+                205, nullptr);
         }
         cVar1 = IsCreated();
-        if ((((cVar1 != '\0') && (cVar1 = IsMapped(), cVar1 == '\0')) && (bVar2 = IsValidValue(in_RSI), bVar2)) &&
-            ((cVar1 = IsDynamic(),
-              cVar1 != '\0' && (this_01 = this, uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)))) {
+        if ((((cVar1) && (cVar1 = IsMapped(), !cVar1)) && (cVar1 = IsValidValue(), cVar1)) &&
+            ((cVar1 = IsDynamic(), cVar1 && (this_02 = this, uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)))) {
             if (*(int*)this != 3) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_livenessMethod == RenderResourceLivenessMethod::KEEP_ALIVE_EXTERNAL",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                           "PooledBuffer.cpp",
-                          230, (char*)0);
+                          230, nullptr);
             }
-            lVar11 = this_01->Instance();
-            this_02 = (map<unsigned int, eastl::vector<internal::ManagedBuffer<VertexBuffer>, eastl::allocator>,
-                           eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 32);
+            lVar9 = this_02->Instance();
+            this_03 = (map<unsigned int, eastl::vector<internal::ManagedBuffer<VertexBuffer>>>*)(lVar9 + 32);
             local_3c = GetEndPosition();
-            this_00 = (vector<game::BuildCombinedLocationResult_CombinableGroup, eastl::allocator>*)
-                eastl::map<unsigned int, eastl::vector<internal::ManagedBuffer<VertexBuffer>, eastl::allocator>,
-                           eastl::less<unsigned int>, eastl::allocator>::operator[](this_02, &local_3c);
-            lVar11 = this_02->Instance();
+            this_00 = (vector<game::BuildCombinedLocationResult_CombinableGroup>*)(*this_03)[local_3c];
+            lVar9 = this_03->Instance();
             uVar6 = GetEndPosition();
-            uVar7 = eastl::vector<game::BuildCombinedLocationResult_CombinableGroup, eastl::allocator>::size(this_00);
+            arg2 = this_00->size();
             local_38 = GetEndPosition();
-            puVar12 =
-                (uint*)eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                    (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 80),
-                    &local_38);
-            BufferPoolStats::RecordBufferDestruction("VertexBuffer", uVar6, uVar7, *puVar12);
+            puVar10 = (unsigned int*)(*((lVar9 + 80)))[local_38];
+            ((BufferPoolStats*)"VertexBuffer")
+                ->RecordBufferDestruction((char*)(unsigned long)uVar6, arg2, *puVar10, in_R8D);
             cVar1 = IsPermanent();
-            if (cVar1 != '\0') {
+            if (cVar1) {
                 local_34 = GetEndPosition();
-                piVar13 = (int*)
-                    eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                        (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 80),
-                        &local_34);
-                *piVar13 = *piVar13 + 1;
+                piVar11 = (int*)(*((lVar9 + 80)))[local_34];
+                *piVar11 = *piVar11 + 1;
             }
-            eastl::vector<internal::ManagedBuffer<VertexBuffer>, eastl::allocator>::emplace_back<
-                PooledBuffer<VertexBuffer>>((vector<internal::ManagedBuffer<VertexBuffer>, eastl::allocator>*)this_00,
-                                            (PooledBuffer*)this);
+            this_00->emplace_back<PooledBuffer<VertexBuffer>>(*this);
             return;
         }
         cVar1 = IsCreated();
-        if (((cVar1 != '\0') && (iVar8 = GetEndPosition(), iVar8 != 0)) &&
-            (uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)) {
-            uVar14 = logger::default_logger();
-            uVar15 = GetNativeBuffer();
-            uVar3 = IsCreated();
-            uVar4 = IsMapped();
-            bVar2 = IsValidValue(in_RSI);
-            uVar5 = IsDynamic();
-            uVar9 = GetEndPosition();
-            logger::Logger::Log(uVar14, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "buffers/PooledBuffer.cpp",
-                                263,
-                                "Attempting to recycle invalid buffer (id: %u, created: %i, mapped: %i, recyclable: "
-                                "%i, dynamic: %i, physicalSize: %u)",
-                                uVar15, uVar3, uVar4, bVar2, uVar5, uVar9);
+        if (((cVar1) && (iVar7 = GetEndPosition(), iVar7 != 0)) &&
+            (uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)) {
+            this_01 = logger::default_logger();
+            uVar12 = GetNativeBuffer();
+            bVar2 = IsCreated();
+            bVar3 = IsMapped();
+            bVar4 = IsValidValue();
+            bVar5 = IsDynamic();
+            uVar6 = GetEndPosition();
+            this_01->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
+                         "PooledBuffer.cpp",
+                         263,
+                         "Attempting to recycle invalid buffer (id: %u, created: %i, mapped: %i, recyclable: %i, "
+                         "dynamic: %i, physicalSize: %u)",
+                         uVar12, (unsigned long)bVar2, (unsigned long)bVar3, (unsigned long)bVar4, (unsigned long)bVar5,
+                         (unsigned long)uVar6);
         }
         Destroy();
     }
 
-    // 0x100c0f0d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // PooledBuffer<VertexBuffer>::~PooledBuffer(): jumps straight to the base-object destructor
+    // 0x100c0f0e0
+    unsigned long PooledBuffer<VertexBuffer>::Create(unsigned int arg1, unsigned int arg2, const void* arg3) {
+        unsigned int uVar2;
+        unsigned int uVar3;
+        unsigned int* puVar4;
+        ManagedBuffer<VertexBuffer>* pMVar6;
+        ManagedBuffer<VertexBuffer>* pMVar7;
+        ManagedBuffer<ShaderConstBuffer>* managedBuffer1;
+        rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>, eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true, true>* this_00;
+        unsigned long uVar9;
+        BufferCreationReason in_R8D;
+        void* pvVar10;
+        BufferInterface* pBVar11;
+        bool bVar12;
+        uint8_t auVar13[16];
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_70;
+        rbtree_iterator<eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>> _>,
+                        eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>> _> const*,
+                        eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>> _> const&>*
+            local_68;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>>>>,
+               true, true>* local_60;
+        ReturnValue local_58;
+        ReturnValue local_40;
 
-    // 0x100c0f0e0, 1168 bytes, inline, placed by class name
-    // PooledBuffer<VertexBuffer>::Create(unsigned int, unsigned int, void const*)
-    ulong PooledBuffer<VertexBuffer>::Create(uint param_1, uint param_2, void* param_3) {
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        uint uVar4;
-        uint* puVar5;
-        long lVar6;
-        long lVar7;
-        undefined8 uVar8;
-        undefined8 uVar9;
-        ManagedBuffer* pMVar10;
-        ManagedBuffer* pMVar11;
-        PooledBuffer* pPVar12;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        ulong uVar13;
-        PooledBuffer<VertexBuffer>* this_00;
-        void* pvVar14;
-        Layout* this_02;
-        BufferInterface* pBVar15;
-        hashtable_iterator_base local_70[8];
-        undefined8 local_68;
-        long local_60;
-        hashtable_iterator_base local_58[8];
-        uint local_40[2];
-        uint local_34;
-
-        if ((param_2 & 16) != 0) {
-            uVar3 = Create(param_1, param_2, param_3);
-            uVar13 = (ulong)uVar3;
+        if ((arg2 & 16) != 0) {
+            uVar2 = Create(arg1, arg2, arg3);
+            uVar9 = (unsigned long)uVar2;
             goto LAB_100c0f55b;
         }
-        this_00 = this;
-        local_34 = param_1;
-        if ((param_2 & 4) == 0) {
-            if (param_1 < 16385) {
-                local_34 = math::RoundUpToPowerOf2(param_1);
+        PooledBuffer<VertexBuffer>* pPVar8 = this;
+        unsigned int local_34 = arg1;
+        if ((arg2 & 4) == 0) {
+            if (arg1 < 16385) {
+                local_34 = math::RoundUpToPowerOf2(arg1);
             } else {
-                local_34 = math::RoundUpToMultiple(param_1, 16384);
+                local_34 = math::RoundUpToMultiple(arg1, 16384);
             }
-            local_40[0] = 16;
-            this_00 = (PooledBuffer<VertexBuffer>*)&local_34;
-            puVar5 = std::max<unsigned int>((uint*)this_00, local_40);
-            local_34 = *puVar5;
+            local_40._0_4_ = 16;
+            pPVar8 = (PooledBuffer<VertexBuffer>*)&local_34;
+            puVar4 = std::max<unsigned int>(*pPVar8, local_40);
+            local_34 = *puVar4;
         }
-        cVar1 = this_thread::IsMainThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if (!cVar1) {
             LogAssert("this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                       "PooledBuffer.cpp",
-                      83, (char*)0);
+                      83, nullptr);
         }
-        lVar6 = this_00->Instance();
-        eastl::rbtree<
-            unsigned int,
-            eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>, eastl::allocator>>,
-            eastl::less<unsigned int>, eastl::allocator,
-            eastl::use_first<eastl::pair<unsigned int const,
-                                         eastl::vector<internal::ManagedBuffer<VertexBuffer>, eastl::allocator>>>,
-            true, true>::lower_bound(local_40);
-        lVar7 = eastl::rbtree_iterator<
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-        operator*((rbtree_iterator<
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                      local_40);
-        this_02 = (Layout*)(lVar7 + 8);
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar2 = eastl::operator!=((eastl*)local_40, local_58, extraout_RDX);
-        if (bVar2) {
-            puVar5 = (uint*)eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator*(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                    local_40);
-            pMVar10 = (ManagedBuffer*)0;
-            bVar2 = true;
-            if (((float)*puVar5 <= (float)local_34 * 1.55) && ((param_2 & 4) == 0)) {
-                uVar8 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_02);
-                uVar9 = this_02->end();
-                pMVar10 = eastl::find_if<internal::ManagedBuffer<VertexBuffer>*,
-                                         unsigned int->Create(unsigned int, void_const*)::_lambda(
-                                             internal::ManagedBuffer<VertexBuffer> const&) _1_>(uVar8, uVar9);
-                pMVar11 = (ManagedBuffer*)this_02->end();
-                bVar2 = pMVar10 == pMVar11;
+        long lVar5 = pPVar8->Instance();
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>>>>,
+               true, true>* this_02 =
+            (rbtree<
+                unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>>>,
+                eastl::less<unsigned int>, eastl::allocator,
+                eastl::use_first<eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<VertexBuffer>>>>,
+                true, true>*)(lVar5 + 32);
+        local_40 = this_02->lower_bound(local_34);
+        lVar5 = *local_40;
+        Layout* this_03 = (Layout*)(lVar5 + 8);
+        local_58.end();
+        cVar1 = local_40 != local_58;
+        if (!cVar1) {
+            pMVar6 = nullptr;
+        } else {
+            puVar4 = (unsigned int*)*local_40;
+            pMVar6 = nullptr;
+            bVar12 = true;
+            if (((float)*puVar4 <= (float)local_34 * 1.55) && ((arg2 & 4) == 0)) {
+                pMVar6 = (ManagedBuffer<VertexBuffer>*)this_03->HeapBeginPtr();
+                auVar13 = this_03->end();
+                pMVar6 = eastl::find_if<internal::ManagedBuffer<VertexBuffer>*,
+                                        unsigned int->Create(unsigned int, void const*)::_lambda(
+                                            internal::ManagedBuffer<VertexBuffer> const&) _1_>(pMVar6, auVar13._0_8_,
+                                                                                               auVar13._8_8_);
+                pMVar7 = (ManagedBuffer<VertexBuffer>*)this_03->end();
+                bVar12 = pMVar6 == pMVar7;
             }
-            pBVar15 = (BufferInterface*)this;
-            if (!bVar2) {
-                local_60 = lVar6 + 32;
-                if (pMVar10 == (ManagedBuffer*)0) {
-                    /* WARNING: Subroutine does not return */
+            pBVar11 = (BufferInterface*)this;
+            if (!bVar12) {
+                local_60 = this_02;
+                if (pMVar6 == nullptr) {
                     LogAssert("bufferIt",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              157, (char*)0);
+                              157, nullptr);
                 }
-                new ((BufferInterface*)this) PooledBuffer<ShaderConstBuffer>(pMVar10);
-                if (pBVar15->field_0 != 3) {
-                    /* WARNING: Subroutine does not return */
+                new ((PooledBuffer<ShaderConstBuffer>*)(BufferInterface*)this) PooledBuffer(*pMVar6);
+                if (pBVar11->field_0 != 3) {
                     LogAssert("m_livenessMethod == RenderResourceLivenessMethod::KEEP_ALIVE_EXTERNAL",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              164, (char*)0);
+                              164, nullptr);
                 }
-                lVar6 = ((BufferInterface*)this)->Instance();
-                cVar1 = pBVar15->IsPermanent();
-                if (cVar1 != '\0') {
-                    eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_40);
-                    eastl::rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>,
-                                  eastl::less<unsigned int>, eastl::allocator,
-                                  eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true,
-                                  true>::find((uint*)local_58);
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                        true, true>::end();
-                    bVar2 = eastl::operator!=((eastl*)local_58, local_70, extraout_RDX_01);
-                    if (!bVar2) {
-                        /* WARNING: Subroutine does not return */
+                lVar5 = ((AutoSingleton<internal::BufferPool<VertexBuffer>>*)(BufferInterface*)this)->Instance();
+                this_00 =
+                    (rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>, eastl::less<unsigned int>,
+                            eastl::allocator, eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true,
+                            true>*)(lVar5 + 80);
+                cVar1 = pBVar11->IsPermanent();
+                if (cVar1) {
+                    puVar4 = (unsigned int*)*local_40;
+                    local_58 = this_00->find(*puVar4);
+                    local_70.end();
+                    cVar1 = local_58 != local_70;
+                    if (!cVar1) {
                         LogAssert("permanentBufferIt != numPermanentBuffers.end()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "buffers/PooledBuffer.cpp",
-                                  171, (char*)0);
+                                  171, nullptr);
                     }
-                    lVar7 = eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_58);
-                    *(int*)(lVar7 + 4) = *(int*)(lVar7 + 4) + -1;
-                    pBVar15 = (BufferInterface*)this;
+                    lVar5 = *local_58;
+                    *(int*)(lVar5 + 4) = *(int*)(lVar5 + 4) - 1;
+                    pBVar11 = (BufferInterface*)this;
                 }
-                uVar3 = pBVar15->GetEndPosition();
-                uVar4 = this_02->size();
-                puVar5 = (uint*)eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                puVar5 = (uint*)
-                    eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                        (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar6 + 80),
-                        puVar5);
-                BufferPoolStats::RecordBufferRecycle("VertexBuffer", uVar3, uVar4, *puVar5);
-                cVar1 = this_02->empty();
-                if (cVar1 != '\0') {
-                    new (&local_68)
-                        eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                            shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                            shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(local_40);
-                    eastl::rbtree<unsigned int,
-                                  eastl::pair<unsigned int const,
-                                              eastl::vector<internal::ManagedBuffer<VertexBuffer>, eastl::allocator>>,
-                                  eastl::less<unsigned int>, eastl::allocator,
-                                  eastl::use_first<eastl::pair<
-                                      unsigned int const,
-                                      eastl::vector<internal::ManagedBuffer<VertexBuffer>, eastl::allocator>>>,
-                                  true, true>::erase(local_58, local_60, local_68);
+                uVar2 = pBVar11->GetEndPosition();
+                uVar3 = this_03->size();
+                puVar4 = (unsigned int*)*local_40;
+                puVar4 = (unsigned int*)(*this_00)[*puVar4];
+                BufferPoolStats::RecordBufferRecycle("VertexBuffer", uVar2, uVar3, *puVar4);
+                cVar1 = this_03->empty();
+                if (cVar1) {
+                    new (&local_68) eastl::ListIterator(&local_40);
+                    local_58 = local_60->erase(local_68);
                 }
-                uVar4 = pBVar15->GetEndPosition();
-                uVar3 = param_1;
-                if (uVar4 < param_1) {
-                    /* WARNING: Subroutine does not return */
+                uVar3 = pBVar11->GetEndPosition();
+                uVar2 = arg1;
+                if (uVar3 < arg1) {
                     LogAssert("this->GetPhysicalSizeInBytes() >= sizeInBytes",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              182, (char*)0);
+                              182, nullptr);
                 }
-                cVar1 = pBVar15->IsCreated();
-                pvVar14 = param_3;
-                if (cVar1 == '\0') {
-                    /* WARNING: Subroutine does not return */
+                cVar1 = pBVar11->IsCreated();
+                pvVar10 = arg3;
+                if (!cVar1) {
                     LogAssert("this->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              183, (char*)0);
+                              183, nullptr);
                 }
-                cVar1 = pBVar15->IsMapped();
-                if (cVar1 != '\0') {
-                    /* WARNING: Subroutine does not return */
+                cVar1 = pBVar11->IsMapped();
+                if (cVar1) {
                     LogAssert("!this->IsMapped()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              184, (char*)0);
+                              184, nullptr);
                 }
-                pBVar15->m_sizeInBytes = uVar3;
-                uVar13 = CONCAT71((int7)((ulong)(lVar6 + 80) >> 8), 1);
-                if (pvVar14 != (void*)0) {
-                    pBVar15->Update(0, uVar3, pvVar14, 2);
+                pBVar11->m_sizeInBytes = uVar2;
+                uVar9 = (((uint64_t)((int64_t)((unsigned long)this_00 >> 8)) << 8) | (uint8_t)1);
+                if (pvVar10 != nullptr) {
+                    pBVar11->Update(0, uVar2, pvVar10, 2);
                 }
                 goto LAB_100c0f55b;
             }
-        } else {
-            pMVar10 = (ManagedBuffer*)0;
         }
-        if ((param_2 & 4) == 0) {
-            eastl::rbtree<
-                unsigned int,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::less<unsigned int>, eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                true, true>::end();
-            bVar2 = eastl::operator==((eastl*)local_40, local_58, extraout_RDX_00);
-            if (bVar2)
+        if ((arg2 & 4) == 0) {
+            local_58.end();
+            cVar1 = local_40 == local_58;
+            if (cVar1) {
+                uVar2 = 1;
                 goto LAB_100c0f496;
-            pPVar12 = (PooledBuffer*)this_02->end();
-            pvVar14 = param_3;
-            if (pMVar10 == (ManagedBuffer*)pPVar12) {
-                uVar8 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_02);
-                uVar9 = this_02->end();
+            }
+            pPVar8 = (PooledBuffer<VertexBuffer>*)this_03->end();
+            pvVar10 = arg3;
+            if (pMVar6 == (ManagedBuffer<VertexBuffer>*)pPVar8) {
+                managedBuffer1 = (ManagedBuffer<ShaderConstBuffer>*)this_03->HeapBeginPtr();
+                auVar13 = this_03->end();
                 eastl::minmax_element<internal::ManagedBuffer<VertexBuffer> const*,
                                       internal::BufferPool<VertexBuffer>::OnEndFrame()::_lambda(
-                                          auto : 1_const &, auto : 2_const &) _1_>(uVar8, uVar9);
+                                          auto : 1 const&, auto : 2 const&) _1_>(managedBuffer1, auVar13._0_8_,
+                                                                                 auVar13._8_8_);
+                uVar2 = 2;
+            } else {
+                uVar2 = 3;
             }
-            BufferPoolStats::RecordBufferCreation("VertexBuffer", local_34, 1);
+            ((BufferPoolStats*)"VertexBuffer")->RecordBufferCreation((char*)(unsigned long)local_34, 1, uVar2, in_R8D);
         } else {
+            uVar2 = 0;
         LAB_100c0f496:
-            BufferPoolStats::RecordBufferCreation("VertexBuffer", local_34, 1);
-            pvVar14 = param_3;
+            ((BufferPoolStats*)"VertexBuffer")->RecordBufferCreation((char*)(unsigned long)local_34, 1, uVar2, in_R8D);
+            pvVar10 = arg3;
         }
-        uVar3 = param_1;
-        pBVar15 = (BufferInterface*)this;
-        if ((pvVar14 == (void*)0) || (local_34 == param_1)) {
-            uVar4 = ((BufferInterface*)this)->Create(local_34, param_2 | 43, pvVar14);
+        uVar2 = arg1;
+        pBVar11 = (BufferInterface*)this;
+        if ((pvVar10 == nullptr) || (local_34 == arg1)) {
+            uVar3 = ((VertexBuffer*)(BufferInterface*)this)->Create(local_34, arg2 | 43, pvVar10);
         } else {
-            uVar4 = ((BufferInterface*)this)->Create(local_34, param_2 | 43, 0);
-            pBVar15->Update(0, uVar3, pvVar14, 0);
+            uVar3 = ((VertexBuffer*)(BufferInterface*)this)->Create(local_34, arg2 | 43, nullptr);
+            pBVar11->Update(0, uVar2, pvVar10, 0);
         }
-        uVar13 = (ulong)uVar4;
-        pBVar15->m_sizeInBytes = uVar3;
+        uVar9 = (unsigned long)uVar3;
+        pBVar11->m_sizeInBytes = uVar2;
     LAB_100c0f55b:
-        return uVar13 & 4294967295;
+        return uVar9 & 4294967295;
     }
 
-    // 0x100c0f8c0, 16 bytes, complete-object constructor, inline, placed by class name
-    // PooledBuffer<VertexBuffer>::PooledBuffer(PooledBuffer<VertexBuffer>&&): jumps straight to the base-object constructor
+    // 0x100c10450
+    PooledBuffer<ShaderConstBuffer>::PooledBuffer() : ShaderConstBuffer() {}
 
-    // 0x100c10450, 16 bytes, base-object constructor, inline, placed by class name
-    // PooledBuffer<ShaderConstBuffer>::PooledBuffer()
-    void PooledBuffer<ShaderConstBuffer>::PooledBuffer() {
-        new (this) ShaderConstBuffer();
-    }
-
-    // 0x100c10470, 16 bytes, complete-object constructor, inline, placed by class name
-    // PooledBuffer<ShaderConstBuffer>::PooledBuffer(): jumps straight to the base-object constructor
-
-    // 0x100c10480, 48 bytes, base-object destructor, inline, placed by class name
-    // PooledBuffer<ShaderConstBuffer>::~PooledBuffer()
-    void PooledBuffer<ShaderConstBuffer>::~PooledBuffer() {
+    // 0x100c10480
+    PooledBuffer<ShaderConstBuffer>::~PooledBuffer() {
         PooledBuffer<ShaderConstBuffer>::Destroy();
-        ~ShaderConstBuffer();
     }
 
-    // 0x100c104b0, 560 bytes, inline, placed by class name
-    // PooledBuffer<ShaderConstBuffer>::Destroy()
+    // 0x100c104b0
     void PooledBuffer<ShaderConstBuffer>::Destroy() {
-        char cVar1;
-        bool bVar2;
-        undefined1 uVar3;
-        undefined1 uVar4;
-        undefined1 uVar5;
-        uint uVar6;
-        uint uVar7;
-        int iVar8;
-        undefined4 uVar9;
-        ulong uVar10;
-        long lVar11;
-        vector<game::BuildCombinedLocationResult_CombinableGroup, eastl::allocator>* this_00;
-        uint* puVar12;
-        int* piVar13;
-        undefined8 uVar14;
-        undefined8 uVar15;
-        BucketAllocatorSTL* in_RSI;
-        PooledBuffer<ShaderConstBuffer>* this_01;
-        map<unsigned int, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>, eastl::allocator>,
-            eastl::less<unsigned int>, eastl::allocator>* this_02;
-        uint local_3c;
-        uint local_38;
-        uint local_34;
+        uint8_t bVar2;
+        uint8_t bVar3;
+        uint8_t bVar4;
+        uint8_t bVar5;
+        unsigned int uVar6;
+        unsigned int arg2;
+        int iVar7;
+        unsigned long uVar8;
+        long lVar9;
+        vector<game::BuildCombinedLocationResult_CombinableGroup>* this_00;
+        unsigned int* puVar10;
+        int* piVar11;
+        Logger* this_01;
+        uint64_t uVar12;
+        PooledBuffer<ShaderConstBuffer>* this_02;
+        map<unsigned int, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>>>* this_03;
+        unsigned int in_R8D;
+        unsigned int local_3c;
+        unsigned int local_38;
+        unsigned int local_34;
 
-        cVar1 = this_thread::IsMainThread();
-        if ((cVar1 == '\0') && (uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)) {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if ((!cVar1) && (uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)) {
             LogAssert(
                 "this_thread::IsMainThread() || (this->GetCreationFlags() & FORCE_NO_RECYCLING) == FORCE_NO_RECYCLING",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                 "PooledBuffer.cpp",
-                205, (char*)0);
+                205, nullptr);
         }
         cVar1 = IsCreated();
-        if ((((cVar1 != '\0') && (cVar1 = IsMapped(), cVar1 == '\0')) && (bVar2 = IsValidValue(in_RSI), bVar2)) &&
-            ((cVar1 = IsDynamic(),
-              cVar1 != '\0' && (this_01 = this, uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)))) {
+        if ((((cVar1) && (cVar1 = IsMapped(), !cVar1)) && (cVar1 = IsValidValue(), cVar1)) &&
+            ((cVar1 = IsDynamic(), cVar1 && (this_02 = this, uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)))) {
             if (*(int*)this != 3) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_livenessMethod == RenderResourceLivenessMethod::KEEP_ALIVE_EXTERNAL",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                           "PooledBuffer.cpp",
-                          230, (char*)0);
+                          230, nullptr);
             }
-            lVar11 = this_01->Instance();
-            this_02 = (map<unsigned int, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>, eastl::allocator>,
-                           eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 32);
+            lVar9 = this_02->Instance();
+            this_03 = (map<unsigned int, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>>>*)(lVar9 + 32);
             local_3c = GetEndPosition();
-            this_00 = (vector<game::BuildCombinedLocationResult_CombinableGroup, eastl::allocator>*)
-                eastl::map<unsigned int, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>, eastl::allocator>,
-                           eastl::less<unsigned int>, eastl::allocator>::operator[](this_02, &local_3c);
-            lVar11 = this_02->Instance();
+            this_00 = (vector<game::BuildCombinedLocationResult_CombinableGroup>*)(*this_03)[local_3c];
+            lVar9 = this_03->Instance();
             uVar6 = GetEndPosition();
-            uVar7 = eastl::vector<game::BuildCombinedLocationResult_CombinableGroup, eastl::allocator>::size(this_00);
+            arg2 = this_00->size();
             local_38 = GetEndPosition();
-            puVar12 =
-                (uint*)eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                    (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 80),
-                    &local_38);
-            BufferPoolStats::RecordBufferDestruction("ShaderConstBuffer", uVar6, uVar7, *puVar12);
+            puVar10 = (unsigned int*)(*((lVar9 + 80)))[local_38];
+            ((BufferPoolStats*)"ShaderConstBuffer")
+                ->RecordBufferDestruction((char*)(unsigned long)uVar6, arg2, *puVar10, in_R8D);
             cVar1 = IsPermanent();
-            if (cVar1 != '\0') {
+            if (cVar1) {
                 local_34 = GetEndPosition();
-                piVar13 = (int*)
-                    eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                        (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 80),
-                        &local_34);
-                *piVar13 = *piVar13 + 1;
+                piVar11 = (int*)(*((lVar9 + 80)))[local_34];
+                *piVar11 = *piVar11 + 1;
             }
-            eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>, eastl::allocator>::emplace_back<
-                PooledBuffer<ShaderConstBuffer>>(
-                (vector<internal::ManagedBuffer<ShaderConstBuffer>, eastl::allocator>*)this_00, (PooledBuffer*)this);
+            this_00->emplace_back<PooledBuffer<ShaderConstBuffer>>(*this);
             return;
         }
         cVar1 = IsCreated();
-        if (((cVar1 != '\0') && (iVar8 = GetEndPosition(), iVar8 != 0)) &&
-            (uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)) {
-            uVar14 = logger::default_logger();
-            uVar15 = GetNativeBuffer();
-            uVar3 = IsCreated();
-            uVar4 = IsMapped();
-            bVar2 = IsValidValue(in_RSI);
-            uVar5 = IsDynamic();
-            uVar9 = GetEndPosition();
-            logger::Logger::Log(uVar14, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "buffers/PooledBuffer.cpp",
-                                263,
-                                "Attempting to recycle invalid buffer (id: %u, created: %i, mapped: %i, recyclable: "
-                                "%i, dynamic: %i, physicalSize: %u)",
-                                uVar15, uVar3, uVar4, bVar2, uVar5, uVar9);
+        if (((cVar1) && (iVar7 = GetEndPosition(), iVar7 != 0)) &&
+            (uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)) {
+            this_01 = logger::default_logger();
+            uVar12 = GetNativeBuffer();
+            bVar2 = IsCreated();
+            bVar3 = IsMapped();
+            bVar4 = IsValidValue();
+            bVar5 = IsDynamic();
+            uVar6 = GetEndPosition();
+            this_01->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
+                         "PooledBuffer.cpp",
+                         263,
+                         "Attempting to recycle invalid buffer (id: %u, created: %i, mapped: %i, recyclable: %i, "
+                         "dynamic: %i, physicalSize: %u)",
+                         uVar12, (unsigned long)bVar2, (unsigned long)bVar3, (unsigned long)bVar4, (unsigned long)bVar5,
+                         (unsigned long)uVar6);
         }
         Destroy();
     }
 
-    // 0x100c10710, 16 bytes, complete-object destructor, inline, placed by class name
-    // PooledBuffer<ShaderConstBuffer>::~PooledBuffer(): jumps straight to the base-object destructor
+    // 0x100c10720
+    unsigned long PooledBuffer<ShaderConstBuffer>::Create(unsigned int arg1, unsigned int arg2, const void* arg3) {
+        unsigned int uVar2;
+        unsigned int uVar3;
+        unsigned int* puVar4;
+        ManagedBuffer<ShaderConstBuffer>* pMVar6;
+        ManagedBuffer<ShaderConstBuffer>* pMVar7;
+        PooledBuffer<VertexBuffer>* pPVar8;
+        rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>, eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true, true>* this_00;
+        unsigned long uVar9;
+        BufferCreationReason in_R8D;
+        void* pvVar10;
+        BufferInterface* pBVar11;
+        bool bVar12;
+        uint8_t auVar13[16];
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_70;
+        rbtree_iterator<
+            eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>> _>,
+            eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>> _> const*,
+            eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>> _> const&>*
+            local_68;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<
+                   eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>>>>,
+               true, true>* local_60;
+        ReturnValue local_58;
+        ReturnValue local_40;
 
-    // 0x100c10720, 1168 bytes, inline, placed by class name
-    // PooledBuffer<ShaderConstBuffer>::Create(unsigned int, unsigned int, void const*)
-    ulong PooledBuffer<ShaderConstBuffer>::Create(uint param_1, uint param_2, void* param_3) {
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        uint uVar4;
-        uint* puVar5;
-        long lVar6;
-        long lVar7;
-        undefined8 uVar8;
-        undefined8 uVar9;
-        ManagedBuffer* pMVar10;
-        ManagedBuffer* pMVar11;
-        PooledBuffer* pPVar12;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        ulong uVar13;
-        PooledBuffer<ShaderConstBuffer>* this_00;
-        void* pvVar14;
-        Layout* this_02;
-        BufferInterface* pBVar15;
-        hashtable_iterator_base local_70[8];
-        undefined8 local_68;
-        long local_60;
-        hashtable_iterator_base local_58[8];
-        uint local_40[2];
-        uint local_34;
-
-        if ((param_2 & 16) != 0) {
-            uVar3 = Create(param_1, param_2, param_3);
-            uVar13 = (ulong)uVar3;
+        if ((arg2 & 16) != 0) {
+            uVar2 = Create(arg1, arg2, arg3);
+            uVar9 = (unsigned long)uVar2;
             goto LAB_100c10b9b;
         }
-        this_00 = this;
-        local_34 = param_1;
-        if ((param_2 & 4) == 0) {
-            if (param_1 < 16385) {
-                local_34 = math::RoundUpToPowerOf2(param_1);
+        PooledBuffer<ShaderConstBuffer>* this_01 = this;
+        unsigned int local_34 = arg1;
+        if ((arg2 & 4) == 0) {
+            if (arg1 < 16385) {
+                local_34 = math::RoundUpToPowerOf2(arg1);
             } else {
-                local_34 = math::RoundUpToMultiple(param_1, 16384);
+                local_34 = math::RoundUpToMultiple(arg1, 16384);
             }
-            local_40[0] = 16;
-            this_00 = (PooledBuffer<ShaderConstBuffer>*)&local_34;
-            puVar5 = std::max<unsigned int>((uint*)this_00, local_40);
-            local_34 = *puVar5;
+            local_40._0_4_ = 16;
+            this_01 = (PooledBuffer<ShaderConstBuffer>*)&local_34;
+            puVar4 = std::max<unsigned int>(*this_01, local_40);
+            local_34 = *puVar4;
         }
-        cVar1 = this_thread::IsMainThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if (!cVar1) {
             LogAssert("this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                       "PooledBuffer.cpp",
-                      83, (char*)0);
+                      83, nullptr);
         }
-        lVar6 = this_00->Instance();
-        eastl::rbtree<
-            unsigned int,
-            eastl::pair<unsigned int const,
-                        eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>, eastl::allocator>>,
-            eastl::less<unsigned int>, eastl::allocator,
-            eastl::use_first<eastl::pair<unsigned int const,
-                                         eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>, eastl::allocator>>>,
-            true, true>::lower_bound(local_40);
-        lVar7 = eastl::rbtree_iterator<
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-        operator*((rbtree_iterator<
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                      local_40);
-        this_02 = (Layout*)(lVar7 + 8);
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar2 = eastl::operator!=((eastl*)local_40, local_58, extraout_RDX);
-        if (bVar2) {
-            puVar5 = (uint*)eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator*(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                    local_40);
-            pMVar10 = (ManagedBuffer*)0;
-            bVar2 = true;
-            if (((float)*puVar5 <= (float)local_34 * 1.55) && ((param_2 & 4) == 0)) {
-                uVar8 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_02);
-                uVar9 = this_02->end();
-                pMVar10 = eastl::find_if<internal::ManagedBuffer<ShaderConstBuffer>*,
-                                         unsigned int->Create(unsigned int, void_const*)::_lambda(
-                                             internal::ManagedBuffer<ShaderConstBuffer> const&) _1_>(uVar8, uVar9);
-                pMVar11 = (ManagedBuffer*)this_02->end();
-                bVar2 = pMVar10 == pMVar11;
+        long lVar5 = this_01->Instance();
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<
+                   eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>>>>,
+               true, true>* this_03 =
+            (rbtree<unsigned int,
+                    eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>>>,
+                    eastl::less<unsigned int>, eastl::allocator,
+                    eastl::use_first<
+                        eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>>>>,
+                    true, true>*)(lVar5 + 32);
+        local_40 = this_03->lower_bound(local_34);
+        lVar5 = *local_40;
+        Layout* this_04 = (Layout*)(lVar5 + 8);
+        local_58.end();
+        cVar1 = local_40 != local_58;
+        if (!cVar1) {
+            pMVar6 = nullptr;
+        } else {
+            puVar4 = (unsigned int*)*local_40;
+            pMVar6 = nullptr;
+            bVar12 = true;
+            if (((float)*puVar4 <= (float)local_34 * 1.55) && ((arg2 & 4) == 0)) {
+                pMVar6 = (ManagedBuffer<ShaderConstBuffer>*)this_04->HeapBeginPtr();
+                auVar13 = this_04->end();
+                pMVar6 = eastl::find_if<internal::ManagedBuffer<ShaderConstBuffer>*,
+                                        unsigned int->Create(unsigned int, void const*)::_lambda(
+                                            internal::ManagedBuffer<ShaderConstBuffer> const&) _1_>(
+                    pMVar6, auVar13._0_8_, auVar13._8_8_);
+                pMVar7 = (ManagedBuffer<ShaderConstBuffer>*)this_04->end();
+                bVar12 = pMVar6 == pMVar7;
             }
-            pBVar15 = (BufferInterface*)this;
-            if (!bVar2) {
-                local_60 = lVar6 + 32;
-                if (pMVar10 == (ManagedBuffer*)0) {
-                    /* WARNING: Subroutine does not return */
+            pBVar11 = (BufferInterface*)this;
+            if (!bVar12) {
+                local_60 = this_03;
+                if (pMVar6 == nullptr) {
                     LogAssert("bufferIt",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              157, (char*)0);
+                              157, nullptr);
                 }
-                PooledBuffer((PooledBuffer<ShaderConstBuffer>*)(BufferInterface*)this, (PooledBuffer*)pMVar10);
-                if (pBVar15->field_0 != 3) {
-                    /* WARNING: Subroutine does not return */
+                PooledBuffer((PooledBuffer<ShaderConstBuffer>*)(BufferInterface*)this,
+                             (PooledBuffer<VertexBuffer>*)pMVar6);
+                if (pBVar11->field_0 != 3) {
                     LogAssert("m_livenessMethod == RenderResourceLivenessMethod::KEEP_ALIVE_EXTERNAL",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              164, (char*)0);
+                              164, nullptr);
                 }
-                lVar6 = ((BufferInterface*)this)->Instance();
-                cVar1 = pBVar15->IsPermanent();
-                if (cVar1 != '\0') {
-                    eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_40);
-                    eastl::rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>,
-                                  eastl::less<unsigned int>, eastl::allocator,
-                                  eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true,
-                                  true>::find((uint*)local_58);
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                        true, true>::end();
-                    bVar2 = eastl::operator!=((eastl*)local_58, local_70, extraout_RDX_01);
-                    if (!bVar2) {
-                        /* WARNING: Subroutine does not return */
+                lVar5 = ((AutoSingleton<internal::BufferPool<ShaderConstBuffer>>*)(BufferInterface*)this)->Instance();
+                this_00 =
+                    (rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>, eastl::less<unsigned int>,
+                            eastl::allocator, eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true,
+                            true>*)(lVar5 + 80);
+                cVar1 = pBVar11->IsPermanent();
+                if (cVar1) {
+                    puVar4 = (unsigned int*)*local_40;
+                    local_58 = this_00->find(*puVar4);
+                    local_70.end();
+                    cVar1 = local_58 != local_70;
+                    if (!cVar1) {
                         LogAssert("permanentBufferIt != numPermanentBuffers.end()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "buffers/PooledBuffer.cpp",
-                                  171, (char*)0);
+                                  171, nullptr);
                     }
-                    lVar7 = eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_58);
-                    *(int*)(lVar7 + 4) = *(int*)(lVar7 + 4) + -1;
-                    pBVar15 = (BufferInterface*)this;
+                    lVar5 = *local_58;
+                    *(int*)(lVar5 + 4) = *(int*)(lVar5 + 4) - 1;
+                    pBVar11 = (BufferInterface*)this;
                 }
-                uVar3 = pBVar15->GetEndPosition();
-                uVar4 = this_02->size();
-                puVar5 = (uint*)eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                puVar5 = (uint*)
-                    eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                        (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar6 + 80),
-                        puVar5);
-                BufferPoolStats::RecordBufferRecycle("ShaderConstBuffer", uVar3, uVar4, *puVar5);
-                cVar1 = this_02->empty();
-                if (cVar1 != '\0') {
-                    new (&local_68)
-                        eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                            shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                            shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(local_40);
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<internal::ManagedBuffer<ShaderConstBuffer>, eastl::allocator>>>,
-                        true, true>::erase(local_58, local_60, local_68);
+                uVar2 = pBVar11->GetEndPosition();
+                uVar3 = this_04->size();
+                puVar4 = (unsigned int*)*local_40;
+                puVar4 = (unsigned int*)(*this_00)[*puVar4];
+                BufferPoolStats::RecordBufferRecycle("ShaderConstBuffer", uVar2, uVar3, *puVar4);
+                cVar1 = this_04->empty();
+                if (cVar1) {
+                    new (&local_68) eastl::ListIterator(&local_40);
+                    local_58 = local_60->erase(local_68);
                 }
-                uVar4 = pBVar15->GetEndPosition();
-                uVar3 = param_1;
-                if (uVar4 < param_1) {
-                    /* WARNING: Subroutine does not return */
+                uVar3 = pBVar11->GetEndPosition();
+                uVar2 = arg1;
+                if (uVar3 < arg1) {
                     LogAssert("this->GetPhysicalSizeInBytes() >= sizeInBytes",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              182, (char*)0);
+                              182, nullptr);
                 }
-                cVar1 = pBVar15->IsCreated();
-                pvVar14 = param_3;
-                if (cVar1 == '\0') {
-                    /* WARNING: Subroutine does not return */
+                cVar1 = pBVar11->IsCreated();
+                pvVar10 = arg3;
+                if (!cVar1) {
                     LogAssert("this->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              183, (char*)0);
+                              183, nullptr);
                 }
-                cVar1 = pBVar15->IsMapped();
-                if (cVar1 != '\0') {
-                    /* WARNING: Subroutine does not return */
+                cVar1 = pBVar11->IsMapped();
+                if (cVar1) {
                     LogAssert("!this->IsMapped()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              184, (char*)0);
+                              184, nullptr);
                 }
-                pBVar15->m_sizeInBytes = uVar3;
-                uVar13 = CONCAT71((int7)((ulong)(lVar6 + 80) >> 8), 1);
-                if (pvVar14 != (void*)0) {
-                    pBVar15->Update(0, uVar3, pvVar14, 2);
+                pBVar11->m_sizeInBytes = uVar2;
+                uVar9 = (((uint64_t)((int64_t)((unsigned long)this_00 >> 8)) << 8) | (uint8_t)1);
+                if (pvVar10 != nullptr) {
+                    pBVar11->Update(0, uVar2, pvVar10, 2);
                 }
                 goto LAB_100c10b9b;
             }
-        } else {
-            pMVar10 = (ManagedBuffer*)0;
         }
-        if ((param_2 & 4) == 0) {
-            eastl::rbtree<
-                unsigned int,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::less<unsigned int>, eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                true, true>::end();
-            bVar2 = eastl::operator==((eastl*)local_40, local_58, extraout_RDX_00);
-            if (bVar2)
+        if ((arg2 & 4) == 0) {
+            local_58.end();
+            cVar1 = local_40 == local_58;
+            if (cVar1) {
+                uVar2 = 1;
                 goto LAB_100c10ad6;
-            pPVar12 = (PooledBuffer*)this_02->end();
-            pvVar14 = param_3;
-            if (pMVar10 == (ManagedBuffer*)pPVar12) {
-                uVar8 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_02);
-                uVar9 = this_02->end();
+            }
+            pPVar8 = (PooledBuffer<VertexBuffer>*)this_04->end();
+            pvVar10 = arg3;
+            if (pMVar6 == (ManagedBuffer<ShaderConstBuffer>*)pPVar8) {
+                pMVar6 = (ManagedBuffer<ShaderConstBuffer>*)this_04->HeapBeginPtr();
+                auVar13 = this_04->end();
                 eastl::minmax_element<internal::ManagedBuffer<VertexBuffer> const*,
                                       internal::BufferPool<VertexBuffer>::OnEndFrame()::_lambda(
-                                          auto : 1_const &, auto : 2_const &) _1_>(uVar8, uVar9);
+                                          auto : 1 const&, auto : 2 const&) _1_>(pMVar6, auVar13._0_8_, auVar13._8_8_);
+                uVar2 = 2;
+            } else {
+                uVar2 = 3;
             }
-            BufferPoolStats::RecordBufferCreation("ShaderConstBuffer", local_34, 1);
+            ((BufferPoolStats*)"ShaderConstBuffer")
+                ->RecordBufferCreation((char*)(unsigned long)local_34, 1, uVar2, in_R8D);
         } else {
+            uVar2 = 0;
         LAB_100c10ad6:
-            BufferPoolStats::RecordBufferCreation("ShaderConstBuffer", local_34, 1);
-            pvVar14 = param_3;
+            ((BufferPoolStats*)"ShaderConstBuffer")
+                ->RecordBufferCreation((char*)(unsigned long)local_34, 1, uVar2, in_R8D);
+            pvVar10 = arg3;
         }
-        uVar3 = param_1;
-        pBVar15 = (BufferInterface*)this;
-        if ((pvVar14 == (void*)0) || (local_34 == param_1)) {
-            uVar4 = ((BufferInterface*)this)->Create(local_34, param_2 | 43, pvVar14);
+        uVar2 = arg1;
+        pBVar11 = (BufferInterface*)this;
+        if ((pvVar10 == nullptr) || (local_34 == arg1)) {
+            uVar3 = ((ShaderConstBuffer*)(BufferInterface*)this)->Create(local_34, arg2 | 43, pvVar10);
         } else {
-            uVar4 = ((BufferInterface*)this)->Create(local_34, param_2 | 43, 0);
-            pBVar15->Update(0, uVar3, pvVar14, 0);
+            uVar3 = ((ShaderConstBuffer*)(BufferInterface*)this)->Create(local_34, arg2 | 43, nullptr);
+            pBVar11->Update(0, uVar2, pvVar10, 0);
         }
-        uVar13 = (ulong)uVar4;
-        pBVar15->m_sizeInBytes = uVar3;
+        uVar9 = (unsigned long)uVar3;
+        pBVar11->m_sizeInBytes = uVar2;
     LAB_100c10b9b:
-        return uVar13 & 4294967295;
+        return uVar9 & 4294967295;
     }
 
-    // 0x100c11a80, 16 bytes, base-object constructor, inline, placed by class name
-    // PooledBuffer<PixelUnpackBuffer>::PooledBuffer()
-    void PooledBuffer<PixelUnpackBuffer>::PooledBuffer() {
-        new (this) PixelUnpackBuffer();
-    }
+    // 0x100c11a80
+    PooledBuffer<PixelUnpackBuffer>::PooledBuffer() : PixelUnpackBuffer() {}
 
-    // 0x100c11aa0, 16 bytes, complete-object constructor, inline, placed by class name
-    // PooledBuffer<PixelUnpackBuffer>::PooledBuffer(): jumps straight to the base-object constructor
-
-    // 0x100c11ab0, 48 bytes, base-object destructor, inline, placed by class name
-    // PooledBuffer<PixelUnpackBuffer>::~PooledBuffer()
-    void PooledBuffer<PixelUnpackBuffer>::~PooledBuffer() {
+    // 0x100c11ab0
+    PooledBuffer<PixelUnpackBuffer>::~PooledBuffer() {
         PooledBuffer<PixelUnpackBuffer>::Destroy();
-        ~PixelUnpackBuffer();
     }
 
-    // 0x100c11ae0, 560 bytes, inline, placed by class name
-    // PooledBuffer<PixelUnpackBuffer>::Destroy()
+    // 0x100c11ae0
     void PooledBuffer<PixelUnpackBuffer>::Destroy() {
-        char cVar1;
-        bool bVar2;
-        undefined1 uVar3;
-        undefined1 uVar4;
-        undefined1 uVar5;
-        uint uVar6;
-        uint uVar7;
-        int iVar8;
-        undefined4 uVar9;
-        ulong uVar10;
-        long lVar11;
-        vector<game::BuildCombinedLocationResult_CombinableGroup, eastl::allocator>* this_00;
-        uint* puVar12;
-        int* piVar13;
-        undefined8 uVar14;
-        undefined8 uVar15;
-        BucketAllocatorSTL* in_RSI;
-        PooledBuffer<PixelUnpackBuffer>* this_01;
-        map<unsigned int, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>,
-            eastl::less<unsigned int>, eastl::allocator>* this_02;
-        uint local_3c;
-        uint local_38;
-        uint local_34;
+        uint8_t bVar2;
+        uint8_t bVar3;
+        uint8_t bVar4;
+        uint8_t bVar5;
+        unsigned int uVar6;
+        unsigned int arg2;
+        int iVar7;
+        unsigned long uVar8;
+        long lVar9;
+        vector<game::BuildCombinedLocationResult_CombinableGroup>* this_00;
+        unsigned int* puVar10;
+        int* piVar11;
+        Logger* this_01;
+        uint64_t uVar12;
+        PooledBuffer<PixelUnpackBuffer>* this_02;
+        map<unsigned int, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>>>* this_03;
+        unsigned int in_R8D;
+        unsigned int local_3c;
+        unsigned int local_38;
+        unsigned int local_34;
 
-        cVar1 = this_thread::IsMainThread();
-        if ((cVar1 == '\0') && (uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)) {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if ((!cVar1) && (uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)) {
             LogAssert(
                 "this_thread::IsMainThread() || (this->GetCreationFlags() & FORCE_NO_RECYCLING) == FORCE_NO_RECYCLING",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                 "PooledBuffer.cpp",
-                205, (char*)0);
+                205, nullptr);
         }
         cVar1 = IsCreated();
-        if ((((cVar1 != '\0') && (cVar1 = IsMapped(), cVar1 == '\0')) && (bVar2 = IsValidValue(in_RSI), bVar2)) &&
-            ((cVar1 = IsDynamic(),
-              cVar1 != '\0' && (this_01 = this, uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)))) {
+        if ((((cVar1) && (cVar1 = IsMapped(), !cVar1)) && (cVar1 = IsValidValue(), cVar1)) &&
+            ((cVar1 = IsDynamic(), cVar1 && (this_02 = this, uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)))) {
             if (*(int*)this != 3) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_livenessMethod == RenderResourceLivenessMethod::KEEP_ALIVE_EXTERNAL",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                           "PooledBuffer.cpp",
-                          230, (char*)0);
+                          230, nullptr);
             }
-            lVar11 = this_01->Instance();
-            this_02 = (map<unsigned int, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>,
-                           eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 32);
+            lVar9 = this_02->Instance();
+            this_03 = (map<unsigned int, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>>>*)(lVar9 + 32);
             local_3c = GetEndPosition();
-            this_00 = (vector<game::BuildCombinedLocationResult_CombinableGroup, eastl::allocator>*)
-                eastl::map<unsigned int, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>,
-                           eastl::less<unsigned int>, eastl::allocator>::operator[](this_02, &local_3c);
-            lVar11 = this_02->Instance();
+            this_00 = (vector<game::BuildCombinedLocationResult_CombinableGroup>*)(*this_03)[local_3c];
+            lVar9 = this_03->Instance();
             uVar6 = GetEndPosition();
-            uVar7 = eastl::vector<game::BuildCombinedLocationResult_CombinableGroup, eastl::allocator>::size(this_00);
+            arg2 = this_00->size();
             local_38 = GetEndPosition();
-            puVar12 =
-                (uint*)eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                    (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 80),
-                    &local_38);
-            BufferPoolStats::RecordBufferDestruction("PixelUnpackBuffer", uVar6, uVar7, *puVar12);
+            puVar10 = (unsigned int*)(*((lVar9 + 80)))[local_38];
+            ((BufferPoolStats*)"PixelUnpackBuffer")
+                ->RecordBufferDestruction((char*)(unsigned long)uVar6, arg2, *puVar10, in_R8D);
             cVar1 = IsPermanent();
-            if (cVar1 != '\0') {
+            if (cVar1) {
                 local_34 = GetEndPosition();
-                piVar13 = (int*)
-                    eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                        (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar11 + 80),
-                        &local_34);
-                *piVar13 = *piVar13 + 1;
+                piVar11 = (int*)(*((lVar9 + 80)))[local_34];
+                *piVar11 = *piVar11 + 1;
             }
-            eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>::emplace_back<
-                PooledBuffer<PixelUnpackBuffer>>(
-                (vector<internal::ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>*)this_00, (PooledBuffer*)this);
+            this_00->emplace_back<PooledBuffer<PixelUnpackBuffer>>(*this);
             return;
         }
         cVar1 = IsCreated();
-        if (((cVar1 != '\0') && (iVar8 = GetEndPosition(), iVar8 != 0)) &&
-            (uVar10 = GetNormalEmissiveMapID(), (uVar10 & 16) == 0)) {
-            uVar14 = logger::default_logger();
-            uVar15 = GetNativeBuffer();
-            uVar3 = IsCreated();
-            uVar4 = IsMapped();
-            bVar2 = IsValidValue(in_RSI);
-            uVar5 = IsDynamic();
-            uVar9 = GetEndPosition();
-            logger::Logger::Log(uVar14, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "buffers/PooledBuffer.cpp",
-                                263,
-                                "Attempting to recycle invalid buffer (id: %u, created: %i, mapped: %i, recyclable: "
-                                "%i, dynamic: %i, physicalSize: %u)",
-                                uVar15, uVar3, uVar4, bVar2, uVar5, uVar9);
+        if (((cVar1) && (iVar7 = GetEndPosition(), iVar7 != 0)) &&
+            (uVar8 = GetNormalEmissiveMapID(), (uVar8 & 16) == 0)) {
+            this_01 = logger::default_logger();
+            uVar12 = GetNativeBuffer();
+            bVar2 = IsCreated();
+            bVar3 = IsMapped();
+            bVar4 = IsValidValue();
+            bVar5 = IsDynamic();
+            uVar6 = GetEndPosition();
+            this_01->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
+                         "PooledBuffer.cpp",
+                         263,
+                         "Attempting to recycle invalid buffer (id: %u, created: %i, mapped: %i, recyclable: %i, "
+                         "dynamic: %i, physicalSize: %u)",
+                         uVar12, (unsigned long)bVar2, (unsigned long)bVar3, (unsigned long)bVar4, (unsigned long)bVar5,
+                         (unsigned long)uVar6);
         }
         Destroy();
     }
 
-    // 0x100c11d40, 16 bytes, complete-object destructor, inline, placed by class name
-    // PooledBuffer<PixelUnpackBuffer>::~PooledBuffer(): jumps straight to the base-object destructor
+    // 0x100c11d50
+    unsigned long PooledBuffer<PixelUnpackBuffer>::Create(unsigned int arg1, unsigned int arg2, const void* arg3) {
+        unsigned int uVar2;
+        unsigned int uVar3;
+        unsigned int* puVar4;
+        ManagedBuffer<PixelUnpackBuffer>* pMVar6;
+        ManagedBuffer<PixelUnpackBuffer>* pMVar7;
+        PooledBuffer<VertexBuffer>* pPVar8;
+        ManagedBuffer<ShaderConstBuffer>* managedBuffer1;
+        rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>, eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true, true>* this_00;
+        unsigned long uVar9;
+        BufferCreationReason in_R8D;
+        void* pvVar10;
+        BufferInterface* pBVar11;
+        bool bVar12;
+        uint8_t auVar13[16];
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_70;
+        rbtree_iterator<
+            eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>> _>,
+            eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>> _> const*,
+            eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>> _> const&>*
+            local_68;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<
+                   eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>>>>,
+               true, true>* local_60;
+        ReturnValue local_58;
+        ReturnValue local_40;
 
-    // 0x100c11d50, 1168 bytes, inline, placed by class name
-    // PooledBuffer<PixelUnpackBuffer>::Create(unsigned int, unsigned int, void const*)
-    ulong PooledBuffer<PixelUnpackBuffer>::Create(uint param_1, uint param_2, void* param_3) {
-        char cVar1;
-        bool bVar2;
-        uint uVar3;
-        uint uVar4;
-        uint* puVar5;
-        long lVar6;
-        long lVar7;
-        undefined8 uVar8;
-        undefined8 uVar9;
-        ManagedBuffer* pMVar10;
-        ManagedBuffer* pMVar11;
-        PooledBuffer* pPVar12;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base* extraout_RDX_01;
-        ulong uVar13;
-        PooledBuffer<PixelUnpackBuffer>* this_00;
-        void* pvVar14;
-        Layout* this_02;
-        BufferInterface* pBVar15;
-        hashtable_iterator_base local_70[8];
-        undefined8 local_68;
-        long local_60;
-        hashtable_iterator_base local_58[8];
-        uint local_40[2];
-        uint local_34;
-
-        if ((param_2 & 16) != 0) {
-            uVar3 = Create(param_1, param_2, param_3);
-            uVar13 = (ulong)uVar3;
+        if ((arg2 & 16) != 0) {
+            uVar2 = Create(arg1, arg2, arg3);
+            uVar9 = (unsigned long)uVar2;
             goto LAB_100c121cb;
         }
-        this_00 = this;
-        local_34 = param_1;
-        if ((param_2 & 4) == 0) {
-            if (param_1 < 16385) {
-                local_34 = math::RoundUpToPowerOf2(param_1);
+        PooledBuffer<PixelUnpackBuffer>* this_01 = this;
+        unsigned int local_34 = arg1;
+        if ((arg2 & 4) == 0) {
+            if (arg1 < 16385) {
+                local_34 = math::RoundUpToPowerOf2(arg1);
             } else {
-                local_34 = math::RoundUpToMultiple(param_1, 16384);
+                local_34 = math::RoundUpToMultiple(arg1, 16384);
             }
-            local_40[0] = 16;
-            this_00 = (PooledBuffer<PixelUnpackBuffer>*)&local_34;
-            puVar5 = std::max<unsigned int>((uint*)this_00, local_40);
-            local_34 = *puVar5;
+            local_40._0_4_ = 16;
+            this_01 = (PooledBuffer<PixelUnpackBuffer>*)&local_34;
+            puVar4 = std::max<unsigned int>(*this_01, local_40);
+            local_34 = *puVar4;
         }
-        cVar1 = this_thread::IsMainThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = this_thread::IsMainThread();
+        if (!cVar1) {
             LogAssert("this_thread::IsMainThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/buffers/"
                       "PooledBuffer.cpp",
-                      83, (char*)0);
+                      83, nullptr);
         }
-        lVar6 = this_00->Instance();
-        eastl::rbtree<
-            unsigned int,
-            eastl::pair<unsigned int const,
-                        eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>>,
-            eastl::less<unsigned int>, eastl::allocator,
-            eastl::use_first<eastl::pair<unsigned int const,
-                                         eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>>>,
-            true, true>::lower_bound(local_40);
-        lVar7 = eastl::rbtree_iterator<
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-        operator*((rbtree_iterator<
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                   eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                      local_40);
-        this_02 = (Layout*)(lVar7 + 8);
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar2 = eastl::operator!=((eastl*)local_40, local_58, extraout_RDX);
-        if (bVar2) {
-            puVar5 = (uint*)eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator*(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                    local_40);
-            pMVar10 = (ManagedBuffer*)0;
-            bVar2 = true;
-            if (((float)*puVar5 <= (float)local_34 * 1.55) && ((param_2 & 4) == 0)) {
-                uVar8 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_02);
-                uVar9 = this_02->end();
-                pMVar10 = eastl::find_if<internal::ManagedBuffer<PixelUnpackBuffer>*,
-                                         unsigned int->Create(unsigned int, void_const*)::_lambda(
-                                             internal::ManagedBuffer<PixelUnpackBuffer> const&) _1_>(uVar8, uVar9);
-                pMVar11 = (ManagedBuffer*)this_02->end();
-                bVar2 = pMVar10 == pMVar11;
+        long lVar5 = this_01->Instance();
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<
+                   eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>>>>,
+               true, true>* this_03 =
+            (rbtree<unsigned int,
+                    eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>>>,
+                    eastl::less<unsigned int>, eastl::allocator,
+                    eastl::use_first<
+                        eastl::pair<unsigned int const, eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>>>>,
+                    true, true>*)(lVar5 + 32);
+        local_40 = this_03->lower_bound(local_34);
+        lVar5 = *local_40;
+        Layout* this_04 = (Layout*)(lVar5 + 8);
+        local_58.end();
+        cVar1 = local_40 != local_58;
+        if (!cVar1) {
+            pMVar6 = nullptr;
+        } else {
+            puVar4 = (unsigned int*)*local_40;
+            pMVar6 = nullptr;
+            bVar12 = true;
+            if (((float)*puVar4 <= (float)local_34 * 1.55) && ((arg2 & 4) == 0)) {
+                pMVar6 = (ManagedBuffer<PixelUnpackBuffer>*)this_04->HeapBeginPtr();
+                auVar13 = this_04->end();
+                pMVar6 = eastl::find_if<internal::ManagedBuffer<PixelUnpackBuffer>*,
+                                        unsigned int->Create(unsigned int, void const*)::_lambda(
+                                            internal::ManagedBuffer<PixelUnpackBuffer> const&) _1_>(
+                    pMVar6, auVar13._0_8_, auVar13._8_8_);
+                pMVar7 = (ManagedBuffer<PixelUnpackBuffer>*)this_04->end();
+                bVar12 = pMVar6 == pMVar7;
             }
-            pBVar15 = (BufferInterface*)this;
-            if (!bVar2) {
-                local_60 = lVar6 + 32;
-                if (pMVar10 == (ManagedBuffer*)0) {
-                    /* WARNING: Subroutine does not return */
+            pBVar11 = (BufferInterface*)this;
+            if (!bVar12) {
+                local_60 = this_03;
+                if (pMVar6 == nullptr) {
                     LogAssert("bufferIt",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              157, (char*)0);
+                              157, nullptr);
                 }
-                new ((BufferInterface*)this) PooledBuffer<ShaderConstBuffer>(pMVar10);
-                if (pBVar15->field_0 != 3) {
-                    /* WARNING: Subroutine does not return */
+                new ((PooledBuffer<ShaderConstBuffer>*)(BufferInterface*)this) PooledBuffer(*pMVar6);
+                if (pBVar11->field_0 != 3) {
                     LogAssert("m_livenessMethod == RenderResourceLivenessMethod::KEEP_ALIVE_EXTERNAL",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              164, (char*)0);
+                              164, nullptr);
                 }
-                lVar6 = ((BufferInterface*)this)->Instance();
-                cVar1 = pBVar15->IsPermanent();
-                if (cVar1 != '\0') {
-                    eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_40);
-                    eastl::rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>,
-                                  eastl::less<unsigned int>, eastl::allocator,
-                                  eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true,
-                                  true>::find((uint*)local_58);
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                        true, true>::end();
-                    bVar2 = eastl::operator!=((eastl*)local_58, local_70, extraout_RDX_01);
-                    if (!bVar2) {
-                        /* WARNING: Subroutine does not return */
+                lVar5 = ((AutoSingleton<internal::BufferPool<PixelUnpackBuffer>>*)(BufferInterface*)this)->Instance();
+                this_00 =
+                    (rbtree<unsigned int, eastl::pair<unsigned int const, unsigned int>, eastl::less<unsigned int>,
+                            eastl::allocator, eastl::use_first<eastl::pair<unsigned int const, unsigned int>>, true,
+                            true>*)(lVar5 + 80);
+                cVar1 = pBVar11->IsPermanent();
+                if (cVar1) {
+                    puVar4 = (unsigned int*)*local_40;
+                    local_58 = this_00->find(*puVar4);
+                    local_70.end();
+                    cVar1 = local_58 != local_70;
+                    if (!cVar1) {
                         LogAssert("permanentBufferIt != numPermanentBuffers.end()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "buffers/PooledBuffer.cpp",
-                                  171, (char*)0);
+                                  171, nullptr);
                     }
-                    lVar7 = eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_58);
-                    *(int*)(lVar7 + 4) = *(int*)(lVar7 + 4) + -1;
-                    pBVar15 = (BufferInterface*)this;
+                    lVar5 = *local_58;
+                    *(int*)(lVar5 + 4) = *(int*)(lVar5 + 4) - 1;
+                    pBVar11 = (BufferInterface*)this;
                 }
-                uVar3 = pBVar15->GetEndPosition();
-                uVar4 = this_02->size();
-                puVar5 = (uint*)eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_40);
-                puVar5 = (uint*)
-                    eastl::map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>::operator[](
-                        (map<unsigned int, unsigned int, eastl::less<unsigned int>, eastl::allocator>*)(lVar6 + 80),
-                        puVar5);
-                BufferPoolStats::RecordBufferRecycle("PixelUnpackBuffer", uVar3, uVar4, *puVar5);
-                cVar1 = this_02->empty();
-                if (cVar1 != '\0') {
-                    new (&local_68)
-                        eastl::ListIterator<shared_ptr<oldscape::rs2lib::worldmap::MapElement>,
-                                            shared_ptr<oldscape::rs2lib::worldmap::MapElement> const*,
-                                            shared_ptr<oldscape::rs2lib::worldmap::MapElement> const&>(local_40);
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<internal::ManagedBuffer<PixelUnpackBuffer>, eastl::allocator>>>,
-                        true, true>::erase(local_58, local_60, local_68);
+                uVar2 = pBVar11->GetEndPosition();
+                uVar3 = this_04->size();
+                puVar4 = (unsigned int*)*local_40;
+                puVar4 = (unsigned int*)(*this_00)[*puVar4];
+                BufferPoolStats::RecordBufferRecycle("PixelUnpackBuffer", uVar2, uVar3, *puVar4);
+                cVar1 = this_04->empty();
+                if (cVar1) {
+                    new (&local_68) eastl::ListIterator(&local_40);
+                    local_58 = local_60->erase(local_68);
                 }
-                uVar4 = pBVar15->GetEndPosition();
-                uVar3 = param_1;
-                if (uVar4 < param_1) {
-                    /* WARNING: Subroutine does not return */
+                uVar3 = pBVar11->GetEndPosition();
+                uVar2 = arg1;
+                if (uVar3 < arg1) {
                     LogAssert("this->GetPhysicalSizeInBytes() >= sizeInBytes",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              182, (char*)0);
+                              182, nullptr);
                 }
-                cVar1 = pBVar15->IsCreated();
-                pvVar14 = param_3;
-                if (cVar1 == '\0') {
-                    /* WARNING: Subroutine does not return */
+                cVar1 = pBVar11->IsCreated();
+                pvVar10 = arg3;
+                if (!cVar1) {
                     LogAssert("this->IsCreated()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              183, (char*)0);
+                              183, nullptr);
                 }
-                cVar1 = pBVar15->IsMapped();
-                if (cVar1 != '\0') {
-                    /* WARNING: Subroutine does not return */
+                cVar1 = pBVar11->IsMapped();
+                if (cVar1) {
                     LogAssert("!this->IsMapped()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "buffers/PooledBuffer.cpp",
-                              184, (char*)0);
+                              184, nullptr);
                 }
-                pBVar15->m_sizeInBytes = uVar3;
-                uVar13 = CONCAT71((int7)((ulong)(lVar6 + 80) >> 8), 1);
-                if (pvVar14 != (void*)0) {
-                    pBVar15->Update(0, uVar3, pvVar14, 2);
+                pBVar11->m_sizeInBytes = uVar2;
+                uVar9 = (((uint64_t)((int64_t)((unsigned long)this_00 >> 8)) << 8) | (uint8_t)1);
+                if (pvVar10 != nullptr) {
+                    pBVar11->Update(0, uVar2, pvVar10, 2);
                 }
                 goto LAB_100c121cb;
             }
-        } else {
-            pMVar10 = (ManagedBuffer*)0;
         }
-        if ((param_2 & 4) == 0) {
-            eastl::rbtree<
-                unsigned int,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::less<unsigned int>, eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                true, true>::end();
-            bVar2 = eastl::operator==((eastl*)local_40, local_58, extraout_RDX_00);
-            if (bVar2)
+        if ((arg2 & 4) == 0) {
+            local_58.end();
+            cVar1 = local_40 == local_58;
+            if (cVar1) {
+                uVar2 = 1;
                 goto LAB_100c12106;
-            pPVar12 = (PooledBuffer*)this_02->end();
-            pvVar14 = param_3;
-            if (pMVar10 == (ManagedBuffer*)pPVar12) {
-                uVar8 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_02);
-                uVar9 = this_02->end();
+            }
+            pPVar8 = (PooledBuffer<VertexBuffer>*)this_04->end();
+            pvVar10 = arg3;
+            if (pMVar6 == (ManagedBuffer<PixelUnpackBuffer>*)pPVar8) {
+                managedBuffer1 = (ManagedBuffer<ShaderConstBuffer>*)this_04->HeapBeginPtr();
+                auVar13 = this_04->end();
                 eastl::minmax_element<internal::ManagedBuffer<VertexBuffer> const*,
                                       internal::BufferPool<VertexBuffer>::OnEndFrame()::_lambda(
-                                          auto : 1_const &, auto : 2_const &) _1_>(uVar8, uVar9);
+                                          auto : 1 const&, auto : 2 const&) _1_>(managedBuffer1, auVar13._0_8_,
+                                                                                 auVar13._8_8_);
+                uVar2 = 2;
+            } else {
+                uVar2 = 3;
             }
-            BufferPoolStats::RecordBufferCreation("PixelUnpackBuffer", local_34, 1);
+            ((BufferPoolStats*)"PixelUnpackBuffer")
+                ->RecordBufferCreation((char*)(unsigned long)local_34, 1, uVar2, in_R8D);
         } else {
+            uVar2 = 0;
         LAB_100c12106:
-            BufferPoolStats::RecordBufferCreation("PixelUnpackBuffer", local_34, 1);
-            pvVar14 = param_3;
+            ((BufferPoolStats*)"PixelUnpackBuffer")
+                ->RecordBufferCreation((char*)(unsigned long)local_34, 1, uVar2, in_R8D);
+            pvVar10 = arg3;
         }
-        uVar3 = param_1;
-        pBVar15 = (BufferInterface*)this;
-        if ((pvVar14 == (void*)0) || (local_34 == param_1)) {
-            uVar4 = ((BufferInterface*)this)->Create(local_34, param_2 | 43, pvVar14);
+        uVar2 = arg1;
+        pBVar11 = (BufferInterface*)this;
+        if ((pvVar10 == nullptr) || (local_34 == arg1)) {
+            uVar3 = ((PixelUnpackBuffer*)(BufferInterface*)this)->Create(local_34, arg2 | 43, pvVar10);
         } else {
-            uVar4 = ((BufferInterface*)this)->Create(local_34, param_2 | 43, 0);
-            pBVar15->Update(0, uVar3, pvVar14, 0);
+            uVar3 = ((PixelUnpackBuffer*)(BufferInterface*)this)->Create(local_34, arg2 | 43, nullptr);
+            pBVar11->Update(0, uVar2, pvVar10, 0);
         }
-        uVar13 = (ulong)uVar4;
-        pBVar15->m_sizeInBytes = uVar3;
+        uVar9 = (unsigned long)uVar3;
+        pBVar11->m_sizeInBytes = uVar2;
     LAB_100c121cb:
-        return uVar13 & 4294967295;
+        return uVar9 & 4294967295;
     }
 
-    // 0x100c31330, 16 bytes, base-object constructor, inline, placed by class name
-    // PooledBuffer<IndexBuffer>::PooledBuffer(PooledBuffer<IndexBuffer>&&)
-    void PooledBuffer<IndexBuffer>::PooledBuffer(PooledBuffer* param_1) {
-        new (this) IndexBuffer(param_1);
-    }
+    // 0x100c31330
+    PooledBuffer<IndexBuffer>::PooledBuffer(PooledBuffer<IndexBuffer>&& pooledBuffer) : IndexBuffer(pooledBuffer) {}
 
-    // 0x100c397a0, 16 bytes, inline, placed by class name
-    // PooledBuffer<IndexBuffer>::Create(unsigned int, unsigned int, void const*)::{lambda(internal::ManagedBuffer<IndexBuffer> const&)#1}::operator()(internal::ManagedBuffer<IndexBuffer> const&) const
-    /* PooledBuffer<IndexBuffer>::Create(unsigned int, unsigned int, void
-   const*)::{lambda(internal::ManagedBuffer<IndexBuffer>
-   const&)#1}::TEMPNAMEPLACEHOLDERVALUE(internal::ManagedBuffer<IndexBuffer>
-   const&) const */
-
-    void PooledBuffer<IndexBuffer>::Create(unsigned int, unsigned int, void_const*)::{
+    // 0x100c397a0
+    void PooledBuffer<IndexBuffer>::Create(unsigned int, unsigned int, void const*)::{
         lambda(internal::ManagedBuffer<IndexBuffer> const&) #1
     }
-    ::operator()(_lambda_jag__render__internal__ManagedBuffer<IndexBuffer> const___1_* this, ManagedBuffer * param_1)
-
-    {
+    ::operator()(const internal::ManagedBuffer<IndexBuffer>& unsigned int) const {
+        lambda(internal::ManagedBuffer<IndexBuffer> const&) #1
+    }
+    ::operator()(_lambda_jag__render__internal__ManagedBuffer<IndexBuffer> const___1_* this,
+                 ManagedBuffer<IndexBuffer>* managedBuffer) {
         internal::ManagedBuffer<IndexBuffer>::IsReadyToReuse();
+        return;
     }
 
-    // 0x100c397b0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // auto PooledBuffer<IndexBuffer>::Create(unsigned int, unsigned int, void const*)::{lambda(auto:1 const&, auto:2 const&)#1}::operator()<internal::ManagedBuffer<IndexBuffer>, internal::ManagedBuffer<IndexBuffer> >(internal::ManagedBuffer<IndexBuffer> const&, internal::ManagedBuffer<IndexBuffer> const&) const
-    /* auto internal::BufferPool<IndexBuffer>::OnEndFrame()::{lambda(auto:1
-   const&, auto:2
-   const&)#1}::TEMPNAMEPLACEHOLDERVALUE(internal::ManagedBuffer<IndexBuffer>
-   const&, internal::ManagedBuffer<IndexBuffer> const&) const */
-
-    undefined4 internal::BufferPool<IndexBuffer>::OnEndFrame()::{
-        lambda(auto : 1_const &, auto : 2_const &) #1
+    // 0x100c397b0
+    auto PooledBuffer<IndexBuffer>::Create(unsigned int, unsigned int, void const*)::{
+        lambda(auto : 1 const&, auto : 2 const&) #1
     }
-    ::operator()(_lambda_auto_1_const__auto_2_const___1_* this, ManagedBuffer * param_1, ManagedBuffer * param_2)
-
-    {
-        return CONCAT31((int3)(*(uint*)(param_1 + 88) >> 8), *(uint*)(param_1 + 88) < *(uint*)(param_2 + 88));
+    ::operator()<internal::ManagedBuffer<IndexBuffer>, internal::ManagedBuffer<IndexBuffer>>(
+        const internal::ManagedBuffer<IndexBuffer>& arg1, const internal::ManagedBuffer<IndexBuffer>& arg2) const {
+        lambda(auto : 1 const&, auto : 2 const&) #1
+    }
+    ::operator()(_lambda_auto_1_const__auto_2_const___1_* this, ManagedBuffer<IndexBuffer>* managedBuffer1,
+                 ManagedBuffer<IndexBuffer>* managedBuffer2) {
+        return *(unsigned int*)(managedBuffer1 + 88) < *(unsigned int*)(managedBuffer2 + 88);
     }
 
-    // 0x100c3a680, 32 bytes, inline, placed by class name
-    // PooledBuffer<IndexBuffer>::operator=(PooledBuffer<IndexBuffer>&&)
-    /* PooledBuffer<IndexBuffer>::TEMPNAMEPLACEHOLDERVALUE(PooledBuffer<IndexBuffer>&&)
-    */
-
-    PooledBuffer<IndexBuffer>* PooledBuffer<IndexBuffer>::operator=(PooledBuffer* param_1) {
-        IndexBuffer::operator=((IndexBuffer*)this, (IndexBuffer*)param_1);
+    // 0x100c3a680
+    PooledBuffer<IndexBuffer>* PooledBuffer<IndexBuffer>::operator=(PooledBuffer<IndexBuffer>&& pooledBuffer) {
+        *this = pooledBuffer;
         return this;
     }
 
-    // 0x100c3a980, 16 bytes, inline, placed by class name
-    // PooledBuffer<VertexBuffer>::Create(unsigned int, unsigned int, void const*)::{lambda(internal::ManagedBuffer<VertexBuffer> const&)#1}::operator()(internal::ManagedBuffer<VertexBuffer> const&) const
-    /* PooledBuffer<VertexBuffer>::Create(unsigned int, unsigned int, void
-   const*)::{lambda(internal::ManagedBuffer<VertexBuffer>
-   const&)#1}::TEMPNAMEPLACEHOLDERVALUE(internal::ManagedBuffer<VertexBuffer>
-   const&) const */
-
-    void PooledBuffer<VertexBuffer>::Create(unsigned int, unsigned int, void_const*)::{
+    // 0x100c3a980
+    void PooledBuffer<VertexBuffer>::Create(unsigned int, unsigned int, void const*)::{
         lambda(internal::ManagedBuffer<VertexBuffer> const&) #1
     }
-    ::operator()(ManagedBuffer * param_1) {
+    ::operator()(const internal::ManagedBuffer<VertexBuffer>& managedBuffer) const {
         internal::ManagedBuffer<VertexBuffer>::IsReadyToReuse();
     }
 
-    // 0x100c3a990, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // auto PooledBuffer<VertexBuffer>::Create(unsigned int, unsigned int, void const*)::{lambda(auto:1 const&, auto:2 const&)#1}::operator()<internal::ManagedBuffer<VertexBuffer>, internal::ManagedBuffer<VertexBuffer> >(internal::ManagedBuffer<VertexBuffer> const&, internal::ManagedBuffer<VertexBuffer> const&) const
-    /* auto internal::BufferPool<VertexBuffer>::OnEndFrame()::{lambda(auto:1
-   const&, auto:2
-   const&)#1}::TEMPNAMEPLACEHOLDERVALUE(internal::ManagedBuffer<VertexBuffer>
-   const&, internal::ManagedBuffer<VertexBuffer> const&) const */
-
-    undefined4 internal::BufferPool<VertexBuffer>::OnEndFrame()::{
-        lambda(auto : 1_const &, auto : 2_const &) #1
+    // 0x100c3a990
+    auto PooledBuffer<VertexBuffer>::Create(unsigned int, unsigned int, void const*)::{
+        lambda(auto : 1 const&, auto : 2 const&) #1
     }
-    ::operator()(_lambda_auto_1_const__auto_2_const___1_* this, ManagedBuffer * param_1, ManagedBuffer * param_2)
-
-    {
-        return CONCAT31((int3)(*(uint*)(param_1 + 80) >> 8), *(uint*)(param_1 + 80) < *(uint*)(param_2 + 80));
+    ::operator()<internal::ManagedBuffer<VertexBuffer>, internal::ManagedBuffer<VertexBuffer>>(
+        const internal::ManagedBuffer<VertexBuffer>& arg1, const internal::ManagedBuffer<VertexBuffer>& arg2) const {
+        lambda(auto : 1 const&, auto : 2 const&) #1
+    }
+    ::operator()(_lambda_auto_1_const__auto_2_const___1_* this, ManagedBuffer<ShaderConstBuffer>* managedBuffer1,
+                 ManagedBuffer<ShaderConstBuffer>* managedBuffer2) {
+        return *(unsigned int*)(managedBuffer1 + 80) < *(unsigned int*)(managedBuffer2 + 80);
     }
 
-    // 0x100c3b280, 32 bytes, inline, placed by class name
-    // PooledBuffer<VertexBuffer>::operator=(PooledBuffer<VertexBuffer>&&)
-    /* PooledBuffer<ShaderConstBuffer>::TEMPNAMEPLACEHOLDERVALUE(PooledBuffer<ShaderConstBuffer>&&)
-    */
-
-    PooledBuffer<ShaderConstBuffer>* PooledBuffer<ShaderConstBuffer>::operator=(PooledBuffer* param_1) {
-        ShaderConstBuffer::operator=((ShaderConstBuffer*)this, (ShaderConstBuffer*)param_1);
+    // 0x100c3b280
+    PooledBuffer<ShaderConstBuffer>* PooledBuffer<VertexBuffer>::operator=(PooledBuffer<VertexBuffer>&& pooledBuffer) {
+        *this = pooledBuffer;
         return this;
     }
 
-    // 0x100c3b570, 16 bytes, inline, placed by class name
-    // PooledBuffer<ShaderConstBuffer>::Create(unsigned int, unsigned int, void const*)::{lambda(internal::ManagedBuffer<ShaderConstBuffer> const&)#1}::operator()(internal::ManagedBuffer<ShaderConstBuffer> const&) const
-    /* PooledBuffer<ShaderConstBuffer>::Create(unsigned int, unsigned int,
-   void const*)::{lambda(internal::ManagedBuffer<ShaderConstBuffer>
-   const&)#1}::TEMPNAMEPLACEHOLDERVALUE(internal::ManagedBuffer<ShaderConstBuffer>
-   const&) const */
-
-    void PooledBuffer<ShaderConstBuffer>::Create(unsigned int, unsigned int, void_const*)::{
+    // 0x100c3b570
+    void PooledBuffer<ShaderConstBuffer>::Create(unsigned int, unsigned int, void const*)::{
+        lambda(internal::ManagedBuffer<ShaderConstBuffer> const&) #1
+    }
+    ::operator()(const internal::ManagedBuffer<ShaderConstBuffer>& unsigned int) const {
         lambda(internal::ManagedBuffer<ShaderConstBuffer> const&) #1
     }
     ::operator()(_lambda_jag__render__internal__ManagedBuffer<ShaderConstBuffer> const___1_* this,
-                 ManagedBuffer * param_1)
-
-    {
+                 ManagedBuffer<ShaderConstBuffer>* managedBuffer) {
         internal::ManagedBuffer<ShaderConstBuffer>::IsReadyToReuse();
+        return;
     }
 
-    // 0x100c3be60, 16 bytes, inline, placed by class name
-    // PooledBuffer<PixelUnpackBuffer>::Create(unsigned int, unsigned int, void const*)::{lambda(internal::ManagedBuffer<PixelUnpackBuffer> const&)#1}::operator()(internal::ManagedBuffer<PixelUnpackBuffer> const&) const
-    /* PooledBuffer<PixelUnpackBuffer>::Create(unsigned int, unsigned int,
-   void const*)::{lambda(internal::ManagedBuffer<PixelUnpackBuffer>
-   const&)#1}::TEMPNAMEPLACEHOLDERVALUE(internal::ManagedBuffer<PixelUnpackBuffer>
-   const&) const */
-
-    void PooledBuffer<PixelUnpackBuffer>::Create(unsigned int, unsigned int, void_const*)::{
+    // 0x100c3be60
+    void PooledBuffer<PixelUnpackBuffer>::Create(unsigned int, unsigned int, void const*)::{
+        lambda(internal::ManagedBuffer<PixelUnpackBuffer> const&) #1
+    }
+    ::operator()(const internal::ManagedBuffer<PixelUnpackBuffer>& unsigned int) const {
         lambda(internal::ManagedBuffer<PixelUnpackBuffer> const&) #1
     }
     ::operator()(_lambda_jag__render__internal__ManagedBuffer<PixelUnpackBuffer> const___1_* this,
-                 ManagedBuffer * param_1)
-
-    {
+                 ManagedBuffer<PixelUnpackBuffer>* managedBuffer) {
         internal::ManagedBuffer<PixelUnpackBuffer>::IsReadyToReuse();
+        return;
     }
 
 } // namespace jag::render

@@ -1,199 +1,169 @@
 // libs/game/runetek5/config/skyboxtype/SkyBoxType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "SkyBoxType.h"
 
 namespace jag::game {
-    // 0x10016b490: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetMinMapZ() const, which has identical code
-    SkyBoxType::GetCubeMapMaterialID() const;
+    // 0x10016b490: SkyBoxType::GetCubeMapMaterialID() const has the same machine code as oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetMinMapZ() const
 
-    // 0x1004e0970, 320 bytes, placed by class name and debug map
-    // SkyBoxType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
-    undefined* SkyBoxType::DecodeType(PacketT* param_1, uint param_2) {
-        byte bVar1;
-        ushort uVar2;
-        undefined2 uVar3;
-        undefined4 uVar4;
-        undefined8 in_RAX;
-        undefined8 uVar5;
-        undefined2* puVar6;
-        ulong uVar7;
+    // 0x1004e0970
+    uint8_t* SkyBoxType::DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2) {
+        uint8_t bVar1;
+        unsigned short uVar2;
+        uint16_t uVar3;
+        uint64_t in_RAX;
+        uint16_t* puVar5;
+        unsigned long arg1_00;
 
-        uVar4 = (undefined4)((ulong)in_RAX >> 32);
-        switch (param_2) {
+        uint32_t uVar4 = (uint32_t)((unsigned long)in_RAX >> 32);
+        switch (arg2) {
         case 1:
-            uVar2 = param_1->g2();
-            field_56 = (uint)uVar2;
+            uVar2 = arg1.g2();
+            field_56 = (unsigned int)uVar2;
             break;
         case 2:
-            bVar1 = param_1->g1();
-            (&field_64, (ulong)bVar1, 0)->set_max_size();
+            bVar1 = arg1.g1();
+            field_64.set_max_size((unsigned long)bVar1, 0);
             if (bVar1 != 0) {
-                uVar7 = 0;
+                arg1_00 = 0;
                 do {
-                    uVar3 = param_1->g2();
-                    puVar6 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                        (Array<unsigned short, eastl::allocator>*)&field_64, uVar7);
-                    *puVar6 = uVar3;
-                    uVar7 = uVar7 + 1;
-                } while (bVar1 != uVar7);
+                    uVar3 = arg1.g2();
+                    puVar5 = &field_64[arg1_00];
+                    *puVar5 = uVar3;
+                    arg1_00 = arg1_00 + 1;
+                } while (bVar1 != arg1_00);
             }
             break;
         case 3:
-            bVar1 = param_1->g1();
-            field_88 = (uint)bVar1;
+            bVar1 = arg1.g1();
+            field_88 = (unsigned int)bVar1;
             break;
         case 4:
-            bVar1 = param_1->g1();
-            field_92 = (uint)bVar1;
+            bVar1 = arg1.g1();
+            field_92 = (unsigned int)bVar1;
             break;
         case 5:
-            uVar4 = param_1->gSmart2or4s();
+            uVar4 = arg1.gSmart2or4s();
             field_96 = uVar4;
             break;
         case 6:
-            uVar4 = param_1->gSmart2or4s();
+            uVar4 = arg1.gSmart2or4s();
             m_cubeMapMaterialID = uVar4;
             break;
         default:
-            uVar5 = logger::default_logger();
-            logger::Logger::Log(uVar5, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
-                                "config/skyboxtype/SkyBoxType.cpp",
-                                57, "Unrecognised .skybox config code: %u", CONCAT44(uVar4, param_2));
+            (logger::default_logger())
+                ->Log(false, 2,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
+                      "skyboxtype/SkyBoxType.cpp",
+                      57, "Unrecognised .skybox config code: %u", (((uint64_t)uVar4 << 32) | (uint32_t)arg2));
         }
         return DataStatus::READY;
     }
 
-    // 0x1004e0ab0, 16 bytes, placed by class name and debug map
-    // SkyBoxType::PostDecode()
+    // 0x1004e0ab0
     void SkyBoxType::PostDecode() {}
 
-    // 0x1004e0ac0, 992 bytes, placed by class name and debug map
-    // SkyBoxType::GetStaticSkyModel(graphics::RT7Core*, AssetBuilder&, BuildRequest<graphics::Model, BuildModelMain>&)
-    undefined* SkyBoxType::GetStaticSkyModel(RT7Core* param_1, AssetBuilder* param_2, BuildRequest* param_3) {
-        undefined* puVar1;
-        char cVar2;
-        AssetLRUCache<graphics::Model, BuildModelMain>* this_00;
+    // 0x1004e0ac0
+    uint8_t* SkyBoxType::GetStaticSkyModel(graphics::RT7Core* rt7Core, AssetBuilder& assetBuilder,
+                                           BuildRequest<graphics::Model, BuildModelMain>& buildRequest) {
+        uint8_t* puVar1;
         shared_ptr* this_01;
-        Model* pMVar4;
-        long* plVar5;
-        undefined* puVar6;
-        Js5ResourceProvider* this_02;
-        BuildModelMain* this_03;
-        vector* this_04;
-        undefined** ppuVar7;
-        shared_ptr* psVar8;
-        undefined* puVar9;
+        Model* pMVar3;
+        long* plVar4;
+        uint8_t* puVar5;
+        shared_ptr<graphics::Model>* this_04;
+        uint8_t** ppuVar6;
+        uint8_t* puVar7;
         PacketView local_f8;
-        shared_ptr local_c8;
-        RT7Core* local_b8;
-        shared_ptr local_b0;
-        shared_ptr local_a0;
-        ModelConstructedState local_8a;
-        bool local_89;
-        PacketView local_88[2];
-        long local_38;
+        shared_ptr<graphics::Model> local_c8;
+        uint32_t local_b0[4];
+        shared_ptr<BuildModelMain> local_a0;
+        bool local_8a;
+        uint64_t local_89;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_b8 = param_1;
-        this_00 = (AssetLRUCache<graphics::Model, BuildModelMain>*)field_24->GetPixelBuffer();
+        RT7Core* local_b8 = rt7Core;
+        AssetLRUCache<graphics::Model, BuildModelMain>* this_00 =
+            (AssetLRUCache<graphics::Model, BuildModelMain>*)field_24->GetPixelBuffer();
         this_00->UpdateLoadingAssetList(5);
-        cVar2 = this_00->IsLoadingAsset((long)field_32);
-        if (cVar2 == '\0') {
-            psVar8 = (shared_ptr*)(long)field_32;
-            this_01 = (shared_ptr*)this_00->Find((ulonglong)psVar8);
-            if (shared_ptr::operator_cast_to_bool(this_01)) {
-                pMVar4 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_01);
-                cVar2 = pMVar4->IsLoaded();
-                if (cVar2 == '\0') {
-                    /* WARNING: Subroutine does not return */
+        bool cVar2 = this_00->IsLoadingAsset((long)field_32);
+        if (!cVar2) {
+            this_01 = (shared_ptr*)this_00->Find((long)field_32);
+            cVar2 = shared_ptr::operator_cast_to_bool(this_01);
+            if (cVar2) {
+                pMVar3 = (Model*)(*this_01).operator->();
+                cVar2 = pMVar3->IsLoaded();
+                if (!cVar2) {
                     LogAssert("cachedModel->IsLoaded()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "config/skyboxtype/SkyBoxType.cpp",
-                              81, (char*)0);
+                              81, nullptr);
                 }
-                param_3->SetConstructedObj(this_01);
-                psVar8 = this_01;
+                buildRequest.SetConstructedObj(*this_01);
             }
-            cVar2 = param_3->IsTaskDone();
-            if ((cVar2 == '\0') && (cVar2 = param_3->IsEmpty(), cVar2 == '\0'))
+            cVar2 = buildRequest.IsTaskDone();
+            if ((!cVar2) && (cVar2 = buildRequest.IsEmpty(), !cVar2))
                 goto LAB_1004e0e00;
-            cVar2 = param_3->IsEmpty();
-            if (cVar2 != '\0') {
+            cVar2 = buildRequest.IsEmpty();
+            if (cVar2) {
                 cVar2 = graphics::Model::IsReadyToConstruct(local_b8);
-                if (cVar2 == '\0')
+                if (!cVar2)
                     goto LAB_1004e0e00;
-                plVar5 = (long*)field_24->GetOutputType();
-                puVar6 = (undefined*)(**(code**)(*plVar5 + 48))(plVar5, Js5Archive::JS5_MODELSRT7, field_96, 0,
-                                                                Priority::HIGH, 1);
+                plVar4 = (long*)field_24->GetOutputType();
+                puVar5 = (uint8_t*)(**(void (**)(...))(*plVar4 + 48))(plVar4, Js5Archive::JS5_MODELSRT7, field_96, 0,
+                                                                      Priority::HIGH, 1);
                 puVar1 = DataStatus::NOTLOADED;
-                puVar9 = DataStatus::MISSING;
-                if ((puVar6 == DataStatus::MISSING) ||
-                    (puVar9 = DataStatus::NOTLOADED, puVar6 == DataStatus::NOTLOADED))
+                puVar7 = DataStatus::MISSING;
+                if ((puVar5 == DataStatus::MISSING) ||
+                    (puVar7 = DataStatus::NOTLOADED, puVar5 == DataStatus::NOTLOADED))
                     goto LAB_1004e0e0a;
-                new (local_88) eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>();
-                new (&local_f8) PacketView();
-                this_02 = (Js5ResourceProvider*)field_24->GetOutputType();
-                this_02->GetFile(&local_f8, Js5Archive::JS5_MODELSRT7, field_96, 0, (Priority*)Priority::HIGH, true,
-                                 false, false);
-                eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>::push_back(local_88);
-                MakeSharedPool<graphics::Model, 3072>::MakeShared<>(&local_c8,
-                                                                    (MakeSharedPool<graphics::Model, 3072>*)&local_f8);
-                pMVar4 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)&local_c8);
-                pMVar4->SetSourceModelIDs(field_96);
-                local_b0._0_4_ = 16384;
-                local_8a = (ModelConstructedState)4;
-                local_89 = false;
+                new ((fixed_vector<PacketView, 1ul>*)((long)&local_89 + 1)) eastl::fixed_vector<PacketView, 1ul>();
+                local_f8 = PacketView();
+                ((Js5ResourceProvider*)field_24->GetOutputType())
+                    ->GetFile(local_f8, *(Js5Archive::JS5_MODELSRT7), field_96, 0, (Priority*)Priority::HIGH, true,
+                              false, false);
+                ((fixed_vector<PacketView, 1ul>*)((long)&local_89 + 1))->push_back(local_f8);
+                MakeSharedPool<graphics::Model, 3072>::MakeShared<>();
+                pMVar3 = (Model*)local_c8.operator->();
+                pMVar3->SetSourceModelIDs(field_96);
+                local_b0[0] = 16384;
+                local_8a = true;
+                local_89._0_1_ = 0;
                 bucket_make_shared<BuildModelMain, int, graphics::ModelConstructedState, bool, graphics::RT7Core*&,
-                                   eastl::fixed_vector<PacketView, 1ul, true, eastl::allocator>,
-                                   shared_ptr<graphics::Model>&>((jag*)&local_a0, (int*)&local_b0, &local_8a, &local_89,
-                                                                 &local_b8, (fixed_vector*)local_88, &local_c8);
-                this_03 =
-                    (BuildModelMain*)shared_ptr<BuildModelMain>::operator->((shared_ptr<BuildModelMain>*)&local_a0);
-                this_03->SetUseUncompressedTextures(true);
-                new (&local_b0) shared_ptr<oldscape::dash3d::Decor>(&local_a0);
-                param_2->SubmitJob(&local_b0);
-                local_b0.~shared_ptr();
-                this_00->AddLoadingAsset((long)field_32, &local_a0);
-                psVar8 = &local_c8;
-                param_3->SetObjAndTask(psVar8, &local_a0);
-                cVar2 = param_3->IsTaskDone();
-                puVar9 = puVar1;
-                if (cVar2 == '\0') {
-                    puVar9 = DataStatus::NOTLOADED;
+                                   eastl::fixed_vector<PacketView, 1ul>, shared_ptr<graphics::Model>&>(
+                    &local_a0, (ModelConstructedState*)local_b0, &local_8a, (RT7Core**)&local_89,
+                    (fixed_vector<PacketView, _1ul>*)&local_b8, (shared_ptr<graphics::Model>*)((long)&local_89 + 1));
+                ((BuildModelMain*)local_a0.operator->())->SetUseUncompressedTextures(true);
+                new (local_b0) shared_ptr(&local_a0);
+                assetBuilder.SubmitJob(*local_b0);
+                this_00->AddLoadingAsset((long)field_32, local_a0);
+                buildRequest.SetObjAndTask(local_c8, local_a0);
+                cVar2 = buildRequest.IsTaskDone();
+                puVar7 = puVar1;
+                if (!cVar2) {
+                    puVar7 = DataStatus::NOTLOADED;
                 }
-                local_a0.~shared_ptr();
-                local_c8.~shared_ptr();
-                local_f8.~PacketView();
-                local_88->~fixed_vector();
-                if (cVar2 == '\0')
+                ((fixed_vector<PacketView, 1ul>*)((long)&local_89 + 1))->~fixed_vector();
+                if (!cVar2)
                     goto LAB_1004e0e0a;
             }
-            this_04 = param_3->SSOBeginPtr(psVar8);
-            pMVar4 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_04);
-            cVar2 = pMVar4->IsLoaded();
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            this_04 = (shared_ptr<graphics::Model>*)buildRequest.SSOBeginPtr();
+            pMVar3 = (Model*)(*this_04).operator->();
+            cVar2 = pMVar3->IsLoaded();
+            if (!cVar2) {
                 LogAssert("model.GetAsset()->IsLoaded()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                           "skyboxtype/SkyBoxType.cpp",
-                          145, (char*)0);
+                          145, nullptr);
             }
-            ppuVar7 = &DataStatus::READY;
+            ppuVar6 = &DataStatus::READY;
         } else {
         LAB_1004e0e00:
-            ppuVar7 = &DataStatus::NOTLOADED;
+            ppuVar6 = &DataStatus::NOTLOADED;
         }
-        puVar9 = *ppuVar7;
+        puVar7 = *ppuVar6;
     LAB_1004e0e0a:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return puVar9;
+        return puVar7;
     }
 
 } // namespace jag::game

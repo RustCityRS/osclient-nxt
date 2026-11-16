@@ -1,6 +1,5 @@
 // libs/hal/render/device/RenderDeviceCaps.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 namespace jag::render {
@@ -11,232 +10,208 @@ namespace jag::render {
         bool GetCompressedTextures() const;
         void PrintGenericDeviceCaps();
         void ApplyCapOverrides();
-        void PrintDeviceCaps(char const*);
+        void PrintDeviceCaps(const char* str);
         void PrintBackendDeviceCaps();
-        void Initialise(hardware::GPUVendor, eastl::string const&, int, int, bool,
-                        std::function<void(RenderDeviceCaps const&)>);
-        void InitialiseDeviceCapsOGL(hardware::GPUVendor, int, int, bool);
-        void InitShaderPrecisionProfile(hardware::GPUVendor, eastl::string const&);
-        void InitialiseRenderTargetCaps(hardware::GPUVendor, eastl::string const&);
-        void InitialiseComputeShaderCaps(hardware::GPUVendor, eastl::string const&);
-        void InitialiseDeviceCapsGLES(hardware::GPUVendor, int, int, bool);
-        static /* 8 bytes */ DEVICE_CAP_POSTFIX; // = ";"
+        void Initialise(hardware::GPUVendor gpuVendor, const eastl::string& str, int arg3, int arg4, bool arg5,
+                        std::function<void(RenderDeviceCaps const&)> callback);
+        void InitialiseDeviceCapsOGL(hardware::GPUVendor gpuVendor, int arg2, int arg3, bool arg4);
+        void InitShaderPrecisionProfile(hardware::GPUVendor gpuVendor, const eastl::string& str);
+        void InitialiseRenderTargetCaps(hardware::GPUVendor gpuVendor, const eastl::string& str);
+        void InitialiseComputeShaderCaps(hardware::GPUVendor gpuVendor, const eastl::string& str);
+        void InitialiseDeviceCapsGLES(hardware::GPUVendor gpuVendor, int arg2, int arg3, bool arg4);
+        static const char* DEVICE_CAP_POSTFIX; // = ";"
 
-        // data members, from how the methods use this: 338 bytes
-        char _unknown_0[32];
-        int field_32;   // offset 32
-        int field_36;   // offset 36
-        int field_40;   // offset 40
-        int field_44;   // offset 44
-        float field_48; // offset 48
-        int field_52;   // offset 52
-        int field_56;   // offset 56
-        int field_60;   // offset 60
-        int field_64;   // offset 64
-        char _unknown_68[4];
-        int field_72;        // offset 72
-        int field_76;        // offset 76
-        int field_80;        // offset 80
-        undefined4 field_84; // offset 84
-        int field_88;        // offset 88
-        int field_92;        // offset 92
-        undefined4 field_96; // offset 96
-        int field_100;       // offset 100
-        int field_104;       // offset 104
-        int field_108;       // offset 108
-        int field_112;       // offset 112
-        int field_116;       // offset 116
-        bool field_120;      // offset 120
-        char _unknown_121[3];
-        int field_124;  // offset 124
-        int field_128;  // offset 128
-        bool field_132; // offset 132
-        char _unknown_133[3];
-        undefined8 field_136;       // offset 136
-        bool field_144;             // offset 144
-        bool field_145;             // offset 145
-        bool field_146;             // offset 146
-        bool field_147;             // offset 147
-        bool field_148;             // offset 148
-        bool field_149;             // offset 149
-        bool field_150;             // offset 150
-        bool field_151;             // offset 151
-        bool field_152;             // offset 152
-        bool field_153;             // offset 153
-        bool field_154;             // offset 154
-        array<bool, 8ul> field_155; // offset 155
-        bool field_156;             // offset 156
-        bool field_157;             // offset 157
-        bool field_158;             // offset 158
-        bool field_159;             // offset 159
-        bool field_160;             // offset 160
-        bool field_161;             // offset 161
-        bool field_162;             // offset 162
-        bool field_163;             // offset 163
-        bool field_164;             // offset 164
-        bool field_165;             // offset 165
-        bool field_166;             // offset 166
-        bool field_167;             // offset 167
-        bool field_168;             // offset 168
-        bool field_169;             // offset 169
-        bool field_170;             // offset 170
-        bool field_171;             // offset 171
-        bool field_172;             // offset 172
-        bool field_173;             // offset 173
-        bool field_174;             // offset 174
-        bool field_175;             // offset 175
-        bool field_176;             // offset 176
-        bool field_177;             // offset 177
-        bool field_178;             // offset 178
-        bool field_179;             // offset 179
-        bool field_180;             // offset 180
-        bool field_181;             // offset 181
-        bool field_182;             // offset 182
-        bool field_183;             // offset 183
-        bool field_184;             // offset 184
-        bool field_185;             // offset 185
-        char _unknown_186[1];
-        bool field_187; // offset 187
-        bool field_188; // offset 188
-        bool field_189; // offset 189
-        char _unknown_190[2];
-        int field_192;  // offset 192
-        int field_196;  // offset 196
-        int field_200;  // offset 200
-        int field_204;  // offset 204
-        int field_208;  // offset 208
-        int field_212;  // offset 212
-        int field_216;  // offset 216
-        bool field_220; // offset 220
-        bool field_221; // offset 221
-        bool field_222; // offset 222
-        bool field_223; // offset 223
-        bool field_224; // offset 224
-        bool field_225; // offset 225
-        bool field_226; // offset 226
-        bool field_227; // offset 227
-        bool field_228; // offset 228
-        bool field_229; // offset 229
-        bool field_230; // offset 230
-        char _unknown_231[49];
-        ShaderPrecisionProfile field_280; // offset 280
-        int field_308;                    // offset 308
-        int field_312;                    // offset 312
-        bool field_316;                   // offset 316
-        bool field_317;                   // offset 317
-        bool field_318;                   // offset 318
-        bool field_319;                   // offset 319
-        bool field_320;                   // offset 320
-        bool field_321;                   // offset 321
-        bool field_322;                   // offset 322
-        bool field_323;                   // offset 323
-        bool field_324;                   // offset 324
-        bool field_325;                   // offset 325
-        bool field_326;                   // offset 326
-        bool field_327;                   // offset 327
-        bool field_328;                   // offset 328
-        bool field_329;                   // offset 329
-        bool field_330;                   // offset 330
-        bool field_331;                   // offset 331
-        bool field_332;                   // offset 332
-        bool field_333;                   // offset 333
-        bool field_334;                   // offset 334
-        bool field_335;                   // offset 335
-        char _unknown_336[1];
-        bool field_337; // offset 337
+    private:
+        uint8_t _unknown_0[32];
+        int field_32;
+        int field_36;
+        int field_40;
+        int field_44;
+        float field_48;
+        int field_52;
+        int field_56;
+        int field_60;
+        int field_64;
+        uint8_t _unknown_68[4];
+        int field_72;
+        int field_76;
+        int field_80;
+        uint32_t field_84;
+        int field_88;
+        int field_92;
+        uint32_t field_96;
+        int field_100;
+        int field_104;
+        int field_108;
+        int field_112;
+        int field_116;
+        bool field_120;
+        uint8_t _unknown_121[3];
+        int field_124;
+        int field_128;
+        bool field_132;
+        uint8_t _unknown_133[3];
+        uint64_t field_136;
+        bool field_144;
+        bool field_145;
+        bool field_146;
+        bool field_147;
+        bool field_148;
+        bool field_149;
+        bool field_150;
+        bool field_151;
+        bool field_152;
+        bool field_153;
+        bool field_154;
+        array<bool, 8ul> field_155;
+        bool field_156;
+        bool field_157;
+        bool field_158;
+        bool field_159;
+        bool field_160;
+        bool field_161;
+        bool field_162;
+        bool field_163;
+        bool field_164;
+        bool field_165;
+        bool field_166;
+        bool field_167;
+        bool field_168;
+        bool field_169;
+        bool field_170;
+        bool field_171;
+        bool field_172;
+        bool field_173;
+        bool field_174;
+        bool field_175;
+        bool field_176;
+        bool field_177;
+        bool field_178;
+        bool field_179;
+        bool field_180;
+        bool field_181;
+        bool field_182;
+        bool field_183;
+        bool field_184;
+        bool field_185;
+        uint8_t _unknown_186[1];
+        bool field_187;
+        bool field_188;
+        bool field_189;
+        uint8_t _unknown_190[2];
+        int field_192;
+        int field_196;
+        int field_200;
+        int field_204;
+        int field_208;
+        int field_212;
+        int field_216;
+        bool field_220;
+        bool field_221;
+        bool field_222;
+        bool field_223;
+        bool field_224;
+        bool field_225;
+        bool field_226;
+        bool field_227;
+        bool field_228;
+        bool field_229;
+        bool field_230;
+        uint8_t _unknown_231[49];
+        ShaderPrecisionProfile field_280;
+        int field_308;
+        int field_312;
+        bool field_316;
+        bool field_317;
+        bool field_318;
+        bool field_319;
+        bool field_320;
+        bool field_321;
+        bool field_322;
+        bool field_323;
+        bool field_324;
+        bool field_325;
+        bool field_326;
+        bool field_327;
+        bool field_328;
+        bool field_329;
+        bool field_330;
+        bool field_331;
+        bool field_332;
+        bool field_333;
+        bool field_334;
+        bool field_335;
+        uint8_t _unknown_336[1];
+        bool field_337;
     };
 
-    // 0x100f488f8, 8 bytes, __data
-    RenderDeviceCaps::DEVICE_CAP_POSTFIX = ";";
+    // 0x100f488f8
+    const char* RenderDeviceCaps::DEVICE_CAP_POSTFIX = ";";
 
-    // 0x100024070: the linker folded this into eastl::pair<eastl::string, oldscape::option::IOption*>::~pair(), which has identical code
-    RenderDeviceCaps::~RenderDeviceCaps();
+    // 0x100024070: RenderDeviceCaps::~RenderDeviceCaps() has the same machine code as eastl::pair<eastl::string, oldscape::option::IOption*>::~pair()
 
-    // 0x10002dfe0: the linker folded this into eastl::hash_node<eastl::string, false>::~hash_node(), which has identical code
-    RenderDeviceCaps::~RenderDeviceCaps();
+    // 0x10002dfe0: RenderDeviceCaps::~RenderDeviceCaps() has the same machine code as eastl::hash_node<eastl::string, false>::~hash_node()
 
-    // 0x100c2e690, 112 bytes, placed by __FILE__ string
-    // PrintDeviceCap(char const*, eastl::string const&, char const*, char const*)
-    void PrintDeviceCap(char* param_1, basic_string* param_2, char* param_3, char* param_4) {
-        undefined8 uVar1;
-        undefined8 uVar2;
+    // 0x100c2e690
+    void PrintDeviceCap(const char* str1, const eastl::string& str2, const char* str3, const char* str4) {
+        Logger* logger;
 
-        uVar1 = logger::default_logger();
-        uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        logger::Logger::Log(uVar1, 0, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
-                            "RenderDeviceCaps.cpp",
-                            12, "%s%s = %s%s", param_3, param_1, uVar2, param_4);
+        logger = logger::default_logger();
+        uint64_t uVar1 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
+                    "RenderDeviceCaps.cpp",
+                    12, "%s%s = %s%s", str3, str1, uVar1, str4);
     }
 
-    // 0x100c2e700, 112 bytes, placed by __FILE__ string
-    // PrintDeviceCap(char const*, bool, char const*, char const*)
-    void PrintDeviceCap(char* param_1, bool param_2, char* param_3, char* param_4) {
-        undefined8 uVar1;
-        char* pcVar2;
-        undefined7 in_register_00000031;
+    // 0x100c2e700
+    void PrintDeviceCap(const char* str1, bool arg2, const char* str2, const char* str3) {
+        Logger* logger;
+        uint64_t in_register_00000031;
 
-        uVar1 = logger::default_logger();
-        pcVar2 = "false";
-        if ((int)CONCAT71(in_register_00000031, param_2) != 0) {
-            pcVar2 = "true";
+        logger = logger::default_logger();
+        char* pcVar1 = "false";
+        if ((int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg2) != 0) {
+            pcVar1 = "true";
         }
-        logger::Logger::Log(uVar1, 0, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
-                            "RenderDeviceCaps.cpp",
-                            17, "%s%s = %s%s", param_3, param_1, pcVar2, param_4);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
+                    "RenderDeviceCaps.cpp",
+                    17, "%s%s = %s%s", str2, str1, pcVar1, str3);
     }
 
-    // 0x100c2e770, 96 bytes, placed by __FILE__ string
-    // PrintDeviceCap(char const*, int, char const*, char const*)
-    void PrintDeviceCap(char* param_1, int param_2, char* param_3, char* param_4) {
-        undefined8 uVar1;
-
-        uVar1 = logger::default_logger();
-        logger::Logger::Log(uVar1, 0, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
-                            "RenderDeviceCaps.cpp",
-                            22, "%s%s = %i%s", param_3, param_1, param_2, param_4);
+    // 0x100c2e770
+    void PrintDeviceCap(const char* str1, int arg2, const char* str2, const char* str3) {
+        (logger::default_logger())
+            ->Log(false, 7,
+                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
+                  "RenderDeviceCaps.cpp",
+                  22, "%s%s = %i%s", str2, str1, (unsigned long)(unsigned int)arg2, str3);
     }
 
-    // 0x100c2e7d0, 96 bytes, placed by __FILE__ string
-    // PrintDeviceCap(char const*, float, char const*, char const*)
-    void PrintDeviceCap(char* param_1, float param_2, char* param_3, char* param_4) {
-        undefined8 uVar1;
-
-        uVar1 = logger::default_logger();
-        logger::Logger::Log((double)param_2, uVar1, 0, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
-                            "RenderDeviceCaps.cpp",
-                            27, "%s%s = %f%s", param_3, param_1, param_4);
+    // 0x100c2e7d0
+    void PrintDeviceCap(const char* str1, float arg2, const char* str2, const char* str3) {
+        (logger::default_logger())
+            ->Log(false, 7,
+                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
+                  "RenderDeviceCaps.cpp",
+                  27, "%s%s = %f%s", (double)arg2, str2, str1, str3);
     }
 
-    // 0x100c2e830, 96 bytes, placed by __FILE__ string
-    // PrintDeviceCap(char const*, hardware::ShaderModel, char const*, char const*)
-    void PrintDeviceCap(undefined8 param_1, undefined4 param_2, undefined8 param_3, undefined8 param_4) {
-        undefined8 uVar1;
-
-        uVar1 = logger::default_logger();
-        logger::Logger::Log(uVar1, 0, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
-                            "RenderDeviceCaps.cpp",
-                            32, "%s%s = %i%s", param_3, param_1, param_2, param_4);
+    // 0x100c2e830
+    void PrintDeviceCap(const char* str1, hardware::ShaderModel shaderModel, const char* str2, const char* str3) {
+        (logger::default_logger())
+            ->Log(false, 7,
+                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
+                  "RenderDeviceCaps.cpp",
+                  32, "%s%s = %i%s", str2, str1, (unsigned long)shaderModel, str3);
     }
 
-    // 0x100c2e890, 368 bytes, base-object constructor, placed by class name
-    // RenderDeviceCaps::RenderDeviceCaps()
-    void RenderDeviceCaps::RenderDeviceCaps() {
-        new (this) eastl::string();
-        field_32 = 0;
-        field_36 = 0;
-        field_40 = 0;
-        field_44 = 0;
-        field_48 = 1.0;
-        field_52 = 0;
-        field_56 = 0;
-        field_60 = 0;
-        field_64 = 0;
-        *(undefined8*)&field_68 = 0;
+    // 0x100c2e890
+    RenderDeviceCaps::RenderDeviceCaps()
+        : eastl::string(), field_32(0), field_36(0), field_40(0), field_44(0), field_48(1.0), field_52(0), field_56(0),
+          field_60(0), field_64(0) {
+        *(uint64_t*)&field_68 = 0;
         field_76 = 0;
         field_80 = 0;
         field_84 = 0;
@@ -247,7 +222,7 @@ namespace jag::render {
         field_104 = 0;
         field_108 = 0;
         field_112 = 0;
-        *(undefined8*)((long)&field_112 + 1) = 0;
+        *(uint64_t*)((long)&field_112 + 1) = 0;
         field_124 = 0;
         field_128 = 0;
         field_132 = false;
@@ -319,11 +294,11 @@ namespace jag::render {
         field_228 = false;
         field_229 = false;
         field_230 = false;
-        new (&field_232, 2, 2, 1, 1, 1, 1) ShaderPrecisionProfile();
-        new (&field_256, 1, 1, 1, 1, 1, 1) ShaderPrecisionProfile();
-        new (field_280, 2, 2, 1, 1, 1, 1) ShaderPrecisionProfile();
+        new (&field_232) ShaderPrecisionProfile(2, 2, 1, 1, 1, 1);
+        new (&field_256) ShaderPrecisionProfile(1, 1, 1, 1, 1, 1);
+        new (field_280) ShaderPrecisionProfile(2, 2, 1, 1, 1, 1);
         field_280[24] = 0;
-        new ((field_280 + 25), 0) eastl::bitset<5ul, unsigned char>();
+        new ((field_280 + 25)) eastl::bitset<5ul, unsigned char>(0);
         field_321 = false;
         field_322 = false;
         field_323 = false;
@@ -352,24 +327,17 @@ namespace jag::render {
         field_323 = false;
     }
 
-    // 0x100c2ea10, 16 bytes, complete-object constructor, placed by class name
-    // RenderDeviceCaps::RenderDeviceCaps(): jumps straight to the base-object constructor
-
-    // 0x100c2ea20, 32 bytes, placed by class name
-    // RenderDeviceCaps::GetCompressedTextures() const
-    bool RenderDeviceCaps::GetCompressedTextures() {
+    // 0x100c2ea20
+    bool RenderDeviceCaps::GetCompressedTextures() const {
         if (field_161 == false) {
             return field_162 != false;
         }
         return true;
     }
 
-    // 0x100c2ea40, 2544 bytes, placed by class name
-    // RenderDeviceCaps::PrintGenericDeviceCaps()
+    // 0x100c2ea40
     void RenderDeviceCaps::PrintGenericDeviceCaps() {
-        undefined8 uVar1;
-
-        PrintDeviceCap("m_ShaderLanguageVer", (basic_string*)this, "\t\t", DEVICE_CAP_POSTFIX);
+        PrintDeviceCap("m_ShaderLanguageVer", (eastl::string*)this, "\t\t", DEVICE_CAP_POSTFIX);
         PrintDeviceCap("m_GLSLVerMajor", field_32, "\t\t", DEVICE_CAP_POSTFIX);
         PrintDeviceCap("m_GLSLVerMinor", field_36, "\t\t", DEVICE_CAP_POSTFIX);
         PrintDeviceCap("m_MaxSimultaneousRTs", field_40, "\t\t", DEVICE_CAP_POSTFIX);
@@ -458,72 +426,68 @@ namespace jag::render {
         PrintDeviceCap("m_DeferredRendering", field_229, "\t\t", DEVICE_CAP_POSTFIX);
         PrintDeviceCap("m_ShaderBinary", field_223, "\t\t", DEVICE_CAP_POSTFIX);
         PrintDeviceCap("m_GpuDebuggerAttached", field_230, "\t\t", DEVICE_CAP_POSTFIX);
-        uVar1 = logger::default_logger();
-        logger::Logger::Log(uVar1, 0, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
-                            "RenderDeviceCaps.cpp",
-                            156, "");
+        (logger::default_logger())
+            ->Log(false, 7,
+                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
+                  "RenderDeviceCaps.cpp",
+                  156, "");
     }
 
-    // 0x100c2f430, 208 bytes, placed by class name
-    // RenderDeviceCaps::ApplyCapOverrides()
+    // 0x100c2f430
     void RenderDeviceCaps::ApplyCapOverrides() {
-        byte bVar1;
+        uint8_t bVar1;
 
         if (field_229 == false) {
             bVar1 = false;
         } else {
-            bVar1 = ((field_280 + 25), 0)->test();
+            bVar1 = ((field_280 + 25))->test(0);
             bVar1 = bVar1 ^ 1;
         }
         field_229 = (bool)bVar1;
         if (field_224 == false) {
             bVar1 = false;
         } else {
-            bVar1 = ((field_280 + 25), 1)->test();
+            bVar1 = ((field_280 + 25))->test(1);
             bVar1 = bVar1 ^ 1;
         }
         field_224 = (bool)bVar1;
         if (field_226 == false) {
             bVar1 = false;
         } else {
-            bVar1 = ((field_280 + 25), 2)->test();
+            bVar1 = ((field_280 + 25))->test(2);
             bVar1 = bVar1 ^ 1;
         }
         field_226 = (bool)bVar1;
         if (field_227 == false) {
             bVar1 = false;
         } else {
-            bVar1 = ((field_280 + 25), 3)->test();
+            bVar1 = ((field_280 + 25))->test(3);
             bVar1 = bVar1 ^ 1;
         }
         field_227 = (bool)bVar1;
         if (field_228 == false) {
             bVar1 = false;
         } else {
-            bVar1 = ((field_280 + 25), 4)->test();
+            bVar1 = ((field_280 + 25))->test(4);
             bVar1 = bVar1 ^ 1;
         }
         field_228 = (bool)bVar1;
     }
 
-    // 0x100c2f540, 144 bytes, placed by class name
-    // RenderDeviceCaps::PrintDeviceCaps(char const*)
-    void RenderDeviceCaps::PrintDeviceCaps(char* param_1) {
-        undefined8 uVar1;
-
-        uVar1 = logger::default_logger();
-        logger::Logger::Log(uVar1, 0, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
-                            "RenderDeviceCaps.cpp",
-                            170, "\n\t%s Render Device Caps:", param_1);
-        uVar1 = logger::default_logger();
-        logger::Logger::Log(uVar1, 0, 7,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
-                            "RenderDeviceCaps.cpp",
-                            171, "\t--------------------------------------------");
-        PrintGenericDeviceCaps(this);
-        PrintBackendDeviceCaps(this);
+    // 0x100c2f540
+    void RenderDeviceCaps::PrintDeviceCaps(const char* str) {
+        auto pLVar1 = logger::default_logger();
+        pLVar1->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
+                    "RenderDeviceCaps.cpp",
+                    170, "\n\t%s Render Device Caps:", str);
+        pLVar1 = logger::default_logger();
+        pLVar1->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/device/"
+                    "RenderDeviceCaps.cpp",
+                    171, "\t--------------------------------------------");
+        PrintGenericDeviceCaps();
+        PrintBackendDeviceCaps();
     }
 
 } // namespace jag::render

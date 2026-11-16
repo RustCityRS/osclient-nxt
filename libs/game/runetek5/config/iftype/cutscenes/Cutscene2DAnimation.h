@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/iftype/cutscenes/Cutscene2DAnimation.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,299 +8,218 @@ namespace jag::game {
     class Cutscene2DAnimation {
     public:
         class Key;
-        LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&, int);
+        uint64_t LoadFromPacket(PacketT<Array<unsigned char>>& arg1, int arg2);
         ~Cutscene2DAnimation();
-        Cutscene2DAnimation(Cutscene2DAnimation<float>&&);
-        Cutscene2DAnimation(Cutscene2DAnimation<math::Vector2T<float>>&&);
-        Cutscene2DAnimation<float>* operator=(Cutscene2DAnimation<float>&&);
-        Cutscene2DAnimation<math::Vector2T<float>>* operator=(Cutscene2DAnimation<math::Vector2T<float>>&&);
+        Cutscene2DAnimation(Cutscene2DAnimation<float>&& cutscene2DAnimation);
+        Cutscene2DAnimation(Cutscene2DAnimation<math::Vector2T<float>>&& cutscene2DAnimation);
+        Cutscene2DAnimation<float>* operator=(Cutscene2DAnimation<float>&& cutscene2DAnimation);
+        Cutscene2DAnimation<math::Vector2T<float>>*
+        operator=(Cutscene2DAnimation<math::Vector2T<float>>&& cutscene2DAnimation);
         Cutscene2DAnimation<float>* GetKeys() const;
-        float Eval(float) const;
-        Eval(float) const;
+        float Eval(float arg1) const;
+        uint64_t Eval(float arg1) const;
         Cutscene2DAnimation();
     };
 
     template <typename...> // 1 instantiations, e.g.
     class Cutscene2DAnimation::Key {
     public:
-        Key* operator=(Cutscene2DAnimation<math::Vector2T<float>>::Key&&);
+        Key* operator=(Cutscene2DAnimation<math::Vector2T<float>>::Key&& key);
     };
 
-    // 0x1005229d0, 192 bytes, inline, placed by class name and debug map
-    // Cutscene2DAnimation<float>::LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator> >&, int)
-    undefined8 Cutscene2DAnimation<float>::LoadFromPacket(PacketT* param_1, int param_2) {
-        char cVar1;
-        undefined4* puVar2;
-        undefined4* puVar3;
-        undefined4 uVar4;
-        undefined4 extraout_XMM0_Da;
+    // 0x1005229d0
+    uint64_t Cutscene2DAnimation<float>::LoadFromPacket(PacketT<Array<unsigned char>>& arg1, int arg2) {
+        uint32_t uVar4;
+        uint32_t extraout_XMM0_Da;
 
-        if (param_2 != 1) {
-            /* WARNING: Subroutine does not return */
+        if (arg2 != 1) {
             LogAssert("version == 1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                       "iftype/cutscenes/Cutscene2DAnimation.h",
-                      28, (char*)0);
+                      28, nullptr);
         }
-        cVar1 = param_1->g1();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        uint8_t bVar1 = arg1.g1();
+        if (bVar1 == 0) {
             LogAssert("numKeys > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                       "iftype/cutscenes/Cutscene2DAnimation.h",
-                      31, (char*)0);
+                      31, nullptr);
         }
-        eastl::vector<Cutscene2DAnimation<float>::Key,
-                      eastl::fixed_vector_allocator<8ul, 1ul, 4ul, 0ul, true,
-                                                    eastl::allocator>>::resize_uninitialized((ulong)this);
-        puVar2 = (undefined4*)HeapBeginPtr();
-        puVar3 = (undefined4*)end();
+        resize_uninitialized((unsigned long)bVar1);
+        auto puVar2 = HeapBeginPtr();
+        auto puVar3 = end();
         for (; puVar2 != puVar3; puVar2 = puVar2 + 2) {
-            uVar4 = param_1->gFloat();
+            uVar4 = arg1.gFloat();
             *puVar2 = uVar4;
-            param_1->gFloat();
+            arg1.gFloat();
             puVar2[1] = extraout_XMM0_Da;
         }
         return 1;
     }
 
-    // 0x100522a90, 208 bytes, inline, placed by class name and debug map
-    // Cutscene2DAnimation<math::Vector2T<float> >::LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator> >&, int)
-    undefined8 Cutscene2DAnimation<math::Vector2T<float>>::LoadFromPacket(PacketT* param_1, int param_2) {
-        byte bVar1;
-        undefined4* puVar2;
-        undefined4* puVar3;
-        undefined4 uVar4;
-        Vector2T<float> local_30[8];
+    // 0x100522a90
+    uint64_t Cutscene2DAnimation<math::Vector2T<float>>::LoadFromPacket(PacketT<Array<unsigned char>>& arg1, int arg2) {
+        uint32_t uVar4;
+        Vector2T<float> local_30;
 
-        if (param_2 != 1) {
-            /* WARNING: Subroutine does not return */
+        if (arg2 != 1) {
             LogAssert("version == 1",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                       "iftype/cutscenes/Cutscene2DAnimation.h",
-                      28, (char*)0);
+                      28, nullptr);
         }
-        bVar1 = param_1->g1();
+        uint8_t bVar1 = arg1.g1();
         if (bVar1 == 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("numKeys > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                       "iftype/cutscenes/Cutscene2DAnimation.h",
-                      31, (char*)0);
+                      31, nullptr);
         }
-        resize_uninitialized((ulong)bVar1);
-        puVar2 = (undefined4*)HeapBeginPtr();
-        puVar3 = (undefined4*)end();
+        resize_uninitialized((unsigned long)bVar1);
+        auto puVar2 = HeapBeginPtr();
+        auto puVar3 = end();
         if (puVar2 != puVar3) {
             do {
-                uVar4 = param_1->gFloat();
+                uVar4 = arg1.gFloat();
                 *puVar2 = uVar4;
-                math::Vector2T<float>::Vector2T(local_30, param_1, false);
-                math::Vector2T<float>::operator=((Vector2T<float>*)(puVar2 + 1), (Vector2T*)local_30);
+                local_30 = math::Vector2T(arg1, false);
+                (*((puVar2 + 1))) = local_30;
                 puVar2 = puVar2 + 3;
             } while (puVar2 != puVar3);
         }
         return 1;
     }
 
-    // 0x10052a3d0, 16 bytes, complete-object destructor, inline, placed by class name
-    // Cutscene2DAnimation<math::Vector2T<float> >::~Cutscene2DAnimation(): jumps straight to the base-object destructor
+    // 0x10052a3f0
+    Cutscene2DAnimation<math::Vector2T<float>>::~Cutscene2DAnimation() {}
 
-    // 0x10052a3e0, 16 bytes, complete-object destructor, inline, placed by class name
-    // Cutscene2DAnimation<float>::~Cutscene2DAnimation(): jumps straight to the base-object destructor
+    // 0x10052a460
+    Cutscene2DAnimation<float>::~Cutscene2DAnimation() {}
 
-    // 0x10052a3f0, 16 bytes, base-object destructor, inline, placed by class name
-    // Cutscene2DAnimation<math::Vector2T<float> >::~Cutscene2DAnimation()
-    void Cutscene2DAnimation<math::Vector2T<float>>::~Cutscene2DAnimation() {
-        ~fixed_vector();
-    }
+    // 0x10052e840
+    Cutscene2DAnimation<float>::Cutscene2DAnimation(Cutscene2DAnimation<float>&& cutscene2DAnimation)
+        : eastl::fixed_vector<Cutscene2DAnimation<float>::Key, 1ul>(cutscene2DAnimation) {}
 
-    // 0x10052a460, 16 bytes, base-object destructor, inline, placed by class name
-    // Cutscene2DAnimation<float>::~Cutscene2DAnimation()
-    void Cutscene2DAnimation<float>::~Cutscene2DAnimation() {
-        ~fixed_vector();
-    }
+    // 0x10052ebe0
+    Cutscene2DAnimation<math::Vector2T<float>>::Cutscene2DAnimation(
+        Cutscene2DAnimation<math::Vector2T<float>>&& cutscene2DAnimation)
+        : eastl::fixed_vector<Cutscene2DAnimation<math::Vector2T<float>>::Key, 1ul>(cutscene2DAnimation) {}
 
-    // 0x10052e820, 16 bytes, complete-object constructor, inline, placed by class name
-    // Cutscene2DAnimation<float>::Cutscene2DAnimation(Cutscene2DAnimation<float>&&): jumps straight to the base-object constructor
-
-    // 0x10052e830, 16 bytes, complete-object constructor, inline, placed by class name
-    // Cutscene2DAnimation<math::Vector2T<float> >::Cutscene2DAnimation(Cutscene2DAnimation<math::Vector2T<float> >&&): jumps straight to the base-object constructor
-
-    // 0x10052e840, 16 bytes, base-object constructor, inline, placed by class name
-    // Cutscene2DAnimation<float>::Cutscene2DAnimation(Cutscene2DAnimation<float>&&)
-    void Cutscene2DAnimation<float>::Cutscene2DAnimation(Cutscene2DAnimation* param_1) {
-        new (this) eastl::fixed_vector<Cutscene2DAnimation<float>::Key, 1ul, true, eastl::allocator>(param_1);
-    }
-
-    // 0x10052ebe0, 16 bytes, base-object constructor, inline, placed by class name
-    // Cutscene2DAnimation<math::Vector2T<float> >::Cutscene2DAnimation(Cutscene2DAnimation<math::Vector2T<float> >&&)
-    void Cutscene2DAnimation<math::Vector2T<float>>::Cutscene2DAnimation(Cutscene2DAnimation* param_1) {
-        new (this)
-            eastl::fixed_vector<Cutscene2DAnimation<math::Vector2T<float>>::Key, 1ul, true, eastl::allocator>(param_1);
-    }
-
-    // 0x10052f2e0, 48 bytes, inline, placed by class name
-    // Cutscene2DAnimation<math::Vector2T<float> >::Key::operator=(Cutscene2DAnimation<math::Vector2T<float> >::Key&&)
-    /* Cutscene2DAnimation<math::Vector2T<float>
-   >::Key::TEMPNAMEPLACEHOLDERVALUE(Cutscene2DAnimation<math::Vector2T<float>
-   >::Key&&) */
-
-    Key* Cutscene2DAnimation<math::Vector2T<float>>::Key::operator=(Key* param_1) {
-        *(undefined4*)this = *(undefined4*)param_1;
-        math::Vector2T<float>::operator=((Vector2T<float>*)(this + 4), (Vector2T*)(param_1 + 4));
+    // 0x10052f2e0
+    Key*
+    Cutscene2DAnimation<math::Vector2T<float>>::Key::operator=(Cutscene2DAnimation<math::Vector2T<float>>::Key&& key) {
+        *(uint32_t*)this = *(uint32_t*)key;
+        (*((this + 4))) = (*((key + 4)));
         return this;
     }
 
-    // 0x10052f4f0, 32 bytes, inline, placed by class name
-    // Cutscene2DAnimation<float>::operator=(Cutscene2DAnimation<float>&&)
-    /* Cutscene2DAnimation<float>::TEMPNAMEPLACEHOLDERVALUE(Cutscene2DAnimation<float>&&)
-    */
-
-    Cutscene2DAnimation<float>* Cutscene2DAnimation<float>::operator=(Cutscene2DAnimation* param_1) {
-        eastl::fixed_vector<Cutscene2DAnimation<float>::Key, 1ul, true, eastl::allocator>::operator=(
-            (fixed_vector<Cutscene2DAnimation<float>::Key, 1ul, true, eastl::allocator>*)this, (fixed_vector*)param_1);
+    // 0x10052f4f0
+    Cutscene2DAnimation<float>*
+    Cutscene2DAnimation<float>::operator=(Cutscene2DAnimation<float>&& cutscene2DAnimation) {
+        *this = cutscene2DAnimation;
         return this;
     }
 
-    // 0x10052f510, 32 bytes, inline, placed by class name
-    // Cutscene2DAnimation<math::Vector2T<float> >::operator=(Cutscene2DAnimation<math::Vector2T<float> >&&)
-    /* Cutscene2DAnimation<math::Vector2T<float>
-   >::TEMPNAMEPLACEHOLDERVALUE(Cutscene2DAnimation<math::Vector2T<float> >&&) */
-
-    Cutscene2DAnimation<math::Vector2T<float>>*
-    Cutscene2DAnimation<math::Vector2T<float>>::operator=(Cutscene2DAnimation* param_1) {
-        eastl::fixed_vector<Cutscene2DAnimation<math::Vector2T<float>>::Key, 1ul, true, eastl::allocator>::operator=(
-            (fixed_vector<Cutscene2DAnimation<math::Vector2T<float>>::Key, 1ul, true, eastl::allocator>*)this,
-            (fixed_vector*)param_1);
+    // 0x10052f510
+    Cutscene2DAnimation<math::Vector2T<float>>* Cutscene2DAnimation<math::Vector2T<float>>::operator=(
+        Cutscene2DAnimation<math::Vector2T<float>>&& cutscene2DAnimation) {
+        *this = cutscene2DAnimation;
         return this;
     }
 
-    // 0x10053a670, 32 bytes, inline, placed by class name
-    // Cutscene2DAnimation<float>::GetKeys() const
-    Cutscene2DAnimation<float>* Cutscene2DAnimation<float>::GetKeys() {
-        fixed_vector* in_RSI;
+    // 0x10053a670
+    Cutscene2DAnimation<float>* Cutscene2DAnimation<float>::GetKeys() const {
+        fixed_vector<Cutscene2DAnimation<float>::Key, _1ul>* in_RSI;
 
-        WrapArray<ui::ComponentMultiValueMixin::ValueChangeEvent_const>::WrapArray<
+        WrapArray<
             eastl::fixed_vector<ui::ComponentMultiValueMixin::ValueChangeEvent, 2ul, false, eastl::dummy_allocator>>(
-            (WrapArray<ui::ComponentMultiValueMixin::ValueChangeEvent_const>*)this, in_RSI);
+            *in_RSI);
         return this;
     }
 
-    // 0x10053ad10, 224 bytes, inline, placed by class name
-    // Cutscene2DAnimation<float>::Eval(float) const
-    float Cutscene2DAnimation<float>::Eval(float param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        Key* pKVar3;
-        Key* pKVar4;
-        long lVar5;
-        float fVar6;
-        float local_1c;
+    // 0x10053ad10
+    float Cutscene2DAnimation<float>::Eval(float arg1) const {
+        long lVar3;
+        _lambda_float__jag__game__Cutscene2DAnimation<float> __Key_const___1_* in_RCX;
+        float fVar4;
 
-        local_1c = param_1;
-        uVar1 = HeapBeginPtr();
-        uVar2 = end();
-        pKVar3 = eastl::upper_bound<Cutscene2DAnimation<float>::Key_const*, float,
-                                    float->Eval() const ::_lambda(float, Cutscene2DAnimation<float>::Key_const&) _1_>(
-            uVar1, uVar2, &local_1c);
-        pKVar4 = (Key*)end();
-        if (pKVar3 == pKVar4) {
-            lVar5 = back();
-            fVar6 = *(float*)(lVar5 + 4);
+        float local_1c = arg1;
+        auto pKVar1 = HeapBeginPtr();
+        auto pKVar2 = end();
+        pKVar1 = eastl::upper_bound<Cutscene2DAnimation<float>::Key const*, float,
+                                    float->Eval() const ::_lambda(float, Cutscene2DAnimation<float>::Key const&) _1_>(
+            pKVar1, pKVar2, &local_1c, in_RCX);
+        pKVar2 = (Key*)end();
+        if (pKVar1 == pKVar2) {
+            lVar3 = back();
+            fVar4 = *(float*)(lVar3 + 4);
         } else {
-            pKVar4 = (Key*)HeapBeginPtr();
-            if (pKVar3 == pKVar4) {
-                fVar6 = *(float*)(pKVar3 + 4);
+            pKVar2 = (Key*)HeapBeginPtr();
+            if (pKVar1 == pKVar2) {
+                fVar4 = *(float*)(pKVar1 + 4);
             } else {
-                fVar6 = (local_1c - *(float*)(pKVar3 + -8)) / (*(float*)pKVar3 - *(float*)(pKVar3 + -8));
-                if ((fVar6 < 0.0) || (1.0 < fVar6)) {
-                    /* WARNING: Subroutine does not return */
+                fVar4 = (local_1c - *(float*)(pKVar1 - 8)) / (*(float*)pKVar1 - *(float*)(pKVar1 - 8));
+                if ((fVar4 < 0.0) || (1.0 < fVar4)) {
                     LogAssert("(interpolationFactor >= 0.f) && (interpolationFactor <= 1.f)",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "config/iftype/cutscenes/Cutscene2DAnimation.h",
-                              79, (char*)0);
+                              79, nullptr);
                 }
-                fVar6 = math::Lerp<float, float>((float*)(pKVar3 + -4), (float*)(pKVar3 + 4), fVar6);
+                fVar4 = math::Lerp<float, float>(*((pKVar1 - 4)), *((pKVar1 + 4)), fVar4);
             }
         }
-        return fVar6;
+        return fVar4;
     }
 
-    // 0x10053adf0, 224 bytes, inline, placed by class name
-    // Cutscene2DAnimation<math::Vector2T<float> >::Eval(float) const
-    undefined8 Cutscene2DAnimation<math::Vector2T<float>>::Eval(float param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        Key* pKVar3;
-        Key* pKVar4;
-        long lVar5;
-        float fVar6;
-        float local_1c;
+    // 0x10053adf0
+    uint64_t Cutscene2DAnimation<math::Vector2T<float>>::Eval(float arg1) const {
+        long lVar3;
+        _lambda_float__jag__game__Cutscene2DAnimation<math::Vector2T<float> _> __Key_const___1_* in_RCX;
+        float arg3;
+        uint64_t uVar4;
 
-        local_1c = param_1;
-        uVar1 = HeapBeginPtr();
-        uVar2 = end();
-        pKVar3 = eastl::upper_bound<Cutscene2DAnimation<math::Vector2T<float>>::Key_const*, float,
+        float local_1c = arg1;
+        auto pKVar1 = HeapBeginPtr();
+        auto pKVar2 = end();
+        pKVar1 = eastl::upper_bound<Cutscene2DAnimation<math::Vector2T<float>>::Key const*, float,
                                     float->Eval() const ::_lambda(
-                                        float, Cutscene2DAnimation<math::Vector2T<float>>::Key_const&) _1_>(
-            uVar1, uVar2, &local_1c);
-        pKVar4 = (Key*)end();
-        if (pKVar3 == pKVar4) {
-            lVar5 = back();
-            uVar1 = *(undefined8*)(lVar5 + 4);
+                                        float, Cutscene2DAnimation<math::Vector2T<float>>::Key const&) _1_>(
+            pKVar1, pKVar2, &local_1c, in_RCX);
+        pKVar2 = (Key*)end();
+        if (pKVar1 == pKVar2) {
+            lVar3 = back();
+            uVar4 = *(uint64_t*)(lVar3 + 4);
         } else {
-            pKVar4 = (Key*)HeapBeginPtr();
-            if (pKVar3 == pKVar4) {
-                uVar1 = *(undefined8*)(pKVar3 + 4);
+            pKVar2 = (Key*)HeapBeginPtr();
+            if (pKVar1 == pKVar2) {
+                uVar4 = *(uint64_t*)(pKVar1 + 4);
             } else {
-                fVar6 = (local_1c - *(float*)(pKVar3 + -12)) / (*(float*)pKVar3 - *(float*)(pKVar3 + -12));
-                if ((fVar6 < 0.0) || (1.0 < fVar6)) {
-                    /* WARNING: Subroutine does not return */
+                arg3 = (local_1c - *(float*)(pKVar1 - 12)) / (*(float*)pKVar1 - *(float*)(pKVar1 - 12));
+                if ((arg3 < 0.0) || (1.0 < arg3)) {
                     LogAssert("(interpolationFactor >= 0.f) && (interpolationFactor <= 1.f)",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                               "config/iftype/cutscenes/Cutscene2DAnimation.h",
-                              79, (char*)0);
+                              79, nullptr);
                 }
-                uVar1 =
-                    math::Lerp<math::Vector2T<float>, float>((Vector2T*)(pKVar3 + -8), (Vector2T*)(pKVar3 + 4), fVar6);
+                uVar4 = math::Lerp<math::Vector2T<float>, float>(*((pKVar1 - 8)), *((pKVar1 + 4)), arg3);
             }
         }
-        return uVar1;
+        return uVar4;
     }
 
-    // 0x100541f00, 16 bytes, inline, placed by class name
-    // Cutscene2DAnimation<float>::Eval(float) const::{lambda(float, Cutscene2DAnimation<float>::Key const&)#1}::operator()(float, Cutscene2DAnimation<float>::Key const&) const
-    /* Cutscene2DAnimation<math::Vector2T<float> >::Eval(float) const::{lambda(float,
-   Cutscene2DAnimation<math::Vector2T<float> >::Key
-   const&)#1}::TEMPNAMEPLACEHOLDERVALUE(float,
-   Cutscene2DAnimation<math::Vector2T<float> >::Key const&) const */
-
-    _func_Eval_float* const ::{
-        lambda(float, Cutscene2DAnimation<math::Vector2T<float>>::Key_const&) #1
+    // 0x100541f00
+    bool Cutscene2DAnimation<float>::Eval(float) const ::{
+        lambda(float, Cutscene2DAnimation<float>::Key const&) #1
     }
-    ::operator()(float param_1, Key * param_2) {
-        undefined7 in_register_00000001;
-
-        return (_func_Eval_float*)CONCAT71(in_register_00000001, param_1 < *(float*)param_2);
+    ::operator()(float arg1, const Cutscene2DAnimation<float>::Key & key) const {
+        return arg1 < *(float*)key;
     }
 
-    // 0x1005423b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // Cutscene2DAnimation<float>::Cutscene2DAnimation(): jumps straight to the base-object constructor
+    // 0x1005423d0
+    Cutscene2DAnimation<float>::Cutscene2DAnimation() : eastl::fixed_vector<Cutscene2DAnimation<float>::Key, 1ul>() {}
 
-    // 0x1005423c0, 16 bytes, complete-object constructor, inline, placed by class name
-    // Cutscene2DAnimation<math::Vector2T<float> >::Cutscene2DAnimation(): jumps straight to the base-object constructor
-
-    // 0x1005423d0, 16 bytes, base-object constructor, inline, placed by class name
-    // Cutscene2DAnimation<float>::Cutscene2DAnimation()
-    void Cutscene2DAnimation<float>::Cutscene2DAnimation() {
-        new (this) eastl::fixed_vector<Cutscene2DAnimation<float>::Key, 1ul, true, eastl::allocator>();
-    }
-
-    // 0x100542460, 16 bytes, base-object constructor, inline, placed by class name
-    // Cutscene2DAnimation<math::Vector2T<float> >::Cutscene2DAnimation()
-    void Cutscene2DAnimation<math::Vector2T<float>>::Cutscene2DAnimation() {
-        new (this) eastl::fixed_vector<Cutscene2DAnimation<math::Vector2T<float>>::Key, 1ul, true, eastl::allocator>();
-    }
+    // 0x100542460
+    Cutscene2DAnimation<math::Vector2T<float>>::Cutscene2DAnimation()
+        : eastl::fixed_vector<Cutscene2DAnimation<math::Vector2T<float>>::Key, 1ul>() {}
 
 } // namespace jag::game

@@ -1,222 +1,156 @@
 // libs/hal/render/state/OGL/InputAssemblerState_OGL.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "libs/hal/render/state/InputAssemblerState.h"
 
 namespace jag::render {
-    // 0x100bde950, 16 bytes, placed by class name and debug map
-    // InputAssemblerState::Destroy()
+    // 0x100bde950
     void InputAssemblerState::Destroy() {
-        Clear(this);
+        Clear();
     }
 
-    // 0x100bf5710, 208 bytes, base-object constructor, placed by class name and neighbouring functions
-    // InputAssemblerState::InputAssemblerState()
-    void InputAssemblerState::InputAssemblerState() {
-        allocator local_38[8];
-        undefined8 local_30;
-        long local_28;
-
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        m_primitiveType = 4294967295;
-        field_8 = (VertexDeclaration*)0;
-        local_30 = 0;
-        eastl::allocator::allocator(local_38, "EASTL fixed_vector");
-        new (&m_pVertexBuffers, (_func_decltype_nullptr*)&local_30, 1, local_38)
-            eastl::fixed_vector<VertexBuffer_const*, 8ul, true, eastl::allocator>();
-        m_pIndexBuffer = (BufferInterface*)0;
+    // 0x100bf5710
+    InputAssemblerState::InputAssemblerState() : m_primitiveType(4294967295), field_8(nullptr) {
+        uint64_t local_30 = 0;
+        new (m_pVertexBuffers) eastl::fixed_vector<VertexBuffer const*, 8ul>(&local_30, DAT_00000001);
+        m_pIndexBuffer = nullptr;
         m_flags = 0;
-        new (field_136, (_func_decltype_nullptr*)&local_30)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (field_136) shared_ptr();
         field_168 = 0;
         field_176 = 0;
-        *(undefined8*)&m_gLIndexBuffer = 0;
+        *(uint64_t*)&m_gLIndexBuffer = 0;
         field_160 = 0;
         field_184 = 0;
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x100bf57f0, 80 bytes, base-object destructor, placed by class name and neighbouring functions
-    // InputAssemblerState::~InputAssemblerState()
-    void InputAssemblerState::~InputAssemblerState() {
-        Destroy(this);
+    // 0x100bf57f0
+    InputAssemblerState::~InputAssemblerState() {
+        Destroy();
         field_136->~shared_ptr();
-        (&m_pVertexBuffers)->~fixed_vector();
+        m_pVertexBuffers->~fixed_vector();
     }
 
-    // 0x100bf5840, 80 bytes, placed by class name and neighbouring functions
-    // InputAssemblerState::Clear()
+    // 0x100bf5840
     void InputAssemblerState::Clear() {
         m_primitiveType = 4294967295;
-        field_8 = (VertexDeclaration*)0;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        m_pIndexBuffer = (BufferInterface*)0;
+        field_8 = nullptr;
+        m_pVertexBuffers->clear();
+        m_pIndexBuffer = nullptr;
         m_flags = 0;
-        ResetVAO(this);
+        ResetVAO();
     }
 
-    // 0x100bf5890, 80 bytes, placed by __FILE__ string
-    // InputAssemblerState::ResetVAO() const
-    void InputAssemblerState::ResetVAO() {
-        char cVar1;
-
-        cVar1 = field_136->unique();
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x100bf5890
+    void InputAssemblerState::ResetVAO() const {
+        if (field_136->unique() != '\0') {
             LogAssert("!m_VAO.unique()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                       "InputAssemblerState_OGL.cpp",
-                      32, (char*)0);
+                      32, nullptr);
         }
-        shared_ptr<VertexArrayObject>::reset();
+        field_136->reset();
     }
 
-    // 0x100bf5920, 400 bytes, placed by __FILE__ string
-    // InputAssemblerState::IsValid() const
-    ulong InputAssemblerState::IsValid() {
-        VertexBuffer** this_00;
-        char cVar1;
-        uint uVar3;
-        uint uVar4;
-        uint uVar5;
-        long lVar6;
-        ulong uVar7;
+    // 0x100bf5920
+    unsigned long InputAssemblerState::IsValid() const {
+        int iVar2;
+        unsigned int uVar3;
+        unsigned int uVar4;
+        unsigned int uVar5;
+        unsigned long uVar7;
         long* plVar8;
-        undefined8* puVar9;
-        undefined8 uVar10;
-        ulong unaff_RBX;
-        undefined8 uVar11;
-        char* pcVar12;
+        uint64_t* puVar9;
+        Logger* this_01;
+        unsigned long unaff_RBX;
+        char* str2;
 
-        this_00 = &m_pVertexBuffers;
-        lVar6 = this_00->size();
-        if (lVar6 != 0) {
+        uint8_t* this_00 = m_pVertexBuffers;
+        if (this_00->size() != 0) {
             unaff_RBX = 0;
             do {
-                plVar8 =
-                    (long*)eastl::vector<VertexBuffer_const*,
-                                         eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<VertexBuffer_const*,
-                                eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                        unaff_RBX);
-                uVar5 = (uint)unaff_RBX;
+                plVar8 = (long*)(*this_00)[unaff_RBX];
+                uVar5 = (unsigned int)unaff_RBX;
                 if (*plVar8 == 0) {
-                    if ((field_8, uVar5)->GetVertexStride() != 0) {
-                        /* WARNING: Subroutine does not return */
+                    iVar2 = field_8->GetVertexStride(uVar5);
+                    if (iVar2 != 0) {
                         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                         "render/state/OGL/InputAssemblerState_OGL.cpp",
                                         55, "A vertex declaration is set on a stream with no vertex buffer!");
                     }
                 } else {
-                    puVar9 = (undefined8*)
-                        eastl::vector<VertexBuffer_const*,
-                                      eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<VertexBuffer_const*,
-                                    eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                            unaff_RBX);
-                    cVar1 = (*puVar9)->IsCreated();
-                    if (cVar1 == '\0') {
-                        uVar10 = logger::default_logger();
-                        pcVar12 = "Vertex buffer destroyed while still attached to IAState";
-                        uVar11 = 62;
+                    puVar9 = (uint64_t*)(*this_00)[unaff_RBX];
+                    if (!((*puVar9)->IsCreated())) {
+                        this_01 = logger::default_logger();
+                        str2 = "Vertex buffer destroyed while still attached to IAState";
+                        iVar2 = 62;
                         goto LAB_100bf5a7a;
                     }
-                    puVar9 = (undefined8*)
-                        eastl::vector<VertexBuffer_const*,
-                                      eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<VertexBuffer_const*,
-                                    eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                            unaff_RBX);
+                    puVar9 = (uint64_t*)(*this_00)[unaff_RBX];
                     uVar3 = (*puVar9)->GetAliveCount();
-                    uVar4 = (field_8, uVar5)->GetVertexStride();
+                    uVar4 = field_8->GetVertexStride(uVar5);
                     if (uVar3 % uVar4 != 0) {
-                        puVar9 = (undefined8*)
-                            eastl::vector<VertexBuffer_const*,
-                                          eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                            operator[](
-                                (vector<VertexBuffer_const*,
-                                        eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                    this_00,
-                                unaff_RBX);
+                        puVar9 = (uint64_t*)(*this_00)[unaff_RBX];
                         uVar3 = (*puVar9)->GetAliveCount();
-                        uVar5 = (field_8, uVar5)->GetVertexStride();
-                        /* WARNING: Subroutine does not return */
+                        uVar5 = field_8->GetVertexStride(uVar5);
                         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                         "render/state/OGL/InputAssemblerState_OGL.cpp",
                                         70,
                                         "The vertex buffer and the vertex declaration don\'t match! Vertex buffer "
                                         "size: %d, Vertex Stride: %d",
-                                        (ulong)uVar3, (ulong)uVar5);
+                                        (unsigned long)uVar3, (unsigned long)uVar5);
                     }
                 }
-                unaff_RBX = (ulong)(uVar5 + 1);
+                unaff_RBX = (unsigned long)(uVar5 + 1);
                 uVar7 = this_00->size();
             } while (unaff_RBX < uVar7);
         }
-        uVar7 = CONCAT71((int7)(unaff_RBX >> 8), 1);
-        if (m_pIndexBuffer != (BufferInterface*)0) {
-            cVar1 = m_pIndexBuffer->IsCreated();
-            if (cVar1 == '\0') {
-                uVar10 = logger::default_logger();
-                pcVar12 = "Index buffer destroyed while still attached to IAState";
-                uVar11 = 78;
+        uVar7 = (((uint64_t)((int64_t)(unaff_RBX >> 8)) << 8) | (uint8_t)1);
+        if (m_pIndexBuffer != nullptr) {
+            if (!(m_pIndexBuffer->IsCreated())) {
+                this_01 = logger::default_logger();
+                str2 = "Index buffer destroyed while still attached to IAState";
+                iVar2 = 78;
             LAB_100bf5a7a:
                 uVar7 = 0;
-                logger::Logger::Log(uVar10, 0, 3,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                    "state/OGL/InputAssemblerState_OGL.cpp",
-                                    uVar11, pcVar12);
+                this_01->Log(false, 3,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
+                             "OGL/InputAssemblerState_OGL.cpp",
+                             iVar2, str2);
             }
         }
         return uVar7 & 4294967295;
     }
 
-    // 0x100bf5ab0, 112 bytes, placed by class name and neighbouring functions
-    // InputAssemblerState::IsValidCachedState() const
-    undefined8 InputAssemblerState::IsValidCachedState() {
-        char cVar1;
-        int* piVar3;
-        WaterNormalParamsTarget* this_00;
-        undefined8 uVar4;
+    // 0x100bf5ab0
+    bool InputAssemblerState::IsValidCachedState() const {
+        uint64_t uVar3;
 
-        piVar3 = (int*)std::array<unsigned int, 8ul>::operator[]((array<unsigned int, 8ul>*)&field_156, 0);
-        if (*piVar3 == 0) {
+        int* piVar2 = &field_156[0];
+        if (*piVar2 == 0) {
             return 0;
         }
-        cVar1 = ShouldUseVAO(this);
-        if (cVar1 == '\0') {
+        bool cVar1 = ShouldUseVAO();
+        if (!cVar1) {
         LAB_100bf5b03:
-            uVar4 = 1;
+            uVar3 = 1;
         } else {
-            if (field_136->operator_cast_to_bool()) {
-                this_00 = (WaterNormalParamsTarget*)shared_ptr<VertexArrayObject>::operator->(
-                    (shared_ptr<VertexArrayObject>*)field_136);
-                cVar1 = this_00->IsValid();
-                if (cVar1 != '\0')
+            cVar1 = field_136->operator_cast_to_bool();
+            if (cVar1) {
+                cVar1 = ((WaterNormalParamsTarget*)(*field_136).operator->())->IsValid();
+                if (cVar1)
                     goto LAB_100bf5b03;
             }
-            uVar4 = 0;
+            uVar3 = 0;
         }
-        return uVar4;
+        return uVar3;
     }
 
-    // 0x100bf5b20, 64 bytes, placed by class name and neighbouring functions
-    // InputAssemblerState::ShouldUseVAO() const
-    bool InputAssemblerState::ShouldUseVAO() {
-        MapArea* this_00;
-        long lVar1;
+    // 0x100bf5b20
+    bool InputAssemblerState::ShouldUseVAO() const {
         bool bVar2;
 
-        this_00 = (MapArea*)Instance();
-        lVar1 = this_00->GetOrigin();
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
         if (*(char*)(lVar1 + 322) == '\0') {
             bVar2 = false;
         } else {
@@ -225,153 +159,120 @@ namespace jag::render {
         return bVar2;
     }
 
-    // 0x100bf5b60, 192 bytes, placed by class name and neighbouring functions
-    // InputAssemblerState::SetVertexStreamData(VertexDeclaration const*, unsigned int, VertexBuffer const* const*, unsigned int const*, unsigned int const*)
-    void InputAssemblerState::SetVertexStreamData(VertexDeclaration* param_1, uint param_2, VertexBuffer** param_3,
-                                                  uint* param_4, uint* param_5) {
-        VertexDeclaration* this;
-        undefined1 in_AL;
-        char cVar1;
-        undefined7 in_register_00000001;
-        ulong uVar2;
-        undefined4 in_register_00000034;
-        VertexDeclaration* pVVar3;
-        VertexBuffer* local_38;
+    // 0x100bf5b60
+    void InputAssemblerState::SetVertexStreamData(const VertexDeclaration* vertexDeclaration, unsigned int arg2,
+                                                  VertexBuffer const* const* arg3, const unsigned int* arg4,
+                                                  const unsigned int* arg5) {
+        uint8_t in_AL;
+        bool cVar1;
+        uint64_t in_register_00000001;
+        unsigned long uVar2;
 
-        pVVar3 = (VertexDeclaration*)CONCAT44(in_register_00000034, param_2);
-        local_38 = (VertexBuffer*)CONCAT71(in_register_00000001, in_AL);
-        uVar2 = (ulong)param_3 & 4294967295;
-        this = *(VertexDeclaration**)&param_1->field_8;
-        if (pVVar3 == (VertexDeclaration*)0) {
-            if (this == (VertexDeclaration*)0)
+        VertexBuffer* local_38 = (VertexBuffer*)(((uint64_t)in_register_00000001 << 8) | (uint8_t)in_AL);
+        VertexDeclaration* this_01 = field_8;
+        if (vertexDeclaration == nullptr) {
+            if (this_01 == nullptr)
                 goto LAB_100bf5ba3;
-        } else if ((this != (VertexDeclaration*)0) &&
-                   (cVar1 = VertexDeclaration::operator!=(this, pVVar3), cVar1 == '\0'))
+        } else if ((this_01 != nullptr) && (cVar1 = *this_01 != *vertexDeclaration, !cVar1))
             goto LAB_100bf5ba3;
-        ResetVAO((InputAssemblerState*)param_1);
+        ResetVAO();
     LAB_100bf5ba3:
-        *(VertexDeclaration**)&param_1->field_8 = pVVar3;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        if ((int)param_3 != 0) {
+        field_8 = vertexDeclaration;
+        uint8_t* this_00 = m_pVertexBuffers;
+        this_00->clear();
+        if (arg2 != 0) {
+            uVar2 = (unsigned long)arg2;
             do {
-                if (*(long*)param_4 == 0) {
-                    local_38 = (VertexBuffer*)0;
-                    (&param_1->field_16, &local_38)->push_back();
+                if (*arg3 == nullptr) {
+                    local_38 = nullptr;
+                    this_00->push_back(local_38);
                 } else {
-                    eastl::fixed_vector<VertexBuffer_const*, 8ul, true, eastl::allocator>::push_back(
-                        (VertexBuffer**)&param_1->field_16);
+                    this_00->push_back(*arg3);
                 }
-                param_4 = param_4 + 2;
+                arg3 = arg3 + 1;
                 uVar2 = uVar2 - 1;
             } while (uVar2 != 0);
         }
-        UpdateGLVertexBufferCache((InputAssemblerState*)param_1);
+        UpdateGLVertexBufferCache();
     }
 
-    // 0x100bf5c70, 224 bytes, placed by class name and neighbouring functions
-    // InputAssemblerState::UpdateGLVertexBufferCache() const
-    void InputAssemblerState::UpdateGLVertexBufferCache() {
-        VertexBuffer** this_00;
-        undefined1* puVar1;
+    // 0x100bf5c70
+    void InputAssemblerState::UpdateGLVertexBufferCache() const {
         long* plVar2;
-        undefined8* puVar3;
-        undefined4* puVar4;
-        InputAssemblerState* this_01;
-        undefined4 uVar6;
-        ulong uVar7;
-        ulong uVar8;
-        undefined8 local_58;
-        InputAssemblerState* local_38;
+        uint64_t* puVar3;
+        uint32_t* puVar4;
+        uint32_t uVar6;
+        unsigned long arg1;
 
-        local_58 = 0;
-        this_00 = &m_pVertexBuffers;
-        local_38 = this;
-        uVar7 = this_00->size();
+        uint64_t local_58 = 0;
+        uint8_t* puVar1 = m_pVertexBuffers;
+        InputAssemblerState* local_38 = this;
+        unsigned long uVar7 = puVar1->size();
         if (uVar7 != 0) {
-            uVar8 = 0;
+            arg1 = 0;
             do {
-                plVar2 =
-                    (long*)eastl::vector<VertexBuffer_const*,
-                                         eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                    operator[](
-                        (vector<VertexBuffer_const*,
-                                eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                        uVar8);
+                plVar2 = (long*)(*puVar1)[arg1];
                 uVar6 = 0;
                 if (*plVar2 != 0) {
-                    puVar3 = (undefined8*)
-                        eastl::vector<VertexBuffer_const*,
-                                      eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<VertexBuffer_const*,
-                                    eastl::fixed_vector_allocator<8ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)this_00,
-                            uVar8);
+                    puVar3 = (uint64_t*)(*puVar1)[arg1];
                     uVar6 = (*puVar3)->GetNativeBuffer();
                 }
-                puVar4 =
-                    (undefined4*)std::array<unsigned int, 8ul>::operator[]((array<unsigned int, 8ul>*)&local_58, uVar8);
+                puVar4 = &local_58[arg1];
                 *puVar4 = uVar6;
-                uVar8 = uVar8 + 1;
-            } while (uVar7 != uVar8);
+                arg1 = arg1 + 1;
+            } while (uVar7 != arg1);
         }
-        this_01 = local_38;
+        InputAssemblerState* this_00 = local_38;
         puVar1 = &local_38->field_156;
-        if (std::operator!=((array*)puVar1, (array*)&local_58)) {
-            *(undefined8*)((long)&this_01->field_168 + 4) = 0;
-            *(undefined8*)((long)&this_01->field_176 + 4) = 0;
-            *(undefined8*)puVar1 = local_58;
-            *(undefined8*)((long)&this_01->field_160 + 4) = 0;
-            ResetVAO(this_01);
+        if (puVar1 != &local_58) {
+            *(uint64_t*)((long)&this_00->field_168 + 4) = 0;
+            *(uint64_t*)((long)&this_00->field_176 + 4) = 0;
+            *(uint64_t*)puVar1 = local_58;
+            *(uint64_t*)((long)&this_00->field_160 + 4) = 0;
+            ResetVAO(this_00);
         }
-        if ((this_01->m_flags & 1) != 0) {
-            ResetVAO(this_01);
+        if ((this_00->m_flags & 1) != 0) {
+            ResetVAO(this_00);
         }
     }
 
-    // 0x100bf5d50, 208 bytes, placed by __FILE__ string
-    // InputAssemblerState::OnBind() const
-    void InputAssemblerState::OnBind() {
-        undefined1* this_00;
-        char cVar1;
+    // 0x100bf5d50
+    void InputAssemblerState::OnBind() const {
+        uint8_t* this_00;
         WaterNormalParamsTarget* this_01;
-        InputAssemblerState* pIVar3;
-        shared_ptr<oldscape::RSevenDebugPresetProvider> local_30[16];
+        ReturnValue local_30;
 
-        UpdateGLVertexBufferCache(this);
-        UpdateGLIndexBufferCache(this);
-        cVar1 = ShouldUseVAO(this);
-        if (cVar1 != '\0') {
+        UpdateGLVertexBufferCache();
+        UpdateGLIndexBufferCache();
+        bool cVar1 = ShouldUseVAO();
+        if (cVar1) {
             this_00 = field_136;
             this_01 = (WaterNormalParamsTarget*)this_00;
-            if (this_00->operator_cast_to_bool()) {
-                this_01 = (WaterNormalParamsTarget*)shared_ptr<VertexArrayObject>::operator->(
-                    (shared_ptr<VertexArrayObject>*)this_00);
+            cVar1 = this_00->operator_cast_to_bool();
+            if (cVar1) {
+                this_01 = (WaterNormalParamsTarget*)(*this_00).operator->();
                 cVar1 = this_01->IsValid();
-                if (cVar1 != '\0')
+                if (cVar1)
                     goto LAB_100bf5dcb;
             }
-            pIVar3 = (InputAssemblerState*)this_01->Instance();
-            local_30->Get(pIVar3);
-            shared_ptr<VertexArrayObject>::operator=((shared_ptr<VertexArrayObject>*)this_00, (shared_ptr*)local_30);
-            local_30->~shared_ptr();
+            local_30 = this_01->Instance()->Get(*this);
+            *this_00 = local_30;
         }
     LAB_100bf5dcb:
-        cVar1 = IsValid(this);
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        cVar1 = IsValid();
+        if (!cVar1) {
             LogAssert("IsValid()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                       "InputAssemblerState_OGL.cpp",
-                      159, (char*)0);
+                      159, nullptr);
         }
     }
 
-    // 0x100bf5e20, 96 bytes, placed by class name and neighbouring functions
-    // InputAssemblerState::UpdateGLIndexBufferCache() const
-    void InputAssemblerState::UpdateGLIndexBufferCache() {
+    // 0x100bf5e20
+    void InputAssemblerState::UpdateGLIndexBufferCache() const {
         int iVar1;
 
-        if (m_pIndexBuffer == (BufferInterface*)0) {
+        if (m_pIndexBuffer == nullptr) {
             iVar1 = 0;
             if (m_gLIndexBuffer == 0)
                 goto LAB_100bf5e4d;
@@ -381,149 +282,115 @@ namespace jag::render {
                 goto LAB_100bf5e4d;
         }
         m_gLIndexBuffer = iVar1;
-        ResetVAO(this);
+        ResetVAO();
     LAB_100bf5e4d:
         if ((m_flags & 1) != 0) {
-            ResetVAO(this);
+            ResetVAO();
         }
     }
 
-    // 0x100bf5ec0, 240 bytes, placed by __FILE__ string
-    // InputAssemblerState::BindVAO(ImmediateRenderContext&) const
-    void InputAssemblerState::BindVAO(ImmediateRenderContext* param_1) {
-        undefined1* this_00;
-        char cVar1;
-        bool bVar2;
-        RenderDevice* this_01;
-        WaterNormalParamsTarget* pWVar3;
-        VertexArrayObject* this_02;
+    // 0x100bf5ec0
+    void InputAssemblerState::BindVAO(ImmediateRenderContext& immediateRenderContext) const {
+        WaterNormalParamsTarget* pWVar2;
 
-        this_01 = (RenderDevice*)Instance();
-        cVar1 = this_01->IsRenderThread();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = ((RenderDevice*)Instance())->IsRenderThread();
+        if (!cVar1) {
             LogAssert("RenderDevice::Instance().IsRenderThread()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                       "InputAssemblerState_OGL.cpp",
-                      164, (char*)0);
+                      164, nullptr);
         }
-        cVar1 = ShouldUseVAO(this);
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        cVar1 = ShouldUseVAO();
+        if (!cVar1) {
             LogAssert("ShouldUseVAO()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                       "InputAssemblerState_OGL.cpp",
-                      165, (char*)0);
+                      165, nullptr);
         }
-        this_00 = field_136;
-        bVar2 = this_00->operator_cast_to_bool();
-        if (bVar2) {
-            pWVar3 = (WaterNormalParamsTarget*)shared_ptr<VertexArrayObject>::operator->(
-                (shared_ptr<VertexArrayObject>*)this_00);
-            cVar1 = pWVar3->IsValid();
-            if (cVar1 == '\0')
-                goto LAB_100bf5f50;
-        LAB_100bf5f78:
-            this_02 =
-                (VertexArrayObject*)shared_ptr<VertexArrayObject>::operator->((shared_ptr<VertexArrayObject>*)this_00);
-            this_02->Bind(param_1);
-        } else {
+        uint8_t* this_00 = field_136;
+        cVar1 = this_00->operator_cast_to_bool();
+        if (!cVar1) {
         LAB_100bf5f50:
-            OnBind(this);
-            bVar2 = this_00->operator_cast_to_bool();
-            if (bVar2) {
-                pWVar3 = (WaterNormalParamsTarget*)shared_ptr<VertexArrayObject>::operator->(
-                    (shared_ptr<VertexArrayObject>*)this_00);
-                cVar1 = pWVar3->IsValid();
-                if (cVar1 != '\0')
+            OnBind();
+            cVar1 = this_00->operator_cast_to_bool();
+            if (cVar1) {
+                pWVar2 = (WaterNormalParamsTarget*)(*this_00).operator->();
+                cVar1 = pWVar2->IsValid();
+                if (cVar1)
                     goto LAB_100bf5f78;
             }
-            CreateVAO(this, param_1);
+            CreateVAO(immediateRenderContext);
+        } else {
+            pWVar2 = (WaterNormalParamsTarget*)(*this_00).operator->();
+            cVar1 = pWVar2->IsValid();
+            if (!cVar1)
+                goto LAB_100bf5f50;
+        LAB_100bf5f78:
+            ((VertexArrayObject*)(*this_00).operator->())->Bind(immediateRenderContext);
         }
     }
 
-    // 0x100bf5fb0, 1328 bytes, placed by __FILE__ string
-    // InputAssemblerState::CreateVAO(ImmediateRenderContext&) const
-    void InputAssemblerState::CreateVAO(ImmediateRenderContext* param_1) {
-        undefined1* this_00;
+    // 0x100bf5fb0
+    void InputAssemblerState::CreateVAO(ImmediateRenderContext& immediateRenderContext) const {
         int iVar1;
-        code* pcVar2;
-        undefined4 uVar3;
-        undefined4 uVar4;
-        char cVar5;
+        void* pcVar2;
+        uint32_t uVar3;
+        uint32_t uVar4;
         bool bVar6;
         int iVar7;
         int iVar8;
-        uint uVar9;
-        undefined4 uVar10;
+        unsigned int uVar9;
+        uint32_t uVar10;
         WaterNormalParamsTarget* this_01;
-        InputAssemblerState* pIVar11;
+        VAOManager* pVVar11;
         VertexArrayObject* pVVar12;
-        Array<VertexElementDesc, eastl::allocator>* this_02;
-        Array<unsigned int, eastl::allocator>* this_03;
-        uint* puVar13;
+        unsigned int* puVar13;
         int* piVar14;
-        long lVar15;
-        ulong uVar16;
-        undefined4* puVar17;
-        MapArea* this_04;
-        ulong uVar18;
-        shared_ptr* extraout_RDX;
+        unsigned long uVar16;
+        uint32_t* puVar17;
+        unsigned long uVar18;
         int iVar19;
-        ulong uVar20;
-        Singleton<VAOManager>* this_05;
-        Array<VertexElementDesc, eastl::allocator>* this_06;
-        ulong uVar21;
+        unsigned long uVar20;
+        unsigned long arg1;
         GLVertexElementFormat local_48;
-        uint local_34;
+        unsigned int local_34;
 
-        cVar5 = ShouldUseVAO(this);
-        if (cVar5 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (!(ShouldUseVAO())) {
             LogAssert("ShouldUseVAO()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                       "InputAssemblerState_OGL.cpp",
-                      202, (char*)0);
+                      202, nullptr);
         }
-        this_00 = field_136;
-        this_05 = (Singleton<VAOManager>*)this_00;
-        bVar6 = this_00->operator_cast_to_bool();
-        if (bVar6) {
-            this_01 = (WaterNormalParamsTarget*)shared_ptr<VertexArrayObject>::operator->(
-                (shared_ptr<VertexArrayObject>*)this_00);
-            cVar5 = this_01->IsValid();
-            if (cVar5 != '\0') {
-                /* WARNING: Subroutine does not return */
+        uint8_t* this_00 = field_136;
+        Singleton<VAOManager>* this_05 = (Singleton<VAOManager>*)this_00;
+        if (!(this_00->operator_cast_to_bool())) {
+            pVVar11 = this_05->Instance();
+            local_48 = pVVar11->Register(*this, immediateRenderContext);
+            *this_00 = local_48;
+        } else {
+            this_01 = (WaterNormalParamsTarget*)(*this_00).operator->();
+            if (this_01->IsValid()) {
                 LogAssert("!m_VAO->IsValid()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                           "InputAssemblerState_OGL.cpp",
-                          207, (char*)0);
+                          207, nullptr);
             }
-            pIVar11 = (InputAssemblerState*)this_01->Instance();
-            local_48.Get(pIVar11);
-            bVar6 = operator==((jag*)this_00, (shared_ptr*)&local_48, extraout_RDX);
-            local_48.~shared_ptr();
+            pVVar11 = this_01->Instance();
+            local_48 = pVVar11->Get(*this);
+            bVar6 = *this_00 == local_48;
             if (!bVar6) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_VAO == VAOManager::Instance().Get(*this)",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                           "InputAssemblerState_OGL.cpp",
-                          208, (char*)0);
+                          208, nullptr);
             }
-            pVVar12 =
-                (VertexArrayObject*)shared_ptr<VertexArrayObject>::operator->((shared_ptr<VertexArrayObject>*)this_00);
-            pVVar12->Create(param_1);
-        } else {
-            pIVar11 = (InputAssemblerState*)this_05->Instance();
-            local_48.Register(pIVar11, this);
-            shared_ptr<VertexArrayObject>::operator=((shared_ptr<VertexArrayObject>*)this_00, (shared_ptr*)&local_48);
-            local_48.~shared_ptr();
+            pVVar12 = (VertexArrayObject*)(*this_00).operator->();
+            pVVar12->Create(immediateRenderContext);
         }
-        pVVar12 =
-            (VertexArrayObject*)shared_ptr<VertexArrayObject>::operator->((shared_ptr<VertexArrayObject>*)this_00);
-        pVVar12->Bind(param_1);
-        BindIndexBuffer(this);
-        if ((field_8 == (VertexDeclaration*)0) || (iVar7 = (field_8, 0)->GetVertexStride(), iVar7 == 0)) {
+        pVVar12 = (VertexArrayObject*)(*this_00).operator->();
+        pVVar12->Bind(immediateRenderContext);
+        BindIndexBuffer();
+        if ((field_8 == nullptr) || (iVar7 = field_8->GetVertexStride(0), iVar7 == 0)) {
             (*___glewBindBuffer)(34962, 0);
             CheckGlErrorInternal("glBindBuffer GL_ARRAY_BUFFER",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
@@ -531,28 +398,24 @@ namespace jag::render {
                                  281);
             return;
         }
-        this_02 = (Array<VertexElementDesc, eastl::allocator>*)field_8->second();
-        this_03 = (Array<unsigned int, eastl::allocator>*)field_8->GetDefaultValue();
+        auto this_02 = field_8->second();
+        auto this_03 = field_8->GetDefaultValue();
         iVar7 = field_8->GetStreamCountLastMix();
         if (iVar7 == 1) {
-            puVar13 = (uint*)Array<VertexElementDesc, eastl::allocator>::operator[](this_02, 0);
-            piVar14 =
-                (int*)std::array<unsigned int, 8ul>::operator[]((array<unsigned int, 8ul>*)&field_156, (ulong)*puVar13);
+            puVar13 = (unsigned int*)(*this_02)[0];
+            piVar14 = &field_156[(unsigned long)*puVar13];
             iVar19 = *piVar14;
             if (iVar19 == 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("vertexBuffer > 0",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                           "InputAssemblerState_OGL.cpp",
-                          229, (char*)0);
+                          229, nullptr);
             }
-            cVar5 = (*___glewIsBuffer)(iVar19);
-            if (cVar5 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!((*___glewIsBuffer)(iVar19))) {
                 LogAssert("glIsBuffer(vertexBuffer)",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                           "InputAssemblerState_OGL.cpp",
-                          230, (char*)0);
+                          230, nullptr);
             }
             (*___glewBindBuffer)(34962, iVar19);
             CheckGlErrorInternal("glBindBuffer GL_ARRAY_BUFFER",
@@ -560,16 +423,16 @@ namespace jag::render {
                                  "state/OGL/InputAssemblerState_OGL.cpp",
                                  231);
         }
-        this_06 = this_02;
-        lVar15 = this_02->end();
+        Array<VertexElementDesc>* this_06 = this_02;
+        long lVar15 = this_02->end();
         if (lVar15 != 0) {
             local_34 = 4294967295;
             uVar18 = 1;
-            uVar21 = 0;
+            arg1 = 0;
             do {
                 uVar20 = uVar18;
-                iVar19 = (int)uVar20 + -1;
-                puVar13 = (uint*)Array<VertexElementDesc, eastl::allocator>::operator[](this_02, uVar21);
+                iVar19 = (int)uVar20 - 1;
+                puVar13 = (unsigned int*)(*this_02)[arg1];
                 if (puVar13[6] == 15) {
                     (*___glewDisableVertexAttribArray)(iVar19);
                     CheckGlErrorInternal("glDisableVertexAttribArray",
@@ -578,23 +441,19 @@ namespace jag::render {
                                          268);
                 } else {
                     if ((1 < iVar7) && (*puVar13 != local_34)) {
-                        piVar14 = (int*)std::array<unsigned int, 8ul>::operator[]((array<unsigned int, 8ul>*)&field_156,
-                                                                                  (ulong)*puVar13);
+                        piVar14 = &field_156[(unsigned long)*puVar13];
                         iVar1 = *piVar14;
                         if (iVar1 == 0) {
-                            /* WARNING: Subroutine does not return */
                             LogAssert("vertexBuffer > 0",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                       "render/state/OGL/InputAssemblerState_OGL.cpp",
-                                      247, (char*)0);
+                                      247, nullptr);
                         }
-                        cVar5 = (*___glewIsBuffer)(iVar1);
-                        if (cVar5 == '\0') {
-                            /* WARNING: Subroutine does not return */
+                        if (!((*___glewIsBuffer)(iVar1))) {
                             LogAssert("glIsBuffer(vertexBuffer)",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                       "render/state/OGL/InputAssemblerState_OGL.cpp",
-                                      248, (char*)0);
+                                      248, nullptr);
                         }
                         (*___glewBindBuffer)(34962, iVar1);
                         CheckGlErrorInternal("glBindBuffer GL_ARRAY_BUFFER",
@@ -603,18 +462,17 @@ namespace jag::render {
                                              249);
                         local_34 = *puVar13;
                     }
-                    new (&local_48) GLVertexElementFormat(puVar13[4]);
-                    iVar8 = (field_8, *puVar13)->GetVertexStride();
-                    piVar14 = (int*)Array<unsigned int, eastl::allocator>::operator[](this_03, uVar21);
+                    local_48 = GLVertexElementFormat(puVar13[4]);
+                    iVar8 = field_8->GetVertexStride(*puVar13);
+                    piVar14 = (int*)(*this_03)[arg1];
                     iVar1 = *piVar14;
                     uVar9 = GetShaderInputElementComponentSize(puVar13[4]);
-                    if ((uint)(iVar8 + iVar1) % uVar9 != 0) {
-                        /* WARNING: Subroutine does not return */
+                    if ((unsigned int)(iVar8 + iVar1) % uVar9 != 0) {
                         LogAssert("(m_pVertexDecl->GetVertexStride(elemDesc.m_Stream) + vertexElemByteOffsets[iElem]) "
                                   "% GetShaderInputElementComponentSize(elemDesc.m_Format) == 0",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "state/OGL/InputAssemblerState_OGL.cpp",
-                                  255, "Attribute %s not aligned to multiple of its size", *(undefined8*)(puVar13 + 2));
+                                  255, "Attribute %s not aligned to multiple of its size", *(uint64_t*)(puVar13 + 2));
                     }
                     (*___glewEnableVertexAttribArray)(iVar19);
                     CheckGlErrorInternal("glEnableVertexAttribArray",
@@ -625,8 +483,8 @@ namespace jag::render {
                     uVar3 = local_48.field_0._0_4_;
                     pcVar2 = ___glewVertexAttribPointer;
                     uVar9 = puVar13[5];
-                    uVar10 = (field_8, *puVar13)->GetVertexStride();
-                    puVar17 = (undefined4*)Array<unsigned int, eastl::allocator>::operator[](this_03, uVar21);
+                    uVar10 = field_8->GetVertexStride(*puVar13);
+                    puVar17 = (uint32_t*)(*this_03)[arg1];
                     (*pcVar2)(iVar19, uVar4, uVar3, (char)uVar9, uVar10, *puVar17);
                     CheckGlErrorInternal("glVertexAttribPointer",
                                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
@@ -635,13 +493,12 @@ namespace jag::render {
                 }
                 this_06 = this_02;
                 uVar16 = this_02->end();
-                uVar18 = (ulong)((int)uVar20 + 1);
-                uVar21 = uVar20;
+                uVar18 = (unsigned long)((int)uVar20 + 1);
+                arg1 = uVar20;
             } while (uVar20 < uVar16);
         }
-        this_04 = (MapArea*)this_06->Instance();
-        lVar15 = this_04->GetOrigin();
-        uVar9 = *(uint*)(lVar15 + 100);
+        lVar15 = ((MapArea*)this_06->Instance())->GetOrigin();
+        uVar9 = *(unsigned int*)(lVar15 + 100);
         uVar18 = this_02->end();
         if (uVar9 <= uVar18) {
             return;
@@ -656,9 +513,8 @@ namespace jag::render {
         } while (uVar9 != uVar18);
     }
 
-    // 0x100bf64e0, 64 bytes, placed by __FILE__ string
-    // InputAssemblerState::BindIndexBuffer() const
-    void InputAssemblerState::BindIndexBuffer() {
+    // 0x100bf64e0
+    void InputAssemblerState::BindIndexBuffer() const {
         (*___glewBindBuffer)(34963, m_gLIndexBuffer);
         CheckGlErrorInternal("glBindBuffer GL_ELEMENT_ARRAY_BUFFER",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
@@ -666,24 +522,21 @@ namespace jag::render {
                              195);
     }
 
-    // 0x100bf6520, 80 bytes, placed by __FILE__ string
-    // InputAssemblerState::SetIndexBuffer(IndexBuffer const*, unsigned int)
-    void InputAssemblerState::SetIndexBuffer(IndexBuffer* param_1, uint param_2) {
-        undefined4 in_register_00000034;
-        BufferInterface* this;
+    // 0x100bf6520
+    void InputAssemblerState::SetIndexBuffer(const IndexBuffer* indexBuffer, unsigned int arg2) {
+        uint32_t in_register_00000034;
 
-        this = (BufferInterface*)CONCAT44(in_register_00000034, param_2);
-        if (this != (BufferInterface*)0) {
-            if (GetNativeBuffer() == 0) {
-                /* WARNING: Subroutine does not return */
+        BufferInterface* bufferInterface = (BufferInterface*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg2);
+        if (bufferInterface != nullptr) {
+            if (bufferInterface->GetNativeBuffer() == 0) {
                 LogAssert("pIndexBuffer->GetNativeBuffer()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/OGL/"
                           "InputAssemblerState_OGL.cpp",
-                          289, (char*)0);
+                          289, nullptr);
             }
         }
-        *(BufferInterface**)&param_1[1].field_28 = this;
-        UpdateGLIndexBufferCache((InputAssemblerState*)param_1);
+        *(BufferInterface**)&indexBuffer[1].field_28 = bufferInterface;
+        UpdateGLIndexBufferCache((InputAssemblerState*)indexBuffer);
     }
 
 } // namespace jag::render

@@ -1,354 +1,241 @@
 // projects/osclient/debug/commands/ConsoleCommands_Public.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "projects/osclient/debug/ConsoleCommands.h"
 
 namespace jag::oldscape {
-    // 0x10005a840, 1616 bytes, placed by class name and debug map
-    // ConsoleCommands::RegisterPublicCommands()
+    // 0x10005a840
     void ConsoleCommands::RegisterPublicCommands() {
-        undefined8 uVar1;
-        undefined1 auVar2[16];
-        undefined8 local_68;
-        code* local_60;
-        function local_58[56];
+        uint8_t auVar3[16];
+        function<void(eastl::fixed_vector<StringView, 4ul> const&)> local_58[56];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_60 = DoCommand_Cls;
-        local_68 = std::ref<OSClientConsole>(field_0);
-        uVar1 = std::bind<void (*)(OSClientConsole&), std::reference_wrapper<OSClientConsole>>(
-            (_func_void_OSClientConsole_ptr*)&local_60, (reference_wrapper*)&local_68);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            std::__bind<void (*)(OSClientConsole&), std::reference_wrapper<OSClientConsole>>, void>(local_58, uVar1);
-        RegisterCommand(this, "cls", "", "Clears the output window", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
+        void* local_60 = DoCommand_Cls;
+        uint64_t local_68 = std::ref<OSClientConsole>(*field_0);
+        void* pvVar1 = std::bind<void (*)(OSClientConsole&), std::reference_wrapper<OSClientConsole>>(
+            (void_______jag__oldscape__OSClientConsole__)&local_60, local_68);
+        local_58->function<std::__bind<void (*)(OSClientConsole&), std::reference_wrapper<OSClientConsole>>, void>(
+            pvVar1);
+        RegisterCommand("cls", "", "Clears the output window", *local_58);
         local_60 = DoCommand_Help;
-        auVar2 = std::ref<OSClientConsole>(field_0);
-        local_68 = auVar2._0_8_;
-        uVar1 =
-            std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                      std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
-                (_func_void_OSClientConsole_ptr_fixed_vector_ptr*)&local_60, (reference_wrapper*)&local_68,
-                auVar2._8_8_);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                        std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
-            void>(local_58, uVar1);
-        RegisterCommand(this, "?", "[<lt>command<gt>]",
-                        "With no arguments shows the usage guide, otherwise shows help for <lt>command<gt>", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
+        auVar3 = std::ref<OSClientConsole>(*field_0);
+        local_68 = auVar3._0_8_;
+        pvVar1 = std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                           std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
+            &local_60, local_68, *auVar3._8_8_);
+        local_58->function<std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                                       std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
+                           void>(pvVar1);
+        RegisterCommand("?", "[<lt>command<gt>]",
+                        "With no arguments shows the usage guide, otherwise shows help for <lt>command<gt>", *local_58);
         local_60 = DoCommand_ConsoleBounds;
-        auVar2 = std::ref<OSClientConsole>(field_0);
-        local_68 = auVar2._0_8_;
-        uVar1 =
-            std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                      std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
-                (_func_void_OSClientConsole_ptr_fixed_vector_ptr*)&local_60, (reference_wrapper*)&local_68,
-                auVar2._8_8_);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                        std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
-            void>(local_58, uVar1);
-        RegisterCommand(this, "consolebounds", "[<lt>x<gt> <lt>y<gt> <lt>w<gt> <lt>h<gt>] | default",
-                        "Sets the console\'s bounds to the parameters specified, or to the default bounds", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
+        auVar3 = std::ref<OSClientConsole>(*field_0);
+        local_68 = auVar3._0_8_;
+        pvVar1 = std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                           std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
+            &local_60, local_68, *auVar3._8_8_);
+        local_58->function<std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                                       std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
+                           void>(pvVar1);
+        RegisterCommand("consolebounds", "[<lt>x<gt> <lt>y<gt> <lt>w<gt> <lt>h<gt>] | default",
+                        "Sets the console\'s bounds to the parameters specified, or to the default bounds", *local_58);
         local_60 = DoCommand_ToggleRoof;
-        local_68 = std::ref<OSClientConsole>(field_0);
-        uVar1 = std::bind<void (*)(OSClientConsole&), std::reference_wrapper<OSClientConsole>>(
-            (_func_void_OSClientConsole_ptr*)&local_60, (reference_wrapper*)&local_68);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            std::__bind<void (*)(OSClientConsole&), std::reference_wrapper<OSClientConsole>>, void>(local_58, uVar1);
-        RegisterCommand(this, "toggleroof", "", "Toggles roof visibility between selective and hidden", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__48, void>(local_58);
-        RegisterCommand(this, "renderself", "", "Toggles drawing of the player character", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__49, void>(local_58);
-        RegisterCommand(this, "mouseovertext", "", "", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__50, void>(local_58);
-        RegisterCommand(this, "toggleantidrag", "", "", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
+        local_68 = std::ref<OSClientConsole>(*field_0);
+        pvVar1 = std::bind<void (*)(OSClientConsole&), std::reference_wrapper<OSClientConsole>>(
+            (void_______jag__oldscape__OSClientConsole__)&local_60, local_68);
+        local_58->function<std::__bind<void (*)(OSClientConsole&), std::reference_wrapper<OSClientConsole>>, void>(
+            pvVar1);
+        char* pcVar2 = "toggleroof";
+        RegisterCommand("toggleroof", "", "Toggles roof visibility between selective and hidden", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__48, void>(local_58, (__48*)pcVar2);
+        pcVar2 = "renderself";
+        RegisterCommand("renderself", "", "Toggles drawing of the player character", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__49, void>(local_58, (__49*)pcVar2);
+        pcVar2 = "mouseovertext";
+        RegisterCommand("mouseovertext", "", "", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__50, void>(local_58, (__50*)pcVar2);
+        RegisterCommand("toggleantidrag", "", "", *local_58);
         local_60 = DoCommand_ChatTimeStamp;
-        uVar1 = std::bind<void (*)()>((_func_void*)&local_60);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            std::__bind<void (*)()>, void>(local_58, uVar1);
-        RegisterCommand(this, "chattimestamp", "", "", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__51, void>(local_58);
-        RegisterCommand(this, "displayfps", "", "Toggles display of FPS", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
+        pvVar1 = std::bind<void (*)()>((void________)&local_60);
+        local_58->function<std::__bind<void (*)()>, void>(pvVar1);
+        pcVar2 = "chattimestamp";
+        RegisterCommand("chattimestamp", "", "", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__51, void>(local_58, (__51*)pcVar2);
+        RegisterCommand("displayfps", "", "Toggles display of FPS", *local_58);
         local_60 = DoCommand_UIQuality;
-        auVar2 = std::ref<OSClientConsole>(field_0);
-        local_68 = auVar2._0_8_;
-        uVar1 =
-            std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                      std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
-                (_func_void_OSClientConsole_ptr_fixed_vector_ptr*)&local_60, (reference_wrapper*)&local_68,
-                auVar2._8_8_);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                        std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
-            void>(local_58, uVar1);
-        RegisterCommand(this, "uiquality", "",
-                        "Change the quality of the UI when the scaling is not 100%. Accepts 0, 1, or 2.", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
+        auVar3 = std::ref<OSClientConsole>(*field_0);
+        local_68 = auVar3._0_8_;
+        pvVar1 = std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                           std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
+            &local_60, local_68, *auVar3._8_8_);
+        local_58->function<std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                                       std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
+                           void>(pvVar1);
+        RegisterCommand("uiquality", "",
+                        "Change the quality of the UI when the scaling is not 100%. Accepts 0, 1, or 2.", *local_58);
         local_60 = DoCommand_Prefs;
-        auVar2 = std::ref<OSClientConsole>(field_0);
-        local_68 = auVar2._0_8_;
-        uVar1 =
-            std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                      std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
-                (_func_void_OSClientConsole_ptr_fixed_vector_ptr*)&local_60, (reference_wrapper*)&local_68,
-                auVar2._8_8_);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                        std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
-            void>(local_58, uVar1);
-        RegisterCommand(this, "prefs",
+        auVar3 = std::ref<OSClientConsole>(*field_0);
+        local_68 = auVar3._0_8_;
+        pvVar1 = std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                           std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
+            &local_60, local_68, *auVar3._8_8_);
+        local_58->function<std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                                       std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
+                           void>(pvVar1);
+        RegisterCommand("prefs",
                         "prefs -list Display all preferences and their values<br>prefs <lt>name<gt> Display preference "
                         "value<br>prefs <lt>name<gt> <lt>value<gt> Set preference to value",
-                        "Get, set or list user preferences.", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
+                        "Get, set or list user preferences.", *local_58);
         local_60 = DoCommand_SetWindowSize;
-        auVar2 = std::ref<OSClientConsole>(field_0);
-        local_68 = auVar2._0_8_;
-        uVar1 =
-            std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                      std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
-                (_func_void_OSClientConsole_ptr_fixed_vector_ptr*)&local_60, (reference_wrapper*)&local_68,
-                auVar2._8_8_);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                        std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
-            void>(local_58, uVar1);
-        RegisterCommand(this, "setwindowsize", "<lt>width<gt> <lt>height<gt>", "Sets the size of the client window",
-                        local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
+        auVar3 = std::ref<OSClientConsole>(*field_0);
+        local_68 = auVar3._0_8_;
+        pvVar1 = std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                           std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
+            &local_60, local_68, *auVar3._8_8_);
+        local_58->function<std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                                       std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
+                           void>(pvVar1);
+        RegisterCommand("setwindowsize", "<lt>width<gt> <lt>height<gt>", "Sets the size of the client window",
+                        *local_58);
         local_60 = DoCommand_SetWindowTopmost;
-        auVar2 = std::ref<OSClientConsole>(field_0);
-        local_68 = auVar2._0_8_;
-        uVar1 =
-            std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                      std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
-                (_func_void_OSClientConsole_ptr_fixed_vector_ptr*)&local_60, (reference_wrapper*)&local_68,
-                auVar2._8_8_);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&),
-                        std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
-            void>(local_58, uVar1);
-        RegisterCommand(this, "setwindowtopmost", "0 : unset | 1 :set", "Sets/unsets the client window as topmost",
-                        local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__52, void>(local_58);
-        RegisterCommand(this, "reloadhighlights", "", "", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__53, void>(local_58);
-        RegisterCommand(this, "redrawminimap", "", "Force the minimap to be redrawn", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__54, void>(local_58, this);
-        RegisterCommand(this, "buildinfo", "buildinfo [option]",
+        auVar3 = std::ref<OSClientConsole>(*field_0);
+        local_68 = auVar3._0_8_;
+        pvVar1 = std::bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                           std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>(
+            &local_60, local_68, *auVar3._8_8_);
+        local_58->function<std::__bind<void (*)(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&),
+                                       std::reference_wrapper<OSClientConsole>, std::placeholders::__ph<1> const&>,
+                           void>(pvVar1);
+        pcVar2 = "setwindowtopmost";
+        RegisterCommand("setwindowtopmost", "0 : unset | 1 :set", "Sets/unsets the client window as topmost",
+                        *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__52, void>(local_58, (__52*)pcVar2);
+        pcVar2 = "reloadhighlights";
+        RegisterCommand("reloadhighlights", "", "", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__53, void>(local_58, (__53*)pcVar2);
+        RegisterCommand("redrawminimap", "", "Force the minimap to be redrawn", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__54, void>(local_58, (__54*)this);
+        RegisterCommand("buildinfo", "buildinfo [option]",
                         "buildinfo -> Toggles build info display.<br>buildinfo copy -> copies the build info to "
                         "clipboard.<br>buildinfo print -> prints the build info to the console. <br>buildinfo export "
                         "-> exports the build info to the local cache",
-                        local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__55, void>(local_58, this);
-        RegisterCommand(this, "forceloginfailure", "[LOGINPROTOCOL::ID]",
-                        "force the login failure to fail with the submitted ID code", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__56, void>(local_58);
-        RegisterCommand(this, "crash", "", "force the client to crash", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__57, void>(local_58, this);
-        RegisterCommand(this, "pricecache", "", "", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__58, void>(local_58);
-        RegisterCommand(this, "toggleroutehighlight", "", "", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__59, void>(local_58, this);
-        RegisterCommand(this, "highlightroute", "", "", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::function<
-            ConsoleCommands::RegisterPublicCommands()::__60, void>(local_58);
-        RegisterCommand(this, "clearroutehighlight", "", "", local_58);
-        std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::~function(
-            (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)local_58);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+                        *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__55, void>(local_58, (__55*)this);
+        pcVar2 = "forceloginfailure";
+        RegisterCommand("forceloginfailure", "[LOGINPROTOCOL::ID]",
+                        "force the login failure to fail with the submitted ID code", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__56, void>(local_58, (__56*)pcVar2);
+        RegisterCommand("crash", "", "force the client to crash", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__57, void>(local_58, (__57*)this);
+        pcVar2 = "pricecache";
+        RegisterCommand("pricecache", "", "", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__58, void>(local_58, (__58*)pcVar2);
+        RegisterCommand("toggleroutehighlight", "", "", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__59, void>(local_58, (__59*)this);
+        pcVar2 = "highlightroute";
+        RegisterCommand("highlightroute", "", "", *local_58);
+        std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::function<
+            ConsoleCommands::RegisterPublicCommands()::__60, void>(local_58, (__60*)pcVar2);
+        RegisterCommand("clearroutehighlight", "", "", *local_58);
     }
 
-    // 0x100068120, 1056 bytes, placed by __FILE__ string
-    // DoCommand_Prefs(OSClientConsole&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)
-    /* WARNING: Removing unreachable block (ram,4295394375) */
-    /* WARNING: Removing unreachable block (ram,4295394007) */
-    /* DoCommand_Prefs(OSClientConsole&,
-   eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&) */
+    // 0x100068120
+    void DoCommand_Prefs(OSClientConsole& osClientConsole, const eastl::fixed_vector<StringView, 4ul>& stringViews) {
+        bool cVar1;
+        unsigned long uVar6;
+        uint64_t uVar7;
+        uint64_t uVar8;
+        ReturnValue* this_01;
+        ReturnValue local_190;
 
-    void DoCommand_Prefs(OSClientConsole* param_1, fixed_vector* param_2) {
-        char cVar1;
-        int iVar2;
-        long lVar3;
-        OptionStore* this;
-        OptionStore* this_00;
-        char* pcVar4;
-        IOption* pIVar5;
-        ulong uVar6;
-        undefined8 uVar7;
-        undefined8 uVar8;
-        StringView* this_01;
-        StringView local_1b0[2];
-        StringView local_190[2];
-        OSClientConsole* local_170;
-        StringView local_168[19];
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        lVar3 = param_1->GetClient();
-        this = (OptionStore*)((lVar3 + 8376))->get();
-        lVar3 = param_1->GetClient();
-        this_00 = (OptionStore*)((lVar3 + 8384))->get();
-        if ((this == (OptionStore*)0) || (this_00 == (OptionStore*)0)) {
-            /* WARNING: Subroutine does not return */
+        long lVar3 = osClientConsole.GetClient();
+        OptionStore* optionStore = (OptionStore*)((lVar3 + 8376))->get();
+        lVar3 = osClientConsole.GetClient();
+        OptionStore* this_00 = (OptionStore*)((lVar3 + 8384))->get();
+        if ((optionStore == nullptr) || (this_00 == nullptr)) {
             LogAssert("pDeviceOptions && pGameOptions",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/debug/"
                       "commands/ConsoleCommands_Public.cpp",
-                      64, (char*)0);
+                      64, nullptr);
         }
-        local_170 = param_1;
-        lVar3 = param_2->size();
+        OSClientConsole* local_170 = osClientConsole;
+        lVar3 = stringViews.size();
         if (lVar3 == 0) {
-            param_1->PrintCommandHelp("prefs");
+            osClientConsole.PrintCommandHelp("prefs");
             goto LAB_10006849b;
         }
-        eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[](
-            (vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)param_2,
-            0);
-        StringView::to_owned_string<eastl::string>(local_168);
-        iVar2 = local_168->comparei("-list");
-        local_168->~basic_string();
+        StringView* pSVar4 = &stringViews[0];
+        auto local_168 = pSVar4->to_owned_string<eastl::string>();
+        int iVar2 = local_168.comparei("-list");
         if (iVar2 == 0) {
             std::function<void(option::IOption&)>::function<
-                DoCommand_Prefs(OSClientConsole&,
-                                eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)::__86,
-                void>(local_168, param_1);
-            ForEachOption(local_168);
-            std::function<void(option::IOption&)>::~function((function<void(option::IOption&)>*)local_168);
+                DoCommand_Prefs(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&)::__86, void>(
+                (function<void(option::IOption&)>*)&local_168, (__86*)osClientConsole);
+            optionStore->ForEachOption(local_168);
             std::function<void(option::IOption&)>::function<
-                DoCommand_Prefs(OSClientConsole&,
-                                eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)::__86,
-                void>(local_168, param_1);
+                DoCommand_Prefs(OSClientConsole&, eastl::fixed_vector<StringView, 4ul> const&)::__86, void>(
+                (function<void(option::IOption&)>*)&local_168, (__86*)osClientConsole);
             this_00->ForEachOption(local_168);
-            std::function<void(option::IOption&)>::~function((function<void(option::IOption&)>*)local_168);
             goto LAB_10006849b;
         }
-        eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[](
-            (vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)param_2,
-            0);
-        StringView::to_owned_string<eastl::string>(local_1b0);
-        pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        new (local_190) eastl::allocator("EASTL basic_string");
-        new (local_168) eastl::string(pcVar4, local_190);
-        pIVar5 = (IOption*)option::OptionStore::GetOptionByName((basic_string*)this);
-        local_168->~basic_string();
-        if (pIVar5 == (IOption*)0) {
-            pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            new (local_190) eastl::allocator("EASTL basic_string");
-            new (local_168) eastl::string(pcVar4, local_190);
-            pIVar5 = (IOption*)option::OptionStore::GetOptionByName((basic_string*)this_00);
-            local_168->~basic_string();
-            if (pIVar5 == (IOption*)0)
+        pSVar4 = &stringViews[0];
+        auto local_1b0 = pSVar4->to_owned_string<eastl::string>();
+        char* pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        local_168 = eastl::string(pcVar5);
+        auto iOption = option::OptionStore::GetOptionByName(*optionStore);
+        if (iOption == nullptr) {
+            pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            local_168 = eastl::string(pcVar5);
+            iOption = option::OptionStore::GetOptionByName(*this_00);
+            if (iOption != nullptr)
+                goto LAB_100068274;
+        LAB_1000683b5:
+            pSVar4 = &stringViews[0];
+            local_168 = pSVar4->to_owned_string<eastl::string>();
+            uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            osClientConsole.AddMessage(5, "Unknown preference \'%s\'", uVar7);
+            this_01 = &local_168;
+        LAB_10006848a:
+            this_01->~basic_string();
+        } else {
+            if (iOption == nullptr)
                 goto LAB_1000683b5;
         LAB_100068274:
-            uVar6 = param_2->size();
+            uVar6 = stringViews.size();
             if (1 < uVar6) {
-                eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)
-                        param_2,
-                    1);
-                StringView::to_owned_string<eastl::string>(local_190);
-                cVar1 = pIVar5->HasFlags(1);
-                if (cVar1 == '\0') {
-                    pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    new (local_168) eastl::fixed_string<char, 256, true, eastl::allocator>(pcVar4);
-                    (**(code**)(pIVar5->field_0 + 24))(pIVar5, local_168);
-                LAB_1000682c2:
-                    /* WARNING: Subroutine does not return */
-                    local_168->~fixed_string();
+                pSVar4 = &stringViews[1];
+                local_190 = pSVar4->to_owned_string<eastl::string>();
+                cVar1 = iOption->HasFlags(1);
+                if (!cVar1) {
+                    pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    local_168 = eastl::fixed_string<char, 256>(pcVar5);
+                    (*iOption->_vptr[1]._x7e___2)(iOption, &local_168);
                 }
-                if (cVar1 == '\0')
-                    goto LAB_1000682c2;
+                if (!cVar1) {
+                }
                 uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 uVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                console::Console::AddMessage(param_1, 5, "Cannot set preference \'%s\' to \'%s\'", uVar7, uVar8);
-                this_01 = local_190;
+                osClientConsole.AddMessage(5, "Cannot set preference \'%s\' to \'%s\'", uVar7, uVar8);
+                this_01 = &local_190;
                 goto LAB_10006848a;
             }
             DoCommand_Prefs(OSClientConsole&,
-                            eastl::fixed_vector<StringView, 4ul, true,
-                                                eastl::allocator> const&)::$_86::operator()((__86*)&local_170, pIVar5);
-        } else {
-            if (pIVar5 != (IOption*)0)
-                goto LAB_100068274;
-        LAB_1000683b5:
-            eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-            operator[]((vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)
-                           param_2,
-                       0);
-            StringView::to_owned_string<eastl::string>(local_168);
-            uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            console::Console::AddMessage(param_1, 5, "Unknown preference \'%s\'", uVar7);
-            this_01 = local_168;
-        LAB_10006848a:
-            this_01->~basic_string();
+                            eastl::fixed_vector<StringView, 4ul> const&)::$_86::operator()((__86*)&local_170, iOption);
         }
-        local_1b0->~basic_string();
     LAB_10006849b:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
 } // namespace jag::oldscape

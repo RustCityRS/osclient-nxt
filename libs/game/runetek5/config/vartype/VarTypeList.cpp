@@ -1,31 +1,20 @@
 // libs/game/runetek5/config/vartype/VarTypeList.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "VarTypeList.h"
 
 namespace jag::game {
-    // 0x1004c5ce0: the linker folded this into VarBitTypeList::GetConfigProvider(), which has identical code
-    VarTypeList::GetDomain();
+    // 0x1004c5ce0: VarTypeList::GetDomain() has the same machine code as VarBitTypeList::GetConfigProvider()
 
-    // 0x1004d1ab0, 80 bytes, base-object constructor, placed by class name and debug map
-    // VarTypeList::VarTypeList(ConfigTypeListContainerStrategy, ModeGame const*, Language const*, Js5ResourceProvider&, Js5ConfigGroup const*, VarDomainType*)
-    void VarTypeList::VarTypeList() {
-        undefined8 in_stack_00000008;
+    // 0x1004d1ab0
+    VarTypeList::VarTypeList(ConfigTypeListContainerStrategy configTypeListContainerStrategy, const ModeGame* modeGame,
+                             const Language* language, Js5ResourceProvider& js5ResourceProvider,
+                             const Js5ConfigGroup* js5ConfigGroup, VarDomainType* varDomainType)
+        : BaseTemplateConfigTypeList<VarType>(configTypeListContainerStrategy, modeGame, language, js5ResourceProvider,
+                                              *(Js5Archive::JS5_CONFIG), js5ConfigGroup, 128),
+          m_pDomain(varDomainType) {}
 
-        new (this) BaseTemplateConfigTypeList<VarType>();
-        field_0 = PTR_vtable_100ee7f00 + 16;
-        m_domain = in_stack_00000008;
-    }
-
-    // 0x1004d1c40, 32 bytes, complete-object constructor, placed by class name and debug map
-    // VarTypeList::VarTypeList(ConfigTypeListContainerStrategy, ModeGame const*, Language const*, Js5ResourceProvider&, Js5ConfigGroup const*, VarDomainType*)
-    void VarTypeList::VarTypeList() {
-        VarTypeList();
-    }
-
-    // 0x1004d84b0: the linker folded this into BaseTemplateConfigTypeList<VarType>::~BaseTemplateConfigTypeList(), which has identical code
-    VarTypeList::~VarTypeList();
+    // 0x1004d84b0: VarTypeList::~VarTypeList() has the same machine code as BaseTemplateConfigTypeList<VarType>::~BaseTemplateConfigTypeList()
 
 } // namespace jag::game

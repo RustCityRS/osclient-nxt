@@ -1,23 +1,17 @@
 // libs/graphics/runetek7/effects/alphatesting/AlphaTesting.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
     class AlphaTesting {
     public:
-        void SetShaderConstants(Shader&, int);
+        void SetShaderConstants(Shader& shader, int arg2);
     };
 
-    // 0x10092ce40, 96 bytes, placed by class name and debug map
-    // AlphaTesting::SetShaderConstants(Shader&, int)
-    void AlphaTesting::SetShaderConstants(Shader* param_1, int param_2) {
-        ShaderProgram* this;
-        HashedString* pHVar1;
-
-        this = (ShaderProgram*)param_1->GetProgram();
-        pHVar1 = (HashedString*)graphics::operator*((graphics*)25);
-        SetShaderConstFloat1(pHVar1, (float)param_2 * 0.003921569 + 0.0019607844);
+    // 0x10092ce40
+    void AlphaTesting::SetShaderConstants(Shader& shader, int arg2) {
+        shader.GetProgram()->SetShaderConstFloat1((HashedString*)graphics::operator*(25),
+                                                  (float)arg2 * 0.003921569f + 0.0019607844f);
     }
 
 } // namespace jag::graphics

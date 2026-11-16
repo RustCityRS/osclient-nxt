@@ -1,6 +1,5 @@
 // libs/game/runetek5/assetbuilder/jobs/buildfunction/BuildFunctionWorker.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,18 +9,17 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~BuildFunctionWorker();
-        virtual GetWorkerJobType() const;
-        virtual Service(int);
+        virtual uint64_t GetWorkerJobType() const;
+        virtual uint8_t* Service(int arg1);
         BuildFunctionWorker();
 
-        // data members, from how the methods use this: 32 bytes, the first 8 are ComponentValueMixin
-        shared_ptr field_8; // offset 8
-        char _unknown_24[8];
+    private:
+        shared_ptr field_8;
+        uint8_t _unknown_24[8];
     };
 
-    // 0x100644f70, 16 bytes, inline, placed by class name and debug map
-    // BuildFunctionWorker::GetWorkerJobType() const
-    undefined8 BuildFunctionWorker::GetWorkerJobType() {
+    // 0x100644f70
+    uint64_t BuildFunctionWorker::GetWorkerJobType() const {
         return 60;
     }
 

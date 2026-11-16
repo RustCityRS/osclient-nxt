@@ -1,143 +1,119 @@
 // libs/tweaky/Tweaky_Button.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.tweaky
 
 #include "Tweaky_Button.h"
 
 namespace jag::tweak {
-    // 0x100a3f7c0, 368 bytes, placed by class name and debug map
-    // Button::Draw(int, int)
-    void Button::Draw(int param_1, int param_2) {
-        int iVar1;
-        Tweaky* pTVar2;
-        bool bVar3;
+    // 0x100a3f7c0
+    void Button::Draw(int arg1, int arg2) {
+        bool bVar1;
+        int iVar2;
         int iVar4;
-        int iVar5;
-        int iVar6;
-        shared_ptr local_40;
+        int arg1_00;
+        Tweaky* pTVar5;
 
-        iVar6 = field_24 + param_1;
-        iVar5 = field_28 + param_2;
-        new (&local_40) oldscape::dash3d::GridRect(iVar6, iVar5, field_36 + iVar6, field_40 + iVar5);
+        int iVar7 = field_24 + arg1;
+        int iVar6 = field_28 + arg2;
+        shared_ptr local_40(iVar7, iVar6, field_36 + iVar7, field_40 + iVar6);
         field_136 = local_40._0_4_;
         field_140 = local_40._4_4_;
         *(long*)&field_144 = local_40.field_8;
-        weak_ptr<oldscape::rs2lib::IfType>::lock();
-        bVar3 = shared_ptr::operator_cast_to_bool(&local_40);
-        if (bVar3) {
+        local_40 = field_104.lock();
+        if (shared_ptr::operator_cast_to_bool(&local_40) != '\0') {
             SetColour(1886417151, field_208);
-            pTVar2 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-            pTVar2->FillRect(field_24 + param_1, field_28 + param_2, field_36, field_40);
-            pTVar2 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-            pTVar2->DrawRect(field_24 + param_1, field_28 + param_2, field_36, field_40, field_211);
+            pTVar5 = (Tweaky*)local_40.operator->();
+            pTVar5->FillRect(field_24 + arg1, field_28 + arg2, field_36, field_40);
+            pTVar5 = (Tweaky*)local_40.operator->();
+            pTVar5->DrawRect(field_24 + arg1, field_28 + arg2, field_36, field_40, field_211);
             SetColour(3772834047, field_208);
-            iVar5 = field_24;
-            iVar6 = field_216;
-            iVar1 = field_28;
-            pTVar2 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-            iVar4 = pTVar2->GetTextCenterYOffset(field_40);
-            bVar3 = field_211;
-            pTVar2 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_40);
-            Tweaky::TextDraw<eastl::string>(pTVar2, param_1 + iVar5 + iVar6 + (uint)bVar3,
-                                            param_2 + iVar1 + iVar4 + (uint)bVar3, (basic_string*)&field_48, field_36,
-                                            field_40, field_210);
+            iVar6 = field_24;
+            iVar7 = field_216;
+            iVar2 = field_28;
+            pTVar5 = (Tweaky*)local_40.operator->();
+            iVar4 = pTVar5->GetTextCenterYOffset(field_40);
+            bVar1 = field_211;
+            arg1_00 = local_40.operator->();
+            Tweaky::TextDraw<eastl::string>(
+                arg1_00, arg1 + iVar6 + iVar7 + (unsigned int)bVar1,
+                *((fixed_string<char, _16>*)(unsigned long)(arg2 + iVar2 + iVar4 + (unsigned int)bVar1)),
+                (int)this + 48, field_36, (uint8_t)field_40);
         }
-        local_40.~shared_ptr();
     }
 
-    // 0x100a3fb40, 224 bytes, placed by class name
-    // Button::OnClick(float, float, bool)
-    undefined1 Button::OnClick(float param_1, float param_2, bool param_3) {
-        Tweaky* this_00;
-        undefined7 in_register_00000031;
-        enable_shared_from_this<PathingEntity> local_40[16];
+    // 0x100a3fb40
+    uint64_t Button::OnClick(float arg1, float arg2, bool arg3) {
+        uint64_t in_register_00000031;
+        enable_shared_from_this<PathingEntity> local_40;
         Event local_30;
 
-        field_211 = param_3;
-        if ((int)CONCAT71(in_register_00000031, param_3) == 0) {
-            local_40->shared_from_this();
-            new (&local_30) Event(local_40, 2);
-            DoCallback(&local_30);
-            local_30.~LRUHashCacheWrapper();
-            local_40->~shared_ptr();
-            weak_ptr<oldscape::rs2lib::IfType>::lock();
-            if (local_30.operator_cast_to_bool()) {
-                this_00 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_30);
-                this_00->ClearFocus();
+        field_211 = arg3;
+        if ((int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg3) == 0) {
+            local_40.shared_from_this();
+            local_30 = Event(local_40, 2);
+            DoCallback(local_30);
+            local_30 = field_104.lock();
+            if (local_30.operator_cast_to_bool() != '\0') {
+                ((Tweaky*)local_30.operator->())->ClearFocus();
             }
-            local_30.~shared_ptr();
         } else {
-            Control::SetFocus();
+            SetFocus();
         }
         return 1;
     }
 
-    // 0x100a3fda0, 32 bytes, placed by class name
-    // Button::OnMouseMove(float, float)
-    undefined1 Button::OnMouseMove(float param_1, float param_2) {
-        field_211 = (bool)BoundsCheck(param_1, param_2);
+    // 0x100a3fda0
+    uint8_t Button::OnMouseMove(float arg1, float arg2) {
+        field_211 = (bool)BoundsCheck(arg1, arg2);
         return 1;
     }
 
-    // 0x100a3fdc0, 288 bytes, placed by class name
-    // Button::GetControlSize(int&, int&)
-    ulong Button::GetControlSize(int* param_1, int* param_2) {
-        bool bVar1;
-        int iVar3;
-        Tweaky* pTVar4;
-        ulong uVar5;
-        int in_R9D;
-        StringView SVar6;
+    // 0x100a3fdc0
+    unsigned long Button::GetControlSize(int& arg1, int& arg2) {
+        int iVar2;
+        Tweaky* pTVar3;
+        unsigned long uVar4;
         StringView local_60;
         int local_4c;
-        shared_ptr local_48;
         int local_34;
 
-        weak_ptr<oldscape::rs2lib::IfType>::lock();
-        bVar1 = shared_ptr::operator_cast_to_bool(&local_48);
-        if (bVar1) {
-            bVar1 = shared_ptr::operator_cast_to_bool(&local_48);
-            if (bVar1) {
-                pTVar4 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_48);
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_60,
-                                                                                              (fixed_string*)&field_48);
-                SVar6.field_8 = (uchar*)4294967295;
-                SVar6.field_0 = (ulong)&local_60;
-                if (pTVar4->GetTextSize(&local_34, &local_4c, SVar6, in_R9D) != '\0') {
-                    iVar3 = field_212;
-                    if (iVar3 == -1) {
+        shared_ptr local_48 = field_104.lock();
+        if (shared_ptr::operator_cast_to_bool(&local_48)) {
+            if (shared_ptr::operator_cast_to_bool(&local_48)) {
+                pTVar3 = (Tweaky*)local_48.operator->();
+                local_60.StringView<eastl::fixed_string<char, 40>>(field_48);
+                if (pTVar3->GetTextSize(local_34, local_4c, &local_60, -1)) {
+                    iVar2 = field_212;
+                    if (iVar2 == -1) {
                         field_36 = local_34 + 8;
-                        iVar3 = 2;
+                        iVar2 = 2;
                     } else {
-                        field_36 = iVar3;
-                        iVar3 = (iVar3 - local_34) / 2;
+                        field_36 = iVar2;
+                        iVar2 = (iVar2 - local_34) / 2;
                     }
-                    field_216 = iVar3;
-                    pTVar4 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_48);
-                    iVar3 = pTVar4->GetMinControlHeight();
-                    field_40 = iVar3 + 4;
+                    field_216 = iVar2;
+                    pTVar3 = (Tweaky*)local_48.operator->();
+                    iVar2 = pTVar3->GetMinControlHeight();
+                    field_40 = iVar2 + 4;
                 }
             }
             if ((0 < field_36) && (0 < (int)field_40)) {
-                *param_1 = field_36;
-                *param_2 = field_40;
-                uVar5 = CONCAT71((int7)((ulong)&local_48 >> 8), 1);
+                arg1 = field_36;
+                arg2 = field_40;
+                uVar4 = (((uint64_t)((int64_t)((unsigned long)&local_48 >> 8)) << 8) | (uint8_t)1);
                 goto LAB_100a3fead;
             }
         }
-        uVar5 = 0;
+        uVar4 = 0;
     LAB_100a3fead:
-        local_48.~shared_ptr();
-        return uVar5 & 4294967295;
+        return uVar4 & 4294967295;
     }
 
-    // 0x100a3fee0, 32 bytes, placed by class name
-    // Button::OnFocusChanged(bool)
-    void Button::OnFocusChanged(bool param_1) {
-        undefined3 in_register_00000031;
+    // 0x100a3fee0
+    void Button::OnFocusChanged(bool arg1) {
+        uint32_t in_register_00000031;
 
-        if (CONCAT31(in_register_00000031, param_1) == 0) {
+        if ((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1) == 0) {
             field_211 = false;
         }
     }

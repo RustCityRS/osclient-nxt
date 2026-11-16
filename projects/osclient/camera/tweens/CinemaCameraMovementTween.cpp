@@ -1,6 +1,5 @@
 // projects/osclient/camera/tweens/CinemaCameraMovementTween.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.systemheap
 
 namespace jag::oldscape {
@@ -8,26 +7,19 @@ namespace jag::oldscape {
     public:
         // virtual methods in vtable order
         virtual ~CinemaCameraMovementTween();
-        CinemaCameraMovementTween(int, CinemaCameraTween::Easing);
+        CinemaCameraMovementTween(int arg1, CinemaCameraTween::Easing easing);
 
-        // data members, from how the methods use this: 8 bytes
-        undefined* field_0; // offset 0, vtable pointer
+    private:
+        int field_8;
+        int field_12;
+        uint64_t field_16;
+        Easing field_24;
     };
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    CinemaCameraMovementTween::~CinemaCameraMovementTween();
+    // 0x100009e70: CinemaCameraMovementTween::~CinemaCameraMovementTween() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100124170, 48 bytes, base-object constructor, placed by class name and debug map
-    // CinemaCameraMovementTween::CinemaCameraMovementTween(int, CinemaCameraTween::Easing)
-    void CinemaCameraMovementTween::CinemaCameraMovementTween() {
-        CinemaCameraTween::CinemaCameraTween();
-        field_0 = PTR_vtable_100ee8908 + 16;
-    }
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    CinemaCameraMovementTween::~CinemaCameraMovementTween();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    CinemaCameraMovementTween::~CinemaCameraMovementTween();
+    // 0x100124170
+    CinemaCameraMovementTween::CinemaCameraMovementTween(int arg1, CinemaCameraTween::Easing easing)
+        : CinemaCameraTween(arg1, easing) {}
 
 } // namespace jag::oldscape

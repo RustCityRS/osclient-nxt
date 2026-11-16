@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/fonts/emoji/EmojiRegistry.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,14 +8,14 @@ namespace jag::graphics::internal {
     public:
         VertexSetupDynamic();
         ~VertexSetupDynamic();
-        bool HasRoom(unsigned int, unsigned int) const;
+        bool HasRoom(unsigned int arg1, unsigned int arg2) const;
         void OnEndFrame();
         void Destroy();
 
-        // data members, from how the methods use this: 464 bytes
-        char _unknown_0[112];
-        InputAssemblerState field_112; // offset 112
-        char _unknown_304[160];
+    private:
+        uint8_t _unknown_0[112];
+        InputAssemblerState field_112;
+        uint8_t _unknown_304[160];
     };
 
     template <
@@ -29,261 +28,178 @@ namespace jag::graphics::internal {
         void Destroy();
     };
 
-    // 0x1008eadd0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // VertexSetupRingArray<GUIManagerVertexBase<short> >::VertexSetupRingArray(): jumps straight to the base-object constructor
-
-    // 0x1008eade0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // VertexSetupRingArray<GUIManagerVertexBase<float> >::VertexSetupRingArray(): jumps straight to the base-object constructor
-
-    // 0x1008eadf0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // VertexSetupRingArray<GUIManagerLineVertex>::VertexSetupRingArray(): jumps straight to the base-object constructor
-
-    // 0x1008eae00, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // VertexSetupDynamic::VertexSetupDynamic(): jumps straight to the base-object constructor
-
-    // 0x1008eaea0, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // VertexSetupDynamic::~VertexSetupDynamic(): jumps straight to the base-object destructor
-
-    // 0x1008eaeb0, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // VertexSetupRingArray<GUIManagerLineVertex>::~VertexSetupRingArray(): jumps straight to the base-object destructor
-
-    // 0x1008eaec0, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // VertexSetupRingArray<GUIManagerVertexBase<float> >::~VertexSetupRingArray(): jumps straight to the base-object destructor
-
-    // 0x1008eaed0, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // VertexSetupRingArray<GUIManagerVertexBase<short> >::~VertexSetupRingArray(): jumps straight to the base-object destructor
-
-    // 0x1009005d0, 96 bytes, base-object destructor, inline, placed by class header (inline)
-    // VertexSetupDynamic::~VertexSetupDynamic()
-    void VertexSetupDynamic::~VertexSetupDynamic() {
-        (&field_456)->~DynamicBuffer();
-        (&field_424)->~vector();
-        (&field_336)->~DynamicBuffer();
-        (&field_304)->~vector();
+    // 0x1009005d0
+    VertexSetupDynamic::~VertexSetupDynamic() {
+        field_456.~DynamicBuffer();
+        field_424.~vector();
+        field_336.~DynamicBuffer();
+        field_304.~vector();
         field_112->~InputAssemblerState();
-        (&field_16)->~VertexDeclaration();
-        ~shared_ptr();
+        field_16.~VertexDeclaration();
     }
 
-    // 0x1009007f0, 80 bytes, base-object destructor, inline, placed by class header (inline)
-    // VertexSetupRingArray<GUIManagerLineVertex>::~VertexSetupRingArray()
-    void VertexSetupRingArray<GUIManagerLineVertex>::~VertexSetupRingArray() {
+    // 0x1009007f0
+    VertexSetupRingArray<GUIManagerLineVertex>::~VertexSetupRingArray() {
         ((this + 320))->~InputAssemblerState();
         ((this + 232))->~IndexBuffer();
         ((this + 144))->~DynamicBuffer();
         ((this + 112))->~Array();
         ((this + 16))->~VertexDeclaration();
-        ~shared_ptr();
     }
 
-    // 0x1009008d0, 80 bytes, base-object destructor, inline, placed by class header (inline)
-    // VertexSetupRingArray<GUIManagerVertexBase<float> >::~VertexSetupRingArray()
-    void VertexSetupRingArray<GUIManagerVertexBase<float>>::~VertexSetupRingArray() {
+    // 0x1009008d0
+    VertexSetupRingArray<GUIManagerVertexBase<float>>::~VertexSetupRingArray() {
         ((this + 320))->~InputAssemblerState();
         ((this + 232))->~IndexBuffer();
         ((this + 144))->~DynamicBuffer();
         ((this + 112))->~Array();
         ((this + 16))->~VertexDeclaration();
-        ~shared_ptr();
     }
 
-    // 0x1009009b0, 80 bytes, base-object destructor, inline, placed by class header (inline)
-    // VertexSetupRingArray<GUIManagerVertexBase<short> >::~VertexSetupRingArray()
-    void VertexSetupRingArray<GUIManagerVertexBase<short>>::~VertexSetupRingArray() {
+    // 0x1009009b0
+    VertexSetupRingArray<GUIManagerVertexBase<short>>::~VertexSetupRingArray() {
         ((this + 320))->~InputAssemblerState();
         ((this + 232))->~IndexBuffer();
         ((this + 144))->~DynamicBuffer();
         ((this + 112))->~Array();
         ((this + 16))->~VertexDeclaration();
-        ~shared_ptr();
     }
 
 } // namespace jag::graphics::internal
-
-namespace jag::graphics {
-    class ClippingState {
-    public:
-        ClippingState(RT7Core*);
-        ~ClippingState();
-
-        // data members, from how the methods use this: 28 bytes
-        RT7Core* field_0;          // offset 0
-        ClippingRectangle field_8; // offset 8
-    };
-
-    // 0x1008ee6d0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // ClippingState::ClippingState(RT7Core*): jumps straight to the base-object constructor
-
-    // 0x1008ee9a0, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // ClippingState::~ClippingState(): jumps straight to the base-object destructor
-
-    // 0x100900bb0, 48 bytes, base-object constructor, inline, placed by class header (inline)
-    // ClippingState::ClippingState(RT7Core*)
-    void ClippingState::ClippingState(RT7Core* param_1) {
-        undefined8 uVar1;
-        undefined8* puVar2;
-
-        field_0 = param_1;
-        new (field_8) ClippingRectangle();
-        puVar2 = (undefined8*)param_1->GetPixelBuffer();
-        uVar1 = puVar2[1];
-        *(undefined8*)field_8 = *puVar2;
-        *(undefined8*)(field_8 + 8) = uVar1;
-    }
-
-    // 0x100900be0, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // ClippingState::~ClippingState()
-    void ClippingState::~ClippingState() {
-        (field_0, *(int*)field_8, *(int*)(field_8 + 4), *(int*)(field_8 + 8) - *(int*)field_8,
-         *(int*)(field_8 + 12) - *(int*)(field_8 + 4), true)
-            ->SetClippingRectangle();
-    }
-
-} // namespace jag::graphics
 
 namespace jag {
     class EmojiRegistry {
     public:
         class SpriteAndIndex;
-        GetAutoChatLine() const;
-        void Substitute<eastl::fixed_string<char, 512, true, eastl::allocator>,
-                        eastl::basic_string<char, BucketAllocatorEASTL>>(
-            eastl::fixed_string<char, 512, true, eastl::allocator>&,
-            eastl::basic_string<char, BucketAllocatorEASTL> const&) const;
+        uint8_t GetAutoChatLine() const;
+        void Substitute<eastl::fixed_string<char, 512>, eastl::string>(eastl::fixed_string<char, 512>& str1,
+                                                                       const eastl::string& str2) const;
         EmojiRegistry();
-        ulong Add(eastl::string const&, int, int);
-        bool IsEmojiPrefix(char);
+        unsigned long Add(const eastl::string& str, int arg2, int arg3);
+        bool IsEmojiPrefix(char arg1);
         void UpdatePrefixes();
-        void Remove(eastl::string const&);
+        void Remove(const eastl::string& str);
         void RemoveAll();
 
-        // data members, from how the methods use this: 80 bytes
-        pair* field_0; // offset 0
-        pair* field_8; // offset 8
-        char _unknown_16[56];
-        int field_72;              // offset 72
-        undefined1 m_autoChatLine; // offset 76
-        char _unknown_77[3];
+    private:
+        pair<eastl::string, logger::LogLevel>* field_0;
+        pair<eastl::string, logger::LogLevel>* field_8;
+        uint8_t _unknown_16[56];
+        int field_72;
+        uint8_t m_autoChatLine;
+        uint8_t _unknown_77[3];
     };
 
     class EmojiRegistry::SpriteAndIndex {
     public:
-        SpriteAndIndex(int, int);
+        SpriteAndIndex(int arg1, int arg2);
     };
 
-    // 0x10045f440, 768 bytes, inline, placed by class name and debug map
-    // void EmojiRegistry::Substitute<eastl::fixed_string<char, 512, true, eastl::allocator>, eastl::basic_string<char, BucketAllocatorEASTL> >(eastl::fixed_string<char, 512, true, eastl::allocator>&, eastl::basic_string<char, BucketAllocatorEASTL> const&) const
-    void EmojiRegistry::Substitute<eastl::fixed_string<char, 512, true, eastl::allocator>,
-                                   eastl::basic_string<char, BucketAllocatorEASTL>>(fixed_string* param_1,
-                                                                                    basic_string* param_2) {
-        long lVar1;
-        char cVar2;
+    // 0x10045f440
+    void EmojiRegistry::Substitute<eastl::fixed_string<char, 512>, eastl::basic_string<char, BucketAllocatorEASTL>>(
+        eastl::fixed_string<char, 512>& str1, const eastl::basic_string<char, BucketAllocatorEASTL>& str2) const {
+        basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>* this_00;
+        int iVar2;
         int iVar3;
-        int iVar4;
-        char* pcVar5;
-        ulong uVar6;
-        long lVar7;
-        long lVar8;
+        char* pcVar4;
+        unsigned long uVar5;
+        basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>* pbVar7;
+        basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>* pbVar8;
         int iVar9;
         bool bVar10;
-        fixed_string<char, 256, true, eastl::allocator> local_160[296];
-        long local_38;
+        fixed_string<char, 256> local_160;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        cVar2 = empty();
-        if (cVar2 == '\0') {
-            iVar3 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            param_1->reserve((long)iVar3);
-            if (0 < iVar3) {
+        char cVar1 = empty();
+        if (!cVar1) {
+            iVar2 = str2.size();
+            str1.reserve((long)iVar2);
+            if (0 < iVar2) {
                 bVar10 = false;
                 iVar9 = 0;
                 do {
-                    pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::operator[](
-                        (basic_string<char, BucketAllocatorEASTL>*)param_2, (long)iVar9);
-                    cVar2 = *pcVar5;
+                    pcVar4 = &str2[(long)iVar9];
+                    cVar1 = *pcVar4;
                     if (bVar10) {
-                        if (cVar2 == '>') {
+                        if (cVar1 == '>') {
                             bVar10 = false;
                         }
-                    } else if (cVar2 == '<') {
+                    } else if (cVar1 == '<') {
                         bVar10 = true;
                     } else {
-                        lVar7 = (&field_40, cVar2, 0)->find();
-                        if (lVar7 != -1) {
-                            lVar7 = HeapBeginPtr();
-                            lVar8 = end();
-                            while (lVar1 = lVar7, lVar1 != lVar8) {
-                                iVar4 =
-                                    eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true,
-                                                                                            eastl::allocator>>::size();
-                                lVar7 = lVar1 + 40;
-                                if (iVar9 <= iVar3 - iVar4) {
-                                    pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                    uVar6 =
-                                        eastl::basic_string<char,
-                                                            eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true,
-                                                                                          eastl::allocator>>::size();
-                                    iVar4 = param_2->compare((long)iVar9, (long)iVar4, pcVar5, uVar6);
-                                    if (iVar4 == 0) {
-                                        eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_160);
-                                        if (*(int*)(lVar1 + 36) < 1) {
-                                            eastl::basic_string<char,
-                                                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul,
-                                                                                              true, eastl::allocator>>::
-                                                sprintf((char*)local_160, "<sprite=%d>", (ulong) * (uint*)(lVar1 + 32));
+                        if (field_40.find(cVar1, 0) != -1) {
+                            pbVar7 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>*)
+                                HeapBeginPtr();
+                            pbVar8 =
+                                (basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>*)end();
+                            while (this_00 = pbVar7, this_00 != pbVar8) {
+                                iVar3 = this_00->size();
+                                pbVar7 = this_00 + 40;
+                                if (iVar9 <= iVar2 - iVar3) {
+                                    pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                    uVar5 = this_00->size();
+                                    iVar3 = str2.compare((long)iVar9, (long)iVar3, pcVar4, uVar5);
+                                    if (iVar3 == 0) {
+                                        local_160 = eastl::fixed_string<char, 256>();
+                                        if (*(int*)(this_00 + 36) < 1) {
+                                            local_160.sprintf("<sprite=%d>",
+                                                              (unsigned long)*(unsigned int*)(this_00 + 32));
                                         } else {
-                                            eastl::basic_string<char,
-                                                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul,
-                                                                                              true, eastl::allocator>>::
-                                                sprintf((char*)local_160, "<sprite=%d,%d>",
-                                                        (ulong) * (uint*)(lVar1 + 32));
+                                            local_160.sprintf("<sprite=%d,%d>",
+                                                              (unsigned long)*(unsigned int*)(this_00 + 32));
                                         }
-                                        pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                        uVar6 = eastl::basic_string<
-                                            char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true,
-                                                                                eastl::allocator>>::size();
-                                        param_1->append(pcVar5, uVar6);
-                                        /* WARNING: Subroutine does not return */
-                                        local_160->~fixed_string();
+                                        pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                        uVar5 = local_160.size();
+                                        str1.append(pcVar4, uVar5);
                                     }
                                 }
                             }
                         }
                     }
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                    operator+=(
-                        (basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>*)param_1,
-                        cVar2);
+                    str1 += cVar1;
                     iVar9 = iVar9 + 1;
-                } while (iVar9 < iVar3);
+                } while (iVar9 < iVar2);
             }
         } else {
-            pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar6 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            param_1->assign(pcVar5, uVar6);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            uVar5 = str2.size();
+            str1.assign(pcVar4, uVar5);
         }
     }
 
-    // 0x1008ea970, 64 bytes, inline, placed by class name
-    // EmojiRegistry::IsEmojiPrefix(char)
-    bool EmojiRegistry::IsEmojiPrefix(char param_1) {
-        bool bVar1;
-
-        bVar1 = true;
-        if (14 < (byte)(param_1 - 33U)) {
-            bVar1 = ('z' < param_1 || (byte)(param_1 + 165U) < 5) || param_1 != '<' && (byte)(param_1 - 58U) < 7;
+    // 0x1008ea970
+    bool EmojiRegistry::IsEmojiPrefix(char arg1) {
+        bool bVar1 = true;
+        if (14 < (uint8_t)(arg1 - 33U)) {
+            bVar1 = ('z' < arg1 || (uint8_t)(arg1 + 165U) < 5) || arg1 != '<' && (uint8_t)(arg1 - 58U) < 7;
         }
         return bVar1;
     }
 
 } // namespace jag
+
+namespace jag::graphics {
+    class ClippingState {
+    public:
+        ClippingState(RT7Core* rt7Core);
+        ~ClippingState();
+
+    private:
+        RT7Core* field_0;
+        ClippingRectangle field_8;
+    };
+
+    // 0x100900bb0
+    ClippingState::ClippingState(RT7Core* rt7Core) : field_0(rt7Core) {
+        auto puVar2 = rt7Core->GetPixelBuffer();
+        uint64_t uVar1 = puVar2[1];
+        *(uint64_t*)field_8 = *puVar2;
+        *(uint64_t*)(field_8 + 8) = uVar1;
+    }
+
+    // 0x100900be0
+    ClippingState::~ClippingState() {
+        field_0->SetClippingRectangle(*(int*)field_8, *(int*)(field_8 + 4), *(int*)(field_8 + 8) - *(int*)field_8,
+                                      *(int*)(field_8 + 12) - *(int*)(field_8 + 4), true);
+    }
+
+} // namespace jag::graphics

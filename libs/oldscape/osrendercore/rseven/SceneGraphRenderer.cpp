@@ -1,6 +1,5 @@
 // libs/oldscape/osrendercore/rseven/SceneGraphRenderer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.osrendercore
 
 namespace jag::oldscape::rseven {
@@ -9,117 +8,95 @@ namespace jag::oldscape::rseven {
     public:
         // virtual methods in vtable order
         virtual ~SceneGraphRenderer();
-        virtual void GatherSceneGraphDrawableElements(unsigned int, jag::graphics::SceneViewData const&,
-                                                      jag::graphics::GraphNode*, int,
-                                                      jag::graphics::EffectManager const&);
+        virtual void GatherSceneGraphDrawableElements(unsigned int arg1,
+                                                      const jag::graphics::SceneViewData& sceneViewData,
+                                                      jag::graphics::GraphNode* graphNode, int arg4,
+                                                      const jag::graphics::EffectManager& effectManager);
         virtual void GatherSceneGraphDrawableElements(
-            eastl::vector<std::pair<jag::graphics::GraphEntity*, jag::graphics::GraphEntityTransformData>,
-                          eastl::allocator>&,
-            jag::graphics::SceneViewData const&, jag::graphics::GraphNode*, jag::graphics::EffectManager const&);
-        SceneGraphRenderer(jag::graphics::RT7Core*,
-                           eastl::fixed_vector<jag::graphics::DrawableQueue::RenderPassDrawableGroupsConfig, 10ul, true,
-                                               eastl::allocator> const&,
-                           unsigned long, unsigned long);
+            eastl::vector<std::pair<jag::graphics::GraphEntity*, jag::graphics::GraphEntityTransformData>>& pairs,
+            const jag::graphics::SceneViewData& sceneViewData, jag::graphics::GraphNode* graphNode,
+            const jag::graphics::EffectManager& effectManager);
+        SceneGraphRenderer(jag::graphics::RT7Core* rt7Core,
+                           const eastl::fixed_vector<jag::graphics::DrawableQueue::RenderPassDrawableGroupsConfig,
+                                                     10ul>& renderPassDrawableGroupsConfigs,
+                           unsigned long arg3, unsigned long arg4);
 
-        // data members, from how the methods use this: 81 bytes, the first 9 are RenderDeviceOnEndFrame
-        char _unknown_9[71];
-        undefined1 field_80; // offset 80
+    private:
+        uint8_t _unknown_9[71];
+        uint8_t field_80;
     };
 
-    // 0x1001ceb50, 32 bytes, base-object constructor, placed by class name and debug map
-    // SceneGraphRenderer::SceneGraphRenderer(jag::graphics::RT7Core*, eastl::fixed_vector<jag::graphics::DrawableQueue::RenderPassDrawableGroupsConfig, 10ul, true, eastl::allocator> const&, unsigned long, unsigned long)
-    void SceneGraphRenderer::SceneGraphRenderer(RT7Core* param_1, fixed_vector* param_2, ulong param_3, ulong param_4) {
-        new (this) jag::graphics::Renderer(param_1, param_2, param_3, param_4);
-        field_0 = &PTR__SceneGraphRenderer_100ef6850;
-    }
+    // 0x1001ceb50
+    SceneGraphRenderer::SceneGraphRenderer(
+        jag::graphics::RT7Core* rt7Core,
+        const eastl::fixed_vector<jag::graphics::DrawableQueue::RenderPassDrawableGroupsConfig, 10ul>&
+            renderPassDrawableGroupsConfigs,
+        unsigned long arg3, unsigned long arg4)
+        : jag::graphics::Renderer(rt7Core, renderPassDrawableGroupsConfigs, arg3, arg4) {}
 
-    // 0x1001ceb70, 16 bytes, complete-object constructor, placed by class name and debug map
-    // SceneGraphRenderer::SceneGraphRenderer(jag::graphics::RT7Core*, eastl::fixed_vector<jag::graphics::DrawableQueue::RenderPassDrawableGroupsConfig, 10ul, true, eastl::allocator> const&, unsigned long, unsigned long): jumps straight to the base-object constructor
+    // 0x1001ceb80
+    SceneGraphRenderer::~SceneGraphRenderer() {}
 
-    // 0x1001ceb80, 16 bytes, base-object destructor, placed by class name and debug map
-    // SceneGraphRenderer::~SceneGraphRenderer()
-    void SceneGraphRenderer::~SceneGraphRenderer() {
-        ~Renderer();
-    }
-
-    // 0x1001ceb90, 16 bytes, complete-object destructor, placed by class name and debug map
-    // SceneGraphRenderer::~SceneGraphRenderer(): jumps straight to the base-object destructor
-
-    // 0x1001ceba0, 32 bytes, deleting destructor, placed by class name and debug map
-    // SceneGraphRenderer::~SceneGraphRenderer()
-    void SceneGraphRenderer::~SceneGraphRenderer() {
-        ~SceneGraphRenderer(this);
-        operator_delete(this);
-    }
-
-    // 0x1001cebc0, 304 bytes, placed by class name and debug map
-    // SceneGraphRenderer::GatherSceneGraphDrawableElements(unsigned int, jag::graphics::SceneViewData const&, jag::graphics::GraphNode*, int, jag::graphics::EffectManager const&)
-    void SceneGraphRenderer::GatherSceneGraphDrawableElements(uint param_1, SceneViewData* param_2, GraphNode* param_3,
-                                                              int param_4, EffectManager* param_5) {
+    // 0x1001cebc0
+    void SceneGraphRenderer::GatherSceneGraphDrawableElements(unsigned int arg1,
+                                                              const jag::graphics::SceneViewData& sceneViewData,
+                                                              jag::graphics::GraphNode* graphNode, int arg4,
+                                                              const jag::graphics::EffectManager& effectManager) {
         long* plVar3;
-        undefined8 uVar4;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_00;
-        undefined8* puVar5;
-        undefined8* puVar6;
+        Matrix44T<float>* pMVar4;
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_00;
+        uint64_t* puVar5;
+        uint64_t* puVar6;
 
-        if (param_3 == (GraphNode*)0) {
-            /* WARNING: Subroutine does not return */
+        if (graphNode == nullptr) {
             LogAssert("node",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                       "rseven/SceneGraphRenderer.cpp",
-                      33, (char*)0);
+                      33, nullptr);
         }
-        if (param_3->GetVisibleFrame(param_4) == param_1) {
-            plVar3 = (long*)param_3->GetLinkObjCount();
-            if (plVar3 != (long*)0) {
-                uVar4 = param_3->GetWorldTransformationMatrix();
-                (**(code**)(*plVar3 + 88))(plVar3, &field_80, field_8, uVar4, param_2, param_5);
+        if (graphNode->GetVisibleFrame(arg4) == arg1) {
+            plVar3 = (long*)graphNode->GetLinkObjCount();
+            if (plVar3 != nullptr) {
+                pMVar4 = graphNode->GetWorldTransformationMatrix();
+                (**(void (**)(...))(*plVar3 + 88))(plVar3, &field_80, field_8, pMVar4, sceneViewData, effectManager);
             }
-            this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                          param_3->GetChildren();
-            if (eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                    this_00) == '\0') {
-                puVar5 = (undefined8*)this_00->HeapBeginPtr();
-                puVar6 = (undefined8*)this_00->end();
+            this_00 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)graphNode->GetChildren();
+            if (this_00->empty() == '\0') {
+                puVar5 = (uint64_t*)this_00->HeapBeginPtr();
+                puVar6 = (uint64_t*)this_00->end();
                 for (; puVar5 != puVar6; puVar5 = puVar5 + 1) {
-                    (*(code*)field_0[2])(this, param_1, param_2, *puVar5, param_4, param_5);
+                    GatherSceneGraphDrawableElements((unsigned int)this, (SceneViewData*)arg1,
+                                                     (GraphNode*)sceneViewData, (int)*puVar5, (EffectManager*)arg4);
                 }
             }
         }
     }
 
-    // 0x1001ced20, 240 bytes, placed by class name and debug map
-    // SceneGraphRenderer::GatherSceneGraphDrawableElements(eastl::vector<std::pair<jag::graphics::GraphEntity*, jag::graphics::GraphEntityTransformData>, eastl::allocator>&, jag::graphics::SceneViewData const&, jag::graphics::GraphNode*, jag::graphics::EffectManager const&)
-    /* SceneGraphRenderer::GatherSceneGraphDrawableElements(eastl::vector<std::pair<jag::graphics::GraphEntity*,
-   jag::graphics::GraphEntityTransformData>, eastl::allocator>&, jag::graphics::SceneViewData
-   const&, jag::graphics::GraphNode*, jag::graphics::EffectManager const&) */
-
-    void SceneGraphRenderer::GatherSceneGraphDrawableElements(vector* param_1, SceneViewData* param_2,
-                                                              GraphNode* param_3, EffectManager* param_4) {
+    // 0x1001ced20
+    void SceneGraphRenderer::GatherSceneGraphDrawableElements(
+        eastl::vector<std::pair<jag::graphics::GraphEntity*, jag::graphics::GraphEntityTransformData>>& pairs,
+        const jag::graphics::SceneViewData& sceneViewData, jag::graphics::GraphNode* graphNode,
+        const jag::graphics::EffectManager& effectManager) {
         long* plVar1;
-        undefined8* puVar2;
-        undefined8* puVar3;
 
-        puVar2 = (undefined8*)param_1->HeapBeginPtr();
-        puVar3 = (undefined8*)param_1->end();
+        auto puVar2 = pairs.HeapBeginPtr();
+        auto puVar3 = pairs.end();
         if (puVar2 != puVar3) {
             do {
                 plVar1 = (long*)*puVar2;
-                if (plVar1 == (long*)0) {
-                    /* WARNING: Subroutine does not return */
+                if (plVar1 == nullptr) {
                     LogAssert("entity != nullptr",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
                               "osrendercore/rseven/SceneGraphRenderer.cpp",
-                              75, (char*)0);
+                              75, nullptr);
                 }
                 if (puVar2[2] == 0) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("entityTransformData.m_pWorldTransform != nullptr",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
                               "osrendercore/rseven/SceneGraphRenderer.cpp",
-                              78, (char*)0);
+                              78, nullptr);
                 }
-                (**(code**)(*plVar1 + 88))(plVar1, &field_80, field_8, puVar2[2], param_2, param_4);
+                (**(void (**)(...))(*plVar1 + 88))(plVar1, &field_80, field_8, puVar2[2], sceneViewData, effectManager);
                 puVar2 = puVar2 + 24;
             } while (puVar2 != puVar3);
         }

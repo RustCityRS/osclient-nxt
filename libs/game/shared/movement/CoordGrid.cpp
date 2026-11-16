@@ -1,166 +1,108 @@
 // libs/game/shared/movement/CoordGrid.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.shared
 
 #include "CoordGrid.h"
 
 namespace jag::game {
-    // 0x100102d30: the linker folded this into math::Vector3T<int>::Vector3T(int, int, int), which has identical code
-    CoordGrid::CoordGrid(int, unsigned int, unsigned int);
+    // 0x100124fd0: CoordGrid::operator!=(CoordGrid const&) const has the same machine code as oldscape::rs2lib::CoordGrid::operator!=(oldscape::rs2lib::CoordGrid const&) const
 
-    // 0x100124fd0: the linker folded this into oldscape::rs2lib::CoordGrid::operator!=(oldscape::rs2lib::CoordGrid const&) const, which has identical code
-    CoordGrid::operator!=(CoordGrid const&) const;
+    // 0x100124fe0: CoordGrid::operator==(CoordGrid const&) const has the same machine code as oldscape::rs2lib::CoordGrid::operator==(oldscape::rs2lib::CoordGrid const&) const
 
-    // 0x100124fe0: the linker folded this into oldscape::rs2lib::CoordGrid::operator==(oldscape::rs2lib::CoordGrid const&) const, which has identical code
-    CoordGrid::operator==(CoordGrid const&) const;
+    // 0x100132e20: CoordGrid::CoordGrid(int, unsigned int, unsigned int) has the same machine code as math::Vector3T<int>::Vector3T(int, int, int)
 
-    // 0x100132e20: the linker folded this into math::Vector3T<int>::Vector3T(int, int, int), which has identical code
-    CoordGrid::CoordGrid(int, unsigned int, unsigned int);
+    // 0x100214c40: CoordGrid::GetLocalX() const has the same machine code as oldscape::rs2lib::CoordGrid::GetMapSquareTileX() const
 
-    // 0x100214c40: the linker folded this into oldscape::rs2lib::CoordGrid::GetMapSquareTileX() const, which has identical code
-    CoordGrid::GetLocalX() const;
+    // 0x100214c50: CoordGrid::GetLocalZ() const has the same machine code as oldscape::rs2lib::CoordGrid::GetMapSquareTileZ() const
 
-    // 0x100214c50: the linker folded this into oldscape::rs2lib::CoordGrid::GetMapSquareTileZ() const, which has identical code
-    CoordGrid::GetLocalZ() const;
-
-    // 0x1006e6260, 544 bytes, placed by class name and debug map
-    // CoordGrid::FromString(StringView)
-    ulong CoordGrid::FromString(StringView param_1) {
-        uint uVar1;
-        uint uVar2;
-        uint uVar3;
-        bool bVar4;
-        int iVar5;
-        long lVar6;
-        char* pcVar7;
-        int* piVar8;
-        uint* puVar9;
-        ulong uVar10;
-        bool bVar11;
-        undefined8 local_5d8;
-        undefined8 uStack_5d0;
-        undefined4 local_5c8;
+    // 0x1006e6260
+    unsigned long CoordGrid::FromString(StringView stringView) {
+        char* str;
+        int* piVar4;
+        unsigned long arg1;
         CoordGrid local_5c0;
-        CoordGrid* local_5b0;
-        int local_5a4;
-        fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true, eastl::allocator>
-            local_5a0[1384];
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true,
-                            eastl::allocator>::fixed_vector(local_5a0);
-        tokenize<
-            eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true, eastl::allocator>,
-            StringView>((fixed_vector*)local_5a0, (StringView*)param_1.field_0, ", ", -1);
-        lVar6 = local_5a0->size();
-        if (lVar6 != 3) {
-            lVar6 = local_5a0->size();
-            if (lVar6 != 5) {
-                /* WARNING: Subroutine does not return */
+        fixed_vector<eastl::fixed_string<char, 128>, 8ul> local_5a0;
+        tokenize<eastl::fixed_vector<eastl::fixed_string<char, 128>, 8ul>, StringView>(&local_5a0, stringView, ", ",
+                                                                                       -1);
+        long lVar3 = local_5a0.size();
+        if (lVar3 != 3) {
+            lVar3 = local_5a0.size();
+            if (lVar3 != 5) {
                 LogAssert("tokens.size() == 3 || tokens.size() == 5",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/shared/movement/"
                           "CoordGrid.cpp",
-                          70, (char*)0);
+                          70, nullptr);
             }
         }
-        local_5c8 = 32;
-        local_5d8 = 0;
-        uStack_5d0 = 137438953472;
-        local_5b0 = this;
-        iVar5 = local_5a0->size();
-        bVar11 = 0 < iVar5;
-        if (0 < iVar5) {
-            uVar10 = 0;
+        uint32_t local_5c8 = 32;
+        uint64_t uStack_5d0 = 137438953472;
+        int iVar2 = local_5a0.size();
+        bool bVar6 = 0 < iVar2;
+        if (0 < iVar2) {
+            arg1 = 0;
             do {
-                eastl::vector<eastl::fixed_string<char, 128, true, eastl::allocator>,
-                              eastl::fixed_vector_allocator<168ul, 8ul, 8ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (vector<eastl::fixed_string<char, 128, true, eastl::allocator>,
-                            eastl::fixed_vector_allocator<168ul, 8ul, 8ul, 0ul, true, eastl::allocator>>*)local_5a0,
-                    uVar10);
-                pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                piVar8 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&local_5d8, uVar10);
-                bVar4 = FromText<int>(pcVar7, piVar8);
-                if (!bVar4)
+                local_5a0[arg1];
+                str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                piVar4 = &0 [arg1];
+                if (!FromText<int>(str, piVar4))
                     goto LAB_1006e6419;
-                uVar10 = uVar10 + 1;
-                iVar5 = local_5a0->size();
-                bVar11 = (long)uVar10 < (long)iVar5;
-            } while ((long)uVar10 < (long)iVar5);
+                arg1 = arg1 + 1;
+                iVar2 = local_5a0.size();
+                bVar6 = (long)arg1 < (long)iVar2;
+            } while ((long)arg1 < (long)iVar2);
         }
-        piVar8 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&local_5d8, 0);
-        local_5a4 = *piVar8;
-        puVar9 = (uint*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&local_5d8, 1);
-        uVar1 = *puVar9;
-        puVar9 = (uint*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&local_5d8, 2);
-        uVar2 = *puVar9;
-        puVar9 = (uint*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&local_5d8, 3);
-        uVar3 = *puVar9;
-        puVar9 = (uint*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&local_5d8, 4);
-        CoordGrid(&local_5c0, local_5a4, uVar1, uVar2, uVar3, *puVar9);
-        local_5b0->field_8 = local_5c0.field_8;
-        local_5b0->field_0 = local_5c0.field_0;
-        local_5b0->field_4 = local_5c0.field_4;
+        piVar4 = &0 [0];
+        int local_5a4 = *piVar4;
+        unsigned int* puVar5 = &0 [1];
+        unsigned int arg2 = *puVar5;
+        puVar5 = &0 [2];
+        unsigned int arg3 = *puVar5;
+        puVar5 = &0 [3];
+        unsigned int arg4 = *puVar5;
+        puVar5 = &0 [4];
+        CoordGrid(&local_5c0, local_5a4, arg2, arg3, arg4, *puVar5);
+        field_8 = local_5c0.field_8;
+        field_0 = local_5c0.field_0;
+        field_4 = local_5c0.field_4;
     LAB_1006e6419:
-        eastl::fixed_vector<eastl::fixed_string<char, 128, true, eastl::allocator>, 8ul, true,
-                            eastl::allocator>::~fixed_vector(local_5a0);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return CONCAT71((int7)((ulong)local_5a0 >> 8), ~bVar11) & 4294967041;
+        return ~bVar6 & 4294967041;
     }
 
-    // 0x1006e66d0, 80 bytes, base-object constructor, placed by class name and debug map
-    // CoordGrid::CoordGrid(int)
-    void CoordGrid::CoordGrid(int param_1) {
-        field_0 = 4294967295;
-        field_4 = 0;
-        field_8 = 0;
-        if (param_1 == -1) {
+    // 0x1006e66d0
+    CoordGrid::CoordGrid(int arg1) : field_0(4294967295), field_4(0), field_8(0) {
+        if (arg1 == -1) {
             field_0 = 4294967295;
             return;
         }
-        field_0 = (uint)param_1 >> 28 & 3;
-        field_4 = (uint)param_1 >> 14 & 16383;
-        field_8 = param_1 & 16383;
+        field_0 = (unsigned int)arg1 >> 28 & 3;
+        field_4 = (unsigned int)arg1 >> 14 & 16383;
+        field_8 = arg1 & 16383;
     }
 
-    // 0x1006e6720, 16 bytes, complete-object constructor, placed by class name and debug map
-    // CoordGrid::CoordGrid(int): jumps straight to the base-object constructor
+    // 0x1006e6730
+    uint64_t CoordGrid::ToFine(bool arg1) const {
+        uint64_t uVar1;
+        uint64_t in_register_00000031;
+        uint8_t local_18[16];
 
-    // 0x1006e6730, 80 bytes, placed by class name and debug map
-    // CoordGrid::ToFine(bool) const
-    undefined8 CoordGrid::ToFine(bool param_1) {
-        undefined8 uVar1;
-        uint uVar2;
-        undefined7 in_register_00000031;
-        undefined1 local_18[16];
-
-        uVar2 = (int)CONCAT71(in_register_00000031, param_1) << 6;
+        unsigned int uVar2 = (int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) << 6;
         new (local_18) CoordFine(field_0, (float)(field_4 << 7 | uVar2), 0.0, (float)(field_8 << 7 | uVar2));
         uVar1._0_4_ = local_18._0_4_;
         uVar1._4_4_ = (float)local_18._4_4_;
         return uVar1;
     }
 
-    // 0x1006e6780, 48 bytes, placed by class name and debug map
-    // CoordGrid::operator<(CoordGrid const&) const
-    /* CoordGrid::TEMPNAMEPLACEHOLDERVALUE(CoordGrid const&) const */
-
-    bool CoordGrid::operator<(CoordGrid* param_1) {
-        bool bVar1;
-
-        bVar1 = true;
-        if ((int)param_1->field_0 <= (int)field_0) {
-            if ((int)field_0 <= (int)param_1->field_0) {
-                if (field_4 < param_1->field_4) {
+    // 0x1006e6780
+    bool CoordGrid::operator<(const CoordGrid& coordGrid) const {
+        bool bVar1 = true;
+        if ((int)coordGrid.field_0 <= (int)field_0) {
+            if ((int)field_0 <= (int)coordGrid.field_0) {
+                if (field_4 < coordGrid.field_4) {
                     return true;
                 }
-                if (field_4 <= param_1->field_4) {
-                    return field_8 < param_1->field_8;
+                if (field_4 <= coordGrid.field_4) {
+                    return field_8 < coordGrid.field_8;
                 }
             }
             bVar1 = false;
@@ -168,91 +110,73 @@ namespace jag::game {
         return bVar1;
     }
 
-    // 0x1006e67b0, 32 bytes, placed by class name and debug map
-    // CoordGrid::ToBitPacked() const
-    uint CoordGrid::ToBitPacked() {
+    // 0x1006e67b0
+    unsigned int CoordGrid::ToBitPacked() const {
         return field_4 << 14 | field_0 << 28 | field_8;
     }
 
 } // namespace jag::game
 
 namespace jag {
-    // 0x1006e6490, 320 bytes, inline, placed by debug map only (low confidence)
-    // int tokenize<eastl::fixed_vector<eastl::fixed_string<char, 16, true, eastl::allocator>, 4ul, true, eastl::allocator>, StringView>(eastl::fixed_vector<eastl::fixed_string<char, 16, true, eastl::allocator>, 4ul, true, eastl::allocator>&, StringView const&, char const*, int)
-    int jag::tokenize<
-        eastl::fixed_vector<eastl::fixed_string<char, 16, true, eastl::allocator>, 4ul, true, eastl::allocator>,
-        StringView>(fixed_vector* param_1, StringView* param_2, char* param_3, int param_4) {
+    // 0x1006e6490
+    int tokenize<eastl::fixed_vector<eastl::fixed_string<char, 16>, 4ul>, StringView>(
+        eastl::fixed_vector<eastl::fixed_string<char, 16>, 4ul>& strs, const StringView& stringView, const char* str,
+        int arg4) {
         bool bVar1;
-        int iVar2;
         size_t sVar3;
-        char* pcVar4;
-        char* pcVar5;
-        basic_string<char, eastl::fixed_vector_allocator<1ul, 16ul, 1ul, 0ul, true, eastl::allocator>>* pbVar6;
-        char* pcVar7;
-        char* pcVar8;
+        ReturnValue* pRVar5;
+        char* str1_00;
 
-        if (param_4 == -1) {
-            sVar3 = _strlen(param_3);
-            param_4 = (int)sVar3;
+        if (arg4 == -1) {
+            sVar3 = _strlen(str);
+            arg4 = (int)sVar3;
         }
-        param_1->clear();
-        param_1->reserve(4);
-        pcVar4 = (char*)param_2->end();
-        pcVar5 = (char*)param_2->end();
-        pcVar8 = pcVar4;
-        if (pcVar4 != pcVar5) {
-            pcVar7 = pcVar4;
+        strs.clear();
+        strs.reserve(4);
+        auto str1 = stringView.end();
+        auto pcVar4 = stringView.end();
+        char* pcVar6 = str1;
+        if (str1 != pcVar4) {
+            str1_00 = str1;
             do {
-                pcVar4 = pcVar8;
-                bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                str1 = pcVar6;
+                bVar1 = internal::find_token<char, char const*>(*str1, str, str + arg4);
                 if (bVar1) {
-                    if (pcVar7 != pcVar4) {
-                        pbVar6 =
-                            (basic_string<char,
-                                          eastl::fixed_vector_allocator<1ul, 16ul, 1ul, 0ul, true, eastl::allocator>>*)
-                                eastl::fixed_vector<eastl::fixed_string<char, 16, true, eastl::allocator>, 4ul, true,
-                                                    eastl::allocator>::push_back();
-                        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 16ul, 1ul, 0ul, true,
-                                                                                eastl::allocator>>::assign(pbVar6,
-                                                                                                           pcVar7,
-                                                                                                           pcVar4);
+                    if (str1_00 != str1) {
+                        pRVar5 = (ReturnValue*)eastl::fixed_vector<eastl::fixed_string<char, 16>, 4ul>::push_back();
+                        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 16ul, 1ul, 0ul, true>>::assign(
+                            pRVar5, str1_00, str1);
                     }
-                    if (pcVar4 == pcVar5) {
+                    if (str1 == pcVar4) {
                     LAB_1006e6580:
-                        pcVar8 = pcVar4;
+                        pcVar6 = str1;
                     } else {
                         do {
-                            bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                            bVar1 = internal::find_token<char, char const*>(*str1, str, str + arg4);
                             if (!bVar1)
                                 goto LAB_1006e6580;
-                            pcVar4 = pcVar4 + 1;
-                            pcVar8 = pcVar4;
-                        } while (pcVar4 != pcVar5);
+                            str1 = str1 + 1;
+                            pcVar6 = str1;
+                        } while (str1 != pcVar4);
                     }
                 } else {
-                    pcVar8 = pcVar4 + 1;
-                    pcVar4 = pcVar7;
+                    pcVar6 = str1 + 1;
+                    str1 = str1_00;
                 }
-                pcVar7 = pcVar4;
-            } while (pcVar8 != pcVar5);
+                str1_00 = str1;
+            } while (pcVar6 != pcVar4);
         }
-        if (pcVar4 != pcVar8) {
-            pbVar6 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 16ul, 1ul, 0ul, true, eastl::allocator>>*)
-                eastl::fixed_vector<eastl::fixed_string<char, 16, true, eastl::allocator>, 4ul, true,
-                                    eastl::allocator>::push_back();
-            eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 16ul, 1ul, 0ul, true, eastl::allocator>>::assign(pbVar6,
-                                                                                                          pcVar4,
-                                                                                                          pcVar8);
+        if (str1 != pcVar6) {
+            pRVar5 = (ReturnValue*)eastl::fixed_vector<eastl::fixed_string<char, 16>, 4ul>::push_back();
+            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 16ul, 1ul, 0ul, true>>::assign(pRVar5, str1,
+                                                                                                        pcVar6);
         }
-        iVar2 = param_1->size();
-        return iVar2;
+        return strs.size();
     }
 
-    // 0x1006e67d0, 16 bytes, inline, placed by debug map only (low confidence)
-    // bool FromText<int>(char const*, int&)
-    bool FromText<int>(char* param_1, int* param_2) {
-        return (bool)FromText(param_1, param_2, 10);
+    // 0x1006e67d0
+    bool FromText<int>(const char* str, int& arg2) {
+        return (bool)FromText(str, arg2, 10);
     }
 
 } // namespace jag

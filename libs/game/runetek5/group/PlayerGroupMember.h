@@ -1,6 +1,5 @@
 // libs/game/runetek5/group/PlayerGroupMember.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,97 +7,80 @@ namespace jag::game {
     class PlayerGroupMember {
     public:
         VarContainerSparse GetKnownVariablesAtJoin() const;
-        void SetStatus(PlayerGroupMemberStatus);
-        uint GetStatus() const;
-        uchar GetRank() const;
-        void SetRank(unsigned char);
-        void SetOnline(bool);
-        void SetLastSeenNodeID(short);
-        void SetTeam(unsigned char);
-        void UpdateBase(PlayerGroupMember const&);
-        PlayerGroupMember(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&, bool, PlayerGroupResourceProvider&);
-        PlayerGroupMember* operator=(PlayerGroupMember&&);
+        void SetStatus(PlayerGroupMemberStatus arg1);
+        unsigned int GetStatus() const;
+        unsigned char GetRank() const;
+        void SetRank(unsigned char arg1);
+        void SetOnline(bool arg1);
+        void SetLastSeenNodeID(short arg1);
+        void SetTeam(unsigned char arg1);
+        void UpdateBase(const PlayerGroupMember& playerGroupMember);
+        PlayerGroupMember(PacketT<Array<unsigned char>>& arg1, bool arg2,
+                          PlayerGroupResourceProvider& playerGroupResourceProvider);
+        PlayerGroupMember* operator=(PlayerGroupMember&& playerGroupMember);
         ~PlayerGroupMember();
         PlayerGroupMember();
-        PlayerGroupMember(PlayerGroupMember&&);
-        PlayerGroupMember(PlayerGroupMember const&);
+        PlayerGroupMember(PlayerGroupMember&& playerGroupMember);
+        PlayerGroupMember(const PlayerGroupMember& playerGroupMember);
 
-        // data members, from how the methods use this: 152 bytes
-        char _unknown_0[8];
-        ulong field_8; // offset 8
-        long field_16; // offset 16
-        char _unknown_24[32];
-        byte field_56;          // offset 56
-        undefined1 field_57;    // offset 57
-        short m_lastSeenNodeID; // offset 58
-        bool m_online;          // offset 60
-        uchar m_rank;           // offset 61
-        undefined2 field_62;    // offset 62
-        uint m_status;          // offset 64
-        uchar m_team;           // offset 68
-        char _unknown_69[3];
-        VarContainerSparse field_72; // offset 72
-        char _unknown_88[48];
-        VarContainerSparse m_pKnownVariablesAtJoin; // offset 136
+    private:
+        uint8_t _unknown_0[8];
+        unsigned long field_8;
+        long field_16;
+        uint8_t _unknown_24[32];
+        uint8_t field_56;
+        uint8_t field_57;
+        short m_lastSeenNodeID;
+        bool m_online;
+        unsigned char m_rank;
+        uint16_t field_62;
+        unsigned int m_status;
+        unsigned char m_team;
+        uint8_t _unknown_69[3];
+        VarContainerSparse field_72;
+        uint8_t _unknown_88[48];
+        VarContainerSparse m_pKnownVariablesAtJoin;
     };
 
-    // 0x1004b9c60, 16 bytes, inline, placed by class name and debug map
-    // PlayerGroupMember::GetRank() const
-    uchar PlayerGroupMember::GetRank() {
+    // 0x1004b9c60
+    unsigned char PlayerGroupMember::GetRank() const {
         return m_rank;
     }
 
-    // 0x1004ba040, 16 bytes, inline, placed by class name and debug map
-    // PlayerGroupMember::SetRank(unsigned char)
-    void PlayerGroupMember::SetRank(uchar param_1) {
-        m_rank = param_1;
+    // 0x1004ba040
+    void PlayerGroupMember::SetRank(unsigned char arg1) {
+        m_rank = arg1;
     }
 
-    // 0x1004ba0a0, 16 bytes, inline, placed by class name and debug map
-    // PlayerGroupMember::SetOnline(bool)
-    void PlayerGroupMember::SetOnline(bool param_1) {
-        m_online = param_1;
+    // 0x1004ba0a0
+    void PlayerGroupMember::SetOnline(bool arg1) {
+        m_online = arg1;
     }
 
-    // 0x1004ba0b0, 16 bytes, inline, placed by class name and debug map
-    // PlayerGroupMember::SetLastSeenNodeID(short)
-    void PlayerGroupMember::SetLastSeenNodeID(short param_1) {
-        m_lastSeenNodeID = param_1;
+    // 0x1004ba0b0
+    void PlayerGroupMember::SetLastSeenNodeID(short arg1) {
+        m_lastSeenNodeID = arg1;
     }
 
-    // 0x1004ba140, 16 bytes, inline, placed by class name and debug map
-    // PlayerGroupMember::SetTeam(unsigned char)
-    void PlayerGroupMember::SetTeam(uchar param_1) {
-        m_team = param_1;
+    // 0x1004ba140
+    void PlayerGroupMember::SetTeam(unsigned char arg1) {
+        m_team = arg1;
     }
 
-    // 0x1004baa80, 96 bytes, inline, placed by class name
-    // PlayerGroupMember::operator=(PlayerGroupMember&&)
-    /* PlayerGroupMember::TEMPNAMEPLACEHOLDERVALUE(PlayerGroupMember&&) */
-
-    PlayerGroupMember* PlayerGroupMember::operator=(PlayerGroupMember* param_1) {
-        undefined1 uVar1;
-        short sVar2;
-        bool bVar3;
-        uchar uVar4;
-        undefined2 uVar5;
-        uchar uVar6;
-        undefined2 uVar7;
-        uint uVar8;
-        uchar uVar9;
-
-        Array<PlayerStat, eastl::allocator>::operator=((Array<PlayerStat, eastl::allocator>*)this, (Array*)param_1);
-        eastl::string::operator=((eastl::string*)&field_24, (basic_string*)&param_1->field_24);
-        uVar1 = param_1->field_57;
-        sVar2 = param_1->m_lastSeenNodeID;
-        bVar3 = param_1->m_online;
-        uVar4 = param_1->m_rank;
-        uVar5 = param_1->field_62;
-        uVar6 = param_1->m_rank;
-        uVar7 = param_1->field_62;
-        uVar8 = param_1->m_status;
-        uVar9 = param_1->m_team;
-        field_56 = param_1->field_56;
+    // 0x1004baa80
+    PlayerGroupMember* PlayerGroupMember::operator=(PlayerGroupMember&& playerGroupMember) {
+        *this = playerGroupMember;
+        field_24 = &playerGroupMember.field_24;
+        uint8_t uVar1 = playerGroupMember.field_57;
+        short sVar2 = playerGroupMember.m_lastSeenNodeID;
+        bool bVar3 = playerGroupMember.m_online;
+        unsigned char uVar4 = playerGroupMember.m_rank;
+        uint16_t uVar5 = playerGroupMember.field_62;
+        unsigned char uVar6 = playerGroupMember.m_rank;
+        uint16_t uVar7 = playerGroupMember.field_62;
+        unsigned int uVar8 = playerGroupMember.m_status;
+        unsigned char uVar9 = playerGroupMember.m_team;
+        field_56 = playerGroupMember.field_56;
         field_57 = uVar1;
         m_lastSeenNodeID = sVar2;
         m_online = bVar3;
@@ -108,64 +90,34 @@ namespace jag::game {
         field_62 = uVar7;
         m_status = uVar8;
         m_team = uVar9;
-        VarContainerSparse::operator=((VarContainerSparse*)field_72, (VarContainerSparse*)param_1->field_72);
-        VarContainerSparse::operator=((VarContainerSparse*)m_pKnownVariablesAtJoin,
-                                      (VarContainerSparse*)param_1->m_pKnownVariablesAtJoin);
+        *field_72 = playerGroupMember.field_72;
+        *m_pKnownVariablesAtJoin = playerGroupMember.m_pKnownVariablesAtJoin;
         return this;
     }
 
-    // 0x1004baae0, 16 bytes, complete-object destructor, inline, placed by class name
-    // PlayerGroupMember::~PlayerGroupMember(): jumps straight to the base-object destructor
+    // 0x1004bcf90
+    PlayerGroupMember::PlayerGroupMember() : Array<PlayerStat>() {}
 
-    // 0x1004bcf80, 16 bytes, complete-object constructor, inline, placed by class name
-    // PlayerGroupMember::PlayerGroupMember(): jumps straight to the base-object constructor
-
-    // 0x1004bcf90, 112 bytes, base-object constructor, inline, placed by class name
-    // PlayerGroupMember::PlayerGroupMember()
-    void PlayerGroupMember::PlayerGroupMember() {
-        new (this) Array<PlayerStat, eastl::allocator>();
-        new (&field_24) eastl::string();
-        new (field_72) VarContainerSparse();
-        new (m_pKnownVariablesAtJoin) VarContainerSparse();
-    }
-
-    // 0x1004bd2c0, 64 bytes, base-object destructor, inline, placed by class name
-    // PlayerGroupMember::~PlayerGroupMember()
-    void PlayerGroupMember::~PlayerGroupMember() {
+    // 0x1004bd2c0
+    PlayerGroupMember::~PlayerGroupMember() {
         m_pKnownVariablesAtJoin->~VarContainerSparse();
         field_72->~VarContainerSparse();
-        (&field_24)->~basic_string();
-        ~Array();
+        field_24.~basic_string();
     }
 
-    // 0x1004be460, 16 bytes, complete-object constructor, inline, placed by class name
-    // PlayerGroupMember::PlayerGroupMember(PlayerGroupMember&&): jumps straight to the base-object constructor
-
-    // 0x1004be480, 144 bytes, base-object constructor, inline, placed by class name
-    // PlayerGroupMember::PlayerGroupMember(PlayerGroupMember&&)
-    void PlayerGroupMember::PlayerGroupMember(PlayerGroupMember* param_1) {
-        undefined2 uVar1;
-        uint uVar2;
-        uchar uVar3;
-        byte bVar4;
-        undefined1 uVar5;
-        short sVar6;
-        bool bVar7;
-        uchar uVar8;
-        undefined2 uVar9;
-
-        new (this) Array<PlayerStat, eastl::allocator>(param_1);
-        new (&field_24, (basic_string*)&param_1->field_24) eastl::string();
-        bVar4 = param_1->field_56;
-        uVar5 = param_1->field_57;
-        sVar6 = param_1->m_lastSeenNodeID;
-        bVar7 = param_1->m_online;
-        uVar8 = param_1->m_rank;
-        uVar9 = param_1->field_62;
-        uVar1 = param_1->field_62;
-        uVar2 = param_1->m_status;
-        uVar3 = param_1->m_team;
-        m_rank = param_1->m_rank;
+    // 0x1004be480
+    PlayerGroupMember::PlayerGroupMember(PlayerGroupMember&& playerGroupMember)
+        : Array<PlayerStat>(playerGroupMember), field_24(playerGroupMember.field_24) {
+        uint8_t bVar4 = playerGroupMember.field_56;
+        uint8_t uVar5 = playerGroupMember.field_57;
+        short sVar6 = playerGroupMember.m_lastSeenNodeID;
+        bool bVar7 = playerGroupMember.m_online;
+        unsigned char uVar8 = playerGroupMember.m_rank;
+        uint16_t uVar9 = playerGroupMember.field_62;
+        uint16_t uVar1 = playerGroupMember.field_62;
+        unsigned int uVar2 = playerGroupMember.m_status;
+        unsigned char uVar3 = playerGroupMember.m_team;
+        m_rank = playerGroupMember.m_rank;
         field_62 = uVar1;
         m_status = uVar2;
         m_team = uVar3;
@@ -175,38 +127,23 @@ namespace jag::game {
         m_online = bVar7;
         m_rank = uVar8;
         field_62 = uVar9;
-        new (field_72, (VarContainerSparse*)param_1->field_72) VarContainerSparse();
-        new (m_pKnownVariablesAtJoin, (VarContainerSparse*)param_1->m_pKnownVariablesAtJoin) VarContainerSparse();
+        new (field_72) VarContainerSparse(playerGroupMember.field_72);
+        new (m_pKnownVariablesAtJoin) VarContainerSparse(playerGroupMember.m_pKnownVariablesAtJoin);
     }
 
-    // 0x1004beb60, 16 bytes, complete-object constructor, inline, placed by class name
-    // PlayerGroupMember::PlayerGroupMember(PlayerGroupMember const&): jumps straight to the base-object constructor
-
-    // 0x1004bec50, 160 bytes, base-object constructor, inline, placed by class name
-    // PlayerGroupMember::PlayerGroupMember(PlayerGroupMember const&)
-    void PlayerGroupMember::PlayerGroupMember(PlayerGroupMember* param_1) {
-        undefined2 uVar1;
-        uint uVar2;
-        uchar uVar3;
-        byte bVar4;
-        undefined1 uVar5;
-        short sVar6;
-        bool bVar7;
-        uchar uVar8;
-        undefined2 uVar9;
-
-        new (this) Array<PlayerStat, eastl::allocator>(param_1);
-        new (&field_24, (basic_string*)&param_1->field_24) eastl::string();
-        bVar4 = param_1->field_56;
-        uVar5 = param_1->field_57;
-        sVar6 = param_1->m_lastSeenNodeID;
-        bVar7 = param_1->m_online;
-        uVar8 = param_1->m_rank;
-        uVar9 = param_1->field_62;
-        uVar1 = param_1->field_62;
-        uVar2 = param_1->m_status;
-        uVar3 = param_1->m_team;
-        m_rank = param_1->m_rank;
+    // 0x1004bec50
+    PlayerGroupMember::PlayerGroupMember(const PlayerGroupMember& playerGroupMember)
+        : Array<PlayerStat>(playerGroupMember), field_24(playerGroupMember.field_24) {
+        uint8_t bVar4 = playerGroupMember.field_56;
+        uint8_t uVar5 = playerGroupMember.field_57;
+        short sVar6 = playerGroupMember.m_lastSeenNodeID;
+        bool bVar7 = playerGroupMember.m_online;
+        unsigned char uVar8 = playerGroupMember.m_rank;
+        uint16_t uVar9 = playerGroupMember.field_62;
+        uint16_t uVar1 = playerGroupMember.field_62;
+        unsigned int uVar2 = playerGroupMember.m_status;
+        unsigned char uVar3 = playerGroupMember.m_team;
+        m_rank = playerGroupMember.m_rank;
         field_62 = uVar1;
         m_status = uVar2;
         m_team = uVar3;
@@ -216,8 +153,8 @@ namespace jag::game {
         m_online = bVar7;
         m_rank = uVar8;
         field_62 = uVar9;
-        new (field_72, (VarContainerSparse*)param_1->field_72) VarContainerSparse();
-        new (m_pKnownVariablesAtJoin, (VarContainerSparse*)param_1->m_pKnownVariablesAtJoin) VarContainerSparse();
+        new (field_72) VarContainerSparse(playerGroupMember.field_72);
+        new (m_pKnownVariablesAtJoin) VarContainerSparse(playerGroupMember.m_pKnownVariablesAtJoin);
     }
 
 } // namespace jag::game

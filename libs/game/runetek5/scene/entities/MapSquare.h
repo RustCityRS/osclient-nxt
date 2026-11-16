@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/entities/MapSquare.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,21 +10,28 @@ namespace jag::game {
         class MapSquarePos;
         // virtual methods in vtable order
         virtual ~MapSquare();
-        virtual IsVisibleEntity() const;
+        virtual bool IsVisibleEntity() const;
         virtual void Destruct();
-        uint GetMapSquareX() const;
-        GetTerrain() const;
-        GetLocations() const;
-        GetLocations();
-        MapSquare(graphics::GraphNode*, shared_ptr<World> const&, int, int, shared_ptr<ClientCompositeData> const&);
+        unsigned int GetMapSquareX() const;
+        uint8_t* GetTerrain() const;
+        vector<int, eastl::fixed_vector_allocator<4ul, _8ul, _4ul, _0ul, true> _>* GetLocations() const;
+        vector<int, eastl::fixed_vector_allocator<4ul, _8ul, _4ul, _0ul, true> _>* GetLocations();
+        MapSquare(graphics::GraphNode* graphNode, const shared_ptr<World>& world, int arg3, int arg4,
+                  const shared_ptr<ClientCompositeData>& clientCompositeData);
         void SetDefaultIrradianceSHConsts();
-        uint Build(graphics::RT7Core*, Js5ResourceProvider*, ConfigProvider*, PlayerVarDomain*, AssetBuilder*,
-                   math::Vector3T<float> const&, int, int, unsigned int, bool, bool);
-        ulong LoadEnvironment(Js5ResourceProvider*);
-        LoadWaterPatches(Js5ResourceProvider*, ConfigProvider*);
-        LoadTerrain(ConfigProvider*, LODLevel const&, graphics::RT7Core*, AssetBuilder*, int);
-        LoadLocations(graphics::RT7Core*, Js5ResourceProvider*, ConfigProvider*, PlayerVarDomain*, AssetBuilder*,
-                      math::Vector3T<float> const&, int, unsigned int, bool, bool, LODLevel const&, LODSettings const&);
+        unsigned int Build(graphics::RT7Core* rt7Core, Js5ResourceProvider* js5ResourceProvider,
+                           ConfigProvider* configProvider, PlayerVarDomain* playerVarDomain, AssetBuilder* assetBuilder,
+                           const math::Vector3T<float>& vector3, int arg7, int arg8, unsigned int arg9, bool arg10,
+                           bool arg11);
+        unsigned long LoadEnvironment(Js5ResourceProvider* js5ResourceProvider);
+        uint64_t LoadWaterPatches(Js5ResourceProvider* js5ResourceProvider, ConfigProvider* configProvider);
+        uint32_t LoadTerrain(ConfigProvider* configProvider, const LODLevel& lodLevel, graphics::RT7Core* rt7Core,
+                             AssetBuilder* assetBuilder, int arg5);
+        uint8_t LoadLocations(graphics::RT7Core* rt7Core, Js5ResourceProvider* js5ResourceProvider,
+                              ConfigProvider* configProvider, PlayerVarDomain* playerVarDomain,
+                              AssetBuilder* assetBuilder, const math::Vector3T<float>& vector3, int arg7,
+                              unsigned int arg8, bool arg9, bool arg10, const LODLevel& lodLevel,
+                              const LODSettings& lodSettings);
         void DestroyEnvironmentLoader();
         void DestroyTerrain();
         void DestroyLocations();
@@ -35,285 +41,268 @@ namespace jag::game {
         void DestroyOldTerrain();
         void PrepareForNewTerrain();
         void RebuildTerrain();
-        void SetTerrainBlending(bool);
-        void RebuildArea(int, int, int, int);
+        void SetTerrainBlending(bool arg1);
+        void RebuildArea(int arg1, int arg2, int arg3, int arg4);
         void PrepareForNewPointLights();
-        GetTileHeight(int&, int, int, int, bool, HeightOffsetType) const;
-        GetFineHeight(int&, int, int, int, bool, HeightOffsetType) const;
-        GetFineWaterDepth(int, int, int) const;
-        GetTileLink(int, int, int) const;
-        GetRemoveRoofID(int, int, int) const;
-        GetUnderworldData(int, int) const;
-        GetHeightMap(int) const;
-        GetWaterHeights() const;
-        void AddLocationHeightOffset(int, int, int, int, int, int, int);
-        void RemoveLocationHeightOffset(int, int, int, int, int, int, int);
-        GetLocationContainer(int, int) const;
-        bool ZoneMapSame(shared_ptr<ClientCompositeData> const&) const;
-        ulong ZoneLevelsEqual(shared_ptr<ClientCompositeData> const&, shared_ptr<ClientCompositeData> const&, int, int,
-                              int);
-        void RebuildRegion(shared_ptr<ClientCompositeData> const&, bool);
-        void HideLocations(LocShape);
-        GetLocationContainers() const;
-        void UnhideLocations(LocShape);
-        void PrioritiseLocations(int, math::Vector3T<float> const&, int, bool, LODSettings const&);
-        void BuildLocations(bool&, graphics::RT7Core*, Js5ResourceProvider*, ConfigProvider*, AssetBuilder*,
-                            unsigned int, bool, bool);
-        void SetIrradianceSHConsts(graphics::IrradianceSHCoefConsts const&, unsigned long long);
+        uint8_t* GetTileHeight(int& arg1, int arg2, int arg3, int arg4, bool arg5,
+                               HeightOffsetType heightOffsetType) const;
+        uint8_t* GetFineHeight(int& arg1, int arg2, int arg3, int arg4, bool arg5,
+                               HeightOffsetType heightOffsetType) const;
+        uint32_t GetFineWaterDepth(int arg1, int arg2, int arg3) const;
+        uint32_t GetTileLink(int arg1, int arg2, int arg3) const;
+        uint32_t GetRemoveRoofID(int arg1, int arg2, int arg3) const;
+        uint8_t GetUnderworldData(int arg1, int arg2) const;
+        shared_ptr* GetHeightMap(int arg1) const;
+        shared_ptr* GetWaterHeights() const;
+        void AddLocationHeightOffset(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7);
+        void RemoveLocationHeightOffset(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7);
+        uint64_t* GetLocationContainer(int arg1, int arg2) const;
+        bool ZoneMapSame(const shared_ptr<ClientCompositeData>& clientCompositeData) const;
+        unsigned long ZoneLevelsEqual(const shared_ptr<ClientCompositeData>& clientCompositeData1,
+                                      const shared_ptr<ClientCompositeData>& clientCompositeData2, int arg3, int arg4,
+                                      int arg5);
+        void RebuildRegion(const shared_ptr<ClientCompositeData>& clientCompositeData, bool arg2);
+        void HideLocations(LocShape locShape);
+        uint8_t* GetLocationContainers() const;
+        void UnhideLocations(LocShape locShape);
+        void PrioritiseLocations(int arg1, const math::Vector3T<float>& vector3, int arg3, bool arg4,
+                                 const LODSettings& lodSettings);
+        void BuildLocations(bool& arg1, graphics::RT7Core* rt7Core, Js5ResourceProvider* js5ResourceProvider,
+                            ConfigProvider* configProvider, AssetBuilder* assetBuilder, unsigned int arg6, bool arg7,
+                            bool arg8);
+        void SetIrradianceSHConsts(const graphics::IrradianceSHCoefConsts& irradianceSHCoefConsts,
+                                   unsigned long long arg2);
         void SkipIrradianceSHConstTransition();
-        void SetMultiLocState(int, int);
-        void IncrementMultiLocState(int);
+        void SetMultiLocState(int arg1, int arg2);
+        void IncrementMultiLocState(int arg1);
         void IncrementAllMultiLocStates();
         shared_ptr GetClientCompositeData() const;
-        uint GetMapSquareZ() const;
-        MapSquare* GetIrradianceSHConsts() const;
+        int GetMapSquareZ() const;
+        auto GetIrradianceSHConsts() const;
         WorldmapRenderer GetMapSquarePointLights();
-        IsTerrainBuilt();
-        void GetEnvironmentLoader();
+        bool IsTerrainBuilt();
+        EnvironmentLoader* GetEnvironmentLoader();
         void GetLightSourcesLocal() const;
-        HasBuiltPriorityZones() const;
-        char IsPrioritySquare() const;
-        IsPartialMapBuild();
-        void SetIsPartialMapBuild(bool);
+        bool HasBuiltPriorityZones() const;
+        bool IsPrioritySquare() const;
+        bool IsPartialMapBuild();
+        void SetIsPartialMapBuild(bool arg1);
         void RecheckLocationContainers();
-        IsInitialLightProbeSubmitted() const;
-        GetMapSquarePosition() const;
+        bool IsInitialLightProbeSubmitted() const;
+        uint16_t GetMapSquarePosition() const;
         void InitialLightProbeSubmitted();
-        GetStaticPointLightsLoaded() const;
+        uint8_t GetStaticPointLightsLoaded() const;
         void GetLightSourcesRemote() const;
         void GetLightSourcesDynamic() const;
-        GetWaterPatches() const;
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullMapSquare;
-        static eastl::vector<shared_ptr<LightSource>, eastl::allocator> /* 32 bytes */
-            NullLightList; // = vector<shared_ptr<LightSource>,eastl::allocator>()
-        static eastl::vector<shared_ptr<graphics::WaterPatch>, eastl::allocator> /* 32 bytes */
-            NullWaterPatchList; // = vector<shared_ptr<graphics::WaterPatch>,eastl::allocator>()
+        uint8_t* GetWaterPatches() const;
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullMapSquare; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
+        static eastl::vector<shared_ptr<LightSource>> NullLightList; // = vector<shared_ptr<LightSource>>()
+        static eastl::vector<shared_ptr<graphics::WaterPatch>>
+            NullWaterPatchList; // = vector<shared_ptr<graphics::WaterPatch>>()
 
-        // data members, from how the methods use this: 23160 bytes, the first 192 are Entity
-        uint m_mapSquareX;                  // offset 192
-        uint m_mapSquareZ;                  // offset 196
-        shared_ptr m_clientCompositeData;   // offset 200
-        char m_prioritySquare;              // offset 216
-        undefined1 m_hasBuiltPriorityZones; // offset 217
-        char _unknown_218[2];
-        int field_220;        // offset 220
-        int field_224;        // offset 224
-        int field_228;        // offset 228
-        int field_232;        // offset 232
-        undefined1 field_236; // offset 236
-        char _unknown_237[11];
-        bool m_terrainBlending; // offset 248
-        char _unknown_249[7];
-        WorldmapRenderer m_mapSquarePointLights; // offset 256
-        char _unknown_552[192];
-        undefined1 field_744; // offset 744
-        char _unknown_745[359];
-        bool m_partialMapBuild; // offset 1104
-        char _unknown_1105[3];
-        undefined4 field_1108;                   // offset 1108
-        undefined1 m_initialLightProbeSubmitted; // offset 1112
-        char _unknown_1113[7];
-        WorldmapAreaMetadata field_1120; // offset 1120
-        char _unknown_1524[21636];
+    private:
+        unsigned int m_mapSquareX;
+        int m_mapSquareZ;
+        shared_ptr m_clientCompositeData;
+        char m_prioritySquare;
+        uint8_t m_hasBuiltPriorityZones;
+        uint8_t _unknown_218[2];
+        int field_220;
+        int field_224;
+        int field_228;
+        int field_232;
+        uint8_t field_236;
+        uint8_t _unknown_237[11];
+        bool m_terrainBlending;
+        uint8_t _unknown_249[7];
+        WorldmapRenderer m_mapSquarePointLights;
+        uint8_t _unknown_552[192];
+        uint8_t field_744;
+        uint8_t _unknown_745[359];
+        bool m_partialMapBuild;
+        uint8_t _unknown_1105[3];
+        uint32_t field_1108;
+        uint8_t m_initialLightProbeSubmitted;
+        uint8_t _unknown_1113[7];
+        WorldmapAreaMetadata field_1120;
+        uint8_t _unknown_1524[21636];
     };
 
     class MapSquare::MapSquarePos {
     public:
-        MapSquarePos(unsigned int, unsigned int);
-        bool operator==(MapSquarePos const&) const;
-        void operator<(MapSquarePos const&) const;
+        MapSquarePos(unsigned int arg1, unsigned int arg2);
+        bool operator==(const MapSquarePos& mapSquarePos) const;
+        void operator<(const MapSquarePos& mapSquarePos) const;
 
-        // data members, from how the methods use this: 9 bytes
-        char field_0;  // offset 0
-        uchar field_1; // offset 1
-        char _unknown_2[7];
+    private:
+        char field_0;
+        unsigned char field_1;
+        uint8_t _unknown_2[7];
     };
 
     class MapSquareEnvInfo {
     public:
         ~MapSquareEnvInfo();
-        MapSquareEnvInfo(MapSquare::MapSquarePos, shared_ptr<MapEnvironmentSettings> const&);
-        ulong hash() const;
-        MapSquareEnvInfo(MapSquareEnvInfo const&);
-        MapSquareEnvInfo(MapSquareEnvInfo&&);
-        operator==(MapSquareEnvInfo const&) const;
+        MapSquareEnvInfo(MapSquare::MapSquarePos mapSquarePos,
+                         const shared_ptr<MapEnvironmentSettings>& mapEnvironmentSettings);
+        unsigned long hash() const;
+        MapSquareEnvInfo(const MapSquareEnvInfo& mapSquareEnvInfo);
+        MapSquareEnvInfo(MapSquareEnvInfo&& mapSquareEnvInfo);
+        uint64_t operator==(const MapSquareEnvInfo& mapSquareEnvInfo) const;
 
-        // data members, from how the methods use this: 24 bytes
-        uchar field_0; // offset 0
-        uchar field_1; // offset 1
-        char _unknown_2[6];
-        shared_ptr field_8; // offset 8
+    private:
+        unsigned char field_0;
+        unsigned char field_1;
+        uint8_t _unknown_2[6];
+        shared_ptr field_8;
     };
 
     class MapSquareEnvIrradianceInfo {
     public:
         ~MapSquareEnvIrradianceInfo();
-        MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo const&);
-        MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo&&);
-        MapSquareEnvIrradianceInfo(MapSquareEnvInfo const&, unsigned long, graphics::IrradianceSHCoefConsts const&);
+        MapSquareEnvIrradianceInfo(const MapSquareEnvIrradianceInfo& mapSquareEnvIrradianceInfo);
+        MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo&& mapSquareEnvIrradianceInfo);
+        MapSquareEnvIrradianceInfo(const MapSquareEnvInfo& mapSquareEnvInfo, unsigned long arg2,
+                                   const graphics::IrradianceSHCoefConsts& irradianceSHCoefConsts);
 
-        // data members, from how the methods use this: 160 bytes
-        undefined1 field_0; // offset 0
-        char _unknown_1[31];
-        ulong field_32;       // offset 32
-        undefined8 field_40;  // offset 40
-        undefined8 field_48;  // offset 48
-        undefined8 field_56;  // offset 56
-        undefined8 field_64;  // offset 64
-        undefined8 field_72;  // offset 72
-        undefined8 field_80;  // offset 80
-        undefined8 field_88;  // offset 88
-        undefined8 field_96;  // offset 96
-        undefined8 field_104; // offset 104
-        undefined8 field_112; // offset 112
-        undefined8 field_120; // offset 120
-        undefined8 field_128; // offset 128
-        undefined8 field_136; // offset 136
-        undefined8 field_144; // offset 144
-        undefined8 field_152; // offset 152
+    private:
+        uint8_t field_0;
+        uint8_t _unknown_1[31];
+        unsigned long field_32;
+        uint64_t field_40;
+        uint64_t field_48;
+        uint64_t field_56;
+        uint64_t field_64;
+        uint64_t field_72;
+        uint64_t field_80;
+        uint64_t field_88;
+        uint64_t field_96;
+        uint64_t field_104;
+        uint64_t field_112;
+        uint64_t field_120;
+        uint64_t field_128;
+        uint64_t field_136;
+        uint64_t field_144;
+        uint64_t field_152;
     };
 
     class MapSquareLocation {
     public:
         ~MapSquareLocation();
-        MapSquareLocation(signed char, signed char, signed char, int, LocData const&, bool, bool, signed char,
-                          shared_ptr<LocType> const&, unsigned short, bool);
-        MapSquareLocation(signed char, signed char, signed char, int, LocData const&, bool, bool, bool);
+        MapSquareLocation(signed char arg1, signed char arg2, signed char arg3, int arg4, const LocData& locData,
+                          bool arg6, bool arg7, signed char arg8, const shared_ptr<LocType>& locType,
+                          unsigned short arg10, bool arg11);
+        MapSquareLocation(signed char arg1, signed char arg2, signed char arg3, int arg4, const LocData& locData,
+                          bool arg6, bool arg7, bool arg8);
 
-        // data members, from how the methods use this: 80 bytes
-        undefined4 field_0; // offset 0
-        undefined1 field_4; // offset 4
-        undefined1 field_5; // offset 5
-        undefined1 field_6; // offset 6
-        char _unknown_7[1];
-        LocData field_8; // offset 8
-        char _unknown_40[20];
-        undefined1 field_60; // offset 60
-        undefined1 field_61; // offset 61
-        undefined1 field_62; // offset 62
-        char _unknown_63[1];
-        undefined2 field_64; // offset 64
-        undefined1 field_66; // offset 66
-        undefined1 field_67; // offset 67
-        char _unknown_68[12];
+    private:
+        int field_0;
+        schar field_4;
+        schar field_5;
+        schar field_6;
+        uint8_t _unknown_7[1];
+        LocData field_8;
+        uint8_t _unknown_40[20];
+        bool field_60;
+        bool field_61;
+        schar field_62;
+        uint8_t _unknown_63[1];
+        unsigned short field_64;
+        bool field_66;
+        uint8_t field_67;
+        uint8_t _unknown_68[12];
     };
 
     class MapSquareStatus {
     public:
         ~MapSquareStatus();
-        MapSquareStatus(MapSquareStatus&&);
+        MapSquareStatus(MapSquareStatus&& mapSquareStatus);
         MapSquareStatus();
 
-        // data members, from how the methods use this: 24 bytes
-        char _unknown_0[16];
-        undefined* field_16; // offset 16
+    private:
+        uint8_t _unknown_0[16];
+        uint8_t* field_16;
     };
 
-    // 0x1003c2110, 16 bytes, inline, placed by class name and debug map
-    // MapSquare::GetLocations() const
-    /* MapSquare::GetLocations() */
-
-    undefined1* MapSquare::GetLocations() {
-        return &field_712;
+    // 0x1003c2110
+    vector<int, eastl::fixed_vector_allocator<4ul, _8ul, _4ul, _0ul, true> _>* MapSquare::GetLocations() const {
+        return (vector<int, eastl::fixed_vector_allocator<4ul, _8ul, _4ul, _0ul, true> _>*)&field_712;
     }
 
-    // 0x1004140b0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MapSquare::GetLocationContainers() const
-    /* graphics::Model::GetParticleEffectors() const */
-
-    undefined1* graphics::Model::GetParticleEffectors() {
+    // 0x1004140b0
+    uint8_t* MapSquare::GetLocationContainers() const {
         return &field_752;
     }
 
-    // 0x100414eb0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MapSquare::GetClientCompositeData() const
-    /* http::HTTPRequest::GetContentType() const */
-
-    undefined1* http::HTTPRequest::GetContentType() {
+    // 0x100414eb0
+    shared_ptr MapSquare::GetClientCompositeData() const {
         return &field_200;
     }
 
-    // 0x10042ee90, 48 bytes, inline, placed by class name
-    // MapSquare::GetIrradianceSHConsts() const
-    MapSquare* MapSquare::GetIrradianceSHConsts() {
-        long in_RSI;
-
-        FrameTime::GetCurrentTimeMS();
-        GetValue(in_RSI + 848);
-        return this;
+    // 0x10042ee90
+    auto MapSquare::GetIrradianceSHConsts() const {
+        unsigned long long arg1 = FrameTime::GetCurrentTimeMS();
+        auto result = field_848.GetValue(arg1);
+        return result;
     }
 
-    // 0x10043dc90, 64 bytes, inline, placed by class name
-    // MapSquare::IsTerrainBuilt()
-    undefined8 MapSquare::IsTerrainBuilt() {
-        Entity* this_00;
-        undefined8 uVar2;
+    // 0x10043dc90
+    bool MapSquare::IsTerrainBuilt() {
+        uint64_t uVar2;
 
-        if ((&field_240)->operator_cast_to_bool()) {
-            this_00 = (Entity*)std::unique_ptr<Terrain, MakeUniquePool<Terrain, 32>::UniquePoolDeleter>::operator->(
-                (unique_ptr<Terrain, MakeUniquePool<Terrain, 32>::UniquePoolDeleter>*)&field_240);
-            uVar2 = this_00->IsAtTargetLOD();
-        } else {
+        if ((&field_240)->operator_cast_to_bool() == '\0') {
             uVar2 = 0;
+        } else {
+            uVar2 = ((Entity*)field_240.operator->())->IsAtTargetLOD();
         }
         return uVar2;
     }
 
-    // 0x100441600, 32 bytes, inline, placed by class name
-    // MapSquare::GetEnvironmentLoader()
-    void MapSquare::GetEnvironmentLoader() {
-        (&field_704)->get();
+    // 0x100441600
+    EnvironmentLoader* MapSquare::GetEnvironmentLoader() {
+        return (EnvironmentLoader*)field_704.get();
     }
 
-    // 0x100441b90, 32 bytes, inline, placed by class name
-    // MapSquare::GetLightSourcesLocal() const
-    void MapSquare::GetLightSourcesLocal() {
+    // 0x100441b90
+    void MapSquare::GetLightSourcesLocal() const {
         m_mapSquarePointLights->GetDefaultValue();
     }
 
-    // 0x100442fb0, 16 bytes, inline, placed by class name
-    // MapSquare::HasBuiltPriorityZones() const
-    undefined1 MapSquare::HasBuiltPriorityZones() {
+    // 0x100442fb0
+    bool MapSquare::HasBuiltPriorityZones() const {
         return m_hasBuiltPriorityZones;
     }
 
-    // 0x100442fc0, 16 bytes, inline, placed by class name
-    // MapSquare::IsPrioritySquare() const
-    char MapSquare::IsPrioritySquare() {
+    // 0x100442fc0
+    bool MapSquare::IsPrioritySquare() const {
         return m_prioritySquare;
     }
 
-    // 0x100443440, 16 bytes, inline, placed by class name
-    // MapSquare::IsPartialMapBuild()
-    undefined1 MapSquare::IsPartialMapBuild() {
+    // 0x100443440
+    bool MapSquare::IsPartialMapBuild() {
         return m_partialMapBuild;
     }
 
-    // 0x100443640, 16 bytes, inline, placed by class name
-    // MapSquare::SetIsPartialMapBuild(bool)
-    void MapSquare::SetIsPartialMapBuild(bool param_1) {
-        m_partialMapBuild = param_1;
+    // 0x100443640
+    void MapSquare::SetIsPartialMapBuild(bool arg1) {
+        m_partialMapBuild = arg1;
     }
 
-    // 0x100443660, 16 bytes, inline, placed by class name
-    // MapSquare::RecheckLocationContainers()
+    // 0x100443660
     void MapSquare::RecheckLocationContainers() {
         field_236 = 1;
     }
 
-    // 0x100443670, 16 bytes, inline, placed by class name
-    // MapSquare::IsInitialLightProbeSubmitted() const
-    undefined1 MapSquare::IsInitialLightProbeSubmitted() {
+    // 0x100443670
+    bool MapSquare::IsInitialLightProbeSubmitted() const {
         return m_initialLightProbeSubmitted;
     }
 
-    // 0x100443680, 48 bytes, inline, placed by class name
-    // MapSquare::GetMapSquarePosition() const
-    undefined2 MapSquare::GetMapSquarePosition() {
-        undefined2 uVar1;
-        undefined1 local_a[2];
+    // 0x100443680
+    uint16_t MapSquare::GetMapSquarePosition() const {
+        uint16_t uVar1;
+        uint8_t local_a[2];
 
         new (local_a) MapSquarePos(m_mapSquareX, m_mapSquareZ);
         uVar1._0_1_ = local_a[0];
@@ -321,177 +310,122 @@ namespace jag::game {
         return uVar1;
     }
 
-    // 0x1004436b0, 16 bytes, inline, placed by class name
-    // MapSquare::InitialLightProbeSubmitted()
+    // 0x1004436b0
     void MapSquare::InitialLightProbeSubmitted() {
         m_initialLightProbeSubmitted = 1;
     }
 
-    // 0x10044c930, 16 bytes, complete-object constructor, inline, placed by class name
-    // MapSquare::MapSquarePos::MapSquarePos(unsigned int, unsigned int): jumps straight to the base-object constructor
-
-    // 0x10044c940, 112 bytes, base-object constructor, inline, placed by class name
-    // MapSquare::MapSquarePos::MapSquarePos(unsigned int, unsigned int)
-    void MapSquare::MapSquarePos::MapSquarePos(uint param_1, uint param_2) {
-        field_0 = (char)param_1;
-        field_1 = (uchar)param_2;
-        if (255 < param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10044c940
+    MapSquare::MapSquarePos::MapSquarePos(unsigned int arg1, unsigned int arg2) {
+        field_0 = (char)arg1;
+        field_1 = (unsigned char)arg2;
+        if (255 < arg1) {
             LogAssert("x <= std::numeric_limits<decltype(m_mapSquareX)>::max()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/MapSquare.h",
-                      92, (char*)0);
+                      92, nullptr);
         }
-        if (255 < param_2) {
-            /* WARNING: Subroutine does not return */
+        if (255 < arg2) {
             LogAssert("z <= std::numeric_limits<decltype(m_mapSquareZ)>::max()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/MapSquare.h",
-                      93, (char*)0);
+                      93, nullptr);
         }
     }
 
-    // 0x100450440, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MapSquareStatus::MapSquareStatus(MapSquareStatus&&): jumps straight to the base-object constructor
-
-    // 0x100450450, 32 bytes, base-object constructor, inline, placed by class header (inline)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MapSquareStatus::MapSquareStatus(MapSquareStatus&&)
-    /* MapArea::CompositeTextureMeta::CompositeTextureMeta(MapArea::CompositeTextureMeta&&)
-    */
-
-    void MapArea::CompositeTextureMeta::CompositeTextureMeta(CompositeTextureMeta* param_1) {
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, (shared_ptr*)param_1);
-        field_16 = param_1->field_16;
+    // 0x100450450
+    MapSquareStatus::MapSquareStatus(MapSquareStatus&& mapSquareStatus) {
+        shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(mapSquareStatus);
+        field_16 = mapSquareStatus.field_16;
     }
 
-    // 0x1004504c0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MapSquareStatus::MapSquareStatus(): jumps straight to the base-object constructor
-
-    // 0x1004504d0, 48 bytes, base-object constructor, inline, placed by class header (inline)
-    // MapSquareStatus::MapSquareStatus()
-    void MapSquareStatus::MapSquareStatus() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
+    // 0x1004504d0
+    MapSquareStatus::MapSquareStatus() : shared_ptr() {
         field_16 = DataStatus::MISSING;
     }
 
-    // 0x100468930, 32 bytes, inline, placed by class name
-    // MapSquare::GetStaticPointLightsLoaded() const
-    undefined1 MapSquare::GetStaticPointLightsLoaded() {
-        undefined1 uVar1;
-
+    // 0x100468930
+    uint8_t MapSquare::GetStaticPointLightsLoaded() const {
         if (m_partialMapBuild == false) {
-            uVar1 = m_mapSquarePointLights->IsValid();
-            return uVar1;
+            return m_mapSquarePointLights->IsValid();
         }
         return 1;
     }
 
-    // 0x100468950, 32 bytes, inline, placed by class name
-    // MapSquare::GetLightSourcesRemote() const
-    void MapSquare::GetLightSourcesRemote() {
+    // 0x100468950
+    void MapSquare::GetLightSourcesRemote() const {
         m_mapSquarePointLights->GetLogStreams();
     }
 
-    // 0x100468970, 32 bytes, inline, placed by class name
-    // MapSquare::GetLightSourcesDynamic() const
-    void MapSquare::GetLightSourcesDynamic() {
+    // 0x100468970
+    void MapSquare::GetLightSourcesDynamic() const {
         m_mapSquarePointLights->GetLightSourcesDynamic();
     }
 
-    // 0x100468c40, 80 bytes, inline, placed by class name
-    // MapSquare::GetWaterPatches() const
-    undefined1* MapSquare::GetWaterPatches() {
-        bool bVar1;
-        unique_ptr* this_00;
+    // 0x100468c40
+    uint8_t* MapSquare::GetWaterPatches() const {
         unique_ptr<Terrain, MakeUniquePool<Terrain, 32>::UniquePoolDeleter>* this_01;
         Terrain* this_02;
-        undefined1* puVar2;
+        uint8_t* puVar2;
 
-        this_00 = (unique_ptr*)GetParentLocationType();
-        bVar1 = std::unique_ptr::operator_cast_to_bool(this_00);
-        if (bVar1) {
-            this_01 = (unique_ptr<Terrain, MakeUniquePool<Terrain, 32>::UniquePoolDeleter>*)GetParentLocationType();
-            this_02 =
-                (Terrain*)std::unique_ptr<Terrain, MakeUniquePool<Terrain, 32>::UniquePoolDeleter>::operator->(this_01);
-            puVar2 = (undefined1*)this_02->GetWaterPatches();
-        } else {
+        auto this_00 = GetParentLocationType();
+        if (std::unique_ptr::operator_cast_to_bool(this_00) == '\0') {
             puVar2 = &NullWaterPatchList;
+        } else {
+            this_01 = (unique_ptr<Terrain, MakeUniquePool<Terrain, 32>::UniquePoolDeleter>*)GetParentLocationType();
+            this_02 = (Terrain*)(*this_01).operator->();
+            puVar2 = (uint8_t*)this_02->GetWaterPatches();
         }
         return puVar2;
     }
 
-    // 0x1004784c0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvInfo::MapSquareEnvInfo(MapSquare::MapSquarePos, shared_ptr<MapEnvironmentSettings> const&): jumps straight to the base-object constructor
+    // 0x1004784d0
+    unsigned long MapSquareEnvInfo::hash() const {
+        unsigned long arg2;
 
-    // 0x1004784d0, 112 bytes, inline, placed by class header (inline)
-    // MapSquareEnvInfo::hash() const
-    ulong MapSquareEnvInfo::hash() {
-        MapEnvironmentSettings* this_00;
-        ulong uVar2;
-        ulong local_20;
-
-        local_20 = 0;
-        if (field_8->operator_cast_to_bool()) {
-            this_00 = (MapEnvironmentSettings*)shared_ptr<MapEnvironmentSettings>::operator->(
-                (shared_ptr<MapEnvironmentSettings>*)field_8);
-            uVar2 = this_00->hash();
-            hash_combine(&local_20, uVar2);
+        return local_20 = 0;
+        if (field_8->operator_cast_to_bool() != '\0') {
+            arg2 = ((MapEnvironmentSettings*)(*field_8).operator->())->hash();
+            hash_combine(&local_20, arg2);
         }
         hash_combine<unsigned char>(&local_20, &field_0);
         hash_combine<unsigned char>(&local_20, &field_1);
         return local_20;
     }
 
-    // 0x10047f400, 32 bytes, base-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvInfo::MapSquareEnvInfo(MapSquare::MapSquarePos, shared_ptr<MapEnvironmentSettings> const&)
-    void MapSquareEnvInfo::MapSquareEnvInfo(MapSquarePos param_1, shared_ptr* param_2) {
-        shared_ptr* in_RDX;
+    // 0x10047f400
+    MapSquareEnvInfo::MapSquareEnvInfo(MapSquare::MapSquarePos mapSquarePos,
+                                       const shared_ptr<MapEnvironmentSettings>& mapEnvironmentSettings) {
+        shared_ptr<oldscape::dash3d::GroundDecor>* in_RDX;
 
-        field_0 = (char)param_2;
-        field_1 = (char)((ulong)param_2 >> 8);
-        new (field_8, in_RDX) shared_ptr<oldscape::dash3d::Decor>();
+        field_0 = (char)mapEnvironmentSettings;
+        field_1 = (char)((unsigned long)mapEnvironmentSettings >> 8);
+        new (field_8) shared_ptr(in_RDX);
     }
 
-    // 0x10047f570, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo const&): jumps straight to the base-object constructor
-
-    // 0x10047f580, 128 bytes, base-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo const&)
-    void MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo* param_1) {
-        undefined8 uVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-
-        field_0 = param_1->field_0;
-        new (&field_8, (MapSquareEnvInfo*)&param_1->field_8) MapSquareEnvInfo();
-        uVar1 = param_1->field_152;
-        field_144 = param_1->field_144;
+    // 0x10047f580
+    MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(const MapSquareEnvIrradianceInfo& mapSquareEnvIrradianceInfo)
+        : field_0(mapSquareEnvIrradianceInfo.field_0), field_8(mapSquareEnvIrradianceInfo.field_8) {
+        uint64_t uVar1 = mapSquareEnvIrradianceInfo.field_152;
+        field_144 = mapSquareEnvIrradianceInfo.field_144;
         field_152 = uVar1;
-        uVar1 = param_1->field_136;
-        field_128 = param_1->field_128;
+        uVar1 = mapSquareEnvIrradianceInfo.field_136;
+        field_128 = mapSquareEnvIrradianceInfo.field_128;
         field_136 = uVar1;
-        uVar1 = param_1->field_120;
-        field_112 = param_1->field_112;
+        uVar1 = mapSquareEnvIrradianceInfo.field_120;
+        field_112 = mapSquareEnvIrradianceInfo.field_112;
         field_120 = uVar1;
-        uVar1 = param_1->field_104;
-        field_96 = param_1->field_96;
+        uVar1 = mapSquareEnvIrradianceInfo.field_104;
+        field_96 = mapSquareEnvIrradianceInfo.field_96;
         field_104 = uVar1;
-        uVar2 = param_1->field_32;
-        uVar1 = param_1->field_40;
-        uVar3 = param_1->field_48;
-        uVar4 = param_1->field_56;
-        uVar5 = param_1->field_64;
-        uVar6 = param_1->field_72;
-        uVar7 = param_1->field_88;
-        field_80 = param_1->field_80;
+        unsigned long uVar2 = mapSquareEnvIrradianceInfo.field_32;
+        uVar1 = mapSquareEnvIrradianceInfo.field_40;
+        uint64_t uVar3 = mapSquareEnvIrradianceInfo.field_48;
+        uint64_t uVar4 = mapSquareEnvIrradianceInfo.field_56;
+        uint64_t uVar5 = mapSquareEnvIrradianceInfo.field_64;
+        uint64_t uVar6 = mapSquareEnvIrradianceInfo.field_72;
+        uint64_t uVar7 = mapSquareEnvIrradianceInfo.field_88;
+        field_80 = mapSquareEnvIrradianceInfo.field_80;
         field_88 = uVar7;
         field_64 = uVar5;
         field_72 = uVar6;
@@ -501,56 +435,37 @@ namespace jag::game {
         field_40 = uVar1;
     }
 
-    // 0x10047f600, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvInfo::MapSquareEnvInfo(MapSquareEnvInfo const&): jumps straight to the base-object constructor
-
-    // 0x10047f610, 32 bytes, base-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvInfo::MapSquareEnvInfo(MapSquareEnvInfo const&)
-    void MapSquareEnvInfo::MapSquareEnvInfo(MapSquareEnvInfo* param_1) {
-        uchar uVar1;
-
-        uVar1 = param_1->field_1;
-        field_0 = param_1->field_0;
+    // 0x10047f610
+    MapSquareEnvInfo::MapSquareEnvInfo(const MapSquareEnvInfo& mapSquareEnvInfo) {
+        unsigned char uVar1 = mapSquareEnvInfo.field_1;
+        field_0 = mapSquareEnvInfo.field_0;
         field_1 = uVar1;
-        new (field_8, (shared_ptr*)param_1->field_8) shared_ptr<oldscape::dash3d::Decor>();
+        new (field_8) shared_ptr(mapSquareEnvInfo.field_8);
     }
 
-    // 0x10047f670, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo&&): jumps straight to the base-object constructor
-
-    // 0x10047f680, 128 bytes, base-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo&&)
-    void MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo* param_1) {
-        undefined8 uVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-
-        field_0 = param_1->field_0;
-        new (&field_8, (MapSquareEnvInfo*)&param_1->field_8) MapSquareEnvInfo();
-        uVar1 = param_1->field_152;
-        field_144 = param_1->field_144;
+    // 0x10047f680
+    MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvIrradianceInfo&& mapSquareEnvIrradianceInfo)
+        : field_0(mapSquareEnvIrradianceInfo.field_0), field_8(mapSquareEnvIrradianceInfo.field_8) {
+        uint64_t uVar1 = mapSquareEnvIrradianceInfo.field_152;
+        field_144 = mapSquareEnvIrradianceInfo.field_144;
         field_152 = uVar1;
-        uVar1 = param_1->field_136;
-        field_128 = param_1->field_128;
+        uVar1 = mapSquareEnvIrradianceInfo.field_136;
+        field_128 = mapSquareEnvIrradianceInfo.field_128;
         field_136 = uVar1;
-        uVar1 = param_1->field_120;
-        field_112 = param_1->field_112;
+        uVar1 = mapSquareEnvIrradianceInfo.field_120;
+        field_112 = mapSquareEnvIrradianceInfo.field_112;
         field_120 = uVar1;
-        uVar1 = param_1->field_104;
-        field_96 = param_1->field_96;
+        uVar1 = mapSquareEnvIrradianceInfo.field_104;
+        field_96 = mapSquareEnvIrradianceInfo.field_96;
         field_104 = uVar1;
-        uVar2 = param_1->field_32;
-        uVar1 = param_1->field_40;
-        uVar3 = param_1->field_48;
-        uVar4 = param_1->field_56;
-        uVar5 = param_1->field_64;
-        uVar6 = param_1->field_72;
-        uVar7 = param_1->field_88;
-        field_80 = param_1->field_80;
+        unsigned long uVar2 = mapSquareEnvIrradianceInfo.field_32;
+        uVar1 = mapSquareEnvIrradianceInfo.field_40;
+        uint64_t uVar3 = mapSquareEnvIrradianceInfo.field_48;
+        uint64_t uVar4 = mapSquareEnvIrradianceInfo.field_56;
+        uint64_t uVar5 = mapSquareEnvIrradianceInfo.field_64;
+        uint64_t uVar6 = mapSquareEnvIrradianceInfo.field_72;
+        uint64_t uVar7 = mapSquareEnvIrradianceInfo.field_88;
+        field_80 = mapSquareEnvIrradianceInfo.field_80;
         field_88 = uVar7;
         field_64 = uVar5;
         field_72 = uVar6;
@@ -560,101 +475,64 @@ namespace jag::game {
         field_40 = uVar1;
     }
 
-    // 0x10047f700, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvInfo::MapSquareEnvInfo(MapSquareEnvInfo&&): jumps straight to the base-object constructor
-
-    // 0x10047f710, 32 bytes, base-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvInfo::MapSquareEnvInfo(MapSquareEnvInfo&&)
-    void MapSquareEnvInfo::MapSquareEnvInfo(MapSquareEnvInfo* param_1) {
-        uchar uVar1;
-
-        uVar1 = param_1->field_1;
-        field_0 = param_1->field_0;
+    // 0x10047f710
+    MapSquareEnvInfo::MapSquareEnvInfo(MapSquareEnvInfo&& mapSquareEnvInfo) {
+        unsigned char uVar1 = mapSquareEnvInfo.field_1;
+        field_0 = mapSquareEnvInfo.field_0;
         field_1 = uVar1;
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)field_8, (shared_ptr*)param_1->field_8);
+        field_8->shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(mapSquareEnvInfo.field_8);
     }
 
-    // 0x100480ba0, 80 bytes, inline, placed by class header (inline)
-    // MapSquareEnvInfo::operator==(MapSquareEnvInfo const&) const
-    /* MapSquareEnvInfo::TEMPNAMEPLACEHOLDERVALUE(MapSquareEnvInfo const&) const
-    */
-
-    undefined8 MapSquareEnvInfo::operator==(MapSquareEnvInfo* param_1) {
+    // 0x100480ba0
+    uint64_t MapSquareEnvInfo::operator==(const MapSquareEnvInfo& mapSquareEnvInfo) const {
         MapEnvironmentSettings* this_00;
-        MapEnvironmentSettings* pMVar1;
-        undefined8 uVar2;
+        MapEnvironmentSettings* mapEnvironmentSettings;
+        uint64_t uVar1;
 
-        if ((field_0 == param_1->field_0) && (field_1 == param_1->field_1)) {
-            this_00 = (MapEnvironmentSettings*)shared_ptr<MapEnvironmentSettings>::operator*(
-                (shared_ptr<MapEnvironmentSettings>*)field_8);
-            pMVar1 = (MapEnvironmentSettings*)shared_ptr<MapEnvironmentSettings>::operator*(
-                (shared_ptr<MapEnvironmentSettings>*)param_1->field_8);
-            uVar2 = MapEnvironmentSettings::operator==(this_00, pMVar1);
+        if ((field_0 == mapSquareEnvInfo.field_0) && (field_1 == mapSquareEnvInfo.field_1)) {
+            this_00 = (MapEnvironmentSettings*)**field_8;
+            mapEnvironmentSettings = (MapEnvironmentSettings*)*mapSquareEnvInfo.field_8;
+            uVar1 = *this_00 == *mapEnvironmentSettings;
         } else {
-            uVar2 = 0;
+            uVar1 = 0;
         }
-        return uVar2;
+        return uVar1;
     }
 
-    // 0x100480c20, 32 bytes, inline, placed by class name
-    // MapSquare::MapSquarePos::operator==(MapSquare::MapSquarePos const&) const
-    /* MapSquare::MapSquarePos::TEMPNAMEPLACEHOLDERVALUE(MapSquare::MapSquarePos
-   const&) const */
-
-    bool MapSquare::MapSquarePos::operator==(MapSquarePos* param_1) {
-        if (field_0 == param_1->field_0) {
-            return field_1 == param_1->field_1;
+    // 0x100480c20
+    bool MapSquare::MapSquarePos::operator==(const MapSquare::MapSquarePos& mapSquarePos) const {
+        if (field_0 == mapSquarePos.field_0) {
+            return field_1 == mapSquarePos.field_1;
         }
         return false;
     }
 
-    // 0x100480ed0, 80 bytes, inline, placed by class name
-    // MapSquare::MapSquarePos::operator<(MapSquare::MapSquarePos const&) const
-    /* MapSquare::MapSquarePos::TEMPNAMEPLACEHOLDERVALUE(MapSquare::MapSquarePos
-   const&) const */
+    // 0x100480ed0
+    void MapSquare::MapSquarePos::operator<(const MapSquare::MapSquarePos& mapSquarePos) const {
+        uint64_t extraout_RDX;
+        uint64_t extraout_RDX_00;
 
-    void MapSquare::MapSquarePos::operator<(MapSquarePos* param_1) {
-        undefined8 extraout_RDX;
-        undefined8 extraout_RDX_00;
-        undefined8 local_30;
-        undefined8 local_28;
-        undefined8 local_20;
-        undefined8 local_18;
-
-        local_30 = std::tie<unsigned char const, unsigned char const>((uchar*)this, &field_1);
-        local_28 = extraout_RDX;
-        local_20 = std::tie<unsigned char const, unsigned char const>((uchar*)param_1, &param_1->field_1);
-        local_18 = extraout_RDX_00;
-        std::operator<((tuple*)&local_30, (tuple*)&local_20);
+        uint64_t local_30 = std::tie<unsigned char const, unsigned char const>(*this, field_1);
+        uint64_t local_28 = extraout_RDX;
+        uint64_t local_20 = std::tie<unsigned char const, unsigned char const>(mapSquarePos, mapSquarePos.field_1);
+        uint64_t local_18 = extraout_RDX_00;
+        std::operator<((tuple<unsigned char const&, unsigned char const&>*)&local_30,
+                       (tuple<unsigned char const&, unsigned char const&>*)&local_20);
     }
 
-    // 0x100483420, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvInfo const&, unsigned long, graphics::IrradianceSHCoefConsts const&): jumps straight to the base-object constructor
-
-    // 0x100483490, 128 bytes, base-object constructor, inline, placed by class header (inline)
-    // MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvInfo const&, unsigned long, graphics::IrradianceSHCoefConsts const&)
-    void MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(MapSquareEnvInfo* param_1, ulong param_2,
-                                                                IrradianceSHCoefConsts* param_3) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-
-        field_0 = 1;
-        new (&field_8, param_1) MapSquareEnvInfo();
-        field_32 = param_2;
-        uVar1 = *(undefined8*)&param_3->field_8;
-        uVar2 = *(undefined8*)&param_3->field_16;
-        uVar3 = *(undefined8*)&param_3->field_24;
-        uVar4 = *(undefined8*)&param_3->field_32;
-        uVar5 = *(undefined8*)&param_3->field_40;
-        uVar6 = *(undefined8*)&param_3->field_48;
-        uVar7 = *(undefined8*)&param_3->field_56;
-        field_48 = *(undefined8*)param_3;
+    // 0x100483490
+    MapSquareEnvIrradianceInfo::MapSquareEnvIrradianceInfo(
+        const MapSquareEnvInfo& mapSquareEnvInfo, unsigned long arg2,
+        const graphics::IrradianceSHCoefConsts& irradianceSHCoefConsts)
+        : field_0(1), field_8(mapSquareEnvInfo), field_32(arg2) {
+        uint64_t uVar1 = *(uint64_t*)&irradianceSHCoefConsts.field_8;
+        uint64_t uVar2 = *(uint64_t*)&irradianceSHCoefConsts.field_16;
+        uint64_t uVar3 = *(uint64_t*)&irradianceSHCoefConsts.field_24;
+        uint64_t uVar4 = *(uint64_t*)&irradianceSHCoefConsts.field_32;
+        uint64_t uVar5 = *(uint64_t*)&irradianceSHCoefConsts.field_40;
+        uint64_t uVar6 = *(uint64_t*)&irradianceSHCoefConsts.field_48;
+        uint64_t uVar7 = *(uint64_t*)&irradianceSHCoefConsts.field_56;
+        field_48 = *(uint64_t*)irradianceSHCoefConsts;
         field_56 = uVar1;
         field_64 = uVar2;
         field_72 = uVar3;
@@ -662,14 +540,14 @@ namespace jag::game {
         field_88 = uVar5;
         field_96 = uVar6;
         field_104 = uVar7;
-        uVar1 = *(undefined8*)&param_3->field_72;
-        field_112 = *(undefined8*)&param_3->field_64;
+        uVar1 = *(uint64_t*)&irradianceSHCoefConsts.field_72;
+        field_112 = *(uint64_t*)&irradianceSHCoefConsts.field_64;
         field_120 = uVar1;
-        uVar1 = *(undefined8*)&param_3->field_88;
-        field_128 = *(undefined8*)&param_3->field_80;
+        uVar1 = *(uint64_t*)&irradianceSHCoefConsts.field_88;
+        field_128 = *(uint64_t*)&irradianceSHCoefConsts.field_80;
         field_136 = uVar1;
-        uVar1 = *(undefined8*)(param_3 + 1);
-        field_144 = *(undefined8*)&param_3->field_96;
+        uVar1 = *(uint64_t*)(irradianceSHCoefConsts + 1);
+        field_144 = *(uint64_t*)&irradianceSHCoefConsts.field_96;
         field_152 = uVar1;
     }
 

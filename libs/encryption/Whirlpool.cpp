@@ -1,13 +1,12 @@
 // libs/encryption/Whirlpool.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.encryption
 
 #include "Whirlpool.h"
 
 namespace jag {
-    // 0x100d99f20, 2048 bytes, __const
-    Whirlpool::C0 = {
+    // 0x100d99f20
+    int32_t Whirlpool::C0[512] = {
         -1065865000, 404250648,   95372838,    589532195,   2130284984,  -960086074,  326094331,   -387414040,
         1285624779,  -2021185913, -1453167343, -1195844936, 134545929,   16843777,    1114545677,  1330585935,
         -1376883557, 909563958,   1493455359,  -1499028826, -557991668,  -757960750,  -83429618,   -168430603,
@@ -74,8 +73,8 @@ namespace jag {
         1569214581,  673751080,   -634275706,  1549561180,  -1824526997, -117913608,  1151603138,  -2038029690,
     };
 
-    // 0x100d9a720, 2048 bytes, __const
-    Whirlpool::C1 = {
+    // 0x100d9a720
+    int32_t Whirlpool::C1[512] = {
         415266864,   -669509536,  587575110,   639837068,   -964757103,  -1194932673, -401379379,  -68622201,
         -2025021165, -880310490,  -1196858771, 297318618,   17302786,    151060740,   1329753758,  223301409,
         917368428,   -1690945832, -1504115631, -5855582,    -757154375,  215143023,   -168098057,  251000307,
@@ -142,8 +141,8 @@ namespace jag {
         677218384,   1965566112,  1557803448,  -2040767379, -124567571,  1811478727,  -2042321903, -1031371230,
     };
 
-    // 0x100d9af20, 2048 bytes, __const
-    Whirlpool::C2 = {
+    // 0x100d9af20
+    int32_t Whirlpool::C2[512] = {
         1612234872,  819468312,   -1943861841, 1176904483,  1069973241,  -1850161466, -2014833809, -839128856,
         646401185,   332105607,   -625432222,  1829877944,  67176453,    34144513,    558842478,   -1643294897,
         -667505170,  1822111286,  -1566156540, 1375708838,  1876090557,  -1190341934, -201983226,  -150014475,
@@ -210,8 +209,8 @@ namespace jag {
         -1607967352, 1349855272,  1834801713,  -1199154084, -940010689,  -311691016,  579224740,   297961094,
     };
 
-    // 0x100d9b720, 2048 bytes, __const
-    Whirlpool::C3 = {
+    // 0x100d9b720
+    int32_t Whirlpool::C3[512] = {
         408950976,   2016466968,  596386565,   -1354357213, -968898946,  -107890490,  -393746413,  1875770344,
         -2027518132, -1592538233, -1193625431, 1651315128,  17039624,    84019457,    1327583042,  1855851855,
         920139437,   -294872266,  -1499290023, 72482726,    -764423458,  -1111946030, -168561157,  116854517,
@@ -278,8 +277,8 @@ namespace jag {
         681584733,   -2007993048, 1550671066,  834176604,   -121112429,  1072524280,  -2044557756, -1542339962,
     };
 
-    // 0x100d9bf20, 2048 bytes, __const
-    Whirlpool::C4 = {
+    // 0x100d9bf20
+    int32_t Whirlpool::C4[512] = {
         404250648,   -1065865000, 589532195,   95372838,    -960086074,  2130284984,  -387414040,  326094331,
         -2021185913, 1285624779,  -1195844936, -1453167343, 16843777,    134545929,   1330585935,  1114545677,
         909563958,   -1376883557, -1499028826, 1493455359,  -757960750,  -557991668,  -168430603,  -83429618,
@@ -346,8 +345,8 @@ namespace jag {
         673751080,   1569214581,  1549561180,  -634275706,  -117913608,  -1824526997, -2038029690, 1151603138,
     };
 
-    // 0x100d9c720, 2048 bytes, __const
-    Whirlpool::C5 = {
+    // 0x100d9c720
+    int32_t Whirlpool::C5[512] = {
         -669509536,  415266864,   639837068,   587575110,   -1194932673, -964757103,  -68622201,   -401379379,
         -880310490,  -2025021165, 297318618,   -1196858771, 151060740,   17302786,    223301409,   1329753758,
         -1690945832, 917368428,   -5855582,    -1504115631, 215143023,   -757154375,  251000307,   -168098057,
@@ -414,8 +413,8 @@ namespace jag {
         1965566112,  677218384,   -2040767379, 1557803448,  1811478727,  -124567571,  -1031371230, -2042321903,
     };
 
-    // 0x100d9cf20, 2048 bytes, __const
-    Whirlpool::C6 = {
+    // 0x100d9cf20
+    int32_t Whirlpool::C6[512] = {
         819468312,   1612234872,  1176904483,  -1943861841, -1850161466, 1069973241,  -839128856,  -2014833809,
         332105607,   646401185,   1829877944,  -625432222,  34144513,    67176453,    -1643294897, 558842478,
         1822111286,  -667505170,  1375708838,  -1566156540, -1190341934, 1876090557,  -150014475,  -201983226,
@@ -482,8 +481,8 @@ namespace jag {
         1349855272,  -1607967352, -1199154084, 1834801713,  -311691016,  -940010689,  297961094,   579224740,
     };
 
-    // 0x100d9d720, 2048 bytes, __const
-    Whirlpool::C7 = {
+    // 0x100d9d720
+    int32_t Whirlpool::C7[512] = {
         2016466968,  408950976,   -1354357213, 596386565,   -107890490,  -968898946,  1875770344,  -393746413,
         -1592538233, -2027518132, 1651315128,  -1193625431, 84019457,    17039624,    1855851855,  1327583042,
         -294872266,  920139437,   72482726,    -1499290023, -1111946030, -764423458,  116854517,   -168561157,
@@ -550,115 +549,92 @@ namespace jag {
         -2007993048, 681584733,   834176604,   1550671066,  1072524280,  -121112429,  -1542339962, -2044557756,
     };
 
-    // 0x100d9df20, 96 bytes, __const
-    Whirlpool::rc = {
+    // 0x100d9df20
+    int32_t Whirlpool::rc[24] = {
         0,           0,          -2017984177, 404997864, 2037354834,  916902645,  -1559463115, 1622973326,
         776732247,   501274562,  -1611642150, 360134629, -1314886779, 1489578250, -885127833,  -1117974284,
         -1484941864, -467189365, -585676898,  -68256666, -1386577101, -902971641, 0,           0,
     };
 
-    // 0x100c6fa20, 4160 bytes, placed by class name and debug map
-    // Whirlpool::processBuffer(Whirlpool::NESSIEstruct*)
-    void Whirlpool::processBuffer(NESSIEstruct* param_1) {
-        uint uVar1;
-        uint uVar2;
-        uint uVar3;
-        uint uVar4;
-        uint uVar5;
-        uint uVar6;
-        uint uVar7;
-        uint uVar8;
-        uint uVar9;
-        uint uVar10;
-        long lVar11;
-        ulong uVar12;
-        ulong uVar13;
-        ulong uVar14;
-        ulong uVar15;
-        ulong uVar16;
-        ulong uVar17;
-        ulong uVar18;
-        ulong uVar19;
-        ulong uVar20;
-        ulong uVar21;
-        ulong uVar22;
-        ulong uVar23;
-        ulong uVar24;
-        ulong uVar25;
-        ulong uVar26;
-        ulong uVar27;
-        ulong uVar28;
-        ulong uVar29;
-        ulong uVar30;
-        ulong uVar31;
-        ulong uVar32;
-        ulong uVar33;
-        ulong uVar34;
-        ulong uVar35;
-        ulong uVar36;
-        ulong uVar37;
-        ulong uVar38;
-        ulong uVar39;
-        ulong local_108;
-        ulong local_e0;
-        ulong local_d8;
-        ulong local_d0;
-        ulong local_c8;
-        ulong local_88;
-        ulong local_80;
-        ulong local_78[8];
-        long local_38;
+    // 0x100c6fa20
+    void Whirlpool::processBuffer(Whirlpool::NESSIEstruct* nessiEstruct) {
+        unsigned int uVar1;
+        unsigned int uVar2;
+        unsigned int uVar3;
+        unsigned int uVar4;
+        unsigned int uVar5;
+        unsigned int uVar6;
+        unsigned int uVar7;
+        unsigned int uVar8;
+        unsigned int uVar9;
+        unsigned int uVar10;
+        unsigned long uVar12;
+        unsigned long uVar13;
+        unsigned long uVar15;
+        unsigned long uVar22;
+        unsigned long uVar23;
+        unsigned long uVar26;
+        unsigned long uVar30;
+        unsigned long uVar31;
+        unsigned long uVar37;
+        unsigned long uVar38;
+        unsigned long uVar39;
+        unsigned long local_78[8];
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        lVar11 = 0;
+        long lVar11 = 0;
         do {
-            local_78[lVar11] =
-                (ulong)CONCAT11(param_1[lVar11 * 8 + 38], param_1[lVar11 * 8 + 39]) ^
-                ((ulong)(byte)param_1[lVar11 * 8 + 37] << 16 | (ulong)(byte)param_1[lVar11 * 8 + 36] << 24 |
-                 (ulong)(byte)param_1[lVar11 * 8 + 35] << 32 | (ulong)(byte)param_1[lVar11 * 8 + 34] << 40 |
-                 (ulong)(byte)param_1[lVar11 * 8 + 33] << 48 | (ulong)(byte)param_1[lVar11 * 8 + 32] << 56);
+            local_78[lVar11] = (unsigned long)(((uint16_t)(nessiEstruct[lVar11 * 8 + 38]) << 8) |
+                                               (uint8_t)(nessiEstruct[lVar11 * 8 + 39])) ^
+                               ((unsigned long)(uint8_t)nessiEstruct[lVar11 * 8 + 37] << 16 |
+                                (unsigned long)(uint8_t)nessiEstruct[lVar11 * 8 + 36] << 24 |
+                                (unsigned long)(uint8_t)nessiEstruct[lVar11 * 8 + 35] << 32 |
+                                (unsigned long)(uint8_t)nessiEstruct[lVar11 * 8 + 34] << 40 |
+                                (unsigned long)(uint8_t)nessiEstruct[lVar11 * 8 + 33] << 48 |
+                                (unsigned long)(uint8_t)nessiEstruct[lVar11 * 8 + 32] << 56);
             lVar11 = lVar11 + 1;
         } while (lVar11 != 8);
-        uVar16 = *(ulong*)(param_1 + 104);
-        uVar18 = *(ulong*)(param_1 + 112);
-        uVar36 = local_78[0] ^ uVar16;
-        uVar28 = local_78[1] ^ uVar18;
-        uVar19 = *(ulong*)(param_1 + 120);
-        uVar14 = local_78[2] ^ uVar19;
-        local_e0 = *(ulong*)(param_1 + 128);
-        uVar34 = local_78[3] ^ local_e0;
-        local_c8 = *(ulong*)(param_1 + 136);
-        uVar20 = local_78[4] ^ local_c8;
-        local_d8 = *(ulong*)(param_1 + 144);
-        uVar25 = local_78[5] ^ local_d8;
-        local_d0 = *(ulong*)(param_1 + 152);
-        uVar32 = local_78[6] ^ local_d0;
-        uVar17 = local_78[7] ^ *(ulong*)(param_1 + 160);
+        unsigned long uVar16 = *(unsigned long*)(nessiEstruct + 104);
+        unsigned long uVar18 = *(unsigned long*)(nessiEstruct + 112);
+        unsigned long uVar36 = local_78[0] ^ uVar16;
+        unsigned long uVar28 = local_78[1] ^ uVar18;
+        unsigned long uVar19 = *(unsigned long*)(nessiEstruct + 120);
+        unsigned long uVar14 = local_78[2] ^ uVar19;
+        unsigned long local_e0 = *(unsigned long*)(nessiEstruct + 128);
+        unsigned long uVar34 = local_78[3] ^ local_e0;
+        unsigned long local_c8 = *(unsigned long*)(nessiEstruct + 136);
+        unsigned long uVar20 = local_78[4] ^ local_c8;
+        unsigned long local_d8 = *(unsigned long*)(nessiEstruct + 144);
+        unsigned long uVar25 = local_78[5] ^ local_d8;
+        unsigned long local_d0 = *(unsigned long*)(nessiEstruct + 152);
+        unsigned long uVar32 = local_78[6] ^ local_d0;
+        unsigned long uVar17 = local_78[7] ^ *(unsigned long*)(nessiEstruct + 160);
         lVar11 = 1;
-        uVar21 = uVar20;
-        uVar24 = *(ulong*)(param_1 + 160);
-        uVar27 = uVar25;
-        uVar29 = uVar28;
-        uVar33 = uVar32;
-        uVar35 = uVar34;
-        local_108 = uVar36;
-        local_88 = uVar17;
-        local_80 = uVar14;
+        unsigned long uVar21 = uVar20;
+        unsigned long uVar24 = *(unsigned long*)(nessiEstruct + 160);
+        unsigned long uVar27 = uVar25;
+        unsigned long uVar29 = uVar28;
+        unsigned long uVar33 = uVar32;
+        unsigned long uVar35 = uVar34;
+        unsigned long local_108 = uVar36;
+        unsigned long local_88 = uVar17;
+        unsigned long local_80 = uVar14;
         do {
-            uVar1 = (uint)(uVar24 >> 32);
-            uVar2 = (uint)(uVar16 >> 32);
-            uVar3 = (uint)(uVar18 >> 32);
-            uVar4 = (uint)(uVar19 >> 32);
-            uVar5 = (uint)(local_e0 >> 32);
-            uVar6 = (uint)(local_c8 >> 32);
-            uVar7 = (uint)(local_d8 >> 32);
-            uVar8 = (uint)(local_d0 >> 32);
-            uVar30 = *(ulong*)(&C1 + (uVar8 >> 13 & 2040)) ^ *(ulong*)(&C0 + (uVar24 >> 56) * 8) ^
-                     *(ulong*)(&C2 + (uVar7 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(local_c8 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(local_e0 >> 21) & 2040)) ^ *(ulong*)(&C5 + ((uint)(uVar19 >> 13) & 2040)) ^
-                     *(ulong*)(&C6 + (uVar18 >> 8 & 255) * 8) ^ *(ulong*)(&C7 + (uVar16 & 255) * 8);
-            uVar9 = (uint)(uVar33 >> 32);
-            uVar10 = (uint)(uVar27 >> 32);
+            uVar1 = (unsigned int)(uVar24 >> 32);
+            uVar2 = (unsigned int)(uVar16 >> 32);
+            uVar3 = (unsigned int)(uVar18 >> 32);
+            uVar4 = (unsigned int)(uVar19 >> 32);
+            uVar5 = (unsigned int)(local_e0 >> 32);
+            uVar6 = (unsigned int)(local_c8 >> 32);
+            uVar7 = (unsigned int)(local_d8 >> 32);
+            uVar8 = (unsigned int)(local_d0 >> 32);
+            uVar30 = *(unsigned long*)(&C1 + (uVar8 >> 13 & 2040)) ^ *(unsigned long*)(&C0 + (uVar24 >> 56) * 8) ^
+                     *(unsigned long*)(&C2 + (uVar7 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(local_c8 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(local_e0 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(uVar19 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (uVar18 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (uVar16 & 255) * 8);
+            uVar9 = (unsigned int)(uVar33 >> 32);
+            uVar10 = (unsigned int)(uVar27 >> 32);
             uVar23 = uVar16 >> 8;
             uVar15 = uVar16 >> 29;
             uVar39 = uVar18 >> 29;
@@ -669,79 +645,105 @@ namespace jag {
             uVar12 = local_e0 >> 29;
             uVar13 = uVar19 >> 21;
             uVar38 = uVar18 >> 13;
-            uVar16 = *(ulong*)(&C1 + (uVar1 >> 13 & 2040)) ^ *(ulong*)(&C0 + (uVar16 >> 56) * 8) ^
-                     *(ulong*)(&C2 + (uVar8 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(local_d8 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(local_c8 >> 21) & 2040)) ^
-                     *(ulong*)(&C5 + ((uint)(local_e0 >> 13) & 2040)) ^ *(ulong*)(&C6 + (uVar19 >> 8 & 255) * 8) ^
-                     *(ulong*)(&C7 + (uVar18 & 255) * 8) ^ *(ulong*)(&rc + lVar11 * 8);
-            uVar8 = (uint)(local_88 >> 32);
-            uVar18 = *(ulong*)(&C1 + (uVar2 >> 13 & 2040)) ^ *(ulong*)(&C0 + (uVar18 >> 56) * 8) ^
-                     *(ulong*)(&C2 + (uVar1 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(local_d0 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(local_d8 >> 21) & 2040)) ^
-                     *(ulong*)(&C5 + ((uint)(local_c8 >> 13) & 2040)) ^ *(ulong*)(&C6 + (local_e0 >> 8 & 255) * 8) ^
-                     *(ulong*)(&C7 + (uVar19 & 255) * 8);
-            uVar1 = (uint)(local_108 >> 32);
-            uVar19 = *(ulong*)(&C1 + (uVar3 >> 13 & 2040)) ^ *(ulong*)(&C0 + (uVar19 >> 56) * 8) ^
-                     *(ulong*)(&C2 + (uVar2 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(uVar24 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(local_d0 >> 21) & 2040)) ^
-                     *(ulong*)(&C5 + ((uint)(local_d8 >> 13) & 2040)) ^ *(ulong*)(&C6 + (local_c8 >> 8 & 255) * 8) ^
-                     *(ulong*)(&C7 + (local_e0 & 255) * 8);
-            uVar2 = (uint)(uVar29 >> 32);
-            local_e0 = *(ulong*)(&C1 + (uVar4 >> 13 & 2040)) ^ *(ulong*)(&C0 + (local_e0 >> 56) * 8) ^
-                       *(ulong*)(&C2 + (uVar3 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)uVar15 & 2040)) ^
-                       *(ulong*)(&C4 + ((uint)(uVar24 >> 21) & 2040)) ^
-                       *(ulong*)(&C5 + ((uint)(local_d0 >> 13) & 2040)) ^ *(ulong*)(&C6 + (local_d8 >> 8 & 255) * 8) ^
-                       *(ulong*)(&C7 + (local_c8 & 255) * 8);
-            uVar3 = (uint)(local_80 >> 32);
-            local_c8 = *(ulong*)(&C1 + (uVar5 >> 13 & 2040)) ^ *(ulong*)(&C0 + (local_c8 >> 56) * 8) ^
-                       *(ulong*)(&C2 + (uVar4 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)uVar39 & 2040)) ^
-                       *(ulong*)(&C4 + ((uint)uVar26 & 2040)) ^ *(ulong*)(&C5 + ((uint)(uVar24 >> 13) & 2040)) ^
-                       *(ulong*)(&C6 + (local_d0 >> 8 & 255) * 8) ^ *(ulong*)(&C7 + (local_d8 & 255) * 8);
-            local_d8 = *(ulong*)(&C1 + (uVar6 >> 13 & 2040)) ^ *(ulong*)(&C0 + (local_d8 >> 56) * 8) ^
-                       *(ulong*)(&C2 + (uVar5 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)uVar22 & 2040)) ^
-                       *(ulong*)(&C4 + ((uint)uVar37 & 2040)) ^ *(ulong*)(&C5 + ((uint)uVar31 & 2040)) ^
-                       *(ulong*)(&C6 + (uVar24 >> 8 & 255) * 8) ^ *(ulong*)(&C7 + (local_d0 & 255) * 8);
-            local_d0 = *(ulong*)(&C1 + (uVar7 >> 13 & 2040)) ^ *(ulong*)(&C0 + (local_d0 >> 56) * 8) ^
-                       *(ulong*)(&C2 + (uVar6 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)uVar12 & 2040)) ^
-                       *(ulong*)(&C4 + ((uint)uVar13 & 2040)) ^ *(ulong*)(&C5 + ((uint)uVar38 & 2040)) ^
-                       *(ulong*)(&C6 + (uVar23 & 255) * 8) ^ *(ulong*)(&C7 + (uVar24 & 255) * 8);
-            uVar12 = *(ulong*)(&C0 + (local_108 >> 56) * 8) ^ uVar16 ^ *(ulong*)(&C1 + (uVar8 >> 13 & 2040)) ^
-                     *(ulong*)(&C2 + (uVar9 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(uVar27 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(uVar21 >> 21) & 2040)) ^ *(ulong*)(&C5 + ((uint)(uVar35 >> 13) & 2040)) ^
-                     *(ulong*)(&C6 + (local_80 >> 8 & 255) * 8) ^ *(ulong*)(&C7 + (uVar29 & 255) * 8);
-            uVar15 = *(ulong*)(&C0 + (uVar29 >> 56) * 8) ^ uVar18 ^ *(ulong*)(&C1 + (uVar1 >> 13 & 2040)) ^
-                     *(ulong*)(&C2 + (uVar8 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(uVar33 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(uVar27 >> 21) & 2040)) ^ *(ulong*)(&C5 + ((uint)(uVar21 >> 13) & 2040)) ^
-                     *(ulong*)(&C6 + (uVar35 >> 8 & 255) * 8) ^ *(ulong*)(&C7 + (local_80 & 255) * 8);
-            uVar13 = *(ulong*)(&C0 + (local_80 >> 56) * 8) ^ uVar19 ^ *(ulong*)(&C1 + (uVar2 >> 13 & 2040)) ^
-                     *(ulong*)(&C2 + (uVar1 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(local_88 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(uVar33 >> 21) & 2040)) ^ *(ulong*)(&C5 + ((uint)(uVar27 >> 13) & 2040)) ^
-                     *(ulong*)(&C6 + (uVar21 >> 8 & 255) * 8) ^ *(ulong*)(&C7 + (uVar35 & 255) * 8);
-            uVar22 = *(ulong*)(&C0 + (uVar35 >> 56) * 8) ^ local_e0 ^ *(ulong*)(&C1 + (uVar3 >> 13 & 2040)) ^
-                     *(ulong*)(&C2 + (uVar2 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(local_108 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(local_88 >> 21) & 2040)) ^ *(ulong*)(&C5 + ((uint)(uVar33 >> 13) & 2040)) ^
-                     *(ulong*)(&C6 + (uVar27 >> 8 & 255) * 8) ^ *(ulong*)(&C7 + (uVar21 & 255) * 8);
-            uVar1 = (uint)(uVar35 >> 32);
-            uVar23 = *(ulong*)(&C0 + (uVar21 >> 56) * 8) ^ local_c8 ^ *(ulong*)(&C1 + (uVar1 >> 13 & 2040)) ^
-                     *(ulong*)(&C2 + (uVar3 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(uVar29 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(local_108 >> 21) & 2040)) ^
-                     *(ulong*)(&C5 + ((uint)(local_88 >> 13) & 2040)) ^ *(ulong*)(&C6 + (uVar33 >> 8 & 255) * 8) ^
-                     *(ulong*)(&C7 + (uVar27 & 255) * 8);
-            uVar2 = (uint)(uVar21 >> 32);
-            uVar27 = *(ulong*)(&C0 + (uVar27 >> 56) * 8) ^ local_d8 ^ *(ulong*)(&C1 + (uVar2 >> 13 & 2040)) ^
-                     *(ulong*)(&C2 + (uVar1 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(local_80 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(uVar29 >> 21) & 2040)) ^
-                     *(ulong*)(&C5 + ((uint)(local_108 >> 13) & 2040)) ^ *(ulong*)(&C6 + (local_88 >> 8 & 255) * 8) ^
-                     *(ulong*)(&C7 + (uVar33 & 255) * 8);
-            uVar33 = *(ulong*)(&C0 + (uVar33 >> 56) * 8) ^ local_d0 ^ *(ulong*)(&C1 + (uVar10 >> 13 & 2040)) ^
-                     *(ulong*)(&C2 + (uVar2 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(uVar35 >> 29) & 2040)) ^
-                     *(ulong*)(&C4 + ((uint)(local_80 >> 21) & 2040)) ^ *(ulong*)(&C5 + ((uint)(uVar29 >> 13) & 2040)) ^
-                     *(ulong*)(&C6 + (local_108 >> 8 & 255) * 8) ^ *(ulong*)(&C7 + (local_88 & 255) * 8);
-            local_88 = *(ulong*)(&C0 + (local_88 >> 56) * 8) ^ uVar30 ^ *(ulong*)(&C1 + (uVar9 >> 13 & 2040)) ^
-                       *(ulong*)(&C2 + (uVar10 >> 5 & 2040)) ^ *(ulong*)(&C3 + ((uint)(uVar21 >> 29) & 2040)) ^
-                       *(ulong*)(&C4 + ((uint)(uVar35 >> 21) & 2040)) ^
-                       *(ulong*)(&C5 + ((uint)(local_80 >> 13) & 2040)) ^ *(ulong*)(&C6 + (uVar29 >> 8 & 255) * 8) ^
-                       *(ulong*)(&C7 + (local_108 & 255) * 8);
+            uVar16 = *(unsigned long*)(&C1 + (uVar1 >> 13 & 2040)) ^ *(unsigned long*)(&C0 + (uVar16 >> 56) * 8) ^
+                     *(unsigned long*)(&C2 + (uVar8 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(local_d8 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(local_c8 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(local_e0 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (uVar19 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (uVar18 & 255) * 8) ^
+                     *(unsigned long*)(&rc + lVar11 * 8);
+            uVar8 = (unsigned int)(local_88 >> 32);
+            uVar18 = *(unsigned long*)(&C1 + (uVar2 >> 13 & 2040)) ^ *(unsigned long*)(&C0 + (uVar18 >> 56) * 8) ^
+                     *(unsigned long*)(&C2 + (uVar1 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(local_d0 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(local_d8 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(local_c8 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (local_e0 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (uVar19 & 255) * 8);
+            uVar1 = (unsigned int)(local_108 >> 32);
+            uVar19 = *(unsigned long*)(&C1 + (uVar3 >> 13 & 2040)) ^ *(unsigned long*)(&C0 + (uVar19 >> 56) * 8) ^
+                     *(unsigned long*)(&C2 + (uVar2 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(uVar24 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(local_d0 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(local_d8 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (local_c8 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (local_e0 & 255) * 8);
+            uVar2 = (unsigned int)(uVar29 >> 32);
+            local_e0 =
+                *(unsigned long*)(&C1 + (uVar4 >> 13 & 2040)) ^ *(unsigned long*)(&C0 + (local_e0 >> 56) * 8) ^
+                *(unsigned long*)(&C2 + (uVar3 >> 5 & 2040)) ^ *(unsigned long*)(&C3 + ((unsigned int)uVar15 & 2040)) ^
+                *(unsigned long*)(&C4 + ((unsigned int)(uVar24 >> 21) & 2040)) ^
+                *(unsigned long*)(&C5 + ((unsigned int)(local_d0 >> 13) & 2040)) ^
+                *(unsigned long*)(&C6 + (local_d8 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (local_c8 & 255) * 8);
+            uVar3 = (unsigned int)(local_80 >> 32);
+            local_c8 =
+                *(unsigned long*)(&C1 + (uVar5 >> 13 & 2040)) ^ *(unsigned long*)(&C0 + (local_c8 >> 56) * 8) ^
+                *(unsigned long*)(&C2 + (uVar4 >> 5 & 2040)) ^ *(unsigned long*)(&C3 + ((unsigned int)uVar39 & 2040)) ^
+                *(unsigned long*)(&C4 + ((unsigned int)uVar26 & 2040)) ^
+                *(unsigned long*)(&C5 + ((unsigned int)(uVar24 >> 13) & 2040)) ^
+                *(unsigned long*)(&C6 + (local_d0 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (local_d8 & 255) * 8);
+            local_d8 = *(unsigned long*)(&C1 + (uVar6 >> 13 & 2040)) ^ *(unsigned long*)(&C0 + (local_d8 >> 56) * 8) ^
+                       *(unsigned long*)(&C2 + (uVar5 >> 5 & 2040)) ^
+                       *(unsigned long*)(&C3 + ((unsigned int)uVar22 & 2040)) ^
+                       *(unsigned long*)(&C4 + ((unsigned int)uVar37 & 2040)) ^
+                       *(unsigned long*)(&C5 + ((unsigned int)uVar31 & 2040)) ^
+                       *(unsigned long*)(&C6 + (uVar24 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (local_d0 & 255) * 8);
+            local_d0 = *(unsigned long*)(&C1 + (uVar7 >> 13 & 2040)) ^ *(unsigned long*)(&C0 + (local_d0 >> 56) * 8) ^
+                       *(unsigned long*)(&C2 + (uVar6 >> 5 & 2040)) ^
+                       *(unsigned long*)(&C3 + ((unsigned int)uVar12 & 2040)) ^
+                       *(unsigned long*)(&C4 + ((unsigned int)uVar13 & 2040)) ^
+                       *(unsigned long*)(&C5 + ((unsigned int)uVar38 & 2040)) ^
+                       *(unsigned long*)(&C6 + (uVar23 & 255) * 8) ^ *(unsigned long*)(&C7 + (uVar24 & 255) * 8);
+            uVar12 = *(unsigned long*)(&C0 + (local_108 >> 56) * 8) ^ uVar16 ^
+                     *(unsigned long*)(&C1 + (uVar8 >> 13 & 2040)) ^ *(unsigned long*)(&C2 + (uVar9 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(uVar27 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(uVar21 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(uVar35 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (local_80 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (uVar29 & 255) * 8);
+            uVar15 = *(unsigned long*)(&C0 + (uVar29 >> 56) * 8) ^ uVar18 ^
+                     *(unsigned long*)(&C1 + (uVar1 >> 13 & 2040)) ^ *(unsigned long*)(&C2 + (uVar8 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(uVar33 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(uVar27 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(uVar21 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (uVar35 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (local_80 & 255) * 8);
+            uVar13 = *(unsigned long*)(&C0 + (local_80 >> 56) * 8) ^ uVar19 ^
+                     *(unsigned long*)(&C1 + (uVar2 >> 13 & 2040)) ^ *(unsigned long*)(&C2 + (uVar1 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(local_88 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(uVar33 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(uVar27 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (uVar21 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (uVar35 & 255) * 8);
+            uVar22 = *(unsigned long*)(&C0 + (uVar35 >> 56) * 8) ^ local_e0 ^
+                     *(unsigned long*)(&C1 + (uVar3 >> 13 & 2040)) ^ *(unsigned long*)(&C2 + (uVar2 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(local_108 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(local_88 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(uVar33 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (uVar27 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (uVar21 & 255) * 8);
+            uVar1 = (unsigned int)(uVar35 >> 32);
+            uVar23 = *(unsigned long*)(&C0 + (uVar21 >> 56) * 8) ^ local_c8 ^
+                     *(unsigned long*)(&C1 + (uVar1 >> 13 & 2040)) ^ *(unsigned long*)(&C2 + (uVar3 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(uVar29 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(local_108 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(local_88 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (uVar33 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (uVar27 & 255) * 8);
+            uVar2 = (unsigned int)(uVar21 >> 32);
+            uVar27 = *(unsigned long*)(&C0 + (uVar27 >> 56) * 8) ^ local_d8 ^
+                     *(unsigned long*)(&C1 + (uVar2 >> 13 & 2040)) ^ *(unsigned long*)(&C2 + (uVar1 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(local_80 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(uVar29 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(local_108 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (local_88 >> 8 & 255) * 8) ^ *(unsigned long*)(&C7 + (uVar33 & 255) * 8);
+            uVar33 = *(unsigned long*)(&C0 + (uVar33 >> 56) * 8) ^ local_d0 ^
+                     *(unsigned long*)(&C1 + (uVar10 >> 13 & 2040)) ^ *(unsigned long*)(&C2 + (uVar2 >> 5 & 2040)) ^
+                     *(unsigned long*)(&C3 + ((unsigned int)(uVar35 >> 29) & 2040)) ^
+                     *(unsigned long*)(&C4 + ((unsigned int)(local_80 >> 21) & 2040)) ^
+                     *(unsigned long*)(&C5 + ((unsigned int)(uVar29 >> 13) & 2040)) ^
+                     *(unsigned long*)(&C6 + (local_108 >> 8 & 255) * 8) ^
+                     *(unsigned long*)(&C7 + (local_88 & 255) * 8);
+            local_88 = *(unsigned long*)(&C0 + (local_88 >> 56) * 8) ^ uVar30 ^
+                       *(unsigned long*)(&C1 + (uVar9 >> 13 & 2040)) ^ *(unsigned long*)(&C2 + (uVar10 >> 5 & 2040)) ^
+                       *(unsigned long*)(&C3 + ((unsigned int)(uVar21 >> 29) & 2040)) ^
+                       *(unsigned long*)(&C4 + ((unsigned int)(uVar35 >> 21) & 2040)) ^
+                       *(unsigned long*)(&C5 + ((unsigned int)(local_80 >> 13) & 2040)) ^
+                       *(unsigned long*)(&C6 + (uVar29 >> 8 & 255) * 8) ^
+                       *(unsigned long*)(&C7 + (local_108 & 255) * 8);
             lVar11 = lVar11 + 1;
             uVar21 = uVar23;
             uVar24 = uVar30;
@@ -750,164 +752,145 @@ namespace jag {
             local_108 = uVar12;
             local_80 = uVar13;
         } while (lVar11 != 11);
-        *(ulong*)(param_1 + 104) = uVar36 ^ uVar12;
-        *(ulong*)(param_1 + 112) = uVar28 ^ uVar15;
-        *(ulong*)(param_1 + 120) = uVar14 ^ uVar13;
-        *(ulong*)(param_1 + 128) = uVar34 ^ uVar22;
-        *(ulong*)(param_1 + 136) = uVar20 ^ uVar23;
-        *(ulong*)(param_1 + 144) = uVar25 ^ uVar27;
-        *(ulong*)(param_1 + 152) = uVar32 ^ uVar33;
-        *(ulong*)(param_1 + 160) = uVar17 ^ local_88;
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        *(unsigned long*)(nessiEstruct + 104) = uVar36 ^ uVar12;
+        *(unsigned long*)(nessiEstruct + 112) = uVar28 ^ uVar15;
+        *(unsigned long*)(nessiEstruct + 120) = uVar14 ^ uVar13;
+        *(unsigned long*)(nessiEstruct + 128) = uVar34 ^ uVar22;
+        *(unsigned long*)(nessiEstruct + 136) = uVar20 ^ uVar23;
+        *(unsigned long*)(nessiEstruct + 144) = uVar25 ^ uVar27;
+        *(unsigned long*)(nessiEstruct + 152) = uVar32 ^ uVar33;
+        *(unsigned long*)(nessiEstruct + 160) = uVar17 ^ local_88;
     }
 
-    // 0x100c70a60, 64 bytes, placed by class name and debug map
-    // Whirlpool::NESSIEinit(Whirlpool::NESSIEstruct*)
-    void Whirlpool::NESSIEinit(NESSIEstruct* param_1) {
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        param_1[32] = (NESSIEstruct)0;
-        *(undefined8*)(param_1 + 96) = 0;
-        *(undefined8*)(param_1 + 104) = 0;
-        *(undefined8*)(param_1 + 112) = 0;
-        *(undefined8*)(param_1 + 120) = 0;
-        *(undefined8*)(param_1 + 128) = 0;
-        *(undefined8*)(param_1 + 136) = 0;
-        *(undefined8*)(param_1 + 144) = 0;
-        *(undefined8*)(param_1 + 152) = 0;
-        *(undefined8*)(param_1 + 160) = 0;
+    // 0x100c70a60
+    void Whirlpool::NESSIEinit(Whirlpool::NESSIEstruct* nessiEstruct) {
+        *(uint64_t*)(nessiEstruct + 16) = 0;
+        *(uint64_t*)(nessiEstruct + 24) = 0;
+        *(uint64_t*)nessiEstruct = 0;
+        *(uint64_t*)(nessiEstruct + 8) = 0;
+        nessiEstruct[32] = (NESSIEstruct)0;
+        *(uint64_t*)(nessiEstruct + 96) = 0;
+        *(uint64_t*)(nessiEstruct + 104) = 0;
+        *(uint64_t*)(nessiEstruct + 112) = 0;
+        *(uint64_t*)(nessiEstruct + 120) = 0;
+        *(uint64_t*)(nessiEstruct + 128) = 0;
+        *(uint64_t*)(nessiEstruct + 136) = 0;
+        *(uint64_t*)(nessiEstruct + 144) = 0;
+        *(uint64_t*)(nessiEstruct + 152) = 0;
+        *(uint64_t*)(nessiEstruct + 160) = 0;
     }
 
-    // 0x100c70aa0, 496 bytes, placed by class name and debug map
-    // Whirlpool::NESSIEadd(unsigned char const*, unsigned long, Whirlpool::NESSIEstruct*)
-    void Whirlpool::NESSIEadd(uchar* param_1, ulong param_2, NESSIEstruct* param_3) {
-        ulong uVar1;
-        uint uVar2;
-        byte bVar3;
-        long lVar4;
-        uint uVar5;
+    // 0x100c70aa0
+    void Whirlpool::NESSIEadd(const unsigned char* arg1, unsigned long arg2, Whirlpool::NESSIEstruct* nessiEstruct) {
+        unsigned long uVar1;
         int iVar6;
-        int iVar7;
-        int iVar8;
-        uint uVar9;
-        uint uVar10;
-        ulong uVar11;
+        unsigned int uVar10;
         bool bVar12;
 
-        bVar3 = -(char)param_2;
-        uVar2 = *(uint*)(param_3 + 96);
-        iVar8 = *(int*)(param_3 + 100);
-        uVar9 = uVar2 & 7;
-        uVar5 = 0;
-        lVar4 = 31;
-        uVar11 = param_2;
+        uint8_t bVar3 = -(char)arg2;
+        unsigned int uVar2 = *(unsigned int*)(nessiEstruct + 96);
+        int iVar8 = *(int*)(nessiEstruct + 100);
+        unsigned int uVar9 = uVar2 & 7;
+        unsigned int uVar5 = 0;
+        long lVar4 = 31;
+        unsigned long uVar11 = arg2;
         do {
             if ((uVar5 == 0) && (uVar11 == 0))
                 break;
-            uVar5 = ((uint)uVar11 & 255) + uVar5 + (uint)(byte)param_3[lVar4];
-            param_3[lVar4] = SUB41(uVar5, 0);
+            uVar5 = ((unsigned int)uVar11 & 255) + uVar5 + (unsigned int)(uint8_t)nessiEstruct[lVar4];
+            nessiEstruct[lVar4] = (uint8_t)uVar5;
             uVar5 = uVar5 >> 8;
             uVar11 = uVar11 >> 8;
             bVar12 = lVar4 != 0;
-            lVar4 = lVar4 + -1;
+            lVar4 = lVar4 - 1;
         } while (bVar12);
-        iVar7 = 8 - uVar9;
+        int iVar7 = 8 - uVar9;
         uVar5 = uVar2;
-        if (param_2 < 9) {
+        if (arg2 < 9) {
             uVar11 = 0;
         } else {
-            uVar1 = param_2 - 9;
+            uVar1 = arg2 - 9;
             uVar11 = 0;
             do {
-                uVar10 =
-                    (uint)(param_1[uVar11 + 1] >> (8 - (bVar3 & 7) & 31)) | (uint)param_1[uVar11] << (bVar3 & 7) & 255;
-                param_3[(long)iVar8 + 32] =
-                    (NESSIEstruct)((byte)param_3[(long)iVar8 + 32] | (byte)(uVar10 >> (sbyte)uVar9));
+                uVar10 = (unsigned int)(arg1[uVar11 + 1] >> (8 - (bVar3 & 7) & 31)) |
+                         (unsigned int)arg1[uVar11] << (bVar3 & 7) & 255;
+                nessiEstruct[iVar8 + 32] =
+                    (NESSIEstruct)((uint8_t)nessiEstruct[iVar8 + 32] | (uint8_t)(uVar10 >> (int8_t)uVar9));
                 uVar11 = uVar11 + 1;
                 iVar6 = uVar5 + iVar7;
                 if (iVar6 == 512) {
-                    processBuffer(param_3);
+                    processBuffer(nessiEstruct);
                     iVar6 = 0;
                     iVar8 = 0;
                 } else {
                     iVar8 = iVar8 + 1;
                 }
-                param_3[(long)iVar8 + 32] = SUB41(uVar10 << ((byte)iVar7 & 31), 0);
+                nessiEstruct[iVar8 + 32] = (uint8_t)(uVar10 << ((uint8_t)iVar7 & 31));
                 uVar5 = iVar6 + uVar9;
-                param_2 = param_2 - 8;
+                arg2 = arg2 - 8;
             } while ((uVar1 >> 3) + 1 != uVar11);
             uVar11 = uVar11 & 4294967295;
         }
         uVar10 = 0;
-        if (param_2 != 0) {
-            uVar10 = (uint)param_1[uVar11] << (bVar3 & 7) & 255;
-            param_3[(long)iVar8 + 32] =
-                (NESSIEstruct)((byte)param_3[(long)iVar8 + 32] | (byte)(uVar10 >> (sbyte)uVar9));
+        if (arg2 != 0) {
+            uVar10 = (unsigned int)arg1[uVar11] << (bVar3 & 7) & 255;
+            nessiEstruct[iVar8 + 32] =
+                (NESSIEstruct)((uint8_t)nessiEstruct[iVar8 + 32] | (uint8_t)(uVar10 >> (int8_t)uVar9));
         }
-        if (uVar9 + param_2 < 8) {
-            iVar6 = uVar5 + (int)param_2;
+        if (uVar9 + arg2 < 8) {
+            iVar6 = uVar5 + (int)arg2;
         } else {
             iVar6 = uVar5 + iVar7;
             if (iVar6 == 512) {
-                processBuffer(param_3);
+                processBuffer(nessiEstruct);
                 iVar6 = 0;
                 iVar8 = 0;
             } else {
                 iVar8 = iVar8 + 1;
             }
-            param_3[(long)iVar8 + 32] = SUB41(uVar10 << ((byte)iVar7 & 31), 0);
-            iVar6 = (uVar2 | 4294967288) + (int)param_2 + iVar6;
+            nessiEstruct[iVar8 + 32] = (uint8_t)(uVar10 << ((uint8_t)iVar7 & 31));
+            iVar6 = (uVar2 | 4294967288) + (int)arg2 + iVar6;
         }
-        *(int*)(param_3 + 96) = iVar6;
-        *(int*)(param_3 + 100) = iVar8;
+        *(int*)(nessiEstruct + 96) = iVar6;
+        *(int*)(nessiEstruct + 100) = iVar8;
     }
 
-    // 0x100c70c90, 256 bytes, placed by class name and debug map
-    // Whirlpool::NESSIEfinalize(Whirlpool::NESSIEstruct*, unsigned char*)
-    void Whirlpool::NESSIEfinalize(NESSIEstruct* param_1, uchar* param_2) {
-        undefined4 uVar1;
-        int iVar2;
-        uint uVar3;
-        long lVar4;
-
-        uVar1 = *(undefined4*)(param_1 + 96);
-        iVar2 = *(int*)(param_1 + 100);
-        param_1[(long)iVar2 + 32] = (NESSIEstruct)((byte)param_1[(long)iVar2 + 32] | (byte)(128 >> ((byte)uVar1 & 7)));
-        uVar3 = iVar2 + 1;
+    // 0x100c70c90
+    void Whirlpool::NESSIEfinalize(Whirlpool::NESSIEstruct* nessiEstruct, unsigned char* arg2) {
+        uint32_t uVar1 = *(uint32_t*)(nessiEstruct + 96);
+        int iVar2 = *(int*)(nessiEstruct + 100);
+        nessiEstruct[iVar2 + 32] =
+            (NESSIEstruct)((uint8_t)nessiEstruct[iVar2 + 32] | (uint8_t)(128 >> ((uint8_t)uVar1 & 7)));
+        unsigned int uVar3 = iVar2 + 1;
         if (32 < uVar3) {
             if (uVar3 < 64) {
-                ___bzero(param_1 + (long)iVar2 + 33, 63 - iVar2);
+                ___bzero(nessiEstruct + (long)iVar2 + 33, 63 - iVar2);
             }
-            processBuffer(param_1);
+            processBuffer(nessiEstruct);
             uVar3 = 0;
         }
         if (uVar3 < 32) {
-            ___bzero(param_1 + (long)(int)uVar3 + 32, 32 - uVar3);
+            ___bzero(nessiEstruct + (long)(int)uVar3 + 32, 32 - uVar3);
         }
-        *(undefined8*)(param_1 + 80) = *(undefined8*)(param_1 + 16);
-        *(undefined8*)(param_1 + 88) = *(undefined8*)(param_1 + 24);
-        *(undefined8*)(param_1 + 64) = *(undefined8*)param_1;
-        *(undefined8*)(param_1 + 72) = *(undefined8*)(param_1 + 8);
-        processBuffer(param_1);
-        lVar4 = 0;
+        *(uint64_t*)(nessiEstruct + 80) = *(uint64_t*)(nessiEstruct + 16);
+        *(uint64_t*)(nessiEstruct + 88) = *(uint64_t*)(nessiEstruct + 24);
+        *(uint64_t*)(nessiEstruct + 64) = *(uint64_t*)nessiEstruct;
+        *(uint64_t*)(nessiEstruct + 72) = *(uint64_t*)(nessiEstruct + 8);
+        processBuffer(nessiEstruct);
+        long lVar4 = 0;
         do {
-            *(NESSIEstruct*)(param_2 + lVar4 * 8) = param_1[lVar4 * 8 + 111];
-            *(NESSIEstruct*)(param_2 + lVar4 * 8 + 1) = param_1[lVar4 * 8 + 110];
-            *(NESSIEstruct*)(param_2 + lVar4 * 8 + 2) = param_1[lVar4 * 8 + 109];
-            *(NESSIEstruct*)(param_2 + lVar4 * 8 + 3) = param_1[lVar4 * 8 + 108];
-            *(NESSIEstruct*)(param_2 + lVar4 * 8 + 4) = param_1[lVar4 * 8 + 107];
-            *(NESSIEstruct*)(param_2 + lVar4 * 8 + 5) = param_1[lVar4 * 8 + 106];
-            *(NESSIEstruct*)(param_2 + lVar4 * 8 + 6) = param_1[lVar4 * 8 + 105];
-            *(NESSIEstruct*)(param_2 + lVar4 * 8 + 7) = param_1[lVar4 * 8 + 104];
+            *(NESSIEstruct*)(arg2 + lVar4 * 8) = nessiEstruct[lVar4 * 8 + 111];
+            *(NESSIEstruct*)(arg2 + lVar4 * 8 + 1) = nessiEstruct[lVar4 * 8 + 110];
+            *(NESSIEstruct*)(arg2 + lVar4 * 8 + 2) = nessiEstruct[lVar4 * 8 + 109];
+            *(NESSIEstruct*)(arg2 + lVar4 * 8 + 3) = nessiEstruct[lVar4 * 8 + 108];
+            *(NESSIEstruct*)(arg2 + lVar4 * 8 + 4) = nessiEstruct[lVar4 * 8 + 107];
+            *(NESSIEstruct*)(arg2 + lVar4 * 8 + 5) = nessiEstruct[lVar4 * 8 + 106];
+            *(NESSIEstruct*)(arg2 + lVar4 * 8 + 6) = nessiEstruct[lVar4 * 8 + 105];
+            *(NESSIEstruct*)(arg2 + lVar4 * 8 + 7) = nessiEstruct[lVar4 * 8 + 104];
             lVar4 = lVar4 + 1;
         } while (lVar4 != 8);
-        *(undefined4*)(param_1 + 96) = uVar1;
-        *(undefined4*)(param_1 + 100) = 32;
+        *(uint32_t*)(nessiEstruct + 96) = uVar1;
+        *(uint32_t*)(nessiEstruct + 100) = 32;
     }
 
 } // namespace jag

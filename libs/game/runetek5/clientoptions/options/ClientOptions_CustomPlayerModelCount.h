@@ -1,6 +1,5 @@
 // libs/game/runetek5/clientoptions/options/ClientOptions_CustomPlayerModelCount.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
@@ -10,43 +9,28 @@ namespace jag::game::option {
     public:
         // virtual methods in vtable order
         virtual ~CustomPlayerModelCount();
-        virtual GetDefault();
-        virtual void DetermineBestSetting(perf::PerfModuleReporter const&) const;
-        virtual void ApplySettingImpl(graphics::RT7Core&, graphics::EffectManager&, graphics::GraphicsQuality);
-        CustomPlayerModelCount(graphics::RT7Core&, Settings&, char const*);
+        virtual uint64_t GetDefault();
+        virtual void DetermineBestSetting(const perf::PerfModuleReporter& perfModuleReporter) const;
+        virtual void ApplySettingImpl(graphics::RT7Core& rt7Core, graphics::EffectManager& effectManager,
+                                      graphics::GraphicsQuality graphicsQuality);
+        CustomPlayerModelCount(graphics::RT7Core& rt7Core, Settings& settings, const char* str);
 
-        // data members, from how the methods use this: 193 bytes
-        undefined** field_0;    // offset 0, vtable pointer
-        undefined8 field_8;     // offset 8
-        undefined8 field_16;    // offset 16
-        undefined4 field_24;    // offset 24
-        undefined1 field_28[8]; // offset 28
-        undefined4 field_36;    // offset 36
-        char _unknown_40[153];
+    private:
+        Settings* field_8;
+        char* field_16;
+        uint32_t field_24;
+        Range<graphics::GraphicsQuality>* field_28;
+        uint32_t field_36;
+        uint8_t _unknown_40[153];
     };
 
-    // 0x100609150, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // CustomPlayerModelCount::~CustomPlayerModelCount(): jumps straight to the base-object destructor
-
-    // 0x100609150: the linker folded this into CustomPlayerModelCount::~CustomPlayerModelCount(), which has identical code
-    LightingQuality::~LightingQuality();
-
-    // 0x100609150: the linker folded this into CustomPlayerModelCount::~CustomPlayerModelCount(), which has identical code
-    AntialiasingQuality::~AntialiasingQuality();
-
-    // 0x100610f30, 16 bytes, base-object destructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // CustomPlayerModelCount::~CustomPlayerModelCount()
-    /* Option<graphics::GraphicsQuality>::~Option() */
-
-    void Option<graphics::GraphicsQuality>::~Option() {
+    // 0x100610f30
+    CustomPlayerModelCount::~CustomPlayerModelCount() {
         ~Option(this);
     }
 
-    // 0x100610f30: the linker folded this into CustomPlayerModelCount::~CustomPlayerModelCount(), which has identical code
-    LightingQuality::~LightingQuality();
+    // 0x100610f30: LightingQuality::~LightingQuality() has the same machine code as CustomPlayerModelCount::~CustomPlayerModelCount()
 
-    // 0x100610f30: the linker folded this into CustomPlayerModelCount::~CustomPlayerModelCount(), which has identical code
-    AntialiasingQuality::~AntialiasingQuality();
+    // 0x100610f30: AntialiasingQuality::~AntialiasingQuality() has the same machine code as CustomPlayerModelCount::~CustomPlayerModelCount()
 
 } // namespace jag::game::option

@@ -1,77 +1,60 @@
 // libs/hal/render/state/OutputMergerState.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "OutputMergerState.h"
 
 namespace jag::render {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    OutputMergerState::GetViewports() const;
+    // 0x100009ca0: OutputMergerState::GetViewports() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100049810: the linker folded this into oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const, which has identical code
-    OutputMergerState::GetScissorRects() const;
+    // 0x100049810: OutputMergerState::GetScissorRects() const has the same machine code as oldscape::option::Option<oldscape::WindowSavedPosition>::GetDefaultValue() const
 
-    // 0x1006211f0: the linker folded this into game::Camera::GetLookatMode() const, which has identical code
-    uint OutputMergerState::GetClearFlags() const;
+    // 0x1006211f0: OutputMergerState::GetClearFlags() const has the same machine code as game::Camera::GetLookatMode() const
 
-    // 0x100bdf570, 240 bytes, placed by class name and debug map
-    // OutputMergerState::SetRenderTargets(RenderTargets const*)
-    void OutputMergerState::SetRenderTargets(RenderTargets* param_1) {
-        char cVar1;
-        undefined8 in_RAX;
+    // 0x100bdf570
+    void OutputMergerState::SetRenderTargets(const RenderTargets* renderTargets) {
+        uint64_t in_RAX;
         Layout* this_00;
         long* plVar2;
         long* plVar3;
-        uint* puVar4;
-        undefined8 local_38;
+        unsigned int* arg3;
 
-        if (param_1 == (RenderTargets*)0) {
-            /* WARNING: Subroutine does not return */
+        if (renderTargets == nullptr) {
             LogAssert("pRenderTargets",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                       "OutputMergerState.cpp",
-                      24, (char*)0);
+                      24, nullptr);
         }
-        m_pRenderTargets = param_1;
-        local_38 = in_RAX;
-        cVar1 = empty();
-        if (cVar1 != '\0') {
-            this_00 = (Layout*)param_1->GetColourTargetTextures();
-            plVar2 = (long*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_00);
+        m_pRenderTargets = renderTargets;
+        uint64_t local_38 = in_RAX;
+        if (empty() != '\0') {
+            this_00 = (Layout*)renderTargets->GetColourTargetTextures();
+            plVar2 = (long*)this_00->HeapBeginPtr();
             plVar3 = (long*)this_00->end();
             if (plVar2 != plVar3) {
                 do {
                     if (*plVar2 == 0) {
-                        /* WARNING: Subroutine does not return */
                         LogAssert("colourTarget != nullptr",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "state/OutputMergerState.cpp",
-                                  33, (char*)0);
+                                  33, nullptr);
                     }
-                    puVar4 = (uint*)(*plVar2)->second();
+                    arg3 = (unsigned int*)(*plVar2)->second();
                     local_38 = 0;
-                    eastl::vector<Viewport,
-                                  eastl::fixed_vector_allocator<24ul, 1ul, 4ul, 0ul, true, eastl::allocator>>::
-                        emplace_back<int, int, unsigned int const&, unsigned int const&>(
-                            (vector<Viewport,
-                                    eastl::fixed_vector_allocator<24ul, 1ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                            (int*)&local_38, (int*)((long)&local_38 + 4), puVar4, puVar4 + 1);
+                    emplace_back<int, int, unsigned int const&, unsigned int const&>(
+                        local_38, *((int*)((long)&local_38 + 4)), *arg3, *(arg3 + 1));
                     plVar2 = plVar2 + 1;
                 } while (plVar2 != plVar3);
             }
         }
     }
 
-    // 0x100bf5530, 80 bytes, placed by class name
-    // OutputMergerState::Clear()
+    // 0x100bf5530
     void OutputMergerState::Clear() {
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        m_pRenderTargets = (RenderTargets*)0;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        clear();
+        field_64.clear();
+        m_pRenderTargets = nullptr;
+        field_128.clear();
         m_clearFlags = 0;
         m_depthClear = 1.0;
         m_stencilClear = '\0';

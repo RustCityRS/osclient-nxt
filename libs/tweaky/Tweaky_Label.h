@@ -1,6 +1,5 @@
 // libs/tweaky/Tweaky_Label.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.tweaky
@@ -10,152 +9,118 @@ namespace jag::tweak {
     public:
         // virtual methods in vtable order
         virtual ~Label();
-        virtual ResetToDefault();
-        virtual void Draw(int, int);
-        virtual ulong GetControlSize(int&, int&);
-        virtual OnMouseOver(float, float);
-        OnClick(float, float, bool);
-        void SetMaxWidth(int);
+        virtual void ResetToDefault();
+        virtual void Draw(int arg1, int arg2);
+        virtual unsigned long GetControlSize(int& arg1, int& arg2);
+        virtual uint64_t OnMouseOver(float arg1, float arg2);
+        uint64_t OnClick(float arg1, float arg2, bool arg3);
+        void SetMaxWidth(int arg1);
         void SetNonShrinking();
-        Label(char const*);
+        Label(const char* str);
 
-        // data members, from how the methods use this: 220 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        undefined4 field_24; // offset 24
-        int field_28;        // offset 28
-        undefined4 field_32; // offset 32
-        int field_36;        // offset 36
-        uint field_40;       // offset 40
-        char _unknown_44[92];
-        undefined8 field_136; // offset 136
-        long field_144;       // offset 144
-        char _unknown_152[56];
-        bool field_208; // offset 208
-        char _unknown_209[1];
-        undefined1 field_210; // offset 210
-        undefined1 field_211; // offset 211
-        int m_maxWidth;       // offset 212
-        char _unknown_216[4];
+    private:
+        uint8_t _unknown_8[16];
+        int field_24;
+        int field_28;
+        Type field_32;
+        ShaderVariablePrecision field_36;
+        unsigned int field_40;
+        uint8_t _unknown_44[92];
+        uint64_t field_136;
+        long field_144;
+        uint8_t _unknown_152[56];
+        bool field_208;
+        uint8_t _unknown_209[1];
+        bool field_210;
+        uint8_t field_211;
+        int m_maxWidth;
+        uint8_t _unknown_216[4];
     };
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    Label::ResetToDefault();
+    // 0x100009e70: Label::ResetToDefault() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    Label::OnMouseOver(float, float);
+    // 0x100029ea0: Label::OnMouseOver(float, float) has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    Label::OnClick(float, float, bool);
+    // 0x100029ea0: Label::OnClick(float, float, bool) has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100688110, 16 bytes, inline, placed by class name and debug map
-    // Label::SetMaxWidth(int)
-    void Label::SetMaxWidth(int param_1) {
-        m_maxWidth = param_1;
+    // 0x100688110
+    void Label::SetMaxWidth(int arg1) {
+        m_maxWidth = arg1;
     }
 
-    // 0x100688120, 16 bytes, inline, placed by class name and debug map
-    // Label::SetNonShrinking()
+    // 0x100688120
     void Label::SetNonShrinking() {
         field_211 = 1;
     }
 
-    // 0x100a4fd80, 240 bytes, placed by class name
-    // Label::Draw(int, int)
-    void Label::Draw(int param_1, int param_2) {
-        Tweaky* pTVar1;
-        int iVar3;
-        int iVar4;
-        shared_ptr local_38;
+    // 0x100a4fd80
+    void Label::Draw(int arg1, int arg2) {
+        int arg1_00;
 
-        iVar4 = field_24 + param_1;
-        iVar3 = field_28 + param_2;
-        new (&local_38) oldscape::dash3d::GridRect(iVar4, iVar3, field_36 + iVar4, field_40 + iVar3);
+        int iVar3 = field_24 + arg1;
+        int iVar2 = field_28 + arg2;
+        shared_ptr local_38(iVar3, iVar2, field_36 + iVar3, field_40 + iVar2);
         field_136 = local_38._0_8_;
         field_144 = local_38.field_8;
-        weak_ptr<oldscape::rs2lib::IfType>::lock();
-        if (shared_ptr::operator_cast_to_bool(&local_38)) {
+        local_38 = field_104.lock();
+        if (shared_ptr::operator_cast_to_bool(&local_38) != '\0') {
             SetColour(3772834047, field_208);
-            iVar3 = field_28;
-            pTVar1 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_38);
-            iVar4 = pTVar1->GetTextCenterYOffset(field_40);
-            pTVar1 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_38);
-            Tweaky::TextDraw<eastl::string>(pTVar1, param_1 + field_24, param_2 + iVar3 + iVar4,
-                                            (basic_string*)&field_48, m_maxWidth, field_40, false);
+            iVar2 = field_28;
+            iVar3 = ((Tweaky*)local_38.operator->())->GetTextCenterYOffset(field_40);
+            arg1_00 = local_38.operator->();
+            Tweaky::TextDraw<eastl::string>(
+                arg1_00, arg1 + field_24,
+                *((fixed_string<char, _16>*)(unsigned long)(unsigned int)(arg2 + iVar2 + iVar3)), (int)this + 48,
+                m_maxWidth, (uint8_t)field_40);
         }
-        local_38.~shared_ptr();
     }
 
-    // 0x100a4fe70, 304 bytes, placed by class name
-    // Label::GetControlSize(int&, int&)
-    ulong Label::GetControlSize(int* param_1, int* param_2) {
-        bool bVar1;
-        uint uVar3;
-        Tweaky* pTVar5;
-        ulong uVar6;
-        int in_R9D;
-        StringView SVar7;
+    // 0x100a4fe70
+    unsigned long Label::GetControlSize(int& arg1, int& arg2) {
+        ShaderVariablePrecision shaderVariablePrecision1;
+        unsigned int uVar3;
+        Tweaky* pTVar4;
+        unsigned long uVar5;
         StringView local_58;
-        shared_ptr local_48;
-        int local_38;
-        uint local_34;
+        ShaderVariablePrecision local_38;
+        ShaderVariablePrecision local_34;
 
-        weak_ptr<oldscape::rs2lib::IfType>::lock();
-        bVar1 = shared_ptr::operator_cast_to_bool(&local_48);
-        if ((bVar1) && (bVar1 = shared_ptr::operator_cast_to_bool(&local_48), bVar1)) {
-            pTVar5 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_48);
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_58,
-                                                                                          (fixed_string*)&field_48);
-            SVar7.field_8._0_4_ = m_maxWidth;
-            SVar7.field_0 = (ulong)&local_58;
-            SVar7.field_8._4_4_ = 0;
-            if (pTVar5->GetTextSize(&local_38, (int*)&local_34, SVar7, in_R9D) != '\0') {
-                pTVar5 = (Tweaky*)shared_ptr<Tweaky>::operator->((shared_ptr<Tweaky>*)&local_48);
-                uVar3 = pTVar5->GetMinControlHeight();
-                local_34 = uVar3;
+        shared_ptr local_48 = field_104.lock();
+        bool cVar1 = shared_ptr::operator_cast_to_bool(&local_48);
+        if ((cVar1) && (cVar1 = shared_ptr::operator_cast_to_bool(&local_48), cVar1)) {
+            pTVar4 = (Tweaky*)local_48.operator->();
+            local_58.StringView<eastl::fixed_string<char, 40>>(field_48);
+            cVar1 = pTVar4->GetTextSize(local_38, local_34, &local_58, m_maxWidth);
+            if (cVar1) {
+                pTVar4 = (Tweaky*)local_48.operator->();
+                shaderVariablePrecision1 = pTVar4->GetMinControlHeight();
+                local_34 = shaderVariablePrecision1;
                 if (field_211 == '\0') {
                     field_36 = local_38;
-                    field_40 = uVar3;
+                    field_40 = shaderVariablePrecision1;
                     uVar3 = field_40;
                     goto joined_r0x000100a4ff35;
                 }
                 field_36 = eastl::max<int>(local_38, field_36);
-                uVar3 = eastl::max<int>(uVar3, field_40);
+                uVar3 = eastl::max<int>(shaderVariablePrecision1, field_40);
                 field_40 = uVar3;
             }
         }
         uVar3 = field_40;
     joined_r0x000100a4ff35:
-        if (((int)uVar3 < 1) && (field_36 < 1)) {
-            uVar6 = 0;
+        if (((int)uVar3 < 1) && ((int)field_36 < 1)) {
+            uVar5 = 0;
         } else {
-            *param_1 = field_36;
-            *param_2 = field_40;
-            uVar6 = CONCAT71((int7)((ulong)&local_48 >> 8), 1);
+            arg1 = field_36;
+            arg2 = field_40;
+            uVar5 = (((uint64_t)((int64_t)((unsigned long)&local_48 >> 8)) << 8) | (uint8_t)1);
         }
-        local_48.~shared_ptr();
-        return uVar6 & 4294967295;
+        return uVar5 & 4294967295;
     }
 
-    // 0x100a514a0: the linker folded this into Button::~Button(), which has identical code
-    Label::~Label();
+    // 0x100a52a40: Label::~Label() has the same machine code as Button::~Button()
 
-    // 0x100a514b0: the linker folded this into Button::~Button(), which has identical code
-    Label::~Label();
-
-    // 0x100a52a40: the linker folded this into Button::~Button(), which has identical code
-    Label::~Label();
-
-    // 0x100a5de00, 16 bytes, complete-object constructor, inline, placed by class name
-    // Label::Label(char const*): jumps straight to the base-object constructor
-
-    // 0x100a5de10, 64 bytes, base-object constructor, inline, placed by class name
-    // Label::Label(char const*)
-    void Label::Label(char* param_1) {
-        new (this) Control(0, 0, 1, param_1);
-        field_0 = &PTR__Label_100f1df20;
-        field_211 = 0;
-        m_maxWidth = -1;
-    }
+    // 0x100a5de10
+    Label::Label(const char* str) : Control(0, 0, 1, str), field_211(0), m_maxWidth(-1) {}
 
 } // namespace jag::tweak

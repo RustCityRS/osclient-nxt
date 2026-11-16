@@ -1,257 +1,247 @@
 // projects/osclient/titlescreen.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape {
     class TitleScreen {
     public:
-        IsOpen();
+        void IsOpen();
         void DeleteCharacter();
-        void TypeCharacter(char16_t);
-        void SetLoginSelect(int);
-        void Loop(javapal::GameShell&, graphics::Pix2D&, jstring::PixfontGeneric&, jstring::PixfontGeneric&);
-        void Draw(shared_ptr<jstring::PixfontGeneric> const&, shared_ptr<jstring::PixfontGeneric> const&,
-                  shared_ptr<jstring::PixfontGeneric> const&, bool, graphics::Pix2D&);
+        void TypeCharacter(char16_t arg1);
+        void SetLoginSelect(int arg1);
+        void Loop(javapal::GameShell& gameShell, graphics::Pix2D& pix2D, jstring::PixfontGeneric& pixfontGeneric1,
+                  jstring::PixfontGeneric& pixfontGeneric2);
+        void Draw(const shared_ptr<jstring::PixfontGeneric>& pixfontGeneric1,
+                  const shared_ptr<jstring::PixfontGeneric>& pixfontGeneric2,
+                  const shared_ptr<jstring::PixfontGeneric>& pixfontGeneric3, bool arg4, graphics::Pix2D& pix2D);
         void Close();
-        void Open(jagex3::Js5&, jagex3::Js5&, bool, int);
+        void Open(jagex3::Js5& js51, jagex3::Js5& js52, bool arg3, int arg4);
         void OpenInBackgroundMode();
-        int Ready(jagex3::Js5&, jagex3::Js5&);
-        int ReadyMax(jagex3::Js5&);
-        void SwitchToWorld(GameWorld const&);
-        void LoginMes(eastl::string const&, eastl::string const&, eastl::string const&);
-        void SwitchToLoginSupport(int);
-        ulong HasLoginMessage();
-        void MoveToInitialScreen(bool, bool);
+        int Ready(jagex3::Js5& js51, jagex3::Js5& js52);
+        int ReadyMax(jagex3::Js5& js5);
+        void SwitchToWorld(const GameWorld& gameWorld);
+        void LoginMes(const eastl::string& str1, const eastl::string& str2, const eastl::string& str3);
+        void SwitchToLoginSupport(int arg1);
+        unsigned long HasLoginMessage();
+        void MoveToInitialScreen(bool arg1, bool arg2);
         void SwitchToPendingTransactions();
-        void SetLoginCredentials(int, eastl::string);
+        void SetLoginCredentials(int arg1, eastl::string str);
         void ShowServerRebootedScreen();
         void ShowServerLogoffScreen();
         TitleScreen();
-        TitleScreen* SetupAuthenticatorInputForm();
-        void SetLogo(jagex3::Js5&, int);
+        auto SetupAuthenticatorInputForm();
+        void SetLogo(jagex3::Js5& js5, int arg2);
         void SetDefaultWorldCheckboxState();
         void SetDefaultToggleFullscreenCheckboxState();
         void SelectUsernameField();
-        void SelectLoginFormField(int);
-        void ShowKeyboard(int);
+        void SelectLoginFormField(int arg1);
+        void ShowKeyboard(int arg1);
         void SelectPasswordField();
-        ulong IsValidUsernameChar(char16_t);
-        void WorldSwitchLoop(javapal::GameShell&, graphics::Pix2D&);
-        ulong HandleAudioButtons(int, int);
+        unsigned long IsValidUsernameChar(char16_t arg1);
+        void WorldSwitchLoop(javapal::GameShell& gameShell, graphics::Pix2D& pix2D);
+        unsigned long HandleAudioButtons(int arg1, int arg2);
         void WorldSwitchEnter();
         void SaveDefaultWorld();
-        void ThrobMessage(eastl::string const&);
+        void ThrobMessage(const eastl::string& str);
         void ResumeInForeground();
-        void MoveToSteamLoginFlow(jag::auth::AuthAccountHint);
-        byte OpenTermsAndPrivacyScreen(int);
-        bool OpenDataDownloadPrompt(int);
-        ShowWorldWarningScreen(int);
+        void MoveToSteamLoginFlow(jag::auth::AuthAccountHint authAccountHint);
+        unsigned long OpenTermsAndPrivacyScreen(int arg1);
+        unsigned long OpenDataDownloadPrompt(int arg1);
+        void ShowWorldWarningScreen(int arg1);
         void MoveToGameCenterFlow();
         void MoveToGoogleLoginFlow();
         void MoveToJagexWebFlow();
-        void MoveToUserPassEntryScreen(bool);
+        void MoveToUserPassEntryScreen(bool arg1);
         void LaunchAccountCreationFlow();
         void ApplyPostAction();
-        void PreparePasswordLogin(eastl::string const&, bool);
+        void PreparePasswordLogin(const eastl::string& str, bool arg2);
         void SetDefaultLoginSelect();
         void LoadDevCredentialsFromFile();
-        TitleScreen* SetupAccountAppealInputForm();
+        auto SetupAccountAppealInputForm();
         void AccountAppealLogin();
-        uint GetCurrentDobInputBoxFromCoordinates(int, int);
-        TitleScreen* SetupDobInputForm();
-        CheckAndSetDobInput();
-        void Start3rdPartyLoginFlow(auth::AuthLibWrapper*);
-        void InitiateGameTokenLogin(bool, bool);
+        unsigned int GetCurrentDobInputBoxFromCoordinates(int arg1, int arg2);
+        auto SetupDobInputForm();
+        uint64_t CheckAndSetDobInput();
+        void Start3rdPartyLoginFlow(auth::AuthLibWrapper* authLibWrapper);
+        void InitiateGameTokenLogin(bool arg1, bool arg2);
         void ApplyPendingTransactions();
-        DetermineInitialScreen(bool);
+        void DetermineInitialScreen(bool arg1);
         time_t GetDobFromUserInput();
-        void SendToDobScreenWithErrorMessage(eastl::string const&, eastl::string const&, eastl::string const&);
-        bool CheckPlayerIsOver13(long);
+        void SendToDobScreenWithErrorMessage(const eastl::string& str1, const eastl::string& str2,
+                                             const eastl::string& str3);
+        bool CheckPlayerIsOver13(long arg1);
         void GetDate13YearsAgo();
         void GetReallyOldDate();
-        bool DateOfBirthIsValid(int, int, int, long);
-        void SetLoginScreen(int);
-        void WorldSwitchRender(jstring::PixfontGeneric&, jstring::PixfontGeneric&, graphics::Pix2D&);
-        void PlotTitle(graphics::Pix2D&);
-        TitleScreen* GetRenderUsername();
-        void GetRadioButton(bool, bool);
+        bool DateOfBirthIsValid(int arg1, int arg2, int arg3, long arg4);
+        void SetLoginScreen(int arg1);
+        void WorldSwitchRender(jstring::PixfontGeneric& pixfontGeneric1, jstring::PixfontGeneric& pixfontGeneric2,
+                               graphics::Pix2D& pix2D);
+        void PlotTitle(graphics::Pix2D& pix2D);
+        auto GetRenderUsername();
+        void GetRadioButton(bool arg1, bool arg2);
         void RestoreLoginUserFromRememberedUsername();
-        TitleScreen* SetupUserPassInputForm();
-        bool IsValidChar(char);
+        auto SetupUserPassInputForm();
+        bool IsValidChar(char arg1);
         void OnMuteTitleScreenChanged();
         void OnMidiVolumeChanged();
-        eastl::string* LoginScreenToString(int);
+        eastl::string* LoginScreenToString(int arg1);
         void MoveToAccountAppealScreen();
-        void CalculateWorldSwitcherStructure(WorldSwitcherStructure&);
+        void CalculateWorldSwitcherStructure(WorldSwitcherStructure& worldSwitcherStructure);
         int WorldSwitchWorldUnderPointer();
-        void WorldSwitchExit(graphics::Pix2D&);
+        void WorldSwitchExit(graphics::Pix2D& pix2D);
         void DirectLogin();
-        void SetDisplayName(eastl::string const&);
+        void SetDisplayName(const eastl::string& str);
         TitleScreen* GetTitleScreenInputHandler() const;
-        static /* 120 bytes */ m_clippingSaver;                   // initialised in its definition
-        static /* 4 bytes */ m_loadPos;                           // = 10
-        static /* 4 bytes */ m_loginHelp;                         // = 1
-        static /* 4 bytes */ m_loginTotpRememberUser;             // = 1
-        static /* 4 bytes */ m_sy;                                // = 171
-        static /* 4 bytes */ m_postAction;                        // = -1
-        static /* 8 bytes */ m_precacheStartTime;                 // = -1
-        static /* 8 bytes */ m_precacheCompleteTime;              // = -1
-        static /* 4 bytes */ m_lastVisibleAppHeight;              // = -1
-        static /* 4 bytes */ m_lastVisibleAppHeightChangeTic;     // = -1
-        static /* 4 bytes */ m_steamLinkHint;                     // = 1
-        static /* 8 bytes */ m_pendingTransactionLoginDelayStart; // = -1
-        static /* 8 bytes */ m_initialOpenAnimFinishTime;         // = -1
-        static /* 8 bytes */ m_initialOpenAnimStartTime;          // = -1
-        static /* 4 bytes */ m_slLastWorld;                       // = -1
-        static /* 16 bytes */ m_initialOpenAnim;                  // = { 15679664, 1, 0, 0 }
-        static eastl::string /* 32 bytes */ m_loadString;         // = ""
-        static /* 8 bytes */ m_loginscreen;
-        static /* 4 bytes */ m_dobSubmitted;
-        static /* 4 bytes */ m_dobInput;
-        static /* 8 bytes */ m_loginTotpPin;
-        static eastl::string /* 32 bytes */ m_loginUser;       // = ""
-        static eastl::string /* 32 bytes */ m_lastLoginUser;   // = ""
-        static eastl::string /* 32 bytes */ m_displayName;     // = ""
-        static eastl::string /* 32 bytes */ m_lastDisplayName; // = ""
-        static eastl::string /* 32 bytes */ m_loginPass;       // = ""
-        static /* 1 bytes */ m_open;
-        static /* 7 bytes */ m_backgroundMode;
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_titleBack;
-        static TitlescreenInputHandler /* 40 bytes */ m_inputHandler; // = TitlescreenInputHandler()
-        static /* 1 bytes */ m_loadingFlamesTriggerSent;
-        static /* 7 bytes */ m_errorTriggerSent;
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_titleBack2;
-        static /* 8 bytes */ m_titleBoxHeight;
-        static Array<graphics::Pix8, eastl::allocator> /* 24 bytes */
-            m_loginIcon;                               // = Array<graphics::Pix8,eastl::allocator>()
-        static Array<graphics::Pix8, eastl::allocator> /* 24 bytes */
-            m_titleMute;                               // = Array<graphics::Pix8,eastl::allocator>()
-        static /* 4 bytes */ m_loginCheckboxWidth;
-        static /* 4 bytes */ m_loginCheckboxHeight;
-        static /* 4 bytes */ m_defaultWorldCheckboxWidth;
-        static /* 4 bytes */ m_defaultWorldCheckboxHeight;
-        static Array<eastl::string, eastl::allocator> /* 24 bytes */
-            m_dobCharacters;                          // = Array<eastl::string,eastl::allocator>(8)
-        static /* 8 bytes */ m_currentDobCharacter;
-        static eastl::string /* 32 bytes */ m_loginTotpPinString; // = ""
-        static /* 4 bytes */ m_switchScreen;
-        static /* 4 bytes */ m_targetSY;  // = m_sy
-        static /* 4 bytes */ m_preciseSY; // = (float)m_sy
-        static /* 4 bytes */ m_xOf;
-        static /* 4 bytes */ m_sXOf; // = m_xOf + 202
-        static /* 4 bytes */ m_sXOfCentre;
-        static Array<graphics::Pix8, eastl::allocator>  /* 24 bytes */
-            m_volumeOptionsBobbleSlider;                // = Array<graphics::Pix8,eastl::allocator>()
-        static Array<graphics::Pix32, eastl::allocator> /* 24 bytes */
-            m_slBack;                                   // = Array<graphics::Pix32,eastl::allocator>()
-        static Array<graphics::Pix8, eastl::allocator>  /* 24 bytes */
-            m_slFlags;                                  // = Array<graphics::Pix8,eastl::allocator>()
-        static Array<graphics::Pix8, eastl::allocator>  /* 24 bytes */
-            m_slArrows;                                 // = Array<graphics::Pix8,eastl::allocator>()
-        static Array<graphics::Pix8, eastl::allocator>  /* 24 bytes */
-            m_slStars;                                  // = Array<graphics::Pix8,eastl::allocator>()
-        static /* 4 bytes */ m_worldWarningAccepted;
-        static /* 4 bytes */ m_loginSelect;
-        static eastl::string /* 32 bytes */ m_pinCharList; // = "1234567890"
-        static /* 1 bytes */ m_defaultWorldCheckboxHighlighted;
-        static /* 1 bytes */ m_defaultWorldCheckboxTicked;
-        static /* 1 bytes */ m_toggleFullscreenCheckboxHighlighted;
-        static /* 1 bytes */ m_toggleFullscreenCheckboxTicked;
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_termsAndConditionsLinkDimensions;
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_privacyPolicyLinkDimensions;
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_softwareLicenceLinkDimensionsMobile;
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_steamLinkYesBtn;
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_steamLinkNoBtn;
-        static /* 4 bytes */ m_previousLoginFlow;
-        static /* 4 bytes */ m_loginDimsInit;
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_loginHelpTextDimensions;
-        static /* 1 bytes */ m_loginRememberUserCheckboxHighlighted;
-        static /* 3 bytes */ m_loginHideUserCheckboxHighlighted;
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_cantLoginOtherTextDimensions;
-        static /* 8 bytes */ m_currentSupportReason;
-        static /* 8 bytes */ m_lastJagexWebFlowRequest;
-        static Array<jag::math::Rect<int>, eastl::allocator> /* 24 bytes */
-            m_volumeSliderPositions;                         // = Array<jag::math::Rect<int>,eastl::allocator>()
-        static eastl::string /* 32 bytes */ m_loginMes1;     // = ""
-        static eastl::string /* 32 bytes */ m_loginMes2;     // = ""
-        static eastl::string /* 32 bytes */ m_loginMes3;     // = ""
-        static eastl::string /* 32 bytes */ m_loginTitle;    // = ""
-        static eastl::string /* 32 bytes */ m_loginHelpText; // = ""
-        static eastl::string /* 32 bytes */ m_charList; // = eastl::string(s_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef_100dab3f1)
-        static WorldSwitcherStructure /* 40 bytes */ m_worldSwitcherStructure; // = WorldSwitcherStructure()
-        static /* 4 bytes */ m_slMaxScroll;
-        static /* 4 bytes */ m_slStartColumn;
-        static /* 8 bytes */ m_titleFlames;
-        static /* 8 bytes */ m_loading;
-        static /* 8 bytes */ m_titleBox;
-        static /* 8 bytes */ m_titleBut;
-        static /* 8 bytes */ m_titleButLarge;
-        static /* 8 bytes */ m_textPlayNow;
-        static /* 8 bytes */ m_titleButWide;
-        static /* 8 bytes */ m_logo;
-        static /* 8 bytes */ m_optionsRadioButtonNone;
-        static /* 8 bytes */ m_optionsRadioButtonNoneHighlight;
-        static /* 8 bytes */ m_optionsRadioButtonYes;
-        static /* 8 bytes */ m_optionsRadioButtonYesHighlight;
-        static /* 8 bytes */ m_slButton;
-        static /* 8 bytes */ m_slLeftArrow;
-        static /* 8 bytes */ m_slRightArrow;
-        static /* 8 bytes */ m_verbose;
-        static eastl::vector<eastl::string, eastl::allocator> /* 32 bytes */ m_spriteNamesInBinary;
-        static eastl::vector<eastl::string, eastl::allocator> /* 32 bytes */ m_spriteNames;
-        static eastl::vector<eastl::string, eastl::allocator> /* 32 bytes */ m_spriteNamesOptional;
+        static int32_t m_clippingSaver[30];                 // initialised in its definition
+        static int32_t m_loadPos;                           // = 10
+        static int32_t m_loginHelp;                         // = 1
+        static int32_t m_loginTotpRememberUser;             // = 1
+        static int32_t m_sy;                                // = 171
+        static int32_t m_postAction;                        // = -1
+        static int64_t m_precacheStartTime;                 // = -1
+        static int64_t m_precacheCompleteTime;              // = -1
+        static int32_t m_lastVisibleAppHeight;              // = -1
+        static int32_t m_lastVisibleAppHeightChangeTic;     // = -1
+        static int32_t m_steamLinkHint;                     // = 1
+        static int64_t m_pendingTransactionLoginDelayStart; // = -1
+        static int64_t m_initialOpenAnimFinishTime;         // = -1
+        static int64_t m_initialOpenAnimStartTime;          // = -1
+        static int32_t m_slLastWorld;                       // = -1
+        static int32_t m_initialOpenAnim[4];                // = { 15679664, 1, 0, 0 }
+        static eastl::string m_loadString;                  // = ""
+        static int64_t m_loginscreen;
+        static int32_t m_dobSubmitted;
+        static int32_t m_dobInput;
+        static int64_t m_loginTotpPin;
+        static eastl::string m_loginUser;       // = ""
+        static eastl::string m_lastLoginUser;   // = ""
+        static eastl::string m_displayName;     // = ""
+        static eastl::string m_lastDisplayName; // = ""
+        static eastl::string m_loginPass;       // = ""
+        static bool m_open;
+        static bool m_backgroundMode;
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_titleBack;                               // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static TitlescreenInputHandler m_inputHandler; // = TitlescreenInputHandler()
+        static bool m_loadingFlamesTriggerSent;
+        static bool m_errorTriggerSent;
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_titleBack2; // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static int64_t m_titleBoxHeight;
+        static Array<graphics::Pix8> m_loginIcon; // = Array<graphics::Pix8>()
+        static Array<graphics::Pix8> m_titleMute; // = Array<graphics::Pix8>()
+        static int32_t m_loginCheckboxWidth;
+        static int32_t m_loginCheckboxHeight;
+        static int32_t m_defaultWorldCheckboxWidth;
+        static int32_t m_defaultWorldCheckboxHeight;
+        static Array<eastl::string> m_dobCharacters; // = Array<eastl::string>(8)
+        static int64_t m_currentDobCharacter;
+        static eastl::string m_loginTotpPinString; // = ""
+        static int32_t m_switchScreen;
+        static int32_t m_targetSY;  // = m_sy
+        static int32_t m_preciseSY; // = (float)m_sy
+        static int32_t m_xOf;
+        static int32_t m_sXOf; // = m_xOf + 202
+        static int32_t m_sXOfCentre;
+        static Array<graphics::Pix8> m_volumeOptionsBobbleSlider; // = Array<graphics::Pix8>()
+        static Array<graphics::Pix32> m_slBack;                   // = Array<graphics::Pix32>()
+        static Array<graphics::Pix8> m_slFlags;                   // = Array<graphics::Pix8>()
+        static Array<graphics::Pix8> m_slArrows;                  // = Array<graphics::Pix8>()
+        static Array<graphics::Pix8> m_slStars;                   // = Array<graphics::Pix8>()
+        static int32_t m_worldWarningAccepted;
+        static int32_t m_loginSelect;
+        static eastl::string m_pinCharList; // = "1234567890"
+        static bool m_defaultWorldCheckboxHighlighted;
+        static bool m_defaultWorldCheckboxTicked;
+        static bool m_toggleFullscreenCheckboxHighlighted;
+        static bool m_toggleFullscreenCheckboxTicked;
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_termsAndConditionsLinkDimensions; // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_privacyPolicyLinkDimensions; // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_softwareLicenceLinkDimensionsMobile; // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_steamLinkYesBtn; // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_steamLinkNoBtn; // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static int32_t m_previousLoginFlow;
+        static int32_t m_loginDimsInit;
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_loginHelpTextDimensions; // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static bool m_loginRememberUserCheckboxHighlighted;
+        static bool m_loginHideUserCheckboxHighlighted;
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_cantLoginOtherTextDimensions; // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static int64_t m_currentSupportReason;
+        static int64_t m_lastJagexWebFlowRequest;
+        static Array<jag::math::Rect<int>> m_volumeSliderPositions; // = Array<jag::math::Rect<int>>()
+        static eastl::string m_loginMes1;                           // = ""
+        static eastl::string m_loginMes2;                           // = ""
+        static eastl::string m_loginMes3;                           // = ""
+        static eastl::string m_loginTitle;                          // = ""
+        static eastl::string m_loginHelpText;                       // = ""
+        static eastl::string m_charList; // = eastl::string(s_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef_100dab3f1)
+        static WorldSwitcherStructure m_worldSwitcherStructure; // = WorldSwitcherStructure()
+        static int32_t m_slMaxScroll;
+        static int32_t m_slStartColumn;
+        static unique_ptr<TitleFlames> m_titleFlames;
+        static unique_ptr<LoadingScreenScript> m_loading;
+        static unique_ptr<graphics::Pix8> m_titleBox;
+        static unique_ptr<graphics::Pix8> m_titleBut;
+        static unique_ptr<graphics::Pix8> m_titleButLarge;
+        static unique_ptr<graphics::Pix8> m_textPlayNow;
+        static unique_ptr<graphics::Pix8> m_titleButWide;
+        static unique_ptr<graphics::Pix8> m_logo;
+        static unique_ptr<graphics::Pix8> m_optionsRadioButtonNone;
+        static unique_ptr<graphics::Pix8> m_optionsRadioButtonNoneHighlight;
+        static unique_ptr<graphics::Pix8> m_optionsRadioButtonYes;
+        static unique_ptr<graphics::Pix8> m_optionsRadioButtonYesHighlight;
+        static unique_ptr<graphics::Pix8> m_slButton;
+        static unique_ptr<graphics::Pix8, std::default_delete<graphics::Pix8> _> m_slLeftArrow;
+        static unique_ptr<graphics::Pix8, std::default_delete<graphics::Pix8> _> m_slRightArrow;
+        static int64_t m_verbose;
+        static eastl::vector<eastl::string> m_spriteNamesInBinary;
+        static eastl::vector<eastl::string> m_spriteNames;
+        static eastl::vector<eastl::string> m_spriteNamesOptional;
 
-        // data members, from how the methods use this: 16 bytes
-        char _unknown_0[8];
-        long field_8; // offset 8
+    private:
+        long field_0;
     };
 
-    // 0x10004e410, 16 bytes, inline, placed by class name and debug map
-    // TitleScreen::IsOpen()
-    undefined8 TitleScreen::IsOpen() {
-        return CONCAT71(16840872, m_open);
+    // 0x10004e410
+    void TitleScreen::IsOpen() {
+        return m_open;
     }
 
-    // 0x1000db9d0, 80 bytes, inline, placed by class name and debug map
-    // TitleScreen::HasLoginMessage()
-    ulong TitleScreen::HasLoginMessage() {
-        char cVar1;
-        uint uVar2;
-        undefined8 unaff_RBX;
-        ulong uVar3;
+    // 0x1000db9d0
+    unsigned long TitleScreen::HasLoginMessage() {
+        unsigned int uVar2;
+        uint64_t unaff_RBX;
 
-        cVar1 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        uVar3 = CONCAT71((int7)((ulong)unaff_RBX >> 8), 1);
-        if (cVar1 != '\0') {
-            cVar1 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar1 != '\0') {
-                uVar2 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-                uVar3 = (ulong)uVar2 ^ 1;
+        bool cVar1 = m_loginMes1.empty();
+        unsigned long uVar3 = (((uint64_t)((int64_t)((unsigned long)unaff_RBX >> 8)) << 8) | (uint8_t)1);
+        if (cVar1) {
+            cVar1 = m_loginMes2.empty();
+            if (cVar1) {
+                uVar2 = m_loginMes3.empty();
+                uVar3 = (unsigned long)uVar2 ^ 1;
             }
         }
         return uVar3 & 4294967295;
     }
 
-    // 0x1001870b0, 80 bytes, inline, placed by class name
-    // TitleScreen::SetDisplayName(eastl::string const&)
-    void TitleScreen::SetDisplayName(basic_string* param_1) {
-        DisplayNameTools local_30[32];
+    // 0x1001870b0
+    void TitleScreen::SetDisplayName(const eastl::string& str) {
 
-        local_30->SanitiseUnknownDisplayName(param_1);
-        eastl::string::operator=((eastl::string*)&m_displayName, (basic_string*)local_30);
-        local_30->~basic_string();
+        auto local_30 = rs2lib::social::DisplayNameTools::SanitiseUnknownDisplayName(str);
+        m_displayName = &local_30;
     }
 
-    // 0x100189140, 32 bytes, inline, placed by class name
-    // TitleScreen::GetTitleScreenInputHandler() const
-    TitleScreen* TitleScreen::GetTitleScreenInputHandler() {
-        new (this) TitlescreenInputHandler((TitlescreenInputHandler*)&m_inputHandler);
+    // 0x100189140
+    TitleScreen* TitleScreen::GetTitleScreenInputHandler() const {
+        new (this) TitlescreenInputHandler(m_inputHandler);
         return this;
     }
 

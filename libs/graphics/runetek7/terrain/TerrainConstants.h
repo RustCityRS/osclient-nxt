@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/terrain/TerrainConstants.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
@@ -8,107 +7,89 @@
 namespace jag::graphics {
     class TerrainConstants {
     public:
-        CreateTriangle(TerrainTriangle&, TRIANGLE_USAGE, TerrainBaseData const*, TerrainBaseData const*);
-        TerrainBaseData* GetDominantSource<TerrainBaseData>(bool, std::initializer_list<TerrainBaseData*> const&);
-        void CopyVertexLocationAndNormal(TerrainVertex const&, TerrainVertex&);
-        void CopyVertexSource(TerrainBaseData const&, TerrainBaseData&);
+        void CreateTriangle(TerrainTriangle& terrainTriangle, TRIANGLE_USAGE tRIANGLE_USAGE,
+                            const TerrainBaseData* terrainBaseData1, const TerrainBaseData* terrainBaseData2);
+        TerrainBaseData*
+        GetDominantSource<TerrainBaseData>(bool arg1, std::initializer_list<TerrainBaseData*> const& initializer_list);
+        void CopyVertexLocationAndNormal(const TerrainVertex& terrainVertex1, TerrainVertex& terrainVertex2);
+        void CopyVertexSource(const TerrainBaseData& terrainBaseData1, TerrainBaseData& terrainBaseData2);
         TerrainBaseData const*
-        GetDominantSource<TerrainBaseData const>(bool, std::initializer_list<TerrainBaseData const*> const&);
-        void GetEdgeCentreOffset(int, int);
-        void GetCornerCoord(int, int);
-        void CopyVertex(TerrainVertex const&, TerrainVertex&);
-        void CopyTriangleSource(TerrainBaseData const&, TerrainTriangle&);
-        static TerrainBaseData /* 40 bytes */ EMPTY_SOURCE;
-        static math::Point<float> /* 32 bytes */ EDGE_CENTRE_OFFSETS[4]; // initialised in its definition
-        static math::Point<float> /* 32 bytes */ CORNERS[4];             // initialised in its definition
+        GetDominantSource<TerrainBaseData const>(bool arg1,
+                                                 std::initializer_list<TerrainBaseData const*> const& initializer_list);
+        Vector2T<float>* GetEdgeCentreOffset(int arg1, int arg2);
+        void GetCornerCoord(int arg1, int arg2);
+        void CopyVertex(const TerrainVertex& terrainVertex1, TerrainVertex& terrainVertex2);
+        void CopyTriangleSource(const TerrainBaseData& terrainBaseData, TerrainTriangle& terrainTriangle);
+        static TerrainBaseData EMPTY_SOURCE;
+        static math::Point<float> EDGE_CENTRE_OFFSETS[4]; // initialised in its definition
+        static math::Point<float> CORNERS[4];             // initialised in its definition
     };
 
-    // 0x100627c20, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // TerrainTextureMeta::TerrainTextureMeta(): jumps straight to the base-object constructor
-
-    // 0x1007b1f60, 160 bytes, inline, placed by class name
-    // TerrainBaseData* TerrainConstants::GetDominantSource<TerrainBaseData>(bool, std::initializer_list<TerrainBaseData*> const&)
-    TerrainBaseData* TerrainConstants::GetDominantSource<TerrainBaseData>(bool param_1, initializer_list* param_2) {
+    // 0x1007b1f60
+    TerrainBaseData* TerrainConstants::GetDominantSource<TerrainBaseData>(
+        bool arg1, std::initializer_list<TerrainBaseData*> const& initializer_list) {
         TerrainBaseData* pTVar1;
-        long lVar2;
-        long* plVar3;
-        long* plVar4;
-        TerrainBaseData* pTVar5;
 
-        lVar2 = param_2->size();
-        if (lVar2 == 0) {
-            /* WARNING: Subroutine does not return */
+        if (initializer_list.size() == 0) {
             LogAssert("arguments.size() > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/terrain/"
                       "TerrainConstants.h",
-                      105, (char*)0);
+                      105, nullptr);
         }
-        plVar3 = (long*)param_2->begin();
-        pTVar5 = (TerrainBaseData*)*plVar3;
-        plVar4 = (long*)param_2->end();
+        auto plVar3 = initializer_list.begin();
+        TerrainBaseData* pTVar5 = (TerrainBaseData*)*plVar3;
+        auto plVar4 = initializer_list.end();
         for (; plVar3 != plVar4; plVar3 = plVar3 + 1) {
             pTVar1 = (TerrainBaseData*)*plVar3;
-            if (((pTVar1 != (TerrainBaseData*)0) && (*(char*)&pTVar1->field_12 != '\0')) &&
-                ((pTVar5 == (TerrainBaseData*)0 ||
+            if (((pTVar1 != nullptr) && (*(char*)&pTVar1->field_12 != '\0')) &&
+                ((pTVar5 == nullptr ||
                   (((pTVar1->field_28 != '\0' && (*(int*)&pTVar5->field_32 <= *(int*)&pTVar1->field_32)) &&
-                    ((*(int*)&pTVar1->field_32 != *(int*)&pTVar5->field_32 || (param_1)))))))) {
+                    ((*(int*)&pTVar1->field_32 != *(int*)&pTVar5->field_32 || (arg1)))))))) {
                 pTVar5 = pTVar1;
             }
         }
         return pTVar5;
     }
 
-    // 0x1007b2a50, 160 bytes, inline, placed by class name
-    // TerrainBaseData const* TerrainConstants::GetDominantSource<TerrainBaseData const>(bool, std::initializer_list<TerrainBaseData const*> const&)
-    TerrainBaseData* TerrainConstants::GetDominantSource<TerrainBaseData_const>(bool param_1,
-                                                                                initializer_list* param_2) {
+    // 0x1007b2a50
+    TerrainBaseData const* TerrainConstants::GetDominantSource<TerrainBaseData const>(
+        bool arg1, std::initializer_list<TerrainBaseData const*> const& initializer_list) {
         TerrainBaseData* pTVar1;
-        long lVar2;
-        long* plVar3;
-        long* plVar4;
-        TerrainBaseData* pTVar5;
 
-        lVar2 = param_2->size();
-        if (lVar2 == 0) {
-            /* WARNING: Subroutine does not return */
+        if (initializer_list.size() == 0) {
             LogAssert("arguments.size() > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/terrain/"
                       "TerrainConstants.h",
-                      105, (char*)0);
+                      105, nullptr);
         }
-        plVar3 = (long*)param_2->begin();
-        pTVar5 = (TerrainBaseData*)*plVar3;
-        plVar4 = (long*)param_2->end();
+        auto plVar3 = initializer_list.begin();
+        TerrainBaseData* pTVar5 = (TerrainBaseData*)*plVar3;
+        auto plVar4 = initializer_list.end();
         for (; plVar3 != plVar4; plVar3 = plVar3 + 1) {
             pTVar1 = (TerrainBaseData*)*plVar3;
-            if (((pTVar1 != (TerrainBaseData*)0) && (*(char*)&pTVar1->field_12 != '\0')) &&
-                ((pTVar5 == (TerrainBaseData*)0 ||
+            if (((pTVar1 != nullptr) && (*(char*)&pTVar1->field_12 != '\0')) &&
+                ((pTVar5 == nullptr ||
                   (((pTVar1->field_28 != '\0' && (*(int*)&pTVar5->field_32 <= *(int*)&pTVar1->field_32)) &&
-                    ((*(int*)&pTVar1->field_32 != *(int*)&pTVar5->field_32 || (param_1)))))))) {
+                    ((*(int*)&pTVar1->field_32 != *(int*)&pTVar5->field_32 || (arg1)))))))) {
                 pTVar5 = pTVar1;
             }
         }
         return pTVar5;
     }
 
-    // 0x1007b3200, 32 bytes, inline, placed by class name
-    // TerrainConstants::GetEdgeCentreOffset(int, int)
-    void TerrainConstants::GetEdgeCentreOffset(int param_1, int param_2) {
-        std::array<math::Vector2T<float>, 4ul>::operator[]((array<math::Vector2T<float>, 4ul>*)&EDGE_CENTRE_OFFSETS,
-                                                           (ulong)(param_2 + param_1 & 3));
+    // 0x1007b3200
+    Vector2T<float>* TerrainConstants::GetEdgeCentreOffset(int arg1, int arg2) {
+        return (Vector2T<float>*)EDGE_CENTRE_OFFSETS[(unsigned long)(arg2 + arg1 & 3)];
     }
 
-    // 0x1007b3220, 32 bytes, inline, placed by class name
-    // TerrainConstants::GetCornerCoord(int, int)
-    void TerrainConstants::GetCornerCoord(int param_1, int param_2) {
-        std::array<math::Vector2T<float>, 4ul>::operator[]((array<math::Vector2T<float>, 4ul>*)&CORNERS,
-                                                           (ulong)(param_2 + param_1 & 3));
+    // 0x1007b3220
+    void TerrainConstants::GetCornerCoord(int arg1, int arg2) {
+        CORNERS[(unsigned long)(arg2 + arg1 & 3)];
     }
 
 } // namespace jag::graphics
 
 namespace jag::ui {
-    // 0x100627c20: the linker folded this into graphics::TerrainTextureMeta::TerrainTextureMeta(), which has identical code
-    ServerActiveProperties::ServerActiveProperties();
+    // 0x100627c20: ServerActiveProperties::ServerActiveProperties() has the same machine code as graphics::TerrainTextureMeta::TerrainTextureMeta()
 
 } // namespace jag::ui

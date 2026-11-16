@@ -1,14 +1,13 @@
 // libs/console/Console.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.console
 
 #include "Console.h"
 #include "Console.inl"
 
 namespace jag::console {
-    // 0x100d3d3b8, 516 bytes, __const
-    g_lineTypeColour = {
+    // 0x100d3d3b8
+    int32_t g_lineTypeColour[129] = {
         -2139062017, -522133249,  -1593859841, -1593859841, -1061142273, -10460929,   -10460929,  -1061117697,
         1048576000,  1140555776,  -1160088562, 1140850688,  -1840700270, 1068648740,  0,          1076887552,
         286331153,   1068568849,  0,           1076625408,  0,           1076363264,  0,          0,
@@ -28,534 +27,359 @@ namespace jag::console {
         0,
     };
 
-    // 0x100d43424, 76 bytes, __const
-    g_lineTypeColour = {
+    // 0x100d43424
+    int32_t g_lineTypeColour[19] = {
         -2139062017, -522133249, -1593859841, -1593859841, -1061142273, -10460929, -10460929,
         -1061117697, 1017370378, 0,           0,           4096,        4096,      1,
         1,           1,          0,           1,           1,
     };
 
-    // 0x100009d50: the linker folded this into eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second(), which has identical code
-    Console::GetCommands() const;
+    // 0x100009d50: Console::GetCommands() const has the same machine code as eastl::compressed_pair_imp<eastl::string*, eastl::allocator, 0>::second()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    Console::HistoryListener::~HistoryListener();
+    // 0x100009e70: Console::HistoryListener::~HistoryListener() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    Console::LoadCommandHistoryAndVars();
+    // 0x10002d860: Console::LoadCommandHistoryAndVars() has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    Console::SaveCommandHistoryAndVars();
+    // 0x10002d860: Console::SaveCommandHistoryAndVars() has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x10005c9a0: the linker folded this into oldscape::ConsoleCommandHelp::~ConsoleCommandHelp(), which has identical code
-    Console::PendingCommand::~PendingCommand();
+    // 0x10005d8c0: Console::GetCommandHistory() const has the same machine code as oldscape::OSClientConsoleUI::GetBounds() const
 
-    // 0x10005d8c0: the linker folded this into oldscape::OSClientConsoleUI::GetBounds() const, which has identical code
-    StringVector Console::GetCommandHistory() const;
+    // 0x1000753f0: Console::PendingCommand::~PendingCommand() has the same machine code as oldscape::ConsoleCommandHelp::~ConsoleCommandHelp()
 
-    // 0x1000753f0: the linker folded this into oldscape::ConsoleCommandHelp::~ConsoleCommandHelp(), which has identical code
-    Console::PendingCommand::~PendingCommand();
+    // 0x1001a3c10: Console::GetMessageHistory() const has the same machine code as MainLoopFrameTimer::GetFPSCounter()
 
-    // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    Console::GetMessageHistory() const;
+    // 0x1003efcf0: Console::GetLastCommandExecutionResult() const has the same machine code as game::ObjType::GetName() const
 
-    // 0x1003efcf0: the linker folded this into game::ObjType::GetName() const, which has identical code
-    Console::GetLastCommandExecutionResult() const;
+    // 0x1003f51a0: Console::GetShortestHiddenCommandLength() const has the same machine code as game::BASType::GetHillRotateLength() const
 
-    // 0x1003f51a0: the linker folded this into game::BASType::GetHillRotateLength() const, which has identical code
-    int Console::GetShortestHiddenCommandLength() const;
+    // 0x100417fb0: Console::GetStoredVariables() const has the same machine code as game::NPCType::GetHeadIconGraphic() const
 
-    // 0x100417fb0: the linker folded this into game::NPCType::GetHeadIconGraphic() const, which has identical code
-    Console::GetStoredVariables() const;
+    // 0x100c7a7b0
+    unsigned long MatchString(const eastl::string& str1, const eastl::string& str2) {
+        unsigned long arg1;
+        unsigned long arg1_00;
+        uint8_t auVar2[12];
+        regex local_98;
 
-    // 0x100c7a7b0, 320 bytes, placed by class name and debug map
-    // MatchString(eastl::string const&, eastl::string const&)
-    ulong MatchString(basic_string* param_1, basic_string* param_2) {
-        bool bVar1;
-        ulong uVar2;
-        ulong uVar3;
-        ulong uVar4;
-        undefined8 uVar5;
-        undefined7 extraout_var;
-        regex local_98[64];
-        eastl::string local_58[32];
-        basic_string* local_38;
-
-        local_38 = param_1;
-        eastl::string::basic_string(local_58, param_2);
-        uVar2 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+        eastl::string* local_38 = str1;
+        eastl::string local_58(str2);
+        unsigned long arg2 = local_58.size();
         do {
-            uVar3 = eastl::string::rfind(local_58, "?", 18446744073709551615);
-            if (uVar3 != 18446744073709551615) {
-                eastl::string::replace(local_58, uVar3, 1, "(.)");
-                if (uVar3 <= uVar2) {
-                    uVar2 = uVar2 + 2;
+            arg1 = local_58.rfind("?", 18446744073709551615);
+            if (arg1 != 18446744073709551615) {
+                local_58.replace(arg1, 1, "(.)");
+                if (arg1 <= arg2) {
+                    arg2 = arg2 + 2;
                 }
             }
-            uVar4 = eastl::string::rfind(local_58, "*", uVar2);
-            if (uVar4 != 18446744073709551615) {
-                eastl::string::replace(local_58, uVar4, 1, "(.*)");
-                uVar2 = uVar4;
+            arg1_00 = local_58.rfind("*", arg2);
+            if (arg1_00 != 18446744073709551615) {
+                local_58.replace(arg1_00, 1, "(.*)");
+                arg2 = arg1_00;
             }
-        } while (uVar4 != 18446744073709551615 || uVar3 != 18446744073709551615);
-        uVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        std::regex::basic_regex(local_98, uVar5);
-        uVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        bVar1 = std::regex_match<char, std::regex_traits<char>>(uVar5, local_98);
-        std::regex::~basic_regex(local_98);
-        eastl::string::~basic_string(local_58);
-        return CONCAT71(extraout_var, bVar1) & 4294967295;
+        } while (arg1_00 != 18446744073709551615 || arg1 != 18446744073709551615);
+        auVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        std::regex::basic_regex(&local_98, auVar2._0_8_, auVar2._8_4_);
+        auVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        bool bVar1 = std::regex_match<char, std::regex_traits<char>>(auVar2._0_8_, local_98, auVar2._8_4_);
+        std::regex::~basic_regex(&local_98);
+        return bVar1 & 4294967295;
     }
 
-    // 0x100c7a970, 496 bytes, base-object constructor, placed by class name and debug map
-    // Console::Console()
-    void Console::Console() {
-        allocator local_70[8];
-        undefined1* local_68;
-        undefined1* local_60;
-        undefined1* local_58;
-        undefined1* local_50;
-        undefined1* local_48;
-        undefined1* local_40;
-        vector<eastl::pair<eastl::string, CommandData>, eastl::allocator>* local_38;
-
-        field_0 = &PTR__Console_100f297a0;
-        local_38 = (vector<eastl::pair<eastl::string, CommandData>, eastl::allocator>*)&field_8;
-        new (local_38) eastl::vector_map<eastl::string, CommandData, eastl::less<eastl::string>, eastl::allocator,
-                                         eastl::vector<eastl::pair<eastl::string, CommandData>, eastl::allocator>>();
-        new (&field_48, 1024) eastl::ring_buffer<Line, eastl::vector<Line, eastl::allocator>, eastl::allocator>();
-        local_68 = &field_48;
-        new (m_commandHistory, 128)
-            eastl::ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>();
-        field_160 = false;
-        field_161 = '\0';
-        field_164 = 0;
-        field_168 = 0;
-        new (&field_172) std::optional<int>();
-        local_58 = &field_184;
-        std::unique_ptr<File, std::default_delete<File>>::unique_ptr<true, void>(
-            (unique_ptr<File, std::default_delete<File>>*)local_58);
-        local_60 = m_commandHistory;
+    // 0x100c7a970
+    Console::Console() {
+        vector<eastl::pair<eastl::string, CommandData>>* local_38 =
+            (vector<eastl::pair<eastl::string, CommandData>>*)&field_8;
+        new (local_38) eastl::vector_map<eastl::string, CommandData>();
+        new (&field_48) eastl::ring_buffer<Line, eastl::vector<Line>>(1024);
+        uint8_t* local_68 = &field_48;
+        new (m_commandHistory) eastl::ring_buffer<eastl::string, eastl::vector<eastl::string>>(128);
+        field_160 = 0;
+        *(uint64_t*)&field_164 = 0;
+        new (&field_172) std::optional();
+        &field_184->unique_ptr<true, void>();
+        uint8_t* local_60 = m_commandHistory;
         new (&field_192) eastl::string();
         m_shortestHiddenCommandLength = 2147483647;
-        local_48 = &field_240;
-        std::function<void(StringView, bool, bool)>::function((function<void(StringView, bool, bool)>*)local_48);
-        local_40 = &field_288;
-        local_50 = &field_192;
-        new (local_40) eastl::list<Console::PendingCommand, eastl::allocator>();
-        field_320 = 0.0;
+        uint8_t* local_48 = &field_240;
+        new (local_48) std::function<void(StringView, bool, bool)>();
+        uint8_t* local_40 = &field_288;
+        uint8_t* local_50 = &field_192;
+        new (local_40) eastl::list<Console::PendingCommand>();
+        field_320 = 0;
         new (&field_328) eastl::string();
-        eastl::allocator::allocator(local_70, "EASTL set");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)&field_360);
+        new (&field_360) eastl::map(local_70);
         new (&field_408) std::optional<std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>();
-        new (&field_528) eastl::vector_map<
-            eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>,
-            eastl::less<eastl::string>, eastl::allocator,
-            eastl::vector<
-                eastl::pair<eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>,
-                eastl::allocator>>();
+        new (&field_528)
+            eastl::vector_map<eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>();
         field_568 = 0;
         field_572 = 0;
-        eastl::vector<eastl::pair<eastl::string, CommandData>, eastl::allocator>::reserve(local_38, 512);
-        RegisterCoreCommands(this);
+        local_38->reserve(512);
+        RegisterCoreCommands();
     }
 
-    // 0x100c7ac10, 128 bytes, placed by class name and debug map
-    // Console::RegisterCoreCommands()
+    // 0x100c7ac10
     void Console::RegisterCoreCommands() {
-        AddCommand<Console::RegisterCoreCommands()::__0>(this, this);
-        AddCommand<Console::RegisterCoreCommands()::__1>(this, this);
-        AddCommand<Console::RegisterCoreCommands()::__3>(this, this);
-        AddCommand<Console::RegisterCoreCommands()::__4>(this, this);
-        AddCommand<Console::RegisterCoreCommands()::__5>(this, this);
-        AddCommand<Console::RegisterCoreCommands()::__6>(this, this);
-        AddCommand<Console::RegisterCoreCommands()::__2>(this, &DAT_100e614a8, this);
-        AddCommand<Console::RegisterCoreCommands()::__2>(this, "commands", this);
+        int in_ECX;
+        uint32_t in_register_0000000c;
+        char* in_RDX;
+        char* str;
+        char* str_00;
+        char* str_01;
+        char* str_02;
+        char* str_03;
+        int in_R8D;
+
+        AddCommand<Console::RegisterCoreCommands()::__0>(
+            (RegisteredCommand*)this, this, in_RDX, (__0*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)in_ECX),
+            in_R8D);
+        AddCommand<Console::RegisterCoreCommands()::__1>(
+            (RegisteredCommand*)this, this, str, (__1*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)in_ECX),
+            in_R8D);
+        AddCommand<Console::RegisterCoreCommands()::__3>(
+            (RegisteredCommand*)this, this, str_00, (__3*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)in_ECX),
+            in_R8D);
+        AddCommand<Console::RegisterCoreCommands()::__4>(
+            (RegisteredCommand*)this, this, str_01, (__4*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)in_ECX),
+            in_R8D);
+        AddCommand<Console::RegisterCoreCommands()::__5>(
+            (RegisteredCommand*)this, this, str_02, (__5*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)in_ECX),
+            in_R8D);
+        AddCommand<Console::RegisterCoreCommands()::__6>(
+            (RegisteredCommand*)this, this, str_03, (__6*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)in_ECX),
+            in_R8D);
+        AddCommand<Console::RegisterCoreCommands()::__2>((RegisteredCommand*)this, "help", (__2*)this, in_ECX);
+        AddCommand<Console::RegisterCoreCommands()::__2>((RegisteredCommand*)this, "commands", (__2*)this, in_ECX);
     }
 
-    // 0x100c7ace0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // Console::Console(): jumps straight to the base-object constructor
-
-    // 0x100c7acf0, 352 bytes, base-object destructor, placed by class name and debug map
-    // Console::~Console()
-    void Console::~Console() {
-        char cVar1;
-
-        field_0 = &PTR__Console_100f297a0;
-        cVar1 = (&field_360)->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x100c7acf0
+    Console::~Console() {
+        if (field_360.empty() == '\0') {
             LogAssert("m_historyListeners.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/console/Console.cpp", 70,
-                      (char*)0);
+                      nullptr);
         }
-        (&field_528)->~vector_map();
-        (&field_408)->~optional();
-        (&field_360)->~map();
-        (&field_328)->~basic_string();
-        (&field_288)->~list();
-        std::function<void(StringView, bool, bool)>::~function((function<void(StringView, bool, bool)>*)&field_240);
-        (&field_192)->~basic_string();
-        (&field_184)->~unique_ptr();
+        field_528.~vector_map();
+        field_408.~optional();
+        field_328.~basic_string();
+        field_288.~list();
+        field_240.~function();
+        field_192.~basic_string();
+        field_184.~unique_ptr();
         m_commandHistory->~StringVector();
-        (&field_48)->~ring_buffer();
-        (&field_8)->~vector_map();
+        field_48.~ring_buffer();
+        field_8.~vector_map();
     }
 
-    // 0x100c7ae50, 16 bytes, complete-object destructor, placed by class name and debug map
-    // Console::~Console(): jumps straight to the base-object destructor
-
-    // 0x100c7ae60, 32 bytes, deleting destructor, placed by class name and debug map
-    // Console::~Console()
-    void Console::~Console() {
-        ~Console(this);
-        operator_delete(this);
-    }
-
-    // 0x100c7ae80, 528 bytes, placed by class name and debug map
-    // Console::RunPendingCommands(float)
-    void Console::RunPendingCommands(float param_1) {
-        list<Console::PendingCommand, eastl::allocator>* this_00;
-        char cVar1;
-        PendingCommand* pPVar2;
-        undefined8 uVar3;
-        int iVar4;
-        bool bVar5;
-        StringView SVar6;
-        StringView SVar7;
-        int in_stack_fffffffffffffe18;
-        undefined1 in_stack_fffffffffffffe20;
+    // 0x100c7ae80
+    void Console::RunPendingCommands(float arg1) {
+        PendingCommand* pendingCommand;
+        char* str;
+        int iVar2;
+        bool bVar3;
+        StringView local_1e0;
         StringView local_1d0;
         StringView local_1c0;
-        undefined1 local_1b0[64];
-        uint local_170;
-        undefined1 local_16c;
-        list<Console::PendingCommand, eastl::allocator>* local_168;
-        fixed_string<char, 40, true, eastl::allocator> local_160[296];
-        long local_38;
+        uint8_t local_1b0[64];
+        int local_170;
+        bool local_16c;
+        StringView local_160;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (0.0 < field_320) {
-            field_320 = field_320 - param_1;
+        if (0.0 < (float)field_320) {
+            field_320 = (float)field_320 - arg1;
         }
-        local_168 = (list<Console::PendingCommand, eastl::allocator>*)&field_288;
-        cVar1 = local_168->empty();
-        this_00 = local_168;
-        if (cVar1 == '\0') {
-            if (field_320 <= 0.0) {
-                if (field_160 == false) {
-                    if (field_161 != '\0') {
-                        iVar4 = field_168 + 1;
-                        field_168 = iVar4;
-                        bVar5 = iVar4 != field_164;
-                        if (!bVar5) {
-                            field_164 = 0;
-                            field_168 = 0;
-                            field_161 = '\0';
+        list<Console::PendingCommand>* local_168 = (list<Console::PendingCommand>*)&field_288;
+        bool cVar1 = local_168->empty();
+        list<Console::PendingCommand>* this_00 = local_168;
+        if (!cVar1) {
+            if ((float)field_320 <= 0.0) {
+                if (*(char*)&field_160 == '\0') {
+                    if (*(char*)((long)&field_160 + 1) != '\0') {
+                        iVar2 = *(int*)&field_168 + 1;
+                        *(int*)&field_168 = iVar2;
+                        bVar3 = iVar2 != field_164;
+                        if (!bVar3) {
+                            *(uint64_t*)&field_164 = 0;
+                            *(uint8_t*)((long)&field_160 + 1) = 0;
                         }
-                        field_160 = bVar5;
+                        *(bool*)&field_160 = bVar3;
                     }
-                    pPVar2 = (PendingCommand*)eastl::list<Console::PendingCommand, eastl::allocator>::front();
-                    new (local_1b0) PendingCommand(pPVar2);
-                    eastl::list<Console::PendingCommand, eastl::allocator>::pop_front(this_00);
-                    StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
-                        (StringView*)(local_1b0 + -48), (fixed_string*)local_1b0);
-                    (*(code*)field_0[4])(local_160, this, (StringView*)(local_1b0 + -48));
-                    uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    AddMessage(this, 7, uVar3);
-                    StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
-                        &local_1d0, (fixed_string*)local_1b0);
-                    StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
-                        &local_1c0, (fixed_string*)(local_1b0 + 32));
-                    SVar7.field_0 = (ulong)local_170;
-                    SVar6.field_8 = (uchar*)0;
-                    SVar6.field_0 = (ulong)&local_1d0;
-                    SVar7.field_8._0_1_ = local_16c;
-                    SVar7.field_8._1_7_ = 0;
-                    ExecuteCommand(this, SVar6, SUB81(&local_1c0, 0), SVar7, in_stack_fffffffffffffe18,
-                                   (bool)in_stack_fffffffffffffe20);
-                    /* WARNING: Subroutine does not return */
-                    eastl::fixed_string<char, 40, true, eastl::allocator>::~fixed_string(local_160);
+                    pendingCommand = (PendingCommand*)local_168->front();
+                    new (local_1b0) PendingCommand(*pendingCommand);
+                    this_00->pop_front();
+                    local_1e0.StringView<eastl::fixed_string<char, 40>>(*local_1b0);
+                    SanitizeCommand(&local_160);
+                    str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    AddMessage(7, str);
+                    local_1d0.StringView<eastl::fixed_string<char, 40>>(*local_1b0);
+                    local_1c0.StringView<eastl::fixed_string<char, 40>>(*((local_1b0 + 32)));
+                    ExecuteCommand(&local_1d0, false, &local_1c0, local_170, local_16c);
                 }
-                field_160 = false;
+                *(uint8_t*)&field_160 = 0;
             }
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
     }
 
-    // 0x100c7b140, 448 bytes, placed by class name and debug map
-    // Console::AddMessage(LineType, char const*, ...)
-    void Console::AddMessage(undefined8 param_1, undefined8 param_2, undefined8 param_3, undefined8 param_4,
-                             undefined8 param_5, undefined8 param_6, undefined8 param_7, undefined8 param_8,
-                             Console* param_9, undefined4 param_10, char* param_11, undefined8 param_12,
-                             undefined8 param_13, undefined8 param_14, undefined1 param_15, ...) {
-        undefined1* this;
-        long lVar1;
+    // 0x100c7b140
+    void Console::AddMessage(LineType lineType, const char* str, ...) {
         char in_AL;
-        bool bVar2;
-        long lVar4;
-        undefined4* puVar5;
-        ClientCompositeZone* this_00;
-        undefined8* puVar6;
-        uchar* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        undefined1 auVar7[16];
-        StringView SVar8;
-        undefined1 local_138[24];
-        undefined8 local_120;
-        undefined8 local_118;
-        undefined8 local_110;
-        undefined8 local_108;
-        undefined8 local_f8;
-        undefined8 local_e8;
-        undefined8 local_d8;
-        undefined8 local_c8;
-        undefined8 local_b8;
-        undefined8 local_a8;
-        undefined8 local_98;
+        uint64_t* puVar5;
+        uint64_t in_RCX;
+        uint64_t in_R8;
+        uint64_t in_R9;
+        uint64_t in_XMM0_Qa;
+        uint64_t in_XMM1_Qa;
+        uint64_t in_XMM2_Qa;
+        uint64_t in_XMM3_Qa;
+        uint64_t in_XMM4_Qa;
+        uint64_t in_XMM5_Qa;
+        uint64_t in_XMM6_Qa;
+        uint64_t in_XMM7_Qa;
+        uint8_t uStack0000000000000008;
+        uint8_t local_138[24];
+        uint64_t local_108;
+        uint64_t local_f8;
+        uint64_t local_e8;
+        uint64_t local_d8;
+        uint64_t local_c8;
+        uint64_t local_b8;
+        uint64_t local_a8;
+        uint64_t local_98;
         StringView local_88;
-        long local_70;
-        undefined8 local_68;
-        undefined8 local_60;
-        undefined8 local_58;
-        undefined1* local_50;
-        undefined1* local_48;
-        long local_38;
 
         if (in_AL != '\0') {
-            local_108 = param_1;
-            local_f8 = param_2;
-            local_e8 = param_3;
-            local_d8 = param_4;
-            local_c8 = param_5;
-            local_b8 = param_6;
-            local_a8 = param_7;
-            local_98 = param_8;
+            local_108 = in_XMM0_Qa;
+            local_f8 = in_XMM1_Qa;
+            local_e8 = in_XMM2_Qa;
+            local_d8 = in_XMM3_Qa;
+            local_c8 = in_XMM4_Qa;
+            local_b8 = in_XMM5_Qa;
+            local_a8 = in_XMM6_Qa;
+            local_98 = in_XMM7_Qa;
         }
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this = &param_9->field_48;
-        local_120 = param_12;
-        local_118 = param_13;
-        local_110 = param_14;
-        local_70 = GetAuthWrapper();
-        lVar4 = capacity();
-        puVar5 = (undefined4*)push_back();
-        *puVar5 = param_10;
-        local_48 = local_138;
-        local_50 = &param_15;
-        local_58 = 206158430232;
-        ((puVar5 + 2))->sprintf_va_list(param_11, (__va_list_tag*)&local_58);
-        bVar2 = (&param_9->field_184)->operator_cast_to_bool();
-        if (bVar2) {
-            this_00 = (ClientCompositeZone*)std::unique_ptr<File, std::default_delete<File>>::operator->(
-                (unique_ptr<File, std::default_delete<File>>*)&param_9->field_184);
-            if (this_00->IsValid() != '\0') {
-                StringView::StringView<eastl::fixed_string<char, 512, true, eastl::allocator>>(
-                    &local_88, (fixed_string*)(puVar5 + 2));
-                SVar8.field_8 = extraout_RDX;
-                SVar8.field_0 = (ulong)&local_88;
-                RecordMessageHistory(param_9, SVar8);
+        uint8_t* this_00 = &field_48;
+        uint64_t local_120 = in_RCX;
+        uint64_t local_118 = in_R8;
+        uint64_t local_110 = in_R9;
+        long local_70 = this_00->GetAuthWrapper();
+        long lVar3 = this_00->capacity();
+        auto pLVar4 = this_00->push_back();
+        *pLVar4 = lineType;
+        uint8_t* local_48 = local_138;
+        uint8_t* local_50 = &uStack0000000000000008;
+        uint64_t local_58 = 206158430232;
+        ((pLVar4 + 2))->sprintf_va_list(str, &local_58);
+        bool cVar2 = (&field_184)->operator_cast_to_bool();
+        if (cVar2) {
+            cVar2 = ((ClientCompositeZone*)field_184.operator->())->IsValid();
+            if (cVar2) {
+                local_88.StringView<eastl::fixed_string<char, 512>>(*((pLVar4 + 2)));
+                RecordMessageHistory(&local_88);
             }
         }
-        local_68 = eastl::rbtree<eastl::string, eastl::pair<eastl::stringconst, bool>, eastl::less<eastl::string>,
-                                 eastl::allocator, eastl::use_first<eastl::pair<eastl::stringconst, bool>>, true,
-                                 true>::begin();
-        auVar7 =
-            eastl::rbtree<eastl::string, eastl::pair<eastl::stringconst, bool>, eastl::less<eastl::string>,
-                          eastl::allocator, eastl::use_first<eastl::pair<eastl::stringconst, bool>>, true, true>::end();
-        local_60 = auVar7._0_8_;
-        bVar2 = eastl::operator!=((eastl*)&local_68, (hashtable_iterator_base*)&local_60, auVar7._8_8_);
-        lVar1 = local_70;
-        if (bVar2) {
+        uint64_t local_68 = field_360.begin();
+        uint64_t local_60 = field_360.end();
+        cVar2 = local_68 != local_60;
+        long lVar1 = local_70;
+        if (cVar2) {
             do {
-                puVar6 = (undefined8*)eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)&local_68);
-                (**(code**)(*(long*)*puVar6 + 16))((long*)*puVar6, puVar5, lVar1 == lVar4);
-                eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator++(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)&local_68);
-                bVar2 = eastl::operator!=((eastl*)&local_68, (hashtable_iterator_base*)&local_60, extraout_RDX_00);
-            } while (bVar2);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                puVar5 = (uint64_t*)*local_68;
+                (**(void (**)(...))(*(long*)*puVar5 + 16))((long*)*puVar5, pLVar4, lVar1 == lVar3);
+                ++local_68;
+                cVar2 = local_68 != local_60;
+            } while (cVar2);
         }
     }
 
-    // 0x100c7b300, 2240 bytes, placed by class name and debug map
-    // Console::ExecuteCommand(StringView, bool, StringView, int, bool)
-    void Console::ExecuteCommand(StringView param_1, bool param_2, StringView param_3, int param_4, bool param_5) {
-        SharedArray<std::unique_ptr<oldscape::rs2lib::worldmap::LocationData,
-                                    std::default_delete<oldscape::rs2lib::worldmap::LocationData>>>* this_00;
-        uint uVar1;
-        char cVar2;
+    // 0x100c7b300
+    void Console::ExecuteCommand(StringView stringView1, bool arg2, StringView stringView2, int arg4, bool arg5) {
         bool bVar3;
-        undefined4 uVar4;
-        undefined4 uVar5;
-        char* pcVar6;
-        ulong uVar7;
-        uchar* puVar8;
-        StringView* pSVar9;
-        undefined8* puVar10;
-        long lVar11;
-        long lVar12;
-        variant* pvVar13;
-        variant<int, unsigned int, bool, float, eastl::string, VarAny>* this_01;
-        undefined8 uVar14;
-        undefined8 uVar15;
-        undefined7 in_register_00000009;
-        uchar* extraout_RDX;
-        uchar* extraout_RDX_00;
-        StringView* this_02;
-        undefined1 uVar16;
-        fixed_vector* pfVar17;
-        CommandData* this_03;
-        StringView SVar18;
-        StringView SVar19;
-        StringView SVar20;
-        StringView SVar21;
-        StringView SVar22;
-        StringView SVar23;
-        StringView SVar24;
-        StringView local_280;
+        char* pcVar4;
+        unsigned long uVar5;
+        variant<int, unsigned int, bool, float, eastl::string, VarAny>* pvVar6;
+        StringView* pSVar7;
+        unsigned long* puVar8;
+        long lVar9;
+        long lVar10;
+        variant<int, unsigned int, bool, float, eastl::string, VarAny>* this_00;
+        unsigned long uVar11;
+        uint64_t uVar12;
+        uint64_t uVar13;
+        uint64_t in_register_00000011;
+        CommandData* this_01;
         StringView local_270;
         StringView local_260;
         StringView local_250;
         StringView local_240;
         StringView local_230;
         StringView local_220;
-        SharedArray<std::unique_ptr<oldscape::rs2lib::worldmap::LocationData,
-                                    std::default_delete<oldscape::rs2lib::worldmap::LocationData>>>* local_210;
         StringView local_208;
-        PacketT* local_1f8;
-        undefined8 uStack_1f0;
         float local_1e4;
-        undefined4 local_1e0;
-        uint local_1dc;
-        ShuffledPacketFactory local_1d8;
-        StringView local_1c8[18];
-        StringView local_a0[6];
-        long local_38;
+        ReturnValue local_1c8;
 
-        local_210 = (SharedArray<std::unique_ptr<oldscape::rs2lib::worldmap::LocationData,
-                                                 std::default_delete<oldscape::rs2lib::worldmap::LocationData>>>*)
-            CONCAT71(in_register_00000009, param_2);
-        pfVar17 = (fixed_vector*)param_3.field_0;
-        this_02 = (StringView*)param_1.field_0;
-        local_1dc = (uint)param_3.field_0;
-        local_1e0 = param_1.field_8._0_4_;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        cVar2 = this_02->empty();
-        if (cVar2 != '\0')
+        uint32_t local_1e0 = (uint32_t)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg2);
+        bool cVar2 = stringView1->empty();
+        if (cVar2)
             goto LAB_100c7b83d;
-        if ((char)param_3.field_8 != '\0') {
-            StringView::to_owned_string<eastl::string>(local_1c8);
-            (m_commandHistory, (basic_string*)local_1c8)->push_back();
-            local_1c8->~basic_string();
+        if (arg5) {
+            local_1c8 = stringView1->to_owned_string<eastl::string>();
+            eastl::ring_buffer<eastl::string, eastl::vector<eastl::string>>::push_back(*m_commandHistory);
         }
-        new (&local_1d8) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
-        new (&local_1f8) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
-        new (local_a0) eastl::fixed_vector<StringView, 4ul, true, eastl::allocator>();
-        new (&local_280) StringView(this_02);
-        pSVar9 = local_a0;
-        SVar18.field_8 = (uchar*)&local_1d8;
-        SVar18.field_0 = (ulong)&local_280;
-        cVar2 = GetCommandAndArguments(this, SVar18, pSVar9, pfVar17);
-        uVar16 = SUB81(pfVar17, 0);
-        if (cVar2 == '\0') {
-            AddMessage(this, 5, "There was an error executing the command");
+        StringView local_1d8;
+        StringView local_1f8;
+        fixed_vector<StringView, 4ul> local_a0;
+        StringView local_280(*stringView1);
+        cVar2 = GetCommandAndArguments(&local_280, local_1d8, local_a0);
+        if (!cVar2) {
+            AddMessage(5, "There was an error executing the command");
         } else {
             cVar2 = local_1d8.empty();
-            if (cVar2 == '\0') {
-                pcVar6 = (char*)WrapArray<char const>::operator[]((WrapArray<char const>*)&local_1d8, 0);
-                if (*pcVar6 == '$') {
-                    uVar7 = ShuffledPacketFactory::p2_alt2(&local_1d8);
-                    if (1 < uVar7) {
-                        cVar2 = local_a0->empty();
-                        if (cVar2 != '\0') {
-                            new (&local_270) StringView((StringView*)&local_1d8);
-                            SVar19.field_8 = (uchar*)&local_270;
-                            SVar19.field_0 = (ulong)this;
-                            FindStoredVariable((Console*)local_1c8, SVar19);
-                            bVar3 = local_1c8->operator_cast_to_bool();
-                            if (bVar3) {
-                                std::optional<std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>::
-                                operator=((optional<std::variant<int, unsigned int, bool, float, eastl::string,
-                                                                 VarAny>>*)&field_408,
-                                          (optional*)local_1c8);
-                                new (&local_260) StringView((StringView*)&local_1d8);
-                                puVar8 = (uchar*)(&field_408)->value();
-                                SVar20.field_8 = puVar8;
-                                SVar20.field_0 = (ulong)&local_260;
-                                PrintStoredVariable(this, SVar20, (variant*)pSVar9);
+            if (!cVar2) {
+                pcVar4 = &local_1d8[0];
+                if (*pcVar4 == '$') {
+                    uVar5 = ShuffledPacketFactory::p2_alt2();
+                    if (1 < uVar5) {
+                        cVar2 = local_a0.empty();
+                        if (cVar2) {
+                            local_270 = StringView(local_1d8);
+                            FindStoredVariable(&local_1c8, this, &local_270);
+                            cVar2 = std::optional::operator_cast_to_bool(&local_1c8);
+                            if (!cVar2) {
+                                uVar5 = ShuffledPacketFactory::p2_alt2();
+                                uVar13 = local_1d8.end();
+                                AddMessage(5, "Var %.*s does not exist", uVar5 & 4294967295, uVar13);
                             } else {
-                                uVar5 = ShuffledPacketFactory::p2_alt2(&local_1d8);
-                                uVar15 = local_1d8.end();
-                                AddMessage(this, 5, "Var %.*s does not exist", uVar5, uVar15);
+                                field_408 = local_1c8;
+                                local_260 = StringView(local_1d8);
+                                pvVar6 =
+                                    (variant<int, unsigned int, bool, float, eastl::string, VarAny>*)field_408.value();
+                                PrintStoredVariable(&local_260, *pvVar6);
                             }
-                            local_1c8->~optional();
                             goto LAB_100c7b831;
                         }
-                        pSVar9 = (StringView*)eastl::vector<
-                            StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[]((vector<StringView,
-                                           eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                       local_a0,
-                                   0);
-                        new (&local_250) StringView("=");
-                        SVar21.field_8 = extraout_RDX;
-                        SVar21.field_0 = (ulong)&local_250;
-                        cVar2 = StringView::operator==(pSVar9, SVar21);
-                        if (cVar2 != '\0') {
-                            uVar7 = local_a0->size();
-                            if (1 < uVar7) {
-                                local_1f8 = local_1d8.field_0;
-                                uStack_1f0 = local_1d8.field_8;
-                                puVar10 = (undefined8*)
-                                    eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                            eastl::allocator>>::
-                                    operator[](
-                                        (vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                          eastl::allocator>>*)local_a0,
-                                        1);
-                                local_1d8.field_0 = (PacketT*)*puVar10;
-                                local_1d8.field_8 = puVar10[1];
-                                pSVar9 = (StringView*)local_a0->HeapBeginPtr();
-                                lVar11 = local_a0->HeapBeginPtr();
-                                local_a0->erase(pSVar9, (StringView*)(lVar11 + 32));
+                        pSVar7 = &local_a0[0];
+                        local_250 = StringView("=");
+                        cVar2 = *pSVar7 == &local_250;
+                        if (cVar2) {
+                            uVar5 = local_a0.size();
+                            if (1 < uVar5) {
+                                local_1f8.field_0 = local_1d8.field_0;
+                                local_1f8.field_8 = local_1d8.field_8;
+                                puVar8 = &local_a0[1];
+                                local_1d8.field_0 = *puVar8;
+                                local_1d8.field_8 = &puVar8[1];
+                                pSVar7 = (StringView*)local_a0.HeapBeginPtr();
+                                lVar9 = local_a0.HeapBeginPtr();
+                                local_a0.erase(pSVar7, (lVar9 + 32));
                                 goto LAB_100c7b570;
                             }
                         }
-                        uVar5 = ShuffledPacketFactory::p2_alt2(&local_1d8);
-                        uVar15 = local_1d8.end();
-                        uVar4 = ShuffledPacketFactory::p2_alt2(&local_1d8);
-                        uVar14 = local_1d8.end();
-                        AddMessage(this, 5,
-                                   "Invalid var operation - supported usage is \'%.*s\' or \'%.*s = <lt>command<gt>",
-                                   uVar5, uVar15, uVar4, uVar14);
+                        uVar5 = ShuffledPacketFactory::p2_alt2();
+                        uVar13 = local_1d8.end();
+                        uVar11 = ShuffledPacketFactory::p2_alt2();
+                        uVar12 = local_1d8.end();
+                        AddMessage(5, "Invalid var operation - supported usage is \'%.*s\' or \'%.*s = <lt>command<gt>",
+                                   uVar5 & 4294967295, uVar13, uVar11 & 4294967295, uVar12);
                         goto LAB_100c7b831;
                     }
                 }
@@ -563,1184 +387,873 @@ namespace jag::console {
         LAB_100c7b570:
             field_568 = field_568 + 1;
             cVar2 = local_1d8.empty();
-            if (cVar2 == '\0') {
-                pcVar6 = (char*)local_1d8.end();
-                uVar7 = ShuffledPacketFactory::p2_alt2(&local_1d8);
-                new (&local_208) eastl::allocator("EASTL basic_string");
-                new (local_1c8) eastl::string(pcVar6, uVar7, (allocator*)&local_208);
-                lVar11 = (&field_8, (basic_string*)local_1c8)->find();
-                local_1c8->~basic_string();
-                lVar12 = (&field_8)->end();
-                if (lVar11 != lVar12) {
-                    this_03 = (CommandData*)(lVar11 + 32);
-                    bVar3 = this_03->operator_cast_to_bool();
-                    if (!bVar3) {
-                        /* WARNING: Subroutine does not return */
+            if (!cVar2) {
+                pcVar4 = (char*)local_1d8.end();
+                uVar5 = ShuffledPacketFactory::p2_alt2();
+                local_1c8 = eastl::string(pcVar4, uVar5);
+                lVar9 = eastl::vector_map<eastl::string, CommandData>::find(field_8);
+                lVar10 = field_8.end();
+                if (lVar9 != lVar10) {
+                    this_01 = (CommandData*)(lVar9 + 32);
+                    cVar2 = this_01->operator_cast_to_bool();
+                    if (!cVar2) {
                         LogAssert(
                             "found->second.m_handler",
                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/console/Console.cpp",
-                            237, (char*)0);
+                            237, nullptr);
                     }
-                    new (local_1c8) eastl::fixed_string<char, 8, true, eastl::allocator>();
-                    cVar2 = this_03->HasFlag(2);
-                    if (cVar2 != '\0') {
-                        eastl::basic_string<char,
-                                            eastl::fixed_vector_allocator<1ul, 8ul, 1ul, 0ul, true, eastl::allocator>>::
-                            sprintf((char*)local_1c8, "%d", (ulong)local_1dc);
-                        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(
-                            &local_208, (fixed_string*)local_1c8);
-                        local_a0->push_back(&local_208);
+                    local_1c8 = eastl::fixed_string<char, 8>();
+                    cVar2 = this_01->HasFlag(2);
+                    if (cVar2) {
+                        local_1c8.sprintf("%d", (unsigned long)(unsigned int)arg4);
+                        local_208.StringView<eastl::fixed_string<char, 40>>(local_1c8);
+                        local_a0.push_back(local_208);
                     }
-                    std::function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>::
-                    operator()(
-                        (function<void(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator> const&)>*)this_03,
-                        (fixed_vector*)local_a0);
+                    std::function<void(eastl::fixed_vector<StringView, 4ul> const&)>::operator()(
+                        (function<void(eastl::fixed_vector<StringView, 4ul> const&)>*)this_01, &local_a0);
                     if (field_572 == '\0') {
-                        cVar2 = this_03->HasFlag(1);
-                        if (cVar2 == '\0')
+                        cVar2 = this_01->HasFlag(1);
+                        if (!cVar2)
                             goto LAB_100c7b6f3;
                     }
-                    bVar3 = (&field_240)->operator_cast_to_bool();
-                    if (bVar3) {
-                        new (&local_240) StringView(this_02);
-                        SVar22.field_8 = (uchar*)0;
-                        SVar22.field_0 = (ulong)&local_240;
+                    cVar2 = (&field_240)->operator_cast_to_bool();
+                    if (cVar2) {
+                        local_240 = StringView(*stringView1);
                         std::function<void(StringView, bool, bool)>::operator()(
-                            (function<void(StringView, bool, bool)>*)&field_240, SVar22, false, (bool)uVar16);
+                            (function<void(StringView, bool, bool)>*)&field_240, &local_240, false, false);
                     }
                 LAB_100c7b6f3:
-                    /* WARNING: Subroutine does not return */
-                    local_1c8->~fixed_string();
                 }
                 cVar2 = local_1f8.empty();
-                if (cVar2 == '\0') {
-                    StringView::StringView<6ul>(&local_230, "$last");
-                    SVar24.field_8 = extraout_RDX_00;
-                    SVar24.field_0 = (ulong)&local_230;
-                    cVar2 = StringView::operator!=((StringView*)&local_1d8, SVar24);
-                    if (cVar2 != '\0') {
-                        lVar11 = local_1d8.find('.');
-                        if (lVar11 == -1) {
-                            bVar3 = FromString<StringView, int>((StringView*)&local_1d8, (int*)&local_208, 10);
+                if (!cVar2) {
+                    local_230.StringView<6ul>("$last");
+                    cVar2 = local_1d8 != &local_230;
+                    if (cVar2) {
+                        lVar9 = local_1d8.find('.');
+                        if (lVar9 == -1) {
+                            bVar3 = FromString<StringView, int>(&local_1d8, (int*)&local_208, 10);
                             if (!bVar3)
                                 goto LAB_100c7ba01;
-                            std::variant<int, unsigned int, bool, float, eastl::string,
-                                         VarAny>::variant<int&, 0, 0, 0, int, 0ul, 0>((int*)local_1c8);
-                            std::optional<std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>::
-                            operator=(
-                                (optional<
-                                    std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>*)&field_408,
-                                (variant*)local_1c8);
+                            local_1c8.variant<int&, 0, 0, 0, int, 0ul, 0>(local_208);
+                            field_408 = local_1c8;
                         } else {
                         LAB_100c7ba01:
-                            bVar3 = FromString<StringView, float>((StringView*)&local_1d8, &local_1e4, 10);
+                            bVar3 = FromString<StringView, float>(&local_1d8, &local_1e4, 10);
                             if (!bVar3) {
-                                uVar5 = ShuffledPacketFactory::p2_alt2(&local_1d8);
-                                uVar15 = local_1d8.end();
-                                AddMessage(this, 5, "could not parse \'%.*s\' as an int/float", uVar5, uVar15);
+                                uVar5 = ShuffledPacketFactory::p2_alt2();
+                                uVar13 = local_1d8.end();
+                                AddMessage(5, "could not parse \'%.*s\' as an int/float", uVar5 & 4294967295, uVar13);
                                 goto LAB_100c7b6ff;
                             }
-                            std::variant<int, unsigned int, bool, float, eastl::string,
-                                         VarAny>::variant<float&, 0, 0, 0, float, 3ul, 0>((float*)local_1c8);
-                            std::optional<std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>::
-                            operator=(
-                                (optional<
-                                    std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>*)&field_408,
-                                (variant*)local_1c8);
+                            local_1c8.variant<float&, 0, 0, 0, float, 3ul, 0>(local_1e4);
+                            field_408 = local_1c8;
                         }
-                        local_1c8->~variant();
                     }
                 } else {
-                    bVar3 = (&field_240)->operator_cast_to_bool();
-                    if (!bVar3) {
-                        new (local_1c8)
-                            eastl::fixed_string<char, 256, true, eastl::allocator>("Unknown developer command: ");
-                        uVar7 = ShuffledPacketFactory::p2_alt2(&local_1d8);
-                        uVar1 = local_1dc;
-                        this_00 = local_210;
-                        uVar15 = local_1d8.end();
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                            append_sprintf((char*)local_1c8, &DAT_100e4fcf3, uVar7 & 4294967295, uVar15);
-                        cVar2 = this_00->empty();
-                        if ((cVar2 == '\0') && (uVar1 != 4294967295)) {
-                            uVar15 = this_00->end();
-                            uVar14 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                            AddMessage(this, 5, "%.*s(%d): %s", uVar15, uVar1, uVar14);
+                    cVar2 = (&field_240)->operator_cast_to_bool();
+                    if (!cVar2) {
+                        local_1c8 = eastl::fixed_string<char, 256>("Unknown developer command: ");
+                        uVar5 = ShuffledPacketFactory::p2_alt2();
+                        pSVar7 = stringView2;
+                        uVar13 = local_1d8.end();
+                        local_1c8.append_sprintf("%.*s", uVar5 & 4294967295, uVar13);
+                        cVar2 = pSVar7->empty();
+                        if ((!cVar2) && ((unsigned int)arg4 != 4294967295)) {
+                            uVar13 = pSVar7->end();
+                            uVar12 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                            AddMessage(5, "%.*s(%d): %s", uVar13, (unsigned long)(unsigned int)arg4, uVar12);
                         } else {
-                            uVar15 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                            AddMessage(this, 5, &DAT_100e377c0, uVar15);
+                            uVar13 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                            AddMessage(5, "%s", uVar13);
                         }
-                        /* WARNING: Subroutine does not return */
-                        local_1c8->~fixed_string();
                     }
-                    new (&local_220) StringView(this_02);
-                    SVar23.field_8._0_1_ = (undefined1)local_1e0;
-                    SVar23.field_0 = (ulong)&local_220;
-                    SVar23.field_8._1_7_ = 0;
+                    local_220 = StringView(*stringView1);
                     std::function<void(StringView, bool, bool)>::operator()(
-                        (function<void(StringView, bool, bool)>*)&field_240, SVar23, false, (bool)uVar16);
+                        (function<void(StringView, bool, bool)>*)&field_240, &local_220, local_1e0._0_1_, false);
                 }
             LAB_100c7b6ff:
                 cVar2 = local_1f8.empty();
-                if (cVar2 == '\0') {
-                    bVar3 = (&field_408)->operator_cast_to_bool();
-                    if (bVar3) {
-                        pvVar13 = (variant*)(&field_408)->value();
-                        StringView::to_owned_string<eastl::string>(local_1c8);
-                        this_01 = (variant<int, unsigned int, bool, float, eastl::string, VarAny>*)eastl::vector_map<
-                            eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>,
-                            eastl::less<eastl::string>, eastl::allocator,
-                            eastl::vector<eastl::pair<eastl::string, std::variant<int, unsigned int, bool, float,
-                                                                                  eastl::string, VarAny>>,
-                                          eastl::allocator>>::
-                        operator[](
-                            (vector_map<
-                                eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>,
-                                eastl::less<eastl::string>, eastl::allocator,
-                                eastl::vector<eastl::pair<eastl::string, std::variant<int, unsigned int, bool, float,
-                                                                                      eastl::string, VarAny>>,
-                                              eastl::allocator>>*)&field_528,
-                            (basic_string*)local_1c8);
-                        std::variant<int, unsigned int, bool, float, eastl::string, VarAny>::operator=(this_01,
-                                                                                                       pvVar13);
+                if (!cVar2) {
+                    cVar2 = (&field_408)->operator_cast_to_bool();
+                    if (!cVar2) {
+                        local_1c8 = local_1f8.to_owned_string<eastl::string>();
+                        eastl::vector_map<eastl::string, std::variant<int, unsigned int, bool, float, eastl::string,
+                                                                      VarAny>>::erase(field_528);
                     } else {
-                        StringView::to_owned_string<eastl::string>(local_1c8);
-                        (&field_528, (basic_string*)local_1c8)->erase();
+                        pvVar6 = (variant<int, unsigned int, bool, float, eastl::string, VarAny>*)field_408.value();
+                        local_1c8 = local_1f8.to_owned_string<eastl::string>();
+                        this_00 = &field_528[local_1c8];
+                        *this_00 = *pvVar6;
                     }
-                    local_1c8->~basic_string();
                 }
             }
             if (field_568 < 1) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("m_executingCommandCount > 0",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/console/Console.cpp",
-                          315, (char*)0);
+                          315, nullptr);
             }
-            field_568 = field_568 + -1;
+            field_568 = field_568 - 1;
             field_572 = 0;
-            ResetCommandHistoryCursor(this);
+            ResetCommandHistoryCursor();
         }
     LAB_100c7b831:
-        local_a0->~fixed_vector();
     LAB_100c7b83d:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x100c7bbc0, 144 bytes, placed by class name and debug map
-    // Console::FindStoredVariable(StringView) const
-    Console* Console::FindStoredVariable(StringView param_1) {
-        long lVar1;
-        long lVar2;
-        vector_map<eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>,
-                   eastl::less<eastl::string>, eastl::allocator,
-                   eastl::vector<
-                       eastl::pair<eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>,
-                       eastl::allocator>>* this_00;
-        StringView local_40[2];
-
-        this_00 =
-            (vector_map<eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>,
-                        eastl::less<eastl::string>, eastl::allocator,
-                        eastl::vector<eastl::pair<eastl::string,
-                                                  std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>,
-                                      eastl::allocator>>*)(param_1.field_0 + 528);
-        StringView::to_owned_string<eastl::string>(local_40);
-        lVar1 = eastl::vector_map<
-            eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>,
-            eastl::less<eastl::string>, eastl::allocator,
-            eastl::vector<
-                eastl::pair<eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>,
-                eastl::allocator>>::find(this_00, (basic_string*)local_40);
-        local_40->~basic_string();
-        lVar2 = this_00->end();
+    // 0x100c7bbc0
+    auto Console::FindStoredVariable(StringView stringView) const {
+        auto local_40 = stringView->to_owned_string<eastl::string>();
+        long lVar1 =
+            eastl::vector_map<eastl::string, std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>::find(
+                field_528);
+        long lVar2 = field_528.end();
         if (lVar1 == lVar2) {
-            new (this) std::optional<std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>();
+            auto result;
         } else {
             std::optional<std::variant<int, unsigned int, bool, float, eastl::string, VarAny>>::optional<
-                std::variant<int, unsigned int, bool, float, eastl::string, VarAny> const&, 0>((variant*)this);
+                std::variant<int, unsigned int, bool, float, eastl::string, VarAny> const&, 0>(
+                &result, (variant<int, unsigned int, bool, float, eastl::string, VarAny>*)(lVar1 + 32));
         }
-        return this;
+        return result;
     }
 
-    // 0x100c7bc60, 144 bytes, placed by class name and debug map
-    // Console::ReportStoredVariables()
+    // 0x100c7bc60
     void Console::ReportStoredVariables() {
-        fixed_string* pfVar1;
-        fixed_string* pfVar2;
-        variant* in_RCX;
-        StringView SVar3;
         StringView local_38;
 
-        AddMessage(this, 2, "Stored variables:");
-        pfVar1 = (fixed_string*)(&field_528)->HeapBeginPtr();
-        pfVar2 = (fixed_string*)(&field_528)->end();
-        if (pfVar1 != pfVar2) {
+        AddMessage(2, "Stored variables:");
+        auto str = field_528.HeapBeginPtr();
+        auto pbVar1 = field_528.end();
+        if (str != pbVar1) {
             do {
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_38, pfVar1);
-                SVar3.field_8 = (uchar*)(pfVar1 + 32);
-                SVar3.field_0 = (ulong)&local_38;
-                PrintStoredVariable(this, SVar3, in_RCX);
-                pfVar1 = pfVar1 + 144;
-            } while (pfVar1 != pfVar2);
+                local_38.StringView<eastl::fixed_string<char, 40>>(*str);
+                PrintStoredVariable(&local_38, *((str + 32)));
+                str = str + 144;
+            } while (str != pbVar1);
         }
     }
 
-    // 0x100c7bcf0, 528 bytes, placed by class name and debug map
-    // Console::PrintStoredVariable(StringView, std::variant<int, unsigned int, bool, float, eastl::string, VarAny> const&)
-    /* Console::PrintStoredVariable(StringView, std::variant<int, unsigned int, bool,
-   float, eastl::string, VarAny> const&) */
-
-    void Console::PrintStoredVariable(StringView param_1, variant* param_2) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        undefined4* puVar3;
-        undefined8 uVar4;
+    // 0x100c7bcf0
+    void Console::PrintStoredVariable(StringView stringView,
+                                      const std::variant<int, unsigned int, bool, float, eastl::string, VarAny>& arg2) {
+        unsigned int uVar1;
+        unsigned long uVar3;
+        uint64_t uVar4;
         float* pfVar5;
         long lVar6;
-        variant* pvVar7;
+        char* pcVar7;
         char* pcVar8;
-        ShuffledPacketFactory* this_00;
-        char* pcVar9;
-        undefined1 local_40[16];
+        uint8_t local_40[16];
 
-        pvVar7 = (variant*)param_1.field_8;
-        this_00 = (ShuffledPacketFactory*)param_1.field_0;
-        puVar3 = (undefined4*)std::get_if<int, int, unsigned int, bool, float, eastl::string, VarAny>(pvVar7);
-        if (puVar3 == (undefined4*)0) {
-            puVar3 =
-                (undefined4*)std::get_if<unsigned int, int, unsigned int, bool, float, eastl::string, VarAny>(pvVar7);
-            if (puVar3 == (undefined4*)0) {
-                pfVar5 = (float*)std::get_if<float, int, unsigned int, bool, float, eastl::string, VarAny>(pvVar7);
-                if (pfVar5 != (float*)0) {
-                    uVar2 = ShuffledPacketFactory::p2_alt2(this_00);
-                    uVar4 = this_00->end();
-                    AddMessage((double)*pfVar5, this, 2, "Var %.*s is %f", uVar2, uVar4);
+        auto puVar2 = std::get_if<int, int, unsigned int, bool, float, eastl::string, VarAny>(arg2);
+        if (puVar2 == nullptr) {
+            puVar2 =
+                (unsigned int*)std::get_if<unsigned int, int, unsigned int, bool, float, eastl::string, VarAny>(arg2);
+            if (puVar2 == nullptr) {
+                pfVar5 = (float*)std::get_if<float, int, unsigned int, bool, float, eastl::string, VarAny>(arg2);
+                if (pfVar5 != nullptr) {
+                    uVar3 = ShuffledPacketFactory::p2_alt2();
+                    uVar4 = stringView->end();
+                    AddMessage(2, "Var %.*s is %f", (double)*pfVar5, uVar3 & 4294967295, uVar4);
                     return;
                 }
-                pcVar8 = (char*)std::get_if<bool, int, unsigned int, bool, float, eastl::string, VarAny>(pvVar7);
-                if (pcVar8 == (char*)0) {
-                    lVar6 = std::get_if<eastl::string, int, unsigned int, bool, float, eastl::string, VarAny>(pvVar7);
+                pcVar7 = (char*)std::get_if<bool, int, unsigned int, bool, float, eastl::string, VarAny>(arg2);
+                if (pcVar7 == nullptr) {
+                    lVar6 = std::get_if<eastl::string, int, unsigned int, bool, float, eastl::string, VarAny>(arg2);
                     if (lVar6 == 0) {
-                        lVar6 = std::get_if<VarAny, int, unsigned int, bool, float, eastl::string, VarAny>(pvVar7);
+                        lVar6 = std::get_if<VarAny, int, unsigned int, bool, float, eastl::string, VarAny>(arg2);
                         if (lVar6 == 0) {
-                            /* WARNING: Subroutine does not return */
                             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                             "console/Console.cpp",
-                                            809, (char*)0);
+                                            809, nullptr);
                         }
                         local_40->GetTypeName();
-                        uVar2 = ShuffledPacketFactory::p2_alt2(this_00);
-                        uVar4 = this_00->end();
-                        pcVar9 = (char*)local_40->p2_alt2();
+                        uVar3 = ShuffledPacketFactory::p2_alt2();
+                        uVar4 = stringView->end();
+                        pcVar8 = (char*)ShuffledPacketFactory::p2_alt2();
                         local_40->end();
-                        pcVar8 = "Var %.*s is a non-printable type (%.*s)";
+                        pcVar7 = "Var %.*s is a non-printable type (%.*s)";
+                        uVar3 = uVar3 & 4294967295;
                     } else {
-                        uVar2 = ShuffledPacketFactory::p2_alt2(this_00);
-                        uVar4 = this_00->end();
-                        pcVar9 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                        pcVar8 = "Var %.*s is %s";
+                        uVar3 = ShuffledPacketFactory::p2_alt2();
+                        uVar4 = stringView->end();
+                        pcVar8 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                        pcVar7 = "Var %.*s is %s";
+                        uVar3 = uVar3 & 4294967295;
                     }
                 } else {
-                    uVar2 = ShuffledPacketFactory::p2_alt2(this_00);
-                    uVar4 = this_00->end();
-                    pcVar9 = "true";
-                    if (*pcVar8 == '\0') {
-                        pcVar9 = "false";
+                    uVar3 = ShuffledPacketFactory::p2_alt2();
+                    uVar4 = stringView->end();
+                    pcVar8 = "true";
+                    if (*pcVar7 == '\0') {
+                        pcVar8 = "false";
                     }
-                    pcVar8 = "Var %.*s is %s";
+                    pcVar7 = "Var %.*s is %s";
+                    uVar3 = uVar3 & 4294967295;
                 }
-                AddMessage(this, 2, pcVar8, uVar2, uVar4, pcVar9);
+                AddMessage(2, pcVar7, uVar3, uVar4, pcVar8);
                 return;
             }
-            uVar1 = ShuffledPacketFactory::p2_alt2(this_00);
-            uVar4 = this_00->end();
-            uVar2 = *puVar3;
-            pcVar8 = "Var %.*s is %u";
+            uVar3 = ShuffledPacketFactory::p2_alt2();
+            uVar4 = stringView->end();
+            uVar1 = *puVar2;
+            pcVar7 = "Var %.*s is %u";
         } else {
-            uVar1 = ShuffledPacketFactory::p2_alt2(this_00);
-            uVar4 = this_00->end();
-            uVar2 = *puVar3;
-            pcVar8 = "Var %.*s is %d";
+            uVar3 = ShuffledPacketFactory::p2_alt2();
+            uVar4 = stringView->end();
+            uVar1 = *puVar2;
+            pcVar7 = "Var %.*s is %d";
         }
-        AddMessage(this, 2, pcVar8, uVar1, uVar4, uVar2);
+        AddMessage(2, pcVar7, uVar3 & 4294967295, uVar4, (unsigned long)uVar1);
     }
 
-    // 0x100c7c030, 112 bytes, placed by class name and debug map
-    // Console::RecordMessageHistory(StringView)
-    void Console::RecordMessageHistory(StringView param_1) {
-        File* pFVar1;
-        char* pcVar2;
-        uint uVar3;
-
-        pFVar1 = (File*)std::unique_ptr<File, std::default_delete<File>>::operator->(
-            (unique_ptr<File, std::default_delete<File>>*)&field_184);
-        pcVar2 = (char*)param_1.field_0->end();
-        uVar3 = param_1.field_0->p2_alt2();
-        pFVar1->write(pcVar2, uVar3, 0);
-        pFVar1 = (File*)std::unique_ptr<File, std::default_delete<File>>::operator->(
-            (unique_ptr<File, std::default_delete<File>>*)&field_184);
-        pFVar1->write("\n", 0);
+    // 0x100c7c030
+    void Console::RecordMessageHistory(StringView stringView) {
+        auto pFVar1 = field_184.operator->();
+        auto str = stringView->end();
+        unsigned int arg2 = ShuffledPacketFactory::p2_alt2();
+        pFVar1->write(str, arg2, nullptr);
+        pFVar1 = (File*)field_184.operator->();
+        pFVar1->write("\n", nullptr);
     }
 
-    // 0x100c7c0a0, 96 bytes, placed by class name and debug map
-    // Console::QueueCommand(char const*, char const*, int, bool)
-    void Console::QueueCommand(char* param_1, char* param_2, int param_3, bool param_4) {
-        eastl::string* this_00;
-
-        this_00 = (eastl::string*)(&field_288)->push_back();
-        eastl::string::assign(this_00, param_1);
-        eastl::string::trim(this_00);
-        eastl::string::assign(this_00 + 32, param_2);
-        *(int*)(this_00 + 64) = param_3;
-        this_00[68] = (eastl::string)param_4;
+    // 0x100c7c0a0
+    void Console::QueueCommand(const char* str1, const char* str2, int arg3, bool arg4) {
+        auto this_00 = field_288.push_back();
+        eastl::string::assign(this_00, str1);
+        this_00->trim();
+        eastl::string::assign(this_00 + 32, str2);
+        *(int*)(this_00 + 64) = arg3;
+        this_00[68] = (eastl::string)arg4;
     }
 
-    // 0x100c7c150, 240 bytes, placed by class name and debug map
-    // Console::GetCommandAndArguments(StringView, StringView&, eastl::fixed_vector<StringView, 4ul, true, eastl::allocator>&) const
-    undefined8 Console::GetCommandAndArguments(StringView param_1, StringView* param_2, fixed_vector* param_3) {
-        uchar* puVar1;
-        ulong uVar2;
-        StringView* this_00;
-        uchar* extraout_RDX;
-        StringView* this_01;
-        Console* this_02;
-        StringView SVar3;
-        StringView SVar4;
+    // 0x100c7c150
+    uint64_t Console::GetCommandAndArguments(StringView stringView1, StringView& stringView2,
+                                             eastl::fixed_vector<StringView, 4ul>& stringViews) const {
+        Particle* pPVar1;
+        Console* this_00;
         StringView local_60;
-        undefined1 local_50[16];
-        StringView local_40;
+        uint8_t local_50[16];
 
-        this_00 = (StringView*)param_1.field_8;
-        this_01 = (StringView*)param_1.field_0;
-        local_40.trim();
-        StringView::operator=(this_01, &local_40);
-        StringView::StringView<3ul>(&local_60, " \t");
-        SVar3.field_8 = extraout_RDX;
-        SVar3.field_0 = (ulong)&local_60;
-        puVar1 = (uchar*)this_01->find_first_of(SVar3);
-        if (puVar1 == (uchar*)18446744073709551615) {
-            uVar2 = this_01->HeapBeginPtr();
+        StringView local_40 = stringView1->trim();
+        *stringView1 = local_40;
+        local_60.StringView<3ul>(" \t");
+        unsigned long uVar2 = stringView1->find_first_of(&local_60);
+        if (uVar2 == 18446744073709551615) {
+            uVar2 = stringView1->HeapBeginPtr();
             if (127 < uVar2) {
                 return 0;
             }
-            puVar1 = this_01->field_8;
-            this_00->field_0 = this_01->field_0;
-            this_00->field_8 = puVar1;
+            pPVar1 = stringView1->field_8;
+            stringView2.field_0 = stringView1->field_0;
+            stringView2.field_8 = pPVar1;
         } else {
-            if ((uchar*)127 < puVar1) {
+            if (127 < uVar2) {
                 return 0;
             }
-            local_40.substr((ulong)this_01, 0);
-            StringView::operator=(this_00, &local_40);
-            local_40.substr((ulong)this_01);
-            StringView::operator=(this_01, &local_40);
-            this_02 = (Console*)local_50;
-            new (local_50) StringView(this_01);
-            SVar4.field_8 = puVar1;
-            SVar4.field_0 = (ulong)local_50;
-            SplitArguments(this_02, (fixed_vector*)param_2, SVar4);
+            local_40 = ((unsigned long)stringView1)->substr(0);
+            stringView2 = local_40;
+            local_40.substr((unsigned long)stringView1);
+            *stringView1 = local_40;
+            this_00 = (Console*)local_50;
+            new (local_50) StringView(*stringView1);
+            SplitArguments(this_00, stringViews, (StringView*)local_50);
         }
         return 1;
     }
 
-    // 0x100c7c650, 1568 bytes, placed by class name and debug map
-    // Console::SearchCommands(StringView, int)
-    SearchResult* Console::SearchCommands(StringView param_1, int param_2) {
-        char cVar1;
+    // 0x100c7c650
+    SearchResult Console::SearchCommands(StringView stringView, int arg2) {
+        int iVar2;
         int iVar3;
-        int iVar4;
-        undefined4 uVar5;
-        char* pcVar6;
-        ulong uVar7;
-        StringView* pSVar8;
-        long lVar9;
-        undefined8* puVar10;
-        ShuffledPacketFactory* pSVar11;
-        ShuffledPacketFactory* pSVar12;
-        ulong uVar13;
-        uint in_ECX;
-        StringView* pSVar14;
-        undefined4 in_register_00000014;
-        uchar* extraout_RDX;
-        Console* this;
-        SearchResult* this_00;
-        undefined1 in_R8B;
-        undefined7 in_register_00000081;
-        StringView SVar15;
-        StringView SVar16;
-        StringView SVar17;
-        StringView SVar18;
-        StringView local_180;
+        uint32_t uVar4;
+        char* pcVar5;
+        unsigned long uVar6;
+        StringView* pSVar7;
+        long lVar8;
+        unsigned long* puVar9;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar10;
+        unsigned long uVar11;
         StringView local_170;
         StringView local_160;
         StringView local_150;
-        StringView local_140;
-        ulong local_130;
-        StringView local_128[2];
-        StringView local_108[2];
-        StringView local_e8[2];
-        ShuffledPacketFactory local_c8;
-        ShuffledPacketFactory* local_b8;
-        eastl::string* local_b0;
-        SearchResult* local_a8;
-        StringView local_a0[6];
-        long local_38;
+        unsigned long local_130;
+        ReturnValue local_128;
+        char* local_108[4];
+        StringView local_e8;
+        ReturnValue* local_a8;
 
-        this = (Console*)param_1.field_8;
-        this_00 = (SearchResult*)param_1.field_0;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        SearchResult::SearchResult(this_00);
-        local_b8 = (ShuffledPacketFactory*)CONCAT44(in_register_00000014, param_2);
-        cVar1 = (CONCAT44(in_register_00000014, param_2))->empty();
-        if (cVar1 != '\0')
+        SearchResult result;
+        bool cVar1 = stringView->empty();
+        if (cVar1)
             goto LAB_100c7cb1e;
-        new (&local_c8) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
-        new (local_a0) eastl::fixed_vector<StringView, 4ul, true, eastl::allocator>();
-        new (&local_180) StringView(local_b8);
-        pSVar14 = local_a0;
-        SVar15.field_8 = (uchar*)&local_c8;
-        SVar15.field_0 = (ulong)&local_180;
-        GetCommandAndArguments(this, SVar15, pSVar14, (fixed_vector*)CONCAT71(in_register_00000081, in_R8B));
-        local_b0 = (eastl::string*)&field_192;
-        eastl::string::clear();
+        StringView local_c8;
+        fixed_vector<StringView, 4ul> local_a0;
+        StringView local_180(*stringView);
+        GetCommandAndArguments(&local_180, local_c8, local_a0);
+        eastl::string* local_b0 = (eastl::string*)&field_192;
+        local_b0->clear();
         cVar1 = local_c8.empty();
-        if (cVar1 == '\0') {
-            pcVar6 = (char*)WrapArray<char const>::operator[]((WrapArray<char const>*)&local_c8, 0);
-            if (*pcVar6 == '$') {
-                uVar7 = ShuffledPacketFactory::p2_alt2(&local_c8);
-                if (1 < uVar7) {
-                    cVar1 = local_a0->empty();
-                    if (cVar1 == '\0') {
-                        pSVar8 = (StringView*)eastl::vector<
-                            StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[]((vector<StringView,
-                                           eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                       local_a0,
-                                   0);
-                        new (&local_170) StringView("=");
-                        SVar16.field_8 = extraout_RDX;
-                        SVar16.field_0 = (ulong)&local_170;
-                        cVar1 = StringView::operator==(pSVar8, SVar16);
-                        if (cVar1 != '\0') {
-                            uVar7 = local_a0->size();
-                            if (1 < uVar7) {
-                                pcVar6 = (char*)local_b8->end();
-                                lVar9 = ShuffledPacketFactory::p2_alt2(&local_c8);
+        if (!cVar1) {
+            pcVar5 = &local_c8[0];
+            if (*pcVar5 == '$') {
+                uVar6 = ShuffledPacketFactory::p2_alt2();
+                if (1 < uVar6) {
+                    cVar1 = local_a0.empty();
+                    if (!cVar1) {
+                        pSVar7 = &local_a0[0];
+                        local_170 = StringView("=");
+                        cVar1 = *pSVar7 == &local_170;
+                        if (cVar1) {
+                            uVar6 = local_a0.size();
+                            if (1 < uVar6) {
+                                pcVar5 = (char*)stringView->end();
+                                lVar8 = ShuffledPacketFactory::p2_alt2();
                                 new (local_108) eastl::allocator("EASTL basic_string");
-                                pSVar14 = local_108;
-                                new (local_e8) eastl::string(pcVar6, lVar9 + 3, pSVar14);
-                                eastl::string::operator=(local_b0, (basic_string*)local_e8);
-                                local_e8->~basic_string();
-                                ShuffledPacketFactory::p2_alt2(&local_c8);
-                                pSVar11 = local_b8;
-                                local_e8->substr((ulong)local_b8);
-                                StringView::operator=((StringView*)pSVar11, local_e8);
-                                puVar10 = (undefined8*)
-                                    eastl::vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                            eastl::allocator>>::
-                                    operator[](
-                                        (vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                          eastl::allocator>>*)local_a0,
-                                        1);
-                                local_c8.field_0 = (PacketT*)*puVar10;
-                                local_c8.field_8 = puVar10[1];
-                                pSVar8 = (StringView*)local_a0->HeapBeginPtr();
-                                lVar9 = local_a0->HeapBeginPtr();
-                                local_a0->erase(pSVar8, (StringView*)(lVar9 + 32));
+                                local_e8 = eastl::string(pcVar5, lVar8 + 3, local_108);
+                                *local_b0 = &local_e8;
+                                ShuffledPacketFactory::p2_alt2();
+                                pSVar7 = stringView;
+                                local_e8.substr((unsigned long)stringView);
+                                *pSVar7 = local_e8;
+                                puVar9 = &local_a0[1];
+                                local_c8.field_0 = *puVar9;
+                                local_c8.field_8 = &puVar9[1];
+                                pSVar7 = (StringView*)local_a0.HeapBeginPtr();
+                                lVar8 = local_a0.HeapBeginPtr();
+                                local_a0.erase(pSVar7, (lVar8 + 32));
                             }
                         }
                     }
                 }
             }
         }
-        if ((&field_240)->operator_cast_to_bool()) {
-            new (&local_160) StringView(local_b8);
-            SVar17.field_8 = (uchar*)0;
-            SVar17.field_0 = (ulong)&local_160;
-            std::function<void(StringView, bool, bool)>::operator()((function<void(StringView, bool, bool)>*)&field_240,
-                                                                    SVar17, true, (bool)in_R8B);
-        } else {
-            new (local_e8) eastl::vector<StringView, eastl::allocator>();
-            iVar3 = local_c8.HeapBeginPtr();
-            iVar4 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            if ((int)in_ECX <= iVar4 + iVar3) {
-                new (&local_150) StringView((StringView*)&local_c8);
-                SVar18.field_8 = (uchar*)pSVar14;
-                SVar18.field_0 = (ulong)&local_150;
-                GetAlphabeticListOfMatchingCommands(this, (vector*)local_e8, SVar18);
+        cVar1 = (&field_240)->operator_cast_to_bool();
+        if (!cVar1) {
+            local_e8 = eastl::vector<StringView>();
+            iVar2 = local_c8.HeapBeginPtr();
+            iVar3 = local_b0->size();
+            if (arg2 <= iVar3 + iVar2) {
+                local_150 = StringView(local_c8);
+                GetAlphabeticListOfMatchingCommands(local_e8, &local_150);
             }
-            lVar9 = local_e8->size();
-            if (lVar9 == 1) {
-                eastl::vector<StringView, eastl::allocator>::operator[]((vector<StringView, eastl::allocator>*)local_e8,
-                                                                        0);
-                StringView::to_owned_string<eastl::string>(local_128);
-                eastl::operator+((basic_string*)local_108, (basic_string*)local_b0);
-                eastl::string::operator=((eastl::string*)this_00, (basic_string*)local_108);
-                local_108->~basic_string();
-                local_128->~basic_string();
-                uVar5 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+            lVar8 = local_e8.size();
+            if (lVar8 == 1) {
+                pSVar7 = &local_e8[0];
+                local_128 = pSVar7->to_owned_string<eastl::string>();
+                *local_108 + *local_b0;
+                result = local_108;
+                uVar4 = result.size();
             LAB_100c7c997:
-                this_00->field_64 = uVar5;
+                *(uint32_t*)(&result + 8) = uVar4;
             } else {
-                uVar7 = local_e8->size();
-                if (1 < uVar7) {
-                    uVar7 = local_e8->size();
-                    (&this_00->field_32, uVar7)->reserve();
-                    local_130 = (ulong)in_ECX;
-                    local_a8 = this_00;
-                    pSVar11 = (ShuffledPacketFactory*)local_e8->HeapBeginPtr();
-                    pSVar12 = (ShuffledPacketFactory*)local_e8->end();
-                    if (pSVar11 != pSVar12) {
+                uVar6 = local_e8.size();
+                if (1 < uVar6) {
+                    uVar6 = local_e8.size();
+                    ((&result + 4))->reserve(uVar6);
+                    local_130 = (unsigned long)(unsigned int)arg2;
+                    local_a8 = &result;
+                    this_00 =
+                        (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)local_e8.HeapBeginPtr();
+                    pvVar10 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)local_e8.end();
+                    if (this_00 != pvVar10) {
                         do {
-                            local_108[0].field_0 = pSVar11->end();
-                            local_128[0].field_0 = ShuffledPacketFactory::p2_alt2(pSVar11);
-                            eastl::vector<eastl::string, eastl::allocator>::emplace_back<char const*, unsigned long>(
-                                (vector<eastl::string, eastl::allocator>*)&this_00->field_32, (char**)local_108,
-                                &local_128[0].field_0);
-                            pSVar11 = pSVar11 + 1;
-                        } while (pSVar11 != pSVar12);
+                            local_108[0] = (char*)this_00->end();
+                            local_128[0] = (ReturnValue)ShuffledPacketFactory::p2_alt2();
+                            ((&result + 4))->emplace_back<char const*, unsigned long>(*local_108, local_128);
+                            this_00 = this_00 + 16;
+                        } while (this_00 != pvVar10);
                     }
-                    uVar7 = GetStringsMinimumCommonLength<eastl::vector<StringView, eastl::allocator>>(
-                        (vector*)local_e8, 50);
-                    uVar13 = ShuffledPacketFactory::p2_alt2(local_b8);
-                    this_00 = local_a8;
-                    if (uVar13 < uVar7) {
-                        uVar13 = eastl::vector<StringView, eastl::allocator>::operator[](
-                            (vector<StringView, eastl::allocator>*)local_e8, 0);
-                        local_140.substr(uVar13, 0);
-                        StringView::to_owned_string<eastl::string>(local_128);
-                        eastl::operator+((basic_string*)local_108, (basic_string*)local_b0);
-                        eastl::string::operator=((eastl::string*)this_00, (basic_string*)local_108);
-                        local_108->~basic_string();
-                        local_128->~basic_string();
-                        uVar5 = (undefined4)uVar7;
+                    uVar6 = GetStringsMinimumCommonLength<eastl::vector<StringView>>(&local_e8, 50);
+                    pSVar7 = stringView;
+                    uVar11 = ShuffledPacketFactory::p2_alt2();
+                    &result = local_a8;
+                    if (uVar11 < uVar6) {
+                        uVar11 = local_e8[0];
+                        local_128 = (uVar11->substr(0)).to_owned_string<eastl::string>();
+                        *local_108 + *local_b0;
+                        result = local_108;
+                        uVar4 = (uint32_t)uVar6;
                     } else {
-                        StringView::to_owned_string<eastl::string>(local_128);
-                        eastl::operator+((basic_string*)local_108, (basic_string*)local_b0);
-                        uVar5 = (undefined4)local_130;
-                        eastl::string::operator=((eastl::string*)this_00, (basic_string*)local_108);
-                        local_108->~basic_string();
-                        local_128->~basic_string();
+                        local_128 = pSVar7->to_owned_string<eastl::string>();
+                        *local_108 + *local_b0;
+                        uVar4 = (uint32_t)local_130;
+                        result = local_108;
                     }
                     goto LAB_100c7c997;
                 }
             }
-            local_e8->~vector();
+        } else {
+            local_160 = StringView(*stringView);
+            std::function<void(StringView, bool, bool)>::operator()((function<void(StringView, bool, bool)>*)&field_240,
+                                                                    &local_160, false, true);
         }
-        local_a0->~fixed_vector();
     LAB_100c7cb1e:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return this_00;
+        return result;
     }
 
-    // 0x100c7cc90, 288 bytes, placed by class name and debug map
-    // Console::GetAlphabeticListOfMatchingCommands(eastl::vector<StringView, eastl::allocator>&, StringView) const
-    void Console::GetAlphabeticListOfMatchingCommands(vector* param_1, StringView param_2) {
-        ulong uVar1;
+    // 0x100c7cc90
+    void Console::GetAlphabeticListOfMatchingCommands(eastl::vector<StringView>& stringViews,
+                                                      StringView stringView) const {
+        unsigned long uVar1;
         long lVar3;
         long lVar4;
-        char* pcVar5;
-        char* pcVar6;
-        StringView* pSVar7;
-        StringView* pSVar8;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_00;
-        int iVar10;
-        fixed_string* pfVar11;
-        Layout* this_01;
-        fixed_string* pfVar12;
+        char* str3;
+        char* str4;
+        StringView* stringView1;
+        StringView* stringView2;
         StringView local_50;
         char* local_40;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* local_38;
 
-        this_01 = (Layout*)param_2.field_0;
-        local_38 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)param_1;
-        pfVar12 = (fixed_string*)(&field_8)->HeapBeginPtr();
-        pfVar11 = (fixed_string*)(&field_8)->end();
-        this_00 = local_38;
-        for (; local_38 = this_00, pfVar12 != pfVar11; pfVar12 = pfVar12 + 288) {
-            uVar1 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            if (eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_01) <= uVar1) {
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* local_38 =
+            (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)stringViews;
+        auto this_01 = field_8.HeapBeginPtr();
+        auto pbVar7 = field_8.end();
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* this_00 = local_38;
+        for (; local_38 = this_00, this_01 != pbVar7; this_01 = this_01 + 288) {
+            uVar1 = this_01->size();
+            if (stringView->HeapBeginPtr() <= uVar1) {
                 local_40 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 lVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                lVar4 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-                pcVar5 = (char*)this_01->end();
-                pcVar6 = (char*)this_01->end();
-                iVar10 = eastl::string::compare(local_40, (char*)(lVar3 + lVar4), pcVar5, pcVar6);
-                if (iVar10 == 0) {
-                    StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_50, pfVar12);
-                    local_38->push_back(&local_50);
+                lVar4 = stringView->HeapBeginPtr();
+                str3 = (char*)stringView->end();
+                str4 = (char*)stringView->end();
+                if (eastl::string::compare(local_40, (char*)(lVar3 + lVar4), str3, str4) == 0) {
+                    local_50.StringView<eastl::fixed_string<char, 40>>(*this_01);
+                    local_38->push_back(local_50);
                 }
             }
             this_00 = local_38;
         }
-        if (eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                this_00) == '\0') {
-            pSVar7 = (StringView*)this_00->HeapBeginPtr();
-            pSVar8 = (StringView*)this_00->end();
-            eastl::sort<StringView*>(pSVar7, pSVar8);
+        if (this_00->empty() == '\0') {
+            stringView1 = (StringView*)this_00->HeapBeginPtr();
+            stringView2 = (StringView*)this_00->end();
+            eastl::sort<StringView*>(stringView1, stringView2);
         }
     }
 
-    // 0x100c7d010, 688 bytes, placed by class name and debug map
-    // Console::SanitizeCommand(StringView) const
-    Console* Console::SanitizeCommand(StringView param_1) {
-        int iVar1;
-        int iVar2;
-        char* pcVar3;
-        ulong uVar4;
-        vector_map<eastl::string, CommandData, eastl::less<eastl::string>, eastl::allocator,
-                   eastl::vector<eastl::pair<eastl::string, CommandData>, eastl::allocator>>* this_00;
-        basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>* this_01;
-        ulong uVar5;
+    // 0x100c7d010
+    Console* Console::SanitizeCommand(StringView stringView) const {
+        eastl::string* str;
+        basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>* this_00;
+        unsigned long arg2;
+        long lVar5;
         long lVar6;
         long lVar7;
         long lVar8;
-        long lVar9;
-        StringView* this_02;
-        LocationContainer* this_03;
-        bool bVar10;
-        eastl::string local_98[32];
-        vector<eastl::fixed_string<char, 256, true, eastl::allocator>, eastl::allocator> local_78[32];
-        basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>* local_58;
+        StringView* in_RDX;
+        bool bVar9;
+        eastl::string local_98;
+        vector<eastl::fixed_string<char, 256>> local_78;
+        basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>* local_58;
         char* local_50;
-        vector_map<eastl::string, CommandData, eastl::less<eastl::string>, eastl::allocator,
-                   eastl::vector<eastl::pair<eastl::string, CommandData>, eastl::allocator>>* local_48;
+        eastl::string* local_48;
         long local_40;
-        Console* local_38;
 
-        this_02 = (StringView*)param_1.field_8;
-        this_03 = (LocationContainer*)param_1.field_0;
-        new (this) eastl::fixed_string<char, 256, true, eastl::allocator>();
-        pcVar3 = (char*)this_02->end();
-        uVar4 = this_02->HeapBeginPtr();
-        local_38 = this;
+        new (this) eastl::fixed_string<char, 256>();
+        auto pcVar3 = in_RDX->end();
+        unsigned long uVar4 = in_RDX->HeapBeginPtr();
         assign(pcVar3, uVar4);
-        iVar1 = this_03->GetMinGridZ();
+        int iVar1 = stringView->GetMinGridZ();
         if (iVar1 != 0) {
-            iVar1 = this_02->HeapBeginPtr();
-            iVar2 = this_03->GetMinGridZ();
-            if (iVar2 <= iVar1) {
-                eastl::vector<eastl::fixed_string<char, 256, true, eastl::allocator>, eastl::allocator>::vector(
-                    local_78);
-                tokenize<eastl::vector<eastl::fixed_string<char, 256, true, eastl::allocator>, eastl::allocator>,
-                         StringView>((vector*)local_78, this_02, ";", -1);
-                this_00 = (vector_map<eastl::string, CommandData, eastl::less<eastl::string>, eastl::allocator,
-                                      eastl::vector<eastl::pair<eastl::string, CommandData>, eastl::allocator>>*)
-                              this_03->second();
-                this_01 =
-                    (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>*)
-                        local_78->HeapBeginPtr();
+            iVar1 = in_RDX->HeapBeginPtr();
+            if (stringView->GetMinGridZ() <= iVar1) {
+                local_78 = eastl::vector<eastl::fixed_string<char, 256>>();
+                tokenize<eastl::vector<eastl::fixed_string<char, 256>>, StringView>(&local_78, in_RDX, ";", -1);
+                str = (eastl::string*)stringView->second();
+                this_00 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>*)
+                              local_78.HeapBeginPtr();
                 local_58 =
-                    (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>*)
-                        local_78->end();
-                if (this_01 != local_58) {
+                    (basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>*)local_78.end();
+                if (this_00 != local_58) {
                     local_40 = 0;
-                    local_48 = this_00;
+                    local_48 = str;
                     do {
-                        eastl::string::basic_string(local_98);
-                        uVar4 = eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true,
-                                                                eastl::allocator>>::find_first_of(this_01, " \t", 0);
+                        local_98 = eastl::string();
+                        uVar4 = this_00->find_first_of(" \t", 0);
                         pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                         if (uVar4 == 18446744073709551615) {
-                            uVar5 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true,
-                                                                                            eastl::allocator>>::size();
-                            eastl::string::assign(local_98, pcVar3, uVar5);
+                            arg2 = this_00->size();
+                            eastl::string::assign(&local_98, pcVar3, arg2);
                         } else {
-                            eastl::string::assign(local_98, pcVar3, uVar4);
+                            eastl::string::assign(&local_98, pcVar3, uVar4);
                         }
-                        lVar6 =
-                            eastl::vector_map<eastl::string, CommandData, eastl::less<eastl::string>, eastl::allocator,
-                                              eastl::vector<eastl::pair<eastl::string, CommandData>,
-                                                            eastl::allocator>>::find(this_00, (basic_string*)local_98);
-                        lVar7 = this_00->end();
-                        if ((lVar6 != lVar7) && (-1 < *(int*)(lVar6 + 80))) {
-                            bVar10 = uVar4 != 18446744073709551615;
-                            if ((*(int*)(lVar6 + 80) != 0) && (uVar4 != 18446744073709551615)) {
+                        lVar5 = eastl::vector_map<eastl::string, CommandData>::find(*str);
+                        lVar6 = str->end();
+                        if ((lVar5 != lVar6) && (-1 < *(int*)(lVar5 + 80))) {
+                            bVar9 = uVar4 != 18446744073709551615;
+                            if ((*(int*)(lVar5 + 80) != 0) && (uVar4 != 18446744073709551615)) {
                                 iVar1 = 1;
                                 do {
-                                    uVar4 = eastl::basic_string<
-                                        char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true,
-                                                                            eastl::allocator>>::find_first_of(this_01,
-                                                                                                              " \t",
-                                                                                                              uVar4 +
-                                                                                                                  1);
-                                    bVar10 = uVar4 != 18446744073709551615;
-                                    if (*(int*)(lVar6 + 80) <= iVar1)
+                                    uVar4 = this_00->find_first_of(" \t", uVar4 + 1);
+                                    bVar9 = uVar4 != 18446744073709551615;
+                                    if (*(int*)(lVar5 + 80) <= iVar1)
                                         break;
                                     iVar1 = iVar1 + 1;
                                 } while (uVar4 != 18446744073709551615);
                             }
-                            this_00 = local_48;
-                            if (bVar10) {
-                                lVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                lVar6 = local_40;
-                                local_50 = (char*)(lVar7 + local_40 + uVar4);
-                                lVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                lVar8 =
-                                    eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true,
-                                                                                            eastl::allocator>>::size();
-                                lVar9 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                this_00 = local_48;
-                                eastl::transform<char*, char*, char (*)(char)>(local_50, (char*)(lVar7 + lVar6 + lVar8),
-                                                                               (char*)(lVar9 + lVar6 + uVar4),
-                                                                               HideCommandParamChar);
+                            str = local_48;
+                            if (bVar9) {
+                                lVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                lVar5 = local_40;
+                                local_50 = (char*)(lVar6 + local_40 + uVar4);
+                                lVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                lVar7 = this_00->size();
+                                lVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                str = local_48;
+                                eastl::transform<char*, char*, char (*)(char)>(
+                                    local_50, (lVar6 + lVar5 + lVar7), (lVar8 + lVar5 + uVar4), HideCommandParamChar);
                             }
                         }
-                        lVar6 = eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                        local_40 = local_40 + lVar6 + 1;
-                        eastl::string::~basic_string(local_98);
-                        this_01 = this_01 + 296;
-                    } while (this_01 != local_58);
+                        lVar5 = this_00->size();
+                        local_40 = local_40 + lVar5 + 1;
+                        this_00 = this_00 + 296;
+                    } while (this_00 != local_58);
                 }
-                eastl::vector<eastl::fixed_string<char, 256, true, eastl::allocator>, eastl::allocator>::~vector(
-                    local_78);
             }
         }
-        return local_38;
+        return this;
     }
 
-    // 0x100c7d410, 32 bytes, placed by class name and debug map
-    // HideCommandParamChar(char)
-    undefined4 HideCommandParamChar(char param_1) {
-        undefined4 uVar1;
-        undefined3 in_register_00000039;
+    // 0x100c7d410
+    void HideCommandParamChar(char arg1) {
+        uint32_t in_register_00000039;
 
-        uVar1 = 42;
-        if (param_1 == '\t') {
-            uVar1 = CONCAT31(in_register_00000039, param_1);
+        uint32_t uVar1 = 42;
+        if (arg1 == '\t') {
+            uVar1 = (((uint32_t)in_register_00000039 << 8) | (uint8_t)arg1);
         }
-        if (param_1 == ' ') {
-            uVar1 = CONCAT31(in_register_00000039, param_1);
+        if (arg1 == ' ') {
+            uVar1 = (((uint32_t)in_register_00000039 << 8) | (uint8_t)arg1);
         }
         return uVar1;
     }
 
-    // 0x100c7d440, 624 bytes, placed by class name and debug map
-    // Console::ColouriseCommandAndHelp(eastl::string&, eastl::string&)
-    /* WARNING: Removing unreachable block (ram,4308063575) */
-    /* Console::ColouriseCommandAndHelp(eastl::string&,
-   eastl::string&) */
-
-    void Console::ColouriseCommandAndHelp(basic_string* param_1, basic_string* param_2) {
-        ulong uVar1;
+    // 0x100c7d440
+    void Console::ColouriseCommandAndHelp(eastl::string& str1, eastl::string& str2) {
+        unsigned long uVar1;
         long lVar2;
         long lVar3;
         long lVar4;
-        undefined8 uVar5;
-        ulong uVar6;
+        uint64_t uVar5;
         char* pcVar7;
-        fixed_string<char, 256, true, eastl::allocator> local_3b0[296];
-        fixed_string<char, 256, true, eastl::allocator> local_288[296];
-        fixed_string<char, 256, true, eastl::allocator> local_160[296];
-        undefined8 local_38;
+        fixed_string<char, 256> local_3b0;
+        fixed_string<char, 256> local_288;
 
-        local_38 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_160);
-        uVar6 = 0;
+        fixed_string<char, 256> local_160;
+        unsigned long uVar6 = 0;
         do {
-            uVar1 = param_1->find("<lt>", uVar6);
+            uVar1 = str1.find("<lt>", uVar6);
             if (uVar1 != 18446744073709551615) {
-                lVar2 = param_1->find("<gt>", uVar1);
+                lVar2 = str1.find("<gt>", uVar1);
                 if (lVar2 != -1) {
                     lVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                     lVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(
-                        local_288, (char*)(lVar3 + uVar1), (char*)(lVar4 + lVar2 + 4));
-                    eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_3b0);
+                    local_288 = eastl::fixed_string<char, 256>((lVar3 + uVar1), (lVar4 + lVar2 + 4));
+                    local_3b0 = eastl::fixed_string<char, 256>();
                     uVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                        sprintf((char*)local_3b0, "<col=%06x>%s%s", 16777120, uVar5, "</col>");
-                    eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                    eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-                    uVar6 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+                    local_3b0.sprintf("<col=%06x>%s%s", 16777120, uVar5, "</col>");
+                    local_3b0.size();
+                    local_288.size();
+                    uVar6 = local_288.size();
                     pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    param_1->replace(uVar1, uVar6, pcVar7);
+                    str1.replace(uVar1, uVar6, pcVar7);
                     pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    uVar6 = param_2->find(pcVar7, 0);
+                    uVar6 = str2.find(pcVar7, 0);
                     if (uVar6 != 18446744073709551615) {
-                        uVar1 = eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+                        uVar1 = local_288.size();
                         pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                        param_2->replace(uVar6, uVar1, pcVar7);
+                        str2.replace(uVar6, uVar1, pcVar7);
                     }
-                    /* WARNING: Subroutine does not return */
-                    local_3b0->~fixed_string();
                 }
                 uVar6 = uVar1 + 4;
             }
         } while (uVar1 != 18446744073709551615);
-        /* WARNING: Subroutine does not return */
-        local_160->~fixed_string();
     }
 
-    // 0x100c7d6b0, 384 bytes, placed by class name and debug map
-    // Console::IsProtectedCommand(StringView) const
-    ulong Console::IsProtectedCommand(StringView param_1) {
-        fixed_string* pfVar1;
+    // 0x100c7d6b0
+    unsigned long Console::IsProtectedCommand(StringView stringView) const {
+        long lVar1;
         long lVar2;
-        long lVar3;
-        uchar* extraout_RDX;
-        byte bVar4;
-        StringView* this_00;
-        undefined1* this_01;
-        StringView SVar5;
+        uint8_t* str_00;
         StringView local_a8;
         StringView local_98;
-        StringView local_88[2];
-        vector<eastl::string, eastl::allocator> local_68[32];
-        fixed_string* local_48;
-        undefined1* local_40;
-        bool local_31;
+        StringView local_88;
+        uint8_t* local_40;
 
-        this_00 = (StringView*)param_1.field_0;
-        eastl::vector<eastl::string, eastl::allocator>::vector(local_68);
-        tokenize<eastl::vector<eastl::string, eastl::allocator>, StringView>((vector*)local_68, this_00, ";", -1);
-        pfVar1 = (fixed_string*)local_68->HeapBeginPtr();
-        local_48 = (fixed_string*)local_68->end();
-        local_31 = pfVar1 == local_48;
+        vector<eastl::string> local_68;
+        tokenize<eastl::vector<eastl::string>, StringView>(&local_68, stringView, ";", -1);
+        auto str = local_68.HeapBeginPtr();
+        auto local_48 = local_68.end();
+        bool local_31 = str == local_48;
         if (!local_31) {
-            this_01 = &field_8;
-            this_00 = local_88;
-            local_40 = this_01;
+            str_00 = &field_8;
+            stringView = &local_88;
+            local_40 = str_00;
             do {
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_a8, pfVar1);
-                StringView::StringView<3ul>(&local_98, " \t");
-                SVar5.field_8 = extraout_RDX;
-                SVar5.field_0 = (ulong)&local_98;
-                lVar2 = local_a8.find_first_of(SVar5);
-                if (lVar2 != -1) {
-                    this_00->substr((ulong)&local_a8, 0);
-                    StringView::operator=(&local_a8, this_00);
+                local_a8.StringView<eastl::fixed_string<char, 40>>(*str);
+                local_98.StringView<3ul>(" \t");
+                lVar1 = local_a8.find_first_of(&local_98);
+                if (lVar1 != -1) {
+                    *stringView = ((unsigned long)&local_a8)->substr(0);
+                    local_a8 = *stringView;
                 }
-                StringView::to_owned_string<eastl::string>(this_00);
-                lVar2 = this_01->find(this_00);
-                lVar3 = this_01->end();
-                if ((lVar2 != lVar3) && (-1 < *(int*)(lVar2 + 80))) {
-                    local_88->~basic_string();
+                *stringView = local_a8.to_owned_string<eastl::string>();
+                lVar1 = eastl::vector_map<eastl::string, CommandData>::find(*str_00);
+                lVar2 = str_00->end();
+                if ((lVar1 != lVar2) && (-1 < *(int*)(lVar1 + 80))) {
                     break;
                 }
-                this_00->~basic_string();
-                pfVar1 = pfVar1 + 32;
-                local_31 = pfVar1 == local_48;
+                stringView->~basic_string();
+                str = str + 32;
+                local_31 = str == local_48;
             } while (!local_31);
         }
-        bVar4 = ~local_31;
-        eastl::vector<eastl::string, eastl::allocator>::~vector(local_68);
-        return CONCAT71((int7)((ulong)this_00 >> 8), bVar4) & 4294967041;
+        uint8_t bVar3 = ~local_31;
+        return bVar3 & 4294967041;
     }
 
-    // 0x100c7da10, 496 bytes, placed by class name and debug map
-    // Console::GetPreviousCommandFromHistory(StringView)
-    StringView* Console::GetPreviousCommandFromHistory(StringView param_1) {
-        undefined1* this;
-        undefined1* this_00;
-        char cVar1;
+    // 0x100c7da10
+    StringView Console::GetPreviousCommandFromHistory(StringView stringView) {
+        __optional_storage_base<int, false>* this_01;
         int iVar2;
         int iVar3;
         int* piVar4;
-        fixed_string* pfVar5;
+        basic_string<char, BucketAllocatorEASTL>* pbVar5;
         StringView* in_RDX;
-        uchar* extraout_RDX;
-        Console* this_01;
-        StringView* this_02;
-        int iVar6;
-        StringView SVar7;
+        Particle* extraout_RDX;
+        Particle* extraout_RDX_00;
+        Particle* extraout_RDX_01;
+        Particle* extraout_RDX_02;
+        Particle* pPVar6;
+        int iVar7;
+        StringView SVar8;
         StringView local_60;
         StringView* local_50;
-        Console* local_48;
+        StringView* local_48;
         int local_40;
-        undefined1 local_3c;
+        uint8_t local_3c;
         int local_34;
 
-        this_01 = (Console*)param_1.field_8;
-        this_02 = (StringView*)param_1.field_0;
-        this = this_01->m_commandHistory;
-        cVar1 = empty();
-        if (cVar1 == '\0') {
-            cVar1 = in_RDX->empty();
-            if (cVar1 != '\0') {
-                this_00 = &this_01->field_172;
-                cVar1 = this_00->has_value();
-                if (cVar1 == '\0') {
-                    local_34 = GetAuthWrapper();
-                    local_34 = local_34 + -1;
-                    std::optional<int>::optional<int, 0>(&local_40);
-                    this_01->field_176 = local_3c;
-                    *(int*)this_00 = local_40;
+        Particle** this_00 = &stringView[6].field_8;
+        if (!(this_00->empty())) {
+            if (in_RDX->empty()) {
+                this_01 = (__optional_storage_base<int, false>*)((long)&stringView[10].field_8 + 4);
+                if (!(this_01->has_value())) {
+                    local_34 = this_00->GetAuthWrapper();
+                    local_34 = local_34 - 1;
+                    local_40.optional<int, 0>(local_34);
+                    *(uint8_t*)&stringView[11].field_0 = local_3c;
+                    *(int*)this_01 = local_40;
                 } else {
-                    piVar4 = (int*)this_00->value();
-                    local_34 = *piVar4 + -1;
+                    piVar4 = (int*)this_01->value();
+                    local_34 = *piVar4 - 1;
                     if (*piVar4 == 0) {
-                        ResetCommandHistoryCursor(this_01);
-                        StringView::StringView<1ul>(this_02, "");
-                        return this_02;
+                        ResetCommandHistoryCursor((Console*)stringView);
+                        StringView<1ul>("");
+                        pPVar6 = extraout_RDX;
+                        goto LAB_100c7dbe0;
                     }
-                    std::optional<int>::optional<int&, 0>(&local_40);
-                    this_01->field_176 = local_3c;
-                    *(int*)this_00 = local_40;
+                    local_40.optional<int&, 0>(local_34);
+                    *(uint8_t*)&stringView[11].field_0 = local_3c;
+                    *(int*)this_01 = local_40;
                 }
-                piVar4 = (int*)this_00->value();
-                pfVar5 = (fixed_string*)eastl::ring_buffer<
-                    eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>::
-                operator[](
-                    (ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>*)this,
-                    (long)*piVar4);
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(this_02, pfVar5);
-                return this_02;
+                piVar4 = (int*)this_01->value();
+                pbVar5 = (basic_string<char, BucketAllocatorEASTL>*)(*this_00)[(long)*piVar4];
+                StringView<eastl::fixed_string<char, 40>>(*pbVar5);
+                pPVar6 = extraout_RDX_01;
+                goto LAB_100c7dbe0;
             }
             local_50 = in_RDX;
-            local_48 = this_01;
-            iVar2 = GetAuthWrapper();
+            local_48 = stringView;
+            iVar2 = this_00->GetAuthWrapper();
             if (1 < iVar2) {
-                local_48 = (Console*)&local_48->field_172;
+                local_48 = (StringView*)((long)&local_48[10].field_8 + 4);
                 iVar2 = 1;
-                iVar6 = -1;
+                iVar7 = -1;
                 do {
                     local_40 = 0;
-                    local_34 = std::optional<int>::value_or<int>((optional<int>*)local_48, &local_40);
-                    local_34 = local_34 + iVar6;
+                    local_34 = local_48->value_or<int>(local_40);
+                    local_34 = local_34 + iVar7;
                     if (local_34 < 0) {
-                        iVar3 = GetAuthWrapper();
+                        iVar3 = this_00->GetAuthWrapper();
                         local_34 = local_34 + iVar3;
                     }
-                    pfVar5 =
-                        (fixed_string*)eastl::ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>,
-                                                          eastl::allocator>::
-                        operator[]((ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>,
-                                                eastl::allocator>*)this,
-                                   (long)local_34);
-                    StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(this_02, pfVar5);
-                    new (&local_60) StringView(local_50);
-                    SVar7.field_8 = extraout_RDX;
-                    SVar7.field_0 = (ulong)&local_60;
-                    cVar1 = this_02->starts_with(SVar7);
-                    if (cVar1 != '\0') {
-                        std::optional<int>::optional<int&, 0>(&local_40);
-                        *(undefined1*)((long)&local_48->field_0 + 4) = local_3c;
+                    pbVar5 = (basic_string<char, BucketAllocatorEASTL>*)(*this_00)[(long)local_34];
+                    StringView<eastl::fixed_string<char, 40>>(*pbVar5);
+                    local_60 = StringView(*local_50);
+                    if (starts_with(&local_60)) {
+                        local_40.optional<int&, 0>(local_34);
+                        *(uint8_t*)((long)&local_48->field_0 + 4) = local_3c;
                         *(int*)&local_48->field_0 = local_40;
-                        return this_02;
+                        pPVar6 = extraout_RDX_02;
+                        goto LAB_100c7dbe0;
                     }
                     iVar2 = iVar2 + 1;
-                    iVar3 = GetAuthWrapper();
-                    iVar6 = iVar6 + -1;
+                    iVar3 = this_00->GetAuthWrapper();
+                    iVar7 = iVar7 - 1;
                 } while (iVar2 < iVar3);
             }
             in_RDX = local_50;
         }
-        StringView::StringView(this_02, in_RDX);
-        return this_02;
+        new (this) StringView(*in_RDX);
+        pPVar6 = extraout_RDX_00;
+    LAB_100c7dbe0:
+        SVar8.field_8 = pPVar6;
+        SVar8.field_0 = (unsigned long)this;
+        return SVar8;
     }
 
-    // 0x100c7dca0, 528 bytes, placed by class name and debug map
-    // Console::GetNextCommandFromHistory(StringView)
-    StringView* Console::GetNextCommandFromHistory(StringView param_1) {
-        undefined1* this;
-        undefined1* this_00;
-        optional<int>* this_01;
-        char cVar1;
+    // 0x100c7dca0
+    StringView Console::GetNextCommandFromHistory(StringView stringView) {
+        __optional_storage_base<int, false>* this_01;
+        optional<int>* this_02;
         int iVar2;
         int iVar3;
         int* piVar5;
-        fixed_string* pfVar6;
-        StringView* in_RDX;
-        uchar* extraout_RDX;
-        Console* this_02;
-        StringView* this_03;
-        StringView SVar7;
+        basic_string<char, BucketAllocatorEASTL>* pbVar6;
+        Console* in_RDX;
+        Particle* extraout_RDX;
+        Particle* extraout_RDX_00;
+        Particle* extraout_RDX_01;
+        Particle* extraout_RDX_02;
+        Particle* pPVar7;
+        StringView SVar8;
         StringView local_60;
         optional<int>* local_50;
-        StringView* local_48;
+        Console* local_48;
         int local_40;
         optional<int> local_3c;
         int local_34;
 
-        this_02 = (Console*)param_1.field_8;
-        this_03 = (StringView*)param_1.field_0;
-        this = this_02->m_commandHistory;
-        cVar1 = empty();
-        if (cVar1 == '\0') {
-            cVar1 = in_RDX->empty();
-            if (cVar1 != '\0') {
-                this_00 = &this_02->field_172;
-                cVar1 = this_00->has_value();
-                if (cVar1 == '\0') {
+        Particle** this_00 = &stringView[6].field_8;
+        if (!(this_00->empty())) {
+            if (in_RDX->empty()) {
+                this_01 = (__optional_storage_base<int, false>*)((long)&stringView[10].field_8 + 4);
+                if (!(this_01->has_value())) {
                     local_34 = 0;
-                    std::optional<int>::optional<int, 0>(&local_40);
-                    this_02->field_176 = local_3c;
-                    *(int*)this_00 = local_40;
+                    local_40.optional<int, 0>(local_34);
+                    *(optional<int>*)&stringView[11].field_0 = local_3c;
+                    *(int*)this_01 = local_40;
                 } else {
-                    local_48 = this_03;
-                    piVar5 = (int*)this_00->value();
+                    local_48 = this;
+                    piVar5 = (int*)this_01->value();
                     iVar3 = *piVar5;
                     local_34 = iVar3 + 1;
-                    iVar2 = GetAuthWrapper();
+                    iVar2 = this_00->GetAuthWrapper();
                     if (iVar3 + 1 == iVar2) {
-                        ResetCommandHistoryCursor(this_02);
-                        StringView::StringView<1ul>(local_48, "");
-                        return local_48;
+                        ResetCommandHistoryCursor((Console*)stringView);
+                        local_48->StringView<1ul>("");
+                        pPVar7 = extraout_RDX_00;
+                        this = local_48;
+                        goto LAB_100c7de97;
                     }
-                    std::optional<int>::optional<int&, 0>(&local_40);
-                    this_02->field_176 = local_3c;
-                    *(int*)this_00 = local_40;
-                    this_03 = local_48;
+                    local_40.optional<int&, 0>(local_34);
+                    *(optional<int>*)&stringView[11].field_0 = local_3c;
+                    *(int*)this_01 = local_40;
+                    this = local_48;
                 }
-                piVar5 = (int*)this_00->value();
-                pfVar6 = (fixed_string*)eastl::ring_buffer<
-                    eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>::
-                operator[](
-                    (ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>, eastl::allocator>*)this,
-                    (long)*piVar5);
-                StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(this_03, pfVar6);
-                return this_03;
+                piVar5 = (int*)this_01->value();
+                pbVar6 = (basic_string<char, BucketAllocatorEASTL>*)(*this_00)[(long)*piVar5];
+                StringView<eastl::fixed_string<char, 40>>(*pbVar6);
+                pPVar7 = extraout_RDX_01;
+                goto LAB_100c7de97;
             }
-            iVar3 = GetAuthWrapper();
+            iVar3 = this_00->GetAuthWrapper();
             if (1 < iVar3) {
-                local_50 = (optional<int>*)&this_02->field_172;
+                local_50 = (optional<int>*)((long)&stringView[10].field_8 + 4);
                 iVar3 = 1;
                 local_48 = in_RDX;
                 do {
-                    this_01 = local_50;
-                    local_40 = GetAuthWrapper();
-                    local_40 = local_40 + -1;
-                    iVar2 = std::optional<int>::value_or<int>(this_01, &local_40);
+                    this_02 = local_50;
+                    local_40 = this_00->GetAuthWrapper();
+                    local_40 = local_40 - 1;
+                    iVar2 = this_02->value_or<int>(local_40);
                     local_34 = iVar2 + iVar3;
-                    if (GetAuthWrapper() <= iVar2 + iVar3) {
-                        iVar2 = GetAuthWrapper();
+                    if (this_00->GetAuthWrapper() <= iVar2 + iVar3) {
+                        iVar2 = this_00->GetAuthWrapper();
                         local_34 = local_34 - iVar2;
                     }
-                    pfVar6 =
-                        (fixed_string*)eastl::ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>,
-                                                          eastl::allocator>::
-                        operator[]((ring_buffer<eastl::string, eastl::vector<eastl::string, eastl::allocator>,
-                                                eastl::allocator>*)this,
-                                   (long)local_34);
-                    StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(this_03, pfVar6);
+                    pbVar6 = (basic_string<char, BucketAllocatorEASTL>*)(*this_00)[(long)local_34];
+                    StringView<eastl::fixed_string<char, 40>>(*pbVar6);
                     in_RDX = local_48;
-                    new (&local_60) StringView(local_48);
-                    SVar7.field_8 = extraout_RDX;
-                    SVar7.field_0 = (ulong)&local_60;
-                    cVar1 = this_03->starts_with(SVar7);
-                    if (cVar1 != '\0') {
-                        std::optional<int>::optional<int&, 0>(&local_40);
+                    local_60 = StringView(*local_48);
+                    if (starts_with(&local_60)) {
+                        local_40.optional<int&, 0>(local_34);
                         local_50[4] = local_3c;
                         *(int*)local_50 = local_40;
-                        return this_03;
+                        pPVar7 = extraout_RDX_02;
+                        goto LAB_100c7de97;
                     }
                     iVar3 = iVar3 + 1;
-                    iVar2 = GetAuthWrapper();
+                    iVar2 = this_00->GetAuthWrapper();
                 } while (iVar3 < iVar2);
             }
         }
-        StringView::StringView(this_03, in_RDX);
-        return this_03;
+        new (this) StringView(*in_RDX);
+        pPVar7 = extraout_RDX;
+    LAB_100c7de97:
+        SVar8.field_8 = pPVar7;
+        SVar8.field_0 = (unsigned long)this;
+        return SVar8;
     }
 
-    // 0x100c7deb0, 112 bytes, placed by class name and debug map
-    // Console::StripVariablePromptParts(eastl::string&)
-    void Console::StripVariablePromptParts(basic_string* param_1) {
-        long lVar1;
-        basic_string local_38[32];
+    // 0x100c7deb0
+    void Console::StripVariablePromptParts(eastl::string& str) {
+        ReturnValue local_38;
 
-        lVar1 = param_1->find('<', 0);
-        if (lVar1 != -1) {
-            eastl::string::substr((ulong)local_38, (ulong)param_1);
-            eastl::string::operator=((eastl::string*)param_1, local_38);
-            local_38->~basic_string();
-            param_1->trim();
+        unsigned long arg2 = str.find('<', 0);
+        if (arg2 != 18446744073709551615) {
+            local_38 = str.substr(0, arg2);
+            str = &local_38;
+            str.trim();
         }
     }
 
-    // 0x100c7df20, 384 bytes, placed by class name and debug map
-    // Console::SplitArguments(eastl::fixed_vector<StringView, 4ul, true, eastl::allocator>&, StringView) const
-    void Console::SplitArguments(fixed_vector* param_1, StringView param_2) {
-        char cVar1;
+    // 0x100c7df20
+    void Console::SplitArguments(eastl::fixed_vector<StringView, 4ul>& stringViews, StringView stringView) const {
         int iVar2;
-        byte* pbVar3;
+        uint8_t* pbVar3;
         char* pcVar4;
-        ulong uVar5;
-        long lVar6;
-        uchar* puVar7;
-        StringView* this_00;
-        uchar* extraout_RDX;
-        StringView SVar8;
-        StringView SVar9;
+        unsigned long uVar5;
         StringView local_70;
         StringView local_60;
         StringView local_50;
-        ulong local_40;
+        unsigned long local_40;
         char local_31;
 
-        puVar7 = param_2.field_8;
-        this_00 = (StringView*)param_2.field_0;
-        cVar1 = this_00->empty();
-        if (cVar1 == '\0') {
+        bool cVar1 = stringView->empty();
+        if (!cVar1) {
             do {
-                pbVar3 = (byte*)WrapArray<char const>::operator[]((WrapArray<char const>*)this_00, 0);
-                iVar2 = isspace((uint)*pbVar3);
+                pbVar3 = (uint8_t*)(*stringView)[0];
+                iVar2 = isspace((unsigned int)*pbVar3);
                 if (iVar2 == 0) {
-                    pcVar4 = (char*)WrapArray<char const>::operator[]((WrapArray<char const>*)this_00, 0);
+                    pcVar4 = (char*)(*stringView)[0];
                     local_31 = *pcVar4;
                     if ((local_31 == '\'') || (local_31 == '\"')) {
-                        new (&local_70) StringView(&local_31);
-                        SVar8.field_8 = &DAT_00000001;
-                        SVar8.field_0 = (ulong)&local_70;
-                        uVar5 = this_00->find_first_of(SVar8, (ulong)puVar7);
+                        local_70 = StringView(local_31);
+                        uVar5 = stringView->find_first_of(&local_70, 1);
                         if (uVar5 == 18446744073709551615)
                             goto LAB_100c7e088;
-                        lVar6 = this_00->end();
-                        local_50.field_0 = lVar6 + 1;
+                        local_50.field_0 = stringView->end() + 1;
                         local_40 = uVar5 - 1;
-                        eastl::vector<StringView,
-                                      eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                            emplace_back<char const*, unsigned long&>(
-                                (vector<StringView,
-                                        eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                    param_1,
-                                (char**)&local_50, &local_40);
+                        stringViews.emplace_back<char const*, unsigned long&>(local_50, local_40);
                     LAB_100c7e061:
-                        local_50.substr((ulong)this_00);
-                        StringView::operator=(this_00, &local_50);
+                        local_50.substr((unsigned long)stringView);
+                        *stringView = local_50;
                         iVar2 = 0;
                     } else {
-                        StringView::StringView<3ul>(&local_60, " \t");
-                        SVar9.field_8 = extraout_RDX;
-                        SVar9.field_0 = (ulong)&local_60;
-                        uVar5 = this_00->find_first_of(SVar9);
+                        local_60.StringView<3ul>(" \t");
+                        uVar5 = stringView->find_first_of(&local_60);
                         local_40 = uVar5;
                         if (uVar5 != 18446744073709551615) {
-                            local_50.field_0 = this_00->end();
-                            eastl::vector<StringView,
-                                          eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                                emplace_back<char const*, unsigned long&>(
-                                    (vector<StringView, eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true,
-                                                                                      eastl::allocator>>*)param_1,
-                                    (char**)&local_50, &local_40);
+                            local_50.field_0 = stringView->end();
+                            stringViews.emplace_back<char const*, unsigned long&>(local_50, local_40);
                             goto LAB_100c7e061;
                         }
                     LAB_100c7e088:
-                        eastl::fixed_vector<StringView, 4ul, true, eastl::allocator>::push_back((StringView*)param_1);
+                        stringViews.push_back(*stringView);
                         iVar2 = 3;
                     }
                     if (uVar5 != 18446744073709551615) {
@@ -1750,503 +1263,337 @@ namespace jag::console {
                         return;
                     }
                 } else {
-                    local_50.substr((ulong)this_00);
-                    StringView::operator=(this_00, &local_50);
+                    local_50.substr((unsigned long)stringView);
+                    *stringView = local_50;
                 }
-                cVar1 = this_00->empty();
-            } while (cVar1 == '\0');
+                cVar1 = stringView->empty();
+            } while (!cVar1);
         }
     }
 
-    // 0x100c7e260, 992 bytes, placed by class name and debug map
-    // Console::ReportArgDecodingErrors(char const*, WrapArray<ArgDecodingError>)
-    void Console::ReportArgDecodingErrors(char* param_1,
-                                          vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* param_3) {
-        CommandData* this_00;
+    // 0x100c7e260
+    void Console::ReportArgDecodingErrors(const char* str, WrapArray<ArgDecodingError> wrapArray) {
         int iVar1;
-        uint uVar2;
-        ShuffledPacketFactory* pSVar3;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_01;
-        char cVar4;
-        int iVar5;
-        undefined4 uVar6;
-        fixed_string* pfVar7;
-        fixed_string* pfVar8;
-        uchar* puVar9;
-        uchar* puVar10;
-        undefined8* puVar11;
-        undefined8 uVar12;
-        undefined8 uVar13;
-        ulong uVar14;
-        undefined8 uVar15;
-        ulong uVar16;
-        ShuffledPacketFactory* this_02;
-        StringView SVar17;
-        undefined8 in_stack_fffffffffffffd48;
-        undefined4 uVar18;
-        allocator local_2a8[8];
+        unsigned int uVar2;
+        bool cVar3;
+        int iVar4;
+        uint32_t uVar5;
+        uint64_t* puVar10;
+        uint64_t uVar11;
+        uint64_t uVar12;
+        unsigned long uVar13;
+        uint64_t uVar14;
+        unsigned long uVar15;
+        uint64_t in_stack_fffffffffffffd48;
+        uint32_t uVar16;
         StringView local_2a0;
-        uchar* local_290;
-        ulong local_288;
-        fixed_string* local_270;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_268;
-        eastl::string local_260[552];
-        undefined8 local_38;
+        SharedArray<std::unique_ptr<oldscape::rs2lib::worldmap::LocationData>>* local_290;
+        unsigned long local_288;
 
-        local_38 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        local_268 = param_3;
-        eastl::allocator::allocator(local_2a8, "EASTL basic_string");
-        eastl::string::basic_string(local_260, param_1, local_2a8);
-        pfVar7 = (fixed_string*)(&field_8, (basic_string*)local_260)->find();
-        eastl::string::~basic_string(local_260);
-        pfVar8 = (fixed_string*)(&field_8)->end();
-        local_270 = pfVar7;
-        if (pfVar7 == pfVar8) {
-            /* WARNING: Subroutine does not return */
+        WrapArray<ArgDecodingError>* local_268 = wrapArray;
+        eastl::string local_260(str);
+        basic_string<char, BucketAllocatorEASTL>* pbVar6 =
+            (basic_string<char, BucketAllocatorEASTL>*)eastl::vector_map<eastl::string, CommandData>::find(field_8);
+        auto pbVar7 = field_8.end();
+        basic_string<char, BucketAllocatorEASTL>* local_270 = pbVar6;
+        if (pbVar6 == pbVar7) {
             LogAssert("commandIt != m_commands.end()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/console/Console.cpp", 734,
-                      (char*)0);
+                      nullptr);
         }
-        new (local_260) eastl::fixed_string<char, 512, true, eastl::allocator>();
-        this_01 = local_268;
-        puVar9 = (uchar*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(local_268);
-        puVar10 = (uchar*)this_01->end();
-        if (puVar9 != puVar10) {
-            local_268 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(local_270 + 192);
-            this_02 = (ShuffledPacketFactory*)(puVar9 + 16);
-            local_290 = puVar10;
+        local_260 = eastl::fixed_string<char, 512>();
+        WrapArray<ArgDecodingError>* this_01 = local_268;
+        auto pSVar8 = local_268->end();
+        auto pSVar9 = this_01->end();
+        if (pSVar8 != pSVar9) {
+            local_268 = (WrapArray<ArgDecodingError>*)(local_270 + 192);
+            pSVar8 = pSVar8 + 16;
+            local_290 = pSVar9;
             do {
-                iVar1 = *(int*)&this_02[1].field_0;
-                iVar5 = local_268->size();
-                cVar4 = this_02->empty();
-                uVar18 = (undefined4)((ulong)in_stack_fffffffffffffd48 >> 32);
-                uVar2 = *(uint*)&this_02[1].field_0;
-                uVar16 = (ulong)(int)uVar2;
-                if (iVar1 < iVar5) {
-                    if (cVar4 == '\0') {
-                        local_288 = uVar16;
-                        puVar11 = (undefined8*)eastl::vector<
-                            char const*, eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[]((vector<char const*,
-                                           eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                       local_268,
-                                   uVar16);
-                        uVar15 = *puVar11;
-                        uVar16 = ShuffledPacketFactory::p2_alt2(this_02 + -1);
-                        uVar12 = ((this_02 + -1))->end();
-                        uVar6 = ShuffledPacketFactory::p2_alt2(this_02);
-                        uVar13 = this_02->end();
-                        in_stack_fffffffffffffd48 = CONCAT44(uVar18, uVar6);
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                            append_sprintf(
-                                (char*)local_260,
-                                "<br><col=CCCCCCFF>- arg %d (%s): </col>expected \'%.*s\' but received \'%.*s\'",
-                                local_288, uVar15, uVar16 & 4294967295, uVar12, in_stack_fffffffffffffd48, uVar13);
+                iVar1 = *(int*)(pSVar8 + 16);
+                iVar4 = local_268->size();
+                cVar3 = pSVar8->empty();
+                uVar16 = (uint32_t)((unsigned long)in_stack_fffffffffffffd48 >> 32);
+                uVar2 = *(unsigned int*)(pSVar8 + 16);
+                uVar15 = (unsigned long)(int)uVar2;
+                if (iVar1 < iVar4) {
+                    if (!cVar3) {
+                        local_288 = uVar15;
+                        puVar10 = (uint64_t*)(*local_268)[uVar15];
+                        uVar14 = *puVar10;
+                        uVar15 = ShuffledPacketFactory::p2_alt2();
+                        uVar11 = ((pSVar8 - 16))->end();
+                        uVar5 = ShuffledPacketFactory::p2_alt2();
+                        uVar12 = pSVar8->end();
+                        in_stack_fffffffffffffd48 = (((uint64_t)uVar16 << 32) | (uint32_t)uVar5);
+                        local_260.append_sprintf(
+                            "<br><col=CCCCCCFF>- arg %d (%s): </col>expected \'%.*s\' but received \'%.*s\'", local_288,
+                            uVar14, uVar15 & 4294967295, uVar11, in_stack_fffffffffffffd48, uVar12);
                     } else {
-                        puVar11 = (undefined8*)eastl::vector<
-                            char const*, eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-                        operator[]((vector<char const*,
-                                           eastl::fixed_vector_allocator<8ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                       local_268,
-                                   uVar16);
-                        uVar15 = *puVar11;
-                        uVar16 = ShuffledPacketFactory::p2_alt2(this_02 + -1);
-                        uVar12 = ((this_02 + -1))->end();
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                            append_sprintf((char*)local_260, "<br><col=CCCCCCFF>- arg %d (%s): </col>%.*s",
-                                           (ulong)uVar2, uVar15, uVar16 & 4294967295, uVar12);
+                        puVar10 = (uint64_t*)(*local_268)[uVar15];
+                        uVar14 = *puVar10;
+                        uVar15 = ShuffledPacketFactory::p2_alt2();
+                        uVar11 = ((pSVar8 - 16))->end();
+                        local_260.append_sprintf("<br><col=CCCCCCFF>- arg %d (%s): </col>%.*s", (unsigned long)uVar2,
+                                                 uVar14, uVar15 & 4294967295, uVar11);
                     }
+                } else if (!cVar3) {
+                    uVar15 = ShuffledPacketFactory::p2_alt2();
+                    uVar14 = ((pSVar8 - 16))->end();
+                    uVar13 = ShuffledPacketFactory::p2_alt2();
+                    in_stack_fffffffffffffd48 = pSVar8->end();
+                    local_260.append_sprintf(
+                        "<br><col=CCCCCCFF>- arg %d: </col>expected \'%.*s\' but received \'%.*s\'",
+                        (unsigned long)uVar2, uVar15 & 4294967295, uVar14, uVar13 & 4294967295,
+                        in_stack_fffffffffffffd48);
                 } else {
-                    pSVar3 = this_02 + -1;
-                    if (cVar4 == '\0') {
-                        uVar16 = ShuffledPacketFactory::p2_alt2(pSVar3);
-                        uVar15 = pSVar3->end();
-                        uVar14 = ShuffledPacketFactory::p2_alt2(this_02);
-                        in_stack_fffffffffffffd48 = this_02->end();
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                            append_sprintf((char*)local_260,
-                                           "<br><col=CCCCCCFF>- arg %d: </col>expected \'%.*s\' but received \'%.*s\'",
-                                           (ulong)uVar2, uVar16 & 4294967295, uVar15, uVar14 & 4294967295,
-                                           in_stack_fffffffffffffd48);
-                    } else {
-                        uVar16 = ShuffledPacketFactory::p2_alt2(pSVar3);
-                        uVar15 = pSVar3->end();
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                            append_sprintf((char*)local_260, "<br><col=CCCCCCFF>- arg %d: </col>%.*s", (ulong)uVar2,
-                                           uVar16 & 4294967295, uVar15);
-                    }
+                    uVar15 = ShuffledPacketFactory::p2_alt2();
+                    uVar14 = ((pSVar8 - 16))->end();
+                    local_260.append_sprintf("<br><col=CCCCCCFF>- arg %d: </col>%.*s", (unsigned long)uVar2,
+                                             uVar15 & 4294967295, uVar14);
                 }
-                pSVar3 = this_02 + 1;
-                puVar10 = local_290;
-                this_02 = (ShuffledPacketFactory*)&this_02[2].field_8;
-            } while ((uchar*)&pSVar3->field_8 != local_290);
+                pSVar9 = pSVar8 + 24;
+                pSVar8 = pSVar8 + 40;
+            } while (pSVar9 != local_290);
         }
-        pfVar7 = local_270;
-        this_00 = (CommandData*)(local_270 + 32);
-        cVar4 = this_00->HasUsageInstructions();
-        if (cVar4 != '\0') {
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                append_sprintf((char*)local_260, "<br><col=CCCCCCFF>- usage: <col=CCCCCCFF>\'<col=33CC55FF>");
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_2a0, pfVar7);
-            SVar17.field_8 = puVar10;
-            SVar17.field_0 = (ulong)&local_2a0;
-            this_00->AppendUsage(local_260, SVar17);
-            local_260->append("<col=CCCCCCFF>\' </col>");
+        pbVar6 = local_270;
+        CommandData* this_00 = (CommandData*)(local_270 + 32);
+        cVar3 = this_00->HasUsageInstructions();
+        if (cVar3) {
+            local_260.append_sprintf("<br><col=CCCCCCFF>- usage: <col=CCCCCCFF>\'<col=33CC55FF>");
+            local_2a0.StringView<eastl::fixed_string<char, 40>>(*pbVar6);
+            this_00->AppendUsage(local_260, &local_2a0);
+            local_260.append("<col=CCCCCCFF>\' </col>");
             this_00->AppendExample(local_260);
         }
-        uVar15 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        AddMessage((Console*)this, 6, "Could not execute \'%s\':%s", param_1, uVar15);
-        /* WARNING: Subroutine does not return */
-        local_260->~fixed_string();
+        uVar14 = local_260.begin();
+        AddMessage(6, "Could not execute \'%s\':%s", str, uVar14);
     }
 
-    // 0x100c7e730, 1040 bytes, placed by class name and debug map
-    // Console::RunScript(StringView, bool)
-    void Console::RunScript(StringView param_1, bool param_2) {
-        char cVar1;
-        uint uVar2;
-        char* pcVar4;
-        ulong uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        uchar* puVar8;
-        ShuffledPacketFactory* this_00;
-        eastl::string local_e60[32];
-        allocator local_e40[8];
-        Callstack local_e38[55];
-        File local_ac8[87];
-        ClientCompositeZone local_2a0[13];
-        Filename local_168[19];
-        long local_38;
+    // 0x100c7e730
+    void Console::RunScript(StringView stringView, bool arg2) {
+        uint64_t uVar5;
+        uint64_t uVar6;
+        unsigned char* arg1;
+        eastl::string local_e60;
+        File local_ac8;
 
-        this_00 = (ShuffledPacketFactory*)param_1.field_0;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        pcVar4 = (char*)this_00->end();
-        uVar5 = ShuffledPacketFactory::p2_alt2(this_00);
-        Filename::Filename(local_168, pcVar4, uVar5);
-        callstack::Callstack::Callstack(local_e38);
-        new (local_2a0) File(local_168, local_e38);
-        cVar1 = local_2a0->IsValid();
-        if (cVar1 == '\0') {
-            cVar1 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-            if (cVar1 == '\0') {
-                new (local_ac8) Filename((basic_string*)&field_328);
-                Filename::operator=(local_168, (Filename*)local_ac8);
-                local_ac8->~pair();
-                pcVar4 = (char*)this_00->end();
-                uVar5 = ShuffledPacketFactory::p2_alt2(this_00);
-                new (local_ac8) Filename(pcVar4, uVar5);
-                Filename::operator/=(local_168, (Filename*)local_ac8);
-                local_ac8->~pair();
-                File::File(local_ac8, local_168, (Error*)local_e38);
-                File::operator=((File*)local_2a0, local_ac8);
-                local_ac8->~File();
+        auto pcVar3 = stringView->end();
+        unsigned long uVar4 = ShuffledPacketFactory::p2_alt2();
+        Filename local_168(pcVar3, uVar4);
+        Callstack local_e38;
+        ClientCompositeZone local_2a0(local_168, &local_e38);
+        if (!(local_2a0.IsValid())) {
+            if (!(field_328.empty())) {
+                local_ac8 = Filename(&field_328);
+                local_168 = local_ac8;
+                local_ac8.~pair();
+                pcVar3 = (char*)stringView->end();
+                uVar4 = ShuffledPacketFactory::p2_alt2();
+                local_ac8 = Filename(pcVar3, uVar4);
+                local_168 /= &local_ac8;
+                local_ac8.~pair();
+                local_ac8 = File(local_168, &local_e38);
+                local_2a0 = local_ac8;
             }
         } else {
-            local_ac8->GetParentPath();
-            pcVar4 = (char*)local_ac8->GetName();
-            (&field_328, pcVar4)->assign();
-            local_ac8->~pair();
+            local_ac8 = local_168.GetParentPath();
+            pcVar3 = local_ac8.GetName();
+            (&field_328)->assign(pcVar3);
         }
-        cVar1 = local_e38->IsValid();
-        if (cVar1 != '\0') {
-            new (local_ac8) eastl::fixed_string<char, 256, true, eastl::allocator>();
-            uVar6 = ShuffledPacketFactory::p2_alt2(this_00);
-            uVar7 = this_00->end();
-            pcVar4 = Error::GetErrorString<eastl::fixed_string<char, 256, true, eastl::allocator>>(
-                (Error*)local_e38, (fixed_string*)local_ac8);
-            AddMessage(this, 4, "Error reading %.*s: %s", uVar6, uVar7, pcVar4);
-            /* WARNING: Subroutine does not return */
-            local_ac8->~fixed_string();
+        if (local_e38.IsValid()) {
+            local_ac8 = eastl::fixed_string<char, 256>();
+            uVar5 = ShuffledPacketFactory::p2_alt2();
+            uVar6 = stringView->end();
+            pcVar3 = local_e38.GetErrorString<eastl::fixed_string<char, 256>>(local_ac8);
+            AddMessage(4, "Error reading %.*s: %s", uVar5, uVar6, pcVar3);
         }
-        uVar2 = local_2a0->length(local_e38);
-        if (uVar2 - 1 < 1048576) {
-            cVar1 = local_e38->IsValid();
-            if (cVar1 == '\0') {
-                new (local_ac8) eastl::fixed_string<char, 2048, true, eastl::allocator>();
-                local_ac8->resize((ulong)uVar2);
-                puVar8 = (uchar*)eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 2048ul, 1ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (basic_string<char, eastl::fixed_vector_allocator<1ul, 2048ul, 1ul, 0ul, true, eastl::allocator>>*)
-                        local_ac8,
-                    0);
-                if (local_2a0->read(puVar8, uVar2, 0, local_e38) == uVar2) {
-                    new (&local_e38[0].field_8)
-                        eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true,
-                                            eastl::allocator>();
-                    tokenize<eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true,
-                                                 eastl::allocator>,
-                             eastl::fixed_string<char, 2048, true, eastl::allocator>>(
-                        (fixed_vector*)&local_e38[0].field_8, (fixed_string*)local_ac8, "\r\n", -1);
-                    pcVar4 = (char*)local_168->GetName();
-                    eastl::allocator::allocator(local_e40, "EASTL basic_string");
-                    eastl::string::basic_string(local_e60, pcVar4, local_e40);
-                    RunScriptFromSource(this, (fixed_vector*)&local_e38[0].field_8, (basic_string*)local_e60,
-                                        param_1.field_8._0_1_);
-                    eastl::string::~basic_string(local_e60);
+        unsigned int arg2_00 = local_2a0.length(&local_e38);
+        if (arg2_00 - 1 < 1048576) {
+            if (!(local_e38.IsValid())) {
+                local_ac8 = eastl::fixed_string<char, 2048>();
+                local_ac8.resize((unsigned long)arg2_00);
+                arg1 = &local_ac8[0];
+                if (local_2a0.read(arg1, arg2_00, 0, &local_e38) == arg2_00) {
+                    new (&local_e38[0].field_8) eastl::fixed_vector<eastl::fixed_string<char, 64>, 8ul>();
+                    tokenize<eastl::fixed_vector<eastl::fixed_string<char, 64>, 8ul>, eastl::fixed_string<char, 2048>>(
+                        &local_e38[0].field_8, &local_ac8, "\r\n", -1);
+                    pcVar3 = local_168.GetName();
+                    local_e60 = eastl::string(pcVar3);
+                    RunScriptFromSource(local_e38[0].field_8, local_e60, arg2);
                     local_e38[0].field_8.~fixed_vector();
                 }
-                /* WARNING: Subroutine does not return */
-                local_ac8->~fixed_string();
             }
-        }
-        local_2a0->~File();
-        local_168->~pair();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
     }
 
-    // 0x100c7eb50, 384 bytes, placed by class name and debug map
-    // Console::RunScriptFromSource(eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true, eastl::allocator> const&, eastl::string const&, bool)
-    void Console::RunScriptFromSource(fixed_vector* param_1, basic_string* param_2, bool param_3) {
+    // 0x100c7eb50
+    void Console::RunScriptFromSource(const eastl::fixed_vector<eastl::fixed_string<char, 64>, 8ul>& strs,
+                                      const eastl::string& str, bool arg3) {
+        bool bVar1;
+        int iVar3;
+        basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>* pbVar4;
         eastl::string* this_00;
-        char* pcVar1;
-        char* pcVar2;
-        bool bVar3;
-        char cVar4;
-        long lVar5;
-        undefined7 in_register_00000009;
-        long lVar6;
-        int iVar7;
-        reverse_iterator local_50[8];
-        reverse_iterator local_48[8];
-        Console* local_38;
+        char* pcVar5;
+        basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>* pbVar6;
+        char* str2;
+        uint64_t in_register_00000009;
+        ReturnValue local_50;
+        ReturnValue local_48;
 
-        local_38 = this;
-        if ((int)CONCAT71(in_register_00000009, param_3) == 0) {
-            lVar6 = param_1->HeapBeginPtr();
-            lVar5 = param_1->end();
-            if (lVar6 != lVar5) {
-                iVar7 = 0;
+        Console* local_38 = this;
+        if ((int)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3) == 0) {
+            pbVar4 =
+                (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)strs.HeapBeginPtr();
+            pbVar6 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)strs.end();
+            if (pbVar4 != pbVar6) {
+                iVar3 = 0;
                 do {
-                    cVar4 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-                    if (cVar4 == '\0') {
-                        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                        pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                        iVar7 = iVar7 + 1;
-                        QueueCommandNoHistory(local_38, pcVar1, pcVar2, iVar7);
+                    if (!(pbVar4->empty())) {
+                        pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                        str2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                        iVar3 = iVar3 + 1;
+                        QueueCommandNoHistory(local_38, pcVar5, str2, iVar3);
                     }
-                    lVar6 = lVar6 + 104;
-                } while (lVar6 != lVar5);
+                    pbVar4 = pbVar4 + 104;
+                } while (pbVar4 != pbVar6);
             }
         } else {
-            iVar7 = param_1->size();
-            eastl::vector<unsigned long,
-                          eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-            eastl::vector<ObjStackEntry, eastl::allocator>::rend();
-            bVar3 = eastl::operator!=(local_50, local_48);
-            if (bVar3) {
+            iVar3 = strs.size();
+            local_50 = strs.rbegin();
+            local_48 = strs.rend();
+            bVar1 = local_50 != local_48;
+            if (bVar1) {
                 local_38 = (Console*)&local_38->field_288;
                 do {
-                    eastl::reverse_iterator<eastl::fixed_string<char, 64, true, eastl::allocator> const*>::operator->(
-                        (reverse_iterator<eastl::fixed_string<char, 64, true, eastl::allocator> const*>*)local_50);
-                    cVar4 = eastl::basic_string<
-                        char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-                    if (cVar4 == '\0') {
+                    pbVar4 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)
+                                 local_50.operator->();
+                    if (!(pbVar4->empty())) {
                         this_00 = (eastl::string*)local_38->push_front();
-                        eastl::reverse_iterator<eastl::fixed_string<char, 64, true, eastl::allocator> const*>::
-                        operator->(
-                            (reverse_iterator<eastl::fixed_string<char, 64, true, eastl::allocator> const*>*)local_50);
-                        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                        eastl::string::assign(this_00, pcVar1);
-                        eastl::string::trim(this_00);
-                        eastl::string::operator=(this_00 + 32, param_2);
-                        *(int*)(this_00 + 64) = iVar7;
-                        iVar7 = iVar7 + -1;
+                        local_50.operator->();
+                        pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                        eastl::string::assign(this_00, pcVar5);
+                        this_00->trim();
+                        (*(this_00 + 32)) = str;
+                        *(int*)(this_00 + 64) = iVar3;
+                        iVar3 = iVar3 - 1;
                         this_00[68] = (eastl::string)0;
                     }
-                    eastl::reverse_iterator<eastl::fixed_string<char, 64, true, eastl::allocator> const*>::operator++(
-                        (reverse_iterator<eastl::fixed_string<char, 64, true, eastl::allocator> const*>*)local_50);
-                    eastl::vector<ObjStackEntry, eastl::allocator>::rend();
-                    bVar3 = eastl::operator!=(local_50, local_48);
-                } while (bVar3);
+                    ++local_50;
+                    local_48 = strs.rend();
+                    bVar1 = local_50 != local_48;
+                } while (bVar1);
             }
         }
     }
 
-    // 0x100c7ed40, 80 bytes, placed by class name and debug map
-    // Console::RunTestScript(eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true, eastl::allocator> const&, eastl::string const&)
-    void Console::RunTestScript(fixed_vector* param_1, basic_string* param_2) {
-        int iVar1;
-
-        iVar1 = param_1->size();
-        field_164 = iVar1;
-        field_161 = '\x01';
-        RunScriptFromSource(this, param_1, param_2, false);
+    // 0x100c7ed40
+    void Console::RunTestScript(const eastl::fixed_vector<eastl::fixed_string<char, 64>, 8ul>& strs,
+                                const eastl::string& str) {
+        field_164 = strs.size();
+        *(uint8_t*)((long)&field_160 + 1) = 1;
+        RunScriptFromSource(strs, str, false);
     }
 
-    // 0x100c7ed90, 144 bytes, placed by class name and debug map
-    // Console::SetMessageHistoryOutputFile(Filename const&)
-    undefined8 Console::SetMessageHistoryOutputFile(Filename* param_1) {
-        bool bVar1;
-        File* this_00;
-        ClientCompositeZone* this_01;
-        undefined8 uVar2;
-        undefined1* this_02;
-        undefined1 local_28[8];
+    // 0x100c7ed90
+    uint64_t Console::SetMessageHistoryOutputFile(const Filename& filename) {
+        uint64_t uVar2;
+        Filename local_28;
 
-        this_02 = &field_184;
-        bVar1 = this_02->operator_cast_to_bool();
-        if (bVar1) {
-            this_00 = (File*)std::unique_ptr<File, std::default_delete<File>>::operator->(
-                (unique_ptr<File, std::default_delete<File>>*)this_02);
-            this_00->close(0);
+        uint8_t* this_02 = &field_184;
+        if (this_02->operator_cast_to_bool()) {
+            ((File*)(*this_02).operator->())->close(nullptr);
         }
-        std::make_unique<File, Filename_const&, int const&>((Filename*)local_28, (int*)param_1);
-        std::unique_ptr<File, std::default_delete<File>>::operator=(
-            (unique_ptr<File, std::default_delete<File>>*)this_02, (unique_ptr*)local_28);
-        local_28->~unique_ptr();
-        bVar1 = this_02->operator_cast_to_bool();
-        if (bVar1) {
-            this_01 = (ClientCompositeZone*)std::unique_ptr<File, std::default_delete<File>>::operator->(
-                (unique_ptr<File, std::default_delete<File>>*)this_02);
-            uVar2 = this_01->IsValid();
-        } else {
+        std::make_unique<File, Filename const&, int const&>(local_28, filename);
+        *this_02 = &local_28;
+        if (!(this_02->operator_cast_to_bool())) {
             uVar2 = 0;
+        } else {
+            uVar2 = ((ClientCompositeZone*)(*this_02).operator->())->IsValid();
         }
         return uVar2;
     }
 
-    // 0x100c8e040, 64 bytes, placed by class name
-    // Console::RegisterCoreCommands()::$_1::operator()(StringView) const
-    /* Console::RegisterCoreCommands()::$_1::TEMPNAMEPLACEHOLDERVALUE(StringView)
-   const */
-
-    void Console::RegisterCoreCommands()::$_1::operator()(StringView param_1) {
-        Console* this_00;
-        undefined1 in_CL;
-        StringView SVar1;
-        StringView local_28;
-
-        this_00 = *(Console**)this;
-        new (&local_28) StringView(param_1.field_0);
-        SVar1.field_8 = &DAT_00000001;
-        SVar1.field_0 = (ulong)&local_28;
-        RunScript(this_00, SVar1, (bool)in_CL);
+    // 0x100c8e040
+    void Console::RegisterCoreCommands()::$_1::operator()(StringView stringView) const {
+        Console* this_00 = field_0;
+        StringView local_28(*stringView);
+        RunScript(this_00, &local_28, true);
     }
 
-    // 0x100c8eb90, 16 bytes, placed by class name
-    // Console::RegisterCoreCommands()::$_3::operator()() const
-    /* Console::RegisterCoreCommands()::$_3::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void Console::RegisterCoreCommands()::$_3::operator()() {
-        ClearMessageHistory(*(Console**)this);
+    // 0x100c8eb90
+    void Console::RegisterCoreCommands()::$_3::operator()() const {
+        ClearMessageHistory(field_0);
     }
 
-    // 0x100c8f710, 16 bytes, placed by class name
-    // Console::RegisterCoreCommands()::$_4::operator()() const
-    /* Console::RegisterCoreCommands()::$_4::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void Console::RegisterCoreCommands()::$_4::operator()() {
-        ClearMessageHistory(*(Console**)this);
+    // 0x100c8f710
+    void Console::RegisterCoreCommands()::$_4::operator()() const {
+        ClearMessageHistory(field_0);
     }
 
-    // 0x100c90200, 16 bytes, placed by class name
-    // Console::RegisterCoreCommands()::$_5::operator()() const
-    /* Console::RegisterCoreCommands()::$_5::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void Console::RegisterCoreCommands()::$_5::operator()() {
-        ReportStoredVariables(*(Console**)this);
+    // 0x100c90200
+    void Console::RegisterCoreCommands()::$_5::operator()() const {
+        ReportStoredVariables(field_0);
     }
 
-    // 0x100c90cf0, 16 bytes, placed by class name
-    // Console::RegisterCoreCommands()::$_6::operator()() const
-    /* Console::RegisterCoreCommands()::$_6::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void Console::RegisterCoreCommands()::$_6::operator()() {
-        ClearStoredVariables(*(Console**)this);
+    // 0x100c90cf0
+    void Console::RegisterCoreCommands()::$_6::operator()() const {
+        ClearStoredVariables(field_0);
     }
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    Console::HistoryListener::~HistoryListener();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    Console::HistoryListener::~HistoryListener();
 
 } // namespace jag::console
 
 namespace jag {
-    // 0x100c7c480, 64 bytes, inline, placed by debug map only (low confidence)
-    // bool FromString<StringView, float>(StringView const&, float&, int)
-    bool FromString<StringView, float>(StringView* param_1, float* param_2, int param_3) {
-        int in_ECX;
-        StringView SVar2;
-        StringView local_30;
+    // 0x100c7c480
+    bool FromString<StringView, float>(const StringView& stringView, float& arg2, int arg3) {
 
-        new (&local_30) StringView(param_1);
-        SVar2.field_8 = (uchar*)param_2;
-        SVar2.field_0 = (ulong)&local_30;
-        return (bool)FromText(SVar2, (float*)(ulong)(uint)param_3, in_ECX);
+        StringView local_30(stringView);
+        return (bool)FromText(&local_30, arg2, arg3);
     }
 
-    // 0x100c7cea0, 336 bytes, inline, placed by debug map only (low confidence)
-    // unsigned long GetStringsMinimumCommonLength<eastl::vector<StringView, eastl::allocator> >(eastl::vector<StringView, eastl::allocator> const&, unsigned long)
-    /* WARNING: Removing unreachable block (ram,4308062053) */
-    /* WARNING: Removing unreachable block (ram,4308062179) */
-    /* WARNING: Removing unreachable block (ram,4308062104) */
-    /* unsigned long GetStringsMinimumCommonLength<eastl::vector<StringView, eastl::allocator>
-   >(eastl::vector<StringView, eastl::allocator> const&, unsigned long) */
-
-    ulong GetStringsMinimumCommonLength<eastl::vector<StringView, eastl::allocator>>(vector* param_1, ulong param_2) {
-        char cVar1;
+    // 0x100c7cea0
+    unsigned long GetStringsMinimumCommonLength<eastl::vector<StringView>>(const eastl::vector<StringView>& stringViews,
+                                                                           unsigned long arg2) {
         int iVar2;
-        Layout* this;
+        Layout* layout;
         Layout* pLVar3;
         char* pcVar4;
-        ulong uVar5;
-        bool bVar6;
-        ulong local_38;
+        unsigned long arg1;
+        bool bVar5;
+        unsigned long local_38;
 
-        cVar1 = param_1->empty();
-        if ((cVar1 == '\0') && (param_2 != 0)) {
-            uVar5 = 0;
+        char cVar1 = stringViews.empty();
+        if ((!cVar1) && (arg2 != 0)) {
+            arg1 = 0;
             do {
-                this = (Layout*)param_1->HeapBeginPtr();
-                pLVar3 = (Layout*)param_1->end();
-                if (this != pLVar3) {
+                layout = (Layout*)stringViews.HeapBeginPtr();
+                pLVar3 = (Layout*)stringViews.end();
+                if (layout != pLVar3) {
                     cVar1 = '\0';
-                    bVar6 = false;
+                    bVar5 = false;
                     do {
-                        if ((cVar1 == '\0') &&
-                            (iVar2 = eastl::basic_string<
-                                 char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                     eastl::allocator>>::Layout::HeapBeginPtr(this),
-                             uVar5 < (ulong)(long)iVar2)) {
-                            pcVar4 = (char*)WrapArray<char const>::operator[]((WrapArray<char const>*)this, uVar5);
+                        if ((!cVar1) && (iVar2 = layout->HeapBeginPtr(), arg1 < (unsigned long)(long)iVar2)) {
+                            pcVar4 = (char*)(*layout)[arg1];
                             cVar1 = *pcVar4;
                         } else {
-                            iVar2 = eastl::basic_string<
-                                char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this);
-                            if (((ulong)(long)iVar2 <= uVar5) ||
-                                (pcVar4 = (char*)WrapArray<char const>::operator[]((WrapArray<char const>*)this, uVar5),
-                                 *pcVar4 != cVar1)) {
+                            iVar2 = layout->HeapBeginPtr();
+                            if (((unsigned long)(long)iVar2 <= arg1) ||
+                                (pcVar4 = (char*)(*layout)[arg1], *pcVar4 != cVar1)) {
                                 iVar2 = 1;
-                                local_38 = uVar5;
+                                local_38 = arg1;
                                 goto LAB_100c7cfa5;
                             }
                         }
-                        this = this + 16;
-                        bVar6 = this == pLVar3;
-                    } while (!bVar6);
+                        layout = layout + 16;
+                        bVar5 = layout == pLVar3;
+                    } while (!bVar5);
                     iVar2 = 0;
                 LAB_100c7cfa5:
-                    if (!bVar6)
+                    if (!bVar5)
                         goto LAB_100c7cfc1;
                 }
-                uVar5 = uVar5 + 1;
-            } while (uVar5 != param_2);
+                arg1 = arg1 + 1;
+            } while (arg1 != arg2);
             iVar2 = 2;
         LAB_100c7cfc1:
             if (iVar2 != 2) {
@@ -2256,146 +1603,121 @@ namespace jag {
         return 0;
     }
 
-    // 0x100c7d2d0, 320 bytes, inline, placed by debug map only (low confidence)
-    // int tokenize<eastl::vector<eastl::fixed_string<char, 256, true, eastl::allocator>, eastl::allocator>, StringView>(eastl::vector<eastl::fixed_string<char, 256, true, eastl::allocator>, eastl::allocator>&, StringView const&, char const*, int)
-    int
-    jag::tokenize<eastl::vector<eastl::fixed_string<char, 256, true, eastl::allocator>, eastl::allocator>, StringView>(
-        vector* param_1, StringView* param_2, char* param_3, int param_4) {
+    // 0x100c7d2d0
+    int tokenize<eastl::vector<eastl::fixed_string<char, 256>>, StringView>(
+        eastl::vector<eastl::fixed_string<char, 256>>& strs, const StringView& stringView, const char* str, int arg4) {
         bool bVar1;
-        int iVar2;
         size_t sVar3;
-        char* pcVar4;
-        char* pcVar5;
-        basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>* pbVar6;
-        char* pcVar7;
-        char* pcVar8;
+        ReturnValue* pRVar5;
+        char* str1_00;
 
-        if (param_4 == -1) {
-            sVar3 = _strlen(param_3);
-            param_4 = (int)sVar3;
+        if (arg4 == -1) {
+            sVar3 = _strlen(str);
+            arg4 = (int)sVar3;
         }
-        param_1->clear();
-        param_1->reserve(4);
-        pcVar4 = (char*)param_2->end();
-        pcVar5 = (char*)param_2->end();
-        pcVar8 = pcVar4;
-        if (pcVar4 != pcVar5) {
-            pcVar7 = pcVar4;
+        strs.clear();
+        strs.reserve(4);
+        auto str1 = stringView.end();
+        auto pcVar4 = stringView.end();
+        char* pcVar6 = str1;
+        if (str1 != pcVar4) {
+            str1_00 = str1;
             do {
-                pcVar4 = pcVar8;
-                bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                str1 = pcVar6;
+                bVar1 = internal::find_token<char, char const*>(*str1, str, str + arg4);
                 if (bVar1) {
-                    if (pcVar7 != pcVar4) {
-                        pbVar6 =
-                            (basic_string<char,
-                                          eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>*)
-                                param_1->push_back();
-                        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true,
-                                                                                eastl::allocator>>::assign(pbVar6,
-                                                                                                           pcVar7,
-                                                                                                           pcVar4);
+                    if (str1_00 != str1) {
+                        pRVar5 = (ReturnValue*)strs.push_back();
+                        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>::assign(
+                            pRVar5, str1_00, str1);
                     }
-                    if (pcVar4 == pcVar5) {
+                    if (str1 == pcVar4) {
                     LAB_100c7d3c0:
-                        pcVar8 = pcVar4;
+                        pcVar6 = str1;
                     } else {
                         do {
-                            bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                            bVar1 = internal::find_token<char, char const*>(*str1, str, str + arg4);
                             if (!bVar1)
                                 goto LAB_100c7d3c0;
-                            pcVar4 = pcVar4 + 1;
-                            pcVar8 = pcVar4;
-                        } while (pcVar4 != pcVar5);
+                            str1 = str1 + 1;
+                            pcVar6 = str1;
+                        } while (str1 != pcVar4);
                     }
                 } else {
-                    pcVar8 = pcVar4 + 1;
-                    pcVar4 = pcVar7;
+                    pcVar6 = str1 + 1;
+                    str1 = str1_00;
                 }
-                pcVar7 = pcVar4;
-            } while (pcVar8 != pcVar5);
+                str1_00 = str1;
+            } while (pcVar6 != pcVar4);
         }
-        if (pcVar4 != pcVar8) {
-            pbVar6 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>*)
-                         param_1->push_back();
-            eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::assign(pbVar6,
-                                                                                                           pcVar4,
-                                                                                                           pcVar8);
+        if (str1 != pcVar6) {
+            pRVar5 = (ReturnValue*)strs.push_back();
+            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>::assign(pRVar5, str1,
+                                                                                                         pcVar6);
         }
-        iVar2 = param_1->size();
-        return iVar2;
+        return strs.size();
     }
 
-    // 0x100c7d830, 320 bytes, inline, placed by debug map only (low confidence)
-    // int tokenize<eastl::vector<eastl::string, eastl::allocator>, StringView>(eastl::vector<eastl::string, eastl::allocator>&, StringView const&, char const*, int)
-    int jag::tokenize<eastl::vector<eastl::string, eastl::allocator>, StringView>(vector* param_1, StringView* param_2,
-                                                                                  char* param_3, int param_4) {
+    // 0x100c7d830
+    int tokenize<eastl::vector<eastl::string>, StringView>(eastl::vector<eastl::string>& strs,
+                                                           const StringView& stringView, const char* str, int arg4) {
         bool bVar1;
-        int iVar2;
         size_t sVar3;
-        char* pcVar4;
-        char* pcVar5;
-        eastl::string* pbVar6;
-        char* pcVar7;
-        char* pcVar8;
+        ReturnValue* pRVar5;
+        char* str1_00;
 
-        if (param_4 == -1) {
-            sVar3 = _strlen(param_3);
-            param_4 = (int)sVar3;
+        if (arg4 == -1) {
+            sVar3 = _strlen(str);
+            arg4 = (int)sVar3;
         }
-        param_1->clear();
-        param_1->reserve(4);
-        pcVar4 = (char*)param_2->end();
-        pcVar5 = (char*)param_2->end();
-        pcVar8 = pcVar4;
-        if (pcVar4 != pcVar5) {
-            pcVar7 = pcVar4;
+        strs.clear();
+        strs.reserve(4);
+        auto str1 = stringView.end();
+        auto pcVar4 = stringView.end();
+        char* pcVar6 = str1;
+        if (str1 != pcVar4) {
+            str1_00 = str1;
             do {
-                pcVar4 = pcVar8;
-                bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                str1 = pcVar6;
+                bVar1 = internal::find_token<char, char const*>(*str1, str, str + arg4);
                 if (bVar1) {
-                    if (pcVar7 != pcVar4) {
-                        pbVar6 = (eastl::string*)param_1->push_back();
-                        eastl::string::assign(pbVar6, pcVar7, pcVar4);
+                    if (str1_00 != str1) {
+                        pRVar5 = (ReturnValue*)strs.push_back();
+                        eastl::string::assign(pRVar5, str1_00, str1);
                     }
-                    if (pcVar4 == pcVar5) {
+                    if (str1 == pcVar4) {
                     LAB_100c7d920:
-                        pcVar8 = pcVar4;
+                        pcVar6 = str1;
                     } else {
                         do {
-                            bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                            bVar1 = internal::find_token<char, char const*>(*str1, str, str + arg4);
                             if (!bVar1)
                                 goto LAB_100c7d920;
-                            pcVar4 = pcVar4 + 1;
-                            pcVar8 = pcVar4;
-                        } while (pcVar4 != pcVar5);
+                            str1 = str1 + 1;
+                            pcVar6 = str1;
+                        } while (str1 != pcVar4);
                     }
                 } else {
-                    pcVar8 = pcVar4 + 1;
-                    pcVar4 = pcVar7;
+                    pcVar6 = str1 + 1;
+                    str1 = str1_00;
                 }
-                pcVar7 = pcVar4;
-            } while (pcVar8 != pcVar5);
+                str1_00 = str1;
+            } while (pcVar6 != pcVar4);
         }
-        if (pcVar4 != pcVar8) {
-            pbVar6 = (eastl::string*)param_1->push_back();
-            eastl::string::assign(pbVar6, pcVar4, pcVar8);
+        if (str1 != pcVar6) {
+            pRVar5 = (ReturnValue*)strs.push_back();
+            eastl::string::assign(pRVar5, str1, pcVar6);
         }
-        iVar2 = param_1->size();
-        return iVar2;
+        return strs.size();
     }
 
 } // namespace jag
 
 namespace jag::console::internal {
-    // 0x100c8e110, 32 bytes, placed by neighbouring functions
-    // eastl::fixed_vector<CommandArgInfo, 4ul, true, eastl::allocator> BuildArgInfos<>(std::tuple<>*)
-    /* eastl::fixed_vector<CommandArgInfo, 4ul, true, eastl::allocator>
-   BuildArgInfos<>(std::tuple<>*) */
-
-    tuple* BuildArgInfos<>(tuple* param_1) {
-        new (param_1) eastl::fixed_vector<CommandArgInfo, 4ul, true, eastl::allocator>();
-        return param_1;
+    // 0x100c8e110
+    eastl::fixed_vector<CommandArgInfo, 4ul> BuildArgInfos<>(std::tuple<>* tuple) {
+        new (tuple) eastl::fixed_vector<CommandArgInfo, 4ul>();
+        return tuple;
     }
 
 } // namespace jag::console::internal

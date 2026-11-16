@@ -1,561 +1,397 @@
 // libs/graphics/runetek7/model/ModelCombineHelper.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "ModelCombineHelper.h"
 
 namespace jag::graphics {
-    // 0x100820740, 112 bytes, base-object constructor, placed by class name and debug map
-    // ModelCombineHelper::ModelCombineHelper()
-    void ModelCombineHelper::ModelCombineHelper() {
-        field_0 = (Model*)0;
-        field_8 = false;
-        eastl::vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>::vector();
-        eastl::vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>::vector();
-        new (&field_64) Array<LabelData, eastl::allocator>();
-    }
+    // 0x100820740
+    ModelCombineHelper::ModelCombineHelper() : field_0(nullptr), field_8(false) {}
 
-    // 0x1008207d0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // ModelCombineHelper::ModelCombineHelper(): jumps straight to the base-object constructor
-
-    // 0x1008207e0, 160 bytes, base-object constructor, placed by class name and debug map
-    // ModelCombineHelper::ModelCombineHelper(Model*, bool)
-    void ModelCombineHelper::ModelCombineHelper(Model* param_1, bool param_2) {
-        Array* pAVar1;
-
-        field_0 = param_1;
-        field_8 = param_2;
-        eastl::vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>::vector();
-        eastl::vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>::vector();
-        pAVar1 = (Array*)param_1->GetTextureAtlasManager();
-        new (&field_64, pAVar1) Array<LabelData, eastl::allocator>();
-        if (param_1 == (Model*)0) {
-            /* WARNING: Subroutine does not return */
+    // 0x1008207e0
+    ModelCombineHelper::ModelCombineHelper(Model* model, bool arg2) : field_0(model), field_8(arg2) {
+        auto labelDatas = model->GetTextureAtlasManager();
+        new (&field_64) Array<LabelData>(labelDatas);
+        if (model == nullptr) {
             LogAssert("destinationModel != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/model/"
                       "ModelCombineHelper.cpp",
-                      19, (char*)0);
+                      19, nullptr);
         }
     }
 
-    // 0x100820890, 16 bytes, complete-object constructor, placed by class name and debug map
-    // ModelCombineHelper::ModelCombineHelper(Model*, bool): jumps straight to the base-object constructor
+    // 0x1008208a0
+    void ModelCombineHelper::Reset(Model* model, bool arg2) {
+        Array<LabelData>* labelDatas;
+        Array<LabelData> local_28;
 
-    // 0x1008208a0, 128 bytes, placed by class name and debug map
-    // ModelCombineHelper::Reset(Model*, bool)
-    void ModelCombineHelper::Reset(Model* param_1, bool param_2) {
-        Array* pAVar1;
-        Array<LabelData, eastl::allocator> local_28[24];
-
-        field_0 = param_1;
-        field_8 = param_2;
-        if (param_1 == (Model*)0) {
-            Array<LabelData, eastl::allocator>::Array(local_28);
+        field_0 = model;
+        field_8 = arg2;
+        if (model == nullptr) {
+            local_28 = Array<LabelData>();
         } else {
-            pAVar1 = (Array*)param_1->GetTextureAtlasManager();
-            Array<LabelData, eastl::allocator>::Array(local_28, pAVar1);
+            labelDatas = (Array<LabelData>*)model->GetTextureAtlasManager();
+            local_28 = Array<LabelData>(labelDatas);
         }
-        Array<LabelData, eastl::allocator>::operator=((Array<LabelData, eastl::allocator>*)&field_64, (Array*)local_28);
-        local_28->~Array();
-        (&field_16)->clear();
-        (&field_40)->clear();
+        field_64 = local_28;
+        field_16.clear();
+        field_40.clear();
     }
 
-    // 0x100820980, 1952 bytes, placed by class name and debug map
-    // ModelCombineHelper::Combine(Model const*, graphicutils::TextureAtlasQuality const&, bool)
-    void ModelCombineHelper::Combine(Model* param_1, TextureAtlasQuality* param_2, bool param_3) {
-        MakeUniquePool<BillboardBatchInstance, 64>* this_00;
-        PointLightShadows* this_01;
-        bool bVar1;
-        char cVar2;
+    // 0x100820980
+    void ModelCombineHelper::Combine(const Model* model, const graphicutils::TextureAtlasQuality& textureAtlasQuality,
+                                     bool arg3) {
         ModelConstructedState MVar3;
-        uint uVar4;
-        int iVar5;
-        Matrix44T* pMVar6;
-        ModelConstructedState* pMVar7;
-        AABB* this_02;
-        AABB* pAVar8;
-        Layout* pLVar9;
-        vector<shared_ptr<ModelParticleSource>, eastl::allocator>* pvVar10;
-        shared_ptr* psVar11;
-        shared_ptr* psVar12;
-        undefined** ppuVar13;
-        vector<eastl::pair<int, int>, eastl::allocator>* pvVar14;
-        GeometryBatchInstance* pGVar15;
-        unique_ptr* this_03;
-        unique_ptr<BillboardBatchInstance, MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>* this_04;
-        long lVar16;
-        BillboardBatchInstance* pBVar17;
-        ulong uVar18;
-        unique_ptr<BillboardBatchInstance, MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>* puVar19;
-        BillboardBatchInstance* pBVar20;
-        BillboardBatchCombineHelper* pBVar21;
-        undefined8 uVar22;
-        unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>* puVar23;
-        GeometryBatchInstance* pGVar24;
-        GeometryBatchCombineHelper* pGVar25;
-        undefined7 in_register_00000009;
-        Model* pMVar26;
-        vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>* this_05;
-        ModelCombineHelper* pMVar27;
-        ulong uVar28;
-        undefined1 local_c8[32];
+        int iVar4;
+        ModelConstructedState* pMVar5;
+        uint8_t** ppuVar10;
+        unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, _3072>::UniquePoolDeleter>*
+            geometryBatchInstance;
+        long lVar13;
+        BillboardBatchInstance* billboardBatchInstance;
+        unsigned long uVar14;
+        unique_ptr<BillboardBatchInstance, MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>* puVar15;
+        BillboardBatchInstance* pBVar16;
+        BillboardBatchCombineHelper* pBVar17;
+        uint64_t uVar18;
+        Model* pMVar19;
+        unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>* puVar20;
+        GeometryBatchInstance* pGVar21;
+        GeometryBatchCombineHelper* pGVar22;
+        uint64_t in_register_00000009;
+        vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>* this_03;
+        unsigned long uVar24;
+        uint8_t local_c8[32];
         GeometryBatchCombineHelper local_a8;
-        unique_ptr* local_68;
         TextureAtlas* local_60;
-        vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>* local_58;
-        undefined8 local_50;
-        PointLightShadows* local_48;
-        ModelCombineHelper* local_40;
-        bool local_31;
+        uint64_t local_50;
+        uint8_t local_31;
 
-        if (field_0 == (Model*)0) {
-            /* WARNING: Subroutine does not return */
+        if (field_0 == nullptr) {
             LogAssert("m_destinationModel != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/model/"
                       "ModelCombineHelper.cpp",
-                      33, (char*)0);
+                      33, nullptr);
         }
-        if (param_1 == (Model*)0) {
+        if (model == nullptr) {
             return;
         }
-        local_60 = (TextureAtlas*)CONCAT44(local_60._4_4_, (int)CONCAT71(in_register_00000009, param_3));
-        pMVar6 = (Matrix44T*)param_1->GetWorld();
-        bVar1 = math::operator==(pMVar6, (Matrix44T*)PTR_IDENTITY_100ee6730);
+        local_60 = (TextureAtlas*)(((uint64_t)local_60._4_4_ << 32) |
+                                   (uint32_t)((int)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3)));
+        auto matrix441 = model->GetWorld();
+        bool bVar1 = *matrix441 == *PTR_IDENTITY_100ee6730;
         if (!bVar1) {
-            /* WARNING: Subroutine does not return */
             LogAssert("model->GetLocalTransform() == math::Matrix44::IDENTITY",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/model/"
                       "ModelCombineHelper.cpp",
-                      41, (char*)0);
+                      41, nullptr);
         }
-        cVar2 = field_0->GetConstructedState();
-        if (cVar2 == '\0') {
-            pMVar26 = field_0;
-            MVar3 = (ModelConstructedState)param_1->GetConstructedState();
+        bool cVar2 = field_0->GetConstructedState();
+        if (!cVar2) {
+            pMVar19 = field_0;
+            MVar3 = (ModelConstructedState)model->GetConstructedState();
         } else {
-            cVar2 = param_1->GetConstructedState();
-            if (cVar2 == '\0')
+            cVar2 = model->GetConstructedState();
+            if (!cVar2)
                 goto LAB_100820a7a;
-            pMVar26 = field_0;
-            local_a8.field_0._0_1_ = pMVar26->GetConstructedState();
-            local_c8[0] = (ModelConstructedState)param_1->GetConstructedState();
-            pMVar7 = std::min<ModelConstructedState>((ModelConstructedState*)(local_c8 + 32),
-                                                     (ModelConstructedState*)local_c8);
-            MVar3 = *pMVar7;
+            pMVar19 = field_0;
+            local_a8.field_0._0_1_ = pMVar19->GetConstructedState();
+            local_c8[0] = (ModelConstructedState)model->GetConstructedState();
+            pMVar5 = std::min<ModelConstructedState>(*((local_c8 + 32)), *local_c8);
+            MVar3 = *pMVar5;
         }
-        pMVar26->SetConstructedState(MVar3);
+        pMVar19->SetConstructedState(MVar3);
     LAB_100820a7a:
-        this_02 = (AABB*)field_0->GetScreen();
-        pAVar8 = (AABB*)param_1->GetScreen();
-        new (local_c8) math::AABB(pAVar8);
-        cVar2 = this_02->IsValid();
-        if (cVar2 != '\0') {
-            local_c8->Union(this_02);
+        auto this_01 = field_0->GetScreen();
+        auto aabb = model->GetScreen();
+        new (local_c8) math::AABB(*aabb);
+        cVar2 = this_01->IsValid();
+        if (cVar2) {
+            local_c8->Union(*this_01);
         }
-        (field_0, (AABB*)local_c8)->SetAABB();
-        pMVar26 = field_0;
-        uVar4 = param_1->GetEmissiveMapMaterialID();
-        pMVar26->AddSavedModelHashList(uVar4);
-        local_48 = (PointLightShadows*)param_1;
-        pLVar9 = (Layout*)param_1->GetParticleEmitters();
-        local_40 = this;
-        pvVar10 = (vector<shared_ptr<ModelParticleSource>, eastl::allocator>*)field_0->GetParticleEmitters();
-        psVar11 = (shared_ptr*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar9);
-        psVar12 = (shared_ptr*)pLVar9->end();
-        for (; psVar11 != psVar12; psVar11 = psVar11 + 1) {
-            eastl::vector<shared_ptr<ModelParticleSource>,
-                          eastl::allocator>::emplace_back<shared_ptr<ModelParticleSource> const&>(pvVar10, psVar11);
+        field_0->SetAABB(*local_c8);
+        pMVar19 = field_0;
+        pMVar19->AddSavedModelHashList(model->GetEmissiveMapMaterialID());
+        auto pLVar6 = model->GetParticleEmitters();
+        ModelCombineHelper* local_40 = this;
+        auto pvVar7 = field_0->GetParticleEmitters();
+        auto psVar8 = pLVar6->HeapBeginPtr();
+        auto psVar9 = pLVar6->end();
+        for (; psVar8 != psVar9; psVar8 = psVar8 + 16) {
+            pvVar7->emplace_back<shared_ptr<ModelParticleSource> const&>(*psVar8);
         }
-        pLVar9 = (Layout*)local_48->GetParticleEffectors();
-        pvVar10 = (vector<shared_ptr<ModelParticleSource>, eastl::allocator>*)local_40->field_0->GetParticleEffectors();
-        psVar11 = (shared_ptr*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar9);
-        psVar12 = (shared_ptr*)pLVar9->end();
-        pMVar27 = local_40;
-        for (; local_40 = pMVar27, psVar11 != psVar12; psVar11 = psVar11 + 1) {
-            eastl::vector<shared_ptr<ModelParticleSource>,
-                          eastl::allocator>::emplace_back<shared_ptr<ModelParticleSource> const&>(pvVar10, psVar11);
-            pMVar27 = local_40;
+        pLVar6 = (Layout*)((Model*)(PointLightShadows*)model)->GetParticleEffectors();
+        pvVar7 = (vector<shared_ptr<ModelParticleSource>>*)local_40->field_0->GetParticleEffectors();
+        psVar8 = (shared_ptr<ModelParticleSource>*)pLVar6->HeapBeginPtr();
+        psVar9 = (shared_ptr<ModelParticleSource>*)pLVar6->end();
+        ModelCombineHelper* pMVar23 = local_40;
+        for (; local_40 = pMVar23, psVar8 != psVar9; psVar8 = psVar8 + 16) {
+            pvVar7->emplace_back<shared_ptr<ModelParticleSource> const&>(*psVar8);
+            pMVar23 = local_40;
         }
-        cVar2 = pMVar27->field_0->GetUseUncompressedTextures();
-        this_01 = local_48;
-        if (cVar2 == '\0') {
-            cVar2 = local_48->GetUseUncompressedTextures();
-            if (cVar2 == '\0') {
-                ppuVar13 = &graphicutils::TextureAtlasUsage::USAGE_COMPRESSED;
+        cVar2 = pMVar23->field_0->GetUseUncompressedTextures();
+        if (!cVar2) {
+            cVar2 = ((Model*)(PointLightShadows*)model)->GetUseUncompressedTextures();
+            if (!cVar2) {
+                ppuVar10 = &graphicutils::TextureAtlasUsage::USAGE_COMPRESSED;
             } else {
-                ppuVar13 = &graphicutils::TextureAtlasUsage::USAGE_UNCOMPRESSED;
+                ppuVar10 = &graphicutils::TextureAtlasUsage::USAGE_UNCOMPRESSED;
             }
         } else {
-            ppuVar13 = &graphicutils::TextureAtlasUsage::USAGE_UNCOMPRESSED;
+            ppuVar10 = &graphicutils::TextureAtlasUsage::USAGE_UNCOMPRESSED;
         }
-        local_60 = (TextureAtlas*)TextureAtlasManager::GetVirtualAtlas(param_2, (TextureAtlasUsage*)*ppuVar13,
-                                                                       SUB81(local_60, 0));
-        pvVar14 = (vector<eastl::pair<int, int>, eastl::allocator>*)pMVar27->field_0->GetBatchList();
-        pGVar15 = (GeometryBatchInstance*)eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(pvVar14);
-        local_58 = (vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>*)&pMVar27->field_16;
-        (&pMVar27->field_16, (ulong)pGVar15)->reserve();
-        pLVar9 = (Layout*)this_01->GetBatchList();
-        this_03 = (unique_ptr*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar9);
-        local_68 = (unique_ptr*)pLVar9->end();
-        if (this_03 != local_68) {
+        local_60 =
+            (TextureAtlas*)TextureAtlasManager::GetVirtualAtlas(textureAtlasQuality, *ppuVar10, (uint8_t)local_60);
+        auto pvVar11 = pMVar23->field_0->GetBatchList();
+        auto pGVar12 = pvVar11->size();
+        vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>* local_58 =
+            (vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>*)&pMVar23->field_16;
+        pMVar23->field_16.reserve((unsigned long)pGVar12);
+        pLVar6 = (Layout*)((Model*)(PointLightShadows*)model)->GetBatchList();
+        geometryBatchInstance =
+            (unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, _3072>::UniquePoolDeleter>*)
+                pLVar6->HeapBeginPtr();
+        auto local_68 = pLVar6->end();
+        if (geometryBatchInstance != local_68) {
             do {
-                bVar1 = std::operator!=(this_03, (_func_decltype_nullptr*)pGVar15);
+                bVar1 = geometryBatchInstance != pGVar12;
                 if (!bVar1) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("srcGeometryBatch != nullptr",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "model/ModelCombineHelper.cpp",
-                              89, (char*)0);
+                              89, nullptr);
                 }
-                lVar16 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(pvVar14);
-                if (lVar16 == 0) {
+                lVar13 = pvVar11->size();
+                if (lVar13 == 0) {
                     local_50 = 0;
                 LAB_100820e80:
-                    pGVar15 = (GeometryBatchInstance*)std::unique_ptr<
-                        GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::
-                    operator*((unique_ptr<GeometryBatchInstance,
-                                          MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)this_03);
-                    local_31 = false;
-                    pGVar24 = (GeometryBatchInstance*)(local_c8 + 32);
+                    pMVar19 = (Model*)**geometryBatchInstance;
+                    local_31 = 0;
+                    pGVar21 = (GeometryBatchInstance*)(local_c8 + 32);
                     MakeUniquePool<GeometryBatchInstance, 3072>::MakeUnique<GeometryBatchInstance&, Model&, bool>(
-                        (MakeUniquePool<GeometryBatchInstance, 3072>*)pGVar24, pGVar15, pMVar27->field_0, &local_31);
+                        pGVar21, pMVar19, (bool*)pMVar23->field_0);
                     eastl::vector<std::unique_ptr<GeometryBatchInstance,
-                                                  MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                                  eastl::allocator>::
+                                                  MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>>::
                         emplace_back<std::unique_ptr<GeometryBatchInstance,
                                                      MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>>(
                             (vector<std::unique_ptr<GeometryBatchInstance,
-                                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                                    eastl::allocator>*)pvVar14,
-                            (unique_ptr*)pGVar24);
-                    pGVar24->~unique_ptr();
-                    puVar23 =
+                                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>>*)
+                                pvVar11,
+                            (unique_ptr<GeometryBatchInstance,
+                                        MakeUniquePool<GeometryBatchInstance, _3072>::UniquePoolDeleter>*)pGVar21);
+                    pGVar21->~unique_ptr();
+                    puVar20 =
                         (unique_ptr<GeometryBatchInstance,
-                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)pvVar14->back();
-                    pGVar15 = (GeometryBatchInstance*)
-                        std::unique_ptr<GeometryBatchInstance,
-                                        MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::get(puVar23);
-                    iVar5 = local_48->GetExternalID();
-                    new (pGVar24) GeometryBatchCombineHelper(pGVar15, iVar5, pMVar27->field_8);
-                    pGVar15 = pGVar24;
-                    eastl::vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>::emplace_back<
-                        GeometryBatchCombineHelper>((vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>*)local_58,
-                                                    (GeometryBatchCombineHelper*)pGVar24);
-                    pGVar24->~GeometryBatchCombineHelper();
+                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)pvVar11->back();
+                    pGVar12 = (GeometryBatchInstance*)puVar20->get();
+                    iVar4 = ((Model*)(PointLightShadows*)model)->GetExternalID();
+                    new (pGVar21) GeometryBatchCombineHelper(pGVar12, iVar4, pMVar23->field_8);
+                    pGVar12 = pGVar21;
+                    local_58->emplace_back<GeometryBatchCombineHelper>(*pGVar21);
+                    pGVar21->~GeometryBatchCombineHelper();
                 } else {
                     local_50 = 0;
-                    uVar28 = 0;
+                    uVar24 = 0;
                     do {
-                        uVar18 = local_58->size();
-                        if (uVar18 <= uVar28) {
-                            puVar23 = (unique_ptr<GeometryBatchInstance,
-                                                  MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                                eastl::vector<
-                                    std::unique_ptr<GeometryBatchInstance,
-                                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                                    eastl::allocator>::
-                                operator[](
-                                    (vector<
-                                        std::unique_ptr<GeometryBatchInstance,
-                                                        MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                                        eastl::allocator>*)pvVar14,
-                                    uVar28);
-                            pGVar15 = (GeometryBatchInstance*)std::unique_ptr<
-                                GeometryBatchInstance,
-                                MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::get(puVar23);
-                            iVar5 = pMVar27->field_0->GetExternalID();
-                            pGVar25 = (GeometryBatchCombineHelper*)(local_c8 + 32);
-                            GeometryBatchCombineHelper::GeometryBatchCombineHelper(pGVar25, pGVar15, iVar5,
-                                                                                   pMVar27->field_8);
-                            eastl::vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>::emplace_back<
-                                GeometryBatchCombineHelper>(
-                                (vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>*)local_58, pGVar25);
-                            pGVar25->~GeometryBatchCombineHelper();
-                            pMVar27 = local_40;
+                        uVar14 = local_58->size();
+                        if (uVar14 <= uVar24) {
+                            puVar20 =
+                                (unique_ptr<
+                                    GeometryBatchInstance,
+                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)(*pvVar11)[uVar24];
+                            pGVar12 = (GeometryBatchInstance*)puVar20->get();
+                            iVar4 = pMVar23->field_0->GetExternalID();
+                            pGVar22 = (GeometryBatchCombineHelper*)(local_c8 + 32);
+                            new (pGVar22) GeometryBatchCombineHelper(pGVar12, iVar4, pMVar23->field_8);
+                            local_58->emplace_back<GeometryBatchCombineHelper>(*pGVar22);
+                            pGVar22->~GeometryBatchCombineHelper();
+                            pMVar23 = local_40;
                         }
-                        puVar23 = (unique_ptr<GeometryBatchInstance,
-                                              MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                            eastl::vector<
-                                std::unique_ptr<GeometryBatchInstance,
-                                                MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                                eastl::allocator>::
-                            operator[](
-                                (vector<std::unique_ptr<GeometryBatchInstance,
-                                                        MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                                        eastl::allocator>*)pvVar14,
-                                uVar28);
-                        pGVar24 =
-                            (GeometryBatchInstance*)std::unique_ptr<
-                                GeometryBatchInstance,
-                                MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::operator->(puVar23);
-                        pGVar15 = (GeometryBatchInstance*)std::unique_ptr<
-                            GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::
-                        operator*((unique_ptr<GeometryBatchInstance,
-                                              MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)this_03);
-                        iVar5 = pGVar24->IsCombinableWith(pGVar15, false, true, pMVar27->field_8, local_60);
+                        puVar20 = (unique_ptr<
+                                   GeometryBatchInstance,
+                                   MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)(*pvVar11)[uVar24];
+                        pGVar21 = (GeometryBatchInstance*)(*puVar20).operator->();
+                        pGVar12 = (GeometryBatchInstance*)**geometryBatchInstance;
+                        iVar4 = pGVar21->IsCombinableWith(*pGVar12, false, true, pMVar23->field_8, *local_60);
                         bVar1 = true;
-                        if (iVar5 == 0) {
-                            pGVar25 = (GeometryBatchCombineHelper*)
-                                eastl::vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>::operator[](
-                                    (vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>*)local_58, uVar28);
-                            pGVar15 = (GeometryBatchInstance*)std::unique_ptr<
-                                GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::
-                            operator*(
-                                (unique_ptr<GeometryBatchInstance,
-                                            MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)this_03);
-                            pMVar27 = local_40;
-                            cVar2 = pGVar25->IsCombinableWith(pGVar15);
-                            if (cVar2 != '\0') {
-                                pGVar25 = (GeometryBatchCombineHelper*)
-                                    eastl::vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>::operator[](
-                                        (vector<GeometryBatchCombineHelper, BucketAllocatorEASTL>*)local_58, uVar28);
-                                pGVar15 = (GeometryBatchInstance*)
-                                    std::unique_ptr<GeometryBatchInstance,
-                                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>::
-                                    operator*(
-                                        (unique_ptr<GeometryBatchInstance,
-                                                    MakeUniquePool<GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                                            this_03);
-                                uVar22 = pGVar25->Combine(pGVar15);
-                                local_50 = CONCAT71((int7)((ulong)uVar22 >> 8), 1);
+                        if (iVar4 == 0) {
+                            pGVar22 = (GeometryBatchCombineHelper*)(*local_58)[uVar24];
+                            pGVar12 = (GeometryBatchInstance*)**geometryBatchInstance;
+                            pMVar23 = local_40;
+                            cVar2 = pGVar22->IsCombinableWith(*pGVar12);
+                            if (cVar2) {
+                                pGVar22 = (GeometryBatchCombineHelper*)(*local_58)[uVar24];
+                                pGVar12 = (GeometryBatchInstance*)**geometryBatchInstance;
+                                uVar18 = pGVar22->Combine(*pGVar12);
+                                local_50 = (((uint64_t)((int64_t)((unsigned long)uVar18 >> 8)) << 8) | (uint8_t)1);
                                 bVar1 = false;
                             }
                         }
                         if (!bVar1)
                             break;
-                        uVar28 = uVar28 + 1;
-                        uVar18 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(pvVar14);
-                    } while (uVar28 < uVar18);
+                        uVar24 = uVar24 + 1;
+                        uVar14 = pvVar11->size();
+                    } while (uVar24 < uVar14);
                     if ((local_50 & 1) == 0)
                         goto LAB_100820e80;
                 }
-                this_03 = this_03 + 8;
-            } while (this_03 != local_68);
+                geometryBatchInstance = geometryBatchInstance + 8;
+            } while (geometryBatchInstance != local_68);
         }
-        pvVar14 = (vector<eastl::pair<int, int>, eastl::allocator>*)pMVar27->field_0->GetPointLightSMManager();
-        pLVar9 = (Layout*)local_48->GetPointLightSMManager();
-        this_04 = (unique_ptr<BillboardBatchInstance, MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar9);
-        local_68 = (unique_ptr*)pLVar9->end();
-        if (this_04 !=
+        pvVar11 = (vector<eastl::pair<int, int>>*)pMVar23->field_0->GetPointLightSMManager();
+        pLVar6 = (Layout*)model->GetPointLightSMManager();
+        auto this_02 = pLVar6->HeapBeginPtr();
+        local_68 = (unique_ptr<GeometryBatchInstance, MakeUniquePool<GeometryBatchInstance, _3072>::UniquePoolDeleter>*)
+                       pLVar6->end();
+        if (this_02 !=
             (unique_ptr<BillboardBatchInstance, MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)
                 local_68) {
-            this_05 = (vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>*)&local_40->field_40;
-            local_58 = this_05;
+            this_03 = (vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>*)&local_40->field_40;
+            local_58 = this_03;
             do {
-                lVar16 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(pvVar14);
-                if (lVar16 == 0) {
-                    local_50 = (ulong)local_50._4_4_ << 32;
+                lVar13 = pvVar11->size();
+                if (lVar13 == 0) {
+                    local_50 = (unsigned long)local_50._4_4_ << 32;
                 } else {
-                    uVar28 = 0;
-                    local_50 = (ulong)local_50._4_4_ << 32;
+                    uVar24 = 0;
+                    local_50 = (unsigned long)local_50._4_4_ << 32;
                     do {
-                        uVar18 = this_05->size();
-                        if (uVar18 <= uVar28) {
-                            puVar19 = (unique_ptr<BillboardBatchInstance,
-                                                  MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)
-                                eastl::vector<
-                                    std::unique_ptr<BillboardBatchInstance,
-                                                    MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                                    eastl::allocator>::
-                                operator[](
-                                    (vector<
-                                        std::unique_ptr<BillboardBatchInstance,
-                                                        MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                                        eastl::allocator>*)pvVar14,
-                                    uVar28);
-                            pBVar20 = (BillboardBatchInstance*)std::unique_ptr<
-                                BillboardBatchInstance,
-                                MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>::get(puVar19);
-                            pMVar27 = local_40;
-                            iVar5 = local_40->field_0->GetExternalID();
-                            pBVar21 = (BillboardBatchCombineHelper*)(local_c8 + 32);
-                            BillboardBatchCombineHelper::BillboardBatchCombineHelper(pBVar21, pBVar20, iVar5,
-                                                                                     pMVar27->field_8);
-                            this_05 = local_58;
-                            eastl::vector<BillboardBatchCombineHelper,
-                                          BucketAllocatorEASTL>::emplace_back<BillboardBatchCombineHelper>(local_58,
-                                                                                                           pBVar21);
-                            pBVar21->~BillboardBatchCombineHelper();
-                        }
-                        puVar19 = (unique_ptr<BillboardBatchInstance,
-                                              MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)
-                            eastl::vector<
-                                std::unique_ptr<BillboardBatchInstance,
-                                                MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                                eastl::allocator>::
-                            operator[](
-                                (vector<std::unique_ptr<BillboardBatchInstance,
-                                                        MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                                        eastl::allocator>*)pvVar14,
-                                uVar28);
-                        pBVar20 =
-                            (BillboardBatchInstance*)std::unique_ptr<
-                                BillboardBatchInstance,
-                                MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>::operator->(puVar19);
-                        pBVar17 = (BillboardBatchInstance*)std::unique_ptr<
-                            BillboardBatchInstance,
-                            MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>::operator*(this_04);
-                        iVar5 = pBVar20->IsCombinableWith(pBVar17, false, true, local_40->field_8, local_60);
-                        if (iVar5 == 0) {
-                            pBVar21 = (BillboardBatchCombineHelper*)
-                                eastl::vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>::operator[](this_05,
-                                                                                                             uVar28);
-                            pBVar20 = (BillboardBatchInstance*)std::unique_ptr<
-                                BillboardBatchInstance,
-                                MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>::operator*(this_04);
-                            cVar2 = pBVar21->IsCombinableWith(pBVar20);
-                            if (cVar2 != '\0') {
-                                pBVar21 = (BillboardBatchCombineHelper*)
-                                    eastl::vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>::operator[](
-                                        this_05, uVar28);
-                                pBVar20 = (BillboardBatchInstance*)std::unique_ptr<
+                        uVar14 = this_03->size();
+                        if (uVar14 <= uVar24) {
+                            puVar15 =
+                                (unique_ptr<
                                     BillboardBatchInstance,
-                                    MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>::operator*(this_04);
-                                uVar22 = pBVar21->Combine(pBVar20);
-                                local_50 = CONCAT44(local_50._4_4_, (int)CONCAT71((int7)((ulong)uVar22 >> 8), 1));
+                                    MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)(*pvVar11)[uVar24];
+                            pBVar16 = (BillboardBatchInstance*)puVar15->get();
+                            pMVar23 = local_40;
+                            iVar4 = local_40->field_0->GetExternalID();
+                            pBVar17 = (BillboardBatchCombineHelper*)(local_c8 + 32);
+                            new (pBVar17) BillboardBatchCombineHelper(pBVar16, iVar4, pMVar23->field_8);
+                            this_03 = local_58;
+                            local_58->emplace_back<BillboardBatchCombineHelper>(*pBVar17);
+                            pBVar17->~BillboardBatchCombineHelper();
+                        }
+                        puVar15 = (unique_ptr<
+                                   BillboardBatchInstance,
+                                   MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)(*pvVar11)[uVar24];
+                        pBVar16 = (BillboardBatchInstance*)(*puVar15).operator->();
+                        billboardBatchInstance = (BillboardBatchInstance*)**this_02;
+                        iVar4 = pBVar16->IsCombinableWith(*billboardBatchInstance, false, true, local_40->field_8,
+                                                          *local_60);
+                        if (iVar4 == 0) {
+                            pBVar17 = (BillboardBatchCombineHelper*)(*this_03)[uVar24];
+                            pBVar16 = (BillboardBatchInstance*)**this_02;
+                            cVar2 = pBVar17->IsCombinableWith(*pBVar16);
+                            if (cVar2) {
+                                pBVar17 = (BillboardBatchCombineHelper*)(*this_03)[uVar24];
+                                pBVar16 = (BillboardBatchInstance*)**this_02;
+                                uVar18 = pBVar17->Combine(*pBVar16);
+                                local_50 = (((uint64_t)local_50._4_4_ << 32) |
+                                            (uint32_t)((int)(((uint64_t)((int64_t)((unsigned long)uVar18 >> 8)) << 8) |
+                                                             (uint8_t)1)));
                             }
                         }
-                        uVar28 = uVar28 + 1;
-                        uVar18 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(pvVar14);
-                    } while (uVar28 < uVar18);
+                        uVar24 = uVar24 + 1;
+                        uVar14 = pvVar11->size();
+                    } while (uVar24 < uVar14);
                 }
                 if ((local_50 & 1) == 0) {
-                    pBVar20 = (BillboardBatchInstance*)std::unique_ptr<
-                        BillboardBatchInstance,
-                        MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>::operator*(this_04);
-                    pMVar27 = local_40;
-                    local_31 = false;
-                    this_00 = (MakeUniquePool<BillboardBatchInstance, 64>*)(local_c8 + 32);
+                    pMVar19 = (Model*)**this_02;
+                    pMVar23 = local_40;
+                    local_31 = 0;
+                    pBVar16 = (BillboardBatchInstance*)(local_c8 + 32);
                     MakeUniquePool<BillboardBatchInstance, 64>::MakeUnique<BillboardBatchInstance&, Model&, bool>(
-                        this_00, pBVar20, local_40->field_0, &local_31);
+                        pBVar16, pMVar19, (bool*)local_40->field_0);
                     eastl::vector<std::unique_ptr<BillboardBatchInstance,
-                                                  MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                                  eastl::allocator>::
+                                                  MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>>::
                         emplace_back<std::unique_ptr<BillboardBatchInstance,
                                                      MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>>(
                             (vector<std::unique_ptr<BillboardBatchInstance,
-                                                    MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>,
-                                    eastl::allocator>*)pvVar14,
-                            (unique_ptr*)this_00);
-                    this_00->~unique_ptr();
-                    puVar19 =
+                                                    MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>>*)
+                                pvVar11,
+                            (unique_ptr<BillboardBatchInstance,
+                                        MakeUniquePool<BillboardBatchInstance, _64>::UniquePoolDeleter>*)pBVar16);
+                    pBVar16->~unique_ptr();
+                    puVar15 =
                         (unique_ptr<BillboardBatchInstance,
-                                    MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)pvVar14->back();
-                    pBVar20 = (BillboardBatchInstance*)
-                        std::unique_ptr<BillboardBatchInstance,
-                                        MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>::get(puVar19);
-                    iVar5 = local_48->GetExternalID();
-                    new ((local_c8 + 32)) BillboardBatchCombineHelper(pBVar20, iVar5, pMVar27->field_8);
-                    eastl::vector<BillboardBatchCombineHelper, BucketAllocatorEASTL>::emplace_back<
-                        BillboardBatchCombineHelper>(this_05, (BillboardBatchCombineHelper*)(local_c8 + 32));
+                                    MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)pvVar11->back();
+                    pBVar16 = (BillboardBatchInstance*)puVar15->get();
+                    iVar4 = ((Model*)(PointLightShadows*)model)->GetExternalID();
+                    new ((local_c8 + 32)) BillboardBatchCombineHelper(pBVar16, iVar4, pMVar23->field_8);
+                    this_03->emplace_back<BillboardBatchCombineHelper>(*((local_c8 + 32)));
                     ((local_c8 + 32))->~BillboardBatchCombineHelper();
                 }
-                this_04 = this_04 + 8;
+                this_02 = this_02 + 8;
             } while (
-                this_04 !=
+                this_02 !=
                 (unique_ptr<BillboardBatchInstance, MakeUniquePool<BillboardBatchInstance, 64>::UniquePoolDeleter>*)
                     local_68);
         }
-        AddLabelsFromModel(local_40, (Model*)local_48);
+        AddLabelsFromModel(local_40, (Model*)(PointLightShadows*)model);
     }
 
-    // 0x1008214a0, 400 bytes, placed by class name and debug map
-    // ModelCombineHelper::AddLabelsFromModel(Model const&)
-    void ModelCombineHelper::AddLabelsFromModel(Model* param_1) {
+    // 0x1008214a0
+    void ModelCombineHelper::AddLabelsFromModel(const Model& model) {
         int iVar1;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        ulong uVar2;
-        ulong uVar3;
-        long lVar4;
-        Vector3T* pVVar5;
-        Vector4T<float>* this_01;
-        Vector3T<float>* this_02;
-        undefined1* this_03;
-        undefined8 local_60[2];
-        undefined8 local_50[2];
-        undefined8 local_40;
+        Vector3T<float>* pVVar5;
+        uint64_t local_60[2];
+        uint64_t local_50[2];
+        uint64_t local_40;
         float local_34;
 
-        this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)param_1->GetTextureAtlasManager();
-        this_03 = &field_64;
-        uVar2 = this_03->end();
-        uVar3 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
+        auto this_00 = model.GetTextureAtlasManager();
+        uint8_t* this_02 = &field_64;
+        unsigned long uVar2 = this_02->end();
+        unsigned long uVar3 = this_00->end();
         if (uVar2 < uVar3) {
-            uVar2 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-            this_03->set_max_size(uVar2, 3);
+            uVar2 = this_00->end();
+            this_02->set_max_size(uVar2, 3);
         }
-        lVar4 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
+        long lVar4 = this_00->end();
         if (lVar4 != 0) {
             uVar2 = 0;
             do {
-                pVVar5 = (Vector3T*)Array<LabelData, eastl::allocator>::operator[](
-                    (Array<LabelData, eastl::allocator>*)this_03, uVar2);
-                lVar4 =
-                    Array<LabelData, eastl::allocator>::operator[]((Array<LabelData, eastl::allocator>*)this_03, uVar2);
-                local_50[0] = math::operator*(pVVar5, (float)*(int*)(lVar4 + 12));
-                pVVar5 = (Vector3T*)Array<LabelData, eastl::allocator>::operator[](
-                    (Array<LabelData, eastl::allocator>*)this_00, uVar2);
-                lVar4 =
-                    Array<LabelData, eastl::allocator>::operator[]((Array<LabelData, eastl::allocator>*)this_00, uVar2);
-                local_40 = math::operator*(pVVar5, (float)*(int*)(lVar4 + 12));
-                local_60[0] = math::operator+((Vector3T*)local_50, (Vector3T*)&local_40);
-                this_01 = (Vector4T<float>*)Array<LabelData, eastl::allocator>::operator[](
-                    (Array<LabelData, eastl::allocator>*)this_03, uVar2);
-                math::Vector4T<float>::SetXYZ(this_01, (Vector3T*)local_60);
-                lVar4 =
-                    Array<LabelData, eastl::allocator>::operator[]((Array<LabelData, eastl::allocator>*)this_00, uVar2);
+                pVVar5 = (Vector3T<float>*)(*this_02)[uVar2];
+                lVar4 = (*this_02)[uVar2];
+                local_50[0] = (*((float)*(int*)(lVar4 + 12))) * *pVVar5;
+                pVVar5 = (Vector3T<float>*)(*this_00)[uVar2];
+                lVar4 = (*this_00)[uVar2];
+                local_40 = (*((float)*(int*)(lVar4 + 12))) * *pVVar5;
+                local_60[0] = *local_50 + local_40;
+                ((Vector4T<float>*)(*this_02)[uVar2])->SetXYZ(*local_60);
+                lVar4 = (*this_00)[uVar2];
                 iVar1 = *(int*)(lVar4 + 12);
-                lVar4 =
-                    Array<LabelData, eastl::allocator>::operator[]((Array<LabelData, eastl::allocator>*)this_03, uVar2);
+                lVar4 = (*this_02)[uVar2];
                 *(int*)(lVar4 + 12) = *(int*)(lVar4 + 12) + iVar1;
-                lVar4 =
-                    Array<LabelData, eastl::allocator>::operator[]((Array<LabelData, eastl::allocator>*)this_03, uVar2);
+                lVar4 = (*this_02)[uVar2];
                 if (0 < *(int*)(lVar4 + 12)) {
-                    lVar4 = Array<LabelData, eastl::allocator>::operator[]((Array<LabelData, eastl::allocator>*)this_03,
-                                                                           uVar2);
+                    lVar4 = (*this_02)[uVar2];
                     local_34 = (float)*(int*)(lVar4 + 12);
-                    this_02 = (Vector3T<float>*)Array<LabelData, eastl::allocator>::operator[](
-                        (Array<LabelData, eastl::allocator>*)this_03, uVar2);
-                    math::Vector3T<float>::operator/=(this_02, local_34);
+                    pVVar5 = (Vector3T<float>*)(*this_02)[uVar2];
+                    *pVVar5 /= local_34;
                 }
                 uVar2 = uVar2 + 1;
-                uVar3 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
+                uVar3 = this_00->end();
             } while (uVar2 < uVar3);
         }
     }
 
-    // 0x100821630, 176 bytes, placed by class name and debug map
-    // ModelCombineHelper::FinishCombine()
+    // 0x100821630
     void ModelCombineHelper::FinishCombine() {
-        GeometryBatchCombineHelper* this_00;
-        GeometryBatchCombineHelper* pGVar1;
-        BillboardBatchCombineHelper* this_01;
-        BillboardBatchCombineHelper* pBVar2;
-
-        this_00 = (GeometryBatchCombineHelper*)(&field_16)->HeapBeginPtr();
-        pGVar1 = (GeometryBatchCombineHelper*)(&field_16)->end();
+        auto this_00 = field_16.HeapBeginPtr();
+        auto pGVar1 = field_16.end();
         for (; this_00 != pGVar1; this_00 = (GeometryBatchCombineHelper*)&this_00[1].m_vertexCount) {
             this_00->FinishCombine();
         }
-        this_01 = (BillboardBatchCombineHelper*)(&field_40)->HeapBeginPtr();
-        pBVar2 = (BillboardBatchCombineHelper*)(&field_40)->end();
+        auto this_01 = field_40.HeapBeginPtr();
+        auto pBVar2 = field_40.end();
         for (; this_01 != pBVar2; this_01 = (BillboardBatchCombineHelper*)&this_01[1].m_vertexCount) {
             this_01->FinishCombine();
         }
         field_0->BakeShareLight();
         field_0->SortSections();
-        (field_0, (Array*)&field_64)->SetLabelCentres();
-        Reset(this, (Model*)0, false);
+        field_0->SetLabelCentres(field_64);
+        Reset(nullptr, false);
     }
 
 } // namespace jag::graphics

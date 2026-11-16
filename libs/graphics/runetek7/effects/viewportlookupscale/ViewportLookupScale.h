@@ -1,26 +1,25 @@
 // libs/graphics/runetek7/effects/viewportlookupscale/ViewportLookupScale.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class JointPose {
     public:
-        JointPose* operator=(JointPose const&);
-        JointPose(JointPose const&);
-        JointPose(JointPose&&);
+        JointPose* operator=(const JointPose& data);
+        JointPose(const JointPose& jointPose);
+        JointPose(JointPose&& jointPose);
         JointPose();
 
-        // data members, from how the methods use this: 48 bytes
-        undefined4 field_0;  // offset 0
-        undefined4 field_4;  // offset 4
-        undefined4 field_8;  // offset 8
-        undefined4 field_12; // offset 12
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
-        undefined8 field_40; // offset 40
+    private:
+        uint32_t field_0;
+        uint32_t field_4;
+        uint32_t field_8;
+        uint32_t field_12;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
+        uint64_t field_40;
     };
 
     class ViewportLookupScale {
@@ -29,92 +28,55 @@ namespace jag::graphics {
         // virtual methods in vtable order
         virtual ~ViewportLookupScale();
         virtual void Initialise();
-        virtual void SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const;
-        virtual void BindConstBufferToShader(render::ShaderProgram const&) const;
-        virtual CreateRenderingResources();
+        virtual void SetShaderConstants(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                        Shader& shader) const;
+        virtual void BindConstBufferToShader(const render::ShaderProgram& shaderProgram) const;
+        virtual uint32_t CreateRenderingResources();
         virtual void DestroyRenderingResources();
         virtual void OnEndFrame();
-        GetData() const;
-        void SetShaderConstants(render::DrawCallState&, render::RenderContext&, render::ShaderProgram const&) const;
-        void SetViewportLookupScale(render::Viewport const&, math::Vector2T<float> const&);
-        void SetData(Data const&);
-        ViewportLookupScale(RT7Core&, int);
+        Option<float>* GetData() const;
+        void SetShaderConstants(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                const render::ShaderProgram& shaderProgram) const;
+        void SetViewportLookupScale(const render::Viewport& viewport, const math::Vector2T<float>& vector2);
+        void SetData(const Data& data);
+        ViewportLookupScale(RT7Core& rt7Core, int arg2);
 
-        // data members, from how the methods use this: 192 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        uint field_8;        // offset 8
-        char _unknown_12[4];
-        RT7Core* field_16; // offset 16
-        char _unknown_24[8];
-        JointPose field_32; // offset 32
-        char _unknown_80[72];
-        uint field_152; // offset 152
-        char _unknown_156[36];
+    private:
+        GraphicsQuality field_8;
+        uint8_t _unknown_12[4];
+        RT7Core* field_16;
+        uint8_t _unknown_24[128];
+        unsigned int field_152;
+        uint8_t _unknown_156[36];
     };
 
     class ViewportLookupScale::Data {
     public:
-        JointPose* operator=(Data const&);
+        JointPose* operator=(const Data& data);
         Data();
 
-        // data members, from how the methods use this: 40 bytes
-        char _unknown_0[40];
+        uint8_t _unknown_0[40];
     };
 
-    // 0x10091f620, 64 bytes, inline, placed by class name and debug map
-    // ViewportLookupScale::Data::operator=(ViewportLookupScale::Data const&)
-    /* JointPose::TEMPNAMEPLACEHOLDERVALUE(JointPose const&) */
-
-    JointPose* JointPose::operator=(JointPose* param_1) {
-        math::Rect<float>::operator=((Rect<float>*)this, (Rect*)param_1);
-        math::Rect<float>::operator=((Rect<float>*)&field_16, (Rect*)&param_1->field_16);
-        math::Rect<float>::operator=((Rect<float>*)&field_32, (Rect*)&param_1->field_32);
+    // 0x10091f620
+    JointPose* ViewportLookupScale::Data::operator=(const ViewportLookupScale::Data& data) {
+        *this = data;
+        field_16 = data.field_16;
+        field_32 = data.field_32;
         return this;
     }
 
-    // 0x100922030, 16 bytes, complete-object destructor, inline, placed by class name
-    // ViewportLookupScale::~ViewportLookupScale(): jumps straight to the base-object destructor
-
-    // 0x100922040, 32 bytes, deleting destructor, inline, placed by class name
-    // ViewportLookupScale::~ViewportLookupScale()
-    void ViewportLookupScale::~ViewportLookupScale() {
-        ~ViewportLookupScale(this);
-        operator_delete(this);
+    // 0x1009236c0
+    ViewportLookupScale::~ViewportLookupScale() {
+        field_80.~TypedShaderConstBuffer();
+        destruct<oldscape::highlight::NpcUID*>();
     }
 
-    // 0x1009236c0, 48 bytes, base-object destructor, inline, placed by class name
-    // ViewportLookupScale::~ViewportLookupScale()
-    void ViewportLookupScale::~ViewportLookupScale() {
-        NpcUID* extraout_RDX;
-        NpcUID* in_RSI;
+    // 0x10093d5d0
+    ViewportLookupScale::ViewportLookupScale(RT7Core& rt7Core, int arg2) : ShaderEffect(rt7Core), field_152(arg2) {}
 
-        field_0 = &PTR__ViewportLookupScale_100f19808;
-        (&field_80)->~TypedShaderConstBuffer();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)this, in_RSI, extraout_RDX);
-    }
-
-    // 0x10093d5b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // ViewportLookupScale::ViewportLookupScale(RT7Core&, int): jumps straight to the base-object constructor
-
-    // 0x10093d5d0, 96 bytes, base-object constructor, inline, placed by class name
-    // ViewportLookupScale::ViewportLookupScale(RT7Core&, int)
-    void ViewportLookupScale::ViewportLookupScale(RT7Core* param_1, int param_2) {
-        new (this) ShaderEffect(param_1);
-        field_0 = &PTR__ViewportLookupScale_100f19808;
-        new (field_32) Data();
-        new (&field_80) render::TypedShaderConstBuffer<DirLightCsmManager::ShaderConsts>();
-        field_152 = param_2;
-    }
-
-    // 0x10093d630, 16 bytes, complete-object constructor, inline, placed by class name
-    // ViewportLookupScale::Data::Data(): jumps straight to the base-object constructor
-
-    // 0x10093d640, 96 bytes, base-object constructor, inline, placed by class name
-    // ViewportLookupScale::Data::Data()
-    void ViewportLookupScale::Data::Data() {
-        new (this) ImVec4(1.0, 1.0, 0.0, 0.0);
-        new (&field_16, 0.0, 0.0, 0.0, 0.0) ImVec4();
-        new (&field_32, 1.0, 1.0, 0.0, 0.0) ImVec4();
-    }
+    // 0x10093d640
+    ViewportLookupScale::Data::Data()
+        : ImVec4(1.0, 1.0, 0.0, 0.0), field_16(0.0, 0.0, 0.0, 0.0), field_32(1.0, 1.0, 0.0, 0.0) {}
 
 } // namespace jag::graphics

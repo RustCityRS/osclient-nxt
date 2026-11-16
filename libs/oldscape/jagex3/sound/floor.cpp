@@ -1,13 +1,12 @@
 // libs/oldscape/jagex3/sound/floor.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "floor.h"
 
 namespace jag::oldscape::sound {
-    // 0x100d40508, 1024 bytes, __const
-    Floor::m_inverseDBTable = {
+    // 0x100d40508
+    int32_t Floor::m_inverseDBTable[256] = {
         870626366,  871600393,  872526475,  873078844,  873667107,  874293600,  874960807,  875671371,  876428112,
         877234032,  878092323,  879006392,  879979861,  880910216,  881462268,  882050195,  882676329,  883343154,
         884053311,  884809619,  885615076,  886472877,  887386422,  888359334,  889293960,  889845696,  890433286,
@@ -39,8 +38,8 @@ namespace jag::oldscape::sound {
         1062465565, 1063368187, 1064329467, 1065353216,
     };
 
-    // 0x100d40908, 4112 bytes, __const
-    Floor::m_rangeVector = {
+    // 0x100d40908
+    int32_t Floor::m_rangeVector[1028] = {
         256,         128,         86,          64,          -459907588,  1582048947,  -2015407354, 162443245,
         -2084963976, -1497636485, 1430324487,  1119116808,  1366116242,  -1256614580, 593613511,   545950102,
         -1711461177, -1773194497, -349498583,  125349028,   -1085542765, -131820475,  1627151766,  -499261242,
@@ -172,715 +171,614 @@ namespace jag::oldscape::sound {
         135175426,   -1129109630, -1511304445, -690601930,
     };
 
-    // 0x100296c90, 144 bytes, placed by class name and debug map
-    // Floor::LowNeighbour(Array<int, eastl::allocator> const&, int)
-    ulong Floor::LowNeighbour(Array* param_1, int param_2) {
+    // 0x100296c90
+    unsigned long Floor::LowNeighbour(const Array<int>& arg1, int arg2) {
         int iVar1;
         int iVar2;
-        int* piVar3;
-        ulong uVar4;
-        int iVar5;
-        ulong uVar6;
+        unsigned long arg1_00;
+        int iVar4;
+        unsigned long uVar5;
 
-        piVar3 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)param_1, (long)param_2);
-        if (param_2 < 1) {
-            uVar6 = 4294967295;
+        int* piVar3 = &arg1[(long)arg2];
+        if (arg2 < 1) {
+            uVar5 = 4294967295;
         } else {
             iVar1 = *piVar3;
-            iVar5 = -2147483648;
-            uVar6 = 4294967295;
-            uVar4 = 0;
+            iVar4 = -2147483648;
+            uVar5 = 4294967295;
+            arg1_00 = 0;
             do {
-                piVar3 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)param_1, uVar4);
+                piVar3 = &arg1[arg1_00];
                 iVar2 = *piVar3;
-                if (iVar2 < iVar1 && iVar5 < iVar2) {
-                    uVar6 = uVar4 & 4294967295;
-                    iVar5 = iVar2;
+                if (iVar2 < iVar1 && iVar4 < iVar2) {
+                    uVar5 = arg1_00 & 4294967295;
+                    iVar4 = iVar2;
                 }
-                uVar4 = uVar4 + 1;
-            } while ((uint)param_2 != uVar4);
+                arg1_00 = arg1_00 + 1;
+            } while ((unsigned int)arg2 != arg1_00);
         }
-        return uVar6;
+        return uVar5;
     }
 
-    // 0x100296d20, 144 bytes, placed by class name and debug map
-    // Floor::HighNeighbour(Array<int, eastl::allocator> const&, int)
-    ulong Floor::HighNeighbour(Array* param_1, int param_2) {
+    // 0x100296d20
+    unsigned long Floor::HighNeighbour(const Array<int>& arg1, int arg2) {
         int iVar1;
         int iVar2;
-        int* piVar3;
-        ulong uVar4;
-        int iVar5;
-        ulong uVar6;
+        unsigned long arg1_00;
+        int iVar4;
+        unsigned long uVar5;
 
-        piVar3 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)param_1, (long)param_2);
-        if (param_2 < 1) {
-            uVar6 = 4294967295;
+        int* piVar3 = &arg1[(long)arg2];
+        if (arg2 < 1) {
+            uVar5 = 4294967295;
         } else {
             iVar1 = *piVar3;
-            iVar5 = 2147483647;
-            uVar6 = 4294967295;
-            uVar4 = 0;
+            iVar4 = 2147483647;
+            uVar5 = 4294967295;
+            arg1_00 = 0;
             do {
-                piVar3 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)param_1, uVar4);
+                piVar3 = &arg1[arg1_00];
                 iVar2 = *piVar3;
-                if (iVar1 < iVar2 && iVar2 < iVar5) {
-                    uVar6 = uVar4 & 4294967295;
-                    iVar5 = iVar2;
+                if (iVar1 < iVar2 && iVar2 < iVar4) {
+                    uVar5 = arg1_00 & 4294967295;
+                    iVar4 = iVar2;
                 }
-                uVar4 = uVar4 + 1;
-            } while ((uint)param_2 != uVar4);
+                arg1_00 = arg1_00 + 1;
+            } while ((unsigned int)arg2 != arg1_00);
         }
-        return uVar6;
+        return uVar5;
     }
 
-    // 0x100296db0, 48 bytes, placed by class name and debug map
-    // Floor::RenderPoint(int, int, int, int, int) const
-    int Floor::RenderPoint(int param_1, int param_2, int param_3, int param_4, int param_5) {
-        int iVar1;
-        int iVar2;
-
-        iVar2 = param_4 - param_2;
-        iVar1 = -iVar2;
+    // 0x100296db0
+    int Floor::RenderPoint(int arg1, int arg2, int arg3, int arg4, int arg5) const {
+        int iVar2 = arg4 - arg2;
+        int iVar1 = -iVar2;
         if (-iVar2 < 0) {
             iVar1 = iVar2;
         }
-        iVar1 = (iVar1 * (param_5 - param_1)) / (param_3 - param_1);
+        iVar1 = (iVar1 * (arg5 - arg1)) / (arg3 - arg1);
         if (iVar2 < 0) {
             iVar1 = -iVar1;
         }
-        return iVar1 + param_2;
+        return iVar1 + arg2;
     }
 
-    // 0x100296de0, 352 bytes, placed by class name and debug map
-    // Floor::RenderLine(int, int, int, int, Array<float, eastl::allocator>&, int) const
-    void Floor::RenderLine(int param_1, int param_2, int param_3, int param_4, Array* param_5, int param_6) {
-        float fVar1;
-        float fVar2;
-        uint uVar3;
-        int iVar4;
-        int iVar5;
+    // 0x100296de0
+    void Floor::RenderLine(int arg1, int arg2, int arg3, int arg4, Array<float>& arg5, int arg6) const {
         int iVar6;
-        float* pfVar7;
         int iVar8;
-        int iVar9;
-        uint uVar10;
-        ulong uVar11;
         int iVar12;
-        int iVar13;
+        int iVar14;
 
-        uVar10 = param_4 - param_2;
-        iVar9 = param_3 - param_1;
-        uVar3 = -uVar10;
+        unsigned int uVar10 = arg4 - arg2;
+        int iVar9 = arg3 - arg1;
+        unsigned int uVar3 = -uVar10;
         if ((int)-uVar10 < 0) {
             uVar3 = uVar10;
         }
-        iVar4 = (int)uVar10 / iVar9;
-        iVar5 = -iVar4;
+        int iVar4 = (int)uVar10 / iVar9;
+        int iVar5 = -iVar4;
         if (-iVar4 < 0) {
             iVar5 = iVar4;
         }
-        pfVar7 =
-            (float*)Array<float, eastl::allocator>::operator[]((Array<float, eastl::allocator>*)param_5, (long)param_1);
-        fVar1 = *pfVar7;
-        pfVar7 = (float*)std::array<float, 256ul>::operator[]((long)param_2);
-        fVar2 = *pfVar7;
-        pfVar7 =
-            (float*)Array<float, eastl::allocator>::operator[]((Array<float, eastl::allocator>*)param_5, (long)param_1);
+        unsigned long uVar13 = (unsigned long)arg1;
+        unsigned long uVar11 = uVar13;
+        float* pfVar7 = &arg5[uVar13];
+        float fVar1 = *pfVar7;
+        pfVar7 = (float*)(*((array<float, 256ul>*)(long)arg2))[uVar11];
+        float fVar2 = *pfVar7;
+        pfVar7 = &arg5[uVar13];
         *pfVar7 = fVar1 * fVar2;
-        if (param_6 < param_3) {
-            param_3 = param_6;
+        if (arg6 < arg3) {
+            arg3 = arg6;
         }
-        if (param_1 + 1 < param_3) {
-            uVar11 = (ulong)(param_1 + 1);
-            iVar13 = ~param_1 + param_3;
+        if (arg1 + 1 < arg3) {
+            uVar11 = (unsigned long)(arg1 + 1);
+            iVar14 = ~arg1 + arg3;
             iVar12 = 0;
             do {
                 iVar12 = iVar12 + (uVar3 - iVar5 * iVar9);
                 iVar8 = iVar9;
-                iVar6 = ((int)~uVar10 >> 31) * -2 + -1;
+                iVar6 = ((int)~uVar10 >> 31) * -2 - 1;
                 if (iVar12 < iVar9) {
                     iVar6 = 0;
                     iVar8 = 0;
                 }
                 iVar12 = iVar12 - iVar8;
-                param_2 = param_2 + iVar4 + iVar6;
-                pfVar7 = (float*)Array<float, eastl::allocator>::operator[]((Array<float, eastl::allocator>*)param_5,
-                                                                            uVar11);
+                arg2 = arg2 + iVar4 + iVar6;
+                uVar13 = uVar11;
+                pfVar7 = &arg5[uVar11];
                 fVar1 = *pfVar7;
-                pfVar7 = (float*)std::array<float, 256ul>::operator[]((long)param_2);
+                pfVar7 = (float*)(*((array<float, 256ul>*)(long)arg2))[uVar13];
                 fVar2 = *pfVar7;
-                pfVar7 = (float*)Array<float, eastl::allocator>::operator[]((Array<float, eastl::allocator>*)param_5,
-                                                                            uVar11);
+                pfVar7 = &arg5[uVar11];
                 *pfVar7 = fVar1 * fVar2;
                 uVar11 = uVar11 + 1;
-                iVar13 = iVar13 + -1;
-            } while (iVar13 != 0);
+                iVar14 = iVar14 - 1;
+            } while (iVar14 != 0);
         }
     }
 
-    // 0x100296f60, 480 bytes, placed by class name and debug map
-    // Floor::FloorDecoder::QuickSort(int, int)
-    void Floor::FloorDecoder::QuickSort(int param_1, int param_2) {
-        undefined1* this_00;
-        undefined1* this_01;
-        undefined1 uVar1;
-        undefined1 uVar2;
+    // 0x100296f60
+    void Floor::FloorDecoder::QuickSort(int arg1, int arg2) {
+        uint8_t* this_00;
+        uint8_t* this_01;
+        uint8_t uVar1;
+        uint8_t uVar2;
         int iVar3;
-        undefined4 uVar4;
+        uint32_t uVar4;
         int iVar5;
-        undefined4 uVar6;
+        uint32_t uVar6;
         int* piVar7;
-        undefined4* puVar8;
-        undefined1* puVar9;
-        undefined1* puVar10;
+        uint32_t* puVar8;
+        uint8_t* puVar9;
+        uint8_t* puVar10;
         int iVar11;
-        ulong uVar12;
-        ulong uVar13;
+        unsigned long uVar12;
+        unsigned long uVar13;
 
-        if (param_1 < param_2) {
+        if (arg1 < arg2) {
             puVar10 = &field_16;
-            uVar13 = (ulong)param_1;
-            piVar7 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar10, uVar13);
+            uVar13 = (unsigned long)arg1;
+            piVar7 = (int*)(*puVar10)[uVar13];
             iVar3 = *piVar7;
             this_00 = &field_40;
-            puVar8 =
-                (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, uVar13);
+            puVar8 = (uint32_t*)(*this_00)[uVar13];
             uVar4 = *puVar8;
             this_01 = &field_64;
-            puVar9 =
-                (undefined1*)Array<bool, eastl::allocator>::operator[]((Array<bool, eastl::allocator>*)this_01, uVar13);
+            puVar9 = (uint8_t*)(*this_01)[uVar13];
             uVar1 = *puVar9;
-            iVar11 = param_1;
+            iVar11 = arg1;
             do {
                 uVar13 = uVar13 + 1;
-                piVar7 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar10, uVar13);
+                piVar7 = (int*)(*puVar10)[uVar13];
                 iVar5 = *piVar7;
                 if (iVar5 < iVar3) {
-                    uVar12 = (ulong)iVar11;
-                    piVar7 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar10, uVar12);
+                    uVar12 = (unsigned long)iVar11;
+                    piVar7 = (int*)(*puVar10)[uVar12];
                     *piVar7 = iVar5;
-                    puVar8 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)this_00, uVar13);
+                    puVar8 = (uint32_t*)(*this_00)[uVar13];
                     uVar6 = *puVar8;
-                    puVar8 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)this_00, uVar12);
+                    puVar8 = (uint32_t*)(*this_00)[uVar12];
                     *puVar8 = uVar6;
-                    puVar9 = (undefined1*)Array<bool, eastl::allocator>::operator[](
-                        (Array<bool, eastl::allocator>*)this_01, uVar13);
+                    puVar9 = (uint8_t*)(*this_01)[uVar13];
                     uVar2 = *puVar9;
-                    puVar9 = (undefined1*)Array<bool, eastl::allocator>::operator[](
-                        (Array<bool, eastl::allocator>*)this_01, uVar12);
+                    puVar9 = (uint8_t*)(*this_01)[uVar12];
                     *puVar9 = uVar2;
                     iVar11 = iVar11 + 1;
-                    uVar12 = (ulong)iVar11;
-                    puVar8 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)puVar10, uVar12);
+                    uVar12 = (unsigned long)iVar11;
+                    puVar8 = (uint32_t*)(*puVar10)[uVar12];
                     uVar6 = *puVar8;
-                    puVar8 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)puVar10, uVar13);
+                    puVar8 = (uint32_t*)(*puVar10)[uVar13];
                     *puVar8 = uVar6;
-                    puVar8 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)this_00, uVar12);
+                    puVar8 = (uint32_t*)(*this_00)[uVar12];
                     uVar6 = *puVar8;
-                    puVar8 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)this_00, uVar13);
+                    puVar8 = (uint32_t*)(*this_00)[uVar13];
                     *puVar8 = uVar6;
-                    puVar9 = (undefined1*)Array<bool, eastl::allocator>::operator[](
-                        (Array<bool, eastl::allocator>*)this_01, uVar12);
+                    puVar9 = (uint8_t*)(*this_01)[uVar12];
                     uVar2 = *puVar9;
-                    puVar9 = (undefined1*)Array<bool, eastl::allocator>::operator[](
-                        (Array<bool, eastl::allocator>*)this_01, uVar13);
+                    puVar9 = (uint8_t*)(*this_01)[uVar13];
                     *puVar9 = uVar2;
                 }
-            } while (uVar13 != (long)param_2);
-            uVar13 = (ulong)iVar11;
-            piVar7 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar10, uVar13);
+            } while (uVar13 != (long)arg2);
+            uVar13 = (unsigned long)iVar11;
+            piVar7 = (int*)(*puVar10)[uVar13];
             *piVar7 = iVar3;
-            puVar8 =
-                (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, uVar13);
+            puVar8 = (uint32_t*)(*this_00)[uVar13];
             *puVar8 = uVar4;
-            puVar10 =
-                (undefined1*)Array<bool, eastl::allocator>::operator[]((Array<bool, eastl::allocator>*)this_01, uVar13);
+            puVar10 = (uint8_t*)(*this_01)[uVar13];
             *puVar10 = uVar1;
-            QuickSort(this, param_1, iVar11 + -1);
-            QuickSort(this, iVar11 + 1, param_2);
+            QuickSort(arg1, iVar11 - 1);
+            QuickSort(iVar11 + 1, arg2);
         }
     }
 
-    // 0x100297140, 1216 bytes, base-object constructor, placed by class name
-    // Floor::Floor()
-    void Floor::Floor() {
-        undefined1* this_00;
-        undefined1* this_01;
-        undefined1* this_02;
-        undefined1* this_03;
-        undefined1* this_04;
+    // 0x100297140
+    Floor::Floor() : Array<int>(), field_24(0) {
         int iVar1;
-        uint uVar2;
         int iVar3;
-        undefined4 uVar4;
-        ulong uVar5;
+        uint32_t uVar4;
         int* piVar6;
-        undefined4* puVar7;
-        Array<int, eastl::allocator>* pAVar8;
-        ulong uVar9;
+        uint32_t* puVar7;
+        Array<int>* pAVar8;
+        unsigned long arg1;
+        long lVar9;
         long lVar10;
-        long lVar11;
-        ulong uVar12;
-        uint uVar13;
-        uint uVar14;
-        ulong uVar15;
-        Array<int, eastl::allocator> local_48[24];
+        unsigned long uVar11;
+        unsigned int uVar12;
+        unsigned int uVar13;
+        unsigned long uVar14;
 
-        new (this) Array<int, eastl::allocator>();
-        field_24 = 0;
-        this_00 = &field_32;
-        new (this_00) Array<int, eastl::allocator>();
-        this_01 = &field_56;
-        new (this_01) Array<int, eastl::allocator>();
-        this_02 = &field_80;
-        new (this_02) Array<int, eastl::allocator>();
-        this_03 = &field_104;
-        new (this_03) Array<int, eastl::allocator>();
-        this_04 = &field_128;
-        new (this_04) Array<Array<int, eastl::allocator>, eastl::allocator>();
-        uVar2 = (&JagVorbis::m_staticUnpacker)->ReadBits(16);
+        uint8_t* this_00 = &field_32;
+        new (this_00) Array<int>();
+        uint8_t* this_01 = &field_56;
+        new (this_01) Array<int>();
+        uint8_t* this_02 = &field_80;
+        new (this_02) Array<int>();
+        uint8_t* this_03 = &field_104;
+        new (this_03) Array<int>();
+        uint8_t* this_04 = &field_128;
+        new (this_04) Array<Array<int>>();
+        unsigned int uVar2 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(16);
         if (uVar2 != 1) {
-            /* WARNING: Subroutine does not return */
             LogAssertAlways(
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/floor.cpp",
-                201, "Unexpected type: %i", (ulong)uVar2);
+                201, "Unexpected type: %i", (unsigned long)uVar2);
         }
-        uVar2 = (&JagVorbis::m_staticUnpacker)->ReadBits(5);
-        Array<int, eastl::allocator>::Array(local_48, (long)(int)uVar2);
-        Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)this_00, (Array*)local_48);
-        local_48->~Array();
-        uVar5 = (ulong)uVar2;
+        uVar2 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(5);
+        Array<int> local_48((long)(int)uVar2);
+        *this_00 = local_48;
+        unsigned long uVar5 = (unsigned long)uVar2;
         if ((int)uVar2 < 1) {
-            uVar13 = 0;
+            uVar12 = 0;
         } else {
+            uVar11 = 0;
             uVar12 = 0;
-            uVar13 = 0;
             do {
-                iVar3 = (&JagVorbis::m_staticUnpacker)->ReadBits(4);
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, uVar12);
+                iVar3 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(4);
+                piVar6 = (int*)(*this_00)[uVar11];
                 *piVar6 = iVar3;
-                uVar14 = iVar3 + 1;
-                if (iVar3 < (int)uVar13) {
-                    uVar14 = uVar13;
+                uVar13 = iVar3 + 1;
+                if (iVar3 < (int)uVar12) {
+                    uVar13 = uVar12;
                 }
-                uVar13 = uVar14;
-                uVar12 = uVar12 + 1;
-            } while (uVar5 != uVar12);
+                uVar12 = uVar13;
+                uVar11 = uVar11 + 1;
+            } while (uVar5 != uVar11);
         }
-        uVar12 = (ulong)(int)uVar13;
-        Array<int, eastl::allocator>::Array(local_48, uVar12);
-        Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)this_01, (Array*)local_48);
-        local_48->~Array();
-        Array<int, eastl::allocator>::Array(local_48, uVar12);
-        Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)this_02, (Array*)local_48);
-        local_48->~Array();
-        Array<int, eastl::allocator>::Array(local_48, uVar12);
-        Array<int, eastl::allocator>::operator=((Array<int, eastl::allocator>*)this_03, (Array*)local_48);
-        local_48->~Array();
-        new (local_48) Array<Array<int, eastl::allocator>, eastl::allocator>(uVar12);
-        Array<Array<int, eastl::allocator>, eastl::allocator>::operator=(
-            (Array<Array<int, eastl::allocator>, eastl::allocator>*)this_04, (Array*)local_48);
-        local_48->~Array();
-        if (0 < (int)uVar13) {
-            uVar12 = 0;
+        uVar11 = (unsigned long)(int)uVar12;
+        local_48 = Array<int>(uVar11);
+        *this_01 = local_48;
+        local_48 = Array<int>(uVar11);
+        *this_02 = local_48;
+        local_48 = Array<int>(uVar11);
+        *this_03 = local_48;
+        local_48 = Array<Array<int>>(uVar11);
+        *this_04 = local_48;
+        if (0 < (int)uVar12) {
+            uVar11 = 0;
             do {
-                iVar3 = (&JagVorbis::m_staticUnpacker)->ReadBits(3);
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_01, uVar12);
+                iVar3 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(3);
+                piVar6 = (int*)(*this_01)[uVar11];
                 *piVar6 = iVar3 + 1;
-                iVar3 = (&JagVorbis::m_staticUnpacker)->ReadBits(2);
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_02, uVar12);
+                iVar3 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(2);
+                piVar6 = (int*)(*this_02)[uVar11];
                 *piVar6 = iVar3;
                 if (iVar3 != 0) {
-                    uVar4 = (&JagVorbis::m_staticUnpacker)->ReadBits(8);
-                    puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)this_03, uVar12);
+                    uVar4 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(8);
+                    puVar7 = (uint32_t*)(*this_03)[uVar11];
                     *puVar7 = uVar4;
                 }
-                uVar14 = 1 << ((byte)iVar3 & 31);
-                pAVar8 =
-                    (Array<int, eastl::allocator>*)Array<Array<int, eastl::allocator>, eastl::allocator>::operator[](
-                        (Array<Array<int, eastl::allocator>, eastl::allocator>*)this_04, uVar12);
-                pAVar8->set_max_size((long)(int)uVar14, 5);
+                uVar13 = 1 << ((uint8_t)iVar3 & 31);
+                pAVar8 = (Array<int>*)(*this_04)[uVar11];
+                pAVar8->set_max_size((long)(int)uVar13, 5);
                 if (iVar3 != 31) {
-                    uVar15 = (ulong)uVar14;
-                    if ((int)uVar14 < 2) {
-                        uVar15 = 1;
+                    uVar14 = (unsigned long)uVar13;
+                    if ((int)uVar13 < 2) {
+                        uVar14 = 1;
                     }
-                    uVar9 = 0;
+                    arg1 = 0;
                     do {
-                        iVar3 = (&JagVorbis::m_staticUnpacker)->ReadBits(8);
-                        pAVar8 = (Array<int, eastl::allocator>*)
-                            Array<Array<int, eastl::allocator>, eastl::allocator>::operator[](
-                                (Array<Array<int, eastl::allocator>, eastl::allocator>*)this_04, uVar12);
-                        piVar6 = (int*)Array<int, eastl::allocator>::operator[](pAVar8, uVar9);
-                        *piVar6 = iVar3 + -1;
-                        uVar9 = uVar9 + 1;
-                    } while (uVar15 != uVar9);
+                        iVar3 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(8);
+                        pAVar8 = (Array<int>*)(*this_04)[uVar11];
+                        piVar6 = (int*)(*pAVar8)[arg1];
+                        *piVar6 = iVar3 - 1;
+                        arg1 = arg1 + 1;
+                    } while (uVar14 != arg1);
                 }
-                uVar12 = uVar12 + 1;
-            } while (uVar12 != uVar13);
+                uVar11 = uVar11 + 1;
+            } while (uVar11 != uVar12);
         }
-        iVar3 = (&JagVorbis::m_staticUnpacker)->ReadBits(2);
+        iVar3 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(2);
         field_24 = iVar3 + 1;
-        iVar3 = (&JagVorbis::m_staticUnpacker)->ReadBits(4);
+        iVar3 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(4);
         if ((int)uVar2 < 1) {
-            uVar12 = 2;
+            uVar11 = 2;
         } else {
-            uVar12 = 2;
-            uVar15 = 0;
+            uVar11 = 2;
+            uVar14 = 0;
             do {
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, uVar15);
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_01,
-                                                                        (long)*piVar6);
-                uVar12 = (long)(int)uVar12 + (long)*piVar6;
-                uVar15 = uVar15 + 1;
-            } while (uVar5 != uVar15);
+                piVar6 = (int*)(*this_00)[uVar14];
+                piVar6 = (int*)(*this_01)[(long)*piVar6];
+                uVar11 = (long)(int)uVar11 + (long)*piVar6;
+                uVar14 = uVar14 + 1;
+            } while (uVar5 != uVar14);
         }
-        set_max_size(uVar12, 5);
-        puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this, 0);
+        set_max_size(uVar11, 5);
+        puVar7 = (uint32_t*)(*this)[0];
         *puVar7 = 0;
-        piVar6 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this, 1);
-        *piVar6 = 1 << ((byte)iVar3 & 31);
+        piVar6 = (int*)(*this)[1];
+        *piVar6 = 1 << ((uint8_t)iVar3 & 31);
         if (0 < (int)uVar2) {
-            lVar10 = 2;
-            uVar12 = 0;
+            lVar9 = 2;
+            uVar11 = 0;
             do {
-                piVar6 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_00, uVar12);
+                piVar6 = (int*)(*this_00)[uVar11];
                 iVar1 = *piVar6;
-                for (lVar11 = 0; piVar6 = (int*)Array<int, eastl::allocator>::operator[](
-                                     (Array<int, eastl::allocator>*)this_01, (long)iVar1),
-                    (int)lVar11 < *piVar6;
-                     lVar11 = lVar11 + 1) {
-                    uVar4 = (&JagVorbis::m_staticUnpacker)->ReadBits(iVar3);
-                    puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this,
-                                                                                   (int)lVar10 + lVar11);
+                for (lVar10 = 0; piVar6 = (int*)(*this_01)[(long)iVar1], (int)lVar10 < *piVar6; lVar10 = lVar10 + 1) {
+                    uVar4 = ((BitUnpacker*)&JagVorbis::m_staticUnpacker)->ReadBits(iVar3);
+                    puVar7 = (uint32_t*)(*this)[(int)lVar9 + lVar10];
                     *puVar7 = uVar4;
                 }
-                uVar12 = uVar12 + 1;
-                lVar10 = (int)lVar10 + lVar11;
-            } while (uVar12 != uVar5);
+                uVar11 = uVar11 + 1;
+                lVar9 = (int)lVar9 + lVar10;
+            } while (uVar11 != uVar5);
         }
     }
 
-    // 0x100297630, 16 bytes, complete-object constructor, placed by class name
-    // Floor::Floor(): jumps straight to the base-object constructor
-
-    // 0x100297640, 1120 bytes, placed by class name
-    // Floor::PacketDecode(JagVorbis const&, BitUnpacker&) const
-    Floor* Floor::PacketDecode(JagVorbis* param_1, BitUnpacker* param_2) {
+    // 0x100297640
+    Floor* Floor::PacketDecode(const JagVorbis& jagVorbis, BitUnpacker& bitUnpacker) const {
         vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
         int iVar1;
         Floor* pFVar2;
-        int iVar3;
-        undefined4 uVar4;
-        uint uVar5;
-        ulong uVar6;
-        undefined4* puVar7;
-        int* piVar8;
-        long lVar9;
+        uint32_t uVar4;
+        unsigned int uVar5;
+        uint8_t* arg1;
+        uint32_t* puVar6;
+        int* piVar7;
+        unsigned long uVar9;
         CodeBook* pCVar10;
-        Array<int, eastl::allocator>* pAVar11;
+        Array<int>* pAVar11;
         BitUnpacker* in_RCX;
-        ulong uVar12;
+        JagVorbis* arg1_00;
+        unsigned long uVar12;
+        JagVorbis* arg1_01;
         int iVar13;
-        undefined1 local_188[40];
-        Array<int, eastl::allocator> local_160[24];
-        Array<bool, eastl::allocator> local_148[24];
-        Array<int, eastl::allocator> local_130[24];
-        Array<int, eastl::allocator> local_118[24];
-        Array<bool, eastl::allocator> local_100[24];
-        Array<int, eastl::allocator> local_e8[24];
-        Array<int, eastl::allocator> local_d0[24];
-        Array<bool, eastl::allocator> local_b8[24];
-        Array<bool, eastl::allocator> local_a0[24];
-        Array<Array<int, eastl::allocator>, eastl::allocator>* local_88;
-        ulong local_80;
-        Array<int, eastl::allocator>* local_78;
-        Array<int, eastl::allocator>* local_70;
-        Array<int, eastl::allocator>* local_68;
+        uint8_t local_188[40];
+        Array<int> local_160;
+        Array<bool> local_148;
+        Array<int> local_130;
+        Array<int> local_118;
+        Array<bool> local_100;
+        Array<int> local_e8;
+        Array<int> local_d0;
+        Array<bool> local_b8;
+        Array<bool> local_a0;
+        Array<Array<int>>* local_88;
+        unsigned long local_80;
+        Array<int>* local_78;
+        Array<int>* local_70;
+        Array<int>* local_68;
         vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_60;
         int local_58;
         int local_54;
         Floor* local_50;
-        ulong local_48;
-        BitUnpacker* local_40;
-        uint local_34;
+        unsigned long local_48;
+        unsigned int local_34;
 
-        local_50 = this;
-        local_40 = in_RCX;
-        iVar3 = in_RCX->ReadBit();
+        return local_50 = this;
+        BitUnpacker* local_40 = in_RCX;
+        int iVar3 = in_RCX->ReadBit();
         if (iVar3 == 0) {
-            Array<int, eastl::allocator>::Array(local_130);
-            Array<int, eastl::allocator>::Array(local_118);
-            Array<bool, eastl::allocator>::Array(local_100);
-            new (local_50) FloorDecoder(param_1, 0, local_130, local_118, local_100);
-            local_100->~Array();
-            local_118->~Array();
-            local_130->~Array();
+            local_130 = Array<int>();
+            local_118 = Array<int>();
+            local_100 = Array<bool>();
+            new (local_50) FloorDecoder(jagVorbis, false, &local_130, &local_118, &local_100);
         } else {
-            Array<int, eastl::allocator>::Array(local_e8);
-            Array<int, eastl::allocator>::Array(local_d0);
-            Array<bool, eastl::allocator>::Array(local_b8);
-            new (local_188) FloorDecoder(param_1, 1, local_e8, local_d0, local_b8);
-            local_b8->~Array();
-            local_d0->~Array();
-            local_e8->~Array();
-            uVar6 = param_1->end();
+            local_e8 = Array<int>();
+            local_d0 = Array<int>();
+            local_b8 = Array<bool>();
+            arg1_01 = jagVorbis;
+            new (local_188) FloorDecoder(jagVorbis, true, &local_e8, &local_d0, &local_b8);
+            arg1 = (uint8_t*)jagVorbis.end();
             this_00 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(local_188 + 16);
-            iVar3 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-            if ((ulong)(long)iVar3 < uVar6) {
-                this_00->set_max_size(uVar6, 1);
-                local_160->set_max_size(uVar6, 1);
-                Array<bool, eastl::allocator>::Array(local_a0, uVar6);
-                Array<bool, eastl::allocator>::operator=(local_148, (Array*)local_a0);
-                local_a0->~Array();
+            iVar3 = this_00->end();
+            if ((uint8_t*)(long)iVar3 < arg1) {
+                this_00->set_max_size((unsigned long)arg1, 1);
+                local_160.set_max_size((unsigned long)arg1, 1);
+                local_a0 = Array<bool>((unsigned long)arg1);
+                arg1_01 = &local_a0;
+                local_148 = *arg1_01;
             }
-            if (uVar6 != 0) {
-                uVar12 = 0;
+            if (arg1 != nullptr) {
+                arg1_00 = nullptr;
                 do {
-                    puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)param_1, uVar12);
-                    uVar4 = *puVar7;
-                    puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)this_00, uVar12);
-                    *puVar7 = uVar4;
-                    uVar12 = uVar12 + 1;
-                } while (uVar6 != uVar12);
+                    puVar6 = &jagVorbis[(unsigned long)arg1_00];
+                    uVar4 = *puVar6;
+                    arg1_01 = arg1_00;
+                    puVar6 = (uint32_t*)(*this_00)[(unsigned long)arg1_00];
+                    *puVar6 = uVar4;
+                    arg1_00 = (JagVorbis*)&arg1_00->field_1;
+                } while ((JagVorbis*)arg1 != arg1_00);
             }
-            piVar8 = (int*)std::array<int, 4ul>::operator[]((long)*(int*)&param_1->field_24 - 1);
-            iVar3 = core::math::MathTool::BitsRequired(*piVar8 + -1);
+            piVar7 = (int*)(*((array<int, 4ul>*)((long)(int)jagVorbis.field_24 - 1)))[(unsigned long)arg1_01];
+            iVar3 = core::math::MathTool::BitsRequired(*piVar7 - 1);
             uVar4 = local_40->ReadBits(iVar3);
-            puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[](local_160, 0);
-            *puVar7 = uVar4;
+            puVar6 = &local_160[0];
+            *puVar6 = uVar4;
             uVar4 = local_40->ReadBits(iVar3);
-            puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[](local_160, 1);
-            *puVar7 = uVar4;
-            pAVar11 = (Array<int, eastl::allocator>*)&param_1->field_32;
-            lVar9 = pAVar11->end();
-            if (lVar9 != 0) {
-                local_78 = (Array<int, eastl::allocator>*)&param_1->field_56;
-                local_70 = (Array<int, eastl::allocator>*)&param_1->field_80;
-                local_68 = (Array<int, eastl::allocator>*)&param_1->field_104;
-                local_88 = (Array<Array<int, eastl::allocator>, eastl::allocator>*)&param_1->field_128;
+            puVar6 = &local_160[1];
+            *puVar6 = uVar4;
+            pAVar11 = (Array<int>*)&jagVorbis.field_32;
+            if (pAVar11->end() != 0) {
+                local_78 = (Array<int>*)&jagVorbis.field_56;
+                local_70 = (Array<int>*)&jagVorbis.field_80;
+                local_68 = (Array<int>*)jagVorbis.field_104;
+                local_88 = (Array<Array<int>>*)&jagVorbis.field_128;
                 iVar3 = 2;
-                uVar6 = 0;
+                uVar12 = 0;
                 local_60 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pAVar11;
                 do {
-                    local_80 = uVar6;
-                    piVar8 = (int*)Array<int, eastl::allocator>::operator[](pAVar11, uVar6);
-                    uVar6 = (ulong)*piVar8;
-                    piVar8 = (int*)Array<int, eastl::allocator>::operator[](local_78, uVar6);
-                    iVar1 = *piVar8;
-                    local_48 = uVar6;
-                    piVar8 = (int*)Array<int, eastl::allocator>::operator[](local_70, uVar6);
-                    local_58 = *piVar8;
-                    local_34 = -1 << ((byte)local_58 & 31);
+                    local_80 = uVar12;
+                    piVar7 = (int*)(*pAVar11)[uVar12];
+                    uVar12 = (unsigned long)*piVar7;
+                    piVar7 = (int*)(*local_78)[uVar12];
+                    iVar1 = *piVar7;
+                    local_48 = uVar12;
+                    piVar7 = (int*)(*local_70)[uVar12];
+                    local_58 = *piVar7;
+                    local_34 = -1 << ((uint8_t)local_58 & 31);
                     if (local_58 < 1) {
                         uVar5 = 0;
                     } else {
-                        piVar8 = (int*)Array<int, eastl::allocator>::operator[](local_68, local_48);
-                        pCVar10 = (CodeBook*)Array<CodeBook, eastl::allocator>::operator[](
-                            (Array<CodeBook, eastl::allocator>*)&JagVorbis::m_codebook, (long)*piVar8);
-                        uVar5 = pCVar10->DecodeScalar(local_40);
+                        piVar7 = (int*)(*local_68)[local_48];
+                        pCVar10 = (CodeBook*)(*((Array<CodeBook>*)&JagVorbis::m_codebook))[(long)*piVar7];
+                        uVar5 = pCVar10->DecodeScalar(*local_40);
                     }
                     if (0 < iVar1) {
                         local_34 = ~local_34;
-                        uVar6 = (ulong)iVar3;
+                        uVar12 = (unsigned long)iVar3;
                         iVar13 = 0;
                         local_54 = iVar3;
                         do {
-                            pAVar11 = (Array<int, eastl::allocator>*)
-                                Array<Array<int, eastl::allocator>, eastl::allocator>::operator[](local_88, local_48);
-                            piVar8 =
-                                (int*)Array<int, eastl::allocator>::operator[](pAVar11, (long)(int)(uVar5 & local_34));
-                            uVar5 = (int)uVar5 >> ((byte)local_58 & 31);
-                            if ((long)*piVar8 < 0) {
+                            pAVar11 = (Array<int>*)(*local_88)[local_48];
+                            piVar7 = (int*)(*pAVar11)[(long)(int)(uVar5 & local_34)];
+                            uVar5 = (int)uVar5 >> ((uint8_t)local_58 & 31);
+                            if ((long)*piVar7 < 0) {
                                 uVar4 = 0;
                             } else {
-                                pCVar10 = (CodeBook*)Array<CodeBook, eastl::allocator>::operator[](
-                                    (Array<CodeBook, eastl::allocator>*)&JagVorbis::m_codebook, (long)*piVar8);
-                                uVar4 = pCVar10->DecodeScalar(local_40);
+                                pCVar10 = (CodeBook*)(*((Array<CodeBook>*)&JagVorbis::m_codebook))[(long)*piVar7];
+                                uVar4 = pCVar10->DecodeScalar(*local_40);
                             }
-                            puVar7 = (undefined4*)Array<int, eastl::allocator>::operator[](local_160, uVar6);
-                            uVar6 = uVar6 + 1;
-                            *puVar7 = uVar4;
-                            iVar13 = iVar13 + -1;
+                            puVar6 = &local_160[uVar12];
+                            uVar12 = uVar12 + 1;
+                            *puVar6 = uVar4;
+                            iVar13 = iVar13 - 1;
                         } while (-iVar1 != iVar13);
                         iVar3 = local_54 - iVar13;
-                        pAVar11 = (Array<int, eastl::allocator>*)local_60;
+                        pAVar11 = (Array<int>*)local_60;
                     }
-                    uVar6 = local_80 + 1;
-                    uVar12 = pAVar11->end();
-                } while (uVar6 < uVar12);
+                    uVar12 = local_80 + 1;
+                    uVar9 = pAVar11->end();
+                } while (uVar12 < uVar9);
             }
             pFVar2 = local_50;
-            new (local_50) FloorDecoder(local_188);
-            local_188->~FloorDecoder();
+            new (local_50) FloorDecoder(*local_188);
             local_50 = pFVar2;
         }
-        return local_50;
     }
 
-    // 0x100297bb0, 864 bytes, placed by class name
-    // Floor::FloorDecoder::SynthMul(Array<float, eastl::allocator>&, int)
-    void Floor::FloorDecoder::SynthMul(Array* param_1, int param_2) {
-        undefined1* this_00;
-        undefined1* this_01;
+    // 0x100297bb0
+    void Floor::FloorDecoder::SynthMul(Array<float>& arg1, int arg2) {
         float fVar1;
-        int iVar2;
+        int arg2_00;
+        int arg4;
+        unsigned int uVar2;
         int iVar3;
         int iVar4;
-        uint uVar5;
-        int iVar6;
-        int iVar7;
-        uint uVar8;
-        ulong uVar9;
-        int* piVar10;
-        undefined1* puVar11;
-        uint* puVar12;
-        undefined1* puVar13;
-        char* pcVar14;
-        float* pfVar15;
-        uint uVar16;
-        ulong uVar17;
-        Floor* pFVar18;
-        ulong uVar19;
-        ulong uVar20;
-        uint uVar21;
-        int iVar22;
-        bool bVar23;
-        int local_34;
+        unsigned int uVar5;
+        unsigned int* puVar9;
+        uint8_t* puVar10;
+        char* pcVar11;
+        float* pfVar12;
+        unsigned int uVar13;
+        unsigned long uVar14;
+        Floor* pFVar15;
+        unsigned long uVar16;
+        unsigned long arg1_01;
+        unsigned int uVar17;
+        bool bVar19;
+        unsigned long local_50;
 
-        uVar9 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(field_0);
-        piVar10 = (int*)std::array<int, 4ul>::operator[]((long)*(int*)(field_0 + 24) - 1);
-        iVar2 = *piVar10;
-        this_00 = &field_64;
-        puVar11 = (undefined1*)Array<bool, eastl::allocator>::operator[]((Array<bool, eastl::allocator>*)this_00, 1);
-        *puVar11 = 1;
-        iVar22 = 0;
-        puVar11 = (undefined1*)Array<bool, eastl::allocator>::operator[]((Array<bool, eastl::allocator>*)this_00, 0);
-        *puVar11 = 1;
-        puVar11 = &field_16;
-        this_01 = &field_40;
-        if (2 < uVar9) {
-            uVar19 = 2;
+        unsigned long uVar6 = field_0->end();
+        int* piVar7 = (int*)(*((array<int, 4ul>*)((long)field_0->field_24 - 1)))[(unsigned long)arg1];
+        int iVar18 = *piVar7;
+        uint8_t* this_00 = &field_64;
+        uint8_t* puVar8 = (uint8_t*)(*this_00)[1];
+        *puVar8 = 1;
+        local_50._0_4_ = 0;
+        puVar8 = (uint8_t*)(*this_00)[0];
+        *puVar8 = 1;
+        puVar8 = &field_16;
+        uint8_t* this_01 = &field_40;
+        if (2 < uVar6) {
+            uVar16 = 2;
             do {
-                iVar6 = LowNeighbour((Array*)puVar11, (int)uVar19);
-                iVar7 = HighNeighbour((Array*)puVar11, (int)uVar19);
-                uVar17 = (ulong)iVar6;
-                piVar10 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar11, uVar17);
-                iVar6 = *piVar10;
-                piVar10 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_01, uVar17);
-                iVar3 = *piVar10;
-                uVar20 = (ulong)iVar7;
-                piVar10 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar11, uVar20);
-                iVar7 = *piVar10;
-                piVar10 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_01, uVar20);
-                iVar4 = *piVar10;
-                pFVar18 = (Floor*)puVar11;
-                piVar10 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar11, uVar19);
-                uVar8 = RenderPoint(pFVar18, iVar6, iVar3, iVar7, iVar4, *piVar10);
-                puVar12 =
-                    (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_01, uVar19);
-                uVar5 = *puVar12;
-                if (uVar5 == 0) {
-                    puVar13 = (undefined1*)Array<bool, eastl::allocator>::operator[](
-                        (Array<bool, eastl::allocator>*)this_00, uVar19);
-                    *puVar13 = 0;
+                iVar3 = LowNeighbour((Array<int>*)puVar8, (int)uVar16);
+                iVar4 = HighNeighbour((Array<int>*)puVar8, (int)uVar16);
+                uVar14 = (unsigned long)iVar3;
+                piVar7 = (int*)(*puVar8)[uVar14];
+                iVar3 = *piVar7;
+                piVar7 = (int*)(*this_01)[uVar14];
+                arg2_00 = *piVar7;
+                arg1_01 = (unsigned long)iVar4;
+                piVar7 = (int*)(*puVar8)[arg1_01];
+                iVar4 = *piVar7;
+                piVar7 = (int*)(*this_01)[arg1_01];
+                arg4 = *piVar7;
+                pFVar15 = (Floor*)puVar8;
+                piVar7 = (int*)(*puVar8)[uVar16];
+                uVar5 = RenderPoint(pFVar15, iVar3, arg2_00, iVar4, arg4, *piVar7);
+                puVar9 = (unsigned int*)(*this_01)[uVar16];
+                uVar2 = *puVar9;
+                if (uVar2 == 0) {
+                    puVar10 = (uint8_t*)(*this_00)[uVar16];
+                    *puVar10 = 0;
                 } else {
-                    uVar21 = iVar2 - uVar8;
-                    uVar16 = uVar8;
-                    if ((int)uVar21 < (int)uVar8) {
-                        uVar16 = uVar21;
+                    uVar17 = iVar18 - uVar5;
+                    uVar13 = uVar5;
+                    if ((int)uVar17 < (int)uVar5) {
+                        uVar13 = uVar17;
                     }
-                    puVar13 = (undefined1*)Array<bool, eastl::allocator>::operator[](
-                        (Array<bool, eastl::allocator>*)this_00, uVar20);
-                    *puVar13 = 1;
-                    puVar13 = (undefined1*)Array<bool, eastl::allocator>::operator[](
-                        (Array<bool, eastl::allocator>*)this_00, uVar17);
-                    *puVar13 = 1;
-                    puVar13 = (undefined1*)Array<bool, eastl::allocator>::operator[](
-                        (Array<bool, eastl::allocator>*)this_00, uVar19);
-                    *puVar13 = 1;
-                    if ((int)uVar5 < (int)(uVar16 * 2)) {
-                        if ((uVar5 & 1) == 0) {
-                            iVar6 = (int)uVar5 / 2;
+                    puVar10 = (uint8_t*)(*this_00)[arg1_01];
+                    *puVar10 = 1;
+                    puVar10 = (uint8_t*)(*this_00)[uVar14];
+                    *puVar10 = 1;
+                    puVar10 = (uint8_t*)(*this_00)[uVar16];
+                    *puVar10 = 1;
+                    if ((int)uVar2 < (int)(uVar13 * 2)) {
+                        if ((uVar2 & 1) == 0) {
+                            iVar3 = (int)uVar2 / 2;
                         } else {
-                            iVar6 = -((int)((uVar5 - ((int)(uVar5 + 1) >> 31)) + 1) >> 1);
+                            iVar3 = -((int)((uVar2 - ((int)(uVar2 + 1) >> 31)) + 1) >> 1);
                         }
-                        uVar8 = iVar6 + uVar8;
+                        uVar5 = iVar3 + uVar5;
                     } else {
-                        bVar23 = (int)uVar8 < (int)uVar21;
-                        uVar8 = ~uVar5 + iVar2;
-                        if (bVar23) {
-                            uVar8 = uVar5;
+                        bVar19 = (int)uVar5 < (int)uVar17;
+                        uVar5 = ~uVar2 + iVar18;
+                        if (bVar19) {
+                            uVar5 = uVar2;
                         }
                     }
                 }
-                puVar12 =
-                    (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_01, uVar19);
-                *puVar12 = uVar8;
-                uVar19 = uVar19 + 1;
-            } while (uVar9 != uVar19);
+                puVar9 = (unsigned int*)(*this_01)[uVar16];
+                *puVar9 = uVar5;
+                uVar16 = uVar16 + 1;
+            } while (uVar6 != uVar16);
         }
-        QuickSort(this, 0, (int)uVar9 + -1);
-        piVar10 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_01, 0);
-        local_34 = *(int*)(field_0 + 24) * *piVar10;
-        bVar23 = 1 < uVar9;
-        if (bVar23) {
-            uVar19 = 1;
-            iVar22 = 0;
+        QuickSort(0, (int)uVar6 - 1);
+        uVar16 = 0;
+        piVar7 = (int*)(*this_01)[0];
+        int local_34 = field_0->field_24 * *piVar7;
+        bVar19 = 1 < uVar6;
+        if (bVar19) {
+            uVar14 = 1;
+            local_50 = 0;
             do {
-                pcVar14 =
-                    (char*)Array<bool, eastl::allocator>::operator[]((Array<bool, eastl::allocator>*)this_00, uVar19);
-                if (*pcVar14 != '\0') {
-                    piVar10 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)puVar11, uVar19);
-                    iVar2 = *piVar10;
-                    pFVar18 = (Floor*)this_01;
-                    piVar10 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_01, uVar19);
-                    iVar6 = *(int*)(field_0 + 24) * *piVar10;
-                    RenderLine(pFVar18, iVar22, local_34, iVar2, iVar6, param_1, param_2);
-                    if (param_2 <= iVar2)
+                uVar16 = uVar14;
+                pcVar11 = (char*)(*this_00)[uVar14];
+                if (*pcVar11 != '\0') {
+                    puVar9 = (unsigned int*)(*puVar8)[uVar14];
+                    uVar2 = *puVar9;
+                    pFVar15 = (Floor*)this_01;
+                    piVar7 = (int*)(*this_01)[uVar14];
+                    iVar18 = field_0->field_24 * *piVar7;
+                    uVar16 = local_50;
+                    RenderLine(pFVar15, (int)local_50, local_34, uVar2, iVar18, arg1, arg2);
+                    if (arg2 <= (int)uVar2)
                         break;
-                    local_34 = iVar6;
-                    iVar22 = iVar2;
+                    local_50 = (unsigned long)uVar2;
+                    local_34 = iVar18;
                 }
-                uVar19 = uVar19 + 1;
-                bVar23 = uVar19 < uVar9;
-            } while (uVar9 != uVar19);
+                uVar14 = uVar14 + 1;
+                bVar19 = uVar14 < uVar6;
+            } while (uVar6 != uVar14);
         }
-        if ((!bVar23) && (pfVar15 = (float*)std::array<float, 256ul>::operator[]((long)local_34), iVar22 < param_2)) {
-            fVar1 = *pfVar15;
-            uVar9 = (ulong)iVar22;
-            iVar22 = param_2 - iVar22;
+        if ((!bVar19) && (pfVar12 = (float*)(*((array<float, 256ul>*)(long)local_34))[uVar16], (int)local_50 < arg2)) {
+            fVar1 = *pfVar12;
+            uVar6 = (unsigned long)(int)local_50;
+            local_50._0_4_ = arg2 - (int)local_50;
             do {
-                pfVar15 =
-                    (float*)Array<float, eastl::allocator>::operator[]((Array<float, eastl::allocator>*)param_1, uVar9);
-                *pfVar15 = *pfVar15 * fVar1;
-                uVar9 = uVar9 + 1;
-                iVar22 = iVar22 + -1;
-            } while (iVar22 != 0);
+                pfVar12 = &arg1[uVar6];
+                *pfVar12 = *pfVar12 * fVar1;
+                uVar6 = uVar6 + 1;
+                local_50._0_4_ = (int)local_50 - 1;
+            } while ((int)local_50 != 0);
         }
     }
 
-    // 0x100297f10, 16 bytes, placed by class name
-    // Floor::FloorDecoder::HasResidue() const
-    undefined1 Floor::FloorDecoder::HasResidue() {
+    // 0x100297f10
+    bool Floor::FloorDecoder::HasResidue() const {
         return m_hasResidue;
     }
 

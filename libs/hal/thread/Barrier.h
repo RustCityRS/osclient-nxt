@@ -1,6 +1,5 @@
 // libs/hal/thread/Barrier.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,129 +9,99 @@ namespace jag {
     class BarrierWithCompletion {
     public:
         void ArriveAndDrop();
-        bool WaitInner(std::unique_lock<std::mutex>&);
+        bool WaitInner(std::unique_lock<std::mutex>& unique_lock);
         void Wait();
-        BarrierWithCompletion(unsigned long, oldscape::dash3d::NXTRenderer::FrameBarrierCallback);
+        BarrierWithCompletion(unsigned long arg1,
+                              oldscape::dash3d::NXTRenderer::FrameBarrierCallback frameBarrierCallback);
         ~BarrierWithCompletion();
         void ForceOpen();
-        BarrierWithCompletion(unsigned long, DefaultBarrierCompletionFunction);
+        BarrierWithCompletion(unsigned long arg1, DefaultBarrierCompletionFunction defaultBarrierCompletionFunction);
     };
 
-    // 0x1003722e0, 112 bytes, inline, placed by debug map only (low confidence)
-    // BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::ArriveAndDrop()
+    // 0x1003722e0
     void BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::ArriveAndDrop() {
-        unique_lock<std::mutex> local_20[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)this);
-        if (1 < *(ulong*)(this + 112)) {
-            *(ulong*)(this + 112) = *(ulong*)(this + 112) - 1;
+        unique_lock<std::mutex> local_20(*this);
+        if (1 < *(unsigned long*)(this + 112)) {
+            *(unsigned long*)(this + 112) = *(unsigned long*)(this + 112) - 1;
         }
-        if (WaitInner(this, (unique_lock*)local_20) == '\0') {
-            *(long*)(this + 120) = *(long*)(this + 120) + -1;
+        if (WaitInner(this, &local_20) == '\0') {
+            *(long*)(this + 120) = *(long*)(this + 120) - 1;
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
     }
 
-    // 0x100372360, 96 bytes, inline, placed by debug map only (low confidence)
-    // BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::WaitInner(std::unique_lock<std::mutex>&)
-    /* BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::WaitInner(std::unique_lock<std::mutex>&)
-    */
-
-    bool BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::WaitInner(unique_lock* param_1) {
-        long lVar1;
-
-        lVar1 = *(long*)(this + 120);
+    // 0x100372360
+    bool BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::WaitInner(
+        std::unique_lock<std::mutex>& unique_lock) {
+        long lVar1 = *(long*)(this + 120);
         if (lVar1 == 1) {
             *(long*)(this + 128) = *(long*)(this + 128) + 1;
-            *(undefined8*)(this + 120) = *(undefined8*)(this + 112);
+            *(uint64_t*)(this + 120) = *(uint64_t*)(this + 112);
             oldscape::dash3d::NXTRenderer::FrameBarrierCallback::operator()((FrameBarrierCallback*)(this + 136));
-            param_1->unlock();
+            unique_lock.unlock();
             std::condition_variable::notify_all();
         }
         return lVar1 == 1;
     }
 
-    // 0x100372420, 128 bytes, inline, placed by debug map only (low confidence)
-    // BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::Wait()
+    // 0x100372420
     void BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::Wait() {
-        unique_lock<std::mutex> local_30[16];
-        undefined8 local_20;
+        uint64_t local_20;
 
-        std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)this);
-        if (WaitInner(this, (unique_lock*)local_30) == '\0') {
-            *(long*)(this + 120) = *(long*)(this + 120) + -1;
-            local_20 = *(undefined8*)(this + 128);
-            std::condition_variable::wait<
-                BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::Wait()::_lambda() _1_>(
-                this + 64, local_30, &local_20, this);
+        unique_lock<std::mutex> local_30(*this);
+        if (WaitInner(this, &local_30) == '\0') {
+            *(long*)(this + 120) = *(long*)(this + 120) - 1;
+            local_20 = *(uint64_t*)(this + 128);
+            ((this + 64))
+                ->wait<BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::Wait()::_lambda()
+                           _1_>(&local_30, &local_20);
         }
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
     }
 
-    // 0x100372500, 32 bytes, inline, placed by debug map only (low confidence)
-    // BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::Wait()::{lambda()#1}::operator()() const
-    /* BarrierWithCompletion<DefaultBarrierCompletionFunction>::Wait()::{lambda()#1}::TEMPNAMEPLACEHOLDERVALUE()
-   const */
-
-    undefined8 BarrierWithCompletion<DefaultBarrierCompletionFunction>::Wait()::{
+    // 0x100372500
+    uint64_t BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::Wait()::{
         lambda() #1
     }
-    ::operator()() {
-        return CONCAT71((int7)((ulong) * *(long**)this >> 8), **(long**)this != *(long*)(*(long*)(this + 8) + 128));
+    ::operator()() const {
+        return **(long**)this != *(long*)(*(long*)(this + 8) + 128);
     }
 
-    // 0x100372570, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::BarrierWithCompletion(unsigned long, oldscape::dash3d::NXTRenderer::FrameBarrierCallback): jumps straight to the base-object constructor
+    // 0x100372580
+    BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::BarrierWithCompletion(
+        unsigned long arg1, oldscape::dash3d::NXTRenderer::FrameBarrierCallback frameBarrierCallback)
+        : std::mutex() {
+        uint64_t in_RDX;
 
-    // 0x100372580, 96 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::BarrierWithCompletion(unsigned long, oldscape::dash3d::NXTRenderer::FrameBarrierCallback)
-    void BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::BarrierWithCompletion(
-        ulong param_1, FrameBarrierCallback param_2) {
-        new (this) std::mutex();
         new ((this + 64)) std::condition_variable();
-        *(ulong*)(this + 112) = param_1;
-        *(ulong*)(this + 120) = param_1;
-        *(undefined8*)(this + 128) = 0;
-        *(NXTRenderer**)(this + 136) = param_2.field_0;
-        *(undefined8*)(this + 144) = 0;
+        *(unsigned long*)(this + 112) = arg1;
+        *(unsigned long*)(this + 120) = arg1;
+        *(uint64_t*)(this + 128) = 0;
+        *(uint64_t*)(this + 136) = in_RDX;
+        *(uint64_t*)(this + 144) = 0;
     }
 
-    // 0x1003726e0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::~BarrierWithCompletion(): jumps straight to the base-object destructor
-
-    // 0x1003726f0, 80 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::~BarrierWithCompletion()
-    void BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::~BarrierWithCompletion() {
+    // 0x1003726f0
+    BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::~BarrierWithCompletion() {
         ForceOpen();
         ((this + 64))->~condition_variable();
-        ~mutex();
     }
 
-    // 0x100372740, 80 bytes, inline, placed by debug map only (low confidence)
-    // BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::ForceOpen()
-    /* BarrierWithCompletion<DefaultBarrierCompletionFunction>::ForceOpen() */
+    // 0x100372740
+    void BarrierWithCompletion<oldscape::dash3d::NXTRenderer::FrameBarrierCallback>::ForceOpen() {
 
-    void BarrierWithCompletion<DefaultBarrierCompletionFunction>::ForceOpen() {
-        scoped_lock<std::mutex> local_20[8];
-
-        std::scoped_lock<std::mutex>::scoped_lock(local_20, (mutex*)this);
+        scoped_lock<std::mutex> local_20(*this);
         *(long*)(this + 128) = *(long*)(this + 128) + 1;
-        std::scoped_lock<std::mutex>::~scoped_lock(local_20);
         std::condition_variable::notify_all();
     }
 
 } // namespace jag
 
 namespace jag::oldscape::dash3d {
-    // 0x100372800, 176 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // OperationRecordEntry::OperationRecordEntry(shared_ptr<Operation> const&, ResolvedModel const&, ResolvedModel const&)
-    void OperationRecordEntry::OperationRecordEntry(shared_ptr* param_1, ResolvedModel* param_2,
-                                                    ResolvedModel* param_3) {
-        new (this) shared_ptr<Decor>(param_1);
-        new (m_inputModel, param_2) ResolvedModel();
-        new (m_outputModel, param_3) ResolvedModel();
-        if (!operator_cast_to_bool()) {
-            /* WARNING: Subroutine does not return */
+    // 0x100372800
+    OperationRecordEntry::OperationRecordEntry(const shared_ptr<Operation>& operation,
+                                               const ResolvedModel& resolvedModel1, const ResolvedModel& resolvedModel2)
+        : shared_ptr(operation), m_inputModel(resolvedModel1), m_outputModel(resolvedModel2) {
+        if (operator_cast_to_bool() == '\0') {
             LogAssert("m_operation",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/"
                       "Operation.h",
@@ -140,62 +109,56 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x1003728b0, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // OperationRecordEntry::~OperationRecordEntry()
-    void OperationRecordEntry::~OperationRecordEntry() {
+    // 0x1003728b0
+    OperationRecordEntry::~OperationRecordEntry() {
         m_outputModel->~ResolvedModel();
         m_inputModel->~ResolvedModel();
-        ~shared_ptr();
     }
 
-    // 0x1003728e0, 128 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ResolvedModel::ResolvedModel(shared_ptr<jag::graphics::Model> const&, shared_ptr<jag::graphics::Model> const&, shared_ptr<PoseStateRSeven> const&, jag::math::Matrix44T<float>)
-    void ResolvedModel::ResolvedModel(shared_ptr* param_1, shared_ptr* param_2, shared_ptr* param_3,
-                                      Matrix44T param_4) {
-        undefined8 in_stack_00000040;
+    // 0x1003728e0
+    ResolvedModel::ResolvedModel(const shared_ptr<jag::graphics::Model>& model1,
+                                 const shared_ptr<jag::graphics::Model>& model2,
+                                 const shared_ptr<PoseStateRSeven>& poseStateRSeven,
+                                 jag::math::Matrix44T<float> matrix44)
+        : field_16(model1), m_animationState(model2) {
+        uint64_t in_stack_00000008;
+        uint64_t in_stack_00000010;
+        uint64_t in_stack_00000018;
+        uint64_t in_stack_00000020;
+        uint64_t in_stack_00000028;
+        uint64_t in_stack_00000030;
+        uint64_t in_stack_00000038;
+        uint64_t in_stack_00000040;
 
-        new (this) shared_ptr<Decor>(param_1);
-        new (&field_16, param_2) shared_ptr<Decor>();
-        new (&m_animationState, param_3) shared_ptr<Decor>();
-        field_96 = param_4._48_8_;
-        field_104 = in_stack_00000040;
-        field_80 = param_4._32_8_;
-        field_88 = param_4._40_8_;
-        field_64 = param_4._16_8_;
-        field_72 = param_4._24_8_;
-        field_48 = param_4._0_8_;
-        field_56 = param_4._8_8_;
+        *(uint64_t*)field_96 = in_stack_00000038;
+        *(uint64_t*)field_104 = in_stack_00000040;
+        *(uint64_t*)field_80 = in_stack_00000028;
+        *(uint64_t*)field_88 = in_stack_00000030;
+        *(uint64_t*)field_64 = in_stack_00000018;
+        *(uint64_t*)field_72 = in_stack_00000020;
+        *(uint64_t*)field_48 = in_stack_00000008;
+        *(uint64_t*)field_56 = in_stack_00000010;
     }
 
-    // 0x100372960, 144 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ResolvedModel::ResolvedModel(ResolvedModel const&)
-    void ResolvedModel::ResolvedModel(ResolvedModel* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-
-        new (this) shared_ptr<Decor>(param_1);
-        new (&field_16, (shared_ptr*)&param_1->field_16) shared_ptr<Decor>();
-        new (&m_animationState, (shared_ptr*)&param_1->m_animationState) shared_ptr<Decor>();
-        uVar1 = param_1->field_48;
-        uVar2 = param_1->field_56;
-        uVar3 = param_1->field_64;
-        uVar4 = param_1->field_72;
-        uVar5 = param_1->field_80;
-        uVar6 = param_1->field_88;
-        uVar7 = param_1->field_104;
-        field_96 = param_1->field_96;
-        field_104 = uVar7;
-        field_80 = uVar5;
-        field_88 = uVar6;
-        field_64 = uVar3;
-        field_72 = uVar4;
-        field_48 = uVar1;
-        field_56 = uVar2;
+    // 0x100372960
+    ResolvedModel::ResolvedModel(const ResolvedModel& resolvedModel)
+        : shared_ptr(resolvedModel), field_16(resolvedModel.field_16),
+          m_animationState(resolvedModel.m_animationState) {
+        uint64_t uVar1 = *(uint64_t*)resolvedModel.field_48;
+        uint64_t uVar2 = *(uint64_t*)resolvedModel.field_56;
+        uint64_t uVar3 = *(uint64_t*)resolvedModel.field_64;
+        uint64_t uVar4 = *(uint64_t*)resolvedModel.field_72;
+        uint64_t uVar5 = *(uint64_t*)resolvedModel.field_80;
+        uint64_t uVar6 = *(uint64_t*)resolvedModel.field_88;
+        uint64_t uVar7 = *(uint64_t*)resolvedModel.field_104;
+        *(uint64_t*)field_96 = *(uint64_t*)resolvedModel.field_96;
+        *(uint64_t*)field_104 = uVar7;
+        *(uint64_t*)field_80 = uVar5;
+        *(uint64_t*)field_88 = uVar6;
+        *(uint64_t*)field_64 = uVar3;
+        *(uint64_t*)field_72 = uVar4;
+        *(uint64_t*)field_48 = uVar1;
+        *(uint64_t*)field_56 = uVar2;
     }
 
 } // namespace jag::oldscape::dash3d

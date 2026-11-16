@@ -1,100 +1,80 @@
 // libs/oldscape/jagex3/dash3d/Decor.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x100333a50, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::dash3d::Decor>::ref_counter_shared(unsigned long, oldscape::dash3d::Decor*): jumps straight to the base-object constructor
+    // 0x100333a60
+    ref_counter_shared<oldscape::dash3d::Decor>::ref_counter_shared(unsigned long arg1, oldscape::dash3d::Decor* decor)
+        : ref_counter_base() {}
 
-    // 0x100333a60, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::dash3d::Decor>::ref_counter_shared(unsigned long, oldscape::dash3d::Decor*)
-    void ref_counter_shared<oldscape::dash3d::Decor>::ref_counter_shared(ulong param_1, Decor* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee77c8 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(Decor**)(this + 24) = param_2;
-    }
-
-    // 0x100333aa0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::dash3d::Decor>::DeleteData()
+    // 0x100333aa0
     void ref_counter_shared<oldscape::dash3d::Decor>::DeleteData() {
-        ulong uVar1;
+        ref_counter_shared<oldscape::dash3d::Decor> _vtbl* prVar1;
         long lVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar2 = 0;
-                uVar1 = 0;
+                prVar1 = nullptr;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~Decor();
-                    uVar1 = uVar1 + 1;
+                    ((Decor*)((long)&(this[3]._vptr)->_dtor + lVar2))->~Decor();
+                    prVar1 = (ref_counter_shared<oldscape::dash3d::Decor> _vtbl*)((long)&prVar1->_dtor + 1);
                     lVar2 = lVar2 + 88;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (prVar1 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x100333bb0, 64 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::dash3d::Sprite* placement_new<oldscape::dash3d::Sprite>(void*)
-    Sprite* placement_new<oldscape::dash3d::Sprite>(void* param_1) {
-        *(undefined8*)((long)param_1 + 80) = 0;
-        *(undefined8*)((long)param_1 + 88) = 0;
-        *(undefined8*)((long)param_1 + 64) = 0;
-        *(undefined8*)((long)param_1 + 72) = 0;
-        *(undefined8*)((long)param_1 + 48) = 0;
-        *(undefined8*)((long)param_1 + 56) = 0;
-        *(undefined8*)((long)param_1 + 32) = 0;
-        *(undefined8*)((long)param_1 + 40) = 0;
-        *(undefined8*)((long)param_1 + 16) = 0;
-        *(undefined8*)((long)param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)((long)param_1 + 8) = 0;
-        *(undefined8*)((long)param_1 + 96) = 0;
-        oldscape::dash3d::Sprite::Sprite(param_1);
-        return param_1;
+    // 0x100333bb0
+    oldscape::dash3d::Sprite* placement_new<oldscape::dash3d::Sprite>(void* arg1) {
+        *(uint64_t*)((long)arg1 + 80) = 0;
+        *(uint64_t*)((long)arg1 + 88) = 0;
+        *(uint64_t*)((long)arg1 + 64) = 0;
+        *(uint64_t*)((long)arg1 + 72) = 0;
+        *(uint64_t*)((long)arg1 + 48) = 0;
+        *(uint64_t*)((long)arg1 + 56) = 0;
+        *(uint64_t*)((long)arg1 + 32) = 0;
+        *(uint64_t*)((long)arg1 + 40) = 0;
+        *(uint64_t*)((long)arg1 + 16) = 0;
+        *(uint64_t*)((long)arg1 + 24) = 0;
+        *(uint64_t*)arg1 = 0;
+        *(uint64_t*)((long)arg1 + 8) = 0;
+        *(uint64_t*)((long)arg1 + 96) = 0;
+        new (arg1) oldscape::dash3d::Sprite();
+        return arg1;
     }
 
-    // 0x100333bf0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::dash3d::Sprite>* placement_new<ref_counter_shared<oldscape::dash3d::Sprite>, int, oldscape::dash3d::Sprite*&>(void*, int&&, oldscape::dash3d::Sprite*&)
-    ref_counter_shared*
-    jag::placement_new<ref_counter_shared<oldscape::dash3d::Sprite>, int, oldscape::dash3d::Sprite*&>(
-        void* param_1, int* param_2, Sprite** param_3) {
-        ref_counter_shared<oldscape::dash3d::Sprite>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100333bf0
+    ref_counter_shared<oldscape::dash3d::Sprite>*
+    placement_new<ref_counter_shared<oldscape::dash3d::Sprite>, int, oldscape::dash3d::Sprite*&>(
+        void* arg1, int&& arg2, oldscape::dash3d::Sprite*& arg3) {
+        new (arg1) ref_counter_shared<oldscape::dash3d::Sprite>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100333c60, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::dash3d::Sprite>::ref_counter_shared(unsigned long, oldscape::dash3d::Sprite*): jumps straight to the base-object constructor
+    // 0x100333c70
+    ref_counter_shared<oldscape::dash3d::Sprite>::ref_counter_shared(unsigned long arg1,
+                                                                     oldscape::dash3d::Sprite* sprite)
+        : ref_counter_base() {}
 
-    // 0x100333c70, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::dash3d::Sprite>::ref_counter_shared(unsigned long, oldscape::dash3d::Sprite*)
-    void ref_counter_shared<oldscape::dash3d::Sprite>::ref_counter_shared(ulong param_1, Sprite* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee77d8 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(Sprite**)(this + 24) = param_2;
-    }
-
-    // 0x100333cb0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::dash3d::Sprite>::DeleteData()
+    // 0x100333cb0
     void ref_counter_shared<oldscape::dash3d::Sprite>::DeleteData() {
-        ulong uVar1;
+        ref_counter_shared<oldscape::dash3d::Sprite> _vtbl* prVar1;
         long lVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar2 = 0;
-                uVar1 = 0;
+                prVar1 = nullptr;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~Sprite();
-                    uVar1 = uVar1 + 1;
+                    ((Sprite*)((long)&(this[3]._vptr)->_dtor + lVar2))->~Sprite();
+                    prVar1 = (ref_counter_shared<oldscape::dash3d::Sprite> _vtbl*)((long)&prVar1->_dtor + 1);
                     lVar2 = lVar2 + 104;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (prVar1 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
@@ -106,44 +86,31 @@ namespace jag::oldscape::dash3d {
         Decor();
         ~Decor();
 
-        // data members, from how the methods use this: 92 bytes
-        undefined8 field_0; // offset 0
-        char _unknown_8[4];
-        undefined8 field_12; // offset 12
-        undefined8 field_20; // offset 20
-        char _unknown_28[36];
-        undefined8 field_64;      // offset 64
-        undefined4 field_72;      // offset 72
-        EntityHighlight field_76; // offset 76
+    private:
+        uint64_t field_0;
+        uint8_t _unknown_8[4];
+        uint64_t field_12;
+        uint64_t field_20;
+        uint8_t _unknown_28[36];
+        uint64_t field_64;
+        uint32_t field_72;
+        EntityHighlight field_76;
     };
 
-    // 0x1003339e0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // Decor::Decor(): jumps straight to the base-object constructor
-
-    // 0x1003339f0, 96 bytes, base-object constructor, inline, placed by class name and debug map
-    // Decor::Decor()
-    void Decor::Decor() {
-        _func_decltype_nullptr* in_RSI;
-
-        field_12 = 0;
-        field_20 = 0;
-        field_0 = 0;
-        *(undefined8*)&field_8 = 0;
-        new (&field_32, in_RSI) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_48, in_RSI) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x1003339f0
+    Decor::Decor() : field_12(0), field_20(0), field_0(0) {
+        *(uint64_t*)&field_8 = 0;
+        new (&field_32) shared_ptr();
+        new (&field_48) shared_ptr();
         field_64 = 0;
         field_72 = 0;
         new (field_76) EntityHighlight();
     }
 
-    // 0x100333af0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // Decor::~Decor(): jumps straight to the base-object destructor
-
-    // 0x100333b00, 48 bytes, base-object destructor, inline, placed by class name and debug map
-    // Decor::~Decor()
-    void Decor::~Decor() {
-        (&field_48)->~shared_ptr();
-        (&field_32)->~shared_ptr();
+    // 0x100333b00
+    Decor::~Decor() {
+        field_48.~shared_ptr();
+        field_32.~shared_ptr();
     }
 
 } // namespace jag::oldscape::dash3d

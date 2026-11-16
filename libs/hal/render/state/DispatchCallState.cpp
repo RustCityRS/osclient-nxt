@@ -1,148 +1,109 @@
 // libs/hal/render/state/DispatchCallState.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "DispatchCallState.h"
 
 namespace jag::render {
-    // 0x10000b5b0: the linker folded this into fixedfunction::function<void (BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::allocated() const, which has identical code
-    DispatchCallState::HasComputePipelineState() const;
+    // 0x10000b5b0: DispatchCallState::HasComputePipelineState() const has the same machine code as fixedfunction::function<void (BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::allocated() const
 
-    // 0x100bf41e0, 112 bytes, base-object constructor, placed by class name
-    // DispatchCallState::DispatchCallState(DispatchCallState const&)
-    void DispatchCallState::DispatchCallState(DispatchCallState* param_1) {
-        VectorFastPool* this_00;
+    // 0x100bf41e0
+    DispatchCallState::DispatchCallState(const DispatchCallState& dispatchCallState)
+        : m_pComputePipelineState(nullptr) {
+        VectorFastPool<ComputePipelineState>* this_00;
         ComputePipelineState* pCVar2;
 
-        m_pComputePipelineState = (ComputePipelineState*)0;
-        new (&field_8) math::Vector3T<int>();
-        Clear(this);
-        if (OwnsComputePipelineState(param_1) == '\0') {
-            pCVar2 = param_1->m_pComputePipelineState;
+        Clear();
+        if (OwnsComputePipelineState(dispatchCallState) == '\0') {
+            pCVar2 = dispatchCallState.m_pComputePipelineState;
         } else {
             this_00 = GetStateObjectPool<ComputePipelineState>();
-            pCVar2 = (ComputePipelineState*)GetComputePipelineState(param_1);
-            pCVar2 = VectorFastPool<ComputePipelineState>::Create<ComputePipelineState&>(
-                (VectorFastPool<ComputePipelineState>*)this_00, pCVar2);
+            pCVar2 = GetComputePipelineState(dispatchCallState);
+            pCVar2 = this_00->Create<ComputePipelineState&>(*pCVar2);
         }
         m_pComputePipelineState = pCVar2;
     }
 
-    // 0x100bf4250, 48 bytes, placed by class name
-    // DispatchCallState::Clear()
+    // 0x100bf4250
     void DispatchCallState::Clear() {
-        VectorFastPool* this_00;
-
-        if (OwnsComputePipelineState(this) != '\0') {
-            this_00 = GetStateObjectPool<ComputePipelineState>();
-            this_00->Destroy(m_pComputePipelineState);
-            m_pComputePipelineState = (ComputePipelineState*)0;
+        if (OwnsComputePipelineState() != '\0') {
+            GetStateObjectPool<ComputePipelineState>()->Destroy(m_pComputePipelineState);
+            m_pComputePipelineState = nullptr;
         }
     }
 
-    // 0x100bf4280, 96 bytes, placed by class name
-    // DispatchCallState::OwnsComputePipelineState() const
-    undefined4 DispatchCallState::OwnsComputePipelineState() {
-        char cVar1;
-        undefined4 uVar2;
-        VectorFastPool* this_00;
+    // 0x100bf4280
+    uint32_t DispatchCallState::OwnsComputePipelineState() const {
+        bool cVar1;
+        uint32_t uVar2;
 
-        if (m_pComputePipelineState == (ComputePipelineState*)0) {
+        if (m_pComputePipelineState == nullptr) {
             uVar2 = 0;
         } else {
-            this_00 = GetStateObjectPool<ComputePipelineState>();
-            uVar2 = this_00->is_owner(m_pComputePipelineState);
-            if (((char)uVar2 != '\0') && (cVar1 = this_thread::IsMainThread(), cVar1 == '\0')) {
-                /* WARNING: Subroutine does not return */
+            uVar2 = GetStateObjectPool<ComputePipelineState>()->is_owner(m_pComputePipelineState);
+            if (((char)uVar2 != '\0') && (cVar1 = this_thread::IsMainThread(), !cVar1)) {
                 LogAssert("!result || this_thread::IsMainThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                           "DispatchCallState.cpp",
-                          72, (char*)0);
+                          72, nullptr);
             }
         }
         return uVar2;
     }
 
-    // 0x100bf4460, 48 bytes, placed by class name
-    // DispatchCallState::GetComputePipelineState() const
-    ComputePipelineState* DispatchCallState::GetComputePipelineState() {
-        VectorFastPool* this_00;
-        ComputePipelineState* pCVar1;
-
-        if (m_pComputePipelineState == (ComputePipelineState*)0) {
-            this_00 = GetStateObjectPool<ComputePipelineState>();
-            pCVar1 = VectorFastPool<ComputePipelineState>::Create<>((VectorFastPool<ComputePipelineState>*)this_00);
-            m_pComputePipelineState = pCVar1;
+    // 0x100bf4460
+    ComputePipelineState* DispatchCallState::GetComputePipelineState() const {
+        if (m_pComputePipelineState == nullptr) {
+            m_pComputePipelineState = GetStateObjectPool<ComputePipelineState>()->Create<>();
         }
         return m_pComputePipelineState;
     }
 
-    // 0x100bf4490, 16 bytes, complete-object constructor, placed by class name
-    // DispatchCallState::DispatchCallState(DispatchCallState const&): jumps straight to the base-object constructor
-
-    // 0x100bf44a0, 16 bytes, base-object destructor, placed by class name
-    // DispatchCallState::~DispatchCallState()
-    void DispatchCallState::~DispatchCallState() {
-        Clear(this);
+    // 0x100bf44a0
+    DispatchCallState::~DispatchCallState() {
+        Clear();
     }
 
-    // 0x100bf44b0, 16 bytes, complete-object destructor, placed by class name
-    // DispatchCallState::~DispatchCallState(): jumps straight to the base-object destructor
-
-    // 0x100bf4540, 96 bytes, placed by class name
-    // DispatchCallState::GetComputePipelineState()
+    // 0x100bf4540
     ComputePipelineState* DispatchCallState::GetComputePipelineState() {
-        VectorFastPool* this_00;
         ComputePipelineState* pCVar1;
 
-        if (m_pComputePipelineState == (ComputePipelineState*)0) {
-            this_00 = GetStateObjectPool<ComputePipelineState>();
-            pCVar1 = VectorFastPool<ComputePipelineState>::Create<>((VectorFastPool<ComputePipelineState>*)this_00);
+        if (m_pComputePipelineState == nullptr) {
+            pCVar1 = GetStateObjectPool<ComputePipelineState>()->Create<>();
             m_pComputePipelineState = pCVar1;
             pCVar1 = m_pComputePipelineState;
         } else {
             pCVar1 = m_pComputePipelineState;
         }
-        if (pCVar1 == (ComputePipelineState*)0) {
-            /* WARNING: Subroutine does not return */
+        if (pCVar1 == nullptr) {
             LogAssert("m_pComputePipelineState",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/state/"
                       "DispatchCallState.cpp",
-                      46, (char*)0);
+                      46, nullptr);
         }
         return m_pComputePipelineState;
     }
 
-    // 0x100bf4660, 48 bytes, placed by class name
-    // DispatchCallState::SetComputePipelineState(ComputePipelineState*)
-    void DispatchCallState::SetComputePipelineState(ComputePipelineState* param_1) {
-        VectorFastPool* this_00;
-
-        if (OwnsComputePipelineState(this) != '\0') {
-            this_00 = GetStateObjectPool<ComputePipelineState>();
-            this_00->Destroy(m_pComputePipelineState);
+    // 0x100bf4660
+    void DispatchCallState::SetComputePipelineState(ComputePipelineState* computePipelineState) {
+        if (OwnsComputePipelineState() != '\0') {
+            GetStateObjectPool<ComputePipelineState>()->Destroy(m_pComputePipelineState);
         }
-        m_pComputePipelineState = param_1;
+        m_pComputePipelineState = computePipelineState;
     }
 
-    // 0x100bf4700, 96 bytes, placed by class name
-    // DispatchCallState::operator=(DispatchCallState const&)
-    /* DispatchCallState::TEMPNAMEPLACEHOLDERVALUE(DispatchCallState const&)
-    */
-
-    DispatchCallState* DispatchCallState::operator=(DispatchCallState* param_1) {
-        VectorFastPool* this_00;
+    // 0x100bf4700
+    DispatchCallState* DispatchCallState::operator=(const DispatchCallState& dispatchCallState) {
+        VectorFastPool<ComputePipelineState>* this_00;
         ComputePipelineState* pCVar2;
 
-        Clear(this);
-        if (OwnsComputePipelineState(param_1) == '\0') {
-            pCVar2 = param_1->m_pComputePipelineState;
+        Clear();
+        if (OwnsComputePipelineState(dispatchCallState) == '\0') {
+            pCVar2 = dispatchCallState.m_pComputePipelineState;
         } else {
             this_00 = GetStateObjectPool<ComputePipelineState>();
-            pCVar2 = (ComputePipelineState*)GetComputePipelineState(param_1);
-            pCVar2 = VectorFastPool<ComputePipelineState>::Create<ComputePipelineState&>(
-                (VectorFastPool<ComputePipelineState>*)this_00, pCVar2);
+            pCVar2 = GetComputePipelineState(dispatchCallState);
+            pCVar2 = this_00->Create<ComputePipelineState&>(*pCVar2);
         }
         m_pComputePipelineState = pCVar2;
         return this;

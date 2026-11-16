@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/dash3d/Pix3D.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,30 +8,30 @@ namespace jag::oldscape::dash3d {
     public:
         // virtual methods in vtable order
         virtual ~Pix3D();
-        virtual void SetRenderZoom(int, int);
-        virtual void SetRenderClipping(int, int, int, int);
+        virtual void SetRenderZoom(int arg1, int arg2);
+        virtual void SetRenderClipping(int arg1, int arg2, int arg3, int arg4);
         virtual void ResetOrigin();
-        virtual void SetOrigin(int, int);
-        virtual void CalculateRenderDepth(int);
+        virtual void SetOrigin(int arg1, int arg2);
+        virtual void CalculateRenderDepth(int arg1);
         Pix3D();
-        GetColourTable();
-        GetCosTable();
-        GetSinTable();
-        int RotateXAroundY(int, int, int, int);
-        int RotateZAroundY(int, int, int, int);
+        array<int, _65536ul>* GetColourTable();
+        array<int, _2048ul>* GetCosTable();
+        array<int, _2048ul>* GetSinTable();
+        int RotateXAroundY(int arg1, int arg2, int arg3, int arg4);
+        int RotateZAroundY(int arg1, int arg2, int arg3, int arg4);
         int GetRenderDepth() const;
-        int InvRotateYAroundX(int, int, int, int);
-        int InvRotateZAroundX(int, int, int, int);
-        int InvRotateXAroundY(int, int, int, int);
-        int InvRotateZAroundY(int, int, int, int);
-        GetDivTable2();
-        int TextureLightColour(int, int);
-        void InitColourTable(double);
-        GetDivTable();
+        int InvRotateYAroundX(int arg1, int arg2, int arg3, int arg4);
+        int InvRotateZAroundX(int arg1, int arg2, int arg3, int arg4);
+        int InvRotateXAroundY(int arg1, int arg2, int arg3, int arg4);
+        int InvRotateZAroundY(int arg1, int arg2, int arg3, int arg4);
+        void GetDivTable2();
+        int TextureLightColour(int arg1, int arg2);
+        void InitColourTable(double arg1);
+        void GetDivTable();
         void InitTables();
-        void InitColourTable(double, int, int);
-        void SetTextures(shared_ptr<TextureProvider>);
-        void SetZoom(int);
+        void InitColourTable(double arg1, int arg2, int arg3);
+        void SetTextures(shared_ptr<TextureProvider> textureProvider);
+        void SetZoom(int arg1);
         int GetZoom();
         int GetXOrigin();
         int GetYOrigin();
@@ -40,60 +39,55 @@ namespace jag::oldscape::dash3d {
         int GetBoundLeft();
         int GetBoundRight();
         int GetBoundTop();
-        uint GetBoundBottom();
-        void SetTrans(int);
+        unsigned int GetBoundBottom();
+        void SetTrans(int arg1);
         int GetTrans();
-        void SetHClip(bool);
-        void SetLowDetail(bool);
-        void SetClipping(int, int, int, int);
+        void SetHClip(bool arg1);
+        void SetLowDetail(bool arg1);
+        void SetClipping(int arg1, int arg2, int arg3, int arg4);
         void SetRenderClipping();
-        void SetHClip(int, int, int);
+        void SetHClip(int arg1, int arg2, int arg3);
         int GetWidth();
         int GetHeight();
-        void SetRenderDepth(int);
-        int RotateYAroundX(int, int, int, int);
-        int RotateZAroundX(int, int, int, int);
-        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_textureProvider;
-        static /* 2048 bytes */ m_divTable;
-        static /* 8192 bytes */ m_divTable2;
-        static /* 8192 bytes */ m_sinTable;
-        static /* 8192 bytes */ m_cosTable;
-        static /* 262144 bytes */ m_colourTable;
+        void SetRenderDepth(int arg1);
+        int RotateYAroundX(int arg1, int arg2, int arg3, int arg4);
+        int RotateZAroundX(int arg1, int arg2, int arg3, int arg4);
+        static shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>
+            m_textureProvider; // = shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>()
+        static uint8_t m_divTable[2048];
+        static std::array<int, 2048ul> m_divTable2;
+        static std::array<int, 2048ul> m_sinTable;
+        static std::array<int, 2048ul> m_cosTable;
+        static std::array<int, _65536ul> m_colourTable;
 
-        // data members, from how the methods use this: 120 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        bool m_hClip;        // offset 8
-        char _unknown_9[2];
-        bool m_lowDetail;   // offset 11
-        int m_trans;        // offset 12
-        int m_zoom;         // offset 16
-        int m_xOrigin;      // offset 20
-        int m_yOrigin;      // offset 24
-        int m_xClip3;       // offset 28
-        uint field_32;      // offset 32
-        int m_boundLeft;    // offset 36
-        int m_boundRight;   // offset 40
-        int m_boundTop;     // offset 44
-        uint m_boundBottom; // offset 48
-        char _unknown_52[4];
-        undefined1 field_56; // offset 56
-        char _unknown_57[31];
-        int field_88;      // offset 88
-        int field_92;      // offset 92
-        int field_96;      // offset 96
-        int field_100;     // offset 100
-        int m_width;       // offset 104
-        int m_height;      // offset 108
-        int m_renderDepth; // offset 112
-        char _unknown_116[4];
+    private:
+        bool m_hClip;
+        uint8_t _unknown_9[2];
+        bool m_lowDetail;
+        int m_trans;
+        int m_zoom;
+        int m_xOrigin;
+        int m_yOrigin;
+        int m_xClip3;
+        unsigned int field_32;
+        int m_boundLeft;
+        int m_boundRight;
+        int m_boundTop;
+        unsigned int m_boundBottom;
+        uint8_t _unknown_52[36];
+        int field_88;
+        int field_92;
+        int field_96;
+        int field_100;
+        int m_width;
+        int m_height;
+        int m_renderDepth;
+        uint8_t _unknown_116[4];
     };
 
-    // 0x10012d520, 96 bytes, base-object constructor, inline, placed by class name and debug map
-    // Pix3D::Pix3D()
-    void Pix3D::Pix3D() {
-        field_0 = &PTR__OptionStore_100efc098;
-        m_hClip = false;
-        *(undefined2*)&field_9 = 0;
+    // 0x10012d520
+    Pix3D::Pix3D() : m_hClip(false) {
+        *(uint16_t*)&field_9 = 0;
         m_lowDetail = true;
         m_trans = 0;
         m_zoom = 512;
@@ -105,7 +99,7 @@ namespace jag::oldscape::dash3d {
         m_boundRight = 0;
         m_boundTop = 0;
         m_boundBottom = 0;
-        new (&field_56) eastl::vector<int, eastl::allocator>();
+        new (&field_56) eastl::vector<int>();
         field_100 = 0;
         m_width = 0;
         m_height = 0;
@@ -116,21 +110,16 @@ namespace jag::oldscape::dash3d {
         field_100 = 0;
     }
 
-    // 0x10012d580, 32 bytes, base-object destructor, inline, placed by class name and debug map
-    // Pix3D::~Pix3D()
-    void Pix3D::~Pix3D() {
-        field_0 = &PTR__OptionStore_100efc098;
-        (&field_56)->~vector();
+    // 0x10012d580
+    Pix3D::~Pix3D() {
+        field_56.~vector();
     }
 
 } // namespace jag::oldscape::dash3d
 
 namespace jag::oldscape::movement {
-    // 0x10012d5a0, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ExactTileDestination::ExactTileDestination(ExactTileDestination const&)
-    void ExactTileDestination::ExactTileDestination(ExactTileDestination* param_1) {
-        new (this) RouteDestination(param_1);
-        field_0 = PTR_vtable_100ee8c68 + 16;
-    }
+    // 0x10012d5a0
+    ExactTileDestination::ExactTileDestination(const ExactTileDestination& exactTileDestination)
+        : RouteDestination(exactTileDestination) {}
 
 } // namespace jag::oldscape::movement

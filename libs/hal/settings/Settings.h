@@ -1,217 +1,175 @@
 // libs/hal/settings/Settings.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class Settings {
     public:
-        bool GetValue<int>(int&, char const*);
-        bool SetValue<int>(char const*, int);
-        int GetValueWithDefault<int>(char const*, int const&);
-        bool GetValue<eastl::basic_string<char, BucketAllocatorEASTL>>(eastl::basic_string<char, BucketAllocatorEASTL>&,
-                                                                       char const*);
-        bool GetValue<eastl::string>(eastl::string&, char const*);
-        bool SetValue<char, eastl::allocator>(char const*, eastl::string const&);
-        Settings(SystemSettings const*, Scope, char const*);
-        Settings(char const*, char const*, char const*, Scope, char const*, bool);
-        Settings(SystemSettings const*, Scope, char const*, std::function<void(Settings*)> const&);
-        Settings(char const*, char const*, char const*, Scope, char const*, std::function<void(Settings*)> const&,
-                 bool);
+        bool GetValue<int>(int& arg1, const char* str);
+        bool SetValue<int>(const char* str, int arg2);
+        int GetValueWithDefault<int>(const char* str, const int& arg2);
+        bool GetValue<eastl::string>(eastl::string& str1, const char* str2);
+        bool GetValue<eastl::string>(eastl::string& str1, const char* str2);
+        bool SetValue<char>(const char* str1, const eastl::string& str2);
+        Settings(const SystemSettings* systemSettings, Scope scope, const char* str);
+        Settings(const char* str1, const char* str2, const char* str3, Scope scope, const char* str4, bool arg6);
+        Settings(const SystemSettings* systemSettings, Scope scope, const char* str,
+                 std::function<void(Settings*)> const& callback);
+        Settings(const char* str1, const char* str2, const char* str3, Scope scope, const char* str4,
+                 std::function<void(Settings*)> const& callback, bool arg7);
         void StartLoadingSettings();
         ~Settings();
         void WaitForSettingsToBeReadyImpl() const;
-        void SaveSetting(char const*);
-        SetIntegerImpl(char const*, int);
-        void SetInteger64Impl(char const*, long long);
+        void SaveSetting(const char* str);
+        uint8_t SetIntegerImpl(const char* str, int arg2);
+        void SetInteger64Impl(const char* str, long long arg2);
         void WaitForSettingsToBeReady() const;
-        void SetDoubleImpl(char const*, double);
-        SetStringImpl(char const*, char const*, unsigned long);
-        void GetIntegerImpl(int&, char const*);
-        ulong GetInteger64Impl(long long&, char const*);
-        ulong GetDoubleImpl(double&, char const*);
-        GetStringSize(char const*) const;
-        GetStringImpl(char*, unsigned long&, char const*);
+        void SetDoubleImpl(const char* str, double arg2);
+        uint64_t SetStringImpl(const char* str1, const char* str2, unsigned long arg3);
+        void GetIntegerImpl(int& arg1, const char* str);
+        uint32_t GetInteger64Impl(long long& arg1, const char* str);
+        uint32_t GetDoubleImpl(double& arg1, const char* str);
+        uint64_t GetStringSize(const char* str) const;
+        uint64_t GetStringImpl(char* str1, unsigned long& arg2, const char* str2);
 
-        // data members, from how the methods use this: 152 bytes
-        int field_0; // offset 0
-        char _unknown_4[124];
-        undefined1 field_128; // offset 128
-        char _unknown_129[23];
+    private:
+        Scope field_0;
+        uint8_t _unknown_4[124];
+        uint8_t field_128;
+        uint8_t _unknown_129[23];
     };
 
-    // 0x1005f88f0, 16 bytes, inline, placed by class name and debug map
-    // bool Settings::GetValue<int>(int&, char const*)
-    bool Settings::GetValue<int>(int* param_1, char* param_2) {
-        return (bool)GetIntegerImpl(this, param_1, param_2);
+    // 0x1005f88f0
+    bool Settings::GetValue<int>(int& arg1, const char* str) {
+        return (bool)GetIntegerImpl(arg1, str);
     }
 
-    // 0x1005f8940, 16 bytes, inline, placed by class name and debug map
-    // bool Settings::SetValue<int>(char const*, int)
-    bool Settings::SetValue<int>(char* param_1, int param_2) {
-        return (bool)SetInteger64Impl(this, param_1, (long)param_2);
+    // 0x1005f8940
+    bool Settings::SetValue<int>(const char* str, int arg2) {
+        return (bool)SetInteger64Impl(str, (long)arg2);
     }
 
-    // 0x1005fbd50, 48 bytes, inline, placed by class name
-    // int Settings::GetValueWithDefault<int>(char const*, int const&)
-    int Settings::GetValueWithDefault<int>(char* param_1, int* param_2) {
+    // 0x1005fbd50
+    int Settings::GetValueWithDefault<int>(const char* str, const int& arg2) {
         int local_1c;
 
-        if (GetIntegerImpl(this, &local_1c, param_1) != '\0') {
-            param_2 = &local_1c;
+        if (GetIntegerImpl(local_1c, str) != '\0') {
+            arg2 = &local_1c;
         }
-        return *param_2;
+        return arg2;
     }
 
-    // 0x1006e0c30, 112 bytes, inline, placed by class name
-    // bool Settings::GetValue<eastl::basic_string<char, BucketAllocatorEASTL> >(eastl::basic_string<char, BucketAllocatorEASTL>&, char const*)
-    bool Settings::GetValue<eastl::basic_string<char, BucketAllocatorEASTL>>(basic_string* param_1, char* param_2) {
-        undefined1 uVar1;
-        char* pcVar2;
-        ulong local_28;
+    // 0x1006e0c30
+    bool Settings::GetValue<eastl::basic_string<char, BucketAllocatorEASTL>>(
+        eastl::basic_string<char, BucketAllocatorEASTL>& str1, const char* str2) {
+        uint8_t uVar1;
 
-        local_28 = GetStringSize(this, param_2);
+        unsigned long local_28 = GetStringSize(str2);
         if (local_28 == 0) {
-            eastl::string::clear();
+            str1.clear();
             uVar1 = 0;
         } else {
-            param_1->resize(local_28);
+            str1.resize(local_28);
             local_28 = local_28 + 1;
-            pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::operator[](
-                (basic_string<char, BucketAllocatorEASTL>*)param_1, 0);
-            uVar1 = GetStringImpl(this, pcVar2, &local_28, param_2);
+            uVar1 = GetStringImpl((char*)str1[0], local_28, str2);
         }
         return (bool)uVar1;
     }
 
-    // 0x100b05f70, 112 bytes, inline, placed by class name
-    // bool Settings::GetValue<eastl::string >(eastl::string&, char const*)
-    bool Settings::GetValue<eastl::string>(basic_string* param_1, char* param_2) {
-        undefined1 uVar1;
-        char* pcVar2;
-        ulong local_28;
+    // 0x100b05f70
+    bool Settings::GetValue<eastl::string>(eastl::string& str1, const char* str2) {
+        uint8_t uVar1;
 
-        local_28 = GetStringSize(this, param_2);
+        unsigned long local_28 = GetStringSize(str2);
         if (local_28 == 0) {
-            eastl::string::clear();
+            str1.clear();
             uVar1 = 0;
         } else {
-            param_1->resize(local_28);
+            str1.resize(local_28);
             local_28 = local_28 + 1;
-            pcVar2 = (char*)eastl::string::operator[]((eastl::string*)param_1, 0);
-            uVar1 = GetStringImpl(this, pcVar2, &local_28, param_2);
+            uVar1 = GetStringImpl((char*)str1[0], local_28, str2);
         }
         return (bool)uVar1;
     }
 
-    // 0x100b05fe0, 80 bytes, inline, placed by class name
-    // bool Settings::SetValue<char, eastl::allocator>(char const*, eastl::string const&)
-    bool Settings::SetValue<char, eastl::allocator>(char* param_1, basic_string* param_2) {
-        char* pcVar1;
-        ulong uVar2;
-
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        uVar2 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        return (bool)SetStringImpl((Settings*)param_1, (char*)param_2, pcVar1, uVar2);
+    // 0x100b05fe0
+    bool Settings::SetValue<char>(const char* str1, const eastl::string& str2) {
+        char* str2_00 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        unsigned long arg3 = str2.size();
+        return (bool)SetStringImpl(str1, str2_00, arg3);
     }
 
-    // 0x100b17e70, 32 bytes, inline, placed by class name
-    // Settings::WaitForSettingsToBeReady() const
-    void Settings::WaitForSettingsToBeReady() {
+    // 0x100b17e70
+    void Settings::WaitForSettingsToBeReady() const {
         if (field_128 == '\0') {
-            WaitForSettingsToBeReadyImpl(this);
+            WaitForSettingsToBeReadyImpl();
             return;
         }
     }
 
-    // 0x100b19cb0, 288 bytes, inline, placed by class name
-    // Settings::StartLoadingSettings()::$_0::operator()(Filename const&, Array<unsigned char, eastl::allocator> const&) const
-    /* Settings::StartLoadingSettings()::$_0::TEMPNAMEPLACEHOLDERVALUE(Filename const&,
-   Array<unsigned char, eastl::allocator> const&) const */
+    // 0x100b19cb0
+    void Settings::StartLoadingSettings()::$_0::operator()(const Filename& filename,
+                                                           const Array<unsigned char>& arg2) const {
+        void result;
+        char* pcVar2;
+        ReturnValue result;
+        char* str2;
+        basic_string<char, BucketAllocatorEASTL> local_50;
+        eastl local_38;
 
-    void Settings::StartLoadingSettings()::$_0::operator()(Filename* param_1, Array* param_2) {
-        Settings* pSVar1;
-        bool bVar2;
-        basic_string<char, BucketAllocatorEASTL>* this_00;
-        char* pcVar4;
-        char* pcVar5;
-        undefined1 auVar6[16];
-        basic_string local_50[24];
-        eastl local_38[8];
-
-        pSVar1 = field_0;
-        bVar2 = eastl::operator==((eastl*)param_1, (basic_string*)"--end--", (char*)param_2);
-        if (bVar2) {
-            pSVar1->field_128 = 1;
-            bVar2 = (&pSVar1->field_144)->operator_cast_to_bool();
-            if (bVar2) {
-                std::function<void(Settings*)>::operator()((function<void(Settings*)>*)&pSVar1->field_144, pSVar1);
-            }
-        } else {
-            if (this_thread::IsMainThread() == '\0') {
-                /* WARNING: Subroutine does not return */
+        __0 settings = *this;
+        if (!(filename == "--end--")) {
+            if (!(this_thread::IsMainThread())) {
                 LogAssert("this_thread::IsMainThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/settings/"
                           "file_based/Settings_FileBased.cpp",
-                          96, (char*)0);
+                          96, nullptr);
             }
-            auVar6 = param_1->GetName();
-            eastl::destruct<oldscape::highlight::NpcUID*>(local_38, (NpcUID*)"EASTL basic_string", auVar6._8_8_);
-            eastl::basic_string<char, BucketAllocatorEASTL>::basic_string((char*)local_50, auVar6._0_8_);
-            this_00 = (basic_string<char, BucketAllocatorEASTL>*)eastl::hash_map<
-                eastl::basic_string<char, BucketAllocatorEASTL>, eastl::basic_string<char, BucketAllocatorEASTL>,
-                eastl::hash<eastl::basic_string<char, BucketAllocatorEASTL>>,
-                eastl::equal_to<eastl::basic_string<char, BucketAllocatorEASTL>>, BucketAllocatorEASTL,
-                false>::operator[]((hash_map<eastl::basic_string<char, BucketAllocatorEASTL>,
-                                             eastl::basic_string<char, BucketAllocatorEASTL>,
-                                             eastl::hash<eastl::basic_string<char, BucketAllocatorEASTL>>,
-                                             eastl::equal_to<eastl::basic_string<char, BucketAllocatorEASTL>>,
-                                             BucketAllocatorEASTL, false>*)&pSVar1->field_80,
-                                   local_50);
-            pcVar4 = (char*)param_2->data();
-            pcVar5 = (char*)param_2->end();
-            eastl::basic_string<char, BucketAllocatorEASTL>::assign(this_00, pcVar4, pcVar5);
-            local_50->~basic_string();
+            pcVar2 = filename.GetName();
+            eastl::destruct<oldscape::highlight::NpcUID*>(&local_38);
+            local_50 = eastl::basic_string<char, BucketAllocatorEASTL>(pcVar2, &local_38);
+            &result = (ReturnValue*)(*((hash_map<eastl::basic_string<char, BucketAllocatorEASTL>,
+                                                 eastl::basic_string<char, BucketAllocatorEASTL>,
+                                                 eastl::hash<eastl::basic_string<char, BucketAllocatorEASTL>>,
+                                                 eastl::equal_to<eastl::basic_string<char, BucketAllocatorEASTL>>,
+                                                 BucketAllocatorEASTL>*)((long)settings + 80)))[local_50];
+            pcVar2 = (char*)arg2.data();
+            str2 = (char*)arg2.end();
+            eastl::basic_string<char, BucketAllocatorEASTL>::assign(&result, pcVar2, str2);
+        } else {
+            *(uint8_t*)((long)settings + 128) = 1;
+            if ((((long)settings + 144))->operator_cast_to_bool()) {
+                std::function<void(Settings*)>::operator()((function<void(Settings*)>*)((long)settings + 144),
+                                                           (Settings*)settings);
+            }
         }
     }
 
-    // 0x100b1a7b0, 64 bytes, inline, placed by class name
-    // Settings::StartLoadingSettings()::$_1::operator()(Filename const&, int, eastl::string const&) const
-    /* Settings::StartLoadingSettings()::$_1::TEMPNAMEPLACEHOLDERVALUE(Filename const&, int,
-   eastl::string const&) const */
-
-    void Settings::StartLoadingSettings()::$_1::operator()(Filename* param_1, int param_2, basic_string* param_3) {
-        Settings* pSVar1;
-
-        pSVar1 = *(Settings**)param_1;
-        pSVar1->field_128 = 1;
-        if ((&pSVar1->field_144)->operator_cast_to_bool()) {
-            std::function<void(Settings*)>::operator()((function<void(Settings*)>*)&pSVar1->field_144, pSVar1);
+    // 0x100b1a7b0
+    void Settings::StartLoadingSettings()::$_1::operator()(const Filename& filename, int arg2,
+                                                           const eastl::string& str) const {
+        Settings* settings = field_0;
+        settings->field_128 = 1;
+        if ((&settings->field_144)->operator_cast_to_bool() != '\0') {
+            std::function<void(Settings*)>::operator()((function<void(Settings*)>*)&settings->field_144, settings);
         }
     }
 
-    // 0x100b1ba10, 144 bytes, inline, placed by class name
-    // Settings::SaveSetting(char const*)::$_3::operator()(Filename const&, int, eastl::string const&) const
-    /* Settings::SaveSetting(char const*)::$_3::TEMPNAMEPLACEHOLDERVALUE(Filename const&, int,
-   eastl::string const&) const */
+    // 0x100b1ba10
+    void Settings::SaveSetting(char const*)::$_3::operator()(const Filename& filename, int arg2,
+                                                             const eastl::string& str) const {
+        uint32_t in_register_00000014;
 
-    void Settings::SaveSetting(char const*)::$_3::operator()(Filename* param_1, int param_2, basic_string* param_3) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined4 in_register_00000034;
-
-        uVar1 = logger::default_logger();
-        uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        uVar3 = (CONCAT44(in_register_00000034, param_2))->GetName();
-        uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        logger::Logger::Log(uVar1, 0, 3,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/settings/"
-                            "file_based/Settings_FileBased.cpp",
-                            150, "Failed to save %s settings to %s (%d: %s)", uVar2, uVar3, param_3, uVar4);
+        auto this_00 = logger::default_logger();
+        uint64_t uVar1 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        auto pcVar2 = filename.GetName();
+        uint64_t uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        this_00->Log(false, 3,
+                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/settings/file_based/"
+                     "Settings_FileBased.cpp",
+                     150, "Failed to save %s settings to %s (%d: %s)", uVar1, pcVar2,
+                     (((uint64_t)in_register_00000014 << 32) | (uint32_t)arg2), uVar3);
     }
 
 } // namespace jag
@@ -222,93 +180,66 @@ namespace jag::tweak {
     public:
         // virtual methods in vtable order
         virtual ~Settings();
-        virtual void SetTweaky(weak_ptr<Tweaky>);
-        void SetCheckbox(bool);
-        Settings(eastl::string const&, ContainerGroup&);
-        void Initialise(weak_ptr<Tweaky>);
-        void SavePage(PageInfo const&);
+        virtual void SetTweaky(weak_ptr<Tweaky> tweaky);
+        void SetCheckbox(bool arg1);
+        Settings(const eastl::string& str, ContainerGroup& containerGroup);
+        void Initialise(weak_ptr<Tweaky> tweaky);
+        void SavePage(const PageInfo& pageInfo);
         void WriteSettingsFile();
-        void SetLoadPageOnLaunch(PageInfo&, bool);
-        void LoadPage(PageInfo&);
+        void SetLoadPageOnLaunch(PageInfo& pageInfo, bool arg2);
+        void LoadPage(PageInfo& pageInfo);
         void LoadOnLaunch();
         void ParseFile();
-        eastl::string* SerializeNode(TweakSettingsValue);
+        auto SerializeNode(TweakSettingsValue tweakSettingsValue);
 
-        // data members, from how the methods use this: 416 bytes, the first 301 are Container
-        char _unknown_301[19];
-        TweakSettingsValue field_320; // offset 320
-        char _unknown_408[8];
+    private:
+        uint8_t _unknown_301[19];
+        TweakSettingsValue field_320;
+        uint8_t _unknown_408[8];
     };
 
-    // 0x100a51880, 16 bytes, complete-object destructor, inline, placed by class name
-    // Settings::~Settings(): jumps straight to the base-object destructor
-
-    // 0x100a51890, 32 bytes, deleting destructor, inline, placed by class name
-    // Settings::~Settings()
-    void Settings::~Settings() {
-        ~Settings(this);
-        operator_delete(this);
-    }
-
-    // 0x100a52ca0, 80 bytes, base-object destructor, inline, placed by class name
-    // Settings::~Settings()
-    void Settings::~Settings() {
-        field_0 = &PTR__Settings_100f1d5d0;
-        (&field_408)->~basic_string();
+    // 0x100a52ca0
+    Settings::~Settings() {
+        field_408.~basic_string();
         field_320->~TweakSettingsValue();
-        (&field_304)->~shared_ptr();
-        ~Container();
+        field_304.~shared_ptr();
     }
 
-    // 0x100a61450, 48 bytes, inline, placed by class name
-    // Settings::Initialise(weak_ptr<Tweaky>)::$_17::operator()(Event const&) const
-    /* Settings::Initialise(weak_ptr<Tweaky>)::$_17::TEMPNAMEPLACEHOLDERVALUE(Event
-   const&) const */
-
-    void Settings::Initialise(weak_ptr<Tweaky>)::$_17::operator()(Event* param_1) {
+    // 0x100a61450
+    void Settings::Initialise(weak_ptr<Tweaky>)::$_17::operator()(const Event& event) const {
         Settings* this_00;
-        PageInfo* pPVar1;
+        PageInfo* pageInfo;
 
-        if (param_1->field_16 == 2) {
+        if (event.field_16 == 2) {
             this_00 = *(Settings**)this;
-            pPVar1 = (PageInfo*)this_00->field_296->GetCurrentPage();
-            SavePage(this_00, pPVar1);
+            pageInfo = this_00->field_296->GetCurrentPage();
+            SavePage(this_00, pageInfo);
         }
     }
 
-    // 0x100a61d90, 48 bytes, inline, placed by class name
-    // Settings::Initialise(weak_ptr<Tweaky>)::$_18::operator()(Event const&) const
-    /* Settings::Initialise(weak_ptr<Tweaky>)::$_18::TEMPNAMEPLACEHOLDERVALUE(Event
-   const&) const */
-
-    void Settings::Initialise(weak_ptr<Tweaky>)::$_18::operator()(Event* param_1) {
+    // 0x100a61d90
+    void Settings::Initialise(weak_ptr<Tweaky>)::$_18::operator()(const Event& event) const {
         Settings* this_00;
-        PageInfo* pPVar1;
+        PageInfo* pageInfo;
 
-        if (param_1->field_16 == 2) {
+        if (event.field_16 == 2) {
             this_00 = *(Settings**)this;
-            pPVar1 = (PageInfo*)this_00->field_296->GetCurrentPage();
-            SavePage(this_00, pPVar1);
+            pageInfo = this_00->field_296->GetCurrentPage();
+            SavePage(this_00, pageInfo);
         }
     }
 
-    // 0x100a62750, 96 bytes, inline, placed by class name
-    // Settings::Initialise(weak_ptr<Tweaky>)::$_19::operator()(Event const&) const
-    /* Settings::Initialise(weak_ptr<Tweaky>)::$_19::TEMPNAMEPLACEHOLDERVALUE(Event
-   const&) const */
+    // 0x100a62750
+    void Settings::Initialise(weak_ptr<Tweaky>)::$_19::operator()(const Event& event) const {
+        bool arg2;
+        PageInfo* pageInfo;
 
-    void Settings::Initialise(weak_ptr<Tweaky>)::$_19::operator()(Event* param_1) {
-        Settings* this_00;
-        bool bVar1;
-        long* plVar2;
-        PageInfo* pPVar3;
-
-        this_00 = *(Settings**)this;
-        plVar2 = (long*)param_1->end();
-        if (param_1->field_16 == 3) {
-            pPVar3 = (PageInfo*)this_00->field_296->GetCurrentPage();
-            bVar1 = (bool)(**(code**)(*plVar2 + 120))(plVar2);
-            SetLoadPageOnLaunch(this_00, pPVar3, bVar1);
+        Settings* this_00 = *(Settings**)this;
+        auto plVar1 = event.end();
+        if (event.field_16 == 3) {
+            pageInfo = this_00->field_296->GetCurrentPage();
+            arg2 = (bool)(**(void (**)(...))(*plVar1 + 120))(plVar1);
+            SetLoadPageOnLaunch(this_00, pageInfo, arg2);
         }
     }
 

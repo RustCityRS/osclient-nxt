@@ -1,51 +1,39 @@
 // libs/game/runetek5/scene/entities/EntityChatLine.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class EntityChatLine {
     public:
-        GetTimeOut() const;
+        void GetTimeOut() const;
         ~EntityChatLine();
         EntityChatLine();
         bool IsInit();
-        EntityChatLine(eastl::basic_string<char, BucketAllocatorEASTL> const&, ChatColour, ChatEffect,
-                       unsigned long long);
-        void Init(eastl::basic_string<char, BucketAllocatorEASTL> const&, ChatColour, ChatEffect, unsigned long long);
+        EntityChatLine(const eastl::string& str, ChatColour chatColour, ChatEffect chatEffect, unsigned long long arg4);
+        void Init(const eastl::string& str, ChatColour chatColour, ChatEffect chatEffect, unsigned long long arg4);
         void Destroy();
-        void MainDraw(graphics::RT7Core&, graphics::FontHelpers&, EmojiRegistry*, int, int, int, graphics::Font&, bool,
-                      unsigned int);
-        char const* GetText<eastl::fixed_string<char, 512, true, eastl::allocator>>(
-            eastl::fixed_string<char, 512, true, eastl::allocator>&, EmojiRegistry*) const;
+        void MainDraw(graphics::RT7Core& rt7Core, graphics::FontHelpers& fontHelpers, EmojiRegistry* emojiRegistry,
+                      int arg4, int arg5, int arg6, graphics::Font& font, bool arg8, unsigned int arg9);
+        char const* GetText<eastl::fixed_string<char, 512>>(eastl::fixed_string<char, 512>& str,
+                                                            EmojiRegistry* emojiRegistry) const;
 
-        // data members, from how the methods use this: 60 bytes
-        char _unknown_0[24];
-        int field_24;        // offset 24
-        undefined4 field_28; // offset 28
-        undefined8 field_32; // offset 32
-        long field_40;       // offset 40
-        int field_48;        // offset 48
-        uint field_52;       // offset 52
-        char _unknown_56[4];
+    private:
+        uint8_t _unknown_0[24];
+        ChatColour field_24;
+        ChatEffect field_28;
+        unsigned long long field_32;
+        long field_40;
+        int field_48;
+        unsigned int field_52;
+        uint8_t _unknown_56[4];
     };
 
-    // 0x1003f0670, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // EntityChatLine::EntityChatLine(): jumps straight to the base-object constructor
+    // 0x1003feab0
+    EntityChatLine::EntityChatLine()
+        : eastl::basic_string<char, BucketAllocatorEASTL>(), field_32(0), field_40(0), field_48(0), field_52(0) {}
 
-    // 0x1003feab0, 48 bytes, base-object constructor, inline, placed by class name
-    // EntityChatLine::EntityChatLine()
-    void EntityChatLine::EntityChatLine() {
-        eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-        field_32 = 0;
-        field_40 = 0;
-        field_48 = 0;
-        field_52 = 0;
-    }
-
-    // 0x10041a160, 32 bytes, inline, placed by class name
-    // EntityChatLine::IsInit()
+    // 0x10041a160
     bool EntityChatLine::IsInit() {
         if (field_32 == 0) {
             return field_40 != 0;
@@ -53,22 +41,19 @@ namespace jag {
         return true;
     }
 
-    // 0x10044b490, 80 bytes, inline, placed by class name
-    // char const* EntityChatLine::GetText<eastl::fixed_string<char, 512, true, eastl::allocator> >(eastl::fixed_string<char, 512, true, eastl::allocator>&, EmojiRegistry*) const
-    char* EntityChatLine::GetText<eastl::fixed_string<char, 512, true, eastl::allocator>>(fixed_string* param_1,
-                                                                                          EmojiRegistry* param_2) {
-        char cVar1;
+    // 0x10044b490
+    char const* EntityChatLine::GetText<eastl::fixed_string<char, 512>>(eastl::fixed_string<char, 512>& str,
+                                                                        EmojiRegistry* emojiRegistry) const {
+        bool cVar1;
         char* pcVar2;
 
-        if ((param_2 == (EmojiRegistry*)0) || (cVar1 = param_2->GetUseTerrainHeight(), cVar1 == '\0')) {
+        if ((emojiRegistry == nullptr) || (cVar1 = emojiRegistry->GetUseTerrainHeight(), !cVar1)) {
             pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             return pcVar2;
         }
-        EmojiRegistry::Substitute<eastl::fixed_string<char, 512, true, eastl::allocator>,
-                                  eastl::basic_string<char, BucketAllocatorEASTL>>(param_2, param_1,
-                                                                                   (basic_string*)this);
-        pcVar2 = (char*)eastl::basic_string<
-            char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
+        emojiRegistry->Substitute<eastl::fixed_string<char, 512>, eastl::basic_string<char, BucketAllocatorEASTL>>(
+            str, *this);
+        pcVar2 = (char*)str.begin();
         return pcVar2;
     }
 

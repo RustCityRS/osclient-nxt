@@ -1,143 +1,81 @@
 // libs/game/runetek5/debugstrings/SparseStringPool.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "SparseStringPool.h"
 
 namespace jag::game {
-    // 0x1004c2580, 128 bytes, base-object constructor, placed by class name and debug map
-    // SparseStringPool::SparseStringPool(shared_ptr<PacketT<Array<unsigned char, eastl::allocator> > >&)
-    void SparseStringPool::SparseStringPool(shared_ptr* param_1) {
-        new (this) DebugStringProvider::IStringPool();
-        field_0 = &PTR_Lookup_100f01a90;
-        new (&field_8) Array<std::pair<int, int>, BucketAllocatorEASTL>();
-        new (&field_32) Array<unsigned char, BucketAllocatorEASTL>();
-        Load(this, param_1);
+    // 0x1004c2580
+    SparseStringPool::SparseStringPool(shared_ptr<PacketT<Array<unsigned char>>>& arg1)
+        : DebugStringProvider::IStringPool() {
+        Load(arg1);
     }
 
-    // 0x1004c2610, 336 bytes, placed by class name and debug map
-    // SparseStringPool::Load(shared_ptr<PacketT<Array<unsigned char, eastl::allocator> > >&)
-    void SparseStringPool::Load(shared_ptr* param_1) {
-        uint uVar1;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>* pPVar2;
-        int* piVar3;
-        TextureAtlasReference* pTVar4;
-        long lVar5;
-        hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                  eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                  eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                  eastl::prime_rehash_policy, false, true, true>* phVar6;
-        long lVar7;
-        uchar* puVar8;
-        char* pcVar9;
-        ulong uVar10;
-        undefined1* this_00;
-
-        pPVar2 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                     shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1);
-        uVar1 = pPVar2->g4();
-        (&field_8, (ulong)uVar1, 4)->set_max_size();
-        pPVar2 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                     shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1);
-        piVar3 = (int*)(&field_8)->data();
-        pPVar2->g4sArr(piVar3, (ulong)uVar1 * 2);
-        pTVar4 = (TextureAtlasReference*)shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-            (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1);
-        lVar5 = pTVar4->GetTextureAtlas();
-        phVar6 = (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
+    // 0x1004c2610
+    void SparseStringPool::Load(shared_ptr<PacketT<Array<unsigned char>>>& arg1) {
+        auto pPVar2 = arg1.operator->();
+        unsigned int uVar1 = pPVar2->g4();
+        field_8.set_max_size((unsigned long)uVar1, 4);
+        pPVar2 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)arg1.operator->();
+        pPVar2->g4sArr((int*)field_8.data(), (unsigned long)uVar1 * 2);
+        auto pTVar3 = arg1.operator->();
+        long lVar4 = pTVar3->GetTextureAtlas();
+        auto phVar5 = arg1.operator->();
+        long lVar6 = phVar5->size();
+        unsigned long arg1_02 = lVar4 - lVar6;
+        uint8_t* this_00 = &field_32;
+        this_00->set_max_size(arg1_02, 4);
+        pPVar2 = (PacketReaderMixin<PacketT<Array<unsigned char>>>*)arg1.operator->();
+        pPVar2->g1Arr((unsigned char*)(*this_00)[0], arg1_02);
+        pTVar3 = (TextureAtlasReference*)arg1.operator->();
+        lVar4 = pTVar3->GetTextureAtlas();
+        phVar5 = (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                             eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                             eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                            eastl::prime_rehash_policy, false, true, true>*)
-                     shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1);
-        lVar7 =
-            eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                             eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::size(phVar6);
-        uVar10 = lVar5 - lVar7;
-        this_00 = &field_32;
-        this_00->set_max_size(uVar10, 4);
-        pPVar2 = (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)
-                     shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1);
-        puVar8 = (uchar*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this_00, 0);
-        pPVar2->g1Arr(puVar8, uVar10);
-        pTVar4 = (TextureAtlasReference*)shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-            (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1);
-        lVar5 = pTVar4->GetTextureAtlas();
-        phVar6 = (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                            eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                            eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                            eastl::prime_rehash_policy, false, true, true>*)
-                     shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1);
-        lVar7 =
-            eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                             eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::size(phVar6);
-        if (lVar5 != lVar7) {
-            /* WARNING: Subroutine does not return */
+                            eastl::prime_rehash_policy, false, true, true>*)arg1.operator->();
+        lVar6 = phVar5->size();
+        if (lVar4 != lVar6) {
             LogAssert("data->GetSize() == data->GetPos()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                       "debugstrings/SparseStringPool.cpp",
-                      32, (char*)0);
+                      32, nullptr);
         }
-        pcVar9 = (char*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this_00, uVar10 - 1);
-        if (*pcVar9 != '\0') {
-            /* WARNING: Subroutine does not return */
+        char* pcVar7 = (char*)(*this_00)[arg1_02 - 1];
+        if (*pcVar7 != '\0') {
             LogAssert("m_pool[poolSize - 1] == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                       "debugstrings/SparseStringPool.cpp",
-                      33, (char*)0);
+                      33, nullptr);
         }
     }
 
-    // 0x1004c2770, 16 bytes, complete-object constructor, placed by class name and debug map
-    // SparseStringPool::SparseStringPool(shared_ptr<PacketT<Array<unsigned char, eastl::allocator> > >&): jumps straight to the base-object constructor
-
-    // 0x1004c28c0, 208 bytes, placed by class name and debug map
-    // SparseStringPool::Lookup(int) const
-    undefined8 SparseStringPool::Lookup(int param_1) {
-        undefined1* this_00;
-        int iVar1;
+    // 0x1004c28c0
+    uint64_t SparseStringPool::Lookup(int arg1) const {
         int iVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        pair* ppVar5;
-        pair* ppVar6;
-        pair<int, int> local_40[8];
+        __0* in_RCX;
+        pair<int, int> local_40;
         int local_38[2];
 
-        this_00 = &field_8;
-        local_38[0] = param_1;
-        uVar3 = this_00->data();
-        uVar4 = this_00->end();
+        uint8_t* this_00 = &field_8;
+        local_38[0] = arg1;
+        auto ppVar3 = this_00->data();
+        auto ppVar4 = this_00->end();
         local_38[1] = 4294967295;
-        std::pair<int, int>::pair<int&, int, false>(local_40, local_38, local_38 + 1);
-        ppVar5 = eastl::binary_search_i<std::pair<int, int> const*, std::pair<int, int>, int->Lookup() const ::__0>(
-            uVar3, uVar4, local_40);
-        ppVar6 = (pair*)this_00->end();
-        if (ppVar5 == ppVar6) {
+        local_40.pair<int&, int, false>(*local_38, *(local_38 + 1));
+        ppVar3 = eastl::binary_search_i<std::pair<int, int> const*, std::pair<int, int>, int->Lookup() const ::__0>(
+            ppVar3, ppVar4, &local_40, in_RCX);
+        ppVar4 = (pair<int, int>*)this_00->end();
+        if (ppVar3 == ppVar4) {
             return 0;
         }
-        iVar1 = *(int*)(ppVar5 + 4);
-        if (((long)iVar1 < 0) || (iVar2 = (&field_32)->end(), iVar2 <= iVar1)) {
-            /* WARNING: Subroutine does not return */
+        int iVar1 = *(int*)(ppVar3 + 4);
+        if (((long)iVar1 < 0) || (iVar2 = field_32.end(), iVar2 <= iVar1)) {
             LogAssert("0 <= offset && offset < (int)m_pool.size()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                       "debugstrings/SparseStringPool.cpp",
-                      49, (char*)0);
+                      49, nullptr);
         }
-        uVar3 = Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)&field_32, (long)iVar1);
-        return uVar3;
+        return field_32[(long)iVar1];
     }
 
 } // namespace jag::game

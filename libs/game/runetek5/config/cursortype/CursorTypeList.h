@@ -1,145 +1,104 @@
 // libs/game/runetek5/config/cursortype/CursorTypeList.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
 
 namespace jag {
-    // 0x1005d3ef0, 32 bytes, inline, placed by debug map only (low confidence)
-    // game::CursorType* placement_new<game::CursorType, game::BaseTemplateConfigTypeList<game::CursorType>*&, int&>(void*, game::BaseTemplateConfigTypeList<game::CursorType>*&, int&)
-    /* game::CursorType* placement_new<game::CursorType,
-   game::BaseTemplateConfigTypeList<game::CursorType>*&, unsigned int&>(void*,
-   game::BaseTemplateConfigTypeList<game::CursorType>*&, unsigned int&) */
-
-    CursorType*
-    jag::placement_new<game::CursorType, game::BaseTemplateConfigTypeList<game::CursorType>*&, unsigned int&>(
-        void* param_1, BaseTemplateConfigTypeList** param_2, uint* param_3) {
-        game::CursorType::CursorType(param_1, *param_2, *param_3);
-        return param_1;
+    // 0x1005d3ef0
+    game::CursorType* placement_new<game::CursorType, game::BaseTemplateConfigTypeList<game::CursorType>*&, int&>(
+        void* arg1, game::BaseTemplateConfigTypeList<game::CursorType>*& arg2, int& arg3) {
+        new (arg1) game::CursorType(arg2, arg3);
+        return arg1;
     }
 
-    // 0x1005d3f10, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64> >* placement_new<MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64> >, MakeSharedPool<game::CursorType, 64>::RefCounterAndData*&, game::CursorType*>(void*, MakeSharedPool<game::CursorType, 64>::RefCounterAndData*&, game::CursorType*&&)
-    MakeSharedPoolRefCounter*
-    jag::placement_new<MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>,
-                       MakeSharedPool<game::CursorType, 64>::RefCounterAndData*&, game::CursorType*>(
-        void* param_1, RefCounterAndData** param_2, CursorType** param_3) {
-        MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>::MakeSharedPoolRefCounter(
-            param_1, *param_2, *param_3);
-        return param_1;
+    // 0x1005d3f10
+    MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>*
+    placement_new<MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>,
+                  MakeSharedPool<game::CursorType, 64>::RefCounterAndData*&, game::CursorType*>(
+        void* arg1, MakeSharedPool<game::CursorType, 64>::RefCounterAndData*& arg2, game::CursorType*&& arg3) {
+        new (arg1) MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>(arg2, arg3);
+        return arg1;
     }
 
-    // 0x1005d3f30, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<game::CursorType>(ref_counter_base*, game::CursorType*, game::CursorType::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<game::CursorType>(ref_counter_base* param_1, CursorType* param_2,
-                                                                 enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
+    // 0x1005d3f30
+    void
+    shared_ptr_do_enable_shared_from_this<game::CursorType>(ref_counter_base* ref_counter_base,
+                                                            game::CursorType* cursorType,
+                                                            game::CursorType::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)cursorType);
+            local_38 = weak_ptr(local_48);
+            cursorType->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x1005d5210, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64> >::MakeSharedPoolRefCounter(void*, game::CursorType*): jumps straight to the base-object constructor
-
-    // 0x1005d5220, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64> >::MakeSharedPoolRefCounter(void*, game::CursorType*)
-    void MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>::MakeSharedPoolRefCounter(
-        MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>* this, void* param_1,
-        CursorType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee79d8 + 16;
-        *(void**)(this + 16) = param_1;
-        *(CursorType**)(this + 24) = param_2;
+    // 0x1005d5220
+    MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>::MakeSharedPoolRefCounter(
+        void* arg1, game::CursorType* cursorType)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee79d8 + 16;
+        *(void**)(this + 16) = arg1;
+        *(CursorType**)(this + 24) = cursorType;
     }
 
-    // 0x1005d5260, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64> >::DeleteSelf()
-    void MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>::DeleteSelf(
-        MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<game::CursorType, 64>::deallocate(pvVar1);
+    // 0x1005d5260
+    void MakeSharedPoolRefCounter<game::CursorType, MakeSharedPool<game::CursorType, 64>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<game::CursorType, 64>::deallocate(arg1);
     }
 
-    // 0x1005d94b0, 32 bytes, inline, placed by debug map only (low confidence)
-    // game::WorldAreaType* placement_new<game::WorldAreaType, game::BaseTemplateConfigTypeList<game::WorldAreaType>*&, int&>(void*, game::BaseTemplateConfigTypeList<game::WorldAreaType>*&, int&)
-    /* game::WorldAreaType* placement_new<game::WorldAreaType,
-   game::BaseTemplateConfigTypeList<game::WorldAreaType>*&, unsigned int&>(void*,
-   game::BaseTemplateConfigTypeList<game::WorldAreaType>*&, unsigned int&) */
-
-    WorldAreaType*
-    jag::placement_new<game::WorldAreaType, game::BaseTemplateConfigTypeList<game::WorldAreaType>*&, unsigned int&>(
-        void* param_1, BaseTemplateConfigTypeList** param_2, uint* param_3) {
-        game::WorldAreaType::WorldAreaType(param_1, *param_2, *param_3);
-        return param_1;
+    // 0x1005d94b0
+    game::WorldAreaType*
+    placement_new<game::WorldAreaType, game::BaseTemplateConfigTypeList<game::WorldAreaType>*&, int&>(
+        void* arg1, game::BaseTemplateConfigTypeList<game::WorldAreaType>*& arg2, int& arg3) {
+        new (arg1) game::WorldAreaType(arg2, arg3);
+        return arg1;
     }
 
-    // 0x1005d94d0, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024> >* placement_new<MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024> >, MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData*&, game::WorldAreaType*>(void*, MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData*&, game::WorldAreaType*&&)
-    MakeSharedPoolRefCounter*
-    jag::placement_new<MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>,
-                       MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData*&, game::WorldAreaType*>(
-        void* param_1, RefCounterAndData** param_2, WorldAreaType** param_3) {
-        MakeSharedPoolRefCounter<game::WorldAreaType,
-                                 MakeSharedPool<game::WorldAreaType, 1024>>::MakeSharedPoolRefCounter(param_1, *param_2,
-                                                                                                      *param_3);
-        return param_1;
+    // 0x1005d94d0
+    MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>*
+    placement_new<MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>,
+                  MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData*&, game::WorldAreaType*>(
+        void* arg1, MakeSharedPool<game::WorldAreaType, 1024>::RefCounterAndData*& arg2, game::WorldAreaType*&& arg3) {
+        new (arg1) MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>(arg2, arg3);
+        return arg1;
     }
 
-    // 0x1005d94f0, 144 bytes, inline, placed by debug map only (low confidence)
-    // void shared_ptr_do_enable_shared_from_this<game::WorldAreaType>(ref_counter_base*, game::WorldAreaType*, game::WorldAreaType::enable_shared_type*)
-    void shared_ptr_do_enable_shared_from_this<game::WorldAreaType>(ref_counter_base* param_1, WorldAreaType* param_2,
-                                                                    enable_shared_type* param_3) {
-        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48[16];
-        weak_ptr<oldscape::dash3d::Decor> local_38[24];
+    // 0x1005d94f0
+    void shared_ptr_do_enable_shared_from_this<game::WorldAreaType>(
+        ref_counter_base* ref_counter_base, game::WorldAreaType* worldAreaType,
+        game::WorldAreaType::enable_shared_type* enable_shared_type) {
+        hashtable_iterator<eastl::pair<int const, unsigned int>, false, false> local_48;
+        weak_ptr<oldscape::dash3d::Decor> local_38;
 
-        if (param_1 != (ref_counter_base*)0) {
-            param_1->IncRef();
-            eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>::hashtable_iterator(
-                local_48, (hash_node*)param_1, (hash_node**)param_2);
-            weak_ptr<oldscape::dash3d::Decor>::weak_ptr(local_38, (weak_ptr*)local_48);
-            (&param_2->field_8, (weak_ptr*)local_38)->__internal_set_weak_ptr();
-            local_38->~weak_ptr();
-            local_48->~shared_ptr();
+        if (ref_counter_base != nullptr) {
+            ref_counter_base->IncRef();
+            local_48 = eastl::hashtable_iterator(ref_counter_base, (unsigned long)worldAreaType);
+            local_38 = weak_ptr(local_48);
+            worldAreaType->field_8.__internal_set_weak_ptr(local_38);
         }
     }
 
-    // 0x1005da7f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024> >::MakeSharedPoolRefCounter(void*, game::WorldAreaType*): jumps straight to the base-object constructor
-
-    // 0x1005da800, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024> >::MakeSharedPoolRefCounter(void*, game::WorldAreaType*)
-    void jag::MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>::
-        MakeSharedPoolRefCounter(
-            MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>* this,
-            void* param_1, WorldAreaType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7a20 + 16;
-        *(void**)(this + 16) = param_1;
-        *(WorldAreaType**)(this + 24) = param_2;
+    // 0x1005da800
+    MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>::MakeSharedPoolRefCounter(
+        void* arg1, game::WorldAreaType* worldAreaType)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7a20 + 16;
+        *(void**)(this + 16) = arg1;
+        *(WorldAreaType**)(this + 24) = worldAreaType;
     }
 
-    // 0x1005da840, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024> >::DeleteSelf()
-    void jag::MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>::DeleteSelf(
-        MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<game::WorldAreaType, 1024>::deallocate(pvVar1);
+    // 0x1005da840
+    void MakeSharedPoolRefCounter<game::WorldAreaType, MakeSharedPool<game::WorldAreaType, 1024>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<game::WorldAreaType, 1024>::deallocate(arg1);
     }
 
 } // namespace jag
@@ -149,34 +108,21 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~CursorTypeList();
-        CursorTypeList(ConfigTypeListContainerStrategy, ModeGame const*, Language const*, Js5ResourceProvider&);
+        CursorTypeList(ConfigTypeListContainerStrategy configTypeListContainerStrategy, const ModeGame* modeGame,
+                       const Language* language, Js5ResourceProvider& js5ResourceProvider);
 
-        // data members, from how the methods use this: 105 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        char _unknown_8[97];
+    private:
+        uint8_t _unknown_8[97];
     };
 
-    // 0x1005d2d90, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // CursorTypeList::CursorTypeList(ConfigTypeListContainerStrategy, ModeGame const*, Language const*, Js5ResourceProvider&): jumps straight to the base-object constructor
+    // 0x1005d2db0
+    CursorTypeList::CursorTypeList(ConfigTypeListContainerStrategy configTypeListContainerStrategy,
+                                   const ModeGame* modeGame, const Language* language,
+                                   Js5ResourceProvider& js5ResourceProvider)
+        : BaseTemplateConfigTypeList<CursorType>(configTypeListContainerStrategy, modeGame, language,
+                                                 js5ResourceProvider, *(Js5Archive::JS5_CONFIG),
+                                                 (Js5ConfigGroup*)Js5ConfigGroup::CURSORTYPE, 64) {}
 
-    // 0x1005d2db0, 64 bytes, base-object constructor, inline, placed by class name and debug map
-    // CursorTypeList::CursorTypeList(ConfigTypeListContainerStrategy, ModeGame const*, Language const*, Js5ResourceProvider&)
-    void CursorTypeList::CursorTypeList() {
-        BaseTemplateConfigTypeList<CursorType>::BaseTemplateConfigTypeList();
-        field_0 = PTR_vtable_100ee7f48 + 16;
-    }
-
-    // 0x1005d2f30, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // CursorTypeList::~CursorTypeList(): jumps straight to the base-object destructor
-
-    // 0x1005d2f40, 32 bytes, deleting destructor, inline, placed by class name and debug map
-    // CursorTypeList::~CursorTypeList()
-    void CursorTypeList::~CursorTypeList() {
-        ~CursorTypeList(this);
-        operator_delete(this);
-    }
-
-    // 0x1005d32a0: the linker folded this into BaseTemplateConfigTypeList<CursorType>::~BaseTemplateConfigTypeList(), which has identical code
-    CursorTypeList::~CursorTypeList();
+    // 0x1005d32a0: CursorTypeList::~CursorTypeList() has the same machine code as BaseTemplateConfigTypeList<CursorType>::~BaseTemplateConfigTypeList()
 
 } // namespace jag::game

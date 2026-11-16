@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/defaults/PlayerSkillXPTable.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,47 +7,33 @@ namespace jag::game {
     class PlayerSkillXPTable {
     public:
         PlayerSkillXPTable();
-        PlayerSkillXPTable(Array<unsigned int, eastl::allocator> const&);
-        GetXPFromLevel(unsigned int) const;
-        int GetFineXPFromLevel(unsigned int) const;
-        ulong GetLevelFromXP(unsigned int) const;
-        void GetLevelFromFineXP(unsigned int) const;
-        PlayerSkillXPTable* operator=(PlayerSkillXPTable&&);
-        PlayerSkillXPTable(PlayerSkillXPTable&&);
+        PlayerSkillXPTable(const Array<unsigned int>& arg1);
+        uint32_t GetXPFromLevel(unsigned int arg1) const;
+        int GetFineXPFromLevel(unsigned int arg1) const;
+        unsigned long GetLevelFromXP(unsigned int arg1) const;
+        void GetLevelFromFineXP(unsigned int arg1) const;
+        PlayerSkillXPTable* operator=(PlayerSkillXPTable&& playerSkillXPTable);
+        PlayerSkillXPTable(PlayerSkillXPTable&& playerSkillXPTable);
         ~PlayerSkillXPTable();
-        static PlayerSkillXPTable /* 24 bytes */ DEFAULT; // = PlayerSkillXPTable()
+        static PlayerSkillXPTable DEFAULT; // = PlayerSkillXPTable()
 
-        // data members, from how the methods use this: 24 bytes
-        char _unknown_0[8];
-        ulong field_8;      // offset 8
-        ScriptOp* field_16; // offset 16
+    private:
+        uint8_t _unknown_0[8];
+        unsigned long field_8;
+        unsigned int* field_16;
     };
 
-    // 0x10054ed40, 32 bytes, inline, placed by class name and debug map
-    // PlayerSkillXPTable::operator=(PlayerSkillXPTable&&)
-    /* PlayerSkillXPTable::TEMPNAMEPLACEHOLDERVALUE(PlayerSkillXPTable&&) */
-
-    PlayerSkillXPTable* PlayerSkillXPTable::operator=(PlayerSkillXPTable* param_1) {
-        Array<unsigned int, eastl::allocator>::operator=((Array<unsigned int, eastl::allocator>*)this, (Array*)param_1);
+    // 0x10054ed40
+    PlayerSkillXPTable* PlayerSkillXPTable::operator=(PlayerSkillXPTable&& playerSkillXPTable) {
+        *this = playerSkillXPTable;
         return this;
     }
 
-    // 0x1005507d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // PlayerSkillXPTable::PlayerSkillXPTable(PlayerSkillXPTable&&): jumps straight to the base-object constructor
+    // 0x1005507e0
+    PlayerSkillXPTable::PlayerSkillXPTable(PlayerSkillXPTable&& playerSkillXPTable)
+        : Array<unsigned int>(playerSkillXPTable) {}
 
-    // 0x1005507e0, 16 bytes, base-object constructor, inline, placed by class name
-    // PlayerSkillXPTable::PlayerSkillXPTable(PlayerSkillXPTable&&)
-    void PlayerSkillXPTable::PlayerSkillXPTable(PlayerSkillXPTable* param_1) {
-        new (this) Array<unsigned int, eastl::allocator>(param_1);
-    }
-
-    // 0x100570310, 16 bytes, complete-object destructor, inline, placed by class name
-    // PlayerSkillXPTable::~PlayerSkillXPTable(): jumps straight to the base-object destructor
-
-    // 0x100570320, 16 bytes, base-object destructor, inline, placed by class name
-    // PlayerSkillXPTable::~PlayerSkillXPTable()
-    void PlayerSkillXPTable::~PlayerSkillXPTable() {
-        ~Array();
-    }
+    // 0x100570320
+    PlayerSkillXPTable::~PlayerSkillXPTable() {}
 
 } // namespace jag::game

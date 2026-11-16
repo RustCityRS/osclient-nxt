@@ -1,42 +1,37 @@
 // libs/jtl/StringTools.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x100187200, 64 bytes, inline, placed by debug map only (low confidence)
-    // PacketT<Array<unsigned char, eastl::allocator> >::pStringUTF8ToCP1252(char const*, bool)
-    void PacketT<Array<unsigned char, eastl::allocator>>::pStringUTF8ToCP1252(
-        PacketT<Array<unsigned char, eastl::allocator>>* this, char* param_1, bool param_2) {
-        size_t sVar1;
-
-        sVar1 = _strlen(param_1);
-        pStringUTF8ToCP1252(this, param_1, sVar1, param_2);
+    // 0x100187200
+    void PacketT<Array<unsigned char>>::pStringUTF8ToCP1252(const char* str, bool arg2) {
+        size_t arg2_00 = _strlen(str);
+        pStringUTF8ToCP1252(this, str, arg2_00, arg2);
     }
 
 } // namespace jag
 
 namespace jag::stringtools {
-    // 0x1002346d0, 80 bytes, inline, placed by __FILE__ string
-    // CP1252ToWide(unsigned char)
-    undefined2 CP1252ToWide(uchar param_1) {
-        undefined2* puVar1;
-        undefined8 uVar2;
-        undefined2 uVar3;
-        undefined7 in_register_00000039;
+    // 0x1002346d0
+    void CP1252ToWide(unsigned char arg1) {
+        uint16_t* puVar1;
+        Logger* logger;
+        uint16_t uVar2;
+        unsigned long in_RSI;
+        uint64_t in_register_00000039;
 
-        if ((int)CONCAT71(in_register_00000039, param_1) == 0) {
-            uVar2 = logger::default_logger();
-            uVar3 = 0;
-            logger::Logger::Log(
-                uVar2, 0, 2, "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/StringTools.h",
-                226, "Non-cp1252 character 0 provided");
+        if ((int)(((uint64_t)in_register_00000039 << 8) | (uint8_t)arg1) == 0) {
+            logger = logger::default_logger();
+            uVar2 = 0;
+            logger->Log(false, 2,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/StringTools.h", 226,
+                        "Non-cp1252 character 0 provided");
         } else {
-            puVar1 = (undefined2*)std::array<char16_t, 256ul>::operator[]((ulong)param_1);
-            uVar3 = *puVar1;
+            puVar1 = (uint16_t*)(*((array<char16_t, 256ul>*)(unsigned long)arg1))[in_RSI];
+            uVar2 = *puVar1;
         }
-        return uVar3;
+        return uVar2;
     }
 
 } // namespace jag::stringtools

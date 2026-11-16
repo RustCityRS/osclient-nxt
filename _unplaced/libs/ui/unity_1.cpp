@@ -1,12 +1,11 @@
 // _unplaced/libs/ui/unity_1.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 namespace jag::graphics {
-    // 0x10422b780, 64 bytes, __bss; zero-initialised
-    MAYA_ANIM_INVERT_MATRIX;
+    // 0x10422b780
+    uint8_t MAYA_ANIM_INVERT_MATRIX[64];
 
-    // 0x10422b7c0, 16 bytes, __bss; zero-initialised
-    WORLD_ORTHOGONAL;
+    // 0x10422b7c0
+    uint8_t WORLD_ORTHOGONAL[16];
 
 } // namespace jag::graphics

@@ -1,165 +1,128 @@
 // libs/graphics/runetek7/fonts/FontManager.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "FontManager.h"
 
 namespace jag::graphics {
-    // 0x1008e58c0, 208 bytes, base-object constructor, placed by class name and debug map
-    // FontManager::FontManager(SpriteAtlasManager*, Js5ResourceProvider*, IConfigProvider*, Js5ArchiveSettings*)
-    void FontManager::FontManager(SpriteAtlasManager* param_1, Js5ResourceProvider* param_2, IConfigProvider* param_3,
-                                  Js5ArchiveSettings* param_4) {
-        undefined1 local_80[72];
-        FontManager* local_38;
+    // 0x1008e58c0
+    FontManager::FontManager(SpriteAtlasManager* spriteAtlasManager, Js5ResourceProvider* js5ResourceProvider,
+                             IConfigProvider* iConfigProvider, Js5ArchiveSettings* js5ArchiveSettings)
+        : field_0(spriteAtlasManager), field_8(js5ResourceProvider), field_16(iConfigProvider),
+          field_24(64, "FontManager") {
+        uint8_t local_80[72];
 
-        field_0 = param_1;
-        field_8 = param_2;
-        field_16 = param_3;
-        new (&field_24, 64, "FontManager") LRUHashCache<Font, 64ul, 65ul, false, unsigned long long>();
-        new (&field_5400)
-            eastl::vector_map<int, shared_ptr<FontMetrics>, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, shared_ptr<FontMetrics>>, eastl::allocator>>();
-        (&field_5400, 256)->reserve();
+        field_5400.reserve(256);
         new (local_80) ConfigDecoderInfo();
-        local_38 = this;
-        eastl::function<void(
-            unsigned int, unsigned int, unsigned int, unsigned int,
-            shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>> const&,
-            Array<shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>, eastl::allocator> const*)>::
-        operator=((function<void(unsigned int, unsigned int, unsigned int, unsigned int,
-                                 shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>> const&,
-                                 Array<shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>,
-                                       eastl::allocator> const*)>*)(local_80 + 8),
-                  (__0*)&local_38);
-        (**(code**)(field_16->field_0 + 16))(field_16, param_4, (ConfigDecoderInfo*)local_80);
-        local_80->~ConfigDecoderInfo();
+        (*((local_80 + 8))) = this;
+        (*field_16->_vptr[1]._dtor)(field_16, js5ArchiveSettings, (ConfigDecoderInfo*)local_80);
     }
 
-    // 0x1008e5a40, 16 bytes, complete-object constructor, placed by class name and debug map
-    // FontManager::FontManager(SpriteAtlasManager*, Js5ResourceProvider*, IConfigProvider*, Js5ArchiveSettings*): jumps straight to the base-object constructor
-
-    // 0x1008e5a50, 80 bytes, base-object destructor, placed by class name and debug map
-    // FontManager::~FontManager()
-    void FontManager::~FontManager() {
-        Flush(this);
-        (&field_5400)->~vector_map();
-        (&field_24)->~LRUHashCache();
+    // 0x1008e5a50
+    FontManager::~FontManager() {
+        Flush();
+        field_5400.~vector_map();
+        field_24.~LRUHashCache();
     }
 
-    // 0x1008e5aa0, 16 bytes, placed by class name and debug map
-    // FontManager::Flush()
+    // 0x1008e5aa0
     void FontManager::Flush() {
-        (&field_24)->Reset();
+        field_24.Reset();
     }
 
-    // 0x1008e5ab0, 16 bytes, complete-object destructor, placed by class name and debug map
-    // FontManager::~FontManager(): jumps straight to the base-object destructor
-
-    // 0x1008e5ac0, 32 bytes, placed by class name and debug map
-    // FontManager::MainLogic()
+    // 0x1008e5ac0
     void FontManager::MainLogic() {
-        (&field_24, 1500)->Clean();
+        field_24.Clean(1500);
     }
 
-    // 0x1008e5ae0, 784 bytes, placed by class name and debug map
-    // FontManager::GetFont(int, shared_ptr<SpriteAtlas> const&)
-    Js5ResourceProvider* FontManager::GetFont(int param_1, shared_ptr* param_2) {
-        Js5ResourceProvider* pJVar1;
-        bool bVar2;
-        char cVar3;
-        undefined4 uVar5;
-        NXTPixScreen* this_00;
-        Js5ResourceProvider* this_01;
+    // 0x1008e5ae0
+    Js5ResourceProvider* FontManager::GetFont(int arg1, const shared_ptr<SpriteAtlas>& spriteAtlas) {
+        Js5ResourceProvider* js5ArchiveSettings;
+        uint8_t uVar3;
+        unsigned char arg3;
+        int iVar4;
         shared_ptr* this_02;
-        FontMetrics* pFVar6;
-        undefined* puVar7;
+        FontMetrics* pFVar5;
+        uint64_t extraout_var;
         Js5ResourceProvider* this_03;
-        uint uVar8;
-        VectorFontLoader* pVVar9;
-        _func_decltype_nullptr* p_Var10;
-        shared_ptr local_b0;
+        ReturnValue local_b0;
         Js5ResourceProvider* local_a0;
-        LRUHashCache<Font, 64ul, 65ul, false, unsigned long long>* local_98;
-        VectorFontLoader* local_90;
+        ReturnValue local_90;
         shared_ptr* local_88;
-        shared_ptr local_80[2];
+        ReturnValue local_80;
         shared_ptr local_58;
         shared_ptr local_48;
-        Js5ArchiveSettings* local_38;
+        VectorFontLoader* local_38;
 
-        uVar8 = 0;
-        bVar2 = operator==(param_2, (_func_decltype_nullptr*)0);
-        if (!bVar2) {
-            this_00 = (NXTPixScreen*)shared_ptr<SpriteAtlas>::operator->((shared_ptr<SpriteAtlas>*)param_2);
-            uVar8 = this_00->GetUIHeight() * 65536 + 65536;
+        unsigned int uVar6 = 0;
+        if (!spriteAtlas == nullptr) {
+            iVar4 = ((NXTPixScreen*)spriteAtlas.operator->())->GetUIHeight();
+            uVar6 = iVar4 * 65536 + 65536;
         }
-        local_98 = (LRUHashCache<Font, 64ul, 65ul, false, unsigned long long>*)&field_24;
-        pVVar9 = (VectorFontLoader*)(long)(int)(uVar8 | param_1);
-        local_80[0]._0_8_ = pVVar9;
-        this_01 =
-            (Js5ResourceProvider*)LRUHashCache<Font, 64ul, 65ul, false, unsigned long long>::Find((ulonglong*)local_98);
-        bVar2 = this_01->operator_cast_to_bool();
-        if (!bVar2) {
-            p_Var10 = (_func_decltype_nullptr*)(ulong)(uint)param_1;
-            this_02 = (shared_ptr*)GetFontMetricsFromID(this, param_1);
-            bVar2 = shared_ptr::operator_cast_to_bool(this_02);
-            if (bVar2) {
-                new (&local_48) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var10);
-                pFVar6 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this_02);
-                cVar3 = pFVar6->IsSpriteFont();
-                local_90 = pVVar9;
-                if (cVar3 == '\0') {
-                    new (&local_58) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var10);
+        LRUHashCache<Font, 64ul, 65ul, false, unsigned long long>* local_98 =
+            (LRUHashCache<Font, 64ul, 65ul, false, unsigned long long>*)&field_24;
+        ReturnValue RVar7 = (ReturnValue)(long)(int)(uVar6 | arg1);
+        local_80[0] = RVar7;
+        auto this_01 = local_98->Find(local_80);
+        bool cVar2 = this_01->operator_cast_to_bool();
+        if (!cVar2) {
+            this_02 = (shared_ptr*)GetFontMetricsFromID(arg1);
+            cVar2 = shared_ptr::operator_cast_to_bool(this_02);
+            if (cVar2) {
+                local_48 = shared_ptr();
+                pFVar5 = (FontMetrics*)(*this_02).operator->();
+                cVar2 = pFVar5->IsSpriteFont();
+                local_90 = RVar7;
+                if (!cVar2) {
+                    local_58 = shared_ptr();
                     this_03 = field_8;
                     local_38 = Js5Archive::JS5_TRUETYPEFONTS;
-                    pFVar6 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this_02);
-                    uVar8 = pFVar6->GetSourcePackID();
-                    this_03->GetGroup(&local_58, local_38, uVar8, (Priority*)Priority::HIGHEST, true, false);
-                    bVar2 = shared_ptr::operator_cast_to_bool(&local_58);
-                    if (bVar2) {
-                        local_38 = (Js5ArchiveSettings*)local_58.Instance();
-                        pFVar6 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this_02);
-                        uVar8 = pFVar6->GetSourcePackID();
-                        pFVar6 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this_02);
-                        pFVar6->GetPixelSize();
-                        local_80->CreateFontSource((int)local_38, (shared_ptr*)(ulong)uVar8, (uchar)&local_58);
-                        this_03 = (Js5ResourceProvider*)local_80;
-                        bVar2 = this_03->operator_cast_to_bool();
-                        if (bVar2) {
+                    pFVar5 = (FontMetrics*)(*this_02).operator->();
+                    uVar6 = pFVar5->GetSourcePackID();
+                    Js5ResourceProvider::GetGroup(*this_03, local_58, (unsigned int)local_38,
+                                                  (Priority*)(unsigned long)uVar6, (uint8_t)(Priority::HIGHEST), true);
+                    cVar2 = shared_ptr::operator_cast_to_bool(&local_58);
+                    if (cVar2) {
+                        local_38 = (VectorFontLoader*)local_58.Instance();
+                        pFVar5 = (FontMetrics*)(*this_02).operator->();
+                        iVar4 = pFVar5->GetSourcePackID();
+                        pFVar5 = (FontMetrics*)(*this_02).operator->();
+                        arg3 = pFVar5->GetPixelSize();
+                        local_80 = local_38->CreateFontSource(iVar4, local_58, arg3);
+                        this_03 = &local_80;
+                        cVar2 = this_03->operator_cast_to_bool();
+                        if (cVar2) {
                             local_a0 = this_03;
                             make_shared<Font, shared_ptr<FontMetrics> const&, VectorFontSource*, SpriteAtlasManager*&,
-                                        shared_ptr<SpriteAtlas> const&>(
-                                (jag*)&local_b0, this_02, (VectorFontSource**)&local_a0, &field_0, param_2);
-                            shared_ptr<Font>::operator=((shared_ptr<Font>*)&local_48, &local_b0);
-                            local_b0.~shared_ptr();
+                                        shared_ptr<SpriteAtlas> const&>(&local_b0, (shared_ptr<FontMetrics>*)this_02,
+                                                                        (VectorFontSource**)&local_a0, &field_0,
+                                                                        spriteAtlas);
+                            local_48 = local_b0;
                         }
-                        local_80->~VectorFontSource();
                     }
-                    local_58.~shared_ptr();
                 } else {
-                    pJVar1 = field_8;
+                    js5ArchiveSettings = field_8;
                     local_38 = Js5Archive::JS5_SPRITES;
                     local_88 = this_02;
-                    pFVar6 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this_02);
-                    uVar5 = pFVar6->GetSourcePackID();
-                    this_03 = (Js5ResourceProvider*)pJVar1->field_0;
-                    puVar7 =
-                        (undefined*)(**(code**)&this_03->field_48)(pJVar1, local_38, uVar5, 0, Priority::HIGHEST, 1);
-                    if (puVar7 == DataStatus::READY) {
+                    pFVar5 = (FontMetrics*)(*this_02).operator->();
+                    uVar6 = pFVar5->GetSourcePackID();
+                    this_03 = (Js5ResourceProvider*)js5ArchiveSettings->_vptr;
+                    uVar3 = (**(FileReady**)&this_03->field_48)((Js5ArchiveSettings*)js5ArchiveSettings,
+                                                                (unsigned int)local_38, uVar6, nullptr,
+                                                                (uint8_t)(Priority::HIGHEST));
+                    if ((uint8_t*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar3) == DataStatus::READY) {
                         make_shared<Font, shared_ptr<FontMetrics> const&, SpriteAtlasManager*&,
-                                    shared_ptr<SpriteAtlas> const&>((jag*)local_80, local_88, &field_0, param_2);
-                        shared_ptr<Font>::operator=((shared_ptr<Font>*)&local_48, local_80);
-                        local_80->~shared_ptr();
+                                    shared_ptr<SpriteAtlas> const&>(&local_80, (shared_ptr<FontMetrics>*)local_88,
+                                                                    &field_0, spriteAtlas);
+                        local_48 = local_80;
                     }
                 }
-                bVar2 = shared_ptr::operator_cast_to_bool(&local_48);
-                if (bVar2) {
-                    local_80[0]._0_8_ = local_90;
-                    this_03 = (Js5ResourceProvider*)local_98->Put(&local_48, 1, local_80);
+                cVar2 = shared_ptr::operator_cast_to_bool(&local_48);
+                if (cVar2) {
+                    local_80[0] = local_90;
+                    this_03 = (Js5ResourceProvider*)local_98->Put(local_48, 1, local_80);
                 }
-                local_48.~shared_ptr();
-                if (bVar2) {
+                if (cVar2) {
                     return this_03;
                 }
             }

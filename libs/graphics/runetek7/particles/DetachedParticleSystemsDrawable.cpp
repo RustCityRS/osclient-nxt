@@ -1,108 +1,93 @@
 // libs/graphics/runetek7/particles/DetachedParticleSystemsDrawable.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "DetachedParticleSystemsDrawable.h"
 
 namespace jag::graphics {
-    // 0x100828290, 160 bytes, placed by class name and debug map
-    // DetachedParticleSystemsDrawable::Add(eastl::vector<shared_ptr<ModularParticleSystem>, eastl::allocator> const&)
-    void DetachedParticleSystemsDrawable::Add(vector* param_1) {
+    // 0x100828290
+    void DetachedParticleSystemsDrawable::Add(
+        const eastl::vector<shared_ptr<ModularParticleSystem>>& modularParticleSystems) {
         ModularParticleSystem* pMVar1;
-        shared_ptr<ModularParticleSystem>* psVar3;
-        shared_ptr<ModularParticleSystem>* this_00;
 
-        this_00 = (shared_ptr<ModularParticleSystem>*)param_1->HeapBeginPtr();
-        psVar3 = (shared_ptr<ModularParticleSystem>*)param_1->end();
+        auto this_00 = modularParticleSystems.HeapBeginPtr();
+        auto psVar3 = modularParticleSystems.end();
         if (this_00 != psVar3) {
             do {
-                pMVar1 = (ModularParticleSystem*)shared_ptr<ModularParticleSystem>::operator->(this_00);
+                pMVar1 = (ModularParticleSystem*)(*this_00).operator->();
                 pMVar1->SetEmitting(false);
-                pMVar1 = (ModularParticleSystem*)shared_ptr<ModularParticleSystem>::operator->(this_00);
+                pMVar1 = (ModularParticleSystem*)(*this_00).operator->();
                 pMVar1->SetLoopingAllowed(false);
-                pMVar1 = (ModularParticleSystem*)shared_ptr<ModularParticleSystem>::operator->(this_00);
+                pMVar1 = (ModularParticleSystem*)(*this_00).operator->();
                 if (pMVar1->GetParticleCount() != 0) {
-                    eastl::fixed_vector<shared_ptr<ModularParticleSystem>, 16ul, true, eastl::allocator>::push_back(
-                        (shared_ptr*)field_16);
+                    field_16.push_back(*this_00);
                 }
                 this_00 = this_00 + 16;
             } while (this_00 != psVar3);
         }
     }
 
-    // 0x100828340, 144 bytes, placed by class name and debug map
-    // DetachedParticleSystemsDrawable::Add(eastl::fixed_vector<shared_ptr<ParticleSystem>, 1ul, true, eastl::allocator> const&)
-    void DetachedParticleSystemsDrawable::Add(fixed_vector* param_1) {
+    // 0x100828340
+    void
+    DetachedParticleSystemsDrawable::Add(const eastl::fixed_vector<shared_ptr<ParticleSystem>, 1ul>& particleSystems) {
         ParticleSystem* pPVar1;
-        shared_ptr<ParticleSystem>* psVar3;
-        shared_ptr<ParticleSystem>* this_00;
 
-        this_00 = (shared_ptr<ParticleSystem>*)param_1->HeapBeginPtr();
-        psVar3 = (shared_ptr<ParticleSystem>*)param_1->end();
+        auto this_00 = particleSystems.HeapBeginPtr();
+        auto psVar3 = particleSystems.end();
         if (this_00 != psVar3) {
             do {
-                pPVar1 = (ParticleSystem*)shared_ptr<ParticleSystem>::operator->(this_00);
+                pPVar1 = (ParticleSystem*)(*this_00).operator->();
                 pPVar1->DisableEmitters();
-                pPVar1 = (ParticleSystem*)shared_ptr<ParticleSystem>::operator->(this_00);
+                pPVar1 = (ParticleSystem*)(*this_00).operator->();
                 if (pPVar1->GetParticleCount() != 0) {
-                    eastl::fixed_vector<shared_ptr<ParticleSystem>, 16ul, true, eastl::allocator>::push_back(
-                        (shared_ptr*)field_312);
+                    field_312.push_back(*this_00);
                 }
                 this_00 = this_00 + 16;
             } while (this_00 != psVar3);
         }
     }
 
-    // 0x1008283e0, 224 bytes, placed by class name and debug map
-    // DetachedParticleSystemsDrawable::GatherDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&)
-    void DetachedParticleSystemsDrawable::GatherDrawableElements(DrawableQueue* param_1, RT7Core* param_2,
-                                                                 SceneViewData* param_3, EffectManager* param_4) {
-        shared_ptr<ParticleSystem>* this_00;
-        shared_ptr<ParticleSystem>* psVar1;
+    // 0x1008283e0
+    void DetachedParticleSystemsDrawable::GatherDrawableElements(DrawableQueue& drawableQueue, RT7Core& rt7Core,
+                                                                 const SceneViewData& sceneViewData,
+                                                                 const EffectManager& effectManager) {
         long* plVar2;
-        shared_ptr<ModularParticleSystem>* this_01;
-        shared_ptr<ModularParticleSystem>* psVar3;
-        ModularParticleSystem* this_02;
 
-        this_00 = (shared_ptr<ParticleSystem>*)field_312->HeapBeginPtr();
-        psVar1 = (shared_ptr<ParticleSystem>*)field_312->end();
+        auto this_00 = field_312.HeapBeginPtr();
+        auto psVar1 = field_312.end();
         for (; this_00 != psVar1; this_00 = this_00 + 16) {
-            plVar2 = (long*)shared_ptr<ParticleSystem>::operator->(this_00);
-            (**(code**)(*plVar2 + 16))(plVar2, param_1, param_2, param_3, param_4);
+            plVar2 = (long*)(*this_00).operator->();
+            (**(void (**)(...))(*plVar2 + 16))(plVar2, drawableQueue, rt7Core, sceneViewData, effectManager);
         }
-        this_01 = (shared_ptr<ModularParticleSystem>*)field_16->HeapBeginPtr();
-        psVar3 = (shared_ptr<ModularParticleSystem>*)field_16->end();
+        auto this_01 = field_16.HeapBeginPtr();
+        auto psVar3 = field_16.end();
         for (; this_01 != psVar3; this_01 = this_01 + 16) {
-            this_02 = (ModularParticleSystem*)shared_ptr<ModularParticleSystem>::operator->(this_01);
-            plVar2 = (long*)this_02->GetDrawable();
-            (**(code**)(*plVar2 + 16))(plVar2, param_1, param_2, param_3, param_4);
+            plVar2 = ((ModularParticleSystem*)(*this_01).operator->())->GetDrawable();
+            (**(void (**)(...))(*plVar2 + 16))(plVar2, drawableQueue, rt7Core, sceneViewData, effectManager);
         }
     }
 
-    // 0x1008284c0, 160 bytes, placed by class name and debug map
-    // DetachedParticleSystemsDrawable::GarbageCollect()
+    // 0x1008284c0
     void DetachedParticleSystemsDrawable::GarbageCollect() {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        shared_ptr* psVar3;
-        shared_ptr* psVar4;
-        undefined1* puVar5;
+        shared_ptr<ModularParticleSystem>* modularParticleSystem2;
+        shared_ptr<ParticleSystem>* particleSystem2;
+        uint8_t auVar4[16];
 
-        puVar5 = field_16;
-        uVar1 = puVar5->HeapBeginPtr();
-        uVar2 = puVar5->end();
-        psVar3 = eastl::remove_if<shared_ptr<ModularParticleSystem>*,
-                                  DetachedParticleSystemsDrawable::GarbageCollect()::__7>(uVar1, uVar2);
-        psVar4 = (shared_ptr*)puVar5->end();
-        puVar5->erase(psVar3, psVar4);
-        puVar5 = field_312;
-        uVar1 = puVar5->HeapBeginPtr();
-        uVar2 = puVar5->end();
-        psVar3 = eastl::remove_if<shared_ptr<ParticleSystem>*, DetachedParticleSystemsDrawable::GarbageCollect()::__8>(
-            uVar1, uVar2);
-        psVar4 = (shared_ptr*)puVar5->end();
-        puVar5->erase(psVar3, psVar4);
+        uint8_t* puVar3 = &field_16;
+        auto psVar1 = puVar3->HeapBeginPtr();
+        auVar4 = puVar3->end();
+        psVar1 = eastl::remove_if<shared_ptr<ModularParticleSystem>*,
+                                  DetachedParticleSystemsDrawable::GarbageCollect()::__7>(psVar1, auVar4._0_8_,
+                                                                                          auVar4._8_8_);
+        modularParticleSystem2 = (shared_ptr<ModularParticleSystem>*)puVar3->end();
+        puVar3->erase(psVar1, modularParticleSystem2);
+        puVar3 = &field_312;
+        auto psVar2 = puVar3->HeapBeginPtr();
+        auVar4 = puVar3->end();
+        psVar2 = eastl::remove_if<shared_ptr<ParticleSystem>*, DetachedParticleSystemsDrawable::GarbageCollect()::__8>(
+            psVar2, auVar4._0_8_, auVar4._8_8_);
+        particleSystem2 = (shared_ptr<ParticleSystem>*)puVar3->end();
+        puVar3->erase(psVar2, particleSystem2);
     }
 
 } // namespace jag::graphics

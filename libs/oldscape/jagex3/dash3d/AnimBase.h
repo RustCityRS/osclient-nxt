@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/dash3d/AnimBase.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.oldscape.jagex3
@@ -8,70 +7,56 @@
 namespace jag::oldscape::dash3d {
     class AnimBase {
     public:
-        uint GetNumT() const;
-        AnimBase(int, PacketJ<Array<unsigned char, eastl::allocator>>&);
-        GetSkeleton() const;
+        unsigned int GetNumT() const;
+        AnimBase(int arg1, PacketJ<Array<unsigned char>>& packetJ);
+        auto GetSkeleton() const;
         ~AnimBase();
 
-        // data members, from how the methods use this: 152 bytes
-        int field_0; // offset 0
-        uint m_numT; // offset 4
-        char _unknown_8[144];
+    private:
+        int field_0;
+        unsigned int m_numT;
+        uint8_t _unknown_8[144];
     };
 
-    // 0x100073980: the linker folded this into jag::math::Rect<int>::MinY() const, which has identical code
-    uint AnimBase::GetNumT() const;
+    // 0x100073980: AnimBase::GetNumT() const has the same machine code as jag::math::Rect<int>::MinY() const
 
-    // 0x100349640, 784 bytes, base-object constructor, placed by class name
-    // AnimBase::AnimBase(int, PacketJ<Array<unsigned char, eastl::allocator> >&)
-    void AnimBase::AnimBase(int param_1, PacketJ* param_2) {
-        byte bVar2;
-        ushort uVar3;
-        uint uVar4;
+    // 0x100349640
+    AnimBase::AnimBase(int arg1, PacketJ<Array<unsigned char>>& packetJ) : field_0(0), m_numT(0) {
+        unsigned short uVar3;
+        unsigned int uVar4;
         int iVar5;
-        undefined4 uVar6;
-        uint* puVar7;
-        ulong uVar8;
-        vector<unsigned int, eastl::allocator>* pvVar9;
-        vector<int, eastl::allocator>* this_00;
-        undefined4* puVar10;
-        vector<EntityHighlight*, BucketAllocatorEASTL>* this_01;
-        ulong uVar11;
-        undefined4 in_register_00000034;
-        _func_decltype_nullptr* p_Var12;
-        shared_ptr local_78;
-        shared_ptr<Skeleton>* local_60;
-        uint local_54;
-        vector<int, eastl::allocator>* local_50;
-        vector<int, eastl::allocator>* local_48;
-        vector<int, eastl::allocator>* local_40;
-        vector<eastl::vector<int, eastl::allocator>, eastl::allocator>* local_38;
+        uint32_t uVar6;
+        unsigned int* puVar7;
+        vector<int>* pvVar8;
+        vector<unsigned int>* pvVar9;
+        uint32_t* puVar10;
+        unsigned long uVar11;
+        unsigned long uVar12;
+        ReturnValue local_78;
+        unsigned int local_54;
 
-        p_Var12 = (_func_decltype_nullptr*)CONCAT44(in_register_00000034, param_1);
-        field_0 = 0;
-        m_numT = 0;
-        local_48 = (vector<int, eastl::allocator>*)&field_8;
-        eastl::vector<int, eastl::allocator>::vector(local_48);
-        local_38 = (vector<eastl::vector<int, eastl::allocator>, eastl::allocator>*)&field_40;
-        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::vector(local_38);
-        local_60 = (shared_ptr<Skeleton>*)&field_72;
-        new (local_60) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(p_Var12);
-        local_50 = (vector<int, eastl::allocator>*)&field_88;
-        eastl::vector<int, eastl::allocator>::vector(local_50);
-        local_40 = (vector<int, eastl::allocator>*)&field_120;
-        eastl::vector<int, eastl::allocator>::vector(local_40);
-        field_0 = param_1;
-        bVar2 = param_2->g1();
-        m_numT = (uint)bVar2;
-        eastl::vector<int, eastl::allocator>::resize((ulong)local_48);
-        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::resize(local_38, (long)(int)m_numT);
-        eastl::vector<int, eastl::allocator>::resize((ulong)local_50);
-        eastl::vector<int, eastl::allocator>::resize((ulong)local_40);
+        vector<int>* local_48 = (vector<int>*)&field_8;
+        new (local_48) eastl::vector<int>();
+        vector<eastl::vector<int>>* local_38 = (vector<eastl::vector<int>>*)&field_40;
+        new (local_38) eastl::vector<eastl::vector<int>>();
+        shared_ptr<Skeleton>* local_60 = (shared_ptr<Skeleton>*)&field_72;
+        new (local_60) shared_ptr();
+        vector<int>* local_50 = (vector<int>*)&field_88;
+        new (local_50) eastl::vector<int>();
+        vector<int>* local_40 = (vector<int>*)&field_120;
+        new (local_40) eastl::vector<int>();
+        field_0 = arg1;
+        uint8_t bVar2 = packetJ.g1();
+        m_numT = (unsigned int)bVar2;
+        local_48->resize((unsigned long)bVar2);
+        local_38->resize((long)(int)m_numT);
+        local_50->resize((long)(int)m_numT << 8);
+        local_40->resize((long)(int)m_numT);
         if (0 < (int)m_numT) {
             uVar11 = 0;
             do {
-                uVar4 = param_2->g1();
-                puVar7 = (uint*)eastl::vector<int, eastl::allocator>::operator[](local_48, uVar11);
+                uVar4 = packetJ.g1();
+                puVar7 = (unsigned int*)(*local_48)[uVar11];
                 *puVar7 = uVar4 & 255;
                 uVar11 = uVar11 + 1;
             } while ((long)uVar11 < (long)(int)m_numT);
@@ -79,119 +64,96 @@ namespace jag::oldscape::dash3d {
         if (0 < (int)m_numT) {
             uVar11 = 0;
             do {
-                eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](local_38, uVar11);
-                eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-                uVar8 =
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](local_38, uVar11);
-                param_2->g1();
-                eastl::vector<int, eastl::allocator>::resize(uVar8);
+                ((vector<eastl::pair<int, int>>*)(*local_38)[uVar11])->clear();
+                pvVar8 = (vector<int>*)(*local_38)[uVar11];
+                bVar2 = packetJ.g1();
+                pvVar8->resize((unsigned long)bVar2);
                 uVar11 = uVar11 + 1;
             } while ((long)uVar11 < (long)(int)m_numT);
         }
         if (0 < (int)m_numT) {
             uVar11 = 0;
             do {
-                uVar8 = 0;
+                uVar12 = 0;
                 while (true) {
-                    pvVar9 = (vector<unsigned int, eastl::allocator>*)
-                        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](local_38,
-                                                                                                          uVar11);
-                    iVar5 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar9);
-                    if ((long)iVar5 <= (long)uVar8)
+                    pvVar9 = (vector<unsigned int>*)(*local_38)[uVar11];
+                    iVar5 = pvVar9->size();
+                    if ((long)iVar5 <= (long)uVar12)
                         break;
-                    uVar4 = param_2->g1();
-                    this_00 = (vector<int, eastl::allocator>*)
-                        eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](local_38,
-                                                                                                          uVar11);
-                    puVar7 = (uint*)eastl::vector<int, eastl::allocator>::operator[](this_00, uVar8);
+                    uVar4 = packetJ.g1();
+                    pvVar8 = (vector<int>*)(*local_38)[uVar11];
+                    puVar7 = (unsigned int*)(*pvVar8)[uVar12];
                     *puVar7 = uVar4 & 255;
-                    puVar7 = (uint*)eastl::vector<int, eastl::allocator>::operator[](
-                        local_50, (ulong)((uint)uVar11 & 16777215) * 256 + uVar8);
+                    puVar7 =
+                        (unsigned int*)(*local_50)[(unsigned long)((unsigned int)uVar11 & 16777215) * 256 + uVar12];
                     *puVar7 = uVar4 & 255;
-                    uVar8 = uVar8 + 1;
+                    uVar12 = uVar12 + 1;
                 }
                 uVar11 = uVar11 + 1;
-            } while ((long)uVar11 < (long)(int)((AnimBase*)this)->m_numT);
+            } while ((long)uVar11 < (long)(int)m_numT);
         }
-        if (0 < (int)((AnimBase*)this)->m_numT) {
+        if (0 < (int)m_numT) {
             uVar11 = 0;
             do {
-                pvVar9 = (vector<unsigned int, eastl::allocator>*)
-                    eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>::operator[](local_38, uVar11);
-                uVar6 = eastl::vector<unsigned int, eastl::allocator>::size(pvVar9);
-                puVar10 = (undefined4*)eastl::vector<int, eastl::allocator>::operator[](local_40, uVar11);
+                pvVar9 = (vector<unsigned int>*)(*local_38)[uVar11];
+                uVar6 = pvVar9->size();
+                puVar10 = (uint32_t*)(*local_40)[uVar11];
                 *puVar10 = uVar6;
                 uVar11 = uVar11 + 1;
-            } while ((long)uVar11 < (long)(int)((AnimBase*)this)->m_numT);
+            } while ((long)uVar11 < (long)(int)m_numT);
         }
-        uVar11 = param_2->size();
-        this_01 = (vector<EntityHighlight*, BucketAllocatorEASTL>*)param_2->GetDataArrayPtr();
-        uVar8 = eastl::vector<EntityHighlight*, BucketAllocatorEASTL>::end(this_01);
-        if (uVar11 < uVar8) {
-            uVar3 = param_2->g2();
-            local_54 = (uint)uVar3;
+        uVar11 = packetJ.size();
+        uVar12 = ((vector<EntityHighlight*, BucketAllocatorEASTL>*)packetJ.GetDataArrayPtr())->end();
+        if (uVar11 < uVar12) {
+            uVar3 = packetJ.g2();
+            local_54 = (unsigned int)uVar3;
             if (uVar3 != 0) {
-                make_shared<Skeleton, PacketJ<Array<unsigned char, eastl::allocator>>&, int&>((jag*)&local_78, param_2,
-                                                                                              (int*)&local_54);
-                shared_ptr<Skeleton>::operator=(local_60, &local_78);
-                local_78.~shared_ptr();
+                make_shared<Skeleton, PacketJ<Array<unsigned char>>&, int&>(&local_78, packetJ, (int*)&local_54);
+                *local_60 = local_78;
             }
         }
     }
 
-    // 0x100349b00, 16 bytes, complete-object constructor, placed by class name
-    // AnimBase::AnimBase(int, PacketJ<Array<unsigned char, eastl::allocator> >&): jumps straight to the base-object constructor
-
-    // 0x10034edf0, 32 bytes, inline, placed by class name
-    // AnimBase::GetSkeleton() const
-    AnimBase* AnimBase::GetSkeleton() {
-        long in_RSI;
-
-        new (this) shared_ptr<Decor>((shared_ptr*)(in_RSI + 72));
-        return this;
+    // 0x10034edf0
+    auto AnimBase::GetSkeleton() const {
+        return auto(&field_72);
     }
 
-    // 0x1003773f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // AnimBase::~AnimBase(): jumps straight to the base-object destructor
-
-    // 0x100377400, 64 bytes, base-object destructor, inline, placed by class name
-    // AnimBase::~AnimBase()
-    void AnimBase::~AnimBase() {
-        (&field_120)->~vector();
-        (&field_88)->~vector();
-        (&field_72)->~shared_ptr();
-        (&field_40)->~vector();
-        (&field_8)->~vector();
+    // 0x100377400
+    AnimBase::~AnimBase() {
+        field_120.~vector();
+        field_88.~vector();
+        field_72.~shared_ptr();
+        field_40.~vector();
+        field_8.~vector();
     }
 
 } // namespace jag::oldscape::dash3d
 
 namespace jag {
-    // 0x1003499f0, 176 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::dash3d::Skeleton>::type make_shared<oldscape::dash3d::Skeleton, oldscape::PacketJ<Array<unsigned char, eastl::allocator> >&, int&>(oldscape::PacketJ<Array<unsigned char, eastl::allocator> >&, int&)
-    jag* jag::make_shared<oldscape::dash3d::Skeleton, oldscape::PacketJ<Array<unsigned char, eastl::allocator>>&, int&>(
-        PacketJ* param_1, int* param_2) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1003499f0
+    shared_ptr_if_not_array<oldscape::dash3d::Skeleton>::type
+    make_shared<oldscape::dash3d::Skeleton, oldscape::PacketJ<Array<unsigned char>>&, int&>(
+        oldscape::PacketJ<Array<unsigned char>>& packetJ, int& arg2) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_3c;
         Skeleton* local_38[2];
 
-        pvVar1 = (void*)aligned_alloc(64, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(64, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::dash3d::Skeleton>::type result;
         } else {
-            local_38[0] =
-                placement_new<oldscape::dash3d::Skeleton, oldscape::PacketJ<Array<unsigned char, eastl::allocator>>&,
-                              int&>((void*)((long)pvVar1 + 32), param_1, param_2);
+            local_38[0] = placement_new<oldscape::dash3d::Skeleton, oldscape::PacketJ<Array<unsigned char>>&, int&>(
+                (void*)((long)arg1 + 32), packetJ, arg2);
             local_3c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::dash3d::Skeleton>, int, oldscape::dash3d::Skeleton*&>(
-                pvVar1, &local_3c, local_38);
-            prVar2->~AutoSingleton(local_38[0]);
-            prVar2->~AutoSingleton(local_38[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_38[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::dash3d::Skeleton>, int, oldscape::dash3d::Skeleton*&>(
+                    arg1, &local_3c, local_38);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_38[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

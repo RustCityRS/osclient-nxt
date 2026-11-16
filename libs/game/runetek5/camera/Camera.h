@@ -1,247 +1,215 @@
 // libs/game/runetek5/camera/Camera.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class Camera {
     public:
-        GetLinearPositionAcceleration() const;
+        uint8_t* GetLinearPositionAcceleration() const;
         shared_ptr GetLookatManager() const;
         shared_ptr GetPositionManager() const;
         AABB GetLinearPositionMaxSpeed() const;
-        int GetPositionMode() const;
-        GetLinearLookatAcceleration() const;
-        uint GetProjectionMode() const;
+        PositionMode GetPositionMode() const;
+        uint64_t* GetLinearLookatAcceleration() const;
+        unsigned int GetProjectionMode() const;
         AABB GetLinearLookatMaxSpeed() const;
-        DoingTimedMove() const;
-        int GetLookatMode() const;
-        void SetLookatManager(shared_ptr<ILookatManager>&);
-        void SetPositionManager(shared_ptr<IPositionManager>&);
+        uint8_t DoingTimedMove() const;
+        LookatMode GetLookatMode() const;
+        void SetLookatManager(shared_ptr<ILookatManager>& iLookatManager);
+        void SetPositionManager(shared_ptr<IPositionManager>& iPositionManager);
         void Ready() const;
-        Camera(std::function<shared_ptr<Entity>(CameraTrackableType, int)> const&);
-        ManagersReady() const;
-        CamLocked() const;
+        Camera(const std::function<shared_ptr<Entity>(CameraTrackableType, int)>& callback);
+        uint64_t ManagersReady() const;
+        uint64_t CamLocked() const;
         void LockCamera();
         void UnlockCamera();
-        void SetLookatMode(LookatMode, bool);
-        void SetPositionMode(PositionMode, bool);
-        void SetNearPlane(int);
-        double GetFarPlane(World const*) const;
-        void GetOrientationQuat(unsigned long long, math::QuaternionT<double>&);
-        void UpdateLookAt(unsigned long long, float, math::QuaternionT<double> const&);
-        void UpdatePosition(unsigned long long, float, HeightMap const*, LinkMap const*,
-                            math::QuaternionT<double> const&, int, int);
+        void SetLookatMode(LookatMode lookatMode, bool arg2);
+        void SetPositionMode(PositionMode positionMode, bool arg2);
+        void SetNearPlane(int arg1);
+        double GetFarPlane(const World* world) const;
+        void GetOrientationQuat(unsigned long long arg1, math::QuaternionT<double>& quaternion);
+        void UpdateLookAt(unsigned long long arg1, float arg2, const math::QuaternionT<double>& quaternion);
+        void UpdatePosition(unsigned long long arg1, float arg2, const HeightMap* heightMap, const LinkMap* linkMap,
+                            const math::QuaternionT<double>& quaternion, int arg6, int arg7);
         double GetAngularPositionInterpolant() const;
-        void Update(float, HeightMap const*, LinkMap const*, int, int);
-        GetViewVector(math::Vector3T<double>&) const;
-        void GetPosition(math::Vector3T<double>&, unsigned long long) const;
-        ulong GetCameraPosition(math::Vector3T<double>&) const;
-        GetCameraPosition(math::Vector3T<float>&) const;
-        ulong GetCameraCurrentPosition(math::Vector3T<double>&) const;
-        ulong GetCameraCurrentPosition(math::Vector3T<float>&) const;
-        ulong GetCameraPositionOffset(math::Vector3T<double>&) const;
-        ulong GetCameraPositionOffset(math::Vector3T<float>&) const;
-        ulong GetCameraLookat(math::Vector3T<double>&) const;
-        ulong GetCameraLookat(math::Vector3T<float>&) const;
-        ulong GetCameraCurrentLookat(math::Vector3T<double>&) const;
-        ulong GetCameraCurrentLookat(math::Vector3T<float>&) const;
-        GetCameraMatrix(math::Matrix44T<float>&) const;
-        void UpdateOrientation(math::Matrix44T<float>&, unsigned long long) const;
+        void Update(float arg1, const HeightMap* heightMap, const LinkMap* linkMap, int arg4, int arg5);
+        uint32_t GetViewVector(math::Vector3T<double>& vector3) const;
+        void GetPosition(math::Vector3T<double>& vector3, unsigned long long arg2) const;
+        unsigned long GetCameraPosition(math::Vector3T<double>& vector3) const;
+        uint32_t GetCameraPosition(math::Vector3T<float>& vector3) const;
+        unsigned long GetCameraCurrentPosition(math::Vector3T<double>& vector3) const;
+        unsigned long GetCameraCurrentPosition(math::Vector3T<float>& vector3) const;
+        unsigned long GetCameraPositionOffset(math::Vector3T<double>& vector3) const;
+        unsigned long GetCameraPositionOffset(math::Vector3T<float>& vector3) const;
+        unsigned long GetCameraLookat(math::Vector3T<double>& vector3) const;
+        unsigned long GetCameraLookat(math::Vector3T<float>& vector3) const;
+        unsigned long GetCameraCurrentLookat(math::Vector3T<double>& vector3) const;
+        unsigned long GetCameraCurrentLookat(math::Vector3T<float>& vector3) const;
+        uint32_t GetCameraMatrix(math::Matrix44T<float>& matrix44) const;
+        void UpdateOrientation(math::Matrix44T<float>& matrix44, unsigned long long arg2) const;
         void DrawDebugCameraBits() const;
-        GetOrientationOffset(math::QuaternionT<double>&, math::Point<int>&) const;
-        GetOrientationOffset(math::QuaternionT<double>&) const;
-        ulong GetPositionFine(CoordFine&) const;
-        ulong GetLookatFine(CoordFine&) const;
-        GetFollowAngle(double&, math::Point<int>&) const;
-        ulong GetYAngle() const;
-        void SetAngularLookatInterpolant(double);
-        void SetAngularPositionInterpolant(double);
-        void SetLinearMovementMode(LinearMovement::Mode);
-        void SetLinearLookatAcceleration(math::Vector3T<double> const&);
-        void SetLinearPositionAcceleration(math::Vector3T<double> const&);
-        void SetLinearLookatMaxSpeed(math::Vector3T<double> const&);
-        void SetLinearPositionMaxSpeed(math::Vector3T<double> const&);
-        void SetSpringProperties(math::Vector3T<double> const&, double);
-        void SetLookatSpringProperties(math::Vector3T<double> const&, double);
-        void SetPositionSpringProperties(math::Vector3T<double> const&, double);
-        void SetLookatPoint(CoordFine const&);
-        void SetPositionPoint(CoordFine const&);
-        void SetPositionPointCollision(bool);
-        void SetLookatOrientationVector(math::Vector3T<float>);
-        void SetLookatOrientationXRotation(int);
-        void SetLookatOrientationYRotation(int);
-        void SetLookatOrientationXMovement(float);
-        void SetLookatOrientationZMovement(float);
-        void SetMaxDistanceClamping(math::Vector3T<float> const&, int, int, int, int, int, int);
-        void AddEffect(shared_ptr<ICameraEffect> const&);
-        void RemoveEffect(int);
-        GetEffect(int);
-        void ProcessServerUpdate(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&, unsigned int);
-        void SetOrientationOffset(math::QuaternionT<double> const&, int, int);
-        byte IsClientControlled() const;
+        uint64_t GetOrientationOffset(math::QuaternionT<double>& quaternion, math::Point<int>& point) const;
+        uint64_t GetOrientationOffset(math::QuaternionT<double>& quaternion) const;
+        unsigned long GetPositionFine(CoordFine& coordFine) const;
+        unsigned long GetLookatFine(CoordFine& coordFine) const;
+        uint32_t GetFollowAngle(double& arg1, math::Point<int>& point) const;
+        unsigned long GetYAngle() const;
+        void SetAngularLookatInterpolant(double arg1);
+        void SetAngularPositionInterpolant(double arg1);
+        void SetLinearMovementMode(LinearMovement::Mode mode);
+        void SetLinearLookatAcceleration(const math::Vector3T<double>& vector3);
+        void SetLinearPositionAcceleration(const math::Vector3T<double>& vector3);
+        void SetLinearLookatMaxSpeed(const math::Vector3T<double>& vector3);
+        void SetLinearPositionMaxSpeed(const math::Vector3T<double>& vector3);
+        void SetSpringProperties(const math::Vector3T<double>& vector3, double arg2);
+        void SetLookatSpringProperties(const math::Vector3T<double>& vector3, double arg2);
+        void SetPositionSpringProperties(const math::Vector3T<double>& vector3, double arg2);
+        void SetLookatPoint(const CoordFine& coordFine);
+        void SetPositionPoint(const CoordFine& coordFine);
+        void SetPositionPointCollision(bool arg1);
+        void SetLookatOrientationVector(math::Vector3T<float> vector3);
+        void SetLookatOrientationXRotation(int arg1);
+        void SetLookatOrientationYRotation(int arg1);
+        void SetLookatOrientationXMovement(float arg1);
+        void SetLookatOrientationZMovement(float arg1);
+        void SetMaxDistanceClamping(const math::Vector3T<float>& vector3, int arg2, int arg3, int arg4, int arg5,
+                                    int arg6, int arg7);
+        void AddEffect(const shared_ptr<ICameraEffect>& iCameraEffect);
+        void RemoveEffect(int arg1);
+        uint64_t GetEffect(int arg1);
+        void ProcessServerUpdate(PacketT<Array<unsigned char>>& arg1, unsigned int arg2);
+        void SetOrientationOffset(const math::QuaternionT<double>& quaternion, int arg2, int arg3);
+        bool IsClientControlled() const;
         void UpdatePositionAndLookAtEntities();
-        void SetPositionEntity(shared_ptr<Entity> const&, int, int, int, int, int, bool, int, int);
-        void SetLookatEntity(shared_ptr<Entity> const&, int, int, int, bool);
-        void TimedMovement(math::Vector3T<double> const&, math::Vector3T<double> const&, unsigned long long, int);
+        void SetPositionEntity(const shared_ptr<Entity>& entity, int arg2, int arg3, int arg4, int arg5, int arg6,
+                               bool arg7, int arg8, int arg9);
+        void SetLookatEntity(const shared_ptr<Entity>& entity, int arg2, int arg3, int arg4, bool arg5);
+        void TimedMovement(const math::Vector3T<double>& vector31, const math::Vector3T<double>& vector32,
+                           unsigned long long arg3, int arg4);
         void RemoveAllEffects();
-        void SetFieldOfView(float, float);
-        void SetAspectRatio(float);
+        void SetFieldOfView(float arg1, float arg2);
+        void SetAspectRatio(float arg1);
         void UpdateFOVScaling();
         double GetVerticalFOV() const;
         double GetAspectRatio() const;
         double GetNearPlane() const;
         void SetFarPlaneDirty();
         ~Camera();
-        static /* 1 bytes */ m_debugCameraEffects;
-        static /* 7 bytes */ m_freezeCameraUpdate;
-        static math::Vector3T<double> /* 24 bytes */ infiniteAcceleration; // = Vector3T<double>(INFINITY, 0.0, 0.0)
+        static bool m_debugCameraEffects;
+        static bool m_freezeCameraUpdate;
+        static math::Vector3T<double> infiniteAcceleration; // = Vector3T<double>(INFINITY, 0.0, 0.0)
 
-        // data members, from how the methods use this: 624 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[136];
-        undefined1 field_144; // offset 144
-        char _unknown_145[47];
-        byte m_clientControlled; // offset 192
-        char _unknown_193[3];
-        uint m_projectionMode; // offset 196
-        int m_lookatMode;      // offset 200
-        char _unknown_204[4];
-        shared_ptr m_pLookatManager; // offset 208
-        int m_positionMode;          // offset 224
-        char _unknown_228[4];
-        shared_ptr m_positionManager; // offset 232
-        char _unknown_248[40];
-        undefined4 field_288; // offset 288
-        bool field_292;       // offset 292
-        bool field_293;       // offset 293
-        char _unknown_294[2];
-        uint field_296; // offset 296
-        char _unknown_300[4];
-        double field_304;                    // offset 304
-        double m_angularPositionInterpolant; // offset 312
-        uint field_320;                      // offset 320
-        char _unknown_324[4];
-        double field_328;     // offset 328
-        int field_336;        // offset 336
-        int field_340;        // offset 340
-        undefined4 field_344; // offset 344
-        char _unknown_348[4];
-        AABB m_linearLookatMaxSpeed;             // offset 352
-        AABB m_linearPositionMaxSpeed;           // offset 376
-        undefined8 m_linearLookatAcceleration;   // offset 400
-        undefined8 field_408;                    // offset 408
-        undefined8 field_416;                    // offset 416
-        undefined8 m_linearPositionAcceleration; // offset 424
-        undefined8 field_432;                    // offset 432
-        undefined8 field_440;                    // offset 440
-        AABB field_448;                          // offset 448
-        AABB field_472;                          // offset 472
-        double field_496;                        // offset 496
-        double field_504;                        // offset 504
-        float m_fieldOfView;                     // offset 512
-        float field_516;                         // offset 516
-        float m_aspectRatio;                     // offset 520
-        float field_524;                         // offset 524
-        double m_nearPlane;                      // offset 528
-        double field_536;                        // offset 536
-        undefined1 field_544;                    // offset 544
-        undefined1 field_545;                    // offset 545
-        char _unknown_546[2];
-        uint field_548; // offset 548
-        uint field_552; // offset 552
-        char _unknown_556[4];
-        ulonglong field_560; // offset 560
-        ulonglong field_568; // offset 568
-        AABB field_576;      // offset 576
-        AABB field_600;      // offset 600
+    private:
+        uint8_t _unknown_8[136];
+        uint8_t field_144;
+        uint8_t _unknown_145[47];
+        uint8_t m_clientControlled;
+        uint8_t _unknown_193[3];
+        unsigned int m_projectionMode;
+        LookatMode m_lookatMode;
+        uint8_t _unknown_204[4];
+        shared_ptr m_pLookatManager;
+        PositionMode m_positionMode;
+        uint8_t _unknown_228[4];
+        shared_ptr m_positionManager;
+        int field_248;
+        uint8_t _unknown_252[36];
+        uint32_t field_288;
+        bool field_292;
+        bool field_293;
+        uint8_t _unknown_294[2];
+        Mode field_296;
+        uint8_t _unknown_300[4];
+        double field_304;
+        double m_angularPositionInterpolant;
+        unsigned int field_320;
+        uint8_t _unknown_324[4];
+        double field_328;
+        unsigned int field_336;
+        int field_340;
+        uint32_t field_344;
+        uint8_t _unknown_348[4];
+        AABB m_linearLookatMaxSpeed;
+        AABB m_linearPositionMaxSpeed;
+        uint64_t m_linearLookatAcceleration;
+        uint64_t field_408;
+        uint64_t field_416;
+        uint64_t m_linearPositionAcceleration;
+        uint64_t field_432;
+        uint64_t field_440;
+        AABB field_448;
+        AABB field_472;
+        double field_496;
+        double field_504;
+        float m_fieldOfView;
+        float field_516;
+        float m_aspectRatio;
+        float field_524;
+        double m_nearPlane;
+        double field_536;
+        uint8_t field_544;
+        uint8_t field_545;
+        uint8_t _unknown_546[2];
+        unsigned int field_548;
+        unsigned int field_552;
+        uint8_t _unknown_556[4];
+        unsigned long long field_560;
+        unsigned long long field_568;
+        AABB field_576;
+        AABB field_600;
     };
 
-    // 0x100620820, 16 bytes, inline, placed by class name and debug map
-    // Camera::DoingTimedMove() const
-    undefined1 Camera::DoingTimedMove() {
+    // 0x100620820
+    uint8_t Camera::DoingTimedMove() const {
         return field_545;
     }
 
-    // 0x1006211f0, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Camera::GetLookatMode() const
-    /* hal::audio::AudioBuffer::SampleRate() const */
-
-    int hal::audio::AudioBuffer::SampleRate() {
+    // 0x1006211f0
+    LookatMode Camera::GetLookatMode() const {
         return field_200;
     }
 
-    // 0x100621cb0, 32 bytes, inline, placed by class name
-    // Camera::SetLookatManager(shared_ptr<ILookatManager>&)
-    void Camera::SetLookatManager(shared_ptr* param_1) {
-        shared_ptr<ILookatManager>::operator=((shared_ptr<ILookatManager>*)m_pLookatManager, param_1);
+    // 0x100621cb0
+    void Camera::SetLookatManager(shared_ptr<ILookatManager>& iLookatManager) {
+        *m_pLookatManager = iLookatManager;
     }
 
-    // 0x100621cd0, 32 bytes, inline, placed by class name
-    // Camera::SetPositionManager(shared_ptr<IPositionManager>&)
-    void Camera::SetPositionManager(shared_ptr* param_1) {
-        shared_ptr<IPositionManager>::operator=((shared_ptr<IPositionManager>*)m_positionManager, param_1);
+    // 0x100621cd0
+    void Camera::SetPositionManager(shared_ptr<IPositionManager>& iPositionManager) {
+        *m_positionManager = iPositionManager;
     }
 
-    // 0x100630050, 16 bytes, inline, placed by class name
-    // Camera::GetAngularPositionInterpolant() const
-    double Camera::GetAngularPositionInterpolant() {
+    // 0x100630050
+    double Camera::GetAngularPositionInterpolant() const {
         return m_angularPositionInterpolant;
     }
 
-    // 0x100632f30, 16 bytes, inline, placed by class name
-    // Camera::IsClientControlled() const
-    byte Camera::IsClientControlled() {
+    // 0x100632f30
+    bool Camera::IsClientControlled() const {
         return m_clientControlled;
     }
 
-    // 0x100633260, 32 bytes, inline, placed by class name
-    // Camera::RemoveAllEffects()
+    // 0x100633260
     void Camera::RemoveAllEffects() {
-        (&field_248)->clear();
+        field_248.clear();
     }
 
-    // 0x100633440, 16 bytes, inline, placed by class name
-    // Camera::GetNearPlane() const
-    double Camera::GetNearPlane() {
+    // 0x100633440
+    double Camera::GetNearPlane() const {
         return m_nearPlane;
     }
 
-    // 0x100633450, 16 bytes, inline, placed by class name
-    // Camera::SetFarPlaneDirty()
+    // 0x100633450
     void Camera::SetFarPlaneDirty() {
         field_544 = 1;
     }
 
-    // 0x100633460, 32 bytes, complete-object destructor, inline, placed by class name
-    // Camera::~Camera()
-    void Camera::~Camera() {
-        ~Camera(this);
-    }
+    // 0x1006339f0
+    Camera::~Camera() {
 
-    // 0x100633480, 32 bytes, deleting destructor, inline, placed by class name
-    // Camera::~Camera()
-    void Camera::~Camera() {
-        ~Camera(this);
-        operator_delete(this);
-    }
-
-    // 0x1006339f0, 96 bytes, base-object destructor, inline, placed by class name
-    // Camera::~Camera()
-    void Camera::~Camera() {
-        undefined** ppuVar1;
-        long* in_RSI;
-
-        ppuVar1 = (undefined**)*in_RSI;
-        field_0 = ppuVar1;
-        *(long*)(m_pLookatManager + (long)(ppuVar1[-33] + -208)) = in_RSI[1];
-        (&field_248)->~vector_map();
         m_positionManager->~shared_ptr();
         m_pLookatManager->~shared_ptr();
-        std::function<shared_ptr<Entity>(CameraTrackableType, int)>::~function(
-            (function<shared_ptr<Entity>(CameraTrackableType, int)>*)&field_144);
     }
 
 } // namespace jag::game
@@ -251,109 +219,90 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~Camera();
-        GetProjectionMode() const;
-        GetRot() const;
-        SetProjectionMode(ProjectionMode);
+        EnumOptionToggle GetProjectionMode() const;
+        uint8_t* GetRot() const;
+        void SetProjectionMode(ProjectionMode arg1);
         ColourHSL GetPos() const;
-        GetVerticalFov() const;
+        uint32_t GetVerticalFov() const;
         float GetAspect() const;
         float GetTopClip() const;
-        void SetTopClip(float);
-        SetBottomClip(float);
-        SetLeftClip(float);
-        SetRightClip(float);
-        void SetVerticalFov(float);
-        void SetAspect(float);
-        void SetNearClip(float);
-        void SetFarClip(float);
-        void SetPos(math::Vector3T<float> const&);
-        void SetRot(math::QuaternionT<float> const&);
-        GetLeftClip() const;
+        void SetTopClip(float arg1);
+        void SetBottomClip(float arg1);
+        void SetLeftClip(float arg1);
+        void SetRightClip(float arg1);
+        void SetVerticalFov(float arg1);
+        void SetAspect(float arg1);
+        void SetNearClip(float arg1);
+        void SetFarClip(float arg1);
+        void SetPos(const math::Vector3T<float>& vector3);
+        void SetRot(const math::QuaternionT<float>& quaternion);
+        float GetLeftClip() const;
         float GetNearClip() const;
         float GetBottomClip() const;
-        GetRightClip() const;
+        uint32_t GetRightClip() const;
         float GetFarClip() const;
-        Camera(ProjectionMode);
+        Camera(ProjectionMode projectionMode);
 
-        // data members, from how the methods use this: 76 bytes
-        undefined** field_0;         // offset 0, vtable pointer
-        undefined4 m_projectionMode; // offset 8
-        float m_verticalFov;         // offset 12
-        float m_aspect;              // offset 16
-        undefined8 m_leftClip;       // offset 20
-        float m_bottomClip;          // offset 28
-        float m_topClip;             // offset 32
-        float m_nearClip;            // offset 36
-        float m_farClip;             // offset 40
-        char _unknown_44[16];
-        ColourHSL m_pos; // offset 60
+    private:
+        ProjectionMode m_projectionMode;
+        float m_verticalFov;
+        float m_aspect;
+        uint64_t m_leftClip;
+        float m_bottomClip;
+        float m_topClip;
+        float m_nearClip;
+        float m_farClip;
+        uint8_t _unknown_44[16];
+        ColourHSL m_pos;
     };
 
-    // 0x1003c0090, 16 bytes, inline, placed by class name
-    // Camera::SetTopClip(float)
-    void Camera::SetTopClip(float param_1) {
-        m_topClip = param_1;
+    // 0x1003c0090
+    void Camera::SetTopClip(float arg1) {
+        m_topClip = arg1;
     }
 
-    // 0x1003c00a0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Camera::SetBottomClip(float)
-    /* OpenGLView::SetMainRenderTargetScaleFactor(float) */
-
-    void OpenGLView::SetMainRenderTargetScaleFactor(float param_1) {
-        m_mainRenderTargetScaleFactor = param_1;
+    // 0x1003c00a0
+    void Camera::SetBottomClip(float arg1) {
+        m_mainRenderTargetScaleFactor = arg1;
     }
 
-    // 0x1003c00b0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Camera::SetLeftClip(float)
-    /* game::LookatOrientation::SetOrientationXMovement(float) */
-
-    void game::LookatOrientation::SetOrientationXMovement(float param_1) {
-        m_orientationXMovement = param_1;
+    // 0x1003c00b0
+    void Camera::SetLeftClip(float arg1) {
+        m_orientationXMovement = arg1;
     }
 
-    // 0x1003c00c0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Camera::SetRightClip(float)
-    /* game::LookatOrientation::SetOrientationZMovement(float) */
-
-    void game::LookatOrientation::SetOrientationZMovement(float param_1) {
-        m_orientationZMovement = param_1;
+    // 0x1003c00c0
+    void Camera::SetRightClip(float arg1) {
+        m_orientationZMovement = arg1;
     }
 
-    // 0x10047de70, 16 bytes, inline, placed by class name
-    // Camera::SetNearClip(float)
-    void Camera::SetNearClip(float param_1) {
-        m_nearClip = param_1;
+    // 0x10047de70
+    void Camera::SetNearClip(float arg1) {
+        m_nearClip = arg1;
     }
 
-    // 0x10047de80, 16 bytes, inline, placed by class name
-    // Camera::SetFarClip(float)
-    void Camera::SetFarClip(float param_1) {
-        m_farClip = param_1;
+    // 0x10047de80
+    void Camera::SetFarClip(float arg1) {
+        m_farClip = arg1;
     }
 
-    // 0x10047de90, 16 bytes, inline, placed by class name
-    // Camera::SetPos(math::Vector3T<float> const&)
-    void Camera::SetPos(Vector3T* param_1) {
-        (m_pos, param_1)->SetXYZ();
+    // 0x10047de90
+    void Camera::SetPos(const math::Vector3T<float>& vector3) {
+        m_pos->SetXYZ(vector3);
     }
 
-    // 0x10047dea0, 16 bytes, inline, placed by class name
-    // Camera::SetRot(math::QuaternionT<float> const&)
-    void Camera::SetRot(QuaternionT* param_1) {
-        (&field_44, (Vector4T*)param_1)->Set();
+    // 0x10047dea0
+    void Camera::SetRot(const math::QuaternionT<float>& quaternion) {
+        field_44.Set(quaternion);
     }
 
 } // namespace jag
 
 namespace jag::game::camera {
-    // 0x10061db70, 48 bytes, inline, placed by class name
-    // ShakeModeString(ShakeMode)
-    char* ShakeModeString(uint param_1) {
-        if (param_1 < 6) {
-            return (&PTR_s_POSITION_X_100f0c400)[(int)param_1];
+    // 0x10061db70
+    char* ShakeModeString(ShakeMode shakeMode) {
+        if (shakeMode < 6) {
+            return (&PTR_s_POSITION_X_100f0c400)[shakeMode];
         }
         return "Unknown";
     }

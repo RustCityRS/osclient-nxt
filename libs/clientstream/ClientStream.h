@@ -1,155 +1,134 @@
 // libs/clientstream/ClientStream.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class ClientStream {
     public:
-        uint GetConnectionStatus();
+        unsigned int GetConnectionStatus();
         void GetInBufferSize() const;
-        unsigned long
-        Read<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&,
-                                                                  unsigned long);
+        unsigned long Read<PacketT<Array<unsigned char>>>(PacketT<Array<unsigned char>>& arg1, unsigned long arg2);
         WaterNormalParamsTarget GetError() const;
-        void Write(PacketT<Array<unsigned char, eastl::allocator>>&);
+        void Write(PacketT<Array<unsigned char>>& arg1);
         void Close();
         long GetAvailable();
-        unsigned long
-        Read<PacketT<Array<unsigned char, eastl::allocator>>>(PacketT<Array<unsigned char, eastl::allocator>>&,
-                                                              unsigned long);
+        unsigned long Read<PacketT<Array<unsigned char>>>(PacketT<Array<unsigned char>>& arg1, unsigned long arg2);
         void Drop();
-        ClientStream(char const*, int, int, int, int, bool);
+        ClientStream(const char* str, int arg2, int arg3, int arg4, int arg5, bool arg6);
         ~ClientStream();
-        GetPing();
-        ulong Read(unsigned char*, unsigned long);
+        uint32_t GetPing();
+        unsigned long Read(unsigned char* arg1, unsigned long arg2);
         void Service();
-        ulong Write(unsigned char const*, unsigned long);
+        unsigned long Write(const unsigned char* arg1, unsigned long arg2);
         void Flush();
-        void GetProfiling(unsigned int*, unsigned int*, unsigned int*, unsigned long long*, unsigned long long*,
-                          unsigned int*, unsigned int*, unsigned int*);
-        static /* 64 bytes */ m_connectionPingMutex; // initialised in its definition
-        static /* 8 bytes */ m_ReadsFromClient;
-        static /* 8 bytes */ m_WritesFromClient;
-        static /* 8 bytes */ m_TotalBytesRead;
-        static /* 8 bytes */ m_TotalBytesWritten;
-        static /* 8 bytes */ m_LastAvailable;
-        static /* 8 bytes */ m_SendTime;
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ m_connectionPing;
+        void GetProfiling(unsigned int* arg1, unsigned int* arg2, unsigned int* arg3, unsigned long long* arg4,
+                          unsigned long long* arg5, unsigned int* arg6, unsigned int* arg7, unsigned int* arg8);
+        static int32_t m_connectionPingMutex[16]; // initialised in its definition
+        static int64_t m_ReadsFromClient;
+        static int64_t m_WritesFromClient;
+        static int64_t m_TotalBytesRead;
+        static int64_t m_TotalBytesWritten;
+        static int64_t m_LastAvailable;
+        static int64_t m_SendTime;
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            m_connectionPing; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
 
-        // data members, from how the methods use this: 520 bytes
-        uint m_connectionStatus; // offset 0
-        char _unknown_4[140];
-        undefined1 field_144; // offset 144
-        char _unknown_145[55];
-        Error field_200; // offset 200
-        char _unknown_204[60];
-        bool field_264; // offset 264
-        char _unknown_265[3];
-        WaterNormalParamsTarget m_error; // offset 268
-        char _unknown_284[236];
+    private:
+        unsigned int m_connectionStatus;
+        uint8_t _unknown_4[196];
+        uint32_t field_200;
+        uint8_t _unknown_204[4];
+        uint8_t field_208;
+        uint8_t _unknown_209[55];
+        bool field_264;
+        uint8_t _unknown_265[3];
+        WaterNormalParamsTarget m_error;
+        uint8_t _unknown_284[236];
     };
 
-    // 0x1004a2630, 32 bytes, inline, placed by class name and debug map
-    // ClientStream::GetInBufferSize() const
-    void ClientStream::GetInBufferSize() {
-        (&field_144)->GetAuthWrapper();
+    // 0x1004a2630
+    void ClientStream::GetInBufferSize() const {
+        field_144.GetAuthWrapper();
     }
 
-    // 0x1004a26d0, 112 bytes, inline, placed by class name and debug map
-    // unsigned long ClientStream::Read<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >(PacketT<Array<unsigned char, BucketAllocatorEASTL> >&, unsigned long)
-    ulong ClientStream::Read<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>(PacketT* param_1, ulong param_2) {
-        long lVar1;
-        long lVar2;
-        ulong uVar3;
-
-        lVar1 = param_1->GetDataPtr();
-        lVar2 = param_1->size();
-        uVar3 = Read(this, (uchar*)(lVar1 + lVar2), param_2);
+    // 0x1004a26d0
+    unsigned long ClientStream::Read<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>(
+        PacketT<Array<unsigned char, BucketAllocatorEASTL>>& arg1, unsigned long arg2) {
+        long lVar1 = arg1.GetDataPtr();
+        long lVar2 = arg1.size();
+        unsigned long uVar3 = Read((lVar1 + lVar2), arg2);
         if (uVar3 != 0) {
-            lVar1 = param_1->size();
-            param_1->SetPos(uVar3 + lVar1);
+            lVar1 = arg1.size();
+            arg1.SetPos(uVar3 + lVar1);
         }
         return uVar3;
     }
 
-    // 0x1009f26f0, 64 bytes, inline, placed by class name
-    // ClientStream::Write(PacketT<Array<unsigned char, eastl::allocator> >&)
-    void ClientStream::Write(PacketT* param_1) {
-        uchar* puVar1;
-        ulong uVar2;
-
-        puVar1 = (uchar*)param_1->GetDataPtr();
-        uVar2 = param_1->GetTextureAtlas();
-        Write(this, puVar1, uVar2);
+    // 0x1009f26f0
+    void ClientStream::Write(PacketT<Array<unsigned char>>& arg1) {
+        auto arg1_00 = arg1.GetDataPtr();
+        unsigned long arg2 = arg1.GetTextureAtlas();
+        Write(arg1_00, arg2);
     }
 
-    // 0x1009f2bc0, 64 bytes, inline, placed by class name
-    // ClientStream::Close()
+    // 0x1009f2bc0
     void ClientStream::Close() {
-        (&field_8, (Error*)0)->Close();
-        (&field_144)->clear();
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        field_8.Close(nullptr);
+        field_144.clear();
+        field_232.clear();
         m_connectionStatus = 0;
     }
 
-    // 0x1009f3560, 256 bytes, inline, placed by class name
-    // ClientStream::GetAvailable()
+    // 0x1009f3560
     long ClientStream::GetAvailable() {
-        undefined1* this_00;
-        char cVar1;
+        uint8_t* this_01;
         long lVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        Error local_50[8];
+        Logger* this_02;
+        uint64_t uVar3;
+        uint64_t uVar4;
+        ReturnValue local_50;
 
-        this_00 = &field_8;
-        cVar1 = this_00->IsOpen();
-        if (cVar1 != '\0') {
-            lVar2 = this_00->Available(m_error);
-            cVar1 = m_error->IsValid();
-            if (cVar1 == '\0')
+        uint8_t* this_00 = &field_8;
+        bool cVar1 = this_00->IsOpen();
+        if (cVar1) {
+            this_01 = m_error;
+            lVar2 = this_00->Available(this_01);
+            cVar1 = this_01->IsValid();
+            if (!cVar1)
                 goto LAB_1009f361e;
-            uVar3 = logger::default_logger();
+            this_02 = logger::default_logger();
             this_00->GetCursorMutex();
+            uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            local_50 = this_01->GetErrorString();
             uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            local_50->GetErrorString();
-            uVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            logger::Logger::Log(uVar3, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/clientstream/"
-                                "standard/standard_ClientStream_impl.h",
-                                17, "Socket error (%s) : %s", uVar4, uVar5);
-            local_50->~basic_string();
-            Close(this);
+            this_02->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/clientstream/standard/"
+                         "standard_ClientStream_impl.h",
+                         17, "Socket error (%s) : %s", uVar3, uVar4);
+            Close();
         }
         lVar2 = 0;
     LAB_1009f361e:
-        return (&field_144)->GetAuthWrapper() + lVar2;
+        return field_144.GetAuthWrapper() + lVar2;
     }
 
-    // 0x1009f3660, 112 bytes, inline, placed by class name
-    // unsigned long ClientStream::Read<PacketT<Array<unsigned char, eastl::allocator> > >(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned long)
-    ulong ClientStream::Read<PacketT<Array<unsigned char, eastl::allocator>>>(PacketT* param_1, ulong param_2) {
-        long lVar1;
-        long lVar2;
-        ulong uVar3;
-
-        lVar1 = param_1->GetDataPtr();
-        lVar2 = param_1->size();
-        uVar3 = Read(this, (uchar*)(lVar1 + lVar2), param_2);
+    // 0x1009f3660
+    unsigned long ClientStream::Read<PacketT<Array<unsigned char>>>(PacketT<Array<unsigned char>>& arg1,
+                                                                    unsigned long arg2) {
+        long lVar1 = arg1.GetDataPtr();
+        long lVar2 = arg1.size();
+        unsigned long uVar3 = Read((lVar1 + lVar2), arg2);
         if (uVar3 != 0) {
-            lVar1 = param_1->size();
-            param_1->SetPos(uVar3 + lVar1);
+            lVar1 = arg1.size();
+            arg1.SetPos(uVar3 + lVar1);
         }
         return uVar3;
     }
 
-    // 0x1009f46f0, 48 bytes, inline, placed by class name
-    // ClientStream::Drop()
+    // 0x1009f46f0
     void ClientStream::Drop() {
-        (&field_8, (Error*)0)->Close();
+        field_8.Close(nullptr);
         m_connectionStatus = 0;
     }
 

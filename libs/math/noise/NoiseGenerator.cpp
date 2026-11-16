@@ -1,398 +1,303 @@
 // libs/math/noise/NoiseGenerator.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.math
 
 namespace jag::math {
-    // 0x100c65060, 208 bytes, placed by debug map only (low confidence)
-    // GetSummedNoise(double, double, int)
-    void GetSummedNoise(double param_1, double param_2, int param_3) {
-        int iVar1;
+    // 0x100c65060
+    void GetSummedNoise(double arg1, double arg2, int arg3) {
         double dVar2;
         double dVar3;
-        int* piVar4;
         double* pdVar5;
-        ulong uVar6;
+        array<double, 8ul>* array;
         double local_38;
-        int local_24;
         double local_20;
 
-        local_24 = 2;
-        piVar4 = std::max<int>(&local_24, (int*)&MAX_OCTAVES);
-        iVar1 = *piVar4;
+        uint64_t* arg1_00 = &MAX_OCTAVES;
+        auto piVar4 = std::max<int>(2, MAX_OCTAVES);
+        int iVar1 = *piVar4;
         if (1 < iVar1) {
             local_20 = 0.0;
-            uVar6 = 0;
+            array = nullptr;
             do {
-                local_38 = (double)pow<float, int>(SUB84(local_20, 0), (int)uVar6);
-                dVar2 = (double)pow<double, int>(param_2, (int)uVar6);
-                pdVar5 = (double*)std::array<double, 8ul>::operator[](uVar6);
-                dVar3 = (double)InterpolatedNoise((double)(int)local_38 * param_1, *pdVar5);
+                local_38 = (double)pow<float, int>((uint32_t)local_20, (int)array);
+                dVar2 = (double)pow<double, int>(arg2, (int)array);
+                pdVar5 = (double*)(*array)[(unsigned long)arg1_00];
+                dVar3 = (double)InterpolatedNoise((double)(int)local_38 * arg1, *pdVar5);
                 local_20 = local_20 + dVar3 * dVar2;
-                uVar6 = uVar6 + 1;
-            } while (iVar1 - 1 != uVar6);
+                array = array + 1;
+            } while ((array<double, 8ul>*)(unsigned long)(iVar1 - 1) != array);
         }
     }
 
-    // 0x100c65170, 128 bytes, placed by debug map only (low confidence)
-    // InterpolatedNoise(double, double)
-    void InterpolatedNoise(double param_1, double param_2) {
-        double dVar1;
-        double dVar2;
-        double dVar3;
-
-        dVar1 = (double)(int)param_1;
-        dVar2 = (double)SmoothedNoise(dVar1, param_2);
-        dVar3 = (double)SmoothedNoise(dVar1 + *(double*)(&DAT_100d99960 + (ulong)(0.0 < param_1) * 8), param_2);
-        CosineInterpolate(dVar2, dVar3, param_1 - dVar1);
+    // 0x100c65170
+    void InterpolatedNoise(double arg1, double arg2) {
+        double arg1_00 = (double)(int)arg1;
+        double arg1_01 = (double)SmoothedNoise(arg1_00, arg2);
+        double arg2_00 =
+            (double)SmoothedNoise(arg1_00 + *(double*)(&DAT_100d99960 + (unsigned long)(0.0 < arg1) * 8), arg2);
+        CosineInterpolate(arg1_01, arg2_00, arg1 - arg1_00);
     }
 
-    // 0x100c65210, 224 bytes, placed by debug map only (low confidence)
-    // GetSummedNoise2d(double, double, double, int)
-    void GetSummedNoise2d(double param_1, double param_2, double param_3, int param_4) {
-        int iVar1;
+    // 0x100c65210
+    void GetSummedNoise2d(double arg1, double arg2, double arg3, int arg4) {
         double dVar2;
         double dVar3;
-        int* piVar4;
         double* pdVar5;
-        ulong uVar6;
+        array<double, 8ul>* array;
         double local_38;
-        int local_24;
         double local_20;
 
-        local_24 = 2;
-        piVar4 = std::max<int>(&local_24, (int*)&MAX_OCTAVES);
-        iVar1 = *piVar4;
+        uint64_t* arg1_00 = &MAX_OCTAVES;
+        auto piVar4 = std::max<int>(2, MAX_OCTAVES);
+        int iVar1 = *piVar4;
         if (1 < iVar1) {
             local_20 = 0.0;
-            uVar6 = 0;
+            array = nullptr;
             do {
-                local_38 = (double)pow<float, int>(SUB84(local_20, 0), (int)uVar6);
-                dVar2 = (double)pow<double, int>(param_3, (int)uVar6);
-                pdVar5 = (double*)std::array<double, 8ul>::operator[](uVar6);
-                dVar3 = (double)InterpolatedNoise2d((double)(int)local_38 * param_1, (double)(int)local_38 * param_2,
-                                                    *pdVar5);
+                local_38 = (double)pow<float, int>((uint32_t)local_20, (int)array);
+                dVar2 = (double)pow<double, int>(arg3, (int)array);
+                pdVar5 = (double*)(*array)[(unsigned long)arg1_00];
+                dVar3 =
+                    (double)InterpolatedNoise2d((double)(int)local_38 * arg1, (double)(int)local_38 * arg2, *pdVar5);
                 local_20 = local_20 + dVar3 * dVar2;
-                uVar6 = uVar6 + 1;
-            } while (iVar1 - 1 != uVar6);
+                array = array + 1;
+            } while ((array<double, 8ul>*)(unsigned long)(iVar1 - 1) != array);
         }
     }
 
-    // 0x100c652f0, 320 bytes, placed by debug map only (low confidence)
-    // InterpolatedNoise2d(double, double, double)
-    void InterpolatedNoise2d(double param_1, double param_2, double param_3) {
-        double dVar1;
-        double dVar2;
-        double dVar3;
-        double dVar4;
-        double dVar5;
-        double dVar6;
-        double dVar7;
-
-        dVar7 = (double)(int)param_1;
-        dVar6 = (double)(int)param_2;
-        dVar1 = (double)SmoothedNoise2d(dVar7, dVar6, param_3);
-        dVar4 =
-            (double)(~-(ulong)(0.0 < param_1) & 13830554455654793216 | -(ulong)(0.0 < param_1) & 4607182418800017408) +
-            dVar7;
-        dVar2 = (double)SmoothedNoise2d(dVar4, dVar6, param_3);
-        dVar5 = (double)(~-(ulong)(0.0 < param_2) & 13830554455654793216 |
-                         (ulong)((uint)(-(ulong)(0.0 < param_2) >> 32) & 1072693248) << 32) +
-                dVar6;
-        dVar3 = (double)SmoothedNoise2d(dVar7, dVar5, param_3);
-        dVar4 = (double)SmoothedNoise2d(dVar4, dVar5, param_3);
-        dVar1 = (double)CosineInterpolate(dVar1, dVar2, param_1 - dVar7);
-        dVar2 = (double)CosineInterpolate(dVar3, dVar4, param_1 - dVar7);
-        CosineInterpolate(dVar1, dVar2, param_2 - dVar6);
+    // 0x100c652f0
+    void InterpolatedNoise2d(double arg1, double arg2, double arg3) {
+        double arg1_01 = (double)(int)arg1;
+        double arg2_01 = (double)(int)arg2;
+        double dVar1 = (double)SmoothedNoise2d(arg1_01, arg2_01, arg3);
+        double dVar3 = (double)(~-(unsigned long)(0.0 < arg1) & 13830554455654793216 |
+                                -(unsigned long)(0.0 < arg1) & 4607182418800017408) +
+                       arg1_01;
+        double dVar2 = (double)SmoothedNoise2d(dVar3, arg2_01, arg3);
+        double arg2_00 =
+            (double)(~-(unsigned long)(0.0 < arg2) & 13830554455654793216 |
+                     (unsigned long)((unsigned int)(-(unsigned long)(0.0 < arg2) >> 32) & 1072693248) << 32) +
+            arg2_01;
+        double arg1_00 = (double)SmoothedNoise2d(arg1_01, arg2_00, arg3);
+        dVar3 = (double)SmoothedNoise2d(dVar3, arg2_00, arg3);
+        dVar1 = (double)CosineInterpolate(dVar1, dVar2, arg1 - arg1_01);
+        dVar2 = (double)CosineInterpolate(arg1_00, dVar3, arg1 - arg1_01);
+        CosineInterpolate(dVar1, dVar2, arg2 - arg2_01);
     }
 
-    // 0x100c65430, 432 bytes, placed by debug map only (low confidence)
-    // GetTiledSummedNoise2d(double, double, double, double, double, int)
-    double GetTiledSummedNoise2d(double param_1, double param_2, double param_3, double param_4, double param_5,
-                                 int param_6) {
-        double* pdVar1;
-        int iVar2;
-        double dVar3;
-        double dVar4;
-        double local_58;
-        double local_50;
-        double local_40;
-        double local_38;
-        double local_20;
-        double local_18;
-
-        local_18 = 2.0;
-        local_40 = param_3;
-        local_20 = param_4;
-        pdVar1 = std::max<double>(&local_18, &local_40);
+    // 0x100c65430
+    double GetTiledSummedNoise2d(double arg1, double arg2, double arg3, double arg4, double arg5, int arg6) {
+        double local_18 = 2.0;
+        double local_40 = arg3;
+        double local_20 = arg4;
+        auto pdVar1 = std::max<double>(local_18, local_40);
         local_40 = *pdVar1;
         local_18 = 2.0;
-        local_38 = local_40;
-        pdVar1 = std::max<double>(&local_18, &local_20);
+        double local_38 = local_40;
+        pdVar1 = std::max<double>(local_18, local_20);
         local_20 = *pdVar1;
-        local_18 = param_1;
-        local_58 = 0.0;
-        local_50 = local_38;
+        local_18 = arg1;
+        double local_58 = 0.0;
+        double local_50 = local_38;
         Wrap<double>(&local_18, &local_58, &local_50);
-        local_18 = param_2;
+        local_18 = arg2;
         local_58 = 0.0;
         local_50 = local_20;
         pdVar1 = &local_18;
         Wrap<double>(pdVar1, &local_58, &local_50);
-        iVar2 = (int)pdVar1;
-        dVar3 = (double)GetSummedNoise2d(param_1, param_2, param_5, iVar2);
-        local_38 = dVar3 * (local_40 - param_1) * (local_20 - param_2);
-        dVar3 = (double)GetSummedNoise2d(param_1 - local_40, param_2, param_5, iVar2);
-        local_38 = dVar3 * (local_20 - param_2) * param_1 + local_38;
-        dVar3 = (double)GetSummedNoise2d(param_1 - local_40, param_2 - local_20, param_5, iVar2);
-        dVar3 = dVar3 * param_1;
-        dVar4 = (double)GetSummedNoise2d(param_1, param_2 - local_20, param_5, iVar2);
-        return ((dVar4 * (local_40 - param_1) + dVar3) * param_2 + local_38) / (local_40 * local_20);
+        int arg4_00 = (int)pdVar1;
+        double dVar2 = (double)GetSummedNoise2d(arg1, arg2, arg5, arg4_00);
+        local_38 = dVar2 * (local_40 - arg1) * (local_20 - arg2);
+        dVar2 = (double)GetSummedNoise2d(arg1 - local_40, arg2, arg5, arg4_00);
+        local_38 = dVar2 * (local_20 - arg2) * arg1 + local_38;
+        dVar2 = (double)GetSummedNoise2d(arg1 - local_40, arg2 - local_20, arg5, arg4_00);
+        dVar2 = dVar2 * arg1;
+        double dVar3 = (double)GetSummedNoise2d(arg1, arg2 - local_20, arg5, arg4_00);
+        return ((dVar3 * (local_40 - arg1) + dVar2) * arg2 + local_38) / (local_40 * local_20);
     }
 
-    // 0x100c655f0, 80 bytes, inline, placed by debug map only (low confidence)
-    // double Wrap<double>(double const&, double const&, double const&)
-    double Wrap<double>(double* param_1, double* param_2, double* param_3) {
-        double dVar1;
-        double dVar2;
-
-        dVar2 = *param_1;
-        dVar1 = *param_2;
-        if (dVar2 < dVar1) {
+    // 0x100c655f0
+    double Wrap<double>(const double& arg1, const double& arg2, const double& arg3) {
+        double dVar2 = arg1;
+        if (dVar2 < (double)arg2) {
             do {
-                dVar2 = (dVar2 - dVar1) + *param_3;
-            } while (dVar2 < dVar1);
+                dVar2 = (dVar2 - (double)arg2) + arg3;
+            } while (dVar2 < (double)arg2);
         }
-        for (; *param_3 <= dVar2; dVar2 = (dVar2 + dVar1) - *param_3) {
+        for (; arg3 <= dVar2; dVar2 = (dVar2 + (double)arg2) - arg3) {
         }
         return dVar2;
     }
 
-    // 0x100c65640, 288 bytes, placed by debug map only (low confidence)
-    // GetSummedGradientNoise3d(double, double, double, double, double, int, int, int)
-    double GetSummedGradientNoise3d(double param_1, double param_2, double param_3, double param_4, double param_5,
-                                    int param_6, int param_7, int param_8) {
-        int* piVar1;
-        int* piVar2;
-        double dVar3;
+    // 0x100c65640
+    double GetSummedGradientNoise3d(double arg1, double arg2, double arg3, double arg4, double arg5, int arg6, int arg7,
+                                    int arg8) {
+        double dVar2;
         double local_40;
         int local_38[2];
         double local_30;
-        int local_24;
 
         local_38[0] = 2;
-        piVar2 = &local_24;
-        local_24 = param_6;
-        piVar1 = std::max<int>(local_38, piVar2);
+        int local_24 = arg6;
+        auto piVar1 = std::max<int>(*local_38, local_24);
         local_24 = *piVar1;
-        if (param_7 < 1) {
+        if (arg7 < 1) {
             local_30 = 0.0;
         } else {
             local_30 = 0.0;
-            local_40 = param_4;
+            local_40 = arg4;
             do {
-                dVar3 = 1.0 / (double)local_24;
-                dVar3 = (double)((ulong)(uint)(int)(dVar3 * (double)param_8))
-                            ->GradientPerlinNoise3d(dVar3 * param_1, dVar3 * param_2, dVar3 * param_3, (int)piVar2);
-                local_30 = local_30 + dVar3 * local_40;
-                local_40 = local_40 * param_5;
+                dVar2 = 1.0 / (double)local_24;
+                dVar2 = (double)GradientPerlinNoise::GradientPerlinNoise3d(dVar2 * arg1, dVar2 * arg2, dVar2 * arg3,
+                                                                           (int)(dVar2 * (double)arg8));
+                local_30 = local_30 + dVar2 * local_40;
+                local_40 = local_40 * arg5;
                 local_24 = local_24 / 2;
                 local_38[1] = 2;
-                piVar2 = &local_24;
-                piVar1 = std::max<int>(local_38 + 1, &local_24);
+                piVar1 = std::max<int>(*(local_38 + 1), local_24);
                 local_24 = *piVar1;
-                param_7 = param_7 + -1;
-            } while (param_7 != 0);
+                arg7 = arg7 - 1;
+            } while (arg7 != 0);
         }
         return local_30;
     }
 
-    // 0x100c65760, 112 bytes, placed by debug map only (low confidence)
-    // SmoothedNoise(double, double)
-    double SmoothedNoise(double param_1, double param_2) {
-        double dVar1;
-        double dVar2;
-        double dVar3;
-
-        dVar1 = (double)Noise((int)param_1, param_1);
-        dVar2 = (double)Noise((int)(param_1 + -1.0), param_1 + -1.0);
-        dVar3 = (double)Noise((int)(param_1 + 1.0), param_1 + 1.0);
+    // 0x100c65760
+    double SmoothedNoise(double arg1, double arg2) {
+        double dVar1 = (double)Noise((int)arg1, arg1);
+        double dVar2 = (double)Noise((int)(arg1 - 1.0), arg1 - 1.0);
+        double dVar3 = (double)Noise((int)(arg1 + 1.0), arg1 + 1.0);
         return (dVar3 + dVar2) * 0.25 + dVar1 * 0.5;
     }
 
-    // 0x100c657d0, 80 bytes, placed by debug map only (low confidence)
-    // CosineInterpolate(double, double, double)
-    double CosineInterpolate(double param_1, double param_2, double param_3) {
-        double dVar1;
-
-        dVar1 = (double)_cos(param_3 * 3.1415927410125732);
-        return (dVar1 * 0.5 + 0.5) * param_1 + (0.5 - dVar1 * 0.5) * param_2;
+    // 0x100c657d0
+    double CosineInterpolate(double arg1, double arg2, double arg3) {
+        double dVar1 = (double)_cos(arg3 * 3.1415927f);
+        return (dVar1 * 0.5 + 0.5) * arg1 + (0.5 - dVar1 * 0.5) * arg2;
     }
 
-    // 0x100c65820, 320 bytes, placed by debug map only (low confidence)
-    // SmoothedNoise2d(double, double, double)
-    double SmoothedNoise2d(double param_1, double param_2, double param_3) {
-        int iVar1;
-        int iVar2;
-        int iVar4;
-        int iVar5;
-        double dVar6;
-        double dVar7;
-        double dVar8;
-        double dVar9;
-        double dVar10;
-
-        iVar5 = (int)(param_1 + -1.0);
-        iVar4 = (int)(param_2 + -1.0);
-        dVar6 = (double)Noise2d(iVar5, iVar4, param_1);
-        iVar1 = (int)(param_1 + 1.0);
-        dVar7 = (double)Noise2d(iVar1, iVar4, param_1 + 1.0);
-        iVar2 = (int)(param_2 + 1.0);
-        dVar8 = (double)Noise2d(iVar5, iVar2, param_2 + 1.0);
-        dVar9 = (double)Noise2d(iVar1, iVar2, dVar8);
-        dVar10 = (dVar9 + dVar8 + dVar7 + dVar6) * 0.0625;
-        dVar6 = (double)Noise2d(iVar5, (int)param_2, dVar10);
-        dVar7 = (double)Noise2d(iVar1, (int)param_2, dVar6);
-        iVar1 = (int)param_1;
-        dVar8 = (double)Noise2d(iVar1, iVar4, dVar7 + dVar6);
-        dVar9 = (double)Noise2d(iVar1, iVar2, dVar8);
-        dVar10 = (dVar9 + dVar8 + dVar7 + dVar6) * 0.125 + dVar10;
-        dVar6 = (double)Noise2d(iVar1, (int)param_2, dVar10);
-        return dVar6 * 0.25 + dVar10;
+    // 0x100c65820
+    double SmoothedNoise2d(double arg1, double arg2, double arg3) {
+        int arg1_00 = (int)(arg1 - 1.0);
+        int arg2_02 = (int)(arg2 - 1.0);
+        double dVar2 = (double)Noise2d(arg1_00, arg2_02, arg1);
+        int iVar1 = (int)(arg1 + 1.0);
+        double dVar3 = (double)Noise2d(iVar1, arg2_02, arg1 + 1.0);
+        int arg2_00 = (int)(arg2 + 1.0);
+        double dVar4 = (double)Noise2d(arg1_00, arg2_00, arg2 + 1.0);
+        double dVar5 = (double)Noise2d(iVar1, arg2_00, dVar4);
+        double dVar6 = (dVar5 + dVar4 + dVar3 + dVar2) * 0.0625;
+        dVar2 = (double)Noise2d(arg1_00, (int)arg2, dVar6);
+        dVar3 = (double)Noise2d(iVar1, (int)arg2, dVar2);
+        iVar1 = (int)arg1;
+        dVar4 = (double)Noise2d(iVar1, arg2_02, dVar3 + dVar2);
+        dVar5 = (double)Noise2d(iVar1, arg2_00, dVar4);
+        dVar6 = (dVar5 + dVar4 + dVar3 + dVar2) * 0.125 + dVar6;
+        dVar2 = (double)Noise2d(iVar1, (int)arg2, dVar6);
+        return dVar2 * 0.25 + dVar6;
     }
 
-    // 0x100c65960, 80 bytes, placed by debug map only (low confidence)
-    // Noise(int, double)
-    double Noise(int param_1, double param_2) {
-        uint uVar1;
-
-        uVar1 = param_1 << 13 ^ param_1;
+    // 0x100c65960
+    double Noise(int arg1, double arg2) {
+        unsigned int uVar1 = arg1 << 13 ^ arg1;
         return (double)((float)((uVar1 * uVar1 * 15731 + 789221) * uVar1 + 1376312589 & 2147483647) * -9.313226e-10) +
                1.0;
     }
 
-    // 0x100c659b0, 80 bytes, placed by debug map only (low confidence)
-    // Noise2d(int, int, double)
-    double Noise2d(int param_1, int param_2, double param_3) {
-        uint uVar1;
-
-        uVar1 = param_2 * 57 + param_1;
+    // 0x100c659b0
+    double Noise2d(int arg1, int arg2, double arg3) {
+        unsigned int uVar1 = arg2 * 57 + arg1;
         uVar1 = uVar1 * 8192 ^ uVar1;
         return (double)((float)((uVar1 * uVar1 * 15731 + 789221) * uVar1 + 1376312589 & 2147483647) * -9.313226e-10) +
                1.0;
     }
 
-    // 0x100c65a00, 64 bytes, placed by debug map only (low confidence)
-    // Noise(int)
-    double Noise(int param_1) {
+    // 0x100c65a00
+    double Noise(int arg1) {
         double in_XMM0_Qa;
-        double dVar1;
-        double dVar2;
 
-        dVar1 = (double)Noise((int)this, in_XMM0_Qa);
-        dVar2 = (double)_floor();
+        double dVar1 = (double)Noise(arg1, in_XMM0_Qa);
+        double dVar2 = (double)_floor();
         return ABS(dVar1) - dVar2;
     }
 
-    // 0x100c65a40, 64 bytes, placed by debug map only (low confidence)
-    // Noise2d(int, int)
-    double Noise2d(int param_1, int param_2) {
+    // 0x100c65a40
+    double Noise2d(int arg1, int arg2) {
         double in_XMM0_Qa;
-        double dVar1;
-        double dVar2;
 
-        dVar1 = (double)Noise2d((int)this, param_1, in_XMM0_Qa);
-        dVar2 = (double)_floor();
+        double dVar1 = (double)Noise2d(arg1, arg2, in_XMM0_Qa);
+        double dVar2 = (double)_floor();
         return ABS(dVar1) - dVar2;
     }
 
-    // 0x100c65a80, 624 bytes, placed by debug map only (low confidence)
-    // GenerateSummedGradientNoise3d(WrapArray<double>, unsigned long, double, double, double, int, int)
-    void GenerateSummedGradientNoise3d(double param_1, double param_2, Layout* param_3, long param_4,
-                                       undefined4 param_5, int param_6) {
-        long lVar1;
-        double* pdVar2;
-        double* pdVar3;
-        int* piVar4;
-        ulong uVar5;
-        ulong uVar6;
-        int iVar7;
-        undefined1 auVar8[16];
-        double dVar9;
-        double dVar10;
+    // 0x100c65a80
+    void GenerateSummedGradientNoise3d(WrapArray<double> wrapArray, unsigned long arg2, double arg3, double arg4,
+                                       double arg5, int arg6, int arg7) {
+        unsigned long uVar4;
+        unsigned long arg1;
+        int iVar5;
+        uint8_t auVar6[16];
+        double dVar7;
+        double dVar8;
         double local_88;
         double local_78;
         double local_68;
-        int local_50;
-        double local_48;
-        int local_3c;
-        double local_38;
 
-        local_48 = param_1;
-        local_3c = param_5;
-        lVar1 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(param_3);
-        if (lVar1 != param_4 * param_4 * param_4) {
-            /* WARNING: Subroutine does not return */
+        double local_48 = arg3;
+        int local_3c = arg6;
+        long lVar1 = wrapArray->HeapBeginPtr();
+        if (lVar1 != arg2 * arg2 * arg2) {
             LogAssert(
                 "noiseArrayOut.size() == (noiseArraySizePerDim * noiseArraySizePerDim * noiseArraySizePerDim)",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/math/noise/NoiseGenerator.cpp",
-                251, (char*)0);
+                251, nullptr);
         }
-        pdVar2 = (double*)param_3->end();
-        pdVar3 = (double*)param_3->end();
-        local_38 = 0.0;
-        std::fill<double*, double>(pdVar2, pdVar3, &local_38);
-        local_38 = (double)CONCAT44(local_38._4_4_, 2);
-        pdVar2 = (double*)&local_3c;
-        piVar4 = std::max<int>((int*)&local_38, (int*)pdVar2);
-        local_3c = *piVar4;
-        lVar1 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(param_3);
+        auto pdVar2 = wrapArray->end();
+        auto arg2_00 = wrapArray->end();
+        double local_38 = 0.0;
+        std::fill<double*, double>(pdVar2, arg2_00, local_38);
+        local_38 = (double)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)2);
+        auto piVar3 = std::max<int>(local_38, local_3c);
+        local_3c = *piVar3;
+        lVar1 = wrapArray->HeapBeginPtr();
         if (lVar1 != 0) {
-            auVar8._8_4_ = (int)((ulong)param_4 >> 32);
-            auVar8._0_8_ = param_4;
-            auVar8._12_4_ = 1160773632;
-            dVar9 = (auVar8._8_8_ - 1.9342813113834067e+25) +
-                    ((double)CONCAT44(1127219200, (int)param_4) - 4503599627370496.0);
-            local_48 = local_48 / dVar9;
+            auVar6._8_4_ = (int)(arg2 >> 32);
+            auVar6._0_8_ = arg2;
+            auVar6._12_4_ = 1160773632;
+            dVar7 = (auVar6._8_8_ - 1.9342813113834067e+25) +
+                    ((double)(((uint64_t)1127219200 << 32) | (uint32_t)((int)arg2)) - 4503599627370496.0);
+            local_48 = local_48 / dVar7;
             local_78 = 0.0;
-            uVar6 = 0;
+            arg1 = 0;
             local_68 = 0.0;
             local_88 = 0.0;
             do {
-                iVar7 = param_6;
-                if (0 < param_6) {
+                iVar5 = arg7;
+                if (0 < arg7) {
                     do {
                         local_38._0_4_ = local_3c;
-                        dVar10 = 1.0 / (double)local_3c;
-                        dVar10 = (double)((ulong)(uint)(int)(dVar10 * dVar9))
-                                     ->GradientPerlinNoise3d(dVar10 * local_78, dVar10 * local_68, dVar10 * local_88,
-                                                             (int)pdVar2);
-                        pdVar2 = (double*)WrapArray<double>::operator[]((WrapArray<double>*)param_3, uVar6);
-                        *pdVar2 = dVar10 * param_2 + *pdVar2;
-                        local_38 = (double)CONCAT44(local_38._4_4_, local_38._0_4_ / 2);
-                        local_50 = 2;
-                        pdVar2 = &local_38;
-                        std::max<int>(&local_50, (int*)&local_38);
-                        iVar7 = iVar7 + -1;
-                    } while (iVar7 != 0);
+                        dVar8 = 1.0 / (double)local_3c;
+                        dVar8 = (double)GradientPerlinNoise::GradientPerlinNoise3d(
+                            dVar8 * local_78, dVar8 * local_68, dVar8 * local_88, (int)(dVar8 * dVar7));
+                        pdVar2 = (double*)(*wrapArray)[arg1];
+                        *pdVar2 = dVar8 * arg4 + *pdVar2;
+                        local_38 = (double)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)(local_38._0_4_ / 2));
+                        std::max<int>(2, local_38);
+                        iVar5 = iVar5 - 1;
+                    } while (iVar5 != 0);
                 }
                 local_78 = local_78 + local_48;
-                if (dVar9 <= local_78) {
+                if (dVar7 <= local_78) {
                     local_68 = local_68 + local_48;
                 }
-                if (dVar9 <= local_68) {
+                if (dVar7 <= local_68) {
                     local_88 = local_88 + local_48;
                 }
-                local_78 = (double)((ulong)local_78 & -(ulong)(local_78 < dVar9));
-                local_68 = (double)((ulong)local_68 & -(ulong)(local_68 < dVar9));
-                uVar6 = uVar6 + 1;
-                uVar5 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(param_3);
-            } while (uVar6 < uVar5);
+                local_78 = (double)((unsigned long)local_78 & -(unsigned long)(local_78 < dVar7));
+                local_68 = (double)((unsigned long)local_68 & -(unsigned long)(local_68 < dVar7));
+                arg1 = arg1 + 1;
+                uVar4 = wrapArray->HeapBeginPtr();
+            } while (arg1 < uVar4);
         }
     }
 

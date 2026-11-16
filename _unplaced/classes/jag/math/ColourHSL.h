@@ -1,20 +1,19 @@
 // _unplaced/classes/jag/math/ColourHSL.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::math {
     class ColourHSL {
     public:
-        ColourHSL(float, float, float);
+        ColourHSL(float arg1, float arg2, float arg3);
         ColourHSL();
 
-        // data members, from how the methods use this: 16 bytes
-        float field_0; // offset 0
-        float field_4; // offset 4
-        float field_8; // offset 8
-        char _unknown_12[4];
+    private:
+        float field_0;
+        float field_4;
+        float field_8;
+        uint8_t _unknown_12[4];
     };
 
 } // namespace jag::math

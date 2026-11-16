@@ -1,6 +1,5 @@
 // libs/tweaky/Tweaky_DropdownGroup.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,146 +8,118 @@ namespace jag::tweak {
     public:
         // virtual methods in vtable order
         virtual ~DropdownGroup();
-        virtual void OnFocusChanged(bool);
-        virtual void Draw(int, int);
-        virtual ulong GetControlSize(int&, int&);
-        virtual OnClick(float, float, bool);
-        virtual OnMouseMove(float, float);
-        virtual OnMouseOver(float, float);
-        virtual ulong OnMouseWheel(float, float, float);
+        virtual void OnFocusChanged(bool arg1);
+        virtual void Draw(int arg1, int arg2);
+        virtual uint32_t GetControlSize(int& arg1, int& arg2);
+        virtual uint64_t OnClick(float arg1, float arg2, bool arg3);
+        virtual uint64_t OnMouseMove(float arg1, float arg2);
+        virtual uint64_t OnMouseOver(float arg1, float arg2);
+        virtual unsigned long OnMouseWheel(float arg1, float arg2, float arg3);
         virtual void DoOnShown();
         virtual void ResetToDefault();
         virtual void ResetAllToDefault();
-        virtual HandleChar(int);
-        virtual HandleKeyDown(int);
-        virtual HasKeyboardNavigation() const;
-        virtual void SetMouseOver(bool);
-        virtual DropdownGroup* AddPage(eastl::string const&);
-        HandleMouseDown(float, float);
+        virtual uint64_t HandleChar(int arg1);
+        virtual uint64_t HandleKeyDown(int arg1);
+        virtual bool HasKeyboardNavigation() const;
+        virtual void SetMouseOver(bool arg1);
+        virtual DropdownGroup* AddPage(const eastl::string& str);
+        uint64_t HandleMouseDown(float arg1, float arg2);
         void ShowList();
         void HideList();
         void ValidatePosition();
-        ulong HandleMouseUp(float, float);
-        void UpdateMouseSelection(float, float);
-        void ScrollUp(int);
-        void ScrollDown(int);
-        int CalculateDropdownWidth(shared_ptr<Tweaky>&);
+        unsigned long HandleMouseUp(float arg1, float arg2);
+        void UpdateMouseSelection(float arg1, float arg2);
+        void ScrollUp(int arg1);
+        void ScrollDown(int arg1);
+        ShaderVariablePrecision CalculateDropdownWidth(shared_ptr<Tweaky>& tweaky);
         void NavigateUp();
         void NavigateDown();
         void NavigateHome();
         void NavigateEnd();
 
-        // data members, from how the methods use this: 424 bytes
-        long field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        int field_24; // offset 24
-        int field_28; // offset 28
-        char _unknown_32[4];
-        int field_36;  // offset 36
-        uint field_40; // offset 40
-        char _unknown_44[92];
-        int field_136; // offset 136
-        int field_140; // offset 140
-        int field_144; // offset 144
-        int field_148; // offset 148
-        char _unknown_152[8];
-        Event field_160; // offset 160
-        char _unknown_184[24];
-        bool m_mouseOver; // offset 208
-        char _unknown_209[71];
-        uint field_280; // offset 280
-        char _unknown_284[20];
-        int field_304;                      // offset 304
-        int field_308;                      // offset 308
-        int field_312;                      // offset 312
-        int field_316;                      // offset 316
-        int field_320;                      // offset 320
-        int field_324;                      // offset 324
-        int field_328;                      // offset 328
-        undefined1 field_332;               // offset 332
-        bool field_333;                     // offset 333
-        undefined1 m_hasKeyboardNavigation; // offset 334
-        char _unknown_335[1];
-        uint field_336;       // offset 336
-        uint field_340;       // offset 340
-        uint field_344;       // offset 344
-        int field_348;        // offset 348
-        int field_352;        // offset 352
-        uint field_356;       // offset 356
-        undefined4 field_360; // offset 360
-        ulong field_364;      // offset 364
-        int field_372;        // offset 372
-        int field_376;        // offset 376
-        int field_380;        // offset 380
-        ulong field_384;      // offset 384
-        int field_392;        // offset 392
-        int field_396;        // offset 396
-        int field_400;        // offset 400
-        int field_404;        // offset 404
-        float field_408;      // offset 408
-        float field_412;      // offset 412
-        undefined1 field_416; // offset 416
-        undefined1 field_417; // offset 417
-        char _unknown_418[6];
+    private:
+        uint8_t _unknown_8[16];
+        int field_24;
+        int field_28;
+        uint8_t _unknown_32[4];
+        int field_36;
+        unsigned int field_40;
+        uint8_t _unknown_44[92];
+        int field_136;
+        int field_140;
+        int field_144;
+        int field_148;
+        uint8_t _unknown_152[8];
+        Event field_160;
+        uint8_t _unknown_184[24];
+        bool m_mouseOver;
+        uint8_t _unknown_209[71];
+        EnumOptionToggle field_280;
+        uint8_t _unknown_284[20];
+        int field_304;
+        int field_308;
+        int field_312;
+        int field_316;
+        int field_320;
+        int field_324;
+        int field_328;
+        uint8_t field_332;
+        bool field_333;
+        uint8_t m_hasKeyboardNavigation;
+        uint8_t _unknown_335[1];
+        EnumOptionToggle field_336;
+        unsigned int field_340;
+        unsigned int field_344;
+        EnumOptionToggle field_348;
+        int field_352;
+        EnumOptionToggle field_356;
+        uint32_t field_360;
+        unsigned long field_364;
+        int field_372;
+        int field_376;
+        int field_380;
+        unsigned long field_384;
+        int field_392;
+        int field_396;
+        int field_400;
+        int field_404;
+        float field_408;
+        float field_412;
+        uint8_t field_416;
+        uint8_t field_417;
+        uint8_t _unknown_418[6];
     };
 
-    // 0x100a46a30, 32 bytes, inline, placed by class name and debug map
-    // DropdownGroup::NavigateUp()
+    // 0x100a46a30
     void DropdownGroup::NavigateUp() {
         field_336 = field_336 - 1;
-        ValidatePosition(this);
+        ValidatePosition();
     }
 
-    // 0x100a46a50, 32 bytes, inline, placed by class name and debug map
-    // DropdownGroup::NavigateDown()
+    // 0x100a46a50
     void DropdownGroup::NavigateDown() {
         field_336 = field_336 + 1;
-        ValidatePosition(this);
+        ValidatePosition();
     }
 
-    // 0x100a46a70, 32 bytes, inline, placed by class name and debug map
-    // DropdownGroup::NavigateHome()
+    // 0x100a46a70
     void DropdownGroup::NavigateHome() {
         field_336 = 0;
-        ValidatePosition(this);
+        ValidatePosition();
     }
 
-    // 0x100a46a90, 48 bytes, inline, placed by class name and debug map
-    // DropdownGroup::NavigateEnd()
+    // 0x100a46a90
     void DropdownGroup::NavigateEnd() {
-        int iVar1;
-
-        iVar1 = (&field_248)->size();
-        field_336 = iVar1 - 1;
-        ValidatePosition(this);
+        field_336 = field_248.size() - 1;
+        ValidatePosition();
     }
 
-    // 0x100a516c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // DropdownGroup::~DropdownGroup(): jumps straight to the base-object destructor
-
-    // 0x100a516d0, 32 bytes, deleting destructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // DropdownGroup::~DropdownGroup()
-    /* TabGroup::~TabGroup() */
-
-    void TabGroup::~TabGroup() {
-        ~TabGroup(this);
-        operator_delete(this);
-    }
-
-    // 0x100a516f0, 16 bytes, inline, placed by class name
-    // DropdownGroup::HasKeyboardNavigation() const
-    undefined1 DropdownGroup::HasKeyboardNavigation() {
+    // 0x100a516f0
+    bool DropdownGroup::HasKeyboardNavigation() const {
         return m_hasKeyboardNavigation;
     }
 
-    // 0x100a52b00, 16 bytes, base-object destructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // DropdownGroup::~DropdownGroup()
-    /* TabGroup::~TabGroup() */
-
-    void TabGroup::~TabGroup() {
-        ~ContainerGroup();
-    }
+    // 0x100a52b00
+    DropdownGroup::~DropdownGroup() {}
 
 } // namespace jag::tweak

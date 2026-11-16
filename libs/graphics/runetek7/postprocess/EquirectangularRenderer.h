@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/postprocess/EquirectangularRenderer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,45 +8,40 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~EquirectangularRenderer();
-        virtual void OnWindowResize(math::Rect<unsigned int> const&);
+        virtual void OnWindowResize(const math::Rect<unsigned int>& rect);
         bool GetEnabled();
         void GetRenderTargets();
-        GetCubeMapFaceEnabled(int);
-        EquirectangularRenderer(RT7Core*);
+        uint8_t GetCubeMapFaceEnabled(int arg1);
+        EquirectangularRenderer(RT7Core* rt7Core);
         void DestroyRenderingResources();
-        CreateRenderingResources();
+        uint64_t CreateRenderingResources();
         void CalculateCubeMapRes();
-        void SetEnabled(bool, EffectManager&);
-        void RegisterTweakVars(tweak::Container&, EffectManager&);
+        void SetEnabled(bool arg1, EffectManager& effectManager);
+        void RegisterTweakVars(tweak::Container& container, EffectManager& effectManager);
 
-        // data members, from how the methods use this: 80 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined1 field_8;  // offset 8
-        char _unknown_9[3];
-        undefined4 field_12; // offset 12
-        RT7Core* field_16;   // offset 16
-        char _unknown_24[16];
-        shared_ptr field_40; // offset 40
-        bool m_enabled;      // offset 56
-        char _unknown_57[3];
-        int field_60; // offset 60
-        char _unknown_64[4];
-        undefined2 field_68; // offset 68
-        char _unknown_70[10];
+    private:
+        uint8_t field_8;
+        uint8_t _unknown_9[3];
+        uint32_t field_12;
+        RT7Core* field_16;
+        uint8_t _unknown_24[16];
+        shared_ptr field_40;
+        bool m_enabled;
+        uint8_t _unknown_57[3];
+        int field_60;
+        uint8_t _unknown_64[4];
+        uint16_t field_68;
+        uint8_t _unknown_70[10];
     };
 
-    // 0x100462960, 16 bytes, inline, placed by class name and debug map
-    // EquirectangularRenderer::GetRenderTargets()
+    // 0x100462960
     void EquirectangularRenderer::GetRenderTargets() {
-        shared_ptr<render::RenderTargets>::operator*((shared_ptr<render::RenderTargets>*)field_40);
+        **field_40;
     }
 
-    // 0x1004629b0, 32 bytes, inline, placed by class name and debug map
-    // EquirectangularRenderer::GetCubeMapFaceEnabled(int)
-    undefined1 EquirectangularRenderer::GetCubeMapFaceEnabled(int param_1) {
-        undefined1* puVar1;
-
-        puVar1 = (undefined1*)std::array<bool, 6ul>::operator[]((array<bool, 6ul>*)&field_64, (long)param_1);
+    // 0x1004629b0
+    uint8_t EquirectangularRenderer::GetCubeMapFaceEnabled(int arg1) {
+        uint8_t* puVar1 = &field_64[(long)arg1];
         return *puVar1;
     }
 

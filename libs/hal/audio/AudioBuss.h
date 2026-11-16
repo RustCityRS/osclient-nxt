@@ -1,6 +1,5 @@
 // libs/hal/audio/AudioBuss.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,66 +8,55 @@ namespace jag::hal::audio {
     public:
         // virtual methods in vtable order
         virtual ~AudioBuss();
-        int GetBussID() const;
+        BussType GetBussID() const;
         void GetBuffer();
-        void SetGain(float);
+        void SetGain(float arg1);
         void GetTotalGainOfChain() const;
-        IsMixBussInChain(BussType) const;
-        AudioBuss(BussType, unsigned int, unsigned int, float, unsigned int, bool);
+        bool IsMixBussInChain(BussType bussType) const;
+        AudioBuss(BussType bussType, unsigned int arg2, unsigned int arg3, float arg4, unsigned int arg5, bool arg6);
         void ClearSamples();
-        void AddRouting(shared_ptr<AudioBuss> const&);
+        void AddRouting(const shared_ptr<AudioBuss>& audioBuss);
         void PreMix();
         void PostMix();
-        uint MixFromBuffer(AudioBuffer*, bool, float);
-        uint MixFromBufferWithResample(shared_ptr<SampleReadable> const&, bool, float, float);
-        void MixToBuffer(AudioBuffer*);
+        unsigned int MixFromBuffer(AudioBuffer* audioBuffer, bool arg2, float arg3);
+        unsigned int MixFromBufferWithResample(const shared_ptr<SampleReadable>& sampleReadable, bool arg2, float arg3,
+                                               float arg4);
+        void MixToBuffer(AudioBuffer* audioBuffer);
         void Service();
-        void SetUpdateGainFunction(std::function<float()> const&);
-        GetPriority() const;
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullAudioBuss;
+        void SetUpdateGainFunction(const std::function<float()>& callback);
+        float GetPriority() const;
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullAudioBuss; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
 
-        // data members, from how the methods use this: 72 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[24];
-        uint field_32;         // offset 32
-        float field_36;        // offset 36
-        shared_ptr field_40;   // offset 40
-        undefined4 m_priority; // offset 56
-        int m_bussID;          // offset 60
-        char _unknown_64[8];
+    private:
+        uint8_t* field_8;
+        AudioFormat* field_16;
+        uint8_t _unknown_24[8];
+        unsigned int field_32;
+        float field_36;
+        shared_ptr field_40;
+        float m_priority;
+        BussType m_bussID;
+        uint8_t _unknown_64[8];
     };
 
-    // 0x1001c37f0, 16 bytes, inline, placed by class name and debug map
-    // AudioBuss::GetBuffer()
+    // 0x1001c37f0
     void AudioBuss::GetBuffer() {
-        std::unique_ptr<AudioBuffer, std::default_delete<AudioBuffer>>::operator*(
-            (unique_ptr<AudioBuffer, std::default_delete<AudioBuffer>>*)&field_24);
+        *field_24;
     }
 
-    // 0x100665640, 64 bytes, inline, placed by class name
-    // AudioBuss::SetGain(float)
-    void AudioBuss::SetGain(float param_1) {
-        float local_1c;
-        float local_18;
-        float local_14;
-
-        local_18 = 0.0;
-        local_14 = 1.0;
-        local_1c = param_1;
-        field_36 = math::Clamp<float>(&local_1c, &local_18, &local_14);
+    // 0x100665640
+    void AudioBuss::SetGain(float arg1) {
+        field_36 = math::Clamp<float>(arg1, 0.0, 1.0);
     }
 
-    // 0x100b8ef90, 16 bytes, inline, placed by class name
-    // AudioBuss::SetUpdateGainFunction(std::function<float ()> const&)
-    /* AudioBuss::SetUpdateGainFunction(std::function<float ()> const&) */
-
-    void AudioBuss::SetUpdateGainFunction(function* param_1) {
-        std::function<float()>::operator=((function<float()>*)&field_64, param_1);
+    // 0x100b8ef90
+    void AudioBuss::SetUpdateGainFunction(const std::function<float()>& callback) {
+        field_64 = callback;
     }
 
-    // 0x100b90570, 16 bytes, inline, placed by class name
-    // AudioBuss::GetPriority() const
-    undefined4 AudioBuss::GetPriority() {
+    // 0x100b90570
+    float AudioBuss::GetPriority() const {
         return m_priority;
     }
 

@@ -1,201 +1,181 @@
 // libs/oldscape/rs2lib/constants/LocShape.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x1001138b0, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientLocAnim>::type make_shared<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool, shared_ptr<oldscape::dash3d::ModelSource>&, int&>(int&, int&&, int&&, int&, int&, int&, int&, bool&&, shared_ptr<oldscape::dash3d::ModelSource>&, int&)
-    jag* jag::make_shared<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
-                          shared_ptr<oldscape::dash3d::ModelSource>&, int&>(int* param_1, int* param_2, int* param_3,
-                                                                            int* param_4, int* param_5, int* param_6,
-                                                                            int* param_7, bool* param_8,
-                                                                            shared_ptr* param_9, int* param_10) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1001138b0
+    shared_ptr_if_not_array<oldscape::ClientLocAnim>::type
+    make_shared<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
+                shared_ptr<oldscape::dash3d::ModelSource>&, int&>(
+        int& arg1, int&& arg2, int&& arg3, int& arg4, int& arg5, int& arg6, int& arg7, bool&& arg8,
+        shared_ptr<oldscape::dash3d::ModelSource>& modelSource, int& arg10) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000028;
         int local_44;
         ClientLocAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(96, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] = placement_new<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int&, bool,
                                         shared_ptr<oldscape::dash3d::ModelSource>&, int&>(
-                (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8,
-                param_9, param_10);
+                (void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7, (int*)arg8, (bool*)modelSource,
+                (shared_ptr<oldscape::dash3d::ModelSource>*)arg10, in_stack_00000028);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x1001139d0, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientLocAnim>::type make_shared<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool, shared_ptr<oldscape::dash3d::ModelSource>&, int&>(int&, int&&, int&, int&, int&, int&, int&, bool&&, shared_ptr<oldscape::dash3d::ModelSource>&, int&)
-    jag* jag::make_shared<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool,
-                          shared_ptr<oldscape::dash3d::ModelSource>&, int&>(int* param_1, int* param_2, int* param_3,
-                                                                            int* param_4, int* param_5, int* param_6,
-                                                                            int* param_7, bool* param_8,
-                                                                            shared_ptr* param_9, int* param_10) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1001139d0
+    shared_ptr_if_not_array<oldscape::ClientLocAnim>::type
+    make_shared<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool,
+                shared_ptr<oldscape::dash3d::ModelSource>&, int&>(
+        int& arg1, int&& arg2, int& arg3, int& arg4, int& arg5, int& arg6, int& arg7, bool&& arg8,
+        shared_ptr<oldscape::dash3d::ModelSource>& modelSource, int& arg10) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000028;
         int local_44;
         ClientLocAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(96, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] = placement_new<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int&, bool,
                                         shared_ptr<oldscape::dash3d::ModelSource>&, int&>(
-                (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8,
-                param_9, param_10);
+                (void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7, (int*)arg8, (bool*)modelSource,
+                (shared_ptr<oldscape::dash3d::ModelSource>*)arg10, in_stack_00000028);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x100113ab0, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientLocAnim>::type make_shared<oldscape::ClientLocAnim, int, int, int&, int&, int&, int&, int&, bool, shared_ptr<oldscape::dash3d::ModelSource>&, int&>(int&&, int&&, int&, int&, int&, int&, int&, bool&&, shared_ptr<oldscape::dash3d::ModelSource>&, int&)
-    jag* jag::make_shared<oldscape::ClientLocAnim, int, int, int&, int&, int&, int&, int&, bool,
-                          shared_ptr<oldscape::dash3d::ModelSource>&, int&>(int* param_1, int* param_2, int* param_3,
-                                                                            int* param_4, int* param_5, int* param_6,
-                                                                            int* param_7, bool* param_8,
-                                                                            shared_ptr* param_9, int* param_10) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100113ab0
+    shared_ptr_if_not_array<oldscape::ClientLocAnim>::type
+    make_shared<oldscape::ClientLocAnim, int, int, int&, int&, int&, int&, int&, bool,
+                shared_ptr<oldscape::dash3d::ModelSource>&, int&>(
+        int&& arg1, int&& arg2, int& arg3, int& arg4, int& arg5, int& arg6, int& arg7, bool&& arg8,
+        shared_ptr<oldscape::dash3d::ModelSource>& modelSource, int& arg10) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000028;
         int local_44;
         ClientLocAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(96, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] = placement_new<oldscape::ClientLocAnim, int, int, int&, int&, int&, int&, int&, bool,
                                         shared_ptr<oldscape::dash3d::ModelSource>&, int&>(
-                (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8,
-                param_9, param_10);
+                (void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7, (int*)arg8, (bool*)modelSource,
+                (shared_ptr<oldscape::dash3d::ModelSource>*)arg10, in_stack_00000028);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x100113b90, 16 bytes, inline, placed by debug map only (low confidence)
-    // ShuffledPacket3::g4()
+    // 0x100113b90
     void ShuffledPacket3::g4() {
         g4_alt2();
     }
 
-    // 0x100113ba0, 16 bytes, inline, placed by debug map only (low confidence)
-    // ShuffledPacket2::g2s()
+    // 0x100113ba0
     int ShuffledPacket2::g2s() {
-        short sVar1;
-
-        sVar1 = g2s_alt1();
+        short sVar1 = g2s_alt1();
         return (int)sVar1;
     }
 
-    // 0x100113c30, 208 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::MapSpotAnim>::type make_shared<oldscape::MapSpotAnim, int&, int&, int&, int&, int, int&, int&>(int&, int&, int&, int&, int&&, int&, int&)
-    jag* make_shared<oldscape::MapSpotAnim, int&, int&, int&, int&, int, int&, int&>(int* param_1, int* param_2,
-                                                                                     int* param_3, int* param_4,
-                                                                                     int* param_5, int* param_6,
-                                                                                     int* param_7) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100113c30
+    shared_ptr_if_not_array<oldscape::MapSpotAnim>::type
+    make_shared<oldscape::MapSpotAnim, int&, int&, int&, int&, int, int&, int&>(int& arg1, int& arg2, int& arg3,
+                                                                                int& arg4, int&& arg5, int& arg6,
+                                                                                int& arg7) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000010;
         int local_44;
         MapSpotAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(112, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(112, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] = placement_new<oldscape::MapSpotAnim, int&, int&, int&, int&, int, int&, int&>(
-                (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6, param_7);
+                (void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7, in_stack_00000010);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::MapSpotAnim>, int, oldscape::MapSpotAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::MapSpotAnim>, int, oldscape::MapSpotAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x100113db0, 112 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::g3s()
-    uint PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::g3s(
-        PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this) {
-        uint uVar1;
-        byte bVar2;
-        ulong uVar3;
-        byte* pbVar4;
-        uint uVar5;
-
-        uVar3 = *(ulong*)(this + 24);
-        *(ulong*)(this + 24) = uVar3 + 3;
-        pbVar4 = (byte*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, uVar3);
-        bVar2 = *pbVar4;
-        pbVar4 = (byte*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, *(long*)(this + 24) - 2);
-        uVar5 = (uint)*pbVar4 << 8 | (uint)bVar2 << 16;
-        pbVar4 = (byte*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, *(long*)(this + 24) - 1);
-        uVar1 = uVar5 + *pbVar4;
-        uVar5 = (*pbVar4 - 16777216) + uVar5;
+    // 0x100113db0
+    unsigned int PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::g3s() {
+        unsigned long arg1 = *(unsigned long*)(this + 24);
+        *(unsigned long*)(this + 24) = arg1 + 3;
+        uint8_t* pbVar3 = (uint8_t*)(*this)[arg1];
+        uint8_t bVar2 = *pbVar3;
+        pbVar3 = (uint8_t*)(*this)[*(long*)(this + 24) - 2];
+        unsigned int uVar4 = (unsigned int)*pbVar3 << 8 | (unsigned int)bVar2 << 16;
+        pbVar3 = (uint8_t*)(*this)[*(long*)(this + 24) - 1];
+        unsigned int uVar1 = uVar4 + *pbVar3;
+        uVar4 = (*pbVar3 - 16777216) + uVar4;
         if (uVar1 < 8388608) {
-            uVar5 = uVar1;
+            uVar4 = uVar1;
         }
-        return uVar5;
+        return uVar4;
     }
 
-    // 0x100113e20, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientProj>::type make_shared<oldscape::ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&>(int&, int&, int&, int&, int&&, int&&, int&&, int&, int&, int&, int&)
-    jag* make_shared<oldscape::ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&>(
-        int* param_1, int* param_2, int* param_3, int* param_4, int* param_5, int* param_6, int* param_7, int* param_8,
-        int* param_9, int* param_10, int* param_11) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100113e20
+    shared_ptr_if_not_array<oldscape::ClientProj>::type
+    make_shared<oldscape::ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&>(
+        int& arg1, int& arg2, int& arg3, int& arg4, int&& arg5, int&& arg6, int&& arg7, int& arg8, int& arg9,
+        int& arg10, int& arg11) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000030;
         int local_44;
         ClientProj* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(224, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(224, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] =
                 placement_new<oldscape::ClientProj, int&, int&, int&, int&, int, int, int, int&, int&, int&, int&>(
-                    (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8,
-                    param_9, param_10, param_11);
+                    (void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11,
+                    in_stack_00000030);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientProj>, int, oldscape::ClientProj*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientProj>, int, oldscape::ClientProj*&>(arg1_00, &local_44,
+                                                                                                     local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
 } // namespace jag
@@ -203,21 +183,22 @@ namespace jag {
 namespace jag::oldscape::constants {
     class LocShape {
     public:
-        ToLayer(LocShapeID);
-        bool IsWallShape(int);
-        bool IsWallDecorShape(int);
-        bool IsRoofShape(int);
-        bool IsRoofEdgeShape(int);
-        bool IsCentrePieceShape(int);
-        bool IsGroundDecorShape(int);
-        ToLayer(int);
-        static /* 56 bytes */ m_shapes; // initialised in its definition
+        uint8_t ToLayer(LocShapeID locShapeID);
+        bool IsWallShape(int arg1);
+        bool IsWallDecorShape(int arg1);
+        bool IsRoofShape(int arg1);
+        bool IsRoofEdgeShape(int arg1);
+        bool IsCentrePieceShape(int arg1);
+        bool IsGroundDecorShape(int arg1);
+        uint8_t ToLayer(int arg1);
+        static int32_t m_shapes[14]; // initialised in its definition
+
+        uint8_t _unknown_0[1];
     };
 
-    // 0x1001138a0, 16 bytes, inline, placed by class name and debug map
-    // LocShape::ToLayer(LocShapeID)
-    undefined1 LocShape::ToLayer(int param_1) {
-        return ToLayer(param_1);
+    // 0x1001138a0
+    uint8_t LocShape::ToLayer(LocShapeID locShapeID) {
+        return ToLayer(locShapeID);
     }
 
 } // namespace jag::oldscape::constants

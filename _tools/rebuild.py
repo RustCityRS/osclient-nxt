@@ -4,6 +4,9 @@ usage: rebuild.py <binary> <stabs.tsv> <demangled.txt> <outdir> [decomp dir]
 """
 import bisect, collections, functools, math, subprocess, glob, os, posixpath, re, struct, sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import cleanup, cxxify  # noqa: E402
+
 BIN, STABS, DEM, OUT = sys.argv[1:5]
 DECOMP = sys.argv[5] if len(sys.argv) > 5 else None
 DECOMP_THIS = sys.argv[6] if len(sys.argv) > 6 else None  # second pass with __thiscall applied
@@ -842,18 +845,25 @@ def balanced(text, i):
 
 
 def split_args(s):
-    out, depth, cur, j = [], 0, 0, 0
+    """Split on top-level commas. '<' and '>' count as brackets only where they look like template arguments,
+    so 'p->x', 'a < b' and 'a >= b' inside an argument do not unbalance it."""
+    out, depth, angle, cur, j = [], 0, 0, 0, 0
     while j < len(s):
         c = s[j]
-        if c == '"':
+        if c in '"\'':
+            q = c
             j += 1
-            while j < len(s) and s[j] != '"':
+            while j < len(s) and s[j] != q:
                 j += 2 if s[j] == '\\' else 1
-        elif c in '(<':
+        elif c in '([':
             depth += 1
-        elif c in ')>':
+        elif c in ')]':
             depth -= 1
-        elif c == ',' and depth == 0:
+        elif c == '<' and j and (s[j - 1].isalnum() or s[j - 1] in '_>') and s[j + 1:j + 2] not in ('<', '=', ' '):
+            angle += 1
+        elif c == '>' and angle and s[j - 1:j] != '-' and s[j + 1:j + 2] != '=':
+            angle -= 1
+        elif c == ',' and depth == 0 and angle == 0:
             out.append(' '.join(s[cur:j].split()))
             cur = j + 1
         j += 1
@@ -1133,16 +1143,87 @@ def declarator(typ, name):
     return f'{m.group(1)} {name}{m.group(2)}' if m else f'{typ} {name}'
 
 
+cast_types = None
+DATA_CAST = re.compile(r'\(\s*([A-Za-z_][\w:<>,\s]*?[\w>])\s*\*\s*\)\s*&([A-Za-z_][\w:]*)')
+
+
+def cast_type(r):
+    """The type the code treats a variable as: Ghidra casts &var to it wherever it calls a method on it."""
+    global cast_types
+    if cast_types is None:
+        by_leaf = collections.defaultdict(list)
+        for d in src_data:
+            by_leaf[components(d['dem'])[-1]].append(d)
+        cast_types = collections.defaultdict(collections.Counter)
+        for f in jag_funcs:
+            for m in DATA_CAST.finditer(bodies.get(f['addr'], '')):
+                name = m.group(2)
+                cands = [d for d in by_leaf.get(name.split('::')[-1], []) if d['dem'].endswith(name)]
+                if len(cands) > 1 and f['scope']:
+                    cands = [d for d in cands if d['dem'].startswith(class_key(f['scope']) + '::')] or cands
+                if len(cands) == 1 and not m.group(1).startswith(('undefined', 'char', 'ReturnValue')):
+                    cast_types[cands[0]['addr']][' '.join(m.group(1).split())] += 1
+    c = cast_types.get(r['addr'])
+    if not c:
+        return None
+    # a container's methods are often its base's (hashtable for hash_map): the derived type is the declared one
+    ranked = sorted(c.items(), key=lambda kv: (base(kv[0]).split('::')[-1] in INTERNAL_BASES, -kv[1]))
+    return qualify_type(ranked[0][0])
+
+
+INTERNAL_BASES = {'hashtable', 'rbtree', 'DequeBase', 'VectorBase', 'ListBase', 'intrusive_list_base',
+                  'compressed_pair', '__compressed_pair', '__hash_table', '__tree', '__vector_base'}
+
+
+def qualify_type(t):
+    """Ghidra prints a structure by its own name: put back the namespace when only one fits."""
+    leaf = base(t)
+    if '::' in leaf:
+        return t
+    owners = {k.rsplit('::', 1)[0] for k in class_keys_by_leaf.get(leaf, ())}
+    return f'{owners.pop()}::{t}' if len(owners) == 1 else t
+
+
+class_keys_by_leaf = collections.defaultdict(set)
+for _f in funcs:
+    if _f['sig'] and _f['scope'] and len(_f['scope']) > 1:
+        class_keys_by_leaf[_f['scope'][-1]].add(class_key(_f['scope']))
+
+
+def fallback_type(r, value):
+    """A type for data the binary does not type: from its size, alignment and the shape of its value."""
+    n = symsize(r['addr'])
+    t = cast_type(r) if value is None else None
+    if t:
+        return t
+    if value and value.startswith('"'):
+        return 'const char*'
+    if value and value.startswith('&'):
+        return 'const void*'
+    if value and value.startswith('{'):
+        items = re.findall(r'(?<=[{,])\s*([^,{}\n]+?)\s*(?=[,}])', value)
+        k = max(len(items), 1)
+        if items and all(re.fullmatch(r'-?[\d.]+(?:e[-+]?\d+)?f', x) or x == '0' for x in items):
+            return f'float[{n // 4}]'
+        if items and all(x.startswith(('&', '"', 'nullptr')) for x in items):
+            return f'const void*[{n // 8}]'
+        if re.search(r'0x[0-9a-f]{2}\b', value):
+            return f'uint8_t[{n}]'
+        return f'int32_t[{n // 4}]' if n % 4 == 0 else f'uint8_t[{n}]'
+    if n > 8:
+        return f'uint8_t[{n}]'
+    for size, name in ((8, 'int64_t'), (4, 'int32_t'), (2, 'int16_t'), (1, 'uint8_t')):
+        if size <= max(n, 1) and r['addr'] % size == 0:
+            return 'bool' if size == 1 and value in (None, '0', '1') else name
+    return 'uint8_t'
+
+
 def data_definition(r):
     typ, value, func, secname, fold = data_info(r)
-    head = f"// {r['addr']:#x}, {symsize(r['addr'])} bytes, {secname.split(',')[-1]}"
-    if fold:
-        head += f"; constructor folded by the linker, Ghidra calls it {fold}"
+    head = f"// {r['addr']:#x}"
     if func:
-        head += f"; set at startup by {func}"
-    elif value is None:
-        head += '; zero-initialised'
-    return f"{head}\n{declarator(typ, r['dem'])}{' = ' + value if value else ''};\n"
+        head += f", set at startup by {func}"
+    return f"{head}\n{declarator(typ or fallback_type(r, value), r['dem'])}{' = ' + value if value else ''};\n"
 
 
 def static_member_line(r):
@@ -1150,8 +1231,8 @@ def static_member_line(r):
     owner = owner_class(r)
     if typ and owner and typ.startswith(owner) and not typ[len(owner):len(owner) + 2] == '::':
         typ = owner.split('::')[-1] + typ[len(owner):]
-    sized = f"/* {symsize(r['addr'])} bytes */ {components(r['dem'])[-1]}"
-    decl = f"    static {declarator(typ, sized)};"
+    sized = components(r['dem'])[-1]
+    decl = f"    static {declarator(typ or fallback_type(r, value), sized)};"
     if value and '\n' not in value and len(value) < 120:
         decl += f' // = {value}'
     elif value:
@@ -1183,7 +1264,7 @@ for key, c in classes.items():
 
 
 # hex literals become decimal, except inside string/char literals and the address line of each definition
-HEX = re.compile(r'"(?:[^"\\\n]|\\.)*"|\'(?:[^\'\\\n]|\\.)*\'|^// 0x[0-9a-f]+[,:].*$|\b0[xX]([0-9a-fA-F]+)([uUlL]*)\b', re.M)
+HEX = re.compile(r'"(?:[^"\\\n]|\\.)*"|\'(?:[^\'\\\n]|\\.)*\'|^// 0x[0-9a-f]+\b.*$|\b0[xX]([0-9a-fA-F]+)([uUlL]*)\b', re.M)
 
 
 def dehex(text):
@@ -1197,8 +1278,7 @@ def write(path, text):
         fh.write(text)
 
 
-HEADER = ('// {path}\n// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file\n'
-          '// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.\n')
+HEADER = '// {path}\n// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.\n'
 
 
 # ---- class layouts recovered by BuildStructs.java (layouts.tsv beside the decompile directory) ----
@@ -1258,34 +1338,127 @@ def layout_lines(key):
         return []
     parent = class_bases.get(key)
     start = layouts[parent]['size'] if parent in layouts and 0 < layouts[parent]['size'] <= lay['size'] else 0
-    note = f", the first {start} are {parent.split('::')[-1]}" if start else ''
-    out = ['', f"    // data members, from how the methods use this: {lay['size']} bytes{note}"]
-    pos = start
+    out = ['', 'private:' if key in vtables or lay['fields'] else '']
+    pos = start or (8 if key in vtables else 0)  # the vtable pointer is implicit
     for off, length, typ, name in sorted(lay['fields']):
-        if off < pos:
+        if off < pos or name == '_vptr':
             continue  # inside the base, or overlapping a wider access
         if off > pos:
-            out.append(f'    char _unknown_{pos}[{off - pos}];')
+            out.append(f'    uint8_t _unknown_{pos}[{off - pos}];')
         typ = re.sub(r'\s+\*', '*', typ)
+        odd = re.fullmatch(r'undefined([3567])', typ)
+        typ = f'uint8_t[{odd.group(1)}]' if odd else cleanup.fix_types(typ)
+        if typ.endswith('_vtbl*'):
+            typ = 'void*'
         arr = re.fullmatch(r'(.*?)\[(\d+)\]', typ)
         decl = f'{arr.group(1)} {name}[{arr.group(2)}]' if arr else f'{typ} {name}'
-        vptr = ', vtable pointer' if off == 0 and length == 8 and key in vtables else ''
-        out.append(f'    {decimal_fields(decl)}; // offset {off}{vptr}')
+        out.append(f'    {decimal_fields(decl)};')
         pos = off + length
     if lay['size'] > pos:
-        out.append(f"    char _unknown_{pos}[{lay['size'] - pos}];")
+        out.append(f"    uint8_t _unknown_{pos}[{lay['size'] - pos}];")
+    return out if len(out) > 2 else []
+
+
+HIDDEN_PARAMS = {'this', '__return_storage_ptr__', 'vtt'}
+
+
+def sig_params(sig):
+    """Ghidra's parameter declarations: the last top-level parenthesised group of its signature line."""
+    end = sig.rfind(')')
+    depth, j = 0, end
+    while j >= 0:
+        if sig[j] == ')':
+            depth += 1
+        elif sig[j] == '(':
+            depth -= 1
+            if depth == 0:
+                break
+        j -= 1
+    inner = sig[j + 1:end] if end > 0 and j >= 0 else ''
+    return [] if inner.strip() in ('', 'void') else split_args(inner)
+
+
+def param_name(decl):
+    m = re.search(r'(\w+)\s*(?:\[\d*\])?$', decl)
+    return m.group(1) if m else None
+
+
+def declare(typ, name):
+    """A parameter declaration from a demangled type: 'char const*' -> 'const char* name'."""
+    typ = ' '.join(typ.split())
+    for pat in (r'\(\*\)', r'\(&&\)', r'\(&\)', r'\(([\w:<>, ]+)::\*\)'):
+        m = re.search(pat, typ)
+        if m:
+            inner = m.group(0)
+            return typ[:m.start()] + inner[:-1] + name + ')' + typ[m.end():]
+    m = re.fullmatch(r'(.+?) const((?:\s*[*&])+)', typ)
+    if m and not re.search(r'[*&]', m.group(1)):
+        typ = f'const {m.group(1)}{m.group(2).replace(" ", "")}'
+    return f'{typ} {name}'
+
+
+def is_ctor_dtor(f):
+    owner = f['scope'][-1] if f['scope'] else None
+    return bool(f['sig']) and base(components(f['sig'][1])[-1]) in (owner, '~' + str(owner))
+
+
+RET_CTOR = re.compile(r'([\w:]+(?:<[^;()]*?>)?)::(~?\w+)\(\s*(?:\([^()]*\)\s*)?__return_storage_ptr__\b')
+
+
+def function_return(f):
+    """The return type to write: from the signature (templates), the decompiler, or a by-value return buffer."""
+    if 'ret_text' in f:
+        return f['ret_text']
+    if not f['sig']:
+        return ''
+    ret, name, params, quals = f['sig']
+    leaf = components(name)[-1]
+    code = bodies.get(f['addr'], '')
+    line = sig_line(code)
+    out = ''
+    if is_ctor_dtor(f) or leaf.startswith('operator '):
+        out = ''
+    elif '__return_storage_ptr__' in line:
+        m = re.match(r'\s*(.+?)\s*\*\s*(?:__\w+\s+)?' + re.escape(base(leaf)), line) if leaf else None
+        t = m.group(1).strip() if m else ''
+        if not t or t.split('::')[-1] in ('ReturnValue', 'undefined', 'void'):
+            c = RET_CTOR.search(body_of(code))
+            t = c.group(1) if c and base(components(c.group(1))[-1]) == c.group(2) else ''
+        out = ret or t or accessor_type(f) or 'auto'
+    else:
+        out = ret or ghidra_ret(f) or accessor_type(f) or ''
+        if not out and line:
+            m = CALLCONV.search(' ' + line)
+            raw_ret = (' ' + line)[:m.start()].strip() if m else ''
+            out = cleanup.fix_types(raw_ret) if raw_ret and len(raw_ret) < 60 else ''
+        out = out or 'void'
+    out = cleanup.fix_types(out) if out else ''
+    if re.match(r'(?:Is|Has|Can|Should|Was|Are|Does|Did|Will|Contains|Uses|Needs)[A-Z0-9]', base(leaf)) and \
+            out in ('uint8_t', 'uint32_t', 'int', 'char', 'unsigned int', 'unsigned char', 'uint64_t', 'int32_t'):
+        out = 'bool'
+    f['ret_text'] = out
+    return f['ret_text']
+
+
+def definition_params(f):
+    """The demangled parameter types, named as in the decompiled code."""
+    names = [param_name(p) for p in sig_params(sig_line(bodies.get(f['addr'], '')))]
+    names = [n for n in names if n and n not in HIDDEN_PARAMS]
+    out = []
+    for i, t in enumerate(p for p in split_args(f['sig'][2][1:-1]) if p != 'void'):
+        if t == '...':
+            out.append('...')
+            continue
+        n = names[i] if i < len(names) and not names[i].startswith(('in_', 'param_')) else f'arg{i + 1}'
+        out.append(declare(t, n))
     return out
 
 
 def decl_name(f):
     ret, name, params, quals = f['sig']
     leaf = components(name)[-1]
-    owner = f['scope'][-1] if f['scope'] else None
-    if base(leaf) in (owner, '~' + str(owner)) or leaf.startswith('operator '):
-        ret = ''
-    else:
-        ret = ret or ghidra_ret(f) or accessor_type(f) or ''
-    return (ret + ' ' if ret else '') + leaf + params + (' ' + quals if quals else '')
+    ret = function_return(f)
+    return (ret + ' ' if ret else '') + leaf + '(' + ', '.join(definition_params(f)) + ')' + (' ' + quals if quals else '')
 
 
 def class_block(key):
@@ -1365,10 +1538,15 @@ def variant(f):
 
 
 # Ghidra writes member calls as Class::method((Class *)obj, ...): rewrite them as obj->method(...)
-CALL = re.compile(r'::(~?[A-Za-z_]\w*)\s*\(')
+OPERATOR = r'operator(?:_cast_to_\w+|\(\)|\[\]|->\*?|_new|_delete|<<=|>>=|<<|>>|[-+*/%^&|!=<>~]=?|&&|\|\||\+\+|--|,)'
+CALL = re.compile(r'::(~?[A-Za-z_]\w*|' + OPERATOR + r')\s*\(')
+CALL_ANY = re.compile(r'::(~?[A-Za-z_]\w*|' + OPERATOR + r')(?=[(<])')
+BINARY_OP = re.compile(r'operator(?:==|!=|<=|>=|<<|>>|<|>|\+|-|\*|/|%|&&|\|\||&|\||\^)')
+FREE_OP = re.compile(r'(?<![\w:.>])(operator(?:==|!=|<=|>=|<<|>>|<|>|\+|-|\*|/|%|&&|\|\|))\s*\(')
 CAST = re.compile(r'\(\s*([^()]+?)\s*\*\s*\)\s*(.+)', re.S)
 SIMPLE = re.compile(r'[\w.\[\]]+(?:->\w+)*')
 member_names = None
+CTX = {'refparams': set()}  # the reference parameters of the function being rewritten
 
 
 def qual_start(text, i):
@@ -1376,18 +1554,146 @@ def qual_start(text, i):
     j, depth = i, 0
     while j > 0:
         c = text[j - 1]
-        if c == '>':
+        if c in '>)' and (depth or c == '>'):
             depth += 1
-        elif c == '<':
-            if depth == 0:
-                return None
+        elif c in '<(' and depth:
             depth -= 1
+        elif c == '<':
+            return None
         elif depth == 0 and not (c.isalnum() or c in '_:'):
             break
-        elif depth > 0 and c in '();{}"\n':
+        elif depth > 0 and c in ';{}"\n':
             return None
         j -= 1
     return j if j < i else None
+
+
+def shape_norm(s):
+    return re.sub(r'[\s_]', '', s.replace('std::__1::', 'std::').replace('operator_cast_to_', 'operator '))
+
+
+callee_shapes = collections.defaultdict(list)
+folded_keys = set()
+PROTOS = os.path.join(os.path.dirname(os.path.abspath(STABS)), 'protos.jsonl')
+if os.path.exists(PROTOS):
+    import json
+    for line in open(PROTOS, encoding='utf8'):
+        r = json.loads(line)
+        comps = components(r['qname'].replace('std::__1::', 'std::'))
+        key = shape_norm('::'.join(comps[-2:]))
+        shape = (r['sret'], r['member'], r['vtt'], tuple(r.get('refs') or ()), len(r['params']), r['varargs'])
+        if shape not in callee_shapes[key]:
+            callee_shapes[key].append(shape)
+        names = [r['qname']] + [a[0] for a in r.get('aliases', ())]
+        owners = {shape_norm('::'.join(components(n.replace('std::__1::', 'std::'))[:-1])) for n in names}
+        if len(owners) > 1:  # one body under several classes' names: Ghidra's choice of name says nothing
+            folded_keys.update(shape_norm('::'.join(components(n.replace('std::__1::', 'std::'))[-2:])) for n in names)
+        for qname, refs, n in r.get('aliases', ()):  # folded names share the code, so the hidden parameters
+            akey = shape_norm('::'.join(components(qname.replace('std::__1::', 'std::'))[-2:]))
+            ashape = (r['sret'], r['member'], r['vtt'], tuple(refs), n, r['varargs'])
+            if ashape not in callee_shapes[akey]:
+                callee_shapes[akey].append(ashape)
+
+
+def callee_shape(qual, method, nargs):
+    """(sret, member, vtt, refs) of the function a call names, picked among its overloads by argument count."""
+    comps = components(qual.replace('std::__1::', 'std::')) if qual else []
+    cands = callee_shapes.get(shape_norm('::'.join(comps[-1:] + [method])), [])
+    fit = [s for s in cands if (s[4] + s[0] + s[1] + s[2] == nargs) or (s[5] and s[4] + s[0] + s[1] + s[2] <= nargs)]
+    if not fit:
+        return None
+    if len({s[:3] for s in fit}) > 1:
+        return None
+    refs = fit[0][3] if len({s[3] for s in fit}) == 1 else ()
+    return fit[0][0], fit[0][1], fit[0][2], refs
+
+
+def pointer_to_object(a):
+    """The object an address expression points to: &x -> x, p -> *p (a reference parameter is already one)."""
+    a = drop_cast(a.strip())
+    if a in CTX['refparams'] or a in ('nullptr', '0') or a[:1] in '"\'' or re.fullmatch(r'-?\d+', a):
+        return a
+    if re.fullmatch(r'&[\w.\[\]]+(?:->\w+)*', a) or re.fullmatch(r'&\w+(?:\.\w+)*(?:\[[^\[\]]*\])*', a):
+        return a[1:]
+    if a == 'this':
+        return '*this'
+    return '*' + a if SIMPLE.fullmatch(a) else f'*({a})'
+
+
+def object_access(obj):
+    """obj (a pointer expression) as the target of a member access: 'x.' or 'p->', '' for this."""
+    obj = drop_cast(obj.strip())
+    if obj == 'this':
+        return ''
+    if obj in CTX['refparams']:
+        return obj + '.'
+    if re.fullmatch(r'&[\w.\[\]]+(?:->\w+)*', obj):
+        return obj[1:] + '.'
+    call = re.fullmatch(r'[\w:.\->]+(?:<[^;()]*>)?\(', obj[:obj.find('(') + 1]) if '(' in obj else None
+    if call and balanced(obj, obj.find('(')) == len(obj):  # a call's result: f()->x needs no parentheses
+        return obj + '->'
+    return (obj if SIMPLE.fullmatch(obj) else f'({obj})') + '->'
+
+
+def wrap_operand(e):
+    e = e.strip()
+    return e if re.fullmatch(r'[*&!-]?[\w.\[\]]+(?:->\w+)*(?:\([^()]*\))?|"[^"]*"|\'[^\']*\'', e) else f'({e})'
+
+
+def wrap_postfix(e):
+    """An operand followed by [], () or a member access: a leading unary operator needs parentheses."""
+    e = wrap_operand(e)
+    return f'({e})' if e[:1] in '*&!-' else e
+
+
+def render_call(qual, method, obj, args):
+    """A member or static call in source form; operators as operators."""
+    if method.startswith('operator') and obj is not None:
+        op = method[8:]
+        target = wrap_operand(pointer_to_object(obj))
+        post = wrap_postfix(pointer_to_object(obj))
+        if op.startswith('_cast_to_'):
+            return f'({op[9:]}){target}'
+        if op == '[]' and len(args) == 1:
+            return f'{post}[{args[0]}]'
+        if op == '()':
+            return f'{post}({", ".join(args)})'
+        if op in ('++', '--'):
+            return f'{post}{op}' if args else f'{op}{target}'
+        if op in ('*', '-', '!', '~', '&') and not args:
+            return f'{op}{target}'
+        if op == '->' and not args:
+            return f'{post}.operator->()'
+        if len(args) == 1 and op not in ('_new', '_delete', '->', '->*'):
+            return f'{target} {op} {wrap_operand(args[0])}'
+    if obj is None and len(args) == 2 and BINARY_OP.fullmatch(method):
+        return f'{wrap_operand(args[0])} {method[8:]} {wrap_operand(args[1])}'
+    if obj is None:
+        name = method.replace('operator_new', 'operator new').replace('operator_delete', 'operator delete')
+        return f'{qual + "::" if qual else ""}{name}({", ".join(args)})'
+    return f'{object_access(obj)}{method}({", ".join(args)})'
+
+
+def shaped_call(qual, method, args, shape):
+    """Rewrite a call whose callee's hidden parameters are known."""
+    sret, member, vtt, refs = shape
+    args = list(args)
+    ret = args.pop(0) if sret else None
+    obj = args.pop(0) if member else None
+    if vtt and args:
+        args.pop(0)
+    args = [pointer_to_object(a) if i < len(refs) and refs[i] else drop_cast(a) for i, a in enumerate(args)]
+    cls = base(components(qual)[-1]) if qual else ''
+    if member and method == cls:  # constructor call on memory: placement new
+        comps = components(qual.replace('std::__1::', 'std::'))
+        if shape_norm('::'.join(comps[-1:] + [method])) in folded_keys:  # folded: the template arguments are noise
+            qual = '::'.join(comps[:-1] + [base(comps[-1])])
+        call = f"new ({drop_cast(obj)}) {qual}({', '.join(args)})"
+    else:
+        call = render_call(qual if not member else qual, method, obj, args)
+    if ret is not None:
+        return f'{pointer_to_object(ret)} = {call}'
+    return call
 
 
 def type_base(t):
@@ -1395,18 +1701,33 @@ def type_base(t):
     return base(components(t)[-1]).strip() if t else ''
 
 
-PTR_CAST = re.compile(r'\(\s*[\w:<>,\s]+?\s*\*+\s*\)\s*([\w.\[\]]+(?:->\w+)*)')
+PTR_CAST = re.compile(r'\(\s*[\w:<>,\s]+?\s*\*+\s*\)\s*([&*]?[\w.\[\]]+(?:->\w+)*)')
 
 
 def drop_cast(arg):
     """A pointer cast Ghidra adds only to match a parameter type: (hash_node *)prVar2 -> prVar2."""
-    m = PTR_CAST.fullmatch(arg)
-    return m.group(1) if m else arg
+    a = arg.strip()
+    while a.startswith('('):
+        end = balanced(a, 0)
+        inner, rest = a[1:end - 1].strip(), a[end:].strip()
+        if inner.endswith('*') and re.fullmatch(r'[\w:<>,\s*&()]+', inner) and \
+                re.fullmatch(r'[&*]?[\w.\[\]]+(?:->\w+)*|[&*]?\([^()]*\)', rest):
+            a = rest
+        else:
+            break
+    return a
 
 
 def member_call(qual, method, args_text, pass_b):
     cls = base(components(qual)[-1])
     args = split_args(rewrite_calls(args_text, pass_b))
+    shape = callee_shape(qual, method, len(args))
+    if shape:
+        return shaped_call(qual, method, args, shape)
+    if BINARY_OP.fullmatch(method) and len(args) == 2 \
+            and all(namespace_like(c) for c in components(qual)):  # a free operator: eastl::operator==(&a, &b)
+        a, b = (x if x in ('nullptr', '0') or x[:1] in '"\'' else pointer_to_object(x) for x in args)
+        return f'{wrap_operand(a)} {method[8:]} {wrap_operand(b)}'
     if not args:
         return None
     m = CAST.fullmatch(args[0])
@@ -1438,28 +1759,88 @@ STRING_LIT = re.compile(r'"(?:[^"\\\n]|\\.)*"')
 def rewrite_calls(text, pass_b=False):
     strings = [(x.start(), x.end()) for x in STRING_LIT.finditer(text)]
     starts = [a for a, _ in strings]
-    out, i = [], 0
+    out, i, pos = [], 0, 0  # i: text emitted so far; pos: where the search continues
     while True:
-        m = CALL.search(text, i)
+        m = CALL_ANY.search(text, pos)
         if not m:
             out.append(text[i:])
             return ''.join(out)
+        pos = m.end()
         k = bisect.bisect_right(starts, m.start()) - 1
         if k >= 0 and m.start() < strings[k][1]:  # inside a string literal
-            out.append(text[i:m.end()])
-            i = m.end()
             continue
+        method = m.group(1)
+        p = m.end()
+        if text[p] == '<':  # explicit template arguments: f<T>(...); a template in a qualifier is not a call
+            gt = cleanup._template_end(text, p)
+            q = gt + 1 if gt > 0 else -1
+            while 0 < q < len(text) and text[q] == ' ':
+                q += 1
+            if gt < 0 or q >= len(text) or text[q] != '(':
+                continue
+            method, p = method + text[m.end():gt + 1], q
         start = qual_start(text, m.start())
+        end = balanced(text, p)
+        new = (member_call(text[start:m.start()], method, text[p + 1:end - 1], pass_b)
+               if start is not None and start >= i else None)
+        if new is not None:
+            out.append(text[i:start] + new)
+            i = pos = end
+
+
+UNQUALIFIED = re.compile(r'(?<![\w:.>~&*])\b([A-Za-z_]\w*)\s*\(')
+NOT_CALLS = {'if', 'while', 'for', 'switch', 'return', 'sizeof', 'new', 'delete', 'catch', 'alignof', 'decltype',
+             'static_cast', 'reinterpret_cast', 'const_cast', 'dynamic_cast'}
+
+
+def rewrite_free_operators(text):
+    out, i = [], 0
+    for m in FREE_OP.finditer(text):
+        if m.start() < i:
+            continue
         p = m.end() - 1
         end = balanced(text, p)
-        new = (member_call(text[start:m.start()], m.group(1), text[p + 1:end - 1], pass_b)
-               if start is not None and start >= i else None)
-        if new is None:
-            out.append(text[i:m.end()])
-            i = m.end()
-        else:
-            out.append(text[i:start] + new)
+        args = split_args(text[p + 1:end - 1])
+        shape = callee_shape('', m.group(1), len(args))
+        result = None
+        if shape and shape[0] and len(args) == 3:
+            result, args = pointer_to_object(args[0]), args[1:]
+        if len(args) != 2:
+            continue
+        refs = shape[3] if shape else (True, True)
+        a, b = (pointer_to_object(x) if k < len(refs) and refs[k] else drop_cast(x) for k, x in enumerate(args))
+        expr = f'{wrap_operand(a)} {m.group(1)[8:]} {wrap_operand(b)}'
+        out.append(text[i:m.start()] + (f'{result} = {expr}' if result else expr))
+        i = end
+    out.append(text[i:])
+    return ''.join(out)
+
+
+def rewrite_unqualified(text):
+    """Calls Ghidra wrote without a qualifier: methods of the current class, and free operators."""
+    text = rewrite_free_operators(text)
+    out, i = [], 0
+    for m in UNQUALIFIED.finditer(text):
+        if m.start() < i or m.group(1) in NOT_CALLS:
+            continue
+        name = m.group(1)
+        p = m.end() - 1
+        end = balanced(text, p)
+        args = split_args(text[p + 1:end - 1])
+        new = None
+        if name.startswith('operator') and FREE_OP.match(text, m.start()) and len(args) == 2:
+            op = name[8:]
+            a, b = (x if x in ('nullptr', '0') or x[:1] in '"\'' else pointer_to_object(x) for x in args)
+            new = f'{wrap_operand(a)} {op} {wrap_operand(b)}'
+        elif CTX.get('cls'):
+            shape = callee_shape(CTX['cls'], name, len(args))
+            if shape and shape[1] and args and drop_cast(args[0]) == 'this':
+                new = shaped_call('', name, args, shape)
+        if new is not None:
+            out.append(text[i:m.start()] + new)
             i = end
+    out.append(text[i:])
+    return ''.join(out)
 
 
 # ---- body clean-up: fold copies and one-use temporaries, drop a trailing return ----
@@ -1468,7 +1849,8 @@ ASSIGN_AFTER = re.compile(r'\s*(?:=(?!=)|\+=|-=|\*=|/=|%=|\|=|&=|\^=|<<=|>>=|\+\
 LITERALS = re.compile(r'"(?:[^"\\\n]|\\.)*"|\'(?:[^\'\\\n]|\\.)*\'')
 NUMBER = re.compile(r'-?\d+(?:\.\d+)?(?:e[-+]?\d+)?[fFuUlL]*|-?0x[0-9a-fA-F]+[uUlL]*')
 CAST_PREFIX = re.compile(r'\(\s*[\w:<>,\s*]+\)\s*')
-LEAD_USE = re.compile(r'\s*(?:(?:if|switch) \(+!?|return |[\w.\[\]]+(?:->\w+)* = )')
+LEAD_USE = re.compile(r'\s*(?:(?:if|switch|while) \(+!?|return |[\w.\[\]]+(?:->\w+)* = |'
+                      r'(?:[\w.\[\]]+(?:->\w+)* = )?[\w:.>~-]+\(|)')
 NOT_TYPES = {'goto', 'return', 'delete', 'throw', 'case', 'else', 'do'}
 simplified = collections.Counter()
 
@@ -1595,51 +1977,186 @@ def simplify_body(rest, sig):
     return '\n'.join(l for i, l in enumerate(lines) if i not in removed)
 
 
-def tidy_ghidra(code, f):
-    """Drop Ghidra's comment repeating the name, and write member signatures as C++ (implicit this)."""
-    m = re.match(r'/\*(.*?)\*/\s*', code, re.S)
-    if m and re.sub(r'\s', '', m.group(1)) == re.sub(r'\s', '', f['dem']):
-        code = code[m.end():]
+data_by_leaf = None
+GLOBAL_REF = re.compile(r'\b(?:DAT_|[a-z]?Ram0*)([0-9a-f]{9,})\b|(?<![\w:])_([A-Za-z]\w+)\b')
+
+
+def global_refs(text):
+    """Ghidra's DAT_1039bc158 / uRam00000001039bc150 / _name: the variable that address belongs to."""
+    global data_by_leaf
+    if data_by_leaf is None:
+        data_by_leaf = {}
+        for d in src_data:
+            data_by_leaf.setdefault(components(d['dem'])[-1], d)
+
+    def rep(m):
+        if m.group(2):  # the raw symbol of a variable: _infiniteAcceleration
+            r = data_by_leaf.get(m.group(2))
+            return m.group(2) if r else m.group(0)
+        a = int(m.group(1), 16)
+        r = containing(a)
+        if not r:
+            return m.group(0)
+        name, off = components(r['dem'])[-1], a - r['addr']
+        if off == 0:
+            return name
+        typ = data_info(r)[0] or cast_type(r)
+        lay = layouts.get(typ.replace(' const*', '')) if typ else None
+        field = next((n for o, _, _, n in lay['fields'] if o == off), None) if lay else None
+        if field:
+            return f'{name}.{field}'
+        return f'reinterpret_cast<const uint64_t*>(&{name})[{off // 8}]' if off % 8 == 0 else m.group(0)
+    return outside_strings(text, lambda t: GLOBAL_REF.sub(rep, t))
+
+
+def outside_strings(text, fn):
+    return cleanup.outside_strings(text, fn)
+
+
+def has_this(code):
+    line = sig_line(code)
+    return '__thiscall' in line or any(param_name(p) == 'this' for p in sig_params(line))
+
+
+def class_members(key):
+    return {name for _, _, _, name in layouts.get(key, {}).get('fields', [])} | {'_vptr'}
+
+
+def tidy_body(code, f):
+    """Ghidra's body as C++: Ghidra-isms cleaned, calls written as member calls, compiler-made code removed."""
     i = code.find('\n{')
     if i < 0:
-        return code
+        return None
     sig, rest = code[:i], code[i:]
-    if '__thiscall' in sig:
-        sig = re.sub(r'\s*__thiscall\s+', ' ', sig).lstrip()
-        sig = re.sub(r'\(\s*[^(),]*\*\s*this\s*,\s*', '(', sig, count=1)
-        sig = re.sub(r'\(\s*[^(),]*\*\s*this\s*\)', '()', sig, count=1)
     global member_names
     if member_names is None:  # members Ghidra decompiled with a this pointer
         member_names = {f"{g['scope'][-1]}::{base(g['leaf'])}" for g in funcs if g['sig'] and g['scope']
-                        and '__thiscall' in sig_line(bodies.get(g['addr'], ''))}
+                        and has_this(bodies.get(g['addr'], ''))}
     rest = re.sub(r'::[ \t]*\n\s*|\s*\n[ \t]*::', '::', rest)  # Ghidra wraps long qualified names
-    sig = re.sub(r'\(\s*void\s*\)', '()', sig)
-    rest = simplify_body(rest, sig)
-    rest = rewrite_calls(rest, bool(f.get('pass_b')))
-    rest = re.sub(r'\bthis->(?=(?:field\d*_0x[0-9a-f]+|m_\w+)\b)', '', rest)  # members are in scope in a method
-    return sig.rstrip() + rest
+    rest = cleanup.clean(rest)
+    rest = global_refs(rest)
+    rest = simplify_body(rest, cleanup.fix_types(sig))
+    # reference parameters are pointers in Ghidra's code and references in the signature written out
+    CTX['refparams'] = set()
+    if f['sig']:
+        for t, decl in zip((p for p in split_args(f['sig'][2][1:-1]) if p not in ('void', '...')), definition_params(f)):
+            if re.search(r'&\s*$', t.replace(' const', '')):
+                CTX['refparams'].add(param_name(decl))
+    CTX['cls'] = class_key(f['scope']) if f['scope'] else None
+    if not has_this(code):  # Ghidra names a local 'this' when it is passed as one
+        m = re.search(r'^\s+([A-Za-z_][\w:<>,\s]*?)\s*\*\s*this;', rest, re.M)
+        if m:
+            leaf = base(components(m.group(1).strip())[-1])
+            word = (leaf[:1].lower() + leaf[1:]) if re.fullmatch(r'[A-Za-z]\w*', leaf) else 'self'
+            rest = re.sub(r'\bthis\b', word if word not in ('this', 'delete') else 'self', rest)
+    rest, objs = cxxify.local_object_decls(rest)
+    rest = rewrite_calls(rest, False)
+    rest = rewrite_unqualified(rest)
+    for r in CTX['refparams']:
+        rest = re.sub(rf'\b{r}->', f'{r}.', rest)
+        rest = re.sub(rf'(?<![\w)\]])\*\s*{r}\b', r, rest)
+    rest = cxxify.virtual_calls(rest)
+    rest = cxxify.bools(rest)
+    rest = simplify_body(rest, cleanup.fix_types(sig))
+    rest = cxxify.arrows(rest)
+    rest = cxxify.fold_flags(rest)
+    # operator[] returns a reference: assigned to a pointer, it is that element's address
+    rest = re.sub(r'(\b\w+ = )\(\s*[\w:<>,\s*&]+\*\s*\)\s*([\w.]+(?:->\w+)*\[[^\[\];]+\]);', r'\1&\2;', rest)
+    if '__return_storage_ptr__' in rest:
+        rest = cxxify.by_value_return(rest, function_return(f) or 'auto')
+    key = class_key(f['scope']) if f['scope'] else None
+    v = variant(f)
+    members = class_members(key)
+    inits = []
+    if v:
+        rest = cxxify.strip_vtable_setup(rest)
+        if v.startswith('C'):
+            parent = class_bases.get(key)
+            bases = {parent.split('::')[-1]} if parent else set()
+            bases |= {m.group(1).split('<')[0].split('::')[-1]
+                      for m in re.finditer(r'new \(\(?\w*[\w:<>, ]*\*?\)?\s*this\) ([\w:<>, ]+?)\(', rest)}
+            bases.discard(f['scope'][-1])
+            inits, rest = cxxify.init_list(rest, members, bases)
+        else:
+            rest = cxxify.strip_member_destruction(rest, members)
+    rest = cxxify.eastl_allocators(rest)
+    rest = cxxify.local_object_lifetimes(rest, objs)
+    rest = cxxify.declare_at_first_use(rest)
+    names = '|'.join(re.escape(m) for m in sorted(members, key=len, reverse=True) if m != '_vptr')
+    if names:
+        rest = re.sub(rf'\bthis->(?=(?:{names})\b)', '', rest)  # members are in scope in a method
+    rest = re.sub(r'\bthis->(?=(?:field\d*_0x[0-9a-f]+|m_\w+)\b)', '', rest)
+    return inits, rest
+
+
+def definition_head(f):
+    ret, name, params, quals = f['sig']
+    rt = function_return(f)
+    return f"{rt + ' ' if rt else ''}{name}({', '.join(definition_params(f))}){' ' + quals if quals else ''}"
+
+
+CTOR_RANK = {'C2': 0, 'C1': 1, 'C3': 2, 'D2': 0, 'D1': 1, 'D0': 2}
+
+
+def redundant_variant(f):
+    """Constructors and destructors are emitted in up to three variants with one source: keep the best one."""
+    v = variant(f)
+    if not v:
+        return False
+    rivals = [g for g in variant_groups.get((f['file'], f['dem']), []) if g is not f and bodies.get(g['addr'])]
+    return any((CTOR_RANK[variant(g)], g['addr']) < (CTOR_RANK[v], f['addr']) for g in rivals) or \
+        (v == 'D0' and not bodies.get(f['addr']))
+
+
+variant_groups = None
+
+
+alias_cache = {}
+
+
+def alias_text(f):
+    """A linker-folded accessor shares its code with another class's: return the member at the same offset."""
+    if f['addr'] in alias_cache and id(f) in alias_cache[f['addr']]:
+        return alias_cache[f['addr']][id(f)]
+    p = f['alias_of']
+    code = bodies.get(p['addr'], '').strip()
+    pk, ak = class_key(p['scope']) if p['scope'] else None, class_key(f['scope']) if f['scope'] else None
+    tidy = tidy_body(code, p) if code.endswith('}') and p['sig'] else None
+    simple = tidy and re.fullmatch(r'\s*\{\s*return (&?)(\w+);\s*\}\s*', tidy[1])
+    text = f"// {f['addr']:#x}: {f['dem']} has the same machine code as {p['dem']}\n"
+    if simple and f['sig'] and not f['sig'][2].strip('()').strip():
+        amp, name = simple.groups()
+        theirs = {nm: (off, typ) for off, _, typ, nm in layouts.get(pk, {}).get('fields', [])}
+        mine = {off: (nm, typ) for off, _, typ, nm in layouts.get(ak, {}).get('fields', [])}
+        hit = mine.get(theirs[name][0]) if name in theirs else None
+        if hit and not hit[0].startswith('field'):
+            typ = cleanup.fix_types(re.sub(r'\s+\*', '*', hit[1]))
+            if not re.search(r'\[|undefined|uint8_t$', typ):
+                f['ret_text'] = (f'const {typ}&' if amp else typ)
+            text = (f"// {f['addr']:#x}, the same machine code as {p['dem']}\n"
+                    f"{definition_head(f)}\n{{\n  return {hit[0]};\n}}\n")
+    alias_cache.setdefault(f['addr'], {})[id(f)] = text
+    return text
 
 
 def func_text(f):
-    sig = f['dem']
     if f.get('alias_of'):
-        ret = accessor_type(f)
-        return (f"// {f['addr']:#x}: the linker folded this into {f['alias_of']['dem']}, which has identical code\n"
-                f"{ret + ' ' if ret else ''}{sig};\n")
+        return alias_text(f)
+    head = f"// {f['addr']:#x}"
     v = variant(f)
-    head = (f"// {f['addr']:#x}, {f['size']} bytes{', ' + VARIANTS[v] if v else ''}{', inline' if f['weak'] else ''}, "
-            f"placed by {PLACED.get(f['how'], f['how'])}")
     if v in ('C1', 'D1') and f['size'] <= 16:
-        kind = 'constructor' if v == 'C1' else 'destructor'
-        return f"{head}\n// {sig}: jumps straight to the base-object {kind}\n"
+        return ''  # jumps straight to the base-object variant
     code = bodies.get(f['addr'], '').strip()
+    if not f['sig']:
+        sig = f['dem']
+        tidy = tidy_body(code, f) if code.endswith('}') else None
+        return f"{head}\n{sig_line(code) or sig}{tidy[1] if tidy else ' {}'}\n"
+    sig = definition_head(f)
     if code.endswith('}'):
-        if names_at[f['addr']] > 1 and not same_name(f, code):
-            head += ('\n// the linker folded identical functions into this address; Ghidra decompiled it under '
-                     'another of its names, so the signature below names that function')
-        return f"{head}\n// {sig}\n{tidy_ghidra(code, f)}\n"
-    if code:
-        return f"{head}\n{sig}\n{{\n    {code}\n}}\n"
+        inits, body = tidy_body(code, f)
+        if inits:
+            sig += '\n    : ' + ', '.join(inits)
+        return f"{head}\n{sig}{body}\n"
     return f"{head}\n{sig}\n{{\n    // body not decompiled\n}}\n"
 
 
@@ -1653,9 +2170,12 @@ BUILTIN_CHAIN = re.compile(rf'(?<!\w)(?:{BUILTIN_WORDS}_)+{BUILTIN_WORDS}(?!\w)'
 
 def ns_norm(text):
     text = decimal_fields(text.replace('std::__1::', 'std::'))
+    text = re.sub(r'(?<=[<,])_(?=[a-z])', ' ', text)
+    text = re.sub(r'(?<=[\w>])_const(?=[*&>, ])', ' const', text)
     text = BUILTIN_CHAIN.sub(lambda m: m.group(0).replace('_', ' '), text)  # Ghidra's unsigned_int -> unsigned int
-    text = re.sub(r'(?:eastl::)?basic_string<char, ?eastl::allocator ?>', 'eastl::string', text)
-    text = re.sub(r'std::basic_string<char, ?std::char_traits<char>, ?std::allocator<char> ?>', 'std::string', text)
+    text = cleanup.drop_default_template_args(text)
+    text = re.sub(r'std::basic_string<char(?:, ?std::char_traits<char>)?(?:, ?std::allocator<char> ?)?>', 'std::string', text)
+    text = re.sub(r'(?:eastl::)?basic_string<char(?:, ?eastl::allocator ?)?>', 'eastl::string', text)
     return text.replace('(anonymous namespace)', ANON).replace('(anonymous_namespace)', ANON)
 
 
@@ -1761,8 +2281,28 @@ def objc_decl(dem):
     return f'{kind} (id)' + ' '.join(f'{x}:(id)arg{n + 1}' for n, x in enumerate(parts[:-1]))
 
 
+variant_groups = collections.defaultdict(list)
+for f in funcs:
+    if f['file'] and variant(f):
+        variant_groups[(f['file'], f['dem'])].append(f)
+for f in funcs:  # folded accessors settle their return types before any class declares them
+    if f.get('alias_of') and f['file']:
+        alias_text(f)
+# a static initialiser whose every store was recovered as a data definition's value is not written out
+init_done = collections.defaultdict(lambda: True)
+for e in inits.values():
+    init_done[e['func']['addr']] &= e['value'] is not None
+
+
+def written_out(f):
+    if f['dem'].startswith(('___cxx_global_var_init', '__GLOBAL__sub_I')):
+        return f['addr'] not in init_done or not init_done[f['addr']]
+    return not redundant_variant(f)
+
+
 written = 0
 for path, info in sorted(files.items()):
+    info['funcs'] = [f for f in info['funcs'] if written_out(f)]
     parts = [HEADER.format(path=path)]
     if info['targets']:
         parts.append(f"// target: {info['targets'].most_common(1)[0][0]}\n")
@@ -1785,7 +2325,9 @@ for path, info in sorted(files.items()):
         if f['dem'].startswith(('-[', '+[')):
             objc[f['scope'][0]].append(f)
         else:
-            items.append((func_ns(f), func_text(f)))
+            text = func_text(f)
+            if text:
+                items.append((func_ns(f), text))
     for cls, fs in objc.items():
         decls = ''.join(objc_decl(f['dem']) + ';\n' for f in fs)
         items.append(([], f'@interface {cls} : NSObject\n{decls}@end\n\n@implementation {cls}\n\n'

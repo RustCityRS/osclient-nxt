@@ -1,338 +1,290 @@
 // libs/oldscape/rs2lib/configdecoder/SpotType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "SpotType.h"
 
 namespace jag::oldscape::configdecoder {
-    // 0x1016747c0, 8 bytes, __common; zero-initialised
-    SpotType::m_pConfigClient;
+    // 0x1016747c0
+    int64_t SpotType::m_pConfigClient;
 
-    // 0x1016747c8, 8 bytes, __common; zero-initialised
-    SpotType::m_pModels;
+    // 0x1016747c8
+    int64_t SpotType::m_pModels;
 
-    // 0x1016747d0, 5376 bytes, __common; zero-initialised
-    SpotType::m_recentUse;
+    // 0x1016747d0
+    LRUHashCache<SpotType, 64ul, 65ul, false, unsigned long long> SpotType::m_recentUse;
 
-    // 0x101675cd0, 2656 bytes, __common; zero-initialised
-    SpotType::m_modelCache;
+    // 0x101675cd0
+    LRUHashCache<dash3d::ModelLit, 30ul, 31ul, false, unsigned long long> SpotType::m_modelCache;
 
-    // 0x1002360a0, 32 bytes, placed by class name and debug map
-    // SpotType::Init(jagex3::Js5*, jagex3::Js5*)
-    void SpotType::Init(Js5* param_1, Js5* param_2) {
-        m_pConfigClient = param_1;
-        m_pModels = param_2;
+    // 0x1002360a0
+    void SpotType::Init(jagex3::Js5* js51, jagex3::Js5* js52) {
+        m_pConfigClient = js51;
+        m_pModels = js52;
     }
 
-    // 0x1002360c0, 304 bytes, placed by class name and debug map
-    // SpotType::List(int)
-    SpotType* SpotType::List(int param_1) {
-        bool bVar1;
-        shared_ptr* psVar2;
-        int* piVar3;
-        SpotType* this_00;
-        PacketJ* pPVar4;
-        shared_ptr local_40;
-        shared_ptr local_30;
+    // 0x1002360c0
+    auto SpotType::List(int arg1) {
+        int* piVar2;
+        SpotType* spotType;
+        PacketJ<Array<unsigned char> _>* packetJ;
+        ReturnValue local_40;
+        ReturnValue local_30;
 
-        local_30._0_8_ = (long)param_1;
-        psVar2 =
-            (shared_ptr*)LRUHashCache<SpotType, 64ul, 65ul, false, unsigned long long>::Find((ulonglong*)&m_recentUse);
-        new (this) shared_ptr<dash3d::Decor>(psVar2);
-        bVar1 = operator!=((shared_ptr*)this, (_func_decltype_nullptr*)0);
-        if (!bVar1) {
-            new (&local_30) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            m_pConfigClient->GetFile((int)&local_30, 13, (array*)(ulong)(uint)param_1);
-            make_shared<SpotType>((jag*)&local_40);
-            shared_ptr<SpotType>::operator=((shared_ptr<SpotType>*)this, &local_40);
-            local_40.~shared_ptr();
-            piVar3 = (int*)shared_ptr<SpotType>::operator->((shared_ptr<SpotType>*)this);
-            *piVar3 = param_1;
-            bVar1 = operator!=(&local_30, (_func_decltype_nullptr*)0);
-            if (bVar1) {
-                this_00 = (SpotType*)shared_ptr<SpotType>::operator->((shared_ptr<SpotType>*)this);
-                pPVar4 = (PacketJ*)shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator*(
-                    (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)&local_30);
-                Decode(this_00, pPVar4);
+        local_30[0] = (ReturnValue)(long)arg1;
+        auto groundDecor = m_recentUse.Find(local_30);
+        auto result(groundDecor);
+        if (!(result != nullptr)) {
+            local_30 = shared_ptr();
+            m_pConfigClient->GetFile(local_30, 13, arg1, nullptr);
+            make_shared<SpotType>(&local_40);
+            result = local_40;
+            piVar2 = (int*)(result).operator->();
+            *piVar2 = arg1;
+            if (local_30 != nullptr) {
+                spotType = (SpotType*)(result).operator->();
+                packetJ = (PacketJ<Array<unsigned char> _>*)*local_30;
+                Decode(spotType, packetJ);
             }
-            local_40._0_8_ = (long)param_1;
-            m_recentUse.Put(this, 1, (ulonglong*)&local_40);
-            local_30.~shared_ptr();
+            local_40[0] = (ReturnValue)(long)arg1;
+            m_recentUse.Put(result, 1, local_40);
         }
-        return this;
+        return result;
     }
 
-    // 0x100236360, 64 bytes, placed by class name and debug map
-    // SpotType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&)
-    void SpotType::Decode(PacketJ* param_1) {
-        byte bVar1;
+    // 0x100236360
+    void SpotType::Decode(PacketJ<Array<unsigned char>>& packetJ) {
+        uint8_t bVar1;
 
         while (true) {
-            bVar1 = param_1->g1();
+            bVar1 = packetJ.g1();
             if (bVar1 == 0)
                 break;
-            Decode(this, param_1, (uint)bVar1);
+            Decode(packetJ, (unsigned int)bVar1);
         }
     }
 
-    // 0x100236490, 704 bytes, placed by class name and debug map
-    // SpotType::Decode(PacketJ<Array<unsigned char, eastl::allocator> >&, int)
-    void SpotType::Decode(PacketJ* param_1, int param_2) {
-        byte bVar1;
-        ushort uVar2;
-        undefined2 uVar3;
-        undefined8 uVar4;
-        undefined2* puVar5;
-        ulong uVar6;
-        ulong uVar7;
+    // 0x100236490
+    void SpotType::Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2) {
+        uint8_t bVar1;
+        unsigned short uVar2;
+        uint16_t uVar3;
+        uint16_t* puVar4;
+        unsigned long uVar5;
+        unsigned long uVar6;
 
-        switch (param_2) {
+        switch (arg2) {
         case 1:
-            uVar2 = param_1->g2();
-            field_4 = (uint)uVar2;
+            uVar2 = packetJ.g2();
+            field_4 = (unsigned int)uVar2;
             break;
         case 2:
-            uVar2 = param_1->g2();
-            *(uint*)&field_8 = (uint)uVar2;
+            uVar2 = packetJ.g2();
+            field_8 = (unsigned int)uVar2;
             break;
         default:
-            uVar4 = logger::default_logger();
-            logger::Logger::Log(uVar4, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
-                                "configdecoder/SpotType.cpp",
-                                108, "Error unrecognised .spotanim config code: %i", param_2);
+            (logger::default_logger())
+                ->Log(false, 8,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/rs2lib/"
+                      "configdecoder/SpotType.cpp",
+                      108, "Error unrecognised .spotanim config code: %i", arg2);
             break;
         case 4:
-            uVar2 = param_1->g2();
-            field_112 = (uint)uVar2;
+            uVar2 = packetJ.g2();
+            field_112 = (unsigned int)uVar2;
             break;
         case 5:
-            uVar2 = param_1->g2();
-            field_116 = (uint)uVar2;
+            uVar2 = packetJ.g2();
+            field_116 = (unsigned int)uVar2;
             break;
         case 6:
-            uVar2 = param_1->g2();
-            field_120 = (uint)uVar2;
+            uVar2 = packetJ.g2();
+            field_120 = (unsigned int)uVar2;
             break;
         case 7:
-            bVar1 = param_1->g1();
-            field_124 = (uint)bVar1;
+            bVar1 = packetJ.g1();
+            field_124 = (unsigned int)bVar1;
             break;
         case 8:
-            bVar1 = param_1->g1();
-            field_128 = (uint)bVar1;
+            bVar1 = packetJ.g1();
+            field_128 = (unsigned int)bVar1;
             break;
         case 40:
-            bVar1 = param_1->g1();
-            uVar7 = (ulong)bVar1;
-            (&field_16, uVar7, 5)->set_max_size();
-            (&field_40, uVar7, 5)->set_max_size();
+            bVar1 = packetJ.g1();
+            uVar6 = (unsigned long)bVar1;
+            field_16.set_max_size(uVar6, 5);
+            field_40.set_max_size(uVar6, 5);
             if (bVar1 != 0) {
-                uVar6 = 0;
+                uVar5 = 0;
                 do {
-                    uVar3 = param_1->g2();
-                    puVar5 = (undefined2*)Array<short, eastl::allocator>::operator[](
-                        (Array<short, eastl::allocator>*)&field_16, uVar6);
-                    *puVar5 = uVar3;
-                    uVar3 = param_1->g2();
-                    puVar5 = (undefined2*)Array<short, eastl::allocator>::operator[](
-                        (Array<short, eastl::allocator>*)&field_40, uVar6);
-                    *puVar5 = uVar3;
-                    uVar6 = uVar6 + 1;
-                } while (uVar7 != uVar6);
+                    uVar3 = packetJ.g2();
+                    puVar4 = &field_16[uVar5];
+                    *puVar4 = uVar3;
+                    uVar3 = packetJ.g2();
+                    puVar4 = &field_40[uVar5];
+                    *puVar4 = uVar3;
+                    uVar5 = uVar5 + 1;
+                } while (uVar6 != uVar5);
             }
             break;
         case 41:
-            bVar1 = param_1->g1();
-            uVar7 = (ulong)bVar1;
-            (&field_64, uVar7, 5)->set_max_size();
-            (&field_88, uVar7, 5)->set_max_size();
+            bVar1 = packetJ.g1();
+            uVar6 = (unsigned long)bVar1;
+            field_64.set_max_size(uVar6, 5);
+            field_88.set_max_size(uVar6, 5);
             if (bVar1 != 0) {
-                uVar6 = 0;
+                uVar5 = 0;
                 do {
-                    uVar3 = param_1->g2();
-                    puVar5 = (undefined2*)Array<short, eastl::allocator>::operator[](
-                        (Array<short, eastl::allocator>*)&field_64, uVar6);
-                    *puVar5 = uVar3;
-                    uVar3 = param_1->g2();
-                    puVar5 = (undefined2*)Array<short, eastl::allocator>::operator[](
-                        (Array<short, eastl::allocator>*)&field_88, uVar6);
-                    *puVar5 = uVar3;
-                    uVar6 = uVar6 + 1;
-                } while (uVar7 != uVar6);
+                    uVar3 = packetJ.g2();
+                    puVar4 = &field_64[uVar5];
+                    *puVar4 = uVar3;
+                    uVar3 = packetJ.g2();
+                    puVar4 = &field_88[uVar5];
+                    *puVar4 = uVar3;
+                    uVar5 = uVar5 + 1;
+                } while (uVar6 != uVar5);
             }
         }
     }
 
-    // 0x100236750, 592 bytes, placed by class name and debug map
-    // SpotType::GetTempModel2(int)
-    SpotType* SpotType::GetTempModel2(int param_1) {
-        int iVar2;
-        ModelLit* pMVar3;
-        long* plVar4;
-        int in_EDX;
-        undefined4 in_register_00000034;
-        long lVar5;
-        shared_ptr<SeqType> local_70[16];
-        shared_ptr<dash3d::ModelLit> local_60[16];
-        shared_ptr local_50;
-        shared_ptr local_40;
+    // 0x100236750
+    auto SpotType::GetTempModel2(int arg1) {
+        SeqType* this_00;
+        ModelLit* modelLit;
+        long* plVar2;
+        ReturnValue local_70;
+        ReturnValue local_60;
+        ReturnValue local_50;
 
-        lVar5 = CONCAT44(in_register_00000034, param_1);
-        GetBaseModel((SpotType*)local_60);
-        if (operator==((shared_ptr*)local_60, (_func_decltype_nullptr*)0)) {
-            new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        GetBaseModel(&local_60, this);
+        if (local_60 == nullptr) {
+            auto result;
             goto LAB_10023692f;
         }
-        new (&local_40) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        if ((*(int*)(lVar5 + 8) == -1) || (in_EDX == -1)) {
-            plVar4 = (long*)shared_ptr<dash3d::ModelLit>::operator->(local_60);
-            (**(code**)(*plVar4 + 80))(&local_50, plVar4, 1, 2);
-            shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_40, &local_50);
-            local_50.~shared_ptr();
-            if (*(int*)(lVar5 + 112) == 128)
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> local_40;
+        if ((field_8 == 4294967295) || (arg1 == -1)) {
+            plVar2 = (long*)local_60.operator->();
+            (**(void (**)(...))(*plVar2 + 80))(&local_50, plVar2, 1, 2);
+            local_40 = local_50;
+            if (field_112 == 128)
                 goto LAB_10023684e;
         LAB_100236858:
-            plVar4 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_40);
-            (**(code**)(*plVar4 + 168))(plVar4, *(undefined4*)(lVar5 + 112), *(undefined4*)(lVar5 + 116));
+            plVar2 = (long*)local_40.operator->();
+            (**(void (**)(...))(*plVar2 + 168))(plVar2, field_112, field_116);
         } else {
-            local_70->List(*(int*)(lVar5 + 8));
-            pMVar3 = (ModelLit*)shared_ptr<SeqType>::operator->(local_70);
-            iVar2 = shared_ptr<dash3d::ModelLit>::operator*(local_60);
-            local_50.AnimateModel(pMVar3, iVar2, in_EDX);
-            shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_40, &local_50);
-            local_50.~shared_ptr();
-            local_70->~shared_ptr();
-            if (*(int*)(lVar5 + 112) != 128)
+            local_70 = SeqType::List(field_8);
+            this_00 = (SeqType*)local_70.operator->();
+            modelLit = (ModelLit*)*local_60;
+            local_50 = this_00->AnimateModel(*modelLit, arg1, 2);
+            local_40 = local_50;
+            if (field_112 != 128)
                 goto LAB_100236858;
         LAB_10023684e:
-            if (*(int*)(lVar5 + 116) != 128)
+            if (field_116 != 128)
                 goto LAB_100236858;
         }
-        if (*(int*)(lVar5 + 120) != 0) {
-            if (*(int*)(lVar5 + 120) == 90) {
-                plVar4 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_40);
-                (**(code**)(*plVar4 + 128))(plVar4);
+        if (field_120 != 0) {
+            if (field_120 == 90) {
+                plVar2 = (long*)local_40.operator->();
+                (**(void (**)(...))(*plVar2 + 128))(plVar2);
             }
-            if (*(int*)(lVar5 + 120) == 180) {
-                plVar4 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_40);
-                (**(code**)(*plVar4 + 128))(plVar4);
-                plVar4 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_40);
-                (**(code**)(*plVar4 + 128))(plVar4);
+            if (field_120 == 180) {
+                plVar2 = (long*)local_40.operator->();
+                (**(void (**)(...))(*plVar2 + 128))(plVar2);
+                plVar2 = (long*)local_40.operator->();
+                (**(void (**)(...))(*plVar2 + 128))(plVar2);
             }
-            if (*(int*)(lVar5 + 120) == 270) {
-                plVar4 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_40);
-                (**(code**)(*plVar4 + 128))(plVar4);
-                plVar4 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_40);
-                (**(code**)(*plVar4 + 128))(plVar4);
-                plVar4 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_40);
-                (**(code**)(*plVar4 + 128))(plVar4);
+            if (field_120 == 270) {
+                plVar2 = (long*)local_40.operator->();
+                (**(void (**)(...))(*plVar2 + 128))(plVar2);
+                plVar2 = (long*)local_40.operator->();
+                (**(void (**)(...))(*plVar2 + 128))(plVar2);
+                plVar2 = (long*)local_40.operator->();
+                (**(void (**)(...))(*plVar2 + 128))(plVar2);
             }
         }
-        shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<RSevenDebugPresetProvider>*)this, &local_40);
-        local_40.~shared_ptr();
+        result.shared_ptr<FileRSevenDebugPresetProvider, void>(local_40);
     LAB_10023692f:
-        local_60->~shared_ptr();
-        return this;
+        return result;
     }
 
-    // 0x1002369a0, 656 bytes, placed by class name and debug map
-    // SpotType::GetBaseModel()
-    SpotType* SpotType::GetBaseModel() {
-        Array<game::VarValue, eastl::allocator>* pAVar1;
-        Array<short, eastl::allocator>* pAVar2;
+    // 0x1002369a0
+    auto SpotType::GetBaseModel() {
+        uint8_t* puVar1;
+        uint8_t* puVar2;
         short sVar3;
-        bool bVar4;
-        char cVar5;
-        shared_ptr* psVar6;
-        long lVar7;
-        long* plVar8;
-        short* psVar9;
-        ulong uVar10;
-        ulong uVar11;
-        int* in_RSI;
-        shared_ptr local_78;
-        shared_ptr local_60;
-        undefined1 local_50[32];
+        long lVar6;
+        long* plVar7;
+        short* psVar8;
+        unsigned long uVar9;
+        unsigned long uVar10;
+        shared_ptr<dash3d::ModelLit> local_78;
+        ReturnValue* local_68;
+        uint8_t local_50[32];
 
-        local_50._16_8_ = SEXT48(*in_RSI);
+        local_50._16_8_ = (int64_t)field_0;
         if (dash3d::g_usingRSeven != '\0') {
             local_50._16_8_ = local_50._16_8_ | 4294967296;
         }
-        psVar6 = (shared_ptr*)LRUHashCache<dash3d::ModelLit, 30ul, 31ul, false, unsigned long long>::Find(
-            (ulonglong*)&m_modelCache);
-        new (&local_60) shared_ptr<dash3d::Decor>(psVar6);
-        bVar4 = operator!=(&local_60, (_func_decltype_nullptr*)0);
-        if (bVar4) {
-            shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-                (shared_ptr<RSevenDebugPresetProvider>*)this, &local_60);
+        auto groundDecor = m_modelCache.Find(*((local_50 + 16)));
+        shared_ptr<dash3d::Decor> local_60(groundDecor);
+        if (local_60 != nullptr) {
+            result.shared_ptr<FileRSevenDebugPresetProvider, void>(local_60);
         } else {
-            local_50->Load(m_pModels, in_RSI[1], 0, false);
-            bVar4 = operator==((shared_ptr*)local_50, (_func_decltype_nullptr*)0);
-            if (bVar4) {
-                new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+            local_50->Load(*m_pModels, field_4, 0, false);
+            if (*local_50 == nullptr) {
+                auto result;
             } else {
-                pAVar1 = (Array<game::VarValue, eastl::allocator>*)(in_RSI + 4);
-                local_50._24_8_ = in_RSI;
-                cVar5 = pAVar1->empty();
-                if (cVar5 == '\0') {
-                    lVar7 = pAVar1->end();
-                    if (lVar7 != 0) {
-                        pAVar2 = (Array<short, eastl::allocator>*)(local_50._24_8_ + 40);
-                        uVar11 = 0;
+                puVar1 = &field_16;
+                local_68 = &result;
+                local_50._24_8_ = this;
+                if (!(puVar1->empty())) {
+                    lVar6 = puVar1->end();
+                    if (lVar6 != 0) {
+                        puVar2 = (uint8_t*)(local_50._24_8_ + 40);
+                        uVar10 = 0;
                         do {
-                            plVar8 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->(
-                                (shared_ptr<dash3d::ModelUnlit>*)local_50);
-                            psVar9 = (short*)Array<short, eastl::allocator>::operator[](
-                                (Array<short, eastl::allocator>*)pAVar1, uVar11);
-                            sVar3 = *psVar9;
-                            psVar9 = (short*)Array<short, eastl::allocator>::operator[](pAVar2, uVar11);
-                            (**(code**)(*plVar8 + 160))(plVar8, (int)sVar3, (int)*psVar9);
-                            uVar11 = uVar11 + 1;
-                            uVar10 = pAVar1->end();
-                        } while (uVar11 < uVar10);
+                            plVar7 = (long*)(*local_50).operator->();
+                            psVar8 = (short*)(*puVar1)[uVar10];
+                            sVar3 = *psVar8;
+                            psVar8 = (short*)(*puVar2)[uVar10];
+                            (**(void (**)(...))(*plVar7 + 160))(plVar7, (int)sVar3, (int)*psVar8);
+                            uVar10 = uVar10 + 1;
+                            uVar9 = puVar1->end();
+                        } while (uVar10 < uVar9);
                     }
                 }
-                pAVar1 = (Array<game::VarValue, eastl::allocator>*)(local_50._24_8_ + 64);
-                cVar5 = pAVar1->empty();
-                if (cVar5 == '\0') {
-                    lVar7 = pAVar1->end();
-                    if (lVar7 != 0) {
-                        pAVar2 = (Array<short, eastl::allocator>*)(local_50._24_8_ + 88);
-                        uVar11 = 0;
+                puVar1 = (uint8_t*)(local_50._24_8_ + 64);
+                if (!(puVar1->empty())) {
+                    lVar6 = puVar1->end();
+                    if (lVar6 != 0) {
+                        puVar2 = (uint8_t*)(local_50._24_8_ + 88);
+                        uVar10 = 0;
                         do {
-                            plVar8 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->(
-                                (shared_ptr<dash3d::ModelUnlit>*)local_50);
-                            psVar9 = (short*)Array<short, eastl::allocator>::operator[](
-                                (Array<short, eastl::allocator>*)pAVar1, uVar11);
-                            sVar3 = *psVar9;
-                            psVar9 = (short*)Array<short, eastl::allocator>::operator[](pAVar2, uVar11);
-                            (**(code**)(*plVar8 + 168))(plVar8, (int)sVar3, (int)*psVar9);
-                            uVar11 = uVar11 + 1;
-                            uVar10 = pAVar1->end();
-                        } while (uVar11 < uVar10);
+                            plVar7 = (long*)(*local_50).operator->();
+                            psVar8 = (short*)(*puVar1)[uVar10];
+                            sVar3 = *psVar8;
+                            psVar8 = (short*)(*puVar2)[uVar10];
+                            (**(void (**)(...))(*plVar7 + 168))(plVar7, (int)sVar3, (int)*psVar8);
+                            uVar10 = uVar10 + 1;
+                            uVar9 = puVar1->end();
+                        } while (uVar10 < uVar9);
                     }
                 }
-                plVar8 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->((shared_ptr<dash3d::ModelUnlit>*)local_50);
-                (**(code**)(*plVar8 + 72))(&local_78, plVar8, *(int*)(local_50._24_8_ + 124) + 64,
-                                           *(int*)(local_50._24_8_ + 128) + 850, 4294967266, 4294967246, 4294967266);
-                shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_60, &local_78);
-                this = (SpotType*)this;
-                local_78.~shared_ptr();
-                m_modelCache.Put(&local_60, 1, (ulonglong*)(local_50 + 16));
-                shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-                    (shared_ptr<RSevenDebugPresetProvider>*)this, &local_60);
+                plVar7 = (long*)(*local_50).operator->();
+                (**(void (**)(...))(*plVar7 + 72))(&local_78, plVar7, *(unsigned int*)(local_50._24_8_ + 124) + 64,
+                                                   *(unsigned int*)(local_50._24_8_ + 128) + 850, 4294967266,
+                                                   4294967246, 4294967266);
+                local_60 = local_78;
+                &result = local_68;
+                m_modelCache.Put(local_60, 1, *((local_50 + 16)));
+                result.shared_ptr<FileRSevenDebugPresetProvider, void>(local_60);
             }
-            local_50->~shared_ptr();
         }
-        local_60.~shared_ptr();
-        return this;
+        return result;
     }
 
-    // 0x100236dc0, 32 bytes, placed by class name and debug map
-    // SpotType::ResetCache()
+    // 0x100236dc0
     void SpotType::ResetCache() {
         m_recentUse.Reset();
         m_modelCache.Reset();
@@ -341,28 +293,26 @@ namespace jag::oldscape::configdecoder {
 } // namespace jag::oldscape::configdecoder
 
 namespace jag {
-    // 0x100236290, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::configdecoder::SpotType>::type make_shared<oldscape::configdecoder::SpotType>()
-    jag* make_shared<oldscape::configdecoder::SpotType>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100236290
+    shared_ptr_if_not_array<oldscape::configdecoder::SpotType>::type make_shared<oldscape::configdecoder::SpotType>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         SpotType* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(168, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(168, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::configdecoder::SpotType>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::configdecoder::SpotType>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::configdecoder::SpotType>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::configdecoder::SpotType>, int,
-                                   oldscape::configdecoder::SpotType*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::configdecoder::SpotType>, int,
+                              oldscape::configdecoder::SpotType*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

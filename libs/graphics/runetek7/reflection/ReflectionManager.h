@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/reflection/ReflectionManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,53 +9,45 @@ namespace jag::graphics {
         class Config;
         Frustum GetCullFrustum() const;
         ViewTransforms GetViewTransforms() const;
-        ReflectionManager(render::RenderTargetsManager&);
+        ReflectionManager(render::RenderTargetsManager& renderTargetsManager);
         ~ReflectionManager();
         void Destroy();
-        void Initialise(Config const&);
-        void CreateRenderingResources(Config const&);
+        void Initialise(const Config& config);
+        void CreateRenderingResources(const Config& config);
         void DestroyRenderingResources();
-        void Update(ViewTransforms const&, ViewTransforms const&);
-        GetReflectionMapAtlas() const;
+        void Update(const ViewTransforms& viewTransforms1, const ViewTransforms& viewTransforms2);
+        uint64_t GetReflectionMapAtlas() const;
         void GetReflectionMapAtlasDT() const;
-        GetReflectionMapViewport() const;
-        void GetReflectionMapRenderTargets(render::RenderTargetData&);
-        ulong CreateRenderTargets(Config const&);
-        void AddWaterPatchAABB(math::AABB const&);
+        ReflectionManager* GetReflectionMapViewport() const;
+        void GetReflectionMapRenderTargets(render::RenderTargetData& renderTargetData);
+        unsigned long CreateRenderTargets(const Config& config);
+        void AddWaterPatchAABB(const math::AABB& aabb);
         void ResetScissorRect();
-        GetScissorRect();
+        oldscape::dash3d::GridRect GetScissorRect();
 
-        // data members, from how the methods use this: 22540 bytes
-        undefined8 field_0;    // offset 0
-        undefined8 field_8;    // offset 8
-        Frustum m_cullFrustum; // offset 16
-        char _unknown_120[56];
-        ViewTransforms m_viewTransforms; // offset 176
-        char _unknown_328[56];
-        shared_ptr field_384;     // offset 384
-        ViewTransforms field_400; // offset 400
-        char _unknown_552[88];
-        RenderTargetsManager* field_640; // offset 640
-        char _unknown_648[21892];
+    private:
+        uint64_t field_0;
+        uint64_t field_8;
+        Frustum m_cullFrustum;
+        uint8_t _unknown_120[56];
+        ViewTransforms m_viewTransforms;
+        uint8_t _unknown_328[72];
+        ViewTransforms field_400;
+        uint8_t _unknown_552[88];
+        RenderTargetsManager* field_640;
+        uint8_t _unknown_648[21892];
     };
 
     class ReflectionManager::Config {
     public:
         Config();
 
-        // data members, from how the methods use this: 16 bytes
-        undefined8 field_0; // offset 0
-        undefined8 field_8; // offset 8
+    private:
+        uint64_t field_0;
+        uint64_t field_8;
     };
 
-    // 0x1007e0d50, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // ReflectionManager::Config::Config(): jumps straight to the base-object constructor
-
-    // 0x1007e8000, 16 bytes, base-object constructor, inline, placed by class name
-    // ReflectionManager::Config::Config()
-    void ReflectionManager::Config::Config() {
-        field_0 = 8796093024256;
-        field_8 = 16;
-    }
+    // 0x1007e8000
+    ReflectionManager::Config::Config() : field_0(8796093024256), field_8(16) {}
 
 } // namespace jag::graphics

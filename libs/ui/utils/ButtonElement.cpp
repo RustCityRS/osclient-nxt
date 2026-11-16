@@ -1,148 +1,133 @@
 // libs/ui/utils/ButtonElement.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.ui
 
 #include "ButtonElement.h"
 
 namespace jag::ui {
-    // 0x100f3e6b8, 8 bytes, __data
-    ButtonElement::m_animationDurationMultiplier = 1065353216;
+    // 0x100f3e6b8
+    int64_t ButtonElement::m_animationDurationMultiplier = 1065353216;
 
-    // 0x1000092e0: the linker folded this into BaseApp::GetAppRunning() const, which has identical code
-    ButtonElement::IsMouseOver() const;
+    // 0x1000092e0: ButtonElement::IsMouseOver() const has the same machine code as BaseApp::GetAppRunning() const
 
-    // 0x10000c2f0: the linker folded this into math::Rect<int>::SetX(int), which has identical code
-    ButtonElement::UpdateResult::UpdateResult(ButtonElement::UpdateResult::ResultType);
+    // 0x10000c2f0: ButtonElement::UpdateResult::UpdateResult(ButtonElement::UpdateResult::ResultType) has the same machine code as math::Rect<int>::SetX(int)
 
-    // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    int ButtonElement::GetTrigger() const;
+    // 0x100073980: ButtonElement::GetTrigger() const has the same machine code as math::Rect<int>::MinY() const
 
-    // 0x10017ebb0: the linker folded this into oldscape::CoordType<oldscape::UICoordSpecializer>::CoordType(int), which has identical code
-    ButtonElement::UpdateResult::UpdateResult(ButtonElement::UpdateResult::ResultType);
+    // 0x10043b770: ButtonElement::IsToggled() const has the same machine code as game::StaticPointLight::GetLightLevelsAbove() const
 
-    // 0x10043b770: the linker folded this into game::StaticPointLight::GetLightLevelsAbove() const, which has identical code
-    bool ButtonElement::IsToggled() const;
-
-    // 0x100674ad0, 608 bytes, placed by class name and debug map
-    // ButtonElement::Draw(graphics::RT7Core&, int, int, unsigned short, unsigned short, unsigned int, bool, render::Texture const*, math::Rect<float> const&, SpriteData const&, bool)
-    void ButtonElement::Draw(RT7Core* param_1, int param_2, int param_3, ushort param_4, ushort param_5, uint param_6,
-                             bool param_7, Texture* param_8, Rect* param_9, SpriteData* param_10, bool param_11) {
-        float fVar1;
-        uint uVar2;
-        undefined4 uVar3;
-        uint uVar4;
-        char cVar5;
-        uint uVar6;
-        undefined6 in_register_0000008a;
-        float fVar7;
-        undefined1 local_68[36];
+    // 0x100674ad0
+    void ButtonElement::Draw(graphics::RT7Core& rt7Core, int arg2, int arg3, unsigned short arg4, unsigned short arg5,
+                             unsigned int arg6, bool arg7, const render::Texture* texture,
+                             const math::Rect<float>& rect, const SpriteData& spriteData, bool arg11) {
+        unsigned int arg6_00;
+        VisualState VVar3;
+        uint64_t in_register_0000008a;
+        float fVar4;
+        uint8_t local_68[36];
         float local_40;
-        float local_34;
 
-        local_34 = (float)CONCAT62(in_register_0000008a, param_5);
-        local_68._24_8_ = param_1;
-        if (param_8 == (Texture*)0) {
-            /* WARNING: Subroutine does not return */
+        float local_34 = (float)(((uint64_t)in_register_0000008a << 16) | (uint16_t)arg5);
+        local_68._24_8_ = rt7Core;
+        if (texture == nullptr) {
             LogAssert(
                 "texture != nullptr",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/utils/ButtonElement.cpp", 8,
-                (char*)0);
+                nullptr);
         }
-        uVar2 = param_10->GetSpriteRGBA();
-        uVar2 = math::Multiply(param_6, uVar2);
-        if ((!param_11) || (cVar5 = '\x04', field_0 != 2)) {
-            cVar5 = !param_7 * '\x03';
+        unsigned int uVar2 = spriteData.GetSpriteRGBA();
+        uVar2 = math::Multiply(arg6, uVar2);
+        if ((!arg11) || (VVar3 = 4, field_0 != 2)) {
+            VVar3 = (unsigned int)!arg7 * 3;
         }
-        uVar3 = GetCurrentVisualState(this, cVar5);
-        GetVisualUV((ButtonElement*)local_68, this, param_9, uVar3);
-        fVar1 = local_34;
+        GetCurrentVisualState(VVar3);
+        VVar3 = (VisualState)rect;
+        GetVisualUV((ButtonElement*)local_68, (Rect<float>*)this, VVar3);
+        float fVar1 = local_34;
         local_34 = 0.0;
-        uVar6 = (uint)fVar1 & 65535;
-        param_10->DrawSpriteSlice(local_68._24_8_, param_2, param_3, (uint)param_4, uVar6, uVar2, local_68, param_8,
-                                  0.0);
-        if (param_7) {
+        unsigned int arg5_00 = (unsigned int)fVar1 & 65535;
+        spriteData.DrawSpriteSlice(*local_68._24_8_, arg2, arg3, (unsigned int)arg4, arg5_00, uVar2, *local_68, texture,
+                                   0.0);
+        if (arg7) {
             local_40 = 0.0;
             if (field_16 != 0.2) {
                 local_34 = field_16 * 5.0;
-                fVar7 = (float)::abs(local_34 + -0.5);
-                local_40 = 1.0 - (fVar7 + fVar7);
+                fVar4 = (float)::abs(local_34 - 0.5);
+                local_40 = 1.0 - (fVar4 + fVar4);
             }
             if ((0.0 < field_12) && (local_40 < 1.0)) {
                 local_68._20_4_ = eastl::min<float>(field_12, 1.0 - local_40);
-                uVar3 = GetCurrentVisualState(this, 1);
-                GetVisualUV((ButtonElement*)local_68, this, param_9, uVar3);
-                uVar4 = math::MultiplyAlpha(uVar2, (float)local_68._20_4_);
-                param_10->DrawSpriteSlice(local_68._24_8_, param_2, param_3, (uint)param_4, (uint)fVar1 & 65535, uVar4,
-                                          local_68, param_8, 0.0);
+                GetCurrentVisualState(1);
+                GetVisualUV((ButtonElement*)local_68, (Rect<float>*)this, VVar3);
+                arg6_00 = math::MultiplyAlpha(uVar2, (float)local_68._20_4_);
+                spriteData.DrawSpriteSlice(*local_68._24_8_, arg2, arg3, (unsigned int)arg4,
+                                           (unsigned int)fVar1 & 65535, arg6_00, *local_68, texture, 0.0);
             }
             if (0.0 < local_40) {
                 if (0.5 < local_34) {
                     field_24 = m_toggled;
                 }
-                GetVisualUV((ButtonElement*)local_68, this, param_9, (uint)m_toggled * 4 + 2);
+                GetVisualUV((ButtonElement*)local_68, (Rect<float>*)this, VVar3);
                 uVar2 = math::MultiplyAlpha(uVar2, local_40);
-                param_10->DrawSpriteSlice(local_68._24_8_, param_2, param_3, (uint)param_4, uVar6, uVar2, local_68,
-                                          param_8, 0.0);
+                spriteData.DrawSpriteSlice(*local_68._24_8_, arg2, arg3, (unsigned int)arg4, arg5_00, uVar2, *local_68,
+                                           texture, 0.0);
             }
         }
     }
 
-    // 0x100674d30, 176 bytes, placed by class name and debug map
-    // ButtonElement::GetVisualUV(math::Rect<float> const&, ButtonElement::VisualState) const
-    ButtonElement* ButtonElement::GetVisualUV(ButtonElement* param_1, Vector4T* param_3, int param_4) {
-        float fVar1;
-        float fVar2;
-        byte bVar3;
-        float* pfVar4;
+    // 0x100674d30
+    ButtonElement* ButtonElement::GetVisualUV(const math::Rect<float>& rect,
+                                              ButtonElement::VisualState visualState) const {
+        int in_ECX;
+        uint32_t in_register_00000014;
 
-        bVar3 = GetStateCount(param_1);
-        new (this) math::Float4(param_3);
-        pfVar4 = (float*)qw();
-        fVar1 = *pfVar4;
+        uint8_t bVar3 = GetStateCount((ButtonElement*)rect);
+        new (this) math::Float4(*((Rect<float>*)(((uint64_t)in_register_00000014 << 32) | (uint32_t)visualState)));
+        auto pfVar4 = qw();
+        float fVar1 = *pfVar4;
         pfVar4 = (float*)y();
-        fVar2 = *pfVar4;
+        float fVar2 = *pfVar4;
         pfVar4 = (float*)y();
-        *pfVar4 = (float)param_4 * fVar1 * (1.0 / (float)bVar3) + fVar2;
+        *pfVar4 = (float)in_ECX * fVar1 * (1.0 / (float)bVar3) + fVar2;
         SetVerticalFov((1.0 / (float)bVar3) * fVar1);
         return this;
     }
 
-    // 0x100674de0, 16 bytes, placed by class name and debug map
-    // ButtonElement::GetCurrentVisualState(ButtonElement::VisualState) const
-    int ButtonElement::GetCurrentVisualState(int param_2) {
-        int iVar1;
-
-        iVar1 = param_2 + 4;
+    // 0x100674de0
+    VisualState ButtonElement::GetCurrentVisualState(ButtonElement::VisualState visualState) const {
+        VisualState VVar1 = visualState + 4;
         if (field_24 == false) {
-            iVar1 = param_2;
+            VVar1 = visualState;
         }
-        return iVar1;
+        return VVar1;
     }
 
-    // 0x100676280, 480 bytes, placed by class name
-    // ButtonElement::UpdateLogic(math::Vector2T<float>, int, int, int, int, bool, bool, bool)
-    ulong ButtonElement::UpdateLogic(undefined8 param_1, ButtonElement* this, int param_3, int param_4, int param_5,
-                                     int param_6, int param_7, char param_8, byte param_9) {
-        int iVar1;
-        bool bVar2;
-        char cVar3;
-        ulong in_RAX;
-        int iVar4;
-        float fVar5;
-        ulong local_28;
+    // 0x100676280
+    unsigned long ButtonElement::UpdateLogic(math::Vector2T<float> vector2, int arg2, int arg3, int arg4, int arg5,
+                                             bool arg6, bool arg7, bool arg8) {
+        Trigger TVar1;
+        int iVar2;
+        Behaviour BVar3;
+        uint8_t bVar4;
+        bool bVar5;
+        bool cVar6;
+        unsigned long in_RAX;
+        ResultType resultType;
+        float in_XMM0_Da;
+        float in_XMM0_Db;
+        float fVar7;
 
-        local_28 = in_RAX;
-        if (param_7 == 0) {
-            m_mouseOver = 0;
+        unsigned long local_28 = in_RAX;
+        if (arg5 == 0) {
+            m_mouseOver = false;
         LAB_100676347:
-            iVar1 = m_trigger;
-            iVar4 = 2;
-            if (iVar1 == 0) {
-                if (((m_pressed != '\0') && (param_9 == 0)) && (param_8 == '\0')) {
+            TVar1 = m_trigger;
+            resultType = 2;
+            if (TVar1 == 0) {
+                if (((m_pressed != 0) && (!arg7)) && (!arg6)) {
                     m_pressed = 0;
                     field_11 = 1;
-                    iVar4 = 1;
+                    resultType = 1;
                     goto switchD_100676333_caseD_4;
                 }
                 if ((field_11 == '\0') || (field_16 <= 0.2 && field_16 != 0.2))
@@ -152,58 +137,57 @@ namespace jag::ui {
                 }
                 field_11 = 0;
             } else {
-                if (iVar1 != 3) {
-                    if (((iVar1 != 2) || (m_pressed == '\0')) || ((param_9 != 0 || (param_8 != '\0'))))
+                if (TVar1 != 3) {
+                    if (((TVar1 != 2) || (m_pressed == 0)) || ((arg7 || (arg6))))
                         goto switchD_100676333_caseD_4;
                     m_pressed = 0;
-                    if (m_mouseOver == '\0') {
-                        iVar4 = 3;
+                    if (m_mouseOver == false) {
+                        resultType = 3;
                         goto switchD_100676333_caseD_4;
                     }
-                    iVar1 = field_0;
+                    BVar3 = field_0;
                     goto joined_r0x000100676392;
                 }
-                param_9 = m_pressed & param_9;
-                m_pressed = param_9;
-                if (param_9 == 0)
+                bVar4 = m_pressed & arg7;
+                m_pressed = bVar4;
+                if (bVar4 == 0)
                     goto switchD_100676333_caseD_4;
-                iVar1 = field_20;
-                field_20 = iVar1 + -1;
-                iVar4 = 1;
-                if (1 < iVar1)
+                iVar2 = field_20;
+                field_20 = iVar2 - 1;
+                resultType = 1;
+                if (1 < iVar2)
                     goto switchD_100676333_caseD_4;
                 if (field_0 == 4) {
                     m_toggled = (bool)(m_toggled ^ 1);
                 }
                 field_20 = 10;
             }
-            iVar4 = 0;
+            resultType = 0;
         } else {
-            fVar5 = (float)param_1 - (float)param_3;
-            bVar2 = false;
-            if ((0.0 <= fVar5) && (fVar5 < (float)param_5)) {
-                fVar5 = (float)((ulong)param_1 >> 32) - (float)param_4;
-                bVar2 = fVar5 < (float)param_6 && 0.0 <= fVar5;
+            fVar7 = in_XMM0_Da - (float)(int)vector2;
+            bVar5 = false;
+            if ((0.0 <= fVar7) && (fVar7 < (float)arg3)) {
+                bVar5 = in_XMM0_Db - (float)arg2 < (float)arg4 && 0.0 <= in_XMM0_Db - (float)arg2;
             }
-            m_mouseOver = bVar2;
-            if (((bVar2 == false) || (param_8 == '\0')) ||
-                ((iVar1 = m_trigger, iVar1 != 1 && ((iVar1 != 4 && (cVar3 = IsIdle(this), cVar3 == '\0'))))))
+            m_mouseOver = bVar5;
+            if (((bVar5 == false) || (!arg6)) ||
+                ((TVar1 = m_trigger, TVar1 != 1 && ((TVar1 != 4 && (cVar6 = IsIdle(), !cVar6))))))
                 goto LAB_100676347;
             field_16 = 0.0;
             field_8 = 0;
-            iVar4 = 0;
-            switch (iVar1) {
+            resultType = 0;
+            switch (TVar1) {
             case 0:
             case 2:
                 m_pressed = 1;
-                iVar4 = 1;
+                resultType = 1;
                 break;
             default:
-                iVar1 = field_0;
+                BVar3 = field_0;
             joined_r0x000100676392:
-                iVar4 = 0;
-                if (iVar1 == 4) {
-                    iVar4 = 0;
+                resultType = 0;
+                if (BVar3 == 4) {
+                    resultType = 0;
                     m_toggled = (bool)(m_toggled ^ 1);
                 }
                 break;
@@ -219,61 +203,52 @@ namespace jag::ui {
             }
         }
     switchD_100676333_caseD_4:
-        oldscape::graphics::XPlotBlender<oldscape::graphics::XPlot_NormalAlpha>::XPlotBlender<int>(
-            (XPlotBlender<oldscape::graphics::XPlot_NormalAlpha>*)&local_28, iVar4);
+        local_28.XPlotBlender<int>(resultType);
         return local_28 & 4294967295;
     }
 
-    // 0x100676460, 48 bytes, placed by class name
-    // ButtonElement::IsIdle() const
-    bool ButtonElement::IsIdle() {
-        if ((m_pressed == '\0') && (field_11 == '\0')) {
+    // 0x100676460
+    bool ButtonElement::IsIdle() const {
+        if ((m_pressed == 0) && (field_11 == '\0')) {
             return 0.2 < field_16 || field_16 == 0.2;
         }
         return false;
     }
 
-    // 0x100676490, 240 bytes, placed by class name
-    // ButtonElement::UpdateAnimations(float)
-    void ButtonElement::UpdateAnimations(float param_1) {
-        float fVar1;
-        float fVar2;
-        float local_18;
-        float local_14;
-
-        fVar2 = param_1 / *(float*)PTR_m_animationDurationMultiplier_100ee6408;
-        fVar1 = 0.2;
+    // 0x100676490
+    void ButtonElement::UpdateAnimations(float arg1) {
+        float fVar2 = arg1 / *(float*)PTR_m_animationDurationMultiplier_100ee6408;
+        float fVar1 = 0.2;
         if (field_16 < 0.2) {
-            if (m_pressed != '\0') {
+            if (m_pressed != 0) {
                 if (m_trigger == 2) {
                     fVar1 = 0.1;
                 } else {
-                    fVar1 = *(float*)(&DAT_100d43308 + (ulong)(m_trigger == 0) * 4);
+                    fVar1 = *(float*)(&reinterpret_cast<const uint64_t*>(&ACCELERATION_INFINITE)[15] +
+                                      (unsigned long)(m_trigger == 0) * 4);
                 }
             }
             fVar1 = (float)eastl::min<float>(field_16 + fVar2, fVar1);
             if (field_8 == '\0') {
-                fVar1 = (float)(-(uint)(fVar1 == 0.2) & 1036831949 | ~-(uint)(fVar1 == 0.2) & (uint)fVar1);
+                fVar1 = (float)(-(unsigned int)(fVar1 == 0.2) & 1036831949 |
+                                ~-(unsigned int)(fVar1 == 0.2) & (unsigned int)fVar1);
             }
             field_16 = fVar1;
             field_8 = 1;
         }
-        if (m_mouseOver == '\0') {
+        if (m_mouseOver == false) {
             fVar2 = -fVar2;
         }
         field_12 = fVar2 * 10.0 + field_12;
-        local_18 = 0.0;
-        local_14 = 1.0;
-        fVar1 = math::Clamp<float>(&field_12, &local_18, &local_14);
+        fVar1 = math::Clamp<float>(field_12, 0.0, 1.0);
         field_12 = fVar1;
     }
 
-    // 0x100676580, 48 bytes, placed by class name
-    // ButtonElement::FinishTransitions()
+    // 0x100676580
     void ButtonElement::FinishTransitions() {
         field_24 = m_toggled;
         field_8 = 1;
-        m_mouseOver = 0;
+        m_mouseOver = false;
         m_pressed = 0;
         field_11 = 0;
         field_20 = 0;
@@ -281,15 +256,14 @@ namespace jag::ui {
         field_16 = 0.2;
     }
 
-    // 0x1006765b0, 64 bytes, placed by class name
-    // ButtonElement::SetToggled(bool, bool)
-    undefined8 ButtonElement::SetToggled(bool param_1, bool param_2) {
-        if ((field_0 != 4) || (m_toggled == param_1)) {
+    // 0x1006765b0
+    uint64_t ButtonElement::SetToggled(bool arg1, bool arg2) {
+        if ((field_0 != 4) || (m_toggled == arg1)) {
             return 0;
         }
-        m_toggled = param_1;
-        if (param_2) {
-            FinishTransitions(this);
+        m_toggled = arg1;
+        if (arg2) {
+            FinishTransitions();
         } else {
             field_16 = 0.0;
             field_8 = 0;
@@ -297,26 +271,22 @@ namespace jag::ui {
         return 1;
     }
 
-    // 0x1006765f0, 80 bytes, placed by class name
-    // ButtonElement::SetBehaviour(ButtonElement::Behaviour, ButtonElement::Trigger)
-    void ButtonElement::SetBehaviour(int param_2, int param_3) {
-        if ((field_0 != param_2) || (m_trigger != param_3)) {
-            if (param_2 != 4) {
+    // 0x1006765f0
+    void ButtonElement::SetBehaviour(ButtonElement::Behaviour behaviour, ButtonElement::Trigger trigger) {
+        if ((field_0 != behaviour) || (m_trigger != trigger)) {
+            if (behaviour != 4) {
                 m_toggled = false;
             }
-            FinishTransitions(this);
-            field_0 = param_2;
-            m_trigger = param_3;
+            FinishTransitions();
+            field_0 = behaviour;
+            m_trigger = trigger;
         }
     }
 
-    // 0x100676640, 48 bytes, placed by class name
-    // ButtonElement::GetStateCount() const
-    uint ButtonElement::GetStateCount() {
-        uint uVar1;
-
-        uVar1 = 4;
-        if (field_0 - 1U < 4) {
+    // 0x100676640
+    unsigned int ButtonElement::GetStateCount() const {
+        unsigned int uVar1 = 4;
+        if (field_0 - 1 < 4) {
             uVar1 = 134743304 >> ((char)field_0 * '\b' - 8U & 31);
         }
         return uVar1 & 255;

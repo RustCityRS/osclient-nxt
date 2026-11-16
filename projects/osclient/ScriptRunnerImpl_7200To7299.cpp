@@ -1,534 +1,508 @@
 // projects/osclient/ScriptRunnerImpl_7200To7299.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "ScriptRunnerImpl.h"
 
 namespace jag::oldscape {
-    // 0x1000b6660, 3904 bytes, placed by class name and debug map
-    // ScriptRunnerImpl::ExecuteCommand7200To7299(ScriptOp, ClientScript const&, bool)
-    undefined8 ScriptRunnerImpl::ExecuteCommand7200To7299(undefined4 param_2) {
-        undefined4 uVar1;
-        char cVar2;
-        byte bVar3;
-        byte bVar4;
-        undefined1 uVar5;
-        byte bVar6;
+    // 0x1000b6660
+    uint64_t ScriptRunnerImpl::ExecuteCommand7200To7299(ScriptOp scriptOp, const ClientScript& clientScript,
+                                                        bool arg3) {
+        uint32_t uVar1;
+        MiniDotCategory MVar2;
+        bool cVar3;
+        uint8_t bVar4;
+        uint8_t bVar5;
+        uint8_t bVar6;
         int iVar7;
-        undefined4 uVar8;
         int iVar9;
-        uint uVar10;
-        Client* this_00;
-        EntityOverlays* pEVar11;
-        shared_ptr<rs2lib::IfType>* psVar12;
-        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar13;
-        ClientEntity* pCVar14;
-        long lVar15;
-        int* piVar16;
-        undefined4* puVar17;
-        Minimap* pMVar18;
-        uint* puVar19;
-        undefined8 uVar20;
-        ulong uVar21;
-        array<int, 1000ul>* this_01;
-        char* pcVar22;
-        undefined8 uVar23;
-        undefined1* puVar24;
-        undefined1 auVar25[12];
-        undefined8 in_stack_ffffffffffffff58;
-        undefined8 uVar26;
-        undefined1 local_98[16];
-        CoordGrid local_88[2];
-        undefined4 local_64;
+        unsigned int uVar10;
+        shared_ptr<rs2lib::IfType>* psVar13;
+        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar14;
+        ClientEntity* pCVar15;
+        uint32_t* puVar16;
+        long lVar17;
+        int* piVar18;
+        MiniDotCategory* pMVar19;
+        Minimap* pMVar20;
+        unsigned int* puVar21;
+        Logger* pLVar22;
+        unsigned long uVar23;
+        array<int, 1000ul>* this_00;
+        char* str2;
+        uint8_t* puVar25;
+        uint8_t auVar26[12];
+        uint64_t in_stack_ffffffffffffff58;
+        CoordGrid local_98;
+        CoordGrid local_88;
+        uint32_t local_64;
         CoordGrid local_60;
         array<int, 1000ul>* local_50;
         array<int, 1000ul>* local_48;
         EntityOverlays* local_40;
-        undefined4 local_38;
-        int local_34;
+        uint32_t local_38;
+        unsigned int local_34;
 
-        uVar8 = (undefined4)((ulong)in_stack_ffffffffffffff58 >> 32);
-        this_00 = (Client*)Client::Instance();
-        pEVar11 = (EntityOverlays*)this_00->GetEntityOverlays();
-        uVar23 = 2;
-        switch (param_2) {
+        uint32_t uVar8 = (uint32_t)((unsigned long)in_stack_ffffffffffffff58 >> 32);
+        auto pCVar11 = Client::Instance();
+        auto pEVar12 = pCVar11->GetEntityOverlays();
+        uint64_t uVar24 = 2;
+        switch (scriptOp) {
         case 7200:
-            lVar15 = (long)field_104092;
-            field_104092 = (int)(lVar15 - 5U);
-            puVar24 = &field_100092;
-            local_40 = pEVar11;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 5U);
-            local_34 = *piVar16;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 4);
-            local_38 = *puVar17;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 3);
-            local_48 = (array<int, 1000ul>*)CONCAT44(local_48._4_4_, *puVar17);
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 2);
-            uVar1 = *puVar17;
-            pCVar14 = (ClientEntity*)this_00->GetClientNpc(m_activeNPC);
-            iVar7 = local_34;
-            if (pCVar14 != (ClientEntity*)0) {
+            lVar17 = (long)field_104092;
+            field_104092 = (int)(lVar17 - 5U);
+            puVar25 = &field_100092;
+            local_40 = pEVar12;
+            piVar18 = (int*)(*puVar25)[lVar17 - 5U];
+            local_34 = *piVar18;
+            puVar16 = (uint32_t*)(*puVar25)[lVar17 - 4];
+            local_38 = *puVar16;
+            puVar16 = (uint32_t*)(*puVar25)[lVar17 - 3];
+            local_48 = (array<int, 1000ul>*)(((uint64_t)local_48._4_4_ << 32) | (uint32_t)(*puVar16));
+            puVar16 = (uint32_t*)(*puVar25)[lVar17 - 2];
+            uVar1 = *puVar16;
+            pCVar15 = (ClientEntity*)pCVar11->GetClientNpc(m_activeNPC);
+            uVar10 = local_34;
+            if (pCVar15 != nullptr) {
                 local_64 = uVar1;
-                local_50 = (array<int, 1000ul>*)puVar24;
-                iVar9 = pCVar14->GetScriptedOverlayIndex(local_34);
-                pEVar11 = local_40;
-                if (iVar9 != -1) {
-                    local_40->DestroyOverlay(iVar9);
+                local_50 = (array<int, 1000ul>*)puVar25;
+                iVar7 = pCVar15->GetScriptedOverlayIndex(local_34);
+                pEVar12 = local_40;
+                if (iVar7 != -1) {
+                    local_40->DestroyOverlay(iVar7);
                 }
-                iVar9 = pEVar11->CreateOverlay();
-                pCVar14->SetScriptedOverlay(iVar7, iVar9);
-                psVar12 = (shared_ptr<rs2lib::IfType>*)pEVar11->GetLayer(iVar9);
-                lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-                *(int*)(lVar15 + 56) = (int)local_48;
-                lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-                *(undefined4*)(lVar15 + 60) = local_64;
-                lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-                *(undefined4*)(lVar15 + 112) = local_38;
-                uVar21 = (ulong)field_104092;
+                iVar7 = pEVar12->CreateOverlay();
+                pCVar15->SetScriptedOverlay(uVar10, iVar7);
+                psVar13 = (shared_ptr<rs2lib::IfType>*)pEVar12->GetLayer(iVar7);
+                lVar17 = (*psVar13).operator->();
+                *(int*)(lVar17 + 56) = (int)local_48;
+                lVar17 = (*psVar13).operator->();
+                *(uint32_t*)(lVar17 + 60) = local_64;
+                lVar17 = (*psVar13).operator->();
+                *(uint32_t*)(lVar17 + 112) = local_38;
+                uVar23 = (unsigned long)field_104092;
                 field_104092 = field_104092 + 1;
-                this_01 = local_50;
+                this_00 = local_50;
                 goto LAB_1000b7460;
             }
-            uVar23 = logger::default_logger();
-            logger::Logger::Log(uVar23, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
-                                "ScriptRunnerImpl_7200To7299.cpp",
-                                52, "Could not create NPC overlay (Overlay ID: %d)", CONCAT44(uVar8, local_34));
-            uVar21 = (ulong)field_104092;
+            pLVar22 = logger::default_logger();
+            pLVar22->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                         "ScriptRunnerImpl_7200To7299.cpp",
+                         52, "Could not create NPC overlay (Overlay ID: %d)",
+                         (((uint64_t)uVar8 << 32) | (uint32_t)local_34));
+            uVar23 = (unsigned long)field_104092;
             field_104092 = field_104092 + 1;
             goto LAB_1000b7350;
         case 7201:
-            lVar15 = (long)field_104092;
-            field_104092 = (int)(lVar15 - 5U);
-            puVar24 = &field_100092;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 5U);
-            local_34 = *piVar16;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 4);
-            uVar1 = *puVar17;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 3);
-            local_40 = (EntityOverlays*)CONCAT44(local_40._4_4_, *puVar17);
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 2);
-            local_38 = *puVar17;
-            puVar24 = field_140888;
-            cVar2 = puVar24->IsSet();
-            if (cVar2 != '\0') {
-                local_50 = (array<int, 1000ul>*)CONCAT44(local_50._4_4_, uVar1);
-                bVar6 = puVar24->GetShape();
-                local_48 = (array<int, 1000ul>*)CONCAT44(local_48._4_4_, (uint)bVar6);
-                bVar6 = puVar24->GetRot();
-                bVar3 = puVar24->GetDirectionMask();
-                new (&local_60) rs2lib::CoordGrid((int)local_48, (uint)bVar6, (uint)bVar3);
-                uVar5 = puVar24->GetStopExponent();
-                iVar9 = pEVar11->CreateStaticOverlay(local_34, &local_60, uVar5);
-                if (iVar9 == -1) {
-                    uVar23 = logger::default_logger();
-                    local_88->ToString();
-                    uVar20 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    logger::Logger::Log(uVar23, 0, 2,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/ScriptRunnerImpl_7200To7299.cpp",
-                                        82, "Could not create Loc overlay (Invalid coord: %s)", uVar20);
-                    local_88->~basic_string();
+            lVar17 = (long)field_104092;
+            field_104092 = (int)(lVar17 - 5U);
+            puVar25 = &field_100092;
+            piVar18 = (int*)(*puVar25)[lVar17 - 5U];
+            local_34 = *piVar18;
+            puVar16 = (uint32_t*)(*puVar25)[lVar17 - 4];
+            uVar1 = *puVar16;
+            puVar16 = (uint32_t*)(*puVar25)[lVar17 - 3];
+            local_40 = (EntityOverlays*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)(*puVar16));
+            puVar16 = (uint32_t*)(*puVar25)[lVar17 - 2];
+            local_38 = *puVar16;
+            puVar25 = field_140888;
+            cVar3 = puVar25->IsSet();
+            if (cVar3) {
+                local_50 = (array<int, 1000ul>*)(((uint64_t)local_50._4_4_ << 32) | (uint32_t)uVar1);
+                bVar6 = puVar25->GetShape();
+                local_48 = (array<int, 1000ul>*)(((uint64_t)local_48._4_4_ << 32) | (uint32_t)((unsigned int)bVar6));
+                bVar6 = puVar25->GetRot();
+                bVar4 = puVar25->GetDirectionMask();
+                local_60 = rs2lib::CoordGrid((int)local_48, (unsigned int)bVar6, (unsigned int)bVar4);
+                bVar6 = puVar25->GetStopExponent();
+                iVar7 = pEVar12->CreateStaticOverlay(local_34, local_60, (unsigned int)bVar6);
+                if (iVar7 == -1) {
+                    pLVar22 = logger::default_logger();
+                    local_88 = local_60.ToString();
+                    uVar24 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    pLVar22->Log(false, 2,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "ScriptRunnerImpl_7200To7299.cpp",
+                                 82, "Could not create Loc overlay (Invalid coord: %s)", uVar24);
                 } else {
-                    psVar12 = (shared_ptr<rs2lib::IfType>*)pEVar11->GetLayer(iVar9);
-                    lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-                    *(int*)(lVar15 + 56) = (int)local_40;
-                    lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-                    *(undefined4*)(lVar15 + 60) = local_38;
-                    lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-                    *(undefined4*)(lVar15 + 112) = local_50._0_4_;
+                    psVar13 = (shared_ptr<rs2lib::IfType>*)pEVar12->GetLayer(iVar7);
+                    lVar17 = (*psVar13).operator->();
+                    *(int*)(lVar17 + 56) = (int)local_40;
+                    lVar17 = (*psVar13).operator->();
+                    *(uint32_t*)(lVar17 + 60) = local_38;
+                    lVar17 = (*psVar13).operator->();
+                    *(uint32_t*)(lVar17 + 112) = local_50._0_4_;
                 }
                 goto LAB_1000b73e1;
             }
-            uVar23 = logger::default_logger();
-            uVar26 = CONCAT44(uVar8, local_34);
-            pcVar22 = "Could not create Loc overlay (Overlay ID: %d)";
-            uVar20 = 88;
+            pLVar22 = logger::default_logger();
+            uVar24 = (((uint64_t)uVar8 << 32) | (uint32_t)local_34);
+            str2 = "Could not create Loc overlay (Overlay ID: %d)";
+            iVar7 = 88;
         LAB_1000b7335:
-            logger::Logger::Log(uVar23, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
-                                "ScriptRunnerImpl_7200To7299.cpp",
-                                uVar20, pcVar22, uVar26);
-            uVar21 = (ulong)field_104092;
+            pLVar22->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                         "ScriptRunnerImpl_7200To7299.cpp",
+                         iVar7, str2, uVar24);
+            uVar23 = (unsigned long)field_104092;
             field_104092 = field_104092 + 1;
             goto LAB_1000b7350;
         default:
             goto switchD_1000b66ac_caseD_1c22;
         case 7203:
-            lVar15 = (long)field_104092;
-            field_104092 = (int)(lVar15 - 5U);
-            puVar24 = &field_100092;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 5U);
-            local_34 = *piVar16;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 4);
-            local_40 = (EntityOverlays*)CONCAT44(local_40._4_4_, *puVar17);
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 3);
-            local_38 = *puVar17;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 2);
-            uVar1 = *puVar17;
-            lVar15 = Client::Instance();
-            pvVar13 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                std::array<shared_ptr<ClientPlayer>, 2048ul>::operator[](
-                    (array<shared_ptr<ClientPlayer>, 2048ul>*)(lVar15 + 19216), (long)m_activePlayer);
-            pCVar14 = (ClientEntity*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar13);
-            iVar9 = local_34;
-            if (pCVar14 == (ClientEntity*)0) {
-                uVar23 = logger::default_logger();
-                uVar26 = CONCAT44(uVar8, local_34);
-                pcVar22 = "Could not create Player overlay (Overlay ID: %d)";
-                uVar20 = 123;
+            lVar17 = (long)field_104092;
+            field_104092 = (int)(lVar17 - 5U);
+            puVar25 = &field_100092;
+            piVar18 = (int*)(*puVar25)[lVar17 - 5U];
+            local_34 = *piVar18;
+            puVar16 = (uint32_t*)(*puVar25)[lVar17 - 4];
+            local_40 = (EntityOverlays*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)(*puVar16));
+            puVar16 = (uint32_t*)(*puVar25)[lVar17 - 3];
+            local_38 = *puVar16;
+            puVar16 = (uint32_t*)(*puVar25)[lVar17 - 2];
+            uVar1 = *puVar16;
+            pCVar11 = Client::Instance();
+            pvVar14 = &pCVar11->field_19216[(long)(int)m_activePlayer];
+            pCVar15 = (ClientEntity*)pvVar14->end();
+            uVar10 = local_34;
+            if (pCVar15 == nullptr) {
+                pLVar22 = logger::default_logger();
+                uVar24 = (((uint64_t)uVar8 << 32) | (uint32_t)local_34);
+                str2 = "Could not create Player overlay (Overlay ID: %d)";
+                iVar7 = 123;
                 goto LAB_1000b7335;
             }
-            local_50 = (array<int, 1000ul>*)CONCAT44(local_50._4_4_, uVar1);
-            local_48 = (array<int, 1000ul>*)puVar24;
-            iVar7 = pCVar14->GetScriptedOverlayIndex(local_34);
+            local_50 = (array<int, 1000ul>*)(((uint64_t)local_50._4_4_ << 32) | (uint32_t)uVar1);
+            local_48 = (array<int, 1000ul>*)puVar25;
+            iVar7 = pCVar15->GetScriptedOverlayIndex(local_34);
             if (iVar7 != -1) {
-                pEVar11->DestroyOverlay(iVar7);
+                pEVar12->DestroyOverlay(iVar7);
             }
-            iVar7 = pEVar11->CreateOverlay();
-            pCVar14->SetScriptedOverlay(iVar9, iVar7);
-            psVar12 = (shared_ptr<rs2lib::IfType>*)pEVar11->GetLayer(iVar7);
-            lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-            *(undefined4*)(lVar15 + 56) = local_38;
-            lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-            *(undefined4*)(lVar15 + 60) = local_50._0_4_;
-            lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-            *(int*)(lVar15 + 112) = (int)local_40;
-            iVar9 = field_104092;
-            field_104092 = iVar9 + 1;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[](local_48, (long)iVar9);
-            *piVar16 = iVar7;
+            iVar9 = pEVar12->CreateOverlay();
+            pCVar15->SetScriptedOverlay(uVar10, iVar9);
+            psVar13 = (shared_ptr<rs2lib::IfType>*)pEVar12->GetLayer(iVar9);
+            lVar17 = (*psVar13).operator->();
+            *(uint32_t*)(lVar17 + 56) = local_38;
+            lVar17 = (*psVar13).operator->();
+            *(uint32_t*)(lVar17 + 60) = local_50._0_4_;
+            lVar17 = (*psVar13).operator->();
+            *(int*)(lVar17 + 112) = (int)local_40;
+            iVar7 = field_104092;
+            field_104092 = iVar7 + 1;
+            piVar18 = (int*)(*local_48)[(long)iVar7];
+            *piVar18 = iVar9;
             break;
         case 7204:
-            uVar21 = (long)field_104092 - 6;
-            field_104092 = (int)uVar21;
-            this_01 = (array<int, 1000ul>*)&field_100092;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[](this_01, uVar21);
-            new (&local_60) rs2lib::CoordGrid(*piVar16);
-            lVar15 = (long)field_104092;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[](this_01, lVar15 + 1);
-            local_34 = *piVar16;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[](this_01, lVar15 + 2);
-            local_40 = (EntityOverlays*)CONCAT44(local_40._4_4_, *puVar17);
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[](this_01, lVar15 + 3);
-            local_38 = *puVar17;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[](this_01, lVar15 + 4);
-            uVar1 = *puVar17;
-            cVar2 = field_140944->IsSet();
-            if (cVar2 != '\0') {
-                local_48 = (array<int, 1000ul>*)CONCAT44(local_48._4_4_, uVar1);
-                local_98->BuildCoordFromWorldCoord(this_00);
-                iVar9 = pEVar11->CreateStaticOverlay(local_34, local_98, 4);
-                if (iVar9 == -1) {
-                    uVar23 = logger::default_logger();
-                    local_88->ToString();
-                    uVar20 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    logger::Logger::Log(uVar23, 0, 2,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/"
-                                        "osclient/ScriptRunnerImpl_7200To7299.cpp",
-                                        153, "Could not create Coord overlay (Invalid coord: %s)", uVar20);
-                    local_88->~basic_string();
+            uVar23 = (long)field_104092 - 6;
+            field_104092 = (int)uVar23;
+            this_00 = (array<int, 1000ul>*)&field_100092;
+            piVar18 = (int*)(*this_00)[uVar23];
+            local_60 = rs2lib::CoordGrid(*piVar18);
+            lVar17 = (long)field_104092;
+            piVar18 = (int*)(*this_00)[lVar17 + 1];
+            local_34 = *piVar18;
+            puVar16 = (uint32_t*)(*this_00)[lVar17 + 2];
+            local_40 = (EntityOverlays*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)(*puVar16));
+            puVar16 = (uint32_t*)(*this_00)[lVar17 + 3];
+            local_38 = *puVar16;
+            puVar16 = (uint32_t*)(*this_00)[lVar17 + 4];
+            uVar1 = *puVar16;
+            cVar3 = field_140944->IsSet();
+            if (cVar3) {
+                local_48 = (array<int, 1000ul>*)(((uint64_t)local_48._4_4_ << 32) | (uint32_t)uVar1);
+                local_98 = pCVar11->BuildCoordFromWorldCoord(local_60);
+                iVar7 = pEVar12->CreateStaticOverlay(local_34, local_98, 4);
+                if (iVar7 == -1) {
+                    pLVar22 = logger::default_logger();
+                    local_88 = local_98.ToString();
+                    uVar24 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    pLVar22->Log(false, 2,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                                 "ScriptRunnerImpl_7200To7299.cpp",
+                                 153, "Could not create Coord overlay (Invalid coord: %s)", uVar24);
                 } else {
-                    psVar12 = (shared_ptr<rs2lib::IfType>*)pEVar11->GetLayer(iVar9);
-                    lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-                    *(undefined4*)(lVar15 + 56) = local_38;
-                    lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-                    *(int*)(lVar15 + 60) = (int)local_48;
-                    lVar15 = shared_ptr<rs2lib::IfType>::operator->(psVar12);
-                    *(int*)(lVar15 + 112) = (int)local_40;
+                    psVar13 = (shared_ptr<rs2lib::IfType>*)pEVar12->GetLayer(iVar7);
+                    lVar17 = (*psVar13).operator->();
+                    *(uint32_t*)(lVar17 + 56) = local_38;
+                    lVar17 = (*psVar13).operator->();
+                    *(int*)(lVar17 + 60) = (int)local_48;
+                    lVar17 = (*psVar13).operator->();
+                    *(int*)(lVar17 + 112) = (int)local_40;
                 }
-                uVar21 = (ulong)field_104092;
+                uVar23 = (unsigned long)field_104092;
                 field_104092 = field_104092 + 1;
                 goto LAB_1000b7460;
             }
-            uVar23 = logger::default_logger();
-            logger::Logger::Log(uVar23, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
-                                "ScriptRunnerImpl_7200To7299.cpp",
-                                159, "Could not create Loc overlay (Overlay ID: %d)", CONCAT44(uVar8, local_34));
-            uVar21 = (ulong)field_104092;
+            pLVar22 = logger::default_logger();
+            pLVar22->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                         "ScriptRunnerImpl_7200To7299.cpp",
+                         159, "Could not create Loc overlay (Overlay ID: %d)",
+                         (((uint64_t)uVar8 << 32) | (uint32_t)local_34));
+            uVar23 = (unsigned long)field_104092;
             field_104092 = field_104092 + 1;
         LAB_1000b7350:
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            *puVar17 = 4294967295;
+            puVar16 = &field_100092[uVar23];
+            *puVar16 = 4294967295;
             break;
         case 7205:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            iVar9 = *piVar16;
-            pCVar14 = (ClientEntity*)this_00->GetClientNpc(m_activeNPC);
-            if (pCVar14 == (ClientEntity*)0) {
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            iVar7 = *piVar18;
+            pCVar15 = (ClientEntity*)pCVar11->GetClientNpc(m_activeNPC);
+            if (pCVar15 == nullptr) {
                 uVar10 = 4294967295;
             } else {
-                uVar10 = pCVar14->GetScriptedOverlayIndex(iVar9);
+                uVar10 = pCVar15->GetScriptedOverlayIndex(iVar7);
             }
             goto LAB_1000b7236;
         case 7206:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            local_34 = *piVar16;
-            puVar24 = field_140888;
-            cVar2 = puVar24->IsSet();
-            iVar9 = -1;
-            if (cVar2 != '\0') {
-                bVar6 = puVar24->GetShape();
-                local_40 = (EntityOverlays*)CONCAT44(local_40._4_4_, (uint)bVar6);
-                bVar6 = puVar24->GetRot();
-                bVar3 = puVar24->GetDirectionMask();
-                rs2lib::CoordGrid::CoordGrid(local_88, (int)local_40, (uint)bVar6, (uint)bVar3);
-                uVar5 = puVar24->GetStopExponent();
-                iVar9 = pEVar11->GetStaticOverlayIndex(local_34, local_88, uVar5);
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            local_34 = *piVar18;
+            puVar25 = field_140888;
+            cVar3 = puVar25->IsSet();
+            iVar7 = -1;
+            if (cVar3) {
+                bVar6 = puVar25->GetShape();
+                local_40 = (EntityOverlays*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)((unsigned int)bVar6));
+                bVar6 = puVar25->GetRot();
+                bVar4 = puVar25->GetDirectionMask();
+                local_88 = rs2lib::CoordGrid((int)local_40, (unsigned int)bVar6, (unsigned int)bVar4);
+                bVar6 = puVar25->GetStopExponent();
+                iVar7 = pEVar12->GetStaticOverlayIndex(local_34, local_88, (unsigned int)bVar6);
             }
         LAB_1000b73e1:
-            uVar21 = (ulong)field_104092;
+            uVar23 = (unsigned long)field_104092;
             field_104092 = field_104092 + 1;
-            this_01 = (array<int, 1000ul>*)&field_100092;
+            this_00 = (array<int, 1000ul>*)&field_100092;
         LAB_1000b7460:
-            piVar16 = (int*)std::array<int, 1000ul>::operator[](this_01, uVar21);
-            *piVar16 = iVar9;
+            piVar18 = (int*)(*this_00)[uVar23];
+            *piVar18 = iVar7;
             break;
         case 7208:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            iVar9 = *piVar16;
-            lVar15 = Client::Instance();
-            pvVar13 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                std::array<shared_ptr<ClientPlayer>, 2048ul>::operator[](
-                    (array<shared_ptr<ClientPlayer>, 2048ul>*)(lVar15 + 19216), (long)m_activePlayer);
-            pCVar14 = (ClientEntity*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar13);
-            if (pCVar14 == (ClientEntity*)0) {
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            iVar7 = *piVar18;
+            pCVar11 = Client::Instance();
+            pvVar14 = &pCVar11->field_19216[(long)(int)m_activePlayer];
+            pCVar15 = (ClientEntity*)pvVar14->end();
+            if (pCVar15 == nullptr) {
                 uVar10 = 4294967295;
             } else {
-                uVar10 = pCVar14->GetScriptedOverlayIndex(iVar9);
+                uVar10 = pCVar15->GetScriptedOverlayIndex(iVar7);
             }
-            uVar21 = (ulong)field_104092;
+            uVar23 = (unsigned long)field_104092;
             field_104092 = field_104092 + 1;
             goto LAB_1000b7379;
         case 7209:
-            uVar21 = (long)field_104092 - 2;
-            field_104092 = (int)uVar21;
-            puVar24 = &field_100092;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, uVar21);
-            rs2lib::CoordGrid::CoordGrid(local_88, *piVar16);
-            puVar17 =
-                (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, (long)field_104092 + 1);
-            uVar8 = *puVar17;
-            local_60.BuildCoordFromWorldCoord(this_00);
-            uVar8 = pEVar11->GetStaticOverlayIndex(uVar8, &local_60, 4);
-            iVar9 = field_104092;
-            field_104092 = iVar9 + 1;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, (long)iVar9);
-            *puVar17 = uVar8;
+            uVar23 = (long)field_104092 - 2;
+            field_104092 = (int)uVar23;
+            puVar25 = &field_100092;
+            piVar18 = (int*)(*puVar25)[uVar23];
+            local_88 = rs2lib::CoordGrid(*piVar18);
+            piVar18 = (int*)(*puVar25)[(long)field_104092 + 1];
+            iVar7 = *piVar18;
+            local_60 = pCVar11->BuildCoordFromWorldCoord(local_88);
+            uVar8 = pEVar12->GetStaticOverlayIndex(iVar7, local_60, 4);
+            iVar7 = field_104092;
+            field_104092 = iVar7 + 1;
+            puVar16 = (uint32_t*)(*puVar25)[(long)iVar7];
+            *puVar16 = uVar8;
             break;
         case 7210:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            iVar9 = *piVar16;
-            pCVar14 = (ClientEntity*)this_00->GetClientNpc(m_activeNPC);
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            iVar7 = *piVar18;
+            pCVar15 = (ClientEntity*)pCVar11->GetClientNpc(m_activeNPC);
             goto LAB_1000b6db0;
         case 7211:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            uVar8 = *puVar17;
-            puVar24 = field_140888;
-            cVar2 = puVar24->IsSet();
-            if (cVar2 == '\0') {
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            iVar7 = *piVar18;
+            puVar25 = field_140888;
+            cVar3 = puVar25->IsSet();
+            if (!cVar3) {
                 return 1;
             }
-            bVar6 = puVar24->GetShape();
-            local_34 = uVar8;
-            bVar3 = puVar24->GetRot();
-            bVar4 = puVar24->GetDirectionMask();
-            rs2lib::CoordGrid::CoordGrid(local_88, (uint)bVar6, (uint)bVar3, (uint)bVar4);
-            uVar5 = puVar24->GetStopExponent();
-            pEVar11->DestroyStaticOverlay(local_34, local_88, uVar5);
+            bVar6 = puVar25->GetShape();
+            local_34 = iVar7;
+            bVar4 = puVar25->GetRot();
+            bVar5 = puVar25->GetDirectionMask();
+            local_88 = rs2lib::CoordGrid((unsigned int)bVar6, (unsigned int)bVar4, (unsigned int)bVar5);
+            bVar6 = puVar25->GetStopExponent();
+            pEVar12->DestroyStaticOverlay(local_34, local_88, (unsigned int)bVar6);
             return 1;
         case 7213:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            iVar9 = *piVar16;
-            pvVar13 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                std::array<shared_ptr<ClientPlayer>, 2048ul>::operator[](
-                    (array<shared_ptr<ClientPlayer>, 2048ul>*)&this_00->field_19216, (long)m_activePlayer);
-            pCVar14 = (ClientEntity*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar13);
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            iVar7 = *piVar18;
+            pvVar14 = &pCVar11->field_19216[(long)(int)m_activePlayer];
+            pCVar15 = (ClientEntity*)pvVar14->end();
         LAB_1000b6db0:
-            if (pCVar14 == (ClientEntity*)0) {
+            if (pCVar15 == nullptr) {
                 return 1;
             }
-            iVar9 = pCVar14->GetScriptedOverlayIndex(iVar9);
+            iVar9 = pCVar15->GetScriptedOverlayIndex(iVar7);
             if (iVar9 == -1) {
                 return 1;
             }
-            pEVar11->DestroyOverlay(iVar9);
-            ClientEntity::RemoveScriptedOverlay((int)pCVar14);
+            pEVar12->DestroyOverlay(iVar9);
+            pCVar15->RemoveScriptedOverlay(iVar7);
             return 1;
         case 7214:
-            uVar21 = (long)field_104092 - 2;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            rs2lib::CoordGrid::CoordGrid(local_88, *piVar16);
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092,
-                                                                       (long)field_104092 + 1);
-            uVar8 = *puVar17;
-            local_60.BuildCoordFromWorldCoord(this_00);
-            pEVar11->DestroyStaticOverlay(uVar8, (Client*)&local_60, 4);
+            uVar23 = (long)field_104092 - 2;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            local_88 = rs2lib::CoordGrid(*piVar18);
+            piVar18 = &field_100092[(long)field_104092 + 1];
+            iVar7 = *piVar18;
+            local_60 = pCVar11->BuildCoordFromWorldCoord(local_88);
+            pEVar12->DestroyStaticOverlay(iVar7, local_60, 4);
             break;
         case 7250:
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            pMVar18->SetZoomable(*piVar16 == 1);
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            pMVar20->SetZoomable(*piVar18 == 1);
             break;
         case 7251:
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            bVar6 = pMVar18->GetZoomable();
-            uVar10 = (uint)bVar6;
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            bVar6 = pMVar20->GetZoomable();
+            uVar10 = (unsigned int)bVar6;
             goto LAB_1000b717e;
         case 7252:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            this_00->SetMinimapZoom(*piVar16);
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            pCVar11->SetMinimapZoom(*piVar18);
             break;
         case 7253:
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            uVar10 = pMVar18->GetZoom();
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            uVar10 = pMVar20->GetZoom();
             goto LAB_1000b717e;
         case 7254:
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            pMVar18->SetIconZoomLimit(*piVar16);
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            pMVar20->SetIconZoomLimit(*piVar18);
             break;
         case 7255:
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            uVar10 = pMVar18->GetIconZoomLimit();
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            uVar10 = pMVar20->GetIconZoomLimit();
             goto LAB_1000b717e;
         case 7256:
-            this_00->RedrawMinimap();
+            pCVar11->RedrawMinimap();
             break;
         case 7257:
-            lVar15 = (long)field_104092;
-            field_104092 = (int)(lVar15 - 4U);
-            puVar24 = &field_100092;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 3);
-            local_34 = *puVar17;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 2);
-            uVar8 = *puVar17;
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 4U);
-            uVar1 = *puVar17;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, lVar15 - 1);
-            pMVar18->SetDotStyle(uVar1, local_34, uVar8, *puVar17);
+            lVar17 = (long)field_104092;
+            field_104092 = (int)(lVar17 - 4U);
+            puVar25 = &field_100092;
+            puVar21 = (unsigned int*)(*puVar25)[lVar17 - 3];
+            local_34 = *puVar21;
+            puVar21 = (unsigned int*)(*puVar25)[lVar17 - 2];
+            uVar10 = *puVar21;
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            pMVar19 = (MiniDotCategory*)(*puVar25)[lVar17 - 4U];
+            MVar2 = *pMVar19;
+            piVar18 = (int*)(*puVar25)[lVar17 - 1];
+            pMVar20->SetDotStyle(MVar2, local_34, uVar10, *piVar18);
             break;
         case 7258:
-            puVar24 = &field_100092;
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, uVar21);
-            uVar8 = *puVar17;
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            auVar25 = pMVar18->GetDotStyle(uVar8);
-            iVar9 = field_104092;
-            field_104092 = iVar9 + 1;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, (long)iVar9);
-            *puVar17 = auVar25._0_4_;
-            iVar9 = field_104092;
-            field_104092 = iVar9 + 1;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, (long)iVar9);
-            *puVar17 = auVar25._4_4_;
-            iVar9 = field_104092;
-            field_104092 = iVar9 + 1;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)puVar24, (long)iVar9);
-            *puVar17 = auVar25._8_4_;
+            puVar25 = &field_100092;
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            pMVar19 = (MiniDotCategory*)(*puVar25)[uVar23];
+            MVar2 = *pMVar19;
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            auVar26 = pMVar20->GetDotStyle(MVar2);
+            iVar7 = field_104092;
+            field_104092 = iVar7 + 1;
+            puVar16 = (uint32_t*)(*puVar25)[(long)iVar7];
+            *puVar16 = auVar26._0_4_;
+            iVar7 = field_104092;
+            field_104092 = iVar7 + 1;
+            puVar16 = (uint32_t*)(*puVar25)[(long)iVar7];
+            *puVar16 = auVar26._4_4_;
+            iVar7 = field_104092;
+            field_104092 = iVar7 + 1;
+            puVar16 = (uint32_t*)(*puVar25)[(long)iVar7];
+            *puVar16 = auVar26._8_4_;
             break;
         case 7259:
-            iVar9 = field_104092;
-            uVar21 = (long)iVar9 - 2;
-            field_104092 = (int)uVar21;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            uVar8 = *puVar17;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, (long)iVar9 - 1);
-            iVar9 = *piVar16;
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            pMVar18->SetDotVisible(uVar8, iVar9 != 0);
+            iVar7 = field_104092;
+            uVar23 = (long)iVar7 - 2;
+            field_104092 = (int)uVar23;
+            pMVar19 = &field_100092[uVar23];
+            MVar2 = *pMVar19;
+            piVar18 = &field_100092[(long)iVar7 - 1];
+            iVar7 = *piVar18;
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            pMVar20->SetDotVisible(MVar2, iVar7 != 0);
             break;
         case 7260:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            uVar8 = *puVar17;
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            bVar6 = pMVar18->GetDotVisible(uVar8);
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            pMVar19 = &field_100092[uVar23];
+            MVar2 = *pMVar19;
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            bVar6 = pMVar20->GetDotVisible(MVar2);
             goto LAB_1000b7233;
         case 7261:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            iVar9 = *piVar16;
-            lVar15 = std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            *(bool*)(lVar15 + 8) = iVar9 != 0;
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            piVar18 = &field_100092[uVar23];
+            iVar7 = *piVar18;
+            lVar17 = pCVar11->field_8152.operator->();
+            *(bool*)(lVar17 + 8) = iVar7 != 0;
             break;
         case 7262:
-            lVar15 = std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            uVar10 = (uint) * (byte*)(lVar15 + 8);
+            lVar17 = pCVar11->field_8152.operator->();
+            uVar10 = (unsigned int)*(uint8_t*)(lVar17 + 8);
         LAB_1000b717e:
-            uVar21 = (ulong)field_104092;
+            uVar23 = (unsigned long)field_104092;
             field_104092 = field_104092 + 1;
         LAB_1000b7379:
-            puVar19 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            *puVar19 = uVar10;
+            puVar21 = &field_100092[uVar23];
+            *puVar21 = uVar10;
             break;
         case 7263:
-            iVar9 = field_104092;
-            uVar21 = (long)iVar9 - 2;
-            field_104092 = (int)uVar21;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            uVar8 = *puVar17;
-            piVar16 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, (long)iVar9 - 1);
-            iVar9 = *piVar16;
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            pMVar18->SetDrawDisplayname(uVar8, iVar9 != 0);
+            iVar7 = field_104092;
+            uVar23 = (long)iVar7 - 2;
+            field_104092 = (int)uVar23;
+            pMVar19 = &field_100092[uVar23];
+            MVar2 = *pMVar19;
+            piVar18 = &field_100092[(long)iVar7 - 1];
+            iVar7 = *piVar18;
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            pMVar20->SetDrawDisplayname(MVar2, iVar7 != 0);
             break;
         case 7264:
-            uVar21 = (long)field_104092 - 1;
-            field_104092 = (int)uVar21;
-            puVar17 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, uVar21);
-            uVar8 = *puVar17;
-            pMVar18 = (Minimap*)std::unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>::operator->(
-                (unique_ptr<minimap::Minimap, std::default_delete<minimap::Minimap>>*)&this_00->field_8152);
-            bVar6 = pMVar18->GetDrawDisplayname(uVar8);
+            uVar23 = (long)field_104092 - 1;
+            field_104092 = (int)uVar23;
+            pMVar19 = &field_100092[uVar23];
+            MVar2 = *pMVar19;
+            pMVar20 = (Minimap*)pCVar11->field_8152.operator->();
+            bVar6 = pMVar20->GetDrawDisplayname(MVar2);
         LAB_1000b7233:
-            uVar10 = (uint)bVar6;
+            uVar10 = (unsigned int)bVar6;
         LAB_1000b7236:
-            uVar21 = (ulong)field_104092;
+            uVar23 = (unsigned long)field_104092;
             field_104092 = field_104092 + 1;
             goto LAB_1000b7379;
         }
-        uVar23 = 1;
+        uVar24 = 1;
     switchD_1000b66ac_caseD_1c22:
-        return uVar23;
+        return uVar24;
     }
 
 } // namespace jag::oldscape

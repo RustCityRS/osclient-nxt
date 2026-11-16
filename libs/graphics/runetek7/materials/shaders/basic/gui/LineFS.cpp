@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/materials/shaders/basic/gui/LineFS.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
@@ -8,60 +7,41 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~LineFS();
-        virtual GetSource(EffectManager const&, EffectList const&) const;
+        virtual auto GetSource(const EffectManager& effectManager, const EffectList& effectList) const;
         LineFS();
 
-        // data members, from how the methods use this: 40 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
+    private:
+        uint64_t field_8;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
     };
 
-    // 0x100022b10: the linker folded this into oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    LineFS::~LineFS();
+    // 0x100022b10: LineFS::~LineFS() has the same machine code as oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption()
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    LineFS::~LineFS();
+    // 0x10002a770: LineFS::~LineFS() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10004a690: the linker folded this into oldscape::option::ScriptOption<bool, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    LineFS::~LineFS();
-
-    // 0x1008942c0, 112 bytes, base-object constructor, placed by class name and debug map
-    // LineFS::LineFS()
-    void LineFS::LineFS() {
-        EffectList local_58[16];
-        EffectList local_48[16];
-        undefined1* local_38;
-        undefined8 local_30;
-        undefined1 local_21;
-
-        EffectList::EffectList(local_58);
-        local_21 = 81;
-        local_38 = &local_21;
-        local_30 = 1;
-        EffectList::EffectList(local_48, (initializer_list*)&local_38);
+    // 0x1008942c0
+    LineFS::LineFS() {
+        EffectList local_58;
+        uint8_t local_21 = 81;
+        uint64_t local_30 = 1;
+        EffectList local_48(&local_21);
         new (this) ShaderSource(local_58, local_48);
-        field_0 = &PTR__ScriptOption_100f17508;
     }
 
-    // 0x100894330, 16 bytes, complete-object constructor, placed by class name and debug map
-    // LineFS::LineFS(): jumps straight to the base-object constructor
-
-    // 0x100894340, 208 bytes, placed by class name and debug map
-    // LineFS::GetSource(EffectManager const&, EffectList const&) const
-    LineFS* LineFS::GetSource(EffectManager* param_1, EffectList* param_2) {
-        undefined1 local_130[280];
+    // 0x100894340
+    auto LineFS::GetSource(const EffectManager& effectManager, const EffectList& effectList) const {
+        uint8_t local_130[280];
 
         new (local_130) render::PixelShaderSourceStream(1, 1, 1, 1, 1, 1, 24);
-        if (EffectList::Contains() != '\0') {
-            std::operator<<((ostream*)(local_130 + 16), "in vec4 vColour;\n");
+        if (effectList.Contains(81) != '\0') {
+            std::operator<<((basic_ostream<char, std::char_traits<char> _>*)(local_130 + 16), "in vec4 vColour;\n");
         }
-        std::operator<<((ostream*)(local_130 + 16), "void main()\n{\ngl_FragColor = vColour;\n}\n");
-        str();
-        local_130->~PixelShaderSourceStream();
-        return this;
+        std::operator<<((basic_ostream<char, std::char_traits<char> _>*)(local_130 + 16),
+                        "void main()\n{\ngl_FragColor = vColour;\n}\n");
+        auto result = local_130->str();
+        return result;
     }
 
 } // namespace jag::graphics

@@ -1,37 +1,31 @@
 // libs/core/utils/DataSerialise.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    template <typename...> // 1 instantiations, e.g. <PacketT<Array<unsigned char, BucketAllocatorEASTL> > >
+    template <typename...> // 1 instantiations, e.g. <PacketT<Array<unsigned char>> >
     class DataSerialise {
     public:
-        DataSerialise(PacketT<Array<unsigned char, BucketAllocatorEASTL>>*, bool);
-        unsigned long WriteObj<unsigned short>(unsigned short const&);
-        ulong Write(void const*, unsigned long);
-        unsigned long WriteObj<unsigned int>(unsigned int const&);
-        unsigned long WriteObj<unsigned long long>(unsigned long long const&);
-        unsigned long WriteObj<unsigned char>(unsigned char const&);
-        unsigned long ReadObj<unsigned short>(unsigned short&);
-        ulong Read(void*, unsigned long);
-        unsigned long ReadObj<unsigned int>(unsigned int&);
-        unsigned long ReadObj<unsigned long long>(unsigned long long&);
-        unsigned long ReadObj<unsigned char>(unsigned char&);
+        DataSerialise(PacketT<Array<unsigned char>>* arg1, bool arg2);
+        unsigned long WriteObj<unsigned short>(const unsigned short& arg1);
+        unsigned long Write(const void* arg1, unsigned long arg2);
+        unsigned long WriteObj<unsigned int>(const unsigned int& arg1);
+        unsigned long WriteObj<unsigned long long>(const unsigned long long& arg1);
+        unsigned long WriteObj<unsigned char>(const unsigned char& arg1);
+        unsigned long ReadObj<unsigned short>(unsigned short& arg1);
+        unsigned long Read(void* arg1, unsigned long arg2);
+        unsigned long ReadObj<unsigned int>(unsigned int& arg1);
+        unsigned long ReadObj<unsigned long long>(unsigned long long& arg1);
+        unsigned long ReadObj<unsigned char>(unsigned char& arg1);
     };
 
-    // 0x100892590, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::DataSerialise(PacketT<Array<unsigned char, BucketAllocatorEASTL> >*, bool): jumps straight to the base-object constructor
-
-    // 0x10089dfe0, 64 bytes, base-object constructor, inline, placed by class name
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::DataSerialise(PacketT<Array<unsigned char, BucketAllocatorEASTL> >*, bool)
-    void DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::DataSerialise(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, PacketT* param_1, bool param_2) {
-        *this = (DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>)param_2;
-        *(PacketT**)(this + 8) = param_1;
-        if (param_1 == (PacketT*)0) {
-            /* WARNING: Subroutine does not return */
+    // 0x10089dfe0
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::DataSerialise(
+        PacketT<Array<unsigned char, BucketAllocatorEASTL>>* arg1, bool arg2) {
+        *this = (DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>)arg2;
+        *(PacketT<Array<unsigned char, BucketAllocatorEASTL> _>**)(this + 8) = arg1;
+        if (arg1 == nullptr) {
             LogAssert(
                 "m_stream != nullptr",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/core/utils/DataSerialise.h", 27,
@@ -39,172 +33,130 @@ namespace jag {
         }
     }
 
-    // 0x10089e0d0, 96 bytes, inline, placed by class name
-    // unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::WriteObj<unsigned short>(unsigned short const&)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned short>(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, ushort* param_1) {
-        char cVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uStack_28;
+    // 0x10089e0d0
+    unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned short>(
+        const unsigned short& arg1) {
+        uint64_t in_RAX;
 
-        uStack_28 = in_RAX;
-        cVar1 = IsBigEndian();
-        cVar2 = ShowSkybox();
+        uint64_t uStack_28 = in_RAX;
+        bool cVar1 = IsBigEndian();
+        char cVar2 = ShowSkybox();
         if (cVar1 != cVar2) {
-            uStack_28 = CONCAT26(*param_1, (undefined6)uStack_28);
-            param_1 = (ushort*)((long)&uStack_28 + 6);
-            DoByteReorder<EndianSwap, unsigned short>(param_1);
+            uStack_28 = (((uint64_t)(arg1) << 48) | (uint64_t)((uint64_t)uStack_28));
+            arg1 = (unsigned short*)((long)&uStack_28 + 6);
+            DoByteReorder<EndianSwap, unsigned short>((short*)arg1);
         }
-        return Write(this, param_1, 2);
+        return Write(this, arg1, 2);
     }
 
-    // 0x10089e130, 48 bytes, inline, placed by class name
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::Write(void const*, unsigned long)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::Write(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, void* param_1, ulong param_2) {
-        (*(PacketT<Array<unsigned char, BucketAllocatorEASTL>>**)(this + 8))->pArrayBuffer(param_1, 0, param_2);
-        return param_2;
+    // 0x10089e130
+    unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::Write(const void* arg1,
+                                                                                            unsigned long arg2) {
+        (*(PacketT<Array<unsigned char, BucketAllocatorEASTL>>**)(this + 8))->pArrayBuffer(arg1, 0, arg2);
+        return arg2;
     }
 
-    // 0x10089e1a0, 96 bytes, inline, placed by class name
-    // unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::WriteObj<unsigned int>(unsigned int const&)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned int>(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, uint* param_1) {
-        char cVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uStack_28;
+    // 0x10089e1a0
+    unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned int>(
+        const unsigned int& arg1) {
+        uint64_t in_RAX;
 
-        uStack_28 = in_RAX;
-        cVar1 = IsBigEndian();
-        cVar2 = ShowSkybox();
+        uint64_t uStack_28 = in_RAX;
+        bool cVar1 = IsBigEndian();
+        char cVar2 = ShowSkybox();
         if (cVar1 != cVar2) {
-            uStack_28 = CONCAT44(*param_1, (undefined4)uStack_28);
-            param_1 = (uint*)((long)&uStack_28 + 4);
-            DoByteReorder<EndianSwap, int>((int*)param_1);
+            uStack_28 = (((uint64_t)(arg1) << 32) | (uint32_t)((uint32_t)uStack_28));
+            arg1 = (unsigned int*)((long)&uStack_28 + 4);
+            DoByteReorder<EndianSwap, int>(arg1);
         }
-        return Write(this, param_1, 4);
+        return Write(this, arg1, 4);
     }
 
-    // 0x10089e220, 96 bytes, inline, placed by class name
-    // unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::WriteObj<unsigned long long>(unsigned long long const&)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned long long>(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, ulonglong* param_1) {
-        char cVar1;
-        char cVar2;
-        ulonglong in_RAX;
-        ulonglong local_28;
+    // 0x10089e220
+    unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned long long>(
+        const unsigned long long& arg1) {
+        unsigned long long in_RAX;
 
-        local_28 = in_RAX;
-        cVar1 = IsBigEndian();
-        cVar2 = ShowSkybox();
+        unsigned long long local_28 = in_RAX;
+        bool cVar1 = IsBigEndian();
+        char cVar2 = ShowSkybox();
         if (cVar1 != cVar2) {
-            local_28 = *param_1;
-            param_1 = &local_28;
-            DoByteReorder<EndianSwap, long long>((longlong*)param_1);
+            local_28 = arg1;
+            arg1 = &local_28;
+            DoByteReorder<EndianSwap, long long>(arg1);
         }
-        return Write(this, param_1, 8);
+        return Write(this, arg1, 8);
     }
 
-    // 0x10089e280, 96 bytes, inline, placed by class name
-    // unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::WriteObj<unsigned char>(unsigned char const&)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned char>(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, uchar* param_1) {
-        char cVar2;
-        char cVar3;
-        undefined4 in_EAX;
-        undefined4 in_register_00000004;
-        NpcUID* extraout_RDX;
-        NpcUID* pNVar4;
-        undefined8 uStack_28;
+    // 0x10089e280
+    unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::WriteObj<unsigned char>(
+        const unsigned char& arg1) {
+        uint32_t in_EAX;
+        uint32_t in_register_00000004;
 
-        uStack_28 = CONCAT44(in_register_00000004, in_EAX);
-        pNVar4 = (NpcUID*)param_1;
-        cVar2 = IsBigEndian();
-        cVar3 = ShowSkybox();
+        uint64_t uStack_28 = (((uint64_t)in_register_00000004 << 32) | (uint32_t)in_EAX);
+        bool cVar2 = IsBigEndian();
+        char cVar3 = ShowSkybox();
         if (cVar2 != cVar3) {
-            uStack_28 = CONCAT17(*param_1, (undefined7)uStack_28);
-            param_1 = (uchar*)((long)&uStack_28 + 7);
-            eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)param_1, pNVar4, extraout_RDX);
+            uStack_28 = (((uint64_t)(arg1) << 56) | (uint64_t)((uint64_t)uStack_28));
+            arg1 = (unsigned char*)((long)&uStack_28 + 7);
+            arg1.destruct<oldscape::highlight::NpcUID*>();
         }
-        return Write(this, param_1, 1);
+        return Write(this, arg1, 1);
     }
 
-    // 0x10089e450, 80 bytes, inline, placed by class name
-    // unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::ReadObj<unsigned short>(unsigned short&)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned short>(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, ushort* param_1) {
-        char cVar1;
-        char cVar2;
-        ulong uVar3;
-
-        uVar3 = Read(this, param_1, 2);
-        cVar1 = IsBigEndian();
-        cVar2 = ShowSkybox();
+    // 0x10089e450
+    unsigned long
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned short>(unsigned short& arg1) {
+        unsigned long uVar3 = Read(this, arg1, 2);
+        bool cVar1 = IsBigEndian();
+        char cVar2 = ShowSkybox();
         if (cVar1 != cVar2) {
-            DoByteReorder<EndianSwap, unsigned short>(param_1);
+            DoByteReorder<EndianSwap, unsigned short>((short*)arg1);
         }
         return uVar3;
     }
 
-    // 0x10089e4a0, 48 bytes, inline, placed by class name
-    // DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::Read(void*, unsigned long)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::Read(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, void* param_1, ulong param_2) {
+    // 0x10089e4a0
+    unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::Read(void* arg1,
+                                                                                           unsigned long arg2) {
         (*(PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>**)(this + 8))
-            ->gArrayBuffer(param_1, 0, param_2);
-        return param_2;
+            ->gArrayBuffer(arg1, 0, arg2);
+        return arg2;
     }
 
-    // 0x10089e4d0, 80 bytes, inline, placed by class name
-    // unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::ReadObj<unsigned int>(unsigned int&)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned int>(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, uint* param_1) {
-        char cVar1;
-        char cVar2;
-        ulong uVar3;
-
-        uVar3 = Read(this, param_1, 4);
-        cVar1 = IsBigEndian();
-        cVar2 = ShowSkybox();
+    // 0x10089e4d0
+    unsigned long
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned int>(unsigned int& arg1) {
+        unsigned long uVar3 = Read(this, arg1, 4);
+        bool cVar1 = IsBigEndian();
+        char cVar2 = ShowSkybox();
         if (cVar1 != cVar2) {
-            DoByteReorder<EndianSwap, int>((int*)param_1);
+            DoByteReorder<EndianSwap, int>(arg1);
         }
         return uVar3;
     }
 
-    // 0x10089e540, 80 bytes, inline, placed by class name
-    // unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::ReadObj<unsigned long long>(unsigned long long&)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned long long>(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, ulonglong* param_1) {
-        char cVar1;
-        char cVar2;
-        ulong uVar3;
-
-        uVar3 = Read(this, param_1, 8);
-        cVar1 = IsBigEndian();
-        cVar2 = ShowSkybox();
+    // 0x10089e540
+    unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned long long>(
+        unsigned long long& arg1) {
+        unsigned long uVar3 = Read(this, arg1, 8);
+        bool cVar1 = IsBigEndian();
+        char cVar2 = ShowSkybox();
         if (cVar1 != cVar2) {
-            DoByteReorder<EndianSwap, long long>((longlong*)param_1);
+            DoByteReorder<EndianSwap, long long>(arg1);
         }
         return uVar3;
     }
 
-    // 0x10089e590, 80 bytes, inline, placed by class name
-    // unsigned long DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::ReadObj<unsigned char>(unsigned char&)
-    ulong DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned char>(
-        DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this, uchar* param_1) {
-        char cVar1;
-        char cVar2;
-        ulong uVar3;
-        NpcUID* extraout_RDX;
-
-        uVar3 = Read(this, param_1, 1);
-        cVar1 = IsBigEndian();
-        cVar2 = ShowSkybox();
+    // 0x10089e590
+    unsigned long
+    DataSerialise<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::ReadObj<unsigned char>(unsigned char& arg1) {
+        unsigned long uVar3 = Read(this, arg1, 1);
+        bool cVar1 = IsBigEndian();
+        char cVar2 = ShowSkybox();
         if (cVar1 != cVar2) {
-            eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)param_1, (NpcUID*)param_1, extraout_RDX);
+            arg1.destruct<oldscape::highlight::NpcUID*>();
         }
         return uVar3;
     }

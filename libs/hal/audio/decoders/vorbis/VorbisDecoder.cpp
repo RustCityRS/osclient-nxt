@@ -1,6 +1,5 @@
 // libs/hal/audio/decoders/vorbis/VorbisDecoder.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.audio
 
 namespace jag::hal::audio::decoders::vorbis {
@@ -9,157 +8,93 @@ namespace jag::hal::audio::decoders::vorbis {
     public:
         // virtual methods in vtable order
         virtual ~VorbisDecoder();
-        virtual void Init(unsigned char const*, unsigned long, unsigned long);
-        virtual Update(float);
-        virtual void Decode(unsigned char const*, unsigned long, unsigned long);
-        virtual GetDecoderTypeEnum() const;
-        virtual void SetCallback(std::function<void(PacketT<Array<unsigned char, eastl::allocator>>&)> const&);
-        Shutdown();
+        virtual void Init(const unsigned char* arg1, unsigned long arg2, unsigned long arg3);
+        virtual void Update(float arg1);
+        virtual void Decode(const unsigned char* arg1, unsigned long arg2, unsigned long arg3);
+        virtual void GetDecoderTypeEnum() const;
+        virtual void SetCallback(std::function<void(PacketT<Array<unsigned char>>&)> const& callback);
+        void Shutdown();
         VorbisDecoder();
 
-        // data members, from how the methods use this: 32 bytes, the first 16 are IPositionManager
-        char _unknown_16[8];
-        undefined* field_24; // offset 24
+    private:
+        uint8_t _unknown_16[304];
     };
 
     class VorbisDecoderPacket {
     public:
         ~VorbisDecoderPacket();
-        void PacketT(unsigned long);
+        void PacketT(unsigned long arg1);
 
-        // data members, from how the methods use this: 32 bytes
-        char _unknown_0[24];
-        undefined8 field_24; // offset 24
+        uint8_t _unknown_0[1];
     };
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    VorbisDecoder::Update(float);
+    // 0x100009e70: VorbisDecoder::Update(float) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    VorbisDecoder::Shutdown();
+    // 0x100009e70: VorbisDecoder::Shutdown() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100016cf0: the linker folded this into eastl::hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator, eastl::use_first<eastl::pair<int const, unsigned int> >, eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::size() const, which has identical code
-    VorbisDecoder::GetDecoderTypeEnum() const;
+    // 0x100016cf0: VorbisDecoder::GetDecoderTypeEnum() const has the same machine code as eastl::hashtable<int, eastl::pair<int const, unsigned int>, eastl::allocator, eastl::use_first<eastl::pair<int const, unsigned int>>, eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::size() const
 
-    // 0x100b90ea0, 144 bytes, base-object constructor, placed by class name and debug map
-    // VorbisDecoder::VorbisDecoder()
-    void VorbisDecoder::VorbisDecoder() {
-        TaskRunner* this_00;
-        shared_ptr local_28;
+    // 0x100b90ea0
+    VorbisDecoder::VorbisDecoder() : AudioDecoder() {
+        ReturnValue local_28;
 
-        new (this) AudioDecoder();
-        field_0 = &PTR__VorbisDecoder_100f268f8;
-        this_00 = (TaskRunner*)getTaskRunner();
-        make_shared<VorbisWorker>((jag*)&local_28);
-        TaskRunner::AddTask<VorbisWorker>((shared_ptr*)field_8, this_00, "VorbisWorker", &local_28);
-        local_28.~shared_ptr();
-        field_24 = AudioFormat::VORBIS;
+        auto str = getTaskRunner();
+        make_shared<VorbisWorker>(&local_28);
+        field_8->AddTask<VorbisWorker>(str, (shared_ptr<VorbisWorker>*)"VorbisWorker");
+        *(uint8_t**)(field_8 + 16) = AudioFormat::VORBIS;
     }
 
-    // 0x100b91070, 16 bytes, complete-object constructor, placed by class name
-    // VorbisDecoder::VorbisDecoder(): jumps straight to the base-object constructor
-
-    // 0x100b91080, 128 bytes, base-object destructor, placed by class name
-    // VorbisDecoder::~VorbisDecoder()
-    void VorbisDecoder::~VorbisDecoder() {
-        undefined1* this_00;
-        Task* this_01;
-
-        field_0 = &PTR__VorbisDecoder_100f268f8;
-        this_00 = field_8;
-        if (this_00->operator_cast_to_bool()) {
-            this_01 = (Task*)shared_ptr<VorbisWorker>::operator->((shared_ptr<VorbisWorker>*)this_00);
-            this_01->Join();
-            shared_ptr<VorbisWorker>::reset();
+    // 0x100b91080
+    VorbisDecoder::~VorbisDecoder() {
+        uint8_t* this_00 = field_8;
+        if (this_00->operator_cast_to_bool() != '\0') {
+            ((Task*)(*this_00).operator->())->Join();
+            this_00->reset();
         }
         this_00->~shared_ptr();
-        ~AutoSingleton();
     }
 
-    // 0x100b91180, 16 bytes, complete-object destructor, placed by class name
-    // VorbisDecoder::~VorbisDecoder(): jumps straight to the base-object destructor
+    // 0x100b911b0
+    void VorbisDecoder::Init(const unsigned char* arg1, unsigned long arg2, unsigned long arg3) {
+        WindowSavedPosition local_60;
+        VorbisDecoderPacket local_40;
 
-    // 0x100b91190, 32 bytes, deleting destructor, placed by class name
-    // VorbisDecoder::~VorbisDecoder()
-    void VorbisDecoder::~VorbisDecoder() {
-        ~VorbisDecoder(this);
-        operator_delete(this);
-    }
-
-    // 0x100b911b0, 240 bytes, placed by class name
-    // VorbisDecoder::Init(unsigned char const*, unsigned long, unsigned long)
-    void VorbisDecoder::Init(uchar* param_1, ulong param_2, ulong param_3) {
-        PacketT<Array<unsigned char, eastl::allocator>>* pPVar1;
-        Task* this_00;
-        VorbisDecoderPacket* extraout_RDX;
-        VorbisDecoderPacket local_60;
-        shared_ptr local_40;
-
-        if ((param_1 == (uchar*)0) || (param_3 == 0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg1 == nullptr) || (arg3 == 0)) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/decoders/"
                             "vorbis/VorbisDecoder.cpp",
-                            45, (char*)0);
+                            45, nullptr);
         }
-        local_60.PacketT(param_3 + 1);
-        MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::MakeShared<VorbisDecoderPacket>(
-            &local_40, (MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>*)&local_60, extraout_RDX);
-        local_60.~WindowSavedPosition();
-        pPVar1 = (PacketT<Array<unsigned char, eastl::allocator>>*)
-                     shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_40);
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, 0);
-        pPVar1 = (PacketT<Array<unsigned char, eastl::allocator>>*)
-                     shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_40);
-        pPVar1->pArrayBuffer(param_1, param_2, param_3);
-        this_00 = (Task*)shared_ptr<VorbisWorker>::operator->((shared_ptr<VorbisWorker>*)field_8);
-        this_00->Message(&local_40);
-        local_40.~shared_ptr();
+        local_60.PacketT(arg3 + 1);
+        MakeSharedPool<PacketT<Array<unsigned char>>, 8>::MakeShared<VorbisDecoderPacket>(&local_40);
+        auto pPVar1 = local_40.operator->();
+        pPVar1->p1<unsigned long>(0);
+        pPVar1 = (PacketT<Array<unsigned char>>*)local_40.operator->();
+        pPVar1->pArrayBuffer(arg1, arg2, arg3);
+        ((Task*)(*field_8).operator->())->Message(local_40);
     }
 
-    // 0x100b913b0, 256 bytes, placed by class name
-    // VorbisDecoder::Decode(unsigned char const*, unsigned long, unsigned long)
-    void VorbisDecoder::Decode(uchar* param_1, ulong param_2, ulong param_3) {
-        PacketT<Array<unsigned char, eastl::allocator>>* pPVar1;
-        Task* this_00;
-        VorbisDecoderPacket* extraout_RDX;
-        VorbisDecoderPacket local_60;
-        shared_ptr local_40;
+    // 0x100b913b0
+    void VorbisDecoder::Decode(const unsigned char* arg1, unsigned long arg2, unsigned long arg3) {
+        WindowSavedPosition local_60;
+        VorbisDecoderPacket local_40;
 
-        if ((param_1 == (uchar*)0) || (param_3 == 0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg1 == nullptr) || (arg3 == 0)) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/decoders/"
                             "vorbis/VorbisDecoder.cpp",
-                            59, (char*)0);
+                            59, nullptr);
         }
-        local_60.PacketT(param_3 + 1);
-        MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::MakeShared<VorbisDecoderPacket>(
-            &local_40, (MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>*)&local_60, extraout_RDX);
-        local_60.~WindowSavedPosition();
-        pPVar1 = (PacketT<Array<unsigned char, eastl::allocator>>*)
-                     shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_40);
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar1, 10);
-        pPVar1 = (PacketT<Array<unsigned char, eastl::allocator>>*)
-                     shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                         (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)&local_40);
-        pPVar1->pArrayBuffer(param_1, param_2, param_3);
-        this_00 = (Task*)shared_ptr<VorbisWorker>::operator->((shared_ptr<VorbisWorker>*)field_8);
-        this_00->Message(&local_40);
-        local_40.~shared_ptr();
+        local_60.PacketT(arg3 + 1);
+        MakeSharedPool<PacketT<Array<unsigned char>>, 8>::MakeShared<VorbisDecoderPacket>(&local_40);
+        auto pPVar1 = local_40.operator->();
+        pPVar1->p1<unsigned long>(10);
+        pPVar1 = (PacketT<Array<unsigned char>>*)local_40.operator->();
+        pPVar1->pArrayBuffer(arg1, arg2, arg3);
+        ((Task*)(*field_8).operator->())->Message(local_40);
     }
 
-    // 0x100b914b0, 48 bytes, placed by class name
-    // VorbisDecoder::SetCallback(std::function<void (PacketT<Array<unsigned char, eastl::allocator> >&)> const&)
-    /* VorbisDecoder::SetCallback(std::function<void
-   (PacketT<Array<unsigned char, eastl::allocator> >&)> const&) */
-
-    void VorbisDecoder::SetCallback(function* param_1) {
-        VorbisWorker* this_00;
-
-        this_00 = (VorbisWorker*)shared_ptr<VorbisWorker>::operator->((shared_ptr<VorbisWorker>*)field_8);
-        this_00->SetWorkerOnResponse(param_1);
+    // 0x100b914b0
+    void VorbisDecoder::SetCallback(std::function<void(PacketT<Array<unsigned char>>&)> const& callback) {
+        ((VorbisWorker*)(*field_8).operator->())->SetWorkerOnResponse(callback);
     }
 
 } // namespace jag::hal::audio::decoders::vorbis

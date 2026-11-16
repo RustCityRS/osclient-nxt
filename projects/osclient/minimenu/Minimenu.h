@@ -1,361 +1,310 @@
 // projects/osclient/minimenu/Minimenu.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::minimenu {
     class Minimenu {
     public:
-        IsOpen();
-        Minimenu(jstring::PixfontGeneric&, shared_ptr<Array<graphics::Pix32, eastl::allocator>> const&, bool,
-                 jagex3::Js5&);
+        bool IsOpen();
+        Minimenu(jstring::PixfontGeneric& pixfontGeneric, const shared_ptr<Array<graphics::Pix32>>& pix32s, bool arg3,
+                 jagex3::Js5& js5);
         ~Minimenu();
         void GameLoop();
         void AdvanceFeedback();
         void Sort();
         void LoopOpenMouseMode();
         void LoopClosedMouseMode();
-        void Open(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>);
-        void CalculateMinimenuDimensions(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>);
-        void ProcessClick(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>);
-        bool IsMouseOverEntry(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>, int);
-        void DoEntry(int);
+        void Open(CoordType<UICoordSpecializer> coordType1, CoordType<UICoordSpecializer> coordType2);
+        void CalculateMinimenuDimensions(CoordType<UICoordSpecializer> coordType1,
+                                         CoordType<UICoordSpecializer> coordType2);
+        void ProcessClick(CoordType<UICoordSpecializer> coordType1, CoordType<UICoordSpecializer> coordType2);
+        bool IsMouseOverEntry(CoordType<UICoordSpecializer> coordType1, CoordType<UICoordSpecializer> coordType2,
+                              int arg3);
+        void DoEntry(int arg1);
         void Close();
         void DirtyArea();
-        void DoAction(MinimenuEntry&, CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>);
-        bool MenuOnly(int);
-        int RemovePriorityModifier(int);
-        IsMouseFarFromMenu(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>);
+        void DoAction(MinimenuEntry& minimenuEntry, CoordType<UICoordSpecializer> coordType1,
+                      CoordType<UICoordSpecializer> coordType2);
+        bool MenuOnly(int arg1);
+        int RemovePriorityModifier(int arg1);
+        bool IsMouseFarFromMenu(CoordType<UICoordSpecializer> coordType1, CoordType<UICoordSpecializer> coordType2);
         void ResetPlayerOpChoices();
-        void UpdatePlayerOpChoice(int, eastl::string const&, int);
-        void OnMapRebuild(int, int);
-        void EnterTargetMode(int, int, int, int);
+        void UpdatePlayerOpChoice(int arg1, const eastl::string& str, int arg3);
+        void OnMapRebuild(int arg1, int arg2);
+        void EnterTargetMode(int arg1, int arg2, int arg3, int arg4);
         void EndTargetMode();
-        void SetTargetStrings(eastl::string const&, eastl::string const&);
-        GetTargetMode();
-        void SetTargetMode(bool);
+        void SetTargetStrings(const eastl::string& str1, const eastl::string& str2);
+        uint8_t GetTargetMode();
+        void SetTargetMode(bool arg1);
         int GetTargetComponent();
         int GetTargetSubinterfaceId();
         int GetTargetLinkObject();
-        void Draw(graphics::Pix2D&);
-        GetLine(int);
+        void Draw(graphics::Pix2D& pix2D);
+        auto GetLine(int arg1);
         void GetNumOps();
-        void StartFeedback(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>, bool);
-        void StartFeedback(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>, bool, eastl::string const&,
-                           eastl::string const&);
-        void DrawFeedback(graphics::Pix2D&);
-        void DrawFeedbackText(graphics::Pix2D&, int);
+        void StartFeedback(CoordType<UICoordSpecializer> coordType1, CoordType<UICoordSpecializer> coordType2,
+                           bool arg3);
+        void StartFeedback(CoordType<UICoordSpecializer> coordType1, CoordType<UICoordSpecializer> coordType2,
+                           bool arg3, const eastl::string& str1, const eastl::string& str2);
+        void DrawFeedback(graphics::Pix2D& pix2D);
+        void DrawFeedbackText(graphics::Pix2D& pix2D, int arg2);
         void LoadPendingFeedback();
-        void Build(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>, int, int);
-        void AddEntry(eastl::string const&, MinimenuSubject const&, MinimenuOps::Value, bool, int, int, int, int);
-        void AddNpcOptionsOnSameTile(ClientEntity const*, int, int);
-        void AddPlayerOptionsOnSameTile(ClientEntity const*, int, int);
-        void AddNpcOptions(ClientNpc const*, int, int, int);
-        void AddPlayerOptions(ClientPlayer*, int, int, int);
-        ulong IsPropertyAddable(OpProperty);
-        IsShiftDown();
-        ulong IsPropertyBlocked(OpProperty);
-        long CanAddOp(MinimenuOp const&);
-        ulong IsOpDeprioritised(MinimenuOp const&);
-        void AddGlobalEntry(int, eastl::string const&, int, Minimenu3DSubjectType);
-        void RemoveGlobalEntry(int, Minimenu3DSubjectType);
-        void AddComponent(shared_ptr<rs2lib::IfType> const&);
-        GetIftypeOpName(shared_ptr<rs2lib::IfType> const&, int);
+        void Build(CoordType<UICoordSpecializer> coordType1, CoordType<UICoordSpecializer> coordType2, int arg3,
+                   int arg4);
+        void AddEntry(const eastl::string& str, const MinimenuSubject& minimenuSubject, MinimenuOps::Value value,
+                      bool arg4, int arg5, int arg6, int arg7, int arg8);
+        void AddNpcOptionsOnSameTile(const ClientEntity* clientEntity, int arg2, int arg3);
+        void AddPlayerOptionsOnSameTile(const ClientEntity* clientEntity, int arg2, int arg3);
+        void AddNpcOptions(const ClientNpc* clientNpc, int arg2, int arg3, int arg4);
+        void AddPlayerOptions(ClientPlayer* clientPlayer, int arg2, int arg3, int arg4);
+        unsigned long IsPropertyAddable(OpProperty opProperty);
+        bool IsShiftDown();
+        unsigned long IsPropertyBlocked(OpProperty opProperty);
+        long CanAddOp(const MinimenuOp& minimenuOp);
+        unsigned long IsOpDeprioritised(const MinimenuOp& minimenuOp);
+        void AddGlobalEntry(int arg1, const eastl::string& str, int arg3, Minimenu3DSubjectType minimenu3DSubjectType);
+        void RemoveGlobalEntry(int arg1, Minimenu3DSubjectType minimenu3DSubjectType);
+        void AddComponent(const shared_ptr<rs2lib::IfType>& ifType);
+        auto GetIftypeOpName(const shared_ptr<rs2lib::IfType>& ifType, int arg2);
         int GetNumEntries();
-        void StashEntry(int);
+        void StashEntry(int arg1);
         void ClearStashed();
         void GetStashed();
-        Minimenu* GetNpcOpBase(ClientNpc const&, configdecoder::NpcType const&, int);
-        IsFollowerLowPriority();
-        Minimenu* GetNpcOpBase(eastl::string const&, int, int);
-        Minimenu* GetNpcOpBase(configdecoder::NpcType const&, int);
-        Minimenu* CombatColourCode(int, int);
-        void UpdateWalkSubject(eastl::string const&);
+        auto GetNpcOpBase(const ClientNpc& clientNpc, const configdecoder::NpcType& npcType, int arg3);
+        bool IsFollowerLowPriority();
+        auto GetNpcOpBase(const eastl::string& str, int arg2, int arg3);
+        auto GetNpcOpBase(const configdecoder::NpcType& npcType, int arg2);
+        auto CombatColourCode(int arg1, int arg2);
+        void UpdateWalkSubject(const eastl::string& str);
         int GetDefaultClickIndex() const;
         void GetHoveredIndex() const;
-        IsDefaultShiftClickOption();
-        IsDefaultIgnoreSingleClickOption();
-        void SwapEntries(int, int);
+        bool IsDefaultShiftClickOption();
+        bool IsDefaultIgnoreSingleClickOption();
+        void SwapEntries(int arg1, int arg2);
         void Reset();
         void ResetMinimenu();
         void RemoveInterfaceEntries();
-        IsInterfaceEntry(int);
+        void IsInterfaceEntry(int arg1);
         void RecalculateMinimenuDimensions();
         int GetAttackPriorityPlayer();
         int GetAttackPriorityNpc();
-        void SetAttackPriorityPlayer(int);
-        void SetAttackPriorityNpc(int);
-        void SetFollowerLowPriority(bool);
-        void SetShiftClickEnabled(bool);
-        InTouchMode();
-        void SetSimulatedShiftActive(bool);
+        void SetAttackPriorityPlayer(int arg1);
+        void SetAttackPriorityNpc(int arg1);
+        void SetFollowerLowPriority(bool arg1);
+        void SetShiftClickEnabled(bool arg1);
+        uint8_t InTouchMode();
+        void SetSimulatedShiftActive(bool arg1);
         bool GetSimulatedShiftActive();
-        void SetFeedbackSprite(int, bool);
-        void SetFeedbackShowPopupText(bool);
-        void SetStartHoverIndex(int);
-        void SetDrawHeader(bool);
+        void SetFeedbackSprite(int arg1, bool arg2);
+        void SetFeedbackShowPopupText(bool arg1);
+        void SetStartHoverIndex(int arg1);
+        void SetDrawHeader(bool arg1);
         int CalculateMouseStartPosition();
-        TestOps(eastl::fixed_vector<eastl::string, 5ul, true, eastl::allocator> const&);
-        void GetEntryAtIndex(int);
-        void SetOpPropertyAddMode(OpProperty, MinimenuEntryAddMode);
-        void SetOpPropertyBlockMode(OpProperty, MinimenuEntryBlockMode);
-        void SetOpPropertyPriorityMode(OpProperty, MinimenuEntryPriorityMode);
-        GetPlayerOps() const;
-        static /* 200 bytes */ m_testOps;
-        static /* 8 bytes */ CANCEL_ENTRY;
-        static /* 8 bytes */ m_stashedEntry;
+        uint8_t* TestOps(const eastl::fixed_vector<eastl::string, 5ul>& strs);
+        void GetEntryAtIndex(int arg1);
+        void SetOpPropertyAddMode(OpProperty opProperty, MinimenuEntryAddMode minimenuEntryAddMode);
+        void SetOpPropertyBlockMode(OpProperty opProperty, MinimenuEntryBlockMode minimenuEntryBlockMode);
+        void SetOpPropertyPriorityMode(OpProperty opProperty, MinimenuEntryPriorityMode minimenuEntryPriorityMode);
+        uint8_t* GetPlayerOps() const;
+        static vector<eastl::string, eastl::fixed_vector_allocator<32ul, 5ul, 8ul, 0ul, true>> m_testOps;
+        static unique_ptr<MinimenuEntry> CANCEL_ENTRY;
+        static unique_ptr<MinimenuEntry> m_stashedEntry;
 
-        // data members, from how the methods use this: 69080 bytes
-        char field_0;       // offset 0
-        undefined1 field_1; // offset 1
-        undefined1 field_2; // offset 2
-        char _unknown_3[1];
-        int field_4;         // offset 4
-        MinimenuOps field_8; // offset 8
-        char _unknown_32[32];
-        undefined8 field_64; // offset 64
-        char _unknown_72[24];
-        PixfontGeneric* field_96;    // offset 96
-        int field_104;               // offset 104
-        undefined4 field_108;        // offset 108
-        bool field_112;              // offset 112
-        bool m_simulatedShiftActive; // offset 113
-        char _unknown_114[2];
-        undefined4 field_116; // offset 116
-        bool m_targetMode;    // offset 120
-        char _unknown_121[3];
-        int m_targetComponent;      // offset 124
-        int m_targetSubinterfaceId; // offset 128
-        int m_targetLinkObject;     // offset 132
-        int field_136;              // offset 136
-        char _unknown_140[68];
-        undefined8 field_208; // offset 208
-        undefined8 field_216; // offset 216
-        undefined8 field_224; // offset 224
-        undefined8 field_232; // offset 232
-        char _unknown_240[264];
-        undefined8 field_504; // offset 504
-        undefined8 field_512; // offset 512
-        undefined4 field_520; // offset 520
-        undefined8 field_524; // offset 524
-        undefined8 field_532; // offset 532
-        undefined4 field_540; // offset 540
-        undefined8 field_544; // offset 544
-        undefined8 field_552; // offset 552
-        undefined4 field_560; // offset 560
-        char _unknown_564[204];
-        int field_768;     // offset 768
-        int field_772;     // offset 772
-        int field_776;     // offset 776
-        int field_780;     // offset 780
-        undefined1 m_open; // offset 784
-        char _unknown_785[3];
-        uint field_788;        // offset 788
-        int m_startHoverIndex; // offset 792
-        int m_numEntries;      // offset 796
-        char _unknown_800[68000];
-        bool m_followerLowPriority; // offset 68800
-        bool m_shiftClickEnabled;   // offset 68801
-        char _unknown_68802[2];
-        int m_attackPriorityPlayer; // offset 68804
-        int m_attackPriorityNpc;    // offset 68808
-        undefined4 field_68812;     // offset 68812
-        CoordMapSquare field_68816; // offset 68816
-        char _unknown_68828[60];
-        int field_68888;  // offset 68888
-        int field_68892;  // offset 68892
-        char field_68896; // offset 68896
-        char _unknown_68897[7];
-        shared_ptr field_68904; // offset 68904
-        bool field_68920;       // offset 68920
-        char _unknown_68921[3];
-        int m_feedbackSprite;         // offset 68924
-        bool m_feedbackShowPopupText; // offset 68928
-        char _unknown_68929[7];
-        Js5* field_68936; // offset 68936
-        char _unknown_68944[120];
-        int field_69064; // offset 69064
-        int field_69068; // offset 69068
-        int field_69072; // offset 69072
-        char _unknown_69076[4];
+    private:
+        char field_0;
+        uint8_t field_1;
+        uint8_t field_2;
+        uint8_t _unknown_3[1];
+        int field_4;
+        MinimenuOps field_8;
+        uint8_t _unknown_32[32];
+        uint64_t field_64;
+        uint8_t _unknown_72[24];
+        PixfontGeneric* field_96;
+        int field_104;
+        uint32_t field_108;
+        bool field_112;
+        bool m_simulatedShiftActive;
+        uint8_t _unknown_114[2];
+        uint32_t field_116;
+        bool m_targetMode;
+        uint8_t _unknown_121[3];
+        int m_targetComponent;
+        int m_targetSubinterfaceId;
+        int m_targetLinkObject;
+        int field_136;
+        uint8_t _unknown_140[68];
+        uint64_t field_208;
+        uint64_t field_216;
+        uint64_t field_224;
+        uint64_t field_232;
+        uint8_t _unknown_240[264];
+        uint64_t field_504;
+        uint64_t field_512;
+        uint32_t field_520;
+        uint64_t field_524;
+        uint64_t field_532;
+        uint32_t field_540;
+        uint64_t field_544;
+        uint64_t field_552;
+        uint32_t field_560;
+        uint8_t _unknown_564[204];
+        int field_768;
+        int field_772;
+        int field_776;
+        int field_780;
+        uint8_t m_open;
+        uint8_t _unknown_785[3];
+        unsigned int field_788;
+        int m_startHoverIndex;
+        int m_numEntries;
+        uint8_t _unknown_800[68000];
+        bool m_followerLowPriority;
+        bool m_shiftClickEnabled;
+        uint8_t _unknown_68802[2];
+        int m_attackPriorityPlayer;
+        int m_attackPriorityNpc;
+        int field_68812;
+        CoordMapSquare field_68816;
+        uint8_t _unknown_68828[60];
+        int field_68888;
+        int field_68892;
+        bool field_68896;
+        uint8_t _unknown_68897[23];
+        bool field_68920;
+        uint8_t _unknown_68921[3];
+        int field_68924;
+        bool m_feedbackShowPopupText;
+        uint8_t _unknown_68929[7];
+        Js5* field_68936;
+        uint8_t _unknown_68944[120];
+        int field_69064;
+        int field_69068;
+        int field_69072;
+        uint8_t _unknown_69076[4];
     };
 
     class MinimenuComponent {
     public:
         ~MinimenuComponent();
-        char WhereToGetIfType(shared_ptr<rs2lib::IfType> const&);
-        lock(int, int) const;
-        void operator=(shared_ptr<rs2lib::IfType> const&);
+        char WhereToGetIfType(const shared_ptr<rs2lib::IfType>& ifType);
+        auto lock(int arg1, int arg2) const;
+        void operator=(const shared_ptr<rs2lib::IfType>& ifType);
         MinimenuComponent();
-        MinimenuComponent* operator=(MinimenuComponent&&);
-        MinimenuComponent(MinimenuComponent const&);
-        MinimenuComponent* operator=(MinimenuComponent const&);
+        MinimenuComponent* operator=(MinimenuComponent&& minimenuComponent);
+        MinimenuComponent(const MinimenuComponent& minimenuComponent);
+        MinimenuComponent* operator=(const MinimenuComponent& minimenuComponent);
 
-        // data members, from how the methods use this: 24 bytes
-        char _unknown_0[16];
-        undefined4 field_16; // offset 16
-        char _unknown_20[4];
+    private:
+        ref_counter_base* field_0;
+        unsigned long field_8;
+        uint32_t field_16;
+        uint8_t _unknown_20[4];
     };
 
     class MinimenuGlobalEntryData {
     public:
         ~MinimenuGlobalEntryData();
-        GameTokenResult* operator=(MinimenuGlobalEntryData&&);
+        GameTokenResult* operator=(MinimenuGlobalEntryData&& minimenuGlobalEntryData);
         MinimenuGlobalEntryData();
-        MinimenuGlobalEntryData(MinimenuGlobalEntryData&&);
+        MinimenuGlobalEntryData(MinimenuGlobalEntryData&& minimenuGlobalEntryData);
     };
 
     class MinimenuOp {
     public:
-        HasProperty(OpProperty) const;
+        uint16_t HasProperty(OpProperty opProperty) const;
 
-        // data members, from how the methods use this: 2 bytes
-        ushort field_0; // offset 0
+    private:
+        unsigned short field_0;
     };
 
     class MinimenuSubject {
     public:
         ~MinimenuSubject();
-        MinimenuSubject* CreateSubject(eastl::string const&, MinimenuSubjType, long long, int, int);
-        MinimenuSubject* CreateComponentSubject(eastl::string const&, shared_ptr<rs2lib::IfType> const&);
+        auto CreateSubject(const eastl::string& str, MinimenuSubjType minimenuSubjType, long long arg3, int arg4,
+                           int arg5);
+        auto CreateComponentSubject(const eastl::string& str, const shared_ptr<rs2lib::IfType>& ifType);
         MinimenuSubject();
-        MinimenuSubject* operator=(MinimenuSubject&&);
-        MinimenuSubject* CreateHeldObjSubject(eastl::string const&, shared_ptr<rs2lib::IfType> const&, int, int);
-        MinimenuSubject(MinimenuSubject const&);
-        MinimenuSubject* operator=(MinimenuSubject const&);
+        MinimenuSubject* operator=(MinimenuSubject&& minimenuSubject);
+        auto CreateHeldObjSubject(const eastl::string& str, const shared_ptr<rs2lib::IfType>& ifType, int arg3,
+                                  int arg4);
+        MinimenuSubject(const MinimenuSubject& minimenuSubject);
+        MinimenuSubject* operator=(const MinimenuSubject& minimenuSubject);
 
-        // data members, from how the methods use this: 64 bytes
-        char _unknown_0[32];
-        undefined4 field_32; // offset 32
-        undefined4 field_36; // offset 36
-        undefined8 field_40; // offset 40
-        undefined4 field_48; // offset 48
-        undefined4 field_52; // offset 52
-        char _unknown_56[8];
+    private:
+        uint8_t _unknown_0[32];
+        uint64_t field_32;
+        uint64_t field_40;
+        uint64_t field_48;
+        VisibleShadowCastingLightInfo field_56;
     };
 
-    // 0x100079290, 48 bytes, base-object constructor, inline, placed by class header (inline)
-    // MinimenuSubject::MinimenuSubject()
-    void MinimenuSubject::MinimenuSubject() {
-        new (this) eastl::string();
-        new (&field_56) ui::ComponentDragConfig();
-    }
+    // 0x100079290
+    MinimenuSubject::MinimenuSubject() : eastl::string() {}
 
-    // 0x1000792c0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MinimenuComponent::MinimenuComponent(): jumps straight to the base-object constructor
+    // 0x1000792d0
+    MinimenuComponent::MinimenuComponent() : shared_ptr(), m_renderBehaviour(0) {}
 
-    // 0x1000792d0, 32 bytes, base-object constructor, inline, placed by class header (inline)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MinimenuComponent::MinimenuComponent()
-    /* ui::ComponentDragConfig::ComponentDragConfig() */
-
-    void ui::ComponentDragConfig::ComponentDragConfig() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        m_renderBehaviour = 0;
-    }
-
-    // 0x100079360, 48 bytes, inline, placed by class header (inline)
-    // MinimenuComponent::operator=(MinimenuComponent&&)
-    /* MinimenuComponent::TEMPNAMEPLACEHOLDERVALUE(MinimenuComponent&&)
-    */
-
-    MinimenuComponent* MinimenuComponent::operator=(MinimenuComponent* param_1) {
-        weak_ptr<rs2lib::IfType>::operator=((weak_ptr<rs2lib::IfType>*)this, (weak_ptr*)param_1);
-        field_16 = param_1->field_16;
+    // 0x100079360
+    MinimenuComponent* MinimenuComponent::operator=(MinimenuComponent&& minimenuComponent) {
+        *this = minimenuComponent;
+        field_16 = minimenuComponent.field_16;
         return this;
     }
 
-    // 0x100079420, 80 bytes, base-object constructor, inline, placed by class header (inline)
-    // MinimenuSubject::MinimenuSubject(MinimenuSubject const&)
-    void MinimenuSubject::MinimenuSubject(MinimenuSubject* param_1) {
-        undefined8 uVar1;
-        undefined4 uVar2;
-
-        new (this) eastl::string(param_1);
-        uVar2 = param_1->field_52;
-        field_48 = param_1->field_48;
-        field_52 = uVar2;
-        uVar2 = param_1->field_36;
-        uVar1 = param_1->field_40;
-        field_32 = param_1->field_32;
-        field_36 = uVar2;
+    // 0x100079420
+    MinimenuSubject::MinimenuSubject(const MinimenuSubject& minimenuSubject)
+        : eastl::string(minimenuSubject), field_48(minimenuSubject.field_48) {
+        uint64_t uVar1 = minimenuSubject.field_40;
+        field_32 = minimenuSubject.field_32;
         field_40 = uVar1;
-        new (&field_56, (MinimenuComponent*)&param_1->field_56) MinimenuComponent();
+        new (field_56) MinimenuComponent(minimenuSubject.field_56);
     }
 
-    // 0x100079470, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // MinimenuComponent::MinimenuComponent(MinimenuComponent const&): jumps straight to the base-object constructor
+    // 0x100079480
+    MinimenuComponent::MinimenuComponent(const MinimenuComponent& minimenuComponent)
+        : weak_ptr(minimenuComponent), field_16(minimenuComponent.field_16) {}
 
-    // 0x100079480, 32 bytes, base-object constructor, inline, placed by class header (inline)
-    // MinimenuComponent::MinimenuComponent(MinimenuComponent const&)
-    void MinimenuComponent::MinimenuComponent(MinimenuComponent* param_1) {
-        new (this) weak_ptr<dash3d::Decor>(param_1);
-        field_16 = param_1->field_16;
-    }
-
-    // 0x1000794a0, 48 bytes, inline, placed by class header (inline)
-    // MinimenuComponent::operator=(MinimenuComponent const&)
-    /* MinimenuComponent::TEMPNAMEPLACEHOLDERVALUE(MinimenuComponent
-   const&) */
-
-    MinimenuComponent* MinimenuComponent::operator=(MinimenuComponent* param_1) {
-        weak_ptr<rs2lib::IfType>::operator=((weak_ptr<rs2lib::IfType>*)this, (shared_ptr*)param_1);
-        field_16 = param_1->field_16;
+    // 0x1000794a0
+    MinimenuComponent* MinimenuComponent::operator=(const MinimenuComponent& minimenuComponent) {
+        *this = minimenuComponent;
+        field_16 = minimenuComponent.field_16;
         return this;
     }
 
-    // 0x1000b78b0, 80 bytes, inline, placed by class name
-    // Minimenu::GetEntryAtIndex(int)
-    void Minimenu::GetEntryAtIndex(int param_1) {
-        if (param_1 < 0) {
-            /* WARNING: Subroutine does not return */
+    // 0x1000b78b0
+    void Minimenu::GetEntryAtIndex(int arg1) {
+        if (arg1 < 0) {
             LogAssert("index >= 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/minimenu/"
                       "Minimenu.h",
-                      250, (char*)0);
+                      250, nullptr);
         }
-        std::array<MinimenuEntry, 500ul>::operator[]((array<MinimenuEntry, 500ul>*)&field_800, (long)param_1);
+        field_800[(long)arg1];
     }
 
-    // 0x1000b8490, 32 bytes, inline, placed by class name
-    // Minimenu::SetOpPropertyAddMode(OpProperty, MinimenuEntryAddMode)
-    void Minimenu::SetOpPropertyAddMode(int param_2, undefined4 param_3) {
-        undefined4* puVar1;
-
-        puVar1 = (undefined4*)std::array<MinimenuEntryAddMode, 10ul>::operator[](
-            (array<MinimenuEntryAddMode, 10ul>*)&field_68944, (long)param_2);
-        *puVar1 = param_3;
+    // 0x1000b8490
+    void Minimenu::SetOpPropertyAddMode(OpProperty opProperty, MinimenuEntryAddMode minimenuEntryAddMode) {
+        MinimenuEntryAddMode* pMVar1 = &field_68944[(long)(int)opProperty];
+        *pMVar1 = minimenuEntryAddMode;
     }
 
-    // 0x1000b84b0, 32 bytes, inline, placed by class name
-    // Minimenu::SetOpPropertyBlockMode(OpProperty, MinimenuEntryBlockMode)
-    void Minimenu::SetOpPropertyBlockMode(int param_2, undefined4 param_3) {
-        undefined4* puVar1;
-
-        puVar1 = (undefined4*)std::array<MinimenuEntryBlockMode, 10ul>::operator[](
-            (array<MinimenuEntryBlockMode, 10ul>*)&field_68984, (long)param_2);
-        *puVar1 = param_3;
+    // 0x1000b84b0
+    void Minimenu::SetOpPropertyBlockMode(OpProperty opProperty, MinimenuEntryBlockMode minimenuEntryBlockMode) {
+        MinimenuEntryBlockMode* pMVar1 = &field_68984[(long)(int)opProperty];
+        *pMVar1 = minimenuEntryBlockMode;
     }
 
-    // 0x1000b84e0, 32 bytes, inline, placed by class name
-    // Minimenu::SetOpPropertyPriorityMode(OpProperty, MinimenuEntryPriorityMode)
-    void Minimenu::SetOpPropertyPriorityMode(int param_2, undefined4 param_3) {
-        undefined4* puVar1;
-
-        puVar1 = (undefined4*)std::array<MinimenuEntryPriorityMode, 10ul>::operator[](
-            (array<MinimenuEntryPriorityMode, 10ul>*)&field_69024, (long)param_2);
-        *puVar1 = param_3;
+    // 0x1000b84e0
+    void Minimenu::SetOpPropertyPriorityMode(OpProperty opProperty,
+                                             MinimenuEntryPriorityMode minimenuEntryPriorityMode) {
+        MinimenuEntryPriorityMode* pMVar1 = &field_69024[(long)(int)opProperty];
+        *pMVar1 = minimenuEntryPriorityMode;
     }
 
-    // 0x10016ea80, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Minimenu::GetPlayerOps() const
-    /* game::Location::GetParentLocationType() const */
-
-    undefined1* game::Location::GetParentLocationType() {
+    // 0x10016ea80
+    uint8_t* Minimenu::GetPlayerOps() const {
         return m_parentLocationType;
     }
 

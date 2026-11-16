@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/entities/NPCList.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 namespace jag {
@@ -8,129 +7,77 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~NPCList();
-        virtual MainDraw(unsigned int);
-        MainLogic(int);
+        virtual void MainDraw(unsigned int arg1);
+        void MainLogic(int arg1);
         void ClearNPCList();
         void DestroyRenderingResources();
 
-        // data members, from how the methods use this: 45240 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[45216];
-        undefined4 field_45224; // offset 45224
-        char _unknown_45228[12];
+    private:
+        uint8_t _unknown_8[45216];
+        uint32_t field_45224;
+        uint8_t _unknown_45228[12];
     };
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    NPCList::MainDraw(unsigned int);
+    // 0x100009e70: NPCList::MainDraw(unsigned int) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    NPCList::MainLogic(int);
+    // 0x100009e70: NPCList::MainLogic(int) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x10041b250, 96 bytes, base-object destructor, placed by class name and debug map
-    // NPCList::~NPCList()
-    void NPCList::~NPCList() {
-        field_0 = &PTR__NPCList_100eff870;
-        ClearNPCList(this);
-        (&field_45232)->~fixed_vector();
-        (&field_8)->~fixed_hash_map();
+    // 0x10041b250
+    NPCList::~NPCList() {
+        ClearNPCList();
+        field_45232.~fixed_vector();
+        field_8.~fixed_hash_map();
     }
 
-    // 0x10041b2b0, 256 bytes, placed by class name and debug map
-    // NPCList::ClearNPCList()
+    // 0x10041b2b0
     void NPCList::ClearNPCList() {
-        bool bVar1;
         long lVar2;
-        Entity* this_00;
-        GraphNode* this_01;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        hashtable_iterator_base local_50[16];
-        int local_40[4];
+        Entity* this_01;
 
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        eastl::hashtable<int, eastl::pair<int const, oldscape::highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, oldscape::highlight::HighlightedGroup>>,
-                         eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar1 = eastl::operator!=((eastl*)local_40, local_50, extraout_RDX);
-        if (bVar1) {
+        uint8_t* this_00 = &field_8;
+        auto local_40 = this_00->begin();
+        auto local_50 = this_00->end();
+        bool cVar1 = local_40 != local_50;
+        if (cVar1) {
             do {
-                lVar2 = local_40->HeapBeginPtr();
-                bVar1 = ((lVar2 + 8))->operator_cast_to_bool();
-                if (bVar1) {
-                    this_00 = (Entity*)shared_ptr<NPCEntity>::operator*((shared_ptr<NPCEntity>*)(lVar2 + 8));
-                    this_01 = (GraphNode*)this_00->GetNode();
-                    this_01->Detach();
-                    (*(code*)this_00->field_0[25])(this_00);
-                    this_00->ResetWorld();
+                lVar2 = local_40.HeapBeginPtr();
+                cVar1 = ((lVar2 + 8))->operator_cast_to_bool();
+                if (cVar1) {
+                    this_01 = (Entity*)*(*((lVar2 + 8)));
+                    this_01->GetNode()->Detach();
+                    this_01->GatherDrawableElements();
+                    this_01->ResetWorld();
                 }
-                eastl::hashtable_iterator<
-                    eastl::pair<int const, shared_ptr<oldscape::PacketJ<Array<unsigned char, eastl::allocator>>>>, true,
-                    false>::
-                operator++(
-                    (hashtable_iterator<
-                        eastl::pair<int const, shared_ptr<oldscape::PacketJ<Array<unsigned char, eastl::allocator>>>>,
-                        true, false>*)local_40);
-                bVar1 = eastl::operator!=((eastl*)local_40, local_50, extraout_RDX_00);
-            } while (bVar1);
+                ++local_40;
+                cVar1 = local_40 != local_50;
+            } while (cVar1);
         }
-        (&field_8)->clear();
+        this_00->clear();
         field_45224 = 0;
-        local_40[0] = -1;
-        (&field_41128, local_40)->fill();
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        local_40[0]._0_4_ = 4294967295;
+        field_41128.fill(local_40);
+        field_45232.clear();
     }
 
-    // 0x10041b3d0, 16 bytes, complete-object destructor, placed by class name and debug map
-    // NPCList::~NPCList(): jumps straight to the base-object destructor
-
-    // 0x10041b3e0, 32 bytes, deleting destructor, placed by class name and debug map
-    // NPCList::~NPCList()
-    void NPCList::~NPCList() {
-        ~NPCList(this);
-        operator_delete(this);
-    }
-
-    // 0x10041b490, 176 bytes, placed by class name and debug map
-    // NPCList::DestroyRenderingResources()
+    // 0x10041b490
     void NPCList::DestroyRenderingResources() {
-        long lVar1;
-        bool bVar2;
+        long lVar2;
         long* plVar3;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        eastl local_40[16];
-        hashtable_iterator_base local_30[16];
 
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        eastl::hashtable<int, eastl::pair<int const, oldscape::highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, oldscape::highlight::HighlightedGroup>>,
-                         eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar2 = eastl::operator!=(local_40, local_30, extraout_RDX);
-        if (bVar2) {
+        auto local_40 = field_8.begin();
+        auto local_30 = field_8.end();
+        bool cVar1 = local_40 != local_30;
+        if (cVar1) {
             do {
-                lVar1 = local_40->HeapBeginPtr();
-                bVar2 = ((lVar1 + 8))->operator_cast_to_bool();
-                if (bVar2) {
-                    plVar3 = (long*)shared_ptr<NPCEntity>::operator->((shared_ptr<NPCEntity>*)(lVar1 + 8));
-                    (**(code**)(*plVar3 + 200))(plVar3);
+                lVar2 = local_40.HeapBeginPtr();
+                cVar1 = ((lVar2 + 8))->operator_cast_to_bool();
+                if (cVar1) {
+                    plVar3 = (long*)(*((lVar2 + 8))).operator->();
+                    (**(void (**)(...))(*plVar3 + 200))(plVar3);
                 }
-                eastl::hashtable_iterator<
-                    eastl::pair<int const, shared_ptr<oldscape::PacketJ<Array<unsigned char, eastl::allocator>>>>, true,
-                    false>::
-                operator++(
-                    (hashtable_iterator<
-                        eastl::pair<int const, shared_ptr<oldscape::PacketJ<Array<unsigned char, eastl::allocator>>>>,
-                        true, false>*)local_40);
-                bVar2 = eastl::operator!=(local_40, local_30, extraout_RDX_00);
-            } while (bVar2);
+                ++local_40;
+                cVar1 = local_40 != local_30;
+            } while (cVar1);
         }
     }
 

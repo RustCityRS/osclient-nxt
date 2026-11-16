@@ -1,6 +1,5 @@
 // libs/oldscape/clientlib/input/mouse/ClientMouseListener.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,91 +8,51 @@ namespace jag::oldscape::input {
     public:
         ClientMouseListener();
         ~ClientMouseListener();
-        void Init(jag::input::InputHandler*, ClientKeyboardListener*);
-        MouseReleased(int, float, float);
-        MousePressed(int, float, float);
-        MouseMoved(float, float);
-        MouseWheel(float, float, float, float);
-        LowLevelMouseDown(int, int, int, int);
-        OnFirstTouchDown(unsigned long, float, float);
-        OnTouchDown(unsigned long, float, float);
-        OnTouchMove(unsigned long, float, float);
-        OnTouchUp(unsigned long, float, float);
+        void Init(jag::input::InputHandler* inputHandler, ClientKeyboardListener* clientKeyboardListener);
+        uint8_t MouseReleased(int arg1, float arg2, float arg3);
+        uint64_t MousePressed(int arg1, float arg2, float arg3);
+        uint8_t MouseMoved(float arg1, float arg2);
+        uint8_t MouseWheel(float arg1, float arg2, float arg3, float arg4);
+        uint64_t LowLevelMouseDown(int arg1, int arg2, int arg3, int arg4);
+        uint64_t OnFirstTouchDown(unsigned long arg1, float arg2, float arg3);
+        uint8_t OnTouchDown(unsigned long arg1, float arg2, float arg3);
+        uint8_t OnTouchMove(unsigned long arg1, float arg2, float arg3);
+        uint8_t OnTouchUp(unsigned long arg1, float arg2, float arg3);
         void Destroy();
-        void MouseDragged(float, float);
-        GetTranslatedButton(int);
-        void ReleaseTranslatedButton(int, int, int);
+        void MouseDragged(float arg1, float arg2);
+        uint64_t GetTranslatedButton(int arg1);
+        void ReleaseTranslatedButton(int arg1, int arg2, int arg3);
         int GetAndResetWheelRotation();
 
-        // data members, from how the methods use this: 680 bytes
-        undefined** field_0;             // offset 0
-        ClientKeyboardListener* field_8; // offset 8
-        InputHandler* field_16;          // offset 16
-        char _unknown_24[12];
-        uint field_36;       // offset 36
-        undefined1 field_40; // offset 40
-        char _unknown_41[639];
+    private:
+        uint8_t** field_0;
+        ClientKeyboardListener* field_8;
+        InputHandler* field_16;
+        uint8_t _unknown_24[12];
+        unsigned int field_36;
+        uint8_t _unknown_40[640];
     };
 
-    // 0x1001267c0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // ClientMouseListener::ClientMouseListener(): jumps straight to the base-object constructor
+    // 0x100126980
+    ClientMouseListener::ClientMouseListener()
+        : InputListener(), field_36(0), field_8(nullptr), field_16(nullptr), field_40(0) {}
 
-    // 0x100126880, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // ClientMouseListener::~ClientMouseListener(): jumps straight to the base-object destructor
-
-    // 0x100126980, 224 bytes, base-object constructor, inline, placed by class name
-    // ClientMouseListener::ClientMouseListener()
-    void ClientMouseListener::ClientMouseListener() {
-        new (this) InputListener();
-        field_36 = 0;
-        field_8 = (ClientKeyboardListener*)0;
-        field_16 = (InputHandler*)0;
-        std::atomic<int>::atomic((int)this + 40);
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)&field_48);
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)&field_96);
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)&field_144);
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)&field_192);
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)&field_240);
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)&field_288);
-        std::function<bool(float, float)>::function((function<bool(float, float)>*)&field_336);
-        std::function<bool(float, float, float, float)>::function(
-            (function<bool(float, float, float, float)>*)&field_384);
-        std::function<bool(int, int, int, int)>::function((function<bool(int, int, int, int)>*)&field_432);
-        std::function<bool(unsigned long, float, float)>::function(
-            (function<bool(unsigned long, float, float)>*)&field_480);
-        std::function<bool(unsigned long, float, float)>::function(
-            (function<bool(unsigned long, float, float)>*)&field_528);
-        std::function<bool(unsigned long, float, float)>::function(
-            (function<bool(unsigned long, float, float)>*)&field_576);
-        std::function<bool(unsigned long, float, float)>::function(
-            (function<bool(unsigned long, float, float)>*)&field_624);
-        std::function<bool(unsigned long, float, float)>::function(
-            (function<bool(unsigned long, float, float)>*)&field_672);
-    }
-
-    // 0x100127560, 192 bytes, base-object destructor, inline, placed by class name
-    // ClientMouseListener::~ClientMouseListener()
-    void ClientMouseListener::~ClientMouseListener() {
-        std::function<bool(unsigned long, float, float)>::~function(
-            (function<bool(unsigned long, float, float)>*)&field_672);
-        std::function<bool(unsigned long, float, float)>::~function(
-            (function<bool(unsigned long, float, float)>*)&field_624);
-        std::function<bool(unsigned long, float, float)>::~function(
-            (function<bool(unsigned long, float, float)>*)&field_576);
-        std::function<bool(unsigned long, float, float)>::~function(
-            (function<bool(unsigned long, float, float)>*)&field_528);
-        std::function<bool(unsigned long, float, float)>::~function(
-            (function<bool(unsigned long, float, float)>*)&field_480);
-        std::function<bool(int, int, int, int)>::~function((function<bool(int, int, int, int)>*)&field_432);
-        std::function<bool(float, float, float, float)>::~function(
-            (function<bool(float, float, float, float)>*)&field_384);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_336);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_288);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_240);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_192);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_144);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_96);
-        std::function<bool(float, float)>::~function((function<bool(float, float)>*)&field_48);
+    // 0x100127560
+    ClientMouseListener::~ClientMouseListener() {
+        field_672.~function();
+        field_624.~function();
+        field_576.~function();
+        field_528.~function();
+        field_480.~function();
+        field_432.~function();
+        field_384.~function();
+        field_336.~function();
+        field_288.~function();
+        field_240.~function();
+        field_192.~function();
+        field_144.~function();
+        field_96.~function();
+        field_48.~function();
     }
 
 } // namespace jag::oldscape::input

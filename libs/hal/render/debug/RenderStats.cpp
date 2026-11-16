@@ -1,42 +1,30 @@
 // libs/hal/render/debug/RenderStats.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "RenderStats.h"
 #include "libs/hal/render/context/RenderContext.h"
 
 namespace jag::render {
-    // 0x10012dc00: the linker folded this into oldscape::graphics::NXTPixScreen::GetViewportX(), which has identical code
-    RenderStats::GetLineCount() const;
+    // 0x10012dc00: RenderStats::GetLineCount() const has the same machine code as oldscape::graphics::NXTPixScreen::GetViewportX()
 
-    // 0x100429880: the linker folded this into Headbar::GetDuration() const, which has identical code
-    RenderStats::GetAvgDrawCalls() const;
+    // 0x100429880: RenderStats::GetAvgDrawCalls() const has the same machine code as Headbar::GetDuration() const
 
-    // 0x100429b10: the linker folded this into game::StaticPointLight::GetRGB() const, which has identical code
-    RenderStats::GetAvgTriangleCount() const;
+    // 0x100429b10: RenderStats::GetAvgTriangleCount() const has the same machine code as game::StaticPointLight::GetRGB() const
 
-    // 0x100759820: the linker folded this into ImSpanAllocator<3>::ImSpanAllocator(), which has identical code
-    RenderStats::FrameStats::FrameStats();
+    // 0x100759820: RenderStats::FrameStats::FrameStats() has the same machine code as ImSpanAllocator<3>::ImSpanAllocator()
 
-    // 0x10079e660: the linker folded this into ImSpanAllocator<3>::ImSpanAllocator(), which has identical code
-    RenderStats::FrameStats::FrameStats();
+    // 0x10079e660: RenderStats::FrameStats::FrameStats() has the same machine code as ImSpanAllocator<3>::ImSpanAllocator()
 
-    // 0x100c18e80, 112 bytes, placed by class name and debug map
-    // RenderStats::Update()
+    // 0x100c18e80
     void RenderStats::Update() {
-        uint uVar1;
-        uint uVar2;
-        uint uVar3;
-        uint uVar4;
-
-        uVar2 = field_0 + 1;
+        unsigned int uVar2 = field_0 + 1;
         field_0 = uVar2;
-        uVar1 = field_16 + field_8;
+        unsigned int uVar1 = field_16 + field_8;
         field_16 = uVar1;
-        uVar3 = field_44 + field_36;
+        unsigned int uVar3 = field_44 + field_36;
         field_44 = uVar3;
-        uVar4 = field_28 + field_20;
+        unsigned int uVar4 = field_28 + field_20;
         field_28 = uVar4;
         if (uVar2 == field_4) {
             field_12 = uVar1 / uVar2;
@@ -47,64 +35,48 @@ namespace jag::render {
             field_28 = 0;
             field_0 = 0;
         }
-        Reset(this);
+        Reset();
     }
 
-    // 0x100c19080, 528 bytes, base-object constructor, placed by debug map only (low confidence)
-    // DeferredFrameData::DeferredFrameData()
-    void DeferredFrameData::DeferredFrameData() {
-        ulong* puVar1;
-        NpcUID* extraout_RDX;
-        ulong local_48[2];
-        ulong local_38;
+    // 0x100c19080
+    DeferredFrameData::DeferredFrameData() : LinearAllocator(16777216, 1) {
+        unsigned long local_48[2];
 
-        new (this) LinearAllocator(16777216, 1);
-        new (&field_80) eastl::vector<DeferredRenderFunction, eastl::allocator>();
-        new (&field_112) eastl::vector<Scratch, eastl::allocator>();
-        new (field_144) SyncFence();
+        unsigned long local_38 = 16;
+        local_48[0] = 8;
+        auto puVar1 = std::max<unsigned long>(local_38, *local_48);
+        new (&field_152) VectorFastPool<InputAssemblerState>(512, *puVar1);
         local_38 = 16;
         local_48[0] = 8;
-        puVar1 = std::max<unsigned long>(&local_38, local_48);
-        new (&field_152, 512, *puVar1) VectorFastPool<InputAssemblerState>();
+        puVar1 = std::max<unsigned long>(local_38, *local_48);
+        new (&field_192) VectorFastPool<RenderPipelineState>(512, *puVar1);
         local_38 = 16;
         local_48[0] = 8;
-        puVar1 = std::max<unsigned long>(&local_38, local_48);
-        new (&field_192, 512, *puVar1) VectorFastPool<RenderPipelineState>();
-        local_38 = 16;
-        local_48[0] = 8;
-        puVar1 = std::max<unsigned long>(&local_38, local_48);
-        new (&field_232, 512, *puVar1) VectorFastPool<ComputePipelineState>();
+        puVar1 = std::max<unsigned long>(local_38, *local_48);
+        new (&field_232) VectorFastPool<ComputePipelineState>(512, *puVar1);
         local_38 = 16;
         local_48[0] = 16;
-        puVar1 = std::max<unsigned long>(&local_38, local_48);
-        new (&field_272, 512, *puVar1) VectorFastPool<OutputMergerState>();
-        new (&local_38) eastl::allocator("EASTL hash_set");
-        new (&field_312, (allocator*)&local_38)
-            eastl::hash_set<KeepAliveSharedPtrAndOwner, eastl::hash<KeepAliveSharedPtrAndOwner>,
-                            eastl::equal_to<KeepAliveSharedPtrAndOwner>, eastl::allocator, false>();
-        eastl::destruct<oldscape::highlight::NpcUID*>((eastl*)&local_38, (NpcUID*)"EASTL hash_set", extraout_RDX);
-        eastl::hash_set<void_const*, eastl::hash<void_const*>, eastl::equal_to<void_const*>, BucketAllocatorEASTL,
-                        false>::hash_set((BucketAllocatorEASTL*)&field_368);
+        puVar1 = std::max<unsigned long>(local_38, *local_48);
+        new (&field_272) VectorFastPool<OutputMergerState>(512, *puVar1);
+        new (&field_312) eastl::hash_set<KeepAliveSharedPtrAndOwner>(local_38);
+        local_38.destruct<oldscape::highlight::NpcUID*>();
+        new (&field_368)
+            eastl::hash_set<void const*, eastl::hash<void const*>, eastl::equal_to<void const*>, BucketAllocatorEASTL>(
+                local_38);
     }
 
-    // 0x100c2b4f0, 64 bytes, placed by class name
-    // RenderStats::Reset()
+    // 0x100c2b4f0
     void RenderStats::Reset() {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        int iVar3;
-        uint uVar4;
-
-        *(undefined8*)(field_48 + 32) = *(undefined8*)&field_40;
-        iVar3 = field_8;
-        uVar4 = field_12;
-        uVar1 = *(undefined8*)&field_16;
-        uVar2 = *(undefined8*)&field_32;
-        *(undefined8*)(field_48 + 16) = *(undefined8*)&field_24;
-        *(undefined8*)(field_48 + 24) = uVar2;
+        *(uint64_t*)(field_48 + 32) = *(uint64_t*)&field_40;
+        int iVar3 = field_8;
+        unsigned int uVar4 = field_12;
+        uint64_t uVar1 = *(uint64_t*)&field_16;
+        uint64_t uVar2 = *(uint64_t*)&field_32;
+        *(uint64_t*)(field_48 + 16) = *(uint64_t*)&field_24;
+        *(uint64_t*)(field_48 + 24) = uVar2;
         *(int*)(field_48 + 0) = iVar3;
-        *(uint*)(field_48 + 4) = uVar4;
-        *(undefined8*)(field_48 + 8) = uVar1;
+        *(unsigned int*)(field_48 + 4) = uVar4;
+        *(uint64_t*)(field_48 + 8) = uVar1;
         field_8 = 0;
         field_20 = 0;
         field_32 = 0;

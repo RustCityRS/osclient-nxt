@@ -1,51 +1,43 @@
 // libs/graphics/graphicutils/ViewUtils.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics.graphicutils
 
 namespace jag::graphicutils {
-    // 0x100bb57b0, 672 bytes, placed by debug map only (low confidence)
-    // CUBEMAP_FACE_CAMERA_ROTATIONS(math::QuaternionT<float> const&)
-    graphicutils* CUBEMAP_FACE_CAMERA_ROTATIONS(QuaternionT* param_1) {
-        undefined1 local_150[32];
-        QuaternionT<float> local_130[16];
-        undefined1 local_120[32];
-        QuaternionT<float> local_100[16];
-        undefined1 local_f0[32];
-        QuaternionT<float> local_d0[16];
-        undefined1 local_c0[32];
-        QuaternionT<float> local_a0[16];
-        undefined1 local_90[32];
-        QuaternionT<float> local_70[16];
-        undefined1 local_60[16];
-        QuaternionT<float> local_50[16];
-        QuaternionT<float> local_40[16];
+    // 0x100bb57b0
+    auto CUBEMAP_FACE_CAMERA_ROTATIONS(const math::QuaternionT<float>& quaternion) {
+        auto result;
+        QuaternionT<float> local_150;
+        QuaternionT<float> local_120;
+        QuaternionT<float> local_f0;
+        QuaternionT<float> local_c0;
+        QuaternionT<float> local_90;
+        QuaternionT<float> local_60;
 
-        new ((local_150 + 16)) math::QuaternionT<float>(0.0, 0.70710677, 0.0, 0.70710677);
-        math::operator*((math*)local_150, param_1, (QuaternionT*)(local_150 + 16));
-        math::QuaternionT<float>::QuaternionT(local_130, 1.0, 0.0, 0.0, 0.0);
-        math::operator*((math*)this, (QuaternionT*)local_150, (QuaternionT*)local_130);
-        new ((local_120 + 16)) math::QuaternionT<float>(0.0, -0.70710677, 0.0, 0.70710677);
-        math::operator*((math*)local_120, param_1, (QuaternionT*)(local_120 + 16));
-        math::QuaternionT<float>::QuaternionT(local_100, 1.0, 0.0, 0.0, 0.0);
-        math::operator*((math*)&field_16, (QuaternionT*)local_120, (QuaternionT*)local_100);
-        new ((local_f0 + 16)) math::QuaternionT<float>(-0.70710677, 0.0, 0.0, 0.70710677);
-        math::operator*((math*)local_f0, param_1, (QuaternionT*)(local_f0 + 16));
-        math::QuaternionT<float>::QuaternionT(local_d0, 0.0, 0.0, 1.0, 0.0);
-        math::operator*((math*)&field_32, (QuaternionT*)local_f0, (QuaternionT*)local_d0);
-        new ((local_c0 + 16)) math::QuaternionT<float>(0.70710677, 0.0, 0.0, 0.70710677);
-        math::operator*((math*)local_c0, param_1, (QuaternionT*)(local_c0 + 16));
-        math::QuaternionT<float>::QuaternionT(local_a0, 0.0, 0.0, 1.0, 0.0);
-        math::operator*((math*)&field_48, (QuaternionT*)local_c0, (QuaternionT*)local_a0);
-        new ((local_90 + 16)) math::QuaternionT<float>(0.0, 0.0, 0.0, 1.0);
-        math::operator*((math*)local_90, param_1, (QuaternionT*)(local_90 + 16));
-        math::QuaternionT<float>::QuaternionT(local_70, 0.0, 0.0, 1.0, 0.0);
-        math::operator*((math*)&field_64, (QuaternionT*)local_90, (QuaternionT*)local_70);
-        math::QuaternionT<float>::QuaternionT(local_50, 0.0, 1.0, 0.0, 0.0);
-        math::operator*((math*)local_60, param_1, (QuaternionT*)local_50);
-        math::QuaternionT<float>::QuaternionT(local_40, 0.0, 0.0, 1.0, 0.0);
-        math::operator*((math*)field_80, (QuaternionT*)local_60, (QuaternionT*)local_40);
-        return this;
+        QuaternionT<float> local_140(0.0, 0.70710677f, 0.0, 0.70710677f);
+        local_150 quaternion;
+        QuaternionT<float> local_130(1.0, 0.0, 0.0, 0.0);
+        result* local_150;
+        QuaternionT<float> local_110(0.0, -0.70710677, 0.0, 0.70710677f);
+        local_120 quaternion;
+        QuaternionT<float> local_100(1.0, 0.0, 0.0, 0.0);
+        (*((&result + 2))) * local_120;
+        QuaternionT<float> local_e0(-0.70710677, 0.0, 0.0, 0.70710677f);
+        local_f0 quaternion;
+        QuaternionT<float> local_d0(0.0, 0.0, 1.0, 0.0);
+        (*((&result + 4))) * local_f0;
+        QuaternionT<float> local_b0(0.70710677f, 0.0, 0.0, 0.70710677f);
+        local_c0 quaternion;
+        QuaternionT<float> local_a0(0.0, 0.0, 1.0, 0.0);
+        (*((&result + 6))) * local_c0;
+        QuaternionT<float> local_80(0.0, 0.0, 0.0, 1.0);
+        local_90 quaternion;
+        QuaternionT<float> local_70(0.0, 0.0, 1.0, 0.0);
+        (*((&result + 8))) * local_90;
+        QuaternionT<float> local_50(0.0, 1.0, 0.0, 0.0);
+        local_60 quaternion;
+        QuaternionT<float> local_40(0.0, 0.0, 1.0, 0.0);
+        (*((&result + 10))) * local_60;
+        return result;
     }
 
 } // namespace jag::graphicutils

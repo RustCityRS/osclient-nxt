@@ -1,60 +1,44 @@
 // projects/osclient/OldscapeVarType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "OldscapeVarType.h"
 
 namespace jag::oldscape::configdecoder {
-    // 0x100f8d6f0, 16 bytes, __common; set at startup by ___cxx_global_var_init.192
-    shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> OldscapeVarType::NullConfigType;
+    // 0x100f8d6f0, set at startup by ___cxx_global_var_init.192
+    shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> OldscapeVarType::NullConfigType =
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
 
-    // 0x100f8d700, 16 bytes, __common; set at startup by ___cxx_global_var_init.193
-    shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> OldscapeVarType::WeakNullConfigType;
+    // 0x100f8d700, set at startup by ___cxx_global_var_init.193
+    shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> OldscapeVarType::WeakNullConfigType =
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
 
-    // 0x1000b7920: the linker folded this into minimenu::MinimenuEntry::GetSubjectTypecode() const, which has identical code
-    OldscapeVarType::GetDataType() const;
+    // 0x1000b7920: OldscapeVarType::GetDataType() const has the same machine code as minimenu::MinimenuEntry::GetSubjectTypecode() const
 
-    // 0x10018baa0, 176 bytes, placed by class name and debug map
-    // OldscapeVarType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
-    undefined* OldscapeVarType::DecodeType(PacketT* param_1, uint param_2) {
-        byte bVar1;
-        undefined** ppuVar4;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>> local_38[32];
+    // 0x10018baa0
+    uint8_t* OldscapeVarType::DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2) {
+        uint8_t bVar1;
+        uint8_t** ppuVar4;
+        PacketReaderMixin<PacketT<Array<unsigned char>>> local_38;
 
-        if (param_2 == 10) {
-            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
-                local_38, SUB81(param_1, 0));
-            eastl::string::operator=((eastl::string*)&field_104, (basic_string*)local_38);
-            local_38->~basic_string();
-        } else if (param_2 == 2) {
-            bVar1 = param_1->g1();
-            field_72 = (undefined*)game::VarLifetime::GetByID((uint)bVar1);
+        if (arg2 == 10) {
+            PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(&local_38,
+                                                                                                 (uint8_t)arg1);
+            field_104 = &local_38;
+        } else if (arg2 == 2) {
+            bVar1 = arg1.g1();
+            field_72 = (uint8_t*)((VarLifetime*)(unsigned long)bVar1)->GetByID((unsigned int)arg1);
         } else {
-            if (param_2 != 1) {
+            if (arg2 != 1) {
                 ppuVar4 = &DataStatus::MISSING;
                 goto LAB_10018bb22;
             }
-            bVar1 = param_1->g1();
-            m_dataType = ScriptVarType::GetByID((uint)bVar1);
+            bVar1 = arg1.g1();
+            m_dataType = ScriptVarType::GetByID((unsigned int)bVar1);
         }
         ppuVar4 = &DataStatus::READY;
     LAB_10018bb22:
         return *ppuVar4;
-    }
-
-    // 0x1001b6ec0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.192
-    void ___cxx_global_var_init_192(undefined8 param_1, _func_decltype_nullptr* param_2) {
-        new (&OldscapeVarType::NullConfigType) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(param_2);
-        ___cxa_atexit(PTR__shared_ptr_100ee5430, &OldscapeVarType::NullConfigType, 4294967296);
-    }
-
-    // 0x1001b6f00, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.193
-    void ___cxx_global_var_init_193(undefined8 param_1, _func_decltype_nullptr* param_2) {
-        new (&OldscapeVarType::WeakNullConfigType) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(param_2);
-        ___cxa_atexit(PTR__weak_ptr_100ee6bc8, &OldscapeVarType::WeakNullConfigType, 4294967296);
     }
 
 } // namespace jag::oldscape::configdecoder

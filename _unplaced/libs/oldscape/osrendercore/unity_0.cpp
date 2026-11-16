@@ -1,77 +1,72 @@
 // _unplaced/libs/oldscape/osrendercore/unity_0.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.osrendercore
 
 #include "libs/game/runetek5/scene/entities/MapSquare.h"
 #include "libs/oldscape/osrendercore/OSRenderCore.h"
 
 namespace jag::internal {
-    // 0x103c05720, 12000 bytes, __bss; zero-initialised
-    zsize;
+    // 0x103c05720
+    uint8_t zsize[12000];
 
-    // 0x103c08600, 4 bytes, __bss; zero-initialised
-    minZ;
+    // 0x103c08600
+    int32_t minZ;
 
-    // 0x103c08604, 12 bytes, __bss; zero-initialised
-    maxZ;
+    // 0x103c08604
+    uint8_t maxZ[12];
 
-    // 0x103c08610, 26000 bytes, __bss; zero-initialised
-    sxf;
+    // 0x103c08610
+    uint8_t sxf[26000];
 
-    // 0x103c0eba0, 26000 bytes, __bss; zero-initialised
-    syf;
+    // 0x103c0eba0
+    uint8_t syf[26000];
 
-    // 0x103c15130, 13008 bytes, __bss; zero-initialised
-    cx;
+    // 0x103c15130
+    uint8_t cx[13008];
 
-    // 0x103c18400, 13008 bytes, __bss; zero-initialised
-    cy;
+    // 0x103c18400
+    uint8_t cy[13008];
 
-    // 0x103c1b6d0, 13008 bytes, __bss; zero-initialised
-    cz;
+    // 0x103c1b6d0
+    uint8_t cz[13008];
 
-    // 0x103c1e9a0, 13008 bytes, __bss; zero-initialised
-    sortz;
+    // 0x103c1e9a0
+    uint8_t sortz[13008];
 
-    // 0x103c21c70, 6144000 bytes, __bss; zero-initialised
-    zlist;
+    // 0x103c21c70
+    uint8_t zlist[6144000];
 
-    // 0x1041fdc70, 13008 bytes, __bss; zero-initialised
-    wx;
+    // 0x1041fdc70
+    uint8_t wx[13008];
 
-    // 0x104200f40, 13008 bytes, __bss; zero-initialised
-    wy;
+    // 0x104200f40
+    uint8_t wy[13008];
 
-    // 0x104204210, 13008 bytes, __bss; zero-initialised
-    wz;
+    // 0x104204210
+    uint8_t wz[13008];
 
-    // 0x1042074e0, 13008 bytes, __bss; zero-initialised
-    sy;
+    // 0x1042074e0
+    uint8_t sy[13008];
 
-    // 0x10420a7b0, 13008 bytes, __bss; zero-initialised
-    sx;
+    // 0x10420a7b0
+    uint8_t sx[13008];
 
-    // 0x1001f4090, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init
-    void ___cxx_global_var_init() {
-        undefined1 local_50[40];
-        Vector3T<int> local_28[16];
+    // 0x1001f4090
+    void ___cxx_global_var_init(void) {
+        Matrix33T<float> local_50;
 
-        math::Matrix33Scaling<float>((math*)local_50, 1.0, 1.0, -1.0);
-        math::Vector3T<int>::Vector3T(local_28);
-        new (&graphics::MAYA_ANIM_INVERT_MATRIX) math::Matrix44T<float>(local_50, local_28);
+        math::Matrix33Scaling<float>(1.0, 1.0, -1.0);
+        Vector3T<int> local_28;
+        new ((Matrix44T<float>*)&graphics::MAYA_ANIM_INVERT_MATRIX) math::Matrix44T<float>(local_50, local_28);
     }
 
-    // 0x1001f40f0, 32 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.1
-    void ___cxx_global_var_init_1() {
-        new (&graphics::WORLD_ORTHOGONAL) math::ColourHSL(-1.5707964, -1.5707964, 0.0);
+    // 0x1001f40f0
+    void ___cxx_global_var_init_1(void) {
+        new ((ColourHSL*)&graphics::WORLD_ORTHOGONAL) math::ColourHSL(-1.5707964, -1.5707964, 0.0);
     }
 
-    // 0x1001f4110, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.3
-    void ___cxx_global_var_init_3() {
+    // 0x1001f4110
+    void ___cxx_global_var_init_3(void) {
         if (*PTR_VIEWRT_LUMINANCE_ADAPTED_100ee4048 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_ADAPTED_100ee4048) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_ADAPTED_100ee5578) HashedString("LUMINANCE_ADAPTED");
@@ -80,9 +75,8 @@ namespace jag::internal {
         }
     }
 
-    // 0x1001f4170, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.4
-    void ___cxx_global_var_init_4() {
+    // 0x1001f4170
+    void ___cxx_global_var_init_4(void) {
         if (*PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee4058 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee4058) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee5588) HashedString("LUMINANCE_ADAPTED_PREVIOUS");
@@ -91,9 +85,8 @@ namespace jag::internal {
         }
     }
 
-    // 0x1001f41d0, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.6
-    void ___cxx_global_var_init_6() {
+    // 0x1001f41d0
+    void ___cxx_global_var_init_6(void) {
         if (*PTR_VIEWRT_LUMINANCE_AVERAGE_100ee4050 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_AVERAGE_100ee4050) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_AVERAGE_100ee5580) HashedString("VIEWRT_LUMINANCE_AVERAGE");
@@ -102,213 +95,137 @@ namespace jag::internal {
         }
     }
 
-    // 0x1001f4230, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.11
-    void ___cxx_global_var_init_11() {
-        new (&oldscape::bogusSystemSettings) SystemSettings();
-        ___cxa_atexit(PTR__SystemSettings_100ee6058, &oldscape::bogusSystemSettings, 4294967296);
-    }
-
-    // 0x1001f4270, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.12
-    void ___cxx_global_var_init_12() {
-        new (&oldscape::noArchiveSets) Js5ArchiveSetSettings();
-        ___cxa_atexit(Js5ArchiveSetSettings::~Js5ArchiveSetSettings, &oldscape::noArchiveSets, 4294967296);
-    }
-
-    // 0x1001f42b0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.18
-    void ___cxx_global_var_init_18() {
-        new (&oldscape::mrp) oldscape::rseven::OSRenderCore_MaterialRawProvider();
-        ___cxa_atexit(PTR__OSRenderCore_MaterialRawProvider_100ee6b60, &oldscape::mrp, 4294967296);
-    }
-
-    // 0x1001f42f0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.19
-    void ___cxx_global_var_init_19() {
-        new (&oldscape::tdp) oldscape::rseven::OSRenderCore_TextureDataProvider();
-        ___cxa_atexit(PTR__OSRenderCore_TextureDataProvider_100ee6b68, &oldscape::tdp, 4294967296);
-    }
-
-    // 0x1001f4330, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.86
-    void ___cxx_global_var_init_86() {
-        new (&osrsgraphics::(anonymous namespace)::g_resourceCache) std::array<eastl::string, 11ul>();
+    // 0x1001f4330
+    void ___cxx_global_var_init_86(void) {
+        new ((array<eastl::string, 11ul>*)&osrsgraphics::(anonymous namespace)::g_resourceCache)
+            std::array<eastl::string, 11ul>();
         ___cxa_atexit(PTR__array_100ee6ec8, &osrsgraphics::(anonymous namespace)::g_resourceCache, 4294967296);
     }
 
-    // 0x1001f43b0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.145
-    void ___cxx_global_var_init_145() {
-        undefined* puVar1;
-
-        puVar1 = PTR_LOOK_100ee47d8;
+    // 0x1001f43b0
+    void ___cxx_global_var_init_145(void) {
+        uint8_t* puVar1 = PTR_LOOK_100ee47d8;
         if (*PTR_LOOK_100ee47d8 == '\0') {
             new (PTR_LOOK_100ee66e0) math::ColourHSL(0.0, 0.0, 1.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f43f0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.146
-    void ___cxx_global_var_init_146() {
-        undefined* puVar1;
-
-        puVar1 = PTR_UP_100ee47c8;
+    // 0x1001f43f0
+    void ___cxx_global_var_init_146(void) {
+        uint8_t* puVar1 = PTR_UP_100ee47c8;
         if (*PTR_UP_100ee47c8 == '\0') {
             new (PTR_UP_100ee66d0) math::ColourHSL(0.0, 1.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4430, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.147
-    void ___cxx_global_var_init_147() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee4298;
+    // 0x1001f4430
+    void ___cxx_global_var_init_147(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee4298;
         if (*PTR_m_pSingleton_100ee4298 == '\0') {
-            ___cxa_atexit(std::unique_ptr<ThreadPoolSingleton, std::default_delete<ThreadPoolSingleton>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee5948, 4294967296);
+            ___cxa_atexit(std::unique_ptr<ThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5948, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4470, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.148
-    void ___cxx_global_var_init_148() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee42a0;
+    // 0x1001f4470
+    void ___cxx_global_var_init_148(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee42a0;
         if (*PTR_m_pSingleton_100ee42a0 == '\0') {
-            ___cxa_atexit(
-                std::unique_ptr<ShaderThreadPoolSingleton, std::default_delete<ShaderThreadPoolSingleton>>::~unique_ptr,
-                PTR_m_pSingleton_100ee5950, 4294967296);
+            ___cxa_atexit(std::unique_ptr<ShaderThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5950,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f44b0, 48 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.149
-    void ___cxx_global_var_init_149() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee4790;
+    // 0x1001f44b0
+    void ___cxx_global_var_init_149(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee4790;
         if (*PTR_ZERO_100ee4790 == '\0') {
-            new (PTR_ZERO_100ee6698) math::Point<float>(0.0, 0.0);
+            new (PTR_ZERO_100ee6698) math::Point(0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f44e0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.150
-    void ___cxx_global_var_init_150() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4518;
+    // 0x1001f44e0
+    void ___cxx_global_var_init_150(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4518;
         if (*PTR_m_mutex_100ee4518 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5df0, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4520, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.151
-    void ___cxx_global_var_init_151() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee4800;
+    // 0x1001f4520
+    void ___cxx_global_var_init_151(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee4800;
         if (*PTR_ZERO_100ee4800 == '\0') {
             new (PTR_ZERO_100ee6708) ImVec4(0.0, 0.0, 0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4560, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.152
-    void ___cxx_global_var_init_152() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49c8;
+    // 0x1001f4560
+    void ___cxx_global_var_init_152(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49c8;
         if (*PTR_m_pSingleton_100ee49c8 == '\0') {
-            ___cxa_atexit(std::unique_ptr<render::ShaderProgramManager,
-                                          std::default_delete<render::ShaderProgramManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c38, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::ShaderProgramManager>::~unique_ptr, PTR_m_pSingleton_100ee6c38,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f45a0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.153
-    void ___cxx_global_var_init_153() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49d0;
+    // 0x1001f45a0
+    void ___cxx_global_var_init_153(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49d0;
         if (*PTR_m_pSingleton_100ee49d0 == '\0') {
-            ___cxa_atexit(std::unique_ptr<render::VertexDeclarationManager,
-                                          std::default_delete<render::VertexDeclarationManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c40, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::VertexDeclarationManager>::~unique_ptr, PTR_m_pSingleton_100ee6c40,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f45e0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.154
-    void ___cxx_global_var_init_154() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee47e0;
+    // 0x1001f45e0
+    void ___cxx_global_var_init_154(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee47e0;
         if (*PTR_ZERO_100ee47e0 == '\0') {
             new (PTR_ZERO_100ee66e8) math::ColourHSL(0.0, 0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4620, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.155
-    void ___cxx_global_var_init_155() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49a0;
+    // 0x1001f4620
+    void ___cxx_global_var_init_155(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49a0;
         if (*PTR_m_pSingleton_100ee49a0 == '\0') {
-            ___cxa_atexit(std::unique_ptr<render::RenderDevice, std::default_delete<render::RenderDevice>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c10, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::RenderDevice>::~unique_ptr, PTR_m_pSingleton_100ee6c10, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4660, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.156
-    void ___cxx_global_var_init_156() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee45b0;
+    // 0x1001f4660
+    void ___cxx_global_var_init_156(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee45b0;
         if (*PTR_m_mutex_100ee45b0 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5f20, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f46a0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.157
-    void ___cxx_global_var_init_157() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49d8;
+    // 0x1001f46a0
+    void ___cxx_global_var_init_157(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49d8;
         if (*PTR_m_pSingleton_100ee49d8 == '\0') {
-            ___cxa_atexit(std::unique_ptr<graphics::AnimationManager,
-                                          std::default_delete<graphics::AnimationManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c48, 4294967296);
+            ___cxa_atexit(std::unique_ptr<graphics::AnimationManager>::~unique_ptr, PTR_m_pSingleton_100ee6c48,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f46e0, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.158
-    void ___cxx_global_var_init_158() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee4820;
+    // 0x1001f46e0
+    void ___cxx_global_var_init_158(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee4820;
         if (*PTR_ZERO_100ee4820 == '\0') {
             new (PTR_ZERO_100ee6728)
                 math::Matrix44T<float>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
@@ -316,24 +233,18 @@ namespace jag::internal {
         }
     }
 
-    // 0x1001f4740, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.159
-    void ___cxx_global_var_init_159() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee45d8;
+    // 0x1001f4740
+    void ___cxx_global_var_init_159(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee45d8;
         if (*PTR_m_mutex_100ee45d8 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5f70, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4780, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.160
-    void ___cxx_global_var_init_160() {
-        undefined* puVar1;
-
-        puVar1 = PTR_IDENTITY_100ee4828;
+    // 0x1001f4780
+    void ___cxx_global_var_init_160(void) {
+        uint8_t* puVar1 = PTR_IDENTITY_100ee4828;
         if (*PTR_IDENTITY_100ee4828 == '\0') {
             new (PTR_IDENTITY_100ee6730)
                 math::Matrix44T<float>(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
@@ -341,140 +252,100 @@ namespace jag::internal {
         }
     }
 
-    // 0x1001f47e0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.161
-    void ___cxx_global_var_init_161() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4590;
+    // 0x1001f47e0
+    void ___cxx_global_var_init_161(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4590;
         if (*PTR_m_mutex_100ee4590 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5ee0, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4820, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.162
-    void ___cxx_global_var_init_162() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee4290;
+    // 0x1001f4820
+    void ___cxx_global_var_init_162(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee4290;
         if (*PTR_m_pSingleton_100ee4290 == '\0') {
-            ___cxa_atexit(std::unique_ptr<graphicutils::BatchDestroyManager,
-                                          std::default_delete<graphicutils::BatchDestroyManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee5940, 4294967296);
+            ___cxa_atexit(std::unique_ptr<graphicutils::BatchDestroyManager>::~unique_ptr, PTR_m_pSingleton_100ee5940,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4860, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.163
-    void ___cxx_global_var_init_163() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4520;
+    // 0x1001f4860
+    void ___cxx_global_var_init_163(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4520;
         if (*PTR_m_mutex_100ee4520 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5e00, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f48a0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.164
-    void ___cxx_global_var_init_164() {
-        undefined* puVar1;
-
-        puVar1 = PTR_RIGHT_100ee47e8;
+    // 0x1001f48a0
+    void ___cxx_global_var_init_164(void) {
+        uint8_t* puVar1 = PTR_RIGHT_100ee47e8;
         if (*PTR_RIGHT_100ee47e8 == '\0') {
             new (PTR_RIGHT_100ee66f0) math::ColourHSL(1.0, 0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f48e0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.165
-    void ___cxx_global_var_init_165() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4500;
+    // 0x1001f48e0
+    void ___cxx_global_var_init_165(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4500;
         if (*PTR_m_mutex_100ee4500 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5dc0, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4920, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.166
-    void ___cxx_global_var_init_166() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49a8;
+    // 0x1001f4920
+    void ___cxx_global_var_init_166(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49a8;
         if (*PTR_m_pSingleton_100ee49a8 == '\0') {
-            ___cxa_atexit(
-                std::unique_ptr<render::BuiltinStates, std::default_delete<render::BuiltinStates>>::~unique_ptr,
-                PTR_m_pSingleton_100ee6c18, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::BuiltinStates>::~unique_ptr, PTR_m_pSingleton_100ee6c18, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4960, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.167
-    void ___cxx_global_var_init_167() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee42b0;
+    // 0x1001f4960
+    void ___cxx_global_var_init_167(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee42b0;
         if (*PTR_m_pSingleton_100ee42b0 == '\0') {
-            ___cxa_atexit(
-                std::unique_ptr<debug::DebugUIManager, std::default_delete<debug::DebugUIManager>>::~unique_ptr,
-                PTR_m_pSingleton_100ee5960, 4294967296);
+            ___cxa_atexit(std::unique_ptr<debug::DebugUIManager>::~unique_ptr, PTR_m_pSingleton_100ee5960, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f49a0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.168
-    void ___cxx_global_var_init_168() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee45e8;
+    // 0x1001f49a0
+    void ___cxx_global_var_init_168(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee45e8;
         if (*PTR_m_mutex_100ee45e8 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5f90, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f49e0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.169
-    void ___cxx_global_var_init_169() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49f0;
+    // 0x1001f49e0
+    void ___cxx_global_var_init_169(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49f0;
         if (*PTR_m_pSingleton_100ee49f0 == '\0') {
-            ___cxa_atexit(
-                std::unique_ptr<hardware::HardwareInfo, std::default_delete<hardware::HardwareInfo>>::~unique_ptr,
-                PTR_m_pSingleton_100ee6c60, 4294967296);
+            ___cxa_atexit(std::unique_ptr<hardware::HardwareInfo>::~unique_ptr, PTR_m_pSingleton_100ee6c60, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4ad0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.172
-    void ___cxx_global_var_init_172() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee45f0;
+    // 0x1001f4ad0
+    void ___cxx_global_var_init_172(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee45f0;
         if (*PTR_m_mutex_100ee45f0 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5fa0, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1001f4bc0, 69 bytes, placed by nothing (unplaced)
-    // __GLOBAL__sub_I_unity_0_cxx.cxx
-    void __GLOBAL__sub_I_unity_0_cxx_cxx() {
-        undefined8 uVar1;
-
-        uVar1 = _objc_autoreleasePoolPush();
+    // 0x1001f4bc0
+    void __GLOBAL__sub_I_unity_0_cxx_cxx(void) {
+        uint64_t uVar1 = _objc_autoreleasePoolPush();
         ___cxx_global_var_init();
         ___cxx_global_var_init_1();
         ___cxx_global_var_init_11();
@@ -489,8 +360,8 @@ namespace jag::internal {
 } // namespace jag::internal
 
 namespace jag::osrsgraphics {
-    // 0x100d3dac0, 208 bytes, __const
-    Quad_fs_data = {
+    // 0x100d3dac0
+    int32_t Quad_fs_data[52] = {
         1954040421, 1278235754, 1430350455, 946234962,  845507177,  1249012565, 1635283031, 1648839490, 1114794292,
         1364411512, 1851148601, 1769369925, 1768323686, 1698133826, 2050319417, 1299854676, 1114530629, 1867796577,
         1147887945, 1701394280, 1865839408, 1264791667, 1447965511, 1987467596, 879449392,  2019063906, 1464497480,
@@ -499,8 +370,8 @@ namespace jag::osrsgraphics {
         913403971,  846485067,  1715042138, 1112229196, 0,          0,          0,
     };
 
-    // 0x100d3db90, 160 bytes, __const
-    Quad_vs_data = {
+    // 0x100d3db90
+    int32_t Quad_vs_data[40] = {
         1282951781, 1886077772, 1903651705, 1449940300, 1316242763, 1229614158, 1986481476, 1249536378,
         2049658234, 1987015477, 1229412684, 1196906860, 2018400343, 1851155820, 1802135920, 1835167050,
         2036881249, 1884117078, 1363558721, 1464159576, 1146176882, 1412655986, 1818323271, 1433237334,
@@ -508,8 +379,8 @@ namespace jag::osrsgraphics {
         1735356995, 1265587280, 1128360258, 1632321913, 1181956182, 1295206209, 1030977868, 0,
     };
 
-    // 0x100d3dc30, 832 bytes, __const
-    TintedTriangle_fs_data = {
+    // 0x100d3dc30
+    int32_t TintedTriangle_fs_data[208] = {
         964184677,  1984317014, 1363245616, 1982559078, 1129203021, 963990861,  1697736555, 1496868947, 1115256133,
         1245869174, 1328956752, 1465153844, 877742899,  1146249539, 1664035627, 808475246,  1431590209, 1716537176,
         1717908324, 959395152,  1263825968, 1835823673, 1332096838, 812731513,  1245277285, 1380856688, 1665810804,
@@ -536,8 +407,8 @@ namespace jag::osrsgraphics {
         0,
     };
 
-    // 0x100d3df70, 304 bytes, __const
-    TintedTriangle_vs_data = {
+    // 0x100d3df70
+    int32_t TintedTriangle_vs_data[76] = {
         1685604965, 1899051386, 1430354295, 927084354,  1347038062, 1515073602, 1683372140, 1952596791, 1785160824,
         1700024396, 1685286994, 1198539085, 2018457425, 1245264228, 1346990709, 1902793809, 880292663,  2051552849,
         1936741496, 1834052402, 959860281,  1802399862, 1314341986, 1949914182, 896025704,  1279686763, 1700292418,
@@ -549,8 +420,8 @@ namespace jag::osrsgraphics {
         0,          0,          0,          0,
     };
 
-    // 0x100d3e0a0, 304 bytes, __const
-    Triangle_fs_data = {
+    // 0x100d3e0a0
+    int32_t Triangle_fs_data[76] = {
         829966949,  1899575402, 1363241847, 925857144,  961497414,  1649099594, 1433356664, 1650737520, 1869889846,
         1247178851, 1198617188, 2003661930, 1129212762, 930439734,  1733517651, 1832206902, 728589933,  897068851,
         1131766091, 1498108782, 1244813111, 1633834860, 1397187656, 1849259115, 1515675958, 1882213189, 2004441670,
@@ -562,8 +433,8 @@ namespace jag::osrsgraphics {
         1030440538, 0,          0,          0,
     };
 
-    // 0x100d3e1d0, 160 bytes, __const
-    Triangle_vs_data = {
+    // 0x100d3e1d0
+    int32_t Triangle_vs_data[40] = {
         1450723941, 1262840425, 1296136823, 962938945,  1280536951, 1146170227, 1718703470, 1682065968,
         1901417843, 1364674389, 1363237431, 1499690552, 861368626,  862148680,  826370353,  1198814571,
         1179793753, 1196838966, 1936292463, 1885951845, 1416048961, 1113861970, 1143960662, 1379164481,
@@ -571,8 +442,8 @@ namespace jag::osrsgraphics {
         1517104943, 928532042,  1715034458, 1246585954, 1299396678, 1030707788, 0,          0,
     };
 
-    // 0x100d3e270, 752 bytes, __const
-    TriangleShared_fs_inc_data = {
+    // 0x100d3e270
+    int32_t TriangleShared_fs_inc_data[188] = {
         829966949,  2050043989, 1296132914, 1484023414, 1399342902, 1298691929, 910570085,  812207443,  1431463248,
         1513517393, 1999852404, 1917612868, 1782141234, 793786740,  1483632216, 1632256601, 1717646190, 1852137840,
         1915893322, 1882670389, 2020112457, 829309298,  1668179764, 1466054467, 2004441185, 1903643978, 1113813603,
@@ -596,8 +467,8 @@ namespace jag::osrsgraphics {
         1481786194, 1651456362, 1751532075, 1936601929, 0,          0,          0,          0,
     };
 
-    // 0x100d3e560, 1232 bytes, __const
-    TriangleShared_vs_inc_data = {
+    // 0x100d3e560
+    int32_t TriangleShared_vs_inc_data[308] = {
         1954040421, 1983472726, 1297709620, 1715041126, 1801806711, 1949923436, 1312060532, 1735476291, 1950568033,
         960841591,  1113802828, 1867607097, 1915972942, 1130982257, 1248087370, 1983084136, 1852256879, 844132468,
         1883329648, 793864550,  1161391211, 1966425411, 2000908153, 1481780087, 1294683717, 1631924332, 1499031087,
@@ -635,8 +506,8 @@ namespace jag::osrsgraphics {
         0,          0,
     };
 
-    // 0x100d3ea30, 352 bytes, __const
-    UI_fs_data = {
+    // 0x100d3ea30
+    int32_t UI_fs_data[88] = {
         1954040421, 1349797227, 1363245687, 724520808,  1299470406, 1195592241, 1769556563, 1164527448, 2020360534,
         1264674407, 1919840590, 1280725079, 1429303402, 926175305,  1349216112, 813052737,  930695290,  875509337,
         1249072725, 962942800,  843471463,  1953064522, 1667593799, 1650092884, 1718106169, 945309025,  1366321241,
@@ -649,8 +520,8 @@ namespace jag::osrsgraphics {
         1214985031, 1280004472, 1027424628, 0,          0,          0,          0,
     };
 
-    // 0x100d3eb90, 1456 bytes, __const
-    UIBilinear_fs_data = {
+    // 0x100d3eb90
+    int32_t UIBilinear_fs_data[364] = {
         1450789477, 1333097558, 1364818482, 1482974310, 1363890244, 2037740153, 1920090700, 827209794,  1281440072,
         1397178740, 1835496770, 1865503077, 1247896169, 1448301932, 1647264624, 1697599561, 1462916404, 841697100,
         1279485262, 1330661496, 1296584558, 842484053,  1228432462, 1330078551, 1315124066, 728188488,  926115432,
@@ -694,8 +565,8 @@ namespace jag::osrsgraphics {
         1027428694, 0,          0,          0,
     };
 
-    // 0x100d3f140, 2520 bytes, __const
-    UILanczos2_fs_data = {
+    // 0x100d3f140
+    int32_t UILanczos2_fs_data[630] = {
         1954105957, 2050053975, 1365735984, 1714778159, 930503279,  1969515077, 1885884014, 877942895,  1146571073,
         1749173555, 863191379,  1280325987, 1768049785, 1950436395, 860977518,  930503271,  1399207735, 1664511794,
         1464420968, 2035500112, 925980784,  1965781846, 943796056,  1633971768, 1379288146, 1265662291, 2053598067,
@@ -771,171 +642,129 @@ namespace jag::osrsgraphics {
 } // namespace jag::osrsgraphics
 
 namespace jag::oldscape {
-    // 0x104229000, 160 bytes, __bss; set at startup by ___cxx_global_var_init.11
+    // 0x104229000, set at startup by ___cxx_global_var_init.11
     SystemSettings bogusSystemSettings = SystemSettings();
 
-    // 0x1042290a0, 48 bytes, __bss; set at startup by ___cxx_global_var_init.12
+    // 0x1042290a0, set at startup by ___cxx_global_var_init.12
     Js5ArchiveSetSettings noArchiveSets = Js5ArchiveSetSettings();
 
-    // 0x1042290d0, 64 bytes, __bss; set at startup by ___cxx_global_var_init.18
+    // 0x1042290d0, set at startup by ___cxx_global_var_init.18
     rseven::OSRenderCore_MaterialRawProvider mrp = OSRenderCore_MaterialRawProvider();
 
-    // 0x104229110, 112 bytes, __bss; set at startup by ___cxx_global_var_init.19
+    // 0x104229110, set at startup by ___cxx_global_var_init.19
     rseven::OSRenderCore_TextureDataProvider tdp = OSRenderCore_TextureDataProvider();
 
-    // 0x1001c1f00, 112 bytes, placed by nothing (unplaced)
-    // OSRenderCore_RenderThread_RSeven::DestroyRSeven()
+    // 0x1001c1f00
     void OSRenderCore_RenderThread_RSeven::DestroyRSeven() {
-        RT7Core* this_00;
-
-        (&field_16, (Scene*)0)->reset();
-        ((*(long*)(field_32 + *(long*)(field_0 + -24) + 56) + 17563848))->clear();
-        this_00 =
-            (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-        this_00->DestroyRenderTargets();
-        (&field_8, (RT7Core*)0)->reset();
-        (&field_24, (NoJs5ResourceProvider*)0)->reset();
-        (&field_96, (ConfigProvider*)0)->reset();
+        field_16.reset(nullptr);
+        ((vector<shared_ptr<rseven::Terrain>>*)(*(long*)(field_32 + *(long*)((long)field_0 - 24) + 56) + 17563848))
+            ->clear();
+        ((RT7Core*)field_8.operator->())->DestroyRenderTargets();
+        field_8.reset(nullptr);
+        field_24.reset(nullptr);
+        field_96.reset(nullptr);
     }
 
-    // 0x1001c1f90, 16 bytes, placed by nothing (unplaced)
-    // OSRenderCore_LogicThread::DestroyResources()
+    // 0x1001c1f90
     void OSRenderCore_LogicThread::DestroyResources() {
         ((field_16 + 16))->DestroyResources();
     }
 
-    // 0x1001c1fa0, 576 bytes, placed by nothing (unplaced)
-    // OSRenderCore_RenderThread_RSeven::ApplyRSevenOptions(RenderState::RSevenOptions&)
-    void OSRenderCore_RenderThread_RSeven::ApplyRSevenOptions(RSevenOptions* param_1) {
-        undefined1* puVar1;
+    // 0x1001c1fa0
+    void OSRenderCore_RenderThread_RSeven::ApplyRSevenOptions(RenderState::RSevenOptions& rSevenOptions) {
         int iVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        char cVar8;
-        undefined1 uVar9;
-        RT7Core* pRVar11;
-        EffectManager* this_00;
-        vector* pvVar12;
+        bool arg2;
+        EffectList* pEVar10;
         LightScatteringEffect* this_01;
-        RSevenOptions* pRVar13;
-        ulonglong uVar14;
-        VolumetricScatteringEffect* pVVar15;
-        Layout* this_02;
-        long lVar16;
-        VolumetricScatteringParams* pVVar17;
-        ulong uVar18;
-        type* ptVar19;
-        undefined8 local_98;
-        undefined8 uStack_90;
-        undefined1 local_88;
-        long local_38;
+        SimpleScatteringParams* simpleScatteringParams;
+        unsigned long long uVar11;
+        VolumetricScatteringEffect* pVVar12;
+        VolumetricScatteringParams* pVVar13;
+        long lVar15;
+        EffectType effectType;
+        uint64_t local_98;
+        uint64_t uStack_90;
+        uint8_t local_88;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        pRVar13 = param_1;
-        pRVar11 =
-            (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-        this_00 = (EffectManager*)pRVar11->GetEffectManager();
-        cVar8 = param_1->IsEmitting();
-        if (cVar8 != '\0') {
-            uVar18 = 0;
+        auto pRVar9 = field_8.operator->();
+        auto this_00 = pRVar9->GetEffectManager();
+        if (rSevenOptions.IsEmitting()) {
+            lVar15 = 0;
             do {
-                pvVar12 = param_1->SSOBeginPtr(pRVar13);
-                pRVar13 = (RSevenOptions*)(uVar18 & 255);
-                uVar9 = pvVar12->Contains(pRVar13);
-                this_00->EnableEffect(pRVar13, uVar9);
-                uVar18 = uVar18 + 1;
-            } while (uVar18 != 121);
-            param_1->ResetDirty();
+                pEVar10 = (EffectList*)rSevenOptions.SSOBeginPtr();
+                effectType = (EffectType)lVar15 & 255;
+                arg2 = (bool)pEVar10->Contains(effectType);
+                this_00->EnableEffect(effectType, arg2);
+                lVar15 = lVar15 + 1;
+            } while (lVar15 != 121);
+            rSevenOptions.ResetDirty();
         }
-        puVar1 = &param_1->field_696;
+        uint8_t* puVar1 = &rSevenOptions.field_696;
         if (puVar1->GetResize()) {
-            ptVar19 = (type*)48;
-            this_01 =
-                (LightScatteringEffect*)jag::graphics::EffectManager::GetEffect<jag::graphics::SunlightDirectLighting>(
-                    this_00);
-            pRVar13 = (RSevenOptions*)puVar1->SSOBeginPtr(ptVar19);
-            iVar2 = param_1->field_864;
-            uVar14 = FrameTime::GetCurrentTimeMS();
-            this_01->SetScatteringParams(pRVar13, (long)iVar2, uVar14);
-            new (puVar1) eastl::Internal::optional_storage<jag::math::Matrix44T<float>, true>();
+            this_01 = (LightScatteringEffect*)this_00->GetEffect<jag::graphics::SunlightDirectLighting>(48);
+            simpleScatteringParams = (SimpleScatteringParams*)puVar1->SSOBeginPtr();
+            iVar2 = rSevenOptions.field_864;
+            uVar11 = FrameTime::GetCurrentTimeMS();
+            this_01->SetScatteringParams(*simpleScatteringParams, (long)iVar2, uVar11);
+            new (puVar1) eastl::Internal::optional_storage();
         }
-        puVar1 = &param_1->field_768;
-        cVar8 = puVar1->Ready();
-        if (cVar8 != '\0') {
-            ptVar19 = (type*)50;
-            pVVar15 = (VolumetricScatteringEffect*)
-                jag::graphics::EffectManager::GetEffect<jag::graphics::SunlightDirectLighting>(this_00);
-            pRVar13 = (RSevenOptions*)puVar1->SSOBeginPtr(ptVar19);
-            iVar2 = param_1->field_864;
-            uVar14 = FrameTime::GetCurrentTimeMS();
-            pVVar15->SetParams(pRVar13, (long)iVar2, uVar14);
+        puVar1 = &rSevenOptions.field_768;
+        if (puVar1->Ready()) {
+            pVVar12 = (VolumetricScatteringEffect*)this_00->GetEffect<jag::graphics::SunlightDirectLighting>(50);
+            pVVar13 = (VolumetricScatteringParams*)puVar1->SSOBeginPtr();
+            iVar2 = rSevenOptions.field_864;
+            uVar11 = FrameTime::GetCurrentTimeMS();
+            pVVar12->SetParams(*pVVar13, (long)iVar2, uVar11);
             puVar1->ResetDirty();
         }
-        pvVar12 = this_00->SSOBeginPtr(pRVar13);
-        MutationTracked<jag::graphics::EffectList>::MutationTracked<jag::graphics::EffectList_const&>(
-            (MutationTracked<jag::graphics::EffectList>*)&local_98, (EffectList*)pvVar12);
-        param_1->field_16 = local_88;
-        param_1->field_0 = local_98;
-        param_1->field_8 = uStack_90;
-        pRVar11 =
-            (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-        this_02 = (Layout*)pRVar11->GetSSAOContext();
-        pvVar12 = eastl::string::Layout::SSOBeginPtr(this_02, (type*)pvVar12);
-        uVar3 = param_1->field_656;
-        uVar4 = param_1->field_664;
-        uVar5 = param_1->field_672;
-        uVar6 = param_1->field_680;
-        uVar7 = param_1->field_688;
-        *(undefined8*)pvVar12 = param_1->field_648;
-        *(undefined8*)(pvVar12 + 8) = uVar3;
-        *(undefined8*)(pvVar12 + 16) = uVar4;
-        *(undefined8*)(pvVar12 + 24) = uVar5;
-        *(undefined8*)(pvVar12 + 32) = uVar6;
-        *(undefined8*)(pvVar12 + 40) = uVar7;
-        lVar16 = ((field_32 + *(long*)(field_0 + -24) + -32))->GetRenderStateNXT();
-        jag::graphics::SunlightOptions::operator=((SunlightOptions*)(lVar16 + 19678676),
-                                                  (SunlightOptions*)param_1->field_868);
-        pVVar15 =
-            (VolumetricScatteringEffect*)jag::graphics::EffectManager::GetEffect<jag::graphics::SunlightDirectLighting>(
-                this_00, 50);
-        pVVar17 = (VolumetricScatteringParams*)pVVar15->GetParams();
-        MutationTracked<jag::graphics::VolumetricScatteringParams>::MutationTracked<
-            jag::graphics::VolumetricScatteringParams&>(
-            (MutationTracked<jag::graphics::VolumetricScatteringParams>*)&local_98, pVVar17);
-        MutationTracked<jag::graphics::VolumetricScatteringParams>::operator=(
-            (MutationTracked<jag::graphics::VolumetricScatteringParams>*)puVar1, (MutationTracked*)&local_98);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        pEVar10 = (EffectList*)this_00->SSOBeginPtr();
+        local_98.MutationTracked<jag::graphics::EffectList const&>(*pEVar10);
+        rSevenOptions.field_16 = local_88;
+        rSevenOptions.field_0 = local_98;
+        rSevenOptions.field_8 = uStack_90;
+        pRVar9 = (RT7Core*)field_8.operator->();
+        auto this_02 = pRVar9->GetSSAOContext();
+        auto puVar14 = this_02->SSOBeginPtr();
+        uint64_t uVar3 = rSevenOptions.field_656;
+        uint64_t uVar4 = rSevenOptions.field_664;
+        uint64_t uVar5 = rSevenOptions.field_672;
+        uint64_t uVar6 = rSevenOptions.field_680;
+        uint64_t uVar7 = rSevenOptions.field_688;
+        *puVar14 = rSevenOptions.field_648;
+        puVar14[1] = uVar3;
+        puVar14[2] = uVar4;
+        puVar14[3] = uVar5;
+        puVar14[4] = uVar6;
+        puVar14[5] = uVar7;
+        lVar15 =
+            ((OSRenderCore_RenderThread_Common*)(field_32 + *(long*)((long)field_0 - 24) - 32))->GetRenderStateNXT();
+        (*((lVar15 + 19678676))) = rSevenOptions.field_868;
+        pVVar12 = (VolumetricScatteringEffect*)this_00->GetEffect<jag::graphics::SunlightDirectLighting>(50);
+        pVVar13 = (VolumetricScatteringParams*)pVVar12->GetParams();
+        local_98.MutationTracked<jag::graphics::VolumetricScatteringParams&>(*pVVar13);
+        *puVar1 = local_98;
     }
 
 } // namespace jag::oldscape
 
 namespace jag::postprocess {
-    // 0x100d3fb98, 4 bytes, __const
-    DEF_MIN_BLACK_LUM = 0;
+    // 0x100d3fb98
+    int32_t DEF_MIN_BLACK_LUM = 0;
 
-    // 0x100d3fb9c, 4 bytes, __const
+    // 0x100d3fb9c
     float DEF_MAX_WHITE_LUM = 5.25f;
 
-    // 0x100d3fba0, 4 bytes, __const
+    // 0x100d3fba0
     float DEF_EXPOSURE_KEY = 2.75f;
 
-    // 0x100d3fba4, 4 bytes, __const
-    DEF_MIN_AUTO_EXPOSURE = 0;
+    // 0x100d3fba4
+    int32_t DEF_MIN_AUTO_EXPOSURE = 0;
 
-    // 0x100d3fba8, 4 bytes, __const
+    // 0x100d3fba8
     float DEF_MAX_AUTO_EXPOSURE = 5.0f;
 
-    // 0x100d3fbac, 68 bytes, __const
-    DEF_EXPOSURE_SPEED_MUL = {
+    // 0x100d3fbac
+    int32_t DEF_EXPOSURE_SPEED_MUL[17] = {
         1056964608, -1140850688, 0, 1431655765, 1070945621, 1431655766, -1075489451, 1431655765, -1076538027,
         1431655766, 1071994197,  0, 1074266112, 2147483647, 0,          0,           0,
     };
@@ -943,137 +772,112 @@ namespace jag::postprocess {
 } // namespace jag::postprocess
 
 namespace jag {
-    // 0x1001dcf50, 160 bytes, inline, placed by nothing (unplaced)
-    // shared_ptr_if_not_array<Array<graphics::LabelData, eastl::allocator> >::type make_shared<Array<graphics::LabelData, eastl::allocator>, unsigned long>(unsigned long&&)
-    jag* make_shared<Array<graphics::LabelData, eastl::allocator>, unsigned long>(ulong* param_1) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x1001dcf50
+    shared_ptr_if_not_array<Array<graphics::LabelData>>::type
+    make_shared<Array<graphics::LabelData>, unsigned long>(unsigned long&& arg1) {
+        ref_counter_shared<Array<graphics::LabelData> _>* ref_counter_shared;
         int local_34;
-        Array* local_30[2];
+        Array<graphics::LabelData>* local_30[2];
 
-        pvVar1 = (void*)aligned_alloc(56, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(56, 8);
+        if (arg1_00 == nullptr) {
+            shared_ptr_if_not_array<Array<graphics::LabelData>>::type result;
         } else {
-            local_30[0] = placement_new<Array<graphics::LabelData, eastl::allocator>, unsigned long>(
-                (void*)((long)pvVar1 + 32), param_1);
+            local_30[0] = placement_new<Array<graphics::LabelData>, unsigned long>((void*)((long)arg1_00 + 32), arg1);
             local_34 = 1;
-            prVar2 = placement_new<ref_counter_shared<Array<graphics::LabelData, eastl::allocator>>, int,
-                                   Array<graphics::LabelData, eastl::allocator>*&>(pvVar1, &local_34, local_30);
-            prVar2->~AutoSingleton(local_30[0]);
-            prVar2->~AutoSingleton(local_30[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_30[0]);
+            ref_counter_shared =
+                placement_new<ref_counter_shared<Array<graphics::LabelData>>, int, Array<graphics::LabelData>*&>(
+                    arg1_00, &local_34, local_30);
+            ref_counter_shared->~AutoSingleton();
+            ref_counter_shared->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(ref_counter_shared, (unsigned long)local_30[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x1001f3220, 32 bytes, inline, placed by nothing (unplaced)
-    // oldscape::dash3d::PoseStateProviderRSeven* placement_new<oldscape::dash3d::PoseStateProviderRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(void*, shared_ptr<oldscape::dash3d::PoseStateRSeven>&)
-    /* oldscape::dash3d::PoseStateProviderRSeven*
-   placement_new<oldscape::dash3d::PoseStateProviderRSeven,
-   shared_ptr<oldscape::dash3d::PoseStateRSeven> const&>(void*,
-   shared_ptr<oldscape::dash3d::PoseStateRSeven> const&) */
-
-    PoseStateProviderRSeven*
-    jag::placement_new<oldscape::dash3d::PoseStateProviderRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven> const&>(
-        void* param_1, shared_ptr* param_2) {
-        oldscape::dash3d::PoseStateProviderRSeven::PoseStateProviderRSeven(param_1, param_2);
-        return param_1;
+    // 0x1001f3220
+    oldscape::dash3d::PoseStateProviderRSeven*
+    placement_new<oldscape::dash3d::PoseStateProviderRSeven, shared_ptr<oldscape::dash3d::PoseStateRSeven>&>(
+        void* arg1, shared_ptr<oldscape::dash3d::PoseStateRSeven>& poseStateRSeven) {
+        new (arg1) oldscape::dash3d::PoseStateProviderRSeven(poseStateRSeven);
+        return arg1;
     }
 
-    // 0x1001f3240, 32 bytes, inline, placed by nothing (unplaced)
-    // ref_counter_shared<oldscape::dash3d::PoseStateProviderRSeven>* placement_new<ref_counter_shared<oldscape::dash3d::PoseStateProviderRSeven>, int, oldscape::dash3d::PoseStateProviderRSeven*&>(void*, int&&, oldscape::dash3d::PoseStateProviderRSeven*&)
-    ref_counter_shared*
-    jag::placement_new<ref_counter_shared<oldscape::dash3d::PoseStateProviderRSeven>, int,
-                       oldscape::dash3d::PoseStateProviderRSeven*&>(void* param_1, int* param_2,
-                                                                    PoseStateProviderRSeven** param_3) {
-        ref_counter_shared<oldscape::dash3d::PoseStateProviderRSeven>::ref_counter_shared(param_1, (long)*param_2,
-                                                                                          *param_3);
-        return param_1;
+    // 0x1001f3240
+    ref_counter_shared<oldscape::dash3d::PoseStateProviderRSeven>*
+    placement_new<ref_counter_shared<oldscape::dash3d::PoseStateProviderRSeven>, int,
+                  oldscape::dash3d::PoseStateProviderRSeven*&>(void* arg1, int&& arg2,
+                                                               oldscape::dash3d::PoseStateProviderRSeven*& arg3) {
+        new (arg1) ref_counter_shared<oldscape::dash3d::PoseStateProviderRSeven>((long)*arg2, arg3);
+        return arg1;
     }
 
 } // namespace jag
 
 namespace jag::graphics {
-    // 0x103c056d0, 64 bytes, __bss; zero-initialised
-    MAYA_ANIM_INVERT_MATRIX;
+    // 0x103c056d0
+    uint8_t MAYA_ANIM_INVERT_MATRIX[64];
 
-    // 0x103c05710, 16 bytes, __bss; zero-initialised
-    WORLD_ORTHOGONAL;
+    // 0x103c05710
+    uint8_t WORLD_ORTHOGONAL[16];
 
 } // namespace jag::graphics
 
 namespace jag::game {
-    // 0x1001d2ba0: the linker folded this into eastl::pair<long long const, oldscape::dash3d::RSevenModelLitRenderer::ActiveModel>::~pair(), which has identical code
-    MapSquareEnvIrradianceInfo::~MapSquareEnvIrradianceInfo();
+    // 0x1001d2ba0: MapSquareEnvIrradianceInfo::~MapSquareEnvIrradianceInfo() has the same machine code as eastl::pair<long long const, oldscape::dash3d::RSevenModelLitRenderer::ActiveModel>::~pair()
 
-    // 0x1001d2bb0: the linker folded this into eastl::pair<long long const, oldscape::dash3d::RSevenModelLitRenderer::ActiveModel>::~pair(), which has identical code
-    MapSquareEnvIrradianceInfo::~MapSquareEnvIrradianceInfo();
+    // 0x1001d2bb0: MapSquareEnvIrradianceInfo::~MapSquareEnvIrradianceInfo() has the same machine code as eastl::pair<long long const, oldscape::dash3d::RSevenModelLitRenderer::ActiveModel>::~pair()
 
 } // namespace jag::game
 
 namespace jag::oldscape::rseven {
-    // 0x1001dd070, 368 bytes, placed by nothing (unplaced)
-    // CalculateLabelCentre(dash3d::ModelUnlitImpl&, Array<int, eastl::allocator> const&)
-    undefined8 CalculateLabelCentre(ModelUnlitImpl* param_1, Array* param_2) {
-        int* piVar1;
-        int* piVar2;
+    // 0x1001dd070
+    void CalculateLabelCentre(dash3d::ModelUnlitImpl& modelUnlitImpl, const Array<int>& arg2) {
         int* piVar3;
-        ulong uVar4;
+        unsigned long uVar4;
         float in_XMM1_Da;
-        undefined8 local_68;
-        undefined4 local_60;
         ColourHSL local_58;
-        undefined1 local_48[20];
+        uint8_t local_48[20];
         float local_34;
 
-        local_60 = *(undefined4*)(PTR_ZERO_100ee66e8 + 8);
-        local_68 = *(undefined8*)PTR_ZERO_100ee66e8;
-        piVar1 = (int*)param_2->data();
-        piVar2 = (int*)param_2->end();
+        uint32_t local_60 = *(uint32_t*)(PTR_ZERO_100ee66e8 + 8);
+        uint64_t local_68 = *(uint64_t*)PTR_ZERO_100ee66e8;
+        auto piVar1 = arg2.data();
+        auto piVar2 = arg2.end();
         if (piVar1 != piVar2) {
             do {
-                uVar4 = (ulong)*piVar1;
-                piVar3 = (int*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&param_1->field_24, uVar4);
+                uVar4 = (unsigned long)*piVar1;
+                piVar3 = &modelUnlitImpl.field_24[uVar4];
                 local_48._16_4_ = (BADTYPE)*piVar3;
-                piVar3 = (int*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&param_1->field_48, uVar4);
+                piVar3 = &modelUnlitImpl.field_48[uVar4];
                 local_34 = (float)*piVar3;
-                piVar3 = (int*)Array<int, eastl::allocator>::operator[](
-                    (Array<int, eastl::allocator>*)&param_1->field_72, uVar4);
+                piVar3 = &modelUnlitImpl.field_72[uVar4];
                 in_XMM1_Da = local_34;
-                new (&local_58) jag::math::ColourHSL((float)local_48._16_4_, local_34, (float)*piVar3);
-                jag::math::Vector3T<float>::operator+=((Vector3T<float>*)&local_68, (Vector3T*)&local_58);
+                local_58 = jag::math::ColourHSL((float)local_48._16_4_, local_34, (float)*piVar3);
+                local_68 += local_58;
                 piVar1 = piVar1 + 1;
             } while (piVar1 != piVar2);
         }
         new (local_48) jag::graphics::LabelData();
-        local_48._12_4_ = param_2->end();
+        local_48._12_4_ = arg2.end();
         if (0 < (int)local_48._12_4_) {
-            uVar4 = param_2->end();
-            local_58._0_8_ = jag::math::operator/((Vector3T*)&local_68, (float)uVar4);
+            uVar4 = arg2.end();
+            local_58._0_8_ = local_68 / (*((float)uVar4));
             local_58.field_8 = in_XMM1_Da;
-            local_48->SetXYZ((Vector3T*)&local_58);
+            local_48->SetXYZ(local_58);
         }
-        return CONCAT44(local_48._12_4_, local_48._8_4_);
+        return (((uint64_t)local_48._12_4_ << 32) | (uint32_t)local_48._8_4_);
     }
 
 } // namespace jag::oldscape::rseven
 
 namespace jag::math {
-    // 0x1001df1d0, 48 bytes, inline, placed by nothing (unplaced)
-    // Vector3T<float> Vector3Normalize<float>(Vector3T<float> const&)
-    undefined8 Vector3Normalize<float>(Vector3T* param_1) {
-        undefined8* puVar1;
-        undefined8 local_18;
-        undefined4 local_10;
-
-        local_10 = *(undefined4*)(param_1 + 8);
-        local_18 = *(undefined8*)param_1;
-        puVar1 = (undefined8*)local_18.Normalize();
-        return *puVar1;
+    // 0x1001df1d0
+    Vector3T<float> Vector3Normalize<float>(const Vector3T<float>& vector3) {
+        uint32_t local_10 = *(uint32_t*)(vector3 + 8);
+        ReturnValue local_18 = *(ReturnValue*)vector3;
+        ReturnValue* pRVar1 = local_18 = Vector3T<float>::Normalize();
+        return *pRVar1;
     }
 
 } // namespace jag::math

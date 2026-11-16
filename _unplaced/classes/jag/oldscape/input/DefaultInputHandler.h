@@ -1,6 +1,5 @@
 // _unplaced/classes/jag/oldscape/input/DefaultInputHandler.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,20 +7,20 @@ namespace jag::oldscape::input {
     class DefaultInputHandler {
     public:
         // virtual methods in vtable order
-        virtual KeyPressed(int, unsigned long long);
-        virtual ResetState();
-        KeyReleased(int, unsigned long long);
-        PointerDrag(int, int, int, unsigned long long);
-        WheelScroll(int, unsigned long long);
-        PointerPress(int, int, int, int, unsigned long long);
-        PointerCancel(int, int, unsigned long long);
-        PointerRelease(int, int, int, int, unsigned long long);
-        OnLowLevelMouseDown(int, int, int, int);
-        TextCommandReceived(int, unsigned long long);
-        KeyboardInputFocusChange(int, unsigned long long);
-        KeyTyped(char16_t, unsigned long long);
-        KeyRepeat(int, unsigned long long);
-        MouseMove(int, int, unsigned long long);
+        virtual uint8_t KeyPressed(int arg1, unsigned long long arg2);
+        virtual void ResetState();
+        uint8_t KeyReleased(int arg1, unsigned long long arg2);
+        uint8_t PointerDrag(int arg1, int arg2, int arg3, unsigned long long arg4);
+        uint8_t WheelScroll(int arg1, unsigned long long arg2);
+        uint8_t PointerPress(int arg1, int arg2, int arg3, int arg4, unsigned long long arg5);
+        uint8_t PointerCancel(int arg1, int arg2, unsigned long long arg3);
+        uint8_t PointerRelease(int arg1, int arg2, int arg3, int arg4, unsigned long long arg5);
+        uint8_t OnLowLevelMouseDown(int arg1, int arg2, int arg3, int arg4);
+        uint8_t TextCommandReceived(int arg1, unsigned long long arg2);
+        uint8_t KeyboardInputFocusChange(int arg1, unsigned long long arg2);
+        uint8_t KeyTyped(char16_t arg1, unsigned long long arg2);
+        uint8_t KeyRepeat(int arg1, unsigned long long arg2);
+        uint8_t MouseMove(int arg1, int arg2, unsigned long long arg3);
     };
 
 } // namespace jag::oldscape::input

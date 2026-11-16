@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/objtype/ObjAppearanceData.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -8,110 +7,82 @@
 namespace jag::game {
     class ObjAppearanceData {
     public:
-        SetWearModel1(int);
-        SetWearModel2(int);
-        GetWearModel3() const;
-        SetWearModel3(int);
-        SetHeadModel2(int);
-        SetHeadModel1(int);
+        void SetWearModel1(int arg1);
+        void SetWearModel2(int arg1);
+        EnumOptionToggle GetWearModel3() const;
+        void SetWearModel3(int arg1);
+        void SetHeadModel2(int arg1);
+        void SetHeadModel1(int arg1);
         int GetHeadModel2() const;
-        uint GetWearModel2() const;
-        uint GetWearModel1() const;
-        int GetHeadModel1() const;
-        GetOffset() const;
-        bool operator==(ObjAppearanceData const&) const;
+        unsigned int GetWearModel2() const;
+        unsigned int GetWearModel1() const;
+        uint32_t GetHeadModel1() const;
+        uint8_t* GetOffset() const;
+        bool operator==(const ObjAppearanceData& objAppearanceData) const;
         ObjAppearanceData();
-        ObjAppearanceData* operator=(ObjAppearanceData const&);
+        ObjAppearanceData* operator=(const ObjAppearanceData& objAppearanceData);
 
-        // data members, from how the methods use this: 28 bytes
-        uint m_wearModel1;       // offset 0
-        uint m_wearModel2;       // offset 4
-        undefined4 m_wearModel3; // offset 8
-        int m_headModel1;        // offset 12
-        int m_headModel2;        // offset 16
-        char _unknown_20[8];
+    private:
+        unsigned int m_wearModel1;
+        unsigned int m_wearModel2;
+        uint32_t m_wearModel3;
+        int m_headModel1;
+        int m_headModel2;
+        uint8_t _unknown_20[8];
     };
 
-    // 0x10000c2f0: the linker folded this into math::Rect<int>::SetX(int), which has identical code
-    ObjAppearanceData::SetWearModel1(int);
+    // 0x10000c2f0: ObjAppearanceData::SetWearModel1(int) has the same machine code as math::Rect<int>::SetX(int)
 
-    // 0x10000c300: the linker folded this into math::Rect<int>::SetY(int), which has identical code
-    ObjAppearanceData::SetWearModel2(int);
+    // 0x10000c300: ObjAppearanceData::SetWearModel2(int) has the same machine code as math::Rect<int>::SetY(int)
 
-    // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    ObjAppearanceData::GetWearModel3() const;
+    // 0x100024170: ObjAppearanceData::GetWearModel3() const has the same machine code as oldscape::option::IScriptOption::GetId() const
 
-    // 0x10005fd90: the linker folded this into oldscape::widgets::Widget::SetBackgroundColour(unsigned int), which has identical code
-    ObjAppearanceData::SetWearModel3(int);
+    // 0x10005fd90: ObjAppearanceData::SetWearModel3(int) has the same machine code as oldscape::widgets::Widget::SetBackgroundColour(unsigned int)
 
-    // 0x10005fe40: the linker folded this into oldscape::widgets::Widget::SetTextColour(unsigned int), which has identical code
-    ObjAppearanceData::SetHeadModel2(int);
+    // 0x10005fe40: ObjAppearanceData::SetHeadModel2(int) has the same machine code as oldscape::widgets::Widget::SetTextColour(unsigned int)
 
-    // 0x10005fe50: the linker folded this into oldscape::widgets::Widget::SetBorderColour(unsigned int), which has identical code
-    ObjAppearanceData::SetHeadModel1(int);
+    // 0x10005fe50: ObjAppearanceData::SetHeadModel1(int) has the same machine code as oldscape::widgets::Widget::SetBorderColour(unsigned int)
 
-    // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    int ObjAppearanceData::GetHeadModel2() const;
+    // 0x100066b70: ObjAppearanceData::GetHeadModel2() const has the same machine code as oldscape::widgets::Widget::GetTextColour() const
 
-    // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    uint ObjAppearanceData::GetWearModel2() const;
+    // 0x100073980: ObjAppearanceData::GetWearModel2() const has the same machine code as math::Rect<int>::MinY() const
 
-    // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    uint ObjAppearanceData::GetWearModel1() const;
+    // 0x1000b9960: ObjAppearanceData::GetWearModel1() const has the same machine code as oldscape::ScriptVarType::GetID() const
 
-    // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    int ObjAppearanceData::GetHeadModel1() const;
+    // 0x1000e5d50, the same machine code as oldscape::rs2lib::CoordZoneSource::GetRotation() const
+    uint32_t ObjAppearanceData::GetHeadModel1() const {
+        return m_wearModel3;
+    }
 
-    // 0x10042e380: the linker folded this into ChangeLocationRequest::GetLocData() const, which has identical code
-    ObjAppearanceData::GetOffset() const;
+    // 0x10042e380: ObjAppearanceData::GetOffset() const has the same machine code as ChangeLocationRequest::GetLocData() const
 
-    // 0x1004992c0, 64 bytes, inline, placed by class name and debug map
-    // ObjAppearanceData::operator==(ObjAppearanceData const&) const
-    /* ObjAppearanceData::TEMPNAMEPLACEHOLDERVALUE(ObjAppearanceData const&) const
-    */
-
-    bool ObjAppearanceData::operator==(ObjAppearanceData* param_1) {
-        if ((((m_wearModel1 == param_1->m_wearModel1) && (m_wearModel2 == param_1->m_wearModel2)) &&
-             (m_wearModel3 == param_1->m_wearModel3)) &&
-            ((m_headModel1 == param_1->m_headModel1 && (m_headModel2 == param_1->m_headModel2)))) {
-            return math::operator==((Vector3T*)&field_20, (Vector3T*)&param_1->field_20);
+    // 0x1004992c0
+    bool ObjAppearanceData::operator==(const ObjAppearanceData& objAppearanceData) const {
+        if ((((m_wearModel1 == objAppearanceData.m_wearModel1) && (m_wearModel2 == objAppearanceData.m_wearModel2)) &&
+             (m_wearModel3 == objAppearanceData.m_wearModel3)) &&
+            ((m_headModel1 == objAppearanceData.m_headModel1 && (m_headModel2 == objAppearanceData.m_headModel2)))) {
+            return field_20 == objAppearanceData.field_20;
         }
         return false;
     }
 
-    // 0x100506160, 16 bytes, complete-object constructor, inline, placed by class name
-    // ObjAppearanceData::ObjAppearanceData(): jumps straight to the base-object constructor
-
-    // 0x100509850, 48 bytes, inline, placed by class name
-    // ObjAppearanceData::operator=(ObjAppearanceData const&)
-    /* ObjAppearanceData::TEMPNAMEPLACEHOLDERVALUE(ObjAppearanceData const&) */
-
-    ObjAppearanceData* ObjAppearanceData::operator=(ObjAppearanceData* param_1) {
-        uint uVar1;
-        undefined4 uVar2;
-        int iVar3;
-
-        m_headModel2 = param_1->m_headModel2;
-        uVar1 = param_1->m_wearModel2;
-        uVar2 = param_1->m_wearModel3;
-        iVar3 = param_1->m_headModel1;
-        m_wearModel1 = param_1->m_wearModel1;
+    // 0x100509850
+    ObjAppearanceData* ObjAppearanceData::operator=(const ObjAppearanceData& objAppearanceData) {
+        m_headModel2 = objAppearanceData.m_headModel2;
+        unsigned int uVar1 = objAppearanceData.m_wearModel2;
+        uint32_t uVar2 = objAppearanceData.m_wearModel3;
+        int iVar3 = objAppearanceData.m_headModel1;
+        m_wearModel1 = objAppearanceData.m_wearModel1;
         m_wearModel2 = uVar1;
         m_wearModel3 = uVar2;
         m_headModel1 = iVar3;
-        (&field_20, (Vector3T*)&param_1->field_20)->SetXYZ();
+        field_20.SetXYZ(objAppearanceData.field_20);
         return this;
     }
 
-    // 0x10050ae90, 48 bytes, base-object constructor, inline, placed by class name
-    // ObjAppearanceData::ObjAppearanceData()
-    void ObjAppearanceData::ObjAppearanceData() {
-        m_wearModel1 = 4294967295;
-        m_wearModel2 = 4294967295;
-        m_wearModel3 = 4294967295;
-        m_headModel1 = -1;
-        m_headModel2 = -1;
-        new (&field_20) math::Vector3T<int>();
-    }
+    // 0x10050ae90
+    ObjAppearanceData::ObjAppearanceData()
+        : m_wearModel1(4294967295), m_wearModel2(4294967295), m_wearModel3(4294967295), m_headModel1(-1),
+          m_headModel2(-1) {}
 
 } // namespace jag::game

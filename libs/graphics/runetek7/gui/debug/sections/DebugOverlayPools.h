@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/gui/debug/sections/DebugOverlayPools.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics
@@ -10,481 +9,324 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~DebugOverlayPools();
-        virtual void Draw(unsigned long long, int, int);
-        virtual ulong Update(unsigned long long);
-        virtual void RegisterTweakyVars(tweak::Container&);
-        DebugOverlayPools(DebugOverlay&, bool);
-        void DrawPoolInfo(graphics::FontHelpers&, graphics::Font&, int, int&);
-        void UpdatePoolHistory(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>&);
-        void
-        UpdatePoolTotal(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator> const&,
-                        shareduniquedebug::SharedPoolInfo&);
-        void
-        DrawSharedUniquePoolInfo(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>&,
-                                 graphics::FontHelpers&, graphics::Font&, int, int&);
-        void DrawPoolInfoSub(shareduniquedebug::SharedPoolInfo const&, graphics::FontHelpers&, graphics::Font&, int,
-                             int&);
+        virtual void Draw(unsigned long long arg1, int arg2, int arg3);
+        virtual unsigned long Update(unsigned long long arg1);
+        virtual void RegisterTweakyVars(tweak::Container& container);
+        DebugOverlayPools(DebugOverlay& debugOverlay, bool arg2);
+        void DrawPoolInfo(graphics::FontHelpers& fontHelpers, graphics::Font& font, int arg3, int& arg4);
+        void UpdatePoolHistory(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul>& sharedPoolInfos);
+        void UpdatePoolTotal(const eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul>& sharedPoolInfos,
+                             shareduniquedebug::SharedPoolInfo& sharedPoolInfo);
+        void DrawSharedUniquePoolInfo(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul>& sharedPoolInfos,
+                                      graphics::FontHelpers& fontHelpers, graphics::Font& font, int arg4, int& arg5);
+        void DrawPoolInfoSub(const shareduniquedebug::SharedPoolInfo& sharedPoolInfo,
+                             graphics::FontHelpers& fontHelpers, graphics::Font& font, int arg4, int& arg5);
 
-        // data members, from how the methods use this: 320 bytes
-        undefined** field_0;   // offset 0, vtable pointer
-        DebugOverlay* field_8; // offset 8
-        undefined8 field_16;   // offset 16
-        char _unknown_24[80];
-        undefined4 field_104; // offset 104
-        int field_108;        // offset 108
-        uint field_112;       // offset 112
-        char _unknown_116[4];
-        bool field_120;       // offset 120
-        undefined1 field_121; // offset 121
-        char _unknown_122[2];
-        undefined4 field_124; // offset 124
-        undefined4 field_128; // offset 128
-        char _unknown_132[164];
-        ulonglong field_296; // offset 296
-        ulonglong field_304; // offset 304
-        ulonglong field_312; // offset 312
+    private:
+        DebugOverlay* field_8;
+        uint64_t field_16;
+        uint8_t _unknown_24[80];
+        uint32_t field_104;
+        int field_108;
+        unsigned int field_112;
+        uint8_t _unknown_116[4];
+        bool field_120;
+        uint8_t field_121;
+        uint8_t _unknown_122[2];
+        SectionType field_124;
+        uint32_t field_128;
+        uint8_t _unknown_132[164];
+        unsigned long long field_296;
+        unsigned long long field_304;
+        unsigned long long field_312;
     };
 
-    // 0x1008a7c20, 112 bytes, base-object constructor, placed by class name
-    // DebugOverlayPools::DebugOverlayPools(DebugOverlay&, bool)
-    void DebugOverlayPools::DebugOverlayPools(DebugOverlay* param_1, bool param_2) {
-        undefined7 in_register_00000011;
-        allocator local_20[8];
+    // 0x1008a7c20
+    DebugOverlayPools::DebugOverlayPools(DebugOverlay& debugOverlay, bool arg2)
+        : DebugOverlaySection(debugOverlay, 13, arg2), field_128(250) {
 
-        new (this) DebugOverlaySection(param_1, 13, CONCAT71(in_register_00000011, param_2) & 4294967295);
-        field_0 = &PTR__DebugOverlayPools_100f181c8;
-        field_128 = 250;
-        eastl::allocator::allocator(local_20, "EASTL map");
-        eastl::map<eastl::string, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>,
-                   eastl::less<eastl::string>, eastl::allocator>::map((allocator*)&field_136);
+        new (&field_136) eastl::map(local_20);
     }
 
-    // 0x1008a7c90, 16 bytes, complete-object constructor, placed by class name
-    // DebugOverlayPools::DebugOverlayPools(DebugOverlay&, bool): jumps straight to the base-object constructor
-
-    // 0x1008a7ca0, 704 bytes, placed by class name
-    // DebugOverlayPools::Draw(unsigned long long, int, int)
-    void DebugOverlayPools::Draw(ulonglong param_1, int param_2, int param_3) {
-        Font* pFVar1;
-        FontHelpers* pFVar2;
-        char* pcVar3;
-        char* pcVar4;
-        char* pcVar5;
-        int local_434;
-        fixed_string<char, 512, true, eastl::allocator> local_430[552];
-        fixed_string<char, 16, true, eastl::allocator> local_208[56];
-        fixed_string<char, 16, true, eastl::allocator> local_1d0[56];
-        fixed_string<char, 16, true, eastl::allocator> local_198[56];
-        fixed_string<char, 256, true, eastl::allocator> local_160[296];
-        undefined8 local_38;
-
-        local_38 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        pFVar1 = (Font*)field_8->GetFont();
-        local_434 = param_3;
-        pFVar2 = (FontHelpers*)field_8->data();
-        DrawPoolInfo(this, pFVar2, pFVar1, param_2, &local_434);
-        field_108 = local_434 - param_3;
+    // 0x1008a7ca0
+    void DebugOverlayPools::Draw(unsigned long long arg1, int arg2, int arg3) {
+        auto font = field_8->GetFont();
+        auto fontHelpers = field_8->data();
+        DrawPoolInfo(*fontHelpers, *font, arg2, arg3);
+        field_108 = arg3 - arg3;
         field_104 = field_128;
-        eastl::fixed_string<char, 256, true, eastl::allocator>::fixed_string(local_160);
-        eastl::fixed_string<char, 16, true, eastl::allocator>::fixed_string(local_198);
-        eastl::fixed_string<char, 16, true, eastl::allocator>::fixed_string(local_1d0);
-        eastl::fixed_string<char, 16, true, eastl::allocator>::fixed_string(local_208);
-        pcVar3 =
-            DataSizeString<eastl::fixed_string<char, 16, true, eastl::allocator>>((fixed_string*)local_198, field_296);
-        pcVar4 =
-            DataSizeString<eastl::fixed_string<char, 16, true, eastl::allocator>>((fixed_string*)local_1d0, field_304);
-        pcVar5 =
-            DataSizeString<eastl::fixed_string<char, 16, true, eastl::allocator>>((fixed_string*)local_208, field_312);
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            (char*)local_160, "Shared Pool Usage: %s / %s (%s initial)", pcVar3, pcVar4, pcVar5);
-        pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(local_430, pcVar3);
-        (*(code*)field_0[7])(this, local_430, param_2, param_3, 4294967295, 255, 2);
-        /* WARNING: Subroutine does not return */
-        local_430->~fixed_string();
+        fixed_string<char, 256> local_160;
+        fixed_string<char, 16> local_198;
+        fixed_string<char, 16> local_1d0;
+        fixed_string<char, 16> local_208;
+        auto pcVar1 = DataSizeString<eastl::fixed_string<char, 16>>(&local_198, field_296);
+        auto pcVar2 = DataSizeString<eastl::fixed_string<char, 16>>(&local_1d0, field_304);
+        auto pcVar3 = DataSizeString<eastl::fixed_string<char, 16>>(&local_208, field_312);
+        local_160.sprintf("Shared Pool Usage: %s / %s (%s initial)", pcVar1, pcVar2, pcVar3);
+        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        fixed_string<char, 512> local_430(pcVar1);
+        DrawTextString((int)&local_430, arg2, arg3, -1, 255);
     }
 
-    // 0x1008a7f70, 320 bytes, placed by class name
-    // DebugOverlayPools::DrawPoolInfo(graphics::FontHelpers&, graphics::Font&, int, int&)
-    void DebugOverlayPools::DrawPoolInfo(FontHelpers* param_1, Font* param_2, int param_3, int* param_4) {
-        DebugOverlayPools* pDVar1;
-        fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator> local_38a0[14440];
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>::fixed_vector(local_38a0);
-        shareduniquedebug::GetSharedPoolList((fixed_vector*)local_38a0);
+    // 0x1008a7f70
+    void DebugOverlayPools::DrawPoolInfo(graphics::FontHelpers& fontHelpers, graphics::Font& font, int arg3,
+                                         int& arg4) {
+        fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul> local_38a0;
+        shareduniquedebug::GetSharedPoolList(local_38a0);
+        DebugOverlayPools* pDVar1 = this;
+        UpdatePoolHistory(local_38a0);
+        UpdatePoolTotal(pDVar1, &local_38a0, (SharedPoolInfo*)&field_256);
+        DrawSharedUniquePoolInfo(local_38a0, fontHelpers, font, arg3, arg4);
+        arg4 = arg4 + field_112;
+        local_38a0.clear();
+        shareduniquedebug::GetUniquePoolList(local_38a0);
         pDVar1 = this;
-        UpdatePoolHistory(this, (fixed_vector*)local_38a0);
-        UpdatePoolTotal(pDVar1, (fixed_vector*)local_38a0, (SharedPoolInfo*)&field_256);
-        DrawSharedUniquePoolInfo(this, (fixed_vector*)local_38a0, param_1, param_2, param_3, param_4);
-        *param_4 = *param_4 + field_112;
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        shareduniquedebug::GetUniquePoolList((fixed_vector*)local_38a0);
-        pDVar1 = this;
-        UpdatePoolHistory(this, (fixed_vector*)local_38a0);
-        UpdatePoolTotal(pDVar1, (fixed_vector*)local_38a0, (SharedPoolInfo*)&field_184);
-        DrawSharedUniquePoolInfo(this, (fixed_vector*)local_38a0, param_1, param_2, param_3, param_4);
-        *param_4 = *param_4 + field_112;
-        eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>::~fixed_vector(
-            local_38a0);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        UpdatePoolHistory(local_38a0);
+        UpdatePoolTotal(pDVar1, &local_38a0, (SharedPoolInfo*)&field_184);
+        DrawSharedUniquePoolInfo(local_38a0, fontHelpers, font, arg3, arg4);
+        arg4 = arg4 + field_112;
     }
 
-    // 0x1008a80b0, 192 bytes, placed by class name
-    // DebugOverlayPools::Update(unsigned long long)
-    ulong DebugOverlayPools::Update(ulonglong param_1) {
-        bool bVar1;
-        undefined8 unaff_R14;
-        fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator> local_3890[14440];
-        long local_28;
+    // 0x1008a80b0
+    unsigned long DebugOverlayPools::Update(unsigned long long arg1) {
+        fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul> local_3890;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        bVar1 = field_120;
+        bool bVar1 = field_120;
         if (bVar1 == false) {
-            eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>::fixed_vector(
-                local_3890);
-            shareduniquedebug::GetSharedPoolList((fixed_vector*)local_3890);
-            UpdatePoolHistory(this, (fixed_vector*)local_3890);
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-            shareduniquedebug::GetUniquePoolList((fixed_vector*)local_3890);
-            UpdatePoolHistory(this, (fixed_vector*)local_3890);
-            eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>::~fixed_vector(
-                local_3890);
+            local_3890 = eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul>();
+            shareduniquedebug::GetSharedPoolList(local_3890);
+            UpdatePoolHistory(local_3890);
+            local_3890.clear();
+            shareduniquedebug::GetUniquePoolList(local_3890);
+            UpdatePoolHistory(local_3890);
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return CONCAT71((int7)((ulong)unaff_R14 >> 8), bVar1) & 4294967295;
+        return bVar1 & 4294967295;
     }
 
-    // 0x1008a8180, 240 bytes, placed by class name
-    // DebugOverlayPools::UpdatePoolHistory(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>&)
-    void DebugOverlayPools::UpdatePoolHistory(fixed_vector* param_1) {
+    // 0x1008a8180
+    void DebugOverlayPools::UpdatePoolHistory(
+        eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul>& sharedPoolInfos) {
+        long lVar3;
         TimedGraph* this_00;
-        ulonglong uVar1;
-        long lVar2;
-        bool bVar3;
-        hashtable_iterator_base* extraout_RDX;
-        int* piVar4;
-        rbtree_iterator<
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>
-            local_48[8];
-        hashtable_iterator_base local_40[8];
-        int* local_38;
+        unsigned long long uVar4;
+        ReturnValue local_48;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_40;
 
-        piVar4 = (int*)param_1->HeapBeginPtr();
-        local_38 = (int*)param_1->end();
-        if (piVar4 != local_38) {
+        auto piVar2 = sharedPoolInfos.HeapBeginPtr();
+        auto local_38 = sharedPoolInfos.end();
+        if (piVar2 != local_38) {
             do {
-                if (*(long*)(piVar4 + 2) != 0) {
-                    eastl::rbtree<char const*, eastl::pair<char const* const, TimedGraph>, eastl::less<char const*>,
-                                  eastl::allocator, eastl::use_first<eastl::pair<char const* const, TimedGraph>>, true,
-                                  true>::find((char**)local_48);
-                    eastl::rbtree<
-                        unsigned int,
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::less<unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                        true, true>::end();
-                    bVar3 = eastl::operator==((eastl*)local_48, local_40, extraout_RDX);
-                    if (bVar3) {
-                        this_00 = (TimedGraph*)
-                            eastl::map<char const*, TimedGraph, eastl::less<char const*>, eastl::allocator>::operator[](
-                                (map<char const*, TimedGraph, eastl::less<char const*>, eastl::allocator>*)&field_136,
-                                (char**)(piVar4 + 16));
-                        uVar1 = FrameTime::GetCurrentTimeMS();
-                        this_00->RecordValue(uVar1, *piVar4);
-                        this_00->SetMaximum(piVar4[2]);
+                if (*(long*)(piVar2 + 2) != 0) {
+                    local_48 = field_136.find(*((piVar2 + 16)));
+                    local_40.end();
+                    if (local_48 == local_40 == '\0') {
+                        lVar3 = *local_48;
+                        uVar4 = FrameTime::GetCurrentTimeMS();
+                        ((lVar3 + 8))->RecordValue(uVar4, *piVar2);
                     } else {
-                        lVar2 = eastl::rbtree_iterator<
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                            eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe,
-                                                                          eastl::allocator>>&>::operator*(local_48);
-                        uVar1 = FrameTime::GetCurrentTimeMS();
-                        ((lVar2 + 8))->RecordValue(uVar1, *piVar4);
+                        this_00 = &field_136[*((piVar2 + 16))];
+                        uVar4 = FrameTime::GetCurrentTimeMS();
+                        this_00->RecordValue(uVar4, *piVar2);
+                        this_00->SetMaximum(piVar2[2]);
                     }
                 }
-                piVar4 = piVar4 + 18;
-            } while (piVar4 != local_38);
+                piVar2 = piVar2 + 18;
+            } while (piVar2 != local_38);
         }
     }
 
-    // 0x1008a8280, 128 bytes, placed by class name
-    // DebugOverlayPools::UpdatePoolTotal(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator> const&, shareduniquedebug::SharedPoolInfo&)
-    void DebugOverlayPools::UpdatePoolTotal(fixed_vector* param_1, SharedPoolInfo* param_2) {
-        long lVar1;
-        long lVar2;
-
-        *(undefined8*)(param_2 + 48) = 0;
-        *(undefined8*)(param_2 + 56) = 0;
-        *(undefined8*)(param_2 + 32) = 0;
-        *(undefined8*)(param_2 + 40) = 0;
-        *(undefined8*)(param_2 + 16) = 0;
-        *(undefined8*)(param_2 + 24) = 0;
-        *(undefined8*)param_2 = 0;
-        *(undefined8*)(param_2 + 8) = 0;
-        *(undefined8*)(param_2 + 64) = 0;
-        lVar1 = param_1->HeapBeginPtr();
-        lVar2 = param_1->end();
+    // 0x1008a8280
+    void DebugOverlayPools::UpdatePoolTotal(
+        const eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul>& sharedPoolInfos,
+        shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        long lVar1 = sharedPoolInfos.HeapBeginPtr();
+        long lVar2 = sharedPoolInfos.end();
         for (; lVar1 != lVar2; lVar1 = lVar1 + 72) {
-            *(long*)(param_2 + 40) = *(long*)(param_2 + 40) + *(long*)(lVar1 + 40);
-            *(long*)(param_2 + 48) = *(long*)(param_2 + 48) + *(long*)(lVar1 + 48);
-            *(long*)(param_2 + 56) = *(long*)(param_2 + 56) + *(long*)(lVar1 + 56);
+            *(long*)(sharedPoolInfo + 40) = *(long*)(sharedPoolInfo + 40) + *(long*)(lVar1 + 40);
+            *(long*)(sharedPoolInfo + 48) = *(long*)(sharedPoolInfo + 48) + *(long*)(lVar1 + 48);
+            *(long*)(sharedPoolInfo + 56) = *(long*)(sharedPoolInfo + 56) + *(long*)(lVar1 + 56);
         }
     }
 
-    // 0x1008a8300, 160 bytes, placed by class name
-    // DebugOverlayPools::DrawSharedUniquePoolInfo(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>&, graphics::FontHelpers&, graphics::Font&, int, int&)
-    void DebugOverlayPools::DrawSharedUniquePoolInfo(fixed_vector* param_1, FontHelpers* param_2, Font* param_3,
-                                                     int param_4, int* param_5) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        SharedPoolInfo* pSVar3;
-        SharedPoolInfo* pSVar4;
+    // 0x1008a8300
+    void DebugOverlayPools::DrawSharedUniquePoolInfo(
+        eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul>& sharedPoolInfos,
+        graphics::FontHelpers& fontHelpers, graphics::Font& font, int arg4, int& arg5) {
+        uint8_t auVar3[16];
 
-        uVar1 = param_1->HeapBeginPtr();
-        uVar2 = param_1->end();
+        auto pSVar1 = sharedPoolInfos.HeapBeginPtr();
+        auVar3 = sharedPoolInfos.end();
         eastl::sort<shareduniquedebug::SharedPoolInfo*,
-                    (eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>&)
-                        ->DrawSharedUniquePoolInfo(graphics::FontHelpers&, graphics::Font&, int, int&)::__1>(uVar1,
-                                                                                                             uVar2);
-        pSVar3 = (SharedPoolInfo*)param_1->HeapBeginPtr();
-        pSVar4 = (SharedPoolInfo*)param_1->end();
-        for (; pSVar3 != pSVar4; pSVar3 = pSVar3 + 72) {
-            if (*(long*)(pSVar3 + 8) != 0) {
-                DrawPoolInfoSub(this, pSVar3, param_2, param_3, param_4, param_5);
+                    (eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul>&)
+                        ->DrawSharedUniquePoolInfo(graphics::FontHelpers&, graphics::Font&, int, int&)::__1>(
+            pSVar1, auVar3._0_8_, auVar3._8_8_);
+        pSVar1 = (SharedPoolInfo*)sharedPoolInfos.HeapBeginPtr();
+        auto pSVar2 = sharedPoolInfos.end();
+        for (; pSVar1 != pSVar2; pSVar1 = pSVar1 + 72) {
+            if (*(long*)(pSVar1 + 8) != 0) {
+                DrawPoolInfoSub(*pSVar1, fontHelpers, font, arg4, arg5);
             }
         }
     }
 
-    // 0x1008a83b0, 1648 bytes, placed by class name
-    // DebugOverlayPools::DrawPoolInfoSub(shareduniquedebug::SharedPoolInfo const&, graphics::FontHelpers&, graphics::Font&, int, int&)
-    void DebugOverlayPools::DrawPoolInfoSub(SharedPoolInfo* param_1, FontHelpers* param_2, Font* param_3, int param_4,
-                                            int* param_5) {
-        undefined8 uVar1;
-        TimedGraph* pTVar3;
-        ulong uVar4;
-        GUIManager* pGVar5;
-        uint uVar7;
-        int iVar8;
-        Input* pIVar9;
-        RT7Core* this_00;
-        long lVar10;
-        ulonglong uVar11;
+    // 0x1008a83b0
+    void DebugOverlayPools::DrawPoolInfoSub(const shareduniquedebug::SharedPoolInfo& sharedPoolInfo,
+                                            graphics::FontHelpers& fontHelpers, graphics::Font& font, int arg4,
+                                            int& arg5) {
+        long lVar9;
+        unsigned long long uVar10;
+        char* pcVar11;
         char* pcVar12;
-        TextProperties* pTVar13;
-        hashtable_iterator_base* extraout_RDX;
-        byte bVar14;
-        char cVar15;
+        int iVar14;
         int iVar16;
-        int iVar17;
-        int iVar18;
-        float fVar19;
-        float fVar20;
-        StringView SVar21;
-        undefined8 in_stack_fffffffffffffd48;
-        undefined4 uVar22;
         TextProperties local_288;
-        optional<int> local_260[8];
+        optional<int> local_260;
         StringView local_258;
-        ulong local_248;
-        int local_228;
-        uint local_224;
         int local_220;
         int local_21c;
-        ulong local_218;
-        TimedGraph* local_208;
-        undefined1 local_200[16];
-        ulong local_1f0;
-        undefined8 local_1e8;
+        uint8_t local_200[16];
+        unsigned long local_1f0;
+        uint64_t local_1e8;
         GUIManager* local_1e0;
-        int local_1d8;
-        uint local_1d4;
-        fixed_string<char, 16, true, eastl::allocator> local_1d0[56];
-        hashtable_iterator_base local_198[56];
-        Callstack local_160[18];
-        long local_38;
+        fixed_string<char, 16> local_1d0;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_198;
 
-        uVar22 = (undefined4)((ulong)in_stack_fffffffffffffd48 >> 32);
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_208 = (TimedGraph*)(ulong)field_112;
-        local_1d4 = 300;
-        pIVar9 = (Input*)field_8->HeapBeginPtr();
-        fVar19 = (float)pIVar9->GetMouseX();
-        pIVar9 = (Input*)field_8->HeapBeginPtr();
-        fVar20 = (float)pIVar9->GetMouseY();
-        pTVar3 = local_208;
-        local_1e0 = (GUIManager*)CONCAT71(local_1e0._1_7_, (int)(param_4 - local_1d4) <= (int)fVar19);
-        local_1f0 = CONCAT71(local_1f0._1_7_, *param_5 <= (int)fVar20);
-        iVar17 = (int)local_208;
-        local_218 = (ulong)(uint)param_4;
-        local_200._8_8_ = param_5;
-        local_1e8._0_1_ = (int)fVar20 < *param_5 + iVar17;
-        callstack::Callstack::Callstack(local_160);
-        bVar14 = (int)fVar19 <= param_4 & (byte)local_1e0;
-        local_160->SetRedGreenGradient((int)(((float)*(ulong*)(param_1 + 48) * 100.0) / (float)*(ulong*)(param_1 + 56)),
-                                       800, 0);
-        uVar7 = local_160->GetX();
-        this_00 = (RT7Core*)(((DebugOverlayPools*)this)->field_8)->end();
-        local_1e0 = (GUIManager*)this_00->GetGUIManager();
-        local_1e8._0_1_ = bVar14 & (byte)local_1f0 & (byte)local_1e8;
-        iVar8 = iVar17 + 3;
-        if (-1 < iVar17) {
-            iVar8 = iVar17;
+        TimedGraph* local_208 = (TimedGraph*)(unsigned long)field_112;
+        auto pIVar8 = field_8->HeapBeginPtr();
+        float fVar17 = (float)pIVar8->GetMouseX();
+        pIVar8 = (Input*)field_8->HeapBeginPtr();
+        float fVar18 = (float)pIVar8->GetMouseY();
+        TimedGraph* pTVar4 = local_208;
+        local_1e0 = (GUIManager*)(((uint64_t)local_1e0._1_7_ << 8) | (uint8_t)((int)(arg4 - 300) <= (int)fVar17));
+        local_1f0 = (((uint64_t)local_1f0._1_7_ << 8) | (uint8_t)(arg5 <= (int)fVar18));
+        int iVar15 = (int)local_208;
+        unsigned long local_218 = (unsigned long)(unsigned int)arg4;
+        local_200._8_8_ = arg5;
+        local_1e8._0_1_ = (int)fVar18 < arg5 + iVar15;
+        Callstack local_160;
+        uint8_t bVar13 = (int)fVar17 <= arg4 & (uint8_t)local_1e0;
+        local_160 = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(
+            (int)(((float)*(unsigned long*)(sharedPoolInfo + 48) * 100.0) /
+                  (float)*(unsigned long*)(sharedPoolInfo + 56)),
+            800, 0);
+        unsigned int uVar6 = local_160.GetX();
+        local_1e0 = ((RT7Core*)field_8->end())->GetGUIManager();
+        local_1e8._0_1_ = bVar13 & (uint8_t)local_1f0 & (uint8_t)local_1e8;
+        int iVar7 = iVar15 + 3;
+        if (-1 < iVar15) {
+            iVar7 = iVar15;
         }
-        local_1f0 = (ulong)(uint)(iVar8 >> 2);
-        if ((byte)local_1e8 != 0) {
-            local_1f0 = (ulong)pTVar3 & 4294967295;
+        local_1f0 = (unsigned long)(unsigned int)(iVar7 >> 2);
+        if ((uint8_t)local_1e8 != 0) {
+            local_1f0 = (unsigned long)pTVar4 & 4294967295;
         }
-        eastl::rbtree<char const*, eastl::pair<char const* const, TimedGraph>, eastl::less<char const*>,
-                      eastl::allocator, eastl::use_first<eastl::pair<char const* const, TimedGraph>>, true,
-                      true>::find((char**)local_160);
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        if (eastl::operator!=((eastl*)local_160, local_198, extraout_RDX)) {
-            lVar10 = eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator*(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                    local_160);
-            local_208 = (TimedGraph*)(lVar10 + 8);
+        local_160 = field_136.find(*((sharedPoolInfo + 64)));
+        local_198.end();
+        char cVar5 = local_160 != local_198;
+        if (!cVar5) {
+            local_208 = nullptr;
         } else {
-            local_208 = (TimedGraph*)0;
+            lVar9 = *local_160;
+            local_208 = (TimedGraph*)(lVar9 + 8);
         }
-        local_1d8 = (int)(local_1d4 * *(int*)param_1) / *(int*)(param_1 + 8);
+        int local_1d8 = (int)(300 * *(int*)sharedPoolInfo) / *(int*)(sharedPoolInfo + 8);
         local_160[0].m_stackFrames = 0;
-        local_1d8 = math::Clamp<int>(&local_1d8, &local_160[0].m_stackFrames, (int*)&local_1d4);
-        pGVar5 = local_1e0;
-        uVar4 = local_1f0;
-        uVar1 = local_200._8_8_;
-        iVar8 = (int)local_218;
-        local_224 = uVar7;
-        local_1e0->AddColouredRectangle(iVar8 - local_1d8, *(int*)local_200._8_8_, local_1d8, local_1f0 & 4294967295,
-                                        (uVar7 & 4294967040) + 128, CONCAT44(uVar22, 1));
-        pGVar5->AddColouredRectangle(iVar8 - local_1d4, *(int*)uVar1, local_1d4 - local_1d8, uVar4 & 4294967295,
-                                     uVar7 & 4294967040 | 64, 1);
-        local_1d8 = (int)(local_1d4 * *(int*)(param_1 + 16)) / *(int*)(param_1 + 8);
-        pGVar5->AddColouredRectangle(iVar8 - local_1d8, *(int*)uVar1, 1, uVar4 & 4294967295, 4294967200, 1);
-        cVar15 = '\0';
-        if ((byte)local_1e8 != '\0') {
-            local_248 = (ulong)local_1d4;
-            local_220 = (int)local_218 + -4;
-            iVar16 = local_220 + local_1d4 * -2;
-            iVar18 = (int)local_1f0 + -2;
-            iVar8 = *(int*)local_200._8_8_;
+        local_1d8 = math::Clamp<int>(local_1d8, local_160[0].m_stackFrames, 300);
+        GUIManager* this_00 = local_1e0;
+        uint64_t uVar1 = local_200._8_8_;
+        iVar7 = (int)local_218;
+        iVar15 = (int)local_1f0;
+        unsigned int local_224 = uVar6;
+        local_1e0->AddColouredRectangle(iVar7 - local_1d8, *(int*)local_200._8_8_, local_1d8, iVar15,
+                                        (uVar6 & 4294967040) + 128, 1);
+        this_00->AddColouredRectangle(iVar7 - 300, *(int*)uVar1, 300 - local_1d8, iVar15, uVar6 & 4294967040 | 64, 1);
+        local_1d8 = (int)(300 * *(int*)(sharedPoolInfo + 16)) / *(int*)(sharedPoolInfo + 8);
+        this_00->AddColouredRectangle(iVar7 - local_1d8, *(int*)uVar1, 1, iVar15, 4294967200, 1);
+        cVar5 = '\0';
+        if ((uint8_t)local_1e8 != '\0') {
+            local_220 = (int)local_218 - 4;
+            iVar14 = local_220 + 300 * -2;
+            iVar16 = (int)local_1f0 - 2;
+            iVar7 = *(int*)local_200._8_8_;
             local_21c = (int)local_1f0 * 3;
-            uVar11 = FrameTime::GetCurrentTimeMS();
-            pTVar3 = local_208;
-            iVar17 = local_21c;
-            local_208->Draw(pGVar5, iVar16, iVar8 + iVar18, (int)local_248, local_21c, uVar11, 120, 192);
-            uVar7 = local_1d4;
-            iVar16 = local_220 + local_1d4 * -2;
-            iVar8 = *(int*)local_200._8_8_;
-            uVar11 = FrameTime::GetCurrentTimeMS();
-            cVar15 = (byte)local_1e8;
-            pTVar3->DrawMarkers(local_1e0, param_2, param_3, iVar16, iVar18 + iVar8, uVar7, iVar17, uVar11, 120, 192);
+            uVar10 = FrameTime::GetCurrentTimeMS();
+            pTVar4 = local_208;
+            iVar15 = local_21c;
+            local_208->Draw(*this_00, iVar14, iVar7 + iVar16, (int)(unsigned long)300, local_21c, uVar10, 120, 192);
+            uVar6 = 300;
+            iVar14 = local_220 + 300 * -2;
+            iVar7 = *(int*)local_200._8_8_;
+            uVar10 = FrameTime::GetCurrentTimeMS();
+            cVar5 = (uint8_t)local_1e8;
+            pTVar4->DrawMarkers(*local_1e0, fontHelpers, font, iVar14, iVar16 + iVar7, uVar6, iVar15, uVar10, 120, 192);
         }
-        iVar8 = local_1d4 + 2;
-        if (cVar15 != '\0') {
-            new (local_160) eastl::fixed_string<char, 256, true, eastl::allocator>();
-            new (local_198) eastl::fixed_string<char, 16, true, eastl::allocator>();
-            eastl::fixed_string<char, 16, true, eastl::allocator>::fixed_string(local_1d0);
+        iVar7 = 300 + 2;
+        if (cVar5) {
+            local_160 = eastl::fixed_string<char, 256>();
+            local_198 = eastl::fixed_string<char, 16>();
+            local_1d0 = eastl::fixed_string<char, 16>();
             new (local_200) callstack::Callstack();
-            local_200->SetRedGreenGradient(*(int*)(param_1 + 16), *(int*)(param_1 + 8), 0);
-            local_1e8 = *(undefined8*)(param_1 + 64);
-            local_1e0 = *(GUIManager**)param_1;
-            uVar1 = *(undefined8*)(param_1 + 8);
-            pcVar12 = DataSizeString<eastl::fixed_string<char, 16, true, eastl::allocator>>(
-                (fixed_string*)local_198, *(ulonglong*)(param_1 + 48));
-            pTVar13 = (TextProperties*)DataSizeString<eastl::fixed_string<char, 16, true, eastl::allocator>>(
-                (fixed_string*)local_1d0, *(long*)(param_1 + 48) - *(long*)(param_1 + 56));
-            uVar7 = local_200->GetX();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                sprintf((char*)local_160, "%s: %zu/%zu (%s inc. %s overflow) (<col=%08X>%zu peak</col>)", local_1e8,
-                        local_1e0, uVar1, pcVar12, pTVar13, uVar7 | 16777216, *(undefined8*)(param_1 + 16));
-            if (*(long*)(param_1 + 24) != 0) {
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                    append_sprintf((char*)local_160, " [%zu WEAK]");
+            *local_200 = math::ColourStorage8888<math::RGBA8StorageLayout>::SetRedGreenGradient(
+                *(int*)(sharedPoolInfo + 16), *(int*)(sharedPoolInfo + 8), 0);
+            local_1e8 = *(uint64_t*)(sharedPoolInfo + 64);
+            local_1e0 = *(GUIManager**)sharedPoolInfo;
+            uVar1 = *(uint64_t*)(sharedPoolInfo + 8);
+            pcVar11 =
+                DataSizeString<eastl::fixed_string<char, 16>>(&local_198, *(unsigned long long*)(sharedPoolInfo + 48));
+            pcVar12 = DataSizeString<eastl::fixed_string<char, 16>>(&local_1d0, *(long*)(sharedPoolInfo + 48) -
+                                                                                    *(long*)(sharedPoolInfo + 56));
+            uVar6 = local_200->GetX();
+            local_160.sprintf("%s: %zu/%zu (%s inc. %s overflow) (<col=%08X>%zu peak</col>)", local_1e8, local_1e0,
+                              uVar1, pcVar11, pcVar12, uVar6 | 16777216, *(uint64_t*)(sharedPoolInfo + 16));
+            if (*(long*)(sharedPoolInfo + 24) != 0) {
+                local_160.append_sprintf(" [%zu WEAK]");
             }
-            new (&local_288) graphics::TextProperties(param_3);
+            local_288 = graphics::TextProperties(font);
             local_288.SetAlignment(2);
-            local_228 = 255;
-            eastl::optional<int>::optional(local_260, &local_228);
-            local_288.SetColours(local_224, local_260);
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_258,
-                                                                                          (fixed_string*)local_160);
-            SVar21.field_8._0_4_ = (int)local_218 - iVar8;
-            SVar21.field_0 = (ulong)&local_258;
-            SVar21.field_8._4_4_ = 0;
-            param_2->DrawString(SVar21, *(int*)local_200._8_8_, 0, (uint)&local_288, pTVar13);
-            /* WARNING: Subroutine does not return */
-            local_1d0->~fixed_string();
+            local_260 = eastl::optional(255);
+            local_288.SetColours(local_224, &local_260);
+            local_258.StringView<eastl::fixed_string<char, 40>>(local_160);
+            fontHelpers.DrawString(&local_258, (int)local_218 - iVar7, *(int*)local_200._8_8_, 0, local_288);
         }
-        if ((int)((DebugOverlayPools*)this)->field_128 < 0) {
-            ((DebugOverlayPools*)this)->field_128 = 0;
+        if ((int)field_128 < 0) {
+            field_128 = 0;
         }
         *(int*)local_200._8_8_ = *(int*)local_200._8_8_ + (int)local_1f0;
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x1008a8bc0, 32 bytes, placed by class name
-    // DebugOverlayPools::RegisterTweakyVars(tweak::Container&)
-    void DebugOverlayPools::RegisterTweakyVars(Container* param_1) {
-        param_1->AddCheckBox("Display SharedPointer Pools Info", &field_120);
+    // 0x1008a8bc0
+    void DebugOverlayPools::RegisterTweakyVars(tweak::Container& container) {
+        container.AddCheckBox("Display SharedPointer Pools Info", field_120);
     }
 
-    // 0x1008cc450, 16 bytes, complete-object destructor, inline, placed by class name
-    // DebugOverlayPools::~DebugOverlayPools(): jumps straight to the base-object destructor
-
-    // 0x1008cc460, 32 bytes, deleting destructor, inline, placed by class name
-    // DebugOverlayPools::~DebugOverlayPools()
-    void DebugOverlayPools::~DebugOverlayPools() {
-        ~DebugOverlayPools(this);
-        operator_delete(this);
+    // 0x1008cfea0
+    DebugOverlayPools::~DebugOverlayPools() {
+        field_136.~map();
     }
 
-    // 0x1008cfea0, 48 bytes, base-object destructor, inline, placed by class name
-    // DebugOverlayPools::~DebugOverlayPools()
-    void DebugOverlayPools::~DebugOverlayPools() {
-        field_0 = &PTR__DebugOverlayPools_100f181c8;
-        (&field_136)->~map();
-        ~AutoSingleton();
-    }
-
-    // 0x1008d1670, 32 bytes, inline, placed by class name
-    // DebugOverlayPools::DrawSharedUniquePoolInfo(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>&, graphics::FontHelpers&, graphics::Font&, int, int&)::$_1::operator()(shareduniquedebug::SharedPoolInfo const&, shareduniquedebug::SharedPoolInfo const&) const
-    /* DebugOverlayPools::DrawSharedUniquePoolInfo(eastl::fixed_vector<shareduniquedebug::SharedPoolInfo,
-   200ul, true, eastl::allocator>&, graphics::FontHelpers&, graphics::Font&, int,
-   int&)::$_1::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo const&,
-   shareduniquedebug::SharedPoolInfo const&) const */
-
-    undefined8 DebugOverlayPools::DrawSharedUniquePoolInfo(
-        eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul, true, eastl::allocator>&, graphics::FontHelpers&,
-        graphics::Font&, int, int&)::$_1::operator()(SharedPoolInfo* param_1, SharedPoolInfo* param_2) {
-        return CONCAT71((int7)(*(ulong*)(param_1 + 48) >> 8), *(ulong*)(param_1 + 48) < *(ulong*)(param_2 + 48));
+    // 0x1008d1670
+    uint64_t DebugOverlayPools::DrawSharedUniquePoolInfo(
+        eastl::fixed_vector<shareduniquedebug::SharedPoolInfo, 200ul>&, graphics::FontHelpers&, graphics::Font&, int,
+        int&)::$_1::operator()(const shareduniquedebug::SharedPoolInfo& sharedPoolInfo1,
+                               const shareduniquedebug::SharedPoolInfo& sharedPoolInfo2) const {
+        return *(unsigned long*)(this + 48) < *(unsigned long*)(sharedPoolInfo1 + 48);
     }
 
 } // namespace jag

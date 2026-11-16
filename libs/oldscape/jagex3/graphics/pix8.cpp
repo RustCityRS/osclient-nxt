@@ -1,24 +1,22 @@
 // libs/oldscape/jagex3/graphics/pix8.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "Pix8.h"
 
 namespace jag::oldscape::graphics {
-    // 0x100303200, 256 bytes, placed by class name and debug map
-    // Pix8::Untrim()
+    // 0x100303200
     void Pix8::Untrim() {
-        undefined1 uVar1;
+        uint8_t uVar1;
         int iVar2;
-        undefined1* puVar3;
+        uint8_t* puVar3;
         long lVar4;
         int iVar5;
-        Array<unsigned char, eastl::allocator> local_50[28];
+        Array<unsigned char> local_50;
         int local_34;
 
         if ((field_48 != field_64) || (field_52 != field_68)) {
-            Array<unsigned char, eastl::allocator>::Array(local_50, (long)field_68 * (long)field_64);
+            local_50 = Array<unsigned char>((long)field_68 * (long)field_64);
             if (0 < (int)field_52) {
                 iVar5 = 0;
                 iVar2 = 0;
@@ -27,11 +25,9 @@ namespace jag::oldscape::graphics {
                         lVar4 = 0;
                         local_34 = iVar2;
                         do {
-                            puVar3 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                                (Array<unsigned char, eastl::allocator>*)this, iVar2 + lVar4);
+                            puVar3 = (uint8_t*)(*this)[iVar2 + lVar4];
                             uVar1 = *puVar3;
-                            puVar3 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                                local_50, (long)(int)((field_60 + iVar5) * field_64 + field_56 + (int)lVar4));
+                            puVar3 = &local_50[(long)(int)((field_60 + iVar5) * field_64 + field_56 + (int)lVar4)];
                             *puVar3 = uVar1;
                             lVar4 = lVar4 + 1;
                         } while ((int)lVar4 < field_48);
@@ -40,271 +36,204 @@ namespace jag::oldscape::graphics {
                     iVar5 = iVar5 + 1;
                 } while (iVar5 < (int)field_52);
             }
-            Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)this,
-                                                              (Array*)local_50);
+            *this = local_50;
             field_48 = field_64;
             field_52 = field_68;
             field_56 = 0;
             field_60 = 0;
-            local_50->~Array();
         }
     }
 
-    // 0x10031d540, 112 bytes, base-object constructor, placed by class name
-    // Pix8::Pix8(int, int, int)
-    void Pix8::Pix8(int param_1, int param_2, int param_3) {
-        new (this) Array<unsigned char, eastl::allocator>((long)(param_2 * param_1));
-        new (&field_24, (long)param_3) SharedArray<unsigned int>();
-        field_48 = param_1;
-        field_64 = param_1;
-        field_52 = param_2;
-        field_68 = param_2;
-        field_56 = 0;
-        field_60 = 0;
-    }
+    // 0x10031d540
+    Pix8::Pix8(int arg1, int arg2, int arg3)
+        : Array<unsigned char>((long)(arg2 * arg1)), field_24((long)arg3), field_48(arg1), field_64(arg1),
+          field_52(arg2), field_68(arg2), field_56(0), field_60(0) {}
 
-    // 0x10031d5b0, 16 bytes, complete-object constructor, placed by class name
-    // Pix8::Pix8(int, int, int): jumps straight to the base-object constructor
-
-    // 0x10031d5c0, 432 bytes, placed by class name
-    // Pix8::CopyHFlip()
+    // 0x10031d5c0
     Pix8* Pix8::CopyHFlip() {
-        Array<unsigned char, eastl::allocator>* pAVar1;
-        Array<unsigned char, eastl::allocator>* pAVar2;
-        Layout* this_00;
-        undefined1 uVar3;
-        undefined4 uVar4;
-        int iVar5;
-        long lVar6;
-        ulong uVar7;
-        undefined4* puVar8;
-        undefined1* puVar9;
-        Array<unsigned char, eastl::allocator>* this_01;
-        Array<unsigned char, eastl::allocator>* in_RSI;
-        uint uVar10;
+        uint8_t uVar1;
+        uint32_t* puVar6;
+        uint8_t* puVar7;
+        Array<unsigned char>* this_01;
+        Array<unsigned char>* in_RSI;
+        unsigned int uVar8;
+        unsigned long arg1_00;
         int iVar11;
-        ulong uVar12;
-        int iVar13;
-        int iVar14;
-        int local_38;
 
-        pAVar1 = in_RSI + 48;
-        pAVar2 = in_RSI + 52;
-        this_00 = (Layout*)(in_RSI + 24);
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                eastl::allocator>>::Layout::HeapBeginPtr(this_00);
-        std::make_unique<Pix8, int&, int&, int>((int*)this, (int*)pAVar1, (int*)pAVar2);
-        uVar4 = *(undefined4*)(in_RSI + 64);
-        lVar6 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-            (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-        *(undefined4*)(lVar6 + 64) = uVar4;
-        uVar4 = *(undefined4*)(in_RSI + 68);
-        lVar6 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-            (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-        *(undefined4*)(lVar6 + 68) = uVar4;
-        iVar11 = *(int*)(in_RSI + 48);
-        iVar5 = *(int*)(in_RSI + 64);
-        iVar13 = *(int*)(in_RSI + 56);
-        lVar6 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-            (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-        *(int*)(lVar6 + 56) = iVar5 - (iVar11 + iVar13);
-        uVar4 = *(undefined4*)(in_RSI + 60);
-        lVar6 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-            (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-        *(undefined4*)(lVar6 + 60) = uVar4;
-        uVar7 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(this_00);
-        if (uVar7 != 0) {
-            uVar10 = 1;
-            uVar12 = 0;
+        Array<unsigned char>* arg1 = in_RSI + 48;
+        Array<unsigned char>* arg2 = in_RSI + 52;
+        Layout* this_00 = (Layout*)(in_RSI + 24);
+        int local_44 = this_00->HeapBeginPtr();
+        *this = std::make_unique<Pix8, int&, int&, int>(*arg1, *arg2, local_44);
+        uint32_t uVar2 = *(uint32_t*)(in_RSI + 64);
+        long lVar4 = (*this).operator->();
+        *(uint32_t*)(lVar4 + 64) = uVar2;
+        uVar2 = *(uint32_t*)(in_RSI + 68);
+        lVar4 = (*this).operator->();
+        *(uint32_t*)(lVar4 + 68) = uVar2;
+        int iVar9 = *(int*)(in_RSI + 48);
+        int iVar3 = *(int*)(in_RSI + 64);
+        int iVar10 = *(int*)(in_RSI + 56);
+        lVar4 = (*this).operator->();
+        *(int*)(lVar4 + 56) = iVar3 - (iVar9 + iVar10);
+        uVar2 = *(uint32_t*)(in_RSI + 60);
+        lVar4 = (*this).operator->();
+        *(uint32_t*)(lVar4 + 60) = uVar2;
+        Layout* local_38 = this_00;
+        unsigned long uVar5 = this_00->HeapBeginPtr();
+        if (uVar5 != 0) {
+            uVar8 = 1;
+            arg1_00 = 0;
             do {
-                puVar8 =
-                    (undefined4*)SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar12);
-                uVar4 = *puVar8;
-                lVar6 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-                    (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-                puVar8 = (undefined4*)SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)(lVar6 + 24),
-                                                                            uVar12);
-                *puVar8 = uVar4;
-                uVar12 = (ulong)uVar10;
-                uVar10 = uVar10 + 1;
-            } while (uVar12 < uVar7);
+                puVar6 = (uint32_t*)(*local_38)[arg1_00];
+                uVar2 = *puVar6;
+                lVar4 = (*this).operator->();
+                puVar6 = (uint32_t*)(*((lVar4 + 24)))[arg1_00];
+                *puVar6 = uVar2;
+                arg1_00 = (unsigned long)uVar8;
+                uVar8 = uVar8 + 1;
+            } while (arg1_00 < uVar5);
         }
-        if (0 < *(int*)pAVar2) {
-            iVar11 = 0;
-            local_38 = 1;
+        if (0 < *(int*)arg2) {
+            iVar9 = 0;
+            local_38 = (Layout*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)1);
             do {
-                iVar5 = *(int*)pAVar1;
-                if (0 < iVar5) {
-                    iVar13 = 0;
-                    iVar14 = -1;
+                iVar3 = *(int*)arg1;
+                if (0 < iVar3) {
+                    iVar10 = 0;
+                    iVar11 = -1;
                     do {
-                        puVar9 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                            in_RSI, (long)(iVar5 * local_38 + iVar14));
-                        uVar3 = *puVar9;
-                        this_01 = (Array<unsigned char, eastl::allocator>*)
-                                      std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-                                          (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-                        puVar9 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                            this_01, (long)(*(int*)pAVar1 * iVar11 + iVar13));
-                        *puVar9 = uVar3;
-                        iVar13 = iVar13 + 1;
-                        iVar5 = *(int*)pAVar1;
-                        iVar14 = iVar14 + -1;
-                    } while (iVar13 < iVar5);
+                        puVar7 = (uint8_t*)(*in_RSI)[(long)(iVar3 * (int)local_38 + iVar11)];
+                        uVar1 = *puVar7;
+                        this_01 = (Array<unsigned char>*)(*this).operator->();
+                        puVar7 = (uint8_t*)(*this_01)[(long)(*(int*)arg1 * iVar9 + iVar10)];
+                        *puVar7 = uVar1;
+                        iVar10 = iVar10 + 1;
+                        iVar3 = *(int*)arg1;
+                        iVar11 = iVar11 - 1;
+                    } while (iVar10 < iVar3);
                 }
-                iVar11 = iVar11 + 1;
-                local_38 = local_38 + 1;
-            } while (iVar11 < *(int*)pAVar2);
+                iVar9 = iVar9 + 1;
+                local_38 = (Layout*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)((int)local_38 + 1));
+            } while (iVar9 < *(int*)arg2);
         }
         return this;
     }
 
-    // 0x10031d7e0, 384 bytes, placed by class name
-    // Pix8::Copy()
-    Pix8* Pix8::Copy() {
-        Layout* this_00;
-        undefined1 uVar1;
-        int iVar2;
-        int iVar3;
-        undefined4 uVar4;
+    // 0x10031d7e0
+    auto Pix8::Copy() {
+        auto result;
+        uint8_t uVar1;
+        uint32_t uVar4;
         bool bVar5;
-        int iVar6;
-        Pix8* this_01;
-        long lVar7;
-        ulong uVar8;
-        undefined1* puVar9;
-        Array<unsigned char, eastl::allocator>* this_02;
-        undefined4* puVar10;
-        ulong uVar11;
-        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* in_RSI;
-        ulong uVar12;
+        uint8_t* puVar8;
+        Array<unsigned char>* this_02;
+        uint32_t* puVar9;
+        unsigned long uVar10;
+        unsigned long uVar11;
 
-        this_01 = operator_new(72);
-        iVar2 = *(int*)(in_RSI + 48);
-        iVar3 = *(int*)(in_RSI + 52);
-        this_00 = (Layout*)(in_RSI + 24);
-        iVar6 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(this_00);
-        Pix8(this_01, iVar2, iVar3, iVar6);
-        std::unique_ptr<Pix8, std::default_delete<Pix8>>::unique_ptr<true, void>(
-            (unique_ptr<Pix8, std::default_delete<Pix8>>*)this, this_01);
-        uVar4 = *(undefined4*)(in_RSI + 64);
-        lVar7 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-            (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-        *(undefined4*)(lVar7 + 64) = uVar4;
-        uVar4 = *(undefined4*)(in_RSI + 68);
-        lVar7 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-            (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-        *(undefined4*)(lVar7 + 68) = uVar4;
-        uVar4 = *(undefined4*)(in_RSI + 56);
-        lVar7 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-            (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-        *(undefined4*)(lVar7 + 56) = uVar4;
-        uVar4 = *(undefined4*)(in_RSI + 60);
-        lVar7 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-            (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-        *(undefined4*)(lVar7 + 60) = uVar4;
-        uVar8 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(in_RSI);
-        if (uVar8 != 0) {
-            uVar11 = 0;
-            uVar12 = 1;
+        Pix8* this_01 = (Pix8*)operator new(72);
+        int iVar2 = field_48;
+        unsigned int uVar3 = field_52;
+        uint8_t* this_00 = &field_24;
+        int arg3 = this_00->HeapBeginPtr();
+        Pix8(this_01, iVar2, uVar3, arg3);
+        result.unique_ptr<true, void>(this_01);
+        iVar2 = field_64;
+        long lVar6 = (result).operator->();
+        *(int*)(lVar6 + 64) = iVar2;
+        iVar2 = field_68;
+        lVar6 = (result).operator->();
+        *(int*)(lVar6 + 68) = iVar2;
+        iVar2 = field_56;
+        lVar6 = (result).operator->();
+        *(int*)(lVar6 + 56) = iVar2;
+        uVar3 = field_60;
+        lVar6 = (result).operator->();
+        *(unsigned int*)(lVar6 + 60) = uVar3;
+        unsigned long uVar7 = end();
+        if (uVar7 != 0) {
+            uVar10 = 0;
+            uVar11 = 1;
             do {
-                puVar9 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                    (Array<unsigned char, eastl::allocator>*)in_RSI, uVar11);
-                uVar1 = *puVar9;
-                this_02 = (Array<unsigned char, eastl::allocator>*)
-                              std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-                                  (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-                puVar9 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](this_02, uVar11);
-                *puVar9 = uVar1;
-                bVar5 = uVar12 < uVar8;
-                uVar11 = uVar12;
-                uVar12 = (ulong)((int)uVar12 + 1);
+                puVar8 = (uint8_t*)(*this)[uVar10];
+                uVar1 = *puVar8;
+                this_02 = (Array<unsigned char>*)(result).operator->();
+                puVar8 = (uint8_t*)(*this_02)[uVar10];
+                *puVar8 = uVar1;
+                bVar5 = uVar11 < uVar7;
+                uVar10 = uVar11;
+                uVar11 = (unsigned long)((int)uVar11 + 1);
             } while (bVar5);
         }
-        uVar8 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(this_00);
-        if (uVar8 != 0) {
-            uVar11 = 0;
-            uVar12 = 1;
+        uVar7 = this_00->HeapBeginPtr();
+        if (uVar7 != 0) {
+            uVar10 = 0;
+            uVar11 = 1;
             do {
-                puVar10 =
-                    (undefined4*)SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar11);
-                uVar4 = *puVar10;
-                lVar7 = std::unique_ptr<Pix8, std::default_delete<Pix8>>::operator->(
-                    (unique_ptr<Pix8, std::default_delete<Pix8>>*)this);
-                puVar10 = (undefined4*)SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)(lVar7 + 24),
-                                                                             uVar11);
-                *puVar10 = uVar4;
-                bVar5 = uVar12 < uVar8;
-                uVar11 = uVar12;
-                uVar12 = (ulong)((int)uVar12 + 1);
+                puVar9 = (uint32_t*)(*this_00)[uVar10];
+                uVar4 = *puVar9;
+                lVar6 = (result).operator->();
+                puVar9 = (uint32_t*)(*((lVar6 + 24)))[uVar10];
+                *puVar9 = uVar4;
+                bVar5 = uVar11 < uVar7;
+                uVar10 = uVar11;
+                uVar11 = (unsigned long)((int)uVar11 + 1);
             } while (bVar5);
         }
-        return this;
+        return result;
     }
 
-    // 0x10031d970, 240 bytes, placed by class name
-    // Pix8::Topix32()
-    Pix8* Pix8::Topix32() {
-        undefined4 uVar1;
-        int iVar2;
-        int iVar3;
-        long lVar4;
-        byte* pbVar5;
-        undefined4* puVar6;
+    // 0x10031d970
+    auto Pix8::Topix32() {
+        auto result;
+        uint32_t uVar2;
+        uint8_t* pbVar5;
+        uint32_t* puVar6;
         SharedArray<unsigned int>* this_00;
-        ulong uVar7;
-        Array<unsigned char, eastl::allocator>* in_RSI;
+        unsigned long arg1;
 
-        make_shared<Pix32, int&, int&>((jag*)this, (int*)(in_RSI + 48), (int*)(in_RSI + 52));
-        uVar1 = *(undefined4*)(in_RSI + 56);
-        lVar4 = shared_ptr<Pix32>::operator->((shared_ptr<Pix32>*)this);
-        *(undefined4*)(lVar4 + 32) = uVar1;
-        uVar1 = *(undefined4*)(in_RSI + 60);
-        lVar4 = shared_ptr<Pix32>::operator->((shared_ptr<Pix32>*)this);
-        *(undefined4*)(lVar4 + 36) = uVar1;
-        uVar1 = *(undefined4*)(in_RSI + 64);
-        lVar4 = shared_ptr<Pix32>::operator->((shared_ptr<Pix32>*)this);
-        *(undefined4*)(lVar4 + 40) = uVar1;
-        uVar1 = *(undefined4*)(in_RSI + 68);
-        lVar4 = shared_ptr<Pix32>::operator->((shared_ptr<Pix32>*)this);
-        *(undefined4*)(lVar4 + 44) = uVar1;
-        iVar2 = *(int*)(in_RSI + 52);
-        iVar3 = *(int*)(in_RSI + 48);
-        if (0 < iVar2 * iVar3) {
-            uVar7 = 0;
+        make_shared<Pix32, int&, int&>(&result, &field_48, (int*)&field_52);
+        int iVar1 = field_56;
+        long lVar4 = (result).operator->();
+        *(int*)(lVar4 + 32) = iVar1;
+        unsigned int uVar3 = field_60;
+        lVar4 = (result).operator->();
+        *(unsigned int*)(lVar4 + 36) = uVar3;
+        iVar1 = field_64;
+        lVar4 = (result).operator->();
+        *(int*)(lVar4 + 40) = iVar1;
+        iVar1 = field_68;
+        lVar4 = (result).operator->();
+        *(int*)(lVar4 + 44) = iVar1;
+        uVar3 = field_52 * field_48;
+        if (0 < (int)uVar3) {
+            arg1 = 0;
             do {
-                pbVar5 = (byte*)Array<unsigned char, eastl::allocator>::operator[](in_RSI, uVar7);
-                puVar6 = (undefined4*)SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)(in_RSI + 24),
-                                                                            (ulong)*pbVar5);
-                uVar1 = *puVar6;
-                this_00 = (SharedArray<unsigned int>*)shared_ptr<Pix32>::operator->((shared_ptr<Pix32>*)this);
-                puVar6 = (undefined4*)SharedArray<unsigned int>::operator[](this_00, uVar7);
-                *puVar6 = uVar1;
-                uVar7 = uVar7 + 1;
-            } while ((uint)(iVar2 * iVar3) != uVar7);
+                pbVar5 = (uint8_t*)(*this)[arg1];
+                puVar6 = &field_24[(unsigned long)*pbVar5];
+                uVar2 = *puVar6;
+                this_00 = (SharedArray<unsigned int>*)(result).operator->();
+                puVar6 = (uint32_t*)(*this_00)[arg1];
+                *puVar6 = uVar2;
+                arg1 = arg1 + 1;
+            } while (uVar3 != arg1);
         }
-        return this;
+        return result;
     }
 
-    // 0x10031da60, 272 bytes, placed by class name
-    // Pix8::HalveSize()
+    // 0x10031da60
     void Pix8::HalveSize() {
-        undefined1 uVar1;
-        int iVar2;
-        undefined1* puVar3;
-        int iVar4;
+        uint8_t uVar1;
+        uint8_t* puVar3;
         long lVar5;
-        Array<unsigned char, eastl::allocator> local_50[28];
         int local_34;
 
-        iVar4 = field_64 / 2;
+        int iVar4 = field_64 / 2;
         field_64 = iVar4;
-        iVar2 = field_68 / 2;
+        int iVar2 = field_68 / 2;
         field_68 = iVar2;
-        Array<unsigned char, eastl::allocator>::Array(local_50, (long)(iVar2 * iVar4));
+        Array<unsigned char> local_50((long)(iVar2 * iVar4));
         if (0 < (int)field_52) {
             iVar4 = 0;
             iVar2 = 0;
@@ -313,11 +242,10 @@ namespace jag::oldscape::graphics {
                     lVar5 = 0;
                     local_34 = iVar2;
                     do {
-                        puVar3 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                            (Array<unsigned char, eastl::allocator>*)this, iVar2 + lVar5);
+                        puVar3 = (uint8_t*)(*this)[iVar2 + lVar5];
                         uVar1 = *puVar3;
-                        puVar3 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                            local_50, (long)(((int)(field_60 + iVar4) >> 1) * field_64 + (field_56 + (int)lVar5 >> 1)));
+                        puVar3 =
+                            &local_50[(long)(((int)(field_60 + iVar4) >> 1) * field_64 + (field_56 + (int)lVar5 >> 1))];
                         *puVar3 = uVar1;
                         lVar5 = lVar5 + 1;
                     } while ((int)lVar5 < field_48);
@@ -326,139 +254,124 @@ namespace jag::oldscape::graphics {
                 iVar4 = iVar4 + 1;
             } while (iVar4 < (int)field_52);
         }
-        Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)this,
-                                                          (Array*)local_50);
+        *this = local_50;
         field_48 = field_64;
         field_52 = field_68;
         field_56 = 0;
         field_60 = 0;
-        local_50->~Array();
     }
 
-    // 0x10031db70, 384 bytes, placed by class name
-    // Pix8::Untrim(int)
-    void Pix8::Untrim(int param_1) {
-        undefined1 uVar1;
-        int iVar2;
+    // 0x10031db70
+    void Pix8::Untrim(int arg1) {
+        uint8_t uVar1;
         int iVar3;
-        undefined1* puVar4;
-        ulong uVar5;
+        uint8_t* puVar4;
+        unsigned long uVar5;
         int iVar6;
         int iVar7;
-        uint uVar8;
+        unsigned int uVar8;
         int iVar9;
         int iVar10;
         long lVar11;
-        ulong uVar12;
-        int iVar13;
-        Array<unsigned char, eastl::allocator> local_68[24];
-        ulong local_50;
-        ulong local_48;
-        uint local_3c;
+        unsigned long uVar12;
+        Array<unsigned char> local_68;
+        unsigned long local_50;
+        unsigned long local_48;
+        unsigned int local_3c;
         int local_38;
-        uint local_34;
+        unsigned int local_34;
 
-        iVar13 = field_48;
-        iVar2 = field_64;
+        int iVar13 = field_48;
+        int iVar2 = field_64;
         if ((iVar13 != iVar2) || (field_52 != field_68)) {
             iVar3 = field_56;
-            local_38 = param_1;
-            if (iVar3 < param_1) {
+            local_38 = arg1;
+            if (iVar3 < arg1) {
                 local_38 = iVar3;
             }
-            iVar6 = iVar3 + iVar13 + param_1;
+            iVar6 = iVar3 + iVar13 + arg1;
             iVar10 = iVar2 - (iVar3 + iVar13);
             if (iVar6 <= iVar2) {
-                iVar10 = param_1;
+                iVar10 = arg1;
             }
             uVar8 = field_60;
-            local_34 = param_1;
-            if ((int)uVar8 < param_1) {
+            local_34 = arg1;
+            if ((int)uVar8 < arg1) {
                 local_34 = uVar8;
             }
             iVar7 = uVar8 + field_52;
             iVar9 = field_68 - iVar7;
-            if (iVar7 + param_1 <= field_68) {
-                iVar9 = param_1;
+            if (iVar7 + arg1 <= field_68) {
+                iVar9 = arg1;
             }
             uVar8 = iVar13 + local_38 + iVar10;
-            local_48 = (ulong)uVar8;
+            local_48 = (unsigned long)uVar8;
             local_3c = field_52 + local_34 + iVar9;
-            Array<unsigned char, eastl::allocator>::Array(local_68, (long)(int)(local_3c * uVar8));
+            local_68 = Array<unsigned char>((long)(int)(local_3c * uVar8));
             if (0 < (int)field_52) {
                 if (iVar2 < iVar6) {
                     iVar6 = iVar2;
                 }
                 uVar8 = (iVar6 + local_38) - iVar3;
-                local_50 = (ulong)uVar8;
-                uVar12 = (ulong)(local_34 * uVar8 + local_38);
+                local_50 = (unsigned long)uVar8;
+                uVar12 = (unsigned long)(local_34 * uVar8 + local_38);
                 iVar13 = 0;
                 do {
-                    uVar5 = (ulong)(uint)field_48;
+                    uVar5 = (unsigned long)(unsigned int)field_48;
                     if (0 < field_48) {
                         lVar11 = 0;
                         do {
-                            puVar4 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                                (Array<unsigned char, eastl::allocator>*)this, (int)uVar5 * iVar13 + lVar11);
+                            puVar4 = (uint8_t*)(*this)[(int)uVar5 * iVar13 + lVar11];
                             uVar1 = *puVar4;
-                            puVar4 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                                local_68, (long)((int)lVar11 + (int)uVar12));
+                            puVar4 = &local_68[(long)((int)lVar11 + (int)uVar12)];
                             *puVar4 = uVar1;
                             lVar11 = lVar11 + 1;
-                            uVar5 = (ulong)field_48;
+                            uVar5 = (unsigned long)field_48;
                         } while (lVar11 < (long)uVar5);
                     }
                     iVar13 = iVar13 + 1;
                     uVar12 = uVar12 + local_50;
                 } while (iVar13 < (int)field_52);
             }
-            Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)this,
-                                                              (Array*)local_68);
+            *this = local_68;
             field_48 = (int)local_48;
             field_52 = local_3c;
             field_56 = field_56 - local_38;
             field_60 = field_60 - local_34;
-            local_68->~Array();
         }
     }
 
-    // 0x10031dcf0, 272 bytes, placed by class name
-    // Pix8::Rotate90Clockwise()
+    // 0x10031dcf0
     void Pix8::Rotate90Clockwise() {
-        undefined1 uVar1;
-        uint uVar2;
-        uint uVar3;
-        undefined1* puVar4;
+        uint8_t uVar1;
+        uint8_t* puVar4;
         int iVar5;
         int iVar6;
-        ulong uVar7;
-        Array<unsigned char, eastl::allocator> local_48[24];
+        unsigned long arg1;
 
-        Array<unsigned char, eastl::allocator>::Array(local_48, (long)(int)field_52 * (long)field_48);
+        Array<unsigned char> local_48((long)(int)field_52 * (long)field_48);
         if (0 < field_48) {
-            uVar7 = 0;
+            arg1 = 0;
             iVar6 = 0;
             do {
                 if (0 < (int)field_52) {
-                    uVar7 = (ulong)(int)uVar7;
+                    arg1 = (unsigned long)(int)arg1;
                     iVar5 = field_52 + 1;
                     do {
-                        puVar4 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                            (Array<unsigned char, eastl::allocator>*)this, (long)((iVar5 + -2) * field_48 + iVar6));
+                        puVar4 = (uint8_t*)(*this)[(long)((iVar5 - 2) * field_48 + iVar6)];
                         uVar1 = *puVar4;
-                        puVar4 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](local_48, uVar7);
-                        uVar7 = uVar7 + 1;
+                        puVar4 = &local_48[arg1];
+                        arg1 = arg1 + 1;
                         *puVar4 = uVar1;
-                        iVar5 = iVar5 + -1;
+                        iVar5 = iVar5 - 1;
                     } while (1 < iVar5);
                 }
                 iVar6 = iVar6 + 1;
             } while (iVar6 < field_48);
         }
-        Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)this,
-                                                          (Array*)local_48);
-        uVar2 = field_52;
-        uVar3 = field_60;
+        *this = local_48;
+        unsigned int uVar2 = field_52;
+        unsigned int uVar3 = field_60;
         field_60 = field_56;
         iVar6 = field_68;
         field_56 = iVar6 - (uVar3 + uVar2);
@@ -466,25 +379,21 @@ namespace jag::oldscape::graphics {
         field_48 = uVar2;
         field_68 = field_64;
         field_64 = iVar6;
-        local_48->~Array();
     }
 
-    // 0x10031de00, 272 bytes, placed by class name
-    // Pix8::Rotate90Anticlockwise()
+    // 0x10031de00
     void Pix8::Rotate90Anticlockwise() {
-        undefined1 uVar1;
-        int iVar2;
+        uint8_t uVar1;
         bool bVar3;
-        ulong uVar4;
-        undefined1* puVar5;
+        unsigned long uVar4;
+        uint8_t* puVar5;
         long lVar6;
-        uint uVar7;
-        uint uVar8;
-        Array<unsigned char, eastl::allocator> local_58[24];
-        ulong local_40;
-        ulong local_38;
+        unsigned int uVar7;
+        unsigned int uVar8;
+        unsigned long local_40;
+        unsigned long local_38;
 
-        Array<unsigned char, eastl::allocator>::Array(local_58, (long)(int)field_52 * (long)field_48);
+        Array<unsigned char> local_58((long)(int)field_52 * (long)field_48);
         if (0 < field_48) {
             uVar4 = 0;
             uVar7 = field_48;
@@ -493,27 +402,24 @@ namespace jag::oldscape::graphics {
                 if (0 < (int)field_52) {
                     lVar6 = 0;
                     local_40 = uVar4;
-                    local_38 = (ulong)uVar7;
+                    local_38 = (unsigned long)uVar7;
                     do {
-                        puVar5 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                            (Array<unsigned char, eastl::allocator>*)this, (long)(int)(field_48 * (int)lVar6 + uVar8));
+                        puVar5 = (uint8_t*)(*this)[(long)(int)(field_48 * (int)lVar6 + uVar8)];
                         uVar1 = *puVar5;
-                        puVar5 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](local_58,
-                                                                                                 lVar6 + (int)uVar4);
+                        puVar5 = &local_58[lVar6 + (int)uVar4];
                         *puVar5 = uVar1;
                         lVar6 = lVar6 + 1;
                     } while ((int)lVar6 < (int)field_52);
-                    uVar4 = (ulong)(uint)((int)local_40 + (int)lVar6);
-                    uVar7 = (uint)local_38;
+                    uVar4 = (unsigned long)(unsigned int)((int)local_40 + (int)lVar6);
+                    uVar7 = (unsigned int)local_38;
                 }
                 bVar3 = 1 < (int)uVar7;
                 uVar7 = uVar8;
             } while (bVar3);
         }
-        Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)this,
-                                                          (Array*)local_58);
+        *this = local_58;
         uVar7 = field_52;
-        iVar2 = field_56;
+        int iVar2 = field_56;
         field_56 = field_60;
         field_60 = field_64 - (iVar2 + field_48);
         field_52 = field_48;
@@ -521,63 +427,54 @@ namespace jag::oldscape::graphics {
         iVar2 = field_68;
         field_68 = field_64;
         field_64 = iVar2;
-        local_58->~Array();
     }
 
-    // 0x10031df10, 240 bytes, placed by class name
-    // Pix8::HFlip()
+    // 0x10031df10
     void Pix8::HFlip() {
-        undefined1 uVar1;
-        undefined1* puVar2;
+        uint8_t uVar1;
+        uint8_t* puVar2;
         int iVar3;
         int iVar4;
-        ulong uVar5;
-        Array<unsigned char, eastl::allocator> local_48[24];
+        unsigned long arg1;
 
-        Array<unsigned char, eastl::allocator>::Array(local_48, (long)(int)field_52 * (long)field_48);
+        Array<unsigned char> local_48((long)(int)field_52 * (long)field_48);
         if (0 < (int)field_52) {
             iVar4 = 0;
-            uVar5 = 0;
+            arg1 = 0;
             do {
                 if (0 < field_48) {
-                    uVar5 = (ulong)(int)uVar5;
+                    arg1 = (unsigned long)(int)arg1;
                     iVar3 = field_48 + 1;
                     do {
-                        puVar2 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                            (Array<unsigned char, eastl::allocator>*)this, (long)(field_48 * iVar4 + iVar3 + -2));
+                        puVar2 = (uint8_t*)(*this)[(long)(field_48 * iVar4 + iVar3 - 2)];
                         uVar1 = *puVar2;
-                        puVar2 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](local_48, uVar5);
-                        uVar5 = uVar5 + 1;
+                        puVar2 = &local_48[arg1];
+                        arg1 = arg1 + 1;
                         *puVar2 = uVar1;
-                        iVar3 = iVar3 + -1;
+                        iVar3 = iVar3 - 1;
                     } while (1 < iVar3);
                 }
                 iVar4 = iVar4 + 1;
             } while (iVar4 < (int)field_52);
         }
-        Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)this,
-                                                          (Array*)local_48);
+        *this = local_48;
         field_56 = field_64 - (field_48 + field_56);
-        local_48->~Array();
     }
 
-    // 0x10031e000, 256 bytes, placed by class name
-    // Pix8::VFlip()
+    // 0x10031e000
     void Pix8::VFlip() {
-        undefined1 uVar1;
-        uint uVar2;
+        uint8_t uVar1;
         int iVar3;
-        undefined1* puVar4;
-        uint uVar5;
-        ulong uVar6;
-        uint uVar7;
+        uint8_t* puVar4;
+        unsigned int uVar5;
+        unsigned long uVar6;
+        unsigned int uVar7;
         long lVar8;
-        Array<unsigned char, eastl::allocator> local_58[24];
-        ulong local_40;
-        ulong local_38;
+        unsigned long local_40;
+        unsigned long local_38;
 
-        Array<unsigned char, eastl::allocator>::Array(local_58, (long)(int)field_52 * (long)field_48);
-        uVar2 = field_52;
+        Array<unsigned char> local_58((long)(int)field_52 * (long)field_48);
+        unsigned int uVar2 = field_52;
         if (0 < (int)uVar2) {
             uVar6 = 0;
             uVar7 = uVar2;
@@ -587,172 +484,156 @@ namespace jag::oldscape::graphics {
                 uVar5 = uVar2;
                 if (0 < iVar3) {
                     lVar8 = 0;
-                    local_40 = (ulong)uVar2;
+                    local_40 = (unsigned long)uVar2;
                     local_38 = uVar6;
                     do {
-                        puVar4 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                            (Array<unsigned char, eastl::allocator>*)this, (long)(int)(iVar3 * uVar7 + (int)lVar8));
+                        puVar4 = (uint8_t*)(*this)[(long)(int)(iVar3 * uVar7 + (int)lVar8)];
                         uVar1 = *puVar4;
-                        puVar4 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](local_58,
-                                                                                                 (int)uVar6 + lVar8);
+                        puVar4 = &local_58[(int)uVar6 + lVar8];
                         *puVar4 = uVar1;
                         iVar3 = field_48;
                         lVar8 = lVar8 + 1;
                     } while ((int)lVar8 < iVar3);
-                    uVar6 = (ulong)(uint)((int)local_38 + (int)lVar8);
-                    uVar5 = (uint)local_40;
+                    uVar6 = (unsigned long)(unsigned int)((int)local_38 + (int)lVar8);
+                    uVar5 = (unsigned int)local_40;
                 }
                 uVar2 = uVar5 - 1;
             } while (1 < (int)uVar5);
         }
-        Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)this,
-                                                          (Array*)local_58);
+        *this = local_58;
         field_60 = field_68 - (field_52 + field_60);
-        local_58->~Array();
     }
 
-    // 0x10031e100, 208 bytes, placed by class name
-    // Pix8::HVFlip()
+    // 0x10031e100
     void Pix8::HVFlip() {
-        undefined1 uVar1;
-        undefined1* puVar2;
-        ulong uVar3;
-        uint uVar4;
-        ulong uVar5;
-        Array<unsigned char, eastl::allocator> local_48[24];
+        uint8_t uVar1;
+        uint8_t* puVar2;
+        unsigned long arg1;
+        unsigned long uVar4;
 
-        uVar4 = field_52 * field_48;
-        Array<unsigned char, eastl::allocator>::Array(local_48, (long)(int)uVar4);
-        if (0 < (int)uVar4) {
-            uVar5 = (ulong)uVar4;
-            uVar3 = 0;
+        unsigned int uVar3 = field_52 * field_48;
+        Array<unsigned char> local_48((long)(int)uVar3);
+        if (0 < (int)uVar3) {
+            uVar4 = (unsigned long)uVar3;
+            arg1 = 0;
             do {
-                uVar4 = uVar4 - 1;
-                puVar2 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](
-                    (Array<unsigned char, eastl::allocator>*)this, (ulong)uVar4);
+                uVar3 = uVar3 - 1;
+                puVar2 = (uint8_t*)(*this)[(unsigned long)uVar3];
                 uVar1 = *puVar2;
-                puVar2 = (undefined1*)Array<unsigned char, eastl::allocator>::operator[](local_48, uVar3);
-                uVar3 = uVar3 + 1;
+                puVar2 = &local_48[arg1];
+                arg1 = arg1 + 1;
                 *puVar2 = uVar1;
-            } while (uVar3 != uVar5);
+            } while (arg1 != uVar4);
         }
-        Array<unsigned char, eastl::allocator>::operator=((Array<unsigned char, eastl::allocator>*)this,
-                                                          (Array*)local_48);
+        *this = local_48;
         field_56 = field_64 - (field_48 + field_56);
         field_60 = field_68 - (field_52 + field_60);
-        local_48->~Array();
     }
 
-    // 0x10031e1d0, 304 bytes, placed by class name
-    // Pix8::RgbAdjust(int, int, int)
-    void Pix8::RgbAdjust(int param_1, int param_2, int param_3) {
-        byte bVar1;
+    // 0x10031e1d0
+    void Pix8::RgbAdjust(int arg1, int arg2, int arg3) {
+        uint8_t bVar1;
         int iVar2;
-        long lVar3;
-        byte* pbVar4;
+        uint8_t* pbVar4;
         int* piVar5;
-        ulong uVar6;
-        undefined1* this_00;
+        unsigned long uVar6;
         int iVar7;
         int iVar8;
-        uint uVar9;
-        ulong uVar10;
+        unsigned int uVar9;
+        unsigned long arg1_00;
 
-        this_00 = &field_24;
-        lVar3 = this_00->HeapBeginPtr();
+        uint8_t* this_00 = &field_24;
+        long lVar3 = this_00->HeapBeginPtr();
         if (lVar3 != 0) {
             uVar9 = 1;
-            uVar10 = 0;
+            arg1_00 = 0;
             do {
-                lVar3 = SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar10);
-                bVar1 = *(byte*)(lVar3 + 3);
-                lVar3 = SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar10);
-                iVar7 = (uint) * (byte*)(lVar3 + 2) + param_1;
+                lVar3 = (*this_00)[arg1_00];
+                bVar1 = *(uint8_t*)(lVar3 + 3);
+                lVar3 = (*this_00)[arg1_00];
+                iVar7 = (unsigned int)*(uint8_t*)(lVar3 + 2) + arg1;
                 if (254 < iVar7) {
                     iVar7 = 255;
                 }
                 if (iVar7 < 0) {
                     iVar7 = 0;
                 }
-                lVar3 = SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar10);
-                iVar8 = (uint) * (byte*)(lVar3 + 1) + param_2;
+                lVar3 = (*this_00)[arg1_00];
+                iVar8 = (unsigned int)*(uint8_t*)(lVar3 + 1) + arg2;
                 if (254 < iVar8) {
                     iVar8 = 255;
                 }
                 if (iVar8 < 0) {
                     iVar8 = 0;
                 }
-                pbVar4 = (byte*)SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar10);
-                iVar2 = (uint)*pbVar4 + param_3;
+                pbVar4 = (uint8_t*)(*this_00)[arg1_00];
+                iVar2 = (unsigned int)*pbVar4 + arg3;
                 if (254 < iVar2) {
                     iVar2 = 255;
                 }
                 if (iVar2 < 0) {
                     iVar2 = 0;
                 }
-                piVar5 = (int*)SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar10);
-                *piVar5 = iVar8 * 256 + iVar7 * 65536 + (uint)bVar1 * 16777216 + iVar2;
-                uVar10 = (ulong)uVar9;
+                piVar5 = (int*)(*this_00)[arg1_00];
+                *piVar5 = iVar8 * 256 + iVar7 * 65536 + (unsigned int)bVar1 * 16777216 + iVar2;
+                arg1_00 = (unsigned long)uVar9;
                 uVar6 = this_00->HeapBeginPtr();
                 uVar9 = uVar9 + 1;
-            } while (uVar10 < uVar6);
+            } while (arg1_00 < uVar6);
         }
     }
 
-    // 0x10031e300, 304 bytes, placed by class name
-    // Pix8::Contrast(int)
-    void Pix8::Contrast(int param_1) {
-        byte bVar1;
+    // 0x10031e300
+    void Pix8::Contrast(int arg1) {
+        uint8_t bVar1;
         int iVar2;
-        ulong uVar3;
-        int* piVar4;
-        long lVar5;
-        byte* pbVar6;
+        int* piVar3;
+        long lVar4;
+        uint8_t* pbVar5;
+        int iVar6;
         int iVar7;
         int iVar8;
         int iVar9;
         int iVar10;
-        undefined1* this_00;
         int iVar11;
-        int iVar12;
 
-        this_00 = &field_24;
-        uVar3 = this_00->HeapBeginPtr();
-        while (uVar3 != 0) {
-            uVar3 = uVar3 - 1;
-            lVar5 = SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar3);
-            bVar1 = *(byte*)(lVar5 + 3);
-            lVar5 = SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar3);
-            iVar7 = (uint) * (byte*)(lVar5 + 2) * param_1;
-            iVar8 = iVar7 >> 8;
+        uint8_t* this_00 = &field_24;
+        unsigned long arg1_00 = this_00->HeapBeginPtr();
+        while (arg1_00 != 0) {
+            arg1_00 = arg1_00 - 1;
+            lVar4 = (*this_00)[arg1_00];
+            bVar1 = *(uint8_t*)(lVar4 + 3);
+            lVar4 = (*this_00)[arg1_00];
+            iVar6 = (unsigned int)*(uint8_t*)(lVar4 + 2) * arg1;
+            iVar7 = iVar6 >> 8;
+            if (254 < iVar7) {
+                iVar7 = 255;
+            }
+            lVar4 = (*this_00)[arg1_00];
+            iVar9 = (unsigned int)*(uint8_t*)(lVar4 + 1) * arg1;
+            iVar10 = iVar9 >> 8;
+            if (254 < iVar10) {
+                iVar10 = 255;
+            }
+            pbVar5 = (uint8_t*)(*this_00)[arg1_00];
+            iVar8 = (int)((unsigned int)*pbVar5 * arg1) >> 8;
             if (254 < iVar8) {
                 iVar8 = 255;
             }
-            lVar5 = SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar3);
-            iVar10 = (uint) * (byte*)(lVar5 + 1) * param_1;
-            iVar11 = iVar10 >> 8;
-            if (254 < iVar11) {
-                iVar11 = 255;
-            }
-            pbVar6 = (byte*)SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar3);
-            iVar9 = (int)((uint)*pbVar6 * param_1) >> 8;
-            if (254 < iVar9) {
-                iVar9 = 255;
-            }
-            iVar12 = 0;
+            iVar11 = 0;
             iVar2 = 0;
-            if (-1 < (int)((uint)*pbVar6 * param_1)) {
-                iVar2 = iVar9;
+            if (-1 < (int)((unsigned int)*pbVar5 * arg1)) {
+                iVar2 = iVar8;
             }
-            iVar8 = iVar8 << 16;
-            if (iVar7 < 0) {
-                iVar8 = 0;
+            iVar7 = iVar7 << 16;
+            if (iVar6 < 0) {
+                iVar7 = 0;
             }
-            if (-1 < iVar10) {
-                iVar12 = iVar11 << 8;
+            if (-1 < iVar9) {
+                iVar11 = iVar10 << 8;
             }
-            piVar4 = (int*)SharedArray<unsigned int>::operator[]((SharedArray<unsigned int>*)this_00, uVar3);
-            *piVar4 = iVar8 + (uint)bVar1 * 16777216 + iVar12 + iVar2;
+            piVar3 = (int*)(*this_00)[arg1_00];
+            *piVar3 = iVar7 + (unsigned int)bVar1 * 16777216 + iVar11 + iVar2;
         }
     }
 

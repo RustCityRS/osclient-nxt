@@ -1,54 +1,37 @@
 // libs/hal/thread/Fence.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.thread
 
 #include "Fence.h"
 
 namespace jag {
-    // 0x1000bb3f0: the linker folded this into oldscape::jagex3::ThreadSignal::~ThreadSignal(), which has identical code
-    Fence::~Fence();
+    // 0x1001260a0: Fence::~Fence() has the same machine code as oldscape::jagex3::ThreadSignal::~ThreadSignal()
 
-    // 0x1001260a0: the linker folded this into oldscape::jagex3::ThreadSignal::~ThreadSignal(), which has identical code
-    Fence::~Fence();
-
-    // 0x100c94c20, 64 bytes, placed by class name and debug map
-    // Fence::Wait()
+    // 0x100c94c20
     void Fence::Wait() {
-        unique_lock<std::mutex> local_28[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_28, (mutex*)this);
-        std::condition_variable::wait<Fence::Wait()::__0>((condition_variable*)&field_64, local_28, this);
-        std::unique_lock<std::mutex>::~unique_lock(local_28);
+        unique_lock<std::mutex> local_28(*this);
+        (&field_64)->wait<Fence::Wait()::__0>(&local_28, this);
     }
 
-    // 0x100c94ce0, 64 bytes, placed by class name and debug map
-    // Fence::Signal()
+    // 0x100c94ce0
     void Fence::Signal() {
-        scoped_lock<std::mutex> local_20[8];
 
-        std::scoped_lock<std::mutex>::scoped_lock(local_20, (mutex*)this);
+        scoped_lock<std::mutex> local_20(*this);
         field_112 = 1;
-        std::scoped_lock<std::mutex>::~scoped_lock(local_20);
         std::condition_variable::notify_all();
     }
 
-    // 0x100c94d20, 64 bytes, placed by class name and debug map
-    // Fence::Reset()
+    // 0x100c94d20
     void Fence::Reset() {
-        scoped_lock<std::mutex> local_20[8];
 
-        std::scoped_lock<std::mutex>::scoped_lock(local_20, (mutex*)this);
+        scoped_lock<std::mutex> local_20(*this);
         field_112 = 0;
-        std::scoped_lock<std::mutex>::~scoped_lock(local_20);
     }
 
-    // 0x100c97570, 16 bytes, placed by class name
-    // Fence::Wait()::$_0::operator()() const
-    /* Fence::Wait()::$_0::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    undefined8 Fence::Wait()::$_0::operator()() {
-        return CONCAT71((int7)((ulong) * (long*)this >> 8), *(undefined1*)(*(long*)this + 112));
+    // 0x100c97570
+    uint64_t Fence::Wait()::$_0::operator()() const {
+        return *(uint8_t*)(field_0 + 112);
     }
 
 } // namespace jag

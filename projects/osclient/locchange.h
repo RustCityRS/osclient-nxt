@@ -1,107 +1,89 @@
 // projects/osclient/locchange.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape {
     class LocChange {
     public:
-        bool IsOpEnabled(int);
+        bool IsOpEnabled(int arg1);
         LocChange();
 
-        // data members, from how the methods use this: 57 bytes
-        char _unknown_0[44];
-        byte field_44; // offset 44
-        char _unknown_45[3];
-        undefined8 field_48; // offset 48
-        undefined1 field_56; // offset 56
+    private:
+        uint8_t _unknown_0[44];
+        uint8_t field_44;
+        uint8_t _unknown_45[3];
+        uint64_t field_48;
+        uint8_t field_56;
     };
 
-    // 0x1000704f0, 32 bytes, inline, placed by class name and debug map
-    // LocChange::IsOpEnabled(int)
-    bool LocChange::IsOpEnabled(int param_1) {
-        bool bVar1;
-
-        bVar1 = true;
-        if ((uint)param_1 < 5) {
-            bVar1 = (field_44 >> (param_1 & 31U) & 1) != 0;
+    // 0x1000704f0
+    bool LocChange::IsOpEnabled(int arg1) {
+        bool bVar1 = true;
+        if ((unsigned int)arg1 < 5) {
+            bVar1 = (field_44 >> (arg1 & 31U) & 1) != 0;
         }
         return bVar1;
     }
 
-    // 0x10011b070, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // LocChange::LocChange(): jumps straight to the base-object constructor
-
-    // 0x100130780, 32 bytes, base-object constructor, inline, placed by class name
-    // LocChange::LocChange()
-    void LocChange::LocChange() {
-        field_44 = 31;
-        field_48 = 18446744069414584320;
-        field_56 = 0;
-    }
+    // 0x100130780
+    LocChange::LocChange() : field_44(31), field_48(18446744069414584320), field_56(0) {}
 
 } // namespace jag::oldscape
 
 namespace jag {
-    // 0x100071b80, 16 bytes, inline, placed by debug map only (low confidence)
-    // bool operator!=<oldscape::ClientObj>(shared_ptr<oldscape::ClientObj> const&, decltype(nullptr))
-    /* bool TEMPNAMEPLACEHOLDERVALUE(shared_ptr<oldscape::sound::WaveStream> const&,
-   decltype(nullptr)) */
-
-    bool operator!=(shared_ptr* param_1, _func_decltype_nullptr* param_2) {
-        return shared_ptr::operator_cast_to_bool(param_1);
+    // 0x100071b80
+    bool operator!=
+        <oldscape::ClientObj>(const shared_ptr<oldscape::ClientObj>& midiPlayerMainThread, decltype(nullptr) arg2) {
+        return (bool)midiPlayerMainThread.operator_cast_to_bool();
     }
 
-    // 0x10011b850, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientPlayer>::type make_shared<oldscape::ClientPlayer>()
-    jag* make_shared<oldscape::ClientPlayer>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10011b850
+    shared_ptr_if_not_array<oldscape::ClientPlayer>::type make_shared<oldscape::ClientPlayer>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         ClientPlayer* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(1280, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(1280, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::ClientPlayer>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::ClientPlayer>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::ClientPlayer>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientPlayer>, int, oldscape::ClientPlayer*&>(
-                pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientPlayer>, int, oldscape::ClientPlayer*&>(
+                    arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10011c320, 160 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::configdecoder::HeadbarQueue>::type make_shared<oldscape::configdecoder::HeadbarQueue, shared_ptr<oldscape::configdecoder::HeadbarType>&>(shared_ptr<oldscape::configdecoder::HeadbarType>&)
-    jag* jag::make_shared<oldscape::configdecoder::HeadbarQueue, shared_ptr<oldscape::configdecoder::HeadbarType>&>(
-        shared_ptr* param_1) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10011c320
+    shared_ptr_if_not_array<oldscape::configdecoder::HeadbarQueue>::type
+    make_shared<oldscape::configdecoder::HeadbarQueue, shared_ptr<oldscape::configdecoder::HeadbarType>&>(
+        shared_ptr<oldscape::configdecoder::HeadbarType>& headbarType) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_34;
         HeadbarQueue* local_30[2];
 
-        pvVar1 = (void*)aligned_alloc(80, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(80, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::configdecoder::HeadbarQueue>::type result;
         } else {
             local_30[0] =
                 placement_new<oldscape::configdecoder::HeadbarQueue, shared_ptr<oldscape::configdecoder::HeadbarType>&>(
-                    (void*)((long)pvVar1 + 32), param_1);
+                    (void*)((long)arg1 + 32), headbarType);
             local_34 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::configdecoder::HeadbarQueue>, int,
-                                   oldscape::configdecoder::HeadbarQueue*&>(pvVar1, &local_34, local_30);
-            prVar2->~AutoSingleton(local_30[0]);
-            prVar2->~AutoSingleton(local_30[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_30[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::configdecoder::HeadbarQueue>, int,
+                              oldscape::configdecoder::HeadbarQueue*&>(arg1, &local_34, local_30);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_30[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

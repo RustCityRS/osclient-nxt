@@ -1,6 +1,5 @@
 // libs/game/runetek5/map/MapArea.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,313 +9,229 @@ namespace jag::game {
         class CompositeTextureMeta;
         class SubArea;
         int GetMapID() const;
-        GetOrigin() const;
-        GetUniqueName() const;
-        GetAdvisedZoom() const;
-        GetStaticMapElements() const;
+        uint64_t* GetOrigin() const;
+        uint8_t* GetUniqueName() const;
+        uint32_t GetAdvisedZoom() const;
+        void GetStaticMapElements() const;
         GridRect GetTargetBounds() const;
-        AreStaticMapElementsLoaded() const;
-        GetBackgroundRGBA() const;
+        bool AreStaticMapElementsLoaded() const;
+        uint32_t GetBackgroundRGBA() const;
         ~MapArea();
-        MapArea(Js5ResourceProvider*, int, PacketT<Array<unsigned char, eastl::allocator>>&,
-                PacketT<Array<unsigned char, eastl::allocator>>&);
+        MapArea(Js5ResourceProvider* js5ResourceProvider, int arg2, PacketT<Array<unsigned char>>& arg3,
+                PacketT<Array<unsigned char>>& arg4);
         void CalculateBounds();
-        MapArea(Js5ResourceProvider*, int, int, int);
-        GetCompositeTextureMeta(CompositeTextureMeta&);
+        MapArea(Js5ResourceProvider* js5ResourceProvider, int arg2, int arg3, int arg4);
+        uint8_t* GetCompositeTextureMeta(CompositeTextureMeta& compositeTextureMeta);
         void ReleaseCompositeTextureMeta();
         void GetCompositeMap();
-        ulong ContainsSource(CoordGrid const&) const;
-        ulong GetTargetCoord(CoordGrid&, CoordGrid const&) const;
-        ulong GetSourceCoord(CoordGrid&, CoordGrid const&) const;
-        LoadStaticMapElements();
-        void GetValidZones(Array<bool, eastl::allocator>&, int, int, int, int) const;
-        MapArea* operator=(MapArea&&);
-        ShouldAutoFind() const;
-        MapArea(MapArea&&);
+        unsigned long ContainsSource(const CoordGrid& coordGrid) const;
+        unsigned long GetTargetCoord(CoordGrid& coordGrid1, const CoordGrid& coordGrid2) const;
+        unsigned long GetSourceCoord(CoordGrid& coordGrid1, const CoordGrid& coordGrid2) const;
+        uint8_t LoadStaticMapElements();
+        void GetValidZones(Array<bool>& arg1, int arg2, int arg3, int arg4, int arg5) const;
+        MapArea* operator=(MapArea&& mapArea);
+        bool ShouldAutoFind() const;
+        MapArea(MapArea&& mapArea);
         MapArea();
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullMapArea;
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullMapArea; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
 
-        // data members, from how the methods use this: 336 bytes
-        Js5ResourceProvider* field_0; // offset 0
-        int m_mapID;                  // offset 8
-        char _unknown_12[92];
-        undefined8 m_origin;         // offset 104
-        undefined4 field_112;        // offset 112
-        undefined4 m_backgroundRGBA; // offset 116
-        undefined1 field_120;        // offset 120
-        undefined3 field_121;        // offset 121
-        undefined4 m_advisedZoom;    // offset 124
-        char _unknown_128[48];
-        shared_ptr field_176; // offset 176
-        shared_ptr field_192; // offset 192
-        float field_208;      // offset 208
-        float field_212;      // offset 212
-        int field_216;        // offset 216
-        int field_220;        // offset 220
-        char _unknown_224[16];
-        GridRect field_240; // offset 240
-        char _unknown_260[44];
-        GridRect m_targetBounds; // offset 304
-        char _unknown_324[4];
-        undefined4 field_328; // offset 328
-        char _unknown_332[4];
+    private:
+        Js5ResourceProvider* field_0;
+        int m_mapID;
+        uint8_t _unknown_12[92];
+        uint64_t m_origin;
+        uint32_t field_112;
+        uint32_t m_backgroundRGBA;
+        uint8_t field_120;
+        uint8_t field_121[3];
+        uint32_t m_advisedZoom;
+        uint8_t _unknown_128[48];
+        shared_ptr field_176;
+        shared_ptr field_192;
+        float field_208;
+        float field_212;
+        int field_216;
+        int field_220;
+        uint8_t _unknown_224[16];
+        GridRect field_240;
+        uint8_t _unknown_260[44];
+        GridRect m_targetBounds;
+        uint8_t _unknown_324[4];
+        uint32_t field_328;
+        uint8_t _unknown_332[4];
     };
 
     class MapArea::CompositeTextureMeta {
     public:
         CompositeTextureMeta();
         ~CompositeTextureMeta();
-        CompositeTextureMeta(CompositeTextureMeta&&);
-        CompositeTextureMeta* operator=(CompositeTextureMeta const&);
-        CompositeTextureMeta* operator=(CompositeTextureMeta&&);
+        CompositeTextureMeta(CompositeTextureMeta&& mapSquareStatus);
+        CompositeTextureMeta* operator=(const CompositeTextureMeta& compositeTextureMeta);
+        CompositeTextureMeta* operator=(CompositeTextureMeta&& compositeTextureMeta);
 
-        // data members, from how the methods use this: 24 bytes
-        char _unknown_0[16];
-        undefined8 field_16; // offset 16
+    private:
+        uint8_t _unknown_0[16];
+        uint64_t field_16;
     };
 
     class MapArea::SubArea {
     public:
-        SubArea(SubArea&&);
+        SubArea(SubArea&& subArea);
         SubArea();
 
-        // data members, from how the methods use this: 28 bytes
-        undefined4 field_0; // offset 0
-        char _unknown_4[24];
+    private:
+        uint32_t field_0;
+        uint8_t _unknown_4[24];
     };
 
-    // 0x1003c0980, 80 bytes, inline, placed by class name and debug map
-    // MapArea::GetStaticMapElements() const
-    undefined1* MapArea::GetStaticMapElements() {
+    // 0x1003c0980
+    void MapArea::GetStaticMapElements() const {
         if (field_240[16] == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "m_staticMapElementsLoaded",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/map/MapArea.h",
-                153, (char*)0);
+                153, nullptr);
         }
-        return &field_264;
+        return (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
+                                      std::default_delete<LoadingScreenScript::AnimLayer> _>>*)&field_264;
     }
 
-    // 0x1003c9110, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MapArea::GetTargetBounds() const
-    /* graphics::MaterialManager::GetDefaultMaterial() const */
-
-    undefined1* graphics::MaterialManager::GetDefaultMaterial() {
+    // 0x1003c9110
+    GridRect MapArea::GetTargetBounds() const {
         return m_defaultMaterial;
     }
 
-    // 0x1003caa10, 16 bytes, inline, placed by class name
-    // MapArea::AreStaticMapElementsLoaded() const
-    undefined1 MapArea::AreStaticMapElementsLoaded() {
+    // 0x1003caa10
+    bool MapArea::AreStaticMapElementsLoaded() const {
         return field_240[16];
     }
 
-    // 0x1003cbc60, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MapArea::GetBackgroundRGBA() const
-    /* Entity::GetPickingPrepassType() const */
-
-    undefined4 Entity::GetPickingPrepassType() {
+    // 0x1003cbc60
+    uint32_t MapArea::GetBackgroundRGBA() const {
         return m_pickingPrepassType;
     }
 
-    // 0x10046b330, 16 bytes, complete-object destructor, inline, placed by class name
-    // MapArea::~MapArea(): jumps straight to the base-object destructor
-
-    // 0x10046b340, 112 bytes, base-object destructor, inline, placed by class name
-    // MapArea::~MapArea()
-    void MapArea::~MapArea() {
-        (&field_264)->~Array();
+    // 0x10046b340
+    MapArea::~MapArea() {
+        field_264.~Array();
         field_192->~LRUHashCacheWrapper();
         field_176->~shared_ptr();
-        (&field_152)->~Array();
-        (&field_128)->~Array();
-        (&field_80)->~Array();
-        (&field_48)->~basic_string();
-        (&field_16)->~basic_string();
+        field_152.~Array();
+        field_128.~Array();
+        field_80.~Array();
+        field_48.~basic_string();
+        field_16.~basic_string();
     }
 
-    // 0x1004adad0, 48 bytes, inline, placed by class name
-    // MapArea::CompositeTextureMeta::operator=(MapArea::CompositeTextureMeta const&)
-    /* MapArea::CompositeTextureMeta::TEMPNAMEPLACEHOLDERVALUE(MapArea::CompositeTextureMeta
-   const&) */
-
-    CompositeTextureMeta* MapArea::CompositeTextureMeta::operator=(CompositeTextureMeta* param_1) {
-        shared_ptr<render::Texture2D>::operator=((shared_ptr<render::Texture2D>*)this, (shared_ptr*)param_1);
-        field_16 = param_1->field_16;
+    // 0x1004adad0
+    CompositeTextureMeta*
+    MapArea::CompositeTextureMeta::operator=(const MapArea::CompositeTextureMeta& compositeTextureMeta) {
+        *this = compositeTextureMeta;
+        field_16 = compositeTextureMeta.field_16;
         return this;
     }
 
-    // 0x1004af110, 320 bytes, inline, placed by class name
-    // MapArea::operator=(MapArea&&)
-    /* MapArea::TEMPNAMEPLACEHOLDERVALUE(MapArea&&) */
-
-    MapArea* MapArea::operator=(MapArea* param_1) {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        undefined3 uVar3;
-        int iVar4;
-
-        m_mapID = param_1->m_mapID;
-        field_0 = param_1->field_0;
-        eastl::string::operator=((eastl::string*)&field_16, (basic_string*)&param_1->field_16);
-        eastl::string::operator=((eastl::string*)&field_48, (basic_string*)&param_1->field_48);
-        Array<MapArea::SubArea, eastl::allocator>::operator=((Array<MapArea::SubArea, eastl::allocator>*)&field_80,
-                                                             (Array*)&param_1->field_80);
-        uVar1 = param_1->field_112;
-        uVar2 = param_1->m_backgroundRGBA;
-        m_origin = param_1->m_origin;
+    // 0x1004af110
+    MapArea* MapArea::operator=(MapArea&& mapArea) {
+        m_mapID = mapArea.m_mapID;
+        field_0 = mapArea.field_0;
+        field_16 = &mapArea.field_16;
+        field_48 = &mapArea.field_48;
+        field_80 = mapArea.field_80;
+        uint32_t uVar1 = mapArea.field_112;
+        uint32_t uVar2 = mapArea.m_backgroundRGBA;
+        m_origin = mapArea.m_origin;
         field_112 = uVar1;
         m_backgroundRGBA = uVar2;
-        uVar3 = param_1->field_121;
-        uVar1 = param_1->m_advisedZoom;
-        field_120 = param_1->field_120;
+        uint32_t uVar3 = mapArea.field_121;
+        uVar1 = mapArea.m_advisedZoom;
+        field_120 = mapArea.field_120;
         field_121 = uVar3;
         m_advisedZoom = uVar1;
-        Array<MapArea::CompositeSquare, eastl::allocator>::operator=(
-            (Array<MapArea::CompositeSquare, eastl::allocator>*)&field_128, (Array*)&param_1->field_128);
-        Array<MapArea::CompositeZone, eastl::allocator>::operator=(
-            (Array<MapArea::CompositeZone, eastl::allocator>*)&field_152, (Array*)&param_1->field_152);
-        shared_ptr<eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>, 4ul, true,
-                                       eastl::allocator>>::
-        operator=((shared_ptr<eastl::fixed_vector<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>,
-                                                  4ul, true, eastl::allocator>>*)field_176,
-                  (shared_ptr*)param_1->field_176);
-        CompositeTextureMeta::operator=((CompositeTextureMeta*)field_192, (CompositeTextureMeta*)param_1->field_192);
-        iVar4 = param_1->field_220;
-        field_216 = param_1->field_216;
+        field_128 = mapArea.field_128;
+        field_152 = mapArea.field_152;
+        *field_176 = mapArea.field_176;
+        *field_192 = mapArea.field_192;
+        int iVar4 = mapArea.field_220;
+        field_216 = mapArea.field_216;
         field_220 = iVar4;
-        math::Rect<unsigned int>::operator=((Rect<unsigned int>*)&field_224, (Rect*)&param_1->field_224);
-        math::Rect<unsigned int>::operator=((Rect<unsigned int>*)field_240, (Rect*)param_1->field_240);
-        field_240[16] = param_1->field_240[16];
-        Array<StaticMapElement, eastl::allocator>::operator=((Array<StaticMapElement, eastl::allocator>*)&field_264,
-                                                             (Array*)&param_1->field_264);
-        math::Rect<unsigned int>::operator=((Rect<unsigned int>*)&field_288, (Rect*)&param_1->field_288);
-        math::Rect<unsigned int>::operator=((Rect<unsigned int>*)m_targetBounds, (Rect*)param_1->m_targetBounds);
-        *(undefined8*)(m_targetBounds + 16) = *(undefined8*)(param_1->m_targetBounds + 16);
-        field_328 = param_1->field_328;
+        field_224 = mapArea.field_224;
+        *field_240 = mapArea.field_240;
+        field_240[16] = mapArea.field_240[16];
+        field_264 = mapArea.field_264;
+        field_288 = mapArea.field_288;
+        *m_targetBounds = mapArea.m_targetBounds;
+        *(uint64_t*)(m_targetBounds + 16) = *(uint64_t*)(mapArea.m_targetBounds + 16);
+        field_328 = mapArea.field_328;
         return this;
     }
 
-    // 0x1004af330, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MapArea::ShouldAutoFind() const
-    /* ObjTypeList::IsMembersServer() const */
-
-    undefined1 ObjTypeList::IsMembersServer() {
+    // 0x1004af330
+    bool MapArea::ShouldAutoFind() const {
         return m_membersServer;
     }
 
-    // 0x1004b0600, 48 bytes, inline, placed by class name
-    // MapArea::CompositeTextureMeta::operator=(MapArea::CompositeTextureMeta&&)
-    /* MapArea::CompositeTextureMeta::TEMPNAMEPLACEHOLDERVALUE(MapArea::CompositeTextureMeta&&)
-    */
-
-    CompositeTextureMeta* MapArea::CompositeTextureMeta::operator=(CompositeTextureMeta* param_1) {
-        shared_ptr<render::Texture2D>::operator=((shared_ptr<render::Texture2D>*)this, (shared_ptr*)param_1);
-        field_16 = param_1->field_16;
+    // 0x1004b0600
+    CompositeTextureMeta*
+    MapArea::CompositeTextureMeta::operator=(MapArea::CompositeTextureMeta&& compositeTextureMeta) {
+        *this = compositeTextureMeta;
+        field_16 = compositeTextureMeta.field_16;
         return this;
     }
 
-    // 0x1004b1d60, 16 bytes, complete-object constructor, inline, placed by class name
-    // MapArea::SubArea::SubArea(MapArea::SubArea&&): jumps straight to the base-object constructor
-
-    // 0x1004b1d70, 16 bytes, complete-object constructor, inline, placed by class name
-    // MapArea::SubArea::SubArea(): jumps straight to the base-object constructor
-
-    // 0x1004b1d80, 48 bytes, base-object constructor, inline, placed by class name
-    // MapArea::SubArea::SubArea()
-    void MapArea::SubArea::SubArea() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (&field_4, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_20, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x1004b1d80
+    MapArea::SubArea::SubArea() {
+        new (&field_4) shared_ptr();
+        new (&field_20) shared_ptr();
     }
 
-    // 0x1004b1db0, 64 bytes, base-object constructor, inline, placed by class name
-    // MapArea::SubArea::SubArea(MapArea::SubArea&&)
-    void MapArea::SubArea::SubArea(SubArea* param_1) {
-        field_0 = param_1->field_0;
-        new (&field_4, (Rect*)&param_1->field_4) math::Rect<unsigned int>();
-        new (&field_20, (Rect*)&param_1->field_20) math::Rect<unsigned int>();
-    }
+    // 0x1004b1db0
+    MapArea::SubArea::SubArea(MapArea::SubArea&& subArea)
+        : field_0(subArea.field_0), field_4(subArea.field_4), field_20(subArea.field_20) {}
 
-    // 0x1004b2440, 16 bytes, complete-object constructor, inline, placed by class name
-    // MapArea::MapArea(MapArea&&): jumps straight to the base-object constructor
-
-    // 0x1004b2450, 16 bytes, complete-object constructor, inline, placed by class name
-    // MapArea::MapArea(): jumps straight to the base-object constructor
-
-    // 0x1004b2460, 416 bytes, base-object constructor, inline, placed by class name
-    // MapArea::MapArea()
-    void MapArea::MapArea() {
-        _func_decltype_nullptr* in_RSI;
-
-        field_0 = (Js5ResourceProvider*)0;
-        m_mapID = -1;
-        new (&field_16) eastl::string();
-        new (&field_48) eastl::string();
-        new (&field_80) Array<MapArea::SubArea, eastl::allocator>();
-        new (&m_origin) game::CoordGrid();
-        m_backgroundRGBA = 255;
-        field_120 = 1;
-        m_advisedZoom = 4294967295;
-        new (&field_128) Array<MapArea::CompositeSquare, eastl::allocator>();
-        new (&field_152) Array<MapArea::CompositeZone, eastl::allocator>();
-        new (field_176, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_192) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
-        field_216 = 1;
-        field_220 = 1;
-        new (&field_224, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_240, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x1004b2460
+    MapArea::MapArea()
+        : field_0(nullptr), m_mapID(-1), m_backgroundRGBA(255), field_120(1), m_advisedZoom(4294967295), field_216(1),
+          field_220(1) {
+        new (&field_224) shared_ptr();
+        new (field_240) shared_ptr();
         field_240[16] = 0;
-        new (&field_264) Array<StaticMapElement, eastl::allocator>();
-        new (&field_288, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (m_targetBounds, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (&field_264) Array<StaticMapElement>();
+        new (&field_288) shared_ptr();
+        new (m_targetBounds) shared_ptr();
         new ((m_targetBounds + 16)) game::CoordGrid();
     }
 
-    // 0x1004b2600, 464 bytes, base-object constructor, inline, placed by class name
-    // MapArea::MapArea(MapArea&&)
-    void MapArea::MapArea(MapArea* param_1) {
-        undefined3 uVar1;
-        undefined4 uVar2;
-        undefined4 uVar3;
-        int iVar4;
-
-        m_mapID = param_1->m_mapID;
-        field_0 = param_1->field_0;
-        new (&field_16, (basic_string*)&param_1->field_16) eastl::string();
-        new (&field_48, (basic_string*)&param_1->field_48) eastl::string();
-        new (&field_80, (Array*)&param_1->field_80) Array<MapArea::SubArea, eastl::allocator>();
-        uVar1 = param_1->field_121;
-        uVar2 = param_1->m_advisedZoom;
-        field_120 = param_1->field_120;
+    // 0x1004b2600
+    MapArea::MapArea(MapArea&& mapArea)
+        : m_mapID(mapArea.m_mapID), field_0(mapArea.field_0), field_16(mapArea.field_16), field_48(mapArea.field_48),
+          field_80(mapArea.field_80) {
+        uint32_t uVar1 = mapArea.field_121;
+        uint32_t uVar2 = mapArea.m_advisedZoom;
+        field_120 = mapArea.field_120;
         field_121 = uVar1;
         m_advisedZoom = uVar2;
-        uVar2 = param_1->field_112;
-        uVar3 = param_1->m_backgroundRGBA;
-        m_origin = param_1->m_origin;
+        uVar2 = mapArea.field_112;
+        uint32_t uVar3 = mapArea.m_backgroundRGBA;
+        m_origin = mapArea.m_origin;
         field_112 = uVar2;
         m_backgroundRGBA = uVar3;
-        new (&field_128, (Array*)&param_1->field_128) Array<MapArea::CompositeSquare, eastl::allocator>();
-        new (&field_152, (Array*)&param_1->field_152) Array<MapArea::CompositeZone, eastl::allocator>();
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)field_176, (shared_ptr*)param_1->field_176);
-        new (field_192, (CompositeTextureMeta*)param_1->field_192) CompositeTextureMeta();
-        iVar4 = param_1->field_220;
-        field_216 = param_1->field_216;
+        new (&field_128) Array<MapArea::CompositeSquare>(mapArea.field_128);
+        new (&field_152) Array<MapArea::CompositeZone>(mapArea.field_152);
+        field_176->shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(mapArea.field_176);
+        new (field_192) CompositeTextureMeta(mapArea.field_192);
+        int iVar4 = mapArea.field_220;
+        field_216 = mapArea.field_216;
         field_220 = iVar4;
-        new (&field_224, (Rect*)&param_1->field_224) math::Rect<unsigned int>();
-        new (field_240, (Rect*)param_1->field_240) math::Rect<unsigned int>();
-        field_240[16] = param_1->field_240[16];
-        new (&field_264, (Array*)&param_1->field_264) Array<StaticMapElement, eastl::allocator>();
-        new (&field_288, (Rect*)&param_1->field_288) math::Rect<unsigned int>();
-        new (m_targetBounds, (Rect*)param_1->m_targetBounds) math::Rect<unsigned int>();
-        field_328 = param_1->field_328;
-        *(undefined8*)(m_targetBounds + 16) = *(undefined8*)(param_1->m_targetBounds + 16);
+        new (&field_224) math::Rect(mapArea.field_224);
+        new (field_240) math::Rect(mapArea.field_240);
+        field_240[16] = mapArea.field_240[16];
+        new (&field_264) Array<StaticMapElement>(mapArea.field_264);
+        new (&field_288) math::Rect(mapArea.field_288);
+        new (m_targetBounds) math::Rect(mapArea.m_targetBounds);
+        field_328 = mapArea.field_328;
+        *(uint64_t*)(m_targetBounds + 16) = *(uint64_t*)(mapArea.m_targetBounds + 16);
     }
 
 } // namespace jag::game

@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/renderer/DrawableGroup.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -8,59 +7,42 @@
 namespace jag::graphics {
     class DrawableGroup {
     public:
-        GetDrawableSortKeyType() const;
-        SetDrawableSortKeyType(DrawableSortKeyType);
-        GetDrawableElements();
-        GetDrawableElements() const;
+        EnumOptionToggle GetDrawableSortKeyType() const;
+        void SetDrawableSortKeyType(DrawableSortKeyType arg1);
+        uint8_t* GetDrawableElements();
+        uint8_t* GetDrawableElements() const;
         void ClearDrawableElements();
-        DrawableGroup(DrawableGroupType, DrawableSortKeyType);
+        DrawableGroup(DrawableGroupType drawableGroupType, DrawableSortKeyType drawableSortKeyType);
         ~DrawableGroup();
 
-        // data members, from how the methods use this: 24 bytes
-        undefined4 field_0;               // offset 0
-        undefined4 field_4;               // offset 4
-        undefined4 m_drawableSortKeyType; // offset 8
-        char _unknown_12[12];
+    private:
+        uint32_t field_0;
+        DrawableGroupType field_4;
+        DrawableSortKeyType m_drawableSortKeyType;
+        uint8_t _unknown_12[12];
     };
 
-    // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    DrawableGroup::GetDrawableSortKeyType() const;
+    // 0x100024170: DrawableGroup::GetDrawableSortKeyType() const has the same machine code as oldscape::option::IScriptOption::GetId() const
 
-    // 0x10005fd90: the linker folded this into oldscape::widgets::Widget::SetBackgroundColour(unsigned int), which has identical code
-    DrawableGroup::SetDrawableSortKeyType(DrawableSortKeyType);
+    // 0x10005fd90: DrawableGroup::SetDrawableSortKeyType(DrawableSortKeyType) has the same machine code as oldscape::widgets::Widget::SetBackgroundColour(unsigned int)
 
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    DrawableGroup::GetDrawableElements();
+    // 0x1000b9950: DrawableGroup::GetDrawableElements() has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    DrawableGroup::GetDrawableElements() const;
+    // 0x1000b9950: DrawableGroup::GetDrawableElements() const has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x1007e36e0, 32 bytes, inline, placed by class name and debug map
-    // DrawableGroup::ClearDrawableElements()
+    // 0x1007e36e0
     void DrawableGroup::ClearDrawableElements() {
-        (&field_16)->clear();
+        field_16.clear();
         field_0 = 0;
     }
 
-    // 0x1007e82f0, 16 bytes, complete-object constructor, inline, placed by class name
-    // DrawableGroup::DrawableGroup(DrawableGroupType, DrawableSortKeyType): jumps straight to the base-object constructor
+    // 0x1007e8310
+    DrawableGroup::DrawableGroup(DrawableGroupType drawableGroupType, DrawableSortKeyType drawableSortKeyType)
+        : field_0(0), field_4(drawableGroupType), m_drawableSortKeyType(drawableSortKeyType) {}
 
-    // 0x1007e8300, 16 bytes, complete-object destructor, inline, placed by class name
-    // DrawableGroup::~DrawableGroup(): jumps straight to the base-object destructor
-
-    // 0x1007e8310, 32 bytes, base-object constructor, inline, placed by class name
-    // DrawableGroup::DrawableGroup(DrawableGroupType, DrawableSortKeyType)
-    void DrawableGroup::DrawableGroup(undefined4 param_2, undefined4 param_3) {
-        field_0 = 0;
-        field_4 = param_2;
-        m_drawableSortKeyType = param_3;
-        new (&field_16) eastl::vector<DrawableElementInfo, eastl::allocator>();
-    }
-
-    // 0x1007e83a0, 16 bytes, base-object destructor, inline, placed by class name
-    // DrawableGroup::~DrawableGroup()
-    void DrawableGroup::~DrawableGroup() {
-        (&field_16)->~vector();
+    // 0x1007e83a0
+    DrawableGroup::~DrawableGroup() {
+        field_16.~vector();
     }
 
 } // namespace jag::graphics

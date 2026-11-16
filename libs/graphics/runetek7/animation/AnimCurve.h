@@ -1,133 +1,101 @@
 // libs/graphics/runetek7/animation/AnimCurve.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class AnimCurve {
     public:
-        GetKeyList() const;
-        byte GetPostInfinity() const;
+        void GetKeyList() const;
+        uint8_t GetPostInfinity() const;
         bool IsWeighted() const;
-        ulong GetValue(float, AnimCurveSegmentCacheData&) const;
+        unsigned long GetValue(float arg1, AnimCurveSegmentCacheData& animCurveSegmentCacheData) const;
         void GetNumKeys() const;
-        ulong LoadFromPacket(PacketT<Array<unsigned char, eastl::allocator>>&);
+        unsigned long LoadFromPacket(PacketT<Array<unsigned char>>& arg1);
         int GetStart() const;
         int GetEnd() const;
         int GetDuration() const;
-        int GetKeyIndexAtTime(float, AnimCurveSegmentCacheData const&) const;
-        GetKeyFromIndex(int) const;
-        GetKeyAtTime(float, AnimCurveSegmentCacheData&) const;
-        GetNextKey(float, AnimCurveSegmentCacheData&) const;
-        GetPreInfinity() const;
-        IsStatic() const;
+        int GetKeyIndexAtTime(float arg1, const AnimCurveSegmentCacheData& animCurveSegmentCacheData) const;
+        short* GetKeyFromIndex(int arg1) const;
+        uint64_t GetKeyAtTime(float arg1, AnimCurveSegmentCacheData& animCurveSegmentCacheData) const;
+        uint64_t GetNextKey(float arg1, AnimCurveSegmentCacheData& animCurveSegmentCacheData) const;
+        uint8_t GetPreInfinity() const;
+        bool IsStatic() const;
         AnimCurve();
         ~AnimCurve();
-        AnimCurve(AnimCurve&&);
+        AnimCurve(AnimCurve&& animCurve);
 
-        // data members, from how the methods use this: 32 bytes
-        undefined4 field_0;       // offset 0
-        uint field_4;             // offset 4
-        uint field_8;             // offset 8
-        undefined1 field_12;      // offset 12
-        bool m_weighted;          // offset 13
-        undefined1 m_static;      // offset 14
-        undefined1 m_preInfinity; // offset 15
-        byte m_postInfinity;      // offset 16
-        char _unknown_17[15];
+    private:
+        uint32_t field_0;
+        unsigned int field_4;
+        unsigned int field_8;
+        uint8_t field_12;
+        bool m_weighted;
+        uint8_t m_static;
+        uint8_t m_preInfinity;
+        uint8_t m_postInfinity;
+        uint8_t _unknown_17[15];
     };
 
-    // 0x100979d20, 160 bytes, inline, placed by class name and debug map
-    // AnimCurve::GetValue(float, AnimCurveSegmentCacheData&) const
-    ulong AnimCurve::GetValue(float param_1, AnimCurveSegmentCacheData* param_2) {
-        undefined1* this_00;
-        char cVar1;
+    // 0x100979d20
+    unsigned long AnimCurve::GetValue(float arg1, AnimCurveSegmentCacheData& animCurveSegmentCacheData) const {
         short* psVar2;
         long lVar3;
-        ulong uVar4;
 
-        this_00 = &field_24;
-        cVar1 = this_00->empty();
-        uVar4 = 0;
-        if (cVar1 == '\0') {
-            psVar2 =
-                (short*)Array<AnimKey, eastl::allocator>::operator[]((Array<AnimKey, eastl::allocator>*)this_00, 0);
-            if ((float)(int)*psVar2 <= param_1) {
+        uint8_t* this_00 = &field_24;
+        bool cVar1 = this_00->empty();
+        unsigned long uVar4 = 0;
+        if (!cVar1) {
+            psVar2 = (short*)(*this_00)[0];
+            if ((float)(int)*psVar2 <= arg1) {
                 lVar3 = this_00->end();
-                psVar2 = (short*)Array<AnimKey, eastl::allocator>::operator[](
-                    (Array<AnimKey, eastl::allocator>*)this_00, lVar3 - 1);
-                if (param_1 <= (float)(int)*psVar2) {
-                    uVar4 = AnimCurveSampler::SampleCurve(this, param_1, param_2);
+                psVar2 = (short*)(*this_00)[lVar3 - 1];
+                if (arg1 <= (float)(int)*psVar2) {
+                    uVar4 = AnimCurveSampler::SampleCurve(this, arg1, animCurveSegmentCacheData);
                 } else {
-                    uVar4 = (ulong)field_8;
+                    uVar4 = (unsigned long)field_8;
                 }
             } else {
-                uVar4 = (ulong)field_4;
+                uVar4 = (unsigned long)field_4;
             }
         }
         return uVar4;
     }
 
-    // 0x1009822f0, 16 bytes, inline, placed by class name
-    // AnimCurve::GetPreInfinity() const
-    undefined1 AnimCurve::GetPreInfinity() {
+    // 0x1009822f0
+    uint8_t AnimCurve::GetPreInfinity() const {
         return m_preInfinity;
     }
 
-    // 0x1009826e0, 16 bytes, inline, placed by class name
-    // AnimCurve::IsStatic() const
-    undefined1 AnimCurve::IsStatic() {
+    // 0x1009826e0
+    bool AnimCurve::IsStatic() const {
         return m_static;
     }
 
-    // 0x1009844b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // AnimCurve::AnimCurve(): jumps straight to the base-object constructor
+    // 0x1009914a0
+    AnimCurve::AnimCurve() : field_0(0) {}
 
-    // 0x1009844c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // AnimCurve::~AnimCurve(): jumps straight to the base-object destructor
-
-    // 0x1009914a0, 32 bytes, base-object constructor, inline, placed by class name
-    // AnimCurve::AnimCurve()
-    void AnimCurve::AnimCurve() {
-        field_0 = 0;
-        new (&field_24) Array<AnimKey, eastl::allocator>();
+    // 0x100991500
+    AnimCurve::~AnimCurve() {
+        field_24.~Array();
     }
 
-    // 0x100991500, 16 bytes, base-object destructor, inline, placed by class name
-    // AnimCurve::~AnimCurve()
-    void AnimCurve::~AnimCurve() {
-        (&field_24)->~Array();
-    }
-
-    // 0x10099fb70, 16 bytes, complete-object constructor, inline, placed by class name
-    // AnimCurve::AnimCurve(AnimCurve&&): jumps straight to the base-object constructor
-
-    // 0x10099fb80, 32 bytes, base-object constructor, inline, placed by class name
-    // AnimCurve::AnimCurve(AnimCurve&&)
-    void AnimCurve::AnimCurve(AnimCurve* param_1) {
-        uint uVar1;
-        uint uVar2;
-        undefined1 uVar3;
-        bool bVar4;
-        undefined1 uVar5;
-        undefined1 uVar6;
-
-        m_postInfinity = param_1->m_postInfinity;
-        uVar1 = param_1->field_4;
-        uVar2 = param_1->field_8;
-        uVar3 = param_1->field_12;
-        bVar4 = param_1->m_weighted;
-        uVar5 = param_1->m_static;
-        uVar6 = param_1->m_preInfinity;
-        field_0 = param_1->field_0;
+    // 0x10099fb80
+    AnimCurve::AnimCurve(AnimCurve&& animCurve) : m_postInfinity(animCurve.m_postInfinity) {
+        unsigned int uVar1 = animCurve.field_4;
+        unsigned int uVar2 = animCurve.field_8;
+        uint8_t uVar3 = animCurve.field_12;
+        bool bVar4 = animCurve.m_weighted;
+        uint8_t uVar5 = animCurve.m_static;
+        uint8_t uVar6 = animCurve.m_preInfinity;
+        field_0 = animCurve.field_0;
         field_4 = uVar1;
         field_8 = uVar2;
         field_12 = uVar3;
         m_weighted = bVar4;
         m_static = uVar5;
         m_preInfinity = uVar6;
-        new (&field_24, (Array*)&param_1->field_24) Array<AnimKey, eastl::allocator>();
+        new (&field_24) Array<AnimKey>(animCurve.field_24);
     }
 
 } // namespace jag::graphics

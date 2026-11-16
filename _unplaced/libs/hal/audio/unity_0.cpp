@@ -1,10 +1,9 @@
 // _unplaced/libs/hal/audio/unity_0.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 namespace jag::hal::audio::decoders::vorbis {
-    // 0x100d6abe0, 1024 bytes, __const
-    inverse_db_table = {
+    // 0x100d6abe0
+    int32_t inverse_db_table[256] = {
         870626366,  871600393,  872526475,  873078844,  873667107,  874293600,  874960807,  875671371,  876428112,
         877234032,  878092323,  879006392,  879979861,  880910216,  881462268,  882050195,  882676329,  883343154,
         884053311,  884809619,  885615076,  886472877,  887386422,  888359334,  889293960,  889845696,  890433286,
@@ -36,23 +35,23 @@ namespace jag::hal::audio::decoders::vorbis {
         1062465565, 1063368187, 1064329467, 1065353216,
     };
 
-    // 0x100d6b000, 64 bytes, __const
-    channel_position = {
+    // 0x100d6b000
+    int32_t channel_position[16] = {
         0,      458752,   0,    1283,      117637120, 5,         84083971, 117637120,
         328453, 50661123, 1797, 931201410, 864125701, 864026624, 0,        0,
     };
 
-    // 0x100f48530, 4 bytes, __data
-    ogg_page_header = 1399285583;
+    // 0x100f48530
+    int32_t ogg_page_header = 1399285583;
 
-    // 0x1042335b0, 1024 bytes, __bss; zero-initialised
-    crc_table;
+    // 0x1042335b0
+    uint8_t crc_table[1024];
 
 } // namespace jag::hal::audio::decoders::vorbis
 
 namespace jag::hal::audio {
-    // 0x100f48390, 128 bytes, __data
-    BussTypeStrings = {
+    // 0x100f48390
+    const void* BussTypeStrings[16] = {
         "MASTER",
         "SFX",
         "MUSIC",

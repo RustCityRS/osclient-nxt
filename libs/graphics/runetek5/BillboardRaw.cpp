@@ -1,33 +1,30 @@
 // libs/graphics/runetek5/BillboardRaw.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "BillboardRaw.h"
 
 namespace jag::graphics {
-    // 0x100023af0: the linker folded this into hal::Haptics::GetEnabled() const, which has identical code
-    BillboardRaw::IsValid() const;
+    // 0x100023af0: BillboardRaw::IsValid() const has the same machine code as hal::Haptics::GetEnabled() const
 
-    // 0x10097b060, 336 bytes, placed by class name and debug map
-    // BillboardRaw::Decode(PacketT<Array<unsigned char, eastl::allocator> >&)
-    void BillboardRaw::Decode(PacketT* param_1) {
-        undefined1 uVar1;
-        byte bVar2;
-        ushort uVar3;
-        uint uVar4;
+    // 0x10097b060
+    void BillboardRaw::Decode(PacketT<Array<unsigned char>>& arg1) {
+        uint8_t uVar1;
+        uint8_t bVar2;
+        unsigned short uVar3;
+        unsigned int uVar4;
         int iVar5;
-        undefined* puVar6;
+        uint8_t* puVar6;
 
         do {
-            uVar1 = param_1->g1();
+            uVar1 = arg1.g1();
             iVar5 = 3;
             switch (uVar1) {
             case 0:
                 break;
             case 1:
-                uVar3 = param_1->g2();
-                uVar4 = (uint)uVar3;
+                uVar3 = arg1.g2();
+                uVar4 = (unsigned int)uVar3;
                 if (uVar3 == 65535) {
                     uVar4 = 4294967295;
                 }
@@ -35,25 +32,25 @@ namespace jag::graphics {
                 iVar5 = 0;
                 break;
             case 2:
-                uVar3 = param_1->g2();
+                uVar3 = arg1.g2();
                 field_8 = uVar3 + 1;
-                uVar3 = param_1->g2();
+                uVar3 = arg1.g2();
                 field_12 = uVar3 + 1;
                 iVar5 = 0;
                 break;
             case 3:
-                param_1->g1s();
+                arg1.g1s();
                 iVar5 = 0;
                 break;
             case 4:
-                bVar2 = param_1->g1();
-                puVar6 = (undefined*)BlendMode::GetByID((uint)bVar2);
+                bVar2 = arg1.g1();
+                puVar6 = (uint8_t*)((BlendMode*)(unsigned long)bVar2)->GetByID((unsigned int)arg1);
                 field_16 = puVar6;
                 iVar5 = 0;
                 break;
             case 5:
-                bVar2 = param_1->g1();
-                puVar6 = (undefined*)BlendMode::GetByID((uint)bVar2);
+                bVar2 = arg1.g1();
+                puVar6 = (uint8_t*)((BlendMode*)(unsigned long)bVar2)->GetByID((unsigned int)arg1);
                 field_24 = puVar6;
                 iVar5 = 0;
                 break;
@@ -66,7 +63,6 @@ namespace jag::graphics {
                 iVar5 = 0;
                 break;
             default:
-                /* WARNING: Subroutine does not return */
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                 "runetek5/BillboardRaw.cpp",
                                 53, "BillboardRaw: Unrecognised config type: %u");

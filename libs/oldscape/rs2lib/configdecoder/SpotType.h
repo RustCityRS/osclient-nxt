@@ -1,126 +1,97 @@
 // libs/oldscape/rs2lib/configdecoder/SpotType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
+
+namespace jag {
+    // 0x10024e770
+    ref_counter_shared<oldscape::configdecoder::SpotType>::ref_counter_shared(
+        unsigned long arg1, oldscape::configdecoder::SpotType* spotType)
+        : ref_counter_base() {}
+
+    // 0x10024e7b0
+    void ref_counter_shared<oldscape::configdecoder::SpotType>::DeleteData() {
+        ref_counter_shared<oldscape::configdecoder::SpotType> _vtbl* prVar1;
+        long lVar2;
+
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
+                lVar2 = 0;
+                prVar1 = nullptr;
+                do {
+                    ((SpotType*)((long)&(this[3]._vptr)->_dtor + lVar2))->~SpotType();
+                    prVar1 = (ref_counter_shared<oldscape::configdecoder::SpotType> _vtbl*)((long)&prVar1->_dtor + 1);
+                    lVar2 = lVar2 + 136;
+                } while (prVar1 < this[2]._vptr);
+            }
+            this[3]._vptr = nullptr;
+        }
+    }
+
+    // 0x10024edd0
+    oldscape::configdecoder::StructType* placement_new<oldscape::configdecoder::StructType>(void* arg1) {
+        *(uint64_t*)((long)arg1 + 48) = 0;
+        *(uint64_t*)((long)arg1 + 56) = 0;
+        *(uint64_t*)((long)arg1 + 32) = 0;
+        *(uint64_t*)((long)arg1 + 40) = 0;
+        *(uint64_t*)((long)arg1 + 16) = 0;
+        *(uint64_t*)((long)arg1 + 24) = 0;
+        *(uint64_t*)arg1 = 0;
+        *(uint64_t*)((long)arg1 + 8) = 0;
+        new (arg1) oldscape::configdecoder::StructType();
+        return arg1;
+    }
+
+    // 0x10024ee00
+    ref_counter_shared<oldscape::configdecoder::StructType>*
+    placement_new<ref_counter_shared<oldscape::configdecoder::StructType>, int, oldscape::configdecoder::StructType*&>(
+        void* arg1, int&& arg2, oldscape::configdecoder::StructType*& arg3) {
+        new (arg1) ref_counter_shared<oldscape::configdecoder::StructType>((long)*arg2, arg3);
+        return arg1;
+    }
+
+} // namespace jag
 
 namespace jag::oldscape::configdecoder {
     class SpotType {
     public:
-        void Init(jagex3::Js5*, jagex3::Js5*);
-        SpotType* List(int);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&, int);
-        GetTempModel2(int);
-        GetBaseModel();
+        void Init(jagex3::Js5* js51, jagex3::Js5* js52);
+        auto List(int arg1);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2);
+        auto GetTempModel2(int arg1);
+        auto GetBaseModel();
         void ResetCache();
         SpotType();
         ~SpotType();
-        static /* 8 bytes */ m_pConfigClient;
-        static /* 8 bytes */ m_pModels;
-        static /* 5376 bytes */ m_recentUse;
-        static /* 2656 bytes */ m_modelCache;
+        static int64_t m_pConfigClient;
+        static int64_t m_pModels;
+        static LRUHashCache<SpotType, 64ul, 65ul, false, unsigned long long> m_recentUse;
+        static LRUHashCache<dash3d::ModelLit, 30ul, 31ul, false, unsigned long long> m_modelCache;
 
-        // data members, from how the methods use this: 136 bytes
-        char _unknown_0[4];
-        uint field_4; // offset 4
-        long field_8; // offset 8
-        char _unknown_16[96];
-        uint field_112; // offset 112
-        uint field_116; // offset 116
-        uint field_120; // offset 120
-        uint field_124; // offset 124
-        uint field_128; // offset 128
-        char _unknown_132[4];
+    private:
+        int field_0;
+        unsigned int field_4;
+        unsigned int field_8;
+        uint8_t _unknown_12[100];
+        unsigned int field_112;
+        unsigned int field_116;
+        unsigned int field_120;
+        unsigned int field_124;
+        unsigned int field_128;
+        uint8_t _unknown_132[4];
     };
 
-    // 0x10024e6c0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // SpotType::SpotType(): jumps straight to the base-object constructor
+    // 0x10024e6d0
+    SpotType::SpotType()
+        : field_8(4294967295), field_112(128), field_116(128), field_120(0), field_124(0), field_128(0) {}
 
-    // 0x10024e6d0, 144 bytes, base-object constructor, inline, placed by class name and debug map
-    // SpotType::SpotType()
-    void SpotType::SpotType() {
-        *(undefined4*)&field_8 = 4294967295;
-        new (&field_16) Array<short, eastl::allocator>();
-        new (&field_40) Array<short, eastl::allocator>();
-        new (&field_64) Array<short, eastl::allocator>();
-        new (&field_88) Array<short, eastl::allocator>();
-        field_112 = 128;
-        field_116 = 128;
-        field_120 = 0;
-        field_124 = 0;
-        field_128 = 0;
-    }
-
-    // 0x10024e800, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // SpotType::~SpotType(): jumps straight to the base-object destructor
-
-    // 0x10024e810, 64 bytes, base-object destructor, inline, placed by class name and debug map
-    // SpotType::~SpotType()
-    void SpotType::~SpotType() {
-        (&field_88)->~Array();
-        (&field_64)->~Array();
-        (&field_40)->~Array();
-        (&field_16)->~Array();
+    // 0x10024e810
+    SpotType::~SpotType() {
+        field_88.~Array();
+        field_64.~Array();
+        field_40.~Array();
+        field_16.~Array();
     }
 
 } // namespace jag::oldscape::configdecoder
-
-namespace jag {
-    // 0x10024e760, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::SpotType>::ref_counter_shared(unsigned long, oldscape::configdecoder::SpotType*): jumps straight to the base-object constructor
-
-    // 0x10024e770, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::SpotType>::ref_counter_shared(unsigned long, oldscape::configdecoder::SpotType*)
-    void ref_counter_shared<oldscape::configdecoder::SpotType>::ref_counter_shared(ulong param_1, SpotType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7630 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(SpotType**)(this + 24) = param_2;
-    }
-
-    // 0x10024e7b0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::SpotType>::DeleteData()
-    void ref_counter_shared<oldscape::configdecoder::SpotType>::DeleteData() {
-        ulong uVar1;
-        long lVar2;
-
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
-                lVar2 = 0;
-                uVar1 = 0;
-                do {
-                    ((*(long*)(this + 24) + lVar2))->~SpotType();
-                    uVar1 = uVar1 + 1;
-                    lVar2 = lVar2 + 136;
-                } while (uVar1 < *(ulong*)(this + 16));
-            }
-            *(undefined8*)(this + 24) = 0;
-        }
-    }
-
-    // 0x10024edd0, 48 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::configdecoder::StructType* placement_new<oldscape::configdecoder::StructType>(void*)
-    StructType* placement_new<oldscape::configdecoder::StructType>(void* param_1) {
-        *(undefined8*)((long)param_1 + 48) = 0;
-        *(undefined8*)((long)param_1 + 56) = 0;
-        *(undefined8*)((long)param_1 + 32) = 0;
-        *(undefined8*)((long)param_1 + 40) = 0;
-        *(undefined8*)((long)param_1 + 16) = 0;
-        *(undefined8*)((long)param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)((long)param_1 + 8) = 0;
-        oldscape::configdecoder::StructType::StructType(param_1);
-        return param_1;
-    }
-
-    // 0x10024ee00, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::StructType>* placement_new<ref_counter_shared<oldscape::configdecoder::StructType>, int, oldscape::configdecoder::StructType*&>(void*, int&&, oldscape::configdecoder::StructType*&)
-    ref_counter_shared* jag::placement_new<ref_counter_shared<oldscape::configdecoder::StructType>, int,
-                                           oldscape::configdecoder::StructType*&>(void* param_1, int* param_2,
-                                                                                  StructType** param_3) {
-        ref_counter_shared<oldscape::configdecoder::StructType>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
-
-} // namespace jag

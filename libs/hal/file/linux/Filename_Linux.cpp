@@ -1,31 +1,24 @@
 // libs/hal/file/linux/Filename_Linux.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.file
 
 #include "libs/hal/file/Filename.h"
 
 namespace jag {
-    // 0x100cb3fc0, 448 bytes, placed by class name and debug map
-    // Filename::RemoveDirectoryContents(Error*) const
-    bool Filename::RemoveDirectoryContents(Error* param_1) {
+    // 0x100cb3fc0
+    bool Filename::RemoveDirectoryContents(Error* error) const {
         int iVar2;
-        undefined8 uVar3;
-        long lVar4;
         long lVar5;
         char* pcVar6;
         int* piVar7;
         bool bVar8;
-        Filename local_168[19];
-        long local_38;
+        Filename local_168;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        SetErrorCode(0, param_1);
-        uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        lVar4 = _opendir_INODE64(uVar3);
+        SetErrorCode(0, error);
+        long lVar4 = _opendir_INODE64(eastl::basic_string<char, BucketAllocatorEASTL>::begin());
         if (lVar4 == 0) {
             piVar7 = ___error();
-            SetErrorCode(*piVar7, param_1);
+            SetErrorCode(*piVar7, error);
             piVar7 = ___error();
             if (*piVar7 != 0) {
                 piVar7 = ___error();
@@ -36,25 +29,25 @@ namespace jag {
             lVar5 = _readdir_INODE64(lVar4);
             if (lVar5 != 0) {
                 do {
-                    iVar2 = _strcmp((char*)(lVar5 + 21), ".");
+                    pcVar6 = (char*)(lVar5 + 21);
+                    iVar2 = _strcmp(pcVar6, ".");
                     if (iVar2 != 0) {
-                        iVar2 = _strcmp((char*)(lVar5 + 21), "..");
+                        iVar2 = _strcmp(pcVar6, "..");
                         if (iVar2 != 0) {
-                            operator/(local_168, (char*)this);
-                            if ((*(byte*)(lVar5 + 20) & 4) == 0) {
-                                pcVar6 = (char*)GetName(local_168);
-                                iVar2 = _remove(pcVar6);
+                            operator/(&local_168, this, pcVar6);
+                            if ((*(uint8_t*)(lVar5 + 20) & 4) == 0) {
+                                pcVar6 = GetName(&local_168);
+                                iVar2 = remove(pcVar6);
                                 if (iVar2 == 0) {
                                 LAB_100cb4055:
-                                    local_168->~pair();
                                     goto LAB_100cb405d;
                                 }
                                 piVar7 = ___error();
                             LAB_100cb410d:
-                                SetErrorCode(*piVar7, param_1);
+                                SetErrorCode(*piVar7, error);
                             } else {
-                                if (RemoveDirectoryContents(local_168, param_1) != '\0') {
-                                    pcVar6 = (char*)GetName(local_168);
+                                if (RemoveDirectoryContents(&local_168, error) != '\0') {
+                                    pcVar6 = GetName(&local_168);
                                     iVar2 = _rmdir(pcVar6);
                                     if (iVar2 == 0)
                                         goto LAB_100cb4055;
@@ -62,7 +55,6 @@ namespace jag {
                                     goto LAB_100cb410d;
                                 }
                             }
-                            local_168->~pair();
                             break;
                         }
                     }
@@ -74,185 +66,145 @@ namespace jag {
         }
         bVar8 = true;
     LAB_100cb4131:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
         return bVar8;
     }
 
-    // 0x100cb4180, 128 bytes, placed by class name and debug map
-    // Filename::RemoveEmptyDirectory(Error*) const
-    ulong Filename::RemoveEmptyDirectory(Error* param_1) {
-        char cVar1;
+    // 0x100cb4180
+    unsigned long Filename::RemoveEmptyDirectory(Error* error) const {
         char* pcVar3;
         int* piVar4;
-        ulong uVar5;
-        int iVar6;
+        unsigned long uVar5;
+        int arg1;
 
-        cVar1 = IsDirectory(this);
-        if (cVar1 == '\0') {
-            iVar6 = 20;
+        bool cVar1 = IsDirectory();
+        if (!cVar1) {
+            arg1 = 20;
         } else {
-            cVar1 = IsDirectoryEmpty(this);
-            iVar6 = 0;
-            if (cVar1 == '\0') {
-                iVar6 = 66;
+            cVar1 = IsDirectoryEmpty();
+            arg1 = 0;
+            if (!cVar1) {
+                arg1 = 66;
             } else {
                 pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 if (_rmdir(pcVar3) == 0) {
-                    uVar5 = CONCAT71((int7)((ulong)this >> 8), 1);
+                    uVar5 = (((uint64_t)((int64_t)((unsigned long)this >> 8)) << 8) | (uint8_t)1);
                     goto LAB_100cb41d6;
                 }
                 piVar4 = ___error();
-                iVar6 = *piVar4;
+                arg1 = *piVar4;
             }
         }
         uVar5 = 0;
     LAB_100cb41d6:
-        SetErrorCode(iVar6, param_1);
+        SetErrorCode(arg1, error);
         return uVar5 & 4294967295;
     }
 
-    // 0x100cb4200, 96 bytes, placed by class name and debug map
-    // Filename::RemoveFile(Error*) const
-    ulong Filename::RemoveFile(Error* param_1) {
-        char cVar1;
+    // 0x100cb4200
+    unsigned long Filename::RemoveFile(Error* error) const {
         char* pcVar3;
         int* piVar4;
-        int iVar5;
-        undefined8 unaff_R15;
-        ulong uVar6;
+        uint64_t unaff_R15;
+        unsigned long uVar5;
 
-        cVar1 = IsFile(this);
-        iVar5 = 0;
-        if (cVar1 == '\0') {
-            iVar5 = 2;
+        bool cVar1 = IsFile();
+        int arg1 = 0;
+        if (!cVar1) {
+            arg1 = 2;
         } else {
             pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            if (_remove(pcVar3) == 0) {
-                uVar6 = CONCAT71((int7)((ulong)unaff_R15 >> 8), 1);
+            if (remove(pcVar3) == 0) {
+                uVar5 = (((uint64_t)((int64_t)((unsigned long)unaff_R15 >> 8)) << 8) | (uint8_t)1);
                 goto LAB_100cb4249;
             }
             piVar4 = ___error();
-            iVar5 = *piVar4;
+            arg1 = *piVar4;
         }
-        uVar6 = 0;
+        uVar5 = 0;
     LAB_100cb4249:
-        SetErrorCode(iVar5, param_1);
-        return uVar6 & 4294967295;
+        SetErrorCode(arg1, error);
+        return uVar5 & 4294967295;
     }
 
-    // 0x100cb4260, 192 bytes, placed by class name and debug map
-    // Filename::SanitiseFileName(eastl::fixed_string<char, 260, true, eastl::allocator> const&)
-    Filename* Filename::SanitiseFileName(fixed_string* param_1) {
+    // 0x100cb4260
+    auto Filename::SanitiseFileName(const eastl::fixed_string<char, 260>& str) {
         char* pcVar2;
-        ulong uVar3;
-        uint uVar4;
-        ulong uVar5;
+        unsigned long uVar3;
+        unsigned int uVar4;
+        unsigned long arg1;
 
-        new (this) eastl::fixed_string<char, 260, true, eastl::allocator>();
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size() !=
-            0) {
-            uVar5 = 0;
+        auto result;
+        if (str.size() != 0) {
+            arg1 = 0;
             do {
-                pcVar2 = (char*)eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 260ul, 1ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (basic_string<char, eastl::fixed_vector_allocator<1ul, 260ul, 1ul, 0ul, true, eastl::allocator>>*)
-                        param_1,
-                    uVar5);
-                uVar4 = (uint)*pcVar2;
+                pcVar2 = &str[arg1];
+                uVar4 = (unsigned int)*pcVar2;
                 if ((uVar4 < 32) ||
-                    (((uVar4 - 34 < 59 && ((288230377040912641U >> ((ulong)(uVar4 - 34) & 63) & 1) != 0)) ||
+                    (((uVar4 - 34 < 59 && ((288230377040912641U >> ((unsigned long)(uVar4 - 34) & 63) & 1) != 0)) ||
                       (uVar4 == 124)))) {
-                    append("-");
+                    result.append("-");
                 } else {
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 260ul, 1ul, 0ul, true, eastl::allocator>>::
-                        append_sprintf((char*)this, &DAT_100e625b4);
+                    result.append_sprintf("%c");
                 }
-                uVar5 = uVar5 + 1;
-                uVar3 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            } while (uVar5 < uVar3);
+                arg1 = arg1 + 1;
+                uVar3 = str.size();
+            } while (arg1 < uVar3);
         }
-        return this;
+        return result;
     }
 
-    // 0x100cb4430, 64 bytes, placed by class name and debug map
-    // Filename::IsFile() const
-    bool Filename::IsFile() {
-        undefined8 uVar1;
-        int iVar2;
-        undefined1 local_98[4];
+    // 0x100cb4430
+    bool Filename::IsFile() const {
+        uint8_t local_98[4];
         short local_94;
 
-        uVar1 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        iVar2 = _stat_INODE64(uVar1, local_98);
+        int iVar2 = _stat_INODE64(eastl::basic_string<char, BucketAllocatorEASTL>::begin(), local_98);
         return local_94 < 0 && iVar2 == 0;
     }
 
-    // 0x100cb4470, 64 bytes, placed by class name and debug map
-    // Filename::GetLastModified() const
-    undefined8 Filename::GetLastModified() {
-        undefined8 uVar2;
-        undefined1 local_98[48];
-        undefined8 local_68;
+    // 0x100cb4470
+    uint64_t Filename::GetLastModified() const {
+        uint8_t local_98[48];
+        uint64_t local_68;
 
-        uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        uint64_t uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
         if (_stat_INODE64(uVar2, local_98) != 0) {
             local_68 = 0;
         }
         return local_68;
     }
 
-    // 0x100cb44b0, 64 bytes, placed by class name and debug map
-    // Filename::GetFileSize() const
-    undefined8 Filename::GetFileSize() {
-        undefined8 uVar2;
-        undefined1 local_98[96];
-        undefined8 local_38;
+    // 0x100cb44b0
+    uint64_t Filename::GetFileSize() const {
+        uint8_t local_98[96];
+        uint64_t local_38;
 
-        uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        uint64_t uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
         if (_stat_INODE64(uVar2, local_98) != 0) {
             local_38 = 0;
         }
         return local_38;
     }
 
-    // 0x100cb44f0, 272 bytes, placed by class name and debug map
-    // Filename::GetAllFiles() const
-    Filename* Filename::GetAllFiles() {
-        undefined8 uVar1;
-        long lVar2;
+    // 0x100cb44f0
+    auto Filename::GetAllFiles() const {
         long lVar3;
-        char* in_RSI;
-        Filename local_160[19];
-        long local_30;
+        Filename local_160;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        new (this) eastl::vector<Filename, eastl::allocator>();
-        uVar1 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        lVar2 = _opendir_INODE64(uVar1);
+        auto result;
+        long lVar2 = _opendir_INODE64(eastl::basic_string<char, BucketAllocatorEASTL>::begin());
         if (lVar2 != 0) {
             while (lVar3 = _readdir_INODE64(lVar2), lVar3 != 0) {
                 if ((*(char*)(lVar3 + 21) != '.') ||
                     ((*(char*)(lVar3 + 22) != '\0' &&
                       ((*(char*)(lVar3 + 22) != '.' || (*(char*)(lVar3 + 23) != '\0')))))) {
-                    operator/(local_160, in_RSI);
-                    push_back(local_160);
-                    local_160->~pair();
+                    operator/(&local_160, this, (char*)(lVar3 + 21));
+                    result.push_back(local_160);
                 }
             }
             _closedir(lVar2);
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return this;
+        return result;
     }
 
 } // namespace jag

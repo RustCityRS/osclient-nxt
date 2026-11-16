@@ -1,6 +1,5 @@
 // libs/game/runetek5/camera/position/PositionPoint.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
@@ -10,302 +9,217 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~PositionPoint();
-        virtual GetFinishTriggers(eastl::fixed_vector<int, 2ul, true, eastl::allocator>&);
-        virtual char Ready() const;
-        virtual SetCurrentPosition(math::Vector3T<double> const&);
-        virtual GetCurrentPosition() const;
-        virtual GetPositionOffset() const;
-        virtual void GetPositionData(PositionData&, double);
-        virtual GetPosition(math::Vector3T<double>&, unsigned long long) const;
-        virtual Vector3T* GetDestinationPosition(math::Vector3T<double>&) const;
-        virtual void GetPositionFine(CoordFine&, unsigned long long) const;
-        virtual void ProcessServerUpdate(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&,
-                                         std::function<shared_ptr<Entity>(CameraTrackableType, int)> const&);
-        virtual void ToString(eastl::fixed_string<char, 512, true, eastl::allocator>&) const;
-        void SetDestination(CoordFine const&);
-        void TestAndResolveCollision(HeightMap const*, LinkMap const*, bool, bool);
-        Vector3T* GetScaledPosition(math::Vector3T<double>&, unsigned long long, float) const;
-        void SetGroundCollision(bool);
+        virtual uint64_t GetFinishTriggers(eastl::fixed_vector<int, 2ul>& arg1);
+        virtual uint8_t Ready() const;
+        virtual void SetCurrentPosition(const math::Vector3T<double>& vector3);
+        virtual auto GetCurrentPosition() const;
+        virtual auto GetPositionOffset() const;
+        virtual void GetPositionData(PositionData& positionData, double arg2);
+        virtual Vector3T<double>* GetPosition(math::Vector3T<double>& vector3, unsigned long long arg2) const;
+        virtual Vector3T<double>* GetDestinationPosition(math::Vector3T<double>& vector3) const;
+        virtual void GetPositionFine(CoordFine& coordFine, unsigned long long arg2) const;
+        virtual void ProcessServerUpdate(PacketT<Array<unsigned char>>& arg1,
+                                         const std::function<shared_ptr<Entity>(CameraTrackableType, int)>& callback);
+        virtual void ToString(eastl::fixed_string<char, 512>& str) const;
+        void SetDestination(const CoordFine& coordFine);
+        void TestAndResolveCollision(const HeightMap* heightMap, const LinkMap* linkMap, bool arg3, bool arg4);
+        Vector3T<double>* GetScaledPosition(math::Vector3T<double>& vector3, unsigned long long arg2, float arg3) const;
+        void SetGroundCollision(bool arg1);
         PositionPoint();
 
-        // data members, from how the methods use this: 121 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        int field_8;         // offset 8
-        char field_12;       // offset 12
-        int3 field_13;       // offset 13
-        AABB field_16;       // offset 16
-        AABB field_40;       // offset 40
-        AABB field_64;       // offset 64
-        uint field_88;       // offset 88
-        char _unknown_92[4];
-        AABB field_96;          // offset 96
-        bool m_groundCollision; // offset 120
+    private:
+        PositionMode field_8;
+        uint8_t field_12;
+        uint8_t _unknown_13[11];
+        ReturnValue field_24;
+        ReturnValue field_32;
+        AABB field_40;
+        AABB field_64;
+        unsigned int field_88;
+        uint8_t _unknown_92[12];
+        ReturnValue field_104;
+        ReturnValue field_112;
+        bool m_groundCollision;
     };
 
-    // 0x100619970, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // PositionPoint::SetCurrentPosition(math::Vector3T<double> const&)
-    /* LookatPoint::SetCurrentLookat(math::Vector3T<double> const&) */
-
-    void LookatPoint::SetCurrentLookat(Vector3T* param_1) {
-        math::Vector3T<double>::operator=((Vector3T<double>*)m_currentLookat, param_1);
+    // 0x100619970
+    void PositionPoint::SetCurrentPosition(const math::Vector3T<double>& vector3) {
+        *m_currentLookat = vector3;
     }
 
-    // 0x100619980, 32 bytes, inline, placed by class name and debug map
-    // PositionPoint::GetCurrentPosition() const
-    PositionPoint* PositionPoint::GetCurrentPosition() {
-        undefined8 uVar1;
-        long in_RSI;
+    // 0x100619980
+    auto PositionPoint::GetCurrentPosition() const {
+        auto result;
 
-        *(undefined8*)field_16 = *(undefined8*)(in_RSI + 32);
-        uVar1 = *(undefined8*)(in_RSI + 24);
-        field_0 = *(undefined***)(in_RSI + 16);
-        field_8 = (int)uVar1;
-        field_12 = (char)((ulong)uVar1 >> 32);
-        field_13 = (int3)((ulong)uVar1 >> 40);
-        return this;
+        &result[2] = *(ReturnValue*)field_32;
+        ReturnValue RVar1 = *(ReturnValue*)field_24;
+        result = *(ReturnValue*)&field_16;
+        &result[1] = RVar1;
+        return result;
     }
 
-    // 0x1006199a0, 32 bytes, inline, placed by class name and debug map
-    // PositionPoint::GetPositionOffset() const
-    PositionPoint* PositionPoint::GetPositionOffset() {
-        undefined8 uVar1;
-        long in_RSI;
+    // 0x1006199a0
+    auto PositionPoint::GetPositionOffset() const {
+        auto result;
 
-        *(undefined8*)field_16 = *(undefined8*)(in_RSI + 112);
-        uVar1 = *(undefined8*)(in_RSI + 104);
-        field_0 = *(undefined***)(in_RSI + 96);
-        field_8 = (int)uVar1;
-        field_12 = (char)((ulong)uVar1 >> 32);
-        field_13 = (int3)((ulong)uVar1 >> 40);
-        return this;
+        &result[2] = *(ReturnValue*)field_112;
+        ReturnValue RVar1 = *(ReturnValue*)field_104;
+        result = *(ReturnValue*)&field_96;
+        &result[1] = RVar1;
+        return result;
     }
 
-    // 0x1006199c0, 32 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // PositionPoint::GetPosition(math::Vector3T<double>&, unsigned long long) const
-    /* PositionPoint::GetScaledPosition(math::Vector3T<double>&, unsigned long long,
-   float) const */
-
-    Vector3T* PositionPoint::GetScaledPosition(Vector3T* param_1, ulonglong param_2, float param_3) {
-        math::Vector3T<double>::operator=((Vector3T<double>*)param_1, (Vector3T*)field_16);
-        return param_1;
+    // 0x1006199c0
+    Vector3T<double>* PositionPoint::GetPosition(math::Vector3T<double>& vector3, unsigned long long arg2) const {
+        vector3 = field_16;
+        return vector3;
     }
 
-    // 0x1006199e0, 32 bytes, inline, placed by class name and debug map
-    // PositionPoint::GetDestinationPosition(math::Vector3T<double>&) const
-    Vector3T* PositionPoint::GetDestinationPosition(Vector3T* param_1) {
-        math::Vector3T<double>::operator=((Vector3T<double>*)param_1, (Vector3T*)field_40);
-        return param_1;
+    // 0x1006199e0
+    Vector3T<double>* PositionPoint::GetDestinationPosition(math::Vector3T<double>& vector3) const {
+        vector3 = *field_40;
+        return vector3;
     }
 
-    // 0x1006320e0, 16 bytes, inline, placed by class name
-    // PositionPoint::SetGroundCollision(bool)
-    void PositionPoint::SetGroundCollision(bool param_1) {
-        m_groundCollision = param_1;
+    // 0x1006320e0
+    void PositionPoint::SetGroundCollision(bool arg1) {
+        m_groundCollision = arg1;
     }
 
-    // 0x100641070, 16 bytes, complete-object constructor, inline, placed by class name
-    // PositionPoint::PositionPoint(): jumps straight to the base-object constructor
-
-    // 0x100641080, 112 bytes, base-object constructor, inline, placed by class name
-    // PositionPoint::PositionPoint()
-    void PositionPoint::PositionPoint() {
-        new (this) IPositionManager(0);
-        field_0 = &PTR__ScriptOption_100f0c070;
-        field_12 = '\0';
-        new (field_16) oldscape::dash3d::ModelLit::AABB();
-        new (field_40) oldscape::dash3d::ModelLit::AABB();
-        new (field_64) oldscape::dash3d::ModelLit::AABB();
-        field_88 = 4294967295;
-        new (field_96) oldscape::dash3d::ModelLit::AABB();
-        m_groundCollision = false;
-    }
+    // 0x100641080
+    PositionPoint::PositionPoint() : IPositionManager(0), field_12(0), field_88(4294967295), m_groundCollision(false) {}
 
 } // namespace jag::game
 
 namespace jag::math {
-    // 0x10061b230, 96 bytes, inline, placed by debug map only (low confidence)
-    // QuaternionT<double> Lerp<QuaternionT<double>, float>(QuaternionT<double> const&, QuaternionT<double> const&, float)
-    math* Lerp<QuaternionT<double>, float>(QuaternionT* param_1, QuaternionT* param_2, float param_3) {
-        undefined1 local_70[32];
-        undefined1 local_50[36];
+    // 0x10061b230
+    QuaternionT<double> Lerp<QuaternionT<double>, float>(const QuaternionT<double>& quaternion1,
+                                                         const QuaternionT<double>& quaternion2, float arg3) {
+        QuaternionT<double>* in_RDX;
+        QuaternionT<double> local_70;
+        QuaternionT<double> local_50;
 
-        operator-((math*)local_50, param_2, param_1);
-        operator*((math*)local_70, (QuaternionT*)local_50, param_3);
-        operator+(this, param_1, (QuaternionT*)local_70);
+        local_50 - *in_RDX;
+        &local_70* arg3;
+        quaternion1 + quaternion2;
+        return quaternion1;
+    }
+
+    // 0x10061b290
+    QuaternionT<double> operator+
+        <double>(const QuaternionT<double>& quaternion1, const QuaternionT<double>& quaternion2) {
+        NXTPixToolkit* in_RDX;
+
+        auto pdVar8 = quaternion2.SSOBeginPtr();
+        double dVar1 = *pdVar8;
+        pdVar8 = (double*)in_RDX->SSOBeginPtr();
+        double dVar2 = *pdVar8;
+        pdVar8 = (double*)quaternion2.second();
+        double dVar3 = *pdVar8;
+        pdVar8 = (double*)in_RDX->second();
+        double dVar4 = *pdVar8;
+        pdVar8 = (double*)quaternion2.GetScreen();
+        double dVar5 = *pdVar8;
+        pdVar8 = (double*)in_RDX->GetScreen();
+        double dVar6 = *pdVar8;
+        pdVar8 = (double*)quaternion2.second();
+        double dVar7 = *pdVar8;
+        pdVar8 = (double*)in_RDX->second();
+        new (quaternion1) QuaternionT<double>(dVar1 + dVar2, dVar3 + dVar4, dVar5 + dVar6, dVar7 + *pdVar8);
+        return quaternion1;
+    }
+
+    // 0x10061b370
+    QuaternionT<double> operator* <double>(const QuaternionT<double>& quaternion, float arg2) {
+        NXTPixToolkit* in_RSI;
+
+        auto pdVar4 = in_RSI->SSOBeginPtr();
+        double dVar1 = *pdVar4;
+        pdVar4 = (double*)in_RSI->second();
+        double dVar2 = *pdVar4;
+        pdVar4 = (double*)in_RSI->GetScreen();
+        double dVar3 = *pdVar4;
+        pdVar4 = (double*)in_RSI->second();
+        new (quaternion) QuaternionT<double>(dVar1 * (double)arg2, dVar2 * (double)arg2, dVar3 * (double)arg2,
+                                             (double)arg2 * *pdVar4);
+        return quaternion;
+    }
+
+    // 0x10061b410
+    QuaternionT<double> operator-
+        <double>(const QuaternionT<double>& quaternion1, const QuaternionT<double>& quaternion2) {
+        NXTPixToolkit* in_RDX;
+
+        auto pdVar8 = quaternion2.SSOBeginPtr();
+        double dVar1 = *pdVar8;
+        pdVar8 = (double*)in_RDX->SSOBeginPtr();
+        double dVar2 = *pdVar8;
+        pdVar8 = (double*)quaternion2.second();
+        double dVar3 = *pdVar8;
+        pdVar8 = (double*)in_RDX->second();
+        double dVar4 = *pdVar8;
+        pdVar8 = (double*)quaternion2.GetScreen();
+        double dVar5 = *pdVar8;
+        pdVar8 = (double*)in_RDX->GetScreen();
+        double dVar6 = *pdVar8;
+        pdVar8 = (double*)quaternion2.second();
+        double dVar7 = *pdVar8;
+        pdVar8 = (double*)in_RDX->second();
+        new (quaternion1) QuaternionT<double>(dVar1 - dVar2, dVar3 - dVar4, dVar5 - dVar6, dVar7 - *pdVar8);
+        return quaternion1;
+    }
+
+    // 0x10061b590
+    QuaternionT<double> operator- <double>(const QuaternionT<double>& quaternion) {
+        NXTPixToolkit* in_RSI;
+
+        auto pdVar4 = in_RSI->SSOBeginPtr();
+        double dVar1 = *pdVar4;
+        pdVar4 = (double*)in_RSI->second();
+        double dVar2 = *pdVar4;
+        pdVar4 = (double*)in_RSI->GetScreen();
+        double dVar3 = *pdVar4;
+        pdVar4 = (double*)in_RSI->second();
+        new (quaternion) QuaternionT<double>(-dVar1, -dVar2, -dVar3, -*pdVar4);
+        return quaternion;
+    }
+
+    // 0x10061b620
+    QuaternionT<double>* QuaternionT<double>::operator*=(double arg1) {
+        *(double*)this = *(double*)this * arg1;
+        *(double*)(this + 8) = *(double*)(this + 8) * arg1;
+        *(double*)(this + 16) = *(double*)(this + 16) * arg1;
+        *(double*)(this + 24) = arg1 * *(double*)(this + 24);
         return this;
     }
 
-    // 0x10061b290, 224 bytes, inline, placed by debug map only (low confidence)
-    // QuaternionT<double> operator+<double>(QuaternionT<double> const&, QuaternionT<double> const&)
-    /* QuaternionT<double> TEMPNAMEPLACEHOLDERVALUE(QuaternionT<double>
-   const&, QuaternionT<double> const&) */
+    // 0x10061b660
+    QuaternionT<double> operator* <double>(const QuaternionT<double>& quaternion, double arg2) {
+        NXTPixToolkit* in_RSI;
 
-    math* operator+(QuaternionT* param_1, QuaternionT* param_2) {
-        double dVar1;
-        double dVar2;
-        double dVar3;
-        double dVar4;
-        double dVar5;
-        double dVar6;
-        double dVar7;
-        vector* pvVar8;
-        double* pdVar9;
-
-        pvVar8 = param_1->SSOBeginPtr(param_1);
-        dVar1 = *(double*)pvVar8;
-        pvVar8 = param_2->SSOBeginPtr(param_1);
-        dVar2 = *(double*)pvVar8;
-        pdVar9 = (double*)param_1->second();
-        dVar3 = *pdVar9;
-        pdVar9 = (double*)param_2->second();
-        dVar4 = *pdVar9;
-        pdVar9 = (double*)param_1->GetScreen();
-        dVar5 = *pdVar9;
-        pdVar9 = (double*)param_2->GetScreen();
-        dVar6 = *pdVar9;
-        pdVar9 = (double*)param_1->second();
-        dVar7 = *pdVar9;
-        pdVar9 = (double*)param_2->second();
-        new (this) QuaternionT<double>(dVar1 + dVar2, dVar3 + dVar4, dVar5 + dVar6, dVar7 + *pdVar9);
-        return this;
+        auto pdVar4 = in_RSI->SSOBeginPtr();
+        double dVar1 = *pdVar4;
+        pdVar4 = (double*)in_RSI->second();
+        double dVar2 = *pdVar4;
+        pdVar4 = (double*)in_RSI->GetScreen();
+        double dVar3 = *pdVar4;
+        pdVar4 = (double*)in_RSI->second();
+        new (quaternion) QuaternionT<double>(dVar1 * arg2, dVar2 * arg2, dVar3 * arg2, arg2 * *pdVar4);
+        return quaternion;
     }
 
-    // 0x10061b370, 160 bytes, inline, placed by debug map only (low confidence)
-    // QuaternionT<double> operator*<double>(QuaternionT<double> const&, float)
-    /* QuaternionT<double> TEMPNAMEPLACEHOLDERVALUE(QuaternionT<double>
-   const&, float) */
-
-    math* operator*(QuaternionT* param_1, float param_2) {
-        double dVar1;
-        double dVar2;
-        double dVar3;
-        vector* pvVar4;
-        double* pdVar5;
-
-        pvVar4 = param_1->SSOBeginPtr(param_1);
-        dVar1 = *(double*)pvVar4;
-        pdVar5 = (double*)param_1->second();
-        dVar2 = *pdVar5;
-        pdVar5 = (double*)param_1->GetScreen();
-        dVar3 = *pdVar5;
-        pdVar5 = (double*)param_1->second();
-        new (this) QuaternionT<double>(dVar1 * (double)param_2, dVar2 * (double)param_2, dVar3 * (double)param_2,
-                                       (double)param_2 * *pdVar5);
-        return this;
-    }
-
-    // 0x10061b410, 224 bytes, inline, placed by debug map only (low confidence)
-    // QuaternionT<double> operator-<double>(QuaternionT<double> const&, QuaternionT<double> const&)
-    /* QuaternionT<double> TEMPNAMEPLACEHOLDERVALUE(QuaternionT<double>
-   const&, QuaternionT<double> const&) */
-
-    math* operator-(QuaternionT* param_1, QuaternionT* param_2) {
-        double dVar1;
-        double dVar2;
-        double dVar3;
-        double dVar4;
-        double dVar5;
-        double dVar6;
-        double dVar7;
-        vector* pvVar8;
-        double* pdVar9;
-
-        pvVar8 = param_1->SSOBeginPtr(param_1);
-        dVar1 = *(double*)pvVar8;
-        pvVar8 = param_2->SSOBeginPtr(param_1);
-        dVar2 = *(double*)pvVar8;
-        pdVar9 = (double*)param_1->second();
-        dVar3 = *pdVar9;
-        pdVar9 = (double*)param_2->second();
-        dVar4 = *pdVar9;
-        pdVar9 = (double*)param_1->GetScreen();
-        dVar5 = *pdVar9;
-        pdVar9 = (double*)param_2->GetScreen();
-        dVar6 = *pdVar9;
-        pdVar9 = (double*)param_1->second();
-        dVar7 = *pdVar9;
-        pdVar9 = (double*)param_2->second();
-        new (this) QuaternionT<double>(dVar1 - dVar2, dVar3 - dVar4, dVar5 - dVar6, dVar7 - *pdVar9);
-        return this;
-    }
-
-    // 0x10061b590, 144 bytes, inline, placed by debug map only (low confidence)
-    // QuaternionT<double> operator-<double>(QuaternionT<double> const&)
-    /* QuaternionT<double> TEMPNAMEPLACEHOLDERVALUE(QuaternionT<double>
-   const&) */
-
-    math* operator-(QuaternionT* param_1) {
-        double dVar1;
-        double dVar2;
-        double dVar3;
-        vector* pvVar4;
-        double* pdVar5;
-
-        pvVar4 = param_1->SSOBeginPtr(param_1);
-        dVar1 = *(double*)pvVar4;
-        pdVar5 = (double*)param_1->second();
-        dVar2 = *pdVar5;
-        pdVar5 = (double*)param_1->GetScreen();
-        dVar3 = *pdVar5;
-        pdVar5 = (double*)param_1->second();
-        new (this) QuaternionT<double>(-dVar1, -dVar2, -dVar3, -*pdVar5);
-        return this;
-    }
-
-    // 0x10061b620, 64 bytes, inline, placed by debug map only (low confidence)
-    // QuaternionT<double>::operator*=(double)
-    /* QuaternionT<double>::TEMPNAMEPLACEHOLDERVALUE(double) */
-
-    QuaternionT<double>* QuaternionT<double>::operator*=(double param_1) {
-        *(double*)this = *(double*)this * param_1;
-        *(double*)(this + 8) = *(double*)(this + 8) * param_1;
-        *(double*)(this + 16) = *(double*)(this + 16) * param_1;
-        *(double*)(this + 24) = param_1 * *(double*)(this + 24);
-        return this;
-    }
-
-    // 0x10061b660, 144 bytes, inline, placed by debug map only (low confidence)
-    // QuaternionT<double> operator*<double>(QuaternionT<double> const&, double)
-    /* QuaternionT<double> TEMPNAMEPLACEHOLDERVALUE(QuaternionT<double>
-   const&, double) */
-
-    math* operator*(QuaternionT* param_1, double param_2) {
-        double dVar1;
-        double dVar2;
-        double dVar3;
-        vector* pvVar4;
-        double* pdVar5;
-
-        pvVar4 = param_1->SSOBeginPtr(param_1);
-        dVar1 = *(double*)pvVar4;
-        pdVar5 = (double*)param_1->second();
-        dVar2 = *pdVar5;
-        pdVar5 = (double*)param_1->GetScreen();
-        dVar3 = *pdVar5;
-        pdVar5 = (double*)param_1->second();
-        new (this) QuaternionT<double>(dVar1 * param_2, dVar2 * param_2, dVar3 * param_2, param_2 * *pdVar5);
-        return this;
-    }
-
-    // 0x10061b6f0, 80 bytes, inline, placed by debug map only (low confidence)
-    // QuaternionT<double>::operator+=(QuaternionT<double> const&)
-    /* QuaternionT<double>::TEMPNAMEPLACEHOLDERVALUE(QuaternionT<double> const&)
-    */
-
-    QuaternionT<double>* QuaternionT<double>::operator+=(QuaternionT* param_1) {
-        *(double*)this = *(double*)this + *(double*)param_1;
-        *(double*)(this + 8) = *(double*)(this + 8) + *(double*)(param_1 + 8);
-        *(double*)(this + 16) = *(double*)(this + 16) + *(double*)(param_1 + 16);
-        *(double*)(this + 24) = *(double*)(this + 24) + *(double*)(param_1 + 24);
+    // 0x10061b6f0
+    QuaternionT<double>* QuaternionT<double>::operator+=(const QuaternionT<double>& quaternion) {
+        *(double*)this = *(double*)this + *(double*)quaternion;
+        *(double*)(this + 8) = *(double*)(this + 8) + *(double*)(quaternion + 8);
+        *(double*)(this + 16) = *(double*)(this + 16) + *(double*)(quaternion + 16);
+        *(double*)(this + 24) = *(double*)(this + 24) + *(double*)(quaternion + 24);
         return this;
     }
 
 } // namespace jag::math
 
-// 0x10061b580, 16 bytes, placed by debug map only (low confidence)
-// abs(double)
-double abs(double param_1) {
-    return ABS(param_1);
+// 0x10061b580
+double abs(double arg1) {
+    return ABS(arg1);
 }

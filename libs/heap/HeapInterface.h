@@ -1,6 +1,5 @@
 // libs/heap/HeapInterface.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,36 +8,36 @@ namespace jag {
     public:
         class StaticInitTest;
         ~HeapInterface();
-        long Instance();
-        void SetInstance(HeapInterface*);
+        HeapInterface* Instance();
+        void SetInstance(HeapInterface* heapInterface);
         void ClearInstance();
         bool IsInitialised();
-        HeapInterface(HeapAllocatorProxy*, unsigned int);
+        HeapInterface(HeapAllocatorProxy* heapAllocatorProxy, unsigned int arg2);
         void GetAllocatorProxy();
-        void SetGlobalAllocatorProxy(HeapAllocatorProxy*);
-        void PushAllocatorProxy(HeapAllocatorProxy*);
+        void SetGlobalAllocatorProxy(HeapAllocatorProxy* heapAllocatorProxy);
+        void PushAllocatorProxy(HeapAllocatorProxy* heapAllocatorProxy);
         void PopAllocatorProxy();
-        void PushHeapState(HeapState);
+        void PushHeapState(HeapState heapState);
         void PopHeapState();
         void PushToggleHeapState();
-        void PushAlignment(unsigned long);
+        void PushAlignment(unsigned long arg1);
         void PopAlignment();
-        void Alloc(unsigned long);
-        void AlignedAlloc(unsigned long, unsigned long);
-        void Free(void*);
-        void AlignedFree(void*);
+        void Alloc(unsigned long arg1);
+        void AlignedAlloc(unsigned long arg1, unsigned long arg2);
+        void Free(void* arg1);
+        void AlignedFree(void* arg1);
         void GetFree();
         void GetUsed();
         void GetWarnings();
-        void PushWarnings(unsigned int);
+        void PushWarnings(unsigned int arg1);
         void PopWarnings();
         void GetZoneContext();
-        void PushZoneContext(void*, void*);
+        void PushZoneContext(void* arg1, void* arg2);
         void PopZoneContext();
         void GetZone();
-        void PushZone(char const*);
+        void PushZone(const char* str);
         void PopZone();
-        void SaveMemoryUsageToXML(std::function<void(char const*, unsigned long)> const&) const;
+        void SaveMemoryUsageToXML(std::function<void(char const*, unsigned long)> const& callback) const;
         void SaveMemoryUsageToConsole() const;
         void SaveMemoryUsageBottomUpToConsole() const;
         void PushLeakTrackingContext();
@@ -48,33 +47,27 @@ namespace jag {
         void AssertOnMemoryLeaks();
         void CheckAllocWarnings();
         void CheckFreeWarnings();
-        static /* 8 bytes */ g_pHeapInterface;
-        static StaticInitTest /* 8 bytes */ g_staticInitTest; // = StaticInitTest()
+        static int64_t g_pHeapInterface;
+        static StaticInitTest g_staticInitTest; // = StaticInitTest()
 
-        // data members, from how the methods use this: 424 bytes
-        char _unknown_0[88];
-        undefined4 field_88; // offset 88
-        char _unknown_92[332];
+    private:
+        uint8_t _unknown_0[88];
+        uint32_t field_88;
+        uint8_t _unknown_92[332];
     };
 
     class HeapInterface::StaticInitTest {
     public:
         StaticInitTest();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
-    // 0x100c92610, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // HeapInterface::~HeapInterface(): jumps straight to the base-object destructor
-
-    // 0x100c927e0, 64 bytes, base-object destructor, inline, placed by class name
-    // HeapInterface::~HeapInterface()
-    void HeapInterface::~HeapInterface() {
-        (&field_416)->~ThreadLocalStateStack();
-        (&field_256)->~ThreadLocalStateStack();
-        (&field_96)->~ThreadLocalStateStack();
-        ~ThreadLocalStateStack();
+    // 0x100c927e0
+    HeapInterface::~HeapInterface() {
+        field_416.~ThreadLocalStateStack();
+        field_256.~ThreadLocalStateStack();
+        field_96.~ThreadLocalStateStack();
     }
 
 } // namespace jag

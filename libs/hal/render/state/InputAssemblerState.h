@@ -1,6 +1,5 @@
 // libs/hal/render/state/InputAssemblerState.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -8,182 +7,138 @@
 namespace jag::render {
     class InputAssemblerState {
     public:
-        GetVertexDeclaration() const;
-        SetPrimitiveType(PrimitiveType);
-        VertexBuffer* GetVertexBuffers() const;
-        uint GetPrimitiveType() const;
+        void GetVertexDeclaration() const;
+        void SetPrimitiveType(PrimitiveType arg1);
+        uint8_t* GetVertexBuffers() const;
+        unsigned int GetPrimitiveType() const;
         int GetGLIndexBuffer() const;
         BufferInterface* GetIndexBuffer() const;
-        GetGLVertexBuffers() const;
-        void SetFlags(unsigned int);
+        uint8_t* GetGLVertexBuffers() const;
+        void SetFlags(unsigned int arg1);
         void Destroy();
-        void SetVertexStreamData(VertexDeclaration const*, VertexBuffer const*);
+        void SetVertexStreamData(const VertexDeclaration* vertexDeclaration, const VertexBuffer* vertexBuffer);
         InputAssemblerState();
         ~InputAssemblerState();
         void Clear();
         void ResetVAO() const;
-        ulong IsValid() const;
-        IsValidCachedState() const;
+        unsigned long IsValid() const;
+        bool IsValidCachedState() const;
         bool ShouldUseVAO() const;
-        void SetVertexStreamData(VertexDeclaration const*, unsigned int, VertexBuffer const* const*,
-                                 unsigned int const*, unsigned int const*);
+        void SetVertexStreamData(const VertexDeclaration* vertexDeclaration, unsigned int arg2,
+                                 VertexBuffer const* const* arg3, const unsigned int* arg4, const unsigned int* arg5);
         void UpdateGLVertexBufferCache() const;
         void OnBind() const;
         void UpdateGLIndexBufferCache() const;
-        void BindVAO(ImmediateRenderContext&) const;
-        void CreateVAO(ImmediateRenderContext&) const;
+        void BindVAO(ImmediateRenderContext& immediateRenderContext) const;
+        void CreateVAO(ImmediateRenderContext& immediateRenderContext) const;
         void BindIndexBuffer() const;
-        void SetIndexBuffer(IndexBuffer const*, unsigned int);
-        GetNativeVAO() const;
-        InputAssemblerState(InputAssemblerState const&);
+        void SetIndexBuffer(const IndexBuffer* indexBuffer, unsigned int arg2);
+        uint64_t GetNativeVAO() const;
+        InputAssemblerState(const InputAssemblerState& inputAssemblerState);
 
-        // data members, from how the methods use this: 192 bytes
-        uint m_primitiveType;           // offset 0
-        undefined4 field_4;             // offset 4
-        VertexDeclaration* field_8;     // offset 8
-        VertexBuffer* m_pVertexBuffers; // offset 16
-        char _unknown_24[96];
-        BufferInterface* m_pIndexBuffer; // offset 120
-        uint m_flags;                    // offset 128
-        char _unknown_132[4];
-        shared_ptr field_136; // offset 136
-        int m_gLIndexBuffer;  // offset 152
-        char _unknown_156[4];
-        undefined8 field_160; // offset 160
-        undefined8 field_168; // offset 168
-        undefined8 field_176; // offset 176
-        undefined4 field_184; // offset 184
-        char _unknown_188[4];
+    private:
+        unsigned int m_primitiveType;
+        uint32_t field_4;
+        VertexDeclaration* field_8;
+        uint8_t m_pVertexBuffers[8];
+        uint8_t _unknown_24[96];
+        BufferInterface* m_pIndexBuffer;
+        unsigned int m_flags;
+        uint8_t _unknown_132[4];
+        shared_ptr field_136;
+        int m_gLIndexBuffer;
+        uint8_t _unknown_156[4];
+        uint64_t field_160;
+        uint64_t field_168;
+        uint64_t field_176;
+        uint32_t field_184;
+        uint8_t _unknown_188[4];
     };
 
-    // 0x10000b2a0: the linker folded this into eastl::string::Layout::GetHeapSize() const, which has identical code
-    InputAssemblerState::GetVertexDeclaration() const;
+    // 0x10000b2a0: InputAssemblerState::GetVertexDeclaration() const has the same machine code as eastl::string::Layout::GetHeapSize() const
 
-    // 0x10000c2f0: the linker folded this into math::Rect<int>::SetX(int), which has identical code
-    InputAssemblerState::SetPrimitiveType(PrimitiveType);
+    // 0x10000c2f0: InputAssemblerState::SetPrimitiveType(PrimitiveType) has the same machine code as math::Rect<int>::SetX(int)
 
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    VertexBuffer* InputAssemblerState::GetVertexBuffers() const;
+    // 0x1000b9950: InputAssemblerState::GetVertexBuffers() const has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    uint InputAssemblerState::GetPrimitiveType() const;
+    // 0x1000b9960: InputAssemblerState::GetPrimitiveType() const has the same machine code as oldscape::ScriptVarType::GetID() const
 
-    // 0x10015dc30: the linker folded this into oldscape::auth::AuthLibWrapper::GetPurchaseShopItemStatus(), which has identical code
-    int InputAssemblerState::GetGLIndexBuffer() const;
+    // 0x10015dc30: InputAssemblerState::GetGLIndexBuffer() const has the same machine code as oldscape::auth::AuthLibWrapper::GetPurchaseShopItemStatus()
 
-    // 0x1003b0ae0: the linker folded this into auth::AuthWeb::GetOAuthAccessTokenExpiryTime(), which has identical code
-    BufferInterface* InputAssemblerState::GetIndexBuffer() const;
+    // 0x1003b0ae0: InputAssemblerState::GetIndexBuffer() const has the same machine code as auth::AuthWeb::GetOAuthAccessTokenExpiryTime()
 
-    // 0x1004b0c70: the linker folded this into game::EnvironmentOverride::GetMapOverrides() const, which has identical code
-    InputAssemblerState::GetGLVertexBuffers() const;
+    // 0x1004b0c70: InputAssemblerState::GetGLVertexBuffers() const has the same machine code as game::EnvironmentOverride::GetMapOverrides() const
 
-    // 0x1008f33e0, 16 bytes, inline, placed by class name and debug map
-    // InputAssemblerState::SetFlags(unsigned int)
-    void InputAssemblerState::SetFlags(uint param_1) {
-        m_flags = param_1;
+    // 0x1008f33e0
+    void InputAssemblerState::SetFlags(unsigned int arg1) {
+        m_flags = arg1;
     }
 
-    // 0x100bdf6e0, 112 bytes, placed by class name
-    // InputAssemblerState::SetVertexStreamData(VertexDeclaration const*, VertexBuffer const*)
-    void InputAssemblerState::SetVertexStreamData(VertexDeclaration* param_1, VertexBuffer* param_2) {
-        uint* in_R8;
-        VertexBuffer* local_28;
-        long local_20;
+    // 0x100bdf6e0
+    void InputAssemblerState::SetVertexStreamData(const VertexDeclaration* vertexDeclaration,
+                                                  const VertexBuffer* vertexBuffer) {
+        unsigned int* in_R8;
+        unsigned int* in_R9;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_28 = param_2;
-        if (param_1 != (VertexDeclaration*)0) {
-            param_1->GetVertexStride(0);
+        VertexBuffer* local_28 = vertexBuffer;
+        if (vertexDeclaration != nullptr) {
+            vertexDeclaration->GetVertexStride(0);
         }
-        SetVertexStreamData((VertexDeclaration*)this, (uint)param_1, (VertexBuffer**)&DAT_00000001, (uint*)&local_28,
-                            in_R8);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        SetVertexStreamData(vertexDeclaration, 1, &local_28, in_R8, in_R9);
     }
 
-    // 0x100be2e00, 16 bytes, complete-object constructor, placed by class name
-    // InputAssemblerState::InputAssemblerState(): jumps straight to the base-object constructor
-
-    // 0x100be2e10, 16 bytes, complete-object destructor, placed by class name
-    // InputAssemblerState::~InputAssemblerState(): jumps straight to the base-object destructor
-
-    // 0x100c283f0, 64 bytes, inline, placed by class name
-    // InputAssemblerState::GetNativeVAO() const
-    undefined8 InputAssemblerState::GetNativeVAO() {
-        bool bVar1;
-        CoordMapSquare* this_00;
-        undefined8 uVar2;
-
-        bVar1 = field_136->operator_cast_to_bool();
-        uVar2 = 0;
-        if (bVar1) {
-            this_00 =
-                (CoordMapSquare*)shared_ptr<VertexArrayObject>::operator->((shared_ptr<VertexArrayObject>*)field_136);
-            uVar2 = this_00->GetX();
+    // 0x100c283f0
+    uint64_t InputAssemblerState::GetNativeVAO() const {
+        bool cVar1 = field_136->operator_cast_to_bool();
+        uint64_t uVar2 = 0;
+        if (cVar1) {
+            uVar2 = ((CoordMapSquare*)(*field_136).operator->())->GetX();
         }
         return uVar2;
     }
 
-    // 0x100c42b00, 16 bytes, complete-object constructor, inline, placed by class name
-    // InputAssemblerState::InputAssemblerState(InputAssemblerState const&): jumps straight to the base-object constructor
-
-    // 0x100c42b10, 160 bytes, base-object constructor, inline, placed by class name
-    // InputAssemblerState::InputAssemblerState(InputAssemblerState const&)
-    void InputAssemblerState::InputAssemblerState(InputAssemblerState* param_1) {
-        VertexDeclaration* pVVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined4 uVar4;
-        int iVar5;
-
-        uVar4 = param_1->field_4;
-        pVVar1 = param_1->field_8;
-        m_primitiveType = param_1->m_primitiveType;
+    // 0x100c42b10
+    InputAssemblerState::InputAssemblerState(const InputAssemblerState& inputAssemblerState) {
+        uint32_t uVar4 = inputAssemblerState.field_4;
+        VertexDeclaration* pVVar1 = inputAssemblerState.field_8;
+        m_primitiveType = inputAssemblerState.m_primitiveType;
         field_4 = uVar4;
         field_8 = pVVar1;
-        new (&m_pVertexBuffers, (fixed_vector*)&param_1->m_pVertexBuffers)
-            eastl::fixed_vector<VertexBuffer_const*, 8ul, true, eastl::allocator>();
-        m_flags = param_1->m_flags;
-        m_pIndexBuffer = param_1->m_pIndexBuffer;
-        new (field_136, (shared_ptr*)param_1->field_136) shared_ptr<oldscape::dash3d::Decor>();
-        field_184 = param_1->field_184;
-        iVar5 = param_1->m_gLIndexBuffer;
-        uVar4 = *(undefined4*)&param_1->field_156;
-        uVar2 = param_1->field_160;
-        uVar3 = param_1->field_176;
-        field_168 = param_1->field_168;
+        new (m_pVertexBuffers) eastl::fixed_vector<VertexBuffer const*, 8ul>(inputAssemblerState.m_pVertexBuffers);
+        m_flags = inputAssemblerState.m_flags;
+        m_pIndexBuffer = inputAssemblerState.m_pIndexBuffer;
+        new (field_136) shared_ptr(inputAssemblerState.field_136);
+        field_184 = inputAssemblerState.field_184;
+        int iVar5 = inputAssemblerState.m_gLIndexBuffer;
+        uVar4 = *(uint32_t*)&inputAssemblerState.field_156;
+        uint64_t uVar2 = inputAssemblerState.field_160;
+        uint64_t uVar3 = inputAssemblerState.field_176;
+        field_168 = inputAssemblerState.field_168;
         field_176 = uVar3;
         m_gLIndexBuffer = iVar5;
-        *(undefined4*)&field_156 = uVar4;
+        *(uint32_t*)&field_156 = uVar4;
         field_160 = uVar2;
     }
 
 } // namespace jag::render
 
 namespace jag::graphics::internal {
-    // 0x1008f33f0, 80 bytes, inline, placed by debug map only (low confidence)
-    // VertexSetupRingArray<GUIManagerVertexBase<short> >::Destroy()
-    /* VertexSetupRingArray<GUIManagerVertexBase<float>
-   >::Destroy() */
-
-    void VertexSetupRingArray<GUIManagerVertexBase<float>>::Destroy() {
+    // 0x1008f33f0
+    void VertexSetupRingArray<GUIManagerVertexBase<short>>::Destroy() {
         ((this + 144))->Destroy();
         ((this + 232))->Destroy();
         ((this + 16))->Destroy();
         ((this + 320))->Destroy();
-        shared_ptr<Shader>::reset();
+        reset();
     }
 
-    // 0x1008f3440, 80 bytes, inline, placed by debug map only (low confidence)
-    // VertexSetupDynamic::Destroy()
+    // 0x1008f3440
     void VertexSetupDynamic::Destroy() {
-        (&field_336)->Destroy();
-        (&field_456)->Destroy();
-        (&field_16)->Destroy();
+        field_336.Destroy();
+        field_456.Destroy();
+        field_16.Destroy();
         field_112->Destroy();
-        shared_ptr<Shader>::reset();
+        reset();
     }
 
 } // namespace jag::graphics::internal

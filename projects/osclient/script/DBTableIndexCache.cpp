@@ -1,117 +1,86 @@
 // projects/osclient/script/DBTableIndexCache.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "DBTableIndexCache.h"
 
 namespace jag::oldscape {
-    // 0x100024270, 64 bytes, placed by class name and debug map
-    // DBTableIndexCache::MainLogic()
+    // 0x100024270
     void DBTableIndexCache::MainLogic() {
-        (&field_8, 500)->Clean();
-        (&field_5384, 500)->Clean();
+        field_8.Clean(500);
+        field_5384.Clean(500);
     }
 
-    // 0x1000243d0, 336 bytes, placed by class name
-    // DBTableIndexCache::GetDBTableIndex(int)
-    DBTableIndexCache* DBTableIndexCache::GetDBTableIndex(int param_1) {
-        uint uVar2;
+    // 0x1000243d0
+    auto DBTableIndexCache::GetDBTableIndex(int arg1) {
+        unsigned int uVar2;
+        int arg2;
         int iVar3;
-        int iVar4;
-        shared_ptr* psVar5;
-        undefined* puVar6;
-        uint in_EDX;
-        undefined4 in_register_00000034;
-        long* plVar7;
-        undefined1 auVar8[16];
-        shared_ptr local_68;
-        ulong local_58;
-        ulong local_50;
+        shared_ptr* this_00;
+        shared_ptr<dash3d::GroundDecor>* groundDecor;
+        PacketJ<Array<unsigned char> _> local_68;
+        unsigned long local_58;
+        unsigned long local_50;
         LRUHashCache<DBTableIndex, 64ul, 65ul, false, unsigned long long>* local_48;
-        ulong local_40[2];
+        unsigned long local_40[2];
 
-        plVar7 = (long*)CONCAT44(in_register_00000034, param_1);
-        if (*plVar7 == 0) {
-            new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        if (field_0 == nullptr) {
+            auto result;
         } else {
-            uVar2 = game::DBUtils::GetDBCachingKey(in_EDX);
-            local_50 = (ulong)uVar2;
+            uVar2 = game::DBUtils::GetDBCachingKey(arg1);
+            local_50 = (unsigned long)uVar2;
             local_40[0] = local_50;
-            psVar5 = (shared_ptr*)LRUHashCache<DBTableIndex, 64ul, 65ul, false, unsigned long long>::Find(
-                (ulonglong*)(plVar7 + 1));
-            if (shared_ptr::operator_cast_to_bool(psVar5)) {
-                new (this) shared_ptr<dash3d::Decor>(psVar5);
-            } else {
-                local_48 = (LRUHashCache<DBTableIndex, 64ul, 65ul, false, unsigned long long>*)(plVar7 + 1);
-                iVar3 = game::DBUtils::GetDBFieldTable(in_EDX);
-                iVar4 = game::DBUtils::GetDBFieldColumn(in_EDX);
-                new (local_40) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                puVar6 = (undefined*)((shared_ptr*)*plVar7)
-                             ->GetFile((int)(shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>*)local_40, iVar3,
-                                       (array*)(ulong)(iVar4 + 1));
-                if (puVar6 == DataStatus::READY) {
-                    auVar8 = shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator*(
-                        (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)local_40);
-                    MakeSharedPool<DBTableIndex, 64>::MakeShared<PacketJ<Array<unsigned char, eastl::allocator>>&>(
-                        &local_68, auVar8._0_8_, auVar8._8_8_);
+            this_00 = (shared_ptr*)field_8.Find(*local_40);
+            if (shared_ptr::operator_cast_to_bool(this_00) == '\0') {
+                local_48 = (LRUHashCache<DBTableIndex, 64ul, 65ul, false, unsigned long long>*)&field_8;
+                arg2 = game::DBUtils::GetDBFieldTable(arg1);
+                iVar3 = game::DBUtils::GetDBFieldColumn(arg1);
+                new (local_40) shared_ptr();
+                if ((uint8_t*)field_0->GetFile(*local_40, arg2, iVar3 + 1, nullptr) == DataStatus::READY) {
+                    **local_40;
+                    MakeSharedPool<DBTableIndex, 64>::MakeShared<PacketJ<Array<unsigned char>>&>(&local_68);
                     local_58 = local_50;
-                    psVar5 = (shared_ptr*)local_48->Put(&local_68, 1, &local_58);
-                    new (this) shared_ptr<dash3d::Decor>(psVar5);
-                    local_68.~shared_ptr();
+                    groundDecor = (shared_ptr<dash3d::GroundDecor>*)local_48->Put(local_68, 1, local_58);
+                    new (&result) shared_ptr(groundDecor);
                 } else {
-                    new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+                    new (&result) shared_ptr();
                 }
-                local_40->~shared_ptr();
+            } else {
+                new (&result) shared_ptr(this_00);
             }
         }
-        return this;
+        return result;
     }
 
-    // 0x1000247b0, 304 bytes, placed by class name
-    // DBTableIndexCache::GetDBTableMasterIndex(int)
-    DBTableIndexCache* DBTableIndexCache::GetDBTableMasterIndex(int param_1) {
-        shared_ptr* psVar2;
-        undefined* puVar3;
-        int in_EDX;
-        undefined4 in_register_00000034;
-        long* plVar4;
-        undefined1 auVar5[16];
-        shared_ptr local_60;
-        ulonglong local_50;
+    // 0x1000247b0
+    auto DBTableIndexCache::GetDBTableMasterIndex(int arg1) {
+        shared_ptr* this_00;
+        shared_ptr<dash3d::GroundDecor>* groundDecor;
+        PacketJ<Array<unsigned char> _> local_60;
         LRUHashCache<DBTableIndex, 32ul, 33ul, false, unsigned long long>* local_48;
-        ulonglong local_40[2];
+        unsigned long long local_40[2];
 
-        plVar4 = (long*)CONCAT44(in_register_00000034, param_1);
-        if (*plVar4 == 0) {
-            new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        if (field_0 == nullptr) {
+            auto result;
         } else {
-            local_48 = (LRUHashCache<DBTableIndex, 32ul, 33ul, false, unsigned long long>*)(plVar4 + 673);
-            local_40[0] = (long)in_EDX;
-            psVar2 = (shared_ptr*)LRUHashCache<DBTableIndex, 32ul, 33ul, false, unsigned long long>::Find(
-                (ulonglong*)local_48);
-            if (shared_ptr::operator_cast_to_bool(psVar2)) {
-                new (this) shared_ptr<dash3d::Decor>(psVar2);
-            } else {
-                new (local_40) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                puVar3 = (undefined*)((shared_ptr*)*plVar4)
-                             ->GetFile((int)(shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>*)local_40, in_EDX, 0);
-                if (puVar3 == DataStatus::READY) {
-                    auVar5 = shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>::operator*(
-                        (shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>*)local_40);
-                    MakeSharedPool<DBTableIndex, 64>::MakeShared<PacketJ<Array<unsigned char, eastl::allocator>>&>(
-                        &local_60, auVar5._0_8_, auVar5._8_8_);
-                    local_50 = (long)in_EDX;
-                    psVar2 = (shared_ptr*)local_48->Put(&local_60, 1, &local_50);
-                    new (this) shared_ptr<dash3d::Decor>(psVar2);
-                    local_60.~shared_ptr();
+            local_48 = (LRUHashCache<DBTableIndex, 32ul, 33ul, false, unsigned long long>*)&field_5384;
+            local_40[0] = (long)arg1;
+            this_00 = (shared_ptr*)local_48->Find(*local_40);
+            if (shared_ptr::operator_cast_to_bool(this_00) == '\0') {
+                new (local_40) shared_ptr();
+                if ((uint8_t*)field_0->GetFile(*local_40, arg1, 0, nullptr) == DataStatus::READY) {
+                    **local_40;
+                    MakeSharedPool<DBTableIndex, 64>::MakeShared<PacketJ<Array<unsigned char>>&>(&local_60);
+                    groundDecor = (shared_ptr<dash3d::GroundDecor>*)local_48->Put(local_60, 1, (long)arg1);
+                    new (&result) shared_ptr(groundDecor);
                 } else {
-                    new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+                    new (&result) shared_ptr();
                 }
-                local_40->~shared_ptr();
+            } else {
+                new (&result) shared_ptr(this_00);
             }
         }
-        return this;
+        return result;
     }
 
 } // namespace jag::oldscape

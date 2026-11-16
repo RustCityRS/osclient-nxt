@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/materials/textures/TextureAtlasReference.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,48 +7,39 @@ namespace jag::graphics {
     class TextureAtlasReference {
     public:
         void GetTextureAtlas() const;
-        int GetTextureAtlasID() const;
+        unsigned int GetTextureAtlasID() const;
         ~TextureAtlasReference();
         TextureAtlasReference();
-        TextureAtlasReference(shared_ptr<TextureAtlas> const&,
-                              eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL> const&);
-        TextureAtlasReference* operator=(TextureAtlasReference&&);
+        TextureAtlasReference(const shared_ptr<TextureAtlas>& textureAtlas,
+                              const eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>& materialInfos);
+        TextureAtlasReference* operator=(TextureAtlasReference&& textureAtlasReference);
         void AddReferences();
-        TextureAtlasReference(TextureAtlasReference const&);
-        TextureAtlasReference(TextureAtlasReference&&);
-        CheckTexturesLoaded() const;
-        void Combine(TextureAtlasReference const&);
-        void GetIDsFromMaterialInfo(eastl::vector<int, BucketAllocatorEASTL>&,
-                                    eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL> const&) const;
-        TextureAtlasReference* operator=(TextureAtlasReference const&);
+        TextureAtlasReference(const TextureAtlasReference& textureAtlasReference);
+        TextureAtlasReference(TextureAtlasReference&& textureAtlasReference);
+        uint8_t CheckTexturesLoaded() const;
+        void Combine(const TextureAtlasReference& textureAtlasReference);
+        void GetIDsFromMaterialInfo(eastl::vector<int>& arg1,
+                                    const eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>& materialInfos) const;
+        TextureAtlasReference* operator=(const TextureAtlasReference& textureAtlasReference);
         void ResetTexturesLoaded();
 
-        // data members, from how the methods use this: 48 bytes
-        char _unknown_0[8];
-        long field_8; // offset 8
-        char _unknown_16[24];
-        int m_textureAtlasID; // offset 40
-        undefined1 field_44;  // offset 44
-        char _unknown_45[3];
+    private:
+        uint8_t _unknown_0[8];
+        long field_8;
+        uint8_t _unknown_16[24];
+        unsigned int m_textureAtlasID;
+        uint8_t field_44;
+        uint8_t _unknown_45[3];
     };
 
-    // 0x10085f180, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // TextureAtlasReference::TextureAtlasReference(): jumps straight to the base-object constructor
-
-    // 0x10086aaf0, 80 bytes, base-object constructor, inline, placed by class name
-    // TextureAtlasReference::TextureAtlasReference()
-    void TextureAtlasReference::TextureAtlasReference() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) MakeSharedPool<TextureAtlasReference, 8192>();
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>::vector();
-        m_textureAtlasID = -1;
+    // 0x10086aaf0
+    TextureAtlasReference::TextureAtlasReference() : MakeSharedPool<TextureAtlasReference, 8192>(), shared_ptr() {
+        new (&field_16) eastl::vector<MaterialInfo, SafeBucketAllocatorEASTL>();
+        m_textureAtlasID = 4294967295;
         field_44 = 0;
     }
 
-    // 0x100873170, 16 bytes, inline, placed by class name
-    // TextureAtlasReference::ResetTexturesLoaded()
+    // 0x100873170
     void TextureAtlasReference::ResetTexturesLoaded() {
         field_44 = 0;
     }
@@ -57,39 +47,33 @@ namespace jag::graphics {
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x10085f210, 192 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<graphics::TextureAtlas>::type make_shared<graphics::TextureAtlas, graphics::TextureManager&, unsigned int&, std::recursive_mutex&, graphicutils::TextureAtlasUsage const* const&>(graphics::TextureManager&, unsigned int&, std::recursive_mutex&, graphicutils::TextureAtlasUsage const* const&)
-    /* shared_ptr_if_not_array<graphics::TextureAtlas>::type
-   make_shared<graphics::TextureAtlas, graphics::TextureManager&, unsigned int&,
-   std::recursive_mutex&, graphicutils::TextureAtlasUsage const*
-   const&>(graphics::TextureManager&, unsigned int&, std::recursive_mutex&,
-   graphicutils::TextureAtlasUsage const* const&) */
-
-    jag* jag::make_shared<graphics::TextureAtlas, graphics::TextureManager&, unsigned int&, std::recursive_mutex&,
-                          graphicutils::TextureAtlasUsage_const* const&>(TextureManager* param_1, uint* param_2,
-                                                                         recursive_mutex* param_3,
-                                                                         TextureAtlasUsage** param_4) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x10085f210
+    shared_ptr_if_not_array<graphics::TextureAtlas>::type
+    make_shared<graphics::TextureAtlas, graphics::TextureManager&, unsigned int&, std::recursive_mutex&,
+                graphicutils::TextureAtlasUsage const* const&>(graphics::TextureManager& textureManager,
+                                                               unsigned int& arg2,
+                                                               std::recursive_mutex& recursive_mutex,
+                                                               graphicutils::TextureAtlasUsage const* const& arg4) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_44;
         TextureAtlas* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(191024, 16);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(16);
+        auto arg1 = aligned_alloc(191024, 16);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<graphics::TextureAtlas>::type result;
         } else {
             local_40[0] = placement_new<graphics::TextureAtlas, graphics::TextureManager&, unsigned int&,
-                                        std::recursive_mutex&, graphicutils::TextureAtlasUsage_const* const&>(
-                (void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4);
+                                        std::recursive_mutex&, graphicutils::TextureAtlasUsage const* const&>(
+                (void*)((long)arg1 + 32), textureManager, arg2, recursive_mutex, arg4);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<graphics::TextureAtlas>, int, graphics::TextureAtlas*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<graphics::TextureAtlas>, int, graphics::TextureAtlas*&>(
+                    arg1, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

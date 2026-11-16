@@ -1,199 +1,79 @@
 // libs/oldscape/osrendercore/OSRenderCore.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.osrendercore
 
 #include "OSRenderCore.h"
 
 namespace jag::oldscape {
-    // 0x100fc91d0, 8 bytes, __common; zero-initialised
-    OSRenderCore_Impl::m_pCore;
+    // 0x100fc91d0
+    int64_t OSRenderCore_Impl::m_pCore;
 
-    // 0x1001bb000, 304 bytes, base-object constructor, placed by debug map only (low confidence)
-    // OSRenderCore_Impl::OSRenderCore_Impl(GraphicsApp&)
-    void OSRenderCore_Impl::OSRenderCore_Impl(GraphicsApp* param_1) {
-        undefined1* this_00;
-        NpcUID* pNVar1;
-        undefined4 uVar2;
-        undefined8 uVar3;
-
-        new (this) OSRenderCore_LogicThread();
-        new (&field_704, (GraphicsApp*)(param_1->field_16 + 24)) OSRenderCore_RenderThread();
-        new (field_16020848) OSRenderCore_AnyThread();
-        field_0 = (NpcUID*)param_1->field_0;
-        *(undefined8*)field_16 = *(undefined8*)&param_1->field_88;
-        uVar2 = *(undefined4*)&param_1->field_100;
-        field_704 = param_1->field_96;
-        field_708 = uVar2;
-        field_816 = *(undefined***)&param_1->field_104;
-        field_1581072 = *(undefined**)&param_1->field_112;
-        *(undefined***)field_16020848 = &PTR_GetAudioAPI_100ef6768;
-        std::make_unique<hal::audio::AudioAPI>();
-        this_00 = &field_16020864;
+    // 0x1001bb000
+    OSRenderCore_Impl::OSRenderCore_Impl(GraphicsApp& graphicsApp)
+        : OSRenderCore_LogicThread(), field_704(graphicsApp) {
+        *(uint8_t***)field_16020848 = &PTR_GetAudioAPI_100ef6768;
+        field_16020856 = std::make_unique<hal::audio::AudioAPI>();
+        uint8_t* this_00 = &field_16020864;
         new (this_00) std::array<RenderState, 2ul>();
         m_pCore = this;
-        uVar3 = std::array<RenderState, 2ul>::operator[]((array<RenderState, 2ul>*)this_00, 0);
-        pNVar1 = field_0;
-        *(undefined8*)(field_16 + *(long*)(pNVar1 + -8) + 72) = uVar3;
-        uVar3 = std::array<RenderState, 2ul>::operator[]((array<RenderState, 2ul>*)this_00, 1);
-        *(undefined8*)(field_16 + *(long*)(pNVar1 + -6) + -16) = uVar3;
+        uint64_t uVar2 = (*this_00)[0];
+        OSRenderCore_Impl_vtbl* pOVar1 = this->_vptr;
+        *(uint64_t*)(field_16 + (long)(pOVar1[-1].TexturesUploaded + 72)) = uVar2;
+        uVar2 = (*this_00)[1];
+        *(uint64_t*)(field_16 + (long)(pOVar1[-1].GetAudioAPI - 16)) = uVar2;
     }
 
-    // 0x1001bb170, 176 bytes, base-object constructor, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread::OSRenderCore_RenderThread(GraphicsApp&)
-    void OSRenderCore_RenderThread::OSRenderCore_RenderThread(GraphicsApp* param_1) {
-        GraphicsApp* in_RDX;
+    // 0x1001bb170
+    OSRenderCore_RenderThread::OSRenderCore_RenderThread(GraphicsApp& graphicsApp)
+        : OSRenderCore_RenderThread_RSeven(), field_16020136(graphicsApp) {}
 
-        new (this) OSRenderCore_RenderThread_RSeven();
-        new (field_112) OSRenderCore_RenderThread_UI();
-        new (&field_1580368) OSRenderCore_RenderThread_JavaStyle();
-        field_0 = param_1->field_0;
-        *(undefined8*)field_112 = *(undefined8*)(param_1->field_16 + 16);
-        field_1580368 = *(undefined8*)(param_1->field_16 + 24);
-        field_16020136 = in_RDX;
-    }
+    // 0x1001bb2c0
+    OSRenderCore_RenderThread::~OSRenderCore_RenderThread() {}
 
-    // 0x1001bb2c0, 64 bytes, base-object destructor, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread::~OSRenderCore_RenderThread()
-    void OSRenderCore_RenderThread::~OSRenderCore_RenderThread() {
-        (&field_1580368)->~OSRenderCore_RenderThread_JavaStyle();
-        field_112->~OSRenderCore_RenderThread_UI();
-        ~OSRenderCore_RenderThread_RSeven();
-    }
-
-    // 0x1001bb320, 320 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // OSRenderCore_Impl::OSRenderCore_Impl(GraphicsApp&)
-    void OSRenderCore_Impl::OSRenderCore_Impl(GraphicsApp* param_1) {
-        undefined1* this_00;
-        NpcUID* pNVar1;
-        undefined8 uVar2;
-
-        new (field_55398600) OSRenderCore_LogicThread_Common();
-        new (field_55398656) OSRenderCore_RenderThread_Common();
-        new (this) OSRenderCore_LogicThread();
-        new (&field_704, (GraphicsApp*)&PTR_PTR_100ef6798) OSRenderCore_RenderThread();
-        new (field_16020848) OSRenderCore_AnyThread();
-        field_0 = (NpcUID*)&PTR_TexturesUploaded_100ef66b8;
-        *(undefined**)field_16 = &DAT_100ef66f0;
-        *(undefined***)&field_704 = &PTR_FlipThreadRenderStates_100ef6708;
-        field_816 = &PTR_GetUISize_100ef6738;
-        field_1581072 = &DAT_100ef6758;
-        *(undefined***)field_16020848 = &PTR_GetAudioAPI_100ef6768;
-        std::make_unique<hal::audio::AudioAPI>();
-        this_00 = &field_16020864;
-        new (this_00) std::array<RenderState, 2ul>();
-        m_pCore = this;
-        uVar2 = std::array<RenderState, 2ul>::operator[]((array<RenderState, 2ul>*)this_00, 0);
-        pNVar1 = field_0;
-        *(undefined8*)(field_16 + *(long*)(pNVar1 + -8) + 72) = uVar2;
-        uVar2 = std::array<RenderState, 2ul>::operator[]((array<RenderState, 2ul>*)this_00, 1);
-        *(undefined8*)(field_16 + *(long*)(pNVar1 + -6) + -16) = uVar2;
-    }
-
-    // 0x1001bb490, 96 bytes, base-object constructor, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread_Common::OSRenderCore_RenderThread_Common()
-    void OSRenderCore_RenderThread_Common::OSRenderCore_RenderThread_Common() {
-        new (this) render::Viewport(0, 0, 0, 0, 0.0, 1.0);
-        new (&field_24, (_func_decltype_nullptr*)0) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_40, 0, 0) sidebars::SideBarData();
+    // 0x1001bb490
+    OSRenderCore_RenderThread_Common::OSRenderCore_RenderThread_Common() : render::Viewport(0, 0, 0, 0, 0.0, 1.0) {
+        new (&field_24) shared_ptr();
+        new (&field_40) sidebars::SideBarData(0, 0);
         field_48 = 1;
-        new (&field_64) jag::math::Vector4T<float>();
+        new (&field_64) jag::math::Vector4T();
         field_80 = 0;
         field_104 = 0;
     }
 
-    // 0x1001bb4f0, 160 bytes, base-object destructor, placed by debug map only (low confidence)
-    // OSRenderCore_Impl::~OSRenderCore_Impl()
-    void OSRenderCore_Impl::~OSRenderCore_Impl() {
-        undefined8 uVar1;
-        undefined8* in_RSI;
-
-        field_0 = (NpcUID*)*in_RSI;
-        *(undefined8*)field_16 = in_RSI[11];
-        uVar1 = in_RSI[12];
-        field_704 = (int)uVar1;
-        field_708 = (int)((ulong)uVar1 >> 32);
-        field_816 = (undefined**)in_RSI[13];
-        field_1581072 = (undefined*)in_RSI[14];
-        *(undefined***)field_16020848 = &PTR_GetAudioAPI_100ef6768;
+    // 0x1001bb4f0
+    OSRenderCore_Impl::~OSRenderCore_Impl() {
+        *(uint8_t***)field_16020848 = &PTR_GetAudioAPI_100ef6768;
         m_pCore = 0;
-        (&field_16020864)->~array();
-        (&field_16020856)->~unique_ptr();
-        (&field_704)->~OSRenderCore_RenderThread();
-        ~OSRenderCore_LogicThread();
+        field_16020864.~array();
+        field_16020856.~unique_ptr();
+        field_704->~OSRenderCore_RenderThread();
     }
 
-    // 0x1001bb5a0, 32 bytes, complete-object destructor, placed by debug map only (low confidence)
-    // OSRenderCore_Impl::~OSRenderCore_Impl()
-    void OSRenderCore_Impl::~OSRenderCore_Impl() {
-        ~OSRenderCore_Impl(this);
-    }
+    // 0x1001bb5d0
+    NoJs5ResourceProvider::NoJs5ResourceProvider() {
 
-    // 0x1001bb5c0, 16 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread_Common::OSRenderCore_RenderThread_Common(): jumps straight to the base-object constructor
-
-    // 0x1001bb5d0, 432 bytes, base-object constructor, placed by debug map only (low confidence)
-    // NoJs5ResourceProvider::NoJs5ResourceProvider()
-    void NoJs5ResourceProvider::NoJs5ResourceProvider() {
-        eastl::string local_e0[32];
-        eastl::string local_c0[32];
-        allocator local_a0[8];
-        eastl::string local_98[32];
-        eastl::string local_78[32];
+        eastl::string local_c0("storename");
+        eastl::string local_98("binaryUrl1");
+        eastl::string local_78("httpurl");
         VBOMapper local_58;
-        allocator local_38[8];
-        allocator local_30[8];
-        allocator local_28[8];
-
-        eastl::allocator::allocator(local_a0, "EASTL basic_string");
-        eastl::string::basic_string(local_c0, "storename", local_a0);
-        eastl::allocator::allocator(local_38, "EASTL basic_string");
-        eastl::string::basic_string(local_98, "binaryUrl1", local_38);
-        eastl::allocator::allocator(local_30, "EASTL basic_string");
-        eastl::string::basic_string(local_78, "httpurl", local_30);
-        new (&local_58) PacketT<Array<unsigned char, eastl::allocator>>();
-        eastl::allocator::allocator(local_28, "EASTL basic_string");
-        eastl::string::basic_string(local_e0, "", local_28);
-        new (this)
-            Js5ResourceProvider(local_c0, local_98, local_78, (SystemSettings*)&bogusSystemSettings,
-                                (PacketT*)&local_58, 0, (Js5ArchiveSetSettings*)&noArchiveSets, true, 0, 0, local_e0);
-        eastl::string::~basic_string(local_e0);
-        local_58.~VBOMapper();
-        eastl::string::~basic_string(local_78);
-        eastl::string::~basic_string(local_98);
-        eastl::string::~basic_string(local_c0);
-        field_0 = (undefined**)(PTR_vtable_100ee88f8 + 16);
+        eastl::string local_e0("");
+        new (this) Js5ResourceProvider(local_c0, local_98, local_78, &bogusSystemSettings, local_58, 0, noArchiveSets,
+                                       true, nullptr, nullptr, local_e0);
     }
 
-    // 0x1001bb780, 16 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // NoJs5ResourceProvider::NoJs5ResourceProvider(): jumps straight to the base-object constructor
-
-    // 0x1001bb790, 256 bytes, base-object constructor, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread_RSeven::OSRenderCore_RenderThread_RSeven()
-    void OSRenderCore_RenderThread_RSeven::OSRenderCore_RenderThread_RSeven() {
-        Language** ppLVar1;
-        undefined8* in_RSI;
-        Array* in_R9;
-        Array<game::ConfigTypeListContainerStrategy, eastl::allocator> local_60[24];
-        unique_ptr local_48[8];
+    // 0x1001bb790
+    OSRenderCore_RenderThread_RSeven::OSRenderCore_RenderThread_RSeven() {
+        Array<game::ConfigTypeListContainerStrategy>* in_R9;
+        unique_ptr<game::ConfigProvider, std::default_delete<game::ConfigProvider> _> local_48;
         bool local_40[15];
-        undefined1 local_31;
 
-        field_0 = (undefined*)*in_RSI;
-        std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::unique_ptr<true, void>(
-            (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-        std::unique_ptr<rseven::Scene, std::default_delete<rseven::Scene>>::unique_ptr<true, void>(
-            (unique_ptr<rseven::Scene, std::default_delete<rseven::Scene>>*)&field_16);
-        std::unique_ptr<NoJs5ResourceProvider, std::default_delete<NoJs5ResourceProvider>>::unique_ptr<true, void>(
-            (unique_ptr<NoJs5ResourceProvider, std::default_delete<NoJs5ResourceProvider>>*)&field_24);
+        field_8.unique_ptr<true, void>();
+        field_16.unique_ptr<true, void>();
+        field_24.unique_ptr<true, void>();
         new (field_32) Js5ArchiveSettings();
-        std::unique_ptr<game::ConfigProvider, std::default_delete<game::ConfigProvider>>::unique_ptr<true, void>(
-            (unique_ptr<game::ConfigProvider, std::default_delete<game::ConfigProvider>>*)&field_96);
-        Array<game::ConfigTypeListContainerStrategy, eastl::allocator>::Array(local_60);
-        ppLVar1 =
-            (Language**)std::unique_ptr<NoJs5ResourceProvider, std::default_delete<NoJs5ResourceProvider>>::operator*(
-                (unique_ptr<NoJs5ResourceProvider, std::default_delete<NoJs5ResourceProvider>>*)&field_24);
-        local_31 = 1;
+        field_96.unique_ptr<true, void>();
+        Array<game::ConfigTypeListContainerStrategy> local_60;
+        Language** arg2 = (Language**)*field_24;
         local_40[0] = false;
         local_40[1] = false;
         local_40[2] = false;
@@ -202,1839 +82,1404 @@ namespace jag::oldscape {
         local_40[5] = false;
         local_40[6] = false;
         local_40[7] = false;
-        std::make_unique<game::ConfigProvider, NoJs5ResourceProvider&, Language_const*&, ModeGame_const*&, bool,
-                         decltype(nullptr), Array<game::ConfigTypeListContainerStrategy, eastl::allocator>&>(
-            (NoJs5ResourceProvider*)local_48, ppLVar1, (ModeGame**)&local_31, local_40,
-            (_func_decltype_nullptr**)local_60, in_R9);
-        std::unique_ptr<game::ConfigProvider, std::default_delete<game::ConfigProvider>>::operator=(
-            (unique_ptr<game::ConfigProvider, std::default_delete<game::ConfigProvider>>*)&field_96, local_48);
-        local_48->~unique_ptr();
-        local_60->~Array();
+        std::make_unique<game::ConfigProvider, NoJs5ResourceProvider&, Language const*&, ModeGame const*&, bool,
+                         decltype(nullptr), Array<game::ConfigTypeListContainerStrategy>&>(local_48, *arg2, 1,
+                                                                                           *local_40, local_60, *in_R9);
+        field_96 = local_48;
     }
 
-    // 0x1001bba10, 272 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread_RSeven::OSRenderCore_RenderThread_RSeven()
-    void OSRenderCore_RenderThread_RSeven::OSRenderCore_RenderThread_RSeven() {
-        Language** ppLVar1;
-        Array* in_R9;
-        Array<game::ConfigTypeListContainerStrategy, eastl::allocator> local_60[24];
-        unique_ptr local_48[8];
-        bool local_40[15];
-        undefined1 local_31;
-
-        new (field_112) OSRenderCore_RenderThread_Common();
-        field_0 = PTR_vtable_100ee8928 + 24;
-        std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::unique_ptr<true, void>(
-            (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-        std::unique_ptr<rseven::Scene, std::default_delete<rseven::Scene>>::unique_ptr<true, void>(
-            (unique_ptr<rseven::Scene, std::default_delete<rseven::Scene>>*)&field_16);
-        std::unique_ptr<NoJs5ResourceProvider, std::default_delete<NoJs5ResourceProvider>>::unique_ptr<true, void>(
-            (unique_ptr<NoJs5ResourceProvider, std::default_delete<NoJs5ResourceProvider>>*)&field_24);
-        new (field_32) Js5ArchiveSettings();
-        std::unique_ptr<game::ConfigProvider, std::default_delete<game::ConfigProvider>>::unique_ptr<true, void>(
-            (unique_ptr<game::ConfigProvider, std::default_delete<game::ConfigProvider>>*)&field_96);
-        Array<game::ConfigTypeListContainerStrategy, eastl::allocator>::Array(local_60);
-        ppLVar1 =
-            (Language**)std::unique_ptr<NoJs5ResourceProvider, std::default_delete<NoJs5ResourceProvider>>::operator*(
-                (unique_ptr<NoJs5ResourceProvider, std::default_delete<NoJs5ResourceProvider>>*)&field_24);
-        local_31 = 1;
-        local_40[0] = false;
-        local_40[1] = false;
-        local_40[2] = false;
-        local_40[3] = false;
-        local_40[4] = false;
-        local_40[5] = false;
-        local_40[6] = false;
-        local_40[7] = false;
-        std::make_unique<game::ConfigProvider, NoJs5ResourceProvider&, Language_const*&, ModeGame_const*&, bool,
-                         decltype(nullptr), Array<game::ConfigTypeListContainerStrategy, eastl::allocator>&>(
-            (NoJs5ResourceProvider*)local_48, ppLVar1, (ModeGame**)&local_31, local_40,
-            (_func_decltype_nullptr**)local_60, in_R9);
-        std::unique_ptr<game::ConfigProvider, std::default_delete<game::ConfigProvider>>::operator=(
-            (unique_ptr<game::ConfigProvider, std::default_delete<game::ConfigProvider>>*)&field_96, local_48);
-        local_48->~unique_ptr();
-        local_60->~Array();
-    }
-
-    // 0x1001bc200, 16 bytes, complete-object destructor, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread::~OSRenderCore_RenderThread(): jumps straight to the base-object destructor
-
-    // 0x1001bc210, 96 bytes, placed by debug map only (low confidence)
-    // OSRenderCore_RenderThread::Init()
+    // 0x1001bc210
     void OSRenderCore_RenderThread::Init() {
-        MapArea* this_00;
-        long lVar1;
-
-        this_00 = (MapArea*)Instance();
-        lVar1 = this_00->GetOrigin();
-        (field_1580384, *(char*)(lVar1 + 180) != '\0' || *(char*)(lVar1 + 179) != '\0')->SetLightsLevelsAbove();
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
+        field_1580384->SetLightsLevelsAbove(*(char*)(lVar1 + 180) != '\0' || *(char*)(lVar1 + 179) != '\0');
         field_1580360 = 0;
-        InitRSeven(*(int*)(field_32 + (long)(field_0[-3] + 16)));
+        InitRSeven(*(int*)(field_32 + (long)(this->_vptr[-3].GetUISize + 16)));
     }
 
-    // 0x1001bd060, 160 bytes, placed by __FILE__ string
-    // OSRenderCore_LogicThread_JavaStyle::SetTextureOffsets(int const*, int const*, int)
-    void OSRenderCore_LogicThread_JavaStyle::SetTextureOffsets(int* param_1, int* param_2, int param_3) {
-        void* pvVar1;
-
-        if (256 < param_3) {
-            /* WARNING: Subroutine does not return */
+    // 0x1001bd060
+    void OSRenderCore_LogicThread_JavaStyle::SetTextureOffsets(const int* arg1, const int* arg2, int arg3) {
+        if (256 < arg3) {
             LogAssert("numTextures <= (int)m_pRenderStateJava->m_textureXOffsets.size()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                       "OSRenderCore.cpp",
-                      252, (char*)0);
+                      252, nullptr);
         }
-        pvVar1 =
-            (void*)std::array<int, 256ul>::operator[](*(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19678752);
-        _memcpy(pvVar1, param_1, (long)param_3 << 2);
-        pvVar1 =
-            (void*)std::array<int, 256ul>::operator[](*(long*)((long)&field_0 + *(long*)(field_0 + -24)) + 19679776);
-        _memcpy(pvVar1, param_2, (long)param_3 << 2);
+        void* pvVar1 = (void*)(*(
+            (array<int, 256ul>*)(*(long*)((long)&field_0 + *(long*)(field_0 - 24)) + 19678752)))[(unsigned long)arg1];
+        _memcpy(pvVar1, arg1, (long)arg3 << 2);
+        pvVar1 = (void*)(*(
+            (array<int, 256ul>*)(*(long*)((long)&field_0 + *(long*)(field_0 - 24)) + 19679776)))[(unsigned long)arg1];
+        _memcpy(pvVar1, arg2, (long)arg3 << 2);
     }
 
-    // 0x1001bd110, 144 bytes, placed by __FILE__ string
-    // OSRenderCore_RenderThread_UI::NewFrame2D()
+    // 0x1001bd110
     void OSRenderCore_RenderThread_UI::NewFrame2D() {
-        BufferInterface* this_00;
-        undefined8 uVar2;
-        undefined8 local_30[3];
+        ReturnValue local_30;
 
         if (*(char*)&this[1].field_0 != '\0') {
-            this_00 = (BufferInterface*)(&field_1579984)->GetWrite();
-            if (this_00->IsCreated() == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (((BufferInterface*)field_1579984.GetWrite())->IsCreated() == '\0') {
                 LogAssert("m_uiPBO.GetWrite().IsCreated()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                           "OSRenderCore.cpp",
-                          261, (char*)0);
+                          261, nullptr);
             }
-            uVar2 = (&field_1579984)->GetWrite();
-            render::PixelUnpackBuffer::MapWrite((ResourceDataT<unsigned char const>*)local_30, uVar2, 6, 0, 0, 0);
-            field_1580240 = local_30[0];
-            local_30->~ResourceDataT();
+            local_30 = ((PixelUnpackBuffer*)field_1579984.GetWrite())->MapWrite(6, 0, 0, 0);
+            *(ReturnValue*)field_1580240 = local_30[0];
         }
     }
 
-    // 0x1001bd1c0, 368 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_UI::EndFrame2D()
+    // 0x1001bd1c0
     void OSRenderCore_RenderThread_UI::EndFrame2D() {
-        RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul, true, eastl::allocator>, 2ul>* this_00;
-        undefined1* this_01;
-        undefined1* this_02;
-        undefined4 uVar1;
-        char cVar2;
+        uint8_t* this_01;
+        uint8_t* this_02;
+        uint32_t uVar1;
         int iVar3;
         PixelUnpackBuffer* pPVar4;
         long* plVar5;
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* pcVar6;
-        undefined4* puVar7;
+        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>* pcVar6;
+        uint32_t* puVar7;
         long lVar8;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_03;
-        VertexBuffer* pVVar9;
-        vector<eastl::pair<int, int>, eastl::allocator>* this_04;
-        Layout* this_05;
-        undefined8 uVar10;
+        VertexBuffer* this_04;
+        Layout* this_06;
+        void* arg3;
 
         if (*(char*)&this[1].field_0 != '\0') {
             this_01 = &field_1579984;
             pPVar4 = (PixelUnpackBuffer*)this_01->GetWrite();
             pPVar4->Unmap();
-            field_1580240 = 0;
+            *(uint64_t*)field_1580240 = 0;
             pPVar4 = (PixelUnpackBuffer*)this_01->GetWrite();
             pPVar4->Bind();
             this_02 = &field_1578944;
             plVar5 = (long*)this_02->GetWrite();
-            pcVar6 =
-                (compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                             eastl::allocator>>::Layout,
-                                     eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)
-                    this_02->GetWrite();
-            puVar7 = (undefined4*)eastl::compressed_pair_imp<
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(pcVar6);
+            pcVar6 = (compressed_pair_imp<
+                      eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                      eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>*)this_02->GetWrite();
+            puVar7 = (uint32_t*)pcVar6->second();
             uVar1 = *puVar7;
-            pcVar6 =
-                (compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                             eastl::allocator>>::Layout,
-                                     eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)
-                    this_02->GetWrite();
-            lVar8 = eastl::compressed_pair_imp<
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(pcVar6);
-            (**(code**)(*plVar5 + 40))(plVar5, 0, 0, 0, uVar1, *(undefined4*)(lVar8 + 4), 29, 0);
+            pcVar6 = (compressed_pair_imp<
+                      eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                      eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>*)this_02->GetWrite();
+            lVar8 = pcVar6->second();
+            (**(void (**)(...))(*plVar5 + 40))(plVar5, 0, 0, 0, uVar1, *(uint32_t*)(lVar8 + 4), 29, 0);
             pPVar4 = (PixelUnpackBuffer*)this_01->GetWrite();
             pPVar4->Unbind();
         }
-        this_00 = (RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul, true, eastl::allocator>,
-                              2ul>*)(field_8 + 16);
-        this_03 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                      this_00->GetWrite();
-        cVar2 = eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-            this_03);
-        if (cVar2 == '\0') {
-            pVVar9 = (VertexBuffer*)(&field_1572984)->GetWrite();
-            this_04 = (vector<eastl::pair<int, int>, eastl::allocator>*)this_00->GetWrite();
-            iVar3 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_04);
-            this_05 = (Layout*)this_00->GetWrite();
-            uVar10 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_05);
-            pVVar9->Update(0, iVar3 * 8, uVar10, 2);
+        RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul>, 2ul>* this_00 =
+            (RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul>, 2ul>*)(field_8 + 16);
+        if (((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)this_00->GetWrite())->empty() ==
+            '\0') {
+            this_04 = (VertexBuffer*)field_1572984.GetWrite();
+            iVar3 = ((vector<eastl::pair<int, int>>*)this_00->GetWrite())->size();
+            this_06 = (Layout*)this_00->GetWrite();
+            arg3 = (void*)this_06->HeapBeginPtr();
+            this_04->Update(0, iVar3 * 8, arg3, 2);
         }
-        (&field_1578944)->Advance();
-        (&field_1572984)->Advance();
+        field_1578944.Advance();
+        field_1572984.Advance();
         this_00->Advance();
-        (&field_1579984)->Advance();
-        (&field_1580160)->Advance();
+        field_1579984.Advance();
+        field_1580160.Advance();
     }
 
-    // 0x1001bd440, 16 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread::NewFrame3D()
+    // 0x1001bd440
     void OSRenderCore_RenderThread::NewFrame3D() {
-        field_112->NewFrame2D();
+        field_112.NewFrame2D();
     }
 
-    // 0x1001bd450, 80 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread::EndFrame3D()
+    // 0x1001bd450
     void OSRenderCore_RenderThread::EndFrame3D() {
-        long lVar1;
-
-        lVar1 = ((field_32 + (long)(field_0[-3] + -32)))->GetRenderStateNXT();
+        long lVar1 = ((OSRenderCore_RenderThread_Common*)(field_32 + (long)(this->_vptr[-3].GetUISize - 32)))
+                         ->GetRenderStateNXT();
         if (*(int*)(lVar1 + 17563832) == 0) {
-            (&field_1584944)->Advance();
-            (&field_16007448)->Advance();
+            field_1584944.Advance();
+            field_16007448.Advance();
         }
-        field_112->EndFrame2D();
+        field_112.EndFrame2D();
     }
 
-    // 0x1001bd4d0, 16 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread::Paint()
+    // 0x1001bd4d0
     void OSRenderCore_RenderThread::Paint() {
-        PaintDirect(this);
+        PaintDirect();
     }
 
-    // 0x1001bd4e0, 672 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread::PaintDirect()
+    // 0x1001bd4e0
     void OSRenderCore_RenderThread::PaintDirect() {
-        undefined8 uVar1;
-        char cVar2;
+        uint64_t this_00;
+        int iVar2;
         int iVar3;
-        int iVar4;
-        RenderContext* this_00;
-        RenderTargets* pRVar5;
-        long lVar6;
-        RT7Core* this_01;
-        EffectManager* pEVar7;
-        SunlightDirectLighting* pSVar8;
-        longlong lVar9;
-        SunlightShadows* this_02;
-        fixed_vector<jag::math::Vector2T<float>, 98304ul, true, eastl::allocator>* this_03;
-        MSIType* this_04;
-        float fVar10;
-        undefined4 uVar11;
-        undefined1 local_60[32];
-        undefined8 local_40;
-        undefined4 local_38;
+        long lVar4;
+        EffectManager* this_03;
+        SunlightDirectLighting* this_04;
+        ReturnValue* vector3;
+        SunlightShadows* this_05;
+        MSIType* this_07;
+        uint8_t local_60[32];
+        ReturnValue local_40;
+        uint32_t local_38;
 
-        this_00 = (RenderContext*)field_16020136->GetDefaultRenderContext();
-        cVar2 = this_00->IsInsideBeginEnd();
-        if (cVar2 != '\0') {
-            UpdateRenderTargetSizes(this, this_00);
-            iVar3 = this_00->GetBackBufferWidth();
-            iVar4 = this_00->GetBackBufferHeight();
-            uVar11 = 1065353216;
-            new (local_60) render::Viewport(0, 0, iVar3, iVar4, 0.0, 1.0);
-            this_00->SetViewports(local_60, 1);
-            pRVar5 = (RenderTargets*)this_00->GetBackBuffer();
-            this_00->SetRenderTargets(pRVar5);
-            this_00->ClearDepthStencilTarget(1.0, 0, 2);
-            lVar6 = ((field_32 + (long)(field_0[-3] + -32)))->GetRenderStateNXT();
-            if (*(int*)(lVar6 + 17563832) == 0) {
-                (&field_1580368, this_00)->PaintJavaStyle();
+        auto this_01 = field_16020136->GetDefaultRenderContext();
+        char cVar1 = this_01->IsInsideBeginEnd();
+        if (cVar1) {
+            UpdateRenderTargetSizes(*this_01);
+            iVar2 = this_01->GetBackBufferWidth();
+            iVar3 = this_01->GetBackBufferHeight();
+            new (local_60) render::Viewport(0, 0, iVar2, iVar3, 0.0, 1.0);
+            this_01->SetViewports(local_60, 1);
+            this_01->SetRenderTargets(this_01->GetBackBuffer());
+            this_01->ClearDepthStencilTarget(1.0, 0, 2);
+            lVar4 = ((OSRenderCore_RenderThread_Common*)(field_32 + (long)(this->_vptr[-3].GetUISize - 32)))
+                        ->GetRenderStateNXT();
+            if (*(int*)(lVar4 + 17563832) == 0) {
+                field_1580368.PaintJavaStyle(*this_01);
             } else {
-                this_01 =
-                    (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::
-                    operator->(
-                        (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)&field_8);
-                pEVar7 = (EffectManager*)this_01->GetEffectManager();
-                lVar6 = ((field_32 + (long)(field_0[-3] + -32)))->GetRenderStateNXT();
-                this_04 = (MSIType*)(lVar6 + 19678676);
-                cVar2 = pEVar7->IsEnabled(29);
-                if (cVar2 != '\0') {
-                    pSVar8 = jag::graphics::EffectManager::GetEffect<jag::graphics::SunlightDirectLighting>(pEVar7, 29);
-                    local_40 = this_04->GetSunDirection();
-                    local_38 = uVar11;
-                    lVar9 = local_40.Normalize();
-                    jag::graphics::SunlightDirectLighting::SetDirection((Vector3T*)pSVar8, lVar9, 0);
-                    local_40 = this_04->GetAdjustedAmbientColour();
-                    local_38 = uVar11;
-                    jag::graphics::SunlightDirectLighting::SetAmbientColour((Vector3T*)pSVar8, (longlong)&local_40, 0);
-                    local_40 = this_04->GetAdjustedSunColour();
-                    local_38 = uVar11;
-                    jag::graphics::SunlightDirectLighting::SetColour((Vector3T*)pSVar8, (longlong)&local_40, 0);
+                this_03 = ((RT7Core*)field_8.operator->())->GetEffectManager();
+                lVar4 = ((OSRenderCore_RenderThread_Common*)(field_32 + (long)(this->_vptr[-3].GetUISize - 32)))
+                            ->GetRenderStateNXT();
+                this_07 = (MSIType*)(lVar4 + 19678676);
+                cVar1 = this_03->IsEnabled(29);
+                if (cVar1) {
+                    this_04 = (SunlightDirectLighting*)this_03->GetEffect<jag::graphics::SunlightDirectLighting>(29);
+                    local_40 = (ReturnValue)this_07->GetSunDirection();
+                    local_38 = 1065353216;
+                    vector3 = local_40 = jag::math::Vector3T<float>::Normalize();
+                    this_04->SetDirection(*vector3, 0, 0);
+                    local_40 = (ReturnValue)this_07->GetAdjustedAmbientColour();
+                    local_38 = 1065353216;
+                    this_04->SetAmbientColour(local_40, 0, 0);
+                    local_40 = (ReturnValue)this_07->GetAdjustedSunColour();
+                    local_38 = 1065353216;
+                    this_04->SetColour(local_40, 0, 0);
                 }
-                cVar2 = pEVar7->IsEnabled(30);
-                if (cVar2 != '\0') {
-                    this_02 = (SunlightShadows*)
-                        jag::graphics::EffectManager::GetEffect<jag::graphics::SunlightDirectLighting>(pEVar7);
-                    fVar10 = (float)this_04->GetMean();
-                    this_02->SetSunlightShadowStrength(fVar10, 0, 0);
-                    local_60._24_8_ = this_02;
-                    iVar3 = this_02->GetPos();
-                    iVar4 = this_04->GetSpriteID();
-                    uVar1 = local_60._24_8_;
-                    if (iVar3 != iVar4) {
-                        cVar2 = local_60._24_8_->GetPos();
-                        pEVar7->DisableEffect(cVar2 + '\x1f');
-                        cVar2 = this_04->GetSpriteID();
-                        pEVar7->EnableEffect(cVar2 + '\x1f', 1);
-                        uVar11 = this_04->GetSpriteID();
-                        uVar1->SetQuality(uVar11);
+                cVar1 = this_03->IsEnabled(30);
+                if (cVar1) {
+                    this_05 = (SunlightShadows*)this_03->GetEffect<jag::graphics::SunlightDirectLighting>(30);
+                    this_05->SetSunlightShadowStrength((float)this_07->GetMean(), 0, 0);
+                    local_60._24_8_ = this_05;
+                    iVar2 = this_05->GetPos();
+                    iVar3 = this_07->GetSpriteID();
+                    this_00 = local_60._24_8_;
+                    if (iVar2 != iVar3) {
+                        cVar1 = local_60._24_8_->GetPos();
+                        this_03->DisableEffect((unsigned int)(uint8_t)(cVar1 + 31));
+                        cVar1 = this_07->GetSpriteID();
+                        this_03->EnableEffect((unsigned int)(uint8_t)(cVar1 + 31), true);
+                        this_00->SetQuality(this_07->GetSpriteID());
                     }
                 }
-                PaintRSeven(this_00);
+                PaintRSeven(*this_01);
             }
-            lVar6 = ((field_32 + (long)(field_0[-3] + -32)))->GetRenderStateNXT();
-            if (*(char*)(lVar6 + 19677504) != '\0') {
-                (field_112, this_00)->DrawUI();
+            lVar4 = ((OSRenderCore_RenderThread_Common*)(field_32 + (long)(this->_vptr[-3].GetUISize - 32)))
+                        ->GetRenderStateNXT();
+            if (*(char*)(lVar4 + 19677504) != '\0') {
+                field_112.DrawUI(*this_01);
             }
-            this_03 = (fixed_vector<jag::math::Vector2T<float>, 98304ul, true, eastl::allocator>*)((field_112 + 24))
-                          ->GetRead();
-            eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul, true, eastl::allocator>::reset_lose_memory(
-                this_03);
-            lVar6 = ((field_32 + (long)(field_0[-3] + -32)))->GetRenderStateNXT();
-            *(undefined1*)(lVar6 + 19677506) = 0;
+            ((fixed_vector<jag::math::Vector2T<float>, 98304ul>*)field_136.GetRead())->reset_lose_memory();
+            lVar4 = ((OSRenderCore_RenderThread_Common*)(field_32 + (long)(this->_vptr[-3].GetUISize - 32)))
+                        ->GetRenderStateNXT();
+            *(uint8_t*)(lVar4 + 19677506) = 0;
         }
     }
 
-    // 0x1001bd780, 224 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_JavaStyle::PaintJavaStyle(render::RenderContext&)
-    void OSRenderCore_RenderThread_JavaStyle::PaintJavaStyle(RenderContext* param_1) {
+    // 0x1001bd780
+    void OSRenderCore_RenderThread_JavaStyle::PaintJavaStyle(render::RenderContext& renderContext) {
         RenderTargets* pRVar1;
-        long lVar2;
-        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> local_48[16];
-        Vector4T<float> local_38[16];
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> local_48;
+        Vector4T<float> local_38;
 
         if (field_8 != '\0') {
-            pRVar1 = (RenderTargets*)(&field_48)->end();
-            param_1->SetRenderTargets(pRVar1);
+            pRVar1 = (RenderTargets*)field_48.end();
+            renderContext.SetRenderTargets(pRVar1);
         }
-        lVar2 = ((field_16 + *(long*)(field_0 + -24) + -16))->GetRenderStateNXT();
+        long lVar2 =
+            ((OSRenderCore_RenderThread_Common*)(field_16 + *(long*)((long)field_0 - 24) - 16))->GetRenderStateNXT();
         if (*(char*)(lVar2 + 19677505) == '\0') {
-            jag::math::Vector4T<float>::Vector4T(local_38, 0.0);
-            param_1->ClearRenderTargets(local_38, 1);
+            local_38 = jag::math::Vector4T(0.0);
+            renderContext.ClearRenderTargets(&local_38, 1);
         } else {
-            DrawSkybox(this, param_1);
+            DrawSkybox(renderContext);
         }
-        DrawTriangles(this, param_1);
+        DrawTriangles(renderContext);
         if (field_8 != '\0') {
-            param_1->SetScissorRectangle(false, 0, 0, 0, 0);
-            pRVar1 = (RenderTargets*)param_1->GetBackBuffer();
-            new (local_38) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>::shared_ptr(local_48, (_func_decltype_nullptr*)0);
-            param_1->ResolveColourTargetData(pRVar1, 16384, local_38, local_48);
+            renderContext.SetScissorRectangle(false, 0, 0, 0, 0);
+            pRVar1 = renderContext.GetBackBuffer();
+            local_38 = shared_ptr();
+            local_48 = shared_ptr();
+            renderContext.ResolveColourTargetData(pRVar1, 16384, local_38, local_48);
         }
     }
 
-    // 0x1001bd860, 80 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_JavaStyle::DrawSkybox(render::RenderContext&)
-    void OSRenderCore_RenderThread_JavaStyle::DrawSkybox(RenderContext* param_1) {
-        RenderTargets* pRVar1;
+    // 0x1001bd860
+    void OSRenderCore_RenderThread_JavaStyle::DrawSkybox(render::RenderContext& renderContext) {
+        RenderTargets* renderTargets;
 
         if (field_8 != '\0') {
-            pRVar1 = (RenderTargets*)(&field_48)->end();
-            param_1->SetRenderTargets(pRVar1);
+            renderTargets = (RenderTargets*)field_48.end();
+            renderContext.SetRenderTargets(renderTargets);
         }
-        param_1->ClearRenderTargets((Vector4T*)(field_16 + *(long*)(field_0 + -24) + 48), 1);
+        renderContext.ClearRenderTargets((Vector4T<float>*)(field_16 + *(long*)((long)field_0 - 24) + 48), 1);
     }
 
-    // 0x1001bd8b0, 2032 bytes, placed by __FILE__ string
-    // OSRenderCore_RenderThread_JavaStyle::DrawTriangles(render::RenderContext&)
-    void OSRenderCore_RenderThread_JavaStyle::DrawTriangles(RenderContext* param_1) {
-        uint uVar1;
-        char cVar2;
-        int iVar3;
-        undefined4 uVar4;
-        int iVar5;
-        int iVar6;
-        int iVar7;
-        int iVar8;
-        vector<game::LocationAudioProperties, eastl::allocator>* this_00;
-        long lVar9;
-        RenderPipelineState* this_01;
-        compressed_pair_imp<dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* this_02;
-        Viewport* pVVar10;
-        RenderTargets* pRVar11;
-        OutputMergerState* this_03;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_04;
+    // 0x1001bd8b0
+    void OSRenderCore_RenderThread_JavaStyle::DrawTriangles(render::RenderContext& renderContext) {
+        uint8_t* this_00;
+        unsigned int uVar1;
+        RenderPipelineState* this_02;
+        compressed_pair_imp<dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* this_03;
+        OutputMergerState* pOVar8;
+        RenderTargets* renderTargets;
         vector<OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-               eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true, eastl::allocator>>* this_05;
-        int* piVar12;
-        Layout* this_06;
-        uchar* puVar13;
-        byte* pbVar14;
-        VertexDeclaration* pVVar15;
-        VertexBuffer* pVVar16;
-        Rect* pRVar17;
-        vector* pvVar18;
-        float* pfVar19;
+               eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true>>* this_05;
+        int* piVar9;
+        OSRenderCore_RenderThread_JavaStyle* this_06;
+        unsigned char* puVar10;
+        uint8_t* pbVar11;
+        VertexDeclaration* pVVar12;
+        VertexBuffer* pVVar13;
+        float* pfVar14;
         Layout* this_07;
-        Minimap* pMVar20;
-        Vector2T* pVVar21;
-        HashedString* pHVar22;
-        undefined1* puVar23;
-        DrawCallState* pDVar24;
-        uchar* puVar25;
-        RenderContext* this_08;
-        ShaderProgram* pSVar26;
-        bool bVar27;
-        undefined8 uVar28;
-        float fVar29;
-        undefined1 auVar30[16];
-        undefined1 local_140[24];
-        undefined8 local_128;
+        void* arg1;
+        DrawCallState* pDVar16;
+        unsigned char* puVar17;
+        OSRenderCore_RenderThread_JavaStyle* this_08;
+        ShaderProgram* pSVar18;
+        uint64_t uVar20;
+        float arg3_00;
+        uint8_t local_140[24];
+        uint64_t local_128;
         ShaderProgram* local_118;
-        uchar* local_110;
-        undefined1* local_108;
-        undefined1* local_100;
-        undefined1* local_f8;
-        undefined1* local_f0;
-        undefined1* local_e8;
+        unsigned char* local_110;
+        void* local_108;
+        void* local_100;
+        void* local_f8;
+        void* local_f0;
+        void* local_e8;
         DrawCallState local_e0;
-        Vector2T<int> local_b0[8];
-        Vector2T<int> local_a8[8];
-        Point<float> local_a0[8];
+        Vector2T<int> local_b0;
+        Vector2T<int> local_a8;
+        Point<float> local_a0;
         ShaderProgram* local_98;
         InputAssemblerState* local_90;
         OSRenderCore_RenderThread_JavaStyle* local_88;
-        RenderContext* local_80;
         float local_74;
         float local_70;
         float local_6c;
         float local_68;
-        int local_64;
-        ulong local_60;
-        undefined1 local_58[16];
+        unsigned long local_60;
+        uint8_t local_58[16];
         ShaderProgram* local_48;
-        int local_3c;
-        uchar local_35;
         float local_34;
 
-        pMVar20 = (Minimap*)(field_16 + *(long*)(field_0 + -24) + 8);
-        local_80 = param_1;
-        iVar3 = param_1->GetBackBufferHeight();
-        uVar4 = pMVar20->GetPos();
-        local_48 = (ShaderProgram*)CONCAT44(local_48._4_4_, uVar4);
-        local_3c = pMVar20->GetLevel();
-        iVar5 = pMVar20->GetX();
-        iVar6 = pMVar20->MaxZ();
-        local_64 = iVar3;
-        iVar7 = pMVar20->GetPos();
-        iVar8 = pMVar20->GetLevel();
-        new (local_140) render::Viewport(iVar5, iVar3 - iVar6, iVar7, iVar8, 0.0, 1.0);
-        this_00 = (vector<game::LocationAudioProperties, eastl::allocator>*)(&field_4576)->GetRead();
-        lVar9 = eastl::vector<game::LocationAudioProperties, eastl::allocator>::size(this_00);
-        if (lVar9 != 0) {
-            new (&local_e0) render::DrawCallState();
+        Minimap* pMVar15 = (Minimap*)(field_16 + *(long*)((long)field_0 - 24) + 8);
+        int iVar3 = renderContext.GetBackBufferHeight();
+        uint32_t uVar4 = pMVar15->GetPos();
+        local_48 = (ShaderProgram*)(((uint64_t)local_48._4_4_ << 32) | (uint32_t)uVar4);
+        int local_3c = pMVar15->GetLevel();
+        int iVar5 = pMVar15->GetX();
+        int iVar6 = pMVar15->MaxZ();
+        int local_64 = iVar3;
+        int arg3 = pMVar15->GetPos();
+        int arg4 = pMVar15->GetLevel();
+        new (local_140) render::Viewport(iVar5, iVar3 - iVar6, arg3, arg4, 0.0, 1.0);
+        auto this_01 = field_4576.GetRead();
+        long lVar7 = this_01->size();
+        if (lVar7 != 0) {
+            local_e0 = render::DrawCallState();
             local_90 = (InputAssemblerState*)&field_4688;
             local_e0.SetInputAssemblerState(local_90);
-            pDVar24 = &local_e0;
-            this_01 = (RenderPipelineState*)pDVar24->GetRenderPipelineState();
-            lVar9 = pDVar24->Instance();
-            this_01->SetRasteriserState((RasteriserState*)(lVar9 + 1272));
-            pDVar24 = &local_e0;
-            this_02 = (compressed_pair_imp<dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
-                          pDVar24->GetRenderPipelineState();
-            auVar30 = pDVar24->Instance();
+            pDVar16 = &local_e0;
+            this_02 = (RenderPipelineState*)pDVar16->GetRenderPipelineState();
+            lVar7 = pDVar16->Instance();
+            this_02->SetRasteriserState((lVar7 + 1272));
+            pDVar16 = &local_e0;
+            this_03 = (compressed_pair_imp<dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
+                          pDVar16->GetRenderPipelineState();
+            lVar7 = pDVar16->Instance();
             eastl::compressed_pair_imp<dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>::compressed_pair_imp(
-                this_02, (EntityHighlight**)(auVar30._0_8_ + 1676), auVar30._8_8_);
-            pVVar10 = (Viewport*)local_e0.GetOutputMergerState();
-            render::OutputMergerState::SetViewports(pVVar10, (uint)local_140);
-            this_08 = local_80;
+                this_03, (PlayerDataComparator<social::FriendChatUser>*)(lVar7 + 1676));
+            pOVar8 = local_e0.GetOutputMergerState();
+            pOVar8->SetViewports(local_140, 1);
+            this_08 = (OSRenderCore_RenderThread_JavaStyle*)renderContext;
             if (field_8 == '\0') {
-                pRVar11 = (RenderTargets*)local_80->GetBackBuffer();
+                renderTargets = ((RenderContext*)(OSRenderCore_RenderThread_JavaStyle*)renderContext)->GetBackBuffer();
             } else {
-                pRVar11 = (RenderTargets*)(&field_48)->end();
+                renderTargets = (RenderTargets*)field_48.end();
             }
-            this_03 = (OutputMergerState*)local_e0.GetOutputMergerState();
-            this_03->SetRenderTargets(pRVar11);
+            pOVar8 = local_e0.GetOutputMergerState();
+            pOVar8->SetRenderTargets(renderTargets);
             local_118 = (ShaderProgram*)&field_4880;
-            SetTriangleShaderUniforms(this, local_118);
+            SetTriangleShaderUniforms(*local_118);
             local_98 = (ShaderProgram*)&field_6736;
-            SetTriangleShaderUniforms(this, local_98);
-            puVar23 = &field_14427080;
-            this_04 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                          puVar23->GetRead();
-            cVar2 =
-                eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                    this_04);
-            if (cVar2 == '\0') {
+            SetTriangleShaderUniforms(*local_98);
+            this_00 = &field_14427080;
+            if (((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)this_00->GetRead())->empty() ==
+                '\0') {
                 this_05 = (vector<OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-                                  eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true, eastl::allocator>>*)
-                              puVar23->GetRead();
-                piVar12 = (int*)eastl::vector<
-                    OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-                    eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true, eastl::allocator>>::operator[](this_05,
-                                                                                                              0);
-                if (*piVar12 != 5) {
-                    /* WARNING: Subroutine does not return */
+                                  eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true>>*)this_00->GetRead();
+                piVar9 = (int*)(*this_05)[0];
+                if (*piVar9 != 5) {
                     LogAssert("m_vbSections.GetRead().empty() || m_vbSections.GetRead()[0].m_stencilMode == "
                               "StencilMode::UISCENE_TRANSFORM",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
                               "osrendercore/OSRenderCore.cpp",
-                              1367, (char*)0);
+                              1367, nullptr);
                 }
             }
-            jag::math::Vector2T<int>::Vector2T(local_b0);
+            local_b0 = jag::math::Vector2T();
             local_88 = this;
-            jag::math::Vector2T<int>::Vector2T(local_a8);
-            this_06 = (Layout*)puVar23->GetRead();
-            puVar13 = (uchar*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(this_06);
-            local_110 = (uchar*)this_06->end();
-            if (puVar13 != local_110) {
+            local_a8 = jag::math::Vector2T();
+            this_06 = (OSRenderCore_RenderThread_JavaStyle*)this_00->GetRead();
+            puVar10 = (unsigned char*)this_06->HeapBeginPtr();
+            local_110 = (unsigned char*)this_06->end();
+            if (puVar10 != local_110) {
                 local_108 = &local_88->field_14439704;
                 local_100 = &local_88->field_14439644;
                 local_f8 = &local_88->field_14439584;
-                fVar29 = (float)(int)local_48;
+                arg3_00 = (float)(int)local_48;
                 local_f0 = &local_88->field_14439524;
                 local_68 = (float)local_3c;
                 local_e8 = &local_88->field_14439464;
-                local_70 = 1.0 / fVar29;
+                local_70 = 1.0 / arg3_00;
                 local_74 = 1.0 / local_68;
                 local_60 = 0;
-                local_48 = (ShaderProgram*)0;
+                local_48 = nullptr;
                 local_3c = 0;
-                puVar13 = puVar13 + 47;
-                local_6c = fVar29;
+                puVar10 = puVar10 + 47;
+                local_6c = arg3_00;
                 do {
-                    pSVar26 = local_118;
-                    if (*puVar13 != '\0') {
-                        uVar28 = GetBrightnessAdjustedHSL();
-                        local_34 = fVar29;
-                        local_128 = uVar28;
+                    pSVar18 = local_118;
+                    if (*puVar10 != '\0') {
+                        uVar20 = GetBrightnessAdjustedHSL(this_06, puVar10[-3], puVar10[-2], puVar10[-1]);
+                        local_34 = arg3_00;
+                        local_128 = uVar20;
                         new (local_58) HashedString("uTintHSL_Weight");
-                        pSVar26 = local_98;
-                        iVar3 = local_98->GetConstIndex(local_58);
+                        pSVar18 = local_98;
+                        iVar3 = local_98->GetConstIndex(*local_58);
                         local_a0[0] = (Point<float>)0;
-                        local_35 = 128;
-                        pbVar14 = std::clamp<unsigned char>(puVar13, (uchar*)local_a0, &local_35);
-                        pSVar26->SetShaderConstFloat4(iVar3, (float)local_128, local_128._4_4_, local_34,
-                                                      (float)*pbVar14 * 0.0078125);
+                        pbVar11 = std::clamp<unsigned char>(*puVar10, local_a0, 128);
+                        pSVar18->SetShaderConstFloat4(iVar3, (float)local_128, local_128._4_4_, local_34,
+                                                      (float)*pbVar11 * 0.0078125f);
                         new (local_58) HashedString("uTintHSL_Mask");
-                        pSVar26 = local_98;
-                        iVar3 = local_98->GetConstIndex(local_58);
-                        pSVar26->SetShaderConstInt3(iVar3, (uint)(puVar13[-3] != 255), (uint)(puVar13[-2] != 255),
-                                                    (uint)(puVar13[-1] != 255));
+                        pSVar18 = local_98;
+                        iVar3 = local_98->GetConstIndex(*local_58);
+                        pSVar18->SetShaderConstInt3(iVar3, (unsigned int)(puVar10[-3] != 255),
+                                                    (unsigned int)(puVar10[-2] != 255),
+                                                    (unsigned int)(puVar10[-1] != 255));
                     }
-                    if (pSVar26 != local_48) {
-                        SetTriangleShader(local_88, pSVar26, &local_e0);
-                        pVVar15 = (VertexDeclaration*)pSVar26->second();
-                        pVVar16 = (VertexBuffer*)eastl::vector<render::VertexBuffer, eastl::allocator>::operator[](
-                            (vector<render::VertexBuffer, eastl::allocator>*)this_00, local_60 & 4294967295);
-                        local_90->SetVertexStreamData(pVVar15, pVVar16);
-                        local_48 = pSVar26;
+                    if (pSVar18 != local_48) {
+                        SetTriangleShader(local_88, pSVar18, &local_e0);
+                        pVVar12 = (VertexDeclaration*)pSVar18->second();
+                        pVVar13 = (VertexBuffer*)(*this_01)[local_60 & 4294967295];
+                        local_90->SetVertexStreamData(pVVar12, pVVar13);
+                        local_48 = pSVar18;
                     }
-                    if (*(int*)(puVar13 + -47) == 5) {
-                        pVVar10 = (Viewport*)local_e0.GetOutputMergerState();
-                        render::OutputMergerState::SetViewports(pVVar10, (uint)local_140);
-                        iVar3 = *(int*)(puVar13 + -27);
-                        jag::math::Point<float>::Point(local_a0, local_70, local_74);
-                        local_58._0_8_ = jag::math::operator*((double)iVar3 + (double)iVar3, (Vector2T*)local_a0);
-                        jag::math::Vector2T<float>::operator=((Vector2T<float>*)local_b0, (Vector2T*)local_58);
-                        fVar29 = (float)(*(int*)(puVar13 + -31) * -2) / local_68;
-                        new (local_58) jag::math::Point<float>((float)(*(int*)(puVar13 + -35) * 2) / local_6c, fVar29);
-                        pVVar21 = (Vector2T*)local_58;
-                        jag::math::Vector2T<float>::operator=((Vector2T<float>*)local_a8, (Vector2T*)local_58);
-                        new (local_58) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(pVVar21);
-                        pMVar20 = (Minimap*)(puVar13 + -19);
-                        iVar3 = pMVar20->GetPos();
+                    if (*(int*)(puVar10 - 47) == 5) {
+                        pOVar8 = local_e0.GetOutputMergerState();
+                        pOVar8->SetViewports(local_140, 1);
+                        iVar3 = *(int*)(puVar10 - 27);
+                        local_a0 = jag::math::Point(local_70, local_74);
+                        local_58._0_8_ = (*((double)iVar3 + (double)iVar3)) * local_a0;
+                        local_b0 = *local_58;
+                        arg3_00 = (float)(*(int*)(puVar10 - 31) * -2) / local_68;
+                        new (local_58) jag::math::Point((float)(*(int*)(puVar10 - 35) * 2) / local_6c, arg3_00);
+                        local_a8 = *local_58;
+                        new (local_58) shared_ptr();
+                        pMVar15 = (Minimap*)(puVar10 - 19);
+                        iVar3 = pMVar15->GetPos();
                         if (iVar3 < 0) {
-                            pRVar17 = (Rect*)local_e0.GetOutputMergerState();
-                            render::OutputMergerState::SetScissorRects(pRVar17, (uint)local_58);
+                            this_06 = (OSRenderCore_RenderThread_JavaStyle*)local_e0.GetOutputMergerState();
+                            this_06->SetScissorRects(local_58, 0);
                         } else {
-                            local_34 = (float)pMVar20->GetX();
-                            iVar3 = pMVar20->MaxZ();
+                            local_34 = (float)pMVar15->GetX();
+                            iVar3 = pMVar15->MaxZ();
                             iVar3 = local_64 - iVar3;
-                            iVar5 = pMVar20->GetPos();
-                            iVar6 = pMVar20->GetLevel();
-                            this_08 = local_80;
+                            iVar5 = pMVar15->GetPos();
+                            iVar6 = pMVar15->GetLevel();
+                            this_08 = (OSRenderCore_RenderThread_JavaStyle*)renderContext;
                             new (local_58) dash3d::GridRect((int)local_34, iVar3, iVar5, iVar6);
-                            pRVar17 = (Rect*)local_e0.GetOutputMergerState();
-                            render::OutputMergerState::SetScissorRects(pRVar17, (uint)local_58);
+                            this_06 = (OSRenderCore_RenderThread_JavaStyle*)local_e0.GetOutputMergerState();
+                            this_06->SetScissorRects(local_58, 1);
                         }
                     } else {
                         new (local_58) HashedString("uInvViewportSize");
-                        pHVar22 = (HashedString*)local_58;
-                        iVar3 = local_48->GetConstIndex(pHVar22);
-                        pvVar18 = local_b0->SSOBeginPtr(pHVar22);
-                        local_34 = *(float*)pvVar18;
-                        pfVar19 = (float*)local_b0->y();
-                        local_48->SetShaderConstFloat2(iVar3, local_34, *pfVar19);
+                        iVar3 = local_48->GetConstIndex(*local_58);
+                        pfVar14 = (float*)local_b0.SSOBeginPtr();
+                        local_34 = *pfVar14;
+                        pfVar14 = (float*)local_b0.y();
+                        local_48->SetShaderConstFloat2(iVar3, local_34, *pfVar14);
                         new (local_58) HashedString("uOriginShift");
-                        pHVar22 = (HashedString*)local_58;
-                        iVar3 = local_48->GetConstIndex(pHVar22);
-                        pvVar18 = local_a8->SSOBeginPtr(pHVar22);
-                        local_34 = *(float*)pvVar18;
-                        pfVar19 = (float*)local_a8->y();
-                        fVar29 = *pfVar19;
-                        local_48->SetShaderConstFloat2(iVar3, local_34, fVar29);
-                        uVar1 = *(uint*)(puVar13 + -43);
-                        bVar27 = uVar1 != (uint)local_60;
-                        if (bVar27) {
-                            pVVar15 = (VertexDeclaration*)local_48->second();
-                            pVVar16 = (VertexBuffer*)eastl::vector<render::VertexBuffer, eastl::allocator>::operator[](
-                                (vector<render::VertexBuffer, eastl::allocator>*)this_00, (ulong)uVar1);
+                        iVar3 = local_48->GetConstIndex(*local_58);
+                        pfVar14 = (float*)local_a8.SSOBeginPtr();
+                        local_34 = *pfVar14;
+                        pfVar14 = (float*)local_a8.y();
+                        arg3_00 = *pfVar14;
+                        local_48->SetShaderConstFloat2(iVar3, local_34, arg3_00);
+                        uVar1 = *(unsigned int*)(puVar10 - 43);
+                        if (uVar1 != (unsigned int)local_60) {
+                            pVVar12 = (VertexDeclaration*)local_48->second();
+                            pVVar13 = (VertexBuffer*)(*this_01)[(unsigned long)uVar1];
                             local_3c = 0;
-                            local_90->SetVertexStreamData(pVVar15, pVVar16);
-                            local_60 = (ulong)uVar1;
+                            local_90->SetVertexStreamData(pVVar12, pVVar13);
+                            local_60 = (unsigned long)uVar1;
                         }
-                        switch (*(undefined4*)(puVar13 + -47)) {
+                        switch (*(uint32_t*)(puVar10 - 47)) {
                         case 0:
                             this_07 = (Layout*)local_e0.GetRenderPipelineState();
-                            puVar23 = local_e8;
+                            arg1 = local_e8;
                             break;
                         case 1:
                             this_07 = (Layout*)local_e0.GetRenderPipelineState();
-                            puVar23 = local_f0;
+                            arg1 = local_f0;
                             break;
                         case 2:
                             this_07 = (Layout*)local_e0.GetRenderPipelineState();
-                            puVar23 = local_f8;
+                            arg1 = local_f8;
                             break;
                         case 3:
                             this_07 = (Layout*)local_e0.GetRenderPipelineState();
-                            puVar23 = local_100;
+                            arg1 = local_100;
                             break;
                         case 4:
                             this_07 = (Layout*)local_e0.GetRenderPipelineState();
-                            puVar23 = local_108;
+                            arg1 = local_108;
                             break;
                         default:
                             goto switchD_1001bdf41_default;
                         }
-                        eastl::basic_string<
-                            char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::Layout::
-                            SetHeapSize(this_07, (ulong)puVar23);
+                        this_07->SetHeapSize(arg1);
                     switchD_1001bdf41_default:
-                        this_08->BindDrawCallState(&local_e0);
-                        if (*(int*)(puVar13 + -47) - 1U < 2) {
+                        this_08->BindDrawCallState(local_e0);
+                        if (*(int*)(puVar10 - 47) - 1U < 2) {
                             this_08->ClearDepthStencilTarget(0.0, 0, 4);
                         }
-                        this_08->DrawPrimitives(4, local_3c, *(undefined4*)(puVar13 + -39));
-                        local_3c = local_3c + *(int*)(puVar13 + -39);
+                        this_06 = this_08;
+                        this_08->DrawPrimitives(4, local_3c, *(int*)(puVar10 - 39));
+                        local_3c = local_3c + *(int*)(puVar10 - 39);
                     }
-                    puVar25 = puVar13 + 1;
-                    puVar13 = puVar13 + 48;
-                } while (puVar25 != local_110);
+                    puVar17 = puVar10 + 1;
+                    puVar10 = puVar10 + 48;
+                } while (puVar17 != local_110);
             }
-            local_e0.~DrawCallState();
         }
     }
 
-    // 0x1001be0a0, 352 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_JavaStyle::GetBrightnessAdjustedHSL(signed char, signed char, signed char)
-    void OSRenderCore_RenderThread_JavaStyle::GetBrightnessAdjustedHSL(undefined8 param_1, signed param_2,
-                                                                       signed param_3, signed param_4) {
-        signed sVar1;
-        signed sVar2;
-        ushort uVar3;
-        uint uVar4;
-        signed* psVar5;
-        float fVar6;
-        signed local_60[16];
-        ulong local_50;
-        float local_48;
-        ulong local_40;
-        float local_38;
-        ColourHSL local_30;
-        signed local_1d;
-        signed local_1c;
-        signed local_1b;
-        signed local_1a;
-        signed local_19;
+    // 0x1001be0a0
+    void OSRenderCore_RenderThread_JavaStyle::GetBrightnessAdjustedHSL(signed char arg1, signed char arg2,
+                                                                       signed char arg3) {
+        unsigned long local_50;
+        unsigned long local_40;
+        schar local_1d;
 
-        local_1b = param_2;
-        if (param_2 == (signed)255) {
-            local_1b = (signed)63;
+        local_1d[2] = arg1;
+        if (arg1 == -1) {
+            local_1d[2] = '?';
         }
-        local_1a = param_3;
-        if (param_3 == (signed)255) {
-            local_1a = (signed)7;
+        local_1d[3] = arg2;
+        if (arg2 == -1) {
+            local_1d[3] = '\a';
         }
-        local_19 = param_4;
-        if (param_4 == (signed)255) {
-            local_19 = (signed)63;
+        local_1d[4] = arg3;
+        if (arg3 == -1) {
+            local_1d[4] = '?';
         }
         local_50 = local_50 & 18446744073709551360;
         local_30.field_0._0_1_ = 63;
-        psVar5 = std::clamp<signed char>(&local_1b, (signed*)&local_50, (signed*)&local_30);
-        sVar1 = *psVar5;
+        auto psVar4 = std::clamp<signed char>(*(&local_1d + 2), local_50, local_30);
+        bool cVar1 = *psVar4;
         local_40 = local_40 & 18446744073709551360;
-        local_60[0] = (signed)7;
-        psVar5 = std::clamp<signed char>(&local_1a, (signed*)&local_40, local_60);
-        sVar2 = *psVar5;
-        local_1d = (signed)0;
-        local_1c = (signed)127;
-        psVar5 = std::clamp<signed char>(&local_19, &local_1d, &local_1c);
-        uVar3 = jag::math::RunetekColour::PackHSL((int)(char)sVar1, (int)(char)sVar2, (int)(char)*psVar5);
-        uVar4 = jag::math::RunetekColour::HSLToRGB(uVar3);
-        fVar6 = (float)(uVar4 >> 8 & 255);
-        new (&local_30) jag::math::ColourHSL((float)(uVar4 >> 16 & 255), fVar6, (float)(uVar4 & 255));
-        local_50 = jag::math::operator/((Vector3T*)&local_30, 256.0);
-        local_48 = fVar6;
-        local_40 = jag::math::operator*(1.03, (Vector3T*)&local_50);
-        local_38 = fVar6;
-        new (local_60) jag::math::Vector3T<float>(0.035);
-        local_30._0_8_ = jag::math::operator+((Vector3T*)&local_40, (Vector3T*)local_60);
-        local_30.field_8 = fVar6;
-        local_50.SetXYZ((Vector3T*)&local_30);
-        jag::math::RGBToHSL((Vector3T*)&local_50);
+        local_60[0] = (Vector3T<float>)7;
+        psVar4 = std::clamp<signed char>(*(&local_1d + 3), local_40, local_60);
+        bool cVar2 = *psVar4;
+        local_1d[0] = '\0';
+        local_1d[1] = 127;
+        psVar4 = std::clamp<signed char>(*(&local_1d + 4), local_1d, *(&local_1d + 1));
+        unsigned int uVar3 =
+            jag::math::RunetekColour::HSLToRGB(jag::math::RunetekColour::PackHSL((int)cVar1, (int)cVar2, (int)*psVar4));
+        float arg2_00 = (float)(uVar3 >> 8 & 255);
+        ColourHSL local_30((float)(uVar3 >> 16 & 255), arg2_00, (float)(uVar3 & 255));
+        local_50 = local_30 / *256.0;
+        float local_48 = arg2_00;
+        local_40 = *1.03 * local_50;
+        float local_38 = arg2_00;
+        Vector3T<float> local_60(0.035);
+        local_30._0_8_ = local_40 + local_60;
+        local_30.field_8 = arg2_00;
+        local_50.SetXYZ(local_30);
+        jag::math::RGBToHSL(local_50);
     }
 
-    // 0x1001be270, 816 bytes, placed by __FILE__ string
-    // OSRenderCore_RenderThread::UpdateRenderTargetSizes(render::RenderContext const&)
-    void OSRenderCore_RenderThread::UpdateRenderTargetSizes(RenderContext* param_1) {
-        undefined1* this_00;
-        TextureRenderBuffer* this_01;
-        shared_ptr* this_02;
-        undefined8 this_03;
+    // 0x1001be270
+    void OSRenderCore_RenderThread::UpdateRenderTargetSizes(const render::RenderContext& renderContext) {
+        uint8_t* this_00;
+        shared_ptr<render::RenderTargets>* renderTargets;
+        uint64_t texture;
         bool bVar1;
-        char cVar2;
-        int iVar3;
-        int iVar4;
-        int* piVar5;
-        long lVar6;
-        Texture* this_04;
-        vector* pvVar7;
-        undefined4* puVar8;
-        RenderTargets* pRVar9;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_05;
-        undefined8* puVar10;
-        RT7Core* pRVar11;
-        Vector2T* pVVar12;
-        type* ptVar13;
-        TextureRenderBuffer* this_06;
-        undefined1 local_d8[68];
-        undefined4 local_94;
+        Texture* pTVar6;
+        uint32_t* puVar7;
+        RenderTargets* pRVar8;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_02;
+        uint64_t* puVar9;
+        RT7Core* pRVar10;
+        uint8_t local_d8[68];
+        uint32_t local_94;
         int local_8c;
-        undefined4 local_88;
-        undefined4 local_80;
-        undefined1 local_78;
-        shared_ptr local_58;
-        undefined1 local_48[16];
-        Vector2T local_38[8];
+        uint32_t local_88;
+        uint32_t local_80;
+        uint8_t local_78;
+        ReturnValue local_58;
+        uint8_t local_48[16];
 
-        iVar3 = param_1->GetBackBufferWidth();
-        iVar4 = param_1->GetBackBufferHeight();
-        new (local_38) sidebars::SideBarData(iVar3, iVar4);
-        this_01 = (TextureRenderBuffer*)(field_1580384 + 48);
-        piVar5 = (int*)this_01->second();
-        iVar3 = *piVar5;
-        lVar6 = this_01->second();
-        new (local_48) sidebars::SideBarData(iVar3, *(int*)(lVar6 + 4));
-        if (*(int*)(field_112 + (long)(field_0[-3] + -8)) == 1) {
+        int iVar3 = renderContext.GetBackBufferWidth();
+        int arg2 = renderContext.GetBackBufferHeight();
+        Vector2T<int> local_38(iVar3, arg2);
+        Texture* this_01 = (Texture*)(field_1580384 + 48);
+        auto piVar4 = this_01->second();
+        iVar3 = *piVar4;
+        long lVar5 = this_01->second();
+        new (local_48) sidebars::SideBarData(iVar3, *(int*)(lVar5 + 4));
+        if (*(int*)(field_32 + (long)(this->_vptr[-3].GetUISize + 72)) == 1) {
             this_00 = &field_8;
-            pRVar11 =
-                (RT7Core*)
-                    std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator->(
-                        (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)this_00);
-            piVar5 = (int*)pRVar11->GetMSAASampleCount();
-            if (*piVar5 != *(int*)(field_32 + (long)(field_0[-3] + 16))) {
-                pRVar11 =
-                    (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::
-                    operator->(
-                        (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)this_00);
-                pRVar11->DestroyRenderTargets();
-                pRVar11 =
-                    (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::
-                    operator->(
-                        (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)this_00);
-                pRVar11->InitRenderTargets(*(int*)(field_32 + (long)(field_0[-3] + 16)));
+            pRVar10 = (RT7Core*)(*this_00).operator->();
+            piVar4 = (int*)pRVar10->GetMSAASampleCount();
+            if (*piVar4 != *(int*)(field_32 + (long)(this->_vptr[-3].GetUISize + 16))) {
+                pRVar10 = (RT7Core*)(*this_00).operator->();
+                pRVar10->DestroyRenderTargets();
+                pRVar10 = (RT7Core*)(*this_00).operator->();
+                pRVar10->InitRenderTargets(*(int*)(field_32 + (long)(this->_vptr[-3].GetUISize + 16)));
             }
-        } else if ((*(int*)(field_112 + (long)(field_0[-3] + -8)) == 0) && (field_1580376 != '\0')) {
-            pVVar12 = (Vector2T*)local_48;
-            bVar1 = jag::math::operator!=(local_38, pVVar12);
-            if ((bVar1) || (iVar3 = *(int*)(field_32 + (long)(field_0[-3] + 16)), lVar6 = this_01->second(),
-                            iVar3 != *(int*)(lVar6 + 16))) {
-                this_04 = (Texture*)((field_112 + 1578944))->GetWrite();
-                cVar2 = this_04->IsCreated();
-                if (cVar2 == '\0') {
-                    /* WARNING: Subroutine does not return */
-                    LogAssert("m_textureUI.GetWrite().IsCreated()",
-                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
-                              "osrendercore/OSRenderCore.cpp",
-                              704, "Call SetUISize before SetScreenSize");
-                }
-                this_02 = (shared_ptr*)(field_1580384 + 32);
-                render::RenderTargets::SafeReset(this_02);
-                this_01->Destroy();
-                local_48._8_8_ = &field_1580944;
-                local_48._8_8_->Destroy();
-                render::RenderTargets::SafeReset((shared_ptr*)field_1581456);
-                (&field_1581472)->Destroy();
-                new ((local_d8 + 64)) render::Texture::Desc();
-                pvVar7 = local_38->SSOBeginPtr(pVVar12);
-                local_d8._64_4_ = *(undefined4*)pvVar7;
-                puVar8 = (undefined4*)local_38->y();
-                this_03 = local_48._8_8_;
-                local_94 = *puVar8;
-                local_80 = 1;
-                local_78 = 0;
-                local_88 = *(undefined4*)(field_32 + (long)(field_0[-3] + 16));
-                pRVar9 = (RenderTargets*)param_1->GetBackBuffer();
-                this_05 = (vector<render::Texture*,
-                                  eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                              pRVar9->GetColourTargetTextures();
-                ptVar13 = (type*)0;
-                puVar10 = (undefined8*)eastl::vector<
-                    render::Texture*,
-                    eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_05, 0);
-                lVar6 = (*puVar10)->second();
-                local_8c = (uint)(*(int*)(lVar6 + 12) != 7) * 9 + 7;
-                new (local_d8) render::Texture::Desc();
-                pvVar7 = local_38->SSOBeginPtr(ptVar13);
-                local_d8._0_4_ = *(undefined4*)pvVar7;
-                piVar5 = (int*)local_38->y();
-                local_d8._4_4_ = *piVar5;
-                local_d8._16_4_ = local_88;
-                local_d8._24_4_ = 0;
-                local_d8[32] = 0;
-                local_d8._12_4_ = 14;
-                this_01->Create((Desc*)(local_d8 + 64));
-                this_06 = (TextureRenderBuffer*)this_03;
-                this_03->Create(local_d8);
-                lVar6 = this_06->Instance();
-                this_01->SetSamplerState((SamplerState*)(lVar6 + 80), false);
-                make_shared<render::RenderTargets>((jag*)&local_58);
-                shared_ptr<render::RenderTargets>::operator=((shared_ptr<render::RenderTargets>*)this_02, &local_58);
-                local_58.~shared_ptr();
-                pRVar9 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                    (shared_ptr<render::RenderTargets>*)this_02);
-                pRVar9->Create("", 0);
-                pRVar9 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                    (shared_ptr<render::RenderTargets>*)this_02);
-                pRVar9->BindColourTargetTexture(this_01, 0, 0, 34069);
-                pRVar9 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                    (shared_ptr<render::RenderTargets>*)this_02);
-                pRVar9->BindDepthStencilTargetTexture(this_03);
+        } else if (((*(int*)(field_32 + (long)(this->_vptr[-3].GetUISize + 72)) == 0) && (field_1580376 != '\0')) &&
+                   ((bVar1 = local_38 != *local_48,
+                     bVar1 || (iVar3 = *(int*)(field_32 + (long)(this->_vptr[-3].GetUISize + 16)),
+                               lVar5 = this_01->second(), iVar3 != *(int*)(lVar5 + 16))))) {
+            pTVar6 = (Texture*)field_1579056.GetWrite();
+            if (pTVar6->IsCreated() == '\0') {
+                LogAssert("m_textureUI.GetWrite().IsCreated()",
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
+                          "OSRenderCore.cpp",
+                          704, "Call SetUISize before SetScreenSize");
             }
+            renderTargets = (shared_ptr<render::RenderTargets>*)(field_1580384 + 32);
+            render::RenderTargets::SafeReset(*renderTargets);
+            this_01->Destroy();
+            local_48._8_8_ = &field_1580944;
+            local_48._8_8_->Destroy();
+            render::RenderTargets::SafeReset(field_1581456);
+            field_1581472.Destroy();
+            new ((local_d8 + 64)) render::Texture::Desc();
+            puVar7 = (uint32_t*)local_38.SSOBeginPtr();
+            local_d8._64_4_ = *puVar7;
+            puVar7 = (uint32_t*)local_38.y();
+            texture = local_48._8_8_;
+            local_94 = *puVar7;
+            local_80 = 1;
+            local_78 = 0;
+            local_88 = *(uint32_t*)(field_32 + (long)(this->_vptr[-3].GetUISize + 16));
+            pRVar8 = renderContext.GetBackBuffer();
+            this_02 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                          pRVar8->GetColourTargetTextures();
+            puVar9 = (uint64_t*)(*this_02)[0];
+            lVar5 = (*puVar9)->second();
+            local_8c = (unsigned int)(*(int*)(lVar5 + 12) != 7) * 9 + 7;
+            new (local_d8) render::Texture::Desc();
+            piVar4 = (int*)local_38.SSOBeginPtr();
+            local_d8._0_4_ = *piVar4;
+            piVar4 = (int*)local_38.y();
+            local_d8._4_4_ = *piVar4;
+            local_d8._16_4_ = local_88;
+            local_d8._24_4_ = 0;
+            local_d8[32] = 0;
+            local_d8._12_4_ = 14;
+            this_01->Create(*((local_d8 + 64)));
+            pTVar6 = (Texture*)texture;
+            texture->Create(*local_d8);
+            lVar5 = pTVar6->Instance();
+            this_01->SetSamplerState(*((lVar5 + 80)), false);
+            make_shared<render::RenderTargets>(&local_58);
+            *renderTargets = local_58;
+            pRVar8 = (RenderTargets*)(*renderTargets).operator->();
+            pRVar8->Create("", 0);
+            pRVar8 = (RenderTargets*)(*renderTargets).operator->();
+            pRVar8->BindColourTargetTexture(this_01, 0, 0, 34069);
+            pRVar8 = (RenderTargets*)(*renderTargets).operator->();
+            pRVar8->BindDepthStencilTargetTexture(texture);
         }
     }
 
-    // 0x1001beee0, 576 bytes, placed by __FILE__ string
-    // OSRenderCore_RenderThread_UI::UploadUIRect(unsigned int*, int, int, int, int)
-    void OSRenderCore_RenderThread_UI::UploadUIRect(uint* param_1, int param_2, int param_3, int param_4, int param_5) {
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* pcVar1;
-        int* piVar2;
-        long lVar3;
-        vector<jag::math::Vector2T<float>,
-               eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>* pvVar4;
-        RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul, true, eastl::allocator>, 2ul>* this_00;
+    // 0x1001beee0
+    void OSRenderCore_RenderThread_UI::UploadUIRect(unsigned int* arg1, int arg2, int arg3, int arg4, int arg5) {
         int iVar5;
-        uint uVar6;
-        float fVar7;
-        float local_50;
-        float local_4c;
-        float local_48;
-        float local_44;
-        int local_40;
-        int local_3c;
-        int local_38;
-        int local_34;
+        unsigned int uVar6;
 
-        local_3c = param_4;
-        local_38 = param_2;
         if (*(char*)&this[1].field_0 == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_usePixelBuffers",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                       "OSRenderCore.cpp",
                       475, "UploadUIRect() only valid when using pixel buffers");
         }
-        if (field_1580240 == 0) {
-            /* WARNING: Subroutine does not return */
+        if (*(long*)field_1580240 == 0) {
             LogAssert("m_uiPixelData",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                       "OSRenderCore.cpp",
                       476, "UI PBO returned null");
         }
-        pcVar1 =
-            (compressed_pair_imp<
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)(&field_1578944)
-                ->GetWrite();
-        piVar2 = (int*)eastl::compressed_pair_imp<
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(pcVar1);
-        local_34 = *piVar2;
-        pcVar1 =
-            (compressed_pair_imp<
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)(&field_1578944)
-                ->GetWrite();
-        lVar3 = eastl::compressed_pair_imp<
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(pcVar1);
-        local_40 = *(int*)(lVar3 + 4);
-        if (0 < param_5) {
-            lVar3 = (long)local_3c;
-            uVar6 = local_34 * param_3 + local_38;
-            iVar5 = param_3;
+        auto pcVar1 = field_1578944.GetWrite();
+        auto piVar2 = pcVar1->second();
+        int local_34 = *piVar2;
+        pcVar1 = (compressed_pair_imp<
+                  eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                  eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>*)field_1578944.GetWrite();
+        long lVar3 = pcVar1->second();
+        int local_40 = *(int*)(lVar3 + 4);
+        if (0 < arg5) {
+            lVar3 = (long)arg4;
+            uVar6 = local_34 * arg3 + arg2;
+            iVar5 = arg3;
             do {
-                _memmove((void*)((ulong)uVar6 * 4 + field_1580240), param_1 + uVar6, lVar3 << 2);
+                _memmove((void*)((unsigned long)uVar6 * 4 + *(long*)field_1580240), arg1 + uVar6, lVar3 << 2);
                 iVar5 = iVar5 + 1;
                 uVar6 = uVar6 + local_34;
-            } while (iVar5 < param_3 + param_5);
+            } while (iVar5 < arg3 + arg5);
         }
-        fVar7 = (float)local_40;
-        local_50 = (float)local_38 * (1.0 / (float)local_34);
-        local_4c = (fVar7 - (float)param_3) * (1.0 / fVar7);
-        local_48 = (float)local_3c * (1.0 / (float)local_34) + local_50;
-        local_44 = (fVar7 - (float)(param_3 + param_5)) * (1.0 / fVar7);
-        this_00 = (RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul, true, eastl::allocator>,
-                              2ul>*)(field_8 + 16);
-        pvVar4 =
-            (vector<jag::math::Vector2T<float>,
-                    eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)this_00->GetWrite();
-        eastl::vector<jag::math::Vector2T<float>,
-                      eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-            emplace_back<float&, float&>(pvVar4, &local_50, &local_4c);
-        pvVar4 =
-            (vector<jag::math::Vector2T<float>,
-                    eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)this_00->GetWrite();
-        eastl::vector<jag::math::Vector2T<float>,
-                      eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-            emplace_back<float&, float&>(pvVar4, &local_50, &local_44);
-        pvVar4 =
-            (vector<jag::math::Vector2T<float>,
-                    eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)this_00->GetWrite();
-        eastl::vector<jag::math::Vector2T<float>,
-                      eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-            emplace_back<float&, float&>(pvVar4, &local_48, &local_44);
-        pvVar4 =
-            (vector<jag::math::Vector2T<float>,
-                    eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)this_00->GetWrite();
-        eastl::vector<jag::math::Vector2T<float>,
-                      eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-            emplace_back<float&, float&>(pvVar4, &local_50, &local_4c);
-        pvVar4 =
-            (vector<jag::math::Vector2T<float>,
-                    eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)this_00->GetWrite();
-        eastl::vector<jag::math::Vector2T<float>,
-                      eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-            emplace_back<float&, float&>(pvVar4, &local_48, &local_44);
-        pvVar4 =
-            (vector<jag::math::Vector2T<float>,
-                    eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)this_00->GetWrite();
-        eastl::vector<jag::math::Vector2T<float>,
-                      eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-            emplace_back<float&, float&>(pvVar4, &local_48, &local_4c);
+        float fVar7 = (float)local_40;
+        float local_50 = (float)arg2 * (1.0 / (float)local_34);
+        float local_4c = (fVar7 - (float)arg3) * (1.0 / fVar7);
+        float local_48 = (float)arg4 * (1.0 / (float)local_34) + local_50;
+        float local_44 = (fVar7 - (float)(arg3 + arg5)) * (1.0 / fVar7);
+        RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul>, 2ul>* this_00 =
+            (RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul>, 2ul>*)(field_8 + 16);
+        auto pvVar4 = this_00->GetWrite();
+        pvVar4->emplace_back<float&, float&>(local_50, local_4c);
+        pvVar4 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
+                     this_00->GetWrite();
+        pvVar4->emplace_back<float&, float&>(local_50, local_44);
+        pvVar4 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
+                     this_00->GetWrite();
+        pvVar4->emplace_back<float&, float&>(local_48, local_44);
+        pvVar4 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
+                     this_00->GetWrite();
+        pvVar4->emplace_back<float&, float&>(local_50, local_4c);
+        pvVar4 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
+                     this_00->GetWrite();
+        pvVar4->emplace_back<float&, float&>(local_48, local_44);
+        pvVar4 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
+                     this_00->GetWrite();
+        pvVar4->emplace_back<float&, float&>(local_48, local_4c);
     }
 
-    // 0x1001bf1c0, 272 bytes, placed by __FILE__ string
-    // OSRenderCore_RenderThread_UI::ClearUIRect(int, int, int, int)
-    void OSRenderCore_RenderThread_UI::ClearUIRect(int param_1, int param_2, int param_3, int param_4) {
+    // 0x1001bf1c0
+    void OSRenderCore_RenderThread_UI::ClearUIRect(int arg1, int arg2, int arg3, int arg4) {
         int iVar1;
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* this_00;
-        int* piVar2;
         int iVar3;
-        uint uVar4;
+        unsigned int uVar4;
 
         if (*(char*)&this[1].field_0 == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_usePixelBuffers",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                       "OSRenderCore.cpp",
                       507, "ClearUIRect() only valid when using pixel buffers");
         }
-        if (field_1580240 == 0) {
-            /* WARNING: Subroutine does not return */
+        if (*(long*)field_1580240 == 0) {
             LogAssert("m_uiPixelData",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                       "OSRenderCore.cpp",
                       508, "UI PBO returned null");
         }
-        this_00 =
-            (compressed_pair_imp<
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)(&field_1578944)
-                ->GetWrite();
-        piVar2 = (int*)eastl::compressed_pair_imp<
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(this_00);
-        if (0 < param_4) {
+        auto this_00 = field_1578944.GetWrite();
+        auto piVar2 = this_00->second();
+        if (0 < arg4) {
             iVar1 = *piVar2;
-            iVar3 = param_4 + param_2;
-            uVar4 = param_1 + iVar1 * param_2;
+            iVar3 = arg4 + arg2;
+            uVar4 = arg1 + iVar1 * arg2;
             do {
-                ___bzero((ulong)uVar4 * 4 + field_1580240, (long)param_3 << 2);
-                param_2 = param_2 + 1;
+                ___bzero((unsigned long)uVar4 * 4 + *(long*)field_1580240, (long)arg3 << 2);
+                arg2 = arg2 + 1;
                 uVar4 = uVar4 + iVar1;
-            } while (param_2 < iVar3);
+            } while (arg2 < iVar3);
         }
     }
 
-    // 0x1001bf2d0, 848 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_UI::UploadUI(unsigned int*)
-    void OSRenderCore_RenderThread_UI::UploadUI(uint* param_1) {
-        undefined1* this_00;
-        uint uVar1;
+    // 0x1001bf2d0
+    void OSRenderCore_RenderThread_UI::UploadUI(unsigned int* arg1) {
         int iVar2;
-        compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                    eastl::allocator>>::Layout,
-                            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>* pcVar3;
-        uint* puVar4;
-        long lVar5;
-        vector<unsigned char, eastl::fixed_vector_allocator<1ul, 8ul, 1ul, 0ul, true, eastl::allocator>>* this_01;
-        bool* pbVar6;
-        bool* pbVar7;
-        int* piVar8;
-        uint* puVar9;
-        undefined8 uVar10;
-        char* pcVar11;
-        long* plVar12;
-        vector<jag::math::Vector2T<float>,
-               eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>* pvVar13;
-        char cVar14;
-        uint uVar15;
-        ulong uVar16;
-        uint uVar17;
-        RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul, true, eastl::allocator>, 2ul>* this_02;
-        int iVar18;
-        int iVar19;
-        ulong uVar20;
-        float local_60;
-        float local_5c;
-        float local_58;
+        vector<unsigned char, eastl::fixed_vector_allocator<1ul, 8ul, 1ul, 0ul, true>>* this_01;
+        LODLevel* lodLevel1;
+        LODLevel* lodLevel2;
+        int* piVar6;
+        unsigned int* puVar7;
+        uint64_t uVar8;
+        char* pcVar9;
+        long* plVar10;
+        vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>* pvVar11;
+        char cVar12;
+        unsigned int uVar13;
+        unsigned long uVar14;
+        RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul>, 2ul>* this_02;
+        int iVar16;
+        int arg2;
+        unsigned long uVar17;
         int local_54;
         int local_50;
-        int local_4c;
         char* local_48;
         long local_40;
         float local_34;
 
-        this_00 = &field_1578944;
-        pcVar3 =
-            (compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                         eastl::allocator>>::Layout,
-                                 eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)
-                this_00->GetRead();
-        puVar4 = (uint*)eastl::compressed_pair_imp<
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(pcVar3);
-        uVar17 = *puVar4;
-        pcVar3 =
-            (compressed_pair_imp<eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                         eastl::allocator>>::Layout,
-                                 eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>*)
-                this_00->GetRead();
-        lVar5 = eastl::compressed_pair_imp<
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::Layout,
-            eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>, 0>::second(pcVar3);
-        uVar1 = *(uint*)(lVar5 + 4);
-        local_4c = 32;
+        uint8_t* this_00 = &field_1578944;
+        auto pcVar3 = this_00->GetRead();
+        auto puVar4 = pcVar3->second();
+        unsigned int uVar15 = *puVar4;
+        pcVar3 = (compressed_pair_imp<
+                  eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::Layout,
+                  eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>, 0>*)this_00->GetRead();
+        long lVar5 = pcVar3->second();
+        unsigned int uVar1 = *(unsigned int*)(lVar5 + 4);
         if (*(char*)&this[1].field_0 == '\0') {
-            plVar12 = (long*)this_00->GetWrite();
-            (**(code**)(*plVar12 + 40))(plVar12, 0, 0, 0, uVar17, uVar1, 29, param_1);
+            plVar10 = (long*)this_00->GetWrite();
+            (**(void (**)(...))(*plVar10 + 40))(plVar10, 0, 0, 0, uVar15, uVar1, 29, arg1);
             local_34 = 0.0;
-            local_60 = 0.0;
-            local_5c = 1.0;
-            local_58 = 1.0;
-            this_02 = (RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul, true, eastl::allocator>,
-                                  2ul>*)(field_8 + 16);
-            pvVar13 = (vector<jag::math::Vector2T<float>,
-                              eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)
+            this_02 = (RoundRobin<eastl::fixed_vector<jag::math::Vector2T<float>, 98304ul>, 2ul>*)(field_8 + 16);
+            pvVar11 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
                           this_02->GetWrite();
-            eastl::vector<jag::math::Vector2T<float>,
-                          eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-                emplace_back<float&, float&>(pvVar13, &local_34, &local_60);
-            pvVar13 = (vector<jag::math::Vector2T<float>,
-                              eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)
+            pvVar11->emplace_back<float&, float&>(local_34, 0.0);
+            pvVar11 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
                           this_02->GetWrite();
-            eastl::vector<jag::math::Vector2T<float>,
-                          eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-                emplace_back<float&, float&>(pvVar13, &local_34, &local_58);
-            pvVar13 = (vector<jag::math::Vector2T<float>,
-                              eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)
+            pvVar11->emplace_back<float&, float&>(local_34, 1.0);
+            pvVar11 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
                           this_02->GetWrite();
-            eastl::vector<jag::math::Vector2T<float>,
-                          eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-                emplace_back<float&, float&>(pvVar13, &local_5c, &local_58);
-            pvVar13 = (vector<jag::math::Vector2T<float>,
-                              eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)
+            pvVar11->emplace_back<float&, float&>(1.0, 1.0);
+            pvVar11 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
                           this_02->GetWrite();
-            eastl::vector<jag::math::Vector2T<float>,
-                          eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-                emplace_back<float&, float&>(pvVar13, &local_34, &local_60);
-            pvVar13 = (vector<jag::math::Vector2T<float>,
-                              eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)
+            pvVar11->emplace_back<float&, float&>(local_34, 0.0);
+            pvVar11 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
                           this_02->GetWrite();
-            eastl::vector<jag::math::Vector2T<float>,
-                          eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-                emplace_back<float&, float&>(pvVar13, &local_5c, &local_58);
-            pvVar13 = (vector<jag::math::Vector2T<float>,
-                              eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>*)
+            pvVar11->emplace_back<float&, float&>(1.0, 1.0);
+            pvVar11 = (vector<jag::math::Vector2T<float>, eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true>>*)
                           this_02->GetWrite();
-            eastl::vector<jag::math::Vector2T<float>,
-                          eastl::fixed_vector_allocator<8ul, 98304ul, 4ul, 0ul, true, eastl::allocator>>::
-                emplace_back<float&, float&>(pvVar13, &local_5c, &local_60);
+            pvVar11->emplace_back<float&, float&>(1.0, 0.0);
         } else {
-            this_01 =
-                (vector<unsigned char,
-                        eastl::fixed_vector_allocator<1ul, 8ul, 1ul, 0ul, true, eastl::allocator>>*)(&field_1580160)
-                    ->GetWrite();
-            uVar15 = uVar17 + 31;
-            if (-1 < (int)uVar17) {
-                uVar15 = uVar17;
+            this_01 = (vector<unsigned char, eastl::fixed_vector_allocator<1ul, 8ul, 1ul, 0ul, true>>*)
+                          field_1580160.GetWrite();
+            uVar13 = uVar15 + 31;
+            if (-1 < (int)uVar15) {
+                uVar13 = uVar15;
             }
-            local_50 = (((int)uVar15 >> 5) + 1) - (uint)((uVar17 & 31) == 0);
-            uVar15 = uVar1 + 31;
+            local_50 = (((int)uVar13 >> 5) + 1) - (unsigned int)((uVar15 & 31) == 0);
+            uVar13 = uVar1 + 31;
             if (-1 < (int)uVar1) {
-                uVar15 = uVar1;
+                uVar13 = uVar1;
             }
-            iVar18 = ((((int)uVar15 >> 5) + 1) - (uint)((uVar1 & 31) == 0)) * local_50;
-            local_40 = (long)(int)uVar17;
-            iVar2 =
-                eastl::vector<unsigned char,
-                              eastl::fixed_vector_allocator<1ul, 8ul, 1ul, 0ul, true, eastl::allocator>>::size(this_01);
-            if (iVar18 != iVar2) {
-                eastl::vector<bool, eastl::allocator>::resize((ulong)this_01);
-                pbVar6 = (bool*)this_01->HeapBeginPtr();
-                pbVar7 = (bool*)this_01->end();
-                local_34 = (float)CONCAT31(local_34._1_3_, 1);
-                eastl::fill<bool*, bool>(pbVar6, pbVar7, (bool*)&local_34);
+            iVar16 = ((((int)uVar13 >> 5) + 1) - (unsigned int)((uVar1 & 31) == 0)) * local_50;
+            local_40 = (long)(int)uVar15;
+            iVar2 = this_01->size();
+            if (iVar16 != iVar2) {
+                this_01->resize((long)iVar16);
+                lodLevel1 = (LODLevel*)this_01->HeapBeginPtr();
+                lodLevel2 = (LODLevel*)this_01->end();
+                local_34 = (float)(((uint32_t)local_34._1_3_ << 8) | (uint8_t)1);
+                eastl::fill<bool*, bool>(lodLevel1, lodLevel2, local_34);
             }
             if (0 < (int)uVar1) {
-                uVar17 = 0;
+                uVar15 = 0;
                 do {
-                    local_34 = (float)(uVar1 - uVar17);
-                    piVar8 = std::min<int>((int*)&local_34, &local_4c);
+                    local_34 = (float)(uVar1 - uVar15);
+                    piVar6 = std::min<int>(local_34, 32);
                     if (0 < (int)local_40) {
-                        local_54 = (uVar17 >> 5) * local_50;
-                        iVar2 = *piVar8;
-                        uVar20 = 0;
-                        puVar4 = param_1;
+                        local_54 = (uVar15 >> 5) * local_50;
+                        iVar2 = *piVar6;
+                        uVar17 = 0;
+                        puVar4 = arg1;
                         do {
-                            iVar19 = (int)uVar20;
-                            local_34 = (float)((int)local_40 - iVar19);
-                            puVar9 = (uint*)std::min<int>((int*)&local_34, &local_4c);
-                            iVar18 = 0;
-                            uVar15 = *puVar9;
+                            arg2 = (int)uVar17;
+                            local_34 = (float)((int)local_40 - arg2);
+                            puVar7 = (unsigned int*)std::min<int>(local_34, 32);
+                            iVar16 = 0;
+                            uVar13 = *puVar7;
                             if (iVar2 < 1) {
-                                local_48 = (char*)0;
+                                local_48 = nullptr;
                             } else {
-                                local_48 = (char*)0;
+                                local_48 = nullptr;
                                 lVar5 = local_40;
                                 do {
-                                    if (0 < (int)uVar15) {
-                                        uVar16 = 0;
+                                    if (0 < (int)uVar13) {
+                                        uVar14 = 0;
                                         do {
-                                            if (puVar4[(long)(int)((uVar17 + iVar18) * (int)lVar5) + uVar16] != 0) {
-                                                uVar10 = UploadUIRect(this, param_1, iVar19, uVar17, uVar15, iVar2);
-                                                iVar18 = 32;
-                                                local_48 = (char*)CONCAT71((int7)((ulong)uVar10 >> 8), 1);
+                                            if (puVar4[(int)((uVar15 + iVar16) * (int)lVar5) + uVar14] != 0) {
+                                                uVar8 = UploadUIRect(arg1, arg2, uVar15, uVar13, iVar2);
+                                                iVar16 = 32;
+                                                local_48 =
+                                                    (char*)(((uint64_t)((int64_t)((unsigned long)uVar8 >> 8)) << 8) |
+                                                            (uint8_t)1);
                                                 lVar5 = local_40;
                                                 break;
                                             }
-                                            uVar16 = uVar16 + 1;
-                                        } while (uVar15 != uVar16);
+                                            uVar14 = uVar14 + 1;
+                                        } while (uVar13 != uVar14);
                                     }
-                                    iVar18 = iVar18 + 1;
-                                } while (iVar18 < iVar2);
+                                    iVar16 = iVar16 + 1;
+                                } while (iVar16 < iVar2);
                             }
-                            pcVar11 = (char*)eastl::vector<bool, eastl::allocator>::operator[](
-                                (vector<bool, eastl::allocator>*)this_01, (long)((int)(uVar20 >> 5) + local_54));
-                            cVar14 = '\x01';
-                            if (((ulong)local_48 & 1) == 0) {
-                                if (*pcVar11 != '\0') {
-                                    local_48 = pcVar11;
-                                    ClearUIRect(this, iVar19, uVar17, uVar15, iVar2);
-                                    cVar14 = '\0';
-                                    pcVar11 = local_48;
+                            pcVar9 = (char*)(*this_01)[(long)((int)(uVar17 >> 5) + local_54)];
+                            cVar12 = '\x01';
+                            if (((unsigned long)local_48 & 1) == 0) {
+                                if (*pcVar9 != '\0') {
+                                    local_48 = pcVar9;
+                                    ClearUIRect(arg2, uVar15, uVar13, iVar2);
+                                    cVar12 = '\0';
+                                    pcVar9 = local_48;
                                     goto LAB_1001bf430;
                                 }
                             } else {
                             LAB_1001bf430:
-                                *pcVar11 = cVar14;
+                                *pcVar9 = cVar12;
                             }
-                            uVar20 = uVar20 + 32;
+                            uVar17 = uVar17 + 32;
                             puVar4 = puVar4 + 32;
-                        } while ((long)uVar20 < local_40);
+                        } while ((long)uVar17 < local_40);
                     }
-                    uVar17 = uVar17 + 32;
-                } while ((int)uVar17 < (int)uVar1);
+                    uVar15 = uVar15 + 32;
+                } while ((int)uVar15 < (int)uVar1);
             }
         }
     }
 
-    // 0x1001bf6e0, 64 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_JavaStyle::UploadTexture(unsigned char, unsigned char const*)
-    void OSRenderCore_RenderThread_JavaStyle::UploadTexture(uchar param_1, uchar* param_2) {
-        (&field_2128, 0, ((byte)(param_1 + 1) & 15) << 7, ((byte)(param_1 + 1) & 240) << 3, 128, 128, 29, param_2)
-            ->Update();
+    // 0x1001bf6e0
+    void OSRenderCore_RenderThread_JavaStyle::UploadTexture(unsigned char arg1, const unsigned char* arg2) {
+        field_2128.Update(0, ((uint8_t)(arg1 + 1) & 15) << 7, ((uint8_t)(arg1 + 1) & 240) << 3, 128, 128, 29, arg2);
     }
 
-    // 0x1001bf720, 80 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_JavaStyle::UploadColTab(unsigned char const*)
-    void OSRenderCore_RenderThread_JavaStyle::UploadColTab(uchar* param_1) {
-        undefined4 uVar1;
-        undefined4* puVar2;
-        long lVar3;
-        undefined1* this_00;
-
-        this_00 = &field_1616;
-        puVar2 = (undefined4*)this_00->second();
-        uVar1 = *puVar2;
-        lVar3 = this_00->second();
-        this_00->Update(0, 0, 0, uVar1, *(undefined4*)(lVar3 + 4), 29, param_1);
+    // 0x1001bf720
+    void OSRenderCore_RenderThread_JavaStyle::UploadColTab(const unsigned char* arg1) {
+        uint8_t* this_00 = &field_1616;
+        auto puVar1 = this_00->second();
+        unsigned int arg4 = *puVar1;
+        long lVar2 = this_00->second();
+        this_00->Update(0, 0, 0, arg4, *(unsigned int*)(lVar2 + 4), 29, arg1);
     }
 
-    // 0x1001bf770, 32 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_Common::ShowUI(bool)
-    void OSRenderCore_RenderThread_Common::ShowUI(bool param_1) {
-        long lVar1;
-
-        lVar1 = GetRenderStateNXT(this);
-        *(bool*)(lVar1 + 19677504) = param_1;
+    // 0x1001bf770
+    void OSRenderCore_RenderThread_Common::ShowUI(bool arg1) {
+        long lVar1 = GetRenderStateNXT();
+        *(bool*)(lVar1 + 19677504) = arg1;
     }
 
-    // 0x1001bf790, 48 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread::SetSkyboxColour(jag::math::Vector4T<float>)
-    void OSRenderCore_RenderThread::SetSkyboxColour(undefined8 param_1, undefined8 param_2, long* param_3) {
-        undefined8 local_18;
-        undefined8 uStack_10;
+    // 0x1001bf790
+    void OSRenderCore_RenderThread::SetSkyboxColour(jag::math::Vector4T<float> vector4) {
+        QuaternionT<float> local_18;
 
-        local_18 = param_1;
-        uStack_10 = param_2;
-        jag::math::Rect<float>::operator=((Rect<float>*)((long)param_3 + *(long*)(*param_3 + -24) + 64),
-                                          (Rect*)&local_18);
+        (*((Rect<float>*)(vector4 + *(long*)(*(long*)vector4 - 24) + 64))) = local_18;
     }
 
-    // 0x1001bf7c0, 32 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_Common::ShowSkybox(bool)
-    void OSRenderCore_RenderThread_Common::ShowSkybox(bool param_1) {
-        long lVar1;
-
-        lVar1 = GetRenderStateNXT(this);
-        *(bool*)(lVar1 + 19677505) = param_1;
+    // 0x1001bf7c0
+    void OSRenderCore_RenderThread_Common::ShowSkybox(bool arg1) {
+        long lVar1 = GetRenderStateNXT();
+        *(bool*)(lVar1 + 19677505) = arg1;
     }
 
-    // 0x1001bf7e0, 32 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread::SetFogParams(float, float)
-    void OSRenderCore_RenderThread::SetFogParams(float param_1, float param_2) {
-        undefined** ppuVar1;
-
-        ppuVar1 = field_0;
-        *(float*)(field_32 + (long)(ppuVar1[-3] + 48)) = param_1;
-        *(float*)(field_32 + (long)(ppuVar1[-3] + 52)) = param_2;
+    // 0x1001bf7e0
+    void OSRenderCore_RenderThread::SetFogParams(float arg1, float arg2) {
+        OSRenderCore_RenderThread_vtbl* pOVar1 = this->_vptr;
+        *(float*)(field_32 + (long)(pOVar1[-3].GetUISize + 48)) = arg1;
+        *(float*)(field_32 + (long)(pOVar1[-3].GetUISize + 52)) = arg2;
     }
 
-    // 0x1001bf800, 16 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_UI::SetScaledUIQuality(ScaledUIQuality)
-    void OSRenderCore_RenderThread_UI::SetScaledUIQuality(int param_2) {
-        m_scaledUIQuality = param_2;
+    // 0x1001bf800
+    void OSRenderCore_RenderThread_UI::SetScaledUIQuality(ScaledUIQuality scaledUIQuality) {
+        m_scaledUIQuality = scaledUIQuality;
     }
 
-    // 0x1001bf810, 464 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_UI::SetUISize(unsigned int, unsigned int)
-    void OSRenderCore_RenderThread_UI::SetUISize(uint param_1, uint param_2) {
-        undefined8 uVar1;
-        char cVar2;
-        int iVar3;
-        uint uVar4;
-        Texture2D* this_00;
-        Texture2D* pTVar5;
-        uint* puVar6;
-        long lVar7;
+    // 0x1001bf810
+    void OSRenderCore_RenderThread_UI::SetUISize(unsigned int arg1, unsigned int arg2) {
+        bool cVar1;
+        int iVar2;
+        unsigned int uVar3;
+        unsigned int* puVar5;
+        long lVar6;
         BufferInterface* this_01;
-        BufferInterface* pBVar8;
-        long lVar9;
-        Texture2D* this_02;
-        uint uVar10;
-        undefined1* this_03;
-        undefined1 local_78[72];
+        BufferInterface* pBVar7;
+        vector<eastl::pair<int, int>>* this_02;
+        vector<eastl::pair<int, int>>* pvVar8;
+        Texture* this_03;
+        unsigned int arg1_00;
+        uint8_t local_78[72];
 
         local_78._64_8_ = this;
-        this_00 = (Texture2D*)(&field_1578944)->begin();
-        pTVar5 = (Texture2D*)(&field_1578944)->end();
-        if (this_00 != pTVar5) {
+        Texture* this_00 = (Texture*)std::array<render::Texture2D, 2ul>::begin();
+        Texture* pTVar4 = (Texture*)std::array<render::Texture2D, 2ul>::end();
+        if (this_00 != pTVar4) {
             do {
-                cVar2 = this_00->IsCreated();
-                if (((cVar2 == '\0') || (puVar6 = (uint*)this_00->second(), *puVar6 != param_1)) ||
-                    (lVar7 = this_00->second(), *(uint*)(lVar7 + 4) != param_2)) {
+                cVar1 = this_00->IsCreated();
+                if (((!cVar1) || (puVar5 = (unsigned int*)this_00->second(), *puVar5 != arg1)) ||
+                    (lVar6 = this_00->second(), *(unsigned int*)(lVar6 + 4) != arg2)) {
                     new (local_78) render::Texture::Desc();
                     local_78._12_4_ = 29;
                     local_78._24_4_ = 1;
                     local_78[32] = 0;
-                    local_78._0_4_ = param_1;
-                    local_78._4_4_ = param_2;
-                    cVar2 = this_00->IsCreated();
-                    if (cVar2 != '\0') {
-                        (*(code*)this_00->field_0[2])(this_00);
+                    local_78._0_4_ = arg1;
+                    local_78._4_4_ = arg2;
+                    cVar1 = this_00->IsCreated();
+                    if (cVar1) {
+                        (*(void (*)(...))this_00->field_0[2])(this_00);
                     }
-                    this_02 = this_00;
-                    this_00->Create(local_78, 0, 0);
-                    lVar7 = this_02->Instance();
-                    (*(code*)this_00->field_0[3])(this_00, lVar7 + 80, 0);
+                    this_03 = this_00;
+                    this_00->Create(*local_78, nullptr, 0);
+                    lVar6 = this_03->Instance();
+                    (*(void (*)(...))this_00->field_0[3])(this_00, lVar6 + 80, 0);
                 }
-                this_00 = (Texture2D*)this_00[1].field_8;
-            } while (this_00 != pTVar5);
+                this_00 = (Texture*)&this_00[1].field_56;
+            } while (this_00 != pTVar4);
         }
-        uVar1 = local_78._64_8_;
         if (*(char*)&((OSRenderCore_RenderThread_UI*)(local_78._64_8_ + 1580248))->field_0 != '\0') {
-            iVar3 = render::GetFormatByteCount(29);
-            this_01 = (BufferInterface*)((uVar1 + 1579984))->begin();
-            pBVar8 = (BufferInterface*)((uVar1 + 1579984))->end();
-            if (this_01 != pBVar8) {
-                uVar10 = param_2 * param_1 * iVar3;
+            iVar2 = render::GetFormatByteCount(29);
+            this_01 = (BufferInterface*)std::array<render::PixelUnpackBuffer, 2ul>::begin();
+            pBVar7 = (BufferInterface*)std::array<render::PixelUnpackBuffer, 2ul>::end();
+            if (this_01 != pBVar7) {
+                arg1_00 = arg2 * arg1 * iVar2;
                 do {
-                    cVar2 = this_01->IsCreated();
-                    if ((cVar2 == '\0') || (uVar4 = this_01->GetAliveCount(), uVar4 != uVar10)) {
-                        cVar2 = this_01->IsCreated();
-                        if (cVar2 != '\0') {
+                    cVar1 = this_01->IsCreated();
+                    if ((!cVar1) || (uVar3 = this_01->GetAliveCount(), uVar3 != arg1_00)) {
+                        cVar1 = this_01->IsCreated();
+                        if (cVar1) {
                             this_01->Destroy();
                         }
-                        this_01->Create(uVar10, 1, 0);
+                        this_01->Create(arg1_00, 1, nullptr);
                     }
                     this_01 = this_01 + 1;
-                } while (this_01 != pBVar8);
+                } while (this_01 != pBVar7);
             }
-            this_03 = (undefined1*)(local_78._64_8_ + 1580160);
-            lVar7 = this_03->begin();
-            lVar9 = this_03->end();
-            for (; lVar7 != lVar9; lVar7 = lVar7 + 32) {
-                eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+            this_02 = (vector<eastl::pair<int, int>>*)std::array<eastl::vector<bool>, 2ul>::begin();
+            pvVar8 = (vector<eastl::pair<int, int>>*)std::array<eastl::vector<bool>, 2ul>::end();
+            for (; this_02 != pvVar8; this_02 = this_02 + 32) {
+                this_02->clear();
             }
         }
     }
 
-    // 0x1001bfa60, 32 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread::SetScreenSize(unsigned int, unsigned int)
-    void OSRenderCore_RenderThread::SetScreenSize(uint param_1, uint param_2) {
-        ((field_32 + (long)(field_0[-3] + 8)), param_1, param_2)->Set();
+    // 0x1001bfa60
+    void OSRenderCore_RenderThread::SetScreenSize(unsigned int arg1, unsigned int arg2) {
+        *((ReturnValue*)(field_32 + (long)(this->_vptr[-3].GetUISize + 8))) = jag::math::Vector2T<int>::Set(arg1, arg2);
     }
 
-    // 0x1001bfaa0, 96 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_Common::SetRenderViewRect(int, int, int, int)
-    void OSRenderCore_RenderThread_Common::SetRenderViewRect(int param_1, int param_2, int param_3, int param_4) {
-        Rect local_30[16];
+    // 0x1001bfaa0
+    void OSRenderCore_RenderThread_Common::SetRenderViewRect(int arg1, int arg2, int arg3, int arg4) {
 
-        new (local_30) dash3d::GridRect(param_1, param_2, param_3, param_4);
-        if (jag::math::Rect<int>::operator!=((Rect<int>*)local_30, (Rect*)&field_24) != '\0') {
+        Rect<int> local_30(arg1, arg2, arg3, arg4);
+        if (local_30 != field_24 != '\0') {
             field_116 = field_112 + 2;
         }
-        jag::math::Rect<unsigned int>::operator=((Rect<unsigned int>*)&field_24, local_30);
+        field_24 = local_30;
     }
 
-    // 0x1001bfb00, 16 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_UI::SetUIViewRect(int, int, int, int)
-    void OSRenderCore_RenderThread_UI::SetUIViewRect(int param_1, int param_2, int param_3, int param_4) {
-        new (field_8, param_1, param_2, param_3, param_4) dash3d::GridRect();
+    // 0x1001bfb00
+    void OSRenderCore_RenderThread_UI::SetUIViewRect(int arg1, int arg2, int arg3, int arg4) {
+        new (field_8) dash3d::GridRect(arg1, arg2, arg3, arg4);
     }
 
-    // 0x1001bfb10, 128 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_JavaStyle::GetNextWriteVB()
+    // 0x1001bfb10
     void OSRenderCore_RenderThread_JavaStyle::GetNextWriteVB() {
-        vector<render::VertexBuffer, eastl::allocator>* this_00;
-        long lVar1;
         VertexBuffer* pVVar2;
-        undefined1* this_01;
 
-        this_00 = (vector<render::VertexBuffer, eastl::allocator>*)(&field_4576)->GetWrite();
-        this_01 = &field_4656;
-        lVar1 = this_01->size();
-        if (lVar1 == 0) {
-            pVVar2 = (VertexBuffer*)eastl::vector<render::VertexBuffer, eastl::allocator>::push_back(this_00);
-            pVVar2->Create(2097152, 1, 0);
+        auto this_00 = field_4576.GetWrite();
+        uint8_t* this_01 = &field_4656;
+        if (this_01->size() == 0) {
+            pVVar2 = (VertexBuffer*)this_00->push_back();
+            pVVar2->Create(2097152, 1, nullptr);
         } else {
             pVVar2 = (VertexBuffer*)this_01->back();
-            eastl::vector<render::VertexBuffer, eastl::allocator>::push_back(this_00, pVVar2);
+            this_00->push_back(*pVVar2);
             this_01->pop_back();
         }
-        eastl::vector<render::VertexBuffer, eastl::allocator>::back(this_00);
+        this_00->back();
     }
 
-    // 0x1001bfd20, 1584 bytes, placed by __FILE__ string
-    // OSRenderCore_RenderThread_JavaStyle::UploadVertexBuffer(bool)
-    void OSRenderCore_RenderThread_JavaStyle::UploadVertexBuffer(bool param_1) {
-        VBOMapper* pVVar1;
-        vector<OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-               eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true, eastl::allocator>>* this_00;
-        OSRenderCore_RenderThread_JavaStyle* pOVar2;
-        char cVar3;
-        char cVar4;
-        uint uVar5;
-        int iVar6;
-        undefined4* puVar7;
-        undefined4* puVar8;
-        long lVar9;
-        long lVar10;
-        Layout* pLVar11;
+    // 0x1001bfd20
+    void OSRenderCore_RenderThread_JavaStyle::UploadVertexBuffer(bool arg1) {
+        uint8_t* this_00;
+        VBOMapper* this_01;
+        vector<eastl::pair<int, int>>* this_02;
+        OSRenderCore_RenderThread_JavaStyle* pOVar1;
+        char cVar2;
+        bool cVar3;
+        unsigned int uVar4;
+        pair<int, Model>* ppVar8;
+        pair<int, Model>* ppVar9;
+        VertexBuffer* pVVar11;
         VertexBuffer* pVVar12;
-        VertexBuffer* pVVar13;
-        TriangleVertexData* pTVar14;
-        undefined8 uVar15;
-        vector<game::LocationAudioProperties, eastl::allocator>* this_01;
-        VertexBufferSection* pVVar16;
-        uint uVar17;
-        undefined4 uVar18;
-        ulong uVar19;
-        undefined7 in_register_00000031;
-        uint uVar20;
-        undefined1* puVar21;
-        undefined1 local_108[64];
-        RoundRobin<eastl::vector<render::VertexBuffer, eastl::allocator>, 2ul>* local_c8;
-        undefined8 local_c0;
+        TriangleVertexData* triangleVertexData;
+        uint64_t uVar13;
+        long lVar14;
+        VertexBufferSection* pVVar15;
+        unsigned int uVar16;
+        uint32_t uVar17;
+        unsigned long uVar18;
+        uint64_t in_register_00000031;
+        unsigned int uVar19;
+        hashtable<int, eastl::pair<int const, Model>,
+                  eastl::fixed_hashtable_allocator<32770ul, 432ul, 32768ul, 8ul, 0ul, true>,
+                  eastl::use_first<eastl::pair<int const, Model>>, eastl::equal_to<int>, eastl::hash<int>,
+                  eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*
+            phVar20;
+        uint8_t local_108[64];
+        RoundRobin<eastl::vector<render::VertexBuffer>, 2ul>* local_c8;
+        uint64_t local_c0;
         VBOMapper* local_b8;
         RenderableOutput local_b0;
         VertexBuffer* local_70;
-        vector<OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-               eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true, eastl::allocator>>* local_68;
-        ulong local_60;
-        fixed_hash_map* local_58;
-        OSRenderCore_RenderThread_JavaStyle* local_50;
-        undefined1* local_48;
-        undefined4 local_3c;
-        undefined4 local_38;
-        uint local_34;
+        vector<eastl::pair<int, int>>* local_68;
+        unsigned long local_60;
+        uint32_t local_3c;
+        uint32_t local_38;
 
-        local_34 = (uint)CONCAT71(in_register_00000031, param_1);
-        local_50 = this;
-        local_58 = (fixed_hash_map*)((field_16 + *(long*)(field_0 + -24) + -16))->GetRenderStateNXT();
+        unsigned int local_34 = (unsigned int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1);
+        OSRenderCore_RenderThread_JavaStyle* local_50 = this;
+        fixed_hash_map<int, Model, _32768ul, _32769ul, true, eastl::hash<int>, eastl::equal_to<int>, false>* local_58 =
+            (fixed_hash_map<int, Model, _32768ul, _32769ul, true, eastl::hash<int>, eastl::equal_to<int>,
+                            false>*)((OSRenderCore_RenderThread_Common*)(field_16 + *(long*)((long)field_0 - 24) - 16))
+                ->GetRenderStateNXT();
         if (*(int*)(local_58 + 32) != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("nxtRenderState.m_zoom == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                       "OSRenderCore.cpp",
-                      813, (char*)0);
+                      813, nullptr);
         }
-        pLVar11 = (Layout*)(local_58 + 17432696);
-        puVar7 = (undefined4*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(pLVar11);
-        puVar8 = (undefined4*)pLVar11->end();
-        local_48 = &local_50->field_8592;
-        if (puVar7 != puVar8) {
+        Layout* pLVar10 = (Layout*)(local_58 + 17432696);
+        auto puVar6 = pLVar10->HeapBeginPtr();
+        auto puVar7 = pLVar10->end();
+        hashtable<int, eastl::pair<int const, Model>,
+                  eastl::fixed_hashtable_allocator<32770ul, 432ul, 32768ul, 8ul, 0ul, true>,
+                  eastl::use_first<eastl::pair<int const, Model>>, eastl::equal_to<int>, eastl::hash<int>,
+                  eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*
+            local_48 = (hashtable<int, eastl::pair<int const, Model>,
+                                  eastl::fixed_hashtable_allocator<32770ul, 432ul, 32768ul, 8ul, 0ul, true>,
+                                  eastl::use_first<eastl::pair<int const, Model>>, eastl::equal_to<int>,
+                                  eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
+                                  eastl::prime_rehash_policy, false, true, true>*)&local_50->field_8592;
+        if (puVar6 != puVar7) {
             do {
-                local_b0._0_4_ = *puVar7;
-                local_48->erase((int*)&local_b0);
-                puVar7 = puVar7 + 1;
-            } while (puVar7 != puVar8);
+                local_b0._0_4_ = *puVar6;
+                local_48->erase(local_b0);
+                puVar6 = puVar6 + 1;
+            } while (puVar6 != puVar7);
         }
-        pLVar11->reset_lose_memory();
+        pLVar10->reset_lose_memory();
         if ((char)local_34 == '\0') {
-            pLVar11 = (Layout*)(local_58 + 3539024);
-            lVar9 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar11);
-            lVar10 = pLVar11->end();
-            if (lVar9 != lVar10) {
+            pLVar10 = (Layout*)(local_58 + 3539024);
+            ppVar8 = (pair<int, Model>*)pLVar10->HeapBeginPtr();
+            ppVar9 = (pair<int, Model>*)pLVar10->end();
+            if (ppVar8 != ppVar9) {
                 do {
-                    cVar3 = ((lVar9 + 8))->IsTemporary();
-                    if (cVar3 == '\0') {
-                        eastl::hashtable<
-                            int, eastl::pair<int const, Model>,
-                            eastl::fixed_hashtable_allocator<32770ul, 432ul, 32768ul, 8ul, 0ul, true, eastl::allocator>,
-                            eastl::use_first<eastl::pair<int const, Model>>, eastl::equal_to<int>, eastl::hash<int>,
-                            eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false,
-                            true, true>::emplace<eastl::pair<int, Model>>((pair*)&local_b0);
+                    cVar2 = ((ppVar8 + 8))->IsTemporary();
+                    if (!cVar2) {
+                        local_b0 = local_48->emplace<eastl::pair<int, Model>>(*ppVar8);
                     }
-                    lVar9 = lVar9 + 424;
-                } while (lVar9 != lVar10);
+                    ppVar8 = ppVar8 + 424;
+                } while (ppVar8 != ppVar9);
             }
-            pLVar11->clear();
+            pLVar10->clear();
         } else {
-            pLVar11 = (Layout*)(local_58 + 3539024);
-            lVar9 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar11);
-            lVar10 = pLVar11->end();
-            if (lVar9 != lVar10) {
+            pLVar10 = (Layout*)(local_58 + 3539024);
+            ppVar8 = (pair<int, Model>*)pLVar10->HeapBeginPtr();
+            ppVar9 = (pair<int, Model>*)pLVar10->end();
+            phVar20 = local_48;
+            if (ppVar8 != ppVar9) {
                 do {
-                    eastl::hashtable<
-                        int, eastl::pair<int const, Model>,
-                        eastl::fixed_hashtable_allocator<32770ul, 432ul, 32768ul, 8ul, 0ul, true, eastl::allocator>,
-                        eastl::use_first<eastl::pair<int const, Model>>, eastl::equal_to<int>, eastl::hash<int>,
-                        eastl::mod_range_hashing, eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                        true>::emplace<eastl::pair<int, Model>>((pair*)&local_b0);
-                    lVar9 = lVar9 + 424;
-                } while (lVar9 != lVar10);
+                    local_b0 = phVar20->emplace<eastl::pair<int, Model>>(*ppVar8);
+                    ppVar8 = ppVar8 + 424;
+                } while (ppVar8 != ppVar9);
             }
-            pLVar11->reset_lose_memory();
+            pLVar10->reset_lose_memory();
         }
         if ((char)local_34 != '\0') {
-            local_c8 = (RoundRobin<eastl::vector<render::VertexBuffer, eastl::allocator>, 2ul>*)&local_50->field_4576;
-            pLVar11 = (Layout*)local_c8->GetWrite();
-            pVVar12 = (VertexBuffer*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar11);
-            pVVar13 = (VertexBuffer*)pLVar11->end();
-            if (pVVar12 != pVVar13) {
-                puVar21 = &local_50->field_4656;
+            local_c8 = (RoundRobin<eastl::vector<render::VertexBuffer>, 2ul>*)&local_50->field_4576;
+            pLVar10 = (Layout*)local_c8->GetWrite();
+            pVVar11 = (VertexBuffer*)pLVar10->HeapBeginPtr();
+            pVVar12 = (VertexBuffer*)pLVar10->end();
+            if (pVVar11 != pVVar12) {
+                this_00 = &local_50->field_4656;
                 do {
-                    puVar21->push_back(pVVar12);
-                    pVVar12 = pVVar12 + 1;
-                } while (pVVar12 != pVVar13);
+                    this_00->push_back(*pVVar11);
+                    pVVar11 = pVVar11 + 1;
+                } while (pVVar11 != pVVar12);
             }
-            pLVar11->clear();
-            pOVar2 = local_50;
-            *(undefined4*)(local_50->field_16 + *(long*)(local_50->field_0 + -24) + 92) = 0;
+            pLVar10->clear();
+            pOVar1 = local_50;
+            *(uint32_t*)(local_50->field_16 + *(long*)((long)local_50->field_0 - 24) + 92) = 0;
             local_3c = 0;
-            local_68 = (vector<OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-                               eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true,
-                                                             eastl::allocator>>*)(&local_50->field_14427080)
-                           ->GetWrite();
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-            pLVar11 = (Layout*)(local_58 + 40);
-            pTVar14 = (TriangleVertexData*)
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar11);
-            local_108._56_8_ = pLVar11->end();
-            local_b8 = (VBOMapper*)pOVar2->field_16;
-            if (pTVar14 == (TriangleVertexData*)local_108._56_8_) {
+            local_68 = (vector<eastl::pair<int, int>>*)local_50->field_14427080.GetWrite();
+            local_68->clear();
+            pLVar10 = (Layout*)(local_58 + 40);
+            triangleVertexData = (TriangleVertexData*)pLVar10->HeapBeginPtr();
+            local_108._56_8_ = pLVar10->end();
+            local_b8 = (VBOMapper*)pOVar1->field_16;
+            if (triangleVertexData == (TriangleVertexData*)local_108._56_8_) {
                 local_b0.field_48._8_8_ = 0;
-                uVar5 = 0;
-                local_70 = (VertexBuffer*)0;
+                uVar4 = 0;
+                local_70 = nullptr;
             } else {
                 local_60 = 4294967295;
                 local_38 = 0;
-                local_70 = (VertexBuffer*)0;
+                local_70 = nullptr;
                 local_c0 = 0;
                 local_b0.field_48._8_8_ = 0;
-                puVar21 = local_48;
-                uVar20 = 0;
-                uVar17 = 0;
+                phVar20 = local_48;
+                uVar19 = 0;
+                uVar16 = 0;
                 do {
-                    uVar5 = uVar17;
-                    local_b0.Render(pTVar14, (uint)local_c0, (RenderState*)(ulong)uVar20, local_58, (uint)puVar21);
-                    pVVar1 = local_b8;
+                    local_b0.Render(triangleVertexData, (unsigned int)local_c0, *((RenderState*)(unsigned long)uVar19),
+                                    *local_58, (unsigned int)phVar20);
+                    this_01 = local_b8;
                     if (local_b0.field_0 == '\x01') {
-                        if (local_70 != (VertexBuffer*)0) {
-                            local_b8->Unmap(local_70);
+                        if (local_70 != nullptr) {
+                            local_b8->Unmap(*local_70);
                         }
-                        pVVar12 = (VertexBuffer*)GetNextWriteVB(local_50);
-                        uVar15 = VBOMapper::Map(pVVar1, pVVar12, 4, 0, 0, 0, uVar5);
-                        local_70 = pVVar12;
-                        uVar5 = pVVar12->GetAliveCount();
-                        uVar19 = (ulong)((int)local_60 + 1);
+                        pVVar11 = (VertexBuffer*)GetNextWriteVB(local_50);
+                        uVar13 = this_01->Map(*pVVar11, 4, 0, 0, 0);
+                        local_70 = pVVar11;
+                        uVar4 = pVVar11->GetAliveCount();
+                        uVar18 = (unsigned long)((int)local_60 + 1);
                         local_3c = 0;
-                        this_01 = (vector<game::LocationAudioProperties, eastl::allocator>*)local_c8->GetWrite();
-                        lVar9 = eastl::vector<game::LocationAudioProperties, eastl::allocator>::size(this_01);
-                        puVar21 = local_48;
-                        local_60 = uVar19;
-                        if (lVar9 - 1U != uVar19) {
-                            /* WARNING: Subroutine does not return */
+                        lVar14 = ((vector<game::LocationAudioProperties>*)local_c8->GetWrite())->size();
+                        phVar20 = local_48;
+                        local_60 = uVar18;
+                        if (lVar14 - 1U != uVar18) {
                             LogAssert("poolCursor == m_triangleVBs.GetWrite().size() - 1",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
                                       "osrendercore/OSRenderCore.cpp",
-                                      895, (char*)0);
+                                      895, nullptr);
                         }
-                        local_b0.field_48._8_8_ = ZEXT48(local_b0.field_48._8_4_ + uVar20);
-                        uVar20 = 0;
-                        local_c0 = uVar15;
-                        local_34 = uVar5 >> 4;
-                        local_108->Render(pTVar14, (uint)uVar15, 0, local_58, (uint)local_48);
-                        RenderableOutput::operator=(&local_b0, (RenderableOutput*)local_108);
+                        local_b0.field_48._8_8_ = (uint64_t)(local_b0.field_48._8_4_ + uVar19);
+                        uVar19 = 0;
+                        local_c0 = uVar13;
+                        local_34 = uVar4 >> 4;
+                        local_108->Render(triangleVertexData, (unsigned int)uVar13, nullptr, *local_58,
+                                          (unsigned int)local_48);
+                        local_b0 = *local_108;
                         local_38 = 0;
-                        uVar5 = 0;
+                        uVar4 = 0;
                         if (local_b0.field_0 != '\x01') {
                             if (local_b0.field_0 == '\x05')
                                 goto LAB_1001bffb0;
                         LAB_1001c0190:
-                            iVar6 = local_b0.GetTotalVertCount();
-                            uVar5 = iVar6 + uVar20;
-                            if (local_34 < uVar5) {
-                                /* WARNING: Subroutine does not return */
+                            uVar4 = local_b0.GetTotalVertCount() + uVar19;
+                            if (local_34 < uVar4) {
                                 LogAssert("vertCursor <= maxVertIndex",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                           "oldscape/osrendercore/OSRenderCore.cpp",
-                                          919, (char*)0);
+                                          919, nullptr);
                             }
-                            cVar3 = local_b0.field_0;
+                            cVar2 = local_b0.field_0;
                             if (((char)local_38 == local_b0.field_0) &&
-                                (cVar4 = operator==((TintMode*)&local_3c, (TintMode*)local_b0.field_48),
-                                 iVar6 = local_b0.field_4, cVar4 != '\0')) {
-                                lVar9 = eastl::vector<OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-                                                      eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true,
-                                                                                    eastl::allocator>>::back(local_68);
-                                *(int*)(lVar9 + 8) = *(int*)(lVar9 + 8) + iVar6;
-                                puVar21 = local_48;
+                                (cVar3 = local_3c == *local_b0.field_48, uVar19 = local_b0.field_4, cVar3)) {
+                                lVar14 = local_68->back();
+                                *(int*)(lVar14 + 8) = *(int*)(lVar14 + 8) + uVar19;
+                                phVar20 = local_48;
                             } else {
-                                this_00 = local_68;
+                                this_02 = local_68;
                                 if (local_b0.field_4 != 0) {
-                                    if (cVar3 == '\x02') {
-                                        pVVar16 = eastl::vector<
-                                            OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-                                            eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true,
-                                                                          eastl::allocator>>::emplace_back<>(local_68);
-                                        *(undefined4*)&pVVar16->field_0 = 0;
-                                        *(int*)((long)&pVVar16->field_0 + 4) = (int)local_60;
-                                        pVVar16->field_8 = pVVar16->field_8 + local_b0.field_4;
-                                        *(undefined4*)pVVar16->field_44 = local_b0.field_48._0_4_;
+                                    if (cVar2 == '\x02') {
+                                        pVVar15 = local_68->emplace_back<>();
+                                        *(uint32_t*)&pVVar15->field_0 = 0;
+                                        *(int*)((long)&pVVar15->field_0 + 4) = (int)local_60;
+                                        pVVar15->field_8 = pVVar15->field_8 + local_b0.field_4;
+                                        *(uint32_t*)pVVar15->field_44 = local_b0.field_48._0_4_;
                                         local_3c = local_b0.field_48._0_4_;
-                                        local_38 = (undefined4)CONCAT71((uint7)local_b0.field_48._1_3_, 2);
-                                    } else if ((byte)(cVar3 - 3U) < 2) {
-                                        pVVar16 = eastl::vector<
-                                            OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-                                            eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true,
-                                                                          eastl::allocator>>::emplace_back<>(local_68);
-                                        *(uint*)&pVVar16->field_0 = 2 - (uint)(local_b0.field_0 == '\x03');
-                                        uVar18 = (undefined4)local_60;
-                                        *(undefined4*)((long)&pVVar16->field_0 + 4) = uVar18;
-                                        pVVar16->field_8 = local_b0.field_4;
-                                        *(undefined4*)pVVar16->field_44 = local_b0.field_48._0_4_;
+                                        local_38 = (uint32_t)(((uint64_t)((uint64_t)local_b0.field_48._1_3_) << 8) |
+                                                              (uint8_t)2);
+                                    } else if ((uint8_t)(cVar2 - 3U) < 2) {
+                                        pVVar15 = local_68->emplace_back<>();
+                                        *(unsigned int*)&pVVar15->field_0 =
+                                            2 - (unsigned int)(local_b0.field_0 == '\x03');
+                                        uVar17 = (uint32_t)local_60;
+                                        *(uint32_t*)((long)&pVVar15->field_0 + 4) = uVar17;
+                                        pVVar15->field_8 = local_b0.field_4;
+                                        *(uint32_t*)pVVar15->field_44 = local_b0.field_48._0_4_;
                                         if (local_b0.field_8 != 0) {
-                                            pVVar16 =
-                                                eastl::vector<OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-                                                              eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true,
-                                                                                            eastl::allocator>>::
-                                                    emplace_back<>(this_00);
-                                            *(undefined4*)&pVVar16->field_0 = 4;
-                                            *(undefined4*)((long)&pVVar16->field_0 + 4) = uVar18;
-                                            pVVar16->field_8 = local_b0.field_8;
+                                            pVVar15 = this_02->emplace_back<>();
+                                            *(uint32_t*)&pVVar15->field_0 = 4;
+                                            *(uint32_t*)((long)&pVVar15->field_0 + 4) = uVar17;
+                                            pVVar15->field_8 = local_b0.field_8;
                                         }
-                                        puVar21 = local_48;
+                                        phVar20 = local_48;
                                         if (local_b0.field_12 != 0) {
-                                            pVVar16 =
-                                                eastl::vector<OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-                                                              eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true,
-                                                                                            eastl::allocator>>::
-                                                    emplace_back<>(local_68);
-                                            *(undefined4*)&pVVar16->field_0 = 3;
-                                            *(int*)((long)&pVVar16->field_0 + 4) = (int)local_60;
-                                            pVVar16->field_8 = local_b0.field_12;
+                                            pVVar15 = local_68->emplace_back<>();
+                                            *(uint32_t*)&pVVar15->field_0 = 3;
+                                            *(int*)((long)&pVVar15->field_0 + 4) = (int)local_60;
+                                            pVVar15->field_8 = local_b0.field_12;
                                         }
                                         local_3c = 0;
                                         local_38 = 0;
                                         goto LAB_1001c0014;
                                     }
                                 }
-                                puVar21 = local_48;
+                                phVar20 = local_48;
                             }
                         }
                     } else {
-                        local_34 = uVar17;
+                        local_34 = uVar16;
                         if (local_b0.field_0 != '\x05')
                             goto LAB_1001c0190;
                     LAB_1001bffb0:
-                        pVVar16 =
-                            eastl::vector<OSRenderCore_RenderThread_JavaStyle::VertexBufferSection,
-                                          eastl::fixed_vector_allocator<48ul, 128ul, 4ul, 0ul, true,
-                                                                        eastl::allocator>>::emplace_back<>(local_68);
-                        *(undefined4*)&pVVar16->field_0 = 5;
-                        UISceneSettings::operator=((UISceneSettings*)pVVar16->field_12,
-                                                   (UISceneSettings*)local_b0.field_16);
-                        *(undefined4*)pVVar16->field_44 = local_b0.field_48._0_4_;
-                        *(int*)((long)&pVVar16->field_0 + 4) = (int)local_60;
-                        pVVar16->field_8 = 0;
-                        *(undefined4*)(*(long*)(local_50->field_16 + *(long*)(local_50->field_0 + -24) + 72) + 32) =
+                        pVVar15 = local_68->emplace_back<>();
+                        *(uint32_t*)&pVVar15->field_0 = 5;
+                        *pVVar15->field_12 = *local_b0.field_16;
+                        *(uint32_t*)pVVar15->field_44 = local_b0.field_48._0_4_;
+                        *(int*)((long)&pVVar15->field_0 + 4) = (int)local_60;
+                        pVVar15->field_8 = 0;
+                        *(uint32_t*)(*(long*)(local_50->field_16 + *(long*)((long)local_50->field_0 - 24) + 72) + 32) =
                             local_b0.field_16._8_4_;
                         local_3c = 0;
                         local_38 = 0;
-                        puVar21 = local_48;
-                        uVar5 = uVar20;
+                        phVar20 = local_48;
+                        uVar4 = uVar19;
                     }
                 LAB_1001c0014:
-                    pTVar14 = pTVar14 + 72;
-                    uVar20 = uVar5;
-                    uVar17 = local_34;
-                } while (pTVar14 != (TriangleVertexData*)local_108._56_8_);
+                    triangleVertexData = triangleVertexData + 72;
+                    uVar19 = uVar4;
+                    uVar16 = local_34;
+                } while (triangleVertexData != (TriangleVertexData*)local_108._56_8_);
             }
-            if (local_70 != (VertexBuffer*)0) {
-                local_b8->Unmap(local_70);
+            if (local_70 != nullptr) {
+                local_b8->Unmap(*local_70);
             }
-            *(uint*)(local_50->field_16 + *(long*)(local_50->field_0 + -24) + 92) = uVar5 + local_b0.field_48._8_4_;
+            *(unsigned int*)(local_50->field_16 + *(long*)((long)local_50->field_0 - 24) + 92) =
+                uVar4 + local_b0.field_48._8_4_;
         }
-        *(undefined4*)(local_58 + 32) = 0;
+        *(uint32_t*)(local_58 + 32) = 0;
     }
 
-    // 0x1001c1140, 1872 bytes, placed by __FILE__ string
-    // OSRenderCore_RenderThread::CreateRenderingResources()
+    // 0x1001c1140
     void OSRenderCore_RenderThread::CreateRenderingResources() {
-        undefined1* puVar1;
-        undefined4 uVar2;
-        undefined4 uVar3;
         int iVar4;
-        undefined8 uVar5;
-        char* pcVar6;
-        char* pcVar7;
-        VertexBuffer* this_00;
-        VertexBuffer* pVVar8;
-        VertexElementDesc* pVVar9;
-        long lVar10;
-        DebugUIManager* this_01;
-        Singleton<render::BuiltinStates>* pSVar11;
-        undefined1 local_e0[80];
-        VertexElementDesc local_90;
-        basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> local_68[36];
-        uint local_44;
-        undefined8 local_40[3];
+        uint8_t local_e0[80];
 
-        uVar5 = logger::default_logger();
-        logger::Logger::Log(uVar5, 0, 8,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
-                            "osrendercore/OSRenderCore.cpp",
-                            1040);
-        new (local_e0) render::VertexElementDesc(0, "aPosition", 1, 0, 0, 0);
-        local_68->GetCompletedShader(1);
-        pcVar6 = (char*)std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::c_str(local_68);
-        GetCompletedHighPrecisionPixelShader((oldscape*)local_40, 0);
-        pcVar7 = (char*)local_40->c_str();
-        (&field_1583088, pcVar6, pcVar7, (VertexElementDesc*)local_e0, 1, '\0')->CreateFromSourceString();
-        local_40->~basic_string();
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::~basic_string(local_68);
-        local_68->GetCompletedShader(1);
-        pcVar6 = (char*)std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::c_str(local_68);
-        GetCompletedHighPrecisionPixelShader((oldscape*)local_40, 8);
-        pcVar7 = (char*)local_40->c_str();
-        ((field_112 + 1573360), pcVar6, pcVar7, (VertexElementDesc*)local_e0, 1, '\0')->CreateFromSourceString();
-        local_40->~basic_string();
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::~basic_string(local_68);
-        local_68->GetCompletedShader(1);
-        pcVar6 = (char*)std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::c_str(local_68);
-        GetCompletedHighPrecisionPixelShader((oldscape*)local_40, 10);
-        pcVar7 = (char*)local_40->c_str();
-        ((field_112 + 1575216), pcVar6, pcVar7, (VertexElementDesc*)local_e0, 1, '\0')->CreateFromSourceString();
-        local_40->~basic_string();
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::~basic_string(local_68);
-        local_68->GetCompletedShader(1);
-        pcVar6 = (char*)std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::c_str(local_68);
-        GetCompletedHighPrecisionPixelShader((oldscape*)local_40, 9);
-        pcVar7 = (char*)local_40->c_str();
-        ((field_112 + 1577072), pcVar6, pcVar7, (VertexElementDesc*)local_e0, 1, '\0')->CreateFromSourceString();
-        local_40->~basic_string();
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::~basic_string(local_68);
-        this_00 = (VertexBuffer*)((field_112 + 1572984))->begin();
-        pVVar8 = (VertexBuffer*)((field_112 + 1572984))->end();
-        for (; this_00 != pVVar8; this_00 = this_00 + 1) {
-            this_00->Create(786432, 1, 0);
+        (logger::default_logger())
+            ->Log(false, 8,
+                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
+                  "OSRenderCore.cpp",
+                  1040, "CreateRenderingResources called");
+        new (local_e0) render::VertexElementDesc(0, "aPosition", 1, false, 0, 0);
+        auto local_68 = osrsgraphics::shadersourceprovider::GetCompletedShader(1);
+        auto pcVar5 = local_68.c_str();
+        GetCompletedHighPrecisionPixelShader(&local_40, 0);
+        auto pcVar6 = local_40.c_str();
+        field_1583088.CreateFromSourceString(pcVar5, pcVar6, local_e0, 1, '\0');
+        local_68 = osrsgraphics::shadersourceprovider::GetCompletedShader(1);
+        pcVar5 = (char*)local_68.c_str();
+        GetCompletedHighPrecisionPixelShader(&local_40, 8);
+        pcVar6 = (char*)local_40.c_str();
+        field_1573472.CreateFromSourceString(pcVar5, pcVar6, local_e0, 1, '\0');
+        local_68 = osrsgraphics::shadersourceprovider::GetCompletedShader(1);
+        pcVar5 = (char*)local_68.c_str();
+        GetCompletedHighPrecisionPixelShader(&local_40, 10);
+        pcVar6 = (char*)local_40.c_str();
+        field_1575328.CreateFromSourceString(pcVar5, pcVar6, local_e0, 1, '\0');
+        local_68 = osrsgraphics::shadersourceprovider::GetCompletedShader(1);
+        pcVar5 = (char*)local_68.c_str();
+        GetCompletedHighPrecisionPixelShader(&local_40, 9);
+        pcVar6 = (char*)local_40.c_str();
+        field_1577184.CreateFromSourceString(pcVar5, pcVar6, local_e0, 1, '\0');
+        VertexBuffer* this_01 = std::array<render::VertexBuffer, 2ul>::begin();
+        VertexBuffer* pVVar7 = std::array<render::VertexBuffer, 2ul>::end();
+        for (; this_01 != pVVar7; this_01 = this_01 + 1) {
+            this_01->Create(786432, 1, nullptr);
         }
         if ((CreateRenderingResources()::quadVertices == '\0') &&
             (iVar4 = ___cxa_guard_acquire(&CreateRenderingResources()::quadVertices), iVar4 != 0)) {
-            new (&CreateRenderingResources()::quadVertices) jag::math::Point<float>(0.0, 1.0);
-            new (&DAT_104229188) jag::math::Point<float>(1.0, 1.0);
-            new (&DAT_104229190) jag::math::Point<float>(0.0, 0.0);
-            new (&DAT_104229198) jag::math::Point<float>(1.0, 0.0);
+            new ((Point<float>*)&CreateRenderingResources()::quadVertices) jag::math::Point(0.0, 1.0);
+            new (&DAT_104229188) jag::math::Point(1.0, 1.0);
+            new (&DAT_104229190) jag::math::Point(0.0, 0.0);
+            new (&DAT_104229198) jag::math::Point(1.0, 0.0);
             ___cxa_guard_release(&CreateRenderingResources()::quadVertices);
         }
-        (&field_1583008, 32, 0, &CreateRenderingResources()::quadVertices)->Create();
-        new (local_e0) render::VertexElementDesc(0, "aPosition_Atlas", 16, 0, 0, 0);
-        new ((local_e0 + 40)) render::VertexElementDesc(0, "aColour", 18, 1, 10, 0);
-        new (&local_90) render::VertexElementDesc(0, "aTextureUV", 14, 0, 5, 0);
-        local_68->GetCompletedShader(5);
-        pcVar6 = (char*)std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::c_str(local_68);
-        GetCompletedHighPrecisionPixelShader((oldscape*)local_40, 4);
-        pcVar7 = (char*)local_40->c_str();
-        pVVar9 = (VertexElementDesc*)std::array<render::VertexElementDesc, 3ul>::operator[]((ulong)local_e0);
-        (&field_1585248, pcVar6, pcVar7, pVVar9, 3, '\0')->CreateFromSourceString();
-        local_40->~basic_string();
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::~basic_string(local_68);
-        new (local_e0) render::VertexElementDesc(0, "aPosition_Atlas", 16, 0, 0, 0);
-        new ((local_e0 + 40)) render::VertexElementDesc(0, "aColour", 18, 0, 10, 0);
-        new (&local_90) render::VertexElementDesc(0, "aTextureUV", 14, 0, 5, 0);
-        local_68->GetCompletedShader(3);
-        pcVar6 = (char*)std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::c_str(local_68);
-        GetCompletedHighPrecisionPixelShader((oldscape*)local_40, 2);
-        pcVar7 = (char*)local_40->c_str();
-        pVVar9 = (VertexElementDesc*)std::array<render::VertexElementDesc, 3ul>::operator[]((ulong)local_e0);
-        (&field_1587104, pcVar6, pcVar7, pVVar9, 3, '\0')->CreateFromSourceString();
-        local_40->~basic_string();
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::~basic_string(local_68);
+        field_1583008.Create(32, 0, &CreateRenderingResources()::quadVertices);
+        new (local_e0) render::VertexElementDesc(0, "aPosition_Atlas", 16, false, 0, 0);
+        new ((local_e0 + 40)) render::VertexElementDesc(0, "aColour", 18, true, 10, 0);
+        VertexElementDesc local_90(0, "aTextureUV", 14, false, 5, 0);
+        local_68 = osrsgraphics::shadersourceprovider::GetCompletedShader(5);
+        pcVar5 = (char*)local_68.c_str();
+        unsigned long uVar10 = 4;
+        GetCompletedHighPrecisionPixelShader(&local_40, 4);
+        pcVar6 = (char*)local_40.c_str();
+        VertexElementDesc* pVVar8 = (VertexElementDesc*)(*local_e0)[uVar10];
+        field_1585248.CreateFromSourceString(pcVar5, pcVar6, pVVar8, 3, '\0');
+        new (local_e0) render::VertexElementDesc(0, "aPosition_Atlas", 16, false, 0, 0);
+        new ((local_e0 + 40)) render::VertexElementDesc(0, "aColour", 18, false, 10, 0);
+        local_90 = render::VertexElementDesc(0, "aTextureUV", 14, false, 5, 0);
+        local_68 = osrsgraphics::shadersourceprovider::GetCompletedShader(3);
+        pcVar5 = (char*)local_68.c_str();
+        uVar10 = 2;
+        GetCompletedHighPrecisionPixelShader(&local_40, 2);
+        pcVar6 = (char*)local_40.c_str();
+        pVVar8 = (VertexElementDesc*)(*local_e0)[uVar10];
+        field_1587104.CreateFromSourceString(pcVar5, pcVar6, pVVar8, 3, '\0');
         new (local_e0) render::Texture::Desc();
         local_e0._0_4_ = 2048;
         local_e0._4_4_ = 2048;
         local_e0._12_4_ = 29;
         local_e0._24_4_ = 1;
         local_e0[32] = 0;
-        new (local_40) render::ResourceDataT<unsigned char const>(0, 0, 0, false);
-        new (local_68) eastl::vector<unsigned int, eastl::allocator>();
-        local_44 = 4294967295;
-        local_68->resize(4194304, &local_44);
-        local_40[0] = local_68->HeapBeginPtr();
+        render::ResourceDataT local_40(nullptr, 0, 0, false);
+        local_68 = eastl::vector<unsigned int>();
+        unsigned int local_44 = 4294967295;
+        local_68.resize(4194304, local_44);
+        local_40[0] = (ReturnValue)local_68.HeapBeginPtr();
         iVar4 = render::GetFormatByteCount(local_e0._12_4_);
-        puVar1 = &field_1582496;
-        pSVar11 = (Singleton<render::BuiltinStates>*)puVar1;
-        puVar1->Create(local_e0, local_40, iVar4 << 22);
-        lVar10 = pSVar11->Instance();
-        puVar1->SetSamplerState((SamplerState*)(lVar10 + 80), false);
-        local_68->~vector();
-        local_40->~ResourceDataT();
+        uint8_t* puVar1 = &field_1582496;
+        Singleton<render::BuiltinStates>* pSVar11 = (Singleton<render::BuiltinStates>*)puVar1;
+        puVar1->Create(*local_e0, &local_40, iVar4 << 22);
+        long lVar9 = pSVar11->Instance();
+        puVar1->SetSamplerState(*((lVar9 + 80)), false);
         new (local_e0) render::Texture::Desc();
         local_e0._0_4_ = 128;
         local_e0._4_4_ = 512;
         local_e0._12_4_ = 29;
         local_e0._24_4_ = 1;
         local_e0[32] = 0;
-        new (local_40) render::ResourceDataT<unsigned char const>(0, 0, 0, false);
-        new (local_68) eastl::vector<unsigned int, eastl::allocator>();
+        local_40 = render::ResourceDataT(nullptr, 0, 0, false);
+        local_68 = eastl::vector<unsigned int>();
         local_44 = 0;
-        local_68->resize((ulong)(uint)(local_e0._4_4_ * local_e0._0_4_), &local_44);
-        local_40[0] = local_68->HeapBeginPtr();
-        uVar2 = local_e0._0_4_;
-        uVar3 = local_e0._4_4_;
+        local_68.resize((unsigned long)(unsigned int)(local_e0._4_4_ * local_e0._0_4_), local_44);
+        local_40[0] = (ReturnValue)local_68.HeapBeginPtr();
+        uint32_t uVar2 = local_e0._0_4_;
+        uint32_t uVar3 = local_e0._4_4_;
         iVar4 = render::GetFormatByteCount(local_e0._12_4_);
         puVar1 = &field_1581984;
         pSVar11 = (Singleton<render::BuiltinStates>*)puVar1;
-        puVar1->Create(local_e0, local_40, uVar3 * uVar2 * iVar4);
-        lVar10 = pSVar11->Instance();
-        puVar1->SetSamplerState((SamplerState*)(lVar10 + 80), false);
-        local_68->~vector();
-        local_40->~ResourceDataT();
-        (&field_1580368, false)->SetupDepthStencils();
-        (*(code*)field_0[1])(this, 1);
-        this_01 = (DebugUIManager*)Instance();
-        this_01->CreateRenderingResources();
+        puVar1->Create(*local_e0, &local_40, uVar3 * uVar2 * iVar4);
+        lVar9 = pSVar11->Instance();
+        puVar1->SetSamplerState(*((lVar9 + 80)), false);
+        field_1580368.SetupDepthStencils(false);
+        (*this->_vptr[1].GetUISize)((unsigned int*)this, (unsigned int*)1);
+        ((DebugUIManager*)Instance())->CreateRenderingResources();
     }
 
-    // 0x1001c1a60, 480 bytes, placed by neighbouring functions
-    // OSRenderCore_RenderThread_JavaStyle::SetupDepthStencils(bool)
-    void OSRenderCore_RenderThread_JavaStyle::SetupDepthStencils(bool param_1) {
-        undefined1* this_00;
-        long lVar1;
+    // 0x1001c1a60
+    void OSRenderCore_RenderThread_JavaStyle::SetupDepthStencils(bool arg1) {
         Desc local_58;
 
-        this_00 = &field_14439464;
-        lVar1 = this_00->second();
-        if ((*(int*)(lVar1 + 12) != 513) == param_1) {
-            if (param_1) {
-                new (&local_58) render::DepthStencilState::Desc();
+        uint8_t* this_00 = &field_14439464;
+        long lVar1 = this_00->second();
+        if ((*(int*)(lVar1 + 12) != 513) == arg1) {
+            if (arg1) {
+                local_58 = render::DepthStencilState::Desc();
                 local_58.SetToDefault();
-                this_00->Create(&local_58);
-                new (&local_58) render::DepthStencilState::Desc();
+                this_00->Create(local_58);
+                local_58 = render::DepthStencilState::Desc();
                 local_58.SetToDefault();
                 local_58.field_16 = '\x01';
                 local_58.field_18 = -1;
                 local_58._19_1_ = 1;
                 local_58._28_8_ = 2229088034305;
-                (&field_14439524, &local_58)->Create();
-                new (&local_58) render::DepthStencilState::Desc();
+                field_14439524.Create(local_58);
+                local_58 = render::DepthStencilState::Desc();
                 local_58.field_2 = '\0';
             } else {
-                new (&local_58) render::DepthStencilState::Desc();
+                local_58 = render::DepthStencilState::Desc();
                 local_58.SetToDefault();
                 local_58.field_1 = '\x01';
                 local_58.field_2 = '\0';
                 local_58.field_12 = 519;
-                this_00->Create(&local_58);
-                new (&local_58) render::DepthStencilState::Desc();
+                this_00->Create(local_58);
+                local_58 = render::DepthStencilState::Desc();
                 local_58.field_1 = '\x01';
                 local_58.field_2 = '\0';
                 local_58.field_12 = 519;
@@ -2042,8 +1487,8 @@ namespace jag::oldscape {
                 local_58.field_18 = -1;
                 local_58._19_1_ = 1;
                 local_58._28_8_ = 2229088034305;
-                (&field_14439524, &local_58)->Create();
-                new (&local_58) render::DepthStencilState::Desc();
+                field_14439524.Create(local_58);
+                local_58 = render::DepthStencilState::Desc();
                 local_58.field_1 = '\x01';
                 local_58.field_2 = '\0';
                 local_58.field_12 = 519;
@@ -2052,8 +1497,8 @@ namespace jag::oldscape {
             local_58.field_17 = -1;
             local_58._32_4_ = 517;
             local_58._19_1_ = 1;
-            (&field_14439704, &local_58)->Create();
-            new (&local_58) render::DepthStencilState::Desc();
+            field_14439704.Create(local_58);
+            local_58 = render::DepthStencilState::Desc();
             local_58.field_1 = '\x01';
             local_58.field_2 = '\0';
             local_58.field_12 = 519;
@@ -2061,8 +1506,8 @@ namespace jag::oldscape {
             local_58.field_17 = -1;
             local_58._32_4_ = 514;
             local_58._19_1_ = 1;
-            (&field_14439644, &local_58)->Create();
-            new (&local_58) render::DepthStencilState::Desc();
+            field_14439644.Create(local_58);
+            local_58 = render::DepthStencilState::Desc();
             local_58.field_1 = '\x01';
             local_58.field_2 = '\0';
             local_58.field_12 = 519;
@@ -2071,338 +1516,270 @@ namespace jag::oldscape {
             local_58._19_1_ = 1;
             local_58._32_4_ = 512;
             local_58._20_4_ = 7681;
-            (&field_14439584, &local_58)->Create();
+            field_14439584.Create(local_58);
         }
     }
 
-    // 0x1001c1c40, 672 bytes, placed by __FILE__ string
-    // OSRenderCore_RenderThread::DestroyRenderingResources()
+    // 0x1001c1c40
     void OSRenderCore_RenderThread::DestroyRenderingResources() {
-        undefined1* this_00;
-        undefined8 uVar1;
-        vector<render::VertexBuffer, eastl::allocator>* this_01;
-        vector<render::VertexBuffer, eastl::allocator>* pvVar2;
+        VertexBuffer* pVVar2;
         VertexBuffer* pVVar3;
-        VertexBuffer* pVVar4;
-        long* plVar5;
-        long* plVar6;
-        PixelUnpackBuffer* this_02;
-        PixelUnpackBuffer* pPVar7;
-        DebugUIManager* this_03;
 
-        uVar1 = logger::default_logger();
-        logger::Logger::Log(uVar1, 0, 8,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
-                            "osrendercore/OSRenderCore.cpp",
-                            1177, "DestroyRenderingResources called");
-        (*(code*)field_0[1])(this, 0);
-        ((field_112 + 1573360))->Destroy();
-        ((field_112 + 1575216))->Destroy();
-        ((field_112 + 1577072))->Destroy();
-        this_01 = (vector<render::VertexBuffer, eastl::allocator>*)(&field_1584944)->begin();
-        pvVar2 = (vector<render::VertexBuffer, eastl::allocator>*)(&field_1584944)->end();
-        for (; this_01 != pvVar2; this_01 = this_01 + 32) {
-            pVVar3 = (VertexBuffer*)this_01->HeapBeginPtr();
-            pVVar4 = (VertexBuffer*)this_01->end();
-            for (; pVVar3 != pVVar4; pVVar3 = pVVar3 + 1) {
-                pVVar3->Destroy();
+        (logger::default_logger())
+            ->Log(false, 8,
+                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
+                  "OSRenderCore.cpp",
+                  1177, "DestroyRenderingResources called");
+        (*this->_vptr[1].GetUISize)((unsigned int*)this, nullptr);
+        field_1573472.Destroy();
+        field_1575328.Destroy();
+        field_1577184.Destroy();
+        vector<render::VertexBuffer>* this_02 =
+            (vector<render::VertexBuffer>*)std::array<eastl::vector<render::VertexBuffer>, 2ul>::begin();
+        vector<render::VertexBuffer>* pvVar1 =
+            (vector<render::VertexBuffer>*)std::array<eastl::vector<render::VertexBuffer>, 2ul>::end();
+        for (; this_02 != pvVar1; this_02 = this_02 + 32) {
+            pVVar2 = (VertexBuffer*)this_02->HeapBeginPtr();
+            pVVar3 = (VertexBuffer*)this_02->end();
+            for (; pVVar2 != pVVar3; pVVar2 = pVVar2 + 1) {
+                pVVar2->Destroy();
             }
-            eastl::vector<render::VertexBuffer, eastl::allocator>::clear(this_01);
+            this_02->clear();
         }
-        this_00 = &field_1585024;
-        pVVar3 = (VertexBuffer*)this_00->HeapBeginPtr();
-        pVVar4 = (VertexBuffer*)this_00->end();
-        for (; pVVar3 != pVVar4; pVVar3 = pVVar3 + 1) {
-            pVVar3->Destroy();
+        uint8_t* this_00 = &field_1585024;
+        pVVar2 = (VertexBuffer*)this_00->HeapBeginPtr();
+        pVVar3 = (VertexBuffer*)this_00->end();
+        for (; pVVar2 != pVVar3; pVVar2 = pVVar2 + 1) {
+            pVVar2->Destroy();
         }
         this_00->clear();
-        (&field_1585056)->Destroy();
-        pVVar3 = (VertexBuffer*)((field_112 + 1572984))->begin();
-        pVVar4 = (VertexBuffer*)((field_112 + 1572984))->end();
-        for (; pVVar3 != pVVar4; pVVar3 = pVVar3 + 1) {
-            pVVar3->Destroy();
+        field_1585056.Destroy();
+        pVVar2 = std::array<render::VertexBuffer, 2ul>::begin();
+        pVVar3 = std::array<render::VertexBuffer, 2ul>::end();
+        for (; pVVar2 != pVVar3; pVVar2 = pVVar2 + 1) {
+            pVVar2->Destroy();
         }
-        ((field_112 + 1573160))->Destroy();
-        (&field_1585248)->Destroy();
-        (&field_1587104)->Destroy();
-        (&field_1583008)->Destroy();
-        (&field_1583088)->Destroy();
-        (&field_1582496)->Destroy();
-        (&field_1581984)->Destroy();
-        render::RenderTargets::SafeReset((shared_ptr*)(field_1580384 + 32));
+        field_1573272.Destroy();
+        field_1585248.Destroy();
+        field_1587104.Destroy();
+        field_1583008.Destroy();
+        field_1583088.Destroy();
+        field_1582496.Destroy();
+        field_1581984.Destroy();
+        render::RenderTargets::SafeReset(*((field_1580384 + 32)));
         ((field_1580384 + 48))->Destroy();
-        (&field_1580944)->Destroy();
-        render::RenderTargets::SafeReset((shared_ptr*)field_1581456);
-        (&field_1581472)->Destroy();
-        plVar5 = (long*)((field_112 + 1578944))->begin();
-        plVar6 = (long*)((field_112 + 1578944))->end();
-        for (; plVar5 != plVar6; plVar5 = plVar5 + 64) {
-            (**(code**)(*plVar5 + 16))(plVar5);
+        field_1580944.Destroy();
+        render::RenderTargets::SafeReset(field_1581456);
+        field_1581472.Destroy();
+        long* plVar4 = (long*)std::array<render::Texture2D, 2ul>::begin();
+        long* plVar5 = (long*)std::array<render::Texture2D, 2ul>::end();
+        for (; plVar4 != plVar5; plVar4 = plVar4 + 64) {
+            (**(void (**)(...))(*plVar4 + 16))(plVar4);
         }
-        this_02 = (PixelUnpackBuffer*)((field_112 + 1579984))->begin();
-        pPVar7 = (PixelUnpackBuffer*)((field_112 + 1579984))->end();
-        for (; this_02 != pPVar7; this_02 = this_02 + 1) {
-            this_02->Destroy();
+        PixelUnpackBuffer* this_03 = (PixelUnpackBuffer*)std::array<render::PixelUnpackBuffer, 2ul>::begin();
+        PixelUnpackBuffer* pPVar6 = (PixelUnpackBuffer*)std::array<render::PixelUnpackBuffer, 2ul>::end();
+        for (; this_03 != pPVar6; this_03 = this_03 + 1) {
+            this_03->Destroy();
         }
         DestroyRSeven();
-        this_03 = (DebugUIManager*)Instance();
-        this_03->UnregisterInputHandler();
-        this_03->Instance();
-        this_03->Destroy();
+        auto this_04 = Instance();
+        this_04->UnregisterInputHandler();
+        this_04->Instance();
+        this_04->Destroy();
     }
 
-    // 0x1001c3640, 304 bytes, placed by __FILE__ string
-    // OSRenderCore_AudioThread::WriteAudioSamples(hal::audio::AudioBuffer&)
-    void OSRenderCore_AudioThread::WriteAudioSamples(AudioBuffer* param_1) {
-        char cVar2;
-        uint uVar4;
-        undefined8* puVar5;
-        Layout* this_00;
-        shared_ptr* this_01;
-        vector* this_02;
-        AudioRenderer* this_03;
-        AudioMixer* this_04;
+    // 0x1001c3640
+    void OSRenderCore_AudioThread::WriteAudioSamples(hal::audio::AudioBuffer& audioBuffer) {
+        uint8_t uVar2;
+        shared_ptr<hal::audio::AudioRenderer>* this_02;
         AudioBuss* this_05;
-        AudioBuffer* pAVar6;
-        uint uVar7;
-        uint local_38;
-        uint local_34;
+        AudioBuffer* this_06;
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        uint64_t extraout_var_01;
+        unsigned int arg3;
+        unsigned int uVar4;
+        unsigned int local_34;
 
-        pAVar6 = param_1;
-        puVar5 = (undefined8*)OSRenderCore_AnyThread::Instance();
-        this_00 = (Layout*)(**(code**)*puVar5)(puVar5);
-        this_01 = (shared_ptr*)eastl::string::Layout::SSOBeginPtr(this_00, (type*)pAVar6);
-        if (shared_ptr::operator_cast_to_bool(this_01)) {
-            this_02 = eastl::string::Layout::SSOBeginPtr(this_00, (type*)pAVar6);
-            this_03 = (AudioRenderer*)shared_ptr<hal::audio::AudioRenderer>::operator->(
-                (shared_ptr<hal::audio::AudioRenderer>*)this_02);
-            this_04 = (AudioMixer*)this_03->GetMixer();
-            this_05 = (AudioBuss*)this_04->GetMasterBuss();
-            pAVar6 = (AudioBuffer*)this_05->GetBuffer();
-            local_38 = 0;
+        auto pOVar3 = OSRenderCore_AnyThread::Instance();
+        Layout* this_00 = (Layout*)(*(void (*)(...))*pOVar3->field_0)(pOVar3);
+        bool cVar1 = (this_00->SSOBeginPtr())->operator_cast_to_bool();
+        if (cVar1) {
+            this_02 = (shared_ptr<hal::audio::AudioRenderer>*)this_00->SSOBeginPtr();
+            this_05 = (((AudioRenderer*)(*this_02).operator->())->GetMixer())->GetMasterBuss();
+            this_06 = (AudioBuffer*)this_05->GetBuffer();
             local_34 = 0;
-            if ((*(code*)pAVar6->field_0[3])(pAVar6) != 0) {
-                uVar7 = 0;
+            uVar2 = this_06->NumberOfChannels();
+            if ((int)(((uint64_t)extraout_var << 8) | (uint8_t)uVar2) != 0) {
+                uVar4 = 0;
                 do {
-                    cVar2 = (*(code*)param_1->field_0[4])(param_1, uVar7);
-                    uVar4 = 0;
-                    if (cVar2 != '\0') {
-                        uVar4 = uVar7;
+                    cVar1 = (audioBuffer._vptr->HasChannel)((unsigned int)audioBuffer);
+                    arg3 = 0;
+                    if (cVar1) {
+                        arg3 = uVar4;
                     }
-                    pAVar6->WriteSamples(param_1, uVar4, uVar7, &local_38, &local_34, false, 1.0, 0.0);
-                    uVar7 = uVar7 + 1;
-                    uVar4 = (*(code*)pAVar6->field_0[3])(pAVar6);
-                } while (uVar7 < uVar4);
+                    hal::audio::AudioBuffer::WriteSamples(*this_06, (unsigned int)audioBuffer, arg3,
+                                                          *((unsigned int*)(unsigned long)uVar4), 0,
+                                                          (uint8_t)(&local_34), 1.0, 0.0);
+                    uVar4 = uVar4 + 1;
+                    uVar2 = this_06->NumberOfChannels();
+                } while (uVar4 < (unsigned int)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar2));
             }
-            pAVar6->WroteSamples(local_34);
-            uVar7 = (*(code*)param_1->field_0[2])(param_1, 0);
-            if (uVar7 != local_38) {
-                /* WARNING: Subroutine does not return */
+            this_06->WroteSamples(local_34);
+            uVar2 = (audioBuffer._vptr->GetNumberSamplesCanBeRead)((unsigned int)audioBuffer);
+            if ((unsigned int)(((uint64_t)extraout_var_01 << 8) | (uint8_t)uVar2) != 0) {
                 LogAssert("buffer.GetNumberSamplesCanBeRead(0) == numSamplesRead",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/osrendercore/"
                           "OSRenderCore.cpp",
-                          1855, (char*)0);
+                          1855, nullptr);
             }
         }
     }
 
-    // 0x1001c3800, 32 bytes, placed by neighbouring functions
-    // OSRenderCore_Impl::LockAudio()
+    // 0x1001c3800
     void OSRenderCore_Impl::LockAudio() {
         std::mutex::lock();
     }
 
-    // 0x1001c3820, 32 bytes, placed by neighbouring functions
-    // OSRenderCore_Impl::UnlockAudio()
+    // 0x1001c3820
     void OSRenderCore_Impl::UnlockAudio() {
         std::mutex::unlock();
     }
 
-    // 0x1001c3840, 112 bytes, placed by neighbouring functions
-    // OSRenderCore_AudioThread::GetAudioBufferSampleSize()
-    uint OSRenderCore_AudioThread::GetAudioBufferSampleSize() {
-        bool bVar1;
-        undefined8* puVar2;
-        Layout* this_00;
-        shared_ptr* this_01;
-        vector* pvVar3;
-        AudioRenderer* this_02;
-        long lVar4;
-        NXTPixToolkit* this_03;
-        uint uVar5;
-        type* in_RSI;
+    // 0x1001c3840
+    unsigned int OSRenderCore_AudioThread::GetAudioBufferSampleSize() {
+        shared_ptr<hal::audio::AudioRenderer>* psVar3;
+        long lVar5;
 
-        puVar2 = (undefined8*)OSRenderCore_AnyThread::Instance();
-        this_00 = (Layout*)(**(code**)*puVar2)(puVar2);
-        this_01 = (shared_ptr*)eastl::string::Layout::SSOBeginPtr(this_00, in_RSI);
-        bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-        uVar5 = 0;
-        if (bVar1) {
-            pvVar3 = eastl::string::Layout::SSOBeginPtr(this_00, in_RSI);
-            this_02 = (AudioRenderer*)shared_ptr<hal::audio::AudioRenderer>::operator->(
-                (shared_ptr<hal::audio::AudioRenderer>*)pvVar3);
-            lVar4 = this_02->GetMixer();
-            if (lVar4 != 0) {
-                pvVar3 = eastl::string::Layout::SSOBeginPtr(this_00, in_RSI);
-                this_03 = (NXTPixToolkit*)shared_ptr<hal::audio::AudioRenderer>::operator->(
-                    (shared_ptr<hal::audio::AudioRenderer>*)pvVar3);
-                lVar4 = this_03->GetScreen();
-                uVar5 = *(uint*)(lVar4 + 8) >> 1;
+        auto pOVar2 = OSRenderCore_AnyThread::Instance();
+        Layout* layout = (Layout*)(*(void (*)(...))*pOVar2->field_0)(pOVar2);
+        bool cVar1 = (layout->SSOBeginPtr())->operator_cast_to_bool();
+        unsigned int uVar6 = 0;
+        if (cVar1) {
+            psVar3 = (shared_ptr<hal::audio::AudioRenderer>*)layout->SSOBeginPtr();
+            if (((AudioRenderer*)(*psVar3).operator->())->GetMixer() != nullptr) {
+                psVar3 = (shared_ptr<hal::audio::AudioRenderer>*)layout->SSOBeginPtr();
+                lVar5 = ((NXTPixToolkit*)(*psVar3).operator->())->GetScreen();
+                uVar6 = *(unsigned int*)(lVar5 + 8) >> 1;
             }
         }
-        return uVar5;
+        return uVar6;
     }
 
-    // 0x1001c38b0, 144 bytes, placed by neighbouring functions
-    // OSRenderCore_AudioThread::GetNumberSamplesInAudioBuffer()
-    undefined4 OSRenderCore_AudioThread::GetNumberSamplesInAudioBuffer() {
-        bool bVar1;
-        undefined4 uVar2;
-        undefined8* puVar3;
-        Layout* this_00;
-        shared_ptr* this_01;
-        vector* pvVar4;
+    // 0x1001c38b0
+    void OSRenderCore_AudioThread::GetNumberSamplesInAudioBuffer() {
+        shared_ptr<hal::audio::AudioRenderer>* psVar4;
         AudioRenderer* pAVar5;
-        AudioMixer* this_02;
-        AudioBuss* this_03;
+        AudioMixer* pAVar6;
+        AudioBuss* this_01;
         long* plVar7;
-        type* in_RSI;
 
-        puVar3 = (undefined8*)OSRenderCore_AnyThread::Instance();
-        this_00 = (Layout*)(**(code**)*puVar3)(puVar3);
-        this_01 = (shared_ptr*)eastl::string::Layout::SSOBeginPtr(this_00, in_RSI);
-        bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-        uVar2 = 0;
-        if (bVar1) {
-            pvVar4 = eastl::string::Layout::SSOBeginPtr(this_00, in_RSI);
-            pAVar5 = (AudioRenderer*)shared_ptr<hal::audio::AudioRenderer>::operator->(
-                (shared_ptr<hal::audio::AudioRenderer>*)pvVar4);
-            if (pAVar5->GetMixer() != 0) {
-                pvVar4 = eastl::string::Layout::SSOBeginPtr(this_00, in_RSI);
-                pAVar5 = (AudioRenderer*)shared_ptr<hal::audio::AudioRenderer>::operator->(
-                    (shared_ptr<hal::audio::AudioRenderer>*)pvVar4);
-                this_02 = (AudioMixer*)pAVar5->GetMixer();
-                this_03 = (AudioBuss*)this_02->GetMasterBuss();
-                plVar7 = (long*)this_03->GetBuffer();
-                uVar2 = (**(code**)(*plVar7 + 16))(plVar7, 0);
+        auto pOVar3 = OSRenderCore_AnyThread::Instance();
+        Layout* layout = (Layout*)(*(void (*)(...))*pOVar3->field_0)(pOVar3);
+        bool cVar1 = (layout->SSOBeginPtr())->operator_cast_to_bool();
+        uint32_t uVar2 = 0;
+        if (cVar1) {
+            psVar4 = (shared_ptr<hal::audio::AudioRenderer>*)layout->SSOBeginPtr();
+            pAVar5 = (AudioRenderer*)(*psVar4).operator->();
+            pAVar6 = pAVar5->GetMixer();
+            if (pAVar6 != nullptr) {
+                psVar4 = (shared_ptr<hal::audio::AudioRenderer>*)layout->SSOBeginPtr();
+                pAVar5 = (AudioRenderer*)(*psVar4).operator->();
+                pAVar6 = pAVar5->GetMixer();
+                this_01 = pAVar6->GetMasterBuss();
+                plVar7 = (long*)this_01->GetBuffer();
+                uVar2 = (**(void (**)(...))(*plVar7 + 16))(plVar7, 0);
             }
         }
         return uVar2;
     }
 
-    // 0x1001c3940, 80 bytes, placed by neighbouring functions
-    // OSRenderCore_Impl::ResumeAudio()
+    // 0x1001c3940
     void OSRenderCore_Impl::ResumeAudio() {
-        Layout* pLVar2;
-        shared_ptr* this_00;
-        vector* this_01;
+        uint64_t extraout_var;
+        uint64_t extraout_var_00;
+        shared_ptr<hal::audio::AudioRenderer>* this_01;
         long* plVar3;
-        type* in_RSI;
 
-        pLVar2 = (Layout*)(**(code**)(field_0 + 2))();
-        this_00 = (shared_ptr*)eastl::string::Layout::SSOBeginPtr(pLVar2, in_RSI);
-        if (shared_ptr::operator_cast_to_bool(this_00)) {
-            pLVar2 = (Layout*)(**(code**)(field_0 + 2))(this);
-            this_01 = eastl::string::Layout::SSOBeginPtr(pLVar2, in_RSI);
-            plVar3 = (long*)shared_ptr<hal::audio::AudioRenderer>::operator->(
-                (shared_ptr<hal::audio::AudioRenderer>*)this_01);
-            (**(code**)(*plVar3 + 40))(plVar3);
+        uint8_t uVar1 = GetAudioAPI();
+        shared_ptr* this_00 = (shared_ptr*)((Layout*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1))->SSOBeginPtr();
+        if (shared_ptr::operator_cast_to_bool(this_00) != '\0') {
+            uVar1 = GetAudioAPI();
+            this_01 =
+                (shared_ptr<hal::audio::AudioRenderer>*)((Layout*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar1))
+                    ->SSOBeginPtr();
+            plVar3 = (long*)(*this_01).operator->();
+            (**(void (**)(...))(*plVar3 + 40))(plVar3);
         }
     }
 
-    // 0x1001c3990, 272 bytes, placed by __FILE__ string
-    // OSRenderCore_RenderThread_RSeven::CheckRebuild()
+    // 0x1001c3990
     void OSRenderCore_RenderThread_RSeven::CheckRebuild() {
-        undefined1* this_00;
-        MapRebuildResults* pMVar1;
-        char cVar2;
-        long lVar3;
-        RT7Core* pRVar4;
-        MaterialManager* pMVar5;
-        Scene* this_01;
+        uint8_t* this_00;
+        RT7Core* pRVar3;
+        MaterialManager* pMVar4;
 
-        lVar3 = ((field_32 + *(long*)(field_0 + -24) + -32))->GetRenderStateNXT();
-        pMVar1 = *(MapRebuildResults**)(lVar3 + 17563840);
-        if (pMVar1 != (MapRebuildResults*)0) {
-            lVar3 = ((field_32 + *(long*)(field_0 + -24) + -32))->GetRenderStateNXT();
-            if (*(int*)(lVar3 + 17563832) == 1) {
+        long lVar2 =
+            ((OSRenderCore_RenderThread_Common*)(field_32 + *(long*)((long)field_0 - 24) - 32))->GetRenderStateNXT();
+        MapRebuildResults* mapRebuildResults = *(MapRebuildResults**)(lVar2 + 17563840);
+        if (mapRebuildResults != nullptr) {
+            lVar2 = ((OSRenderCore_RenderThread_Common*)(field_32 + *(long*)((long)field_0 - 24) - 32))
+                        ->GetRenderStateNXT();
+            if (*(int*)(lVar2 + 17563832) == 1) {
                 this_00 = &field_8;
-                pRVar4 =
-                    (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::
-                    operator->(
-                        (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)this_00);
-                pMVar5 = (MaterialManager*)pRVar4->GetMaterialManager();
-                cVar2 = pMVar5->MaterialsReady();
-                if (cVar2 != '\0') {
-                    rseven::OSRenderCore_TextureDataProvider::HandleRebuild((MapRebuildResults*)&tdp);
-                    pRVar4 = (RT7Core*)
-                        std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::operator*(
-                            (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)this_00);
-                    rseven::MapRebuildHandler_RenderThread::HandleRebuild(pMVar1, pRVar4);
-                    this_01 = (Scene*)std::unique_ptr<rseven::Scene, std::default_delete<rseven::Scene>>::operator->(
-                        (unique_ptr<rseven::Scene, std::default_delete<rseven::Scene>>*)&field_16);
-                    this_01->HandleRebuild(pMVar1);
+                pRVar3 = (RT7Core*)(*this_00).operator->();
+                pMVar4 = pRVar3->GetMaterialManager();
+                if (pMVar4->MaterialsReady()) {
+                    tdp.HandleRebuild(*mapRebuildResults);
+                    pRVar3 = (RT7Core*)**this_00;
+                    rseven::MapRebuildHandler_RenderThread::HandleRebuild(*mapRebuildResults, *pRVar3);
+                    ((Scene*)field_16.operator->())->HandleRebuild(*mapRebuildResults);
                 }
-                pRVar4 =
-                    (RT7Core*)std::unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>::
-                    operator->(
-                        (unique_ptr<jag::graphics::RT7Core, std::default_delete<jag::graphics::RT7Core>>*)this_00);
-                pMVar5 = (MaterialManager*)pRVar4->GetMaterialManager();
-                cVar2 = pMVar5->MaterialsReady();
-                if (cVar2 == '\0') {
-                    /* WARNING: Subroutine does not return */
+                pRVar3 = (RT7Core*)(*this_00).operator->();
+                pMVar4 = pRVar3->GetMaterialManager();
+                if (!(pMVar4->MaterialsReady())) {
                     LogAssert("m_rt7Core->GetMaterialManager().MaterialsReady()",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/"
                               "osrendercore/OSRenderCore.cpp",
-                              1916, (char*)0);
+                              1916, nullptr);
                 }
             }
-            rseven::MapRebuildHandler::DeleteRebuildResults(pMVar1);
-            lVar3 = ((field_32 + *(long*)(field_0 + -24) + -32))->GetRenderStateNXT();
-            *(undefined8*)(lVar3 + 17563840) = 0;
+            rseven::MapRebuildHandler::DeleteRebuildResults(mapRebuildResults);
+            lVar2 = ((OSRenderCore_RenderThread_Common*)(field_32 + *(long*)((long)field_0 - 24) - 32))
+                        ->GetRenderStateNXT();
+            *(uint64_t*)(lVar2 + 17563840) = 0;
         }
     }
 
 } // namespace jag::oldscape
 
 namespace jag::osrsgraphics::shadersourceprovider {
-    // 0x1001c1890, 304 bytes, placed by neighbouring functions
-    // GetCompletedShader(ShaderResource)
-    shadersourceprovider* GetCompletedShader(undefined4 param_2) {
-        bool bVar1;
-        char* pcVar2;
-        undefined8 uVar3;
-        basic_string local_70[24];
-        basic_string local_58[24];
-        basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> local_40[24];
+    // 0x1001c1890
+    auto GetCompletedShader(ShaderResource shaderResource) {
+        auto result;
+        basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> local_40;
 
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::basic_string();
-        pcVar2 = (char*)GetResourceFilename(param_2);
+        basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>> local_70;
+        auto pcVar2 = GetResourceFilename(shaderResource);
         pcVar2 = (anonymous namespace)::ConvertEncodedResourceFilename<
-            std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>>(local_70, pcVar2);
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::basic_string<decltype(nullptr)>(
-            local_40, pcVar2);
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::size(local_40);
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::substr((ulong)local_58,
-                                                                                          (ulong)local_40);
-        bVar1 = std::operator==(local_58, ".fs");
-        local_58->~basic_string();
-        uVar3 = 35632;
+            std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>>(
+            (basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> _>*)&local_70, pcVar2);
+        local_40.basic_string<decltype(nullptr)>(pcVar2);
+        long lVar3 = local_40.size();
+        auto local_58 = local_40.substr(lVar3 - 3, 18446744073709551615);
+        bool bVar1 = &local_58 == ".fs";
+        ShaderType shaderType = 35632;
         if (!bVar1) {
-            std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::size(local_40);
-            std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::substr((ulong)local_58,
-                                                                                              (ulong)local_40);
-            bVar1 = std::operator==(local_58, ".vs");
-            local_58->~basic_string();
-            uVar3 = 4294967295;
+            lVar3 = local_40.size();
+            local_58 = local_40.substr(lVar3 - 3, 18446744073709551615);
+            bVar1 = &local_58 == ".vs";
+            shaderType = 4294967295;
             if (bVar1) {
-                uVar3 = 35633;
+                shaderType = 35633;
             }
         }
-        GetCompletedShader(this, param_2, uVar3);
-        std::basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char>>::~basic_string(local_40);
-        local_70->~basic_string();
-        return this;
+        GetCompletedShader(&result, shaderResource, shaderType);
+        return result;
     }
 
 } // namespace jag::osrsgraphics::shadersourceprovider

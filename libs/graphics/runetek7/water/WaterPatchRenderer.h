@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/water/WaterPatchRenderer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,33 +10,33 @@ namespace jag::graphics {
         virtual ~WaterPatchRenderer();
         WaterPatchRenderer();
         void Destroy();
-        Initialise(RT7Core&);
-        CreateRenderingResources();
+        uint64_t Initialise(RT7Core& rt7Core);
+        void CreateRenderingResources();
         void DestroyRenderingResources();
         void InitialiseVertexDeclaration();
-        void Render(WaterPatch_DE const&, render::RenderContext&, render::DrawCallState const&, SceneViewData const&,
-                    RenderPassType, EffectManager&);
-        void SetEffectParameters(RenderPassEffect const&, EffectManager&, WaterParameters const&, SceneViewData const&);
-        void SetPipelineState(RenderPassEffect const&, render::DrawCallState&, RenderPassType, bool,
-                              WaterPatch_DE const&);
-        GetVertexDecl();
-        static render::VertexDeclaration /* 96 bytes */ m_vertexDeclaration; // = VertexDeclaration()
+        void Render(const WaterPatch_DE& waterPatch_DE, render::RenderContext& renderContext,
+                    const render::DrawCallState& drawCallState, const SceneViewData& sceneViewData,
+                    RenderPassType renderPassType, EffectManager& effectManager);
+        void SetEffectParameters(const RenderPassEffect& renderPassEffect, EffectManager& effectManager,
+                                 const WaterParameters& waterParameters, const SceneViewData& sceneViewData);
+        void SetPipelineState(const RenderPassEffect& renderPassEffect, render::DrawCallState& drawCallState,
+                              RenderPassType renderPassType, bool arg4, const WaterPatch_DE& waterPatch_DE);
+        void GetVertexDecl();
+        static render::VertexDeclaration m_vertexDeclaration; // = VertexDeclaration()
 
-        // data members, from how the methods use this: 40 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined4 field_8;  // offset 8
-        undefined4 field_12; // offset 12
-        undefined4 field_16; // offset 16
-        undefined4 field_20; // offset 20
-        undefined4 field_24; // offset 24
-        undefined4 field_28; // offset 28
-        undefined4 field_32; // offset 32
-        char _unknown_36[4];
+    private:
+        uint32_t field_8;
+        uint32_t field_12;
+        uint32_t field_16;
+        uint32_t field_20;
+        uint32_t field_24;
+        uint32_t field_28;
+        uint32_t field_32;
+        uint8_t _unknown_36[4];
     };
 
-    // 0x1007baea0, 16 bytes, inline, placed by class name
-    // WaterPatchRenderer::GetVertexDecl()
-    undefined1* WaterPatchRenderer::GetVertexDecl() {
+    // 0x1007baea0
+    void WaterPatchRenderer::GetVertexDecl() {
         return &m_vertexDeclaration;
     }
 

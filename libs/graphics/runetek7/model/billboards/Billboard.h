@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/model/billboards/Billboard.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics
@@ -8,58 +7,46 @@
 namespace jag::graphics {
     class Billboard {
     public:
-        Billboard(int, unsigned int, unsigned int, math::Vector3T<float> const&, math::Vector3T<float> const&,
-                  math::Vector3T<float> const&, int, int, int, unsigned int, int);
+        Billboard(int arg1, unsigned int arg2, unsigned int arg3, const math::Vector3T<float>& vector31,
+                  const math::Vector3T<float>& vector32, const math::Vector3T<float>& vector33, int arg7, int arg8,
+                  int arg9, unsigned int arg10, int arg11);
 
-        // data members, from how the methods use this: 68 bytes
-        int field_0;  // offset 0
-        uint field_4; // offset 4
-        uint field_8; // offset 8
-        char _unknown_12[12];
-        int field_24;  // offset 24
-        uint field_28; // offset 28
-        int field_32;  // offset 32
-        int field_36;  // offset 36
-        int field_40;  // offset 40
-        uint field_44; // offset 44
-        char _unknown_48[4];
-        undefined8 field_52; // offset 52
-        undefined8 field_60; // offset 60
+    private:
+        int field_0;
+        unsigned int field_4;
+        unsigned int field_8;
+        uint8_t _unknown_12[12];
+        int field_24;
+        unsigned int field_28;
+        int field_32;
+        int field_36;
+        int field_40;
+        unsigned int field_44;
+        uint8_t _unknown_48[4];
+        uint64_t field_52;
+        uint64_t field_60;
     };
 
-    // 0x100821ad0, 192 bytes, base-object constructor, placed by class name
-    // Billboard::Billboard(int, unsigned int, unsigned int, math::Vector3T<float> const&, math::Vector3T<float> const&, math::Vector3T<float> const&, int, int, int, unsigned int, int)
-    void Billboard::Billboard(int param_1, uint param_2, uint param_3, Vector3T* param_4, Vector3T* param_5,
-                              Vector3T* param_6, int param_7, int param_8, int param_9, uint param_10, int param_11) {
-        undefined1* this_00;
-
-        new (this) MakeUniquePool<Billboard, 32>();
-        field_0 = param_1;
-        field_4 = param_2;
-        field_8 = param_3;
-        this_00 = &field_12;
-        new (this_00) math::Vector3T<int>();
-        field_24 = param_7;
-        field_28 = param_10;
-        field_32 = param_8;
-        field_36 = param_9;
-        field_40 = param_11;
-        *(undefined8*)&field_44 = 8589934591;
+    // 0x100821ad0
+    Billboard::Billboard(int arg1, unsigned int arg2, unsigned int arg3, const math::Vector3T<float>& vector31,
+                         const math::Vector3T<float>& vector32, const math::Vector3T<float>& vector33, int arg7,
+                         int arg8, int arg9, unsigned int arg10, int arg11)
+        : MakeUniquePool<Billboard, 32>(), field_0(arg1), field_4(arg2), field_8(arg3) {
+        uint8_t* this_00 = &field_12;
+        new (this_00) math::Vector3T();
+        field_24 = arg7;
+        field_28 = arg10;
+        field_32 = arg8;
+        field_36 = arg9;
+        field_40 = arg11;
+        *(uint64_t*)&field_44 = 8589934591;
         field_52 = 1;
         field_60 = 0;
-        math::Vector3T<float>::operator+=((Vector3T<float>*)this_00, param_4);
-        math::Vector3T<float>::operator+=((Vector3T<float>*)this_00, param_5);
-        math::Vector3T<float>::operator+=((Vector3T<float>*)this_00, param_6);
-        math::Vector3T<float>::operator/=((Vector3T<float>*)this_00, 3.0);
+        *this_00 += vector31;
+        *this_00 += vector32;
+        *this_00 += vector33;
+        *this_00 /= 3.0;
         field_44 = field_28;
-    }
-
-    // 0x100821bf0, 64 bytes, complete-object constructor, placed by class name
-    // Billboard::Billboard(int, unsigned int, unsigned int, math::Vector3T<float> const&, math::Vector3T<float> const&, math::Vector3T<float> const&, int, int, int, unsigned int, int)
-    void Billboard::Billboard(int param_1, uint param_2, uint param_3, Vector3T* param_4, Vector3T* param_5,
-                              Vector3T* param_6, int param_7, int param_8, int param_9, uint param_10, int param_11) {
-        Billboard(this, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10,
-                  param_11);
     }
 
 } // namespace jag::graphics

@@ -1,295 +1,212 @@
 // libs/graphics/runetek7/animation/VertexTransformData.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "VertexTransformData.h"
 
 namespace jag::graphics {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    VertexTransformData::GetBoneTransforms();
+    // 0x100009ca0: VertexTransformData::GetBoneTransforms() has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    VertexTransformData::GetBoneTransforms() const;
+    // 0x100009ca0: VertexTransformData::GetBoneTransforms() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x10002d850: the linker folded this into oldscape::option::Option<int>::GetDefaultValue() const, which has identical code
-    VertexTransformData::GetBillboardLabelTransforms();
+    // 0x10002d850: VertexTransformData::GetBillboardLabelTransforms() has the same machine code as oldscape::option::Option<int>::GetDefaultValue() const
 
-    // 0x10002d850: the linker folded this into oldscape::option::Option<int>::GetDefaultValue() const, which has identical code
-    VertexTransformData::GetBillboardLabelTransforms() const;
+    // 0x10002d850: VertexTransformData::GetBillboardLabelTransforms() const has the same machine code as oldscape::option::Option<int>::GetDefaultValue() const
 
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    VertexTransformData::GetLabelDeltas();
+    // 0x1000b9950: VertexTransformData::GetLabelDeltas() has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    VertexTransformData::GetLabelDeltas() const;
+    // 0x1000b9950: VertexTransformData::GetLabelDeltas() const has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x100950120, 400 bytes, placed by class name and debug map
-    // VertexTransformData::SetMaxSize(unsigned long, unsigned long, unsigned long)
-    void VertexTransformData::SetMaxSize(ulong param_1, ulong param_2, ulong param_3) {
-        bool bVar1;
-        ulong uVar2;
-        HeapInterface* pHVar3;
-        void* pvVar4;
-        uchar* puVar5;
-
-        uVar2 = HeapBeginPtr();
-        if (((param_1 <= uVar2) && (uVar2 = (&field_16)->HeapBeginPtr(), param_2 <= uVar2)) &&
-            (uVar2 = (&field_32)->HeapBeginPtr(), param_3 <= uVar2)) {
+    // 0x100950120
+    void VertexTransformData::SetMaxSize(unsigned long arg1, unsigned long arg2, unsigned long arg3) {
+        unsigned long uVar2 = HeapBeginPtr();
+        if (((arg1 <= uVar2) && (uVar2 = field_16.HeapBeginPtr(), arg2 <= uVar2)) &&
+            (uVar2 = field_32.HeapBeginPtr(), arg3 <= uVar2)) {
             return;
         }
-        pHVar3 = (HeapInterface*)HeapInterface::Instance();
-        pvVar4 = (void*)end();
-        pHVar3->AlignedFree(pvVar4);
-        uVar2 = param_2 * 4 + 15 & 18446744073709551600;
-        pHVar3 = (HeapInterface*)HeapInterface::Instance();
-        puVar5 = (uchar*)pHVar3->AlignedAlloc((param_3 * 4 + 15 & 18446744073709551600) + uVar2 + param_1 * 48, 16);
-        bVar1 = is_aligned<char>((char*)puVar5, 16);
-        if (!bVar1) {
-            /* WARNING: Subroutine does not return */
+        auto pHVar3 = HeapInterface::Instance();
+        pHVar3->AlignedFree((void*)end());
+        uVar2 = arg2 * 4 + 15 & 18446744073709551600;
+        pHVar3 = HeapInterface::Instance();
+        auto pPVar4 = pHVar3->AlignedAlloc((arg3 * 4 + 15 & 18446744073709551600) + uVar2 + arg1 * 48, 16);
+        if (!(is_aligned<char>((unsigned long)pPVar4, 16))) {
             LogAssert("is_aligned(reinterpret_cast<size_t>(pData))",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "animation/VertexTransformData.cpp",
-                      47, (char*)0);
+                      47, nullptr);
         }
-        new (this) WrapArray<unsigned char>(puVar5, param_1);
-        puVar5 = puVar5 + param_1 * 48;
-        bVar1 = is_aligned<char>((char*)puVar5, 16);
-        if (bVar1) {
-            new (&field_16, puVar5, param_2) WrapArray<unsigned char>();
-            bVar1 = is_aligned<char>((char*)(puVar5 + uVar2), 16);
-            if (bVar1) {
-                new (&field_32, puVar5 + uVar2, param_3) WrapArray<unsigned char>();
-                ClearTransformData(this);
-                return;
-            }
-            /* WARNING: Subroutine does not return */
+        new (this) WrapArray(pPVar4, arg1);
+        pPVar4 = (Particle*)(pPVar4->m_rGBA + arg1 * 48 - 68);
+        if (!(is_aligned<char>((unsigned long)pPVar4, 16))) {
             LogAssert("is_aligned(reinterpret_cast<size_t>(pData))",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "animation/VertexTransformData.cpp",
-                      55, (char*)0);
+                      51, nullptr);
         }
-        /* WARNING: Subroutine does not return */
-        LogAssert("is_aligned(reinterpret_cast<size_t>(pData))",
-                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/animation/"
-                  "VertexTransformData.cpp",
-                  51, (char*)0);
+        new (&field_16) WrapArray(pPVar4, arg2);
+        if (!(is_aligned<char>((unsigned long)(pPVar4->m_rGBA + (uVar2 - 68)), 16))) {
+            LogAssert("is_aligned(reinterpret_cast<size_t>(pData))",
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
+                      "animation/VertexTransformData.cpp",
+                      55, nullptr);
+        }
+        new (&field_32) WrapArray((Particle*)(pPVar4->m_rGBA + (uVar2 - 68)), arg3);
+        ClearTransformData();
     }
 
-    // 0x1009509a0, 352 bytes, placed by class name
-    // VertexTransformData::Resize(bool, unsigned long)
-    void VertexTransformData::Resize(bool param_1, ulong param_2) {
-        vector* pvVar1;
-        ulong uVar2;
-        Layout* pLVar3;
-        WrapArray* pWVar4;
-        undefined7 in_register_00000031;
-        bool bVar5;
+    // 0x1009509a0
+    void VertexTransformData::Resize(bool arg1, unsigned long arg2) {
+        uint64_t in_register_00000031;
         VertexTransformData local_58;
 
-        pvVar1 = SSOBeginPtr((type*)CONCAT71(in_register_00000031, param_1));
-        uVar2 = pvVar1->HeapBeginPtr();
-        bVar5 = uVar2 < param_2;
-        if ((int)(type*)CONCAT71(in_register_00000031, param_1) != 0) {
-            pLVar3 = (Layout*)GetScreen();
-            uVar2 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar3);
-            if ((uVar2 < param_2 * 4) && (bVar5 = true, 399 < param_2)) {
-                /* WARNING: Subroutine does not return */
+        Layout* pLVar1 = (Layout*)SSOBeginPtr();
+        unsigned long uVar2 = pLVar1->HeapBeginPtr();
+        bool bVar4 = uVar2 < arg2;
+        if ((int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) != 0) {
+            pLVar1 = (Layout*)GetScreen();
+            uVar2 = pLVar1->HeapBeginPtr();
+            if ((uVar2 < arg2 * 4) && (bVar4 = true, 399 < arg2)) {
                 LogAssert("size < AnimationConstants::MAX_LABELCOUNT",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                           "animation/VertexTransformData.cpp",
-                          76, "AnimationState: More than maximum labels set in animation animation state: %i", param_2);
+                          76, "AnimationState: More than maximum labels set in animation animation state: %i", arg2);
             }
-            pLVar3 = (Layout*)GetDefaultValue();
-            uVar2 =
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::HeapBeginPtr(pLVar3);
-            if (uVar2 < param_2 * 8) {
-                if (399 < param_2) {
-                    /* WARNING: Subroutine does not return */
+            pLVar1 = (Layout*)GetDefaultValue();
+            uVar2 = pLVar1->HeapBeginPtr();
+            if (uVar2 < arg2 * 8) {
+                if (399 < arg2) {
                     LogAssert("size < AnimationConstants::MAX_BILLBOARDLABELCOUNT",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "animation/VertexTransformData.cpp",
                               83, "AnimationState: More than maximum billboard labels set in animation state: %i",
-                              param_2);
+                              arg2);
                 }
                 goto LAB_100950a75;
             }
         }
-        if (!bVar5) {
+        if (!bVar4) {
             return;
         }
     LAB_100950a75:
         VertexTransformData(&local_58, this);
-        Destroy(this);
-        SetMaxSize(this, param_2, param_2, param_2);
-        pvVar1 = local_58.SSOBeginPtr(param_2);
-        SetBoneTransforms(this, pvVar1);
-        pWVar4 = (WrapArray*)local_58.GetScreen();
-        SetLabelDeltas(this, pWVar4);
-        pWVar4 = (WrapArray*)local_58.GetDefaultValue();
-        SetBillboardLabelTransforms(this, pWVar4);
+        Destroy();
+        SetMaxSize(arg2, arg2, arg2);
+        auto wrapArray = local_58.SSOBeginPtr();
+        SetBoneTransforms(*wrapArray);
+        auto pWVar3 = local_58.GetScreen();
+        SetLabelDeltas(*pWVar3);
+        pWVar3 = (WrapArray<float>*)local_58.GetDefaultValue();
+        SetBillboardLabelTransforms(*pWVar3);
         ~VertexTransformData(&local_58);
     }
 
-    // 0x1009534d0, 192 bytes, base-object constructor, placed by class name
-    // VertexTransformData::VertexTransformData(VertexTransformData const&)
-    void VertexTransformData::VertexTransformData(VertexTransformData* param_1) {
-        vector* pvVar1;
-        type* ptVar2;
-        Layout* pLVar3;
-        ulong uVar4;
-        ulong uVar5;
-        WrapArray* pWVar6;
-
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_1);
-        new (&field_16, (_func_decltype_nullptr*)param_1)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_32, (_func_decltype_nullptr*)param_1)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        Destroy(this);
-        pvVar1 = param_1->SSOBeginPtr(param_1);
-        ptVar2 = (type*)pvVar1->HeapBeginPtr();
-        pLVar3 = (Layout*)param_1->GetScreen();
-        uVar4 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(pLVar3);
-        pLVar3 = (Layout*)param_1->GetDefaultValue();
-        uVar5 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(pLVar3);
-        SetMaxSize(this, (ulong)ptVar2, uVar4, uVar5);
-        pvVar1 = param_1->SSOBeginPtr(ptVar2);
-        SetBoneTransforms(this, pvVar1);
-        pWVar6 = (WrapArray*)param_1->GetScreen();
-        SetLabelDeltas(this, pWVar6);
-        pWVar6 = (WrapArray*)param_1->GetDefaultValue();
-        SetBillboardLabelTransforms(this, pWVar6);
+    // 0x1009534d0
+    VertexTransformData::VertexTransformData(const VertexTransformData& vertexTransformData) : shared_ptr() {
+        new (&field_16) shared_ptr();
+        new (&field_32) shared_ptr();
+        Destroy();
+        auto pLVar1 = vertexTransformData.SSOBeginPtr();
+        unsigned long arg1 = pLVar1->HeapBeginPtr();
+        pLVar1 = (Layout*)vertexTransformData.GetScreen();
+        unsigned long arg2 = pLVar1->HeapBeginPtr();
+        pLVar1 = (Layout*)vertexTransformData.GetDefaultValue();
+        unsigned long arg3 = pLVar1->HeapBeginPtr();
+        SetMaxSize(arg1, arg2, arg3);
+        auto wrapArray = vertexTransformData.SSOBeginPtr();
+        SetBoneTransforms(*wrapArray);
+        auto pWVar2 = vertexTransformData.GetScreen();
+        SetLabelDeltas(*pWVar2);
+        pWVar2 = (WrapArray<float>*)vertexTransformData.GetDefaultValue();
+        SetBillboardLabelTransforms(*pWVar2);
     }
 
-    // 0x100953590, 112 bytes, placed by class name
-    // VertexTransformData::SetBoneTransforms(WrapArray<math::Matrix43T<float> > const&)
-    void VertexTransformData::SetBoneTransforms(WrapArray* param_1) {
-        ulong uVar1;
-        ulong* puVar2;
-        Matrix43T* pMVar3;
-        Matrix43T* pMVar4;
-        ulong local_30;
-        ulong local_28;
-
-        local_30 = param_1->HeapBeginPtr();
-        local_28 = HeapBeginPtr();
-        puVar2 = std::min<unsigned long>(&local_30, &local_28);
-        uVar1 = *puVar2;
-        pMVar3 = (Matrix43T*)param_1->end();
-        pMVar4 = (Matrix43T*)end();
-        eastl::copy_n<math::Matrix43T<float> const*, unsigned long, math::Matrix43T<float>*>(pMVar3, uVar1, pMVar4);
+    // 0x100953590
+    void VertexTransformData::SetBoneTransforms(const WrapArray<math::Matrix43T<float>>& wrapArray) {
+        unsigned long local_30 = wrapArray.HeapBeginPtr();
+        unsigned long local_28 = HeapBeginPtr();
+        auto puVar1 = std::min<unsigned long>(local_30, local_28);
+        unsigned long arg2 = *puVar1;
+        auto matrix431 = wrapArray.end();
+        auto matrix432 = end();
+        eastl::copy_n<math::Matrix43T<float> const*, unsigned long, math::Matrix43T<float>*>(matrix431, arg2,
+                                                                                             matrix432);
     }
 
-    // 0x100953600, 112 bytes, placed by class name
-    // VertexTransformData::SetLabelDeltas(WrapArray<float> const&)
-    void VertexTransformData::SetLabelDeltas(WrapArray* param_1) {
-        ulong uVar1;
-        ulong* puVar2;
-        float* pfVar3;
-        float* pfVar4;
-        ulong local_30;
-        ulong local_28;
-
-        local_30 = param_1->HeapBeginPtr();
-        local_28 = HeapBeginPtr();
-        puVar2 = std::min<unsigned long>(&local_30, &local_28);
-        uVar1 = *puVar2;
-        pfVar3 = (float*)param_1->end();
-        pfVar4 = (float*)(&field_16)->end();
-        eastl::copy_n<float const*, unsigned long, float*>(pfVar3, uVar1, pfVar4);
+    // 0x100953600
+    void VertexTransformData::SetLabelDeltas(const WrapArray<float>& wrapArray) {
+        unsigned long local_30 = wrapArray.HeapBeginPtr();
+        unsigned long local_28 = HeapBeginPtr();
+        auto puVar1 = std::min<unsigned long>(local_30, local_28);
+        unsigned long arg2 = *puVar1;
+        auto arg1 = wrapArray.end();
+        auto arg3 = field_16.end();
+        eastl::copy_n<float const*, unsigned long, float*>(arg1, arg2, arg3);
     }
 
-    // 0x100953670, 112 bytes, placed by class name
-    // VertexTransformData::SetBillboardLabelTransforms(WrapArray<float> const&)
-    void VertexTransformData::SetBillboardLabelTransforms(WrapArray* param_1) {
-        ulong uVar1;
-        ulong* puVar2;
-        float* pfVar3;
-        float* pfVar4;
-        ulong local_30;
-        ulong local_28;
-
-        local_30 = param_1->HeapBeginPtr();
-        local_28 = (&field_32)->HeapBeginPtr();
-        puVar2 = std::min<unsigned long>(&local_30, &local_28);
-        uVar1 = *puVar2;
-        pfVar3 = (float*)param_1->end();
-        pfVar4 = (float*)(&field_32)->end();
-        eastl::copy_n<float const*, unsigned long, float*>(pfVar3, uVar1, pfVar4);
+    // 0x100953670
+    void VertexTransformData::SetBillboardLabelTransforms(const WrapArray<float>& wrapArray) {
+        unsigned long local_30 = wrapArray.HeapBeginPtr();
+        unsigned long local_28 = field_32.HeapBeginPtr();
+        auto puVar1 = std::min<unsigned long>(local_30, local_28);
+        unsigned long arg2 = *puVar1;
+        auto arg1 = wrapArray.end();
+        auto arg3 = field_32.end();
+        eastl::copy_n<float const*, unsigned long, float*>(arg1, arg2, arg3);
     }
 
-    // 0x1009536e0, 16 bytes, complete-object constructor, placed by class name
-    // VertexTransformData::VertexTransformData(VertexTransformData const&): jumps straight to the base-object constructor
-
-    // 0x100953720, 80 bytes, placed by class name
-    // VertexTransformData::ClearBoneTransforms()
+    // 0x100953720
     void VertexTransformData::ClearBoneTransforms() {
-        Matrix43T<float>* this_00;
-        Matrix43T<float>* pMVar1;
-
-        this_00 = (Matrix43T<float>*)end();
-        pMVar1 = (Matrix43T<float>*)end();
+        auto this_00 = end();
+        auto pMVar1 = end();
         for (; this_00 != pMVar1; this_00 = this_00 + 48) {
             this_00->SetToIdentity();
         }
     }
 
-    // 0x100953770, 112 bytes, placed by class name
-    // VertexTransformData::ClearLabelDeltas()
+    // 0x100953770
     void VertexTransformData::ClearLabelDeltas() {
-        undefined8 uVar1;
-        undefined8* puVar3;
-        undefined8* puVar4;
-        ulong uVar5;
-        uint uVar6;
-        ulong uVar7;
-        undefined1* this_00;
+        uint64_t uVar1;
+        uint64_t* puVar3;
+        uint64_t* puVar4;
+        unsigned long uVar5;
+        unsigned int uVar6;
+        unsigned long arg1;
 
-        this_00 = &field_16;
+        uint8_t* this_00 = &field_16;
         if (this_00->HeapBeginPtr() != 0) {
             uVar6 = 4;
-            uVar7 = 0;
+            arg1 = 0;
             do {
-                puVar3 = (undefined8*)WrapArray<float>::operator[]((WrapArray<float>*)this_00, uVar7);
-                puVar4 = (undefined8*)Array<float, eastl::allocator>::operator[](
-                    (Array<float, eastl::allocator>*)&AnimationManager::IDENTITY_STATE_LABELS, 0);
+                puVar3 = (uint64_t*)(*this_00)[arg1];
+                puVar4 = (uint64_t*)(*((Array<float>*)&AnimationManager::IDENTITY_STATE_LABELS))[0];
                 uVar1 = puVar4[1];
                 *puVar3 = *puVar4;
                 puVar3[1] = uVar1;
-                uVar7 = (ulong)uVar6;
+                arg1 = (unsigned long)uVar6;
                 uVar5 = this_00->HeapBeginPtr();
                 uVar6 = uVar6 + 4;
-            } while (uVar7 < uVar5);
+            } while (arg1 < uVar5);
         }
     }
 
-    // 0x1009537e0, 128 bytes, placed by class name
-    // VertexTransformData::ClearBillboardLabelTransforms()
+    // 0x1009537e0
     void VertexTransformData::ClearBillboardLabelTransforms() {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8* puVar5;
-        undefined8* puVar6;
-        ulong uVar7;
-        uint uVar8;
-        ulong uVar9;
-        undefined1* this_00;
+        uint64_t uVar1;
+        uint64_t uVar2;
+        uint64_t uVar3;
+        uint64_t* puVar5;
+        uint64_t* puVar6;
+        unsigned long uVar7;
+        unsigned int uVar8;
+        unsigned long arg1;
 
-        this_00 = &field_32;
+        uint8_t* this_00 = &field_32;
         if (this_00->HeapBeginPtr() != 0) {
             uVar8 = 8;
-            uVar9 = 0;
+            arg1 = 0;
             do {
-                puVar5 = (undefined8*)WrapArray<float>::operator[]((WrapArray<float>*)this_00, uVar9);
-                puVar6 = (undefined8*)Array<float, eastl::allocator>::operator[](
-                    (Array<float, eastl::allocator>*)&AnimationManager::IDENTITY_STATE_BILLBOARD_LABELS, 0);
+                puVar5 = (uint64_t*)(*this_00)[arg1];
+                puVar6 = (uint64_t*)(*((Array<float>*)&AnimationManager::IDENTITY_STATE_BILLBOARD_LABELS))[0];
                 uVar1 = puVar6[1];
                 uVar2 = puVar6[2];
                 uVar3 = puVar6[3];
@@ -297,17 +214,16 @@ namespace jag::graphics {
                 puVar5[1] = uVar1;
                 puVar5[2] = uVar2;
                 puVar5[3] = uVar3;
-                uVar9 = (ulong)uVar8;
+                arg1 = (unsigned long)uVar8;
                 uVar7 = this_00->HeapBeginPtr();
                 uVar8 = uVar8 + 8;
-            } while (uVar9 < uVar7);
+            } while (arg1 < uVar7);
         }
     }
 
 } // namespace jag::graphics
 
-// 0x1009502f0, 16 bytes, placed by debug map only (low confidence)
-// cos(float)
-void cos(float param_1) {
+// 0x1009502f0
+void cos(float arg1) {
     _cosf();
 }

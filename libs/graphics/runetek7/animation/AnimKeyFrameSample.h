@@ -1,79 +1,64 @@
 // libs/graphics/runetek7/animation/AnimKeyFrameSample.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class AnimKeyFrameSample {
     public:
-        HasSampleData() const;
-        GetPose() const;
-        GetLabelDeltas() const;
-        GetBillboardTransforms() const;
+        bool HasSampleData() const;
+        auto GetPose() const;
+        Array<float> GetLabelDeltas() const;
+        Array<float> GetBillboardTransforms() const;
         AnimKeyFrameSample();
         ~AnimKeyFrameSample();
-        void SampleKeyFrameSet(AnimKeyFrameSet const*, float, AnimCurveSegmentCacheBase&, AnimCurveSegmentCacheBase&);
+        void SampleKeyFrameSet(const AnimKeyFrameSet* animKeyFrameSet, float arg2,
+                               AnimCurveSegmentCacheBase& animCurveSegmentCacheBase1,
+                               AnimCurveSegmentCacheBase& animCurveSegmentCacheBase2);
         void Reset();
-        AnimKeyFrameSample(AnimKeyFrameSample const&);
+        AnimKeyFrameSample(const AnimKeyFrameSample& animKeyFrameSample);
 
-        // data members, from how the methods use this: 73 bytes
-        char _unknown_0[8];
-        ulong field_8;       // offset 8
-        JointPose* field_16; // offset 16
-        char _unknown_24[48];
-        undefined1 m_hasSampleData; // offset 72
+    private:
+        uint8_t _unknown_0[8];
+        unsigned long field_8;
+        JointPose* field_16;
+        uint8_t _unknown_24[48];
+        uint8_t m_hasSampleData;
     };
 
-    // 0x1009519d0, 48 bytes, inline, placed by class name and debug map
-    // AnimKeyFrameSample::GetPose() const
-    AnimKeyFrameSample* AnimKeyFrameSample::GetPose() {
-        Array* in_RSI;
-
-        if (in_RSI[72] == (Array)0) {
-            new (this) Array<JointPose, eastl::allocator>();
+    // 0x1009519d0
+    auto AnimKeyFrameSample::GetPose() const {
+        if (m_hasSampleData == '\0') {
+            auto result;
         } else {
-            new (this) Array<JointPose, eastl::allocator>(in_RSI);
+            new (&result) Array<JointPose>(*this);
         }
-        return this;
+        return result;
     }
 
-    // 0x100951f30, 48 bytes, inline, placed by class name and debug map
-    // AnimKeyFrameSample::GetLabelDeltas() const
-    AnimKeyFrameSample* AnimKeyFrameSample::GetLabelDeltas() {
-        long in_RSI;
-
-        if (*(char*)(in_RSI + 72) == '\0') {
-            new (this) Array<float, eastl::allocator>();
+    // 0x100951f30
+    Array<float> AnimKeyFrameSample::GetLabelDeltas() const {
+        if (m_hasSampleData == '\0') {
+            Array<float> result;
         } else {
-            new (this) Array<float, eastl::allocator>((Array*)(in_RSI + 24));
+            new (&result) Array<float>(&field_24);
         }
-        return this;
+        return result;
     }
 
-    // 0x100951f60, 48 bytes, inline, placed by class name and debug map
-    // AnimKeyFrameSample::GetBillboardTransforms() const
-    AnimKeyFrameSample* AnimKeyFrameSample::GetBillboardTransforms() {
-        long in_RSI;
-
-        if (*(char*)(in_RSI + 72) == '\0') {
-            new (this) Array<float, eastl::allocator>();
+    // 0x100951f60
+    Array<float> AnimKeyFrameSample::GetBillboardTransforms() const {
+        if (m_hasSampleData == '\0') {
+            Array<float> result;
         } else {
-            new (this) Array<float, eastl::allocator>((Array*)(in_RSI + 48));
+            new (&result) Array<float>(&field_48);
         }
-        return this;
+        return result;
     }
 
-    // 0x10099fd50, 16 bytes, complete-object constructor, inline, placed by class name
-    // AnimKeyFrameSample::AnimKeyFrameSample(AnimKeyFrameSample const&): jumps straight to the base-object constructor
-
-    // 0x10099fd60, 112 bytes, base-object constructor, inline, placed by class name
-    // AnimKeyFrameSample::AnimKeyFrameSample(AnimKeyFrameSample const&)
-    void AnimKeyFrameSample::AnimKeyFrameSample(AnimKeyFrameSample* param_1) {
-        new (this) Array<JointPose, eastl::allocator>(param_1);
-        new (&field_24, (Array*)&param_1->field_24) Array<float, eastl::allocator>();
-        new (&field_48, (Array*)&param_1->field_48) Array<float, eastl::allocator>();
-        m_hasSampleData = param_1->m_hasSampleData;
-    }
+    // 0x10099fd60
+    AnimKeyFrameSample::AnimKeyFrameSample(const AnimKeyFrameSample& animKeyFrameSample)
+        : Array<JointPose>(animKeyFrameSample), field_24(&animKeyFrameSample.field_24),
+          field_48(&animKeyFrameSample.field_48), m_hasSampleData(animKeyFrameSample.m_hasSampleData) {}
 
 } // namespace jag::graphics

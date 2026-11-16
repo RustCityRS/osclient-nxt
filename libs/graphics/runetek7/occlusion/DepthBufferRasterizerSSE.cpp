@@ -1,70 +1,46 @@
 // libs/graphics/runetek7/occlusion/DepthBufferRasterizerSSE.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "DepthBufferRasterizerSSE.h"
 
 namespace jag::graphics {
-    // 0x100066b70: the linker folded this into oldscape::widgets::Widget::GetTextColour() const, which has identical code
-    int DepthBufferRasterizerSSE::GetNumRasterizedTriangles() const;
+    // 0x100066b70: DepthBufferRasterizerSSE::GetNumRasterizedTriangles() const has the same machine code as oldscape::widgets::Widget::GetTextColour() const
 
-    // 0x100822830, 48 bytes, base-object constructor, placed by class name and debug map
-    // DepthBufferRasterizerSSE::DepthBufferRasterizerSSE(unsigned int, unsigned int)
-    void DepthBufferRasterizerSSE::DepthBufferRasterizerSSE(uint param_1, uint param_2) {
-        new (this) DepthBufferRasterizer(param_1, param_2);
-        field_0 = &PTR__DepthBufferRasterizerSSE_100f15878;
-        new (&field_48) std::array<std::unique_ptr<BinInfoSSE, std::default_delete<BinInfoSSE>>, 2ul>();
+    // 0x100822830
+    DepthBufferRasterizerSSE::DepthBufferRasterizerSSE(unsigned int arg1, unsigned int arg2)
+        : DepthBufferRasterizer(arg1, arg2) {}
+
+    // 0x100822870
+    DepthBufferRasterizerSSE::~DepthBufferRasterizerSSE() {
+        field_48.~array();
     }
 
-    // 0x100822870, 32 bytes, base-object destructor, placed by class name and debug map
-    // DepthBufferRasterizerSSE::~DepthBufferRasterizerSSE()
-    void DepthBufferRasterizerSSE::~DepthBufferRasterizerSSE() {
-        field_0 = &PTR__DepthBufferRasterizerSSE_100f15878;
-        (&field_48)->~array();
-    }
-
-    // 0x1008228a0, 16 bytes, complete-object destructor, placed by class name and debug map
-    // DepthBufferRasterizerSSE::~DepthBufferRasterizerSSE(): jumps straight to the base-object destructor
-
-    // 0x1008228b0, 16 bytes, deleting destructor, placed by class name and debug map
-    // DepthBufferRasterizerSSE::~DepthBufferRasterizerSSE()
-    void DepthBufferRasterizerSSE::~DepthBufferRasterizerSSE() {
-        code* pcVar1;
-
-        /* WARNING: Does not return */
-        pcVar1 = (code*)invalidInstructionException();
-        (*pcVar1)();
-    }
-
-    // 0x1008228c0, 224 bytes, placed by class name and debug map
-    // DepthBufferRasterizerSSE::ClearDepthTile(int, int, int, int, unsigned int)
-    void DepthBufferRasterizerSSE::ClearDepthTile(int param_1, int param_2, int param_3, int param_4, uint param_5) {
+    // 0x1008228c0
+    void DepthBufferRasterizerSSE::ClearDepthTile(int arg1, int arg2, int arg3, int arg4, unsigned int arg5) {
         long lVar1;
         long lVar2;
 
-        if (((param_1 | param_2) & 1U) != 0) {
-            /* WARNING: Subroutine does not return */
+        if (((arg1 | arg2) & 1U) != 0) {
             LogAssert("startX % 2 == 0 && startY % 2 == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "occlusion/DepthBufferRasterizerSSE.cpp",
-                      40, (char*)0);
+                      40, nullptr);
         }
-        if (((param_3 | param_4) & 1U) != 0) {
-            /* WARNING: Subroutine does not return */
+        if (((arg3 | arg4) & 1U) != 0) {
             LogAssert("endX % 2 == 0 && endY % 2 == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "occlusion/DepthBufferRasterizerSSE.cpp",
-                      41, (char*)0);
+                      41, nullptr);
         }
-        if (param_2 < param_4) {
-            lVar2 = (long)param_2;
-            lVar1 = *(long*)(&field_24 + (ulong)param_5 * 8) + (lVar2 * 96 + (long)(param_1 * 2)) * 4;
+        if (arg2 < arg4) {
+            lVar2 = (long)arg2;
+            lVar1 = *(long*)(&field_24 + (unsigned long)arg5 * 8) + (lVar2 * 96 + (long)(arg1 * 2)) * 4;
             do {
-                ___bzero(lVar1, (long)(param_3 - param_1) << 3);
+                ___bzero(lVar1, (long)(arg3 - arg1) << 3);
                 lVar2 = lVar2 + 2;
                 lVar1 = lVar1 + 768;
-            } while (lVar2 < param_4);
+            } while (lVar2 < arg4);
         }
     }
 

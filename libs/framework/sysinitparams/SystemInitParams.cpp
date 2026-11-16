@@ -1,91 +1,65 @@
 // libs/framework/sysinitparams/SystemInitParams.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.framework.sysinitparams
 
 #include "SystemInitParams.h"
 
 namespace jag {
-    // 0x100009d00: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second(), which has identical code
-    SystemInitParams::GetArgs() const;
+    // 0x100009d00: SystemInitParams::GetArgs() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::second()
 
-    // 0x100c9a4a0, 16 bytes, base-object constructor, placed by debug map only (low confidence)
-    // Args::Args()
-    void Args::Args() {
-        new (this) eastl::vector<eastl::string, eastl::allocator>();
-    }
+    // 0x100c9a4a0
+    Args::Args() : eastl::vector<eastl::string>() {}
 
-    // 0x100c9a4b0, 16 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // Args::Args(): jumps straight to the base-object constructor
+    // 0x100c9a4c0
+    Args::Args(int arg1, const char** arg2) : eastl::vector<eastl::string>() {
+        char* str;
+        unsigned long uVar1;
+        eastl::string local_68;
+        unsigned long local_40;
 
-    // 0x100c9a4c0, 240 bytes, base-object constructor, placed by debug map only (low confidence)
-    // Args::Args(int, char const**)
-    void Args::Args(int param_1, char** param_2) {
-        char* pcVar1;
-        ulong uVar2;
-        eastl::string local_68[32];
-        allocator local_48[8];
-        ulong local_40;
-
-        new (this) eastl::vector<eastl::string, eastl::allocator>();
-        reserve((long)param_1);
-        if (0 < param_1) {
-            local_40 = (ulong)(uint)param_1;
-            uVar2 = 0;
+        reserve((long)arg1);
+        if (0 < arg1) {
+            local_40 = (unsigned long)(unsigned int)arg1;
+            uVar1 = 0;
             do {
-                if (param_2[uVar2] == (char*)0) {
-                    /* WARNING: Subroutine does not return */
+                if (arg2[uVar1] == nullptr) {
                     LogAssert("argv[i]",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/framework/"
                               "sysinitparams/SystemInitParams.cpp",
-                              14, (char*)0);
+                              14, nullptr);
                 }
-                pcVar1 = param_2[uVar2];
-                eastl::allocator::allocator(local_48, "EASTL basic_string");
-                eastl::string::basic_string(local_68, pcVar1, local_48);
-                ((Args*)this)->push_back(local_68);
-                eastl::string::~basic_string(local_68);
-                uVar2 = uVar2 + 1;
-            } while (local_40 != uVar2);
+                str = arg2[uVar1];
+                local_68 = eastl::string(str);
+                push_back(local_68);
+                uVar1 = uVar1 + 1;
+            } while (local_40 != uVar1);
         }
     }
 
-    // 0x100c9a5b0, 16 bytes, complete-object constructor, placed by neighbouring functions
-    // Args::Args(int, char const**): jumps straight to the base-object constructor
-
-    // 0x100c9a5c0, 384 bytes, base-object constructor, placed by neighbouring functions
-    // Args::Args(char const*, char const*)
-    void Args::Args(char* param_1, char* param_2) {
+    // 0x100c9a5c0
+    Args::Args(const char* str1, const char* str2) : eastl::vector<eastl::string>() {
         char* pcVar1;
         char cVar2;
         bool bVar3;
-        int iVar4;
         char* local_50;
-        char* local_48;
-        char* local_40;
-        char* local_38;
 
-        local_48 = param_1;
-        new (this) eastl::vector<eastl::string, eastl::allocator>();
-        if (local_48 != (char*)0) {
-            eastl::vector<eastl::string, eastl::allocator>::emplace_back<char const*&>(
-                (vector<eastl::string, eastl::allocator>*)this, &local_48);
+        if (str1 != nullptr) {
+            emplace_back<char const*&>(str1);
         }
-        local_40 = param_2 + -1;
+        char* local_40 = str2 - 1;
         do {
             pcVar1 = local_40 + 1;
             local_40 = local_40 + 1;
         } while (*pcVar1 == ' ');
-        iVar4 = 0;
-        local_38 = local_40;
+        int iVar4 = 0;
+        char* local_38 = local_40;
         do {
             cVar2 = *local_40;
-            if (cVar2 == '\0') {
+            if (!cVar2) {
                 bVar3 = true;
-                if (((iVar4 == 0) && (local_38 != (char*)0)) && (*local_38 != '\0')) {
-                    eastl::vector<eastl::string, eastl::allocator>::emplace_back<char const*&, char const*&>(
-                        (vector<eastl::string, eastl::allocator>*)this, &local_38, &local_40);
-                    local_38 = (char*)0;
+                if (((iVar4 == 0) && (local_38 != nullptr)) && (*local_38 != '\0')) {
+                    emplace_back<char const*&, char const*&>(local_38, local_40);
+                    local_38 = nullptr;
                 }
             } else {
                 if (iVar4 == 1) {
@@ -103,11 +77,9 @@ namespace jag {
                             iVar4 = 0;
                             if (cVar2 == ' ') {
                                 iVar4 = 1;
-                                if (local_38 != (char*)0) {
-                                    eastl::vector<eastl::string, eastl::allocator>::emplace_back<char const*&,
-                                                                                                 char const*&>(
-                                        (vector<eastl::string, eastl::allocator>*)this, &local_38, &local_40);
-                                    local_38 = (char*)0;
+                                if (local_38 != nullptr) {
+                                    emplace_back<char const*&, char const*&>(local_38, local_40);
+                                    local_38 = nullptr;
                                 }
                             }
                         }
@@ -115,9 +87,8 @@ namespace jag {
                         iVar4 = 2;
                         if (cVar2 == '\"') {
                             local_50 = local_38 + 1;
-                            eastl::vector<eastl::string, eastl::allocator>::emplace_back<char const*, char const*&>(
-                                (vector<eastl::string, eastl::allocator>*)this, &local_50, &local_40);
-                            local_38 = (char*)0;
+                            emplace_back<char const*, char const*&>(local_50, local_40);
+                            local_38 = nullptr;
                             iVar4 = 0;
                         }
                     }
@@ -132,135 +103,102 @@ namespace jag {
         } while (true);
     }
 
-    // 0x100c9a930, 16 bytes, complete-object constructor, placed by neighbouring functions
-    // Args::Args(char const*, char const*): jumps straight to the base-object constructor
+    // 0x100c9a940
+    Args::Args(const eastl::vector<eastl::string>& strs) : eastl::vector<eastl::string>(strs) {}
 
-    // 0x100c9a940, 16 bytes, base-object constructor, placed by neighbouring functions
-    // Args::Args(eastl::vector<eastl::string, eastl::allocator> const&)
-    void Args::Args(vector* param_1) {
-        new (this) eastl::vector<eastl::string, eastl::allocator>(param_1);
+    // 0x100c9a960
+    Args::Args(eastl::vector<eastl::string>&& strs) : eastl::vector<eastl::string>(strs) {}
+
+    // 0x100c9a980
+    Args::Args(const Args& args) : eastl::vector<eastl::string>(args) {}
+
+    // 0x100c9a9a0
+    Args::Args(Args&& args) : eastl::vector<eastl::string>() {
+        swap<eastl::string>(args);
     }
 
-    // 0x100c9a950, 16 bytes, complete-object constructor, placed by neighbouring functions
-    // Args::Args(eastl::vector<eastl::string, eastl::allocator> const&): jumps straight to the base-object constructor
-
-    // 0x100c9a960, 16 bytes, base-object constructor, placed by neighbouring functions
-    // Args::Args(eastl::vector<eastl::string, eastl::allocator>&&)
-    void Args::Args(vector* param_1) {
-        new (this) eastl::vector<eastl::string, eastl::allocator>(param_1);
-    }
-
-    // 0x100c9a970, 16 bytes, complete-object constructor, placed by neighbouring functions
-    // Args::Args(eastl::vector<eastl::string, eastl::allocator>&&): jumps straight to the base-object constructor
-
-    // 0x100c9a980, 16 bytes, base-object constructor, placed by neighbouring functions
-    // Args::Args(Args const&)
-    void Args::Args(Args* param_1) {
-        new (this) eastl::vector<eastl::string, eastl::allocator>(param_1);
-    }
-
-    // 0x100c9a990, 16 bytes, complete-object constructor, placed by neighbouring functions
-    // Args::Args(Args const&): jumps straight to the base-object constructor
-
-    // 0x100c9a9a0, 64 bytes, base-object constructor, placed by neighbouring functions
-    // Args::Args(Args&&)
-    void Args::Args(Args* param_1) {
-        vector* extraout_RDX;
-
-        new (this) eastl::vector<eastl::string, eastl::allocator>();
-        eastl::swap<eastl::string, eastl::allocator>((eastl*)this, (vector*)param_1, extraout_RDX);
-    }
-
-    // 0x100c9a9e0, 16 bytes, complete-object constructor, placed by neighbouring functions
-    // Args::Args(Args&&): jumps straight to the base-object constructor
-
-    // 0x100c9a9f0, 32 bytes, placed by neighbouring functions
-    // Args::operator=(Args const&)
-    /* Args::TEMPNAMEPLACEHOLDERVALUE(Args const&) */
-
-    Args* Args::operator=(Args* param_1) {
-        eastl::vector<eastl::string, eastl::allocator>::operator=((vector<eastl::string, eastl::allocator>*)this,
-                                                                  (vector*)param_1);
+    // 0x100c9a9f0
+    Args* Args::operator=(const Args& args) {
+        *this = args;
         return this;
     }
 
-    // 0x100c9aa10, 32 bytes, placed by neighbouring functions
-    // Args::operator=(Args&&)
-    /* Args::TEMPNAMEPLACEHOLDERVALUE(Args&&) */
-
-    Args* Args::operator=(Args* param_1) {
-        vector* in_RDX;
-
-        eastl::swap<eastl::string, eastl::allocator>((eastl*)this, (vector*)param_1, in_RDX);
+    // 0x100c9aa10
+    Args* Args::operator=(Args&& args) {
+        swap<eastl::string>(args);
         return this;
     }
 
-    // 0x100c9aa30, 336 bytes, base-object constructor, placed by debug map only (low confidence)
-    // GoogleArgs::GoogleArgs(Args const&)
-    void GoogleArgs::GoogleArgs(Args* param_1) {
+    // 0x100c9aa30
+    GoogleArgs::GoogleArgs(const Args& args) : field_0(0), field_8(nullptr), field_16(0), field_24(nullptr) {
         char* pcVar1;
-        undefined1 auVar2[16];
-        int iVar3;
-        ulong uVar4;
-        void* pvVar5;
+        uint8_t auVar2[16];
         long lVar6;
-        char* pcVar7;
+        uint64_t uVar7;
+        char* pcVar8;
 
-        field_0 = 0;
-        field_8 = (void*)0;
-        field_16 = 0;
-        field_24 = (void*)0;
-        uVar4 = param_1->GetArgc();
+        unsigned long uVar4 = args.GetArgc();
         if ((uVar4 & 18446744071562067968) != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("args.GetArgc() <= (eastl_size_t)std::numeric_limits<int>::max()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/framework/sysinitparams/"
                       "SystemInitParams.cpp",
-                      133, (char*)0);
+                      133, nullptr);
         }
-        iVar3 = param_1->GetArgc();
+        int iVar3 = args.GetArgc();
         field_16 = iVar3;
         field_0 = iVar3;
         auVar2._8_8_ = 0;
         auVar2._0_8_ = (long)(iVar3 + 1);
         uVar4 = 18446744073709551615;
-        if (SUB168(auVar2 * ZEXT816(8), 8) == 0) {
-            uVar4 = SUB168(auVar2 * ZEXT816(8), 0);
+        if ((uint64_t)((auVar2 * (unsigned __int128)8) >> 64) == 0) {
+            uVar4 = (uint64_t)(auVar2 * (unsigned __int128)8);
         }
-        pvVar5 = operator_new__(uVar4);
-        field_8 = pvVar5;
-        pvVar5 = operator_new__(uVar4);
-        field_24 = pvVar5;
+        auto puVar5 = operator_new__(uVar4);
+        field_8 = puVar5;
+        puVar5 = (unsigned char*)operator_new__(uVar4);
+        field_24 = puVar5;
         iVar3 = 0;
         if (field_16 != 0) {
             uVar4 = 0;
             do {
-                param_1->GetArgv(uVar4);
-                lVar6 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+                lVar6 =
+                    ((basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true>>*)args.GetArgv(uVar4))
+                        ->size();
                 if (lVar6 == 0) {
-                    *(undefined8*)((long)field_24 + uVar4 * 8) = 0;
+                    puVar5 = field_24 + uVar4 * 8;
+                    puVar5[0] = '\0';
+                    puVar5[1] = '\0';
+                    puVar5[2] = '\0';
+                    puVar5[3] = '\0';
+                    puVar5[4] = '\0';
+                    puVar5[5] = '\0';
+                    puVar5[6] = '\0';
+                    puVar5[7] = '\0';
                 } else {
-                    pvVar5 = operator_new__(lVar6 + 1U);
-                    *(void**)((long)field_24 + uVar4 * 8) = pvVar5;
-                    pcVar1 = *(char**)((long)field_24 + uVar4 * 8);
-                    pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    _strncpy(pcVar1, pcVar7, lVar6 + 1U);
+                    uVar7 = operator_new__(lVar6 + 1U);
+                    *(uint64_t*)(field_24 + uVar4 * 8) = uVar7;
+                    pcVar1 = *(char**)(field_24 + uVar4 * 8);
+                    pcVar8 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    _strncpy(pcVar1, pcVar8, lVar6 + 1U);
                 }
-                *(undefined8*)((long)field_8 + uVar4 * 8) = *(undefined8*)((long)field_24 + uVar4 * 8);
+                *(uint64_t*)(field_8 + uVar4 * 8) = *(uint64_t*)(field_24 + uVar4 * 8);
                 uVar4 = uVar4 + 1;
                 iVar3 = field_16;
-            } while (uVar4 < (ulong)(long)iVar3);
+            } while (uVar4 < (unsigned long)(long)iVar3);
         }
-        *(undefined8*)((long)field_24 + (long)iVar3 * 8) = 0;
+        puVar5 = field_24 + (long)iVar3 * 8;
+        puVar5[0] = '\0';
+        puVar5[1] = '\0';
+        puVar5[2] = '\0';
+        puVar5[3] = '\0';
+        puVar5[4] = '\0';
+        puVar5[5] = '\0';
+        puVar5[6] = '\0';
+        puVar5[7] = '\0';
     }
 
-    // 0x100c9ab80, 16 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // GoogleArgs::GoogleArgs(Args const&): jumps straight to the base-object constructor
-
-    // 0x100c9ab90, 96 bytes, base-object destructor, placed by debug map only (low confidence)
-    // GoogleArgs::~GoogleArgs()
-    void GoogleArgs::~GoogleArgs() {
+    // 0x100c9ab90
+    GoogleArgs::~GoogleArgs() {
         long lVar1;
         long lVar2;
 
@@ -268,7 +206,7 @@ namespace jag {
             lVar2 = 0;
             lVar1 = 0;
             do {
-                safe_delete_array<float>((float**)((long)field_24 + lVar2));
+                safe_delete_array<float>((unsigned char**)(field_24 + lVar2));
                 lVar1 = lVar1 + 1;
                 lVar2 = lVar2 + 8;
             } while (lVar1 < field_16);
@@ -276,8 +214,5 @@ namespace jag {
         safe_delete_array<float>(&field_24);
         safe_delete_array<float>(&field_8);
     }
-
-    // 0x100c9abf0, 16 bytes, complete-object destructor, placed by debug map only (low confidence)
-    // GoogleArgs::~GoogleArgs(): jumps straight to the base-object destructor
 
 } // namespace jag

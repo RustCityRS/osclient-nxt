@@ -1,6 +1,5 @@
 // _unplaced/libs/oldscape/jagex3/unity_0.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "libs/oldscape/jagex3/dash3d/AnimFrameSet.h"
@@ -10,76 +9,77 @@ namespace jag::oldscape::dash3d {
     class GeometryEditBaseOperation {
     public:
         // virtual methods in vtable order
-        virtual ResolvedModel* Apply(ResolvedModel const&, OperationRecordEntry const*) const;
-        GeometryEditBaseOperation(Operation::Type);
+        virtual auto Apply(const ResolvedModel& resolvedModel, const OperationRecordEntry* operationRecordEntry) const;
+        GeometryEditBaseOperation(Operation::Type arg1);
 
-        // data members, from how the methods use this: 8 bytes
-        undefined** field_0; // offset 0, vtable pointer
+    private:
+        Type field_8;
     };
 
     class TintOperation {
     public:
         // virtual methods in vtable order
-        virtual bool IsEqual(Operation const&) const;
-        virtual TintOperation* ApplyFresh(ResolvedModel const&, OperationRecordEntry const*) const;
-        TintOperation(signed char, signed char, signed char, unsigned char);
-        PackColourWeight(signed char, signed char, signed char, unsigned char);
+        virtual bool IsEqual(const Operation& operation) const;
+        virtual auto ApplyFresh(const ResolvedModel& resolvedModel,
+                                const OperationRecordEntry* operationRecordEntry) const;
+        TintOperation(signed char arg1, signed char arg2, signed char arg3, unsigned char arg4);
+        void PackColourWeight(signed char arg1, signed char arg2, signed char arg3, unsigned char arg4);
 
-        // data members, from how the methods use this: 17 bytes
-        char _unknown_0[17];
+    private:
+        uint8_t _unknown_8[8];
+        uint64_t field_16;
+        uint64_t field_24;
     };
 
-    // 0x100f37e10, 4 bytes, __data
-    ModelLitRenderer_drawModels = 1;
+    // 0x100f37e10
+    int32_t ModelLitRenderer_drawModels = 1;
 
-    // 0x103936070, 8 bytes, __common; zero-initialised
-    g_usingRSeven;
+    // 0x103936070
+    int64_t g_usingRSeven;
 
-    // 0x103936560, 8 bytes, __common; zero-initialised
-    ModelLitRenderer_lastModelLitUploadTotal;
+    // 0x103936560
+    int64_t ModelLitRenderer_lastModelLitUploadTotal;
 
-    // 0x103936568, 8 bytes, __common; zero-initialised
-    ModelLitRenderer_lastModelLitWorldRenderTotal;
+    // 0x103936568
+    int64_t ModelLitRenderer_lastModelLitWorldRenderTotal;
 
-    // 0x103936570, 8 bytes, __common; zero-initialised
-    ModelLitRenderer_lastModelLitWorldRenderTotalNanos;
+    // 0x103936570
+    int64_t ModelLitRenderer_lastModelLitWorldRenderTotalNanos;
 
-    // 0x103936578, 8 bytes, __common; zero-initialised
-    ModelLitRenderer_lastCachedModelsTotal;
+    // 0x103936578
+    int64_t ModelLitRenderer_lastCachedModelsTotal;
 
-    // 0x10422a888, 8 bytes, __bss; zero-initialised
-    g_numModelCopiesEver;
+    // 0x10422a888
+    int64_t g_numModelCopiesEver;
 
-    // 0x10422a890, 64 bytes, __bss; zero-initialised
-    g_numCopiesPerOpType;
+    // 0x10422a890
+    uint8_t g_numCopiesPerOpType[64];
 
-    // 0x10036cf50, 176 bytes, placed by nothing (unplaced)
-    // AnimateBaseOperation::CanReusePreviousTransparencyBatching(ResolvedModel const&, OperationRecordEntry const*) const
-    bool AnimateBaseOperation::CanReusePreviousTransparencyBatching(ResolvedModel* param_1,
-                                                                    OperationRecordEntry* param_2) {
+    // 0x10036cf50
+    bool
+    AnimateBaseOperation::CanReusePreviousTransparencyBatching(const ResolvedModel& resolvedModel,
+                                                               const OperationRecordEntry* operationRecordEntry) const {
         bool bVar1;
         int iVar2;
         int iVar3;
         shared_ptr<Operation>* this_00;
-        CommandLine* this_01;
         long lVar4;
-        jag* this_02;
-        ResolvedModel* this_03;
-        undefined1 auVar5[16];
+        shared_ptr<midi2::MidiRequest>* midiRequest1;
+        ResolvedModel* this_02;
+        shared_ptr<midi2::MidiRequest>* midiRequest2;
 
-        if (param_2 != (OperationRecordEntry*)0) {
-            this_00 = (shared_ptr<Operation>*)param_2->GetOperation();
-            this_01 = (CommandLine*)shared_ptr<Operation>::operator->(this_00);
-            iVar2 = this_01->GetPos();
+        if (operationRecordEntry != nullptr) {
+            this_00 = operationRecordEntry->GetOperation();
+            iVar2 = ((CommandLine*)(*this_00).operator->())->GetPos();
             iVar3 = GetPos();
             if (iVar2 == iVar3) {
-                lVar4 = shared_ptr<Operation>::operator*(this_00);
-                this_02 = (jag*)param_1->GetModel();
-                this_03 = (ResolvedModel*)param_2->GetInputModel();
-                auVar5 = this_03->GetModel();
-                bVar1 = operator==(this_02, auVar5._0_8_, auVar5._8_8_);
+                lVar4 = **this_00;
+                midiRequest1 = (shared_ptr<midi2::MidiRequest>*)resolvedModel.GetModel();
+                this_02 = operationRecordEntry->GetInputModel();
+                midiRequest2 = (shared_ptr<midi2::MidiRequest>*)this_02->GetModel();
+                bVar1 = *midiRequest1 == *midiRequest2;
                 if (bVar1) {
-                    bVar1 = eastl::operator==((optional*)&field_16, (optional*)(lVar4 + 16));
+                    bVar1 = *field_16 == (*((lVar4 + 16)));
                     return bVar1;
                 }
             }
@@ -87,779 +87,577 @@ namespace jag::oldscape::dash3d {
         return false;
     }
 
-    // 0x10036d050, 528 bytes, placed by nothing (unplaced)
-    // AnimateBaseOperation::SeparateBatchByLabelTransparency(jag::graphics::GeometryBatchInstance const&, jag::graphics::Model&, eastl::vector<std::unique_ptr<jag::graphics::GeometryBatchInstance, MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>, eastl::allocator>&) const
-    /* AnimateBaseOperation::SeparateBatchByLabelTransparency(jag::graphics::GeometryBatchInstance
-   const&, jag::graphics::Model&,
-   eastl::vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
-   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-   eastl::allocator>&) const */
-
-    void AnimateBaseOperation::SeparateBatchByLabelTransparency(GeometryBatchInstance* param_1, Model* param_2,
-                                                                vector* param_3) {
-        GeometryBatch* this_00;
-        GeometryBatchInstance* pGVar1;
-        AnimateBaseOperation* this_01;
-        vector_map local_f0[40];
-        vector<AnimateBaseOperation::SeparatedIndexCount, eastl::allocator> local_c8[32];
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-            local_a8[8];
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-            local_a0[8];
-        AnimateBaseOperation local_98[2];
+    // 0x10036d050
+    void AnimateBaseOperation::SeparateBatchByLabelTransparency(
+        const jag::graphics::GeometryBatchInstance& geometryBatchInstance, jag::graphics::Model& model,
+        eastl::vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
+                                      MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>&
+            geometryBatchInstances) const {
+        ReturnValue local_f0;
+        ReturnValue local_c8;
+        ReturnValue local_a8;
+        ReturnValue local_a0;
+        uint8_t local_98[48];
         function<unsigned short(unsigned short)> local_68[48];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_00 = (GeometryBatch*)param_1->GetGeometryBatch();
-        this_00->GetMaterial();
-        InvertLabelMapping(local_f0);
-        CopyBatchInstanceVertices((GeometryBatchInstance*)local_a8, (Model*)param_1);
-        CopyBatchInstanceVertices((GeometryBatchInstance*)local_a0, (Model*)param_1);
-        pGVar1 =
-            (GeometryBatchInstance*)std::unique_ptr<
-                jag::graphics::GeometryBatchInstance,
-                MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::operator->(local_a8);
-        pGVar1->GetGeometryBatch();
-        pGVar1 =
-            (GeometryBatchInstance*)std::unique_ptr<
-                jag::graphics::GeometryBatchInstance,
-                MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::operator->(local_a0);
-        pGVar1->GetGeometryBatch();
-        SplitBatchIndices((GeometryBatch*)local_c8, (vector_map*)this, this_00, (GeometryBatch*)local_f0);
-        std::unique_ptr<
-            jag::graphics::GeometryBatchInstance,
-            MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::operator*(local_a8);
+        GeometryBatchInstance* pGVar1 = geometryBatchInstance;
+        auto this_00 = geometryBatchInstance.GetGeometryBatch();
+        auto arg1 = this_00->GetMaterial();
+        InvertLabelMapping(&local_f0, (AnimateBaseOperation*)pGVar1, arg1);
+        CopyBatchInstanceVertices(&local_a8, (AnimateBaseOperation*)pGVar1, geometryBatchInstance, model);
+        CopyBatchInstanceVertices(&local_a0, (AnimateBaseOperation*)pGVar1, geometryBatchInstance, model);
+        pGVar1 = (GeometryBatchInstance*)local_a8.operator->();
+        auto geometryBatch2 = pGVar1->GetGeometryBatch();
+        pGVar1 = (GeometryBatchInstance*)local_a0.operator->();
+        auto geometryBatch3 = pGVar1->GetGeometryBatch();
+        SplitBatchIndices(&local_c8, this, (GeometryBatch*)this_00, &local_f0, geometryBatch2, geometryBatch3);
+        pGVar1 = (GeometryBatchInstance*)*local_a8;
+        AnimateBaseOperation* pAVar2 = (AnimateBaseOperation*)local_68;
         std::function<unsigned short(unsigned short)>::function<
             AnimateBaseOperation::SeparateBatchByLabelTransparency(
-                jag::graphics::GeometryBatchInstance_const&, jag::graphics::Model&,
-                eastl::vector<
-                    std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                    eastl::allocator>&) const ::__10,
-            void>(local_68, local_c8);
-        UpdateBatchExternalIndexList();
-        std::function<unsigned short(unsigned short)>::~function(local_68);
-        std::unique_ptr<
-            jag::graphics::GeometryBatchInstance,
-            MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::operator*(local_a0);
+                jag::graphics::GeometryBatchInstance const&, jag::graphics::Model&,
+                eastl::vector<std::unique_ptr<
+                    jag::graphics::GeometryBatchInstance,
+                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>&) const ::__10,
+            void>(local_68, &local_c8);
+        UpdateBatchExternalIndexList(pAVar2, pGVar1, (function<unsigned_short_(unsigned short)>*)local_68);
+        pGVar1 = (GeometryBatchInstance*)*local_a0;
+        pAVar2 = (AnimateBaseOperation*)local_98;
         std::function<unsigned short(unsigned short)>::function<
             AnimateBaseOperation::SeparateBatchByLabelTransparency(
-                jag::graphics::GeometryBatchInstance_const&, jag::graphics::Model&,
-                eastl::vector<
-                    std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                    eastl::allocator>&) const ::__11,
-            void>(local_98, local_c8);
-        UpdateBatchExternalIndexList();
-        this_01 = local_98;
-        std::function<unsigned short(unsigned short)>::~function((function<unsigned short(unsigned short)>*)this_01);
-        OutputIfNonempty(this_01, (unique_ptr*)local_a8, param_3);
-        OutputIfNonempty(this_01, (unique_ptr*)local_a0, param_3);
-        eastl::vector<AnimateBaseOperation::SeparatedIndexCount, eastl::allocator>::~vector(local_c8);
-        std::unique_ptr<
-            jag::graphics::GeometryBatchInstance,
-            MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::~unique_ptr(local_a0);
-        std::unique_ptr<
-            jag::graphics::GeometryBatchInstance,
-            MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::~unique_ptr(local_a8);
-        local_f0->~vector_map();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+                jag::graphics::GeometryBatchInstance const&, jag::graphics::Model&,
+                eastl::vector<std::unique_ptr<
+                    jag::graphics::GeometryBatchInstance,
+                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>&) const ::__11,
+            void>((function<unsigned short(unsigned short)>*)local_98, &local_c8);
+        UpdateBatchExternalIndexList(pAVar2, pGVar1, (function<unsigned_short_(unsigned short)>*)local_98);
+        pAVar2 = (AnimateBaseOperation*)local_98;
+        pAVar2->~function();
+        OutputIfNonempty(
+            pAVar2,
+            (unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*)&local_a8,
+            geometryBatchInstances);
+        OutputIfNonempty(
+            pAVar2,
+            (unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*)&local_a0,
+            geometryBatchInstances);
     }
 
-    // 0x10036d270, 112 bytes, placed by nothing (unplaced)
-    // AnimateBaseOperation::ReplaceModelBatches(jag::graphics::Model&, eastl::vector<std::unique_ptr<jag::graphics::GeometryBatchInstance, MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>, eastl::allocator>&) const
-    /* AnimateBaseOperation::ReplaceModelBatches(jag::graphics::Model&,
-   eastl::vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
-   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-   eastl::allocator>&) const */
-
-    void AnimateBaseOperation::ReplaceModelBatches(Model* param_1, vector* param_2) {
-        vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                               MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-               eastl::allocator>* pvVar1;
-        unique_ptr* puVar2;
-        unique_ptr* puVar3;
-
-        pvVar1 = (vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                         MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                         eastl::allocator>*)param_1->GetBatchList();
+    // 0x10036d270
+    void AnimateBaseOperation::ReplaceModelBatches(
+        jag::graphics::Model& model,
         eastl::vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                      MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                      eastl::allocator>::clear(pvVar1);
-        puVar2 = (unique_ptr*)param_2->HeapBeginPtr();
-        puVar3 = (unique_ptr*)param_2->end();
-        for (; puVar2 != puVar3; puVar2 = puVar2 + 8) {
-            pvVar1 =
-                (vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                        eastl::allocator>*)param_1->GetBatchList();
-            eastl::vector<
-                std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-                eastl::allocator>::push_back(pvVar1, puVar2);
+                                      MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>&
+            geometryBatchInstances) const {
+        unique_ptr<jag::graphics::GeometryBatchInstance,
+                   MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*
+            geometryBatchInstance;
+
+        auto pvVar1 = model.GetBatchList();
+        pvVar1->clear();
+        geometryBatchInstance =
+            (unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*)
+                geometryBatchInstances.HeapBeginPtr();
+        auto puVar2 = geometryBatchInstances.end();
+        for (; geometryBatchInstance != puVar2; geometryBatchInstance = geometryBatchInstance + 8) {
+            pvVar1 = (vector<
+                      std::unique_ptr<jag::graphics::GeometryBatchInstance,
+                                      MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>*)
+                         model.GetBatchList();
+            pvVar1->push_back(*geometryBatchInstance);
         }
     }
 
-    // 0x10036d3e0, 144 bytes, placed by nothing (unplaced)
-    // AnimateBaseOperation::InvertLabelMapping(eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&) const
-    vector_map* AnimateBaseOperation::InvertLabelMapping(vector_map* param_1) {
-        ulong uVar1;
-        ushort* puVar2;
-        ushort* puVar3;
-        vector<unsigned int, eastl::allocator>* in_RDX;
-
-        new (param_1) eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                        eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>();
-        uVar1 = eastl::vector<unsigned int, eastl::allocator>::size(in_RDX);
-        param_1->set_capacity(uVar1);
-        puVar2 = (ushort*)in_RDX->HeapBeginPtr();
-        puVar3 = (ushort*)in_RDX->end();
-        for (; puVar2 != puVar3; puVar2 = puVar2 + 2) {
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>::
-                emplace<unsigned short const&, unsigned short const&>(
-                    (vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>*)param_1,
-                    puVar2 + 1, puVar2);
+    // 0x10036d3e0
+    auto AnimateBaseOperation::InvertLabelMapping(const eastl::vector_map<unsigned short, unsigned short>& arg1) const {
+        auto result;
+        result.set_capacity(arg1.size());
+        auto arg2 = arg1.HeapBeginPtr();
+        auto puVar1 = arg1.end();
+        for (; arg2 != puVar1; arg2 = arg2 + 2) {
+            result.emplace<unsigned short const&, unsigned short const&>(*(arg2 + 1), *arg2);
         }
-        return param_1;
+        return result;
     }
 
-    // 0x10036d470, 160 bytes, placed by nothing (unplaced)
-    // AnimateBaseOperation::CopyBatchInstanceVertices(jag::graphics::GeometryBatchInstance const&, jag::graphics::Model&) const
-    GeometryBatchInstance* AnimateBaseOperation::CopyBatchInstanceVertices(GeometryBatchInstance* param_1,
-                                                                           Model* param_2) {
-        GeometryBatchInstance* pGVar1;
-        GeometryBatch* this;
-        Model* in_RCX;
-        GeometryBatchInstance* in_RDX;
-        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072> local_28[15];
-        bool local_19;
+    // 0x10036d470
+    auto
+    AnimateBaseOperation::CopyBatchInstanceVertices(const jag::graphics::GeometryBatchInstance& geometryBatchInstance,
+                                                    jag::graphics::Model& model) const {
+        unique_ptr<jag::graphics::GeometryBatchInstance,
+                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
+            local_28;
 
-        local_19 = false;
+        uint8_t local_19 = 0;
         MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::MakeUnique<
-            jag::graphics::GeometryBatchInstance_const&, jag::graphics::Model&, bool>(local_28, in_RDX, in_RCX,
-                                                                                      &local_19);
-        pGVar1 =
-            (GeometryBatchInstance*)
-                std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::
-                operator->((unique_ptr<jag::graphics::GeometryBatchInstance,
-                                       MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                               local_28);
-        this = (GeometryBatch*)pGVar1->GetGeometryBatch();
-        ClearFaceData();
-        pGVar1 =
-            (GeometryBatchInstance*)
-                std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::
-                operator->((unique_ptr<jag::graphics::GeometryBatchInstance,
-                                       MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-                               local_28);
+            jag::graphics::GeometryBatchInstance const&, jag::graphics::Model&, bool>(
+            &local_28, (Model*)geometryBatchInstance, (bool*)model);
+        auto pGVar1 = local_28.operator->();
+        ((GeometryBatch*)pGVar1->GetGeometryBatch())->ClearFaceData();
+        pGVar1 = (GeometryBatchInstance*)local_28.operator->();
         pGVar1 = (GeometryBatchInstance*)pGVar1->GetGeometryBatch();
-        pGVar1->GetMaterial();
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        new (param_1)
-            std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                            MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>(local_28);
-        local_28->~unique_ptr();
-        return param_1;
+        ((vector<eastl::pair<int, int>>*)pGVar1->GetMaterial())->clear();
+        auto result(local_28);
+        return result;
     }
 
-    // 0x10036d510, 720 bytes, placed by nothing (unplaced)
-    // AnimateBaseOperation::SplitBatchIndices(jag::graphics::GeometryBatch const&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&, jag::graphics::GeometryBatch&, jag::graphics::GeometryBatch&) const
-    GeometryBatch* AnimateBaseOperation::SplitBatchIndices(GeometryBatch* param_1, vector_map* param_2,
-                                                           GeometryBatch* param_3, GeometryBatch* param_4) {
-        ushort uVar1;
-        uint uVar2;
-        vector<game::MapSquare::MapSquarePos, eastl::allocator>* pvVar3;
-        ulong uVar4;
-        vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                   eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>* pvVar5;
-        ulong uVar6;
-        ushort* puVar7;
-        vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>* this;
+    // 0x10036d510
+    auto AnimateBaseOperation::SplitBatchIndices(const jag::graphics::GeometryBatch& geometryBatch1,
+                                                 const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                                 jag::graphics::GeometryBatch& geometryBatch2,
+                                                 jag::graphics::GeometryBatch& geometryBatch3) const {
+        unsigned short uVar1;
+        ReturnValue* this_00;
+        unsigned int uVar2;
+        int iVar3;
+        int iVar4;
+        vector_map<unsigned short, unsigned short>* pvVar6;
+        unsigned short* puVar7;
+        vector<jag::graphics::GeometryBatchVertexPos>* this_01;
         long lVar8;
-        vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                   eastl::vector<unsigned short, eastl::allocator>>* this_00;
-        vector<EntityHighlight*, BucketAllocatorEASTL>* this_01;
         long lVar9;
-        ushort uVar10;
-        GeometryBatch* in_R8;
-        GeometryBatch* in_R9;
-        uint uVar11;
-        ushort uVar12;
-        GeometryBatch* pGVar13;
-        SeparatedIndexCount local_90[2];
-        GeometryBatch* local_88;
-        vector<game::MapSquare::MapSquarePos, eastl::allocator>* local_80;
-        ulong local_78;
-        uint local_6c;
-        SeparatedIndexCount local_68[2];
-        vector_map* local_60;
-        GeometryBatch* local_58;
-        GeometryBatch* local_50;
-        GeometryBatch* local_48;
-        GeometryBatch* local_40;
-        uint local_38;
-        ushort local_34;
-        ushort local_32;
+        unsigned short arg2_00;
+        unsigned int uVar10;
+        unsigned short uVar11;
+        SeparatedIndexCount local_90;
+        vector<game::MapSquare::MapSquarePos>* local_80;
+        ReturnValue* local_58;
+        unsigned int local_38;
+        unsigned short local_34;
+        unsigned short local_32;
 
-        local_88 = param_4;
-        local_60 = param_2;
-        local_40 = param_3;
-        pvVar3 = (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)param_3->GetVertexIndexBuffer();
-        new (param_1) eastl::vector<AnimateBaseOperation::SeparatedIndexCount, eastl::allocator>();
-        uVar4 = eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(pvVar3);
-        param_1->reserve(uVar4);
-        local_50 = in_R9;
-        local_48 = in_R8;
-        local_78 = eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(pvVar3);
+        AnimateBaseOperation* local_60 = this;
+        auto pvVar5 = geometryBatch1.GetVertexIndexBuffer();
+        auto result;
+        result.reserve(pvVar5->size());
+        unsigned long local_78 = pvVar5->size();
         local_78 = local_78 / 3;
-        local_6c = (uint)local_78 & 65535;
+        unsigned int local_6c = (unsigned int)local_78 & 65535;
         if ((local_78 & 65535) == 0) {
             local_38 = 0;
-            uVar10 = 0;
+            arg2_00 = 0;
         } else {
-            local_60 = local_60 + 16;
-            uVar12 = 1;
-            uVar11 = 0;
+            local_60 = (AnimateBaseOperation*)local_60->field_16;
+            uVar11 = 1;
             uVar10 = 0;
+            arg2_00 = 0;
             local_38 = 0;
-            local_80 = pvVar3;
-            local_58 = param_1;
+            local_80 = pvVar5;
+            local_58 = &result;
             do {
-                pGVar13 = local_58;
-                pvVar3 = (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)local_48->GetVertexIndexBuffer();
-                uVar4 = eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(pvVar3);
-                pvVar3 = (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)local_50->GetVertexIndexBuffer();
-                uVar6 = eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(pvVar3);
-                SeparatedIndexCount::SeparatedIndexCount(local_90, uVar4, uVar6);
-                pGVar13->push_back(local_90);
-                puVar7 = (ushort*)eastl::vector<unsigned short, eastl::allocator>::operator[](
-                    (vector<unsigned short, eastl::allocator>*)local_80, (ulong)(uVar11 & 65535));
+                this_00 = local_58;
+                pvVar5 =
+                    (vector<game::MapSquare::MapSquarePos>*)((GeometryBatch*)(GeometryBatchInstance*)geometryBatch2)
+                        ->GetVertexIndexBuffer();
+                iVar3 = pvVar5->size();
+                pvVar5 =
+                    (vector<game::MapSquare::MapSquarePos>*)((GeometryBatch*)(GeometryBatchInstance*)geometryBatch3)
+                        ->GetVertexIndexBuffer();
+                iVar4 = pvVar5->size();
+                local_90 = SeparatedIndexCount(iVar3, iVar4);
+                this_00->push_back(local_90);
+                puVar7 = (unsigned short*)(*local_80)[(unsigned long)(uVar10 & 65535)];
                 uVar1 = *puVar7;
-                this = (vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>*)
-                           local_40->GetVertexDataBufferPos();
-                lVar8 = eastl::vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>::operator[](
-                    this, (ulong)uVar1);
-                local_34 = (ushort) * (byte*)(lVar8 + 13);
-                lVar8 = local_88->find(&local_34);
-                local_32 = *(ushort*)(lVar8 + 2);
-                this_00 =
-                    (vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                eastl::vector<unsigned short, eastl::allocator>>*)
-                        eastl::optional<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                                          eastl::vector<unsigned short, eastl::allocator>>>::
-                        operator->(
-                            (optional<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                                        eastl::vector<unsigned short, eastl::allocator>>>*)local_60);
+                this_01 = (vector<jag::graphics::GeometryBatchVertexPos>*)geometryBatch1.GetVertexDataBufferPos();
+                lVar8 = (*this_01)[(unsigned long)uVar1];
+                local_34 = (unsigned short)*(uint8_t*)(lVar8 + 13);
+                lVar8 = eastl::vector_map<unsigned short, unsigned short>::find(arg2);
+                local_32 = *(unsigned short*)(lVar8 + 2);
+                puVar7 = (unsigned short*)(*local_60).operator->();
                 lVar8 = eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                          eastl::vector<unsigned short, eastl::allocator>>::find(this_00, &local_32);
-                uVar1 = uVar12 - 1;
-                this_01 =
-                    (vector<EntityHighlight*, BucketAllocatorEASTL>*)
-                        eastl::optional<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                                          eastl::vector<unsigned short, eastl::allocator>>>::
-                        operator->(
-                            (optional<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                                        eastl::vector<unsigned short, eastl::allocator>>>*)local_60);
-                lVar9 = eastl::vector<EntityHighlight*, BucketAllocatorEASTL>::end(this_01);
+                                          eastl::vector<unsigned short>>::find(*puVar7);
+                uVar1 = uVar11 - 1;
+                lVar9 = ((vector<EntityHighlight*, BucketAllocatorEASTL>*)(*local_60).operator->())->end();
                 if (lVar8 == lVar9) {
                     if ((local_38 & 1) == 0) {
-                        local_38 = (uint)CONCAT71((int7)((ulong)lVar9 >> 8), 1);
-                        local_50->PushFaceRange(local_40, uVar10, uVar1);
-                        uVar10 = uVar1;
+                        local_38 = (unsigned int)(((uint64_t)((int64_t)((unsigned long)lVar9 >> 8)) << 8) | (uint8_t)1);
+                        ((GeometryBatch*)(GeometryBatchInstance*)geometryBatch3)
+                            ->PushFaceRange(geometryBatch1, arg2_00, uVar1);
+                        arg2_00 = uVar1;
                     }
-                    pvVar5 = (vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                         eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>*)
-                                 local_48->GetMaterial();
-                    eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                      eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>::
-                        emplace<unsigned short&, unsigned short&>(pvVar5, &local_32, &local_34);
+                    pvVar6 = (vector_map<unsigned short, unsigned short>*)geometryBatch2.GetMaterial();
+                    pvVar6->emplace<unsigned short&, unsigned short&>(local_32, local_34);
                 } else {
                     if ((local_38 & 1) != 0) {
-                        local_48->PushFaceRange(local_40, uVar10, uVar1);
+                        ((GeometryBatch*)(GeometryBatchInstance*)geometryBatch2)
+                            ->PushFaceRange(geometryBatch1, arg2_00, uVar1);
                         local_38 = 0;
-                        uVar10 = uVar1;
+                        arg2_00 = uVar1;
                     }
-                    pvVar5 = (vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                         eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>*)
-                                 local_50->GetMaterial();
-                    eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                      eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>>::
-                        emplace<unsigned short&, unsigned short&>(pvVar5, &local_32, &local_34);
+                    pvVar6 = (vector_map<unsigned short, unsigned short>*)geometryBatch3.GetMaterial();
+                    pvVar6->emplace<unsigned short&, unsigned short&>(local_32, local_34);
                 }
-                uVar2 = (uint)uVar12;
-                uVar12 = uVar12 + 1;
-                uVar11 = uVar11 + 3;
-                param_1 = local_58;
+                uVar2 = (unsigned int)uVar11;
+                uVar11 = uVar11 + 1;
+                uVar10 = uVar10 + 3;
+                &result = local_58;
             } while (uVar2 < local_6c);
         }
+        GeometryBatchInstance* this_03 = (GeometryBatchInstance*)geometryBatch2;
+        GeometryBatchInstance* this_04 = (GeometryBatchInstance*)geometryBatch3;
         if ((local_38 & 1) == 0) {
-            local_50->PushFaceRange(local_40, uVar10, (ushort)local_78);
-            pGVar13 = local_50;
+            ((GeometryBatch*)(GeometryBatchInstance*)geometryBatch3)
+                ->PushFaceRange(geometryBatch1, arg2_00, (unsigned short)local_78);
+            this_03 = (GeometryBatchInstance*)geometryBatch2;
         } else {
-            local_48->PushFaceRange(local_40, uVar10, (ushort)local_78);
-            pGVar13 = local_50;
+            ((GeometryBatch*)(GeometryBatchInstance*)geometryBatch2)
+                ->PushFaceRange(geometryBatch1, arg2_00, (unsigned short)local_78);
+            this_04 = (GeometryBatchInstance*)geometryBatch3;
         }
-        pvVar3 = (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)local_48->GetVertexIndexBuffer();
-        uVar4 = eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(pvVar3);
-        pvVar3 = (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)pGVar13->GetVertexIndexBuffer();
-        uVar6 = eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(pvVar3);
-        SeparatedIndexCount::SeparatedIndexCount(local_68, uVar4, uVar6);
-        param_1->push_back(local_68);
-        return param_1;
+        pvVar5 = (vector<game::MapSquare::MapSquarePos>*)this_03->GetVertexIndexBuffer();
+        iVar3 = pvVar5->size();
+        pvVar5 = (vector<game::MapSquare::MapSquarePos>*)this_04->GetVertexIndexBuffer();
+        iVar4 = pvVar5->size();
+        SeparatedIndexCount local_68(iVar3, iVar4);
+        result.push_back(local_68);
+        return result;
     }
 
-    // 0x10036d7e0, 176 bytes, placed by nothing (unplaced)
-    // AnimateBaseOperation::UpdateBatchExternalIndexList(jag::graphics::GeometryBatchInstance&, std::function<unsigned short (unsigned short)>) const
-    /* AnimateBaseOperation::UpdateBatchExternalIndexList(jag::graphics::GeometryBatchInstance&,
-   std::function<unsigned short (unsigned short)>) const */
+    // 0x10036d7e0
+    void
+    AnimateBaseOperation::UpdateBatchExternalIndexList(jag::graphics::GeometryBatchInstance& geometryBatchInstance,
+                                                       std::function<unsigned short(unsigned short)> callback) const {
+        unsigned short uVar1;
+        unsigned int* puVar4;
+        unsigned int* puVar5;
 
-    void AnimateBaseOperation::UpdateBatchExternalIndexList(undefined8 param_1_00, ObjType* param_1,
-                                                            function<unsigned short(unsigned short)>* param_3) {
-        ushort uVar1;
-        Layout* this;
-        long lVar2;
-        long lVar3;
-        uint* puVar4;
-        uint* puVar5;
-
-        this = (Layout*)param_1->GetRecolourDest();
-        lVar2 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                        eastl::allocator>>::Layout::HeapBeginPtr(this);
-        lVar3 = end();
+        auto this_00 = geometryBatchInstance.GetRecolourDest();
+        long lVar2 = this_00->HeapBeginPtr();
+        long lVar3 = this_00->end();
         for (; lVar2 != lVar3; lVar2 = lVar2 + 68) {
-            puVar4 = (uint*)((lVar2 + 20))->begin();
-            puVar5 = (uint*)((lVar2 + 20))->end();
+            puVar4 = (unsigned int*)std::array<jag::graphics::IndexRange, 5ul>::begin();
+            puVar5 = (unsigned int*)std::array<jag::graphics::IndexRange, 5ul>::end();
             for (; puVar4 != puVar5; puVar4 = puVar4 + 2) {
-                uVar1 = std::function<unsigned short(unsigned short)>::operator()(param_3, (ushort)*puVar4);
-                *puVar4 = (uint)uVar1;
-                uVar1 = std::function<unsigned short(unsigned short)>::operator()(param_3, (ushort)puVar4[1]);
-                puVar4[1] = (uint)uVar1;
+                uVar1 = std::function<unsigned short(unsigned short)>::operator()(
+                    (function<unsigned short(unsigned short)>*)callback, (unsigned short)*puVar4);
+                *puVar4 = (unsigned int)uVar1;
+                uVar1 = std::function<unsigned short(unsigned short)>::operator()(
+                    (function<unsigned short(unsigned short)>*)callback, (unsigned short)puVar4[1]);
+                puVar4[1] = (unsigned int)uVar1;
             }
         }
     }
 
-    // 0x10036d8c0, 80 bytes, placed by nothing (unplaced)
-    // AnimateBaseOperation::OutputIfNonempty(std::unique_ptr<jag::graphics::GeometryBatchInstance, MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>&&, eastl::vector<std::unique_ptr<jag::graphics::GeometryBatchInstance, MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>, eastl::allocator>&) const
-    /* AnimateBaseOperation::OutputIfNonempty(std::unique_ptr<jag::graphics::GeometryBatchInstance,
-   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>&&,
-   eastl::vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
-   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>,
-   eastl::allocator>&) const */
-
-    void AnimateBaseOperation::OutputIfNonempty(unique_ptr* param_1, vector* param_2) {
-        GeometryBatchInstance* this_00;
-        GeometryBatch* this_01;
-        vector<game::MapSquare::MapSquarePos, eastl::allocator>* this_02;
-
-        this_00 =
-            (GeometryBatchInstance*)
-                std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::
-                operator->((
-                    unique_ptr<jag::graphics::GeometryBatchInstance,
-                               MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)param_1);
-        this_01 = (GeometryBatch*)this_00->GetGeometryBatch();
-        this_02 = (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)this_01->GetVertexIndexBuffer();
-        if (eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(this_02) != 0) {
-            param_2->push_back(param_1);
+    // 0x10036d8c0
+    void AnimateBaseOperation::OutputIfNonempty(
+        std::unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>&&
+            geometryBatchInstance,
+        eastl::vector<std::unique_ptr<jag::graphics::GeometryBatchInstance,
+                                      MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>&
+            geometryBatchInstances) const {
+        auto this_00 = geometryBatchInstance.operator->();
+        auto this_01 = this_00->GetGeometryBatch();
+        if (((vector<game::MapSquare::MapSquarePos>*)this_01->GetVertexIndexBuffer())->size() != 0) {
+            geometryBatchInstances.push_back(geometryBatchInstance);
         }
     }
 
-    // 0x10036de00, 256 bytes, placed by nothing (unplaced)
-    // GeometryEditBaseOperation::Apply(ResolvedModel const&, OperationRecordEntry const*) const
-    ResolvedModel* GeometryEditBaseOperation::Apply(ResolvedModel* param_1, OperationRecordEntry* param_2) {
-        Matrix44T MVar1;
-        shared_ptr<Operation>* this;
-        Operation* pOVar4;
-        jag* this_00;
-        ResolvedModel* pRVar5;
-        shared_ptr* psVar6;
-        shared_ptr* psVar7;
-        OperationRecordEntry* in_RCX;
-        ResolvedModel* in_RDX;
-        undefined1 auVar8[16];
-        undefined8 local_78;
-        undefined8 uStack_70;
-        undefined8 local_68;
-        undefined8 uStack_60;
-        undefined8 local_58;
-        undefined8 uStack_50;
-        undefined8 local_48;
+    // 0x10036de00
+    auto GeometryEditBaseOperation::Apply(const ResolvedModel& resolvedModel,
+                                          const OperationRecordEntry* operationRecordEntry) const {
+        shared_ptr<Operation>* this_00;
+        Operation* operation2;
+        shared_ptr<midi2::MidiRequest>* midiRequest1;
+        ResolvedModel* pRVar3;
+        shared_ptr<midi2::MidiRequest>* midiRequest2;
+        shared_ptr<jag::graphics::Model>* model;
+        shared_ptr<PoseStateRSeven>* poseStateRSeven;
+        ReturnValue local_78;
 
-        if (in_RCX != (OperationRecordEntry*)0) {
-            this = (shared_ptr<Operation>*)in_RCX->GetOperation();
-            pOVar4 = (Operation*)shared_ptr<Operation>::operator*(this);
-            if (dash3d::operator==((Operation*)param_2, pOVar4) != '\0') {
-                this_00 = (jag*)in_RDX->GetModel();
-                pRVar5 = (ResolvedModel*)in_RCX->GetInputModel();
-                auVar8 = pRVar5->GetModel();
-                if (operator==(this_00, auVar8._0_8_, auVar8._8_8_)) {
-                    pRVar5 = (ResolvedModel*)in_RCX->GetOutputModel();
-                    psVar6 = (shared_ptr*)pRVar5->GetModel();
-                    psVar7 = (shared_ptr*)in_RDX->GetAnimationState();
-                    local_78.GetLocalTransform();
-                    MVar1._8_8_ = uStack_70;
-                    MVar1._0_8_ = local_78;
-                    MVar1._16_8_ = local_68;
-                    MVar1._24_8_ = uStack_60;
-                    MVar1._32_8_ = local_58;
-                    MVar1._40_8_ = uStack_50;
-                    MVar1._48_8_ = local_48;
-                    ResolvedModel::ResolvedModel(param_1, psVar6, psVar7, MVar1);
-                    return param_1;
+        if (operationRecordEntry != nullptr) {
+            this_00 = operationRecordEntry->GetOperation();
+            operation2 = (Operation*)**this_00;
+            if (*this == *operation2 != '\0') {
+                midiRequest1 = (shared_ptr<midi2::MidiRequest>*)resolvedModel.GetModel();
+                pRVar3 = operationRecordEntry->GetInputModel();
+                midiRequest2 = (shared_ptr<midi2::MidiRequest>*)pRVar3->GetModel();
+                if (*midiRequest1 == *midiRequest2) {
+                    pRVar3 = operationRecordEntry->GetOutputModel();
+                    model = (shared_ptr<jag::graphics::Model>*)pRVar3->GetModel();
+                    poseStateRSeven = (shared_ptr<PoseStateRSeven>*)resolvedModel.GetAnimationState();
+                    local_78 = resolvedModel.GetLocalTransform();
+                    return auto(*model, *poseStateRSeven, operationRecordEntry);
                 }
             }
         }
-        (**(code**)(*(long*)param_2 + 40))(param_1, param_2);
-        return param_1;
+        (*this->_vptr[1].Apply)(&result, this, resolvedModel, operationRecordEntry);
+        return result;
     }
 
-    // 0x10036f180, 336 bytes, placed by nothing (unplaced)
-    // LightOperation::Apply(ResolvedModel const&, OperationRecordEntry const*) const
-    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-    /* LightOperation::Apply(ResolvedModel const&,
-   OperationRecordEntry const*) const */
+    // 0x10036f180
+    ResolvedModel* LightOperation::Apply(const ResolvedModel& resolvedModel,
+                                         const OperationRecordEntry* operationRecordEntry) const {
+        unique_ptr<jag::graphics::GeometryBatchInstance,
+                   MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*
+            geometryBatchInstance;
+        shared_ptr<PoseStateRSeven>* poseStateRSeven;
+        Matrix44T<float>* in_RCX;
+        ReturnValue local_c8;
+        ReturnValue local_48;
 
-    ResolvedModel* LightOperation::Apply(ResolvedModel* param_1, OperationRecordEntry* param_2) {
-        Matrix44T MVar1;
-        shared_ptr<jag::graphics::Model>* this_00;
-        Model* pMVar3;
-        Layout* this_01;
-        unique_ptr* puVar4;
-        unique_ptr* puVar5;
-        shared_ptr* psVar6;
-        ResolvedModel local_c8;
-        undefined8 local_58;
-        shared_ptr local_48;
-
-        this_00 = (shared_ptr<jag::graphics::Model>*)param_2->GetModel();
-        pMVar3 = (Model*)shared_ptr<jag::graphics::Model>::operator*(this_00);
-        local_c8.field_0._0_4_ = 1;
-        make_shared<jag::graphics::Model, jag::graphics::Model_const&, jag::graphics::ModelCopyType>(
-            (jag*)&local_48, pMVar3, (ModelCopyType*)&local_c8);
+        auto this_00 = operationRecordEntry->GetModel();
+        Model* pMVar2 = (Model*)**this_00;
+        local_c8[0]._0_4_ = 1;
+        make_shared<jag::graphics::Model, jag::graphics::Model const&, jag::graphics::ModelCopyType>(&local_48, pMVar2,
+                                                                                                     &local_c8);
         g_numModelCopiesEver._0_4_ = (int)g_numModelCopiesEver + 1;
         _DAT_10422a8a4 = _DAT_10422a8a4 + 1;
-        pMVar3 = (Model*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)&local_48);
-        this_01 = (Layout*)pMVar3->GetBatchList();
-        puVar4 = (unique_ptr*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        puVar5 = (unique_ptr*)this_01->end();
-        if (puVar4 != puVar5) {
+        pMVar2 = (Model*)local_48.operator->();
+        auto this_01 = pMVar2->GetBatchList();
+        geometryBatchInstance =
+            (unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>*)
+                this_01->HeapBeginPtr();
+        auto puVar3 = this_01->end();
+        if (geometryBatchInstance != puVar3) {
             do {
-                local_c8.GetLocalTransform();
-                MapBatch((LightOperation*)param_1, puVar4, (Matrix44T*)&local_c8);
-                puVar4 = puVar4 + 8;
-            } while (puVar4 != puVar5);
+                local_c8 = operationRecordEntry->GetLocalTransform();
+                MapBatch((LightOperation*)resolvedModel, geometryBatchInstance, &local_c8);
+                geometryBatchInstance = geometryBatchInstance + 8;
+            } while (geometryBatchInstance != puVar3);
         }
-        psVar6 = (shared_ptr*)param_2->GetAnimationState();
-        local_c8.field_64.GetLocalTransform();
-        MVar1._8_8_ = local_c8.field_72;
-        MVar1._0_8_ = local_c8.field_64;
-        MVar1._16_8_ = local_c8.field_80;
-        MVar1._24_8_ = local_c8.field_88;
-        MVar1._32_8_ = local_c8.field_96;
-        MVar1._40_8_ = local_c8.field_104;
-        MVar1._48_8_ = local_58;
-        new (this) ResolvedModel(&local_48, psVar6, MVar1);
-        local_48.~shared_ptr();
+        poseStateRSeven = (shared_ptr<PoseStateRSeven>*)operationRecordEntry->GetAnimationState();
+        auto local_88 = operationRecordEntry->GetLocalTransform();
+        new (this) ResolvedModel(local_48, *poseStateRSeven, in_RCX);
         return (ResolvedModel*)this;
     }
 
-    // 0x10036f2d0, 352 bytes, placed by nothing (unplaced)
-    // LightOperation::MapBatch(std::unique_ptr<jag::graphics::GeometryBatchInstance, MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>&, jag::math::Matrix44T<float> const&) const
-    /* LightOperation::MapBatch(std::unique_ptr<jag::graphics::GeometryBatchInstance,
-   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>&,
-   jag::math::Matrix44T<float> const&) const */
+    // 0x10036f2d0
+    void LightOperation::MapBatch(
+        std::unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>&
+            geometryBatchInstance,
+        const jag::math::Matrix44T<float>& matrix44) const {
+        int arg3;
+        int arg3_00;
+        unsigned short* puVar2;
+        vector<unsigned char>* this_03;
+        unsigned char* puVar3;
+        vector<jag::graphics::GeometryBatchVertex>* this_04;
+        GeometryBatchVertex* geometryBatchVertex;
+        unsigned long uVar4;
+        long lVar5;
+        unsigned long arg1;
+        uint32_t local_40;
+        unsigned int local_3c;
+        unsigned char local_31;
 
-    void LightOperation::MapBatch(unique_ptr* param_1, Matrix44T* param_2) {
-        int iVar1;
-        GeometryBatchInstance* this_00;
-        Terrain* this_01;
-        vector<game::MapSquare::MapSquarePos, eastl::allocator>* this_02;
-        long lVar2;
-        ushort* puVar3;
-        vector<unsigned char, eastl::allocator>* this_03;
-        uchar* puVar4;
-        vector<jag::graphics::GeometryBatchVertex, eastl::allocator>* this_04;
-        GeometryBatchVertex* pGVar5;
-        ulong uVar6;
-        long lVar7;
-        ulong uVar8;
-        undefined4 local_40;
-        uint local_3c;
-        int local_38;
-        uchar local_31;
-
-        local_38 = field_20->Length();
+        int local_38 = field_20->Length();
         local_38 = local_38 * field_16;
-        this_00 =
-            (GeometryBatchInstance*)
-                std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::
-                operator->((
-                    unique_ptr<jag::graphics::GeometryBatchInstance,
-                               MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)param_1);
-        this_01 = (Terrain*)this_00->GetGeometryBatch();
-        this_02 = (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)this_01->GetLinearPositionMaxSpeed();
-        lVar2 = eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(this_02);
-        if (lVar2 != 0) {
-            local_38 = local_38 >> 8;
-            lVar2 = 0;
-            uVar8 = 0;
+        auto this_00 = geometryBatchInstance.operator->();
+        auto this_01 = this_00->GetGeometryBatch();
+        auto this_02 = this_01->GetLinearPositionMaxSpeed();
+        long lVar1 = this_02->size();
+        if (lVar1 != 0) {
+            arg3 = local_38 >> 8;
+            lVar1 = 0;
+            arg1 = 0;
+            local_38 = arg3;
             do {
-                puVar3 = (ushort*)eastl::vector<unsigned short, eastl::allocator>::operator[](
-                    (vector<unsigned short, eastl::allocator>*)this_02, uVar8);
-                local_3c = (uint)*puVar3;
-                this_03 = (vector<unsigned char, eastl::allocator>*)this_01->GetWaterPatches();
-                puVar4 = (uchar*)eastl::vector<unsigned char, eastl::allocator>::operator[](this_03, uVar8);
-                local_31 = *puVar4;
-                lVar7 = 0;
+                puVar2 = (unsigned short*)(*this_02)[arg1];
+                local_3c = (unsigned int)*puVar2;
+                this_03 = (vector<unsigned char>*)this_01->GetWaterPatches();
+                puVar3 = (unsigned char*)(*this_03)[arg1];
+                local_31 = *puVar3;
+                lVar5 = 0;
                 do {
-                    this_04 =
-                        (vector<jag::graphics::GeometryBatchVertex, eastl::allocator>*)this_01->GetVertexDataBuffer();
-                    pGVar5 = (GeometryBatchVertex*)
-                        eastl::vector<jag::graphics::GeometryBatchVertex, eastl::allocator>::operator[](this_04,
-                                                                                                        lVar2 + lVar7);
-                    iVar1 = LightForVertex((GeometryBatchVertex*)this, (Matrix44T*)pGVar5, (int)param_2);
-                    local_40 = GetVertexColor(this, pGVar5, local_3c, iVar1, local_31);
-                    AssignVertexColor((LightOperation*)this, pGVar5, (ColourStorage8888*)&local_40);
-                    lVar7 = lVar7 + 1;
-                } while (lVar7 != 3);
-                uVar8 = uVar8 + 1;
-                uVar6 = eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(this_02);
-                lVar2 = lVar2 + 3;
-            } while (uVar8 < uVar6);
+                    this_04 = (vector<jag::graphics::GeometryBatchVertex>*)this_01->GetVertexDataBuffer();
+                    geometryBatchVertex = (GeometryBatchVertex*)(*this_04)[lVar1 + lVar5];
+                    arg3_00 = LightForVertex(*geometryBatchVertex, matrix44, arg3);
+                    local_40 = GetVertexColor(*geometryBatchVertex, local_3c, arg3_00, local_31);
+                    AssignVertexColor(*geometryBatchVertex, local_40);
+                    lVar5 = lVar5 + 1;
+                } while (lVar5 != 3);
+                arg1 = arg1 + 1;
+                uVar4 = this_02->size();
+                lVar1 = lVar1 + 3;
+            } while (arg1 < uVar4);
         }
         this_01->SetFaceHSLBaked(true);
     }
 
-    // 0x10036f430, 32 bytes, placed by nothing (unplaced)
-    // LightOperation::ApplyAABB(jag::math::AABB const&) const
-    AABB* LightOperation::ApplyAABB(AABB* param_1) {
-        AABB* in_RDX;
-
-        jag::math::AABB::AABB(param_1, in_RDX);
-        return param_1;
+    // 0x10036f430
+    jag::math::AABB LightOperation::ApplyAABB(const jag::math::AABB& aabb) const {
+        return jag::math::AABB(aabb);
     }
 
-    // 0x10036f520, 224 bytes, placed by nothing (unplaced)
-    // LightOperation::GetVertexColor(jag::graphics::GeometryBatchVertex const&, int, int, unsigned char) const
-    int LightOperation::GetVertexColor(GeometryBatchVertex* param_1, int param_2, int param_3, uchar param_4) {
-        int iVar1;
+    // 0x10036f520
+    int LightOperation::GetVertexColor(const jag::graphics::GeometryBatchVertex& geometryBatchVertex, int arg2,
+                                       int arg3, unsigned char arg4) const {
+        Type TVar1;
         int iVar2;
-        uchar uVar3;
-        undefined1 uVar4;
-        ushort uVar5;
-        uint uVar6;
-        short* psVar7;
+        unsigned char uVar3;
+        uint8_t uVar4;
+        unsigned short uVar5;
+        unsigned int uVar6;
         LightOperation* pLVar8;
-        undefined1 local_38[8];
-        int local_30;
-        undefined4 local_2c;
+        uint8_t local_38[8];
+        Type local_30;
 
-        new (&local_2c) callstack::Callstack();
-        psVar7 = (short*)std::array<unsigned short, 2ul>::operator[]((array<unsigned short, 2ul>*)param_1, 0);
+        return local_2c;
+        short* psVar7 = &geometryBatchVertex[0];
         if (*psVar7 == 0) {
-            psVar7 = (short*)std::array<unsigned short, 2ul>::operator[]((array<unsigned short, 2ul>*)param_1, 1);
+            psVar7 = &geometryBatchVertex[1];
             if (*psVar7 == 0) {
-                uVar5 = ModelUnlit::GetColour(param_2, param_3);
+                uVar5 = ModelUnlit::GetColour(arg2, arg3);
                 uVar6 = jag::math::RunetekColour::HSLToRGB(uVar5);
                 pLVar8 = (LightOperation*)&local_30;
-                new (pLVar8) jag::math::ColourStorage8888<jag::math::ARGB8StorageLayout>(uVar6);
+                new (pLVar8) jag::math::ColourStorage8888(uVar6);
                 local_2c = local_30;
-                iVar1 = local_2c;
-                local_2c._2_1_ = (uchar)((uint)local_30 >> 16);
+                TVar1 = local_2c;
+                local_2c._2_1_ = (unsigned char)(local_30 >> 16);
                 uVar3 = local_2c._2_1_;
-                local_2c = iVar1;
+                local_2c = TVar1;
                 uVar4 = ColorGammaCorrect(pLVar8, uVar3);
-                iVar1 = local_2c;
-                local_2c._0_3_ = CONCAT12(uVar4, (undefined2)local_2c);
+                TVar1 = local_2c;
+                local_2c._0_3_ = (((uint32_t)uVar4 << 16) | (uint16_t)((uint16_t)local_2c));
                 iVar2 = local_2c;
-                local_2c._1_1_ = SUB41(iVar1, 1);
+                local_2c._1_1_ = (uint8_t)(TVar1 >> 8);
                 uVar3 = local_2c._1_1_;
                 local_2c = iVar2;
                 uVar4 = ColorGammaCorrect(pLVar8, uVar3);
-                local_2c._0_2_ = CONCAT11(uVar4, (uchar)local_2c);
-                uVar4 = ColorGammaCorrect(pLVar8, (uchar)local_2c);
-                local_2c = CONCAT31(local_2c._1_3_, uVar4);
+                local_2c._0_2_ = (((uint16_t)uVar4 << 8) | (uint8_t)((unsigned char)local_2c));
+                uVar4 = ColorGammaCorrect(pLVar8, (unsigned char)local_2c);
+                local_2c = (((uint32_t)local_2c._1_3_ << 8) | (uint8_t)uVar4);
                 goto LAB_10036f596;
             }
         }
-        uVar5 = ModelUnlit::GetTexLight(param_3);
+        uVar5 = ModelUnlit::GetTexLight(arg3);
         uVar6 = jag::math::RunetekColour::HSLToRGB(uVar5);
         pLVar8 = (LightOperation*)local_38;
-        new (local_38) jag::math::ColourStorage8888<jag::math::ARGB8StorageLayout>(uVar6);
-        uVar4 = TextureGammaCorrect(pLVar8, (ColourStorage8888*)local_38);
-        local_2c._0_2_ = CONCAT11(uVar4, uVar4);
-        local_2c._0_3_ = CONCAT12(uVar4, (undefined2)local_2c);
-        local_2c = (uint)(uint3)local_2c;
+        new (local_38) jag::math::ColourStorage8888(uVar6);
+        uVar4 = TextureGammaCorrect(pLVar8, (ColourStorage8888<jag::math::ARGB8StorageLayout>*)local_38);
+        local_2c._0_2_ = (((uint16_t)uVar4 << 8) | (uint8_t)uVar4);
+        local_2c._0_3_ = (((uint32_t)uVar4 << 16) | (uint16_t)((uint16_t)local_2c));
+        local_2c = (Type)(uint32_t)local_2c;
     LAB_10036f596:
-        local_2c = CONCAT13(param_4, (uint3)local_2c);
+        local_2c = (((uint32_t)arg4 << 24) | (uint32_t)((uint32_t)local_2c));
         return local_2c;
     }
 
-    // 0x10036f600, 160 bytes, placed by nothing (unplaced)
-    // LightOperation::LightForVertex(jag::graphics::GeometryBatchVertex const&, jag::math::Matrix44T<float> const&, int) const
-    int LightOperation::LightForVertex(GeometryBatchVertex* param_1, Matrix44T* param_2, int param_3) {
-        char cVar1;
-        int iVar2;
-        int iVar3;
-        char* pcVar4;
-        int in_ECX;
-        undefined4 in_register_00000014;
-        Vector3T<int> local_60[16];
-        Vector3T<float> local_50[16];
-        undefined8 local_40[2];
+    // 0x10036f600
+    int LightOperation::LightForVertex(const jag::graphics::GeometryBatchVertex& geometryBatchVertex,
+                                       const jag::math::Matrix44T<float>& matrix44, int arg3) const {
+        Vector3T<int> local_60;
+        Vector3T<float> local_50;
+        uint64_t local_40[2];
 
-        jag::math::Vector3T<float>::Vector3T<signed char>(local_50, (Vector3T*)&param_2->field_4);
-        local_40[0] = (CONCAT44(in_register_00000014, param_3))->TransformVector(local_50);
-        jag::math::Vector3T<int>::Vector3T<float>(local_60, (Vector3T*)local_40);
-        pcVar4 = (char*)(&param_2->field_8)->y();
-        cVar1 = *pcVar4;
-        iVar2 = *(int*)(param_1->field_8 + 4);
-        iVar3 = jag::math::Vector3Dot<int>((Vector3T*)local_60, (Vector3T*)(param_1->field_8 + 12));
-        if (cVar1 != '\0') {
-            in_ECX = in_ECX + in_ECX / 2;
+        local_50.Vector3T<signed char>(geometryBatchVertex.field_4);
+        local_40[0] = matrix44.TransformVector(local_50);
+        local_60.Vector3T<float>(*local_40);
+        auto pcVar4 = geometryBatchVertex.field_8->y();
+        bool cVar1 = *pcVar4;
+        int iVar2 = field_12;
+        int iVar3 = jag::math::Vector3Dot<int>(local_60, *field_20);
+        if (cVar1) {
+            arg3 = arg3 + arg3 / 2;
         }
-        return (iVar3 * 2) / in_ECX + iVar2;
+        return (iVar3 * 2) / arg3 + iVar2;
     }
 
-    // 0x10036f6a0, 160 bytes, placed by nothing (unplaced)
-    // LightOperation::AssignVertexColor(jag::graphics::GeometryBatchVertex&, jag::math::ColourStorage8888<jag::math::ARGB8StorageLayout> const&) const
-    void LightOperation::AssignVertexColor(GeometryBatchVertex* param_1, ColourStorage8888* param_2) {
-        array<unsigned char, 3ul>* this_00;
-        ColourStorage8888 CVar1;
-        ColourStorage8888* pCVar2;
-        array<unsigned char, 4ul>* this_01;
-
-        CVar1 = param_2[2];
-        this_00 = (array<unsigned char, 3ul>*)(param_1->field_8 + 8);
-        pCVar2 = (ColourStorage8888*)std::array<unsigned char, 3ul>::operator[](this_00, 0);
+    // 0x10036f6a0
+    void LightOperation::AssignVertexColor(
+        jag::graphics::GeometryBatchVertex& geometryBatchVertex,
+        const jag::math::ColourStorage8888<jag::math::ARGB8StorageLayout>& colourStorage8888) const {
+        ColourStorage8888<jag::math::ARGB8StorageLayout> CVar1 = colourStorage8888[2];
+        array<unsigned char, 3ul>* this_00 = (array<unsigned char, 3ul>*)(geometryBatchVertex.field_8 + 8);
+        ColourStorage8888<jag::math::ARGB8StorageLayout>* pCVar2 =
+            (ColourStorage8888<jag::math::ARGB8StorageLayout>*)(*this_00)[0];
         *pCVar2 = CVar1;
-        this_01 = (array<unsigned char, 4ul>*)(param_1->field_8 + 4);
-        pCVar2 = (ColourStorage8888*)std::array<unsigned char, 4ul>::operator[](this_01, 0);
+        array<unsigned char, 4ul>* this_01 = (array<unsigned char, 4ul>*)(geometryBatchVertex.field_8 + 4);
+        pCVar2 = (ColourStorage8888<jag::math::ARGB8StorageLayout>*)(*this_01)[0];
         *pCVar2 = CVar1;
-        CVar1 = param_2[1];
-        pCVar2 = (ColourStorage8888*)std::array<unsigned char, 3ul>::operator[](this_00, 1);
+        CVar1 = colourStorage8888[1];
+        pCVar2 = (ColourStorage8888<jag::math::ARGB8StorageLayout>*)(*this_00)[1];
         *pCVar2 = CVar1;
-        pCVar2 = (ColourStorage8888*)std::array<unsigned char, 4ul>::operator[](this_01, 1);
+        pCVar2 = (ColourStorage8888<jag::math::ARGB8StorageLayout>*)(*this_01)[1];
         *pCVar2 = CVar1;
-        CVar1 = *param_2;
-        pCVar2 = (ColourStorage8888*)std::array<unsigned char, 3ul>::operator[](this_00, 2);
+        CVar1 = colourStorage8888;
+        pCVar2 = (ColourStorage8888<jag::math::ARGB8StorageLayout>*)(*this_00)[2];
         *pCVar2 = CVar1;
-        pCVar2 = (ColourStorage8888*)std::array<unsigned char, 4ul>::operator[](this_01, 2);
+        pCVar2 = (ColourStorage8888<jag::math::ARGB8StorageLayout>*)(*this_01)[2];
         *pCVar2 = CVar1;
-        CVar1 = param_2[3];
-        pCVar2 = (ColourStorage8888*)std::array<unsigned char, 4ul>::operator[](this_01, 3);
+        CVar1 = colourStorage8888[3];
+        pCVar2 = (ColourStorage8888<jag::math::ARGB8StorageLayout>*)(*this_01)[3];
         *pCVar2 = CVar1;
     }
 
-    // 0x10036f750, 80 bytes, placed by nothing (unplaced)
-    // LightOperation::IsEqual(Operation const&) const
-    bool LightOperation::IsEqual(Operation* param_1) {
+    // 0x10036f750
+    bool LightOperation::IsEqual(const Operation& operation) const {
         bool bVar1;
 
-        if (((param_1->GetPos() == 5) && (field_12 == *(int*)&param_1->field_12)) &&
-            (field_16 == *(int*)&param_1[1].field_0)) {
-            bVar1 = jag::math::operator==((Vector3T*)field_20, (Vector3T*)((long)&param_1[1].field_0 + 4));
+        if (((operation.GetPos() == 5) && (field_12 == *(int*)&operation.field_12)) &&
+            (field_16 == *(int*)&operation[1]._vptr)) {
+            bVar1 = *field_20 == (*((Vector3T<int>*)((long)&operation[1]._vptr + 4)));
         } else {
             bVar1 = false;
         }
         return bVar1;
     }
 
-    // 0x10036f7e0, 80 bytes, placed by nothing (unplaced)
-    // LightOperation::ColorGammaCorrect(unsigned char) const
-    uint LightOperation::ColorGammaCorrect(uchar param_1) {
-        float* pfVar1;
-        undefined7 in_register_00000031;
-        float local_14;
-        float local_10;
-        float local_c;
+    // 0x10036f7e0
+    unsigned int LightOperation::ColorGammaCorrect(unsigned char arg1) const {
+        uint64_t in_register_00000031;
 
-        local_14 = (float)(int)CONCAT71(in_register_00000031, param_1) * 1.0463493 + 8.925;
-        local_10 = 0.0;
-        local_c = 255.0;
-        pfVar1 = std::clamp<float>(&local_14, &local_10, &local_c);
+        float local_14 = (float)(int)(((uint64_t)in_register_00000031 << 8) | (uint8_t)arg1) * 1.0463493f + 8.925;
+        auto pfVar1 = std::clamp<float>(local_14, 0.0, 255.0);
         return (int)*pfVar1 & 255;
     }
 
-    // 0x10036f830, 160 bytes, placed by nothing (unplaced)
-    // LightOperation::TextureGammaCorrect(jag::math::ColourStorage8888<jag::math::ARGB8StorageLayout> const&) const
-    uint LightOperation::TextureGammaCorrect(ColourStorage8888* param_1) {
-        uchar* puVar1;
-        byte* pbVar2;
-        float* pfVar3;
-        float local_30;
-        float local_2c;
-        float local_28;
-        float local_24;
-
-        puVar1 = std::min<unsigned char>((uchar*)(param_1 + 2), (uchar*)(param_1 + 1));
-        pbVar2 = std::min<unsigned char>(puVar1, (uchar*)param_1);
-        local_24 = (float)*pbVar2;
-        puVar1 = std::max<unsigned char>((uchar*)(param_1 + 2), (uchar*)(param_1 + 1));
-        pbVar2 = std::max<unsigned char>(puVar1, (uchar*)param_1);
-        local_30 = ((float)*pbVar2 + local_24) * 0.50793654;
-        local_2c = 0.0;
-        local_28 = 255.0;
-        pfVar3 = std::clamp<float>(&local_30, &local_2c, &local_28);
+    // 0x10036f830
+    unsigned int LightOperation::TextureGammaCorrect(
+        const jag::math::ColourStorage8888<jag::math::ARGB8StorageLayout>& colourStorage8888) const {
+        auto puVar1 = std::min<unsigned char>(*((colourStorage8888 + 2)), *((colourStorage8888 + 1)));
+        auto pbVar2 = std::min<unsigned char>(*puVar1, colourStorage8888);
+        float local_24 = (float)*pbVar2;
+        puVar1 = std::max<unsigned char>(*((colourStorage8888 + 2)), *((colourStorage8888 + 1)));
+        pbVar2 = std::max<unsigned char>(*puVar1, colourStorage8888);
+        float local_30 = ((float)*pbVar2 + local_24) * 0.50793654f;
+        auto pfVar3 = std::clamp<float>(local_30, 0.0, 255.0);
         return (int)*pfVar3 & 255;
     }
 
-    // 0x10036fb00, 96 bytes, base-object constructor, placed by nothing (unplaced)
-    // TintOperation::TintOperation(signed char, signed char, signed char, unsigned char)
-    void TintOperation::TintOperation(undefined8 param_1, undefined8 param_2, TintOperation* this, undefined4 param_4,
-                                      undefined4 param_5, undefined4 param_6, undefined4 param_7) {
-        undefined8 uVar1;
+    // 0x10036fb00
+    TintOperation::TintOperation(signed char arg1, signed char arg2, signed char arg3, unsigned char arg4)
+        : GeometryEditBaseOperation(11) {
+        uint64_t in_XMM1_Qa;
 
-        new (this) GeometryEditBaseOperation(11);
-        *(undefined***)this = &PTR_Apply_100efbfe0;
-        uVar1 = PackColourWeight(param_4, param_5, param_6, param_7);
-        *(undefined8*)&field_16 = uVar1;
-        *(undefined8*)&this[1].field_7 = param_2;
+        field_16 = PackColourWeight(arg1, arg2, arg3, arg4);
+        field_24 = in_XMM1_Qa;
     }
 
-    // 0x10036fb60, 32 bytes, base-object constructor, inline, placed by class header (inline)
-    // GeometryEditBaseOperation::GeometryEditBaseOperation(Operation::Type)
-    void GeometryEditBaseOperation::GeometryEditBaseOperation() {
-        Operation::Operation();
-        field_0 = &PTR_Apply_100efc2d0;
-    }
+    // 0x10036fb60
+    GeometryEditBaseOperation::GeometryEditBaseOperation(Operation::Type arg1) : Operation(arg1) {}
 
-    // 0x10036fb80, 112 bytes, placed by nothing (unplaced)
-    // TintOperation::PackColourWeight(signed char, signed char, signed char, unsigned char)
-    undefined1[16] TintOperation::PackColourWeight(int param_1, int param_2, int param_3, float param_4) {
-        float fVar1;
-        float fVar2;
-        undefined1 auVar3[16];
-        ImVec4 local_18[16];
+    // 0x10036fb80
+    void TintOperation::PackColourWeight(signed char arg1, signed char arg2, signed char arg3, unsigned char arg4) {
+        uint64_t in_register_00000009;
+        uint32_t in_register_00000011;
+        uint32_t in_register_00000031;
+        uint64_t in_register_00000039;
+        uint8_t auVar3[16];
 
-        fVar1 = (float)((int)param_4 + 256);
-        if ((char)param_1 < '\0') {
-            fVar1 = param_4;
+        float fVar2 = (float)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg4);
+        float fVar1 = (float)((int)fVar2 + 256);
+        if (arg1 < '\0') {
+            fVar1 = fVar2;
         }
         fVar2 = (float)((int)fVar1 + 512);
-        if ((char)param_2 < '\0') {
+        if (arg2 < '\0') {
             fVar2 = fVar1;
         }
         fVar1 = (float)((int)fVar2 + 1024);
-        if ((char)param_3 < '\0') {
+        if (arg3 < '\0') {
             fVar1 = fVar2;
         }
-        ImVec4::ImVec4(local_18, (float)param_1 * 0.015873017, (float)param_2 * 0.14285715,
-                       (float)param_3 * 0.007874016, fVar1);
+        ImVec4 local_18((float)(int)(((uint64_t)in_register_00000039 << 8) | (uint8_t)arg1) * 0.015873017f,
+                        (float)(((uint32_t)in_register_00000031 << 8) | (uint8_t)arg2) * 0.14285715f,
+                        (float)(((uint32_t)in_register_00000011 << 8) | (uint8_t)arg3) * 0.007874016f, fVar1);
         auVar3[0] = local_18[0];
         auVar3[1] = local_18[1];
         auVar3[2] = local_18[2];
@@ -879,117 +677,67 @@ namespace jag::oldscape::dash3d {
         return auVar3;
     }
 
-    // 0x10036fbf0, 16 bytes, complete-object constructor, placed by nothing (unplaced)
-    // TintOperation::TintOperation(signed char, signed char, signed char, unsigned char): jumps straight to the base-object constructor
+    // 0x10036fc00
+    auto TintOperation::ApplyFresh(const ResolvedModel& resolvedModel,
+                                   const OperationRecordEntry* operationRecordEntry) const {
+        shared_ptr<PoseStateRSeven>* poseStateRSeven;
+        ReturnValue local_48;
 
-    // 0x10036fc00, 304 bytes, placed by nothing (unplaced)
-    // TintOperation::ApplyFresh(ResolvedModel const&, OperationRecordEntry const*) const
-    TintOperation* TintOperation::ApplyFresh(ResolvedModel* param_1, OperationRecordEntry* param_2) {
-        Matrix44T MVar1;
-        shared_ptr<jag::graphics::Model>* this_00;
-        Model* pMVar2;
-        Layout* this_01;
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* this_02;
-        unique_ptr<jag::graphics::GeometryBatchInstance,
-                   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>* puVar3;
-        undefined8 uVar4;
-        shared_ptr* psVar5;
-        undefined8 local_88;
-        undefined8 uStack_80;
-        undefined8 local_78;
-        undefined8 uStack_70;
-        undefined8 local_68;
-        undefined8 uStack_60;
-        undefined8 local_58;
-        shared_ptr local_48;
-        undefined4 local_34;
-
-        this_00 = (shared_ptr<jag::graphics::Model>*)param_2->GetModel();
-        pMVar2 = (Model*)shared_ptr<jag::graphics::Model>::operator*(this_00);
-        local_34 = 2;
-        make_shared<jag::graphics::Model, jag::graphics::Model_const&, jag::graphics::ModelCopyType>(
-            (jag*)&local_48, pMVar2, (ModelCopyType*)&local_34);
-        pMVar2 = (Model*)shared_ptr<jag::graphics::Model>::operator->((shared_ptr<jag::graphics::Model>*)&local_48);
-        this_01 = (Layout*)pMVar2->GetBatchList();
-        this_02 = (unique_ptr<jag::graphics::GeometryBatchInstance,
-                              MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(this_01);
-        puVar3 =
-            (unique_ptr<jag::graphics::GeometryBatchInstance,
-                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)this_01->end();
-        for (; this_02 != puVar3; this_02 = this_02 + 8) {
-            uVar4 =
-                std::unique_ptr<
-                    jag::graphics::GeometryBatchInstance,
-                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::operator->(this_02);
-            jag::graphics::GeometryBatchInstance::SetTint((int)param_1->field_16, (int)param_1->field_24, uVar4);
+        auto this_00 = resolvedModel.GetModel();
+        Model* pMVar1 = (Model*)**this_00;
+        uint32_t local_34 = 2;
+        make_shared<jag::graphics::Model, jag::graphics::Model const&, jag::graphics::ModelCopyType>(
+            &local_48, pMVar1, (ModelCopyType*)&local_34);
+        pMVar1 = (Model*)local_48.operator->();
+        auto this_01 = pMVar1->GetBatchList();
+        auto this_02 = this_01->HeapBeginPtr();
+        auto puVar2 = this_01->end();
+        for (; this_02 != puVar2; this_02 = this_02 + 8) {
+            jag::graphics::GeometryBatchInstance::SetTint((Vector4T<float>*)(*this_02).operator->());
         }
-        psVar5 = (shared_ptr*)param_2->GetAnimationState();
-        local_88.GetLocalTransform();
-        MVar1._8_8_ = uStack_80;
-        MVar1._0_8_ = local_88;
-        MVar1._16_8_ = local_78;
-        MVar1._24_8_ = uStack_70;
-        MVar1._32_8_ = local_68;
-        MVar1._40_8_ = uStack_60;
-        MVar1._48_8_ = local_58;
-        new (this) ResolvedModel(&local_48, psVar5, MVar1);
-        local_48.~shared_ptr();
-        return this;
+        poseStateRSeven = (shared_ptr<PoseStateRSeven>*)resolvedModel.GetAnimationState();
+        auto local_88 = resolvedModel.GetLocalTransform();
+        auto result(local_48, *poseStateRSeven, operationRecordEntry);
+        return result;
     }
 
-    // 0x10036fd30, 64 bytes, placed by nothing (unplaced)
-    // TintOperation::IsEqual(Operation const&) const
-    bool TintOperation::IsEqual(Operation* param_1) {
+    // 0x10036fd30
+    bool TintOperation::IsEqual(const Operation& operation) const {
         bool bVar1;
 
-        if (param_1->GetPos() == 11) {
-            bVar1 = jag::math::operator==((Vector4T*)&field_16, (Vector4T*)(param_1 + 1));
+        if (operation.GetPos() == 11) {
+            bVar1 = field_16 == (*((operation + 1)));
         } else {
             bVar1 = false;
         }
         return bVar1;
     }
 
-    // 0x10036fd70, 400 bytes, placed by nothing (unplaced)
-    // FixNormalsOperation::MapBatch(std::unique_ptr<jag::graphics::GeometryBatchInstance, MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>&) const
-    /* FixNormalsOperation::MapBatch(std::unique_ptr<jag::graphics::GeometryBatchInstance,
-   MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>&) const */
-
-    void FixNormalsOperation::MapBatch(unique_ptr* param_1) {
-        GeometryBatchInstance* this_00;
-        GeometryBatch* this_01;
-        GeometryBatch* this_02;
-        ulong uVar2;
-        vector<jag::graphics::GeometryBatchVertex, eastl::allocator>* this_03;
-        ushort* puVar3;
+    // 0x10036fd70
+    void FixNormalsOperation::MapBatch(
+        std::unique_ptr<jag::graphics::GeometryBatchInstance,
+                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>&
+            geometryBatchInstance) const {
+        vector<jag::graphics::GeometryBatchVertex>* this_03;
+        unsigned short* puVar3;
         long lVar4;
-        ulong uVar5;
+        unsigned long uVar5;
         long lVar6;
-        undefined1 auVar7[12];
+        uint8_t auVar7[12];
         LocationData local_a0;
-        Vector3T<int> local_90[16];
-        undefined1 local_80[12];
-        undefined1 local_70[12];
-        GeometryBatch* local_60;
-        ulong local_58;
-        undefined1 local_50[12];
+        Vector3T<int> local_90;
+        uint8_t local_80[12];
+        uint8_t local_70[12];
+        unsigned long local_58;
+        uint8_t local_50[12];
         long local_40;
-        ulong local_38;
+        unsigned long local_38;
 
-        this_00 =
-            (GeometryBatchInstance*)
-                std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::
-                operator->((
-                    unique_ptr<jag::graphics::GeometryBatchInstance,
-                               MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>*)param_1);
-        this_01 = (GeometryBatch*)this_00->GetGeometryBatch();
-        this_02 = (GeometryBatch*)this_01->GetVertexIndexBuffer();
-        local_60 = this_02;
-        uVar2 = this_02->size();
+        auto this_00 = geometryBatchInstance.operator->();
+        auto this_01 = this_00->GetGeometryBatch();
+        auto this_02 = this_01->GetVertexIndexBuffer();
+        vector<game::MapSquare::MapSquarePos>* local_60 = (vector<game::MapSquare::MapSquarePos>*)this_02;
+        unsigned long uVar2 = this_02->size();
         if (2 < uVar2) {
             uVar5 = 1;
             if (1 < uVar2 / 3) {
@@ -1000,29 +748,24 @@ namespace jag::oldscape::dash3d {
             local_58 = uVar5;
             do {
                 if (AnySmallVertexNormal((FixNormalsOperation*)this_02, this_01, local_38) != '\0') {
-                    auVar7 = CalculateFaceNormal(this_02, (ulong)this_01);
+                    auVar7 = CalculateFaceNormal((FixNormalsOperation*)this_02, this_01, local_38);
                     local_80 = auVar7;
-                    new (&local_a0) rs2lib::worldmap::LocationData(0, 381, 0);
-                    auVar7 = jag::math::operator+((Vector3T*)&local_a0, (Vector3T*)local_80);
+                    local_a0 = rs2lib::worldmap::LocationData(0, 381, 0);
+                    auVar7 = local_a0 + *local_80;
                     local_70 = auVar7;
-                    jag::math::Vector3T<int>::Vector3T(local_90, 4);
-                    auVar7 = jag::math::operator/((Vector3T*)local_70, (Vector3T*)local_90);
+                    local_90 = jag::math::Vector3T(4);
+                    auVar7 = *local_70 / local_90;
                     local_50 = auVar7;
-                    jag::math::Vector3T<int>::operator=((Vector3T<int>*)local_80, (Vector3T*)local_50);
+                    *local_80 = *local_50;
                     lVar6 = 0;
                     local_40 = lVar4;
                     do {
-                        jag::math::Vector3T<signed char>::Vector3T<int>((Vector3T<signed char>*)local_50,
-                                                                        (Vector3T*)local_80);
-                        this_03 = (vector<jag::graphics::GeometryBatchVertex, eastl::allocator>*)
-                                      this_01->GetVertexDataBuffer();
-                        puVar3 = (ushort*)eastl::vector<unsigned short, eastl::allocator>::operator[](
-                            (vector<unsigned short, eastl::allocator>*)local_60, local_40 + lVar6);
-                        lVar4 = eastl::vector<jag::graphics::GeometryBatchVertex, eastl::allocator>::operator[](
-                            this_03, (ulong)*puVar3);
-                        this_02 = (GeometryBatch*)(lVar4 + 4);
-                        jag::math::Vector3T<unsigned char>::operator=((Vector3T<unsigned char>*)this_02,
-                                                                      (Vector3T*)local_50);
+                        local_50->Vector3T<int>(*local_80);
+                        this_03 = (vector<jag::graphics::GeometryBatchVertex>*)this_01->GetVertexDataBuffer();
+                        puVar3 = (unsigned short*)(*local_60)[local_40 + lVar6];
+                        lVar4 = (*this_03)[(unsigned long)*puVar3];
+                        this_02 = (Vector3T<unsigned char>*)(lVar4 + 4);
+                        *this_02 = *local_50;
                         lVar6 = lVar6 + 1;
                     } while (lVar6 != 3);
                     lVar4 = local_40;
@@ -1034,104 +777,80 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x10036ff00, 192 bytes, placed by nothing (unplaced)
-    // FixNormalsOperation::AnySmallVertexNormal(jag::graphics::GeometryBatch const&, unsigned long) const
-    ulong FixNormalsOperation::AnySmallVertexNormal(GeometryBatch* param_1, ulong param_2) {
-        vector<unsigned short, eastl::allocator>* this_00;
-        vector<jag::graphics::GeometryBatchVertex, eastl::allocator>* this_01;
-        ushort* puVar2;
+    // 0x10036ff00
+    unsigned long FixNormalsOperation::AnySmallVertexNormal(const jag::graphics::GeometryBatch& geometryBatch,
+                                                            unsigned long arg2) const {
+        unsigned short* puVar2;
         long lVar3;
         char* pcVar4;
-        ulong uVar5;
-        undefined8 unaff_R13;
-        bool bVar6;
-        Vector3T<int> local_48[16];
-        long local_38;
+        Vector3T<int> local_48;
 
-        local_38 = param_2 * 3;
-        this_00 = (vector<unsigned short, eastl::allocator>*)param_1->GetVertexIndexBuffer();
-        this_01 = (vector<jag::graphics::GeometryBatchVertex, eastl::allocator>*)param_1->GetVertexDataBuffer();
-        bVar6 = true;
-        uVar5 = 0;
+        long local_38 = arg2 * 3;
+        auto this_00 = geometryBatch.GetVertexIndexBuffer();
+        auto this_01 = geometryBatch.GetVertexDataBuffer();
+        bool bVar6 = true;
+        unsigned long uVar5 = 0;
         do {
-            puVar2 = (ushort*)eastl::vector<unsigned short, eastl::allocator>::operator[](this_00, local_38 + uVar5);
-            lVar3 = eastl::vector<jag::graphics::GeometryBatchVertex, eastl::allocator>::operator[](this_01,
-                                                                                                    (ulong)*puVar2);
-            jag::math::Vector3T<int>::Vector3T<signed char>(local_48, (Vector3T*)(lVar3 + 4));
+            puVar2 = (unsigned short*)(*this_00)[local_38 + uVar5];
+            lVar3 = (*this_01)[(unsigned long)*puVar2];
+            local_48.Vector3T<signed char>(*((lVar3 + 4)));
             pcVar4 = (char*)((lVar3 + 8))->y();
             if (*pcVar4 == '\0') {
-                if (local_48->LengthSq() < 1024)
+                if (local_48.LengthSq() < 1024)
                     break;
             }
             bVar6 = uVar5 < 2;
             uVar5 = uVar5 + 1;
         } while (uVar5 != 3);
-        return CONCAT71((int7)((ulong)unaff_R13 >> 8), bVar6) & 4294967295;
+        return bVar6 & 4294967295;
     }
 
-    // 0x10036ffc0, 496 bytes, placed by nothing (unplaced)
-    // FixNormalsOperation::CalculateFaceNormal(jag::graphics::GeometryBatch const&, unsigned long) const
-    undefined1[16] FixNormalsOperation::CalculateFaceNormal(GeometryBatch* param_1, ulong param_2) {
-        int iVar1;
-        vector<unsigned short, eastl::allocator>* this;
-        vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>* this_00;
-        ushort* puVar2;
-        undefined8* puVar3;
-        Vector3T* pVVar4;
-        int* piVar5;
-        long in_RDX;
-        double dVar6;
-        undefined1 auVar7[16];
-        undefined1 auVar8[12];
-        Vector3T<int> local_b0[16];
-        Vector3T<int> local_a0[16];
-        Vector3T<int> local_90[16];
-        undefined8 local_80;
-        undefined4 local_78;
-        undefined8 local_70[2];
-        undefined1 local_60[12];
-        Vector3T local_50[16];
-        undefined1 local_40[12];
+    // 0x10036ffc0
+    uint8_t[16] FixNormalsOperation::CalculateFaceNormal(const jag::graphics::GeometryBatch& geometryBatch,
+                                                         unsigned long arg2) const {
+        uint8_t auVar7[16];
+        uint8_t auVar8[12];
+        Vector3T<int> local_90;
+        uint64_t local_70[2];
+        uint8_t local_60[12];
+        uint8_t local_40[12];
 
-        this = (vector<unsigned short, eastl::allocator>*)param_2->GetVertexIndexBuffer();
-        this_00 = (vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>*)param_2->GetVertexDataBufferPos();
-        puVar2 = (ushort*)eastl::vector<unsigned short, eastl::allocator>::operator[](this, in_RDX * 3);
-        puVar3 = (undefined8*)eastl::vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>::operator[](
-            this_00, (ulong)*puVar2);
-        local_80 = *puVar3;
-        local_78 = *(undefined4*)(puVar3 + 1);
-        puVar2 = (ushort*)eastl::vector<unsigned short, eastl::allocator>::operator[](this, in_RDX * 3 + 1);
-        pVVar4 = (Vector3T*)eastl::vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>::operator[](
-            this_00, (ulong)*puVar2);
-        local_70[0] = jag::math::operator-(pVVar4, (Vector3T*)&local_80);
-        jag::math::Vector3T<int>::Vector3T<float>(local_90, (Vector3T*)local_70);
-        puVar2 = (ushort*)eastl::vector<unsigned short, eastl::allocator>::operator[](this, in_RDX * 3 + 2);
-        pVVar4 = (Vector3T*)eastl::vector<jag::graphics::GeometryBatchVertexPos, eastl::allocator>::operator[](
-            this_00, (ulong)*puVar2);
-        local_40._0_8_ = jag::math::operator-(pVVar4, (Vector3T*)&local_80);
-        jag::math::Vector3T<int>::Vector3T<float>((Vector3T<int>*)local_70, (Vector3T*)local_40);
-        local_50._0_12_ = jag::math::Vector3Cross<int>((Vector3T*)local_90, (Vector3T*)local_70);
+        auto this_00 = geometryBatch.GetVertexIndexBuffer();
+        auto this_01 = geometryBatch.GetVertexDataBufferPos();
+        unsigned short* puVar2 = (unsigned short*)(*this_00)[arg2 * 3];
+        uint64_t* puVar3 = (uint64_t*)(*this_01)[(unsigned long)*puVar2];
+        uint64_t local_80 = *puVar3;
+        uint32_t local_78 = *(uint32_t*)(puVar3 + 1);
+        puVar2 = (unsigned short*)(*this_00)[arg2 * 3 + 1];
+        Vector3T<float>* pVVar4 = (Vector3T<float>*)(*this_01)[(unsigned long)*puVar2];
+        local_70[0] = *pVVar4 - local_80;
+        local_90.Vector3T<float>(*local_70);
+        puVar2 = (unsigned short*)(*this_00)[arg2 * 3 + 2];
+        pVVar4 = (Vector3T<float>*)(*this_01)[(unsigned long)*puVar2];
+        local_40._0_8_ = *pVVar4 - local_80;
+        local_70->Vector3T<float>(*local_40);
+        local_50._0_12_ = jag::math::Vector3Cross<int>(local_90, *local_70);
         local_40 = jag::math::Vector3Abs<int>(local_50);
-        iVar1 = jag::math::Vector3T<int>::MaxElement();
+        int iVar1 = local_40->MaxElement();
         if (8192 < iVar1) {
             do {
-                jag::math::Vector3T<int>::operator/=((Vector3T<int>*)local_50, 2);
+                local_50 /= 2;
                 auVar8 = jag::math::Vector3Abs<int>(local_50);
                 local_40 = auVar8;
-                iVar1 = jag::math::Vector3T<int>::MaxElement();
+                iVar1 = local_40->MaxElement();
             } while (8192 < iVar1);
         }
-        iVar1 = local_50->LengthSq();
-        dVar6 = (double)sqrt<int>(iVar1);
+        iVar1 = local_50.LengthSq();
+        double dVar6 = (double)sqrt<int>(iVar1);
         local_40._0_4_ = (int)dVar6;
         local_60._0_4_ = 1;
-        piVar5 = std::max<int>((int*)local_40, (int*)local_60);
+        auto piVar5 = std::max<int>(*local_40, *local_60);
         iVar1 = *piVar5;
-        jag::math::Vector3T<int>::Vector3T(local_b0, 128);
-        local_60 = jag::math::operator*((Vector3T*)local_b0, local_50);
-        jag::math::Vector3T<int>::Vector3T(local_a0, iVar1);
-        local_40 = jag::math::operator/((Vector3T*)local_60, (Vector3T*)local_a0);
-        jag::math::Vector3T<int>::operator=((Vector3T<int>*)local_50, (Vector3T*)local_40);
+        Vector3T<int> local_b0(128);
+        local_60 = local_b0 * local_50;
+        Vector3T<int> local_a0(iVar1);
+        local_40 = *local_60 / local_a0;
+        Vector3T<int> local_50 = *local_40;
         auVar7._12_4_ = 0;
         auVar7[0] = local_50[0];
         auVar7[1] = local_50[1];
@@ -1148,56 +867,42 @@ namespace jag::oldscape::dash3d {
         return auVar7;
     }
 
-    // 0x100370230, 32 bytes, placed by nothing (unplaced)
-    // FixNormalsOperation::IsEqual(Operation const&) const
-    bool FixNormalsOperation::IsEqual(Operation* param_1) {
-        return param_1->GetPos() == 3;
+    // 0x100370230
+    bool FixNormalsOperation::IsEqual(const Operation& operation) const {
+        return operation.GetPos() == 3;
     }
 
-    // 0x100370d10: the linker folded this into ModelRSevenUnlit::~ModelRSevenUnlit(), which has identical code
-    ModelRSevenLit::~ModelRSevenLit();
+    // 0x100370d10: ModelRSevenLit::~ModelRSevenLit() has the same machine code as ModelRSevenUnlit::~ModelRSevenUnlit()
 
-    // 0x100370d20: the linker folded this into ModelRSevenUnlit::~ModelRSevenUnlit(), which has identical code
-    ModelRSevenLit::~ModelRSevenLit();
+    // 0x100370d70: ModelRSevenLit::Rotate90() has the same machine code as ModelRSevenUnlit::Rotate90()
 
-    // 0x100370d70: the linker folded this into ModelRSevenUnlit::Rotate90(), which has identical code
-    ModelRSevenLit::Rotate90();
+    // 0x100370d80: ModelRSevenLit::Rotate180() has the same machine code as ModelRSevenUnlit::Rotate180()
 
-    // 0x100370d80: the linker folded this into ModelRSevenUnlit::Rotate180(), which has identical code
-    ModelRSevenLit::Rotate180();
+    // 0x100370d90: ModelRSevenLit::Rotate270() has the same machine code as ModelRSevenUnlit::Rotate270()
 
-    // 0x100370d90: the linker folded this into ModelRSevenUnlit::Rotate270(), which has identical code
-    ModelRSevenLit::Rotate270();
+    // 0x100370db0: ModelRSevenLit::RotateXAxis(int) has the same machine code as ModelRSevenUnlit::RotateXAxis(int)
 
-    // 0x100370db0: the linker folded this into ModelRSevenUnlit::RotateXAxis(int), which has identical code
-    ModelRSevenLit::RotateXAxis(int);
+    // 0x100370dc0: ModelRSevenLit::Translate(int, int, int) has the same machine code as ModelRSevenUnlit::Translate(int, int, int)
 
-    // 0x100370dc0: the linker folded this into ModelRSevenUnlit::Translate(int, int, int), which has identical code
-    ModelRSevenLit::Translate(int, int, int);
+    // 0x100370dd0: ModelRSevenLit::Resize(int, int, int) has the same machine code as ModelRSevenUnlit::Resize(int, int, int)
 
-    // 0x100370dd0: the linker folded this into ModelRSevenUnlit::Resize(int, int, int), which has identical code
-    ModelRSevenLit::Resize(int, int, int);
+    // 0x10038e590
+    void ___cxx_global_var_init(void) {
+        Matrix33T<float> local_50;
 
-    // 0x10038e590, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init
-    void ___cxx_global_var_init() {
-        undefined1 local_50[40];
-        Vector3T<int> local_28[16];
-
-        jag::math::Matrix33Scaling<float>((math*)local_50, 1.0, 1.0, -1.0);
-        jag::math::Vector3T<int>::Vector3T(local_28);
-        new (&jag::graphics::MAYA_ANIM_INVERT_MATRIX) jag::math::Matrix44T<float>(local_50, local_28);
+        jag::math::Matrix33Scaling<float>(1.0, 1.0, -1.0);
+        Vector3T<int> local_28;
+        new ((Matrix44T<float>*)&jag::graphics::MAYA_ANIM_INVERT_MATRIX)
+            jag::math::Matrix44T<float>(local_50, local_28);
     }
 
-    // 0x10038e5f0, 32 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.1
-    void ___cxx_global_var_init_1() {
-        new (&jag::graphics::WORLD_ORTHOGONAL) jag::math::ColourHSL(-1.5707964, -1.5707964, 0.0);
+    // 0x10038e5f0
+    void ___cxx_global_var_init_1(void) {
+        new ((ColourHSL*)&jag::graphics::WORLD_ORTHOGONAL) jag::math::ColourHSL(-1.5707964, -1.5707964, 0.0);
     }
 
-    // 0x10038e610, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.3
-    void ___cxx_global_var_init_3() {
+    // 0x10038e610
+    void ___cxx_global_var_init_3(void) {
         if (*PTR_VIEWRT_LUMINANCE_ADAPTED_100ee4048 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_ADAPTED_100ee4048) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_ADAPTED_100ee5578) HashedString("LUMINANCE_ADAPTED");
@@ -1206,9 +911,8 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x10038e670, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.5
-    void ___cxx_global_var_init_5() {
+    // 0x10038e670
+    void ___cxx_global_var_init_5(void) {
         if (*PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee4058 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee4058) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee5588) HashedString("LUMINANCE_ADAPTED_PREVIOUS");
@@ -1217,9 +921,8 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x10038e6d0, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.7
-    void ___cxx_global_var_init_7() {
+    // 0x10038e6d0
+    void ___cxx_global_var_init_7(void) {
         if (*PTR_VIEWRT_LUMINANCE_AVERAGE_100ee4050 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_AVERAGE_100ee4050) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_AVERAGE_100ee5580) HashedString("VIEWRT_LUMINANCE_AVERAGE");
@@ -1228,244 +931,178 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x10038f6c0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.75
-    void ___cxx_global_var_init_75() {
-        make_shared<ModelLitImpl>((jag*)&ModelLitImpl::m_tempModel);
+    // 0x10038f6c0
+    void ___cxx_global_var_init_75(void) {
+        make_shared<ModelLitImpl>();
         ___cxa_atexit(PTR__shared_ptr_100ee54e0, &ModelLitImpl::m_tempModel, 4294967296);
     }
 
-    // 0x10038f740, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.77
-    void ___cxx_global_var_init_77() {
-        make_shared<ModelLitImpl>((jag*)&ModelLitImpl::m_tempModel2);
+    // 0x10038f740
+    void ___cxx_global_var_init_77(void) {
+        make_shared<ModelLitImpl>();
         ___cxa_atexit(PTR__shared_ptr_100ee54e0, &ModelLitImpl::m_tempModel2, 4294967296);
     }
 
-    // 0x10038f7c0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.79
-    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-    void ___cxx_global_var_init_79() {
-        _DAT_1039364c0 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 48);
-        uRam00000001039364c8 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 56);
-        _DAT_1039364b0 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 32);
-        uRam00000001039364b8 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 40);
-        _DAT_1039364a0 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 16);
-        uRam00000001039364a8 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 24);
-        _m_sumMatrix = *(undefined8*)PTR_IDENTITY_100ee6730;
-        uRam0000000103936498 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 8);
+    // 0x10038f7c0
+    void ___cxx_global_var_init_79(void) {
+        _DAT_1039364c0 = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 48);
+        reinterpret_cast<const uint64_t*>(&m_sumMatrix)[7] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 56);
+        _DAT_1039364b0 = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 32);
+        reinterpret_cast<const uint64_t*>(&m_sumMatrix)[5] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 40);
+        _DAT_1039364a0 = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 16);
+        reinterpret_cast<const uint64_t*>(&m_sumMatrix)[3] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 24);
+        m_sumMatrix = *(uint64_t*)PTR_IDENTITY_100ee6730;
+        reinterpret_cast<const uint64_t*>(&m_sumMatrix)[1] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 8);
     }
 
-    // 0x10038f800, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.80
-    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-    void ___cxx_global_var_init_80() {
-        _DAT_103936500 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 48);
-        uRam0000000103936508 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 56);
-        _DAT_1039364f0 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 32);
-        uRam00000001039364f8 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 40);
-        _DAT_1039364e0 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 16);
-        uRam00000001039364e8 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 24);
-        _m_weightMatrix = *(undefined8*)PTR_IDENTITY_100ee6730;
-        uRam00000001039364d8 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 8);
+    // 0x10038f800
+    void ___cxx_global_var_init_80(void) {
+        _DAT_103936500 = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 48);
+        reinterpret_cast<const uint64_t*>(&m_weightMatrix)[7] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 56);
+        _DAT_1039364f0 = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 32);
+        reinterpret_cast<const uint64_t*>(&m_weightMatrix)[5] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 40);
+        _DAT_1039364e0 = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 16);
+        reinterpret_cast<const uint64_t*>(&m_weightMatrix)[3] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 24);
+        m_weightMatrix = *(uint64_t*)PTR_IDENTITY_100ee6730;
+        reinterpret_cast<const uint64_t*>(&m_weightMatrix)[1] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 8);
     }
 
-    // 0x10038f840, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.81
-    /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-    void ___cxx_global_var_init_81() {
-        _DAT_103936540 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 48);
-        uRam0000000103936548 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 56);
-        _DAT_103936530 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 32);
-        uRam0000000103936538 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 40);
-        _DAT_103936520 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 16);
-        uRam0000000103936528 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 24);
-        _m_skinMatrix = *(undefined8*)PTR_IDENTITY_100ee6730;
-        uRam0000000103936518 = *(undefined8*)(PTR_IDENTITY_100ee6730 + 8);
+    // 0x10038f840
+    void ___cxx_global_var_init_81(void) {
+        _DAT_103936540 = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 48);
+        reinterpret_cast<const uint64_t*>(&m_skinMatrix)[7] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 56);
+        _DAT_103936530 = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 32);
+        reinterpret_cast<const uint64_t*>(&m_skinMatrix)[5] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 40);
+        _DAT_103936520 = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 16);
+        reinterpret_cast<const uint64_t*>(&m_skinMatrix)[3] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 24);
+        m_skinMatrix = *(uint64_t*)PTR_IDENTITY_100ee6730;
+        reinterpret_cast<const uint64_t*>(&m_skinMatrix)[1] = *(uint64_t*)(PTR_IDENTITY_100ee6730 + 8);
     }
 
-    // 0x10038f940, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.112
-    void ___cxx_global_var_init_112() {
-        eastl::fixed_vector<long long, 1000ul, true, eastl::allocator>::fixed_vector(4355038968);
-        ___cxa_atexit(PTR__fixed_vector_100ee6cf0, &MousePickingHelper::m_pickedEntityTypecode, 4294967296);
-    }
-
-    // 0x10038f9c0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.130
-    void ___cxx_global_var_init_130() {
-        undefined* puVar1;
-
-        puVar1 = PTR_LOOK_100ee47d8;
+    // 0x10038f9c0
+    void ___cxx_global_var_init_130(void) {
+        uint8_t* puVar1 = PTR_LOOK_100ee47d8;
         if (*PTR_LOOK_100ee47d8 == '\0') {
             new (PTR_LOOK_100ee66e0) jag::math::ColourHSL(0.0, 0.0, 1.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fa00, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.131
-    void ___cxx_global_var_init_131() {
-        undefined* puVar1;
-
-        puVar1 = PTR_UP_100ee47c8;
+    // 0x10038fa00
+    void ___cxx_global_var_init_131(void) {
+        uint8_t* puVar1 = PTR_UP_100ee47c8;
         if (*PTR_UP_100ee47c8 == '\0') {
             new (PTR_UP_100ee66d0) jag::math::ColourHSL(0.0, 1.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fa40, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.132
-    void ___cxx_global_var_init_132() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee4298;
+    // 0x10038fa40
+    void ___cxx_global_var_init_132(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee4298;
         if (*PTR_m_pSingleton_100ee4298 == '\0') {
-            ___cxa_atexit(std::unique_ptr<ThreadPoolSingleton, std::default_delete<ThreadPoolSingleton>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee5948, 4294967296);
+            ___cxa_atexit(std::unique_ptr<ThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5948, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fa80, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.133
-    void ___cxx_global_var_init_133() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee42a0;
+    // 0x10038fa80
+    void ___cxx_global_var_init_133(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee42a0;
         if (*PTR_m_pSingleton_100ee42a0 == '\0') {
-            ___cxa_atexit(
-                std::unique_ptr<ShaderThreadPoolSingleton, std::default_delete<ShaderThreadPoolSingleton>>::~unique_ptr,
-                PTR_m_pSingleton_100ee5950, 4294967296);
+            ___cxa_atexit(std::unique_ptr<ShaderThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5950,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fac0, 48 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.134
-    void ___cxx_global_var_init_134() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee4790;
+    // 0x10038fac0
+    void ___cxx_global_var_init_134(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee4790;
         if (*PTR_ZERO_100ee4790 == '\0') {
-            new (PTR_ZERO_100ee6698) jag::math::Point<float>(0.0, 0.0);
+            new (PTR_ZERO_100ee6698) jag::math::Point(0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038faf0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.135
-    void ___cxx_global_var_init_135() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4518;
+    // 0x10038faf0
+    void ___cxx_global_var_init_135(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4518;
         if (*PTR_m_mutex_100ee4518 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5df0, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fb30, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.136
-    void ___cxx_global_var_init_136() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee4800;
+    // 0x10038fb30
+    void ___cxx_global_var_init_136(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee4800;
         if (*PTR_ZERO_100ee4800 == '\0') {
             new (PTR_ZERO_100ee6708) ImVec4(0.0, 0.0, 0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fb70, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.137
-    void ___cxx_global_var_init_137() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49c8;
+    // 0x10038fb70
+    void ___cxx_global_var_init_137(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49c8;
         if (*PTR_m_pSingleton_100ee49c8 == '\0') {
-            ___cxa_atexit(std::unique_ptr<render::ShaderProgramManager,
-                                          std::default_delete<render::ShaderProgramManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c38, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::ShaderProgramManager>::~unique_ptr, PTR_m_pSingleton_100ee6c38,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fbb0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.138
-    void ___cxx_global_var_init_138() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49d0;
+    // 0x10038fbb0
+    void ___cxx_global_var_init_138(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49d0;
         if (*PTR_m_pSingleton_100ee49d0 == '\0') {
-            ___cxa_atexit(std::unique_ptr<render::VertexDeclarationManager,
-                                          std::default_delete<render::VertexDeclarationManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c40, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::VertexDeclarationManager>::~unique_ptr, PTR_m_pSingleton_100ee6c40,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fbf0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.139
-    void ___cxx_global_var_init_139() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49a0;
+    // 0x10038fbf0
+    void ___cxx_global_var_init_139(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49a0;
         if (*PTR_m_pSingleton_100ee49a0 == '\0') {
-            ___cxa_atexit(std::unique_ptr<render::RenderDevice, std::default_delete<render::RenderDevice>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c10, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::RenderDevice>::~unique_ptr, PTR_m_pSingleton_100ee6c10, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fc30, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.140
-    void ___cxx_global_var_init_140() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee45b0;
+    // 0x10038fc30
+    void ___cxx_global_var_init_140(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee45b0;
         if (*PTR_m_mutex_100ee45b0 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5f20, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fc70, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.141
-    void ___cxx_global_var_init_141() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee47e0;
+    // 0x10038fc70
+    void ___cxx_global_var_init_141(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee47e0;
         if (*PTR_ZERO_100ee47e0 == '\0') {
             new (PTR_ZERO_100ee66e8) jag::math::ColourHSL(0.0, 0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fcb0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.142
-    void ___cxx_global_var_init_142() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49d8;
+    // 0x10038fcb0
+    void ___cxx_global_var_init_142(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49d8;
         if (*PTR_m_pSingleton_100ee49d8 == '\0') {
-            ___cxa_atexit(std::unique_ptr<jag::graphics::AnimationManager,
-                                          std::default_delete<jag::graphics::AnimationManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c48, 4294967296);
+            ___cxa_atexit(std::unique_ptr<jag::graphics::AnimationManager>::~unique_ptr, PTR_m_pSingleton_100ee6c48,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fcf0, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.143
-    void ___cxx_global_var_init_143() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee4820;
+    // 0x10038fcf0
+    void ___cxx_global_var_init_143(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee4820;
         if (*PTR_ZERO_100ee4820 == '\0') {
             new (PTR_ZERO_100ee6728) jag::math::Matrix44T<float>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
                                                                  0.0, 0.0, 0.0, 0.0, 0.0);
@@ -1473,24 +1110,18 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x10038fd50, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.144
-    void ___cxx_global_var_init_144() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee45d8;
+    // 0x10038fd50
+    void ___cxx_global_var_init_144(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee45d8;
         if (*PTR_m_mutex_100ee45d8 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5f70, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fd90, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.145
-    void ___cxx_global_var_init_145() {
-        undefined* puVar1;
-
-        puVar1 = PTR_IDENTITY_100ee4828;
+    // 0x10038fd90
+    void ___cxx_global_var_init_145(void) {
+        uint8_t* puVar1 = PTR_IDENTITY_100ee4828;
         if (*PTR_IDENTITY_100ee4828 == '\0') {
             new (PTR_IDENTITY_100ee6730) jag::math::Matrix44T<float>(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
                                                                      1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
@@ -1498,38 +1129,28 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x10038fdf0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.146
-    void ___cxx_global_var_init_146() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4590;
+    // 0x10038fdf0
+    void ___cxx_global_var_init_146(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4590;
         if (*PTR_m_mutex_100ee4590 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5ee0, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fe30, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.147
-    void ___cxx_global_var_init_147() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee4290;
+    // 0x10038fe30
+    void ___cxx_global_var_init_147(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee4290;
         if (*PTR_m_pSingleton_100ee4290 == '\0') {
-            ___cxa_atexit(std::unique_ptr<graphicutils::BatchDestroyManager,
-                                          std::default_delete<graphicutils::BatchDestroyManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee5940, 4294967296);
+            ___cxa_atexit(std::unique_ptr<graphicutils::BatchDestroyManager>::~unique_ptr, PTR_m_pSingleton_100ee5940,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038fe70, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.148
-    void ___cxx_global_var_init_148() {
-        undefined* puVar1;
-
-        puVar1 = PTR_IDENTITY_100ee4818;
+    // 0x10038fe70
+    void ___cxx_global_var_init_148(void) {
+        uint8_t* puVar1 = PTR_IDENTITY_100ee4818;
         if (*PTR_IDENTITY_100ee4818 == '\0') {
             new (PTR_IDENTITY_100ee6720)
                 jag::math::Matrix43T<float>(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0);
@@ -1537,94 +1158,67 @@ namespace jag::oldscape::dash3d {
         }
     }
 
-    // 0x10038fed0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.149
-    void ___cxx_global_var_init_149() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4520;
+    // 0x10038fed0
+    void ___cxx_global_var_init_149(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4520;
         if (*PTR_m_mutex_100ee4520 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5e00, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038ff10, 80 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.150
-    void ___cxx_global_var_init_150() {
-        undefined* puVar1;
-
-        puVar1 = PTR_IDENTITY_100ee4810;
+    // 0x10038ff10
+    void ___cxx_global_var_init_150(void) {
+        uint8_t* puVar1 = PTR_IDENTITY_100ee4810;
         if (*PTR_IDENTITY_100ee4810 == '\0') {
             new (PTR_IDENTITY_100ee6718) jag::math::Matrix33T<float>(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038ffa0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.152
-    void ___cxx_global_var_init_152() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49f0;
+    // 0x10038ffa0
+    void ___cxx_global_var_init_152(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49f0;
         if (*PTR_m_pSingleton_100ee49f0 == '\0') {
-            ___cxa_atexit(
-                std::unique_ptr<hardware::HardwareInfo, std::default_delete<hardware::HardwareInfo>>::~unique_ptr,
-                PTR_m_pSingleton_100ee6c60, 4294967296);
+            ___cxa_atexit(std::unique_ptr<hardware::HardwareInfo>::~unique_ptr, PTR_m_pSingleton_100ee6c60, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10038ffe0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.153
-    void ___cxx_global_var_init_153() {
-        undefined* puVar1;
-
-        puVar1 = PTR_RIGHT_100ee47e8;
+    // 0x10038ffe0
+    void ___cxx_global_var_init_153(void) {
+        uint8_t* puVar1 = PTR_RIGHT_100ee47e8;
         if (*PTR_RIGHT_100ee47e8 == '\0') {
             new (PTR_RIGHT_100ee66f0) jag::math::ColourHSL(1.0, 0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x100390020, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.154
-    void ___cxx_global_var_init_154() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4630;
+    // 0x100390020
+    void ___cxx_global_var_init_154(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4630;
         if (*PTR_m_mutex_100ee4630 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee6020, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x100390060, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.155
-    void ___cxx_global_var_init_155() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee4280;
+    // 0x100390060
+    void ___cxx_global_var_init_155(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee4280;
         if (*PTR_m_pSingleton_100ee4280 == '\0') {
             ___cxa_atexit(
-                std::unique_ptr<
-                    graphicutils::BatchDestroyHelper<
-                        std::unique_ptr<jag::graphics::GeometryBatchInstance,
-                                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>,
-                    std::default_delete<graphicutils::BatchDestroyHelper<std::unique_ptr<
-                        jag::graphics::GeometryBatchInstance,
-                        MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>>>::~unique_ptr,
+                std::unique_ptr<graphicutils::BatchDestroyHelper<std::unique_ptr<
+                    jag::graphics::GeometryBatchInstance,
+                    MakeUniquePool<jag::graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>>>::~unique_ptr,
                 PTR_m_pSingleton_100ee5930, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x1003900a0, 189 bytes, placed by nothing (unplaced)
-    // __GLOBAL__sub_I_unity_0_cxx.cxx
-    void __GLOBAL__sub_I_unity_0_cxx_cxx() {
-        undefined8 uVar1;
-
-        uVar1 = _objc_autoreleasePoolPush();
+    // 0x1003900a0
+    void __GLOBAL__sub_I_unity_0_cxx_cxx(void) {
+        uint64_t uVar1 = _objc_autoreleasePoolPush();
         ___cxx_global_var_init();
         ___cxx_global_var_init_1();
         ___cxx_global_var_init_9();
@@ -1663,73 +1257,57 @@ namespace jag::oldscape::dash3d {
 } // namespace jag::oldscape::dash3d
 
 namespace jag::math {
-    // 0x10036e800, 416 bytes, inline, placed by nothing (unplaced)
-    // Vector3T<float> operator*<float>(Matrix44T<float> const&, Vector3T<float> const&)
-    /* Vector3T<float> TEMPNAMEPLACEHOLDERVALUE(Matrix44T<float>
-   const&, Vector3T<float> const&) */
+    // 0x10036e800
+    Vector3T<float> operator* <float>(const Matrix44T<float>& matrix44, const Vector3T<float>& vector3) {
+        uint64_t uVar3;
+        uint8_t local_30[16];
 
-    undefined8 operator*(Matrix44T* param_1, Vector3T* param_2) {
-        float* pfVar1;
-        long lVar2;
-        undefined8 uVar3;
-        undefined1 local_30[16];
-        float local_20;
-        float local_1c;
-
-        pfVar1 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 0);
-        local_20 = *(float*)param_2 * *pfVar1;
-        lVar2 = Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 0);
-        local_20 = *(float*)(param_2 + 4) * *(float*)(lVar2 + 4) + local_20;
-        lVar2 = Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 0);
-        local_20 = *(float*)(param_2 + 8) * *(float*)(lVar2 + 8) + local_20;
-        lVar2 = Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 0);
+        float* pfVar1 = &matrix44[0];
+        float local_20 = *(float*)vector3 * *pfVar1;
+        long lVar2 = matrix44[0];
+        local_20 = *(float*)(vector3 + 4) * *(float*)(lVar2 + 4) + local_20;
+        lVar2 = matrix44[0];
+        local_20 = *(float*)(vector3 + 8) * *(float*)(lVar2 + 8) + local_20;
+        lVar2 = matrix44[0];
         local_20 = local_20 + *(float*)(lVar2 + 12);
-        pfVar1 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 1);
-        local_1c = *(float*)param_2 * *pfVar1;
-        lVar2 = Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 1);
-        local_1c = *(float*)(param_2 + 4) * *(float*)(lVar2 + 4) + local_1c;
-        lVar2 = Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 1);
-        local_1c = *(float*)(param_2 + 8) * *(float*)(lVar2 + 8) + local_1c;
-        lVar2 = Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 1);
+        pfVar1 = &matrix44[1];
+        float local_1c = *(float*)vector3 * *pfVar1;
+        lVar2 = matrix44[1];
+        local_1c = *(float*)(vector3 + 4) * *(float*)(lVar2 + 4) + local_1c;
+        lVar2 = matrix44[1];
+        local_1c = *(float*)(vector3 + 8) * *(float*)(lVar2 + 8) + local_1c;
+        lVar2 = matrix44[1];
         local_1c = local_1c + *(float*)(lVar2 + 12);
-        pfVar1 = (float*)Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 2);
-        local_30._12_4_ = *(float*)param_2 * *pfVar1;
-        lVar2 = Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 2);
-        local_30._12_4_ = *(float*)(param_2 + 4) * *(float*)(lVar2 + 4) + (float)local_30._12_4_;
-        lVar2 = Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 2);
-        local_30._12_4_ = *(float*)(param_2 + 8) * *(float*)(lVar2 + 8) + (float)local_30._12_4_;
-        lVar2 = Matrix44T<float>::operator[]((Matrix44T<float>*)param_1, 2);
+        pfVar1 = &matrix44[2];
+        local_30._12_4_ = *(float*)vector3 * *pfVar1;
+        lVar2 = matrix44[2];
+        local_30._12_4_ = *(float*)(vector3 + 4) * *(float*)(lVar2 + 4) + (float)local_30._12_4_;
+        lVar2 = matrix44[2];
+        local_30._12_4_ = *(float*)(vector3 + 8) * *(float*)(lVar2 + 8) + (float)local_30._12_4_;
+        lVar2 = matrix44[2];
         new (local_30) ColourHSL(local_20, local_1c, (float)local_30._12_4_ + *(float*)(lVar2 + 12));
         uVar3._0_4_ = (float)local_30._0_4_;
         uVar3._4_4_ = (float)local_30._4_4_;
         return uVar3;
     }
 
-    // 0x10036e9a0, 48 bytes, inline, placed by nothing (unplaced)
-    // bool EqualAbs<float>(float, float, float)
-    bool EqualAbs<float>(float param_1, float param_2, float param_3) {
-        return (float)::abs(param_1 - param_2) < param_3;
+    // 0x10036e9a0
+    bool EqualAbs<float>(float arg1, float arg2, float arg3) {
+        return (float)::abs(arg1 - arg2) < arg3;
     }
 
-    // 0x10036fab0, 32 bytes, inline, placed by nothing (unplaced)
-    // int Vector3Dot<int>(Vector3T<int> const&, Vector3T<int> const&)
-    int Vector3Dot<int>(Vector3T* param_1, Vector3T* param_2) {
-        return *(int*)(param_2 + 8) * *(int*)(param_1 + 8) + *(int*)(param_2 + 4) * *(int*)(param_1 + 4) +
-               *(int*)param_2 * *(int*)param_1;
+    // 0x10036fab0
+    int Vector3Dot<int>(const Vector3T<int>& vector31, const Vector3T<int>& vector32) {
+        return *(int*)(vector32 + 8) * *(int*)(vector31 + 8) + *(int*)(vector32 + 4) * *(int*)(vector31 + 4) +
+               *(int*)vector32 * *(int*)vector31;
     }
 
-    // 0x1003701b0, 64 bytes, inline, placed by nothing (unplaced)
-    // Vector3T<int> operator/<int>(Vector3T<int> const&, Vector3T<int> const&)
-    /* Vector3T<int> TEMPNAMEPLACEHOLDERVALUE(Vector3T<int> const&,
-   Vector3T<int> const&) */
+    // 0x1003701b0
+    Vector3T<int> operator/ <int>(const Vector3T<int>& vector31, const Vector3T<int>& vector32) {
+        uint8_t auVar1[16];
 
-    undefined1[16] operator/(Vector3T * param_1, Vector3T * param_2) {
-        undefined1 auVar1[16];
-        LocationData local_18;
-
-        new (&local_18) oldscape::rs2lib::worldmap::LocationData(*(int*)param_1 / *(int*)param_2,
-                                                                 *(int*)(param_1 + 4) / *(int*)(param_2 + 4),
-                                                                 *(int*)(param_1 + 8) / *(int*)(param_2 + 8));
+        LocationData local_18(*(int*)vector31 / *(int*)vector32, *(int*)(vector31 + 4) / *(int*)(vector32 + 4),
+                              *(int*)(vector31 + 8) / *(int*)(vector32 + 8));
         auVar1._12_4_ = 0;
         auVar1._0_4_ = local_18.field_0;
         auVar1._4_4_ = local_18.field_4;
@@ -1737,16 +1315,14 @@ namespace jag::math {
         return auVar1;
     }
 
-    // 0x1003702c0, 96 bytes, inline, placed by nothing (unplaced)
-    // Vector3T<int> Vector3Cross<int>(Vector3T<int> const&, Vector3T<int> const&)
-    undefined1[16] Vector3Cross<int>(Vector3T* param_1, Vector3T* param_2) {
-        undefined1 auVar1[16];
-        LocationData local_18;
+    // 0x1003702c0
+    Vector3T<int> Vector3Cross<int>(const Vector3T<int>& vector31, const Vector3T<int>& vector32) {
+        uint8_t auVar1[16];
 
-        new (&local_18) oldscape::rs2lib::worldmap::LocationData(
-            *(int*)(param_2 + 8) * *(int*)(param_1 + 4) - *(int*)(param_2 + 4) * *(int*)(param_1 + 8),
-            *(int*)(param_1 + 8) * *(int*)param_2 - *(int*)(param_2 + 8) * *(int*)param_1,
-            *(int*)param_1 * *(int*)(param_2 + 4) - *(int*)param_2 * *(int*)(param_1 + 4));
+        LocationData local_18(*(int*)(vector32 + 8) * *(int*)(vector31 + 4) -
+                                  *(int*)(vector32 + 4) * *(int*)(vector31 + 8),
+                              *(int*)(vector31 + 8) * *(int*)vector32 - *(int*)(vector32 + 8) * *(int*)vector31,
+                              *(int*)vector31 * *(int*)(vector32 + 4) - *(int*)vector32 * *(int*)(vector31 + 4));
         auVar1._12_4_ = 0;
         auVar1._0_4_ = local_18.field_0;
         auVar1._4_4_ = local_18.field_4;
@@ -1754,47 +1330,23 @@ namespace jag::math {
         return auVar1;
     }
 
-    // 0x100370320, 64 bytes, inline, placed by nothing (unplaced)
-    // Vector3T<int> Vector3Abs<int>(Vector3T<int> const&)
-    undefined1[16] Vector3Abs<int>(Vector3T* param_1) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-        undefined1 auVar4[16];
-        LocationData local_18;
+    // 0x100370320
+    Vector3T<int> Vector3Abs<int>(const Vector3T<int>& vector3) {
+        uint8_t auVar1[16];
 
-        iVar3 = -*(int*)param_1;
-        if (iVar3 < 0) {
-            iVar3 = *(int*)param_1;
+        int arg1 = -*(int*)vector3;
+        if (arg1 < 0) {
+            arg1 = *(int*)vector3;
         }
-        iVar2 = -*(int*)(param_1 + 4);
-        if (iVar2 < 0) {
-            iVar2 = *(int*)(param_1 + 4);
+        unsigned int arg2 = -*(unsigned int*)(vector3 + 4);
+        if ((int)arg2 < 0) {
+            arg2 = *(unsigned int*)(vector3 + 4);
         }
-        iVar1 = -*(int*)(param_1 + 8);
-        if (iVar1 < 0) {
-            iVar1 = *(int*)(param_1 + 8);
+        unsigned int arg3 = -*(unsigned int*)(vector3 + 8);
+        if ((int)arg3 < 0) {
+            arg3 = *(unsigned int*)(vector3 + 8);
         }
-        new (&local_18) oldscape::rs2lib::worldmap::LocationData(iVar3, iVar2, iVar1);
-        auVar4._12_4_ = 0;
-        auVar4._0_4_ = local_18.field_0;
-        auVar4._4_4_ = local_18.field_4;
-        auVar4._8_4_ = local_18.field_8;
-        return auVar4;
-    }
-
-    // 0x1003703b0, 64 bytes, inline, placed by nothing (unplaced)
-    // Vector3T<int> operator*<int>(Vector3T<int> const&, Vector3T<int> const&)
-    /* Vector3T<int> TEMPNAMEPLACEHOLDERVALUE(Vector3T<int> const&,
-   Vector3T<int> const&) */
-
-    undefined1[16] operator*(Vector3T * param_1, Vector3T * param_2) {
-        undefined1 auVar1[16];
-        LocationData local_18;
-
-        new (&local_18) oldscape::rs2lib::worldmap::LocationData(*(int*)param_2 * *(int*)param_1,
-                                                                 *(int*)(param_2 + 4) * *(int*)(param_1 + 4),
-                                                                 *(int*)(param_2 + 8) * *(int*)(param_1 + 8));
+        LocationData local_18(arg1, arg2, arg3);
         auVar1._12_4_ = 0;
         auVar1._0_4_ = local_18.field_0;
         auVar1._4_4_ = local_18.field_4;
@@ -1802,13 +1354,23 @@ namespace jag::math {
         return auVar1;
     }
 
-    // 0x100370b80, 64 bytes, inline, placed by nothing (unplaced)
-    // NearestPowerOf2GreaterOrEqual(unsigned int)
-    int NearestPowerOf2GreaterOrEqual(uint param_1) {
-        uint uVar1;
+    // 0x1003703b0
+    Vector3T<int> operator* <int>(const Vector3T<int>& vector31, const Vector3T<int>& vector32) {
+        uint8_t auVar1[16];
 
-        uVar1 = param_1 - 1;
-        if (param_1 == 0) {
+        LocationData local_18(*(int*)vector32 * *(int*)vector31, *(int*)(vector32 + 4) * *(int*)(vector31 + 4),
+                              *(int*)(vector32 + 8) * *(int*)(vector31 + 8));
+        auVar1._12_4_ = 0;
+        auVar1._0_4_ = local_18.field_0;
+        auVar1._4_4_ = local_18.field_4;
+        auVar1._8_4_ = local_18.field_8;
+        return auVar1;
+    }
+
+    // 0x100370b80
+    int NearestPowerOf2GreaterOrEqual(unsigned int arg1) {
+        unsigned int uVar1 = arg1 - 1;
+        if (arg1 == 0) {
             uVar1 = 0;
         }
         uVar1 = uVar1 >> 1 | uVar1;
@@ -1821,16 +1383,16 @@ namespace jag::math {
 } // namespace jag::math
 
 namespace jag::graphics {
-    // 0x10422a830, 64 bytes, __bss; zero-initialised
-    MAYA_ANIM_INVERT_MATRIX;
+    // 0x10422a830
+    uint8_t MAYA_ANIM_INVERT_MATRIX[64];
 
-    // 0x10422a870, 16 bytes, __bss; zero-initialised
-    WORLD_ORTHOGONAL;
+    // 0x10422a870
+    uint8_t WORLD_ORTHOGONAL[16];
 
 } // namespace jag::graphics
 
 namespace jag::threading {
-    // 0x100d429a4, 8 bytes, __const
-    MAX_HARDWARE_THREAD_LIMIT = 4935945191598063632;
+    // 0x100d429a4
+    int32_t MAX_HARDWARE_THREAD_LIMIT = 4935945191598063632;
 
 } // namespace jag::threading

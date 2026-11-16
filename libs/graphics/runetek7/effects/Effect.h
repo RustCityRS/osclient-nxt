@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/effects/Effect.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,67 +10,47 @@ namespace jag::graphics {
         // virtual methods in vtable order
         virtual ~Effect();
         virtual void Initialise();
-        virtual OnDisabled();
-        virtual CreateRenderingResources();
-        virtual void SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const;
-        OnEndFrame();
-        InitialiseTweakVars(tweak::ContainerGroup&, EffectManager&);
-        DestroyRenderingResources();
-        OnEnabled();
-        RenderDebug(render::Viewport const&) const;
-        BindConstBufferToShader(render::ShaderProgram const&) const;
-        IsSupported() const;
+        virtual void OnDisabled();
+        virtual uint8_t CreateRenderingResources();
+        virtual void SetShaderConstants(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                        Shader& shader) const;
+        void OnEndFrame();
+        void InitialiseTweakVars(tweak::ContainerGroup& arg1, EffectManager& arg2);
+        void DestroyRenderingResources();
+        void OnEnabled();
+        void RenderDebug(const render::Viewport& arg1) const;
+        void BindConstBufferToShader(const render::ShaderProgram& arg1) const;
+        bool IsSupported() const;
         Effect();
-        Effect(RT7Core&);
-
-        // data members, from how the methods use this: 8 bytes
-        undefined** field_0; // offset 0, vtable pointer
+        Effect(RT7Core& arg1);
+        Effect(RT7Core& rt7Core);
     };
 
-    // 0x100936d40, 16 bytes, base-object constructor, inline, placed by class name and debug map
-    // Effect::Effect()
-    /* Effect::Effect(RT7Core&) */
+    // 0x100936d40
+    Effect::Effect() {}
 
-    void Effect::Effect(RT7Core* param_1) {
-        field_0 = &PTR_destruct<oldscape::highlight::NpcUID*> _100f19fc8;
-    }
-
-    // 0x100936ec0, 112 bytes, inline, placed by debug map only (low confidence)
-    // GetKeyFromWorldPos(math::Vector3T<float> const&)
-    void GetKeyFromWorldPos(Vector3T* param_1) {
-        float fVar1;
-        vector* pvVar2;
-        float* pfVar3;
-
-        pvVar2 = SSOBeginPtr(param_1);
-        fVar1 = *(float*)pvVar2;
-        pfVar3 = (float*)second();
-        if (((int)(fVar1 * 0.00012207031) < 0) || ((int)(*pfVar3 * 0.00012207031) < 0)) {
-            /* WARNING: Subroutine does not return */
+    // 0x100936ec0
+    void GetKeyFromWorldPos(const math::Vector3T<float>& vector3) {
+        auto pfVar2 = vector3.SSOBeginPtr();
+        float fVar1 = *pfVar2;
+        pfVar2 = (float*)vector3.second();
+        if (((int)(fVar1 * 0.00012207031f) < 0) || ((int)(*pfVar2 * 0.00012207031f) < 0)) {
             LogAssert("mapSquareX >= 0 && mapSquareZ >= 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/effects/"
                       "lighting/PointLightIndicesEffect.cpp",
-                      21, (char*)0);
+                      21, nullptr);
         }
-        Js5NetQueueRequest::GetKey((int)(fVar1 * 0.00012207031), (int)(*pfVar3 * 0.00012207031));
+        Js5NetQueueRequest::GetKey((int)(fVar1 * 0.00012207031f), (int)(*pfVar2 * 0.00012207031f));
     }
 
-    // 0x100937190, 16 bytes, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // GetKeyFromMapSquare(int, int)
-    /* Js5NetQueueRequest::GetKey(int, int) */
-
-    uint Js5NetQueueRequest::GetKey(int param_1, int param_2) {
-        return param_2 << 8 | param_1;
+    // 0x100937190
+    void GetKeyFromMapSquare(int arg1, int arg2) {
+        return arg2 << 8 | arg1;
     }
 
-    // 0x100937db0, 16 bytes, inline, placed by class name
-    // Effect::Initialise()
+    // 0x100937db0
     void Effect::Initialise() {
-        (*(code*)field_0[9])();
+        IsSupported();
     }
-
-    // 0x10093a4e0, 16 bytes, complete-object constructor, inline, placed by class name
-    // Effect::Effect(RT7Core&): jumps straight to the base-object constructor
 
 } // namespace jag::graphics

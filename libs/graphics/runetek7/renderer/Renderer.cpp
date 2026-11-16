@@ -1,390 +1,317 @@
 // libs/graphics/runetek7/renderer/Renderer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "Renderer.h"
 
 namespace jag::graphics {
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    Renderer::GatherSceneGraphDrawableElements(
-        eastl::vector<std::pair<GraphEntity*, GraphEntityTransformData>, eastl::allocator>&, SceneViewData const&,
-        GraphNode*, EffectManager const&);
+    // 0x100009e70: Renderer::GatherSceneGraphDrawableElements(eastl::vector<std::pair<GraphEntity*, GraphEntityTransformData>>&, SceneViewData const&, GraphNode*, EffectManager const&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    Renderer::GatherSceneGraphDrawableElements(unsigned int, SceneViewData const&, GraphNode*, int,
-                                               EffectManager const&);
+    // 0x100009e70: Renderer::GatherSceneGraphDrawableElements(unsigned int, SceneViewData const&, GraphNode*, int, EffectManager const&) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100102fc0: the linker folded this into oldscape::rs2lib::InputField::GetPlaceholderContents() const, which has identical code
-    DrawableQueue Renderer::GetDrawableQueue();
+    // 0x100102fc0: Renderer::GetDrawableQueue() has the same machine code as oldscape::rs2lib::InputField::GetPlaceholderContents() const
 
-    // 0x1007e40b0, 192 bytes, base-object constructor, placed by class name and debug map
-    // Renderer::Renderer(RT7Core*, eastl::fixed_vector<DrawableQueue::RenderPassDrawableGroupsConfig, 10ul, true, eastl::allocator> const&, unsigned long, unsigned long)
-    void Renderer::Renderer(RT7Core* param_1, fixed_vector* param_2, ulong param_3, ulong param_4) {
-        ThreadPool* pTVar1;
-
-        field_0 = &PTR__Renderer_100f14d90;
-        field_8 = param_1;
-        new (&field_16) eastl::vector<DrawableList*, eastl::allocator>();
-        new (&field_48) eastl::vector<Drawable*, eastl::allocator>();
-        pTVar1 = (ThreadPool*)param_1->GetImmediateThreadPool();
-        new (m_drawableQueue, pTVar1, param_2) DrawableQueue();
-        (&field_16, param_4)->reserve();
-        (&field_48, param_3)->reserve();
+    // 0x1007e40b0
+    Renderer::Renderer(
+        RT7Core* rt7Core,
+        const eastl::fixed_vector<DrawableQueue::RenderPassDrawableGroupsConfig, 10ul>& renderPassDrawableGroupsConfigs,
+        unsigned long arg3, unsigned long arg4)
+        : field_8(rt7Core) {
+        auto threadPool = rt7Core->GetImmediateThreadPool();
+        new (&m_drawableQueue) DrawableQueue(threadPool, renderPassDrawableGroupsConfigs);
+        field_16.reserve(arg4);
+        field_48.reserve(arg3);
     }
 
-    // 0x1007e4240, 16 bytes, complete-object constructor, placed by class name and debug map
-    // Renderer::Renderer(RT7Core*, eastl::fixed_vector<DrawableQueue::RenderPassDrawableGroupsConfig, 10ul, true, eastl::allocator> const&, unsigned long, unsigned long): jumps straight to the base-object constructor
-
-    // 0x1007e4250, 64 bytes, base-object destructor, placed by class name and debug map
-    // Renderer::~Renderer()
-    void Renderer::~Renderer() {
-        field_0 = &PTR__Renderer_100f14d90;
-        m_drawableQueue->~DrawableQueue();
-        (&field_48)->~vector();
-        (&field_16)->~vector();
+    // 0x1007e4250
+    Renderer::~Renderer() {
+        field_48.~vector();
+        field_16.~vector();
     }
 
-    // 0x1007e4290, 16 bytes, complete-object destructor, placed by class name and debug map
-    // Renderer::~Renderer(): jumps straight to the base-object destructor
+    // 0x1007e42c0
+    void Renderer::AddDrawableList(DrawableList* drawableList) {
+        function<bool_(int, int, int, int)>** ppfVar1;
+        function<bool_(int, int, int, int)>** ppfVar2;
 
-    // 0x1007e42a0, 32 bytes, deleting destructor, placed by class name and debug map
-    // Renderer::~Renderer()
-    void Renderer::~Renderer() {
-        ~Renderer(this);
-        operator_delete(this);
-    }
-
-    // 0x1007e42c0, 96 bytes, placed by class name and debug map
-    // Renderer::AddDrawableList(DrawableList*)
-    void Renderer::AddDrawableList(DrawableList* param_1) {
-        function** ppfVar1;
-        function** ppfVar2;
-        undefined1* this_00;
-        DrawableList* local_20;
-
-        this_00 = &field_16;
-        local_20 = param_1;
-        ppfVar1 = (function**)this_00->HeapBeginPtr();
-        ppfVar2 = (function**)this_00->end();
+        uint8_t* this_00 = &field_16;
+        DrawableList* local_20 = drawableList;
+        ppfVar1 = (function<bool_(int, int, int, int)>**)this_00->HeapBeginPtr();
+        ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
         ppfVar1 = eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-            ppfVar1, ppfVar2, (function**)&local_20);
-        ppfVar2 = (function**)this_00->end();
+            ppfVar1, ppfVar2, local_20);
+        ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
         if (ppfVar1 == ppfVar2) {
-            this_00->push_back(&local_20);
+            this_00->push_back(local_20);
         }
     }
 
-    // 0x1007e4370, 96 bytes, placed by class name and debug map
-    // Renderer::RemoveDrawableList(DrawableList*)
-    void Renderer::RemoveDrawableList(DrawableList* param_1) {
-        function** ppfVar1;
-        function** ppfVar2;
-        undefined1* this_00;
-        DrawableList* local_20;
+    // 0x1007e4370
+    void Renderer::RemoveDrawableList(DrawableList* drawableList) {
+        function<bool_(int, int, int, int)>** ppfVar1;
+        function<bool_(int, int, int, int)>** ppfVar2;
 
-        this_00 = &field_16;
-        local_20 = param_1;
-        ppfVar1 = (function**)this_00->HeapBeginPtr();
-        ppfVar2 = (function**)this_00->end();
+        uint8_t* this_00 = &field_16;
+        DrawableList* local_20 = drawableList;
+        ppfVar1 = (function<bool_(int, int, int, int)>**)this_00->HeapBeginPtr();
+        ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
         ppfVar1 = eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-            ppfVar1, ppfVar2, (function**)&local_20);
-        ppfVar2 = (function**)this_00->end();
+            ppfVar1, ppfVar2, local_20);
+        ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
         if (ppfVar1 != ppfVar2) {
             this_00->erase_unsorted(ppfVar1);
         }
     }
 
-    // 0x1007e4420, 96 bytes, placed by class name and debug map
-    // Renderer::AddDrawable(Drawable*)
-    void Renderer::AddDrawable(Drawable* param_1) {
-        function** ppfVar1;
-        function** ppfVar2;
-        undefined1* this_00;
-        Drawable* local_20;
+    // 0x1007e4420
+    void Renderer::AddDrawable(Drawable* drawable) {
+        function<bool_(int, int, int, int)>** ppfVar1;
+        function<bool_(int, int, int, int)>** ppfVar2;
 
-        this_00 = &field_48;
-        local_20 = param_1;
-        ppfVar1 = (function**)this_00->HeapBeginPtr();
-        ppfVar2 = (function**)this_00->end();
+        uint8_t* this_00 = &field_48;
+        Drawable* local_20 = drawable;
+        ppfVar1 = (function<bool_(int, int, int, int)>**)this_00->HeapBeginPtr();
+        ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
         ppfVar1 = eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-            ppfVar1, ppfVar2, (function**)&local_20);
-        ppfVar2 = (function**)this_00->end();
+            ppfVar1, ppfVar2, local_20);
+        ppfVar2 = (function<bool_(int, int, int, int)>**)this_00->end();
         if (ppfVar1 == ppfVar2) {
-            this_00->push_back(&local_20);
+            this_00->push_back(local_20);
         }
     }
 
-    // 0x1007e44d0, 96 bytes, placed by class name and debug map
-    // Renderer::RemoveDrawable(Drawable*)
-    void Renderer::RemoveDrawable(Drawable* param_1) {
-        function** ppfVar1;
-        function** ppfVar2;
-        Drawable** ppDVar3;
-        Drawable** ppDVar4;
-        undefined1* this_00;
-        Drawable* local_20;
+    // 0x1007e44d0
+    void Renderer::RemoveDrawable(Drawable* drawable) {
+        function<bool_(int, int, int, int)>** arg1;
+        function<bool_(int, int, int, int)>** arg2;
 
-        this_00 = &field_48;
-        local_20 = param_1;
-        ppfVar1 = (function**)this_00->HeapBeginPtr();
-        ppfVar2 = (function**)this_00->end();
-        ppDVar3 = (Drawable**)
-            eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(
-                ppfVar1, ppfVar2, (function**)&local_20);
-        ppDVar4 = (Drawable**)this_00->end();
-        if (ppDVar3 != ppDVar4) {
-            this_00->erase_unsorted(ppDVar3);
+        uint8_t* this_00 = &field_48;
+        Drawable* local_20 = drawable;
+        arg1 = (function<bool_(int, int, int, int)>**)this_00->HeapBeginPtr();
+        arg2 = (function<bool_(int, int, int, int)>**)this_00->end();
+        Drawable** arg1_00 = (Drawable**)
+            eastl::find<std::function<bool(input::TextCommand)>**, std::function<bool(input::TextCommand)>*>(arg1, arg2,
+                                                                                                             local_20);
+        auto ppDVar1 = this_00->end();
+        if (arg1_00 != ppDVar1) {
+            this_00->erase_unsorted(arg1_00);
         }
     }
 
-    // 0x1007e4580, 208 bytes, placed by class name and debug map
-    // Renderer::RenderView(unsigned int, int, SceneViewData const&, GraphNode*, EffectManager&, bool)
-    void Renderer::RenderView(uint param_1, int param_2, SceneViewData* param_3, GraphNode* param_4,
-                              EffectManager* param_5, bool param_6) {
-        RenderContext* pRVar1;
-        undefined4 in_register_00000034;
-        RenderContext* pRVar2;
-        Callstack local_40;
+    // 0x1007e4580
+    void Renderer::RenderView(unsigned int arg1, int arg2, const SceneViewData& sceneViewData, GraphNode* graphNode,
+                              EffectManager& effectManager, bool arg6) {
+        long lVar1;
+        uint32_t in_register_00000034;
+        uint32_t in_register_0000003c;
+        uint64_t in_register_00000089;
+        bool in_stack_00000008;
 
-        pRVar2 = (RenderContext*)CONCAT44(in_register_00000034, param_1);
-        if (field_8 == (RT7Core*)0) {
-            /* WARNING: Subroutine does not return */
+        EffectManager* effectManager_00 = (EffectManager*)(((uint64_t)in_register_00000089 << 8) | (uint8_t)arg6);
+        RT7Core* rT7Core = (RT7Core*)(((uint64_t)in_register_0000003c << 32) | (uint32_t)arg1);
+        RenderContext* renderContext_00 = (RenderContext*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg2);
+        lVar1._0_1_ = rT7Core->field_8;
+        lVar1._1_3_ = *(uint32_t*)&rT7Core->field_9;
+        lVar1._4_4_ = rT7Core->field_12;
+        if (lVar1 == 0) {
             LogAssert("m_rt7Core != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "renderer/Renderer.cpp",
-                      75, (char*)0);
+                      75, nullptr);
         }
-        pRVar1 = (RenderContext*)GetRenderContext();
+        auto renderContext = rT7Core->GetRenderContext();
         local_40.m_stackFrames = 0;
-        new (&local_40) callstack::Callstack();
-        RenderViewBegin(this, pRVar2, param_3, param_5, (RenderPassBitSet*)&local_40);
-        GatherDrawableElements(this, param_1, param_3, param_4, param_2, param_5);
+        Callstack local_40;
+        RenderViewBegin((Renderer*)rT7Core, renderContext_00, (SceneViewData*)graphNode, effectManager_00,
+                        (RenderPassBitSet*)&local_40);
+        GatherDrawableElements((Renderer*)rT7Core, arg2, (SceneViewData*)graphNode, (GraphNode*)effectManager,
+                               (int)sceneViewData, effectManager_00);
         local_40.field_8 = 0;
         local_40._9_3_ = 0;
         new (&local_40.field_8) callstack::Callstack();
-        RenderViewRenderPasses(this, param_3, pRVar1, param_6, param_5, (RenderPassBitSet*)&local_40.field_8);
+        RenderViewRenderPasses((Renderer*)rT7Core, (SceneViewData*)graphNode, renderContext, in_stack_00000008,
+                               effectManager_00, (RenderPassBitSet*)&local_40.field_8);
     }
 
-    // 0x1007e4650, 320 bytes, placed by class name and debug map
-    // Renderer::RenderViewBegin(render::RenderContext&, SceneViewData const&, EffectManager&, RenderPassBitSet const&)
-    void Renderer::RenderViewBegin(RenderContext* param_1, SceneViewData* param_2, EffectManager* param_3,
-                                   RenderPassBitSet* param_4) {
-        RenderPass** this_00;
-        uint uVar3;
-        long* plVar4;
-        long* plVar5;
-        long lVar6;
-        ViewTransforms* this_01;
-        SunlightDirectLighting* pSVar7;
-        Matrix44T* pMVar8;
-        float local_38;
-        float local_34;
+    // 0x1007e4650
+    void Renderer::RenderViewBegin(render::RenderContext& renderContext, const SceneViewData& sceneViewData,
+                                   EffectManager& effectManager, const RenderPassBitSet& renderPassBitSet) {
+        unsigned int arg1;
+        ViewTransformsEffect* this_02;
+        Matrix44T<float>* matrix441;
+        Matrix44T<float>* matrix442;
 
-        this_00 = &param_2->field_520;
-        plVar4 = (long*)this_00->HeapBeginPtr();
-        plVar5 = (long*)this_00->end();
-        if (plVar4 != plVar5) {
+        uint8_t* this_00 = &sceneViewData.field_520;
+        auto plVar3 = this_00->HeapBeginPtr();
+        auto plVar4 = this_00->end();
+        if (plVar3 != plVar4) {
             do {
-                if (*plVar4 == 0) {
-                    /* WARNING: Subroutine does not return */
+                if (*plVar3 == 0) {
                     LogAssert("renderPass != nullptr",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "renderer/Renderer.cpp",
-                              136, (char*)0);
+                              136, nullptr);
                 }
-                if (param_4->GetX() == 0) {
+                if (renderPassBitSet.GetX() == 0) {
                 LAB_1007e46a0:
-                    param_1 = (RenderContext*)field_8;
-                    (**(code**)(*(long*)*plVar4 + 16))((long*)*plVar4, param_1, param_3, param_2, m_drawableQueue);
+                    (**(void (**)(...))(*(long*)*plVar3 + 16))((long*)*plVar3, field_8, effectManager, sceneViewData,
+                                                               &m_drawableQueue);
                 } else {
-                    uVar3 = (*plVar4)->GetPos();
-                    param_1 = (RenderContext*)(ulong)uVar3;
-                    if (param_4->HasFormatType() != '\0')
+                    arg1 = (*plVar3)->GetPos();
+                    if (renderPassBitSet.HasFormatType(arg1) != '\0')
                         goto LAB_1007e46a0;
                 }
-                plVar4 = plVar4 + 1;
-            } while (plVar4 != plVar5);
+                plVar3 = plVar3 + 1;
+            } while (plVar3 != plVar4);
         }
-        lVar6 = this_00->size();
-        if (lVar6 != 0) {
-            local_38 = 0.0;
-            local_34 = 0.0;
-            this_01 = (ViewTransforms*)param_2->SSOBeginPtr(param_1);
-            this_01->GetNearFarPlaneDistances(&local_38, &local_34);
-            pSVar7 = EffectManager::GetEffect<SunlightDirectLighting>(param_3, 79);
-            pMVar8 = (Matrix44T*)param_2->GetScreen();
-            param_2->GetOrigin();
-            ViewTransformsEffect::SetViewTransforms((Matrix44T*)pSVar7, pMVar8, local_38, local_34);
+        if (this_00->size() != 0) {
+            ((ViewTransforms*)sceneViewData.SSOBeginPtr())->GetNearFarPlaneDistances(0.0, 0.0);
+            this_02 = (ViewTransformsEffect*)effectManager.GetEffect<SunlightDirectLighting>(79);
+            matrix441 = (Matrix44T<float>*)sceneViewData.GetScreen();
+            matrix442 = (Matrix44T<float>*)sceneViewData.GetOrigin();
+            this_02->SetViewTransforms(*matrix441, *matrix442, 0.0, 0.0);
         }
     }
 
-    // 0x1007e4790, 240 bytes, placed by class name and debug map
-    // Renderer::GatherDrawableElements(unsigned int, SceneViewData const&, GraphNode*, int, EffectManager const&)
-    void Renderer::GatherDrawableElements(uint param_1, SceneViewData* param_2, GraphNode* param_3, int param_4,
-                                          EffectManager* param_5) {
-        undefined1* this_00;
-        undefined8* puVar1;
-        undefined8* puVar2;
-
-        this_00 = m_drawableQueue;
+    // 0x1007e4790
+    void Renderer::GatherDrawableElements(unsigned int arg1, const SceneViewData& sceneViewData, GraphNode* graphNode,
+                                          int arg4, const EffectManager& effectManager) {
+        uint8_t* this_00 = &m_drawableQueue;
         this_00->ClearAllGroupsInAllPasses();
-        SetupDrawableGroups(this);
-        puVar1 = (undefined8*)(&field_16)->HeapBeginPtr();
-        puVar2 = (undefined8*)(&field_16)->end();
+        SetupDrawableGroups();
+        auto puVar1 = field_16.HeapBeginPtr();
+        auto puVar2 = field_16.end();
         for (; puVar1 != puVar2; puVar1 = puVar1 + 1) {
-            (**(code**)(*(long*)*puVar1 + 16))((long*)*puVar1, this_00, field_8, param_2, param_5);
+            (**(void (**)(...))(*(long*)*puVar1 + 16))((long*)*puVar1, this_00, field_8, sceneViewData, effectManager);
         }
-        puVar1 = (undefined8*)(&field_48)->HeapBeginPtr();
-        puVar2 = (undefined8*)(&field_48)->end();
+        puVar1 = (uint64_t*)field_48.HeapBeginPtr();
+        puVar2 = (uint64_t*)field_48.end();
         for (; puVar1 != puVar2; puVar1 = puVar1 + 1) {
-            (**(code**)(*(long*)*puVar1 + 16))((long*)*puVar1, this_00, field_8, param_2, param_5);
+            (**(void (**)(...))(*(long*)*puVar1 + 16))((long*)*puVar1, this_00, field_8, sceneViewData, effectManager);
         }
-        (*(code*)field_0[2])(this, param_1, param_2, param_3, param_4, param_5);
+        GatherSceneGraphDrawableElements((unsigned long)arg1, sceneViewData, graphNode,
+                                         (unsigned long)(unsigned int)arg4, effectManager);
     }
 
-    // 0x1007e4880, 352 bytes, placed by class name and debug map
-    // Renderer::RenderViewRenderPasses(SceneViewData const&, render::RenderContext&, bool, EffectManager&, RenderPassBitSet const&)
-    void Renderer::RenderViewRenderPasses(SceneViewData* param_1, RenderContext* param_2, bool param_3,
-                                          EffectManager* param_4, RenderPassBitSet* param_5) {
-        undefined1* puVar1;
-        char cVar2;
-        undefined4 uVar4;
-        long* plVar5;
-        undefined7 in_register_00000009;
+    // 0x1007e4880
+    void Renderer::RenderViewRenderPasses(const SceneViewData& sceneViewData, render::RenderContext& renderContext,
+                                          bool arg3, EffectManager& effectManager,
+                                          const RenderPassBitSet& renderPassBitSet) {
+        uint8_t* puVar1;
+        bool cVar2;
+        uint64_t in_register_00000009;
         DrawCallState local_88;
-        long* local_58;
-        SceneViewData* local_50;
-        undefined4 local_34;
 
-        local_34 = (undefined4)CONCAT71(in_register_00000009, param_3);
-        local_50 = param_1;
-        plVar5 = (long*)(&param_1->field_520)->HeapBeginPtr();
-        local_58 = (long*)(&param_1->field_520)->end();
-        if (plVar5 != local_58) {
-            puVar1 = ((Renderer*)this)->m_drawableQueue;
+        uint32_t local_34 = (uint32_t)(((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3);
+        Renderer* local_40 = this;
+        auto plVar4 = sceneViewData.field_520.HeapBeginPtr();
+        auto local_58 = sceneViewData.field_520.end();
+        if (plVar4 != local_58) {
+            puVar1 = &local_40->m_drawableQueue;
             do {
-                if (*plVar5 == 0) {
-                    /* WARNING: Subroutine does not return */
+                if (*plVar4 == 0) {
                     LogAssert("renderPass != nullptr",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                               "renderer/Renderer.cpp",
-                              165, (char*)0);
+                              165, nullptr);
                 }
-                if (param_5->GetX() == 0) {
+                if (renderPassBitSet.GetX() == 0) {
                 LAB_1007e493c:
-                    new (&local_88) render::DrawCallState();
-                    cVar2 = (**(code**)(*(long*)*plVar5 + 24))((long*)*plVar5, &local_88, param_2, param_4, local_50,
-                                                               puVar1);
-                    if (cVar2 != '\0') {
-                        (**(code**)(*(long*)*plVar5 + 40))((long*)*plVar5, ((Renderer*)this)->field_8, &local_88,
-                                                           param_4, local_50, puVar1);
-                        (**(code**)(*(long*)*plVar5 + 32))((long*)*plVar5, &local_88, param_2, param_4, puVar1);
+                    local_88 = render::DrawCallState();
+                    cVar2 = (**(void (**)(...))(*(long*)*plVar4 + 24))((long*)*plVar4, &local_88, renderContext,
+                                                                       effectManager, sceneViewData, puVar1);
+                    if (cVar2) {
+                        (**(void (**)(...))(*(long*)*plVar4 + 40))((long*)*plVar4, local_40->field_8, &local_88,
+                                                                   effectManager, sceneViewData, puVar1);
+                        (**(void (**)(...))(*(long*)*plVar4 + 32))((long*)*plVar4, &local_88, renderContext,
+                                                                   effectManager, puVar1);
                         if ((char)local_34 != '\0') {
-                            (**(code**)(*(long*)*plVar5 + 48))((long*)*plVar5, param_4, puVar1);
+                            (**(void (**)(...))(*(long*)*plVar4 + 48))((long*)*plVar4, effectManager, puVar1);
                         }
                     }
-                    local_88.~DrawCallState();
                 } else {
-                    uVar4 = (*plVar5)->GetPos();
-                    cVar2 = param_5->HasFormatType(uVar4);
-                    if (cVar2 != '\0')
+                    cVar2 = renderPassBitSet.HasFormatType((*plVar4)->GetPos());
+                    if (cVar2)
                         goto LAB_1007e493c;
                 }
-                plVar5 = plVar5 + 1;
-            } while (plVar5 != local_58);
+                plVar4 = plVar4 + 1;
+            } while (plVar4 != local_58);
         }
     }
 
-    // 0x1007e49e0, 16 bytes, placed by class name and debug map
-    // Renderer::RenderViewEnd(render::RenderContext&)
-    void Renderer::RenderViewEnd(RenderContext* param_1) {}
+    // 0x1007e49e0
+    void Renderer::RenderViewEnd(render::RenderContext& renderContext) {}
 
-    // 0x1007e49f0, 160 bytes, placed by class name and debug map
-    // Renderer::RenderView(eastl::vector<std::pair<GraphEntity*, GraphEntityTransformData>, eastl::allocator>&, SceneViewData const&, GraphNode*, EffectManager&, bool, RenderPassBitSet const&)
-    /* Renderer::RenderView(eastl::vector<std::pair<GraphEntity*,
-   GraphEntityTransformData>, eastl::allocator>&, SceneViewData
-   const&, GraphNode*, EffectManager&, bool,
-   RenderPassBitSet const&) */
+    // 0x1007e49f0
+    void Renderer::RenderView(eastl::vector<std::pair<GraphEntity*, GraphEntityTransformData>>& pairs,
+                              const SceneViewData& sceneViewData, GraphNode* graphNode, EffectManager& effectManager,
+                              bool arg5, const RenderPassBitSet& renderPassBitSet) {
+        uint64_t in_register_00000081;
+        RenderPassBitSet* in_stack_00000008;
 
-    void Renderer::RenderView(vector* param_1, SceneViewData* param_2, GraphNode* param_3, EffectManager* param_4,
-                              bool param_5, RenderPassBitSet* param_6) {
-        RenderContext* pRVar1;
-
-        if (field_8 == (RT7Core*)0) {
-            /* WARNING: Subroutine does not return */
+        EffectManager* effectManager_00 = (EffectManager*)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg5);
+        if (*(long*)(pairs + 8) == 0) {
             LogAssert("m_rt7Core != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "renderer/Renderer.cpp",
-                      98, (char*)0);
+                      98, nullptr);
         }
-        GatherDrawableElements(this, param_1, param_2, param_3, param_4);
-        pRVar1 = (RenderContext*)GetRenderContext();
-        RenderViewBegin(this, (RenderContext*)param_1, param_2, param_4, param_6);
-        RenderViewRenderPasses(this, param_2, pRVar1, param_5, param_4, param_6);
+        GatherDrawableElements((Renderer*)pairs,
+                               (vector<std::pair<GraphEntity*, GraphEntityTransformData>>*)sceneViewData,
+                               (SceneViewData*)graphNode, (GraphNode*)effectManager, effectManager_00);
+        auto renderContext = pairs.GetRenderContext();
+        RenderViewBegin((Renderer*)pairs, (RenderContext*)sceneViewData, (SceneViewData*)graphNode, effectManager_00,
+                        in_stack_00000008);
+        RenderViewRenderPasses((Renderer*)pairs, (SceneViewData*)graphNode, renderContext, (uint8_t)renderPassBitSet,
+                               effectManager_00, in_stack_00000008);
     }
 
-    // 0x1007e4a90, 240 bytes, placed by class name and debug map
-    // Renderer::GatherDrawableElements(eastl::vector<std::pair<GraphEntity*, GraphEntityTransformData>, eastl::allocator>&, SceneViewData const&, GraphNode*, EffectManager const&)
-    /* Renderer::GatherDrawableElements(eastl::vector<std::pair<GraphEntity*,
-   GraphEntityTransformData>, eastl::allocator>&, SceneViewData
-   const&, GraphNode*, EffectManager const&) */
-
-    void Renderer::GatherDrawableElements(vector* param_1, SceneViewData* param_2, GraphNode* param_3,
-                                          EffectManager* param_4) {
-        undefined1* this_00;
-        undefined8* puVar1;
-        undefined8* puVar2;
-
-        this_00 = m_drawableQueue;
+    // 0x1007e4a90
+    void Renderer::GatherDrawableElements(eastl::vector<std::pair<GraphEntity*, GraphEntityTransformData>>& pairs,
+                                          const SceneViewData& sceneViewData, GraphNode* graphNode,
+                                          const EffectManager& effectManager) {
+        uint8_t* this_00 = &m_drawableQueue;
         this_00->ClearAllGroupsInAllPasses();
-        SetupDrawableGroups(this);
-        puVar1 = (undefined8*)(&field_16)->HeapBeginPtr();
-        puVar2 = (undefined8*)(&field_16)->end();
+        SetupDrawableGroups();
+        auto puVar1 = field_16.HeapBeginPtr();
+        auto puVar2 = field_16.end();
         for (; puVar1 != puVar2; puVar1 = puVar1 + 1) {
-            (**(code**)(*(long*)*puVar1 + 16))((long*)*puVar1, this_00, field_8, param_2, param_4);
+            (**(void (**)(...))(*(long*)*puVar1 + 16))((long*)*puVar1, this_00, field_8, sceneViewData, effectManager);
         }
-        puVar1 = (undefined8*)(&field_48)->HeapBeginPtr();
-        puVar2 = (undefined8*)(&field_48)->end();
+        puVar1 = (uint64_t*)field_48.HeapBeginPtr();
+        puVar2 = (uint64_t*)field_48.end();
         for (; puVar1 != puVar2; puVar1 = puVar1 + 1) {
-            (**(code**)(*(long*)*puVar1 + 16))((long*)*puVar1, this_00, field_8, param_2, param_4);
+            (**(void (**)(...))(*(long*)*puVar1 + 16))((long*)*puVar1, this_00, field_8, sceneViewData, effectManager);
         }
-        (*(code*)field_0[3])(this, param_1, param_2, param_3, param_4);
+        GatherSceneGraphDrawableElements(pairs, sceneViewData, graphNode, effectManager);
     }
 
-    // 0x1007e4b80, 160 bytes, placed by class name and debug map
-    // Renderer::RenderView(SceneViewData const&, EffectManager&, bool, RenderPassBitSet const&)
-    void Renderer::RenderView(SceneViewData* param_1, EffectManager* param_2, bool param_3, RenderPassBitSet* param_4) {
-        RenderContext* pRVar1;
+    // 0x1007e4b80
+    void Renderer::RenderView(const SceneViewData& sceneViewData, EffectManager& effectManager, bool arg3,
+                              const RenderPassBitSet& renderPassBitSet) {
         int local_38[2];
 
-        if (field_8 == (RT7Core*)0) {
-            /* WARNING: Subroutine does not return */
+        if (field_8 == nullptr) {
             LogAssert("m_rt7Core != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                       "renderer/Renderer.cpp",
-                      117, (char*)0);
+                      117, nullptr);
         }
-        pRVar1 = (RenderContext*)GetRenderContext();
+        auto renderContext = GetRenderContext();
         local_38[0] = 0;
         new (local_38) callstack::Callstack();
-        RenderViewBegin(this, (RenderContext*)param_1, param_1, param_2, (RenderPassBitSet*)local_38);
-        RenderViewRenderPasses(this, param_1, pRVar1, param_3, param_2, param_4);
+        RenderViewBegin(sceneViewData, sceneViewData, effectManager, *local_38);
+        RenderViewRenderPasses(sceneViewData, *renderContext, arg3, effectManager, renderPassBitSet);
     }
 
-    // 0x1007e4c20, 96 bytes, placed by class name and debug map
-    // Renderer::SetupDrawableGroups()
+    // 0x1007e4c20
     void Renderer::SetupDrawableGroups() {
-        ServerConnectionWorkItem* pSVar1;
-        int iVar2;
-        uint uVar3;
-
-        uVar3 = ForwardLightingPass::GetSortByMaterial();
-        pSVar1 = (ServerConnectionWorkItem*)(m_drawableQueue, 4, 0)->GetDrawableGroup();
-        iVar2 = (uVar3 & 255) * 2;
-        oldscape::ServerConnectionWorkItem::ServerConnectionWorkItem(pSVar1, iVar2);
-        pSVar1 = (ServerConnectionWorkItem*)(m_drawableQueue, 4, 1)->GetDrawableGroup();
-        oldscape::ServerConnectionWorkItem::ServerConnectionWorkItem(pSVar1, iVar2);
+        unsigned int uVar1 = ForwardLightingPass::GetSortByMaterial();
+        auto pCVar2 = m_drawableQueue.GetDrawableGroup(4, 0);
+        int arg1 = (uVar1 & 255) * 2;
+        new (pCVar2) oldscape::ServerConnectionWorkItem(arg1);
+        pCVar2 = m_drawableQueue.GetDrawableGroup(4, 1);
+        new (pCVar2) oldscape::ServerConnectionWorkItem(arg1);
     }
 
 } // namespace jag::graphics

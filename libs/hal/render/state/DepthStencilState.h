@@ -1,6 +1,5 @@
 // libs/hal/render/state/DepthStencilState.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,53 +7,50 @@ namespace jag::render {
     class DepthStencilState {
     public:
         class Desc;
-        GetDesc() const;
+        void GetDesc() const;
         DepthStencilState();
-        Create(Desc const&);
+        uint64_t Create(const Desc& desc);
         ~DepthStencilState();
         void Destroy();
         void ReleaseNativeResources();
 
-        // data members, from how the methods use this: 64 bytes
-        int field_0;        // offset 0
-        undefined1 field_4; // offset 4
-        char _unknown_5[3];
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
-        undefined8 field_40; // offset 40
-        undefined8 field_48; // offset 48
-        undefined4 field_56; // offset 56
-        char _unknown_60[4];
+    private:
+        RenderResourceLivenessMethod field_0;
+        uint8_t field_4;
+        uint8_t _unknown_5[3];
+        uint64_t field_8;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
+        uint64_t field_40;
+        uint64_t field_48;
+        uint32_t field_56;
+        uint8_t _unknown_60[4];
     };
 
     class DepthStencilState::Desc {
     public:
         Desc();
         void SetToDefault();
-        byte operator!=(Desc const&) const;
-        operator==(Desc const&) const;
+        uint8_t operator!=(const Desc& desc) const;
+        uint64_t operator==(const Desc& desc) const;
 
-        // data members, from how the methods use this: 44 bytes
-        char field_0;  // offset 0
-        char field_1;  // offset 1
-        char field_2;  // offset 2
-        char field_3;  // offset 3
-        float field_4; // offset 4
-        float field_8; // offset 8
-        int field_12;  // offset 12
-        char field_16; // offset 16
-        char field_17; // offset 17
-        char field_18; // offset 18
-        char _unknown_19[25];
+    private:
+        char field_0;
+        char field_1;
+        char field_2;
+        char field_3;
+        float field_4;
+        float field_8;
+        int field_12;
+        char field_16;
+        char field_17;
+        char field_18;
+        uint8_t _unknown_19[17];
+        StencilOpDesc field_36;
     };
 
-    // 0x100c262e0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // DepthStencilState::Desc::Desc(): jumps straight to the base-object constructor
-
-    // 0x100c265f0, 32 bytes, inline, placed by class name
-    // DepthStencilState::Desc::SetToDefault()
+    // 0x100c265f0
     void DepthStencilState::Desc::SetToDefault() {
         field_0 = '\x01';
         field_1 = '\x01';
@@ -69,41 +65,28 @@ namespace jag::render {
         field_19 = 0;
     }
 
-    // 0x100c283c0, 16 bytes, inline, placed by class name
-    // DepthStencilState::Desc::operator!=(DepthStencilState::Desc const&) const
-    /* DepthStencilState::Desc::TEMPNAMEPLACEHOLDERVALUE(DepthStencilState::Desc
-   const&) const */
-
-    byte DepthStencilState::Desc::operator!=(Desc* param_1) {
-        return operator==(this, param_1) ^ 1;
+    // 0x100c283c0
+    uint8_t DepthStencilState::Desc::operator!=(const DepthStencilState::Desc& desc) const {
+        return *this == desc ^ 1;
     }
 
-    // 0x100c32cd0, 48 bytes, base-object constructor, inline, placed by class name
-    // DepthStencilState::Desc::Desc()
-    void DepthStencilState::Desc::Desc() {
+    // 0x100c32cd0
+    DepthStencilState::Desc::Desc() {
         new (&field_20) StencilOpDesc();
-        new (&field_36) StencilOpDesc();
-        SetToDefault(this);
+        new (field_36) StencilOpDesc();
+        SetToDefault();
     }
 
-    // 0x100c34e60, 160 bytes, inline, placed by class name
-    // DepthStencilState::Desc::operator==(DepthStencilState::Desc const&) const
-    /* DepthStencilState::Desc::TEMPNAMEPLACEHOLDERVALUE(DepthStencilState::Desc
-   const&) const */
+    // 0x100c34e60
+    uint64_t DepthStencilState::Desc::operator==(const DepthStencilState::Desc& desc) const {
+        bool cVar1;
 
-    undefined8 DepthStencilState::Desc::operator==(Desc* param_1) {
-        char cVar1;
-        undefined8 uVar2;
-
-        if ((((((field_0 == param_1->field_0) && (field_1 == param_1->field_1)) && (field_2 == param_1->field_2)) &&
-              ((field_3 == param_1->field_3 && (field_4 == param_1->field_4)))) &&
-             ((field_8 == param_1->field_8 && ((field_12 == param_1->field_12 && (field_16 == param_1->field_16)))))) &&
-            ((field_17 == param_1->field_17 &&
-              ((field_18 == param_1->field_18 &&
-                (cVar1 = StencilOpDesc::operator==((StencilOpDesc*)&field_20, (StencilOpDesc*)&param_1->field_20),
-                 cVar1 != '\0')))))) {
-            uVar2 = StencilOpDesc::operator==((StencilOpDesc*)&field_36, (StencilOpDesc*)&param_1->field_36);
-            return uVar2;
+        if ((((((field_0 == desc.field_0) && (field_1 == desc.field_1)) && (field_2 == desc.field_2)) &&
+              ((field_3 == desc.field_3 && (field_4 == desc.field_4)))) &&
+             ((field_8 == desc.field_8 && ((field_12 == desc.field_12 && (field_16 == desc.field_16)))))) &&
+            ((field_17 == desc.field_17 &&
+              ((field_18 == desc.field_18 && (cVar1 = field_20 == desc.field_20, cVar1)))))) {
+            return *field_36 == desc.field_36;
         }
         return 0;
     }

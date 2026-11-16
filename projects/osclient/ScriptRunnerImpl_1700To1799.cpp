@@ -1,227 +1,195 @@
 // projects/osclient/ScriptRunnerImpl_1700To1799.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "ScriptRunnerImpl.h"
 
 namespace jag::oldscape {
-    // 0x100159c40, 400 bytes, placed by class name and debug map
-    // ScriptRunnerImpl::ExecuteCommand1700To1799(ScriptOp, ClientScript const&, bool)
-    undefined8 ScriptRunnerImpl::ExecuteCommand1700To1799(undefined4 param_2, undefined8 param_3, ulong param_4) {
+    // 0x100159c40
+    uint64_t ScriptRunnerImpl::ExecuteCommand1700To1799(ScriptOp scriptOp, const ClientScript& clientScript,
+                                                        bool arg3) {
         int iVar1;
-        bool bVar2;
-        byte bVar3;
-        IfType* this_00;
-        CRMViewHandler* this_01;
-        undefined4* puVar4;
-        uint* puVar5;
-        uint uVar6;
-        undefined8 uVar7;
+        uint8_t bVar3;
+        CRMViewHandler* this_00;
+        uint32_t* puVar4;
+        unsigned int* puVar5;
+        uint64_t in_register_00000009;
+        unsigned int uVar6;
 
-        bVar2 = operator==((shared_ptr*)(field_140504 + (param_4 & 4294967295) * 16), (_func_decltype_nullptr*)0);
-        if (bVar2) {
-            (&field_141000, 1)->Raise();
+        if ((*((shared_ptr<configdecoder::ObjType>*)(field_140856 +
+                                                     ((((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3) &
+                                                      4294967295) *
+                                                         16 -
+                                                     352))) == nullptr) {
+            field_141000->Raise(1);
             return 0;
         }
-        this_00 = (IfType*)shared_ptr<rs2lib::IfType>::operator*(
-            (shared_ptr<rs2lib::IfType>*)(field_140504 + (param_4 & 4294967295) * 16));
-        uVar7 = 2;
-        switch (param_2) {
+        auto ifType = *(*(
+            (shared_ptr<rs2lib::IfType>*)(field_140856 +
+                                          ((((uint64_t)in_register_00000009 << 8) | (uint8_t)arg3) & 4294967295) * 16 -
+                                          352)));
+        uint64_t uVar7 = 2;
+        switch (scriptOp) {
         case 1700:
-            uVar6 = *(uint*)&this_00->field_1984;
+            uVar6 = *(unsigned int*)&ifType->field_1984;
             goto LAB_100159d71;
         case 1701:
-            if (*(int*)&this_00->field_1984 != -1) {
-                uVar6 = *(uint*)((long)&this_00->field_1984 + 4);
+            if (*(int*)&ifType->field_1984 != -1) {
+                uVar6 = *(unsigned int*)((long)&ifType->field_1984 + 4);
                 goto LAB_100159d71;
             }
             iVar1 = field_104092;
             field_104092 = iVar1 + 1;
-            puVar4 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, (long)iVar1);
+            puVar4 = &field_100092[(long)iVar1];
             *puVar4 = 0;
             break;
         case 1702:
-            uVar6 = this_00->field_8;
+            uVar6 = ifType->field_8;
             goto LAB_100159d71;
         default:
             goto switchD_100159cbf_caseD_6a7;
         case 1707:
-            if (this_00->field_12 != 11) {
-                /* WARNING: Subroutine does not return */
+            if (ifType->field_12 != 11) {
                 LogAssert("cc.m_type == IfType::CRMVIEW",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                           "ScriptRunnerImpl_1700To1799.cpp",
                           48, "Calling cc_getcrm_hasresponse on a component not of type CRMVIEW.");
             }
-            this_01 = (CRMViewHandler*)this_00->GetCRMViewHandler();
-            if (this_01 == (CRMViewHandler*)0) {
+            this_00 = ifType->GetCRMViewHandler();
+            if (this_00 == nullptr) {
                 uVar6 = 0;
             } else {
-                bVar3 = this_01->HasSuccessfulResponse();
-                uVar6 = (uint)bVar3;
+                bVar3 = this_00->HasSuccessfulResponse();
+                uVar6 = (unsigned int)bVar3;
             }
         LAB_100159d71:
             iVar1 = field_104092;
             field_104092 = iVar1 + 1;
-            puVar5 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, (long)iVar1);
+            puVar5 = &field_100092[(long)iVar1];
             *puVar5 = uVar6;
             break;
         case 1708:
-            DoGetCrmInt(this, this_00);
+            DoGetCrmInt(*ifType);
             break;
         case 1709:
-            DoGetCrmString(this, this_00);
+            DoGetCrmString(*ifType);
         }
         uVar7 = 1;
     switchD_100159cbf_caseD_6a7:
         return uVar7;
     }
 
-    // 0x100159dd0, 496 bytes, placed by class name and debug map
-    // ScriptRunnerImpl::DoGetCrmInt(rs2lib::IfType const&)
-    undefined8 ScriptRunnerImpl::DoGetCrmInt(IfType* param_1) {
-        int iVar1;
-        char cVar2;
-        bool bVar3;
-        CRMViewHandler* this_00;
+    // 0x100159dd0
+    uint64_t ScriptRunnerImpl::DoGetCrmInt(const rs2lib::IfType& ifType) {
         reference_wrapper<std::variant<eastl::basic_string<char, BucketAllocatorEASTL>, int> const>* this_01;
-        variant* pvVar4;
-        int* piVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        undefined1 extraout_DL;
-        int iVar8;
-        ulong uVar9;
-        undefined1 auVar10[16];
-        basic_string local_58[24];
-        undefined8 local_40;
-        undefined1 local_38;
+        variant<eastl::basic_string<char, BucketAllocatorEASTL>, int>* arg1;
+        int* piVar4;
+        Logger* this_02;
+        uint64_t uVar5;
+        uint8_t extraout_DL;
+        int iVar6;
+        uint64_t local_40;
 
-        this_00 = (CRMViewHandler*)param_1->GetCRMViewHandler();
-        if ((param_1->field_12 != 11) || (this_00 == (CRMViewHandler*)0)) {
-            /* WARNING: Subroutine does not return */
+        auto this_00 = ifType.GetCRMViewHandler();
+        if ((ifType.field_12 != 11) || (this_00 == nullptr)) {
             LogAssertAlways(
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                 "ScriptRunnerImpl_1700To1799.cpp",
                 73, "Calling cc_getcrm_string on a component not of type CRMVIEW, or one that failed to initialise.");
         }
-        uVar9 = (long)(int)field_136096 - 1;
-        field_136096 = (uint)uVar9;
-        std::array<eastl::string, 1000ul>::operator[]((array<eastl::string, 1000ul>*)&field_104096, uVar9);
-        auVar10 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        eastl::destruct<highlight::NpcUID*>((eastl*)&local_40, (NpcUID*)"EASTL basic_string", auVar10._8_8_);
-        eastl::basic_string<char, BucketAllocatorEASTL>::basic_string((char*)local_58, auVar10._0_8_);
+        unsigned long arg1_00 = (long)field_136096 - 1;
+        field_136096 = (int)arg1_00;
+        field_104096[arg1_00];
+        char* str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        local_40.destruct<highlight::NpcUID*>();
+        basic_string<char, BucketAllocatorEASTL> local_58(str, &local_40);
         local_40 = this_00->GetMetadata(local_58);
-        local_38 = extraout_DL;
-        cVar2 = local_40.has_value();
-        if (cVar2 == '\0') {
-            uVar7 = logger::default_logger();
-            uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            iVar8 = -1;
-            logger::Logger::Log(uVar7, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
-                                "ScriptRunnerImpl_1700To1799.cpp",
-                                96, "Metadata has no metavalue %s.", uVar6);
+        uint8_t local_38 = extraout_DL;
+        if (local_40.has_value() == '\0') {
+            this_02 = logger::default_logger();
+            uVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            iVar6 = -1;
+            this_02->Log(false, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                         "ScriptRunnerImpl_1700To1799.cpp",
+                         96, "Metadata has no metavalue %s.", uVar5);
         } else {
             this_01 = (reference_wrapper<std::variant<eastl::basic_string<char, BucketAllocatorEASTL>, int> const>*)
                           local_40.value();
-            pvVar4 = (variant*)
-                std::reference_wrapper<std::variant<eastl::basic_string<char, BucketAllocatorEASTL>, int> const>::get(
-                    this_01);
-            bVar3 = std::holds_alternative<int, eastl::basic_string<char, BucketAllocatorEASTL>, int>(pvVar4);
-            if (!bVar3) {
-                uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                /* WARNING: Subroutine does not return */
+            arg1 = (variant<eastl::basic_string<char, BucketAllocatorEASTL>, int>*)this_01->get();
+            if (!std::holds_alternative<int, eastl::basic_string<char, BucketAllocatorEASTL>, int>(*arg1)) {
+                uVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                 "ScriptRunnerImpl_1700To1799.cpp",
-                                90, "Attempting to get an int value for non-int metavalue %s.", uVar7);
+                                90, "Attempting to get an int value for non-int metavalue %s.", uVar5);
             }
-            piVar5 = std::get<int, eastl::basic_string<char, BucketAllocatorEASTL>, int>(pvVar4);
-            iVar8 = *piVar5;
+            piVar4 = std::get<int, eastl::basic_string<char, BucketAllocatorEASTL>, int>(*arg1);
+            iVar6 = *piVar4;
         }
-        iVar1 = field_104092;
+        int iVar1 = field_104092;
         field_104092 = iVar1 + 1;
-        piVar5 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)&field_100092, (long)iVar1);
-        *piVar5 = iVar8;
-        local_58->~basic_string();
+        piVar4 = &field_100092[(long)iVar1];
+        *piVar4 = iVar6;
         return 1;
     }
 
-    // 0x100159fc0, 576 bytes, placed by class name and debug map
-    // ScriptRunnerImpl::DoGetCrmString(rs2lib::IfType const&)
-    undefined8 ScriptRunnerImpl::DoGetCrmString(IfType* param_1) {
-        uint uVar1;
-        char cVar2;
-        bool bVar3;
-        CRMViewHandler* this_00;
+    // 0x100159fc0
+    uint64_t ScriptRunnerImpl::DoGetCrmString(const rs2lib::IfType& ifType) {
+        int iVar1;
         reference_wrapper<std::variant<eastl::basic_string<char, BucketAllocatorEASTL>, int> const>* this_01;
-        variant* pvVar4;
-        char* pcVar5;
-        eastl::string* pbVar6;
-        undefined8 uVar7;
-        undefined8 uVar8;
-        undefined1 extraout_DL;
-        ulong uVar9;
-        undefined1 auVar10[16];
-        basic_string local_60[24];
-        undefined8 local_48;
-        undefined1 local_40;
-        array<eastl::string, 1000ul>* local_38;
+        variant<eastl::basic_string<char, BucketAllocatorEASTL>, int>* arg1;
+        eastl::string* pbVar5;
+        Logger* this_02;
+        uint64_t uVar6;
+        uint8_t extraout_DL;
+        uint64_t local_48;
 
-        this_00 = (CRMViewHandler*)param_1->GetCRMViewHandler();
-        if ((param_1->field_12 != 11) || (this_00 == (CRMViewHandler*)0)) {
-            /* WARNING: Subroutine does not return */
+        auto this_00 = ifType.GetCRMViewHandler();
+        if ((ifType.field_12 != 11) || (this_00 == nullptr)) {
             LogAssertAlways(
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                 "ScriptRunnerImpl_1700To1799.cpp",
                 107, "Calling cc_getcrm_string on a component not of type CRMVIEW, or one that failed to initialise.");
         }
-        local_38 = (array<eastl::string, 1000ul>*)&field_104096;
-        uVar9 = (long)(int)field_136096 - 1;
-        field_136096 = (uint)uVar9;
-        std::array<eastl::string, 1000ul>::operator[](local_38, uVar9);
-        auVar10 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        eastl::destruct<highlight::NpcUID*>((eastl*)&local_48, (NpcUID*)"EASTL basic_string", auVar10._8_8_);
-        eastl::basic_string<char, BucketAllocatorEASTL>::basic_string((char*)local_60, auVar10._0_8_);
+        array<eastl::string, 1000ul>* local_38 = (array<eastl::string, 1000ul>*)&field_104096;
+        unsigned long arg1_00 = (long)field_136096 - 1;
+        field_136096 = (int)arg1_00;
+        (*local_38)[arg1_00];
+        char* pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        local_48.destruct<highlight::NpcUID*>();
+        basic_string<char, BucketAllocatorEASTL> local_60(pcVar4, &local_48);
         local_48 = this_00->GetMetadata(local_60);
-        local_40 = extraout_DL;
-        cVar2 = local_48.has_value();
-        if (cVar2 == '\0') {
-            uVar8 = logger::default_logger();
-            uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            logger::Logger::Log(uVar8, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
-                                "ScriptRunnerImpl_1700To1799.cpp",
-                                129, "Metadata has no metavalue %s.", uVar7);
-            uVar1 = field_136096;
-            field_136096 = uVar1 + 1;
-            pbVar6 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](local_38, (long)(int)uVar1);
-            eastl::string::assign(pbVar6, "");
+        uint8_t local_40 = extraout_DL;
+        if (local_48.has_value() == '\0') {
+            this_02 = logger::default_logger();
+            uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            this_02->Log(false, 3,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
+                         "ScriptRunnerImpl_1700To1799.cpp",
+                         129, "Metadata has no metavalue %s.", uVar6);
+            iVar1 = field_136096;
+            field_136096 = iVar1 + 1;
+            pbVar5 = (eastl::string*)(*local_38)[(long)iVar1];
+            eastl::string::assign(pbVar5, "");
         } else {
             this_01 = (reference_wrapper<std::variant<eastl::basic_string<char, BucketAllocatorEASTL>, int> const>*)
                           local_48.value();
-            pvVar4 = (variant*)
-                std::reference_wrapper<std::variant<eastl::basic_string<char, BucketAllocatorEASTL>, int> const>::get(
-                    this_01);
-            bVar3 = std::holds_alternative<eastl::basic_string<char, BucketAllocatorEASTL>,
-                                           eastl::basic_string<char, BucketAllocatorEASTL>, int>(pvVar4);
-            if (!bVar3) {
-                uVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                /* WARNING: Subroutine does not return */
+            arg1 = (variant<eastl::basic_string<char, BucketAllocatorEASTL>, int>*)this_01->get();
+            if (!std::holds_alternative<eastl::basic_string<char, BucketAllocatorEASTL>,
+                                        eastl::basic_string<char, BucketAllocatorEASTL>, int>(*arg1)) {
+                uVar6 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/projects/osclient/"
                                 "ScriptRunnerImpl_1700To1799.cpp",
-                                123, "Attempting to get a string value for non-string metavalue %s.", uVar8);
+                                123, "Attempting to get a string value for non-string metavalue %s.", uVar6);
             }
             std::get<eastl::basic_string<char, BucketAllocatorEASTL>, eastl::basic_string<char, BucketAllocatorEASTL>,
-                     int>(pvVar4);
-            pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar1 = field_136096;
-            field_136096 = uVar1 + 1;
-            pbVar6 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](local_38, (long)(int)uVar1);
-            eastl::string::assign(pbVar6, pcVar5);
+                     int>(*arg1);
+            pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            iVar1 = field_136096;
+            field_136096 = iVar1 + 1;
+            pbVar5 = (eastl::string*)(*local_38)[(long)iVar1];
+            eastl::string::assign(pbVar5, pcVar4);
         }
-        local_60->~basic_string();
         return 1;
     }
 

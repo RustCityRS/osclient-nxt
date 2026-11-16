@@ -1,6 +1,5 @@
 // projects/osclient/social/FriendChatUser.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -17,171 +16,109 @@ namespace jag::oldscape::social {
         void RecalcIsFriend();
         void RecalcIsIgnore();
 
-        // data members, from how the methods use this: 192 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        char _unknown_8[128];
-        undefined4 field_136; // offset 136
-        char _unknown_140[40];
-        uint field_180; // offset 180
-        uint field_184; // offset 184
-        char _unknown_188[4];
+    private:
+        uint8_t _unknown_8[128];
+        uint32_t field_136;
+        uint8_t _unknown_140[40];
+        unsigned int field_180;
+        unsigned int field_184;
+        uint8_t _unknown_188[4];
     };
 
-    // 0x10012d080, 16 bytes, inline, placed by class name and debug map
-    // FriendChatUser::ResetFriendIndicator()
+    // 0x10012d080
     void FriendChatUser::ResetFriendIndicator() {
         field_180 = 0;
     }
 
-    // 0x10012d140, 16 bytes, inline, placed by class name and debug map
-    // FriendChatUser::ResetIgnoreIndicator()
+    // 0x10012d140
     void FriendChatUser::ResetIgnoreIndicator() {
         field_184 = 0;
     }
 
-    // 0x10012ea60, 16 bytes, complete-object destructor, inline, placed by class name
-    // FriendChatUser::~FriendChatUser(): jumps straight to the base-object destructor
+    // 0x10012ea70
+    FriendChatUser::~FriendChatUser() {}
 
-    // 0x10012ea70, 16 bytes, base-object destructor, inline, placed by class name
-    // FriendChatUser::~FriendChatUser()
-    void FriendChatUser::~FriendChatUser() {
-        ~OnlinePlayerData();
-    }
+    // 0x100151320
+    FriendChatUser::FriendChatUser() : OnlinePlayerData<FriendChatUser>(), field_180(0), field_184(0) {}
 
-    // 0x100151300, 16 bytes, complete-object constructor, inline, placed by class name
-    // FriendChatUser::FriendChatUser(): jumps straight to the base-object constructor
-
-    // 0x100151320, 48 bytes, base-object constructor, inline, placed by class name
-    // FriendChatUser::FriendChatUser()
-    void FriendChatUser::FriendChatUser() {
-        new (this) OnlinePlayerData<FriendChatUser>();
-        field_0 = PTR_vtable_100ee8b18 + 16;
-        field_180 = 0;
-        field_184 = 0;
-    }
-
-    // 0x100161260, 48 bytes, inline, placed by class name
-    // FriendChatUser::IsFriend()
+    // 0x100161260
     bool FriendChatUser::IsFriend() {
         if (field_180 == 0) {
-            RecalcIsFriend(this);
+            RecalcIsFriend();
         }
         return field_180 == 1;
     }
 
-    // 0x100161290, 48 bytes, inline, placed by class name
-    // FriendChatUser::IsIgnore()
+    // 0x100161290
     bool FriendChatUser::IsIgnore() {
         if (field_184 == 0) {
-            RecalcIsIgnore(this);
+            RecalcIsIgnore();
         }
         return field_184 == 1;
     }
 
-    // 0x10016ee80, 64 bytes, inline, placed by class name
-    // FriendChatUser::RecalcIsFriend()
+    // 0x10016ee80
     void FriendChatUser::RecalcIsFriend() {
-        byte bVar1;
-        long lVar2;
-
-        lVar2 = Client::Instance();
-        lVar2 = std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-            (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(lVar2 + 52768));
-        bVar1 = ((lVar2 + 8))->ContainsPlayerDisplayName((DisplayName*)&field_8);
+        long lVar3 = Client::Instance()->field_52768.operator->();
+        uint8_t bVar1 = ((lVar3 + 8))->ContainsPlayerDisplayName(field_8);
         field_180 = 2 - bVar1;
     }
 
-    // 0x10016eec0, 80 bytes, inline, placed by class name
-    // FriendChatUser::RecalcIsIgnore()
+    // 0x10016eec0
     void FriendChatUser::RecalcIsIgnore() {
-        byte bVar1;
-        long lVar2;
-
-        lVar2 = Client::Instance();
-        lVar2 = std::unique_ptr<FriendSystem, std::default_delete<FriendSystem>>::operator->(
-            (unique_ptr<FriendSystem, std::default_delete<FriendSystem>>*)(lVar2 + 52768));
-        bVar1 = ((lVar2 + 208))->ContainsPlayerDisplayName((DisplayName*)&field_8);
+        long lVar3 = Client::Instance()->field_52768.operator->();
+        uint8_t bVar1 = ((lVar3 + 208))->ContainsPlayerDisplayName(field_8);
         field_184 = 2 - bVar1;
     }
 
 } // namespace jag::oldscape::social
 
 namespace jag::game {
-    // 0x10012d150: the linker folded this into oldscape::FoundObject::FoundObject(), which has identical code
-    BuildFunctionRequestData::BuildFunctionRequestData();
+    // 0x10012d150: BuildFunctionRequestData::BuildFunctionRequestData() has the same machine code as oldscape::FoundObject::FoundObject()
 
-    // 0x10012d160: the linker folded this into oldscape::FoundObject::~FoundObject(), which has identical code
-    MapSquareStatus::~MapSquareStatus();
+    // 0x10012d160: MapSquareStatus::~MapSquareStatus() has the same machine code as oldscape::FoundObject::~FoundObject()
 
-    // 0x10012d160: the linker folded this into oldscape::FoundObject::~FoundObject(), which has identical code
-    BuildModelResultData::~BuildModelResultData();
+    // 0x10012d160: BuildModelResultData::~BuildModelResultData() has the same machine code as oldscape::FoundObject::~FoundObject()
 
-    // 0x10012d160: the linker folded this into oldscape::FoundObject::~FoundObject(), which has identical code
-    BuildAnimationResultData::~BuildAnimationResultData();
+    // 0x10012d160: BuildAnimationResultData::~BuildAnimationResultData() has the same machine code as oldscape::FoundObject::~FoundObject()
 
-    // 0x10012d160: the linker folded this into oldscape::FoundObject::~FoundObject(), which has identical code
-    BuildFunctionRequestData::~BuildFunctionRequestData();
+    // 0x10012d160: BuildFunctionRequestData::~BuildFunctionRequestData() has the same machine code as oldscape::FoundObject::~FoundObject()
 
-    // 0x10012d160: the linker folded this into oldscape::FoundObject::~FoundObject(), which has identical code
-    BuildSingleLocationResultData::~BuildSingleLocationResultData();
+    // 0x10012d160: BuildSingleLocationResultData::~BuildSingleLocationResultData() has the same machine code as oldscape::FoundObject::~FoundObject()
 
-    // 0x10012d160: the linker folded this into oldscape::FoundObject::~FoundObject(), which has identical code
-    BuildCombinedLocationRequestData_PerModelData::~BuildCombinedLocationRequestData_PerModelData();
+    // 0x10012d160: BuildCombinedLocationRequestData_PerModelData::~BuildCombinedLocationRequestData_PerModelData() has the same machine code as oldscape::FoundObject::~FoundObject()
 
 } // namespace jag::game
 
 namespace jag::oldscape {
-    // 0x10012d150, 16 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // FoundObject::FoundObject()
-    /* graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob::OldscapeAnimCurveLoadJob()
-    */
+    // 0x10012d150
+    FoundObject::FoundObject() : shared_ptr() {}
 
-    void graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob::OldscapeAnimCurveLoadJob() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-    }
-
-    // 0x10012d160, 16 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // FoundObject::~FoundObject()
-    /* LRUHashCacheWrapper<configdecoder::VarBitType, unsigned long
-   long>::~LRUHashCacheWrapper() */
-
-    void LRUHashCacheWrapper<configdecoder::VarBitType, unsigned long long>::~LRUHashCacheWrapper(
-        LRUHashCacheWrapper<configdecoder::VarBitType, unsigned long long>* this, shared_ptr* param_1) {
-        ~shared_ptr();
-    }
+    // 0x10012d160
+    FoundObject::~FoundObject() {}
 
 } // namespace jag::oldscape
 
 namespace jag::graphics {
-    // 0x10012d150: the linker folded this into oldscape::FoundObject::FoundObject(), which has identical code
-    BindInfo::BindInfo();
+    // 0x10012d150: BindInfo::BindInfo() has the same machine code as oldscape::FoundObject::FoundObject()
 
-    // 0x10012d160: the linker folded this into oldscape::FoundObject::~FoundObject(), which has identical code
-    BindInfo::~BindInfo();
+    // 0x10012d160: BindInfo::~BindInfo() has the same machine code as oldscape::FoundObject::~FoundObject()
 
 } // namespace jag::graphics
 
 namespace jag::oldscape::dash3d {
-    // 0x10012d160: the linker folded this into FoundObject::~FoundObject(), which has identical code
-    OperationBuffer::~OperationBuffer();
+    // 0x10012d160: OperationBuffer::~OperationBuffer() has the same machine code as FoundObject::~FoundObject()
 
-    // 0x10012d160: the linker folded this into FoundObject::~FoundObject(), which has identical code
-    ShareLightRequest::~ShareLightRequest();
+    // 0x10012d160: ShareLightRequest::~ShareLightRequest() has the same machine code as FoundObject::~FoundObject()
 
 } // namespace jag::oldscape::dash3d
 
 namespace jag::tweak {
-    // 0x10012d160: the linker folded this into oldscape::FoundObject::~FoundObject(), which has identical code
-    Event::~Event();
+    // 0x10012d160: Event::~Event() has the same machine code as oldscape::FoundObject::~FoundObject()
 
 } // namespace jag::tweak
 
 namespace jag::render {
-    // 0x10012d160: the linker folded this into oldscape::FoundObject::~FoundObject(), which has identical code
-    KeepAliveSharedPtrAndOwner::~KeepAliveSharedPtrAndOwner();
+    // 0x10012d160: KeepAliveSharedPtrAndOwner::~KeepAliveSharedPtrAndOwner() has the same machine code as oldscape::FoundObject::~FoundObject()
 
 } // namespace jag::render

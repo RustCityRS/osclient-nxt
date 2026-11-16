@@ -1,6 +1,5 @@
 // libs/ui/components/PagedCarousel.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,158 +9,131 @@ namespace jag::ui {
     public:
         // virtual methods in vtable order
         virtual ~PagedCarousel();
-        virtual GetType() const;
-        virtual GetSwipeable() const;
-        virtual void MainLogic(ComponentDependencies const&, int, int, bool, bool, bool, bool);
-        virtual void MainDraw(ComponentDependencies const&, int, int, float);
-        virtual OnActivePageChanged();
-        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int);
+        virtual uint64_t GetType() const;
+        virtual uint64_t GetSwipeable() const;
+        virtual void MainLogic(const ComponentDependencies& componentDependencies, int arg2, int arg3, bool arg4,
+                               bool arg5, bool arg6, bool arg7);
+        virtual void MainDraw(const ComponentDependencies& componentDependencies, int arg2, int arg3, float arg4);
+        virtual void OnActivePageChanged();
+        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2);
         virtual void FlagLayoutDirty();
-        virtual ulong HasInteractionInProgress() const;
-        virtual void SetMargin(Component::MarginType, Margin);
-        virtual ulong GetMargin(Component::MarginType) const;
-        virtual SupportsMargin(Component::MarginType) const;
-        virtual void LoadStyleSheetVisuals(StyleSheet const&);
-        virtual IsLayoutDirty() const;
-        virtual UpdateLayout(bool);
-        virtual void OnActivePageChanging(unsigned char);
+        virtual unsigned long HasInteractionInProgress() const;
+        virtual void SetMargin(Component::MarginType marginType, Margin margin);
+        virtual unsigned long GetMargin(Component::MarginType marginType) const;
+        virtual uint8_t SupportsMargin(Component::MarginType marginType) const;
+        virtual void LoadStyleSheetVisuals(const StyleSheet& styleSheet);
+        virtual bool IsLayoutDirty() const;
+        virtual uint64_t UpdateLayout(bool arg1);
+        virtual void OnActivePageChanging(unsigned char arg1);
         virtual void OnPageCountChanged();
-        PagedCarousel(InterfaceManager*);
-        ulong WrapActivePageOffset(int) const;
-        void ApplyScroll(float);
-        void UpdateAnimations(float);
-        void DrawBackground(graphics::RT7Core*, int, int);
-        void DrawActivePage(graphics::RT7Core*, int, int, float);
-        void DrawPages(graphics::RT7Core*, int, int, float);
-        void DrawFadeGradients(graphics::RT7Core*, int, int);
-        void DrawButtons(graphics::RT7Core*, int, int);
-        void SetupButtons(unsigned short, unsigned short, ButtonDisplayMode);
+        PagedCarousel(InterfaceManager* interfaceManager);
+        unsigned long WrapActivePageOffset(int arg1) const;
+        void ApplyScroll(float arg1);
+        void UpdateAnimations(float arg1);
+        void DrawBackground(graphics::RT7Core* rt7Core, int arg2, int arg3);
+        void DrawActivePage(graphics::RT7Core* rt7Core, int arg2, int arg3, float arg4);
+        void DrawPages(graphics::RT7Core* rt7Core, int arg2, int arg3, float arg4);
+        void DrawFadeGradients(graphics::RT7Core* rt7Core, int arg2, int arg3);
+        void DrawButtons(graphics::RT7Core* rt7Core, int arg2, int arg3);
+        void SetupButtons(unsigned short arg1, unsigned short arg2, ButtonDisplayMode buttonDisplayMode);
         bool IsSinglePageCarousel() const;
-        void UpdateComponentListLayout(eastl::vector<ComponentContainer, eastl::allocator> const&, int, int, int, int);
-        void UpdateComponentListForceDisabled(eastl::vector<ComponentContainer, eastl::allocator> const&, bool);
+        void UpdateComponentListLayout(const eastl::vector<ComponentContainer>& componentContainers, int arg2, int arg3,
+                                       int arg4, int arg5);
+        void UpdateComponentListForceDisabled(const eastl::vector<ComponentContainer>& componentContainers, bool arg2);
         bool PageTransitionInProgress() const;
 
-        // data members, from how the methods use this: 1376 bytes, the first 1132 are PagedLayer
-        char _unknown_1132[44];
-        SpriteData field_1176; // offset 1176
-        undefined1 field_1224; // offset 1224
-        char _unknown_1225[79];
-        Margin field_1304;     // offset 1304
-        float field_1308;      // offset 1308
-        uint field_1312;       // offset 1312
-        undefined1 field_1316; // offset 1316
-        char _unknown_1317[27];
-        ButtonElement field_1344; // offset 1344
+    private:
+        uint8_t _unknown_1132[44];
+        SpriteData field_1176;
+        uint8_t _unknown_1224[83];
+        uint8_t field_1307;
+        float field_1308;
+        unsigned int field_1312;
+        uint8_t _unknown_1316[28];
+        ButtonElement field_1344;
     };
 
-    // 0x1006a2260, 32 bytes, inline, placed by class name
-    // PagedCarousel::IsSinglePageCarousel() const
-    bool PagedCarousel::IsSinglePageCarousel() {
+    // 0x1006a2260
+    bool PagedCarousel::IsSinglePageCarousel() const {
         return field_1096 == 0.0;
     }
 
-    // 0x1006adb50, 16 bytes, complete-object destructor, inline, placed by class name
-    // PagedCarousel::~PagedCarousel(): jumps straight to the base-object destructor
-
-    // 0x1006adb60, 32 bytes, deleting destructor, inline, placed by class name
-    // PagedCarousel::~PagedCarousel()
-    void PagedCarousel::~PagedCarousel() {
-        ~PagedCarousel(this);
-        operator_delete(this);
-    }
-
-    // 0x1006adb80, 16 bytes, inline, placed by class name
-    // PagedCarousel::GetType() const
-    undefined8 PagedCarousel::GetType() {
+    // 0x1006adb80
+    uint64_t PagedCarousel::GetType() const {
         return 16;
     }
 
-    // 0x1006adb90, 16 bytes, inline, placed by class name
-    // PagedCarousel::FlagLayoutDirty()
+    // 0x1006adb90
     void PagedCarousel::FlagLayoutDirty() {
         m_layoutDirty = 1;
     }
 
-    // 0x1006adba0, 64 bytes, inline, placed by class name
-    // PagedCarousel::HasInteractionInProgress() const
-    ulong PagedCarousel::HasInteractionInProgress() {
-        char cVar1;
-        uint uVar2;
-        undefined8 unaff_R14;
-        ulong uVar3;
+    // 0x1006adba0
+    unsigned long PagedCarousel::HasInteractionInProgress() const {
+        unsigned int uVar2;
+        uint64_t unaff_R14;
 
-        cVar1 = PageTransitionInProgress(this);
-        uVar3 = CONCAT71((int7)((ulong)unaff_R14 >> 8), 1);
-        if (cVar1 == '\0') {
-            cVar1 = (&field_1316)->IsMouseOver();
-            if (cVar1 == '\0') {
+        bool cVar1 = PageTransitionInProgress();
+        unsigned long uVar3 = (((uint64_t)((int64_t)((unsigned long)unaff_R14 >> 8)) << 8) | (uint8_t)1);
+        if (!cVar1) {
+            cVar1 = field_1316.IsMouseOver();
+            if (!cVar1) {
                 uVar2 = field_1344->IsMouseOver();
-                uVar3 = (ulong)uVar2;
+                uVar3 = (unsigned long)uVar2;
             }
         }
         return uVar3 & 4294967295;
     }
 
-    // 0x1006adbe0, 32 bytes, inline, placed by class name
-    // PagedCarousel::SetMargin(Component::MarginType, Margin)
-    void PagedCarousel::SetMargin(int param_2, undefined4 param_3) {
-        if (param_2 == 2) {
-            *(undefined4*)field_1304 = param_3;
+    // 0x1006adbe0
+    void PagedCarousel::SetMargin(Component::MarginType marginType, Margin margin) {
+        if (marginType == 2) {
+            field_1304 = margin.field_0;
+            field_1305 = margin.field_1;
+            field_1306 = margin.field_2;
+            field_1307 = margin.field_3;
             return;
         }
-        PagedLayer::SetMargin();
+        SetMargin(marginType, margin);
     }
 
-    // 0x1006adc00, 32 bytes, inline, placed by class name
-    // PagedCarousel::GetMargin(Component::MarginType) const
-    ulong PagedCarousel::GetMargin(int param_2) {
-        if (param_2 == 2) {
-            return (ulong) * (uint*)field_1304;
+    // 0x1006adc00
+    unsigned long PagedCarousel::GetMargin(Component::MarginType marginType) const {
+        if (marginType == 2) {
+            return (unsigned long)*(unsigned int*)&field_1304;
         }
-        return PagedLayer::GetMargin();
+        return GetMargin(marginType);
     }
 
-    // 0x1006adc20, 32 bytes, inline, placed by class name
-    // PagedCarousel::SupportsMargin(Component::MarginType) const
-    undefined1 PagedCarousel::SupportsMargin(undefined8 param_1, int param_2) {
-        undefined1 uVar1;
-
-        uVar1 = 1;
-        if (param_2 != 2) {
-            uVar1 = game::option::HapticFeedback::IsAvailable();
+    // 0x1006adc20
+    uint8_t PagedCarousel::SupportsMargin(Component::MarginType marginType) const {
+        uint8_t uVar1 = 1;
+        if (marginType != 2) {
+            uVar1 = IsAvailable(marginType);
         }
         return uVar1;
     }
 
-    // 0x1006adc40, 16 bytes, inline, placed by class name
-    // PagedCarousel::IsLayoutDirty() const
-    undefined1 PagedCarousel::IsLayoutDirty() {
+    // 0x1006adc40
+    bool PagedCarousel::IsLayoutDirty() const {
         return m_layoutDirty;
     }
 
-    // 0x1006ade00, 48 bytes, inline, placed by class name
-    // PagedCarousel::OnPageCountChanged()
+    // 0x1006ade00
     void PagedCarousel::OnPageCountChanged() {
-        (&field_496)->size();
-        eastl::vector<
-            eastl::pair<int, int>,
-            eastl::fixed_vector_allocator<8ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::resize((ulong)&field_1224);
+        field_1224.resize(field_496.size());
     }
 
-    // 0x1006b2f30, 96 bytes, base-object destructor, inline, placed by class name
-    // PagedCarousel::~PagedCarousel()
-    void PagedCarousel::~PagedCarousel() {
-        field_0 = &PTR__PagedCarousel_100f0f2f8;
-        *(undefined***)field_424 = &PTR__PagedCarousel_100f0f510;
-        (&field_1224)->~fixed_vector();
+    // 0x1006b2f30
+    PagedCarousel::~PagedCarousel() {
+        *(uint8_t***)field_424 = &PTR__PagedCarousel_100f0f510;
+        field_1224.~fixed_vector();
         field_1176->~Sprite();
         field_1128->~Sprite();
-        ~PagedLayer();
     }
 
-    // 0x1006b2f90, 32 bytes, inline, placed by class name
-    // PagedCarousel::PageTransitionInProgress() const
-    bool PagedCarousel::PageTransitionInProgress() {
+    // 0x1006b2f90
+    bool PagedCarousel::PageTransitionInProgress() const {
         return field_1092 != 0.0;
     }
 

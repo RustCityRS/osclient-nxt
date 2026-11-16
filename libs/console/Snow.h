@@ -1,6 +1,5 @@
 // libs/console/Snow.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,60 +10,49 @@ namespace jag::game::console {
         class SnowFlake;
         // virtual methods in vtable order
         virtual ~Snow();
-        GetSnowFlakes() const;
-        GetSnowPiles() const;
+        void GetSnowFlakes() const;
+        void GetSnowPiles() const;
         Snow();
-        void MainDraw(int, int, int, int);
-        void MoveSnowFlakes(int, int, int, int);
-        void GenerateSnowFlakes(int, int, int, int);
-        void AddToPile(int);
-        static /* 8 bytes */ ENABLE_SNOW;
+        void MainDraw(int arg1, int arg2, int arg3, int arg4);
+        void MoveSnowFlakes(int arg1, int arg2, int arg3, int arg4);
+        void GenerateSnowFlakes(int arg1, int arg2, int arg3, int arg4);
+        void AddToPile(int arg1);
+        static int64_t ENABLE_SNOW;
 
-        // data members, from how the methods use this: 112 bytes, the first 8 are PlayerGroupDeltaEntry
-        char _unknown_8[32];
-        undefined1 field_40; // offset 40
-        char _unknown_41[31];
-        long field_72; // offset 72
-        long field_80; // offset 80
-        char _unknown_88[8];
-        undefined4 field_96; // offset 96
-        char _unknown_100[4];
-        undefined8 field_104; // offset 104
+    private:
+        uint8_t _unknown_8[64];
+        long field_72;
+        long field_80;
+        uint8_t _unknown_88[8];
+        uint32_t field_96;
+        uint8_t _unknown_100[4];
+        uint64_t field_104;
     };
 
     class Snow::SnowFlake {
     public:
-        SnowFlake(int, int, float);
+        SnowFlake(int arg1, int arg2, float arg3);
 
-        // data members, from how the methods use this: 28 bytes
-        float field_0;       // offset 0
-        float field_4;       // offset 4
-        float field_8;       // offset 8
-        float field_12;      // offset 12
-        undefined4 field_16; // offset 16
-        float field_20;      // offset 20
-        undefined1 field_24; // offset 24
-        char _unknown_25[3];
+    private:
+        float field_0;
+        float field_4;
+        float field_8;
+        float field_12;
+        uint32_t field_16;
+        float field_20;
+        uint8_t field_24;
+        uint8_t _unknown_25[3];
     };
 
-    // 0x100067280, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // Snow::GetSnowPiles() const
-    /* eastl::fixed_hashtable_allocator<10ul, 1208ul, 8ul, 8ul, 0ul, true,
-   eastl::allocator>::get_overflow_allocator() */
-
-    fixed_hashtable_allocator<10ul, 1208ul, 8ul, 8ul, 0ul, true, eastl::allocator>*
-    eastl::fixed_hashtable_allocator<10ul, 1208ul, 8ul, 8ul, 0ul, true, eastl::allocator>::get_overflow_allocator(
-        fixed_hashtable_allocator<10ul, 1208ul, 8ul, 8ul, 0ul, true, eastl::allocator>* this) {
+    // 0x100067280
+    void Snow::GetSnowPiles() const {
         return this + 40;
     }
 
-    // 0x1000797f0, 64 bytes, base-object destructor, inline, placed by class name
-    // Snow::~Snow()
-    void Snow::~Snow() {
-        field_0 = PTR_vtable_100ee85e8 + 16;
-        (&field_40)->~vector();
-        (&field_8)->~FastPool();
+    // 0x1000797f0
+    Snow::~Snow() {
+        field_40.~vector();
+        field_8.~FastPool();
     }
 
 } // namespace jag::game::console
@@ -72,10 +60,7 @@ namespace jag::game::console {
 namespace jag::oldscape::widgets {
     class BorderStyle {
     public:
-        BorderStyle(bool, bool, bool, bool);
+        BorderStyle(bool arg1, bool arg2, bool arg3, bool arg4);
     };
-
-    // 0x100067290, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // BorderStyle::BorderStyle(bool, bool, bool, bool): jumps straight to the base-object constructor
 
 } // namespace jag::oldscape::widgets

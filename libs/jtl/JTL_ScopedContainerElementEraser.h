@@ -1,6 +1,5 @@
 // libs/jtl/JTL_ScopedContainerElementEraser.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,199 +8,105 @@ namespace jag {
         typename...> // 3 instantiations, e.g. <eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl:, <eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::Co, <eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator, eastl::vector<eastl
     class ScopedContainerElementEraser {
     public:
-        ScopedContainerElementEraser(eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>,
-                                                     eastl::less<game::CoordGrid>, eastl::allocator>&);
-        void erase(game::CoordGrid);
+        ScopedContainerElementEraser(eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>>& multimap);
+        void erase(game::CoordGrid coordGrid);
         ~ScopedContainerElementEraser();
         ScopedContainerElementEraser(
             eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>,
-                                  eastl::equal_to<int>, false, eastl::allocator>&);
-        void erase(unsigned int);
-        ScopedContainerElementEraser(
-            eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator>>&);
-        void erase(int);
+                                  eastl::equal_to<int>, false>& fixed_hash_map);
+        void erase(unsigned int arg1);
+        ScopedContainerElementEraser(eastl::vector_map<int, game::VarValue>& arg1);
+        void erase(int arg1);
     };
 
-    // 0x10048d730, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>, game::CoordGrid>::ScopedContainerElementEraser(eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>&): jumps straight to the base-object constructor
+    // 0x10048d740
+    void
+    ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>>, game::CoordGrid>::erase(
+        game::CoordGrid coordGrid) {
+        CoordGrid local_18;
 
-    // 0x10048d740, 32 bytes, inline, placed by class name and debug map
-    // ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>, game::CoordGrid>::erase(game::CoordGrid)
-    void jag::ScopedContainerElementEraser<
-        eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>,
-        game::CoordGrid>::erase(CoordGrid param_1) {
-        eastl::fixed_vector<game::CoordGrid, 64ul, true, eastl::allocator>::push_back(param_1._0_8_);
+        local_18._0_8_ = coordGrid._0_8_;
+        local_18.field_8 = coordGrid.field_8;
+        push_back(local_18);
     }
 
-    // 0x10048d760, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>, game::CoordGrid>::~ScopedContainerElementEraser(): jumps straight to the base-object destructor
-
-    // 0x10048d770, 32 bytes, base-object constructor, inline, placed by class name and debug map
-    // ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>, game::CoordGrid>::ScopedContainerElementEraser(eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>&)
-    void jag::ScopedContainerElementEraser<
-        eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>,
-        game::CoordGrid>::
-        ScopedContainerElementEraser(
-            ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>,
-                                                         eastl::less<game::CoordGrid>, eastl::allocator>,
-                                         game::CoordGrid>* this,
-            multimap* param_1) {
-        new (this) eastl::fixed_vector<game::CoordGrid, 64ul, true, eastl::allocator>();
-        *(multimap**)(this + 808) = param_1;
+    // 0x10048d770
+    ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>>, game::CoordGrid>::
+        ScopedContainerElementEraser(eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>>& multimap)
+        : eastl::fixed_vector<game::CoordGrid, 64ul>() {
+        *(multimap<game::CoordGrid, shared_ptr<game::Entity>>**)(this + 808) = multimap;
     }
 
-    // 0x10048dbc0, 112 bytes, base-object destructor, inline, placed by class name and debug map
-    // ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>, game::CoordGrid>::~ScopedContainerElementEraser()
-    void jag::ScopedContainerElementEraser<
-        eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>, eastl::allocator>,
-        game::CoordGrid>::
-        ~ScopedContainerElementEraser(
-            ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>,
-                                                         eastl::less<game::CoordGrid>, eastl::allocator>,
-                                         game::CoordGrid>* this) {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = HeapBeginPtr();
-        lVar2 = end();
-        for (; lVar1 != lVar2; lVar1 = lVar1 + 12) {
-            eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>, eastl::less<game::CoordGrid>,
-                            eastl::allocator>::erase(*(CoordGrid**)(this + 808));
+    // 0x10048dbc0
+    ScopedContainerElementEraser<eastl::multimap<game::CoordGrid, shared_ptr<game::Entity>>,
+                                 game::CoordGrid>::~ScopedContainerElementEraser() {
+        auto coordGrid = HeapBeginPtr();
+        auto pCVar1 = end();
+        for (; coordGrid != pCVar1; coordGrid = (CoordGrid*)&coordGrid->field_12) {
+            (*(multimap<game::CoordGrid, shared_ptr<game::Entity>>**)(this + 808))->erase(*coordGrid);
         }
-        ~fixed_vector();
     }
 
-    // 0x1004ce080, 16 bytes, complete-object constructor, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>, false, eastl::allocator>, unsigned int>::ScopedContainerElementEraser(eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>, false, eastl::allocator>&): jumps straight to the base-object constructor
-
-    // 0x1004ce0e0, 32 bytes, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>, false, eastl::allocator>, unsigned int>::erase(unsigned int)
-    void jag::ScopedContainerElementEraser<
-        eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>,
-                              false, eastl::allocator>,
-        unsigned int>::erase(uint param_1) {
-        undefined4 in_register_0000003c;
-
-        eastl::fixed_vector<unsigned int, 64ul, true, eastl::allocator>::push_back(
-            (uint*)CONCAT44(in_register_0000003c, param_1));
+    // 0x1004ce0e0
+    void ScopedContainerElementEraser<eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true,
+                                                            eastl::hash<int>, eastl::equal_to<int>, false>,
+                                      unsigned int>::erase(unsigned int arg1) {
+        push_back(arg1);
     }
 
-    // 0x1004ce100, 16 bytes, complete-object destructor, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>, false, eastl::allocator>, unsigned int>::~ScopedContainerElementEraser(): jumps straight to the base-object destructor
-
-    // 0x1004d5960, 32 bytes, base-object constructor, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>, false, eastl::allocator>, unsigned int>::ScopedContainerElementEraser(eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>, false, eastl::allocator>&)
-    void jag::ScopedContainerElementEraser<
+    // 0x1004d5960
+    ScopedContainerElementEraser<
         eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>,
-                              false, eastl::allocator>,
-        unsigned int>::
-        ScopedContainerElementEraser(
-            ScopedContainerElementEraser<
-                eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>,
-                                      eastl::equal_to<int>, false, eastl::allocator>,
-                unsigned int>* this,
-            fixed_hash_map* param_1) {
-        new (this) eastl::fixed_vector<unsigned int, 64ul, true, eastl::allocator>();
-        *(fixed_hash_map**)(this + 296) = param_1;
+                              false>,
+        unsigned int>::ScopedContainerElementEraser(eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul,
+                                                                          true, eastl::hash<int>, eastl::equal_to<int>,
+                                                                          false>& fixed_hash_map)
+        : eastl::fixed_vector<unsigned int, 64ul>() {
+        *(fixed_hash_map<int, game::DelayedVariable, _128ul, _129ul, true, eastl::hash<int>, eastl::equal_to<int>,
+                         false>**)(this + 296) = fixed_hash_map;
     }
 
-    // 0x1004d5b50, 128 bytes, base-object destructor, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>, false, eastl::allocator>, unsigned int>::~ScopedContainerElementEraser()
-    void jag::ScopedContainerElementEraser<
-        eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>, eastl::equal_to<int>,
-                              false, eastl::allocator>,
-        unsigned int>::
-        ~ScopedContainerElementEraser(
-            ScopedContainerElementEraser<
-                eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>,
-                                      eastl::equal_to<int>, false, eastl::allocator>,
-                unsigned int>* this) {
-        int* piVar1;
-        int* piVar2;
+    // 0x1004d5b50
+    ScopedContainerElementEraser<eastl::fixed_hash_map<int, game::DelayedVariable, 128ul, 129ul, true, eastl::hash<int>,
+                                                       eastl::equal_to<int>, false>,
+                                 unsigned int>::~ScopedContainerElementEraser() {
         int local_2c;
 
-        piVar1 = (int*)HeapBeginPtr();
-        piVar2 = (int*)end();
+        auto piVar1 = HeapBeginPtr();
+        auto piVar2 = end();
         if (piVar1 != piVar2) {
             do {
                 local_2c = *piVar1;
-                eastl::hashtable<int, eastl::pair<int const, game::DelayedVariable>,
-                                 eastl::fixed_hashtable_allocator<130ul, 32ul, 128ul, 8ul, 0ul, true, eastl::allocator>,
-                                 eastl::use_first<eastl::pair<int const, game::DelayedVariable>>, eastl::equal_to<int>,
-                                 eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                 eastl::prime_rehash_policy, false, true, true>::
-                    erase(*(hashtable<
-                              int, eastl::pair<int const, game::DelayedVariable>,
-                              eastl::fixed_hashtable_allocator<130ul, 32ul, 128ul, 8ul, 0ul, true, eastl::allocator>,
-                              eastl::use_first<eastl::pair<int const, game::DelayedVariable>>, eastl::equal_to<int>,
-                              eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                              eastl::prime_rehash_policy, false, true, true>**)(this + 296),
-                          &local_2c);
+                (*(hashtable<int, eastl::pair<int const, game::DelayedVariable>,
+                             eastl::fixed_hashtable_allocator<130ul, 32ul, 128ul, 8ul, 0ul, true>,
+                             eastl::use_first<eastl::pair<int const, game::DelayedVariable>>, eastl::equal_to<int>,
+                             eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
+                             eastl::prime_rehash_policy, false, true, true>**)(this + 296))
+                    ->erase(local_2c);
                 piVar1 = piVar1 + 1;
             } while (piVar1 != piVar2);
         }
-        ~fixed_vector();
     }
 
-    // 0x100509b60, 16 bytes, complete-object constructor, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator> >, int>::ScopedContainerElementEraser(eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator> >&): jumps straight to the base-object constructor
-
-    // 0x100509c30, 32 bytes, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator> >, int>::erase(int)
-    void jag::ScopedContainerElementEraser<
-        eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator,
-                          eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator>>,
-        int>::erase(int param_1) {
-        undefined4 in_register_0000003c;
-
-        eastl::fixed_vector<int, 64ul, true, eastl::allocator>::push_back(
-            (int*)CONCAT44(in_register_0000003c, param_1));
+    // 0x100509c30
+    void ScopedContainerElementEraser<eastl::vector_map<int, game::VarValue>, int>::erase(int arg1) {
+        push_back(arg1);
     }
 
-    // 0x100509c50, 16 bytes, complete-object destructor, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator> >, int>::~ScopedContainerElementEraser(): jumps straight to the base-object destructor
-
-    // 0x1005146e0, 32 bytes, base-object constructor, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator> >, int>::ScopedContainerElementEraser(eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator> >&)
-    void jag::ScopedContainerElementEraser<
-        eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator,
-                          eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator>>,
-        int>::
-        ScopedContainerElementEraser(
-            ScopedContainerElementEraser<
-                eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator>>,
-                int>* this,
-            vector_map* param_1) {
-        new (this) eastl::fixed_vector<int, 64ul, true, eastl::allocator>();
-        *(vector_map**)(this + 296) = param_1;
+    // 0x1005146e0
+    ScopedContainerElementEraser<eastl::vector_map<int, game::VarValue>, int>::ScopedContainerElementEraser(
+        eastl::vector_map<int, game::VarValue>& arg1)
+        : eastl::fixed_vector<int, 64ul>() {
+        *(vector_map<int, game::VarValue>**)(this + 296) = arg1;
     }
 
-    // 0x1005147c0, 112 bytes, base-object destructor, inline, placed by class name
-    // ScopedContainerElementEraser<eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator> >, int>::~ScopedContainerElementEraser()
-    void jag::ScopedContainerElementEraser<
-        eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator,
-                          eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator>>,
-        int>::
-        ~ScopedContainerElementEraser(
-            ScopedContainerElementEraser<
-                eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator>>,
-                int>* this) {
-        int* piVar1;
-        int* piVar2;
-
-        piVar1 = (int*)HeapBeginPtr();
-        piVar2 = (int*)end();
-        for (; piVar1 != piVar2; piVar1 = piVar1 + 1) {
-            eastl::vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator>>::
-                erase(*(vector_map<int, game::VarValue, eastl::less<int>, eastl::allocator,
-                                   eastl::vector<eastl::pair<int, game::VarValue>, eastl::allocator>>**)(this + 296),
-                      piVar1);
+    // 0x1005147c0
+    ScopedContainerElementEraser<eastl::vector_map<int, game::VarValue>, int>::~ScopedContainerElementEraser() {
+        long lVar1 = HeapBeginPtr();
+        long lVar2 = end();
+        for (; lVar1 != lVar2; lVar1 = lVar1 + 4) {
+            eastl::vector_map<int, game::VarValue>::erase(*(*(int**)(this + 296)));
         }
-        ~fixed_vector();
     }
 
 } // namespace jag

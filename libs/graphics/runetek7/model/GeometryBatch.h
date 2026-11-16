@@ -1,366 +1,298 @@
 // libs/graphics/runetek7/model/GeometryBatch.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class GeometryBatch {
     public:
-        GetAABB() const;
-        GetBoneIDMap();
-        GetBoneIDMap() const;
-        GetLabelIDMap();
-        GetLabelIDMap() const;
-        GetVertexDataBuffer();
-        GetVertexDataBuffer() const;
+        void GetAABB() const;
+        uint8_t* GetBoneIDMap();
+        uint8_t* GetBoneIDMap() const;
+        uint8_t* GetLabelIDMap();
+        uint8_t* GetLabelIDMap() const;
+        uint8_t* GetVertexDataBuffer();
+        uint8_t* GetVertexDataBuffer() const;
         void GetIndexCount() const;
-        GetJointIDMap();
-        GetJointIDMap() const;
+        uint8_t* GetJointIDMap();
+        uint8_t* GetJointIDMap() const;
         void GetVertexIndexBuffer() const;
         void GetVertexIndexBuffer();
-        GetVertexDataBufferPos() const;
-        GetVertexDataBufferPos();
+        uint8_t* GetVertexDataBufferPos() const;
+        uint8_t* GetVertexDataBufferPos();
         void GetVertexCount() const;
-        ushort GetFaceHSLBuffer();
-        GetFaceTransparencyBuffer();
-        void SetFaceHSLBaked(bool);
-        GetBoneVertices() const;
-        void SetShareLight(bool);
-        byte HasFaceTransparency() const;
-        GetVertexDataBufferSkin() const;
-        byte IsHidden() const;
-        byte VertexBuffersInitialised() const;
-        GetVertexDataBufferPosLP() const;
+        uint8_t* GetFaceHSLBuffer();
+        uint8_t* GetFaceTransparencyBuffer();
+        void SetFaceHSLBaked(bool arg1);
+        uint8_t* GetBoneVertices() const;
+        void SetShareLight(bool arg1);
+        bool HasFaceTransparency() const;
+        uint8_t* GetVertexDataBufferSkin() const;
+        bool IsHidden() const;
+        uint8_t VertexBuffersInitialised() const;
+        uint8_t* GetVertexDataBufferPosLP() const;
         float GetVertexScale() const;
         GeometryBatch();
-        GeometryBatch(GeometryBatch&&);
-        GeometryBatch(GeometryBatch const&);
+        GeometryBatch(GeometryBatch&& geometryBatch);
+        GeometryBatch(const GeometryBatch& geometryBatch);
         ~GeometryBatch();
         void DestroyRenderingResources();
         void UpdateAABB();
-        ulong LoadMeshFromModelRawRT7(PacketView&, unsigned int);
-        bool LoadMeshFromData(unsigned long, unsigned long, math::Vector3T<float> const*, math::Vector3T<float> const*,
-                              math::Vector4T<float> const*, math::Vector2T<float> const*, unsigned long,
-                              unsigned short const*, math::Vector3T<float> const&, unsigned int);
-        void BakeTile(unsigned int, unsigned int, unsigned char, unsigned char, unsigned char, unsigned char,
-                      unsigned char, unsigned char, unsigned char);
-        void BakeTextureMeta(unsigned int, unsigned int, ModelTextureMeta const&);
-        void BakeHSLColors(unsigned int, unsigned int, unsigned short, unsigned int, unsigned int);
-        void BakeBatchFlags(unsigned char);
+        unsigned long LoadMeshFromModelRawRT7(PacketView& packetView, unsigned int arg2);
+        bool LoadMeshFromData(unsigned long arg1, unsigned long arg2, const math::Vector3T<float>* vector31,
+                              const math::Vector3T<float>* vector32, const math::Vector4T<float>* vector4,
+                              const math::Vector2T<float>* vector2, unsigned long arg7, const unsigned short* arg8,
+                              const math::Vector3T<float>& vector33, unsigned int arg10);
+        void BakeTile(unsigned int arg1, unsigned int arg2, unsigned char arg3, unsigned char arg4, unsigned char arg5,
+                      unsigned char arg6, unsigned char arg7, unsigned char arg8, unsigned char arg9);
+        void BakeTextureMeta(unsigned int arg1, unsigned int arg2, const ModelTextureMeta& modelTextureMeta);
+        void BakeHSLColors(unsigned int arg1, unsigned int arg2, unsigned short arg3, unsigned int arg4,
+                           unsigned int arg5);
+        void BakeBatchFlags(unsigned char arg1);
         void BakeShareLightNormals(
-            eastl::fixed_hash_map<math::Vector3T<float>, SharedVertexCountNormal, 512ul, 513ul, true,
-                                  eastl::hash<math::Vector3T<float>>, eastl::equal_to<math::Vector3T<float>>, false,
-                                  BucketAllocatorEASTL> const&);
-        void SortSections(
-            eastl::vector<SourceModelExternalIndexSection, eastl::allocator> const&,
-            eastl::vector<SourceModelExternalIndexSection, BucketAllocatorEASTL> const&,
-            eastl::multimap<unsigned char, unsigned long, eastl::less<unsigned char>, BucketAllocatorEASTL> const&);
-        CanSkipSortSections(eastl::vector<SourceModelExternalIndexSection, eastl::allocator> const&,
-                            eastl::multimap<unsigned char, unsigned long, eastl::less<unsigned char>,
-                                            BucketAllocatorEASTL> const&) const;
+            const eastl::fixed_hash_map<math::Vector3T<float>, SharedVertexCountNormal, 512ul, 513ul, true,
+                                        eastl::hash<math::Vector3T<float>>, eastl::equal_to<math::Vector3T<float>>,
+                                        false>& fixed_hash_map);
+        void SortSections(const eastl::vector<SourceModelExternalIndexSection>& sourceModelExternalIndexSections1,
+                          const eastl::vector<SourceModelExternalIndexSection>& sourceModelExternalIndexSections2,
+                          const eastl::multimap<unsigned char, unsigned long>& multimap);
+        bool CanSkipSortSections(const eastl::vector<SourceModelExternalIndexSection>& sourceModelExternalIndexSections,
+                                 const eastl::multimap<unsigned char, unsigned long>& multimap) const;
         void CreateSecondaryVertexBuffers();
         void DestroyCPUBuffers();
-        void Reserve(GeometryBatchCombineHelper const&);
-        void Assign(GeometryBatch const&);
-        void Append(GeometryBatch const&, bool);
-        GetLabelCount() const;
+        void Reserve(const GeometryBatchCombineHelper& geometryBatchCombineHelper);
+        void Assign(const GeometryBatch& geometryBatch);
+        void Append(const GeometryBatch& geometryBatch, bool arg2);
+        uint8_t GetLabelCount() const;
         bool HasBones() const;
         void WeldVertexEdgesWithMap(
             eastl::hash_map<math::Vector3T<float>, unsigned short, eastl::hash<math::Vector3T<float>>,
-                            eastl::equal_to<math::Vector3T<float>>, SafeSimpleAllocatorEASTL, false>&);
+                            eastl::equal_to<math::Vector3T<float>>, SafeSimpleAllocatorEASTL>& arg1);
         void WeldVertexEdgesWithMapSkin(
             eastl::hash_map<math::Vector3T<float>, SharedVertexSkin, eastl::hash<math::Vector3T<float>>,
-                            eastl::equal_to<math::Vector3T<float>>, SafeSimpleAllocatorEASTL, false>&);
-        void Transform(math::Matrix44T<float> const&);
-        void TransformNormals(math::QuaternionT<float> const&, bool);
-        void Translate(math::Vector3T<float> const&);
-        void Rotate(math::QuaternionT<float> const&, bool);
-        void Rotate90(Rotation90, bool);
-        void Scale(math::Vector3T<float> const&);
+                            eastl::equal_to<math::Vector3T<float>>, SafeSimpleAllocatorEASTL>& arg1);
+        void Transform(const math::Matrix44T<float>& matrix44);
+        void TransformNormals(const math::QuaternionT<float>& quaternion, bool arg2);
+        void Translate(const math::Vector3T<float>& vector3);
+        void Rotate(const math::QuaternionT<float>& quaternion, bool arg2);
+        void Rotate90(Rotation90 rotation90, bool arg2);
+        void Scale(const math::Vector3T<float>& vector3);
         void MirrorZ();
-        void HillChange(graphics::HillChange, int, Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL> const&,
-                        Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL> const&,
-                        LocationHelpers::LocationHillChangeData const&);
-        void Recolour(Array<unsigned short, eastl::allocator> const&, Array<unsigned short, eastl::allocator> const&);
-        void RecolourSingle(unsigned short, unsigned short);
-        void AmbientAdjust(unsigned short);
-        void TintAdjust(signed char, signed char, signed char, unsigned char);
+        void HillChange(graphics::HillChange arg1, int arg2, const Array<Array<int>>& arg3,
+                        const Array<Array<int>>& arg4, const LocationHelpers::LocationHillChangeData& arg5);
+        void Recolour(const Array<unsigned short>& arg1, const Array<unsigned short>& arg2);
+        void RecolourSingle(unsigned short arg1, unsigned short arg2);
+        void AmbientAdjust(unsigned short arg1);
+        void TintAdjust(signed char arg1, signed char arg2, signed char arg3, unsigned char arg4);
         void CreateRenderingResources();
         bool HasJoints() const;
-        void GetIndexBuffer(unsigned int);
+        void GetIndexBuffer(unsigned int arg1);
         void ClearFaceData();
-        void PushFaceRange(GeometryBatch const&, unsigned short, unsigned short);
-        IsTransformed() const;
-        void SetTransformed(bool);
-        byte GetBoneCount() const;
-        void GetLodIndexCount(unsigned int) const;
-        HasShareLight() const;
-        uint GetNumLods() const;
-        void GetIAState(unsigned int) const;
-        void GetIndexBuffer(unsigned int) const;
-        uint GetClampedLodLevel(unsigned int) const;
+        void PushFaceRange(const GeometryBatch& geometryBatch, unsigned short arg2, unsigned short arg3);
+        bool IsTransformed() const;
+        void SetTransformed(bool arg1);
+        uint8_t GetBoneCount() const;
+        void GetLodIndexCount(unsigned int arg1) const;
+        bool HasShareLight() const;
+        unsigned int GetNumLods() const;
+        void GetIAState(unsigned int arg1) const;
+        void GetIndexBuffer(unsigned int arg1) const;
+        unsigned int GetClampedLodLevel(unsigned int arg1) const;
 
-        // data members, from how the methods use this: 1256 bytes
-        char _unknown_0[12];
-        undefined4 field_12; // offset 12
-        char _unknown_16[12];
-        undefined4 field_28;        // offset 28
-        byte m_boneCount;           // offset 32
-        undefined1 field_33;        // offset 33
-        bool m_transformed;         // offset 34
-        byte field_35;              // offset 35
-        byte m_hasFaceTransparency; // offset 36
-        bool m_shareLight;          // offset 37
-        byte m_hidden;              // offset 38
-        char _unknown_39[1];
-        float m_vertexScale;     // offset 40
-        undefined1 m_labelCount; // offset 44
-        char _unknown_45[163];
-        uint m_numLods; // offset 208
-        char _unknown_212[4];
-        undefined1 field_216; // offset 216
-        char _unknown_217[159];
-        ushort m_faceHSLBuffer; // offset 376
-        char _unknown_378[30];
-        bool m_faceHSLBaked; // offset 408
-        char _unknown_409[7];
-        undefined1 m_faceTransparencyBuffer; // offset 416
-        char _unknown_417[119];
-        undefined1 m_vertexDataBufferSkin; // offset 536
-        char _unknown_537[719];
+    private:
+        uint8_t _unknown_0[12];
+        uint32_t field_12;
+        uint8_t _unknown_16[12];
+        uint32_t field_28;
+        uint8_t m_boneCount;
+        uint8_t field_33;
+        bool m_transformed;
+        uint8_t field_35;
+        uint8_t m_hasFaceTransparency;
+        bool m_shareLight;
+        uint8_t m_hidden;
+        uint8_t _unknown_39[1];
+        float m_vertexScale;
+        uint8_t m_labelCount;
+        uint8_t _unknown_45[163];
+        unsigned int m_numLods;
+        uint8_t _unknown_212[4];
+        uint8_t field_216;
+        uint8_t _unknown_217[159];
+        uint8_t m_faceHSLBuffer[2];
+        uint8_t _unknown_378[30];
+        bool m_faceHSLBaked;
+        uint8_t _unknown_409[7];
+        uint8_t m_faceTransparencyBuffer[1];
+        uint8_t _unknown_417[119];
+        uint8_t m_vertexDataBufferSkin[1];
+        uint8_t _unknown_537[719];
     };
 
     class GeometryBatchVertexSkin {
     public:
         GeometryBatchVertexSkin();
-        GeometryBatchVertexSkin* operator=(GeometryBatchVertexSkin&&);
-        GeometryBatchVertexSkin* operator=(GeometryBatchVertexSkin const&);
+        GeometryBatchVertexSkin* operator=(GeometryBatchVertexSkin&& geometryBatchVertexSkin);
+        GeometryBatchVertexSkin* operator=(const GeometryBatchVertexSkin& geometryBatchVertexSkin);
 
-        // data members, from how the methods use this: 20 bytes
-        Vector4T<signed char> field_0; // offset 0
-        Vector4T field_1;              // offset 1
-        Vector4T field_2;              // offset 2
-        Vector4T field_3;              // offset 3
-        Callstack field_4;             // offset 4
+    private:
+        Vector4T<signed char> field_0;
+        Vector4T<unsigned char> field_1;
+        Vector4T<unsigned char> field_2;
+        Vector4T<unsigned char> field_3;
+        Callstack field_4;
     };
 
-    // 0x1002f4110, 32 bytes, inline, placed by class name and debug map
-    // GeometryBatch::GetIndexCount() const
-    void GeometryBatch::GetIndexCount() {
-        vector<game::MapSquare::MapSquarePos, eastl::allocator>* this_00;
+    // 0x1002f4110
+    void GeometryBatch::GetIndexCount() const {
+        unsigned long in_RSI;
 
-        this_00 = (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)
-            std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>::operator[]((ulong)&field_216);
-        eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(this_00);
+        ((vector<game::MapSquare::MapSquarePos>*)field_216[in_RSI])->size();
     }
 
-    // 0x10036bfe0, 16 bytes, inline, placed by class name
-    // GeometryBatch::GetJointIDMap()
-    /* GeometryBatch::GetJointIDMap() const */
-
-    undefined1* GeometryBatch::GetJointIDMap() {
+    // 0x10036bfe0
+    uint8_t* GeometryBatch::GetJointIDMap() {
         return &field_168;
     }
 
-    // 0x10036d940, 32 bytes, inline, placed by class name
-    // GeometryBatch::GetVertexIndexBuffer() const
-    void GeometryBatch::GetVertexIndexBuffer() {
-        std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>::operator[]((ulong)&field_216);
+    // 0x10036d940
+    void GeometryBatch::GetVertexIndexBuffer() const {
+        unsigned long in_RSI;
+
+        field_216[in_RSI];
     }
 
-    // 0x10036da10, 32 bytes, inline, placed by class name
-    // GeometryBatch::GetVertexIndexBuffer()
+    // 0x10036da10
     void GeometryBatch::GetVertexIndexBuffer() {
-        std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>::operator[]((ulong)&field_216);
+        unsigned long in_RSI;
+
+        field_216[in_RSI];
     }
 
-    // 0x10036da70, 16 bytes, inline, placed by class name
-    // GeometryBatch::GetVertexDataBufferPos() const
-    /* GeometryBatch::GetVertexDataBufferPos() */
-
-    undefined1* GeometryBatch::GetVertexDataBufferPos() {
+    // 0x10036da70
+    uint8_t* GeometryBatch::GetVertexDataBufferPos() const {
         return &field_480;
     }
 
-    // 0x10036f090, 32 bytes, inline, placed by class name
-    // GeometryBatch::GetVertexCount() const
-    void GeometryBatch::GetVertexCount() {
-        (&field_448)->size();
+    // 0x10036f090
+    void GeometryBatch::GetVertexCount() const {
+        field_448.size();
     }
 
-    // 0x10036f470, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // GeometryBatch::GetFaceHSLBuffer()
-    /* game::Camera::GetLinearPositionMaxSpeed() const */
-
-    undefined1* game::Camera::GetLinearPositionMaxSpeed() {
+    // 0x10036f470
+    uint8_t* GeometryBatch::GetFaceHSLBuffer() {
         return m_linearPositionMaxSpeed;
     }
 
-    // 0x10036f4c0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // GeometryBatch::GetFaceTransparencyBuffer()
-    /* game::Terrain::GetWaterPatches() const */
-
-    undefined1* game::Terrain::GetWaterPatches() {
+    // 0x10036f4c0
+    uint8_t* GeometryBatch::GetFaceTransparencyBuffer() {
         return &field_416;
     }
 
-    // 0x10036f740, 16 bytes, inline, placed by class name
-    // GeometryBatch::SetFaceHSLBaked(bool)
-    void GeometryBatch::SetFaceHSLBaked(bool param_1) {
-        m_faceHSLBaked = param_1;
+    // 0x10036f740
+    void GeometryBatch::SetFaceHSLBaked(bool arg1) {
+        m_faceHSLBaked = arg1;
     }
 
-    // 0x1007dd510, 16 bytes, inline, placed by class name
-    // GeometryBatch::IsHidden() const
-    byte GeometryBatch::IsHidden() {
+    // 0x1007dd510
+    bool GeometryBatch::IsHidden() const {
         return m_hidden;
     }
 
-    // 0x1007dd560, 32 bytes, inline, placed by class name
-    // GeometryBatch::VertexBuffersInitialised() const
-    byte GeometryBatch::VertexBuffersInitialised() {
-        byte bVar1;
-
-        bVar1 = (&field_512)->empty();
-        return bVar1 ^ 1;
+    // 0x1007dd560
+    uint8_t GeometryBatch::VertexBuffersInitialised() const {
+        return field_512.empty() ^ 1;
     }
 
-    // 0x1007dd580, 16 bytes, inline, placed by class name
-    // GeometryBatch::GetVertexDataBufferPosLP() const
-    undefined1* GeometryBatch::GetVertexDataBufferPosLP() {
+    // 0x1007dd580
+    uint8_t* GeometryBatch::GetVertexDataBufferPosLP() const {
         return &field_512;
     }
 
-    // 0x1007dda80, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // GeometryBatch::GetVertexScale() const
-    /* Camera::GetFarClip() const */
-
-    float Camera::GetFarClip() {
+    // 0x1007dda80
+    float GeometryBatch::GetVertexScale() const {
         return m_farClip;
     }
 
-    // 0x10080a3a0, 16 bytes, inline, placed by class name
-    // GeometryBatch::GetLabelCount() const
-    undefined1 GeometryBatch::GetLabelCount() {
+    // 0x10080a3a0
+    uint8_t GeometryBatch::GetLabelCount() const {
         return m_labelCount;
     }
 
-    // 0x10080a3b0, 16 bytes, inline, placed by class name
-    // GeometryBatch::HasBones() const
-    bool GeometryBatch::HasBones() {
+    // 0x10080a3b0
+    bool GeometryBatch::HasBones() const {
         return 1 < m_boneCount;
     }
 
-    // 0x10080c4f0, 16 bytes, inline, placed by class name
-    // GeometryBatch::HasJoints() const
-    bool GeometryBatch::HasJoints() {
+    // 0x10080c4f0
+    bool GeometryBatch::HasJoints() const {
         return field_33 != '\0';
     }
 
-    // 0x10080c550, 48 bytes, inline, placed by class name
-    // GeometryBatch::GetIndexBuffer(unsigned int)
-    void GeometryBatch::GetIndexBuffer(uint param_1) {
-        uint uVar1;
-
-        uVar1 = GetClampedLodLevel(this, param_1);
-        std::array<render::IndexBuffer, 5ul>::operator[]((array<render::IndexBuffer, 5ul>*)&field_568, (ulong)uVar1);
+    // 0x10080c550
+    void GeometryBatch::GetIndexBuffer(unsigned int arg1) {
+        unsigned int uVar1 = GetClampedLodLevel(arg1);
+        field_568[(unsigned long)uVar1];
     }
 
-    // 0x10080e050, 16 bytes, inline, placed by class name
-    // GeometryBatch::IsTransformed() const
-    undefined1 GeometryBatch::IsTransformed() {
+    // 0x10080e050
+    bool GeometryBatch::IsTransformed() const {
         return m_transformed;
     }
 
-    // 0x10080e090, 16 bytes, inline, placed by class name
-    // GeometryBatch::SetTransformed(bool)
-    void GeometryBatch::SetTransformed(bool param_1) {
-        m_transformed = param_1;
+    // 0x10080e090
+    void GeometryBatch::SetTransformed(bool arg1) {
+        m_transformed = arg1;
     }
 
-    // 0x10080e330, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // GeometryBatch::GetBoneCount() const
-    /* RenderMaterial::GetAlphaTestThreshold() const */
-
-    uchar RenderMaterial::GetAlphaTestThreshold() {
+    // 0x10080e330
+    uint8_t GeometryBatch::GetBoneCount() const {
         return m_alphaTestThreshold;
     }
 
-    // 0x10080e4a0, 48 bytes, inline, placed by class name
-    // GeometryBatch::GetLodIndexCount(unsigned int) const
-    void GeometryBatch::GetLodIndexCount(uint param_1) {
-        vector<game::MapSquare::MapSquarePos, eastl::allocator>* this_00;
-        uint uVar1;
-
-        uVar1 = GetClampedLodLevel(this, param_1);
-        this_00 = (vector<game::MapSquare::MapSquarePos, eastl::allocator>*)
-            std::array<eastl::vector<unsigned short, eastl::allocator>, 5ul>::operator[](
-                (array<eastl::vector<unsigned short, eastl::allocator>, 5ul>*)&field_216, (ulong)uVar1);
-        eastl::vector<game::MapSquare::MapSquarePos, eastl::allocator>::size(this_00);
+    // 0x10080e4a0
+    void GeometryBatch::GetLodIndexCount(unsigned int arg1) const {
+        unsigned int uVar1 = GetClampedLodLevel(arg1);
+        ((vector<game::MapSquare::MapSquarePos>*)field_216[(unsigned long)uVar1])->size();
     }
 
-    // 0x10080f980, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // GeometryBatch::HasShareLight() const
-    /* SpriteAtlasReference::GetDisableCache() const */
-
-    undefined1 SpriteAtlasReference::GetDisableCache() {
+    // 0x10080f980
+    bool GeometryBatch::HasShareLight() const {
         return m_disableCache;
     }
 
-    // 0x10080fcd0, 16 bytes, inline, placed by class name
-    // GeometryBatch::GetNumLods() const
-    uint GeometryBatch::GetNumLods() {
+    // 0x10080fcd0
+    unsigned int GeometryBatch::GetNumLods() const {
         return m_numLods;
     }
 
-    // 0x100814940, 48 bytes, inline, placed by class name
-    // GeometryBatch::GetIAState(unsigned int) const
-    void GeometryBatch::GetIAState(uint param_1) {
-        uint uVar1;
-
-        uVar1 = GetClampedLodLevel(this, param_1);
-        std::array<render::InputAssemblerState, 5ul>::operator[]((array<render::InputAssemblerState, 5ul>*)&field_1248,
-                                                                 (ulong)uVar1);
+    // 0x100814940
+    void GeometryBatch::GetIAState(unsigned int arg1) const {
+        unsigned int uVar1 = GetClampedLodLevel(arg1);
+        field_1248[(unsigned long)uVar1];
     }
 
-    // 0x1008153b0, 48 bytes, inline, placed by class name
-    // GeometryBatch::GetIndexBuffer(unsigned int) const
-    void GeometryBatch::GetIndexBuffer(uint param_1) {
-        uint uVar1;
-
-        uVar1 = GetClampedLodLevel(this, param_1);
-        std::array<render::IndexBuffer, 5ul>::operator[]((array<render::IndexBuffer, 5ul>*)&field_568, (ulong)uVar1);
+    // 0x1008153b0
+    void GeometryBatch::GetIndexBuffer(unsigned int arg1) const {
+        unsigned int uVar1 = GetClampedLodLevel(arg1);
+        field_568[(unsigned long)uVar1];
     }
 
-    // 0x10082dac0, 48 bytes, inline, placed by class name
-    // GeometryBatch::GetClampedLodLevel(unsigned int) const
-    uint GeometryBatch::GetClampedLodLevel(uint param_1) {
-        uint* puVar1;
-        uint local_10;
-        uint local_c;
-
-        local_c = m_numLods - 1;
-        local_10 = param_1;
-        puVar1 = std::min<unsigned int>(&local_10, &local_c);
+    // 0x10082dac0
+    unsigned int GeometryBatch::GetClampedLodLevel(unsigned int arg1) const {
+        unsigned int local_c = m_numLods - 1;
+        auto puVar1 = std::min<unsigned int>(arg1, local_c);
         return *puVar1;
     }
 
 } // namespace jag::graphics
 
 namespace jag::math {
-    // 0x1002f4350, 48 bytes, inline, placed by debug map only (low confidence)
-    // Vector4T<int>::GetXYZ() const
-    undefined1[16] Vector4T<int>::GetXYZ() {
-        undefined1 auVar1[16];
-        LocationData local_18;
+    // 0x1002f4350
+    uint8_t[16] Vector4T<int>::GetXYZ() const {
+        uint8_t auVar1[16];
 
-        new (&local_18) oldscape::rs2lib::worldmap::LocationData(*(int*)this, *(int*)(this + 4), *(int*)(this + 8));
+        LocationData local_18(*(int*)this, *(unsigned int*)(this + 4), *(unsigned int*)(this + 8));
         auVar1._12_4_ = 0;
         auVar1._0_4_ = local_18.field_0;
         auVar1._4_4_ = local_18.field_4;
@@ -368,14 +300,11 @@ namespace jag::math {
         return auVar1;
     }
 
-    // 0x1002f4380, 32 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<int>::operator+=(Vector3T<int> const&)
-    /* Vector3T<int>::TEMPNAMEPLACEHOLDERVALUE(Vector3T<int> const&) */
-
-    Vector3T<int>* Vector3T<int>::operator+=(Vector3T* param_1) {
-        *(int*)this = *(int*)this + *(int*)param_1;
-        *(int*)(this + 4) = *(int*)(this + 4) + *(int*)(param_1 + 4);
-        *(int*)(this + 8) = *(int*)(this + 8) + *(int*)(param_1 + 8);
+    // 0x1002f4380
+    Vector3T<int>* Vector3T<int>::operator+=(const Vector3T<int>& vector3) {
+        *(int*)this = *(int*)this + *(int*)vector3;
+        *(int*)(this + 4) = *(int*)(this + 4) + *(int*)(vector3 + 4);
+        *(int*)(this + 8) = *(int*)(this + 8) + *(int*)(vector3 + 8);
         return this;
     }
 

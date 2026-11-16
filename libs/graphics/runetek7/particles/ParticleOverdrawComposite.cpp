@@ -1,45 +1,38 @@
 // libs/graphics/runetek7/particles/ParticleOverdrawComposite.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
     class ParticleOverdrawComposite {
     public:
-        ParticleOverdrawComposite* BuildVSFragment();
-        ParticleOverdrawComposite* BuildFSFragment();
-
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        auto BuildVSFragment();
+        auto BuildFSFragment();
     };
 
-    // 0x1007d0ab0, 160 bytes, placed by class name and debug map
-    // ParticleOverdrawComposite::BuildVSFragment()
-    ParticleOverdrawComposite* ParticleOverdrawComposite::BuildVSFragment() {
-        undefined1 local_128[280];
+    // 0x1007d0ab0
+    auto ParticleOverdrawComposite::BuildVSFragment() {
+        uint8_t local_128[280];
 
         new (local_128) render::VertexShaderSourceStream(2, 2, 1, 1, 1, 1, 24);
         std::operator<<(
-            (ostream*)(local_128 + 16),
+            (basic_ostream<char, std::char_traits<char> _>*)(local_128 + 16),
             "\n            // Simple passthrough\n            attribute vec3 aPos;\n            attribute vec2 "
             "aTexCoord;\n\n            out vec2 vTexCoord;\n\n            void main()\n            {\n                "
             "vTexCoord = aTexCoord;\n                gl_Position = vec4(aPos, 1.0);\n            }\n            ");
-        str();
-        local_128->~VertexShaderSourceStream();
-        return this;
+        auto result = local_128->str();
+        return result;
     }
 
-    // 0x1007d0b70, 192 bytes, placed by class name and debug map
-    // ParticleOverdrawComposite::BuildFSFragment()
-    ParticleOverdrawComposite* ParticleOverdrawComposite::BuildFSFragment() {
-        char* pcVar1;
-        undefined1 local_130[280];
+    // 0x1007d0b70
+    auto ParticleOverdrawComposite::BuildFSFragment() {
+        auto result;
+        uint8_t local_130[280];
 
         new (local_130) render::PixelShaderSourceStream(1, 1, 1, 1, 1, 1, 24);
-        pcVar1 = (char*)shadersourceprovider::GetShaderString(7);
-        std::operator<<((ostream*)(local_130 + 16), pcVar1);
+        auto str = shadersourceprovider::GetShaderString(7);
+        std::operator<<((basic_ostream<char, std::char_traits<char> _>*)(local_130 + 16), str);
         std::
-        operator<<((ostream*)(local_130 + 16),
+        operator<<((basic_ostream<char, std::char_traits<char> _>*)(local_130 + 16),
                    "\n            // Essentially this shader reads back the single-channel texture containing overdraw "
                    "information and converts it from\n            // an integer value representing how many times a "
                    "pixel has been drawn to, into a gradient colour.\n            // The end result is a "
@@ -64,9 +57,8 @@ namespace jag::graphics {
                    "0.0) + overdrawAmount / OVERDRAW_VISIBILITY_RANGE);\n\n                vec4 finalColour = "
                    "convertHSL..." /* TRUNCATED STRING LITERAL */
         );
-        str();
-        local_130->~PixelShaderSourceStream();
-        return this;
+        result = local_130->str();
+        return result;
     }
 
 } // namespace jag::graphics

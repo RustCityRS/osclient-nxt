@@ -1,6 +1,5 @@
 // libs/heap/HeapAllocatorProxy.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.system.osclient
@@ -11,115 +10,86 @@ namespace jag {
         // virtual methods in vtable order
         virtual ~HeapAllocatorProxy();
         bool GetCallStackGrabbingEnabled() const;
-        GrabCallStack(unsigned long*, unsigned int);
-        PopZoneContext();
-        PrintUsageList();
-        PushZoneContext(void*, void*);
-        PopLeakTrackingContext();
-        PushLeakTrackingContext();
-        PopZone();
-        PushZone(char const*);
-        SaveMemoryUsageToXML(std::function<void(char const*, unsigned long)> const&) const;
-        SaveMemoryUsageToConsole() const;
-        SaveMemoryUsageBottomUpToConsole() const;
-        GetZoneContext();
-        AreItemsAllocated();
-        GetZone();
-        GetFree() const;
-        GetUsed() const;
-        uint GetCallStackGrabDepth() const;
-        HeapAllocatorProxy(unsigned int);
-        uint SetCallStackGrabDepth(unsigned int);
+        void GrabCallStack(unsigned long* arg1, unsigned int arg2);
+        void PopZoneContext();
+        void PrintUsageList();
+        void PushZoneContext(void* arg1, void* arg2);
+        void PopLeakTrackingContext();
+        void PushLeakTrackingContext();
+        void PopZone();
+        void PushZone(const char* arg1);
+        void SaveMemoryUsageToXML(std::function<void(char const*, unsigned long)> const& arg1) const;
+        void SaveMemoryUsageToConsole() const;
+        void SaveMemoryUsageBottomUpToConsole() const;
+        uint64_t GetZoneContext();
+        bool AreItemsAllocated();
+        uint64_t GetZone();
+        uint64_t GetFree() const;
+        uint64_t GetUsed() const;
+        bool GetCallStackGrabDepth() const;
+        HeapAllocatorProxy(unsigned int arg1);
+        unsigned int SetCallStackGrabDepth(unsigned int arg1);
 
-        // data members, from how the methods use this: 20 bytes
-        undefined* field_0;              // offset 0, vtable pointer
-        bool m_callStackGrabbingEnabled; // offset 8
-        char _unknown_9[3];
-        uint m_callStackGrabDepth; // offset 12
-        char _unknown_16[4];
+    private:
+        bool m_callStackGrabbingEnabled;
+        uint8_t _unknown_9[3];
+        unsigned int m_callStackGrabDepth;
+        uint8_t _unknown_16[4];
     };
 
-    // 0x1000096a0: the linker folded this into BaseApp::GetExitAfterInit(), which has identical code
-    bool HeapAllocatorProxy::GetCallStackGrabbingEnabled() const;
+    // 0x1000096a0: HeapAllocatorProxy::GetCallStackGrabbingEnabled() const has the same machine code as BaseApp::GetExitAfterInit()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::GrabCallStack(unsigned long*, unsigned int);
+    // 0x100009e70: HeapAllocatorProxy::GrabCallStack(unsigned long*, unsigned int) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::PopZoneContext();
+    // 0x100009e70: HeapAllocatorProxy::PopZoneContext() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::PrintUsageList();
+    // 0x100009e70: HeapAllocatorProxy::PrintUsageList() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::PushZoneContext(void*, void*);
+    // 0x100009e70: HeapAllocatorProxy::PushZoneContext(void*, void*) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::PopLeakTrackingContext();
+    // 0x100009e70: HeapAllocatorProxy::PopLeakTrackingContext() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::PushLeakTrackingContext();
+    // 0x100009e70: HeapAllocatorProxy::PushLeakTrackingContext() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::PopZone();
+    // 0x100009e70: HeapAllocatorProxy::PopZone() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::PushZone(char const*);
+    // 0x100009e70: HeapAllocatorProxy::PushZone(char const*) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::~HeapAllocatorProxy();
+    // 0x100009e70: HeapAllocatorProxy::~HeapAllocatorProxy() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::SaveMemoryUsageToXML(std::function<void(char const*, unsigned long)> const&) const;
+    // 0x100009e70: HeapAllocatorProxy::SaveMemoryUsageToXML(std::function<void (char const*, unsigned long)> const&) const has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::SaveMemoryUsageToConsole() const;
+    // 0x100009e70: HeapAllocatorProxy::SaveMemoryUsageToConsole() const has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    HeapAllocatorProxy::SaveMemoryUsageBottomUpToConsole() const;
+    // 0x100009e70: HeapAllocatorProxy::SaveMemoryUsageBottomUpToConsole() const has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    HeapAllocatorProxy::GetZoneContext();
+    // 0x100029ea0: HeapAllocatorProxy::GetZoneContext() has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    HeapAllocatorProxy::AreItemsAllocated();
+    // 0x100029ea0: HeapAllocatorProxy::AreItemsAllocated() has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    HeapAllocatorProxy::GetZone();
+    // 0x100029ea0: HeapAllocatorProxy::GetZone() has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    HeapAllocatorProxy::GetFree() const;
+    // 0x100029ea0: HeapAllocatorProxy::GetFree() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    HeapAllocatorProxy::GetUsed() const;
+    // 0x100029ea0: HeapAllocatorProxy::GetUsed() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    uint HeapAllocatorProxy::GetCallStackGrabDepth() const;
-
-    // 0x100c927a0, 32 bytes, base-object constructor, inline, placed by class name and debug map
-    // HeapAllocatorProxy::HeapAllocatorProxy(unsigned int)
-    void HeapAllocatorProxy::HeapAllocatorProxy(uint param_1) {
-        field_0 = PTR_vtable_100ee7178 + 16;
-        m_callStackGrabbingEnabled = false;
-        m_callStackGrabDepth = param_1;
-        SetCallStackGrabDepth(this, param_1);
+    // 0x1000e5d50, the same machine code as oldscape::rs2lib::CoordZoneSource::GetRotation() const
+    bool HeapAllocatorProxy::GetCallStackGrabDepth() const {
+        return m_callStackGrabbingEnabled;
     }
 
-    // 0x100c927c0, 32 bytes, inline, placed by class name and debug map
-    // HeapAllocatorProxy::SetCallStackGrabDepth(unsigned int)
-    uint HeapAllocatorProxy::SetCallStackGrabDepth(uint param_1) {
-        uint uVar1;
+    // 0x100c927a0
+    HeapAllocatorProxy::HeapAllocatorProxy(unsigned int arg1)
+        : m_callStackGrabbingEnabled(false), m_callStackGrabDepth(arg1) {
+        SetCallStackGrabDepth(arg1);
+    }
 
-        uVar1 = m_callStackGrabDepth;
-        m_callStackGrabDepth = param_1;
-        m_callStackGrabbingEnabled = param_1 != 0;
+    // 0x100c927c0
+    unsigned int HeapAllocatorProxy::SetCallStackGrabDepth(unsigned int arg1) {
+        unsigned int uVar1 = m_callStackGrabDepth;
+        m_callStackGrabDepth = arg1;
+        m_callStackGrabbingEnabled = arg1 != 0;
         return uVar1;
     }
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    HeapAllocatorProxy::~HeapAllocatorProxy();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    HeapAllocatorProxy::~HeapAllocatorProxy();
 
 } // namespace jag

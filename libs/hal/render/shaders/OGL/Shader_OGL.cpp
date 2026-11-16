@@ -1,127 +1,100 @@
 // libs/hal/render/shaders/OGL/Shader_OGL.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "libs/hal/render/shaders/Shader.h"
 
 namespace jag::render {
-    // 0x100be8860, 144 bytes, base-object destructor, placed by __FILE__ string
-    // Shader::~Shader()
-    void Shader::~Shader() {
-        field_0 = &PTR__Shader_100f28280;
+    // 0x100be8860
+    Shader::~Shader() {
         if (m_nativeShader != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_GLShader == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "Shader_OGL.cpp",
-                      20, (char*)0);
+                      20, nullptr);
         }
         (&field_80)->~mutex();
         field_48->~GPUMemoryTrackingEntry();
-        (&field_8)->~basic_string();
+        field_8.~basic_string();
     }
 
-    // 0x100be89d0, 32 bytes, placed by class name and neighbouring functions
-    // Shader::IsReady() const
-    bool Shader::IsReady() {
-        char cVar1;
-
-        cVar1 = (&field_40)->operator_cast_to_ShaderCompileState();
-        return cVar1 == '\x03';
+    // 0x100be89d0
+    bool Shader::IsReady() const {
+        return (&field_40)->operator_cast_to_ShaderCompileState() == '\x03';
     }
 
-    // 0x100be8a00, 160 bytes, placed by class name and neighbouring functions
-    // Shader::PrepareForReuse(char const*, char const*, unsigned char)
-    undefined4 Shader::PrepareForReuse(char* param_1, char* param_2, uchar param_3) {
-        char cVar1;
-        undefined4 uVar2;
-        scoped_lock<std::mutex> local_30[8];
+    // 0x100be8a00
+    uint32_t Shader::PrepareForReuse(const char* str1, const char* str2, unsigned char arg3) {
+        uint32_t uVar2;
 
-        std::scoped_lock<std::mutex>::scoped_lock(local_30, (mutex*)&field_80);
-        WaitForAsyncCompile(this);
-        cVar1 = IsCreatedFromBinary(this);
-        if (cVar1 != '\0') {
-            Destroy(this);
-            CreateFromSourceString(this, param_1, param_2, param_3);
+        scoped_lock<std::mutex> local_30(field_80);
+        WaitForAsyncCompile();
+        if (IsCreatedFromBinary()) {
+            Destroy();
+            CreateFromSourceString(str1, str2, arg3);
         }
-        cVar1 = IsCreated(this);
-        if (cVar1 == '\0') {
+        if (!(IsCreated())) {
             uVar2 = 0;
         } else {
-            uVar2 = IsReady(this);
+            uVar2 = IsReady();
         }
-        std::scoped_lock<std::mutex>::~scoped_lock(local_30);
         return uVar2;
     }
 
-    // 0x100be8aa0, 112 bytes, placed by class name and neighbouring functions
-    // Shader::WaitForAsyncCompile() const
-    void Shader::WaitForAsyncCompile() {
-        undefined4 uVar2;
-        AutoSingleton<ShaderThreadPoolSingleton> local_18[8];
+    // 0x100be8aa0
+    void Shader::WaitForAsyncCompile() const {
+        AutoSingleton<ShaderThreadPoolSingleton> local_18;
 
-        uVar2 = GetWrapMode();
-        local_18->~AutoSingleton("%s %u (Flags=%u)", "WaitForAsyncCompile", uVar2, field_41);
+        GetWrapMode();
+        char* pcVar2 = "%s %u (Flags=%u)";
         while (true) {
-            if ((std::__atomic_base<ShaderCompileState, false>::load(&field_40) & 254) == 2)
+            if ((field_40.load((memory_order)pcVar2) & 254) == 2)
                 break;
             this_thread::Sleep(1);
         }
     }
 
-    // 0x100be8b20, 256 bytes, placed by __FILE__ string
-    // Shader::CreateFromSourceString(char const*, char const*, unsigned char)
-    bool Shader::CreateFromSourceString(char* param_1, char* param_2, uchar param_3) {
-        char cVar1;
-        undefined4 uVar2;
-        size_t sVar4;
-
-        if (param_2 == (char*)0) {
-            /* WARNING: Subroutine does not return */
+    // 0x100be8b20
+    bool Shader::CreateFromSourceString(const char* str1, const char* str2, unsigned char arg3) {
+        if (str2 == nullptr) {
             LogAssert("pShaderSourceStr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "Shader_OGL.cpp",
-                      41, (char*)0);
+                      41, nullptr);
         }
-        cVar1 = std::__atomic_base<ShaderCompileState, false>::exchange(&field_40, 1);
-        if (cVar1 != '\0') {
-            /* WARNING: Subroutine does not return */
+        if (field_40.exchange(1, (memory_order)str2) != '\0') {
             LogAssert("compileState == ShaderCompileState::UNINITIALISED",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "Shader_OGL.cpp",
-                      46, (char*)0);
+                      46, nullptr);
         }
         if (m_nativeShader != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_GLShader == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "Shader_OGL.cpp",
                       48, "Call destroy before calling create again");
         }
-        field_41 = param_3;
-        uVar2 = (*(code*)field_0[2])(this);
-        m_nativeShader = CreateShaderFromSourceString(param_2, uVar2, field_41);
-        sVar4 = _strlen(param_2);
-        (field_48, param_1, (uint)sVar4)->Register();
-        std::atomic<ShaderCompileState>::operator=((atomic<ShaderCompileState>*)&field_40,
-                                                   3 - (uint)(m_nativeShader == 0));
+        field_41 = arg3;
+        ShaderType shaderType = (*this->_vptr[1]._dtor)(this);
+        m_nativeShader = CreateShaderFromSourceString(str2, shaderType, field_41);
+        size_t sVar3 = _strlen(str2);
+        field_48->Register(str1, (unsigned int)sVar3);
+        field_40 = (3 - (m_nativeShader == 0));
         return m_nativeShader != 0;
     }
 
-    // 0x100be8c30, 144 bytes, placed by __FILE__ string
-    // Shader::ReleaseNativeResources()
+    // 0x100be8c30
     void Shader::ReleaseNativeResources() {
-        char cVar1;
+        bool cVar1;
 
-        WaitForAsyncCompile(this);
-        if (1 < m_nativeShader + 1U) {
+        WaitForAsyncCompile();
+        if (1 < m_nativeShader + 1) {
             cVar1 = (*___glewIsShader)();
             CheckGlErrorInternal("glIsProgram",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "shaders/OGL/Shader_OGL.cpp",
                                  29);
-            if (cVar1 != '\0') {
+            if (cVar1) {
                 (*___glewDeleteShader)(m_nativeShader);
                 CheckGlErrorInternal("glDeleteShader",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
@@ -130,43 +103,26 @@ namespace jag::render {
             }
         }
         m_nativeShader = 0;
-        std::atomic<ShaderCompileState>::operator=((atomic<ShaderCompileState>*)&field_40, 0);
+        field_40 = 0;
     }
 
-    // 0x100bf2a80, 16 bytes, complete-object destructor, placed by class name and neighbouring functions
-    // Shader::~Shader(): jumps straight to the base-object destructor
-
-    // 0x100bf2a90, 16 bytes, deleting destructor, placed by class name and neighbouring functions
-    // Shader::~Shader()
-    void Shader::~Shader() {
-        code* pcVar1;
-
-        /* WARNING: Does not return */
-        pcVar1 = (code*)invalidInstructionException();
-        (*pcVar1)();
-    }
-
-    // 0x100bf2ac0, 160 bytes, placed by __FILE__ string
-    // Shader::CreateFromBinary(char const*, unsigned long)
-    undefined8 Shader::CreateFromBinary(char* param_1, ulong param_2) {
-        char cVar1;
+    // 0x100bf2ac0
+    uint64_t Shader::CreateFromBinary(const char* str, unsigned long arg2) {
+        memory_order memory_order;
 
         if (m_nativeShader != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_GLShader == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "Shader_OGL.cpp",
                       67, "Call destroy before calling create again");
         }
-        (field_48, param_1, (uint)param_2)->Register();
-        m_nativeShader = -1;
-        cVar1 = std::__atomic_base<ShaderCompileState, false>::exchange(&field_40, 3);
-        if (cVar1 == '\x03') {
-            /* WARNING: Subroutine does not return */
+        field_48->Register(str, (unsigned int)arg2);
+        m_nativeShader = 4294967295;
+        if (field_40.exchange(3, memory_order) == '\x03') {
             LogAssert("compileState != ShaderCompileState::READY",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/shaders/OGL/"
                       "Shader_OGL.cpp",
-                      76, (char*)0);
+                      76, nullptr);
         }
         return 1;
     }

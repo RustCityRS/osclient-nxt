@@ -1,553 +1,471 @@
 // libs/game/runetek5/config/questtype/QuestType.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "QuestType.h"
 
 namespace jag::game {
-    // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    uint QuestType::MasterQuestVar::GetEndState() const;
+    // 0x100024170: QuestType::MasterQuestVar::GetEndState() const has the same machine code as oldscape::option::IScriptOption::GetId() const
 
-    // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    int QuestType::PrerequisiteVar::GetMax() const;
+    // 0x100024170: QuestType::PrerequisiteVar::GetMax() const has the same machine code as oldscape::option::IScriptOption::GetId() const
 
-    // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    uint QuestType::MasterQuestVar::GetStartState() const;
+    // 0x100073980: QuestType::MasterQuestVar::GetStartState() const has the same machine code as math::Rect<int>::MinY() const
 
-    // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    int QuestType::PrerequisiteVar::GetMin() const;
+    // 0x100073980: QuestType::PrerequisiteVar::GetMin() const has the same machine code as math::Rect<int>::MinY() const
 
-    // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    QuestType::PrerequisiteStat::GetRequirement() const;
+    // 0x100073980: QuestType::PrerequisiteStat::GetRequirement() const has the same machine code as math::Rect<int>::MinY() const
 
-    // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    uint QuestType::MasterQuestVar::GetID() const;
+    // 0x1000b9960: QuestType::MasterQuestVar::GetID() const has the same machine code as oldscape::ScriptVarType::GetID() const
 
-    // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    int QuestType::PrerequisiteVar::GetID() const;
+    // 0x1000b9960: QuestType::PrerequisiteVar::GetID() const has the same machine code as oldscape::ScriptVarType::GetID() const
 
-    // 0x1000b9960: the linker folded this into oldscape::ScriptVarType::GetID() const, which has identical code
-    QuestType::PrerequisiteStat::GetID() const;
+    // 0x1000b9960: QuestType::PrerequisiteStat::GetID() const has the same machine code as oldscape::ScriptVarType::GetID() const
 
-    // 0x1000e53d0: the linker folded this into oldscape::rs2lib::CoordMapSquare::CoordMapSquare(int, int), which has identical code
-    QuestType::PrerequisiteStat::PrerequisiteStat(int, unsigned int);
+    // 0x10012cae0: QuestType::PrerequisiteStat::PrerequisiteStat(int, unsigned int) has the same machine code as oldscape::sidebars::SideBarData::SideBarData(int, int)
 
-    // 0x100102d30: the linker folded this into math::Vector3T<int>::Vector3T(int, int, int), which has identical code
-    QuestType::MasterQuestVar::MasterQuestVar(int, int, int);
+    // 0x100132e20: QuestType::MasterQuestVar::MasterQuestVar(int, int, int) has the same machine code as math::Vector3T<int>::Vector3T(int, int, int)
 
-    // 0x10012cae0: the linker folded this into oldscape::sidebars::SideBarData::SideBarData(int, int), which has identical code
-    QuestType::PrerequisiteStat::PrerequisiteStat(int, unsigned int);
+    // 0x1001520f0: QuestType::PrerequisiteVar::~PrerequisiteVar() has the same machine code as oldscape::rs2lib::social::ClanSettings::ExtraSettingsParam::~ExtraSettingsParam()
 
-    // 0x100132e20: the linker folded this into math::Vector3T<int>::Vector3T(int, int, int), which has identical code
-    QuestType::MasterQuestVar::MasterQuestVar(int, int, int);
+    // 0x100159b70: QuestType::GetQuestPoints() const has the same machine code as oldscape::rs2lib::InputField::GetEnterAction() const
 
-    // 0x1001520e0: the linker folded this into oldscape::rs2lib::social::ClanSettings::ExtraSettingsParam::~ExtraSettingsParam(), which has identical code
-    QuestType::PrerequisiteVar::~PrerequisiteVar();
+    // 0x100396f20: EnvSkySettings::SetDefaults() has the same machine code as oldscape::input::InputEvent::Clear()
 
-    // 0x1001520f0: the linker folded this into oldscape::rs2lib::social::ClanSettings::ExtraSettingsParam::~ExtraSettingsParam(), which has identical code
-    QuestType::PrerequisiteVar::~PrerequisiteVar();
+    // 0x100396f20: QuestType::MasterQuestVar::MasterQuestVar() has the same machine code as oldscape::input::InputEvent::Clear()
 
-    // 0x100159b70: the linker folded this into oldscape::rs2lib::InputField::GetEnterAction() const, which has identical code
-    uint QuestType::GetQuestPoints() const;
+    // 0x100396f20: QuestType::PrerequisiteStat::PrerequisiteStat() has the same machine code as oldscape::input::InputEvent::Clear()
 
-    // 0x100396f10: the linker folded this into oldscape::input::InputEvent::InputEvent(), which has identical code
-    QuestType::MasterQuestVar::MasterQuestVar();
-
-    // 0x100396f10: the linker folded this into oldscape::input::InputEvent::InputEvent(), which has identical code
-    QuestType::PrerequisiteStat::PrerequisiteStat();
-
-    // 0x100396f20: the linker folded this into oldscape::input::InputEvent::Clear(), which has identical code
-    EnvSkySettings::SetDefaults();
-
-    // 0x100396f20: the linker folded this into oldscape::input::InputEvent::Clear(), which has identical code
-    QuestType::MasterQuestVar::MasterQuestVar();
-
-    // 0x100396f20: the linker folded this into oldscape::input::InputEvent::Clear(), which has identical code
-    QuestType::PrerequisiteStat::PrerequisiteStat();
-
-    // 0x1004f38e0, 1712 bytes, placed by class name and debug map
-    // QuestType::DecodeType(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
-    undefined* QuestType::DecodeType(PacketT* param_1, uint param_2) {
-        PacketT* pPVar1;
-        byte bVar2;
-        byte bVar3;
-        byte bVar4;
-        undefined2 uVar5;
-        ushort uVar6;
-        undefined4 uVar7;
-        int iVar8;
-        int iVar9;
-        undefined8 uVar10;
-        undefined2* puVar11;
-        undefined8* puVar12;
-        char* pcVar13;
-        PrerequisiteVar* pPVar14;
-        PacketT* pPVar15;
-        ulong uVar16;
-        basic_string* pbVar17;
-        ObjSpriteCacheKey local_130[2];
-        Array<QuestType::PrerequisiteVar, eastl::allocator>* local_100;
-        ulong local_f8;
-        PacketT* local_f0;
+    // 0x1004f38e0
+    uint8_t* QuestType::DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2) {
+        PacketT<Array<unsigned char> _>* pPVar1;
+        uint8_t bVar2;
+        uint8_t bVar3;
+        uint8_t bVar4;
+        uint16_t uVar5;
+        unsigned short uVar6;
+        unsigned int uVar7;
+        unsigned int uVar8;
+        int iVar10;
+        int iVar11;
+        uint16_t* puVar12;
+        uint64_t* puVar13;
+        char* pcVar14;
+        PrerequisiteVar* pPVar15;
+        unsigned long uVar17;
+        eastl::string* str;
+        ObjSpriteCacheKey local_130;
+        Array<QuestType::PrerequisiteVar>* local_100;
+        unsigned long local_f8;
+        PacketT<Array<unsigned char> _>* local_f0;
         int local_e4;
-        CoordGrid local_e0[10];
-        long local_38;
+        CoordGrid local_e0;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        pPVar15 = param_1;
-        switch (param_2) {
+        PacketT<Array<unsigned char> _>* pPVar16 = arg1;
+        switch (arg2) {
         case 1:
-            pbVar17 = (basic_string*)&field_56;
+            str = (eastl::string*)&field_56;
             goto LAB_1004f3985;
         case 2:
-            pbVar17 = (basic_string*)&field_88;
+            str = (eastl::string*)&field_88;
         LAB_1004f3985:
-            local_f0 = param_1;
-            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
-                (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1, pbVar17, true);
+            local_f0 = arg1;
+            arg1.gStringCP1252ToUTF8<eastl::string>(str, true);
             break;
         case 3:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            (&field_120, (ulong)bVar4, 0)->set_max_size();
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            field_120.set_max_size((unsigned long)bVar4, 0);
             if (bVar4 != 0) {
-                pPVar15 = (PacketT*)0;
-                local_f0 = (PacketT*)(ulong)bVar4;
+                pPVar16 = nullptr;
+                local_f0 = (PacketT<Array<unsigned char> _>*)(unsigned long)bVar4;
                 do {
-                    uVar6 = param_1->g2();
-                    iVar8 = param_1->g4();
-                    iVar9 = param_1->g4();
+                    uVar6 = arg1.g2();
+                    uVar7 = arg1.g4();
+                    uVar8 = arg1.g4();
                     pPVar1 = local_f0;
-                    new (local_e0) oldscape::rs2lib::worldmap::LocationData((uint)uVar6, iVar8, iVar9);
-                    puVar12 = (undefined8*)Array<QuestType::MasterQuestVar, eastl::allocator>::operator[](
-                        (Array<QuestType::MasterQuestVar, eastl::allocator>*)&field_120, (ulong)pPVar15);
-                    *puVar12 = local_e0[0]._0_8_;
-                    *(uint*)(puVar12 + 1) = local_e0[0].field_8;
-                    pPVar15 = pPVar15 + 1;
-                } while (pPVar1 != pPVar15);
+                    local_e0 = oldscape::rs2lib::worldmap::LocationData((unsigned int)uVar6, uVar7, uVar8);
+                    puVar13 = &field_120[(unsigned long)pPVar16];
+                    *puVar13 = local_e0[0]._0_8_;
+                    *(unsigned int*)(puVar13 + 1) = local_e0[0].field_8;
+                    pPVar16 = pPVar16 + 1;
+                } while (pPVar1 != pPVar16);
             }
             break;
         case 4:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            (&field_144, (ulong)bVar4, 0)->set_max_size();
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            field_144.set_max_size((unsigned long)bVar4, 0);
             if (bVar4 != 0) {
-                pPVar15 = (PacketT*)0;
-                local_f0 = (PacketT*)(ulong)bVar4;
+                pPVar16 = nullptr;
+                local_f0 = (PacketT<Array<unsigned char> _>*)(unsigned long)bVar4;
                 do {
-                    uVar6 = param_1->g2();
-                    iVar8 = param_1->g4();
-                    iVar9 = param_1->g4();
+                    uVar6 = arg1.g2();
+                    uVar7 = arg1.g4();
+                    uVar8 = arg1.g4();
                     pPVar1 = local_f0;
-                    new (local_e0) oldscape::rs2lib::worldmap::LocationData((uint)uVar6, iVar8, iVar9);
-                    puVar12 = (undefined8*)Array<QuestType::MasterQuestVar, eastl::allocator>::operator[](
-                        (Array<QuestType::MasterQuestVar, eastl::allocator>*)&field_144, (ulong)pPVar15);
-                    *puVar12 = local_e0[0]._0_8_;
-                    *(uint*)(puVar12 + 1) = local_e0[0].field_8;
-                    pPVar15 = pPVar15 + 1;
-                } while (pPVar1 != pPVar15);
+                    local_e0 = oldscape::rs2lib::worldmap::LocationData((unsigned int)uVar6, uVar7, uVar8);
+                    puVar13 = &field_144[(unsigned long)pPVar16];
+                    *puVar13 = local_e0[0]._0_8_;
+                    *(unsigned int*)(puVar13 + 1) = local_e0[0].field_8;
+                    pPVar16 = pPVar16 + 1;
+                } while (pPVar1 != pPVar16);
             }
             break;
         case 5:
-            local_f0 = param_1;
-            uVar6 = param_1->g2();
-            field_168 = (uint)uVar6;
+            local_f0 = arg1;
+            uVar6 = arg1.g2();
+            field_168 = (unsigned int)uVar6;
             break;
         case 6:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            field_172 = (uint)bVar4;
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            field_172 = (unsigned int)bVar4;
             break;
         case 7:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            field_176 = (uint)bVar4;
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            field_176 = (unsigned int)bVar4;
             break;
         case 8:
             field_180 = 1;
-            local_f0 = param_1;
+            local_f0 = arg1;
             break;
         case 9:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            m_questPoints = (uint)bVar4;
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            m_questPoints = (unsigned int)bVar4;
             break;
         case 10:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            (&field_192, (ulong)bVar4, 0)->set_max_size();
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            field_192.set_max_size((unsigned long)bVar4, 0);
             if (bVar4 != 0) {
-                uVar16 = 0;
+                uVar17 = 0;
                 do {
-                    iVar8 = param_1->g4();
-                    game::CoordGrid::CoordGrid(local_e0, iVar8);
-                    puVar12 = (undefined8*)Array<CoordGrid, eastl::allocator>::operator[](
-                        (Array<CoordGrid, eastl::allocator>*)&field_192, uVar16);
-                    *puVar12 = local_e0[0]._0_8_;
-                    *(uint*)(puVar12 + 1) = local_e0[0].field_8;
-                    uVar16 = uVar16 + 1;
-                } while (bVar4 != uVar16);
+                    iVar10 = arg1.g4();
+                    local_e0 = game::CoordGrid(iVar10);
+                    puVar13 = &field_192[uVar17];
+                    *puVar13 = local_e0[0]._0_8_;
+                    *(unsigned int*)(puVar13 + 1) = local_e0[0].field_8;
+                    uVar17 = uVar17 + 1;
+                } while (bVar4 != uVar17);
             }
             break;
         case 11:
         case 16:
             goto switchD_1004f3927_caseD_b;
         case 12:
-            local_f0 = param_1;
-            iVar8 = param_1->g4();
-            game::CoordGrid::CoordGrid(local_e0, iVar8);
-            *(uint*)(field_216 + 8) = local_e0[0].field_8;
-            *(uint*)(field_216 + 0) = local_e0[0].field_0;
-            *(uint*)(field_216 + 4) = local_e0[0].field_4;
+            local_f0 = arg1;
+            iVar10 = arg1.g4();
+            local_e0 = game::CoordGrid(iVar10);
+            *(unsigned int*)(field_216 + 8) = local_e0[0].field_8;
+            *(unsigned int*)(field_216 + 0) = local_e0[0].field_0;
+            *(unsigned int*)(field_216 + 4) = local_e0[0].field_4;
             break;
         case 13:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            (&field_232, (ulong)bVar4, 0)->set_max_size();
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            field_232.set_max_size((unsigned long)bVar4, 0);
             if (bVar4 != 0) {
-                uVar16 = 0;
+                uVar17 = 0;
                 do {
-                    uVar5 = param_1->g2();
-                    puVar11 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                        (Array<unsigned short, eastl::allocator>*)&field_232, uVar16);
-                    *puVar11 = uVar5;
-                    uVar16 = uVar16 + 1;
-                } while (bVar4 != uVar16);
+                    uVar5 = arg1.g2();
+                    puVar12 = &field_232[uVar17];
+                    *puVar12 = uVar5;
+                    uVar17 = uVar17 + 1;
+                } while (bVar4 != uVar17);
             }
             break;
         case 14:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            (&field_256, (ulong)bVar4, 0)->set_max_size();
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            field_256.set_max_size((unsigned long)bVar4, 0);
             if (bVar4 != 0) {
-                uVar16 = 0;
+                uVar17 = 0;
                 do {
-                    bVar2 = param_1->g1();
-                    bVar3 = param_1->g1();
-                    new (local_e0) oldscape::sidebars::SideBarData((uint)bVar2, (uint)bVar3);
-                    puVar12 = (undefined8*)Array<QuestType::PrerequisiteStat, eastl::allocator>::operator[](
-                        (Array<QuestType::PrerequisiteStat, eastl::allocator>*)&field_256, uVar16);
-                    *puVar12 = local_e0[0]._0_8_;
-                    uVar16 = uVar16 + 1;
-                } while (bVar4 != uVar16);
+                    bVar2 = arg1.g1();
+                    bVar3 = arg1.g1();
+                    local_e0 = oldscape::sidebars::SideBarData((unsigned int)bVar2, (unsigned int)bVar3);
+                    puVar13 = &field_256[uVar17];
+                    *puVar13 = local_e0[0]._0_8_;
+                    uVar17 = uVar17 + 1;
+                } while (bVar4 != uVar17);
             }
             break;
         case 15:
-            local_f0 = param_1;
-            uVar6 = param_1->g2();
-            field_280 = (uint)uVar6;
+            local_f0 = arg1;
+            uVar6 = arg1.g2();
+            field_280 = (unsigned int)uVar6;
             break;
         case 17:
-            local_f0 = param_1;
-            uVar7 = param_1->gSmart2or4s();
-            field_336 = uVar7;
+            local_f0 = arg1;
+            field_336 = arg1.gSmart2or4s();
             break;
         case 18:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            uVar16 = (ulong)bVar4;
-            (&field_288, uVar16, 0)->set_max_size();
-            local_f8 = uVar16;
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            uVar17 = (unsigned long)bVar4;
+            field_288.set_max_size(uVar17, 0);
+            local_f8 = uVar17;
             if (bVar4 != 0) {
-                local_100 = (Array<QuestType::PrerequisiteVar, eastl::allocator>*)&field_288;
-                local_e4 = param_1->g4();
-                iVar8 = param_1->g4();
-                iVar9 = param_1->g4();
-                new (local_e0) eastl::fixed_string<char, 128, true, eastl::allocator>();
-                PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                    eastl::fixed_string<char, 128, true, eastl::allocator>>(
-                    (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1,
-                    (fixed_string*)local_e0, false);
-                pcVar13 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                new (local_130) PrerequisiteVar(local_e4, iVar8, iVar9, pcVar13);
-                pPVar14 =
-                    (PrerequisiteVar*)Array<QuestType::PrerequisiteVar, eastl::allocator>::operator[](local_100, 0);
-                PrerequisiteVar::operator=(pPVar14, (PrerequisiteVar*)local_130);
-                local_130->~ObjSpriteCacheKey();
-                /* WARNING: Subroutine does not return */
-                local_e0->~fixed_string();
+                local_100 = (Array<QuestType::PrerequisiteVar>*)&field_288;
+                local_e4 = arg1.g4();
+                iVar10 = arg1.g4();
+                iVar11 = arg1.g4();
+                local_e0 = eastl::fixed_string<char, 128>();
+                arg1.gStringCP1252ToUTF8<eastl::fixed_string<char, 128>>(local_e0, false);
+                pcVar14 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                local_130 = PrerequisiteVar(local_e4, iVar10, iVar11, pcVar14);
+                pPVar15 = (PrerequisiteVar*)(*local_100)[0];
+                *pPVar15 = local_130;
             }
             break;
         case 19:
-            local_f0 = param_1;
-            bVar4 = param_1->g1();
-            uVar16 = (ulong)bVar4;
-            (&field_312, uVar16, 0)->set_max_size();
-            local_f8 = uVar16;
+            local_f0 = arg1;
+            bVar4 = arg1.g1();
+            uVar17 = (unsigned long)bVar4;
+            field_312.set_max_size(uVar17, 0);
+            local_f8 = uVar17;
             if (bVar4 != 0) {
-                local_100 = (Array<QuestType::PrerequisiteVar, eastl::allocator>*)&field_312;
-                local_e4 = param_1->g4();
-                iVar8 = param_1->g4();
-                iVar9 = param_1->g4();
-                new (local_e0) eastl::fixed_string<char, 128, true, eastl::allocator>();
-                PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<
-                    eastl::fixed_string<char, 128, true, eastl::allocator>>(
-                    (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1,
-                    (fixed_string*)local_e0, false);
-                pcVar13 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                new (local_130) PrerequisiteVar(local_e4, iVar8, iVar9, pcVar13);
-                pPVar14 =
-                    (PrerequisiteVar*)Array<QuestType::PrerequisiteVar, eastl::allocator>::operator[](local_100, 0);
-                PrerequisiteVar::operator=(pPVar14, (PrerequisiteVar*)local_130);
-                local_130->~ObjSpriteCacheKey();
-                /* WARNING: Subroutine does not return */
-                local_e0->~fixed_string();
+                local_100 = (Array<QuestType::PrerequisiteVar>*)&field_312;
+                local_e4 = arg1.g4();
+                iVar10 = arg1.g4();
+                iVar11 = arg1.g4();
+                local_e0 = eastl::fixed_string<char, 128>();
+                arg1.gStringCP1252ToUTF8<eastl::fixed_string<char, 128>>(local_e0, false);
+                pcVar14 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                local_130 = PrerequisiteVar(local_e4, iVar10, iVar11, pcVar14);
+                pPVar15 = (PrerequisiteVar*)(*local_100)[0];
+                *pPVar15 = local_130;
             }
             break;
         default:
-            pPVar15 = local_f0;
-            if (param_2 == 249) {
-                DecodeParams(param_1);
+            pPVar16 = local_f0;
+            if (arg2 == 249) {
+                DecodeParams(arg1);
                 break;
             }
             goto switchD_1004f3927_caseD_b;
         }
     LAB_1004f3ed1:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
         return DataStatus::READY;
     switchD_1004f3927_caseD_b:
-        local_f0 = pPVar15;
-        uVar10 = logger::default_logger();
-        logger::Logger::Log(uVar10, 0, 2,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
-                            "config/questtype/QuestType.cpp",
-                            165, "Unrecognised .quest config code: %u in quest %d", param_2, field_32);
+        local_f0 = pPVar16;
+        (logger::default_logger())
+            ->Log(false, 2,
+                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
+                  "questtype/QuestType.cpp",
+                  165, "Unrecognised .quest config code: %u in quest %d", arg2, field_32);
         goto LAB_1004f3ed1;
     }
 
-    // 0x1004f4a10, 48 bytes, placed by class name and debug map
-    // QuestType::PostDecode()
+    // 0x1004f4a10
     void QuestType::PostDecode() {
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() !=
-            '\0') {
-            eastl::string::operator=((eastl::string*)&field_88, (basic_string*)&field_56);
+        if (field_88.empty() != '\0') {
+            field_88 = &field_56;
         }
     }
 
-    // 0x1004f4a40, 496 bytes, placed by class name and debug map
-    // QuestType::StartedQuest(PlayerVarDomain&) const
-    bool QuestType::StartedQuest(PlayerVarDomain* param_1) {
+    // 0x1004f4a40
+    bool QuestType::StartedQuest(PlayerVarDomain& playerVarDomain) const {
         bool bVar1;
-        VarDomainType* pVVar2;
-        char cVar3;
+        VarDomainType* varDomainType;
+        uint8_t uVar3;
         int iVar4;
         int iVar5;
+        uint32_t extraout_var;
         long lVar6;
         CoordMapSquare* pCVar7;
         ConfigProvider* pCVar8;
-        shared_ptr* psVar9;
-        VarValue* this_00;
-        ulong uVar10;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar11;
-        ulong uVar12;
-        shared_ptr<oldscape::dash3d::Decor> local_58[16];
-        QuestType* local_40;
+        shared_ptr<oldscape::dash3d::GroundDecor>* psVar9;
+        uint64_t extraout_var_00;
+        unsigned long uVar10;
+        unsigned long uVar12;
+        shared_ptr<oldscape::dash3d::Decor> local_58;
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_38;
 
-        pvVar11 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&field_120;
-        local_40 = this;
-        cVar3 = pvVar11->empty();
-        if ((cVar3 == '\0') &&
-            (lVar6 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar11),
-             lVar6 != 0)) {
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar11 =
+            (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&field_120;
+        QuestType* local_40 = this;
+        bool cVar2 = pvVar11->empty();
+        if ((!cVar2) && (lVar6 = pvVar11->end(), lVar6 != 0)) {
             uVar10 = 0;
             uVar12 = 1;
             local_38 = pvVar11;
             do {
-                pCVar7 = (CoordMapSquare*)Array<QuestType::MasterQuestVar, eastl::allocator>::operator[](
-                    (Array<QuestType::MasterQuestVar, eastl::allocator>*)pvVar11, uVar10);
+                pCVar7 = (CoordMapSquare*)(*pvVar11)[uVar10];
                 pCVar8 = (ConfigProvider*)local_40->field_24->GetDomain();
-                pVVar2 = VarDomainType::PLAYER;
+                varDomainType = VarDomainType::PLAYER;
                 iVar4 = pCVar7->GetX();
-                psVar9 = (shared_ptr*)pCVar8->GetVarType(pVVar2, iVar4);
-                shared_ptr<oldscape::dash3d::Decor>::shared_ptr(local_58, psVar9);
-                this_00 = (VarValue*)(*(code*)param_1->field_0[2])(param_1, local_58);
-                iVar4 = this_00->GetInt();
+                psVar9 = (shared_ptr<oldscape::dash3d::GroundDecor>*)pCVar8->GetVarType(varDomainType, iVar4);
+                local_58 = shared_ptr(psVar9);
+                uVar3 = (playerVarDomain._vptr->GetVarValue)((shared_ptr<VarType>*)playerVarDomain);
+                iVar4 = ((VarValue*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar3))->GetInt();
                 iVar5 = pCVar7->GetZ();
-                local_58->~shared_ptr();
                 pvVar11 = local_38;
                 if (iVar5 <= iVar4) {
                     return true;
                 }
-                uVar10 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(local_38);
+                uVar10 = local_38->end();
                 bVar1 = uVar12 < uVar10;
                 uVar10 = uVar12;
-                uVar12 = (ulong)((int)uVar12 + 1);
+                uVar12 = (unsigned long)((int)uVar12 + 1);
             } while (bVar1);
         }
         pvVar11 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&local_40->field_144;
-        cVar3 = pvVar11->empty();
-        if ((cVar3 != '\0') ||
-            (lVar6 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar11),
-             lVar6 == 0)) {
+        cVar2 = pvVar11->empty();
+        if ((cVar2) || (lVar6 = pvVar11->end(), lVar6 == 0)) {
             return false;
         }
         uVar10 = 0;
         uVar12 = 1;
         local_38 = pvVar11;
         do {
-            pCVar7 = (CoordMapSquare*)Array<QuestType::MasterQuestVar, eastl::allocator>::operator[](
-                (Array<QuestType::MasterQuestVar, eastl::allocator>*)pvVar11, uVar10);
+            pCVar7 = (CoordMapSquare*)(*pvVar11)[uVar10];
             pCVar8 = (ConfigProvider*)local_40->field_24->GetDomain();
             iVar4 = pCVar7->GetX();
-            psVar9 = (shared_ptr*)pCVar8->GetVarBitType(iVar4);
-            shared_ptr<oldscape::dash3d::Decor>::shared_ptr(local_58, psVar9);
-            iVar4 = (*(code*)param_1->field_0[4])(param_1, local_58);
-            iVar5 = pCVar7->GetZ();
-            local_58->~shared_ptr();
+            psVar9 = (shared_ptr<oldscape::dash3d::GroundDecor>*)pCVar8->GetVarBitType(iVar4);
+            local_58 = shared_ptr(psVar9);
+            uVar3 = (playerVarDomain._vptr->GetVarBitValue)((shared_ptr<VarBitType>*)playerVarDomain);
+            iVar4 = pCVar7->GetZ();
             pvVar11 = local_38;
-            if (iVar5 <= iVar4)
+            if (iVar4 <= (((uint32_t)extraout_var << 8) | (uint8_t)uVar3))
                 break;
-            uVar10 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(local_38);
+            uVar10 = local_38->end();
             bVar1 = uVar12 < uVar10;
             uVar10 = uVar12;
-            uVar12 = (ulong)((int)uVar12 + 1);
+            uVar12 = (unsigned long)((int)uVar12 + 1);
         } while (bVar1);
-        return iVar5 <= iVar4;
+        return iVar4 <= (((uint32_t)extraout_var << 8) | (uint8_t)uVar3);
     }
 
-    // 0x1004f4cb0, 496 bytes, placed by class name and debug map
-    // QuestType::FinishedQuest(PlayerVarDomain&) const
-    bool QuestType::FinishedQuest(PlayerVarDomain* param_1) {
+    // 0x1004f4cb0
+    bool QuestType::FinishedQuest(PlayerVarDomain& playerVarDomain) const {
         bool bVar1;
-        VarDomainType* pVVar2;
-        char cVar3;
+        VarDomainType* varDomainType;
+        uint8_t uVar3;
         int iVar4;
         int iVar5;
+        uint32_t extraout_var;
         long lVar6;
         CommandLine* pCVar7;
         ConfigProvider* pCVar8;
-        shared_ptr* psVar9;
-        VarValue* this_00;
-        ulong uVar10;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar11;
-        ulong uVar12;
-        shared_ptr<oldscape::dash3d::Decor> local_58[16];
-        QuestType* local_40;
+        shared_ptr<oldscape::dash3d::GroundDecor>* psVar9;
+        uint64_t extraout_var_00;
+        unsigned long uVar10;
+        unsigned long uVar12;
+        shared_ptr<oldscape::dash3d::Decor> local_58;
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_38;
 
-        pvVar11 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&field_120;
-        local_40 = this;
-        cVar3 = pvVar11->empty();
-        if ((cVar3 == '\0') &&
-            (lVar6 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar11),
-             lVar6 != 0)) {
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar11 =
+            (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&field_120;
+        QuestType* local_40 = this;
+        bool cVar2 = pvVar11->empty();
+        if ((!cVar2) && (lVar6 = pvVar11->end(), lVar6 != 0)) {
             uVar10 = 0;
             uVar12 = 1;
             local_38 = pvVar11;
             do {
-                pCVar7 = (CommandLine*)Array<QuestType::MasterQuestVar, eastl::allocator>::operator[](
-                    (Array<QuestType::MasterQuestVar, eastl::allocator>*)pvVar11, uVar10);
+                pCVar7 = (CommandLine*)(*pvVar11)[uVar10];
                 pCVar8 = (ConfigProvider*)local_40->field_24->GetDomain();
-                pVVar2 = VarDomainType::PLAYER;
+                varDomainType = VarDomainType::PLAYER;
                 iVar4 = pCVar7->GetX();
-                psVar9 = (shared_ptr*)pCVar8->GetVarType(pVVar2, iVar4);
-                shared_ptr<oldscape::dash3d::Decor>::shared_ptr(local_58, psVar9);
-                this_00 = (VarValue*)(*(code*)param_1->field_0[2])(param_1, local_58);
-                iVar4 = this_00->GetInt();
+                psVar9 = (shared_ptr<oldscape::dash3d::GroundDecor>*)pCVar8->GetVarType(varDomainType, iVar4);
+                local_58 = shared_ptr(psVar9);
+                uVar3 = (playerVarDomain._vptr->GetVarValue)((shared_ptr<VarType>*)playerVarDomain);
+                iVar4 = ((VarValue*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar3))->GetInt();
                 iVar5 = pCVar7->GetPos();
-                local_58->~shared_ptr();
                 pvVar11 = local_38;
                 if (iVar5 <= iVar4) {
                     return true;
                 }
-                uVar10 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(local_38);
+                uVar10 = local_38->end();
                 bVar1 = uVar12 < uVar10;
                 uVar10 = uVar12;
-                uVar12 = (ulong)((int)uVar12 + 1);
+                uVar12 = (unsigned long)((int)uVar12 + 1);
             } while (bVar1);
         }
         pvVar11 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&local_40->field_144;
-        cVar3 = pvVar11->empty();
-        if ((cVar3 != '\0') ||
-            (lVar6 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar11),
-             lVar6 == 0)) {
+        cVar2 = pvVar11->empty();
+        if ((cVar2) || (lVar6 = pvVar11->end(), lVar6 == 0)) {
             return false;
         }
         uVar10 = 0;
         uVar12 = 1;
         local_38 = pvVar11;
         do {
-            pCVar7 = (CommandLine*)Array<QuestType::MasterQuestVar, eastl::allocator>::operator[](
-                (Array<QuestType::MasterQuestVar, eastl::allocator>*)pvVar11, uVar10);
+            pCVar7 = (CommandLine*)(*pvVar11)[uVar10];
             pCVar8 = (ConfigProvider*)local_40->field_24->GetDomain();
             iVar4 = pCVar7->GetX();
-            psVar9 = (shared_ptr*)pCVar8->GetVarBitType(iVar4);
-            shared_ptr<oldscape::dash3d::Decor>::shared_ptr(local_58, psVar9);
-            iVar4 = (*(code*)param_1->field_0[4])(param_1, local_58);
-            iVar5 = pCVar7->GetPos();
-            local_58->~shared_ptr();
+            psVar9 = (shared_ptr<oldscape::dash3d::GroundDecor>*)pCVar8->GetVarBitType(iVar4);
+            local_58 = shared_ptr(psVar9);
+            uVar3 = (playerVarDomain._vptr->GetVarBitValue)((shared_ptr<VarBitType>*)playerVarDomain);
+            iVar4 = pCVar7->GetPos();
             pvVar11 = local_38;
-            if (iVar5 <= iVar4)
+            if (iVar4 <= (((uint32_t)extraout_var << 8) | (uint8_t)uVar3))
                 break;
-            uVar10 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(local_38);
+            uVar10 = local_38->end();
             bVar1 = uVar12 < uVar10;
             uVar10 = uVar12;
-            uVar12 = (ulong)((int)uVar12 + 1);
+            uVar12 = (unsigned long)((int)uVar12 + 1);
         } while (bVar1);
-        return iVar5 <= iVar4;
+        return iVar4 <= (((uint32_t)extraout_var << 8) | (uint8_t)uVar3);
     }
 
-    // 0x1004f4ea0, 848 bytes, placed by class name and debug map
-    // QuestType::CanStartQuest(PlayerVarDomain&, PlayerGameState const&, ModeAccountType const*) const
-    ulong QuestType::CanStartQuest(PlayerVarDomain* param_1, PlayerGameState* param_2, ModeAccountType* param_3) {
-        undefined1* puVar1;
+    // 0x1004f4ea0
+    unsigned long QuestType::CanStartQuest(PlayerVarDomain& playerVarDomain, const PlayerGameState& playerGameState,
+                                           const ModeAccountType* modeAccountType) const {
+        uint8_t* puVar1;
         BaseTemplateConfigTypeList<QuestType>* this_00;
         bool bVar2;
-        VarDomainType* pVVar3;
-        char cVar4;
-        uint uVar5;
-        uint uVar6;
-        uint uVar7;
+        VarDomainType* varDomainType;
+        bool cVar3;
+        uint8_t uVar4;
+        unsigned int uVar6;
+        unsigned int uVar7;
         int iVar8;
         int iVar9;
         long lVar10;
         CoordMapSquare* this_01;
-        ulong uVar11;
-        ushort* puVar12;
+        unsigned long uVar11;
+        unsigned short* puVar12;
         shared_ptr<QuestType>* this_02;
         QuestType* pQVar13;
-        ulong uVar14;
+        unsigned long uVar14;
         CommandLine* pCVar15;
         ConfigProvider* pCVar16;
-        shared_ptr* psVar17;
-        VarValue* this_03;
-        ulong uVar18;
+        shared_ptr<oldscape::dash3d::GroundDecor>* psVar17;
+        uint32_t extraout_var;
+        uint64_t extraout_var_00;
+        unsigned long uVar18;
+        ModeAccountType* this_03;
         ModeAccountType* this_04;
-        ModeAccountType* this_05;
-        ulong uVar19;
-        shared_ptr<oldscape::dash3d::Decor> local_58[16];
+        unsigned long uVar19;
+        shared_ptr<oldscape::dash3d::Decor> local_58;
         QuestType* local_40;
-        ModeAccountType* local_38;
 
-        local_38 = param_3;
-        uVar5 = param_1->GetTotalQuestPoints();
+        ModeAccountType* local_38 = modeAccountType;
+        unsigned int uVar5 = playerVarDomain.GetTotalQuestPoints();
         if (uVar5 < field_280) {
         LAB_1004f4ecf:
             uVar14 = 0;
         } else {
             puVar1 = &field_256;
             local_40 = this;
-            cVar4 = puVar1->empty();
-            if (cVar4 == '\0') {
+            cVar3 = puVar1->empty();
+            if (!cVar3) {
                 lVar10 = puVar1->end();
                 if (lVar10 != 0) {
                     uVar5 = 1;
                     uVar14 = 0;
                     do {
-                        this_01 = (CoordMapSquare*)Array<QuestType::PrerequisiteStat, eastl::allocator>::operator[](
-                            (Array<QuestType::PrerequisiteStat, eastl::allocator>*)puVar1, uVar14);
+                        this_01 = (CoordMapSquare*)(*puVar1)[uVar14];
                         uVar6 = this_01->GetX();
-                        uVar6 = param_2->GetStatLevelMax(uVar6, local_38);
+                        uVar6 = playerGameState.GetStatLevelMax(uVar6, local_38);
                         uVar7 = this_01->GetZ();
                         if (uVar6 < uVar7)
                             goto LAB_1004f4ecf;
-                        uVar14 = (ulong)uVar5;
+                        uVar14 = (unsigned long)uVar5;
                         uVar11 = puVar1->end();
                         uVar5 = uVar5 + 1;
                     } while (uVar14 < uVar11);
@@ -555,99 +473,92 @@ namespace jag::game {
             }
             pQVar13 = local_40;
             puVar1 = &local_40->field_232;
-            cVar4 = puVar1->empty();
-            if (cVar4 == '\0') {
+            cVar3 = puVar1->empty();
+            if (!cVar3) {
                 lVar10 = puVar1->end();
                 if (lVar10 != 0) {
                     uVar14 = 0;
                     uVar11 = 1;
                     do {
-                        this_00 = (BaseTemplateConfigTypeList<QuestType>*)pQVar13->field_24;
-                        puVar12 = (ushort*)Array<unsigned short, eastl::allocator>::operator[](
-                            (Array<unsigned short, eastl::allocator>*)puVar1, uVar14);
+                        this_00 = pQVar13->field_24;
+                        puVar12 = (unsigned short*)(*puVar1)[uVar14];
                         uVar14 = 0;
-                        this_02 = (shared_ptr<QuestType>*)this_00->List((uint)*puVar12, 0);
-                        pQVar13 = (QuestType*)shared_ptr<QuestType>::operator->(this_02);
-                        cVar4 = FinishedQuest(pQVar13, param_1);
-                        if (cVar4 == '\0')
+                        this_02 = (shared_ptr<QuestType>*)this_00->List((unsigned int)*puVar12, nullptr);
+                        pQVar13 = (QuestType*)(*this_02).operator->();
+                        cVar3 = FinishedQuest(pQVar13, playerVarDomain);
+                        if (!cVar3)
                             goto LAB_1004f4ed1;
                         uVar14 = puVar1->end();
                         bVar2 = uVar11 < uVar14;
                         uVar14 = uVar11;
                         pQVar13 = local_40;
-                        uVar11 = (ulong)((int)uVar11 + 1);
+                        uVar11 = (unsigned long)((int)uVar11 + 1);
                     } while (bVar2);
                 }
             }
-            this_04 = (ModeAccountType*)&pQVar13->field_288;
-            cVar4 = this_04->empty();
-            if (cVar4 == '\0') {
-                lVar10 = this_04->end();
+            this_03 = (ModeAccountType*)&pQVar13->field_288;
+            cVar3 = this_03->empty();
+            if (!cVar3) {
+                lVar10 = this_03->end();
                 if (lVar10 != 0) {
                     uVar5 = 1;
                     uVar14 = 0;
-                    local_38 = this_04;
+                    local_38 = this_03;
                     do {
-                        pCVar15 = (CommandLine*)Array<QuestType::PrerequisiteVar, eastl::allocator>::operator[](
-                            (Array<QuestType::PrerequisiteVar, eastl::allocator>*)this_04, uVar14);
+                        pCVar15 = (CommandLine*)(*this_03)[uVar14];
                         pCVar16 = (ConfigProvider*)local_40->field_24->GetDomain();
-                        pVVar3 = VarDomainType::PLAYER;
+                        varDomainType = VarDomainType::PLAYER;
                         iVar8 = pCVar15->GetX();
-                        psVar17 = (shared_ptr*)pCVar16->GetVarType(pVVar3, iVar8);
-                        shared_ptr<oldscape::dash3d::Decor>::shared_ptr(local_58, psVar17);
-                        this_03 = (VarValue*)(*(code*)param_1->field_0[2])(param_1, local_58);
-                        iVar8 = this_03->GetInt();
+                        psVar17 = (shared_ptr<oldscape::dash3d::GroundDecor>*)pCVar16->GetVarType(varDomainType, iVar8);
+                        local_58 = shared_ptr(psVar17);
+                        uVar4 = (playerVarDomain._vptr->GetVarValue)((shared_ptr<VarType>*)playerVarDomain);
+                        iVar8 = ((VarValue*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar4))->GetInt();
                         iVar9 = pCVar15->GetZ();
                         if (iVar8 < iVar9) {
                         LAB_1004f51a0:
-                            local_58->~shared_ptr();
                             goto LAB_1004f4ecf;
                         }
                         iVar9 = pCVar15->GetPos();
                         if (iVar9 < iVar8)
                             goto LAB_1004f51a0;
-                        local_58->~shared_ptr();
-                        this_04 = local_38;
-                        uVar14 = (ulong)uVar5;
+                        this_03 = local_38;
+                        uVar14 = (unsigned long)uVar5;
                         uVar11 = local_38->end();
                         uVar5 = uVar5 + 1;
                     } while (uVar14 < uVar11);
                 }
             }
-            this_05 = (ModeAccountType*)&local_40->field_312;
-            cVar4 = this_05->empty();
-            uVar14 = CONCAT71((int7)((ulong)this_04 >> 8), 1);
-            if (cVar4 == '\0') {
-                lVar10 = this_05->end();
+            this_04 = (ModeAccountType*)&local_40->field_312;
+            cVar3 = this_04->empty();
+            uVar14 = (((uint64_t)((int64_t)((unsigned long)this_03 >> 8)) << 8) | (uint8_t)1);
+            if (!cVar3) {
+                lVar10 = this_04->end();
                 if (lVar10 != 0) {
                     uVar14 = 0;
                     uVar11 = 1;
-                    local_38 = this_05;
+                    local_38 = this_04;
                     do {
                         uVar19 = uVar11;
-                        pCVar15 = (CommandLine*)Array<QuestType::PrerequisiteVar, eastl::allocator>::operator[](
-                            (Array<QuestType::PrerequisiteVar, eastl::allocator>*)this_05, uVar14);
+                        pCVar15 = (CommandLine*)(*this_04)[uVar14];
                         pCVar16 = (ConfigProvider*)local_40->field_24->GetDomain();
                         iVar8 = pCVar15->GetX();
-                        psVar17 = (shared_ptr*)pCVar16->GetVarBitType(iVar8);
-                        shared_ptr<oldscape::dash3d::Decor>::shared_ptr(local_58, psVar17);
-                        iVar8 = (*(code*)param_1->field_0[4])(param_1, local_58);
-                        iVar9 = pCVar15->GetZ();
-                        if (iVar8 < iVar9) {
+                        psVar17 = (shared_ptr<oldscape::dash3d::GroundDecor>*)pCVar16->GetVarBitType(iVar8);
+                        local_58 = shared_ptr(psVar17);
+                        uVar4 = (playerVarDomain._vptr->GetVarBitValue)((shared_ptr<VarBitType>*)playerVarDomain);
+                        iVar8 = pCVar15->GetZ();
+                        if ((((uint32_t)extraout_var << 8) | (uint8_t)uVar4) < iVar8) {
                         LAB_1004f51ae:
-                            local_58->~shared_ptr();
                             goto LAB_1004f4ecf;
                         }
-                        iVar9 = pCVar15->GetPos();
-                        if (iVar9 < iVar8)
+                        iVar8 = pCVar15->GetPos();
+                        if (iVar8 < (((uint32_t)extraout_var << 8) | (uint8_t)uVar4))
                             goto LAB_1004f51ae;
-                        local_58->~shared_ptr();
-                        this_05 = local_38;
+                        this_04 = local_38;
                         uVar18 = local_38->end();
                         uVar14 = uVar19;
-                        uVar11 = (ulong)((int)uVar19 + 1);
+                        uVar11 = (unsigned long)((int)uVar19 + 1);
                     } while (uVar19 < uVar18);
-                    uVar14 = CONCAT71((int7)(uVar19 >> 8), 1);
+                    uVar14 = (((uint64_t)((int64_t)(uVar19 >> 8)) << 8) | (uint8_t)1);
                 }
             }
         }
@@ -655,93 +566,74 @@ namespace jag::game {
         return uVar14 & 4294967295;
     }
 
-    // 0x1004f52f0, 48 bytes, placed by class name and debug map
-    // QuestType::CheckPreReqQuestPoints(PlayerVarDomain&) const
-    bool QuestType::CheckPreReqQuestPoints(PlayerVarDomain* param_1) {
-        uint uVar1;
-
-        uVar1 = param_1->GetTotalQuestPoints();
+    // 0x1004f52f0
+    bool QuestType::CheckPreReqQuestPoints(PlayerVarDomain& playerVarDomain) const {
+        unsigned int uVar1 = playerVarDomain.GetTotalQuestPoints();
         return field_280 <= uVar1;
     }
 
-    // 0x1004f5320, 128 bytes, placed by class name and debug map
-    // QuestType::CheckPreReqStat(PlayerGameState const&, unsigned int, ModeAccountType const*) const
-    bool QuestType::CheckPreReqStat(PlayerGameState* param_1, uint param_2, ModeAccountType* param_3) {
-        char cVar1;
-        uint uVar2;
-        ulong uVar4;
+    // 0x1004f5320
+    bool QuestType::CheckPreReqStat(const PlayerGameState& playerGameState, unsigned int arg2,
+                                    const ModeAccountType* modeAccountType) const {
+        unsigned int uVar2;
+        unsigned long uVar4;
         CoordMapSquare* this_00;
-        undefined1* this_01;
 
-        this_01 = &field_256;
-        cVar1 = this_01->empty();
-        if (cVar1 == '\0') {
+        uint8_t* this_01 = &field_256;
+        if (this_01->empty() == '\0') {
             uVar4 = this_01->end();
-            if (param_2 < uVar4) {
-                this_00 = (CoordMapSquare*)Array<QuestType::PrerequisiteStat, eastl::allocator>::operator[](
-                    (Array<QuestType::PrerequisiteStat, eastl::allocator>*)this_01, (ulong)param_2);
+            if (arg2 < uVar4) {
+                this_00 = (CoordMapSquare*)(*this_01)[(unsigned long)arg2];
                 uVar2 = this_00->GetX();
-                uVar2 = param_1->GetStatLevelMax(uVar2, param_3);
+                uVar2 = playerGameState.GetStatLevelMax(uVar2, modeAccountType);
                 return this_00->GetZ() <= uVar2;
             }
         }
         return false;
     }
 
-    // 0x1004f53a0, 128 bytes, placed by class name and debug map
-    // QuestType::CheckPreReqQuest(PlayerVarDomain&, unsigned int) const
-    undefined8 QuestType::CheckPreReqQuest(PlayerVarDomain* param_1, uint param_2) {
-        undefined1* this_00;
+    // 0x1004f53a0
+    uint64_t QuestType::CheckPreReqQuest(PlayerVarDomain& playerVarDomain, unsigned int arg2) const {
         BaseTemplateConfigTypeList<QuestType>* this_01;
-        char cVar1;
-        ulong uVar2;
-        ushort* puVar3;
+        unsigned long uVar2;
+        unsigned short* puVar3;
         shared_ptr<QuestType>* this_02;
-        QuestType* this_03;
 
-        this_00 = &field_232;
-        cVar1 = this_00->empty();
-        if (cVar1 == '\0') {
+        uint8_t* this_00 = &field_232;
+        if (this_00->empty() == '\0') {
             uVar2 = this_00->end();
-            if (param_2 < uVar2) {
-                this_01 = (BaseTemplateConfigTypeList<QuestType>*)field_24;
-                puVar3 = (ushort*)Array<unsigned short, eastl::allocator>::operator[](
-                    (Array<unsigned short, eastl::allocator>*)this_00, (ulong)param_2);
-                this_02 = (shared_ptr<QuestType>*)this_01->List((uint)*puVar3, 0);
-                this_03 = (QuestType*)shared_ptr<QuestType>::operator->(this_02);
-                return FinishedQuest(this_03, param_1);
+            if (arg2 < uVar2) {
+                this_01 = field_24;
+                puVar3 = (unsigned short*)(*this_00)[(unsigned long)arg2];
+                this_02 = (shared_ptr<QuestType>*)this_01->List((unsigned int)*puVar3, nullptr);
+                return FinishedQuest((QuestType*)(*this_02).operator->(), playerVarDomain);
             }
         }
         return 0;
     }
 
-    // 0x1004f5420, 176 bytes, placed by class name and debug map
-    // QuestType::CheckPreReqVarP(PlayerVarDomain&, unsigned int) const
-    bool QuestType::CheckPreReqVarP(PlayerVarDomain* param_1, uint param_2) {
-        undefined1* this_00;
-        VarDomainType* pVVar1;
-        char cVar2;
+    // 0x1004f5420
+    bool QuestType::CheckPreReqVarP(PlayerVarDomain& playerVarDomain, unsigned int arg2) const {
+        VarDomainType* varDomainType;
+        uint8_t uVar2;
         int iVar3;
         int iVar4;
-        ulong uVar5;
+        unsigned long uVar5;
         CommandLine* this_01;
         ConfigProvider* this_02;
-        undefined8 uVar6;
-        VarValue* this_03;
+        uint64_t extraout_var;
 
-        this_00 = &field_288;
-        cVar2 = this_00->empty();
-        if (cVar2 == '\0') {
+        uint8_t* this_00 = &field_288;
+        if (this_00->empty() == '\0') {
             uVar5 = this_00->end();
-            if (param_2 <= uVar5) {
-                this_01 = (CommandLine*)Array<QuestType::PrerequisiteVar, eastl::allocator>::operator[](
-                    (Array<QuestType::PrerequisiteVar, eastl::allocator>*)this_00, (ulong)param_2);
+            if (arg2 <= uVar5) {
+                this_01 = (CommandLine*)(*this_00)[(unsigned long)arg2];
                 this_02 = (ConfigProvider*)field_24->GetDomain();
-                pVVar1 = VarDomainType::PLAYER;
+                varDomainType = VarDomainType::PLAYER;
                 iVar3 = this_01->GetX();
-                uVar6 = this_02->GetVarType(pVVar1, iVar3);
-                this_03 = (VarValue*)(*(code*)param_1->field_0[2])(param_1, uVar6);
-                iVar3 = this_03->GetInt();
+                this_02->GetVarType(varDomainType, iVar3);
+                uVar2 = (playerVarDomain._vptr->GetVarValue)((shared_ptr<VarType>*)playerVarDomain);
+                iVar3 = ((VarValue*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar2))->GetInt();
                 iVar4 = this_01->GetZ();
                 if (iVar4 <= iVar3) {
                     iVar4 = this_01->GetPos();
@@ -752,33 +644,28 @@ namespace jag::game {
         return false;
     }
 
-    // 0x1004f54d0, 160 bytes, placed by class name and debug map
-    // QuestType::CheckPreReqVarBit(PlayerVarDomain&, unsigned int) const
-    bool QuestType::CheckPreReqVarBit(PlayerVarDomain* param_1, uint param_2) {
-        undefined1* this_00;
-        char cVar1;
-        int iVar2;
+    // 0x1004f54d0
+    bool QuestType::CheckPreReqVarBit(PlayerVarDomain& playerVarDomain, unsigned int arg2) const {
+        uint8_t uVar2;
         int iVar3;
-        ulong uVar4;
+        uint32_t extraout_var;
+        unsigned long uVar4;
         CommandLine* this_01;
         ConfigProvider* this_02;
-        undefined8 uVar5;
 
-        this_00 = &field_288;
-        cVar1 = this_00->empty();
-        if (cVar1 == '\0') {
+        uint8_t* this_00 = &field_288;
+        if (this_00->empty() == '\0') {
             uVar4 = this_00->end();
-            if (param_2 <= uVar4) {
-                this_01 = (CommandLine*)Array<QuestType::PrerequisiteVar, eastl::allocator>::operator[](
-                    (Array<QuestType::PrerequisiteVar, eastl::allocator>*)this_00, (ulong)param_2);
+            if (arg2 <= uVar4) {
+                this_01 = (CommandLine*)(*this_00)[(unsigned long)arg2];
                 this_02 = (ConfigProvider*)field_24->GetDomain();
-                iVar2 = this_01->GetX();
-                uVar5 = this_02->GetVarBitType(iVar2);
-                iVar2 = (*(code*)param_1->field_0[4])(param_1, uVar5);
+                iVar3 = this_01->GetX();
+                this_02->GetVarBitType(iVar3);
+                uVar2 = (playerVarDomain._vptr->GetVarBitValue)((shared_ptr<VarBitType>*)playerVarDomain);
                 iVar3 = this_01->GetZ();
-                if (iVar3 <= iVar2) {
+                if (iVar3 <= (((uint32_t)extraout_var << 8) | (uint8_t)uVar2)) {
                     iVar3 = this_01->GetPos();
-                    return iVar2 <= iVar3;
+                    return uVar2 <= iVar3;
                 }
             }
         }
@@ -788,7 +675,6 @@ namespace jag::game {
 } // namespace jag::game
 
 namespace jag::oldscape::configdecoder {
-    // 0x1001520e0: the linker folded this into rs2lib::social::ClanSettings::ExtraSettingsParam::~ExtraSettingsParam(), which has identical code
-    ObjSpriteCacheKey::~ObjSpriteCacheKey();
+    // 0x1001520e0: ObjSpriteCacheKey::~ObjSpriteCacheKey() has the same machine code as rs2lib::social::ClanSettings::ExtraSettingsParam::~ExtraSettingsParam()
 
 } // namespace jag::oldscape::configdecoder

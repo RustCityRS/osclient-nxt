@@ -1,6 +1,5 @@
 // libs/graphics/postprocess/effects/EquirectangularEffect.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,63 +8,54 @@ namespace jag::postprocess {
     public:
         // virtual methods in vtable order
         virtual ~EquirectangularEffect();
-        virtual void Render(render::RenderContext&, render::RenderTargets const*, render::Texture const*,
-                            render::Texture const*, render::Viewport const&, graphics::ViewRenderTargets*,
-                            PostProcessManager&);
+        virtual void Render(render::RenderContext& renderContext, const render::RenderTargets* renderTargets,
+                            const render::Texture* texture1, const render::Texture* texture2,
+                            const render::Viewport& viewport, graphics::ViewRenderTargets* viewRenderTargets,
+                            PostProcessManager& postProcessManager);
         virtual void Init();
         virtual void Destroy();
-        void SetEnvMapRT(shared_ptr<render::RenderTargets> const&);
-        EquirectangularEffect(int, int);
+        void SetEnvMapRT(const shared_ptr<render::RenderTargets>& renderTargets);
+        EquirectangularEffect(int arg1, int arg2);
 
-        // data members, from how the methods use this: 56 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined1 field_8;  // offset 8
-        char _unknown_9[3];
-        int field_12; // offset 12
-        int field_16; // offset 16
-        char _unknown_20[4];
-        shared_ptr field_24; // offset 24
-        shared_ptr field_40; // offset 40
+    private:
+        uint8_t field_8;
+        uint8_t _unknown_9[3];
+        int field_12;
+        int field_16;
+        uint8_t _unknown_20[20];
+        shared_ptr field_40;
     };
 
-    // 0x1007dec20, 16 bytes, inline, placed by class name and debug map
-    // EquirectangularEffect::SetEnvMapRT(shared_ptr<render::RenderTargets> const&)
-    void EquirectangularEffect::SetEnvMapRT(shared_ptr* param_1) {
-        shared_ptr<render::RenderTargets>::operator=((shared_ptr<render::RenderTargets>*)field_40, param_1);
+    // 0x1007dec20
+    void EquirectangularEffect::SetEnvMapRT(const shared_ptr<render::RenderTargets>& renderTargets) {
+        *field_40 = renderTargets;
     }
 
 } // namespace jag::postprocess
 
 namespace jag {
-    // 0x1007dee00, 112 bytes, inline, placed by debug map only (low confidence)
-    // std::enable_if<!std::is_array<graphics::EffectStateSaveRestore>::value, std::unique_ptr<graphics::EffectStateSaveRestore, BucketDeleter<graphics::EffectStateSaveRestore> > >::type bucket_make_unique<graphics::EffectStateSaveRestore, graphics::EffectManager&, eastl::fixed_map<graphics::EffectType, bool, 121ul, true, eastl::less<graphics::EffectType>, eastl::allocator>&>(graphics::EffectManager&, eastl::fixed_map<graphics::EffectType, bool, 121ul, true, eastl::less<graphics::EffectType>, eastl::allocator>&)
-    /* std::enable_if<!std::is_array<graphics::EffectStateSaveRestore>::value,
-   std::unique_ptr<graphics::EffectStateSaveRestore,
-   BucketDeleter<graphics::EffectStateSaveRestore> > >::type
-   bucket_make_unique<graphics::EffectStateSaveRestore, graphics::EffectManager&,
-   eastl::fixed_map<graphics::EffectType, bool, 121ul, true,
-   eastl::less<graphics::EffectType>, eastl::allocator>&>(graphics::EffectManager&,
-   eastl::fixed_map<graphics::EffectType, bool, 121ul, true,
-   eastl::less<graphics::EffectType>, eastl::allocator>&) */
+    // 0x1007dee00
+    std::enable_if<
+        !std::is_array<graphics::EffectStateSaveRestore>::value,
+        std::unique_ptr<graphics::EffectStateSaveRestore, BucketDeleter<graphics::EffectStateSaveRestore>>>::type
+    bucket_make_unique<graphics::EffectStateSaveRestore, graphics::EffectManager&,
+                       eastl::fixed_map<graphics::EffectType, bool, 121ul>&>(
+        graphics::EffectManager& effectManager, eastl::fixed_map<graphics::EffectType, bool, 121ul>& fixed_map) {
+        std::enable_if<!std::is_array<graphics::EffectStateSaveRestore>::value,
+                       std::unique_ptr<graphics::EffectStateSaveRestore,
+                                       BucketDeleter<graphics::EffectStateSaveRestore>>>::type result;
+        __good_rval_ref_type* good_rval_ref_type;
 
-    jag*
-    jag::bucket_make_unique<graphics::EffectStateSaveRestore, graphics::EffectManager&,
-                            eastl::fixed_map<graphics::EffectType, bool, 121ul, true, eastl::less<graphics::EffectType>,
-                                             eastl::allocator>&>(EffectManager* param_1, fixed_map* param_2) {
-        EffectStateSaveRestore* this_00;
-
-        this_00 = (EffectStateSaveRestore*)BucketManager::Allocate(4944, 0, 16);
-        if (this_00 == (EffectStateSaveRestore*)0) {
-            /* WARNING: Subroutine does not return */
+        auto effectStateSaveRestore = BucketManager::Allocate(4944, 0, 16);
+        if (effectStateSaveRestore == nullptr) {
             LogAssert(
                 "ptr != nullptr",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/managed_ptr/make_unique.h",
-                37, (char*)0);
+                37, nullptr);
         }
-        graphics::EffectStateSaveRestore::EffectStateSaveRestore(this_00, param_1, param_2);
-        std::unique_ptr<graphics::EffectStateSaveRestore,
-                        BucketDeleter<graphics::EffectStateSaveRestore>>::unique_ptr<true, void>(this, this_00);
-        return this;
+        new (effectStateSaveRestore) graphics::EffectStateSaveRestore(effectManager, fixed_map);
+        result.unique_ptr<true, void>(effectStateSaveRestore, good_rval_ref_type);
+        return result;
     }
 
 } // namespace jag

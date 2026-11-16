@@ -1,6 +1,5 @@
 // libs/framework/graphicsapp/MainLoopFrameTimer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -9,107 +8,76 @@ namespace jag {
     class MainLoopFrameTimer {
     public:
         int GetLogicTick() const;
-        GetFastUpdateLoopEnabled() const;
+        void GetFastUpdateLoopEnabled() const;
         int GetFrameCount() const;
         int GetMainLoopRate() const;
-        uint GetMainLoopInterval() const;
+        unsigned int GetMainLoopInterval() const;
         long GetUniqueLoopID() const;
-        GetFPSCounter();
-        SetFastUpdateLoopEnabled(bool);
+        uint8_t* GetFPSCounter();
+        void SetFastUpdateLoopEnabled(bool arg1);
         MainLoopFrameTimer();
-        void SetMainLoopInterval(unsigned int);
+        void SetMainLoopInterval(unsigned int arg1);
         ~MainLoopFrameTimer();
         void MainInit();
-        uint Update(unsigned long long);
-        IsRenderingDisabled();
+        unsigned int Update(unsigned long long arg1);
+        bool IsRenderingDisabled();
         void MainLogic();
         void PostFrameUpdate();
-        ulonglong WaitUntilMaxFPS(unsigned long long, unsigned long long, unsigned long long);
-        void WaitUntilMaxFPS(unsigned long long);
+        unsigned long long WaitUntilMaxFPS(unsigned long long arg1, unsigned long long arg2, unsigned long long arg3);
+        void WaitUntilMaxFPS(unsigned long long arg1);
 
-        // data members, from how the methods use this: 98728 bytes
-        uint m_mainLoopInterval; // offset 0
-        int m_mainLoopRate;      // offset 4
-        int m_logicTick;         // offset 8
-        int field_12;            // offset 12
-        int m_frameCount;        // offset 16
-        char _unknown_20[4];
-        ulonglong field_24;           // offset 24
-        bool m_fastUpdateLoopEnabled; // offset 32
-        char _unknown_33[7];
-        long m_uniqueLoopID; // offset 40
-        char _unknown_48[98656];
-        ulonglong field_98704;          // offset 98704
-        undefined1 m_renderingDisabled; // offset 98712
-        char _unknown_98713[15];
+    private:
+        unsigned int m_mainLoopInterval;
+        int m_mainLoopRate;
+        int m_logicTick;
+        int field_12;
+        int m_frameCount;
+        uint8_t _unknown_20[4];
+        unsigned long long field_24;
+        uint8_t m_fastUpdateLoopEnabled;
+        uint8_t _unknown_33[7];
+        long m_uniqueLoopID;
+        uint8_t _unknown_48[98656];
+        unsigned long long field_98704;
+        uint8_t m_renderingDisabled;
+        uint8_t _unknown_98713[15];
     };
 
-    // 0x1001a3c10, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MainLoopFrameTimer::GetFPSCounter()
-    /* graphics::GeometryBatchInstance::GetMaterial() */
-
-    undefined1* graphics::GeometryBatchInstance::GetMaterial() {
+    // 0x1001a3c10
+    uint8_t* MainLoopFrameTimer::GetFPSCounter() {
         return m_material;
     }
 
-    // 0x1001a3d00, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MainLoopFrameTimer::SetFastUpdateLoopEnabled(bool)
-    /* graphics::RenderMaterial::SetAlphaTestThreshold(unsigned char) */
-
-    void graphics::RenderMaterial::SetAlphaTestThreshold(uchar param_1) {
-        m_alphaTestThreshold = param_1;
+    // 0x1001a3d00
+    void MainLoopFrameTimer::SetFastUpdateLoopEnabled(bool arg1) {
+        m_alphaTestThreshold = arg1;
     }
 
-    // 0x100b03890, 16 bytes, complete-object constructor, inline, placed by class name
-    // MainLoopFrameTimer::MainLoopFrameTimer(): jumps straight to the base-object constructor
-
-    // 0x100b03b60, 16 bytes, complete-object destructor, inline, placed by class name
-    // MainLoopFrameTimer::~MainLoopFrameTimer(): jumps straight to the base-object destructor
-
-    // 0x100b04d60, 16 bytes, inline, placed by class name
-    // MainLoopFrameTimer::IsRenderingDisabled()
-    undefined1 MainLoopFrameTimer::IsRenderingDisabled() {
+    // 0x100b04d60
+    bool MainLoopFrameTimer::IsRenderingDisabled() {
         return m_renderingDisabled;
     }
 
-    // 0x100b061a0, 128 bytes, base-object constructor, inline, placed by class name
-    // MainLoopFrameTimer::MainLoopFrameTimer()
-    void MainLoopFrameTimer::MainLoopFrameTimer() {
-        m_mainLoopInterval = 20;
-        m_mainLoopRate = 50;
-        m_logicTick = 1;
-        field_12 = 1;
-        m_frameCount = 1;
-        field_24 = 0;
-        m_fastUpdateLoopEnabled = false;
-        m_uniqueLoopID = 0;
-        new (&field_48) FPSCounter();
-        field_98704 = 0;
-        m_renderingDisabled = 0;
-        new (&field_98720) TimerT<std::chrono::steady_clock>();
-    }
+    // 0x100b061a0
+    MainLoopFrameTimer::MainLoopFrameTimer()
+        : m_mainLoopInterval(20), m_mainLoopRate(50), m_logicTick(1), field_12(1), m_frameCount(1), field_24(0),
+          m_fastUpdateLoopEnabled(0), m_uniqueLoopID(0), field_98704(0), m_renderingDisabled(0) {}
 
-    // 0x100b06530, 16 bytes, base-object destructor, inline, placed by class name
-    // MainLoopFrameTimer::~MainLoopFrameTimer()
-    void MainLoopFrameTimer::~MainLoopFrameTimer() {
-        (&field_48)->~FPSCounter();
+    // 0x100b06530
+    MainLoopFrameTimer::~MainLoopFrameTimer() {
+        field_48.~FPSCounter();
     }
 
 } // namespace jag
 
 namespace jag::graphics {
-    // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    TextureAtlasUsageMap::GetMaterialUsageSlots();
+    // 0x1001a3c10: TextureAtlasUsageMap::GetMaterialUsageSlots() has the same machine code as MainLoopFrameTimer::GetFPSCounter()
 
-    // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    ModularParticleSystemTemplate::GetEmitterTemplates() const;
+    // 0x1001a3c10: ModularParticleSystemTemplate::GetEmitterTemplates() const has the same machine code as MainLoopFrameTimer::GetFPSCounter()
 
 } // namespace jag::graphics
 
 namespace jag::graphicutils {
-    // 0x1001a3d00: the linker folded this into MainLoopFrameTimer::SetFastUpdateLoopEnabled(bool), which has identical code
-    Screengrabber::SetScreenshotSaveMode(unsigned char);
+    // 0x1001a3d00: Screengrabber::SetScreenshotSaveMode(unsigned char) has the same machine code as MainLoopFrameTimer::SetFastUpdateLoopEnabled(bool)
 
 } // namespace jag::graphicutils

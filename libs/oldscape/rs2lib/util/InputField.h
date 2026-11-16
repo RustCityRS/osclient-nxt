@@ -1,138 +1,138 @@
 // libs/oldscape/rs2lib/util/InputField.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::rs2lib {
     class InputField {
     public:
-        GetContents() const;
-        byte HasFont() const;
-        uint GetScrollX() const;
-        GetScrollY() const;
-        ShowCaret() const;
-        ulong GetCaretIndex() const;
-        ulong GetSelectionStart() const;
-        char HasFocus() const;
+        void GetContents() const;
+        bool HasFont() const;
+        int GetScrollX() const;
+        SpriteAtlasUsageType GetScrollY() const;
+        uint32_t ShowCaret() const;
+        unsigned long GetCaretIndex() const;
+        unsigned long GetSelectionStart() const;
+        bool HasFocus() const;
         TextRun GetPlaceholderContents() const;
-        CanHaveFocus() const;
+        bool CanHaveFocus() const;
         void GetMaxLineWidth() const;
-        ulong GetCharacterLimit() const;
-        GetSelectedText() const;
+        unsigned long GetCharacterLimit() const;
+        auto GetSelectedText() const;
         void GetWrapMode() const;
-        GetEnterAction() const;
-        uint GetFilter() const;
+        int GetEnterAction() const;
+        InputFieldFilter GetFilter() const;
         void GetVisibility() const;
-        void SetCallbackOnSelectionChanged(std::function<void()>);
-        void SetCallbackOnTextChanged(std::function<void()>);
+        void SetCallbackOnSelectionChanged(std::function<void()> callback);
+        void SetCallbackOnTextChanged(std::function<void()> callback);
         void ClearFont();
-        void SetLineSpacing(int);
-        void SetWrapMode(jag::graphics::TextWrapMode);
-        void SetEnterAction(InputEnterAction);
-        void SetVisibility(jag::graphics::TextContentVisibility);
+        void SetLineSpacing(int arg1);
+        void SetWrapMode(jag::graphics::TextWrapMode textWrapMode);
+        void SetEnterAction(InputEnterAction inputEnterAction);
+        void SetVisibility(jag::graphics::TextContentVisibility textContentVisibility);
         InputField();
         void MainLogic();
         void MouseHoldRelease();
-        bool SetFocus(bool);
-        ulong SetSelection(unsigned long, unsigned long);
-        void SetFocusAllowed(bool);
-        ulong SetText(eastl::string);
-        SetScroll(int, int);
-        ulong CropToLimits();
+        bool SetFocus(bool arg1);
+        unsigned long SetSelection(unsigned long arg1, unsigned long arg2);
+        void SetFocusAllowed(bool arg1);
+        unsigned long SetText(eastl::string str);
+        uint64_t SetScroll(int arg1, int arg2);
+        unsigned long CropToLimits();
         void OnTextChanged();
-        SetPlaceholderText(eastl::string const&);
-        ulong SetFont(jstring::PixfontGeneric const&);
-        byte SetSize(int, int);
-        ulong SetMaxLineWidth(int);
-        SetMaxLineCount(unsigned char);
-        SetCharacterLimit(unsigned long);
-        SetAlignment(int, int);
-        ulong SetInputFilter(InputFieldFilter);
+        uint8_t SetPlaceholderText(const eastl::string& str);
+        unsigned long SetFont(const jstring::PixfontGeneric& pixfontGeneric);
+        uint8_t SetSize(int arg1, int arg2);
+        unsigned long SetMaxLineWidth(int arg1);
+        uint32_t SetMaxLineCount(unsigned char arg1);
+        uint32_t SetCharacterLimit(unsigned long arg1);
+        uint32_t SetAlignment(int arg1, int arg2);
+        unsigned long SetInputFilter(InputFieldFilter inputFieldFilter);
         void UpdateScrollCaretVisible();
-        GetWord(unsigned long);
-        IsWordBreakChar(unsigned int);
-        GetLine(unsigned long);
-        void MouseDown(int, int, bool, bool);
+        uint8_t[16] GetWord(unsigned long arg1);
+        bool IsWordBreakChar(unsigned int arg1);
+        uint8_t[16] GetLine(unsigned long arg1);
+        void MouseDown(int arg1, int arg2, bool arg3, bool arg4);
         void GetOriginForCurrentAlignment() const;
-        void CombineSelection(std::pair<unsigned long, unsigned long>, std::pair<unsigned long, unsigned long>);
-        void SelectWord(unsigned long);
-        void MouseHeld(int, int);
+        void CombineSelection(std::pair<unsigned long, unsigned long> arg1,
+                              std::pair<unsigned long, unsigned long> arg2);
+        void SelectWord(unsigned long arg1);
+        void MouseHeld(int arg1, int arg2);
         void ShowEditMenu();
-        void DoCursorKey(unsigned long, bool);
-        ulong IsCharAllowed(unsigned int);
-        TypeCharacter(unsigned int);
-        RemoveSelection();
+        void DoCursorKey(unsigned long arg1, bool arg2);
+        unsigned long IsCharAllowed(unsigned int arg1);
+        uint8_t TypeCharacter(unsigned int arg1);
+        uint32_t RemoveSelection();
         void SelectAll();
         void SelectWord();
-        HasSelection();
+        bool HasSelection();
         void Backspace();
         void Delete();
         void BackspaceWord();
         void DeleteWord();
-        void LineHome(bool);
-        void LineEnd(bool);
-        void FullHome(bool);
-        void FullEnd(bool);
-        void Left(bool);
-        void Right(bool);
-        void WordLeft(bool);
-        void WordRight(bool);
-        void Up(bool);
-        void Down(bool);
-        void PageUp(bool);
-        GetNumVisibleLines();
-        void PageDown(bool);
-        void PageUpNoScroll(bool);
-        void PageDownNoScroll(bool);
+        void LineHome(bool arg1);
+        void LineEnd(bool arg1);
+        void FullHome(bool arg1);
+        void FullEnd(bool arg1);
+        void Left(bool arg1);
+        void Right(bool arg1);
+        void WordLeft(bool arg1);
+        void WordRight(bool arg1);
+        void Up(bool arg1);
+        void Down(bool arg1);
+        void PageUp(bool arg1);
+        uint8_t[16] GetNumVisibleLines();
+        void PageDown(bool arg1);
+        void PageUpNoScroll(bool arg1);
+        void PageDownNoScroll(bool arg1);
         void ScrollUpOneLine();
         void ScrollDownOneLine();
         void CopySelection();
         void CutSelection();
         void PasteFromClipboard();
-        GetKeyboardType();
+        uint32_t GetKeyboardType();
         bool IsMultiline() const;
-        GetMaxLineCount() const;
+        uint8_t GetMaxLineCount() const;
         ~InputField();
 
-        // data members, from how the methods use this: 312 bytes
-        char _unknown_0[16];
-        int field_16;   // offset 16
-        int field_20;   // offset 20
-        int field_24;   // offset 24
-        int field_28;   // offset 28
-        uchar field_32; // offset 32
-        char _unknown_33[3];
-        undefined4 field_36; // offset 36
-        char field_40;       // offset 40
-        char _unknown_41[31];
-        int field_72; // offset 72
-        char _unknown_76[4];
-        TextRun m_placeholderContents; // offset 80
-        char m_hasFocus;               // offset 160
-        bool m_focusAllowed;           // offset 161
-        undefined1 field_162;          // offset 162
-        undefined1 field_163;          // offset 163
-        char _unknown_164[4];
-        ulonglong field_168; // offset 168
-        int field_176;       // offset 176
-        byte m_hasFont;      // offset 180
-        char _unknown_181[3];
-        undefined4 m_enterAction; // offset 184
-        int field_188;            // offset 188
-        uint m_filter;            // offset 192
-        char _unknown_196[4];
-        ulong m_caretIndex;      // offset 200
-        ulong m_pSelectionStart; // offset 208
-        ulong field_216;         // offset 216
-        int field_224;           // offset 224
-        uint field_228;          // offset 228
-        ulong m_characterLimit;  // offset 232
-        int field_240;           // offset 240
-        int field_244;           // offset 244
-        uint m_scrollX;          // offset 248
-        int field_252;           // offset 252
-        char _unknown_256[56];
+    private:
+        uint8_t _unknown_0[16];
+        int field_16;
+        int field_20;
+        TextHorizontalAlignment field_24;
+        TextVerticalAlignment field_28;
+        uint8_t field_32;
+        uint8_t _unknown_33[3];
+        TextContentVisibility field_36;
+        bool field_40;
+        uint8_t _unknown_41[31];
+        TextWrapMode field_72;
+        uint8_t _unknown_76[4];
+        TextRun m_placeholderContents;
+        char m_hasFocus;
+        bool field_161;
+        uint8_t field_162;
+        uint8_t field_163;
+        uint8_t _unknown_164[4];
+        unsigned long long field_168;
+        int field_176;
+        uint8_t m_hasFont;
+        uint8_t _unknown_181[3];
+        InputEnterAction m_enterAction;
+        int field_188;
+        InputFieldFilter m_filter;
+        uint8_t _unknown_196[4];
+        unsigned long m_caretIndex;
+        unsigned long m_pSelectionStart;
+        unsigned long field_216;
+        int field_224;
+        unsigned int field_228;
+        unsigned long m_characterLimit;
+        int field_240;
+        int field_244;
+        int m_scrollX;
+        int field_252;
+        uint8_t _unknown_256[56];
     };
 
     class InputFieldWrapper {
@@ -140,266 +140,187 @@ namespace jag::oldscape::rs2lib {
         ~InputFieldWrapper();
         InputFieldWrapper();
 
-        // data members, from how the methods use this: 1648 bytes
-        char _unknown_0[1648];
+        uint8_t _unknown_0[1648];
     };
 
-    // 0x100102f00, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputField::HasFont() const
-    /* hardware::HardwareInfo::Is64BitOS() const */
-
-    undefined1 hardware::HardwareInfo::Is64BitOS() {
+    // 0x100102f00
+    bool InputField::HasFont() const {
         return field_180;
     }
 
-    // 0x100102f20, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputField::GetScrollX() const
-    /* game::GraphicsDefaults::GetFont11pxRegularID() const */
-
-    undefined4 game::GraphicsDefaults::GetFont11pxRegularID() {
+    // 0x100102f20
+    int InputField::GetScrollX() const {
         return m_font11pxRegularID;
     }
 
-    // 0x100102f30, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputField::GetScrollY() const
-    /* jag::graphics::SpriteAtlas::GetUsageType() const */
-
-    undefined4 jag::graphics::SpriteAtlas::GetUsageType() {
-        return *(undefined4*)((long)&field_248 + 4);
+    // 0x100102f30
+    SpriteAtlasUsageType InputField::GetScrollY() const {
+        return m_usageType;
     }
 
-    // 0x100102f40, 80 bytes, inline, placed by class name
-    // InputField::ShowCaret() const
-    undefined4 InputField::ShowCaret() {
+    // 0x100102f40
+    uint32_t InputField::ShowCaret() const {
         int iVar2;
-        undefined4 uVar3;
+        uint32_t uVar3;
 
-        if (HasFocus(this) == '\0') {
+        if (HasFocus() == '\0') {
             uVar3 = 0;
         } else {
             iVar2 = field_176 % 60;
-            uVar3 = CONCAT31((int3)((uint)iVar2 >> 8), iVar2 < 30);
+            uVar3 = (((uint32_t)((int32_t)((unsigned int)iVar2 >> 8)) << 8) | (uint8_t)(iVar2 < 30));
         }
         return uVar3;
     }
 
-    // 0x100102f90, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputField::GetCaretIndex() const
-    /* jag::graphics::Material::GetWrapV() const */
-
-    undefined* jag::graphics::Material::GetWrapV() {
+    // 0x100102f90
+    unsigned long InputField::GetCaretIndex() const {
         return m_pWrapV;
     }
 
-    // 0x100102fa0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputField::GetSelectionStart() const
-    /* postprocess::PostProcessManager::GetRenderTargetsManager() */
-
-    RenderTargetsManager* postprocess::PostProcessManager::GetRenderTargetsManager() {
+    // 0x100102fa0
+    unsigned long InputField::GetSelectionStart() const {
         return m_pRenderTargetsManager;
     }
 
-    // 0x100102fb0, 16 bytes, inline, placed by class name
-    // InputField::HasFocus() const
-    char InputField::HasFocus() {
+    // 0x100102fb0
+    bool InputField::HasFocus() const {
         return m_hasFocus;
     }
 
-    // 0x100102fc0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputField::GetPlaceholderContents() const
-    /* worldmap::WorldmapAreaMetadata::GetOrigin() const */
-
-    undefined1* worldmap::WorldmapAreaMetadata::GetOrigin() {
+    // 0x100102fc0
+    TextRun InputField::GetPlaceholderContents() const {
         return m_origin;
     }
 
-    // 0x1001066e0, 16 bytes, inline, placed by class name
-    // InputField::CanHaveFocus() const
-    undefined1 InputField::CanHaveFocus() {
-        return m_focusAllowed;
+    // 0x1001066e0
+    bool InputField::CanHaveFocus() const {
+        return field_161;
     }
 
-    // 0x100159b10, 16 bytes, inline, placed by class name
-    // InputField::GetMaxLineWidth() const
-    void InputField::GetMaxLineWidth() {
+    // 0x100159b10
+    void InputField::GetMaxLineWidth() const {
         GetMaxLineWidth();
     }
 
-    // 0x100159b20, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputField::GetCharacterLimit() const
-    /* Bucket::GetSlotAlignment() const */
-
-    ulong Bucket::GetSlotAlignment() {
+    // 0x100159b20
+    unsigned long InputField::GetCharacterLimit() const {
         return m_slotAlignment;
     }
 
-    // 0x100159b30, 48 bytes, inline, placed by class name
-    // InputField::GetSelectedText() const
-    InputField* InputField::GetSelectedText() {
-        ulong in_RSI;
-
-        Slice(in_RSI, *(ulong*)(in_RSI + 208));
-        return this;
+    // 0x100159b30
+    auto InputField::GetSelectedText() const {
+        auto result;
+        result = Slice(m_pSelectionStart, m_caretIndex);
+        return result;
     }
 
-    // 0x100159b60, 16 bytes, inline, placed by class name
-    // InputField::GetWrapMode() const
-    void InputField::GetWrapMode() {
+    // 0x100159b60
+    void InputField::GetWrapMode() const {
         GetWrapMode();
     }
 
-    // 0x100159b70, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputField::GetEnterAction() const
-    /* worldmap::PackableArea::GetMaxLevels() */
-
-    int worldmap::PackableArea::GetMaxLevels() {
+    // 0x100159b70
+    int InputField::GetEnterAction() const {
         return m_maxLevels;
     }
 
-    // 0x100159b80, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // InputField::GetFilter() const
-    /* game::MapSquare::GetMapSquareX() const */
-
-    uint game::MapSquare::GetMapSquareX() {
+    // 0x100159b80
+    InputFieldFilter InputField::GetFilter() const {
         return m_mapSquareX;
     }
 
-    // 0x100159b90, 16 bytes, inline, placed by class name
-    // InputField::GetVisibility() const
-    void InputField::GetVisibility() {
+    // 0x100159b90
+    void InputField::GetVisibility() const {
         GetAliveCount();
     }
 
-    // 0x100195320, 32 bytes, inline, placed by class name
-    // InputField::SetCallbackOnSelectionChanged(std::function<void ()>)
-    /* InputField::SetCallbackOnSelectionChanged(std::function<void ()>) */
-
-    void InputField::SetCallbackOnSelectionChanged(function* param_2) {
-        std::function<void()>::operator=((function<void()>*)&field_304, param_2);
+    // 0x100195320
+    void InputField::SetCallbackOnSelectionChanged(std::function<void()> callback) {
+        field_304 = *callback;
     }
 
-    // 0x100195360, 32 bytes, inline, placed by class name
-    // InputField::SetCallbackOnTextChanged(std::function<void ()>)
-    /* InputField::SetCallbackOnTextChanged(std::function<void ()>) */
-
-    void InputField::SetCallbackOnTextChanged(function* param_2) {
-        std::function<void()>::operator=((function<void()>*)&field_256, param_2);
+    // 0x100195360
+    void InputField::SetCallbackOnTextChanged(std::function<void()> callback) {
+        field_256 = *callback;
     }
 
-    // 0x1001954c0, 16 bytes, inline, placed by class name
-    // InputField::ClearFont()
+    // 0x1001954c0
     void InputField::ClearFont() {
         m_hasFont = 0;
     }
 
-    // 0x1001954d0, 16 bytes, inline, placed by class name
-    // InputField::SetLineSpacing(int)
-    void InputField::SetLineSpacing(int param_1) {
-        SetLineSpacing(param_1);
+    // 0x1001954d0
+    void InputField::SetLineSpacing(int arg1) {
+        SetLineSpacing(arg1);
     }
 
-    // 0x100195550, 16 bytes, inline, placed by class name
-    // InputField::SetWrapMode(jag::graphics::TextWrapMode)
-    void InputField::SetWrapMode() {
-        jag::graphics::TextRun::SetWrapMode();
+    // 0x100195550
+    void InputField::SetWrapMode(jag::graphics::TextWrapMode textWrapMode) {
+        SetWrapMode(textWrapMode);
     }
 
-    // 0x100195560, 16 bytes, inline, placed by class name
-    // InputField::SetEnterAction(InputEnterAction)
-    void InputField::SetEnterAction(undefined4 param_2) {
-        m_enterAction = param_2;
+    // 0x100195560
+    void InputField::SetEnterAction(InputEnterAction inputEnterAction) {
+        m_enterAction = inputEnterAction;
     }
 
-    // 0x100195570, 16 bytes, inline, placed by class name
-    // InputField::SetVisibility(jag::graphics::TextContentVisibility)
-    void InputField::SetVisibility() {
-        jag::graphics::TextRun::SetContentVisibility();
+    // 0x100195570
+    void InputField::SetVisibility(jag::graphics::TextContentVisibility textContentVisibility) {
+        SetContentVisibility(textContentVisibility);
     }
 
-    // 0x1001fd520, 32 bytes, inline, placed by class name
-    // InputField::IsWordBreakChar(unsigned int)
-    undefined8 InputField::IsWordBreakChar(uint param_1) {
-        return CONCAT71(32768, (8388611U >> (param_1 - 9 & 31) & 1) != 0 && param_1 - 9 < 24);
+    // 0x1001fd520
+    bool InputField::IsWordBreakChar(unsigned int arg1) {
+        return (8388611U >> (arg1 - 9 & 31) & 1) != 0 && arg1 - 9 < 24;
     }
 
-    // 0x1001fdc10, 32 bytes, inline, placed by class name
-    // InputField::HasSelection()
-    undefined8 InputField::HasSelection() {
-        return CONCAT71((int7)(m_caretIndex >> 8), m_caretIndex != m_pSelectionStart);
+    // 0x1001fdc10
+    bool InputField::HasSelection() {
+        return m_caretIndex != m_pSelectionStart;
     }
 
-    // 0x1001fe0a0, 32 bytes, inline, placed by class name
-    // InputField::GetNumVisibleLines()
-    undefined1[16] InputField::GetNumVisibleLines() {
-        int iVar1;
-        int iVar2;
-        undefined1 auVar3[16];
+    // 0x1001fe0a0
+    uint8_t[16] InputField::GetNumVisibleLines() {
+        uint8_t auVar3[16];
 
-        iVar1 = field_244;
-        iVar2 = GetLineHeight();
+        int iVar1 = field_244;
+        int iVar2 = GetLineHeight();
         auVar3._0_8_ = (long)iVar1 / (long)iVar2 & 4294967295;
         auVar3._8_8_ = (long)iVar1 % (long)iVar2 & 4294967295;
         return auVar3;
     }
 
-    // 0x1001fe510, 32 bytes, inline, placed by class name
-    // InputField::IsMultiline() const
-    bool InputField::IsMultiline() {
-        int iVar1;
-
-        iVar1 = GetMaxLineCount(this);
+    // 0x1001fe510
+    bool InputField::IsMultiline() const {
+        int iVar1 = GetMaxLineCount();
         return 1 < iVar1;
     }
 
-    // 0x100216210, 16 bytes, inline, placed by class name
-    // InputField::GetMaxLineCount() const
-    undefined1 InputField::GetMaxLineCount() {
+    // 0x100216210
+    uint8_t InputField::GetMaxLineCount() const {
         return GetAlphaTestThreshold();
     }
 
-    // 0x1002182a0, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // InputFieldWrapper::~InputFieldWrapper(): jumps straight to the base-object destructor
-
-    // 0x1002182b0, 80 bytes, base-object destructor, inline, placed by class header (inline)
-    // InputFieldWrapper::~InputFieldWrapper()
-    void InputFieldWrapper::~InputFieldWrapper() {
-        (&field_1640)->~Array();
-        (&field_1616)->~Array();
-        (&field_1592)->~Array();
-        (&field_1568)->~Array();
-        ~InputField();
+    // 0x1002182b0
+    InputFieldWrapper::~InputFieldWrapper() {
+        field_1640.~Array();
+        field_1616.~Array();
+        field_1592.~Array();
+        field_1568.~Array();
     }
 
-    // 0x100218300, 16 bytes, complete-object destructor, inline, placed by class name
-    // InputField::~InputField(): jumps straight to the base-object destructor
-
-    // 0x100218310, 64 bytes, base-object destructor, inline, placed by class name
-    // InputField::~InputField()
-    void InputField::~InputField() {
-        std::function<void()>::~function((function<void()>*)&field_304);
-        std::function<void()>::~function((function<void()>*)&field_256);
+    // 0x100218310
+    InputField::~InputField() {
+        field_304.~function();
+        field_256.~function();
         m_placeholderContents->~TextRun();
-        ~TextRun();
     }
 
-    // 0x100218ca0, 16 bytes, inline, placed by class name
-    // InputField::SetText(eastl::string)::$_1::operator()(unsigned char) const
-    /* InputField::SetText(eastl::basic_string<char,
-   eastl::allocator>)::$_1::TEMPNAMEPLACEHOLDERVALUE(unsigned char) const */
+    // 0x100218ca0
+    uint8_t InputField::SetText(eastl::string)::$_1::operator()(unsigned char arg1) const {
+        uint32_t in_register_00000031;
 
-    byte InputField::SetText(eastl::string)::$_1::operator()(uchar param_1) {
-        undefined3 in_register_00000031;
-
-        return IsCharAllowed(*(InputField**)this, CONCAT31(in_register_00000031, param_1)) ^ 1;
+        return IsCharAllowed(*(InputField**)this, (((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1)) ^ 1;
     }
 
 } // namespace jag::oldscape::rs2lib
@@ -409,10 +330,10 @@ namespace jag::oldscape {
     public:
         InputFieldLayoutParams();
 
-        // data members, from how the methods use this: 40 bytes
-        char _unknown_0[24];
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
+    private:
+        uint8_t _unknown_0[24];
+        uint64_t field_24;
+        uint64_t field_32;
     };
 
 } // namespace jag::oldscape

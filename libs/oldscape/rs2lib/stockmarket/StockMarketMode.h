@@ -1,6 +1,5 @@
 // libs/oldscape/rs2lib/stockmarket/StockMarketMode.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,47 +7,36 @@ namespace jag::oldscape::rs2lib {
     class StockMarketMode {
     public:
         ~StockMarketMode();
-        StockMarketMode(int, eastl::string, ModeGame const*, constants::ModeVariant, bool, bool);
-        static StockMarketMode const* /* 8 bytes */ NONE;                  // = &enumArray
-        static StockMarketMode const* /* 8 bytes */ RUNESCAPE;             // = &enumArray[1]
-        static StockMarketMode const* /* 8 bytes */ RUNESCAPE_BETA0;       // = &enumArray[2]
-        static StockMarketMode const* /* 8 bytes */ OLDSCHOOL;             // = &enumArray[3]
-        static StockMarketMode const* /* 8 bytes */ OLDSCHOOL_DEADMAN;     // = &enumArray[4]
-        static StockMarketMode const* /* 8 bytes */ OLDSCHOOL_SEASONAL;    // = &enumArray[5]
-        static StockMarketMode const* /* 8 bytes */ OLDSCHOOL_ALTSEASONAL; // = &enumArray[6]
-        static StockMarketMode const* /* 8 bytes */ OLDSCHOOL_TOURNAMENT;  // = &enumArray[7]
-        static StockMarketMode const* /* 8 bytes */ OLDSCHOOL_PVPARENA;    // = &enumArray[8]
-        static StockMarketMode const* /* 8 bytes */ OLDSCHOOL_SPEEDRUN;    // = &enumArray[9]
-        static StockMarketMode const* /* 8 bytes */ OLDSCHOOL_NOSAVEMODE;  // = &enumArray[10]
-        static StockMarketMode /* 616 bytes */ enumArray[11];              // initialised in its definition
+        StockMarketMode(int arg1, eastl::string str, const ModeGame* modeGame, constants::ModeVariant modeVariant,
+                        bool arg5, bool arg6);
+        static StockMarketMode const* NONE;                  // = &enumArray
+        static StockMarketMode const* RUNESCAPE;             // = &enumArray[1]
+        static StockMarketMode const* RUNESCAPE_BETA0;       // = &enumArray[2]
+        static StockMarketMode const* OLDSCHOOL;             // = &enumArray[3]
+        static StockMarketMode const* OLDSCHOOL_DEADMAN;     // = &enumArray[4]
+        static StockMarketMode const* OLDSCHOOL_SEASONAL;    // = &enumArray[5]
+        static StockMarketMode const* OLDSCHOOL_ALTSEASONAL; // = &enumArray[6]
+        static StockMarketMode const* OLDSCHOOL_TOURNAMENT;  // = &enumArray[7]
+        static StockMarketMode const* OLDSCHOOL_PVPARENA;    // = &enumArray[8]
+        static StockMarketMode const* OLDSCHOOL_SPEEDRUN;    // = &enumArray[9]
+        static StockMarketMode const* OLDSCHOOL_NOSAVEMODE;  // = &enumArray[10]
+        static StockMarketMode enumArray[11];                // initialised in its definition
 
-        // data members, from how the methods use this: 56 bytes
-        char _unknown_0[32];
-        undefined8 field_32; // offset 32
-        undefined4 field_40; // offset 40
-        undefined1 field_44; // offset 44
-        undefined1 field_45; // offset 45
-        char _unknown_46[2];
-        undefined4 field_48; // offset 48
-        char _unknown_52[4];
+    private:
+        uint8_t _unknown_0[32];
+        ModeGame* field_32;
+        ModeVariant field_40;
+        bool field_44;
+        bool field_45;
+        uint8_t _unknown_46[2];
+        int field_48;
+        uint8_t _unknown_52[4];
     };
 
-    // 0x100207590, 32 bytes, complete-object constructor, inline, placed by class name and debug map
-    // StockMarketMode::StockMarketMode(int, eastl::string, ModeGame const*, constants::ModeVariant, bool, bool)
-    void StockMarketMode::StockMarketMode() {
-        StockMarketMode();
-    }
-
-    // 0x1002163f0, 80 bytes, base-object constructor, inline, placed by class name
-    // StockMarketMode::StockMarketMode(int, eastl::string, ModeGame const*, constants::ModeVariant, bool, bool)
-    void StockMarketMode::StockMarketMode(undefined4 param_1, basic_string* param_3, undefined8 param_4,
-                                          undefined4 param_5, undefined1 param_6, undefined1 param_7) {
-        new (this) eastl::string(param_3);
-        field_32 = param_4;
-        field_40 = param_5;
-        field_44 = param_6;
-        field_45 = param_7;
-        field_48 = param_1;
-    }
+    // 0x1002163f0
+    StockMarketMode::StockMarketMode(int arg1, eastl::string str, const ModeGame* modeGame,
+                                     constants::ModeVariant modeVariant, bool arg5, bool arg6)
+        : eastl::string(*str), field_32(modeGame), field_40(modeVariant), field_44(arg5), field_45(arg6),
+          field_48(arg1) {}
 
 } // namespace jag::oldscape::rs2lib

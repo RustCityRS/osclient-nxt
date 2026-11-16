@@ -1,6 +1,5 @@
 // projects/osclient/StockPriceCache.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,83 +7,62 @@ namespace jag::oldscape {
     class StockPriceCache {
     public:
         class DBImpl;
-        Init(eastl::string const&);
-        Load(eastl::string const&);
-        StartDownloadIfNeeded();
+        uint64_t Init(const eastl::string& str);
+        uint64_t Load(const eastl::string& str);
+        uint8_t* StartDownloadIfNeeded();
         void Destroy();
-        GetMarketPriceForObj(int&, int);
+        uint8_t* GetMarketPriceForObj(int& arg1, int arg2);
         StockPriceCache();
         ~StockPriceCache();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
     class StockPriceCache::DBImpl {
     public:
-        ulong Init();
-        Load(eastl::string const&);
+        unsigned long Init();
+        uint32_t Load(const eastl::string& str);
         void Destroy();
-        StartDownloadIfNeeded();
-        GetMarketPriceForObj(int&, int);
-        void LogSqlError(int, StatementIndex, char const*);
-        bool ExecuteSql(char const*);
-        bool PrepareStatement(StatementIndex);
-        Query(StatementIndex, int);
-        bool ExecuteStatement(StatementIndex, int, long long);
-        Parse(char const*, char const*);
+        uint8_t* StartDownloadIfNeeded();
+        uint8_t* GetMarketPriceForObj(int& arg1, int arg2);
+        void LogSqlError(int arg1, StatementIndex statementIndex, const char* str);
+        bool ExecuteSql(const char* str);
+        bool PrepareStatement(StatementIndex statementIndex);
+        uint64_t Query(StatementIndex statementIndex, int arg2);
+        bool ExecuteStatement(StatementIndex statementIndex, int arg2, long long arg3);
+        uint32_t Parse(const char* str1, const char* str2);
         void ProcessCompletedRequest();
-        DBImpl(eastl::string const&);
+        DBImpl(const eastl::string& str);
         ~DBImpl();
 
-        // data members, from how the methods use this: 152 bytes
-        char _unknown_0[40];
-        long field_40;       // offset 40
-        long field_48;       // offset 48
-        long field_56;       // offset 56
-        undefined8 field_64; // offset 64
-        char _unknown_72[80];
+    private:
+        uint8_t _unknown_0[40];
+        long field_40;
+        long field_48;
+        long field_56;
+        uint64_t field_64;
+        uint8_t _unknown_72[80];
     };
 
-    // 0x1000c4280, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // StockPriceCache::StockPriceCache(): jumps straight to the base-object constructor
-
-    // 0x1000c4ac0, 16 bytes, complete-object destructor, inline, placed by class name
-    // StockPriceCache::~StockPriceCache(): jumps straight to the base-object destructor
-
-    // 0x100128270, 16 bytes, base-object constructor, inline, placed by class name
-    // StockPriceCache::StockPriceCache()
-    void StockPriceCache::StockPriceCache() {
-        std::unique_ptr<StockPriceCache::DBImpl, std::default_delete<StockPriceCache::DBImpl>>::unique_ptr<true, void>(
-            (unique_ptr<StockPriceCache::DBImpl, std::default_delete<StockPriceCache::DBImpl>>*)this);
+    // 0x100128270
+    StockPriceCache::StockPriceCache() {
+        unique_ptr<true, void>();
     }
 
-    // 0x10012a560, 16 bytes, base-object destructor, inline, placed by class name
-    // StockPriceCache::~StockPriceCache()
-    void StockPriceCache::~StockPriceCache() {
-        ~unique_ptr();
-    }
+    // 0x10012a560
+    StockPriceCache::~StockPriceCache() {}
 
-    // 0x100136400, 16 bytes, complete-object constructor, inline, placed by class name
-    // StockPriceCache::DBImpl::DBImpl(eastl::string const&): jumps straight to the base-object constructor
-
-    // 0x100136420, 96 bytes, base-object constructor, inline, placed by class name
-    // StockPriceCache::DBImpl::DBImpl(eastl::string const&)
-    void StockPriceCache::DBImpl::DBImpl(basic_string* param_1) {
-        std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>::unique_ptr<true, void>(
-            (unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>*)this);
-        new (&field_8, param_1) eastl::string();
+    // 0x100136420
+    StockPriceCache::DBImpl::DBImpl(const eastl::string& str) {
+        unique_ptr<true, void>();
+        new (&field_8) eastl::string(str);
         field_64 = 0;
         _memcpy(&field_72, &DAT_100ef44f8, 192);
     }
 
-    // 0x1001365f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // StockPriceCache::DBImpl::~DBImpl(): jumps straight to the base-object destructor
-
-    // 0x100136600, 48 bytes, base-object destructor, inline, placed by class name
-    // StockPriceCache::DBImpl::~DBImpl()
-    void StockPriceCache::DBImpl::~DBImpl() {
-        (&field_8)->~basic_string();
+    // 0x100136600
+    StockPriceCache::DBImpl::~DBImpl() {
+        field_8.~basic_string();
         ~unique_ptr();
     }
 

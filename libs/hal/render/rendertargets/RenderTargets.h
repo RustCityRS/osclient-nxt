@@ -1,201 +1,152 @@
 // libs/hal/render/rendertargets/RenderTargets.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::render {
     class RenderTargets {
     public:
-        GetDepthStencilTargetTexture() const;
+        uint64_t GetDepthStencilTargetTexture() const;
         RenderTargets();
         ~RenderTargets();
-        byte IsBackBuffer() const;
-        ulong HasColourTargets() const;
+        bool IsBackBuffer() const;
+        unsigned long HasColourTargets() const;
         bool HasDepthTarget() const;
         bool IsCreated() const;
         void Destroy();
-        BindColourTargetTexture(Texture*, int, int, CubeFace);
-        BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace);
+        uint64_t BindColourTargetTexture(Texture* texture, int arg2, int arg3, CubeFace cubeFace);
+        uint64_t BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul> const& textures, int arg2, int arg3,
+                                          CubeFace cubeFace);
         void SetNeedsInvalidated() const;
-        CheckTexturesAlive(RenderContext const&) const;
-        void SafeReset(shared_ptr<RenderTargets>&);
-        HasStencilTarget() const;
+        uint64_t CheckTexturesAlive(const RenderContext& renderContext) const;
+        void SafeReset(shared_ptr<RenderTargets>& renderTargets);
+        bool HasStencilTarget() const;
         void KeepAlive() const;
         void ReleaseNativeResources();
-        BindDepthStencilTargetTexture(RenderTargets*);
-        BindDepthStencilTargetTexture(Texture*);
-        GetDepthStencilTargetTexture();
-        GetColourTargetTextures();
-        GetColourTargetTextures() const;
-        void SetName(char const*);
-        bool Create(char const*, TextureType, std::array<Texture::Desc, 2ul> const&, int, Texture::Desc const&,
-                    unsigned int);
-        void RestorePreviousFrameBuffer(RenderContext&) const;
-        void BindFrameBufferWithoutStateCache(RenderContext&) const;
-        Create(char const*, unsigned int);
+        uint64_t BindDepthStencilTargetTexture(RenderTargets* renderTargets);
+        uint64_t BindDepthStencilTargetTexture(Texture* texture);
+        uint64_t GetDepthStencilTargetTexture();
+        uint8_t* GetColourTargetTextures();
+        uint8_t* GetColourTargetTextures() const;
+        void SetName(const char* str);
+        bool Create(const char* str, TextureType textureType, const std::array<Texture::Desc, 2ul>& descs, int arg4,
+                    const Texture::Desc& desc, unsigned int arg6);
+        void RestorePreviousFrameBuffer(RenderContext& renderContext) const;
+        void BindFrameBufferWithoutStateCache(RenderContext& renderContext) const;
+        uint8_t Create(const char* str, unsigned int arg2);
         void GetName() const;
-        CreateInternal(RenderContext&);
-        void SetEnabledRenderTargets(unsigned long, unsigned long const*);
-        void SetTargetCubeMapFace(int, CubeFace);
-        void SetTargetMipLayerLevel(int, int, int);
+        uint32_t CreateInternal(RenderContext& renderContext);
+        void SetEnabledRenderTargets(unsigned long arg1, const unsigned long* arg2);
+        void SetTargetCubeMapFace(int arg1, CubeFace cubeFace);
+        void SetTargetMipLayerLevel(int arg1, int arg2, int arg3);
         void Unbind();
         void UnbindDepthStencilTargetTexture();
         void GetNativeFBOId() const;
         void Invalidate() const;
         void InvalidateAllRenderTargets();
         void EnableKeepAlive();
-        GetInfoString() const;
-        static /* 64 bytes */ m_renderTargetsToInvalidateMutex; // initialised in its definition
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullRenderTargets;
-        static /* 2704 bytes */ m_renderTargetsToInvalidate;
+        auto GetInfoString() const;
+        static int32_t m_renderTargetsToInvalidateMutex[16]; // initialised in its definition
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullRenderTargets; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
+        static eastl::rbtree<eastl::string, eastl::pair<eastl::stringconst, bool>, eastl::less<eastl::string>,
+                             eastl::allocator, eastl::use_first<eastl::pair<eastl::stringconst, bool>>, true, true>
+            m_renderTargetsToInvalidate;
 
-        // data members, from how the methods use this: 388 bytes
-        int field_0;            // offset 0
-        RenderResource field_4; // offset 4
-        char _unknown_5[187];
-        Texture* field_192; // offset 192
-        Texture* field_200; // offset 200
-        char _unknown_208[8];
-        uint field_216; // offset 216
-        char _unknown_220[108];
-        undefined8 field_328; // offset 328
-        char _unknown_336[40];
-        undefined4 field_376; // offset 376
-        undefined1 field_380; // offset 380
-        char _unknown_381[7];
+    private:
+        RenderResourceLivenessMethod field_0;
+        RenderResource field_4;
+        uint8_t _unknown_5[187];
+        Texture* field_192;
+        Texture* field_200;
+        uint8_t _unknown_208[8];
+        unsigned int field_216;
+        uint8_t _unknown_220[108];
+        unsigned int field_328;
+        unsigned int field_332;
+        uint8_t _unknown_336[40];
+        CubeFace field_376;
+        uint8_t _unknown_380[8];
     };
 
-    // 0x1001d06f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // RenderTargetData::RenderTargetData(RenderTargets*, math::Vector4T<float> const&, unsigned int, float, unsigned int): jumps straight to the base-object constructor
-
-    // 0x100bdfc20, 32 bytes, inline, placed by class name and debug map
-    // RenderTargets::IsBackBuffer() const
-    byte RenderTargets::IsBackBuffer() {
-        return ((byte)field_216 & 16) >> 4;
+    // 0x100bdfc20
+    bool RenderTargets::IsBackBuffer() const {
+        return ((uint8_t)field_216 & 16) >> 4;
     }
 
-    // 0x100be1cf0, 32 bytes, inline, placed by class name
-    // RenderTargets::SetName(char const*)
-    void RenderTargets::SetName(char* param_1) {
-        eastl::fixed_string<char, 16, true, eastl::allocator>::operator=(
-            (fixed_string<char, 16, true, eastl::allocator>*)&field_224, param_1);
+    // 0x100be1cf0
+    void RenderTargets::SetName(const char* str) {
+        field_224 = str;
     }
 
-    // 0x100be7a00, 32 bytes, inline, placed by class name
-    // RenderTargets::GetName() const
-    void RenderTargets::GetName() {
+    // 0x100be7a00
+    void RenderTargets::GetName() const {
         eastl::basic_string<char, BucketAllocatorEASTL>::begin();
     }
 
-    // 0x100be8270, 16 bytes, complete-object destructor, inline, placed by class name
-    // RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace)::$_11::~$_11(): jumps straight to the base-object destructor
-
-    // 0x100bf76e0, 16 bytes, base-object destructor, inline, placed by class name
-    // RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace)::$_11::~$_11()
-    /* ~$_11() */
-
-    void RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int,
-                                                 int, CubeFace)::$_11::~__11() {
+    // 0x100bf76e0
+    RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul> const&, int, int,
+                                            CubeFace)::$_11::~$_11() {
         ((this + 24))->~fixed_vector();
     }
 
-    // 0x100bfcc70, 32 bytes, inline, placed by class name
-    // RenderTargets::Create(char const*, TextureType, std::array<Texture::Desc, 2ul> const&, int, Texture::Desc const&, unsigned int)::$_6::operator()(RenderContext&) const
-    /* RenderTargets::Create(char const*, TextureType,
-   std::array<Texture::Desc, 2ul> const&, int, Texture::Desc const&,
-   unsigned int)::$_6::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
+    // 0x100bfcc70
     void RenderTargets::Create(char const*, TextureType, std::array<Texture::Desc, 2ul> const&, int,
-                               Texture::Desc_const&, unsigned int)::$_6::operator()(RenderContext* param_1) {
-        undefined1 uVar1;
-
-        uVar1 = CreateInternal(*(RenderTargets**)(this + 8), param_1);
-        **(undefined1**)this = uVar1;
+                               Texture::Desc const&,
+                               unsigned int)::$_6::operator()(RenderContext& renderContext) const {
+        uint8_t uVar1 = CreateInternal(*(RenderTargets**)(this + 8), renderContext);
+        **(uint8_t**)this = uVar1;
     }
 
-    // 0x100bfcd20, 16 bytes, inline, placed by class name
-    // RenderTargets::Create(char const*, TextureType, std::array<Texture::Desc, 2ul> const&, int, Texture::Desc const&, unsigned int)::$_7::operator()(RenderContext&) const
-    /* RenderTargets::Create(char const*, TextureType,
-   std::array<Texture::Desc, 2ul> const&, int, Texture::Desc const&,
-   unsigned int)::$_7::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
-
+    // 0x100bfcd20
     void RenderTargets::Create(char const*, TextureType, std::array<Texture::Desc, 2ul> const&, int,
-                               Texture::Desc_const&, unsigned int)::$_7::operator()(RenderContext* param_1) {
-        CreateInternal(*(RenderTargets**)this, param_1);
+                               Texture::Desc const&,
+                               unsigned int)::$_7::operator()(RenderContext& renderContext) const {
+        CreateInternal(*(RenderTargets**)this, renderContext);
     }
 
-    // 0x100bfd940, 16 bytes, complete-object constructor, inline, placed by class name
-    // RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace)::$_11::$_11($_11&&): jumps straight to the base-object constructor
-
-    // 0x100bfd950, 32 bytes, base-object constructor, inline, placed by class name
-    // RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace)::$_11::$_11($_11&&)
-    /* $_11($_11&&) */
-
-    void RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int,
-                                                 int, CubeFace)::$_11::__11(__11* param_1) {
-        undefined8 uVar1;
-
-        *(undefined4*)(this + 16) = *(undefined4*)(param_1 + 16);
-        uVar1 = *(undefined8*)(param_1 + 8);
-        *(undefined8*)this = *(undefined8*)param_1;
-        *(undefined8*)(this + 8) = uVar1;
-        new ((this + 24)) eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator>((fixed_vector*)(param_1 + 24));
+    // 0x100bfd950
+    RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul> const&, int, int,
+                                            CubeFace)::$_11::$_11($_11&& arg1) {
+        *(uint32_t*)(this + 16) = *(uint32_t*)(arg1 + 16);
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        *(uint64_t*)this = *(uint64_t*)arg1;
+        *(uint64_t*)(this + 8) = uVar1;
+        new ((this + 24)) eastl::fixed_vector<Texture*, 2ul>(*((arg1 + 24)));
     }
 
-    // 0x100bfd9a0, 16 bytes, complete-object constructor, inline, placed by class name
-    // RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace)::$_11::$_11($_11 const&): jumps straight to the base-object constructor
-
-    // 0x100bfd9b0, 32 bytes, base-object constructor, inline, placed by class name
-    // RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace)::$_11::$_11($_11 const&)
-    /* $_11($_11 const&) */
-
-    void RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int,
-                                                 int, CubeFace)::$_11::__11(__11* param_1) {
-        undefined8 uVar1;
-
-        *(undefined4*)(this + 16) = *(undefined4*)(param_1 + 16);
-        uVar1 = *(undefined8*)(param_1 + 8);
-        *(undefined8*)this = *(undefined8*)param_1;
-        *(undefined8*)(this + 8) = uVar1;
-        new ((this + 24)) eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator>((fixed_vector*)(param_1 + 24));
+    // 0x100bfd9b0
+    RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul> const&, int, int,
+                                            CubeFace)::$_11::$_11(const $_11& arg1) {
+        *(uint32_t*)(this + 16) = *(uint32_t*)(arg1 + 16);
+        uint64_t uVar1 = *(uint64_t*)(arg1 + 8);
+        *(uint64_t*)this = *(uint64_t*)arg1;
+        *(uint64_t*)(this + 8) = uVar1;
+        new ((this + 24)) eastl::fixed_vector<Texture*, 2ul>(*((arg1 + 24)));
     }
 
-    // 0x100bfd9f0, 560 bytes, inline, placed by class name
-    // RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int, int, CubeFace)::$_11::operator()(RenderContext&) const
-    /* RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*,
-   2ul, true, eastl::allocator> const&, int, int,
-   CubeFace)::$_11::TEMPNAMEPLACEHOLDERVALUE(RenderContext&) const */
+    // 0x100bfd9f0
+    void RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul> const&, int, int,
+                                                 CubeFace)::$_11::operator()(RenderContext& renderContext) const {
+        bool cVar1;
+        unsigned int uVar3;
+        Logger* pLVar6;
+        unsigned long uVar8;
+        uint64_t* puVar9;
+        Texture* pTVar10;
+        memory_order memory_order;
+        unsigned long arg1;
 
-    void RenderTargets::BindColourTargetTextures(eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator> const&, int,
-                                                 int, CubeFace)::$_11::operator()(RenderContext* param_1) {
-        undefined1* this_00;
-        RenderTargets* this_01;
-        Texture* this_02;
-        char cVar1;
-        uint uVar2;
-        undefined4 uVar3;
-        undefined4 uVar4;
-        long* plVar5;
-        long* plVar6;
-        undefined8 uVar7;
-        long lVar8;
-        ulong uVar9;
-        undefined8* puVar10;
-        ulong uVar11;
-
-        this_01 = *(RenderTargets**)this;
-        uVar2 = (&this_01->field_380)->operator_cast_to_unsigned_int();
-        if ((uVar2 == 0) && (cVar1 = IsBackBuffer(this_01), cVar1 == '\0')) {
-            /* WARNING: Subroutine does not return */
+        RenderTargets* this_01 = *(RenderTargets**)this;
+        int iVar2 = (&this_01->field_380)->operator_cast_to_unsigned_int();
+        if ((iVar2 == 0) && (cVar1 = IsBackBuffer(this_01), !cVar1)) {
             LogAssert("m_FBO != 0 || IsBackBuffer()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
-                      614, (char*)0);
+                      614, nullptr);
         }
-        cVar1 = (&this_01->field_136)->empty();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        cVar1 = this_01->field_136.empty();
+        if (!cVar1) {
             LogAssert("m_ownedColourTargetTextures.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/RenderTargets_OGL.cpp",
@@ -203,86 +154,84 @@ namespace jag::render {
                       "Setting of external colour target textures only supported when RenderTargets is created without "
                       "ownership of its own");
         }
-        this_00 = &this_01->field_80;
-        eastl::fixed_vector<Texture*, 2ul, true, eastl::allocator>::operator=(
-            (fixed_vector<Texture*, 2ul, true, eastl::allocator>*)this_00, (fixed_vector*)(this + 24));
-        plVar5 = (long*)this_00->HeapBeginPtr();
-        plVar6 = (long*)this_00->end();
+        uint8_t* this_00 = &this_01->field_80;
+        *this_00 = (*((this + 24)));
+        auto plVar4 = this_00->HeapBeginPtr();
+        auto plVar5 = this_00->end();
         while (true) {
-            if (plVar5 == plVar6) {
+            if (plVar4 == plVar5) {
                 cVar1 = IsBackBuffer(this_01);
-                if (cVar1 == '\0') {
-                    param_1->SetRenderTargets(this_01);
-                    lVar8 = this_00->size();
-                    if (lVar8 != 0) {
-                        uVar11 = 0;
+                if (!cVar1) {
+                    renderContext.SetRenderTargets(this_01);
+                    if (this_00->size() != 0) {
+                        arg1 = 0;
                         do {
-                            puVar10 = (undefined8*)eastl::vector<
-                                Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::
-                            operator[](
-                                (vector<Texture*,
-                                        eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                    this_00,
-                                uVar11);
-                            this_02 = (Texture*)*puVar10;
-                            if (this_02 == (Texture*)0) {
-                                /* WARNING: Subroutine does not return */
+                            puVar9 = (uint64_t*)(*this_00)[arg1];
+                            pTVar10 = (Texture*)*puVar9;
+                            if (pTVar10 == nullptr) {
                                 LogAssert("pTexture != nullptr",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                           "render/rendertargets/OGL/RenderTargets_OGL.cpp",
-                                          636, (char*)0);
+                                          636, nullptr);
                             }
-                            AttachColourTargetToFBO(this_02, uVar11, *(undefined4*)(this + 8),
-                                                    *(undefined4*)(this + 12), *(undefined4*)(this + 16));
+                            iVar2 = (int)arg1;
+                            AttachColourTargetToFBO(pTVar10, iVar2, *(int*)(this + 8), *(int*)(this + 12),
+                                                    *(CubeFace*)(this + 16));
+                            memory_order = (memory_order)arg1;
                             cVar1 = IsFBOValid();
-                            if (cVar1 == '\0') {
-                                uVar7 = logger::default_logger();
-                                uVar3 = this_02->GetNativeTextureId();
-                                uVar4 = std::__atomic_base<unsigned int, false>::load(&this_01->field_380);
-                                logger::Logger::Log(uVar7, 0, 2,
-                                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
-                                                    "libs/hal/render/rendertargets/OGL/RenderTargets_OGL.cpp",
-                                                    642, "Failed to bind colour target texture %u to FBO %u", uVar3,
-                                                    uVar4);
+                            if (!cVar1) {
+                                pLVar6 = logger::default_logger();
+                                pTVar10 = pTVar10->GetNativeTextureId();
+                                uVar3 = this_01->field_380.load(memory_order);
+                                pLVar6->Log(false, 2,
+                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
+                                            "render/rendertargets/OGL/RenderTargets_OGL.cpp",
+                                            642, "Failed to bind colour target texture %u to FBO %u",
+                                            (unsigned long)pTVar10 & 4294967295, (unsigned long)uVar3);
                             }
-                            uVar11 = (ulong)((int)uVar11 + 1);
-                            uVar9 = this_00->size();
-                        } while (uVar11 < uVar9);
+                            arg1 = (unsigned long)(iVar2 + 1);
+                            uVar8 = this_00->size();
+                        } while (arg1 < uVar8);
                     }
                 }
                 return;
             }
-            if ((*plVar5 != 0) && ((cVar1 = param_1->IsObjectAlive((RenderResource*)(*plVar5 + 8)),
-                                    cVar1 == '\0' || (cVar1 = (*plVar5)->IsCreated(), cVar1 == '\0'))))
+            if ((*plVar4 != 0) && ((cVar1 = renderContext.IsObjectAlive((*plVar4 + 8)),
+                                    !cVar1 || (cVar1 = (*plVar4)->IsCreated(), !cVar1))))
                 break;
-            plVar5 = plVar5 + 1;
+            plVar4 = plVar4 + 1;
         }
-        uVar7 = logger::default_logger();
-        logger::Logger::Log(uVar7, 0, 3,
-                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                            "rendertargets/OGL/RenderTargets_OGL.cpp",
-                            624, "Colour texture to be bound to render target was destroyed before deferred binding");
+        pLVar6 = logger::default_logger();
+        pLVar6->Log(false, 3,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
+                    "OGL/RenderTargets_OGL.cpp",
+                    624, "Colour texture to be bound to render target was destroyed before deferred binding");
     }
 
-    // 0x100c275b0, 16 bytes, inline, placed by class name
-    // RenderTargets::EnableKeepAlive()
+    // 0x100c275b0
     void RenderTargets::EnableKeepAlive() {
-        *(byte*)&field_216 = (byte)field_216 & 253;
+        *(uint8_t*)&field_216 = (uint8_t)field_216 & 253;
     }
 
-    // 0x100c27660, 144 bytes, inline, placed by class name
-    // RenderTargets::GetInfoString() const
-    RenderTargets* RenderTargets::GetInfoString() {
-        long in_RSI;
+    // 0x100c27660
+    auto RenderTargets::GetInfoString() const {
+        uint64_t in_RAX;
+        memory_order memory_order;
+        uint8_t* puVar6;
 
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() ==
-            '\0') {
-            eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        uint32_t uVar7 = (uint32_t)((unsigned long)in_RAX >> 32);
+        bool cVar3 = field_224.empty();
+        memory_order = (memory_order)this;
+        if (!cVar3) {
+            puVar6 = (uint8_t*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        } else {
+            puVar6 = &DAT_100e3802c;
         }
-        std::__atomic_base<unsigned int, false>::load(in_RSI + 380);
-        eastl::fixed_string<char, 128, true, eastl::allocator>::fixed_string(this, "%x %s (%i x %i) (FBO %i)");
-        return this;
+        unsigned int uVar1 = field_328;
+        unsigned int uVar2 = field_332;
+        uint32_t uVar4 = field_380.load(memory_order);
+        return auto((CtorSprintf*)"%x %s (%i x %i) (FBO %i)", this, puVar6, (unsigned long)uVar1, (unsigned long)uVar2,
+                    (((uint64_t)uVar7 << 32) | (uint32_t)uVar4));
     }
 
 } // namespace jag::render

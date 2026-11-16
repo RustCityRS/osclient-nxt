@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/renderer/renderpasses/SceneRenderPass.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,79 +9,75 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~SceneRenderPass();
-        virtual void PreparePass(RT7Core&, EffectManager&, SceneViewData const&, DrawableQueue&);
+        virtual void PreparePass(RT7Core& rt7Core, EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                 DrawableQueue& drawableQueue);
         virtual void OnOcclusionEnabled();
         virtual void __pure_slot_9() = 0;
         virtual void CreateRenderingResources();
         virtual void DestroyRenderingResources();
         OcclusionManager GetOcclusionManager();
         OcclusionManager GetOcclusionManager() const;
-        void ClearRenderTargets(render::RenderContext&, render::RenderTargetData const&,
-                                eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator> const&);
-        SceneRenderPass(RenderPassType, render::RenderTargetsManager*, ThreadPool*);
-        void SetOcclusionTestEnabled(bool);
-        GetCPUOcclusionEnabled(SceneViewData const&) const;
-        GetOcclusionEnabled(SceneViewData const&) const;
-        ulong IsViewChangeValidForOcclusion(SceneViewData const&);
-        void RenderOccludedDrawableGroup(RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&,
-                                         DrawableQueue&, DrawableGroupType, bool, OcclusionManager*, float);
-        void DownsampleGPUDepthBuffer(RT7Core&, EffectManager&, SceneViewData const&, DrawableQueue&,
-                                      render::Texture const*, bool);
-        GetOcclusionSceneViewData() const;
+        void ClearRenderTargets(render::RenderContext& renderContext, const render::RenderTargetData& renderTargetData,
+                                const eastl::fixed_vector<render::Viewport, 2ul>& viewports);
+        SceneRenderPass(RenderPassType renderPassType, render::RenderTargetsManager* renderTargetsManager,
+                        ThreadPool* threadPool);
+        void SetOcclusionTestEnabled(bool arg1);
+        uint64_t GetCPUOcclusionEnabled(const SceneViewData& sceneViewData) const;
+        uint64_t GetOcclusionEnabled(const SceneViewData& sceneViewData) const;
+        unsigned long IsViewChangeValidForOcclusion(const SceneViewData& sceneViewData);
+        void RenderOccludedDrawableGroup(RT7Core& rt7Core, const render::DrawCallState& drawCallState,
+                                         EffectManager& effectManager, const SceneViewData& sceneViewData,
+                                         DrawableQueue& drawableQueue, DrawableGroupType drawableGroupType, bool arg7,
+                                         OcclusionManager* occlusionManager, float arg9);
+        void DownsampleGPUDepthBuffer(RT7Core& rt7Core, EffectManager& effectManager,
+                                      const SceneViewData& sceneViewData, DrawableQueue& drawableQueue,
+                                      const render::Texture* texture, bool arg6);
+        uint64_t GetOcclusionSceneViewData() const;
         void RenderOccludedDrawableGroup(
-            RT7Core&, render::DrawCallState const&, EffectManager&, SceneViewData const&, DrawableQueue&,
-            DrawableGroupType, RenderPassType, bool,
-            std::function<bool(Drawable*, std::unique_ptr<DrawableElement, DrawableElementDeleter> const&)> const&);
-        GetOcclusionEnabledIgnoringLocalBuffer(SceneViewData const&) const;
-        bool GetGPUOcclusionEnabled(SceneViewData const&) const;
-        void InitOcclusion(render::RenderTargetsManager*, char const*, bool, unsigned int, unsigned int);
-        void DestroyOcclusion(render::RenderTargetsManager*);
+            RT7Core& rt7Core, const render::DrawCallState& drawCallState, EffectManager& effectManager,
+            const SceneViewData& sceneViewData, DrawableQueue& drawableQueue, DrawableGroupType drawableGroupType,
+            RenderPassType renderPassType, bool arg8,
+            std::function<bool(Drawable*, std::unique_ptr<DrawableElement, DrawableElementDeleter> const&)> const&
+                callback);
+        uint64_t GetOcclusionEnabledIgnoringLocalBuffer(const SceneViewData& sceneViewData) const;
+        uint64_t GetGPUOcclusionEnabled(const SceneViewData& sceneViewData) const;
+        void InitOcclusion(render::RenderTargetsManager* renderTargetsManager, const char* str, bool arg3,
+                           unsigned int arg4, unsigned int arg5);
+        void DestroyOcclusion(render::RenderTargetsManager* renderTargetsManager);
         void OnOcclusionDisabled();
-        GetOcclusionEnabled() const;
-        void ResolveOcclusionBuffer(RT7Core&, SceneViewData const&);
-        void UpdateMaterialDistanceKeys(DrawableQueue&, DrawableGroupType);
+        uint32_t GetOcclusionEnabled() const;
+        void ResolveOcclusionBuffer(RT7Core& rt7Core, const SceneViewData& sceneViewData);
+        void UpdateMaterialDistanceKeys(DrawableQueue& drawableQueue, DrawableGroupType drawableGroupType);
         bool GetOcclusionTestEnabled() const;
 
-        // data members, from how the methods use this: 800 bytes, the first 16 are RenderPass
-        OcclusionManager m_occlusionManager; // offset 16
-        char _unknown_729[47];
-        char field_776;       // offset 776
-        bool field_777;       // offset 777
-        undefined1 field_778; // offset 778
-        char _unknown_779[1];
-        int field_780;        // offset 780
-        undefined8 field_784; // offset 784
-        uint field_792;       // offset 792
-        char _unknown_796[4];
+    private:
+        OcclusionManager m_occlusionManager;
+        uint8_t _unknown_729[47];
+        char field_776;
+        bool field_777;
+        uint8_t field_778;
+        uint8_t _unknown_779[1];
+        int field_780;
+        RenderTargetsManager* field_784;
+        unsigned int field_792;
+        uint8_t _unknown_796[4];
     };
 
-    // 0x1007a8410, 96 bytes, inline, placed by class name
-    // SceneRenderPass::GetOcclusionSceneViewData() const
-    undefined8 SceneRenderPass::GetOcclusionSceneViewData() {
-        char cVar1;
-        uint uVar3;
-        BufferedRenderTargets* this_00;
-        undefined8 uVar4;
+    // 0x1007a8410
+    uint64_t SceneRenderPass::GetOcclusionSceneViewData() const {
+        unsigned int uVar2;
 
-        cVar1 = (&field_744)->empty();
-        if (cVar1 == '\0') {
+        if (!(field_744.empty())) {
             if ((&field_736)->operator_cast_to_bool()) {
-                this_00 = (BufferedRenderTargets*)std::unique_ptr<render::BufferedRenderTargets,
-                                                                  std::default_delete<render::BufferedRenderTargets>>::
-                          operator->((unique_ptr<render::BufferedRenderTargets,
-                                                 std::default_delete<render::BufferedRenderTargets>>*)&field_736);
-                uVar3 = this_00->GetReadIndex();
-                uVar4 = Array<SceneViewData, eastl::allocator>::operator[](
-                    (Array<SceneViewData, eastl::allocator>*)&field_744, (ulong)uVar3);
-                return uVar4;
+                uVar2 = ((BufferedRenderTargets*)field_736.operator->())->GetReadIndex();
+                return field_744[(unsigned long)uVar2];
             }
         }
         return 0;
     }
 
-    // 0x1008b20d0, 32 bytes, inline, placed by class name
-    // SceneRenderPass::GetOcclusionTestEnabled() const
-    bool SceneRenderPass::GetOcclusionTestEnabled() {
+    // 0x1008b20d0
+    bool SceneRenderPass::GetOcclusionTestEnabled() const {
         if (field_776 == '\0') {
             return false;
         }
@@ -90,9 +85,3 @@ namespace jag::graphics {
     }
 
 } // namespace jag::graphics
-
-namespace jag::fixedfunction {
-    // 0x1007a6e50, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // function<void (render::RenderContext&), 128ul, 16ul, (Methods)0>::function<graphics::ForwardLightingPass::Render(graphics::RT7Core&, render::DrawCallState const&, graphics::EffectManager&, graphics::SceneViewData const&, graphics::DrawableQueue&)::$_0, void>(graphics::ForwardLightingPass::Render(graphics::RT7Core&, render::DrawCallState const&, graphics::EffectManager&, graphics::SceneViewData const&, graphics::DrawableQueue&)::$_0&&): jumps straight to the base-object constructor
-
-} // namespace jag::fixedfunction

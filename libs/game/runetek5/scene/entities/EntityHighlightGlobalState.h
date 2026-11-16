@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/entities/EntityHighlightGlobalState.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,97 +7,89 @@ namespace jag::game {
     class EntityHighlightGlobalState {
     public:
         class RadialHighlightState;
-        GetPreviousUpdateLogicTick() const;
-        GetOutlineRadiusAdjustment() const;
+        EnumOptionToggle GetPreviousUpdateLogicTick() const;
+        uint32_t GetOutlineRadiusAdjustment() const;
         int GetPlayerNPCAttackOpPriority() const;
-        uint GetCurrentUpdateLogicTick() const;
-        GetPlayerActiveCombatLevel() const;
-        IsInteractionFadeOutFrozen() const;
-        void Update(float, unsigned int);
-        GetRadialHighlightAlpha(float) const;
+        unsigned int GetCurrentUpdateLogicTick() const;
+        unsigned int GetPlayerActiveCombatLevel() const;
+        bool IsInteractionFadeOutFrozen() const;
+        void Update(float arg1, unsigned int arg2);
+        uint64_t GetRadialHighlightAlpha(float arg1) const;
         bool IsRadialHighlightActive() const;
         bool IsEnabled() const;
-        bool GetRadialHighlightVisible(float) const;
+        bool GetRadialHighlightVisible(float arg1) const;
         EntityHighlightGlobalState();
-        static float /* 4 bytes */ m_radialHighlightMaxRadius;     // = 5000.0f
-        static float /* 4 bytes */ m_radialHighlightedRange;       // = 1000.0f
-        static float /* 4 bytes */ m_radialHighlightExpandSpeed;   // = 6.0f
-        static float /* 4 bytes */ m_radialHighlightContractSpeed; // = 2.0f
-        static /* 1 bytes */ m_allowExamineOnlyHighlights;
+        static float m_radialHighlightMaxRadius;     // = 5000.0f
+        static float m_radialHighlightedRange;       // = 1000.0f
+        static float m_radialHighlightExpandSpeed;   // = 6.0f
+        static float m_radialHighlightContractSpeed; // = 2.0f
+        static bool m_allowExamineOnlyHighlights;
 
-        // data members, from how the methods use this: 52 bytes
-        char field_0;                          // offset 0
-        char field_1;                          // offset 1
-        undefined1 field_2;                    // offset 2
-        undefined1 m_interactionFadeOutFrozen; // offset 3
-        uint m_currentUpdateLogicTick;         // offset 4
-        undefined3 m_previousUpdateLogicTick;  // offset 8
-        undefined1 field_11;                   // offset 11
-        undefined4 m_outlineRadiusAdjustment;  // offset 12
-        int m_playerNPCAttackOpPriority;       // offset 16
-        undefined8 m_playerActiveCombatLevel;  // offset 20
-        int field_28;                          // offset 28
-        float field_32;                        // offset 32
-        float field_36;                        // offset 36
-        float field_40;                        // offset 40
-        float field_44;                        // offset 44
-        char _unknown_48[4];
+    private:
+        char field_0;
+        char field_1;
+        uint8_t field_2;
+        uint8_t m_interactionFadeOutFrozen;
+        unsigned int m_currentUpdateLogicTick;
+        uint8_t m_previousUpdateLogicTick[3];
+        uint8_t field_11;
+        uint32_t m_outlineRadiusAdjustment;
+        int m_playerNPCAttackOpPriority;
+        uint64_t m_playerActiveCombatLevel;
+        int field_28;
+        float field_32;
+        float field_36;
+        float field_40;
+        float field_44;
+        uint8_t _unknown_48[4];
     };
 
     class EntityHighlightGlobalState::RadialHighlightState {
     public:
         RadialHighlightState();
-        void UpdateRadius(float, float);
+        void UpdateRadius(float arg1, float arg2);
 
-        // data members, from how the methods use this: 24 bytes
-        char _unknown_0[4];
-        float field_4;  // offset 4
-        float field_8;  // offset 8
-        float field_12; // offset 12
-        float field_16; // offset 16
-        char _unknown_20[4];
+    private:
+        uint8_t _unknown_0[4];
+        float field_4;
+        float field_8;
+        float field_12;
+        float field_16;
+        uint8_t _unknown_20[4];
     };
 
-    // 0x1003eab00, 16 bytes, inline, placed by class name and debug map
-    // EntityHighlightGlobalState::IsInteractionFadeOutFrozen() const
-    undefined1 EntityHighlightGlobalState::IsInteractionFadeOutFrozen() {
+    // 0x1003eab00
+    bool EntityHighlightGlobalState::IsInteractionFadeOutFrozen() const {
         return m_interactionFadeOutFrozen;
     }
 
-    // 0x1004314c0, 16 bytes, inline, placed by class name
-    // EntityHighlightGlobalState::IsRadialHighlightActive() const
-    bool EntityHighlightGlobalState::IsRadialHighlightActive() {
+    // 0x1004314c0
+    bool EntityHighlightGlobalState::IsRadialHighlightActive() const {
         return field_28 == 1;
     }
 
-    // 0x100431510, 32 bytes, inline, placed by class name
-    // EntityHighlightGlobalState::IsEnabled() const
-    bool EntityHighlightGlobalState::IsEnabled() {
+    // 0x100431510
+    bool EntityHighlightGlobalState::IsEnabled() const {
         if ((field_0 == '\0') || (field_1 == '\0')) {
             return false;
         }
         return field_2 != '\0';
     }
 
-    // 0x10044a620, 48 bytes, inline, placed by class name
-    // EntityHighlightGlobalState::GetRadialHighlightVisible(float) const
-    bool EntityHighlightGlobalState::GetRadialHighlightVisible(float param_1) {
+    // 0x10044a620
+    bool EntityHighlightGlobalState::GetRadialHighlightVisible(float arg1) const {
         bool bVar2;
 
-        if (IsRadialHighlightActive(this) == '\0') {
+        if (IsRadialHighlightActive() == '\0') {
             bVar2 = false;
         } else {
-            bVar2 = param_1 < field_36;
+            bVar2 = arg1 < field_36;
         }
         return bVar2;
     }
 
-    // 0x1004612c0, 16 bytes, complete-object constructor, inline, placed by class name
-    // EntityHighlightGlobalState::EntityHighlightGlobalState(): jumps straight to the base-object constructor
-
-    // 0x10046b220, 48 bytes, base-object constructor, inline, placed by class name
-    // EntityHighlightGlobalState::EntityHighlightGlobalState()
-    void EntityHighlightGlobalState::EntityHighlightGlobalState() {
+    // 0x10046b220
+    EntityHighlightGlobalState::EntityHighlightGlobalState() {
         field_0 = '\x01';
         field_1 = '\x01';
         field_2 = 1;

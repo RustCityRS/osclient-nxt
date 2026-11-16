@@ -1,299 +1,259 @@
 // libs/ui/components/Sprite.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.ui
 
 #include "Sprite.h"
 
 namespace jag::ui {
-    // 0x100f3e9d2, 1 bytes, __data
-    Sprite::m_debugObjSpriteShowLoading = 0;
+    // 0x100f3e9d2
+    bool Sprite::m_debugObjSpriteShowLoading = 0;
 
-    // 0x100f3e9d3, 1 bytes, __data
-    Sprite::m_debugObjSpritePrintHashKey = 0;
+    // 0x100f3e9d3
+    bool Sprite::m_debugObjSpritePrintHashKey = 0;
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    Sprite::UpdateObjQuantityText();
+    // 0x100009e70: Sprite::UpdateObjQuantityText() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    Sprite::GetObjQuantityFontID() const;
+    // 0x100029ea0: Sprite::GetObjQuantityFontID() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x1001d21f0: the linker folded this into oldscape::NoJs5ResourceProvider::IndexReady(Js5ArchiveSettings const&), which has identical code
-    Sprite::GetObjSprite();
+    // 0x1001d21f0: Sprite::GetObjSprite() has the same machine code as oldscape::NoJs5ResourceProvider::IndexReady(Js5ArchiveSettings const&)
 
-    // 0x1002699a0: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::DeleteUser::GetID() const, which has identical code
-    Sprite::GetType() const;
+    // 0x1002699a0: Sprite::GetType() const has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::DeleteUser::GetID() const
 
-    // 0x1004c6a70: the linker folded this into game::WaterType::GetBaseRGBA() const, which has identical code
-    Sprite::GetHTTPImage() const;
+    // 0x1004c6a70: Sprite::GetHTTPImage() const has the same machine code as game::WaterType::GetBaseRGBA() const
 
-    // 0x1006ab660, 64 bytes, placed by class name and debug map
-    // Sprite::DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator> >&, int)
-    void Sprite::DecodeTypedComponentProperties(PacketT* param_1, int param_2) {
-        undefined1* this_00;
-
-        this_00 = field_392;
-        this_00->DecodeSpriteData(param_1, param_2);
+    // 0x1006ab660
+    void Sprite::DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2) {
+        uint8_t* this_00 = &field_392;
+        this_00->DecodeSpriteData(arg1, arg2);
         field_96 = this_00->GetLevel();
         field_100 = this_00->GetSpriteAlpha();
     }
 
-    // 0x1006ab6a0, 80 bytes, placed by class name and debug map
-    // Sprite::MainDrawClipped(ComponentDependencies const&)
-    void Sprite::MainDrawClipped(ComponentDependencies* param_1) {
-        shared_ptr* this_00;
+    // 0x1006ab6a0
+    void Sprite::MainDrawClipped(const ComponentDependencies& componentDependencies) {
 
-        if (GetLinkObjType(this) != -1) {
-            if (field_392->GetObjSpriteIsHighRes() == '\0') {
-                this_00 = (shared_ptr*)field_392->GetDefaultValue();
-                if (!shared_ptr::operator_cast_to_bool(this_00)) {
-                    (*(code*)field_0[35])(this);
+        if (GetLinkObjType() != -1) {
+            if (!(field_392.GetObjSpriteIsHighRes())) {
+                if (!((field_392.GetDefaultValue())->operator_cast_to_bool())) {
+                    GetObjSprite();
                 }
             }
         }
     }
 
-    // 0x1006ab720, 4144 bytes, placed by class name
-    // Sprite::DrawSprite(ComponentDependencies const&, int, int)
-    /* WARNING: Removing unreachable block (ram,4301961814) */
-    /* WARNING: Removing unreachable block (ram,4301961858) */
-    /* Sprite::DrawSprite(ComponentDependencies const&, int, int) */
-
-    undefined* Sprite::DrawSprite(ComponentDependencies* param_1, int param_2, int param_3) {
+    // 0x1006ab720
+    uint8_t* Sprite::DrawSprite(const ComponentDependencies& componentDependencies, int arg2, int arg3) {
+        uint8_t* result;
         EntityHighlightState* this_00;
-        undefined1* puVar1;
-        jag* this_01;
+        uint8_t* puVar1;
+        ReturnValue result;
+        TextProperties* this_01;
         RT7Core* this_02;
         FontManager* this_03;
         FontHelpers* this_04;
-        GUIManager* this_05;
-        AnimBase* this_06;
+        AnimBase* this_05;
         ComponentDependencies* pCVar2;
-        char cVar3;
-        bool bVar4;
-        byte bVar5;
-        ushort uVar6;
-        int iVar7;
-        undefined4 uVar8;
-        undefined8 uVar9;
-        undefined8 uVar10;
-        longlong lVar11;
+        uint8_t uVar3;
+        bool cVar4;
+        unsigned short uVar6;
+        int iVar8;
+        uint64_t extraout_var;
+        GUIManager* pGVar9;
+        Logger* pLVar10;
+        uint64_t uVar11;
         shared_ptr* psVar12;
-        RenderTargets* this_07;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_08;
+        RenderTargets* this_06;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_07;
         long* plVar13;
-        HTTPSpriteData* this_09;
-        fixed_string* pfVar14;
-        TextureManager* this_10;
-        SpriteAtlasManager* pSVar15;
-        Logger* this_11;
-        TextProperties* pTVar16;
-        TextProperties* this_12;
-        DragState* this_13;
-        SpriteAtlas* this_14;
-        long lVar17;
-        uint* puVar18;
-        MapArea* this_15;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar19;
-        TextProperties* pTVar20;
-        vector* pvVar21;
-        int* piVar22;
-        DrawCallState* pDVar23;
-        Rect* pRVar24;
-        undefined4 in_register_00000014;
-        TextProperties* pTVar25;
-        uchar* extraout_RDX;
-        ulong uVar26;
-        uint uVar27;
-        vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>* this_16;
-        ulong uVar28;
-        int iVar29;
-        uint uVar30;
-        _func_decltype_nullptr* p_Var31;
-        ulong uVar32;
-        int iVar33;
-        int iVar34;
-        uint uVar35;
-        float fVar36;
-        undefined4 extraout_XMM0_Db;
-        undefined4 extraout_XMM0_Dc;
-        undefined4 extraout_XMM0_Dd;
-        float fVar37;
-        undefined1 auVar38[16];
-        StringView SVar39;
-        StringView SVar40;
-        TextProperties* in_stack_fffffffffffffe68;
-        undefined4 uVar41;
-        undefined8 in_stack_fffffffffffffe70;
-        undefined4 uVar42;
-        undefined8 in_stack_fffffffffffffe78;
-        undefined4 uVar43;
+        HTTPSpriteData* this_08;
+        basic_string<char, BucketAllocatorEASTL>* str;
+        SpriteAtlasManager* spriteAtlasManager;
+        Texture* pTVar14;
+        Texture* this_10;
+        SpriteAtlas* this_12;
+        long lVar15;
+        unsigned int* puVar16;
+        MapArea* this_13;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar17;
+        Texture* pTVar18;
+        int* piVar19;
+        DrawCallState* drawCallState;
+        uint64_t extraout_var_00;
+        shared_ptr<graphics::SpriteAtlas>* spriteAtlas;
+        uint32_t in_register_00000014;
+        Texture* pTVar20;
+        unsigned int uVar21;
+        vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true>>* this_15;
+        int iVar23;
+        char* pcVar24;
+        char* pcVar25;
+        int iVar26;
+        unsigned int uVar27;
+        float fVar28;
+        uint32_t extraout_XMM0_Db;
+        uint32_t extraout_XMM0_Dc;
+        uint32_t extraout_XMM0_Dd;
+        float fVar29;
+        uint8_t auVar30[16];
+        uint32_t uVar31;
         StringView local_158;
         StringView local_148;
-        undefined1 local_138[24];
-        undefined1 local_120[16];
+        uint8_t local_138[24];
+        uint8_t local_120[16];
         DrawCallState local_110;
         int local_dc;
-        uint local_d8[4];
-        undefined* local_c8;
-        ulong local_c0;
-        undefined1 local_b8[24];
-        ulong local_a0;
+        unsigned int local_d8[4];
+        uint8_t* local_c8;
+        uint8_t local_b8[24];
+        unsigned long local_a0;
         GUIManager* local_98;
         AnimBase* local_90;
-        uint local_88;
+        unsigned int local_88;
         int local_84;
-        TextProperties* local_80;
-        ulong local_78;
+        unsigned long local_78;
         int local_6c;
-        ulong local_68;
-        TextProperties* local_60;
-        uint local_58;
-        uint local_54;
+        unsigned long local_68;
+        unsigned int local_58;
+        unsigned int local_54;
         ComponentDependencies* local_50;
-        uint local_48;
-        undefined8 local_44;
+        unsigned int local_48;
+        float local_44;
+        float local_40;
         float local_3c;
         float local_38;
-        uint local_34;
+        unsigned int local_34;
 
-        uVar42 = (undefined4)((ulong)in_stack_fffffffffffffe70 >> 32);
-        uVar43 = (undefined4)((ulong)in_stack_fffffffffffffe78 >> 32);
-        local_b8._16_8_ = CONCAT44(in_register_00000014, param_2);
-        uVar28 = (ulong)(uint)param_3;
-        iVar7 = GetLinkObjType(this);
+        local_b8._16_8_ = (((uint64_t)in_register_00000014 << 32) | (uint32_t)arg2);
+        unsigned long uVar22 = (unsigned long)(unsigned int)arg3;
+        int iVar7 = GetLinkObjType();
         if (iVar7 == -1) {
-            iVar7 = GetHTTPImage(this);
+            iVar7 = GetHTTPImage();
             if (iVar7 == -1) {
-                this_10 = (TextureManager*)(*(RT7Core**)(param_1 + 16))->GetTextureManager();
-                pSVar15 = (SpriteAtlasManager*)this_10->GetSpriteAtlasManager();
-                local_c8 = (undefined*)LoadSpriteAtlasReference(this, pSVar15);
-                pTVar25 = (TextProperties*)0;
+                spriteAtlasManager =
+                    ((*(RT7Core**)(componentDependencies + 16))->GetTextureManager())->GetSpriteAtlasManager();
+                return local_c8 = (uint8_t*)LoadSpriteAtlasReference(*spriteAtlasManager);
+                pTVar20 = nullptr;
                 if (local_c8 != DataStatus::READY)
                     goto LAB_1006aba4c;
                 goto LAB_1006aba8b;
             }
             puVar1 = &field_464;
-            local_68 = uVar28;
-            bVar4 = puVar1->operator_cast_to_bool();
-            if (!bVar4) {
-                local_b8._0_4_ = GetHTTPImage(this);
-                this_01 = (jag*)(local_120 + 16);
-                bucket_make_unique<HTTPSpriteData, int>(this_01, (int*)local_b8);
-                std::unique_ptr<HTTPSpriteData, BucketDeleter<HTTPSpriteData>>::operator=(
-                    (unique_ptr<HTTPSpriteData, BucketDeleter<HTTPSpriteData>>*)puVar1, (unique_ptr*)this_01);
-                this_01->~unique_ptr();
+            local_68 = uVar22;
+            cVar4 = puVar1->operator_cast_to_bool();
+            if (!cVar4) {
+                local_b8._0_4_ = GetHTTPImage();
+                &result = (ReturnValue*)(local_120 + 16);
+                bucket_make_unique<HTTPSpriteData, int>(&result, (int*)local_b8);
+                *puVar1 = result;
+                result.~unique_ptr();
             }
-            this_09 = (HTTPSpriteData*)std::unique_ptr<HTTPSpriteData, BucketDeleter<HTTPSpriteData>>::operator->(
-                (unique_ptr<HTTPSpriteData, BucketDeleter<HTTPSpriteData>>*)puVar1);
-            local_50 = param_1;
-            pfVar14 = (fixed_string*)(**(code**)(**(long**)(param_1 + 48) + 24))();
-            StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_158, pfVar14);
-            SVar39.field_8 = extraout_RDX;
-            SVar39.field_0 = (ulong)&local_158;
-            local_c8 = (undefined*)this_09->Service(SVar39);
+            this_08 = (HTTPSpriteData*)(*puVar1).operator->();
+            local_50 = componentDependencies;
+            str = (basic_string<char, BucketAllocatorEASTL>*)(**(void (**)(...))(
+                **(long**)(componentDependencies + 48) + 24))();
+            local_158.StringView<eastl::fixed_string<char, 40>>(*str);
+            local_c8 = (uint8_t*)this_08->Service(&local_158);
             if (local_c8 == DataStatus::READY) {
-                this_11 = (Logger*)std::unique_ptr<HTTPSpriteData, BucketDeleter<HTTPSpriteData>>::operator->(
-                    (unique_ptr<HTTPSpriteData, BucketDeleter<HTTPSpriteData>>*)puVar1);
-                pvVar19 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_11->GetLogStreams();
-                pTVar16 = (TextProperties*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-                    pvVar19);
+                pLVar10 = (Logger*)(*puVar1).operator->();
+                pvVar17 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)pLVar10->GetLogStreams();
+                pTVar14 = (Texture*)pvVar17->end();
             } else {
-                pTVar16 = (TextProperties*)0;
+                pTVar14 = nullptr;
             }
-            pTVar25 = (TextProperties*)0;
-            this_12 = (TextProperties*)0;
-            uVar28 = local_68;
-            param_1 = local_50;
+            pTVar20 = nullptr;
+            this_10 = nullptr;
+            uVar22 = local_68;
+            componentDependencies = local_50;
         LAB_1006abaa4:
-            if ((pTVar16 == (TextProperties*)0) && (pTVar25 == (TextProperties*)0))
+            if ((pTVar14 == nullptr) && (pTVar20 == nullptr))
                 goto LAB_1006ac5eb;
         } else {
-            local_c8 = (undefined*)(*(code*)field_0[35])(this);
+            uVar3 = GetObjSprite();
+            local_c8 = (uint8_t*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar3);
             if ((*PTR_m_debugObjSpriteShowLoading_100ee6470 != '\0') && (local_c8 != DataStatus::READY)) {
-                uVar9 = (*(RT7Core**)(param_1 + 16))->GetGUIManager();
-                uVar41 = (undefined4)((ulong)in_stack_fffffffffffffe68 >> 32);
-                uVar8 = GetStreamCountLastMix();
-                GetMinMapX();
-                in_stack_fffffffffffffe68 = (TextProperties*)CONCAT44(uVar41, 1);
-                uVar9->AddColouredRectangle(local_b8._16_8_, uVar28, uVar8);
+                pGVar9 = (*(RT7Core**)(componentDependencies + 16))->GetGUIManager();
+                iVar7 = GetStreamCountLastMix();
+                iVar8 = GetMinMapX();
+                pGVar9->AddColouredRectangle(local_b8._16_4_, arg3, iVar7, iVar8, 4278255615, 1);
             }
             if (*PTR_m_debugObjSpritePrintHashKey_100ee6478 != '\0') {
-                ((local_120 + 16))->GetBounds();
-                cVar3 = ((local_120 + 16))->IsInside((int)*(float*)(param_1 + 60), (int)*(float*)(param_1 + 64));
-                if (cVar3 != '\0') {
-                    uVar9 = logger::default_logger();
-                    uVar10 = field_392->size();
-                    logger::Logger::Log(uVar9, 0, 8,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/"
-                                        "components/Sprite.cpp",
-                                        52, "ObjSprite Hash Key: %lld", uVar10);
-                    uVar8 = (undefined4)((ulong)uVar10 >> 32);
-                    lVar11 = field_392->size();
-                    SpriteData::ObjSpriteCacheKeyDetails(lVar11, (int*)(local_120 + 16), (bool*)local_120,
-                                                         (bool*)&local_34, (uint*)local_b8, local_d8);
-                    uVar9 = logger::default_logger();
-                    uVar42 = 1;
-                    uVar43 = 1;
-                    in_stack_fffffffffffffe68 =
-                        (TextProperties*)CONCAT44(uVar8, local_110.m_pInputAssemblerState._0_4_);
-                    logger::Logger::Log(uVar9, 0, 8,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/"
-                                        "components/Sprite.cpp");
+                *((local_120 + 16)) = GetBounds();
+                cVar4 = ((local_120 + 16))
+                            ->IsInside((int)*(float*)(componentDependencies + 60),
+                                       (int)*(float*)(componentDependencies + 64));
+                if (cVar4) {
+                    pLVar10 = logger::default_logger();
+                    uVar11 = field_392.size();
+                    pLVar10->Log(false, 8,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
+                                 "Sprite.cpp",
+                                 52, "ObjSprite Hash Key: %lld", uVar11);
+                    uVar31 = (uint32_t)((unsigned long)uVar11 >> 32);
+                    SpriteData::ObjSpriteCacheKeyDetails(field_392.size(), *((local_120 + 16)), *local_120, local_34,
+                                                         *local_b8, *local_d8);
+                    pLVar10 = logger::default_logger();
+                    pcVar24 = "true";
+                    pcVar25 = "true";
+                    if (local_120[0] == (Rect<unsigned int>)0) {
+                        pcVar25 = "false";
+                    }
+                    if (local_34._0_1_ == false) {
+                        pcVar24 = "false";
+                    }
+                    pLVar10->Log(false, 8,
+                                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/ui/components/"
+                                 "Sprite.cpp",
+                                 57,
+                                 "ObjSprite Details: type %d, useRecolour %s, isHighRes %s, outline %u, shadowRGBA %u",
+                                 (((uint64_t)uVar31 << 32) | (uint32_t)local_110.m_pInputAssemblerState._0_4_), pcVar25,
+                                 pcVar24, local_b8._0_4_, local_d8[0]);
                 }
             }
             if (local_c8 == DataStatus::NOTLOADED) {
-                return local_c8;
             }
-            cVar3 = field_392->GetObjSpriteIsHighRes();
-            if (cVar3 != '\0') {
-                psVar12 = (shared_ptr*)(*(RT7Core**)(param_1 + 16))->GetObjectSpriteRT(2);
-                bVar4 = shared_ptr::operator_cast_to_bool(psVar12);
-                pTVar25 = (TextProperties*)0;
-                if (bVar4) {
-                    this_07 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                        (shared_ptr<render::RenderTargets>*)psVar12);
-                    this_08 = (vector<render::Texture*,
-                                      eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                  this_07->GetColourTargetTextures();
-                    plVar13 = (long*)eastl::vector<
-                        render::Texture*,
-                        eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_08,
-                                                                                                               0);
-                    pTVar25 = (TextProperties*)*plVar13;
+            cVar4 = field_392.GetObjSpriteIsHighRes();
+            if (cVar4) {
+                psVar12 = (*(RT7Core**)(componentDependencies + 16))->GetObjectSpriteRT(2);
+                cVar4 = shared_ptr::operator_cast_to_bool(psVar12);
+                pTVar20 = nullptr;
+                if (cVar4) {
+                    this_06 = (RenderTargets*)(*psVar12).operator->();
+                    this_07 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                                  this_06->GetColourTargetTextures();
+                    plVar13 = (long*)(*this_07)[0];
+                    pTVar20 = (Texture*)*plVar13;
                 }
             LAB_1006aba4c:
-                pTVar16 = (TextProperties*)0;
-                this_12 = (TextProperties*)0;
+                pTVar14 = nullptr;
+                this_10 = nullptr;
                 goto LAB_1006abaa4;
             }
         LAB_1006aba8b:
-            pvVar19 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_392->GetDefaultValue();
-            this_12 =
-                (TextProperties*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar19);
-            pTVar25 = (TextProperties*)0;
-            pTVar16 = (TextProperties*)0;
-            if (this_12 == (TextProperties*)0)
+            pvVar17 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_392.GetDefaultValue();
+            this_10 = (Texture*)pvVar17->end();
+            pTVar20 = nullptr;
+            pTVar14 = nullptr;
+            if (this_10 == nullptr)
                 goto LAB_1006abaa4;
         }
-        local_80 = pTVar25;
-        local_60 = pTVar16;
-        bVar5 = GetAlpha();
-        local_c0 = (ulong)bVar5;
-        local_50 = param_1;
-        this_13 = (DragState*)(**(code**)(**(long**)(param_1 + 48) + 80))();
-        cVar3 = this_13->IsDraggedComponent(this);
-        local_68 = uVar28;
-        if (cVar3 == '\0') {
+        Texture* local_80 = pTVar20;
+        Texture* local_60 = pTVar14;
+        uint8_t bVar5 = GetAlpha();
+        unsigned long local_c0 = (unsigned long)bVar5;
+        local_50 = componentDependencies;
+        cVar4 =
+            ((DragState*)(**(void (**)(...))(**(long**)(componentDependencies + 48) + 80))())->IsDraggedComponent(this);
+        local_68 = uVar22;
+        if (!cVar4) {
             if ((int)local_c0 != 0)
                 goto LAB_1006abb36;
         LAB_1006abccb:
-            uVar28 = local_68;
-            param_1 = local_50;
+            uVar22 = local_68;
+            componentDependencies = local_50;
         } else {
-            cVar3 = field_264->GetSpriteAlpha();
-            if (cVar3 == '\0') {
-                local_c0 = (ulong)((float)(int)local_c0 * 0.5);
+            cVar4 = field_264->GetSpriteAlpha();
+            if (!cVar4) {
+                local_c0 = (unsigned long)((float)(int)local_c0 * 0.5);
             }
             if ((int)local_c0 == 0)
                 goto LAB_1006abccb;
@@ -307,286 +267,258 @@ namespace jag::ui {
             local_58 = 0;
             local_48 = 0;
             local_54 = 0;
-            local_44._0_4_ = (GUIManager*)0;
-            local_44._4_4_ = 0.0;
+            local_44 = 0.0;
+            local_40 = 0.0;
             local_3c = 1.0;
             local_38 = 1.0;
-            puVar1 = field_392;
+            puVar1 = &field_392;
             bVar5 = puVar1->GetSpriteVFlip();
-            param_1 = local_50;
-            pTVar16 = local_80;
+            componentDependencies = local_50;
+            pTVar14 = local_80;
             local_90 = (AnimBase*)puVar1;
-            if (this_12 == (TextProperties*)0) {
-                local_78 = CONCAT71(local_78._1_7_, bVar5);
+            if (this_10 == nullptr) {
+                local_78 = (((uint64_t)local_78._1_7_ << 8) | (uint8_t)bVar5);
+                pTVar18 = local_60;
                 pTVar20 = local_60;
-                pTVar25 = local_60;
-                if ((local_60 == (TextProperties*)0) && (local_80 != (TextProperties*)0)) {
+                if ((local_60 == nullptr) && (local_80 != nullptr)) {
                     local_34 = 0;
                     local_48 = 0;
                     local_58 = 0;
                     local_54 = 0;
-                    puVar18 = (uint*)local_80->second();
-                    local_44._0_4_ = (GUIManager*)(1.0 / (float)*puVar18);
-                    lVar17 = pTVar16->second();
-                    local_44._4_4_ = 1.0 / (float)*(uint*)(lVar17 + 4);
+                    puVar16 = (unsigned int*)local_80->second();
+                    local_44 = 1.0 / (float)*puVar16;
+                    lVar15 = pTVar14->second();
+                    local_40 = 1.0 / (float)*(unsigned int*)(lVar15 + 4);
                     iVar7 = GetStreamCountLastMix();
                     local_60._0_4_ = (float)iVar7 + 1.0;
-                    puVar18 = (uint*)pTVar16->second();
-                    local_3c = local_60._0_4_ / (float)*puVar18;
+                    puVar16 = (unsigned int*)pTVar14->second();
+                    local_3c = local_60._0_4_ / (float)*puVar16;
                     iVar7 = GetMinMapX();
-                    local_60 = (TextProperties*)CONCAT44(local_60._4_4_, (float)iVar7 + 1.0);
-                    lVar17 = pTVar16->second();
-                    local_38 = local_60._0_4_ / (float)*(uint*)(lVar17 + 4);
+                    local_60 = (Texture*)(((uint64_t)local_60._4_4_ << 32) | (uint32_t)((float)iVar7 + 1.0));
+                    lVar15 = pTVar14->second();
+                    local_38 = local_60._0_4_ / (float)*(unsigned int*)(lVar15 + 4);
                     local_78 = local_78 ^ 1;
-                    pTVar20 = pTVar16;
-                    pTVar25 = local_60;
+                    pTVar18 = pTVar14;
+                    pTVar20 = local_60;
                 }
             } else {
-                iVar7 = GetLinkObjType(this);
-                local_78 = CONCAT71(local_78._1_7_, bVar5 ^ iVar7 != -1);
-                psVar12 = (shared_ptr*)this_12->second();
-                bVar4 = shared_ptr::operator_cast_to_bool(psVar12);
-                if (bVar4) {
-                    this_14 = (SpriteAtlas*)shared_ptr<graphics::SpriteAtlas>::operator->(
-                        (shared_ptr<graphics::SpriteAtlas>*)psVar12);
-                    local_80 = this_12;
-                    iVar7 = this_12->capacity();
-                    lVar17 = this_14->GetSpriteRenderMapping(iVar7);
-                    this_00 = (EntityHighlightState*)(lVar17 + 88);
-                    local_44._0_4_ = (GUIManager*)this_00->GetOverbright();
-                    local_44._4_4_ = (float)this_00->GetAlpha();
-                    local_3c = (float)this_00->MaxU();
-                    param_1 = local_50;
-                    local_38 = (float)this_00->MaxV();
-                    this_16 =
-                        (vector<int,
-                                eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true, eastl::allocator>>*)(lVar17 +
-                                                                                                             8);
-                    puVar18 =
-                        (uint*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true,
-                                                                                eastl::allocator>>::operator[](this_16,
-                                                                                                               0);
-                    local_34 = *puVar18;
-                    puVar18 =
-                        (uint*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true,
-                                                                                eastl::allocator>>::operator[](this_16,
-                                                                                                               1);
-                    local_48 = *puVar18;
-                    puVar18 =
-                        (uint*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true,
-                                                                                eastl::allocator>>::operator[](this_16,
-                                                                                                               2);
-                    this_12 = local_80;
-                    local_58 = *puVar18;
-                    puVar18 =
-                        (uint*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true,
-                                                                                eastl::allocator>>::operator[](this_16,
-                                                                                                               3);
-                    local_54 = *puVar18;
-                    this_15 = (MapArea*)shared_ptr<graphics::SpriteAtlas>::operator->(
-                        (shared_ptr<graphics::SpriteAtlas>*)psVar12);
-                    pvVar19 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_15->GetOrigin();
-                    pTVar20 =
-                        (TextProperties*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-                            pvVar19);
-                    pTVar25 = local_60;
+                iVar7 = GetLinkObjType();
+                local_78 = (((uint64_t)local_78._1_7_ << 8) | (uint8_t)(bVar5 ^ iVar7 != -1));
+                psVar12 = (shared_ptr*)this_10->second();
+                cVar4 = shared_ptr::operator_cast_to_bool(psVar12);
+                if (!cVar4) {
+                    pTVar18 = nullptr;
+                    pTVar20 = local_60;
+                    componentDependencies = local_50;
                 } else {
-                    pTVar20 = (TextProperties*)0;
-                    pTVar25 = local_60;
-                    param_1 = local_50;
+                    this_12 = (SpriteAtlas*)(*psVar12).operator->();
+                    local_80 = this_10;
+                    iVar7 = this_10->capacity();
+                    lVar15 = this_12->GetSpriteRenderMapping(iVar7);
+                    this_00 = (EntityHighlightState*)(lVar15 + 88);
+                    local_44 = (float)this_00->GetOverbright();
+                    local_40 = (float)this_00->GetAlpha();
+                    local_3c = (float)this_00->MaxU();
+                    componentDependencies = local_50;
+                    local_38 = (float)this_00->MaxV();
+                    this_15 = (vector<int, eastl::fixed_vector_allocator<4ul, 4ul, 4ul, 0ul, true>>*)(lVar15 + 8);
+                    puVar16 = (unsigned int*)(*this_15)[0];
+                    local_34 = *puVar16;
+                    puVar16 = (unsigned int*)(*this_15)[1];
+                    local_48 = *puVar16;
+                    puVar16 = (unsigned int*)(*this_15)[2];
+                    this_10 = local_80;
+                    local_58 = *puVar16;
+                    puVar16 = (unsigned int*)(*this_15)[3];
+                    local_54 = *puVar16;
+                    this_13 = (MapArea*)(*psVar12).operator->();
+                    pvVar17 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this_13->GetOrigin();
+                    pTVar18 = (Texture*)pvVar17->end();
+                    pTVar20 = local_60;
                 }
             }
-            local_60 = pTVar20;
-            if (local_60 == (TextProperties*)0) {
-                uVar28 = local_68;
-                local_60 = pTVar25;
+            local_60 = pTVar18;
+            if (local_60 == nullptr) {
+                uVar22 = local_68;
+                local_60 = pTVar20;
             } else {
-                local_98 = (GUIManager*)(*(RT7Core**)(param_1 + 16))->GetGUIManager();
-                cVar3 = local_90->GetSpriteHFlip();
-                if (cVar3 != '\0') {
-                    eastl::swap<float>((float*)&local_44, &local_3c);
-                    eastl::swap<unsigned int>(&local_34, &local_58);
+                local_98 = (*(RT7Core**)(componentDependencies + 16))->GetGUIManager();
+                cVar4 = local_90->GetSpriteHFlip();
+                if (cVar4) {
+                    eastl::swap<float>(local_44, local_3c);
+                    eastl::swap<unsigned int>(local_34, local_58);
                 }
                 if ((char)local_78 != '\0') {
-                    eastl::swap<float>((float*)((long)&local_44 + 4), &local_38);
-                    eastl::swap<unsigned int>(&local_48, &local_54);
+                    eastl::swap<float>(local_40, local_38);
+                    eastl::swap<unsigned int>(local_48, local_54);
                 }
-                local_88 = local_88 | (uint)local_c0;
-                iVar33 = local_b8._16_4_;
-                local_78 = (ulong)(local_34 + iVar33);
+                local_88 = local_88 | (unsigned int)local_c0;
+                iVar8 = local_b8._16_4_;
+                local_78 = (unsigned long)(local_34 + iVar8);
                 iVar7 = GetStreamCountLastMix();
-                local_6c = (iVar7 + iVar33) - local_58;
+                local_6c = (iVar7 + iVar8) - local_58;
                 iVar7 = GetMinMapX();
-                uVar28 = local_68;
-                this_06 = local_90;
-                iVar33 = (int)local_68;
-                local_84 = (iVar7 + iVar33) - local_54;
-                local_a0 = (ulong)(local_48 + iVar33);
+                uVar22 = local_68;
+                this_05 = local_90;
+                iVar8 = (int)local_68;
+                local_84 = (iVar7 + iVar8) - local_54;
+                local_a0 = (unsigned long)(local_48 + iVar8);
                 uVar6 = local_90->GetTransformCount();
                 if (uVar6 == 0) {
-                    cVar3 = this_06->GetSpriteTiling();
-                    pTVar16 = local_60;
-                    if (cVar3 != '\0') {
-                        local_80 = this_12;
-                        new ((local_120 + 16)) graphics::ClippingState(*(RT7Core**)(param_1 + 16));
-                        this_02 = *(RT7Core**)(param_1 + 16);
+                    cVar4 = this_05->GetSpriteTiling();
+                    pTVar14 = local_60;
+                    if (cVar4) {
+                        local_80 = this_10;
+                        new ((local_120 + 16)) graphics::ClippingState(*(RT7Core**)(componentDependencies + 16));
+                        this_02 = *(RT7Core**)(componentDependencies + 16);
                         iVar7 = GetStreamCountLastMix();
-                        iVar34 = GetMinMapX();
-                        uVar9 = local_b8._16_8_;
-                        iVar29 = local_b8._16_4_;
-                        this_02->SetClippingRectangle(iVar29, iVar33, iVar7, iVar34, false);
+                        iVar26 = GetMinMapX();
+                        iVar23 = local_b8._16_4_;
+                        this_02->SetClippingRectangle(iVar23, iVar8, iVar7, iVar26, false);
                         iVar7 = GetStreamCountLastMix();
-                        iVar34 = GetMinMapX();
-                        in_stack_fffffffffffffe68 = local_60;
-                        local_44->AddElementTiled(local_98, uVar9 & 4294967295, uVar28 & 4294967295, iVar7 + iVar29,
-                                                  iVar34 + iVar33, local_88, local_60, CONCAT44(uVar42, 1),
-                                                  CONCAT44(uVar43, local_34), local_58, local_54, local_48, 0, 0);
+                        iVar26 = GetMinMapX();
+                        local_98->AddElementTiled(iVar23, iVar8, iVar7 + iVar23, iVar26 + iVar8, local_88, local_44,
+                                                  local_40, local_3c, local_38, local_60, 1, local_34, local_58,
+                                                  local_54, local_48, 0, 0);
                         ((local_120 + 16))->~ClippingState();
                         goto LAB_1006ac5d3;
                     }
                     if ((((local_34 == 0) && (local_58 == 0)) && (local_48 == 0)) && (local_54 == 0)) {
-                        uVar26 = local_a0;
-                        uVar32 = local_78;
-                        iVar7 = local_84;
-                        iVar33 = local_6c;
+                        uVar21 = (unsigned int)local_78;
+                        uVar27 = (unsigned int)local_a0;
+                        iVar7 = local_6c;
+                        iVar8 = local_84;
                     } else {
-                        local_80 = this_12;
-                        puVar18 = (uint*)local_60->second();
-                        local_90._0_4_ = (float)*puVar18;
-                        fVar36 = (float)::abs(local_3c - (float)(GUIManager*)local_44);
-                        uVar27 = (uint)(fVar36 * local_90._0_4_);
-                        lVar17 = pTVar16->second();
-                        local_90 = (AnimBase*)CONCAT44(local_90._4_4_, (float)*(uint*)(lVar17 + 4));
-                        fVar36 = (float)::abs(local_38 - local_44._4_4_);
-                        uVar35 = (uint)(fVar36 * local_90._0_4_);
-                        iVar33 = local_34 + uVar27 + local_58;
-                        iVar7 = local_48 + uVar35 + local_54;
-                        iVar34 = GetStreamCountLastMix();
-                        if ((iVar33 == iVar34) && (iVar34 = GetMinMapX(), iVar7 == iVar34)) {
-                            uVar26 = local_a0;
-                            uVar28 = local_68;
-                            uVar32 = local_78;
-                            param_1 = local_50;
-                            this_12 = local_80;
-                            iVar7 = local_84;
-                            iVar33 = local_6c;
+                        local_80 = this_10;
+                        puVar16 = (unsigned int*)local_60->second();
+                        local_90._0_4_ = (float)*puVar16;
+                        fVar28 = (float)::abs(local_3c - local_44);
+                        uVar21 = (unsigned int)(fVar28 * local_90._0_4_);
+                        lVar15 = pTVar14->second();
+                        local_90 = (AnimBase*)(((uint64_t)local_90._4_4_ << 32) |
+                                               (uint32_t)((float)*(unsigned int*)(lVar15 + 4)));
+                        fVar28 = (float)::abs(local_38 - local_40);
+                        uVar27 = (unsigned int)(fVar28 * local_90._0_4_);
+                        iVar7 = local_34 + uVar21 + local_58;
+                        iVar8 = local_48 + uVar27 + local_54;
+                        iVar26 = GetStreamCountLastMix();
+                        if ((iVar7 == iVar26) && (iVar26 = GetMinMapX(), iVar8 == iVar26)) {
+                            uVar21 = (unsigned int)local_78;
+                            uVar27 = (unsigned int)local_a0;
+                            uVar22 = local_68;
+                            componentDependencies = local_50;
+                            this_10 = local_80;
+                            iVar7 = local_6c;
+                            iVar8 = local_84;
                         } else {
-                            iVar34 = GetStreamCountLastMix();
-                            iVar33 = (int)(iVar34 * uVar27) / iVar33;
-                            iVar34 = GetMinMapX();
-                            iVar7 = (int)(iVar34 * uVar35) / iVar7;
-                            uVar30 = (local_34 * iVar33) / uVar27 + local_b8._16_4_;
-                            uVar32 = (ulong)uVar30;
-                            uVar27 = (local_48 * iVar7) / uVar35 + (int)local_68;
-                            uVar26 = (ulong)uVar27;
-                            iVar33 = iVar33 + uVar30;
-                            iVar7 = iVar7 + uVar27;
-                            uVar28 = (ulong)uVar27;
-                            local_b8._16_8_ = ZEXT48(uVar30);
-                            param_1 = local_50;
-                            this_12 = local_80;
+                            iVar26 = GetStreamCountLastMix();
+                            iVar7 = (int)(iVar26 * uVar21) / iVar7;
+                            iVar26 = GetMinMapX();
+                            iVar8 = (int)(iVar26 * uVar27) / iVar8;
+                            uVar21 = (local_34 * iVar7) / uVar21 + local_b8._16_4_;
+                            uVar27 = (local_48 * iVar8) / uVar27 + (int)local_68;
+                            iVar7 = iVar7 + uVar21;
+                            iVar8 = iVar8 + uVar27;
+                            uVar22 = (unsigned long)uVar27;
+                            local_b8._16_8_ = (uint64_t)uVar21;
+                            componentDependencies = local_50;
+                            this_10 = local_80;
                         }
                     }
-                    in_stack_fffffffffffffe68 = local_60;
-                    ((undefined4)(GUIManager*)local_44)
-                        ->AddElement(local_98, uVar32, uVar26, iVar33, iVar7, local_88, local_60, CONCAT44(uVar42, 1));
+                    local_98->AddElement(uVar21, uVar27, iVar7, iVar8, local_88, local_44, local_40, local_3c, local_38,
+                                         local_60, 1);
                 } else if (graphics::GUIManager::m_skipRotatedElements == '\0') {
-                    local_90 = (AnimBase*)CONCAT44(local_90._4_4_, (uint)uVar6);
-                    local_80 = this_12;
-                    puVar18 = (uint*)(*(NXTRenderCanvas**)(param_1 + 16))->GetPixelBuffer();
+                    local_90 = (AnimBase*)(((uint64_t)local_90._4_4_ << 32) | (uint32_t)((unsigned int)uVar6));
+                    local_80 = this_10;
+                    piVar19 = (int*)(*(NXTRenderCanvas**)(componentDependencies + 16))->GetPixelBuffer();
                     iVar7 = local_6c;
-                    iVar33 = local_6c - (int)local_78;
-                    iVar34 = local_84 - (int)local_a0;
-                    uVar27 = *puVar18;
-                    p_Var31 = (_func_decltype_nullptr*)(ulong)uVar27;
-                    new (local_b8)
-                        oldscape::dash3d::GridRect(uVar27, puVar18[1], puVar18[2] - uVar27, puVar18[3] - puVar18[1]);
-                    new (local_d8) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var31);
+                    iVar8 = local_6c - (int)local_78;
+                    iVar26 = local_84 - (int)local_a0;
+                    new (local_b8) oldscape::dash3d::GridRect(*piVar19, piVar19[1], piVar19[2] - *piVar19,
+                                                              piVar19[3] - piVar19[1]);
+                    new (local_d8) shared_ptr();
                     if (local_90._0_4_ == 4.59177e-41) {
-                        new ((local_120 + 16)) oldscape::dash3d::GridRect((int)local_78, (int)local_a0, iVar33, iVar34);
-                        math::Rect<unsigned int>::operator=((Rect<unsigned int>*)local_d8, (Rect*)(local_120 + 16));
+                        new ((local_120 + 16)) oldscape::dash3d::GridRect((int)local_78, (int)local_a0, iVar8, iVar26);
+                        *local_d8 = (*((local_120 + 16)));
                     } else {
-                        fVar37 = (float)iVar33 * 0.5;
-                        fVar36 = (float)iVar34 * 0.5;
-                        iVar29 = (int)local_78 + (int)fVar37;
-                        iVar7 = (int)local_a0 + (int)fVar36;
-                        if (((uint)local_90._0_4_ & 32767) == 16384) {
+                        fVar29 = (float)iVar8 * 0.5;
+                        fVar28 = (float)iVar26 * 0.5;
+                        iVar23 = (int)local_78 + (int)fVar29;
+                        iVar7 = (int)local_a0 + (int)fVar28;
+                        if (((unsigned int)local_90._0_4_ & 32767) == 16384) {
                             new ((local_120 + 16))
-                                oldscape::dash3d::GridRect(iVar29 - (int)fVar36, iVar7 - (int)fVar37, iVar34, iVar33);
+                                oldscape::dash3d::GridRect(iVar23 - (int)fVar28, iVar7 - (int)fVar29, iVar26, iVar8);
                             iVar7 = local_6c;
-                            math::Rect<unsigned int>::operator=((Rect<unsigned int>*)local_d8, (Rect*)(local_120 + 16));
+                            *local_d8 = (*((local_120 + 16)));
                         } else {
-                            fVar36 = fVar36 * fVar36 + fVar37 * fVar37;
-                            auVar38._4_4_ = extraout_XMM0_Db;
-                            auVar38._0_4_ = fVar36;
-                            auVar38._8_4_ = extraout_XMM0_Dc;
-                            auVar38._12_4_ = extraout_XMM0_Dd;
-                            auVar38 = rsqrtss(ZEXT816(0), auVar38);
-                            fVar37 = fVar36 * auVar38._0_4_;
-                            iVar33 = (int)(float)(~-(uint)(ABS(fVar36) < 1.1754944e-38) &
-                                                  (uint)((fVar37 * auVar38._0_4_ + -3.0) * fVar37 * -0.5));
+                            fVar28 = fVar28 * fVar28 + fVar29 * fVar29;
+                            auVar30._4_4_ = extraout_XMM0_Db;
+                            auVar30._0_4_ = fVar28;
+                            auVar30._8_4_ = extraout_XMM0_Dc;
+                            auVar30._12_4_ = extraout_XMM0_Dd;
+                            auVar30 = rsqrtss((unsigned __int128)0, auVar30);
+                            fVar29 = fVar28 * auVar30._0_4_;
+                            iVar8 = (int)(float)(~-(unsigned int)(ABS(fVar28) < 1.1754944e-38) &
+                                                 (unsigned int)((fVar29 * auVar30._0_4_ - 3.0) * fVar29 * -0.5));
                             new ((local_120 + 16))
-                                oldscape::dash3d::GridRect(iVar29 - iVar33, iVar7 - iVar33, iVar33 * 2, iVar33 * 2);
-                            math::Rect<unsigned int>::operator=((Rect<unsigned int>*)local_d8, (Rect*)(local_120 + 16));
+                                oldscape::dash3d::GridRect(iVar23 - iVar8, iVar7 - iVar8, iVar8 * 2, iVar8 * 2);
+                            *local_d8 = (*((local_120 + 16)));
                             iVar7 = local_6c;
                         }
                     }
-                    cVar3 = local_b8->Contains(local_d8);
-                    if (cVar3 == '\0') {
-                        pRVar24 = (Rect*)local_b8;
-                        (*(ScaleManager**)(local_50 + 24))->InterfaceToScreenRect(local_b8, true);
+                    cVar4 = local_b8->Contains(*local_d8);
+                    if (!cVar4) {
+                        (*(ScaleManager**)(local_50 + 24))->InterfaceToScreenRect(*local_b8, true);
                         iVar7 = local_b8->Right();
-                        uVar28 = local_68;
+                        uVar22 = local_68;
                         if ((-1 < iVar7) && (iVar7 = local_b8->MaxZ(), -1 < iVar7)) {
-                            pvVar21 = local_b8->SSOBeginPtr(pRVar24);
-                            iVar7 = *(int*)pvVar21;
-                            iVar33 = (*(RT7Core**)(local_50 + 16))->GetBackBufferWidth();
-                            if (iVar7 < iVar33) {
-                                piVar22 = (int*)local_b8->y();
-                                iVar7 = *piVar22;
-                                iVar33 = (*(RT7Core**)(local_50 + 16))->GetBackBufferHeight();
+                            piVar19 = (int*)local_b8->SSOBeginPtr();
+                            iVar7 = *piVar19;
+                            iVar8 = (*(RT7Core**)(local_50 + 16))->GetBackBufferWidth();
+                            if (iVar7 < iVar8) {
+                                piVar19 = (int*)local_b8->y();
+                                iVar7 = *piVar19;
+                                iVar8 = (*(RT7Core**)(local_50 + 16))->GetBackBufferHeight();
                                 pCVar2 = local_50;
-                                if (iVar7 < iVar33) {
+                                if (iVar7 < iVar8) {
                                     iVar7 = (*(RT7Core**)(local_50 + 16))->GetBackBufferWidth();
-                                    iVar33 = (*(RT7Core**)(pCVar2 + 16))->GetBackBufferHeight();
-                                    new (local_138) oldscape::dash3d::GridRect(0, 0, iVar7, iVar33);
-                                    ((local_120 + 16))->Intersection(local_b8, local_138);
-                                    math::Rect<unsigned int>::operator=((Rect<unsigned int>*)local_b8,
-                                                                        (Rect*)(local_120 + 16));
-                                    pDVar23 = (DrawCallState*)local_98->GetCurrentState();
-                                    new ((local_120 + 16)) render::DrawCallState(pDVar23);
-                                    pvVar21 = local_b8->SSOBeginPtr(pDVar23);
-                                    local_dc = *(int*)pvVar21;
-                                    iVar33 = (*(RT7Core**)(pCVar2 + 16))->GetBackBufferHeight();
-                                    iVar34 = local_b8->MaxZ();
-                                    piVar22 = (int*)local_b8->second();
-                                    iVar7 = *piVar22;
-                                    piVar22 = (int*)local_b8->qw();
+                                    iVar8 = (*(RT7Core**)(pCVar2 + 16))->GetBackBufferHeight();
+                                    new (local_138) oldscape::dash3d::GridRect(0, 0, iVar7, iVar8);
+                                    *((local_120 + 16)) = local_b8->Intersection(local_138);
+                                    *local_b8 = (*((local_120 + 16)));
+                                    drawCallState = local_98->GetCurrentState();
+                                    new ((local_120 + 16)) render::DrawCallState(*drawCallState);
+                                    piVar19 = (int*)local_b8->SSOBeginPtr();
+                                    local_dc = *piVar19;
+                                    iVar8 = (*(RT7Core**)(pCVar2 + 16))->GetBackBufferHeight();
+                                    iVar26 = local_b8->MaxZ();
+                                    piVar19 = (int*)local_b8->second();
+                                    iVar7 = *piVar19;
+                                    piVar19 = (int*)local_b8->qw();
                                     new (local_120)
-                                        oldscape::dash3d::GridRect(local_dc, iVar33 - iVar34, iVar7, *piVar22);
-                                    pRVar24 = (Rect*)((local_120 + 16))->GetOutputMergerState();
-                                    render::OutputMergerState::SetScissorRects(pRVar24, (uint)local_120);
-                                    local_98->Begin((DrawCallState*)(local_120 + 16));
+                                        oldscape::dash3d::GridRect(local_dc, iVar8 - iVar26, iVar7, *piVar19);
+                                    (((local_120 + 16))->GetOutputMergerState())->SetScissorRects(local_120, 1);
+                                    local_98->Begin(*((local_120 + 16)));
                                     ((local_120 + 16))->~DrawCallState();
-                                    this_05 = local_98;
-                                    in_stack_fffffffffffffe68 = local_60;
-                                    local_44->AddElementRotated(local_98, local_78, local_a0, local_6c, local_84,
-                                                                local_88, local_60, CONCAT44(uVar42, 1),
-                                                                CONCAT44(uVar43, 4293967297), 4293967297);
-                                    uVar28 = local_68;
-                                    this_05->End();
+                                    pGVar9 = local_98;
+                                    local_98->AddElementRotated((int)local_78, (int)local_a0, local_6c, local_84,
+                                                                local_88, local_44, local_40, local_3c, local_38,
+                                                                local_60, 1, (float)-(int)local_90._0_4_ * 9.58738e-05,
+                                                                -999999, -999999);
+                                    uVar22 = local_68;
+                                    pGVar9->End();
                                 }
                             }
                         }
                     } else {
-                        in_stack_fffffffffffffe68 = local_60;
-                        local_44->AddElementRotated(local_98, local_78, local_a0, iVar7, local_84, local_88, local_60,
-                                                    CONCAT44(uVar42, 1), CONCAT44(uVar43, 4293967297), 4293967297);
-                        uVar28 = local_68;
+                        local_98->AddElementRotated((int)local_78, (int)local_a0, iVar7, local_84, local_88, local_44,
+                                                    local_40, local_3c, local_38, local_60, 1,
+                                                    (float)-(int)local_90._0_4_ * 9.58738e-05, -999999, -999999);
+                        uVar22 = local_68;
                     }
                 LAB_1006ac5d3:
-                    param_1 = local_50;
-                    this_12 = local_80;
+                    componentDependencies = local_50;
+                    this_10 = local_80;
                 }
             }
         }
@@ -594,33 +526,29 @@ namespace jag::ui {
             return local_c8;
         }
     LAB_1006ac5eb:
-        iVar7 = GetLinkObjType(this);
-        if ((iVar7 != -1) && (this_12 != (TextProperties*)0)) {
-            local_68 = uVar28;
-            (*(code*)field_0[34])(this);
-            (*(code*)field_0[32])(
-                (SharedArray<std::unique_ptr<oldscape::rs2lib::worldmap::LocationData,
-                                             std::default_delete<oldscape::rs2lib::worldmap::LocationData>>>*)local_b8,
-                this);
-            cVar3 = local_b8->empty();
-            if (cVar3 == '\0') {
-                this_03 = *(FontManager**)(param_1 + 8);
-                iVar7 = (*(code*)field_0[33])(this);
-                psVar12 = (shared_ptr*)this_12->second();
-                psVar12 = (shared_ptr*)this_03->GetFont(iVar7, psVar12);
-                bVar4 = shared_ptr::operator_cast_to_bool(psVar12);
-                if (bVar4) {
+        iVar7 = GetLinkObjType();
+        if ((iVar7 != -1) && (this_10 != nullptr)) {
+            local_68 = uVar22;
+            UpdateObjQuantityText();
+            GetObjQuantityText((SharedArray<std::unique_ptr<oldscape::rs2lib::worldmap::LocationData>>*)local_b8, this);
+            cVar4 = local_b8->empty();
+            if (!cVar4) {
+                this_03 = *(FontManager**)(componentDependencies + 8);
+                uVar3 = GetObjQuantityFontID();
+                spriteAtlas = (shared_ptr<graphics::SpriteAtlas>*)this_10->second();
+                psVar12 = (shared_ptr*)this_03->GetFont((int)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar3),
+                                                        *spriteAtlas);
+                cVar4 = shared_ptr::operator_cast_to_bool(psVar12);
+                if (cVar4) {
                     local_d8[0] = 511;
-                    pTVar16 = (TextProperties*)(local_120 + 16);
-                    graphics::TextProperties::TextProperties(pTVar16, psVar12);
+                    this_01 = (TextProperties*)(local_120 + 16);
+                    new (this_01) graphics::TextProperties(*psVar12);
                     bVar5 = GetAlpha();
-                    new ((local_138 + 16)) eastl::optional<unsigned int>(local_d8);
-                    pTVar16->SetColours(bVar5 | 4294967040, (optional<unsigned int>*)(local_138 + 16));
-                    this_04 = *(FontHelpers**)param_1;
-                    new (&local_148) StringView(local_b8);
-                    SVar40.field_8 = (uchar*)local_b8._16_8_;
-                    SVar40.field_0 = (ulong)&local_148;
-                    this_04->DrawString(SVar40, (int)local_68, 0, (uint)pTVar16, in_stack_fffffffffffffe68);
+                    new ((local_138 + 16)) eastl::optional(*local_d8);
+                    this_01->SetColours(bVar5 | 4294967040, (local_138 + 16));
+                    this_04 = *(FontHelpers**)componentDependencies;
+                    local_148 = StringView(*local_b8);
+                    this_04->DrawString(&local_148, local_b8._16_4_, (int)local_68, 0, *this_01);
                 }
             }
         }

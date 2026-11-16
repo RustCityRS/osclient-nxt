@@ -1,440 +1,299 @@
 // projects/osclient/highlighting/HighlightedGroup.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::highlight {
     class HighlightedGroup {
     public:
-        void CacheEntity(NpcUID const&);
-        void CacheEntity(EntityWithCoord<dash3d::Wall> const&);
-        void CacheEntity(EntityWithCoord<dash3d::Decor> const&);
-        void CacheEntity(EntityWithCoord<dash3d::Sprite> const&);
-        void CacheEntity(EntityWithCoord<dash3d::GroundDecor> const&);
-        void CacheEntity(EntityWithCoord<ClientObj> const&);
-        void ForEachNPC(std::function<void(ClientNpc const&)>, std::array<shared_ptr<ClientNpc>, 65536ul> const&);
-        void ForEachWall(std::function<void(EntityWithCoord<dash3d::Wall>&)>);
-        void ForEachDecor(std::function<void(EntityWithCoord<dash3d::Decor>&)>);
-        void ForEachGroundDecor(std::function<void(EntityWithCoord<dash3d::GroundDecor>&)>);
-        void ForEachScenery(std::function<void(EntityWithCoord<dash3d::Sprite>&)>);
-        void ForEachObj(std::function<void(EntityWithCoord<ClientObj>&)>);
-        void ForEachStaticEntity<dash3d::Wall>(std::function<void(EntityWithCoord<dash3d::Wall>&)>,
-                                               eastl::vector<EntityWithCoord<dash3d::Wall>, eastl::allocator>&);
-        void ForEachStaticEntity<dash3d::Decor>(std::function<void(EntityWithCoord<dash3d::Decor>&)>,
-                                                eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>&);
-        void ForEachStaticEntity<dash3d::GroundDecor>(
-            std::function<void(EntityWithCoord<dash3d::GroundDecor>&)>,
-            eastl::vector<EntityWithCoord<dash3d::GroundDecor>, eastl::allocator>&);
-        void ForEachStaticEntity<dash3d::Sprite>(std::function<void(EntityWithCoord<dash3d::Sprite>&)>,
-                                                 eastl::vector<EntityWithCoord<dash3d::Sprite>, eastl::allocator>&);
-        void ForEachStaticEntity<ClientObj>(std::function<void(EntityWithCoord<ClientObj>&)>,
-                                            eastl::vector<EntityWithCoord<ClientObj>, eastl::allocator>&);
+        void CacheEntity(const NpcUID& npcUID);
+        void CacheEntity(const EntityWithCoord<dash3d::Wall>& entityWithCoord);
+        void CacheEntity(const EntityWithCoord<dash3d::Decor>& entityWithCoord);
+        void CacheEntity(const EntityWithCoord<dash3d::Sprite>& entityWithCoord);
+        void CacheEntity(const EntityWithCoord<dash3d::GroundDecor>& entityWithCoord);
+        void CacheEntity(const EntityWithCoord<ClientObj>& entityWithCoord);
+        void ForEachNPC(std::function<void(ClientNpc const&)> callback,
+                        const std::array<shared_ptr<ClientNpc>, 65536ul>& clientNpcs);
+        void ForEachWall(std::function<void(EntityWithCoord<dash3d::Wall>&)> callback);
+        void ForEachDecor(std::function<void(EntityWithCoord<dash3d::Decor>&)> callback);
+        void ForEachGroundDecor(std::function<void(EntityWithCoord<dash3d::GroundDecor>&)> callback);
+        void ForEachScenery(std::function<void(EntityWithCoord<dash3d::Sprite>&)> callback);
+        void ForEachObj(std::function<void(EntityWithCoord<ClientObj>&)> callback);
+        void ForEachStaticEntity<dash3d::Wall>(std::function<void(EntityWithCoord<dash3d::Wall>&)> callback,
+                                               eastl::vector<EntityWithCoord<dash3d::Wall>>& entityWithCoords);
+        void ForEachStaticEntity<dash3d::Decor>(std::function<void(EntityWithCoord<dash3d::Decor>&)> callback,
+                                                eastl::vector<EntityWithCoord<dash3d::Decor>>& entityWithCoords);
+        void
+        ForEachStaticEntity<dash3d::GroundDecor>(std::function<void(EntityWithCoord<dash3d::GroundDecor>&)> callback,
+                                                 eastl::vector<EntityWithCoord<dash3d::GroundDecor>>& entityWithCoords);
+        void ForEachStaticEntity<dash3d::Sprite>(std::function<void(EntityWithCoord<dash3d::Sprite>&)> callback,
+                                                 eastl::vector<EntityWithCoord<dash3d::Sprite>>& entityWithCoords);
+        void ForEachStaticEntity<ClientObj>(std::function<void(EntityWithCoord<ClientObj>&)> callback,
+                                            eastl::vector<EntityWithCoord<ClientObj>>& entityWithCoords);
         ~HighlightedGroup();
         HighlightedGroup();
 
-        // data members, from how the methods use this: 176 bytes
-        char _unknown_0[40];
-        undefined1 field_40; // offset 40
-        char _unknown_41[31];
-        undefined1 field_72; // offset 72
-        char _unknown_73[31];
-        undefined1 field_104; // offset 104
-        char _unknown_105[31];
-        undefined1 field_136; // offset 136
-        char _unknown_137[31];
-        undefined1 field_168; // offset 168
-        char _unknown_169[7];
+        uint8_t _unknown_0[176];
     };
 
     class NpcUID {
     public:
-        NpcUID(int, int);
-        NpcUID(int);
+        NpcUID(int arg1, int arg2);
+        NpcUID(int arg1);
 
-        // data members, from how the methods use this: 4 bytes
-        uint field_0; // offset 0
+    private:
+        unsigned int field_0;
     };
 
-    // 0x1000117b0, 16 bytes, inline, placed by class name and debug map
-    // HighlightedGroup::CacheEntity(NpcUID const&)
-    void HighlightedGroup::CacheEntity(NpcUID* param_1) {
-        (&field_8, param_1)->push_back();
+    // 0x1000117b0
+    void HighlightedGroup::CacheEntity(const NpcUID& npcUID) {
+        field_8.push_back(npcUID);
     }
 
-    // 0x1000117c0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // NpcUID::NpcUID(int, int): jumps straight to the base-object constructor
-
-    // 0x100011cc0, 16 bytes, inline, placed by class name and debug map
-    // HighlightedGroup::CacheEntity(EntityWithCoord<dash3d::Wall> const&)
-    void HighlightedGroup::CacheEntity(EntityWithCoord* param_1) {
-        (&field_40, param_1)->push_back();
+    // 0x100011cc0
+    void HighlightedGroup::CacheEntity(const EntityWithCoord<dash3d::Wall>& entityWithCoord) {
+        field_40.push_back(entityWithCoord);
     }
 
-    // 0x100011d00, 16 bytes, inline, placed by class name
-    // HighlightedGroup::CacheEntity(EntityWithCoord<dash3d::Decor> const&)
-    void HighlightedGroup::CacheEntity(EntityWithCoord* param_1) {
-        (&field_72, param_1)->push_back();
+    // 0x100011d00
+    void HighlightedGroup::CacheEntity(const EntityWithCoord<dash3d::Decor>& entityWithCoord) {
+        field_72.push_back(entityWithCoord);
     }
 
-    // 0x100011d10, 32 bytes, inline, placed by class name
-    // HighlightedGroup::CacheEntity(EntityWithCoord<dash3d::Sprite> const&)
-    void HighlightedGroup::CacheEntity(EntityWithCoord* param_1) {
-        (&field_136, param_1)->push_back();
+    // 0x100011d10
+    void HighlightedGroup::CacheEntity(const EntityWithCoord<dash3d::Sprite>& entityWithCoord) {
+        field_136.push_back(entityWithCoord);
     }
 
-    // 0x100011d30, 16 bytes, inline, placed by class name
-    // HighlightedGroup::CacheEntity(EntityWithCoord<dash3d::GroundDecor> const&)
-    void HighlightedGroup::CacheEntity(EntityWithCoord* param_1) {
-        (&field_104, param_1)->push_back();
+    // 0x100011d30
+    void HighlightedGroup::CacheEntity(const EntityWithCoord<dash3d::GroundDecor>& entityWithCoord) {
+        field_104.push_back(entityWithCoord);
     }
 
-    // 0x100011fb0, 32 bytes, inline, placed by class name
-    // HighlightedGroup::CacheEntity(EntityWithCoord<ClientObj> const&)
-    void HighlightedGroup::CacheEntity(EntityWithCoord* param_1) {
-        (&field_168, param_1)->push_back();
+    // 0x100011fb0
+    void HighlightedGroup::CacheEntity(const EntityWithCoord<ClientObj>& entityWithCoord) {
+        field_168.push_back(entityWithCoord);
     }
 
-    // 0x100013b70, 128 bytes, inline, placed by class name
-    // HighlightedGroup::ForEachWall(std::function<void (EntityWithCoord<dash3d::Wall>&)>)
-    /* HighlightedGroup::ForEachWall(std::function<void
-   (EntityWithCoord<dash3d::Wall>&)>) */
-
-    void HighlightedGroup::ForEachWall(function* param_2) {
+    // 0x100013b70
+    void HighlightedGroup::ForEachWall(std::function<void(EntityWithCoord<dash3d::Wall>&)> callback) {
         function<void(EntityWithCoord<dash3d::Wall>&)> local_58[56];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        std::function<void(EntityWithCoord<dash3d::Wall>&)>::function(local_58, param_2);
-        ForEachStaticEntity<dash3d::Wall>(this, local_58, &field_40);
-        std::function<void(EntityWithCoord<dash3d::Wall>&)>::~function(local_58);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        new (local_58) std::function<void(EntityWithCoord<dash3d::Wall>&)>(*callback);
+        ForEachStaticEntity<dash3d::Wall>(this, (function<void_(EntityWithCoord<dash3d::Wall>&)>*)local_58,
+                                          (vector<EntityWithCoord<dash3d::Wall>>*)&field_40);
     }
 
-    // 0x100013c10, 128 bytes, inline, placed by class name
-    // HighlightedGroup::ForEachDecor(std::function<void (EntityWithCoord<dash3d::Decor>&)>)
-    /* HighlightedGroup::ForEachDecor(std::function<void
-   (EntityWithCoord<dash3d::Decor>&)>) */
-
-    void HighlightedGroup::ForEachDecor(function* param_2) {
+    // 0x100013c10
+    void HighlightedGroup::ForEachDecor(std::function<void(EntityWithCoord<dash3d::Decor>&)> callback) {
         function<void(EntityWithCoord<dash3d::Decor>&)> local_58[56];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        std::function<void(EntityWithCoord<dash3d::Decor>&)>::function(local_58, param_2);
-        ForEachStaticEntity<dash3d::Decor>(this, local_58, &field_72);
-        std::function<void(EntityWithCoord<dash3d::Decor>&)>::~function(local_58);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        new (local_58) std::function<void(EntityWithCoord<dash3d::Decor>&)>(*callback);
+        ForEachStaticEntity<dash3d::Decor>(this, (function<void_(EntityWithCoord<dash3d::Decor>&)>*)local_58,
+                                           (vector<EntityWithCoord<dash3d::Decor>>*)&field_72);
     }
 
-    // 0x100013cb0, 128 bytes, inline, placed by class name
-    // HighlightedGroup::ForEachGroundDecor(std::function<void (EntityWithCoord<dash3d::GroundDecor>&)>)
-    /* HighlightedGroup::ForEachGroundDecor(std::function<void
-   (EntityWithCoord<dash3d::GroundDecor>&)>) */
-
-    void HighlightedGroup::ForEachGroundDecor(function* param_2) {
+    // 0x100013cb0
+    void HighlightedGroup::ForEachGroundDecor(std::function<void(EntityWithCoord<dash3d::GroundDecor>&)> callback) {
         function<void(EntityWithCoord<dash3d::GroundDecor>&)> local_58[56];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        std::function<void(EntityWithCoord<dash3d::GroundDecor>&)>::function(local_58, param_2);
-        ForEachStaticEntity<dash3d::GroundDecor>(this, local_58, &field_104);
-        std::function<void(EntityWithCoord<dash3d::GroundDecor>&)>::~function(local_58);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        new (local_58) std::function<void(EntityWithCoord<dash3d::GroundDecor>&)>(*callback);
+        ForEachStaticEntity<dash3d::GroundDecor>(this,
+                                                 (function<void_(EntityWithCoord<dash3d::GroundDecor>&)>*)local_58,
+                                                 (vector<EntityWithCoord<dash3d::GroundDecor>>*)&field_104);
     }
 
-    // 0x100013d50, 128 bytes, inline, placed by class name
-    // HighlightedGroup::ForEachScenery(std::function<void (EntityWithCoord<dash3d::Sprite>&)>)
-    /* HighlightedGroup::ForEachScenery(std::function<void
-   (EntityWithCoord<dash3d::Sprite>&)>) */
-
-    void HighlightedGroup::ForEachScenery(function* param_2) {
+    // 0x100013d50
+    void HighlightedGroup::ForEachScenery(std::function<void(EntityWithCoord<dash3d::Sprite>&)> callback) {
         function<void(EntityWithCoord<dash3d::Sprite>&)> local_58[56];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        std::function<void(EntityWithCoord<dash3d::Sprite>&)>::function(local_58, param_2);
-        ForEachStaticEntity<dash3d::Sprite>(this, local_58, &field_136);
-        std::function<void(EntityWithCoord<dash3d::Sprite>&)>::~function(local_58);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        new (local_58) std::function<void(EntityWithCoord<dash3d::Sprite>&)>(*callback);
+        ForEachStaticEntity<dash3d::Sprite>(this, (function<void_(EntityWithCoord<dash3d::Sprite>&)>*)local_58,
+                                            (vector<EntityWithCoord<dash3d::Sprite>>*)&field_136);
     }
 
-    // 0x100013df0, 128 bytes, inline, placed by class name
-    // HighlightedGroup::ForEachObj(std::function<void (EntityWithCoord<ClientObj>&)>)
-    /* HighlightedGroup::ForEachObj(std::function<void
-   (EntityWithCoord<ClientObj>&)>) */
-
-    void HighlightedGroup::ForEachObj(function* param_2) {
+    // 0x100013df0
+    void HighlightedGroup::ForEachObj(std::function<void(EntityWithCoord<ClientObj>&)> callback) {
         function<void(EntityWithCoord<ClientObj>&)> local_58[56];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        std::function<void(EntityWithCoord<ClientObj>&)>::function(local_58, param_2);
-        ForEachStaticEntity<ClientObj>(this, local_58, &field_168);
-        std::function<void(EntityWithCoord<ClientObj>&)>::~function(local_58);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        new (local_58) std::function<void(EntityWithCoord<ClientObj>&)>(*callback);
+        ForEachStaticEntity<ClientObj>(this, (function<void_(EntityWithCoord<ClientObj>&)>*)local_58,
+                                       (vector<EntityWithCoord<ClientObj>>*)&field_168);
     }
 
-    // 0x100014230, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // NpcUID::NpcUID(int): jumps straight to the base-object constructor
-
-    // 0x10002afb0, 16 bytes, base-object constructor, inline, placed by class header (inline)
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // NpcUID::NpcUID(int, int)
-    /* dash3d::AnimateBaseOperation::SeparatedIndexCount::SeparatedIndexCount(unsigned
-   long, unsigned long) */
-
-    void dash3d::AnimateBaseOperation::SeparatedIndexCount::SeparatedIndexCount(ulong param_1, ulong param_2) {
-        field_0 = (short)param_1;
-        field_2 = (short)param_2;
+    // 0x10002afb0
+    NpcUID::NpcUID(int arg1, int arg2) {
+        field_0 = (short)arg1;
+        field_2 = (short)arg2;
     }
 
-    // 0x10002bb40, 160 bytes, inline, placed by class name
-    // void HighlightedGroup::ForEachStaticEntity<dash3d::Wall>(std::function<void (EntityWithCoord<dash3d::Wall>&)>, eastl::vector<EntityWithCoord<dash3d::Wall>, eastl::allocator>&)
-    /* void 
-   HighlightedGroup::ForEachStaticEntity<dash3d::Wall>(std::function<void
-   (EntityWithCoord<dash3d::Wall>&)>,
-   eastl::vector<EntityWithCoord<dash3d::Wall>,
-   eastl::allocator>&) */
-
+    // 0x10002bb40
     void HighlightedGroup::ForEachStaticEntity<dash3d::Wall>(
-        undefined8 param_1, function<void(EntityWithCoord<dash3d::Wall>&)>* param_2,
-        vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>* param_3) {
-        long lVar1;
-        EntityWithCoord* pEVar2;
-        ulong uVar3;
-        char cVar4;
-        ulong uVar5;
+        std::function<void(EntityWithCoord<dash3d::Wall>&)> callback,
+        eastl::vector<EntityWithCoord<dash3d::Wall>>& entityWithCoords) {
+        EntityWithCoord<dash3d::Wall>* entityWithCoord;
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
+        long lVar1 = entityWithCoords.size();
         if (lVar1 != 0) {
-            uVar5 = 0;
+            arg1 = 0;
             do {
-                lVar1 = eastl::vector<EntityWithCoord<dash3d::Wall>, eastl::allocator>::operator[](
-                    (vector<EntityWithCoord<dash3d::Wall>, eastl::allocator>*)param_3, uVar5);
-                cVar4 = ((lVar1 + 8))->expired();
-                if (cVar4 == '\0') {
-                    pEVar2 =
-                        (EntityWithCoord*)eastl::vector<EntityWithCoord<dash3d::Wall>, eastl::allocator>::operator[](
-                            (vector<EntityWithCoord<dash3d::Wall>, eastl::allocator>*)param_3, uVar5);
-                    std::function<void(EntityWithCoord<dash3d::Wall>&)>::operator()(param_2, pEVar2);
+                lVar1 = entityWithCoords[arg1];
+                if (((lVar1 + 8))->expired() == '\0') {
+                    entityWithCoord = (EntityWithCoord<dash3d::Wall>*)entityWithCoords[arg1];
+                    std::function<void(EntityWithCoord<dash3d::Wall>&)>::operator()(
+                        (function<void(EntityWithCoord<dash3d::Wall>&)>*)callback, entityWithCoord);
                 } else {
-                    lVar1 = param_3->HeapBeginPtr();
-                    param_3->erase((EntityWithCoord*)(lVar1 + uVar5 * 24));
-                    uVar5 = uVar5 - 1;
+                    lVar1 = entityWithCoords.HeapBeginPtr();
+                    entityWithCoords.erase((lVar1 + arg1 * 24));
+                    arg1 = arg1 - 1;
                 }
-                uVar5 = uVar5 + 1;
-                uVar3 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
-            } while (uVar5 < uVar3);
+                arg1 = arg1 + 1;
+                uVar2 = entityWithCoords.size();
+            } while (arg1 < uVar2);
         }
     }
 
-    // 0x10002bf90, 160 bytes, inline, placed by class name
-    // void HighlightedGroup::ForEachStaticEntity<dash3d::Decor>(std::function<void (EntityWithCoord<dash3d::Decor>&)>, eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>&)
-    /* void 
-   HighlightedGroup::ForEachStaticEntity<dash3d::Decor>(std::function<void
-   (EntityWithCoord<dash3d::Decor>&)>,
-   eastl::vector<EntityWithCoord<dash3d::Decor>,
-   eastl::allocator>&) */
-
+    // 0x10002bf90
     void HighlightedGroup::ForEachStaticEntity<dash3d::Decor>(
-        undefined8 param_1, function<void(EntityWithCoord<dash3d::Decor>&)>* param_2,
-        vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>* param_3) {
-        long lVar1;
-        EntityWithCoord* pEVar2;
-        ulong uVar3;
-        char cVar4;
-        ulong uVar5;
+        std::function<void(EntityWithCoord<dash3d::Decor>&)> callback,
+        eastl::vector<EntityWithCoord<dash3d::Decor>>& entityWithCoords) {
+        EntityWithCoord<dash3d::Decor>* entityWithCoord;
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
+        long lVar1 = entityWithCoords.size();
         if (lVar1 != 0) {
-            uVar5 = 0;
+            arg1 = 0;
             do {
-                lVar1 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::operator[](param_3, uVar5);
-                cVar4 = ((lVar1 + 8))->expired();
-                if (cVar4 == '\0') {
-                    pEVar2 =
-                        (EntityWithCoord*)eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::operator[](
-                            param_3, uVar5);
-                    std::function<void(EntityWithCoord<dash3d::Decor>&)>::operator()(param_2, pEVar2);
+                lVar1 = entityWithCoords[arg1];
+                if (((lVar1 + 8))->expired() == '\0') {
+                    entityWithCoord = (EntityWithCoord<dash3d::Decor>*)entityWithCoords[arg1];
+                    std::function<void(EntityWithCoord<dash3d::Decor>&)>::operator()(
+                        (function<void(EntityWithCoord<dash3d::Decor>&)>*)callback, entityWithCoord);
                 } else {
-                    lVar1 = param_3->HeapBeginPtr();
-                    eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::erase(
-                        param_3, (EntityWithCoord*)(lVar1 + uVar5 * 24));
-                    uVar5 = uVar5 - 1;
+                    lVar1 = entityWithCoords.HeapBeginPtr();
+                    entityWithCoords.erase((lVar1 + arg1 * 24));
+                    arg1 = arg1 - 1;
                 }
-                uVar5 = uVar5 + 1;
-                uVar3 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
-            } while (uVar5 < uVar3);
+                arg1 = arg1 + 1;
+                uVar2 = entityWithCoords.size();
+            } while (arg1 < uVar2);
         }
     }
 
-    // 0x10002c360, 160 bytes, inline, placed by class name
-    // void HighlightedGroup::ForEachStaticEntity<dash3d::GroundDecor>(std::function<void (EntityWithCoord<dash3d::GroundDecor>&)>, eastl::vector<EntityWithCoord<dash3d::GroundDecor>, eastl::allocator>&)
-    /* void 
-   HighlightedGroup::ForEachStaticEntity<dash3d::GroundDecor>(std::function<void
-   (EntityWithCoord<dash3d::GroundDecor>&)>,
-   eastl::vector<EntityWithCoord<dash3d::GroundDecor>,
-   eastl::allocator>&) */
-
+    // 0x10002c360
     void HighlightedGroup::ForEachStaticEntity<dash3d::GroundDecor>(
-        undefined8 param_1, function<void(EntityWithCoord<dash3d::GroundDecor>&)>* param_2,
-        vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>* param_3) {
-        long lVar1;
-        EntityWithCoord* pEVar2;
-        ulong uVar3;
-        char cVar4;
-        ulong uVar5;
+        std::function<void(EntityWithCoord<dash3d::GroundDecor>&)> callback,
+        eastl::vector<EntityWithCoord<dash3d::GroundDecor>>& entityWithCoords) {
+        EntityWithCoord<dash3d::GroundDecor>* entityWithCoord;
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
+        long lVar1 = entityWithCoords.size();
         if (lVar1 != 0) {
-            uVar5 = 0;
+            arg1 = 0;
             do {
-                lVar1 = eastl::vector<EntityWithCoord<dash3d::GroundDecor>, eastl::allocator>::operator[](
-                    (vector<EntityWithCoord<dash3d::GroundDecor>, eastl::allocator>*)param_3, uVar5);
-                cVar4 = ((lVar1 + 8))->expired();
-                if (cVar4 == '\0') {
-                    pEVar2 = (EntityWithCoord*)
-                        eastl::vector<EntityWithCoord<dash3d::GroundDecor>, eastl::allocator>::operator[](
-                            (vector<EntityWithCoord<dash3d::GroundDecor>, eastl::allocator>*)param_3, uVar5);
-                    std::function<void(EntityWithCoord<dash3d::GroundDecor>&)>::operator()(param_2, pEVar2);
+                lVar1 = entityWithCoords[arg1];
+                if (((lVar1 + 8))->expired() == '\0') {
+                    entityWithCoord = (EntityWithCoord<dash3d::GroundDecor>*)entityWithCoords[arg1];
+                    std::function<void(EntityWithCoord<dash3d::GroundDecor>&)>::operator()(
+                        (function<void(EntityWithCoord<dash3d::GroundDecor>&)>*)callback, entityWithCoord);
                 } else {
-                    lVar1 = param_3->HeapBeginPtr();
-                    param_3->erase((EntityWithCoord*)(lVar1 + uVar5 * 24));
-                    uVar5 = uVar5 - 1;
+                    lVar1 = entityWithCoords.HeapBeginPtr();
+                    entityWithCoords.erase((lVar1 + arg1 * 24));
+                    arg1 = arg1 - 1;
                 }
-                uVar5 = uVar5 + 1;
-                uVar3 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
-            } while (uVar5 < uVar3);
+                arg1 = arg1 + 1;
+                uVar2 = entityWithCoords.size();
+            } while (arg1 < uVar2);
         }
     }
 
-    // 0x10002c730, 160 bytes, inline, placed by class name
-    // void HighlightedGroup::ForEachStaticEntity<dash3d::Sprite>(std::function<void (EntityWithCoord<dash3d::Sprite>&)>, eastl::vector<EntityWithCoord<dash3d::Sprite>, eastl::allocator>&)
-    /* void 
-   HighlightedGroup::ForEachStaticEntity<dash3d::Sprite>(std::function<void
-   (EntityWithCoord<dash3d::Sprite>&)>,
-   eastl::vector<EntityWithCoord<dash3d::Sprite>,
-   eastl::allocator>&) */
-
+    // 0x10002c730
     void HighlightedGroup::ForEachStaticEntity<dash3d::Sprite>(
-        undefined8 param_1, function<void(EntityWithCoord<dash3d::Sprite>&)>* param_2,
-        vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>* param_3) {
-        long lVar1;
-        EntityWithCoord* pEVar2;
-        ulong uVar3;
-        char cVar4;
-        ulong uVar5;
+        std::function<void(EntityWithCoord<dash3d::Sprite>&)> callback,
+        eastl::vector<EntityWithCoord<dash3d::Sprite>>& entityWithCoords) {
+        EntityWithCoord<dash3d::Sprite>* entityWithCoord;
+        unsigned long uVar2;
+        unsigned long arg1;
 
-        lVar1 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
+        long lVar1 = entityWithCoords.size();
         if (lVar1 != 0) {
-            uVar5 = 0;
+            arg1 = 0;
             do {
-                lVar1 = eastl::vector<EntityWithCoord<dash3d::Sprite>, eastl::allocator>::operator[](
-                    (vector<EntityWithCoord<dash3d::Sprite>, eastl::allocator>*)param_3, uVar5);
-                cVar4 = ((lVar1 + 8))->expired();
-                if (cVar4 == '\0') {
-                    pEVar2 =
-                        (EntityWithCoord*)eastl::vector<EntityWithCoord<dash3d::Sprite>, eastl::allocator>::operator[](
-                            (vector<EntityWithCoord<dash3d::Sprite>, eastl::allocator>*)param_3, uVar5);
-                    std::function<void(EntityWithCoord<dash3d::Sprite>&)>::operator()(param_2, pEVar2);
+                lVar1 = entityWithCoords[arg1];
+                if (((lVar1 + 8))->expired() == '\0') {
+                    entityWithCoord = (EntityWithCoord<dash3d::Sprite>*)entityWithCoords[arg1];
+                    std::function<void(EntityWithCoord<dash3d::Sprite>&)>::operator()(
+                        (function<void(EntityWithCoord<dash3d::Sprite>&)>*)callback, entityWithCoord);
                 } else {
-                    lVar1 = param_3->HeapBeginPtr();
-                    param_3->erase((EntityWithCoord*)(lVar1 + uVar5 * 24));
-                    uVar5 = uVar5 - 1;
+                    lVar1 = entityWithCoords.HeapBeginPtr();
+                    entityWithCoords.erase((lVar1 + arg1 * 24));
+                    arg1 = arg1 - 1;
                 }
-                uVar5 = uVar5 + 1;
-                uVar3 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
-            } while (uVar5 < uVar3);
+                arg1 = arg1 + 1;
+                uVar2 = entityWithCoords.size();
+            } while (arg1 < uVar2);
         }
     }
 
-    // 0x10002cb00, 160 bytes, inline, placed by class name
-    // void HighlightedGroup::ForEachStaticEntity<ClientObj>(std::function<void (EntityWithCoord<ClientObj>&)>, eastl::vector<EntityWithCoord<ClientObj>, eastl::allocator>&)
-    /* void 
-   HighlightedGroup::ForEachStaticEntity<ClientObj>(std::function<void
-   (EntityWithCoord<ClientObj>&)>,
-   eastl::vector<EntityWithCoord<ClientObj>,
-   eastl::allocator>&) */
+    // 0x10002cb00
+    void HighlightedGroup::ForEachStaticEntity<ClientObj>(std::function<void(EntityWithCoord<ClientObj>&)> callback,
+                                                          eastl::vector<EntityWithCoord<ClientObj>>& entityWithCoords) {
+        EntityWithCoord<ClientObj>* entityWithCoord;
+        unsigned long uVar2;
+        unsigned long arg1;
 
-    void HighlightedGroup::ForEachStaticEntity<ClientObj>(
-        undefined8 param_1, function<void(EntityWithCoord<ClientObj>&)>* param_2,
-        vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>* param_3) {
-        long lVar1;
-        EntityWithCoord* pEVar2;
-        ulong uVar3;
-        char cVar4;
-        ulong uVar5;
-
-        lVar1 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
+        long lVar1 = entityWithCoords.size();
         if (lVar1 != 0) {
-            uVar5 = 0;
+            arg1 = 0;
             do {
-                lVar1 = eastl::vector<EntityWithCoord<ClientObj>, eastl::allocator>::operator[](
-                    (vector<EntityWithCoord<ClientObj>, eastl::allocator>*)param_3, uVar5);
-                cVar4 = ((lVar1 + 8))->expired();
-                if (cVar4 == '\0') {
-                    pEVar2 = (EntityWithCoord*)eastl::vector<EntityWithCoord<ClientObj>, eastl::allocator>::operator[](
-                        (vector<EntityWithCoord<ClientObj>, eastl::allocator>*)param_3, uVar5);
-                    std::function<void(EntityWithCoord<ClientObj>&)>::operator()(param_2, pEVar2);
+                lVar1 = entityWithCoords[arg1];
+                if (((lVar1 + 8))->expired() == '\0') {
+                    entityWithCoord = (EntityWithCoord<ClientObj>*)entityWithCoords[arg1];
+                    std::function<void(EntityWithCoord<ClientObj>&)>::operator()(
+                        (function<void(EntityWithCoord<ClientObj>&)>*)callback, entityWithCoord);
                 } else {
-                    lVar1 = param_3->HeapBeginPtr();
-                    param_3->erase((EntityWithCoord*)(lVar1 + uVar5 * 24));
-                    uVar5 = uVar5 - 1;
+                    lVar1 = entityWithCoords.HeapBeginPtr();
+                    entityWithCoords.erase((lVar1 + arg1 * 24));
+                    arg1 = arg1 - 1;
                 }
-                uVar5 = uVar5 + 1;
-                uVar3 = eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>::size(param_3);
-            } while (uVar5 < uVar3);
+                arg1 = arg1 + 1;
+                uVar2 = entityWithCoords.size();
+            } while (arg1 < uVar2);
         }
     }
 
-    // 0x10002cea0, 16 bytes, base-object constructor, inline, placed by class header (inline)
-    // NpcUID::NpcUID(int)
-    void NpcUID::NpcUID(int param_1) {
-        field_0 = (uint)param_1 >> 16 | param_1 << 16;
+    // 0x10002cea0
+    NpcUID::NpcUID(int arg1) {
+        field_0 = (unsigned int)arg1 >> 16 | arg1 << 16;
     }
 
-    // 0x100031540, 16 bytes, complete-object destructor, inline, placed by class name
-    // HighlightedGroup::~HighlightedGroup(): jumps straight to the base-object destructor
-
-    // 0x100031550, 80 bytes, base-object destructor, inline, placed by class name
-    // HighlightedGroup::~HighlightedGroup()
-    void HighlightedGroup::~HighlightedGroup() {
-        (&field_168)->~vector();
-        (&field_136)->~vector();
-        (&field_104)->~vector();
-        (&field_72)->~vector();
-        (&field_40)->~vector();
-        (&field_8)->~vector();
+    // 0x100031550
+    HighlightedGroup::~HighlightedGroup() {
+        field_168.~vector();
+        field_136.~vector();
+        field_104.~vector();
+        field_72.~vector();
+        field_40.~vector();
+        field_8.~vector();
     }
 
-    // 0x100034410, 16 bytes, complete-object constructor, inline, placed by class name
-    // HighlightedGroup::HighlightedGroup(): jumps straight to the base-object constructor
-
-    // 0x100034420, 192 bytes, base-object constructor, inline, placed by class name
-    // HighlightedGroup::HighlightedGroup()
-    void HighlightedGroup::HighlightedGroup() {
-        new (&field_8) eastl::vector<NpcUID, eastl::allocator>();
-        new (&field_40) eastl::vector<EntityWithCoord<dash3d::Wall>, eastl::allocator>();
-        new (&field_72) eastl::vector<EntityWithCoord<dash3d::Decor>, eastl::allocator>();
-        new (&field_104) eastl::vector<EntityWithCoord<dash3d::GroundDecor>, eastl::allocator>();
-        new (&field_136) eastl::vector<EntityWithCoord<dash3d::Sprite>, eastl::allocator>();
-        new (&field_168) eastl::vector<EntityWithCoord<ClientObj>, eastl::allocator>();
+    // 0x100034420
+    HighlightedGroup::HighlightedGroup() {
+        new (&field_8) eastl::vector<NpcUID>();
+        new (&field_40) eastl::vector<EntityWithCoord<dash3d::Wall>>();
+        new (&field_72) eastl::vector<EntityWithCoord<dash3d::Decor>>();
+        new (&field_104) eastl::vector<EntityWithCoord<dash3d::GroundDecor>>();
+        new (&field_136) eastl::vector<EntityWithCoord<dash3d::Sprite>>();
+        new (&field_168) eastl::vector<EntityWithCoord<ClientObj>>();
     }
 
 } // namespace jag::oldscape::highlight

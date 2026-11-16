@@ -1,104 +1,80 @@
 // libs/testframework/Test.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::testframework {
     class Test {
     public:
-        Test(eastl::string const&);
-        void addResult(TestAssertionResult const&);
+        Test(const eastl::string& str);
+        void addResult(const TestAssertionResult& testAssertionResult);
         Test* getTestName() const;
         Test* getResult() const;
         ~Test();
-        Test* operator=(Test&&);
+        Test* operator=(Test&& test);
 
-        // data members, from how the methods use this: 98 bytes
-        char _unknown_0[96];
-        undefined2 field_96; // offset 96
+        uint8_t _unknown_0[98];
     };
 
     class TestAssertionResult {
     public:
         ~TestAssertionResult();
         TestAssertionResult();
-        TestAssertionResult(TestAssertionResult const&);
-        TestAssertionResult(TestAssertionResult&&);
+        TestAssertionResult(const TestAssertionResult& testAssertionResult);
+        TestAssertionResult(TestAssertionResult&& testAssertionResult);
 
-        // data members, from how the methods use this: 72 bytes
-        char _unknown_0[64];
-        undefined8 field_64; // offset 64
+    private:
+        uint8_t _unknown_0[64];
+        uint64_t field_64;
     };
 
     class TestDescriptor {
     public:
         ~TestDescriptor();
-        TestDescriptor(TestDescriptor&&);
-        TestDescriptor(TestDescriptor const&);
+        TestDescriptor(TestDescriptor&& testDescriptor);
+        TestDescriptor(const TestDescriptor& testDescriptor);
 
-        // data members, from how the methods use this: 72 bytes
-        char _unknown_0[72];
+        uint8_t _unknown_0[72];
     };
 
     class TestResult {
     public:
         TestResult();
         ~TestResult();
-        TestResult* operator=(TestResult&&);
-        TestResult(TestResult const&);
-        TestResult(TestResult&&);
+        TestResult* operator=(TestResult&& testResult);
+        TestResult(const TestResult& testResult);
+        TestResult(TestResult&& testResult);
 
-        // data members, from how the methods use this: 104 bytes
-        char _unknown_0[96];
-        undefined2 field_96; // offset 96
-        char _unknown_98[6];
+    private:
+        uint8_t _unknown_0[96];
+        uint16_t field_96;
+        uint8_t _unknown_98[6];
     };
 
-    // 0x100ba56f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // TestResult::TestResult(): jumps straight to the base-object constructor
-
-    // 0x100ba5700, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // TestResult::~TestResult(): jumps straight to the base-object destructor
-
-    // 0x100ba7a00, 16 bytes, complete-object destructor, inline, placed by class name
-    // Test::~Test(): jumps straight to the base-object destructor
-
-    // 0x100ba7b70, 32 bytes, inline, placed by class name
-    // Test::operator=(Test&&)
-    /* Test::TEMPNAMEPLACEHOLDERVALUE(Test&&) */
-
-    Test* Test::operator=(Test* param_1) {
-        TestResult::operator=((TestResult*)this, (TestResult*)param_1);
+    // 0x100ba7b70
+    Test* Test::operator=(Test&& test) {
+        *this = test;
         return this;
     }
 
-    // 0x100ba8bc0, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // TestAssertionResult::TestAssertionResult(): jumps straight to the base-object constructor
-
-    // 0x100baaed0, 16 bytes, base-object destructor, inline, placed by class name
-    // Test::~Test()
-    void Test::~Test() {
-        ~TestResult();
-    }
+    // 0x100baaed0
+    Test::~Test() {}
 
 } // namespace jag::testframework
 
 namespace jag::oldscape {
     class TestJagex3Class {
     public:
-        DoTheThing();
+        TestJagex3Class* DoTheThing();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
     class TestRS2LibClass {
     public:
-        DoTheThing();
+        TestRS2LibClass* DoTheThing();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
 } // namespace jag::oldscape

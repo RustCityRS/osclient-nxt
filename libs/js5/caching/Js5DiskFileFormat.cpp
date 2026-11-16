@@ -1,228 +1,173 @@
 // libs/js5/caching/Js5DiskFileFormat.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.js5
 
 namespace jag {
     class Js5DiskFileFormat {
     public:
-        void DechunkGroupFiles(PacketT<Array<unsigned char, eastl::allocator>>&,
-                               PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int, unsigned int,
-                               unsigned int);
-        Js5DiskFileFormat* GetGroupFileData(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
-        void GetGroupFileData(PacketT<Array<unsigned char, eastl::allocator>>&,
-                              Array<unsigned char, eastl::allocator> const&, unsigned int);
-
-        // data members, from how the methods use this: 16 bytes
-        char _unknown_0[8];
-        long field_8; // offset 8
+        void DechunkGroupFiles(PacketT<Array<unsigned char>>& arg1, PacketT<Array<unsigned char>>& arg2,
+                               unsigned int arg3, unsigned int arg4, unsigned int arg5);
+        auto GetGroupFileData(PacketT<Array<unsigned char>>& arg1, unsigned int arg2);
+        void GetGroupFileData(PacketT<Array<unsigned char>>& arg1, const Array<unsigned char>& arg2, unsigned int arg3);
     };
 
-    // 0x1009e0880, 800 bytes, placed by class name and debug map
-    // Js5DiskFileFormat::DechunkGroupFiles(PacketT<Array<unsigned char, eastl::allocator> >&, PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int, unsigned int, unsigned int)
-    void Js5DiskFileFormat::DechunkGroupFiles(PacketT* param_1, PacketT* param_2, uint param_3, uint param_4,
-                                              uint param_5) {
+    // 0x1009e0880
+    void Js5DiskFileFormat::DechunkGroupFiles(PacketT<Array<unsigned char>>& arg1, PacketT<Array<unsigned char>>& arg2,
+                                              unsigned int arg3, unsigned int arg4, unsigned int arg5) {
         int iVar1;
-        undefined4* puVar2;
+        uint32_t* puVar2;
         int* piVar3;
-        uint* puVar4;
-        uchar* puVar5;
-        ulong uVar6;
-        ulong uVar7;
-        ulong uVar9;
-        int iVar10;
-        uint uVar11;
-        VBOMapper local_88;
-        Array<unsigned int, eastl::allocator> local_68[24];
-        uint local_48;
-        uint local_44;
-        byte local_35;
-        uint local_34;
+        unsigned int* puVar4;
+        unsigned long uVar5;
+        unsigned long arg1_01;
+        int iVar7;
+        unsigned int local_34;
 
-        local_48 = param_3;
-        param_2->SetPos((ulong)(param_4 - 1));
-        local_35 = param_2->g1();
-        local_44 = (uint)local_35;
-        uVar9 = (ulong)((param_4 - 1) + param_5 * local_44 * -4);
-        param_2->SetPos(uVar9);
-        Array<unsigned int, eastl::allocator>::Array(local_68, (ulong)param_5);
-        if (param_5 != 0) {
-            uVar6 = 0;
+        unsigned int local_48 = arg3;
+        arg2.SetPos((unsigned long)(arg4 - 1));
+        uint8_t local_35 = arg2.g1();
+        unsigned int local_44 = (unsigned int)local_35;
+        unsigned long uVar6 = (unsigned long)((arg4 - 1) + arg5 * local_44 * -4);
+        arg2.SetPos(uVar6);
+        Array<unsigned int> local_68((unsigned long)arg5);
+        if (arg5 != 0) {
+            uVar5 = 0;
             do {
-                puVar2 = (undefined4*)Array<unsigned int, eastl::allocator>::operator[](local_68, uVar6);
+                puVar2 = &local_68[uVar5];
                 *puVar2 = 0;
-                uVar6 = uVar6 + 1;
-            } while ((ulong)param_5 != uVar6);
+                uVar5 = uVar5 + 1;
+            } while ((unsigned long)arg5 != uVar5);
         }
         if (local_44 != 0) {
             local_34 = 0;
             do {
-                if ((int)(ulong)param_5 != 0) {
-                    uVar6 = 0;
-                    iVar10 = 0;
+                if ((int)(unsigned long)arg5 != 0) {
+                    uVar5 = 0;
+                    iVar7 = 0;
                     do {
-                        iVar1 = param_2->g4s();
-                        piVar3 = (int*)Array<unsigned int, eastl::allocator>::operator[](local_68, uVar6);
-                        iVar10 = iVar10 + iVar1;
-                        *piVar3 = *piVar3 + iVar10;
-                        uVar6 = uVar6 + 1;
-                    } while ((ulong)param_5 != uVar6);
+                        iVar1 = arg2.g4s();
+                        piVar3 = &local_68[uVar5];
+                        iVar7 = iVar7 + iVar1;
+                        *piVar3 = *piVar3 + iVar7;
+                        uVar5 = uVar5 + 1;
+                    } while ((unsigned long)arg5 != uVar5);
                 }
                 local_34 = local_34 + 1;
             } while (local_34 != local_44);
         }
-        local_34 = (int)(ulong)param_5 * 4 + 5;
-        uVar6 = (ulong)local_34;
-        if ((int)(ulong)param_5 != 0) {
-            uVar7 = 0;
-            uVar6 = (ulong)local_34;
+        local_34 = (int)(unsigned long)arg5 * 4 + 5;
+        uVar5 = (unsigned long)local_34;
+        if ((int)(unsigned long)arg5 != 0) {
+            arg1_01 = 0;
+            uVar5 = (unsigned long)local_34;
             do {
-                piVar3 = (int*)Array<unsigned int, eastl::allocator>::operator[](local_68, uVar7);
-                uVar6 = (ulong)(uint)((int)uVar6 + *piVar3);
-                uVar7 = uVar7 + 1;
-            } while ((ulong)param_5 != uVar7);
+                piVar3 = &local_68[arg1_01];
+                uVar5 = (unsigned long)(unsigned int)((int)uVar5 + *piVar3);
+                arg1_01 = arg1_01 + 1;
+            } while ((unsigned long)arg5 != arg1_01);
         }
-        new (&local_88) PacketT<Array<unsigned char, eastl::allocator>>(uVar6);
-        PacketT<Array<unsigned char, eastl::allocator>>::operator=(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, (PacketT*)&local_88);
-        local_88.~VBOMapper();
-        new (&local_88) Array<int, eastl::allocator>((ulong)param_5);
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, 1);
-        uVar11 = local_34;
-        if ((int)(ulong)param_5 != 0) {
-            uVar6 = 0;
+        VBOMapper local_88(uVar5);
+        arg1 = local_88;
+        local_88 = Array<int>((unsigned long)arg5);
+        arg1.p1<unsigned long>(1);
+        unsigned int uVar8 = local_34;
+        if ((int)(unsigned long)arg5 != 0) {
+            uVar5 = 0;
             do {
-                puVar4 =
-                    (uint*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&local_88, uVar6);
-                *puVar4 = uVar11;
-                PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                    (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, uVar11);
-                piVar3 = (int*)Array<unsigned int, eastl::allocator>::operator[](local_68, uVar6);
-                uVar11 = uVar11 + *piVar3;
-                uVar6 = uVar6 + 1;
-            } while ((ulong)param_5 != uVar6);
+                puVar4 = &local_88[uVar5];
+                *puVar4 = uVar8;
+                arg1.p4<int>(uVar8);
+                piVar3 = &local_68[uVar5];
+                uVar8 = uVar8 + *piVar3;
+                uVar5 = uVar5 + 1;
+            } while ((unsigned long)arg5 != uVar5);
         }
-        PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)param_1, uVar11);
-        uVar6 = param_1->size();
-        if (uVar6 != local_34) {
-            /* WARNING: Subroutine does not return */
+        arg1.p4<int>(uVar8);
+        uVar5 = arg1.size();
+        if (uVar5 != local_34) {
             LogAssert("groupFilesOut.GetPos()==headerLength",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/caching/"
                       "Js5DiskFileFormat.cpp",
                       67, "Js5DiskFileFormat: File data not starting at correct location");
         }
-        param_2->SetPos(uVar9);
+        arg2.SetPos(uVar6);
         if (local_35 != 0) {
             local_34 = 0;
             do {
-                if ((int)(ulong)param_5 != 0) {
-                    uVar9 = 0;
-                    uVar11 = 0;
+                if ((int)(unsigned long)arg5 != 0) {
+                    uVar6 = 0;
+                    uVar8 = 0;
                     do {
-                        iVar10 = param_2->g4s();
-                        uVar11 = uVar11 + iVar10;
-                        if (uVar11 != 0) {
-                            piVar3 = (int*)Array<int, eastl::allocator>::operator[](
-                                (Array<int, eastl::allocator>*)&local_88, uVar9);
-                            param_1->SetPos((long)*piVar3);
-                            puVar5 = (uchar*)param_2->GetDataPtr();
-                            param_1->pArrayBuffer(puVar5, (ulong)local_48, (ulong)uVar11);
-                            piVar3 = (int*)Array<int, eastl::allocator>::operator[](
-                                (Array<int, eastl::allocator>*)&local_88, uVar9);
-                            *piVar3 = *piVar3 + uVar11;
-                            local_48 = local_48 + uVar11;
+                        iVar7 = arg2.g4s();
+                        uVar8 = uVar8 + iVar7;
+                        if (uVar8 != 0) {
+                            piVar3 = &local_88[uVar6];
+                            arg1.SetPos((long)*piVar3);
+                            arg1.pArrayBuffer((unsigned char*)arg2.GetDataPtr(), (unsigned long)local_48,
+                                              (unsigned long)uVar8);
+                            piVar3 = &local_88[uVar6];
+                            *piVar3 = *piVar3 + uVar8;
+                            local_48 = local_48 + uVar8;
                         }
-                        uVar9 = uVar9 + 1;
-                    } while ((ulong)param_5 != uVar9);
+                        uVar6 = uVar6 + 1;
+                    } while ((unsigned long)arg5 != uVar6);
                 }
                 local_34 = local_34 + 1;
             } while (local_34 != local_44);
         }
-        local_88.~Array();
-        local_68->~Array();
     }
 
-    // 0x1009ef090, 240 bytes, placed by class name
-    // Js5DiskFileFormat::GetGroupFileData(PacketT<Array<unsigned char, eastl::allocator> >&, unsigned int)
-    Js5DiskFileFormat* Js5DiskFileFormat::GetGroupFileData(PacketT* param_1, uint param_2) {
-        byte bVar1;
-        uint uVar2;
-        int iVar3;
-        long lVar4;
-        PacketT* pPVar5;
-        PacketT<Array<unsigned char, eastl::allocator>>* this_00;
-        uint* extraout_RDX;
-        uint local_34;
+    // 0x1009ef090
+    auto Js5DiskFileFormat::GetGroupFileData(PacketT<Array<unsigned char>>& arg1, unsigned int arg2) {
+        auto result;
 
-        lVar4 = param_1->size();
-        bVar1 = param_1->g1();
+        long lVar4 = arg1.size();
+        uint8_t bVar1 = arg1.g1();
         if (1 < bVar1) {
-            /* WARNING: Subroutine does not return */
             LogAssert("version <= Js5DiskFileFormat::VERSION",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/caching/"
                       "Js5DiskFileFormat.cpp",
-                      101, "Js5DiskFileFormat: Unknown group file version: %d", (ulong)bVar1);
+                      101, "Js5DiskFileFormat: Unknown group file version: %d", (unsigned long)bVar1);
         }
-        param_1->SetPos((ulong)(param_2 * 4 + 1) + lVar4);
-        uVar2 = param_1->g4();
-        iVar3 = param_1->g4();
-        local_34 = iVar3 - uVar2;
-        MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>::MakeShared<unsigned int&>(
-            (shared_ptr*)this, (MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 16192>*)&local_34,
-            extraout_RDX);
-        param_1->SetPos((ulong)uVar2 + lVar4);
-        pPVar5 = (PacketT*)shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator*(
-            (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)this);
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gArrayBuffer<
-            PacketT<Array<unsigned char, eastl::allocator>>>(
-            (PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>*)param_1, pPVar5, (ulong)local_34);
-        this_00 = (PacketT<Array<unsigned char, eastl::allocator>>*)
-                      shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                          (shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>*)this);
-        this_00->SetPos(0);
-        return this;
+        arg1.SetPos((unsigned long)(arg2 * 4 + 1) + lVar4);
+        unsigned int uVar2 = arg1.g4();
+        int iVar3 = arg1.g4();
+        MakeSharedPool<PacketT<Array<unsigned char>>, 16192>::MakeShared<unsigned int&>(&result);
+        arg1.SetPos((unsigned long)uVar2 + lVar4);
+        PacketT<Array<unsigned char> _>* arg1_00 = (PacketT<Array<unsigned char> _>*)*result;
+        arg1.gArrayBuffer<PacketT<Array<unsigned char>>>(*arg1_00, (unsigned long)(iVar3 - uVar2));
+        ((PacketT<Array<unsigned char>>*)(result).operator->())->SetPos(0);
+        return result;
     }
 
-    // 0x1009ef180, 256 bytes, placed by class name
-    // Js5DiskFileFormat::GetGroupFileData(PacketT<Array<unsigned char, eastl::allocator> >&, Array<unsigned char, eastl::allocator> const&, unsigned int)
-    void Js5DiskFileFormat::GetGroupFileData(PacketT* param_1, Array* param_2, uint param_3) {
-        uint uVar1;
-        uint uVar2;
-        byte* pbVar4;
-        ulong uVar5;
+    // 0x1009ef180
+    void Js5DiskFileFormat::GetGroupFileData(PacketT<Array<unsigned char>>& arg1, const Array<unsigned char>& arg2,
+                                             unsigned int arg3) {
+        void* pvVar5;
         void* pvVar6;
-        void* pvVar7;
-        uint uVar8;
 
-        pbVar4 = (byte*)Array<unsigned char, eastl::allocator>::operator[](
-            (Array<unsigned char, eastl::allocator>*)param_2, 0);
-        if (1 < *pbVar4) {
-            /* WARNING: Subroutine does not return */
+        uint8_t* pbVar3 = &arg2[0];
+        if (1 < *pbVar3) {
             LogAssert("version <= Js5DiskFileFormat::VERSION",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/caching/"
                       "Js5DiskFileFormat.cpp",
                       117, "Js5DiskFileFormat: Unknown group file version: %d");
         }
-        uVar1 = param_3 * 4 + 1;
-        uVar2 = PacketT<Array<unsigned char, eastl::allocator>>::ReadUint(param_2, uVar1);
-        uVar8 = PacketT<Array<unsigned char, eastl::allocator>>::ReadUint(param_2, param_3 * 4 + 5) - uVar2;
-        param_1->Reserve((ulong)uVar8);
-        param_1->SetPos(0);
-        if (uVar8 != 0) {
-            uVar5 = param_2->end();
-            if (uVar5 < uVar1 + uVar8) {
-                /* WARNING: Subroutine does not return */
+        unsigned int arg2_00 = arg3 * 4 + 1;
+        unsigned int uVar1 = PacketT<Array<unsigned char>>::ReadUint(arg2, arg2_00);
+        unsigned int uVar7 = PacketT<Array<unsigned char>>::ReadUint(arg2, arg3 * 4 + 5) - uVar1;
+        arg1.Reserve((unsigned long)uVar7);
+        arg1.SetPos(0);
+        if (uVar7 != 0) {
+            if (arg2.end() < arg2_00 + uVar7) {
                 LogAssert("index + length <= groupData.size()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/caching/"
                           "Js5DiskFileFormat.cpp",
-                          129, (char*)0);
+                          129, nullptr);
             }
-            pvVar6 = (void*)param_1->GetDataPtr();
-            pvVar7 = (void*)Array<unsigned char, eastl::allocator>::operator[](
-                (Array<unsigned char, eastl::allocator>*)param_2, (ulong)uVar2);
-            _memcpy(pvVar6, pvVar7, (ulong)uVar8);
+            pvVar5 = (void*)arg1.GetDataPtr();
+            pvVar6 = &arg2[(unsigned long)uVar1];
+            _memcpy(pvVar5, pvVar6, (unsigned long)uVar7);
         }
     }
 

@@ -1,6 +1,5 @@
 // libs/game/runetek5/audio/MiniSoundManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,32 +9,31 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~MiniSoundManager();
-        virtual void AddSound(int, int, SoundShape, int, int, math::Vector3T<float> const&, int, hal::audio::BussType,
-                              SoundType, int, unsigned int);
+        virtual void AddSound(int arg1, int arg2, SoundShape soundShape, int arg4, int arg5,
+                              const math::Vector3T<float>& vector3, int arg7, hal::audio::BussType bussType,
+                              SoundType soundType, int arg10, unsigned int arg11);
         virtual void CleanUpAudio();
-        virtual AllowAudio() const;
-        virtual UpdateAudio();
-        virtual GetSoundPosition() const;
-        bool HasSoundInstance(int) const;
+        virtual uint8_t AllowAudio() const;
+        virtual uint64_t UpdateAudio();
+        virtual uint8_t* GetSoundPosition() const;
+        bool HasSoundInstance(int arg1) const;
         MiniSoundManager();
         void ProcessSoundInstances();
-        GetSoundInstance(int) const;
-        ulong HasSoundInstance(SoundType) const;
-        void StopSounds(SoundType, float);
+        SoundInstance* GetSoundInstance(int arg1) const;
+        unsigned long HasSoundInstance(SoundType soundType) const;
+        void StopSounds(SoundType soundType, float arg2);
 
-        // data members, from how the methods use this: 16 bytes, the first 8 are Module
-        char _unknown_8[8];
+    private:
+        uint8_t _unknown_8[8];
     };
 
-    // 0x100449510, 32 bytes, inline, placed by class name and debug map
-    // MiniSoundManager::HasSoundInstance(int) const
-    bool MiniSoundManager::HasSoundInstance(int param_1) {
-        return GetSoundInstance(this, param_1) != 0;
+    // 0x100449510
+    bool MiniSoundManager::HasSoundInstance(int arg1) const {
+        return GetSoundInstance(arg1) != nullptr;
     }
 
-    // 0x1006699a0, 16 bytes, inline, placed by class name
-    // MiniSoundManager::GetSoundPosition() const
-    undefined* MiniSoundManager::GetSoundPosition() {
+    // 0x1006699a0
+    uint8_t* MiniSoundManager::GetSoundPosition() const {
         return PTR_ZERO_100ee66e8;
     }
 

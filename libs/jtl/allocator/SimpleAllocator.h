@@ -1,6 +1,5 @@
 // libs/jtl/allocator/SimpleAllocator.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.graphics
@@ -10,551 +9,408 @@ namespace jag {
     public:
         class AllocatedBlock;
         class FreeListEntry;
-        GetSize() const;
-        ulong GetSlotSize() const;
-        begin() const;
-        GetOverflowList() const;
-        void IsAddressAllocated(void const*) const;
+        void GetSize() const;
+        unsigned long GetSlotSize() const;
+        AuthLibWrapper* begin() const;
+        uint8_t* GetOverflowList() const;
+        void IsAddressAllocated(const void* arg1) const;
         long size() const;
         SimpleAllocator();
-        SimpleAllocator(unsigned long, unsigned long, unsigned int, unsigned long);
+        SimpleAllocator(unsigned long arg1, unsigned long arg2, unsigned int arg3, unsigned long arg4);
         ~SimpleAllocator();
-        Allocate();
-        void DeAllocate(void*);
-        void DeAllocate(AllocatedBlock const&);
-        CheckOverflow(void const*) const;
+        auto Allocate();
+        void DeAllocate(void* arg1);
+        void DeAllocate(const AllocatedBlock& allocatedBlock);
+        uint32_t CheckOverflow(const void* arg1) const;
         void ResetMetrics();
         void PrintMetrics();
-        void PrintAllocations(bool);
-        GetTotalSize();
-        long New(unsigned long, unsigned long, unsigned int, unsigned long);
-        void HeapFree(void*);
-        Allocate(unsigned long);
-        SafeAllocate();
-        void TrackAllocation(AllocatedBlock const&);
-        AllocateInRange(unsigned int&, unsigned long, unsigned long);
-        AllocateOverflow();
-        OverflowAlloc();
-        bool AddToFreeList(AllocatedBlock const&, int const*);
+        void PrintAllocations(bool arg1);
+        void GetTotalSize();
+        long New(unsigned long arg1, unsigned long arg2, unsigned int arg3, unsigned long arg4);
+        void HeapFree(void* arg1);
+        AllocatedBlock Allocate(unsigned long arg1);
+        auto SafeAllocate();
+        void TrackAllocation(const AllocatedBlock& allocatedBlock);
+        AllocatedBlock AllocateInRange(unsigned int& arg1, unsigned long arg2, unsigned long arg3);
+        AllocatedBlock AllocateOverflow();
+        uint64_t OverflowAlloc();
+        bool AddToFreeList(const AllocatedBlock& allocatedBlock, const int* arg2);
         long GetOverflowCount() const;
-        void SafeDeAllocate(AllocatedBlock const&);
+        void SafeDeAllocate(const AllocatedBlock& allocatedBlock);
         void CheckThreadContention();
-        void OverflowFree(void*);
-        void MarkUnAllocated(unsigned long);
+        void OverflowFree(void* arg1);
+        void MarkUnAllocated(unsigned long arg1);
         void HeapAlloc();
-        GetBlock(void const*) const;
-        void SafeCheckOverflow(void const*) const;
+        AllocatedBlock GetBlock(const void* arg1) const;
+        void SafeCheckOverflow(const void* arg1) const;
         void ResetThreadContentionTracking();
-        GetAllocatedBlock(unsigned long);
-        bool IsAllocated(AllocatedBlock const&) const;
+        AllocatedBlock GetAllocatedBlock(unsigned long arg1);
+        bool IsAllocated(const AllocatedBlock& allocatedBlock) const;
         long GetAllocationCountFromFlags();
-        static /* 24 bytes */ m_threadLocalAllocators;                            // = { 0, 0, 0, 0, 231224, 0 }
-        static /* 24 bytes */ m_threadLocalAllocatorCount;                        // = { 0, 0, 0, 0, 237880, 0 }
-        static /* 24 bytes */ m_totalSlotSize;                                    // = { 0, 0, 0, 0, 237888, 0 }
-        static /* 24 bytes */ m_totalSize;                                        // = { 0, 0, 0, 0, 237896, 0 }
-        static std::array<SimpleAllocator, 256ul> /* 53248 bytes */ m_allocators; // = array<SimpleAllocator,256ul>()
-        static /* 8 bytes */ m_allocatorCount;
+        static int32_t m_threadLocalAllocators[6];              // = { 0, 0, 0, 0, 231224, 0 }
+        static int32_t m_threadLocalAllocatorCount[6];          // = { 0, 0, 0, 0, 237880, 0 }
+        static int32_t m_totalSlotSize[6];                      // = { 0, 0, 0, 0, 237888, 0 }
+        static int32_t m_totalSize[6];                          // = { 0, 0, 0, 0, 237896, 0 }
+        static std::array<SimpleAllocator, 256ul> m_allocators; // = array<SimpleAllocator, 256ul>()
+        static int64_t m_allocatorCount;
 
-        // data members, from how the methods use this: 208 bytes
-        long field_0;        // offset 0
-        ulong field_8;       // offset 8
-        ulong m_slotSize;    // offset 16
-        undefined8 field_24; // offset 24
-        long field_32;       // offset 32
-        undefined8 field_40; // offset 40
-        ulong field_48;      // offset 48
-        ulong field_56;      // offset 56
-        char _unknown_64[104];
-        undefined8 field_168; // offset 168
-        undefined1 field_176; // offset 176
-        char _unknown_177[15];
-        uint field_192; // offset 192
-        char _unknown_196[4];
-        ulong field_200; // offset 200
+    private:
+        unsigned long field_0;
+        unsigned long field_8;
+        unsigned long m_slotSize;
+        unsigned long field_24;
+        long field_32;
+        unsigned long field_40;
+        unsigned long field_48;
+        unsigned long field_56;
+        uint8_t _unknown_64[104];
+        __thread_id* field_168;
+        uint8_t field_176;
+        uint8_t _unknown_177[15];
+        unsigned int field_192;
+        uint8_t _unknown_196[4];
+        unsigned long field_200;
     };
 
     class SimpleAllocator::AllocatedBlock {
     public:
-        AllocatedBlock(BlockState, void*, unsigned long);
+        AllocatedBlock(BlockState blockState, void* arg2, unsigned long arg3);
         AllocatedBlock();
 
-        // data members, from how the methods use this: 24 bytes
-        undefined4 field_0; // offset 0
-        char _unknown_4[4];
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
+    private:
+        BlockState field_0;
+        uint8_t _unknown_4[4];
+        void* field_8;
+        unsigned long field_16;
     };
 
     class SimpleAllocator::FreeListEntry {
     public:
-        FreeListEntry(AllocatedBlock const&, int const*);
+        FreeListEntry(const AllocatedBlock& allocatedBlock, const int* arg2);
 
-        // data members, from how the methods use this: 32 bytes
-        undefined8 field_0;  // offset 0
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        int* field_24;       // offset 24
+    private:
+        uint64_t field_0;
+        void* field_8;
+        unsigned long field_16;
+        int* field_24;
     };
 
-    // 0x1008d5570, 64 bytes, inline, placed by class name and debug map
-    // SimpleAllocator::IsAddressAllocated(void const*) const
-    void SimpleAllocator::IsAddressAllocated(void* param_1) {
-        undefined1 local_30[24];
+    // 0x1008d5570
+    void SimpleAllocator::IsAddressAllocated(const void* arg1) const {
+        AllocatedBlock local_30;
 
-        GetBlock((SimpleAllocator*)local_30, this);
-        IsAllocated(this, (AllocatedBlock*)local_30);
+        GetBlock(&local_30, this, arg1);
+        IsAllocated(local_30);
     }
 
-    // 0x1008dc670, 32 bytes, inline, placed by debug map only (low confidence)
-    // graphics::SpriteAtlasReference* placement_new<graphics::SpriteAtlasReference, shared_ptr<graphics::SpriteAtlas> const&, int, long long&>(void*, shared_ptr<graphics::SpriteAtlas> const&, int&&, long long&)
-    /* graphics::SpriteAtlasReference* placement_new<graphics::SpriteAtlasReference,
-   shared_ptr<graphics::SpriteAtlas>&, int&, long long&>(void*,
-   shared_ptr<graphics::SpriteAtlas>&, int&, long long&) */
-
-    SpriteAtlasReference*
-    jag::placement_new<graphics::SpriteAtlasReference, shared_ptr<graphics::SpriteAtlas>&, int&, long long&>(
-        void* param_1, shared_ptr* param_2, int* param_3, longlong* param_4) {
-        graphics::SpriteAtlasReference::SpriteAtlasReference(param_1, param_2, *param_3, *param_4);
-        return param_1;
+    // 0x1008dc670
+    graphics::SpriteAtlasReference*
+    placement_new<graphics::SpriteAtlasReference, shared_ptr<graphics::SpriteAtlas> const&, int, long long&>(
+        void* arg1, const shared_ptr<graphics::SpriteAtlas>& spriteAtlas, int&& arg3, long long& arg4) {
+        new (arg1) graphics::SpriteAtlasReference(spriteAtlas, arg3, arg4);
+        return arg1;
     }
 
-    // 0x1008dc690, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048> >* placement_new<MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048> >, MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData*&, graphics::SpriteAtlasReference*>(void*, MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData*&, graphics::SpriteAtlasReference*&&)
-    MakeSharedPoolRefCounter* jag::placement_new<
+    // 0x1008dc690
+    MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048>>*
+    placement_new<
         MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048>>,
         MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData*&, graphics::SpriteAtlasReference*>(
-        void* param_1, RefCounterAndData** param_2, SpriteAtlasReference** param_3) {
-        MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048>>::
-            MakeSharedPoolRefCounter(param_1, *param_2, *param_3);
-        return param_1;
+        void* arg1, MakeSharedPool<graphics::SpriteAtlasReference, 2048>::RefCounterAndData*& arg2,
+        graphics::SpriteAtlasReference*&& arg3) {
+        new (arg1) MakeSharedPoolRefCounter<graphics::SpriteAtlasReference,
+                                            MakeSharedPool<graphics::SpriteAtlasReference, 2048>>(arg2, arg3);
+        return arg1;
     }
 
-    // 0x1008dcd30, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048> >::MakeSharedPoolRefCounter(void*, graphics::SpriteAtlasReference*): jumps straight to the base-object constructor
-
-    // 0x1008dcd40, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048> >::MakeSharedPoolRefCounter(void*, graphics::SpriteAtlasReference*)
-    void jag::MakeSharedPoolRefCounter<graphics::SpriteAtlasReference,
-                                       MakeSharedPool<graphics::SpriteAtlasReference, 2048>>::
-        MakeSharedPoolRefCounter(MakeSharedPoolRefCounter<graphics::SpriteAtlasReference,
-                                                          MakeSharedPool<graphics::SpriteAtlasReference, 2048>>* this,
-                                 void* param_1, SpriteAtlasReference* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7bf8 + 16;
-        *(void**)(this + 16) = param_1;
-        *(SpriteAtlasReference**)(this + 24) = param_2;
+    // 0x1008dcd40
+    MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048>>::
+        MakeSharedPoolRefCounter(void* arg1, graphics::SpriteAtlasReference* spriteAtlasReference)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7bf8 + 16;
+        *(void**)(this + 16) = arg1;
+        *(SpriteAtlasReference**)(this + 24) = spriteAtlasReference;
     }
 
-    // 0x1008dcd80, 48 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048> >::DeleteData()
-    /* BucketRefCounter<Js5MemoryCacheWrapper>::DeleteData() */
-
-    void BucketRefCounter<Js5MemoryCacheWrapper>::DeleteData() {
-        if (*(pair<oldscape::Font_const, shared_ptr<oldscape::jstring::PixfontGeneric>>**)(this + 24) !=
-            (pair<oldscape::Font_const, shared_ptr<oldscape::jstring::PixfontGeneric>>*)0) {
-            eastl::pair<oldscape::Font_const, shared_ptr<oldscape::jstring::PixfontGeneric>>::~pair(
-                *(pair<oldscape::Font_const, shared_ptr<oldscape::jstring::PixfontGeneric>>**)(this + 24));
-            *(undefined8*)(this + 24) = 0;
+    // 0x1008dcd80
+    void MakeSharedPoolRefCounter<graphics::SpriteAtlasReference,
+                                  MakeSharedPool<graphics::SpriteAtlasReference, 2048>>::DeleteData() {
+        if (this[3]._vptr != nullptr) {
+            this[3]._vptr->~pair();
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x1008dcdb0, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlasReference, MakeSharedPool<graphics::SpriteAtlasReference, 2048> >::DeleteSelf()
-    void jag::MakeSharedPoolRefCounter<graphics::SpriteAtlasReference,
-                                       MakeSharedPool<graphics::SpriteAtlasReference, 2048>>::
-        DeleteSelf(MakeSharedPoolRefCounter<graphics::SpriteAtlasReference,
-                                            MakeSharedPool<graphics::SpriteAtlasReference, 2048>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<graphics::SpriteAtlasReference, 2048>::deallocate(pvVar1);
+    // 0x1008dcdb0
+    void MakeSharedPoolRefCounter<graphics::SpriteAtlasReference,
+                                  MakeSharedPool<graphics::SpriteAtlasReference, 2048>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<graphics::SpriteAtlasReference, 2048>::deallocate(arg1);
     }
 
-    // 0x1008dd190, 112 bytes, inline, placed by debug map only (low confidence)
-    // graphics::SpriteAtlasReference* placement_new<graphics::SpriteAtlasReference, decltype(nullptr), int, long long&>(void*, decltype(nullptr)&&, int&&, long long&)
-    SpriteAtlasReference* placement_new<graphics::SpriteAtlasReference, decltype(nullptr), int, long long&>(
-        void* param_1, _func_decltype_nullptr** param_2, int* param_3, longlong* param_4) {
-        shared_ptr local_38;
+    // 0x1008dd190
+    graphics::SpriteAtlasReference* placement_new<graphics::SpriteAtlasReference, decltype(nullptr), int, long long&>(
+        void* arg1, decltype(nullptr)&& arg2, int&& arg3, long long& arg4) {
 
-        new (&local_38) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        graphics::SpriteAtlasReference::SpriteAtlasReference(param_1, &local_38, *param_3, *param_4);
-        local_38.~shared_ptr();
-        return param_1;
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_38;
+        new (arg1) graphics::SpriteAtlasReference(local_38, arg3, arg4);
+        return arg1;
     }
 
-    // 0x1008dd2c0, 48 bytes, inline, placed by debug map only (low confidence)
-    // graphics::SpriteAtlas* placement_new<graphics::SpriteAtlas, graphics::TextureManager*&, int&, unsigned int, graphics::SpriteAtlasUsageType&, int&>(void*, graphics::TextureManager*&, int&, unsigned int&&, graphics::SpriteAtlasUsageType&, int&)
-    SpriteAtlas* jag::placement_new<graphics::SpriteAtlas, graphics::TextureManager*&, int&, unsigned int,
-                                    graphics::SpriteAtlasUsageType&, int&>(void* param_1, TextureManager** param_2,
-                                                                           int* param_3, uint* param_4,
-                                                                           SpriteAtlasUsageType* param_5,
-                                                                           int* param_6) {
-        graphics::SpriteAtlas::SpriteAtlas(param_1, *param_2, *param_3, *param_4, *(undefined4*)param_5, *param_6);
-        return param_1;
+    // 0x1008dd2c0
+    graphics::SpriteAtlas* placement_new<graphics::SpriteAtlas, graphics::TextureManager*&, int&, unsigned int,
+                                         graphics::SpriteAtlasUsageType&, int&>(
+        void* arg1, graphics::TextureManager*& arg2, int& arg3, unsigned int&& arg4,
+        graphics::SpriteAtlasUsageType& spriteAtlasUsageType, int& arg6) {
+        new (arg1) graphics::SpriteAtlas(arg2, arg3, arg4, spriteAtlasUsageType, arg6);
+        return arg1;
     }
 
-    // 0x1008dd2f0, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64> >* placement_new<MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64> >, MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData*&, graphics::SpriteAtlas*>(void*, MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData*&, graphics::SpriteAtlas*&&)
-    MakeSharedPoolRefCounter*
-    jag::placement_new<MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>,
-                       MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData*&, graphics::SpriteAtlas*>(
-        void* param_1, RefCounterAndData** param_2, SpriteAtlas** param_3) {
-        MakeSharedPoolRefCounter<graphics::SpriteAtlas,
-                                 MakeSharedPool<graphics::SpriteAtlas, 64>>::MakeSharedPoolRefCounter(param_1, *param_2,
-                                                                                                      *param_3);
-        return param_1;
+    // 0x1008dd2f0
+    MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>*
+    placement_new<MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>,
+                  MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData*&, graphics::SpriteAtlas*>(
+        void* arg1, MakeSharedPool<graphics::SpriteAtlas, 64>::RefCounterAndData*& arg2,
+        graphics::SpriteAtlas*&& arg3) {
+        new (arg1)
+            MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>(arg2, arg3);
+        return arg1;
     }
 
-    // 0x1008dd370, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64> >::MakeSharedPoolRefCounter(void*, graphics::SpriteAtlas*): jumps straight to the base-object constructor
-
-    // 0x1008dd380, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64> >::MakeSharedPoolRefCounter(void*, graphics::SpriteAtlas*)
-    void jag::MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>::
-        MakeSharedPoolRefCounter(
-            MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>* this,
-            void* param_1, SpriteAtlas* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7ba0 + 16;
-        *(void**)(this + 16) = param_1;
-        *(SpriteAtlas**)(this + 24) = param_2;
+    // 0x1008dd380
+    MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>::
+        MakeSharedPoolRefCounter(void* arg1, graphics::SpriteAtlas* spriteAtlas)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7ba0 + 16;
+        *(void**)(this + 16) = arg1;
+        *(SpriteAtlas**)(this + 24) = spriteAtlas;
     }
 
-    // 0x1008dd3c0, 48 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64> >::DeleteData()
-    void jag::MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>::DeleteData(
-        MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>* this) {
-        if (*(SpriteAtlas**)(this + 24) != (SpriteAtlas*)0) {
+    // 0x1008dd3c0
+    void MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>::DeleteData() {
+        if (*(SpriteAtlas**)(this + 24) != nullptr) {
             (*(SpriteAtlas**)(this + 24))->~SpriteAtlas();
-            *(undefined8*)(this + 24) = 0;
+            *(uint64_t*)(this + 24) = 0;
         }
     }
 
-    // 0x1008dd3f0, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64> >::DeleteSelf()
-    void jag::MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>::DeleteSelf(
-        MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<graphics::SpriteAtlas, 64>::deallocate(pvVar1);
+    // 0x1008dd3f0
+    void MakeSharedPoolRefCounter<graphics::SpriteAtlas, MakeSharedPool<graphics::SpriteAtlas, 64>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<graphics::SpriteAtlas, 64>::deallocate(arg1);
     }
 
-    // 0x100cbad80, 32 bytes, inline, placed by class name
-    // SimpleAllocator::size() const
-    long SimpleAllocator::size() {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = field_0;
-        lVar2 = (&field_112)->size();
-        return lVar2 + lVar1;
+    // 0x100cbad80
+    long SimpleAllocator::size() const {
+        unsigned long uVar1 = field_0;
+        return field_112.size() + uVar1;
     }
 
-    // 0x100cbbf80, 32 bytes, inline, placed by class name
-    // SimpleAllocator::GetTotalSize()
-    undefined8 SimpleAllocator::GetTotalSize() {
-        undefined8* puVar1;
-
-        puVar1 = (undefined8*)(*(code*)m_totalSize)();
+    // 0x100cbbf80
+    void SimpleAllocator::GetTotalSize() {
+        uint64_t* puVar1 = (uint64_t*)(*(void (*)(...))m_totalSize)();
         return *puVar1;
     }
 
-    // 0x100cbd470, 16 bytes, complete-object constructor, inline, placed by class name
-    // SimpleAllocator::AllocatedBlock::AllocatedBlock(SimpleAllocator::AllocatedBlock::BlockState, void*, unsigned long): jumps straight to the base-object constructor
+    // 0x100cbd800
+    AllocatedBlock SimpleAllocator::AllocateInRange(unsigned int& arg1, unsigned long arg2, unsigned long arg3) {
+        unsigned long* puVar2;
+        unsigned long uVar3;
 
-    // 0x100cbd7f0, 16 bytes, complete-object constructor, inline, placed by class name
-    // SimpleAllocator::AllocatedBlock::AllocatedBlock(): jumps straight to the base-object constructor
-
-    // 0x100cbd800, 208 bytes, inline, placed by class name
-    // SimpleAllocator::AllocateInRange(unsigned int&, unsigned long, unsigned long)
-    SimpleAllocator* SimpleAllocator::AllocateInRange(uint* param_1, ulong param_2, ulong param_3) {
-        uint uVar1;
-        ulong* puVar2;
-        long lVar3;
-        long in_R8;
-
-        new (this) AllocatedBlock();
-        uVar1 = *(uint*)param_2;
+        AllocatedBlock result;
+        unsigned int uVar1 = arg1;
         if (uVar1 != 4294967295) {
-            if (*(ulong*)(param_1 + 2) < in_R8 + param_3) {
-                /* WARNING: Subroutine does not return */
+            if (field_8 < arg3 + arg2) {
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/"
                                 "SimpleAllocator.cpp",
-                                294, (char*)0);
+                                294, nullptr);
             }
-            if (in_R8 != 0) {
-                lVar3 = 0;
+            if (arg3 != 0) {
+                uVar3 = 0;
                 do {
-                    if ((uVar1 >> ((uint)lVar3 & 31) & 1) == 0) {
-                        *(uint*)param_2 = 1 << ((byte)lVar3 & 31) | uVar1;
-                        m_slotSize = param_3 + lVar3;
-                        *(undefined4*)&field_0 = 1;
-                        field_8 = (param_3 + lVar3) * *(long*)(param_1 + 4) + *(long*)(param_1 + 12);
-                        *(long*)param_1 = *(long*)param_1 + 1;
-                        puVar2 = std::max<unsigned long>((ulong*)param_1, (ulong*)(param_1 + 6));
-                        *(ulong*)(param_1 + 6) = *puVar2;
-                        return this;
+                    if ((uVar1 >> ((unsigned int)uVar3 & 31) & 1) == 0) {
+                        arg1 = 1 << ((uint8_t)uVar3 & 31) | uVar1;
+                        &result[2] = (ReturnValue)(arg2 + uVar3);
+                        result = 1;
+                        &result[1] = (ReturnValue)((arg2 + uVar3) * m_slotSize + field_48);
+                        field_0 = field_0 + 1;
+                        puVar2 = std::max<unsigned long>(field_0, field_24);
+                        field_24 = *puVar2;
+                        return result;
                     }
-                    lVar3 = lVar3 + 1;
-                } while (in_R8 != lVar3);
+                    uVar3 = uVar3 + 1;
+                } while (arg3 != uVar3);
             }
         }
-        return this;
+        return result;
     }
 
-    // 0x100cbdab0, 16 bytes, complete-object constructor, inline, placed by class name
-    // SimpleAllocator::FreeListEntry::FreeListEntry(SimpleAllocator::AllocatedBlock const&, int const*): jumps straight to the base-object constructor
-
-    // 0x100cbdac0, 48 bytes, inline, placed by class name
-    // SimpleAllocator::GetOverflowCount() const
-    long SimpleAllocator::GetOverflowCount() {
-        ulong* puVar1;
-
-        puVar1 = std::max<unsigned long>(&field_8, &field_24);
+    // 0x100cbdac0
+    long SimpleAllocator::GetOverflowCount() const {
+        auto puVar1 = std::max<unsigned long>(field_8, field_24);
         return *puVar1 - field_8;
     }
 
-    // 0x100cbde50, 80 bytes, inline, placed by class name
-    // SimpleAllocator::SafeCheckOverflow(void const*) const
-    void SimpleAllocator::SafeCheckOverflow(void* param_1) {
-        undefined8 extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        undefined8 local_38;
-        undefined8 local_30;
-        undefined8 local_28;
-        hashtable_iterator_base* local_20;
-        RenderDeviceCallback* local_18;
+    // 0x100cbde50
+    void SimpleAllocator::SafeCheckOverflow(const void* arg1) const {
+        eastl local_38;
+        obj_iterator local_28;
 
-        local_18 = param_1;
-        local_38 = (&field_112, &local_18)->find();
-        local_30 = extraout_RDX;
-        local_28 = (&field_112)->end();
-        local_20 = extraout_RDX_00;
-        eastl::operator!=((eastl*)&local_38, (hashtable_iterator_base*)&local_28, extraout_RDX_00);
+        &local_38 = (eastl[16])field_112.find(arg1);
+        &local_28 = (obj_iterator[16])field_112.end();
+        local_38 != local_28;
     }
 
-    // 0x100cbf7c0, 16 bytes, base-object constructor, inline, placed by class name
-    // SimpleAllocator::AllocatedBlock::AllocatedBlock(SimpleAllocator::AllocatedBlock::BlockState, void*, unsigned long)
-    void SimpleAllocator::AllocatedBlock::AllocatedBlock(undefined4 param_2, undefined8 param_3, undefined8 param_4) {
-        field_0 = param_2;
-        field_8 = param_3;
-        field_16 = param_4;
-    }
+    // 0x100cbf7c0
+    SimpleAllocator::AllocatedBlock::AllocatedBlock(SimpleAllocator::AllocatedBlock::BlockState blockState, void* arg2,
+                                                    unsigned long arg3)
+        : field_0(blockState), field_8(arg2), field_16(arg3) {}
 
-    // 0x100cbf830, 32 bytes, base-object constructor, inline, placed by class name
-    // SimpleAllocator::AllocatedBlock::AllocatedBlock()
-    void SimpleAllocator::AllocatedBlock::AllocatedBlock() {
-        field_0 = 0;
-        field_8 = 0;
-        field_16 = 0;
-    }
+    // 0x100cbf830
+    SimpleAllocator::AllocatedBlock::AllocatedBlock() : field_0(0), field_8(nullptr), field_16(0) {}
 
-    // 0x100cbf850, 32 bytes, base-object constructor, inline, placed by class name
-    // SimpleAllocator::FreeListEntry::FreeListEntry(SimpleAllocator::AllocatedBlock const&, int const*)
-    void SimpleAllocator::FreeListEntry::FreeListEntry(AllocatedBlock* param_1, int* param_2) {
-        undefined8 uVar1;
-
-        field_16 = param_1->field_16;
-        uVar1 = param_1->field_8;
-        field_0 = *(undefined8*)param_1;
-        field_8 = uVar1;
-        field_24 = param_2;
+    // 0x100cbf850
+    SimpleAllocator::FreeListEntry::FreeListEntry(const SimpleAllocator::AllocatedBlock& allocatedBlock,
+                                                  const int* arg2)
+        : field_16(allocatedBlock.field_16) {
+        void* pvVar1 = allocatedBlock.field_8;
+        field_0 = *(uint64_t*)allocatedBlock;
+        field_8 = pvVar1;
+        field_24 = arg2;
     }
 
 } // namespace jag
 
 namespace jag::math {
-    // 0x1008d5700, 32 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // Vector3T<double>::Vector3T(double, double, double)
-    void Vector3T<double>::Vector3T(double param_1, double param_2, double param_3) {
-        *(double*)this = param_1;
-        *(double*)(this + 8) = param_2;
-        *(double*)(this + 16) = param_3;
+    // 0x1008d5700
+    Vector3T<double>::Vector3T(double arg1, double arg2, double arg3) {
+        *(double*)this = arg1;
+        *(double*)(this + 8) = arg2;
+        *(double*)(this + 16) = arg3;
     }
 
-    // 0x1008d5720, 96 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // Vector3T<double>::Vector3T<float>(Vector3T<float> const&)
-    void Vector3T<double>::Vector3T<float>(Vector3T* param_1) {
-        vector* pvVar1;
-        float* pfVar2;
-
-        pvVar1 = param_1->SSOBeginPtr(param_1);
-        *(double*)this = (double)*(float*)pvVar1;
-        pfVar2 = (float*)param_1->y();
-        *(double*)(this + 8) = (double)*pfVar2;
-        pfVar2 = (float*)param_1->second();
-        *(double*)(this + 16) = (double)*pfVar2;
+    // 0x1008d5720
+    Vector3T<double>::Vector3T<float>(const Vector3T<float>& vector3) {
+        auto pfVar1 = vector3.SSOBeginPtr();
+        *(double*)this = (double)*pfVar1;
+        pfVar1 = (float*)vector3.y();
+        *(double*)(this + 8) = (double)*pfVar1;
+        pfVar1 = (float*)vector3.second();
+        *(double*)(this + 16) = (double)*pfVar1;
     }
 
-    // 0x1008d5780, 96 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // Vector4T<double>::Vector4T(Vector3T<double> const&, double)
-    void Vector4T<double>::Vector4T(Vector3T* param_1, double param_2) {
-        vector* pvVar1;
-        undefined8* puVar2;
-
-        pvVar1 = param_1->SSOBeginPtr(param_1);
-        *(undefined8*)this = *(undefined8*)pvVar1;
-        puVar2 = (undefined8*)param_1->second();
-        *(undefined8*)(this + 8) = *puVar2;
-        puVar2 = (undefined8*)param_1->GetScreen();
-        *(undefined8*)(this + 16) = *puVar2;
-        *(double*)(this + 24) = param_2;
+    // 0x1008d5780
+    Vector4T<double>::Vector4T(const Vector3T<double>& vector3, double arg2) {
+        auto puVar1 = vector3.SSOBeginPtr();
+        *(uint64_t*)this = *puVar1;
+        puVar1 = (uint64_t*)vector3.second();
+        *(uint64_t*)(this + 8) = *puVar1;
+        puVar1 = (uint64_t*)vector3.GetScreen();
+        *(uint64_t*)(this + 16) = *puVar1;
+        *(double*)(this + 24) = arg2;
     }
 
-    // 0x1008d57e0, 64 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<double> operator-<double>(Vector3T<double> const&, Vector3T<double> const&)
-    /* Vector3T<double> TEMPNAMEPLACEHOLDERVALUE(Vector3T<double>
-   const&, Vector3T<double> const&) */
+    // 0x1008d57e0
+    Vector3T<double> operator- <double>(const Vector3T<double>& vector31, const Vector3T<double>& vector32) {
+        double* in_RDX;
 
-    math* operator-(Vector3T* param_1, Vector3T* param_2) {
-        new (this)
-            Vector3T<double>(*(double*)param_1 - *(double*)param_2, *(double*)(param_1 + 8) - *(double*)(param_2 + 8),
-                             *(double*)(param_1 + 16) - *(double*)(param_2 + 16));
-        return this;
+        new (vector31) Vector3T(*(double*)vector32 - *in_RDX, *(double*)(vector32 + 8) - in_RDX[1],
+                                *(double*)(vector32 + 16) - in_RDX[2]);
+        return vector31;
     }
 
-    // 0x1008d5820, 32 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<double>::Normalize()
-    Vector3T<double>* Vector3T<double>::Normalize() {
-        double dVar1;
+    // 0x1008d5820
+    auto Vector3T<double>::Normalize() {
+        auto result;
 
-        dVar1 = (double)InvLength(this);
-        operator*=(this, dVar1);
-        return this;
+        double arg1 = (double)InvLength(&result);
+        operator*=(&result, arg1);
+        return result;
     }
 
-    // 0x1008d5840, 96 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<double> Vector3Cross<double>(Vector3T<double> const&, Vector3T<double> const&)
-    math* Vector3Cross<double>(Vector3T* param_1, Vector3T* param_2) {
-        new (this) Vector3T<double>(
-            *(double*)(param_2 + 16) * *(double*)(param_1 + 8) - *(double*)(param_2 + 8) * *(double*)(param_1 + 16),
-            *(double*)(param_1 + 16) * *(double*)param_2 - *(double*)(param_2 + 16) * *(double*)param_1,
-            *(double*)param_1 * *(double*)(param_2 + 8) - *(double*)param_2 * *(double*)(param_1 + 8));
-        return this;
+    // 0x1008d5840
+    Vector3T<double> Vector3Cross<double>(const Vector3T<double>& vector31, const Vector3T<double>& vector32) {
+        double* in_RDX;
+
+        new (vector31) Vector3T(in_RDX[2] * *(double*)(vector32 + 8) - in_RDX[1] * *(double*)(vector32 + 16),
+                                *(double*)(vector32 + 16) * *in_RDX - in_RDX[2] * *(double*)vector32,
+                                *(double*)vector32 * in_RDX[1] - *in_RDX * *(double*)(vector32 + 8));
+        return vector31;
     }
 
-    // 0x1008d58a0, 48 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<double>::InvLength() const
-    double Vector3T<double>::InvLength() {
-        double dVar1;
-        double dVar2;
-
-        dVar1 = (double)Length(this);
-        dVar2 = 0.0;
+    // 0x1008d58a0
+    double Vector3T<double>::InvLength() const {
+        double dVar1 = (double)Length(this);
+        double dVar2 = 0.0;
         if (dVar1 != 0.0) {
             dVar2 = 1.0 / dVar1;
         }
         return dVar2;
     }
 
-    // 0x1008d58d0, 48 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<double>::operator*=(double)
-    /* Vector3T<double>::TEMPNAMEPLACEHOLDERVALUE(double) */
-
-    Vector3T<double>* Vector3T<double>::operator*=(double param_1) {
-        *(double*)this = *(double*)this * param_1;
-        *(double*)(this + 8) = *(double*)(this + 8) * param_1;
-        *(double*)(this + 16) = param_1 * *(double*)(this + 16);
+    // 0x1008d58d0
+    Vector3T<double>* Vector3T<double>::operator*=(double arg1) {
+        *(double*)this = *(double*)this * arg1;
+        *(double*)(this + 8) = *(double*)(this + 8) * arg1;
+        *(double*)(this + 16) = arg1 * *(double*)(this + 16);
         return this;
     }
 
-    // 0x1008d5900, 16 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<double>::Length() const
-    double Vector3T<double>::Length() {
-        double dVar1;
-
-        dVar1 = (double)LengthSq(this);
+    // 0x1008d5900
+    double Vector3T<double>::Length() const {
+        double dVar1 = (double)LengthSq(this);
         return SQRT(dVar1);
     }
 
-    // 0x1008d5910, 16 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<double>::LengthSq() const
-    void Vector3T<double>::LengthSq() {
-        Vector3Dot<double>((Vector3T*)this, (Vector3T*)this);
+    // 0x1008d5910
+    void Vector3T<double>::LengthSq() const {
+        Vector3Dot<double>(this, this);
     }
 
 } // namespace jag::math
 
 namespace jag::graphics {
-    // 0x1008d90d0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMapping::SpriteAtlasMapping(SpriteAtlasMapping&&): jumps straight to the base-object constructor
+    // 0x1008d90e0
+    SpriteAtlasMapping::SpriteAtlasMapping(SpriteAtlasMapping&& spriteAtlasMapping)
+        : field_0(spriteAtlasMapping.field_0), field_8(spriteAtlasMapping.field_8),
+          field_64(spriteAtlasMapping.field_64), field_72(spriteAtlasMapping.field_72),
+          field_88(spriteAtlasMapping.field_88), field_104(spriteAtlasMapping.field_104) {}
 
-    // 0x1008d90e0, 112 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMapping::SpriteAtlasMapping(SpriteAtlasMapping&&)
-    void SpriteAtlasMapping::SpriteAtlasMapping(SpriteAtlasMapping* param_1) {
-        field_0 = param_1->field_0;
-        new (&field_8, (fixed_vector*)&param_1->field_8) eastl::fixed_vector<int, 4ul, true, eastl::allocator>();
-        field_64 = param_1->field_64;
-        new (&field_72, (Rect*)&param_1->field_72) math::Rect<unsigned int>();
-        new (&field_88, (Vector4T*)&param_1->field_88) math::Float4();
-        field_104 = param_1->field_104;
+    // 0x1008d9410
+    SpriteAtlasMapping::SpriteAtlasMapping(const SpriteAtlasMapping& spriteAtlasMapping)
+        : field_0(spriteAtlasMapping.field_0), field_8(spriteAtlasMapping.field_8),
+          field_64(spriteAtlasMapping.field_64), field_72(spriteAtlasMapping.field_72),
+          field_88(spriteAtlasMapping.field_88), field_104(spriteAtlasMapping.field_104) {}
+
+    // 0x1008da4e0
+    SpriteAtlasMappingExtended::~SpriteAtlasMappingExtended() {
+        field_128.~shared_ptr();
     }
 
-    // 0x1008d9400, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMapping::SpriteAtlasMapping(SpriteAtlasMapping const&): jumps straight to the base-object constructor
-
-    // 0x1008d9410, 112 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMapping::SpriteAtlasMapping(SpriteAtlasMapping const&)
-    void SpriteAtlasMapping::SpriteAtlasMapping(SpriteAtlasMapping* param_1) {
-        field_0 = param_1->field_0;
-        new (&field_8, (fixed_vector*)&param_1->field_8) eastl::fixed_vector<int, 4ul, true, eastl::allocator>();
-        field_64 = param_1->field_64;
-        new (&field_72, (Rect*)&param_1->field_72) math::Rect<unsigned int>();
-        new (&field_88, (Vector4T*)&param_1->field_88) math::Float4();
-        field_104 = param_1->field_104;
-    }
-
-    // 0x1008da4d0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMappingExtended::~SpriteAtlasMappingExtended(): jumps straight to the base-object destructor
-
-    // 0x1008da4e0, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMappingExtended::~SpriteAtlasMappingExtended()
-    void SpriteAtlasMappingExtended::~SpriteAtlasMappingExtended() {
-        (&field_128)->~shared_ptr();
-        ~SpriteAtlasMapping();
-    }
-
-    // 0x1008da740, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMappingExtended::SpriteAtlasMappingExtended(SpriteAtlasMappingExtended&&): jumps straight to the base-object constructor
-
-    // 0x1008da750, 80 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMappingExtended::SpriteAtlasMappingExtended(SpriteAtlasMappingExtended&&)
-    void SpriteAtlasMappingExtended::SpriteAtlasMappingExtended(SpriteAtlasMappingExtended* param_1) {
-        undefined8 uVar1;
-
-        new (this) SpriteAtlasMapping(param_1);
-        uVar1 = param_1->field_120;
-        field_112 = param_1->field_112;
+    // 0x1008da750
+    SpriteAtlasMappingExtended::SpriteAtlasMappingExtended(SpriteAtlasMappingExtended&& spriteAtlasMappingExtended)
+        : SpriteAtlasMapping(spriteAtlasMappingExtended) {
+        uint64_t uVar1 = spriteAtlasMappingExtended.field_120;
+        field_112 = spriteAtlasMappingExtended.field_112;
         field_120 = uVar1;
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)&field_128, (shared_ptr*)&param_1->field_128);
+        field_128.shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(spriteAtlasMappingExtended.field_128);
     }
 
-    // 0x1008da840, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMappingExtended::SpriteAtlasMappingExtended(): jumps straight to the base-object constructor
-
-    // 0x1008da930, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // SpriteAtlasMappingExtended::SpriteAtlasMappingExtended()
-    void SpriteAtlasMappingExtended::SpriteAtlasMappingExtended() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) SpriteAtlasMapping();
-        new (&field_128, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x1008da930
+    SpriteAtlasMappingExtended::SpriteAtlasMappingExtended() : SpriteAtlasMapping() {
+        new (&field_128) shared_ptr();
     }
 
 } // namespace jag::graphics
 
-// 0x1008d5610, 16 bytes, placed by debug map only (low confidence)
-// tan(float)
-void tan(float param_1) {
+// 0x1008d5610
+void tan(float arg1) {
     _tanf();
 }
 
-// 0x1008d6a30, 16 bytes, placed by debug map only (low confidence)
-// round(float)
-void round(float param_1) {
+// 0x1008d6a30
+void round(float arg1) {
     _roundf();
 }

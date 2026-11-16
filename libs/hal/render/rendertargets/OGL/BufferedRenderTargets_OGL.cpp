@@ -1,435 +1,350 @@
 // libs/hal/render/rendertargets/OGL/BufferedRenderTargets_OGL.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.render
 
 #include "libs/hal/render/rendertargets/BufferedRenderTargets.h"
 
 namespace jag::render {
-    // 0x103bda930, 1856 bytes, __common; set at startup by ___cxx_global_var_init.101
+    // 0x103bda930, set at startup by ___cxx_global_var_init.101
     ShaderProgram BufferedRenderTargets::m_SSBOCopyShaderFloat1 = ShaderProgram("");
 
-    // 0x103bdb070, 1856 bytes, __common; set at startup by ___cxx_global_var_init.102
+    // 0x103bdb070, set at startup by ___cxx_global_var_init.102
     ShaderProgram BufferedRenderTargets::m_SSBOCopyShaderFloat4 = ShaderProgram("");
 
-    // 0x103bdb7b0, 1856 bytes, __common; set at startup by ___cxx_global_var_init.103
+    // 0x103bdb7b0, set at startup by ___cxx_global_var_init.103
     ShaderProgram BufferedRenderTargets::m_SSBOCopyShaderInt4 = ShaderProgram("");
 
-    // 0x103bdbef0, 1856 bytes, __common; set at startup by ___cxx_global_var_init.104
+    // 0x103bdbef0, set at startup by ___cxx_global_var_init.104
     ShaderProgram BufferedRenderTargets::m_SSBOCopyShaderInt4RBSwizzle = ShaderProgram("");
 
-    // 0x103bdc630, 192 bytes, __common; set at startup by ___cxx_global_var_init.105
+    // 0x103bdc630, set at startup by ___cxx_global_var_init.105
     InputAssemblerState BufferedRenderTargets::m_IAState = InputAssemblerState();
 
-    // 0x103bdc6f0, 80 bytes, __common; set at startup by ___cxx_global_var_init.106
+    // 0x103bdc6f0, set at startup by ___cxx_global_var_init.106
     VertexBuffer BufferedRenderTargets::m_quadVB = VertexBuffer();
 
-    // 0x103bdc740, 16 bytes, __common; set at startup by ___cxx_global_var_init.107
-    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> BufferedRenderTargets::m_SSBOCopyRT;
+    // 0x103bdc740, set at startup by ___cxx_global_var_init.107
+    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> BufferedRenderTargets::m_SSBOCopyRT =
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
 
-    // 0x103bdc750, 8 bytes, __common; zero-initialised
-    BufferedRenderTargets::m_cvTextureCache;
+    // 0x103bdc750
+    int64_t BufferedRenderTargets::m_cvTextureCache;
 
-    // 0x100be2e20, 1344 bytes, base-object constructor, placed by __FILE__ string
-    // BufferedRenderTargets::BufferedRenderTargets(unsigned int, unsigned int, unsigned int, Format, char const*)
-    void BufferedRenderTargets::BufferedRenderTargets(uint param_1, int param_2, int param_3, uint param_5,
-                                                      char* param_6) {
-        undefined1* this_00;
-        undefined1* this_01;
-        undefined1* this_02;
-        undefined1* this_03;
-        uint uVar1;
-        uint uVar2;
-        char cVar3;
-        int iVar4;
-        MapArea* this_04;
-        RenderDeviceCaps* pRVar5;
+    // 0x100be2e20
+    BufferedRenderTargets::BufferedRenderTargets(unsigned int arg1, unsigned int arg2, unsigned int arg3, Format format,
+                                                 const char* str)
+        : RenderDeviceOnEndFrame(true) {
+        bool cVar2;
+        BufferedRenderTargets* renderDeviceCaps;
         ShaderStorageBuffer* this_05;
-        ShaderStorageBuffer* pSVar6;
-        undefined8 uVar7;
+        ShaderStorageBuffer* pSVar4;
+        Logger* pLVar5;
         PixelBuffer* this_06;
-        PixelBuffer* pPVar8;
-        Singleton<RenderDevice>* this_07;
+        PixelBuffer* pPVar6;
+        uint8_t auVar7[12];
 
-        new (this) RenderDeviceOnEndFrame(true);
-        new (field_12) RenderResource();
-        field_0 = &PTR__BufferedRenderTargets_100f280b8;
-        this_00 = &field_24;
-        new (this_00) Array<shared_ptr<RenderTargets>, eastl::allocator>();
-        new (&field_48) Array<unsigned char, eastl::allocator>();
-        field_72 = param_5;
+        uint8_t* this_00 = &field_24;
+        new (this_00) Array<shared_ptr<RenderTargets>>();
+        new (&field_48) Array<unsigned char>();
+        field_72 = format;
         field_76 = 1;
         field_80 = 0;
-        field_84 = param_1;
-        field_88 = param_2;
-        field_92 = param_3;
-        iVar4 = GetFormatByteCount(param_5);
-        field_96 = iVar4 * param_3 * param_2;
+        field_84 = arg1;
+        field_88 = arg2;
+        field_92 = arg3;
+        int iVar3 = GetFormatByteCount(format);
+        field_96 = iVar3 * arg3 * arg2;
         new (&field_104) std::mutex();
-        new (&field_168, param_6) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        this_01 = &field_336;
-        new (this_01) Array<PixelBuffer, eastl::allocator>();
-        this_02 = &field_360;
-        new (this_02) Array<ShaderStorageBuffer, eastl::allocator>();
-        new (&field_384) Array<std::unique_ptr<Texture2D, std::default_delete<Texture2D>>, eastl::allocator>();
-        new (&field_408) Array<SyncFence, eastl::allocator>();
-        new (&field_432) Array<int, eastl::allocator>();
+        new (&field_168) eastl::fixed_string<char, 128>(str);
+        uint8_t* this_01 = &field_336;
+        new (this_01) Array<PixelBuffer>();
+        uint8_t* this_02 = &field_360;
+        new (this_02) Array<ShaderStorageBuffer>();
+        new (&field_384) Array<std::unique_ptr<Texture2D>>();
+        new (&field_408) Array<SyncFence>();
+        new (&field_432) Array<int>();
         new (&field_456) Array<unsigned char, BucketAllocatorEASTL>();
-        new (&field_480) Array<__CVBuffer*, eastl::allocator>();
-        this_03 = &field_504;
-        this_07 = (Singleton<RenderDevice>*)this_03;
-        new (this_03) Array<__CVBuffer*, eastl::allocator>();
+        new (&field_480) Array<__CVBuffer*>();
+        uint8_t* this_03 = &field_504;
+        Singleton<RenderDevice>* this_07 = (Singleton<RenderDevice>*)this_03;
+        new (this_03) Array<__CVBuffer*>();
         if ((field_84 == 0) || (field_96 == 0)) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_bufferedFrames > 0 && m_sizeInBytes > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
-                      54, (char*)0);
+                      54, nullptr);
         }
-        this_04 = (MapArea*)this_07->Instance();
-        pRVar5 = (RenderDeviceCaps*)this_04->GetOrigin();
-        if ((field_84 != 1) && (cVar3 = IsContinuousReadbackSupported(pRVar5, field_72), cVar3 == '\0')) {
-            /* WARNING: Subroutine does not return */
+        renderDeviceCaps = (BufferedRenderTargets*)this_07->Instance();
+        auVar7 = renderDeviceCaps->GetOrigin();
+        BufferedRenderTargets* this_04 = auVar7._0_8_;
+        if ((field_84 != 1) &&
+            (renderDeviceCaps = this_04,
+             cVar2 = IsContinuousReadbackSupported(this_04, (RenderDeviceCaps*)(unsigned long)field_72, auVar7._8_4_),
+             !cVar2)) {
             LogAssert("m_bufferedFrames == 1 || IsContinuousReadbackSupported(deviceCaps, m_format)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
                       58, "Continuous readbacks (bufferedFrames > 1) are not supported by this device");
         }
-        uVar1 = field_84;
-        if ((ulong)uVar1 == 1) {
+        unsigned int uVar1 = field_84;
+        if ((unsigned long)uVar1 == 1) {
             field_76 = 0;
         }
-        uVar2 = field_72;
-        cVar3 = UseAppleCVPixelBuffers();
-        if (cVar3 == '\0') {
-            if (pRVar5->field_326 == false) {
-                cVar3 = UseShaderStorageBuffers(this, pRVar5);
-                if (cVar3 == '\0') {
-                    cVar3 = UsePixelBuffers(pRVar5);
-                    if (cVar3 == '\0') {
-                        uVar7 = logger::default_logger();
-                        logger::Logger::Log(uVar7, 0, 3,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                            "render/rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                            105, "Using unbuffered path for BufferedRenderTargets (slow)");
-                        this_00->set_max_size((ulong)field_84, 0);
-                        (&field_48, (ulong)field_96, 0)->set_max_size();
+        Format format_00 = field_72;
+        cVar2 = UseAppleCVPixelBuffers((RenderDeviceCaps*)renderDeviceCaps, format_00);
+        if (!cVar2) {
+            if (this_04->field_326 == '\0') {
+                cVar2 = UseShaderStorageBuffers(this, (RenderDeviceCaps*)this_04);
+                if (!cVar2) {
+                    cVar2 = UsePixelBuffers((RenderDeviceCaps*)this_04);
+                    if (!cVar2) {
+                        pLVar5 = logger::default_logger();
+                        pLVar5->Log(false, 3,
+                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                    "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
+                                    105, "Using unbuffered path for BufferedRenderTargets (slow)");
+                        this_00->set_max_size((unsigned long)field_84, 0);
+                        field_48.set_max_size((unsigned long)field_96, 0);
                     } else {
-                        uVar7 = logger::default_logger();
-                        logger::Logger::Log(uVar7, 0, 3,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                            "render/rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                            95, "Using pixel buffer path for BufferedRenderTargets (potentially slow)");
+                        pLVar5 = logger::default_logger();
+                        pLVar5->Log(false, 3,
+                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                    "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
+                                    95, "Using pixel buffer path for BufferedRenderTargets (potentially slow)");
                         this_00->set_max_size(1, 0);
-                        this_01->set_max_size((ulong)field_84, 0);
+                        this_01->set_max_size((unsigned long)field_84, 0);
                         this_06 = (PixelBuffer*)this_01->data();
-                        pPVar8 = (PixelBuffer*)this_01->end();
-                        for (; this_06 != pPVar8; this_06 = this_06 + 1) {
-                            this_06->Create(field_96, 0, (void*)0);
+                        pPVar6 = (PixelBuffer*)this_01->end();
+                        for (; this_06 != pPVar6; this_06 = this_06 + 1) {
+                            this_06->Create(field_96, 0, nullptr);
                         }
                     }
                 } else {
                     this_00->set_max_size(1, 0);
-                    this_02->set_max_size((ulong)field_84, 0);
+                    this_02->set_max_size((unsigned long)field_84, 0);
                     this_05 = (ShaderStorageBuffer*)this_02->data();
-                    pSVar6 = (ShaderStorageBuffer*)this_02->end();
-                    for (; this_05 != pSVar6; this_05 = (ShaderStorageBuffer*)((long)&this_05[1].field_16 + 7)) {
-                        iVar4 = GetFormatByteCount(field_72);
-                        this_05->Create(iVar4 * param_3 * param_2, 3, 0);
+                    pSVar4 = (ShaderStorageBuffer*)this_02->end();
+                    for (; this_05 != pSVar4; this_05 = (ShaderStorageBuffer*)((long)&this_05[1].field_16 + 7)) {
+                        iVar3 = GetFormatByteCount(field_72);
+                        this_05->Create(iVar3 * arg3 * arg2, 3, nullptr);
                     }
-                    if ((pRVar5->field_155[0] == '\0') && ((field_72 == 11 || (field_72 == 1)))) {
-                        /* WARNING: Subroutine does not return */
+                    if ((this_04->field_155 == '\0') && ((field_72 == 11 || (field_72 == 1)))) {
                         LogAssert("deviceCaps.m_FloatTextures || (m_format != FORMAT_R32G32B32A32_FLOAT && m_format != "
                                   "FORMAT_R32_FLOAT)",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                   "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                  91, (char*)0);
+                                  91, nullptr);
                     }
                 }
             } else {
-                this_00->set_max_size((ulong)uVar1, 0);
+                this_00->set_max_size((unsigned long)uVar1, 0);
             }
         } else {
-            if ((uVar2 == 21) && (pRVar5->field_158 == false)) {
-                /* WARNING: Subroutine does not return */
+            if ((format_00 == 21) && (this_04->field_158 == '\0')) {
                 LogAssert("m_format != FORMAT_R16_FLOAT || deviceCaps.m_HalfFloatColourTargets",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                           "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                          69, (char*)0);
+                          69, nullptr);
             }
-            this_00->set_max_size((ulong)field_84, 0);
-            (&field_384, (ulong)field_84, 0)->set_max_size();
-            this_03->set_max_size((ulong)field_84, 0);
-            (&field_480, (ulong)field_84, 0)->set_max_size();
+            this_00->set_max_size((unsigned long)field_84, 0);
+            field_384.set_max_size((unsigned long)field_84, 0);
+            this_03->set_max_size((unsigned long)field_84, 0);
+            field_480.set_max_size((unsigned long)field_84, 0);
         }
-        (&field_408, (ulong)field_84, 0)->set_max_size();
-        (&field_432, (ulong)field_84, 0)->set_max_size();
+        field_408.set_max_size((unsigned long)field_84, 0);
+        field_432.set_max_size((unsigned long)field_84, 0);
     }
 
-    // 0x100be3410, 16 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::IsContinuousReadbackSupported(RenderDeviceCaps const&, Format)
-    void BufferedRenderTargets::IsContinuousReadbackSupported() {
-        UseAppleCVPixelBuffers();
+    // 0x100be3410
+    void BufferedRenderTargets::IsContinuousReadbackSupported(const RenderDeviceCaps& renderDeviceCaps, Format format) {
+        UseAppleCVPixelBuffers((RenderDeviceCaps*)this, (Format)renderDeviceCaps);
     }
 
-    // 0x100be3420, 32 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::UseAppleCVPixelBuffers(RenderDeviceCaps const&, Format)
-    bool BufferedRenderTargets::UseAppleCVPixelBuffers(undefined8 param_1, int param_2) {
-        return param_2 == 29 || param_2 == 7;
+    // 0x100be3420
+    bool BufferedRenderTargets::UseAppleCVPixelBuffers(const RenderDeviceCaps& renderDeviceCaps, Format format) {
+        return format == 29 || format == 7;
     }
 
-    // 0x100be39a0, 48 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::UsePixelBuffers(RenderDeviceCaps const&)
-    bool BufferedRenderTargets::UsePixelBuffers(RenderDeviceCaps* param_1) {
-        if (param_1->field_323 == false) {
+    // 0x100be39a0
+    bool BufferedRenderTargets::UsePixelBuffers(const RenderDeviceCaps& renderDeviceCaps) {
+        if (renderDeviceCaps.field_323 == false) {
             return false;
         }
-        if (param_1->field_180 == false) {
-            return param_1->field_179 != false;
+        if (renderDeviceCaps.field_180 == false) {
+            return renderDeviceCaps.field_179 != false;
         }
         return true;
     }
 
-    // 0x100be3cc0, 16 bytes, complete-object constructor, placed by class name and neighbouring functions
-    // BufferedRenderTargets::BufferedRenderTargets(unsigned int, unsigned int, unsigned int, Format, char const*): jumps straight to the base-object constructor
-
-    // 0x100be3cd0, 496 bytes, base-object destructor, placed by __FILE__ string
-    // BufferedRenderTargets::~BufferedRenderTargets()
-    void BufferedRenderTargets::~BufferedRenderTargets() {
-        shared_ptr* this_00;
-        shared_ptr* psVar2;
-
-        field_0 = &PTR__BufferedRenderTargets_100f280b8;
-        this_00 = (shared_ptr*)(&field_24)->data();
-        psVar2 = (shared_ptr*)(&field_24)->end();
+    // 0x100be3cd0
+    BufferedRenderTargets::~BufferedRenderTargets() {
+        auto this_00 = field_24.data();
+        auto psVar2 = field_24.end();
         while (true) {
             if (this_00 == psVar2) {
-                (&field_504)->~Array();
-                (&field_480)->~Array();
-                (&field_456)->~Array();
-                (&field_432)->~Array();
-                (&field_408)->~Array();
-                (&field_384)->~Array();
-                (&field_360)->~Array();
-                (&field_336)->~Array();
-                /* WARNING: Subroutine does not return */
-                (&field_168)->~fixed_string();
+                field_504.~Array();
+                field_480.~Array();
+                field_456.~Array();
+                field_432.~Array();
+                field_408.~Array();
+                field_384.~Array();
+                field_360.~Array();
+                field_336.~Array();
+                field_168.~fixed_string();
             }
-            if (shared_ptr::operator_cast_to_bool(this_00))
+            if (shared_ptr::operator_cast_to_bool(this_00) != '\0')
                 break;
             this_00 = this_00 + 1;
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("!renderTargets",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/OGL/"
                   "BufferedRenderTargets_OGL.cpp",
                   122, "Failed to call Destroy on BufferedRenderTargets");
     }
 
-    // 0x100be3ec0, 16 bytes, complete-object destructor, placed by class name and neighbouring functions
-    // BufferedRenderTargets::~BufferedRenderTargets(): jumps straight to the base-object destructor
-
-    // 0x100be3ed0, 32 bytes, deleting destructor, placed by class name and neighbouring functions
-    // BufferedRenderTargets::~BufferedRenderTargets()
-    void BufferedRenderTargets::~BufferedRenderTargets() {
-        ~BufferedRenderTargets(this);
-        operator_delete(this);
-    }
-
-    // 0x100be3ef0, 80 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::UseShaderStorageBuffers(RenderDeviceCaps const&, Format)
-    undefined8 BufferedRenderTargets::UseShaderStorageBuffers(long param_1, int param_2) {
-        undefined8 uVar1;
-
-        if (((param_2 == 11) || (param_2 == 1)) && (*(char*)(param_1 + 155) == '\0')) {
+    // 0x100be3ef0
+    void BufferedRenderTargets::UseShaderStorageBuffers(const RenderDeviceCaps& renderDeviceCaps, Format format) {
+        if (((format == 11) || (format == 1)) && (renderDeviceCaps.field_155[0] == '\0')) {
             return 0;
         }
-        uVar1 = 0;
-        if ((*(char*)(param_1 + 132) != '\0') && (*(char*)(param_1 + 180) != '\0')) {
-            if (28 < param_2 - 1U) {
+        uint64_t uVar1 = 0;
+        if ((renderDeviceCaps.field_132 != false) && (renderDeviceCaps.field_180 != false)) {
+            if (28 < format - 1) {
                 return 0;
             }
-            uVar1 = CONCAT71(1048580, (268436545U >> (param_2 - 1U & 31) & 1) != 0);
+            uVar1 = (((uint64_t)1048580 << 8) | (uint8_t)((268436545U >> (format - 1 & 31) & 1) != 0));
         }
         return uVar1;
     }
 
-    // 0x100be3f40, 48 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::GetOptimalDepthReadbackFormat()
-    undefined8 BufferedRenderTargets::GetOptimalDepthReadbackFormat() {
-        MapArea* this_00;
-        long lVar1;
-        undefined8 uVar2;
-
-        this_00 = (MapArea*)Instance();
-        lVar1 = this_00->GetOrigin();
-        uVar2 = 11;
+    // 0x100be3f40
+    uint64_t BufferedRenderTargets::GetOptimalDepthReadbackFormat() {
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
+        uint64_t uVar2 = 11;
         if (*(char*)(lVar1 + 132) == '\0') {
             uVar2 = 29;
         }
         return uVar2;
     }
 
-    // 0x100be3f70, 64 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::GetWriteRTInternal()
+    // 0x100be3f70
     void BufferedRenderTargets::GetWriteRTInternal() {
-        long lVar1;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        ulong uVar2;
+        unsigned long arg1;
 
-        lVar1 = (&field_24)->end();
-        if (lVar1 == 1) {
-            uVar2 = 0;
+        if (field_24.end() == 1) {
+            arg1 = 0;
         } else {
-            uVar2 = (ulong)field_80;
+            arg1 = (unsigned long)field_80;
         }
-        this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-            Array<shared_ptr<RenderTargets>, eastl::allocator>::operator[](
-                (Array<shared_ptr<RenderTargets>, eastl::allocator>*)&field_24, uVar2);
-        eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
+        ((vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_24[arg1])->end();
     }
 
-    // 0x100be4030, 64 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::GetReadRTInternal()
+    // 0x100be4030
     void BufferedRenderTargets::GetReadRTInternal() {
-        long lVar1;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        ulong uVar2;
+        unsigned long arg1;
 
-        lVar1 = (&field_24)->end();
-        if (lVar1 == 1) {
-            uVar2 = 0;
+        if (field_24.end() == 1) {
+            arg1 = 0;
         } else {
-            uVar2 = (ulong)field_76;
+            arg1 = (unsigned long)field_76;
         }
-        this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-            Array<shared_ptr<RenderTargets>, eastl::allocator>::operator[](
-                (Array<shared_ptr<RenderTargets>, eastl::allocator>*)&field_24, uVar2);
-        eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
+        ((vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)field_24[arg1])->end();
     }
 
-    // 0x100be4070, 80 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::GetWriteRT()
-    undefined8 BufferedRenderTargets::GetWriteRT() {
-        undefined8 uVar1;
-        scoped_lock<std::mutex> local_18[8];
+    // 0x100be4070
+    RenderTargets* BufferedRenderTargets::GetWriteRT() {
+        scoped_lock<std::mutex> local_18(field_104);
+        auto pRVar1 = GetWriteRTInternal();
+        return pRVar1;
+    }
 
-        std::scoped_lock<std::mutex>::scoped_lock(local_18, (mutex*)&field_104);
-        uVar1 = GetWriteRTInternal(this);
-        std::scoped_lock<std::mutex>::~scoped_lock(local_18);
+    // 0x100be40c0
+    uint64_t BufferedRenderTargets::GetReadRT() {
+        scoped_lock<std::mutex> local_18(field_104);
+        uint64_t uVar1 = GetReadRTInternal();
         return uVar1;
     }
 
-    // 0x100be40c0, 80 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::GetReadRT()
-    undefined8 BufferedRenderTargets::GetReadRT() {
-        undefined8 uVar1;
-        scoped_lock<std::mutex> local_18[8];
-
-        std::scoped_lock<std::mutex>::scoped_lock(local_18, (mutex*)&field_104);
-        uVar1 = GetReadRTInternal(this);
-        std::scoped_lock<std::mutex>::~scoped_lock(local_18);
+    // 0x100be4110
+    unsigned int BufferedRenderTargets::GetWriteIndex() {
+        scoped_lock<std::mutex> local_20(field_104);
+        unsigned int uVar1 = field_80;
         return uVar1;
     }
 
-    // 0x100be4110, 64 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::GetWriteIndex()
-    uint BufferedRenderTargets::GetWriteIndex() {
-        uint uVar1;
-        scoped_lock<std::mutex> local_20[8];
-
-        std::scoped_lock<std::mutex>::scoped_lock(local_20, (mutex*)&field_104);
-        uVar1 = field_80;
-        std::scoped_lock<std::mutex>::~scoped_lock(local_20);
+    // 0x100be4150
+    unsigned int BufferedRenderTargets::GetReadIndex() {
+        scoped_lock<std::mutex> local_20(field_104);
+        unsigned int uVar1 = field_76;
         return uVar1;
     }
 
-    // 0x100be4150, 64 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::GetReadIndex()
-    uint BufferedRenderTargets::GetReadIndex() {
-        uint uVar1;
-        scoped_lock<std::mutex> local_20[8];
-
-        std::scoped_lock<std::mutex>::scoped_lock(local_20, (mutex*)&field_104);
-        uVar1 = field_76;
-        std::scoped_lock<std::mutex>::~scoped_lock(local_20);
-        return uVar1;
-    }
-
-    // 0x100be4190, 1136 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::Create(int, int, unsigned int)
-    ulong BufferedRenderTargets::Create(int param_1, int param_2, uint param_3) {
-        shared_ptr* psVar1;
-        char cVar2;
-        bool bVar3;
-        int iVar4;
-        MapArea* this_00;
-        long lVar5;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar6;
-        ulong uVar7;
-        RenderTargets* pRVar8;
-        vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* pvVar9;
-        undefined8* puVar10;
-        uint* puVar11;
-        undefined8 uVar12;
-        ulong uVar13;
-        undefined1 local_178[64];
-        shared_ptr local_138[3];
-        undefined8 local_108;
-        undefined8 uStack_100;
+    // 0x100be4190
+    unsigned long BufferedRenderTargets::Create(int arg1, int arg2, unsigned int arg3) {
+        bool cVar1;
+        int iVar3;
+        TextureType textureType;
+        unsigned long uVar6;
+        RenderTargets* pRVar7;
+        vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* pvVar8;
+        uint64_t* puVar9;
+        unsigned int* puVar10;
+        char* pcVar11;
+        unsigned long arg1_00;
+        uint8_t local_178[64];
+        ReturnValue local_138;
+        uint64_t uStack_130;
+        uint32_t local_128;
+        int iStack_124;
+        int iStack_120;
+        int iStack_11c;
+        uint8_t local_118;
+        uint32_t uStack_117;
+        uint32_t uStack_114;
+        uint64_t uStack_110;
+        uint64_t local_108;
+        uint64_t uStack_100;
         Desc local_f8;
-        undefined1* local_b0;
-        undefined1 local_a8[72];
+        uint8_t* local_b0;
+        uint8_t local_a8[72];
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_60;
         int* local_58;
         int* local_50;
-        int local_48;
-        uint local_44;
-        int local_40;
-        uint local_3c;
-        uint local_38;
-        bool local_31;
+        unsigned int local_3c;
+        unsigned int local_38;
 
-        local_44 = param_3;
-        local_40 = param_2;
-        this_00 = (MapArea*)Instance();
-        local_a8._64_8_ = this_00->GetOrigin();
-        pvVar6 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&field_24;
-        lVar5 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar6);
-        local_31 = lVar5 != 0;
+        local_a8._64_8_ = ((MapArea*)Instance())->GetOrigin();
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar5 =
+            (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&field_24;
+        long lVar4 = pvVar5->end();
+        bool local_31 = lVar4 != 0;
         if (local_31) {
             local_58 = &field_88;
             local_50 = &field_92;
             local_b0 = &field_168;
-            uVar13 = 0;
-            local_60 = pvVar6;
-            local_48 = param_1;
+            arg1_00 = 0;
+            local_60 = pvVar5;
             do {
-                iVar4 = local_48;
-                pvVar6 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                    Array<shared_ptr<RenderTargets>, eastl::allocator>::operator[](
-                        (Array<shared_ptr<RenderTargets>, eastl::allocator>*)pvVar6, uVar13);
-                lVar5 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar6);
-                if (lVar5 != 0) {
-                    /* WARNING: Subroutine does not return */
+                iVar3 = arg1;
+                pvVar5 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(*pvVar5)[arg1_00];
+                lVar4 = pvVar5->end();
+                if (lVar4 != 0) {
                     LogAssert("renderTarget.get() == nullptr",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                              246, (char*)0);
+                              246, nullptr);
                 }
-                psVar1 = (shared_ptr*)(local_178 + 64);
-                make_shared<RenderTargets>((jag*)psVar1);
-                shared_ptr<RenderTargets>::operator=((shared_ptr<RenderTargets>*)pvVar6, psVar1);
-                psVar1->~shared_ptr();
-                cVar2 = UseAppleCVPixelBuffers(this, (RenderDeviceCaps*)local_a8._64_8_);
-                if (cVar2 == '\0') {
+                make_shared<RenderTargets>(&local_138);
+                *pvVar5 = local_138;
+                cVar1 = UseAppleCVPixelBuffers(this, (RenderDeviceCaps*)local_a8._64_8_);
+                if (!cVar1) {
                     new (local_a8) Texture::Desc();
                     local_a8._12_4_ = field_72;
                     local_a8._0_4_ = field_88;
                     local_a8._4_4_ = field_92;
                     local_a8[56] = '\x01';
                     new (local_178) Texture::Desc();
-                    if (iVar4 != 0) {
+                    if (iVar3 != 0) {
                         local_178._4_4_ = local_a8._4_4_;
                         local_178._0_4_ = local_a8._0_4_;
                         local_178._12_4_ = local_a8._12_4_;
@@ -441,235 +356,204 @@ namespace jag::render {
                         local_178._40_8_ = local_a8._40_8_;
                         local_178._16_8_ = local_a8._16_8_;
                         local_178._24_8_ = local_a8._24_8_;
-                        iVar4 = GetFormatFromDepthStencilBits(iVar4, local_40, false);
-                        local_178._12_4_ = iVar4;
+                        iVar3 = GetFormatFromDepthStencilBits(iVar3, arg2, false);
+                        local_178._12_4_ = iVar3;
                     }
-                    pRVar8 = (RenderTargets*)shared_ptr<RenderTargets>::operator->((shared_ptr<RenderTargets>*)pvVar6);
-                    uVar12 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    local_138[0]._0_8_ = CONCAT44(local_a8._4_4_, local_a8._0_4_);
-                    local_138[0].field_8 = CONCAT44(local_a8._12_4_, local_a8._8_4_);
-                    uStack_100 = CONCAT71(local_a8._57_7_, local_a8[56]);
+                    pcVar11 = (char*)(*pvVar5).operator->();
+                    textureType = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                    local_138._4_4_ = local_a8._4_4_;
+                    local_138._0_4_ = local_a8._0_4_;
+                    uStack_130 = (((uint64_t)local_a8._12_4_ << 32) | (uint32_t)local_a8._8_4_);
+                    uStack_100 = (((uint64_t)local_a8._57_7_ << 8) | (uint8_t)local_a8[56]);
                     local_108 = local_a8._48_8_;
-                    local_138[2]._0_8_ = local_a8._32_8_;
-                    local_138[2].field_8 = local_a8._40_8_;
-                    local_138[1]._0_8_ = local_a8._16_8_;
-                    local_138[1].field_8 = local_a8._24_8_;
-                    new (&local_f8) Texture::Desc();
-                    cVar2 = pRVar8->Create(uVar12, 3553, local_178 + 64, 1, local_178, local_44);
+                    local_118 = local_a8[32];
+                    uStack_117 = local_a8._33_3_;
+                    uStack_114 = local_a8._36_4_;
+                    uStack_110 = local_a8._40_8_;
+                    local_128 = local_a8._16_4_;
+                    iStack_124 = local_a8._20_4_;
+                    iStack_120 = local_a8._24_4_;
+                    iStack_11c = local_a8._28_4_;
+                    local_f8 = Texture::Desc();
+                    cVar1 = RenderTargets::Create(pcVar11, textureType, *3553, (int)&local_138, DAT_00000001,
+                                                  (unsigned int)local_178);
                 } else {
-                    cVar2 = CreateAppleCVRenderTarget(this, uVar13, iVar4, local_40, local_44);
+                    cVar1 = CreateAppleCVRenderTarget(arg1_00, iVar3, arg2, arg3);
                 }
-                pvVar6 = local_60;
-                if (cVar2 == '\0') {
-                    uVar12 = logger::default_logger();
-                    logger::Logger::Log(uVar12, 0, 2,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                        "render/rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                        285, "Failed to create render target for BufferedRenderTargets");
-                    /* WARNING: Subroutine does not return */
+                pvVar5 = local_60;
+                if (!cVar1) {
+                    (logger::default_logger())
+                        ->Log(false, 2,
+                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                              "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
+                              285, "Failed to create render target for BufferedRenderTargets");
                     LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                     "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                    286, (char*)0);
+                                    286, nullptr);
                 }
-                uVar7 = UseShaderStorageBuffers(this, (RenderDeviceCaps*)local_a8._64_8_);
-                if ((char)uVar7 != '\0') {
+                uVar6 = UseShaderStorageBuffers(this, (RenderDeviceCaps*)local_a8._64_8_);
+                if ((char)uVar6 != '\0') {
                     local_3c = 0;
                     local_38 = 0;
-                    bVar3 = m_SSBOCopyRT.operator_cast_to_bool();
-                    if (bVar3) {
-                        pRVar8 = (RenderTargets*)shared_ptr<RenderTargets>::operator->(
-                            (shared_ptr<RenderTargets>*)&m_SSBOCopyRT);
-                        pvVar9 = (vector<Texture*,
-                                         eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                     pRVar8->GetColourTargetTextures();
-                        puVar10 = (undefined8*)
-                            eastl::vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                                  eastl::allocator>>::operator[](pvVar9,
-                                                                                                                 0);
-                        puVar11 = (uint*)(*puVar10)->second();
-                        local_3c = *puVar11;
-                        pRVar8 = (RenderTargets*)shared_ptr<RenderTargets>::operator->(
-                            (shared_ptr<RenderTargets>*)&m_SSBOCopyRT);
-                        pvVar9 = (vector<Texture*,
-                                         eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                     pRVar8->GetColourTargetTextures();
-                        puVar10 = (undefined8*)
-                            eastl::vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                                  eastl::allocator>>::operator[](pvVar9,
-                                                                                                                 0);
-                        lVar5 = (*puVar10)->second();
-                        local_38 = *(uint*)(lVar5 + 4);
+                    if (m_SSBOCopyRT.operator_cast_to_bool() != '\0') {
+                        pRVar7 = (RenderTargets*)m_SSBOCopyRT.operator->();
+                        pvVar8 = (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                                     pRVar7->GetColourTargetTextures();
+                        puVar9 = (uint64_t*)(*pvVar8)[0];
+                        puVar10 = (unsigned int*)(*puVar9)->second();
+                        local_3c = *puVar10;
+                        pRVar7 = (RenderTargets*)m_SSBOCopyRT.operator->();
+                        pvVar8 = (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                                     pRVar7->GetColourTargetTextures();
+                        puVar9 = (uint64_t*)(*pvVar8)[0];
+                        lVar4 = (*puVar9)->second();
+                        local_38 = *(unsigned int*)(lVar4 + 4);
                     }
-                    if ((local_3c < (uint)*local_58) || (uVar7 = (ulong)local_38, local_38 < (uint)*local_50)) {
-                        RenderTargets::SafeReset((shared_ptr*)&m_SSBOCopyRT);
+                    if ((local_3c < (unsigned int)*local_58) ||
+                        (uVar6 = (unsigned long)local_38, local_38 < (unsigned int)*local_50)) {
+                        RenderTargets::SafeReset(m_SSBOCopyRT);
                         new (local_a8) Texture::Desc();
                         local_a8._12_4_ = 23;
-                        puVar11 = std::max<unsigned int>(&local_3c, (uint*)local_58);
-                        local_a8._0_4_ = *puVar11;
-                        puVar11 = std::max<unsigned int>(&local_38, (uint*)local_50);
-                        local_a8._4_4_ = *puVar11;
-                        psVar1 = (shared_ptr*)(local_178 + 64);
-                        make_shared<RenderTargets>((jag*)psVar1);
-                        shared_ptr<RenderTargets>::operator=((shared_ptr<RenderTargets>*)&m_SSBOCopyRT, psVar1);
-                        psVar1->~shared_ptr();
-                        pRVar8 = (RenderTargets*)shared_ptr<RenderTargets>::operator->(
-                            (shared_ptr<RenderTargets>*)&m_SSBOCopyRT);
-                        local_138[0]._0_8_ = CONCAT44(local_a8._4_4_, local_a8._0_4_);
-                        local_138[0].field_8 = CONCAT44(local_a8._12_4_, local_a8._8_4_);
-                        uStack_100 = CONCAT71(local_a8._57_7_, local_a8[56]);
+                        puVar10 = std::max<unsigned int>(local_3c, *local_58);
+                        local_a8._0_4_ = *puVar10;
+                        puVar10 = std::max<unsigned int>(local_38, *local_50);
+                        local_a8._4_4_ = *puVar10;
+                        make_shared<RenderTargets>(&local_138);
+                        m_SSBOCopyRT = local_138;
+                        pcVar11 = (char*)m_SSBOCopyRT.operator->();
+                        local_138._4_4_ = local_a8._4_4_;
+                        local_138._0_4_ = local_a8._0_4_;
+                        uStack_130 = (((uint64_t)local_a8._12_4_ << 32) | (uint32_t)local_a8._8_4_);
+                        uStack_100 = (((uint64_t)local_a8._57_7_ << 8) | (uint8_t)local_a8[56]);
                         local_108 = local_a8._48_8_;
-                        local_138[2]._0_8_ = local_a8._32_8_;
-                        local_138[2].field_8 = local_a8._40_8_;
-                        local_138[1]._0_8_ = local_a8._16_8_;
-                        local_138[1].field_8 = local_a8._24_8_;
-                        new (&local_f8) Texture::Desc();
+                        local_118 = local_a8[32];
+                        uStack_117 = local_a8._33_3_;
+                        uStack_114 = local_a8._36_4_;
+                        uStack_110 = local_a8._40_8_;
+                        local_128 = local_a8._16_4_;
+                        iStack_124 = local_a8._20_4_;
+                        iStack_120 = local_a8._24_4_;
+                        iStack_11c = local_a8._28_4_;
+                        local_f8 = Texture::Desc();
                         new (local_178) Texture::Desc();
-                        uVar7 = pRVar8->Create("SSBOTemp", 3553, local_178 + 64, 1, local_178, 4);
-                        pvVar6 = local_60;
+                        uVar6 = RenderTargets::Create(pcVar11, 15025984, *3553, (int)&local_138, DAT_00000001,
+                                                      (unsigned int)(Desc*)local_178);
+                        pvVar5 = local_60;
                     }
                 }
-                if (cVar2 == '\0')
+                if (!cVar1)
                     goto LAB_100be45c6;
-                uVar13 = uVar13 + 1;
-                uVar7 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar6);
-                local_31 = uVar13 < uVar7;
+                arg1_00 = arg1_00 + 1;
+                uVar6 = pvVar5->end();
+                local_31 = arg1_00 < uVar6;
             } while (local_31);
         }
-        uVar7 = field_12->UndoMarkAsDead();
+        uVar6 = field_12->UndoMarkAsDead();
     LAB_100be45c6:
-        return CONCAT71((int7)(uVar7 >> 8), ~local_31) & 18446744073709551361;
+        return ~local_31 & 18446744073709551361;
     }
 
-    // 0x100be4610, 1184 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::CreateAppleCVRenderTarget(unsigned long, int, int, unsigned int)
-    undefined4 BufferedRenderTargets::CreateAppleCVRenderTarget(ulong param_1, int param_2, int param_3, uint param_4) {
-        undefined1* puVar1;
-        uint uVar2;
-        int iVar3;
-        undefined* puVar4;
+    // 0x100be4610
+    uint32_t BufferedRenderTargets::CreateAppleCVRenderTarget(unsigned long arg1, int arg2, int arg3,
+                                                              unsigned int arg4) {
+        uint8_t* puVar1;
         BufferedRenderTargets* pBVar5;
-        int iVar7;
-        undefined4 uVar8;
-        ID IVar9;
-        undefined8 uVar10;
-        undefined8 uVar11;
-        undefined8 uVar12;
-        undefined8* puVar13;
-        undefined8 uVar14;
-        unique_ptr<Texture2D, std::default_delete<Texture2D>>* puVar15;
-        Texture2D* pTVar16;
-        shared_ptr<RenderTargets>* psVar17;
-        RenderTargets* pRVar18;
-        long lVar19;
-        undefined1 local_1a8[20];
+        TextureType TVar7;
+        uint32_t uVar8;
+        Logger* pLVar13;
+        uint64_t* puVar14;
+        unique_ptr<Texture2D>* puVar15;
+        shared_ptr<RenderTargets>* psVar16;
+        char* str;
+        RenderTargets* this_01;
+        long lVar17;
+        uint8_t local_1a8[20];
         int local_194;
-        uint local_18c;
-        undefined1 local_158[64];
-        undefined1 local_118[72];
-        undefined8 uStack_d0;
-        undefined8 local_c8;
-        undefined8 uStack_c0;
-        undefined8 local_b8;
-        undefined8 uStack_b0;
-        undefined8 local_a8;
-        undefined8 uStack_a0;
-        BufferedRenderTargets* local_90;
-        undefined4 local_7c;
-        Array<shared_ptr<RenderTargets>, eastl::allocator>* local_70;
-        undefined8 local_68;
-        undefined1 local_60[8];
-        undefined8 local_58;
-        undefined8 local_50;
-        undefined8 local_48;
-        undefined8 local_40;
-        long local_38;
+        unsigned int local_18c;
+        uint8_t local_158[64];
+        uint8_t local_118[72];
+        uint64_t uStack_d0;
+        uint64_t local_c8;
+        uint64_t uStack_c0;
+        uint64_t local_b8;
+        uint64_t uStack_b0;
+        uint64_t local_a8;
+        uint64_t uStack_a0;
+        unsigned int local_7c;
+        Array<shared_ptr<RenderTargets>>* local_70;
+        uint8_t local_60[8];
 
-        local_70 = (Array<shared_ptr<RenderTargets>, eastl::allocator>*)CONCAT44(local_70._4_4_, param_2);
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
+        local_70 = (Array<shared_ptr<RenderTargets>>*)(((uint64_t)local_70._4_4_ << 32) | (uint32_t)arg2);
+        unsigned int local_84 = arg4;
         new (local_1a8) GLFormat(field_72);
-        local_58 = *(undefined8*)PTR__kCVPixelBufferOpenGLCompatibilityKey_100ee9df0;
-        IVar9 = NSNumber::numberWithBool_((ID)&_OBJC_CLASS___NSNumber, "numberWithBool:", 1);
-        uVar10 = _objc_retainAutoreleasedReturnValue(IVar9);
-        local_50 = *(undefined8*)PTR__kCVPixelBufferIOSurfacePropertiesKey_100ee9de8;
-        local_48 = uVar10;
+        uint64_t local_58 = *(uint64_t*)PTR__kCVPixelBufferOpenGLCompatibilityKey_100ee9df0;
+        auto IVar9 = NSNumber::numberWithBool_((ID)&_OBJC_CLASS___NSNumber, "numberWithBool:", 1);
+        uint64_t uVar10 = _objc_retainAutoreleasedReturnValue(IVar9);
+        uint64_t local_50 = *(uint64_t*)PTR__kCVPixelBufferIOSurfacePropertiesKey_100ee9de8;
+        uint64_t local_48 = uVar10;
         IVar9 = NSDictionary::dictionaryWithObjects_forKeys_count_(
             (ID)&_OBJC_CLASS___NSDictionary, "dictionaryWithObjects:forKeys:count:", local_60, local_60, 0);
-        uVar11 = _objc_retainAutoreleasedReturnValue(IVar9);
-        local_40 = uVar11;
+        uint64_t uVar11 = _objc_retainAutoreleasedReturnValue(IVar9);
+        uint64_t local_40 = uVar11;
         IVar9 = NSDictionary::dictionaryWithObjects_forKeys_count_(
             (ID)&_OBJC_CLASS___NSDictionary, "dictionaryWithObjects:forKeys:count:", &local_48, &local_58, 2);
-        local_68 = _objc_retainAutoreleasedReturnValue(IVar9);
-        puVar4 = PTR__objc_release_100ee9e60;
-        (*(code*)PTR__objc_release_100ee9e60)(uVar11);
-        (*(code*)puVar4)(uVar10);
-        uVar2 = field_72;
+        uint64_t local_68 = _objc_retainAutoreleasedReturnValue(IVar9);
+        uint8_t* puVar4 = PTR__objc_release_100ee9e60;
+        (*(void (*)(...))PTR__objc_release_100ee9e60)(uVar11);
+        (*(void (*)(...))puVar4)(uVar10);
+        unsigned int uVar2 = field_72;
         if (uVar2 != 7) {
             if (uVar2 == 21) {
                 uVar10 = 1278226536;
                 goto LAB_100be473e;
             }
             if (uVar2 != 29) {
-                /* WARNING: Subroutine does not return */
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                 "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                941, (char*)0);
+                                941, nullptr);
             }
         }
         uVar10 = 1111970369;
     LAB_100be473e:
-        iVar7 = field_88;
-        iVar3 = field_92;
-        local_90 = this;
-        uVar12 = Array<__CVBuffer*, eastl::allocator>::operator[]((Array<__CVBuffer*, eastl::allocator>*)&field_504,
-                                                                  param_1);
-        uVar11 = *(undefined8*)PTR__kCFAllocatorDefault_100ee9dc8;
-        iVar7 = _CVPixelBufferCreate(uVar11, iVar7, iVar3, uVar10, local_68, uVar12);
+        int iVar6 = field_88;
+        int iVar3 = field_92;
+        BufferedRenderTargets* local_90 = this;
+        uint64_t uVar12 = field_504[arg1];
+        uVar11 = *(uint64_t*)PTR__kCFAllocatorDefault_100ee9dc8;
+        iVar6 = _CVPixelBufferCreate(uVar11, iVar6, iVar3, uVar10, local_68, uVar12);
         uVar10 = m_cvTextureCache;
-        if (iVar7 == 0) {
-            puVar13 = (undefined8*)Array<__CVBuffer*, eastl::allocator>::operator[](
-                (Array<__CVBuffer*, eastl::allocator>*)&field_504, param_1);
-            uVar12 = *puVar13;
+        if (iVar6 == 0) {
+            puVar14 = &field_504[arg1];
+            uVar12 = *puVar14;
             puVar1 = &local_90->field_480;
-            uVar14 = Array<__CVBuffer*, eastl::allocator>::operator[]((Array<__CVBuffer*, eastl::allocator>*)puVar1,
-                                                                      param_1);
-            iVar7 = _CVOpenGLTextureCacheCreateTextureFromImage(uVar11, uVar10, uVar12, 0, uVar14);
-            if (iVar7 == 0) {
+            (*puVar1)[arg1];
+            iVar6 = _CVOpenGLTextureCacheCreateTextureFromImage(uVar11, uVar10, uVar12, 0);
+            if (iVar6 == 0) {
                 new ((local_1a8 + 16)) Texture::Desc();
                 pBVar5 = local_90;
                 local_1a8._16_4_ = local_90->field_88;
                 local_194 = local_90->field_92;
                 local_18c = local_90->field_72;
-                puVar13 = (undefined8*)Array<__CVBuffer*, eastl::allocator>::operator[](
-                    (Array<__CVBuffer*, eastl::allocator>*)puVar1, param_1);
-                local_7c = _CVOpenGLTextureGetName(*puVar13);
-                puVar13 = (undefined8*)Array<__CVBuffer*, eastl::allocator>::operator[](
-                    (Array<__CVBuffer*, eastl::allocator>*)puVar1, param_1);
-                uVar8 = _CVOpenGLTextureGetTarget(*puVar13);
-                std::make_unique<Texture2D>();
+                puVar14 = (uint64_t*)(*puVar1)[arg1];
+                local_7c = _CVOpenGLTextureGetName(*puVar14);
+                puVar14 = (uint64_t*)(*puVar1)[arg1];
+                TVar7 = _CVOpenGLTextureGetTarget(*puVar14);
+                *local_118 = std::make_unique<Texture2D>();
                 puVar1 = &pBVar5->field_384;
-                puVar15 = (unique_ptr<Texture2D, std::default_delete<Texture2D>>*)
-                    Array<std::unique_ptr<Texture2D, std::default_delete<Texture2D>>, eastl::allocator>::operator[](
-                        (Array<std::unique_ptr<Texture2D, std::default_delete<Texture2D>>, eastl::allocator>*)puVar1,
-                        param_1);
-                std::unique_ptr<Texture2D, std::default_delete<Texture2D>>::operator=(puVar15, (unique_ptr*)local_118);
-                local_118->~unique_ptr();
-                puVar15 = (unique_ptr<Texture2D, std::default_delete<Texture2D>>*)
-                    Array<std::unique_ptr<Texture2D, std::default_delete<Texture2D>>, eastl::allocator>::operator[](
-                        (Array<std::unique_ptr<Texture2D, std::default_delete<Texture2D>>, eastl::allocator>*)puVar1,
-                        param_1);
-                pTVar16 = (Texture2D*)std::unique_ptr<Texture2D, std::default_delete<Texture2D>>::operator->(puVar15);
-                pTVar16->BindExternalTexture(local_7c, uVar8, local_1a8 + 16);
+                puVar15 = (unique_ptr<Texture2D>*)(*puVar1)[arg1];
+                *puVar15 = *local_118;
+                puVar15 = (unique_ptr<Texture2D>*)(*puVar1)[arg1];
+                ((Texture2D*)(*puVar15).operator->())->BindExternalTexture(local_7c, TVar7, *((local_1a8 + 16)));
                 new (local_158) Texture::Desc();
                 if ((int)local_70 != 0) {
                     local_158._0_4_ = pBVar5->field_88;
                     local_158._4_4_ = pBVar5->field_92;
-                    local_158._12_4_ = GetFormatFromDepthStencilBits((int)local_70, param_3, false);
+                    local_158._12_4_ = GetFormatFromDepthStencilBits((int)local_70, arg3, false);
                 }
-                local_70 = (Array<shared_ptr<RenderTargets>, eastl::allocator>*)&pBVar5->field_24;
-                psVar17 = (shared_ptr<RenderTargets>*)Array<shared_ptr<RenderTargets>, eastl::allocator>::operator[](
-                    local_70, param_1);
-                pRVar18 = (RenderTargets*)shared_ptr<RenderTargets>::operator->(psVar17);
-                uVar10 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                local_70 = (Array<shared_ptr<RenderTargets>>*)&pBVar5->field_24;
+                psVar16 = (shared_ptr<RenderTargets>*)(*local_70)[arg1];
+                str = (char*)(*psVar16).operator->();
+                TVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
                 local_a8 = 0;
                 uStack_a0 = 0;
                 local_b8 = 0;
@@ -684,935 +568,705 @@ namespace jag::render {
                 local_118._40_8_ = 0;
                 local_118._16_8_ = 0;
                 local_118._24_8_ = 0;
-                local_118._0_8_ = 0;
+                local_118._0_8_ = (ReturnValue)0;
                 local_118._8_8_ = 0;
-                lVar19 = 0;
+                lVar17 = 0;
                 do {
-                    new ((local_118 + lVar19)) Texture::Desc();
-                    lVar19 = lVar19 + 64;
-                } while (lVar19 != 128);
-                uVar8 = pRVar18->Create(uVar10, 3553, local_118, 0, local_158, param_4 & 4294967291);
+                    new ((local_118 + lVar17)) Texture::Desc();
+                    lVar17 = lVar17 + 64;
+                } while (lVar17 != 128);
+                uVar8 = RenderTargets::Create(str, TVar7, *3553, (int)local_118, nullptr, (unsigned int)local_158);
                 if ((char)uVar8 != '\0') {
-                    psVar17 =
-                        (shared_ptr<RenderTargets>*)Array<shared_ptr<RenderTargets>, eastl::allocator>::operator[](
-                            local_70, param_1);
-                    pRVar18 = (RenderTargets*)shared_ptr<RenderTargets>::operator->(psVar17);
-                    puVar15 = (unique_ptr<Texture2D, std::default_delete<Texture2D>>*)
-                        Array<std::unique_ptr<Texture2D, std::default_delete<Texture2D>>, eastl::allocator>::operator[](
-                            (Array<std::unique_ptr<Texture2D, std::default_delete<Texture2D>>, eastl::allocator>*)
-                                puVar1,
-                            param_1);
-                    uVar10 = std::unique_ptr<Texture2D, std::default_delete<Texture2D>>::get(puVar15);
-                    pRVar18->BindColourTargetTexture(uVar10, 0, 0, 34069);
+                    psVar16 = (shared_ptr<RenderTargets>*)(*local_70)[arg1];
+                    this_01 = (RenderTargets*)(*psVar16).operator->();
+                    puVar15 = (unique_ptr<Texture2D>*)(*puVar1)[arg1];
+                    this_01->BindColourTargetTexture((Texture*)puVar15->get(), 0, 0, 34069);
                 }
             } else {
-                uVar10 = logger::default_logger();
+                pLVar13 = logger::default_logger();
                 uVar8 = 0;
-                logger::Logger::Log(uVar10, 0, 2,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                    "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                    978, "CVOpenGLTextureCacheCreateTextureFromImage failed: %i", iVar7);
+                pLVar13->Log(false, 2,
+                             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                             "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
+                             978, "CVOpenGLTextureCacheCreateTextureFromImage failed: %i", iVar6);
             }
         } else {
-            uVar10 = logger::default_logger();
+            pLVar13 = logger::default_logger();
             uVar8 = 0;
-            logger::Logger::Log(uVar10, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                952, "CVPixelBufferCreate failed: %i", iVar7);
+            pLVar13->Log(false, 2,
+                         "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                         "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
+                         952, "CVPixelBufferCreate failed: %i", iVar6);
         }
-        (*(code*)PTR__objc_release_100ee9e60)(local_68);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        (*(void (*)(...))PTR__objc_release_100ee9e60)(local_68);
         return uVar8;
     }
 
-    // 0x100be4ab0, 304 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::Destroy()
+    // 0x100be4ab0
     void BufferedRenderTargets::Destroy() {
-        undefined1* puVar1;
-        shared_ptr* psVar2;
-        shared_ptr* psVar3;
-        undefined8* puVar4;
-        undefined8* puVar5;
-        scoped_lock<std::mutex> local_30[8];
+        shared_ptr<RenderTargets>* renderTargets;
 
-        std::scoped_lock<std::mutex>::scoped_lock(local_30, (mutex*)&field_104);
+        scoped_lock<std::mutex> local_30(field_104);
         field_12->MarkAsDead();
-        psVar2 = (shared_ptr*)(&field_24)->data();
-        psVar3 = (shared_ptr*)(&field_24)->end();
-        for (; psVar2 != psVar3; psVar2 = psVar2 + 1) {
-            RenderTargets::SafeReset(psVar2);
+        renderTargets = (shared_ptr<RenderTargets>*)field_24.data();
+        auto psVar2 = field_24.end();
+        for (; renderTargets != psVar2; renderTargets = renderTargets + 16) {
+            RenderTargets::SafeReset(*renderTargets);
         }
-        (&field_384)->clear();
-        puVar1 = &field_480;
-        puVar4 = (undefined8*)puVar1->data();
-        puVar5 = (undefined8*)puVar1->end();
-        for (; puVar4 != puVar5; puVar4 = puVar4 + 1) {
-            _CFRelease(*puVar4);
+        field_384.clear();
+        uint8_t* puVar1 = &field_480;
+        auto puVar3 = puVar1->data();
+        auto puVar4 = puVar1->end();
+        for (; puVar3 != puVar4; puVar3 = puVar3 + 1) {
+            _CFRelease(*puVar3);
         }
         puVar1->clear();
         puVar1 = &field_504;
-        puVar4 = (undefined8*)puVar1->data();
-        puVar5 = (undefined8*)puVar1->end();
-        for (; puVar4 != puVar5; puVar4 = puVar4 + 1) {
-            _CFRelease(*puVar4);
+        puVar3 = (uint64_t*)puVar1->data();
+        puVar4 = (uint64_t*)puVar1->end();
+        for (; puVar3 != puVar4; puVar3 = puVar3 + 1) {
+            _CFRelease(*puVar3);
         }
         puVar1->clear();
-        ResetSyncFences(this);
-        std::scoped_lock<std::mutex>::~scoped_lock(local_30);
+        ResetSyncFences();
     }
 
-    // 0x100be4d20, 112 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::ResetSyncFences()
+    // 0x100be4d20
     void BufferedRenderTargets::ResetSyncFences() {
-        MapArea* this_00;
-        long lVar1;
         SyncFence* this_01;
         SyncFence* pSVar2;
 
-        this_00 = (MapArea*)Instance();
-        lVar1 = this_00->GetOrigin();
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
         if (*(char*)(lVar1 + 188) != '\0') {
-            this_01 = (SyncFence*)(&field_408)->data();
-            pSVar2 = (SyncFence*)(&field_408)->end();
+            this_01 = (SyncFence*)field_408.data();
+            pSVar2 = (SyncFence*)field_408.end();
             for (; this_01 != pSVar2; this_01 = this_01 + 1) {
                 this_01->Destroy();
             }
         }
     }
 
-    // 0x100be4d90, 1152 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::MapColourTargetData(BufferedImageData&)
-    void BufferedRenderTargets::MapColourTargetData(BufferedImageData* param_1) {
-        undefined1* this_00;
-        char cVar1;
-        int iVar2;
-        undefined4 uVar3;
-        int iVar4;
-        RenderDevice* this_01;
-        RenderContext* this_02;
-        long lVar5;
-        MapArea* this_03;
-        RenderDeviceCaps* pRVar6;
-        undefined8* puVar7;
-        undefined8 uVar8;
-        undefined8 uVar9;
-        ulong uVar10;
+    // 0x100be4d90
+    void BufferedRenderTargets::MapColourTargetData(BufferedImageData& bufferedImageData) {
+        uint8_t* this_00;
+        unsigned int uVar1;
+        uint64_t* puVar6;
+        Logger* pLVar7;
+        uint64_t uVar8;
         shared_ptr<RenderTargets>* this_04;
-        RenderTargets* this_05;
-        vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_06;
-        NpcUID* in_RDX;
-        char* pcVar11;
-        scoped_lock<std::mutex>* this_07;
-        Singleton<RenderDevice>* this_08;
-        undefined8 in_stack_ffffffffffffff78;
-        uint uVar12;
-        undefined8 in_stack_ffffffffffffff80;
-        uint uVar13;
-        scoped_lock<std::mutex> local_60[8];
-        int local_58;
-        undefined4 uStack_54;
+        RenderTargets* pRVar10;
+        vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_05;
+        Texture* pTVar11;
+        void* arg2;
+        char* pcVar12;
+        uint64_t in_stack_ffffffffffffff78;
+        ReturnValue local_58;
         int local_3c;
-        eastl local_38[8];
+        eastl local_38;
 
-        uVar12 = (uint)((ulong)in_stack_ffffffffffffff78 >> 32);
-        uVar13 = (uint)((ulong)in_stack_ffffffffffffff80 >> 32);
-        eastl::destruct<oldscape::highlight::NpcUID*>(local_38, (NpcUID*)"MapColourTargetData", in_RDX);
-        this_07 = local_60;
-        std::scoped_lock<std::mutex>::scoped_lock(this_07, (mutex*)&field_104);
-        this_01 = (RenderDevice*)this_07->Instance();
-        this_02 = (RenderContext*)this_01->GetCurrentThreadRenderContext();
-        lVar5 = this_02->GetDesc();
+        uint32_t uVar13 = (uint32_t)((unsigned long)in_stack_ffffffffffffff78 >> 32);
+        eastl::destruct<oldscape::highlight::NpcUID*>(&local_38);
+        scoped_lock<std::mutex> local_60(field_104);
+        RenderContext* this_02 = ((RenderDevice*)&local_60->Instance())->GetCurrentThreadRenderContext();
+        long lVar5 = this_02->GetDesc();
         if (*(char*)(lVar5 + 11) != '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("!renderContext.GetDesc().m_DeferredContext",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
-                      360, (char*)0);
+                      360, nullptr);
         }
         if ((field_84 == 0) || (field_96 == 0)) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_bufferedFrames > 0 && m_sizeInBytes > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
-                      361, (char*)0);
+                      361, nullptr);
         }
-        this_08 = (Singleton<RenderDevice>*)(ulong)field_72;
-        iVar4 = field_88;
-        iVar2 = GetFormatByteCount();
-        iVar2 = iVar2 * iVar4;
-        *(uint*)&param_1->field_40 = field_72;
-        *(int*)&param_1->field_32 = field_88;
-        *(int*)((long)&param_1->field_32 + 4) = field_92;
-        *(uint*)((long)&param_1->field_40 + 4) = field_96;
-        *(int*)&param_1->field_16 = iVar2;
-        *(int*)&param_1->field_20 = iVar2;
-        param_1->field_0 = this;
-        this_03 = (MapArea*)this_08->Instance();
-        pRVar6 = (RenderDeviceCaps*)this_03->GetOrigin();
-        cVar1 = UseAppleCVPixelBuffers(this, pRVar6);
-        if (cVar1 == '\0') {
-            if (pRVar6->field_326 != false) {
-                this_04 = (shared_ptr<RenderTargets>*)Array<shared_ptr<RenderTargets>, eastl::allocator>::operator[](
-                    (Array<shared_ptr<RenderTargets>, eastl::allocator>*)&field_24, (ulong)field_76);
-                this_05 = (RenderTargets*)shared_ptr<RenderTargets>::operator->(this_04);
-                this_06 = (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                              this_05->GetColourTargetTextures();
-                puVar7 = (undefined8*)
-                    eastl::vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                          eastl::allocator>>::operator[](this_06, 0);
-                uVar3 = (*puVar7)->GetNativeTextureId();
-                lVar5 = (*___glewMapTexture2DINTEL)(uVar3, 0, 1, &local_3c, &local_58);
+        Singleton<RenderDevice>* this_09 = (Singleton<RenderDevice>*)(unsigned long)field_72;
+        int iVar4 = field_88;
+        int iVar3 = GetFormatByteCount(field_72);
+        iVar3 = iVar3 * iVar4;
+        *(unsigned int*)&bufferedImageData.field_40 = field_72;
+        *(int*)&bufferedImageData.field_32 = field_88;
+        *(int*)((long)&bufferedImageData.field_32 + 4) = field_92;
+        *(unsigned int*)((long)&bufferedImageData.field_40 + 4) = field_96;
+        *(int*)&bufferedImageData.field_16 = iVar3;
+        *(int*)&bufferedImageData.field_20 = iVar3;
+        bufferedImageData.field_0 = this;
+        auto this_03 = this_09->Instance();
+        auto renderDeviceCaps = this_03->GetOrigin();
+        if (!(UseAppleCVPixelBuffers(this, renderDeviceCaps))) {
+            if (renderDeviceCaps->field_326 != false) {
+                this_04 = &field_24[(unsigned long)field_76];
+                pRVar10 = (RenderTargets*)(*this_04).operator->();
+                this_05 = (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
+                              pRVar10->GetColourTargetTextures();
+                puVar6 = (uint64_t*)(*this_05)[0];
+                pTVar11 = (*puVar6)->GetNativeTextureId();
+                lVar5 = (*___glewMapTexture2DINTEL)((unsigned long)pTVar11 & 4294967295, 0, 1, &local_3c, &local_58);
                 CheckGlErrorInternal("glMapTexture2DINTEL",
                                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                      "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
                                      406);
                 if (lVar5 == 0) {
-                    if ((ulong)(long)local_58 < 3) {
-                        pcVar11 = (&PTR_s_GL_LAYOUT_DEFAULT_INTEL_100f28e78)[local_58];
+                    if ((unsigned long)(long)(int)local_58[0]._0_4_ < 3) {
+                        pcVar12 = (&PTR_s_GL_LAYOUT_DEFAULT_INTEL_100f28e78)[local_58[0]._0_4_];
                     } else {
-                        uVar8 = logger::default_logger();
-                        logger::Logger::Log(uVar8, 0, 2,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                            "render/rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                            422, "Unknown glMapTexture2DINTEL layout - %d", CONCAT44(uVar12, local_58));
-                        pcVar11 = "Unknown";
+                        pLVar7 = logger::default_logger();
+                        pLVar7->Log(false, 2,
+                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                    "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
+                                    422, "Unknown glMapTexture2DINTEL layout - %d",
+                                    (((uint64_t)uVar13 << 32) | (uint32_t)local_58[0]._0_4_));
+                        pcVar12 = "Unknown";
                     }
-                    uVar8 = logger::default_logger();
-                    uVar9 = GetFormatName(field_72);
-                    logger::Logger::Log(uVar8, 0, 2,
-                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
-                                        "render/rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                        425, "glMapTexture2DINTEL failed (Format: %s - Layout: %s - %u bytes)", uVar9,
-                                        pcVar11, field_96);
+                    pLVar7 = logger::default_logger();
+                    uVar8 = GetFormatName(field_72);
+                    pLVar7->Log(false, 2,
+                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                                "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
+                                425, "glMapTexture2DINTEL failed (Format: %s - Layout: %s - %u bytes)", uVar8, pcVar12,
+                                field_96);
                 }
                 iVar4 = GetFormatByteCount(field_72);
                 if (local_3c != iVar4 * field_88) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("stride == (int)(GetFormatByteCount(m_format) * m_width)",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                               "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                              428, (char*)0);
+                              428, nullptr);
                 }
-                *(long*)&param_1->field_8 = lVar5;
+                *(long*)&bufferedImageData.field_8 = lVar5;
                 goto LAB_100be5173;
             }
-            cVar1 = UseShaderStorageBuffers(this, pRVar6);
-            if (cVar1 == '\0') {
-                cVar1 = UsePixelBuffers(pRVar6);
-                if (cVar1 == '\0') {
-                    uVar8 = GetReadRTInternal(this);
-                    uVar9 = Array<unsigned char, eastl::allocator>::operator[](
-                        (Array<unsigned char, eastl::allocator>*)&field_48, 0);
-                    RenderContext::ReadColourTargetData(this_02, uVar8, uVar9, field_72, 0, 0, (ulong)uVar12 << 32,
-                                                        (ulong)uVar13 << 32, field_88, field_92);
-                    uVar8 = Array<unsigned char, eastl::allocator>::operator[](
-                        (Array<unsigned char, eastl::allocator>*)&field_48, 0);
+            if (!(UseShaderStorageBuffers(this, renderDeviceCaps))) {
+                if (!(UsePixelBuffers(renderDeviceCaps))) {
+                    pRVar10 = (RenderTargets*)GetReadRTInternal();
+                    arg2 = &field_48[0];
+                    this_02->ReadColourTargetData(pRVar10, arg2, field_72, 0, 0, 0, 0, field_88, field_92);
+                    uVar8 = field_48[0];
                     goto LAB_100be4f8c;
                 }
-                uVar8 = Array<PixelBuffer, eastl::allocator>::operator[](
-                    (Array<PixelBuffer, eastl::allocator>*)&field_336, (ulong)field_76);
-                PixelBuffer::MapRead(&local_58, uVar8, 1, 0, 0, 0);
+                local_58 = ((PixelBuffer*)field_336[(unsigned long)field_76])->MapRead(1, 0, 0, 0);
             } else {
-                uVar8 = Array<ShaderStorageBuffer, eastl::allocator>::operator[](
-                    (Array<ShaderStorageBuffer, eastl::allocator>*)&field_360, (ulong)field_76);
-                ShaderStorageBuffer::MapRead(&local_58, uVar8, 7, 0, 0, 0);
+                local_58 = ((ShaderStorageBuffer*)field_360[(unsigned long)field_76])->MapRead(7, 0, 0, 0);
             }
-            *(ulong*)&param_1->field_8 = CONCAT44(uStack_54, local_58);
-            local_58.~ResourceDataT();
+            *(unsigned long*)&bufferedImageData.field_8 =
+                (((uint64_t)local_58[0]._4_4_ << 32) | (uint32_t)local_58[0]._0_4_);
         } else {
             this_00 = &field_504;
-            puVar7 = (undefined8*)Array<__CVBuffer*, eastl::allocator>::operator[](
-                (Array<__CVBuffer*, eastl::allocator>*)this_00, (ulong)field_76);
-            _CVPixelBufferLockBaseAddress(*puVar7, 1);
-            puVar7 = (undefined8*)Array<__CVBuffer*, eastl::allocator>::operator[](
-                (Array<__CVBuffer*, eastl::allocator>*)this_00, (ulong)field_76);
-            lVar5 = _CVPixelBufferGetBaseAddress(*puVar7);
-            *(long*)&param_1->field_8 = lVar5;
+            puVar6 = (uint64_t*)(*this_00)[(unsigned long)field_76];
+            _CVPixelBufferLockBaseAddress(*puVar6, 1);
+            puVar6 = (uint64_t*)(*this_00)[(unsigned long)field_76];
+            lVar5 = _CVPixelBufferGetBaseAddress(*puVar6);
+            *(long*)&bufferedImageData.field_8 = lVar5;
             if (lVar5 == 0) {
-                uVar8 = logger::default_logger();
-                uVar9 = GetFormatName(field_72);
-                pcVar11 = "valid";
-                if (*(long*)&param_1->field_8 == 0) {
-                    pcVar11 = "null";
+                pLVar7 = logger::default_logger();
+                uVar8 = GetFormatName(field_72);
+                pcVar12 = "valid";
+                if (*(long*)&bufferedImageData.field_8 == 0) {
+                    pcVar12 = "null";
                 }
-                logger::Logger::Log(uVar8, 0, 2,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                    "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                    382, "Failed to map texture via CVPixelBuffer (format: %s, ptr: %s)", uVar9,
-                                    pcVar11);
+                pLVar7->Log(false, 2,
+                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                            "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
+                            382, "Failed to map texture via CVPixelBuffer (format: %s, ptr: %s)", uVar8, pcVar12);
             }
-            uVar12 = *(uint*)&param_1->field_16;
-            puVar7 = (undefined8*)Array<__CVBuffer*, eastl::allocator>::operator[](
-                (Array<__CVBuffer*, eastl::allocator>*)this_00, (ulong)field_76);
-            uVar10 = _CVPixelBufferGetBytesPerRow(*puVar7);
-            if (uVar10 != uVar12) {
-                /* WARNING: Subroutine does not return */
+            uVar1 = *(unsigned int*)&bufferedImageData.field_16;
+            puVar6 = (uint64_t*)(*this_00)[(unsigned long)field_76];
+            if (_CVPixelBufferGetBytesPerRow(*puVar6) != uVar1) {
                 LogAssert(
                     "imageDataOut.m_pixelData.m_RowPitch == CVPixelBufferGetBytesPerRow(m_cvPixelBuffers[m_readRT])",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                     "OGL/BufferedRenderTargets_OGL.cpp",
-                    386, (char*)0);
+                    386, nullptr);
             }
             if (field_72 != 7)
                 goto LAB_100be5173;
-            (&field_456, (ulong)field_96, 0)->set_max_size();
-            SwapRBChannels(this, *(uchar**)&param_1->field_8);
-            uVar8 = (&field_456)->data();
+            field_456.set_max_size((unsigned long)field_96, 0);
+            SwapRBChannels(*(unsigned char**)&bufferedImageData.field_8);
+            uVar8 = field_456.data();
         LAB_100be4f8c:
-            *(undefined8*)&param_1->field_8 = uVar8;
+            *(uint64_t*)&bufferedImageData.field_8 = uVar8;
         }
     LAB_100be5173:
-        std::scoped_lock<std::mutex>::~scoped_lock(local_60);
     }
 
-    // 0x100be5290, 256 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::SwapRBChannels(unsigned char const*)
-    void BufferedRenderTargets::SwapRBChannels(uchar* param_1) {
-        undefined1* this_00;
-        uchar uVar1;
-        uchar uVar2;
-        char cVar3;
-        uint uVar5;
-        uchar* puVar6;
-        ulong uVar7;
+    // 0x100be5290
+    void BufferedRenderTargets::SwapRBChannels(const unsigned char* arg1) {
+        unsigned char uVar1;
+        unsigned char uVar2;
+        unsigned char* puVar6;
+        unsigned long arg1_00;
 
         if ((field_72 != 7) && (field_72 != 29)) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_format == FORMAT_B8G8R8A8_UNORM || m_format == FORMAT_R8G8B8A8_UNORM",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
-                      464, (char*)0);
+                      464, nullptr);
         }
-        this_00 = &field_456;
-        cVar3 = this_00->empty();
-        if (cVar3 != '\0') {
-            /* WARNING: Subroutine does not return */
+        uint8_t* this_00 = &field_456;
+        if (this_00->empty() != '\0') {
             LogAssert("!m_convertedData.empty()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
-                      465, (char*)0);
+                      465, nullptr);
         }
-        uVar5 = GetFormatChannelCount(field_72) * field_88 * field_92;
+        unsigned int uVar5 = GetFormatChannelCount(field_72) * field_88 * field_92;
         if (uVar5 != 0) {
-            uVar7 = 0;
+            arg1_00 = 0;
             do {
-                uVar1 = param_1[uVar7];
-                uVar2 = param_1[uVar7 + 2];
-                puVar6 = (uchar*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-                    (Array<unsigned char, BucketAllocatorEASTL>*)this_00, uVar7);
+                uVar1 = arg1[arg1_00];
+                uVar2 = arg1[arg1_00 + 2];
+                puVar6 = (unsigned char*)(*this_00)[arg1_00];
                 *puVar6 = uVar2;
-                uVar2 = param_1[uVar7 + 1];
-                puVar6 = (uchar*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-                    (Array<unsigned char, BucketAllocatorEASTL>*)this_00, uVar7 + 1);
+                uVar2 = arg1[arg1_00 + 1];
+                puVar6 = (unsigned char*)(*this_00)[arg1_00 + 1];
                 *puVar6 = uVar2;
-                puVar6 = (uchar*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-                    (Array<unsigned char, BucketAllocatorEASTL>*)this_00, uVar7 + 2);
+                puVar6 = (unsigned char*)(*this_00)[arg1_00 + 2];
                 *puVar6 = uVar1;
-                uVar1 = param_1[uVar7 + 3];
-                puVar6 = (uchar*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-                    (Array<unsigned char, BucketAllocatorEASTL>*)this_00, uVar7 + 3);
+                uVar1 = arg1[arg1_00 + 3];
+                puVar6 = (unsigned char*)(*this_00)[arg1_00 + 3];
                 *puVar6 = uVar1;
-                uVar7 = uVar7 + 4;
-            } while (uVar7 < uVar5);
+                arg1_00 = arg1_00 + 4;
+            } while (arg1_00 < uVar5);
         }
     }
 
-    // 0x100be5490, 208 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::CopyColourTargetData(ImageData&)
-    ulong BufferedRenderTargets::CopyColourTargetData(ImageData* param_1) {
-        uint uVar1;
+    // 0x100be5490
+    unsigned long BufferedRenderTargets::CopyColourTargetData(ImageData& imageData) {
+        unsigned int uVar1;
         void* pvVar2;
-        undefined1 local_50[32];
-        undefined4 local_30;
-        undefined4 local_2c;
-        undefined4 local_28;
-        undefined4 local_24;
+        uint8_t local_50[32];
+        uint32_t local_30;
+        uint32_t local_2c;
+        uint32_t local_28;
+        uint32_t local_24;
 
         new (local_50) BufferedImageData();
-        MapColourTargetData(this, (BufferedImageData*)local_50);
-        if ((void*)local_50._8_8_ == (void*)0) {
-            /* WARNING: Subroutine does not return */
+        MapColourTargetData(*local_50);
+        if ((void*)local_50._8_8_ == nullptr) {
             LogAssert("bufferedImageData.m_pixelData.m_pData",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
-                      485, (char*)0);
+                      485, nullptr);
         }
-        if ((void*)local_50._8_8_ != (void*)0) {
-            *(undefined4*)&param_1->field_8 = local_50._16_4_;
-            *(undefined4*)&param_1->field_12 = local_50._20_4_;
-            *(undefined4*)&param_1->field_32 = local_28;
-            *(undefined4*)&param_1->field_24 = local_30;
-            *(undefined4*)((long)&param_1->field_24 + 4) = local_2c;
-            *(undefined4*)((long)&param_1->field_32 + 4) = local_24;
+        if ((void*)local_50._8_8_ != nullptr) {
+            *(uint32_t*)&imageData.field_8 = local_50._16_4_;
+            *(uint32_t*)&imageData.field_12 = local_50._20_4_;
+            *(uint32_t*)&imageData.field_32 = local_28;
+            *(uint32_t*)&imageData.field_24 = local_30;
+            *(uint32_t*)((long)&imageData.field_24 + 4) = local_2c;
+            *(uint32_t*)((long)&imageData.field_32 + 4) = local_24;
             uVar1 = field_96;
-            pvVar2 = operator_new__((ulong)uVar1);
-            *(void**)param_1 = pvVar2;
-            param_1->field_16 = 1;
-            _memcpy(pvVar2, (void*)local_50._8_8_, (ulong)uVar1);
+            pvVar2 = (void*)operator_new__((unsigned long)uVar1);
+            *(void**)imageData = pvVar2;
+            imageData.field_16 = 1;
+            _memcpy(pvVar2, (void*)local_50._8_8_, (unsigned long)uVar1);
         }
-        local_50->~BufferedImageData();
-        return CONCAT71((int7)((ulong)param_1 >> 8), (void*)local_50._8_8_ != (void*)0) & 4294967295;
+        return (void*)local_50._8_8_ != nullptr & 4294967295;
     }
 
-    // 0x100be5580, 416 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::WriteFinished()
+    // 0x100be5580
     void BufferedRenderTargets::WriteFinished() {
-        uint uVar1;
-        char cVar2;
-        BufferedRenderTargets* this_00;
-        RenderDeviceCaps* pRVar3;
-        RenderDevice* pRVar4;
-        undefined4* puVar5;
-        scoped_lock<std::mutex>* this_01;
+        bool cVar1;
+        RenderDevice* pRVar2;
+        uint32_t* puVar3;
         Singleton<RenderDevice>* this_02;
         __3 local_f0;
-        scoped_lock<std::mutex> local_e0[8];
-        function local_d8;
+        scoped_lock<std::mutex> local_e0;
+        function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0> local_d8[168];
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        this_01 = local_e0;
-        std::scoped_lock<std::mutex>::scoped_lock(this_01, (mutex*)&field_104);
-        this_00 = (BufferedRenderTargets*)this_01->Instance();
-        pRVar3 = (RenderDeviceCaps*)this_00->GetOrigin();
-        uVar1 = field_80;
+        scoped_lock<std::mutex>* this_01 = &local_e0;
+        new (this_01) std::scoped_lock(field_104);
+        auto this_00 = this_01->Instance();
+        auto renderDeviceCaps = this_00->GetOrigin();
+        unsigned int arg1 = field_80;
         if (field_84 == 1) {
         LAB_100be55df:
-            pRVar4 = (RenderDevice*)this_00->Instance();
-            cVar2 = pRVar4->ShouldDefer();
-            if (cVar2 != '\0') {
+            pRVar2 = (RenderDevice*)this_00->Instance();
+            cVar1 = pRVar2->ShouldDefer();
+            if (cVar1) {
                 this_02 = (Singleton<RenderDevice>*)&field_432;
-                puVar5 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_02,
-                                                                               (long)(int)uVar1);
-                *puVar5 = 4;
-                pRVar4 = (RenderDevice*)this_02->Instance();
+                puVar3 = (uint32_t*)(*this_02)[(long)(int)arg1];
+                *puVar3 = 4;
+                pRVar2 = (RenderDevice*)this_02->Instance();
                 local_f0.field_0 = this;
-                local_f0.field_8 = uVar1;
+                local_f0.field_8 = arg1;
                 fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-                    BufferedRenderTargets::WriteFinished()::__3, void>(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8, &local_f0);
-                pRVar4->RunOnRenderThread(&local_d8);
-                fixedfunction::function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-                    (function<void(RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8);
+                    BufferedRenderTargets::WriteFinished()::__3, void>(local_d8, &local_f0);
+                pRVar2->RunOnRenderThread(*local_d8);
                 goto LAB_100be56a2;
             }
         } else {
             this_00 = this;
-            cVar2 = UseShaderStorageBuffers(this, pRVar3);
-            if (cVar2 != '\0')
+            cVar1 = UseShaderStorageBuffers(this, renderDeviceCaps);
+            if (cVar1)
                 goto LAB_100be55df;
         }
-        cVar2 = UseAppleCVPixelBuffers(this, pRVar3);
-        if (cVar2 == '\0') {
-            WriteFinishedInternal(this, uVar1);
+        cVar1 = UseAppleCVPixelBuffers(this, renderDeviceCaps);
+        if (!cVar1) {
+            WriteFinishedInternal(arg1);
         } else {
-            cVar2 = this_thread::IsMainThread();
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = this_thread::IsMainThread();
+            if (!cVar1) {
                 LogAssert("this_thread::IsMainThread()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                           "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                          539, (char*)0);
+                          539, nullptr);
             }
-            puVar5 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_432,
-                                                                           (long)(int)uVar1);
-            *puVar5 = 4;
+            puVar3 = &field_432[(long)(int)arg1];
+            *puVar3 = 4;
         }
     LAB_100be56a2:
         field_76 = (field_76 + 1) % field_84;
         field_80 = (field_80 + 1) % field_84;
-        std::scoped_lock<std::mutex>::~scoped_lock(local_e0);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x100be5730, 304 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::WriteFinishedInternal(int)
-    void BufferedRenderTargets::WriteFinishedInternal(int param_1) {
-        char cVar1;
-        MapArea* this_00;
-        RenderDeviceCaps* pRVar2;
-        RenderDevice* this_01;
-        SyncFence* pSVar3;
-        undefined4* puVar4;
-        undefined1 auVar6[16];
-        eastl local_30[8];
+    // 0x100be5730
+    void BufferedRenderTargets::WriteFinishedInternal(int arg1) {
+        SyncFence* pSVar2;
+        uint32_t* puVar3;
+        eastl local_30;
 
-        this_00 = (MapArea*)Instance();
-        pRVar2 = (RenderDeviceCaps*)this_00->GetOrigin();
-        this_01 = (RenderDevice*)this_00->Instance();
-        auVar6 = this_01->GetCurrentThreadRenderContext();
-        eastl::destruct<oldscape::highlight::NpcUID*>(local_30, (NpcUID*)"WriteFinishedInternal", auVar6._8_8_);
-        if (pRVar2->field_326 == false) {
-            cVar1 = UseAppleCVPixelBuffers(this, pRVar2);
-            if (cVar1 == '\0') {
-                cVar1 = UseShaderStorageBuffers(this, pRVar2);
-                if (cVar1 == '\0') {
-                    cVar1 = UsePixelBuffers(pRVar2);
-                    if (cVar1 != '\0') {
-                        CopyToPixelBuffer(this, auVar6._0_8_, param_1);
+        auto this_00 = Instance();
+        auto renderDeviceCaps = this_00->GetOrigin();
+        RenderContext* renderContext = ((RenderDevice*)this_00->Instance())->GetCurrentThreadRenderContext();
+        eastl::destruct<oldscape::highlight::NpcUID*>(&local_30);
+        if (renderDeviceCaps->field_326 == false) {
+            if (!(UseAppleCVPixelBuffers(this, renderDeviceCaps))) {
+                if (!(UseShaderStorageBuffers(this, renderDeviceCaps))) {
+                    if (UsePixelBuffers(renderDeviceCaps)) {
+                        CopyToPixelBuffer(*renderContext, arg1);
                     }
                 } else {
-                    CopyToShaderStorageBuffer(this, auVar6._0_8_, param_1);
+                    CopyToShaderStorageBuffer(*renderContext, arg1);
                 }
             }
         }
-        if (pRVar2->field_188 == false) {
-            puVar4 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_432,
-                                                                           (long)param_1);
-            *puVar4 = 4;
+        if (renderDeviceCaps->field_188 == false) {
+            puVar3 = &field_432[(long)arg1];
+            *puVar3 = 4;
         } else {
-            pSVar3 = (SyncFence*)Array<SyncFence, eastl::allocator>::operator[](
-                (Array<SyncFence, eastl::allocator>*)&field_408, (ulong)param_1);
-            pSVar3->Destroy();
-            pSVar3 = (SyncFence*)Array<SyncFence, eastl::allocator>::operator[](
-                (Array<SyncFence, eastl::allocator>*)&field_408, (ulong)param_1);
-            cVar1 = pSVar3->Create();
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
+            pSVar2 = &field_408[(unsigned long)arg1];
+            pSVar2->Destroy();
+            pSVar2 = &field_408[(unsigned long)arg1];
+            if (!(pSVar2->Create())) {
                 LogAssert("result",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                           "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                          576, (char*)0);
+                          576, nullptr);
             }
-            puVar4 = (undefined4*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_432,
-                                                                           (ulong)param_1);
-            *puVar4 = 60;
+            puVar3 = &field_432[(unsigned long)arg1];
+            *puVar3 = 60;
         }
     }
 
-    // 0x100be5860, 1216 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::CopyToShaderStorageBuffer(RenderContext&, int)
-    void BufferedRenderTargets::CopyToShaderStorageBuffer(RenderContext* param_1, int param_2) {
+    // 0x100be5860
+    void BufferedRenderTargets::CopyToShaderStorageBuffer(RenderContext& renderContext, int arg2) {
         Texture* pTVar1;
-        undefined8 this_00;
-        RenderContext* this_01;
-        bool bVar2;
-        int iVar3;
-        uint uVar4;
-        shared_ptr<RenderTargets>* this_02;
-        RenderTargets* pRVar5;
-        vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_03;
-        undefined8* puVar6;
-        ImmediateRenderContext* this_04;
-        long lVar7;
-        Vector4T* pVVar8;
+        uint64_t texture;
+        int iVar4;
+        unsigned int arg1;
+        ImmediateRenderContext* pIVar7;
+        long lVar8;
+        Vector4T<float>* vector4;
         RenderPipelineState* pRVar9;
-        compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* this_05;
-        Layout* this_06;
-        ShaderStorageBuffer* pSVar10;
-        int* piVar11;
-        Viewport* pVVar12;
-        OutputMergerState* this_07;
-        VertexDeclaration* pVVar13;
-        RenderContext* this_08;
-        DrawCallState* pDVar14;
-        ShaderProgram* this_09;
-        ShaderProgram* this_10;
-        undefined1 auVar15[16];
-        Vector4T<float> local_5c8[16];
-        undefined1 local_5b8[32];
+        compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* this_03;
+        Layout* this_04;
+        ShaderStorageBuffer* shaderStorageBuffer;
+        int* piVar10;
+        OutputMergerState* pOVar11;
+        VertexDeclaration* vertexDeclaration;
+        DrawCallState* pDVar12;
+        ShaderProgram* this_06;
+        Vector4T<float> local_5c8;
+        uint8_t local_5b8[32];
         DrawCallState local_598;
-        RenderContext* local_568;
-        int local_55c;
         OutputMergerState local_558;
         RenderPipelineState local_488;
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_568 = param_1;
-        bVar2 = m_SSBOCopyRT.operator_cast_to_bool();
-        if (!bVar2) {
-            /* WARNING: Subroutine does not return */
+        if (m_SSBOCopyRT.operator_cast_to_bool() == '\0') {
             LogAssert("m_SSBOCopyRT",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
-                      672, (char*)0);
+                      672, nullptr);
         }
-        this_10 = (ShaderProgram*)0;
-        this_02 = (shared_ptr<RenderTargets>*)Array<shared_ptr<RenderTargets>, eastl::allocator>::operator[](
-            (Array<shared_ptr<RenderTargets>, eastl::allocator>*)&field_24, 0);
-        pRVar5 = (RenderTargets*)shared_ptr<RenderTargets>::operator->(this_02);
-        this_03 = (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                      pRVar5->GetColourTargetTextures();
-        puVar6 = (undefined8*)eastl::vector<
-            Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_03,
-                                                                                                             0);
-        bVar2 = true;
+        ShaderProgram* this_07 = nullptr;
+        shared_ptr<RenderTargets>* this_01 = &field_24[0];
+        RenderTargets* pRVar5 = (RenderTargets*)(*this_01).operator->();
+        auto this_02 = pRVar5->GetColourTargetTextures();
+        uint64_t* puVar6 = (uint64_t*)(*this_02)[0];
+        bool bVar2 = true;
         switch (field_72) {
         case 1:
-            this_10 = (ShaderProgram*)&m_SSBOCopyShaderFloat4;
+            this_07 = (ShaderProgram*)&m_SSBOCopyShaderFloat4;
             break;
         default:
             goto switchD_100be5901_caseD_2;
         case 7:
-            this_10 = (ShaderProgram*)&m_SSBOCopyShaderInt4;
+            this_07 = (ShaderProgram*)&m_SSBOCopyShaderInt4;
             break;
         case 11:
-            this_10 = (ShaderProgram*)&m_SSBOCopyShaderFloat1;
+            this_07 = (ShaderProgram*)&m_SSBOCopyShaderFloat1;
             break;
         case 29:
-            this_10 = (ShaderProgram*)&m_SSBOCopyShaderInt4RBSwizzle;
+            this_07 = (ShaderProgram*)&m_SSBOCopyShaderInt4RBSwizzle;
         }
         bVar2 = false;
     switchD_100be5901_caseD_2:
         if (!bVar2) {
             pTVar1 = (Texture*)*puVar6;
-            iVar3 = this_10->GetNativeShaderProgram();
-            if (iVar3 != 0) {
+            iVar4 = this_07->GetNativeShaderProgram();
+            if (iVar4 != 0) {
                 local_5b8._24_8_ = pTVar1;
-                local_55c = param_2;
-                math::Vector4T<float>::Vector4T(local_5c8, 0.0);
-                this_01 = local_568;
-                this_08 = local_568;
-                this_04 = (ImmediateRenderContext*)local_568->GetImmediateContext();
-                lVar7 = this_08->Instance();
-                this_04->SetBlendState((BlendState*)(lVar7 + 1524));
-                pRVar5 = (RenderTargets*)this_01->GetImmediateContext();
-                pVVar8 = (Vector4T*)m_SSBOCopyRT.end();
-                pRVar5->ClearRenderTargets(pVVar8, (ulong)local_5c8);
-                new (&local_598) DrawCallState();
-                new (&local_488) RenderPipelineState();
+                local_5c8 = math::Vector4T(0.0);
+                pIVar7 = renderContext.GetImmediateContext();
+                lVar8 = renderContext.Instance();
+                pIVar7->SetBlendState((lVar8 + 1524));
+                pIVar7 = renderContext.GetImmediateContext();
+                vector4 = (Vector4T<float>*)m_SSBOCopyRT.end();
+                ((RenderTargets*)pIVar7)->ClearRenderTargets(vector4, (unsigned long)&local_5c8);
+                local_598 = DrawCallState();
+                local_488 = RenderPipelineState();
                 local_598.SetRenderPipelineState(&local_488);
-                new (&local_558) OutputMergerState();
-                this_00 = local_5b8._24_8_;
+                local_558 = OutputMergerState();
+                texture = local_5b8._24_8_;
                 local_598.SetOutputMergerState(&local_558);
-                pDVar14 = &local_598;
-                pRVar9 = (RenderPipelineState*)pDVar14->GetRenderPipelineState();
-                lVar7 = pDVar14->Instance();
-                pRVar9->SetRasteriserState((RasteriserState*)(lVar7 + 1200));
-                pDVar14 = &local_598;
-                this_05 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
-                              pDVar14->GetRenderPipelineState();
-                auVar15 = pDVar14->Instance();
-                eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL,
-                                           2>::compressed_pair_imp(this_05, (EntityHighlight**)(auVar15._0_8_ + 2208),
-                                                                   auVar15._8_8_);
-                pDVar14 = &local_598;
-                this_06 = (Layout*)pDVar14->GetRenderPipelineState();
-                lVar7 = pDVar14->Instance();
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::
-                    Layout::SetHeapSize(this_06, lVar7 + 1080);
+                pDVar12 = &local_598;
+                pRVar9 = (RenderPipelineState*)pDVar12->GetRenderPipelineState();
+                lVar8 = pDVar12->Instance();
+                pRVar9->SetRasteriserState((lVar8 + 1200));
+                pDVar12 = &local_598;
+                this_03 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
+                              pDVar12->GetRenderPipelineState();
+                lVar8 = pDVar12->Instance();
+                eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>::
+                    compressed_pair_imp(this_03,
+                                        (PlayerDataComparator<oldscape::social::FriendChatUser>*)(lVar8 + 2208));
+                pDVar12 = &local_598;
+                this_04 = (Layout*)pDVar12->GetRenderPipelineState();
+                lVar8 = pDVar12->Instance();
+                this_04->SetHeapSize((lVar8 + 1080));
                 pRVar9 = (RenderPipelineState*)local_598.GetRenderPipelineState();
-                pRVar9->SetShaderProgram(this_10);
+                pRVar9->SetShaderProgram(this_07);
                 pRVar9 = (RenderPipelineState*)local_598.GetRenderPipelineState();
                 new (local_5b8) HashedString("sTexture");
-                this_09 = this_10;
-                iVar3 = this_10->GetConstIndex(local_5b8);
-                lVar7 = this_09->Instance();
-                pRVar9->SetPSTextureSamplerPair(0, this_00, iVar3, (SamplerState*)(lVar7 + 80), false);
+                this_06 = this_07;
+                iVar4 = this_07->GetConstIndex(*local_5b8);
+                lVar8 = this_06->Instance();
+                pRVar9->SetPSTextureSamplerPair(0, texture, iVar4, (lVar8 + 80), false);
                 pRVar9 = (RenderPipelineState*)local_598.GetRenderPipelineState();
                 new (local_5b8) HashedString("uStorageBuffer");
-                uVar4 = this_10->GetStorageBufferIndex(local_5b8);
-                pSVar10 = (ShaderStorageBuffer*)Array<ShaderStorageBuffer, eastl::allocator>::operator[](
-                    (Array<ShaderStorageBuffer, eastl::allocator>*)&field_360, (long)local_55c);
-                pRVar9->SetPSShaderStorageBuffer(uVar4, pSVar10);
-                piVar11 = (int*)this_00->second();
-                iVar3 = *piVar11;
-                lVar7 = this_00->second();
-                new (local_5b8) Viewport(0, 0, iVar3, *(int*)(lVar7 + 4), 0.0, 1.0);
-                pVVar12 = (Viewport*)local_598.GetOutputMergerState();
-                OutputMergerState::SetViewports(pVVar12, (uint)local_5b8);
-                this_07 = (OutputMergerState*)local_598.GetOutputMergerState();
+                arg1 = this_07->GetStorageBufferIndex(*local_5b8);
+                shaderStorageBuffer = (ShaderStorageBuffer*)field_360[(long)arg2];
+                pRVar9->SetPSShaderStorageBuffer(arg1, shaderStorageBuffer);
+                piVar10 = (int*)texture->second();
+                iVar4 = *piVar10;
+                lVar8 = texture->second();
+                new (local_5b8) Viewport(0, 0, iVar4, *(int*)(lVar8 + 4), 0.0, 1.0);
+                pOVar11 = local_598.GetOutputMergerState();
+                pOVar11->SetViewports(local_5b8, 1);
+                pOVar11 = local_598.GetOutputMergerState();
                 pRVar5 = (RenderTargets*)m_SSBOCopyRT.end();
-                this_07->SetRenderTargets(pRVar5);
-                pVVar13 = (VertexDeclaration*)this_10->second();
-                m_IAState.SetVertexStreamData(pVVar13, (VertexBuffer*)&m_quadVB);
-                local_598.SetInputAssemblerState((InputAssemblerState*)&m_IAState);
-                local_568->DrawPrimitives(&local_598, 5, 0, 4);
-                local_558.~OutputMergerState();
-                local_488.~RenderPipelineState();
-                local_598.~DrawCallState();
-                if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-                    /* WARNING: Subroutine does not return */
-                    ___stack_chk_fail();
-                }
+                pOVar11->SetRenderTargets(pRVar5);
+                vertexDeclaration = (VertexDeclaration*)this_07->second();
+                m_IAState.SetVertexStreamData(vertexDeclaration, &m_quadVB);
+                local_598.SetInputAssemblerState(&m_IAState);
+                renderContext.DrawPrimitives(local_598, 5, 0, 4);
                 return;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                         "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
                         687, "Attempting to read back unsupported texture format");
     }
 
-    // 0x100be5d20, 272 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::CopyToPixelBuffer(RenderContext&, int)
-    void BufferedRenderTargets::CopyToPixelBuffer(RenderContext* param_1, int param_2) {
-        PixelBuffer* pPVar1;
-        ImmediateRenderContext* pIVar2;
-        shared_ptr<RenderTargets>* this_00;
-        RenderTargets* this_01;
-        vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_02;
-        undefined8* puVar3;
-        ActiveTextureSaveRestore local_50;
-        undefined1 local_40[16];
+    // 0x100be5d20
+    void BufferedRenderTargets::CopyToPixelBuffer(RenderContext& renderContext, int arg2) {
+        uint8_t local_40[16];
 
-        pPVar1 = (PixelBuffer*)Array<PixelBuffer, eastl::allocator>::operator[](
-            (Array<PixelBuffer, eastl::allocator>*)&field_336, (long)param_2);
+        PixelBuffer* pPVar1 = &field_336[(long)arg2];
         pPVar1->Bind();
-        pIVar2 = (ImmediateRenderContext*)param_1->GetImmediateContext();
-        new (&local_50) ActiveTextureSaveRestore(pIVar2);
-        pIVar2 = (ImmediateRenderContext*)param_1->GetImmediateContext();
-        this_00 = (shared_ptr<RenderTargets>*)Array<shared_ptr<RenderTargets>, eastl::allocator>::operator[](
-            (Array<shared_ptr<RenderTargets>, eastl::allocator>*)&field_24, 0);
-        this_01 = (RenderTargets*)shared_ptr<RenderTargets>::operator->(this_00);
-        this_02 = (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
-                      this_01->GetColourTargetTextures();
-        puVar3 = (undefined8*)eastl::vector<
-            Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_02,
-                                                                                                             0);
-        pIVar2->BindTexture((Texture*)*puVar3, 0);
+        auto pIVar2 = renderContext.GetImmediateContext();
+        ActiveTextureSaveRestore local_50(*pIVar2);
+        pIVar2 = renderContext.GetImmediateContext();
+        shared_ptr<RenderTargets>* this_00 = &field_24[0];
+        RenderTargets* this_01 = (RenderTargets*)(*this_00).operator->();
+        auto this_02 = this_01->GetColourTargetTextures();
+        uint64_t* puVar3 = (uint64_t*)(*this_02)[0];
+        pIVar2->BindTexture(*(*puVar3), 0);
         new (local_40) GLFormat(field_72);
         _glGetTexImage(3553, 0, local_40._4_4_, local_40._8_4_, 0);
         CheckGlErrorInternal("glGetTexImage",
                              "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                              "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
                              733);
-        pPVar1 = (PixelBuffer*)Array<PixelBuffer, eastl::allocator>::operator[](
-            (Array<PixelBuffer, eastl::allocator>*)&field_336, (long)param_2);
+        pPVar1 = &field_336[(long)arg2];
         pPVar1->Unbind();
-        local_50.~ActiveTextureSaveRestore();
     }
 
-    // 0x100be5eb0, 384 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::UnmapColourTargetData()
+    // 0x100be5eb0
     void BufferedRenderTargets::UnmapColourTargetData() {
-        undefined1* this_00;
-        code* pcVar1;
-        char cVar2;
-        undefined4 uVar3;
-        MapArea* this_01;
-        RenderDeviceCaps* pRVar4;
-        undefined8* puVar5;
+        uint64_t* puVar3;
         shared_ptr<RenderTargets>* this_02;
         RenderTargets* this_03;
-        vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_04;
-        PixelBuffer* this_05;
-        BufferInterface* this_06;
-        ShaderStorageBuffer* this_07;
-        NpcUID* in_RDX;
-        scoped_lock<std::mutex>* this_08;
-        scoped_lock<std::mutex> local_28[8];
-        eastl local_20[8];
+        vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_04;
+        Texture* pTVar4;
+        eastl local_20;
 
-        eastl::destruct<oldscape::highlight::NpcUID*>(local_20, (NpcUID*)"UnmapColourTargetData", in_RDX);
-        this_08 = local_28;
-        std::scoped_lock<std::mutex>::scoped_lock(this_08, (mutex*)&field_104);
-        this_01 = (MapArea*)this_08->Instance();
-        pRVar4 = (RenderDeviceCaps*)this_01->GetOrigin();
-        cVar2 = UseAppleCVPixelBuffers(this, pRVar4);
-        if (cVar2 != '\0') {
-            puVar5 = (undefined8*)Array<__CVBuffer*, eastl::allocator>::operator[](
-                (Array<__CVBuffer*, eastl::allocator>*)&field_504, (ulong)field_76);
-            _CVPixelBufferUnlockBaseAddress(*puVar5);
+        eastl::destruct<oldscape::highlight::NpcUID*>(&local_20);
+        scoped_lock<std::mutex> local_28(field_104);
+        auto this_01 = &local_28->Instance();
+        auto renderDeviceCaps = this_01->GetOrigin();
+        if (UseAppleCVPixelBuffers(this, renderDeviceCaps)) {
+            puVar3 = &field_504[(unsigned long)field_76];
+            _CVPixelBufferUnlockBaseAddress(*puVar3);
         }
-        pcVar1 = ___glewUnmapTexture2DINTEL;
-        if (pRVar4->field_326 != false) {
-            this_02 = (shared_ptr<RenderTargets>*)Array<shared_ptr<RenderTargets>, eastl::allocator>::operator[](
-                (Array<shared_ptr<RenderTargets>, eastl::allocator>*)&field_24, (ulong)field_76);
-            this_03 = (RenderTargets*)shared_ptr<RenderTargets>::operator->(this_02);
-            this_04 = (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
+        void* pcVar1 = ___glewUnmapTexture2DINTEL;
+        if (renderDeviceCaps->field_326 != false) {
+            this_02 = &field_24[(unsigned long)field_76];
+            this_03 = (RenderTargets*)(*this_02).operator->();
+            this_04 = (vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
                           this_03->GetColourTargetTextures();
-            puVar5 = (undefined8*)eastl::
-                vector<Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](
-                    this_04, 0);
-            uVar3 = (*puVar5)->GetNativeTextureId();
-            (*pcVar1)(uVar3, 0);
+            puVar3 = (uint64_t*)(*this_04)[0];
+            pTVar4 = (*puVar3)->GetNativeTextureId();
+            (*pcVar1)((unsigned long)pTVar4 & 4294967295, 0);
             CheckGlErrorInternal("glUnmapTexture2DINTEL",
                                  "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                  "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
                                  607);
         }
-        cVar2 = (&field_336)->empty();
-        if (cVar2 == '\0') {
-            this_05 = (PixelBuffer*)Array<PixelBuffer, eastl::allocator>::operator[](
-                (Array<PixelBuffer, eastl::allocator>*)&field_336, (ulong)field_76);
-            this_05->Unmap();
+        if (!(field_336.empty())) {
+            ((PixelBuffer*)field_336[(unsigned long)field_76])->Unmap();
         }
-        this_00 = &field_360;
-        cVar2 = this_00->empty();
-        if (cVar2 == '\0') {
-            this_06 = (BufferInterface*)Array<ShaderStorageBuffer, eastl::allocator>::operator[](
-                (Array<ShaderStorageBuffer, eastl::allocator>*)this_00, (ulong)field_76);
-            cVar2 = this_06->IsMapped();
-            if (cVar2 != '\0') {
-                this_07 = (ShaderStorageBuffer*)Array<ShaderStorageBuffer, eastl::allocator>::operator[](
-                    (Array<ShaderStorageBuffer, eastl::allocator>*)this_00, (ulong)field_76);
-                this_07->Unmap();
+        uint8_t* this_00 = &field_360;
+        if (!(this_00->empty())) {
+            if (((BufferInterface*)(*this_00)[(unsigned long)field_76])->IsMapped()) {
+                ((ShaderStorageBuffer*)(*this_00)[(unsigned long)field_76])->Unmap();
             }
         }
-        cVar2 = (&field_456)->empty();
-        if (cVar2 == '\0') {
-            (&field_456, 0, 0)->set_max_size();
+        if (!(field_456.empty())) {
+            field_456.set_max_size(0, 0);
         }
-        std::scoped_lock<std::mutex>::~scoped_lock(local_28);
     }
 
-    // 0x100be6030, 96 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::IsReadyToRead() const
-    ulong BufferedRenderTargets::IsReadyToRead() {
-        int iVar1;
-        int* piVar2;
-        scoped_lock<std::mutex> local_18[8];
-
-        std::scoped_lock<std::mutex>::scoped_lock(local_18, (mutex*)&field_104);
-        piVar2 =
-            (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_432, (ulong)field_76);
-        iVar1 = *piVar2;
-        std::scoped_lock<std::mutex>::~scoped_lock(local_18);
-        return CONCAT71((int7)((ulong)&field_432 >> 8), iVar1 < 1) & 4294967295;
+    // 0x100be6030
+    unsigned long BufferedRenderTargets::IsReadyToRead() const {
+        scoped_lock<std::mutex> local_18(field_104);
+        int* piVar2 = &field_432[(unsigned long)field_76];
+        int iVar1 = *piVar2;
+        return iVar1 < 1 & 4294967295;
     }
 
-    // 0x100be6090, 368 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::OnEndFrame()
+    // 0x100be6090
     void BufferedRenderTargets::OnEndFrame() {
-        undefined1* this_00;
-        char cVar1;
-        MapArea* this_01;
-        RenderDeviceCaps* pRVar3;
-        long lVar4;
-        long lVar5;
-        ulong uVar6;
+        unsigned long uVar5;
         SyncFence* this_02;
-        int* piVar7;
-        NXTPixScreen* this_03;
-        ulong uVar8;
-        bool bVar9;
-        scoped_lock<std::mutex> local_38[8];
+        int* piVar6;
+        unsigned long uVar7;
+        bool bVar8;
 
-        this_01 = (MapArea*)Instance();
-        pRVar3 = (RenderDeviceCaps*)this_01->GetOrigin();
-        std::scoped_lock<std::mutex>::scoped_lock(local_38, (mutex*)&field_104);
-        this_00 = &field_408;
-        lVar4 = this_00->end();
-        lVar5 = (&field_432)->end();
-        if (lVar4 != lVar5) {
-            /* WARNING: Subroutine does not return */
+        auto this_01 = Instance();
+        auto renderDeviceCaps = this_01->GetOrigin();
+        scoped_lock<std::mutex> local_38(field_104);
+        uint8_t* this_00 = &field_408;
+        long lVar3 = this_00->end();
+        long lVar4 = field_432.end();
+        if (lVar3 != lVar4) {
             LogAssert("m_syncFences.size() == m_frameDelays.size()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
-                      637, (char*)0);
+                      637, nullptr);
         }
-        lVar4 = this_00->end();
-        if (lVar4 != 0) {
-            uVar6 = 0;
-            uVar8 = 1;
+        lVar3 = this_00->end();
+        if (lVar3 != 0) {
+            uVar5 = 0;
+            uVar7 = 1;
             do {
-                this_02 = (SyncFence*)Array<SyncFence, eastl::allocator>::operator[](
-                    (Array<SyncFence, eastl::allocator>*)this_00, uVar6);
-                piVar7 =
-                    (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&field_432, uVar6);
-                cVar1 = this_02->IsCreated();
-                if (cVar1 != '\0') {
-                    cVar1 = this_02->HasBeenNotified();
-                    if (cVar1 != '\0') {
-                        bVar9 = true;
-                        if (pRVar3->field_326 == false) {
-                            cVar1 = UseAppleCVPixelBuffers(this, pRVar3);
-                            if (cVar1 == '\0') {
-                                this_03 = (NXTPixScreen*)((BufferedRenderTargets*)this)->Instance();
-                                bVar9 = this_03->GetUIHeight() == 3;
+                this_02 = (SyncFence*)(*this_00)[uVar5];
+                piVar6 = &field_432[uVar5];
+                if (this_02->IsCreated()) {
+                    if (this_02->HasBeenNotified()) {
+                        bVar8 = true;
+                        if (renderDeviceCaps->field_326 == false) {
+                            if (!(UseAppleCVPixelBuffers(this, renderDeviceCaps))) {
+                                bVar8 = ((NXTPixScreen*)Instance())->GetUIHeight() == 3;
                             }
                         }
-                        *piVar7 = (uint)(bVar9 ^ 1) << 2;
+                        *piVar6 = (unsigned int)(bVar8 ^ 1) << 2;
                         this_02->Destroy();
                     }
                 }
-                *piVar7 = *piVar7 + -1;
-                uVar6 = this_00->end();
-                bVar9 = uVar8 < uVar6;
-                uVar6 = uVar8;
-                uVar8 = (ulong)((int)uVar8 + 1);
-            } while (bVar9);
+                *piVar6 = *piVar6 - 1;
+                uVar5 = this_00->end();
+                bVar8 = uVar7 < uVar5;
+                uVar5 = uVar7;
+                uVar7 = (unsigned long)((int)uVar7 + 1);
+            } while (bVar8);
         }
-        std::scoped_lock<std::mutex>::~scoped_lock(local_38);
     }
 
-    // 0x100be63d0, 1648 bytes, placed by __FILE__ string
-    // BufferedRenderTargets::CreateStaticRenderingResources()
+    // 0x100be63d0
     void BufferedRenderTargets::CreateStaticRenderingResources() {
-        undefined* puVar1;
-        byte bVar2;
-        byte bVar3;
-        byte bVar4;
-        byte bVar5;
-        byte bVar6;
+        uint8_t bVar2;
+        uint8_t bVar3;
+        uint8_t bVar4;
+        uint8_t bVar5;
+        uint8_t bVar6;
         int iVar7;
-        RenderDevice* pRVar8;
-        RenderContext* this_00;
-        undefined8 uVar9;
-        Singleton<RenderDevice>* this_01;
-        NXTPixToolkit* this_02;
-        ImmediateRenderContext* this_03;
-        undefined8 uVar10;
-        undefined8 uVar11;
-        MapArea* this_04;
-        long lVar12;
         char* pcVar13;
         char* pcVar14;
-        Singleton<RenderDevice>* this_05;
-        undefined1 local_600[280];
-        undefined1 local_4e8[280];
-        undefined1 local_3d0[280];
-        undefined1 local_2b8[280];
-        undefined1 local_1a0[280];
+        uint8_t local_600[280];
+        uint8_t local_4e8[280];
+        uint8_t local_3d0[280];
+        uint8_t local_2b8[280];
+        uint8_t local_1a0[280];
         VertexElementDesc local_88;
-        basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>> local_60[24];
-        basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>> local_48[24];
+        ReturnValue local_60;
+        ReturnValue local_48;
 
         if (CreateStaticRenderingResources()::quadVertices == '\0') {
             this = (BufferedRenderTargets*)&CreateStaticRenderingResources()::quadVertices;
             iVar7 = ___cxa_guard_acquire();
             if (iVar7 != 0) {
-                new (&CreateStaticRenderingResources()::quadVertices) math::Point<float>(0.0, 1.0);
-                new (&DAT_104235078) math::Point<float>(1.0, 1.0);
-                new (&DAT_104235080) math::Point<float>(0.0, 0.0);
-                new (&DAT_104235088) math::Point<float>(1.0, 0.0);
+                new ((Point<float>*)&CreateStaticRenderingResources()::quadVertices) math::Point(0.0, 1.0);
+                new (&DAT_104235078) math::Point(1.0, 1.0);
+                new (&DAT_104235080) math::Point(0.0, 0.0);
+                new (&DAT_104235088) math::Point(1.0, 0.0);
                 this = (BufferedRenderTargets*)&CreateStaticRenderingResources()::quadVertices;
                 ___cxa_guard_release();
             }
         }
-        pRVar8 = (RenderDevice*)Instance();
-        this_00 = (RenderContext*)pRVar8->GetPrimaryRenderContext();
-        uVar9 = this_00->GetOpenGLContext();
+        auto pRVar8 = Instance();
+        uint64_t uVar9 = ((RenderContext*)pRVar8->GetPrimaryRenderContext())->GetOpenGLContext();
         uVar9 = _objc_retainAutoreleasedReturnValue(uVar9);
-        this_01 = (Singleton<RenderDevice>*)_objc_retainAutorelease(uVar9);
-        this_05 = this_01;
-        uVar9 = (*(code*)PTR__objc_msgSend_100ee9e50)(this_01, "CGLContextObj");
-        pRVar8 = (RenderDevice*)this_05->Instance();
-        this_02 = (NXTPixToolkit*)pRVar8->GetPrimaryRenderContext();
-        this_03 = (ImmediateRenderContext*)this_02->GetScreen();
-        uVar10 = this_03->GetOpenGLPixelFormat();
+        auto this_01 = _objc_retainAutorelease(uVar9);
+        Singleton<RenderDevice>* this_06 = this_01;
+        uVar9 = (*(void (*)(...))PTR__objc_msgSend_100ee9e50)(this_01, "CGLContextObj");
+        pRVar8 = (RenderDevice*)this_06->Instance();
+        auto this_02 = pRVar8->GetPrimaryRenderContext();
+        uint64_t uVar10 = ((ImmediateRenderContext*)this_02->GetScreen())->GetOpenGLPixelFormat();
         uVar10 = _objc_retainAutoreleasedReturnValue(uVar10);
         uVar10 = _objc_retainAutorelease(uVar10);
-        uVar11 = (*(code*)PTR__objc_msgSend_100ee9e50)(uVar10, "CGLPixelFormatObj");
-        iVar7 = _CVOpenGLTextureCacheCreate(*(undefined8*)PTR__kCFAllocatorDefault_100ee9dc8, 0, uVar9, uVar11, 0,
+        uint64_t uVar11 = (*(void (*)(...))PTR__objc_msgSend_100ee9e50)(uVar10, "CGLPixelFormatObj");
+        iVar7 = _CVOpenGLTextureCacheCreate(*(uint64_t*)PTR__kCFAllocatorDefault_100ee9dc8, 0, uVar9, uVar11, 0,
                                             &m_cvTextureCache);
-        puVar1 = PTR__objc_release_100ee9e60;
-        (*(code*)PTR__objc_release_100ee9e60)(uVar10);
-        (*(code*)puVar1)();
+        uint8_t* puVar1 = PTR__objc_release_100ee9e60;
+        (*(void (*)(...))PTR__objc_release_100ee9e60)(uVar10);
+        (*(void (*)(...))puVar1)();
         if (iVar7 != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("result == kCVReturnSuccess",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/rendertargets/"
                       "OGL/BufferedRenderTargets_OGL.cpp",
-                      758, (char*)0);
+                      758, nullptr);
         }
-        this_04 = (MapArea*)this_01->Instance();
-        lVar12 = this_04->GetOrigin();
+        long lVar12 = ((MapArea*)this_01->Instance())->GetOrigin();
         if (*(char*)(lVar12 + 132) != '\0') {
             bVar2 = m_quadVB.Create(32, 8, &CreateStaticRenderingResources()::quadVertices);
-            new (&local_88) VertexElementDesc(0, "aTexCoord", 1, 0, 5, 0);
+            local_88 = VertexElementDesc(0, "aTexCoord", 1, false, 5, 0);
             new (local_1a0) VertexShaderSourceStream(2, 2, 1, 1, 1, 1, 24);
             std::operator<<(
-                (ostream*)(local_1a0 + 16),
+                (basic_ostream<char, std::char_traits<char> _>*)(local_1a0 + 16),
                 "attribute vec2 aTexCoord;                                              \n                             "
                 "                                          \nout vec2 vTexCoord;                                       "
                 "             \n                                                                       \nvoid main()   "
@@ -1623,7 +1277,7 @@ namespace jag::render {
                 "                         \n");
             new (local_600) PixelShaderSourceStream(2, 2, 1, 1, 1, 1, 24);
             std::operator<<(
-                (ostream*)(local_600 + 16),
+                (basic_ostream<char, std::char_traits<char> _>*)(local_600 + 16),
                 "                                                                 \nin vec2 vTexCoord;                 "
                 "                              \n                                                                 "
                 "\nuniform sampler2D sTexture;                                      \n                                 "
@@ -1639,7 +1293,7 @@ namespace jag::render {
                 "                     \n}\n");
             new (local_4e8) PixelShaderSourceStream(2, 2, 1, 1, 1, 1, 24);
             std::operator<<(
-                (ostream*)(local_4e8 + 16),
+                (basic_ostream<char, std::char_traits<char> _>*)(local_4e8 + 16),
                 "                                                                 \nin vec2 vTexCoord;                 "
                 "                              \n                                                                 "
                 "\nuniform sampler2D sTexture;                                      \n                                 "
@@ -1655,7 +1309,7 @@ namespace jag::render {
                 "                     \n}\n");
             new (local_3d0) PixelShaderSourceStream(2, 2, 1, 1, 1, 1, 24);
             std::operator<<(
-                (ostream*)(local_3d0 + 16),
+                (basic_ostream<char, std::char_traits<char> _>*)(local_3d0 + 16),
                 "                                                                                                      "
                 "\nin vec2 vTexCoord;                                                                                  "
                 "  \n                                                                                                  "
@@ -1677,7 +1331,7 @@ namespace jag::render {
                 "(texColour.g << 8) | (texColour.r); \n}\n");
             new (local_2b8) PixelShaderSourceStream(2, 2, 1, 1, 1, 1, 24);
             std::operator<<(
-                (ostream*)(local_2b8 + 16),
+                (basic_ostream<char, std::char_traits<char> _>*)(local_2b8 + 16),
                 "                                                                                                      "
                 "\nin vec2 vTexCoord;                                                                                  "
                 "  \n                                                                                                  "
@@ -1697,55 +1351,40 @@ namespace jag::render {
                 "                              \n                                                                      "
                 "                                \n   data[dataOffset] = (texColour.a << 24) | (texColour.r << 16) | "
                 "(texColour.g << 8) | (texColour.b); \n}\n");
-            std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_60);
-            pcVar13 = (char*)local_60->c_str();
-            std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_48);
-            pcVar14 = (char*)local_48->c_str();
+            local_60 = local_1a0->str();
+            pcVar13 = (char*)local_60.c_str();
+            local_48 = local_600->str();
+            pcVar14 = (char*)local_48.c_str();
             bVar3 = m_SSBOCopyShaderFloat1.CreateFromSourceString(pcVar13, pcVar14, &local_88, 1, '\x04');
-            local_48->~basic_string();
-            local_60->~basic_string();
-            std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_60);
-            pcVar13 = (char*)local_60->c_str();
-            std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_48);
-            pcVar14 = (char*)local_48->c_str();
+            local_60 = local_1a0->str();
+            pcVar13 = (char*)local_60.c_str();
+            local_48 = local_4e8->str();
+            pcVar14 = (char*)local_48.c_str();
             bVar4 = m_SSBOCopyShaderFloat4.CreateFromSourceString(pcVar13, pcVar14, &local_88, 1, '\x04');
-            local_48->~basic_string();
-            local_60->~basic_string();
-            std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_60);
-            pcVar13 = (char*)local_60->c_str();
-            std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_48);
-            pcVar14 = (char*)local_48->c_str();
+            local_60 = local_1a0->str();
+            pcVar13 = (char*)local_60.c_str();
+            local_48 = local_3d0->str();
+            pcVar14 = (char*)local_48.c_str();
             bVar5 = m_SSBOCopyShaderInt4.CreateFromSourceString(pcVar13, pcVar14, &local_88, 1, '\x04');
-            local_48->~basic_string();
-            local_60->~basic_string();
-            std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_60);
-            pcVar13 = (char*)local_60->c_str();
-            std::basic_stringstream<char, std::char_traits<char>, BucketAllocatorSTL<char>>::str(local_48);
-            pcVar14 = (char*)local_48->c_str();
+            local_60 = local_1a0->str();
+            pcVar13 = (char*)local_60.c_str();
+            local_48 = local_2b8->str();
+            pcVar14 = (char*)local_48.c_str();
             bVar6 = m_SSBOCopyShaderInt4RBSwizzle.CreateFromSourceString(pcVar13, pcVar14, &local_88, 1, '\x04');
-            local_48->~basic_string();
-            local_60->~basic_string();
             if ((bVar2 & bVar3 & bVar4 & bVar5 & bVar6) == 0) {
-                uVar9 = logger::default_logger();
-                logger::Logger::Log(uVar9, 0, 2,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
-                                    "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                    905, "Failed to initialise BufferedRenderTargets static resources");
-                /* WARNING: Subroutine does not return */
+                (logger::default_logger())
+                    ->Log(false, 2,
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
+                          "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
+                          905, "Failed to initialise BufferedRenderTargets static resources");
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/render/"
                                 "rendertargets/OGL/BufferedRenderTargets_OGL.cpp",
-                                906, (char*)0);
+                                906, nullptr);
             }
-            local_2b8->~PixelShaderSourceStream();
-            local_3d0->~PixelShaderSourceStream();
-            local_4e8->~PixelShaderSourceStream();
-            local_600->~PixelShaderSourceStream();
-            local_1a0->~VertexShaderSourceStream();
         }
     }
 
-    // 0x100be6a60, 96 bytes, placed by class name and neighbouring functions
-    // BufferedRenderTargets::DestroyStaticRenderingResources()
+    // 0x100be6a60
     void BufferedRenderTargets::DestroyStaticRenderingResources() {
         m_SSBOCopyShaderInt4RBSwizzle.Destroy();
         m_SSBOCopyShaderInt4.Destroy();
@@ -1753,57 +1392,7 @@ namespace jag::render {
         m_SSBOCopyShaderFloat1.Destroy();
         m_IAState.Destroy();
         m_quadVB.Destroy();
-        RenderTargets::SafeReset((shared_ptr*)&m_SSBOCopyRT);
-    }
-
-    // 0x100c0c3b0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.101
-    void ___cxx_global_var_init_101() {
-        new (&BufferedRenderTargets::m_SSBOCopyShaderFloat1) ShaderProgram("");
-        ___cxa_atexit(ShaderProgram::~ShaderProgram, &BufferedRenderTargets::m_SSBOCopyShaderFloat1, 4294967296);
-    }
-
-    // 0x100c0c3f0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.102
-    void ___cxx_global_var_init_102() {
-        new (&BufferedRenderTargets::m_SSBOCopyShaderFloat4) ShaderProgram("");
-        ___cxa_atexit(ShaderProgram::~ShaderProgram, &BufferedRenderTargets::m_SSBOCopyShaderFloat4, 4294967296);
-    }
-
-    // 0x100c0c430, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.103
-    void ___cxx_global_var_init_103() {
-        new (&BufferedRenderTargets::m_SSBOCopyShaderInt4) ShaderProgram("");
-        ___cxa_atexit(ShaderProgram::~ShaderProgram, &BufferedRenderTargets::m_SSBOCopyShaderInt4, 4294967296);
-    }
-
-    // 0x100c0c470, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.104
-    void ___cxx_global_var_init_104() {
-        new (&BufferedRenderTargets::m_SSBOCopyShaderInt4RBSwizzle) ShaderProgram("");
-        ___cxa_atexit(ShaderProgram::~ShaderProgram, &BufferedRenderTargets::m_SSBOCopyShaderInt4RBSwizzle, 4294967296);
-    }
-
-    // 0x100c0c4b0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.105
-    void ___cxx_global_var_init_105() {
-        new (&BufferedRenderTargets::m_IAState) InputAssemblerState();
-        ___cxa_atexit(InputAssemblerState::~InputAssemblerState, &BufferedRenderTargets::m_IAState, 4294967296);
-    }
-
-    // 0x100c0c4f0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.106
-    void ___cxx_global_var_init_106() {
-        new (&BufferedRenderTargets::m_quadVB) VertexBuffer();
-        ___cxa_atexit(VertexBuffer::~VertexBuffer, &BufferedRenderTargets::m_quadVB, 4294967296);
-    }
-
-    // 0x100c0c530, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.107
-    void ___cxx_global_var_init_107(undefined8 param_1, _func_decltype_nullptr* param_2) {
-        new (&BufferedRenderTargets::m_SSBOCopyRT)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_2);
-        ___cxa_atexit(PTR__shared_ptr_100ee5318, &BufferedRenderTargets::m_SSBOCopyRT, 4294967296);
+        RenderTargets::SafeReset(m_SSBOCopyRT);
     }
 
 } // namespace jag::render

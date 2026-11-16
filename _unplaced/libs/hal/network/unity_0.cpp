@@ -1,56 +1,40 @@
 // _unplaced/libs/hal/network/unity_0.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.network
 
-// 0x100b16170, 64 bytes, placed by nothing (unplaced)
-// ___cxx_global_var_init
-void ___cxx_global_var_init() {
-    undefined* puVar1;
-
-    puVar1 = PTR_LOOK_100ee47d8;
+// 0x100b16170
+void ___cxx_global_var_init(void) {
+    uint8_t* puVar1 = PTR_LOOK_100ee47d8;
     if (*PTR_LOOK_100ee47d8 == '\0') {
         new (PTR_LOOK_100ee66e0) jag::math::ColourHSL(0.0, 0.0, 1.0);
         *puVar1 = 1;
     }
 }
 
-// 0x100b161b0, 64 bytes, placed by nothing (unplaced)
-// ___cxx_global_var_init.30
-void ___cxx_global_var_init_30() {
-    undefined* puVar1;
-
-    puVar1 = PTR_UP_100ee47c8;
+// 0x100b161b0
+void ___cxx_global_var_init_30(void) {
+    uint8_t* puVar1 = PTR_UP_100ee47c8;
     if (*PTR_UP_100ee47c8 == '\0') {
         new (PTR_UP_100ee66d0) jag::math::ColourHSL(0.0, 1.0, 0.0);
         *puVar1 = 1;
     }
 }
 
-// 0x100b161f0, 64 bytes, placed by nothing (unplaced)
-// ___cxx_global_var_init.31
-void ___cxx_global_var_init_31() {
-    undefined* puVar1;
-
-    puVar1 = PTR_m_pSingleton_100ee4298;
+// 0x100b161f0
+void ___cxx_global_var_init_31(void) {
+    uint8_t* puVar1 = PTR_m_pSingleton_100ee4298;
     if (*PTR_m_pSingleton_100ee4298 == '\0') {
-        ___cxa_atexit(
-            std::unique_ptr<jag::ThreadPoolSingleton, std::default_delete<jag::ThreadPoolSingleton>>::~unique_ptr,
-            PTR_m_pSingleton_100ee5948, 4294967296);
+        ___cxa_atexit(std::unique_ptr<jag::ThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5948, 4294967296);
         *puVar1 = 1;
     }
 }
 
-// 0x100b16230, 54 bytes, placed by nothing (unplaced)
-// ___cxx_global_var_init.32
-void ___cxx_global_var_init_32() {
-    undefined* puVar1;
-
-    puVar1 = PTR_m_pSingleton_100ee42a0;
+// 0x100b16230
+void ___cxx_global_var_init_32(void) {
+    uint8_t* puVar1 = PTR_m_pSingleton_100ee42a0;
     if (*PTR_m_pSingleton_100ee42a0 == '\0') {
-        ___cxa_atexit(std::unique_ptr<jag::ShaderThreadPoolSingleton,
-                                      std::default_delete<jag::ShaderThreadPoolSingleton>>::~unique_ptr,
-                      PTR_m_pSingleton_100ee5950, 4294967296);
+        ___cxa_atexit(std::unique_ptr<jag::ShaderThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5950,
+                      4294967296);
         *puVar1 = 1;
     }
 }

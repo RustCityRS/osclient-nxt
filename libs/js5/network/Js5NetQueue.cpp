@@ -1,727 +1,561 @@
 // libs/js5/network/Js5NetQueue.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.js5
 
 #include "Js5NetQueue.h"
 
 namespace jag {
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    Js5NetQueue::TidyupConnection();
+    // 0x100009e70: Js5NetQueue::TidyupConnection() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x1009f2300, 304 bytes, base-object constructor, placed by class name and debug map
-    // Js5NetQueue::Js5NetQueue()
-    void Js5NetQueue::Js5NetQueue() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) eastl::vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                     eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>();
-        new (&field_40) eastl::vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                          eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>();
-        new (field_80, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_96 = 0;
-        new (field_104, 10) PacketT<Array<unsigned char, eastl::allocator>>();
-        new (field_136, 5) PacketT<Array<unsigned char, eastl::allocator>>();
-        new (field_168, 5) PacketT<Array<unsigned char, eastl::allocator>>();
-        field_200 = 0;
-        field_204 = -1;
-        field_208 = (vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>*)0;
+    // 0x1009f2300
+    Js5NetQueue::Js5NetQueue()
+        : eastl::vector_map<int, Js5NetQueueRequest>(), field_96(0), field_104(10), field_136(5), field_168(5),
+          field_200(0), field_204(-1) {
+        field_208 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)0;
         field_216 = 0;
         reserve(500);
-        (&field_40, 500)->reserve();
+        field_40.reserve(500);
     }
 
-    // 0x1009f2480, 16 bytes, complete-object constructor, placed by class name and debug map
-    // Js5NetQueue::Js5NetQueue(): jumps straight to the base-object constructor
+    // 0x1009f2490
+    void Js5NetQueue::ProvideConnection(shared_ptr<ClientStream>& clientStream, bool arg2) {
+        uint32_t in_register_00000011;
 
-    // 0x1009f2490, 384 bytes, placed by class name and debug map
-    // Js5NetQueue::ProvideConnection(shared_ptr<ClientStream>&, bool)
-    void Js5NetQueue::ProvideConnection(shared_ptr* param_1, bool param_2) {
-        undefined1* this_00;
-        undefined1* this_01;
-        int iVar1;
-        ClientStream* pCVar3;
-        long lVar4;
-        long lVar5;
-        undefined3 in_register_00000011;
-        SystemTimer* this_02;
-
-        this_00 = field_80;
-        this_02 = (SystemTimer*)this_00;
-        shared_ptr<ClientStream>::operator=((shared_ptr<ClientStream>*)this_00, param_1);
-        field_96 = SystemTimer::GetTimeMS<std::chrono::steady_clock>(this_02);
-        this_01 = field_104;
+        uint8_t* this_00 = field_80;
+        *this_00 = clientStream;
+        field_96 = SystemTimer::GetTimeMS<std::chrono::steady_clock>();
+        uint8_t* this_01 = field_104;
         this_01->SetPos(0);
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)this_01, 6);
-        PacketT<Array<unsigned char, eastl::allocator>>::p3<unsigned int>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)this_01, 5);
-        iVar1 = game::Version::GetClientVersion();
-        PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)this_01, iVar1);
-        pCVar3 = (ClientStream*)shared_ptr<ClientStream>::operator->((shared_ptr<ClientStream>*)this_00);
-        pCVar3->Write(this_01);
+        this_01->p1<unsigned long>(6);
+        this_01->p3<unsigned int>(5);
+        unsigned int arg1 = game::Version::GetClientVersion();
+        this_01->p4<int>(arg1);
+        ClientStream* pCVar2 = (ClientStream*)(*this_00).operator->();
+        pCVar2->Write(*this_01);
         this_01->SetPos(0);
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)this_01,
-            (ulong)(CONCAT31(in_register_00000011, param_2) ^ 3));
-        pCVar3 = (ClientStream*)shared_ptr<ClientStream>::operator->((shared_ptr<ClientStream>*)this_00);
-        pCVar3->Write(this_01);
-        pCVar3 = (ClientStream*)shared_ptr<ClientStream>::operator->((shared_ptr<ClientStream>*)this_00);
-        pCVar3->Flush();
-        (field_136, 0)->SetPos();
-        (field_168, 0)->SetPos();
+        this_01->p1<unsigned long>((((uint32_t)in_register_00000011 << 8) | (uint8_t)arg2) ^ 3);
+        pCVar2 = (ClientStream*)(*this_00).operator->();
+        pCVar2->Write(*this_01);
+        pCVar2 = (ClientStream*)(*this_00).operator->();
+        pCVar2->Flush();
+        field_136->SetPos(0);
+        field_168->SetPos(0);
         field_204 = -1;
-        field_208 = (vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>*)0;
-        lVar4 = HeapBeginPtr();
-        lVar5 = end();
-        for (; lVar4 != lVar5; lVar4 = lVar4 + 160) {
-            ((lVar4 + 16))->ResetDataPacket();
-            ((lVar4 + 16))->SetUseAsyncOptimisedPath(false);
+        field_208 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)0;
+        long lVar3 = HeapBeginPtr();
+        long lVar4 = end();
+        for (; lVar3 != lVar4; lVar3 = lVar3 + 160) {
+            ((lVar3 + 16))->ResetDataPacket();
+            ((lVar3 + 16))->SetUseAsyncOptimisedPath(false);
         }
-        lVar4 = (&field_40)->HeapBeginPtr();
-        lVar5 = (&field_40)->end();
-        for (; lVar4 != lVar5; lVar4 = lVar4 + 160) {
-            ((lVar4 + 16))->ResetDataPacket();
-            ((lVar4 + 16))->SetUseAsyncOptimisedPath(false);
+        lVar3 = field_40.HeapBeginPtr();
+        lVar4 = field_40.end();
+        for (; lVar3 != lVar4; lVar3 = lVar3 + 160) {
+            ((lVar3 + 16))->ResetDataPacket();
+            ((lVar3 + 16))->SetUseAsyncOptimisedPath(false);
         }
     }
 
-    // 0x1009f2740, 128 bytes, placed by class name and debug map
-    // Js5NetQueue::RequestServerDrop()
+    // 0x1009f2740
     void Js5NetQueue::RequestServerDrop() {
-        ClientStream* this_00;
-        VBOMapper local_38;
 
-        new (&local_38) PacketT<Array<unsigned char, eastl::allocator>>(6);
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)&local_38, 7);
-        PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)&local_38, 0);
-        PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-            (PacketT<Array<unsigned char, eastl::allocator>>*)&local_38, 0);
-        this_00 = (ClientStream*)shared_ptr<ClientStream>::operator->((shared_ptr<ClientStream>*)field_80);
-        this_00->Write((PacketT*)&local_38);
-        local_38.~VBOMapper();
+        VBOMapper local_38(6);
+        local_38.p1<unsigned long>(7);
+        local_38.p4<int>(0);
+        local_38.p1<unsigned long>(0);
+        ((ClientStream*)(*field_80).operator->())->Write(local_38);
     }
 
-    // 0x1009f27c0, 544 bytes, placed by class name and debug map
-    // Js5NetQueue::RequestData(unsigned int, unsigned int, unsigned int, bool, std::function<void (unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator> >&, PacketT<Array<unsigned char, eastl::allocator> >&&, bool)>, PacketT<Array<unsigned char, eastl::allocator> >&&, Priority const*)
-    /* Js5NetQueue::RequestData(unsigned int, unsigned int, unsigned int, bool, std::function<void
-   (unsigned int, unsigned int, PacketT<Array<unsigned char, eastl::allocator> >&,
-   PacketT<Array<unsigned char, eastl::allocator> >&&, bool)>,
-   PacketT<Array<unsigned char, eastl::allocator> >&&, Priority const*) */
-
-    undefined8 Js5NetQueue::RequestData(uint param_1, uint param_2, uint param_3, int param_5, function* param_6,
-                                        PacketT* param_7, Priority* param_8) {
+    // 0x1009f27c0
+    uint64_t Js5NetQueue::RequestData(unsigned int arg1, unsigned int arg2, unsigned int arg3, bool arg4,
+                                      std::function<void(unsigned int, unsigned int, PacketT<Array<unsigned char>>&,
+                                                         PacketT<Array<unsigned char>>&&, bool)>
+                                          callback,
+                                      PacketT<Array<unsigned char>>&& arg6, const Priority* priority) {
         LoginManager* this_00;
-        uint uVar1;
-        char cVar2;
-        pair* ppVar3;
-        pair* ppVar4;
+        unsigned int uVar1;
+        bool cVar2;
+        pair<int, Js5NetQueueRequest>* ppVar3;
+        pair<int, Js5NetQueueRequest>* ppVar4;
         long lVar5;
         long lVar6;
         Js5NetQueueRequest* this_01;
-        bool bVar7;
-        undefined1* puVar8;
+        bool arg4_00;
+        uint64_t in_register_00000081;
+        int* piVar7;
         int local_48;
         int local_44;
         char local_31;
 
-        if (param_5 == 0) {
-            cVar2 = IsPrefetchQueueFull(this);
-            if (cVar2 != '\0') {
+        unsigned int local_40 = arg3;
+        unsigned int local_3c = arg2;
+        unsigned int local_38 = arg1;
+        if ((int)(((uint64_t)in_register_00000081 << 8) | (uint8_t)arg4) == 0) {
+            cVar2 = IsPrefetchQueueFull();
+            if (cVar2) {
                 return 0;
             }
-            local_44 = Js5NetQueueRequest::GetKey(param_1, param_2);
-            lVar5 = find(&local_44);
+            local_44 = Js5NetQueueRequest::GetKey(local_38, arg2);
+            lVar5 = eastl::vector_map<int, Js5NetQueueRequest>::find(*this);
             lVar6 = end();
             if (lVar5 != lVar6) {
                 return 1;
             }
-            puVar8 = &field_40;
-            ppVar3 = (pair*)puVar8->find(&local_44);
-            ppVar4 = (pair*)puVar8->end();
+            piVar7 = &field_40;
+            ppVar3 = (pair<int, Js5NetQueueRequest>*)eastl::vector_map<int, Js5NetQueueRequest>::find(*piVar7);
+            ppVar4 = (pair<int, Js5NetQueueRequest>*)piVar7->end();
             if (ppVar3 != ppVar4) {
                 local_31 = ((ppVar3 + 16))->IsRequested();
                 if (local_31 != '\0') {
                     return 1;
                 }
-                uVar1 = *(uint*)(param_8 + 8);
+                uVar1 = *(unsigned int*)(priority + 8);
                 lVar5 = ((ppVar3 + 16))->GetAuthWrapper();
-                if (*(uint*)(lVar5 + 8) <= uVar1) {
-                    /* WARNING: Subroutine does not return */
+                if (*(unsigned int*)(lVar5 + 8) <= uVar1) {
                     LogAssert("priority->id < old.GetPriority()->id",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/network/"
                               "Js5NetQueue.cpp",
                               163, "RequestData received same request");
                 }
-                puVar8->erase(ppVar3);
+                piVar7->erase(ppVar3);
                 if (local_31 != '\0') {
                     return 1;
                 }
             }
-            this_01 = (Js5NetQueueRequest*)
-                eastl::vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>::
-                operator[]((vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                       eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>*)puVar8,
-                           &local_44);
-            bVar7 = false;
+            this_01 = (Js5NetQueueRequest*)(*piVar7)[local_44];
+            arg4_00 = false;
         } else {
-            cVar2 = IsUrgentQueueFull(this);
-            if (cVar2 != '\0') {
+            cVar2 = IsUrgentQueueFull();
+            if (cVar2) {
                 return 0;
             }
-            local_48 = Js5NetQueueRequest::GetKey(param_1, param_2);
-            ppVar3 = (pair*)find(&local_48);
-            ppVar4 = (pair*)end();
+            local_48 = Js5NetQueueRequest::GetKey(local_38, arg2);
+            ppVar3 = (pair<int, Js5NetQueueRequest>*)eastl::vector_map<int, Js5NetQueueRequest>::find(*this);
+            ppVar4 = (pair<int, Js5NetQueueRequest>*)end();
             if (ppVar3 != ppVar4) {
                 this_00 = (LoginManager*)(ppVar3 + 16);
                 cVar2 = this_00->IsRequested();
-                if (cVar2 != '\0') {
+                if (cVar2) {
                     return 1;
                 }
-                uVar1 = *(uint*)(param_8 + 8);
+                uVar1 = *(unsigned int*)(priority + 8);
                 lVar5 = this_00->GetAuthWrapper();
-                if ((*(uint*)(lVar5 + 8) <= uVar1) && (cVar2 = this_00->IsValid(), cVar2 != '\0')) {
+                if ((*(unsigned int*)(lVar5 + 8) <= uVar1) && (cVar2 = this_00->IsValid(), cVar2)) {
                     return 1;
                 }
                 erase(ppVar3);
             }
-            puVar8 = &field_40;
-            lVar5 = puVar8->find(&local_48);
-            lVar6 = puVar8->end();
+            piVar7 = &field_40;
+            lVar5 = eastl::vector_map<int, Js5NetQueueRequest>::find(*piVar7);
+            lVar6 = piVar7->end();
             if (lVar5 != lVar6) {
                 cVar2 = ((ppVar3 + 16))->IsRequested();
-                if (cVar2 != '\0') {
+                if (cVar2) {
                     return 1;
                 }
-                puVar8->erase(ppVar3);
+                piVar7->erase(ppVar3);
             }
-            this_01 = (Js5NetQueueRequest*)
-                eastl::vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                  eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>::
-                operator[]((vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                       eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>*)this,
-                           &local_48);
-            bVar7 = true;
+            this_01 = (Js5NetQueueRequest*)(*this)[local_48];
+            arg4_00 = true;
         }
-        Js5NetQueueRequest::Js5NetQueueRequest(this_01, param_1, param_2, param_3, bVar7, param_6, param_7, param_8);
+        new (this_01) Js5NetQueueRequest(local_38, local_3c, local_40, arg4_00, *callback, arg6, priority);
         return 1;
     }
 
-    // 0x1009f2b80, 64 bytes, placed by class name and debug map
-    // Js5NetQueue::RecordCRCFailure()
+    // 0x1009f2b80
     void Js5NetQueue::RecordCRCFailure() {
-        ClientStream* this_00;
-
         field_216 = field_216 + 1;
-        this_00 = (ClientStream*)shared_ptr<ClientStream>::operator->((shared_ptr<ClientStream>*)field_80);
-        this_00->Close();
-        shared_ptr<ClientStream>::reset();
+        ((ClientStream*)(*field_80).operator->())->Close();
+        field_80->reset();
     }
 
-    // 0x1009f2c40, 112 bytes, placed by class name and debug map
-    // Js5NetQueue::SendPendingRequests(eastl::vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator, eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator> >&)
-    void Js5NetQueue::SendPendingRequests(vector_map* param_1) {
-        long lVar2;
-        long lVar3;
-
-        lVar3 = param_1->HeapBeginPtr();
-        lVar2 = param_1->end();
+    // 0x1009f2c40
+    void Js5NetQueue::SendPendingRequests(eastl::vector_map<int, Js5NetQueueRequest>& arg1) {
+        long lVar3 = arg1.HeapBeginPtr();
+        long lVar2 = arg1.end();
         for (; lVar3 != lVar2; lVar3 = lVar3 + 160) {
             if (((lVar3 + 16))->IsRequested() == '\0') {
-                SendRequest(this, (Js5NetQueueRequest*)(lVar3 + 16));
+                SendRequest(*((lVar3 + 16)));
             }
         }
     }
 
-    // 0x1009f2cb0, 224 bytes, placed by class name and debug map
-    // Js5NetQueue::SendRequest(Js5NetQueueRequest&)
-    void Js5NetQueue::SendRequest(Js5NetQueueRequest* param_1) {
-        undefined1* this_00;
-        byte bVar2;
+    // 0x1009f2cb0
+    void Js5NetQueue::SendRequest(Js5NetQueueRequest& js5NetQueueRequest) {
+        uint8_t* this_00;
+        uint8_t bVar2;
         int iVar3;
-        uint uVar4;
-        long lVar5;
-        ClientStream* this_01;
+        ID id;
+        unsigned int arg1;
+        long lVar4;
 
-        if (param_1->IsRequested() == '\0') {
-            iVar3 = param_1->GetX();
+        if (js5NetQueueRequest.IsRequested() == '\0') {
+            iVar3 = js5NetQueueRequest.GetX();
             if (-1 < iVar3) {
-                iVar3 = param_1->GetZ();
+                iVar3 = js5NetQueueRequest.GetZ();
                 if (-1 < iVar3) {
-                    bVar2 = param_1->IsValid();
+                    bVar2 = js5NetQueueRequest.IsValid();
                     this_00 = field_104;
                     this_00->SetPos(0);
-                    lVar5 = param_1->GetAuthWrapper();
-                    PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-                        (PacketT<Array<unsigned char, eastl::allocator>>*)this_00,
-                        (ulong)((*(uint*)(lVar5 + 8) & 15) << 4 | (uint)bVar2));
-                    uVar4 = param_1->GetX();
-                    PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(
-                        (PacketT<Array<unsigned char, eastl::allocator>>*)this_00, (ulong)uVar4);
-                    iVar3 = param_1->GetZ();
-                    PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(
-                        (PacketT<Array<unsigned char, eastl::allocator>>*)this_00, iVar3);
-                    this_01 = (ClientStream*)shared_ptr<ClientStream>::operator->((shared_ptr<ClientStream>*)field_80);
-                    this_01->Write(this_00);
-                    param_1->SetUseAsyncOptimisedPath(true);
+                    lVar4 = js5NetQueueRequest.GetAuthWrapper();
+                    this_00->p1<unsigned long>((*(unsigned int*)(lVar4 + 8) & 15) << 4 | (unsigned int)bVar2);
+                    id = js5NetQueueRequest.GetX();
+                    this_00->p1<unsigned long>(id);
+                    arg1 = js5NetQueueRequest.GetZ();
+                    this_00->p4<int>(arg1);
+                    ((ClientStream*)(*field_80).operator->())->Write(*this_00);
+                    js5NetQueueRequest.SetUseAsyncOptimisedPath(true);
                     return;
                 }
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("!toSend.IsRequested() && toSend.GetArchiveID() >= 0 && toSend.GetGroupID() >= 0",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/network/Js5NetQueue.cpp",
-                  452, (char*)0);
+                  452, nullptr);
     }
 
-    // 0x1009f2d90, 1968 bytes, placed by class name and debug map
-    // Js5NetQueue::Service()
+    // 0x1009f2d90
     bool Js5NetQueue::Service() {
-        undefined1* this_00;
-        int* piVar1;
-        vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                   eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>* this_01;
-        Js5NetQueue* this_02;
-        bool bVar2;
-        byte bVar3;
-        char cVar4;
-        uint uVar5;
-        int iVar6;
+        uint8_t* puVar1;
+        int* piVar2;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
+        bool bVar3;
+        uint8_t bVar5;
+        unsigned int uVar6;
         int iVar7;
-        ClientStream* pCVar8;
-        ulong uVar9;
-        long lVar10;
-        long lVar11;
-        TextureAtlasReference* this_03;
+        ID IVar8;
+        int iVar9;
+        ClientStream* pCVar10;
+        unsigned long uVar11;
+        long lVar12;
+        long lVar13;
         hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                   eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                   eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                  eastl::prime_rehash_policy, false, true, true>* phVar12;
-        PacketT* pPVar13;
-        PacketT<Array<unsigned char, eastl::allocator>>* pPVar14;
-        undefined8 uVar15;
-        undefined8 uVar16;
-        Minimap* pMVar17;
-        ulong uVar18;
-        ulong uVar19;
-        Js5NetQueueRequest* this_04;
+                  eastl::prime_rehash_policy, false, true, true>* phVar14;
+        PacketT<Array<unsigned char> _>* arg1;
+        PacketT<Array<unsigned char>>* pPVar15;
+        Logger* pLVar16;
+        uint64_t uVar17;
+        Minimap* pMVar18;
+        unsigned long uVar19;
+        unsigned long uVar20;
+        Js5NetQueueRequest* this_03;
         char* in_stack_ffffffffffffff28;
-        undefined4 uVar20;
-        undefined8 in_stack_ffffffffffffff38;
-        PacketT<Array<unsigned char, eastl::allocator>> local_b0[32];
-        ulonglong local_90;
+        uint32_t uVar21;
+        uint64_t in_stack_ffffffffffffff38;
+        ReturnValue local_b0;
         int* local_88;
-        vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                   eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>* local_80;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* local_80;
         int local_78;
-        uint local_74;
+        ID local_74;
         hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                   eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                   eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                   eastl::prime_rehash_policy, false, true, true>* local_70;
         shared_ptr<ClientStream>* local_68;
-        hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                  eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                  eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                  eastl::prime_rehash_policy, false, true, true>* local_60;
-        shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>> local_58[16];
-        Js5NetQueue* local_48;
+        PacketT<Array<unsigned char>>* local_60;
+        shared_ptr local_58;
         Minimap* local_40;
-        uint local_34;
+        ID local_34;
 
-        local_90 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this);
+        unsigned long long local_90 = SystemTimer::GetTimeMS<std::chrono::steady_clock>();
         if ((30000 < local_90) && (field_96 < local_90 - 30000)) {
-            bVar2 = operator!=((shared_ptr*)field_80, (_func_decltype_nullptr*)0);
-            if (bVar2) {
-                pCVar8 = (ClientStream*)shared_ptr<ClientStream>::operator->((shared_ptr<ClientStream>*)field_80);
-                pCVar8->Close();
-                shared_ptr<ClientStream>::reset();
+            puVar1 = field_80;
+            bVar3 = *puVar1 != nullptr;
+            if (bVar3) {
+                pCVar10 = (ClientStream*)(*puVar1).operator->();
+                pCVar10->Close();
+                puVar1->reset();
             }
         }
-        this_00 = field_80;
-        bVar2 = this_00->operator_cast_to_bool();
-        if (bVar2) {
-            SendPendingRequests(this, (vector_map*)this);
-            local_80 = (vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                   eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>*)&field_40;
-            SendPendingRequests(this, (vector_map*)local_80);
-            pCVar8 = (ClientStream*)shared_ptr<ClientStream>::operator->((shared_ptr<ClientStream>*)this_00);
-            pCVar8->Flush();
+        puVar1 = field_80;
+        bool cVar4 = puVar1->operator_cast_to_bool();
+        if (!cVar4) {
+            lVar12 = GetUrgentQueueSize();
+            if (lVar12 != 0) {
+                return false;
+            }
+            lVar12 = GetPrefetchQueueSize();
+            bVar3 = lVar12 == 0;
+        } else {
+            SendPendingRequests(*this);
+            local_80 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)&field_40;
+            SendPendingRequests(*local_80);
+            pCVar10 = (ClientStream*)(*puVar1).operator->();
+            pCVar10->Flush();
             local_88 = &field_204;
             local_70 = (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                                   eastl::use_first<eastl::pair<long long const, unsigned int>>,
                                   eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
                                   eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)field_168;
-            local_60 = (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                  eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                  eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                  eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)field_136;
+            local_60 = (PacketT<Array<unsigned char>>*)field_136;
             local_78 = 500;
-            local_68 = (shared_ptr<ClientStream>*)this_00;
-            local_48 = this;
+            local_68 = (shared_ptr<ClientStream>*)puVar1;
             do {
-                pCVar8 = (ClientStream*)shared_ptr<ClientStream>::operator->(local_68);
-                uVar9 = pCVar8->GetAvailable();
-                phVar12 = local_60;
-                iVar6 = 2;
-                if (uVar9 != 0) {
+                pCVar10 = (ClientStream*)(*local_68).operator->();
+                uVar11 = pCVar10->GetAvailable();
+                pPVar15 = local_60;
+                iVar7 = 2;
+                if (uVar11 != 0) {
                     field_96 = local_90;
                     if (field_204 == -1) {
-                        lVar10 =
-                            eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                             eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                             eastl::equal_to<long long>, eastl::hash<long long>,
-                                             eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                             eastl::prime_rehash_policy, false, true, true>::size(local_60);
-                        uVar18 = 5U - lVar10;
-                        if (uVar9 < 5U - lVar10) {
-                            uVar18 = uVar9;
+                        lVar12 = local_60->size();
+                        uVar19 = 5U - lVar12;
+                        if (uVar11 < 5U - lVar12) {
+                            uVar19 = uVar11;
                         }
-                        pCVar8 = (ClientStream*)shared_ptr<ClientStream>::operator->(local_68);
-                        ClientStream::Read<PacketT<Array<unsigned char, eastl::allocator>>>(pCVar8, (PacketT*)phVar12,
-                                                                                            uVar18);
-                        uVar9 =
-                            eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                             eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                             eastl::equal_to<long long>, eastl::hash<long long>,
-                                             eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                             eastl::prime_rehash_policy, false, true, true>::size(phVar12);
-                        iVar6 = 4;
-                        if (uVar9 < 5) {
+                        pCVar10 = (ClientStream*)(*local_68).operator->();
+                        pCVar10->Read<PacketT<Array<unsigned char>>>(*pPVar15, uVar19);
+                        uVar11 = pPVar15->size();
+                        iVar7 = 4;
+                        if (uVar11 < 5) {
                         } else {
-                            phVar12->SetPos(0);
-                            bVar3 = phVar12->g1();
-                            uVar5 = phVar12->g4();
-                            local_34 = uVar5 & 2147483647;
-                            local_40 = (Minimap*)CONCAT44(local_40._4_4_, (uint)bVar3);
-                            iVar7 = Js5NetQueueRequest::GetKey((uint)bVar3, local_34);
-                            this_02 = local_48;
-                            this_01 = local_80;
-                            piVar1 = local_88;
-                            *local_88 = iVar7;
-                            local_74 = uVar5;
-                            if ((int)uVar5 < 0) {
-                                lVar10 = eastl::vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                                           eastl::vector<eastl::pair<int, Js5NetQueueRequest>,
-                                                                         eastl::allocator>>::find(local_80, local_88);
-                                lVar11 = this_01->end();
-                                if (lVar10 == lVar11)
+                            pPVar15->SetPos(0);
+                            bVar5 = pPVar15->g1();
+                            IVar8 = pPVar15->g4();
+                            local_34 = IVar8 & 2147483647;
+                            local_40 = (Minimap*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)((unsigned int)bVar5));
+                            iVar9 = Js5NetQueueRequest::GetKey((unsigned int)bVar5, local_34);
+                            this_00 = local_80;
+                            piVar2 = local_88;
+                            *local_88 = iVar9;
+                            local_74 = IVar8;
+                            if ((int)IVar8 < 0) {
+                                lVar12 = eastl::vector_map<int, Js5NetQueueRequest>::find(*local_80);
+                                lVar13 = this_00->end();
+                                if (lVar12 == lVar13)
                                     goto LAB_1009f3427;
-                                this_04 = (Js5NetQueueRequest*)(lVar10 + 16);
-                                cVar4 = this_04->IsRequested();
-                                if (cVar4 == '\0') {
-                                    /* WARNING: Subroutine does not return */
+                                this_03 = (Js5NetQueueRequest*)(lVar12 + 16);
+                                cVar4 = this_03->IsRequested();
+                                if (!cVar4) {
                                     LogAssert("found->second.IsRequested()",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "js5/network/Js5NetQueue.cpp",
-                                              280, (char*)0);
+                                              280, nullptr);
                                 }
-                                local_48->field_208 = local_80;
+                                field_208 = local_80;
+                                pPVar15 = local_60;
                             } else {
-                                lVar10 = local_48->find(local_88);
-                                lVar11 = this_02->end();
-                                if (lVar10 == lVar11) {
+                                lVar12 = eastl::vector_map<int, Js5NetQueueRequest>::find(*this);
+                                lVar13 = end();
+                                if (lVar12 == lVar13) {
                                 LAB_1009f3427:
-                                    *piVar1 = -1;
-                                    this_04 = (Js5NetQueueRequest*)0;
+                                    *piVar2 = -1;
+                                    this_03 = nullptr;
+                                    pPVar15 = local_60;
                                 } else {
-                                    this_04 = (Js5NetQueueRequest*)(lVar10 + 16);
-                                    cVar4 = this_04->IsRequested();
-                                    if (cVar4 == '\0') {
-                                        /* WARNING: Subroutine does not return */
+                                    this_03 = (Js5NetQueueRequest*)(lVar12 + 16);
+                                    cVar4 = this_03->IsRequested();
+                                    if (!cVar4) {
                                         LogAssert("found->second.IsRequested()",
                                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
                                                   "libs/js5/network/Js5NetQueue.cpp",
-                                                  294, (char*)0);
+                                                  294, nullptr);
                                     }
-                                    local_48->field_208 =
-                                        (vector_map<
-                                            int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                            eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>*)
-                                            local_48;
+                                    field_208 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)this;
+                                    pPVar15 = local_60;
                                 }
                             }
-                            uVar20 = (undefined4)((ulong)in_stack_ffffffffffffff38 >> 32);
-                            if (this_04 == (Js5NetQueueRequest*)0) {
-                                uVar15 = logger::default_logger();
+                            uVar21 = (uint32_t)((unsigned long)in_stack_ffffffffffffff38 >> 32);
+                            local_60 = pPVar15;
+                            if (this_03 == nullptr) {
+                                pLVar16 = logger::default_logger();
                                 in_stack_ffffffffffffff28 = "PREFETCH";
                                 if (-1 < (int)local_74) {
                                     in_stack_ffffffffffffff28 = "URGENT";
                                 }
-                                local_b0->ToStringPos();
-                                uVar16 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                in_stack_ffffffffffffff38 = CONCAT44(uVar20, local_34);
-                                logger::Logger::Log(
-                                    uVar15, 0, 2,
+                                local_b0 = pPVar15->ToStringPos();
+                                uVar17 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                in_stack_ffffffffffffff38 = (((uint64_t)uVar21 << 32) | (uint32_t)local_34);
+                                pLVar16->Log(
+                                    false, 2,
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/network/"
                                     "Js5NetQueue.cpp",
                                     307, "Js5NetQueue: Couldn\'t find matching %s Js5 request: %d, %d : Buffer = %s",
-                                    in_stack_ffffffffffffff28, (int)local_40, in_stack_ffffffffffffff38, uVar16);
-                                local_b0->~basic_string();
-                                pCVar8 = (ClientStream*)shared_ptr<ClientStream>::operator->(local_68);
-                                pCVar8->Close();
-                                local_48->field_208 =
-                                    (vector_map<
-                                        int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                        eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>*)0;
-                                iVar6 = 1;
-                                this = local_48;
+                                    in_stack_ffffffffffffff28, (int)local_40, in_stack_ffffffffffffff38, uVar17);
+                                pCVar10 = (ClientStream*)(*local_68).operator->();
+                                pCVar10->Close();
+                                field_208 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)0;
+                                iVar7 = 1;
+                                this = this;
                             } else {
-                                iVar7 = this_04->GetX();
-                                if ((iVar7 != (int)local_40) ||
-                                    (uVar5 = this_04->GetZ(), this = local_48, uVar5 != local_34)) {
-                                    /* WARNING: Subroutine does not return */
+                                iVar9 = this_03->GetX();
+                                if ((iVar9 != (int)local_40) ||
+                                    (IVar8 = this_03->GetZ(), this = this, IVar8 != local_34)) {
                                     LogAssert("inProgressReply->GetArchiveID() == archiveID && "
                                               "inProgressReply->GetGroupID() == groupID",
                                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                               "js5/network/Js5NetQueue.cpp",
-                                              314, (char*)0);
+                                              314, nullptr);
                                 }
-                                local_48->field_200 = 5;
+                                field_200 = 5;
                                 local_60->SetPos(0);
                                 local_70->SetPos(0);
                             }
                         }
                     } else {
-                        lVar10 = eastl::vector_map<
-                            int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                            eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>::find(field_208,
-                                                                                                         local_88);
-                        lVar11 = field_208->end();
-                        if (lVar10 == lVar11) {
-                            /* WARNING: Subroutine does not return */
+                        lVar12 = eastl::vector_map<int, Js5NetQueueRequest>::find(*field_208);
+                        lVar13 = field_208->end();
+                        if (lVar12 == lVar13) {
                             LogAssert("found != m_inProgressReplyMap->end()",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/"
                                       "network/Js5NetQueue.cpp",
-                                      329, (char*)0);
+                                      329, nullptr);
                         }
-                        pMVar17 = (Minimap*)(lVar10 + 16);
-                        local_58->GetDataPacket();
-                        bVar2 = local_58->operator_cast_to_bool();
-                        local_40 = pMVar17;
-                        if (bVar2) {
-                            this_03 =
-                                (TextureAtlasReference*)
-                                    shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(local_58);
-                            lVar10 = this_03->GetTextureAtlas();
-                            uVar5 = pMVar17->GetLevel();
-                            uVar18 = (ulong)(102400 - local_48->field_200);
-                            if (102400 < local_48->field_200) {
-                                uVar18 = 0;
+                        pMVar18 = (Minimap*)(lVar12 + 16);
+                        local_58 = pMVar18->GetDataPacket();
+                        cVar4 = shared_ptr::operator_cast_to_bool(&local_58);
+                        local_40 = pMVar18;
+                        if (!cVar4) {
+                            lVar12 = local_70->size();
+                            uVar19 = 5U - lVar12;
+                            if (uVar11 < 5U - lVar12) {
+                                uVar19 = uVar11;
                             }
-                            phVar12 =
-                                (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                           eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                           eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                           eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
-                                    shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(local_58);
-                            uVar19 = lVar10 - (ulong)uVar5;
-                            lVar10 = eastl::hashtable<long long, eastl::pair<long long const, unsigned int>,
-                                                      eastl::allocator,
-                                                      eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                                      eastl::equal_to<long long>, eastl::hash<long long>,
-                                                      eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                                      eastl::prime_rehash_policy, false, true, true>::size(phVar12);
-                            if (uVar19 - lVar10 < uVar18) {
-                                phVar12 =
-                                    (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                               eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                               eastl::equal_to<long long>, eastl::hash<long long>,
-                                               eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                               eastl::prime_rehash_policy, false, true, true>*)
-                                        shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                                            local_58);
-                                lVar10 = eastl::hashtable<long long, eastl::pair<long long const, unsigned int>,
-                                                          eastl::allocator,
-                                                          eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                                          eastl::equal_to<long long>, eastl::hash<long long>,
-                                                          eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                                          eastl::prime_rehash_policy, false, true, true>::size(phVar12);
-                                uVar18 = uVar19 - lVar10;
-                            }
-                            if (uVar9 < uVar18) {
-                                uVar18 = uVar9;
-                            }
-                            phVar12 =
-                                (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                           eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                           eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                           eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
-                                    shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(local_58);
-                            eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                             eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                             eastl::equal_to<long long>, eastl::hash<long long>,
-                                             eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                             eastl::prime_rehash_policy, false, true, true>::size(phVar12);
-                            pCVar8 = (ClientStream*)shared_ptr<ClientStream>::operator->(local_68);
-                            this = local_48;
-                            pPVar13 = (PacketT*)shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator*(
-                                local_58);
-                            uVar9 = ClientStream::Read<PacketT<Array<unsigned char, eastl::allocator>>>(pCVar8, pPVar13,
-                                                                                                        uVar18);
-                            field_200 = field_200 + (int)uVar9;
-                            phVar12 =
-                                (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                           eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                           eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                           eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
-                                    shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(local_58);
-                            iVar6 = eastl::hashtable<long long, eastl::pair<long long const, unsigned int>,
-                                                     eastl::allocator,
-                                                     eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                                     eastl::equal_to<long long>, eastl::hash<long long>,
-                                                     eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                                     eastl::prime_rehash_policy, false, true, true>::size(phVar12);
-                            if ((ulong)(long)iVar6 < uVar19) {
-                                iVar6 = 4;
-                                if (102399 < field_200) {
-                                    field_200 = 0;
-                                    field_204 = -1;
-                                    field_208 =
-                                        (vector_map<
-                                            int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                            eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>*)0;
-                                }
-                            } else {
-                                iVar6 = 4;
-                                FileComplete((Js5NetQueueRequest*)this, (ulong)local_40);
-                            }
-                        } else {
-                            lVar10 = eastl::hashtable<long long, eastl::pair<long long const, unsigned int>,
-                                                      eastl::allocator,
-                                                      eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                                      eastl::equal_to<long long>, eastl::hash<long long>,
-                                                      eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                                      eastl::prime_rehash_policy, false, true, true>::size(local_70);
-                            uVar18 = 5U - lVar10;
-                            if (uVar9 < 5U - lVar10) {
-                                uVar18 = uVar9;
-                            }
-                            if (uVar18 != 0) {
-                                pCVar8 = (ClientStream*)shared_ptr<ClientStream>::operator->(local_68);
-                                phVar12 = local_70;
-                                ClientStream::Read<PacketT<Array<unsigned char, eastl::allocator>>>(
-                                    pCVar8, (PacketT*)local_70, uVar18);
-                                uVar9 = eastl::hashtable<long long, eastl::pair<long long const, unsigned int>,
-                                                         eastl::allocator,
-                                                         eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                                         eastl::equal_to<long long>, eastl::hash<long long>,
-                                                         eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                                         eastl::prime_rehash_policy, false, true, true>::size(phVar12);
-                                iVar6 = 4;
-                                if (uVar9 < 5)
+                            if (uVar19 != 0) {
+                                pCVar10 = (ClientStream*)(*local_68).operator->();
+                                phVar14 = local_70;
+                                pCVar10->Read<PacketT<Array<unsigned char>>>(*local_70, uVar19);
+                                uVar11 = phVar14->size();
+                                iVar7 = 4;
+                                if (uVar11 < 5)
                                     goto LAB_1009f32e0;
                             }
-                            phVar12 = local_70;
+                            phVar14 = local_70;
                             local_70->SetPos(0);
-                            bVar3 = phVar12->g1();
-                            iVar6 = phVar12->g4s();
-                            pMVar17 = local_40;
-                            uVar20 = (undefined4)((ulong)in_stack_ffffffffffffff28 >> 32);
-                            local_34 = (uint)bVar3;
-                            if ((iVar6 < 0) || (3 < bVar3)) {
-                                uVar15 = logger::default_logger();
-                                local_b0->ToStringPos();
+                            bVar5 = phVar14->g1();
+                            uVar6 = phVar14->g4s();
+                            pMVar18 = local_40;
+                            uVar21 = (uint32_t)((unsigned long)in_stack_ffffffffffffff28 >> 32);
+                            local_34 = (ID)bVar5;
+                            if (((int)uVar6 < 0) || (3 < bVar5)) {
+                                pLVar16 = logger::default_logger();
+                                local_b0 = local_70->ToStringPos();
                                 in_stack_ffffffffffffff38 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                in_stack_ffffffffffffff28 = (char*)CONCAT44(uVar20, iVar6);
-                                logger::Logger::Log(
-                                    uVar15, 0, 2,
+                                in_stack_ffffffffffffff28 = (char*)(((uint64_t)uVar21 << 32) | (uint32_t)uVar6);
+                                pLVar16->Log(
+                                    false, 2,
                                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/network/"
                                     "Js5NetQueue.cpp",
                                     362,
                                     "Js5NetQueue: Bad decode asked for %d bytes (compression %u). HeaderBuffer: %s",
                                     in_stack_ffffffffffffff28, local_34, in_stack_ffffffffffffff38);
-                                local_b0->~basic_string();
-                                pCVar8 = (ClientStream*)shared_ptr<ClientStream>::operator->(local_68);
-                                iVar6 = 1;
-                                pCVar8->Close();
+                                pCVar10 = (ClientStream*)(*local_68).operator->();
+                                iVar7 = 1;
+                                pCVar10->Close();
                             } else {
                                 iVar7 = local_40->GetLevel();
-                                pMVar17->CreateDataPacket((ulong)(iVar7 + iVar6 + (uint)(bVar3 != 0) * 4 + 5));
-                                local_b0->GetDataPacket();
-                                shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator=(
-                                    local_58, (shared_ptr*)local_b0);
-                                local_b0->~shared_ptr();
-                                pPVar14 = (PacketT<Array<unsigned char, eastl::allocator>>*)
-                                              shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                                                  local_58);
-                                PacketT<Array<unsigned char, eastl::allocator>>::p1<unsigned long>(pPVar14,
-                                                                                                   (ulong)local_34);
-                                pPVar14 = (PacketT<Array<unsigned char, eastl::allocator>>*)
-                                              shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>::operator->(
-                                                  local_58);
-                                PacketT<Array<unsigned char, eastl::allocator>>::p4<int>(pPVar14, iVar6);
-                                if (iVar6 == 0) {
-                                    FileComplete((Js5NetQueueRequest*)this, (ulong)local_40);
+                                pMVar18->CreateDataPacket(
+                                    (unsigned long)(iVar7 + uVar6 + (unsigned int)(bVar5 != 0) * 4 + 5));
+                                local_b0 = local_40->GetDataPacket();
+                                local_58 = local_b0;
+                                pPVar15 = (PacketT<Array<unsigned char>>*)local_58.operator->();
+                                pPVar15->p1<unsigned long>(local_34);
+                                pPVar15 = (PacketT<Array<unsigned char>>*)local_58.operator->();
+                                pPVar15->p4<int>(uVar6);
+                                if (uVar6 == 0) {
+                                    FileComplete((Js5NetQueueRequest*)this, (unsigned long)local_40);
                                 }
                                 field_200 = field_200 + 5;
-                                iVar6 = 4;
+                                iVar7 = 4;
+                            }
+                        } else {
+                            lVar12 = ((TextureAtlasReference*)local_58.operator->())->GetTextureAtlas();
+                            uVar6 = pMVar18->GetLevel();
+                            uVar19 = (unsigned long)(102400 - field_200);
+                            if (102400 < field_200) {
+                                uVar19 = 0;
+                            }
+                            phVar14 =
+                                (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
+                                           eastl::use_first<eastl::pair<long long const, unsigned int>>,
+                                           eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
+                                           eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
+                                    local_58.operator->();
+                            uVar20 = lVar12 - (unsigned long)uVar6;
+                            lVar12 = phVar14->size();
+                            if (uVar20 - lVar12 < uVar19) {
+                                phVar14 =
+                                    (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
+                                               eastl::use_first<eastl::pair<long long const, unsigned int>>,
+                                               eastl::equal_to<long long>, eastl::hash<long long>,
+                                               eastl::mod_range_hashing, eastl::default_ranged_hash,
+                                               eastl::prime_rehash_policy, false, true, true>*)local_58.operator->();
+                                lVar12 = phVar14->size();
+                                uVar19 = uVar20 - lVar12;
+                            }
+                            if (uVar11 < uVar19) {
+                                uVar19 = uVar11;
+                            }
+                            phVar14 =
+                                (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
+                                           eastl::use_first<eastl::pair<long long const, unsigned int>>,
+                                           eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
+                                           eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
+                                    local_58.operator->();
+                            phVar14->size();
+                            pCVar10 = (ClientStream*)(*local_68).operator->();
+                            this = this;
+                            arg1 = (PacketT<Array<unsigned char> _>*)*local_58;
+                            uVar11 = pCVar10->Read<PacketT<Array<unsigned char>>>(*arg1, uVar19);
+                            field_200 = field_200 + (int)uVar11;
+                            phVar14 =
+                                (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
+                                           eastl::use_first<eastl::pair<long long const, unsigned int>>,
+                                           eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
+                                           eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
+                                    local_58.operator->();
+                            iVar7 = phVar14->size();
+                            if ((unsigned long)(long)iVar7 < uVar20) {
+                                iVar7 = 4;
+                                if (102399 < field_200) {
+                                    field_200 = 0;
+                                    field_204 = -1;
+                                    field_208 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)0;
+                                }
+                            } else {
+                                iVar7 = 4;
+                                FileComplete((Js5NetQueueRequest*)this, (unsigned long)local_40);
                             }
                         }
                     LAB_1009f32e0:
-                        local_58->~shared_ptr();
                     }
                 }
-                if (iVar6 != 4)
+                if (iVar7 != 4)
                     goto LAB_1009f34b8;
-                local_78 = local_78 + -1;
+                local_78 = local_78 - 1;
             } while (local_78 != 0);
-            iVar6 = 2;
+            iVar7 = 2;
         LAB_1009f34b8:
-            bVar2 = iVar6 == 2;
-        } else {
-            lVar10 = GetUrgentQueueSize(this);
-            if (lVar10 != 0) {
-                return false;
-            }
-            lVar10 = GetPrefetchQueueSize(this);
-            bVar2 = lVar10 == 0;
+            bVar3 = iVar7 == 2;
         }
-        return bVar2;
+        return bVar3;
     }
 
-    // 0x1009f3780, 176 bytes, placed by class name
-    // Js5NetQueue::FileComplete(Js5NetQueueRequest*, unsigned long)
-    void Js5NetQueue::FileComplete(Js5NetQueueRequest* param_1, ulong param_2) {
-        int iVar1;
-        int iVar2;
-        pair* ppVar3;
-        pair* ppVar4;
-        int local_24;
-
-        iVar1 = param_2->GetX();
-        iVar2 = param_2->GetZ();
-        Js5NetQueueRequest::GetKey(iVar1, iVar2);
-        ppVar3 = (pair*)eastl::vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                                          eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>::
-            find(*(vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                              eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>**)&param_1[1]
-                      .field_79,
-                 &local_24);
-        ppVar4 = (pair*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-            *(vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>**)&param_1[1].field_79);
-        if (ppVar3 == ppVar4) {
-            /* WARNING: Subroutine does not return */
+    // 0x1009f3780
+    void Js5NetQueue::FileComplete(Js5NetQueueRequest* js5NetQueueRequest, unsigned long arg2) {
+        int arg1 = arg2->GetX();
+        int arg2_00 = arg2->GetZ();
+        Js5NetQueueRequest::GetKey(arg1, arg2_00);
+        pair<int, Js5NetQueueRequest>* arg1_00 =
+            (pair<int, Js5NetQueueRequest>*)eastl::vector_map<int, Js5NetQueueRequest>::find(
+                *(*(int**)&js5NetQueueRequest[1].field_79));
+        pair<int, Js5NetQueueRequest>* ppVar1 =
+            (pair<int, Js5NetQueueRequest>*)(*(vector<oldscape::dash3d::EntityHighlight*,
+                                                      BucketAllocatorEASTL>**)&js5NetQueueRequest[1]
+                                                  .field_79)
+                ->end();
+        if (arg1_00 == ppVar1) {
             LogAssert(
                 "found != m_inProgressReplyMap->end()",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/js5/network/Js5NetQueue.cpp",
-                442, (char*)0);
+                442, nullptr);
         }
-        param_2->DownloadComplete();
-        eastl::vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                          eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>::
-            erase(*(vector_map<int, Js5NetQueueRequest, eastl::less<int>, eastl::allocator,
-                               eastl::vector<eastl::pair<int, Js5NetQueueRequest>, eastl::allocator>>**)&param_1[1]
-                       .field_79,
-                  ppVar3);
-        *(undefined4*)&param_1[1].field_75 = 4294967295;
-        *(undefined8*)&param_1[1].field_79 = 0;
+        arg2->DownloadComplete();
+        (*(vector_map<int, Js5NetQueueRequest>**)&js5NetQueueRequest[1].field_79)->erase(arg1_00);
+        *(uint32_t*)&js5NetQueueRequest[1].field_75 = 4294967295;
+        *(uint64_t*)&js5NetQueueRequest[1].field_79 = 0;
     }
 
 } // namespace jag

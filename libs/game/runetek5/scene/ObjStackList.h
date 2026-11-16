@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/ObjStackList.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,19 +9,17 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~ObjStackList();
-        virtual void MainLogic(graphics::RT7Core&, game::AssetBuilder&);
-        ObjStackList(math::Point<int> const&, int);
+        virtual void MainLogic(graphics::RT7Core& rt7Core, game::AssetBuilder& assetBuilder);
+        ObjStackList(const math::Point<int>& point, int arg2);
         void ClearObjStack();
-        void AddObjStack(shared_ptr<game::World> const&, game::ConfigProvider const*, game::CoordGrid const&,
-                         unsigned int, unsigned int);
-        void DelObjStack(game::CoordGrid const&, unsigned int);
-        void AdjustCount(game::CoordGrid const&, unsigned int, unsigned int, unsigned int);
+        void AddObjStack(const shared_ptr<game::World>& world, const game::ConfigProvider* configProvider,
+                         const game::CoordGrid& coordGrid, unsigned int arg4, unsigned int arg5);
+        void DelObjStack(const game::CoordGrid& coordGrid, unsigned int arg2);
+        void AdjustCount(const game::CoordGrid& coordGrid, unsigned int arg2, unsigned int arg3, unsigned int arg4);
 
-        // data members, from how the methods use this: 144 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined1 field_8;  // offset 8
-        char _unknown_9[47];
-        Skybox field_56; // offset 56
+    private:
+        uint8_t _unknown_8[48];
+        Skybox field_56;
     };
 
 } // namespace jag

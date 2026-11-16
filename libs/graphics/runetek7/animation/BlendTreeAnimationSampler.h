@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/animation/BlendTreeAnimationSampler.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,84 +8,55 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~BlendTreeAnimationSampler();
-        virtual void Update(Array<LabelData, eastl::allocator> const&, math::Matrix44T<float> const&);
-        virtual void GetRT5BoneTransforms(
-            WrapArray<math::Matrix43T<float>>&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            math::Matrix44T<float> const&) const;
-        virtual void ApplyBoneTransforms(
-            math::Vector3T<float>&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            math::Matrix44T<float> const&) const;
-        virtual void GetLabelData(
-            WrapArray<float>&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            AnimationLabelType) const;
+        virtual void Update(const Array<LabelData>& labelDatas, const math::Matrix44T<float>& matrix44);
+        virtual void GetRT5BoneTransforms(WrapArray<math::Matrix43T<float>>& wrapArray,
+                                          const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                          const eastl::vector_map<unsigned short, unsigned short>& arg3,
+                                          const math::Matrix44T<float>& matrix44) const;
+        virtual void ApplyBoneTransforms(math::Vector3T<float>& vector3,
+                                         const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                         const eastl::vector_map<unsigned short, unsigned short>& arg3,
+                                         const math::Matrix44T<float>& matrix44) const;
+        virtual void GetLabelData(WrapArray<float>& wrapArray,
+                                  const eastl::vector_map<unsigned short, unsigned short>& arg2,
+                                  AnimationLabelType animationLabelType) const;
         virtual void Reset();
-        GetJointPoses() const;
+        Option<float>* GetJointPoses() const;
         Layout* GetBlendTree() const;
         BlendTreeAnimationSampler();
-        void CopyBoneMatricesToRT5VertexTransformData(WrapArray<JointPose const> const&,
-                                                      Array<Joint, eastl::allocator> const&, AnimKeyFrameSet const&,
-                                                      VertexTransformData&);
-        void UpdateJointMatricesFromPose(shared_ptr<AnimBase> const&, unsigned char);
-        void SetDrawDebugSkeleton(bool);
-        SetBlendTree(BlendTree*);
-        BlendTreeAnimationSampler(BlendTreeAnimationSampler&&);
+        void CopyBoneMatricesToRT5VertexTransformData(const WrapArray<JointPose const>& wrapArray,
+                                                      const Array<Joint>& joints,
+                                                      const AnimKeyFrameSet& animKeyFrameSet,
+                                                      VertexTransformData& vertexTransformData);
+        void UpdateJointMatricesFromPose(const shared_ptr<AnimBase>& animBase, unsigned char arg2);
+        void SetDrawDebugSkeleton(bool arg1);
+        void SetBlendTree(BlendTree* vertexTransformData);
+        BlendTreeAnimationSampler(BlendTreeAnimationSampler&& blendTreeAnimationSampler);
 
-        // data members, from how the methods use this: 89 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        undefined1 field_24; // offset 24
-        char _unknown_25[55];
-        Layout* m_pBlendTree;     // offset 80
-        bool m_drawDebugSkeleton; // offset 88
+    private:
+        uint8_t _unknown_8[16];
+        uint8_t field_24;
+        uint8_t _unknown_25[55];
+        Layout* m_pBlendTree;
+        bool m_drawDebugSkeleton;
     };
 
-    // 0x100960a00, 32 bytes, deleting destructor, inline, placed by class name
-    // BlendTreeAnimationSampler::~BlendTreeAnimationSampler()
-    void BlendTreeAnimationSampler::~BlendTreeAnimationSampler() {
-        ~BlendTreeAnimationSampler(this);
-        operator_delete(this);
-    }
+    // 0x10096c350
+    BlendTreeAnimationSampler::BlendTreeAnimationSampler(BlendTreeAnimationSampler&& blendTreeAnimationSampler)
+        : AnimationSampler(blendTreeAnimationSampler), field_32(blendTreeAnimationSampler.field_32),
+          field_56(blendTreeAnimationSampler.field_56),
+          m_drawDebugSkeleton(blendTreeAnimationSampler.m_drawDebugSkeleton),
+          m_pBlendTree(blendTreeAnimationSampler.m_pBlendTree) {}
 
-    // 0x10096c130, 16 bytes, complete-object constructor, inline, placed by class name
-    // BlendTreeAnimationSampler::BlendTreeAnimationSampler(BlendTreeAnimationSampler&&): jumps straight to the base-object constructor
-
-    // 0x10096c350, 80 bytes, base-object constructor, inline, placed by class name
-    // BlendTreeAnimationSampler::BlendTreeAnimationSampler(BlendTreeAnimationSampler&&)
-    void BlendTreeAnimationSampler::BlendTreeAnimationSampler(BlendTreeAnimationSampler* param_1) {
-        new (this) AnimationSampler(param_1);
-        field_0 = &PTR__BlendTreeAnimationSampler_100f1afe0;
-        new (&field_32, (Array*)&param_1->field_32) Array<JointPose, eastl::allocator>();
-        new (&field_56, (Array*)&param_1->field_56) Array<math::Matrix44T<float>, eastl::allocator>();
-        m_drawDebugSkeleton = param_1->m_drawDebugSkeleton;
-        m_pBlendTree = param_1->m_pBlendTree;
-    }
-
-    // 0x10098b040, 16 bytes, complete-object destructor, inline, placed by class name
-    // BlendTreeAnimationSampler::~BlendTreeAnimationSampler(): jumps straight to the base-object destructor
-
-    // 0x10098b980, 16 bytes, inline, placed by class name
-    // BlendTreeAnimationSampler::Reset()
+    // 0x10098b980
     void BlendTreeAnimationSampler::Reset() {
-        m_pBlendTree = (Layout*)0;
+        m_pBlendTree = nullptr;
     }
 
-    // 0x100992b30, 64 bytes, base-object destructor, inline, placed by class name
-    // BlendTreeAnimationSampler::~BlendTreeAnimationSampler()
-    void BlendTreeAnimationSampler::~BlendTreeAnimationSampler() {
-        field_0 = &PTR__BlendTreeAnimationSampler_100f1afe0;
-        (&field_56)->~Array();
-        (&field_32)->~Array();
-        ~AnimationSampler();
+    // 0x100992b30
+    BlendTreeAnimationSampler::~BlendTreeAnimationSampler() {
+        field_56.~Array();
+        field_32.~Array();
     }
 
 } // namespace jag::graphics

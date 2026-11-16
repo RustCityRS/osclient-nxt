@@ -1,243 +1,206 @@
 // libs/game/runetek5/scene/minimap/MiniMapRenderPass.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "MiniMapRenderPass.h"
 
 namespace jag {
-    // 0x1000e5d50: the linker folded this into oldscape::rs2lib::CoordZoneSource::GetRotation() const, which has identical code
-    int MiniMapRenderPass::GetStartingRenderLevel() const;
+    // 0x1000e5d50: MiniMapRenderPass::GetStartingRenderLevel() const has the same machine code as oldscape::rs2lib::CoordZoneSource::GetRotation() const
 
-    // 0x1003bc740, 16 bytes, complete-object constructor, placed by class name and debug map
-    // MiniMapRenderPass::MiniMapRenderPass(): jumps straight to the base-object constructor
+    // 0x1003c4e50
+    MiniMapRenderPass::MiniMapRenderPass() : graphics::RenderPass(5), m_startingRenderLevel(0) {}
 
-    // 0x1003c4e50, 48 bytes, base-object constructor, placed by class name
-    // MiniMapRenderPass::MiniMapRenderPass()
-    void MiniMapRenderPass::MiniMapRenderPass() {
-        new (this) graphics::RenderPass(5);
-        field_0 = &PTR__MiniMapRenderPass_100efe570;
-        m_startingRenderLevel = 0;
-    }
-
-    // 0x1003c4e80, 464 bytes, placed by class name
-    // MiniMapRenderPass::BeginPass(render::DrawCallState&, render::RenderContext&, graphics::EffectManager&, graphics::SceneViewData const&, graphics::DrawableQueue const&)
-    undefined8 MiniMapRenderPass::BeginPass(DrawCallState* param_1, RenderContext* param_2, EffectManager* param_3,
-                                            SceneViewData* param_4, DrawableQueue* param_5) {
-        undefined1* this_00;
-        RenderTargets* pRVar1;
-        bool bVar2;
-        uint uVar3;
-        Viewport* pVVar4;
-        OutputMergerState* this_01;
-        vector<eastl::pair<int, int>, eastl::allocator>* this_02;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_03;
-        undefined8* puVar5;
-        int* piVar6;
-        Rect* pRVar7;
-        long lVar8;
-        Vector4T* pVVar9;
+    // 0x1003c4e80
+    uint64_t MiniMapRenderPass::BeginPass(render::DrawCallState& drawCallState, render::RenderContext& renderContext,
+                                          graphics::EffectManager& effectManager,
+                                          const graphics::SceneViewData& sceneViewData,
+                                          const graphics::DrawableQueue& drawableQueue) {
+        bool arg1;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_02;
+        uint64_t* puVar3;
+        int* piVar4;
+        RenderContext* this_03;
         RenderContext* this_04;
-        RenderContext* this_05;
-        ulong uVar10;
-        undefined1 local_50[24];
-        RenderContext* local_38;
+        unsigned long arg3;
+        uint8_t local_50[24];
 
-        local_38 = param_2;
-        pVVar4 = (Viewport*)param_1->GetOutputMergerState();
-        this_00 = &param_4->field_432;
-        uVar3 = this_00->HeapBeginPtr();
-        this_00->size();
-        render::OutputMergerState::SetViewports(pVVar4, uVar3);
-        this_01 = (OutputMergerState*)param_1->GetOutputMergerState();
-        this_01->SetRenderTargets(*(RenderTargets**)&param_4->field_368);
-        if (*(RenderTargets**)&param_4->field_368 == (RenderTargets*)0) {
-            uVar10 = 1;
-            this_04 = (RenderContext*)0;
-            this_05 = local_38;
-            if ((param_4->field_416 & 1) == 0) {
-                this_04 = (RenderContext*)0;
+        auto pOVar1 = drawCallState.GetOutputMergerState();
+        uint8_t* this_00 = &sceneViewData.field_432;
+        auto pVVar2 = this_00->HeapBeginPtr();
+        unsigned int arg2 = this_00->size();
+        pOVar1->SetViewports(pVVar2, arg2);
+        pOVar1 = drawCallState.GetOutputMergerState();
+        pOVar1->SetRenderTargets(*(RenderTargets**)&sceneViewData.field_368);
+        if (*(RenderTargets**)&sceneViewData.field_368 == nullptr) {
+            arg3 = 1;
+            this_03 = nullptr;
+            this_04 = renderContext;
+            if ((sceneViewData.field_416 & 1) == 0) {
+                this_03 = nullptr;
                 goto LAB_1003c4fd2;
             }
         } else {
-            this_02 = (vector<eastl::pair<int, int>, eastl::allocator>*)(*(RenderTargets**)&param_4->field_368)
-                          ->GetColourTargetTextures();
-            local_50._16_8_ = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_02);
-            pVVar4 = (Viewport*)eastl::vector<
-                render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>::
-            operator[](
-                (vector<render::Viewport, eastl::fixed_vector_allocator<24ul, 2ul, 4ul, 0ul, true, eastl::allocator>>*)
-                    this_00,
-                0);
-            this_03 =
-                (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true,
-                                                                        eastl::allocator>>*)(*(RenderTargets**)&param_4
-                                                                                                  ->field_368)
+            local_50._16_8_ = ((vector<eastl::pair<int, int>>*)(*(RenderTargets**)&sceneViewData.field_368)
+                                   ->GetColourTargetTextures())
+                                  ->size();
+            pVVar2 = (Viewport*)(*this_00)[0];
+            this_02 =
+                (vector<render::Texture*,
+                        eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)(*(RenderTargets**)&sceneViewData
+                                                                                        .field_368)
                     ->GetColourTargetTextures();
-            puVar5 = (undefined8*)eastl::vector<
-                render::Texture*,
-                eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_03, 0);
-            piVar6 = (int*)(*puVar5)->second();
-            if (((pVVar4->field_0 == 0 && pVVar4->field_4 == 0) && (pVVar4->field_8 == *piVar6)) &&
-                (pVVar4->field_12 == piVar6[1])) {
-                bVar2 = false;
+            puVar3 = (uint64_t*)(*this_02)[0];
+            piVar4 = (int*)(*puVar3)->second();
+            if (((pVVar2->field_0 == 0 && pVVar2->field_4 == 0) && (pVVar2->field_8 == *piVar4)) &&
+                (pVVar2->field_12 == piVar4[1])) {
+                arg1 = false;
             } else {
-                pRVar7 = (Rect*)param_1->GetOutputMergerState();
+                pOVar1 = drawCallState.GetOutputMergerState();
                 new (local_50)
-                    oldscape::dash3d::GridRect(pVVar4->field_0, pVVar4->field_4, pVVar4->field_8, pVVar4->field_12);
-                render::OutputMergerState::PushScissorRect(pRVar7);
-                bVar2 = true;
+                    oldscape::dash3d::GridRect(pVVar2->field_0, pVVar2->field_4, pVVar2->field_8, pVVar2->field_12);
+                pOVar1->PushScissorRect(*local_50);
+                arg1 = true;
             }
-            this_05 = local_38;
-            this_04 = local_38;
-            local_38->SetScissorRectangle(bVar2, pVVar4);
-            uVar10 = local_50._16_8_;
-            if ((param_4->field_416 & 1) == 0)
+            this_04 = renderContext;
+            this_03 = renderContext;
+            renderContext.SetScissorRectangle(arg1, *pVVar2);
+            arg3 = local_50._16_8_;
+            if ((sceneViewData.field_416 & 1) == 0)
                 goto LAB_1003c4fd2;
         }
-        lVar8 = this_04->Instance();
-        this_05->SetBlendState((BlendState*)(lVar8 + 1524));
-        pRVar1 = *(RenderTargets**)&param_4->field_368;
-        pVVar9 = (Vector4T*)std::array<math::Vector4T<float>, 2ul>::operator[]((ulong)&param_4->field_384);
-        this_04 = this_05;
-        this_05->ClearRenderTargets(pRVar1, pVVar9, uVar10);
+        long lVar5 = this_03->Instance();
+        BlendState* blendState = (BlendState*)(lVar5 + 1524);
+        this_04->SetBlendState(blendState);
+        RenderTargets* renderTargets = *(RenderTargets**)&sceneViewData.field_368;
+        Vector4T<float>* vector4 = &sceneViewData.field_384[(unsigned long)blendState];
+        this_03 = this_04;
+        this_04->ClearRenderTargets(renderTargets, vector4, arg3);
     LAB_1003c4fd2:
-        if ((param_4->field_416 & 6) != 0) {
-            lVar8 = this_04->Instance();
-            this_05->SetDepthStencilState((DepthStencilState*)(lVar8 + 720));
-            this_05->ClearDepthStencilTarget(*(RenderTargets**)&param_4->field_368, *(float*)&param_4->field_420,
-                                             *(uint*)&param_4->field_424, *(uint*)&param_4->field_416);
+        if ((sceneViewData.field_416 & 6) != 0) {
+            lVar5 = this_03->Instance();
+            this_04->SetDepthStencilState((lVar5 + 720));
+            this_04->ClearDepthStencilTarget(
+                *(RenderTargets**)&sceneViewData.field_368, *(float*)&sceneViewData.field_420,
+                *(unsigned int*)&sceneViewData.field_424, *(unsigned int*)&sceneViewData.field_416);
         }
         return 1;
     }
 
-    // 0x1003c5070, 944 bytes, placed by class name
-    // MiniMapRenderPass::Render(graphics::RT7Core&, render::DrawCallState const&, graphics::EffectManager&, graphics::SceneViewData const&, graphics::DrawableQueue&)
-    void MiniMapRenderPass::Render(RT7Core* param_1, DrawCallState* param_2, EffectManager* param_3,
-                                   SceneViewData* param_4, DrawableQueue* param_5) {
-        undefined4 uVar3;
-        RenderContext* pRVar4;
-        long lVar5;
-        compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>* pcVar6;
-        Layout* pLVar7;
-        RenderPipelineState* pRVar8;
-        RenderContext* pRVar9;
-        DrawCallState* pDVar10;
-        undefined1 auVar11[16];
+    // 0x1003c5070
+    void MiniMapRenderPass::Render(graphics::RT7Core& rt7Core, const render::DrawCallState& drawCallState,
+                                   graphics::EffectManager& effectManager, const graphics::SceneViewData& sceneViewData,
+                                   graphics::DrawableQueue& drawableQueue) {
         DrawCallState local_88;
-        RenderContext* local_48;
 
-        pRVar4 = (RenderContext*)GetRenderContext();
-        lVar5 = ((MiniMapRenderPass*)this)->Instance();
-        pRVar9 = pRVar4;
-        pRVar4->SetBlendState((BlendState*)(lVar5 + 2284));
-        lVar5 = pRVar9->Instance();
-        pRVar9 = pRVar4;
-        pRVar4->SetDepthStencilState((DepthStencilState*)(lVar5 + 720));
-        lVar5 = pRVar9->Instance();
-        local_48 = pRVar4;
-        pRVar4->SetRasteriserState((RasteriserState*)(lVar5 + 1200));
-        pDVar10 = &local_88;
-        render::DrawCallState::DrawCallState(pDVar10, param_2);
-        pcVar6 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
-                     pDVar10->GetRenderPipelineState();
-        auVar11 = pDVar10->Instance();
+        EffectManager* local_38 = effectManager;
+        auto pRVar3 = GetRenderContext();
+        long lVar4 = Instance();
+        RenderContext* pRVar8 = pRVar3;
+        pRVar3->SetBlendState((lVar4 + 2284));
+        lVar4 = pRVar8->Instance();
+        pRVar8 = pRVar3;
+        pRVar3->SetDepthStencilState((lVar4 + 720));
+        lVar4 = pRVar8->Instance();
+        RenderContext* local_48 = pRVar3;
+        pRVar3->SetRasteriserState((lVar4 + 1200));
+        DrawCallState* pDVar9 = &local_88;
+        new (pDVar9) render::DrawCallState(drawCallState);
+        auto pcVar5 = pDVar9->GetRenderPipelineState();
+        lVar4 = pDVar9->Instance();
         eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>::compressed_pair_imp(
-            pcVar6, (EntityHighlight**)(auVar11._0_8_ + 2284), auVar11._8_8_);
-        pDVar10 = &local_88;
-        pLVar7 = (Layout*)pDVar10->GetRenderPipelineState();
-        lVar5 = pDVar10->Instance();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::Layout::
-            SetHeapSize(pLVar7, lVar5 + 720);
-        pDVar10 = &local_88;
-        pRVar8 = (RenderPipelineState*)pDVar10->GetRenderPipelineState();
-        lVar5 = pDVar10->Instance();
-        pRVar8->SetRasteriserState((RasteriserState*)(lVar5 + 1200));
-        uVar3 = GetPos();
-        graphics::DrawableQueue::SortGroup<graphics::SortKeyLessThan>(param_5, 0, uVar3);
-        uVar3 = GetPos();
-        param_5->RenderGroup(param_1, &local_88, param_4, 0, uVar3, param_3);
-        local_88.~DrawCallState();
-        uVar3 = GetPos();
-        graphics::DrawableQueue::SortGroup<graphics::SortKeyLessThan>(param_5, 1, uVar3);
-        uVar3 = GetPos();
-        param_5->RenderGroup(param_1, param_2, param_4, 1, uVar3, param_3);
-        lVar5 = param_5->Instance();
-        pRVar9 = local_48;
-        pRVar4 = local_48;
-        local_48->SetBlendState((BlendState*)(lVar5 + 1676));
-        lVar5 = pRVar4->Instance();
-        pRVar4 = pRVar9;
-        pRVar9->SetDepthStencilState((DepthStencilState*)(lVar5 + 720));
-        lVar5 = pRVar4->Instance();
-        pRVar9->SetRasteriserState((RasteriserState*)(lVar5 + 1200));
-        pDVar10 = &local_88;
-        render::DrawCallState::DrawCallState(pDVar10, param_2);
-        pcVar6 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
-                     pDVar10->GetRenderPipelineState();
-        auVar11 = pDVar10->Instance();
+            pcVar5, (PlayerDataComparator<oldscape::social::FriendChatUser>*)(lVar4 + 2284));
+        pDVar9 = &local_88;
+        auto pLVar6 = pDVar9->GetRenderPipelineState();
+        lVar4 = pDVar9->Instance();
+        pLVar6->SetHeapSize((lVar4 + 720));
+        pDVar9 = &local_88;
+        auto pRVar7 = pDVar9->GetRenderPipelineState();
+        lVar4 = pDVar9->Instance();
+        pRVar7->SetRasteriserState((lVar4 + 1200));
+        auto RVar1 = GetPos();
+        drawableQueue.SortGroup<graphics::SortKeyLessThan>(0, RVar1);
+        unsigned int uVar2 = GetPos();
+        graphics::DrawableQueue::RenderGroup(drawableQueue, rt7Core, local_88, (DrawableGroupType)sceneViewData, 0,
+                                             *((EffectManager*)(unsigned long)uVar2));
+        RVar1 = GetPos();
+        drawableQueue.SortGroup<graphics::SortKeyLessThan>(1, RVar1);
+        uVar2 = GetPos();
+        graphics::DrawableQueue::RenderGroup(drawableQueue, rt7Core, drawCallState, (DrawableGroupType)sceneViewData, 1,
+                                             *((EffectManager*)(unsigned long)uVar2));
+        lVar4 = drawableQueue.Instance();
+        pRVar8 = local_48;
+        pRVar3 = local_48;
+        local_48->SetBlendState((lVar4 + 1676));
+        lVar4 = pRVar3->Instance();
+        pRVar3 = pRVar8;
+        pRVar8->SetDepthStencilState((lVar4 + 720));
+        lVar4 = pRVar3->Instance();
+        pRVar8->SetRasteriserState((lVar4 + 1200));
+        pDVar9 = &local_88;
+        new (pDVar9) render::DrawCallState(*((DrawCallState*)(SceneViewData*)drawCallState));
+        pcVar5 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
+                     pDVar9->GetRenderPipelineState();
+        lVar4 = pDVar9->Instance();
         eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>::compressed_pair_imp(
-            pcVar6, (EntityHighlight**)(auVar11._0_8_ + 1676), auVar11._8_8_);
-        pDVar10 = &local_88;
-        pLVar7 = (Layout*)pDVar10->GetRenderPipelineState();
-        lVar5 = pDVar10->Instance();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::Layout::
-            SetHeapSize(pLVar7, lVar5 + 720);
-        pDVar10 = &local_88;
-        pRVar8 = (RenderPipelineState*)pDVar10->GetRenderPipelineState();
-        lVar5 = pDVar10->Instance();
-        pRVar8->SetRasteriserState((RasteriserState*)(lVar5 + 1200));
-        uVar3 = GetPos();
-        graphics::DrawableQueue::SortGroup<graphics::SortKeyLessThan>(param_5, 3, uVar3);
-        uVar3 = GetPos();
-        param_5->RenderGroup(param_1, &local_88, param_4, 3, uVar3, param_3);
-        pDVar10 = &local_88;
-        pDVar10->~DrawCallState();
-        lVar5 = pDVar10->Instance();
-        pRVar9 = local_48;
-        pRVar4 = local_48;
-        local_48->SetBlendState((BlendState*)(lVar5 + 1676));
-        lVar5 = pRVar4->Instance();
-        pRVar4 = pRVar9;
-        pRVar9->SetDepthStencilState((DepthStencilState*)(lVar5 + 720));
-        lVar5 = pRVar4->Instance();
-        pRVar9->SetRasteriserState((RasteriserState*)(lVar5 + 1200));
-        pDVar10 = &local_88;
-        render::DrawCallState::DrawCallState(pDVar10, param_2);
-        pcVar6 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
-                     pDVar10->GetRenderPipelineState();
-        auVar11 = pDVar10->Instance();
+            pcVar5, (PlayerDataComparator<oldscape::social::FriendChatUser>*)(lVar4 + 1676));
+        pDVar9 = &local_88;
+        pLVar6 = (Layout*)pDVar9->GetRenderPipelineState();
+        lVar4 = pDVar9->Instance();
+        pLVar6->SetHeapSize((lVar4 + 720));
+        pDVar9 = &local_88;
+        pRVar7 = (RenderPipelineState*)pDVar9->GetRenderPipelineState();
+        lVar4 = pDVar9->Instance();
+        pRVar7->SetRasteriserState((lVar4 + 1200));
+        RVar1 = GetPos();
+        drawableQueue.SortGroup<graphics::SortKeyLessThan>(3, RVar1);
+        uVar2 = GetPos();
+        graphics::DrawableQueue::RenderGroup(drawableQueue, rt7Core, local_88, (DrawableGroupType)sceneViewData, 3,
+                                             *((EffectManager*)(unsigned long)uVar2));
+        pDVar9 = &local_88;
+        pDVar9->~DrawCallState();
+        lVar4 = pDVar9->Instance();
+        pRVar8 = local_48;
+        pRVar3 = local_48;
+        local_48->SetBlendState((lVar4 + 1676));
+        lVar4 = pRVar3->Instance();
+        pRVar3 = pRVar8;
+        pRVar8->SetDepthStencilState((lVar4 + 720));
+        lVar4 = pRVar3->Instance();
+        pRVar8->SetRasteriserState((lVar4 + 1200));
+        pDVar9 = &local_88;
+        new (pDVar9) render::DrawCallState(*((DrawCallState*)(SceneViewData*)drawCallState));
+        pcVar5 = (compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>*)
+                     pDVar9->GetRenderPipelineState();
+        lVar4 = pDVar9->Instance();
         eastl::compressed_pair_imp<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL, 2>::compressed_pair_imp(
-            pcVar6, (EntityHighlight**)(auVar11._0_8_ + 1676), auVar11._8_8_);
-        pDVar10 = &local_88;
-        pLVar7 = (Layout*)pDVar10->GetRenderPipelineState();
-        lVar5 = pDVar10->Instance();
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::Layout::
-            SetHeapSize(pLVar7, lVar5 + 720);
-        pDVar10 = &local_88;
-        pRVar8 = (RenderPipelineState*)pDVar10->GetRenderPipelineState();
-        lVar5 = pDVar10->Instance();
-        pRVar8->SetRasteriserState((RasteriserState*)(lVar5 + 1200));
-        uVar3 = GetPos();
-        graphics::DrawableQueue::SortGroup<graphics::SortKeyLessThan>(param_5, 2, uVar3);
-        uVar3 = GetPos();
-        param_5->RenderGroup(param_1, &local_88, param_4, 2, uVar3, param_3);
-        local_88.~DrawCallState();
-        local_48->SetInputAssemblerState(0);
+            pcVar5, (PlayerDataComparator<oldscape::social::FriendChatUser>*)(lVar4 + 1676));
+        pDVar9 = &local_88;
+        pLVar6 = (Layout*)pDVar9->GetRenderPipelineState();
+        lVar4 = pDVar9->Instance();
+        pLVar6->SetHeapSize((lVar4 + 720));
+        pDVar9 = &local_88;
+        pRVar7 = (RenderPipelineState*)pDVar9->GetRenderPipelineState();
+        lVar4 = pDVar9->Instance();
+        pRVar7->SetRasteriserState((lVar4 + 1200));
+        RVar1 = GetPos();
+        drawableQueue.SortGroup<graphics::SortKeyLessThan>(2, RVar1);
+        uVar2 = GetPos();
+        graphics::DrawableQueue::RenderGroup(drawableQueue, rt7Core, local_88, (DrawableGroupType)sceneViewData, 2,
+                                             *((EffectManager*)(unsigned long)uVar2));
+        local_48->SetInputAssemblerState(nullptr);
     }
 
-    // 0x1003c5420, 80 bytes, placed by class name
-    // MiniMapRenderPass::RenderDebug(graphics::EffectManager&, graphics::DrawableQueue&)
-    void MiniMapRenderPass::RenderDebug(EffectManager* param_1, DrawableQueue* param_2) {
-        undefined4 uVar1;
-        int iVar2;
+    // 0x1003c5420
+    void MiniMapRenderPass::RenderDebug(graphics::EffectManager& effectManager,
+                                        graphics::DrawableQueue& drawableQueue) {
+        RenderPassType renderPassType;
 
-        iVar2 = 0;
+        DrawableGroupType drawableGroupType = 0;
         do {
-            uVar1 = GetPos();
-            param_2->RenderDebug(iVar2, uVar1);
-            iVar2 = iVar2 + 1;
-        } while (iVar2 != 13);
+            renderPassType = GetPos();
+            drawableQueue.RenderDebug(drawableGroupType, renderPassType);
+            drawableGroupType = drawableGroupType + 1;
+        } while (drawableGroupType != 13);
     }
 
 } // namespace jag

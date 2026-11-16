@@ -1,9 +1,8 @@
 // _unplaced/libs/hal/network/misc.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 namespace jag::network {
-    // 0x1042330f4, 4 bytes, __bss; zero-initialised
-    nextICMPSequence;
+    // 0x1042330f4
+    int32_t nextICMPSequence;
 
 } // namespace jag::network

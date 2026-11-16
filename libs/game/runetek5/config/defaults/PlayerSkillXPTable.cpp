@@ -1,114 +1,79 @@
 // libs/game/runetek5/config/defaults/PlayerSkillXPTable.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "PlayerSkillXPTable.h"
 
 namespace jag::game {
-    // 0x1039bbc50, 24 bytes, __common; set at startup by ___cxx_global_var_init
+    // 0x1039bbc50, set at startup by ___cxx_global_var_init
     PlayerSkillXPTable PlayerSkillXPTable::DEFAULT = PlayerSkillXPTable();
 
-    // 0x10054e470, 16 bytes, complete-object constructor, placed by class name and debug map
-    // PlayerSkillXPTable::PlayerSkillXPTable(): jumps straight to the base-object constructor
+    // 0x10054e480
+    PlayerSkillXPTable::PlayerSkillXPTable() : Array<unsigned int>() {
+        uint32_t* puVar1;
+        unsigned long uVar3;
+        double dVar5;
 
-    // 0x10054e480, 192 bytes, base-object constructor, placed by class name and debug map
-    // PlayerSkillXPTable::PlayerSkillXPTable()
-    void PlayerSkillXPTable::PlayerSkillXPTable() {
-        undefined4* puVar1;
-        PlayerSkillXPTable* pPVar2;
-        ulong uVar3;
-        ulong uVar4;
-        uint uVar5;
-        double dVar6;
-
-        new (this) Array<unsigned int, eastl::allocator>();
-        uVar5 = 0;
-        pPVar2 = this;
+        unsigned int uVar4 = 0;
+        PlayerSkillXPTable* pPVar2 = this;
         set_max_size(120, 0);
-        uVar3 = 0;
+        unsigned long arg1 = 0;
         do {
-            uVar4 = uVar3 + 1;
-            dVar6 = (double)pow<int, double>((int)pPVar2, (double)(uVar4 & 4294967295) * 0.14285714285714285);
-            dVar6 = (double)_floor(dVar6 * 300.0 + (double)(uVar4 & 4294967295));
-            puVar1 = (undefined4*)Array<unsigned int, eastl::allocator>::operator[](
-                (Array<unsigned int, eastl::allocator>*)this, uVar3);
-            uVar5 = uVar5 + (int)(long)dVar6;
-            pPVar2 = (PlayerSkillXPTable*)(ulong)(uVar5 >> 2);
-            dVar6 = (double)floor<unsigned int>(uVar5 >> 2);
-            *puVar1 = (int)(long)dVar6;
-            uVar3 = uVar4;
-        } while (uVar4 != 120);
+            uVar3 = arg1 + 1;
+            dVar5 = (double)pow<int, double>((int)pPVar2, (double)(uVar3 & 4294967295) * 0.14285714285714285);
+            dVar5 = (double)_floor(dVar5 * 300.0 + (double)(uVar3 & 4294967295));
+            puVar1 = (uint32_t*)(*this)[arg1];
+            uVar4 = uVar4 + (int)(long)dVar5;
+            pPVar2 = (PlayerSkillXPTable*)(unsigned long)(uVar4 >> 2);
+            dVar5 = (double)floor<unsigned int>(uVar4 >> 2);
+            *puVar1 = (int)(long)dVar5;
+            arg1 = uVar3;
+        } while (uVar3 != 120);
     }
 
-    // 0x10054e560, 16 bytes, base-object constructor, placed by class name and debug map
-    // PlayerSkillXPTable::PlayerSkillXPTable(Array<unsigned int, eastl::allocator> const&)
-    void PlayerSkillXPTable::PlayerSkillXPTable(Array* param_1) {
-        new (this) Array<unsigned int, eastl::allocator>(param_1);
-    }
+    // 0x10054e560
+    PlayerSkillXPTable::PlayerSkillXPTable(const Array<unsigned int>& arg1) : Array<unsigned int>(arg1) {}
 
-    // 0x10054e570, 16 bytes, complete-object constructor, placed by class name and debug map
-    // PlayerSkillXPTable::PlayerSkillXPTable(Array<unsigned int, eastl::allocator> const&): jumps straight to the base-object constructor
-
-    // 0x10054e580, 80 bytes, placed by class name and debug map
-    // PlayerSkillXPTable::GetXPFromLevel(unsigned int) const
-    undefined4 PlayerSkillXPTable::GetXPFromLevel(uint param_1) {
-        ulong uVar1;
-        undefined4* puVar2;
-
-        if (param_1 == 0) {
+    // 0x10054e580
+    uint32_t PlayerSkillXPTable::GetXPFromLevel(unsigned int arg1) const {
+        if (arg1 == 0) {
             return 0;
         }
-        uVar1 = end();
-        if (uVar1 < param_1) {
-            param_1 = end();
+        if (end() < arg1) {
+            arg1 = end();
         }
-        puVar2 = (undefined4*)Array<unsigned int, eastl::allocator>::operator[](
-            (Array<unsigned int, eastl::allocator>*)this, (ulong)(param_1 - 1));
+        uint32_t* puVar2 = (uint32_t*)(*this)[(unsigned long)(arg1 - 1)];
         return *puVar2;
     }
 
-    // 0x10054e5d0, 16 bytes, placed by class name and debug map
-    // PlayerSkillXPTable::GetFineXPFromLevel(unsigned int) const
-    int PlayerSkillXPTable::GetFineXPFromLevel(uint param_1) {
-        return GetXPFromLevel(this, param_1) * 10;
+    // 0x10054e5d0
+    int PlayerSkillXPTable::GetFineXPFromLevel(unsigned int arg1) const {
+        return GetXPFromLevel(arg1) * 10;
     }
 
-    // 0x10054e5e0, 80 bytes, placed by class name and debug map
-    // PlayerSkillXPTable::GetLevelFromXP(unsigned int) const
-    ulong PlayerSkillXPTable::GetLevelFromXP(uint param_1) {
-        long lVar1;
-        uint* puVar2;
-        ulong uVar3;
-        ulong uVar4;
+    // 0x10054e5e0
+    unsigned long PlayerSkillXPTable::GetLevelFromXP(unsigned int arg1) const {
+        unsigned int* puVar2;
+        unsigned long uVar3;
 
-        lVar1 = end();
-        uVar4 = 0;
+        long lVar1 = end();
+        unsigned long arg1_00 = 0;
         if (lVar1 != 0) {
             do {
-                puVar2 = (uint*)Array<unsigned int, eastl::allocator>::operator[](
-                    (Array<unsigned int, eastl::allocator>*)this, uVar4);
-                if (param_1 < *puVar2) {
-                    return uVar4;
+                puVar2 = (unsigned int*)(*this)[arg1_00];
+                if (arg1 < *puVar2) {
+                    return arg1_00;
                 }
-                uVar4 = (ulong)((int)uVar4 + 1);
+                arg1_00 = (unsigned long)((int)arg1_00 + 1);
                 uVar3 = end();
-            } while (uVar4 < uVar3);
+            } while (arg1_00 < uVar3);
         }
-        return uVar4;
+        return arg1_00;
     }
 
-    // 0x10054e630, 32 bytes, placed by class name and debug map
-    // PlayerSkillXPTable::GetLevelFromFineXP(unsigned int) const
-    void PlayerSkillXPTable::GetLevelFromFineXP(uint param_1) {
-        GetLevelFromXP(this, param_1 / 10);
-    }
-
-    // 0x100550cf0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init
-    void ___cxx_global_var_init() {
-        new (&PlayerSkillXPTable::DEFAULT) PlayerSkillXPTable();
-        ___cxa_atexit(PTR__PlayerSkillXPTable_100ee6630, &PlayerSkillXPTable::DEFAULT, 4294967296);
+    // 0x10054e630
+    void PlayerSkillXPTable::GetLevelFromFineXP(unsigned int arg1) const {
+        GetLevelFromXP(arg1 / 10);
     }
 
 } // namespace jag::game

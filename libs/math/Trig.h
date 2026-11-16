@@ -1,14 +1,12 @@
 // libs/math/Trig.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::math {
-    // 0x100064200, 16 bytes, inline, placed by debug map only (low confidence)
-    // Rad2Deg(float)
-    float Rad2Deg(float param_1) {
-        return param_1 * 57.295776;
+    // 0x100064200
+    float Rad2Deg(float arg1) {
+        return arg1 * 57.295776f;
     }
 
 } // namespace jag::math

@@ -1,141 +1,111 @@
 // libs/game/runetek5/assetbuilder/jobs/buildmodel/BuildModelWorker.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x1006458c0, 32 bytes, inline, placed by debug map only (low confidence)
-    // game::BuildFunctionRequestData* placement_new<game::BuildFunctionRequestData>(void*)
-    BuildFunctionRequestData* placement_new<game::BuildFunctionRequestData>(void* param_1) {
-        oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob::OldscapeAnimCurveLoadJob(
-            param_1);
-        return param_1;
+    // 0x1006458c0
+    game::BuildFunctionRequestData* placement_new<game::BuildFunctionRequestData>(void* arg1) {
+        new (arg1) oldscape::graphics::animation::OldscapeAnimKeyFrameSet::OldscapeAnimCurveLoadJob();
+        return arg1;
     }
 
-    // 0x1006458e0, 32 bytes, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildFunctionRequestData>* placement_new<BucketRefCounter<game::BuildFunctionRequestData>, managed_ptr_counter_and_data<BucketRefCounter<game::BuildFunctionRequestData>, game::BuildFunctionRequestData>*&, game::BuildFunctionRequestData*&>(void*, managed_ptr_counter_and_data<BucketRefCounter<game::BuildFunctionRequestData>, game::BuildFunctionRequestData>*&, game::BuildFunctionRequestData*&)
-    BucketRefCounter* jag::placement_new<BucketRefCounter<game::BuildFunctionRequestData>,
-                                         managed_ptr_counter_and_data<BucketRefCounter<game::BuildFunctionRequestData>,
-                                                                      game::BuildFunctionRequestData>*&,
-                                         game::BuildFunctionRequestData*&>(void* param_1,
-                                                                           managed_ptr_counter_and_data** param_2,
-                                                                           BuildFunctionRequestData** param_3) {
-        BucketRefCounter<game::BuildFunctionRequestData>::BucketRefCounter(param_1, *param_2, *param_3, 0);
-        return param_1;
+    // 0x1006458e0
+    BucketRefCounter<game::BuildFunctionRequestData>*
+    placement_new<BucketRefCounter<game::BuildFunctionRequestData>,
+                  managed_ptr_counter_and_data<BucketRefCounter<game::BuildFunctionRequestData>,
+                                               game::BuildFunctionRequestData>*&,
+                  game::BuildFunctionRequestData*&>(
+        void* arg1,
+        managed_ptr_counter_and_data<BucketRefCounter<game::BuildFunctionRequestData>, game::BuildFunctionRequestData>*&
+            arg2,
+        game::BuildFunctionRequestData*& arg3) {
+        new (arg1) BucketRefCounter<game::BuildFunctionRequestData>(arg2, arg3, 0);
+        return arg1;
     }
 
-    // 0x100645900, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildFunctionRequestData>::BucketRefCounter(void*, game::BuildFunctionRequestData*, unsigned int): jumps straight to the base-object constructor
+    // 0x100645910
+    BucketRefCounter<game::BuildFunctionRequestData>::BucketRefCounter(
+        void* arg1, game::BuildFunctionRequestData* buildFunctionRequestData, unsigned int arg3)
+        : ref_counter_base() {}
 
-    // 0x100645910, 96 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildFunctionRequestData>::BucketRefCounter(void*, game::BuildFunctionRequestData*, unsigned int)
-    void BucketRefCounter<game::BuildFunctionRequestData>::BucketRefCounter(void* param_1,
-                                                                            BuildFunctionRequestData* param_2,
-                                                                            uint param_3) {
-        undefined8 uVar1;
-
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7118 + 16;
-        *(void**)(this + 16) = param_1;
-        *(BuildFunctionRequestData**)(this + 24) = param_2;
-        uVar1 = this_thread::GetThreadID();
-        *(undefined8*)(this + 32) = uVar1;
-        *(uint*)(this + 40) = param_3;
-    }
-
-    // 0x100645970, 96 bytes, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildFunctionRequestData>::DeleteSelf()
+    // 0x100645970
     void BucketRefCounter<game::BuildFunctionRequestData>::DeleteSelf() {
-        void* pvVar1;
+        BucketRefCounter<game::BuildFunctionRequestData> _vtbl* pBVar1;
 
-        if (*(int*)(this + 40) != 4) {
-            if (this_thread::GetThreadID() != *(long*)(this + 32)) {
-                /* WARNING: Subroutine does not return */
+        if (*(int*)&this[5]._vptr != 4) {
+            pBVar1 = (BucketRefCounter<game::BuildFunctionRequestData> _vtbl*)this_thread::GetThreadID();
+            if (pBVar1 != this[4]._vptr) {
                 LogAssert("this_thread::GetThreadID() == m_threadID",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/managed_ptr/"
                           "make_shared.h",
-                          237, (char*)0);
+                          237, nullptr);
             }
         }
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)(this);
-        BucketManager::DeAllocate(pvVar1);
+        pBVar1 = this[2]._vptr;
+        std::destroy_at(this);
+        BucketManager::DeAllocate(pBVar1);
     }
 
-    // 0x100645b70, 32 bytes, inline, placed by debug map only (low confidence)
-    // game::BuildFunctionWorker* placement_new<game::BuildFunctionWorker>(void*)
-    BuildFunctionWorker* placement_new<game::BuildFunctionWorker>(void* param_1) {
-        game::BuildFunctionWorker::BuildFunctionWorker(param_1);
-        return param_1;
+    // 0x100645b70
+    game::BuildFunctionWorker* placement_new<game::BuildFunctionWorker>(void* arg1) {
+        new (arg1) game::BuildFunctionWorker();
+        return arg1;
     }
 
-    // 0x100645b90, 32 bytes, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildFunctionWorker>* placement_new<BucketRefCounter<game::BuildFunctionWorker>, managed_ptr_counter_and_data<BucketRefCounter<game::BuildFunctionWorker>, game::BuildFunctionWorker>*&, game::BuildFunctionWorker*&>(void*, managed_ptr_counter_and_data<BucketRefCounter<game::BuildFunctionWorker>, game::BuildFunctionWorker>*&, game::BuildFunctionWorker*&)
-    BucketRefCounter* jag::placement_new<
+    // 0x100645b90
+    BucketRefCounter<game::BuildFunctionWorker>* placement_new<
         BucketRefCounter<game::BuildFunctionWorker>,
         managed_ptr_counter_and_data<BucketRefCounter<game::BuildFunctionWorker>, game::BuildFunctionWorker>*&,
-        game::BuildFunctionWorker*&>(void* param_1, managed_ptr_counter_and_data** param_2,
-                                     BuildFunctionWorker** param_3) {
-        BucketRefCounter<game::BuildFunctionWorker>::BucketRefCounter(param_1, *param_2, *param_3, 0);
-        return param_1;
+        game::BuildFunctionWorker*&>(
+        void* arg1,
+        managed_ptr_counter_and_data<BucketRefCounter<game::BuildFunctionWorker>, game::BuildFunctionWorker>*& arg2,
+        game::BuildFunctionWorker*& arg3) {
+        new (arg1) BucketRefCounter<game::BuildFunctionWorker>(arg2, arg3, 0);
+        return arg1;
     }
 
-    // 0x100645bb0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildFunctionWorker>::BucketRefCounter(void*, game::BuildFunctionWorker*, unsigned int): jumps straight to the base-object constructor
+    // 0x100645bc0
+    BucketRefCounter<game::BuildFunctionWorker>::BucketRefCounter(void* arg1,
+                                                                  game::BuildFunctionWorker* buildFunctionWorker,
+                                                                  unsigned int arg3)
+        : ref_counter_base() {}
 
-    // 0x100645bc0, 96 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildFunctionWorker>::BucketRefCounter(void*, game::BuildFunctionWorker*, unsigned int)
-    void BucketRefCounter<game::BuildFunctionWorker>::BucketRefCounter(void* param_1, BuildFunctionWorker* param_2,
-                                                                       uint param_3) {
-        undefined8 uVar1;
-
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee70f0 + 16;
-        *(void**)(this + 16) = param_1;
-        *(BuildFunctionWorker**)(this + 24) = param_2;
-        uVar1 = this_thread::GetThreadID();
-        *(undefined8*)(this + 32) = uVar1;
-        *(uint*)(this + 40) = param_3;
-    }
-
-    // 0x100645c20, 96 bytes, inline, placed by debug map only (low confidence)
-    // BucketRefCounter<game::BuildFunctionWorker>::DeleteSelf()
+    // 0x100645c20
     void BucketRefCounter<game::BuildFunctionWorker>::DeleteSelf() {
-        void* pvVar1;
+        BucketRefCounter<game::BuildFunctionWorker> _vtbl* pBVar1;
 
-        if (*(int*)(this + 40) != 4) {
-            if (this_thread::GetThreadID() != *(long*)(this + 32)) {
-                /* WARNING: Subroutine does not return */
+        if (*(int*)&this[5]._vptr != 4) {
+            pBVar1 = (BucketRefCounter<game::BuildFunctionWorker> _vtbl*)this_thread::GetThreadID();
+            if (pBVar1 != this[4]._vptr) {
                 LogAssert("this_thread::GetThreadID() == m_threadID",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/managed_ptr/"
                           "make_shared.h",
-                          237, (char*)0);
+                          237, nullptr);
             }
         }
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)(this);
-        BucketManager::DeAllocate(pvVar1);
+        pBVar1 = this[2]._vptr;
+        std::destroy_at(this);
+        BucketManager::DeAllocate(pBVar1);
     }
 
-    // 0x100645e00, 32 bytes, inline, placed by debug map only (low confidence)
-    // game::BuildFunctionResultData* placement_new<game::BuildFunctionResultData>(void*)
-    BuildFunctionResultData* placement_new<game::BuildFunctionResultData>(void* param_1) {
-        game::BuildFunctionResultData::BuildFunctionResultData(param_1);
-        return param_1;
+    // 0x100645e00
+    game::BuildFunctionResultData* placement_new<game::BuildFunctionResultData>(void* arg1) {
+        new (arg1) game::BuildFunctionResultData();
+        return arg1;
     }
 
-    // 0x100645e20, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<game::BuildFunctionResultData, MakeSharedPool<game::BuildFunctionResultData, 32> >* placement_new<MakeSharedPoolRefCounter<game::BuildFunctionResultData, MakeSharedPool<game::BuildFunctionResultData, 32> >, MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData*&, game::BuildFunctionResultData*>(void*, MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData*&, game::BuildFunctionResultData*&&)
-    MakeSharedPoolRefCounter* jag::placement_new<
+    // 0x100645e20
+    MakeSharedPoolRefCounter<game::BuildFunctionResultData, MakeSharedPool<game::BuildFunctionResultData, 32>>*
+    placement_new<
         MakeSharedPoolRefCounter<game::BuildFunctionResultData, MakeSharedPool<game::BuildFunctionResultData, 32>>,
         MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData*&, game::BuildFunctionResultData*>(
-        void* param_1, RefCounterAndData** param_2, BuildFunctionResultData** param_3) {
-        MakeSharedPoolRefCounter<game::BuildFunctionResultData,
-                                 MakeSharedPool<game::BuildFunctionResultData, 32>>::MakeSharedPoolRefCounter(param_1,
-                                                                                                              *param_2,
-                                                                                                              *param_3);
-        return param_1;
+        void* arg1, MakeSharedPool<game::BuildFunctionResultData, 32>::RefCounterAndData*& arg2,
+        game::BuildFunctionResultData*&& arg3) {
+        new (arg1)
+            MakeSharedPoolRefCounter<game::BuildFunctionResultData, MakeSharedPool<game::BuildFunctionResultData, 32>>(
+                arg2, arg3);
+        return arg1;
     }
 
 } // namespace jag
@@ -146,18 +116,17 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~BuildModelWorker();
-        virtual GetWorkerJobType() const;
-        virtual Service(int);
+        virtual uint64_t GetWorkerJobType() const;
+        virtual uint8_t* Service(int arg1);
         BuildModelWorker();
 
-        // data members, from how the methods use this: 32 bytes, the first 8 are ComponentValueMixin
-        shared_ptr field_8; // offset 8
-        char _unknown_24[8];
+    private:
+        shared_ptr field_8;
+        uint8_t _unknown_24[8];
     };
 
-    // 0x100644fb0, 16 bytes, inline, placed by class name and debug map
-    // BuildModelWorker::GetWorkerJobType() const
-    undefined8 BuildModelWorker::GetWorkerJobType() {
+    // 0x100644fb0
+    uint64_t BuildModelWorker::GetWorkerJobType() const {
         return 50;
     }
 

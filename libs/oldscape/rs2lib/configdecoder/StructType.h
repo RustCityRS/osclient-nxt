@@ -1,178 +1,124 @@
 // libs/oldscape/rs2lib/configdecoder/StructType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x10024ee70, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::StructType>::ref_counter_shared(unsigned long, oldscape::configdecoder::StructType*): jumps straight to the base-object constructor
+    // 0x10024ee80
+    ref_counter_shared<oldscape::configdecoder::StructType>::ref_counter_shared(
+        unsigned long arg1, oldscape::configdecoder::StructType* structType)
+        : ref_counter_base() {}
 
-    // 0x10024ee80, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::StructType>::ref_counter_shared(unsigned long, oldscape::configdecoder::StructType*)
-    void ref_counter_shared<oldscape::configdecoder::StructType>::ref_counter_shared(ulong param_1,
-                                                                                     StructType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee75c8 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(StructType**)(this + 24) = param_2;
-    }
-
-    // 0x10024eec0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::configdecoder::StructType>::DeleteData()
+    // 0x10024eec0
     void ref_counter_shared<oldscape::configdecoder::StructType>::DeleteData() {
-        ulong uVar1;
+        ref_counter_shared<oldscape::configdecoder::StructType> _vtbl* prVar1;
         long lVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar2 = 0;
-                uVar1 = 0;
+                prVar1 = nullptr;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~StructType();
-                    uVar1 = uVar1 + 1;
+                    ((StructType*)((long)&(this[3]._vptr)->_dtor + lVar2))->~StructType();
+                    prVar1 = (ref_counter_shared<oldscape::configdecoder::StructType> _vtbl*)((long)&prVar1->_dtor + 1);
                     lVar2 = lVar2 + 64;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (prVar1 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
-    // 0x10024f990, 32 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::configdecoder::VarBitType* placement_new<oldscape::configdecoder::VarBitType>(void*)
-    VarBitType* placement_new<oldscape::configdecoder::VarBitType>(void* param_1) {
-        *(undefined4*)((long)param_1 + 8) = 0;
-        *(undefined8*)param_1 = 0;
-        return param_1;
+    // 0x10024f990
+    oldscape::configdecoder::VarBitType* placement_new<oldscape::configdecoder::VarBitType>(void* arg1) {
+        *(uint32_t*)((long)arg1 + 8) = 0;
+        *(uint64_t*)arg1 = 0;
+        return arg1;
     }
 
-    // 0x10024f9b0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>* placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>, int, oldscape::configdecoder::VarBitType*&>(void*, int&&, oldscape::configdecoder::VarBitType*&)
-    ref_counter_shared_trivial* jag::placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>, int,
-                                                   oldscape::configdecoder::VarBitType*&>(void* param_1, int* param_2,
-                                                                                          VarBitType** param_3) {
-        ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>::ref_counter_shared_trivial(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x10024f9b0
+    ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>*
+    placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>, int,
+                  oldscape::configdecoder::VarBitType*&>(void* arg1, int&& arg2,
+                                                         oldscape::configdecoder::VarBitType*& arg3) {
+        new (arg1) ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x10024f9d0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarBitType*): jumps straight to the base-object constructor
+    // 0x10024f9e0
+    ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>::ref_counter_shared_trivial(
+        unsigned long arg1, oldscape::configdecoder::VarBitType* varBitType)
+        : ref_counter_base() {}
 
-    // 0x10024f9e0, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarBitType*)
-    void
-    ref_counter_shared_trivial<oldscape::configdecoder::VarBitType>::ref_counter_shared_trivial(ulong param_1,
-                                                                                                VarBitType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7c70 + 16;
+    // 0x10024fc30
+    ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>*
+    placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>, int,
+                  oldscape::configdecoder::VarConBitType*&>(void* arg1, int&& arg2,
+                                                            oldscape::configdecoder::VarConBitType*& arg3) {
+        new (arg1) ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x10024fc30, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>* placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>, int, oldscape::configdecoder::VarConBitType*&>(void*, int&&, oldscape::configdecoder::VarConBitType*&)
-    ref_counter_shared_trivial*
-    jag::placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>, int,
-                       oldscape::configdecoder::VarConBitType*&>(void* param_1, int* param_2, VarConBitType** param_3) {
-        ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>::ref_counter_shared_trivial(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x10024fc60
+    ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>::ref_counter_shared_trivial(
+        unsigned long arg1, oldscape::configdecoder::VarConBitType* varConBitType)
+        : ref_counter_base() {}
+
+    // 0x1002506f0
+    ref_counter_shared_trivial<oldscape::configdecoder::VarConType>*
+    placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarConType>, int,
+                  oldscape::configdecoder::VarConType*&>(void* arg1, int&& arg2,
+                                                         oldscape::configdecoder::VarConType*& arg3) {
+        new (arg1) ref_counter_shared_trivial<oldscape::configdecoder::VarConType>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x10024fc50, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarConBitType*): jumps straight to the base-object constructor
+    // 0x100250720
+    ref_counter_shared_trivial<oldscape::configdecoder::VarConType>::ref_counter_shared_trivial(
+        unsigned long arg1, oldscape::configdecoder::VarConType* varConType)
+        : ref_counter_base() {}
 
-    // 0x10024fc60, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarConBitType*)
-    void ref_counter_shared_trivial<oldscape::configdecoder::VarConBitType>::ref_counter_shared_trivial(
-        ulong param_1, VarConBitType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7ca0 + 16;
+    // 0x100250dd0
+    ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>*
+    placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>, int,
+                  oldscape::configdecoder::VarGlobalType*&>(void* arg1, int&& arg2,
+                                                            oldscape::configdecoder::VarGlobalType*& arg3) {
+        new (arg1) ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x1002506f0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarConType>* placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarConType>, int, oldscape::configdecoder::VarConType*&>(void*, int&&, oldscape::configdecoder::VarConType*&)
-    ref_counter_shared_trivial* jag::placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarConType>, int,
-                                                   oldscape::configdecoder::VarConType*&>(void* param_1, int* param_2,
-                                                                                          VarConType** param_3) {
-        ref_counter_shared_trivial<oldscape::configdecoder::VarConType>::ref_counter_shared_trivial(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100250e00
+    ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>::ref_counter_shared_trivial(
+        unsigned long arg1, oldscape::configdecoder::VarGlobalType* varGlobalType)
+        : ref_counter_base() {}
+
+    // 0x1002510d0
+    ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>*
+    placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>, int,
+                  oldscape::configdecoder::VarObjType*&>(void* arg1, int&& arg2,
+                                                         oldscape::configdecoder::VarObjType*& arg3) {
+        new (arg1) ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x100250710, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarConType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarConType*): jumps straight to the base-object constructor
+    // 0x100251100
+    ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>::ref_counter_shared_trivial(
+        unsigned long arg1, oldscape::configdecoder::VarObjType* varObjType)
+        : ref_counter_base() {}
 
-    // 0x100250720, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarConType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarConType*)
-    void
-    ref_counter_shared_trivial<oldscape::configdecoder::VarConType>::ref_counter_shared_trivial(ulong param_1,
-                                                                                                VarConType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7c78 + 16;
+    // 0x100251b90
+    oldscape::configdecoder::VarcType* placement_new<oldscape::configdecoder::VarcType>(void* arg1) {
+        *(uint8_t*)arg1 = 0;
+        new (arg1) oldscape::configdecoder::VeccType();
+        return arg1;
     }
 
-    // 0x100250dd0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>* placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>, int, oldscape::configdecoder::VarGlobalType*&>(void*, int&&, oldscape::configdecoder::VarGlobalType*&)
-    ref_counter_shared_trivial*
-    jag::placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>, int,
-                       oldscape::configdecoder::VarGlobalType*&>(void* param_1, int* param_2, VarGlobalType** param_3) {
-        ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>::ref_counter_shared_trivial(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x100250df0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarGlobalType*): jumps straight to the base-object constructor
-
-    // 0x100250e00, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarGlobalType*)
-    void ref_counter_shared_trivial<oldscape::configdecoder::VarGlobalType>::ref_counter_shared_trivial(
-        ulong param_1, VarGlobalType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7ca8 + 16;
-    }
-
-    // 0x1002510d0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>* placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>, int, oldscape::configdecoder::VarObjType*&>(void*, int&&, oldscape::configdecoder::VarObjType*&)
-    ref_counter_shared_trivial* jag::placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>, int,
-                                                   oldscape::configdecoder::VarObjType*&>(void* param_1, int* param_2,
-                                                                                          VarObjType** param_3) {
-        ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>::ref_counter_shared_trivial(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x1002510f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarObjType*): jumps straight to the base-object constructor
-
-    // 0x100251100, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>::ref_counter_shared_trivial(unsigned long, oldscape::configdecoder::VarObjType*)
-    void
-    ref_counter_shared_trivial<oldscape::configdecoder::VarObjType>::ref_counter_shared_trivial(ulong param_1,
-                                                                                                VarObjType* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7c80 + 16;
-    }
-
-    // 0x100251b90, 32 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::configdecoder::VarcType* placement_new<oldscape::configdecoder::VarcType>(void*)
-    /* oldscape::configdecoder::VeccType*
-   placement_new<oldscape::configdecoder::VeccType>(void*) */
-
-    VeccType* placement_new<oldscape::configdecoder::VeccType>(void* param_1) {
-        *(undefined1*)param_1 = 0;
-        oldscape::configdecoder::VeccType::VeccType(param_1);
-        return param_1;
-    }
-
-    // 0x100251bb0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared_trivial<oldscape::configdecoder::VarcType>* placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarcType>, int, oldscape::configdecoder::VarcType*&>(void*, int&&, oldscape::configdecoder::VarcType*&)
-    ref_counter_shared_trivial* jag::placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarcType>, int,
-                                                   oldscape::configdecoder::VarcType*&>(void* param_1, int* param_2,
-                                                                                        VarcType** param_3) {
-        ref_counter_shared_trivial<oldscape::configdecoder::VarcType>::ref_counter_shared_trivial(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x100251bb0
+    ref_counter_shared_trivial<oldscape::configdecoder::VarcType>*
+    placement_new<ref_counter_shared_trivial<oldscape::configdecoder::VarcType>, int,
+                  oldscape::configdecoder::VarcType*&>(void* arg1, int&& arg2,
+                                                       oldscape::configdecoder::VarcType*& arg3) {
+        new (arg1) ref_counter_shared_trivial<oldscape::configdecoder::VarcType>((long)*arg2, arg3);
+        return arg1;
     }
 
 } // namespace jag
@@ -180,44 +126,31 @@ namespace jag {
 namespace jag::oldscape::configdecoder {
     class StructType {
     public:
-        void Init(jagex3::Js5*);
-        StructType* List(int);
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&);
+        void Init(jagex3::Js5* js5);
+        auto List(int arg1);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ);
         void PostDecode();
-        void GetParam(int, int);
-        GetParam(int, eastl::string const&);
+        void GetParam(int arg1, int arg2);
+        auto GetParam(int arg1, const eastl::string& str);
         void ResetCache();
-        void Decode(PacketJ<Array<unsigned char, eastl::allocator>>&, int);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ, int arg2);
         StructType();
         ~StructType();
-        static /* 8 bytes */ m_pConfigClient;
-        static /* 5376 bytes */ m_recentUse;
+        static int64_t m_pConfigClient;
+        static LRUHashCache<StructType, 64ul, 65ul, false, unsigned long long> m_recentUse;
 
-        // data members, from how the methods use this: 16 bytes
-        char _unknown_0[8];
-        long field_8; // offset 8
+        uint8_t _unknown_0[16];
     };
 
-    // 0x10024ee20, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // StructType::StructType(): jumps straight to the base-object constructor
+    // 0x10024ee30
+    StructType::StructType() {
 
-    // 0x10024ee30, 64 bytes, base-object constructor, inline, placed by class name and debug map
-    // StructType::StructType()
-    void StructType::StructType() {
-        allocator local_20[8];
-
-        eastl::allocator::allocator(local_20, "EASTL hash_map");
-        new (&field_8, local_20) eastl::hash_map<long long, ParamTypeHelper::ParamVariant, eastl::hash<long long>,
-                                                 eastl::equal_to<long long>, eastl::allocator, false>();
+        new (&field_8) eastl::hash_map<long long, ParamTypeHelper::ParamVariant>(local_20);
     }
 
-    // 0x10024ef10, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // StructType::~StructType(): jumps straight to the base-object destructor
-
-    // 0x10024ef20, 16 bytes, base-object destructor, inline, placed by class name and debug map
-    // StructType::~StructType()
-    void StructType::~StructType() {
-        (&field_8)->~hash_map();
+    // 0x10024ef20
+    StructType::~StructType() {
+        field_8.~hash_map();
     }
 
 } // namespace jag::oldscape::configdecoder

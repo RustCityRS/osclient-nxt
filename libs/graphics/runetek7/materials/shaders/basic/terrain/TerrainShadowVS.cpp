@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/materials/shaders/basic/terrain/TerrainShadowVS.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
@@ -8,77 +7,54 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~TerrainShadowVS();
-        virtual GetSource(EffectManager const&, EffectList const&) const;
+        virtual auto GetSource(const EffectManager& effectManager, const EffectList& effectList) const;
         TerrainShadowVS();
 
-        // data members, from how the methods use this: 40 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
+    private:
+        uint64_t field_8;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
     };
 
-    // 0x100022b10: the linker folded this into oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    TerrainShadowVS::~TerrainShadowVS();
+    // 0x100022b10: TerrainShadowVS::~TerrainShadowVS() has the same machine code as oldscape::option::ScriptOption<int, oldscape::option::DeviceOptionScriptID>::~ScriptOption()
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    TerrainShadowVS::~TerrainShadowVS();
+    // 0x10002a770: TerrainShadowVS::~TerrainShadowVS() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10004a690: the linker folded this into oldscape::option::ScriptOption<bool, oldscape::option::DeviceOptionScriptID>::~ScriptOption(), which has identical code
-    TerrainShadowVS::~TerrainShadowVS();
-
-    // 0x10088b320, 112 bytes, base-object constructor, placed by class name and debug map
-    // TerrainShadowVS::TerrainShadowVS()
-    void TerrainShadowVS::TerrainShadowVS() {
-        EffectList local_58[16];
-        EffectList local_48[16];
-        undefined1* local_38;
-        undefined8 local_30;
-        undefined1 local_21;
-
-        local_21 = 79;
-        local_38 = &local_21;
-        local_30 = 1;
-        EffectList::EffectList(local_58, (initializer_list*)&local_38);
-        EffectList::EffectList(local_48);
+    // 0x10088b320
+    TerrainShadowVS::TerrainShadowVS() {
+        uint8_t local_21 = 79;
+        uint64_t local_30 = 1;
+        EffectList local_58(&local_21);
+        EffectList local_48;
         new (this) ShaderSource(local_58, local_48);
-        field_0 = &PTR__ScriptOption_100f16e40;
     }
 
-    // 0x10088b390, 16 bytes, complete-object constructor, placed by class name and debug map
-    // TerrainShadowVS::TerrainShadowVS(): jumps straight to the base-object constructor
+    // 0x10088b3a0
+    auto TerrainShadowVS::GetSource(const EffectManager& effectManager, const EffectList& effectList) const {
+        basic_ostream<char, std::char_traits<char> _>* basic_ostream;
+        uint8_t local_150[280];
+        ViewTransformsFragment local_38;
 
-    // 0x10088b3a0, 320 bytes, placed by class name and debug map
-    // TerrainShadowVS::GetSource(EffectManager const&, EffectList const&) const
-    TerrainShadowVS* TerrainShadowVS::GetSource(EffectManager* param_1, EffectList* param_2) {
-        ostream* poVar1;
-        ostream* poVar2;
-        MapArea* this_00;
-        long lVar3;
-        RT7VertexShaderSourceStream local_150[2];
-        ViewTransformsFragment local_38[24];
-
-        RT7VertexShaderSourceStream::RT7VertexShaderSourceStream(local_150);
-        poVar1 = (ostream*)(local_150[0].field_0 + 16);
-        std::operator<<(poVar1, "attribute vec3 aVertexPosition;\n");
-        poVar2 = std::operator<<(poVar1, "uniform mat4 uModelMatrix;\n");
-        local_38->BuildUniforms();
-        std::operator<<(poVar2, (basic_string*)local_38);
-        local_38->~basic_string();
-        std::operator<<(poVar1, "\nvoid main()\n{\n   gl_Position = uModelMatrix * vec4(aVertexPosition, 1.0);\n");
-        poVar2 = poVar1;
-        std::operator<<(poVar1, " gl_Position.z = (gl_Position.z - 0.5) * 2.0;\n");
-        this_00 = (MapArea*)poVar2->Instance();
-        lVar3 = this_00->GetOrigin();
-        if (*(char*)(lVar3 + 184) == '\0') {
-            std::operator<<(poVar1, "   const float shadowProjMatNearClip = -1.0;\n   gl_Position.z = "
-                                    "max(shadowProjMatNearClip, gl_Position.z);\n");
+        new (local_150) RT7VertexShaderSourceStream(*this, effectList, 2, 2, 1, 1, 1, 1, 24);
+        basic_ostream = (basic_ostream<char, std::char_traits<char> _>*)(local_150 + 16);
+        std::operator<<(basic_ostream, "attribute vec3 aVertexPosition;\n");
+        basic_ostream<char, std::char_traits<char> _>* pbVar1 =
+            std::operator<<(basic_ostream, "uniform mat4 uModelMatrix;\n");
+        local_38.BuildUniforms();
+        std::operator<<(pbVar1, &local_38);
+        std::operator<<(basic_ostream,
+                        "\nvoid main()\n{\n   gl_Position = uModelMatrix * vec4(aVertexPosition, 1.0);\n");
+        pbVar1 = basic_ostream;
+        std::operator<<(basic_ostream, " gl_Position.z = (gl_Position.z - 0.5) * 2.0;\n");
+        long lVar2 = ((MapArea*)pbVar1->Instance())->GetOrigin();
+        if (*(char*)(lVar2 + 184) == '\0') {
+            std::operator<<(basic_ostream, "   const float shadowProjMatNearClip = -1.0;\n   gl_Position.z = "
+                                           "max(shadowProjMatNearClip, gl_Position.z);\n");
         }
-        std::operator<<(poVar1, "}\n");
-        str();
-        local_150->~RT7VertexShaderSourceStream();
-        return this;
+        std::operator<<(basic_ostream, "}\n");
+        auto result = local_150->str();
+        return result;
     }
 
 } // namespace jag::graphics

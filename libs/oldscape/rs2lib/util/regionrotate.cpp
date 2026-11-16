@@ -1,97 +1,84 @@
 // libs/oldscape/rs2lib/util/regionrotate.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 namespace jag::oldscape::util {
     class RegionRotate {
     public:
-        int DX(int, int, int);
-        int DX(int, int, int, int, int, int);
-        int DZ(int, int, int);
-        int DZ(int, int, int, int, int, int);
+        int DX(int arg1, int arg2, int arg3);
+        int DX(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+        int DZ(int arg1, int arg2, int arg3);
+        int DZ(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
     };
 
-    // 0x100206640, 48 bytes, placed by class name and debug map
-    // RegionRotate::DX(int, int, int)
-    int RegionRotate::DX(int param_1, int param_2, int param_3) {
-        uint uVar1;
-
-        uVar1 = param_3 & 3;
+    // 0x100206640
+    int RegionRotate::DX(int arg1, int arg2, int arg3) {
+        unsigned int uVar1 = arg3 & 3;
         if (uVar1 != 0) {
             if (uVar1 == 2) {
-                return 7 - param_1;
+                return 7 - arg1;
             }
             if (uVar1 == 1) {
-                return param_2;
+                return arg2;
             }
-            param_1 = 7 - param_2;
+            arg1 = 7 - arg2;
         }
-        return param_1;
+        return arg1;
     }
 
-    // 0x100206670, 80 bytes, placed by class name and debug map
-    // RegionRotate::DX(int, int, int, int, int, int)
-    int RegionRotate::DX(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6) {
-        uint uVar1;
-
-        uVar1 = param_3 & 3;
+    // 0x100206670
+    int RegionRotate::DX(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
+        unsigned int uVar1 = arg3 & 3;
         if (uVar1 != 0) {
             if (uVar1 == 2) {
-                if ((param_6 & 1U) == 0) {
-                    param_5 = param_4;
+                if ((arg6 & 1U) == 0) {
+                    arg5 = arg4;
                 }
-                return 8 - (param_5 + param_1);
+                return 8 - (arg5 + arg1);
             }
             if (uVar1 == 1) {
-                return param_2;
+                return arg2;
             }
-            if ((param_6 & 1U) == 0) {
-                param_4 = param_5;
+            if ((arg6 & 1U) == 0) {
+                arg4 = arg5;
             }
-            param_1 = 8 - (param_4 + param_2);
+            arg1 = 8 - (arg4 + arg2);
         }
-        return param_1;
+        return arg1;
     }
 
-    // 0x1002066c0, 48 bytes, placed by class name and debug map
-    // RegionRotate::DZ(int, int, int)
-    int RegionRotate::DZ(int param_1, int param_2, int param_3) {
-        uint uVar1;
-
-        uVar1 = param_3 & 3;
+    // 0x1002066c0
+    int RegionRotate::DZ(int arg1, int arg2, int arg3) {
+        unsigned int uVar1 = arg3 & 3;
         if (uVar1 == 0) {
-            return param_2;
+            return arg2;
         }
         if (uVar1 == 2) {
-            param_1 = 7 - param_2;
+            arg1 = 7 - arg2;
         } else if (uVar1 == 1) {
-            return 7 - param_1;
+            return 7 - arg1;
         }
-        return param_1;
+        return arg1;
     }
 
-    // 0x1002066f0, 80 bytes, placed by class name and debug map
-    // RegionRotate::DZ(int, int, int, int, int, int)
-    int RegionRotate::DZ(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6) {
-        uint uVar1;
-
-        uVar1 = param_3 & 3;
+    // 0x1002066f0
+    int RegionRotate::DZ(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
+        unsigned int uVar1 = arg3 & 3;
         if (uVar1 == 0) {
-            return param_2;
+            return arg2;
         }
         if (uVar1 == 2) {
-            if ((param_6 & 1U) == 0) {
-                param_4 = param_5;
+            if ((arg6 & 1U) == 0) {
+                arg4 = arg5;
             }
-            param_1 = 8 - (param_4 + param_2);
+            arg1 = 8 - (arg4 + arg2);
         } else if (uVar1 == 1) {
-            if ((param_6 & 1U) == 0) {
-                param_5 = param_4;
+            if ((arg6 & 1U) == 0) {
+                arg5 = arg4;
             }
-            return 8 - (param_5 + param_1);
+            return 8 - (arg5 + arg1);
         }
-        return param_1;
+        return arg1;
     }
 
 } // namespace jag::oldscape::util

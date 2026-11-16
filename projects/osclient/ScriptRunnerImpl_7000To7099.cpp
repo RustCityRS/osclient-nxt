@@ -1,911 +1,838 @@
 // projects/osclient/ScriptRunnerImpl_7000To7099.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "ScriptRunnerImpl.h"
 
 namespace jag::oldscape {
-    // 0x1000b3b70, 6944 bytes, placed by class name and debug map
-    // ScriptRunnerImpl::ExecuteCommand7000To7099(ScriptOp, ClientScript const&, bool)
-    undefined8 ScriptRunnerImpl::ExecuteCommand7000To7099(long param_1, undefined4 param_2) {
+    // 0x1000b3b70
+    uint64_t ScriptRunnerImpl::ExecuteCommand7000To7099(ScriptOp scriptOp, const ClientScript& clientScript,
+                                                        bool arg3) {
         int iVar1;
-        int iVar2;
-        byte bVar3;
-        undefined2 uVar4;
-        uint uVar5;
-        Client* this;
-        ushort* puVar6;
-        undefined2* puVar7;
-        undefined4* puVar8;
+        uint8_t bVar2;
+        uint16_t uVar3;
+        EntityHighlightBitFlags EVar4;
+        HighlightCategory HVar5;
+        unsigned int uVar6;
+        uint32_t* puVar7;
+        unsigned short* puVar8;
         HighlightManager* pHVar9;
-        char* pcVar10;
-        eastl::string* this_00;
-        basic_string* pbVar11;
-        uint* puVar12;
-        int* piVar13;
-        ObjTagManager* pOVar14;
-        undefined4 uVar15;
-        long lVar16;
-        ulong uVar17;
-        undefined8 uVar18;
-        array<int, 1000ul>* paVar19;
+        char* str;
+        eastl::string* this_01;
+        eastl::string* pbVar10;
+        unsigned int* puVar11;
+        int* piVar12;
+        ObjTagManager* pOVar13;
+        int iVar14;
+        long lVar15;
+        unsigned long uVar16;
+        uint8_t* puVar18;
         OpGroup local_1a8;
         int local_40;
-        uint local_3c;
+        unsigned int local_3c;
         int local_38;
         int local_34;
 
-        uVar18 = 2;
-        this = (Client*)Client::Instance();
-        switch (param_2) {
+        uint64_t uVar17 = 2;
+        auto this_00 = Client::Instance();
+        switch (scriptOp) {
         case 7000:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 5;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            local_34 = *puVar8;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 4);
-            uVar4 = jag::math::RunetekColour::RGBToHSL(*puVar12);
-            local_38 = CONCAT22(local_38._2_2_, uVar4);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar6 = (ushort*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            local_3c = (uint)*puVar6;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 5;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            puVar7 = (uint32_t*)(*puVar18)[uVar16];
+            local_34 = *puVar7;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 - 4];
+            uVar3 = jag::math::RunetekColour::RGBToHSL(*puVar11);
+            local_38 = (((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar3);
+            iVar14 = field_104092;
+            puVar8 = (unsigned short*)(*puVar18)[(long)iVar14 + 2];
+            local_3c = (unsigned int)*puVar8;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
             local_1a8.field_0 = 0;
             local_40 = 255;
-            uVar5 = jag::math::Clamp<int>(piVar13, (int*)&local_1a8, &local_40);
-            puVar7 = (undefined2*)std::array<int, 1000ul>::operator[](paVar19, (long)*(int*)(param_1 + 104092) + 4);
-            uVar4 = *puVar7;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar5 = uVar5 & 255;
-            uVar18 = 0;
+            EVar4 = jag::math::Clamp<int>(*piVar12, local_1a8, local_40);
+            (*puVar18)[(long)field_104092 + 4];
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = (HighlightCategory)pHVar9;
+            EVar4 = EVar4 & 255;
+            iVar14 = 0;
             goto LAB_1000b4e5d;
         case 7001:
-            lVar16 = (long)*(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)(lVar16 - 3U);
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 3U);
-            iVar2 = *piVar13;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 2);
-            iVar1 = *piVar13;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->AddNPCHighlight(iVar2, iVar1, uVar5);
+            lVar15 = (long)field_104092;
+            field_104092 = (int)(lVar15 - 3U);
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[lVar15 - 3U];
+            iVar14 = *piVar12;
+            piVar12 = (int*)(*puVar18)[lVar15 - 2];
+            iVar1 = *piVar12;
+            puVar11 = (unsigned int*)(*puVar18)[lVar15 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->AddNPCHighlight(iVar14, iVar1, uVar6);
             break;
         case 7002:
-            lVar16 = (long)*(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)(lVar16 - 3U);
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 3U);
-            iVar2 = *piVar13;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 2);
-            iVar1 = *piVar13;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->RemoveNPCHighlight(iVar2, iVar1, uVar5);
+            lVar15 = (long)field_104092;
+            field_104092 = (int)(lVar15 - 3U);
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[lVar15 - 3U];
+            iVar14 = *piVar12;
+            piVar12 = (int*)(*puVar18)[lVar15 - 2];
+            iVar1 = *piVar12;
+            puVar11 = (unsigned int*)(*puVar18)[lVar15 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->RemoveNPCHighlight(iVar14, iVar1, uVar6);
             break;
         case 7003:
-            lVar16 = (long)*(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)(lVar16 - 3U);
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 3U);
-            local_34 = *piVar13;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 2);
-            iVar2 = *piVar13;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            bVar3 = pHVar9->IsNPCHighlighted(local_34, iVar2, uVar5);
+            lVar15 = (long)field_104092;
+            field_104092 = (int)(lVar15 - 3U);
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[lVar15 - 3U];
+            local_34 = *piVar12;
+            piVar12 = (int*)(*puVar18)[lVar15 - 2];
+            iVar14 = *piVar12;
+            puVar11 = (unsigned int*)(*puVar18)[lVar15 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            bVar2 = pHVar9->IsNPCHighlighted(local_34, iVar14, uVar6);
             goto LAB_1000b52b8;
         case 7004:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar15 = *puVar8;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar18 = 0;
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = 0;
             goto LAB_1000b4f78;
         case 7005:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 5;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            local_34 = *puVar8;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 4);
-            uVar4 = jag::math::RunetekColour::RGBToHSL(*puVar12);
-            local_38 = CONCAT22(local_38._2_2_, uVar4);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar6 = (ushort*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            local_3c = (uint)*puVar6;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 5;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            puVar7 = (uint32_t*)(*puVar18)[uVar16];
+            local_34 = *puVar7;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 - 4];
+            uVar3 = jag::math::RunetekColour::RGBToHSL(*puVar11);
+            local_38 = (((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar3);
+            iVar14 = field_104092;
+            puVar8 = (unsigned short*)(*puVar18)[(long)iVar14 + 2];
+            local_3c = (unsigned int)*puVar8;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
             local_1a8.field_0 = 0;
             local_40 = 255;
-            uVar5 = jag::math::Clamp<int>(piVar13, (int*)&local_1a8, &local_40);
-            puVar7 = (undefined2*)std::array<int, 1000ul>::operator[](paVar19, (long)*(int*)(param_1 + 104092) + 4);
-            uVar4 = *puVar7;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->ConfigureChannel(1, local_34, (undefined2)local_38, local_3c, uVar5 & 255, uVar4);
+            EVar4 = jag::math::Clamp<int>(*piVar12, local_1a8, local_40);
+            (*puVar18)[(long)field_104092 + 4];
+            pHVar9 = this_00->GetHighlightManager();
+            highlight::HighlightManager::ConfigureChannel((HighlightCategory)pHVar9, 1, (unsigned short)local_34,
+                                                          (unsigned short)local_38, (unsigned char)local_3c,
+                                                          EVar4 & 255);
             return 1;
         case 7006:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar1 = *piVar13;
-            puVar12 =
-                (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->AddNPCTypeHighlight(iVar1, uVar5, false);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar1 = *piVar12;
+            puVar11 = &field_100092[(long)iVar14 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->AddNPCTypeHighlight(iVar1, uVar6, false);
             break;
         case 7007:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar1 = *piVar13;
-            puVar12 =
-                (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->RemoveNPCTypeHighlight(iVar1, uVar5);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar1 = *piVar12;
+            puVar11 = &field_100092[(long)iVar14 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->RemoveNPCTypeHighlight(iVar1, uVar6);
             break;
         case 7008:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar1 = *piVar13;
-            puVar12 =
-                (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            bVar3 = pHVar9->IsNPCTypeHighlighted(iVar1, uVar5);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar1 = *piVar12;
+            puVar11 = &field_100092[(long)iVar14 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            bVar2 = pHVar9->IsNPCTypeHighlighted(iVar1, uVar6);
             goto LAB_1000b52b8;
         case 7009:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar15 = *puVar8;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->ClearHighlights(1, uVar15);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->ClearHighlights(1, iVar14);
             return 1;
         case 7010:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 5;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            local_34 = *puVar8;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 4);
-            uVar4 = jag::math::RunetekColour::RGBToHSL(*puVar12);
-            local_38 = CONCAT22(local_38._2_2_, uVar4);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar6 = (ushort*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            local_3c = (uint)*puVar6;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 5;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            puVar7 = (uint32_t*)(*puVar18)[uVar16];
+            local_34 = *puVar7;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 - 4];
+            uVar3 = jag::math::RunetekColour::RGBToHSL(*puVar11);
+            local_38 = (((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar3);
+            iVar14 = field_104092;
+            puVar8 = (unsigned short*)(*puVar18)[(long)iVar14 + 2];
+            local_3c = (unsigned int)*puVar8;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
             local_1a8.field_0 = 0;
             local_40 = 255;
-            uVar5 = jag::math::Clamp<int>(piVar13, (int*)&local_1a8, &local_40);
-            puVar7 = (undefined2*)std::array<int, 1000ul>::operator[](paVar19, (long)*(int*)(param_1 + 104092) + 4);
-            uVar4 = *puVar7;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar5 = uVar5 & 255;
-            uVar18 = 2;
+            EVar4 = jag::math::Clamp<int>(*piVar12, local_1a8, local_40);
+            (*puVar18)[(long)field_104092 + 4];
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = (HighlightCategory)pHVar9;
+            EVar4 = EVar4 & 255;
+            iVar14 = 2;
             goto LAB_1000b4e5d;
         case 7011:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 4;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            iVar1 = *piVar13;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 3);
-            new (&local_1a8) rs2lib::CoordGrid(*piVar13);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            uVar5 = *puVar12;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
-            iVar2 = *piVar13;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->AddLocHighlight(iVar1, (CoordGrid*)&local_1a8, uVar5, iVar2 != 0, false);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 4;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[uVar16];
+            iVar1 = *piVar12;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 - 3];
+            local_1a8 = rs2lib::CoordGrid(*piVar12);
+            iVar14 = field_104092;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 + 2];
+            uVar6 = *puVar11;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->AddLocHighlight(iVar1, local_1a8, uVar6, iVar14 != 0, false);
             break;
         case 7012:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 4;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            iVar1 = *piVar13;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 3);
-            new (&local_1a8) rs2lib::CoordGrid(*piVar13);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            uVar5 = *puVar12;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
-            iVar2 = *piVar13;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->RemoveLocHighlight(iVar1, (CoordGrid*)&local_1a8, uVar5, iVar2 != 0);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 4;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[uVar16];
+            iVar1 = *piVar12;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 - 3];
+            local_1a8 = rs2lib::CoordGrid(*piVar12);
+            iVar14 = field_104092;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 + 2];
+            uVar6 = *puVar11;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->RemoveLocHighlight(iVar1, local_1a8, uVar6, iVar14 != 0);
             break;
         case 7013:
-            lVar16 = (long)*(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)(lVar16 - 4U);
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 4U);
-            local_34 = *piVar13;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 3);
-            local_38 = *piVar13;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 2);
-            uVar5 = *puVar12;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 1);
-            iVar2 = *piVar13;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            bVar3 = pHVar9->IsLocHighlighted(local_34, local_38, uVar5, iVar2 != 0);
+            lVar15 = (long)field_104092;
+            field_104092 = (int)(lVar15 - 4U);
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[lVar15 - 4U];
+            local_34 = *piVar12;
+            piVar12 = (int*)(*puVar18)[lVar15 - 3];
+            local_38 = *piVar12;
+            puVar11 = (unsigned int*)(*puVar18)[lVar15 - 2];
+            uVar6 = *puVar11;
+            piVar12 = (int*)(*puVar18)[lVar15 - 1];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            bVar2 = pHVar9->IsLocHighlighted(local_34, local_38, uVar6, iVar14 != 0);
             goto LAB_1000b4d4c;
         case 7014:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar15 = *puVar8;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar18 = 2;
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = 2;
             goto LAB_1000b4f78;
         case 7015:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 5;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            local_34 = *puVar8;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 4);
-            uVar4 = jag::math::RunetekColour::RGBToHSL(*puVar12);
-            local_38 = CONCAT22(local_38._2_2_, uVar4);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar6 = (ushort*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            local_3c = (uint)*puVar6;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 5;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            puVar7 = (uint32_t*)(*puVar18)[uVar16];
+            local_34 = *puVar7;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 - 4];
+            uVar3 = jag::math::RunetekColour::RGBToHSL(*puVar11);
+            local_38 = (((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar3);
+            iVar14 = field_104092;
+            puVar8 = (unsigned short*)(*puVar18)[(long)iVar14 + 2];
+            local_3c = (unsigned int)*puVar8;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
             local_1a8.field_0 = 0;
             local_40 = 255;
-            uVar5 = jag::math::Clamp<int>(piVar13, (int*)&local_1a8, &local_40);
-            puVar7 = (undefined2*)std::array<int, 1000ul>::operator[](paVar19, (long)*(int*)(param_1 + 104092) + 4);
-            uVar4 = *puVar7;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar5 = uVar5 & 255;
-            uVar18 = 3;
+            EVar4 = jag::math::Clamp<int>(*piVar12, local_1a8, local_40);
+            (*puVar18)[(long)field_104092 + 4];
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = (HighlightCategory)pHVar9;
+            EVar4 = EVar4 & 255;
+            iVar14 = 3;
             goto LAB_1000b4e5d;
         case 7016:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar1 = *piVar13;
-            puVar12 =
-                (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->AddLocTypeHighlight(iVar1, uVar5, false);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar1 = *piVar12;
+            puVar11 = &field_100092[(long)iVar14 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->AddLocTypeHighlight(iVar1, uVar6, false);
             break;
         case 7017:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar1 = *piVar13;
-            puVar12 =
-                (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->RemoveLocTypeHighlight(iVar1, uVar5);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar1 = *piVar12;
+            puVar11 = &field_100092[(long)iVar14 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->RemoveLocTypeHighlight(iVar1, uVar6);
             break;
         case 7018:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar1 = *piVar13;
-            puVar12 =
-                (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            bVar3 = pHVar9->IsLocTypeHighlighted(iVar1, uVar5);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar1 = *piVar12;
+            puVar11 = &field_100092[(long)iVar14 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            bVar2 = pHVar9->IsLocTypeHighlighted(iVar1, uVar6);
             goto LAB_1000b52b8;
         case 7019:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar15 = *puVar8;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar18 = 3;
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = 3;
             goto LAB_1000b4f78;
         case 7020:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 5;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            local_34 = *puVar8;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 4);
-            uVar4 = jag::math::RunetekColour::RGBToHSL(*puVar12);
-            local_38 = CONCAT22(local_38._2_2_, uVar4);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar6 = (ushort*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            local_3c = (uint)*puVar6;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 5;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            puVar7 = (uint32_t*)(*puVar18)[uVar16];
+            local_34 = *puVar7;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 - 4];
+            uVar3 = jag::math::RunetekColour::RGBToHSL(*puVar11);
+            local_38 = (((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar3);
+            iVar14 = field_104092;
+            puVar8 = (unsigned short*)(*puVar18)[(long)iVar14 + 2];
+            local_3c = (unsigned int)*puVar8;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
             local_1a8.field_0 = 0;
             local_40 = 255;
-            uVar5 = jag::math::Clamp<int>(piVar13, (int*)&local_1a8, &local_40);
-            puVar7 = (undefined2*)std::array<int, 1000ul>::operator[](paVar19, (long)*(int*)(param_1 + 104092) + 4);
-            uVar4 = *puVar7;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar5 = uVar5 & 255;
-            uVar18 = 4;
+            EVar4 = jag::math::Clamp<int>(*piVar12, local_1a8, local_40);
+            (*puVar18)[(long)field_104092 + 4];
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = (HighlightCategory)pHVar9;
+            EVar4 = EVar4 & 255;
+            iVar14 = 4;
             goto LAB_1000b4e5d;
         case 7021:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 4;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            iVar1 = *piVar13;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 3);
-            new (&local_1a8) rs2lib::CoordGrid(*piVar13);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            uVar5 = *puVar12;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
-            iVar2 = *piVar13;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->AddObjHighlight(iVar1, (CoordGrid*)&local_1a8, uVar5, iVar2 != 0, false);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 4;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[uVar16];
+            iVar1 = *piVar12;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 - 3];
+            local_1a8 = rs2lib::CoordGrid(*piVar12);
+            iVar14 = field_104092;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 + 2];
+            uVar6 = *puVar11;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->AddObjHighlight(iVar1, local_1a8, uVar6, iVar14 != 0, false);
             break;
         case 7022:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 4;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            iVar1 = *piVar13;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 3);
-            new (&local_1a8) rs2lib::CoordGrid(*piVar13);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            uVar5 = *puVar12;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
-            iVar2 = *piVar13;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->RemoveObjHighlight(iVar1, (CoordGrid*)&local_1a8, uVar5, iVar2 != 0);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 4;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[uVar16];
+            iVar1 = *piVar12;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 - 3];
+            local_1a8 = rs2lib::CoordGrid(*piVar12);
+            iVar14 = field_104092;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 + 2];
+            uVar6 = *puVar11;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->RemoveObjHighlight(iVar1, local_1a8, uVar6, iVar14 != 0);
             break;
         case 7023:
-            lVar16 = (long)*(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)(lVar16 - 4U);
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 4U);
-            local_34 = *piVar13;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 3);
-            local_38 = *piVar13;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 2);
-            uVar5 = *puVar12;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 1);
-            iVar2 = *piVar13;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            bVar3 = pHVar9->IsObjHighlighted(local_34, local_38, uVar5, iVar2 != 0);
+            lVar15 = (long)field_104092;
+            field_104092 = (int)(lVar15 - 4U);
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[lVar15 - 4U];
+            local_34 = *piVar12;
+            piVar12 = (int*)(*puVar18)[lVar15 - 3];
+            local_38 = *piVar12;
+            puVar11 = (unsigned int*)(*puVar18)[lVar15 - 2];
+            uVar6 = *puVar11;
+            piVar12 = (int*)(*puVar18)[lVar15 - 1];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            bVar2 = pHVar9->IsObjHighlighted(local_34, local_38, uVar6, iVar14 != 0);
             goto LAB_1000b4d4c;
         case 7024:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar15 = *puVar8;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar18 = 4;
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = 4;
             goto LAB_1000b4f78;
         case 7025:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 5;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            local_34 = *puVar8;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 4);
-            uVar4 = jag::math::RunetekColour::RGBToHSL(*puVar12);
-            local_38 = CONCAT22(local_38._2_2_, uVar4);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar6 = (ushort*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            local_3c = (uint)*puVar6;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 5;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            puVar7 = (uint32_t*)(*puVar18)[uVar16];
+            local_34 = *puVar7;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 - 4];
+            uVar3 = jag::math::RunetekColour::RGBToHSL(*puVar11);
+            local_38 = (((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar3);
+            iVar14 = field_104092;
+            puVar8 = (unsigned short*)(*puVar18)[(long)iVar14 + 2];
+            local_3c = (unsigned int)*puVar8;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
             local_1a8.field_0 = 0;
             local_40 = 255;
-            uVar5 = jag::math::Clamp<int>(piVar13, (int*)&local_1a8, &local_40);
-            puVar7 = (undefined2*)std::array<int, 1000ul>::operator[](paVar19, (long)*(int*)(param_1 + 104092) + 4);
-            uVar4 = *puVar7;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar5 = uVar5 & 255;
-            uVar18 = 5;
+            EVar4 = jag::math::Clamp<int>(*piVar12, local_1a8, local_40);
+            (*puVar18)[(long)field_104092 + 4];
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = (HighlightCategory)pHVar9;
+            EVar4 = EVar4 & 255;
+            iVar14 = 5;
             goto LAB_1000b4e5d;
         case 7026:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar1 = *piVar13;
-            puVar12 =
-                (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->AddObjTypeHighlight(iVar1, uVar5, false);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar1 = *piVar12;
+            puVar11 = &field_100092[(long)iVar14 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->AddObjTypeHighlight(iVar1, uVar6, false);
             break;
         case 7027:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar1 = *piVar13;
-            puVar12 =
-                (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->RemoveObjTypeHighlight(iVar1, uVar5);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar1 = *piVar12;
+            puVar11 = &field_100092[(long)iVar14 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->RemoveObjTypeHighlight(iVar1, uVar6);
             break;
         case 7028:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar1 = *piVar13;
-            puVar12 =
-                (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            bVar3 = pHVar9->IsObjTypeHighlighted(iVar1, uVar5);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar1 = *piVar12;
+            puVar11 = &field_100092[(long)iVar14 - 1];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            bVar2 = pHVar9->IsObjTypeHighlighted(iVar1, uVar6);
             goto LAB_1000b52b8;
         case 7029:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar15 = *puVar8;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar18 = 5;
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = 5;
             goto LAB_1000b4f78;
         case 7030:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 5;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            local_34 = *puVar8;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 4);
-            uVar4 = jag::math::RunetekColour::RGBToHSL(*puVar12);
-            local_38 = CONCAT22(local_38._2_2_, uVar4);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar6 = (ushort*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            local_3c = (uint)*puVar6;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 5;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            puVar7 = (uint32_t*)(*puVar18)[uVar16];
+            local_34 = *puVar7;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 - 4];
+            uVar3 = jag::math::RunetekColour::RGBToHSL(*puVar11);
+            local_38 = (((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar3);
+            iVar14 = field_104092;
+            puVar8 = (unsigned short*)(*puVar18)[(long)iVar14 + 2];
+            local_3c = (unsigned int)*puVar8;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
             local_1a8.field_0 = 0;
             local_40 = 255;
-            uVar5 = jag::math::Clamp<int>(piVar13, (int*)&local_1a8, &local_40);
-            puVar7 = (undefined2*)std::array<int, 1000ul>::operator[](paVar19, (long)*(int*)(param_1 + 104092) + 4);
-            uVar4 = *puVar7;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar5 = uVar5 & 255;
-            uVar18 = 6;
+            EVar4 = jag::math::Clamp<int>(*piVar12, local_1a8, local_40);
+            (*puVar18)[(long)field_104092 + 4];
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = (HighlightCategory)pHVar9;
+            EVar4 = EVar4 & 255;
+            iVar14 = 6;
             goto LAB_1000b4e5d;
         case 7031:
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            new (&local_1a8) eastl::string(pbVar11);
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->AddPlayerHighlight((basic_string*)&local_1a8, uVar5, false);
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = eastl::string(*pbVar10);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->AddPlayerHighlight(local_1a8, uVar6, false);
             goto LAB_1000b53b5;
         case 7032:
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            new (&local_1a8) eastl::string(pbVar11);
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->RemovePlayerHighlight((basic_string*)&local_1a8, uVar5);
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = eastl::string(*pbVar10);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->RemovePlayerHighlight(local_1a8, uVar6);
             goto LAB_1000b53b5;
         case 7033:
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            new (&local_1a8) eastl::string(pbVar11);
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            bVar3 = pHVar9->IsPlayerHighlighted((basic_string*)&local_1a8, uVar5);
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = eastl::string(*pbVar10);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            bVar2 = pHVar9->IsPlayerHighlighted(local_1a8, uVar6);
             goto LAB_1000b5260;
         case 7034:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar15 = *puVar8;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar18 = 6;
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = 6;
             goto LAB_1000b4f78;
         case 7035:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 5;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            local_34 = *puVar8;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 4);
-            uVar4 = jag::math::RunetekColour::RGBToHSL(*puVar12);
-            local_38 = CONCAT22(local_38._2_2_, uVar4);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar6 = (ushort*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            local_3c = (uint)*puVar6;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 5;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            puVar7 = (uint32_t*)(*puVar18)[uVar16];
+            local_34 = *puVar7;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 - 4];
+            uVar3 = jag::math::RunetekColour::RGBToHSL(*puVar11);
+            local_38 = (((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar3);
+            iVar14 = field_104092;
+            puVar8 = (unsigned short*)(*puVar18)[(long)iVar14 + 2];
+            local_3c = (unsigned int)*puVar8;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
             local_1a8.field_0 = 0;
             local_40 = 255;
-            uVar5 = jag::math::Clamp<int>(piVar13, (int*)&local_1a8, &local_40);
-            puVar7 = (undefined2*)std::array<int, 1000ul>::operator[](paVar19, (long)*(int*)(param_1 + 104092) + 4);
-            uVar4 = *puVar7;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar5 = uVar5 & 255;
-            uVar18 = 7;
+            EVar4 = jag::math::Clamp<int>(*piVar12, local_1a8, local_40);
+            (*puVar18)[(long)field_104092 + 4];
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = (HighlightCategory)pHVar9;
+            EVar4 = EVar4 & 255;
+            iVar14 = 7;
             goto LAB_1000b4e5d;
         case 7036:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 3;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            new (&local_1a8) rs2lib::CoordGrid(*piVar13);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 1);
-            uVar5 = *puVar12;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            iVar2 = *piVar13;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->AddTileHighlight((CoordGrid*)&local_1a8, uVar5, iVar2 != 0, false);
+            uVar16 = (long)field_104092 - 3;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[uVar16];
+            local_1a8 = rs2lib::CoordGrid(*piVar12);
+            iVar14 = field_104092;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 + 1];
+            uVar6 = *puVar11;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 2];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->AddTileHighlight(local_1a8, uVar6, iVar14 != 0, false);
             break;
         case 7037:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 3;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            new (&local_1a8) rs2lib::CoordGrid(*piVar13);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 1);
-            uVar5 = *puVar12;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            iVar2 = *piVar13;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->RemoveTileHighlight((CoordGrid*)&local_1a8, uVar5, iVar2 != 0);
+            uVar16 = (long)field_104092 - 3;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[uVar16];
+            local_1a8 = rs2lib::CoordGrid(*piVar12);
+            iVar14 = field_104092;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 + 1];
+            uVar6 = *puVar11;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 2];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->RemoveTileHighlight(local_1a8, uVar6, iVar14 != 0);
             break;
         case 7038:
-            lVar16 = (long)*(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = (int)(lVar16 - 3U);
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 3U);
-            local_34 = *piVar13;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 2);
-            uVar5 = *puVar12;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, lVar16 - 1);
-            iVar2 = *piVar13;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            bVar3 = pHVar9->IsTileHighlighted(local_34, uVar5, iVar2 != 0);
+            lVar15 = (long)field_104092;
+            field_104092 = (int)(lVar15 - 3U);
+            puVar18 = &field_100092;
+            piVar12 = (int*)(*puVar18)[lVar15 - 3U];
+            local_34 = *piVar12;
+            puVar11 = (unsigned int*)(*puVar18)[lVar15 - 2];
+            uVar6 = *puVar11;
+            piVar12 = (int*)(*puVar18)[lVar15 - 1];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            bVar2 = pHVar9->IsTileHighlighted(local_34, uVar6, iVar14 != 0);
         LAB_1000b4d4c:
-            uVar5 = (uint)bVar3;
-            uVar17 = (ulong) * (int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = *(int*)(param_1 + 104092) + 1;
+            uVar6 = (unsigned int)bVar2;
+            uVar16 = (unsigned long)field_104092;
+            field_104092 = field_104092 + 1;
             goto LAB_1000b53f5;
         case 7039:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar15 = *puVar8;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar18 = 7;
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = 7;
             goto LAB_1000b4f78;
         case 7040:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 5;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            paVar19 = (array<int, 1000ul>*)(param_1 + 100092);
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[](paVar19, uVar17);
-            local_34 = *puVar8;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 - 4);
-            uVar4 = jag::math::RunetekColour::RGBToHSL(*puVar12);
-            local_38 = CONCAT22(local_38._2_2_, uVar4);
-            iVar2 = *(int*)(param_1 + 104092);
-            puVar6 = (ushort*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 2);
-            local_3c = (uint)*puVar6;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[](paVar19, (long)iVar2 + 3);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 5;
+            field_104092 = (int)uVar16;
+            puVar18 = &field_100092;
+            puVar7 = (uint32_t*)(*puVar18)[uVar16];
+            local_34 = *puVar7;
+            puVar11 = (unsigned int*)(*puVar18)[(long)iVar14 - 4];
+            uVar3 = jag::math::RunetekColour::RGBToHSL(*puVar11);
+            local_38 = (((uint32_t)local_38._2_2_ << 16) | (uint16_t)uVar3);
+            iVar14 = field_104092;
+            puVar8 = (unsigned short*)(*puVar18)[(long)iVar14 + 2];
+            local_3c = (unsigned int)*puVar8;
+            piVar12 = (int*)(*puVar18)[(long)iVar14 + 3];
             local_1a8.field_0 = 0;
             local_40 = 255;
-            uVar5 = jag::math::Clamp<int>(piVar13, (int*)&local_1a8, &local_40);
-            puVar7 = (undefined2*)std::array<int, 1000ul>::operator[](paVar19, (long)*(int*)(param_1 + 104092) + 4);
-            uVar4 = *puVar7;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar5 = uVar5 & 255;
-            uVar18 = 8;
+            EVar4 = jag::math::Clamp<int>(*piVar12, local_1a8, local_40);
+            (*puVar18)[(long)field_104092 + 4];
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = (HighlightCategory)pHVar9;
+            EVar4 = EVar4 & 255;
+            iVar14 = 8;
         LAB_1000b4e5d:
-            pHVar9->ConfigureChannel(uVar18, local_34, (undefined2)local_38, local_3c, uVar5, uVar4);
+            highlight::HighlightManager::ConfigureChannel(HVar5, iVar14, (unsigned short)local_34,
+                                                          (unsigned short)local_38, (unsigned char)local_3c, EVar4);
             break;
         case 7041:
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            local_1a8.Create(pbVar11, false);
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->AddOpGroupHighlight(&local_1a8, uVar5, false);
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = OpGroup::Create(*pbVar10, false);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->AddOpGroupHighlight(local_1a8, uVar6, false);
             goto LAB_1000b54b8;
         case 7042:
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            local_1a8.Create(pbVar11, false);
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            pHVar9->RemoveOpGroupHighlight(&local_1a8, uVar5);
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = OpGroup::Create(*pbVar10, false);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            pHVar9->RemoveOpGroupHighlight(local_1a8, uVar6);
             goto LAB_1000b54b8;
         case 7043:
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            local_1a8.Create(pbVar11, false);
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            bVar3 = pHVar9->IsOpGroupHighlighted(&local_1a8, uVar5);
-            iVar2 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar2 + 1;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2);
-            *puVar12 = (uint)bVar3;
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = OpGroup::Create(*pbVar10, false);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            pHVar9 = this_00->GetHighlightManager();
+            bVar2 = pHVar9->IsOpGroupHighlighted(local_1a8, uVar6);
+            iVar14 = field_104092;
+            field_104092 = iVar14 + 1;
+            puVar11 = &field_100092[(long)iVar14];
+            *puVar11 = (unsigned int)bVar2;
         LAB_1000b54b8:
-            local_1a8.~OpGroup();
             break;
         case 7044:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar8 = (undefined4*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar15 = *puVar8;
-            pHVar9 = (HighlightManager*)GetHighlightManager();
-            uVar18 = 8;
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pHVar9 = this_00->GetHighlightManager();
+            HVar5 = 8;
         LAB_1000b4f78:
-            pHVar9->ClearHighlights(uVar18, uVar15);
+            pHVar9->ClearHighlights(HVar5, iVar14);
             break;
         default:
             goto switchD_1000b3bb4_caseD_1b85;
         case 7060:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            new (&local_1a8) eastl::string(pbVar11);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092),
-                                                                (long)*(int*)(param_1 + 104092) + 1);
-            iVar2 = *piVar13;
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            pOVar14->AddTag(uVar5, (basic_string*)&local_1a8, iVar2);
+            uVar16 = (long)field_104092 - 2;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = eastl::string(*pbVar10);
+            piVar12 = &field_100092[(long)field_104092 + 1];
+            iVar14 = *piVar12;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            pOVar13->AddTag(uVar6, local_1a8, iVar14);
             goto LAB_1000b53b5;
         case 7061:
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            new (&local_1a8) eastl::string(pbVar11);
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar2 = *piVar13;
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            bVar3 = pOVar14->DeleteTag((basic_string*)&local_1a8, iVar2);
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = eastl::string(*pbVar10);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            bVar2 = pOVar13->DeleteTag(local_1a8, iVar14);
             goto LAB_1000b5260;
         case 7062:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            new (&local_1a8) eastl::string(pbVar11);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092),
-                                                                (long)*(int*)(param_1 + 104092) + 1);
-            iVar2 = *piVar13;
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            bVar3 = pOVar14->RemoveTagFromObj(uVar5, (basic_string*)&local_1a8, iVar2);
+            uVar16 = (long)field_104092 - 2;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = eastl::string(*pbVar10);
+            piVar12 = &field_100092[(long)field_104092 + 1];
+            iVar14 = *piVar12;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            bVar2 = pOVar13->RemoveTagFromObj(uVar6, local_1a8, iVar14);
             goto LAB_1000b5397;
         case 7063:
-            iVar2 = *(int*)(param_1 + 104092);
-            uVar17 = (long)iVar2 - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            piVar13 =
-                (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2 - 1);
-            iVar2 = *piVar13;
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            bVar3 = pOVar14->FindTagsById(uVar5, iVar2);
+            iVar14 = field_104092;
+            uVar16 = (long)iVar14 - 2;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            piVar12 = &field_100092[(long)iVar14 - 1];
+            iVar14 = *piVar12;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            bVar2 = pOVar13->FindTagsById(uVar6, iVar14);
             goto LAB_1000b52b8;
         case 7064:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar2 = *piVar13;
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            bVar3 = pOVar14->FindTagsByGroup(iVar2);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            bVar2 = pOVar13->FindTagsByGroup(iVar14);
             goto LAB_1000b52b8;
         case 7065:
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            pcVar10 = (char*)pOVar14->GetNextTag();
-            iVar2 = *(int*)(param_1 + 136096);
-            *(int*)(param_1 + 136096) = iVar2 + 1;
-            this_00 = (eastl::string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), (long)iVar2);
-            eastl::string::assign(this_00, pcVar10);
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            str = (char*)pOVar13->GetNextTag();
+            iVar14 = field_136096;
+            field_136096 = iVar14 + 1;
+            this_01 = &field_104096[(long)iVar14];
+            eastl::string::assign(this_01, str);
             break;
         case 7066:
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            pOVar14->RestartFindTags();
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            pOVar13->RestartFindTags();
             break;
         case 7067:
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            new (&local_1a8) eastl::string(pbVar11);
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar2 = *piVar13;
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            bVar3 = pOVar14->FindIdsByTag((basic_string*)&local_1a8, iVar2);
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = eastl::string(*pbVar10);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            bVar2 = pOVar13->FindIdsByTag(local_1a8, iVar14);
         LAB_1000b5260:
-            iVar2 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar2 + 1;
+            iVar14 = field_104092;
+            field_104092 = iVar14 + 1;
         LAB_1000b53ae:
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), (long)iVar2);
-            *puVar12 = (uint)bVar3;
+            puVar11 = &field_100092[(long)iVar14];
+            *puVar11 = (unsigned int)bVar2;
         LAB_1000b53b5:
-            local_1a8.~basic_string();
             break;
         case 7068:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar2 = *piVar13;
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            bVar3 = pOVar14->FindIdsByGroup(iVar2);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            bVar2 = pOVar13->FindIdsByGroup(iVar14);
         LAB_1000b52b8:
-            uVar5 = (uint)bVar3;
-            uVar17 = (ulong) * (int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = *(int*)(param_1 + 104092) + 1;
+            uVar6 = (unsigned int)bVar2;
+            uVar16 = (unsigned long)field_104092;
+            field_104092 = field_104092 + 1;
         LAB_1000b53f5:
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            *puVar12 = uVar5;
+            puVar11 = &field_100092[uVar16];
+            *puVar11 = uVar6;
             break;
         case 7069:
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            uVar5 = pOVar14->GetNextId();
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            uVar6 = pOVar13->GetNextId();
             goto LAB_1000b53dd;
         case 7070:
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            pOVar14->RestartFindIds();
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            pOVar13->RestartFindIds();
             break;
         case 7071:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 2;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            puVar12 = (uint*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            uVar5 = *puVar12;
-            uVar17 = (long)*(int*)(param_1 + 136096) - 1;
-            *(int*)(param_1 + 136096) = (int)uVar17;
-            pbVar11 = (basic_string*)std::array<eastl::string, 1000ul>::operator[](
-                (array<eastl::string, 1000ul>*)(param_1 + 104096), uVar17);
-            new (&local_1a8) eastl::string(pbVar11);
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092),
-                                                                (long)*(int*)(param_1 + 104092) + 1);
-            iVar2 = *piVar13;
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            bVar3 = pOVar14->HasTag(uVar5, (basic_string*)&local_1a8, iVar2);
+            uVar16 = (long)field_104092 - 2;
+            field_104092 = (int)uVar16;
+            puVar11 = &field_100092[uVar16];
+            uVar6 = *puVar11;
+            uVar16 = (long)field_136096 - 1;
+            field_136096 = (int)uVar16;
+            pbVar10 = &field_104096[uVar16];
+            local_1a8 = eastl::string(*pbVar10);
+            piVar12 = &field_100092[(long)field_104092 + 1];
+            iVar14 = *piVar12;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            bVar2 = pOVar13->HasTag(uVar6, local_1a8, iVar14);
         LAB_1000b5397:
-            iVar2 = *(int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = iVar2 + 1;
+            iVar14 = field_104092;
+            field_104092 = iVar14 + 1;
             goto LAB_1000b53ae;
         case 7072:
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            bVar3 = pOVar14->AreTagsEmpty();
-            uVar5 = (uint)bVar3;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            bVar2 = pOVar13->AreTagsEmpty();
+            uVar6 = (unsigned int)bVar2;
         LAB_1000b53dd:
-            uVar17 = (ulong) * (int*)(param_1 + 104092);
-            *(int*)(param_1 + 104092) = *(int*)(param_1 + 104092) + 1;
+            uVar16 = (unsigned long)field_104092;
+            field_104092 = field_104092 + 1;
             goto LAB_1000b53f5;
         case 7073:
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            pOVar14->ResetAll();
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            pOVar13->ResetAll();
             break;
         case 7074:
-            uVar17 = (long)*(int*)(param_1 + 104092) - 1;
-            *(int*)(param_1 + 104092) = (int)uVar17;
-            piVar13 = (int*)std::array<int, 1000ul>::operator[]((array<int, 1000ul>*)(param_1 + 100092), uVar17);
-            iVar2 = *piVar13;
-            pOVar14 =
-                (ObjTagManager*)
-                    std::unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>::operator->(
-                        (unique_ptr<objtags::ObjTagManager, std::default_delete<objtags::ObjTagManager>>*)&field_54720);
-            pOVar14->ClearGroup(iVar2);
+            uVar16 = (long)field_104092 - 1;
+            field_104092 = (int)uVar16;
+            piVar12 = &field_100092[uVar16];
+            iVar14 = *piVar12;
+            pOVar13 = (ObjTagManager*)this_00->field_54720.operator->();
+            pOVar13->ClearGroup(iVar14);
         }
-        uVar18 = 1;
+        uVar17 = 1;
     switchD_1000b3bb4_caseD_1b85:
-        return uVar18;
+        return uVar17;
     }
 
 } // namespace jag::oldscape

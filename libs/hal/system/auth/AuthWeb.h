@@ -1,6 +1,5 @@
 // libs/hal/system/auth/AuthWeb.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,260 +7,205 @@ namespace jag::auth {
     class AuthWeb {
     public:
         AuthWeb();
-        void Init(eastl::string const&, eastl::string const&, eastl::string const&, eastl::string const&,
-                  eastl::string const&, eastl::string const&, eastl::string const&);
+        void Init(const eastl::string& str1, const eastl::string& str2, const eastl::string& str3,
+                  const eastl::string& str4, const eastl::string& str5, const eastl::string& str6,
+                  const eastl::string& str7);
         void MainLogic();
         void DecodeOAuth2AccessTokenCheckResponse();
         void DecodeOAuth2TokenRequestResponse();
         void DecodeGameTokenRequestResponse();
         void DecodeRefreshOAuth2TokensResponse();
         void DecodeRevokeOAuth2TokensResponse();
-        void InitiateRequest(ActionRequest);
+        void InitiateRequest(ActionRequest actionRequest);
         bool IsAccessTokenExpiryUnknown() const;
         void RequestAccessTokenCheck();
-        HasAccessTokenExpired() const;
+        bool HasAccessTokenExpired() const;
         void RequestRefreshOAuth2Tokens();
         void PerformQueuedAction();
         void RequestGameToken_OAuth2();
-        void SetGameTokenCredentials(eastl::string const&, AuthSDKTokenResponse);
-        void ConstructAuthorisationHeader(eastl::string&, eastl::string const&, eastl::string const&);
-        void SetOAuthAccessTokenExpiryTime(unsigned long long);
+        void SetGameTokenCredentials(const eastl::string& str, AuthSDKTokenResponse authSDKTokenResponse);
+        void ConstructAuthorisationHeader(eastl::string& str1, const eastl::string& str2, const eastl::string& str3);
+        void SetOAuthAccessTokenExpiryTime(unsigned long long arg1);
         void RequestRevokeOAuth2Tokens();
-        void SetOAuthTokenCredentials(eastl::string const&, eastl::string const&, unsigned long long);
+        void SetOAuthTokenCredentials(const eastl::string& str1, const eastl::string& str2, unsigned long long arg3);
         void RequestGameToken_GameSession();
         bool HasGameSessionCredentials() const;
         void HasOAuth2TokenPair() const;
-        void RequestOAuth2Tokens(eastl::string const&, eastl::string const&, eastl::string const&,
-                                 eastl::string const&);
+        void RequestOAuth2Tokens(const eastl::string& str1, const eastl::string& str2, const eastl::string& str3,
+                                 const eastl::string& str4);
         ~AuthWeb();
-        AuthWeb* operator=(AuthWeb&&);
-        void SetGameSessionCredentials(eastl::string const&, eastl::string const&);
+        AuthWeb* operator=(AuthWeb&& authWeb);
+        void SetGameSessionCredentials(const eastl::string& str1, const eastl::string& str2);
         void ResetRequestState();
         void InvalidateRefreshToken();
-        ulonglong GetOAuthAccessTokenExpiryTime();
-        GetToken();
-        GetGameTokenRequestResultCode() const;
+        unsigned long long GetOAuthAccessTokenExpiryTime();
+        auto GetToken();
+        uint32_t GetGameTokenRequestResultCode() const;
         bool IsStillRequestingOAuth2Tokens() const;
 
-        // data members, from how the methods use this: 360 bytes
-        undefined4 field_0; // offset 0
-        char _unknown_4[12];
-        GameTokenResult field_16; // offset 16
-        char _unknown_56[64];
-        ulonglong m_oAuthAccessTokenExpiryTime; // offset 120
-        char _unknown_128[224];
-        uint field_352; // offset 352
-        char _unknown_356[4];
+    private:
+        uint32_t field_0;
+        uint8_t _unknown_4[12];
+        GameTokenResult field_16;
+        uint8_t _unknown_56[64];
+        unsigned long long m_pOAuthAccessTokenExpiryTime;
+        uint8_t _unknown_128[224];
+        ActionRequest field_352;
+        uint8_t _unknown_356[4];
     };
 
     class GameSessionTokenCredentials {
     public:
         ~GameSessionTokenCredentials();
-        DisplayName* operator=(GameSessionTokenCredentials&&);
+        DisplayName* operator=(GameSessionTokenCredentials&& consoleCommandHelp);
         GameSessionTokenCredentials();
 
-        // data members, from how the methods use this: 40 bytes
-        char _unknown_0[40];
+        uint8_t _unknown_0[40];
     };
 
     class JagexConfig {
     public:
         ~JagexConfig();
         JagexConfig();
-        JagexConfig* operator=(JagexConfig&&);
+        JagexConfig* operator=(JagexConfig&& jagexConfig);
 
-        // data members, from how the methods use this: 136 bytes
-        char _unknown_0[136];
+        uint8_t _unknown_0[136];
     };
 
-    // 0x1003ae070, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // GameSessionTokenCredentials::GameSessionTokenCredentials(): jumps straight to the base-object constructor
-
-    // 0x1003ae080, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // JagexConfig::JagexConfig(): jumps straight to the base-object constructor
-
-    // 0x1003ae1c0, 96 bytes, inline, placed by class header (inline)
-    // JagexConfig::operator=(JagexConfig&&)
-    /* JagexConfig::TEMPNAMEPLACEHOLDERVALUE(JagexConfig&&) */
-
-    JagexConfig* JagexConfig::operator=(JagexConfig* param_1) {
-        eastl::string::operator=((eastl::string*)this, (basic_string*)param_1);
-        eastl::string::operator=((eastl::string*)&field_32, (basic_string*)&param_1->field_32);
-        eastl::string::operator=((eastl::string*)&field_64, (basic_string*)&param_1->field_64);
-        eastl::string::operator=((eastl::string*)&field_96, (basic_string*)&param_1->field_96);
-        eastl::string::operator=((eastl::string*)&field_128, (basic_string*)&param_1->field_128);
+    // 0x1003ae1c0
+    JagexConfig* JagexConfig::operator=(JagexConfig&& jagexConfig) {
+        *this = jagexConfig;
+        field_32 = &jagexConfig.field_32;
+        field_64 = &jagexConfig.field_64;
+        field_96 = &jagexConfig.field_96;
+        field_128 = &jagexConfig.field_128;
         return this;
     }
 
-    // 0x1003ae220, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // JagexConfig::~JagexConfig(): jumps straight to the base-object destructor
-
-    // 0x1003aefb0, 16 bytes, inline, placed by class name
-    // AuthWeb::IsAccessTokenExpiryUnknown() const
-    bool AuthWeb::IsAccessTokenExpiryUnknown() {
-        return m_oAuthAccessTokenExpiryTime == 0;
+    // 0x1003aefb0
+    bool AuthWeb::IsAccessTokenExpiryUnknown() const {
+        return m_pOAuthAccessTokenExpiryTime == 0;
     }
 
-    // 0x1003af210, 32 bytes, inline, placed by class name
-    // AuthWeb::HasAccessTokenExpired() const
-    undefined8 AuthWeb::HasAccessTokenExpired() {
-        ulonglong uVar1;
-
-        uVar1 = SystemTimer::GetTimeSecs<std::chrono::system_clock>((SystemTimer*)this);
-        return CONCAT71((int7)(uVar1 + 60 >> 8), m_oAuthAccessTokenExpiryTime < uVar1 + 60);
+    // 0x1003af210
+    bool AuthWeb::HasAccessTokenExpired() const {
+        unsigned long long uVar1 = SystemTimer::GetTimeSecs<std::chrono::system_clock>();
+        return m_pOAuthAccessTokenExpiryTime < uVar1 + 60;
     }
 
-    // 0x1003af780, 32 bytes, inline, placed by class name
-    // AuthWeb::SetGameTokenCredentials(eastl::string const&, AuthSDKTokenResponse)
-    void AuthWeb::SetGameTokenCredentials(basic_string* param_1, undefined4 param_3) {
-        eastl::string::operator=((eastl::string*)field_16, param_1);
-        *(undefined4*)(field_16 + 32) = param_3;
+    // 0x1003af780
+    void AuthWeb::SetGameTokenCredentials(const eastl::string& str, AuthSDKTokenResponse authSDKTokenResponse) {
+        *field_16 = str;
+        *(AuthSDKTokenResponse*)(field_16 + 32) = authSDKTokenResponse;
     }
 
-    // 0x1003afa80, 16 bytes, inline, placed by class name
-    // AuthWeb::SetOAuthAccessTokenExpiryTime(unsigned long long)
-    void AuthWeb::SetOAuthAccessTokenExpiryTime(ulonglong param_1) {
-        m_oAuthAccessTokenExpiryTime = param_1;
+    // 0x1003afa80
+    void AuthWeb::SetOAuthAccessTokenExpiryTime(unsigned long long arg1) {
+        m_pOAuthAccessTokenExpiryTime = arg1;
     }
 
-    // 0x1003afcf0, 48 bytes, inline, placed by class name
-    // AuthWeb::SetOAuthTokenCredentials(eastl::string const&, eastl::string const&, unsigned long long)
-    void AuthWeb::SetOAuthTokenCredentials(basic_string* param_1, basic_string* param_2, ulonglong param_3) {
-        m_oAuthAccessTokenExpiryTime = param_3;
-        eastl::string::operator=((eastl::string*)&field_56, param_1);
-        eastl::string::operator=((eastl::string*)&field_88, param_2);
+    // 0x1003afcf0
+    void AuthWeb::SetOAuthTokenCredentials(const eastl::string& str1, const eastl::string& str2,
+                                           unsigned long long arg3) {
+        m_pOAuthAccessTokenExpiryTime = arg3;
+        field_56 = str1;
+        field_88 = str2;
     }
 
-    // 0x1003b0010, 80 bytes, inline, placed by class name
-    // AuthWeb::HasGameSessionCredentials() const
-    bool AuthWeb::HasGameSessionCredentials() {
-        bool bVar1;
-
-        bVar1 = eastl::operator!=((basic_string*)&field_128, (value_type*)"");
+    // 0x1003b0010
+    bool AuthWeb::HasGameSessionCredentials() const {
+        bool bVar1 = field_128 != (*((value_type*)""));
         if (bVar1) {
-            bVar1 = eastl::operator!=((basic_string*)&field_160, (value_type*)"");
+            bVar1 = field_160 != (*((value_type*)""));
         } else {
             bVar1 = false;
         }
         return bVar1;
     }
 
-    // 0x1003b0070, 80 bytes, inline, placed by class name
-    // AuthWeb::HasOAuth2TokenPair() const
-    void AuthWeb::HasOAuth2TokenPair() {
+    // 0x1003b0070
+    void AuthWeb::HasOAuth2TokenPair() const {
         if (field_0 == 2) {
-            /* WARNING: Subroutine does not return */
             LogAssert("!(m_requestStatus == WAITING_INITIAL_OATH2TOKENS_RESPONSE)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/system/auth/AuthWeb.h",
                       276, "If we\'re still trying to resolve the request, something has probably gone wrong!");
         }
-        eastl::operator!=((basic_string*)&field_56, (value_type*)"");
+        field_56 != (*((value_type*)""));
     }
 
-    // 0x1003b0720, 16 bytes, complete-object destructor, inline, placed by class name
-    // AuthWeb::~AuthWeb(): jumps straight to the base-object destructor
-
-    // 0x1003b07d0, 128 bytes, inline, placed by class name
-    // AuthWeb::operator=(AuthWeb&&)
-    /* AuthWeb::TEMPNAMEPLACEHOLDERVALUE(AuthWeb&&) */
-
-    AuthWeb* AuthWeb::operator=(AuthWeb* param_1) {
-        field_0 = param_1->field_0;
-        std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>::operator=(
-            (unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>*)&field_8,
-            (unique_ptr*)&param_1->field_8);
-        GameTokenResult::operator=((GameTokenResult*)field_16, (GameTokenResult*)param_1->field_16);
-        OAuth2TokenPair::operator=((OAuth2TokenPair*)&field_56, (OAuth2TokenPair*)&param_1->field_56);
-        oldscape::rs2lib::social::DisplayName::operator=((DisplayName*)&field_128, (DisplayName*)&param_1->field_128);
-        JagexConfig::operator=((JagexConfig*)&field_192, (JagexConfig*)&param_1->field_192);
-        field_352 = param_1->field_352;
+    // 0x1003b07d0
+    AuthWeb* AuthWeb::operator=(AuthWeb&& authWeb) {
+        field_0 = authWeb.field_0;
+        field_8 = &authWeb.field_8;
+        *field_16 = authWeb.field_16;
+        field_56 = authWeb.field_56;
+        field_128 = authWeb.field_128;
+        field_192 = authWeb.field_192;
+        field_352 = authWeb.field_352;
         return this;
     }
 
-    // 0x1003b0970, 48 bytes, inline, placed by class name
-    // AuthWeb::SetGameSessionCredentials(eastl::string const&, eastl::string const&)
-    void AuthWeb::SetGameSessionCredentials(basic_string* param_1, basic_string* param_2) {
-        eastl::string::operator=((eastl::string*)&field_128, param_1);
-        eastl::string::operator=((eastl::string*)&field_160, param_2);
+    // 0x1003b0970
+    void AuthWeb::SetGameSessionCredentials(const eastl::string& str1, const eastl::string& str2) {
+        field_128 = str1;
+        field_160 = str2;
     }
 
-    // 0x1003b0a20, 64 bytes, inline, placed by class name
-    // AuthWeb::ResetRequestState()
+    // 0x1003b0a20
     void AuthWeb::ResetRequestState() {
-        HTTPRequest* this_00;
-
         field_0 = 0;
-        if ((&field_8)->operator_cast_to_bool()) {
-            this_00 =
-                (HTTPRequest*)std::unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>::operator->(
-                    (unique_ptr<http::HTTPRequest, std::default_delete<http::HTTPRequest>>*)&field_8);
-            this_00->Abort();
+        if ((&field_8)->operator_cast_to_bool() != '\0') {
+            ((HTTPRequest*)field_8.operator->())->Abort();
         }
     }
 
-    // 0x1003b0aa0, 32 bytes, inline, placed by class name
-    // AuthWeb::InvalidateRefreshToken()
+    // 0x1003b0aa0
     void AuthWeb::InvalidateRefreshToken() {
-        (&field_88, "INVALID")->assign();
+        (&field_88)->assign("INVALID");
     }
 
-    // 0x1003b0ae0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // AuthWeb::GetOAuthAccessTokenExpiryTime()
-    /* render::InputAssemblerState::GetIndexBuffer() const */
-
-    BufferInterface* render::InputAssemblerState::GetIndexBuffer() {
+    // 0x1003b0ae0
+    unsigned long long AuthWeb::GetOAuthAccessTokenExpiryTime() {
         return m_pIndexBuffer;
     }
 
-    // 0x1003b0b30, 192 bytes, inline, placed by class name
-    // AuthWeb::GetToken()
-    AuthWeb* AuthWeb::GetToken() {
-        long in_RSI;
-        eastl::string local_40[32];
-        allocator local_20[8];
+    // 0x1003b0b30
+    auto AuthWeb::GetToken() {
 
-        if (*(int*)(in_RSI + 48) != 0) {
-            /* WARNING: Subroutine does not return */
+        if (*(int*)(field_16 + 32) != 0) {
             LogAssert("m_currentGameToken.m_resultCode == auth::AuthSDKTokenResponse::SUCCESS",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/system/auth/AuthWeb.h",
                       231, "Error - Tried to fetch a game token in a non-ready state! (Current state: %i)");
         }
-        new (this) eastl::string((basic_string*)(in_RSI + 16));
-        eastl::allocator::allocator(local_20, "EASTL basic_string");
-        eastl::string::basic_string(local_40, "", local_20);
-        SetGameTokenCredentials();
-        eastl::string::~basic_string(local_40);
-        return this;
+        auto result(*field_16);
+        eastl::string local_40("");
+        SetGameTokenCredentials(local_40, 4294967294);
+        return result;
     }
 
-    // 0x1003b0c10, 80 bytes, inline, placed by class name
-    // AuthWeb::GetGameTokenRequestResultCode() const
-    undefined4 AuthWeb::GetGameTokenRequestResultCode() {
+    // 0x1003b0c10
+    uint32_t AuthWeb::GetGameTokenRequestResultCode() const {
         if ((field_0 == 0) && (*(int*)(field_16 + 32) == -2)) {
-            /* WARNING: Subroutine does not return */
             LogAssert("!(m_requestStatus == AuthWebRequestState::AUTH_IDLE && m_currentGameToken.m_resultCode == "
                       "auth::AuthSDKTokenResponse::RESULT_NOT_READY)",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/system/auth/AuthWeb.h",
                       207, "Error - Checking state of GameToken, but no http request was made to get one!");
         }
-        return *(undefined4*)(field_16 + 32);
+        return *(uint32_t*)(field_16 + 32);
     }
 
-    // 0x1003b0cb0, 16 bytes, inline, placed by class name
-    // AuthWeb::IsStillRequestingOAuth2Tokens() const
-    bool AuthWeb::IsStillRequestingOAuth2Tokens() {
+    // 0x1003b0cb0
+    bool AuthWeb::IsStillRequestingOAuth2Tokens() const {
         return field_0 == 2;
     }
 
-    // 0x1003b3150, 80 bytes, base-object destructor, inline, placed by class name
-    // AuthWeb::~AuthWeb()
-    void AuthWeb::~AuthWeb() {
-        (&field_192)->~ConnectionSettings();
-        (&field_128)->~pair();
-        (&field_56)->~pair();
+    // 0x1003b3150
+    AuthWeb::~AuthWeb() {
+        field_192.~ConnectionSettings();
+        field_128.~pair();
+        field_56.~pair();
         field_16->~hash_node();
-        (&field_8)->~unique_ptr();
+        field_8.~unique_ptr();
     }
 
 } // namespace jag::auth

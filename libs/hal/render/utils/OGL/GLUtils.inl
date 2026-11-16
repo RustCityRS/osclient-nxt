@@ -1,87 +1,64 @@
 // libs/hal/render/utils/OGL/GLUtils.inl
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
-    // 0x100bcf6d0, 320 bytes, inline, placed by debug map only (low confidence)
-    // int tokenize<eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true, eastl::allocator>, eastl::fixed_string<char, 1024, true, eastl::allocator> >(eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true, eastl::allocator>&, eastl::fixed_string<char, 1024, true, eastl::allocator> const&, char const*, int)
-    /* int tokenize<eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul,
-   true, eastl::allocator>, eastl::fixed_string<char, 2048, true, eastl::allocator>
-   >(eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true,
-   eastl::allocator>&, eastl::fixed_string<char, 2048, true, eastl::allocator> const&, char const*,
-   int) */
-
-    int jag::tokenize<
-        eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true, eastl::allocator>,
-        eastl::fixed_string<char, 2048, true, eastl::allocator>>(fixed_vector* param_1, fixed_string* param_2,
-                                                                 char* param_3, int param_4) {
+    // 0x100bcf6d0
+    int tokenize<eastl::fixed_vector<eastl::fixed_string<char, 64>, 8ul>, eastl::fixed_string<char, 1024>>(
+        eastl::fixed_vector<eastl::fixed_string<char, 64>, 8ul>& strs, const eastl::fixed_string<char, 1024>& str1,
+        const char* str2, int arg4) {
         bool bVar1;
-        int iVar2;
         size_t sVar3;
-        char* pcVar4;
-        char* pcVar5;
-        basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>* pbVar6;
-        char* pcVar7;
-        char* pcVar8;
+        ReturnValue* pRVar5;
+        char* str1_01;
 
-        if (param_4 == -1) {
-            sVar3 = _strlen(param_3);
-            param_4 = (int)sVar3;
+        if (arg4 == -1) {
+            sVar3 = _strlen(str2);
+            arg4 = (int)sVar3;
         }
-        param_1->clear();
-        param_1->reserve(4);
-        pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
-        pcVar8 = pcVar4;
-        if (pcVar4 != pcVar5) {
-            pcVar7 = pcVar4;
+        strs.clear();
+        strs.reserve(4);
+        char* str1_00 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        char* pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+        char* pcVar6 = str1_00;
+        if (str1_00 != pcVar4) {
+            str1_01 = str1_00;
             do {
-                pcVar4 = pcVar8;
-                bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                str1_00 = pcVar6;
+                bVar1 = internal::find_token<char, char const*>(*str1_00, str2, str2 + arg4);
                 if (bVar1) {
-                    if (pcVar7 != pcVar4) {
-                        pbVar6 =
-                            (basic_string<char,
-                                          eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>*)
-                                eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true,
-                                                    eastl::allocator>::push_back();
-                        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                                eastl::allocator>>::assign(pbVar6,
-                                                                                                           pcVar7,
-                                                                                                           pcVar4);
+                    if (str1_01 != str1_00) {
+                        pRVar5 = (ReturnValue*)eastl::fixed_vector<eastl::fixed_string<char, 64>, 8ul>::push_back();
+                        *pRVar5 =
+                            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::assign(
+                                str1_01, str1_00);
                     }
-                    if (pcVar4 == pcVar5) {
+                    if (str1_00 == pcVar4) {
                     LAB_100bcf7c0:
-                        pcVar8 = pcVar4;
+                        pcVar6 = str1_00;
                     } else {
                         do {
-                            bVar1 = internal::find_token<char, char const*>(pcVar4, param_3, param_3 + param_4);
+                            bVar1 = internal::find_token<char, char const*>(*str1_00, str2, str2 + arg4);
                             if (!bVar1)
                                 goto LAB_100bcf7c0;
-                            pcVar4 = pcVar4 + 1;
-                            pcVar8 = pcVar4;
-                        } while (pcVar4 != pcVar5);
+                            str1_00 = str1_00 + 1;
+                            pcVar6 = str1_00;
+                        } while (str1_00 != pcVar4);
                     }
                 } else {
-                    pcVar8 = pcVar4 + 1;
-                    pcVar4 = pcVar7;
+                    pcVar6 = str1_00 + 1;
+                    str1_00 = str1_01;
                 }
-                pcVar7 = pcVar4;
-            } while (pcVar8 != pcVar5);
+                str1_01 = str1_00;
+            } while (pcVar6 != pcVar4);
         }
-        if (pcVar4 != pcVar8) {
-            pbVar6 = (basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>*)
-                eastl::fixed_vector<eastl::fixed_string<char, 64, true, eastl::allocator>, 8ul, true,
-                                    eastl::allocator>::push_back();
-            eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::assign(pbVar6,
-                                                                                                          pcVar4,
-                                                                                                          pcVar8);
+        if (str1_00 != pcVar6) {
+            pRVar5 = (ReturnValue*)eastl::fixed_vector<eastl::fixed_string<char, 64>, 8ul>::push_back();
+            *pRVar5 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true>>::assign(
+                str1_00, pcVar6);
         }
-        iVar2 = param_1->size();
-        return iVar2;
+        return strs.size();
     }
 
 } // namespace jag

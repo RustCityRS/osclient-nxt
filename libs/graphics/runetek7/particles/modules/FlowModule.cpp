@@ -1,83 +1,75 @@
 // libs/graphics/runetek7/particles/modules/FlowModule.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "FlowModule.h"
 
 namespace jag::graphics::particlemodules {
-    // 0x100f3dcf8, 8 bytes, __data
-    Flow::m_particleCountMultiplier = 1065353216;
+    // 0x100f3dcf8
+    int64_t Flow::m_particleCountMultiplier = 1065353216;
 
-    // 0x1007d9160, 384 bytes, placed by debug map only (low confidence)
-    // Flow::Shape::LoadFromPacket(unsigned char, PacketT<Array<unsigned char, eastl::allocator> >&)
-    undefined8 Flow::Shape::LoadFromPacket(uchar param_1, PacketT* param_2) {
-        byte bVar1;
-        char cVar2;
+    // 0x1007d9160
+    uint64_t Flow::Shape::LoadFromPacket(unsigned char arg1, PacketT<Array<unsigned char>>& arg2) {
         float extraout_XMM0_Da;
         float extraout_XMM0_Da_00;
         float fVar3;
         float extraout_XMM0_Da_01;
-        Vector3T<float> local_58[40];
         float local_30;
         float local_2c;
         float local_28;
 
-        bVar1 = param_2->g1();
-        field_0 = (uint)bVar1;
-        cVar2 = param_2->g1();
-        field_4 = cVar2 == '\x01';
-        math::Vector3T<float>::Vector3T(local_58, param_2, false);
-        (&field_8, (Vector3T*)local_58)->SetXYZ();
-        new (&local_30) math::Vector3T<float>(param_2, false);
-        math::Matrix33RotationYawPitchRoll<float>((math*)local_58, local_30, local_2c, local_28);
-        math::Matrix33T<float>::operator=((Matrix33T<float>*)&field_20, (Matrix33T*)local_58);
+        uint8_t bVar1 = arg2.g1();
+        field_0 = (unsigned int)bVar1;
+        field_4 = arg2.g1() == '\x01';
+        Vector3T<float> local_58(arg2, false);
+        field_8.SetXYZ(local_58);
+        new (&local_30) math::Vector3T(arg2, false);
+        math::Matrix33RotationYawPitchRoll<float>(local_30, local_2c, local_28);
+        field_20 = local_58;
         switch (field_0 - 1) {
         case 0:
             break;
         case 1:
-            fVar3 = (float)param_2->gFloat();
+            fVar3 = (float)arg2.gFloat();
             field_64 = fVar3 * 0.5;
             break;
         case 2:
-            fVar3 = (float)param_2->gFloat();
+            fVar3 = (float)arg2.gFloat();
             field_64 = fVar3 * 0.5;
-            fVar3 = (float)param_2->gFloat();
+            fVar3 = (float)arg2.gFloat();
             field_60 = fVar3 * 0.5;
             break;
         case 3:
         case 5:
         case 6:
-            param_2->gFloat();
+            arg2.gFloat();
             field_56 = extraout_XMM0_Da;
             return 1;
         case 4:
-            fVar3 = (float)param_2->gFloat();
+            fVar3 = (float)arg2.gFloat();
             field_60 = fVar3;
-            fVar3 = (float)param_2->gFloat();
+            fVar3 = (float)arg2.gFloat();
             field_56 = fVar3;
-            param_2->gFloat();
+            arg2.gFloat();
             field_64 = extraout_XMM0_Da_01;
             return 1;
         case 7:
-            /* WARNING: Subroutine does not return */
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "particles/modules/FlowModule.cpp",
-                            51, (char*)0);
+                            51, nullptr);
         default:
             goto switchD_1007d91ff_default;
         }
-        param_2->gFloat();
+        arg2.gFloat();
         field_56 = extraout_XMM0_Da_00 * 0.5;
     switchD_1007d91ff_default:
         return 1;
     }
 
-    // 0x1007d92e0, 416 bytes, placed by debug map only (low confidence)
-    // Flow::Shape::GetRandomPoint(math::Random&) const
-    undefined8 Flow::Shape::GetRandomPoint(Random* param_1) {
-        ColourHSL* pCVar1;
-        float fVar2;
+    // 0x1007d92e0
+    uint64_t Flow::Shape::GetRandomPoint(math::Random& random) const {
+        ColourHSL* vector32;
+        float arg1;
         float in_XMM1_Da;
         ColourHSL local_40;
         ColourHSL local_30;
@@ -86,465 +78,433 @@ namespace jag::graphics::particlemodules {
         case 0:
             return field_8;
         case 1:
-            fVar2 = (float)param_1->FRandS(field_56);
-            new (&local_40) math::ColourHSL(fVar2, 0.0, 0.0);
-            local_30._0_8_ = math::operator*((Vector3T*)&local_40, &field_20);
-            pCVar1 = &local_30;
+            arg1 = (float)random.FRandS(field_56);
+            local_40 = math::ColourHSL(arg1, 0.0, 0.0);
+            local_30._0_8_ = local_40 * field_20;
+            vector32 = &local_30;
             local_30.field_8 = 0.0;
             goto LAB_1007d944b;
         case 2:
             in_XMM1_Da = field_56;
-            local_30._0_8_ = math::GetRandomPointPlane(param_1, field_64, in_XMM1_Da, field_4);
+            local_30._0_8_ = math::GetRandomPointPlane(random, field_64, in_XMM1_Da, field_4);
             break;
         case 3:
             in_XMM1_Da = field_60;
-            local_30._0_8_ = math::GetRandomPointBox(param_1, field_64, in_XMM1_Da, field_56, field_4);
+            local_30._0_8_ = math::GetRandomPointBox(random, field_64, in_XMM1_Da, field_56, field_4);
             break;
         case 4:
-            local_30._0_8_ = math::GetRandomPointDisc(param_1, field_56, field_4);
+            local_30._0_8_ = math::GetRandomPointDisc(random, field_56, field_4);
             break;
         case 5:
             in_XMM1_Da = field_56;
-            local_30._0_8_ = math::GetRandomPointCone(param_1, field_60, in_XMM1_Da, field_64, field_4);
+            local_30._0_8_ = math::GetRandomPointCone(random, field_60, in_XMM1_Da, field_64, field_4);
             break;
         case 6:
-            local_30._0_8_ = math::GetRandomPointSphere(param_1, field_56, field_4);
-            pCVar1 = &local_30;
+            local_30._0_8_ = math::GetRandomPointSphere(random, field_56, field_4);
+            vector32 = &local_30;
             local_30.field_8 = in_XMM1_Da;
             goto LAB_1007d944b;
         case 7:
-            local_30._0_8_ = math::GetRandomPointHemisphere(param_1, field_56, field_4);
+            local_30._0_8_ = math::GetRandomPointHemisphere(random, field_56, field_4);
             break;
         default:
-            /* WARNING: Subroutine does not return */
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "particles/modules/FlowModule.cpp",
-                            102, (char*)0);
+                            102, nullptr);
         }
         local_30.field_8 = in_XMM1_Da;
-        local_40._0_8_ = math::operator*((Vector3T*)&local_30, &field_20);
-        pCVar1 = &local_40;
+        local_40._0_8_ = local_30 * field_20;
+        vector32 = &local_40;
         local_40.field_8 = in_XMM1_Da;
     LAB_1007d944b:
-        return math::operator+((Vector3T*)&field_8, (Vector3T*)pCVar1);
+        return field_8 + *vector32;
     }
 
-    // 0x1007d9480, 224 bytes, placed by neighbouring functions
-    // Flow::LoadFromPacket(unsigned char, PacketT<Array<unsigned char, eastl::allocator> >&)
-    undefined1 Flow::LoadFromPacket(uchar param_1, PacketT* param_2) {
-        byte bVar1;
-        float fVar2;
-        undefined4 uVar3;
-        bitset<3ul, unsigned char> local_28[8];
-
-        bVar1 = param_2->g1();
-        eastl::bitset<3ul, unsigned char>::bitset(local_28, (uint)bVar1);
-        eastl::bitset<3ul, unsigned char>::operator|=((bitset<3ul, unsigned char>*)&field_8, (bitset*)local_28);
-        (&field_12, '\0', param_2)->LoadFromPacket();
-        (&field_80, '\0', param_2)->LoadFromPacket();
-        fVar2 = (float)param_2->gFloat();
+    // 0x1007d9480
+    uint8_t Flow::LoadFromPacket(unsigned char arg1, PacketT<Array<unsigned char>>& arg2) {
+        uint8_t bVar1 = arg2.g1();
+        bitset<3ul, unsigned char> local_28((unsigned int)bVar1);
+        field_8 |= local_28;
+        field_12.LoadFromPacket('\0', arg2);
+        field_80.LoadFromPacket('\0', arg2);
+        float fVar2 = (float)arg2.gFloat();
         field_148 = fVar2;
-        fVar2 = (float)param_2->gFloat();
+        fVar2 = (float)arg2.gFloat();
         field_152 = fVar2;
-        fVar2 = (float)param_2->gFloat();
+        fVar2 = (float)arg2.gFloat();
         field_156 = fVar2;
-        fVar2 = (float)param_2->gFloat();
+        fVar2 = (float)arg2.gFloat();
         field_160 = fVar2;
-        fVar2 = (float)param_2->gFloat();
+        fVar2 = (float)arg2.gFloat();
         field_164 = fVar2;
-        uVar3 = param_2->gFloat();
+        uint32_t uVar3 = arg2.gFloat();
         field_168 = uVar3;
-        uVar3 = param_2->gFloat();
+        uVar3 = arg2.gFloat();
         field_172 = uVar3;
         return 1;
     }
 
-    // 0x1007d9590, 1744 bytes, placed by debug map only (low confidence)
-    // Flow::ProcessTick(float, ParticleModuleUpdateParams const&, ParticleModuleUpdateState&, ParticleData&) const
-    void Flow::ProcessTick(float param_1, ParticleModuleUpdateParams* param_2, ParticleModuleUpdateState* param_3,
-                           ParticleData* param_4) {
-        undefined1* this_00;
-        undefined2 uVar1;
-        ushort uVar2;
-        undefined8 uVar3;
+    // 0x1007d9590
+    void Flow::ProcessTick(float arg1, const ParticleModuleUpdateParams& particleModuleUpdateParams,
+                           ParticleModuleUpdateState& particleModuleUpdateState, ParticleData& particleData) const {
+        uint8_t* puVar1;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>* this_00;
+        QuaternionT<float>* this_01;
+        unsigned short uVar2;
+        uint64_t uVar3;
+        UVAnimationData uvAnimationData;
         Flow* pFVar4;
         ParticleModuleUpdateState* pPVar5;
-        char cVar6;
-        long lVar7;
-        undefined2* puVar8;
-        ulong uVar9;
-        ushort* puVar10;
-        Random* pRVar11;
-        float* pfVar12;
-        Vector3T* extraout_RDX;
-        short sVar13;
-        uint uVar14;
-        ulong uVar15;
-        QuaternionT* pQVar17;
-        Vector3T* pVVar18;
-        float fVar19;
-        float fVar20;
-        ushort local_150[8];
-        Shape* local_140;
-        Shape* local_138;
-        float* local_130;
-        float* local_128;
-        QuaternionT* local_120;
-        Vector3T* local_118;
-        math* local_110;
-        QuaternionT* local_108;
-        float* local_100;
-        vector<float, SafeBucketAllocatorEASTL>* local_f8;
-        vector<float, SafeBucketAllocatorEASTL>* local_f0;
-        undefined8 local_e8;
-        undefined4 local_e0;
-        undefined8 local_d8;
+        bool cVar6;
+        uint16_t uVar7;
+        long lVar8;
+        uint16_t* puVar9;
+        unsigned long uVar10;
+        unsigned short* puVar11;
+        uint8_t* this_02;
+        Random* pRVar12;
+        float* pfVar13;
+        short sVar14;
+        unsigned int uVar15;
+        unsigned long arg1_00;
+        float fVar16;
+        float fVar17;
+        uint32_t in_stack_fffffffffffffeac;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            arStack_14c;
+        uint64_t local_e8;
+        uint32_t local_e0;
+        uint64_t local_d8;
         float local_d0;
         bitset<3ul, unsigned char>* local_c8;
         ParticleModuleUpdateParams* local_c0;
-        undefined1 local_b8[16];
-        undefined4 local_a0;
-        uint local_9c;
+        uint8_t local_b8[16];
+        unsigned int local_a0;
+        unsigned int local_9c;
         ParticleData* local_98;
         Flow* local_90;
-        ushort local_88[4];
+        uint64_t local_88;
         float local_80;
-        undefined8 local_78;
+        uint64_t local_78;
         float local_70;
-        undefined8 local_68;
+        uint64_t local_68;
         float local_60;
         ParticleModuleUpdateState* local_58;
-        Vector3T local_50[8];
+        uint64_t local_50;
         float local_48;
         float local_44;
         float local_40;
         float local_3c;
-        undefined4 local_38;
+        uint32_t local_38;
         float local_34;
 
-        if ((Module::m_debugDisabled == '\0') && (field_148 <= *(float*)&param_2[1].field_24)) {
+        if ((Module::m_debugDisabled == '\0') && (field_148 <= *(float*)&particleModuleUpdateParams[1].field_24)) {
             local_34 = field_148 + field_156;
-            local_3c = param_1;
-            cVar6 = IsSingleBurstSpawn(this);
-            if ((cVar6 != '\0') && (local_34 <= *(float*)&param_2[1].field_24)) {
-                local_3c = *(float*)&param_2[1].field_24 - local_3c;
+            local_3c = arg1;
+            cVar6 = IsSingleBurstSpawn();
+            if ((cVar6) && (local_34 <= *(float*)&particleModuleUpdateParams[1].field_24)) {
+                local_3c = *(float*)&particleModuleUpdateParams[1].field_24 - local_3c;
                 if (local_3c < 0.0 || local_34 <= local_3c) {
                     return;
                 }
                 local_3c = local_34 - local_3c;
             }
             local_90 = this;
-            local_58 = param_3;
-            local_34 = (float)GetSpawnRate(this);
-            local_b8 = ZEXT416(~-(uint)(5.0 < local_34) & 1065353216 |
-                               *(uint*)PTR_m_particleCountMultiplier_100ee69d8 & -(uint)(5.0 < local_34));
-            cVar6 = param_4->CanRender();
-            local_98 = param_4;
-            if (cVar6 == '\0') {
-                lVar7 = param_4->GetCount();
-                if (lVar7 != 0) {
-                    this_00 = &param_4->field_216;
-                    uVar15 = 0;
+            local_58 = particleModuleUpdateState;
+            local_34 = (float)GetSpawnRate();
+            local_b8 = (unsigned __int128)(~-(unsigned int)(5.0 < local_34) & 1065353216 |
+                                           *(unsigned int*)PTR_m_particleCountMultiplier_100ee69d8 &
+                                               -(unsigned int)(5.0 < local_34));
+            cVar6 = particleData.CanRender();
+            local_98 = particleData;
+            if (!cVar6) {
+                lVar8 = particleData.GetCount();
+                if (lVar8 != 0) {
+                    puVar1 = &particleData.field_216;
+                    arg1_00 = 0;
+                    this_00 = &arStack_14c - 4;
                     do {
-                        uVar1 = *(undefined2*)&param_2[1].field_8;
-                        eastl::vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>,
-                                      SafeBucketAllocatorEASTL>::
-                        operator[]((vector<ParticleVertexDataProxy<ParticleData::MaterialSlotRotationData>,
-                                           SafeBucketAllocatorEASTL>*)this_00,
-                                   uVar15);
-                        eastl::rbtree<
-                            unsigned int,
-                            eastl::pair<unsigned int const,
-                                        eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                            eastl::less<unsigned int>, eastl::allocator,
-                            eastl::use_first<eastl::pair<
-                                unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                            true, true>::end();
-                        puVar8 = (undefined2*)local_150->HeapBeginPtr();
-                        param_4 = local_98;
-                        *puVar8 = uVar1;
-                        local_150->~SplatOp();
-                        uVar15 = uVar15 + 1;
-                        uVar9 = param_4->GetCount();
-                    } while (uVar15 < uVar9);
+                        uVar7 = *(uint16_t*)&particleModuleUpdateParams[1].field_8;
+                        (*puVar1)[arg1_00];
+                        this_00->end();
+                        puVar9 = (uint16_t*)this_00->HeapBeginPtr();
+                        particleData = local_98;
+                        *puVar9 = uVar7;
+                        this_00->~SplatOp();
+                        arg1_00 = arg1_00 + 1;
+                        uVar10 = particleData.GetCount();
+                    } while (arg1_00 < uVar10);
                 }
             }
             pPVar5 = local_58;
             local_34 = local_34 * local_3c * (float)local_b8._0_4_ + *(float*)local_58;
             *(float*)local_58 = local_34;
-            local_150[0] = (ushort)(int)((float)*(ushort*)&param_2[1].field_20 * (float)local_b8._0_4_);
-            local_88[0] = (short)(int)local_34;
-            puVar10 = std::min<unsigned short>(local_150, local_88);
+            uVar7 = (uint16_t)(int)((float)*(unsigned short*)&particleModuleUpdateParams[1].field_20 *
+                                    (float)local_b8._0_4_);
+            local_88 = (((uint64_t)local_88._2_6_ << 16) | (uint16_t)((short)(int)local_34));
+            puVar11 = std::min<unsigned short>(*((&arStack_14c - 4)), local_88);
             pFVar4 = local_90;
-            uVar2 = *puVar10;
+            uVar2 = *puVar11;
             if (uVar2 != 0) {
                 *(float*)pPVar5 = local_34 - (float)uVar2;
-                lVar7 = param_4->GetCount();
-                param_4->Reserve(lVar7 + (ulong)uVar2);
-                local_38 = (uint)local_38._2_2_ << 16;
-                new (((long)&local_38 + 2)) eastl::bitset<4ul, unsigned char>();
+                lVar8 = particleData.GetCount();
+                particleData.Reserve(lVar8 + (unsigned long)uVar2);
+                local_38 = (unsigned int)local_38._2_2_ << 16;
+                new ((bitset<4ul, unsigned char>*)((long)&local_38 + 2)) eastl::bitset();
                 local_38 = local_38 & 16777215;
-                if (param_2[1].field_10 != '\0') {
-                    local_38.SetTilingData(param_2[1].field_10, param_2[1].field_11);
+                if (particleModuleUpdateParams[1].field_10 != '\0') {
+                    local_38.SetTilingData(particleModuleUpdateParams[1].field_10,
+                                           particleModuleUpdateParams[1].field_11);
                 }
-                if (*(int*)&param_2[1].field_32 == 1) {
-                    (((long)&local_38 + 2))->set(0, true);
+                if (*(int*)&particleModuleUpdateParams[1].field_32 == 1) {
+                    *((ReturnValue*)((long)&local_38 + 2)) = eastl::bitset<7ul, unsigned char>::set(0, true);
                 }
                 local_44 = 0.0;
                 if (((*PTR_m_enableFrameInterpolation_100ee6a68 != '\0') &&
-                     (local_44 = 0.0, *(char*)param_2 != '\0')) &&
+                     (local_44 = 0.0, *(char*)particleModuleUpdateParams != '\0')) &&
                     (local_44 = 0.0, 1 < uVar2)) {
                     local_44 = 1.0 / (float)(int)(uVar2 - 1);
                 }
-                pVVar18 = (Vector3T*)&param_2->field_32;
-                pQVar17 = (QuaternionT*)&param_2->field_44;
-                local_110 = (math*)&param_2->field_4;
-                local_108 = (QuaternionT*)&param_2->field_16;
-                local_140 = (Shape*)&pFVar4->field_12;
-                local_138 = (Shape*)&pFVar4->field_80;
                 local_c8 = (bitset<3ul, unsigned char>*)&pFVar4->field_8;
-                local_130 = &pFVar4->field_160;
-                local_128 = &pFVar4->field_164;
-                local_100 = (float*)&pFVar4->field_168;
                 local_90 = (Flow*)&pFVar4->field_172;
-                uVar14 = 1;
+                uVar15 = 1;
                 if (1 < uVar2) {
-                    uVar14 = (uint)uVar2;
+                    uVar15 = (unsigned int)uVar2;
                 }
-                local_f8 = (vector<float, SafeBucketAllocatorEASTL>*)&local_98->field_48;
-                local_f0 = (vector<float, SafeBucketAllocatorEASTL>*)&local_98->field_24;
+                puVar1 = &local_98->field_48;
+                this_02 = &local_98->field_24;
                 local_34 = 0.0;
-                local_120 = pQVar17;
-                local_118 = pVVar18;
-                local_c0 = param_2;
+                this_01 = (QuaternionT<float>*)(&arStack_14c - 4);
+                local_c0 = particleModuleUpdateParams;
                 do {
-                    local_e0 = *(undefined4*)(pVVar18 + 8);
-                    local_e8 = *(undefined8*)pVVar18;
-                    new (local_150) math::QuaternionT<float>(pQVar17);
-                    fVar20 = local_44;
-                    local_9c = uVar14;
+                    local_e0 = *(uint32_t*)&particleModuleUpdateParams.field_40;
+                    local_e8 = *(uint64_t*)&particleModuleUpdateParams.field_32;
+                    new (this_01) math::QuaternionT<float>(particleModuleUpdateParams.field_44);
+                    fVar17 = local_44;
+                    local_9c = uVar15;
                     if (local_44 != 0.0) {
-                        local_88 = (ushort[4])math::Lerp<math::Vector3T<float>, float>(local_110, pVVar18, extraout_RDX,
-                                                                                       local_34);
-                        local_80 = fVar20;
+                        local_88 = math::Lerp<math::Vector3T<float>, float>(
+                            particleModuleUpdateParams.field_4, particleModuleUpdateParams.field_32, local_34);
+                        local_80 = fVar17;
                         local_e8.SetXYZ(local_88);
-                        math::SLerp<float>((math*)local_88, local_108, pQVar17, local_34);
-                        math::Rect<float>::operator=((Rect<float>*)local_150, (Rect*)local_88);
+                        math::SLerp<float>(local_88, particleModuleUpdateParams.field_16, local_34);
+                        *this_01 = local_88;
                         local_34 = local_34 + local_44;
                     }
-                    pRVar11 = (Random*)Module::g_moduleRng();
-                    local_78 = local_140->GetRandomPoint(pRVar11);
-                    local_70 = fVar20;
-                    local_88 = (ushort[4])math::operator*((Vector3T*)&local_78, (QuaternionT*)local_150);
-                    local_80 = fVar20;
-                    local_78 = math::operator+((Vector3T*)&local_e8, (Vector3T*)local_88);
-                    local_70 = fVar20;
-                    pRVar11 = (Random*)Module::g_moduleRng();
-                    local_68 = local_138->GetRandomPoint(pRVar11);
-                    local_60 = fVar20;
-                    local_50 = (Vector3T[8])math::operator*((Vector3T*)&local_68, (QuaternionT*)local_150);
-                    local_48 = fVar20;
-                    local_d8 = math::operator+((Vector3T*)&local_e8, local_50);
-                    local_d0 = fVar20;
-                    cVar6 = eastl::bitset<3ul, unsigned char>::test(local_c8, 0);
-                    if (cVar6 != '\0') {
-                        math::Vector3T<float>::operator+=((Vector3T<float>*)&local_d8, (Vector3T*)local_88);
+                    pRVar12 = (Random*)Module::g_moduleRng();
+                    local_78 = pFVar4->field_12.GetRandomPoint(*pRVar12);
+                    local_70 = fVar17;
+                    local_88 = local_78 * *this_01;
+                    local_80 = fVar17;
+                    local_78 = local_e8 + local_88;
+                    local_70 = fVar17;
+                    pRVar12 = (Random*)Module::g_moduleRng();
+                    local_68 = pFVar4->field_80.GetRandomPoint(*pRVar12);
+                    local_60 = fVar17;
+                    local_50 = local_68 * *this_01;
+                    local_48 = fVar17;
+                    local_d8 = local_e8 + local_50;
+                    local_d0 = fVar17;
+                    cVar6 = local_c8->test(0);
+                    if (cVar6) {
+                        local_d8 += local_88;
                     }
-                    pRVar11 = (Random*)Module::g_moduleRng();
-                    fVar19 = (float)pRVar11->FRand(1.0);
-                    local_b8._0_4_ = fVar19;
-                    fVar19 = math::Lerp<float, float>(local_130, local_128, fVar19);
-                    local_58 = (ParticleModuleUpdateState*)CONCAT44(local_58._4_4_, fVar19);
-                    uVar3 = math::operator-((Vector3T*)&local_d8, (Vector3T*)&local_78);
-                    uVar14 = local_9c;
-                    pVVar18 = local_118;
-                    pQVar17 = local_120;
+                    pRVar12 = (Random*)Module::g_moduleRng();
+                    fVar16 = (float)pRVar12->FRand(1.0);
+                    local_b8._0_4_ = fVar16;
+                    fVar16 = math::Lerp<float, float>(pFVar4->field_160, pFVar4->field_164, fVar16);
+                    local_58 = (ParticleModuleUpdateState*)(((uint64_t)local_58._4_4_ << 32) | (uint32_t)fVar16);
+                    uVar3 = local_d8 - local_78;
+                    uVar15 = local_9c;
                     if ((local_34 == 0.0) || (local_34 * local_3c < local_58._0_4_)) {
-                        local_50 = (Vector3T[8])uVar3;
-                        local_48 = fVar20;
+                        local_50 = uVar3;
+                        local_48 = fVar17;
                         local_40 = local_34 * local_3c;
-                        cVar6 = eastl::bitset<3ul, unsigned char>::test(local_c8, 2);
-                        if (cVar6 != '\0') {
-                            local_68 = math::operator-((math*)local_50, (Vector3T*)2);
-                            local_60 = fVar20;
-                            local_50->SetXYZ((Vector3T*)&local_68);
+                        cVar6 = local_c8->test(2);
+                        if (cVar6) {
+                            local_68 = math::operator-((Vector3T<float>*)&local_50);
+                            local_60 = fVar17;
+                            local_50.SetXYZ(local_68);
                         }
-                        fVar20 = math::Lerp<float, float>(local_100, (float*)local_90, (float)local_b8._0_4_);
-                        math::Vector3T<float>::operator*=((Vector3T<float>*)local_50, fVar20);
+                        fVar17 = math::Lerp<float, float>(pFVar4->field_168, *local_90, (float)local_b8._0_4_);
+                        local_50 *= fVar17;
                         if (local_c0[1].field_10 != 0) {
-                            local_38._0_2_ = CONCAT11((char)(((int)((float)local_b8._0_4_ * 65535.0) & 65535U) %
-                                                             (uint)(byte)local_c0[1].field_10),
-                                                      (uchar)local_38);
+                            local_38._0_2_ = (((uint16_t)((char)(((int)((float)local_b8._0_4_ * 65535.0) & 65535U) %
+                                                                 (unsigned int)(uint8_t)local_c0[1].field_10))
+                                               << 8) |
+                                              (uint8_t)((unsigned char)local_38));
                         }
-                        new (&local_68) math::Point<float>(50.0, 50.0);
-                        new (&local_a0) math::ColourStorage8888<math::RGBA8StorageLayout>(1.0, 1.0, 1.0, 1.0);
-                        local_b8._0_4_->Add(local_58._0_4_, local_98, &local_78, local_50, (Point<float>*)&local_68,
-                                            local_a0, *(undefined2*)&local_c0[1].field_8, local_38);
+                        new (&local_68) math::Point(50.0, 50.0);
+                        new (&local_a0) math::ColourStorage8888(1.0, 1.0, 1.0, 1.0);
+                        uvAnimationData._4_4_ = in_stack_fffffffffffffeac;
+                        uvAnimationData.field_0 = (unsigned char)local_38;
+                        uvAnimationData._1_2_ = local_38._1_2_;
+                        uvAnimationData.field_3 = local_38._3_1_;
+                        uvAnimationData._8_2_ = uVar7;
+                        local_98->Add((float)local_b8._0_4_, local_58._0_4_, local_78, local_50, local_68,
+                                      (ColourStorage8888<math::RGBA8StorageLayout>*)(unsigned long)local_a0,
+                                      *(unsigned short*)&local_c0[1].field_8, 0.0, uvAnimationData);
                         if (local_34 != 0.0) {
-                            pfVar12 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::back(local_f8);
-                            local_40 = local_40 * *pfVar12;
+                            pfVar13 = (float*)puVar1->back();
+                            local_40 = local_40 * *pfVar13;
                             if (1.0 < local_40) {
-                                /* WARNING: Subroutine does not return */
                                 LogAssert("interpolatedLifetimeT <= 1.f",
                                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                           "graphics/runetek7/particles/modules/FlowModule.cpp",
-                                          274, (char*)0);
+                                          274, nullptr);
                             }
-                            pfVar12 = (float*)eastl::vector<float, SafeBucketAllocatorEASTL>::back(local_f0);
-                            *pfVar12 = local_40;
+                            pfVar13 = (float*)this_02->back();
+                            *pfVar13 = local_40;
                         }
                     }
-                    sVar13 = (short)uVar14 + -1;
-                    uVar14 = CONCAT22((short)(uVar14 >> 16), sVar13);
-                } while (sVar13 != 0);
+                    sVar14 = (short)uVar15 - 1;
+                    uVar15 = (((uint32_t)((short)(uVar15 >> 16)) << 16) | (uint16_t)sVar14);
+                } while (sVar14 != 0);
             }
         }
     }
 
-    // 0x1007d9c80, 32 bytes, placed by neighbouring functions
-    // Flow::GetSpawnRate() const
-    float Flow::GetSpawnRate() {
+    // 0x1007d9c80
+    float Flow::GetSpawnRate() const {
         return field_152 / field_156;
     }
 
-    // 0x1007da0f0, 1632 bytes, placed by __FILE__ string
-    // Flow::Shape::RenderDebug(math::Matrix44T<float> const&, unsigned int) const
-    void Flow::Shape::RenderDebug(Matrix44T* param_1, uint param_2) {
+    // 0x1007da0f0
+    void Flow::Shape::RenderDebug(const math::Matrix44T<float>& matrix44, unsigned int arg2) const {
         long* plVar1;
         float in_XMM1_Da;
         float fVar2;
         float fVar3;
         ColourHSL local_110;
-        undefined1 local_100[40];
+        uint8_t local_100[36];
+        float local_dc;
         ColourHSL local_d8;
-        undefined1 local_c8[40];
+        uint8_t local_c8[40];
         ColourHSL local_a0;
         float local_90;
         float local_8c;
         OBB local_88;
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         switch (field_0) {
         case 0:
-            local_c8._0_8_ = param_1->TransformPoint((Vector3T*)&field_8);
+            local_c8._0_8_ = matrix44.TransformPoint(field_8);
             fVar3 = 1.0;
             local_c8._8_4_ = in_XMM1_Da;
             goto LAB_1007da1ac;
         case 1:
             fVar3 = 0.0;
-            local_8c = (float)param_2;
-            new (&local_a0) math::ColourHSL(field_56 * -0.5, 0.0, 0.0);
-            local_100._0_8_ = math::operator*((Vector3T*)&local_a0, &field_20);
+            local_8c = (float)arg2;
+            local_a0 = math::ColourHSL(field_56 * -0.5, 0.0, 0.0);
+            local_100._0_8_ = local_a0 * field_20;
             local_100._8_4_ = fVar3;
-            local_c8._0_8_ = math::operator+((Vector3T*)&field_8, (Vector3T*)local_100);
+            local_c8._0_8_ = field_8 + *local_100;
             local_c8._8_4_ = fVar3;
-            local_88._0_8_ = param_1->TransformPoint(local_c8);
+            local_88._0_8_ = matrix44.TransformPoint(*local_c8);
             fVar2 = 0.0;
             local_88.field_8 = fVar3;
-            new (&local_d8) math::ColourHSL(field_56 * 0.5, 0.0, 0.0);
-            local_a0._0_8_ = math::operator*((Vector3T*)&local_d8, &field_20);
+            local_d8 = math::ColourHSL(field_56 * 0.5, 0.0, 0.0);
+            local_a0._0_8_ = local_d8 * field_20;
             local_a0.field_8 = fVar2;
-            local_100._0_8_ = math::operator+((Vector3T*)&field_8, (Vector3T*)&local_a0);
+            local_100._0_8_ = field_8 + local_a0;
             local_100._8_4_ = fVar2;
-            local_c8._0_8_ = param_1->TransformPoint(local_100);
+            local_c8._0_8_ = matrix44.TransformPoint(*local_100);
             local_c8._8_4_ = fVar2;
-            plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar1 != (long*)0) {
+            plVar1 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar1 != nullptr) {
                 new (local_100) oldscape::sidebars::SideBarData((int)local_8c, 3);
-                (**(code**)(*plVar1 + 24))(plVar1, &local_88, local_c8, (SideBarData*)local_100);
+                (**(void (**)(...))(*plVar1 + 24))(plVar1, &local_88, local_c8, (SideBarData*)local_100);
             }
             break;
         case 2:
-            local_c8._0_8_ = param_1->TransformPoint((Vector3T*)&field_8);
+            local_c8._0_8_ = matrix44.TransformPoint(field_8);
             fVar3 = 0.0;
             local_c8._8_4_ = in_XMM1_Da;
-            new (&local_d8) math::ColourHSL(0.0, 0.0, 1.0);
-            local_a0._0_8_ = math::operator*((Vector3T*)&local_d8, &field_20);
+            local_d8 = math::ColourHSL(0.0, 0.0, 1.0);
+            local_a0._0_8_ = local_d8 * field_20;
             local_a0.field_8 = fVar3;
             local_88.GetRot();
-            local_100._0_8_ = math::operator*((Vector3T*)&local_a0, (Matrix33T*)&local_88);
+            local_100._0_8_ = local_a0 * local_88;
             local_100._8_4_ = fVar3;
-            new (&local_88) math::PlaneT<float>(local_100, local_c8);
-            plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar1 != (long*)0) {
+            local_88 = math::PlaneT<float>(local_100, local_c8);
+            plVar1 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar1 != nullptr) {
                 fVar3 = field_64;
                 fVar2 = field_56;
-                new (&local_a0) oldscape::sidebars::SideBarData(param_2, 3);
-                (**(code**)(*plVar1 + 104))(plVar1, local_c8, &local_88, (int)fVar3, (int)fVar2, &local_a0);
+                local_a0 = oldscape::sidebars::SideBarData(arg2, 3);
+                (**(void (**)(...))(*plVar1 + 104))(plVar1, local_c8, &local_88, (int)fVar3, (int)fVar2, &local_a0);
             }
             break;
         case 3:
-            local_100._0_8_ = param_1->TransformPoint((Vector3T*)&field_8);
+            local_100._0_8_ = matrix44.TransformPoint(field_8);
             local_100._8_4_ = in_XMM1_Da;
             local_c8->GetRot();
-            new (&local_a0) math::ColourHSL(field_64, field_60, field_56);
-            new (&local_88) math::OBB(local_100, local_c8, (Vector3T*)&local_a0);
-            plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar1 != (long*)0) {
-                new (local_c8) oldscape::sidebars::SideBarData(param_2, 3);
-                (**(code**)(*plVar1 + 80))(plVar1, &local_88, (SideBarData*)local_c8);
+            local_a0 = math::ColourHSL(field_64, field_60, field_56);
+            local_88 = math::OBB(*local_100, *local_c8, local_a0);
+            plVar1 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar1 != nullptr) {
+                new (local_c8) oldscape::sidebars::SideBarData(arg2, 3);
+                (**(void (**)(...))(*plVar1 + 80))(plVar1, &local_88, (SideBarData*)local_c8);
             }
             break;
         case 4:
             local_90 = field_56 + field_56;
-            local_8c = (float)param_2;
+            local_8c = (float)arg2;
             local_100->GetRot();
-            math::operator*(local_c8, &field_20);
-            new (&local_a0) math::QuaternionT<float>(local_c8);
-            local_d8._0_8_ = param_1->TransformPoint((Vector3T*)&field_8);
-            new (&local_110) math::ColourHSL(local_90, 1.0, local_90);
-            new (&local_88)
-                math::Matrix44T<float>((QuaternionT*)&local_a0, (Vector3T*)&local_d8, (Vector3T*)&local_110);
-            plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar1 != (long*)0) {
+            *local_c8* field_20;
+            local_a0 = math::QuaternionT<float>(*local_c8);
+            local_d8._0_8_ = matrix44.TransformPoint(field_8);
+            local_110 = math::ColourHSL(local_90, 1.0, local_90);
+            local_88 = math::Matrix44T<float>(local_a0, local_d8, local_110);
+            plVar1 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar1 != nullptr) {
                 new (local_c8) oldscape::sidebars::SideBarData((int)local_8c, 3);
-                (**(code**)(*plVar1 + 64))(plVar1, &local_88, (SideBarData*)local_c8);
+                (**(void (**)(...))(*plVar1 + 64))(plVar1, &local_88, (SideBarData*)local_c8);
             }
             break;
         case 5:
-            local_100._36_4_ = field_56;
+            local_dc = field_56;
             local_90 = field_64;
-            local_8c = (float)param_2;
+            local_8c = (float)arg2;
             local_88.GetRot();
-            math::operator*((Matrix33T<float>*)local_c8, (Matrix33T*)&local_88);
-            math::Matrix33RotationX<float>((math*)local_100, 3.1415927);
-            math::operator*((Matrix33T*)&local_88, (Matrix33T<float>*)local_c8);
-            math::Matrix33T<float>::operator=((Matrix33T<float>*)local_c8, (Matrix33T*)&local_88);
-            new (local_100) math::QuaternionT<float>(local_c8);
-            local_a0._0_8_ = param_1->TransformPoint((Vector3T*)&field_8);
+            *local_c8* local_88;
+            math::Matrix33RotationX<float>(3.1415927f);
+            local_88** local_c8;
+            *local_c8 = local_88;
+            new (local_100) math::QuaternionT<float>(*local_c8);
+            local_a0._0_8_ = matrix44.TransformPoint(field_8);
             local_a0.field_8 = in_XMM1_Da;
-            new (&local_d8) math::ColourHSL((float)local_100._36_4_, local_90, (float)local_100._36_4_);
-            new (&local_88) math::Matrix44T<float>(local_100, (Vector3T*)&local_a0, (Vector3T*)&local_d8);
-            plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar1 != (long*)0) {
+            local_d8 = math::ColourHSL(local_dc, local_90, local_dc);
+            local_88 = math::Matrix44T<float>(*local_100, local_a0, local_d8);
+            plVar1 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar1 != nullptr) {
                 new (local_100) oldscape::sidebars::SideBarData((int)local_8c, 3);
-                (**(code**)(*plVar1 + 56))(plVar1, &local_88, (SideBarData*)local_100);
+                (**(void (**)(...))(*plVar1 + 56))(plVar1, &local_88, (SideBarData*)local_100);
             }
             break;
         case 6:
         case 7:
             local_8c = field_56 + field_56;
-            local_c8._0_8_ = param_1->TransformPoint((Vector3T*)&field_8);
+            local_c8._0_8_ = matrix44.TransformPoint(field_8);
             fVar3 = local_8c;
             local_c8._8_4_ = in_XMM1_Da;
         LAB_1007da1ac:
-            new (&local_88) math::Sphere(local_c8, fVar3);
-            plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar1 != (long*)0) {
-                new (local_c8) oldscape::sidebars::SideBarData(param_2, 3);
-                (**(code**)(*plVar1 + 32))(plVar1, &local_88, (SideBarData*)local_c8);
+            local_88 = math::Sphere(*local_c8, fVar3);
+            plVar1 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar1 != nullptr) {
+                new (local_c8) oldscape::sidebars::SideBarData(arg2, 3);
+                (**(void (**)(...))(*plVar1 + 32))(plVar1, &local_88, (SideBarData*)local_c8);
             }
             break;
         case 8:
-            /* WARNING: Subroutine does not return */
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "particles/modules/FlowModule.cpp",
-                            359, (char*)0);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                            359, nullptr);
         }
     }
 

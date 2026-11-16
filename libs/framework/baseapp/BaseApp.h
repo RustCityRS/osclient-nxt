@@ -1,6 +1,5 @@
 // libs/framework/baseapp/BaseApp.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.system.osclient
@@ -11,146 +10,115 @@ namespace jag {
     public:
         // virtual methods in vtable order
         virtual ~BaseApp();
-        virtual PauseAudio();
-        virtual void MainInit(SystemInitParams const&);
-        virtual void Update(float);
-        virtual void SetAppRunning(bool);
-        virtual GetInputHAL();
-        virtual void SetWindow(std::unique_ptr<Window, std::default_delete<Window>>&&);
-        virtual void SetView(shared_ptr<OpenGLView> const&);
-        virtual void SetSystemInitParams(SystemInitParams const&);
-        virtual OnMainInit(SystemInitParams const&);
-        GetAppRunning() const;
-        GetExitAfterInit();
-        GetExitCode();
-        OsxOpenUrls(Array<eastl::string, eastl::allocator>&&);
-        ResumeAudio();
-        MainShutdown();
-        MainWindowInit(SystemInitParams const&);
-        DeviceLostFocus();
-        KeepAliveUpdate();
-        SetPresentEnabled(bool);
-        MainWindowShutdown();
-        SetFastUpdateLoopEnabled(bool);
-        SetPostLogicTickCallback(eastl::function<bool()> const&);
-        Resize(float, float);
-        Configure(SystemInitParams&);
-        GetFastUpdateLoopEnabled() const;
-        GetView() const;
-        GetWindow() const;
-        GetPresentEnabled() const;
-        void SetAppInstance(BaseApp*);
-        GetAppInstance();
+        virtual void PauseAudio();
+        virtual void MainInit(const SystemInitParams& systemInitParams);
+        virtual void Update(float arg1);
+        virtual void SetAppRunning(bool arg1);
+        virtual uint64_t GetInputHAL();
+        virtual void SetWindow(std::unique_ptr<Window>&& window);
+        virtual void SetView(const shared_ptr<OpenGLView>& openGLView);
+        virtual void SetSystemInitParams(const SystemInitParams& systemInitParams);
+        virtual uint8_t OnMainInit(const SystemInitParams& arg1);
+        uint8_t GetAppRunning() const;
+        uint8_t GetExitAfterInit();
+        uint32_t GetExitCode();
+        void OsxOpenUrls(Array<eastl::string>&& arg1);
+        void ResumeAudio();
+        void MainShutdown();
+        void MainWindowInit(const SystemInitParams& arg1);
+        void DeviceLostFocus();
+        void KeepAliveUpdate();
+        void SetPresentEnabled(bool arg1);
+        void MainWindowShutdown();
+        void SetFastUpdateLoopEnabled(bool arg1);
+        void SetPostLogicTickCallback(const eastl::function<bool()>& arg1);
+        void Resize(float arg1, float arg2);
+        void Configure(SystemInitParams& arg1);
+        uint64_t GetFastUpdateLoopEnabled() const;
+        uint64_t GetView() const;
+        uint64_t GetWindow() const;
+        uint8_t GetPresentEnabled() const;
+        void SetAppInstance(BaseApp* baseApp);
+        BaseApp* GetAppInstance();
         BaseApp();
-        void
-        QueueMainThreadEvent(fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const&);
+        void QueueMainThreadEvent(
+            fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const& callback);
         void RunSynchronousMainThreadEvent(
-            fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const&);
+            fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const& callback);
         void UpdateInternal();
         void ExecuteMainThreadEvents();
-        static /* 8 bytes */ m_pApp;
+        static int64_t m_pApp;
 
-        // data members, from how the methods use this: 1072 bytes, the first 568 are FullscreenQuadPass
-        char _unknown_568[504];
+    private:
+        uint8_t _unknown_568[504];
     };
 
-    // 0x1000092e0, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // BaseApp::GetAppRunning() const
-    /* ui::ButtonElement::IsMouseOver() const */
-
-    undefined1 ui::ButtonElement::IsMouseOver() {
+    // 0x1000092e0
+    uint8_t BaseApp::GetAppRunning() const {
         return m_mouseOver;
     }
 
-    // 0x1000096a0, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // BaseApp::GetExitAfterInit()
-    /* oldscape::rs2lib::worldmap::WorldmapRenderer::IsValid() const */
-
-    undefined1 oldscape::rs2lib::worldmap::WorldmapRenderer::IsValid() {
+    // 0x1000096a0
+    uint8_t BaseApp::GetExitAfterInit() {
         return m_valid;
     }
 
-    // 0x100009720, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // BaseApp::GetExitCode()
-    /* oldscape::graphics::NXTPixScreen::GetUIHeight() const */
-
-    undefined4 oldscape::graphics::NXTPixScreen::GetUIHeight() {
+    // 0x100009720
+    uint32_t BaseApp::GetExitCode() {
         return m_uIHeight;
     }
 
-    // 0x100187600, 16 bytes, inline, placed by class name
-    // BaseApp::SetAppInstance(BaseApp*)
-    void BaseApp::SetAppInstance(BaseApp* param_1) {
-        m_pApp = param_1;
+    // 0x100187600
+    void BaseApp::SetAppInstance(BaseApp* baseApp) {
+        m_pApp = baseApp;
     }
 
-    // 0x100195ed0, 16 bytes, inline, placed by class name
-    // BaseApp::SetAppRunning(bool)
-    void BaseApp::SetAppRunning(bool param_1) {
-        m_appRunning = param_1;
+    // 0x100195ed0
+    void BaseApp::SetAppRunning(bool arg1) {
+        m_appRunning = arg1;
     }
 
-    // 0x100c1a4a0, 16 bytes, inline, placed by class name
-    // BaseApp::GetAppInstance()
-    undefined8 BaseApp::GetAppInstance() {
+    // 0x100c1a4a0
+    BaseApp* BaseApp::GetAppInstance() {
         return m_pApp;
     }
 
-    // 0x100c99670, 48 bytes, inline, placed by class name
-    // BaseApp::MainInit(SystemInitParams const&)
-    void BaseApp::MainInit(SystemInitParams* param_1) {
-        (*(code*)field_0[16])();
-        (*(code*)field_0[26])(this, param_1);
+    // 0x100c99670
+    void BaseApp::MainInit(const SystemInitParams& systemInitParams) {
+        SetSystemInitParams();
+        GetPresentEnabled(systemInitParams);
     }
 
-    // 0x100c996a0, 48 bytes, inline, placed by class name
-    // BaseApp::Update(float)
-    void BaseApp::Update(float param_1) {
-        UpdateInternal(this);
-        (*(code*)field_0[27])(this);
+    // 0x100c996a0
+    void BaseApp::Update(float arg1) {
+        UpdateInternal();
+        (*this->_vptr[1]._dtor)(this);
     }
 
-    // 0x100c996d0, 32 bytes, inline, placed by class name
-    // BaseApp::SetWindow(std::unique_ptr<Window, std::default_delete<Window> >&&)
-    /* BaseApp::SetWindow(std::unique_ptr<Window, std::default_delete<Window> >&&) */
-
-    void BaseApp::SetWindow(unique_ptr* param_1) {
-        /* WARNING: Subroutine does not return */
+    // 0x100c996d0
+    void BaseApp::SetWindow(std::unique_ptr<Window>&& window) {
         LogAssertAlways(
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/framework/baseapp/BaseApp.h", 92,
-            (char*)0);
+            nullptr);
     }
 
-    // 0x100c996f0, 32 bytes, inline, placed by class name
-    // BaseApp::SetView(shared_ptr<OpenGLView> const&)
-    void BaseApp::SetView(shared_ptr* param_1) {
-        /* WARNING: Subroutine does not return */
+    // 0x100c996f0
+    void BaseApp::SetView(const shared_ptr<OpenGLView>& openGLView) {
         LogAssertAlways(
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/framework/baseapp/BaseApp.h", 95,
-            (char*)0);
+            nullptr);
     }
 
-    // 0x100c99710, 16 bytes, inline, placed by class name
-    // BaseApp::SetSystemInitParams(SystemInitParams const&)
-    void BaseApp::SetSystemInitParams(SystemInitParams* param_1) {
-        SystemInitParams::operator=((SystemInitParams*)field_16, param_1);
+    // 0x100c99710
+    void BaseApp::SetSystemInitParams(const SystemInitParams& systemInitParams) {
+        *field_16 = systemInitParams;
     }
 
-    // 0x100c9a220, 48 bytes, inline, placed by class name
-    // BaseApp::RunSynchronousMainThreadEvent(fixedfunction::function<void (BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0> const&)::$_0::operator()(BaseApp*) const
-    /* BaseApp::RunSynchronousMainThreadEvent(fixedfunction::function<void (BaseApp*),
-   128ul, 16ul, (fixedfunction::Methods)0>
-   const&)::$_0::TEMPNAMEPLACEHOLDERVALUE(BaseApp*) const */
-
+    // 0x100c9a220
     void BaseApp::RunSynchronousMainThreadEvent(
         fixedfunction::function<void(BaseApp*), 128ul, 16ul,
-                                (fixedfunction::Methods)0> const&)::$_0::operator()(BaseApp* param_1) {
-        BaseApp* local_18;
-
-        local_18 = param_1;
+                                (fixedfunction::Methods)0> const&)::$_0::operator()(BaseApp* baseApp) const {
+        BaseApp* local_18 = baseApp;
         fixedfunction::function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>::operator()(
             *(function<void(BaseApp*), 128ul, 16ul, (fixedfunction::Methods)0>**)(this + 8), &local_18);
         (*(Fence**)this)->Signal();
@@ -159,13 +127,11 @@ namespace jag {
 } // namespace jag
 
 namespace jag::graphics {
-    // 0x1000096a0: the linker folded this into BaseApp::GetExitAfterInit(), which has identical code
-    AnimCurveSegmentCacheBase::IsReady() const;
+    // 0x1000096a0: AnimCurveSegmentCacheBase::IsReady() const has the same machine code as BaseApp::GetExitAfterInit()
 
 } // namespace jag::graphics
 
 namespace jag::game {
-    // 0x100009720: the linker folded this into BaseApp::GetExitCode(), which has identical code
-    uint BaseConfigTypeList::GetGroupCount() const;
+    // 0x100009720: BaseConfigTypeList::GetGroupCount() const has the same machine code as BaseApp::GetExitCode()
 
 } // namespace jag::game

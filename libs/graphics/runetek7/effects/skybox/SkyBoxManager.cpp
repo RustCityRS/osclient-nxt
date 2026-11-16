@@ -1,407 +1,273 @@
 // libs/graphics/runetek7/effects/skybox/SkyBoxManager.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "SkyBoxManager.h"
 
 namespace jag::graphics {
-    // 0x10091c610, 288 bytes, base-object constructor, placed by class name and debug map
-    // SkyBoxManager::SkyBoxManager(RT7Core&)
-    void SkyBoxManager::SkyBoxManager(RT7Core* param_1) {
-        allocator local_170[8];
+    // 0x10091c610
+    SkyBoxManager::SkyBoxManager(RT7Core& rt7Core) : field_0(rt7Core) {
         RenderPassDrawableGroupsConfig local_168;
-        fixed_vector local_150[280];
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        field_0 = param_1;
-        new (field_16) ViewTransforms();
-        new (field_224) math::Frustum();
         new (&local_168) DrawableQueue::RenderPassDrawableGroupsConfig(4, 16, 2);
-        eastl::allocator::allocator(local_170, "EASTL fixed_vector");
-        eastl::fixed_vector<DrawableQueue::RenderPassDrawableGroupsConfig, 10ul, true, eastl::allocator>::fixed_vector(
-            local_150, &local_168, 1, local_170);
-        new (&field_384, param_1, local_150, 16, 0) Renderer();
-        local_150->~fixed_vector();
-        new (&field_6712) eastl::vector<SkyBoxEntry, eastl::allocator>();
-        field_6744 = 0;
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        fixed_vector<DrawableQueue::RenderPassDrawableGroupsConfig, 10ul> local_150(&local_168, DAT_00000001);
+        new (field_384) Renderer(rt7Core, local_150, 16, 0);
+        new (&field_6712) eastl::vector<SkyBoxEntry>();
+        this[1].field_16[8] = 0;
     }
 
-    // 0x10091c740, 16 bytes, complete-object constructor, placed by class name and debug map
-    // SkyBoxManager::SkyBoxManager(RT7Core&): jumps straight to the base-object constructor
-
-    // 0x10091c750, 16 bytes, placed by class name and debug map
-    // SkyBoxManager::Destroy()
+    // 0x10091c750
     void SkyBoxManager::Destroy() {
-        DestroyRenderingResources(this);
+        DestroyRenderingResources();
     }
 
-    // 0x10091c760, 144 bytes, placed by class name and debug map
-    // SkyBoxManager::DestroyRenderingResources()
+    // 0x10091c760
     void SkyBoxManager::DestroyRenderingResources() {
-        long lVar1;
-        long lVar2;
         RenderTargetsManager* this_00;
         PointLightShadows* this_01;
-        shared_ptr* psVar3;
-        AutoSingleton<ShaderThreadPoolSingleton> local_30[8];
+        shared_ptr<render::RenderTargets>* renderTargets;
+        AutoSingleton<ShaderThreadPoolSingleton> local_30;
 
-        local_30->~AutoSingleton("SkyBox_Manager");
-        lVar1 = (&field_6712)->HeapBeginPtr();
-        lVar2 = (&field_6712)->end();
+        long lVar1 = field_6712.HeapBeginPtr();
+        long lVar2 = field_6712.end();
         for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
             this_00 = (RenderTargetsManager*)field_0->GetRenderTargetsManager();
-            this_01 = (PointLightShadows*)shared_ptr<SkyBox>::operator->((shared_ptr<SkyBox>*)(lVar1 + 8));
-            psVar3 = (shared_ptr*)this_01->GetPointLightSMManager();
-            this_00->Unregister(psVar3);
+            this_01 = (PointLightShadows*)(*((lVar1 + 8))).operator->();
+            renderTargets = (shared_ptr<render::RenderTargets>*)this_01->GetPointLightSMManager();
+            this_00->Unregister(*renderTargets);
         }
     }
 
-    // 0x10091c7f0, 112 bytes, placed by class name and debug map
-    // SkyBoxManager::MainLogic()
+    // 0x10091c7f0
     void SkyBoxManager::MainLogic() {
-        ulonglong uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        SkyBoxEntry* pSVar4;
-        SkyBoxEntry* pSVar5;
-        undefined1* this_00;
-
-        uVar1 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this);
-        this_00 = &field_6712;
-        uVar2 = this_00->HeapBeginPtr();
-        uVar3 = this_00->end();
-        pSVar4 = std::remove_if<SkyBoxEntry*, SkyBoxManager::MainLogic()::__5>(uVar2, uVar3, uVar1);
-        pSVar5 = (SkyBoxEntry*)this_00->end();
-        this_00->erase(pSVar4, pSVar5);
+        auto arg3 = SystemTimer::GetTimeMS<std::chrono::steady_clock>();
+        uint8_t* this_00 = &field_6712;
+        auto pSVar1 = this_00->HeapBeginPtr();
+        auto pSVar2 = this_00->end();
+        pSVar1 = std::remove_if<SkyBoxEntry*, SkyBoxManager::MainLogic()::__5>(pSVar1, pSVar2, arg3);
+        pSVar2 = (SkyBoxEntry*)this_00->end();
+        this_00->erase(pSVar1, pSVar2);
     }
 
-    // 0x10091c960, 192 bytes, placed by class name and debug map
-    // SkyBoxManager::GetSkyBoxTexture(int)
-    undefined8 SkyBoxManager::GetSkyBoxTexture(int param_1) {
-        bool bVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        SkyBoxEntry* pSVar4;
-        SkyBoxEntry* pSVar5;
+    // 0x10091c960
+    uint64_t SkyBoxManager::GetSkyBoxTexture(int arg1) {
+        SkyBoxEntry* pSVar2;
+        SkyBoxEntry* pSVar3;
         PointLightShadows* this_00;
         shared_ptr* this_01;
         RenderTargets* this_02;
-        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>* this_03;
-        undefined8* puVar6;
-        undefined1* this_04;
+        vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>* this_03;
+        uint64_t* puVar4;
+        uint8_t* this_04;
 
-        if ((field_6744 == '\0') || (param_1 != -1)) {
+        if ((this[1].field_16[8] == '\0') || (arg1 != -1)) {
             this_04 = &field_6712;
-            uVar2 = this_04->HeapBeginPtr();
-            uVar3 = this_04->end();
-            pSVar4 = eastl::find_if<SkyBoxEntry_const*, int->GetSkyBoxTexture()::__6>(uVar2, uVar3, param_1);
-            pSVar5 = (SkyBoxEntry*)this_04->end();
-            if (pSVar4 != pSVar5) {
-                this_00 = (PointLightShadows*)shared_ptr<SkyBox>::operator->((shared_ptr<SkyBox>*)&pSVar4->field_8);
+            pSVar2 = (SkyBoxEntry*)this_04->HeapBeginPtr();
+            pSVar3 = (SkyBoxEntry*)this_04->end();
+            pSVar2 = eastl::find_if<SkyBoxEntry const*, int->GetSkyBoxTexture()::__6>(
+                pSVar2, pSVar3, (__6*)(unsigned long)(unsigned int)arg1);
+            pSVar3 = (SkyBoxEntry*)this_04->end();
+            if (pSVar2 != pSVar3) {
+                this_00 = (PointLightShadows*)pSVar2->field_8.operator->();
                 this_01 = (shared_ptr*)this_00->GetPointLightSMManager();
-                bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-                if (bVar1) {
-                    this_02 = (RenderTargets*)shared_ptr<render::RenderTargets>::operator->(
-                        (shared_ptr<render::RenderTargets>*)this_01);
-                    this_03 = (vector<render::Texture*,
-                                      eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>*)
+                if (shared_ptr::operator_cast_to_bool(this_01) != '\0') {
+                    this_02 = (RenderTargets*)(*this_01).operator->();
+                    this_03 = (vector<render::Texture*, eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true>>*)
                                   this_02->GetColourTargetTextures();
-                    puVar6 = (undefined8*)eastl::vector<
-                        render::Texture*,
-                        eastl::fixed_vector_allocator<8ul, 2ul, 8ul, 0ul, true, eastl::allocator>>::operator[](this_03,
-                                                                                                               0);
-                    return *puVar6;
+                    puVar4 = (uint64_t*)(*this_03)[0];
+                    return *puVar4;
                 }
             }
         }
         return 0;
     }
 
-    // 0x10091ca70, 80 bytes, placed by class name and debug map
-    // SkyBoxManager::SetViewTransforms(ViewTransforms const&)
-    void SkyBoxManager::SetViewTransforms(ViewTransforms* param_1) {
-        undefined1* this_00;
-        Matrix44T* pMVar1;
-        Matrix44T* pMVar2;
-
-        this_00 = field_16;
-        ViewTransforms::operator=((ViewTransforms*)this_00, param_1);
-        pMVar1 = (Matrix44T*)this_00->GetScreen();
-        pMVar2 = (Matrix44T*)this_00->GetOrigin();
-        (field_224, pMVar1, pMVar2)->Set();
+    // 0x10091ca70
+    void SkyBoxManager::SetViewTransforms(const ViewTransforms& viewTransforms) {
+        uint8_t* this_00 = field_16;
+        *this_00 = viewTransforms;
+        auto matrix441 = this_00->GetScreen();
+        auto matrix442 = this_00->GetOrigin();
+        field_224->Set(*matrix441, *matrix442);
     }
 
-    // 0x10091cac0, 1088 bytes, placed by class name and debug map
-    // SkyBoxManager::Render(unsigned int, int, EffectManager&, render::Viewport const&, std::function<bool (std::array<math::IntersectionType, 10ul>&, math::Frustum&, math::Frustum const&, int, math::AABB const&, math::OBB const&)>&, GraphRoot*)
-    /* SkyBoxManager::Render(unsigned int, int, EffectManager&,
-   render::Viewport const&, std::function<bool (std::array<math::IntersectionType, 10ul>&,
-   math::Frustum&, math::Frustum const&, int, math::AABB const&, math::OBB
-   const&)>&, GraphRoot*) */
-
-    void SkyBoxManager::Render(uint param_1, int param_2, EffectManager* param_3, Viewport* param_4, function* param_5,
-                               GraphRoot* param_6) {
-        shared_ptr<SkyBox>* this;
-        Renderer* this_00;
-        char cVar1;
-        RenderPass* pRVar2;
-        undefined1* puVar3;
-        EffectManager* pEVar4;
-        int* piVar5;
-        SkyBox* pSVar6;
-        PointLightShadows* this_01;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_02;
-        SkyBox* this_03;
-        Vector4T* pVVar7;
-        Rect<float>* this_04;
-        DrawableQueue* pDVar8;
-        undefined4 in_register_0000003c;
-        undefined8* puVar9;
-        RT7Core* this_05;
-        undefined4 uVar10;
-        allocator local_29c8[24];
-        int* local_29b0;
+    // 0x10091cac0
+    void
+    SkyBoxManager::Render(unsigned int arg1, int arg2, EffectManager& effectManager, const render::Viewport& viewport,
+                          std::function<bool(std::array<math::IntersectionType, 10ul>&, math::Frustum&,
+                                             math::Frustum const&, int, math::AABB const&, math::OBB const&)>& callback,
+                          GraphRoot* graphRoot) {
+        shared_ptr<SkyBox>* this_00;
+        WorldmapAreaMetadata* this_01;
+        SkyBox* pSVar4;
+        PointLightShadows* this_02;
+        SkyBox* this_04;
+        Vector4T<float>* vector4;
+        Rect<float>* this_05;
+        DrawableQueue* pDVar5;
+        uint32_t uVar6;
         Callstack local_29a8;
-        RenderContext* local_2988;
-        Renderer* local_2980;
-        undefined8* local_2978;
-        EffectStateSaveRestore local_2970[309];
-        Viewport local_1620[176];
-        undefined1 local_2d8[416];
-        undefined4 local_138;
-        undefined1 local_68;
-        long local_38;
+        WorldmapAreaMetadata* local_2980;
+        uint8_t local_2d8[416];
 
-        puVar9 = (undefined8*)CONCAT44(in_register_0000003c, param_1);
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
+        EffectManager* local_2990 = effectManager;
         new (local_2d8) SceneViewData();
-        render::Viewport::Viewport(local_1620, 0, 0, *(int*)(param_5 + 8), *(int*)(param_5 + 12), 0.0, 1.0);
-        eastl::allocator::allocator(local_29c8, "EASTL fixed_vector");
-        eastl::fixed_vector<render::Viewport, 2ul, true, eastl::allocator>::fixed_vector(local_2970, local_1620, 1,
-                                                                                         local_29c8);
+        Viewport local_1620(0, 0, viewport.field_8, viewport.field_12, 0.0, 1.0);
+        EffectStateSaveRestore local_2970(&local_1620, DAT_00000001);
         local_2d8->SetRenderTargetViewports(local_2970);
-        local_2970->~fixed_vector();
-        local_2d8->SetTransforms((ViewTransforms*)(puVar9 + 2));
-        uVar10._0_1_ = 0;
-        uVar10._1_3_ = 0;
-        new (local_29c8) ImVec4(0.0, 0.0, 0.0, 0.0);
-        local_138 = 3;
-        local_68 = 1;
-        pRVar2 = (RenderPass*)(*puVar9)->GetForwardLightingPass();
-        this_05 = (RT7Core*)local_2d8;
-        this_05->RenderPassPushBack(pRVar2);
-        local_2988 = (RenderContext*)this_05->GetRenderContext();
-        new (local_1620) eastl::fixed_map<EffectType, bool, 121ul, true, eastl::less<EffectType>, eastl::allocator>();
+        local_2d8->SetTransforms(*field_16);
+        uVar6._0_1_ = 0;
+        uVar6._1_3_ = 0;
+        local_29c8 = ImVec4(0.0, 0.0, 0.0, 0.0);
+        uint32_t local_138 = 3;
+        uint8_t local_68 = 1;
+        auto renderPass = field_0->GetForwardLightingPass();
+        RT7Core* this_06 = (RT7Core*)local_2d8;
+        this_06->RenderPassPushBack(renderPass);
+        auto local_2988 = this_06->GetRenderContext();
+        local_1620 = eastl::fixed_map<EffectType, bool, 121ul>();
         local_2970[0].field_0._0_1_ = 50;
-        puVar3 = (undefined1*)eastl::map<EffectType, bool, eastl::less<EffectType>,
-                                         eastl::fixed_node_allocator<40ul, 121ul, 1ul, 0ul, true, eastl::allocator>>::
-        operator[]((map<EffectType, bool, eastl::less<EffectType>,
-                        eastl::fixed_node_allocator<40ul, 121ul, 1ul, 0ul, true, eastl::allocator>>*)local_1620,
-                   (EffectType*)local_2970);
-        *puVar3 = 0;
+        uint8_t* puVar2 = &local_1620[local_2970];
+        *puVar2 = 0;
         local_2970[0].field_0._0_1_ = 108;
-        puVar3 = (undefined1*)eastl::map<EffectType, bool, eastl::less<EffectType>,
-                                         eastl::fixed_node_allocator<40ul, 121ul, 1ul, 0ul, true, eastl::allocator>>::
-        operator[]((map<EffectType, bool, eastl::less<EffectType>,
-                        eastl::fixed_node_allocator<40ul, 121ul, 1ul, 0ul, true, eastl::allocator>>*)local_1620,
-                   (EffectType*)local_2970);
-        *puVar3 = 0;
-        pEVar4 = (EffectManager*)(*puVar9)->GetEffectManager();
-        EffectStateSaveRestore::EffectStateSaveRestore(local_2970, pEVar4, (fixed_map*)local_1620);
-        local_2978 = puVar9;
-        piVar5 = (int*)((puVar9 + 839))->HeapBeginPtr();
-        local_29b0 = (int*)((puVar9 + 839))->end();
-        if (piVar5 != local_29b0) {
-            local_2980 = (Renderer*)(local_2978 + 48);
+        puVar2 = &local_1620[local_2970];
+        *puVar2 = 0;
+        auto effectManager_00 = field_0->GetEffectManager();
+        local_2970 = EffectStateSaveRestore(*effectManager_00, local_1620);
+        auto piVar3 = field_6712.HeapBeginPtr();
+        auto local_29b0 = field_6712.end();
+        if (piVar3 != local_29b0) {
+            local_2980 = (WorldmapAreaMetadata*)((SkyBoxManager*)this)->field_384;
             do {
-                this = (shared_ptr<SkyBox>*)(piVar5 + 2);
-                pSVar6 = (SkyBox*)shared_ptr<SkyBox>::operator->(this);
-                cVar1 =
-                    pSVar6->UpdateRenderTargets((RT7Core*)*local_2978, *(uint*)(param_5 + 8), *(uint*)(param_5 + 12));
-                if (cVar1 != '\0') {
-                    if (*piVar5 == -1) {
-                        *(undefined1*)(local_2978 + 843) = 1;
+                this_00 = (shared_ptr<SkyBox>*)(piVar3 + 2);
+                pSVar4 = (SkyBox*)(*this_00).operator->();
+                if (pSVar4->UpdateRenderTargets(*(((SkyBoxManager*)this)->field_0), viewport.field_8,
+                                                viewport.field_12) != '\0') {
+                    if (*piVar3 == -1) {
+                        (SkyBoxManager*)this[1].field_16[8] = 1;
                     }
-                    this_01 = (PointLightShadows*)shared_ptr<SkyBox>::operator->(this);
-                    this_02 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                                  this_01->GetPointLightSMManager();
-                    local_2d8._368_8_ =
-                        eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_02);
-                    pSVar6 = (SkyBox*)shared_ptr<SkyBox>::operator->(this);
-                    this_03 = (SkyBox*)shared_ptr<SkyBox>::operator->(this);
-                    pVVar7 = (Vector4T*)this_03->GetClearColour();
-                    local_29a8._0_8_ = pSVar6->GetDesiredClearColour(pVVar7);
-                    local_29a8._8_4_ = uVar10;
+                    this_02 = (PointLightShadows*)(*this_00).operator->();
+                    local_2d8._368_8_ = ((vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
+                                             this_02->GetPointLightSMManager())
+                                            ->end();
+                    pSVar4 = (SkyBox*)(*this_00).operator->();
+                    this_04 = (SkyBox*)(*this_00).operator->();
+                    vector4 = (Vector4T<float>*)this_04->GetClearColour();
+                    local_29a8._0_8_ = pSVar4->GetDesiredClearColour(*vector4);
+                    local_29a8._8_4_ = uVar6;
                     local_29a8._12_4_ = 0;
-                    this_04 = (Rect<float>*)std::array<math::Vector4T<float>, 2ul>::operator[](
-                        (array<math::Vector4T<float>, 2ul>*)(local_2d8 + 384), 0);
-                    math::Rect<float>::operator=(this_04, (Rect*)&local_29a8);
+                    this_05 = (Rect<float>*)(*((local_2d8 + 384)))[0];
+                    *this_05 = local_29a8;
                     local_29a8.m_stackFrames = 0;
-                    new (&local_29a8) callstack::Callstack();
-                    local_2980->RenderViewBegin(local_2988, local_2d8, param_4, (RenderPassBitSet*)&local_29a8);
-                    pSVar6 = (SkyBox*)shared_ptr<SkyBox>::operator->(this);
-                    pDVar8 = (DrawableQueue*)local_2980->GetOrigin();
-                    pSVar6->GatherForwardDrawableElements(pDVar8, (RT7Core*)*local_2978, local_2d8, param_4);
+                    local_29a8 = callstack::Callstack();
+                    local_2980->RenderViewBegin(*local_2988, *local_2d8, *local_2990, local_29a8);
+                    pSVar4 = (SkyBox*)(*this_00).operator->();
+                    pDVar5 = (DrawableQueue*)local_2980->GetOrigin();
+                    pSVar4->GatherForwardDrawableElements(*pDVar5, *(((SkyBoxManager*)this)->field_0), *local_2d8,
+                                                          *local_2990);
                     local_29a8.m_stackFrames = 0;
-                    new (&local_29a8) callstack::Callstack();
-                    this_00 = local_2980;
-                    local_2980->RenderViewRenderPasses(local_2d8, local_2988, false, param_4,
-                                                       (RenderPassBitSet*)&local_29a8);
-                    pDVar8 = (DrawableQueue*)this_00->GetOrigin();
-                    pDVar8->ClearAllGroupsInAllPasses();
-                    Renderer::RenderViewEnd((RenderContext*)local_2980);
-                    if (*piVar5 == -1) {
-                        *(undefined1*)(local_2978 + 843) = 0;
+                    local_29a8 = callstack::Callstack();
+                    this_01 = local_2980;
+                    local_2980->RenderViewRenderPasses(*local_2d8, *local_2988, false, *local_2990, local_29a8);
+                    pDVar5 = (DrawableQueue*)this_01->GetOrigin();
+                    pDVar5->ClearAllGroupsInAllPasses();
+                    local_2980->RenderViewEnd(*local_2988);
+                    if (*piVar3 == -1) {
+                        (SkyBoxManager*)this[1].field_16[8] = 0;
                     }
                 }
-                piVar5 = piVar5 + 8;
-            } while (piVar5 != local_29b0);
-        }
-        local_2970->~EffectStateSaveRestore();
-        local_1620->~fixed_map();
-        local_2d8->~SceneViewData();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                piVar3 = piVar3 + 8;
+            } while (piVar3 != local_29b0);
         }
     }
 
-    // 0x10091cf20, 48 bytes, placed by class name and debug map
-    // SkyBoxManager::CreateRenderingResources()
-    undefined8 SkyBoxManager::CreateRenderingResources() {
-        AutoSingleton<ShaderThreadPoolSingleton> local_10[8];
+    // 0x10091cf20
+    void SkyBoxManager::CreateRenderingResources() {
+        AutoSingleton<ShaderThreadPoolSingleton> local_10;
 
-        local_10->~AutoSingleton("SkyBox_Manager");
         return 1;
     }
 
-    // 0x10091cf50, 224 bytes, placed by class name and debug map
-    // SkyBoxManager::RegisterSkyBox(int)
-    SkyBoxManager* SkyBoxManager::RegisterSkyBox(int param_1) {
-        undefined8 uVar1;
-        MakeSharedPool<SkyBox, 16>* this_00;
-        SkyBoxEntry* pSVar2;
-        SkyBoxEntry* pSVar3;
-        int in_EDX;
-        undefined4 in_register_00000034;
-        Layout* this_01;
-        Layout* this_02;
+    // 0x10091cf50
+    auto SkyBoxManager::RegisterSkyBox(int arg1) {
         SkyBoxEntry local_58;
-        shared_ptr local_38;
-        int local_24;
+        MakeSharedPool<SkyBox, 16> local_38;
 
-        this_02 = (Layout*)(CONCAT44(in_register_00000034, param_1) + 6712);
-        local_24 = in_EDX;
-        uVar1 = eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-            Layout::HeapBeginPtr(this_02);
-        this_00 = (MakeSharedPool<SkyBox, 16>*)this_02->end();
-        pSVar2 = eastl::find_if<SkyBoxEntry*, int->RegisterSkyBox()::__7>(uVar1, this_00, &local_24);
-        this_01 = this_02;
-        pSVar3 = (SkyBoxEntry*)this_02->end();
-        if (pSVar2 == pSVar3) {
-            MakeSharedPool<SkyBox, 16>::MakeShared<>(&local_38, this_00);
-            new (&local_58) SkyBoxEntry(local_24, &local_38);
-            this_02->push_back(&local_58);
-            local_58.~pair();
-            shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-                (shared_ptr<oldscape::RSevenDebugPresetProvider>*)this, &local_38);
-            local_38.~shared_ptr();
+        uint8_t* this_00 = &field_6712;
+        int local_24 = arg1;
+        auto pSVar1 = this_00->HeapBeginPtr();
+        auto pSVar2 = this_00->end();
+        pSVar1 = eastl::find_if<SkyBoxEntry*, int->RegisterSkyBox()::__7>(pSVar1, pSVar2, (__7*)&local_24);
+        pSVar2 = (SkyBoxEntry*)this_00->end();
+        if (pSVar1 == pSVar2) {
+            MakeSharedPool<SkyBox, 16>::MakeShared<>(&local_38);
+            local_58 = SkyBoxEntry(local_24, local_38);
+            this_00->push_back(local_58);
+            result.shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(local_38);
         } else {
-            pSVar2->field_24 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this_01);
-            new (this) shared_ptr<oldscape::dash3d::Decor>((shared_ptr*)&pSVar2->field_8);
+            pSVar1->field_24 = SystemTimer::GetTimeMS<std::chrono::steady_clock>();
+            auto result(&pSVar1->field_8);
         }
-        return this;
+        return result;
     }
 
-    // 0x10091d1e0, 176 bytes, placed by class name and debug map
-    // SkyBoxManager::DestroySkyBox(shared_ptr<SkyBox>)
-    void SkyBoxManager::DestroySkyBox(shared_ptr param_1) {
-        undefined1* this_00;
-        undefined8 uVar1;
-        undefined8 uVar2;
-        SkyBoxEntry* pSVar3;
-        SkyBoxEntry* pSVar4;
-        RenderTargetsManager* this_01;
-        PointLightShadows* this_02;
-        shared_ptr* psVar5;
-        shared_ptr<SkyBox>* in_RSI;
+    // 0x10091d1e0
+    void SkyBoxManager::DestroySkyBox(shared_ptr<SkyBox> skyBox) {
+        shared_ptr<render::RenderTargets>* renderTargets;
 
-        this_00 = &field_6712;
-        uVar1 = this_00->HeapBeginPtr();
-        uVar2 = this_00->end();
-        pSVar3 = eastl::find_if<SkyBoxEntry*, (shared_ptr<SkyBox>)->DestroySkyBox()::__8>(uVar1, uVar2);
-        pSVar4 = (SkyBoxEntry*)this_00->end();
-        if (pSVar3 == pSVar4) {
-            /* WARNING: Subroutine does not return */
+        uint8_t* this_00 = &field_6712;
+        auto pSVar1 = this_00->HeapBeginPtr();
+        auto pSVar2 = this_00->end();
+        pSVar1 = eastl::find_if<SkyBoxEntry*, (shared_ptr<SkyBox>)->DestroySkyBox()::__8>(pSVar1, pSVar2, (__8*)skyBox);
+        pSVar2 = (SkyBoxEntry*)this_00->end();
+        if (pSVar1 == pSVar2) {
             LogAssert("found != m_skyBoxes.end()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/effects/"
                       "skybox/SkyBoxManager.cpp",
-                      175, (char*)0);
+                      175, nullptr);
         }
-        this_00->erase(pSVar3);
-        this_01 = (RenderTargetsManager*)field_0->GetRenderTargetsManager();
-        this_02 = (PointLightShadows*)shared_ptr<SkyBox>::operator->(in_RSI);
-        psVar5 = (shared_ptr*)this_02->GetPointLightSMManager();
-        this_01->Unregister(psVar5);
+        this_00->erase(pSVar1);
+        auto this_01 = field_0->GetRenderTargetsManager();
+        PointLightShadows* this_02 = (PointLightShadows*)(*skyBox).operator->();
+        renderTargets = (shared_ptr<render::RenderTargets>*)this_02->GetPointLightSMManager();
+        this_01->Unregister(*renderTargets);
     }
 
-    // 0x10091d340, 112 bytes, placed by class name and debug map
-    // SkyBoxManager::UnregisterRenderTargets()
+    // 0x10091d340
     void SkyBoxManager::UnregisterRenderTargets() {
-        long lVar1;
-        long lVar2;
         RenderTargetsManager* this_00;
         PointLightShadows* this_01;
-        shared_ptr* psVar3;
+        shared_ptr<render::RenderTargets>* renderTargets;
 
-        lVar1 = (&field_6712)->HeapBeginPtr();
-        lVar2 = (&field_6712)->end();
+        long lVar1 = field_6712.HeapBeginPtr();
+        long lVar2 = field_6712.end();
         for (; lVar1 != lVar2; lVar1 = lVar1 + 32) {
             this_00 = (RenderTargetsManager*)field_0->GetRenderTargetsManager();
-            this_01 = (PointLightShadows*)shared_ptr<SkyBox>::operator->((shared_ptr<SkyBox>*)(lVar1 + 8));
-            psVar3 = (shared_ptr*)this_01->GetPointLightSMManager();
-            this_00->Unregister(psVar3);
+            this_01 = (PointLightShadows*)(*((lVar1 + 8))).operator->();
+            renderTargets = (shared_ptr<render::RenderTargets>*)this_01->GetPointLightSMManager();
+            this_00->Unregister(*renderTargets);
         }
     }
 
-    // 0x1009285e0, 64 bytes, placed by class name
-    // SkyBoxManager::MainLogic()::$_5::operator()(SkyBoxEntry&) const
-    /* SkyBoxManager::MainLogic()::$_5::TEMPNAMEPLACEHOLDERVALUE(SkyBoxEntry&)
-   const */
+    // 0x1009285e0
+    uint64_t SkyBoxManager::MainLogic()::$_5::operator()(SkyBoxEntry& skyBoxEntry) const {
+        uint64_t uVar1;
 
-    undefined8 SkyBoxManager::MainLogic()::$_5::operator()(SkyBoxEntry* param_1) {
-        undefined8 uVar1;
-        SkyBox* this_00;
-
-        if ((param_1->field_0 < 0) || (uVar1 = 1, *(long*)this - param_1->field_24 < 10001)) {
-            this_00 = (SkyBox*)shared_ptr<SkyBox>::operator->((shared_ptr<SkyBox>*)&param_1->field_8);
-            this_00->MainLogic();
+        if ((skyBoxEntry.field_0 < 0) || (uVar1 = 1, field_0 - skyBoxEntry.field_24 < 10001)) {
+            ((SkyBox*)skyBoxEntry.field_8.operator->())->MainLogic();
             uVar1 = 0;
         }
         return uVar1;
     }
 
-    // 0x100928780, 16 bytes, placed by class name
-    // SkyBoxManager::GetSkyBoxTexture(int)::$_6::operator()(SkyBoxEntry const&) const
-    /* SkyBoxManager::GetSkyBoxTexture(int)::$_6::TEMPNAMEPLACEHOLDERVALUE(SkyBoxEntry
-   const&) const */
-
-    undefined4 SkyBoxManager::GetSkyBoxTexture(int)::$_6::operator()(SkyBoxEntry* param_1) {
-        return CONCAT31((int3)((uint)param_1->field_0 >> 8), param_1->field_0 == *(int*)this);
+    // 0x100928780
+    uint32_t SkyBoxManager::GetSkyBoxTexture(int)::$_6::operator()(const SkyBoxEntry& skyBoxEntry) const {
+        return skyBoxEntry.field_0 == field_0;
     }
 
-    // 0x1009287c0, 16 bytes, placed by class name
-    // SkyBoxManager::RegisterSkyBox(int)::$_7::operator()(SkyBoxEntry const&) const
-    /* SkyBoxManager::RegisterSkyBox(int)::$_7::TEMPNAMEPLACEHOLDERVALUE(SkyBoxEntry
-   const&) const */
-
-    undefined4 SkyBoxManager::RegisterSkyBox(int)::$_7::operator()(SkyBoxEntry* param_1) {
-        return CONCAT31((int3)((uint)param_1->field_0 >> 8), param_1->field_0 == **(int**)this);
+    // 0x1009287c0
+    uint32_t SkyBoxManager::RegisterSkyBox(int)::$_7::operator()(const SkyBoxEntry& skyBoxEntry) const {
+        return skyBoxEntry.field_0 == *field_0;
     }
 
 } // namespace jag::graphics

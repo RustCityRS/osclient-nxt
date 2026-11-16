@@ -1,107 +1,94 @@
 // libs/hal/network/unix/Ping_Unix.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.network
 
 #include "libs/hal/network/Ping.h"
 
 namespace jag::network {
-    // 0x100b16270, 16 bytes, placed by class name and debug map
-    // Ping::InitialiseLibrary()
+    // 0x100b16270
     void Ping::InitialiseLibrary() {}
 
-    // 0x100b16280, 16 bytes, placed by class name and debug map
-    // Ping::ShutdownLibrary()
+    // 0x100b16280
     void Ping::ShutdownLibrary() {}
 
-    // 0x100b16290, 96 bytes, placed by class name and debug map
-    // Ping::DoPing(IPAddress)
-    undefined8 Ping::DoPing(IPAddress param_1) {
-        uint uVar1;
-        undefined8 uVar3;
-        IPAddress* in_RSI;
+    // 0x100b16290
+    uint64_t Ping::DoPing(IPAddress ipAddress) {
+        unsigned int arg1;
+        uint64_t uVar2;
 
-        if (in_RSI->isV6() == '\0') {
-            uVar1._0_2_ = in_RSI->field_12;
-            uVar1._2_2_ = in_RSI->field_14;
-            uVar3 = UnixPing(uVar1, field_24);
+        if (ipAddress->isV6() == '\0') {
+            arg1._0_2_ = ipAddress->field_12;
+            arg1._2_2_ = ipAddress->field_14;
+            uVar2 = UnixPing(arg1, field_24);
         } else {
-            uVar3 = logger::default_logger();
-            logger::Logger::Log(
-                uVar3, 0, 3,
-                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/network/unix/Ping_Unix.cpp",
-                212, "IPv6 ping not implemented");
-            uVar3 = 4294967295;
+            (logger::default_logger())
+                ->Log(false, 3,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/network/unix/"
+                      "Ping_Unix.cpp",
+                      212, "IPv6 ping not implemented");
+            uVar2 = 4294967295;
         }
-        return uVar3;
+        return uVar2;
     }
 
-    // 0x100b16300, 768 bytes, placed by __FILE__ string
-    // UnixPing(unsigned int, int)
-    ulong UnixPing(uint param_1, int param_2) {
+    // 0x100b16300
+    unsigned long UnixPing(unsigned int arg1, int arg2) {
         short sVar1;
-        undefined2 uVar2;
-        uint uVar3;
-        uint uVar4;
+        unsigned int uVar4;
         pid_t pVar5;
         int iVar6;
         int iVar7;
         ssize_t sVar8;
-        ulong uVar9;
-        ulonglong uVar10;
-        undefined8 uVar11;
-        int* piVar12;
-        char* pcVar13;
-        SystemTimer* pSVar15;
-        int iVar16;
-        ulong uVar17;
-        bool bVar18;
-        uint auStack_10188[34];
+        unsigned long uVar9;
+        unsigned long long uVar10;
+        Logger* logger;
+        int* piVar11;
+        char* pcVar12;
+        int iVar13;
+        unsigned long uVar14;
+        bool bVar15;
+        unsigned int auStack_10188[34];
         long lStack_10100;
         int iStack_100f8;
-        ulong uStack_100f0;
-        ulonglong uStack_100e8;
+        unsigned long uStack_100f0;
+        unsigned long long uStack_100e8;
         socklen_t sStack_100e0;
-        uint uStack_100dc;
-        undefined1 auStack_100d8[20];
+        int iStack_100dc;
+        uint8_t auStack_100d8[20];
         char cStack_100c4;
         short sStack_100c0;
-        ushort uStack_100be;
-        undefined4 uStack_10018;
-        undefined2 uStack_10014;
-        undefined2 uStack_10012;
+        unsigned short uStack_100be;
+        unsigned short auStack_10018[3];
+        uint16_t uStack_10012;
         sockaddr local_58;
         sockaddr local_48;
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         local_48.sa_family = '\x02';
-        local_48.sa_data._2_4_ = param_1;
-        uVar3 = _socket(2, 2, 1);
-        if ((int)uVar3 < 0) {
-            uVar11 = logger::default_logger();
-            piVar12 = ___error();
-            pcVar13 = _strerror(*piVar12);
-            logger::Logger::Log(
-                uVar11, 0, 3,
+        local_48.sa_data._2_4_ = arg1;
+        int iVar3 = _socket(2, 2, 1);
+        if (iVar3 < 0) {
+            logger = logger::default_logger();
+            piVar11 = ___error();
+            pcVar12 = _strerror(*piVar11);
+            logger->Log(
+                false, 3,
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/network/unix/Ping_Unix.cpp",
-                93, "Cannot make socket for ping (%s)", pcVar13);
+                93, "Cannot make socket for ping (%s)", pcVar12);
         } else {
-            uStack_100f0 = (ulong)nextICMPSequence;
+            uStack_100f0 = (unsigned long)nextICMPSequence;
             uVar4 = nextICMPSequence + 1;
             if (65534 < (int)nextICMPSequence) {
                 uVar4 = 0;
             }
-            uStack_10018 = 8;
-            uStack_10012 = (undefined2)nextICMPSequence;
+            auStack_10018[0] = 8;
+            auStack_10018[1] = 0;
+            uStack_10012 = (uint16_t)nextICMPSequence;
             nextICMPSequence = uVar4;
             pVar5 = _getpid();
-            uStack_10014 = (undefined2)pVar5;
-            pSVar15 = (SystemTimer*)&uStack_10018;
-            uVar2 = in_cksum((ushort*)&uStack_10018, 2);
-            uStack_10018 = CONCAT22(uVar2, (undefined2)uStack_10018);
-            uStack_100e8 = SystemTimer::GetTimeNS<std::chrono::steady_clock>(pSVar15);
-            sVar8 = _sendto(uVar3, (SystemTimer*)&uStack_10018, 64, 0, &local_48, 16);
+            auStack_10018[2] = (unsigned short)pVar5;
+            auStack_10018[1] = in_cksum(auStack_10018, 2);
+            uStack_100e8 = SystemTimer::GetTimeNS<std::chrono::steady_clock>();
+            sVar8 = _sendto(iVar3, auStack_10018, 64, 0, &local_48, 16);
             if (-1 < sVar8) {
                 auStack_10188[28] = 0;
                 auStack_10188[29] = 0;
@@ -135,57 +122,51 @@ namespace jag::network {
                 auStack_10188[1] = 0;
                 auStack_10188[2] = 0;
                 auStack_10188[3] = 0;
-                if (PTR____darwin_check_fd_set_overflow_100ee9d88 == (undefined*)0) {
+                if (PTR____darwin_check_fd_set_overflow_100ee9d88 == nullptr) {
                 LAB_100b1642a:
-                    auStack_10188[(ulong)(long)(int)uVar3 >> 5] =
-                        auStack_10188[(ulong)(long)(int)uVar3 >> 5] | 1 << ((byte)uVar3 & 31);
+                    auStack_10188[(long)iVar3 >> 5] = auStack_10188[(long)iVar3 >> 5] | 1 << ((uint8_t)iVar3 & 31);
                 } else {
-                    iVar6 = ___darwin_check_fd_set_overflow(uVar3, auStack_10188, 0);
+                    iVar6 = ___darwin_check_fd_set_overflow(iVar3, auStack_10188, 0);
                     if (iVar6 != 0)
                         goto LAB_100b1642a;
                 }
-                lStack_10100 = (long)(param_2 / 1000);
-                iStack_100f8 = (param_2 % 1000) * 1000;
-                iVar6 = uVar3 + 1;
-                bVar18 = true;
-                uVar17 = 4294967295;
-                uStack_100dc = uVar3;
+                lStack_10100 = (long)(arg2 / 1000);
+                iStack_100f8 = (arg2 % 1000) * 1000;
+                iVar6 = iVar3 + 1;
+                bVar15 = true;
+                uVar14 = 4294967295;
+                iStack_100dc = iVar3;
                 do {
-                    if (!bVar18)
+                    if (!bVar15)
                         break;
                     iVar7 = _select_1050(iVar6, auStack_10188, 0, 0, &lStack_10100);
-                    iVar16 = 3;
+                    iVar13 = 3;
                     if (1 < iVar7 + 1U) {
                         sStack_100e0 = 16;
-                        pSVar15 = (SystemTimer*)(ulong)uVar3;
-                        uVar9 = _recvfrom(uVar3, auStack_100d8, 192, 0, &local_58, &sStack_100e0);
+                        uVar9 = _recvfrom(iVar3, auStack_100d8, 192, 0, &local_58, &sStack_100e0);
                         sVar1 = sStack_100c0;
-                        iVar16 = 3;
-                        if ((((-1 < (long)uVar9) && (27 < uVar9)) && (iVar16 = 2, cStack_100c4 == '\0')) &&
-                            ((uint)uStack_100f0 == uStack_100be)) {
+                        iVar13 = 3;
+                        if ((((-1 < (long)uVar9) && (27 < uVar9)) && (iVar13 = 2, cStack_100c4 == '\0')) &&
+                            ((unsigned int)uStack_100f0 == uStack_100be)) {
                             pVar5 = _getpid();
-                            uVar3 = uStack_100dc;
+                            iVar3 = iStack_100dc;
                             if (sVar1 == (short)pVar5) {
-                                uVar10 = SystemTimer::GetTimeNS<std::chrono::steady_clock>(pSVar15);
-                                uVar17 = (uVar10 - uStack_100e8) / 1000000;
-                                bVar18 = false;
-                                iVar16 = 3;
+                                uVar10 = SystemTimer::GetTimeNS<std::chrono::steady_clock>();
+                                uVar14 = (uVar10 - uStack_100e8) / 1000000;
+                                bVar15 = false;
+                                iVar13 = 3;
                             }
                         }
                     }
-                } while (iVar16 != 3);
-                _close(uVar3);
+                } while (iVar13 != 3);
+                close(iVar3);
                 goto LAB_100b165d6;
             }
-            _close(uVar3);
+            close(iVar3);
         }
-        uVar17 = 4294967295;
+        uVar14 = 4294967295;
     LAB_100b165d6:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar17 & 4294967295;
+        return uVar14 & 4294967295;
     }
 
 } // namespace jag::network

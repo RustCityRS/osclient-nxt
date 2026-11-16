@@ -1,6 +1,5 @@
 // projects/osclient/cliententity.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,225 +9,192 @@ namespace jag::oldscape {
     public:
         // virtual methods in vtable order
         virtual ~ClientEntity();
-        virtual IsClientNPC();
-        virtual Ready() const;
-        IsClientLocAnim() const;
-        IsLit() const;
-        IsUnlit() const;
-        GetScriptedOverlayIndex(int);
-        void SetScriptedOverlay(int, int);
-        void RemoveScriptedOverlay(int);
+        virtual bool IsClientNPC();
+        virtual uint64_t Ready() const;
+        bool IsClientLocAnim() const;
+        bool IsLit() const;
+        bool IsUnlit() const;
+        uint32_t GetScriptedOverlayIndex(int arg1);
+        void SetScriptedOverlay(int arg1, int arg2);
+        void RemoveScriptedOverlay(int arg1);
         void SetUnhidden();
-        void SetHiddenBy(ClientEntityID const&);
+        void SetHiddenBy(const ClientEntityID& clientEntityID);
         void ClearSpotAnims();
         void AbortRoute();
         void ClearPendingFacing();
-        GetSpotAnims();
-        GetServerX() const;
-        GetServerZ() const;
-        GetScriptedOverlays();
+        int* GetSpotAnims();
+        uint32_t GetServerX() const;
+        uint32_t GetServerZ() const;
+        auto GetScriptedOverlays();
         void IsHiddenBelowOtherEntity() const;
-        GetHiddenBy() const;
-        ulong HasHitmark(int) const;
-        void AddSpotAnim(int, int, int, int, int);
-        void AddHitmark(int, int, int, int, int, int);
-        void AddHeadbar(int, int, int, int, int, int);
-        void ClearHeadbar(int);
-        void CombineWithSpotAnim(shared_ptr<dash3d::ModelLit>&);
-        byte HasHeadbar() const;
-        byte HasScriptedOverlays() const;
+        uint8_t* GetHiddenBy() const;
+        unsigned long HasHitmark(int arg1) const;
+        void AddSpotAnim(int arg1, int arg2, int arg3, int arg4, int arg5);
+        void AddHitmark(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+        void AddHeadbar(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+        void ClearHeadbar(int arg1);
+        void CombineWithSpotAnim(shared_ptr<dash3d::ModelLit>& modelLit);
+        bool HasHeadbar() const;
+        bool HasScriptedOverlays() const;
         ClientEntity();
 
-        // data members, from how the methods use this: 960 bytes, the first 16 are Drawable
-        long field_16;       // offset 16
-        undefined8 field_24; // offset 24
-        char _unknown_32[8];
-        undefined8 field_40;  // offset 40
-        undefined4 field_48;  // offset 48
-        undefined4 field_52;  // offset 52
-        undefined4 field_56;  // offset 56
-        undefined4 field_60;  // offset 60
-        undefined4 field_64;  // offset 64
-        undefined4 field_68;  // offset 68
-        undefined4 field_72;  // offset 72
-        undefined4 field_76;  // offset 76
-        undefined4 field_80;  // offset 80
-        undefined4 field_84;  // offset 84
-        undefined4 field_88;  // offset 88
-        undefined4 field_92;  // offset 92
-        undefined4 field_96;  // offset 96
-        undefined4 field_100; // offset 100
-        undefined4 field_104; // offset 104
-        char _unknown_108[36];
-        undefined2 field_144; // offset 144
-        char _unknown_146[2];
-        undefined8 field_148; // offset 148
-        undefined4 field_156; // offset 156
-        char _unknown_160[48];
-        undefined1 field_208; // offset 208
-        char _unknown_209[3];
-        undefined1 field_212[16]; // offset 212
-        undefined1 field_228[16]; // offset 228
-        undefined1 field_244[16]; // offset 244
-        undefined1 field_260[16]; // offset 260
-        undefined1 field_276[16]; // offset 276
-        char _unknown_292[36];
-        undefined4 field_328; // offset 328
-        undefined1 field_332; // offset 332
-        char _unknown_333[3];
-        undefined4 field_336; // offset 336
-        char _unknown_340[12];
-        undefined1 field_352; // offset 352
-        char _unknown_353[3];
-        undefined8 field_356; // offset 356
-        undefined8 field_364; // offset 364
-        undefined4 field_372; // offset 372
-        undefined8 field_376; // offset 376
-        undefined8 field_384; // offset 384
-        undefined8 field_392; // offset 392
-        undefined8 field_400; // offset 400
-        undefined8 field_408; // offset 408
-        undefined8 field_416; // offset 416
-        undefined8 field_424; // offset 424
-        undefined8 field_432; // offset 432
-        undefined4 field_440; // offset 440
-        undefined1 field_444; // offset 444
-        char _unknown_445[39];
-        undefined1 field_484; // offset 484
-        char _unknown_485[51];
-        undefined8 field_536; // offset 536
-        undefined8 field_544; // offset 544
-        undefined4 field_552; // offset 552
-        char _unknown_556[3];
-        undefined1 field_559;     // offset 559
-        undefined1 m_hiddenBy[8]; // offset 560
-        char _unknown_568[392];
+    private:
+        long field_16;
+        uint64_t field_24;
+        uint8_t _unknown_32[8];
+        uint64_t field_40;
+        uint32_t field_48;
+        uint32_t field_52;
+        uint32_t field_56;
+        uint32_t field_60;
+        uint32_t field_64;
+        uint32_t field_68;
+        uint32_t field_72;
+        uint32_t field_76;
+        uint32_t field_80;
+        uint32_t field_84;
+        uint32_t field_88;
+        uint32_t field_92;
+        uint32_t field_96;
+        uint32_t field_100;
+        uint32_t field_104;
+        uint8_t _unknown_108[36];
+        uint16_t field_144;
+        uint8_t _unknown_146[2];
+        uint64_t field_148;
+        uint32_t field_156;
+        uint8_t _unknown_160[48];
+        uint8_t field_208;
+        uint8_t _unknown_209[3];
+        uint8_t field_212[16];
+        uint8_t field_228[16];
+        uint8_t field_244[16];
+        uint8_t field_260[16];
+        uint8_t field_276[16];
+        uint8_t _unknown_292[36];
+        uint32_t field_328;
+        uint8_t field_332;
+        uint8_t _unknown_333[3];
+        uint32_t field_336;
+        uint8_t _unknown_340[12];
+        uint8_t field_352;
+        uint8_t _unknown_353[3];
+        uint64_t field_356;
+        uint64_t field_364;
+        uint32_t field_372;
+        uint64_t field_376;
+        uint64_t field_384;
+        uint64_t field_392;
+        uint64_t field_400;
+        uint64_t field_408;
+        uint64_t field_416;
+        uint64_t field_424;
+        uint64_t field_432;
+        uint32_t field_440;
+        uint8_t _unknown_444[92];
+        uint64_t field_536;
+        uint64_t field_544;
+        uint32_t field_552;
+        uint8_t _unknown_556[3];
+        uint8_t field_559;
+        uint8_t m_hiddenBy[8];
+        uint8_t _unknown_568[384];
+        int m_spotAnims;
+        uint8_t _unknown_956[4];
     };
 
     class ClientEntityID {
     public:
         int GetSlotID() const;
         ClientEntityID();
-        ClientEntityID(bool, int);
+        ClientEntityID(bool arg1, int arg2);
         bool IsValid() const;
         bool IsPlayer() const;
 
-        // data members, from how the methods use this: 12 bytes
-        undefined2 field_0; // offset 0
-        char _unknown_2[2];
-        int m_slotID; // offset 4
-        char _unknown_8[4];
+    private:
+        uint16_t field_0;
+        uint8_t _unknown_2[2];
+        int m_slotID;
+        uint8_t _unknown_8[4];
     };
 
-    // 0x1000c4620, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ClientEntityID::ClientEntityID(): jumps straight to the base-object constructor
-
-    // 0x1000de5f0, 48 bytes, inline, placed by class name
-    // ClientEntity::SetUnhidden()
+    // 0x1000de5f0
     void ClientEntity::SetUnhidden() {
-        undefined8 in_RAX;
-        undefined1 local_18[8];
+        uint64_t in_RAX;
+        uint8_t local_18[8];
 
-        local_18 = (undefined1[8])in_RAX;
+        local_18 = (uint8_t[8])in_RAX;
         new (local_18) ClientEntityID();
         *&m_hiddenBy = local_18;
     }
 
-    // 0x1000de640, 16 bytes, inline, placed by class name
-    // ClientEntity::SetHiddenBy(ClientEntityID const&)
-    void ClientEntity::SetHiddenBy(ClientEntityID* param_1) {
-        undefined2 uVar1;
-        int iVar2;
-
-        uVar1 = *(undefined2*)&param_1->field_2;
-        iVar2 = param_1->m_slotID;
-        *(undefined2*)(m_hiddenBy + 0) = param_1->field_0;
-        *(undefined2*)(m_hiddenBy + 2) = uVar1;
+    // 0x1000de640
+    void ClientEntity::SetHiddenBy(const ClientEntityID& clientEntityID) {
+        uint16_t uVar1 = *(uint16_t*)&clientEntityID.field_2;
+        int iVar2 = clientEntityID.m_slotID;
+        *(uint16_t*)(m_hiddenBy + 0) = clientEntityID.field_0;
+        *(uint16_t*)(m_hiddenBy + 2) = uVar1;
         *(int*)(m_hiddenBy + 4) = iVar2;
     }
 
-    // 0x1000f8790, 32 bytes, inline, placed by class name
-    // ClientEntity::ClearSpotAnims()
+    // 0x1000f8790
     void ClientEntity::ClearSpotAnims() {
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        m_spotAnims.clear();
     }
 
-    // 0x1000f9490, 16 bytes, inline, placed by class name
-    // ClientEntity::GetSpotAnims()
-    undefined1* ClientEntity::GetSpotAnims() {
-        return &field_952;
+    // 0x1000f9490
+    int* ClientEntity::GetSpotAnims() {
+        return &m_spotAnims;
     }
 
-    // 0x1000fc670, 32 bytes, inline, placed by class name
-    // ClientEntity::GetServerX() const
-    undefined4 ClientEntity::GetServerX() {
-        undefined4* puVar1;
+    // 0x1000fc670
+    uint32_t ClientEntity::GetServerX() const {
+        unsigned long in_RSI;
 
-        puVar1 = (undefined4*)std::array<int, 10ul>::operator[]((ulong)&field_444);
+        uint32_t* puVar1 = &field_444[in_RSI];
         return *puVar1;
     }
 
-    // 0x1000fc690, 32 bytes, inline, placed by class name
-    // ClientEntity::GetServerZ() const
-    undefined4 ClientEntity::GetServerZ() {
-        undefined4* puVar1;
+    // 0x1000fc690
+    uint32_t ClientEntity::GetServerZ() const {
+        unsigned long in_RSI;
 
-        puVar1 = (undefined4*)std::array<int, 10ul>::operator[]((ulong)&field_484);
+        uint32_t* puVar1 = &field_484[in_RSI];
         return *puVar1;
     }
 
-    // 0x100110620, 32 bytes, inline, placed by class name
-    // ClientEntity::IsHiddenBelowOtherEntity() const
-    void ClientEntity::IsHiddenBelowOtherEntity() {
+    // 0x100110620
+    void ClientEntity::IsHiddenBelowOtherEntity() const {
         m_hiddenBy->IsValid();
     }
 
-    // 0x1001106c0, 16 bytes, inline, placed by class name
-    // ClientEntity::GetHiddenBy() const
-    undefined1* ClientEntity::GetHiddenBy() {
+    // 0x1001106c0
+    uint8_t* ClientEntity::GetHiddenBy() const {
         return m_hiddenBy;
     }
 
-    // 0x10011cd40, 32 bytes, inline, placed by class name
-    // ClientEntity::HasHeadbar() const
-    byte ClientEntity::HasHeadbar() {
-        byte bVar1;
-
-        bVar1 = (&field_296)->empty();
-        return bVar1 ^ 1;
+    // 0x10011cd40
+    bool ClientEntity::HasHeadbar() const {
+        return field_296.empty() ^ 1;
     }
 
-    // 0x10011cd60, 32 bytes, inline, placed by class name
-    // ClientEntity::HasScriptedOverlays() const
-    byte ClientEntity::HasScriptedOverlays() {
-        byte bVar1;
-
-        bVar1 = (&field_568)->empty();
-        return bVar1 ^ 1;
+    // 0x10011cd60
+    bool ClientEntity::HasScriptedOverlays() const {
+        return field_568.empty() ^ 1;
     }
 
-    // 0x100131e30, 96 bytes, base-object destructor, inline, placed by class name
-    // ClientEntity::~ClientEntity()
-    void ClientEntity::~ClientEntity() {
-        NpcUID* extraout_RDX;
-        NpcUID* in_RSI;
-
-        field_0 = &PTR__OptionStore_100ef4178;
-        (&field_952)->~vector_map();
-        (&field_568)->~fixed_map();
-        (&field_296)->~list();
-        (&field_160)->~fixed_vector();
-        (&field_112)->~basic_string();
-        eastl::destruct<highlight::NpcUID*>((eastl*)this, in_RSI, extraout_RDX);
+    // 0x100131e30
+    ClientEntity::~ClientEntity() {
+        field_568.~fixed_map();
+        field_296.~list();
+        field_160.~fixed_vector();
+        field_112.~basic_string();
+        destruct<highlight::NpcUID*>();
     }
 
-    // 0x100153340, 496 bytes, base-object constructor, inline, placed by class name
-    // ClientEntity::ClientEntity()
-    void ClientEntity::ClientEntity() {
-        new (this) dash3d::UniqueModelSource();
-        field_0 = &PTR__OptionStore_100ef4178;
-        field_24 = 0;
-        *(undefined8*)((long)&field_24 + 5) = 0;
+    // 0x100153340
+    ClientEntity::ClientEntity() : dash3d::UniqueModelSource(), field_24(0) {
+        *(uint64_t*)((long)&field_24 + 5) = 0;
         field_40 = 1;
         field_48 = 4294967295;
         field_52 = 4294967295;
@@ -250,14 +216,14 @@ namespace jag::oldscape {
         field_144 = 0;
         field_148 = 100;
         field_156 = 0;
-        new (&field_160) eastl::fixed_vector<unsigned char, 8ul, true, eastl::allocator>();
+        new (&field_160) eastl::fixed_vector<unsigned char, 8ul>();
         field_208 = 0;
-        *&field_212 = (undefined1[16])0;
-        *&field_228 = (undefined1[16])0;
-        *&field_244 = (undefined1[16])0;
-        *&field_260 = (undefined1[16])0;
-        *&field_276 = (undefined1[16])0;
-        new (&field_296) eastl::list<shared_ptr<configdecoder::HeadbarQueue>, eastl::allocator>();
+        *&field_212 = (uint8_t[16])0;
+        *&field_228 = (uint8_t[16])0;
+        *&field_244 = (uint8_t[16])0;
+        *&field_260 = (uint8_t[16])0;
+        *&field_276 = (uint8_t[16])0;
+        new (&field_296) eastl::list<shared_ptr<configdecoder::HeadbarQueue>>();
         field_328 = 4294967295;
         field_332 = 0;
         field_336 = 4294967295;
@@ -280,25 +246,16 @@ namespace jag::oldscape {
         field_552 = 4294967295;
         field_559 = 0;
         new (m_hiddenBy) ClientEntityID();
-        new (&field_568) eastl::fixed_map<int, unsigned long, 5ul, true, eastl::less<int>, eastl::allocator>();
-        new (&field_952) eastl::vector_map<int, SpotAnimClient, eastl::less<int>, eastl::allocator,
-                                           eastl::vector<eastl::pair<int, SpotAnimClient>, eastl::allocator>>();
+        new (&field_568) eastl::fixed_map<int, unsigned long, 5ul>();
+        new (&m_spotAnims) eastl::vector_map<int, SpotAnimClient>();
     }
 
-    // 0x100154460, 48 bytes, inline, placed by class name
-    // ClientEntity::ClearHeadbar(int)::$_23::operator()(shared_ptr<configdecoder::HeadbarQueue>&) const
-    /* ClientEntity::ClearHeadbar(int)::$_23::TEMPNAMEPLACEHOLDERVALUE(shared_ptr<configdecoder::HeadbarQueue>&)
-   const */
-
-    void ClientEntity::ClearHeadbar(int)::$_23::operator()(shared_ptr* param_1) {
-        jag* this_00;
-        shared_ptr* psVar1;
-        shared_ptr* extraout_RDX;
-
-        this_00 = *(jag**)this;
-        psVar1 = (shared_ptr*)shared_ptr<configdecoder::HeadbarQueue>::operator->(
-            (shared_ptr<configdecoder::HeadbarQueue>*)param_1);
-        operator==(this_00, psVar1, extraout_RDX);
+    // 0x100154460
+    void
+    ClientEntity::ClearHeadbar(int)::$_23::operator()(shared_ptr<configdecoder::HeadbarQueue>& headbarQueue) const {
+        shared_ptr<midi2::MidiRequest>* midiRequest1 = field_0;
+        auto midiRequest2 = headbarQueue.operator->();
+        *midiRequest1 == *midiRequest2;
     }
 
 } // namespace jag::oldscape

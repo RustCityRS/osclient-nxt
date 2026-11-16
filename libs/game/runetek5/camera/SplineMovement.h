@@ -1,112 +1,93 @@
 // libs/game/runetek5/camera/SplineMovement.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class SplineMovement {
     public:
-        GetSplines() const;
-        SplineMovement(InternalType);
-        void SetSpeedProfile(SplineSpeedProfile);
+        uint8_t* GetSplines() const;
+        SplineMovement(InternalType internalType);
+        void SetSpeedProfile(SplineSpeedProfile splineSpeedProfile);
         ~SplineMovement();
         double GetCurrentParameter() const;
         double GetCurrentPoint() const;
-        ulong Ready() const;
-        void AddSpline(BSplineCubic const&, int, float);
-        void SetSpeedParameters(double, double);
+        unsigned long Ready() const;
+        void AddSpline(const BSplineCubic& bSplineCubic, int arg2, float arg3);
+        void SetSpeedParameters(double arg1, double arg2);
         bool Finished() const;
         void ResetSplines();
-        GetCurrentPosition() const;
-        double GetSpeedGradient(double, double, double, double, double);
-        double GetSpeedTrapezium(double, double, double, double, math::Vector3T<float> const&,
-                                 math::Vector3T<float> const&);
-        void ProcessServerUpdateSpline(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&);
-        uint Update(float, math::Vector3T<float> const&, math::Vector3T<float> const&);
-        GetOnFinishTriggers(eastl::fixed_vector<int, 2ul, true, eastl::allocator>&);
+        auto GetCurrentPosition() const;
+        double GetSpeedGradient(double arg1, double arg2, double arg3, double arg4, double arg5);
+        double GetSpeedTrapezium(double arg1, double arg2, double arg3, double arg4,
+                                 const math::Vector3T<float>& vector31, const math::Vector3T<float>& vector32);
+        void ProcessServerUpdateSpline(PacketT<Array<unsigned char>>& arg1);
+        unsigned int Update(float arg1, const math::Vector3T<float>& vector31, const math::Vector3T<float>& vector32);
+        uint64_t GetOnFinishTriggers(eastl::fixed_vector<int, 2ul>& arg1);
         void GetRollAngle() const;
-        void DrawDebug(unsigned int);
+        void DrawDebug(unsigned int arg1);
         char* GetSpeedProfileDescription();
 
-        // data members, from how the methods use this: 248 bytes
-        undefined4 field_0; // offset 0
-        undefined1 field_4; // offset 4
-        char _unknown_5[3];
-        int field_8; // offset 8
-        char _unknown_12[132];
-        double m_currentPoint;     // offset 144
-        double m_currentParameter; // offset 152
-        double field_160;          // offset 160
-        int m_speedProfile;        // offset 168
-        char _unknown_172[76];
+    private:
+        InternalType field_0;
+        uint8_t field_4;
+        uint8_t _unknown_5[3];
+        int field_8;
+        uint8_t _unknown_12[132];
+        double m_currentPoint;
+        double m_currentParameter;
+        double field_160;
+        SplineSpeedProfile m_speedProfile;
+        uint8_t _unknown_172[76];
     };
 
-    // 0x1006158f0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // SplineMovement::SplineMovement(SplineMovement::InternalType): jumps straight to the base-object constructor
-
-    // 0x100615900, 16 bytes, inline, placed by class name and debug map
-    // SplineMovement::SetSpeedProfile(SplineSpeedProfile)
-    void SplineMovement::SetSpeedProfile(int param_2) {
-        m_speedProfile = param_2;
+    // 0x100615900
+    void SplineMovement::SetSpeedProfile(SplineSpeedProfile splineSpeedProfile) {
+        m_speedProfile = splineSpeedProfile;
     }
 
-    // 0x100615910, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // SplineMovement::~SplineMovement(): jumps straight to the base-object destructor
-
-    // 0x100615a60, 16 bytes, inline, placed by class name
-    // SplineMovement::GetCurrentParameter() const
-    double SplineMovement::GetCurrentParameter() {
+    // 0x100615a60
+    double SplineMovement::GetCurrentParameter() const {
         return m_currentParameter;
     }
 
-    // 0x100615ae0, 16 bytes, inline, placed by class name
-    // SplineMovement::GetCurrentPoint() const
-    double SplineMovement::GetCurrentPoint() {
+    // 0x100615ae0
+    double SplineMovement::GetCurrentPoint() const {
         return m_currentPoint;
     }
 
-    // 0x100619a70, 272 bytes, base-object constructor, inline, placed by class name
-    // SplineMovement::SplineMovement(SplineMovement::InternalType)
-    void SplineMovement::SplineMovement(undefined4 param_2) {
-        field_0 = param_2;
-        field_4 = 0;
-        field_8 = 0;
-        new (&field_16) eastl::vector<BSplineCubic, eastl::allocator>();
-        new (&field_48) eastl::vector<float, eastl::allocator>();
-        new (&field_80) eastl::vector<int, eastl::allocator>();
-        new (&field_112) eastl::vector<int, eastl::allocator>();
+    // 0x100619a70
+    SplineMovement::SplineMovement(SplineMovement::InternalType internalType)
+        : field_0(internalType), field_4(0), field_8(0) {
+        new (&field_48) eastl::vector<float>();
+        new (&field_80) eastl::vector<int>();
+        new (&field_112) eastl::vector<int>();
         m_currentPoint = 0.0;
         m_currentParameter = 0.0;
         field_160 = 0.0;
         m_speedProfile = 2;
-        new (&field_176) eastl::vector<double, eastl::allocator>();
-        new (&field_208) eastl::vector<double, eastl::allocator>();
-        new (&field_240) eastl::vector<double, eastl::allocator>();
+        new (&field_176) eastl::vector<double>();
+        new (&field_208) eastl::vector<double>();
+        new (&field_240) eastl::vector<double>();
     }
 
-    // 0x100619c90, 96 bytes, base-object destructor, inline, placed by class name
-    // SplineMovement::~SplineMovement()
-    void SplineMovement::~SplineMovement() {
-        (&field_240)->~vector();
-        (&field_208)->~vector();
-        (&field_176)->~vector();
-        (&field_112)->~vector();
-        (&field_80)->~vector();
-        (&field_48)->~vector();
-        (&field_16)->~vector();
+    // 0x100619c90
+    SplineMovement::~SplineMovement() {
+        field_240.~vector();
+        field_208.~vector();
+        field_176.~vector();
+        field_112.~vector();
+        field_80.~vector();
+        field_48.~vector();
+        field_16.~vector();
     }
 
-    // 0x10061a7d0, 32 bytes, inline, placed by class name
-    // SplineMovement::Ready() const
-    ulong SplineMovement::Ready() {
-        ulong uVar1;
-
+    // 0x10061a7d0
+    unsigned long SplineMovement::Ready() const {
         if (field_4 == '\0') {
             return 0;
         }
-        uVar1 = (&field_16)->empty();
-        return uVar1 ^ 1;
+        return field_16.empty() ^ 1;
     }
 
 } // namespace jag::game

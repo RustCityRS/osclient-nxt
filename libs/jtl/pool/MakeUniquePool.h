@@ -1,6 +1,5 @@
 // libs/jtl/pool/MakeUniquePool.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -12,317 +11,274 @@ namespace jag {
         class UniquePoolDeleter;
         std::unique_ptr<graphics::GeometryBatchInstance,
                         MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-        MakeUnique<graphics::Model&, shared_ptr<graphics::GeometryBatch>&>(graphics::Model&,
-                                                                           shared_ptr<graphics::GeometryBatch>&);
+        MakeUnique<graphics::Model&, shared_ptr<graphics::GeometryBatch>&>(
+            graphics::Model& model, shared_ptr<graphics::GeometryBatch>& geometryBatch);
         std::unique_ptr<graphics::GeometryBatchInstance,
                         MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
         MakeUnique<graphics::GeometryBatchInstance const&, graphics::Model&, bool>(
-            graphics::GeometryBatchInstance const&, graphics::Model&, bool&&);
-        GetPool();
+            const graphics::GeometryBatchInstance& geometryBatchInstance, graphics::Model& model, bool&& arg3);
+        void GetPool();
         MakeUniquePool();
         void RegisterThisUniquePool();
-        void GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&);
+        void GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo& sharedPoolInfo);
         std::unique_ptr<game::EnvironmentLoader, MakeUniquePool<game::EnvironmentLoader, 48>::UniquePoolDeleter>
         MakeUnique<unsigned int&, unsigned int&, shared_ptr<game::ClientCompositeData>&>(
-            unsigned int&, unsigned int&, shared_ptr<game::ClientCompositeData>&);
+            unsigned int& arg1, unsigned int& arg2, shared_ptr<game::ClientCompositeData>& clientCompositeData);
         std::unique_ptr<game::Terrain, MakeUniquePool<game::Terrain, 32>::UniquePoolDeleter>
         MakeUnique<graphics::GraphNode*&, shared_ptr<game::World> const&, game::TerrainInputData&, graphics::RT7Core*&>(
-            graphics::GraphNode*&, shared_ptr<game::World> const&, game::TerrainInputData&, graphics::RT7Core*&);
+            graphics::GraphNode*& arg1, const shared_ptr<game::World>& world, game::TerrainInputData& terrainInputData,
+            graphics::RT7Core*& arg4);
         std::unique_ptr<game::MapElementType::Polygon,
                         MakeUniquePool<game::MapElementType::Polygon, 256>::UniquePoolDeleter>
         MakeUnique<>();
         std::unique_ptr<graphics::AnimationParameters,
                         MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>
         MakeUnique<shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour&, unsigned int&,
-                   unsigned int&, bool&, int, unsigned int, bool&>(shared_ptr<graphics::Animation> const&,
-                                                                   graphics::AnimationLoopBehaviour&, unsigned int&,
-                                                                   unsigned int&, bool&, int&&, unsigned int&&, bool&);
+                   unsigned int&, bool&, int, unsigned int, bool&>(
+            const shared_ptr<graphics::Animation>& animation, graphics::AnimationLoopBehaviour& animationLoopBehaviour,
+            unsigned int& arg3, unsigned int& arg4, bool& arg5, int&& arg6, unsigned int&& arg7, bool& arg8);
         std::unique_ptr<graphics::AnimationParameters,
                         MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>
         MakeUnique<shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour, int&, int&, bool&, int&,
-                   unsigned int, bool>(shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour&&, int&,
-                                       int&, bool&, int&, unsigned int&&, bool&&);
+                   unsigned int, bool>(const shared_ptr<graphics::Animation>& animation,
+                                       graphics::AnimationLoopBehaviour&& animationLoopBehaviour, int& arg3, int& arg4,
+                                       bool& arg5, int& arg6, unsigned int&& arg7, bool&& arg8);
         std::unique_ptr<graphics::GeometryBatchInstance,
                         MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-        MakeUnique<graphics::GeometryBatchInstance&, graphics::Model&, bool>(graphics::GeometryBatchInstance&,
-                                                                             graphics::Model&, bool&&);
+        MakeUnique<graphics::GeometryBatchInstance&, graphics::Model&, bool>(
+            graphics::GeometryBatchInstance& geometryBatchInstance, graphics::Model& model, bool&& arg3);
         std::unique_ptr<graphics::BillboardBatchInstance,
                         MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-        MakeUnique<graphics::BillboardBatchInstance&, graphics::Model&, bool>(graphics::BillboardBatchInstance&,
-                                                                              graphics::Model&, bool&&);
+        MakeUnique<graphics::BillboardBatchInstance&, graphics::Model&, bool>(
+            graphics::BillboardBatchInstance& billboardBatchInstance, graphics::Model& model, bool&& arg3);
         std::unique_ptr<graphics::GeometryBatchInstance,
                         MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-        MakeUnique<graphics::GeometryBatchInstance, graphics::Model&>(graphics::GeometryBatchInstance&&,
-                                                                      graphics::Model&);
+        MakeUnique<graphics::GeometryBatchInstance, graphics::Model&>(
+            graphics::GeometryBatchInstance&& geometryBatchInstance, graphics::Model& model);
         std::unique_ptr<graphics::BillboardBatchInstance,
                         MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-        MakeUnique<graphics::BillboardBatchInstance, graphics::Model&>(graphics::BillboardBatchInstance&&,
-                                                                       graphics::Model&);
+        MakeUnique<graphics::BillboardBatchInstance, graphics::Model&>(
+            graphics::BillboardBatchInstance&& billboardBatchInstance, graphics::Model& model);
         std::unique_ptr<graphics::GeometryBatchInstance,
                         MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-        MakeUnique<graphics::Model&, unsigned short&>(graphics::Model&, unsigned short&);
+        MakeUnique<graphics::Model&, unsigned short&>(graphics::Model& model, unsigned short& arg2);
         std::unique_ptr<graphics::BillboardBatchInstance,
                         MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-        MakeUnique<graphics::Model&, unsigned char&>(graphics::Model&, unsigned char&);
+        MakeUnique<graphics::Model&, unsigned char&>(graphics::Model& model, unsigned char& arg2);
         std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>
-        MakeUnique<std::unique_ptr<graphics::BlendTreeNode, std::default_delete<graphics::BlendTreeNode>>,
-                   graphics::AnimationStateResourceList>(
-            std::unique_ptr<graphics::BlendTreeNode, std::default_delete<graphics::BlendTreeNode>>&&,
-            graphics::AnimationStateResourceList&&);
+        MakeUnique<std::unique_ptr<graphics::BlendTreeNode>, graphics::AnimationStateResourceList>(
+            std::unique_ptr<graphics::BlendTreeNode>&& blendTreeNode,
+            graphics::AnimationStateResourceList&& animationStateResourceList);
         std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>
-        MakeUnique<graphics::AnimationDescriptor&>(graphics::AnimationDescriptor&);
+        MakeUnique<graphics::AnimationDescriptor&>(graphics::AnimationDescriptor& animationDescriptor);
         std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>
         MakeUnique<>();
-        static /* 64 bytes */ m_mutex; // initialised in its definition
-        static /* 8 bytes */ m_peak;   // = 0
-        static /* 64 bytes */ m_mutex; // initialised in its definition
-        static /* 16 bytes */ m_peak;  // = { 0, 0, 0, 0 }
-        static /* 16 bytes */ m_peak;  // = { 0, 0, 0, 0 }
-        static /* 64 bytes */ m_mutex; // initialised in its definition
-        static /* 64 bytes */ m_mutex; // initialised in its definition
-        static /* 8 bytes */ m_peak;   // = 0
-        static /* 64 bytes */ m_mutex; // initialised in its definition
-        static /* 8 bytes */ m_peak;   // = 0
-        static /* 8 bytes */ m_peak;   // = 0
-        static /* 64 bytes */ m_mutex; // initialised in its definition
-        static /* 64 bytes */ m_mutex; // initialised in its definition
-        static /* 8 bytes */ m_peak;   // = 0
-        static /* 64 bytes */ m_mutex; // initialised in its definition
-        static /* 16 bytes */ m_peak;  // = { 0, 0, 0, 0 }
-        static /* 64 bytes */ m_mutex; // initialised in its definition
-        static /* 8 bytes */ m_peak;   // = 0
+        static int32_t m_mutex[16]; // initialised in its definition
+        static int64_t m_peak;      // = 0
+        static int32_t m_mutex[16]; // initialised in its definition
+        static float m_peak[4];     // = { 0, 0, 0, 0 }
+        static float m_peak[4];     // = { 0, 0, 0, 0 }
+        static int32_t m_mutex[16]; // initialised in its definition
+        static int32_t m_mutex[16]; // initialised in its definition
+        static int64_t m_peak;      // = 0
+        static int32_t m_mutex[16]; // initialised in its definition
+        static int64_t m_peak;      // = 0
+        static int64_t m_peak;      // = 0
+        static int32_t m_mutex[16]; // initialised in its definition
+        static int32_t m_mutex[16]; // initialised in its definition
+        static int64_t m_peak;      // = 0
+        static int32_t m_mutex[16]; // initialised in its definition
+        static float m_peak[4];     // = { 0, 0, 0, 0 }
+        static int32_t m_mutex[16]; // initialised in its definition
+        static int64_t m_peak;      // = 0
     };
 
     template <typename...> // 1 instantiations, e.g.
     class MakeUniquePool::UniquePoolDeleter {
     public:
-        void operator()(graphics::GeometryBatchInstance*) const;
-        void operator()(SpotAnimation*) const;
-        void operator()(game::EnvironmentLoader*) const;
-        void operator()(game::Terrain*) const;
-        void operator()(game::MapElementType::Polygon*) const;
-        void operator()(graphics::AnimationParameters*) const;
-        void operator()(graphics::BillboardBatchInstance*) const;
-        void operator()(graphics::AnimState*) const;
+        void operator()(graphics::GeometryBatchInstance* geometryBatchInstance) const;
+        void operator()(SpotAnimation* spotAnimation) const;
+        void operator()(game::EnvironmentLoader* environmentLoader) const;
+        void operator()(game::Terrain* terrain) const;
+        void operator()(game::MapElementType::Polygon* polygon) const;
+        void operator()(graphics::AnimationParameters* animationParameters) const;
+        void operator()(graphics::BillboardBatchInstance* billboardBatchInstance) const;
+        void operator()(graphics::AnimState* animState) const;
     };
 
-    // 0x100f37c90, 64 bytes, __data
-    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::m_mutex = {
+    // 0x100f37c90
+    int32_t MakeUniquePool<graphics::GeometryBatchInstance, 3072>::m_mutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f37f20, 8 bytes, __data
-    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::m_peak = 0;
+    // 0x100f37f20
+    int64_t MakeUniquePool<graphics::GeometryBatchInstance, 3072>::m_peak = 0;
 
-    // 0x100f386b0, 64 bytes, __data
-    MakeUniquePool<game::Terrain, 32>::m_mutex = {
+    // 0x100f386b0
+    int32_t MakeUniquePool<game::Terrain, 32>::m_mutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f387d0, 16 bytes, __data
-    MakeUniquePool<SpotAnimation, 64>::m_peak = {0, 0, 0, 0};
+    // 0x100f387d0
+    float MakeUniquePool<SpotAnimation, 64>::m_peak[4] = {0, 0, 0, 0};
 
-    // 0x100f38820, 16 bytes, __data
-    MakeUniquePool<game::Terrain, 32>::m_peak = {0, 0, 0, 0};
+    // 0x100f38820
+    float MakeUniquePool<game::Terrain, 32>::m_peak[4] = {0, 0, 0, 0};
 
-    // 0x100f38970, 64 bytes, __data
-    MakeUniquePool<game::EnvironmentLoader, 48>::m_mutex = {
+    // 0x100f38970
+    int32_t MakeUniquePool<game::EnvironmentLoader, 48>::m_mutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f389e0, 64 bytes, __data
-    MakeUniquePool<SpotAnimation, 64>::m_mutex = {
+    // 0x100f389e0
+    int32_t MakeUniquePool<SpotAnimation, 64>::m_mutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f38b50, 8 bytes, __data
-    MakeUniquePool<game::EnvironmentLoader, 48>::m_peak = 0;
+    // 0x100f38b50
+    int64_t MakeUniquePool<game::EnvironmentLoader, 48>::m_peak = 0;
 
-    // 0x100f39070, 64 bytes, __data
-    MakeUniquePool<game::MapElementType::Polygon, 256>::m_mutex = {
+    // 0x100f39070
+    int32_t MakeUniquePool<game::MapElementType::Polygon, 256>::m_mutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f3c928, 8 bytes, __data
-    MakeUniquePool<game::MapElementType::Polygon, 256>::m_peak = 0;
+    // 0x100f3c928
+    int64_t MakeUniquePool<game::MapElementType::Polygon, 256>::m_peak = 0;
 
-    // 0x100f3e570, 8 bytes, __data
-    MakeUniquePool<graphics::AnimationParameters, 512>::m_peak = 0;
+    // 0x100f3e570
+    int64_t MakeUniquePool<graphics::AnimationParameters, 512>::m_peak = 0;
 
-    // 0x100f3e610, 64 bytes, __data
-    MakeUniquePool<graphics::AnimationParameters, 512>::m_mutex = {
+    // 0x100f3e610
+    int32_t MakeUniquePool<graphics::AnimationParameters, 512>::m_mutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f43c78, 64 bytes, __data
-    MakeUniquePool<graphics::Billboard, 32>::m_mutex = {
+    // 0x100f43c78
+    int32_t MakeUniquePool<graphics::Billboard, 32>::m_mutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f43dc8, 8 bytes, __data
-    MakeUniquePool<graphics::Billboard, 32>::m_peak = 0;
+    // 0x100f43dc8
+    int64_t MakeUniquePool<graphics::Billboard, 32>::m_peak = 0;
 
-    // 0x100f43ee0, 64 bytes, __data
-    MakeUniquePool<graphics::BillboardBatchInstance, 64>::m_mutex = {
+    // 0x100f43ee0
+    int32_t MakeUniquePool<graphics::BillboardBatchInstance, 64>::m_mutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f43fe0, 16 bytes, __data
-    MakeUniquePool<graphics::BillboardBatchInstance, 64>::m_peak = {0, 0, 0, 0};
+    // 0x100f43fe0
+    float MakeUniquePool<graphics::BillboardBatchInstance, 64>::m_peak[4] = {0, 0, 0, 0};
 
-    // 0x100f44bb0, 64 bytes, __data
-    MakeUniquePool<graphics::AnimState, 4096>::m_mutex = {
+    // 0x100f44bb0
+    int32_t MakeUniquePool<graphics::AnimState, 4096>::m_mutex[16] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f44c28, 8 bytes, __data
-    MakeUniquePool<graphics::AnimState, 4096>::m_peak = 0;
+    // 0x100f44c28
+    int64_t MakeUniquePool<graphics::AnimState, 4096>::m_peak = 0;
 
-    // 0x100306380, 208 bytes, inline, placed by class name and debug map
-    // std::unique_ptr<graphics::GeometryBatchInstance, MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter> MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::Model&, shared_ptr<graphics::GeometryBatch>&>(graphics::Model&, shared_ptr<graphics::GeometryBatch>&)
-    /* std::unique_ptr<graphics::GeometryBatchInstance,
-   MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-   MakeUniquePool<graphics::GeometryBatchInstance,
-   3072>::MakeUnique<graphics::Model&,
-   shared_ptr<graphics::GeometryBatch>&>(graphics::Model&,
-   shared_ptr<graphics::GeometryBatch>&) */
+    // 0x100306380
+    std::unique_ptr<graphics::GeometryBatchInstance,
+                    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
+    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<
+        graphics::Model&, shared_ptr<graphics::GeometryBatch>&>(graphics::Model& model,
+                                                                shared_ptr<graphics::GeometryBatch>& geometryBatch) {
+        shared_ptr<graphics::GeometryBatch>* in_RDX;
+        uint8_t auVar3[16];
 
-    MakeUniquePool<graphics::GeometryBatchInstance, 3072>*
-    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::Model&,
-                                                                      shared_ptr<graphics::GeometryBatch>&>(
-        MakeUniquePool<graphics::GeometryBatchInstance, 3072>* this, Model* param_1, shared_ptr* param_2) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::GeometryBatchInstance>* this_01;
-        undefined8 uVar2;
-        void* pvVar3;
-        GeometryBatchInstance* this_02;
-        unique_lock<std::mutex> local_30[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)PTR_m_mutex_100ee6020);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6018 = lVar1 + 1U;
+        unique_lock<std::mutex> local_30(*PTR_m_mutex_100ee6020);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6018 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::GeometryBatchInstance>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::GeometryBatchInstance,
-                        MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                              void>(
-            this, uVar2);
-        std::unique_lock<std::mutex>::unlock(local_30);
-        pvVar3 = (void*)get();
-        _memset(pvVar3, 205, 896);
-        this_02 = (GeometryBatchInstance*)get();
-        graphics::GeometryBatchInstance::GeometryBatchInstance(this_02, param_1, param_2);
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::GeometryBatchInstance>*)GetPool())->allocate();
+        model.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_30.unlock();
+        _memset((void*)model.get(), 205, 896);
+        new ((GeometryBatchInstance*)model.get()) graphics::GeometryBatchInstance(geometryBatch, in_RDX);
+        return model;
     }
 
-    // 0x100306460, 176 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::dash3d::ModelRSevenUnlit>::type make_shared<oldscape::dash3d::ModelRSevenUnlit, shared_ptr<graphics::Model>, bool>(shared_ptr<graphics::Model>&&, bool&&)
-    jag* make_shared<oldscape::dash3d::ModelRSevenUnlit, shared_ptr<graphics::Model>, bool>(shared_ptr* param_1,
-                                                                                            bool* param_2) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100306460
+    shared_ptr_if_not_array<oldscape::dash3d::ModelRSevenUnlit>::type
+    make_shared<oldscape::dash3d::ModelRSevenUnlit, shared_ptr<graphics::Model>, bool>(
+        shared_ptr<graphics::Model>&& model, bool&& arg2) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_3c;
         ModelRSevenUnlit* local_38[2];
 
-        pvVar1 = (void*)aligned_alloc(136, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(136, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::dash3d::ModelRSevenUnlit>::type result;
         } else {
             local_38[0] = placement_new<oldscape::dash3d::ModelRSevenUnlit, shared_ptr<graphics::Model>, bool>(
-                (void*)((long)pvVar1 + 32), param_1, param_2);
+                (void*)((long)arg1 + 32), model, arg2);
             local_3c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::dash3d::ModelRSevenUnlit>, int,
-                                   oldscape::dash3d::ModelRSevenUnlit*&>(pvVar1, &local_3c, local_38);
-            prVar2->~AutoSingleton(local_38[0]);
-            prVar2->~AutoSingleton(local_38[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_38[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::dash3d::ModelRSevenUnlit>, int,
+                              oldscape::dash3d::ModelRSevenUnlit*&>(arg1, &local_3c, local_38);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_38[0]);
         }
-        return this;
+        return result;
     }
 
-    // 0x10036dd10, 224 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::GeometryBatchInstance, MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter> MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::GeometryBatchInstance const&, graphics::Model&, bool>(graphics::GeometryBatchInstance const&, graphics::Model&, bool&&)
-    /* std::unique_ptr<graphics::GeometryBatchInstance,
-   MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-   MakeUniquePool<graphics::GeometryBatchInstance,
-   3072>::MakeUnique<graphics::GeometryBatchInstance const&, graphics::Model&,
-   bool>(graphics::GeometryBatchInstance const&, graphics::Model&, bool&&) */
-
-    MakeUniquePool<graphics::GeometryBatchInstance, 3072>*
-    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::GeometryBatchInstance_const&,
+    // 0x10036dd10
+    std::unique_ptr<graphics::GeometryBatchInstance,
+                    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
+    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::GeometryBatchInstance const&,
                                                                       graphics::Model&, bool>(
-        MakeUniquePool<graphics::GeometryBatchInstance, 3072>* this, GeometryBatchInstance* param_1, Model* param_2,
-        bool* param_3) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::GeometryBatchInstance>* this_01;
-        undefined8 uVar2;
-        void* pvVar3;
-        GeometryBatchInstance* this_02;
-        unique_lock<std::mutex> local_38[16];
+        const graphics::GeometryBatchInstance& geometryBatchInstance, graphics::Model& model, bool&& arg3) {
+        uint64_t in_RCX;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_38, (mutex*)PTR_m_mutex_100ee6020);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6018 = lVar1 + 1U;
+        unique_lock<std::mutex> local_38(*PTR_m_mutex_100ee6020);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6018 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::GeometryBatchInstance>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::GeometryBatchInstance,
-                        MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                              void>(
-            this, uVar2);
-        std::unique_lock<std::mutex>::unlock(local_38);
-        pvVar3 = (void*)get();
-        _memset(pvVar3, 205, 896);
-        this_02 = (GeometryBatchInstance*)get();
-        graphics::GeometryBatchInstance::GeometryBatchInstance(this_02, param_1, param_2, *param_3);
-        std::unique_lock<std::mutex>::~unique_lock(local_38);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::GeometryBatchInstance>*)GetPool())->allocate();
+        geometryBatchInstance.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_38.unlock();
+        _memset((void*)geometryBatchInstance.get(), 205, 896);
+        new ((GeometryBatchInstance*)geometryBatchInstance.get())
+            graphics::GeometryBatchInstance(model, arg3, *(bool*)in_RCX);
+        return geometryBatchInstance;
     }
 
-    // 0x100388290, 112 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter::operator()(graphics::GeometryBatchInstance*) const
-    /* MakeUniquePool<graphics::GeometryBatchInstance,
-   3072>::UniquePoolDeleter::TEMPNAMEPLACEHOLDERVALUE(graphics::GeometryBatchInstance*) const
-    */
-
+    // 0x100388290
     void MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter::operator()(
-        GeometryBatchInstance* param_1) {
-        VectorFastPool<graphics::GeometryBatchInstance>* this_00;
-        unique_lock<std::mutex> local_20[16];
+        graphics::GeometryBatchInstance* geometryBatchInstance) const {
+        unique_lock<std::mutex> local_20;
 
-        if (param_1 != (GeometryBatchInstance*)0) {
-            (*(code*)param_1->field_0[4])(param_1);
-            _memset(param_1, 221, 896);
-            std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6020);
-            this_00 = (VectorFastPool<graphics::GeometryBatchInstance>*)
-                MakeUniquePool<graphics::GeometryBatchInstance, 3072>::GetPool();
-            this_00->deallocate(param_1);
-            std::unique_lock<std::mutex>::~unique_lock(local_20);
+        if (geometryBatchInstance != nullptr) {
+            std::destroy_at(geometryBatchInstance);
+            _memset(geometryBatchInstance, 221, 896);
+            local_20 = std::unique_lock<std::mutex>(*PTR_m_mutex_100ee6020);
+            ((VectorFastPool<graphics::GeometryBatchInstance>*)
+                 MakeUniquePool<graphics::GeometryBatchInstance, 3072>::GetPool())
+                ->deallocate(geometryBatchInstance);
         }
     }
 
-    // 0x100388310, 176 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::GeometryBatchInstance, 3072>::GetPool()
-    undefined* MakeUniquePool<graphics::GeometryBatchInstance, 3072>::GetPool() {
-        ulong* puVar2;
-        ulong local_20[2];
+    // 0x100388310
+    void MakeUniquePool<graphics::GeometryBatchInstance, 3072>::GetPool() {
+        unsigned long* puVar2;
+        unsigned long local_20[2];
 
         if (*PTR_pool_100ee5080 == '\0') {
             if (___cxa_guard_acquire(PTR_pool_100ee5080) != 0) {
                 local_20[0] = 16;
                 local_20[1] = 16;
-                puVar2 = std::max<unsigned long>(local_20, local_20 + 1);
+                puVar2 = std::max<unsigned long>(*local_20, *(local_20 + 1));
                 new (PTR_pool_100ee9c78) VectorFastPool<graphics::GeometryBatchInstance>(3072, *puVar2);
                 ___cxa_atexit(PTR__VectorFastPool_100ee63b0, PTR_pool_100ee9c78, 4294967296);
                 ___cxa_guard_release(PTR_pool_100ee5080);
@@ -331,11 +287,9 @@ namespace jag {
         return PTR_pool_100ee9c78;
     }
 
-    // 0x1003daed0, 96 bytes, base-object constructor, inline, placed by class name
-    // MakeUniquePool<game::EnvironmentLoader, 48>::MakeUniquePool()
-    void
-    MakeUniquePool<game::EnvironmentLoader, 48>::MakeUniquePool(MakeUniquePool<game::EnvironmentLoader, 48>* this) {
-        undefined1 uVar1;
+    // 0x1003daed0
+    MakeUniquePool<game::EnvironmentLoader, 48>::MakeUniquePool() {
+        uint8_t uVar1;
 
         if (*PTR_registered_100ee5058 == '\0') {
             if (___cxa_guard_acquire(PTR_registered_100ee5058) != 0) {
@@ -346,123 +300,101 @@ namespace jag {
         }
     }
 
-    // 0x1003e02b0, 432 bytes, inline, placed by class name
-    // MakeUniquePool<game::EnvironmentLoader, 48>::RegisterThisUniquePool()
+    // 0x1003e02b0
     void MakeUniquePool<game::EnvironmentLoader, 48>::RegisterThisUniquePool() {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
-        function local_2f8[176];
-        fixed_string<char, 512, true, eastl::allocator> local_248[552];
-        undefined8 local_20;
+        _lambda_jag__shareduniquedebug__SharedPoolInfo___1_* arg1;
+        Logger* logger;
+        function<void(shareduniquedebug::SharedPoolInfo&)> local_2f8[176];
+        uint64_t local_20;
 
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(
-            local_248, "static bool MakeUniquePool<game::EnvironmentLoader, 48>::RegisterThisUniquePool() [T = "
-                       "game::EnvironmentLoader, CAPACITY = 48]");
-        lVar1 = local_248->find("T = jag::", 0);
+        fixed_string<char, 512> local_248("static bool MakeUniquePool<game::EnvironmentLoader, "
+                                          "48>::RegisterThisUniquePool() [T = game::EnvironmentLoader, CAPACITY = 48]");
+        char* pcVar3 = "T = jag::";
+        long lVar1 = local_248.find("T = jag::", 0);
         if (lVar1 != -1) {
-            local_248->replace(0, lVar1 + 9, "UniquePool\t");
-            uVar2 = local_248->find(", CAPACITY = ", 0);
-            if (uVar2 != 18446744073709551615) {
-                local_248->replace(uVar2, 13, "[");
+            local_248.replace(0, lVar1 + 9, "UniquePool\t");
+            pcVar3 = ", CAPACITY = ";
+            arg1 = (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)local_248.find(", CAPACITY = ", 0);
+            if (arg1 != (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)18446744073709551615) {
+                local_248.replace((unsigned long)arg1, 13, "[");
+                pcVar3 = (char*)arg1;
             }
         }
         std::function<void(shareduniquedebug::SharedPoolInfo&)>::function<
             MakeUniquePool<game::EnvironmentLoader, 48>::RegisterThisUniquePool()::_lambda(
                 shareduniquedebug::SharedPoolInfo&) _1_,
-            void>(local_2f8);
+            void>(local_2f8, (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)pcVar3);
         shareduniquedebug::RegisterUniquePool(
             "static bool MakeUniquePool<game::EnvironmentLoader, 48>::RegisterThisUniquePool() [T = "
             "game::EnvironmentLoader, CAPACITY = 48]",
-            local_2f8);
-        std::function<void(shareduniquedebug::SharedPoolInfo&)>::~function(
-            (function<void(shareduniquedebug::SharedPoolInfo&)>*)local_2f8);
-        new (local_2f8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar3 = logger::default_logger();
-        uVar4 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        pcVar5 =
-            DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>((fixed_string*)local_2f8, 2688);
-        logger::Logger::Log(
-            uVar3, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h", 133,
-            "%s\t%s", uVar4, pcVar5);
-        /* WARNING: Subroutine does not return */
-        local_2f8->~fixed_string();
+            *local_2f8);
+        new (local_2f8) eastl::fixed_string<char, 128>();
+        logger = logger::default_logger();
+        uint64_t uVar2 = local_248.begin();
+        pcVar3 = DataSizeStringMB<eastl::fixed_string<char, 128>>((fixed_string<char, _128>*)local_2f8, 2688);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h",
+                    133, "%s\t%s", uVar2, pcVar3);
     }
 
-    // 0x1003e0c50, 16 bytes, inline, placed by class name
-    // MakeUniquePool<game::EnvironmentLoader, 48>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::operator()(shareduniquedebug::SharedPoolInfo&) const
-    /* MakeUniquePool<game::EnvironmentLoader,
-   48>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo&)
-   const */
-
+    // 0x1003e0c50
     void MakeUniquePool<game::EnvironmentLoader, 48>::RegisterThisUniquePool()::{
         lambda(shareduniquedebug::SharedPoolInfo&) #1
     }
-    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * param_1)
-
-    {
-        GetUniquePoolInfo(param_1);
+    ::operator()(shareduniquedebug::SharedPoolInfo & arg1) const {
+        lambda(shareduniquedebug::SharedPoolInfo&) #1
+    }
+    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * sharedPoolInfo) {
+        GetUniquePoolInfo(sharedPoolInfo);
+        return;
     }
 
-    // 0x1003e0c60, 240 bytes, inline, placed by class name
-    // MakeUniquePool<game::EnvironmentLoader, 48>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&)
-    void MakeUniquePool<game::EnvironmentLoader, 48>::GetUniquePoolInfo(SharedPoolInfo* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* pVVar1;
-        undefined8 uVar2;
-        long lVar3;
-        ShuffledPacketFactory* pSVar4;
-        unique_lock<std::mutex> local_20[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee5ff0);
-        *(undefined8*)(param_1 + 48) = 0;
-        *(undefined8*)(param_1 + 56) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
-        *(undefined8*)(param_1 + 40) = 0;
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 64) = 0;
+    // 0x1003e0c60
+    void
+    MakeUniquePool<game::EnvironmentLoader, 48>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        unique_lock<std::mutex> local_20(*PTR_m_mutex_100ee5ff0);
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        auto pVVar1 = GetPool();
+        uint64_t uVar2 = pVVar1->size();
+        *(uint64_t*)sharedPoolInfo = uVar2;
         pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
             GetPool();
-        uVar2 = pVVar1->size();
-        *(undefined8*)param_1 = uVar2;
-        pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar3 = pVVar1->capacity();
-        *(long*)(param_1 + 8) = lVar3;
-        *(undefined8*)(param_1 + 16) = *(undefined8*)PTR_m_peak_100ee5fe8;
-        *(undefined8*)(param_1 + 32) = 48;
+        long lVar3 = pVVar1->capacity();
+        *(long*)(sharedPoolInfo + 8) = lVar3;
+        *(uint64_t*)(sharedPoolInfo + 16) = *(uint64_t*)PTR_m_peak_100ee5fe8;
+        *(uint64_t*)(sharedPoolInfo + 32) = 48;
         if (lVar3 != 0) {
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<game::EnvironmentLoader, unsigned long>::GetTotalSize(*(ulong*)param_1);
-            *(undefined8*)(param_1 + 40) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<game::EnvironmentLoader, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 8));
-            *(undefined8*)(param_1 + 48) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<game::EnvironmentLoader, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 32));
-            *(undefined8*)(param_1 + 56) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<game::EnvironmentLoader, unsigned long>::GetTotalSize(*(unsigned long*)sharedPoolInfo);
+            *(uint64_t*)(sharedPoolInfo + 40) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 =
+                FastPool<game::EnvironmentLoader, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 8));
+            *(uint64_t*)(sharedPoolInfo + 48) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 =
+                FastPool<game::EnvironmentLoader, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 32));
+            *(uint64_t*)(sharedPoolInfo + 56) = uVar2;
         }
-        *(char**)(param_1 + 64) =
+        *(char**)(sharedPoolInfo + 64) =
             "static void MakeUniquePool<game::EnvironmentLoader, "
             "48>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = game::EnvironmentLoader, CAPACITY = 48]";
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
     }
 
-    // 0x1003f8210, 96 bytes, base-object constructor, inline, placed by class name
-    // MakeUniquePool<SpotAnimation, 64>::MakeUniquePool()
-    void MakeUniquePool<SpotAnimation, 64>::MakeUniquePool(MakeUniquePool<SpotAnimation, 64>* this) {
-        undefined1 uVar1;
+    // 0x1003f8210
+    MakeUniquePool<SpotAnimation, 64>::MakeUniquePool() {
+        uint8_t uVar1;
 
         if (*PTR_registered_100ee5038 == '\0') {
             if (___cxa_guard_acquire(PTR_registered_100ee5038) != 0) {
@@ -473,10 +405,9 @@ namespace jag {
         }
     }
 
-    // 0x1003f94e0, 96 bytes, base-object constructor, inline, placed by class name
-    // MakeUniquePool<game::Terrain, 32>::MakeUniquePool()
-    void MakeUniquePool<game::Terrain, 32>::MakeUniquePool(MakeUniquePool<game::Terrain, 32>* this) {
-        undefined1 uVar1;
+    // 0x1003f94e0
+    MakeUniquePool<game::Terrain, 32>::MakeUniquePool() {
+        uint8_t uVar1;
 
         if (*PTR_registered_100ee5068 == '\0') {
             if (___cxa_guard_acquire(PTR_registered_100ee5068) != 0) {
@@ -487,36 +418,28 @@ namespace jag {
         }
     }
 
-    // 0x100406200, 112 bytes, inline, placed by class name
-    // MakeUniquePool<SpotAnimation, 64>::UniquePoolDeleter::operator()(SpotAnimation*) const
-    /* MakeUniquePool<SpotAnimation,
-   64>::UniquePoolDeleter::TEMPNAMEPLACEHOLDERVALUE(SpotAnimation*) const */
+    // 0x100406200
+    void MakeUniquePool<SpotAnimation, 64>::UniquePoolDeleter::operator()(SpotAnimation* spotAnimation) const {
+        unique_lock<std::mutex> local_20;
 
-    void MakeUniquePool<SpotAnimation, 64>::UniquePoolDeleter::operator()(SpotAnimation* param_1) {
-        VectorFastPool<SpotAnimation>* this_00;
-        unique_lock<std::mutex> local_20[16];
-
-        if (param_1 != (SpotAnimation*)0) {
-            (*(code*)*param_1->field_0)(param_1);
-            _memset(param_1, 221, 464);
-            std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee5fd0);
-            this_00 = (VectorFastPool<SpotAnimation>*)MakeUniquePool<SpotAnimation, 64>::GetPool();
-            this_00->deallocate(param_1);
-            std::unique_lock<std::mutex>::~unique_lock(local_20);
+        if (spotAnimation != nullptr) {
+            std::destroy_at(spotAnimation);
+            _memset(spotAnimation, 221, 464);
+            local_20 = std::unique_lock<std::mutex>(*PTR_m_mutex_100ee5fd0);
+            ((VectorFastPool<SpotAnimation>*)MakeUniquePool<SpotAnimation, 64>::GetPool())->deallocate(spotAnimation);
         }
     }
 
-    // 0x100406270, 176 bytes, inline, placed by class name
-    // MakeUniquePool<SpotAnimation, 64>::GetPool()
-    undefined* MakeUniquePool<SpotAnimation, 64>::GetPool() {
-        ulong* puVar2;
-        ulong local_20[2];
+    // 0x100406270
+    void MakeUniquePool<SpotAnimation, 64>::GetPool() {
+        unsigned long* puVar2;
+        unsigned long local_20[2];
 
         if (*PTR_pool_100ee5030 == '\0') {
             if (___cxa_guard_acquire(PTR_pool_100ee5030) != 0) {
                 local_20[0] = 16;
                 local_20[1] = 16;
-                puVar2 = std::max<unsigned long>(local_20, local_20 + 1);
+                puVar2 = std::max<unsigned long>(*local_20, *(local_20 + 1));
                 new (PTR_pool_100ee9c28) VectorFastPool<SpotAnimation>(64, *puVar2);
                 ___cxa_atexit(PTR__VectorFastPool_100ee6060, PTR_pool_100ee9c28, 4294967296);
                 ___cxa_guard_release(PTR_pool_100ee5030);
@@ -525,356 +448,271 @@ namespace jag {
         return PTR_pool_100ee9c28;
     }
 
-    // 0x100407d70, 432 bytes, inline, placed by class name
-    // MakeUniquePool<SpotAnimation, 64>::RegisterThisUniquePool()
+    // 0x100407d70
     void MakeUniquePool<SpotAnimation, 64>::RegisterThisUniquePool() {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
-        function local_2f8[176];
-        fixed_string<char, 512, true, eastl::allocator> local_248[552];
-        undefined8 local_20;
+        _lambda_jag__shareduniquedebug__SharedPoolInfo___1_* arg1;
+        Logger* logger;
+        function<void(shareduniquedebug::SharedPoolInfo&)> local_2f8[176];
+        uint64_t local_20;
 
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(
-            local_248, "static bool MakeUniquePool<SpotAnimation, 64>::RegisterThisUniquePool() [T = SpotAnimation, "
-                       "CAPACITY = 64]");
-        lVar1 = local_248->find("T = jag::", 0);
+        fixed_string<char, 512> local_248("static bool MakeUniquePool<SpotAnimation, 64>::RegisterThisUniquePool() [T "
+                                          "= SpotAnimation, CAPACITY = 64]");
+        char* pcVar3 = "T = jag::";
+        long lVar1 = local_248.find("T = jag::", 0);
         if (lVar1 != -1) {
-            local_248->replace(0, lVar1 + 9, "UniquePool\t");
-            uVar2 = local_248->find(", CAPACITY = ", 0);
-            if (uVar2 != 18446744073709551615) {
-                local_248->replace(uVar2, 13, "[");
+            local_248.replace(0, lVar1 + 9, "UniquePool\t");
+            pcVar3 = ", CAPACITY = ";
+            arg1 = (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)local_248.find(", CAPACITY = ", 0);
+            if (arg1 != (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)18446744073709551615) {
+                local_248.replace((unsigned long)arg1, 13, "[");
+                pcVar3 = (char*)arg1;
             }
         }
         std::function<void(shareduniquedebug::SharedPoolInfo&)>::function<
             MakeUniquePool<SpotAnimation, 64>::RegisterThisUniquePool()::_lambda(shareduniquedebug::SharedPoolInfo&)
                 _1_,
-            void>(local_2f8);
+            void>(local_2f8, (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)pcVar3);
         shareduniquedebug::RegisterUniquePool("static bool MakeUniquePool<SpotAnimation, 64>::RegisterThisUniquePool() "
                                               "[T = SpotAnimation, CAPACITY = 64]",
-                                              local_2f8);
-        std::function<void(shareduniquedebug::SharedPoolInfo&)>::~function(
-            (function<void(shareduniquedebug::SharedPoolInfo&)>*)local_2f8);
-        new (local_2f8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar3 = logger::default_logger();
-        uVar4 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        pcVar5 =
-            DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>((fixed_string*)local_2f8, 29696);
-        logger::Logger::Log(
-            uVar3, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h", 133,
-            "%s\t%s", uVar4, pcVar5);
-        /* WARNING: Subroutine does not return */
-        local_2f8->~fixed_string();
+                                              *local_2f8);
+        new (local_2f8) eastl::fixed_string<char, 128>();
+        logger = logger::default_logger();
+        uint64_t uVar2 = local_248.begin();
+        pcVar3 = DataSizeStringMB<eastl::fixed_string<char, 128>>((fixed_string<char, _128>*)local_2f8, 29696);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h",
+                    133, "%s\t%s", uVar2, pcVar3);
     }
 
-    // 0x1004086b0, 16 bytes, inline, placed by class name
-    // MakeUniquePool<SpotAnimation, 64>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::operator()(shareduniquedebug::SharedPoolInfo&) const
-    /* MakeUniquePool<SpotAnimation,
-   64>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo&)
-   const */
-
+    // 0x1004086b0
     void MakeUniquePool<SpotAnimation, 64>::RegisterThisUniquePool()::{
         lambda(shareduniquedebug::SharedPoolInfo&) #1
     }
-    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * param_1)
-
-    {
-        GetUniquePoolInfo(param_1);
+    ::operator()(shareduniquedebug::SharedPoolInfo & arg1) const {
+        lambda(shareduniquedebug::SharedPoolInfo&) #1
+    }
+    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * sharedPoolInfo) {
+        GetUniquePoolInfo(sharedPoolInfo);
+        return;
     }
 
-    // 0x1004086c0, 240 bytes, inline, placed by class name
-    // MakeUniquePool<SpotAnimation, 64>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&)
-    void MakeUniquePool<SpotAnimation, 64>::GetUniquePoolInfo(SharedPoolInfo* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* pVVar1;
-        undefined8 uVar2;
-        long lVar3;
-        ShuffledPacketFactory* pSVar4;
-        unique_lock<std::mutex> local_20[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee5fd0);
-        *(undefined8*)(param_1 + 48) = 0;
-        *(undefined8*)(param_1 + 56) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
-        *(undefined8*)(param_1 + 40) = 0;
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 64) = 0;
+    // 0x1004086c0
+    void MakeUniquePool<SpotAnimation, 64>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        unique_lock<std::mutex> local_20(*PTR_m_mutex_100ee5fd0);
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        auto pVVar1 = GetPool();
+        uint64_t uVar2 = pVVar1->size();
+        *(uint64_t*)sharedPoolInfo = uVar2;
         pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
             GetPool();
-        uVar2 = pVVar1->size();
-        *(undefined8*)param_1 = uVar2;
-        pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar3 = pVVar1->capacity();
-        *(long*)(param_1 + 8) = lVar3;
-        *(undefined8*)(param_1 + 16) = *(undefined8*)PTR_m_peak_100ee5fc8;
-        *(undefined8*)(param_1 + 32) = 64;
+        long lVar3 = pVVar1->capacity();
+        *(long*)(sharedPoolInfo + 8) = lVar3;
+        *(uint64_t*)(sharedPoolInfo + 16) = *(uint64_t*)PTR_m_peak_100ee5fc8;
+        *(uint64_t*)(sharedPoolInfo + 32) = 64;
         if (lVar3 != 0) {
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<SpotAnimation, unsigned long>::GetTotalSize(*(ulong*)param_1);
-            *(undefined8*)(param_1 + 40) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<SpotAnimation, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 8));
-            *(undefined8*)(param_1 + 48) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<SpotAnimation, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 32));
-            *(undefined8*)(param_1 + 56) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<SpotAnimation, unsigned long>::GetTotalSize(*(unsigned long*)sharedPoolInfo);
+            *(uint64_t*)(sharedPoolInfo + 40) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<SpotAnimation, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 8));
+            *(uint64_t*)(sharedPoolInfo + 48) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<SpotAnimation, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 32));
+            *(uint64_t*)(sharedPoolInfo + 56) = uVar2;
         }
-        *(char**)(param_1 + 64) =
+        *(char**)(sharedPoolInfo + 64) =
             "static void MakeUniquePool<SpotAnimation, 64>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T "
             "= SpotAnimation, CAPACITY = 64]";
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
     }
 
-    // 0x1004089f0, 432 bytes, inline, placed by class name
-    // MakeUniquePool<game::Terrain, 32>::RegisterThisUniquePool()
+    // 0x1004089f0
     void MakeUniquePool<game::Terrain, 32>::RegisterThisUniquePool() {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
-        function local_2f8[176];
-        fixed_string<char, 512, true, eastl::allocator> local_248[552];
-        undefined8 local_20;
+        _lambda_jag__shareduniquedebug__SharedPoolInfo___1_* arg1;
+        Logger* logger;
+        function<void(shareduniquedebug::SharedPoolInfo&)> local_2f8[176];
+        uint64_t local_20;
 
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(
-            local_248, "static bool MakeUniquePool<game::Terrain, 32>::RegisterThisUniquePool() [T = game::Terrain, "
-                       "CAPACITY = 32]");
-        lVar1 = local_248->find("T = jag::", 0);
+        fixed_string<char, 512> local_248("static bool MakeUniquePool<game::Terrain, 32>::RegisterThisUniquePool() [T "
+                                          "= game::Terrain, CAPACITY = 32]");
+        char* pcVar3 = "T = jag::";
+        long lVar1 = local_248.find("T = jag::", 0);
         if (lVar1 != -1) {
-            local_248->replace(0, lVar1 + 9, "UniquePool\t");
-            uVar2 = local_248->find(", CAPACITY = ", 0);
-            if (uVar2 != 18446744073709551615) {
-                local_248->replace(uVar2, 13, "[");
+            local_248.replace(0, lVar1 + 9, "UniquePool\t");
+            pcVar3 = ", CAPACITY = ";
+            arg1 = (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)local_248.find(", CAPACITY = ", 0);
+            if (arg1 != (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)18446744073709551615) {
+                local_248.replace((unsigned long)arg1, 13, "[");
+                pcVar3 = (char*)arg1;
             }
         }
         std::function<void(shareduniquedebug::SharedPoolInfo&)>::function<
             MakeUniquePool<game::Terrain, 32>::RegisterThisUniquePool()::_lambda(shareduniquedebug::SharedPoolInfo&)
                 _1_,
-            void>(local_2f8);
+            void>(local_2f8, (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)pcVar3);
         shareduniquedebug::RegisterUniquePool("static bool MakeUniquePool<game::Terrain, 32>::RegisterThisUniquePool() "
                                               "[T = game::Terrain, CAPACITY = 32]",
-                                              local_2f8);
-        std::function<void(shareduniquedebug::SharedPoolInfo&)>::~function(
-            (function<void(shareduniquedebug::SharedPoolInfo&)>*)local_2f8);
-        new (local_2f8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar3 = logger::default_logger();
-        uVar4 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        pcVar5 =
-            DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>((fixed_string*)local_2f8, 54272);
-        logger::Logger::Log(
-            uVar3, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h", 133,
-            "%s\t%s", uVar4, pcVar5);
-        /* WARNING: Subroutine does not return */
-        local_2f8->~fixed_string();
+                                              *local_2f8);
+        new (local_2f8) eastl::fixed_string<char, 128>();
+        logger = logger::default_logger();
+        uint64_t uVar2 = local_248.begin();
+        pcVar3 = DataSizeStringMB<eastl::fixed_string<char, 128>>((fixed_string<char, _128>*)local_2f8, 54272);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h",
+                    133, "%s\t%s", uVar2, pcVar3);
     }
 
-    // 0x100409330, 16 bytes, inline, placed by class name
-    // MakeUniquePool<game::Terrain, 32>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::operator()(shareduniquedebug::SharedPoolInfo&) const
-    /* MakeUniquePool<game::Terrain,
-   32>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo&)
-   const */
-
+    // 0x100409330
     void MakeUniquePool<game::Terrain, 32>::RegisterThisUniquePool()::{
         lambda(shareduniquedebug::SharedPoolInfo&) #1
     }
-    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * param_1)
-
-    {
-        GetUniquePoolInfo(param_1);
+    ::operator()(shareduniquedebug::SharedPoolInfo & arg1) const {
+        lambda(shareduniquedebug::SharedPoolInfo&) #1
+    }
+    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * sharedPoolInfo) {
+        GetUniquePoolInfo(sharedPoolInfo);
+        return;
     }
 
-    // 0x100409340, 240 bytes, inline, placed by class name
-    // MakeUniquePool<game::Terrain, 32>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&)
-    void MakeUniquePool<game::Terrain, 32>::GetUniquePoolInfo(SharedPoolInfo* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* pVVar1;
-        undefined8 uVar2;
-        long lVar3;
-        ShuffledPacketFactory* pSVar4;
-        unique_lock<std::mutex> local_20[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6000);
-        *(undefined8*)(param_1 + 48) = 0;
-        *(undefined8*)(param_1 + 56) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
-        *(undefined8*)(param_1 + 40) = 0;
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 64) = 0;
+    // 0x100409340
+    void MakeUniquePool<game::Terrain, 32>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        unique_lock<std::mutex> local_20(*PTR_m_mutex_100ee6000);
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        auto pVVar1 = GetPool();
+        uint64_t uVar2 = pVVar1->size();
+        *(uint64_t*)sharedPoolInfo = uVar2;
         pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
             GetPool();
-        uVar2 = pVVar1->size();
-        *(undefined8*)param_1 = uVar2;
-        pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar3 = pVVar1->capacity();
-        *(long*)(param_1 + 8) = lVar3;
-        *(undefined8*)(param_1 + 16) = *(undefined8*)PTR_m_peak_100ee5ff8;
-        *(undefined8*)(param_1 + 32) = 32;
+        long lVar3 = pVVar1->capacity();
+        *(long*)(sharedPoolInfo + 8) = lVar3;
+        *(uint64_t*)(sharedPoolInfo + 16) = *(uint64_t*)PTR_m_peak_100ee5ff8;
+        *(uint64_t*)(sharedPoolInfo + 32) = 32;
         if (lVar3 != 0) {
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<game::Terrain, unsigned long>::GetTotalSize(*(ulong*)param_1);
-            *(undefined8*)(param_1 + 40) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<game::Terrain, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 8));
-            *(undefined8*)(param_1 + 48) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<game::Terrain, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 32));
-            *(undefined8*)(param_1 + 56) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<game::Terrain, unsigned long>::GetTotalSize(*(unsigned long*)sharedPoolInfo);
+            *(uint64_t*)(sharedPoolInfo + 40) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<game::Terrain, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 8));
+            *(uint64_t*)(sharedPoolInfo + 48) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<game::Terrain, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 32));
+            *(uint64_t*)(sharedPoolInfo + 56) = uVar2;
         }
-        *(char**)(param_1 + 64) =
+        *(char**)(sharedPoolInfo + 64) =
             "static void MakeUniquePool<game::Terrain, 32>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T "
             "= game::Terrain, CAPACITY = 32]";
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
     }
 
-    // 0x100414170, 240 bytes, inline, placed by class name
-    // std::unique_ptr<game::EnvironmentLoader, MakeUniquePool<game::EnvironmentLoader, 48>::UniquePoolDeleter> MakeUniquePool<game::EnvironmentLoader, 48>::MakeUnique<unsigned int&, unsigned int&, shared_ptr<game::ClientCompositeData>&>(unsigned int&, unsigned int&, shared_ptr<game::ClientCompositeData>&)
-    /* std::unique_ptr<game::EnvironmentLoader, MakeUniquePool<game::EnvironmentLoader,
-   48>::UniquePoolDeleter> MakeUniquePool<game::EnvironmentLoader,
-   48>::MakeUnique<unsigned int&, unsigned int&,
-   shared_ptr<game::ClientCompositeData>&>(unsigned int&, unsigned int&,
-   shared_ptr<game::ClientCompositeData>&) */
-
-    MakeUniquePool<game::EnvironmentLoader, 48>*
+    // 0x100414170
+    std::unique_ptr<game::EnvironmentLoader, MakeUniquePool<game::EnvironmentLoader, 48>::UniquePoolDeleter>
     MakeUniquePool<game::EnvironmentLoader, 48>::MakeUnique<unsigned int&, unsigned int&,
                                                             shared_ptr<game::ClientCompositeData>&>(
-        MakeUniquePool<game::EnvironmentLoader, 48>* this, uint* param_1, uint* param_2, shared_ptr* param_3) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<game::EnvironmentLoader>* this_01;
-        undefined8 uVar2;
-        undefined8* puVar3;
-        EnvironmentLoader* this_02;
-        unique_lock<std::mutex> local_38[16];
+        unsigned int& arg1, unsigned int& arg2, shared_ptr<game::ClientCompositeData>& clientCompositeData) {
+        shared_ptr<game::ClientCompositeData>* in_RCX;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_38, (mutex*)PTR_m_mutex_100ee5ff0);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee5fe8 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee5fe8 = lVar1 + 1U;
+        unique_lock<std::mutex> local_38(*PTR_m_mutex_100ee5ff0);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee5fe8 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee5fe8 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<game::EnvironmentLoader>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<game::EnvironmentLoader,
-                        MakeUniquePool<game::EnvironmentLoader, 48>::UniquePoolDeleter>::unique_ptr<true, void>(this,
-                                                                                                                uVar2);
-        std::unique_lock<std::mutex>::unlock(local_38);
-        puVar3 = (undefined8*)get();
-        *puVar3 = 14829735431805717965;
-        puVar3[1] = 14829735431805717965;
-        puVar3[2] = 14829735431805717965;
-        puVar3[3] = 14829735431805717965;
-        puVar3[4] = 14829735431805717965;
-        puVar3[5] = 14829735431805717965;
-        puVar3[6] = 14829735431805717965;
-        this_02 = (EnvironmentLoader*)get();
-        game::EnvironmentLoader::EnvironmentLoader(this_02, *param_1, *param_2, param_3);
-        std::unique_lock<std::mutex>::~unique_lock(local_38);
-        return this;
+        auVar3 = ((VectorFastPool<game::EnvironmentLoader>*)GetPool())->allocate();
+        arg1.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_38.unlock();
+        auto puVar2 = arg1.get();
+        *puVar2 = 14829735431805717965;
+        puVar2[1] = 14829735431805717965;
+        puVar2[2] = 14829735431805717965;
+        puVar2[3] = 14829735431805717965;
+        puVar2[4] = 14829735431805717965;
+        puVar2[5] = 14829735431805717965;
+        puVar2[6] = 14829735431805717965;
+        new ((EnvironmentLoader*)arg1.get())
+            game::EnvironmentLoader(arg2, *(unsigned int*)clientCompositeData, *in_RCX);
+        return arg1;
     }
 
-    // 0x100414370, 240 bytes, inline, placed by class name
-    // std::unique_ptr<game::Terrain, MakeUniquePool<game::Terrain, 32>::UniquePoolDeleter> MakeUniquePool<game::Terrain, 32>::MakeUnique<graphics::GraphNode*&, shared_ptr<game::World> const&, game::TerrainInputData&, graphics::RT7Core*&>(graphics::GraphNode*&, shared_ptr<game::World> const&, game::TerrainInputData&, graphics::RT7Core*&)
-    /* std::unique_ptr<game::Terrain, MakeUniquePool<game::Terrain,
-   32>::UniquePoolDeleter> MakeUniquePool<game::Terrain,
-   32>::MakeUnique<graphics::GraphNode*&, shared_ptr<game::World> const&,
-   game::TerrainInputData&, graphics::RT7Core*&>(graphics::GraphNode*&,
-   shared_ptr<game::World> const&, game::TerrainInputData&, graphics::RT7Core*&)
-    */
-
-    MakeUniquePool<game::Terrain, 32>*
+    // 0x100414370
+    std::unique_ptr<game::Terrain, MakeUniquePool<game::Terrain, 32>::UniquePoolDeleter>
     MakeUniquePool<game::Terrain, 32>::MakeUnique<graphics::GraphNode*&, shared_ptr<game::World> const&,
                                                   game::TerrainInputData&, graphics::RT7Core*&>(
-        MakeUniquePool<game::Terrain, 32>* this, GraphNode** param_1, shared_ptr* param_2, TerrainInputData* param_3,
-        RT7Core** param_4) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<game::Terrain>* this_01;
-        undefined8 uVar2;
-        void* pvVar3;
-        Terrain* this_02;
-        unique_lock<std::mutex> local_40[16];
+        graphics::GraphNode*& arg1, const shared_ptr<game::World>& world, game::TerrainInputData& terrainInputData,
+        graphics::RT7Core*& arg4) {
+        uint64_t* in_R8;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_40, (mutex*)PTR_m_mutex_100ee6000);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee5ff8 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee5ff8 = lVar1 + 1U;
+        unique_lock<std::mutex> local_40(*PTR_m_mutex_100ee6000);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee5ff8 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee5ff8 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<game::Terrain>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<game::Terrain, MakeUniquePool<game::Terrain, 32>::UniquePoolDeleter>::unique_ptr<true, void>(
-            this, uVar2);
-        std::unique_lock<std::mutex>::unlock(local_40);
-        pvVar3 = (void*)get();
-        _memset(pvVar3, 205, 1696);
-        this_02 = (Terrain*)get();
-        game::Terrain::Terrain(this_02, *param_1, param_2, param_3, *param_4);
-        std::unique_lock<std::mutex>::~unique_lock(local_40);
-        return this;
+        auVar3 = ((VectorFastPool<game::Terrain>*)GetPool())->allocate();
+        arg1.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_40.unlock();
+        _memset((void*)arg1.get(), 205, 1696);
+        new ((Terrain*)arg1.get()) game::Terrain(*(GraphNode**)world, terrainInputData, arg4, *in_R8);
+        return arg1;
     }
 
-    // 0x100420c80, 128 bytes, inline, placed by class name
-    // MakeUniquePool<game::EnvironmentLoader, 48>::UniquePoolDeleter::operator()(game::EnvironmentLoader*) const
-    /* MakeUniquePool<game::EnvironmentLoader,
-   48>::UniquePoolDeleter::TEMPNAMEPLACEHOLDERVALUE(game::EnvironmentLoader*) const */
+    // 0x100420c80
+    void MakeUniquePool<game::EnvironmentLoader, 48>::UniquePoolDeleter::operator()(
+        game::EnvironmentLoader* environmentLoader) const {
+        unique_lock<std::mutex> local_20;
 
-    void MakeUniquePool<game::EnvironmentLoader, 48>::UniquePoolDeleter::operator()(EnvironmentLoader* param_1) {
-        VectorFastPool<game::EnvironmentLoader>* this_00;
-        unique_lock<std::mutex> local_20[16];
-
-        if (param_1 != (EnvironmentLoader*)0) {
-            param_1->~EnvironmentLoader();
-            *(undefined8*)(param_1->field_40 + 8) = 15987178197214944733;
-            *(undefined8*)(param_1->field_24 + 8) = 15987178197214944733;
-            *(undefined8*)param_1->field_40 = 15987178197214944733;
-            *(undefined8*)(param_1->field_8 + 8) = 15987178197214944733;
-            *(undefined8*)param_1->field_24 = 15987178197214944733;
-            param_1->field_0 = 3722304989;
-            param_1->field_4 = 3722304989;
-            *(undefined8*)param_1->field_8 = 15987178197214944733;
-            std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee5ff0);
-            this_00 = (VectorFastPool<game::EnvironmentLoader>*)MakeUniquePool<game::EnvironmentLoader, 48>::GetPool();
-            this_00->deallocate(param_1);
-            std::unique_lock<std::mutex>::~unique_lock(local_20);
+        if (environmentLoader != nullptr) {
+            environmentLoader->~EnvironmentLoader();
+            environmentLoader[1].field_0 = 3722304989;
+            environmentLoader[1].field_4 = 3722304989;
+            *(uint64_t*)&environmentLoader->field_32 = 15987178197214944733;
+            *(uint64_t*)&environmentLoader->field_40 = 15987178197214944733;
+            *(uint64_t*)(environmentLoader->field_8 + 8) = 15987178197214944733;
+            *(uint64_t*)&environmentLoader->field_24 = 15987178197214944733;
+            environmentLoader->field_0 = 3722304989;
+            environmentLoader->field_4 = 3722304989;
+            *(uint64_t*)environmentLoader->field_8 = 15987178197214944733;
+            local_20 = std::unique_lock<std::mutex>(*PTR_m_mutex_100ee5ff0);
+            ((VectorFastPool<game::EnvironmentLoader>*)MakeUniquePool<game::EnvironmentLoader, 48>::GetPool())
+                ->deallocate(environmentLoader);
         }
     }
 
-    // 0x100420d30, 176 bytes, inline, placed by class name
-    // MakeUniquePool<game::EnvironmentLoader, 48>::GetPool()
-    undefined* MakeUniquePool<game::EnvironmentLoader, 48>::GetPool() {
-        ulong* puVar2;
-        ulong local_20[2];
+    // 0x100420d30
+    void MakeUniquePool<game::EnvironmentLoader, 48>::GetPool() {
+        unsigned long* puVar2;
+        unsigned long local_20[2];
 
         if (*PTR_pool_100ee5050 == '\0') {
             if (___cxa_guard_acquire(PTR_pool_100ee5050) != 0) {
                 local_20[0] = 16;
                 local_20[1] = 8;
-                puVar2 = std::max<unsigned long>(local_20, local_20 + 1);
+                puVar2 = std::max<unsigned long>(*local_20, *(local_20 + 1));
                 new (PTR_pool_100ee9c48) VectorFastPool<game::EnvironmentLoader>(48, *puVar2);
                 ___cxa_atexit(PTR__VectorFastPool_100ee6378, PTR_pool_100ee9c48, 4294967296);
                 ___cxa_guard_release(PTR_pool_100ee5050);
@@ -883,36 +721,28 @@ namespace jag {
         return PTR_pool_100ee9c48;
     }
 
-    // 0x100421620, 112 bytes, inline, placed by class name
-    // MakeUniquePool<game::Terrain, 32>::UniquePoolDeleter::operator()(game::Terrain*) const
-    /* MakeUniquePool<game::Terrain,
-   32>::UniquePoolDeleter::TEMPNAMEPLACEHOLDERVALUE(game::Terrain*) const */
+    // 0x100421620
+    void MakeUniquePool<game::Terrain, 32>::UniquePoolDeleter::operator()(game::Terrain* terrain) const {
+        unique_lock<std::mutex> local_20;
 
-    void MakeUniquePool<game::Terrain, 32>::UniquePoolDeleter::operator()(Terrain* param_1) {
-        VectorFastPool<game::Terrain>* this_00;
-        unique_lock<std::mutex> local_20[16];
-
-        if (param_1 != (Terrain*)0) {
-            (*(code*)*param_1->field_0)(param_1);
-            _memset(param_1, 221, 1696);
-            std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6000);
-            this_00 = (VectorFastPool<game::Terrain>*)MakeUniquePool<game::Terrain, 32>::GetPool();
-            this_00->deallocate(param_1);
-            std::unique_lock<std::mutex>::~unique_lock(local_20);
+        if (terrain != nullptr) {
+            std::destroy_at(terrain);
+            _memset(terrain, 221, 1696);
+            local_20 = std::unique_lock<std::mutex>(*PTR_m_mutex_100ee6000);
+            ((VectorFastPool<game::Terrain>*)MakeUniquePool<game::Terrain, 32>::GetPool())->deallocate(terrain);
         }
     }
 
-    // 0x1004216b0, 176 bytes, inline, placed by class name
-    // MakeUniquePool<game::Terrain, 32>::GetPool()
-    undefined* MakeUniquePool<game::Terrain, 32>::GetPool() {
-        ulong* puVar2;
-        ulong local_20[2];
+    // 0x1004216b0
+    void MakeUniquePool<game::Terrain, 32>::GetPool() {
+        unsigned long* puVar2;
+        unsigned long local_20[2];
 
         if (*PTR_pool_100ee5060 == '\0') {
             if (___cxa_guard_acquire(PTR_pool_100ee5060) != 0) {
                 local_20[0] = 16;
                 local_20[1] = 16;
-                puVar2 = std::max<unsigned long>(local_20, local_20 + 1);
+                puVar2 = std::max<unsigned long>(*local_20, *(local_20 + 1));
                 new (PTR_pool_100ee9c58) VectorFastPool<game::Terrain>(32, *puVar2);
                 ___cxa_atexit(PTR__VectorFastPool_100ee6380, PTR_pool_100ee9c58, 4294967296);
                 ___cxa_guard_release(PTR_pool_100ee5060);
@@ -921,85 +751,69 @@ namespace jag {
         return PTR_pool_100ee9c58;
     }
 
-    // 0x100516a10, 272 bytes, inline, placed by class name
-    // std::unique_ptr<game::MapElementType::Polygon, MakeUniquePool<game::MapElementType::Polygon, 256>::UniquePoolDeleter> MakeUniquePool<game::MapElementType::Polygon, 256>::MakeUnique<>()
-    /* std::unique_ptr<game::MapElementType::Polygon,
-   MakeUniquePool<game::MapElementType::Polygon, 256>::UniquePoolDeleter>
-   MakeUniquePool<game::MapElementType::Polygon, 256>::MakeUnique<>() */
+    // 0x100516a10
+    std::unique_ptr<game::MapElementType::Polygon,
+                    MakeUniquePool<game::MapElementType::Polygon, 256>::UniquePoolDeleter>
+    MakeUniquePool<game::MapElementType::Polygon, 256>::MakeUnique<>() {
+        unique_ptr<game::MapElementType::Polygon,
+                   MakeUniquePool<game::MapElementType::Polygon, 256>::UniquePoolDeleter>* in_RDI;
+        uint8_t auVar3[16];
 
-    MakeUniquePool<game::MapElementType::Polygon, 256>*
-    MakeUniquePool<game::MapElementType::Polygon, 256>::MakeUnique<>(
-        MakeUniquePool<game::MapElementType::Polygon, 256>* this) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<game::MapElementType::Polygon>* this_01;
-        undefined8 uVar2;
-        undefined8* puVar3;
-        Polygon* this_02;
-        unique_lock<std::mutex> local_28[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_28, (mutex*)PTR_m_mutex_100ee5fe0);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee5fd8 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee5fd8 = lVar1 + 1U;
+        unique_lock<std::mutex> local_28(*PTR_m_mutex_100ee5fe0);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee5fd8 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee5fd8 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<game::MapElementType::Polygon>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<game::MapElementType::Polygon,
-                        MakeUniquePool<game::MapElementType::Polygon, 256>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                           void>(this,
-                                                                                                                 uVar2);
-        std::unique_lock<std::mutex>::unlock(local_28);
-        puVar3 = (undefined8*)get();
-        *puVar3 = 14829735431805717965;
-        puVar3[1] = 14829735431805717965;
-        puVar3[2] = 14829735431805717965;
-        puVar3[3] = 14829735431805717965;
-        puVar3[4] = 14829735431805717965;
-        puVar3[5] = 14829735431805717965;
-        puVar3[6] = 14829735431805717965;
-        puVar3[7] = 14829735431805717965;
-        puVar3[8] = 14829735431805717965;
-        puVar3[9] = 14829735431805717965;
-        puVar3[10] = 14829735431805717965;
-        puVar3[11] = 14829735431805717965;
-        puVar3[12] = 14829735431805717965;
-        puVar3[13] = 14829735431805717965;
-        puVar3[14] = 14829735431805717965;
-        puVar3[15] = 14829735431805717965;
-        puVar3[16] = 14829735431805717965;
-        puVar3[17] = 14829735431805717965;
-        this_02 = (Polygon*)get();
-        *(undefined8*)this_02 = 0;
-        *(undefined8*)&this_02->field_8 = 0;
-        *(undefined8*)&this_02->field_16 = 0;
-        *(undefined8*)&this_02->field_24 = 0;
-        this_02->field_32 = 0;
-        this_02->field_40 = 0;
-        this_02->field_48 = 0;
-        this_02->field_56 = 0;
-        *(undefined8*)&this_02->field_64 = 0;
-        *(undefined8*)&this_02->field_72 = 0;
-        *(undefined8*)&this_02->field_80 = 0;
-        *(undefined8*)&this_02->field_88 = 0;
-        *(undefined8*)&this_02->field_96 = 0;
-        *(undefined8*)&this_02->field_104 = 0;
-        *(undefined8*)&this_02->field_112 = 0;
-        *(undefined8*)(this_02 + 1) = 0;
-        *(undefined8*)&this_02[1].field_8 = 0;
-        *(undefined8*)&this_02[1].field_16 = 0;
-        game::MapElementType::Polygon::Polygon(this_02);
-        std::unique_lock<std::mutex>::~unique_lock(local_28);
-        return this;
+        auVar3 = ((VectorFastPool<game::MapElementType::Polygon>*)GetPool())->allocate();
+        in_RDI->unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_28.unlock();
+        auto puVar2 = in_RDI->get();
+        *puVar2 = 14829735431805717965;
+        puVar2[1] = 14829735431805717965;
+        puVar2[2] = 14829735431805717965;
+        puVar2[3] = 14829735431805717965;
+        puVar2[4] = 14829735431805717965;
+        puVar2[5] = 14829735431805717965;
+        puVar2[6] = 14829735431805717965;
+        puVar2[7] = 14829735431805717965;
+        puVar2[8] = 14829735431805717965;
+        puVar2[9] = 14829735431805717965;
+        puVar2[10] = 14829735431805717965;
+        puVar2[11] = 14829735431805717965;
+        puVar2[12] = 14829735431805717965;
+        puVar2[13] = 14829735431805717965;
+        puVar2[14] = 14829735431805717965;
+        puVar2[15] = 14829735431805717965;
+        puVar2[16] = 14829735431805717965;
+        puVar2[17] = 14829735431805717965;
+        auto this_01 = in_RDI->get();
+        *(uint64_t*)this_01 = 0;
+        *(uint64_t*)&this_01->field_8 = 0;
+        *(uint64_t*)&this_01->field_16 = 0;
+        *(uint64_t*)&this_01->field_24 = 0;
+        this_01->field_32 = 0;
+        this_01->field_40 = 0;
+        this_01->field_48 = 0;
+        this_01->field_56 = 0;
+        *(uint64_t*)&this_01->field_64 = 0;
+        *(uint64_t*)&this_01->field_72 = 0;
+        *(uint64_t*)&this_01->field_80 = 0;
+        *(uint64_t*)&this_01->field_88 = 0;
+        *(uint64_t*)&this_01->field_96 = 0;
+        *(uint64_t*)&this_01->field_104 = 0;
+        *(uint64_t*)&this_01->field_112 = 0;
+        *(uint64_t*)(this_01 + 1) = 0;
+        *(uint64_t*)&this_01[1].field_8 = 0;
+        *(uint64_t*)&this_01[1].field_16 = 0;
+        new (this_01) game::MapElementType::Polygon();
     }
 
-    // 0x10051f750, 96 bytes, base-object constructor, inline, placed by class name
-    // MakeUniquePool<game::MapElementType::Polygon, 256>::MakeUniquePool()
-    void MakeUniquePool<game::MapElementType::Polygon, 256>::MakeUniquePool(
-        MakeUniquePool<game::MapElementType::Polygon, 256>* this) {
-        undefined1 uVar1;
+    // 0x10051f750
+    MakeUniquePool<game::MapElementType::Polygon, 256>::MakeUniquePool() {
+        uint8_t uVar1;
 
         if (*PTR_registered_100ee5048 == '\0') {
             if (___cxa_guard_acquire(PTR_registered_100ee5048) != 0) {
@@ -1010,170 +824,142 @@ namespace jag {
         }
     }
 
-    // 0x10051f7c0, 432 bytes, inline, placed by class name
-    // MakeUniquePool<game::MapElementType::Polygon, 256>::RegisterThisUniquePool()
+    // 0x10051f7c0
     void MakeUniquePool<game::MapElementType::Polygon, 256>::RegisterThisUniquePool() {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
-        function local_2f8[176];
-        fixed_string<char, 512, true, eastl::allocator> local_248[552];
-        undefined8 local_20;
+        _lambda_jag__shareduniquedebug__SharedPoolInfo___1_* arg1;
+        Logger* logger;
+        function<void(shareduniquedebug::SharedPoolInfo&)> local_2f8[176];
+        uint64_t local_20;
 
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(
-            local_248, "static bool MakeUniquePool<game::MapElementType::Polygon, 256>::RegisterThisUniquePool() [T = "
-                       "game::MapElementType::Polygon, CAPACITY = 256]");
-        lVar1 = local_248->find("T = jag::", 0);
+        fixed_string<char, 512> local_248(
+            "static bool MakeUniquePool<game::MapElementType::Polygon, 256>::RegisterThisUniquePool() [T = "
+            "game::MapElementType::Polygon, CAPACITY = 256]");
+        char* pcVar3 = "T = jag::";
+        long lVar1 = local_248.find("T = jag::", 0);
         if (lVar1 != -1) {
-            local_248->replace(0, lVar1 + 9, "UniquePool\t");
-            uVar2 = local_248->find(", CAPACITY = ", 0);
-            if (uVar2 != 18446744073709551615) {
-                local_248->replace(uVar2, 13, "[");
+            local_248.replace(0, lVar1 + 9, "UniquePool\t");
+            pcVar3 = ", CAPACITY = ";
+            arg1 = (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)local_248.find(", CAPACITY = ", 0);
+            if (arg1 != (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)18446744073709551615) {
+                local_248.replace((unsigned long)arg1, 13, "[");
+                pcVar3 = (char*)arg1;
             }
         }
         std::function<void(shareduniquedebug::SharedPoolInfo&)>::function<
             MakeUniquePool<game::MapElementType::Polygon, 256>::RegisterThisUniquePool()::_lambda(
                 shareduniquedebug::SharedPoolInfo&) _1_,
-            void>(local_2f8);
+            void>(local_2f8, (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)pcVar3);
         shareduniquedebug::RegisterUniquePool(
             "static bool MakeUniquePool<game::MapElementType::Polygon, 256>::RegisterThisUniquePool() [T = "
             "game::MapElementType::Polygon, CAPACITY = 256]",
-            local_2f8);
-        std::function<void(shareduniquedebug::SharedPoolInfo&)>::~function(
-            (function<void(shareduniquedebug::SharedPoolInfo&)>*)local_2f8);
-        new (local_2f8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar3 = logger::default_logger();
-        uVar4 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        pcVar5 =
-            DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>((fixed_string*)local_2f8, 36864);
-        logger::Logger::Log(
-            uVar3, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h", 133,
-            "%s\t%s", uVar4, pcVar5);
-        /* WARNING: Subroutine does not return */
-        local_2f8->~fixed_string();
+            *local_2f8);
+        new (local_2f8) eastl::fixed_string<char, 128>();
+        logger = logger::default_logger();
+        uint64_t uVar2 = local_248.begin();
+        pcVar3 = DataSizeStringMB<eastl::fixed_string<char, 128>>((fixed_string<char, _128>*)local_2f8, 36864);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h",
+                    133, "%s\t%s", uVar2, pcVar3);
     }
 
-    // 0x100520160, 16 bytes, inline, placed by class name
-    // MakeUniquePool<game::MapElementType::Polygon, 256>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::operator()(shareduniquedebug::SharedPoolInfo&) const
-    /* MakeUniquePool<game::MapElementType::Polygon,
-   256>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo&)
-   const */
-
+    // 0x100520160
     void MakeUniquePool<game::MapElementType::Polygon, 256>::RegisterThisUniquePool()::{
         lambda(shareduniquedebug::SharedPoolInfo&) #1
     }
-    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * param_1)
-
-    {
-        GetUniquePoolInfo(param_1);
+    ::operator()(shareduniquedebug::SharedPoolInfo & arg1) const {
+        lambda(shareduniquedebug::SharedPoolInfo&) #1
+    }
+    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * sharedPoolInfo) {
+        GetUniquePoolInfo(sharedPoolInfo);
+        return;
     }
 
-    // 0x100520170, 240 bytes, inline, placed by class name
-    // MakeUniquePool<game::MapElementType::Polygon, 256>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&)
-    void MakeUniquePool<game::MapElementType::Polygon, 256>::GetUniquePoolInfo(SharedPoolInfo* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* pVVar1;
-        undefined8 uVar2;
-        long lVar3;
-        ShuffledPacketFactory* pSVar4;
-        unique_lock<std::mutex> local_20[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee5fe0);
-        *(undefined8*)(param_1 + 48) = 0;
-        *(undefined8*)(param_1 + 56) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
-        *(undefined8*)(param_1 + 40) = 0;
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 64) = 0;
+    // 0x100520170
+    void MakeUniquePool<game::MapElementType::Polygon, 256>::GetUniquePoolInfo(
+        shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        unique_lock<std::mutex> local_20(*PTR_m_mutex_100ee5fe0);
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        auto pVVar1 = GetPool();
+        uint64_t uVar2 = pVVar1->size();
+        *(uint64_t*)sharedPoolInfo = uVar2;
         pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
             GetPool();
-        uVar2 = pVVar1->size();
-        *(undefined8*)param_1 = uVar2;
-        pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar3 = pVVar1->capacity();
-        *(long*)(param_1 + 8) = lVar3;
-        *(undefined8*)(param_1 + 16) = *(undefined8*)PTR_m_peak_100ee5fd8;
-        *(undefined8*)(param_1 + 32) = 256;
+        long lVar3 = pVVar1->capacity();
+        *(long*)(sharedPoolInfo + 8) = lVar3;
+        *(uint64_t*)(sharedPoolInfo + 16) = *(uint64_t*)PTR_m_peak_100ee5fd8;
+        *(uint64_t*)(sharedPoolInfo + 32) = 256;
         if (lVar3 != 0) {
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
             uVar2 = FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::GetTotalSize(
-                *(ulong*)param_1);
-            *(undefined8*)(param_1 + 40) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
+                *(unsigned long*)sharedPoolInfo);
+            *(uint64_t*)(sharedPoolInfo + 40) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
             uVar2 = FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::GetTotalSize(
-                *(ulong*)(param_1 + 8));
-            *(undefined8*)(param_1 + 48) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
+                *(unsigned long*)(sharedPoolInfo + 8));
+            *(uint64_t*)(sharedPoolInfo + 48) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
             uVar2 = FastPool<MakeSharedPool<game::ParamType, 640>::RefCounterAndData, unsigned long>::GetTotalSize(
-                *(ulong*)(param_1 + 32));
-            *(undefined8*)(param_1 + 56) = uVar2;
+                *(unsigned long*)(sharedPoolInfo + 32));
+            *(uint64_t*)(sharedPoolInfo + 56) = uVar2;
         }
-        *(char**)(param_1 + 64) = "static void MakeUniquePool<game::MapElementType::Polygon, "
-                                  "256>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = "
-                                  "game::MapElementType::Polygon, CAPACITY = 256]";
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
+        *(char**)(sharedPoolInfo + 64) = "static void MakeUniquePool<game::MapElementType::Polygon, "
+                                         "256>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = "
+                                         "game::MapElementType::Polygon, CAPACITY = 256]";
     }
 
-    // 0x1005ad720, 144 bytes, inline, placed by class name
-    // MakeUniquePool<game::MapElementType::Polygon, 256>::UniquePoolDeleter::operator()(game::MapElementType::Polygon*) const
-    /* MakeUniquePool<game::MapElementType::Polygon,
-   256>::UniquePoolDeleter::TEMPNAMEPLACEHOLDERVALUE(game::MapElementType::Polygon*) const */
+    // 0x1005ad720
+    void MakeUniquePool<game::MapElementType::Polygon, 256>::UniquePoolDeleter::operator()(
+        game::MapElementType::Polygon* polygon) const {
+        unique_lock<std::mutex> local_20;
 
-    void MakeUniquePool<game::MapElementType::Polygon, 256>::UniquePoolDeleter::operator()(Polygon* param_1) {
-        VectorFastPool<game::MapElementType::Polygon>* this_00;
-        unique_lock<std::mutex> local_20[16];
-
-        if (param_1 != (Polygon*)0) {
-            param_1->~Polygon();
-            *(undefined8*)&param_1[1].field_8 = 15987178197214944733;
-            *(undefined8*)&param_1[1].field_16 = 15987178197214944733;
-            *(undefined8*)&param_1->field_112 = 15987178197214944733;
-            *(undefined8*)(param_1 + 1) = 15987178197214944733;
-            *(undefined8*)&param_1->field_96 = 15987178197214944733;
-            *(undefined8*)&param_1->field_104 = 15987178197214944733;
-            *(undefined8*)&param_1->field_80 = 15987178197214944733;
-            *(undefined8*)&param_1->field_88 = 15987178197214944733;
-            *(undefined8*)&param_1->field_64 = 15987178197214944733;
-            *(undefined8*)&param_1->field_72 = 15987178197214944733;
-            param_1->field_48 = 15987178197214944733;
-            param_1->field_56 = 15987178197214944733;
-            param_1->field_32 = 15987178197214944733;
-            param_1->field_40 = 15987178197214944733;
-            *(undefined8*)&param_1->field_16 = 15987178197214944733;
-            *(undefined8*)&param_1->field_24 = 15987178197214944733;
-            *(undefined8*)param_1 = 15987178197214944733;
-            *(undefined8*)&param_1->field_8 = 15987178197214944733;
-            std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee5fe0);
-            this_00 = (VectorFastPool<game::MapElementType::Polygon>*)
-                MakeUniquePool<game::MapElementType::Polygon, 256>::GetPool();
-            this_00->deallocate(param_1);
-            std::unique_lock<std::mutex>::~unique_lock(local_20);
+        if (polygon != nullptr) {
+            polygon->~Polygon();
+            *(uint64_t*)&polygon[1].field_8 = 15987178197214944733;
+            *(uint64_t*)&polygon[1].field_16 = 15987178197214944733;
+            *(uint64_t*)&polygon->field_112 = 15987178197214944733;
+            *(uint64_t*)(polygon + 1) = 15987178197214944733;
+            *(uint64_t*)&polygon->field_96 = 15987178197214944733;
+            *(uint64_t*)&polygon->field_104 = 15987178197214944733;
+            *(uint64_t*)&polygon->field_80 = 15987178197214944733;
+            *(uint64_t*)&polygon->field_88 = 15987178197214944733;
+            *(uint64_t*)&polygon->field_64 = 15987178197214944733;
+            *(uint64_t*)&polygon->field_72 = 15987178197214944733;
+            polygon->field_48 = 15987178197214944733;
+            polygon->field_56 = 15987178197214944733;
+            polygon->field_32 = 15987178197214944733;
+            polygon->field_40 = 15987178197214944733;
+            *(uint64_t*)&polygon->field_16 = 15987178197214944733;
+            *(uint64_t*)&polygon->field_24 = 15987178197214944733;
+            *(uint64_t*)polygon = 15987178197214944733;
+            *(uint64_t*)&polygon->field_8 = 15987178197214944733;
+            local_20 = std::unique_lock<std::mutex>(*PTR_m_mutex_100ee5fe0);
+            ((VectorFastPool<game::MapElementType::Polygon>*)
+                 MakeUniquePool<game::MapElementType::Polygon, 256>::GetPool())
+                ->deallocate(polygon);
         }
     }
 
-    // 0x1005ad7e0, 176 bytes, inline, placed by class name
-    // MakeUniquePool<game::MapElementType::Polygon, 256>::GetPool()
-    undefined* MakeUniquePool<game::MapElementType::Polygon, 256>::GetPool() {
-        ulong* puVar2;
-        ulong local_20[2];
+    // 0x1005ad7e0
+    void MakeUniquePool<game::MapElementType::Polygon, 256>::GetPool() {
+        unsigned long* puVar2;
+        unsigned long local_20[2];
 
         if (*PTR_pool_100ee5040 == '\0') {
             if (___cxa_guard_acquire(PTR_pool_100ee5040) != 0) {
                 local_20[0] = 16;
                 local_20[1] = 8;
-                puVar2 = std::max<unsigned long>(local_20, local_20 + 1);
+                puVar2 = std::max<unsigned long>(*local_20, *(local_20 + 1));
                 new (PTR_pool_100ee9c38) VectorFastPool<game::MapElementType::Polygon>(256, *puVar2);
                 ___cxa_atexit(PTR__VectorFastPool_100ee6370, PTR_pool_100ee9c38, 4294967296);
                 ___cxa_guard_release(PTR_pool_100ee5040);
@@ -1182,211 +968,164 @@ namespace jag {
         return PTR_pool_100ee9c38;
     }
 
-    // 0x100657f10, 320 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::AnimationParameters, MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter> MakeUniquePool<graphics::AnimationParameters, 512>::MakeUnique<shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour&, unsigned int&, unsigned int&, bool&, int, unsigned int, bool&>(shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour&, unsigned int&, unsigned int&, bool&, int&&, unsigned int&&, bool&)
-    /* std::unique_ptr<graphics::AnimationParameters,
-   MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>
-   MakeUniquePool<graphics::AnimationParameters,
-   512>::MakeUnique<shared_ptr<graphics::Animation> const&,
-   graphics::AnimationLoopBehaviour&, unsigned int&, unsigned int&, bool&, int, unsigned int,
-   bool&>(shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour&,
-   unsigned int&, unsigned int&, bool&, int&&, unsigned int&&, bool&) */
-
-    MakeUniquePool<graphics::AnimationParameters, 512>* MakeUniquePool<graphics::AnimationParameters, 512>::MakeUnique<
+    // 0x100657f10
+    std::unique_ptr<graphics::AnimationParameters,
+                    MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>
+    MakeUniquePool<graphics::AnimationParameters, 512>::MakeUnique<
         shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour&, unsigned int&, unsigned int&, bool&,
-        int, unsigned int, bool&>(MakeUniquePool<graphics::AnimationParameters, 512>* this, shared_ptr* param_1,
-                                  AnimationLoopBehaviour* param_2, uint* param_3, uint* param_4, bool* param_5,
-                                  int* param_6, uint* param_7, bool* param_8) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::AnimationParameters>* this_01;
-        undefined8 uVar2;
-        undefined8* puVar3;
-        AnimationParameters* pAVar4;
-        unique_lock<std::mutex> local_48[16];
-        undefined4* local_38;
+        int, unsigned int, bool&>(const shared_ptr<graphics::Animation>& animation,
+                                  graphics::AnimationLoopBehaviour& animationLoopBehaviour, unsigned int& arg3,
+                                  unsigned int& arg4, bool& arg5, int&& arg6, unsigned int&& arg7, bool& arg8) {
+        uint8_t auVar3[16];
 
-        local_38 = (undefined4*)param_2;
-        std::unique_lock<std::mutex>::unique_lock(local_48, (mutex*)PTR_m_mutex_100ee6010);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6008 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6008 = lVar1 + 1U;
+        unique_lock<std::mutex> local_48(*PTR_m_mutex_100ee6010);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6008 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6008 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::AnimationParameters>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::AnimationParameters,
-                        MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                           void>(this,
-                                                                                                                 uVar2);
-        std::unique_lock<std::mutex>::unlock(local_48);
-        puVar3 = (undefined8*)get();
-        *puVar3 = 14829735431805717965;
-        puVar3[1] = 14829735431805717965;
-        puVar3[2] = 14829735431805717965;
-        puVar3[3] = 14829735431805717965;
-        puVar3[4] = 14829735431805717965;
-        puVar3[5] = 14829735431805717965;
-        puVar3[6] = 14829735431805717965;
-        puVar3[7] = 14829735431805717965;
-        puVar3[8] = 14829735431805717965;
-        puVar3[9] = 14829735431805717965;
-        puVar3[10] = 14829735431805717965;
-        puVar3[11] = 14829735431805717965;
-        puVar3[12] = 14829735431805717965;
-        puVar3[13] = 14829735431805717965;
-        puVar3[14] = 14829735431805717965;
-        puVar3[15] = 14829735431805717965;
-        puVar3[16] = 14829735431805717965;
-        puVar3[17] = 14829735431805717965;
-        puVar3[18] = 14829735431805717965;
-        puVar3[19] = 14829735431805717965;
-        puVar3[20] = 14829735431805717965;
-        puVar3[21] = 14829735431805717965;
-        puVar3[22] = 14829735431805717965;
-        puVar3[23] = 14829735431805717965;
-        pAVar4 = (AnimationParameters*)get();
-        graphics::AnimationParameters::AnimationParameters(pAVar4, param_1, *local_38, *param_3, *param_4, *param_5,
-                                                           *param_6, *param_7, *param_8);
-        std::unique_lock<std::mutex>::~unique_lock(local_48);
+        auVar3 = ((VectorFastPool<graphics::AnimationParameters>*)GetPool())->allocate();
+        unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_48.unlock();
+        auto puVar2 = get();
+        *puVar2 = 14829735431805717965;
+        puVar2[1] = 14829735431805717965;
+        puVar2[2] = 14829735431805717965;
+        puVar2[3] = 14829735431805717965;
+        puVar2[4] = 14829735431805717965;
+        puVar2[5] = 14829735431805717965;
+        puVar2[6] = 14829735431805717965;
+        puVar2[7] = 14829735431805717965;
+        puVar2[8] = 14829735431805717965;
+        puVar2[9] = 14829735431805717965;
+        puVar2[10] = 14829735431805717965;
+        puVar2[11] = 14829735431805717965;
+        puVar2[12] = 14829735431805717965;
+        puVar2[13] = 14829735431805717965;
+        puVar2[14] = 14829735431805717965;
+        puVar2[15] = 14829735431805717965;
+        puVar2[16] = 14829735431805717965;
+        puVar2[17] = 14829735431805717965;
+        puVar2[18] = 14829735431805717965;
+        puVar2[19] = 14829735431805717965;
+        puVar2[20] = 14829735431805717965;
+        puVar2[21] = 14829735431805717965;
+        puVar2[22] = 14829735431805717965;
+        puVar2[23] = 14829735431805717965;
+        new ((AnimationParameters*)get())
+            graphics::AnimationParameters(animation, animationLoopBehaviour, arg3, arg4, arg5, arg6, arg7, arg8);
         return this;
     }
 
-    // 0x1006593d0, 320 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::AnimationParameters, MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter> MakeUniquePool<graphics::AnimationParameters, 512>::MakeUnique<shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour, int&, int&, bool&, int&, unsigned int, bool>(shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour&&, int&, int&, bool&, int&, unsigned int&&, bool&&)
-    /* std::unique_ptr<graphics::AnimationParameters,
-   MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>
-   MakeUniquePool<graphics::AnimationParameters,
-   512>::MakeUnique<shared_ptr<graphics::Animation> const&,
-   graphics::AnimationLoopBehaviour, int&, int&, bool&, int&, unsigned int,
-   bool>(shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour&&,
-   int&, int&, bool&, int&, unsigned int&&, bool&&) */
-
-    MakeUniquePool<graphics::AnimationParameters, 512>* MakeUniquePool<graphics::AnimationParameters, 512>::MakeUnique<
+    // 0x1006593d0
+    std::unique_ptr<graphics::AnimationParameters,
+                    MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>
+    MakeUniquePool<graphics::AnimationParameters, 512>::MakeUnique<
         shared_ptr<graphics::Animation> const&, graphics::AnimationLoopBehaviour, int&, int&, bool&, int&, unsigned int,
-        bool>(MakeUniquePool<graphics::AnimationParameters, 512>* this, shared_ptr* param_1,
-              AnimationLoopBehaviour* param_2, int* param_3, int* param_4, bool* param_5, int* param_6, uint* param_7,
-              bool* param_8) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::AnimationParameters>* this_01;
-        undefined8 uVar2;
-        undefined8* puVar3;
-        AnimationParameters* pAVar4;
-        unique_lock<std::mutex> local_48[16];
-        undefined4* local_38;
+        bool>(const shared_ptr<graphics::Animation>& animation,
+              graphics::AnimationLoopBehaviour&& animationLoopBehaviour, int& arg3, int& arg4, bool& arg5, int& arg6,
+              unsigned int&& arg7, bool&& arg8) {
+        uint8_t auVar3[16];
 
-        local_38 = (undefined4*)param_2;
-        std::unique_lock<std::mutex>::unique_lock(local_48, (mutex*)PTR_m_mutex_100ee6010);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6008 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6008 = lVar1 + 1U;
+        unique_lock<std::mutex> local_48(*PTR_m_mutex_100ee6010);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6008 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6008 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::AnimationParameters>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::AnimationParameters,
-                        MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                           void>(this,
-                                                                                                                 uVar2);
-        std::unique_lock<std::mutex>::unlock(local_48);
-        puVar3 = (undefined8*)get();
-        *puVar3 = 14829735431805717965;
-        puVar3[1] = 14829735431805717965;
-        puVar3[2] = 14829735431805717965;
-        puVar3[3] = 14829735431805717965;
-        puVar3[4] = 14829735431805717965;
-        puVar3[5] = 14829735431805717965;
-        puVar3[6] = 14829735431805717965;
-        puVar3[7] = 14829735431805717965;
-        puVar3[8] = 14829735431805717965;
-        puVar3[9] = 14829735431805717965;
-        puVar3[10] = 14829735431805717965;
-        puVar3[11] = 14829735431805717965;
-        puVar3[12] = 14829735431805717965;
-        puVar3[13] = 14829735431805717965;
-        puVar3[14] = 14829735431805717965;
-        puVar3[15] = 14829735431805717965;
-        puVar3[16] = 14829735431805717965;
-        puVar3[17] = 14829735431805717965;
-        puVar3[18] = 14829735431805717965;
-        puVar3[19] = 14829735431805717965;
-        puVar3[20] = 14829735431805717965;
-        puVar3[21] = 14829735431805717965;
-        puVar3[22] = 14829735431805717965;
-        puVar3[23] = 14829735431805717965;
-        pAVar4 = (AnimationParameters*)get();
-        graphics::AnimationParameters::AnimationParameters(pAVar4, param_1, *local_38, *param_3, *param_4, *param_5,
-                                                           *param_6, *param_7, *param_8);
-        std::unique_lock<std::mutex>::~unique_lock(local_48);
+        auVar3 = ((VectorFastPool<graphics::AnimationParameters>*)GetPool())->allocate();
+        unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_48.unlock();
+        auto puVar2 = get();
+        *puVar2 = 14829735431805717965;
+        puVar2[1] = 14829735431805717965;
+        puVar2[2] = 14829735431805717965;
+        puVar2[3] = 14829735431805717965;
+        puVar2[4] = 14829735431805717965;
+        puVar2[5] = 14829735431805717965;
+        puVar2[6] = 14829735431805717965;
+        puVar2[7] = 14829735431805717965;
+        puVar2[8] = 14829735431805717965;
+        puVar2[9] = 14829735431805717965;
+        puVar2[10] = 14829735431805717965;
+        puVar2[11] = 14829735431805717965;
+        puVar2[12] = 14829735431805717965;
+        puVar2[13] = 14829735431805717965;
+        puVar2[14] = 14829735431805717965;
+        puVar2[15] = 14829735431805717965;
+        puVar2[16] = 14829735431805717965;
+        puVar2[17] = 14829735431805717965;
+        puVar2[18] = 14829735431805717965;
+        puVar2[19] = 14829735431805717965;
+        puVar2[20] = 14829735431805717965;
+        puVar2[21] = 14829735431805717965;
+        puVar2[22] = 14829735431805717965;
+        puVar2[23] = 14829735431805717965;
+        new ((AnimationParameters*)get())
+            graphics::AnimationParameters(animation, animationLoopBehaviour, arg3, arg4, arg5, arg6, arg7, arg8);
         return this;
     }
 
-    // 0x1006727f0, 160 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter::operator()(graphics::AnimationParameters*) const
-    /* MakeUniquePool<graphics::AnimationParameters,
-   512>::UniquePoolDeleter::TEMPNAMEPLACEHOLDERVALUE(graphics::AnimationParameters*) const */
+    // 0x1006727f0
+    void MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter::operator()(
+        graphics::AnimationParameters* animationParameters) const {
+        unique_lock<std::mutex> local_20;
 
-    void
-    MakeUniquePool<graphics::AnimationParameters, 512>::UniquePoolDeleter::operator()(AnimationParameters* param_1) {
-        VectorFastPool<graphics::AnimationParameters>* this_00;
-        unique_lock<std::mutex> local_20[16];
-
-        if (param_1 != (AnimationParameters*)0) {
-            param_1->~AnimationParameters();
-            param_1->m_lastUpdateTimeNS = -2459565876494606883;
-            *(undefined8*)&param_1->m_paused = 15987178197214944733;
-            *(undefined8*)&param_1->field_160 = 15987178197214944733;
-            param_1->m_startTimeNS = 15987178197214944733;
-            param_1->field_144 = 3722304989;
-            param_1->field_148 = 3722304989;
-            param_1->m_currentIndex = 3722304989;
-            param_1->field_156 = 3722304989;
-            param_1->field_128 = 3722304989;
-            param_1->m_finished = 221;
-            *(undefined3*)&param_1->field_133 = 14540253;
-            param_1->m_delay = 3722304989;
-            param_1->m_animationLength = 3722304989;
-            param_1->m_loopBehaviour = -572662307;
-            param_1->m_loopLength = 3722304989;
-            param_1->m_tweenLastFrameToFirst = 221;
-            *(undefined3*)&param_1->field_121 = 14540253;
-            param_1->m_loopsCompleted = 3722304989;
-            *(undefined8*)&param_1->field_96 = 15987178197214944733;
-            *(undefined8*)&param_1->field_104 = 15987178197214944733;
-            param_1->field_80 = 15987178197214944733;
-            param_1->field_88 = 15987178197214944733;
-            *(undefined8*)&param_1->field_64 = 15987178197214944733;
-            *(undefined8*)&param_1->field_72 = 15987178197214944733;
-            *(undefined8*)&param_1->field_48 = 15987178197214944733;
-            *(undefined8*)&param_1->field_56 = 15987178197214944733;
-            *(undefined8*)&param_1->field_32 = 15987178197214944733;
-            *(undefined8*)&param_1->field_40 = 15987178197214944733;
-            *(undefined8*)&param_1->field_16 = 15987178197214944733;
-            *(undefined8*)&param_1->field_24 = 15987178197214944733;
-            param_1->field_0 = (undefined*)15987178197214944733;
-            *(undefined8*)&param_1->field_8 = 15987178197214944733;
-            std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6010);
-            this_00 = (VectorFastPool<graphics::AnimationParameters>*)
-                MakeUniquePool<graphics::AnimationParameters, 512>::GetPool();
-            this_00->deallocate(param_1);
-            std::unique_lock<std::mutex>::~unique_lock(local_20);
+        if (animationParameters != nullptr) {
+            animationParameters->~AnimationParameters();
+            animationParameters->m_lastUpdateTimeNS = -2459565876494606883;
+            *(uint64_t*)&animationParameters->m_paused = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_160 = 15987178197214944733;
+            animationParameters->m_startTimeNS = 15987178197214944733;
+            animationParameters->field_144 = 3722304989;
+            animationParameters->field_148 = 3722304989;
+            animationParameters->m_currentIndex = 3722304989;
+            animationParameters->field_156 = 3722304989;
+            animationParameters->field_128 = 3722304989;
+            animationParameters->m_finished = 221;
+            *(uint32_t*)&animationParameters->field_133 = 14540253;
+            animationParameters->m_delay = 3722304989;
+            animationParameters->m_animationLength = 3722304989;
+            animationParameters->m_loopBehaviour = 3722304989;
+            animationParameters->m_loopLength = 3722304989;
+            animationParameters->m_tweenLastFrameToFirst = true;
+            *(uint32_t*)&animationParameters->field_121 = 14540253;
+            animationParameters->m_loopsCompleted = 3722304989;
+            *(uint64_t*)&animationParameters->field_96 = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_104 = 15987178197214944733;
+            animationParameters->field_80 = 15987178197214944733;
+            animationParameters->field_88 = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_64 = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_72 = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_48 = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_56 = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_32 = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_40 = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_16 = 15987178197214944733;
+            *(uint64_t*)&animationParameters->field_24 = 15987178197214944733;
+            animationParameters->field_0 = (uint8_t*)15987178197214944733;
+            *(uint64_t*)&animationParameters->field_8 = 15987178197214944733;
+            local_20 = std::unique_lock<std::mutex>(*PTR_m_mutex_100ee6010);
+            ((VectorFastPool<graphics::AnimationParameters>*)
+                 MakeUniquePool<graphics::AnimationParameters, 512>::GetPool())
+                ->deallocate(animationParameters);
         }
     }
 
-    // 0x1006728c0, 176 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimationParameters, 512>::GetPool()
-    undefined* MakeUniquePool<graphics::AnimationParameters, 512>::GetPool() {
-        ulong* puVar2;
-        ulong local_20[2];
+    // 0x1006728c0
+    void MakeUniquePool<graphics::AnimationParameters, 512>::GetPool() {
+        unsigned long* puVar2;
+        unsigned long local_20[2];
 
         if (*PTR_pool_100ee5070 == '\0') {
             if (___cxa_guard_acquire(PTR_pool_100ee5070) != 0) {
                 local_20[0] = 16;
                 local_20[1] = 16;
-                puVar2 = std::max<unsigned long>(local_20, local_20 + 1);
+                puVar2 = std::max<unsigned long>(*local_20, *(local_20 + 1));
                 new (PTR_pool_100ee9c68) VectorFastPool<graphics::AnimationParameters>(512, *puVar2);
                 ___cxa_atexit(PTR__VectorFastPool_100ee63a8, PTR_pool_100ee9c68, 4294967296);
                 ___cxa_guard_release(PTR_pool_100ee5070);
@@ -1395,11 +1134,9 @@ namespace jag {
         return PTR_pool_100ee9c68;
     }
 
-    // 0x10080d2b0, 96 bytes, base-object constructor, inline, placed by class name
-    // MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUniquePool()
-    void MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUniquePool(
-        MakeUniquePool<graphics::GeometryBatchInstance, 3072>* this) {
-        undefined1 uVar1;
+    // 0x10080d2b0
+    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUniquePool() {
+        uint8_t uVar1;
 
         if (*PTR_registered_100ee5088 == '\0') {
             if (___cxa_guard_acquire(PTR_registered_100ee5088) != 0) {
@@ -1410,261 +1147,159 @@ namespace jag {
         }
     }
 
-    // 0x100817100, 224 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::GeometryBatchInstance, MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter> MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::GeometryBatchInstance&, graphics::Model&, bool>(graphics::GeometryBatchInstance&, graphics::Model&, bool&&)
-    /* std::unique_ptr<graphics::GeometryBatchInstance,
-   MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-   MakeUniquePool<graphics::GeometryBatchInstance,
-   3072>::MakeUnique<graphics::GeometryBatchInstance&, graphics::Model&,
-   bool>(graphics::GeometryBatchInstance&, graphics::Model&, bool&&) */
-
-    MakeUniquePool<graphics::GeometryBatchInstance, 3072>*
+    // 0x100817100
+    std::unique_ptr<graphics::GeometryBatchInstance,
+                    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
     MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::GeometryBatchInstance&,
                                                                       graphics::Model&, bool>(
-        MakeUniquePool<graphics::GeometryBatchInstance, 3072>* this, GeometryBatchInstance* param_1, Model* param_2,
-        bool* param_3) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::GeometryBatchInstance>* this_01;
-        undefined8 uVar2;
-        void* pvVar3;
-        GeometryBatchInstance* this_02;
-        unique_lock<std::mutex> local_38[16];
+        graphics::GeometryBatchInstance& geometryBatchInstance, graphics::Model& model, bool&& arg3) {
+        uint64_t in_RCX;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_38, (mutex*)PTR_m_mutex_100ee6020);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6018 = lVar1 + 1U;
+        unique_lock<std::mutex> local_38(*PTR_m_mutex_100ee6020);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6018 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::GeometryBatchInstance>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::GeometryBatchInstance,
-                        MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                              void>(
-            this, uVar2);
-        std::unique_lock<std::mutex>::unlock(local_38);
-        pvVar3 = (void*)get();
-        _memset(pvVar3, 205, 896);
-        this_02 = (GeometryBatchInstance*)get();
-        graphics::GeometryBatchInstance::GeometryBatchInstance(this_02, param_1, param_2, *param_3);
-        std::unique_lock<std::mutex>::~unique_lock(local_38);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::GeometryBatchInstance>*)GetPool())->allocate();
+        geometryBatchInstance.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_38.unlock();
+        _memset((void*)geometryBatchInstance.get(), 205, 896);
+        new ((GeometryBatchInstance*)geometryBatchInstance.get())
+            graphics::GeometryBatchInstance(model, arg3, *(bool*)in_RCX);
+        return geometryBatchInstance;
     }
 
-    // 0x1008172a0, 224 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUnique<graphics::BillboardBatchInstance&, graphics::Model&, bool>(graphics::BillboardBatchInstance&, graphics::Model&, bool&&)
-    /* std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   MakeUniquePool<graphics::BillboardBatchInstance,
-   64>::MakeUnique<graphics::BillboardBatchInstance&, graphics::Model&,
-   bool>(graphics::BillboardBatchInstance&, graphics::Model&, bool&&) */
-
-    MakeUniquePool<graphics::BillboardBatchInstance, 64>*
+    // 0x1008172a0
+    std::unique_ptr<graphics::BillboardBatchInstance,
+                    MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
     MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUnique<graphics::BillboardBatchInstance&,
                                                                      graphics::Model&, bool>(
-        MakeUniquePool<graphics::BillboardBatchInstance, 64>* this, BillboardBatchInstance* param_1, Model* param_2,
-        bool* param_3) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::BillboardBatchInstance>* this_01;
-        undefined8 uVar2;
-        void* pvVar3;
-        BillboardBatchInstance* this_02;
-        unique_lock<std::mutex> local_38[16];
+        graphics::BillboardBatchInstance& billboardBatchInstance, graphics::Model& model, bool&& arg3) {
+        uint64_t in_RCX;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_38, (mutex*)PTR_m_mutex_100ee6030);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6028 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6028 = lVar1 + 1U;
+        unique_lock<std::mutex> local_38(*PTR_m_mutex_100ee6030);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6028 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6028 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::BillboardBatchInstance>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::BillboardBatchInstance,
-                        MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                             void>(
-            this, uVar2);
-        std::unique_lock<std::mutex>::unlock(local_38);
-        pvVar3 = (void*)get();
-        _memset(pvVar3, 205, 768);
-        this_02 = (BillboardBatchInstance*)get();
-        graphics::BillboardBatchInstance::BillboardBatchInstance(this_02, param_1, param_2, *param_3);
-        std::unique_lock<std::mutex>::~unique_lock(local_38);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::BillboardBatchInstance>*)GetPool())->allocate();
+        billboardBatchInstance.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_38.unlock();
+        _memset((void*)billboardBatchInstance.get(), 205, 768);
+        new ((BillboardBatchInstance*)billboardBatchInstance.get())
+            graphics::BillboardBatchInstance(model, arg3, *(bool*)in_RCX);
+        return billboardBatchInstance;
     }
 
-    // 0x100818ec0, 208 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::GeometryBatchInstance, MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter> MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::GeometryBatchInstance, graphics::Model&>(graphics::GeometryBatchInstance&&, graphics::Model&)
-    /* std::unique_ptr<graphics::GeometryBatchInstance,
-   MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-   MakeUniquePool<graphics::GeometryBatchInstance,
-   3072>::MakeUnique<graphics::GeometryBatchInstance,
-   graphics::Model&>(graphics::GeometryBatchInstance&&, graphics::Model&) */
-
-    MakeUniquePool<graphics::GeometryBatchInstance, 3072>*
+    // 0x100818ec0
+    std::unique_ptr<graphics::GeometryBatchInstance,
+                    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
     MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<
-        graphics::GeometryBatchInstance, graphics::Model&>(MakeUniquePool<graphics::GeometryBatchInstance, 3072>* this,
-                                                           GeometryBatchInstance* param_1, Model* param_2) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::GeometryBatchInstance>* this_01;
-        undefined8 uVar2;
-        void* pvVar3;
-        GeometryBatchInstance* this_02;
-        unique_lock<std::mutex> local_30[16];
+        graphics::GeometryBatchInstance, graphics::Model&>(graphics::GeometryBatchInstance&& geometryBatchInstance,
+                                                           graphics::Model& model) {
+        Model* in_RDX;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)PTR_m_mutex_100ee6020);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6018 = lVar1 + 1U;
+        unique_lock<std::mutex> local_30(*PTR_m_mutex_100ee6020);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6018 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::GeometryBatchInstance>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::GeometryBatchInstance,
-                        MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                              void>(
-            this, uVar2);
-        std::unique_lock<std::mutex>::unlock(local_30);
-        pvVar3 = (void*)get();
-        _memset(pvVar3, 205, 896);
-        this_02 = (GeometryBatchInstance*)get();
-        graphics::GeometryBatchInstance::GeometryBatchInstance(this_02, param_1, param_2);
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::GeometryBatchInstance>*)GetPool())->allocate();
+        geometryBatchInstance.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_30.unlock();
+        _memset((void*)geometryBatchInstance.get(), 205, 896);
+        new ((GeometryBatchInstance*)geometryBatchInstance.get()) graphics::GeometryBatchInstance(model, in_RDX);
+        return geometryBatchInstance;
     }
 
-    // 0x100818f90, 208 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUnique<graphics::BillboardBatchInstance, graphics::Model&>(graphics::BillboardBatchInstance&&, graphics::Model&)
-    /* std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   MakeUniquePool<graphics::BillboardBatchInstance,
-   64>::MakeUnique<graphics::BillboardBatchInstance,
-   graphics::Model&>(graphics::BillboardBatchInstance&&, graphics::Model&) */
-
-    MakeUniquePool<graphics::BillboardBatchInstance, 64>*
+    // 0x100818f90
+    std::unique_ptr<graphics::BillboardBatchInstance,
+                    MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
     MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUnique<
-        graphics::BillboardBatchInstance, graphics::Model&>(MakeUniquePool<graphics::BillboardBatchInstance, 64>* this,
-                                                            BillboardBatchInstance* param_1, Model* param_2) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::BillboardBatchInstance>* this_01;
-        undefined8 uVar2;
-        void* pvVar3;
-        BillboardBatchInstance* this_02;
-        unique_lock<std::mutex> local_30[16];
+        graphics::BillboardBatchInstance, graphics::Model&>(graphics::BillboardBatchInstance&& billboardBatchInstance,
+                                                            graphics::Model& model) {
+        Model* in_RDX;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)PTR_m_mutex_100ee6030);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6028 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6028 = lVar1 + 1U;
+        unique_lock<std::mutex> local_30(*PTR_m_mutex_100ee6030);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6028 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6028 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::BillboardBatchInstance>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::BillboardBatchInstance,
-                        MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                             void>(
-            this, uVar2);
-        std::unique_lock<std::mutex>::unlock(local_30);
-        pvVar3 = (void*)get();
-        _memset(pvVar3, 205, 768);
-        this_02 = (BillboardBatchInstance*)get();
-        graphics::BillboardBatchInstance::BillboardBatchInstance(this_02, param_1, param_2);
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::BillboardBatchInstance>*)GetPool())->allocate();
+        billboardBatchInstance.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_30.unlock();
+        _memset((void*)billboardBatchInstance.get(), 205, 768);
+        new ((BillboardBatchInstance*)billboardBatchInstance.get()) graphics::BillboardBatchInstance(model, in_RDX);
+        return billboardBatchInstance;
     }
 
-    // 0x10081b480, 208 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::GeometryBatchInstance, MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter> MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::Model&, unsigned short&>(graphics::Model&, unsigned short&)
-    /* std::unique_ptr<graphics::GeometryBatchInstance,
-   MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
-   MakeUniquePool<graphics::GeometryBatchInstance,
-   3072>::MakeUnique<graphics::Model&, unsigned short&>(graphics::Model&, unsigned short&)
-    */
-
-    MakeUniquePool<graphics::GeometryBatchInstance, 3072>*
+    // 0x10081b480
+    std::unique_ptr<graphics::GeometryBatchInstance,
+                    MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>
     MakeUniquePool<graphics::GeometryBatchInstance, 3072>::MakeUnique<graphics::Model&, unsigned short&>(
-        MakeUniquePool<graphics::GeometryBatchInstance, 3072>* this, Model* param_1, ushort* param_2) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::GeometryBatchInstance>* this_01;
-        undefined8 uVar2;
-        void* pvVar3;
-        GeometryBatchInstance* this_02;
-        unique_lock<std::mutex> local_30[16];
+        graphics::Model& model, unsigned short& arg2) {
+        unsigned short* in_RDX;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)PTR_m_mutex_100ee6020);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6018 = lVar1 + 1U;
+        unique_lock<std::mutex> local_30(*PTR_m_mutex_100ee6020);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6018 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6018 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::GeometryBatchInstance>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::GeometryBatchInstance,
-                        MakeUniquePool<graphics::GeometryBatchInstance, 3072>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                              void>(
-            this, uVar2);
-        std::unique_lock<std::mutex>::unlock(local_30);
-        pvVar3 = (void*)get();
-        _memset(pvVar3, 205, 896);
-        this_02 = (GeometryBatchInstance*)get();
-        graphics::GeometryBatchInstance::GeometryBatchInstance(this_02, param_1, *param_2);
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::GeometryBatchInstance>*)GetPool())->allocate();
+        model.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_30.unlock();
+        _memset((void*)model.get(), 205, 896);
+        new ((GeometryBatchInstance*)model.get()) graphics::GeometryBatchInstance(arg2, *in_RDX);
+        return model;
     }
 
-    // 0x10081b550, 208 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::BillboardBatchInstance, MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter> MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUnique<graphics::Model&, unsigned char&>(graphics::Model&, unsigned char&)
-    /* std::unique_ptr<graphics::BillboardBatchInstance,
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
-   MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUnique<graphics::Model&,
-   unsigned char&>(graphics::Model&, unsigned char&) */
-
-    MakeUniquePool<graphics::BillboardBatchInstance, 64>*
+    // 0x10081b550
+    std::unique_ptr<graphics::BillboardBatchInstance,
+                    MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>
     MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUnique<graphics::Model&, unsigned char&>(
-        MakeUniquePool<graphics::BillboardBatchInstance, 64>* this, Model* param_1, uchar* param_2) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::BillboardBatchInstance>* this_01;
-        undefined8 uVar2;
-        void* pvVar3;
-        BillboardBatchInstance* this_02;
-        unique_lock<std::mutex> local_30[16];
+        graphics::Model& model, unsigned char& arg2) {
+        uint8_t* in_RDX;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)PTR_m_mutex_100ee6030);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6028 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6028 = lVar1 + 1U;
+        unique_lock<std::mutex> local_30(*PTR_m_mutex_100ee6030);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6028 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6028 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::BillboardBatchInstance>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::BillboardBatchInstance,
-                        MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter>::unique_ptr<true,
-                                                                                                             void>(
-            this, uVar2);
-        std::unique_lock<std::mutex>::unlock(local_30);
-        pvVar3 = (void*)get();
-        _memset(pvVar3, 205, 768);
-        this_02 = (BillboardBatchInstance*)get();
-        graphics::BillboardBatchInstance::BillboardBatchInstance(this_02, param_1, (ushort)*param_2);
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::BillboardBatchInstance>*)GetPool())->allocate();
+        model.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_30.unlock();
+        _memset((void*)model.get(), 205, 768);
+        new ((BillboardBatchInstance*)model.get()) graphics::BillboardBatchInstance(arg2, (unsigned short)*in_RDX);
+        return model;
     }
 
-    // 0x100821b90, 96 bytes, base-object constructor, inline, placed by class name
-    // MakeUniquePool<graphics::Billboard, 32>::MakeUniquePool()
-    void MakeUniquePool<graphics::Billboard, 32>::MakeUniquePool(MakeUniquePool<graphics::Billboard, 32>* this) {
-        undefined1 uVar1;
+    // 0x100821b90
+    MakeUniquePool<graphics::Billboard, 32>::MakeUniquePool() {
+        uint8_t uVar1;
 
         if (*PTR_registered_100ee50b8 == '\0') {
             if (___cxa_guard_acquire(PTR_registered_100ee50b8) != 0) {
@@ -1675,263 +1310,213 @@ namespace jag {
         }
     }
 
-    // 0x100836b30, 432 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::GeometryBatchInstance, 3072>::RegisterThisUniquePool()
+    // 0x100836b30
     void MakeUniquePool<graphics::GeometryBatchInstance, 3072>::RegisterThisUniquePool() {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
-        function local_2f8[176];
-        fixed_string<char, 512, true, eastl::allocator> local_248[552];
-        undefined8 local_20;
+        _lambda_jag__shareduniquedebug__SharedPoolInfo___1_* arg1;
+        Logger* logger;
+        function<void(shareduniquedebug::SharedPoolInfo&)> local_2f8[176];
+        uint64_t local_20;
 
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(
-            local_248, "static bool MakeUniquePool<graphics::GeometryBatchInstance, 3072>::RegisterThisUniquePool() [T "
-                       "= graphics::GeometryBatchInstance, CAPACITY = 3072]");
-        lVar1 = local_248->find("T = jag::", 0);
+        fixed_string<char, 512> local_248(
+            "static bool MakeUniquePool<graphics::GeometryBatchInstance, 3072>::RegisterThisUniquePool() [T = "
+            "graphics::GeometryBatchInstance, CAPACITY = 3072]");
+        char* pcVar3 = "T = jag::";
+        long lVar1 = local_248.find("T = jag::", 0);
         if (lVar1 != -1) {
-            local_248->replace(0, lVar1 + 9, "UniquePool\t");
-            uVar2 = local_248->find(", CAPACITY = ", 0);
-            if (uVar2 != 18446744073709551615) {
-                local_248->replace(uVar2, 13, "[");
+            local_248.replace(0, lVar1 + 9, "UniquePool\t");
+            pcVar3 = ", CAPACITY = ";
+            arg1 = (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)local_248.find(", CAPACITY = ", 0);
+            if (arg1 != (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)18446744073709551615) {
+                local_248.replace((unsigned long)arg1, 13, "[");
+                pcVar3 = (char*)arg1;
             }
         }
         std::function<void(shareduniquedebug::SharedPoolInfo&)>::function<
             MakeUniquePool<graphics::GeometryBatchInstance, 3072>::RegisterThisUniquePool()::_lambda(
                 shareduniquedebug::SharedPoolInfo&) _1_,
-            void>(local_2f8);
+            void>(local_2f8, (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)pcVar3);
         shareduniquedebug::RegisterUniquePool(
             "static bool MakeUniquePool<graphics::GeometryBatchInstance, 3072>::RegisterThisUniquePool() [T = "
             "graphics::GeometryBatchInstance, CAPACITY = 3072]",
-            local_2f8);
-        std::function<void(shareduniquedebug::SharedPoolInfo&)>::~function(
-            (function<void(shareduniquedebug::SharedPoolInfo&)>*)local_2f8);
-        new (local_2f8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar3 = logger::default_logger();
-        uVar4 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        pcVar5 =
-            DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>((fixed_string*)local_2f8, 2752512);
-        logger::Logger::Log(
-            uVar3, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h", 133,
-            "%s\t%s", uVar4, pcVar5);
-        /* WARNING: Subroutine does not return */
-        local_2f8->~fixed_string();
+            *local_2f8);
+        new (local_2f8) eastl::fixed_string<char, 128>();
+        logger = logger::default_logger();
+        uint64_t uVar2 = local_248.begin();
+        pcVar3 = DataSizeStringMB<eastl::fixed_string<char, 128>>((fixed_string<char, _128>*)local_2f8, 2752512);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h",
+                    133, "%s\t%s", uVar2, pcVar3);
     }
 
-    // 0x100837470, 16 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::GeometryBatchInstance, 3072>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::operator()(shareduniquedebug::SharedPoolInfo&) const
-    /* MakeUniquePool<graphics::GeometryBatchInstance,
-   3072>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo&)
-   const */
-
+    // 0x100837470
     void MakeUniquePool<graphics::GeometryBatchInstance, 3072>::RegisterThisUniquePool()::{
         lambda(shareduniquedebug::SharedPoolInfo&) #1
     }
-    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * param_1)
-
-    {
-        GetUniquePoolInfo(param_1);
+    ::operator()(shareduniquedebug::SharedPoolInfo & arg1) const {
+        lambda(shareduniquedebug::SharedPoolInfo&) #1
+    }
+    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * sharedPoolInfo) {
+        GetUniquePoolInfo(sharedPoolInfo);
+        return;
     }
 
-    // 0x100837480, 240 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::GeometryBatchInstance, 3072>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&)
-    void MakeUniquePool<graphics::GeometryBatchInstance, 3072>::GetUniquePoolInfo(SharedPoolInfo* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* pVVar1;
-        undefined8 uVar2;
-        long lVar3;
-        ShuffledPacketFactory* pSVar4;
-        unique_lock<std::mutex> local_20[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6020);
-        *(undefined8*)(param_1 + 48) = 0;
-        *(undefined8*)(param_1 + 56) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
-        *(undefined8*)(param_1 + 40) = 0;
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 64) = 0;
+    // 0x100837480
+    void MakeUniquePool<graphics::GeometryBatchInstance, 3072>::GetUniquePoolInfo(
+        shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        unique_lock<std::mutex> local_20(*PTR_m_mutex_100ee6020);
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        auto pVVar1 = GetPool();
+        uint64_t uVar2 = pVVar1->size();
+        *(uint64_t*)sharedPoolInfo = uVar2;
         pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
             GetPool();
-        uVar2 = pVVar1->size();
-        *(undefined8*)param_1 = uVar2;
-        pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar3 = pVVar1->capacity();
-        *(long*)(param_1 + 8) = lVar3;
-        *(undefined8*)(param_1 + 16) = *(undefined8*)PTR_m_peak_100ee6018;
-        *(undefined8*)(param_1 + 32) = 3072;
+        long lVar3 = pVVar1->capacity();
+        *(long*)(sharedPoolInfo + 8) = lVar3;
+        *(uint64_t*)(sharedPoolInfo + 16) = *(uint64_t*)PTR_m_peak_100ee6018;
+        *(uint64_t*)(sharedPoolInfo + 32) = 3072;
         if (lVar3 != 0) {
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::GeometryBatchInstance, unsigned long>::GetTotalSize(*(ulong*)param_1);
-            *(undefined8*)(param_1 + 40) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::GeometryBatchInstance, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 8));
-            *(undefined8*)(param_1 + 48) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::GeometryBatchInstance, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 32));
-            *(undefined8*)(param_1 + 56) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 =
+                FastPool<graphics::GeometryBatchInstance, unsigned long>::GetTotalSize(*(unsigned long*)sharedPoolInfo);
+            *(uint64_t*)(sharedPoolInfo + 40) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::GeometryBatchInstance, unsigned long>::GetTotalSize(
+                *(unsigned long*)(sharedPoolInfo + 8));
+            *(uint64_t*)(sharedPoolInfo + 48) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::GeometryBatchInstance, unsigned long>::GetTotalSize(
+                *(unsigned long*)(sharedPoolInfo + 32));
+            *(uint64_t*)(sharedPoolInfo + 56) = uVar2;
         }
-        *(char**)(param_1 + 64) = "static void MakeUniquePool<graphics::GeometryBatchInstance, "
-                                  "3072>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = "
-                                  "graphics::GeometryBatchInstance, CAPACITY = 3072]";
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
+        *(char**)(sharedPoolInfo + 64) = "static void MakeUniquePool<graphics::GeometryBatchInstance, "
+                                         "3072>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = "
+                                         "graphics::GeometryBatchInstance, CAPACITY = 3072]";
     }
 
-    // 0x1008430a0, 112 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter::operator()(graphics::BillboardBatchInstance*) const
-    /* MakeUniquePool<graphics::BillboardBatchInstance,
-   64>::UniquePoolDeleter::TEMPNAMEPLACEHOLDERVALUE(graphics::BillboardBatchInstance*) const */
-
+    // 0x1008430a0
     void MakeUniquePool<graphics::BillboardBatchInstance, 64>::UniquePoolDeleter::operator()(
-        BillboardBatchInstance* param_1) {
-        VectorFastPool<graphics::BillboardBatchInstance>* this_00;
-        unique_lock<std::mutex> local_20[16];
+        graphics::BillboardBatchInstance* billboardBatchInstance) const {
+        unique_lock<std::mutex> local_20;
 
-        if (param_1 != (BillboardBatchInstance*)0) {
-            (*(code*)*param_1->field_0)(param_1);
-            _memset(param_1, 221, 768);
-            std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6030);
-            this_00 = (VectorFastPool<graphics::BillboardBatchInstance>*)
-                MakeUniquePool<graphics::BillboardBatchInstance, 64>::GetPool();
-            this_00->deallocate(param_1);
-            std::unique_lock<std::mutex>::~unique_lock(local_20);
+        if (billboardBatchInstance != nullptr) {
+            std::destroy_at(billboardBatchInstance);
+            _memset(billboardBatchInstance, 221, 768);
+            local_20 = std::unique_lock<std::mutex>(*PTR_m_mutex_100ee6030);
+            ((VectorFastPool<graphics::BillboardBatchInstance>*)
+                 MakeUniquePool<graphics::BillboardBatchInstance, 64>::GetPool())
+                ->deallocate(billboardBatchInstance);
         }
     }
 
-    // 0x10084a610, 432 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::Billboard, 32>::RegisterThisUniquePool()
+    // 0x10084a610
     void MakeUniquePool<graphics::Billboard, 32>::RegisterThisUniquePool() {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
-        function local_2f8[176];
-        fixed_string<char, 512, true, eastl::allocator> local_248[552];
-        undefined8 local_20;
+        _lambda_jag__shareduniquedebug__SharedPoolInfo___1_* arg1;
+        Logger* logger;
+        function<void(shareduniquedebug::SharedPoolInfo&)> local_2f8[176];
+        uint64_t local_20;
 
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(
-            local_248, "static bool MakeUniquePool<graphics::Billboard, 32>::RegisterThisUniquePool() [T = "
-                       "graphics::Billboard, CAPACITY = 32]");
-        lVar1 = local_248->find("T = jag::", 0);
+        fixed_string<char, 512> local_248("static bool MakeUniquePool<graphics::Billboard, "
+                                          "32>::RegisterThisUniquePool() [T = graphics::Billboard, CAPACITY = 32]");
+        char* pcVar3 = "T = jag::";
+        long lVar1 = local_248.find("T = jag::", 0);
         if (lVar1 != -1) {
-            local_248->replace(0, lVar1 + 9, "UniquePool\t");
-            uVar2 = local_248->find(", CAPACITY = ", 0);
-            if (uVar2 != 18446744073709551615) {
-                local_248->replace(uVar2, 13, "[");
+            local_248.replace(0, lVar1 + 9, "UniquePool\t");
+            pcVar3 = ", CAPACITY = ";
+            arg1 = (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)local_248.find(", CAPACITY = ", 0);
+            if (arg1 != (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)18446744073709551615) {
+                local_248.replace((unsigned long)arg1, 13, "[");
+                pcVar3 = (char*)arg1;
             }
         }
         std::function<void(shareduniquedebug::SharedPoolInfo&)>::function<
             MakeUniquePool<graphics::Billboard, 32>::RegisterThisUniquePool()::_lambda(
                 shareduniquedebug::SharedPoolInfo&) _1_,
-            void>(local_2f8);
+            void>(local_2f8, (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)pcVar3);
         shareduniquedebug::RegisterUniquePool("static bool MakeUniquePool<graphics::Billboard, "
                                               "32>::RegisterThisUniquePool() [T = graphics::Billboard, CAPACITY = 32]",
-                                              local_2f8);
-        std::function<void(shareduniquedebug::SharedPoolInfo&)>::~function(
-            (function<void(shareduniquedebug::SharedPoolInfo&)>*)local_2f8);
-        new (local_2f8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar3 = logger::default_logger();
-        uVar4 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        pcVar5 =
-            DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>((fixed_string*)local_2f8, 2176);
-        logger::Logger::Log(
-            uVar3, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h", 133,
-            "%s\t%s", uVar4, pcVar5);
-        /* WARNING: Subroutine does not return */
-        local_2f8->~fixed_string();
+                                              *local_2f8);
+        new (local_2f8) eastl::fixed_string<char, 128>();
+        logger = logger::default_logger();
+        uint64_t uVar2 = local_248.begin();
+        pcVar3 = DataSizeStringMB<eastl::fixed_string<char, 128>>((fixed_string<char, _128>*)local_2f8, 2176);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h",
+                    133, "%s\t%s", uVar2, pcVar3);
     }
 
-    // 0x10084af50, 16 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::Billboard, 32>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::operator()(shareduniquedebug::SharedPoolInfo&) const
-    /* MakeUniquePool<graphics::Billboard,
-   32>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo&)
-   const */
-
+    // 0x10084af50
     void MakeUniquePool<graphics::Billboard, 32>::RegisterThisUniquePool()::{
         lambda(shareduniquedebug::SharedPoolInfo&) #1
     }
-    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * param_1)
-
-    {
-        GetUniquePoolInfo(param_1);
+    ::operator()(shareduniquedebug::SharedPoolInfo & arg1) const {
+        lambda(shareduniquedebug::SharedPoolInfo&) #1
+    }
+    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * sharedPoolInfo) {
+        GetUniquePoolInfo(sharedPoolInfo);
+        return;
     }
 
-    // 0x10084af60, 240 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::Billboard, 32>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&)
-    void MakeUniquePool<graphics::Billboard, 32>::GetUniquePoolInfo(SharedPoolInfo* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* pVVar1;
-        undefined8 uVar2;
-        long lVar3;
-        ShuffledPacketFactory* pSVar4;
-        unique_lock<std::mutex> local_20[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6050);
-        *(undefined8*)(param_1 + 48) = 0;
-        *(undefined8*)(param_1 + 56) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
-        *(undefined8*)(param_1 + 40) = 0;
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 64) = 0;
+    // 0x10084af60
+    void MakeUniquePool<graphics::Billboard, 32>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        unique_lock<std::mutex> local_20(*PTR_m_mutex_100ee6050);
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        auto pVVar1 = GetPool();
+        uint64_t uVar2 = pVVar1->size();
+        *(uint64_t*)sharedPoolInfo = uVar2;
         pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
             GetPool();
-        uVar2 = pVVar1->size();
-        *(undefined8*)param_1 = uVar2;
-        pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar3 = pVVar1->capacity();
-        *(long*)(param_1 + 8) = lVar3;
-        *(undefined8*)(param_1 + 16) = *(undefined8*)PTR_m_peak_100ee6048;
-        *(undefined8*)(param_1 + 32) = 32;
+        long lVar3 = pVVar1->capacity();
+        *(long*)(sharedPoolInfo + 8) = lVar3;
+        *(uint64_t*)(sharedPoolInfo + 16) = *(uint64_t*)PTR_m_peak_100ee6048;
+        *(uint64_t*)(sharedPoolInfo + 32) = 32;
         if (lVar3 != 0) {
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::Billboard, unsigned long>::GetTotalSize(*(ulong*)param_1);
-            *(undefined8*)(param_1 + 40) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::Billboard, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 8));
-            *(undefined8*)(param_1 + 48) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::Billboard, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 32));
-            *(undefined8*)(param_1 + 56) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::Billboard, unsigned long>::GetTotalSize(*(unsigned long*)sharedPoolInfo);
+            *(uint64_t*)(sharedPoolInfo + 40) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::Billboard, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 8));
+            *(uint64_t*)(sharedPoolInfo + 48) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::Billboard, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 32));
+            *(uint64_t*)(sharedPoolInfo + 56) = uVar2;
         }
-        *(char**)(param_1 + 64) =
+        *(char**)(sharedPoolInfo + 64) =
             "static void MakeUniquePool<graphics::Billboard, 32>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo "
             "&) [T = graphics::Billboard, CAPACITY = 32]";
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
     }
 
-    // 0x10084b050, 176 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::Billboard, 32>::GetPool()
-    undefined* MakeUniquePool<graphics::Billboard, 32>::GetPool() {
-        ulong* puVar2;
-        ulong local_20[2];
+    // 0x10084b050
+    void MakeUniquePool<graphics::Billboard, 32>::GetPool() {
+        unsigned long* puVar2;
+        unsigned long local_20[2];
 
         if (*PTR_pool_100ee50b0 == '\0') {
             if (___cxa_guard_acquire(PTR_pool_100ee50b0) != 0) {
                 local_20[0] = 16;
                 local_20[1] = 4;
-                puVar2 = std::max<unsigned long>(local_20, local_20 + 1);
+                puVar2 = std::max<unsigned long>(*local_20, *(local_20 + 1));
                 new (PTR_pool_100ee9ca8) VectorFastPool<graphics::Billboard>(32, *puVar2);
                 ___cxa_atexit(PTR__VectorFastPool_100ee63c8, PTR_pool_100ee9ca8, 4294967296);
                 ___cxa_guard_release(PTR_pool_100ee50b0);
@@ -1940,11 +1525,9 @@ namespace jag {
         return PTR_pool_100ee9ca8;
     }
 
-    // 0x100866180, 96 bytes, base-object constructor, inline, placed by class name
-    // MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUniquePool()
-    void MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUniquePool(
-        MakeUniquePool<graphics::BillboardBatchInstance, 64>* this) {
-        undefined1 uVar1;
+    // 0x100866180
+    MakeUniquePool<graphics::BillboardBatchInstance, 64>::MakeUniquePool() {
+        uint8_t uVar1;
 
         if (*PTR_registered_100ee5098 == '\0') {
             if (___cxa_guard_acquire(PTR_registered_100ee5098) != 0) {
@@ -1955,130 +1538,110 @@ namespace jag {
         }
     }
 
-    // 0x1008850b0, 432 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::BillboardBatchInstance, 64>::RegisterThisUniquePool()
+    // 0x1008850b0
     void MakeUniquePool<graphics::BillboardBatchInstance, 64>::RegisterThisUniquePool() {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
-        function local_2f8[176];
-        fixed_string<char, 512, true, eastl::allocator> local_248[552];
-        undefined8 local_20;
+        _lambda_jag__shareduniquedebug__SharedPoolInfo___1_* arg1;
+        Logger* logger;
+        function<void(shareduniquedebug::SharedPoolInfo&)> local_2f8[176];
+        uint64_t local_20;
 
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(
-            local_248, "static bool MakeUniquePool<graphics::BillboardBatchInstance, 64>::RegisterThisUniquePool() [T "
-                       "= graphics::BillboardBatchInstance, CAPACITY = 64]");
-        lVar1 = local_248->find("T = jag::", 0);
+        fixed_string<char, 512> local_248(
+            "static bool MakeUniquePool<graphics::BillboardBatchInstance, 64>::RegisterThisUniquePool() [T = "
+            "graphics::BillboardBatchInstance, CAPACITY = 64]");
+        char* pcVar3 = "T = jag::";
+        long lVar1 = local_248.find("T = jag::", 0);
         if (lVar1 != -1) {
-            local_248->replace(0, lVar1 + 9, "UniquePool\t");
-            uVar2 = local_248->find(", CAPACITY = ", 0);
-            if (uVar2 != 18446744073709551615) {
-                local_248->replace(uVar2, 13, "[");
+            local_248.replace(0, lVar1 + 9, "UniquePool\t");
+            pcVar3 = ", CAPACITY = ";
+            arg1 = (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)local_248.find(", CAPACITY = ", 0);
+            if (arg1 != (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)18446744073709551615) {
+                local_248.replace((unsigned long)arg1, 13, "[");
+                pcVar3 = (char*)arg1;
             }
         }
         std::function<void(shareduniquedebug::SharedPoolInfo&)>::function<
             MakeUniquePool<graphics::BillboardBatchInstance, 64>::RegisterThisUniquePool()::_lambda(
                 shareduniquedebug::SharedPoolInfo&) _1_,
-            void>(local_2f8);
+            void>(local_2f8, (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)pcVar3);
         shareduniquedebug::RegisterUniquePool(
             "static bool MakeUniquePool<graphics::BillboardBatchInstance, 64>::RegisterThisUniquePool() [T = "
             "graphics::BillboardBatchInstance, CAPACITY = 64]",
-            local_2f8);
-        std::function<void(shareduniquedebug::SharedPoolInfo&)>::~function(
-            (function<void(shareduniquedebug::SharedPoolInfo&)>*)local_2f8);
-        new (local_2f8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar3 = logger::default_logger();
-        uVar4 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        pcVar5 =
-            DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>((fixed_string*)local_2f8, 49152);
-        logger::Logger::Log(
-            uVar3, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h", 133,
-            "%s\t%s", uVar4, pcVar5);
-        /* WARNING: Subroutine does not return */
-        local_2f8->~fixed_string();
+            *local_2f8);
+        new (local_2f8) eastl::fixed_string<char, 128>();
+        logger = logger::default_logger();
+        uint64_t uVar2 = local_248.begin();
+        pcVar3 = DataSizeStringMB<eastl::fixed_string<char, 128>>((fixed_string<char, _128>*)local_2f8, 49152);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h",
+                    133, "%s\t%s", uVar2, pcVar3);
     }
 
-    // 0x1008859f0, 16 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::BillboardBatchInstance, 64>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::operator()(shareduniquedebug::SharedPoolInfo&) const
-    /* MakeUniquePool<graphics::BillboardBatchInstance,
-   64>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo&)
-   const */
-
+    // 0x1008859f0
     void MakeUniquePool<graphics::BillboardBatchInstance, 64>::RegisterThisUniquePool()::{
         lambda(shareduniquedebug::SharedPoolInfo&) #1
     }
-    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * param_1)
-
-    {
-        GetUniquePoolInfo(param_1);
+    ::operator()(shareduniquedebug::SharedPoolInfo & arg1) const {
+        lambda(shareduniquedebug::SharedPoolInfo&) #1
+    }
+    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * sharedPoolInfo) {
+        GetUniquePoolInfo(sharedPoolInfo);
+        return;
     }
 
-    // 0x100885a00, 240 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::BillboardBatchInstance, 64>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&)
-    void MakeUniquePool<graphics::BillboardBatchInstance, 64>::GetUniquePoolInfo(SharedPoolInfo* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* pVVar1;
-        undefined8 uVar2;
-        long lVar3;
-        ShuffledPacketFactory* pSVar4;
-        unique_lock<std::mutex> local_20[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6030);
-        *(undefined8*)(param_1 + 48) = 0;
-        *(undefined8*)(param_1 + 56) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
-        *(undefined8*)(param_1 + 40) = 0;
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 64) = 0;
+    // 0x100885a00
+    void MakeUniquePool<graphics::BillboardBatchInstance, 64>::GetUniquePoolInfo(
+        shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        unique_lock<std::mutex> local_20(*PTR_m_mutex_100ee6030);
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        auto pVVar1 = GetPool();
+        uint64_t uVar2 = pVVar1->size();
+        *(uint64_t*)sharedPoolInfo = uVar2;
         pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
             GetPool();
-        uVar2 = pVVar1->size();
-        *(undefined8*)param_1 = uVar2;
-        pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar3 = pVVar1->capacity();
-        *(long*)(param_1 + 8) = lVar3;
-        *(undefined8*)(param_1 + 16) = *(undefined8*)PTR_m_peak_100ee6028;
-        *(undefined8*)(param_1 + 32) = 64;
+        long lVar3 = pVVar1->capacity();
+        *(long*)(sharedPoolInfo + 8) = lVar3;
+        *(uint64_t*)(sharedPoolInfo + 16) = *(uint64_t*)PTR_m_peak_100ee6028;
+        *(uint64_t*)(sharedPoolInfo + 32) = 64;
         if (lVar3 != 0) {
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::BillboardBatchInstance, unsigned long>::GetTotalSize(*(ulong*)param_1);
-            *(undefined8*)(param_1 + 40) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::BillboardBatchInstance, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 8));
-            *(undefined8*)(param_1 + 48) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::BillboardBatchInstance, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 32));
-            *(undefined8*)(param_1 + 56) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::BillboardBatchInstance, unsigned long>::GetTotalSize(
+                *(unsigned long*)sharedPoolInfo);
+            *(uint64_t*)(sharedPoolInfo + 40) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::BillboardBatchInstance, unsigned long>::GetTotalSize(
+                *(unsigned long*)(sharedPoolInfo + 8));
+            *(uint64_t*)(sharedPoolInfo + 48) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::BillboardBatchInstance, unsigned long>::GetTotalSize(
+                *(unsigned long*)(sharedPoolInfo + 32));
+            *(uint64_t*)(sharedPoolInfo + 56) = uVar2;
         }
-        *(char**)(param_1 + 64) = "static void MakeUniquePool<graphics::BillboardBatchInstance, "
-                                  "64>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = "
-                                  "graphics::BillboardBatchInstance, CAPACITY = 64]";
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
+        *(char**)(sharedPoolInfo + 64) = "static void MakeUniquePool<graphics::BillboardBatchInstance, "
+                                         "64>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = "
+                                         "graphics::BillboardBatchInstance, CAPACITY = 64]";
     }
 
-    // 0x100885af0, 176 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::BillboardBatchInstance, 64>::GetPool()
-    undefined* MakeUniquePool<graphics::BillboardBatchInstance, 64>::GetPool() {
-        ulong* puVar2;
-        ulong local_20[2];
+    // 0x100885af0
+    void MakeUniquePool<graphics::BillboardBatchInstance, 64>::GetPool() {
+        unsigned long* puVar2;
+        unsigned long local_20[2];
 
         if (*PTR_pool_100ee5090 == '\0') {
             if (___cxa_guard_acquire(PTR_pool_100ee5090) != 0) {
                 local_20[0] = 16;
                 local_20[1] = 16;
-                puVar2 = std::max<unsigned long>(local_20, local_20 + 1);
+                puVar2 = std::max<unsigned long>(*local_20, *(local_20 + 1));
                 new (PTR_pool_100ee9c88) VectorFastPool<graphics::BillboardBatchInstance>(64, *puVar2);
                 ___cxa_atexit(PTR__VectorFastPool_100ee63b8, PTR_pool_100ee9c88, 4294967296);
                 ___cxa_guard_release(PTR_pool_100ee5090);
@@ -2087,184 +1650,138 @@ namespace jag {
         return PTR_pool_100ee9c88;
     }
 
-    // 0x100956100, 256 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter> MakeUniquePool<graphics::AnimState, 4096>::MakeUnique<std::unique_ptr<graphics::BlendTreeNode, std::default_delete<graphics::BlendTreeNode> >, graphics::AnimationStateResourceList>(std::unique_ptr<graphics::BlendTreeNode, std::default_delete<graphics::BlendTreeNode> >&&, graphics::AnimationStateResourceList&&)
-    /* std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState,
-   4096>::UniquePoolDeleter> MakeUniquePool<graphics::AnimState,
-   4096>::MakeUnique<std::unique_ptr<graphics::BlendTreeNode,
-   std::default_delete<graphics::BlendTreeNode> >,
-   graphics::AnimationStateResourceList>(std::unique_ptr<graphics::BlendTreeNode,
-   std::default_delete<graphics::BlendTreeNode> >&&,
-   graphics::AnimationStateResourceList&&) */
+    // 0x100956100
+    std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>
+    MakeUniquePool<graphics::AnimState, 4096>::MakeUnique<std::unique_ptr<graphics::BlendTreeNode>,
+                                                          graphics::AnimationStateResourceList>(
+        std::unique_ptr<graphics::BlendTreeNode>&& blendTreeNode,
+        graphics::AnimationStateResourceList&& animationStateResourceList) {
+        AnimationStateResourceList* in_RDX;
+        uint8_t auVar3[16];
 
-    MakeUniquePool<graphics::AnimState, 4096>* MakeUniquePool<graphics::AnimState, 4096>::MakeUnique<
-        std::unique_ptr<graphics::BlendTreeNode, std::default_delete<graphics::BlendTreeNode>>,
-        graphics::AnimationStateResourceList>(MakeUniquePool<graphics::AnimState, 4096>* this, unique_ptr* param_1,
-                                              AnimationStateResourceList* param_2) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::AnimState>* this_01;
-        undefined8 uVar2;
-        undefined8* puVar3;
-        AnimState* this_02;
-        unique_lock<std::mutex> local_30[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_30, (mutex*)PTR_m_mutex_100ee6040);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6038 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6038 = lVar1 + 1U;
+        unique_lock<std::mutex> local_30(*PTR_m_mutex_100ee6040);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6038 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6038 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::AnimState>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::AnimState,
-                        MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>::unique_ptr<true, void>(this,
-                                                                                                              uVar2);
-        std::unique_lock<std::mutex>::unlock(local_30);
-        puVar3 = (undefined8*)get();
-        *puVar3 = 14829735431805717965;
-        puVar3[1] = 14829735431805717965;
-        puVar3[2] = 14829735431805717965;
-        puVar3[3] = 14829735431805717965;
-        puVar3[4] = 14829735431805717965;
-        puVar3[5] = 14829735431805717965;
-        puVar3[6] = 14829735431805717965;
-        puVar3[7] = 14829735431805717965;
-        puVar3[8] = 14829735431805717965;
-        puVar3[9] = 14829735431805717965;
-        puVar3[10] = 14829735431805717965;
-        puVar3[11] = 14829735431805717965;
-        puVar3[12] = 14829735431805717965;
-        puVar3[13] = 14829735431805717965;
-        puVar3[14] = 14829735431805717965;
-        puVar3[15] = 14829735431805717965;
-        puVar3[16] = 14829735431805717965;
-        puVar3[17] = 14829735431805717965;
-        puVar3[18] = 14829735431805717965;
-        puVar3[19] = 14829735431805717965;
-        this_02 = (AnimState*)get();
-        graphics::AnimState::AnimState(this_02, param_1, param_2);
-        std::unique_lock<std::mutex>::~unique_lock(local_30);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::AnimState>*)GetPool())->allocate();
+        blendTreeNode.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_30.unlock();
+        auto puVar2 = blendTreeNode.get();
+        *puVar2 = 14829735431805717965;
+        puVar2[1] = 14829735431805717965;
+        puVar2[2] = 14829735431805717965;
+        puVar2[3] = 14829735431805717965;
+        puVar2[4] = 14829735431805717965;
+        puVar2[5] = 14829735431805717965;
+        puVar2[6] = 14829735431805717965;
+        puVar2[7] = 14829735431805717965;
+        puVar2[8] = 14829735431805717965;
+        puVar2[9] = 14829735431805717965;
+        puVar2[10] = 14829735431805717965;
+        puVar2[11] = 14829735431805717965;
+        puVar2[12] = 14829735431805717965;
+        puVar2[13] = 14829735431805717965;
+        puVar2[14] = 14829735431805717965;
+        puVar2[15] = 14829735431805717965;
+        puVar2[16] = 14829735431805717965;
+        puVar2[17] = 14829735431805717965;
+        puVar2[18] = 14829735431805717965;
+        puVar2[19] = 14829735431805717965;
+        new ((AnimState*)blendTreeNode.get()) graphics::AnimState(animationStateResourceList, *in_RDX);
+        return blendTreeNode;
     }
 
-    // 0x100956260, 240 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter> MakeUniquePool<graphics::AnimState, 4096>::MakeUnique<graphics::AnimationDescriptor&>(graphics::AnimationDescriptor&)
-    /* std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState,
-   4096>::UniquePoolDeleter> MakeUniquePool<graphics::AnimState,
-   4096>::MakeUnique<graphics::AnimationDescriptor&>(graphics::AnimationDescriptor&) */
-
-    MakeUniquePool<graphics::AnimState, 4096>*
+    // 0x100956260
+    std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>
     MakeUniquePool<graphics::AnimState, 4096>::MakeUnique<graphics::AnimationDescriptor&>(
-        MakeUniquePool<graphics::AnimState, 4096>* this, AnimationDescriptor* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::AnimState>* this_01;
-        undefined8 uVar2;
-        undefined8* puVar3;
-        AnimState* this_02;
-        unique_lock<std::mutex> local_28[16];
+        graphics::AnimationDescriptor& animationDescriptor) {
+        AnimationDescriptor* in_RSI;
+        uint8_t auVar3[16];
 
-        std::unique_lock<std::mutex>::unique_lock(local_28, (mutex*)PTR_m_mutex_100ee6040);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6038 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6038 = lVar1 + 1U;
+        unique_lock<std::mutex> local_28(*PTR_m_mutex_100ee6040);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6038 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6038 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::AnimState>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::AnimState,
-                        MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>::unique_ptr<true, void>(this,
-                                                                                                              uVar2);
-        std::unique_lock<std::mutex>::unlock(local_28);
-        puVar3 = (undefined8*)get();
-        *puVar3 = 14829735431805717965;
-        puVar3[1] = 14829735431805717965;
-        puVar3[2] = 14829735431805717965;
-        puVar3[3] = 14829735431805717965;
-        puVar3[4] = 14829735431805717965;
-        puVar3[5] = 14829735431805717965;
-        puVar3[6] = 14829735431805717965;
-        puVar3[7] = 14829735431805717965;
-        puVar3[8] = 14829735431805717965;
-        puVar3[9] = 14829735431805717965;
-        puVar3[10] = 14829735431805717965;
-        puVar3[11] = 14829735431805717965;
-        puVar3[12] = 14829735431805717965;
-        puVar3[13] = 14829735431805717965;
-        puVar3[14] = 14829735431805717965;
-        puVar3[15] = 14829735431805717965;
-        puVar3[16] = 14829735431805717965;
-        puVar3[17] = 14829735431805717965;
-        puVar3[18] = 14829735431805717965;
-        puVar3[19] = 14829735431805717965;
-        this_02 = (AnimState*)get();
-        graphics::AnimState::AnimState(this_02, param_1);
-        std::unique_lock<std::mutex>::~unique_lock(local_28);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::AnimState>*)GetPool())->allocate();
+        animationDescriptor.unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_28.unlock();
+        auto puVar2 = animationDescriptor.get();
+        *puVar2 = 14829735431805717965;
+        puVar2[1] = 14829735431805717965;
+        puVar2[2] = 14829735431805717965;
+        puVar2[3] = 14829735431805717965;
+        puVar2[4] = 14829735431805717965;
+        puVar2[5] = 14829735431805717965;
+        puVar2[6] = 14829735431805717965;
+        puVar2[7] = 14829735431805717965;
+        puVar2[8] = 14829735431805717965;
+        puVar2[9] = 14829735431805717965;
+        puVar2[10] = 14829735431805717965;
+        puVar2[11] = 14829735431805717965;
+        puVar2[12] = 14829735431805717965;
+        puVar2[13] = 14829735431805717965;
+        puVar2[14] = 14829735431805717965;
+        puVar2[15] = 14829735431805717965;
+        puVar2[16] = 14829735431805717965;
+        puVar2[17] = 14829735431805717965;
+        puVar2[18] = 14829735431805717965;
+        puVar2[19] = 14829735431805717965;
+        new ((AnimState*)animationDescriptor.get()) graphics::AnimState(*in_RSI);
+        return animationDescriptor;
     }
 
-    // 0x100956350, 240 bytes, inline, placed by class name
-    // std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter> MakeUniquePool<graphics::AnimState, 4096>::MakeUnique<>()
-    /* std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState,
-   4096>::UniquePoolDeleter> MakeUniquePool<graphics::AnimState, 4096>::MakeUnique<>() */
+    // 0x100956350
+    std::unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>
+    MakeUniquePool<graphics::AnimState, 4096>::MakeUnique<>() {
+        unique_ptr<graphics::AnimState, MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>* in_RDI;
+        uint8_t auVar3[16];
 
-    MakeUniquePool<graphics::AnimState, 4096>*
-    MakeUniquePool<graphics::AnimState, 4096>::MakeUnique<>(MakeUniquePool<graphics::AnimState, 4096>* this) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* this_00;
-        long lVar1;
-        VectorFastPool<graphics::AnimState>* this_01;
-        undefined8 uVar2;
-        undefined8* puVar3;
-        AnimState* this_02;
-        unique_lock<std::mutex> local_28[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_28, (mutex*)PTR_m_mutex_100ee6040);
-        this_00 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar1 = this_00->size();
-        if (*(ulong*)PTR_m_peak_100ee6038 < lVar1 + 1U) {
-            *(ulong*)PTR_m_peak_100ee6038 = lVar1 + 1U;
+        unique_lock<std::mutex> local_28(*PTR_m_mutex_100ee6040);
+        long lVar1 =
+            ((VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
+                 GetPool())
+                ->size();
+        if (*(unsigned long*)PTR_m_peak_100ee6038 < lVar1 + 1U) {
+            *(unsigned long*)PTR_m_peak_100ee6038 = lVar1 + 1U;
         }
-        this_01 = (VectorFastPool<graphics::AnimState>*)GetPool();
-        uVar2 = this_01->allocate();
-        std::unique_ptr<graphics::AnimState,
-                        MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter>::unique_ptr<true, void>(this,
-                                                                                                              uVar2);
-        std::unique_lock<std::mutex>::unlock(local_28);
-        puVar3 = (undefined8*)get();
-        *puVar3 = 14829735431805717965;
-        puVar3[1] = 14829735431805717965;
-        puVar3[2] = 14829735431805717965;
-        puVar3[3] = 14829735431805717965;
-        puVar3[4] = 14829735431805717965;
-        puVar3[5] = 14829735431805717965;
-        puVar3[6] = 14829735431805717965;
-        puVar3[7] = 14829735431805717965;
-        puVar3[8] = 14829735431805717965;
-        puVar3[9] = 14829735431805717965;
-        puVar3[10] = 14829735431805717965;
-        puVar3[11] = 14829735431805717965;
-        puVar3[12] = 14829735431805717965;
-        puVar3[13] = 14829735431805717965;
-        puVar3[14] = 14829735431805717965;
-        puVar3[15] = 14829735431805717965;
-        puVar3[16] = 14829735431805717965;
-        puVar3[17] = 14829735431805717965;
-        puVar3[18] = 14829735431805717965;
-        puVar3[19] = 14829735431805717965;
-        this_02 = (AnimState*)get();
-        graphics::AnimState::AnimState(this_02);
-        std::unique_lock<std::mutex>::~unique_lock(local_28);
-        return this;
+        auVar3 = ((VectorFastPool<graphics::AnimState>*)GetPool())->allocate();
+        in_RDI->unique_ptr<true, void>(auVar3._0_8_, auVar3._8_8_);
+        local_28.unlock();
+        auto puVar2 = in_RDI->get();
+        *puVar2 = 14829735431805717965;
+        puVar2[1] = 14829735431805717965;
+        puVar2[2] = 14829735431805717965;
+        puVar2[3] = 14829735431805717965;
+        puVar2[4] = 14829735431805717965;
+        puVar2[5] = 14829735431805717965;
+        puVar2[6] = 14829735431805717965;
+        puVar2[7] = 14829735431805717965;
+        puVar2[8] = 14829735431805717965;
+        puVar2[9] = 14829735431805717965;
+        puVar2[10] = 14829735431805717965;
+        puVar2[11] = 14829735431805717965;
+        puVar2[12] = 14829735431805717965;
+        puVar2[13] = 14829735431805717965;
+        puVar2[14] = 14829735431805717965;
+        puVar2[15] = 14829735431805717965;
+        puVar2[16] = 14829735431805717965;
+        puVar2[17] = 14829735431805717965;
+        puVar2[18] = 14829735431805717965;
+        puVar2[19] = 14829735431805717965;
+        new ((AnimState*)in_RDI->get()) graphics::AnimState();
     }
 
-    // 0x100956780, 96 bytes, base-object constructor, inline, placed by class name
-    // MakeUniquePool<graphics::AnimState, 4096>::MakeUniquePool()
-    void MakeUniquePool<graphics::AnimState, 4096>::MakeUniquePool(MakeUniquePool<graphics::AnimState, 4096>* this) {
-        undefined1 uVar1;
+    // 0x100956780
+    MakeUniquePool<graphics::AnimState, 4096>::MakeUniquePool() {
+        uint8_t uVar1;
 
         if (*PTR_registered_100ee50a8 == '\0') {
             if (___cxa_guard_acquire(PTR_registered_100ee50a8) != 0) {
@@ -2275,55 +1792,49 @@ namespace jag {
         }
     }
 
-    // 0x100967ab0, 160 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter::operator()(graphics::AnimState*) const
-    /* MakeUniquePool<graphics::AnimState,
-   4096>::UniquePoolDeleter::TEMPNAMEPLACEHOLDERVALUE(graphics::AnimState*) const */
+    // 0x100967ab0
+    void
+    MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter::operator()(graphics::AnimState* animState) const {
+        unique_lock<std::mutex> local_20;
 
-    void MakeUniquePool<graphics::AnimState, 4096>::UniquePoolDeleter::operator()(AnimState* param_1) {
-        VectorFastPool<graphics::AnimState>* this_00;
-        unique_lock<std::mutex> local_20[16];
-
-        if (param_1 != (AnimState*)0) {
-            param_1->~AnimState();
-            *(undefined8*)&param_1[1].field_8 = 15987178197214944733;
-            *(undefined8*)param_1[1].m_resources = 15987178197214944733;
-            *(undefined8*)&param_1->field_128 = 15987178197214944733;
-            *(undefined8*)(param_1 + 1) = 15987178197214944733;
-            *(undefined8*)&param_1->field_112 = 15987178197214944733;
-            *(undefined8*)&param_1->field_120 = 15987178197214944733;
-            *(undefined8*)&param_1->field_96 = 15987178197214944733;
-            *(undefined8*)&param_1->field_104 = 15987178197214944733;
-            *(undefined8*)&param_1->field_80 = 15987178197214944733;
-            *(undefined8*)&param_1->field_88 = 15987178197214944733;
-            *(undefined8*)&param_1->field_64 = 15987178197214944733;
-            *(undefined8*)&param_1->field_72 = 15987178197214944733;
-            *(undefined8*)(param_1->m_resources + 32) = 15987178197214944733;
-            *(undefined8*)&param_1->field_56 = 15987178197214944733;
-            *(undefined8*)(param_1->m_resources + 16) = 15987178197214944733;
-            *(undefined8*)(param_1->m_resources + 24) = 15987178197214944733;
-            *(undefined8*)param_1->m_resources = 15987178197214944733;
-            *(undefined8*)(param_1->m_resources + 8) = 15987178197214944733;
-            *(undefined8*)param_1 = 15987178197214944733;
-            *(undefined8*)&param_1->field_8 = 15987178197214944733;
-            std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6040);
-            this_00 = (VectorFastPool<graphics::AnimState>*)MakeUniquePool<graphics::AnimState, 4096>::GetPool();
-            this_00->deallocate(param_1);
-            std::unique_lock<std::mutex>::~unique_lock(local_20);
+        if (animState != nullptr) {
+            animState->~AnimState();
+            *(uint64_t*)&animState[1].field_8 = 15987178197214944733;
+            *(uint64_t*)animState[1].m_resources = 15987178197214944733;
+            *(uint64_t*)&animState->field_128 = 15987178197214944733;
+            *(uint64_t*)(animState + 1) = 15987178197214944733;
+            *(uint64_t*)&animState->field_112 = 15987178197214944733;
+            *(uint64_t*)&animState->field_120 = 15987178197214944733;
+            *(uint64_t*)&animState->field_96 = 15987178197214944733;
+            *(uint64_t*)&animState->field_104 = 15987178197214944733;
+            *(uint64_t*)&animState->field_80 = 15987178197214944733;
+            *(uint64_t*)&animState->field_88 = 15987178197214944733;
+            *(uint64_t*)&animState->field_64 = 15987178197214944733;
+            *(uint64_t*)&animState->field_72 = 15987178197214944733;
+            *(uint64_t*)(animState->m_resources + 32) = 15987178197214944733;
+            *(uint64_t*)&animState->field_56 = 15987178197214944733;
+            *(uint64_t*)(animState->m_resources + 16) = 15987178197214944733;
+            *(uint64_t*)(animState->m_resources + 24) = 15987178197214944733;
+            *(uint64_t*)animState->m_resources = 15987178197214944733;
+            *(uint64_t*)(animState->m_resources + 8) = 15987178197214944733;
+            *(uint64_t*)animState = 15987178197214944733;
+            *(uint64_t*)&animState->field_8 = 15987178197214944733;
+            local_20 = std::unique_lock<std::mutex>(*PTR_m_mutex_100ee6040);
+            ((VectorFastPool<graphics::AnimState>*)MakeUniquePool<graphics::AnimState, 4096>::GetPool())
+                ->deallocate(animState);
         }
     }
 
-    // 0x100967b70, 176 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimState, 4096>::GetPool()
-    undefined* MakeUniquePool<graphics::AnimState, 4096>::GetPool() {
-        ulong* puVar2;
-        ulong local_20[2];
+    // 0x100967b70
+    void MakeUniquePool<graphics::AnimState, 4096>::GetPool() {
+        unsigned long* puVar2;
+        unsigned long local_20[2];
 
         if (*PTR_pool_100ee50a0 == '\0') {
             if (___cxa_guard_acquire(PTR_pool_100ee50a0) != 0) {
                 local_20[0] = 16;
                 local_20[1] = 8;
-                puVar2 = std::max<unsigned long>(local_20, local_20 + 1);
+                puVar2 = std::max<unsigned long>(*local_20, *(local_20 + 1));
                 new (PTR_pool_100ee9c98) VectorFastPool<graphics::AnimState>(4096, *puVar2);
                 ___cxa_atexit(PTR__VectorFastPool_100ee63c0, PTR_pool_100ee9c98, 4294967296);
                 ___cxa_guard_release(PTR_pool_100ee50a0);
@@ -2332,124 +1843,99 @@ namespace jag {
         return PTR_pool_100ee9c98;
     }
 
-    // 0x100968530, 432 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimState, 4096>::RegisterThisUniquePool()
+    // 0x100968530
     void MakeUniquePool<graphics::AnimState, 4096>::RegisterThisUniquePool() {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
-        function local_2f8[176];
-        fixed_string<char, 512, true, eastl::allocator> local_248[552];
-        undefined8 local_20;
+        _lambda_jag__shareduniquedebug__SharedPoolInfo___1_* arg1;
+        Logger* logger;
+        function<void(shareduniquedebug::SharedPoolInfo&)> local_2f8[176];
+        uint64_t local_20;
 
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(
-            local_248, "static bool MakeUniquePool<graphics::AnimState, 4096>::RegisterThisUniquePool() [T = "
-                       "graphics::AnimState, CAPACITY = 4096]");
-        lVar1 = local_248->find("T = jag::", 0);
+        fixed_string<char, 512> local_248("static bool MakeUniquePool<graphics::AnimState, "
+                                          "4096>::RegisterThisUniquePool() [T = graphics::AnimState, CAPACITY = 4096]");
+        char* pcVar3 = "T = jag::";
+        long lVar1 = local_248.find("T = jag::", 0);
         if (lVar1 != -1) {
-            local_248->replace(0, lVar1 + 9, "UniquePool\t");
-            uVar2 = local_248->find(", CAPACITY = ", 0);
-            if (uVar2 != 18446744073709551615) {
-                local_248->replace(uVar2, 13, "[");
+            local_248.replace(0, lVar1 + 9, "UniquePool\t");
+            pcVar3 = ", CAPACITY = ";
+            arg1 = (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)local_248.find(", CAPACITY = ", 0);
+            if (arg1 != (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)18446744073709551615) {
+                local_248.replace((unsigned long)arg1, 13, "[");
+                pcVar3 = (char*)arg1;
             }
         }
         std::function<void(shareduniquedebug::SharedPoolInfo&)>::function<
             MakeUniquePool<graphics::AnimState, 4096>::RegisterThisUniquePool()::_lambda(
                 shareduniquedebug::SharedPoolInfo&) _1_,
-            void>(local_2f8);
+            void>(local_2f8, (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)pcVar3);
         shareduniquedebug::RegisterUniquePool(
             "static bool MakeUniquePool<graphics::AnimState, 4096>::RegisterThisUniquePool() [T = graphics::AnimState, "
             "CAPACITY = 4096]",
-            local_2f8);
-        std::function<void(shareduniquedebug::SharedPoolInfo&)>::~function(
-            (function<void(shareduniquedebug::SharedPoolInfo&)>*)local_2f8);
-        new (local_2f8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar3 = logger::default_logger();
-        uVar4 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        pcVar5 =
-            DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>((fixed_string*)local_2f8, 655360);
-        logger::Logger::Log(
-            uVar3, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h", 133,
-            "%s\t%s", uVar4, pcVar5);
-        /* WARNING: Subroutine does not return */
-        local_2f8->~fixed_string();
+            *local_2f8);
+        new (local_2f8) eastl::fixed_string<char, 128>();
+        logger = logger::default_logger();
+        uint64_t uVar2 = local_248.begin();
+        pcVar3 = DataSizeStringMB<eastl::fixed_string<char, 128>>((fixed_string<char, _128>*)local_2f8, 655360);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h",
+                    133, "%s\t%s", uVar2, pcVar3);
     }
 
-    // 0x100968eb0, 16 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimState, 4096>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::operator()(shareduniquedebug::SharedPoolInfo&) const
-    /* MakeUniquePool<graphics::AnimState,
-   4096>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo&)
-   const */
-
+    // 0x100968eb0
     void MakeUniquePool<graphics::AnimState, 4096>::RegisterThisUniquePool()::{
         lambda(shareduniquedebug::SharedPoolInfo&) #1
     }
-    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * param_1)
-
-    {
-        GetUniquePoolInfo(param_1);
+    ::operator()(shareduniquedebug::SharedPoolInfo & arg1) const {
+        lambda(shareduniquedebug::SharedPoolInfo&) #1
+    }
+    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * sharedPoolInfo) {
+        GetUniquePoolInfo(sharedPoolInfo);
+        return;
     }
 
-    // 0x100968ec0, 240 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimState, 4096>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&)
-    void MakeUniquePool<graphics::AnimState, 4096>::GetUniquePoolInfo(SharedPoolInfo* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* pVVar1;
-        undefined8 uVar2;
-        long lVar3;
-        ShuffledPacketFactory* pSVar4;
-        unique_lock<std::mutex> local_20[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6040);
-        *(undefined8*)(param_1 + 48) = 0;
-        *(undefined8*)(param_1 + 56) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
-        *(undefined8*)(param_1 + 40) = 0;
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 64) = 0;
+    // 0x100968ec0
+    void
+    MakeUniquePool<graphics::AnimState, 4096>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        unique_lock<std::mutex> local_20(*PTR_m_mutex_100ee6040);
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        auto pVVar1 = GetPool();
+        uint64_t uVar2 = pVVar1->size();
+        *(uint64_t*)sharedPoolInfo = uVar2;
         pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
             GetPool();
-        uVar2 = pVVar1->size();
-        *(undefined8*)param_1 = uVar2;
-        pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar3 = pVVar1->capacity();
-        *(long*)(param_1 + 8) = lVar3;
-        *(undefined8*)(param_1 + 16) = *(undefined8*)PTR_m_peak_100ee6038;
-        *(undefined8*)(param_1 + 32) = 4096;
+        long lVar3 = pVVar1->capacity();
+        *(long*)(sharedPoolInfo + 8) = lVar3;
+        *(uint64_t*)(sharedPoolInfo + 16) = *(uint64_t*)PTR_m_peak_100ee6038;
+        *(uint64_t*)(sharedPoolInfo + 32) = 4096;
         if (lVar3 != 0) {
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::AnimState, unsigned long>::GetTotalSize(*(ulong*)param_1);
-            *(undefined8*)(param_1 + 40) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::AnimState, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 8));
-            *(undefined8*)(param_1 + 48) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::AnimState, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 32));
-            *(undefined8*)(param_1 + 56) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::AnimState, unsigned long>::GetTotalSize(*(unsigned long*)sharedPoolInfo);
+            *(uint64_t*)(sharedPoolInfo + 40) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::AnimState, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 8));
+            *(uint64_t*)(sharedPoolInfo + 48) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::AnimState, unsigned long>::GetTotalSize(*(unsigned long*)(sharedPoolInfo + 32));
+            *(uint64_t*)(sharedPoolInfo + 56) = uVar2;
         }
-        *(char**)(param_1 + 64) =
+        *(char**)(sharedPoolInfo + 64) =
             "static void MakeUniquePool<graphics::AnimState, "
             "4096>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = graphics::AnimState, CAPACITY = 4096]";
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
     }
 
-    // 0x100989a50, 96 bytes, base-object constructor, inline, placed by class name
-    // MakeUniquePool<graphics::AnimationParameters, 512>::MakeUniquePool()
-    void MakeUniquePool<graphics::AnimationParameters, 512>::MakeUniquePool(
-        MakeUniquePool<graphics::AnimationParameters, 512>* this) {
-        undefined1 uVar1;
+    // 0x100989a50
+    MakeUniquePool<graphics::AnimationParameters, 512>::MakeUniquePool() {
+        uint8_t uVar1;
 
         if (*PTR_registered_100ee5078 == '\0') {
             if (___cxa_guard_acquire(PTR_registered_100ee5078) != 0) {
@@ -2460,132 +1946,112 @@ namespace jag {
         }
     }
 
-    // 0x1009a3cf0, 432 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimationParameters, 512>::RegisterThisUniquePool()
+    // 0x1009a3cf0
     void MakeUniquePool<graphics::AnimationParameters, 512>::RegisterThisUniquePool() {
-        long lVar1;
-        ulong uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        char* pcVar5;
-        function local_2f8[176];
-        fixed_string<char, 512, true, eastl::allocator> local_248[552];
-        undefined8 local_20;
+        _lambda_jag__shareduniquedebug__SharedPoolInfo___1_* arg1;
+        Logger* logger;
+        function<void(shareduniquedebug::SharedPoolInfo&)> local_2f8[176];
+        uint64_t local_20;
 
-        local_20 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(
-            local_248, "static bool MakeUniquePool<graphics::AnimationParameters, 512>::RegisterThisUniquePool() [T = "
-                       "graphics::AnimationParameters, CAPACITY = 512]");
-        lVar1 = local_248->find("T = jag::", 0);
+        fixed_string<char, 512> local_248(
+            "static bool MakeUniquePool<graphics::AnimationParameters, 512>::RegisterThisUniquePool() [T = "
+            "graphics::AnimationParameters, CAPACITY = 512]");
+        char* pcVar3 = "T = jag::";
+        long lVar1 = local_248.find("T = jag::", 0);
         if (lVar1 != -1) {
-            local_248->replace(0, lVar1 + 9, "UniquePool\t");
-            uVar2 = local_248->find(", CAPACITY = ", 0);
-            if (uVar2 != 18446744073709551615) {
-                local_248->replace(uVar2, 13, "[");
+            local_248.replace(0, lVar1 + 9, "UniquePool\t");
+            pcVar3 = ", CAPACITY = ";
+            arg1 = (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)local_248.find(", CAPACITY = ", 0);
+            if (arg1 != (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)18446744073709551615) {
+                local_248.replace((unsigned long)arg1, 13, "[");
+                pcVar3 = (char*)arg1;
             }
         }
         std::function<void(shareduniquedebug::SharedPoolInfo&)>::function<
             MakeUniquePool<graphics::AnimationParameters, 512>::RegisterThisUniquePool()::_lambda(
                 shareduniquedebug::SharedPoolInfo&) _1_,
-            void>(local_2f8);
+            void>(local_2f8, (_lambda_jag__shareduniquedebug__SharedPoolInfo___1_*)pcVar3);
         shareduniquedebug::RegisterUniquePool(
             "static bool MakeUniquePool<graphics::AnimationParameters, 512>::RegisterThisUniquePool() [T = "
             "graphics::AnimationParameters, CAPACITY = 512]",
-            local_2f8);
-        std::function<void(shareduniquedebug::SharedPoolInfo&)>::~function(
-            (function<void(shareduniquedebug::SharedPoolInfo&)>*)local_2f8);
-        new (local_2f8) eastl::fixed_string<char, 128, true, eastl::allocator>();
-        uVar3 = logger::default_logger();
-        uVar4 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-        pcVar5 =
-            DataSizeStringMB<eastl::fixed_string<char, 128, true, eastl::allocator>>((fixed_string*)local_2f8, 98304);
-        logger::Logger::Log(
-            uVar3, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h", 133,
-            "%s\t%s", uVar4, pcVar5);
-        /* WARNING: Subroutine does not return */
-        local_2f8->~fixed_string();
+            *local_2f8);
+        new (local_2f8) eastl::fixed_string<char, 128>();
+        logger = logger::default_logger();
+        uint64_t uVar2 = local_248.begin();
+        pcVar3 = DataSizeStringMB<eastl::fixed_string<char, 128>>((fixed_string<char, _128>*)local_2f8, 98304);
+        logger->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/pool/MakeUniquePool.h",
+                    133, "%s\t%s", uVar2, pcVar3);
     }
 
-    // 0x1009a4630, 16 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimationParameters, 512>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::operator()(shareduniquedebug::SharedPoolInfo&) const
-    /* MakeUniquePool<graphics::AnimationParameters,
-   512>::RegisterThisUniquePool()::{lambda(shareduniquedebug::SharedPoolInfo&)#1}::TEMPNAMEPLACEHOLDERVALUE(shareduniquedebug::SharedPoolInfo&)
-   const */
-
+    // 0x1009a4630
     void MakeUniquePool<graphics::AnimationParameters, 512>::RegisterThisUniquePool()::{
         lambda(shareduniquedebug::SharedPoolInfo&) #1
     }
-    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * param_1)
-
-    {
-        GetUniquePoolInfo(param_1);
+    ::operator()(shareduniquedebug::SharedPoolInfo & arg1) const {
+        lambda(shareduniquedebug::SharedPoolInfo&) #1
+    }
+    ::operator()(_lambda_jag__shareduniquedebug__SharedPoolInfo___1_* this, SharedPoolInfo * sharedPoolInfo) {
+        GetUniquePoolInfo(sharedPoolInfo);
+        return;
     }
 
-    // 0x1009a4640, 240 bytes, inline, placed by class name
-    // MakeUniquePool<graphics::AnimationParameters, 512>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo&)
-    void MakeUniquePool<graphics::AnimationParameters, 512>::GetUniquePoolInfo(SharedPoolInfo* param_1) {
-        VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>* pVVar1;
-        undefined8 uVar2;
-        long lVar3;
-        ShuffledPacketFactory* pSVar4;
-        unique_lock<std::mutex> local_20[16];
-
-        std::unique_lock<std::mutex>::unique_lock(local_20, (mutex*)PTR_m_mutex_100ee6010);
-        *(undefined8*)(param_1 + 48) = 0;
-        *(undefined8*)(param_1 + 56) = 0;
-        *(undefined8*)(param_1 + 32) = 0;
-        *(undefined8*)(param_1 + 40) = 0;
-        *(undefined8*)(param_1 + 16) = 0;
-        *(undefined8*)(param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)(param_1 + 8) = 0;
-        *(undefined8*)(param_1 + 64) = 0;
+    // 0x1009a4640
+    void MakeUniquePool<graphics::AnimationParameters, 512>::GetUniquePoolInfo(
+        shareduniquedebug::SharedPoolInfo& sharedPoolInfo) {
+        unique_lock<std::mutex> local_20(*PTR_m_mutex_100ee6010);
+        *(uint64_t*)(sharedPoolInfo + 48) = 0;
+        *(uint64_t*)(sharedPoolInfo + 56) = 0;
+        *(uint64_t*)(sharedPoolInfo + 32) = 0;
+        *(uint64_t*)(sharedPoolInfo + 40) = 0;
+        *(uint64_t*)(sharedPoolInfo + 16) = 0;
+        *(uint64_t*)(sharedPoolInfo + 24) = 0;
+        *(uint64_t*)sharedPoolInfo = 0;
+        *(uint64_t*)(sharedPoolInfo + 8) = 0;
+        *(uint64_t*)(sharedPoolInfo + 64) = 0;
+        auto pVVar1 = GetPool();
+        uint64_t uVar2 = pVVar1->size();
+        *(uint64_t*)sharedPoolInfo = uVar2;
         pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
             GetPool();
-        uVar2 = pVVar1->size();
-        *(undefined8*)param_1 = uVar2;
-        pVVar1 = (VectorFastPool<MakeSharedPool<oldscape::rseven::BuildTerrainResultLevel, 64>::RefCounterAndData>*)
-            GetPool();
-        lVar3 = pVVar1->capacity();
-        *(long*)(param_1 + 8) = lVar3;
-        *(undefined8*)(param_1 + 16) = *(undefined8*)PTR_m_peak_100ee6008;
-        *(undefined8*)(param_1 + 32) = 512;
+        long lVar3 = pVVar1->capacity();
+        *(long*)(sharedPoolInfo + 8) = lVar3;
+        *(uint64_t*)(sharedPoolInfo + 16) = *(uint64_t*)PTR_m_peak_100ee6008;
+        *(uint64_t*)(sharedPoolInfo + 32) = 512;
         if (lVar3 != 0) {
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::AnimationParameters, unsigned long>::GetTotalSize(*(ulong*)param_1);
-            *(undefined8*)(param_1 + 40) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::AnimationParameters, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 8));
-            *(undefined8*)(param_1 + 48) = uVar2;
-            pSVar4 = (ShuffledPacketFactory*)GetPool();
-            ShuffledPacketFactory::p2_alt2(pSVar4);
-            uVar2 = FastPool<graphics::AnimationParameters, unsigned long>::GetTotalSize(*(ulong*)(param_1 + 32));
-            *(undefined8*)(param_1 + 56) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 =
+                FastPool<graphics::AnimationParameters, unsigned long>::GetTotalSize(*(unsigned long*)sharedPoolInfo);
+            *(uint64_t*)(sharedPoolInfo + 40) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::AnimationParameters, unsigned long>::GetTotalSize(
+                *(unsigned long*)(sharedPoolInfo + 8));
+            *(uint64_t*)(sharedPoolInfo + 48) = uVar2;
+            GetPool();
+            ShuffledPacketFactory::p2_alt2();
+            uVar2 = FastPool<graphics::AnimationParameters, unsigned long>::GetTotalSize(
+                *(unsigned long*)(sharedPoolInfo + 32));
+            *(uint64_t*)(sharedPoolInfo + 56) = uVar2;
         }
-        *(char**)(param_1 + 64) = "static void MakeUniquePool<graphics::AnimationParameters, "
-                                  "512>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = "
-                                  "graphics::AnimationParameters, CAPACITY = 512]";
-        std::unique_lock<std::mutex>::~unique_lock(local_20);
+        *(char**)(sharedPoolInfo + 64) = "static void MakeUniquePool<graphics::AnimationParameters, "
+                                         "512>::GetUniquePoolInfo(shareduniquedebug::SharedPoolInfo &) [T = "
+                                         "graphics::AnimationParameters, CAPACITY = 512]";
     }
 
 } // namespace jag
 
 namespace jag::math {
-    // 0x100306520, 48 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<float>::NormalizeSafe()
-    Vector3T<float>* Vector3T<float>::NormalizeSafe() {
-        float fVar1;
+    // 0x100306520
+    auto Vector3T<float>::NormalizeSafe() {
+        auto result;
 
-        fVar1 = (float)Length(this);
-        if (fVar1 != 0.0) {
-            operator/=(this, fVar1);
+        float arg1 = (float)Length(&result);
+        if (arg1 != 0.0) {
+            operator/=(&result, arg1);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag::math

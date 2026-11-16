@@ -1,6 +1,5 @@
 // libs/js5/Js5Preloader.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.js5
@@ -9,152 +8,133 @@ namespace jag {
     class Js5Preloader {
     public:
         class ArchiveLoadProgress;
-        Js5Preloader(Js5ResourceProvider&, Js5ArchiveSetSettings&);
-        ValidateArchives();
-        IsDiskCacheReadyForArchivePreload(int) const;
-        NextArchive(bool&);
-        NextGroup();
+        Js5Preloader(Js5ResourceProvider& js5ResourceProvider, Js5ArchiveSetSettings& js5ArchiveSetSettings);
+        uint32_t ValidateArchives();
+        bool IsDiskCacheReadyForArchivePreload(int arg1) const;
+        uint64_t NextArchive(bool& arg1);
+        uint64_t NextGroup();
         void Service();
         void UpdateDownloadSpeedEstimate();
         float GetPreloadProgressPercentage() const;
         void Restart();
-        GetOverallPercentProgressPercentage();
+        uint64_t GetOverallPercentProgressPercentage();
         bool IsVerifyingFiles() const;
         long GetDownloadAmountDoneInBytes() const;
         long GetDownloadAmountLeftInMb() const;
         long GetDownloadAmountTotalInMb() const;
 
-        // data members, from how the methods use this: 192 bytes
-        Js5ResourceProvider* field_0; // offset 0
-        char _unknown_8[32];
-        int field_40;                                                               // offset 40
-        int field_44;                                                               // offset 44
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* field_48; // offset 48
-        int field_56;                                                               // offset 56
-        char _unknown_60[36];
-        undefined8 field_96;  // offset 96
-        undefined8 field_104; // offset 104
-        undefined8 field_112; // offset 112
-        char _unknown_120[4];
-        undefined8 field_124; // offset 124
-        char _unknown_132[4];
-        float field_136; // offset 136
-        char _unknown_140[36];
-        int field_176;        // offset 176
-        uint field_180;       // offset 180
-        uint field_184;       // offset 184
-        undefined1 field_188; // offset 188
-        char _unknown_189[3];
+    private:
+        Js5ResourceProvider* field_0;
+        uint8_t _unknown_8[32];
+        int field_40;
+        int field_44;
+        vector<oldscape::dash3d::EntityHighlight*>* field_48;
+        int field_56;
+        uint8_t _unknown_60[36];
+        uint64_t field_96;
+        uint64_t field_104;
+        uint64_t field_112;
+        uint8_t _unknown_120[4];
+        uint64_t field_124;
+        uint8_t _unknown_132[4];
+        float field_136;
+        uint8_t _unknown_140[36];
+        int field_176;
+        unsigned int field_180;
+        unsigned int field_184;
+        uint8_t field_188;
+        uint8_t _unknown_189[3];
     };
 
     class Js5Preloader::ArchiveLoadProgress {
     public:
-        void IncrementGroupsLoaded(bool);
+        void IncrementGroupsLoaded(bool arg1);
         void Restart();
-        GetPercentageLoaded() const;
-        GetDownloadPercentDone() const;
-        GetDownloadPercentTotal() const;
+        uint64_t GetPercentageLoaded() const;
+        uint64_t GetDownloadPercentDone() const;
+        uint64_t GetDownloadPercentTotal() const;
         float GetDownloadPercentPending() const;
         ArchiveLoadProgress();
 
-        // data members, from how the methods use this: 36 bytes
-        undefined1 field_0; // offset 0
-        char _unknown_1[7];
-        undefined8 field_8; // offset 8
-        uint field_16;      // offset 16
-        uint field_20;      // offset 20
-        uint field_24;      // offset 24
-        uint field_28;      // offset 28
-        char _unknown_32[4];
+    private:
+        uint8_t field_0;
+        uint8_t _unknown_1[7];
+        uint64_t field_8;
+        unsigned int field_16;
+        unsigned int field_20;
+        unsigned int field_24;
+        unsigned int field_28;
+        uint8_t _unknown_32[4];
     };
 
-    // 0x1009e0be0, 384 bytes, base-object constructor, placed by class name
-    // Js5Preloader::Js5Preloader(Js5ResourceProvider&, Js5ArchiveSetSettings&)
-    void Js5Preloader::Js5Preloader(Js5ResourceProvider* param_1, Js5ArchiveSetSettings* param_2) {
-        undefined1* this_00;
-        int iVar1;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        ulong uVar5;
-        Js5ArchiveSettings* local_50;
-        undefined1* local_48;
-        vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>* local_40;
+    // 0x1009e0be0
+    Js5Preloader::Js5Preloader(Js5ResourceProvider& js5ResourceProvider, Js5ArchiveSetSettings& js5ArchiveSetSettings)
+        : field_0(js5ResourceProvider) {
+        uint8_t auVar3[16];
         int local_34;
 
-        field_0 = param_1;
-        this_00 = &field_8;
-        new (this_00) eastl::vector<Js5ArchiveSettings*, eastl::allocator>();
+        uint8_t* this_00 = &field_8;
+        new (this_00) eastl::vector<Js5ArchiveSettings*>();
         field_40 = 0;
         field_44 = -1;
         field_48 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)0;
         field_56 = -1;
-        new (&field_64) eastl::vector<Js5Preloader::PreloadLoadingEntry, eastl::allocator>();
-        local_40 = (vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>*)&field_144;
+        new (&field_64) eastl::vector<Js5Preloader::PreloadLoadingEntry>();
+        vector<Js5Preloader::ArchiveLoadProgress>* local_40 = (vector<Js5Preloader::ArchiveLoadProgress>*)&field_144;
         field_124 = 0;
-        *(undefined8*)&field_132 = 0;
+        *(uint64_t*)&field_132 = 0;
         field_112 = 0;
-        *(undefined8*)&field_120 = 0;
+        *(uint64_t*)&field_120 = 0;
         field_96 = 0;
         field_104 = 0;
-        local_48 = &field_64;
-        eastl::vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>::vector(local_40);
+        uint8_t* local_48 = &field_64;
+        new (local_40) eastl::vector<Js5Preloader::ArchiveLoadProgress>();
         field_176 = 0;
         field_180 = 0;
         field_184 = 0;
         field_188 = 1;
-        iVar1 = param_2->GetX();
-        this_00->reserve((ulong)(iVar1 + 1));
-        local_50 = (Js5ArchiveSettings*)param_2->GetStart(&local_34);
-        while (local_50 != (Js5ArchiveSettings*)0) {
-            if ((undefined*)local_50->GetPrefetchPriority() != Priority::NONE) {
-                this_00->push_back(&local_50);
+        int iVar1 = js5ArchiveSetSettings.GetX();
+        this_00->reserve((unsigned long)(iVar1 + 1));
+        auto local_50 = js5ArchiveSetSettings.GetStart(local_34);
+        while (local_50 != nullptr) {
+            if ((uint8_t*)local_50->GetPrefetchPriority() != Priority::NONE) {
+                this_00->push_back(local_50);
             }
-            local_50 = (Js5ArchiveSettings*)param_2->GetNext(&local_34);
+            local_50 = (Js5ArchiveSettings*)js5ArchiveSetSettings.GetNext(local_34);
         }
-        uVar3 = this_00->HeapBeginPtr();
-        uVar4 = this_00->end();
+        auto arg1 = this_00->HeapBeginPtr();
+        auVar3 = this_00->end();
         eastl::sort<Js5ArchiveSettings**,
-                    Js5Preloader::Js5Preloader(Js5ResourceProvider&, Js5ArchiveSetSettings&)::__0>(uVar3, uVar4);
-        uVar5 = this_00->size();
-        eastl::vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>::resize(local_40, uVar5);
+                    Js5Preloader::Js5Preloader(Js5ResourceProvider&, Js5ArchiveSetSettings&)::__0>(arg1, auVar3._0_8_,
+                                                                                                   auVar3._8_8_);
+        local_40->resize(this_00->size());
     }
 
-    // 0x1009e0ed0, 16 bytes, complete-object constructor, placed by class name
-    // Js5Preloader::Js5Preloader(Js5ResourceProvider&, Js5ArchiveSetSettings&): jumps straight to the base-object constructor
-
-    // 0x1009e0ee0, 368 bytes, placed by class name
-    // Js5Preloader::ValidateArchives()
-    undefined4 Js5Preloader::ValidateArchives() {
-        undefined1* this_00;
-        undefined1* this_01;
+    // 0x1009e0ee0
+    uint32_t Js5Preloader::ValidateArchives() {
+        uint8_t* this_01;
         Material* this_02;
-        char cVar1;
-        int iVar2;
-        int iVar3;
-        uint uVar4;
-        uint uVar5;
-        Js5DiskCache* this_03;
-        undefined8* puVar6;
+        bool cVar1;
+        unsigned int uVar4;
+        unsigned int uVar5;
+        uint64_t* puVar6;
         long lVar7;
-        undefined4 uVar8;
-        ulong uVar9;
-        bool bVar10;
+        unsigned long arg1;
 
-        this_03 = (Js5DiskCache*)field_0->GetTransitionOutTime();
-        this_00 = &field_8;
-        iVar3 = field_44;
-        iVar2 = this_00->size();
-        bVar10 = iVar3 == iVar2 + -1;
-        uVar8 = CONCAT31((int3)((uint)iVar3 >> 8), bVar10);
-        if ((!bVar10) && (cVar1 = IsDiskCacheReadyForArchivePreload(this, field_44 + 1), cVar1 != '\0')) {
+        auto this_03 = field_0->GetTransitionOutTime();
+        uint8_t* this_00 = &field_8;
+        int iVar3 = field_44;
+        int iVar2 = this_00->size();
+        bool bVar9 = iVar3 == iVar2 - 1;
+        uint32_t uVar8 = (((uint32_t)((int32_t)((unsigned int)iVar3 >> 8)) << 8) | (uint8_t)bVar9);
+        if ((!bVar9) && (cVar1 = IsDiskCacheReadyForArchivePreload(field_44 + 1), cVar1)) {
             this_01 = &field_144;
             do {
-                uVar9 = (long)field_44 + 1;
-                field_44 = (int)uVar9;
-                puVar6 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-                    (vector<Js5ArchiveSettings*, eastl::allocator>*)this_00, uVar9);
+                arg1 = (long)field_44 + 1;
+                field_44 = (int)arg1;
+                puVar6 = (uint64_t*)(*this_00)[arg1];
                 this_02 = (Material*)*puVar6;
-                if ((this_02 != (Material*)0) && (iVar3 = this_02->GetSpriteID(), iVar3 != 0)) {
+                if ((this_02 != nullptr) && (iVar3 = this_02->GetSpriteID(), iVar3 != 0)) {
                     iVar3 = this_02->GetDiffuseAlphaMapSize();
                     if (iVar3 != 0) {
                         uVar4 = this_02->GetDiffuseAlphaMapSize();
@@ -163,92 +143,77 @@ namespace jag {
                             goto LAB_1009e1011;
                     }
                     iVar3 = this_02->GetX();
-                    (field_0, (Js5ArchiveSettings*)this_02)->UpdateMissingGroupsCountForArchive();
+                    field_0->UpdateMissingGroupsCountForArchive(*this_02);
                     uVar4 = this_03->GetMissingGroupCount(iVar3);
-                    lVar7 = eastl::vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>::operator[](
-                        (vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>*)this_01, (long)field_44);
-                    iVar2 = eastl::min<unsigned int>(uVar4, *(uint*)(lVar7 + 20));
+                    lVar7 = (*this_01)[(long)field_44];
+                    iVar2 = eastl::min<unsigned int>(uVar4, *(unsigned int*)(lVar7 + 20));
                     iVar3 = *(int*)(lVar7 + 20);
-                    lVar7 = eastl::vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>::operator[](
-                        (vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>*)this_01, (long)field_44);
+                    lVar7 = (*this_01)[(long)field_44];
                     *(int*)(lVar7 + 16) = iVar3 - iVar2;
-                    lVar7 = eastl::vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>::operator[](
-                        (vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>*)this_01, (long)field_44);
+                    lVar7 = (*this_01)[(long)field_44];
                     field_184 = field_184 + *(int*)(lVar7 + 16);
-                    lVar7 = eastl::vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>::operator[](
-                        (vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>*)this_01, (long)field_44);
+                    lVar7 = (*this_01)[(long)field_44];
                     *(int*)(lVar7 + 28) = iVar2;
                 }
             LAB_1009e1011:
                 iVar3 = field_44;
                 iVar2 = this_00->size();
-                bVar10 = iVar3 == iVar2 + -1;
-                uVar8 = CONCAT31((int3)((uint)iVar3 >> 8), bVar10);
-                if (bVar10) {
+                bVar9 = iVar3 == iVar2 - 1;
+                uVar8 = (((uint32_t)((int32_t)((unsigned int)iVar3 >> 8)) << 8) | (uint8_t)bVar9);
+                if (bVar9) {
                     return uVar8;
                 }
-                cVar1 = IsDiskCacheReadyForArchivePreload(this, field_44 + 1);
-            } while (cVar1 != '\0');
+                cVar1 = IsDiskCacheReadyForArchivePreload(field_44 + 1);
+            } while (cVar1);
         }
         return uVar8;
     }
 
-    // 0x1009e1050, 112 bytes, placed by class name
-    // Js5Preloader::IsDiskCacheReadyForArchivePreload(int) const
-    undefined8 Js5Preloader::IsDiskCacheReadyForArchivePreload(int param_1) {
-        char cVar1;
-        int iVar2;
-        Js5DiskCache* this_00;
-        undefined8* puVar3;
+    // 0x1009e1050
+    bool Js5Preloader::IsDiskCacheReadyForArchivePreload(int arg1) const {
+        bool cVar1;
 
-        this_00 = (Js5DiskCache*)field_0->GetTransitionOutTime();
-        puVar3 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-            (vector<Js5ArchiveSettings*, eastl::allocator>*)&field_8, (long)param_1);
-        iVar2 = (*puVar3)->GetX();
-        if ((this_00 == (Js5DiskCache*)0) || (cVar1 = this_00->Ready(iVar2), cVar1 == '\0')) {
+        auto this_00 = field_0->GetTransitionOutTime();
+        uint64_t* puVar2 = &field_8[(long)arg1];
+        int arg1_00 = (*puVar2)->GetX();
+        if ((this_00 == nullptr) || (cVar1 = this_00->Ready(arg1_00), !cVar1)) {
             return 0;
         }
-        return this_00->IsValidated(iVar2);
+        return this_00->IsValidated(arg1_00);
     }
 
-    // 0x1009e11d0, 288 bytes, placed by class name
-    // Js5Preloader::NextArchive(bool&)
-    undefined8 Js5Preloader::NextArchive(bool* param_1) {
-        undefined1* this_00;
+    // 0x1009e11d0
+    uint64_t Js5Preloader::NextArchive(bool& arg1) {
         Material* this_01;
-        char cVar1;
-        int iVar2;
-        int iVar3;
-        uint uVar4;
-        undefined8* puVar6;
-        ulong uVar7;
+        bool cVar1;
+        unsigned int uVar4;
+        uint64_t* puVar6;
+        unsigned long arg1_00;
 
-        this_00 = &field_8;
-        iVar3 = field_44;
-        iVar2 = this_00->size();
-        if (iVar3 != iVar2 + -1) {
+        uint8_t* this_00 = &field_8;
+        int iVar3 = field_44;
+        int iVar2 = this_00->size();
+        if (iVar3 != iVar2 - 1) {
             do {
-                cVar1 = IsDiskCacheReadyForArchivePreload(this, field_44 + 1);
-                if (cVar1 == '\0') {
-                    *param_1 = true;
+                cVar1 = IsDiskCacheReadyForArchivePreload(field_44 + 1);
+                if (!cVar1) {
+                    arg1 = true;
                     return 0;
                 }
                 while (true) {
-                    uVar7 = (long)field_44 + 1;
-                    field_44 = (int)uVar7;
-                    puVar6 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-                        (vector<Js5ArchiveSettings*, eastl::allocator>*)this_00, uVar7);
+                    arg1_00 = (long)field_44 + 1;
+                    field_44 = (int)arg1_00;
+                    puVar6 = (uint64_t*)(*this_00)[arg1_00];
                     cVar1 = (*puVar6)->GetPreloadEnabled();
                     iVar3 = field_44;
-                    if (cVar1 != '\0')
+                    if (cVar1)
                         break;
                     iVar2 = this_00->size();
-                    if (iVar3 == iVar2 + -1) {
+                    if (iVar3 == iVar2 - 1) {
                         return 0;
                     }
                 }
-                puVar6 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-                    (vector<Js5ArchiveSettings*, eastl::allocator>*)this_00, (long)iVar3);
+                puVar6 = (uint64_t*)(*this_00)[(long)iVar3];
                 this_01 = (Material*)*puVar6;
                 iVar3 = this_01->GetSpriteID();
                 if (iVar3 != 0) {
@@ -264,43 +229,39 @@ namespace jag {
                 }
                 iVar3 = field_44;
                 iVar2 = this_00->size();
-            } while (iVar3 != iVar2 + -1);
+            } while (iVar3 != iVar2 - 1);
         }
         return 0;
     }
 
-    // 0x1009e1300, 192 bytes, placed by class name
-    // Js5Preloader::NextGroup()
-    undefined8 Js5Preloader::NextGroup() {
-        Js5ResourceProvider* pJVar1;
-        int iVar3;
-        undefined8* puVar4;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar6;
-        int iVar8;
+    // 0x1009e1300
+    uint64_t Js5Preloader::NextGroup() {
+        Js5ResourceProvider* arg1;
+        uint8_t uVar1;
+        uint64_t extraout_var;
         GeometryBatchInstance* local_30;
-        bool local_21;
 
         if (field_48 == (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)0) {
-            local_30 = (GeometryBatchInstance*)0;
-            pJVar1 = field_0;
-            puVar4 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-                (vector<Js5ArchiveSettings*, eastl::allocator>*)&field_8, (long)field_44);
-            if ((undefined*)(*(code*)pJVar1->field_0[3])(pJVar1, &local_30, *puVar4) == DataStatus::NOTLOADED) {
+            local_30 = nullptr;
+            arg1 = field_0;
+            field_8[(long)field_44];
+            uVar1 = (**(void (**)(...)) & ((Js5Index*)arg1->_vptr)->field_24)((Js5Index**)arg1,
+                                                                              (Js5ArchiveSettings*)&local_30);
+            if ((uint8_t*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar1) == DataStatus::NOTLOADED) {
                 return 0;
             }
-            pvVar6 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)local_30->GetMaterial();
-            field_48 = pvVar6;
+            field_48 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)local_30->GetMaterial();
             field_56 = -1;
         }
-        iVar8 = field_56 + 1;
-        field_56 = iVar8;
-        iVar3 = eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(field_48);
-        if (iVar8 < iVar3) {
+        int iVar6 = field_56 + 1;
+        field_56 = iVar6;
+        int iVar3 = field_48->end();
+        if (iVar6 < iVar3) {
             return 1;
         }
-        local_21 = false;
-        if (NextArchive(this, &local_21) != '\0') {
-            return NextGroup(this);
+        bool local_21 = false;
+        if (NextArchive(local_21) != '\0') {
+            return NextGroup();
         }
         if (local_21 == false) {
             field_176 = 4;
@@ -308,234 +269,236 @@ namespace jag {
         return 0;
     }
 
-    // 0x1009e1440, 1600 bytes, placed by class name
-    // Js5Preloader::Service()
+    // 0x1009e1440
     void Js5Preloader::Service() {
-        undefined1* this_00;
-        uint* puVar1;
+        uint8_t* this_00;
+        unsigned int* puVar1;
         Js5ResourceProvider* pJVar2;
         Js5ArchiveSettings* this_01;
-        vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>* this_02;
-        char cVar3;
-        bool bVar4;
-        int iVar5;
-        uint uVar6;
-        undefined4 uVar7;
-        long lVar8;
-        ulong uVar9;
-        undefined8* puVar10;
-        undefined* puVar11;
-        char* pcVar12;
+        vector<Js5Preloader::ArchiveLoadProgress>* pvVar3;
+        uint8_t uVar4;
+        char cVar5;
+        bool bVar6;
+        int iVar7;
+        unsigned int uVar8;
+        uint32_t uVar9;
+        long lVar10;
+        unsigned long uVar11;
+        uint64_t* puVar12;
+        uint64_t extraout_var;
         char* pcVar13;
-        undefined* puVar14;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_03;
-        longlong lVar15;
-        undefined8 uVar16;
-        undefined4* puVar17;
-        byte bVar18;
-        vector<eastl::pair<int, int>, eastl::allocator>* this_04;
-        ulong uVar19;
+        char* pcVar14;
+        uint64_t extraout_var_00;
+        uint64_t extraout_var_01;
+        long long arg1;
+        uint64_t uVar15;
+        uint32_t* puVar16;
+        uint64_t extraout_var_02;
+        uint8_t bVar17;
+        uint8_t* puVar18;
+        vector<eastl::pair<int, int>>* this_03;
+        unsigned long uVar19;
         Js5Preloader* pJVar20;
         float fVar21;
         float fVar22;
-        reverse_iterator local_98[8];
-        undefined8 local_90;
-        undefined4 local_88;
-        undefined8 local_80;
+        ReturnValue local_98;
+        uint64_t local_90;
+        uint32_t local_88;
+        uint64_t local_80;
         int local_78;
-        reverse_iterator<Js5Preloader::ArchiveLoadProgress*> local_74;
-        ulong local_70;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* local_68;
-        reverse_iterator<Js5Preloader::ArchiveLoadProgress*> local_60;
-        undefined7 uStack_5f;
-        vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>* local_58;
-        undefined* local_50;
-        vector<eastl::pair<int, int>, eastl::allocator>* local_48;
+        uint8_t local_74[4];
+        unsigned long local_70;
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* local_68;
+        ReturnValue local_60;
+        vector<Js5Preloader::ArchiveLoadProgress>* local_58;
+        uint8_t* local_50;
+        vector<eastl::pair<int, int>>* local_48;
 
         if ((((field_188 != '\0') || (field_176 < 2)) && (field_40 != 0)) && (field_176 != 5)) {
             this_00 = &field_64;
-            lVar8 = this_00->size();
-            pJVar20 = (Js5Preloader*)this;
-            if (lVar8 != 0) {
+            lVar10 = this_00->size();
+            pJVar20 = this;
+            if (lVar10 != 0) {
                 uVar19 = 0;
                 do {
-                    iVar5 = (int)uVar19;
-                    puVar10 =
-                        (undefined8*)eastl::vector<Js5Preloader::PreloadLoadingEntry, eastl::allocator>::operator[](
-                            (vector<Js5Preloader::PreloadLoadingEntry, eastl::allocator>*)this_00, uVar19);
+                    iVar7 = (int)uVar19;
+                    puVar12 = (uint64_t*)(*this_00)[uVar19];
                     pJVar2 = pJVar20->field_0;
-                    puVar11 = (undefined*)(*(code*)pJVar2->field_0[7])(pJVar2, *puVar10, *(undefined4*)(puVar10 + 1), 0,
-                                                                       &local_90);
-                    if (puVar11 == DataStatus::NOTLOADED) {
-                        *(byte*)((long)puVar10 + 28) = *(byte*)((long)puVar10 + 28) | (byte)local_90._0_1_;
+                    uVar4 =
+                        pJVar2->GroupPreloaded((unsigned int)*puVar12, (uint8_t)(*(uint32_t*)(puVar12 + 1)), nullptr);
+                    if ((uint8_t*)(((uint64_t)extraout_var << 8) | (uint8_t)uVar4) == DataStatus::NOTLOADED) {
+                        *(uint8_t*)((long)puVar12 + 28) = *(uint8_t*)((long)puVar12 + 28) | (uint8_t)local_90._0_1_;
                     } else {
-                        puVar10[2]->IncrementGroupsLoaded(*(bool*)((long)puVar10 + 28));
+                        puVar12[2]->IncrementGroupsLoaded(*(bool*)((long)puVar12 + 28));
                         puVar1 = &pJVar20->field_184;
                         *puVar1 = *puVar1 + 1;
-                        lVar8 = this_00->HeapBeginPtr();
-                        this_00->erase((PreloadLoadingEntry*)(uVar19 * 32 + lVar8));
-                        iVar5 = iVar5 + -1;
+                        lVar10 = this_00->HeapBeginPtr();
+                        this_00->erase((uVar19 * 32 + lVar10));
+                        iVar7 = iVar7 - 1;
                     }
-                    uVar19 = (ulong)(iVar5 + 1);
-                    uVar9 = this_00->size();
-                } while (uVar19 < uVar9);
+                    uVar19 = (unsigned long)(iVar7 + 1);
+                    uVar11 = this_00->size();
+                } while (uVar19 < uVar11);
             }
-            pJVar20 = (Js5Preloader*)this;
-            local_68 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)this_00;
-            UpdateDownloadSpeedEstimate((Js5Preloader*)this);
+            pJVar20 = this;
+            local_68 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)this_00;
+            UpdateDownloadSpeedEstimate();
             if (pJVar20->field_176 == 4) {
-                cVar3 = eastl::vector<
-                    int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(local_68);
-                if (cVar3 != '\0') {
+                cVar5 = local_68->empty();
+                if (cVar5) {
                     pJVar20->field_184 = pJVar20->field_180;
                     pJVar20->field_104 = pJVar20->field_96;
-                    pcVar12 = (char*)(&pJVar20->field_144)->HeapBeginPtr();
-                    pcVar13 = (char*)(&pJVar20->field_144)->end();
-                    for (; pcVar12 != pcVar13; pcVar12 = pcVar12 + 40) {
-                        if (*pcVar12 != '\0') {
-                            *(undefined4*)(pcVar12 + 16) = *(undefined4*)(pcVar12 + 20);
-                            *(undefined4*)(pcVar12 + 24) = *(undefined4*)(pcVar12 + 28);
+                    pcVar13 = (char*)pJVar20->field_144.HeapBeginPtr();
+                    pcVar14 = (char*)pJVar20->field_144.end();
+                    for (; pcVar13 != pcVar14; pcVar13 = pcVar13 + 40) {
+                        if (*pcVar13 != '\0') {
+                            *(uint32_t*)(pcVar13 + 16) = *(uint32_t*)(pcVar13 + 20);
+                            *(uint32_t*)(pcVar13 + 24) = *(uint32_t*)(pcVar13 + 28);
                         }
                     }
-                    ((Js5Preloader*)this)->field_176 = 5;
+                    field_176 = 5;
                 }
             } else {
-                iVar5 = local_68->size();
-                if (iVar5 < pJVar20->field_40) {
-                    this_04 = (vector<eastl::pair<int, int>, eastl::allocator>*)&pJVar20->field_8;
-                    local_58 = (vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>*)&pJVar20->field_144;
-                    local_48 = this_04;
+                iVar7 = local_68->size();
+                if (iVar7 < pJVar20->field_40) {
+                    this_03 = (vector<eastl::pair<int, int>>*)&pJVar20->field_8;
+                    local_58 = (vector<Js5Preloader::ArchiveLoadProgress>*)&pJVar20->field_144;
+                    local_48 = this_03;
                     do {
                         if (pJVar20->field_176 == 0) {
                             local_90 = 0;
-                            puVar11 = (undefined*)(*(code*)pJVar20->field_0->field_0[5])(pJVar20->field_0, &local_90);
-                            if (puVar11 == DataStatus::NOTLOADED) {
+                            uVar4 = pJVar20->field_0->GetMasterIndex();
+                            if ((uint8_t*)(((uint64_t)extraout_var_00 << 8) | (uint8_t)uVar4) ==
+                                DataStatus::NOTLOADED) {
                                 return;
                             }
                             pJVar20->field_96 = 0;
                             pJVar20->field_180 = 0;
-                            lVar8 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_04);
-                            if (lVar8 == 0) {
+                            lVar10 = this_03->size();
+                            if (lVar10 == 0) {
                                 local_70 = 0;
-                                bVar18 = 0;
+                                bVar17 = 0;
                             } else {
                                 local_70 = 0;
                                 uVar19 = 0;
                                 do {
-                                    puVar10 =
-                                        (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-                                            (vector<Js5ArchiveSettings*, eastl::allocator>*)this_04, uVar19);
-                                    this_01 = (Js5ArchiveSettings*)*puVar10;
-                                    puVar14 = (undefined*)(*(code*)pJVar20->field_0->field_0[3])(pJVar20->field_0,
-                                                                                                 &local_60, this_01);
-                                    puVar11 = DataStatus::NOTLOADED;
-                                    if (puVar14 != DataStatus::NOTLOADED) {
+                                    puVar12 = (uint64_t*)(*this_03)[uVar19];
+                                    this_01 = (Js5ArchiveSettings*)*puVar12;
+                                    uVar4 = (**(void (**)(...)) & ((Js5Index*)pJVar20->field_0->_vptr)->field_24)(
+                                        (Js5Index**)pJVar20->field_0, (Js5ArchiveSettings*)&local_60);
+                                    puVar18 = DataStatus::NOTLOADED;
+                                    if ((uint8_t*)(((uint64_t)extraout_var_01 << 8) | (uint8_t)uVar4) !=
+                                        DataStatus::NOTLOADED) {
                                         local_50 = DataStatus::NOTLOADED;
-                                        iVar5 = (CONCAT71(uStack_5f, local_60))->GetEndPosition();
-                                        pJVar20->field_180 = pJVar20->field_180 + iVar5;
-                                        uVar6 = this_01->GetPreloadSize();
-                                        pJVar20->field_96 = pJVar20->field_96 + (ulong)uVar6;
-                                        pcVar12 = (char*)eastl::vector<Js5Preloader::ArchiveLoadProgress,
-                                                                       eastl::allocator>::operator[](local_58, uVar19);
-                                        this_03 = (vector<oldscape::dash3d::EntityHighlight*,
-                                                          BucketAllocatorEASTL>*)(CONCAT71(uStack_5f, local_60))
-                                                      ->GetMaterial();
-                                        uVar7 = eastl::vector<oldscape::dash3d::EntityHighlight*,
-                                                              BucketAllocatorEASTL>::end(this_03);
-                                        *(undefined4*)(pcVar12 + 20) = uVar7;
-                                        lVar15 = (CONCAT71(uStack_5f, local_60))->GetMemoryCache();
-                                        uVar16 = eastl::max<long long>(lVar15, 0);
-                                        *(undefined8*)(pcVar12 + 8) = uVar16;
-                                        cVar3 = this_01->GetPreloadEnabled();
-                                        *pcVar12 = cVar3;
-                                        if (*(long*)(pcVar12 + 8) == 0) {
-                                            uVar6 = this_01->GetPreloadSize();
-                                            *(ulong*)(pcVar12 + 8) = (ulong)uVar6;
-                                            if (cVar3 != '\0')
+                                        iVar7 = ((TcpConnectionMessageBase*)(((uint64_t)local_60._1_7_ << 8) |
+                                                                             (uint8_t)local_60._0_1_))
+                                                    ->GetEndPosition();
+                                        pJVar20->field_180 = pJVar20->field_180 + iVar7;
+                                        uVar8 = this_01->GetPreloadSize();
+                                        pJVar20->field_96 = pJVar20->field_96 + (unsigned long)uVar8;
+                                        pcVar13 = (char*)(*local_58)[uVar19];
+                                        uVar9 =
+                                            ((vector<oldscape::dash3d::EntityHighlight*,
+                                                     BucketAllocatorEASTL>*)((GeometryBatchInstance*)(((uint64_t)
+                                                                                                           local_60
+                                                                                                               ._1_7_
+                                                                                                       << 8) |
+                                                                                                      (uint8_t)local_60
+                                                                                                          ._0_1_))
+                                                 ->GetMaterial())
+                                                ->end();
+                                        *(uint32_t*)(pcVar13 + 20) = uVar9;
+                                        arg1 = ((Js5ResourceProvider*)(((uint64_t)local_60._1_7_ << 8) |
+                                                                       (uint8_t)local_60._0_1_))
+                                                   ->GetMemoryCache();
+                                        uVar15 = eastl::max<long long>(arg1, 0);
+                                        *(uint64_t*)(pcVar13 + 8) = uVar15;
+                                        cVar5 = this_01->GetPreloadEnabled();
+                                        *pcVar13 = cVar5;
+                                        if (*(long*)(pcVar13 + 8) == 0) {
+                                            uVar8 = this_01->GetPreloadSize();
+                                            *(unsigned long*)(pcVar13 + 8) = (unsigned long)uVar8;
+                                            if (cVar5)
                                                 goto LAB_1009e174c;
                                         LAB_1009e1773:
-                                            lVar8 = 0;
+                                            lVar10 = 0;
                                         } else {
-                                            if (cVar3 == '\0')
+                                            if (!cVar5)
                                                 goto LAB_1009e1773;
                                         LAB_1009e174c:
-                                            lVar8 = *(long*)(pcVar12 + 8);
+                                            lVar10 = *(long*)(pcVar13 + 8);
                                         }
-                                        local_70 = local_70 + lVar8;
-                                        puVar11 = local_50;
-                                        this_04 = local_48;
-                                        pJVar20 = (Js5Preloader*)this;
+                                        local_70 = local_70 + lVar10;
+                                        puVar18 = local_50;
+                                        this_03 = local_48;
+                                        pJVar20 = this;
                                     }
-                                    if (puVar14 == puVar11) {
-                                        bVar18 = 1;
+                                    if ((uint8_t*)(((uint64_t)extraout_var_01 << 8) | (uint8_t)uVar4) == puVar18) {
+                                        bVar17 = 1;
                                         goto LAB_1009e17af;
                                     }
                                     uVar19 = uVar19 + 1;
-                                    uVar9 = eastl::vector<eastl::pair<int, int>, eastl::allocator>::size(this_04);
-                                } while (uVar19 < uVar9);
-                                bVar18 = 0;
+                                    uVar11 = this_03->size();
+                                } while (uVar19 < uVar11);
+                                bVar17 = 0;
                             }
                         LAB_1009e17af:
-                            this_02 = local_58;
-                            if ((bVar18 & 1) != 0) {
+                            pvVar3 = local_58;
+                            if ((bVar17 & 1) != 0) {
                                 return;
                             }
-                            pcVar12 = (char*)local_58->HeapBeginPtr();
-                            pcVar13 = (char*)this_02->end();
-                            if (pcVar12 == pcVar13) {
+                            pcVar13 = (char*)local_58->HeapBeginPtr();
+                            pcVar14 = (char*)pvVar3->end();
+                            if (pcVar13 == pcVar14) {
                                 fVar21 = 0.0;
                             } else {
                                 fVar21 = 0.0;
                                 do {
-                                    if (*pcVar12 == '\0') {
-                                        pcVar12[32] = '\0';
-                                        pcVar12[33] = '\0';
-                                        pcVar12[34] = '\0';
-                                        pcVar12[35] = '\0';
+                                    if (*pcVar13 == '\0') {
+                                        pcVar13[32] = '\0';
+                                        pcVar13[33] = '\0';
+                                        pcVar13[34] = '\0';
+                                        pcVar13[35] = '\0';
                                     } else {
-                                        fVar22 =
-                                            (float)((double)(*(ulong*)(pcVar12 + 8) >> 10) / (double)(local_70 >> 10));
-                                        *(float*)(pcVar12 + 32) = fVar22;
+                                        fVar22 = (float)((double)(*(unsigned long*)(pcVar13 + 8) >> 10) /
+                                                         (double)(local_70 >> 10));
+                                        *(float*)(pcVar13 + 32) = fVar22;
                                         fVar21 = fVar21 + fVar22;
                                     }
-                                    pcVar12 = pcVar12 + 40;
-                                } while (pcVar12 != pcVar13);
+                                    pcVar13 = pcVar13 + 40;
+                                } while (pcVar13 != pcVar14);
                             }
-                            local_50 = (undefined*)CONCAT44(local_50._4_4_, fVar21);
-                            cVar3 = local_58->empty();
-                            if (cVar3 == '\0') {
-                                eastl::vector<unsigned long, eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true,
-                                                                                           eastl::allocator>>::rbegin();
-                                eastl::vector<ObjStackEntry, eastl::allocator>::rend();
-                                while (bVar4 = eastl::operator!=((reverse_iterator*)&local_60, local_98), bVar4) {
-                                    pcVar12 =
-                                        (char*)eastl::reverse_iterator<Js5Preloader::ArchiveLoadProgress*>::operator->(
-                                            &local_60);
-                                    if (*pcVar12 != '\0') {
-                                        local_50 = (undefined*)CONCAT44(local_50._4_4_, 1.0 - local_50._0_4_);
-                                        lVar8 = eastl::reverse_iterator<Js5Preloader::ArchiveLoadProgress*>::operator->(
-                                            &local_60);
-                                        *(float*)(lVar8 + 32) = local_50._0_4_ + *(float*)(lVar8 + 32);
+                            local_50 = (uint8_t*)(((uint64_t)local_50._4_4_ << 32) | (uint32_t)fVar21);
+                            cVar5 = local_58->empty();
+                            pvVar3 = local_58;
+                            if (!cVar5) {
+                                local_60 = local_58->rbegin();
+                                local_98 = pvVar3->rend();
+                                while (bVar6 = local_60 != local_98, bVar6) {
+                                    pcVar13 = (char*)local_60.operator->();
+                                    if (*pcVar13 != '\0') {
+                                        local_50 = (uint8_t*)(((uint64_t)local_50._4_4_ << 32) |
+                                                              (uint32_t)(1.0 - local_50._0_4_));
+                                        lVar10 = local_60.operator->();
+                                        *(float*)(lVar10 + 32) = local_50._0_4_ + *(float*)(lVar10 + 32);
                                         break;
                                     }
-                                    eastl::reverse_iterator<Js5Preloader::ArchiveLoadProgress*>::operator++(
-                                        (reverse_iterator<Js5Preloader::ArchiveLoadProgress*>*)local_98,
-                                        (int)&local_60);
-                                    eastl::vector<ObjStackEntry, eastl::allocator>::rend();
+                                    local_98++;
+                                    local_98 = local_58->rend();
                                 }
                             }
                             pJVar20->field_136 = 0.0;
                             pJVar20->field_112 = 0;
-                            *(undefined8*)((long)&pJVar20->field_124 + 4) = 18446744073709551615;
+                            *(uint64_t*)((long)&pJVar20->field_124 + 4) = 18446744073709551615;
                             pJVar20->field_176 = 1;
-                            iVar5 = pJVar20->field_176;
-                            this_04 = local_48;
+                            iVar7 = pJVar20->field_176;
+                            this_03 = local_48;
                         } else {
-                            iVar5 = pJVar20->field_176;
+                            iVar7 = pJVar20->field_176;
                         }
-                        if (iVar5 == 1) {
-                            cVar3 = ValidateArchives(pJVar20);
-                            if (cVar3 == '\0') {
+                        if (iVar7 == 1) {
+                            cVar5 = ValidateArchives(pJVar20);
+                            if (!cVar5) {
                                 return;
                             }
                             pJVar20->field_44 = -1;
@@ -551,138 +514,122 @@ namespace jag {
                             }
                         }
                         if (pJVar20->field_176 == 2) {
-                            cVar3 = NextGroup(pJVar20);
-                            if (cVar3 == '\0') {
+                            cVar5 = NextGroup(pJVar20);
+                            if (!cVar5) {
                                 return;
                             }
                             pJVar20->field_176 = 3;
                         }
                         if (pJVar20->field_176 == 3) {
                             pJVar2 = pJVar20->field_0;
-                            puVar10 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-                                (vector<Js5ArchiveSettings*, eastl::allocator>*)local_48, (long)pJVar20->field_44);
-                            uVar16 = *puVar10;
-                            puVar17 = (undefined4*)Array<unsigned int, eastl::allocator>::operator[](
-                                (Array<unsigned int, eastl::allocator>*)((Js5Preloader*)this)->field_48,
-                                (long)((Js5Preloader*)this)->field_56);
-                            pJVar20 = (Js5Preloader*)this;
-                            this_04 = local_48;
-                            puVar11 = (undefined*)(*(code*)pJVar2->field_0[7])(pJVar2, uVar16, *puVar17, 0, &local_60);
-                            if (puVar11 == DataStatus::NOTLOADED) {
-                                puVar10 = (undefined8*)eastl::vector<Js5ArchiveSettings*, eastl::allocator>::operator[](
-                                    (vector<Js5ArchiveSettings*, eastl::allocator>*)this_04, (long)pJVar20->field_44);
-                                local_90 = *puVar10;
-                                puVar17 = (undefined4*)Array<unsigned int, eastl::allocator>::operator[](
-                                    (Array<unsigned int, eastl::allocator>*)pJVar20->field_48, (long)pJVar20->field_56);
-                                local_88 = *puVar17;
-                                local_80 =
-                                    eastl::vector<Js5Preloader::ArchiveLoadProgress, eastl::allocator>::operator[](
-                                        local_58, (long)pJVar20->field_44);
+                            puVar12 = (uint64_t*)(*local_48)[(long)pJVar20->field_44];
+                            uVar15 = *puVar12;
+                            puVar16 = (uint32_t*)(*field_48)[(long)field_56];
+                            pJVar20 = this;
+                            this_03 = local_48;
+                            uVar4 = pJVar2->GroupPreloaded((unsigned int)uVar15, (uint8_t)(*puVar16), nullptr);
+                            if ((uint8_t*)(((uint64_t)extraout_var_02 << 8) | (uint8_t)uVar4) ==
+                                DataStatus::NOTLOADED) {
+                                puVar12 = (uint64_t*)(*this_03)[(long)pJVar20->field_44];
+                                local_90 = *puVar12;
+                                puVar16 = (uint32_t*)(*pJVar20->field_48)[(long)pJVar20->field_56];
+                                local_88 = *puVar16;
+                                local_80 = (*local_58)[(long)pJVar20->field_44];
                                 local_78 = pJVar20->field_44;
-                                local_74 = local_60;
-                                local_68->push_back((PreloadLoadingEntry*)&local_90);
+                                local_74[0] = local_60._0_1_;
+                                local_68->push_back(local_90);
                             }
                             pJVar20->field_176 = 2;
                         }
-                        iVar5 = local_68->size();
-                    } while (iVar5 < pJVar20->field_40);
+                        iVar7 = local_68->size();
+                    } while (iVar7 < pJVar20->field_40);
                 }
             }
         }
     }
 
-    // 0x1009e1ac0, 32 bytes, inline, placed by class name
-    // Js5Preloader::ArchiveLoadProgress::IncrementGroupsLoaded(bool)
-    void Js5Preloader::ArchiveLoadProgress::IncrementGroupsLoaded(bool param_1) {
-        undefined3 in_register_00000031;
+    // 0x1009e1ac0
+    void Js5Preloader::ArchiveLoadProgress::IncrementGroupsLoaded(bool arg1) {
+        uint32_t in_register_00000031;
 
         field_16 = field_16 + 1;
-        if ((CONCAT31(in_register_00000031, param_1) != 0) && (field_28 != 0)) {
+        if (((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1) != 0) && (field_28 != 0)) {
             field_24 = field_24 + 1;
         }
     }
 
-    // 0x1009e1b30, 320 bytes, placed by class name
-    // Js5Preloader::UpdateDownloadSpeedEstimate()
+    // 0x1009e1b30
     void Js5Preloader::UpdateDownloadSpeedEstimate() {
-        bool bVar1;
-        ulonglong uVar2;
         shared_ptr* psVar3;
         RenderPipelineState* this_00;
-        ClientStream* this_01;
         long lVar4;
-        ulong uVar5;
-        undefined1 auVar6[16];
-        undefined1 auVar7[16];
-        ulonglong local_48;
-        ulonglong local_40;
-        uint local_38;
-        uint local_34;
-        uint local_30;
-        uint local_2c;
-        uint local_28;
-        uint local_24;
+        uint8_t auVar6[16];
+        uint8_t auVar7[16];
+        unsigned long long local_48;
+        unsigned long long local_40;
+        unsigned int local_38;
+        unsigned int local_34;
+        unsigned int local_30;
+        unsigned int local_2c;
+        unsigned int local_28;
+        unsigned int local_24;
 
-        uVar2 = SystemTimer::GetTimeMS<std::chrono::steady_clock>((SystemTimer*)this);
-        uVar5 = 0;
-        if (*(ulong*)&field_120 <= uVar2) {
+        unsigned long long uVar2 = SystemTimer::GetTimeMS<std::chrono::steady_clock>();
+        unsigned long uVar5 = 0;
+        if (*(unsigned long*)&field_120 <= uVar2) {
             uVar5 = uVar2 - *(long*)&field_120;
         }
         if (2499 < uVar5) {
             field_136 = 0.0;
-            *(ulonglong*)&field_120 = uVar2;
+            *(unsigned long long*)&field_120 = uVar2;
             psVar3 = (shared_ptr*)field_0->second();
-            bVar1 = shared_ptr::operator_cast_to_bool(psVar3);
-            if (bVar1) {
-                this_00 =
-                    (RenderPipelineState*)shared_ptr<Js5WorkerThread>::operator->((shared_ptr<Js5WorkerThread>*)psVar3);
+            if (shared_ptr::operator_cast_to_bool(psVar3)) {
+                this_00 = (RenderPipelineState*)(*psVar3).operator->();
                 psVar3 = (shared_ptr*)this_00->GetPSStorageBuffers();
-                bVar1 = shared_ptr::operator_cast_to_bool(psVar3);
-                if (bVar1) {
-                    this_01 = (ClientStream*)shared_ptr<ClientStream>::operator->((shared_ptr<ClientStream>*)psVar3);
-                    this_01->GetProfiling(&local_38, &local_34, &local_30, &local_48, &local_40, &local_2c, &local_24,
-                                          &local_28);
-                    lVar4 = (ulong)local_24 - *(long*)((long)&field_124 + 4);
-                    auVar6._8_4_ = (int)((ulong)lVar4 >> 32);
+                if (shared_ptr::operator_cast_to_bool(psVar3)) {
+                    ((ClientStream*)(*psVar3).operator->())
+                        ->GetProfiling(&local_38, &local_34, &local_30, &local_48, &local_40, &local_2c, &local_24,
+                                       &local_28);
+                    lVar4 = (unsigned long)local_24 - *(long*)((long)&field_124 + 4);
+                    auVar6._8_4_ = (int)((unsigned long)lVar4 >> 32);
                     auVar6._0_8_ = lVar4;
                     auVar6._12_4_ = 1160773632;
                     auVar7._8_4_ = (int)(uVar5 >> 32);
                     auVar7._0_8_ = uVar5;
                     auVar7._12_4_ = 1160773632;
                     field_136 = (float)((((auVar6._8_8_ - 1.9342813113834067e+25) +
-                                          ((double)CONCAT44(1127219200, (int)lVar4) - 4503599627370496.0)) *
+                                          ((double)(((uint64_t)1127219200 << 32) | (uint32_t)((int)lVar4)) -
+                                           4503599627370496.0)) *
                                          9.5367431640625e-07) /
                                         (((auVar7._8_8_ - 1.9342813113834067e+25) +
-                                          ((double)CONCAT44(1127219200, (int)uVar5) - 4503599627370496.0)) *
+                                          ((double)(((uint64_t)1127219200 << 32) | (uint32_t)((int)uVar5)) -
+                                           4503599627370496.0)) *
                                          0.001));
-                    *(ulong*)((long)&field_124 + 4) = (ulong)local_24;
+                    *(unsigned long*)((long)&field_124 + 4) = (unsigned long)local_24;
                 }
             }
         }
     }
 
-    // 0x1009e1cb0, 272 bytes, placed by class name
-    // Js5Preloader::GetPreloadProgressPercentage() const
-    float Js5Preloader::GetPreloadProgressPercentage() {
+    // 0x1009e1cb0
+    float Js5Preloader::GetPreloadProgressPercentage() const {
         float fVar1;
         int iVar2;
-        char cVar3;
         ArchiveLoadProgress* this_00;
         ArchiveLoadProgress* pAVar4;
-        ulong uVar5;
+        unsigned long uVar5;
         float fVar6;
         float fVar7;
 
         if (field_176 < 2) {
-            cVar3 = (&field_8)->empty();
-            if (cVar3 == '\0') {
+            if (field_8.empty() == '\0') {
                 iVar2 = field_44;
-                uVar5 = (&field_8)->size();
+                uVar5 = field_8.size();
                 return ((float)(iVar2 + 1) * 10.0) / (float)uVar5;
             }
         } else {
-            this_00 = (ArchiveLoadProgress*)(&field_144)->HeapBeginPtr();
-            pAVar4 = (ArchiveLoadProgress*)(&field_144)->end();
+            this_00 = (ArchiveLoadProgress*)field_144.HeapBeginPtr();
+            pAVar4 = (ArchiveLoadProgress*)field_144.end();
             if (this_00 != pAVar4) {
                 fVar7 = 0.0;
                 do {
@@ -700,38 +647,32 @@ namespace jag {
         return 10.0;
     }
 
-    // 0x1009e1e30, 128 bytes, placed by class name
-    // Js5Preloader::Restart()
+    // 0x1009e1e30
     void Js5Preloader::Restart() {
-        ArchiveLoadProgress* this_00;
-        ArchiveLoadProgress* pAVar1;
-
         field_176 = 0;
         field_56 = -1;
         field_44 = -1;
         field_104 = 0;
         field_184 = 0;
-        this_00 = (ArchiveLoadProgress*)(&field_144)->HeapBeginPtr();
-        pAVar1 = (ArchiveLoadProgress*)(&field_144)->end();
+        auto this_00 = field_144.HeapBeginPtr();
+        auto pAVar1 = field_144.end();
         for (; this_00 != pAVar1; this_00 = (ArchiveLoadProgress*)&this_00[1].field_4) {
             this_00->Restart();
         }
     }
 
-    // 0x1009e1eb0, 16 bytes, inline, placed by class name
-    // Js5Preloader::ArchiveLoadProgress::Restart()
+    // 0x1009e1eb0
     void Js5Preloader::ArchiveLoadProgress::Restart() {
         field_16 = 0;
     }
 
-    // 0x1009e1ec0, 96 bytes, placed by class name
-    // Js5Preloader::GetOverallPercentProgressPercentage()
-    undefined8 Js5Preloader::GetOverallPercentProgressPercentage() {
+    // 0x1009e1ec0
+    uint64_t Js5Preloader::GetOverallPercentProgressPercentage() {
         float fVar2;
-        undefined4 extraout_XMM0_Db;
-        undefined4 uVar3;
+        uint32_t extraout_XMM0_Db;
+        uint32_t uVar3;
 
-        if (GetInstanceNumber() < 1) {
+        if (SystemPaths::GetInstanceNumber() < 1) {
             if (field_96 == 0) {
                 fVar2 = 0.0;
                 uVar3 = 0;
@@ -743,39 +684,36 @@ namespace jag {
             fVar2 = 100.0;
             uVar3 = 0;
         }
-        return CONCAT44(uVar3, fVar2);
+        return (((uint64_t)uVar3 << 32) | (uint32_t)fVar2);
     }
 
-    // 0x1009e1f20, 16 bytes, placed by class name
-    // Js5Preloader::IsVerifyingFiles() const
-    bool Js5Preloader::IsVerifyingFiles() {
+    // 0x1009e1f20
+    bool Js5Preloader::IsVerifyingFiles() const {
         return field_176 < 2;
     }
 
-    // 0x1009e1f30, 64 bytes, inline, placed by class name
-    // Js5Preloader::ArchiveLoadProgress::GetPercentageLoaded() const
-    undefined8 Js5Preloader::ArchiveLoadProgress::GetPercentageLoaded() {
+    // 0x1009e1f30
+    uint64_t Js5Preloader::ArchiveLoadProgress::GetPercentageLoaded() const {
         if (field_20 == 0) {
             return 0;
         }
         return eastl::min<float>(1.0, (float)field_16 / (float)field_20);
     }
 
-    // 0x1009e1f70, 272 bytes, placed by class name
-    // Js5Preloader::GetDownloadAmountDoneInBytes() const
-    long Js5Preloader::GetDownloadAmountDoneInBytes() {
+    // 0x1009e1f70
+    long Js5Preloader::GetDownloadAmountDoneInBytes() const {
         ArchiveLoadProgress* this_00;
         ArchiveLoadProgress* pAVar2;
-        ulong uVar3;
+        unsigned long uVar3;
         long lVar4;
         float fVar5;
         float fVar6;
         float fVar7;
         double dVar8;
 
-        if (IsVerifyingFiles(this) == '\0') {
-            this_00 = (ArchiveLoadProgress*)(&field_144)->HeapBeginPtr();
-            pAVar2 = (ArchiveLoadProgress*)(&field_144)->end();
+        if (IsVerifyingFiles() == '\0') {
+            this_00 = (ArchiveLoadProgress*)field_144.HeapBeginPtr();
+            pAVar2 = (ArchiveLoadProgress*)field_144.end();
             if (this_00 != pAVar2) {
                 lVar4 = 0;
                 do {
@@ -783,11 +721,13 @@ namespace jag {
                         fVar5 = (float)this_00->GetDownloadPercentDone();
                         fVar6 = (float)this_00->GetDownloadPercentTotal();
                         fVar7 = (float)this_00->GetDownloadPercentTotal();
-                        dVar8 = (((double)CONCAT44(1160773632, (int)((ulong)this_00->field_8 >> 32)) -
+                        dVar8 = (((double)(((uint64_t)1160773632 << 32) |
+                                           (uint32_t)((int)((unsigned long)this_00->field_8 >> 32))) -
                                   1.9342813113834067e+25) +
-                                 ((double)CONCAT44(1127219200, (int)this_00->field_8) - 4503599627370496.0)) *
+                                 ((double)(((uint64_t)1127219200 << 32) | (uint32_t)((int)this_00->field_8)) -
+                                  4503599627370496.0)) *
                                 ((double)(1.0 - fVar7) + (double)(fVar6 * fVar5));
-                        uVar3 = (ulong)dVar8;
+                        uVar3 = (unsigned long)dVar8;
                         lVar4 = lVar4 + ((long)(dVar8 - 9.223372036854776e+18) & (long)uVar3 >> 63 | uVar3);
                     }
                     this_00 = (ArchiveLoadProgress*)&this_00[1].field_4;
@@ -798,38 +738,33 @@ namespace jag {
         return 0;
     }
 
-    // 0x1009e2080, 64 bytes, inline, placed by class name
-    // Js5Preloader::ArchiveLoadProgress::GetDownloadPercentDone() const
-    undefined8 Js5Preloader::ArchiveLoadProgress::GetDownloadPercentDone() {
+    // 0x1009e2080
+    uint64_t Js5Preloader::ArchiveLoadProgress::GetDownloadPercentDone() const {
         if (field_28 == 0) {
             return 1065353216;
         }
         return eastl::min<float>(1.0, (float)field_24 / (float)field_28);
     }
 
-    // 0x1009e20c0, 64 bytes, inline, placed by class name
-    // Js5Preloader::ArchiveLoadProgress::GetDownloadPercentTotal() const
-    undefined8 Js5Preloader::ArchiveLoadProgress::GetDownloadPercentTotal() {
+    // 0x1009e20c0
+    uint64_t Js5Preloader::ArchiveLoadProgress::GetDownloadPercentTotal() const {
         if (field_20 == 0) {
             return 0;
         }
         return eastl::min<float>(1.0, (float)field_28 / (float)field_20);
     }
 
-    // 0x1009e2100, 240 bytes, placed by class name
-    // Js5Preloader::GetDownloadAmountLeftInMb() const
-    long Js5Preloader::GetDownloadAmountLeftInMb() {
-        ArchiveLoadProgress* this_00;
-        ArchiveLoadProgress* pAVar1;
-        ulong uVar2;
+    // 0x1009e2100
+    long Js5Preloader::GetDownloadAmountLeftInMb() const {
+        unsigned long uVar2;
         long lVar3;
         float fVar4;
         float fVar5;
-        undefined1 auVar6[16];
+        uint8_t auVar6[16];
         double dVar7;
 
-        this_00 = (ArchiveLoadProgress*)(&field_144)->HeapBeginPtr();
-        pAVar1 = (ArchiveLoadProgress*)(&field_144)->end();
+        auto this_00 = field_144.HeapBeginPtr();
+        auto pAVar1 = field_144.end();
         if (this_00 == pAVar1) {
             lVar3 = 0;
         } else {
@@ -838,87 +773,64 @@ namespace jag {
                 if (this_00->field_0 != '\0') {
                     fVar4 = (float)this_00->GetDownloadPercentPending();
                     fVar5 = (float)this_00->GetDownloadPercentTotal();
-                    dVar7 =
-                        (((double)CONCAT44(1160773632, (int)((ulong)this_00->field_8 >> 32)) - 1.9342813113834067e+25) +
-                         ((double)CONCAT44(1127219200, (int)this_00->field_8) - 4503599627370496.0)) *
-                        (double)(fVar5 * fVar4);
-                    uVar2 = (ulong)dVar7;
+                    dVar7 = (((double)(((uint64_t)1160773632 << 32) |
+                                       (uint32_t)((int)((unsigned long)this_00->field_8 >> 32))) -
+                              1.9342813113834067e+25) +
+                             ((double)(((uint64_t)1127219200 << 32) | (uint32_t)((int)this_00->field_8)) -
+                              4503599627370496.0)) *
+                            (double)(fVar5 * fVar4);
+                    uVar2 = (unsigned long)dVar7;
                     lVar3 = lVar3 + ((long)(dVar7 - 9.223372036854776e+18) & (long)uVar2 >> 63 | uVar2);
                 }
                 this_00 = (ArchiveLoadProgress*)&this_00[1].field_4;
             } while (this_00 != pAVar1);
         }
-        auVar6._8_4_ = (int)((ulong)lVar3 >> 32);
+        auVar6._8_4_ = (int)((unsigned long)lVar3 >> 32);
         auVar6._0_8_ = lVar3;
         auVar6._12_4_ = 1160773632;
         return (long)(((auVar6._8_8_ - 1.9342813113834067e+25) +
-                       ((double)CONCAT44(1127219200, (int)lVar3) - 4503599627370496.0)) *
+                       ((double)(((uint64_t)1127219200 << 32) | (uint32_t)((int)lVar3)) - 4503599627370496.0)) *
                       9.5367431640625e-07);
     }
 
-    // 0x1009e21f0, 32 bytes, inline, placed by class name
-    // Js5Preloader::ArchiveLoadProgress::GetDownloadPercentPending() const
-    float Js5Preloader::ArchiveLoadProgress::GetDownloadPercentPending() {
-        float fVar1;
-
-        fVar1 = (float)GetDownloadPercentDone(this);
+    // 0x1009e21f0
+    float Js5Preloader::ArchiveLoadProgress::GetDownloadPercentPending() const {
+        float fVar1 = (float)GetDownloadPercentDone();
         return 1.0 - fVar1;
     }
 
-    // 0x1009e2210, 128 bytes, placed by class name
-    // Js5Preloader::GetDownloadAmountTotalInMb() const
-    long Js5Preloader::GetDownloadAmountTotalInMb() {
-        char* pcVar1;
-        char* pcVar2;
-        long lVar3;
-        undefined1 auVar4[16];
+    // 0x1009e2210
+    long Js5Preloader::GetDownloadAmountTotalInMb() const {
+        uint8_t auVar4[16];
 
-        pcVar1 = (char*)(&field_144)->HeapBeginPtr();
-        pcVar2 = (char*)(&field_144)->end();
-        lVar3 = 0;
+        auto pcVar1 = field_144.HeapBeginPtr();
+        auto pcVar2 = field_144.end();
+        long lVar3 = 0;
         for (; pcVar1 != pcVar2; pcVar1 = pcVar1 + 40) {
             if (*pcVar1 != '\0') {
                 lVar3 = lVar3 + *(long*)(pcVar1 + 8);
             }
         }
-        auVar4._8_4_ = (int)((ulong)lVar3 >> 32);
+        auVar4._8_4_ = (int)((unsigned long)lVar3 >> 32);
         auVar4._0_8_ = lVar3;
         auVar4._12_4_ = 1160773632;
         return (long)(((auVar4._8_8_ - 1.9342813113834067e+25) +
-                       ((double)CONCAT44(1127219200, (int)lVar3) - 4503599627370496.0)) *
+                       ((double)(((uint64_t)1127219200 << 32) | (uint32_t)((int)lVar3)) - 4503599627370496.0)) *
                       9.5367431640625e-07);
     }
 
-    // 0x1009fd250, 48 bytes, placed by class name
-    // Js5Preloader::Js5Preloader(Js5ResourceProvider&, Js5ArchiveSetSettings&)::$_0::operator()(Js5ArchiveSettings const*, Js5ArchiveSettings const*) const
-    /* Js5Preloader::Js5Preloader(Js5ResourceProvider&,
-   Js5ArchiveSetSettings&)::$_0::TEMPNAMEPLACEHOLDERVALUE(Js5ArchiveSettings const*,
-   Js5ArchiveSettings const*) const */
-
-    bool Js5Preloader::Js5Preloader(Js5ResourceProvider&,
-                                    Js5ArchiveSetSettings&)::$_0::operator()(Js5ArchiveSettings* param_1,
-                                                                             Js5ArchiveSettings* param_2) {
-        ulong uVar1;
-        ulong uVar2;
-
-        uVar1 = param_1->GetPrefetchPriority();
-        uVar2 = param_2->GetPrefetchPriority();
+    // 0x1009fd250
+    bool Js5Preloader::Js5Preloader(Js5ResourceProvider&, Js5ArchiveSetSettings&)::$_0::operator()(
+        const Js5ArchiveSettings* js5ArchiveSettings1, const Js5ArchiveSettings* js5ArchiveSettings2) const {
+        unsigned long uVar1 = GetPrefetchPriority();
+        unsigned long uVar2 = js5ArchiveSettings1->GetPrefetchPriority();
         return uVar1 < uVar2;
     }
 
-    // 0x1009fd810, 16 bytes, complete-object constructor, inline, placed by class name
-    // Js5Preloader::ArchiveLoadProgress::ArchiveLoadProgress(): jumps straight to the base-object constructor
-
-    // 0x1009fd820, 32 bytes, base-object constructor, inline, placed by class name
-    // Js5Preloader::ArchiveLoadProgress::ArchiveLoadProgress()
-    void Js5Preloader::ArchiveLoadProgress::ArchiveLoadProgress() {
-        field_0 = 1;
-        field_8 = 0;
-        field_16 = 0;
-        field_20 = 0;
-        field_20 = 0;
-        field_24 = 0;
-        *(undefined8*)&field_28 = 0;
+    // 0x1009fd820
+    Js5Preloader::ArchiveLoadProgress::ArchiveLoadProgress()
+        : field_0(1), field_8(0), field_16(0), field_20(0), field_20(0), field_24(0) {
+        *(uint64_t*)&field_28 = 0;
     }
 
 } // namespace jag

@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/graphics/NXTPixToolkit.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -9,92 +8,70 @@ namespace jag::oldscape::graphics {
     class NXTPixToolkit {
     public:
         // virtual methods in vtable order
-        virtual NXTPix2D GetPix2D();
-        virtual GetPix3D();
-        virtual void SetScreenSize(int, int);
-        virtual void Render(int, int, int, int);
-        virtual void Render(int, int);
+        virtual uint8_t* GetPix2D();
+        virtual uint8_t* GetPix3D();
+        virtual void SetScreenSize(int arg1, int arg2);
+        virtual void Render(int arg1, int arg2, int arg3, int arg4);
+        virtual void Render(int arg1, int arg2);
         virtual void Set2DOnlyFrame();
-        virtual void SetGamma(float);
-        void SetDepthBufferEnabled(bool);
-        GetScreen() const;
-        getWorldRenderer();
+        virtual void SetGamma(float arg1);
+        void SetDepthBufferEnabled(bool arg1);
+        WorldmapAreaMetadata GetScreen() const;
+        uint8_t* getWorldRenderer();
         void GetViewportX();
-        void SetSafeArea(jag::math::Rect<int> const&);
-        NXTPixToolkit(int, int, int, int);
-        void SetViewportRect(int, int, int, int);
-        void SetMinSize(int, int);
-        void ZoomUI(float);
-        void SetSkyboxColour(jag::math::Vector4T<float>);
-        void SetFogParams(float, float);
-        void SetFrameRate(int);
+        void SetSafeArea(const jag::math::Rect<int>& rect);
+        NXTPixToolkit(int arg1, int arg2, int arg3, int arg4);
+        void SetViewportRect(int arg1, int arg2, int arg3, int arg4);
+        void SetMinSize(int arg1, int arg2);
+        void ZoomUI(float arg1);
+        void SetSkyboxColour(jag::math::Vector4T<float> vector4);
+        void SetFogParams(float arg1, float arg2);
+        void SetFrameRate(int arg1);
         void GetGamma();
-        void ShowUI(bool);
-        void ShowSkybox(bool);
-        void SetScaledUIQuality(ScaledUIQuality);
-        bool GetUIVisible();
+        void ShowUI(bool arg1);
+        void ShowSkybox(bool arg1);
+        void SetScaledUIQuality(ScaledUIQuality scaledUIQuality);
+        uint8_t GetUIVisible();
 
-        // data members, from how the methods use this: 6515840 bytes
-        undefined** field_0;  // offset 0, vtable pointer
-        NXTRenderer* field_8; // offset 8
-        char _unknown_16[40];
-        bool m_uIVisible;          // offset 56
-        bool field_57;             // offset 57
-        bool m_depthBufferEnabled; // offset 58
-        char _unknown_59[117];
-        NXTPix2D m_pix2D; // offset 176
-        char _unknown_216[6515624];
+    private:
+        NXTRenderer* field_8;
+        WorldmapAreaMetadata m_screen;
+        uint8_t _unknown_420[6515420];
     };
 
-    // 0x1000922f0, 16 bytes, inline, placed by class name and debug map
-    // NXTPixToolkit::SetDepthBufferEnabled(bool)
-    void NXTPixToolkit::SetDepthBufferEnabled(bool param_1) {
-        m_depthBufferEnabled = param_1;
+    // 0x1000922f0
+    void NXTPixToolkit::SetDepthBufferEnabled(bool arg1) {
+        m_screen[42] = arg1;
     }
 
-    // 0x1000fa850, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // NXTPixToolkit::getWorldRenderer()
-    /* game::Location::GetServerPosition() const */
-
-    undefined1* game::Location::GetServerPosition() {
+    // 0x1000fa850
+    uint8_t* NXTPixToolkit::getWorldRenderer() {
         return &field_424;
     }
 
-    // 0x1000fa860, 16 bytes, inline, placed by class name
-    // NXTPixToolkit::GetViewportX()
+    // 0x1000fa860
     void NXTPixToolkit::GetViewportX() {
-        (&field_16)->GetWrapMode();
+        m_screen->GetWrapMode();
     }
 
-    // 0x10012cec0, 16 bytes, inline, placed by class name
-    // NXTPixToolkit::SetSafeArea(jag::math::Rect<int> const&)
-    void NXTPixToolkit::SetSafeArea(Rect* param_1) {
-        (&field_16, param_1)->SetSafeArea();
+    // 0x10012cec0
+    void NXTPixToolkit::SetSafeArea(const jag::math::Rect<int>& rect) {
+        m_screen->SetSafeArea(rect);
     }
 
-    // 0x100324d40, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // NXTPixToolkit::GetPix2D()
-    /* game::Entity::GetWorld() const */
-
-    undefined1* game::Entity::GetWorld() {
+    // 0x100324d40
+    uint8_t* NXTPixToolkit::GetPix2D() {
         return m_world;
     }
 
-    // 0x100324d50, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // NXTPixToolkit::GetPix3D()
-    /* http::HTTPRequest::GetRedirectLocation() */
-
-    undefined1* http::HTTPRequest::GetRedirectLocation() {
+    // 0x100324d50
+    uint8_t* NXTPixToolkit::GetPix3D() {
         return &field_232;
     }
 
 } // namespace jag::oldscape::graphics
 
-// 0x1000a46b0, 16 bytes, placed by debug map only (low confidence)
-// decltype ((static_cast<void (*&std::__invoke<void (*&)()>(void (*&)()))()>({parm#1}))())
-void __ZNSt3__1L8__invokeIRPFvvEJEEEDTclscT_fp_spscT0_fp0_EEOS4_DpOS5_(undefined8* param_1) {
-    (*(code*)*param_1)();
+// 0x1000a46b0
+decltype((static_cast<void (*&std::__invoke<void (*&)()>(void (*&)()))()>({ parm #1 }))() arg1) {
+    return (**(void (**)(...))arg1)();
 }

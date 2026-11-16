@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/dash3d/NXTRenderCanvas.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,153 +7,139 @@ namespace jag::oldscape::dash3d {
     class CombineOperation {
     public:
         // virtual methods in vtable order
-        virtual Apply(ResolvedModel const&, OperationRecordEntry const*) const;
-        virtual CanAppend() const;
-        virtual void Append(Operation&&);
-        virtual ApplyAABB(jag::math::AABB const&) const;
-        virtual ulong IsEqual(Operation const&) const;
-        TryReuseModelCombination(ResolvedModel const&, OperationRecordEntry const*, ResolvedModel&) const;
-        ResolvedModel* ApplyFresh(ResolvedModel const&, OperationRecordEntry const*) const;
-        void UpdateTransformAndAnimationState(jag::graphics::Model&, shared_ptr<PoseStateRSeven>&,
-                                              shared_ptr<PoseStateRSeven> const&, jag::math::Matrix44T<float>,
-                                              unsigned short&, unsigned short&, unsigned short&) const;
-        CombineOperation* GetTextureAtlasQuality();
-        GetPreviousBuffer(OperationRecordEntry const*, unsigned long) const;
-        bool OnlyAnimationsChanged(ResolvedModel const&, ResolvedModel const&) const;
-        ulong OnlyAnimationsChangedBetweenModelSets(eastl::vector<OperationBuffer, eastl::allocator>&,
-                                                    eastl::vector<OperationBuffer, eastl::allocator>&) const;
-        void RelabelAnimationsForModelSet(shared_ptr<PoseStateRSeven>&, ResolvedModel const&) const;
-        void ShiftLabelsAndCombineAnimation(shared_ptr<PoseStateRSeven>&, shared_ptr<PoseStateRSeven> const&,
-                                            LabelShiftRange const&) const;
-        CombineOperation* TransformAnimationState(shared_ptr<PoseStateRSeven> const&,
-                                                  jag::math::Matrix44T<float>) const;
-        void RelabelModelForAnimation(jag::graphics::Model&, unsigned short&, unsigned short&, unsigned short&) const;
-        void IncrementModelLabelsForAnimation(jag::graphics::Model&, unsigned short, unsigned short,
-                                              unsigned short) const;
-        void IncrementLabelOffsets(jag::graphics::Model const&, unsigned short&, unsigned short&,
-                                   unsigned short&) const;
+        virtual ResolvedModel Apply(const ResolvedModel& resolvedModel,
+                                    const OperationRecordEntry* operationRecordEntry) const;
+        virtual bool CanAppend() const;
+        virtual void Append(Operation&& operation);
+        virtual jag::math::AABB ApplyAABB(const jag::math::AABB& aabb) const;
+        virtual unsigned long IsEqual(const Operation& operation) const;
+        uint64_t TryReuseModelCombination(const ResolvedModel& resolvedModel1,
+                                          const OperationRecordEntry* operationRecordEntry,
+                                          ResolvedModel& resolvedModel2) const;
+        ResolvedModel* ApplyFresh(const ResolvedModel& resolvedModel,
+                                  const OperationRecordEntry* operationRecordEntry) const;
+        void UpdateTransformAndAnimationState(jag::graphics::Model& model,
+                                              shared_ptr<PoseStateRSeven>& poseStateRSeven1,
+                                              const shared_ptr<PoseStateRSeven>& poseStateRSeven2,
+                                              jag::math::Matrix44T<float> matrix44, unsigned short& arg5,
+                                              unsigned short& arg6, unsigned short& arg7) const;
+        auto GetTextureAtlasQuality();
+        uint64_t GetPreviousBuffer(const OperationRecordEntry* operationRecordEntry, unsigned long arg2) const;
+        bool OnlyAnimationsChanged(const ResolvedModel& resolvedModel1, const ResolvedModel& resolvedModel2) const;
+        unsigned long OnlyAnimationsChangedBetweenModelSets(eastl::vector<OperationBuffer>& operationBuffers1,
+                                                            eastl::vector<OperationBuffer>& operationBuffers2) const;
+        void RelabelAnimationsForModelSet(shared_ptr<PoseStateRSeven>& poseStateRSeven,
+                                          const ResolvedModel& resolvedModel) const;
+        void ShiftLabelsAndCombineAnimation(shared_ptr<PoseStateRSeven>& poseStateRSeven1,
+                                            const shared_ptr<PoseStateRSeven>& poseStateRSeven2,
+                                            const LabelShiftRange& labelShiftRange) const;
+        CombineOperation* TransformAnimationState(const shared_ptr<PoseStateRSeven>& poseStateRSeven,
+                                                  jag::math::Matrix44T<float> matrix44) const;
+        void RelabelModelForAnimation(jag::graphics::Model& model, unsigned short& arg2, unsigned short& arg3,
+                                      unsigned short& arg4) const;
+        void IncrementModelLabelsForAnimation(jag::graphics::Model& model, unsigned short arg2, unsigned short arg3,
+                                              unsigned short arg4) const;
+        void IncrementLabelOffsets(const jag::graphics::Model& model, unsigned short& arg2, unsigned short& arg3,
+                                   unsigned short& arg4) const;
         void UpdateLabelOffset(
-            jag::graphics::Model const&, unsigned short&,
-            std::function<
-                eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                                  eastl::vector<eastl::pair<unsigned short, unsigned short>,
-                                                eastl::allocator>> const*(jag::graphics::GeometryBatch const&)>) const;
-        CombineOperation(eastl::vector<OperationBuffer, eastl::allocator>&&);
+            const jag::graphics::Model& model, unsigned short& arg2,
+            std::function<eastl::vector_map<unsigned short, unsigned short> const*(jag::graphics::GeometryBatch const&)>
+                callback) const;
+        CombineOperation(eastl::vector<OperationBuffer>&& operationBuffers);
         ~CombineOperation();
-        CombineOperation(OperationBuffer const&);
+        CombineOperation(const OperationBuffer& operationBuffer);
 
-        // data members, from how the methods use this: 56 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined4 field_8;  // offset 8
-        char _unknown_12[4];
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined4 field_32; // offset 32
-        char _unknown_36[20];
+    private:
+        Type field_8;
+        uint8_t _unknown_12[44];
     };
 
     class NXTRenderCanvas {
     public:
-        GetLastNumVerts();
-        Get2DOnlyFrame() const;
-        GetPixelBuffer();
-        void SetDepthBufferEnabled(bool);
+        uint32_t GetLastNumVerts();
+        uint8_t Get2DOnlyFrame() const;
+        uint8_t* GetPixelBuffer();
+        void SetDepthBufferEnabled(bool arg1);
         void Set2DOnlyFrame();
-        void SetRenderRect(int, int, int, int);
+        void SetRenderRect(int arg1, int arg2, int arg3, int arg4);
         NXTRenderCanvas();
-        void SetScreenSize(int, int);
-        void SetUIRect(int, int, CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>);
-        void SetSkyboxColour(jag::math::Vector4T<float>);
-        void ShowSkybox(bool);
-        void SetFogParams(float, float);
-        void ShowUI(bool);
-        void SetScaledUIQuality(ScaledUIQuality);
+        void SetScreenSize(int arg1, int arg2);
+        void SetUIRect(int arg1, int arg2, CoordType<UICoordSpecializer> coordType1,
+                       CoordType<UICoordSpecializer> coordType2);
+        void SetSkyboxColour(jag::math::Vector4T<float> vector4);
+        void ShowSkybox(bool arg1);
+        void SetFogParams(float arg1, float arg2);
+        void ShowUI(bool arg1);
+        void SetScaledUIQuality(ScaledUIQuality scaledUIQuality);
         void RenderThread_PrepareRender();
-        void RenderThread_Render(bool);
+        void RenderThread_Render(bool arg1);
         ~NXTRenderCanvas();
 
-        // data members, from how the methods use this: 144 bytes
-        ulonglong field_0; // offset 0
-        ulonglong field_8; // offset 8
-        char _unknown_16[8];
-        undefined4 field_24; // offset 24
-        undefined4 field_28; // offset 28
-        int m_screenSize;    // offset 32
-        int field_36;        // offset 36
-        uint field_40;       // offset 40
-        undefined4 field_44; // offset 44
-        int m_renderRect;    // offset 48
-        int field_52;        // offset 52
-        int field_56;        // offset 56
-        int field_60;        // offset 60
-        bool field_64;       // offset 64
-        char _unknown_65[3];
-        undefined4 m_scaledUIQuality; // offset 68
-        bool field_72;                // offset 72
-        char _unknown_73[7];
-        undefined8 field_80;       // offset 80
-        undefined8 field_88;       // offset 88
-        float m_fogParams;         // offset 96
-        float field_100;           // offset 100
-        bool m_depthBufferEnabled; // offset 104
-        char _unknown_105[31];
-        undefined4 m_lastNumVerts; // offset 136
-        undefined1 field_140;      // offset 140
-        char _unknown_141[3];
+    private:
+        unsigned long long field_0;
+        unsigned long long field_8;
+        uint8_t _unknown_16[8];
+        int field_24;
+        int field_28;
+        int m_screenSize;
+        int field_36;
+        unsigned int field_40;
+        uint32_t field_44;
+        int field_48;
+        int field_52;
+        int field_56;
+        int field_60;
+        bool field_64;
+        uint8_t _unknown_65[3];
+        ScaledUIQuality m_scaledUIQuality;
+        bool field_72;
+        uint8_t _unknown_73[23];
+        float m_fogParams;
+        float field_100;
+        bool m_depthBufferEnabled;
+        uint8_t _unknown_105[31];
+        uint32_t m_lastNumVerts;
+        uint8_t field_140;
+        uint8_t _unknown_141[3];
     };
 
     class OperationRecordEntry {
     public:
-        OperationRecordEntry(shared_ptr<Operation> const&, ResolvedModel const&, ResolvedModel const&);
+        OperationRecordEntry(const shared_ptr<Operation>& operation, const ResolvedModel& resolvedModel1,
+                             const ResolvedModel& resolvedModel2);
         ~OperationRecordEntry();
-        OperationRecordEntry* GetOperation() const;
-        ResolvedModel GetOutputModel() const;
-        ResolvedModel GetInputModel() const;
-        OperationRecordEntry* operator=(OperationRecordEntry const&);
-        OperationRecordEntry(OperationRecordEntry const&);
-        OperationRecordEntry(OperationRecordEntry&&);
+        shared_ptr<Operation>* GetOperation() const;
+        ResolvedModel* GetOutputModel() const;
+        ResolvedModel* GetInputModel() const;
+        OperationRecordEntry* operator=(const OperationRecordEntry& operationRecordEntry);
+        OperationRecordEntry(const OperationRecordEntry& operationRecordEntry);
+        OperationRecordEntry(OperationRecordEntry&& operationRecordEntry);
 
-        // data members, from how the methods use this: 240 bytes
-        char _unknown_0[8];
-        long field_8;                // offset 8
-        ResolvedModel m_inputModel;  // offset 16
-        ResolvedModel m_outputModel; // offset 128
+    private:
+        uint8_t _unknown_0[8];
+        long field_8;
+        ResolvedModel m_inputModel;
+        ResolvedModel m_outputModel;
     };
 
-    // 0x1001c4630, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // NXTRenderCanvas::Get2DOnlyFrame() const
-    /* jag::graphics::Material::HasHighlighting() const */
-
-    undefined1 jag::graphics::Material::HasHighlighting() {
+    // 0x1001c4630
+    uint8_t NXTRenderCanvas::Get2DOnlyFrame() const {
         return m_hasHighlighting;
     }
 
-    // 0x10031b610, 16 bytes, inline, placed by class name and debug map
-    // NXTRenderCanvas::SetDepthBufferEnabled(bool)
-    void NXTRenderCanvas::SetDepthBufferEnabled(bool param_1) {
-        m_depthBufferEnabled = param_1;
+    // 0x10031b610
+    void NXTRenderCanvas::SetDepthBufferEnabled(bool arg1) {
+        m_depthBufferEnabled = arg1;
     }
 
-    // 0x10031b940, 16 bytes, inline, placed by class name
-    // NXTRenderCanvas::Set2DOnlyFrame()
+    // 0x10031b940
     void NXTRenderCanvas::Set2DOnlyFrame() {
         field_140 = 1;
     }
 
-    // 0x100367980, 16 bytes, complete-object destructor, inline, placed by class name
-    // NXTRenderCanvas::~NXTRenderCanvas(): jumps straight to the base-object destructor
-
-    // 0x10036a620, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // OperationRecordEntry::OperationRecordEntry(shared_ptr<Operation> const&, ResolvedModel const&, ResolvedModel const&): jumps straight to the base-object constructor
-
-    // 0x10036a630, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // OperationRecordEntry::~OperationRecordEntry(): jumps straight to the base-object destructor
-
-    // 0x100372520, 16 bytes, base-object destructor, inline, placed by class name
-    // NXTRenderCanvas::~NXTRenderCanvas()
-    void NXTRenderCanvas::~NXTRenderCanvas() {
-        (&field_112)->~SharedArray();
+    // 0x100372520
+    NXTRenderCanvas::~NXTRenderCanvas() {
+        field_112.~SharedArray();
     }
 
 } // namespace jag::oldscape::dash3d

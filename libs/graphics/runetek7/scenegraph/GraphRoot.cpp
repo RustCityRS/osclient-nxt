@@ -1,83 +1,66 @@
 // libs/graphics/runetek7/scenegraph/GraphRoot.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "GraphRoot.h"
 
 namespace jag::graphics {
-    // 0x1001c0a50: the linker folded this into GraphRoot::GetRoot() const, which has identical code
-    GraphRoot::GetRoot();
+    // 0x1001c0a50: GraphRoot::GetRoot() has the same machine code as GraphRoot::GetRoot() const
 
-    // 0x1007b0b40, 80 bytes, base-object constructor, placed by class name and debug map
-    // GraphRoot::GraphRoot()
-    void GraphRoot::GraphRoot() {
-        new (this) math::AABB();
-        new (&field_32) math::AABB();
-        std::unique_ptr<GraphNode, GraphNodeDelete>::unique_ptr<true, void>(
-            (unique_ptr<GraphNode, GraphNodeDelete>*)&field_64);
-        Reset(this);
+    // 0x1007b0b40
+    GraphRoot::GraphRoot() : math::AABB() {
+        field_64.unique_ptr<true, void>();
+        Reset();
     }
 
-    // 0x1007b0ba0, 96 bytes, placed by class name and debug map
-    // GraphRoot::Reset()
+    // 0x1007b0ba0
     void GraphRoot::Reset() {
         GraphNode* pGVar2;
-        undefined1* this_00;
-        unique_ptr<GraphNode, GraphNodeDelete> local_20[8];
+        unique_ptr<GraphNode, GraphNodeDelete> local_20;
 
-        this_00 = &field_64;
-        pGVar2 = (GraphNode*)this_00;
-        if (this_00->operator_cast_to_bool()) {
-            pGVar2 = (GraphNode*)std::unique_ptr<GraphNode, GraphNodeDelete>::operator->(
-                (unique_ptr<GraphNode, GraphNodeDelete>*)this_00);
+        uint8_t* this_00 = &field_64;
+        if (this_00->operator_cast_to_bool() != '\0') {
+            pGVar2 = (GraphNode*)(*this_00).operator->();
             pGVar2->Reset();
         }
-        pGVar2 = GraphNode::Create<>(pGVar2);
-        std::unique_ptr<GraphNode, GraphNodeDelete>::unique_ptr<true, void>(local_20, pGVar2);
-        std::unique_ptr<GraphNode, GraphNodeDelete>::operator=((unique_ptr<GraphNode, GraphNodeDelete>*)this_00,
-                                                               (unique_ptr*)local_20);
-        std::unique_ptr<GraphNode, GraphNodeDelete>::~unique_ptr(local_20);
+        pGVar2 = GraphNode::Create<>();
+        local_20.unique_ptr<true, void>(pGVar2);
+        *this_00 = local_20;
     }
 
-    // 0x1007b0c10, 16 bytes, complete-object constructor, placed by class name and debug map
-    // GraphRoot::GraphRoot(): jumps straight to the base-object constructor
+    // 0x1007b0c90
+    void GraphRoot::VisibilityTestMultipleViews(unsigned int arg1, const math::Frustum* frustum, const math::AABB* aabb,
+                                                int arg4, int arg5, int arg6) {
+        uint32_t in_register_0000000c;
+        uint32_t in_register_0000003c;
+        unsigned long uVar1;
+        int in_stack_00000008;
+        uint8_t local_68[40];
 
-    // 0x1007b0c90, 176 bytes, placed by class name and debug map
-    // GraphRoot::VisibilityTestMultipleViews(unsigned int, math::Frustum const*, math::AABB const*, int, int, int)
-    void GraphRoot::VisibilityTestMultipleViews(uint param_1, Frustum* param_2, AABB* param_3, int param_4, int param_5,
-                                                int param_6) {
-        GraphNode* this_00;
-        ulong uVar1;
-        undefined1 local_68[40];
-
-        Reset();
-        if (0 < param_4) {
-            uVar1 = (ulong)(uint)param_4;
+        AABB* this_00 = (AABB*)(((uint64_t)in_register_0000003c << 32) | (uint32_t)arg1);
+        AABB* local_40 = (AABB*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4);
+        this_00->Reset();
+        if (0 < arg5) {
+            uVar1 = (unsigned long)(unsigned int)arg5;
             do {
                 local_68->GetMinimumEnclosingAABB();
-                math::AABB::operator=((AABB*)&field_32, (AABB*)local_68);
-                Union((AABB*)&field_32);
+                this_00->field_32 = *local_68;
+                this_00->Union(this_00->field_32);
                 uVar1 = uVar1 - 1;
             } while (uVar1 != 0);
         }
-        if (param_3 != (AABB*)0) {
-            Union(param_3);
+        if (local_40 != nullptr) {
+            this_00->Union(*local_40);
         }
-        this_00 = (GraphNode*)std::unique_ptr<GraphNode, GraphNodeDelete>::operator->(
-            (unique_ptr<GraphNode, GraphNodeDelete>*)&field_64);
-        this_00->VisibilityTestAABB(param_1, this, param_5, param_6);
+        ((GraphNode*)this_00[1].field_28.operator->())
+            ->VisibilityTestAABB((unsigned int)frustum, *this_00, arg6, in_stack_00000008);
     }
 
-    // 0x1007b0d40, 96 bytes, placed by class name and debug map
-    // GraphRoot::TestIntersection(math::Vector3T<float> const&, math::Vector3T<float> const&, unsigned int, int, int, math::AABB const**)
-    void GraphRoot::TestIntersection(Vector3T* param_1, Vector3T* param_2, uint param_3, int param_4, int param_5,
-                                     AABB** param_6) {
-        GraphNode* this_00;
-
-        this_00 = (GraphNode*)std::unique_ptr<GraphNode, GraphNodeDelete>::operator->(
-            (unique_ptr<GraphNode, GraphNodeDelete>*)&field_64);
-        this_00->TestIntersection(param_1, param_2, param_3, param_4, param_5, param_6);
+    // 0x1007b0d40
+    void GraphRoot::TestIntersection(const math::Vector3T<float>& vector31, const math::Vector3T<float>& vector32,
+                                     unsigned int arg3, int arg4, int arg5, const math::AABB** arg6) {
+        GraphNode::TestIntersection(*((Vector3T<float>*)(*((vector31 + 64))).operator->()), vector32, arg3, arg4, arg5,
+                                    (AABB**)((unsigned long)arg6 & 4294967295));
     }
 
 } // namespace jag::graphics

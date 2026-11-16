@@ -1,6 +1,5 @@
 // libs/game/runetek5/config/enumtype/EnumType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,100 +8,70 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~EnumType();
-        virtual DecodeType(PacketT<Array<unsigned char, eastl::allocator>>&, unsigned int);
+        virtual uint8_t* DecodeType(PacketT<Array<unsigned char>>& arg1, unsigned int arg2);
         virtual void PostDecode();
-        VarValue* GetOutputString(int) const;
-        GetOutputType() const;
-        GetOutputInner(bool&, int) const;
-        ulong GetReverseLookup(eastl::vector<VarValue, eastl::allocator>*&, VarValue const&);
+        VarValue* GetOutputString(int arg1) const;
+        uint64_t GetOutputType() const;
+        uint8_t* GetOutputInner(bool& arg1, int arg2) const;
+        uint32_t GetReverseLookup(eastl::vector<VarValue>*& arg1, const VarValue& varValue);
         void BuildOptionsReverse();
-        EnumType(BaseTemplateConfigTypeList<EnumType>*, int);
+        EnumType(BaseTemplateConfigTypeList<EnumType>* baseTemplateConfigTypeList, int arg2);
 
-        // data members, from how the methods use this: 232 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        BaseTemplateConfigTypeList* field_24; // offset 24
-        int field_32;                         // offset 32
-        char _unknown_36[20];
-        undefined8 field_56;     // offset 56
-        undefined8 m_outputType; // offset 64
-        char _unknown_72[144];
-        undefined4 field_216; // offset 216
-        char _unknown_220[12];
+    private:
+        uint8_t _unknown_8[16];
+        BaseTemplateConfigTypeList<EnumType>* field_24;
+        int field_32;
+        uint8_t _unknown_36[20];
+        uint64_t field_56;
+        uint64_t m_outputType;
+        uint8_t _unknown_72[144];
+        uint32_t field_216;
+        uint8_t _unknown_220[12];
     };
 
-    // 0x1003f0e80, 112 bytes, inline, placed by class name and debug map
-    // EnumType::GetOutputString(int) const
-    VarValue* EnumType::GetOutputString(int param_1) {
-        VarValue* this_00;
+    // 0x1003f0e80
+    VarValue* EnumType::GetOutputString(int arg1) const {
         bool local_19;
 
-        this_00 = (VarValue*)GetOutputInner(this, &local_19, param_1);
+        auto this_00 = GetOutputInner(local_19, arg1);
         if (local_19 == false) {
             this_00 = (VarValue*)&field_104;
         } else {
             if (this_00->IsUndefined() != '\0') {
-                /* WARNING: Subroutine does not return */
                 LogAssert("!out.IsUndefined()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                           "enumtype/EnumType.h",
-                          58, (char*)0);
+                          58, nullptr);
             }
         }
         return this_00;
     }
 
-    // 0x100547a70, 32 bytes, deleting destructor, inline, placed by class name
-    // EnumType::~EnumType()
-    void EnumType::~EnumType() {
-        ~EnumType(this);
-        operator_delete(this);
+    // 0x1005df370
+    EnumType::~EnumType() {
+        field_224.~hash_map();
+        field_192.~Array();
+        field_136.~hash_map();
+        field_104.~VarValue();
+        field_72.~VarValue();
     }
 
-    // 0x1005df360, 16 bytes, complete-object destructor, inline, placed by class name
-    // EnumType::~EnumType(): jumps straight to the base-object destructor
-
-    // 0x1005df370, 96 bytes, base-object destructor, inline, placed by class name
-    // EnumType::~EnumType()
-    void EnumType::~EnumType() {
-        field_0 = &PTR__EnumType_100f03fc0;
-        (&field_224)->~hash_map();
-        (&field_192)->~Array();
-        (&field_136)->~hash_map();
-        (&field_104)->~VarValue();
-        (&field_72)->~VarValue();
-        ~ConfigType();
-    }
-
-    // 0x1005df940, 16 bytes, complete-object constructor, inline, placed by class name
-    // EnumType::EnumType(BaseTemplateConfigTypeList<EnumType>*, int): jumps straight to the base-object constructor
-
-    // 0x1005df950, 352 bytes, base-object constructor, inline, placed by class name
-    // EnumType::EnumType(BaseTemplateConfigTypeList<EnumType>*, int)
-    void EnumType::EnumType(BaseTemplateConfigTypeList* param_1, int param_2) {
+    // 0x1005df950
+    EnumType::EnumType(BaseTemplateConfigTypeList<EnumType>* baseTemplateConfigTypeList, int arg2)
+        : ConfigType<EnumType>(baseTemplateConfigTypeList, arg2), MakeSharedPool<EnumType, 128>(), field_56(0),
+          m_outputType(0) {
         int local_48[6];
 
-        new (this) ConfigType<EnumType>(param_1, param_2);
-        new (this) MakeSharedPool<EnumType, 128>();
-        field_0 = &PTR__EnumType_100f03fc0;
-        field_56 = 0;
-        m_outputType = 0;
-        new (&field_72) VarValue();
-        new (&field_104) VarValue();
         new (local_48) eastl::allocator("EASTL hash_map");
-        new (&field_136, (allocator*)local_48) eastl::hash_map<VarValue, VarValue, eastl::hash<VarValue>,
-                                                               eastl::equal_to<VarValue>, eastl::allocator, false>();
-        new (&field_192) Array<VarValue, eastl::allocator>();
+        new (&field_136) eastl::hash_map<VarValue, VarValue>(*local_48);
+        new (&field_192) Array<VarValue>();
         field_216 = 0;
         new (local_48) eastl::allocator("EASTL hash_map");
-        new (&field_224, (allocator*)local_48)
-            eastl::hash_map<VarValue, eastl::vector<VarValue, eastl::allocator>, eastl::hash<VarValue>,
-                            eastl::equal_to<VarValue>, eastl::allocator, false>();
+        new (&field_224) eastl::hash_map<VarValue, eastl::vector<VarValue>>(*local_48);
         local_48[0] = 0;
-        VarValue::Set<int>((VarValue*)&field_72, local_48);
-        eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-        VarValue::Set<eastl::basic_string<char, BucketAllocatorEASTL>>((VarValue*)&field_104, (basic_string*)local_48);
-        local_48->~basic_string();
+        field_72.Set<int>(*local_48);
+        new (local_48) eastl::basic_string<char, BucketAllocatorEASTL>();
+        field_104.Set<eastl::basic_string<char, BucketAllocatorEASTL>>(*local_48);
     }
 
 } // namespace jag::game

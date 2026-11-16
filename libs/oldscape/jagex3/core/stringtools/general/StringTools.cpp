@@ -1,225 +1,162 @@
 // libs/oldscape/jagex3/core/stringtools/general/StringTools.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "StringTools.h"
 
 namespace jag::oldscape::core::stringtools::general {
-    // 0x100d42520, 96 bytes, __const
-    g_thirtyseven_pwr = {
+    // 0x100d42520
+    int32_t g_thirtyseven_pwr[24] = {
         1,           0, 37,        0,  1369,       0,   50653,     0,     1874161,    0,       69343957,   0,
         -1729240887, 0, 442596621, 22, -803794207, 817, 324385413, 30259, -882641607, 1119585, 1701998909, 41424674,
     };
 
-    // 0x100d42580, 37 bytes, __const
-    g_decodeMap = {
+    // 0x100d42580
+    uint8_t g_decodeMap[37] = {
         95,  97,  98,  99,  100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114,
         115, 116, 117, 118, 119, 120, 121, 122, 48,  49,  50,  51,  52,  53,  54,  55,  56,  57,
     };
 
-    // 0x100348970, 416 bytes, placed by class name and debug map
-    // StringTools::MatchPattern(char const*, char const*)
-    ulong StringTools::MatchPattern(char* param_1, char* param_2) {
+    // 0x100348970
+    unsigned long StringTools::MatchPattern(const char* str1, const char* str2) {
         char cVar1;
         char cVar2;
-        char** ppcVar3;
-        char* pcVar4;
-        char** ppcVar5;
-        ulong unaff_R13;
-        bool bVar6;
-        char* local_180;
-        char* local_178;
+        char** arg1;
+        char* pcVar3;
+        char** ppcVar4;
+        unsigned long unaff_R13;
+        bool bVar5;
         char* local_170;
         char* local_168;
-        fixed_vector<(anonymous namespace)::MatchPatternStackFrame, 16ul, true, eastl::allocator> local_160[296];
+        fixed_vector<(anonymous namespace)::MatchPatternStackFrame, 16ul> local_160[296];
         long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_180 = param_1;
-        local_178 = param_2;
-        eastl::fixed_vector<(anonymous namespace)::MatchPatternStackFrame, 16ul, true, eastl::allocator>::fixed_vector(
-            local_160);
-        eastl::vector<(anonymous namespace)::MatchPatternStackFrame,
-                      eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>::
-            emplace_back<char const*&, char const*&>(
-                (vector<(anonymous namespace)::MatchPatternStackFrame,
-                        eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>*)local_160,
-                &local_180, &local_178);
+        char* local_180 = str1;
+        char* local_178 = str2;
+        new (local_160) eastl::fixed_vector<(anonymous namespace)::MatchPatternStackFrame, 16ul>();
+        local_160->emplace_back<char const*&, char const*&>(local_180, local_178);
         do {
-            ppcVar3 =
-                (char**)eastl::vector<(anonymous namespace)::MatchPatternStackFrame,
-                                      eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>::
-                    back((
-                        vector<(anonymous namespace)::MatchPatternStackFrame,
-                               eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>*)local_160);
-            pcVar4 = ppcVar3[1];
-            cVar2 = **ppcVar3;
-            cVar1 = *pcVar4;
-            bVar6 = cVar2 == '\0' && cVar1 == '\0';
-            unaff_R13 = CONCAT71((int7)(unaff_R13 >> 8), bVar6);
-            if (bVar6)
+            arg1 = (char**)local_160->back();
+            pcVar3 = arg1[1];
+            cVar2 = **arg1;
+            cVar1 = *pcVar3;
+            bVar5 = !cVar2 && !cVar1;
+            unaff_R13 = (((uint64_t)((int64_t)(unaff_R13 >> 8)) << 8) | (uint8_t)bVar5);
+            if (bVar5)
                 break;
             if (cVar2 == '*') {
-                if (cVar1 != '\0') {
-                    local_168 = pcVar4 + 1;
-                    eastl::vector<(anonymous namespace)::MatchPatternStackFrame,
-                                  eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>::
-                        emplace_back<char const*&, char const*>(
-                            (vector<(anonymous namespace)::MatchPatternStackFrame,
-                                    eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                local_160,
-                            ppcVar3, &local_168);
-                    local_168 = *ppcVar3 + 1;
-                    local_170 = ppcVar3[1] + 1;
-                    eastl::vector<(anonymous namespace)::MatchPatternStackFrame,
-                                  eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>::
-                        emplace_back<char const*, char const*>(
-                            (vector<(anonymous namespace)::MatchPatternStackFrame,
-                                    eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>*)
-                                local_160,
-                            &local_168, &local_170);
+                if (cVar1) {
+                    local_168 = pcVar3 + 1;
+                    local_160->emplace_back<char const*&, char const*>(*arg1, local_168);
+                    local_168 = *arg1 + 1;
+                    local_170 = arg1[1] + 1;
+                    local_160->emplace_back<char const*, char const*>(local_168, local_170);
                 }
-                pcVar4 = *ppcVar3;
-                ppcVar5 = ppcVar3;
+                pcVar3 = *arg1;
+                ppcVar4 = arg1;
             LAB_100348a8e:
-                *ppcVar5 = pcVar4 + 1;
+                *ppcVar4 = pcVar3 + 1;
             } else {
-                if (((cVar2 == cVar1) || ((cVar2 == '%' && (cVar1 != '\0')))) ||
+                if (((cVar2 == cVar1) || ((cVar2 == '%' && (cVar1)))) ||
                     ((cVar2 == '#' && (('/' < cVar1 && (cVar1 < ':')))))) {
-                    ppcVar5 = ppcVar3 + 1;
-                    *ppcVar3 = *ppcVar3 + 1;
+                    ppcVar4 = arg1 + 1;
+                    *arg1 = *arg1 + 1;
                     goto LAB_100348a8e;
                 }
-                eastl::vector<(anonymous namespace)::MatchPatternStackFrame,
-                              eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>::
-                    pop_back((
-                        vector<(anonymous namespace)::MatchPatternStackFrame,
-                               eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>*)local_160);
+                local_160->pop_back();
             }
-            cVar2 = eastl::vector<(anonymous namespace)::MatchPatternStackFrame,
-                                  eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>::
-                empty((vector<(anonymous namespace)::MatchPatternStackFrame,
-                              eastl::fixed_vector_allocator<16ul, 16ul, 8ul, 0ul, true, eastl::allocator>>*)local_160);
-        } while (cVar2 == '\0');
-        eastl::fixed_vector<(anonymous namespace)::MatchPatternStackFrame, 16ul, true, eastl::allocator>::~fixed_vector(
-            local_160);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            cVar2 = local_160->empty();
+        } while (!cVar2);
         return unaff_R13 & 4294967295;
     }
 
-    // 0x100348d60, 160 bytes, placed by class name and debug map
-    // StringTools::ReplaceCharsWithSubstitute(eastl::string&, eastl::vector<char, eastl::allocator> const&, char)
-    void StringTools::ReplaceCharsWithSubstitute(basic_string* param_1, vector* param_2, char param_3) {
+    // 0x100348d60
+    void StringTools::ReplaceCharsWithSubstitute(eastl::string& str, const eastl::vector<char>& arg2, char arg3) {
         char cVar1;
-        ulong uVar3;
+        unsigned long uVar3;
         char* pcVar4;
         char* pcVar5;
         char* pcVar6;
-        ulong uVar7;
+        unsigned long arg1;
 
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size() !=
-            0) {
-            uVar7 = 0;
+        if (str.size() != 0) {
+            arg1 = 0;
             do {
-                pcVar4 = (char*)param_2->HeapBeginPtr();
-                pcVar5 = (char*)param_2->end();
+                pcVar4 = (char*)arg2.HeapBeginPtr();
+                pcVar5 = (char*)arg2.end();
                 for (; pcVar4 != pcVar5; pcVar4 = pcVar4 + 1) {
                     cVar1 = *pcVar4;
-                    pcVar6 = (char*)eastl::string::operator[]((eastl::string*)param_1, uVar7);
+                    pcVar6 = &str[arg1];
                     if (*pcVar6 == cVar1) {
-                        pcVar4 = (char*)eastl::string::operator[]((eastl::string*)param_1, uVar7);
-                        *pcVar4 = param_3;
+                        pcVar4 = &str[arg1];
+                        *pcVar4 = arg3;
                         break;
                     }
                 }
-                uVar7 = uVar7 + 1;
-                uVar3 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-            } while (uVar7 < uVar3);
+                arg1 = arg1 + 1;
+                uVar3 = str.size();
+            } while (arg1 < uVar3);
         }
     }
 
-    // 0x100348e00, 528 bytes, placed by class name and debug map
-    // StringTools::StripTags(eastl::string const&)
-    StringTools* StringTools::StripTags(basic_string* param_1) {
-        ulong uVar1;
+    // 0x100348e00
+    eastl::string* StringTools::StripTags(const eastl::string& str) {
         char cVar2;
-        bool bVar3;
-        wchar16 wVar4;
-        ulong uVar5;
-        char* pcVar6;
-        char* pcVar7;
-        char* extraout_RDX;
-        char* extraout_RDX_00;
-        char* extraout_RDX_01;
-        ulong uVar8;
-        ulong uVar9;
-        eastl::string local_70[32];
+        unsigned long uVar5;
+        unsigned long uVar6;
+        ReturnValue local_70;
         char* local_50;
-        ulong local_48;
 
         new (this) eastl::string();
-        uVar5 = eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
-        reserve(uVar5);
-        pcVar6 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        pcVar7 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
-        local_48 = 0;
-        uVar5 = (long)pcVar7 - (long)pcVar6;
-        if (pcVar7 == pcVar6) {
-            uVar8 = 0;
+        unsigned long uVar3 = str.size();
+        reserve(uVar3);
+        char* str_00 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::end() - (long)str_00;
+        if (uVar3 == 0) {
+            uVar5 = 0;
         } else {
-            uVar9 = 4294967295;
-            uVar8 = 0;
-            local_50 = pcVar6;
+            uVar6 = 4294967295;
+            uVar5 = 0;
+            local_50 = str_00;
             do {
-                uVar1 = local_48;
-                wVar4 = jag::stringtools::GetUTF8NextChar16(pcVar6, &local_48);
-                cVar2 = jag::stringtools::WideToCP1252(wVar4);
-                if (cVar2 != '\0') {
+                cVar2 = jag::stringtools::WideToCP1252(jag::stringtools::GetUTF8NextChar16(str_00, 0));
+                if (cVar2) {
                     if (cVar2 == '<') {
-                        eastl::string::substr((ulong)local_70, (ulong)param_1);
-                        ((StringTools*)this)->append();
-                        eastl::string::~basic_string(local_70);
-                        uVar9 = uVar1 & 4294967295;
+                        local_70 = str.substr(uVar5, 0 - uVar5);
+                        append(&local_70);
+                        uVar6 = 0 & 4294967295;
                     } else {
-                        if ((cVar2 != '>') || ((int)uVar9 == -1))
+                        if ((cVar2 != '>') || ((int)uVar6 == -1))
                             goto LAB_100348e96;
-                        eastl::string::substr((ulong)local_70, (ulong)param_1);
-                        bVar3 = eastl::operator==((eastl*)local_70, (basic_string*)"lt", extraout_RDX);
-                        if (bVar3) {
-                            ((StringTools*)this)->append("<");
-                        } else {
-                            bVar3 = eastl::operator==((eastl*)local_70, (basic_string*)"gt", extraout_RDX_00);
-                            if (bVar3) {
-                                ((StringTools*)this)->append(">");
-                            } else {
-                                bVar3 = eastl::operator==((eastl*)local_70, (basic_string*)"br", extraout_RDX_01);
-                                if (bVar3) {
-                                    ((StringTools*)this)->append("\n");
+                        uVar5 = (unsigned long)((int)uVar6 + 1);
+                        local_70 = str.substr(uVar5, 0 - uVar5);
+                        cVar2 = local_70 == "lt";
+                        if (!cVar2) {
+                            cVar2 = local_70 == "gt";
+                            if (!cVar2) {
+                                cVar2 = local_70 == "br";
+                                if (cVar2) {
+                                    append("\n");
                                 }
+                            } else {
+                                append(">");
                             }
+                        } else {
+                            append("<");
                         }
-                        uVar8 = local_48;
-                        eastl::string::~basic_string(local_70);
-                        uVar9 = 4294967295;
+                        uVar5 = 0;
+                        uVar6 = 4294967295;
                     }
-                    pcVar6 = local_50;
+                    str_00 = local_50;
                 }
             LAB_100348e96:
-            } while (local_48 < uVar5);
+            } while (0 < uVar3);
         }
-        if (uVar8 < uVar5) {
-            eastl::string::substr((ulong)local_70, (ulong)param_1);
-            ((StringTools*)this)->append();
-            eastl::string::~basic_string(local_70);
+        if (uVar5 <= uVar3 && uVar3 - uVar5 != 0) {
+            local_70 = str.substr(uVar5, uVar3 - uVar5);
+            append(&local_70);
         }
-        return (StringTools*)this;
+        return (eastl::string*)this;
     }
 
 } // namespace jag::oldscape::core::stringtools::general

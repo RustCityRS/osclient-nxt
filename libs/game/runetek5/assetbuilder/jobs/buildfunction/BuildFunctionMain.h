@@ -1,6 +1,5 @@
 // libs/game/runetek5/assetbuilder/jobs/buildfunction/BuildFunctionMain.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,34 +9,21 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~BuildFunctionMain();
-        virtual RunFirst(Js5ResourceProvider*, ConfigProvider*);
+        virtual uint8_t* RunFirst(Js5ResourceProvider* js5ResourceProvider, ConfigProvider* configProvider);
         virtual BuildFunctionMain* CreateWorker();
-        virtual DecodeResult(shared_ptr<void> const&);
+        virtual auto DecodeResult(const shared_ptr<void>& arg1);
         virtual shared_ptr GetRequestData();
-        BuildFunctionMain(int, shared_ptr<std::function<void()>> const&, int);
-        void PostDecodeResultSetup(BuildFunctionResultData&);
+        BuildFunctionMain(int arg1, const shared_ptr<std::function<void()>>& callback, int arg3);
+        void PostDecodeResultSetup(BuildFunctionResultData& buildFunctionResultData);
 
-        // data members, from how the methods use this: 96 bytes, the first 72 are AssetJob
-        char _unknown_72[8];
-        shared_ptr m_requestData; // offset 80
+    private:
+        uint8_t _unknown_72[8];
+        shared_ptr m_requestData;
     };
 
-    // 0x100644f40, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // BuildFunctionMain::~BuildFunctionMain(): jumps straight to the base-object destructor
-
-    // 0x100644f50, 32 bytes, deleting destructor, inline, placed by class name and debug map
-    // BuildFunctionMain::~BuildFunctionMain()
-    void BuildFunctionMain::~BuildFunctionMain() {
-        ~BuildFunctionMain(this);
-        operator_delete(this);
-    }
-
-    // 0x1006450c0, 48 bytes, base-object destructor, inline, placed by class name
-    // BuildFunctionMain::~BuildFunctionMain()
-    void BuildFunctionMain::~BuildFunctionMain() {
-        field_0 = &PTR__BuildFunctionMain_100f0d508;
+    // 0x1006450c0
+    BuildFunctionMain::~BuildFunctionMain() {
         m_requestData->~shared_ptr();
-        ~AssetJob();
     }
 
 } // namespace jag::game

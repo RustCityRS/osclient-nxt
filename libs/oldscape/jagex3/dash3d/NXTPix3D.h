@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/dash3d/NXTPix3D.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,187 +9,129 @@ namespace jag::oldscape::dash3d {
     public:
         // virtual methods in vtable order
         virtual ~NXTPix3D();
-        virtual void SetRenderZoom(int, int);
-        virtual void SetRenderClipping(int, int, int, int);
+        virtual void SetRenderZoom(int arg1, int arg2);
+        virtual void SetRenderClipping(int arg1, int arg2, int arg3, int arg4);
         virtual void ResetOrigin();
-        virtual void CalculateRenderDepth(int);
+        virtual void CalculateRenderDepth(int arg1);
         virtual void PrepareRender();
-        virtual void GouraudTriangle(int, int, int, int, int, int, int, int, int);
-        virtual void FlatTriangle(int, int, int, int, int, int, int);
-        virtual void TextureTriangle(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int,
-                                     int, int, int);
-        virtual void TextureTriangleAffine(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int,
-                                           int, int, int, int);
-        virtual void RenderCore_RenderTriangle(short, short, short, short, short, short, short, short, short, short,
-                                               short, short, short, short, short, short, short, short, short, short,
-                                               short, short, short, short);
-        void TextureTriangleOpenGL(int, int, int, int, int, int, int, int, int, int, int, int, float, float, float,
-                                   float, float, float, int);
-        NXTPix3D(NXTRenderable&);
-        ulonglong GetHeapSize();
-        void SetMaxViewport(int, int, int, int, int, int);
-        void SetRenderOrigin(int, int);
-        void GouraudTriangleOpenGL(int, int, int, int, int, int, int, int, int, int, int, int, int);
-        void TextureTriangleAffineOpenGL(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int,
-                                         int, int, int, int, int, int);
-        static /* 8 bytes */ m_needUploadTextureData; // = 1
-        static /* 8 bytes */ m_needColTabUpdate;
+        virtual void GouraudTriangle(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                     int arg9);
+        virtual void FlatTriangle(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7);
+        virtual void TextureTriangle(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                     int arg9, int arg10, int arg11, int arg12, int arg13, int arg14, int arg15,
+                                     int arg16, int arg17, int arg18, int arg19);
+        virtual void TextureTriangleAffine(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7,
+                                           int arg8, int arg9, int arg10, int arg11, int arg12, int arg13, int arg14,
+                                           int arg15, int arg16, int arg17, int arg18, int arg19);
+        virtual void RenderCore_RenderTriangle(short arg1, short arg2, short arg3, short arg4, short arg5, short arg6,
+                                               short arg7, short arg8, short arg9, short arg10, short arg11,
+                                               short arg12, short arg13, short arg14, short arg15, short arg16,
+                                               short arg17, short arg18, short arg19, short arg20, short arg21,
+                                               short arg22, short arg23, short arg24);
+        void TextureTriangleOpenGL(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                   int arg9, int arg10, int arg11, int arg12, float arg13, float arg14, float arg15,
+                                   float arg16, float arg17, float arg18, int arg19);
+        NXTPix3D(NXTRenderable& nxtRenderable);
+        unsigned long long GetHeapSize();
+        void SetMaxViewport(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+        void SetRenderOrigin(int arg1, int arg2);
+        void GouraudTriangleOpenGL(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                   int arg9, int arg10, int arg11, int arg12, int arg13);
+        void TextureTriangleAffineOpenGL(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8,
+                                         int arg9, int arg10, int arg11, int arg12, int arg13, int arg14, int arg15,
+                                         int arg16, int arg17, int arg18, int arg19, int arg20, int arg21, int arg22);
+        static int64_t m_needUploadTextureData; // = 1
+        static int64_t m_needColTabUpdate;
 
-        // data members, from how the methods use this: 196 bytes, the first 144 are SoftwarePix3D
-        char _unknown_144[16];
-        ServerConnectionWorkItem field_160; // offset 160
-        GridRect field_176;                 // offset 176
+    private:
+        int field_144;
+        int field_148;
+        uint8_t _unknown_152[8];
+        ServerConnectionWorkItem field_160;
+        uint8_t _unknown_176[8];
     };
 
-    // 0x100370ef0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // NXTPix3D::~NXTPix3D(): jumps straight to the base-object destructor
-
-    // 0x100370f00, 32 bytes, deleting destructor, inline, placed by class name and debug map
-    // NXTPix3D::~NXTPix3D()
-    void NXTPix3D::~NXTPix3D() {
-        ~NXTPix3D(this);
-        operator_delete(this);
+    // 0x1003711c0
+    ModelLitImpl::PrepareForAppend(shared_ptr<ModelLit>&, ModelAppendList const&)::IterPlusMe::IterPlusMe(
+        const ModelAppendList& modelAppendList, ModelLitImpl& modelLitImpl)
+        : ModelAppendList() {
+        *(uint8_t***)this = &PTR_Count_100efc6f8;
+        *(ModelAppendList**)(this + 8) = modelAppendList;
+        *(ModelLitImpl**)(this + 16) = modelLitImpl;
     }
 
-    // 0x1003711c0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ModelLitImpl::PrepareForAppend(shared_ptr<ModelLit>&, ModelAppendList const&)::IterPlusMe::IterPlusMe(ModelAppendList const&, ModelLitImpl&)
-void ModelLitImpl::PrepareForAppend(shared_ptr<dash3d::
-     ModelLit>&,ModelAppendList_const&)::IterPlusMe::IterPlusMe(oldscape
-     ::dash3d::ModelAppendList_const&,ModelLitImpl__
-               (ModelAppendList *param_1,undefined *param_2,undefined *param_3)
-{
-        ModelAppendList::ModelAppendList(param_1);
-        param_1->field_0 = (undefined*)&PTR_Count_100efc6f8;
-        param_1[1].field_0 = param_2;
-        param_1[2].field_0 = param_3;
-}
+    // 0x100371200
+    long ModelLitImpl::PrepareForAppend(shared_ptr<ModelLit>&, ModelAppendList const&)::IterPlusMe::Count() const {
+        return (**(void (**)(...)) * *(uint64_t**)(this + 8))() + 1;
+    }
 
-// 0x100371200, 32 bytes, inline, placed by debug map only (low confidence)
-// ModelLitImpl::PrepareForAppend(shared_ptr<ModelLit>&, ModelAppendList const&)::IterPlusMe::Count() const
-/* Count() const */
-
-long ModelLitImpl::
-PrepareForAppend(shared_ptr<ModelLit>&,ModelAppendList_const&)
-::IterPlusMe::Count()
-{
-        return (**(code**)**(undefined8**)(this + 8))() + 1;
-}
-
-// 0x100371220, 32 bytes, inline, placed by debug map only (low confidence)
-// ModelLitImpl::PrepareForAppend(shared_ptr<ModelLit>&, ModelAppendList const&)::IterPlusMe::GetBaseModel(unsigned long) const
-/* GetBaseModel(unsigned long) const */
-
-undefined8 ModelLitImpl::
-PrepareForAppend(shared_ptr<ModelLit>&,ModelAppendList_const&)
-::IterPlusMe::GetBaseModel(ulong param_1)
-{
-        if (param_1 == 0) {
-            return *(undefined8*)(this + 16);
+    // 0x100371220
+    uint64_t
+    ModelLitImpl::PrepareForAppend(shared_ptr<ModelLit>&,
+                                   ModelAppendList const&)::IterPlusMe::GetBaseModel(unsigned long arg1) const {
+        if (arg1 == 0) {
+            return *(uint64_t*)(this + 16);
         }
-        return (**(code**)(**(long**)(this + 8) + 8))(*(long**)(this + 8), param_1 - 1);
-}
+        return (**(void (**)(...))(**(long**)(this + 8) + 8))(*(long**)(this + 8), arg1 - 1);
+    }
 
-// 0x100371240, 64 bytes, inline, placed by debug map only (low confidence)
-// ModelLitImpl::PrepareForAppend(shared_ptr<ModelLit>&, ModelAppendList const&)::IterPlusMe::GetTempModel(unsigned long)
-/* GetTempModel(unsigned long) */
-
-void ModelLitImpl::
-     PrepareForAppend(shared_ptr<ModelLit>&,ModelAppendList_const&)
-     ::IterPlusMe::GetTempModel(ulong param_1)
-{
-        /* WARNING: Subroutine does not return */
+    // 0x100371240
+    void ModelLitImpl::PrepareForAppend(shared_ptr<ModelLit>&,
+                                        ModelAppendList const&)::IterPlusMe::GetTempModel(unsigned long arg1) {
         LogAssertAlways(
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/dash3d/ModelLit.cpp",
             84, "Cannot modify constant instant.");
-}
+    }
 
-// 0x100371600, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-// ShareLightBuffer::ShareLightBuffer(ShareLightBuffer const&): jumps straight to the base-object constructor
+    // 0x100371610
+    ShareLightBuffer::ShareLightBuffer(const ShareLightBuffer& shareLightBuffer)
+        : shared_ptr(shareLightBuffer), field_16(shareLightBuffer.field_16), m_prepared(shareLightBuffer.m_prepared) {}
 
-// 0x100371610, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-// ShareLightBuffer::ShareLightBuffer(ShareLightBuffer const&)
-void ShareLightBuffer::ShareLightBuffer
-          (ShareLightBuffer *param_1)
-{
-        new (this) shared_ptr<Decor>(param_1);
-        new (&field_16, (vector*)&param_1->field_16) eastl::vector<ShareLightRequest, eastl::allocator>();
-        m_prepared = param_1->m_prepared;
-}
+    // 0x1003718b0
+    ShareLightRequest::ShareLightRequest(const ShareLightRequest& shareLightRequest) : shared_ptr(shareLightRequest) {
+        uint64_t uVar1 = *(uint64_t*)&shareLightRequest.field_16;
+        field_21 = shareLightRequest.field_21;
+        *(uint64_t*)&field_16 = uVar1;
+    }
 
-// 0x1003718a0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-// ShareLightRequest::ShareLightRequest(ShareLightRequest const&): jumps straight to the base-object constructor
+    // 0x1003718f0
+    ShareLightBuffer::~ShareLightBuffer() {
+        field_16.~vector();
+    }
 
-// 0x1003718b0, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-// ShareLightRequest::ShareLightRequest(ShareLightRequest const&)
-void ShareLightRequest::ShareLightRequest
-          (ShareLightRequest *param_1)
-{
-        undefined8 uVar1;
-
-        new (this) shared_ptr<Decor>(param_1);
-        uVar1 = *(undefined8*)&param_1->field_16;
-        field_21 = param_1->field_21;
-        *(undefined8*)&field_16 = uVar1;
-}
-
-// 0x1003718e0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-// ShareLightBuffer::~ShareLightBuffer(): jumps straight to the base-object destructor
-
-// 0x1003718f0, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-// ShareLightBuffer::~ShareLightBuffer()
-void ShareLightBuffer::~ShareLightBuffer()
-{
-        (&field_16)->~vector();
-        ~shared_ptr();
-}
-
-// 0x1003733f0, 16 bytes, base-object destructor, inline, placed by class name
-// NXTPix3D::~NXTPix3D()
-void NXTPix3D::~NXTPix3D()
-{
-        ~Pix3D();
-}
+    // 0x1003733f0
+    NXTPix3D::~NXTPix3D() {}
 
 } // namespace jag::oldscape::dash3d
 
 namespace jag::oldscape {
-    // 0x100371280, 48 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // HillSkewBuildInput::HillSkewBuildInput()
-    void HillSkewBuildInput::HillSkewBuildInput() {
-        new (&field_4) jag::math::Vector3T<int>();
-        std::function<jag::math::Vector3T<int>(int)>::function((function<jag::math::Vector3T<int>(int)>*)&field_48);
-        std::function<void(int, int)>::function((function<void(int, int)>*)&field_96);
+    // 0x100371280
+    HillSkewBuildInput::HillSkewBuildInput() {
+        new (&field_4) jag::math::Vector3T();
+        new (&field_48) std::function<jag::math::Vector3T<int>(int)>();
+        new (&field_96) std::function<void(int, int)>();
     }
 
-    // 0x100371330, 48 bytes, base-object destructor, inline, placed by debug map only (low confidence)
-    // HillSkewBuildInput::~HillSkewBuildInput()
-    void HillSkewBuildInput::~HillSkewBuildInput() {
-        std::function<void(int, int)>::~function((function<void(int, int)>*)&field_96);
-        std::function<jag::math::Vector3T<int>(int)>::~function((function<jag::math::Vector3T<int>(int)>*)&field_48);
+    // 0x100371330
+    HillSkewBuildInput::~HillSkewBuildInput() {
+        field_96.~function();
+        field_48.~function();
     }
 
-    // 0x100371d70, 16 bytes, inline, placed by debug map only (low confidence)
-    // PacketJ<Array<unsigned char, BucketAllocatorEASTL> >::gSmart()
-    int PacketJ<Array<unsigned char, BucketAllocatorEASTL>>::gSmart(
-        PacketJ<Array<unsigned char, BucketAllocatorEASTL>>* this) {
-        short sVar1;
-
-        sVar1 = gSmart1or2s();
+    // 0x100371d70
+    int PacketJ<Array<unsigned char, BucketAllocatorEASTL>>::gSmart() {
+        short sVar1 = gSmart1or2s();
         return (int)sVar1;
     }
 
 } // namespace jag::oldscape
 
 namespace jag {
-    // 0x100371d80, 64 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::gSmart1or2s()
-    int PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gSmart1or2s(
-        PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this) {
+    // 0x100371d80
+    int PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::gSmart1or2s() {
         short sVar2;
-        char* pcVar3;
 
-        pcVar3 = (char*)Array<unsigned char, BucketAllocatorEASTL>::operator[](
-            (Array<unsigned char, BucketAllocatorEASTL>*)this, *(ulong*)(this + 24));
+        char* pcVar3 = (char*)(*this)[*(unsigned long*)(this + 24)];
         if (*pcVar3 < '\0') {
             sVar2 = g2(this);
             sVar2 = sVar2 + 16384;

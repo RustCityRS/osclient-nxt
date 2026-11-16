@@ -1,74 +1,61 @@
 // libs/oldscape/jagex3/core/MathTool.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 namespace jag::oldscape::core::math {
     class MathTool {
     public:
-        uint UnsignedLeftShift(signed char, unsigned char);
-        int UnsignedLeftShift(int, unsigned char);
-        long UnsignedLeftShift(long long, unsigned char);
-        byte UnsignedRightShift(signed char, unsigned char);
-        uint UnsignedRightShift(int, unsigned char);
-        ulong UnsignedRightShift(long long, unsigned char);
-        int BitsRequired(int);
-        int BitReverse(int, int);
-        int SaneDiv(int, int);
-        int Hcf(int, int);
+        unsigned int UnsignedLeftShift(signed char arg1, unsigned char arg2);
+        int UnsignedLeftShift(int arg1, unsigned char arg2);
+        long UnsignedLeftShift(long long arg1, unsigned char arg2);
+        uint8_t UnsignedRightShift(signed char arg1, unsigned char arg2);
+        unsigned int UnsignedRightShift(int arg1, unsigned char arg2);
+        unsigned long UnsignedRightShift(long long arg1, unsigned char arg2);
+        int BitsRequired(int arg1);
+        int BitReverse(int arg1, int arg2);
+        int SaneDiv(int arg1, int arg2);
+        int Hcf(int arg1, int arg2);
     };
 
-    // 0x1003481b0, 32 bytes, placed by class name and debug map
-    // MathTool::UnsignedLeftShift(signed char, unsigned char)
-    uint MathTool::UnsignedLeftShift(byte param_1, byte param_2) {
-        return (uint)param_1 << (param_2 & 31) & 255;
+    // 0x1003481b0
+    unsigned int MathTool::UnsignedLeftShift(signed char arg1, unsigned char arg2) {
+        return (unsigned int)(uint8_t)arg1 << (arg2 & 31) & 255;
     }
 
-    // 0x1003481d0, 16 bytes, placed by class name and debug map
-    // MathTool::UnsignedLeftShift(int, unsigned char)
-    int MathTool::UnsignedLeftShift(int param_1, uchar param_2) {
-        return param_1 << (param_2 & 31);
+    // 0x1003481d0
+    int MathTool::UnsignedLeftShift(int arg1, unsigned char arg2) {
+        return arg1 << (arg2 & 31);
     }
 
-    // 0x1003481e0, 16 bytes, placed by class name and debug map
-    // MathTool::UnsignedLeftShift(long long, unsigned char)
-    long MathTool::UnsignedLeftShift(longlong param_1, uchar param_2) {
-        return param_1 << (param_2 & 63);
+    // 0x1003481e0
+    long MathTool::UnsignedLeftShift(long long arg1, unsigned char arg2) {
+        return arg1 << (arg2 & 63);
     }
 
-    // 0x1003481f0, 16 bytes, placed by class name and debug map
-    // MathTool::UnsignedRightShift(signed char, unsigned char)
-    byte MathTool::UnsignedRightShift(byte param_1, byte param_2) {
-        return param_1 >> (param_2 & 31);
+    // 0x1003481f0
+    uint8_t MathTool::UnsignedRightShift(signed char arg1, unsigned char arg2) {
+        return (uint8_t)arg1 >> (arg2 & 31);
     }
 
-    // 0x100348200, 16 bytes, placed by class name and debug map
-    // MathTool::UnsignedRightShift(int, unsigned char)
-    uint MathTool::UnsignedRightShift(int param_1, uchar param_2) {
-        return (uint)param_1 >> (param_2 & 31);
+    // 0x100348200
+    unsigned int MathTool::UnsignedRightShift(int arg1, unsigned char arg2) {
+        return (unsigned int)arg1 >> (arg2 & 31);
     }
 
-    // 0x100348210, 16 bytes, placed by class name and debug map
-    // MathTool::UnsignedRightShift(long long, unsigned char)
-    ulong MathTool::UnsignedRightShift(longlong param_1, uchar param_2) {
-        return (ulong)param_1 >> (param_2 & 63);
+    // 0x100348210
+    unsigned long MathTool::UnsignedRightShift(long long arg1, unsigned char arg2) {
+        return (unsigned long)arg1 >> (arg2 & 63);
     }
 
-    // 0x100348220, 96 bytes, placed by class name and debug map
-    // MathTool::BitsRequired(int)
-    int MathTool::BitsRequired(int param_1) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-        int iVar4;
-
-        iVar2 = param_1 >> 16;
-        if (65535U >= (uint)param_1) {
-            iVar2 = param_1;
+    // 0x100348220
+    int MathTool::BitsRequired(int arg1) {
+        int iVar2 = arg1 >> 16;
+        if (65535U >= (unsigned int)arg1) {
+            iVar2 = arg1;
         }
-        iVar3 = (uint)(65535U < (uint)param_1) * 16;
-        iVar4 = iVar3 + 8;
-        iVar1 = iVar2 >> 8;
+        int iVar3 = (unsigned int)(65535U < (unsigned int)arg1) * 16;
+        int iVar4 = iVar3 + 8;
+        int iVar1 = iVar2 >> 8;
         if (iVar2 < 256) {
             iVar4 = iVar3;
             iVar1 = iVar2;
@@ -85,53 +72,46 @@ namespace jag::oldscape::core::math {
             iVar4 = iVar3;
             iVar1 = iVar2;
         }
-        return iVar4 + (uint)(0 < iVar1) + (iVar1 >> (0 < iVar1));
+        return iVar4 + (unsigned int)(0 < iVar1) + (iVar1 >> (0 < iVar1));
     }
 
-    // 0x100348280, 48 bytes, placed by class name and debug map
-    // MathTool::BitReverse(int, int)
-    int MathTool::BitReverse(int param_1, int param_2) {
-        int iVar1;
-        int iVar2;
-
-        if (param_2 < 1) {
+    // 0x100348280
+    int MathTool::BitReverse(int arg1, int arg2) {
+        if (arg2 < 1) {
             return 0;
         }
-        iVar2 = param_2 + 1;
-        iVar1 = 0;
+        int iVar2 = arg2 + 1;
+        int iVar1 = 0;
         do {
-            iVar1 = (param_1 & 1U) + iVar1 * 2;
-            param_1 = param_1 >> 1;
-            iVar2 = iVar2 + -1;
+            iVar1 = (arg1 & 1U) + iVar1 * 2;
+            arg1 = arg1 >> 1;
+            iVar2 = iVar2 - 1;
         } while (1 < iVar2);
         return iVar1;
     }
 
-    // 0x1003482b0, 32 bytes, placed by class name and debug map
-    // MathTool::SaneDiv(int, int)
-    int MathTool::SaneDiv(int param_1, int param_2) {
-        return (param_1 + (param_1 >> 31)) / param_2 - (param_1 >> 31);
+    // 0x1003482b0
+    int MathTool::SaneDiv(int arg1, int arg2) {
+        return (arg1 + (arg1 >> 31)) / arg2 - (arg1 >> 31);
     }
 
-    // 0x1003482d0, 64 bytes, placed by class name and debug map
-    // MathTool::Hcf(int, int)
-    int MathTool::Hcf(int param_1, int param_2) {
-        int iVar1;
+    // 0x1003482d0
+    int MathTool::Hcf(int arg1, int arg2) {
         int iVar2;
 
-        iVar1 = param_1;
-        if (param_1 < param_2) {
-            iVar1 = param_2;
-            param_2 = param_1;
+        int iVar1 = arg1;
+        if (arg1 < arg2) {
+            iVar1 = arg2;
+            arg2 = arg1;
         }
-        if (param_2 == 0) {
+        if (arg2 == 0) {
             iVar2 = iVar1;
         } else {
             do {
-                iVar2 = param_2;
-                param_2 = iVar1 % iVar2;
+                iVar2 = arg2;
+                arg2 = iVar1 % iVar2;
                 iVar1 = iVar2;
-            } while (param_2 != 0);
+            } while (arg2 != 0);
         }
         return iVar2;
     }

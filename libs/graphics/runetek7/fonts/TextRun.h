@@ -1,79 +1,81 @@
 // libs/graphics/runetek7/fonts/TextRun.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::graphics {
     class TextRun {
     public:
-        GetFontMetrics() const;
+        void GetFontMetrics() const;
         int GetMaxLineWidth() const;
-        int GetVisibility() const;
-        int GetWrapMode() const;
-        int GetVerticalAlignment() const;
-        GetContents() const;
+        TextContentVisibility GetVisibility() const;
+        TextWrapMode GetWrapMode() const;
+        TextVerticalAlignment GetVerticalAlignment() const;
+        uint8_t* GetContents() const;
         TextRun();
         ~TextRun();
-        void Set(char const*, unsigned long);
+        void Set(const char* str, unsigned long arg2);
         void GetCodepointCount() const;
-        void GetCharacter(unsigned long) const;
+        void GetCharacter(unsigned long arg1) const;
         void Clear();
-        void Append(char const*, unsigned long, unsigned long);
-        int GetHorizontalAlignment() const;
+        void Append(const char* str, unsigned long arg2, unsigned long arg3);
+        TextHorizontalAlignment GetHorizontalAlignment() const;
         operator TextRunSlice() const;
-        GetLastChar() const;
-        void SetShowLastChar(bool);
-        uchar GetMaxLineCount() const;
-        void ConvertToUTF8(eastl::basic_string<char, BucketAllocatorEASTL>&) const;
-        Slice(unsigned long, unsigned long) const;
-        void SetMaxLineWidth(int);
+        uint8_t[16] GetLastChar() const;
+        void SetShowLastChar(bool arg1);
+        unsigned char GetMaxLineCount() const;
+        void ConvertToUTF8(eastl::string& str) const;
+        TextRunSlice Slice(unsigned long arg1, unsigned long arg2) const;
+        void SetMaxLineWidth(int arg1);
         void UpdatePositioning();
-        void SetMaxLineCount(unsigned char);
-        void SetContentVisibility(TextContentVisibility);
-        void SetFontMetrics(shared_ptr<FontMetrics> const&);
+        void SetMaxLineCount(unsigned char arg1);
+        void SetContentVisibility(TextContentVisibility textContentVisibility);
+        void SetFontMetrics(const shared_ptr<FontMetrics>& fontMetrics);
         void IsEmpty() const;
-        void SetWrapMode(TextWrapMode);
-        void SetLineSpacing(int);
-        SetAlignment(TextHorizontalAlignment, TextVerticalAlignment);
-        InsertCodepoints(unsigned int*, unsigned long, unsigned long, unsigned long);
-        InsertCodepointsFiltered(
-            unsigned int*, unsigned long, unsigned long,
-            fixedfunction::function<bool(unsigned int), 64ul, 16ul, (fixedfunction::Methods)0> const&, unsigned long);
-        void UpdatePositioning(unsigned long, unsigned long);
-        GetNumLines() const;
-        void Remove(unsigned long);
-        Insert(char const*, unsigned long, unsigned long, unsigned long);
-        InsertFiltered(char const*, unsigned long, unsigned long,
-                       fixedfunction::function<bool(unsigned int), 64ul, 16ul, (fixedfunction::Methods)0> const&, bool,
-                       unsigned long);
-        void GetPreviousCharacterDetails(unsigned long, TextRunCharacter&, int&);
+        void SetWrapMode(TextWrapMode textWrapMode);
+        void SetLineSpacing(int arg1);
+        uint8_t SetAlignment(TextHorizontalAlignment textHorizontalAlignment,
+                             TextVerticalAlignment textVerticalAlignment);
+        uint8_t[16] InsertCodepoints(unsigned int* arg1, unsigned long arg2, unsigned long arg3, unsigned long arg4);
+        uint8_t[16] InsertCodepointsFiltered(
+            unsigned int* arg1, unsigned long arg2, unsigned long arg3,
+            const fixedfunction::function<bool(unsigned int), 64ul, 16ul, (fixedfunction::Methods)0>& callback,
+            unsigned long arg5);
+        void UpdatePositioning(unsigned long arg1, unsigned long arg2);
+        uint8_t[16] GetNumLines() const;
+        void Remove(unsigned long arg1);
+        uint8_t[16] Insert(const char* str, unsigned long arg2, unsigned long arg3, unsigned long arg4);
+        void InsertFiltered(
+            const char* str, unsigned long arg2, unsigned long arg3,
+            const fixedfunction::function<bool(unsigned int), 64ul, 16ul, (fixedfunction::Methods)0>& callback,
+            bool arg5, unsigned long arg6);
+        void GetPreviousCharacterDetails(unsigned long arg1, TextRunCharacter& textRunCharacter, int& arg3);
         void GetLineHeight() const;
-        uint GetCharacterAdvance(TextRunCharacter const&, bool) const;
-        ulong Remove(unsigned long, unsigned long);
-        ulong GetIndexAtPos(int, int) const;
-        GetLastCharAdvance() const;
-        ulong GetIndexAtLineOffset(unsigned long, int) const;
-        GetCharacterAdvance(unsigned long) const;
+        unsigned int GetCharacterAdvance(const TextRunCharacter& textRunCharacter, bool arg2) const;
+        unsigned long Remove(unsigned long arg1, unsigned long arg2);
+        unsigned long GetIndexAtPos(int arg1, int arg2) const;
+        uint64_t GetLastCharAdvance() const;
+        unsigned long GetIndexAtLineOffset(unsigned long arg1, int arg2) const;
+        uint64_t GetCharacterAdvance(unsigned long arg1) const;
         int GetWidth() const;
-        int GetLeftOffsetForHorizontalAlignment(int) const;
-        int GetTopOffsetForVerticalAlignment(int) const;
+        int GetLeftOffsetForHorizontalAlignment(int arg1) const;
+        int GetTopOffsetForVerticalAlignment(int arg1) const;
         int GetHeight() const;
 
-        // data members, from how the methods use this: 80 bytes
-        char _unknown_0[8];
-        long field_8;              // offset 8
-        int m_maxLineWidth;        // offset 16
-        int m_lineSpacing;         // offset 20
-        int m_horizontalAlignment; // offset 24
-        int m_verticalAlignment;   // offset 28
-        uchar m_maxLineCount;      // offset 32
-        char _unknown_33[3];
-        int m_visibility;    // offset 36
-        bool m_showLastChar; // offset 40
-        char _unknown_41[31];
-        int m_wrapMode; // offset 72
-        char _unknown_76[4];
+    private:
+        uint8_t _unknown_0[8];
+        long field_8;
+        int m_maxLineWidth;
+        int field_20;
+        TextHorizontalAlignment m_horizontalAlignment;
+        TextVerticalAlignment m_verticalAlignment;
+        unsigned char m_maxLineCount;
+        uint8_t _unknown_33[3];
+        TextContentVisibility m_visibility;
+        bool m_showLastChar;
+        uint8_t _unknown_41[31];
+        TextWrapMode m_wrapMode;
+        uint8_t _unknown_76[4];
     };
 
     class TextRunCharacter {
@@ -83,128 +85,97 @@ namespace jag::graphics {
 
     class TextRunSlice {
     public:
-        begin() const;
-        end() const;
-        IsEmpty() const;
+        void begin() const;
+        uint64_t end() const;
+        bool IsEmpty() const;
         int GetVerticalOrigin() const;
-        bool ShouldHide(TextRunCharacter const&) const;
+        bool ShouldHide(const TextRunCharacter& textRunCharacter) const;
         void GetLastCursorPosition() const;
-        Slice(unsigned long, unsigned long) const;
+        auto Slice(unsigned long arg1, unsigned long arg2) const;
         void GetCodepointCount() const;
-        TextRunSlice(TextRun const&, TextRunCharacter const*, TextRunCharacter const*, bool);
+        TextRunSlice(const TextRun& textRun, const TextRunCharacter* textRunCharacter1,
+                     const TextRunCharacter* textRunCharacter2, bool arg4);
         TextRunCharacter* back() const;
         int GetHeight() const;
-        uint GetLastCharAdvance() const;
-        void ConvertToUTF8(eastl::basic_string<char, BucketAllocatorEASTL>&) const;
+        unsigned int GetLastCharAdvance() const;
+        void ConvertToUTF8(eastl::string& str) const;
 
-        // data members, from how the methods use this: 25 bytes
-        TextRun* field_0;           // offset 0
-        TextRunCharacter* field_8;  // offset 8
-        TextRunCharacter* field_16; // offset 16
-        bool field_24;              // offset 24
+    private:
+        TextRun* field_0;
+        TextRunCharacter* field_8;
+        TextRunCharacter* field_16;
+        bool field_24;
     };
 
-    // 0x1001fc800, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // TextRun::TextRun(): jumps straight to the base-object constructor
-
-    // 0x1001fc820, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // TextRun::~TextRun(): jumps straight to the base-object destructor
-
-    // 0x1001fcc50, 64 bytes, inline, placed by class name and debug map
-    // TextRun::Set(char const*, unsigned long)
-    void TextRun::Set(char* param_1, ulong param_2) {
+    // 0x1001fcc50
+    void TextRun::Set(const char* str, unsigned long arg2) {
         Clear();
-        Append(this, param_1, param_2, 0);
+        Append(str, arg2, 0);
     }
 
-    // 0x1001fd450, 16 bytes, inline, placed by class name and debug map
-    // TextRun::GetCodepointCount() const
-    void TextRun::GetCodepointCount() {
-        (&field_48)->size();
+    // 0x1001fd450
+    void TextRun::GetCodepointCount() const {
+        field_48.size();
     }
 
-    // 0x1001fd540, 80 bytes, inline, placed by class name and debug map
-    // TextRun::GetCharacter(unsigned long) const
-    void TextRun::GetCharacter(ulong param_1) {
-        ulong uVar1;
-
-        uVar1 = (&field_48)->size();
-        if (uVar1 <= param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1001fd540
+    void TextRun::GetCharacter(unsigned long arg1) const {
+        if (field_48.size() <= arg1) {
             LogAssert("index < m_contents.size()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/"
                       "TextRun.h",
-                      183, (char*)0);
+                      183, nullptr);
         }
-        eastl::vector<TextRunCharacter, BucketAllocatorEASTL>::operator[](
-            (vector<TextRunCharacter, BucketAllocatorEASTL>*)&field_48, param_1);
+        field_48[arg1];
     }
 
-    // 0x100216030, 96 bytes, base-object constructor, inline, placed by class name
-    // TextRun::TextRun()
-    void TextRun::TextRun() {
-        _func_decltype_nullptr* in_RSI;
-
-        new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(in_RSI);
-        m_maxLineWidth = 2147483647;
-        m_lineSpacing = 0;
-        m_horizontalAlignment = 0;
-        m_verticalAlignment = 0;
-        m_maxLineCount = 255;
-        m_visibility = 0;
-        m_showLastChar = true;
-        eastl::vector<TextRunCharacter, BucketAllocatorEASTL>::vector();
+    // 0x100216030
+    TextRun::TextRun()
+        : shared_ptr(), m_maxLineWidth(2147483647), field_20(0), m_horizontalAlignment(0), m_verticalAlignment(0),
+          m_maxLineCount(255), m_visibility(0), m_showLastChar(true) {
+        new (&field_48) eastl::vector<TextRunCharacter, BucketAllocatorEASTL>();
         m_wrapMode = 0;
     }
 
-    // 0x100216100, 48 bytes, base-object destructor, inline, placed by class name
-    // TextRun::~TextRun()
-    void TextRun::~TextRun() {
-        (&field_48)->~vector();
-        ~shared_ptr();
+    // 0x100216100
+    TextRun::~TextRun() {
+        field_48.~vector();
     }
 
-    // 0x100216180, 16 bytes, inline, placed by class name
-    // TextRun::Clear()
+    // 0x100216180
     void TextRun::Clear() {
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        field_48.clear();
     }
 
-    // 0x100216190, 64 bytes, inline, placed by class name
-    // TextRun::Append(char const*, unsigned long, unsigned long)
-    void TextRun::Append(char* param_1, ulong param_2, ulong param_3) {
-        ulong uVar1;
-
-        uVar1 = (&field_48)->size();
-        Insert(this, param_1, param_2, uVar1, param_3);
+    // 0x100216190
+    void TextRun::Append(const char* str, unsigned long arg2, unsigned long arg3) {
+        unsigned long arg3_00 = field_48.size();
+        Insert(str, arg2, arg3_00, arg3);
     }
 
-    // 0x10068ff80, 48 bytes, inline, placed by class name
-    // TextRun::operator TextRunSlice() const
-    TextRunSlice* TextRun::operator_cast_to_TextRunSlice(TextRunSlice* __return_storage_ptr__, TextRun* this) {
-        (&field_48)->size();
-        Slice((TextRun*)__return_storage_ptr__, (ulong)this, 0);
-        return __return_storage_ptr__;
+    // 0x10068ff80
+    TextRun::operator TextRunSlice() const {
+        auto result;
+
+        unsigned long arg2 = field_48.size();
+        Slice(&result, this, 0, arg2);
+        return result;
     }
 
-    // 0x10069b3c0, 96 bytes, inline, placed by class name
-    // TextRun::GetLastChar() const
-    undefined1[16] TextRun::GetLastChar() {
-        char cVar1;
-        ulong uVar2;
-        ulong* puVar3;
-        ulong uVar4;
-        ulong uVar5;
-        undefined1 auVar6[16];
-        reverse_iterator<TextRunCharacter_const*> local_20[8];
+    // 0x10069b3c0
+    uint8_t[16] TextRun::GetLastChar() const {
+        unsigned long uVar2;
+        unsigned long* puVar3;
+        unsigned long uVar4;
+        unsigned long uVar5;
+        uint8_t auVar6[16];
+        ReturnValue local_20;
 
-        cVar1 = (&field_48)->empty();
-        if (cVar1 == '\0') {
-            eastl::vector<unsigned long,
-                          eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-            puVar3 = (ulong*)eastl::reverse_iterator<TextRunCharacter_const*>::operator*(local_20);
+        if (field_48.empty() == '\0') {
+            local_20 = field_48.rbegin();
+            puVar3 = (unsigned long*)*local_20;
             uVar4 = *puVar3 & 18446744069414584320;
-            uVar5 = (ulong)(uint)puVar3[1];
+            uVar5 = (unsigned long)(unsigned int)puVar3[1];
             uVar2 = *puVar3 & 4294967295;
         } else {
             uVar5 = 0;
@@ -216,107 +187,83 @@ namespace jag::graphics {
         return auVar6;
     }
 
-    // 0x10069b6c0, 16 bytes, inline, placed by class name
-    // TextRun::SetShowLastChar(bool)
-    void TextRun::SetShowLastChar(bool param_1) {
-        m_showLastChar = param_1;
+    // 0x10069b6c0
+    void TextRun::SetShowLastChar(bool arg1) {
+        m_showLastChar = arg1;
     }
 
-    // 0x1008e8910, 16 bytes, inline, placed by class name
-    // TextRun::IsEmpty() const
-    void TextRun::IsEmpty() {
-        (&field_48)->empty();
+    // 0x1008e8910
+    void TextRun::IsEmpty() const {
+        field_48.empty();
     }
 
-    // 0x1008e9200, 96 bytes, inline, placed by class name
-    // TextRun::GetNumLines() const
-    undefined1[16] TextRun::GetNumLines() {
-        int iVar2;
-        int iVar3;
-        FontMetrics* this_00;
-        undefined1 auVar4[16];
+    // 0x1008e9200
+    uint8_t[16] TextRun::GetNumLines() const {
+        uint8_t auVar4[16];
 
-        if (!operator_cast_to_bool()) {
-            /* WARNING: Subroutine does not return */
+        if (operator_cast_to_bool() == '\0') {
             LogAssert("m_textFontMetrics",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/"
                       "TextRun.h",
-                      190, (char*)0);
+                      190, nullptr);
         }
-        iVar2 = GetHeight(this);
-        this_00 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this);
-        iVar3 = this_00->GetVerticalSpacing();
+        int iVar2 = GetHeight();
+        int iVar3 = ((FontMetrics*)(*this).operator->())->GetVerticalSpacing();
         auVar4._0_8_ = (long)iVar2 / (long)iVar3 & 4294967295;
         auVar4._8_8_ = (long)iVar2 % (long)iVar3 & 4294967295;
         return auVar4;
     }
 
-    // 0x1008e96b0, 80 bytes, inline, placed by class name
-    // TextRun::GetLineHeight() const
-    void TextRun::GetLineHeight() {
-        FontMetrics* this_00;
-
-        if (!operator_cast_to_bool()) {
-            /* WARNING: Subroutine does not return */
+    // 0x1008e96b0
+    void TextRun::GetLineHeight() const {
+        if (operator_cast_to_bool() == '\0') {
             LogAssert("m_textFontMetrics",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/fonts/"
                       "TextRun.h",
-                      189, (char*)0);
+                      189, nullptr);
         }
-        if (m_lineSpacing == 0) {
-            this_00 = (FontMetrics*)shared_ptr<FontMetrics>::operator->((shared_ptr<FontMetrics>*)this);
-            this_00->GetVerticalSpacing();
+        if (field_20 == 0) {
+            ((FontMetrics*)(*this).operator->())->GetVerticalSpacing();
         }
     }
 
-    // 0x1008e9d00, 80 bytes, inline, placed by class name
-    // TextRun::GetLastCharAdvance() const
-    undefined8 TextRun::GetLastCharAdvance() {
-        char cVar1;
-        TextRunCharacter* pTVar2;
-        undefined8 uVar3;
-        reverse_iterator<TextRunCharacter_const*> local_28[8];
+    // 0x1008e9d00
+    uint64_t TextRun::GetLastCharAdvance() const {
+        TextRunCharacter* textRunCharacter;
+        ReturnValue local_28;
 
-        cVar1 = (&field_48)->empty();
-        uVar3 = 0;
-        if (cVar1 == '\0') {
-            eastl::vector<unsigned long,
-                          eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-            pTVar2 = (TextRunCharacter*)eastl::reverse_iterator<TextRunCharacter_const*>::operator*(local_28);
-            uVar3 = GetCharacterAdvance(this, pTVar2, false);
+        bool cVar1 = field_48.empty();
+        uint64_t uVar2 = 0;
+        if (!cVar1) {
+            local_28 = field_48.rbegin();
+            textRunCharacter = (TextRunCharacter*)*local_28;
+            uVar2 = GetCharacterAdvance(*textRunCharacter, false);
         }
-        return uVar3;
+        return uVar2;
     }
 
-    // 0x1008e9fe0, 80 bytes, inline, placed by class name
-    // TextRun::GetCharacterAdvance(unsigned long) const
-    undefined8 TextRun::GetCharacterAdvance(ulong param_1) {
-        ulong uVar1;
-        TextRunCharacter* pTVar2;
-        undefined8 uVar3;
+    // 0x1008e9fe0
+    uint64_t TextRun::GetCharacterAdvance(unsigned long arg1) const {
+        TextRunCharacter* textRunCharacter;
 
-        uVar1 = (&field_48)->size();
-        uVar3 = 0;
-        if (param_1 < uVar1) {
-            pTVar2 = (TextRunCharacter*)eastl::vector<TextRunCharacter, BucketAllocatorEASTL>::operator[](
-                (vector<TextRunCharacter, BucketAllocatorEASTL>*)&field_48, param_1);
-            uVar3 = GetCharacterAdvance(this, pTVar2, false);
+        unsigned long uVar1 = field_48.size();
+        uint64_t uVar2 = 0;
+        if (arg1 < uVar1) {
+            textRunCharacter = (TextRunCharacter*)field_48[arg1];
+            uVar2 = GetCharacterAdvance(*textRunCharacter, false);
         }
-        return uVar3;
+        return uVar2;
     }
 
-    // 0x1008ff7b0, 64 bytes, inline, placed by class name
-    // TextRun::GetHeight() const
-    int TextRun::GetHeight() {
-        char cVar1;
-        int iVar2;
+    // 0x1008ff7b0
+    int TextRun::GetHeight() const {
         long lVar3;
 
-        cVar1 = IsEmpty(this);
-        iVar2 = 0;
-        if (cVar1 == '\0') {
-            iVar2 = GetLineHeight(this);
-            lVar3 = (&field_48)->back();
+        bool cVar1 = IsEmpty();
+        int iVar2 = 0;
+        if (!cVar1) {
+            iVar2 = GetLineHeight();
+            lVar3 = field_48.back();
             iVar2 = iVar2 + *(int*)(lVar3 + 8);
         }
         return iVar2;
@@ -325,32 +272,23 @@ namespace jag::graphics {
 } // namespace jag::graphics
 
 namespace jag {
-    // 0x1001fda50, 32 bytes, inline, placed by debug map only (low confidence)
-    // is_ascii_alpha_numeric(char)
-    undefined8 is_ascii_alpha_numeric(char param_1) {
-        ulong uVar1;
-        undefined3 in_register_00000039;
+    // 0x1001fda50
+    void is_ascii_alpha_numeric(char arg1) {
+        uint32_t in_register_00000039;
 
-        uVar1 = (ulong)CONCAT31(in_register_00000039, param_1) & 18446744073709551583;
-        return CONCAT71((int7)(uVar1 >> 8), (byte)(param_1 - 48U) < 10 || (byte)((char)uVar1 + 191U) < 26);
+        unsigned long uVar1 =
+            (unsigned long)(((uint32_t)in_register_00000039 << 8) | (uint8_t)arg1) & 18446744073709551583;
+        return (uint8_t)(arg1 - 48U) < 10 || (uint8_t)((char)uVar1 + 191U) < 26;
     }
 
-    // 0x1001fda70, 32 bytes, inline, placed by debug map only (low confidence)
-    // is_ascii_alpha(char)
-    bool is_ascii_alpha(char param_1) {
-        return (byte)((param_1 & 223U) + 191) < 26;
+    // 0x1001fda70
+    bool is_ascii_alpha(char arg1) {
+        return (uint8_t)((arg1 & 223U) + 191) < 26;
     }
 
-    // 0x1001fda90, 32 bytes, inline, placed by debug map only (low confidence)
-    // is_ascii_numeric(char)
-    bool is_ascii_numeric(char param_1) {
-        return (byte)(param_1 - 48U) < 10;
+    // 0x1001fda90
+    bool is_ascii_numeric(char arg1) {
+        return (uint8_t)(arg1 - 48U) < 10;
     }
 
 } // namespace jag
-
-namespace jag::fixedfunction {
-    // 0x1001fc9f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // function<void (BaseApp*), 128ul, 16ul, (Methods)0>::function<oldscape::rs2lib::InputField::SetFocus(bool)::$_0, void>(oldscape::rs2lib::InputField::SetFocus(bool)::$_0&&): jumps straight to the base-object constructor
-
-} // namespace jag::fixedfunction

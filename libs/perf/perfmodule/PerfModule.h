@@ -1,6 +1,5 @@
 // libs/perf/perfmodule/PerfModule.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,50 +10,40 @@ namespace jag::perf {
         // virtual methods in vtable order
         virtual ~PerfModule();
         virtual void __pure_slot_2() = 0;
-        virtual void OnRun(PerfModuleResult&, float, float, int);
-        virtual OnSucceeded(PerfModuleResult&);
-        GetDesc() const;
-        OnFailed(PerfModuleResult&);
+        virtual void OnRun(PerfModuleResult& perfModuleResult, float arg2, float arg3, int arg4);
+        virtual void OnSucceeded(PerfModuleResult& arg1);
+        void GetDesc() const;
+        void OnFailed(PerfModuleResult& arg1);
 
-        // data members, from how the methods use this: 496 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[480];
-        undefined4 field_488; // offset 488
-        char _unknown_492[4];
+    private:
+        uint8_t _unknown_8[480];
+        uint32_t field_488;
+        uint8_t _unknown_492[4];
     };
 
     class PerfModule::Desc {
     public:
-        GetID() const;
-        GetName() const;
+        void GetID() const;
+        void GetName() const;
         void GetUnits() const;
         ~Desc();
 
-        // data members, from how the methods use this: 416 bytes
-        char _unknown_0[416];
+        uint8_t _unknown_0[416];
     };
 
-    // 0x100bc4960, 32 bytes, inline, placed by class name and debug map
-    // PerfModule::Desc::GetUnits() const
-    void PerfModule::Desc::GetUnits() {
+    // 0x100bc4960
+    void PerfModule::Desc::GetUnits() const {
         eastl::basic_string<char, BucketAllocatorEASTL>::begin();
     }
 
-    // 0x100bc5560, 32 bytes, base-object destructor, inline, placed by class name
-    // PerfModule::~PerfModule()
-    void PerfModule::~PerfModule() {
-        field_0 = &PTR__OptionStore_100f27b80;
-        (&field_8)->~Desc();
+    // 0x100bc5560
+    PerfModule::~PerfModule() {
+        field_8.~Desc();
     }
 
-    // 0x100bc5580, 16 bytes, complete-object destructor, inline, placed by class name
-    // PerfModule::Desc::~Desc(): jumps straight to the base-object destructor
-
-    // 0x100bc5590, 64 bytes, base-object destructor, inline, placed by class name
-    // PerfModule::Desc::~Desc()
-    void PerfModule::Desc::~Desc() {
-        /* WARNING: Subroutine does not return */
-        (&field_408)->~fixed_string();
+    // 0x100bc5590
+    PerfModule::Desc::~Desc() {
+        field_408.~fixed_string();
     }
 
 } // namespace jag::perf

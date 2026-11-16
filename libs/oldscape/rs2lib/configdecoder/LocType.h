@@ -1,130 +1,125 @@
 // libs/oldscape/rs2lib/configdecoder/LocType.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::configdecoder {
     class LocType {
     public:
-        void Init(jagex3::Js5*, jagex3::Js5*, bool);
+        void Init(jagex3::Js5* js51, jagex3::Js5* js52, bool arg3);
         LocType();
-        shared_ptr* List(int);
-        void Decode(shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>&);
+        shared_ptr<midi2::MidiPlayerMainThread>* List(int arg1);
+        void Decode(shared_ptr<PacketJ<Array<unsigned char>>>& packetJ);
         void PostDecode();
-        void Decode(shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>&, int);
-        ulong CheckModel(int);
-        ulong CheckModelAll();
-        GetModel(int, int, int, int, int, int);
-        BuildModel(int, int);
-        GetModelLit(int, int, int, int, int, int);
-        GetTempModel(int, int, int, int, int, int, SeqType*, int);
-        GetMultiLoc() const;
+        void Decode(shared_ptr<PacketJ<Array<unsigned char>>>& packetJ, int arg2);
+        unsigned long CheckModel(int arg1);
+        unsigned long CheckModelAll();
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>* GetModel(int arg1, int arg2, int arg3, int arg4, int arg5,
+                                                                     int arg6);
+        LocType* BuildModel(int arg1, int arg2);
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>* GetModelLit(int arg1, int arg2, int arg3, int arg4,
+                                                                        int arg5, int arg6);
+        LocType* GetTempModel(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, SeqType* seqType, int arg8);
+        uint8_t* GetMultiLoc() const;
         LocType* GetMultiLocOrThis() const;
-        LocType* GetSpecifiedMultiLocOrThis(int) const;
-        void GetParam(int, int);
-        GetParam(int, eastl::string const&);
+        LocType* GetSpecifiedMultiLocOrThis(int arg1) const;
+        void GetParam(int arg1, int arg2);
+        auto GetParam(int arg1, const eastl::string& str);
         void ResetCache();
-        ulong HasBgSound();
+        unsigned long HasBgSound();
         ~LocType();
-        static /* 8 bytes */ m_lowMem;
-        static /* 8 bytes */ m_pConfigClient;
-        static /* 8 bytes */ m_pModels;
-        static /* 327936 bytes */ m_recentUse;
-        static /* 40256 bytes */ m_mc1;
-        static /* 10496 bytes */ m_mc2;
-        static /* 10496 bytes */ m_mc3;
+        static int64_t m_lowMem;
+        static int64_t m_pConfigClient;
+        static int64_t m_pModels;
+        static LRUHashCache<LocType, 4096ul, 4097ul, false, unsigned long long> m_recentUse;
+        static LRUHashCache<dash3d::ModelUnlit, 500ul, 501ul, false, unsigned long long> m_mc1;
+        static LRUHashCache<dash3d::ModelSource, 128ul, 129ul, false, unsigned long long> m_mc2;
+        static LRUHashCache<dash3d::ModelLit, 128ul, 129ul, false, unsigned long long> m_mc3;
 
-        // data members, from how the methods use this: 576 bytes
-        char _unknown_0[184];
-        uint field_184;       // offset 184
-        uint field_188;       // offset 188
-        undefined4 field_192; // offset 192
-        undefined1 field_196; // offset 196
-        char _unknown_197[3];
-        uint field_200;       // offset 200
-        uint field_204;       // offset 204
-        undefined1 field_208; // offset 208
-        undefined1 field_209; // offset 209
-        char _unknown_210[2];
-        uint field_212; // offset 212
-        uint field_216; // offset 216
-        int field_220;  // offset 220
-        int field_224;  // offset 224
-        char _unknown_228[204];
-        uint field_432;       // offset 432
-        uint field_436;       // offset 436
-        uint field_440;       // offset 440
-        undefined1 field_444; // offset 444
-        undefined1 field_445; // offset 445
-        char _unknown_446[2];
-        uint field_448;       // offset 448
-        uint field_452;       // offset 452
-        uint field_456;       // offset 456
-        int field_460;        // offset 460
-        int field_464;        // offset 464
-        int field_468;        // offset 468
-        uint field_472;       // offset 472
-        undefined1 field_476; // offset 476
-        undefined1 field_477; // offset 477
-        char _unknown_478[2];
-        uint field_480; // offset 480
-        char _unknown_484[28];
-        uint field_512; // offset 512
-        uint field_516; // offset 516
-        uint field_520; // offset 520
-        uint field_524; // offset 524
-        uint field_528; // offset 528
-        uint field_532; // offset 532
-        char _unknown_536[24];
-        undefined1 field_560; // offset 560
-        char _unknown_561[15];
+    private:
+        uint8_t _unknown_0[184];
+        unsigned int field_184;
+        unsigned int field_188;
+        uint32_t field_192;
+        uint8_t field_196;
+        uint8_t _unknown_197[3];
+        unsigned int field_200;
+        unsigned int field_204;
+        uint8_t field_208;
+        uint8_t field_209;
+        uint8_t _unknown_210[2];
+        unsigned int field_212;
+        unsigned int field_216;
+        int field_220;
+        int field_224;
+        uint8_t _unknown_228[204];
+        unsigned int field_432;
+        unsigned int field_436;
+        unsigned int field_440;
+        uint8_t field_444;
+        uint8_t field_445;
+        uint8_t _unknown_446[2];
+        unsigned int field_448;
+        unsigned int field_452;
+        unsigned int field_456;
+        int field_460;
+        int field_464;
+        int field_468;
+        unsigned int field_472;
+        uint8_t field_476;
+        uint8_t field_477;
+        uint8_t _unknown_478[2];
+        unsigned int field_480;
+        uint8_t _unknown_484[28];
+        unsigned int field_512;
+        unsigned int field_516;
+        unsigned int field_520;
+        unsigned int field_524;
+        unsigned int field_528;
+        unsigned int field_532;
+        uint8_t _unknown_536[24];
+        uint8_t field_560;
+        uint8_t _unknown_561[15];
     };
 
-    // 0x100246c50, 16 bytes, complete-object destructor, inline, placed by class name
-    // LocType::~LocType(): jumps straight to the base-object destructor
-
-    // 0x100246c60, 144 bytes, base-object destructor, inline, placed by class name
-    // LocType::~LocType()
-    void LocType::~LocType() {
-        (&field_568)->~hash_map();
-        (&field_536)->~Array();
-        (&field_488)->~Array();
-        (&field_232)->~fixed_vector();
-        (&field_160)->~Array();
-        (&field_136)->~Array();
-        (&field_112)->~Array();
-        (&field_88)->~Array();
-        (&field_56)->~basic_string();
-        (&field_32)->~Array();
-        (&field_8)->~Array();
+    // 0x100246c60
+    LocType::~LocType() {
+        field_568.~hash_map();
+        field_536.~Array();
+        field_488.~Array();
+        field_232.~fixed_vector();
+        field_160.~Array();
+        field_136.~Array();
+        field_112.~Array();
+        field_88.~Array();
+        field_56.~basic_string();
+        field_32.~Array();
+        field_8.~Array();
     }
 
 } // namespace jag::oldscape::configdecoder
 
 namespace jag {
-    // 0x100228ea0, 144 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::configdecoder::LocType>::type make_shared<oldscape::configdecoder::LocType>()
-    jag* make_shared<oldscape::configdecoder::LocType>() {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100228ea0
+    shared_ptr_if_not_array<oldscape::configdecoder::LocType>::type make_shared<oldscape::configdecoder::LocType>() {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
         int local_2c;
         LocType* local_28[2];
 
-        pvVar1 = (void*)aligned_alloc(656, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1 = aligned_alloc(656, 8);
+        if (arg1 == nullptr) {
+            shared_ptr_if_not_array<oldscape::configdecoder::LocType>::type result;
         } else {
-            local_28[0] = placement_new<oldscape::configdecoder::LocType>((void*)((long)pvVar1 + 32));
+            local_28[0] = placement_new<oldscape::configdecoder::LocType>((void*)((long)arg1 + 32));
             local_2c = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::configdecoder::LocType>, int,
-                                   oldscape::configdecoder::LocType*&>(pvVar1, &local_2c, local_28);
-            prVar2->~AutoSingleton(local_28[0]);
-            prVar2->~AutoSingleton(local_28[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_28[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::configdecoder::LocType>, int,
+                              oldscape::configdecoder::LocType*&>(arg1, &local_2c, local_28);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (&result) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_28[0]);
         }
-        return this;
+        return result;
     }
 
 } // namespace jag

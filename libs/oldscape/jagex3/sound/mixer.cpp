@@ -1,1053 +1,726 @@
 // libs/oldscape/jagex3/sound/mixer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "mixer.h"
 
 namespace jag::oldscape::sound {
-    // 0x1016c1db9, 7 bytes, __common; zero-initialised
-    Mixer::m_repriAlreadyWarned;
+    // 0x1016c1db9
+    bool Mixer::m_repriAlreadyWarned;
 
-    // 0x1000694d0: the linker folded this into MinimapElement::~MinimapElement(), which has identical code
-    Mixer::QueuedOp::~QueuedOp();
+    // 0x1000782e0: Mixer::QueuedOp::~QueuedOp() has the same machine code as MinimapElement::~MinimapElement()
 
-    // 0x1000782e0: the linker folded this into MinimapElement::~MinimapElement(), which has identical code
-    Mixer::QueuedOp::~QueuedOp();
+    // 0x1000b7900: Mixer::GetStreamCountLastMix() const has the same machine code as minimenu::MinimenuEntry::GetSubjectType() const
 
-    // 0x1000b7900: the linker folded this into minimenu::MinimenuEntry::GetSubjectType() const, which has identical code
-    int Mixer::GetStreamCountLastMix() const;
-
-    // 0x10029d6f0, 96 bytes, placed by class name and debug map
-    // Mixer::QueueStopStream(shared_ptr<PCMStream> const&)
-    void Mixer::QueueStopStream(shared_ptr* param_1) {
-        QueuedOp* pQVar1;
-
-        pQVar1 = operator_new(32);
-        QueuedOp::QueuedOp(pQVar1, 0, param_1);
-        (&field_144, pQVar1)->PushHead();
+    // 0x10029d6f0
+    void Mixer::QueueStopStream(const shared_ptr<PCMStream>& pcmStream) {
+        QueuedOp* this_00 = (QueuedOp*)operator new(32);
+        new (this_00) QueuedOp(0, pcmStream);
+        field_144.PushHead(this_00);
     }
 
-    // 0x10029d7d0, 96 bytes, placed by class name and debug map
-    // Mixer::QueuePlayStream(shared_ptr<PCMStream> const&)
-    void Mixer::QueuePlayStream(shared_ptr* param_1) {
-        QueuedOp* pQVar1;
-
-        pQVar1 = operator_new(32);
-        QueuedOp::QueuedOp(pQVar1, 1, param_1);
-        (&field_144, pQVar1)->PushHead();
+    // 0x10029d7d0
+    void Mixer::QueuePlayStream(const shared_ptr<PCMStream>& pcmStream) {
+        QueuedOp* this_00 = (QueuedOp*)operator new(32);
+        new (this_00) QueuedOp(1, pcmStream);
+        field_144.PushHead(this_00);
     }
 
-    // 0x10029d840, 240 bytes, placed by class name and debug map
-    // Mixer::SyncWithMainThread()
+    // 0x10029d840
     void Mixer::SyncWithMainThread() {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uVar3;
-        LockFreeStackData<Mixer::QueuedOp>* this_00;
+        void result;
+        __thread_id* in_RAX;
+        ReturnValue result;
+        Mixer* this_00;
+        Mixer* pMVar2;
         Mixer* this_01;
-        Mixer* pMVar4;
-        Mixer* this_02;
-        undefined8 local_28;
 
-        local_28 = in_RAX;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_28 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_28) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_28);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_28)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          33, (char*)0);
+                          33, nullptr);
             }
         }
-        this_00 = (LockFreeStackData<Mixer::QueuedOp>*)(&field_144)->TakeStack();
-        if (this_00 != (LockFreeStackData<Mixer::QueuedOp>*)0) {
-            this_01 = (Mixer*)this_00->Reverse();
-            if (this_01 != (Mixer*)0) {
+        &result = (ReturnValue*)field_144.TakeStack();
+        if (&result != nullptr) {
+            this_00 = (Mixer*)result = jagex3::LockFreeStackData<Mixer::QueuedOp>::Reverse();
+            if (this_00 != nullptr) {
                 do {
-                    this_02 = this_01;
-                    pMVar4 = (Mixer*)this_01->HeapBeginPtr();
-                    if (*(int*)&this_01->field_8 == 1) {
-                        PlayStream(this, (shared_ptr*)&this_01->field_16);
-                    } else if (*(int*)&this_01->field_8 == 0) {
-                        StopStream(this_02, (shared_ptr*)&this_01->field_16);
+                    this_01 = this_00;
+                    pMVar2 = (Mixer*)this_00->HeapBeginPtr();
+                    if (*(int*)&this_00->field_8 == 1) {
+                        PlayStream(this_00->field_16);
+                    } else if (*(int*)&this_00->field_8 == 0) {
+                        StopStream(this_01, (shared_ptr<PCMStream>*)&this_00->field_16);
                     }
-                    this_01->~InterfaceMouseEvent();
-                    operator_delete(this_01);
-                    this_01 = pMVar4;
-                } while (pMVar4 != (Mixer*)0);
+                    this_00->~InterfaceMouseEvent();
+                    operator delete(this_00);
+                    this_00 = pMVar2;
+                } while (pMVar2 != nullptr);
             }
         }
     }
 
-    // 0x10029d960, 128 bytes, placed by class name and debug map
-    // Mixer::StopStream(shared_ptr<PCMStream> const&)
-    void Mixer::StopStream(shared_ptr* param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        Linkable<PCMStream>* this_00;
-        undefined8 local_20;
+    // 0x10029d960
+    void Mixer::StopStream(const shared_ptr<PCMStream>& pcmStream) {
+        __thread_id* local_20;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_20) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_20);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_20)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          83, (char*)0);
+                          83, nullptr);
             }
         }
-        this_00 = (Linkable<PCMStream>*)shared_ptr<PCMStream>::operator->((shared_ptr<PCMStream>*)param_1);
-        this_00->Unlink();
+        ((Linkable<PCMStream>*)pcmStream.operator->())->Unlink();
     }
 
-    // 0x10029d9e0, 208 bytes, placed by class name and debug map
-    // Mixer::PlayStream(shared_ptr<PCMStream> const&)
-    void Mixer::PlayStream(shared_ptr* param_1) {
-        char cVar1;
-        undefined8 in_RAX;
-        undefined8 uVar2;
-        Linkable<MixerController>* this_00;
-        undefined8 uVar3;
-        undefined8 local_28;
+    // 0x10029d9e0
+    void Mixer::PlayStream(const shared_ptr<PCMStream>& pcmStream) {
+        __thread_id* in_RAX;
 
-        local_28 = in_RAX;
-        uVar2 = std::this_thread::get_id();
-        uVar3 = g_idWorkerThread;
-        cVar1 = std::operator==(uVar2, g_idWorkerThread);
-        if (cVar1 == '\0') {
+        __thread_id* local_28 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_28) std::__thread_id();
-            cVar1 = std::operator==(uVar3, local_28);
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_28)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          60, (char*)0);
+                          60, nullptr);
             }
         }
         if (m_repriAlreadyWarned == '\0') {
-            this_00 = (Linkable<MixerController>*)shared_ptr<PCMStream>::operator->((shared_ptr<PCMStream>*)param_1);
-            cVar1 = this_00->IsLinked();
-            if (cVar1 != '\0') {
+            if (((Linkable<MixerController>*)pcmStream.operator->())->IsLinked()) {
                 m_repriAlreadyWarned = '\x01';
-                uVar3 = logger::default_logger();
-                logger::Logger::Log(
-                    uVar3, 0, 6,
-                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
-                    "mixer.cpp",
-                    65,
-                    "Warning: if you were calling playstream in an attempt to get the stream reprioritised, it "
-                    "doesn\'t work that way any more - you should set wantmix instead");
+                (logger::default_logger())
+                    ->Log(false, 6,
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
+                          "mixer.cpp",
+                          65,
+                          "Warning: if you were calling playstream in an attempt to get the stream reprioritised, it "
+                          "doesn\'t work that way any more - you should set wantmix instead");
             }
         }
-        (&field_96, param_1)->push_front();
+        field_96.push_front(pcmStream);
     }
 
-    // 0x10029db70, 240 bytes, placed by class name and debug map
-    // Mixer::PlaystreamDelayedMillis(shared_ptr<PCMStream>&, int)
-    void Mixer::PlaystreamDelayedMillis(shared_ptr* param_1, int param_2) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        shared_ptr in_stack_ffffffffffffffa8;
-        shared_ptr<dash3d::Decor> asStack_46[6];
-        undefined8 local_40;
-        shared_ptr local_38;
+    // 0x10029db70
+    void Mixer::PlaystreamDelayedMillis(shared_ptr<PCMStream>& pcmStream, int arg2) {
+        shared_ptr<dash3d::Decor> local_50;
+        __thread_id* local_40;
+        ReturnValue local_38;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_40) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_40);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_40)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          73, (char*)0);
+                          73, nullptr);
             }
         }
-        if (0 < param_2) {
-            shared_ptr<dash3d::Decor>::shared_ptr(asStack_46 + -10, param_1);
-            local_38.ByMillis(in_stack_ffffffffffffffa8, (int)(asStack_46 + -10));
-            shared_ptr<PCMStream>::operator=((shared_ptr<PCMStream>*)param_1, &local_38);
-            local_38.~shared_ptr();
-            ((asStack_46 + -10))->~shared_ptr();
+        if (0 < arg2) {
+            local_50 = shared_ptr(pcmStream);
+            local_38 = DelayedStream::ByMillis(&local_50, arg2);
+            pcmStream = local_38;
         }
-        PlayStream(this, param_1);
+        PlayStream(pcmStream);
     }
 
-    // 0x10029dce0, 240 bytes, placed by class name and debug map
-    // Mixer::PlayWaveRatePercent(shared_ptr<Wave>&, int, int)
-    void Mixer::PlayWaveRatePercent(shared_ptr* param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        WaveStream* pWVar4;
-        undefined8 local_50;
-        shared_ptr local_48;
-        unique_ptr<WaveStream, std::default_delete<WaveStream>> local_38[8];
+    // 0x10029dce0
+    void Mixer::PlayWaveRatePercent(shared_ptr<Wave>& wave, int arg2, int arg3) {
+        __thread_id* local_50;
+        shared_ptr<PCMStream> local_48;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_50) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_50);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_50)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          89, (char*)0);
+                          89, nullptr);
             }
         }
-        local_38->NewRatePercent(param_1, param_2, param_3);
-        pWVar4 = (WaveStream*)std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::release(local_38);
-        shared_ptr<PCMStream>::shared_ptr<WaveStream, void>((shared_ptr<PCMStream>*)&local_48, pWVar4);
-        std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::~unique_ptr(local_38);
-        PlayStream(this, &local_48);
-        local_48.~shared_ptr();
+        auto local_38 = WaveStream::NewRatePercent(wave, arg2, arg3);
+        WaveStream* waveStream = (WaveStream*)std::unique_ptr<WaveStream>::release();
+        local_48.shared_ptr<WaveStream, void>(waveStream);
+        PlayStream(local_48);
     }
 
-    // 0x10029deb0, 256 bytes, placed by class name
-    // Mixer::PlayWaveRatePercent(shared_ptr<Wave>&, int, int, int)
-    void Mixer::PlayWaveRatePercent(shared_ptr* param_1, int param_2, int param_3, int param_4) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        WaveStream* pWVar4;
-        undefined8 local_60;
-        shared_ptr local_58;
-        Mixer* local_48;
-        unique_ptr<WaveStream, std::default_delete<WaveStream>> local_40[12];
-        int local_34;
+    // 0x10029deb0
+    void Mixer::PlayWaveRatePercent(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4) {
+        __thread_id* local_60;
+        shared_ptr<PCMStream> local_58;
 
-        local_48 = this;
-        local_34 = param_4;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_60) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_60);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_60)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          96, (char*)0);
+                          96, nullptr);
             }
         }
-        local_40->NewRatePercent(param_1, param_2, param_3, local_34);
-        pWVar4 = (WaveStream*)std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::release(local_40);
-        shared_ptr<PCMStream>::shared_ptr<WaveStream, void>((shared_ptr<PCMStream>*)&local_58, pWVar4);
-        std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::~unique_ptr(local_40);
-        PlayStream(local_48, &local_58);
-        local_58.~shared_ptr();
+        auto local_40 = WaveStream::NewRatePercent(wave, arg2, arg3, arg4);
+        WaveStream* waveStream = (WaveStream*)std::unique_ptr<WaveStream>::release();
+        local_58.shared_ptr<WaveStream, void>(waveStream);
+        PlayStream(local_58);
     }
 
-    // 0x10029e050, 256 bytes, placed by class name
-    // Mixer::PlayWaveRatePercentFineVolPan(shared_ptr<Wave>&, int, int, int)
-    void Mixer::PlayWaveRatePercentFineVolPan(shared_ptr* param_1, int param_2, int param_3, int param_4) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        WaveStream* pWVar4;
-        undefined8 local_60;
-        shared_ptr local_58;
-        Mixer* local_48;
-        unique_ptr<WaveStream, std::default_delete<WaveStream>> local_40[12];
-        int local_34;
+    // 0x10029e050
+    void Mixer::PlayWaveRatePercentFineVolPan(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4) {
+        __thread_id* local_60;
+        shared_ptr<PCMStream> local_58;
 
-        local_48 = this;
-        local_34 = param_4;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_60) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_60);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_60)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          103, (char*)0);
+                          103, nullptr);
             }
         }
-        local_40->NewRatePercentFineVolPan(param_1, param_2, param_3, local_34);
-        pWVar4 = (WaveStream*)std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::release(local_40);
-        shared_ptr<PCMStream>::shared_ptr<WaveStream, void>((shared_ptr<PCMStream>*)&local_58, pWVar4);
-        std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::~unique_ptr(local_40);
-        PlayStream(local_48, &local_58);
-        local_58.~shared_ptr();
+        auto local_40 = WaveStream::NewRatePercentFineVolPan(wave, arg2, arg3, arg4);
+        WaveStream* waveStream = (WaveStream*)std::unique_ptr<WaveStream>::release();
+        local_58.shared_ptr<WaveStream, void>(waveStream);
+        PlayStream(local_58);
     }
 
-    // 0x10029e1f0, 240 bytes, placed by class name
-    // Mixer::PlayWaveRateRaw(shared_ptr<Wave>&, int, int)
-    void Mixer::PlayWaveRateRaw(shared_ptr* param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        WaveStream* pWVar4;
-        undefined8 local_50;
-        shared_ptr local_48;
-        unique_ptr<WaveStream, std::default_delete<WaveStream>> local_38[8];
+    // 0x10029e1f0
+    void Mixer::PlayWaveRateRaw(shared_ptr<Wave>& wave, int arg2, int arg3) {
+        __thread_id* local_50;
+        shared_ptr<PCMStream> local_48;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_50) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_50);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_50)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          110, (char*)0);
+                          110, nullptr);
             }
         }
-        local_38->NewRateRaw(param_1, param_2, param_3);
-        pWVar4 = (WaveStream*)std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::release(local_38);
-        shared_ptr<PCMStream>::shared_ptr<WaveStream, void>((shared_ptr<PCMStream>*)&local_48, pWVar4);
-        std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::~unique_ptr(local_38);
-        PlayStream(this, &local_48);
-        local_48.~shared_ptr();
+        auto local_38 = WaveStream::NewRateRaw(wave, arg2, arg3);
+        WaveStream* waveStream = (WaveStream*)std::unique_ptr<WaveStream>::release();
+        local_48.shared_ptr<WaveStream, void>(waveStream);
+        PlayStream(local_48);
     }
 
-    // 0x10029e370, 256 bytes, placed by class name
-    // Mixer::PlayWaveRateRaw(shared_ptr<Wave>&, int, int, int)
-    void Mixer::PlayWaveRateRaw(shared_ptr* param_1, int param_2, int param_3, int param_4) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        WaveStream* pWVar4;
-        undefined8 local_60;
-        shared_ptr local_58;
-        Mixer* local_48;
-        unique_ptr<WaveStream, std::default_delete<WaveStream>> local_40[12];
-        int local_34;
+    // 0x10029e370
+    void Mixer::PlayWaveRateRaw(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4) {
+        __thread_id* local_60;
+        shared_ptr<PCMStream> local_58;
 
-        local_48 = this;
-        local_34 = param_4;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_60) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_60);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_60)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          117, (char*)0);
+                          117, nullptr);
             }
         }
-        local_40->NewRateRaw(param_1, param_2, param_3, local_34);
-        pWVar4 = (WaveStream*)std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::release(local_40);
-        shared_ptr<PCMStream>::shared_ptr<WaveStream, void>((shared_ptr<PCMStream>*)&local_58, pWVar4);
-        std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::~unique_ptr(local_40);
-        PlayStream(local_48, &local_58);
-        local_58.~shared_ptr();
+        auto local_40 = WaveStream::NewRateRaw(wave, arg2, arg3, arg4);
+        WaveStream* waveStream = (WaveStream*)std::unique_ptr<WaveStream>::release();
+        local_58.shared_ptr<WaveStream, void>(waveStream);
+        PlayStream(local_58);
     }
 
-    // 0x10029e510, 256 bytes, placed by class name
-    // Mixer::PlayWaveRatePercentDelayedMillis(shared_ptr<Wave>&, int, int, int)
-    void Mixer::PlayWaveRatePercentDelayedMillis(shared_ptr* param_1, int param_2, int param_3, int param_4) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        WaveStream* pWVar4;
-        undefined8 local_60;
-        shared_ptr local_58;
-        Mixer* local_48;
-        unique_ptr<WaveStream, std::default_delete<WaveStream>> local_40[12];
-        int local_34;
+    // 0x10029e510
+    void Mixer::PlayWaveRatePercentDelayedMillis(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4) {
+        __thread_id* local_60;
+        shared_ptr<PCMStream> local_58;
 
-        local_48 = this;
-        local_34 = param_4;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_60) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_60);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_60)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          124, (char*)0);
+                          124, nullptr);
             }
         }
-        local_40->NewRatePercent(param_1, param_2, param_3);
-        pWVar4 = (WaveStream*)std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::release(local_40);
-        shared_ptr<PCMStream>::shared_ptr<WaveStream, void>((shared_ptr<PCMStream>*)&local_58, pWVar4);
-        std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::~unique_ptr(local_40);
-        PlaystreamDelayedMillis(local_48, &local_58, local_34);
-        local_58.~shared_ptr();
+        auto local_40 = WaveStream::NewRatePercent(wave, arg2, arg3);
+        WaveStream* waveStream = (WaveStream*)std::unique_ptr<WaveStream>::release();
+        local_58.shared_ptr<WaveStream, void>(waveStream);
+        PlaystreamDelayedMillis(local_58, arg4);
     }
 
-    // 0x10029e610, 256 bytes, placed by class name
-    // Mixer::PlayWaveRatePercentDelayedMillis(shared_ptr<Wave>&, int, int, int, int)
-    void Mixer::PlayWaveRatePercentDelayedMillis(shared_ptr* param_1, int param_2, int param_3, int param_4,
-                                                 int param_5) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        WaveStream* pWVar4;
-        undefined8 local_60;
-        shared_ptr local_58;
-        Mixer* local_48;
-        unique_ptr<WaveStream, std::default_delete<WaveStream>> local_40[8];
-        int local_38;
-        int local_34;
+    // 0x10029e610
+    void Mixer::PlayWaveRatePercentDelayedMillis(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4, int arg5) {
+        __thread_id* local_60;
+        shared_ptr<PCMStream> local_58;
 
-        local_48 = this;
-        local_38 = param_4;
-        local_34 = param_5;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_60) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_60);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_60)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          131, (char*)0);
+                          131, nullptr);
             }
         }
-        local_40->NewRatePercent(param_1, param_2, param_3, local_38);
-        pWVar4 = (WaveStream*)std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::release(local_40);
-        shared_ptr<PCMStream>::shared_ptr<WaveStream, void>((shared_ptr<PCMStream>*)&local_58, pWVar4);
-        std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::~unique_ptr(local_40);
-        PlaystreamDelayedMillis(local_48, &local_58, local_34);
-        local_58.~shared_ptr();
+        auto local_40 = WaveStream::NewRatePercent(wave, arg2, arg3, arg4);
+        WaveStream* waveStream = (WaveStream*)std::unique_ptr<WaveStream>::release();
+        local_58.shared_ptr<WaveStream, void>(waveStream);
+        PlaystreamDelayedMillis(local_58, arg5);
     }
 
-    // 0x10029e710, 256 bytes, placed by class name
-    // Mixer::PlayWaveRateRawDelayedMillis(shared_ptr<Wave>&, int, int, int)
-    void Mixer::PlayWaveRateRawDelayedMillis(shared_ptr* param_1, int param_2, int param_3, int param_4) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        WaveStream* pWVar4;
-        undefined8 local_60;
-        shared_ptr local_58;
-        Mixer* local_48;
-        unique_ptr<WaveStream, std::default_delete<WaveStream>> local_40[12];
-        int local_34;
+    // 0x10029e710
+    void Mixer::PlayWaveRateRawDelayedMillis(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4) {
+        __thread_id* local_60;
+        shared_ptr<PCMStream> local_58;
 
-        local_48 = this;
-        local_34 = param_4;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_60) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_60);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_60)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          138, (char*)0);
+                          138, nullptr);
             }
         }
-        local_40->NewRateRaw(param_1, param_2, param_3);
-        pWVar4 = (WaveStream*)std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::release(local_40);
-        shared_ptr<PCMStream>::shared_ptr<WaveStream, void>((shared_ptr<PCMStream>*)&local_58, pWVar4);
-        std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::~unique_ptr(local_40);
-        PlaystreamDelayedMillis(local_48, &local_58, local_34);
-        local_58.~shared_ptr();
+        auto local_40 = WaveStream::NewRateRaw(wave, arg2, arg3);
+        WaveStream* waveStream = (WaveStream*)std::unique_ptr<WaveStream>::release();
+        local_58.shared_ptr<WaveStream, void>(waveStream);
+        PlaystreamDelayedMillis(local_58, arg4);
     }
 
-    // 0x10029e810, 256 bytes, placed by class name
-    // Mixer::PlayWaveRateRawDelayedMillis(shared_ptr<Wave>&, int, int, int, int)
-    void Mixer::PlayWaveRateRawDelayedMillis(shared_ptr* param_1, int param_2, int param_3, int param_4, int param_5) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        WaveStream* pWVar4;
-        undefined8 local_60;
-        shared_ptr local_58;
-        Mixer* local_48;
-        unique_ptr<WaveStream, std::default_delete<WaveStream>> local_40[8];
-        int local_38;
-        int local_34;
+    // 0x10029e810
+    void Mixer::PlayWaveRateRawDelayedMillis(shared_ptr<Wave>& wave, int arg2, int arg3, int arg4, int arg5) {
+        __thread_id* local_60;
+        shared_ptr<PCMStream> local_58;
 
-        local_48 = this;
-        local_38 = param_4;
-        local_34 = param_5;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_60) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_60);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_60)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          145, (char*)0);
+                          145, nullptr);
             }
         }
-        local_40->NewRateRaw(param_1, param_2, param_3, local_38);
-        pWVar4 = (WaveStream*)std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::release(local_40);
-        shared_ptr<PCMStream>::shared_ptr<WaveStream, void>((shared_ptr<PCMStream>*)&local_58, pWVar4);
-        std::unique_ptr<WaveStream, std::default_delete<WaveStream>>::~unique_ptr(local_40);
-        PlaystreamDelayedMillis(local_48, &local_58, local_34);
-        local_58.~shared_ptr();
+        auto local_40 = WaveStream::NewRateRaw(wave, arg2, arg3, arg4);
+        WaveStream* waveStream = (WaveStream*)std::unique_ptr<WaveStream>::release();
+        local_58.shared_ptr<WaveStream, void>(waveStream);
+        PlaystreamDelayedMillis(local_58, arg5);
     }
 
-    // 0x10029e910, 256 bytes, placed by class name
-    // Mixer::FixMixerWait()
+    // 0x10029e910
     void Mixer::FixMixerWait() {
-        undefined8 uVar1;
-        char cVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        long lVar5;
-        hashtable_iterator_base* extraout_RDX;
-        undefined1 auVar6[16];
-        undefined8 local_38;
-        undefined8 local_30;
-        undefined8 local_28;
+        long lVar2;
+        __thread_id* local_38;
+        uint64_t local_30;
+        uint64_t local_28;
 
-        uVar4 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar4, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        bool cVar1 = thread_id1_00 == g_idWorkerThread;
+        if (!cVar1) {
             new (&local_38) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_38);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_38;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          152, (char*)0);
+                          152, nullptr);
             }
         }
         if (0 < field_136) {
-            local_30 = (&field_120)->begin();
-            auVar6 = (&field_120)->end();
-            local_28 = auVar6._0_8_;
-            bVar3 = eastl::operator!=((eastl*)&local_30, (hashtable_iterator_base*)&local_28, auVar6._8_8_);
-            if (bVar3) {
+            local_30 = field_120.begin();
+            local_28 = field_120.end();
+            cVar1 = local_30 != local_28;
+            if (cVar1) {
                 do {
-                    lVar5 = local_30.HeapBeginPtr();
-                    *(int*)(lVar5 + 32) = *(int*)(lVar5 + 32) - field_136;
-                    SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>::obj_iterator::operator++(
-                        (obj_iterator*)&local_30);
-                    bVar3 = eastl::operator!=((eastl*)&local_30, (hashtable_iterator_base*)&local_28, extraout_RDX);
-                } while (bVar3);
+                    lVar2 = local_30.HeapBeginPtr();
+                    *(int*)(lVar2 + 32) = *(int*)(lVar2 + 32) - field_136;
+                    ++local_30;
+                    cVar1 = local_30 != local_28;
+                } while (cVar1);
             }
             field_140 = field_140 - field_136;
             field_136 = 0;
         }
     }
 
-    // 0x10029ea40, 240 bytes, placed by class name
-    // Mixer::AddController(shared_ptr<MixerController>&, ErrorCapture&)
-    void Mixer::AddController(shared_ptr* param_1, ErrorCapture* param_2) {
-        char cVar1;
-        undefined8 uVar2;
-        long lVar3;
-        long* plVar4;
-        undefined8 uVar5;
-        undefined8 local_30;
+    // 0x10029ea40
+    void Mixer::AddController(shared_ptr<MixerController>& mixerController, ErrorCapture& errorCapture) {
+        long* plVar3;
+        obj_iterator* obj_iterator;
+        MixerController* mixerController_00;
+        __thread_id* local_30;
 
-        uVar2 = std::this_thread::get_id();
-        uVar5 = g_idWorkerThread;
-        cVar1 = std::operator==(uVar2, g_idWorkerThread);
-        if (cVar1 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_30) std::__thread_id();
-            cVar1 = std::operator==(uVar5, local_30);
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          167, (char*)0);
+                          167, nullptr);
             }
         }
-        lVar3 = shared_ptr<MixerController>::operator->((shared_ptr<MixerController>*)param_1);
-        if (*(long*)(lVar3 + 40) == 0) {
-            FixMixerWait(this);
-            lVar3 = shared_ptr<MixerController>::operator->((shared_ptr<MixerController>*)param_1);
-            *(Mixer**)(lVar3 + 40) = this;
-            plVar4 = (long*)shared_ptr<MixerController>::operator->((shared_ptr<MixerController>*)param_1);
-            (**(code**)(*plVar4 + 16))(plVar4);
-            (&field_120, param_1)->push_back();
-            uVar5 = (&field_120)->begin();
-            uVar2 = shared_ptr<MixerController>::operator*((shared_ptr<MixerController>*)param_1);
-            SortController(this, uVar5, uVar2);
+        long lVar2 = mixerController.operator->();
+        if (*(long*)(lVar2 + 40) == 0) {
+            FixMixerWait();
+            lVar2 = mixerController.operator->();
+            *(Mixer**)(lVar2 + 40) = this;
+            plVar3 = (long*)mixerController.operator->();
+            (**(void (**)(...))(*plVar3 + 16))(plVar3);
+            field_120.push_back(mixerController);
+            obj_iterator = (obj_iterator*)field_120.begin();
+            mixerController_00 = (MixerController*)mixerController;
+            SortController(obj_iterator, *mixerController_00);
         } else {
-            param_2->Raise("mixercontroller already attached");
+            errorCapture.Raise("mixercontroller already attached");
         }
     }
 
-    // 0x10029eb80, 208 bytes, placed by class name
-    // Mixer::SortController(SharedPtrList<MixerController>::obj_iterator, MixerController&)
-    void Mixer::SortController(undefined8 param_2, MixerController* param_3) {
-        undefined1* this_00;
-        char cVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        long lVar4;
-        undefined8 local_40;
-        undefined8 local_38;
-        undefined8 local_30;
+    // 0x10029eb80
+    void Mixer::SortController(SharedPtrList<MixerController>::obj_iterator obj_iterator,
+                               MixerController& mixerController) {
+        obj_iterator* obj_iterator2;
+        __thread_id* local_40;
 
-        uVar2 = std::this_thread::get_id();
-        uVar3 = g_idWorkerThread;
-        cVar1 = std::operator==(uVar2, g_idWorkerThread);
-        if (cVar1 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_40) std::__thread_id();
-            cVar1 = std::operator==(uVar3, local_40);
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_40)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          183, (char*)0);
+                          183, nullptr);
             }
         }
-        this_00 = &field_120;
-        uVar3 = this_00->end();
-        local_38 =
+        uint8_t* this_00 = &field_120;
+        obj_iterator2 = (obj_iterator*)this_00->end();
+        uint64_t local_38 =
             eastl::find_if<SharedPtrList<MixerController>::obj_iterator,
                            (SharedPtrList<MixerController>::obj_iterator)->SortController(MixerController&)::__0>(
-                param_2, uVar3, param_3);
-        this_00->move(param_3, (obj_iterator*)&local_38);
-        local_30 = this_00->begin();
-        lVar4 = local_30.HeapBeginPtr();
-        field_140 = *(int*)(lVar4 + 32);
+                obj_iterator, obj_iterator2, (__0*)mixerController);
+        this_00->move(mixerController, local_38);
+        long lVar2 = (this_00->begin()).HeapBeginPtr();
+        field_140 = *(int*)(lVar2 + 32);
     }
 
-    // 0x10029ee40, 208 bytes, placed by class name
-    // Mixer::RemoveController(shared_ptr<MixerController> const&, ErrorCapture&)
-    void Mixer::RemoveController(shared_ptr* param_1, ErrorCapture* param_2) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        long lVar4;
-        MixerController* pMVar5;
-        undefined8 local_30;
+    // 0x10029ee40
+    void Mixer::RemoveController(const shared_ptr<MixerController>& mixerController, ErrorCapture& errorCapture) {
+        MixerController* mixerController_00;
+        __thread_id* local_30;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          195, (char*)0);
+                          195, nullptr);
             }
         }
-        lVar4 = shared_ptr<MixerController>::operator->((shared_ptr<MixerController>*)param_1);
-        if (*(long*)(lVar4 + 40) != 0) {
-            lVar4 = shared_ptr<MixerController>::operator->((shared_ptr<MixerController>*)param_1);
-            if (*(Mixer**)(lVar4 + 40) == this) {
-                FixMixerWait(this);
-                pMVar5 =
-                    (MixerController*)shared_ptr<MixerController>::operator*((shared_ptr<MixerController>*)param_1);
-                UnlinkController(this, pMVar5);
+        long lVar2 = mixerController.operator->();
+        if (*(long*)(lVar2 + 40) != 0) {
+            lVar2 = mixerController.operator->();
+            if (*(Mixer**)(lVar2 + 40) == this) {
+                FixMixerWait();
+                mixerController_00 = (MixerController*)mixerController;
+                UnlinkController(*mixerController_00);
             } else {
-                param_2->Raise("mixercontroller attached to a different mixer");
+                errorCapture.Raise("mixercontroller attached to a different mixer");
             }
         }
     }
 
-    // 0x10029ef10, 192 bytes, placed by class name
-    // Mixer::UnlinkController(MixerController&)
-    void Mixer::UnlinkController(MixerController* param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        long lVar4;
-        int iVar5;
-        undefined8 local_30;
-        undefined8 local_28;
+    // 0x10029ef10
+    void Mixer::UnlinkController(MixerController& mixerController) {
+        long lVar2;
+        __thread_id* local_30;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        bool cVar1 = thread_id1_00 == g_idWorkerThread;
+        if (!cVar1) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_30;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          214, (char*)0);
+                          214, nullptr);
             }
         }
-        (**(code**)(*(long*)param_1 + 24))(param_1);
-        *(undefined8*)(param_1 + 40) = 0;
-        param_1->Unlink();
-        cVar2 = (&field_120)->empty();
-        iVar5 = -1;
-        if (cVar2 == '\0') {
-            local_28 = (&field_120)->begin();
-            lVar4 = local_28.HeapBeginPtr();
-            iVar5 = *(int*)(lVar4 + 32);
+        (**(void (**)(...))(*(long*)mixerController + 24))(mixerController);
+        *(uint64_t*)(mixerController + 40) = 0;
+        mixerController.Unlink();
+        cVar1 = field_120.empty();
+        int iVar3 = -1;
+        if (!cVar1) {
+            lVar2 = (field_120.begin()).HeapBeginPtr();
+            iVar3 = *(int*)(lVar2 + 32);
         }
-        field_140 = iVar5;
+        field_140 = iVar3;
     }
 
-    // 0x10029f040, 208 bytes, placed by class name
-    // Mixer::SubstreamStart()
-    Mixer* Mixer::SubstreamStart() {
-        SharedPtrList<PCMStream>* this_00;
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        shared_ptr* psVar4;
-        long in_RSI;
-        __thread_id local_30[8];
-        undefined8 local_28;
+    // 0x10029f040
+    auto Mixer::SubstreamStart() {
+        shared_ptr<dash3d::GroundDecor>* groundDecor;
+        __thread_id* local_30;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3);
-        if (cVar2 == '\0') {
-            std::__thread_id::__thread_id(local_30);
-            cVar2 = std::operator==(uVar1);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
+            new (&local_30) std::__thread_id();
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          224, (char*)0);
+                          224, nullptr);
             }
         }
-        this_00 = (SharedPtrList<PCMStream>*)(in_RSI + 96);
-        cVar2 = this_00->empty();
-        if (cVar2 == '\0') {
-            local_28 = this_00->begin();
-            eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator=(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const,
-                                eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)(in_RSI + 112),
-                (rbtree_iterator*)&local_28);
-            SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>::obj_iterator::operator++(
-                (obj_iterator*)(in_RSI + 112));
-            psVar4 = (shared_ptr*)this_00->front();
-            new (this) shared_ptr<dash3d::Decor>(psVar4);
+        uint8_t* this_00 = &field_96;
+        if (!(this_00->empty())) {
+            field_112 = this_00->begin();
+            ++field_112;
+            groundDecor = (shared_ptr<dash3d::GroundDecor>*)this_00->front();
+            auto result(groundDecor);
         } else {
-            new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+            new (&result) shared_ptr();
         }
-        return this;
+        return result;
     }
 
-    // 0x10029f180, 208 bytes, placed by class name
-    // Mixer::SubstreamNext()
-    Mixer* Mixer::SubstreamNext() {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar4;
-        shared_ptr* psVar5;
-        long in_RSI;
-        eastl* this_00;
-        undefined1 auVar6[16];
-        __thread_id local_30[8];
-        undefined8 local_28;
+    // 0x10029f180
+    auto Mixer::SubstreamNext() {
+        shared_ptr<dash3d::GroundDecor>* groundDecor;
+        uint8_t* this_00;
+        __thread_id* local_30;
+        uint64_t local_28;
 
-        uVar4 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar4);
-        if (cVar2 == '\0') {
-            std::__thread_id::__thread_id(local_30);
-            cVar2 = std::operator==(uVar1);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
+            new (&local_30) std::__thread_id();
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          239, (char*)0);
+                          239, nullptr);
             }
         }
-        cVar2 = ((in_RSI + 96))->empty();
-        if (cVar2 == '\0') {
-            this_00 = (eastl*)(in_RSI + 112);
-            auVar6 = ((in_RSI + 96))->end();
-            local_28 = auVar6._0_8_;
-            if (!eastl::operator==(this_00, (hashtable_iterator_base*)&local_28, auVar6._8_8_)) {
-                psVar5 = (shared_ptr*)this_00->shared();
-                SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>::obj_iterator::operator++(
-                    (obj_iterator*)this_00);
-                new (this) shared_ptr<dash3d::Decor>(psVar5);
-                return this;
+        if (!(field_96.empty())) {
+            this_00 = &field_112;
+            local_28 = field_96.end();
+            if (!(*this_00 == local_28)) {
+                groundDecor = (shared_ptr<dash3d::GroundDecor>*)this_00->shared();
+                ++*this_00;
+                return auto(groundDecor);
             }
         }
-        new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        return this;
+        new (&result) shared_ptr();
+        return result;
     }
 
-    // 0x10029f270, 16 bytes, placed by class name
-    // Mixer::SelfMixCost()
-    undefined8 Mixer::SelfMixCost() {
+    // 0x10029f270
+    uint64_t Mixer::SelfMixCost() {
         return 0;
     }
 
-    // 0x10029f280, 240 bytes, placed by class name
-    // Mixer::DoMix(Array<int, eastl::allocator>&, int, int)
-    void Mixer::DoMix(Array* param_1, int param_2, int param_3) {
-        char cVar1;
-        undefined8 uVar3;
-        long lVar4;
-        undefined8 uVar5;
-        undefined8 local_38;
+    // 0x10029f280
+    void Mixer::DoMix(Array<int>& arg1, int arg2, int arg3) {
+        __thread_id* local_38;
 
-        uVar3 = std::this_thread::get_id();
-        uVar5 = g_idWorkerThread;
-        cVar1 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar1 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (&local_38) std::__thread_id();
-            cVar1 = std::operator==(uVar5, local_38);
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_38)) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          257, (char*)0);
+                          257, nullptr);
             }
         }
-        SyncWithMainThread(this);
-        m_streamCountLastMix = DoMixLoop(this, param_1, param_2, param_3);
-        lVar4 = ((Mixer*)this)->CurrentTimeMillis();
-        if ((field_80 + 1000 <= lVar4) && (field_80 = lVar4, 500 < m_streamCountLastMix)) {
-            uVar5 = logger::default_logger();
-            logger::Logger::Log(
-                uVar5, 0, 3,
-                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/mixer.cpp",
-                270, "MIXER: streams=%d - if this is growing uncontrollably, you are leaking streams!",
-                m_streamCountLastMix);
+        SyncWithMainThread();
+        m_streamCountLastMix = DoMixLoop(arg1, arg2, arg3);
+        long lVar3 = core::SafeTime::CurrentTimeMillis();
+        if ((field_80 + 1000 <= lVar3) && (field_80 = lVar3, 500 < m_streamCountLastMix)) {
+            (logger::default_logger())
+                ->Log(false, 3,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
+                      "mixer.cpp",
+                      270, "MIXER: streams=%d - if this is growing uncontrollably, you are leaking streams!",
+                      m_streamCountLastMix);
         }
     }
 
-    // 0x10029f370, 464 bytes, placed by class name
-    // Mixer::DoMixLoop(Array<int, eastl::allocator>&, int, int)
-    void Mixer::DoMixLoop(Array* param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        int iVar4;
-        undefined8 local_60[2];
-        undefined1* local_50;
-        undefined4 local_38;
+    // 0x10029f370
+    void Mixer::DoMixLoop(Array<int>& arg1, int arg2, int arg3) {
+        int iVar2;
+        __thread_id* local_60[2];
+        uint32_t local_38;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (local_60) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_60[0]);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_60[0])) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          278, (char*)0);
+                          278, nullptr);
             }
         }
-        local_50 = &field_120;
+        uint8_t* local_50 = &field_120;
         if (-1 < field_140) {
-            iVar4 = field_136 + param_3;
-            if (field_140 <= iVar4) {
-                local_38 = SUB84(local_50, 0);
-                /* WARNING: Subroutine does not return */
+            iVar2 = field_136 + arg3;
+            if (field_140 <= iVar2) {
+                local_38 = (uint32_t)local_50;
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/"
                                 "sound/mixer.cpp",
                                 296, "didn\'t think this was used");
             }
-            field_136 = iVar4;
+            field_136 = iVar2;
         }
-        Mix2(this, param_1, param_2, param_3);
+        Mix2(arg1, arg2, arg3);
     }
 
-    // 0x10029f540, 288 bytes, placed by class name
-    // Mixer::Mix2(Array<int, eastl::allocator>&, int, int)
-    int Mixer::Mix2(Array* param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        char cVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        PCMStream* this_00;
-        int iVar5;
-        undefined1* this_01;
-        undefined1 auVar6[16];
-        undefined8 local_58;
-        SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>* local_50;
-        undefined8 local_48;
-        undefined8 local_38;
+    // 0x10029f540
+    int Mixer::Mix2(Array<int>& arg1, int arg2, int arg3) {
+        __thread_id* local_58;
 
-        uVar4 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar4, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        bool cVar1 = thread_id1_00 == g_idWorkerThread;
+        if (!cVar1) {
             new (&local_58) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_58);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_58;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          332, (char*)0);
+                          332, nullptr);
             }
         }
-        this_01 = &field_96;
-        local_50 = (SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>*)this_01;
-        local_48 = this_01->begin();
-        auVar6 = this_01->end();
-        local_38 = auVar6._0_8_;
-        bVar3 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_38, auVar6._8_8_);
-        iVar5 = 0;
-        if (bVar3) {
-            iVar5 = 0;
+        uint8_t* this_01 = &field_96;
+        SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>* local_50 =
+            (SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>*)this_01;
+        uint64_t local_48 = this_01->begin();
+        uint64_t local_38 = this_01->end();
+        cVar1 = local_48 != local_38;
+        int iVar2 = 0;
+        if (cVar1) {
+            iVar2 = 0;
             do {
-                iVar5 = iVar5 + 1;
+                iVar2 = iVar2 + 1;
                 local_38 = local_48.next();
-                this_00 = (PCMStream*)local_48.HeapBeginPtr();
-                this_00->MaybeMix(param_1, param_2, param_3);
-                eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator=(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)&local_48,
-                    (rbtree_iterator*)&local_38);
-                auVar6 = local_50->end();
-                local_38 = auVar6._0_8_;
-                bVar3 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_38, auVar6._8_8_);
-            } while (bVar3);
+                ((PCMStream*)local_48.HeapBeginPtr())->MaybeMix(arg1, arg2, arg3);
+                local_48 = local_38;
+                local_38 = local_50->end();
+                cVar1 = local_48 != local_38;
+            } while (cVar1);
         }
-        return iVar5;
+        return iVar2;
     }
 
-    // 0x10029f6b0, 400 bytes, placed by class name
-    // Mixer::PretendToMix(int)
-    void Mixer::PretendToMix(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        int iVar4;
-        undefined8 local_48[2];
-        undefined1* local_38;
+    // 0x10029f6b0
+    void Mixer::PretendToMix(int arg1) {
+        int iVar2;
+        __thread_id* local_48[2];
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        if (!(thread_id1_00 == g_idWorkerThread)) {
             new (local_48) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_48[0]);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_48[0])) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          350, (char*)0);
+                          350, nullptr);
             }
         }
-        SyncWithMainThread(this);
-        local_38 = &field_120;
+        SyncWithMainThread();
+        uint8_t* local_38 = &field_120;
         if (-1 < field_140) {
-            iVar4 = field_136 + param_1;
-            if (field_140 <= iVar4) {
-                /* WARNING: Subroutine does not return */
+            iVar2 = field_136 + arg1;
+            if (field_140 <= iVar2) {
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/"
                                 "sound/mixer.cpp",
                                 373, "didn\'t think this was used");
             }
-            field_136 = iVar4;
+            field_136 = iVar2;
         }
-        PretendToMix2(this, param_1);
+        PretendToMix2(arg1);
     }
 
-    // 0x10029f840, 256 bytes, placed by class name
-    // Mixer::PretendToMix2(int)
-    void Mixer::PretendToMix2(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        long* plVar5;
-        hashtable_iterator_base* extraout_RDX;
-        int iVar6;
-        undefined1 auVar7[16];
-        undefined8 local_48;
-        undefined8 local_40;
-        undefined8 local_38;
+    // 0x10029f840
+    void Mixer::PretendToMix2(int arg1) {
+        long* plVar2;
+        __thread_id* local_48;
 
-        uVar4 = std::this_thread::get_id();
-        uVar1 = g_idWorkerThread;
-        cVar2 = std::operator==(uVar4, g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = g_idWorkerThread;
+        bool cVar1 = thread_id1_00 == g_idWorkerThread;
+        if (!cVar1) {
             new (&local_48) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_48);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_48;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == g_idWorkerThread || g_idWorkerThread == std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/sound/"
                           "mixer.cpp",
-                          406, (char*)0);
+                          406, nullptr);
             }
         }
-        local_40 = (&field_96)->begin();
-        auVar7 = (&field_96)->end();
-        local_38 = auVar7._0_8_;
-        bVar3 = eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_38, auVar7._8_8_);
-        iVar6 = 0;
-        if (bVar3) {
-            iVar6 = 0;
+        uint64_t local_40 = field_96.begin();
+        uint64_t local_38 = field_96.end();
+        cVar1 = local_40 != local_38;
+        int iVar3 = 0;
+        if (cVar1) {
+            iVar3 = 0;
             do {
-                plVar5 = (long*)local_40.HeapBeginPtr();
-                (**(code**)(*plVar5 + 48))(plVar5, param_1);
-                iVar6 = iVar6 + 1;
-                SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>::obj_iterator::operator++(
-                    (obj_iterator*)&local_40);
-                bVar3 = eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_38, extraout_RDX);
-            } while (bVar3);
+                plVar2 = (long*)local_40.HeapBeginPtr();
+                (**(void (**)(...))(*plVar2 + 48))(plVar2, arg1);
+                iVar3 = iVar3 + 1;
+                ++local_40;
+                cVar1 = local_40 != local_38;
+            } while (cVar1);
         }
-        m_streamCountLastMix = iVar6;
+        m_streamCountLastMix = iVar3;
     }
 
 } // namespace jag::oldscape::sound

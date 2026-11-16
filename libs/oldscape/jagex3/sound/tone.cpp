@@ -1,810 +1,648 @@
 // libs/oldscape/jagex3/sound/tone.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "tone.h"
 
 namespace jag::oldscape::sound {
-    // 0x100d41918, 8 bytes, __const
-    Tone::m_deciSemitone = 4607208507887251972;
+    // 0x100d41918
+    int64_t Tone::m_deciSemitone = 4607208507887251972;
 
-    // 0x1016c1dd8, 8 bytes, __common; zero-initialised
-    Tone::m_initDone;
+    // 0x1016c1dd8
+    int64_t Tone::m_initDone;
 
-    // 0x1016c1de0, 24 bytes, __common; set at startup by ___cxx_global_var_init.58
-    Array<int, eastl::allocator> Tone::m_buf = Array<int, eastl::allocator>();
+    // 0x1016c1de0, set at startup by ___cxx_global_var_init.58
+    Array<int> Tone::m_buf = Array<int>();
 
-    // 0x1016c1df8, 24 bytes, __common; set at startup by ___cxx_global_var_init.59
-    Array<int, eastl::allocator> Tone::m_noise = Array<int, eastl::allocator>();
+    // 0x1016c1df8, set at startup by ___cxx_global_var_init.59
+    Array<int> Tone::m_noise = Array<int>();
 
-    // 0x1016c1e10, 24 bytes, __common; set at startup by ___cxx_global_var_init.60
-    Array<int, eastl::allocator> Tone::m_sine = Array<int, eastl::allocator>();
+    // 0x1016c1e10, set at startup by ___cxx_global_var_init.60
+    Array<int> Tone::m_sine = Array<int>();
 
-    // 0x1016c1e28, 20 bytes, __common; zero-initialised
-    Tone::m_fPos;
+    // 0x1016c1e28
+    std::array<int, 5ul> Tone::m_fPos;
 
-    // 0x1016c1e3c, 20 bytes, __common; zero-initialised
-    Tone::m_fDel;
+    // 0x1016c1e3c
+    std::array<int, 5ul> Tone::m_fDel;
 
-    // 0x1016c1e50, 20 bytes, __common; zero-initialised
-    Tone::m_fAmp;
+    // 0x1016c1e50
+    std::array<int, 5ul> Tone::m_fAmp;
 
-    // 0x1016c1e64, 20 bytes, __common; zero-initialised
-    Tone::m_fMulti;
+    // 0x1016c1e64
+    std::array<int, 5ul> Tone::m_fMulti;
 
-    // 0x1016c1e78, 24 bytes, __common; zero-initialised
-    Tone::m_fOffset;
+    // 0x1016c1e78
+    std::array<int, 5ul> Tone::m_fOffset;
 
-    // 0x100298390, 912 bytes, placed by class name and debug map
-    // Tone::Load(PacketJ<Array<unsigned char, eastl::allocator> >&)
-    void Tone::Load(PacketJ* param_1) {
-        char cVar1;
-        ushort uVar2;
+    // 0x100298390
+    void Tone::Load(PacketJ<Array<unsigned char>>& packetJ) {
         int iVar3;
-        undefined4 uVar4;
-        uint uVar5;
-        Envelope* pEVar6;
+        uint32_t uVar4;
         long lVar7;
         int* piVar8;
-        undefined4* puVar9;
-        Filter* this_00;
-        ulong uVar10;
-        unique_ptr local_38[8];
+        uint32_t* puVar9;
 
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_16, local_38);
-        local_38->~unique_ptr();
-        pEVar6 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_16);
-        pEVar6->Load(param_1);
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_24, local_38);
-        local_38->~unique_ptr();
-        pEVar6 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_24);
-        pEVar6->Load(param_1);
-        cVar1 = param_1->g1();
-        if (cVar1 != '\0') {
-            lVar7 = param_1->size();
-            param_1->SetPos(lVar7 - 1);
-            std::make_unique<Envelope>();
-            std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_32, local_38);
-            local_38->~unique_ptr();
-            pEVar6 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_32);
-            pEVar6->Load(param_1);
-            std::make_unique<Envelope>();
-            std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_40, local_38);
-            local_38->~unique_ptr();
-            pEVar6 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_40);
-            pEVar6->Load(param_1);
+        auto local_38 = std::make_unique<Envelope>();
+        field_16 = local_38;
+        auto pEVar6 = field_16.operator->();
+        pEVar6->Load(packetJ);
+        local_38 = std::make_unique<Envelope>();
+        field_24 = local_38;
+        pEVar6 = (Envelope*)field_24.operator->();
+        pEVar6->Load(packetJ);
+        if (packetJ.g1()) {
+            lVar7 = packetJ.size();
+            packetJ.SetPos(lVar7 - 1);
+            local_38 = std::make_unique<Envelope>();
+            field_32 = local_38;
+            pEVar6 = (Envelope*)field_32.operator->();
+            pEVar6->Load(packetJ);
+            local_38 = std::make_unique<Envelope>();
+            field_40 = local_38;
+            pEVar6 = (Envelope*)field_40.operator->();
+            pEVar6->Load(packetJ);
         }
-        cVar1 = param_1->g1();
-        if (cVar1 != '\0') {
-            lVar7 = param_1->size();
-            param_1->SetPos(lVar7 - 1);
-            std::make_unique<Envelope>();
-            std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_48, local_38);
-            local_38->~unique_ptr();
-            pEVar6 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_48);
-            pEVar6->Load(param_1);
-            std::make_unique<Envelope>();
-            std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_56, local_38);
-            local_38->~unique_ptr();
-            pEVar6 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_56);
-            pEVar6->Load(param_1);
+        if (packetJ.g1()) {
+            lVar7 = packetJ.size();
+            packetJ.SetPos(lVar7 - 1);
+            local_38 = std::make_unique<Envelope>();
+            field_48 = local_38;
+            pEVar6 = (Envelope*)field_48.operator->();
+            pEVar6->Load(packetJ);
+            local_38 = std::make_unique<Envelope>();
+            field_56 = local_38;
+            pEVar6 = (Envelope*)field_56.operator->();
+            pEVar6->Load(packetJ);
         }
-        cVar1 = param_1->g1();
-        if (cVar1 != '\0') {
-            lVar7 = param_1->size();
-            param_1->SetPos(lVar7 - 1);
-            std::make_unique<Envelope>();
-            std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_64, local_38);
-            local_38->~unique_ptr();
-            pEVar6 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_64);
-            pEVar6->Load(param_1);
-            std::make_unique<Envelope>();
-            std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_72, local_38);
-            local_38->~unique_ptr();
-            pEVar6 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_72);
-            pEVar6->Load(param_1);
+        if (packetJ.g1()) {
+            lVar7 = packetJ.size();
+            packetJ.SetPos(lVar7 - 1);
+            local_38 = std::make_unique<Envelope>();
+            field_64 = local_38;
+            pEVar6 = (Envelope*)field_64.operator->();
+            pEVar6->Load(packetJ);
+            local_38 = std::make_unique<Envelope>();
+            field_72 = local_38;
+            pEVar6 = (Envelope*)field_72.operator->();
+            pEVar6->Load(packetJ);
         }
-        uVar10 = 0;
+        unsigned long arg1 = 0;
         do {
-            iVar3 = param_1->gSmarts();
+            iVar3 = packetJ.gSmarts();
             if (iVar3 == 0)
                 break;
-            piVar8 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&field_80, uVar10);
+            piVar8 = &field_80[arg1];
             *piVar8 = iVar3;
-            uVar4 = param_1->gSmart();
-            puVar9 = (undefined4*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)((long)&field_96 + 4), uVar10);
+            uVar4 = packetJ.gSmart();
+            puVar9 = (uint32_t*)(*((array<int, 5ul>*)((long)&field_96 + 4)))[arg1];
             *puVar9 = uVar4;
-            uVar4 = param_1->gSmarts();
-            puVar9 = (undefined4*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&field_120, uVar10);
+            uVar4 = packetJ.gSmarts();
+            puVar9 = &field_120[arg1];
             *puVar9 = uVar4;
-            uVar10 = uVar10 + 1;
-        } while (uVar10 != 6);
-        uVar5 = param_1->gSmarts();
+            arg1 = arg1 + 1;
+        } while (arg1 != 6);
+        unsigned int uVar5 = packetJ.gSmarts();
         field_140 = uVar5;
-        uVar5 = param_1->gSmarts();
+        uVar5 = packetJ.gSmarts();
         field_144 = uVar5;
-        uVar2 = param_1->g2();
-        field_4 = (uint)uVar2;
-        uVar2 = param_1->g2();
-        field_8 = (uint)uVar2;
-        std::make_unique<Filter>();
-        std::unique_ptr<Filter, std::default_delete<Filter>>::operator=(
-            (unique_ptr<Filter, std::default_delete<Filter>>*)&field_152, local_38);
-        local_38->~unique_ptr();
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_160, local_38);
-        local_38->~unique_ptr();
-        this_00 = (Filter*)std::unique_ptr<Filter, std::default_delete<Filter>>::operator->(
-            (unique_ptr<Filter, std::default_delete<Filter>>*)&field_152);
-        pEVar6 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator*(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_160);
-        this_00->Load(param_1, pEVar6);
+        unsigned short uVar2 = packetJ.g2();
+        field_4 = (unsigned int)uVar2;
+        uVar2 = packetJ.g2();
+        field_8 = (unsigned int)uVar2;
+        local_38 = std::make_unique<Filter>();
+        field_152 = local_38;
+        local_38 = std::make_unique<Envelope>();
+        field_160 = local_38;
+        auto this_00 = field_152.operator->();
+        pEVar6 = (Envelope*)*field_160;
+        this_00->Load(packetJ, *pEVar6);
     }
 
-    // 0x100298970, 880 bytes, placed by class name and debug map
-    // Tone::LoadUncompressed(PacketJ<Array<unsigned char, eastl::allocator> >&, int)
-    void Tone::LoadUncompressed(PacketJ* param_1, int param_2) {
-        undefined1* this_00;
-        undefined1* this_01;
-        undefined1* this_02;
-        ushort uVar1;
-        undefined4 uVar2;
-        Envelope* pEVar3;
-        uint* puVar4;
-        undefined4* puVar5;
-        Filter* this_03;
-        long lVar6;
-        ulong uVar7;
-        unique_ptr local_38[8];
+    // 0x100298970
+    void Tone::LoadUncompressed(PacketJ<Array<unsigned char>>& packetJ, int arg2) {
+        unsigned short uVar1;
+        uint32_t uVar2;
+        unsigned int* puVar4;
+        uint32_t* puVar5;
 
-        std::make_unique<Envelope>();
-        this_00 = &field_16;
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_00, local_38);
-        local_38->~unique_ptr();
-        pEVar3 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_00);
-        pEVar3->LoadUncompressed(param_1);
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_24, local_38);
-        local_38->~unique_ptr();
-        pEVar3 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_24);
-        pEVar3->LoadUncompressed(param_1);
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_32, local_38);
-        local_38->~unique_ptr();
-        pEVar3 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_32);
-        pEVar3->LoadUncompressed(param_1);
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_40, local_38);
-        local_38->~unique_ptr();
-        pEVar3 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_40);
-        pEVar3->LoadUncompressed(param_1);
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_48, local_38);
-        local_38->~unique_ptr();
-        pEVar3 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_48);
-        pEVar3->LoadUncompressed(param_1);
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_56, local_38);
-        local_38->~unique_ptr();
-        pEVar3 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_56);
-        pEVar3->LoadUncompressed(param_1);
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_64, local_38);
-        local_38->~unique_ptr();
-        pEVar3 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_64);
-        pEVar3->LoadUncompressed(param_1);
-        std::make_unique<Envelope>();
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_72, local_38);
-        local_38->~unique_ptr();
-        pEVar3 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_72);
-        pEVar3->LoadUncompressed(param_1);
-        uVar7 = 0;
+        auto local_38 = std::make_unique<Envelope>();
+        uint8_t* this_00 = &field_16;
+        *this_00 = local_38;
+        Envelope* pEVar3 = (Envelope*)(*this_00).operator->();
+        pEVar3->LoadUncompressed(packetJ);
+        local_38 = std::make_unique<Envelope>();
+        field_24 = local_38;
+        pEVar3 = (Envelope*)field_24.operator->();
+        pEVar3->LoadUncompressed(packetJ);
+        local_38 = std::make_unique<Envelope>();
+        field_32 = local_38;
+        pEVar3 = (Envelope*)field_32.operator->();
+        pEVar3->LoadUncompressed(packetJ);
+        local_38 = std::make_unique<Envelope>();
+        field_40 = local_38;
+        pEVar3 = (Envelope*)field_40.operator->();
+        pEVar3->LoadUncompressed(packetJ);
+        local_38 = std::make_unique<Envelope>();
+        field_48 = local_38;
+        pEVar3 = (Envelope*)field_48.operator->();
+        pEVar3->LoadUncompressed(packetJ);
+        local_38 = std::make_unique<Envelope>();
+        field_56 = local_38;
+        pEVar3 = (Envelope*)field_56.operator->();
+        pEVar3->LoadUncompressed(packetJ);
+        local_38 = std::make_unique<Envelope>();
+        field_64 = local_38;
+        pEVar3 = (Envelope*)field_64.operator->();
+        pEVar3->LoadUncompressed(packetJ);
+        local_38 = std::make_unique<Envelope>();
+        field_72 = local_38;
+        pEVar3 = (Envelope*)field_72.operator->();
+        pEVar3->LoadUncompressed(packetJ);
+        unsigned long arg1 = 0;
         do {
-            uVar1 = param_1->g2();
-            puVar4 = (uint*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&field_80, uVar7);
-            *puVar4 = (uint)uVar1;
-            uVar2 = param_1->g4();
-            puVar5 = (undefined4*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)((long)&field_96 + 4), uVar7);
+            uVar1 = packetJ.g2();
+            puVar4 = &field_80[arg1];
+            *puVar4 = (unsigned int)uVar1;
+            uVar2 = packetJ.g4();
+            puVar5 = (uint32_t*)(*((array<int, 5ul>*)((long)&field_96 + 4)))[arg1];
             *puVar5 = uVar2;
-            uVar1 = param_1->g2();
-            puVar4 = (uint*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&field_120, uVar7);
-            *puVar4 = (uint)uVar1;
-            uVar7 = uVar7 + 1;
-        } while (uVar7 != 5);
-        uVar1 = param_1->g2();
-        field_140 = (uint)uVar1;
-        uVar1 = param_1->g2();
-        field_144 = (uint)uVar1;
-        if (1 < param_2) {
-            uVar1 = param_1->g2();
-            field_4 = (uint)uVar1;
-            uVar1 = param_1->g2();
-            field_8 = (uint)uVar1;
+            uVar1 = packetJ.g2();
+            puVar4 = &field_120[arg1];
+            *puVar4 = (unsigned int)uVar1;
+            arg1 = arg1 + 1;
+        } while (arg1 != 5);
+        uVar1 = packetJ.g2();
+        field_140 = (unsigned int)uVar1;
+        uVar1 = packetJ.g2();
+        field_144 = (unsigned int)uVar1;
+        if (1 < arg2) {
+            uVar1 = packetJ.g2();
+            field_4 = (unsigned int)uVar1;
+            uVar1 = packetJ.g2();
+            field_8 = (unsigned int)uVar1;
         }
-        std::make_unique<Filter>();
-        this_01 = &field_152;
-        std::unique_ptr<Filter, std::default_delete<Filter>>::operator=(
-            (unique_ptr<Filter, std::default_delete<Filter>>*)this_01, local_38);
-        local_38->~unique_ptr();
-        std::make_unique<Envelope>();
-        this_02 = &field_160;
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_02, local_38);
-        local_38->~unique_ptr();
-        if (3 < param_2) {
-            std::make_unique<Filter>();
-            std::unique_ptr<Filter, std::default_delete<Filter>>::operator=(
-                (unique_ptr<Filter, std::default_delete<Filter>>*)this_01, local_38);
-            local_38->~unique_ptr();
-            this_03 = (Filter*)std::unique_ptr<Filter, std::default_delete<Filter>>::operator->(
-                (unique_ptr<Filter, std::default_delete<Filter>>*)this_01);
-            this_03->LoadUncompressed(param_1);
-            std::make_unique<Envelope>();
-            std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator=(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_02, local_38);
-            local_38->~unique_ptr();
-            pEVar3 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_02);
-            pEVar3->LoadUncompressed(param_1);
+        local_38 = std::make_unique<Filter>();
+        uint8_t* this_01 = &field_152;
+        *this_01 = local_38;
+        local_38 = std::make_unique<Envelope>();
+        uint8_t* this_02 = &field_160;
+        *this_02 = local_38;
+        if (3 < arg2) {
+            local_38 = std::make_unique<Filter>();
+            *this_01 = local_38;
+            ((Filter*)(*this_01).operator->())->LoadUncompressed(packetJ);
+            local_38 = std::make_unique<Envelope>();
+            *this_02 = local_38;
+            pEVar3 = (Envelope*)(*this_02).operator->();
+            pEVar3->LoadUncompressed(packetJ);
         }
-        lVar6 = std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_00);
+        long lVar6 = (*this_00).operator->();
         field_0 = *(int*)(lVar6 + 8) != 0;
     }
 
-    // 0x100299150, 3744 bytes, placed by class name and debug map
-    // Tone::Generate(int, int)
-    Tone* Tone::Generate(int param_1, int param_2) {
-        Tone* this_00;
-        Tone* this_01;
-        unique_ptr* this_02;
-        unique_ptr<Filter, std::default_delete<Filter>>* this_03;
-        int iVar1;
-        bool bVar2;
-        int iVar3;
+    // 0x100299150
+    auto Tone::Generate(int arg1, int arg2) {
+        uint8_t* puVar1;
+        int iVar2;
+        bool bVar3;
         int iVar4;
         int iVar5;
         int iVar6;
-        uint uVar7;
-        uint uVar8;
-        undefined8 uVar9;
-        Envelope* pEVar10;
-        int* piVar11;
-        undefined4* puVar12;
-        int* piVar13;
-        long lVar14;
-        char* pcVar15;
-        Filter* pFVar16;
-        uint* puVar17;
-        int in_ECX;
-        uint uVar18;
-        int iVar19;
-        ulong uVar20;
-        unique_ptr<Envelope, std::default_delete<Envelope>>* this_04;
-        ulong uVar21;
-        undefined4 in_register_00000034;
-        _func_decltype_nullptr* p_Var22;
-        Tone* pTVar23;
-        int iVar24;
-        ulong uVar25;
-        long lVar26;
+        int iVar7;
+        unsigned int uVar8;
+        unsigned int uVar9;
+        Envelope* pEVar11;
+        int* piVar12;
+        uint32_t* puVar13;
+        int* piVar14;
+        long lVar15;
+        char* pcVar16;
+        Filter* pFVar17;
+        unsigned int* puVar18;
+        unsigned int uVar19;
+        int iVar20;
+        unsigned long uVar21;
+        uint8_t* puVar22;
+        unsigned long uVar23;
+        void* arg2_00;
+        Tone* pTVar24;
+        int iVar25;
+        unsigned long uVar26;
         long lVar27;
-        uint uVar28;
-        _func_decltype_nullptr* p_Var29;
-        ulong uVar30;
-        Tone* this_05;
-        double extraout_XMM0_Qa;
-        double dVar31;
+        long lVar28;
+        unsigned int uVar29;
+        unsigned long uVar31;
+        uint8_t* envelope;
+        double arg1_00;
         double dVar32;
+        double dVar33;
         int local_a4;
         int local_7c;
         int local_78;
         int local_74;
         long local_58;
         long local_50;
-        ulong local_48;
-        ulong local_40;
+        unsigned long local_48;
+        unsigned long local_40;
 
-        lVar26 = CONCAT44(in_register_00000034, param_1);
-        uVar9 = m_buf.data();
-        p_Var29 = (_func_decltype_nullptr*)((long)param_2 * 4);
-        ___bzero(uVar9);
-        if (9 < in_ECX) {
-            dVar32 = (double)param_2 / (double)in_ECX;
-            this_00 = (Tone*)(lVar26 + 16);
-            pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_00);
-            pEVar10->GenInit();
-            pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                (unique_ptr<Envelope, std::default_delete<Envelope>>*)(lVar26 + 24));
-            pEVar10->GenInit();
-            this_01 = (Tone*)(lVar26 + 32);
-            bVar2 = std::operator!=((unique_ptr*)this_01, p_Var29);
+        uint64_t uVar10 = m_buf.data();
+        void* pvVar30 = (void*)((long)arg1 * 4);
+        ___bzero(uVar10);
+        if (9 < arg2) {
+            dVar33 = (double)arg1 / (double)arg2;
+            puVar1 = &field_16;
+            pEVar11 = (Envelope*)(*puVar1).operator->();
+            pEVar11->GenInit();
+            pEVar11 = (Envelope*)field_24.operator->();
+            pEVar11->GenInit();
+            puVar22 = &field_32;
+            bVar3 = puVar22 != pvVar30;
             local_a4 = 0;
             local_78 = 0;
             local_7c = 0;
-            if (bVar2) {
-                pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                    (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_01);
+            if (bVar3) {
+                pEVar11 = (Envelope*)(*puVar22).operator->();
                 local_78 = 0;
                 local_7c = 0;
-                if (pEVar10->field_12 != false) {
-                    pEVar10->GenInit();
-                    pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                        (unique_ptr<Envelope, std::default_delete<Envelope>>*)(lVar26 + 40));
-                    pEVar10->GenInit();
-                    piVar11 = (int*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                        (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_01);
-                    local_7c = (int)((double)(piVar11[1] - *piVar11) * 32.768 * (1.0 / dVar32));
-                    local_78 = (int)((double)*piVar11 * 32.768 * (1.0 / dVar32));
+                if (pEVar11->field_12 != '\0') {
+                    pEVar11->GenInit();
+                    pEVar11 = (Envelope*)field_40.operator->();
+                    pEVar11->GenInit();
+                    piVar12 = (int*)(*puVar22).operator->();
+                    local_7c = (int)((double)(piVar12[1] - *piVar12) * 32.768 * (1.0 / dVar33));
+                    local_78 = (int)((double)*piVar12 * 32.768 * (1.0 / dVar33));
                 }
             }
-            this_05 = (Tone*)(lVar26 + 48);
-            bVar2 = std::operator!=((unique_ptr*)this_05, p_Var29);
-            if (bVar2) {
-                pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                    (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_05);
+            envelope = &field_48;
+            bVar3 = envelope != pvVar30;
+            if (bVar3) {
+                pEVar11 = (Envelope*)(*envelope).operator->();
                 local_74 = 0;
-                if (pEVar10->field_12 != false) {
-                    pEVar10->GenInit();
-                    pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                        (unique_ptr<Envelope, std::default_delete<Envelope>>*)(lVar26 + 56));
-                    pEVar10->GenInit();
-                    piVar11 = (int*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                        (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_05);
-                    local_74 = (int)((double)(piVar11[1] - *piVar11) * 32.768 * (1.0 / dVar32));
-                    local_a4 = (int)((double)*piVar11 * 32.768 * (1.0 / dVar32));
+                if (pEVar11->field_12 != '\0') {
+                    pEVar11->GenInit();
+                    pEVar11 = (Envelope*)field_56.operator->();
+                    pEVar11->GenInit();
+                    piVar12 = (int*)(*envelope).operator->();
+                    local_74 = (int)((double)(piVar12[1] - *piVar12) * 32.768 * (1.0 / dVar33));
+                    local_a4 = (int)((double)*piVar12 * 32.768 * (1.0 / dVar33));
                 }
             } else {
                 local_74 = 0;
             }
-            p_Var29 = (_func_decltype_nullptr*)0;
+            pvVar30 = nullptr;
             do {
-                p_Var22 = p_Var29;
-                piVar11 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)(lVar26 + 80), (ulong)p_Var29);
-                if (*piVar11 != 0) {
-                    puVar12 = (undefined4*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fPos, (ulong)p_Var29);
-                    *puVar12 = 0;
-                    piVar13 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)(lVar26 + 120), (ulong)p_Var29);
-                    iVar19 = *piVar13;
-                    piVar13 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fDel, (ulong)p_Var29);
-                    *piVar13 = (int)((double)iVar19 * dVar32);
-                    iVar19 = *piVar11;
-                    piVar11 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fAmp, (ulong)p_Var29);
-                    *piVar11 = (iVar19 << 14) / 100;
-                    piVar11 = (int*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                        (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_00);
-                    iVar19 = piVar11[1];
-                    iVar24 = *piVar11;
-                    piVar11 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)(lVar26 + 100), (ulong)p_Var29);
-                    dVar31 = (double)pow<double, int>(extraout_XMM0_Qa, *piVar11);
-                    piVar11 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fMulti, (ulong)p_Var29);
-                    *piVar11 = (int)(dVar31 * 32.768 * (double)(iVar19 - iVar24) * (1.0 / dVar32));
-                    piVar11 = (int*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                        (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_00);
-                    iVar19 = *piVar11;
-                    p_Var22 = p_Var29;
-                    piVar11 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fOffset, (ulong)p_Var29);
-                    *piVar11 = (int)((double)iVar19 * 32.768 * (1.0 / dVar32));
+                arg2_00 = pvVar30;
+                piVar12 = &field_80[(unsigned long)pvVar30];
+                if (*piVar12 != 0) {
+                    puVar13 = &m_fPos[(unsigned long)pvVar30];
+                    *puVar13 = 0;
+                    piVar14 = &field_120[(unsigned long)pvVar30];
+                    iVar20 = *piVar14;
+                    piVar14 = &m_fDel[(unsigned long)pvVar30];
+                    *piVar14 = (int)((double)iVar20 * dVar33);
+                    iVar20 = *piVar12;
+                    piVar12 = &m_fAmp[(unsigned long)pvVar30];
+                    *piVar12 = (iVar20 << 14) / 100;
+                    piVar12 = (int*)(*puVar1).operator->();
+                    iVar20 = piVar12[1];
+                    iVar25 = *piVar12;
+                    piVar12 = (int*)(*((array<int, 5ul>*)((long)&field_96 + 4)))[(unsigned long)pvVar30];
+                    dVar32 = (double)pow<double, int>(arg1_00, *piVar12);
+                    piVar12 = (int*)m_fMulti[(unsigned long)pvVar30];
+                    *piVar12 = (int)(dVar32 * 32.768 * (double)(iVar20 - iVar25) * (1.0 / dVar33));
+                    piVar12 = (int*)(*puVar1).operator->();
+                    iVar20 = *piVar12;
+                    arg2_00 = pvVar30;
+                    piVar12 = &m_fOffset[(unsigned long)pvVar30];
+                    *piVar12 = (int)((double)iVar20 * 32.768 * (1.0 / dVar33));
                 }
-                p_Var29 = p_Var29 + 1;
-            } while (p_Var29 != (_func_decltype_nullptr*)5);
-            if (0 < param_2) {
-                uVar18 = 0;
-                iVar19 = 0;
-                iVar24 = 0;
+                pvVar30 = (void*)((long)pvVar30 + 1);
+            } while (pvVar30 != (void*)5);
+            if (0 < arg1) {
+                uVar19 = 0;
+                iVar20 = 0;
+                iVar25 = 0;
                 do {
-                    pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                        (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_00);
-                    iVar3 = pEVar10->GenNext(param_2);
-                    pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                        (unique_ptr<Envelope, std::default_delete<Envelope>>*)(lVar26 + 24));
-                    p_Var29 = (_func_decltype_nullptr*)(ulong)(uint)param_2;
-                    iVar4 = pEVar10->GenNext(param_2);
-                    bVar2 = std::operator!=((unique_ptr*)this_01, p_Var29);
-                    if ((bVar2) &&
-                        (pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                             (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_01),
-                         pEVar10->field_12 != false)) {
-                        iVar5 = pEVar10->GenNext(param_2);
-                        pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                            (unique_ptr<Envelope, std::default_delete<Envelope>>*)(lVar26 + 40));
-                        iVar6 = pEVar10->GenNext(param_2);
-                        pTVar23 = this_01;
-                        lVar14 = std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                            (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_01);
-                        p_Var29 = (_func_decltype_nullptr*)(ulong)uVar18;
-                        iVar6 = WaveFunc(pTVar23, uVar18, iVar6, *(int*)(lVar14 + 8));
-                        iVar3 = iVar3 + (iVar6 >> 1);
-                        uVar18 = uVar18 + local_78 + (iVar5 * local_7c >> 16);
+                    pEVar11 = (Envelope*)(*puVar1).operator->();
+                    iVar4 = pEVar11->GenNext(arg1);
+                    pEVar11 = (Envelope*)field_24.operator->();
+                    pvVar30 = (void*)(unsigned long)(unsigned int)arg1;
+                    iVar5 = pEVar11->GenNext(arg1);
+                    bVar3 = puVar22 != pvVar30;
+                    if ((bVar3) && (pEVar11 = (Envelope*)(*puVar22).operator->(), pEVar11->field_12 != '\0')) {
+                        iVar6 = pEVar11->GenNext(arg1);
+                        pEVar11 = (Envelope*)field_40.operator->();
+                        iVar7 = pEVar11->GenNext(arg1);
+                        pTVar24 = (Tone*)puVar22;
+                        lVar15 = (*puVar22).operator->();
+                        pvVar30 = (void*)(unsigned long)uVar19;
+                        iVar7 = WaveFunc(pTVar24, uVar19, iVar7, *(int*)(lVar15 + 8));
+                        iVar4 = iVar4 + (iVar7 >> 1);
+                        uVar19 = uVar19 + local_78 + (iVar6 * local_7c >> 16);
                     }
-                    bVar2 = std::operator!=((unique_ptr*)this_05, p_Var29);
-                    if ((bVar2) &&
-                        (pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                             (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_05),
-                         pEVar10->field_12 != false)) {
-                        iVar5 = pEVar10->GenNext(param_2);
-                        pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                            (unique_ptr<Envelope, std::default_delete<Envelope>>*)(lVar26 + 56));
-                        iVar6 = pEVar10->GenNext(param_2);
-                        pTVar23 = this_05;
-                        lVar14 = std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                            (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_05);
-                        iVar6 = WaveFunc(pTVar23, iVar19, iVar6, *(int*)(lVar14 + 8));
-                        iVar4 = ((iVar6 >> 1) + 32768) * iVar4 >> 15;
-                        iVar19 = iVar19 + local_a4 + (iVar5 * local_74 >> 16);
+                    bVar3 = envelope != pvVar30;
+                    if ((bVar3) && (pEVar11 = (Envelope*)(*envelope).operator->(), pEVar11->field_12 != '\0')) {
+                        iVar6 = pEVar11->GenNext(arg1);
+                        pEVar11 = (Envelope*)field_56.operator->();
+                        iVar7 = pEVar11->GenNext(arg1);
+                        pTVar24 = (Tone*)envelope;
+                        lVar15 = (*envelope).operator->();
+                        iVar7 = WaveFunc(pTVar24, iVar20, iVar7, *(int*)(lVar15 + 8));
+                        iVar5 = ((iVar7 >> 1) + 32768) * iVar5 >> 15;
+                        iVar20 = iVar20 + local_a4 + (iVar6 * local_74 >> 16);
                     }
-                    p_Var29 = (_func_decltype_nullptr*)0;
+                    pvVar30 = nullptr;
                     do {
-                        p_Var22 = p_Var29;
-                        piVar11 =
-                            (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)(lVar26 + 80), (ulong)p_Var29);
-                        if (*piVar11 != 0) {
-                            p_Var22 = p_Var29;
-                            piVar11 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fDel, (ulong)p_Var29);
-                            iVar5 = *piVar11;
-                            if ((int)((long)iVar24 + (long)iVar5) < param_2) {
-                                piVar11 =
-                                    (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fPos, (ulong)p_Var29);
-                                iVar6 = *piVar11;
-                                piVar13 =
-                                    (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fAmp, (ulong)p_Var29);
-                                iVar1 = *piVar13;
-                                pTVar23 = this_00;
-                                lVar14 = std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                                    (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_00);
-                                iVar6 = WaveFunc(pTVar23, iVar6, iVar1 * iVar4 >> 15, *(int*)(lVar14 + 8));
-                                piVar13 = (int*)Array<int, eastl::allocator>::operator[](
-                                    (Array<int, eastl::allocator>*)&m_buf, (long)iVar24 + (long)iVar5);
-                                *piVar13 = *piVar13 + iVar6;
-                                piVar13 =
-                                    (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fMulti, (ulong)p_Var29);
-                                iVar5 = *piVar13;
-                                p_Var22 = p_Var29;
-                                piVar13 = (int*)std::array<int, 5ul>::operator[]((array<int, 5ul>*)&m_fOffset,
-                                                                                 (ulong)p_Var29);
-                                *piVar11 = *piVar11 + (iVar5 * iVar3 >> 16) + *piVar13;
+                        arg2_00 = pvVar30;
+                        piVar12 = &field_80[(unsigned long)pvVar30];
+                        if (*piVar12 != 0) {
+                            arg2_00 = pvVar30;
+                            piVar12 = &m_fDel[(unsigned long)pvVar30];
+                            iVar6 = *piVar12;
+                            if ((int)((long)iVar25 + (long)iVar6) < arg1) {
+                                piVar12 = &m_fPos[(unsigned long)pvVar30];
+                                iVar7 = *piVar12;
+                                piVar14 = &m_fAmp[(unsigned long)pvVar30];
+                                iVar2 = *piVar14;
+                                pTVar24 = (Tone*)puVar1;
+                                lVar15 = (*puVar1).operator->();
+                                iVar7 = WaveFunc(pTVar24, iVar7, iVar2 * iVar5 >> 15, *(int*)(lVar15 + 8));
+                                piVar14 = &m_buf[(long)iVar25 + (long)iVar6];
+                                *piVar14 = *piVar14 + iVar7;
+                                piVar14 = &m_fMulti[(unsigned long)pvVar30];
+                                iVar6 = *piVar14;
+                                arg2_00 = pvVar30;
+                                piVar14 = &m_fOffset[(unsigned long)pvVar30];
+                                *piVar12 = *piVar12 + (iVar6 * iVar4 >> 16) + *piVar14;
                             }
                         }
-                        p_Var29 = p_Var29 + 1;
-                    } while (p_Var29 != (_func_decltype_nullptr*)5);
-                    iVar24 = iVar24 + 1;
-                } while (iVar24 != param_2);
+                        pvVar30 = (void*)((long)pvVar30 + 1);
+                    } while (pvVar30 != (void*)5);
+                    iVar25 = iVar25 + 1;
+                } while (iVar25 != arg1);
             }
-            this_02 = (unique_ptr*)(lVar26 + 64);
-            bVar2 = std::operator!=(this_02, p_Var22);
-            if ((bVar2) && (pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                                (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_02),
-                            pEVar10->field_12 != false)) {
-                pEVar10->GenInit();
-                pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                    (unique_ptr<Envelope, std::default_delete<Envelope>>*)(lVar26 + 72));
-                pEVar10->GenInit();
-                if (0 < param_2) {
-                    bVar2 = true;
-                    p_Var29 = (_func_decltype_nullptr*)0;
-                    iVar19 = 0;
+            puVar1 = &field_64;
+            bVar3 = puVar1 != arg2_00;
+            if ((bVar3) && (pEVar11 = (Envelope*)(*puVar1).operator->(), pEVar11->field_12 != '\0')) {
+                pEVar11->GenInit();
+                pEVar11 = (Envelope*)field_72.operator->();
+                pEVar11->GenInit();
+                if (0 < arg1) {
+                    bVar3 = true;
+                    pvVar30 = nullptr;
+                    iVar20 = 0;
                     do {
-                        pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                            (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_02);
-                        iVar3 = pEVar10->GenNext(param_2);
-                        pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                            (unique_ptr<Envelope, std::default_delete<Envelope>>*)(lVar26 + 72));
-                        iVar24 = pEVar10->GenNext(param_2);
-                        piVar11 = (int*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                            (unique_ptr<Envelope, std::default_delete<Envelope>>*)this_02);
-                        if (bVar2) {
-                            iVar24 = iVar3;
+                        pEVar11 = (Envelope*)(*puVar1).operator->();
+                        iVar4 = pEVar11->GenNext(arg1);
+                        pEVar11 = (Envelope*)field_72.operator->();
+                        iVar25 = pEVar11->GenNext(arg1);
+                        piVar12 = (int*)(*puVar1).operator->();
+                        if (bVar3) {
+                            iVar25 = iVar4;
                         }
-                        iVar19 = iVar19 + 256;
-                        if ((iVar24 * (piVar11[1] - *piVar11) >> 8) + *piVar11 <= iVar19) {
-                            iVar19 = 0;
-                            bVar2 = (bool)(bVar2 ^ 1);
+                        iVar20 = iVar20 + 256;
+                        if ((iVar25 * (piVar12[1] - *piVar12) >> 8) + *piVar12 <= iVar20) {
+                            iVar20 = 0;
+                            bVar3 = (bool)(bVar3 ^ 1);
                         }
-                        if (bVar2) {
-                            puVar12 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                                (Array<int, eastl::allocator>*)&m_buf, (ulong)p_Var29);
-                            *puVar12 = 0;
+                        if (bVar3) {
+                            puVar13 = &m_buf[(unsigned long)pvVar30];
+                            *puVar13 = 0;
                         }
-                        p_Var29 = p_Var29 + 1;
-                    } while ((_func_decltype_nullptr*)(ulong)(uint)param_2 != p_Var29);
+                        pvVar30 = (void*)((long)pvVar30 + 1);
+                    } while ((void*)(unsigned long)(unsigned int)arg1 != pvVar30);
                 }
             }
-            if (((0 < *(int*)(lVar26 + 140)) && (0 < *(int*)(lVar26 + 144))) &&
-                (iVar19 = (int)(dVar32 * (double)*(int*)(lVar26 + 140)), iVar19 < param_2)) {
-                uVar20 = 0;
+            if (((0 < (int)field_140) && (0 < (int)field_144)) &&
+                (iVar20 = (int)(dVar33 * (double)(int)field_140), iVar20 < arg1)) {
+                uVar21 = 0;
                 do {
-                    piVar11 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&m_buf, uVar20);
-                    iVar24 = *(int*)(lVar26 + 144);
-                    iVar3 = *piVar11;
-                    piVar11 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&m_buf,
-                                                                             (long)iVar19 + uVar20);
-                    *piVar11 = *piVar11 + (iVar24 * iVar3) / 100;
-                    uVar20 = uVar20 + 1;
-                } while (param_2 - iVar19 != (int)uVar20);
+                    piVar12 = &m_buf[uVar21];
+                    uVar19 = field_144;
+                    iVar25 = *piVar12;
+                    piVar12 = &m_buf[(long)iVar20 + uVar21];
+                    *piVar12 = *piVar12 + (int)(uVar19 * iVar25) / 100;
+                    uVar21 = uVar21 + 1;
+                } while (arg1 - iVar20 != (int)uVar21);
             }
-            this_03 = (unique_ptr<Filter, std::default_delete<Filter>>*)(lVar26 + 152);
-            pcVar15 = (char*)std::unique_ptr<Filter, std::default_delete<Filter>>::operator->(this_03);
-            if (*pcVar15 != '\0') {
-                piVar11 = (int*)std::array<int, 2ul>::operator[]((array<int, 2ul>*)(pcVar15 + 4), 0);
-                if ((0 < *piVar11) ||
-                    (piVar11 = (int*)std::array<int, 2ul>::operator[]((array<int, 2ul>*)(pcVar15 + 4), 1),
-                     0 < *piVar11)) {
-                    this_04 = (unique_ptr<Envelope, std::default_delete<Envelope>>*)(lVar26 + 160);
-                    pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(this_04);
-                    pEVar10->GenInit();
-                    pEVar10 = (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(this_04);
-                    iVar24 = param_2 + 1;
-                    iVar19 = pEVar10->GenNext(iVar24);
-                    pFVar16 = (Filter*)std::unique_ptr<Filter, std::default_delete<Filter>>::operator->(this_03);
-                    uVar20 = 0;
-                    uVar7 = pFVar16->CalculateCoeffs(0, (float)iVar19 * 1.5258789e-05);
-                    local_48 = (ulong)uVar7;
-                    pFVar16 = (Filter*)std::unique_ptr<Filter, std::default_delete<Filter>>::operator->(this_03);
-                    uVar18 = pFVar16->CalculateCoeffs(1, (float)iVar19 * 1.5258789e-05);
-                    if ((int)(uVar18 + uVar7) <= param_2) {
-                        uVar8 = param_2 - uVar7;
-                        if ((int)uVar18 <= (int)(param_2 - uVar7)) {
-                            uVar8 = uVar18;
+            puVar1 = &field_152;
+            pcVar16 = (char*)(*puVar1).operator->();
+            if (*pcVar16 != '\0') {
+                piVar12 = (int*)(*((pcVar16 + 4)))[0];
+                if ((0 < *piVar12) || (piVar12 = (int*)(*((pcVar16 + 4)))[1], 0 < *piVar12)) {
+                    puVar22 = &field_160;
+                    pEVar11 = (Envelope*)(*puVar22).operator->();
+                    pEVar11->GenInit();
+                    pEVar11 = (Envelope*)(*puVar22).operator->();
+                    iVar25 = arg1 + 1;
+                    iVar20 = pEVar11->GenNext(iVar25);
+                    pFVar17 = (Filter*)(*puVar1).operator->();
+                    uVar21 = 0;
+                    uVar8 = pFVar17->CalculateCoeffs(0, (float)iVar20 * 1.5258789e-05);
+                    local_48 = (unsigned long)uVar8;
+                    pFVar17 = (Filter*)(*puVar1).operator->();
+                    uVar19 = pFVar17->CalculateCoeffs(1, (float)iVar20 * 1.5258789e-05);
+                    if ((int)(uVar19 + uVar8) <= arg1) {
+                        uVar9 = arg1 - uVar8;
+                        if ((int)uVar19 <= (int)(arg1 - uVar8)) {
+                            uVar9 = uVar19;
                         }
-                        if (0 < (int)uVar8) {
-                            local_50 = ((long)(int)uVar7 << 32) + -4294967296;
-                            uVar25 = 18446744073709551615;
-                            uVar20 = 0;
+                        if (0 < (int)uVar9) {
+                            local_50 = ((long)(int)uVar8 << 32) - 4294967296;
+                            uVar26 = 18446744073709551615;
+                            uVar21 = 0;
                             do {
-                                piVar11 = (int*)Array<int, eastl::allocator>::operator[](
-                                    (Array<int, eastl::allocator>*)&m_buf, uVar20 + (long)(int)uVar7);
-                                uVar30 = (ulong)((long)Filter::m_reduceCoeffInt * (long)*piVar11) >> 16;
-                                if (0 < (int)uVar7) {
-                                    uVar21 = 0;
-                                    lVar26 = local_50;
+                                piVar12 = &m_buf[uVar21 + (long)(int)uVar8];
+                                uVar31 = (unsigned long)((long)Filter::m_reduceCoeffInt * (long)*piVar12) >> 16;
+                                if (0 < (int)uVar8) {
+                                    uVar23 = 0;
+                                    lVar15 = local_50;
                                     do {
-                                        piVar11 = (int*)Array<int, eastl::allocator>::operator[](
-                                            (Array<int, eastl::allocator>*)&m_buf, lVar26 >> 32);
-                                        iVar19 = *piVar11;
-                                        piVar11 = (int*)Filter::RCoeffInt(0, (int)uVar21);
-                                        uVar30 = (ulong)(uint)((int)uVar30 +
-                                                               (int)((ulong)((long)*piVar11 * (long)iVar19) >> 16));
-                                        uVar21 = uVar21 + 1;
-                                        lVar26 = lVar26 + -4294967296;
-                                    } while (local_48 != uVar21);
+                                        piVar12 = &m_buf[lVar15 >> 32];
+                                        iVar20 = *piVar12;
+                                        piVar12 = Filter::RCoeffInt(0, (int)uVar23);
+                                        uVar31 = (unsigned long)(unsigned int)((int)uVar31 +
+                                                                               (int)((unsigned long)((long)*piVar12 *
+                                                                                                     (long)iVar20) >>
+                                                                                     16));
+                                        uVar23 = uVar23 + 1;
+                                        lVar15 = lVar15 - 4294967296;
+                                    } while (local_48 != uVar23);
                                 }
-                                uVar28 = (uint)uVar30;
-                                if (uVar20 != 0) {
-                                    iVar19 = 0;
-                                    uVar21 = uVar25;
+                                uVar29 = (unsigned int)uVar31;
+                                if (uVar21 != 0) {
+                                    iVar20 = 0;
+                                    uVar23 = uVar26;
                                     do {
-                                        piVar11 = (int*)Array<int, eastl::allocator>::operator[](
-                                            (Array<int, eastl::allocator>*)&m_buf, uVar21);
-                                        iVar3 = *piVar11;
-                                        piVar11 = (int*)Filter::RCoeffInt(1, iVar19);
-                                        uVar28 = (int)uVar30 - (int)((ulong)((long)*piVar11 * (long)iVar3) >> 16);
-                                        uVar30 = (ulong)uVar28;
-                                        iVar19 = iVar19 + 1;
-                                        bVar2 = uVar21 != 0;
-                                        uVar21 = uVar21 - 1;
-                                    } while (bVar2);
+                                        piVar12 = &m_buf[uVar23];
+                                        iVar4 = *piVar12;
+                                        piVar12 = Filter::RCoeffInt(1, iVar20);
+                                        uVar29 =
+                                            (int)uVar31 - (int)((unsigned long)((long)*piVar12 * (long)iVar4) >> 16);
+                                        uVar31 = (unsigned long)uVar29;
+                                        iVar20 = iVar20 + 1;
+                                        bVar3 = uVar23 != 0;
+                                        uVar23 = uVar23 - 1;
+                                    } while (bVar3);
                                 }
-                                puVar17 = (uint*)Array<int, eastl::allocator>::operator[](
-                                    (Array<int, eastl::allocator>*)&m_buf, uVar20);
-                                *puVar17 = uVar28;
-                                pEVar10 =
-                                    (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                                        this_04);
-                                iVar19 = pEVar10->GenNext(iVar24);
-                                uVar20 = uVar20 + 1;
+                                puVar18 = &m_buf[uVar21];
+                                *puVar18 = uVar29;
+                                pEVar11 = (Envelope*)(*puVar22).operator->();
+                                iVar20 = pEVar11->GenNext(iVar25);
+                                uVar21 = uVar21 + 1;
                                 local_50 = local_50 + 4294967296;
-                                uVar25 = uVar25 + 1;
-                            } while (uVar20 != uVar8);
+                                uVar26 = uVar26 + 1;
+                            } while (uVar21 != uVar9);
                         }
-                        iVar3 = 128;
+                        iVar4 = 128;
                         while (true) {
-                            iVar4 = param_2 - (int)local_48;
-                            if (iVar4 < iVar3) {
-                                iVar3 = iVar4;
+                            iVar5 = arg1 - (int)local_48;
+                            if (iVar5 < iVar4) {
+                                iVar4 = iVar5;
                             }
-                            iVar5 = (int)uVar20;
-                            if (iVar5 < iVar3) {
-                                uVar20 = (ulong)iVar5;
-                                lVar26 = (ulong)((iVar5 + (int)local_48) - 1) << 32;
-                                local_50 = (uVar20 << 32) + -4294967296;
+                            iVar6 = (int)uVar21;
+                            if (iVar6 < iVar4) {
+                                uVar21 = (unsigned long)iVar6;
+                                lVar15 = (unsigned long)((iVar6 + (int)local_48) - 1) << 32;
+                                local_50 = (uVar21 << 32) - 4294967296;
                                 do {
-                                    piVar11 = (int*)Array<int, eastl::allocator>::operator[](
-                                        (Array<int, eastl::allocator>*)&m_buf, uVar20 + (long)(int)local_48);
-                                    uVar25 = (ulong)((long)Filter::m_reduceCoeffInt * (long)*piVar11) >> 16;
+                                    piVar12 = &m_buf[uVar21 + (long)(int)local_48];
+                                    uVar26 = (unsigned long)((long)Filter::m_reduceCoeffInt * (long)*piVar12) >> 16;
                                     if (0 < (int)local_48) {
-                                        uVar30 = 0;
-                                        lVar14 = lVar26;
+                                        uVar31 = 0;
+                                        lVar27 = lVar15;
                                         do {
-                                            piVar11 = (int*)Array<int, eastl::allocator>::operator[](
-                                                (Array<int, eastl::allocator>*)&m_buf, lVar14 >> 32);
-                                            iVar19 = *piVar11;
-                                            piVar11 = (int*)Filter::RCoeffInt(0, (int)uVar30);
-                                            uVar25 = (ulong)(uint)((int)uVar25 +
-                                                                   (int)((ulong)((long)*piVar11 * (long)iVar19) >> 16));
-                                            uVar30 = uVar30 + 1;
-                                            lVar14 = lVar14 + -4294967296;
-                                        } while ((local_48 & 4294967295) != uVar30);
+                                            piVar12 = &m_buf[lVar27 >> 32];
+                                            iVar20 = *piVar12;
+                                            piVar12 = Filter::RCoeffInt(0, (int)uVar31);
+                                            uVar26 =
+                                                (unsigned long)(unsigned int)((int)uVar26 +
+                                                                              (int)((unsigned long)((long)*piVar12 *
+                                                                                                    (long)iVar20) >>
+                                                                                    16));
+                                            uVar31 = uVar31 + 1;
+                                            lVar27 = lVar27 - 4294967296;
+                                        } while ((local_48 & 4294967295) != uVar31);
                                     }
-                                    uVar7 = (uint)uVar25;
-                                    if (0 < (int)uVar18) {
-                                        uVar30 = 0;
-                                        lVar14 = local_50;
+                                    uVar8 = (unsigned int)uVar26;
+                                    if (0 < (int)uVar19) {
+                                        uVar31 = 0;
+                                        lVar27 = local_50;
                                         do {
-                                            piVar11 = (int*)Array<int, eastl::allocator>::operator[](
-                                                (Array<int, eastl::allocator>*)&m_buf, lVar14 >> 32);
-                                            iVar19 = *piVar11;
-                                            piVar11 = (int*)Filter::RCoeffInt(1, (int)uVar30);
-                                            uVar7 = (int)uVar25 - (int)((ulong)((long)*piVar11 * (long)iVar19) >> 16);
-                                            uVar25 = (ulong)uVar7;
-                                            uVar30 = uVar30 + 1;
-                                            lVar14 = lVar14 + -4294967296;
-                                        } while (uVar18 != uVar30);
+                                            piVar12 = &m_buf[lVar27 >> 32];
+                                            iVar20 = *piVar12;
+                                            piVar12 = Filter::RCoeffInt(1, (int)uVar31);
+                                            uVar8 = (int)uVar26 -
+                                                    (int)((unsigned long)((long)*piVar12 * (long)iVar20) >> 16);
+                                            uVar26 = (unsigned long)uVar8;
+                                            uVar31 = uVar31 + 1;
+                                            lVar27 = lVar27 - 4294967296;
+                                        } while (uVar19 != uVar31);
                                     }
-                                    puVar17 = (uint*)Array<int, eastl::allocator>::operator[](
-                                        (Array<int, eastl::allocator>*)&m_buf, uVar20);
-                                    *puVar17 = uVar7;
-                                    pEVar10 =
-                                        (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                                            this_04);
-                                    iVar19 = pEVar10->GenNext(iVar24);
-                                    uVar20 = uVar20 + 1;
-                                    lVar26 = lVar26 + 4294967296;
+                                    puVar18 = &m_buf[uVar21];
+                                    *puVar18 = uVar8;
+                                    pEVar11 = (Envelope*)(*puVar22).operator->();
+                                    iVar20 = pEVar11->GenNext(iVar25);
+                                    uVar21 = uVar21 + 1;
+                                    lVar15 = lVar15 + 4294967296;
                                     local_50 = local_50 + 4294967296;
-                                } while (iVar3 != (int)uVar20);
+                                } while (iVar4 != (int)uVar21);
                             }
-                            iVar5 = (int)uVar20;
-                            if (iVar4 <= iVar5)
+                            iVar6 = (int)uVar21;
+                            if (iVar5 <= iVar6)
                                 break;
-                            pFVar16 =
-                                (Filter*)std::unique_ptr<Filter, std::default_delete<Filter>>::operator->(this_03);
-                            local_48 = pFVar16->CalculateCoeffs(0, (float)iVar19 * 1.5258789e-05);
-                            pFVar16 =
-                                (Filter*)std::unique_ptr<Filter, std::default_delete<Filter>>::operator->(this_03);
-                            uVar18 = pFVar16->CalculateCoeffs(1, (float)iVar19 * 1.5258789e-05);
-                            iVar3 = iVar3 + 128;
+                            pFVar17 = (Filter*)(*puVar1).operator->();
+                            local_48 = pFVar17->CalculateCoeffs(0, (float)iVar20 * 1.5258789e-05);
+                            pFVar17 = (Filter*)(*puVar1).operator->();
+                            uVar19 = pFVar17->CalculateCoeffs(1, (float)iVar20 * 1.5258789e-05);
+                            iVar4 = iVar4 + 128;
                         }
-                        if (iVar5 < param_2) {
-                            uVar7 = (iVar5 + (int)local_48) - param_2;
-                            lVar26 = (long)(int)local_48;
-                            uVar20 = (ulong)iVar5;
-                            local_58 = (ulong)((iVar5 + (int)local_48) - 1) << 32;
-                            local_48 = (uVar20 << 32) + -4294967296;
+                        if (iVar6 < arg1) {
+                            uVar8 = (iVar6 + (int)local_48) - arg1;
+                            lVar15 = (long)(int)local_48;
+                            uVar21 = (unsigned long)iVar6;
+                            local_58 = (unsigned long)((iVar6 + (int)local_48) - 1) << 32;
+                            local_48 = (uVar21 << 32) - 4294967296;
                             do {
-                                local_40 = (ulong)uVar7;
-                                iVar19 = 0;
-                                if ((long)((lVar26 + uVar20) - (long)param_2) < lVar26) {
-                                    lVar27 = local_58 - (local_40 << 32);
-                                    lVar14 = (long)(int)uVar7;
-                                    iVar19 = 0;
+                                local_40 = (unsigned long)uVar8;
+                                iVar20 = 0;
+                                if ((long)((lVar15 + uVar21) - (long)arg1) < lVar15) {
+                                    lVar28 = local_58 - (local_40 << 32);
+                                    lVar27 = (long)(int)uVar8;
+                                    iVar20 = 0;
                                     do {
-                                        piVar11 = (int*)Array<int, eastl::allocator>::operator[](
-                                            (Array<int, eastl::allocator>*)&m_buf, lVar27 >> 32);
-                                        iVar3 = *piVar11;
-                                        piVar11 = (int*)Filter::RCoeffInt(0, (int)lVar14);
-                                        iVar19 = iVar19 + (int)((ulong)((long)*piVar11 * (long)iVar3) >> 16);
-                                        lVar14 = lVar14 + 1;
-                                        lVar27 = lVar27 + -4294967296;
-                                    } while (lVar14 < lVar26);
+                                        piVar12 = &m_buf[lVar28 >> 32];
+                                        iVar4 = *piVar12;
+                                        piVar12 = Filter::RCoeffInt(0, (int)lVar27);
+                                        iVar20 = iVar20 + (int)((unsigned long)((long)*piVar12 * (long)iVar4) >> 16);
+                                        lVar27 = lVar27 + 1;
+                                        lVar28 = lVar28 - 4294967296;
+                                    } while (lVar27 < lVar15);
                                 }
-                                if (0 < (int)uVar18) {
-                                    uVar30 = 0;
-                                    uVar25 = local_48;
+                                if (0 < (int)uVar19) {
+                                    uVar31 = 0;
+                                    uVar26 = local_48;
                                     do {
-                                        piVar11 = (int*)Array<int, eastl::allocator>::operator[](
-                                            (Array<int, eastl::allocator>*)&m_buf, (long)uVar25 >> 32);
-                                        iVar3 = *piVar11;
-                                        piVar11 = (int*)Filter::RCoeffInt(1, (int)uVar30);
-                                        iVar19 = iVar19 - (int)((ulong)((long)*piVar11 * (long)iVar3) >> 16);
-                                        uVar30 = uVar30 + 1;
-                                        uVar25 = uVar25 + -4294967296;
-                                    } while (uVar18 != uVar30);
+                                        piVar12 = &m_buf[(long)uVar26 >> 32];
+                                        iVar4 = *piVar12;
+                                        piVar12 = Filter::RCoeffInt(1, (int)uVar31);
+                                        iVar20 = iVar20 - (int)((unsigned long)((long)*piVar12 * (long)iVar4) >> 16);
+                                        uVar31 = uVar31 + 1;
+                                        uVar26 = uVar26 - 4294967296;
+                                    } while (uVar19 != uVar31);
                                 }
-                                piVar11 = (int*)Array<int, eastl::allocator>::operator[](
-                                    (Array<int, eastl::allocator>*)&m_buf, uVar20);
-                                *piVar11 = iVar19;
-                                pEVar10 =
-                                    (Envelope*)std::unique_ptr<Envelope, std::default_delete<Envelope>>::operator->(
-                                        this_04);
-                                pEVar10->GenNext(iVar24);
-                                uVar20 = uVar20 + 1;
-                                uVar7 = uVar7 + 1;
+                                piVar12 = &m_buf[uVar21];
+                                *piVar12 = iVar20;
+                                pEVar11 = (Envelope*)(*puVar22).operator->();
+                                pEVar11->GenNext(iVar25);
+                                uVar21 = uVar21 + 1;
+                                uVar8 = uVar8 + 1;
                                 local_58 = local_58 + 4294967296;
                                 local_48 = local_48 + 4294967296;
-                            } while ((int)uVar20 != param_2);
+                            } while ((int)uVar21 != arg1);
                         }
                     }
                 }
             }
-            if (0 < param_2) {
-                uVar20 = 0;
+            if (0 < arg1) {
+                uVar21 = 0;
                 do {
-                    piVar11 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&m_buf, uVar20);
-                    if (*piVar11 < -32768) {
-                        puVar12 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)&m_buf, uVar20);
-                        *puVar12 = 4294934528;
+                    piVar12 = &m_buf[uVar21];
+                    if (*piVar12 < -32768) {
+                        puVar13 = &m_buf[uVar21];
+                        *puVar13 = 4294934528;
                     }
-                    piVar11 =
-                        (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&m_buf, uVar20);
-                    if (32767 < *piVar11) {
-                        puVar12 = (undefined4*)Array<int, eastl::allocator>::operator[](
-                            (Array<int, eastl::allocator>*)&m_buf, uVar20);
-                        *puVar12 = 32767;
+                    piVar12 = &m_buf[uVar21];
+                    if (32767 < *piVar12) {
+                        puVar13 = &m_buf[uVar21];
+                        *puVar13 = 32767;
                     }
-                    uVar20 = uVar20 + 1;
-                } while ((uint)param_2 != uVar20);
+                    uVar21 = uVar21 + 1;
+                } while ((unsigned int)arg1 != uVar21);
             }
         }
-        new (this) Array<int, eastl::allocator>((Array*)&m_buf);
-        return this;
+        return auto(&m_buf);
     }
 
-    // 0x1002a0860, 288 bytes, placed by class name
-    // Tone::StaticInit()
+    // 0x1002a0860
     void Tone::StaticInit() {
-        uint* puVar1;
+        unsigned int* puVar1;
         int* piVar2;
         long lVar3;
-        ulong uVar4;
-        uint uVar5;
+        unsigned int uVar5;
         bool bVar6;
         double dVar7;
 
         m_noise.set_max_size(32768, 5);
-        uVar4 = 0;
+        unsigned long uVar4 = 0;
         do {
-            puVar1 =
-                (uint*)eastl::vector<unsigned int,
-                                     eastl::fixed_vector_allocator<4ul, 1024ul, 4ul, 0ul, true, eastl::allocator>>::
-                operator[](
-                    (vector<unsigned int,
-                            eastl::fixed_vector_allocator<4ul, 1024ul, 4ul, 0ul, true, eastl::allocator>>*)&noiseBits,
-                    uVar4 >> 5);
+            puVar1 = &noiseBits[uVar4 >> 5];
             lVar3 = 0;
             uVar5 = *puVar1;
             do {
-                piVar2 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&m_noise,
-                                                                        uVar4 + lVar3);
-                *piVar2 = (uVar5 & 1) * 2 + -1;
+                piVar2 = &m_noise[uVar4 + lVar3];
+                *piVar2 = (uVar5 & 1) * 2 - 1;
                 lVar3 = lVar3 + 1;
                 uVar5 = (int)uVar5 >> 1;
             } while (lVar3 != 32);
@@ -815,37 +653,25 @@ namespace jag::oldscape::sound {
         uVar4 = 0;
         do {
             dVar7 = (double)_sin((double)(int)uVar4 * 0.00019174755713132846);
-            piVar2 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&m_sine, uVar4);
+            piVar2 = &m_sine[uVar4];
             *piVar2 = (int)(dVar7 * 16384.0);
             uVar4 = uVar4 + 1;
         } while (uVar4 != 32768);
         m_buf.set_max_size(220500, 1);
     }
 
-    // 0x1002a09c0, 336 bytes, base-object constructor, placed by class name
-    // Tone::Tone()
-    void Tone::Tone() {
-        field_0 = true;
-        field_4 = 500;
-        field_8 = 0;
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::unique_ptr<true, void>(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_16);
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::unique_ptr<true, void>(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_24);
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::unique_ptr<true, void>(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_32);
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::unique_ptr<true, void>(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_40);
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::unique_ptr<true, void>(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_48);
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::unique_ptr<true, void>(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_56);
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::unique_ptr<true, void>(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_64);
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::unique_ptr<true, void>(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_72);
+    // 0x1002a09c0
+    Tone::Tone() : field_0(true), field_4(500), field_8(0) {
+        field_16.unique_ptr<true, void>();
+        field_24.unique_ptr<true, void>();
+        field_32.unique_ptr<true, void>();
+        field_40.unique_ptr<true, void>();
+        field_48.unique_ptr<true, void>();
+        field_56.unique_ptr<true, void>();
+        field_64.unique_ptr<true, void>();
+        field_72.unique_ptr<true, void>();
         field_128 = 0;
-        *(undefined8*)&field_136 = 0;
+        *(uint64_t*)&field_136 = 0;
         field_112 = 0;
         field_120 = 0;
         field_96 = 0;
@@ -853,44 +679,36 @@ namespace jag::oldscape::sound {
         field_80 = 0;
         field_88 = 0;
         field_144 = 100;
-        std::unique_ptr<Filter, std::default_delete<Filter>>::unique_ptr<true, void>(
-            (unique_ptr<Filter, std::default_delete<Filter>>*)&field_152);
-        std::unique_ptr<Envelope, std::default_delete<Envelope>>::unique_ptr<true, void>(
-            (unique_ptr<Envelope, std::default_delete<Envelope>>*)&field_160);
+        field_152.unique_ptr<true, void>();
+        field_160.unique_ptr<true, void>();
         if (m_initDone == '\0') {
             StaticInit();
         }
     }
 
-    // 0x1002a0b50, 16 bytes, complete-object constructor, placed by class name
-    // Tone::Tone(): jumps straight to the base-object constructor
-
-    // 0x1002a0bb0, 176 bytes, placed by class name
-    // Tone::WaveFunc(int, int, int)
-    int Tone::WaveFunc(int param_1, int param_2, int param_3) {
+    // 0x1002a0bb0
+    int Tone::WaveFunc(int arg1, int arg2, int arg3) {
         int* piVar1;
         int iVar2;
 
-        switch (param_3) {
+        switch (arg3) {
         case 1:
-            iVar2 = -param_2;
-            if ((param_1 & 16384U) == 0) {
-                iVar2 = param_2;
+            iVar2 = -arg2;
+            if ((arg1 & 16384U) == 0) {
+                iVar2 = arg2;
             }
             break;
         case 2:
-            piVar1 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)&m_sine,
-                                                                    (ulong)(param_1 & 32767));
-            iVar2 = param_2 * *piVar1 >> 14;
+            piVar1 = &m_sine[(unsigned long)(arg1 & 32767)];
+            iVar2 = arg2 * *piVar1 >> 14;
             break;
         case 3:
-            iVar2 = ((int)((param_1 & 32767U) * param_2) >> 14) - param_2;
+            iVar2 = ((int)((arg1 & 32767U) * arg2) >> 14) - arg2;
             break;
         case 4:
-            piVar1 = (int*)Array<int, eastl::allocator>::operator[](
-                (Array<int, eastl::allocator>*)&m_noise,
-                (ulong)((uint)((ulong)((long)param_1 * 1687014389) >> 42) - (param_1 >> 31) & 32767));
-            iVar2 = param_2 * *piVar1;
+            piVar1 = &m_noise[(
+                unsigned long)((unsigned int)((unsigned long)((long)arg1 * 1687014389) >> 42) - (arg1 >> 31) & 32767)];
+            iVar2 = arg2 * *piVar1;
             break;
         default:
             iVar2 = 0;
@@ -898,42 +716,16 @@ namespace jag::oldscape::sound {
         return iVar2;
     }
 
-    // 0x1002a0da0, 128 bytes, placed by class name
-    // Tone::FromUncompressedTone(Array<unsigned char, eastl::allocator> const&)
-    Tone* Tone::FromUncompressedTone(Array* param_1) {
-        byte bVar1;
-        Tone* this_00;
+    // 0x1002a0da0
+    auto Tone::FromUncompressedTone(const Array<unsigned char>& arg1) {
         WindowSavedPosition local_40;
 
-        local_40.PacketT(param_1);
-        std::make_unique<Tone>();
-        bVar1 = local_40.g1();
-        this_00 = (Tone*)std::unique_ptr<Tone, std::default_delete<Tone>>::operator->(
-            (unique_ptr<Tone, std::default_delete<Tone>>*)this);
-        LoadUncompressed(this_00, (PacketJ*)&local_40, (uint)bVar1);
-        local_40.~WindowSavedPosition();
-        return this;
-    }
-
-    // 0x1002adc70, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.58
-    void ___cxx_global_var_init_58() {
-        new (&Tone::m_buf) Array<int, eastl::allocator>();
-        ___cxa_atexit(PTR__Array_100ee6800, &Tone::m_buf, 4294967296);
-    }
-
-    // 0x1002adcb0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.59
-    void ___cxx_global_var_init_59() {
-        new (&Tone::m_noise) Array<int, eastl::allocator>();
-        ___cxa_atexit(PTR__Array_100ee6800, &Tone::m_noise, 4294967296);
-    }
-
-    // 0x1002adcf0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.60
-    void ___cxx_global_var_init_60() {
-        new (&Tone::m_sine) Array<int, eastl::allocator>();
-        ___cxa_atexit(PTR__Array_100ee6800, &Tone::m_sine, 4294967296);
+        local_40.PacketT(arg1);
+        auto result = std::make_unique<Tone>();
+        uint8_t bVar1 = local_40.g1();
+        LoadUncompressed((Tone*)(result).operator->(), (PacketJ<Array<unsigned char> _>*)&local_40,
+                         (unsigned int)bVar1);
+        return result;
     }
 
 } // namespace jag::oldscape::sound

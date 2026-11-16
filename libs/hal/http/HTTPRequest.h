@@ -1,259 +1,188 @@
 // libs/hal/http/HTTPRequest.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::http {
     class HTTPRequest {
     public:
-        void AddHTTPHeader(char const*, char const*);
-        void SetTotalTimeoutSeconds(int);
-        void GetSync(eastl::string const&);
+        void AddHTTPHeader(const char* str1, const char* str2);
+        void SetTotalTimeoutSeconds(int arg1);
+        void GetSync(const eastl::string& str);
         void GetState() const;
         int GetErrorCode() const;
-        GetResponseCode() const;
-        GetData() const;
-        GetRedirectLocation();
-        void Post(eastl::string const&, eastl::vector<std::pair<char const*, char const*>, eastl::allocator>);
-        HasTimedOut() const;
-        void SetFollowRedirects(bool);
+        int GetResponseCode() const;
+        unsigned int* GetData() const;
+        uint8_t* GetRedirectLocation();
+        void Post(const eastl::string& str, eastl::vector<std::pair<char const*, char const*>> pairs);
+        bool HasTimedOut() const;
+        void SetFollowRedirects(bool arg1);
         void Abort();
-        GetContentType() const;
-        GetURL() const;
-        void SetProxyUserName(char const*);
-        void SetProxyPassword(char const*);
-        void Get(eastl::string const&);
-        IsRequestComplete() const;
-        ulong CopyData(unsigned char*, unsigned long);
-        ulong CopyHeader(unsigned char*, unsigned long);
+        uint8_t* GetContentType() const;
+        void GetURL() const;
+        void SetProxyUserName(const char* str);
+        void SetProxyPassword(const char* str);
+        void Get(const eastl::string& str);
+        bool IsRequestComplete() const;
+        unsigned long CopyData(unsigned char* arg1, unsigned long arg2);
+        unsigned long CopyHeader(unsigned char* arg1, unsigned long arg2);
         void AddFooter();
-        void SetProgress(unsigned long, unsigned long);
-        HTTPRequest(unsigned long);
+        void SetProgress(unsigned long arg1, unsigned long arg2);
+        HTTPRequest(unsigned long arg1);
         ~HTTPRequest();
-        IsAborted() const;
-        void Get(char const*);
-        void Post(char const*, char const*);
-        void GetSync(char const*);
-        void PostSync(char const*, char const*);
+        bool IsAborted() const;
+        void Get(const char* str);
+        void Post(const char* str1, const char* str2);
+        void GetSync(const char* str);
+        void PostSync(const char* str1, const char* str2);
         void CurlRequest();
-        void Post(eastl::string const&, eastl::string const&);
+        void Post(const eastl::string& str1, const eastl::string& str2);
         void GetErrorInformation() const;
 
-        // data members, from how the methods use this: 664 bytes
-        char _unknown_0[136];
-        undefined1 m_pData[4]; // offset 136
-        char _unknown_140[20];
-        undefined1 field_160; // offset 160
-        char _unknown_161[31];
-        ulong field_192; // offset 192
-        char _unknown_200[360];
-        ulong field_560;           // offset 560
-        ulong field_568;           // offset 568
-        int field_576;             // offset 576
-        int m_totalTimeoutSeconds; // offset 580
-        undefined1 m_hasTimedOut;  // offset 584
-        bool m_followRedirects;    // offset 585
-        char _unknown_586[6];
-        clock_t field_592;    // offset 592
-        undefined1 m_aborted; // offset 600
-        char _unknown_601[7];
-        undefined8 m_responseCode; // offset 608
-        int m_errorCode;           // offset 616
-        char _unknown_620[44];
+    private:
+        uint8_t _unknown_0[136];
+        uint8_t m_pData[4];
+        uint8_t _unknown_140[52];
+        unsigned long field_192;
+        uint8_t _unknown_200[360];
+        unsigned long field_560;
+        unsigned long field_568;
+        int field_576;
+        int m_totalTimeoutSeconds;
+        uint8_t m_hasTimedOut;
+        bool m_followRedirects;
+        uint8_t _unknown_586[6];
+        clock_t field_592;
+        uint8_t m_aborted;
+        uint8_t _unknown_601[7];
+        uint64_t m_responseCode;
+        int m_errorCode;
+        uint8_t _unknown_620[44];
     };
 
-    // 0x10017a390, 272 bytes, inline, placed by class name and debug map
-    // HTTPRequest::AddHTTPHeader(char const*, char const*)
-    void HTTPRequest::AddHTTPHeader(char* param_1, char* param_2) {
-        char* pcVar1;
-        eastl::string local_100[32];
-        allocator local_e0[8];
-        fixed_string<char, 128, true, eastl::allocator> local_d8[168];
-        undefined8 local_30;
-
-        local_30 = *(undefined8*)PTR____stack_chk_guard_100ee9d98;
-        eastl::fixed_string<char, 128, true, eastl::allocator>::fixed_string(local_d8);
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 128ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            (char*)local_d8, "%s: %s", param_1, param_2);
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        eastl::allocator::allocator(local_e0, "EASTL basic_string");
-        eastl::string::basic_string(local_100, pcVar1, local_e0);
-        (&field_104, (basic_string*)local_100)->push_back();
-        eastl::string::~basic_string(local_100);
-        /* WARNING: Subroutine does not return */
-        local_d8->~fixed_string();
+    // 0x10017a390
+    void HTTPRequest::AddHTTPHeader(const char* str1, const char* str2) {
+        fixed_string<char, 128> local_d8;
+        local_d8.sprintf("%s: %s", str1, str2);
+        char* str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        eastl::string local_100(str);
+        field_104.push_back(local_100);
     }
 
-    // 0x10017a4a0, 16 bytes, inline, placed by class name and debug map
-    // HTTPRequest::SetTotalTimeoutSeconds(int)
-    void HTTPRequest::SetTotalTimeoutSeconds(int param_1) {
-        m_totalTimeoutSeconds = param_1;
+    // 0x10017a4a0
+    void HTTPRequest::SetTotalTimeoutSeconds(int arg1) {
+        m_totalTimeoutSeconds = arg1;
     }
 
-    // 0x10017a4b0, 48 bytes, inline, placed by class name and debug map
-    // HTTPRequest::GetSync(eastl::string const&)
-    void HTTPRequest::GetSync(basic_string* param_1) {
-        char* pcVar1;
-
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        GetSync((HTTPRequest*)param_1, pcVar1);
+    // 0x10017a4b0
+    void HTTPRequest::GetSync(const eastl::string& str) {
+        GetSync((char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin());
     }
 
-    // 0x10017a570, 16 bytes, inline, placed by class name and debug map
-    // HTTPRequest::GetState() const
-    void HTTPRequest::GetState() {
+    // 0x10017a570
+    void HTTPRequest::GetState() const {
         operator_cast_to_HTTPRequestState();
     }
 
-    // 0x10017a580, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // HTTPRequest::GetErrorCode() const
-    /* ui::Slider::GetCurrentValue() const */
-
-    int ui::Slider::GetCurrentValue() {
+    // 0x10017a580
+    int HTTPRequest::GetErrorCode() const {
         return m_currentValue;
     }
 
-    // 0x10017a590, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // HTTPRequest::GetResponseCode() const
-    /* graphics::TerrainPatch::GetGridSize() const */
-
-    int graphics::TerrainPatch::GetGridSize() {
+    // 0x10017a590
+    int HTTPRequest::GetResponseCode() const {
         return m_gridSize;
     }
 
-    // 0x10017a5a0, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // HTTPRequest::GetData() const
-    /* graphics::RT7Core::GetMSAASampleCount() */
-
-    uint* graphics::RT7Core::GetMSAASampleCount() {
+    // 0x10017a5a0
+    unsigned int* HTTPRequest::GetData() const {
         return &m_mSAASampleCount;
     }
 
-    // 0x1003af9a0, 192 bytes, inline, placed by class name
-    // HTTPRequest::Post(eastl::string const&, eastl::vector<std::pair<char const*, char const*>, eastl::allocator>)
-    /* HTTPRequest::Post(eastl::string const&,
-   eastl::vector<std::pair<char const*, char const*>, eastl::allocator>) */
-
-    void HTTPRequest::Post(undefined8 param_2, Layout* param_3) {
-        undefined8* puVar1;
-        undefined8* puVar2;
-        char* pcVar3;
-        char* pcVar4;
-        basic_string<char, BucketAllocatorEASTL> local_50[24];
-
-        eastl::basic_string<char, BucketAllocatorEASTL>::basic_string();
-        puVar1 = (undefined8*)
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                    eastl::allocator>>::Layout::HeapBeginPtr(param_3);
-        puVar2 = (undefined8*)param_3->end();
+    // 0x1003af9a0
+    void HTTPRequest::Post(const eastl::string& str, eastl::vector<std::pair<char const*, char const*>> pairs) {
+        basic_string<char, BucketAllocatorEASTL> local_50;
+        auto puVar1 = pairs->HeapBeginPtr();
+        auto puVar2 = pairs->end();
         if (puVar1 != puVar2) {
             do {
-                eastl::basic_string<char, BucketAllocatorEASTL>::append_sprintf((char*)local_50, "&%s=%s", *puVar1,
-                                                                                puVar1[1]);
+                local_50.append_sprintf("&%s=%s", *puVar1, puVar1[1]);
                 puVar1 = puVar1 + 2;
             } while (puVar1 != puVar2);
         }
-        pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        Post((HTTPRequest*)this, pcVar3, pcVar4);
-        eastl::basic_string<char, BucketAllocatorEASTL>::~basic_string(local_50);
+        char* str1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        char* str2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        Post(str1, str2);
     }
 
-    // 0x1003afa90, 16 bytes, inline, placed by class name
-    // HTTPRequest::HasTimedOut() const
-    undefined1 HTTPRequest::HasTimedOut() {
+    // 0x1003afa90
+    bool HTTPRequest::HasTimedOut() const {
         return m_hasTimedOut;
     }
 
-    // 0x1003b2ae0, 16 bytes, inline, placed by class name
-    // HTTPRequest::SetFollowRedirects(bool)
-    void HTTPRequest::SetFollowRedirects(bool param_1) {
-        m_followRedirects = param_1;
+    // 0x1003b2ae0
+    void HTTPRequest::SetFollowRedirects(bool arg1) {
+        m_followRedirects = arg1;
     }
 
-    // 0x1003b31f0, 16 bytes, inline, placed by class name
-    // HTTPRequest::Abort()
+    // 0x1003b31f0
     void HTTPRequest::Abort() {
         m_aborted = 1;
     }
 
-    // 0x1009f22b0, 16 bytes, inline, placed by class name
-    // HTTPRequest::SetProxyUserName(char const*)
-    void HTTPRequest::SetProxyUserName(char* param_1) {
-        (&field_40, param_1)->assign();
+    // 0x1009f22b0
+    void HTTPRequest::SetProxyUserName(const char* str) {
+        (&field_40)->assign(str);
     }
 
-    // 0x1009f22c0, 16 bytes, inline, placed by class name
-    // HTTPRequest::SetProxyPassword(char const*)
-    void HTTPRequest::SetProxyPassword(char* param_1) {
-        (&field_72, param_1)->assign();
+    // 0x1009f22c0
+    void HTTPRequest::SetProxyPassword(const char* str) {
+        (&field_72)->assign(str);
     }
 
-    // 0x100ad7720, 48 bytes, inline, placed by class name
-    // HTTPRequest::Get(eastl::string const&)
-    void HTTPRequest::Get(basic_string* param_1) {
-        char* pcVar1;
-
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        Get((HTTPRequest*)param_1, pcVar1);
+    // 0x100ad7720
+    void HTTPRequest::Get(const eastl::string& str) {
+        Get((char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin());
     }
 
-    // 0x100ad7fb0, 32 bytes, inline, placed by class name
-    // HTTPRequest::IsRequestComplete() const
-    undefined4 HTTPRequest::IsRequestComplete() {
-        int iVar1;
+    // 0x100ad7fb0
+    bool HTTPRequest::IsRequestComplete() const {
+        memory_order in_ESI;
 
-        iVar1 = std::__atomic_base<HTTPRequestState, false>::load();
-        return CONCAT31((int3)(iVar1 - 1U >> 8), iVar1 - 1U < 2);
+        return load(in_ESI) - 1U < 2;
     }
 
-    // 0x100ad9a90, 16 bytes, inline, placed by class name
-    // HTTPRequest::IsAborted() const
-    undefined1 HTTPRequest::IsAborted() {
+    // 0x100ad9a90
+    bool HTTPRequest::IsAborted() const {
         return m_aborted;
     }
 
-    // 0x100ba8b10, 64 bytes, inline, placed by class name
-    // HTTPRequest::Post(eastl::string const&, eastl::string const&)
-    void HTTPRequest::Post(basic_string* param_1, basic_string* param_2) {
-        char* pcVar1;
-        char* pcVar2;
-
-        pcVar1 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        Post((HTTPRequest*)param_1, pcVar1, pcVar2);
+    // 0x100ba8b10
+    void HTTPRequest::Post(const eastl::string& str1, const eastl::string& str2) {
+        char* str1_00 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        char* str2_00 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        Post(str1_00, str2_00);
     }
 
-    // 0x100ba8b50, 32 bytes, inline, placed by class name
-    // HTTPRequest::GetErrorInformation() const
-    void HTTPRequest::GetErrorInformation() {
+    // 0x100ba8b50
+    void HTTPRequest::GetErrorInformation() const {
         eastl::basic_string<char, BucketAllocatorEASTL>::begin();
     }
 
 } // namespace jag::http
 
 namespace jag::oldscape {
-    // 0x10017a5c0, 16 bytes, inline, placed by debug map only (low confidence)
-    // PacketJ<Array<unsigned char, BucketAllocatorEASTL> >::PacketT(Array<unsigned char, BucketAllocatorEASTL>&&)
-    void PacketJ<Array<unsigned char, BucketAllocatorEASTL>>::PacketT(
-        PacketJ<Array<unsigned char, BucketAllocatorEASTL>>* this, Array* param_1) {
-        new (this) PacketT<Array<unsigned char, BucketAllocatorEASTL>>(param_1);
+    // 0x10017a5c0
+    void
+    PacketJ<Array<unsigned char, BucketAllocatorEASTL>>::PacketT(Array<unsigned char, BucketAllocatorEASTL>&& arg1) {
+        new (this) PacketT(arg1);
     }
-
-    // 0x10017a5f0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // PacketJ<Array<unsigned char, BucketAllocatorEASTL> >::~PacketJ(): jumps straight to the base-object destructor
 
 } // namespace jag::oldscape
 
 namespace jag {
-    // 0x10017a5e0, 16 bytes, inline, placed by debug map only (low confidence)
-    // PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL> > >::g8()
-    void PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::g8(
-        PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>* this) {
+    // 0x10017a5e0
+    void PacketReaderMixin<PacketT<Array<unsigned char, BucketAllocatorEASTL>>>::g8() {
         gT<unsigned long long>(this);
     }
 

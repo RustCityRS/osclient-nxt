@@ -1,6 +1,5 @@
 // libs/debug/DebugUIElement.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,45 +9,35 @@ namespace jag::debug {
     public:
         // virtual methods in vtable order
         virtual ~DebugUIElement();
-        virtual LogicDebug(bool);
+        virtual void LogicDebug(bool arg1);
         virtual void __pure_slot_3() = 0;
-        virtual void NotifyDebugRegistration(bool);
-        DrawDebugMainMenu();
+        virtual void NotifyDebugRegistration(bool arg1);
+        void DrawDebugMainMenu();
         void RegisterDebug();
         void UnregisterDebug();
         DebugUIElement();
 
-        // data members, from how the methods use this: 9 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        bool field_8;       // offset 8
+    private:
+        bool field_8;
     };
 
-    // 0x1007232c0, 32 bytes, base-object constructor, inline, placed by class name and debug map
-    // DebugUIElement::DebugUIElement()
-    void DebugUIElement::DebugUIElement() {
-        field_0 = PTR_vtable_100ee8618 + 16;
-        field_8 = false;
-        RegisterDebug(this);
+    // 0x1007232c0
+    DebugUIElement::DebugUIElement() : field_8(false) {
+        RegisterDebug();
     }
 
-    // 0x100723990, 32 bytes, base-object destructor, inline, placed by class name and debug map
-    // DebugUIElement::~DebugUIElement()
-    void DebugUIElement::~DebugUIElement() {
-        field_0 = PTR_vtable_100ee8618 + 16;
-        UnregisterDebug(this);
+    // 0x100723990
+    DebugUIElement::~DebugUIElement() {
+        UnregisterDebug();
     }
 
 } // namespace jag::debug
 
 namespace jag {
-    // 0x100724270, 32 bytes, inline, placed by debug map only (low confidence)
-    // render::Texture2D* placement_new<render::Texture2D, char const (&) [11]>(void*, char const (&) [11])
-    /* render::Texture2D* placement_new<render::Texture2D, char const (&) [31]>(void*,
-   char const (&) [31]) */
-
-    Texture2D* placement_new<render::Texture2D, char const (&)[31]>(void* param_1, char* param_2) {
-        render::Texture2D::Texture2D(param_1, param_2);
-        return param_1;
+    // 0x100724270
+    render::Texture2D* placement_new<render::Texture2D, char const (&)[11]>(void* arg1, char const (&arg2)[11]) {
+        new (arg1) render::Texture2D(arg2);
+        return arg1;
     }
 
 } // namespace jag

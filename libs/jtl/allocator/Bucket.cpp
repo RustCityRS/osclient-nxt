@@ -1,251 +1,199 @@
 // libs/jtl/allocator/Bucket.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.jtl
 
 #include "Bucket.h"
 
 namespace jag {
-    // 0x100f4df08, 72 bytes, __data
-    BucketManager::m_metricsMutex = {
+    // 0x100f4df08
+    int32_t BucketManager::m_metricsMutex[18] = {
         850045863, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x100f4e470, 24 bytes, __thread_vars
-    BucketManager::m_bucketStaticDestructor = {0, 0, 0, 0, 165672, 0};
+    // 0x100f4e470
+    int32_t BucketManager::m_bucketStaticDestructor[6] = {0, 0, 0, 0, 165672, 0};
 
-    // 0x100f4e488, 24 bytes, __thread_vars
-    BucketManager::m_smallBuckets = {0, 0, 0, 0, 165680, 0};
+    // 0x100f4e488
+    int32_t BucketManager::m_smallBuckets[6] = {0, 0, 0, 0, 165680, 0};
 
-    // 0x100f4e4a0, 24 bytes, __thread_vars
-    BucketManager::m_buckets = {0, 0, 0, 0, 167728, 0};
+    // 0x100f4e4a0
+    int32_t BucketManager::m_buckets[6] = {0, 0, 0, 0, 167728, 0};
 
-    // 0x100f4e4b8, 24 bytes, __thread_vars
-    BucketManager::m_bucketCount = {0, 0, 0, 0, 231216, 0};
+    // 0x100f4e4b8
+    int32_t BucketManager::m_bucketCount[6] = {0, 0, 0, 0, 231216, 0};
 
-    // 0x103be2658, 8 bytes, __common; zero-initialised
-    BucketManager::m_safeBucketStaticDestructor;
+    // 0x103be2658
+    eastl BucketManager::m_safeBucketStaticDestructor;
 
-    // 0x103be2660, 2048 bytes, __common; zero-initialised
-    BucketManager::m_smallSafeBuckets;
+    // 0x103be2660
+    std::array<unsigned long, 256ul> BucketManager::m_smallSafeBuckets;
 
-    // 0x103be2e60, 63488 bytes, __common; set at startup by ___cxx_global_var_init.42
+    // 0x103be2e60, set at startup by ___cxx_global_var_init.42
     std::array<Bucket, 256ul> BucketManager::m_safeBuckets = array<Bucket, 256ul>();
 
-    // 0x103bf2660, 8 bytes, __common; zero-initialised
-    BucketManager::m_safeBucketCount;
+    // 0x103bf2660
+    int64_t BucketManager::m_safeBucketCount;
 
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    Bucket::GetAllocator() const;
+    // 0x100009ca0: Bucket::GetAllocator() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x100102fa0: the linker folded this into oldscape::rs2lib::InputField::GetSelectionStart() const, which has identical code
-    long Bucket::GetStart() const;
+    // 0x100102fa0: Bucket::GetStart() const has the same machine code as oldscape::rs2lib::InputField::GetSelectionStart() const
 
-    // 0x100159b20: the linker folded this into oldscape::rs2lib::InputField::GetCharacterLimit() const, which has identical code
-    ulong Bucket::GetSlotAlignment() const;
+    // 0x100159b20: Bucket::GetSlotAlignment() const has the same machine code as oldscape::rs2lib::InputField::GetCharacterLimit() const
 
-    // 0x100cbac60, 16 bytes, complete-object destructor, placed by debug map only (low confidence)
-    // BucketManager::StaticDestructor::~StaticDestructor(): jumps straight to the base-object destructor
-
-    // 0x100cbac70, 16 bytes, complete-object destructor, placed by debug map only (low confidence)
-    // BucketManager::SafeStaticDestructor::~SafeStaticDestructor(): jumps straight to the base-object destructor
-
-    // 0x100cbaca0, 176 bytes, base-object destructor, placed by debug map only (low confidence)
-    // BucketManager::StaticDestructor::~StaticDestructor()
-    void BucketManager::StaticDestructor::~StaticDestructor() {
-        long* plVar1;
-        ulong* puVar2;
+    // 0x100cbaca0
+    BucketManager::StaticDestructor::~StaticDestructor() {
+        unsigned long* puVar2;
         array<Bucket, 256ul>* this_00;
         Layout* this_01;
-        SimpleAllocator* this_02;
-        undefined8* puVar4;
-        uint uVar5;
-        type* ptVar6;
+        unsigned int uVar5;
+        unsigned long arg1;
 
-        plVar1 = (long*)(*(code*)m_bucketCount)();
+        long* plVar1 = (long*)(*(void (*)(...))m_bucketCount)();
         if (*plVar1 != 0) {
             uVar5 = 1;
-            ptVar6 = (type*)0;
+            arg1 = 0;
             do {
                 m_buckets();
-                this_00 = (array<Bucket, 256ul>*)(*(code*)m_buckets)();
-                this_01 = (Layout*)std::array<Bucket, 256ul>::operator[](this_00, (ulong)ptVar6);
-                this_02 = (SimpleAllocator*)eastl::string::Layout::SSOBeginPtr(this_01, ptVar6);
-                if (this_02->size() != 0) {
-                    /* WARNING: Subroutine does not return */
+                this_00 = (array<Bucket, 256ul>*)(*(void (*)(...))m_buckets)();
+                this_01 = (Layout*)(*this_00)[arg1];
+                if (((SimpleAllocator*)this_01->SSOBeginPtr())->size() != 0) {
                     LogAssert("m_buckets[i].GetAllocator().size() == 0",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/"
                               "Bucket.cpp",
-                              36, (char*)0);
+                              36, nullptr);
                 }
-                ptVar6 = (type*)(ulong)uVar5;
-                puVar2 = (ulong*)(*(code*)m_bucketCount)();
+                arg1 = (unsigned long)uVar5;
+                puVar2 = (unsigned long*)(*(void (*)(...))m_bucketCount)();
                 uVar5 = uVar5 + 1;
-            } while (ptVar6 < (type*)*puVar2);
+            } while (arg1 < *puVar2);
         }
-        puVar4 = (undefined8*)(*(code*)m_bucketCount)();
+        uint64_t* puVar4 = (uint64_t*)(*(void (*)(...))m_bucketCount)();
         *puVar4 = 0;
     }
 
-    // 0x100cbada0, 160 bytes, base-object destructor, placed by debug map only (low confidence)
-    // BucketManager::SafeStaticDestructor::~SafeStaticDestructor()
-    void BucketManager::SafeStaticDestructor::~SafeStaticDestructor() {
+    // 0x100cbada0
+    BucketManager::SafeStaticDestructor::~SafeStaticDestructor() {
         bool bVar1;
-        type* ptVar3;
+        void** ppvVar3;
         Layout* this_00;
-        type* in_RSI;
-        type* ptVar5;
+        void** ppvVar4;
 
-        if (operator_cast_to_unsigned_long() != 0) {
-            ptVar3 = (type*)0;
-            ptVar5 = (type*)&DAT_00000001;
+        long lVar2 = operator_cast_to_unsigned_long();
+        if (lVar2 != 0) {
+            ppvVar3 = nullptr;
+            ppvVar4 = (void**)&DAT_00000001;
             do {
-                this_00 = (Layout*)std::array<Bucket, 256ul>::operator[]((array<Bucket, 256ul>*)&m_safeBuckets,
-                                                                         (ulong)ptVar3);
-                this = (SafeStaticDestructor*)eastl::string::Layout::SSOBeginPtr(this_00, ptVar3);
-                if (size() != 0) {
-                    /* WARNING: Subroutine does not return */
+                this_00 = &m_safeBuckets[(unsigned long)ppvVar3];
+                this = (SafeStaticDestructor*)this_00->SSOBeginPtr();
+                lVar2 = size();
+                if (lVar2 != 0) {
                     LogAssert("m_safeBuckets[i].GetAllocator().size() == 0",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/"
                               "Bucket.cpp",
-                              47, (char*)0);
+                              47, nullptr);
                 }
-                in_RSI = ptVar3;
-                ptVar3 = (type*)operator_cast_to_unsigned_long();
-                bVar1 = ptVar5 < ptVar3;
-                ptVar3 = ptVar5;
-                ptVar5 = (type*)(ulong)((int)ptVar5 + 1);
+                ppvVar3 = (void**)operator_cast_to_unsigned_long();
+                bVar1 = ppvVar4 < ppvVar3;
+                ppvVar3 = ppvVar4;
+                ppvVar4 = (void**)(unsigned long)((int)ppvVar4 + 1);
             } while (bVar1);
         }
-        std::atomic<unsigned long>::operator=((atomic<unsigned long>*)this, (ulong)in_RSI);
     }
 
-    // 0x100cbae60, 32 bytes, base-object constructor, placed by class name and debug map
-    // Bucket::Bucket()
-    void Bucket::Bucket() {
-        new (this) SimpleAllocator();
-        m_slotSize = 0;
-        m_slotAlignment = 0;
-    }
+    // 0x100cbae60
+    Bucket::Bucket() : SimpleAllocator(), m_slotSize(0), m_slotAlignment(0) {}
 
-    // 0x100cbae90, 16 bytes, complete-object constructor, placed by class name
-    // Bucket::Bucket(): jumps straight to the base-object constructor
-
-    // 0x100cbaea0, 128 bytes, base-object constructor, placed by class name
-    // Bucket::Bucket(unsigned long, unsigned long, unsigned long, unsigned int)
-    void Bucket::Bucket(ulong param_1, ulong param_2, ulong param_3, uint param_4) {
-        long lVar1;
-        ulong uVar2;
-
-        uVar2 = 16;
-        if (16 < param_3) {
-            uVar2 = param_3;
+    // 0x100cbaea0
+    Bucket::Bucket(unsigned long arg1, unsigned long arg2, unsigned long arg3, unsigned int arg4) {
+        unsigned long arg4_00 = 16;
+        if (16 < arg3) {
+            arg4_00 = arg3;
         }
-        new (this) SimpleAllocator(param_2, param_1, param_4 | 1, uVar2);
-        lVar1 = GetAuthWrapper();
+        new (this) SimpleAllocator(arg2, arg1, arg4 | 1, arg4_00);
+        long lVar1 = GetAuthWrapper();
         m_pStart = lVar1;
-        m_end = param_2 * param_1 + lVar1;
-        m_slotSize = param_1;
-        m_slotAlignment = uVar2;
-        field_240 = param_4;
+        m_end = arg2 * arg1 + lVar1;
+        m_slotSize = arg1;
+        m_slotAlignment = arg4_00;
+        field_240 = arg4;
     }
 
-    // 0x100cbaf40, 16 bytes, complete-object constructor, placed by class name
-    // Bucket::Bucket(unsigned long, unsigned long, unsigned long, unsigned int): jumps straight to the base-object constructor
-
-    // 0x100cbaf50, 64 bytes, placed by class name
-    // Bucket::Allocate()
+    // 0x100cbaf50
     Bucket* Bucket::Allocate() {
-        Allocate();
+        SimpleAllocator* in_RSI;
+
+        *this = in_RSI->Allocate();
         if (field_8 == 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("block.m_address",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
-                      71, (char*)0);
+                      71, nullptr);
         }
         return this;
     }
 
-    // 0x100cbb080, 16 bytes, placed by class name
-    // Bucket::DeAllocate(void*)
-    void Bucket::DeAllocate(void* param_1) {
-        param_1->DeAllocate();
+    // 0x100cbb080
+    void Bucket::DeAllocate(void* arg1) {
+        DeAllocate(arg1);
     }
 
-    // 0x100cbb130, 16 bytes, placed by class name
-    // Bucket::DirectDeAllocation(SimpleAllocator::AllocatedBlock const&)
-    void Bucket::DirectDeAllocation(AllocatedBlock* param_1) {
-        DeAllocate(param_1);
+    // 0x100cbb130
+    void Bucket::DirectDeAllocation(const SimpleAllocator::AllocatedBlock& allocatedBlock) {
+        DeAllocate(allocatedBlock);
     }
 
-    // 0x100cbb1c0, 16 bytes, placed by class name
-    // Bucket::CheckOverflow(void const*) const
-    void Bucket::CheckOverflow(void* param_1) {
-        CheckOverflow(param_1);
+    // 0x100cbb1c0
+    void Bucket::CheckOverflow(const void* arg1) const {
+        CheckOverflow(arg1);
     }
 
-    // 0x100cbb250, 16 bytes, placed by class name
-    // Bucket::ResetMetrics()
+    // 0x100cbb250
     void Bucket::ResetMetrics() {
         ResetMetrics();
     }
 
-    // 0x100cbb2c0, 16 bytes, placed by class name
-    // Bucket::PrintMetrics()
+    // 0x100cbb2c0
     void Bucket::PrintMetrics() {
         PrintMetrics();
     }
 
-    // 0x100cbb380, 16 bytes, placed by class name
-    // Bucket::PrintAllocations(bool)
-    void Bucket::PrintAllocations(bool param_1) {}
+    // 0x100cbb380
+    void Bucket::PrintAllocations(bool arg1) {}
 
-    // 0x100cbb3a0, 224 bytes, placed by __FILE__ string
-    // BucketManager::Init(unsigned long, unsigned long)
-    void BucketManager::Init(ulong param_1, ulong param_2) {
-        long* plVar2;
-        array<Bucket, 256ul>* this;
-        Bucket* pBVar3;
-        undefined** this_00;
+    // 0x100cbb3a0
+    void BucketManager::Init(unsigned long arg1, unsigned long arg2) {
+        array<Bucket, 256ul>* array;
 
-        plVar2 = (long*)(*(code*)m_bucketCount)();
+        long* plVar2 = (long*)(*(void (*)(...))m_bucketCount)();
         if (*plVar2 != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_bucketCount == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
-                      120, (char*)0);
+                      120, nullptr);
         }
         m_buckets();
-        this = (array<Bucket, 256ul>*)(*(code*)m_buckets)();
-        pBVar3 = (Bucket*)std::array<Bucket, 256ul>::operator[](this, 0);
-        Bucket::Bucket(pBVar3, 256, param_1, 16, 0);
-        this_00 = &m_bucketCount;
-        plVar2 = (long*)(*(code*)m_bucketCount)();
+        array = (array<Bucket, 256ul>*)(*(void (*)(...))m_buckets)();
+        Bucket* pBVar3 = (Bucket*)(*array)[0];
+        new (pBVar3) Bucket(256, arg1, 16, 0);
+        uint8_t** this_00 = &m_bucketCount;
+        plVar2 = (long*)(*(void (*)(...))m_bucketCount)();
         *plVar2 = *plVar2 + 1;
         if (this_thread::IsMainThread() != '\0') {
             if (this_00->operator_cast_to_unsigned_long() != 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert(
                     "m_safeBucketCount == 0",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
-                    126, (char*)0);
+                    126, nullptr);
             }
-            pBVar3 = (Bucket*)std::array<Bucket, 256ul>::operator[]((array<Bucket, 256ul>*)&m_safeBuckets, 0);
-            Bucket::Bucket(pBVar3, 256, param_2, 16, 4);
-            std::__atomic_base<unsigned long, true>::operator++((__atomic_base<unsigned long, true>*)pBVar3);
+            pBVar3 = (Bucket*)m_safeBuckets[0];
+            new (pBVar3) Bucket(256, arg2, 16, 4);
+            std::__atomic_base<unsigned long, true>::operator++();
         }
     }
 
-    // 0x100cbb490, 384 bytes, placed by __FILE__ string
-    // BucketManager::CreateGenericBuckets()
+    // 0x100cbb490
     void BucketManager::CreateGenericBuckets() {
-        ulong uVar1;
-        long* plVar2;
-
-        uVar1 = operator_cast_to_unsigned_long();
-        plVar2 = (long*)(*(code*)m_bucketCount)();
-        if ((uVar1 == 0) || (*plVar2 == 0)) {
-            /* WARNING: Subroutine does not return */
+        long lVar1 = operator_cast_to_unsigned_long();
+        long* plVar2 = (long*)(*(void (*)(...))m_bucketCount)();
+        if ((lVar1 == 0) || (*plVar2 == 0)) {
             LogAssert("m_safeBucketCount > 0 && m_bucketCount > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
                       134, "BucketManager::Init() not yet called");
@@ -267,219 +215,189 @@ namespace jag {
         CreateSafeBucket(512, 24000, 64);
     }
 
-    // 0x100cbb610, 576 bytes, placed by __FILE__ string
-    // BucketManager::CreateBucket(unsigned long, unsigned long, unsigned long)
-    ulong BucketManager::CreateBucket(ulong param_1, ulong param_2, ulong param_3) {
-        ulong uVar1;
-        long* plVar2;
-        ulong* puVar3;
-        array<Bucket, 256ul>* paVar4;
-        Bucket* this;
+    // 0x100cbb610
+    unsigned long BucketManager::CreateBucket(unsigned long arg1, unsigned long arg2, unsigned long arg3) {
+        unsigned long uVar1;
         array<unsigned long, 256ul>* this_00;
         Layout* this_01;
-        vector* this_02;
-        ulong uVar5;
-        ulong uVar6;
-        type* ptVar7;
-        ulong uVar8;
+        unsigned long uVar5;
+        unsigned long uVar6;
+        unsigned long uVar7;
 
-        if (param_1 == 0) {
-            /* WARNING: Subroutine does not return */
+        if (arg1 == 0) {
             LogAssert("slotSize",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
-                      190, (char*)0);
+                      190, nullptr);
         }
-        if ((param_3 != 0) && (uVar1 = param_3 - (param_3 >> 1 & 6148914691236517205),
-                               uVar1 = (uVar1 >> 2 & 3689348814741910323) + (uVar1 & 3689348814741910323),
-                               1 < (byte)(((uVar1 >> 4) + uVar1 & 1085102592571150095) * 72340172838076673 >> 56))) {
-            /* WARNING: Subroutine does not return */
+        if ((arg3 != 0) && (uVar1 = arg3 - (arg3 >> 1 & 6148914691236517205),
+                            uVar1 = (uVar1 >> 2 & 3689348814741910323) + (uVar1 & 3689348814741910323),
+                            1 < (uint8_t)(((uVar1 >> 4) + uVar1 & 1085102592571150095) * 72340172838076673 >> 56))) {
             LogAssert("alignment == 0 || (alignment & (alignment - 1)) == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
-                      191, (char*)0);
+                      191, nullptr);
         }
-        if ((param_3 != 0) && (param_1 % param_3 != 0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg3 != 0) && (arg1 % arg3 != 0)) {
             LogAssert("alignment == 0 || slotSize % alignment == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
-                      192, (char*)0);
+                      192, nullptr);
         }
-        plVar2 = (long*)(*(code*)m_bucketCount)();
+        long* plVar2 = (long*)(*(void (*)(...))m_bucketCount)();
         if (*plVar2 == 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_bucketCount > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
                       193, "Ensure that Bucket::Init() is called before calling CreateBucket()");
         }
         m_buckets();
-        puVar3 = (ulong*)(*(code*)m_bucketCount)();
+        unsigned long* puVar3 = (unsigned long*)(*(void (*)(...))m_bucketCount)();
         uVar1 = *puVar3;
-        paVar4 = (array<Bucket, 256ul>*)(*(code*)m_buckets)();
-        this = (Bucket*)std::array<Bucket, 256ul>::operator[](paVar4, uVar1);
-        Bucket::Bucket(this, param_1, param_2, param_3, 0);
+        array<Bucket, 256ul>* paVar4 = (array<Bucket, 256ul>*)(*(void (*)(...))m_buckets)();
+        new ((Bucket*)(*paVar4)[uVar1]) Bucket(arg1, arg2, arg3, 0);
         uVar1 = *puVar3;
         *puVar3 = uVar1 + 1;
         if (255 < uVar1) {
-            /* WARNING: Subroutine does not return */
             LogAssert("entry < NUMBER_OF_BUCKETS",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
                       199, "Bucket Capacity of: %u exceeded", 256);
         }
-        if (param_1 < 256) {
-            uVar8 = (long)(int)param_1;
-            while (0 < (long)uVar8) {
+        if (arg1 < 256) {
+            uVar7 = (long)(int)arg1;
+            while (0 < (long)uVar7) {
                 m_buckets();
-                this_00 = (array<unsigned long, 256ul>*)(*(code*)m_smallBuckets)();
-                puVar3 = (ulong*)std::array<unsigned long, 256ul>::operator[](this_00, uVar8 - 1);
-                ptVar7 = (type*)*puVar3;
-                paVar4 = (array<Bucket, 256ul>*)(*(code*)m_buckets)();
-                this_01 = (Layout*)std::array<Bucket, 256ul>::operator[](paVar4, (ulong)ptVar7);
-                this_02 = eastl::string::Layout::SSOBeginPtr(this_01, ptVar7);
-                uVar5 = this_02->data();
+                this_00 = (array<unsigned long, 256ul>*)(*(void (*)(...))m_smallBuckets)();
+                puVar3 = (unsigned long*)(*this_00)[uVar7 - 1];
+                uVar6 = *puVar3;
+                paVar4 = (array<Bucket, 256ul>*)(*(void (*)(...))m_buckets)();
+                this_01 = (Layout*)(*paVar4)[uVar6];
+                uVar5 = ((Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)this_01->SSOBeginPtr())->data();
                 uVar6 = uVar1;
-                if (uVar5 < param_1)
+                if (uVar5 < arg1)
                     goto LAB_100cbb82f;
                 *puVar3 = uVar1;
-                uVar8 = uVar8 - 1;
+                uVar7 = uVar7 - 1;
             }
-            uVar6 = param_1;
+            uVar6 = arg1;
         LAB_100cbb82f:
-            if (0 < (long)uVar8) {
+            if (0 < (long)uVar7) {
                 return uVar6;
             }
         }
         return uVar1;
     }
 
-    // 0x100cbb850, 544 bytes, placed by __FILE__ string
-    // BucketManager::CreateSafeBucket(unsigned long, unsigned long, unsigned long)
-    ulong BucketManager::CreateSafeBucket(ulong param_1, ulong param_2, ulong param_3) {
-        ulong uVar1;
-        Bucket* this;
-        ulong* puVar2;
+    // 0x100cbb850
+    unsigned long BucketManager::CreateSafeBucket(unsigned long arg1, unsigned long arg2, unsigned long arg3) {
+        unsigned long uVar1;
+        unsigned long* puVar3;
         Layout* this_00;
-        vector* this_01;
-        ulong uVar3;
-        ulong uVar4;
-        type* ptVar5;
-        ulong unaff_R12;
-        ulong uVar6;
+        unsigned long uVar4;
+        unsigned long uVar5;
+        unsigned long unaff_R12;
+        unsigned long uVar6;
 
-        if (param_1 == 0) {
-            /* WARNING: Subroutine does not return */
+        if (arg1 == 0) {
             LogAssert("slotSize",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
-                      159, (char*)0);
+                      159, nullptr);
         }
-        if ((param_3 != 0) && (uVar1 = param_3 - (param_3 >> 1 & 6148914691236517205),
-                               uVar1 = (uVar1 >> 2 & 3689348814741910323) + (uVar1 & 3689348814741910323),
-                               1 < (byte)(((uVar1 >> 4) + uVar1 & 1085102592571150095) * 72340172838076673 >> 56))) {
-            /* WARNING: Subroutine does not return */
+        if ((arg3 != 0) && (uVar1 = arg3 - (arg3 >> 1 & 6148914691236517205),
+                            uVar1 = (uVar1 >> 2 & 3689348814741910323) + (uVar1 & 3689348814741910323),
+                            1 < (uint8_t)(((uVar1 >> 4) + uVar1 & 1085102592571150095) * 72340172838076673 >> 56))) {
             LogAssert("alignment == 0 || (alignment & (alignment - 1)) == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
-                      160, (char*)0);
+                      160, nullptr);
         }
-        if ((param_3 != 0) && (param_1 % param_3 != 0)) {
-            /* WARNING: Subroutine does not return */
+        if ((arg3 != 0) && (arg1 % arg3 != 0)) {
             LogAssert("alignment == 0 || slotSize % alignment == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
-                      161, (char*)0);
+                      161, nullptr);
         }
-        uVar1 = param_1->operator_cast_to_unsigned_long();
-        if (uVar1 == 0) {
-            /* WARNING: Subroutine does not return */
+        if (arg1->operator_cast_to_unsigned_long() == 0) {
             LogAssert("m_safeBucketCount > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
                       162, "Ensure that BucketManager::Init() is called before calling CreateBucket()");
         }
-        uVar1 = param_1->operator_cast_to_unsigned_long();
-        this = (Bucket*)std::array<Bucket, 256ul>::operator[]((array<Bucket, 256ul>*)&m_safeBuckets, uVar1);
-        uVar1 = param_1;
-        Bucket::Bucket(this, param_1, param_2, param_3, 4);
-        uVar1 =
-            std::__atomic_base<unsigned long, true>::operator++((__atomic_base<unsigned long, true>*)this, (int)uVar1);
+        uVar1 = arg1->operator_cast_to_unsigned_long();
+        Bucket* bucket = (Bucket*)m_safeBuckets[uVar1];
+        uVar1 = arg1;
+        new (bucket) Bucket(arg1, arg2, arg3, 4);
+        uVar1 = (*bucket)++;
         if (255 < uVar1) {
-            /* WARNING: Subroutine does not return */
             LogAssert("entry < NUMBER_OF_BUCKETS",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
                       168, "SafeBucket Capacity of: %u exceeded", 256);
         }
-        if (param_1 < 256) {
-            uVar6 = (long)(int)param_1;
+        if (arg1 < 256) {
+            uVar6 = (long)(int)arg1;
             while (0 < (long)uVar6) {
-                puVar2 = (ulong*)std::array<unsigned long, 256ul>::operator[](
-                    (array<unsigned long, 256ul>*)&m_smallSafeBuckets, uVar6 - 1);
-                ptVar5 = (type*)*puVar2;
-                this_00 = (Layout*)std::array<Bucket, 256ul>::operator[]((array<Bucket, 256ul>*)&m_safeBuckets,
-                                                                         (ulong)ptVar5);
-                this_01 = eastl::string::Layout::SSOBeginPtr(this_00, ptVar5);
-                uVar3 = this_01->data();
-                uVar4 = uVar1;
-                if (uVar3 < param_1)
+                puVar3 = &m_smallSafeBuckets[uVar6 - 1];
+                this_00 = &m_safeBuckets[*puVar3];
+                uVar4 = ((Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)this_00->SSOBeginPtr())->data();
+                uVar5 = uVar1;
+                if (uVar4 < arg1)
                     goto LAB_100cbba4f;
-                *puVar2 = uVar1;
+                *puVar3 = uVar1;
                 uVar6 = uVar6 - 1;
             }
-            uVar4 = unaff_R12;
+            uVar5 = unaff_R12;
         LAB_100cbba4f:
             if (0 < (long)uVar6) {
-                return uVar4;
+                return uVar5;
             }
         }
         return uVar1;
     }
 
-    // 0x100cbba90, 96 bytes, placed by neighbouring functions
-    // BucketManager::GetBucket(unsigned long, unsigned long)
-    long BucketManager::GetBucket(ulong param_1, ulong param_2) {
-        long* plVar1;
-        array<unsigned long, 256ul>* this;
-        ulong uVar3;
+    // 0x100cbba90
+    long BucketManager::GetBucket(unsigned long arg1, unsigned long arg2) {
+        array<unsigned long, 256ul>* array;
+        unsigned long arg1_00;
 
-        plVar1 = (long*)(*(code*)m_bucketCount)();
+        long* plVar1 = (long*)(*(void (*)(...))m_bucketCount)();
         if (*plVar1 == 0) {
             return 0;
         }
-        if ((param_1 < 257) && ((param_2 & 15) == 0)) {
-            uVar3 = param_1 - 1;
-            this = (array<unsigned long, 256ul>*)(*(code*)m_smallBuckets)();
-            plVar1 = (long*)std::array<unsigned long, 256ul>::operator[](this, uVar3);
+        if ((arg1 < 257) && ((arg2 & 15) == 0)) {
+            arg1_00 = arg1 - 1;
+            array = (array<unsigned long, 256ul>*)(*(void (*)(...))m_smallBuckets)();
+            plVar1 = (long*)(*array)[arg1_00];
             return *plVar1 + 1;
         }
-        return GetBucket(param_1, param_2, false);
+        return GetBucket(arg1, arg2, false);
     }
 
-    // 0x100cbbaf0, 288 bytes, placed by neighbouring functions
-    // BucketManager::GetBucket(unsigned long, unsigned long, bool)
-    long BucketManager::GetBucket(ulong param_1, ulong param_2, bool param_3) {
+    // 0x100cbbaf0
+    long BucketManager::GetBucket(unsigned long arg1, unsigned long arg2, bool arg3) {
         bool bVar1;
         unkbyte9 Var2;
-        ulong uVar3;
-        Bucket* this;
-        ulong uVar4;
-        ulong uVar5;
-        ulong* puVar6;
-        long lVar7;
-        undefined7 in_register_00000011;
-        ulong uVar8;
-        ulong uVar9;
-        undefined1 auVar10[16];
-        ulong local_48;
-        ulong local_40;
+        Bucket* bucket;
+        unsigned long uVar4;
+        unsigned long uVar5;
+        unsigned long* puVar6;
+        uint64_t in_register_00000011;
+        uint8_t** this_00;
+        unsigned long arg1_00;
+        unsigned long uVar8;
+        uint8_t auVar9[16];
+        unsigned long local_48;
+        unsigned long local_40;
 
-        if ((int)CONCAT71(in_register_00000011, param_3) == 0) {
+        unsigned long uVar3 = arg2;
+        if ((int)(((uint64_t)in_register_00000011 << 8) | (uint8_t)arg3) == 0) {
             m_buckets();
-            auVar10 = (*(code*)m_buckets)();
-            Var2 = auVar10._0_9_;
+            this_00 = &m_buckets;
+            auVar9 = (*(void (*)(...))m_buckets)();
+            Var2 = auVar9._0_9_;
         } else {
-            auVar10._8_8_ = CONCAT71(in_register_00000011, param_3);
-            auVar10._0_8_ = &m_safeBuckets;
-            Var2 = auVar10._0_9_;
+            auVar9._8_8_ = (((uint64_t)in_register_00000011 << 8) | (uint8_t)arg3);
+            auVar9._0_8_ = &m_safeBuckets;
+            Var2 = auVar9._0_9_;
+            this_00 = (uint8_t**)arg1;
         }
         if ((char)((unkuint9)Var2 >> 64) == '\0') {
-            puVar6 = (ulong*)(*(code*)m_bucketCount)();
+            puVar6 = (unsigned long*)(*(void (*)(...))m_bucketCount)();
             uVar3 = *puVar6;
         } else {
-            uVar3 = std::__atomic_base<unsigned long, false>::load();
+            uVar3 = this_00->load((memory_order)uVar3);
         }
         if (uVar3 == 0) {
             bVar1 = false;
@@ -488,215 +406,187 @@ namespace jag {
             local_48 = 18446744073709551615;
             local_40 = 0;
             bVar1 = false;
-            uVar8 = 0;
+            arg1_00 = 0;
             do {
-                uVar9 = uVar8 + 1;
-                this = (Bucket*)std::array<Bucket, 256ul>::operator[]((array<Bucket, 256ul>*)Var2, uVar8);
-                uVar4 = GetSlotSize();
-                uVar5 = GetSlotAlignment();
-                if ((((uVar4 != 0) && (uVar5 != 0)) && ((param_2 == 0 || (uVar5 % param_2 == 0)))) &&
-                    ((param_1 <= uVar4 && (uVar4 < local_48)))) {
+                uVar8 = arg1_00 + 1;
+                bucket = (Bucket*)(*Var2)[arg1_00];
+                uVar4 = bucket->GetSlotSize();
+                uVar5 = bucket->GetSlotAlignment();
+                if ((((uVar4 != 0) && (uVar5 != 0)) && ((arg2 == 0 || (uVar5 % arg2 == 0)))) &&
+                    ((arg1 <= uVar4 && (uVar4 < local_48)))) {
                     bVar1 = true;
                     local_48 = uVar4;
-                    local_40 = uVar8;
+                    local_40 = arg1_00;
                 }
-                uVar8 = uVar9;
-            } while (uVar3 != uVar9);
+                arg1_00 = uVar8;
+            } while (uVar3 != uVar8);
         }
-        lVar7 = 0;
+        long lVar7 = 0;
         if (bVar1) {
             lVar7 = local_40 + 1;
         }
         return lVar7;
     }
 
-    // 0x100cbbc10, 96 bytes, placed by neighbouring functions
-    // BucketManager::GetSafeBucket(unsigned long, unsigned long)
-    long BucketManager::GetSafeBucket(ulong param_1, ulong param_2) {
+    // 0x100cbbc10
+    long BucketManager::GetSafeBucket(unsigned long arg1, unsigned long arg2) {
         long* plVar2;
-        long lVar3;
 
-        if (param_1->operator_cast_to_unsigned_long() == 0) {
-            lVar3 = 0;
-        } else if ((param_1 < 257) && ((param_2 & 15) == 0)) {
-            plVar2 = (long*)std::array<unsigned long, 256ul>::operator[](
-                (array<unsigned long, 256ul>*)&m_smallSafeBuckets, param_1 - 1);
-            lVar3 = *plVar2 + 1;
+        long lVar1 = arg1->operator_cast_to_unsigned_long();
+        if (lVar1 == 0) {
+            lVar1 = 0;
+        } else if ((arg1 < 257) && ((arg2 & 15) == 0)) {
+            plVar2 = &m_smallSafeBuckets[arg1 - 1];
+            lVar1 = *plVar2 + 1;
         } else {
-            lVar3 = GetBucket(param_1, param_2, true);
+            lVar1 = GetBucket(arg1, arg2, true);
         }
-        return lVar3;
+        return lVar1;
     }
 
-    // 0x100cbbc90, 96 bytes, placed by __FILE__ string
-    // BucketManager::PrintBuckets()
+    // 0x100cbbc90
     void BucketManager::PrintBuckets() {
-        __atomic_base* this;
-        ulong uVar1;
-        uint uVar2;
-        ulong uVar3;
+        Logger* logger;
+        unsigned long uVar1;
+        unsigned long uVar3;
 
-        this = (__atomic_base*)logger::default_logger();
-        uVar2 = 0;
-        logger::Logger::Log(
-            this, 0, 8,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp", 318,
-            "Thread Safe Shared Allocator Buckets:");
+        logger = logger::default_logger();
+        unsigned int uVar2 = 0;
+        logger->Log(false, 8,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
+                    318, "Thread Safe Shared Allocator Buckets:");
         do {
-            uVar3 = (ulong)uVar2;
-            uVar1 = std::__atomic_base::operator_cast_to_unsigned_long(this);
+            uVar3 = (unsigned long)uVar2;
+            uVar1 = logger->operator_cast_to_unsigned_long();
             uVar2 = uVar2 + 1;
         } while (uVar3 < uVar1);
     }
 
-    // 0x100cbbcf0, 16 bytes, placed by neighbouring functions
-    // BucketManager::PrintBucketAllocations(bool)
-    void BucketManager::PrintBucketAllocations(bool param_1) {}
+    // 0x100cbbcf0
+    void BucketManager::PrintBucketAllocations(bool arg1) {}
 
-    // 0x100cbbd00, 16 bytes, placed by neighbouring functions
-    // BucketManager::PrintBucketUsage(char const*, bool)
-    void BucketManager::PrintBucketUsage(char* param_1, bool param_2) {}
+    // 0x100cbbd00
+    void BucketManager::PrintBucketUsage(const char* str, bool arg2) {}
 
-    // 0x100cbbd10, 160 bytes, placed by neighbouring functions
-    // BucketManager::ResetMetrics()
+    // 0x100cbbd10
     void BucketManager::ResetMetrics() {
-        long* plVar1;
-        array<Bucket, 256ul>* this;
+        array<Bucket, 256ul>* array;
         Bucket* pBVar2;
-        ulong* puVar3;
-        ulong uVar4;
-        ulong uVar5;
-        undefined** this_00;
+        unsigned long* puVar3;
+        unsigned long uVar5;
+        unsigned long uVar6;
 
-        this_00 = &m_bucketCount;
-        plVar1 = (long*)(*(code*)m_bucketCount)();
+        uint8_t** this_00 = &m_bucketCount;
+        long* plVar1 = (long*)(*(void (*)(...))m_bucketCount)();
         if (*plVar1 != 0) {
-            uVar5 = 0;
+            uVar6 = 0;
             do {
                 m_buckets();
-                this = (array<Bucket, 256ul>*)(*(code*)m_buckets)();
-                pBVar2 = (Bucket*)std::array<Bucket, 256ul>::operator[](this, uVar5);
+                array = (array<Bucket, 256ul>*)(*(void (*)(...))m_buckets)();
+                pBVar2 = (Bucket*)(*array)[uVar6];
                 pBVar2->ResetMetrics();
-                uVar5 = uVar5 + 1;
+                uVar6 = uVar6 + 1;
                 this_00 = &m_bucketCount;
-                puVar3 = (ulong*)(*(code*)m_bucketCount)();
-            } while (uVar5 < *puVar3);
+                puVar3 = (unsigned long*)(*(void (*)(...))m_bucketCount)();
+            } while (uVar6 < *puVar3);
         }
-        uVar5 = this_00->operator_cast_to_unsigned_long();
-        if (uVar5 != 0) {
-            uVar5 = 0;
+        if (this_00->operator_cast_to_unsigned_long() != 0) {
+            uVar6 = 0;
             do {
-                pBVar2 = (Bucket*)std::array<Bucket, 256ul>::operator[]((array<Bucket, 256ul>*)&m_safeBuckets, uVar5);
+                pBVar2 = &m_safeBuckets[uVar6];
                 pBVar2->ResetMetrics();
-                uVar5 = uVar5 + 1;
-                uVar4 = pBVar2->operator_cast_to_unsigned_long();
-            } while (uVar5 < uVar4);
+                uVar6 = uVar6 + 1;
+                uVar5 = pBVar2->operator_cast_to_unsigned_long();
+            } while (uVar6 < uVar5);
         }
     }
 
-    // 0x100cbbdb0, 416 bytes, placed by __FILE__ string
-    // BucketManager::PrintMetrics()
+    // 0x100cbbdb0
     void BucketManager::PrintMetrics() {
-        undefined8 uVar2;
-        undefined8 uVar3;
-        ulong uVar4;
-        long* plVar5;
-        array<Bucket, 256ul>* this;
+        array<Bucket, 256ul>* array;
         Bucket* pBVar6;
-        ulong* puVar7;
-        ulong uVar8;
-        undefined** this_00;
-        float fVar9;
-        scoped_lock<std::mutex> local_20[8];
+        unsigned long* puVar7;
+        unsigned long uVar9;
 
-        std::scoped_lock<std::mutex>::scoped_lock(local_20, (mutex*)&m_metricsMutex);
-        uVar2 = logger::default_logger();
-        uVar3 = this_thread::GetThreadName();
-        logger::Logger::Log(
-            uVar2, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp", 514,
-            "\n\nBUCKET MANAGER: Bucket Usage Metrics (Thread: %s)", uVar3);
-        uVar2 = logger::default_logger();
-        logger::Logger::Log(
-            uVar2, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp", 515,
-            "-----------------------------------------------------------------");
-        uVar2 = logger::default_logger();
-        uVar4 = SimpleAllocator::GetTotalSize();
-        fVar9 = Bytes2Megabytes<unsigned long>(uVar4);
-        logger::Logger::Log(
-            (double)fVar9, uVar2, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp", 516,
-            "Total bucket allocator heap size: %.2fMb");
-        this_00 = &m_bucketCount;
-        plVar5 = (long*)(*(code*)m_bucketCount)();
+        scoped_lock<std::mutex> local_20(m_metricsMutex);
+        auto pLVar2 = logger::default_logger();
+        uint64_t uVar3 = this_thread::GetThreadName();
+        pLVar2->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
+                    514, "\n\nBUCKET MANAGER: Bucket Usage Metrics (Thread: %s)", uVar3);
+        pLVar2 = logger::default_logger();
+        pLVar2->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
+                    515, "-----------------------------------------------------------------");
+        pLVar2 = logger::default_logger();
+        unsigned long uVar4 = SimpleAllocator::GetTotalSize();
+        float fVar10 = Bytes2Megabytes<unsigned long>(uVar4);
+        pLVar2->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
+                    516, "Total bucket allocator heap size: %.2fMb", (double)fVar10);
+        uint8_t** this_00 = &m_bucketCount;
+        long* plVar5 = (long*)(*(void (*)(...))m_bucketCount)();
         if (*plVar5 != 0) {
             uVar4 = 0;
             do {
                 m_buckets();
-                this = (array<Bucket, 256ul>*)(*(code*)m_buckets)();
-                pBVar6 = (Bucket*)std::array<Bucket, 256ul>::operator[](this, uVar4);
+                array = (array<Bucket, 256ul>*)(*(void (*)(...))m_buckets)();
+                pBVar6 = (Bucket*)(*array)[uVar4];
                 pBVar6->PrintMetrics();
                 uVar4 = uVar4 + 1;
                 this_00 = &m_bucketCount;
-                puVar7 = (ulong*)(*(code*)m_bucketCount)();
+                puVar7 = (unsigned long*)(*(void (*)(...))m_bucketCount)();
             } while (uVar4 < *puVar7);
         }
         if (this_thread::IsMainThread() != '\0') {
-            uVar4 = this_00->operator_cast_to_unsigned_long();
-            if (uVar4 != 0) {
+            if (this_00->operator_cast_to_unsigned_long() != 0) {
                 uVar4 = 0;
                 do {
-                    pBVar6 =
-                        (Bucket*)std::array<Bucket, 256ul>::operator[]((array<Bucket, 256ul>*)&m_safeBuckets, uVar4);
+                    pBVar6 = &m_safeBuckets[uVar4];
                     pBVar6->PrintMetrics();
                     uVar4 = uVar4 + 1;
-                    uVar8 = pBVar6->operator_cast_to_unsigned_long();
-                } while (uVar4 < uVar8);
+                    uVar9 = pBVar6->operator_cast_to_unsigned_long();
+                } while (uVar4 < uVar9);
             }
         }
-        uVar2 = logger::default_logger();
-        logger::Logger::Log(
-            uVar2, 0, 7,
-            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp", 531,
-            "-----------------------------------------------------------------\n");
-        std::scoped_lock<std::mutex>::~scoped_lock(local_20);
+        pLVar2 = logger::default_logger();
+        pLVar2->Log(false, 7,
+                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
+                    531, "-----------------------------------------------------------------\n");
     }
 
-    // 0x100cbbfa0, 320 bytes, placed by __FILE__ string
-    // BucketManager::DoAllocate(unsigned long, unsigned long, unsigned int)
-    BucketManager* BucketManager::DoAllocate(ulong param_1, ulong param_2, uint param_3) {
+    // 0x100cbbfa0
+    DirectAllocation BucketManager::DoAllocate(unsigned long arg1, unsigned long arg2, unsigned int arg3) {
         long lVar1;
-        array<Bucket, 256ul>* this_00;
-        Bucket* this_01;
-        HeapInterface* this_02;
-        ulong uVar2;
-        undefined1 local_40[8];
-        long lStack_38;
-        undefined8 local_30;
+        array<Bucket, 256ul>* array;
+        ReturnValue RVar2;
+        HeapInterface* this_00;
+        unsigned long uVar3;
+        ReturnValue local_40;
+        ReturnValue RStack_38;
+        ReturnValue local_30;
 
-        new (this) DirectAllocation();
-        if ((param_3 & 4) == 0) {
-            lVar1 = GetBucket(param_1, param_2);
+        DirectAllocation result;
+        if ((arg3 & 4) == 0) {
+            lVar1 = GetBucket(arg1, arg2);
             if (lVar1 == 0) {
             LAB_100cbc0a1:
-                uVar2 = 16;
-                if (16 < param_2) {
-                    uVar2 = param_2;
+                uVar3 = 16;
+                if (16 < arg2) {
+                    uVar3 = arg2;
                 }
-                *(undefined4*)field_0 = 2;
-                this_02 = (HeapInterface*)HeapInterface::Instance();
-                lVar1 = this_02->AlignedAlloc(param_1, uVar2);
-                field_8 = lVar1;
-                return this;
+                result = 2;
+                this_00 = HeapInterface::Instance();
+                RVar2 = (ReturnValue)this_00->AlignedAlloc(arg1, uVar3);
+                &result[1] = RVar2;
+                return result;
             }
-            uVar2 = lVar1 - 1;
+            uVar3 = lVar1 - 1;
             m_buckets();
-            this_00 = (array<Bucket, 256ul>*)(*(code*)m_buckets)();
-            this_01 = (Bucket*)std::array<Bucket, 256ul>::operator[](this_00, uVar2);
-            uVar2 = this_01->GetSlotSize();
-            if (uVar2 < param_1) {
-                /* WARNING: Subroutine does not return */
+            array = (array<Bucket, 256ul>*)(*(void (*)(...))m_buckets)();
+            RVar2 = (ReturnValue)(*array)[uVar3];
+            uVar3 = RVar2->GetSlotSize();
+            if (uVar3 < arg1) {
                 LogAssert(
                     "m_buckets[bucketIndex].GetSlotSize() >= size",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
@@ -706,13 +596,12 @@ namespace jag {
             }
             m_buckets();
         } else {
-            lVar1 = GetSafeBucket(param_1, param_2);
+            lVar1 = GetSafeBucket(arg1, arg2);
             if (lVar1 == 0)
                 goto LAB_100cbc0a1;
-            this_01 = (Bucket*)std::array<Bucket, 256ul>::operator[]((array<Bucket, 256ul>*)&m_safeBuckets, lVar1 - 1);
-            uVar2 = this_01->GetSlotSize();
-            if (uVar2 < param_1) {
-                /* WARNING: Subroutine does not return */
+            RVar2 = (ReturnValue)m_safeBuckets[lVar1 - 1];
+            uVar3 = RVar2->GetSlotSize();
+            if (uVar3 < arg1) {
                 LogAssert(
                     "m_safeBuckets[bucketIndex].GetSlotSize() >= size",
                     "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/jtl/allocator/Bucket.cpp",
@@ -721,26 +610,18 @@ namespace jag {
                     "buckets");
             }
         }
-        field_24 = this_01;
-        local_40->Allocate();
-        field_16 = local_30;
-        *&field_0 = local_40;
-        field_8 = lStack_38;
-        return this;
-    }
-
-    // 0x100cc5210, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.42
-    void ___cxx_global_var_init_42() {
-        new (&BucketManager::m_safeBuckets) std::array<Bucket, 256ul>();
-        ___cxa_atexit(PTR__array_100ee6eb0, &BucketManager::m_safeBuckets, 4294967296);
+        &result[3] = RVar2;
+        local_40.Allocate();
+        &result[2] = local_30;
+        result = local_40;
+        &result[1] = RStack_38;
+        return result;
     }
 
 } // namespace jag
 
-// 0x100cbad50, 32 bytes, placed by neighbouring functions
-// TLS wrapper function for jag::BucketManager::m_buckets
-void jag::BucketManager::m_buckets() {
+// 0x100cbad50
+void jag::BucketManager::m_buckets(void) {
     ___tls_init();
-    (*(code*)m_buckets)();
+    (*(void (*)(...))m_buckets)();
 }

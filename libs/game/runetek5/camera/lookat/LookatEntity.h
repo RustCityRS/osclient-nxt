@@ -1,6 +1,5 @@
 // libs/game/runetek5/camera/lookat/LookatEntity.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,78 +9,55 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~LookatEntity();
-        virtual LookatEntity* GetLookatEntity() const;
+        virtual auto GetLookatEntity() const;
         virtual AABB GetCurrentLookat() const;
-        virtual ulong GetLookatData(LookatData&);
-        virtual Vector3T* GetLookatOffset(math::Vector3T<double>&) const;
-        virtual void GetLookatPosition(math::Vector3T<double>&) const;
-        virtual void SetCurrentLookat(math::Vector3T<double> const&);
-        virtual void GetDestinationLookat(math::Vector3T<double>&) const;
-        virtual void GetLookatFine(CoordFine&) const;
-        virtual GetZRotation() const;
-        virtual GetFinishTriggers(eastl::fixed_vector<int, 2ul, true, eastl::allocator>&);
-        virtual Ready() const;
-        virtual void ProcessServerUpdate(PacketT<Array<unsigned char, BucketAllocatorEASTL>>&,
-                                         std::function<shared_ptr<Entity>(CameraTrackableType, int)> const&);
-        virtual ToString(eastl::fixed_string<char, 512, true, eastl::allocator>&) const;
-        void UpdateLookAtEntity(std::function<shared_ptr<Entity>(CameraTrackableType, int)> const&);
-        void SetLookatEntity(shared_ptr<Entity> const&, math::Vector3T<double> const&, bool);
+        virtual uint32_t GetLookatData(LookatData& lookatData);
+        virtual Vector3T<double>* GetLookatOffset(math::Vector3T<double>& vector3) const;
+        virtual void GetLookatPosition(math::Vector3T<double>& vector3) const;
+        virtual void SetCurrentLookat(const math::Vector3T<double>& vector3);
+        virtual void GetDestinationLookat(math::Vector3T<double>& vector3) const;
+        virtual void GetLookatFine(CoordFine& coordFine) const;
+        virtual uint64_t GetZRotation() const;
+        virtual uint64_t GetFinishTriggers(eastl::fixed_vector<int, 2ul>& arg1);
+        virtual void Ready() const;
+        virtual void ProcessServerUpdate(PacketT<Array<unsigned char>>& arg1,
+                                         const std::function<shared_ptr<Entity>(CameraTrackableType, int)>& callback);
+        virtual uint64_t ToString(eastl::fixed_string<char, 512>& str) const;
+        void UpdateLookAtEntity(const std::function<shared_ptr<Entity>(CameraTrackableType, int)>& callback);
+        void SetLookatEntity(const shared_ptr<Entity>& entity, const math::Vector3T<double>& vector3, bool arg3);
         LookatEntity();
 
-        // data members, from how the methods use this: 184 bytes, the first 16 are ILookatManager
-        char _unknown_16[16];
-        uint field_32;       // offset 32
-        uint field_36;       // offset 36
-        undefined1 field_40; // offset 40
-        char _unknown_41[7];
-        AABB field_48; // offset 48
-        bool field_72; // offset 72
-        char _unknown_73[7];
-        AABB m_currentLookat; // offset 80
-        AABB field_104;       // offset 104
-        AABB field_128;       // offset 128
-        undefined4 field_152; // offset 152
-        char _unknown_156[4];
-        AABB field_160; // offset 160
+    private:
+        uint8_t _unknown_16[16];
+        unsigned int field_32;
+        unsigned int field_36;
+        uint8_t field_40;
+        uint8_t _unknown_41[7];
+        AABB field_48;
+        bool field_72;
+        uint8_t _unknown_73[7];
+        AABB m_currentLookat;
+        AABB field_104;
+        AABB field_128;
+        uint32_t field_152;
+        uint8_t _unknown_156[4];
+        AABB field_160;
     };
 
-    // 0x10061d9b0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // LookatEntity::~LookatEntity(): jumps straight to the base-object destructor
-
-    // 0x10061d9c0, 32 bytes, deleting destructor, inline, placed by class name and debug map
-    // LookatEntity::~LookatEntity()
-    void LookatEntity::~LookatEntity() {
-        ~LookatEntity(this);
-        operator_delete(this);
+    // 0x10061d9e0
+    Vector3T<double>* LookatEntity::GetLookatOffset(math::Vector3T<double>& vector3) const {
+        vector3 = *field_48;
+        return vector3;
     }
 
-    // 0x10061d9e0, 32 bytes, inline, placed by class name and debug map
-    // LookatEntity::GetLookatOffset(math::Vector3T<double>&) const
-    Vector3T* LookatEntity::GetLookatOffset(Vector3T* param_1) {
-        math::Vector3T<double>::operator=((Vector3T<double>*)param_1, (Vector3T*)field_48);
-        return param_1;
+    // 0x10061dba0
+    LookatEntity::~LookatEntity() {
+        field_16.~weak_ptr();
     }
 
-    // 0x10061dba0, 48 bytes, base-object destructor, inline, placed by class name
-    // LookatEntity::~LookatEntity()
-    void LookatEntity::~LookatEntity() {
-        field_0 = &PTR__LookatEntity_100f0c1f0;
-        (&field_16)->~weak_ptr();
-        ~AutoSingleton();
-    }
-
-    // 0x100640b80, 16 bytes, complete-object constructor, inline, placed by class name
-    // LookatEntity::LookatEntity(): jumps straight to the base-object constructor
-
-    // 0x100640b90, 176 bytes, base-object constructor, inline, placed by class name
-    // LookatEntity::LookatEntity()
-    void LookatEntity::LookatEntity() {
-        _func_decltype_nullptr* p_Var1;
-
-        p_Var1 = (_func_decltype_nullptr*)&DAT_00000001;
-        ILookatManager::ILookatManager();
-        field_0 = &PTR__LookatEntity_100f0c1f0;
-        new (&field_16, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x100640b90
+    LookatEntity::LookatEntity() : ILookatManager(1) {
+        new (&field_16) shared_ptr();
         field_32 = 4294967295;
         field_36 = 4294967295;
         field_40 = 0;

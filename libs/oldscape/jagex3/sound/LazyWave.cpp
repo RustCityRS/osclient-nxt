@@ -1,95 +1,68 @@
 // libs/oldscape/jagex3/sound/LazyWave.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "LazyWave.h"
 
 namespace jag::oldscape::sound {
-    // 0x1000e10d0: the linker folded this into FoundObject::~FoundObject(), which has identical code
-    LazyWave::~LazyWave();
+    // 0x10012d160: LazyWave::~LazyWave() has the same machine code as FoundObject::~FoundObject()
 
-    // 0x10012d160: the linker folded this into FoundObject::~FoundObject(), which has identical code
-    LazyWave::~LazyWave();
-
-    // 0x100293210, 16 bytes, placed by class name and debug map
-    // LazyWave::Empty() const
-    bool LazyWave::Empty() {
-        bool bVar1;
-
-        bVar1 = operator_cast_to_bool();
-        return !bVar1;
+    // 0x100293210
+    uint8_t LazyWave::Empty() const {
+        return operator_cast_to_bool() ^ 1;
     }
 
-    // 0x100293220, 112 bytes, placed by class name and debug map
-    // LazyWave::TryGet() const
-    LazyWave* LazyWave::TryGet() {
-        shared_ptr* in_RSI;
+    // 0x100293220
+    auto LazyWave::TryGet() const {
 
-        if (shared_ptr::operator_cast_to_bool(in_RSI)) {
-            shared_ptr<LazyWave::LazyWaveImpl>::operator->((shared_ptr<LazyWave::LazyWaveImpl>*)in_RSI);
-            if (std::mutex::try_lock() != '\0') {
-                ResolveWave(this);
-                shared_ptr<LazyWave::LazyWaveImpl>::operator->((shared_ptr<LazyWave::LazyWaveImpl>*)in_RSI);
+        if (operator_cast_to_bool()) {
+            (*this).operator->();
+            if (std::mutex::try_lock()) {
+                ResolveWave(&result, this);
+                (*this).operator->();
                 std::mutex::unlock();
-                return this;
+                return result;
             }
         }
-        new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-        return this;
+        return auto();
     }
 
-    // 0x1002932d0, 304 bytes, placed by class name and debug map
-    // LazyWave::ResolveWave() const
-    LazyWave* LazyWave::ResolveWave() {
-        bool bVar1;
-        long lVar2;
-        Array* pAVar3;
-        Wave* pWVar4;
-        shared_ptr<LazyWave::LazyWaveImpl>* in_RSI;
-        Array<int, eastl::allocator> local_48[24];
-        shared_ptr local_30;
-        unique_ptr<Wave, std::default_delete<Wave>> local_20[8];
+    // 0x1002932d0
+    auto LazyWave::ResolveWave() const {
+        Wave* wave;
+        Array<int> local_48;
+        shared_ptr<Wave> local_30;
+        ReturnValue local_20;
 
-        lVar2 = shared_ptr<LazyWave::LazyWaveImpl>::operator->(in_RSI);
-        bVar1 = ((lVar2 + 80))->operator_cast_to_bool();
-        if (!bVar1) {
-            Array<int, eastl::allocator>::Array(local_48);
-            lVar2 = shared_ptr<LazyWave::LazyWaveImpl>::operator->(in_RSI);
-            pAVar3 = (Array*)shared_ptr<JagVorbis>::operator->((shared_ptr<JagVorbis>*)(lVar2 + 64));
-            local_20->ToWaveMultistep(pAVar3);
-            pWVar4 = (Wave*)std::unique_ptr<Wave, std::default_delete<Wave>>::release(local_20);
-            shared_ptr<Wave>::shared_ptr<Wave, void>((shared_ptr<Wave>*)&local_30, pWVar4);
-            lVar2 = shared_ptr<LazyWave::LazyWaveImpl>::operator->(in_RSI);
-            shared_ptr<Wave>::operator=((shared_ptr<Wave>*)(lVar2 + 80), &local_30);
-            local_30.~shared_ptr();
-            std::unique_ptr<Wave, std::default_delete<Wave>>::~unique_ptr(local_20);
-            new (&local_30) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            lVar2 = shared_ptr<LazyWave::LazyWaveImpl>::operator->(in_RSI);
-            shared_ptr<JagVorbis>::operator=((shared_ptr<JagVorbis>*)(lVar2 + 64), &local_30);
-            local_30.~shared_ptr();
-            local_48->~Array();
+        long lVar2 = (*this).operator->();
+        if (((lVar2 + 80))->operator_cast_to_bool() == '\0') {
+            local_48 = Array<int>();
+            lVar2 = (*this).operator->();
+            local_20 = ((JagVorbis*)(*((lVar2 + 64))).operator->())->ToWaveMultistep(local_48);
+            wave = (Wave*)std::unique_ptr<Wave>::release();
+            local_30.shared_ptr<Wave, void>(wave);
+            lVar2 = (*this).operator->();
+            (*((lVar2 + 80))) = local_30;
+            local_30 = shared_ptr();
+            lVar2 = (*this).operator->();
+            (*((lVar2 + 64))) = local_30;
         }
-        lVar2 = shared_ptr<LazyWave::LazyWaveImpl>::operator->(in_RSI);
-        new (this) shared_ptr<dash3d::Decor>((shared_ptr*)(lVar2 + 80));
-        return this;
+        lVar2 = (*this).operator->();
+        return auto((lVar2 + 80));
     }
 
-    // 0x100293400, 112 bytes, placed by class name and debug map
-    // LazyWave::Get() const
-    LazyWave* LazyWave::Get() {
-        shared_ptr* in_RSI;
-
-        if (shared_ptr::operator_cast_to_bool(in_RSI)) {
-            shared_ptr<LazyWave::LazyWaveImpl>::operator->((shared_ptr<LazyWave::LazyWaveImpl>*)in_RSI);
-            std::mutex::lock();
-            ResolveWave(this);
-            shared_ptr<LazyWave::LazyWaveImpl>::operator->((shared_ptr<LazyWave::LazyWaveImpl>*)in_RSI);
-            std::mutex::unlock();
+    // 0x100293400
+    auto LazyWave::Get() const {
+        if (operator_cast_to_bool() == '\0') {
+            auto result;
         } else {
-            new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+            (*this).operator->();
+            std::mutex::lock();
+            ResolveWave(&result, this);
+            (*this).operator->();
+            std::mutex::unlock();
         }
-        return this;
+        return result;
     }
 
 } // namespace jag::oldscape::sound

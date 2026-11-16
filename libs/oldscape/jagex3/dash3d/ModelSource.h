@@ -1,6 +1,5 @@
 // libs/oldscape/jagex3/dash3d/ModelSource.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,13 +8,12 @@ namespace jag::oldscape::dash3d {
     public:
         // virtual methods in vtable order
         virtual ~ModelSource();
-        GetUniqueID(unsigned long long&) const;
+        uint64_t GetUniqueID(unsigned long long& arg1) const;
         ModelSource();
-        ModelSource(ModelSource const&);
+        ModelSource(const ModelSource& modelSource);
 
-        // data members, from how the methods use this: 16 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        undefined8 field_8; // offset 8
+    private:
+        uint64_t field_8;
     };
 
     class UniqueModelSource {
@@ -23,26 +21,17 @@ namespace jag::oldscape::dash3d {
         // virtual methods in vtable order
         virtual ~UniqueModelSource();
         UniqueModelSource();
-        GetUniqueID(unsigned long long&) const;
+        uint64_t GetUniqueID(unsigned long long& arg1) const;
 
-        // data members, from how the methods use this: 24 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined8 field_8;  // offset 8
-        ulonglong field_16;  // offset 16
+    private:
+        uint64_t field_8;
+        unsigned long long field_16;
     };
 
-    // 0x100347d20, 48 bytes, base-object constructor, inline, placed by class name and debug map
-    // ModelSource::ModelSource()
-    void ModelSource::ModelSource() {
-        field_0 = PTR_vtable_100ee8980 + 16;
-        field_8 = 18446744069414585320;
-    }
+    // 0x100347d20
+    ModelSource::ModelSource() : field_8(18446744069414585320) {}
 
-    // 0x100373040, 32 bytes, base-object constructor, inline, placed by class name
-    // ModelSource::ModelSource(ModelSource const&)
-    void ModelSource::ModelSource(ModelSource* param_1) {
-        field_0 = PTR_vtable_100ee8980 + 16;
-        field_8 = param_1->field_8;
-    }
+    // 0x100373040
+    ModelSource::ModelSource(const ModelSource& modelSource) : field_8(modelSource.field_8) {}
 
 } // namespace jag::oldscape::dash3d

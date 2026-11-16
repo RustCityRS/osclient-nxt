@@ -1,6 +1,5 @@
 // projects/osclient/social/sortfilter/online/OnlinePlayerDataSameWorldNameComparator.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,80 +8,58 @@ namespace jag::oldscape::social {
     class OnlinePlayerDataSameWorldNameComparator {
     public:
         // virtual methods in vtable order
-        virtual void Compare(FriendData const&, FriendData const&) const;
-        OnlinePlayerDataSameWorldNameComparator(bool);
-        void Compare(FriendChatUser const&, FriendChatUser const&) const;
+        virtual void Compare(const FriendData& friendData1, const FriendData& friendData2) const;
+        OnlinePlayerDataSameWorldNameComparator(bool arg1);
+        void Compare(const FriendChatUser& friendChatUser1, const FriendChatUser& friendChatUser2) const;
     };
 
-    // 0x1001712b0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataSameWorldNameComparator<FriendData>::OnlinePlayerDataSameWorldNameComparator(bool): jumps straight to the base-object constructor
+    // 0x1001712d0
+    OnlinePlayerDataSameWorldNameComparator<FriendData>::OnlinePlayerDataSameWorldNameComparator(bool arg1)
+        : ChainablePlayerDataComparator<FriendData>() {}
 
-    // 0x1001712d0, 48 bytes, base-object constructor, inline, placed by class name and debug map
-    // OnlinePlayerDataSameWorldNameComparator<FriendData>::OnlinePlayerDataSameWorldNameComparator(bool)
-    void OnlinePlayerDataSameWorldNameComparator<FriendData>::OnlinePlayerDataSameWorldNameComparator(bool param_1) {
-        new (this) ChainablePlayerDataComparator<FriendData>();
-        *(undefined**)this = PTR_vtable_100ee8c00 + 16;
-        this[16] = (OnlinePlayerDataSameWorldNameComparator<FriendData>)param_1;
-    }
-
-    // 0x100171300, 144 bytes, inline, placed by class name and debug map
-    // OnlinePlayerDataSameWorldNameComparator<FriendData>::Compare(FriendData const&, FriendData const&) const
-    void OnlinePlayerDataSameWorldNameComparator<FriendData>::Compare(FriendData* param_1, FriendData* param_2) {
-        Client* this_00;
-        int iVar1;
-        DisplayName* pDVar2;
+    // 0x100171300
+    void OnlinePlayerDataSameWorldNameComparator<FriendData>::Compare(const FriendData& friendData1,
+                                                                      const FriendData& friendData2) const {
         DisplayName* this_01;
+        DisplayName* displayName;
 
-        this_00 = (Client*)Client::Instance();
-        iVar1 = this_00->GetWorldId();
-        if ((param_1->field_136 == iVar1) && (param_2->field_136 == iVar1)) {
-            if (this[16] == (OnlinePlayerDataSameWorldNameComparator<FriendData>)0) {
-                this_01 = (DisplayName*)param_2->second();
-                pDVar2 = (DisplayName*)param_1->second();
+        int iVar1 = Client::Instance()->GetWorldId();
+        if ((friendData1.field_136 == iVar1) && (friendData2.field_136 == iVar1)) {
+            if (*(char*)&this[2]._vptr == '\0') {
+                this_01 = (DisplayName*)friendData2.second();
+                displayName = (DisplayName*)friendData1.second();
             } else {
-                this_01 = (DisplayName*)param_1->second();
-                pDVar2 = (DisplayName*)param_2->second();
+                this_01 = (DisplayName*)friendData1.second();
+                displayName = (DisplayName*)friendData2.second();
             }
-            this_01->CompareTo(pDVar2);
+            this_01->CompareTo(*displayName);
         } else {
-            GetChainedCompare(param_1, param_2);
+            GetChainedCompare(friendData1, friendData2);
         }
     }
 
-    // 0x100175990, 16 bytes, complete-object constructor, inline, placed by class name
-    // OnlinePlayerDataSameWorldNameComparator<FriendChatUser>::OnlinePlayerDataSameWorldNameComparator(bool): jumps straight to the base-object constructor
+    // 0x1001759b0
+    OnlinePlayerDataSameWorldNameComparator<FriendChatUser>::OnlinePlayerDataSameWorldNameComparator(bool arg1)
+        : ChainablePlayerDataComparator<FriendChatUser>() {}
 
-    // 0x1001759b0, 48 bytes, base-object constructor, inline, placed by class name
-    // OnlinePlayerDataSameWorldNameComparator<FriendChatUser>::OnlinePlayerDataSameWorldNameComparator(bool)
-    void social::OnlinePlayerDataSameWorldNameComparator<FriendChatUser>::OnlinePlayerDataSameWorldNameComparator(
-        bool param_1) {
-        new (this) ChainablePlayerDataComparator<FriendChatUser>();
-        *(undefined**)this = PTR_vtable_100ee8c08 + 16;
-        this[16] = (OnlinePlayerDataSameWorldNameComparator<FriendChatUser>)param_1;
-    }
-
-    // 0x1001759e0, 144 bytes, inline, placed by class name
-    // OnlinePlayerDataSameWorldNameComparator<FriendChatUser>::Compare(FriendChatUser const&, FriendChatUser const&) const
-    void social::OnlinePlayerDataSameWorldNameComparator<FriendChatUser>::Compare(FriendChatUser* param_1,
-                                                                                  FriendChatUser* param_2) {
-        Client* this_00;
-        int iVar1;
-        DisplayName* pDVar2;
+    // 0x1001759e0
+    void OnlinePlayerDataSameWorldNameComparator<FriendChatUser>::Compare(const FriendChatUser& friendChatUser1,
+                                                                          const FriendChatUser& friendChatUser2) const {
         DisplayName* this_01;
+        DisplayName* displayName;
 
-        this_00 = (Client*)Client::Instance();
-        iVar1 = this_00->GetWorldId();
-        if ((param_1->field_136 == iVar1) && (param_2->field_136 == iVar1)) {
-            if (this[16] == (OnlinePlayerDataSameWorldNameComparator<FriendChatUser>)0) {
-                this_01 = (DisplayName*)param_2->second();
-                pDVar2 = (DisplayName*)param_1->second();
+        int iVar1 = Client::Instance()->GetWorldId();
+        if ((friendChatUser1.field_136 == iVar1) && (friendChatUser2.field_136 == iVar1)) {
+            if (*(char*)&this[2]._vptr == '\0') {
+                this_01 = (DisplayName*)friendChatUser2.second();
+                displayName = (DisplayName*)friendChatUser1.second();
             } else {
-                this_01 = (DisplayName*)param_1->second();
-                pDVar2 = (DisplayName*)param_2->second();
+                this_01 = (DisplayName*)friendChatUser1.second();
+                displayName = (DisplayName*)friendChatUser2.second();
             }
-            this_01->CompareTo(pDVar2);
+            this_01->CompareTo(*displayName);
         } else {
-            GetChainedCompare(param_1, param_2);
+            GetChainedCompare(friendChatUser1, friendChatUser2);
         }
     }
 

@@ -1,6 +1,5 @@
 // libs/game/runetek5/clientoptions/options/ClientOptions_CutsceneSubtitles.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.game.runetek5
@@ -10,42 +9,28 @@ namespace jag::game::option {
     public:
         // virtual methods in vtable order
         virtual ~CutsceneSubtitles();
-        virtual GetDefault();
-        CutsceneSubtitles(graphics::RT7Core&, Settings&, char const*);
+        virtual uint64_t GetDefault();
+        CutsceneSubtitles(graphics::RT7Core& rt7Core, Settings& settings, const char* str);
 
-        // data members, from how the methods use this: 193 bytes
-        undefined* field_0;     // offset 0, vtable pointer
-        undefined8 field_8;     // offset 8
-        undefined8 field_16;    // offset 16
-        undefined4 field_24;    // offset 24
-        undefined1 field_28[8]; // offset 28
-        undefined4 field_36;    // offset 36
-        char _unknown_40[153];
+    private:
+        Settings* field_8;
+        char* field_16;
+        uint32_t field_24;
+        Range<EnumOptionToggle>* field_28;
+        uint32_t field_36;
+        uint8_t _unknown_40[153];
     };
 
-    // 0x100269960: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const, which has identical code
-    CutsceneSubtitles::GetDefault();
+    // 0x100269960: CutsceneSubtitles::GetDefault() has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const
 
-    // 0x1005fe390: the linker folded this into Shadows::~Shadows(), which has identical code
-    CutsceneSubtitles::~CutsceneSubtitles();
+    // 0x10060f700: CutsceneSubtitles::~CutsceneSubtitles() has the same machine code as Option<EnumOptionToggle>::~Option()
 
-    // 0x100608ac0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // CutsceneSubtitles::CutsceneSubtitles(graphics::RT7Core&, Settings&, char const*): jumps straight to the base-object constructor
+    // 0x1006105d0
+    CutsceneSubtitles::CutsceneSubtitles(graphics::RT7Core& rt7Core, Settings& settings, const char* str) {
+        Range<EnumOptionToggle>* local_30;
 
-    // 0x100609140, 16 bytes, complete-object destructor, inline, placed by class name
-    // CutsceneSubtitles::~CutsceneSubtitles(): jumps straight to the base-object destructor
-
-    // 0x10060f700: the linker folded this into Option<EnumOptionToggle>::~Option(), which has identical code
-    CutsceneSubtitles::~CutsceneSubtitles();
-
-    // 0x1006105d0, 96 bytes, base-object constructor, inline, placed by class name
-    // CutsceneSubtitles::CutsceneSubtitles(graphics::RT7Core&, Settings&, char const*)
-    void CutsceneSubtitles::CutsceneSubtitles(RT7Core* param_1, Settings* param_2, char* param_3) {
-        undefined1 local_30[8];
-
-        new (local_30) oldscape::sidebars::SideBarData(0, 1);
-        new (this) Option<EnumOptionToggle>(param_1, param_2, param_3, local_30);
-        field_0 = PTR_vtable_100ee8518 + 16;
+        new (&local_30) oldscape::sidebars::SideBarData(0, 1);
+        new (this) Option<EnumOptionToggle>(rt7Core, settings, str, local_30);
     }
 
 } // namespace jag::game::option

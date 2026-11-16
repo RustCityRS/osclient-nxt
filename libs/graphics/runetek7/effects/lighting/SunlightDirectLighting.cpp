@@ -1,383 +1,307 @@
 // libs/graphics/runetek7/effects/lighting/SunlightDirectLighting.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "SunlightDirectLighting.h"
 
 namespace jag::graphics {
-    // 0x100f444b8, 8 bytes, __data
-    SunlightDirectLighting::m_ambientScale = 1065353216;
+    // 0x100f444b8
+    int64_t SunlightDirectLighting::m_ambientScale = 1065353216;
 
-    // 0x10002d850: the linker folded this into oldscape::option::Option<int>::GetDefaultValue() const, which has identical code
-    SunlightDirectLighting::GetSunlight() const;
+    // 0x10002d850: SunlightDirectLighting::GetSunlight() const has the same machine code as oldscape::option::Option<int>::GetDefaultValue() const
 
-    // 0x100917700, 144 bytes, placed by class name and debug map
-    // SunlightDirectLighting::Initialise()
-    undefined4 SunlightDirectLighting::Initialise() {
-        undefined4 uVar1;
-        undefined8 local_28[2];
+    // 0x100917700
+    unsigned long SunlightDirectLighting::Initialise() {
+        uint64_t local_28[2];
 
-        uVar1 = (*(code*)field_0[9])();
-        local_28[0] = GetDirection(this, 0);
-        SetDirection((Vector3T*)this, (longlong)local_28, 0);
-        local_28[0] = GetAmbientColour(this, 0);
-        SetAmbientColour((Vector3T*)this, (longlong)local_28, 0);
-        local_28[0] = GetColour(this, 0);
-        SetColour((Vector3T*)this, (longlong)local_28, 0);
-        return uVar1;
+        uint8_t uVar1 = CreateRenderingResources();
+        local_28[0] = GetDirection(0);
+        SetDirection(*local_28, 0, 0);
+        local_28[0] = GetAmbientColour(0);
+        SetAmbientColour(*local_28, 0, 0);
+        local_28[0] = GetColour(0);
+        SetColour(*local_28, 0, 0);
+        return uVar1 & 4294967295;
     }
 
-    // 0x100917790, 48 bytes, placed by class name and debug map
-    // SunlightDirectLighting::SetDirection(math::Vector3T<float> const&, long long, unsigned long long)
-    void SunlightDirectLighting::SetDirection(Vector3T* param_1, longlong param_2, ulonglong param_3) {
-        DirectionalLight::SetDirection(param_1 + 32, param_2, param_3);
-        Update((SunlightDirectLighting*)param_1);
+    // 0x100917790
+    void SunlightDirectLighting::SetDirection(const math::Vector3T<float>& vector3, long long arg2,
+                                              unsigned long long arg3) {
+        field_32.SetDirection(vector3, arg2, arg3);
+        Update();
     }
 
-    // 0x1009177c0, 48 bytes, placed by class name and debug map
-    // SunlightDirectLighting::SetAmbientColour(math::Vector3T<float> const&, long long, unsigned long long)
-    void SunlightDirectLighting::SetAmbientColour(Vector3T* param_1, longlong param_2, ulonglong param_3) {
-        DirectionalLight::SetAmbientColour(param_1 + 32, param_2, param_3);
-        Update((SunlightDirectLighting*)param_1);
+    // 0x1009177c0
+    void SunlightDirectLighting::SetAmbientColour(const math::Vector3T<float>& vector3, long long arg2,
+                                                  unsigned long long arg3) {
+        field_32.SetAmbientColour(vector3, arg2, arg3);
+        Update();
     }
 
-    // 0x100917800, 48 bytes, placed by class name and debug map
-    // SunlightDirectLighting::SetColour(math::Vector3T<float> const&, long long, unsigned long long)
-    void SunlightDirectLighting::SetColour(Vector3T* param_1, longlong param_2, ulonglong param_3) {
-        DirectionalLight::SetColour(param_1 + 32, param_2, param_3);
-        Update((SunlightDirectLighting*)param_1);
+    // 0x100917800
+    void SunlightDirectLighting::SetColour(const math::Vector3T<float>& vector3, long long arg2,
+                                           unsigned long long arg3) {
+        field_32.SetColour(vector3, arg2, arg3);
+        Update();
     }
 
-    // 0x100917840, 304 bytes, placed by class name and debug map
-    // SunlightDirectLighting::Update()
+    // 0x100917840
     void SunlightDirectLighting::Update() {
-        undefined1* this_00;
-        EffectManager* pEVar1;
-        char cVar2;
-        Vector3T* pVVar3;
-        Vector3T* pVVar4;
-        Vector3T local_50[16];
-        undefined8 local_40[2];
+        uint64_t local_50[2];
+        ReturnValue local_40;
 
-        pVVar3 = (Vector3T*)FrameTime::GetCurrentTimeMS();
-        pEVar1 = (EffectManager*)field_16->GetEffectManager();
-        cVar2 = pEVar1->IsEnabled(94);
-        pVVar4 = (Vector3T*)18446744073709551615;
-        if (cVar2 != '\0') {
-            pVVar4 = pVVar3;
+        unsigned long long uVar2 = FrameTime::GetCurrentTimeMS();
+        bool cVar1 = field_16->GetEffectManager()->IsEnabled(94);
+        unsigned long long arg1 = 18446744073709551615;
+        if (cVar1) {
+            arg1 = uVar2;
         }
-        this_00 = &field_32;
-        pVVar3 = pVVar4;
-        local_50._0_8_ = this_00->GetDirection((ulonglong)pVVar4);
-        local_40[0] = math::operator-((math*)local_50, pVVar3);
-        pVVar3 = (Vector3T*)local_40->Normalize();
-        (&field_224, pVVar3, 0.0)->Set();
-        local_50._0_8_ = this_00->GetAmbientColour((ulonglong)pVVar4);
-        local_40[0] = math::operator*(local_50, m_ambientScale);
-        (&field_240, (Vector3T*)local_40, 1.0)->Set();
-        local_40[0] = this_00->GetColour((ulonglong)pVVar4);
-        (&field_256, (Vector3T*)local_40, 1.0)->Set();
-        (&field_272, 0, (Data*)&field_224)->Update();
+        uint8_t* this_00 = &field_32;
+        local_50[0] = this_00->GetDirection(arg1);
+        local_40[0] = (ReturnValue)math::operator-((Vector3T<float>*)local_50);
+        ReturnValue* vector3 = local_40 = math::Vector3T<float>::Normalize();
+        field_224.Set(*vector3, 0.0);
+        local_50[0] = this_00->GetAmbientColour(arg1);
+        local_40[0] = (ReturnValue)*m_ambientScale * *local_50;
+        field_240.Set(local_40, 1.0);
+        local_40[0] = (ReturnValue)this_00->GetColour(arg1);
+        field_256.Set(local_40, 1.0);
+        field_272.Update(0, &field_224);
     }
 
-    // 0x1009179c0, 48 bytes, placed by class name
-    // SunlightDirectLighting::SetShaderConstants(render::DrawCallState&, render::RenderContext&, Shader&) const
-    void SunlightDirectLighting::SetShaderConstants(DrawCallState* param_1, RenderContext* param_2, Shader* param_3) {
-        undefined1 auVar1[16];
+    // 0x1009179c0
+    void SunlightDirectLighting::SetShaderConstants(render::DrawCallState& drawCallState,
+                                                    render::RenderContext& renderContext, Shader& shader) const {
+        RenderContext* renderContext_00;
 
-        auVar1 = param_3->GetProgram();
-        SetShaderConstants(this, param_1, auVar1._8_8_, auVar1._0_8_);
+        auto shaderProgram = shader.GetProgram();
+        SetShaderConstants(drawCallState, *renderContext_00, *shaderProgram);
     }
 
-    // 0x1009179f0, 192 bytes, placed by class name
-    // SunlightDirectLighting::SetShaderConstants(render::DrawCallState&, render::RenderContext&, render::ShaderProgram const&) const
-    void SunlightDirectLighting::SetShaderConstants(DrawCallState* param_1, RenderContext* param_2,
-                                                    ShaderProgram* param_3) {
-        uint uVar1;
-        MapArea* this_00;
-        long lVar2;
+    // 0x1009179f0
+    void SunlightDirectLighting::SetShaderConstants(render::DrawCallState& drawCallState,
+                                                    render::RenderContext& renderContext,
+                                                    const render::ShaderProgram& shaderProgram) const {
+        unsigned int arg1;
         RenderPipelineState* this_01;
-        ShaderConstBuffer* pSVar3;
-        HashedString* pHVar4;
+        ShaderConstBuffer* shaderConstBuffer;
+        HashedString* pHVar2;
 
-        this_00 = (MapArea*)Instance();
-        lVar2 = this_00->GetOrigin();
-        if (*(char*)(lVar2 + 120) == '\0') {
-            pHVar4 = (HashedString*)graphics::operator*((graphics*)13);
-            param_3->SetShaderConstVector3(pHVar4, (Vector3T*)&field_224);
-            pHVar4 = (HashedString*)graphics::operator*((graphics*)16);
-            param_3->SetShaderConstVector3(pHVar4, (Vector3T*)&field_240);
-            pHVar4 = (HashedString*)graphics::operator*((graphics*)14);
-            param_3->SetShaderConstVector3(pHVar4, (Vector3T*)&field_256);
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
+        if (*(char*)(lVar1 + 120) == '\0') {
+            pHVar2 = (HashedString*)graphics::operator*(13);
+            shaderProgram.SetShaderConstVector3(pHVar2, &field_224);
+            pHVar2 = (HashedString*)graphics::operator*(16);
+            shaderProgram.SetShaderConstVector3(pHVar2, &field_240);
+            pHVar2 = (HashedString*)graphics::operator*(14);
+            shaderProgram.SetShaderConstVector3(pHVar2, &field_256);
         } else {
-            this_01 = (RenderPipelineState*)param_1->GetRenderPipelineState();
-            uVar1 = field_344;
-            pSVar3 = (ShaderConstBuffer*)(&field_272)->CurrentBuffer();
-            this_01->SetPSShaderConstBuffer(uVar1, pSVar3);
+            this_01 = (RenderPipelineState*)drawCallState.GetRenderPipelineState();
+            arg1 = field_344;
+            shaderConstBuffer = (ShaderConstBuffer*)field_272.CurrentBuffer();
+            this_01->SetPSShaderConstBuffer(arg1, shaderConstBuffer);
         }
     }
 
-    // 0x100917ab0, 48 bytes, placed by class name
-    // SunlightDirectLighting::SetSunlight(DirectionalLight const&)
-    void SunlightDirectLighting::SetSunlight(DirectionalLight* param_1) {
-        DirectionalLight::operator=((DirectionalLight*)&field_32, param_1);
-        Update(this);
+    // 0x100917ab0
+    void SunlightDirectLighting::SetSunlight(const DirectionalLight& directionalLight) {
+        field_32 = directionalLight;
+        Update();
     }
 
-    // 0x100917b60, 16 bytes, placed by class name
-    // SunlightDirectLighting::SetAntiColour(math::Vector3T<float> const&, long long, unsigned long long)
-    void SunlightDirectLighting::SetAntiColour(Vector3T* param_1, longlong param_2, ulonglong param_3) {
-        DirectionalLight::SetAntiColour(param_1 + 32, param_2, param_3);
+    // 0x100917b60
+    void SunlightDirectLighting::SetAntiColour(const math::Vector3T<float>& vector3, long long arg2,
+                                               unsigned long long arg3) {
+        field_32.SetAntiColour(vector3, arg2, arg3);
     }
 
-    // 0x100917b80, 176 bytes, placed by class name
-    // SunlightDirectLighting::BindConstBufferToShader(render::ShaderProgram const&) const
-    void SunlightDirectLighting::BindConstBufferToShader(ShaderProgram* param_1) {
-        uint uVar1;
-        MapArea* this_00;
-        long lVar2;
-        uint uVar3;
-        int iVar4;
+    // 0x100917b80
+    void SunlightDirectLighting::BindConstBufferToShader(const render::ShaderProgram& shaderProgram) const {
+        unsigned int arg1;
+        unsigned int arg3;
 
-        this_00 = (MapArea*)Instance();
-        lVar2 = this_00->GetOrigin();
-        if (*(char*)(lVar2 + 120) != '\0') {
-            if (BindConstBufferToShader(render::ShaderProgram_const&)::sunlightConstBlockName == '\0') {
-                iVar4 = ___cxa_guard_acquire(
-                    &BindConstBufferToShader(render::ShaderProgram_const&)::sunlightConstBlockName);
-                if (iVar4 != 0) {
-                    new (&BindConstBufferToShader(render::ShaderProgram_const&)::sunlightConstBlockName)
+        long lVar1 = ((MapArea*)Instance())->GetOrigin();
+        if (*(char*)(lVar1 + 120) != '\0') {
+            if (BindConstBufferToShader(render::ShaderProgram const&)::sunlightConstBlockName == '\0') {
+                if (___cxa_guard_acquire(
+                        &BindConstBufferToShader(render::ShaderProgram const&)::sunlightConstBlockName) != 0) {
+                    new ((HashedString*)&BindConstBufferToShader(render::ShaderProgram const&)::sunlightConstBlockName)
                         HashedString("Sunlight");
                     ___cxa_guard_release(
-                        &BindConstBufferToShader(render::ShaderProgram_const&)::sunlightConstBlockName);
+                        &BindConstBufferToShader(render::ShaderProgram const&)::sunlightConstBlockName);
                 }
             }
-            uVar1 = field_344;
-            uVar3 = (&field_272)->GetAmplitude();
-            param_1->BindConstBufferSlot(
-                uVar1, (HashedString*)&BindConstBufferToShader(render::ShaderProgram_const&)::sunlightConstBlockName,
-                uVar3);
+            arg1 = field_344;
+            arg3 = field_272.GetAmplitude();
+            shaderProgram.BindConstBufferSlot(
+                arg1, *((HashedString*)&BindConstBufferToShader(render::ShaderProgram const&)::sunlightConstBlockName),
+                arg3);
         }
     }
 
-    // 0x100917c30, 48 bytes, placed by class name
-    // SunlightDirectLighting::CreateRenderingResources()
-    undefined4 SunlightDirectLighting::CreateRenderingResources() {
-        undefined4 uVar1;
-
-        uVar1 = (&field_272, 1, (Data*)0)->Create();
-        Update(this);
+    // 0x100917c30
+    uint32_t SunlightDirectLighting::CreateRenderingResources() {
+        uint32_t uVar1 = field_272.Create(1, nullptr);
+        Update();
         return uVar1;
     }
 
-    // 0x100917c80, 32 bytes, placed by class name
-    // SunlightDirectLighting::DestroyRenderingResources()
+    // 0x100917c80
     void SunlightDirectLighting::DestroyRenderingResources() {
-        (&field_272)->Destroy();
+        field_272.Destroy();
     }
 
-    // 0x100917ca0, 32 bytes, placed by class name
-    // SunlightDirectLighting::OnEndFrame()
+    // 0x100917ca0
     void SunlightDirectLighting::OnEndFrame() {
-        (&field_272)->RotateBuffers();
+        field_272.RotateBuffers();
     }
 
-    // 0x100917cc0, 560 bytes, placed by class name
-    // SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&, EffectManager&)
-    void SunlightDirectLighting::InitialiseTweakVars(ContainerGroup* param_1, EffectManager* param_2) {
-        char* pcVar1;
-        Container* pCVar2;
-        undefined8 uVar3;
-        Container* local_98;
-        undefined8 local_90;
-        shared_ptr<tweak::Container> local_88[16];
-        allocator local_78[16];
-        eastl::string local_68[56];
+    // 0x100917cc0
+    void SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup& containerGroup,
+                                                     EffectManager& effectManager) {
+        Range<float>* in_R8;
+        function<void_(tweak::Event const&)>* in_R9;
+        shared_ptr<tweak::Container> local_88;
         long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        eastl::allocator::allocator(local_78, "EASTL basic_string");
-        eastl::string::basic_string(local_68, "Sunlight", local_78);
-        (*(code*)param_1->field_0[30])(local_88, param_1, local_68);
-        eastl::string::~basic_string(local_68);
-        pcVar1 = (char*)shared_ptr<tweak::Container>::operator->(local_88);
-        local_78->AddGroup(pcVar1);
-        pCVar2 = (Container*)shared_ptr<tweak::Container>::operator*((shared_ptr<tweak::Container>*)local_78);
-        CreateTweakDirectionSlider(this, pCVar2, "X", &field_360);
-        pCVar2 = (Container*)shared_ptr<tweak::Container>::operator*((shared_ptr<tweak::Container>*)local_78);
-        CreateTweakDirectionSlider(this, pCVar2, "Y", &field_364);
-        pCVar2 = (Container*)shared_ptr<tweak::Container>::operator*((shared_ptr<tweak::Container>*)local_78);
-        CreateTweakDirectionSlider(this, pCVar2, "Z", &field_368);
-        uVar3 = shared_ptr<tweak::Container>::operator->(local_88);
-        new (&local_98) math::Point<float>(0.0, 1.0);
-        new (&local_90) math::Point<float>(0.0, 10.0);
-        std::function<void(tweak::Event_const&)>::function<
-            SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&, EffectManager&)::__0, void>(local_68,
-                                                                                                            this);
-        local_98->AddColourPickerHDR(local_90, uVar3, "Sun Colour", 0, local_68);
-        std::function<void(tweak::Event_const&)>::~function((function<void(tweak::Event_const&)>*)local_68);
-        pCVar2 = (Container*)shared_ptr<tweak::Container>::operator->(local_88);
-        std::function<void(tweak::Event_const&)>::function<
+        eastl::string local_68("Sunlight");
+        (containerGroup._vptr[7].Clear)(&local_88, containerGroup, &local_68);
+        auto str = local_88.operator->();
+        local_78.AddGroup(str);
+        Container* pCVar1 = (Container*)*local_78;
+        CreateTweakDirectionSlider(*pCVar1, "X", &field_360);
+        pCVar1 = (Container*)*local_78;
+        CreateTweakDirectionSlider(*pCVar1, "Y", &field_364);
+        pCVar1 = (Container*)*local_78;
+        CreateTweakDirectionSlider(*pCVar1, "Z", &field_368);
+        pCVar1 = (Container*)local_88.operator->();
+        Point<float> local_98(0.0, 1.0);
+        Point<float> local_90(0.0, 10.0);
+        std::function<void(tweak::Event const&)>::function<
+            SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&, EffectManager&)::__0, void>(
+            (function<void(tweak::Event const&)>*)&local_68, (__0*)this);
+        pCVar1->AddColourPickerHDR("Sun Colour", false, &local_68, in_R8, in_R9);
+        pCVar1 = (Container*)local_88.operator->();
+        std::function<void(tweak::Event const&)>::function<
             SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&, EffectManager&)::__1, void>(
-            (function*)local_68, this);
-        pCVar2->AddGradientSlider("Ambient", 0.0, 10.0, 0.001, local_68);
-        std::function<void(tweak::Event_const&)>::~function((function<void(tweak::Event_const&)>*)local_68);
-        local_78->~shared_ptr();
-        local_88->~shared_ptr();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            (function<void(tweak::Event const&)>*)&local_68, (__1*)this);
+        pCVar1->AddGradientSlider("Ambient", 0.0, 10.0, 0.001, local_68);
     }
 
-    // 0x100917ef0, 160 bytes, placed by class name
-    // SunlightDirectLighting::CreateTweakDirectionSlider(tweak::Container&, char const*, float*)
-    void SunlightDirectLighting::CreateTweakDirectionSlider(Container* param_1, char* param_2, float* param_3) {
-        function local_58[48];
+    // 0x100917ef0
+    void SunlightDirectLighting::CreateTweakDirectionSlider(tweak::Container& container, const char* str, float* arg3) {
+        function<void(tweak::Event const&)> local_58[48];
         long local_28;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        std::function<void(tweak::Event_const&)>::function<
+        std::function<void(tweak::Event const&)>::function<
             SunlightDirectLighting::CreateTweakDirectionSlider(tweak::Container&, char const*, float*)::__2, void>(
-            local_58, this, param_3);
-        param_1->AddGradientSlider(param_2, -100.0, 100.0, 1.0, local_58);
-        std::function<void(tweak::Event_const&)>::~function((function<void(tweak::Event_const&)>*)local_58);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+            local_58, (__2*)this);
+        container.AddGradientSlider(str, -100.0, 100.0, 1.0, *local_58);
     }
 
-    // 0x100917fc0, 128 bytes, placed by class name
-    // SunlightDirectLighting::SetTweakValues(math::Vector3T<float> const&, math::Vector3T<float> const&, float, float, float, bool)
-    void SunlightDirectLighting::SetTweakValues(Vector3T* param_1, Vector3T* param_2, float param_3, float param_4,
-                                                float param_5, bool param_6) {
-        (&field_360, param_1)->SetXYZ();
-        (&field_348, param_2)->SetXYZ();
-        field_372 = param_3;
-        field_376 = param_4;
-        m_brightnessOffset = param_5;
-        field_384 = param_6;
+    // 0x100917fc0
+    void SunlightDirectLighting::SetTweakValues(const math::Vector3T<float>& vector31,
+                                                const math::Vector3T<float>& vector32, float arg3, float arg4,
+                                                float arg5, bool arg6) {
+        field_360.SetXYZ(vector31);
+        field_348.SetXYZ(vector32);
+        field_372 = arg3;
+        field_376 = arg4;
+        m_brightnessOffset = arg5;
+        field_384 = arg6;
     }
 
-    // 0x100918040, 16 bytes, placed by class name
-    // SunlightDirectLighting::UseGammaCorrection(bool)
-    void SunlightDirectLighting::UseGammaCorrection(bool param_1) {
-        field_384 = param_1;
+    // 0x100918040
+    void SunlightDirectLighting::UseGammaCorrection(bool arg1) {
+        field_384 = arg1;
     }
 
-    // 0x100918050, 16 bytes, placed by class name
-    // SunlightDirectLighting::SetBrightnessOffset(float)
-    void SunlightDirectLighting::SetBrightnessOffset(float param_1) {
-        m_brightnessOffset = param_1;
+    // 0x100918050
+    void SunlightDirectLighting::SetBrightnessOffset(float arg1) {
+        m_brightnessOffset = arg1;
     }
 
-    // 0x100924b70, 320 bytes, placed by class name
-    // SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&, EffectManager&)::$_0::operator()(tweak::Event const&) const
-    /* SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&,
-   EffectManager&)::$_0::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&) const */
-
+    // 0x100924b70
     void SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&,
-                                                     EffectManager&)::$_0::operator()(Event* param_1) {
-        Vector3T* pVVar1;
-        ColourPicker* this_00;
-        Vector3T* pVVar2;
-        undefined4 uVar3;
-        Vector3T local_40[8];
-        float local_38;
-        undefined8 local_30[2];
+                                                     EffectManager&)::$_0::operator()(const tweak::Event& event) const {
+        uint64_t local_40;
+        uint32_t local_38;
+        uint64_t local_30[2];
 
-        pVVar1 = *(Vector3T**)this;
-        this_00 = (ColourPicker*)param_1->end();
-        if (param_1->field_16 == 3) {
-            local_40 = (Vector3T[8])this_00->GetColour3();
-            pVVar2 = local_40;
-            ((pVVar1 + 348))->SetXYZ(pVVar2);
-            uVar3 = this_00->GetIntensity();
-            *(undefined4*)(pVVar1 + 372) = uVar3;
-            local_38 = *(float*)(pVVar1 + 356);
-            local_40 = *(Vector3T(*)[8])(pVVar1 + 348);
-            if (pVVar1[384] != (Vector3T)0) {
-                local_30[0] = local_40->SRGBToLinear(pVVar2);
-                local_40->SetXYZ(local_30);
+        SunlightDirectLighting* this_00 = *(SunlightDirectLighting**)this;
+        auto this_01 = event.end();
+        if (event.field_16 == 3) {
+            local_40 = this_01->GetColour3();
+            this_00->field_348.SetXYZ(local_40);
+            this_00->field_372 = (float)this_01->GetIntensity();
+            local_38 = *(uint32_t*)&this_00->field_356;
+            local_40 = *(uint64_t*)&this_00->field_348;
+            if (this_00->field_384 != false) {
+                local_30[0] = math::SRGBToLinear(local_40);
+                local_40.SetXYZ(*local_30);
             }
-            local_30[0] = math::operator*(local_40, *(float*)(pVVar1 + 372));
-            SetColour(pVVar1, (longlong)local_30, 0);
-            local_30[0] = math::operator*(local_40, (*(float*)(pVVar1 + 380) + 1.0) * *(float*)(pVVar1 + 376));
-            SetAmbientColour(pVVar1, (longlong)local_30, 0);
-        } else if (param_1->field_16 == 1) {
-            this_00->SetColour(pVVar1 + 348);
-            this_00->SetIntensity(*(float*)(pVVar1 + 372));
+            local_30[0] = *this_00->field_372 * local_40;
+            SetColour(this_00, (Vector3T<float>*)local_30, 0, 0);
+            local_30[0] = (*((this_00->m_brightnessOffset + 1.0) * this_00->field_376)) * local_40;
+            SetAmbientColour(this_00, (Vector3T<float>*)local_30, 0, 0);
+        } else if (event.field_16 == 1) {
+            this_01->SetColour(this_00->field_348);
+            this_01->SetIntensity(this_00->field_372);
         }
     }
 
-    // 0x1009255a0, 272 bytes, placed by class name
-    // SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&, EffectManager&)::$_1::operator()(tweak::Event const&) const
-    /* SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&,
-   EffectManager&)::$_1::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&) const */
-
+    // 0x1009255a0
     void SunlightDirectLighting::InitialiseTweakVars(tweak::ContainerGroup&,
-                                                     EffectManager&)::$_1::operator()(Event* param_1) {
-        math* this_00;
-        Vector3T* pVVar1;
-        GradientSlider* this_01;
-        float fVar3;
-        undefined8 local_68;
+                                                     EffectManager&)::$_1::operator()(const tweak::Event& event) const {
+        float fVar1;
+        uint64_t local_68;
         float local_60;
         Gradient local_58;
         Gradient local_38;
 
-        pVVar1 = *(Vector3T**)this;
-        this_01 = (GradientSlider*)param_1->end();
-        if (param_1->field_16 == 3) {
-            fVar3 = (float)this_01->GetCurrentValue();
-            *(float*)(pVVar1 + 376) = fVar3;
-            fVar3 = (*(float*)(pVVar1 + 380) + 1.0) * fVar3;
-            this_00 = (math*)(pVVar1 + 348);
-            if (pVVar1[384] == (Vector3T)0) {
-                local_58.field_8 = *(float*)(pVVar1 + 356);
-                local_58.field_0 = this_00->field_0;
-                local_58.field_4 = this_00->field_4;
-                local_60 = fVar3;
+        SunlightDirectLighting* this_00 = *(SunlightDirectLighting**)this;
+        auto this_01 = event.end();
+        if (event.field_16 == 3) {
+            fVar1 = (float)this_01->GetCurrentValue();
+            this_00->field_376 = fVar1;
+            fVar1 = (this_00->m_brightnessOffset + 1.0) * fVar1;
+            if (this_00->field_384 == false) {
+                local_58.field_8 = *(float*)&this_00->field_356;
+                local_58.field_0 = *(uint32_t*)&this_00->field_348;
+                local_58.field_4 = *(uint32_t*)&this_00->field_352;
+                local_60 = fVar1;
             } else {
-                local_38.field_0 = fVar3;
-                local_58._0_8_ = this_00->SRGBToLinear(param_1);
+                local_38.field_0 = fVar1;
+                local_58._0_8_ = math::SRGBToLinear(this_00->field_348);
                 local_60 = local_38.field_0;
-                local_58.field_8 = fVar3;
+                local_58.field_8 = fVar1;
             }
-            local_68 = math::operator*((Vector3T*)&local_58, local_60);
-            SetAmbientColour(pVVar1, (longlong)&local_68, 0);
-        } else if (param_1->field_16 == 1) {
-            tweak::Slider::SetSlider<float>((Slider*)this_01, *(float*)(pVVar1 + 376));
+            local_68 = *local_60 * local_58;
+            SetAmbientColour(this_00, (Vector3T<float>*)&local_68, 0, 0);
+        } else if (event.field_16 == 1) {
+            this_01->SetSlider<float>(this_00->field_376);
             local_38._0_8_ = math::Colour4FromR8G8B8A8(255);
             local_58._16_8_ = math::Colour4FromR8G8B8A8(4294967295);
             local_58.field_0 = local_38.field_0;
             local_58.field_4 = local_38.field_4;
-            this_01->SetGradient(&local_58);
+            this_01->SetGradient(local_58);
         }
     }
 
-    // 0x100926050, 128 bytes, placed by class name
-    // SunlightDirectLighting::CreateTweakDirectionSlider(tweak::Container&, char const*, float*)::$_2::operator()(tweak::Event const&) const
-    /* SunlightDirectLighting::CreateTweakDirectionSlider(tweak::Container&, char
-   const*, float*)::$_2::TEMPNAMEPLACEHOLDERVALUE(tweak::Event const&) const */
-
+    // 0x100926050
     void SunlightDirectLighting::CreateTweakDirectionSlider(tweak::Container&, char const*,
-                                                            float*)::$_2::operator()(Event* param_1) {
-        Vector3T* pVVar1;
-        GradientSlider* this_00;
-        undefined4 uVar2;
+                                                            float*)::$_2::operator()(const tweak::Event& event) const {
+        uint32_t uVar1;
 
-        pVVar1 = *(Vector3T**)this;
-        this_00 = (GradientSlider*)param_1->end();
-        if (param_1->field_16 == 3) {
-            uVar2 = this_00->GetCurrentValue();
-            **(undefined4**)(this + 8) = uVar2;
-            SetDirection(pVVar1, (longlong)(pVVar1 + 360), 0);
-        } else if (param_1->field_16 == 1) {
-            tweak::Slider::SetSlider<float>((Slider*)this_00, **(float**)(this + 8));
-            this_00->SetGradient(2290649343, 2290649343);
+        SunlightDirectLighting* this_00 = *(SunlightDirectLighting**)this;
+        auto this_01 = event.end();
+        if (event.field_16 == 3) {
+            uVar1 = this_01->GetCurrentValue();
+            **(uint32_t**)(this + 8) = uVar1;
+            SetDirection(this_00, (Vector3T<float>*)&this_00->field_360, 0, 0);
+        } else if (event.field_16 == 1) {
+            this_01->SetSlider<float>(**(float**)(this + 8));
+            this_01->SetGradient(2290649343, 2290649343);
         }
     }
 

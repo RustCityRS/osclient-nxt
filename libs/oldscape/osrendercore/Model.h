@@ -1,58 +1,49 @@
 // libs/oldscape/osrendercore/Model.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape::rseven {
     class ModelDash3dToRT7Exporter {
     public:
-        ModelDash3dToRT7Exporter* Export(dash3d::ModelUnlitImpl&, bool);
-
-        // data members, from how the methods use this: 40 bytes
-        byte field_0; // offset 0
-        char _unknown_1[7];
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
+        auto Export(dash3d::ModelUnlitImpl& modelUnlitImpl, bool arg2);
     };
 
     class ModelWrapper {
     public:
-        ModelWrapper(dash3d::ModelUnlitImpl&);
+        ModelWrapper(dash3d::ModelUnlitImpl& modelUnlitImpl);
         ~ModelWrapper();
-        Widify(Array<short, eastl::allocator> const*);
+        uint64_t Widify(const Array<short>* arg1);
 
-        // data members, from how the methods use this: 232 bytes
-        char _unknown_0[8];
-        Array<int, eastl::allocator>* field_8; // offset 8
-        char _unknown_16[16];
-        ModelUnlitImpl* field_32; // offset 32
-        undefined4 field_40;      // offset 40
-        undefined1 field_44;      // offset 44
-        char _unknown_45[3];
-        undefined8 field_48; // offset 48
-        char _unknown_56[24];
-        undefined8 field_80;  // offset 80
-        undefined8 field_88;  // offset 88
-        undefined8 field_96;  // offset 96
-        undefined8 field_104; // offset 104
-        undefined8 field_112; // offset 112
-        undefined8 field_120; // offset 120
-        undefined8 field_128; // offset 128
-        undefined8 field_136; // offset 136
-        undefined8 field_144; // offset 144
-        undefined8 field_152; // offset 152
-        undefined8 field_160; // offset 160
-        undefined8 field_168; // offset 168
-        undefined8 field_176; // offset 176
-        undefined8 field_184; // offset 184
-        undefined8 field_192; // offset 192
-        undefined8 field_200; // offset 200
-        undefined8 field_208; // offset 208
-        undefined8 field_216; // offset 216
-        undefined8 field_224; // offset 224
+    private:
+        uint8_t _unknown_0[8];
+        Array<int>* field_8;
+        uint8_t _unknown_16[16];
+        ModelUnlitImpl* field_32;
+        uint32_t field_40;
+        uint8_t field_44;
+        uint8_t _unknown_45[3];
+        uint64_t field_48;
+        uint8_t _unknown_56[24];
+        uint64_t field_80;
+        uint64_t field_88;
+        uint64_t field_96;
+        uint64_t field_104;
+        uint64_t field_112;
+        uint64_t field_120;
+        uint64_t field_128;
+        uint64_t field_136;
+        uint64_t field_144;
+        uint64_t field_152;
+        uint64_t field_160;
+        uint64_t field_168;
+        uint64_t field_176;
+        uint64_t field_184;
+        uint64_t field_192;
+        uint64_t field_200;
+        uint64_t field_208;
+        uint64_t field_216;
+        uint64_t field_224;
     };
 
 } // namespace jag::oldscape::rseven
@@ -61,9 +52,6 @@ namespace jag::oldscape::dash3d {
     class ModelAppendList {
     public:
         ModelAppendList();
-
-        // data members, from how the methods use this: 8 bytes
-        undefined* field_0; // offset 0, vtable pointer
     };
 
 } // namespace jag::oldscape::dash3d

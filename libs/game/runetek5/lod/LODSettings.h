@@ -1,6 +1,5 @@
 // libs/game/runetek5/lod/LODSettings.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,32 +7,29 @@ namespace jag::game {
     class LODSettings {
     public:
         int GetLODMinimumDistance() const;
-        GetLODDistance(LODLevel) const;
+        uint64_t GetLODDistance(LODLevel lodLevel) const;
         LODSettings();
-        GetLowestUsableLOD() const;
+        uint8_t GetLowestUsableLOD() const;
         int GetFarPlane() const;
-        void GetFogRange(unsigned int, float, float) const;
-        byte GetLOD(unsigned int) const;
-        static /* 8 bytes */ m_defaultLOD; // = 1
+        void GetFogRange(unsigned int arg1, float arg2, float arg3) const;
+        uint8_t GetLOD(unsigned int arg1) const;
+        static int64_t m_defaultLOD; // = 1
 
-        // data members, from how the methods use this: 28 bytes
-        uint field_0;                 // offset 0
-        uint field_4;                 // offset 4
-        uint field_8;                 // offset 8
-        uint field_12;                // offset 12
-        int m_lODMinimumDistance;     // offset 16
-        undefined1 m_lowestUsableLOD; // offset 20
-        byte field_21;                // offset 21
-        char _unknown_22[6];
+    private:
+        unsigned int field_0;
+        unsigned int field_4;
+        unsigned int field_8;
+        unsigned int field_12;
+        int m_lODMinimumDistance;
+        uint8_t m_lowestUsableLOD;
+        uint8_t field_21;
+        uint8_t _unknown_22[6];
     };
 
-    // 0x1004426b0, 80 bytes, inline, placed by class name and debug map
-    // LODSettings::GetLODDistance(LODLevel) const
-    undefined8 LODSettings::GetLODDistance(undefined8 param_1, uint param_2) {
-        if ((byte)param_2 < 5) {
-            /* WARNING: Could not recover jumptable at 4299433674. Too many branches */
-            /* WARNING: Treating indirect jump as call */
-            return (*(code*)(&DAT_1004426ec + *(int*)(&DAT_1004426ec + (ulong)param_2 * 4)))();
+    // 0x1004426b0
+    uint64_t LODSettings::GetLODDistance(LODLevel lodLevel) const {
+        if ((uint8_t)lodLevel < 5) {
+            return (*(void (*)(...))(&DAT_1004426ec + *(int*)(&DAT_1004426ec + (unsigned long)lodLevel * 4)))();
         }
         return 0;
     }

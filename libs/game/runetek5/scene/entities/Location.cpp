@@ -1,99 +1,71 @@
 // libs/game/runetek5/scene/entities/Location.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "Location.h"
 
 namespace jag::game {
-    // 0x100f38be8, 1 bytes, __data
-    Location::m_ShowLocations = 1;
+    // 0x100f38be8
+    bool Location::m_ShowLocations = 1;
 
-    // 0x100f38be9, 1 bytes, __data
-    Location::m_enableFadeIn = 1;
+    // 0x100f38be9
+    bool Location::m_enableFadeIn = 1;
 
-    // 0x1039b4e68, 16 bytes, __common; set at startup by ___cxx_global_var_init.25
-    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> Location::NullLocation;
+    // 0x1039b4e68, set at startup by ___cxx_global_var_init.25
+    shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> Location::NullLocation =
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
 
-    // 0x1039b4e78, 1 bytes, __common; zero-initialised
-    Location::m_debugPrimitiveText;
+    // 0x1039b4e78
+    bool Location::m_debugPrimitiveText;
 
-    // 0x1039b4e79, 1 bytes, __common; zero-initialised
-    Location::m_debugPrimitiveTextOnMouseover;
+    // 0x1039b4e79
+    bool Location::m_debugPrimitiveTextOnMouseover;
 
-    // 0x1039b4e7a, 6 bytes, __common; zero-initialised
-    Location::m_debugPrimitiveAABBOnHighlight;
+    // 0x1039b4e7a
+    int16_t Location::m_debugPrimitiveAABBOnHighlight;
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    Location::IsAnimatable() const;
+    // 0x10002d860: Location::IsAnimatable() const has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x1000fa850: the linker folded this into oldscape::graphics::NXTPixToolkit::getWorldRenderer(), which has identical code
-    Location::GetServerPosition() const;
+    // 0x1000fa850: Location::GetServerPosition() const has the same machine code as oldscape::graphics::NXTPixToolkit::getWorldRenderer()
 
-    // 0x10016ea80: the linker folded this into oldscape::minimenu::Minimenu::GetPlayerOps() const, which has identical code
-    shared_ptr Location::GetParentLocationType() const;
+    // 0x10016ea80: Location::GetParentLocationType() const has the same machine code as oldscape::minimenu::Minimenu::GetPlayerOps() const
 
-    // 0x1001e0d50: the linker folded this into hal::audio::AudioAPI::~AudioAPI(), which has identical code
-    Location::VFXData::~VFXData();
+    // 0x1001e0d60: Location::VFXData::~VFXData() has the same machine code as hal::audio::AudioAPI::~AudioAPI()
 
-    // 0x1001e0d60: the linker folded this into hal::audio::AudioAPI::~AudioAPI(), which has identical code
-    Location::VFXData::~VFXData();
+    // 0x1003f5b50: Location::GetID() const has the same machine code as BASType::GetHillRotateZLimit() const
 
-    // 0x1003f5b50: the linker folded this into BASType::GetHillRotateZLimit() const, which has identical code
-    int Location::GetID() const;
+    // 0x100414b10: Location::SetLocationLOD(LODLevel) has the same machine code as LocationContainer::SetHasStartedBuild(bool)
 
-    // 0x100414b10: the linker folded this into LocationContainer::SetHasStartedBuild(bool), which has identical code
-    Location::SetLocationLOD(LODLevel);
-
-    // 0x10042a990, 880 bytes, base-object constructor, placed by class name and debug map
-    // Location::Location(graphics::GraphNode*, shared_ptr<World> const&, int, int, LocData const&, bool, bool, int, int, int, int, shared_ptr<graphics::Model> const&)
-    void Location::Location(GraphNode* param_1, shared_ptr* param_2, int param_3, int param_4, LocData* param_5,
-                            bool param_6, bool param_7, int param_8, int param_9, int param_10, int param_11,
-                            shared_ptr* param_12) {
-        undefined1* this_00;
-        char cVar1;
-        vector* this_01;
+    // 0x10042a990
+    Location::Location(graphics::GraphNode* graphNode, const shared_ptr<World>& world, int arg3, int arg4,
+                       const LocData& locData, bool arg6, bool arg7, int arg8, int arg9, int arg10, int arg11,
+                       const shared_ptr<graphics::Model>& model)
+        : LocationInterface(1, graphNode, world, 0, arg3), MakeSharedPool<Location, 256>() {
+        shared_ptr<graphics::Model>* this_01;
         NXTPixToolkit* this_02;
         AABB* this_03;
-        _func_decltype_nullptr* p_Var2;
-        shared_ptr local_90;
-        undefined1* local_80;
-        undefined1* local_78;
-        undefined1* local_70;
-        undefined1* local_68;
-        undefined1* local_60;
-        undefined1* local_58;
-        undefined1* local_50;
-        undefined1* local_48;
-        undefined1* local_40;
-        undefined1* local_38;
 
-        p_Var2 = (_func_decltype_nullptr*)&DAT_00000001;
-        new (this) LocationInterface(1, param_1, param_2, 0, param_3);
-        new (this) MakeSharedPool<Location, 256>();
-        field_0 = &PTR__Location_100effbf0;
         field_8 = &PTR__Location_100effd90;
-        field_216 = (ConfigProvider*)0;
-        m_pPlayerVarDomain = (PlayerVarDomain*)0;
-        m_iD = param_4;
-        m_locationLOD = 6;
+        field_216 = nullptr;
+        m_pPlayerVarDomain = nullptr;
+        m_iD = arg4;
+        m_locationLOD = true;
         field_237 = '\0';
-        new (m_parentLocationType, p_Var2) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        local_78 = m_locationType;
-        local_80 = m_parentLocationType;
-        new (local_78) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var2);
-        local_70 = &field_272;
+        new (m_parentLocationType) shared_ptr();
+        uint8_t* local_78 = m_locationType;
+        uint8_t* local_80 = m_parentLocationType;
+        new (local_78) shared_ptr();
+        uint8_t* local_70 = &field_272;
         new (local_70) LocType::MultiLocTypeCache();
-        new (field_352, param_5) LocData();
-        field_404 = param_6;
-        field_405 = param_7;
+        new (field_352) LocData(locData);
+        field_404 = arg6;
+        field_405 = arg7;
         field_406 = 0;
-        local_68 = &field_408;
-        new (local_68) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_5);
-        p_Var2 = (_func_decltype_nullptr*)(ulong)(uint)param_3;
-        new (&field_424, param_3, param_8, param_9) oldscape::rs2lib::worldmap::LocationData();
-        field_436 = param_10;
-        field_440 = param_11;
+        uint8_t* local_68 = &field_408;
+        new (local_68) shared_ptr();
+        new (&field_424) oldscape::rs2lib::worldmap::LocationData(arg3, arg8, arg9);
+        field_436 = arg10;
+        field_440 = arg11;
         field_444 = -1;
         m_builtGridSize = 1;
         field_452 = 1;
@@ -101,91 +73,71 @@ namespace jag::game {
         m_isWDDBothOffsetMember = false;
         m_hidden = 0;
         field_462 = 0;
-        field_464 = 1;
-        field_468 = 0;
-        new (field_472, p_Var2) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_488 = param_4;
-        local_60 = field_472;
-        new (field_496, p_Var2) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        local_50 = field_512;
-        local_58 = field_496;
-        new (local_50) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var2);
+        *(uint64_t*)&field_464 = 1;
+        new (field_472) shared_ptr();
+        field_488 = arg4;
+        uint8_t* local_60 = field_472;
+        new (field_496) shared_ptr();
+        uint8_t* local_50 = field_512;
+        uint8_t* local_58 = field_496;
+        new (local_50) shared_ptr();
         new (&field_528) math::Matrix44T<float>();
         field_592 = '\0';
         new (&field_608) math::Matrix44T<float>();
         field_672 = false;
-        new (&local_90) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(p_Var2);
-        this_00 = &field_680;
-        new (this_00) BuildRequest<graphics::Model, BuildModelMain>(param_12, &local_90);
-        local_90.~shared_ptr();
-        local_48 = &field_712;
+        shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> local_90;
+        uint8_t* this_00 = &field_680;
+        new (this_00) BuildRequest<graphics::Model, BuildModelMain>(model, local_90);
+        uint8_t* local_48 = &field_712;
         new (local_48) BuildRequest<graphics::Model, BuildModelMain>();
-        local_40 = &field_744;
+        uint8_t* local_40 = &field_744;
         new (local_40) BuildRequest<graphics::Model, BuildModelMain>();
-        local_38 = field_776;
-        new (local_38) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_12);
-        *(undefined2*)&field_792 = 0;
+        uint8_t* local_38 = field_776;
+        new (local_38) shared_ptr();
+        *(uint16_t*)&field_792 = 0;
         new (field_796) EntityHighlightState();
         field_796[16] = 0;
-        std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::unique_ptr<true, void>(
-            (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)&field_816);
+        field_816.unique_ptr<true, void>();
         field_824 = -1;
         field_828 = 0;
         field_832 = 0;
         field_836 = 0;
         field_840 = 0;
-        new (&field_848) eastl::vector<Location::VFXData, eastl::allocator>();
-        cVar1 = this_00->IsTaskDone();
-        if (cVar1 != '\0') {
-            this_01 = this_00->SSOBeginPtr(param_12);
-            this_02 = (NXTPixToolkit*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_01);
+        new (&field_848) eastl::vector<Location::VFXData>();
+        if (this_00->IsTaskDone()) {
+            this_01 = (shared_ptr<graphics::Model>*)this_00->SSOBeginPtr();
+            this_02 = (NXTPixToolkit*)(*this_01).operator->();
             this_03 = (AABB*)this_02->GetScreen();
-            cVar1 = this_03->IsValid();
-            if (cVar1 != '\0') {
-                SetAABB(this_03);
+            if (this_03->IsValid()) {
+                SetAABB(*this_03);
             }
         }
         field_468 = 0;
     }
 
-    // 0x10042afc0, 80 bytes, complete-object constructor, placed by class name
-    // Location::Location(graphics::GraphNode*, shared_ptr<World> const&, int, int, LocData const&, bool, bool, int, int, int, int, shared_ptr<graphics::Model> const&)
-    void Location::Location(GraphNode* param_1, shared_ptr* param_2, int param_3, int param_4, LocData* param_5,
-                            bool param_6, bool param_7, int param_8, int param_9, int param_10, int param_11,
-                            shared_ptr* param_12) {
-        Location(this, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10,
-                 param_11, param_12);
-    }
-
-    // 0x10042b010, 768 bytes, base-object constructor, placed by class name
-    // Location::Location(graphics::GraphNode*, shared_ptr<World> const&, int, int, LocData const&, bool, bool, int, int, int, int, shared_ptr<ChangeLocationRequest> const&, shared_ptr<LocTypeCustomisation> const&)
-    void Location::Location(GraphNode* param_1, shared_ptr* param_2, int param_3, int param_4, LocData* param_5,
-                            bool param_6, bool param_7, int param_8, int param_9, int param_10, int param_11,
-                            shared_ptr* param_12, shared_ptr* param_13) {
-        _func_decltype_nullptr* p_Var1;
-
-        p_Var1 = (_func_decltype_nullptr*)&DAT_00000001;
-        new (this) LocationInterface(1, param_1, param_2, 0, param_3);
-        new (this) MakeSharedPool<Location, 256>();
-        field_0 = &PTR__Location_100effbf0;
+    // 0x10042b010
+    Location::Location(graphics::GraphNode* graphNode, const shared_ptr<World>& world, int arg3, int arg4,
+                       const LocData& locData, bool arg6, bool arg7, int arg8, int arg9, int arg10, int arg11,
+                       const shared_ptr<ChangeLocationRequest>& changeLocationRequest,
+                       const shared_ptr<LocTypeCustomisation>& locTypeCustomisation)
+        : LocationInterface(1, graphNode, world, 0, arg3), MakeSharedPool<Location, 256>() {
         field_8 = &PTR__Location_100effd90;
-        field_216 = (ConfigProvider*)0;
-        m_pPlayerVarDomain = (PlayerVarDomain*)0;
-        m_iD = param_4;
-        m_locationLOD = 6;
+        field_216 = nullptr;
+        m_pPlayerVarDomain = nullptr;
+        m_iD = arg4;
+        m_locationLOD = true;
         field_237 = '\0';
-        new (m_parentLocationType, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (m_locationType, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_parentLocationType) shared_ptr();
+        new (m_locationType) shared_ptr();
         new (&field_272) LocType::MultiLocTypeCache();
-        new (field_352, param_5) LocData();
-        field_404 = param_6;
-        field_405 = param_7;
+        new (field_352) LocData(locData);
+        field_404 = arg6;
+        field_405 = arg7;
         field_406 = 0;
-        new (&field_408, param_13) shared_ptr<oldscape::dash3d::Decor>();
-        p_Var1 = (_func_decltype_nullptr*)(ulong)(uint)param_3;
-        new (&field_424, param_3, param_8, param_9) oldscape::rs2lib::worldmap::LocationData();
-        field_436 = param_10;
-        field_440 = param_11;
+        new (&field_408) shared_ptr(locTypeCustomisation);
+        new (&field_424) oldscape::rs2lib::worldmap::LocationData(arg3, arg8, arg9);
+        field_436 = arg10;
+        field_440 = arg11;
         field_444 = -1;
         m_builtGridSize = 1;
         field_452 = 1;
@@ -193,13 +145,11 @@ namespace jag::game {
         m_isWDDBothOffsetMember = false;
         m_hidden = 0;
         field_462 = 0;
-        field_464 = 1;
-        field_468 = 0;
-        new (field_472, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_488 = param_4;
-        new (field_496, param_12) shared_ptr<oldscape::dash3d::Decor>();
-        new (field_512, (_func_decltype_nullptr*)param_12)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        *(uint64_t*)&field_464 = 1;
+        new (field_472) shared_ptr();
+        field_488 = arg4;
+        new (field_496) shared_ptr(changeLocationRequest);
+        new (field_512) shared_ptr();
         new (&field_528) math::Matrix44T<float>();
         field_592 = '\0';
         new (&field_608) math::Matrix44T<float>();
@@ -207,74 +157,54 @@ namespace jag::game {
         new (&field_680) BuildRequest<graphics::Model, BuildModelMain>();
         new (&field_712) BuildRequest<graphics::Model, BuildModelMain>();
         new (&field_744) BuildRequest<graphics::Model, BuildModelMain>();
-        new (field_776, (_func_decltype_nullptr*)param_12)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        *(undefined2*)&field_792 = 0;
+        new (field_776) shared_ptr();
+        *(uint16_t*)&field_792 = 0;
         new (field_796) EntityHighlightState();
         field_796[16] = 0;
-        std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::unique_ptr<true, void>(
-            (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)&field_816);
+        field_816.unique_ptr<true, void>();
         field_824 = -1;
         field_828 = 0;
         field_832 = 0;
         field_836 = 0;
         field_840 = 0;
-        new (&field_848) eastl::vector<Location::VFXData, eastl::allocator>();
+        new (&field_848) eastl::vector<Location::VFXData>();
         field_468 = 1;
     }
 
-    // 0x10042b310, 96 bytes, complete-object constructor, placed by class name
-    // Location::Location(graphics::GraphNode*, shared_ptr<World> const&, int, int, LocData const&, bool, bool, int, int, int, int, shared_ptr<ChangeLocationRequest> const&, shared_ptr<LocTypeCustomisation> const&)
-    void Location::Location(GraphNode* param_1, shared_ptr* param_2, int param_3, int param_4, LocData* param_5,
-                            bool param_6, bool param_7, int param_8, int param_9, int param_10, int param_11,
-                            shared_ptr* param_12, shared_ptr* param_13) {
-        Location(this, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10,
-                 param_11, param_12, param_13);
-    }
-
-    // 0x10042b370, 784 bytes, base-object constructor, placed by class name
-    // Location::Location(graphics::GraphNode*, shared_ptr<World> const&, int, int, LocData const&, bool, bool, int, int, int, int, int, int, bool)
-    void Location::Location(GraphNode* param_1, shared_ptr* param_2, int param_3, int param_4, LocData* param_5,
-                            bool param_6, bool param_7, int param_8, int param_9, int param_10, int param_11,
-                            int param_12, int param_13, bool param_14) {
-        _func_decltype_nullptr* p_Var1;
-
-        p_Var1 = (_func_decltype_nullptr*)&DAT_00000001;
-        new (this) LocationInterface(1, param_1, param_2, 0, param_3);
-        new (this) MakeSharedPool<Location, 256>();
-        field_0 = &PTR__Location_100effbf0;
+    // 0x10042b370
+    Location::Location(graphics::GraphNode* graphNode, const shared_ptr<World>& world, int arg3, int arg4,
+                       const LocData& locData, bool arg6, bool arg7, int arg8, int arg9, int arg10, int arg11,
+                       int arg12, int arg13, bool arg14)
+        : LocationInterface(1, graphNode, world, 0, arg3), MakeSharedPool<Location, 256>() {
         field_8 = &PTR__Location_100effd90;
-        field_216 = (ConfigProvider*)0;
-        m_pPlayerVarDomain = (PlayerVarDomain*)0;
-        m_iD = param_4;
-        m_locationLOD = 6;
+        field_216 = nullptr;
+        m_pPlayerVarDomain = nullptr;
+        m_iD = arg4;
+        m_locationLOD = true;
         field_237 = '\0';
-        new (m_parentLocationType, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (m_locationType, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (m_parentLocationType) shared_ptr();
+        new (m_locationType) shared_ptr();
         new (&field_272) LocType::MultiLocTypeCache();
-        new (field_352, param_5) LocData();
-        field_404 = param_6;
-        field_405 = param_7;
+        new (field_352) LocData(locData);
+        field_404 = arg6;
+        field_405 = arg7;
         field_406 = 0;
-        new (&field_408, (_func_decltype_nullptr*)param_5)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_424, param_3, param_8, param_9) oldscape::rs2lib::worldmap::LocationData();
-        p_Var1 = (_func_decltype_nullptr*)(ulong)(uint)param_13;
-        field_436 = param_10;
-        field_440 = param_11;
+        new (&field_408) shared_ptr();
+        new (&field_424) oldscape::rs2lib::worldmap::LocationData(arg3, arg8, arg9);
+        field_436 = arg10;
+        field_440 = arg11;
         field_444 = -1;
         m_builtGridSize = 1;
         field_452 = 1;
-        m_attachedWallWidth = param_13;
-        m_isWDDBothOffsetMember = param_14;
+        m_attachedWallWidth = arg13;
+        m_isWDDBothOffsetMember = arg14;
         m_hidden = 0;
         field_462 = 0;
-        field_464 = 1;
-        field_468 = 0;
-        new (field_472, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        field_488 = param_4;
-        new (field_496, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_512, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        *(uint64_t*)&field_464 = 1;
+        new (field_472) shared_ptr();
+        field_488 = arg4;
+        new (field_496) shared_ptr();
+        new (field_512) shared_ptr();
         new (&field_528) math::Matrix44T<float>();
         field_592 = '\0';
         new (&field_608) math::Matrix44T<float>();
@@ -282,69 +212,44 @@ namespace jag::game {
         new (&field_680) BuildRequest<graphics::Model, BuildModelMain>();
         new (&field_712) BuildRequest<graphics::Model, BuildModelMain>();
         new (&field_744) BuildRequest<graphics::Model, BuildModelMain>();
-        new (field_776, p_Var1) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        *(undefined2*)&field_792 = 0;
+        new (field_776) shared_ptr();
+        *(uint16_t*)&field_792 = 0;
         new (field_796) EntityHighlightState();
         field_796[16] = 0;
-        std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::unique_ptr<true, void>(
-            (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)&field_816);
+        field_816.unique_ptr<true, void>();
         field_824 = -1;
         field_828 = 0;
         field_832 = 0;
         field_836 = 0;
         field_840 = 0;
-        new (&field_848) eastl::vector<Location::VFXData, eastl::allocator>();
-        field_72 = param_12;
+        new (&field_848) eastl::vector<Location::VFXData>();
+        field_72 = arg12;
         field_468 = 1;
     }
 
-    // 0x10042b680, 96 bytes, complete-object constructor, placed by class name
-    // Location::Location(graphics::GraphNode*, shared_ptr<World> const&, int, int, LocData const&, bool, bool, int, int, int, int, int, int, bool)
-    void Location::Location(GraphNode* param_1, shared_ptr* param_2, int param_3, int param_4, LocData* param_5,
-                            bool param_6, bool param_7, int param_8, int param_9, int param_10, int param_11,
-                            int param_12, int param_13, bool param_14) {
-        Location(this, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10,
-                 param_11, param_12, param_13, param_14);
-    }
-
-    // 0x10042b6e0, 384 bytes, base-object destructor, placed by class name
-    // Location::~Location()
-    void Location::~Location() {
-        field_0 = &PTR__Location_100effbf0;
+    // 0x10042b6e0
+    Location::~Location() {
         field_8 = &PTR__Location_100effd90;
-        Destruct(this);
-        (&field_848)->~vector();
-        (&field_816)->~unique_ptr();
+        Destruct();
+        field_848.~vector();
+        field_816.~unique_ptr();
         field_776->~shared_ptr();
-        (&field_744)->~ActiveComponent();
-        (&field_712)->~ActiveComponent();
-        (&field_680)->~ActiveComponent();
+        field_744.~ActiveComponent();
+        field_712.~ActiveComponent();
+        field_680.~ActiveComponent();
         field_512->~shared_ptr();
         field_496->~shared_ptr();
         field_472->~shared_ptr();
-        (&field_408)->~shared_ptr();
-        (&field_272)->~MultiLocTypeCache();
+        field_408.~shared_ptr();
+        field_272.~MultiLocTypeCache();
         m_locationType->~shared_ptr();
         m_parentLocationType->~shared_ptr();
-        ~LocationInterface();
     }
 
-    // 0x10042b860, 16 bytes, complete-object destructor, placed by class name
-    // Location::~Location(): jumps straight to the base-object destructor
-
-    // 0x10042b880, 32 bytes, deleting destructor, placed by class name
-    // Location::~Location()
-    void Location::~Location() {
-        ~Location(this);
-        operator_delete(this);
-    }
-
-    // 0x10042b8b0, 96 bytes, placed by class name
-    // Location::Hide()
+    // 0x10042b8b0
     void Location::Hide() {
-        ClearAnimationState(this);
+        ClearAnimationState();
         if (m_hidden != '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("!m_hidden",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/Location.cpp",
@@ -352,207 +257,171 @@ namespace jag::game {
         }
         m_hidden = 1;
         if (field_468 != 0) {
-            UpdateHeightMap(this, 2);
+            UpdateHeightMap(2);
         }
     }
 
-    // 0x10042b910, 112 bytes, placed by class name
-    // Location::ClearAnimationState()
+    // 0x10042b910
     void Location::ClearAnimationState() {
-        bool bVar1;
-        AnimatedModel* this_00;
-        shared_ptr* this_01;
-        vector* this_02;
-        Model* this_03;
-        type* in_RSI;
+        shared_ptr<graphics::Model>* this_02;
 
-        bVar1 = (&field_816)->operator_cast_to_bool();
-        if (bVar1) {
-            this_00 =
-                (AnimatedModel*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)&field_816);
-            this_00->ResetOverrideAnimation();
+        if ((&field_816)->operator_cast_to_bool()) {
+            ((AnimatedModel*)field_816.operator->())->ResetOverrideAnimation();
         }
-        this_01 = (shared_ptr*)(&field_680, in_RSI)->SSOBeginPtr();
-        bVar1 = shared_ptr::operator_cast_to_bool(this_01);
-        if (bVar1) {
-            this_02 = (&field_680, in_RSI)->SSOBeginPtr();
-            this_03 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_02);
-            this_03->ClearAnimationState();
+        if ((field_680.SSOBeginPtr())->operator_cast_to_bool()) {
+            this_02 = (shared_ptr<graphics::Model>*)field_680.SSOBeginPtr();
+            ((Model*)(*this_02).operator->())->ClearAnimationState();
         }
     }
 
-    // 0x10042b980, 976 bytes, placed by class name
-    // Location::UpdateHeightMap(HeightChangeType)
-    /* WARNING: Removing unreachable block (ram,4299340388) */
-    /* Location::UpdateHeightMap(HeightChangeType) */
-
-    ulong Location::UpdateHeightMap(int param_2) {
-        undefined1* this_00;
-        undefined1* this_01;
-        undefined1* this_02;
-        uint uVar1;
-        uint uVar2;
-        bool bVar3;
-        char cVar4;
-        undefined1 uVar5;
-        byte bVar6;
+    // 0x10042b980
+    unsigned long Location::UpdateHeightMap(HeightChangeType heightChangeType) {
+        uint8_t* this_01;
+        uint8_t* this_02;
+        unsigned int uVar1;
+        unsigned int uVar2;
+        uint8_t bVar4;
+        int arg6;
+        int iVar5;
+        int iVar6;
         int iVar7;
-        int iVar8;
-        int iVar9;
-        int iVar10;
-        shared_ptr* this_03;
-        LocType* pLVar11;
-        World* pWVar12;
-        HeightMap* pHVar13;
-        vector* pvVar14;
-        Model* pMVar15;
-        NXTPixToolkit* pNVar16;
-        AABB* pAVar17;
-        Vector2T<int>* pVVar18;
-        float* pfVar19;
-        undefined8 unaff_RBX;
-        ulong uVar20;
-        undefined7 uVar21;
-        type* ptVar22;
+        LocType* pLVar8;
+        World* pWVar9;
+        HeightMap* pHVar10;
+        shared_ptr<graphics::Model>* psVar11;
+        Model* pMVar12;
+        NXTPixToolkit* pNVar13;
+        AABB* pAVar14;
+        Vector2T<int>* pVVar15;
+        float* pfVar16;
+        uint64_t unaff_RBX;
+        uint64_t uVar18;
         shared_ptr<LocType>* this_04;
-        int iVar23;
+        int iVar19;
 
-        uVar20 = CONCAT71((int7)((ulong)unaff_RBX >> 8), 1);
-        if (param_2 == 0)
+        unsigned long uVar17 = (((uint64_t)((int64_t)((unsigned long)unaff_RBX >> 8)) << 8) | (uint8_t)1);
+        if (heightChangeType == 0)
             goto LAB_10042badf;
-        this_03 = (shared_ptr*)GetWorld();
-        this_00 = m_locationType;
-        bVar3 = this_00->operator_cast_to_bool();
-        if (bVar3) {
+        auto this_03 = GetWorld();
+        uint8_t* this_00 = m_locationType;
+        char cVar3 = this_00->operator_cast_to_bool();
+        if (cVar3) {
             this_01 = &field_680;
-            cVar4 = this_01->IsTaskRunning();
-            if ((cVar4 == '\0') && (bVar3 = shared_ptr::operator_cast_to_bool(this_03), bVar3)) {
-                pLVar11 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
+            cVar3 = this_01->IsTaskRunning();
+            if ((!cVar3) && (cVar3 = shared_ptr::operator_cast_to_bool(this_03), cVar3)) {
+                pLVar8 = (LocType*)(*this_00).operator->();
                 this_02 = field_352;
-                uVar5 = this_02->GetShape();
-                cVar4 = pLVar11->RaiseEntities(uVar5, field_405);
+                bVar4 = this_02->GetShape();
+                cVar3 = pLVar8->RaiseEntities((unsigned int)bVar4, field_405);
                 this_04 = (shared_ptr<LocType>*)this_00;
-                if (cVar4 == '\0') {
+                if (!cVar3) {
                     this_04 = (shared_ptr<LocType>*)m_parentLocationType;
-                    pLVar11 = (LocType*)shared_ptr<LocType>::operator->(this_04);
-                    uVar5 = this_02->GetShape();
-                    cVar4 = pLVar11->RaiseEntities(uVar5, field_405);
-                    if (cVar4 != '\0')
+                    pLVar8 = (LocType*)(*this_04).operator->();
+                    bVar4 = this_02->GetShape();
+                    cVar3 = pLVar8->RaiseEntities((unsigned int)bVar4, field_405);
+                    if (cVar3)
                         goto LAB_10042ba68;
                 } else {
                 LAB_10042ba68:
-                    pLVar11 = (LocType*)shared_ptr<LocType>::operator->(this_04);
-                    bVar6 = this_02->GetShape();
-                    ptVar22 = (type*)(ulong)bVar6;
-                    iVar7 = pLVar11->GetRaiseObjectGroundDecor();
-                    if (param_2 == 2) {
-                        pWVar12 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)this_03);
-                        pHVar13 = (HeightMap*)pWVar12->GetHeightMap();
-                        cVar4 = this_01->IsTaskDone();
-                        if (cVar4 == '\0') {
-                            cVar4 = '\0';
+                    pLVar8 = (LocType*)(*this_04).operator->();
+                    bVar4 = this_02->GetShape();
+                    arg6 = pLVar8->GetRaiseObjectGroundDecor((unsigned int)bVar4);
+                    if (heightChangeType == 2) {
+                        pWVar9 = (World*)(*this_03).operator->();
+                        pHVar10 = pWVar9->GetHeightMap();
+                        cVar3 = this_01->IsTaskDone();
+                        if (!cVar3) {
+                            cVar3 = '\0';
                         } else {
-                            pvVar14 = this_01->SSOBeginPtr(ptVar22);
-                            pMVar15 =
-                                (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar14);
-                            cVar4 = pMVar15->IsLoaded();
+                            psVar11 = (shared_ptr<graphics::Model>*)this_01->SSOBeginPtr();
+                            pMVar12 = (Model*)(*psVar11).operator->();
+                            cVar3 = pMVar12->IsLoaded();
                         }
-                        if ((iVar7 != 0) || (cVar4 != '\0')) {
-                            iVar8 = GetHeightMapLevel();
+                        if ((arg6 != 0) || (cVar3)) {
+                            iVar5 = GetHeightMapLevel();
                             uVar1 = field_428;
                             uVar2 = field_432;
-                            pLVar11 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                            uVar5 = this_02->GetRot();
-                            iVar9 = pLVar11->GetGridWidth(uVar5);
-                            pLVar11 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                            bVar6 = this_02->GetRot();
-                            ptVar22 = (type*)(ulong)bVar6;
-                            iVar10 = pLVar11->GetGridLength();
-                            iVar23 = 0;
-                            uVar21 = (undefined7)((ulong)pLVar11 >> 8);
-                            if (cVar4 != '\0') {
-                                pvVar14 = this_01->SSOBeginPtr(ptVar22);
-                                pNVar16 = (NXTPixToolkit*)shared_ptr<graphics::Model>::operator->(
-                                    (shared_ptr<graphics::Model>*)pvVar14);
-                                pAVar17 = (AABB*)pNVar16->GetScreen();
-                                cVar4 = pAVar17->IsValid();
-                                if (cVar4 != '\0') {
-                                    pvVar14 = this_01->SSOBeginPtr(ptVar22);
-                                    pNVar16 = (NXTPixToolkit*)shared_ptr<graphics::Model>::operator->(
-                                        (shared_ptr<graphics::Model>*)pvVar14);
-                                    pNVar16 = (NXTPixToolkit*)pNVar16->GetScreen();
-                                    pVVar18 = (Vector2T<int>*)pNVar16->GetScreen();
-                                    pfVar19 = (float*)pVVar18->y();
-                                    iVar23 = (int)*pfVar19;
+                            pLVar8 = (LocType*)(*this_00).operator->();
+                            bVar4 = this_02->GetRot();
+                            iVar6 = pLVar8->GetGridWidth((unsigned int)bVar4);
+                            pLVar8 = (LocType*)(*this_00).operator->();
+                            bVar4 = this_02->GetRot();
+                            iVar7 = pLVar8->GetGridLength((unsigned int)bVar4);
+                            iVar19 = 0;
+                            uVar18 = (uint64_t)((unsigned long)pLVar8 >> 8);
+                            if (cVar3) {
+                                psVar11 = (shared_ptr<graphics::Model>*)this_01->SSOBeginPtr();
+                                pNVar13 = (NXTPixToolkit*)(*psVar11).operator->();
+                                pAVar14 = (AABB*)pNVar13->GetScreen();
+                                cVar3 = pAVar14->IsValid();
+                                if (cVar3) {
+                                    psVar11 = (shared_ptr<graphics::Model>*)this_01->SSOBeginPtr();
+                                    pNVar13 = (NXTPixToolkit*)(*psVar11).operator->();
+                                    pNVar13 = (NXTPixToolkit*)pNVar13->GetScreen();
+                                    pVVar15 = (Vector2T<int>*)pNVar13->GetScreen();
+                                    pfVar16 = (float*)pVVar15->y();
+                                    iVar19 = (int)*pfVar16;
                                 }
                             }
-                            pHVar13->RemoveLocationHeightOffset(iVar8, uVar1, uVar2, iVar9, iVar10, iVar7, iVar23);
+                            pHVar10->RemoveLocationHeightOffset(iVar5, uVar1, uVar2, iVar6, iVar7, arg6, iVar19);
                         LAB_10042bd47:
-                            uVar20 = CONCAT71(uVar21, 1);
+                            uVar17 = (((uint64_t)uVar18 << 8) | (uint8_t)1);
                             goto LAB_10042badf;
                         }
-                    } else if (param_2 == 1) {
-                        pWVar12 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)this_03);
-                        pHVar13 = (HeightMap*)pWVar12->GetHeightMap();
-                        cVar4 = this_01->IsTaskDone();
-                        if (cVar4 == '\0') {
-                            cVar4 = '\0';
+                    } else if (heightChangeType == 1) {
+                        pWVar9 = (World*)(*this_03).operator->();
+                        pHVar10 = pWVar9->GetHeightMap();
+                        cVar3 = this_01->IsTaskDone();
+                        if (!cVar3) {
+                            cVar3 = '\0';
                         } else {
-                            pvVar14 = this_01->SSOBeginPtr(ptVar22);
-                            pMVar15 =
-                                (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar14);
-                            cVar4 = pMVar15->IsLoaded();
+                            psVar11 = (shared_ptr<graphics::Model>*)this_01->SSOBeginPtr();
+                            pMVar12 = (Model*)(*psVar11).operator->();
+                            cVar3 = pMVar12->IsLoaded();
                         }
-                        if ((iVar7 != 0) || (cVar4 != '\0')) {
-                            iVar8 = GetHeightMapLevel();
+                        if ((arg6 != 0) || (cVar3)) {
+                            iVar5 = GetHeightMapLevel();
                             uVar1 = field_428;
                             uVar2 = field_432;
-                            pLVar11 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                            uVar5 = this_02->GetRot();
-                            iVar9 = pLVar11->GetGridWidth(uVar5);
-                            pLVar11 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                            bVar6 = this_02->GetRot();
-                            ptVar22 = (type*)(ulong)bVar6;
-                            iVar10 = pLVar11->GetGridLength();
-                            iVar23 = 0;
-                            uVar21 = (undefined7)((ulong)pLVar11 >> 8);
-                            if (cVar4 != '\0') {
-                                pvVar14 = this_01->SSOBeginPtr(ptVar22);
-                                pNVar16 = (NXTPixToolkit*)shared_ptr<graphics::Model>::operator->(
-                                    (shared_ptr<graphics::Model>*)pvVar14);
-                                pAVar17 = (AABB*)pNVar16->GetScreen();
-                                cVar4 = pAVar17->IsValid();
-                                if (cVar4 != '\0') {
-                                    pvVar14 = this_01->SSOBeginPtr(ptVar22);
-                                    pNVar16 = (NXTPixToolkit*)shared_ptr<graphics::Model>::operator->(
-                                        (shared_ptr<graphics::Model>*)pvVar14);
-                                    pNVar16 = (NXTPixToolkit*)pNVar16->GetScreen();
-                                    pVVar18 = (Vector2T<int>*)pNVar16->GetScreen();
-                                    pfVar19 = (float*)pVVar18->y();
-                                    iVar23 = (int)*pfVar19;
+                            pLVar8 = (LocType*)(*this_00).operator->();
+                            bVar4 = this_02->GetRot();
+                            iVar6 = pLVar8->GetGridWidth((unsigned int)bVar4);
+                            pLVar8 = (LocType*)(*this_00).operator->();
+                            bVar4 = this_02->GetRot();
+                            iVar7 = pLVar8->GetGridLength((unsigned int)bVar4);
+                            iVar19 = 0;
+                            uVar18 = (uint64_t)((unsigned long)pLVar8 >> 8);
+                            if (cVar3) {
+                                psVar11 = (shared_ptr<graphics::Model>*)this_01->SSOBeginPtr();
+                                pNVar13 = (NXTPixToolkit*)(*psVar11).operator->();
+                                pAVar14 = (AABB*)pNVar13->GetScreen();
+                                cVar3 = pAVar14->IsValid();
+                                if (cVar3) {
+                                    psVar11 = (shared_ptr<graphics::Model>*)this_01->SSOBeginPtr();
+                                    pNVar13 = (NXTPixToolkit*)(*psVar11).operator->();
+                                    pNVar13 = (NXTPixToolkit*)pNVar13->GetScreen();
+                                    pVVar15 = (Vector2T<int>*)pNVar13->GetScreen();
+                                    pfVar16 = (float*)pVVar15->y();
+                                    iVar19 = (int)*pfVar16;
                                 }
                             }
-                            pHVar13->AddLocationHeightOffset(iVar8, uVar1, uVar2, iVar9, iVar10, iVar7, iVar23);
+                            pHVar10->AddLocationHeightOffset(iVar5, uVar1, uVar2, iVar6, iVar7, arg6, iVar19);
                             goto LAB_10042bd47;
                         }
                     }
                 }
-                uVar20 = CONCAT71((int7)((ulong)this_00 >> 8), 1);
+                uVar17 = (((uint64_t)((int64_t)((unsigned long)this_00 >> 8)) << 8) | (uint8_t)1);
                 goto LAB_10042badf;
             }
         }
-        uVar20 = 0;
+        uVar17 = 0;
     LAB_10042badf:
-        return uVar20 & 4294967295;
+        return uVar17 & 4294967295;
     }
 
-    // 0x10042bd50, 112 bytes, placed by class name
-    // Location::Unhide()
+    // 0x10042bd50
     void Location::Unhide() {
         if (m_hidden == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_hidden",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/Location.cpp",
@@ -560,99 +429,77 @@ namespace jag::game {
         }
         m_hidden = 0;
         if (field_468 != 0) {
-            UpdateHeightMap(this, 1);
+            UpdateHeightMap(1);
         }
-        BeginPlayingDefaultAnimation(this);
+        BeginPlayingDefaultAnimation();
     }
 
-    // 0x10042bdc0, 96 bytes, placed by class name
-    // Location::BeginPlayingDefaultAnimation()
+    // 0x10042bdc0
     void Location::BeginPlayingDefaultAnimation() {
-        AnimatedModel* this_00;
-        int iVar2;
+        int arg1;
 
-        if ((&field_816)->operator_cast_to_bool()) {
-            iVar2 = GetDefaultAnimationToPlay(this);
-            if (iVar2 != -1) {
-                this_00 =
-                    (AnimatedModel*)
-                        std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                            (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)&field_816);
-                this_00->RequestDefaultAnimation(iVar2, false, false);
+        if ((&field_816)->operator_cast_to_bool() != '\0') {
+            arg1 = GetDefaultAnimationToPlay();
+            if (arg1 != -1) {
+                ((AnimatedModel*)field_816.operator->())->RequestDefaultAnimation(arg1, false, false);
             }
         }
     }
 
-    // 0x10042be50, 96 bytes, placed by class name
-    // Location::GetDefaultAnimationToPlay() const
-    undefined8 Location::GetDefaultAnimationToPlay() {
-        bool bVar1;
-        undefined8 uVar2;
+    // 0x10042be50
+    uint64_t Location::GetDefaultAnimationToPlay() const {
         LocType* pLVar3;
 
-        bVar1 = m_locationType->operator_cast_to_bool();
-        uVar2 = 4294967295;
-        if (bVar1) {
-            pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
+        bool cVar1 = m_locationType->operator_cast_to_bool();
+        uint64_t uVar2 = 4294967295;
+        if (cVar1) {
+            pLVar3 = (LocType*)(*m_locationType).operator->();
             uVar2 = pLVar3->GetDefaultAnimation();
             if ((int)uVar2 == -1) {
-                pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_parentLocationType);
+                pLVar3 = (LocType*)(*m_parentLocationType).operator->();
                 uVar2 = pLVar3->GetDefaultAnimation();
             }
         }
         return uVar2;
     }
 
-    // 0x10042beb0, 96 bytes, placed by class name
-    // Location::BeginPlayingOverrideAnimation()
+    // 0x10042beb0
     void Location::BeginPlayingOverrideAnimation() {
-        AnimatedModel* this_00;
-        int iVar1;
-        int iVar2;
-
-        iVar1 = GetDefaultAnimationToPlay(this);
-        iVar2 = GetOverrideAnimationToPlay(this);
-        if (iVar2 != iVar1) {
-            this_00 =
-                (AnimatedModel*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)&field_816);
-            this_00->RequestOverrideAnimation(false, iVar2, 0, false);
+        int iVar1 = GetDefaultAnimationToPlay();
+        int arg2 = GetOverrideAnimationToPlay();
+        if (arg2 != iVar1) {
+            ((AnimatedModel*)field_816.operator->())->RequestOverrideAnimation(false, arg2, 0, false);
         }
     }
 
-    // 0x10042bf10, 128 bytes, placed by class name
-    // Location::GetOverrideAnimationToPlay() const
-    ulong Location::GetOverrideAnimationToPlay() {
-        bool bVar1;
-        ulong uVar2;
+    // 0x10042bf10
+    unsigned long Location::GetOverrideAnimationToPlay() const {
+        bool cVar1;
         LocType* pLVar3;
 
-        uVar2 = (ulong)(uint)field_824;
+        unsigned long uVar2 = (unsigned long)(unsigned int)field_824;
         if (field_824 == 4294967295) {
-            bVar1 = m_locationType->operator_cast_to_bool();
+            cVar1 = m_locationType->operator_cast_to_bool();
             uVar2 = 4294967295;
-            if (bVar1) {
-                pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
+            if (cVar1) {
+                pLVar3 = (LocType*)(*m_locationType).operator->();
                 uVar2 = pLVar3->GetAnimation();
             }
         }
         if ((int)uVar2 == -1) {
-            bVar1 = m_parentLocationType->operator_cast_to_bool();
+            cVar1 = m_parentLocationType->operator_cast_to_bool();
             uVar2 = 4294967295;
-            if (bVar1) {
-                pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_parentLocationType);
+            if (cVar1) {
+                pLVar3 = (LocType*)(*m_parentLocationType).operator->();
                 uVar2 = pLVar3->GetAnimation();
             }
         }
         return uVar2;
     }
 
-    // 0x10042bf90, 96 bytes, placed by class name
-    // Location::ActivateRoofRemove()
+    // 0x10042bf90
     void Location::ActivateRoofRemove() {
         if (field_462 != '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "!m_roofRemoved",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/entities/"
@@ -661,15 +508,13 @@ namespace jag::game {
         }
         field_462 = 1;
         if (field_468 != 0) {
-            UpdateHeightMap(this, 2);
+            UpdateHeightMap(2);
         }
     }
 
-    // 0x10042bff0, 96 bytes, placed by class name
-    // Location::DeactivateRoofRemove()
+    // 0x10042bff0
     void Location::DeactivateRoofRemove() {
         if (field_462 == '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert(
                 "m_roofRemoved",
                 "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/entities/"
@@ -679,1661 +524,1347 @@ namespace jag::game {
         }
         field_462 = 0;
         if (field_468 != 0) {
-            UpdateHeightMap(this, 1);
+            UpdateHeightMap(1);
         }
     }
 
-    // 0x10042c050, 64 bytes, placed by class name
-    // Location::ClearJobResources()
+    // 0x10042c050
     void Location::ClearJobResources() {
-        (&field_712)->Clear();
-        (&field_744)->Clear();
-        shared_ptr<BuildSingleLocationMain>::reset();
+        field_712.Clear();
+        field_744.Clear();
+        field_776->reset();
     }
 
-    // 0x10042c110, 48 bytes, placed by class name
-    // Location::RequestOverrideAnimation(int, int, unsigned int, unsigned int)
-    void Location::RequestOverrideAnimation(int param_1, int param_2, uint param_3, uint param_4) {
-        field_824 = param_1;
-        field_828 = param_2;
-        field_832 = param_3;
-        field_836 = param_4;
-        (*(code*)field_0[6])();
+    // 0x10042c110
+    void Location::RequestOverrideAnimation(int arg1, int arg2, unsigned int arg3, unsigned int arg4) {
+        field_824 = arg1;
+        field_828 = arg2;
+        field_832 = arg3;
+        field_836 = arg4;
+        MarkAsNoLongerAtTargetLOD();
     }
 
-    // 0x10042c140, 336 bytes, placed by class name
-    // Location::UpdateAudio()
-    ulong Location::UpdateAudio() {
-        undefined*** this_00;
+    // 0x10042c140
+    unsigned long Location::UpdateAudio() {
         int* piVar1;
-        undefined1* this_01;
-        char cVar2;
+        uint8_t* this_01;
+        int arg1;
+        uint32_t uVar3;
         int iVar4;
-        undefined4 uVar5;
-        int iVar6;
-        int iVar7;
-        LocType* pLVar8;
+        int iVar5;
+        LocType* pLVar6;
         SoundInstance* this_02;
-        undefined8 uVar9;
-        undefined8 uVar10;
-        ulong uVar11;
+        uint64_t uVar7;
+        uint64_t uVar8;
+        unsigned long uVar9;
 
-        this_00 = &field_8;
-        cVar2 = this_00->UpdateAudio();
-        if (cVar2 != '\0') {
+        uint8_t*** this_00 = &field_8;
+        bool cVar2 = this_00->UpdateAudio();
+        if (cVar2) {
             this_01 = m_locationType;
-            if (this_01->operator_cast_to_bool()) {
-                pLVar8 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
-                iVar4 = pLVar8->GetBackgroundSound();
-                if (iVar4 < 0) {
-                    1041865114->StopSounds(this_00, 1);
+            cVar2 = this_01->operator_cast_to_bool();
+            if (cVar2) {
+                pLVar6 = (LocType*)(*this_01).operator->();
+                arg1 = pLVar6->GetBackgroundSound();
+                if (arg1 < 0) {
+                    this_00->StopSounds(1, 0.15);
                 } else {
-                    this_02 = (SoundInstance*)this_00->GetSoundInstance(iVar4);
-                    if (this_02 != (SoundInstance*)0) {
+                    this_02 = this_00->GetSoundInstance(arg1);
+                    if (this_02 != nullptr) {
                         cVar2 = this_02->IsAudible();
-                        uVar11 = CONCAT71((int7)((ulong)this >> 8), 1);
-                        if (cVar2 == '\0') {
+                        uVar9 = (((uint64_t)((int64_t)((unsigned long)this >> 8)) << 8) | (uint8_t)1);
+                        if (!cVar2) {
                             this_02->Suspend(0.0);
                         }
                         goto LAB_10042c1bd;
                     }
-                    1041865114->StopSounds(this_00, 1);
-                    pLVar8 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
-                    uVar9 = pLVar8->GenerateBackgroundSoundRandomRate();
-                    pLVar8 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
-                    uVar5 = pLVar8->GetBackgroundSoundVolume();
-                    pLVar8 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
-                    iVar6 = pLVar8->GetBackgroundSoundDropoffRange();
-                    pLVar8 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
-                    iVar7 = pLVar8->GetBackgroundSoundRange();
-                    uVar10 = GetWorldPosition();
+                    this_00->StopSounds(1, 0.15);
+                    pLVar6 = (LocType*)(*this_01).operator->();
+                    uVar7 = pLVar6->GenerateBackgroundSoundRandomRate();
+                    pLVar6 = (LocType*)(*this_01).operator->();
+                    uVar3 = pLVar6->GetBackgroundSoundVolume();
+                    pLVar6 = (LocType*)(*this_01).operator->();
+                    iVar4 = pLVar6->GetBackgroundSoundDropoffRange();
+                    pLVar6 = (LocType*)(*this_01).operator->();
+                    iVar5 = pLVar6->GetBackgroundSoundRange();
+                    uVar8 = GetWorldPosition();
                     piVar1 = &field_68;
                     this = (Location*)field_8;
-                    (*(code*)field_16)(this_00, iVar4, uVar5, 1, iVar6 << 7, iVar7 << 7, uVar10, 18446744073709551615,
-                                       15, 1, *piVar1, uVar9);
+                    (*(void (*)(...))field_16)(this_00, arg1, uVar3, 1, iVar4 << 7, iVar5 << 7, uVar8,
+                                               18446744073709551615, 15, 1, *piVar1, uVar7);
                 }
-                uVar11 = CONCAT71((int7)((ulong)this >> 8), 1);
+                uVar9 = (((uint64_t)((int64_t)((unsigned long)this >> 8)) << 8) | (uint8_t)1);
                 goto LAB_10042c1bd;
             }
         }
-        uVar11 = 0;
+        uVar9 = 0;
     LAB_10042c1bd:
-        return uVar11 & 4294967295;
+        return uVar9 & 4294967295;
     }
 
-    // 0x10042c440, 400 bytes, placed by class name
-    // Location::UpdateRandomSounds(unsigned int)
-    void Location::UpdateRandomSounds(uint param_1) {
-        undefined1* this_00;
-        char cVar2;
-        int iVar3;
-        int iVar4;
-        uint uVar5;
-        uint uVar6;
-        uint uVar7;
-        uint uVar8;
-        uint uVar9;
-        uint uVar10;
-        uint uVar11;
-        LocType* pLVar12;
-        Array<VarValue, eastl::allocator>* this_01;
-        int* piVar13;
-        Vector3T* pVVar14;
+    // 0x10042c440
+    void Location::UpdateRandomSounds(unsigned int arg1) {
+        int iVar2;
+        int arg2;
+        unsigned int uVar3;
+        unsigned int arg4;
+        unsigned int arg5;
+        unsigned int arg6;
+        unsigned int arg7;
+        unsigned int arg8;
+        unsigned int arg9;
+        LocType* pLVar4;
+        Array<VarValue>* this_01;
+        int* piVar5;
+        Vector3T<float>* vector3;
 
-        this_00 = m_locationType;
+        uint8_t* this_00 = m_locationType;
         if (this_00->operator_cast_to_bool()) {
-            field_840 = field_840 - param_1;
-            pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-            this_01 = (Array<VarValue, eastl::allocator>*)pLVar12->GetRandomSounds();
-            if (((int)field_840 < 1) && (this_01 != (Array<VarValue, eastl::allocator>*)0)) {
-                cVar2 = this_01->empty();
-                if (cVar2 == '\0') {
-                    cVar2 = (&field_8, 2)->HasSoundInstance();
-                    if (cVar2 == '\0') {
-                        iVar3 = this_01->end();
-                        iVar3 = math::Rand(iVar3 + -1);
-                        piVar13 = (int*)Array<int, eastl::allocator>::operator[]((Array<int, eastl::allocator>*)this_01,
-                                                                                 (long)iVar3);
-                        iVar3 = *piVar13;
-                        pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                        iVar4 = pLVar12->GetBackgroundSoundVolume();
-                        pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                        uVar5 = pLVar12->GetRandomSoundShape();
-                        pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                        uVar6 = pLVar12->GetBackgroundSoundDropoffRange();
-                        pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                        uVar7 = pLVar12->GetBackgroundSoundRange();
-                        pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                        uVar8 = pLVar12->GetBackgroundSoundRateMin();
-                        pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                        uVar9 = pLVar12->GetBackgroundSoundRateMax();
-                        pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                        uVar10 = pLVar12->GetRandomSoundMin();
-                        pLVar12 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                        uVar11 = pLVar12->GetRandomSoundMax();
-                        pVVar14 = (Vector3T*)GetWorldPosition();
-                        uVar5 = AddRandomSound(iVar3, iVar4, uVar5, uVar6, uVar7, uVar8, uVar9, uVar10, uVar11, pVVar14,
-                                               field_68);
-                        field_840 = uVar5;
+            field_840 = field_840 - arg1;
+            pLVar4 = (LocType*)(*this_00).operator->();
+            this_01 = (Array<VarValue>*)pLVar4->GetRandomSounds();
+            if (((int)field_840 < 1) && (this_01 != nullptr)) {
+                if (!(this_01->empty())) {
+                    if (!(field_8.HasSoundInstance(2))) {
+                        iVar2 = this_01->end();
+                        iVar2 = math::Rand(iVar2 - 1);
+                        piVar5 = (int*)(*this_01)[(long)iVar2];
+                        iVar2 = *piVar5;
+                        pLVar4 = (LocType*)(*this_00).operator->();
+                        arg2 = pLVar4->GetBackgroundSoundVolume();
+                        pLVar4 = (LocType*)(*this_00).operator->();
+                        uVar3 = pLVar4->GetRandomSoundShape();
+                        pLVar4 = (LocType*)(*this_00).operator->();
+                        arg4 = pLVar4->GetBackgroundSoundDropoffRange();
+                        pLVar4 = (LocType*)(*this_00).operator->();
+                        arg5 = pLVar4->GetBackgroundSoundRange();
+                        pLVar4 = (LocType*)(*this_00).operator->();
+                        arg6 = pLVar4->GetBackgroundSoundRateMin();
+                        pLVar4 = (LocType*)(*this_00).operator->();
+                        arg7 = pLVar4->GetBackgroundSoundRateMax();
+                        pLVar4 = (LocType*)(*this_00).operator->();
+                        arg8 = pLVar4->GetRandomSoundMin();
+                        pLVar4 = (LocType*)(*this_00).operator->();
+                        arg9 = pLVar4->GetRandomSoundMax();
+                        vector3 = (Vector3T<float>*)GetWorldPosition();
+                        uVar3 =
+                            AddRandomSound(iVar2, arg2, uVar3, arg4, arg5, arg6, arg7, arg8, arg9, *vector3, field_68);
+                        field_840 = uVar3;
                     }
                 }
             }
         }
     }
 
-    // 0x10042c7b0, 256 bytes, placed by class name
-    // Location::NeedsAnimatedModel() const
-    ulong Location::NeedsAnimatedModel() {
-        char cVar1;
-        int iVar3;
-        long lVar4;
-        vector* this_00;
-        Model* this_01;
-        LocType* this_02;
-        AnimatedModel* this_03;
-        type* in_RSI;
-        undefined8 unaff_R15;
-        ulong uVar5;
+    // 0x10042c7b0
+    unsigned long Location::NeedsAnimatedModel() const {
+        int iVar2;
+        shared_ptr<graphics::Model>* this_00;
+        uint64_t unaff_R15;
+        unsigned long uVar4;
 
-        lVar4 = m_locationType->end();
-        if (lVar4 == 0) {
-            /* WARNING: Subroutine does not return */
+        if (m_locationType->end() == 0) {
             LogAssert("m_locationType.get()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/Location.cpp",
                       365, "Location: needsAnimatedModel() called without valid location type available");
         }
-        cVar1 = (&field_680)->IsTaskDone();
-        if (cVar1 != '\0') {
-            this_00 = (&field_680, in_RSI)->SSOBeginPtr();
-            this_01 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_00);
-            cVar1 = this_01->IsLoaded();
-            if (cVar1 != '\0') {
-                iVar3 = GetOverrideAnimationToPlay(this);
-                uVar5 = CONCAT71((int7)((ulong)unaff_R15 >> 8), 1);
-                if (iVar3 == -1) {
-                    this_02 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-                    cVar1 = this_02->HasParticles();
-                    if (cVar1 == '\0') {
-                        if ((&field_816)->operator_cast_to_bool()) {
-                            this_03 =
-                                (AnimatedModel*)
-                                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::
-                                    operator->((unique_ptr<LocationAnimatedModel,
-                                                           std::default_delete<LocationAnimatedModel>>*)&field_816);
-                            cVar1 = this_03->InUse();
-                            if (cVar1 != '\0')
+        bool cVar1 = field_680.IsTaskDone();
+        if (cVar1) {
+            this_00 = (shared_ptr<graphics::Model>*)field_680.SSOBeginPtr();
+            cVar1 = ((Model*)(*this_00).operator->())->IsLoaded();
+            if (cVar1) {
+                iVar2 = GetOverrideAnimationToPlay();
+                uVar4 = (((uint64_t)((int64_t)((unsigned long)unaff_R15 >> 8)) << 8) | (uint8_t)1);
+                if (iVar2 == -1) {
+                    cVar1 = ((LocType*)(*m_locationType).operator->())->HasParticles();
+                    if (!cVar1) {
+                        cVar1 = (&field_816)->operator_cast_to_bool();
+                        if (cVar1) {
+                            cVar1 = ((AnimatedModel*)field_816.operator->())->InUse();
+                            if (cVar1)
                                 goto LAB_10042c896;
                         }
-                        uVar5 = 0;
+                        uVar4 = 0;
                     }
                 }
             LAB_10042c896:
-                return uVar5 & 4294967295;
+                return uVar4 & 4294967295;
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("m_model.IsTaskDone() && m_model.GetAsset()->IsLoaded()",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/entities/"
                   "Location.cpp",
                   366, "Location: needsAnimatedMode() called without valid model available");
     }
 
-    // 0x10042c910, 96 bytes, placed by class name
-    // Location::GetDefaultModel(AnimatedModelPair&, int)
-    bool Location::GetDefaultModel(AnimatedModelPair* param_1, int param_2) {
-        shared_ptr* psVar1;
-        long lVar2;
-        undefined4 in_register_00000034;
-        type* this;
+    // 0x10042c910
+    bool Location::GetDefaultModel(AnimatedModelPair& animatedModelPair, int arg2) {
+        uint32_t in_register_00000034;
+        shared_ptr<graphics::Model>* shared_ptr;
 
-        this = (type*)CONCAT44(in_register_00000034, param_2);
-        psVar1 = (shared_ptr*)param_1[28].field_8.SSOBeginPtr(this);
-        shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)this, psVar1);
-        psVar1 = (shared_ptr*)((param_1 + 31))->SSOBeginPtr(psVar1);
-        shared_ptr<graphics::Model>::operator=((shared_ptr<graphics::Model>*)(this + 16), psVar1);
-        lVar2 = end();
-        return lVar2 != 0;
+        shared_ptr = (shared_ptr<graphics::Model>*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg2);
+        auto psVar1 = animatedModelPair[28].field_8.SSOBeginPtr();
+        *shared_ptr = *psVar1;
+        psVar1 = (shared_ptr<graphics::Model>*)((animatedModelPair + 31))->SSOBeginPtr();
+        (*(shared_ptr + 16)) = *psVar1;
+        return shared_ptr->end() != 0;
     }
 
-    // 0x10042c970, 2400 bytes, placed by class name
-    // Location::Build(graphics::RT7Core&, Js5ResourceProvider&, ConfigProvider&, AssetBuilder&, unsigned int, PlayerVarDomain*)
-    ulong Location::Build(RT7Core* param_1, Js5ResourceProvider* param_2, ConfigProvider* param_3,
-                          AssetBuilder* param_4, uint param_5, PlayerVarDomain* param_6) {
-        undefined1* puVar1;
-        LocData* pLVar2;
-        char cVar3;
-        bool bVar4;
-        undefined1 uVar5;
-        byte bVar6;
-        undefined4 uVar7;
-        int iVar8;
-        uint uVar9;
-        int iVar10;
-        long* plVar11;
-        shared_ptr* psVar12;
-        LocType* pLVar13;
-        undefined* puVar14;
-        long lVar15;
-        World* pWVar16;
-        SceneViewData* this_00;
-        QuaternionT* pQVar17;
-        GraphicsApp* pGVar18;
-        AnimatedModel* pAVar19;
-        ulong uVar20;
-        GraphNode* pGVar21;
-        Text* pTVar22;
-        LocationContainer* pLVar23;
-        RT7Core* pRVar24;
-        vector* pvVar25;
-        Model* this_01;
-        HeadbarType* this_02;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_03;
-        int* piVar26;
-        ObjAppearanceData* this_04;
-        CoordGrid* pCVar27;
-        CommandLine* this_05;
-        type* ptVar28;
-        PlayerVarDomain* pPVar29;
-        AssetBuilder* pAVar30;
-        LocData* this_06;
-        undefined4 uVar31;
-        undefined8 in_stack_fffffffffffffec8;
-        undefined8 uVar32;
-        int* in_stack_fffffffffffffed0;
-        undefined4 uVar33;
-        shared_ptr local_128[4];
-        undefined1 local_e8[16];
-        undefined1 local_d8[24];
-        float local_c0;
-        int local_bc;
+    // 0x10042c970
+    unsigned long Location::Build(graphics::RT7Core& rt7Core, Js5ResourceProvider& js5ResourceProvider,
+                                  ConfigProvider& configProvider, AssetBuilder& assetBuilder, unsigned int arg5,
+                                  PlayerVarDomain* playerVarDomain) {
+        uint8_t* uint8_t;
+        unique_ptr* this_00;
+        unsigned int uVar1;
+        bool bVar2;
+        uint8_t bVar4;
+        uint8_t uVar5;
+        uint32_t uVar6;
+        int iVar7;
+        int arg3;
+        shared_ptr<LocType>* locType;
+        LocType* pLVar9;
+        long lVar11;
+        World* pWVar12;
+        SceneViewData* this_01;
+        QuaternionT<float>* pQVar13;
+        AnimatedModel* pAVar14;
+        unsigned long uVar15;
+        GraphNode* pGVar16;
+        Text* pTVar17;
+        LocationContainer* pLVar18;
+        ChangeLocationRequest* pCVar19;
+        shared_ptr* psVar20;
+        shared_ptr<graphics::Model>* psVar21;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* this_05;
+        LocData* pLVar22;
+        ObjAppearanceData* this_06;
+        int* arg6;
+        CommandLine* this_07;
+        uint32_t in_register_00000084;
+        PlayerVarDomain* pPVar23;
+        AssetBuilder* pAVar24;
+        LocData* this_08;
+        PlayerVarDomain* in_stack_00000008;
+        Matrix44T<float> aMStack_12f;
+        Vector3T<float>* in_stack_fffffffffffffed8;
+        ColourHSL local_e8;
+        int local_d8[4];
+        LocShapes local_c0;
+        float local_bc;
         int local_b8;
-        uint local_b4;
         LocType* local_b0;
-        ulong local_a8;
-        ulong local_a0;
-        shared_ptr<World>* local_98;
-        shared_ptr<LocType>* local_90;
-        float local_88;
-        float local_84;
-        float local_80;
-        undefined8 local_78;
-        undefined4 local_70;
+        LocType* local_a8;
+        HeightMap* local_a0;
+        LinkMap* local_98;
+        shared_ptr* local_90;
+        CoordGrid local_88;
+        uint64_t local_78;
+        uint32_t local_70;
         AssetBuilder* local_68;
         long local_60;
         GraphNode* local_58;
         int local_4c;
         int local_48;
-        uint local_44;
+        LocShape local_44;
         ConfigProvider* local_40;
         LocData* local_38;
 
-        uVar31 = (undefined4)((ulong)in_stack_fffffffffffffec8 >> 32);
-        plVar11 = (long*)Instance();
-        cVar3 = (**(code**)(*plVar11 + 224))(plVar11);
-        if (cVar3 == '\0') {
-            /* WARNING: Subroutine does not return */
+        auto plVar8 = GraphicsApp::Instance();
+        char cVar3 = (**(void (**)(...))(*plVar8 + 224))(plVar8);
+        if (!cVar3) {
             LogAssert("GraphicsApp::Instance()->IsInsideMainLogic()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/Location.cpp",
-                      402, (char*)0);
+                      402, nullptr);
         }
-        cVar3 = graphics::Model::IsReadyToConstruct(param_1);
-        if (cVar3 != '\0') {
-            this_06 = (LocData*)m_parentLocationType;
-            local_b4 = param_5;
-            local_68 = param_4;
-            local_40 = param_3;
-            bVar4 = this_06->operator_cast_to_bool();
-            if (!bVar4) {
-                pPVar29 = (PlayerVarDomain*)0;
-                psVar12 = ConfigProvider::GetConfig<LocType>(local_40, m_iD, (DataStatus**)0);
-                shared_ptr<LocType>::operator=((shared_ptr<LocType>*)this_06, psVar12);
-                bVar4 = this_06->operator_cast_to_bool();
-                if (!bVar4)
+        cVar3 = graphics::Model::IsReadyToConstruct(js5ResourceProvider);
+        if (cVar3) {
+            this_08 = (LocData*)(rt7Core.m_immediateThreadPool + 96);
+            local_68 = (AssetBuilder*)(((uint64_t)in_register_00000084 << 32) | (uint32_t)arg5);
+            local_40 = (ConfigProvider*)assetBuilder;
+            cVar3 = this_08->operator_cast_to_bool();
+            if (!cVar3) {
+                pPVar23 = nullptr;
+                locType = local_40->GetConfig<LocType>(*(int*)(rt7Core.m_immediateThreadPool + 88), nullptr);
+                *this_08 = *locType;
+                cVar3 = this_08->operator_cast_to_bool();
+                if (!cVar3)
                     goto LAB_10042d28c;
             }
-            pLVar13 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
-            cVar3 = pLVar13->IsMultiLoc();
-            puVar1 = m_locationType;
-            if (cVar3 == '\0') {
-                shared_ptr<LocType>::operator=((shared_ptr<LocType>*)puVar1, (shared_ptr*)this_06);
+            pLVar9 = (LocType*)(*this_08).operator->();
+            cVar3 = pLVar9->IsMultiLoc();
+            psVar20 = (shared_ptr*)(rt7Core.m_immediateThreadPool + 112);
+            if (!cVar3) {
+                *psVar20 = *this_08;
             } else {
-                local_60 = puVar1->end();
-                local_38 = this_06;
-                puVar14 = (undefined*)(&field_272, (shared_ptr*)puVar1, (shared_ptr*)this_06, param_6, local_40)
-                              ->GetMultiLoc();
-                if (puVar14 == DataStatus::MISSING) {
-                    uVar5 = GetTargetLOD();
-                    SetCurrentLOD(uVar5);
-                    pPVar29 = (PlayerVarDomain*)CONCAT71((int7)((ulong)param_6 >> 8), 1);
-                    bVar4 = false;
+                local_60 = psVar20->end();
+                local_38 = this_08;
+                if ((uint8_t*)((rt7Core.m_immediateThreadPool + 128))
+                        ->GetMultiLoc(*psVar20, *this_08, in_stack_00000008, local_40) == DataStatus::MISSING) {
+                    bVar4 = rt7Core.GetTargetLOD();
+                    rt7Core.SetCurrentLOD((unsigned int)bVar4);
+                    pPVar23 = (PlayerVarDomain*)(((uint64_t)((int64_t)((unsigned long)in_stack_00000008 >> 8)) << 8) |
+                                                 (uint8_t)1);
+                    bVar2 = false;
                 } else {
-                    bVar4 = puVar1->operator_cast_to_bool();
-                    if (bVar4) {
-                        lVar15 = puVar1->end();
-                        bVar4 = true;
-                        if (local_60 != lVar15) {
-                            (&field_848)->clear();
-                        }
-                        pPVar29 = param_6;
+                    cVar3 = shared_ptr::operator_cast_to_bool(psVar20);
+                    if (!cVar3) {
+                        bVar2 = false;
+                        pPVar23 = nullptr;
                     } else {
-                        bVar4 = false;
-                        pPVar29 = (PlayerVarDomain*)0;
+                        lVar11 = psVar20->end();
+                        bVar2 = true;
+                        if (local_60 != lVar11) {
+                            ((rt7Core.m_postProcessManager + 400))->clear();
+                        }
+                        pPVar23 = in_stack_00000008;
                     }
                 }
-                this_06 = local_38;
-                if (!bVar4)
+                this_08 = local_38;
+                if (!bVar2)
                     goto LAB_10042d28c;
             }
-            pLVar13 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
-            cVar3 = pLVar13->IsActive();
-            if (cVar3 == '\0') {
-                SetOccludesView(true);
+            pLVar9 = (LocType*)(*this_08).operator->();
+            cVar3 = pLVar9->IsActive();
+            if (!cVar3) {
+                rt7Core.SetOccludesView(true);
             }
-            bVar4 = puVar1->operator_cast_to_bool();
-            if (bVar4) {
-                local_d8._16_8_ = param_1;
-                local_90 = (shared_ptr<LocType>*)puVar1;
-                local_98 = (shared_ptr<World>*)GetWorld();
-                local_60 = CONCAT44(local_60._4_4_, field_428 << 7);
-                local_4c = field_432 << 7;
-                pLVar13 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
-                puVar1 = field_352;
-                uVar5 = puVar1->GetRot();
-                uVar7 = pLVar13->GetGridWidth(uVar5);
-                local_58 = (GraphNode*)CONCAT44(local_58._4_4_, uVar7);
-                pLVar13 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
-                uVar5 = puVar1->GetRot();
-                iVar8 = pLVar13->GetGridLength(uVar5);
-                local_38 = (LocData*)puVar1;
-                if (field_444 == -1) {
-                    local_48 = iVar8;
-                    local_b0 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
-                    uVar33 = (undefined4)((ulong)in_stack_fffffffffffffed0 >> 32);
-                    local_a8 = this_06->end();
-                    pWVar16 = (World*)shared_ptr<World>::operator->(local_98);
-                    local_a0 = pWVar16->GetHeightMap();
-                    uVar7 = GetHeightMapLevel((int)local_60, local_4c);
-                    uVar9 = field_428;
-                    local_44 = field_432;
-                    bVar6 = local_38->GetRot();
-                    pLVar2 = local_38;
-                    in_stack_fffffffffffffed0 = (int*)CONCAT44(uVar33, (uint)(field_405 == false));
-                    uVar32 = CONCAT44(uVar31, (uint)bVar6);
-                    iVar8 = local_b0->GetLocationHeight(local_a8, local_a0, uVar7, uVar9, local_44, uVar32);
-                    uVar31 = (undefined4)((ulong)uVar32 >> 32);
-                    field_444 = iVar8;
-                    if (iVar8 != -1) {
-                        iVar8 = (int)local_58 * 128;
+            cVar3 = shared_ptr::operator_cast_to_bool(psVar20);
+            if (!cVar3) {
+                bVar4 = rt7Core.GetTargetLOD();
+                rt7Core.SetCurrentLOD((unsigned int)bVar4);
+            } else {
+                local_90 = psVar20;
+                local_98 = (LinkMap*)rt7Core.GetWorld();
+                local_60 = (((uint64_t)local_60._4_4_ << 32) | (uint32_t)(*(int*)&rt7Core.field_428 << 7));
+                local_4c = *(int*)&rt7Core.field_432 << 7;
+                pLVar9 = (LocType*)(*this_08).operator->();
+                uint8_t = &rt7Core.field_352;
+                bVar4 = uint8_t->GetRot();
+                uVar6 = pLVar9->GetGridWidth((unsigned int)bVar4);
+                local_58 = (GraphNode*)(((uint64_t)local_58._4_4_ << 32) | (uint32_t)uVar6);
+                pLVar9 = (LocType*)(*this_08).operator->();
+                bVar4 = uint8_t->GetRot();
+                iVar7 = pLVar9->GetGridLength((unsigned int)bVar4);
+                local_38 = (LocData*)uint8_t;
+                if (*(int*)&rt7Core.field_444 == -1) {
+                    local_48 = iVar7;
+                    local_b0 = (LocType*)(*this_08).operator->();
+                    local_a8 = (LocType*)this_08->end();
+                    pWVar12 = (World*)(*local_98).operator->();
+                    local_a0 = pWVar12->GetHeightMap();
+                    iVar7 = rt7Core.GetHeightMapLevel((int)local_60, local_4c);
+                    uVar1 = *(unsigned int*)&rt7Core.field_428;
+                    local_44 = *(LocShape*)&rt7Core.field_432;
+                    bVar4 = local_38->GetRot();
+                    pLVar22 = local_38;
+                    iVar7 = local_b0->GetLocationHeight(*local_a8, *local_a0, iVar7, uVar1, local_44,
+                                                        (unsigned int)bVar4, rt7Core.field_405 == '\0');
+                    *(int*)&rt7Core.field_444 = iVar7;
+                    if (iVar7 != -1) {
+                        iVar7 = (unsigned int)local_58 * 128;
                         local_48 = local_48 << 7;
-                        local_58 = (GraphNode*)GetNode();
-                        this_00 = (SceneViewData*)shared_ptr<LocType>::operator->(local_90);
-                        local_b0 = (LocType*)this_00->GetStippleNearClipParams();
-                        uVar5 = pLVar2->GetShape();
-                        local_a0 = CONCAT71(local_a0._1_7_, uVar5);
-                        uVar5 = pLVar2->GetRot();
-                        local_44 = CONCAT31(local_44._1_3_, uVar5);
-                        local_a8 = CONCAT44(local_a8._4_4_, m_attachedWallWidth);
-                        bVar4 = m_isWDDBothOffsetMember;
-                        lVar15 = local_38->y();
-                        in_stack_fffffffffffffed0 = (int*)(lVar15 + 32);
-                        LocShapes::GetShapeOffsetAndRotation(&local_c0, &local_bc, &local_b8, local_a0 & 255,
-                                                             (undefined1)local_44, local_a8 & 4294967295,
-                                                             CONCAT44(uVar31, (uint)bVar4));
-                        new (&local_88) math::Vector3T<int>();
-                        local_88 = (float)(iVar8 / 2) + (float)(field_436 << 7);
-                        local_84 = (float)field_444;
-                        local_80 = (float)(local_48 / 2) + (float)(field_440 << 7);
-                        pQVar17 = (QuaternionT*)local_38->y();
-                        new (&local_78) math::Vector3T<int>();
-                        pLVar2 = local_38;
-                        new (local_128) math::Matrix44T<float>(pQVar17, (Vector3T*)&local_78);
-                        uVar31 = 0;
-                        new (local_e8) math::ColourHSL((float)local_bc, 0.0, (float)local_b8);
-                        local_78 = local_128->TransformVector(local_e8);
-                        local_70 = uVar31;
-                        math::Vector3T<float>::operator+=((Vector3T<float>*)&local_88, (Vector3T*)&local_78);
-                        math::Vector3T<float>::operator+=((Vector3T<float>*)&local_88, (Vector3T*)local_b0);
-                        lVar15 = pLVar2->y();
-                        math::Vector3T<float>::operator+=((Vector3T<float>*)&local_88, (Vector3T*)(lVar15 + 16));
-                        pGVar21 = local_58;
-                        local_58->SetTranslation((Vector3T*)&local_88);
+                        local_58 = rt7Core.GetNode();
+                        this_01 = (SceneViewData*)(*local_90).operator->();
+                        local_b0 = (LocType*)this_01->GetStippleNearClipParams();
+                        uVar5 = pLVar22->GetShape();
+                        local_a0 = (HeightMap*)(((uint64_t)local_a0._1_7_ << 8) | (uint8_t)uVar5);
+                        uVar5 = pLVar22->GetRot();
+                        local_44 = (((uint32_t)local_44._1_3_ << 8) | (uint8_t)uVar5);
+                        local_a8 = (LocType*)(((uint64_t)local_a8._4_4_ << 32) |
+                                              (uint32_t)(*(uint32_t*)(rt7Core.m_postProcessManager + 8)));
+                        bVar4 = rt7Core.m_postProcessManager[12];
+                        cVar3 = local_38->y();
+                        local_c0.GetShapeOffsetAndRotation(local_bc, local_b8, *((int*)((unsigned long)local_a0 & 255)),
+                                                           local_44 & 255, (Rotation90)local_a8, (unsigned int)bVar4,
+                                                           (bool)(cVar3 + ' '), *in_stack_fffffffffffffed8);
+                        local_88 = math::Vector3T();
+                        local_88.field_0 = (unsigned int)((float)(iVar7 / 2) + (float)(*(int*)&rt7Core.field_436 << 7));
+                        local_88.field_4 = (unsigned int)(float)*(int*)&rt7Core.field_444;
+                        local_88.field_8 =
+                            (unsigned int)((float)(local_48 / 2) + (float)(*(int*)&rt7Core.field_440 << 7));
+                        pQVar13 = (QuaternionT<float>*)local_38->y();
+                        new (&local_78) math::Vector3T();
+                        pLVar22 = local_38;
+                        new (&aMStack_12f + 7) math::Matrix44T<float>(*pQVar13, local_78);
+                        uVar6 = 0;
+                        local_e8 = math::ColourHSL((float)(int)local_bc, 0.0, (float)local_b8);
+                        local_78 = (&aMStack_12f + 7)->TransformVector(local_e8);
+                        local_70 = uVar6;
+                        local_88 += local_78;
+                        local_88 += *local_b0;
+                        lVar11 = pLVar22->y();
+                        local_88 += (*((lVar11 + 16)));
+                        pGVar16 = local_58;
+                        local_58->SetTranslation(local_88);
                         new (&local_78) math::QuaternionT<float>();
-                        local_78.FromAxisAngle(PTR_UP_100ee66d0, local_c0);
-                        pQVar17 = (QuaternionT*)pLVar2->y();
-                        math::operator*((math*)local_d8, pQVar17, (QuaternionT*)&local_78);
-                        math::Rect<float>::operator=((Rect<float>*)&local_78, (Rect*)local_d8);
-                        pGVar21->SetRotation((QuaternionT*)&local_78);
-                        lVar15 = pLVar2->y();
-                        pGVar21->SetScale((Vector3T*)(lVar15 + 32));
+                        local_78.FromAxisAngle(*PTR_UP_100ee66d0, local_c0.field_0);
+                        pQVar13 = (QuaternionT<float>*)pLVar22->y();
+                        *local_d8** pQVar13;
+                        local_78 = *local_d8;
+                        pGVar16->SetRotation(local_78);
+                        lVar11 = pLVar22->y();
+                        pGVar16->SetScale(*((lVar11 + 32)));
                     }
                 }
-                if (field_444 != -1) {
-                    if (field_72 == -1) {
-                        pLVar13 = (LocType*)shared_ptr<LocType>::operator->(local_90);
-                        pWVar16 = (World*)shared_ptr<World>::operator->(local_98);
-                        local_98 = (shared_ptr<World>*)pWVar16->GetLinkMap();
-                        uVar31 = GetDuration();
-                        local_90 = (shared_ptr<LocType>*)CONCAT44(local_90._4_4_, uVar31);
-                        uVar9 = field_428;
-                        local_58 = (GraphNode*)CONCAT44(local_58._4_4_, field_432);
-                        uVar5 = local_38->GetRot();
-                        cVar3 = pLVar13->GetMaxRemoveRoofLevel(local_98, (ulong)local_90 & 4294967295, uVar9,
-                                                               (ulong)local_58 & 4294967295, uVar5);
-                        field_72 = (int)cVar3;
+                if (*(int*)&rt7Core.field_444 != -1) {
+                    if (*(int*)&rt7Core.field_72 == -1) {
+                        pLVar9 = (LocType*)(*local_90).operator->();
+                        pWVar12 = (World*)(*local_98).operator->();
+                        local_98 = pWVar12->GetLinkMap();
+                        uVar6 = rt7Core.GetDuration();
+                        local_90 = (shared_ptr*)(((uint64_t)local_90._4_4_ << 32) | (uint32_t)uVar6);
+                        uVar1 = *(unsigned int*)&rt7Core.field_428;
+                        local_58 =
+                            (GraphNode*)(((uint64_t)local_58._4_4_ << 32) | (uint32_t)(*(uint32_t*)&rt7Core.field_432));
+                        bVar4 = local_38->GetRot();
+                        cVar3 = pLVar9->GetMaxRemoveRoofLevel(*local_98, (int)local_90, uVar1, (unsigned int)local_58,
+                                                              (unsigned int)bVar4);
+                        *(int*)&rt7Core.field_72 = (int)cVar3;
                     }
-                    pAVar30 = local_68;
-                    pRVar24 = (RT7Core*)local_d8._16_8_;
-                    cVar3 = BuildModel(this, (RT7Core*)local_d8._16_8_, local_68, (int)local_60, local_4c);
-                    if (cVar3 != '\0') {
-                        cVar3 = BuildAnimatedModel(this, pRVar24, local_40, pAVar30);
-                        if (cVar3 != '\0') {
-                            if (m_hidden == '\0') {
-                                pRVar24 = (RT7Core*)(ulong)field_464;
-                                cVar3 = UpdateHeightMap(this);
-                                if (cVar3 == '\0')
+                    pAVar24 = local_68;
+                    cVar3 = BuildModel((Location*)rt7Core, (RT7Core*)js5ResourceProvider, local_68, (int)local_60,
+                                       local_4c);
+                    if (cVar3) {
+                        cVar3 =
+                            BuildAnimatedModel((Location*)rt7Core, (RT7Core*)js5ResourceProvider, local_40, pAVar24);
+                        if (cVar3) {
+                            if (rt7Core.m_postProcessManager[13] == '\0') {
+                                cVar3 = UpdateHeightMap((Location*)rt7Core,
+                                                        *(HeightChangeType*)(rt7Core.m_postProcessManager + 16));
+                                if (!cVar3)
                                     goto LAB_10042d289;
                             }
-                            if (field_464 != 0) {
-                                field_468 = field_464;
-                                field_464 = 0;
+                            if (*(int*)(rt7Core.m_postProcessManager + 16) != 0) {
+                                *(int*)(rt7Core.m_postProcessManager + 20) = *(int*)(rt7Core.m_postProcessManager + 16);
+                                *(uint32_t*)(rt7Core.m_postProcessManager + 16) = 0;
                             }
-                            pAVar30 = (AssetBuilder*)field_496;
-                            bVar4 = pAVar30->operator_cast_to_bool();
-                            if (bVar4) {
-                                puVar1 = &field_816;
-                                pGVar18 = (GraphicsApp*)puVar1;
-                                bVar4 = puVar1->operator_cast_to_bool();
-                                if (bVar4) {
-                                    pGVar18 = (GraphicsApp*)pGVar18->Instance();
-                                    uVar31 = pGVar18->GetFrameCount();
-                                    local_40 = (ConfigProvider*)CONCAT44(local_40._4_4_, uVar31);
-                                    pAVar19 =
-                                        (AnimatedModel*)std::unique_ptr<LocationAnimatedModel,
-                                                                        std::default_delete<LocationAnimatedModel>>::
-                                        operator->((unique_ptr<LocationAnimatedModel,
-                                                               std::default_delete<LocationAnimatedModel>>*)puVar1);
-                                    uVar9 = local_b4;
-                                    local_68 = pAVar30;
-                                    pAVar19->Build((uint)local_40, local_b4, false, 0);
-                                    pAVar19 =
-                                        (AnimatedModel*)std::unique_ptr<LocationAnimatedModel,
-                                                                        std::default_delete<LocationAnimatedModel>>::
-                                        operator->((unique_ptr<LocationAnimatedModel,
-                                                               std::default_delete<LocationAnimatedModel>>*)puVar1);
-                                    pAVar30 = local_68;
-                                    pRVar24 = (RT7Core*)((ulong)local_40 & 4294967295);
-                                    uVar20 = pAVar19->IsReady((uint)local_40, uVar9);
-                                    if ((char)uVar20 == '\0') {
-                                        pPVar29 = (PlayerVarDomain*)((uVar20 >> 8 & 16777215) << 8);
+                            pAVar24 = (AssetBuilder*)(rt7Core.m_postProcessManager + 48);
+                            cVar3 = pAVar24->operator_cast_to_bool();
+                            if (cVar3) {
+                                this_00 = (unique_ptr*)(rt7Core.m_postProcessManager + 368);
+                                cVar3 = std::unique_ptr::operator_cast_to_bool(this_00);
+                                if (cVar3) {
+                                    uVar6 = ((GraphicsApp*)GraphicsApp::Instance())->GetFrameCount();
+                                    local_40 = (ConfigProvider*)(((uint64_t)local_40._4_4_ << 32) | (uint32_t)uVar6);
+                                    pAVar14 = (AnimatedModel*)(*this_00).operator->();
+                                    uVar1 = (unsigned int)playerVarDomain;
+                                    local_68 = pAVar24;
+                                    pAVar14->Build((unsigned int)local_40, (unsigned int)playerVarDomain, false, 0);
+                                    pAVar14 = (AnimatedModel*)(*this_00).operator->();
+                                    pAVar24 = local_68;
+                                    uVar15 = pAVar14->IsReady((unsigned int)local_40, uVar1);
+                                    if ((char)uVar15 == '\0') {
+                                        pPVar23 = (PlayerVarDomain*)((uVar15 >> 8 & 16777215) << 8);
                                         goto LAB_10042d28c;
                                     }
                                 }
                             }
-                            puVar1 = field_512;
-                            bVar4 = puVar1->operator_cast_to_bool();
-                            if (bVar4) {
-                                pGVar21 = (GraphNode*)GetNode();
-                                pTVar22 = (Text*)pGVar21->GetParent();
-                                pLVar23 = (LocationContainer*)pTVar22->GetLinkObjCount();
-                                pRVar24 = (RT7Core*)shared_ptr<ChangeLocationRequest>::operator*(
-                                    (shared_ptr<ChangeLocationRequest>*)puVar1);
-                                pLVar23->HideLocation(pRVar24);
+                            psVar20 = (shared_ptr*)(rt7Core.m_postProcessManager + 64);
+                            cVar3 = shared_ptr::operator_cast_to_bool(psVar20);
+                            if (cVar3) {
+                                pGVar16 = rt7Core.GetNode();
+                                pTVar17 = (Text*)pGVar16->GetParent();
+                                pLVar18 = (LocationContainer*)pTVar17->GetLinkObjCount();
+                                pCVar19 = (ChangeLocationRequest*)**psVar20;
+                                pLVar18->HideLocation(*pCVar19);
                             }
-                            local_40 = (ConfigProvider*)puVar1;
-                            bVar4 = pAVar30->operator_cast_to_bool();
-                            if (bVar4) {
-                                if ((field_237 != '\0') || (m_enableFadeIn == '\0')) {
-                                    psVar12 = (shared_ptr*)(&field_680, (type*)pRVar24)->SSOBeginPtr();
-                                    bVar4 = shared_ptr::operator_cast_to_bool(psVar12);
-                                    if (!bVar4) {
-                                        /* WARNING: Subroutine does not return */
+                            local_40 = (ConfigProvider*)psVar20;
+                            cVar3 = pAVar24->operator_cast_to_bool();
+                            if (cVar3) {
+                                if ((rt7Core.m_immediateThreadPool[93] != '\0') || (m_enableFadeIn == '\0')) {
+                                    psVar20 = (shared_ptr*)((rt7Core.m_postProcessManager + 232))->SSOBeginPtr();
+                                    cVar3 = shared_ptr::operator_cast_to_bool(psVar20);
+                                    if (!cVar3) {
                                         LogAssert("m_model.GetAsset()",
                                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
                                                   "libs/game/runetek5/scene/entities/Location.cpp",
-                                                  591, (char*)0);
+                                                  591, nullptr);
                                     }
-                                    pvVar25 = (&field_680, (type*)pRVar24)->SSOBeginPtr();
-                                    this_01 = (Model*)shared_ptr<graphics::Model>::operator->(
-                                        (shared_ptr<graphics::Model>*)pvVar25);
-                                    this_01->SetFadeTime(0);
+                                    psVar21 = (shared_ptr<graphics::Model>*)((rt7Core.m_postProcessManager + 232))
+                                                  ->SSOBeginPtr();
+                                    ((Model*)(*psVar21).operator->())->SetFadeTime(0);
                                 }
-                                local_78 = CONCAT44(local_78._4_4_, 2);
-                                this_02 = (HeadbarType*)shared_ptr<ChangeLocationRequest>::operator->(
-                                    (shared_ptr<ChangeLocationRequest>*)pAVar30);
-                                local_d8._0_4_ = this_02->GetStickTime();
-                                local_88 = -NAN;
-                                this_03 = (compressed_pair_imp<
-                                           std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                           eastl::allocator, 0>*)
-                                              shared_ptr<ChangeLocationRequest>::operator->(
-                                                  (shared_ptr<ChangeLocationRequest>*)pAVar30);
-                                piVar26 = (int*)eastl::compressed_pair_imp<
-                                    std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                    eastl::allocator, 0>::second(this_03);
-                                this_04 = (ObjAppearanceData*)shared_ptr<ChangeLocationRequest>::operator->(
-                                    (shared_ptr<ChangeLocationRequest>*)pAVar30);
-                                pCVar27 = (CoordGrid*)this_04->GetOffset();
-                                local_e8._0_4_ = 0.0;
+                                local_78 = (((uint64_t)local_78._4_4_ << 32) | (uint32_t)2);
+                                local_d8[0] = ((HeadbarType*)(*pAVar24).operator->())->GetStickTime();
+                                local_88.field_0 = 4294967295;
+                                this_05 = (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator,
+                                                               0>*)(*pAVar24)
+                                              .operator->();
+                                pLVar22 = (LocData*)this_05->second();
+                                this_06 = (ObjAppearanceData*)(*pAVar24).operator->();
+                                arg6 = (int*)this_06->GetOffset();
+                                local_e8.field_0 = 0.0;
                                 MakeSharedPool<ChangeLocationRequest, 128>::MakeShared<
-                                    ChangeLocationRequestType, int, int, CoordGrid_const&, LocData_const&, int>(
-                                    local_128, (MakeSharedPool<ChangeLocationRequest, 128>*)&local_78,
-                                    (ChangeLocationRequestType*)local_d8, (int*)&local_88, piVar26, pCVar27,
-                                    (LocData*)local_e8, in_stack_fffffffffffffed0);
-                                shared_ptr<ChangeLocationRequest>::operator=(
-                                    (shared_ptr<ChangeLocationRequest>*)local_40, local_128);
-                                local_128->~shared_ptr();
-                                pGVar21 = (GraphNode*)GetNode();
-                                pTVar22 = (Text*)pGVar21->GetParent();
-                                pLVar23 = (LocationContainer*)pTVar22->GetLinkObjCount();
-                                pRVar24 = (RT7Core*)pAVar30->end();
-                                pLVar23->DeleteLocation(pRVar24, this);
-                                shared_ptr<ChangeLocationRequest>::reset();
+                                    ChangeLocationRequestType, int, int, CoordGrid const&, LocData const&, int>(
+                                    (ChangeLocationRequestType*)(&aMStack_12f + 7), (int*)&local_78, local_d8,
+                                    &local_88, pLVar22, arg6);
+                                *local_40 = (*((&aMStack_12f + 7)));
+                                ((&aMStack_12f + 7))->~shared_ptr();
+                                pGVar16 = rt7Core.GetNode();
+                                pTVar17 = (Text*)pGVar16->GetParent();
+                                pLVar18 = (LocationContainer*)pTVar17->GetLinkObjCount();
+                                pCVar19 = (ChangeLocationRequest*)pAVar24->end();
+                                pLVar18->DeleteLocation(*pCVar19, rt7Core);
+                                pAVar24->reset();
                             }
-                            pLVar2 = local_38;
-                            pvVar25 = (&field_680, (type*)pRVar24)->SSOBeginPtr();
-                            this_05 = (CommandLine*)shared_ptr<graphics::Model>::operator->(
-                                (shared_ptr<graphics::Model>*)pvVar25);
-                            uVar9 = GetHeightMapLevel((int)local_60, local_4c);
-                            ptVar28 = (type*)(ulong)uVar9;
-                            this_05->SetSelectionStart(uVar9);
-                            pvVar25 = (&field_680, ptVar28)->SSOBeginPtr();
-                            local_40 = (ConfigProvider*)shared_ptr<graphics::Model>::operator->(
-                                (shared_ptr<graphics::Model>*)pvVar25);
-                            local_68 = (AssetBuilder*)GetWorldPosition();
-                            pLVar13 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
-                            uVar5 = pLVar2->GetRot();
-                            iVar8 = pLVar13->GetGridWidth(uVar5);
-                            pLVar13 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
-                            uVar5 = pLVar2->GetRot();
-                            iVar10 = pLVar13->GetGridLength(uVar5);
-                            local_40->SetPointLightBounds(local_68, iVar8, iVar10);
-                            uVar5 = GetTargetLOD();
-                            SetCurrentLOD(uVar5);
-                            BuildVFX(this, (RT7Core*)local_d8._16_8_);
-                            pPVar29 = (PlayerVarDomain*)CONCAT71((uint7)(uint3)((uint)iVar8 >> 8), 1);
+                            pLVar22 = local_38;
+                            psVar21 =
+                                (shared_ptr<graphics::Model>*)((rt7Core.m_postProcessManager + 232))->SSOBeginPtr();
+                            this_07 = (CommandLine*)(*psVar21).operator->();
+                            iVar7 = rt7Core.GetHeightMapLevel((int)local_60, local_4c);
+                            this_07->SetSelectionStart(iVar7);
+                            psVar21 =
+                                (shared_ptr<graphics::Model>*)((rt7Core.m_postProcessManager + 232))->SSOBeginPtr();
+                            local_40 = (ConfigProvider*)(*psVar21).operator->();
+                            local_68 = (AssetBuilder*)rt7Core.GetWorldPosition();
+                            pLVar9 = (LocType*)(*this_08).operator->();
+                            bVar4 = pLVar22->GetRot();
+                            iVar7 = pLVar9->GetGridWidth((unsigned int)bVar4);
+                            pLVar9 = (LocType*)(*this_08).operator->();
+                            bVar4 = pLVar22->GetRot();
+                            arg3 = pLVar9->GetGridLength((unsigned int)bVar4);
+                            local_40->SetPointLightBounds(*local_68, iVar7, arg3);
+                            bVar4 = rt7Core.GetTargetLOD();
+                            rt7Core.SetCurrentLOD((unsigned int)bVar4);
+                            BuildVFX((Location*)rt7Core, (RT7Core*)js5ResourceProvider);
+                            pPVar23 =
+                                (PlayerVarDomain*)(((uint64_t)((uint64_t)(uint32_t)((unsigned int)iVar7 >> 8)) << 8) |
+                                                   (uint8_t)1);
                             goto LAB_10042d28c;
                         }
                     }
                 }
-            } else {
-                uVar5 = GetTargetLOD();
-                SetCurrentLOD(uVar5);
             }
         }
     LAB_10042d289:
-        pPVar29 = (PlayerVarDomain*)0;
+        pPVar23 = nullptr;
     LAB_10042d28c:
-        return (ulong)pPVar29 & 4294967041;
+        return (unsigned long)pPVar23 & 4294967041;
     }
 
-    // 0x10042d530, 2352 bytes, placed by class name
-    // Location::BuildModel(graphics::RT7Core&, AssetBuilder&, int, int)
-    ulong Location::BuildModel(RT7Core* param_1, AssetBuilder* param_2, int param_3, int param_4) {
-        undefined1* puVar1;
-        undefined1* this_00;
-        uint uVar2;
-        char cVar3;
-        char cVar4;
-        bool bVar5;
-        undefined1 uVar6;
-        byte bVar7;
+    // 0x10042d530
+    unsigned long Location::BuildModel(graphics::RT7Core& rt7Core, AssetBuilder& assetBuilder, int arg3, int arg4) {
+        uint8_t* puVar1;
+        uint8_t* this_00;
+        bool arg6;
+        unsigned int uVar2;
+        bool cVar3;
+        RT7Core* rt7Core_00;
+        uint64_t this_01;
+        uint8_t uVar5;
+        uint8_t bVar6;
+        Rotation90 RVar7;
         int iVar8;
-        undefined4 uVar9;
-        undefined4 uVar10;
-        vector* pvVar11;
-        Model* pMVar12;
-        BuildTerrainMain* this_01;
-        Array<VarValue, eastl::allocator>* this_02;
-        AssetJob* pAVar13;
-        LoginManager* this_03;
-        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_04;
-        shared_ptr* psVar14;
-        LocType* pLVar15;
-        long lVar16;
-        AABB* this_05;
-        undefined8 uVar17;
-        undefined* puVar18;
-        LocType* this_06;
-        shared_ptr<World>* psVar19;
-        undefined8 uVar20;
-        GameToken* this_07;
-        GraphNode* pGVar21;
-        Text* pTVar22;
-        LocationContainer* pLVar23;
-        ChangeLocationRequest* pCVar24;
-        HeadbarType* this_08;
-        compressed_pair_imp<std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*, eastl::allocator,
-                            0>* this_09;
-        int* piVar25;
-        ObjAppearanceData* this_10;
-        CoordGrid* pCVar26;
-        NXTPixToolkit* this_11;
-        World* pWVar27;
-        undefined1* puVar28;
-        ulong uVar29;
-        uint uVar30;
-        char* pcVar31;
-        shared_ptr* psVar32;
-        Js5ResourceProvider* pJVar33;
-        type* ptVar34;
-        undefined8 in_stack_fffffffffffffe78;
-        undefined8 uVar35;
-        int* piVar36;
-        undefined8 in_stack_fffffffffffffe88;
-        undefined4 uVar38;
-        undefined8 uVar37;
-        undefined4 uVar39;
-        undefined4 local_158[6];
-        shared_ptr local_140;
+        int arg4_00;
+        uint32_t uVar9;
+        shared_ptr<graphics::Model>* psVar10;
+        Model* pMVar11;
+        BuildTerrainMain* this_02;
+        AssetJob* pAVar12;
+        LoginManager* this_04;
+        vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_05;
+        LocType* pLVar13;
+        AABB* this_06;
+        LocTypeCustomisation* locTypeCustomisation;
+        uint8_t* puVar15;
+        shared_ptr<World>* psVar16;
+        HeightMap* heightMap;
+        Logger* pLVar17;
+        GraphNode* pGVar18;
+        Text* pTVar19;
+        LocationContainer* pLVar20;
+        ChangeLocationRequest* pCVar21;
+        compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>* this_10;
+        LocData* locData;
+        ObjAppearanceData* this_11;
+        int* arg6_00;
+        Rotation90* rotation90;
+        NXTPixToolkit* this_12;
+        World* pWVar22;
+        shared_ptr<graphics::Model>* psVar23;
+        unsigned long uVar25;
+        unsigned int uVar26;
+        uint32_t uVar27;
+        int local_158[6];
+        ChangeLocationRequestType local_140;
         int local_124;
-        Js5ResourceProvider* local_120;
-        Js5ResourceProvider* local_118;
-        shared_ptr local_110;
+        LocType* local_118;
+        int local_110[4];
         LocType* local_100;
-        int local_f8;
-        int local_f4;
-        Js5ArchiveSettings* local_f0;
+        LocType* local_f0;
         LocType* local_e8;
-        int local_e0;
-        undefined1 local_dc[12];
-        ScopedGPUMemoryZone local_d0[8];
+        uint8_t local_e0[16];
         LogStream local_c8;
-        long local_38;
 
-        uVar38 = (undefined4)((ulong)in_stack_fffffffffffffe88 >> 32);
-        uVar10 = (undefined4)((ulong)in_stack_fffffffffffffe78 >> 32);
-        puVar28 = (undefined1*)(ulong)(uint)param_3;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        pcVar31 = "BuildLocation";
-        local_120 = (Js5ResourceProvider*)param_1;
-        render::ScopedGPUMemoryZone::ScopedGPUMemoryZone(local_d0, "BuildLocation");
-        local_dc._4_8_ = &field_680;
-        cVar4 = local_dc._4_8_->IsTaskDone();
-        if (cVar4 == '\0') {
+        uint8_t* puVar24 = (uint8_t*)(unsigned long)(unsigned int)arg3;
+        RT7Core* local_120 = rt7Core;
+        ScopedGPUMemoryZone local_d0("BuildLocation");
+        local_e0._8_8_ = &field_680;
+        bool cVar4 = local_e0._8_8_->IsTaskDone();
+        if (!cVar4) {
         LAB_10042d5ba:
             puVar1 = m_locationType;
-            this_01 = (BuildTerrainMain*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)puVar1);
-            this_02 = (Array<VarValue, eastl::allocator>*)this_01->GetRequestData();
-            cVar4 = this_02->empty();
-            if (cVar4 == '\0') {
-                puVar28 = field_776;
-                local_f8 = param_4;
-                local_f4 = param_3;
-                bVar5 = puVar28->operator_cast_to_bool();
-                if (!bVar5) {
-                    local_f0 = (Js5ArchiveSettings*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)puVar1);
+            this_02 = (BuildTerrainMain*)(*puVar1).operator->();
+            cVar4 = ((Array<VarValue>*)this_02->GetRequestData())->empty();
+            if (!cVar4) {
+                puVar24 = field_776;
+                cVar4 = puVar24->operator_cast_to_bool();
+                if (!cVar4) {
+                    local_f0 = (LocType*)(*puVar1).operator->();
                     this_00 = field_352;
-                    uVar6 = this_00->GetShape();
-                    local_e8 = (LocType*)CONCAT71(local_e8._1_7_, uVar6);
-                    local_100 = (LocType*)param_2;
-                    uVar6 = this_00->GetRot();
-                    bVar5 = field_404;
-                    local_dc._4_8_ = puVar1;
-                    uVar17 = (&field_408)->end();
-                    uVar20 = local_dc._4_8_;
-                    pLVar15 = local_100;
-                    pJVar33 = local_120;
-                    uVar35 = CONCAT44(uVar10, (uint)bVar5);
-                    uVar37 = CONCAT44(uVar38, 8192);
-                    local_120 = (Js5ResourceProvider*)&field_712;
-                    puVar18 = (undefined*)LocType::GetModels(local_f0, pJVar33, local_100, &field_712,
-                                                             (ulong)local_e8 & 255, uVar6, uVar35, uVar17, uVar37);
-                    uVar10 = (undefined4)((ulong)uVar35 >> 32);
-                    uVar39 = (undefined4)((ulong)uVar37 >> 32);
-                    uVar38 = (undefined4)((ulong)uVar17 >> 32);
-                    if (puVar18 == DataStatus::NOTLOADED)
+                    uVar5 = this_00->GetShape();
+                    local_e8 = (LocType*)(((uint64_t)local_e8._1_7_ << 8) | (uint8_t)uVar5);
+                    local_100 = (LocType*)assetBuilder;
+                    RVar7 = this_00->GetRot();
+                    arg6 = field_404;
+                    local_e0._8_8_ = puVar1;
+                    locTypeCustomisation = (LocTypeCustomisation*)field_408.end();
+                    this_01 = local_e0._8_8_;
+                    pLVar13 = local_100;
+                    rt7Core_00 = local_120;
+                    local_120 = (RT7Core*)&field_712;
+                    puVar15 = (uint8_t*)local_f0->GetModels(rt7Core_00, *local_100, field_712,
+                                                            (unsigned int)(uint8_t)local_e8, RVar7 & 255, arg6,
+                                                            locTypeCustomisation, 8192);
+                    uVar27 = (uint32_t)((unsigned long)locTypeCustomisation >> 32);
+                    if (puVar15 == DataStatus::NOTLOADED)
                         goto LAB_10042dd8c;
-                    if (puVar18 == DataStatus::MISSING) {
-                        uVar17 = logger::default_logger();
-                        new (&local_c8) logger::LogStream((LogStream*)&LOGGER_SCENE);
-                        this_07 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)uVar20);
-                        uVar10 = this_07->GetStatus();
-                        piVar36 = (int*)CONCAT44(uVar38, uVar10);
-                        logger::Logger::Log(uVar17, 0, &local_c8, 3,
-                                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
-                                            "game/runetek5/scene/entities/Location.cpp",
-                                            1316, "Missing models for location type %d");
-                        local_c8.~LogStream();
-                        puVar28 = field_512;
-                        bVar5 = puVar28->operator_cast_to_bool();
-                        if (bVar5) {
-                            pGVar21 = (GraphNode*)GetNode();
-                            pTVar22 = (Text*)pGVar21->GetParent();
-                            pLVar23 = (LocationContainer*)pTVar22->GetLinkObjCount();
-                            pCVar24 = (ChangeLocationRequest*)puVar28->end();
-                            pLVar23->HideLocation(pCVar24);
+                    if (puVar15 == DataStatus::MISSING) {
+                        pLVar17 = logger::default_logger();
+                        local_c8 = logger::LogStream(LOGGER_SCENE);
+                        uVar9 = ((GameToken*)(*this_01).operator->())->GetStatus();
+                        ((uint8_t)pLVar17)
+                            ->Log(nullptr, (LogLevel)&local_c8, 3, 14428624, 1316,
+                                  "Missing models for location type %d", (((uint64_t)uVar27 << 32) | (uint32_t)uVar9));
+                        puVar24 = field_512;
+                        cVar4 = puVar24->operator_cast_to_bool();
+                        if (cVar4) {
+                            pGVar18 = GetNode();
+                            pTVar19 = (Text*)pGVar18->GetParent();
+                            pLVar20 = (LocationContainer*)pTVar19->GetLinkObjCount();
+                            pCVar21 = (ChangeLocationRequest*)puVar24->end();
+                            pLVar20->HideLocation(*pCVar21);
                         }
                         puVar1 = field_496;
-                        bVar5 = puVar1->operator_cast_to_bool();
-                        if (bVar5) {
+                        cVar4 = puVar1->operator_cast_to_bool();
+                        if (cVar4) {
                             local_158[0] = 2;
-                            this_08 = (HeadbarType*)shared_ptr<ChangeLocationRequest>::operator->(
-                                (shared_ptr<ChangeLocationRequest>*)puVar1);
-                            local_110._0_4_ = this_08->GetStickTime();
-                            local_e0 = -1;
-                            this_09 = (compressed_pair_imp<
-                                       std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                       eastl::allocator, 0>*)
-                                          shared_ptr<ChangeLocationRequest>::operator->(
-                                              (shared_ptr<ChangeLocationRequest>*)puVar1);
-                            piVar25 = (int*)eastl::compressed_pair_imp<
-                                std::deque<ThreadPool::TaskInfo, std::allocator<ThreadPool::TaskInfo>>*,
-                                eastl::allocator, 0>::second(this_09);
-                            this_10 = (ObjAppearanceData*)shared_ptr<ChangeLocationRequest>::operator->(
-                                (shared_ptr<ChangeLocationRequest>*)puVar1);
-                            pCVar26 = (CoordGrid*)this_10->GetOffset();
-                            local_dc[0] = 0;
-                            local_dc[1] = 0;
-                            local_dc._2_2_ = 0;
+                            local_110[0] = ((HeadbarType*)(*puVar1).operator->())->GetStickTime();
+                            local_e0._0_4_ = 4294967295;
+                            this_10 =
+                                (compressed_pair_imp<std::deque<ThreadPool::TaskInfo>*, eastl::allocator, 0>*)(*puVar1)
+                                    .operator->();
+                            locData = (LocData*)this_10->second();
+                            this_11 = (ObjAppearanceData*)(*puVar1).operator->();
+                            arg6_00 = (int*)this_11->GetOffset();
+                            local_e0._4_4_ = 0;
                             MakeSharedPool<ChangeLocationRequest, 128>::MakeShared<
-                                ChangeLocationRequestType, int, int, CoordGrid_const&, LocData_const&, int>(
-                                &local_140, (MakeSharedPool<ChangeLocationRequest, 128>*)local_158,
-                                (ChangeLocationRequestType*)&local_110, &local_e0, piVar25, pCVar26, (LocData*)local_dc,
-                                piVar36);
-                            shared_ptr<ChangeLocationRequest>::operator=((shared_ptr<ChangeLocationRequest>*)puVar28,
-                                                                         &local_140);
-                            local_140.~shared_ptr();
-                            pGVar21 = (GraphNode*)GetNode();
-                            pTVar22 = (Text*)pGVar21->GetParent();
-                            pLVar23 = (LocationContainer*)pTVar22->GetLinkObjCount();
-                            pCVar24 = (ChangeLocationRequest*)puVar1->end();
-                            pLVar23->DeleteLocation(pCVar24, this);
-                            shared_ptr<ChangeLocationRequest>::reset();
+                                ChangeLocationRequestType, int, int, CoordGrid const&, LocData const&, int>(
+                                &local_140, local_158, local_110, (CoordGrid*)local_e0, locData, arg6_00);
+                            *puVar24 = local_140;
+                            pGVar18 = GetNode();
+                            pTVar19 = (Text*)pGVar18->GetParent();
+                            pLVar20 = (LocationContainer*)pTVar19->GetLinkObjCount();
+                            pCVar21 = (ChangeLocationRequest*)puVar1->end();
+                            pLVar20->DeleteLocation(*pCVar21, this);
+                            puVar1->reset();
                         }
-                        uVar6 = GetTargetLOD();
-                        SetCurrentLOD(uVar6);
-                        uVar29 = 0;
+                        bVar6 = GetTargetLOD();
+                        SetCurrentLOD((unsigned int)bVar6);
+                        uVar25 = 0;
                         goto LAB_10042dd8e;
                     }
-                    local_f0 = (Js5ArchiveSettings*)this_00;
-                    this_06 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)uVar20);
-                    iVar8 = this_06->GetHillChangeType();
+                    local_f0 = (LocType*)this_00;
+                    iVar8 = ((LocType*)(*this_01).operator->())->GetHillChangeType();
                     if (iVar8 - 1U < 3) {
-                        local_e8 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)local_dc._4_8_);
-                        local_118 = (Js5ResourceProvider*)m_parentLocationType->end();
+                        local_e8 = (LocType*)(*local_e0._8_8_).operator->();
+                        local_118 = (LocType*)m_parentLocationType->end();
                         local_124 = field_444;
-                        psVar19 = (shared_ptr<World>*)GetWorld();
-                        pWVar27 = (World*)shared_ptr<World>::operator->(psVar19);
-                        uVar20 = pWVar27->GetHeightMap();
-                        uVar9 = GetHeightMapLevel(local_f4, local_f8);
-                        uVar30 = field_428;
+                        psVar16 = (shared_ptr<World>*)GetWorld();
+                        pWVar22 = (World*)(*psVar16).operator->();
+                        heightMap = pWVar22->GetHeightMap();
+                        arg4_00 = GetHeightMapLevel(arg3, arg4);
+                        uVar26 = field_428;
                         uVar2 = field_432;
-                        bVar7 = local_f0->GetRot();
-                        pLVar15 = local_100;
-                        uVar37 = CONCAT44(uVar39, (uint)(field_405 == false));
-                        uVar35 = CONCAT44(uVar38, (uint)bVar7);
-                        uVar17 = CONCAT44(uVar10, uVar2);
-                        pJVar33 = local_118;
-                        uVar6 = local_e8->GetLocationOnFlatGround(local_118, local_124, uVar20, uVar9, uVar30, uVar17,
-                                                                  uVar35, uVar37);
-                        uVar10 = (undefined4)((ulong)uVar17 >> 32);
-                        uVar38 = (undefined4)((ulong)uVar35 >> 32);
-                        uVar39 = (undefined4)((ulong)uVar37 >> 32);
-                        field_406 = uVar6;
+                        bVar6 = local_f0->GetRot();
+                        pLVar13 = local_100;
+                        uVar5 = local_e8->GetLocationOnFlatGround(*local_118, local_124, *heightMap, arg4_00, uVar26,
+                                                                  uVar2, (unsigned int)bVar6, field_405 == false);
+                        field_406 = uVar5;
                     } else {
                         field_406 = 0;
                     }
-                    new (&local_140) Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>();
+                    local_140 = Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>();
                     new (local_158) Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>();
                     if ((field_406 == '\0') && (iVar8 != 0)) {
-                        local_100 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)local_dc._4_8_);
+                        local_100 = (LocType*)(*local_e0._8_8_).operator->();
                         local_e8 = (LocType*)m_parentLocationType->end();
-                        psVar19 = (shared_ptr<World>*)GetWorld();
-                        pWVar27 = (World*)shared_ptr<World>::operator->(psVar19);
-                        local_118 = (Js5ResourceProvider*)pWVar27->GetHeightMap();
-                        uVar9 = GetHeightMapLevel(local_f4, local_f8);
-                        uVar30 = field_428;
+                        psVar16 = (shared_ptr<World>*)GetWorld();
+                        pWVar22 = (World*)(*psVar16).operator->();
+                        local_118 = (LocType*)pWVar22->GetHeightMap();
+                        iVar8 = GetHeightMapLevel(arg3, arg4);
+                        uVar26 = field_428;
                         uVar2 = field_432;
-                        bVar7 = local_f0->GetRot();
-                        pJVar33 = (Js5ResourceProvider*)&local_140;
-                        cVar4 = local_100->GetHillData(pJVar33, local_158, local_e8, local_118, uVar9,
-                                                       CONCAT44(uVar10, uVar30), CONCAT44(uVar38, uVar2),
-                                                       CONCAT44(uVar39, (uint)bVar7), field_405 == false);
-                        if (cVar4 != '\0')
+                        bVar6 = local_f0->GetRot();
+                        cVar4 = local_100->GetHillData(local_140, *local_158, *local_e8, *local_118, iVar8, uVar26,
+                                                       uVar2, (unsigned int)bVar6, field_405 == false);
+                        if (cVar4)
                             goto LAB_10042db9c;
                     } else {
                     LAB_10042db9c:
-                        local_e0 = 8192;
-                        psVar14 = (shared_ptr*)local_120->SSOBeginPtr(pJVar33);
-                        bVar7 = local_f0->GetRot();
-                        local_dc[0] = bVar7;
+                        local_e0._0_4_ = 8192;
+                        rotation90 = (Rotation90*)local_120->SSOBeginPtr();
+                        uVar5 = local_f0->GetRot();
+                        local_e0[4] = uVar5;
                         bucket_make_shared<BuildSingleLocationMain, int, shared_ptr<LocType>&, shared_ptr<LocType>&,
                                            shared_ptr<graphics::Model> const&, Rotation90, int&,
                                            Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>,
                                            Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>>(
-                            (jag*)&local_110, &local_e0, (shared_ptr*)local_dc._4_8_, (shared_ptr*)m_parentLocationType,
-                            psVar14, local_dc, &field_444, (Array*)&local_140, (Array*)local_158);
-                        shared_ptr<BuildSingleLocationMain>::operator=((shared_ptr<BuildSingleLocationMain>*)puVar28,
-                                                                       &local_110);
-                        local_110.~shared_ptr();
-                        new (&local_110) shared_ptr<oldscape::dash3d::Decor>(puVar28);
-                        pLVar15->SubmitJob(&local_110);
-                        local_110.~shared_ptr();
+                            local_110, (shared_ptr<LocType>*)local_e0, (shared_ptr<LocType>*)local_e0._8_8_,
+                            (shared_ptr<graphics::Model>*)m_parentLocationType, rotation90, (int*)(local_e0 + 4),
+                            (Array<Array<int, BucketAllocatorEASTL>, BucketAllocatorEASTL>*)&field_444, &local_140);
+                        *puVar24 = *local_110;
+                        new (local_110) shared_ptr(puVar24);
+                        pLVar13->SubmitJob(*local_110);
                     }
-                    local_158->~Array();
-                    local_140.~Array();
-                    uVar29 = 0;
+                    uVar25 = 0;
                     goto LAB_10042dd8e;
                 }
-                pAVar13 = (AssetJob*)shared_ptr<BuildSingleLocationMain>::operator->(
-                    (shared_ptr<BuildSingleLocationMain>*)puVar28);
-                cVar4 = pAVar13->IsFinished();
-                if (cVar4 != '\0') {
-                    pAVar13 = (AssetJob*)shared_ptr<BuildSingleLocationMain>::operator->(
-                        (shared_ptr<BuildSingleLocationMain>*)puVar28);
-                    cVar4 = pAVar13->IsSuccessful();
-                    if (cVar4 == '\0') {
-                        shared_ptr<BuildSingleLocationMain>::reset();
+                pAVar12 = (AssetJob*)(*puVar24).operator->();
+                cVar4 = pAVar12->IsFinished();
+                if (cVar4) {
+                    pAVar12 = (AssetJob*)(*puVar24).operator->();
+                    cVar4 = pAVar12->IsSuccessful();
+                    if (!cVar4) {
+                        puVar24->reset();
                     } else {
-                        this_03 = (LoginManager*)shared_ptr<BuildSingleLocationMain>::operator->(
-                            (shared_ptr<BuildSingleLocationMain>*)puVar28);
-                        this_04 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                                      this_03->GetDevCredentialsOutputDirectory();
-                        psVar14 =
-                            (shared_ptr*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(
-                                this_04);
-                        if (psVar14 == (shared_ptr*)0) {
-                            /* WARNING: Subroutine does not return */
+                        this_04 = (LoginManager*)(*puVar24).operator->();
+                        this_05 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
+                                      this_04->GetDevCredentialsOutputDirectory();
+                        psVar10 = (shared_ptr<graphics::Model>*)this_05->end();
+                        if (psVar10 == nullptr) {
                             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                             "game/runetek5/scene/entities/Location.cpp",
-                                            1407, (char*)0);
+                                            1407, nullptr);
                         }
-                        if (*(char*)(psVar14 + 1) != '\0') {
-                            math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_528, (Matrix44T*)(psVar14 + 2));
+                        if (psVar10[16] != (shared_ptr<graphics::Model>)0) {
+                            field_528 = (*((psVar10 + 32)));
                             field_592 = '\x01';
                         }
                         if (field_792 != '\0') {
-                            bVar5 = (&field_816)->operator_cast_to_bool();
-                            if (bVar5) {
-                                (&field_816, (LocationAnimatedModel*)0)->reset();
+                            cVar4 = (&field_816)->operator_cast_to_bool();
+                            if (cVar4) {
+                                field_816.reset(nullptr);
                             }
                         }
                         field_792 = '\0';
-                        psVar32 = psVar14;
-                        local_dc._4_8_->SetConstructedObj(psVar14);
-                        shared_ptr<graphics::Model>::reset();
-                        pLVar15 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)puVar1);
-                        lVar16 = pLVar15->GetCustomBounding();
-                        if (lVar16 == 0) {
-                            pvVar11 = local_dc._4_8_->SSOBeginPtr(psVar32);
-                            this_11 = (NXTPixToolkit*)shared_ptr<graphics::Model>::operator->(
-                                (shared_ptr<graphics::Model>*)pvVar11);
-                            this_05 = (AABB*)this_11->GetScreen();
+                        local_e0._8_8_->SetConstructedObj(*psVar10);
+                        psVar10->reset();
+                        pLVar13 = (LocType*)(*puVar1).operator->();
+                        if (pLVar13->GetCustomBounding() == 0) {
+                            psVar23 = (shared_ptr<graphics::Model>*)local_e0._8_8_->SSOBeginPtr();
+                            this_12 = (NXTPixToolkit*)(*psVar23).operator->();
+                            this_06 = (AABB*)this_12->GetScreen();
                         } else {
-                            pLVar15 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)puVar1);
-                            this_05 = (AABB*)pLVar15->GetCustomBounding();
+                            pLVar13 = (LocType*)(*puVar1).operator->();
+                            this_06 = (AABB*)pLVar13->GetCustomBounding();
                         }
-                        cVar4 = this_05->IsValid();
-                        if (cVar4 == '\0') {
+                        cVar4 = this_06->IsValid();
+                        if (!cVar4) {
                             RemoveAABB();
                         } else {
-                            SetAABB(this_05);
+                            SetAABB(*this_06);
                         }
-                        pLVar15 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)puVar1);
-                        bVar7 = pLVar15->HasParticles();
-                        ptVar34 = (type*)(ulong)(bVar7 ^ 1);
-                        SetNDCProjectionTestEnabled((bool)(bVar7 ^ 1));
-                        ClearJobResources(this);
-                        bVar5 = field_176->operator_cast_to_bool();
-                        if (bVar5) {
-                            pWVar27 = (World*)shared_ptr<World>::operator->((shared_ptr<World>*)field_176);
-                            cVar4 = pWVar27->GetMainSceneDrawn();
-                            if (cVar4 == '\0')
-                                goto LAB_10042dd33;
-                        } else {
+                        pLVar13 = (LocType*)(*puVar1).operator->();
+                        bVar6 = pLVar13->HasParticles();
+                        SetNDCProjectionTestEnabled((bool)(bVar6 ^ 1));
+                        ClearJobResources();
+                        cVar4 = field_176->operator_cast_to_bool();
+                        if (!cVar4) {
                         LAB_10042dd33:
-                            BlockFadeIn(this);
+                            BlockFadeIn();
+                        } else {
+                            pWVar22 = (World*)(*field_176).operator->();
+                            cVar4 = pWVar22->GetMainSceneDrawn();
+                            if (!cVar4)
+                                goto LAB_10042dd33;
                         }
                         cVar3 = m_enableFadeIn;
                         cVar4 = field_237;
-                        pvVar11 = local_dc._4_8_->SSOBeginPtr(ptVar34);
-                        if ((cVar4 == '\0') && (cVar3 != '\0')) {
-                            pMVar12 =
-                                (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar11);
-                            uVar30 = 300;
+                        psVar23 = (shared_ptr<graphics::Model>*)local_e0._8_8_->SSOBeginPtr();
+                        if ((!cVar4) && (cVar3)) {
+                            pMVar11 = (Model*)(*psVar23).operator->();
+                            uVar26 = 300;
                         } else {
-                            pMVar12 =
-                                (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar11);
-                            uVar30 = 0;
+                            pMVar11 = (Model*)(*psVar23).operator->();
+                            uVar26 = 0;
                         }
-                        pMVar12->SetFadeTime(uVar30);
-                        if (psVar14 != (shared_ptr*)0)
+                        pMVar11->SetFadeTime(uVar26);
+                        if (psVar10 != nullptr)
                             goto LAB_10042d5e9;
                     }
                 }
             LAB_10042dd8c:
-                uVar29 = 0;
+                uVar25 = 0;
                 goto LAB_10042dd8e;
             }
-            local_dc._4_8_->Clear();
+            local_e0._8_8_->Clear();
         } else {
-            pvVar11 = local_dc._4_8_->SSOBeginPtr(pcVar31);
-            pMVar12 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar11);
-            cVar4 = pMVar12->IsLoaded();
-            if ((cVar4 == '\0') || (field_792 != '\0'))
+            psVar10 = (shared_ptr<graphics::Model>*)local_e0._8_8_->SSOBeginPtr();
+            pMVar11 = (Model*)(*psVar10).operator->();
+            cVar4 = pMVar11->IsLoaded();
+            if ((!cVar4) || (field_792 != '\0'))
                 goto LAB_10042d5ba;
         }
     LAB_10042d5e9:
-        uVar29 = CONCAT71((int7)((ulong)puVar28 >> 8), 1);
+        uVar25 = (((uint64_t)((int64_t)((unsigned long)puVar24 >> 8)) << 8) | (uint8_t)1);
     LAB_10042dd8e:
-        local_d0->~ScopedGPUMemoryZone();
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar29 & 4294967295;
+        return uVar25 & 4294967295;
     }
 
-    // 0x10042de60, 800 bytes, placed by class name
-    // Location::BuildAnimatedModel(graphics::RT7Core&, ConfigProvider&, AssetBuilder&)
-    ulong Location::BuildAnimatedModel(RT7Core* param_1, ConfigProvider* param_2, AssetBuilder* param_3) {
-        undefined1* this_00;
-        char cVar1;
-        undefined1 uVar2;
-        undefined1 uVar3;
-        bool bVar4;
-        vector* pvVar5;
-        Model* pMVar6;
-        undefined8 uVar7;
-        undefined* puVar8;
-        LocType* pLVar9;
-        long lVar10;
-        AnimatedModel* pAVar11;
-        unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>* puVar12;
-        RT7Core* this_01;
-        undefined1* unaff_R14;
-        ulong uVar13;
-        undefined8 in_stack_ffffffffffffff78;
-        undefined4 uVar14;
-        shared_ptr<oldscape::RSevenDebugPresetProvider> local_70[16];
-        ConfigProvider* local_60;
-        RT7Core* local_58;
+    // 0x10042de60
+    unsigned long Location::BuildAnimatedModel(graphics::RT7Core& rt7Core, ConfigProvider& configProvider,
+                                               AssetBuilder& assetBuilder) {
+        bool arg6;
+        LocShape LVar2;
+        Rotation90 RVar3;
+        shared_ptr<graphics::Model>* psVar4;
+        Model* pMVar5;
+        LocTypeCustomisation* locTypeCustomisation;
+        uint8_t* puVar6;
+        LocType* pLVar7;
+        long lVar8;
+        AnimatedModel* pAVar9;
+        uint8_t* unaff_R14;
+        unsigned long uVar10;
+        enable_shared_from_this<PathingEntity> local_70;
         bool local_4c[4];
-        unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>* local_48;
+        LocType* local_48;
         ConfigProvider* local_40;
-        function local_31;
+        function<void_(int, int, int, int, int, int)> local_31;
 
-        uVar14 = (undefined4)((ulong)in_stack_ffffffffffffff78 >> 32);
-        this_01 = param_1;
-        cVar1 = NeedsAnimatedModel(this);
-        if (cVar1 == '\0') {
-            (&field_816, (LocationAnimatedModel*)0)->reset();
-            uVar13 = CONCAT71((int7)((ulong)unaff_R14 >> 8), 1);
+        char cVar1 = NeedsAnimatedModel();
+        if (!cVar1) {
+            field_816.reset(nullptr);
+            uVar10 = (((uint64_t)((int64_t)((unsigned long)unaff_R14 >> 8)) << 8) | (uint8_t)1);
             goto LAB_10042e14e;
         }
-        this_00 = &field_744;
-        local_60 = param_2;
+        uint8_t* this_00 = &field_744;
+        ConfigProvider* local_60 = configProvider;
         cVar1 = this_00->IsTaskDone();
-        local_58 = param_1;
-        if (cVar1 == '\0') {
+        RT7Core* local_58 = rt7Core;
+        if (!cVar1) {
         LAB_10042ded1:
-            local_48 = (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)
-                           shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-            uVar2 = field_352->GetShape();
-            local_40 = (ConfigProvider*)param_3;
-            uVar3 = field_352->GetRot();
-            bVar4 = field_404;
-            uVar7 = (&field_408)->end();
-            param_3 = (AssetBuilder*)local_40;
-            this_01 = local_58;
-            puVar8 = (undefined*)LocType::GetModels(local_48, local_58, local_40, this_00, uVar2, uVar3,
-                                                    CONCAT44(uVar14, (uint)bVar4), uVar7, 8192);
+            local_48 = (LocType*)(*m_locationType).operator->();
+            LVar2 = field_352->GetShape();
+            local_40 = (ConfigProvider*)assetBuilder;
+            RVar3 = field_352->GetRot();
+            arg6 = field_404;
+            locTypeCustomisation = (LocTypeCustomisation*)field_408.end();
+            assetBuilder = (AssetBuilder*)local_40;
+            puVar6 = (uint8_t*)local_48->GetModels(local_58, *local_40, *this_00, LVar2 & 255, RVar3 & 255, arg6,
+                                                   locTypeCustomisation, 8192);
             unaff_R14 = this_00;
-            if (puVar8 == DataStatus::NOTLOADED) {
-                uVar13 = 0;
+            if (puVar6 == DataStatus::NOTLOADED) {
+                uVar10 = 0;
                 goto LAB_10042e14e;
             }
         } else {
             cVar1 = this_00->IsEmpty();
-            if (cVar1 != '\0')
+            if (cVar1)
                 goto LAB_10042ded1;
-            pvVar5 = this_00->SSOBeginPtr(this_01);
-            pMVar6 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar5);
-            cVar1 = pMVar6->GetConstructedState();
+            psVar4 = (shared_ptr<graphics::Model>*)this_00->SSOBeginPtr();
+            pMVar5 = (Model*)(*psVar4).operator->();
+            cVar1 = pMVar5->GetConstructedState();
             if (cVar1 != '\x03')
                 goto LAB_10042ded1;
         }
         cVar1 = this_00->IsTaskDone();
-        uVar13 = CONCAT71((int7)((ulong)unaff_R14 >> 8), 1);
-        if (cVar1 != '\0') {
-            pvVar5 = this_00->SSOBeginPtr(this_01);
-            pMVar6 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar5);
-            cVar1 = pMVar6->GetConstructedState();
+        uVar10 = (((uint64_t)((int64_t)((unsigned long)unaff_R14 >> 8)) << 8) | (uint8_t)1);
+        if (cVar1) {
+            psVar4 = (shared_ptr<graphics::Model>*)this_00->SSOBeginPtr();
+            pMVar5 = (Model*)(*psVar4).operator->();
+            cVar1 = pMVar5->GetConstructedState();
             if (cVar1 == '\x03') {
-                puVar12 = (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)&field_816;
+                pLVar7 = (LocType*)&field_816;
                 local_40 = (ConfigProvider*)this_00;
-                bVar4 = puVar12->operator_cast_to_bool();
-                if (!bVar4) {
-                    local_48 = puVar12;
-                    pvVar5 = local_40->SSOBeginPtr(this_01);
-                    pMVar6 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar5);
-                    cVar1 = pMVar6->IsTransformed();
-                    if (cVar1 != '\0') {
-                        /* WARNING: Subroutine does not return */
+                cVar1 = pLVar7->operator_cast_to_bool();
+                if (!cVar1) {
+                    local_48 = pLVar7;
+                    psVar4 = (shared_ptr<graphics::Model>*)local_40->SSOBeginPtr();
+                    pMVar5 = (Model*)(*psVar4).operator->();
+                    cVar1 = pMVar5->IsTransformed();
+                    if (cVar1) {
                         LogAssert("!m_originalModel.GetAsset()->IsTransformed()",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/"
                                   "scene/entities/Location.cpp",
-                                  1500, (char*)0);
+                                  1500, nullptr);
                     }
                     local_4c[0] = true;
                     local_4c[1] = false;
                     local_4c[2] = false;
                     local_4c[3] = false;
                     local_40 = (ConfigProvider*)m_locationType;
-                    pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)local_40);
-                    local_31 = (function)pLVar9->UseRandomAnimFrame();
+                    pLVar7 = (LocType*)(*local_40).operator->();
+                    local_31 = (function<void_(int, int, int, int, int, int)>)pLVar7->UseRandomAnimFrame();
                     std::make_unique<LocationAnimatedModel, graphics::RT7Core&, AssetBuilder&, ConfigProvider&,
                                      graphics::AnimationLoopBehaviour, bool,
                                      std::function<void(int, int, int, int, int, int)>&, Location&>(
-                        (RT7Core*)local_70, (AssetBuilder*)local_58, (ConfigProvider*)param_3,
-                        (AnimationLoopBehaviour*)local_60, local_4c, &local_31, (Location*)&field_128);
-                    puVar12 = local_48;
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator=(
-                        local_48, (unique_ptr*)local_70);
-                    local_70->~unique_ptr();
-                    this_01 = (RT7Core*)local_70;
-                    this_01->shared_from_this();
-                    lVar10 =
-                        std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                            puVar12);
-                    weak_ptr<Entity>::operator=((weak_ptr<Entity>*)(lVar10 + 8), (shared_ptr*)this_01);
-                    local_70->~shared_ptr();
-                    pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)local_40);
-                    cVar1 = pLVar9->IsHighDetailOnly();
-                    puVar12 = local_48;
-                    if (cVar1 == '\0') {
-                        BeginPlayingDefaultAnimation(this);
+                        local_70, *local_58, assetBuilder, *local_60, *local_4c, local_31, field_128);
+                    pLVar7 = local_48;
+                    *local_48 = local_70;
+                    local_70.shared_from_this();
+                    lVar8 = (*pLVar7).operator->();
+                    ((lVar8 + 8))->operator=(&local_70);
+                    pLVar7 = (LocType*)(*local_40).operator->();
+                    cVar1 = pLVar7->IsHighDetailOnly();
+                    pLVar7 = local_48;
+                    if (!cVar1) {
+                        BeginPlayingDefaultAnimation();
                         if (field_824 == -1) {
-                            BeginPlayingOverrideAnimation(this);
+                            BeginPlayingOverrideAnimation();
                         }
                     }
                 }
                 if (field_824 != -1) {
-                    pAVar11 = (AnimatedModel*)
-                                  std::unique_ptr<LocationAnimatedModel,
-                                                  std::default_delete<LocationAnimatedModel>>::operator->(puVar12);
-                    pAVar11->SetOverrideSourceTicks(field_832, field_836);
-                    pAVar11 = (AnimatedModel*)
-                                  std::unique_ptr<LocationAnimatedModel,
-                                                  std::default_delete<LocationAnimatedModel>>::operator->(puVar12);
-                    this_01 = (RT7Core*)0;
-                    pAVar11->RequestOverrideAnimation(false, field_824, field_828, false);
+                    pAVar9 = (AnimatedModel*)(*pLVar7).operator->();
+                    pAVar9->SetOverrideSourceTicks(field_832, field_836);
+                    pAVar9 = (AnimatedModel*)(*pLVar7).operator->();
+                    pAVar9->RequestOverrideAnimation(false, field_824, field_828, false);
                     field_824 = -1;
                     field_832 = 0;
                     field_836 = 0;
                 }
-                pvVar5 = (&field_680, (type*)this_01)->SSOBeginPtr();
-                pMVar6 = (Model*)shared_ptr<graphics::Model>::operator*((shared_ptr<graphics::Model>*)pvVar5);
-                UpdateLocalRenderEnv(this, pMVar6);
+                psVar4 = (shared_ptr<graphics::Model>*)field_680.SSOBeginPtr();
+                pMVar5 = (Model*)**psVar4;
+                UpdateLocalRenderEnv(*pMVar5);
             }
         }
     LAB_10042e14e:
-        return uVar13 & 4294967295;
+        return uVar10 & 4294967295;
     }
 
-    // 0x10042e420, 448 bytes, placed by class name
-    // Location::BuildVFX(graphics::RT7Core&)
-    void Location::BuildVFX(RT7Core* param_1) {
-        Location* this_00;
-        char cVar1;
-        undefined1 uVar2;
-        bool bVar3;
+    // 0x10042e420
+    void Location::BuildVFX(graphics::RT7Core& rt7Core) {
+        uint8_t bVar2;
         ObjType* this_01;
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* this_02;
-        RawData* pRVar4;
-        undefined8 uVar5;
-        GraphNode* pGVar6;
-        undefined8 uVar7;
-        Matrix44T* pMVar8;
-        shared_ptr* psVar9;
-        undefined1 local_d8[72];
-        undefined1 local_90[32];
-        undefined1 local_70[16];
-        RT7Core* local_60;
+        Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>* this_02;
+        RawData* rawData;
+        LocType* this_03;
+        GraphNode* pGVar3;
+        Matrix44T<float>* pMVar4;
+        ReturnValue local_d8;
+        uint8_t local_90[32];
+        ReturnValue local_70;
         shared_ptr<LocType>* local_58;
         RawData* local_50;
         LocData* local_48;
-        vector<Location::VFXData, eastl::allocator>* local_40;
-        Location* local_38;
 
-        local_40 = (vector<Location::VFXData, eastl::allocator>*)&field_848;
-        local_60 = param_1;
-        local_38 = this;
-        cVar1 = local_40->empty();
-        if (cVar1 != '\0') {
-            local_58 = (shared_ptr<LocType>*)local_38->m_locationType;
-            this_01 = (ObjType*)shared_ptr<LocType>::operator->(local_58);
-            this_02 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer,
-                                             std::default_delete<LoadingScreenScript::AnimLayer>>,
-                             eastl::allocator>*)this_01->GetOffset2D();
-            pRVar4 = (RawData*)this_02->data();
+        vector<Location::VFXData>* local_40 = (vector<Location::VFXData>*)&field_848;
+        if (local_40->empty()) {
+            local_58 = (shared_ptr<LocType>*)m_locationType;
+            this_01 = (ObjType*)(*local_58).operator->();
+            this_02 = (Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)this_01->GetOffset2D();
+            rawData = (RawData*)this_02->data();
             local_50 = (RawData*)this_02->end();
-            if (pRVar4 != local_50) {
-                local_48 = (LocData*)local_38->field_352;
+            if (rawData != local_50) {
+                local_48 = (LocData*)field_352;
                 do {
-                    uVar5 = shared_ptr<LocType>::operator->(local_58);
-                    this_00 = local_38;
-                    pGVar6 = (GraphNode*)local_38->GetNode();
-                    uVar7 = pGVar6->GetWorldTransformationMatrix();
-                    uVar2 = local_48->GetRot();
-                    LocType::GetLocationWorldMatrix(local_d8, uVar5, uVar7, uVar2);
+                    this_03 = (LocType*)(*local_58).operator->();
+                    pGVar3 = GetNode();
+                    pMVar4 = pGVar3->GetWorldTransformationMatrix();
+                    bVar2 = local_48->GetRot();
+                    local_d8 = this_03->GetLocationWorldMatrix(*pMVar4, (unsigned int)bVar2);
                     new (local_90) VFXData();
-                    pGVar6 = (GraphNode*)this_00->GetNode();
-                    pMVar8 = (Matrix44T*)pGVar6->GetWorldTransformationMatrix();
-                    make_shared<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo::RawData_const&,
-                                math::Matrix44T<float>&>((jag*)local_70, pRVar4, pMVar8);
-                    shared_ptr<graphics::VFXAttachmentInfo>::operator=(
-                        (shared_ptr<graphics::VFXAttachmentInfo>*)(local_90 + 16), (shared_ptr*)local_70);
-                    local_70->~shared_ptr();
-                    psVar9 = (shared_ptr*)local_60->GetParticleManager();
-                    local_70->RegisterSystem(psVar9);
-                    shared_ptr<graphics::ModularParticleSystem>::operator=(
-                        (shared_ptr<graphics::ModularParticleSystem>*)local_90, (shared_ptr*)local_70);
-                    local_70->~shared_ptr();
-                    bVar3 = local_90->operator_cast_to_bool();
-                    if (bVar3) {
-                        eastl::vector<Location::VFXData, eastl::allocator>::push_back(local_40, (VFXData*)local_90);
+                    pGVar3 = GetNode();
+                    pMVar4 = pGVar3->GetWorldTransformationMatrix();
+                    make_shared<graphics::VFXAttachmentInfo, graphics::VFXAttachmentInfo::RawData const&,
+                                math::Matrix44T<float>&>(&local_70, rawData, pMVar4);
+                    (*((local_90 + 16))) = local_70;
+                    local_70 = ((ParticleManager*)rt7Core.GetParticleManager())->RegisterSystem(*((local_90 + 16)));
+                    *local_90 = local_70;
+                    if (local_90->operator_cast_to_bool()) {
+                        local_40->push_back(*local_90);
                     }
-                    local_90->~ActiveComponent();
-                    pRVar4 = (RawData*)&pRVar4[1].field_8;
-                } while (pRVar4 != local_50);
+                    rawData = (RawData*)&rawData[1].field_8;
+                } while (rawData != local_50);
             }
         }
     }
 
-    // 0x10042e5e0, 144 bytes, placed by class name
-    // Location::Destruct()
+    // 0x10042e5e0
     void Location::Destruct() {
         if (field_468 != 0) {
-            UpdateHeightMap(this, 2);
+            UpdateHeightMap(2);
         }
-        (&field_848)->clear();
-        (&field_680)->Clear();
-        (&field_712)->Clear();
-        (&field_744)->Clear();
-        shared_ptr<LocType>::reset();
-        shared_ptr<LocType>::reset();
-        ClearAnimationState(this);
-        (*(code*)field_8[3])(&field_8);
+        field_848.clear();
+        field_680.Clear();
+        field_712.Clear();
+        field_744.Clear();
+        field_472->reset();
+        m_locationType->reset();
+        ClearAnimationState();
+        (*(void (*)(...))field_8[3])(&field_8);
     }
 
-    // 0x10042e750, 896 bytes, placed by class name
-    // Location::MainLogic(graphics::RT7Core&, unsigned int, math::Matrix44T<float> const&)
-    void Location::MainLogic(RT7Core* param_1, uint param_2, Matrix44T* param_3) {
-        undefined1* puVar1;
-        undefined1* this_00;
-        bool bVar2;
-        char cVar3;
+    // 0x10042e750
+    void Location::MainLogic(graphics::RT7Core& rt7Core, unsigned int arg2, const math::Matrix44T<float>& matrix44) {
         int iVar4;
-        int iVar5;
-        uint uVar6;
-        uint uVar7;
-        LocType* this_01;
+        unsigned int uVar5;
+        int iVar6;
         GameToken* pGVar8;
-        BuildTerrainMain* this_02;
-        Array<VarValue, eastl::allocator>* this_03;
-        vector* pvVar9;
+        BuildTerrainMain* this_01;
+        shared_ptr<graphics::Model>* psVar9;
         Model* pMVar10;
         GraphicsApp* pGVar11;
         AnimatedModel* pAVar12;
-        shared_ptr* this_04;
-        ModelUpdateManager* this_05;
-        math* this_06;
-        math* this_07;
-        shared_ptr* this_08;
-        undefined1 local_88[72];
-        math* local_40;
+        Matrix44T<float> local_88;
 
-        puVar1 = m_parentLocationType;
-        bVar2 = puVar1->operator_cast_to_bool();
-        if (!bVar2) {
+        uint8_t* puVar1 = m_parentLocationType;
+        char cVar3 = puVar1->operator_cast_to_bool();
+        if (!cVar3) {
             return;
         }
         if (m_hidden != '\0') {
             return;
         }
-        this_06 = (math*)field_472;
-        this_07 = this_06;
-        (&field_272, (shared_ptr*)this_06, (shared_ptr*)puVar1, m_pPlayerVarDomain, field_216)->GetMultiLoc();
-        this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)puVar1);
-        cVar3 = this_01->IsMultiLoc();
-        if (cVar3 != '\0') {
-            bVar2 = this_06->operator_cast_to_bool();
-            if (bVar2) {
-                iVar5 = field_488;
-                pGVar8 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
+        uint8_t* puVar2 = field_472;
+        field_272.GetMultiLoc(*puVar2, *puVar1, m_pPlayerVarDomain, field_216);
+        cVar3 = ((LocType*)(*puVar1).operator->())->IsMultiLoc();
+        if (cVar3) {
+            cVar3 = puVar2->operator_cast_to_bool();
+            if (!cVar3) {
+                Destruct();
+                *m_locationType = *puVar2;
+                field_488 = -1;
+                BlockFadeIn();
+            } else {
+                iVar6 = field_488;
+                pGVar8 = (GameToken*)(*puVar2).operator->();
                 iVar4 = pGVar8->GetStatus();
-                if (iVar5 == iVar4) {
-                    cVar3 = (&field_680)->IsEmpty();
-                    if (cVar3 == '\0')
+                if (iVar6 == iVar4) {
+                    cVar3 = field_680.IsEmpty();
+                    if (!cVar3)
                         goto LAB_10042e8b6;
-                    this_02 = (BuildTerrainMain*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
-                    this_03 = (Array<VarValue, eastl::allocator>*)this_02->GetRequestData();
-                    cVar3 = this_03->empty();
-                    if (cVar3 != '\0')
+                    this_01 = (BuildTerrainMain*)(*puVar2).operator->();
+                    cVar3 = ((Array<VarValue>*)this_01->GetRequestData())->empty();
+                    if (cVar3)
                         goto LAB_10042e8b6;
                 } else {
-                    (&field_680)->Clear();
-                    ClearJobResources(this);
+                    field_680.Clear();
+                    ClearJobResources();
                 }
                 field_792 = '\x01';
-                this_07 = this_06;
-                shared_ptr<LocType>::operator=((shared_ptr<LocType>*)m_locationType, (shared_ptr*)this_06);
-                pGVar8 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_06);
-                iVar5 = pGVar8->GetStatus();
-                field_488 = iVar5;
-                (*(code*)field_0[6])(this);
-                BlockFadeIn(this);
-                (&field_848)->clear();
-            } else {
-                (*(code*)field_0[25])(this);
-                shared_ptr<LocType>::operator=((shared_ptr<LocType>*)m_locationType, (shared_ptr*)this_06);
-                field_488 = -1;
-                BlockFadeIn(this);
-                this_07 = this_06;
+                *m_locationType = *puVar2;
+                pGVar8 = (GameToken*)(*puVar2).operator->();
+                iVar6 = pGVar8->GetStatus();
+                field_488 = iVar6;
+                MarkAsNoLongerAtTargetLOD();
+                BlockFadeIn();
+                field_848.clear();
             }
         }
     LAB_10042e8b6:
         cVar3 = field_592;
-        if (cVar3 != '\0') {
-            this_07 = (math*)local_88;
-            math::operator*(this_07, param_3, (Matrix44T*)&field_528);
-            math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_608, (Matrix44T*)this_07);
+        if (cVar3) {
+            local_88 matrix44;
+            field_608 = local_88;
         }
-        uVar7 = param_2;
-        field_672 = cVar3 != '\0';
-        local_40 = (math*)&field_608;
-        if (cVar3 == '\0') {
-            local_40 = (math*)param_3;
+        unsigned int uVar7 = arg2;
+        field_672 = cVar3;
+        Matrix44T<float>* local_40 = (Matrix44T<float>*)&field_608;
+        if (!cVar3) {
+            local_40 = matrix44;
         }
         puVar1 = &field_680;
         cVar3 = puVar1->IsTaskDone();
-        if ((cVar3 != '\0') && (cVar3 = puVar1->IsEmpty(), cVar3 == '\0')) {
-            pvVar9 = puVar1->SSOBeginPtr(this_07);
-            pMVar10 = (Model*)shared_ptr<graphics::Model>::operator*((shared_ptr<graphics::Model>*)pvVar9);
-            pGVar11 = (GraphicsApp*)this;
-            UpdateLocalRenderEnv(this, pMVar10);
-            pGVar11 = (GraphicsApp*)pGVar11->Instance();
-            uVar6 = pGVar11->GetLogicTick();
-            this_07 = (math*)(ulong)uVar6;
-            UpdateHighlighting(this, uVar6);
+        if ((cVar3) && (cVar3 = puVar1->IsEmpty(), !cVar3)) {
+            psVar9 = (shared_ptr<graphics::Model>*)puVar1->SSOBeginPtr();
+            pMVar10 = (Model*)**psVar9;
+            UpdateLocalRenderEnv(*pMVar10);
+            pGVar11 = (GraphicsApp*)GraphicsApp::Instance();
+            uVar5 = pGVar11->GetLogicTick();
+            UpdateHighlighting(uVar5);
         }
-        this_00 = &field_816;
-        bVar2 = this_00->operator_cast_to_bool();
-        if (bVar2) {
-            uVar7 = GetOverrideAnimationToPlay(this);
-            uVar6 = GetDefaultAnimationToPlay(this);
-            pAVar12 =
-                (AnimatedModel*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)this_00);
+        puVar2 = &field_816;
+        cVar3 = puVar2->operator_cast_to_bool();
+        if (cVar3) {
+            iVar6 = GetOverrideAnimationToPlay();
+            iVar4 = GetDefaultAnimationToPlay();
+            pAVar12 = (AnimatedModel*)(*puVar2).operator->();
             cVar3 = pAVar12->IsDefaultAnimationInUse();
-            if ((cVar3 == '\0') && (uVar6 != 4294967295)) {
-                pAVar12 =
-                    (AnimatedModel*)
-                        std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                            (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)this_00);
-                this_07 = (math*)(ulong)uVar6;
-                pAVar12->RequestDefaultAnimation(uVar6, false, false);
+            if ((!cVar3) && (iVar4 != -1)) {
+                pAVar12 = (AnimatedModel*)(*puVar2).operator->();
+                pAVar12->RequestDefaultAnimation(iVar4, false, false);
             }
-            pAVar12 =
-                (AnimatedModel*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)this_00);
+            pAVar12 = (AnimatedModel*)(*puVar2).operator->();
             cVar3 = pAVar12->IsOverrideAnimationInUse();
-            if (((cVar3 == '\0') && (uVar7 != 4294967295)) && (uVar7 != uVar6)) {
-                pAVar12 =
-                    (AnimatedModel*)
-                        std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                            (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)this_00);
-                this_07 = (math*)0;
-                pAVar12->RequestOverrideAnimation(false, uVar7, 0, false);
+            if (((!cVar3) && (iVar6 != -1)) && (iVar6 != iVar4)) {
+                pAVar12 = (AnimatedModel*)(*puVar2).operator->();
+                pAVar12->RequestOverrideAnimation(false, iVar6, 0, false);
             }
-            pGVar11 =
-                (GraphicsApp*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)this_00);
-            cVar3 = pGVar11->InUse();
-            if (((cVar3 == '\0') && (pGVar11 = (GraphicsApp*)puVar1, cVar3 = puVar1->IsTaskDone(), cVar3 != '\0')) &&
-                (pGVar11 = (GraphicsApp*)puVar1, cVar3 = puVar1->IsEmpty(), cVar3 == '\0')) {
-                pvVar9 = puVar1->SSOBeginPtr(this_07);
-                pGVar11 = (GraphicsApp*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar9);
-                pGVar11->ClearAnimationState();
+            pAVar12 = (AnimatedModel*)(*puVar2).operator->();
+            cVar3 = pAVar12->InUse();
+            if (((!cVar3) && (cVar3 = puVar1->IsTaskDone(), cVar3)) && (cVar3 = puVar1->IsEmpty(), !cVar3)) {
+                psVar9 = (shared_ptr<graphics::Model>*)puVar1->SSOBeginPtr();
+                pMVar10 = (Model*)(*psVar9).operator->();
+                pMVar10->ClearAnimationState();
             }
-            pGVar11 = (GraphicsApp*)pGVar11->Instance();
-            uVar6 = pGVar11->GetFrameCount();
-            pAVar12 =
-                (AnimatedModel*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)this_00);
-            uVar7 = param_2;
-            pAVar12->Build(uVar6, param_2, false, 0);
-            pAVar12 =
-                (AnimatedModel*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)this_00);
-            this_07 = local_40;
-            pAVar12->UpdateParticles(local_40, uVar6);
+            pGVar11 = (GraphicsApp*)GraphicsApp::Instance();
+            uVar5 = pGVar11->GetFrameCount();
+            pAVar12 = (AnimatedModel*)(*puVar2).operator->();
+            uVar7 = arg2;
+            pAVar12->Build(uVar5, arg2, false, 0);
+            pAVar12 = (AnimatedModel*)(*puVar2).operator->();
+            pAVar12->UpdateParticles(*local_40, uVar5);
         }
-        this_04 = (shared_ptr*)puVar1->SSOBeginPtr(this_07);
-        this_08 = this_04;
-        bVar2 = shared_ptr::operator_cast_to_bool(this_04);
-        if (bVar2) {
-            this_05 = (ModelUpdateManager*)this_08->Instance();
-            this_05->AddToUpdateList(this_04);
+        auto this_03 = puVar1->SSOBeginPtr();
+        shared_ptr* this_05 = this_03;
+        cVar3 = shared_ptr::operator_cast_to_bool(this_03);
+        if (cVar3) {
+            ((ModelUpdateManager*)this_05->Instance())->AddToUpdateList(*this_03);
         }
-        (*(code*)field_0[49])(this);
+        UpdateAudio();
         uVar7 = TicksSinceLastCall(uVar7);
-        UpdateRandomSounds(this, uVar7);
+        UpdateRandomSounds(uVar7);
     }
 
-    // 0x10042eb20, 176 bytes, placed by class name
-    // Location::UpdateLocalRenderEnv(graphics::Model&)
-    void Location::UpdateLocalRenderEnv(Model* param_1) {
+    // 0x10042eb20
+    void Location::UpdateLocalRenderEnv(graphics::Model& model) {
+        int arg1;
+        int arg2;
         shared_ptr<World>* this_00;
         World* this_01;
-        IrradianceEffect* this_02;
-        bool bVar1;
-        int iVar2;
-        int iVar3;
-        shared_ptr* this_03;
-        undefined1 local_98[112];
+        shared_ptr<oldscape::midi2::MidiPlayerMainThread>* midiPlayerMainThread;
 
-        bVar1 = m_parentLocationType->operator_cast_to_bool();
-        if (bVar1) {
+        if (m_parentLocationType->operator_cast_to_bool() != '\0') {
             this_00 = (shared_ptr<World>*)GetWorld();
-            this_01 = (World*)shared_ptr<World>::operator->(this_00);
-            iVar2 = (&field_424)->GetMapSquareX();
-            iVar3 = (&field_424)->GetMapSquareZ();
-            this_03 = (shared_ptr*)this_01->GetMapSquare(iVar2, iVar3);
-            bVar1 = operator!=(this_03, (_func_decltype_nullptr*)0);
-            if (bVar1) {
-                this_02 = (IrradianceEffect*)param_1->GetIrradianceEffect();
-                shared_ptr<MapSquare>::operator->((shared_ptr<MapSquare>*)this_03);
-                local_98->GetIrradianceSHConsts();
-                this_02->SetCoefficients(local_98);
+            this_01 = (World*)(*this_00).operator->();
+            arg1 = field_424.GetMapSquareX();
+            arg2 = field_424.GetMapSquareZ();
+            midiPlayerMainThread =
+                (shared_ptr<oldscape::midi2::MidiPlayerMainThread>*)this_01->GetMapSquare(arg1, arg2);
+            if (*midiPlayerMainThread != nullptr) {
+                ((IrradianceEffect*)model.GetIrradianceEffect())
+                    ->SetCoefficients(((MapSquare*)(*midiPlayerMainThread).operator->())->GetIrradianceSHConsts());
             }
         }
     }
 
-    // 0x10042ebd0, 496 bytes, placed by class name
-    // Location::UpdateHighlighting(unsigned int)
-    void Location::UpdateHighlighting(uint param_1) {
-        bool bVar1;
-        char cVar2;
-        byte bVar3;
-        int iVar4;
+    // 0x10042ebd0
+    void Location::UpdateHighlighting(unsigned int arg1) {
+        uint8_t bVar2;
+        unsigned int uVar3;
         AnimatedModel* this_00;
         shared_ptr* this_01;
-        shared_ptr* this_02;
-        shared_ptr<World>* this_03;
+        Model* this_07;
+        EntityHighlightVisualConfig* this_09;
+        float arg2;
+        float local_5c;
+        float local_58[4];
+        Vector4T<float> local_48;
+
+        bool cVar1 = (&field_816)->operator_cast_to_bool();
+        if (!cVar1) {
+            this_01 = (shared_ptr*)field_680.SSOBeginPtr();
+        } else {
+            this_00 = (AnimatedModel*)field_816.operator->();
+            this_01 = (shared_ptr*)this_00->GetCurrentModel();
+        }
+        cVar1 = (GetWorld())->operator_cast_to_bool();
+        if ((!cVar1) || (cVar1 = shared_ptr::operator_cast_to_bool(this_01), !cVar1))
+            goto LAB_10042ecb9;
+        auto this_03 = GetWorld();
         hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                   eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                   eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                  eastl::prime_rehash_policy, false, true, true>* this_04;
-        SceneManager* this_05;
-        EntityHighlightGlobalState* this_06;
-        Model* this_07;
-        LocType* this_08;
-        EntityHighlightVisualConfig* this_09;
-        undefined4 in_register_00000034;
-        type* ptVar5;
-        float fVar6;
-        float local_5c;
-        float local_58[4];
-        Vector4T local_48[16];
-        long local_38;
-
-        ptVar5 = (type*)CONCAT44(in_register_00000034, param_1);
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        bVar1 = (&field_816)->operator_cast_to_bool();
-        if (bVar1) {
-            this_00 =
-                (AnimatedModel*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)&field_816);
-            this_01 = (shared_ptr*)this_00->GetCurrentModel();
-        } else {
-            this_01 = (shared_ptr*)(&field_680, ptVar5)->SSOBeginPtr();
-        }
-        this_02 = (shared_ptr*)GetWorld();
-        bVar1 = shared_ptr::operator_cast_to_bool(this_02);
-        if ((!bVar1) || (bVar1 = shared_ptr::operator_cast_to_bool(this_01), !bVar1))
-            goto LAB_10042ecb9;
-        this_03 = (shared_ptr<World>*)GetWorld();
-        this_04 = (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                             eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>*)shared_ptr<World>::operator->(this_03);
-        this_05 = (SceneManager*)
-            eastl::hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                             eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                             eastl::prime_rehash_policy, false, true, true>::size(this_04);
-        this_06 = (EntityHighlightGlobalState*)this_05->GetEntityHighlightGlobalState();
-        cVar2 = this_06->IsEnabled();
-        if (cVar2 == '\0') {
+                  eastl::prime_rehash_policy, false, true, true>* this_04 =
+            (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
+                       eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
+                       eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
+                       eastl::prime_rehash_policy, false, true, true>*)(*this_03)
+                .operator->();
+        auto this_05 = this_04->size();
+        auto this_06 = this_05->GetEntityHighlightGlobalState();
+        cVar1 = this_06->IsEnabled();
+        if (!cVar1) {
         LAB_10042eca9:
-            this_07 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_01);
+            this_07 = (Model*)(*this_01).operator->();
         } else {
-            iVar4 = GetHighlightType(this);
-            if (iVar4 == 8) {
-                bVar3 = field_796->WasInteractedWithRecently();
-                iVar4 = (uint)(bVar3 ^ 1) * 3 + 5;
+            uVar3 = GetHighlightType();
+            if (uVar3 == 8) {
+                bVar2 = field_796->WasInteractedWithRecently();
+                uVar3 = (unsigned int)(bVar2 ^ 1) * 3 + 5;
             }
-            if (iVar4 == 8)
+            if (uVar3 == 8)
                 goto LAB_10042eca9;
             local_5c = 1.0;
             if ((EntityHighlightGlobalState::m_allowExamineOnlyHighlights == '\0') && (field_796[16] == '\0')) {
-                bVar1 = m_locationType->operator_cast_to_bool();
-                if (bVar1) {
-                    this_08 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-                    cVar2 = this_08->IsExamineOnly();
+                cVar1 = m_locationType->operator_cast_to_bool();
+                if (cVar1) {
+                    cVar1 = ((LocType*)(*m_locationType).operator->())->IsExamineOnly();
                     local_5c = 0.0;
-                    if (cVar2 == '\0') {
+                    if (!cVar1) {
                         local_5c = 1.0;
                     }
                 }
             }
-            this_09 = (EntityHighlightVisualConfig*)EntityHighlightVisualConfig::GetDefault(iVar4);
+            this_09 = (EntityHighlightVisualConfig*)((EntityHighlightVisualConfig*)(unsigned long)uVar3)
+                          ->GetDefault((EntityHighlightType)arg1);
             if (this_09->field_0 == 2) {
-                new (field_796, param_1) oldscape::ServerConnectionWorkItem();
+                new (field_796) oldscape::ServerConnectionWorkItem(arg1);
             }
-            fVar6 = (float)FrameTime::GetFrameDelta();
-            (field_796, this_06, fVar6, param_1)->Update();
+            arg2 = (float)FrameTime::GetFrameDelta();
+            field_796->Update(*this_06, arg2, arg1);
             new (local_58) EntityHighlightVisualData();
-            cVar2 = this_09->Evaluate((EntityHighlightState*)field_796, this_06, (EntityHighlightVisualData*)local_58,
-                                      local_5c);
-            this_07 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_01);
-            if (cVar2 != '\0') {
+            cVar1 = this_09->Evaluate(*field_796, *this_06, *local_58, local_5c);
+            this_07 = (Model*)(*this_01).operator->();
+            if (cVar1) {
                 this_07->SetHighlight(local_58[0], local_48);
                 goto LAB_10042ecb9;
             }
         }
         this_07->ClearHighlight();
     LAB_10042ecb9:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x10042eec0, 864 bytes, placed by class name
-    // Location::GatherDrawableElements(graphics::DrawableQueue&, graphics::RT7Core&, math::Matrix44T<float> const&, graphics::SceneViewData const&, graphics::EffectManager const&)
-    void Location::GatherDrawableElements(DrawableQueue* param_1, RT7Core* param_2, Matrix44T* param_3,
-                                          SceneViewData* param_4, EffectManager* param_5) {
-        char cVar3;
-        bool bVar4;
-        undefined1 uVar5;
-        int iVar6;
-        int iVar7;
-        uint uVar8;
-        AnimatedModel* pAVar9;
-        shared_ptr* psVar10;
-        LocType* pLVar11;
-        GraphicsApp* pGVar12;
-        Model* pMVar13;
-        long lVar14;
-        shared_ptr<graphics::ModularParticleSystem>* this_00;
-        undefined8 uVar15;
-        GraphNode* this_01;
-        undefined8 uVar16;
-        VFXAttachmentInfo* this_02;
-        ObjType* this_03;
-        Array<graphics::VFXAttachmentInfo::RawData, eastl::allocator>* this_04;
-        RawData* pRVar17;
-        ModularParticleSystem* this_05;
-        long* plVar18;
-        ulong uVar19;
-        Matrix44T* this_06;
-        SceneViewData* pSVar20;
-        undefined1* puVar21;
-        ulong uVar22;
-        Matrix44T local_b8;
-        Location* local_70;
-        SceneViewData* local_68;
+    // 0x10042eec0
+    void Location::GatherDrawableElements(graphics::DrawableQueue& drawableQueue, graphics::RT7Core& rt7Core,
+                                          const math::Matrix44T<float>& matrix44,
+                                          const graphics::SceneViewData& sceneViewData,
+                                          const graphics::EffectManager& effectManager) {
+        uint8_t bVar2;
+        int arg2;
+        int arg3;
+        unsigned int arg2_00;
+        AnimatedModel* pAVar3;
+        LocType* pLVar4;
+        shared_ptr<graphics::Model>* this_02;
+        Model* pMVar5;
+        shared_ptr<graphics::ModularParticleSystem>* this_03;
+        VFXAttachmentInfo* this_05;
+        ObjType* this_06;
+        Array<graphics::VFXAttachmentInfo::RawData>* this_07;
+        long* plVar8;
+        unsigned long uVar9;
+        unsigned long arg1;
+        ReturnValue local_b8;
         AnimatedModel* local_48;
         LocData* local_40;
-        Matrix44T* local_38;
 
-        local_38 = param_3;
-        cVar3 = (*(code*)field_0[35])();
-        if (cVar3 == '\0') {
+        Matrix44T<float>* local_38 = matrix44;
+        bool cVar1 = CanRender();
+        if (!cVar1) {
             return;
         }
-        cVar3 = FilterRenderPasses(this, param_4);
-        if (cVar3 == '\0') {
+        cVar1 = FilterRenderPasses(sceneViewData);
+        if (!cVar1) {
             return;
         }
-        pSVar20 = param_4;
-        cVar3 = IsLocationRoofRemoved(this, param_4);
-        if (cVar3 != '\0') {
+        cVar1 = IsLocationRoofRemoved(sceneViewData);
+        if (cVar1) {
             return;
         }
         if (m_ShowLocations == '\0')
             goto LAB_10042f1fc;
-        puVar21 = &field_816;
-        bVar4 = puVar21->operator_cast_to_bool();
-        local_70 = this;
-        local_68 = param_4;
-        if (bVar4) {
-            pAVar9 = (AnimatedModel*)
-                         std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                             (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)puVar21);
-            psVar10 = (shared_ptr*)pAVar9->GetCurrentModel();
-            bVar4 = shared_ptr::operator_cast_to_bool(psVar10);
-            if (!bVar4)
-                goto LAB_10042f03e;
-            local_48 =
-                (AnimatedModel*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)puVar21);
-            local_40 = (LocData*)GetWorldPosition();
-            pLVar11 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_parentLocationType);
-            uVar5 = field_352->GetRot();
-            iVar6 = pLVar11->GetGridWidth(uVar5);
-            pLVar11 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_parentLocationType);
-            uVar5 = field_352->GetRot();
-            param_4 = local_68;
-            iVar7 = pLVar11->GetGridLength(uVar5);
-            local_48->SetPointLightBounds(local_40, iVar6, iVar7);
-            pGVar12 = (GraphicsApp*)puVar21;
-            pAVar9 = (AnimatedModel*)
-                         std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                             (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)puVar21);
-            pGVar12 = (GraphicsApp*)pGVar12->Instance();
-            uVar8 = pGVar12->GetFrameCount();
-            pAVar9->SetWorldTransform(local_38, uVar8);
-            pAVar9 = (AnimatedModel*)
-                         std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                             (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)puVar21);
-            pAVar9->GatherDrawableElements(param_1, param_2, param_4, param_5);
-        } else {
+        uint8_t* puVar10 = &field_816;
+        cVar1 = puVar10->operator_cast_to_bool();
+        Location* local_70 = this;
+        SceneViewData* local_68 = sceneViewData;
+        if (!cVar1) {
         LAB_10042f03e:
-            cVar3 = (&field_680)->IsTaskDone();
-            if (cVar3 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = field_680.IsTaskDone();
+            if (!cVar1) {
                 LogAssert("m_model.IsTaskDone()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                           "entities/Location.cpp",
-                          897, (char*)0);
+                          897, nullptr);
             }
-            psVar10 = (shared_ptr*)(&field_680, (type*)pSVar20)->SSOBeginPtr();
-            pMVar13 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)psVar10);
-            cVar3 = pMVar13->IsLoaded();
-            if (cVar3 == '\0') {
-                /* WARNING: Subroutine does not return */
+            this_02 = (shared_ptr<graphics::Model>*)field_680.SSOBeginPtr();
+            pMVar5 = (Model*)(*this_02).operator->();
+            cVar1 = pMVar5->IsLoaded();
+            if (!cVar1) {
                 LogAssert("model->IsLoaded()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                           "entities/Location.cpp",
-                          899, (char*)0);
+                          899, nullptr);
             }
-            pMVar13 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)psVar10);
-            pMVar13->SetWorldTransform(local_38);
-            pMVar13 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)psVar10);
-            pMVar13->GatherDrawableElements(param_1, param_2, param_4, param_5);
-            graphics::Model::DeferredRenderKeepAlive(psVar10);
+            pMVar5 = (Model*)(*this_02).operator->();
+            pMVar5->SetWorldTransform(*local_38);
+            pMVar5 = (Model*)(*this_02).operator->();
+            pMVar5->GatherDrawableElements(drawableQueue, rt7Core, sceneViewData, effectManager);
+            graphics::Model::DeferredRenderKeepAlive(*this_02);
+        } else {
+            pAVar3 = (AnimatedModel*)(*puVar10).operator->();
+            cVar1 = (pAVar3->GetCurrentModel())->operator_cast_to_bool();
+            if (!cVar1)
+                goto LAB_10042f03e;
+            local_48 = (AnimatedModel*)(*puVar10).operator->();
+            local_40 = (LocData*)GetWorldPosition();
+            pLVar4 = (LocType*)(*m_parentLocationType).operator->();
+            bVar2 = field_352->GetRot();
+            arg2 = pLVar4->GetGridWidth((unsigned int)bVar2);
+            pLVar4 = (LocType*)(*m_parentLocationType).operator->();
+            bVar2 = field_352->GetRot();
+            sceneViewData = local_68;
+            arg3 = pLVar4->GetGridLength((unsigned int)bVar2);
+            local_48->SetPointLightBounds(*local_40, arg2, arg3);
+            pAVar3 = (AnimatedModel*)(*puVar10).operator->();
+            arg2_00 = ((GraphicsApp*)GraphicsApp::Instance())->GetFrameCount();
+            pAVar3->SetWorldTransform(*local_38, arg2_00);
+            pAVar3 = (AnimatedModel*)(*puVar10).operator->();
+            pAVar3->GatherDrawableElements(drawableQueue, rt7Core, sceneViewData, effectManager);
         }
         this = local_70;
-        this_06 = (Matrix44T*)&local_70->field_848;
-        lVar14 = this_06->size();
-        if (lVar14 != 0) {
-            puVar21 = m_locationType;
+        Matrix44T<float>* pMVar7 = (Matrix44T<float>*)&local_70->field_848;
+        if (pMVar7->size() != 0) {
+            puVar10 = m_locationType;
             local_40 = (LocData*)field_352;
-            uVar22 = 0;
-            local_48 = (AnimatedModel*)puVar21;
-            local_38 = this_06;
+            arg1 = 0;
+            local_48 = (AnimatedModel*)puVar10;
+            local_38 = pMVar7;
             do {
-                this_00 = (shared_ptr<graphics::ModularParticleSystem>*)
-                    eastl::vector<Location::VFXData, eastl::allocator>::operator[](
-                        (vector<Location::VFXData, eastl::allocator>*)this_06, uVar22);
-                uVar15 = shared_ptr<LocType>::operator->((shared_ptr<LocType>*)puVar21);
-                this_01 = (GraphNode*)GetNode();
-                uVar16 = this_01->GetWorldTransformationMatrix();
-                uVar5 = local_40->GetRot();
+                this_03 = (shared_ptr<graphics::ModularParticleSystem>*)(*pMVar7)[arg1];
+                pLVar4 = (LocType*)(*puVar10).operator->();
+                pMVar7 = GetNode()->GetWorldTransformationMatrix();
+                bVar2 = local_40->GetRot();
                 this = local_70;
-                LocType::GetLocationWorldMatrix(&local_b8, uVar15, uVar16, uVar5);
-                this_02 = (VFXAttachmentInfo*)shared_ptr<graphics::VFXAttachmentInfo>::operator->(
-                    (shared_ptr<graphics::VFXAttachmentInfo>*)(this_00 + 16));
-                this_03 = (ObjType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)puVar21);
-                this_04 = (Array<graphics::VFXAttachmentInfo::RawData, eastl::allocator>*)this_03->GetOffset2D();
-                pRVar17 = (RawData*)Array<graphics::VFXAttachmentInfo::RawData, eastl::allocator>::operator[](this_04,
-                                                                                                              uVar22);
-                this_02->Update(pRVar17, &local_b8);
-                param_4 = local_68;
-                this_05 = (ModularParticleSystem*)shared_ptr<graphics::ModularParticleSystem>::operator->(this_00);
-                plVar18 = (long*)this_05->GetDrawable();
-                (**(code**)(*plVar18 + 16))(plVar18, param_1, param_2, param_4, param_5);
-                this_06 = local_38;
-                uVar22 = uVar22 + 1;
-                uVar19 = local_38->size();
-            } while (uVar22 < uVar19);
+                local_b8 = pLVar4->GetLocationWorldMatrix(*pMVar7, (unsigned int)bVar2);
+                this_05 = (VFXAttachmentInfo*)(*((this_03 + 16))).operator->();
+                this_06 = (ObjType*)(*puVar10).operator->();
+                this_07 = (Array<graphics::VFXAttachmentInfo::RawData>*)this_06->GetOffset2D();
+                this_05->Update((RawData*)(*this_07)[arg1], &local_b8);
+                sceneViewData = local_68;
+                plVar8 = ((ModularParticleSystem*)(*this_03).operator->())->GetDrawable();
+                (**(void (**)(...))(*plVar8 + 16))(plVar8, drawableQueue, rt7Core, sceneViewData, effectManager);
+                pMVar7 = local_38;
+                arg1 = arg1 + 1;
+                uVar9 = local_38->size();
+            } while (arg1 < uVar9);
         }
     LAB_10042f1fc:
-        DebugPrimitiveOutput(this, param_4);
+        DebugPrimitiveOutput(sceneViewData);
     }
 
-    // 0x10042f220, 144 bytes, placed by class name
-    // Location::FilterRenderPasses(graphics::SceneViewData const&) const
-    undefined8 Location::FilterRenderPasses(SceneViewData* param_1) {
-        char cVar1;
-        undefined1 uVar2;
-        LocType* pLVar3;
+    // 0x10042f220
+    uint64_t Location::FilterRenderPasses(const graphics::SceneViewData& sceneViewData) const {
+        uint8_t bVar2;
+        LocType* this_00;
 
-        cVar1 = param_1->HasRenderPass(2);
-        if ((cVar1 != '\0') && ((field_405 != false || (cVar1 = field_352->GetShape(), cVar1 == '\x16')))) {
+        char cVar1 = sceneViewData.HasRenderPass(2);
+        if ((cVar1) && ((field_405 != false || (cVar1 = field_352->GetShape(), cVar1 == '\x16')))) {
             return 0;
         }
-        cVar1 = param_1->HasShadowPass();
-        if (cVar1 != '\0') {
-            pLVar3 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-            uVar2 = field_352->GetShape();
-            cVar1 = pLVar3->CastsShadows(uVar2);
-            if (cVar1 == '\0') {
+        cVar1 = sceneViewData.HasShadowPass();
+        if (cVar1) {
+            this_00 = (LocType*)(*m_locationType).operator->();
+            bVar2 = field_352->GetShape();
+            cVar1 = this_00->CastsShadows((unsigned int)bVar2);
+            if (!cVar1) {
                 return 0;
             }
             cVar1 = field_352->GetShape();
@@ -2344,381 +1875,290 @@ namespace jag::game {
         return 1;
     }
 
-    // 0x10042f2b0, 160 bytes, placed by class name
-    // Location::IsLocationRoofRemoved(graphics::SceneViewData const&)
-    undefined8 Location::IsLocationRoofRemoved(SceneViewData* param_1) {
-        char cVar1;
+    // 0x10042f2b0
+    bool Location::IsLocationRoofRemoved(const graphics::SceneViewData& sceneViewData) {
         shared_ptr<World>* this_00;
         World* this_01;
         RemoveRoof* this_02;
-        undefined8 uVar2;
+        uint64_t uVar2;
 
-        cVar1 = param_1->HasRenderPass(4);
-        if ((cVar1 == '\0') && (cVar1 = param_1->HasRenderPass(8), cVar1 == '\0')) {
+        bool cVar1 = sceneViewData.HasRenderPass(4);
+        if ((!cVar1) && (cVar1 = sceneViewData.HasRenderPass(8), !cVar1)) {
             uVar2 = 0;
         } else {
             this_00 = (shared_ptr<World>*)GetWorld();
-            this_01 = (World*)shared_ptr<World>::operator*(this_00);
+            this_01 = (World*)**this_00;
             this_02 = (RemoveRoof*)this_01->GetRemoveRoof();
             cVar1 = this_02->AnyRoofRemoved();
-            if ((cVar1 == '\0') || (cVar1 = this_01->IsRemoveRoofSelective(), cVar1 == '\0')) {
-                uVar2 = IsLocationRoofRemovedNonSelective(this, param_1, this_01);
+            if ((!cVar1) || (cVar1 = this_01->IsRemoveRoofSelective(), !cVar1)) {
+                uVar2 = IsLocationRoofRemovedNonSelective(sceneViewData, *this_01);
             } else {
-                uVar2 = IsLocationRoofRemovedSelective(this, this_02, this_01);
+                uVar2 = IsLocationRoofRemovedSelective(*this_02, *this_01);
             }
         }
         return uVar2;
     }
 
-    // 0x10042f4c0, 2160 bytes, placed by class name
-    // Location::DebugPrimitiveOutput(graphics::SceneViewData const&) const
-    void Location::DebugPrimitiveOutput(SceneViewData* param_1) {
-        undefined1* this_00;
-        char cVar1;
-        undefined1 uVar2;
-        bool bVar3;
-        uint uVar4;
-        uint uVar5;
+    // 0x10042f4c0
+    void Location::DebugPrimitiveOutput(const graphics::SceneViewData& sceneViewData) const {
+        bool cVar1;
         long* plVar6;
         GraphNode* pGVar7;
-        undefined8 uVar8;
-        CoordGrid* this_01;
-        LocType* pLVar9;
+        uint64_t uVar8;
         GameToken* pGVar10;
         GeometryBatch* pGVar11;
         char* pcVar12;
         float fVar13;
-        undefined1 local_300[24];
-        uint local_2e8;
-        uint local_2e4;
-        uint local_2e0;
-        uint local_2dc;
-        shared_ptr* local_2d8;
-        uint local_2d0;
-        uint local_2cc;
-        fixed_string<char, 64, true, eastl::allocator> local_2c8[104];
-        SideBarData local_260[46];
-        long local_38;
+        uint8_t local_300[24];
+        unsigned int local_2e8;
+        unsigned int local_2e4;
+        unsigned int local_2e0;
+        unsigned int local_2d0;
+        unsigned int local_2cc;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if (((m_debugPrimitiveAABBOnHighlight != '\0') && (fVar13 = (float)field_796->GetAlpha(), 0.0 < fVar13)) &&
-            (plVar6 = (long*)DebugPrimitiveCollectorBasic::GetCollector(""), plVar6 != (long*)0)) {
-            pGVar7 = (GraphNode*)GetNode();
+            (plVar6 = DebugPrimitiveCollectorBasic::GetCollector(""), plVar6 != nullptr)) {
+            pGVar7 = GetNode();
             uVar8 = pGVar7->GetWorldAABB();
-            oldscape::sidebars::SideBarData::SideBarData(local_260, 301989887, 2);
-            (**(code**)(*plVar6 + 72))(plVar6, uVar8, local_260);
+            local_260 = oldscape::sidebars::SideBarData(301989887, 2);
+            (**(void (**)(...))(*plVar6 + 72))(plVar6, uVar8, &local_260);
         }
         if (((m_debugPrimitiveText == '\0') &&
-             ((m_debugPrimitiveTextOnMouseover == '\0' || (cVar1 = PickTestDebugCursor(), cVar1 == '\0')))) ||
-            (cVar1 = param_1->HasRenderPass(4), cVar1 == '\0')) {
-            if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-                /* WARNING: Subroutine does not return */
-                ___stack_chk_fail();
-            }
+             ((m_debugPrimitiveTextOnMouseover == '\0' || (cVar1 = PickTestDebugCursor(), !cVar1)))) ||
+            (cVar1 = sceneViewData.HasRenderPass(4), !cVar1)) {
             return;
         }
-        this_01 = (CoordGrid*)GetServerPosition(this);
-        uVar4 = this_01->GetLocalX();
-        uVar5 = this_01->GetLocalZ();
-        new (local_260) eastl::fixed_string<char, 512, true, eastl::allocator>();
-        pGVar7 = (GraphNode*)GetNode();
+        auto this_01 = GetServerPosition();
+        unsigned int uVar4 = this_01->GetLocalX();
+        unsigned int uVar5 = this_01->GetLocalZ();
+        SideBarData local_260;
+        pGVar7 = GetNode();
         local_300._16_8_ = pGVar7->GetWorldTranslation();
-        this_00 = m_parentLocationType;
-        pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-        uVar2 = pLVar9->IsMultiLoc();
-        local_2cc = CONCAT31(local_2cc._1_3_, uVar2);
-        pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-        pLVar9->GetMultiLocValue((int*)&local_2d0, (int*)&local_2e8, (int*)&local_2e4, (int*)&local_2e0,
-                                 m_pPlayerVarDomain, field_216);
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::sprintf(
-            (char*)local_260, "[LOC] [%d,%d,%d] ", (ulong)this_01->field_0, (ulong)uVar4, (ulong)uVar5);
-        local_2dc = uVar5;
+        uint8_t* this_00 = m_parentLocationType;
+        LocType* pLVar9 = (LocType*)(*this_00).operator->();
+        uint8_t uVar2 = pLVar9->IsMultiLoc();
+        local_2cc = (((uint32_t)local_2cc._1_3_ << 8) | (uint8_t)uVar2);
+        pLVar9 = (LocType*)(*this_00).operator->();
+        pLVar9->GetMultiLocValue(local_2d0, local_2e8, local_2e4, local_2e0, m_pPlayerVarDomain, field_216);
+        local_260.sprintf("[LOC] [%d,%d,%d] ", (unsigned long)this_01->field_0, (unsigned long)uVar4,
+                          (unsigned long)uVar5);
+        unsigned int local_2dc = uVar5;
         uVar5 = GetHeightMapLevel();
         if (uVar5 != this_01->field_0) {
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                append_sprintf((char*)local_260, "(lvl %d) ", (ulong)uVar5);
+            local_260.append_sprintf("(lvl %d) ", (unsigned long)uVar5);
         }
-        bVar3 = field_472->operator_cast_to_bool();
-        local_2d8 = (shared_ptr*)field_472;
-        if (!bVar3) {
+        cVar1 = field_472->operator_cast_to_bool();
+        shared_ptr* local_2d8 = (shared_ptr*)field_472;
+        if (!cVar1) {
             local_2d8 = (shared_ptr*)this_00;
         }
-        bVar3 = shared_ptr::operator_cast_to_bool(local_2d8);
-        if (bVar3) {
-            pGVar10 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)local_2d8);
+        cVar1 = shared_ptr::operator_cast_to_bool(local_2d8);
+        if (!cVar1) {
+            uVar5 = this_01->field_0;
+            local_2cc = uVar4;
+            pGVar10 = (GameToken*)(*m_locationType).operator->();
             uVar4 = pGVar10->GetStatus();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                append_sprintf((char*)local_260, "%d", (ulong)uVar4);
-            pGVar11 = (GeometryBatch*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)local_2d8);
+            pGVar11 = (GeometryBatch*)(*m_locationType).operator->();
+            pGVar11->GetVertexDataBufferPos();
+            uVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            local_260.sprintf("[%d,%d,%d] %d, [%s]", (unsigned long)uVar5, (unsigned long)local_2cc,
+                              (unsigned long)local_2dc, (unsigned long)uVar4, uVar8);
+        } else {
+            pGVar10 = (GameToken*)(*local_2d8).operator->();
+            uVar4 = pGVar10->GetStatus();
+            local_260.append_sprintf("%d", (unsigned long)uVar4);
+            pGVar11 = (GeometryBatch*)(*local_2d8).operator->();
             pGVar11->GetVertexDataBufferPos();
             pcVar12 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            if ((pcVar12 != (char*)0) && (*pcVar12 != '\0')) {
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                    append_sprintf((char*)local_260, "(%s)", pcVar12);
+            if ((pcVar12 != nullptr) && (*pcVar12 != '\0')) {
+                local_260.append_sprintf("(%s)", pcVar12);
             }
             if ((char)local_2cc != '\0') {
                 if (local_2e0 == 4294967295) {
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                        append_sprintf((char*)local_260, "\nMulti Var %d=%d", (ulong)local_2e8, (ulong)local_2d0);
+                    local_260.append_sprintf("\nMulti Var %d=%d", (unsigned long)local_2e8, (unsigned long)local_2d0);
                 } else {
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                        append_sprintf((char*)local_260, "\nMulti Varbit %d[in %d]=%d)", (ulong)local_2e4,
-                                       (ulong)local_2e0, (ulong)local_2d0);
+                    local_260.append_sprintf("\nMulti Varbit %d[in %d]=%d)", (unsigned long)local_2e4,
+                                             (unsigned long)local_2e0, (unsigned long)local_2d0);
                 }
             }
-            bVar3 = operator!=((shared_ptr*)this_00, local_2d8);
-            if (bVar3) {
-                pGVar10 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
+            if (*this_00 != *local_2d8) {
+                pGVar10 = (GameToken*)(*this_00).operator->();
                 uVar4 = pGVar10->GetStatus();
-                eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                    append_sprintf((char*)local_260, "\nParentType=%d", (ulong)uVar4);
-                pGVar11 = (GeometryBatch*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                pGVar11->GetVertexDataBufferPos();
-                cVar1 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-                if (cVar1 == '\0') {
-                    pGVar11 = (GeometryBatch*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
+                local_260.append_sprintf("\nParentType=%d", (unsigned long)uVar4);
+                pGVar11 = (GeometryBatch*)(*this_00).operator->();
+                cVar1 = ((basic_string<char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true>>*)
+                             pGVar11->GetVertexDataBufferPos())
+                            ->empty();
+                if (!cVar1) {
+                    pGVar11 = (GeometryBatch*)(*this_00).operator->();
                     pGVar11->GetVertexDataBufferPos();
                     uVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                        append_sprintf((char*)local_260, "(%s)", uVar8);
+                    local_260.append_sprintf("(%s)", uVar8);
                 }
             }
-        } else {
-            uVar5 = this_01->field_0;
-            local_2cc = uVar4;
-            pGVar10 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-            uVar4 = pGVar10->GetStatus();
-            pGVar11 = (GeometryBatch*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-            pGVar11->GetVertexDataBufferPos();
-            uVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                sprintf((char*)local_260, "[%d,%d,%d] %d, [%s]", (ulong)uVar5, (ulong)local_2cc, (ulong)local_2dc,
-                        (ulong)uVar4, uVar8);
         }
-        new (local_300) CoordFine(this_01->field_0, (Vector3T*)local_300._16_8_);
-        eastl::fixed_string<char, 64, true, eastl::allocator>::fixed_string(local_2c8);
-        pcVar12 = CoordFine::ToString<64, true>((CoordFine*)local_300, (fixed_string*)local_2c8);
-        eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-            append_sprintf((char*)local_260, "\nNode Position:%s", pcVar12);
-        /* WARNING: Subroutine does not return */
-        local_2c8->~fixed_string();
+        new (local_300) CoordFine(this_01->field_0, local_300._16_8_);
+        fixed_string<char, 64> local_2c8;
+        pcVar12 = local_300->ToString<64, true>(local_2c8);
+        local_260.append_sprintf("\nNode Position:%s", pcVar12);
     }
 
-    // 0x10042ffd0, 1184 bytes, placed by class name
-    // Location::AddPickableEntity(World&, math::Matrix44T<float> const&)
-    void Location::AddPickableEntity(World* param_1, Matrix44T* param_2) {
-        undefined1* this_00;
-        char cVar1;
-        bool bVar2;
-        int iVar3;
-        int iVar4;
-        uint uVar5;
-        LocType* this_01;
-        SceneManager* pSVar6;
+    // 0x10042ffd0
+    void Location::AddPickableEntity(World& world, const math::Matrix44T<float>& matrix44) {
+        uint8_t* this_00;
+        int iVar2;
+        int arg4;
+        unsigned int uVar3;
+        SceneManager* pSVar4;
         Minimap* this_02;
-        GraphNode* pGVar7;
-        AABB* pAVar8;
+        GraphNode* pGVar5;
+        AABB* pAVar6;
         shared_ptr<World>* this_03;
         hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                   eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                   eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
                   eastl::prime_rehash_policy, false, true, true>* this_04;
-        CoordMapSquare* pCVar9;
-        CoordMapSquare* this_05;
-        vector* pvVar10;
-        float* pfVar11;
-        long* plVar12;
-        GameToken* this_06;
-        char* pcVar13;
-        Matrix44T* pMVar14;
-        shared_ptr local_1c8[2];
-        Vector2T<int> local_1a8[8];
-        undefined8 local_1a0[2];
-        allocator local_190[8];
+        CoordMapSquare* pCVar7;
+        float* pfVar8;
+        long* plVar9;
+        char* str;
+        eastl::string local_1c8;
+        Vector2T<int> local_1a8;
+        uint64_t local_1a0[2];
         SideBarData local_188;
         int local_17c;
-        Matrix44T* local_178;
+        Matrix44T<float>* local_178;
         World* local_170;
-        Matrix44T* local_168;
-        shared_ptr local_160[18];
-        long local_38;
+        Capsule2D* local_168;
+        SideBarData local_160;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        cVar1 = (*(code*)field_0[35])();
-        if (cVar1 != '\0') {
-            bVar2 = field_472->operator_cast_to_bool();
-            if (bVar2) {
-                this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)field_472);
-                cVar1 = this_01->IsActive();
-                if (cVar1 != '\0') {
-                    pSVar6 = (SceneManager*)param_1->size();
-                    this_02 = (Minimap*)pSVar6->GetGameSceneRect();
-                    local_168 = (Matrix44T*)&field_76;
-                    local_170 = (World*)param_1->GetLastCameraProjectionMatrix();
-                    local_178 = (Matrix44T*)param_1->GetLastViewProjectionMatrix();
-                    iVar3 = this_02->GetPos();
-                    iVar4 = this_02->GetLevel();
-                    pGVar7 = (GraphNode*)GetNode();
-                    pAVar8 = (AABB*)pGVar7->GetWorldAABB();
-                    local_168->FillFromAABB(local_170, local_178, iVar3, iVar4, pAVar8);
+        if (CanRender()) {
+            if (field_472->operator_cast_to_bool()) {
+                if (((LocType*)(*field_472).operator->())->IsActive()) {
+                    pSVar4 = (SceneManager*)world.size();
+                    this_02 = (Minimap*)pSVar4->GetGameSceneRect();
+                    local_168 = (Capsule2D*)&field_76;
+                    local_170 = (World*)world.GetLastCameraProjectionMatrix();
+                    local_178 = world.GetLastViewProjectionMatrix();
+                    iVar2 = this_02->GetPos();
+                    arg4 = this_02->GetLevel();
+                    pGVar5 = GetNode();
+                    pAVar6 = (AABB*)pGVar5->GetWorldAABB();
+                    local_168->FillFromAABB(*local_170, *local_178, iVar2, arg4, *pAVar6);
                     this_00 = &field_100;
-                    local_168 = (Matrix44T*)param_1->GetLastCameraViewMatrix();
-                    local_170 = (World*)param_1->GetLastCameraProjectionMatrix();
-                    local_178 = (Matrix44T*)param_1->GetLastViewProjectionMatrix();
+                    local_168 = (Capsule2D*)world.GetLastCameraViewMatrix();
+                    local_170 = (World*)world.GetLastCameraProjectionMatrix();
+                    local_178 = world.GetLastViewProjectionMatrix();
                     local_17c = this_02->GetPos();
-                    iVar3 = this_02->GetLevel();
-                    pGVar7 = (GraphNode*)GetNode();
-                    pAVar8 = (AABB*)pGVar7->GetWorldAABB();
-                    pMVar14 = local_168;
-                    cVar1 = this_00->Set(local_168, local_170, local_178, local_17c, iVar3, pAVar8);
-                    if (cVar1 != '\0') {
+                    uVar3 = this_02->GetLevel();
+                    pGVar5 = GetNode();
+                    pGVar5->GetWorldAABB();
+                    if (math::Sphere2D::Set(*this_00, *local_168, *local_170, (int)local_178, local_17c,
+                                            *((AABB*)(unsigned long)uVar3))) {
                         if (World::m_debugPicking != '\0') {
-                            local_170 = param_1;
-                            math::Vector2T<int>::Vector2T(local_1a8);
+                            local_170 = world;
+                            local_1a8 = math::Vector2T();
                             this_03 = (shared_ptr<World>*)GetWorld();
                             this_04 =
                                 (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                                            eastl::use_first<eastl::pair<long long const, unsigned int>>,
                                            eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                           eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
-                                    shared_ptr<World>::operator->(this_03);
-                            pSVar6 = (SceneManager*)eastl::hashtable<
-                                long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                true>::size(this_04);
-                            pCVar9 = (CoordMapSquare*)pSVar6->GetGameSceneRect();
-                            iVar3 = pCVar9->GetX();
-                            local_168._0_4_ = (float)iVar3;
-                            this_05 = (CoordMapSquare*)this_00->SSOBeginPtr(pMVar14);
-                            iVar3 = this_05->GetX();
-                            local_168._0_4_ = (float)iVar3 + local_168._0_4_;
-                            pvVar10 = local_1a8->SSOBeginPtr(pMVar14);
-                            *(float*)pvVar10 = local_168._0_4_;
-                            iVar3 = pCVar9->GetZ();
-                            local_168._0_4_ = (float)iVar3;
-                            pCVar9 = (CoordMapSquare*)this_00->SSOBeginPtr(pMVar14);
-                            iVar3 = pCVar9->GetZ();
-                            local_168._0_4_ = (float)iVar3 + local_168._0_4_;
-                            pfVar11 = (float*)local_1a8->y();
-                            *pfVar11 = local_168._0_4_;
-                            iVar3 = this_00->GetPos();
-                            plVar12 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-                            if (plVar12 != (long*)0) {
-                                local_168._0_4_ = (float)iVar3;
-                                new (local_160) oldscape::sidebars::SideBarData(1073741952, 0);
-                                (**(code**)(*plVar12 + 160))(local_168._0_4_, plVar12, local_1a8, 1, local_160);
+                                           eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
+                                           true>*)(*this_03)
+                                    .operator->();
+                            pSVar4 = (SceneManager*)this_04->size();
+                            pCVar7 = (CoordMapSquare*)pSVar4->GetGameSceneRect();
+                            iVar2 = pCVar7->GetX();
+                            local_168._0_4_ = (float)iVar2;
+                            iVar2 = ((CoordMapSquare*)this_00->SSOBeginPtr())->GetX();
+                            local_168._0_4_ = (float)iVar2 + local_168._0_4_;
+                            pfVar8 = (float*)local_1a8.SSOBeginPtr();
+                            *pfVar8 = local_168._0_4_;
+                            iVar2 = pCVar7->GetZ();
+                            local_168._0_4_ = (float)iVar2;
+                            pCVar7 = (CoordMapSquare*)this_00->SSOBeginPtr();
+                            iVar2 = pCVar7->GetZ();
+                            local_168._0_4_ = (float)iVar2 + local_168._0_4_;
+                            pfVar8 = (float*)local_1a8.y();
+                            *pfVar8 = local_168._0_4_;
+                            iVar2 = this_00->GetPos();
+                            plVar9 = DebugPrimitiveCollectorBasic::GetCollector("");
+                            if (plVar9 != nullptr) {
+                                local_168._0_4_ = (float)iVar2;
+                                local_160 = oldscape::sidebars::SideBarData(1073741952, 0);
+                                (**(void (**)(...))(*plVar9 + 160))(local_168._0_4_, plVar9, &local_1a8, 1, &local_160);
                             }
-                            new (local_160) eastl::fixed_string<char, 256, true, eastl::allocator>();
-                            this_06 = (GameToken*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-                            uVar5 = this_06->GetStatus();
-                            eastl::basic_string<
-                                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::
-                                sprintf((char*)local_160, "Pick[Location ID:%d]", (ulong)uVar5);
-                            plVar12 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-                            if (plVar12 != (long*)0) {
-                                pGVar7 = (GraphNode*)GetNode();
-                                pAVar8 = (AABB*)pGVar7->GetWorldAABB();
-                                local_1a0[0] = pAVar8->GetCentrePos();
-                                pcVar13 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                                eastl::allocator::allocator(local_190, "EASTL basic_string");
-                                new (local_1c8) eastl::string(pcVar13, local_190);
-                                new (&local_188) oldscape::sidebars::SideBarData(-2147418368, 0);
-                                (**(code**)(*plVar12 + 136))(plVar12, local_1a0, local_1c8, &local_188);
-                                local_1c8->~basic_string();
+                            local_160 = eastl::fixed_string<char, 256>();
+                            uVar3 = ((GameToken*)(*m_locationType).operator->())->GetStatus();
+                            local_160.sprintf("Pick[Location ID:%d]", (unsigned long)uVar3);
+                            plVar9 = DebugPrimitiveCollectorBasic::GetCollector("");
+                            if (plVar9 != nullptr) {
+                                pGVar5 = GetNode();
+                                pAVar6 = (AABB*)pGVar5->GetWorldAABB();
+                                local_1a0[0] = pAVar6->GetCentrePos();
+                                str = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                                local_1c8 = eastl::string(str);
+                                local_188 = oldscape::sidebars::SideBarData(-2147418368, 0);
+                                (**(void (**)(...))(*plVar9 + 136))(plVar9, local_1a0, &local_1c8, &local_188);
                             }
-                            /* WARNING: Subroutine does not return */
-                            local_160->~fixed_string();
                         }
-                        local_1c8->shared_from_this();
-                        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<
-                            oldscape::FileRSevenDebugPresetProvider, void>(
-                            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)local_160, local_1c8);
-                        param_1->AddPickableEntity(local_160);
-                        local_160->~shared_ptr();
-                        local_1c8->~shared_ptr();
+                        local_1c8.shared_from_this();
+                        local_160.shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(local_1c8);
+                        world.AddPickableEntity(local_160);
                     }
                 }
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x1004304e0, 304 bytes, placed by class name
-    // Location::CanRender() const
-    undefined8 Location::CanRender() {
-        undefined1* this_00;
-        bool bVar1;
-        char cVar2;
-        char extraout_AL;
-        char extraout_AL_00;
-        uint uVar4;
-        uint uVar5;
-        vector* pvVar6;
-        Model* pMVar7;
-        LocType* this_01;
-        undefined7 extraout_var;
-        undefined7 extraout_var_00;
-        AnimatedModel* this_02;
-        GraphicsApp* pGVar8;
-        undefined7 extraout_var_01;
-        undefined7 uVar9;
-        type* in_RSI;
+    // 0x1004304e0
+    bool Location::CanRender() const {
+        uint8_t* this_00;
+        uint8_t* this_01;
+        unsigned int arg1;
+        unsigned int arg2;
+        shared_ptr<graphics::Model>* psVar3;
+        Model* pMVar4;
+        AnimatedModel* this_03;
+        GraphicsApp* pGVar5;
 
-        bVar1 = m_parentLocationType->operator_cast_to_bool();
-        if ((bVar1) && (m_hidden == '\0')) {
-            bVar1 = m_locationType->operator_cast_to_bool();
-            if (bVar1) {
+        bool cVar1 = m_parentLocationType->operator_cast_to_bool();
+        if ((cVar1) && (m_hidden == '\0')) {
+            cVar1 = m_locationType->operator_cast_to_bool();
+            if (cVar1) {
                 this_00 = &field_680;
-                cVar2 = this_00->IsTaskDone();
-                if (cVar2 != '\0') {
-                    pvVar6 = this_00->SSOBeginPtr(in_RSI);
-                    pMVar7 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar6);
-                    cVar2 = pMVar7->IsReadyToRender();
-                    if (cVar2 != '\0') {
-                        pGVar8 = (GraphicsApp*)&field_816;
-                        bVar1 = pGVar8->operator_cast_to_bool();
-                        if (!bVar1) {
-                            pvVar6 = this_00->SSOBeginPtr(in_RSI);
-                            pMVar7 =
-                                (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)pvVar6);
-                            if (pMVar7->GetTotalBatchCount() == 0) {
+                cVar1 = this_00->IsTaskDone();
+                if (cVar1) {
+                    psVar3 = (shared_ptr<graphics::Model>*)this_00->SSOBeginPtr();
+                    pMVar4 = (Model*)(*psVar3).operator->();
+                    cVar1 = pMVar4->IsReadyToRender();
+                    if (cVar1) {
+                        this_01 = &field_816;
+                        cVar1 = this_01->operator_cast_to_bool();
+                        if (!cVar1) {
+                            psVar3 = (shared_ptr<graphics::Model>*)this_00->SSOBeginPtr();
+                            pMVar4 = (Model*)(*psVar3).operator->();
+                            if (pMVar4->GetTotalBatchCount() == 0) {
                                 return 0;
                             }
                         }
-                        this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-                        cVar2 = this_01->IsRuneTek5Only();
-                        if (cVar2 == '\0') {
-                            bVar1 = field_496->operator_cast_to_bool();
-                            uVar9 = extraout_var;
-                            if ((!bVar1) || (NeedsAnimatedModel(this), uVar9 = extraout_var_00, extraout_AL == '\0')) {
-                            LAB_1004305fe:
-                                return CONCAT71(uVar9, 1);
+                        cVar1 = ((LocType*)(*m_locationType).operator->())->IsRuneTek5Only();
+                        if (!cVar1) {
+                            cVar1 = field_496->operator_cast_to_bool();
+                            if ((!cVar1) || (cVar1 = NeedsAnimatedModel(), !cVar1)) {
+                                return 1;
                             }
-                            bVar1 = pGVar8->operator_cast_to_bool();
-                            if (bVar1) {
-                                this_02 =
-                                    (AnimatedModel*)std::unique_ptr<LocationAnimatedModel,
-                                                                    std::default_delete<LocationAnimatedModel>>::
-                                    operator->(
-                                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)
-                                            pGVar8);
-                                pGVar8 = (GraphicsApp*)pGVar8->Instance();
-                                uVar4 = pGVar8->GetFrameCount();
-                                pGVar8 = (GraphicsApp*)pGVar8->Instance();
-                                uVar5 = pGVar8->GetLogicTick();
-                                this_02->IsReady(uVar4, uVar5);
-                                uVar9 = extraout_var_01;
-                                if (extraout_AL_00 != '\0')
-                                    goto LAB_1004305fe;
+                            cVar1 = this_01->operator_cast_to_bool();
+                            if (cVar1) {
+                                this_03 = (AnimatedModel*)(*this_01).operator->();
+                                pGVar5 = (GraphicsApp*)GraphicsApp::Instance();
+                                arg1 = pGVar5->GetFrameCount();
+                                pGVar5 = (GraphicsApp*)GraphicsApp::Instance();
+                                arg2 = pGVar5->GetLogicTick();
+                                cVar1 = this_03->IsReady(arg1, arg2);
+                                if (cVar1) {
+                                    return 1;
+                                }
                             }
                         }
                     }
@@ -2728,88 +2168,76 @@ namespace jag::game {
         return 0;
     }
 
-    // 0x1004306c0, 544 bytes, placed by class name
-    // Location::IsLocationRoofRemovedSelective(RemoveRoof&, World const&)
-    /* WARNING: Removing unreachable block (ram,4299360471) */
-    /* Location::IsLocationRoofRemovedSelective(RemoveRoof&, World
-   const&) */
-
-    undefined4 Location::IsLocationRoofRemovedSelective(RemoveRoof* param_1, World* param_2) {
-        undefined1* this_00;
-        undefined1* this_01;
-        char cVar1;
-        undefined1 uVar2;
-        undefined4 uVar3;
-        uint uVar4;
+    // 0x1004306c0
+    bool Location::IsLocationRoofRemovedSelective(RemoveRoof& removeRoof, const World& world) {
+        uint8_t* this_01;
+        uint8_t bVar2;
+        unsigned int uVar4;
         int iVar5;
         int iVar6;
-        undefined8 uVar7;
-        LinkMap* this_02;
-        ulong uVar8;
+        unsigned long uVar8;
         LocType* pLVar9;
         int iVar10;
-        uint uVar11;
-        bool bVar12;
+        unsigned int arg3;
 
-        uVar7 = param_1->IsRoofRemoved(field_68, field_428, field_432);
-        uVar3 = (undefined4)CONCAT71((int7)((ulong)uVar7 >> 8), 1);
-        bVar12 = true;
-        if ((byte)uVar7 != 0) {
-            this_02 = (LinkMap*)param_2->GetLinkMap();
-            uVar8 = this_02->GetTileLinkZero((CoordGrid*)&field_424);
-            bVar12 = (uVar8 & 8) == 0;
+        uint64_t uVar7 = removeRoof.IsRoofRemoved(field_68, field_428, field_432);
+        uint32_t uVar3 = (uint32_t)(((uint64_t)((int64_t)((unsigned long)uVar7 >> 8)) << 8) | (uint8_t)1);
+        bool bVar11 = true;
+        if ((uint8_t)uVar7 != 0) {
+            uVar8 = world.GetLinkMap()->GetTileLinkZero(field_424);
+            bVar11 = (uVar8 & 8) == 0;
         }
-        if ((bVar12 & (byte)uVar7) != 0) {
+        if ((bVar11 & (uint8_t)uVar7) != 0) {
             return uVar3;
         }
-        this_00 = field_352;
-        cVar1 = this_00->GetShape();
+        uint8_t* this_00 = field_352;
+        char cVar1 = this_00->GetShape();
         if ((cVar1 == '\n') || (cVar1 = this_00->GetShape(), cVar1 == '\v')) {
             this_01 = m_locationType;
-            pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
-            uVar2 = this_00->GetRot();
-            uVar4 = pLVar9->GetGridWidth(uVar2);
+            pLVar9 = (LocType*)(*this_01).operator->();
+            bVar2 = this_00->GetRot();
+            uVar4 = pLVar9->GetGridWidth((unsigned int)bVar2);
             if (uVar4 < 2) {
-                pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
-                uVar2 = this_00->GetRot();
-                uVar4 = pLVar9->GetGridLength(uVar2);
+                pLVar9 = (LocType*)(*this_01).operator->();
+                bVar2 = this_00->GetRot();
+                uVar4 = pLVar9->GetGridLength((unsigned int)bVar2);
                 if (uVar4 < 2) {
                     return 0;
                 }
-                if (bVar12 != true) {
+                if (bVar11 != true) {
                     return 0;
                 }
-            } else if (bVar12 == false) {
+            } else if (bVar11 == false) {
                 return 0;
             }
-            pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
-            uVar2 = this_00->GetRot();
-            iVar5 = pLVar9->GetGridWidth(uVar2);
-            pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_01);
-            uVar2 = this_00->GetRot();
-            iVar6 = pLVar9->GetGridLength(uVar2);
+            pLVar9 = (LocType*)(*this_01).operator->();
+            bVar2 = this_00->GetRot();
+            iVar5 = pLVar9->GetGridWidth((unsigned int)bVar2);
+            pLVar9 = (LocType*)(*this_01).operator->();
+            bVar2 = this_00->GetRot();
+            iVar6 = pLVar9->GetGridLength((unsigned int)bVar2);
             uVar4 = field_428;
             if (uVar4 < uVar4 + iVar5) {
                 do {
-                    uVar11 = field_432;
+                    arg3 = field_432;
                     iVar10 = 5;
-                    bVar12 = uVar11 < uVar11 + iVar6;
-                    if (bVar12) {
-                        cVar1 = param_1->IsRoofRemoved(field_68, uVar4, uVar11);
-                        while (cVar1 == '\0') {
-                            uVar11 = uVar11 + 1;
-                            bVar12 = uVar11 < field_432 + iVar6;
-                            if (!bVar12) {
+                    bVar11 = arg3 < arg3 + iVar6;
+                    if (bVar11) {
+                        cVar1 = removeRoof.IsRoofRemoved(field_68, uVar4, arg3);
+                        while (!cVar1) {
+                            arg3 = arg3 + 1;
+                            bVar11 = arg3 < field_432 + iVar6;
+                            if (!bVar11) {
                                 iVar10 = 5;
-                                if (!bVar12)
+                                if (!bVar11)
                                     goto LAB_100430886;
                                 goto LAB_1004308af;
                             }
-                            cVar1 = param_1->IsRoofRemoved(field_68, uVar4, uVar11);
+                            cVar1 = removeRoof.IsRoofRemoved(field_68, uVar4, arg3);
                         }
                         iVar10 = 1;
                     }
-                    if (bVar12)
+                    if (bVar11)
                         goto LAB_1004308af;
                 LAB_100430886:
                     uVar4 = uVar4 + 1;
@@ -2825,209 +2253,169 @@ namespace jag::game {
         return 0;
     }
 
-    // 0x1004308e0, 512 bytes, placed by class name
-    // Location::IsLocationRoofRemovedNonSelective(graphics::SceneViewData const&, World&)
-    undefined4 Location::IsLocationRoofRemovedNonSelective(SceneViewData* param_1, World* param_2) {
-        undefined1* this_00;
-        undefined1* this_01;
-        int iVar1;
-        char cVar2;
-        undefined1 uVar3;
-        int iVar4;
-        int iVar5;
-        uint uVar6;
-        uint uVar7;
-        undefined4 uVar8;
-        Minimap* this_02;
+    // 0x1004308e0
+    bool Location::IsLocationRoofRemovedNonSelective(const graphics::SceneViewData& sceneViewData, World& world) {
+        uint8_t* this_00;
+        uint8_t* this_01;
+        uint8_t bVar2;
+        int iVar3;
+        unsigned int uVar4;
+        unsigned int uVar5;
+        uint32_t uVar6;
         LinkMap* this_03;
-        LocType* pLVar9;
-        uint uVar10;
-        uint local_34;
+        LocType* pLVar7;
+        unsigned int arg2_00;
+        unsigned int local_34;
 
-        cVar2 = param_1->HasRenderPass(5);
-        if (cVar2 == '\0') {
-            cVar2 = param_1->HasShadowPass();
-            iVar4 = 4;
-            if ((cVar2 == '\0') && (cVar2 = param_1->HasRenderPass(2), cVar2 == '\0')) {
-                iVar4 = param_2->GetMaxRenderLevel();
+        bool cVar1 = sceneViewData.HasRenderPass(5);
+        if (!cVar1) {
+            cVar1 = sceneViewData.HasShadowPass();
+            iVar3 = 4;
+            if ((!cVar1) && (cVar1 = sceneViewData.HasRenderPass(2), !cVar1)) {
+                iVar3 = world.GetMaxRenderLevel();
             }
         } else {
-            this_02 = (Minimap*)param_1->GetRenderPass(5);
-            iVar4 = this_02->GetLevel();
+            iVar3 = ((Minimap*)sceneViewData.GetRenderPass(5))->GetLevel();
         }
-        iVar1 = field_68;
-        iVar5 = GetWrapMode();
-        cVar2 = LinkConstants::IsAffectedByMaxRenderLevel(iVar1, iVar5, iVar4);
-        if (cVar2 == '\0') {
-            uVar8 = 0;
+        int arg1 = field_68;
+        int arg2 = GetWrapMode();
+        cVar1 = LinkConstants::IsAffectedByMaxRenderLevel(arg1, arg2, iVar3);
+        if (!cVar1) {
+            uVar6 = 0;
         } else {
-            this_03 = (LinkMap*)param_2->GetLinkMap();
+            this_03 = world.GetLinkMap();
             local_34 = this_03->GetTileLinkZero(field_68, field_428, field_432);
-            uVar10 = field_428;
+            arg2_00 = field_428;
             this_00 = m_locationType;
             this_01 = field_352;
-            pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-            uVar3 = this_01->GetRot();
-            iVar4 = pLVar9->GetGridWidth(uVar3);
-            uVar6 = iVar4 + uVar10;
-            if (uVar10 < uVar6) {
+            pLVar7 = (LocType*)(*this_00).operator->();
+            bVar2 = this_01->GetRot();
+            iVar3 = pLVar7->GetGridWidth((unsigned int)bVar2);
+            uVar4 = iVar3 + arg2_00;
+            if (arg2_00 < uVar4) {
                 do {
-                    uVar6 = field_432;
-                    pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                    uVar3 = this_01->GetRot();
-                    iVar4 = pLVar9->GetGridWidth(uVar3);
-                    uVar7 = iVar4 + uVar6;
-                    for (; uVar6 < uVar7; uVar6 = uVar6 + 1) {
-                        if ((uVar10 != field_428) || (uVar6 != field_432)) {
-                            uVar7 = this_03->GetTileLinkZero(field_68, uVar10, uVar6);
-                            local_34 = local_34 & uVar7;
+                    uVar4 = field_432;
+                    pLVar7 = (LocType*)(*this_00).operator->();
+                    bVar2 = this_01->GetRot();
+                    iVar3 = pLVar7->GetGridWidth((unsigned int)bVar2);
+                    uVar5 = iVar3 + uVar4;
+                    for (; uVar4 < uVar5; uVar4 = uVar4 + 1) {
+                        if ((arg2_00 != field_428) || (uVar4 != field_432)) {
+                            uVar5 = this_03->GetTileLinkZero(field_68, arg2_00, uVar4);
+                            local_34 = local_34 & uVar5;
                         }
-                        uVar7 = field_432;
-                        pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                        uVar3 = this_01->GetRot();
-                        iVar4 = pLVar9->GetGridWidth(uVar3);
-                        uVar7 = iVar4 + uVar7;
+                        uVar5 = field_432;
+                        pLVar7 = (LocType*)(*this_00).operator->();
+                        bVar2 = this_01->GetRot();
+                        iVar3 = pLVar7->GetGridWidth((unsigned int)bVar2);
+                        uVar5 = iVar3 + uVar5;
                     }
-                    uVar10 = uVar10 + 1;
-                    uVar6 = field_428;
-                    pLVar9 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                    uVar3 = this_01->GetRot();
-                    iVar4 = pLVar9->GetGridWidth(uVar3);
-                    uVar6 = iVar4 + uVar6;
-                } while (uVar10 < uVar6);
+                    arg2_00 = arg2_00 + 1;
+                    uVar4 = field_428;
+                    pLVar7 = (LocType*)(*this_00).operator->();
+                    bVar2 = this_01->GetRot();
+                    iVar3 = pLVar7->GetGridWidth((unsigned int)bVar2);
+                    uVar4 = iVar3 + uVar4;
+                } while (arg2_00 < uVar4);
             }
-            uVar8 = CONCAT31((int3)(uVar6 >> 8), (local_34 & 8) == 0);
+            uVar6 = (((uint32_t)((int32_t)(uVar4 >> 8)) << 8) | (uint8_t)((local_34 & 8) == 0));
         }
-        return uVar8;
+        return uVar6;
     }
 
-    // 0x100431070, 64 bytes, placed by class name
-    // Location::UsesTrianglePicking() const
-    bool Location::UsesTrianglePicking() {
-        bool bVar1;
-        LocType* this_00;
+    // 0x100431070
+    bool Location::UsesTrianglePicking() const {
+        bool bVar3;
 
-        bVar1 = m_locationType->operator_cast_to_bool();
-        if (bVar1) {
-            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-            bVar1 = this_00->GetCustomBounding() == 0;
+        if (m_locationType->operator_cast_to_bool() == '\0') {
+            bVar3 = false;
         } else {
-            bVar1 = false;
+            bVar3 = ((LocType*)(*m_locationType).operator->())->GetCustomBounding() == 0;
         }
-        return bVar1;
+        return bVar3;
     }
 
-    // 0x1004310b0, 64 bytes, placed by class name
-    // Location::UsesFastPickingTests() const
-    undefined4 Location::UsesFastPickingTests() {
-        LocType* this_00;
-        bool bVar1;
-        undefined3 extraout_var;
-        undefined4 uVar2;
-
-        bVar1 = m_locationType->operator_cast_to_bool();
-        uVar2 = CONCAT31(extraout_var, 1);
-        if (bVar1) {
-            this_00 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-            uVar2 = this_00->UseFastPickingTests();
+    // 0x1004310b0
+    bool Location::UsesFastPickingTests() const {
+        bool cVar1 = m_locationType->operator_cast_to_bool();
+        uint32_t uVar2 = 1;
+        if (cVar1) {
+            uVar2 = ((LocType*)(*m_locationType).operator->())->UseFastPickingTests();
         }
         return uVar2;
     }
 
-    // 0x100431100, 256 bytes, placed by class name
-    // Location::PickTest(graphics::PickingHelper&)
-    ulong Location::PickTest(PickingHelper* param_1) {
-        char cVar1;
-        bool bVar2;
+    // 0x100431100
+    unsigned long Location::PickTest(graphics::PickingHelper& pickingHelper) {
+        bool arg4;
         AnimatedModel* this_00;
         shared_ptr* this_01;
         GeometryBatchInstance* this_02;
-        Matrix44T* pMVar3;
+        Matrix44T<float>* matrix44;
         Model* this_03;
-        vector* pvVar4;
-        ulong uVar5;
+        vector<std::unique_ptr<graphics::GeometryBatchInstance,
+                               MakeUniquePool<graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>>*
+            geometryBatchInstances;
+        unsigned long uVar2;
 
-        cVar1 = (*(code*)field_0[15])();
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (!(UsesTrianglePicking())) {
             LogAssert("UsesTrianglePicking()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/Location.cpp",
-                      1574, (char*)0);
+                      1574, nullptr);
         }
-        bVar2 = (&field_816)->operator_cast_to_bool();
-        if (bVar2) {
-            this_00 =
-                (AnimatedModel*)
-                    std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                        (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)&field_816);
-            this_01 = (shared_ptr*)this_00->GetCurrentModel();
-        LAB_10043117c:
-            bVar2 = shared_ptr::operator_cast_to_bool(this_01);
-            if (bVar2) {
-                this_02 = (GeometryBatchInstance*)shared_ptr<graphics::Model>::operator->(
-                    (shared_ptr<graphics::Model>*)this_01);
-                pMVar3 = (Matrix44T*)this_02->GetMaterial();
-                this_03 = (Model*)shared_ptr<graphics::Model>::operator->((shared_ptr<graphics::Model>*)this_01);
-                pvVar4 = (vector*)this_03->GetBatchList();
-                bVar2 = (bool)(*(code*)field_0[16])(this);
-                uVar5 = param_1->PickTest(pMVar3, pvVar4, false, bVar2, -1);
-                goto LAB_1004311e5;
-            }
-        } else {
-            cVar1 = (&field_680)->IsTaskDone();
-            if (cVar1 != '\0') {
-                this_01 = (shared_ptr*)(&field_680, (type*)param_1)->SSOBeginPtr();
+        if (!((&field_816)->operator_cast_to_bool())) {
+            if (field_680.IsTaskDone()) {
+                this_01 = (shared_ptr*)field_680.SSOBeginPtr();
                 goto LAB_10043117c;
             }
+        } else {
+            this_00 = (AnimatedModel*)field_816.operator->();
+            this_01 = (shared_ptr*)this_00->GetCurrentModel();
+        LAB_10043117c:
+            if (shared_ptr::operator_cast_to_bool(this_01)) {
+                this_02 = (GeometryBatchInstance*)(*this_01).operator->();
+                matrix44 = (Matrix44T<float>*)this_02->GetMaterial();
+                this_03 = (Model*)(*this_01).operator->();
+                geometryBatchInstances =
+                    (vector<
+                        std::unique_ptr<graphics::GeometryBatchInstance,
+                                        MakeUniquePool<graphics::GeometryBatchInstance, _3072>::UniquePoolDeleter>>*)
+                        this_03->GetBatchList();
+                arg4 = (bool)UsesFastPickingTests();
+                uVar2 = pickingHelper.PickTest(*matrix44, *geometryBatchInstances, false, arg4, -1);
+                goto LAB_1004311e5;
+            }
         }
-        uVar5 = 0;
+        uVar2 = 0;
     LAB_1004311e5:
-        return uVar5 & 18446744073709551361;
+        return uVar2 & 18446744073709551361;
     }
 
-    // 0x100431200, 144 bytes, placed by class name
-    // Location::RepeatLastOverrideAnimationFrameWhenFinished(int) const
-    bool Location::RepeatLastOverrideAnimationFrameWhenFinished(int param_1) {
+    // 0x100431200
+    bool Location::RepeatLastOverrideAnimationFrameWhenFinished(int arg1) const {
         AnimatedModel* pAVar1;
-        int iVar3;
-        uint uVar4;
-        undefined1* this_00;
-        GraphicsApp* pGVar5;
 
-        iVar3 = GetOverrideAnimationToPlay(this);
-        if (iVar3 != -1) {
-            this_00 = &field_816;
-            pGVar5 = (GraphicsApp*)this_00;
-            pAVar1 = (AnimatedModel*)
-                         std::unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->(
-                             (unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)this_00);
-            if (iVar3 == param_1) {
-                pGVar5 = (GraphicsApp*)pGVar5->Instance();
-                uVar4 = pGVar5->GetLogicTick();
-                pAVar1->RestartOverrideAnimation(uVar4);
+        int arg2 = GetOverrideAnimationToPlay();
+        if (arg2 != -1) {
+            pAVar1 = (AnimatedModel*)field_816.operator->();
+            if (arg2 == arg1) {
+                pAVar1->RestartOverrideAnimation(((GraphicsApp*)GraphicsApp::Instance())->GetLogicTick());
             } else {
                 if (pAVar1->HasRequestedOverrideAnimation() == '\0') {
-                    pAVar1 =
-                        (AnimatedModel*)std::
-                            unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>::operator->((
-                                unique_ptr<LocationAnimatedModel, std::default_delete<LocationAnimatedModel>>*)this_00);
-                    pAVar1->RequestOverrideAnimation(false, iVar3, 0, true);
+                    pAVar1 = (AnimatedModel*)field_816.operator->();
+                    pAVar1->RequestOverrideAnimation(false, arg2, 0, true);
                 }
             }
         }
-        return iVar3 != -1;
+        return arg2 != -1;
     }
 
-    // 0x1004312e0, 336 bytes, placed by class name
-    // Location::NotifyPickable(unsigned int, bool, float)
-    void Location::NotifyPickable(uint param_1, bool param_2, float param_3) {
-        bool bVar1;
-        byte bVar2;
-        byte bVar3;
-        int iVar4;
-        int* piVar5;
-        shared_ptr* this_00;
+    // 0x1004312e0
+    void Location::NotifyPickable(unsigned int arg1, bool arg2, float arg3) {
+        bool cVar1;
+        uint8_t bVar2;
+        uint8_t bVar3;
         shared_ptr<World>* psVar6;
         hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                   eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
@@ -3035,31 +2423,25 @@ namespace jag::game {
                   eastl::prime_rehash_policy, false, true, true>* phVar7;
         SceneManager* pSVar8;
         EntityHighlightGlobalState* pEVar9;
-        LocType* this_01;
 
-        iVar4 = GetHighlightType(this);
-        if (iVar4 == 8) {
+        if (GetHighlightType() == 8) {
             return;
         }
-        piVar5 = (int*)EntityHighlightVisualConfig::GetDefault(5);
+        auto piVar5 = 5->GetDefault((EntityHighlightType)arg1);
         if (*piVar5 == 2) {
             bVar2 = 1;
         } else {
             if (*piVar5 == 1) {
-                this_00 = (shared_ptr*)GetWorld();
-                bVar1 = shared_ptr::operator_cast_to_bool(this_00);
-                if (bVar1) {
+                cVar1 = (GetWorld())->operator_cast_to_bool();
+                if (cVar1) {
                     psVar6 = (shared_ptr<World>*)GetWorld();
-                    phVar7 = (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                                        eastl::use_first<eastl::pair<long long const, unsigned int>>,
-                                        eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
-                                        eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)
-                                 shared_ptr<World>::operator->(psVar6);
-                    pSVar8 = (SceneManager*)eastl::hashtable<
-                        long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                        eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                        eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                        eastl::prime_rehash_policy, false, true, true>::size(phVar7);
+                    phVar7 =
+                        (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
+                                   eastl::use_first<eastl::pair<long long const, unsigned int>>,
+                                   eastl::equal_to<long long>, eastl::hash<long long>, eastl::mod_range_hashing,
+                                   eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>*)(*psVar6)
+                            .operator->();
+                    pSVar8 = (SceneManager*)phVar7->size();
                     pEVar9 = (EntityHighlightGlobalState*)pSVar8->GetEntityHighlightGlobalState();
                     bVar2 = pEVar9->IsRadialHighlightActive();
                     goto joined_r0x000100431386;
@@ -3069,78 +2451,58 @@ namespace jag::game {
         }
     joined_r0x000100431386:
         if (EntityHighlightGlobalState::m_allowExamineOnlyHighlights == '\0') {
-            bVar1 = m_locationType->operator_cast_to_bool();
+            cVar1 = m_locationType->operator_cast_to_bool();
             bVar3 = 1;
-            if (bVar1) {
-                this_01 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)m_locationType);
-                bVar3 = this_01->IsExamineOnly();
+            if (cVar1) {
+                bVar3 = ((LocType*)(*m_locationType).operator->())->IsExamineOnly();
                 bVar3 = bVar3 ^ 1;
             }
             bVar2 = bVar2 & bVar3;
         }
         if (bVar2 != 0) {
-            if (param_2) {
-                new (field_796, param_1) oldscape::ServerConnectionWorkItem();
+            if (arg2) {
+                new (field_796) oldscape::ServerConnectionWorkItem(arg1);
             } else {
                 psVar6 = (shared_ptr<World>*)GetWorld();
                 phVar7 =
                     (hashtable<long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
                                eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
                                eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                               eastl::prime_rehash_policy, false, true, true>*)shared_ptr<World>::operator->(psVar6);
-                pSVar8 = (SceneManager*)eastl::hashtable<
-                    long long, eastl::pair<long long const, unsigned int>, eastl::allocator,
-                    eastl::use_first<eastl::pair<long long const, unsigned int>>, eastl::equal_to<long long>,
-                    eastl::hash<long long>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                    eastl::prime_rehash_policy, false, true, true>::size(phVar7);
+                               eastl::prime_rehash_policy, false, true, true>*)(*psVar6)
+                        .operator->();
+                pSVar8 = (SceneManager*)phVar7->size();
                 pEVar9 = (EntityHighlightGlobalState*)pSVar8->GetEntityHighlightGlobalState();
-                (field_796, pEVar9, param_1)->TryKeepVisible();
+                field_796->TryKeepVisible(*pEVar9, arg1);
             }
-            if (param_3 != -1.0) {
-                *(float*)field_796 = param_3;
+            if (arg3 != -1.0) {
+                *(float*)field_796 = arg3;
             }
         }
     }
 
-    // 0x100431430, 144 bytes, placed by class name
-    // Location::GetHighlightType() const
-    undefined4 Location::GetHighlightType() {
-        undefined1* this_00;
-        bool bVar1;
-        char cVar2;
-        undefined4 uVar3;
+    // 0x100431430
+    uint32_t Location::GetHighlightType() const {
         Logger* this_01;
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* this_02;
-        LocType* pLVar4;
+        LocType* pLVar3;
 
-        this_00 = m_locationType;
-        bVar1 = this_00->operator_cast_to_bool();
-        uVar3 = 8;
-        if (bVar1) {
-            this_01 = (Logger*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-            this_02 = (vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>*)
-                          this_01->GetLogStreams();
-            cVar2 =
-                eastl::vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>::empty(
-                    this_02);
-            if ((cVar2 == '\0') && (uVar3 = 7, field_796[16] == '\0')) {
-                pLVar4 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                cVar2 = pLVar4->HasHighlightOverride();
-                uVar3 = 5;
-                if (cVar2 != '\0') {
-                    pLVar4 = (LocType*)shared_ptr<LocType>::operator->((shared_ptr<LocType>*)this_00);
-                    uVar3 = pLVar4->GetHighlightOverride();
+        uint8_t* this_00 = m_locationType;
+        bool cVar1 = this_00->operator_cast_to_bool();
+        uint32_t uVar2 = 8;
+        if (cVar1) {
+            this_01 = (Logger*)(*this_00).operator->();
+            cVar1 = ((vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>*)this_01->GetLogStreams())
+                        ->empty();
+            if ((!cVar1) && (uVar2 = 7, field_796[16] == '\0')) {
+                pLVar3 = (LocType*)(*this_00).operator->();
+                cVar1 = pLVar3->HasHighlightOverride();
+                uVar2 = 5;
+                if (cVar1) {
+                    pLVar3 = (LocType*)(*this_00).operator->();
+                    uVar2 = pLVar3->GetHighlightOverride();
                 }
             }
         }
-        return uVar3;
-    }
-
-    // 0x10043a560, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.25
-    void ___cxx_global_var_init_25(undefined8 param_1, _func_decltype_nullptr* param_2) {
-        new (&Location::NullLocation) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(param_2);
-        ___cxa_atexit(PTR__shared_ptr_100ee52b8, &Location::NullLocation, 4294967296);
+        return uVar2;
     }
 
 } // namespace jag::game

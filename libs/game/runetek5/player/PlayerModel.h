@@ -1,67 +1,69 @@
 // libs/game/runetek5/player/PlayerModel.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class PlayerModel {
     public:
-        GetPlayerRematerialSlots() const;
-        GetPlayerRecolourSlots() const;
-        int GetGender() const;
-        PlayerModel(ConfigProvider*, PlayerVarDomain*);
-        void SetAppearance(Array<PlayerModelWearSlot, BucketAllocatorEASTL> const&,
-                           Array<shared_ptr<ObjTypeCustomisation>, BucketAllocatorEASTL> const&,
-                           Array<unsigned char, BucketAllocatorEASTL> const&,
-                           Array<unsigned char, BucketAllocatorEASTL> const&, PlayerGender, int);
+        uint64_t* GetPlayerRematerialSlots() const;
+        uint8_t* GetPlayerRecolourSlots() const;
+        PlayerGender GetGender() const;
+        PlayerModel(ConfigProvider* configProvider, PlayerVarDomain* playerVarDomain);
+        void SetAppearance(const Array<PlayerModelWearSlot>& playerModelWearSlots,
+                           const Array<shared_ptr<ObjTypeCustomisation>>& objTypeCustomisations,
+                           const Array<unsigned char>& arg3, const Array<unsigned char>& arg4,
+                           PlayerGender playerGender, int arg6);
         void ClearAppearance();
         void ClearRecolouredCache();
-        GetPlayerAppearanceChangedTime();
-        void SetIDKPart(unsigned int, int);
-        void SetIDKRecolourSlot(unsigned int, unsigned char);
-        void SetIDKRematerialSlot(unsigned int, unsigned char);
-        void SetGender(PlayerGender);
-        void SetObject(unsigned int, int);
-        GetBodyModel(bool, graphics::RT7Core&, AssetBuilder&, BuildRequest<graphics::Model, BuildModelMain>&);
-        ulong LoadFromBodyCache();
-        GetHeadModel(bool, graphics::RT7Core&, AssetBuilder&, BuildRequest<graphics::Model, BuildModelMain>&,
-                     Array<PlayerModelWearSlot, BucketAllocatorEASTL> const&);
-        ulong LoadFromHeadCache();
-        void GetPlayerRecolSource() const;
-        void GetPlayerRecolDest() const;
-        void GetPlayerRematSource() const;
-        void GetPlayerRematDest() const;
-        void DoReplaceHeld(SeqType const&);
-        ReplaceHeld(int, bool);
-        UnreplaceHeld(bool);
-        ulong GetIDKSlot(unsigned int, bool);
-        ulong ReplaceHeldInner(PlayerModelReplaceHeldStatus&, PlayerModelWearSlot&, int, int,
-                               Array<unsigned int, eastl::allocator> const&);
-        ulong UnreplaceHeldInner(PlayerModelReplaceHeldStatus&, int);
+        uint64_t GetPlayerAppearanceChangedTime();
+        void SetIDKPart(unsigned int arg1, int arg2);
+        void SetIDKRecolourSlot(unsigned int arg1, unsigned char arg2);
+        void SetIDKRematerialSlot(unsigned int arg1, unsigned char arg2);
+        void SetGender(PlayerGender playerGender);
+        void SetObject(unsigned int arg1, int arg2);
+        uint8_t* GetBodyModel(bool arg1, graphics::RT7Core& rt7Core, AssetBuilder& assetBuilder,
+                              BuildRequest<graphics::Model, BuildModelMain>& buildRequest);
+        uint32_t LoadFromBodyCache();
+        void GetHeadModel(bool arg1, graphics::RT7Core& rt7Core, AssetBuilder& assetBuilder,
+                          BuildRequest<graphics::Model, BuildModelMain>& buildRequest,
+                          const Array<PlayerModelWearSlot>& playerModelWearSlots);
+        uint32_t LoadFromHeadCache();
+        Array<Array<unsigned short>>* GetPlayerRecolSource() const;
+        Array<Array<Array<unsigned short>>>* GetPlayerRecolDest() const;
+        Array<Array<unsigned short>>* GetPlayerRematSource() const;
+        Array<Array<Array<unsigned short>>>* GetPlayerRematDest() const;
+        void DoReplaceHeld(const SeqType& seqType);
+        uint64_t ReplaceHeld(int arg1, bool arg2);
+        uint32_t UnreplaceHeld(bool arg1);
+        unsigned long GetIDKSlot(unsigned int arg1, bool arg2);
+        unsigned long ReplaceHeldInner(PlayerModelReplaceHeldStatus& playerModelReplaceHeldStatus,
+                                       PlayerModelWearSlot& playerModelWearSlot, int arg3, int arg4,
+                                       const Array<unsigned int>& arg5);
+        unsigned long UnreplaceHeldInner(PlayerModelReplaceHeldStatus& playerModelReplaceHeldStatus, int arg2);
         ~PlayerModel();
-        GetRecolouredModelsCache() const;
-        static /* 32 bytes */ BASE_PART_MAP;    // = { 8, 11, 4, 6, 9, 7, 10, 0 }
-        static /* 32 bytes */ BASE_PART_MALE;   // = { 0, 1, 2, 3, 4, 5, 6, 14 }
-        static /* 32 bytes */ BASE_PART_FEMALE; // = { 7, 8, 9, 10, 11, 12, 13, 15 }
+        AssetLRUHashCache<graphics::Model, BuildModelMain, _100ul, _101ul, false>* GetRecolouredModelsCache() const;
+        static int32_t BASE_PART_MAP[8];    // = { 8, 11, 4, 6, 9, 7, 10, 0 }
+        static int32_t BASE_PART_MALE[8];   // = { 0, 1, 2, 3, 4, 5, 6, 14 }
+        static int32_t BASE_PART_FEMALE[8]; // = { 7, 8, 9, 10, 11, 12, 13, 15 }
 
-        // data members, from how the methods use this: 9688 bytes
-        char _unknown_0[16];
-        ConfigProvider* field_16;  // offset 16
-        PlayerVarDomain* field_24; // offset 24
-        char _unknown_32[96];
-        int m_gender;     // offset 128
-        uint field_132;   // offset 132
-        ushort field_136; // offset 136
-        char _unknown_138[6];
-        undefined8 m_playerAppearanceChangedTime; // offset 144
-        PlayerModelReplaceHeldStatus field_152;   // offset 152
-        char _unknown_184[24];
-        PlayerModelReplaceHeldStatus field_208; // offset 208
-        char _unknown_240[9368];
-        ActiveComponent field_9608; // offset 9608
-        char _unknown_9632[32];
-        ActiveComponent field_9664; // offset 9664
+    private:
+        uint8_t _unknown_0[16];
+        ConfigProvider* field_16;
+        PlayerVarDomain* field_24;
+        uint8_t _unknown_32[96];
+        PlayerGender m_gender;
+        int field_132;
+        unsigned short field_136;
+        uint8_t _unknown_138[6];
+        uint64_t m_playerAppearanceChangedTime;
+        PlayerModelReplaceHeldStatus field_152;
+        uint8_t _unknown_184[24];
+        PlayerModelReplaceHeldStatus field_208;
+        uint8_t _unknown_240[9368];
+        ActiveComponent field_9608;
+        uint8_t _unknown_9632[32];
+        ActiveComponent field_9664;
     };
 
     class PlayerModelReplaceHeldStatus {
@@ -70,87 +72,64 @@ namespace jag::game {
         ~PlayerModelReplaceHeldStatus();
         void Reset();
 
-        // data members, from how the methods use this: 32 bytes
-        undefined1 field_0; // offset 0
-        char _unknown_1[3];
-        undefined4 field_4; // offset 4
-        char _unknown_8[24];
+    private:
+        uint8_t field_0;
+        uint8_t _unknown_1[3];
+        uint32_t field_4;
+        uint8_t _unknown_8[24];
     };
 
     class PlayerModelWearSlot {
     public:
         PlayerModelWearSlot();
-        operator==(PlayerModelWearSlot const&) const;
+        uint32_t operator==(const PlayerModelWearSlot& point) const;
 
-        // data members, from how the methods use this: 12 bytes
-        undefined8 field_0; // offset 0
-        char _unknown_8[4];
+    private:
+        uint64_t field_0;
+        uint8_t _unknown_8[4];
     };
 
-    // 0x100495120, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // PlayerModelReplaceHeldStatus::PlayerModelReplaceHeldStatus(): jumps straight to the base-object constructor
-
-    // 0x1004956f0, 48 bytes, inline, placed by class name
-    // PlayerModel::ClearAppearance()
+    // 0x1004956f0
     void PlayerModel::ClearAppearance() {
         field_9608->Clear();
         field_9664->Clear();
     }
 
-    // 0x100495720, 32 bytes, inline, placed by class name
-    // PlayerModel::ClearRecolouredCache()
+    // 0x100495720
     void PlayerModel::ClearRecolouredCache() {
-        (&field_1288)->Reset();
+        field_1288.Reset();
     }
 
-    // 0x100498c90, 80 bytes, base-object constructor, inline, placed by class header (inline)
-    // PlayerModelReplaceHeldStatus::PlayerModelReplaceHeldStatus()
-    void PlayerModelReplaceHeldStatus::PlayerModelReplaceHeldStatus() {
-        _func_decltype_nullptr* in_RSI;
+    // 0x100498c90
+    PlayerModelReplaceHeldStatus::PlayerModelReplaceHeldStatus() : field_0(0), field_4(4294967295) {}
 
-        field_0 = 0;
-        field_4 = 4294967295;
-        new (&field_8, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_24) eastl::vector_map<
-            unsigned int, eastl::pair<int, shared_ptr<ObjTypeCustomisation>>, eastl::less<unsigned int>,
-            BucketAllocatorEASTL,
-            eastl::vector<eastl::pair<unsigned int, eastl::pair<int, shared_ptr<ObjTypeCustomisation>>>,
-                          BucketAllocatorEASTL>>();
+    // 0x100499170
+    PlayerModelReplaceHeldStatus::~PlayerModelReplaceHeldStatus() {
+        field_24.~vector_map();
+        field_8.~shared_ptr();
     }
 
-    // 0x100499170, 48 bytes, base-object destructor, inline, placed by class header (inline)
-    // PlayerModelReplaceHeldStatus::~PlayerModelReplaceHeldStatus()
-    void PlayerModelReplaceHeldStatus::~PlayerModelReplaceHeldStatus() {
-        (&field_24)->~vector_map();
-        (&field_8)->~shared_ptr();
-    }
-
-    // 0x10049b480, 16 bytes, complete-object destructor, inline, placed by class name
-    // PlayerModel::~PlayerModel(): jumps straight to the base-object destructor
-
-    // 0x10049b490, 176 bytes, base-object destructor, inline, placed by class name
-    // PlayerModel::~PlayerModel()
-    void PlayerModel::~PlayerModel() {
+    // 0x10049b490
+    PlayerModel::~PlayerModel() {
         field_9664->~ActiveComponent();
-        (&field_9640)->~vector();
+        field_9640.~vector();
         field_9608->~ActiveComponent();
-        (&field_9584)->~vector();
-        (&field_1288)->~AssetLRUHashCache();
-        (&field_776)->~PlayerModelCache();
-        (&field_264)->~PlayerModelCache();
+        field_9584.~vector();
+        field_1288.~AssetLRUHashCache();
+        field_776.~PlayerModelCache();
+        field_264.~PlayerModelCache();
         field_208->~PlayerModelReplaceHeldStatus();
         field_152->~PlayerModelReplaceHeldStatus();
-        (&field_104)->~Array();
-        (&field_80)->~Array();
-        (&field_56)->~Array();
-        (&field_32)->~Array();
-        ~enable_shared_from_this();
+        field_104.~Array();
+        field_80.~Array();
+        field_56.~Array();
+        field_32.~Array();
     }
 
-    // 0x100507f00, 16 bytes, inline, placed by class name
-    // PlayerModel::GetRecolouredModelsCache() const
-    undefined1* PlayerModel::GetRecolouredModelsCache() {
-        return &field_1288;
+    // 0x100507f00
+    AssetLRUHashCache<graphics::Model, BuildModelMain, _100ul, _101ul, false>*
+    PlayerModel::GetRecolouredModelsCache() const {
+        return (AssetLRUHashCache<graphics::Model, BuildModelMain, _100ul, _101ul, false>*)&field_1288;
     }
 
 } // namespace jag::game

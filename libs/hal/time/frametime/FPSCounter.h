@@ -1,6 +1,5 @@
 // libs/hal/time/frametime/FPSCounter.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,115 +8,94 @@ namespace jag {
     public:
         float GetFPS() const;
         float GetLPS() const;
-        uint GetWorstFPS() const;
+        unsigned int GetWorstFPS() const;
         int GetRollingMeanFPS() const;
-        uint GetBestFPS() const;
-        ulonglong GetLastFrameDurationNS() const;
+        unsigned int GetBestFPS() const;
+        unsigned long long GetLastFrameDurationNS() const;
         float GetAvgFrameDurationMS() const;
         float GetAvgStarvationDurationMS() const;
         void GetFPSSampleCount() const;
-        uint GetRollingMeanSampleDurationMS() const;
-        void SetRollingMeanDurationMS(unsigned int);
+        unsigned int GetRollingMeanSampleDurationMS() const;
+        void SetRollingMeanDurationMS(unsigned int arg1);
         void RecordLogicLoop();
         ~FPSCounter();
         FPSCounter();
-        void RecordDrawStartTime(unsigned long long);
-        void RecordDrawEndTime(unsigned long long);
+        void RecordDrawStartTime(unsigned long long arg1);
+        void RecordDrawEndTime(unsigned long long arg1);
         void Reset();
-        void SetFPSSampleCount(unsigned int);
+        void SetFPSSampleCount(unsigned int arg1);
         void UpdateFPSCounter();
         void UpdateLPSCounter();
-        GetImmediateFPS() const;
+        uint8_t[16] GetImmediateFPS() const;
 
-        // data members, from how the methods use this: 98656 bytes
-        float m_fPS;          // offset 0
-        float m_lPS;          // offset 4
-        int field_8;          // offset 8
-        int m_rollingMeanFPS; // offset 12
-        uint m_worstFPS;      // offset 16
-        uint m_bestFPS;       // offset 20
-        int field_24;         // offset 24
-        char _unknown_28[4];
-        undefined1 field_32; // offset 32
-        char _unknown_33[31];
-        undefined1 field_64; // offset 64
-        char _unknown_65[31];
-        undefined1 field_96; // offset 96
-        char _unknown_97[31];
-        undefined1 field_128; // offset 128
-        char _unknown_129[31];
-        undefined1 field_160; // offset 160
-        char _unknown_161[98407];
-        uint m_rollingMeanSampleDurationMS; // offset 98568
-        uint field_98572;                   // offset 98572
-        uint field_98576;                   // offset 98576
-        uint field_98580;                   // offset 98580
-        float field_98584;                  // offset 98584
-        uint field_98588;                   // offset 98588
-        ulonglong field_98592;              // offset 98592
-        ulonglong field_98600;              // offset 98600
-        ulonglong field_98608;              // offset 98608
-        ulonglong field_98616;              // offset 98616
-        float m_avgFrameDurationMS;         // offset 98624
-        float m_avgStarvationDurationMS;    // offset 98628
-        long field_98632;                   // offset 98632
-        ulonglong m_lastFrameDurationNS;    // offset 98640
-        undefined8 field_98648;             // offset 98648
+    private:
+        float m_fPS;
+        float m_lPS;
+        int field_8;
+        int m_rollingMeanFPS;
+        unsigned int m_worstFPS;
+        unsigned int m_bestFPS;
+        int field_24;
+        uint8_t _unknown_28[98540];
+        unsigned int m_rollingMeanSampleDurationMS;
+        unsigned int field_98572;
+        unsigned int field_98576;
+        unsigned int field_98580;
+        float field_98584;
+        unsigned int field_98588;
+        unsigned long long field_98592;
+        unsigned long long field_98600;
+        unsigned long long field_98608;
+        unsigned long long field_98616;
+        float m_avgFrameDurationMS;
+        float m_avgStarvationDurationMS;
+        long field_98632;
+        unsigned long long m_lastFrameDurationNS;
+        uint64_t field_98648;
     };
 
-    // 0x1008fd1f0, 16 bytes, inline, placed by class name and debug map
-    // FPSCounter::GetLastFrameDurationNS() const
-    ulonglong FPSCounter::GetLastFrameDurationNS() {
+    // 0x1008fd1f0
+    unsigned long long FPSCounter::GetLastFrameDurationNS() const {
         return m_lastFrameDurationNS;
     }
 
-    // 0x1008fd200, 16 bytes, inline, placed by class name and debug map
-    // FPSCounter::GetAvgFrameDurationMS() const
-    float FPSCounter::GetAvgFrameDurationMS() {
+    // 0x1008fd200
+    float FPSCounter::GetAvgFrameDurationMS() const {
         return m_avgFrameDurationMS;
     }
 
-    // 0x1008fd210, 16 bytes, inline, placed by class name and debug map
-    // FPSCounter::GetAvgStarvationDurationMS() const
-    float FPSCounter::GetAvgStarvationDurationMS() {
+    // 0x1008fd210
+    float FPSCounter::GetAvgStarvationDurationMS() const {
         return m_avgStarvationDurationMS;
     }
 
-    // 0x100914980, 16 bytes, inline, placed by class name
-    // FPSCounter::GetFPSSampleCount() const
-    void FPSCounter::GetFPSSampleCount() {
-        (&field_32)->size();
+    // 0x100914980
+    void FPSCounter::GetFPSSampleCount() const {
+        field_32.size();
     }
 
-    // 0x1009153b0, 16 bytes, inline, placed by class name
-    // FPSCounter::GetRollingMeanSampleDurationMS() const
-    uint FPSCounter::GetRollingMeanSampleDurationMS() {
+    // 0x1009153b0
+    unsigned int FPSCounter::GetRollingMeanSampleDurationMS() const {
         return m_rollingMeanSampleDurationMS;
     }
 
-    // 0x1009153c0, 16 bytes, inline, placed by class name
-    // FPSCounter::SetRollingMeanDurationMS(unsigned int)
-    void FPSCounter::SetRollingMeanDurationMS(uint param_1) {
-        m_rollingMeanSampleDurationMS = param_1;
+    // 0x1009153c0
+    void FPSCounter::SetRollingMeanDurationMS(unsigned int arg1) {
+        m_rollingMeanSampleDurationMS = arg1;
     }
 
-    // 0x100b060b0, 16 bytes, inline, placed by class name
-    // FPSCounter::RecordLogicLoop()
+    // 0x100b060b0
     void FPSCounter::RecordLogicLoop() {
         field_24 = field_24 + 1;
     }
 
-    // 0x100c3e5c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // FPSCounter::~FPSCounter(): jumps straight to the base-object destructor
-
-    // 0x100c3e5d0, 80 bytes, base-object destructor, inline, placed by class name
-    // FPSCounter::~FPSCounter()
-    void FPSCounter::~FPSCounter() {
-        (&field_160)->~fixed_list();
-        (&field_128)->~vector();
-        (&field_96)->~vector();
-        (&field_64)->~vector();
-        (&field_32)->~vector();
+    // 0x100c3e5d0
+    FPSCounter::~FPSCounter() {
+        field_160.~fixed_list();
+        field_128.~vector();
+        field_96.~vector();
+        field_64.~vector();
+        field_32.~vector();
     }
 
 } // namespace jag

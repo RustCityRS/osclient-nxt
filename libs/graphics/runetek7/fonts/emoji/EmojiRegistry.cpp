@@ -1,72 +1,41 @@
 // libs/graphics/runetek7/fonts/emoji/EmojiRegistry.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "EmojiRegistry.h"
 
 namespace jag {
-    // 0x1000602b0: the linker folded this into oldscape::widgets::ScrollBarWidget::ThumbIsVisible() const, which has identical code
-    EmojiRegistry::GetAutoChatLine() const;
+    // 0x1000602b0: EmojiRegistry::GetAutoChatLine() const has the same machine code as oldscape::widgets::ScrollBarWidget::ThumbIsVisible() const
 
-    // 0x1000e53d0: the linker folded this into oldscape::rs2lib::CoordMapSquare::CoordMapSquare(int, int), which has identical code
-    EmojiRegistry::SpriteAndIndex::SpriteAndIndex(int, int);
+    // 0x10012cae0: EmojiRegistry::SpriteAndIndex::SpriteAndIndex(int, int) has the same machine code as oldscape::sidebars::SideBarData::SideBarData(int, int)
 
-    // 0x10012cae0: the linker folded this into oldscape::sidebars::SideBarData::SideBarData(int, int), which has identical code
-    EmojiRegistry::SpriteAndIndex::SpriteAndIndex(int, int);
-
-    // 0x1008ea7d0, 112 bytes, base-object constructor, placed by class name and debug map
-    // EmojiRegistry::EmojiRegistry()
-    void EmojiRegistry::EmojiRegistry() {
-        new (this) eastl::vector_map<
-            eastl::string, EmojiRegistry::SpriteAndIndex, eastl::less<eastl::string>, eastl::allocator,
-            eastl::vector<eastl::pair<eastl::string, EmojiRegistry::SpriteAndIndex>, eastl::allocator>>();
-        new (&field_40) eastl::string();
-        field_72 = 2147483647;
-        m_autoChatLine = 0;
+    // 0x1008ea7d0
+    EmojiRegistry::EmojiRegistry()
+        : eastl::vector_map<eastl::string, EmojiRegistry::SpriteAndIndex>(), field_72(2147483647), m_autoChatLine(0) {
         reserve(10);
     }
 
-    // 0x1008ea8a0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // EmojiRegistry::EmojiRegistry(): jumps straight to the base-object constructor
-
-    // 0x1008ea8b0, 192 bytes, placed by class name and debug map
-    // EmojiRegistry::Add(eastl::string const&, int, int)
-    ulong EmojiRegistry::Add(basic_string* param_1, int param_2, int param_3) {
-        char cVar1;
-        ulong uVar2;
+    // 0x1008ea8b0
+    unsigned long EmojiRegistry::Add(const eastl::string& str, int arg2, int arg3) {
+        unsigned long uVar2;
         char* pcVar3;
-        ulong uVar4;
-        eastl local_60[40];
-        undefined1 local_38[8];
+        unsigned long uVar4;
+        ReturnValue local_60;
+        uint8_t local_38[8];
 
-        cVar1 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        if (cVar1 == '\0') {
-            uVar2 =
-                eastl::basic_string<char,
-                                    eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+        if (!(str.empty())) {
+            uVar2 = str.size();
             uVar4 = 0;
             if (uVar2 < 11) {
-                pcVar3 = (char*)eastl::string::operator[]((eastl::string*)param_1, 0);
-                cVar1 = IsEmojiPrefix(*pcVar3);
-                if (cVar1 != '\0') {
-                    new (local_38) oldscape::sidebars::SideBarData(param_2, param_3);
-                    eastl::make_pair<eastl::stringconst&, EmojiRegistry::SpriteAndIndex>(local_60, param_1,
-                                                                                         (SpriteAndIndex*)local_38);
-                    eastl::vector_map<
-                        eastl::string, EmojiRegistry::SpriteAndIndex, eastl::less<eastl::string>, eastl::allocator,
-                        eastl::vector<eastl::pair<eastl::string, EmojiRegistry::SpriteAndIndex>, eastl::allocator>>::
-                        insert<eastl::pair<eastl::string, EmojiRegistry::SpriteAndIndex>, void>(
-                            (vector_map<eastl::string, EmojiRegistry::SpriteAndIndex, eastl::less<eastl::string>,
-                                        eastl::allocator,
-                                        eastl::vector<eastl::pair<eastl::string, EmojiRegistry::SpriteAndIndex>,
-                                                      eastl::allocator>>*)this,
-                            (pair*)local_60);
-                    local_60->~hash_node();
-                    UpdatePrefixes(this);
-                    uVar4 = CONCAT71((int7)((ulong)local_38 >> 8), 1);
+                pcVar3 = &str[0];
+                if (IsEmojiPrefix(*pcVar3)) {
+                    new (local_38) oldscape::sidebars::SideBarData(arg2, arg3);
+                    local_60 = eastl::make_pair<eastl::stringconst&, EmojiRegistry::SpriteAndIndex>(str, *local_38);
+                    eastl::vector_map<eastl::string, EmojiRegistry::SpriteAndIndex>::insert<
+                        eastl::pair<eastl::string, EmojiRegistry::SpriteAndIndex>, void>(
+                        (vector_map<eastl::string, EmojiRegistry::SpriteAndIndex>*)this, &local_60);
+                    UpdatePrefixes();
+                    uVar4 = (((uint64_t)((int64_t)((unsigned long)local_38 >> 8)) << 8) | (uint8_t)1);
                 }
             }
         } else {
@@ -75,98 +44,86 @@ namespace jag {
         return uVar4 & 4294967295;
     }
 
-    // 0x1008eaad0, 192 bytes, placed by class name and debug map
-    // EmojiRegistry::UpdatePrefixes()
+    // 0x1008eaad0
     void EmojiRegistry::UpdatePrefixes() {
         char* pcVar1;
-        long lVar2;
-        undefined4 in_EAX;
+        uint32_t in_EAX;
         int iVar3;
-        undefined4 in_register_00000004;
-        eastl::string* pbVar4;
-        eastl::string* this_00;
-        undefined8 uStack_38;
+        uint32_t in_register_00000004;
 
-        uStack_38 = CONCAT44(in_register_00000004, in_EAX);
+        uint64_t uStack_38 = (((uint64_t)in_register_00000004 << 32) | (uint32_t)in_EAX);
         field_72 = 2147483647;
-        eastl::string::clear();
-        this_00 = (eastl::string*)HeapBeginPtr();
-        pbVar4 = (eastl::string*)end();
-        if (this_00 != pbVar4) {
+        uint8_t* this_00 = &field_40;
+        this_00->clear();
+        auto this_01 = HeapBeginPtr();
+        auto pbVar4 = end();
+        if (this_01 != pbVar4) {
             do {
-                iVar3 = eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 40ul, 1ul, 0ul, true, eastl::allocator>>::size();
+                iVar3 = this_01->size();
                 if (iVar3 < field_72) {
                     field_72 = iVar3;
                 }
-                pcVar1 = (char*)eastl::string::operator[](this_00, 0);
-                uStack_38 = CONCAT17(*pcVar1, (undefined7)uStack_38);
-                lVar2 = (&field_40, *pcVar1, 0)->find();
-                if (lVar2 == -1) {
-                    (&field_40, (char*)((long)&uStack_38 + 7), 1)->append();
+                pcVar1 = (char*)(*this_01)[0];
+                uStack_38 = (((uint64_t)(*pcVar1) << 56) | (uint64_t)((uint64_t)uStack_38));
+                if (this_00->find(*pcVar1, 0) == -1) {
+                    this_00->append((char*)((long)&uStack_38 + 7), 1);
                 }
-                this_00 = this_00 + 40;
-            } while (this_00 != pbVar4);
+                this_01 = this_01 + 40;
+            } while (this_01 != pbVar4);
         }
     }
 
-    // 0x1008eab90, 32 bytes, placed by class name and debug map
-    // EmojiRegistry::Remove(eastl::string const&)
-    void EmojiRegistry::Remove(basic_string* param_1) {
-        erase(param_1);
-        UpdatePrefixes(this);
+    // 0x1008eab90
+    void EmojiRegistry::Remove(const eastl::string& str) {
+        eastl::vector_map<eastl::string, EmojiRegistry::SpriteAndIndex>::erase(str);
+        UpdatePrefixes((EmojiRegistry*)str);
     }
 
-    // 0x1008eabf0, 32 bytes, placed by class name and debug map
-    // EmojiRegistry::RemoveAll()
+    // 0x1008eabf0
     void EmojiRegistry::RemoveAll() {
         clear();
-        UpdatePrefixes(this);
+        UpdatePrefixes();
     }
 
 } // namespace jag
 
 namespace jag::math {
-    // 0x1008ec3b0, 320 bytes, inline, placed by debug map only (low confidence)
-    // Matrix44T<float>& Matrix44OrthographicLH<float>(Matrix44T<float>&, float, float, float, float, float, float, MATRIX_PROJECTION_RANGE)
-    Matrix44T* Matrix44OrthographicLH<float>(float param_2, float param_3, float param_4, float param_5, float param_6,
-                                             float param_7, Matrix44T* param_1, int param_8) {
+    // 0x1008ec3b0
+    Matrix44T<float>& Matrix44OrthographicLH<float>(Matrix44T<float>& matrix44, float arg2, float arg3, float arg4,
+                                                    float arg5, float arg6, float arg7,
+                                                    MATRIX_PROJECTION_RANGE mATRIX_PROJECTION_RANGE) {
+        float arg13;
+        float arg14;
+        float arg15;
         float fVar1;
-        float fVar2;
-        float fVar3;
 
-        if (param_8 == 0) {
-            fVar3 = 1.0 / (param_7 - param_6);
-            fVar1 = (param_3 + param_2) / (param_2 - param_3);
-            fVar2 = (param_5 + param_4) / (param_4 - param_5);
-            param_6 = param_6 / (param_6 - param_7);
+        if (mATRIX_PROJECTION_RANGE == 0) {
+            fVar1 = 1.0 / (arg7 - arg6);
+            arg13 = (arg3 + arg2) / (arg2 - arg3);
+            arg14 = (arg5 + arg4) / (arg4 - arg5);
+            arg15 = arg6 / (arg6 - arg7);
         } else {
-            fVar3 = 1.0 / (param_7 - param_6);
-            fVar1 = -(param_3 + param_2) / (param_3 - param_2);
-            fVar2 = -(param_5 + param_4) / (param_5 - param_4);
-            param_6 = -(param_7 + param_6) * fVar3;
-            fVar3 = fVar3 + fVar3;
+            fVar1 = 1.0 / (arg7 - arg6);
+            arg13 = -(arg3 + arg2) / (arg3 - arg2);
+            arg14 = -(arg5 + arg4) / (arg5 - arg4);
+            arg15 = -(arg7 + arg6) * fVar1;
+            fVar1 = fVar1 + fVar1;
         }
-        param_1->Set(2.0 / (param_3 - param_2), 0.0, 0.0, 0.0, 0.0, 2.0 / (param_5 - param_4), 0.0, 0.0, 0.0, 0.0,
-                     fVar3, 0.0, fVar1, fVar2, param_6, 1.0);
-        return param_1;
+        matrix44.Set(2.0 / (arg3 - arg2), 0.0, 0.0, 0.0, 0.0, 2.0 / (arg5 - arg4), 0.0, 0.0, 0.0, 0.0, fVar1, 0.0,
+                     arg13, arg14, arg15, 1.0);
+        return matrix44;
     }
 
-    // 0x1008eef70, 112 bytes, inline, placed by debug map only (low confidence)
-    // SinCos(float*, float*, float)
-    void SinCos(float* param_1, float* param_2, float param_3) {
-        float fVar1;
-
-        if ((param_1 == (float*)0) || (param_2 == (float*)0)) {
-            /* WARNING: Subroutine does not return */
+    // 0x1008eef70
+    void SinCos(float* arg1, float* arg2, float arg3) {
+        if ((arg1 == nullptr) || (arg2 == nullptr)) {
             LogAssert("pSinOut && pCosOut",
-                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/math/Trig.h", 16,
-                      (char*)0);
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/math/Trig.h", 16, nullptr);
         }
-        fVar1 = (float)::sin(param_3);
-        *param_1 = fVar1;
-        fVar1 = (float)::cos(param_3);
-        *param_2 = fVar1;
+        float fVar1 = (float)::sin(arg3);
+        *arg1 = fVar1;
+        fVar1 = (float)::cos(arg3);
+        *arg2 = fVar1;
     }
 
 } // namespace jag::math

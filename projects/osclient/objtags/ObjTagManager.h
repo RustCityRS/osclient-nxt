@@ -1,6 +1,5 @@
 // projects/osclient/objtags/ObjTagManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,36 +10,35 @@ namespace jag::oldscape::objtags {
         ~ObjTagManager();
         void SaveTags();
         void ResetAll();
-        void ClearGroup(int);
-        bool IsGroupValid(int);
-        void AddTag(unsigned int, eastl::string const&, int);
-        ulong HasTag(unsigned int, eastl::string const&, int);
-        ulong DeleteTag(eastl::string const&, int);
-        RemoveTagFromObj(unsigned int, eastl::string const&, int);
-        ulong FindTagsById(unsigned int, int);
-        FindTagsByGroup(int);
-        ulong FindIdsByTag(eastl::string const&, int);
-        FindIdsByGroup(int);
+        void ClearGroup(int arg1);
+        bool IsGroupValid(int arg1);
+        void AddTag(unsigned int arg1, const eastl::string& str, int arg3);
+        unsigned long HasTag(unsigned int arg1, const eastl::string& str, int arg3);
+        unsigned long DeleteTag(const eastl::string& str, int arg2);
+        uint64_t RemoveTagFromObj(unsigned int arg1, const eastl::string& str, int arg3);
+        uint32_t FindTagsById(unsigned int arg1, int arg2);
+        uint32_t FindTagsByGroup(int arg1);
+        uint32_t FindIdsByTag(const eastl::string& str, int arg2);
+        uint64_t FindIdsByGroup(int arg1);
         char* GetNextTag();
         void RestartFindTags();
-        GetNextId();
+        uint32_t GetNextId();
         void RestartFindIds();
-        ulong AreTagsEmpty();
+        unsigned long AreTagsEmpty();
         void LoadTags();
-        void DeserializeTags(Json::Value&);
-        SerializeTags();
+        void DeserializeTags(Json::Value& value);
+        ObjTagManager* SerializeTags();
 
-        // data members, from how the methods use this: 1848 bytes
-        char _unknown_0[1792];
-        ulong field_1792; // offset 1792
-        ulong field_1800; // offset 1800
-        char _unknown_1808[40];
+    private:
+        uint8_t _unknown_0[1792];
+        unsigned long field_1792;
+        unsigned long field_1800;
+        uint8_t _unknown_1808[40];
     };
 
-    // 0x10001f140, 16 bytes, inline, placed by class name and debug map
-    // ObjTagManager::IsGroupValid(int)
-    bool ObjTagManager::IsGroupValid(int param_1) {
-        return (uint)param_1 < 16;
+    // 0x10001f140
+    bool ObjTagManager::IsGroupValid(int arg1) {
+        return (unsigned int)arg1 < 16;
     }
 
 } // namespace jag::oldscape::objtags

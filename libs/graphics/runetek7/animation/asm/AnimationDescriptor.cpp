@@ -1,349 +1,230 @@
 // libs/graphics/runetek7/animation/asm/AnimationDescriptor.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "AnimationDescriptor.h"
 
 namespace jag::graphics {
-    // 0x100f3e350, 336 bytes, __data
-    AnimationDescriptor::m_basAnimTypeNames = {
+    // 0x100f3e350
+    float AnimationDescriptor::m_basAnimTypeNames[84] = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    // 0x10011cd30: the linker folded this into oldscape::configdecoder::NPCTypeCustomisation::UsePlayerModel() const, which has identical code
-    bool AnimationDescriptor::GetTweenLastFrameToFirst() const;
+    // 0x10011cd30: AnimationDescriptor::GetTweenLastFrameToFirst() const has the same machine code as oldscape::configdecoder::NPCTypeCustomisation::UsePlayerModel() const
 
-    // 0x10012dc00: the linker folded this into oldscape::graphics::NXTPixScreen::GetViewportX(), which has identical code
-    int AnimationDescriptor::GetBasAnimType() const;
+    // 0x10012dc00: AnimationDescriptor::GetBasAnimType() const has the same machine code as oldscape::graphics::NXTPixScreen::GetViewportX()
 
-    // 0x10016b4a0: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetAdvisedZoom() const, which has identical code
-    uint AnimationDescriptor::GetSeqID() const;
+    // 0x10016b4a0: AnimationDescriptor::GetSeqID() const has the same machine code as oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetAdvisedZoom() const
 
-    // 0x1001cd990: the linker folded this into PointLightIndicesEffect::GetVisiblePointLights(), which has identical code
-    AnimationDescriptor::GetOnFinishedCallback() const;
+    // 0x1001cd990: AnimationDescriptor::GetOnFinishedCallback() const has the same machine code as PointLightIndicesEffect::GetVisiblePointLights()
 
-    // 0x10043b780: the linker folded this into game::StaticPointLight::GetLightTypeToLoad() const, which has identical code
-    AnimationDescriptor::GetLoopLength() const;
+    // 0x10043b780: AnimationDescriptor::GetLoopLength() const has the same machine code as game::StaticPointLight::GetLightTypeToLoad() const
 
-    // 0x100954120, 144 bytes, base-object constructor, placed by class name and debug map
-    // AnimationDescriptor::AnimationDescriptor(Json::Value const&)
-    void AnimationDescriptor::AnimationDescriptor(Value* param_1) {
-        new (this) eastl::fixed_string<char, 32, true, eastl::allocator>();
-        m_basAnimType = 21;
-        m_seqID = 4294967295;
-        m_loopBehaviour = 0;
-        m_loopLength = 4294967295;
-        m_tweenLastFrameToFirst = true;
-        new (&field_96) math::Vector2T<int>();
-        field_192 = false;
-        new (&field_200) eastl::string();
-        ReadFromJson(this, param_1);
+    // 0x100954120
+    AnimationDescriptor::AnimationDescriptor(const Json::Value& value)
+        : eastl::fixed_string<char, 32>(), m_basAnimType(21), m_seqID(4294967295), m_loopBehaviour(0),
+          m_loopLength(4294967295), m_tweenLastFrameToFirst(true), field_192(false) {
+        ReadFromJson(value);
     }
 
-    // 0x1009541b0, 528 bytes, placed by class name and debug map
-    // AnimationDescriptor::ReadFromJson(Json::Value const&)
-    void AnimationDescriptor::ReadFromJson(Value* param_1) {
-        char cVar1;
-        bool bVar2;
-        undefined4 uVar5;
+    // 0x1009541b0
+    void AnimationDescriptor::ReadFromJson(const Json::Value& value) {
         Value* pVVar6;
-        char* pcVar7;
-        char* extraout_RDX;
-        char* extraout_RDX_00;
-        char* extraout_RDX_01;
-        eastl::string local_68[32];
-        allocator local_48[24];
+        eastl::string* str;
 
-        cVar1 = Json::Value::isMember(param_1, "SeqID");
-        if (cVar1 != '\0') {
-            Json::Value::operator[](param_1, "SeqID");
-            m_seqID = Json::Value::asInt();
+        if (value.isMember("SeqID")) {
+            pVVar6 = &value["SeqID"];
+            m_seqID = pVVar6->asInt();
         }
-        cVar1 = Json::Value::isMember(param_1, "BasAnimType");
-        if (cVar1 != '\0') {
-            pVVar6 = (Value*)Json::Value::operator[](param_1, "BasAnimType");
-            pcVar7 = (char*)Json::Value::asCString(pVVar6);
-            eastl::allocator::allocator(local_48, "EASTL basic_string");
-            eastl::string::basic_string(local_68, pcVar7, local_48);
-            m_basAnimType = BasAnimTypeFromString((basic_string*)local_68);
-            eastl::string::~basic_string(local_68);
+        if (value.isMember("BasAnimType")) {
+            pVVar6 = &value["BasAnimType"];
+            str = (eastl::string*)pVVar6->asCString();
+            local_68 = eastl::string(str);
+            m_basAnimType = BasAnimTypeFromString(&local_68, str);
         }
-        pVVar6 = (Value*)Json::Value::operator[](param_1, "LoopBehaviour");
-        pcVar7 = (char*)Json::Value::asCString(pVVar6);
-        eastl::allocator::allocator(local_48, "EASTL basic_string");
-        eastl::string::basic_string(local_68, pcVar7, local_48);
-        bVar2 = eastl::operator==((eastl*)local_68, (basic_string*)"Never", extraout_RDX);
-        if (bVar2) {
-            m_loopBehaviour = 2;
-        } else {
-            bVar2 = eastl::operator==((eastl*)local_68, (basic_string*)"Default", extraout_RDX_00);
-            if (bVar2) {
-                m_loopBehaviour = 0;
-            } else {
-                bVar2 = eastl::operator==((eastl*)local_68, (basic_string*)"Always", extraout_RDX_01);
-                if (!bVar2) {
-                    /* WARNING: Subroutine does not return */
+        pVVar6 = &value["LoopBehaviour"];
+        auto pcVar7 = pVVar6->asCString();
+        eastl::string local_68(pcVar7);
+        if (!(local_68 == "Never")) {
+            if (!(local_68 == "Default")) {
+                if (!(local_68 == "Always")) {
                     LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                     "runetek7/animation/asm/AnimationDescriptor.cpp",
-                                    65, (char*)0);
+                                    65, nullptr);
                 }
                 m_loopBehaviour = 1;
+            } else {
+                m_loopBehaviour = 0;
             }
+        } else {
+            m_loopBehaviour = 2;
         }
-        pVVar6 = (Value*)Json::Value::operator[](param_1, "LoopLength");
-        pcVar7 = (char*)Json::Value::asCString(pVVar6);
-        std::string::string<decltype(nullptr)>((string*)local_48, pcVar7);
-        bVar2 = std::operator==((string*)local_48, pcVar7);
-        uVar5 = 2147483647;
+        pVVar6 = &value["LoopLength"];
+        pcVar7 = pVVar6->asCString();
+        std::string::string<decltype(nullptr)>(&local_48, pcVar7);
+        bool bVar2 = &local_48 == pcVar7;
+        uint32_t uVar5 = 2147483647;
         if (!bVar2) {
-            uVar5 = std::stoi((string*)local_48, (ulong*)0, 10);
+            uVar5 = std::stoi(&local_48, nullptr, 10);
         }
         m_loopLength = uVar5;
-        pVVar6 = (Value*)Json::Value::operator[](param_1, "TweenLastFrameToFirst");
-        bVar2 = (bool)Json::Value::asBool(pVVar6);
+        pVVar6 = &value["TweenLastFrameToFirst"];
+        bVar2 = (bool)pVVar6->asBool();
         m_tweenLastFrameToFirst = bVar2;
-        local_48->~string();
-        eastl::string::~basic_string(local_68);
+        std::string::~string(&local_48);
     }
 
-    // 0x1009543c0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // AnimationDescriptor::AnimationDescriptor(Json::Value const&): jumps straight to the base-object constructor
-
-    // 0x1009543d0, 128 bytes, placed by class name and debug map
-    // AnimationDescriptor::BasAnimTypeFromString(eastl::string const&)
-    void AnimationDescriptor::BasAnimTypeFromString(basic_string* param_1) {
-        StringView* pSVar1;
-        undefined8 uVar2;
+    // 0x1009543d0
+    void AnimationDescriptor::BasAnimTypeFromString(const eastl::string& str) {
+        uint64_t uVar1;
+        __0* in_RCX;
+        StringView* stringView3;
         StringView local_28;
 
-        StringView::StringView<eastl::fixed_string<char, 40, true, eastl::allocator>>(&local_28,
-                                                                                      (fixed_string*)param_1);
-        pSVar1 = eastl::find<StringView_const*, StringView,
-                             AnimationDescriptor::BasAnimTypeFromString(eastl::stringconst&)::__0>(&local_28);
-        if (pSVar1 == (StringView*)(PTR_m_basAnimTypeNames_100ee6a08 + 336)) {
-            uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            /* WARNING: Subroutine does not return */
+        local_28.StringView<eastl::fixed_string<char, 40>>(*this);
+        StringView* stringView1 =
+            eastl::find<StringView const*, StringView, (eastl::stringconst&)->BasAnimTypeFromString()::__0>(
+                &local_28, (StringView*)this, stringView3, in_RCX);
+        if (stringView1 == (StringView*)(PTR_m_basAnimTypeNames_100ee6a08 + 336)) {
+            uVar1 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "animation/asm/AnimationDescriptor.cpp",
-                            32, "Unknown bas animation type: %s", uVar2);
+                            32, "Unknown bas animation type: %s", uVar1);
         }
-        std::distance<StringView_const*>(pSVar1, (StringView*)param_1);
+        std::distance<StringView const*>(stringView1, this);
     }
 
-    // 0x100954540, 320 bytes, base-object constructor, placed by class name and debug map
-    // AnimationDescriptor::AnimationDescriptor(PacketT<Array<unsigned char, eastl::allocator> >&)
-    void AnimationDescriptor::AnimationDescriptor(PacketT* param_1) {
-        char cVar1;
-        uint uVar2;
-        int iVar3;
-        undefined4 uVar4;
-        PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>> local_48[32];
+    // 0x100954540
+    AnimationDescriptor::AnimationDescriptor(PacketT<Array<unsigned char>>& arg1)
+        : eastl::fixed_string<char, 32>(), m_basAnimType(21), m_seqID(4294967295), m_loopBehaviour(0),
+          m_loopLength(4294967295), m_tweenLastFrameToFirst(true), field_192(false) {
+        PacketReaderMixin<PacketT<Array<unsigned char>>> local_48;
 
-        new (this) eastl::fixed_string<char, 32, true, eastl::allocator>();
-        m_basAnimType = 21;
-        m_seqID = 4294967295;
-        m_loopBehaviour = 0;
-        m_loopLength = 4294967295;
-        m_tweenLastFrameToFirst = true;
-        new (&field_96) math::Vector2T<int>();
-        field_192 = false;
-        new (&field_200) eastl::string();
-        uVar2 = param_1->g4s();
-        m_seqID = uVar2;
-        iVar3 = param_1->g4s();
+        m_seqID = arg1.g4s();
+        int iVar3 = arg1.g4s();
         m_basAnimType = iVar3;
-        iVar3 = param_1->g4s();
+        iVar3 = arg1.g4s();
         m_loopBehaviour = iVar3;
-        uVar4 = param_1->g4s();
+        uint32_t uVar4 = arg1.g4s();
         m_loopLength = uVar4;
-        cVar1 = param_1->g1();
-        m_tweenLastFrameToFirst = cVar1 != '\0';
-        cVar1 = param_1->g1();
-        field_192 = cVar1 != '\0';
-        if (cVar1 != '\0') {
-            iVar3 = param_1->g4();
+        char cVar1 = arg1.g1();
+        m_tweenLastFrameToFirst = cVar1;
+        cVar1 = arg1.g1();
+        field_192 = cVar1;
+        if (cVar1) {
+            iVar3 = arg1.g4();
             if (iVar3 != 0) {
-                /* WARNING: Subroutine does not return */
                 LogAssert("onFinishedFuncType == 0",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                           "animation/asm/AnimationDescriptor.cpp",
-                          97, (char*)0);
+                          97, nullptr);
             }
-            PacketReaderMixin<PacketT<Array<unsigned char, eastl::allocator>>>::gStringCP1252ToUTF8<eastl::string>(
-                local_48, SUB81(param_1, 0));
-            eastl::string::operator=((eastl::string*)&field_200, (basic_string*)local_48);
-            local_48->~basic_string();
-            uVar4 = param_1->g4();
+            PacketReaderMixin<PacketT<Array<unsigned char>>>::gStringCP1252ToUTF8<eastl::string>(&local_48,
+                                                                                                 (uint8_t)arg1);
+            field_200 = &local_48;
+            uVar4 = arg1.g4();
             field_232 = uVar4;
         }
     }
 
-    // 0x100954680, 16 bytes, complete-object constructor, placed by class name and debug map
-    // AnimationDescriptor::AnimationDescriptor(PacketT<Array<unsigned char, eastl::allocator> >&): jumps straight to the base-object constructor
-
-    // 0x100954690, 160 bytes, placed by class name and debug map
-    // AnimationDescriptor::InitialiseCallbackFunctions(VariableList&)
-    void AnimationDescriptor::InitialiseCallbackFunctions(VariableList* param_1) {
+    // 0x100954690
+    void AnimationDescriptor::InitialiseCallbackFunctions(VariableList& variableList) {
         __1 local_98;
-        AnimationDescriptor* local_90;
         function<void(), 64ul, 16ul, (fixedfunction::Methods)0> local_88[104];
         long local_20;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
         if (field_192 != false) {
-            local_98.field_0 = (char*)param_1;
-            local_90 = this;
+            local_98.field_0 = variableList;
+            local_98.field_8 = (long)this;
             fixedfunction::function<void(), 64ul, 16ul, (fixedfunction::Methods)0>::function<
                 AnimationDescriptor::InitialiseCallbackFunctions(VariableList&)::__1, void>(local_88, &local_98);
-            fixedfunction::function<void(), 64ul, 16ul, (fixedfunction::Methods)0>::operator=(
-                (function<void(), 64ul, 16ul, (fixedfunction::Methods)0>*)&field_96, (function*)local_88);
-            fixedfunction::function<void(), 64ul, 16ul, (fixedfunction::Methods)0>::~function(local_88);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            field_96 = *local_88;
         }
     }
 
-    // 0x100954740, 1600 bytes, placed by class name and debug map
-    // AnimationDescriptor::ToString(unsigned int) const
-    AnimationDescriptor* AnimationDescriptor::ToString(uint param_1) {
-        int iVar1;
-        bool bVar3;
+    // 0x100954740
+    auto AnimationDescriptor::ToString(unsigned int arg1) const {
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        uint in_EDX;
-        char* pcVar4;
-        undefined4 in_register_00000034;
-        long lVar5;
-        eastl::string local_128[32];
-        eastl::string local_108[32];
-        allocator local_e8[32];
-        debug_helpers local_c8[32];
-        eastl local_a8[32];
-        eastl local_88[32];
-        eastl local_68[32];
-        eastl local_48[32];
+        eastl::string local_88;
+        eastl::string local_68;
+        eastl::string local_48;
 
-        lVar5 = CONCAT44(in_register_00000034, param_1);
-        eastl::string::basic_string(local_108);
-        iVar1 = *(int*)(lVar5 + 80);
+        char* pcVar3 = (char*)this;
+        eastl::string local_108;
+        int iVar1 = m_loopBehaviour;
         if (iVar1 == 2) {
-            eastl::string::assign(local_108, "Never");
+            pcVar3 = "Never";
+            eastl::string::assign(&local_108, "Never");
         } else if (iVar1 == 1) {
-            eastl::string::assign(local_108, "Always");
+            pcVar3 = "Always";
+            eastl::string::assign(&local_108, "Always");
         } else if (iVar1 == 0) {
-            eastl::string::assign(local_108, "Default");
+            pcVar3 = "Default";
+            eastl::string::assign(&local_108, "Default");
         }
-        if ((long)*(int*)(lVar5 + 72) == 21) {
-            pcVar4 = "None";
+        if ((array<StringView, 21ul>*)(long)m_basAnimType == (array<StringView, 21ul>*)21) {
+            pcVar3 = "None";
         } else {
-            this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                std::array<StringView, 21ul>::operator[]((long)*(int*)(lVar5 + 72));
-            pcVar4 = (char*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
+            this_00 = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(*(
+                (array<StringView, 21ul>*)(long)m_basAnimType))[(unsigned long)pcVar3];
+            pcVar3 = (char*)this_00->end();
         }
-        eastl::allocator::allocator(local_e8, "EASTL basic_string");
-        eastl::string::basic_string(local_128, pcVar4, local_e8);
-        local_e8->GetTabbedSpaces(in_EDX);
-        local_c8->GetTabbedSpaces(in_EDX + 1);
-        new (this) eastl::string();
-        eastl::operator+(local_48, (basic_string*)local_e8, (value_type*)"Animation\n");
-        eastl::string::operator=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        eastl::operator+(local_48, (basic_string*)local_e8, (value_type*)"{\n");
-        eastl::string::operator+=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        eastl::operator+(local_68, (basic_string*)local_c8, (value_type*)"Animation ID: ");
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() ==
-            '\0') {
-            pcVar4 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        } else {
-            pcVar4 = "<Empty>";
+        eastl::string local_128(pcVar3);
+        auto local_e8 = debug_helpers::GetTabbedSpaces(arg1);
+        auto local_c8 = debug_helpers::GetTabbedSpaces(arg1 + 1);
+        auto result;
+        local_48 + local_e8;
+        result = &local_48;
+        local_48 + local_e8;
+        result += &local_48;
+        local_68 + local_c8;
+        if (empty() == '\0') {
+            eastl::basic_string<char, BucketAllocatorEASTL>::begin();
         }
-        eastl::operator+(local_88, (basic_string*)local_68, (value_type*)pcVar4);
-        eastl::operator+(local_48, (basic_string*)local_88, (value_type*)&DAT_100e3824c);
-        eastl::string::operator+=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        local_88->~basic_string();
-        local_68->~basic_string();
-        eastl::operator+(local_68, (basic_string*)local_c8, (value_type*)"BasAnimType: ");
-        eastl::operator+(local_88, (basic_string*)local_68, (basic_string*)local_128);
-        eastl::operator+(local_48, (basic_string*)local_88, (value_type*)&DAT_100e3824c);
-        eastl::string::operator+=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        local_88->~basic_string();
-        local_68->~basic_string();
-        eastl::operator+(local_68, (basic_string*)local_c8, (value_type*)"Seq ID: ");
-        eastl::to_string(local_a8, *(int*)(lVar5 + 76));
-        eastl::operator+(local_88, (basic_string*)local_68, (basic_string*)local_a8);
-        eastl::operator+(local_48, (basic_string*)local_88, (value_type*)&DAT_100e3824c);
-        eastl::string::operator+=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        local_88->~basic_string();
-        local_a8->~basic_string();
-        local_68->~basic_string();
-        eastl::operator+(local_68, (basic_string*)local_c8, (value_type*)"Loop type: ");
-        eastl::operator+(local_88, (basic_string*)local_68, (basic_string*)local_108);
-        eastl::operator+(local_48, (basic_string*)local_88, (value_type*)&DAT_100e3824c);
-        eastl::string::operator+=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        local_88->~basic_string();
-        local_68->~basic_string();
-        eastl::operator+(local_68, (basic_string*)local_c8, (value_type*)"Loop length: ");
-        eastl::to_string(local_a8, *(int*)(lVar5 + 84));
-        eastl::operator+(local_88, (basic_string*)local_68, (basic_string*)local_a8);
-        eastl::operator+(local_48, (basic_string*)local_88, (value_type*)&DAT_100e3824c);
-        eastl::string::operator+=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        local_88->~basic_string();
-        local_a8->~basic_string();
-        local_68->~basic_string();
-        eastl::operator+(local_68, (basic_string*)local_c8, (value_type*)"Tween last frame to first: ");
-        eastl::to_string(local_a8, (uint) * (byte*)(lVar5 + 88));
-        eastl::operator+(local_88, (basic_string*)local_68, (basic_string*)local_a8);
-        eastl::operator+(local_48, (basic_string*)local_88, (value_type*)&DAT_100e3824c);
-        eastl::string::operator+=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        local_88->~basic_string();
-        local_a8->~basic_string();
-        local_68->~basic_string();
-        eastl::operator+(local_68, (basic_string*)local_c8, (value_type*)"Has OnFinished func: ");
-        bVar3 = ((lVar5 + 96))->operator_cast_to_bool();
-        pcVar4 = "False";
-        if (bVar3) {
-            pcVar4 = "True";
-        }
-        eastl::operator+(local_88, (basic_string*)local_68, (value_type*)pcVar4);
-        eastl::operator+(local_48, (basic_string*)local_88, (value_type*)&DAT_100e3824c);
-        eastl::string::operator+=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        local_88->~basic_string();
-        local_68->~basic_string();
-        eastl::operator+(local_48, (basic_string*)local_e8, (value_type*)"}\n");
-        eastl::string::operator+=((eastl::string*)this, (basic_string*)local_48);
-        local_48->~basic_string();
-        local_c8->~basic_string();
-        local_e8->~basic_string();
-        eastl::string::~basic_string(local_128);
-        eastl::string::~basic_string(local_108);
-        return this;
+        local_88 + local_68;
+        local_48 + local_88;
+        result += &local_48;
+        local_68 + local_c8;
+        local_88 + local_68;
+        local_48 + local_88;
+        result += &local_48;
+        local_68 + local_c8;
+        auto local_a8 = eastl::to_string(m_seqID);
+        local_88 + local_68;
+        local_48 + local_88;
+        result += &local_48;
+        local_68 + local_c8;
+        local_88 + local_68;
+        local_48 + local_88;
+        result += &local_48;
+        local_68 + local_c8;
+        local_a8 = eastl::to_string(m_loopLength);
+        local_88 + local_68;
+        local_48 + local_88;
+        result += &local_48;
+        local_68 + local_c8;
+        local_a8 = eastl::to_string((unsigned int)m_tweenLastFrameToFirst);
+        local_88 + local_68;
+        local_48 + local_88;
+        result += &local_48;
+        local_68 + local_c8;
+        (&field_96)->operator_cast_to_bool();
+        local_88 + local_68;
+        local_48 + local_88;
+        result += &local_48;
+        local_48 + local_e8;
+        result += &local_48;
+        return result;
     }
 
-    // 0x100966040, 48 bytes, placed by class name
-    // AnimationDescriptor::InitialiseCallbackFunctions(VariableList&)::$_1::operator()() const
-    /* AnimationDescriptor::InitialiseCallbackFunctions(VariableList&)::$_1::TEMPNAMEPLACEHOLDERVALUE()
-   const */
-
-    void AnimationDescriptor::InitialiseCallbackFunctions(VariableList&)::$_1::operator()() {
-        char* pcVar1;
-        uint uVar2;
-
-        pcVar1 = field_0;
-        uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        VariableList::SetUintVariable(pcVar1, uVar2);
+    // 0x100966040
+    void AnimationDescriptor::InitialiseCallbackFunctions(VariableList&)::$_1::operator()() const {
+        VariableList* this_00 = field_0;
+        long lVar1 = field_8;
+        this_00->SetUintVariable((char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin(),
+                                 *(unsigned int*)(lVar1 + 232));
     }
 
 } // namespace jag::graphics

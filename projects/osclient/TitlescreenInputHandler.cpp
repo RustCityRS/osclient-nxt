@@ -1,19 +1,15 @@
 // projects/osclient/TitlescreenInputHandler.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "TitlescreenInputHandler.h"
 
 namespace jag::oldscape {
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    TitlescreenInputHandler::OnLowLevelMouseDown(int, int, int, int);
+    // 0x100029ea0: TitlescreenInputHandler::OnLowLevelMouseDown(int, int, int, int) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x100029ea0: the linker folded this into InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    TitlescreenInputHandler::TextCommandReceived(int, unsigned long long);
+    // 0x100029ea0: TitlescreenInputHandler::TextCommandReceived(int, unsigned long long) has the same machine code as InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x1000bf300, 32 bytes, placed by class name and debug map
-    // TitlescreenInputHandler::ResetInteractionState()
+    // 0x1000bf300
     void TitlescreenInputHandler::ResetInteractionState() {
         field_27 = 0;
         field_28 = 0;
@@ -26,10 +22,11 @@ namespace jag::oldscape {
         field_31 = -1;
     }
 
-    // 0x1000bf320, 208 bytes, placed by class name and debug map
-    // TitlescreenInputHandler::KeyPressed(int, unsigned long long)
-    void TitlescreenInputHandler::KeyPressed(int param_1, ulonglong param_2) {
-        switch (param_1) {
+    // 0x1000bf320
+    void TitlescreenInputHandler::KeyPressed(int arg1, unsigned long long arg2) {
+        uint32_t in_register_00000034;
+
+        switch (arg1) {
         case 80:
             field_28 = 1;
             break;
@@ -75,34 +72,30 @@ namespace jag::oldscape {
             field_34 = 1;
             break;
         default:
-            if (param_1 == 13) {
+            if (arg1 == 13) {
                 field_27 = 1;
             }
         }
-        (*(code*)field_0[1])();
+        KeyRepeat((int)this, (((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1));
     }
 
-    // 0x1000bf3f0, 32 bytes, placed by class name and debug map
-    // TitlescreenInputHandler::KeyRepeat(int, unsigned long long)
-    undefined1 TitlescreenInputHandler::KeyRepeat(int param_1, ulonglong param_2) {
-        if (param_1 == 85) {
+    // 0x1000bf3f0
+    uint8_t TitlescreenInputHandler::KeyRepeat(int arg1, unsigned long long arg2) {
+        if (arg1 == 85) {
             TitleScreen::DeleteCharacter();
         }
         return 1;
     }
 
-    // 0x1000bf610, 304 bytes, placed by class name
-    // TitlescreenInputHandler::KeyReleased(int, unsigned long long)
-    undefined1[16] TitlescreenInputHandler::KeyReleased(int param_1, ulonglong param_2) {
-        uint uVar1;
-        ulong uVar2;
-        undefined1 auVar3[16];
+    // 0x1000bf610
+    uint8_t[16] TitlescreenInputHandler::KeyReleased(int arg1, unsigned long long arg2) {
+        uint8_t auVar3[16];
 
-        uVar1 = param_1 - 80;
-        uVar2 = (ulong)uVar1;
+        unsigned int uVar1 = arg1 - 80;
+        unsigned long uVar2 = (unsigned long)uVar1;
         if (uVar1 < 27) {
-            param_2 = (long)&switchD_1000bf62a::switchdataD_1000bf684 +
-                      (long)(int)(&switchD_1000bf62a::switchdataD_1000bf684)[uVar2];
+            arg2 = (long)&switchD_1000bf62a::switchdataD_1000bf684 +
+                   (long)(int)(&switchD_1000bf62a::switchdataD_1000bf684)[uVar2];
             switch (uVar2) {
             case 0:
                 goto switchD_1000bf62a_caseD_0;
@@ -156,162 +149,125 @@ namespace jag::oldscape {
             }
         }
     switchD_1000bf62a_default:
-        if (param_1 == 13) {
+        if (arg1 == 13) {
             field_27 = 0;
         }
     switchD_1000bf62a_caseD_2:
-        auVar3._1_7_ = (undefined7)(uVar2 >> 8);
+        auVar3._1_7_ = (uint64_t)(uVar2 >> 8);
         auVar3[0] = 1;
-        auVar3._8_8_ = param_2;
+        auVar3._8_8_ = arg2;
         return auVar3;
     }
 
-    // 0x1000bf740, 32 bytes, placed by class name
-    // TitlescreenInputHandler::KeyTyped(char16_t, unsigned long long)
-    undefined8 TitlescreenInputHandler::KeyTyped(wchar16 param_1, ulonglong param_2) {
-        if ((ushort)(param_1 + L'￐') < 10) {
-            field_31 = (char)param_1;
+    // 0x1000bf740
+    uint64_t TitlescreenInputHandler::KeyTyped(char16_t arg1, unsigned long long arg2) {
+        if ((unsigned short)(arg1 + L'￐') < 10) {
+            field_31 = (char)arg1;
         }
-        TitleScreen::TypeCharacter(param_1);
+        ((TitleScreen*)(unsigned long)(unsigned short)arg1)->TypeCharacter(arg1);
         return 1;
     }
 
-    // 0x1000bf8c0, 160 bytes, placed by class name
-    // TitlescreenInputHandler::PointerPress(int, int, int, int, unsigned long long)
-    undefined1 TitlescreenInputHandler::PointerPress(int param_1, int param_2, int param_3, int param_4,
-                                                     ulonglong param_5) {
-        Js5ResourceProvider* this_00;
-        NXTPixToolkit* this_01;
-        NXTPixScreen* this_02;
-        undefined4 in_register_00000014;
-        NpcUID* extraout_RDX;
-        undefined4 in_register_00000034;
-        NpcUID* pNVar1;
-        undefined4 local_40[2];
-        undefined4 local_38[2];
+    // 0x1000bf8c0
+    uint64_t TitlescreenInputHandler::PointerPress(int arg1, int arg2, int arg3, int arg4, unsigned long long arg5) {
+        unsigned int local_40[2];
+        unsigned int local_38[2];
 
-        pNVar1 = (NpcUID*)CONCAT44(in_register_00000034, param_1);
-        eastl::destruct<highlight::NpcUID*>((eastl*)local_38, pNVar1, (NpcUID*)CONCAT44(in_register_00000014, param_2));
-        eastl::destruct<highlight::NpcUID*>((eastl*)local_40, pNVar1, extraout_RDX);
-        this_00 = (Js5ResourceProvider*)Client::Instance();
-        this_01 = (NXTPixToolkit*)this_00->GetMemoryCache();
-        this_02 = (NXTPixScreen*)this_01->GetScreen();
-        this_02->UICoordFromWindowCoord(param_3, param_4, local_38, local_40);
+        local_38->destruct<highlight::NpcUID*>();
+        local_40->destruct<highlight::NpcUID*>();
+        auto this_00 = Client::Instance();
+        auto this_01 = this_00->GetMemoryCache();
+        ((NXTPixScreen*)this_01->GetScreen())->UICoordFromWindowCoord(arg3, arg4, *local_38, *local_40);
         if (field_8 == '\0') {
-            field_12 = param_1 + 1;
-        } else if (param_1 == 0) {
-            RegisterPointerClick(this, param_2, local_38[0], local_40[0]);
+            field_12 = arg1 + 1;
+        } else if (arg1 == 0) {
+            RegisterPointerClick(arg2, (CoordType<UICoordSpecializer>*)(unsigned long)local_38[0],
+                                 (CoordType<UICoordSpecializer>*)(unsigned long)local_40[0]);
         }
         return 1;
     }
 
-    // 0x1000bf960, 96 bytes, placed by class name
-    // TitlescreenInputHandler::RegisterPointerClick(int, CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>)
-    void TitlescreenInputHandler::RegisterPointerClick(uint param_1, undefined4 param_3, undefined4 param_4) {
-        long lVar1;
-
+    // 0x1000bf960
+    void TitlescreenInputHandler::RegisterPointerClick(int arg1, CoordType<UICoordSpecializer> coordType1,
+                                                       CoordType<UICoordSpecializer> coordType2) {
         if (field_24 == '\0') {
-            if (1 < param_1) {
-                lVar1 = Client::Instance();
-                if (*(char*)(lVar1 + 19105) != '\0') {
+            if (1 < (unsigned int)arg1) {
+                if (Client::Instance()->field_19105 != '\0') {
                     return;
                 }
-                if (param_1 != 4) {
+                if (arg1 != 4) {
                     return;
                 }
             }
-            UpdateLastPointerPosition(this, param_3, param_4);
+            UpdateLastPointerPosition((CoordType<UICoordSpecializer>*)((unsigned long)coordType1 & 4294967295),
+                                      (CoordType<UICoordSpecializer>*)((unsigned long)coordType2 & 4294967295));
             field_24 = 1;
         }
     }
 
-    // 0x1000bf9c0, 144 bytes, placed by class name
-    // TitlescreenInputHandler::PointerRelease(int, int, int, int, unsigned long long)
-    undefined1 TitlescreenInputHandler::PointerRelease(int param_1, int param_2, int param_3, int param_4,
-                                                       ulonglong param_5) {
-        Js5ResourceProvider* this_00;
-        NXTPixToolkit* this_01;
-        NXTPixScreen* this_02;
-        undefined4 in_register_00000014;
-        NpcUID* extraout_RDX;
-        undefined4 in_register_00000034;
-        NpcUID* pNVar1;
-        undefined4 local_40[2];
-        undefined4 local_38[2];
+    // 0x1000bf9c0
+    uint64_t TitlescreenInputHandler::PointerRelease(int arg1, int arg2, int arg3, int arg4, unsigned long long arg5) {
+        unsigned int local_40[2];
+        unsigned int local_38[2];
 
-        pNVar1 = (NpcUID*)CONCAT44(in_register_00000034, param_1);
-        eastl::destruct<highlight::NpcUID*>((eastl*)local_40, pNVar1, (NpcUID*)CONCAT44(in_register_00000014, param_2));
-        eastl::destruct<highlight::NpcUID*>((eastl*)local_38, pNVar1, extraout_RDX);
-        this_00 = (Js5ResourceProvider*)Client::Instance();
-        this_01 = (NXTPixToolkit*)this_00->GetMemoryCache();
-        this_02 = (NXTPixScreen*)this_01->GetScreen();
-        this_02->UICoordFromWindowCoord(param_3, param_4, local_40, local_38);
+        local_40->destruct<highlight::NpcUID*>();
+        local_38->destruct<highlight::NpcUID*>();
+        auto this_00 = Client::Instance();
+        auto this_01 = this_00->GetMemoryCache();
+        ((NXTPixScreen*)this_01->GetScreen())->UICoordFromWindowCoord(arg3, arg4, *local_40, *local_38);
         if ((field_8 == '\0') && (field_12 == 1)) {
-            RegisterPointerClick(this, param_2, local_40[0], local_38[0]);
+            RegisterPointerClick(arg2, (CoordType<UICoordSpecializer>*)(unsigned long)local_40[0],
+                                 (CoordType<UICoordSpecializer>*)(unsigned long)local_38[0]);
         }
         return 1;
     }
 
-    // 0x1000bfa50, 16 bytes, placed by class name
-    // TitlescreenInputHandler::PointerDrag(int, int, int, unsigned long long)
-    undefined1 TitlescreenInputHandler::PointerDrag(int param_1, int param_2, int param_3, ulonglong param_4) {
+    // 0x1000bfa50
+    uint8_t TitlescreenInputHandler::PointerDrag(int arg1, int arg2, int arg3, unsigned long long arg4) {
         return 1;
     }
 
-    // 0x1000bfa60, 128 bytes, placed by class name
-    // TitlescreenInputHandler::MouseMove(int, int, unsigned long long)
-    undefined1 TitlescreenInputHandler::MouseMove(int param_1, int param_2, ulonglong param_3) {
-        Js5ResourceProvider* this_00;
-        NXTPixToolkit* this_01;
-        NXTPixScreen* this_02;
-        undefined4 in_register_00000014;
-        NpcUID* extraout_RDX;
-        undefined4 in_register_00000034;
-        NpcUID* pNVar1;
-        undefined4 local_40[2];
-        undefined4 local_38[2];
+    // 0x1000bfa60
+    uint64_t TitlescreenInputHandler::MouseMove(int arg1, int arg2, unsigned long long arg3) {
+        unsigned int local_40[2];
+        unsigned int local_38[2];
 
-        pNVar1 = (NpcUID*)CONCAT44(in_register_00000034, param_1);
-        eastl::destruct<highlight::NpcUID*>((eastl*)local_40, pNVar1, (NpcUID*)CONCAT44(in_register_00000014, param_2));
-        eastl::destruct<highlight::NpcUID*>((eastl*)local_38, pNVar1, extraout_RDX);
-        this_00 = (Js5ResourceProvider*)Client::Instance();
-        this_01 = (NXTPixToolkit*)this_00->GetMemoryCache();
-        this_02 = (NXTPixScreen*)this_01->GetScreen();
-        this_02->UICoordFromWindowCoord(param_1, param_2, local_40, local_38);
+        local_40->destruct<highlight::NpcUID*>();
+        local_38->destruct<highlight::NpcUID*>();
+        auto this_00 = Client::Instance();
+        auto this_01 = this_00->GetMemoryCache();
+        ((NXTPixScreen*)this_01->GetScreen())->UICoordFromWindowCoord(arg1, arg2, *local_40, *local_38);
         if (field_24 == '\0') {
-            UpdateLastPointerPosition(this, local_40[0], local_38[0]);
+            UpdateLastPointerPosition((CoordType<UICoordSpecializer>*)(unsigned long)local_40[0],
+                                      (CoordType<UICoordSpecializer>*)(unsigned long)local_38[0]);
         }
         return 1;
     }
 
-    // 0x1000bfae0, 16 bytes, placed by class name
-    // TitlescreenInputHandler::UpdateLastPointerPosition(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>)
-    void TitlescreenInputHandler::UpdateLastPointerPosition(undefined4 param_2, undefined4 param_3) {
-        field_16 = param_2;
-        field_20 = param_3;
+    // 0x1000bfae0
+    void TitlescreenInputHandler::UpdateLastPointerPosition(CoordType<UICoordSpecializer> coordType1,
+                                                            CoordType<UICoordSpecializer> coordType2) {
+        field_16 = (int)coordType1;
+        field_20 = (int)coordType2;
     }
 
-    // 0x1000bfaf0, 16 bytes, placed by class name
-    // TitlescreenInputHandler::PointerCancel(int, int, unsigned long long)
-    undefined1 TitlescreenInputHandler::PointerCancel(int param_1, int param_2, ulonglong param_3) {
+    // 0x1000bfaf0
+    uint8_t TitlescreenInputHandler::PointerCancel(int arg1, int arg2, unsigned long long arg3) {
         return 1;
     }
 
-    // 0x1000bfb00, 16 bytes, placed by class name
-    // TitlescreenInputHandler::WheelScroll(int, unsigned long long)
-    undefined1 TitlescreenInputHandler::WheelScroll(int param_1, ulonglong param_2) {
+    // 0x1000bfb00
+    uint8_t TitlescreenInputHandler::WheelScroll(int arg1, unsigned long long arg2) {
         return 1;
     }
 
-    // 0x1000bfb10, 16 bytes, placed by class name
-    // TitlescreenInputHandler::KeyboardInputFocusChange(int, unsigned long long)
-    undefined1 TitlescreenInputHandler::KeyboardInputFocusChange(int param_1, ulonglong param_2) {
-        TitleScreen::SetLoginSelect(param_1);
+    // 0x1000bfb10
+    uint8_t TitlescreenInputHandler::KeyboardInputFocusChange(int arg1, unsigned long long arg2) {
+        TitleScreen::SetLoginSelect(arg1);
         return 1;
     }
 
-    // 0x1000bfb40, 32 bytes, placed by class name
-    // TitlescreenInputHandler::ResetState()
+    // 0x1000bfb40
     void TitlescreenInputHandler::ResetState() {
         field_8 = 0;
         field_12 = 0;

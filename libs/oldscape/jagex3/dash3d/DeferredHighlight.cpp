@@ -1,75 +1,46 @@
 // libs/oldscape/jagex3/dash3d/DeferredHighlight.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "DeferredHighlight.h"
 
 namespace jag::oldscape::dash3d {
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    DeferredHighlight::Render(world&, NXTWorldRenderer*, ModelLitRenderer<NXTPix3D>*, int, int, int, int, int);
+    // 0x100009e70: DeferredHighlight::Render(world&, NXTWorldRenderer*, ModelLitRenderer<NXTPix3D>*, int, int, int, int, int) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    DeferredHighlight::~DeferredHighlight();
+    // 0x100009e70: DeferredHighlight::~DeferredHighlight() has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*), which has identical code
-    DeferredHighlight::~DeferredHighlight();
-
-    // 0x10004af40: the linker folded this into std::__function::__func<std::__bind<void (Client::*)(), Client*&>, std::allocator<std::__bind<void (Client::*)(), Client*&> >, void (ClientWindowMode)>::~__func(), which has identical code
-    DeferredHighlight::~DeferredHighlight();
-
-    // 0x10034abf0, 160 bytes, placed by debug map only (low confidence)
-    // DeferredModelHighlight::Render(world&, NXTWorldRenderer*, ModelLitRenderer<NXTPix3D>*, int, int, int, int, int)
-    void DeferredModelHighlight::Render(world* param_1, NXTWorldRenderer* param_2, ModelLitRenderer* param_3,
-                                        int param_4, int param_5, int param_6, int param_7, int param_8) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-        int iVar4;
-        ModelSource* pMVar5;
-        longlong lVar6;
-        undefined8 uVar7;
-        undefined4 local_38;
-        undefined2 local_34;
-
-        pMVar5 = field_8;
-        iVar1 = field_16;
-        iVar2 = field_20;
-        iVar3 = field_24;
-        iVar4 = field_28;
-        lVar6 = field_32;
-        uVar7 = field_40->GetModelOverlayProperties();
-        local_38 = (undefined4)uVar7;
-        local_34 = (undefined2)((ulong)uVar7 >> 32);
-        (**(code**)(*(long*)param_3 + 16))(param_3, pMVar5, iVar1, param_4, param_5, param_6, param_7, iVar2, iVar3,
-                                           iVar4, lVar6, param_8, &local_38, 1);
+    // 0x10034abf0
+    void DeferredModelHighlight::Render(world& world, NXTWorldRenderer* nxtWorldRenderer,
+                                        ModelLitRenderer<NXTPix3D>* modelLitRenderer, int arg4, int arg5, int arg6,
+                                        int arg7, int arg8) {
+        ModelSource* pMVar5 = field_8;
+        int iVar1 = field_16;
+        int iVar2 = field_20;
+        int iVar3 = field_24;
+        int iVar4 = field_28;
+        long long lVar6 = field_32;
+        uint64_t uVar7 = field_40->GetModelOverlayProperties();
+        uint32_t local_38 = (uint32_t)uVar7;
+        uint16_t local_34 = (uint16_t)((unsigned long)uVar7 >> 32);
+        (**(void (**)(...))(*(long*)modelLitRenderer + 16))(modelLitRenderer, pMVar5, iVar1, arg4, arg5, arg6, arg7,
+                                                            iVar2, iVar3, iVar4, lVar6, arg8, &local_38, 1);
     }
 
-    // 0x10034ace0, 208 bytes, placed by debug map only (low confidence)
-    // DeferredGroundGridHighlight::Render(world&, NXTWorldRenderer*, ModelLitRenderer<NXTPix3D>*, int, int, int, int, int)
-    void DeferredGroundGridHighlight::Render(world* param_1, NXTWorldRenderer* param_2, ModelLitRenderer* param_3,
-                                             int param_4, int param_5, int param_6, int param_7, int param_8) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-        int iVar4;
-        int iVar5;
-        bool bVar6;
-        byte bVar7;
-        ushort uVar8;
-        ushort uVar9;
-
-        iVar1 = field_8;
-        iVar2 = *(int*)&field_12;
-        iVar3 = field_16;
-        iVar4 = field_20;
-        iVar5 = field_24;
-        bVar6 = (bool)field_32->ShowInsideEdges();
-        uVar8 = field_32->GetTileOutlineWidth();
-        uVar9 = field_32->GetEntityID();
-        bVar7 = field_32->GetTileTintAlpha();
-        param_2->RenderGroundOverlayGrid(param_1, iVar1, param_4, param_5, param_6, param_7, iVar2, iVar3, iVar4, iVar5,
-                                         bVar6, (uint)uVar8, (uint)uVar9, (uint)bVar7);
+    // 0x10034ace0
+    void DeferredGroundGridHighlight::Render(world& world, NXTWorldRenderer* nxtWorldRenderer,
+                                             ModelLitRenderer<NXTPix3D>* modelLitRenderer, int arg4, int arg5, int arg6,
+                                             int arg7, int arg8) {
+        int arg2 = field_8;
+        int arg7_00 = *(int*)&field_12;
+        int arg8_00 = field_16;
+        int arg9 = *(int*)&field_20;
+        int arg10 = field_24;
+        bool arg11 = (bool)field_32->ShowInsideEdges();
+        unsigned short uVar2 = field_32->GetTileOutlineWidth();
+        unsigned short uVar3 = field_32->GetEntityID();
+        uint8_t bVar1 = field_32->GetTileTintAlpha();
+        nxtWorldRenderer->RenderGroundOverlayGrid(world, arg2, arg4, arg5, arg6, arg7, arg7_00, arg8_00, arg9, arg10,
+                                                  arg11, (unsigned int)uVar2, (unsigned int)uVar3, (unsigned int)bVar1);
     }
 
 } // namespace jag::oldscape::dash3d

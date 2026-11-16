@@ -1,869 +1,683 @@
 // libs/graphics/runetek7/terrain/TerrainPatch.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 #include "TerrainPatch.h"
 
 namespace jag::graphics {
-    // 0x100f43840, 1 bytes, __data
-    TerrainPatch::m_showPatches = 1;
+    // 0x100f43840
+    bool TerrainPatch::m_showPatches = 1;
 
-    // 0x100f43841, 1 bytes, __data
-    TerrainPatch::m_groundPatchShadowCasterCulling = 1;
+    // 0x100f43841
+    bool TerrainPatch::m_groundPatchShadowCasterCulling = 1;
 
-    // 0x100f43844, 4 bytes, __data
+    // 0x100f43844
     float TerrainPatch::m_groundPatchShadowCasterCullingThreshold = 1850.0f;
 
-    // 0x100f43848, 1 bytes, __data
-    TerrainPatch::m_enablePatchShadows = 1;
+    // 0x100f43848
+    bool TerrainPatch::m_enablePatchShadows = 1;
 
-    // 0x1039bd254, 4 bytes, __common; zero-initialised
-    TerrainPatch::m_showWorldAABB;
+    // 0x1039bd254
+    int32_t TerrainPatch::m_showWorldAABB;
 
-    // 0x1000b9950: the linker folded this into oldscape::ScriptVarType::GetDefaultValue() const, which has identical code
-    TerrainPatch::GetAABB() const;
+    // 0x1000b9950: TerrainPatch::GetAABB() const has the same machine code as oldscape::ScriptVarType::GetDefaultValue() const
 
-    // 0x10017a590: the linker folded this into http::HTTPRequest::GetResponseCode() const, which has identical code
-    int TerrainPatch::GetGridSize() const;
+    // 0x10017a590: TerrainPatch::GetGridSize() const has the same machine code as http::HTTPRequest::GetResponseCode() const
 
-    // 0x1001a3c10: the linker folded this into MainLoopFrameTimer::GetFPSCounter(), which has identical code
-    TerrainPatch::GetMaterial() const;
+    // 0x1001a3c10: TerrainPatch::GetMaterial() const has the same machine code as MainLoopFrameTimer::GetFPSCounter()
 
-    // 0x1007b2010, 976 bytes, placed by class name and debug map
-    // TerrainPatch::InterpolateCentreVertex(TerrainVertex&, GridTile const&, int, int, float, float, TerrainBaseData const&) const
-    void TerrainPatch::InterpolateCentreVertex(TerrainVertex* param_1, GridTile* param_2, int param_3, int param_4,
-                                               float param_5, float param_6, TerrainBaseData* param_7) {
+    // 0x1007b2010
+    void TerrainPatch::InterpolateCentreVertex(TerrainVertex& terrainVertex, const GridTile& gridTile, int arg3,
+                                               int arg4, float arg5, float arg6,
+                                               const TerrainBaseData& terrainBaseData) const {
         long lVar1;
-        bool bVar2;
-        TerrainVertex* pTVar3;
-        undefined8* puVar4;
-        float* pfVar5;
-        GridGroup* pGVar6;
-        undefined8 uVar7;
-        long* plVar8;
-        int* piVar9;
-        ulong uVar10;
-        bool bVar11;
-        int iVar12;
-        int iVar13;
-        float fVar14;
-        array<GridTile_const*, 4ul> local_c0[32];
-        undefined8 local_a0;
+        TerrainVertex* terrainBaseData2;
+        long* plVar7;
+        int* piVar8;
+        int arg2;
+        int arg1;
+        array<GridTile const*, 4ul> local_c0[32];
+        uint64_t local_a0;
         float local_98;
-        TerrainVertex* local_88;
-        ulong local_80;
-        ulong local_78;
-        array<float, 4ul> local_68[20];
+        array<float, 4ul> local_68;
         float local_54;
-        int local_50;
-        float local_44;
-        float local_40;
-        float local_3c;
-        float local_38;
-        float local_34;
 
-        local_50 = m_gridSize;
-        local_44 = param_5 + 1.0;
-        uVar7 = 0;
-        local_88 = param_1;
-        puVar4 = (undefined8*)std::array<GridTile_const*, 4ul>::operator[](local_c0, 0);
-        *puVar4 = param_2;
-        local_3c = 1.0 - param_5;
-        local_34 = 1.0 - param_6;
-        local_38 = local_34 * local_3c;
-        pfVar5 = (float*)std::array<float, 4ul>::operator[](local_68, 0);
-        *pfVar5 = local_38;
-        pGVar6 = (GridGroup*)GetGridGroup(this, param_3 + 1, param_4);
-        if (pGVar6 != (GridGroup*)0) {
-            uVar7 = pGVar6->GetGridTile();
+        int local_50 = m_gridSize;
+        float local_44 = arg5 + 1.0;
+        uint64_t uVar6 = 0;
+        uint64_t* puVar3 = (uint64_t*)(*local_c0)[0];
+        *puVar3 = gridTile;
+        float local_3c = 1.0 - arg5;
+        float local_34 = 1.0 - arg6;
+        float local_38 = local_34 * local_3c;
+        float* pfVar4 = &local_68[0];
+        *pfVar4 = local_38;
+        auto pGVar5 = GetGridGroup(arg3 + 1, arg4);
+        if (pGVar5 != nullptr) {
+            uVar6 = pGVar5->GetGridTile();
         }
-        local_40 = param_6 + 1.0;
-        puVar4 = (undefined8*)std::array<GridTile_const*, 4ul>::operator[](local_c0, 1);
-        *puVar4 = uVar7;
+        float local_40 = arg6 + 1.0;
+        puVar3 = (uint64_t*)(*local_c0)[1];
+        *puVar3 = uVar6;
         local_34 = local_34 * local_44;
-        pfVar5 = (float*)std::array<float, 4ul>::operator[](local_68, 1);
-        *pfVar5 = local_34;
-        pGVar6 = (GridGroup*)GetGridGroup(this, param_3 + 1, param_4 + 1);
-        if (pGVar6 == (GridGroup*)0) {
-            uVar7 = 0;
+        pfVar4 = &local_68[1];
+        *pfVar4 = local_34;
+        pGVar5 = (GridGroup*)GetGridGroup(arg3 + 1, arg4 + 1);
+        if (pGVar5 == nullptr) {
+            uVar6 = 0;
         } else {
-            uVar7 = pGVar6->GetGridTile();
+            uVar6 = pGVar5->GetGridTile();
         }
-        puVar4 = (undefined8*)std::array<GridTile_const*, 4ul>::operator[](local_c0, 2);
-        *puVar4 = uVar7;
+        puVar3 = (uint64_t*)(*local_c0)[2];
+        *puVar3 = uVar6;
         local_34 = local_40 * local_44;
-        pfVar5 = (float*)std::array<float, 4ul>::operator[](local_68, 2);
-        *pfVar5 = local_34;
-        local_78 = (ulong)(uint)param_3;
-        pGVar6 = (GridGroup*)GetGridGroup(this, param_3, param_4 + 1);
-        local_80 = (ulong)(uint)param_4;
-        if (pGVar6 == (GridGroup*)0) {
-            uVar7 = 0;
+        pfVar4 = &local_68[2];
+        *pfVar4 = local_34;
+        unsigned long local_78 = (unsigned long)(unsigned int)arg3;
+        pGVar5 = (GridGroup*)GetGridGroup(arg3, arg4 + 1);
+        unsigned long local_80 = (unsigned long)(unsigned int)arg4;
+        if (pGVar5 == nullptr) {
+            uVar6 = 0;
         } else {
-            uVar7 = pGVar6->GetGridTile();
+            uVar6 = pGVar5->GetGridTile();
         }
-        puVar4 = (undefined8*)std::array<GridTile_const*, 4ul>::operator[](local_c0, 3);
-        *puVar4 = uVar7;
+        puVar3 = (uint64_t*)(*local_c0)[3];
+        *puVar3 = uVar6;
         local_3c = local_3c * local_40;
-        pfVar5 = (float*)std::array<float, 4ul>::operator[](local_68, 3);
-        *pfVar5 = local_3c;
-        bVar2 = true;
-        bVar11 = true;
-        uVar10 = 0;
+        pfVar4 = &local_68[3];
+        *pfVar4 = local_3c;
+        bool bVar2 = true;
+        bool bVar10 = true;
+        unsigned long uVar9 = 0;
         do {
-            pfVar5 = (float*)std::array<float, 4ul>::operator[](local_68, uVar10);
-            if ((0.0 < *pfVar5) && (plVar8 = (long*)std::array<GridTile_const*, 4ul>::operator[](local_c0, uVar10),
-                                    bVar11 = bVar2, *(int*)(*plVar8 + 56) <= *(int*)(*plVar8 + 52))) {
-                bVar11 = false;
-                bVar2 = bVar11;
+            pfVar4 = &local_68[uVar9];
+            if ((0.0 < *pfVar4) &&
+                (plVar7 = (long*)(*local_c0)[uVar9], bVar10 = bVar2, *(int*)(*plVar7 + 56) <= *(int*)(*plVar7 + 52))) {
+                bVar10 = false;
+                bVar2 = bVar10;
             }
-            uVar10 = uVar10 + 1;
-        } while (uVar10 != 4);
-        fVar14 = 0.0;
-        uVar10 = 0;
+            uVar9 = uVar9 + 1;
+        } while (uVar9 != 4);
+        float fVar11 = 0.0;
+        uVar9 = 0;
         local_34 = 0.0;
         local_38 = 0.0;
         do {
-            local_54 = fVar14;
-            pfVar5 = (float*)std::array<float, 4ul>::operator[](local_68, uVar10);
-            local_3c = *pfVar5;
-            if (bVar11) {
+            local_54 = fVar11;
+            pfVar4 = &local_68[uVar9];
+            local_3c = *pfVar4;
+            if (bVar10) {
             LAB_1007b2260:
-                plVar8 = (long*)std::array<GridTile_const*, 4ul>::operator[](local_c0, uVar10);
-                piVar9 = (int*)(*plVar8 + 52);
+                plVar7 = (long*)(*local_c0)[uVar9];
+                piVar8 = (int*)(*plVar7 + 52);
             } else {
-                plVar8 = (long*)std::array<GridTile_const*, 4ul>::operator[](local_c0, uVar10);
-                lVar1 = *plVar8;
+                plVar7 = (long*)(*local_c0)[uVar9];
+                lVar1 = *plVar7;
                 if (*(int*)(lVar1 + 56) <= *(int*)(lVar1 + 52))
                     goto LAB_1007b2260;
-                piVar9 = (int*)(lVar1 + 56);
+                piVar8 = (int*)(lVar1 + 56);
             }
-            local_38 = local_38 + (float)*piVar9 * local_3c;
-            plVar8 = (long*)std::array<GridTile_const*, 4ul>::operator[](local_c0, uVar10);
-            pTVar3 = local_88;
-            fVar14 = local_54 + local_3c;
-            local_34 = local_34 + local_3c * *(float*)(*plVar8 + 24);
-            uVar10 = uVar10 + 1;
-            if (uVar10 == 4) {
-                iVar12 = (int)local_80;
-                iVar13 = (int)local_78;
-                local_34 = local_34 * (1.0 / fVar14);
-                (&local_88->field_40, (float)local_50 * 0.5 * local_44 + (float)(local_50 * iVar13),
-                 local_38 * (1.0 / fVar14), local_40 * (float)local_50 * 0.5 + (float)(local_50 * iVar12))
-                    ->Set();
-                fVar14 = param_6;
-                local_a0 = GetCentreVertexNormal((TerrainPatch*)this, iVar13, iVar12, param_5, param_6);
-                local_98 = fVar14;
-                (&pTVar3->field_52, (Vector3T*)&local_a0)->SetXYZ();
-                TerrainConstants::CopyVertexSource(param_7, (TerrainBaseData*)pTVar3);
-                *(float*)((long)&pTVar3->field_20 + 4) = local_34;
+            local_38 = local_38 + (float)*piVar8 * local_3c;
+            plVar7 = (long*)(*local_c0)[uVar9];
+            terrainBaseData2 = terrainVertex;
+            fVar11 = local_54 + local_3c;
+            local_34 = local_34 + local_3c * *(float*)(*plVar7 + 24);
+            uVar9 = uVar9 + 1;
+            if (uVar9 == 4) {
+                arg2 = (int)local_80;
+                arg1 = (int)local_78;
+                local_34 = local_34 * (1.0 / fVar11);
+                terrainVertex->field_40.Set((float)local_50 * 0.5 * local_44 + (float)(local_50 * arg1),
+                                            local_38 * (1.0 / fVar11),
+                                            local_40 * (float)local_50 * 0.5 + (float)(local_50 * arg2));
+                fVar11 = arg6;
+                local_a0 = GetCentreVertexNormal(arg1, arg2, arg5, arg6);
+                local_98 = fVar11;
+                terrainBaseData2->field_52.SetXYZ(local_a0);
+                TerrainConstants::CopyVertexSource(terrainBaseData, *terrainBaseData2);
+                *(float*)((long)&terrainBaseData2->field_20 + 4) = local_34;
                 return;
             }
         } while (true);
     }
 
-    // 0x1007b24f0, 992 bytes, placed by class name and debug map
-    // TerrainPatch::GetSharedVertex(TerrainVertex&, int, int, TerrainBaseData const&) const
-    void TerrainPatch::GetSharedVertex(TerrainVertex* param_1, int param_2, int param_3, TerrainBaseData* param_4) {
-        char cVar1;
-        GridGroup* pGVar2;
+    // 0x1007b24f0
+    void TerrainPatch::GetSharedVertex(TerrainVertex& terrainVertex, int arg2, int arg3,
+                                       const TerrainBaseData& terrainBaseData) const {
+        bool cVar1;
         long lVar3;
         long lVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
+        uint64_t uVar5;
+        uint64_t uVar6;
         long lVar7;
         TerrainPatch* pTVar8;
-        undefined4 uVar9;
+        uint32_t uVar9;
         float fVar10;
         TerrainBaseData** local_68;
-        undefined8 local_60;
-        undefined4 local_54;
+        uint64_t local_60;
+        uint32_t local_54;
         TerrainPatch* local_50;
         TerrainBaseData* local_48;
-        undefined8 local_40;
-        long local_38;
+        uint64_t local_40;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        pGVar2 = (GridGroup*)GetGridGroup(this, param_2, param_3);
-        if (pGVar2 == (GridGroup*)0) {
+        auto pGVar2 = GetGridGroup(arg2, arg3);
+        if (pGVar2 == nullptr) {
             lVar3 = 0;
-            cVar1 = param_4->field_28;
+            cVar1 = terrainBaseData.field_28;
         } else {
             lVar3 = pGVar2->GetGridTile();
-            cVar1 = param_4->field_28;
+            cVar1 = terrainBaseData.field_28;
         }
-        if (cVar1 == '\0') {
-            local_60._4_4_ = (undefined4)((ulong)local_60 >> 32);
+        if (!cVar1) {
+            local_60._4_4_ = (uint32_t)((unsigned long)local_60 >> 32);
             if (lVar3 == 0) {
                 fVar10 = 0.0;
             } else {
                 fVar10 = (float)*(int*)(lVar3 + 52);
             }
-            (&param_1->field_40, (float)(m_gridSize * param_2), fVar10, (float)(m_gridSize * param_3))->Set();
-            local_68 = (TerrainBaseData**)GetVertexNormal(this, param_2, param_3);
-            local_60 = CONCAT44(local_60._4_4_, fVar10);
-            (&param_1->field_52, (Vector3T*)&local_68)->SetXYZ();
+            terrainVertex.field_40.Set((float)(m_gridSize * arg2), fVar10, (float)(m_gridSize * arg3));
+            local_68 = (TerrainBaseData**)GetVertexNormal(arg2, arg3);
+            local_60 = (((uint64_t)local_60._4_4_ << 32) | (uint32_t)fVar10);
+            terrainVertex.field_52.SetXYZ(local_68);
         } else {
-            local_50 = (TerrainPatch*)param_4;
-            pGVar2 = (GridGroup*)GetGridGroup(this, param_2, param_3);
-            if (pGVar2 == (GridGroup*)0) {
+            local_50 = (TerrainPatch*)terrainBaseData;
+            pGVar2 = (GridGroup*)GetGridGroup(arg2, arg3);
+            if (pGVar2 == nullptr) {
                 lVar4 = 0;
             } else {
                 lVar4 = pGVar2->GetGridTile();
             }
             if (lVar4 == 0) {
-                uVar9 = (undefined4)CONCAT71((int7)((ulong)this >> 8), 1);
-                param_4 = (TerrainBaseData*)local_50;
+                uVar9 = (uint32_t)(((uint64_t)((int64_t)((unsigned long)this >> 8)) << 8) | (uint8_t)1);
+                terrainBaseData = (TerrainBaseData*)local_50;
             } else {
                 uVar5 = pGVar2->GetGridTileOverlay();
                 uVar6 = pGVar2->GetGridTileUnderlay();
                 local_48 = (TerrainBaseData*)local_50;
-                local_40 =
-                    (**(code**)(**(long**)(lVar4 + 72) + 24))(*(long**)(lVar4 + 72), lVar4, uVar5, uVar6, 4, this);
+                local_40 = (**(void (**)(...))(**(long**)(lVar4 + 72) + 24))(*(long**)(lVar4 + 72), lVar4, uVar5, uVar6,
+                                                                             4, this);
                 local_68 = &local_48;
                 local_60 = 2;
-                param_4 =
-                    TerrainConstants::GetDominantSource<TerrainBaseData_const>(true, (initializer_list*)&local_68);
+                terrainBaseData = TerrainConstants::GetDominantSource<TerrainBaseData const>(true, local_68);
                 uVar9 = 0;
             }
             local_50 = this;
-            pGVar2 = (GridGroup*)GetGridGroup(this, param_2 + -1, param_3 + -1);
-            if ((pGVar2 == (GridGroup*)0) || (lVar7 = pGVar2->GetGridTile(), lVar7 == 0)) {
+            pGVar2 = (GridGroup*)GetGridGroup(arg2 - 1, arg3 - 1);
+            if ((pGVar2 == nullptr) || (lVar7 = pGVar2->GetGridTile(), lVar7 == 0)) {
                 pTVar8 = local_50;
                 local_54 = uVar9;
             } else {
                 uVar5 = pGVar2->GetGridTileOverlay();
                 uVar6 = pGVar2->GetGridTileUnderlay();
                 pTVar8 = local_50;
-                local_48 = param_4;
-                local_40 =
-                    (**(code**)(**(long**)(lVar7 + 72) + 24))(*(long**)(lVar7 + 72), lVar7, uVar5, uVar6, 6, local_50);
+                local_48 = terrainBaseData;
+                local_40 = (**(void (**)(...))(**(long**)(lVar7 + 72) + 24))(*(long**)(lVar7 + 72), lVar7, uVar5, uVar6,
+                                                                             6, local_50);
                 local_68 = &local_48;
                 local_60 = 2;
-                param_4 = TerrainConstants::GetDominantSource<TerrainBaseData_const>(lVar4 == 0,
-                                                                                     (initializer_list*)&local_68);
+                terrainBaseData = TerrainConstants::GetDominantSource<TerrainBaseData const>(lVar4 == 0, local_68);
                 local_54 = 0;
             }
-            pGVar2 = (GridGroup*)GetGridGroup(pTVar8, param_2, param_3 + -1);
-            if ((pGVar2 == (GridGroup*)0) || (lVar4 = pGVar2->GetGridTile(), lVar4 == 0)) {
+            pGVar2 = (GridGroup*)GetGridGroup(pTVar8, arg2, arg3 - 1);
+            if ((pGVar2 == nullptr) || (lVar4 = pGVar2->GetGridTile(), lVar4 == 0)) {
                 pTVar8 = local_50;
             } else {
                 uVar5 = pGVar2->GetGridTileOverlay();
                 uVar6 = pGVar2->GetGridTileUnderlay();
                 pTVar8 = local_50;
-                local_48 = param_4;
-                local_40 =
-                    (**(code**)(**(long**)(lVar4 + 72) + 24))(*(long**)(lVar4 + 72), lVar4, uVar5, uVar6, 5, local_50);
+                local_48 = terrainBaseData;
+                local_40 = (**(void (**)(...))(**(long**)(lVar4 + 72) + 24))(*(long**)(lVar4 + 72), lVar4, uVar5, uVar6,
+                                                                             5, local_50);
                 local_68 = &local_48;
                 local_60 = 2;
-                param_4 = TerrainConstants::GetDominantSource<TerrainBaseData_const>(local_54._0_1_,
-                                                                                     (initializer_list*)&local_68);
+                terrainBaseData = TerrainConstants::GetDominantSource<TerrainBaseData const>(local_54._0_1_, local_68);
                 local_54 = 0;
             }
-            pGVar2 = (GridGroup*)GetGridGroup(pTVar8, param_2 + -1, param_3);
-            if ((pGVar2 == (GridGroup*)0) || (lVar4 = pGVar2->GetGridTile(), lVar4 == 0)) {
+            pGVar2 = (GridGroup*)GetGridGroup(pTVar8, arg2 - 1, arg3);
+            if ((pGVar2 == nullptr) || (lVar4 = pGVar2->GetGridTile(), lVar4 == 0)) {
                 pTVar8 = local_50;
             } else {
                 uVar5 = pGVar2->GetGridTileOverlay();
                 uVar6 = pGVar2->GetGridTileUnderlay();
                 pTVar8 = local_50;
-                local_48 = param_4;
-                local_40 =
-                    (**(code**)(**(long**)(lVar4 + 72) + 24))(*(long**)(lVar4 + 72), lVar4, uVar5, uVar6, 7, local_50);
+                local_48 = terrainBaseData;
+                local_40 = (**(void (**)(...))(**(long**)(lVar4 + 72) + 24))(*(long**)(lVar4 + 72), lVar4, uVar5, uVar6,
+                                                                             7, local_50);
                 local_68 = &local_48;
                 local_60 = 2;
-                param_4 = TerrainConstants::GetDominantSource<TerrainBaseData_const>(local_54._0_1_,
-                                                                                     (initializer_list*)&local_68);
+                terrainBaseData = TerrainConstants::GetDominantSource<TerrainBaseData const>(local_54._0_1_, local_68);
             }
             if (lVar3 == 0) {
                 fVar10 = 0.0;
             } else {
                 fVar10 = (float)*(int*)(lVar3 + 52);
             }
-            (&param_1->field_40, (float)(pTVar8->m_gridSize * param_2), fVar10, (float)(pTVar8->m_gridSize * param_3))
-                ->Set();
-            local_68 = (TerrainBaseData**)GetVertexNormal(pTVar8, param_2, param_3);
-            local_60 = CONCAT44(local_60._4_4_, fVar10);
-            (&param_1->field_52, (Vector3T*)&local_68)->SetXYZ();
+            terrainVertex.field_40.Set((float)(pTVar8->m_gridSize * arg2), fVar10, (float)(pTVar8->m_gridSize * arg3));
+            local_68 = (TerrainBaseData**)GetVertexNormal(pTVar8, arg2, arg3);
+            local_60 = (((uint64_t)local_60._4_4_ << 32) | (uint32_t)fVar10);
+            terrainVertex.field_52.SetXYZ(local_68);
         }
-        TerrainConstants::CopyVertexSource(param_4, (TerrainBaseData*)param_1);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        TerrainConstants::CopyVertexSource(terrainBaseData, terrainVertex);
     }
 
-    // 0x1007b4540, 384 bytes, base-object constructor, placed by __FILE__ string
-    // PatchFaceData::PatchFaceData(TerrainVertex const*)
-    void PatchFaceData::PatchFaceData(TerrainVertex* param_1) {
-        undefined1 uVar1;
-        undefined1 uVar2;
-        undefined4 uVar3;
-        vector* pvVar4;
-        float* pfVar5;
-        Vector3T* pVVar6;
-        ColourHSL local_48;
-        undefined2 local_38;
-        undefined1 local_36;
+    // 0x1007b4540
+    PatchFaceData::PatchFaceData(const TerrainVertex* terrainVertex) : math::Vector3T() {
+        uint8_t uVar1;
+        uint8_t uVar2;
+        uint32_t uVar3;
+        uint16_t local_38;
+        uint8_t local_36;
 
-        new (this) math::Vector3T<unsigned short>();
-        new (&field_6) math::Vector3T<unsigned char>();
-        new (&field_15) math::Vector3T<unsigned char>();
-        new (&field_18) math::Vector3T<unsigned char>();
-        pVVar6 = (Vector3T*)(ulong)(ushort)param_1->field_4;
-        Set(param_1->field_4, *(short*)&param_1[1].field_8, *(short*)&param_1[2].field_12);
-        new (&local_48) math::ColourHSL((float)param_1->field_8, *(float*)&param_1[1].field_12,
-                                        *(float*)((long)&param_1[2].field_12 + 4));
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&local_48, 8.0);
-        pvVar4 = local_48.SSOBeginPtr(pVVar6);
-        if (*(float*)pvVar4 <= 255.0) {
-            pfVar5 = (float*)local_48.y();
-            if (*pfVar5 <= 255.0) {
-                pfVar5 = (float*)local_48.second();
-                if (*pfVar5 <= 255.0) {
-                    uVar3 = math::Vector3TFromVector3<unsigned char>((math*)&local_48, pVVar6);
-                    local_38 = (undefined2)uVar3;
-                    local_36 = (undefined1)((uint)uVar3 >> 16);
-                    math::Vector3T<unsigned char>::operator=((Vector3T<unsigned char>*)&field_6, (Vector3T*)&local_38);
-                    uVar1 = param_1[1].field_40;
-                    uVar2 = param_1[2].field_44;
-                    field_9 = *(undefined1*)((long)&param_1->field_32 + 4);
+        *this = math::Vector3T<short>::Set(terrainVertex->field_4, *(unsigned short*)&terrainVertex[1].field_8,
+                                           *(unsigned short*)&terrainVertex[2].field_12);
+        ColourHSL local_48((float)terrainVertex->field_8, *(float*)&terrainVertex[1].field_12,
+                           *(float*)((long)&terrainVertex[2].field_12 + 4));
+        local_48 *= 8.0;
+        auto pfVar4 = local_48.SSOBeginPtr();
+        if (*pfVar4 <= 255.0) {
+            pfVar4 = (float*)local_48.y();
+            if (*pfVar4 <= 255.0) {
+                pfVar4 = (float*)local_48.second();
+                if (*pfVar4 <= 255.0) {
+                    uVar3 = math::Vector3TFromVector3<unsigned char>(local_48);
+                    local_38 = (uint16_t)uVar3;
+                    local_36 = (uint8_t)((unsigned int)uVar3 >> 16);
+                    field_6 = local_38;
+                    uVar1 = terrainVertex[1].field_40;
+                    uVar2 = terrainVertex[2].field_44;
+                    field_9 = *(uint8_t*)((long)&terrainVertex->field_32 + 4);
                     field_10 = uVar1;
                     field_11 = uVar2;
-                    uVar1 = param_1[1].field_41;
-                    uVar2 = param_1[2].field_45;
-                    field_12 = *(undefined1*)((long)&param_1->field_32 + 5);
+                    uVar1 = terrainVertex[1].field_41;
+                    uVar2 = terrainVertex[2].field_45;
+                    field_12 = *(uint8_t*)((long)&terrainVertex->field_32 + 5);
                     field_13 = uVar1;
                     field_14 = uVar2;
-                    (&field_15, *(uchar*)((long)&param_1->field_32 + 6), param_1[1].field_42, param_1[2].field_46)
-                        ->Set();
-                    (&field_18, *(uchar*)((long)&param_1->field_32 + 7), param_1[1].field_43, param_1[2].field_47)
-                        ->Set();
+                    field_15 = math::Vector3T<unsigned char>::Set(*(unsigned char*)((long)&terrainVertex->field_32 + 6),
+                                                                  terrainVertex[1].field_42, terrainVertex[2].field_46);
+                    field_18 = math::Vector3T<unsigned char>::Set(*(unsigned char*)((long)&terrainVertex->field_32 + 7),
+                                                                  terrainVertex[1].field_43, terrainVertex[2].field_47);
                     return;
                 }
             }
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("textureScalesFloat.x() <= std::numeric_limits<uint8>::max() && textureScalesFloat.y() <= "
                   "std::numeric_limits<uint8>::max() && textureScalesFloat.z() <= std::numeric_limits<uint8>::max()",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/terrain/"
                   "TerrainPatch.cpp",
-                  44, (char*)0);
+                  44, nullptr);
     }
 
-    // 0x1007b4760, 16 bytes, complete-object constructor, placed by neighbouring functions
-    // PatchFaceData::PatchFaceData(TerrainVertex const*): jumps straight to the base-object constructor
+    // 0x1007b4770
+    TerrainPatch::TerrainPatch(int arg1, const shared_ptr<eastl::map<int, TerrainTextureMeta>>& arg2,
+                               const shared_ptr<eastl::vector<eastl::vector<GridGroup>>>& gridGroupss, int arg4,
+                               int arg5)
+        : Drawable(2), field_600(arg1), m_gridResolution(0), m_gridSize(0), field_632(local_48, local_40),
+          m_faceCount(0) {
+        hash<int> local_48;
+        equal_to<int> local_40;
 
-    // 0x1007b4770, 592 bytes, base-object constructor, placed by class name
-    // TerrainPatch::TerrainPatch(int, shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator> > const&, shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator> > const&, int, int)
-    void TerrainPatch::TerrainPatch(int param_1, shared_ptr* param_2, shared_ptr* param_3, int param_4, int param_5) {
-        hash* phVar2;
-        hash local_48[8];
-        equal_to local_40[8];
-
-        new (this) Drawable(2);
-        field_0 = &PTR__TerrainPatch_100f146b0;
-        new (&m_aABB) math::AABB();
-        new (&m_material) TerrainMaterial();
-        field_600 = param_1;
-        m_gridResolution = 0;
-        m_gridSize = 0;
-        new (field_616, (_func_decltype_nullptr*)2) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        phVar2 = local_48;
-        new (&field_632, phVar2, local_40) eastl::fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>,
-                                                                 eastl::equal_to<int>, false, eastl::allocator>();
-        m_faceCount = 0;
-        new (&field_13120) IrradianceEffect();
-        new (&field_13232, (_func_decltype_nullptr*)phVar2)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (field_13248, (_func_decltype_nullptr*)phVar2)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        new (&field_13264) eastl::vector<TerrainPatchVertex, eastl::allocator>();
-        new (&field_13296) eastl::vector<TerrainPatchVertexPos, eastl::allocator>();
-        new (&field_13328) render::VertexBuffer();
-        new (&field_13408) render::VertexBuffer();
-        new (&field_13488) render::InputAssemblerState();
-        new (&field_13680) render::InputAssemblerState();
-        new (&field_13872) std::future<void>();
-        shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>::operator=(
-            (shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>*)field_616,
-            param_3);
-        m_gridResolution = param_4;
-        m_gridSize = param_5;
-        shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator>>::operator=(
-            (shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator>>*)field_13248, param_2);
-        ConstructFromTileData(this);
+        *field_616 = gridGroupss;
+        m_gridResolution = arg4;
+        m_gridSize = arg5;
+        *field_13248 = arg2;
+        ConstructFromTileData();
     }
 
-    // 0x1007b4a50, 864 bytes, placed by class name
-    // TerrainPatch::ConstructFromTileData()
+    // 0x1007b4a50
     void TerrainPatch::ConstructFromTileData() {
-        undefined1* this_00;
-        int iVar1;
+        ShaderVariablePrecision shaderVariablePrecision2;
         bool bVar2;
-        char cVar3;
-        int iVar4;
-        undefined4 uVar5;
-        VertexDeclaration* pVVar6;
-        undefined8* puVar7;
-        GridGroup* pGVar8;
-        long lVar9;
-        GridTile* pGVar10;
-        GridTile* pGVar11;
-        hashtable_iterator_base* extraout_RDX;
-        int* piVar12;
-        ulong uVar13;
-        int iVar14;
-        int iVar15;
-        int local_a0[4];
+        hash_map<int, RenderChunk, eastl::hash<int>, eastl::equal_to<int>,
+                 eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul, true>>* this_00;
+        bool cVar3;
+        uint32_t uVar5;
+        int iVar6;
+        GridGroup* pGVar9;
+        long lVar10;
+        GridTile* gridTile1;
+        GridTile* gridTile3;
+        ShaderVariablePrecision* arg1;
+        int arg1_01;
+        EnumOptionToggle EVar11;
+        EnumOptionToggle arg1_02;
+        ReturnValue local_a0;
         GridTile* local_90;
         long local_88;
-        vector<game::WorldMap::MapElementInstance, eastl::allocator>* local_80;
-        RenderChunk local_78;
-        hash_map<int, RenderChunk, eastl::hash<int>, eastl::equal_to<int>,
-                 eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul, true, eastl::allocator>, false>*
-            local_50;
-        int local_48;
-        int local_44;
-        ulong local_40;
-        int local_34;
+        EnumOptionToggle local_48;
+        ShaderVariablePrecision local_44;
+        unsigned long local_40;
 
-        (&m_aABB)->Reset();
-        uVar13 = (ulong)(uint)(m_gridResolution * m_gridResolution * 12);
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-        pVVar6 = (VertexDeclaration*)TerrainPatchRenderer::GetVertexDecl();
-        pVVar6->GetVertexStride(0);
-        iVar4 = 0;
-        local_80 = (vector<game::WorldMap::MapElementInstance, eastl::allocator>*)&field_13264;
-        (&field_13264, uVar13)->reserve();
-        pVVar6 = (VertexDeclaration*)TerrainPatchRenderer::GetVertexDeclPos();
-        pVVar6->GetVertexStride(0);
-        (&field_13296, uVar13)->reserve();
+        m_aABB.Reset();
+        unsigned long arg1_00 = (unsigned long)(unsigned int)(m_gridResolution * m_gridResolution * 12);
+        uint8_t* puVar1 = &field_13264;
+        puVar1->clear();
+        field_13296.clear();
+        auto pVVar7 = TerrainPatchRenderer::GetVertexDecl();
+        pVVar7->GetVertexStride(0);
+        ShaderVariablePrecision SVar4 = 0;
+        vector<game::WorldMap::MapElementInstance>* local_80 = (vector<game::WorldMap::MapElementInstance>*)puVar1;
+        puVar1->reserve(arg1_00);
+        pVVar7 = TerrainPatchRenderer::GetVertexDeclPos();
+        pVVar7->GetVertexStride(0);
+        field_13296.reserve(arg1_00);
         m_faceCount = 0;
-        this_00 = &field_632;
-        this_00->clear();
+        puVar1 = &field_632;
+        puVar1->clear();
         local_78.field_16._0_4_ = 0;
         local_78._20_8_ = 0;
         local_78.field_0 = 0;
         local_78.field_8._0_4_ = 0;
         local_78.field_8._4_4_ = 0;
-        new (&local_78) RenderChunk();
-        local_a0[0] = 0;
-        local_50 =
+        RenderChunk local_78;
+        local_a0[0]._0_4_ = 0;
+        hash_map<int, RenderChunk, eastl::hash<int>, eastl::equal_to<int>,
+                 eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul, true>>* local_50 =
             (hash_map<int, RenderChunk, eastl::hash<int>, eastl::equal_to<int>,
-                      eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul, true, eastl::allocator>, false>*)
-                this_00;
-        puVar7 = (undefined8*)eastl::hash_map<
-            int, RenderChunk, eastl::hash<int>, eastl::equal_to<int>,
-            eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul, true, eastl::allocator>, false>::
-        operator[](
-            (hash_map<int, RenderChunk, eastl::hash<int>, eastl::equal_to<int>,
-                      eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul, true, eastl::allocator>, false>*)
-                this_00,
-            local_a0);
-        *puVar7 = local_78.field_0;
-        puVar7[1] = CONCAT44(local_78.field_8._4_4_, (undefined4)local_78.field_8);
-        *(ulong*)((long)puVar7 + 12) = CONCAT44((undefined4)local_78.field_16, local_78.field_8._4_4_);
-        *(undefined8*)((long)puVar7 + 20) = local_78._20_8_;
+                      eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul, true>>*)puVar1;
+        uint64_t* puVar8 = (uint64_t*)(*puVar1)[local_a0];
+        *puVar8 = local_78.field_0;
+        puVar8[1] = (((uint64_t)local_78.field_8._4_4_ << 32) | (uint32_t)((uint32_t)local_78.field_8));
+        *(unsigned long*)((long)(puVar8 + 1) + 4) =
+            (((uint64_t)((uint32_t)local_78.field_16) << 32) | (uint32_t)local_78.field_8._4_4_);
+        *(uint64_t*)((long)(puVar8 + 2) + 4) = local_78._20_8_;
         if (0 < m_gridResolution) {
-            iVar4 = 0;
-            iVar15 = 1;
+            SVar4 = 0;
+            iVar6 = 1;
             do {
                 if (0 < m_gridResolution) {
-                    iVar14 = 0;
+                    arg1_01 = 0;
                     do {
-                        iVar14 = iVar14 + 1;
-                        pGVar8 = (GridGroup*)GetGridGroup(this, iVar14, iVar15);
-                        if (pGVar8 != (GridGroup*)0) {
-                            lVar9 = pGVar8->GetGridTile();
-                            if (lVar9 != 0) {
-                                piVar12 = (int*)(lVar9 + 44);
-                                if (*(int*)(lVar9 + 44) == -1) {
-                                    *piVar12 = 0;
+                        arg1_01 = arg1_01 + 1;
+                        pGVar9 = (GridGroup*)GetGridGroup(arg1_01, iVar6);
+                        if (pGVar9 != nullptr) {
+                            lVar10 = pGVar9->GetGridTile();
+                            if (lVar10 != 0) {
+                                arg1 = (ShaderVariablePrecision*)(lVar10 + 44);
+                                if (*(int*)(lVar10 + 44) == -1) {
+                                    *arg1 = 0;
                                 }
-                                iVar1 = *(int*)(lVar9 + 48);
-                                if (iVar1 != -1) {
-                                    *piVar12 = iVar1;
-                                    iVar4 = eastl::max<int>(iVar4, iVar1);
+                                shaderVariablePrecision2 = *(ShaderVariablePrecision*)(lVar10 + 48);
+                                if (shaderVariablePrecision2 != 4294967295) {
+                                    *arg1 = shaderVariablePrecision2;
+                                    SVar4 = eastl::max<int>(SVar4, shaderVariablePrecision2);
                                 }
-                                lVar9 = eastl::hash_map<int, RenderChunk, eastl::hash<int>, eastl::equal_to<int>,
-                                                        eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul,
-                                                                                         true, eastl::allocator>,
-                                                        false>::operator[](local_50, piVar12);
-                                *(int*)(lVar9 + 4) = *(int*)(lVar9 + 4) + 1;
+                                lVar10 = (*local_50)[*arg1];
+                                *(int*)(lVar10 + 4) = *(int*)(lVar10 + 4) + 1;
                             }
                         }
-                    } while (iVar14 < m_gridResolution);
+                    } while (arg1_01 < m_gridResolution);
                 }
-                bVar2 = iVar15 < m_gridResolution;
-                iVar15 = iVar15 + 1;
+                bVar2 = iVar6 < m_gridResolution;
+                iVar6 = iVar6 + 1;
             } while (bVar2);
         }
-        local_34 = 0;
-        if (-1 < iVar4) {
-            local_44 = iVar4;
+        int local_34 = 0;
+        if (-1 < (int)SVar4) {
+            local_44 = SVar4;
             do {
-                eastl::hashtable<int, eastl::pair<int const, oldscape::dash3d::ModelLit::AABB>,
-                                 eastl::fixed_hashtable_allocator<3ul, 40ul, 1ul, 4ul, 0ul, true, eastl::allocator>,
-                                 eastl::use_first<eastl::pair<int const, oldscape::dash3d::ModelLit::AABB>>,
-                                 eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                 true>::find((int*)&local_78);
-                eastl::hashtable<int, eastl::pair<int const, oldscape::highlight::HighlightedGroup>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, oldscape::highlight::HighlightedGroup>>,
-                                 eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-                bVar2 = eastl::operator!=((eastl*)&local_78, (hashtable_iterator_base*)local_a0, extraout_RDX);
-                if (bVar2) {
-                    lVar9 = local_78.HeapBeginPtr();
-                    uVar5 = eastl::vector<game::WorldMap::MapElementInstance, eastl::allocator>::size(local_80);
-                    *(undefined4*)(lVar9 + 4) = uVar5;
-                    local_88 = lVar9;
+                this_00 = local_50;
+                local_78 = local_50->find(local_34);
+                local_a0 = this_00->end();
+                cVar3 = local_78 != local_a0;
+                if (cVar3) {
+                    lVar10 = local_78.HeapBeginPtr();
+                    uVar5 = local_80->size();
+                    *(uint32_t*)(lVar10 + 4) = uVar5;
+                    local_88 = lVar10;
                     if (0 < m_gridResolution) {
                         local_40 = 1;
                         do {
                             if (0 < m_gridResolution) {
-                                local_48 = (int)local_40 + -1;
-                                iVar4 = 0;
+                                local_48 = (int)local_40 - 1;
+                                EVar11 = 0;
                                 do {
-                                    iVar15 = iVar4 + 1;
-                                    pGVar8 = (GridGroup*)GetGridGroup(this, iVar15, (int)local_40);
-                                    if (pGVar8 != (GridGroup*)0) {
-                                        pGVar10 = (GridTile*)pGVar8->GetGridTile();
-                                        if ((pGVar10 != (GridTile*)0) && (*(int*)&pGVar10->field_44 == local_34)) {
-                                            local_90 = (GridTile*)pGVar8->GetGridTileOverlay();
-                                            pGVar11 = (GridTile*)pGVar8->GetGridTileUnderlay();
-                                            cVar3 = AddTile(this, pGVar10, local_90, pGVar11, iVar15, (int)local_40);
-                                            lVar9 = local_88;
-                                            if (cVar3 != '\0') {
-                                                iVar14 =
-                                                    eastl::min<GraphicsQuality>(*(undefined4*)(local_88 + 16), iVar4);
-                                                *(int*)(lVar9 + 16) = iVar14;
-                                                uVar5 = eastl::max<int>(iVar14, iVar4);
-                                                iVar4 = local_48;
-                                                *(undefined4*)(lVar9 + 20) = uVar5;
-                                                iVar14 =
-                                                    eastl::min<GraphicsQuality>(*(undefined4*)(lVar9 + 24), local_48);
-                                                *(int*)(lVar9 + 24) = iVar14;
-                                                uVar5 = eastl::max<int>(iVar14, iVar4);
-                                                *(undefined4*)(lVar9 + 28) = uVar5;
+                                    arg1_02 = EVar11 + 1;
+                                    pGVar9 = (GridGroup*)GetGridGroup(arg1_02, (int)local_40);
+                                    if (pGVar9 != nullptr) {
+                                        gridTile1 = (GridTile*)pGVar9->GetGridTile();
+                                        if ((gridTile1 != nullptr) && (*(int*)&gridTile1->field_44 == local_34)) {
+                                            local_90 = (GridTile*)pGVar9->GetGridTileOverlay();
+                                            gridTile3 = (GridTile*)pGVar9->GetGridTileUnderlay();
+                                            cVar3 = AddTile(*gridTile1, local_90, gridTile3, arg1_02, (int)local_40);
+                                            lVar10 = local_88;
+                                            if (cVar3) {
+                                                SVar4 = eastl::min<GraphicsQuality>(*(EnumOptionToggle*)(local_88 + 16),
+                                                                                    EVar11);
+                                                *(ShaderVariablePrecision*)(lVar10 + 16) = SVar4;
+                                                uVar5 = eastl::max<int>(SVar4, EVar11);
+                                                EVar11 = local_48;
+                                                *(uint32_t*)(lVar10 + 20) = uVar5;
+                                                SVar4 = eastl::min<GraphicsQuality>(*(EnumOptionToggle*)(lVar10 + 24),
+                                                                                    local_48);
+                                                *(ShaderVariablePrecision*)(lVar10 + 24) = SVar4;
+                                                uVar5 = eastl::max<int>(SVar4, EVar11);
+                                                *(uint32_t*)(lVar10 + 28) = uVar5;
                                             }
                                         }
                                     }
-                                    iVar4 = iVar15;
-                                } while (iVar15 < m_gridResolution);
+                                    EVar11 = arg1_02;
+                                } while ((int)arg1_02 < m_gridResolution);
                             }
-                            iVar4 = (int)local_40;
-                            local_40 = (ulong)(iVar4 + 1);
-                        } while (iVar4 < m_gridResolution);
+                            iVar6 = (int)local_40;
+                            local_40 = (unsigned long)(iVar6 + 1);
+                        } while (iVar6 < m_gridResolution);
                     }
                 }
-                iVar4 = local_34 + 1;
-                bVar2 = local_34 < local_44;
-                local_34 = iVar4;
+                iVar6 = local_34 + 1;
+                bVar2 = local_34 < (int)local_44;
+                local_34 = iVar6;
             } while (bVar2);
         }
-        iVar4 = GetFaceCount(this);
-        if (iVar4 != 0) {
+        iVar6 = GetFaceCount();
+        if (iVar6 != 0) {
             cVar3 = this_thread::IsMainThread();
-            if (cVar3 != '\0') {
-                bVar2 = field_616->operator_cast_to_bool();
-                if (!bVar2) {
-                    CreateRenderingResources(this);
+            if (cVar3) {
+                cVar3 = field_616->operator_cast_to_bool();
+                if (!cVar3) {
+                    CreateRenderingResources();
                 }
             }
         }
-        CheckShadowCaster(this);
+        CheckShadowCaster();
     }
 
-    // 0x1007b4dc0, 16 bytes, complete-object constructor, placed by class name
-    // TerrainPatch::TerrainPatch(int, shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator> > const&, shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator> > const&, int, int): jumps straight to the base-object constructor
+    // 0x1007b4dd0
+    TerrainPatch::TerrainPatch(int arg1, const math::AABB& aabb, eastl::vector<TerrainPatchVertex>& terrainPatchVertexs,
+                               eastl::vector<TerrainPatchVertexPos>& terrainPatchVertexPoss, int arg5, int arg6,
+                               int arg7, const shared_ptr<TextureAtlasReference>& textureAtlasReference,
+                               eastl::fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>,
+                                                     eastl::equal_to<int>, false>& fixed_hash_map,
+                               const math::Matrix44T<float>* matrix44, const float* arg11)
+        : Drawable(0), m_aABB(aabb) {
+        ReturnValue local_108;
+        hash<int> local_d8;
 
-    // 0x1007b4dd0, 960 bytes, base-object constructor, placed by class name
-    // TerrainPatch::TerrainPatch(int, math::AABB const&, eastl::vector<TerrainPatchVertex, eastl::allocator>&, eastl::vector<TerrainPatchVertexPos, eastl::allocator>&, int, int, int, shared_ptr<TextureAtlasReference> const&, eastl::fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>, eastl::equal_to<int>, false, eastl::allocator>&, math::Matrix44T<float> const*, float const*)
-    void TerrainPatch::TerrainPatch(int param_1, AABB* param_2, vector* param_3, vector* param_4, int param_5,
-                                    int param_6, int param_7, shared_ptr* param_8, fixed_hash_map* param_9,
-                                    Matrix44T* param_10, float* param_11) {
-        vector<eastl::string, eastl::allocator>* this_00;
-        ulong uVar1;
-        char* pcVar2;
-        hash* phVar3;
-        ParticleMaterial* this_01;
-        TerrainPatch* local_148;
-        undefined1* local_140;
-        undefined1* local_138;
-        undefined1* local_130;
-        undefined1* local_128;
-        undefined1* local_120;
-        undefined1* local_118;
-        undefined1* local_110;
-        equal_to local_108[8];
-        fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>, eastl::equal_to<int>, false,
-                       eastl::allocator>* local_100;
-        vector<eastl::string, eastl::allocator>* local_f8;
-        int local_ec;
-        vector<eastl::string, eastl::allocator>* local_e8;
-        ParticleMaterial* local_e0;
-        hash local_d8[160];
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_ec = param_5;
-        new (this) Drawable(0);
-        field_0 = &PTR__TerrainPatch_100f146b0;
-        new (&m_aABB, param_2) math::AABB();
-        local_e0 = (ParticleMaterial*)&m_material;
+        ParticleMaterial* local_e0 = (ParticleMaterial*)m_material;
         new (local_e0) TerrainMaterial();
-        field_600 = param_1;
+        field_600 = arg1;
         m_gridResolution = 0;
         m_gridSize = 0;
-        new (field_616, (_func_decltype_nullptr*)param_2)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        local_100 = (fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>, eastl::equal_to<int>, false,
-                                    eastl::allocator>*)&field_632;
-        phVar3 = local_d8;
-        local_140 = field_616;
-        eastl::fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>, eastl::equal_to<int>, false,
-                              eastl::allocator>::fixed_hash_map(local_100, phVar3, local_108);
+        new (field_616) shared_ptr();
+        fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>, eastl::equal_to<int>, false>* local_100 =
+            (fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>, eastl::equal_to<int>,
+                            false>*)&field_632;
+        uint8_t* local_140 = field_616;
+        new (local_100)
+            eastl::fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>, eastl::equal_to<int>, false>(
+                local_d8, local_108);
         m_faceCount = 0;
-        field_13096 = param_10;
-        field_13104 = param_11;
+        field_13096 = matrix44;
+        field_13104 = arg11;
         new (&field_13120) IrradianceEffect();
-        new (&field_13232, (_func_decltype_nullptr*)phVar3)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        local_138 = &field_13232;
-        new (field_13248, (_func_decltype_nullptr*)phVar3)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
-        local_f8 = (vector<eastl::string, eastl::allocator>*)&field_13264;
-        local_130 = field_13248;
-        new (local_f8) eastl::vector<TerrainPatchVertex, eastl::allocator>();
-        local_e8 = (vector<eastl::string, eastl::allocator>*)&field_13296;
-        new (local_e8) eastl::vector<TerrainPatchVertexPos, eastl::allocator>();
-        local_128 = &field_13328;
+        new (&field_13232) shared_ptr();
+        uint8_t* local_138 = &field_13232;
+        new (field_13248) shared_ptr();
+        vector<eastl::string>* local_f8 = (vector<eastl::string>*)&field_13264;
+        uint8_t* local_130 = field_13248;
+        new (local_f8) eastl::vector<TerrainPatchVertex>();
+        vector<eastl::string>* local_e8 = (vector<eastl::string>*)&field_13296;
+        new (local_e8) eastl::vector<TerrainPatchVertexPos>();
+        uint8_t* local_128 = &field_13328;
         new (local_128) render::VertexBuffer();
-        local_120 = &field_13408;
+        uint8_t* local_120 = &field_13408;
         new (local_120) render::VertexBuffer();
-        local_118 = &field_13488;
+        uint8_t* local_118 = &field_13488;
         new (local_118) render::InputAssemblerState();
-        local_110 = &field_13680;
+        uint8_t* local_110 = &field_13680;
         new (local_110) render::InputAssemblerState();
         new (&field_13872) std::future<void>();
-        this_00 = local_f8;
-        if (local_f8 != (vector<eastl::string, eastl::allocator>*)param_3) {
-            eastl::vector<eastl::string, eastl::allocator>::swap(local_f8, param_3);
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        vector<eastl::string>* this_00 = local_f8;
+        if (local_f8 != (vector<eastl::string>*)terrainPatchVertexs) {
+            local_f8->swap(terrainPatchVertexs);
+            terrainPatchVertexs.clear();
         }
-        if (local_e8 != (vector<eastl::string, eastl::allocator>*)param_4) {
-            eastl::vector<eastl::string, eastl::allocator>::swap(local_e8, param_4);
-            eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
+        if (local_e8 != (vector<eastl::string>*)terrainPatchVertexPoss) {
+            local_e8->swap(terrainPatchVertexPoss);
+            terrainPatchVertexPoss.clear();
         }
-        uVar1 = this_00->size();
+        unsigned long uVar1 = this_00->size();
         m_faceCount = (int)(uVar1 / 3);
-        eastl::fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>, eastl::equal_to<int>, false,
-                              eastl::allocator>::swap(local_100, param_9);
-        m_gridSize = param_6;
-        m_gridResolution = local_ec;
+        local_100->swap(fixed_hash_map);
+        m_gridSize = arg6;
+        m_gridResolution = arg5;
         local_e0->InitRenderPassEffects();
-        local_e0->SetTextureAtlasReference(param_8);
-        this_01 = local_e0;
-        local_e0->SetEndPosition(param_7);
-        pcVar2 = (char*)this_01->Instance();
-        local_148 = this;
+        local_e0->SetTextureAtlasReference(textureAtlasReference);
+        ParticleMaterial* this_02 = local_e0;
+        local_e0->SetEndPosition(arg7);
+        auto this_01 = this_02->Instance();
+        TerrainPatch* local_148 = this;
         fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::function<
-            TerrainPatch::TerrainPatch(int, math::AABB_const&, eastl::vector<TerrainPatchVertex, eastl::allocator>&,
-                                       eastl::vector<TerrainPatchVertexPos, eastl::allocator>&, int, int, int,
+            TerrainPatch::TerrainPatch(int, math::AABB const&, eastl::vector<TerrainPatchVertex>&,
+                                       eastl::vector<TerrainPatchVertexPos>&, int, int, int,
                                        shared_ptr<TextureAtlasReference> const&,
                                        eastl::fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>,
-                                                             eastl::equal_to<int>, false, eastl::allocator>&,
+                                                             eastl::equal_to<int>, false>&,
                                        math::Matrix44T<float> const*, float const*)::__8,
-            void>((function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)local_d8,
+            void>((function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)&local_d8,
                   (__8*)&local_148);
-        local_108->RunOnThreadPoolRenderContext(pcVar2, (function*)"TerrainPatch");
-        std::future<void>::operator=((future<void>*)&field_13872, (future*)local_108);
-        local_108->~future();
-        fixedfunction::function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>::~function(
-            (function<void(render::RenderContext&), 128ul, 16ul, (fixedfunction::Methods)0>*)local_d8);
-        CheckShadowCaster(this);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        local_108 = this_01->RunOnThreadPoolRenderContext("TerrainPatch", local_d8);
+        field_13872 = local_108;
+        CheckShadowCaster();
     }
 
-    // 0x1007b5210, 80 bytes, placed by class name
-    // TerrainPatch::CheckShadowCaster()
+    // 0x1007b5210
     void TerrainPatch::CheckShadowCaster() {
-        bool bVar1;
         float extraout_XMM0_Db;
 
-        bVar1 = true;
+        bool arg2 = true;
         if (field_600 == 0) {
-            (&m_aABB)->GetDimensions();
+            m_aABB.GetDimensions();
             if (extraout_XMM0_Db < m_groundPatchShadowCasterCullingThreshold) {
-                bVar1 = m_groundPatchShadowCasterCulling == '\0';
+                arg2 = m_groundPatchShadowCasterCulling == '\0';
             }
         }
-        SetRenderFlag(1, bVar1);
+        SetRenderFlag(1, arg2);
     }
 
-    // 0x1007b5260, 64 bytes, complete-object constructor, placed by class name
-    // TerrainPatch::TerrainPatch(int, math::AABB const&, eastl::vector<TerrainPatchVertex, eastl::allocator>&, eastl::vector<TerrainPatchVertexPos, eastl::allocator>&, int, int, int, shared_ptr<TextureAtlasReference> const&, eastl::fixed_hash_map<int, RenderChunk, 256ul, 257ul, true, eastl::hash<int>, eastl::equal_to<int>, false, eastl::allocator>&, math::Matrix44T<float> const*, float const*)
-    void TerrainPatch::TerrainPatch(int param_1, AABB* param_2, vector* param_3, vector* param_4, int param_5,
-                                    int param_6, int param_7, shared_ptr* param_8, fixed_hash_map* param_9,
-                                    Matrix44T* param_10, float* param_11) {
-        TerrainPatch(this, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10,
-                     param_11);
-    }
-
-    // 0x1007b52a0, 384 bytes, base-object destructor, placed by class name
-    // TerrainPatch::~TerrainPatch()
-    void TerrainPatch::~TerrainPatch() {
-        field_0 = &PTR__TerrainPatch_100f146b0;
-        if ((&field_13872)->valid() != '\0') {
-            std::future<void>::wait();
+    // 0x1007b52a0
+    TerrainPatch::~TerrainPatch() {
+        uint8_t* this_00 = &field_13872;
+        if (this_00->valid() != '\0') {
+            this_00->wait();
         }
-        DestroyRenderingResources(this);
-        (&field_13872)->~future();
-        (&field_13680)->~InputAssemblerState();
-        (&field_13488)->~InputAssemblerState();
-        (&field_13408)->~VertexBuffer();
-        (&field_13328)->~VertexBuffer();
-        (&field_13296)->~vector();
-        (&field_13264)->~vector();
+        DestroyRenderingResources();
+        this_00->~future();
+        field_13680.~InputAssemblerState();
+        field_13488.~InputAssemblerState();
+        field_13408.~VertexBuffer();
+        field_13328.~VertexBuffer();
+        field_13296.~vector();
+        field_13264.~vector();
         field_13248->~shared_ptr();
-        (&field_13232)->~shared_ptr();
-        (&field_632)->~fixed_hash_map();
+        field_13232.~shared_ptr();
+        field_632.~fixed_hash_map();
         field_616->~shared_ptr();
-        (&m_material)->~TerrainMaterial();
-        ~AutoSingleton();
+        m_material->~TerrainMaterial();
     }
 
-    // 0x1007b5440, 96 bytes, placed by class name
-    // TerrainPatch::DestroyRenderingResources()
+    // 0x1007b5440
     void TerrainPatch::DestroyRenderingResources() {
-        AutoSingleton<ShaderThreadPoolSingleton> local_18[8];
+        AutoSingleton<ShaderThreadPoolSingleton> local_18;
 
-        local_18->~AutoSingleton("Terrain_Patch");
-        (&m_material)->DestroyRenderingResources();
-        (&field_13680)->Destroy();
-        (&field_13488)->Destroy();
-        (&field_13408)->Destroy();
-        (&field_13328)->Destroy();
+        m_material->DestroyRenderingResources();
+        field_13680.Destroy();
+        field_13488.Destroy();
+        field_13408.Destroy();
+        field_13328.Destroy();
     }
 
-    // 0x1007b54a0, 16 bytes, complete-object destructor, placed by class name
-    // TerrainPatch::~TerrainPatch(): jumps straight to the base-object destructor
-
-    // 0x1007b54b0, 32 bytes, deleting destructor, placed by class name
-    // TerrainPatch::~TerrainPatch()
-    void TerrainPatch::~TerrainPatch() {
-        ~TerrainPatch(this);
-        operator_delete(this);
-    }
-
-    // 0x1007b54d0, 384 bytes, placed by class name
-    // TerrainPatch::CreateRenderingResources()
+    // 0x1007b54d0
     void TerrainPatch::CreateRenderingResources() {
-        undefined1* puVar1;
-        byte bVar2;
-        byte bVar3;
-        int iVar4;
-        int iVar5;
-        VertexDeclaration* pVVar6;
+        uint8_t bVar2;
+        uint8_t bVar3;
         void* pvVar7;
         char* this_00;
-        AutoSingleton<ShaderThreadPoolSingleton> local_38[8];
+        AutoSingleton<ShaderThreadPoolSingleton> local_38;
 
-        local_38->~AutoSingleton();
-        iVar4 = GetVertexDataSize(this);
+        int iVar4 = GetVertexDataSize();
         if (iVar4 != 0) {
-            /* WARNING: Subroutine does not return */
             LogAssert("GetVertexDataSize() == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/terrain/"
                       "TerrainPatch.cpp",
-                      153, (char*)0);
+                      153, nullptr);
         }
-        pVVar6 = (VertexDeclaration*)TerrainPatchRenderer::GetVertexDecl();
+        auto pVVar6 = TerrainPatchRenderer::GetVertexDecl();
         iVar4 = pVVar6->GetVertexStride(0);
-        puVar1 = &field_13264;
-        iVar5 = puVar1->size();
+        uint8_t* puVar1 = &field_13264;
+        int iVar5 = puVar1->size();
         if (iVar5 * iVar4 == 0) {
             bVar2 = 1;
         } else {
             pvVar7 = (void*)puVar1->HeapBeginPtr();
-            bVar2 = (&field_13328, iVar5 * iVar4, 0, pvVar7)->Create();
+            bVar2 = field_13328.Create(iVar5 * iVar4, 0, pvVar7);
             puVar1->set_capacity(0);
         }
-        pVVar6 = (VertexDeclaration*)TerrainPatchRenderer::GetVertexDeclPos();
+        pVVar6 = TerrainPatchRenderer::GetVertexDeclPos();
         iVar4 = pVVar6->GetVertexStride(0);
         puVar1 = &field_13296;
         iVar5 = puVar1->size();
         if (iVar5 * iVar4 != 0) {
             pvVar7 = (void*)puVar1->HeapBeginPtr();
-            bVar3 = (&field_13408, iVar5 * iVar4, 0, pvVar7)->Create();
+            bVar3 = field_13408.Create(iVar5 * iVar4, 0, pvVar7);
             bVar2 = bVar2 & bVar3;
             puVar1->set_capacity(0);
         }
-        pVVar6 = (VertexDeclaration*)TerrainPatchRenderer::GetVertexDecl();
-        (&field_13488, pVVar6, (VertexBuffer*)&field_13328)->SetVertexStreamData();
-        pVVar6 = (VertexDeclaration*)TerrainPatchRenderer::GetVertexDeclPos();
-        (&field_13680, pVVar6, (VertexBuffer*)&field_13408)->SetVertexStreamData();
+        pVVar6 = TerrainPatchRenderer::GetVertexDecl();
+        field_13488.SetVertexStreamData(pVVar6, &field_13328);
+        pVVar6 = TerrainPatchRenderer::GetVertexDeclPos();
+        field_13680.SetVertexStreamData(pVVar6, &field_13408);
         if (bVar2 == 0) {
-            DestroyRenderingResources(this);
+            DestroyRenderingResources();
             this_00 = "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/terrain/"
                       "TerrainPatch.cpp";
             LogFatalError("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                           "terrain/TerrainPatch.cpp",
                           180, 0, "Failed to allocate memory for the terrain\'s vertex data!");
-            /* WARNING: Subroutine does not return */
             this_00->~OptionStore();
         }
     }
 
-    // 0x1007b5860, 144 bytes, placed by class name
-    // TerrainPatch::GetGridGroup(int, int)
-    undefined8 TerrainPatch::GetGridGroup(int param_1, int param_2) {
-        bool bVar1;
-        vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
-               eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>* this_00;
-        ulong uVar2;
-        vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>* this_01;
-        vector<ModularParticleEmitter, eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true, eastl::allocator>>*
-            this_02;
-        undefined8 uVar3;
-        undefined1* this_03;
+    // 0x1007b5860
+    uint64_t TerrainPatch::GetGridGroup(int arg1, int arg2) {
+        unsigned long uVar2;
+        vector<eastl::vector<GridGroup>>* this_01;
+        vector<ModularParticleEmitter, eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true>>* this_02;
 
-        this_03 = field_616;
-        bVar1 = this_03->operator_cast_to_bool();
-        if ((bVar1) && (-1 < param_1)) {
-            this_00 =
-                (vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
-                        eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>::operator->(
-                        (shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>*)
-                            this_03);
-            uVar2 = eastl::vector<
-                Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
-                eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::size(this_00);
-            if ((ulong)(long)param_1 < uVar2) {
-                this_01 = (vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>*)
-                    shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>::operator*(
-                        (shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>*)
-                            this_03);
+        uint8_t* this_03 = field_616;
+        if ((this_03->operator_cast_to_bool() != '\0') && (-1 < arg1)) {
+            uVar2 = ((vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>>>,
+                             eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true>>*)(*this_03)
+                         .operator->())
+                        ->size();
+            if ((unsigned long)(long)arg1 < uVar2) {
+                this_01 = (vector<eastl::vector<GridGroup>>*)**this_03;
                 this_02 = (vector<ModularParticleEmitter,
-                                  eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true, eastl::allocator>>*)
-                    eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>::operator[](
-                        this_01, (long)param_1);
-                if (-1 < param_2) {
-                    uVar2 = eastl::vector<
-                        ModularParticleEmitter,
-                        eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true, eastl::allocator>>::size(this_02);
-                    if ((ulong)(long)param_2 < uVar2) {
-                        uVar3 = eastl::vector<GridGroup, eastl::allocator>::operator[](
-                            (vector<GridGroup, eastl::allocator>*)this_02, (long)param_2);
-                        return uVar3;
+                                  eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true>>*)(*this_01)[(long)arg1];
+                if (-1 < arg2) {
+                    uVar2 = this_02->size();
+                    if ((unsigned long)(long)arg2 < uVar2) {
+                        return (*this_02)[(long)arg2];
                     }
                 }
             }
@@ -871,48 +685,26 @@ namespace jag::graphics {
         return 0;
     }
 
-    // 0x1007b5a20, 144 bytes, placed by class name
-    // TerrainPatch::GetGridGroup(int, int) const
-    undefined8 TerrainPatch::GetGridGroup(int param_1, int param_2) {
-        bool bVar1;
-        vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
-               eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>* this_00;
-        ulong uVar2;
-        vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>* this_01;
-        vector<ModularParticleEmitter, eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true, eastl::allocator>>*
-            this_02;
-        undefined8 uVar3;
-        undefined1* this_03;
+    // 0x1007b5a20
+    uint64_t TerrainPatch::GetGridGroup(int arg1, int arg2) const {
+        unsigned long uVar2;
+        vector<eastl::vector<GridGroup>>* this_01;
+        vector<ModularParticleEmitter, eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true>>* this_02;
 
-        this_03 = field_616;
-        bVar1 = this_03->operator_cast_to_bool();
-        if ((bVar1) && (-1 < param_1)) {
-            this_00 =
-                (vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
-                        eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>*)
-                    shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>::operator->(
-                        (shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>*)
-                            this_03);
-            uVar2 = eastl::vector<
-                Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>, eastl::allocator>>,
-                eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::size(this_00);
-            if ((ulong)(long)param_1 < uVar2) {
-                this_01 = (vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>*)
-                    shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>::operator*(
-                        (shared_ptr<eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>>*)
-                            this_03);
+        uint8_t* this_03 = field_616;
+        if ((this_03->operator_cast_to_bool() != '\0') && (-1 < arg1)) {
+            uVar2 = ((vector<Nullable<Array<shared_ptr<oldscape::rs2lib::IfType>>>,
+                             eastl::fixed_vector_allocator<32ul, 64ul, 8ul, 0ul, true>>*)(*this_03)
+                         .operator->())
+                        ->size();
+            if ((unsigned long)(long)arg1 < uVar2) {
+                this_01 = (vector<eastl::vector<GridGroup>>*)**this_03;
                 this_02 = (vector<ModularParticleEmitter,
-                                  eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true, eastl::allocator>>*)
-                    eastl::vector<eastl::vector<GridGroup, eastl::allocator>, eastl::allocator>::operator[](
-                        this_01, (long)param_1);
-                if (-1 < param_2) {
-                    uVar2 = eastl::vector<
-                        ModularParticleEmitter,
-                        eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true, eastl::allocator>>::size(this_02);
-                    if ((ulong)(long)param_2 < uVar2) {
-                        uVar3 = eastl::vector<GridGroup, eastl::allocator>::operator[](
-                            (vector<GridGroup, eastl::allocator>*)this_02, (long)param_2);
-                        return uVar3;
+                                  eastl::fixed_vector_allocator<320ul, 4ul, 16ul, 0ul, true>>*)(*this_01)[(long)arg1];
+                if (-1 < arg2) {
+                    uVar2 = this_02->size();
+                    if ((unsigned long)(long)arg2 < uVar2) {
+                        return (*this_02)[(long)arg2];
                     }
                 }
             }
@@ -920,252 +712,155 @@ namespace jag::graphics {
         return 0;
     }
 
-    // 0x1007b5b00: the linker folded this into GridGroup::GetGridTile(), which has identical code
-    GridGroup::GetGridTile() const;
+    // 0x1007b5b00: GridGroup::GetGridTile() const has the same machine code as GridGroup::GetGridTile()
 
-    // 0x1007b5b40, 256 bytes, placed by class name
-    // TerrainPatch::AddTile(GridTile&, GridTile*, GridTile*, int, int)
-    bool TerrainPatch::AddTile(GridTile* param_1, GridTile* param_2, GridTile* param_3, int param_4, int param_5) {
-        vector<eastl::pair<eastl::fixed_string<char, 16, true, eastl::allocator>, float>, eastl::allocator>* this_00;
-        long lVar1;
-        TerrainBaseData* pTVar2;
-        TerrainVertex* pTVar3;
-        ulong uVar4;
-        ulong uVar5;
-        long lVar6;
+    // 0x1007b5b40
+    bool TerrainPatch::AddTile(GridTile& gridTile1, GridTile* gridTile2, GridTile* gridTile3, int arg4, int arg5) {
+        TerrainBaseData* terrainBaseData;
+        TerrainVertex* terrainVertex;
+        unsigned long uVar2;
+        unsigned long arg1;
+        long lVar3;
 
-        this_00 =
-            (vector<eastl::pair<eastl::fixed_string<char, 16, true, eastl::allocator>, float>, eastl::allocator>*)(**(
-                code**)(*(long*)param_1->field_72 + 16))();
-        lVar1 = eastl::vector<eastl::pair<eastl::fixed_string<char, 16, true, eastl::allocator>, float>,
-                              eastl::allocator>::size(this_00);
-        if (6148914691236517205 < (ulong)(lVar1 * -6148914691236517205)) {
-            /* WARNING: Subroutine does not return */
+        vector<eastl::pair<eastl::fixed_string<char, 16>, float>>* this_00 =
+            (vector<eastl::pair<eastl::fixed_string<char, 16>, float>>*)(**(void (**)(...))(*(long*)gridTile1.field_72 +
+                                                                                            16))();
+        long lVar1 = this_00->size();
+        if (6148914691236517205 < (unsigned long)(lVar1 * -6148914691236517205)) {
             LogAssert("triangles.size() % 3 == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/terrain/"
                       "TerrainPatch.cpp",
-                      386, (char*)0);
+                      386, nullptr);
         }
-        lVar1 = eastl::vector<eastl::pair<eastl::fixed_string<char, 16, true, eastl::allocator>, float>,
-                              eastl::allocator>::size(this_00);
+        lVar1 = this_00->size();
         if (lVar1 != 0) {
-            uVar5 = 0;
+            arg1 = 0;
             do {
-                lVar6 = 0;
+                lVar3 = 0;
                 do {
-                    pTVar2 = (TerrainBaseData*)eastl::vector<TerrainVertex, eastl::allocator>::operator[](
-                        (vector<TerrainVertex, eastl::allocator>*)this_00, uVar5 + lVar6);
-                    ExpandSource(this, pTVar2);
-                    lVar6 = lVar6 + 1;
-                } while (lVar6 != 3);
-                pTVar3 = (TerrainVertex*)eastl::vector<TerrainVertex, eastl::allocator>::operator[](
-                    (vector<TerrainVertex, eastl::allocator>*)this_00, uVar5);
-                AddTriangle(this, pTVar3, *(int*)&param_1->field_44);
-                uVar5 = uVar5 + 3;
-                uVar4 = eastl::vector<eastl::pair<eastl::fixed_string<char, 16, true, eastl::allocator>, float>,
-                                      eastl::allocator>::size(this_00);
-            } while (uVar5 < uVar4);
+                    terrainBaseData = (TerrainBaseData*)(*this_00)[arg1 + lVar3];
+                    ExpandSource(*terrainBaseData);
+                    lVar3 = lVar3 + 1;
+                } while (lVar3 != 3);
+                terrainVertex = (TerrainVertex*)(*this_00)[arg1];
+                AddTriangle(terrainVertex, *(int*)&gridTile1.field_44);
+                arg1 = arg1 + 3;
+                uVar2 = this_00->size();
+            } while (arg1 < uVar2);
         }
         return lVar1 != 0;
     }
 
-    // 0x1007b5c40: the linker folded this into GridGroup::GetGridTileOverlay(), which has identical code
-    GridGroup::GetGridTileOverlay() const;
+    // 0x1007b5c40: GridGroup::GetGridTileOverlay() const has the same machine code as GridGroup::GetGridTileOverlay()
 
-    // 0x1007b5c60: the linker folded this into GridGroup::GetGridTileUnderlay(), which has identical code
-    GridGroup::GetGridTileUnderlay() const;
+    // 0x1007b5c60: GridGroup::GetGridTileUnderlay() const has the same machine code as GridGroup::GetGridTileUnderlay()
 
-    // 0x1007b5c90, 192 bytes, placed by class name
-    // TerrainPatch::GetViewportMapID() const
-    int TerrainPatch::GetViewportMapID() {
-        bool bVar1;
+    // 0x1007b5c90
+    int TerrainPatch::GetViewportMapID() const {
         long lVar2;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        eastl local_30[8];
-        hashtable_iterator_base local_28[8];
+        ReturnValue local_30;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_28;
 
-        bVar1 = field_13248->operator_cast_to_bool();
-        if (bVar1) {
-            shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator>>::operator*(
-                (shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator>>*)field_13248);
-            eastl::vector<unsigned long,
-                          eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-            eastl::rbtree<
-                unsigned int,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::less<unsigned int>, eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                true, true>::end();
-            bVar1 = eastl::operator!=(local_30, local_28, extraout_RDX);
-            if (bVar1) {
+        bool cVar1 = field_13248->operator_cast_to_bool();
+        if (cVar1) {
+            local_30 = ((vector<unsigned long, eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true>>*)**field_13248)
+                           ->rbegin();
+            local_28.end();
+            cVar1 = local_30 != local_28;
+            if (cVar1) {
                 do {
-                    lVar2 = eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator*(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_30);
+                    lVar2 = *local_30;
                     if (*(int*)(lVar2 + 8) != -1) {
                         return *(int*)(lVar2 + 8);
                     }
-                    eastl::rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                    operator++(
-                        (rbtree_iterator<eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                                         eastl::pair<unsigned int const,
-                                                     eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                            local_30);
-                    bVar1 = eastl::operator!=(local_30, local_28, extraout_RDX_00);
-                } while (bVar1);
+                    ++local_30;
+                    cVar1 = local_30 != local_28;
+                } while (cVar1);
             }
         }
         return -1;
     }
 
-    // 0x1007b5d90, 208 bytes, placed by class name
-    // TerrainPatch::ExpandSource(TerrainBaseData&)
-    void TerrainPatch::ExpandSource(TerrainBaseData* param_1) {
-        bool bVar1;
+    // 0x1007b5d90
+    void TerrainPatch::ExpandSource(TerrainBaseData& terrainBaseData) {
         long lVar2;
-        hashtable_iterator_base* extraout_RDX;
-        undefined1* this_00;
-        hashtable_iterator_base local_30[8];
-        eastl local_28[8];
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_30;
+        ReturnValue local_28;
 
-        this_00 = field_13248;
-        bVar1 = this_00->operator_cast_to_bool();
-        if ((bVar1) && (param_1->field_0 != -1)) {
-            shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator>>::operator->(
-                (shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator>>*)this_00);
-            eastl::rbtree<int, eastl::pair<int const, TerrainTextureMeta>, eastl::less<int>, eastl::allocator,
-                          eastl::use_first<eastl::pair<int const, TerrainTextureMeta>>, true, true>::find((int*)
-                                                                                                              local_28);
-            shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator>>::operator->(
-                (shared_ptr<eastl::map<int, TerrainTextureMeta, eastl::less<int>, eastl::allocator>>*)this_00);
-            eastl::rbtree<
-                unsigned int,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::less<unsigned int>, eastl::allocator,
-                eastl::use_first<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                true, true>::end();
-            bVar1 = eastl::operator!=(local_28, local_30, extraout_RDX);
-            if (!bVar1) {
-                /* WARNING: Subroutine does not return */
+        uint8_t* this_01 = field_13248;
+        bool cVar1 = this_01->operator_cast_to_bool();
+        if ((cVar1) && (terrainBaseData.field_0 != -1)) {
+            local_28 = ((rbtree<int, eastl::pair<int const, TerrainTextureMeta>, eastl::less<int>, eastl::allocator,
+                                eastl::use_first<eastl::pair<int const, TerrainTextureMeta>>, true, true>*)(*this_01)
+                            .operator->())
+                           ->find(terrainBaseData);
+            (*this_01).operator->();
+            local_30.end();
+            cVar1 = local_28 != local_30;
+            if (!cVar1) {
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                 "runetek7/terrain/TerrainPatch.cpp",
-                                377, (char*)0);
+                                377, nullptr);
             }
-            lVar2 = eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator*(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                    local_28);
-            param_1->field_4 = *(undefined2*)(lVar2 + 4);
-            lVar2 = eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator*(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                    local_28);
-            *(undefined1*)((long)&param_1->field_32 + 4) = *(undefined1*)(lVar2 + 6);
-            lVar2 = eastl::rbtree_iterator<
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-            operator*(
-                (rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)
-                    local_28);
-            *(undefined1*)((long)&param_1->field_32 + 5) = *(undefined1*)(lVar2 + 7);
+            lVar2 = *local_28;
+            terrainBaseData.field_4 = *(uint16_t*)(lVar2 + 4);
+            lVar2 = *local_28;
+            *(uint8_t*)((long)&terrainBaseData.field_32 + 4) = *(uint8_t*)(lVar2 + 6);
+            lVar2 = *local_28;
+            *(uint8_t*)((long)&terrainBaseData.field_32 + 5) = *(uint8_t*)(lVar2 + 7);
         }
     }
 
-    // 0x1007b5f80, 160 bytes, placed by class name
-    // TerrainPatch::AddTriangle(TerrainVertex const*, int)
-    void TerrainPatch::AddTriangle(TerrainVertex* param_1, int param_2) {
-        long lVar1;
-        array* paVar2;
-        ulong uVar3;
-        TerrainVertex* pTVar4;
-        bool bVar5;
-        PatchFaceData local_50;
-        int local_34;
+    // 0x1007b5f80
+    void TerrainPatch::AddTriangle(const TerrainVertex* terrainVertex, int arg2) {
+        array<unsigned char, _3ul>* arg3;
+        bool bVar2;
 
-        local_34 = param_2;
-        lVar1 = eastl::hash_map<int, RenderChunk, eastl::hash<int>, eastl::equal_to<int>,
-                                eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul, true, eastl::allocator>,
-                                false>::
-        operator[]((hash_map<int, RenderChunk, eastl::hash<int>, eastl::equal_to<int>,
-                             eastl::fixed_hashtable_allocator<258ul, 40ul, 256ul, 4ul, 0ul, true, eastl::allocator>,
-                             false>*)&field_632,
-                   &local_34);
-        new (&local_50) PatchFaceData(param_1);
-        pTVar4 = (TerrainVertex*)&param_1[2].field_8;
-        uVar3 = 2;
+        long lVar1 = field_632[arg2];
+        TerrainVertex* arg1 = terrainVertex;
+        PatchFaceData local_50(terrainVertex);
+        TerrainVertex* terrainVertex_00 = (TerrainVertex*)&terrainVertex[2].field_8;
+        array<std::array<unsigned char, 3ul>, 3ul>* this_00 = (array<std::array<unsigned char, 3ul>, 3ul>*)2;
         do {
-            paVar2 = (array*)std::array<std::array<unsigned char, 3ul>, 3ul>::operator[](uVar3);
-            AddVertex(this, pTVar4, &local_50, paVar2);
-            AddVertexPos(this, pTVar4, (int*)0);
-            pTVar4 = (TerrainVertex*)&pTVar4[-2].field_56;
-            bVar5 = uVar3 != 0;
-            uVar3 = uVar3 - 1;
-        } while (bVar5);
+            arg3 = (array<unsigned char, _3ul>*)(*this_00)[(unsigned long)arg1];
+            AddVertex(*terrainVertex_00, local_50, *arg3);
+            arg1 = terrainVertex_00;
+            AddVertexPos(*terrainVertex_00, nullptr);
+            terrainVertex_00 = (TerrainVertex*)&terrainVertex_00[-2].field_56;
+            bVar2 = this_00 != nullptr;
+            this_00 = this_00 - 1;
+        } while (bVar2);
         m_faceCount = m_faceCount + 1;
         *(int*)(lVar1 + 8) = *(int*)(lVar1 + 8) + 1;
     }
 
-    // 0x1007b6020, 368 bytes, placed by class name
-    // TerrainPatch::GetVertexNormal(int, int) const
-    undefined8 TerrainPatch::GetVertexNormal(int param_1, int param_2) {
+    // 0x1007b6020
+    uint64_t TerrainPatch::GetVertexNormal(int arg1, int arg2) const {
         GridGroup* pGVar1;
         long lVar2;
-        int iVar3;
-        int iVar4;
-        undefined8 uVar5;
-        ColourHSL local_48;
+        uint64_t uVar5;
         long local_38;
 
-        iVar4 = 0;
-        iVar3 = 0;
-        if (param_1 <= m_gridResolution) {
-            pGVar1 = (GridGroup*)GetGridGroup(this, param_1 + -1, param_2);
-            if (pGVar1 == (GridGroup*)0) {
+        int iVar4 = 0;
+        int iVar3 = 0;
+        if (arg1 <= m_gridResolution) {
+            pGVar1 = (GridGroup*)GetGridGroup(arg1 - 1, arg2);
+            if (pGVar1 == nullptr) {
                 local_38 = 0;
             } else {
                 local_38 = pGVar1->GetGridTile();
             }
-            pGVar1 = (GridGroup*)GetGridGroup(this, param_1 + 1, param_2);
+            pGVar1 = (GridGroup*)GetGridGroup(arg1 + 1, arg2);
             iVar3 = 0;
-            if (pGVar1 == (GridGroup*)0) {
+            if (pGVar1 == nullptr) {
                 lVar2 = 0;
             } else {
                 lVar2 = pGVar1->GetGridTile();
@@ -1174,16 +869,16 @@ namespace jag::graphics {
                 iVar3 = *(int*)(local_38 + 52) - *(int*)(lVar2 + 52);
             }
         }
-        if (param_2 <= m_gridResolution) {
-            pGVar1 = (GridGroup*)GetGridGroup(this, param_1, param_2 + -1);
-            if (pGVar1 == (GridGroup*)0) {
+        if (arg2 <= m_gridResolution) {
+            pGVar1 = (GridGroup*)GetGridGroup(arg1, arg2 - 1);
+            if (pGVar1 == nullptr) {
                 local_38 = 0;
             } else {
                 local_38 = pGVar1->GetGridTile();
             }
-            pGVar1 = (GridGroup*)GetGridGroup(this, param_1, param_2 + 1);
+            pGVar1 = (GridGroup*)GetGridGroup(arg1, arg2 + 1);
             iVar4 = 0;
-            if (pGVar1 == (GridGroup*)0) {
+            if (pGVar1 == nullptr) {
                 lVar2 = 0;
             } else {
                 lVar2 = pGVar1->GetGridTile();
@@ -1192,464 +887,448 @@ namespace jag::graphics {
                 iVar4 = *(int*)(local_38 + 52) - *(int*)(lVar2 + 52);
             }
         }
-        if ((param_1 == 1) || (m_gridResolution + 1 == param_1)) {
+        if ((arg1 == 1) || (m_gridResolution + 1 == arg1)) {
             iVar3 = 0;
         }
-        if ((param_2 == 1) || (m_gridResolution + 1 == param_2)) {
+        if ((arg2 == 1) || (m_gridResolution + 1 == arg2)) {
             iVar4 = 0;
         }
         new (&local_48) math::ColourHSL((float)iVar3, (float)(m_gridSize * 2), (float)iVar4);
-        local_48.Normalize();
+        ColourHSL local_48 = math::Vector3T<float>::Normalize();
         uVar5._0_4_ = local_48.field_0;
         uVar5._4_4_ = local_48.field_4;
         return uVar5;
     }
 
-    // 0x1007b61b0, 368 bytes, placed by class name
-    // TerrainPatch::GetCentreVertexNormal(int, int, float, float) const
-    undefined8 TerrainPatch::GetCentreVertexNormal(int param_1, int param_2, float param_3, float param_4) {
-        float fVar1;
-        float fVar2;
-        undefined8 local_70;
-        float local_68;
-        float local_60;
-        float local_5c;
-        undefined8 local_58;
-        float local_50;
-        undefined8 local_48;
-        float local_40;
-        float local_38;
-        float local_34;
-
-        local_38 = param_4;
-        local_34 = param_3;
-        local_48 = GetVertexNormal(this, param_1, param_2);
-        fVar1 = 1.0 - local_34;
-        local_5c = 1.0 - local_38;
-        local_60 = fVar1;
-        local_40 = param_4;
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&local_48, local_5c * fVar1);
-        local_70 = GetVertexNormal(this, param_1 + 1, param_2);
-        fVar2 = local_34 + 1.0;
-        local_68 = fVar1;
+    // 0x1007b61b0
+    uint64_t TerrainPatch::GetCentreVertexNormal(int arg1, int arg2, float arg3, float arg4) const {
+        float local_38 = arg4;
+        float local_34 = arg3;
+        return local_48 = GetVertexNormal(arg1, arg2);
+        float fVar1 = 1.0 - local_34;
+        float local_5c = 1.0 - local_38;
+        float local_60 = fVar1;
+        float local_40 = arg4;
+        local_48 *= (local_5c * fVar1);
+        uint64_t local_70 = GetVertexNormal(arg1 + 1, arg2);
+        float fVar2 = local_34 + 1.0;
+        float local_68 = fVar1;
         local_34 = fVar2;
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&local_70, local_5c * fVar2);
-        math::Vector3T<float>::operator+=((Vector3T<float>*)&local_48, (Vector3T*)&local_70);
-        local_58 = GetVertexNormal(this, param_1 + 1, param_2 + 1);
-        local_50 = fVar2;
-        local_70.SetXYZ((Vector3T*)&local_58);
+        local_70 *= (local_5c * fVar2);
+        local_48 += local_70;
+        uint64_t local_58 = GetVertexNormal(arg1 + 1, arg2 + 1);
+        float local_50 = fVar2;
+        local_70.SetXYZ(local_58);
         fVar1 = local_38 + 1.0;
         local_38 = fVar1;
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&local_70, local_34 * fVar1);
-        math::Vector3T<float>::operator+=((Vector3T<float>*)&local_48, (Vector3T*)&local_70);
-        local_58 = GetVertexNormal(this, param_1, param_2 + 1);
+        local_70 *= (local_34 * fVar1);
+        local_48 += local_70;
+        local_58 = GetVertexNormal(arg1, arg2 + 1);
         local_50 = fVar1;
-        local_70.SetXYZ((Vector3T*)&local_58);
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&local_70, local_38 * local_60);
-        math::Vector3T<float>::operator+=((Vector3T<float>*)&local_48, (Vector3T*)&local_70);
-        math::Vector3T<float>::operator*=((Vector3T<float>*)&local_48, 0.25);
+        local_70.SetXYZ(local_58);
+        local_70 *= (local_38 * local_60);
+        local_48 += local_70;
+        local_48 *= 0.25;
         return local_48;
     }
 
-    // 0x1007b6320, 928 bytes, placed by class name
-    // TerrainPatch::AddVertex(TerrainVertex const&, PatchFaceData const&, std::array<unsigned char, 3ul> const&)
-    /* TerrainPatch::AddVertex(TerrainVertex const&,
-   PatchFaceData const&, std::array<unsigned char, 3ul> const&) */
-
-    void TerrainPatch::AddVertex(TerrainVertex* param_1, PatchFaceData* param_2, array* param_3) {
-        array<unsigned char, 4ul>* this_00;
-        undefined1 uVar1;
-        byte bVar2;
-        Vector3T<short> VVar3;
-        Vector3T<short> VVar4;
-        byte bVar5;
-        byte bVar6;
-        char cVar7;
+    // 0x1007b6320
+    void TerrainPatch::AddVertex(const TerrainVertex& terrainVertex, const PatchFaceData& patchFaceData,
+                                 const std::array<unsigned char, 3ul>& arg3) {
+        void result;
+        uint8_t uVar1;
+        uint8_t bVar2;
+        uint8_t uVar3;
+        uint8_t bVar4;
+        uint8_t bVar5;
+        char cVar6;
+        bool cVar7;
         char cVar8;
-        char cVar9;
-        TerrainVertex* pTVar10;
-        PatchFaceData* this_01;
-        PatchFaceData* pPVar11;
-        Vector3T<short>* this_02;
-        undefined1* puVar12;
-        undefined2* puVar13;
-        byte* pbVar14;
-        long lVar15;
-        Vector3T<short>* pVVar16;
-        char* pcVar17;
-        Vector3T* pVVar18;
-        ulong uVar19;
-        array<signed char, 4ul>* this_03;
-        undefined4 uVar20;
-        float fVar21;
-        float fVar22;
-        undefined1 local_70[8];
+        TerrainVertex* pTVar9;
+        PatchFaceData* this_00;
+        PatchFaceData* pPVar10;
+        ReturnValue result;
+        uint8_t* puVar11;
+        uint16_t* puVar12;
+        uint8_t* pbVar13;
+        long lVar14;
+        uint8_t* puVar15;
+        char* pcVar16;
+        unsigned long arg1;
+        ReturnValue* pRVar17;
+        float fVar20;
+        uint64_t local_70;
         float local_68;
         TerrainVertex* local_58;
-        PatchFaceData* local_50;
-        float local_48;
-        float local_44;
-        undefined2 local_40;
-        undefined1 local_3e;
-        Vector3T<short>* local_38;
+        uint16_t local_40;
+        uint8_t local_3e;
+        ReturnValue* local_38;
 
-        local_50 = param_2;
-        this_02 = (Vector3T<short>*)(&field_13264)->push_back_uninitialized();
-        local_44 = (float)m_gridSize;
-        uVar20 = floor(*(float*)&param_1->field_40 - local_44);
-        local_38 = (Vector3T<short>*)CONCAT44(local_38._4_4_, uVar20);
-        local_48 = (float)floor(*(float*)&param_1->field_44);
-        fVar21 = (float)floor(*(float*)&param_1->field_48 - local_44);
-        if ((0.0 <= local_38._0_4_) && (0.0 <= fVar21)) {
-            fVar22 = local_38._0_4_ + -16383.0;
-            pVVar18 = (Vector3T*)(ulong)(uint)(int)(short)(int)fVar22;
-            this_02->Set((short)(int)fVar22, (short)(int)local_48, (short)(int)(fVar21 + -16383.0));
-            local_70 = (undefined1[8])math::operator*((Vector3T*)&param_1->field_52, 127.0);
-            local_68 = fVar22;
-            uVar20 = math::Vector3TFromVector3<signed char>((math*)local_70, pVVar18);
-            local_40 = (undefined2)uVar20;
-            local_3e = (undefined1)((uint)uVar20 >> 16);
-            uVar19 = 0;
-            puVar12 = (undefined1*)math::Vector3T<signed char>::operator[]((Vector3T<signed char>*)&local_40, 0);
-            uVar1 = *puVar12;
-            this_03 = (array<signed char, 4ul>*)(this_02 + 16);
-            local_58 = param_1;
-            puVar12 = (undefined1*)std::array<signed char, 4ul>::operator[](this_03, 0);
-            *puVar12 = uVar1;
-            puVar12 = (undefined1*)math::Vector3T<signed char>::operator[]((Vector3T<signed char>*)&local_40, 1);
-            uVar1 = *puVar12;
-            puVar12 = (undefined1*)std::array<signed char, 4ul>::operator[](this_03, 1);
-            *puVar12 = uVar1;
-            puVar12 = (undefined1*)math::Vector3T<signed char>::operator[]((Vector3T<signed char>*)&local_40, 2);
-            uVar1 = *puVar12;
-            puVar12 = (undefined1*)std::array<signed char, 4ul>::operator[](this_03, 2);
-            *puVar12 = uVar1;
-            fVar21 = *(float*)((long)&param_1->field_20 + 4);
-            puVar12 = (undefined1*)std::array<signed char, 4ul>::operator[](this_03, 3);
-            this_01 = local_50;
-            *puVar12 = (char)(int)(fVar21 * 127.0);
-            puVar13 = (undefined2*)math::Vector3T<unsigned short>::operator[]((Vector3T<unsigned short>*)local_50, 0);
-            *(undefined2*)(this_02 + 8) = *puVar13;
-            puVar13 = (undefined2*)math::Vector3T<unsigned short>::operator[]((Vector3T<unsigned short>*)this_01, 1);
-            *(undefined2*)(this_02 + 10) = *puVar13;
-            pbVar14 = (byte*)math::Vector3T<unsigned short>::operator[]((Vector3T<unsigned short>*)this_01, 2);
-            bVar2 = *pbVar14;
-            lVar15 = math::Vector3T<unsigned short>::operator[]((Vector3T<unsigned short>*)this_01, 2);
-            *(uint*)(this_02 + 12) = (uint) * (byte*)(lVar15 + 1) << 16 | (uint)bVar2;
-            puVar12 = &this_01->field_6;
-            pVVar16 = (Vector3T<short>*)math::Vector3T<unsigned char>::operator[]((Vector3T<unsigned char>*)puVar12, 0);
-            local_38._0_1_ = *pVVar16;
-            pVVar16 = (Vector3T<short>*)math::Vector3T<unsigned char>::operator[]((Vector3T<unsigned char>*)puVar12, 1);
-            VVar3 = *pVVar16;
-            pVVar16 = (Vector3T<short>*)math::Vector3T<unsigned char>::operator[]((Vector3T<unsigned char>*)puVar12, 2);
-            pTVar10 = local_58;
-            VVar4 = *pVVar16;
-            this_02[20] = local_38._0_1_;
-            this_02[21] = VVar3;
-            this_02[22] = VVar4;
-            this_02[23] = (Vector3T<short>)0;
-            local_38._0_1_ = *(Vector3T<short>*)((long)&local_58->field_12 + 7);
-            this_00 = (array<unsigned char, 4ul>*)(this_02 + 24);
-            puVar12 = (undefined1*)std::array<unsigned char, 4ul>::operator[](this_00, 0);
-            *puVar12 = local_38._0_1_;
-            local_38._0_1_ = *(Vector3T<short>*)((long)&pTVar10->field_12 + 6);
-            puVar12 = (undefined1*)std::array<unsigned char, 4ul>::operator[](this_00, 1);
-            *puVar12 = local_38._0_1_;
-            local_38 = (Vector3T<short>*)CONCAT71(local_38._1_7_, *(undefined1*)((long)&pTVar10->field_12 + 5));
-            puVar12 = (undefined1*)std::array<unsigned char, 4ul>::operator[](this_00, 2);
-            *puVar12 = local_38._0_1_;
-            uVar1 = *(undefined1*)((long)&pTVar10->field_12 + 4);
-            puVar12 = (undefined1*)std::array<unsigned char, 4ul>::operator[](this_00, 3);
-            *puVar12 = uVar1;
-            *(undefined2*)(this_02 + 28) = *(undefined2*)param_3;
-            this_02[30] = *(Vector3T<short>*)(param_3 + 2);
-            local_38 = this_02 + 32;
+        PatchFaceData* local_50 = patchFaceData;
+        &result = (ReturnValue*)field_13264.push_back_uninitialized();
+        float local_44 = (float)m_gridSize;
+        uint32_t uVar18 = ::floor(*(float*)&terrainVertex.field_40 - local_44);
+        local_38 = (ReturnValue*)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)uVar18);
+        float local_48 = (float)::floor(*(float*)&terrainVertex.field_44);
+        float fVar19 = (float)::floor(*(float*)&terrainVertex.field_48 - local_44);
+        if ((0.0 <= local_38._0_4_) && (0.0 <= fVar19)) {
+            fVar20 = local_38._0_4_ - 16383.0;
+            result = math::Vector3T<short>::Set((unsigned short)(int)fVar20, (unsigned short)(int)local_48,
+                                                (unsigned short)(int)(fVar19 - 16383.0));
+            local_70 = *127.0 terrainVertex.field_52;
+            local_68 = fVar20;
+            uVar18 = math::Vector3TFromVector3<signed char>(local_70);
+            local_40 = (uint16_t)uVar18;
+            local_3e = (uint8_t)((unsigned int)uVar18 >> 16);
+            arg1 = 0;
+            puVar11 = &local_40[0];
+            uVar1 = *puVar11;
+            pRVar17 = &result + 2;
+            local_58 = terrainVertex;
+            puVar11 = (uint8_t*)(*pRVar17)[0];
+            *puVar11 = uVar1;
+            puVar11 = &local_40[1];
+            uVar1 = *puVar11;
+            puVar11 = (uint8_t*)(*pRVar17)[1];
+            *puVar11 = uVar1;
+            puVar11 = &local_40[2];
+            uVar1 = *puVar11;
+            puVar11 = (uint8_t*)(*pRVar17)[2];
+            *puVar11 = uVar1;
+            fVar19 = *(float*)((long)&terrainVertex.field_20 + 4);
+            puVar11 = (uint8_t*)(*pRVar17)[3];
+            this_00 = local_50;
+            *puVar11 = (char)(int)(fVar19 * 127.0);
+            puVar12 = (uint16_t*)(*local_50)[0];
+            *(uint16_t*)(&result + 1) = *puVar12;
+            puVar12 = (uint16_t*)(*this_00)[1];
+            *(uint16_t*) && result[1].field_2 = *puVar12;
+            pbVar13 = (uint8_t*)(*this_00)[2];
+            bVar2 = *pbVar13;
+            lVar14 = (*this_00)[2];
+            *(unsigned int*) && result[1].field_4 = (unsigned int)*(uint8_t*)(lVar14 + 1) << 16 | (unsigned int)bVar2;
+            puVar11 = &this_00->field_6;
+            puVar15 = (uint8_t*)(*puVar11)[0];
+            local_38._0_1_ = *puVar15;
+            puVar15 = (uint8_t*)(*puVar11)[1];
+            uVar1 = *puVar15;
+            puVar11 = (uint8_t*)(*puVar11)[2];
+            pTVar9 = local_58;
+            uVar3 = *puVar11;
+            &result[2].field_4 = local_38._0_1_;
+            &result[2].field_5 = uVar1;
+            &result[2].field_6 = uVar3;
+            &result[2].field_7 = 0;
+            local_38._0_1_ = *(uint8_t*)((long)&local_58->field_12 + 7);
+            pRVar17 = &result + 3;
+            puVar11 = (uint8_t*)(*pRVar17)[0];
+            *puVar11 = local_38._0_1_;
+            local_38._0_1_ = *(uint8_t*)((long)&pTVar9->field_12 + 6);
+            puVar11 = (uint8_t*)(*pRVar17)[1];
+            *puVar11 = local_38._0_1_;
+            local_38 =
+                (ReturnValue*)(((uint64_t)local_38._1_7_ << 8) | (uint8_t)(*(uint8_t*)((long)&pTVar9->field_12 + 5)));
+            puVar11 = (uint8_t*)(*pRVar17)[2];
+            *puVar11 = local_38._0_1_;
+            uVar1 = *(uint8_t*)((long)&pTVar9->field_12 + 4);
+            puVar11 = (uint8_t*)(*pRVar17)[3];
+            *puVar11 = uVar1;
+            *(uint16_t*) && result[3].field_4 = *(uint16_t*)arg3;
+            &result[3].field_6 = arg3[2];
+            local_38 = &result + 4;
             do {
-                pbVar14 = (byte*)math::Vector3T<unsigned char>::operator[]((Vector3T<unsigned char>*)&this_01->field_15,
-                                                                           (uint)uVar19);
-                bVar2 = *pbVar14;
-                pbVar14 = (byte*)math::Vector3T<unsigned char>::operator[]((Vector3T<unsigned char>*)&this_01->field_18,
-                                                                           (uint)uVar19);
-                bVar5 = *pbVar14;
-                pbVar14 =
-                    (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)local_38, uVar19);
-                pPVar11 = local_50;
-                *pbVar14 = bVar5 >> 4 | bVar2 & 240;
-                uVar19 = uVar19 + 1;
-            } while (uVar19 != 3);
-            puVar12 = &local_50->field_9;
-            pbVar14 = (byte*)std::array<bool, 3ul>::operator[]((array<bool, 3ul>*)puVar12, 0);
-            bVar2 = *pbVar14;
-            pbVar14 = (byte*)std::array<bool, 3ul>::operator[]((array<bool, 3ul>*)puVar12, 1);
-            bVar5 = *pbVar14;
-            pbVar14 = (byte*)std::array<bool, 3ul>::operator[]((array<bool, 3ul>*)puVar12, 2);
-            bVar6 = *pbVar14;
-            puVar12 = &pPVar11->field_12;
-            pcVar17 = (char*)std::array<bool, 3ul>::operator[]((array<bool, 3ul>*)puVar12, 0);
-            cVar7 = *pcVar17;
-            pcVar17 = (char*)std::array<bool, 3ul>::operator[]((array<bool, 3ul>*)puVar12, 1);
-            cVar8 = *pcVar17;
-            pcVar17 = (char*)std::array<bool, 3ul>::operator[]((array<bool, 3ul>*)puVar12, 2);
-            cVar9 = *pcVar17;
-            pbVar14 = (byte*)std::array<unsigned char, 4ul>::operator[]((array<unsigned char, 4ul>*)local_38, 3);
-            *pbVar14 = cVar9 << 3 | cVar8 << 2 | cVar7 * '\x02' | bVar2 | bVar5 | bVar6;
+                pbVar13 = &this_00->field_15[(unsigned int)arg1];
+                bVar2 = *pbVar13;
+                pbVar13 = &this_00->field_18[(unsigned int)arg1];
+                bVar4 = *pbVar13;
+                pbVar13 = (uint8_t*)(*local_38)[arg1];
+                pPVar10 = local_50;
+                *pbVar13 = bVar4 >> 4 | bVar2 & 240;
+                arg1 = arg1 + 1;
+            } while (arg1 != 3);
+            puVar11 = &local_50->field_9;
+            pbVar13 = (uint8_t*)(*puVar11)[0];
+            bVar2 = *pbVar13;
+            pbVar13 = (uint8_t*)(*puVar11)[1];
+            bVar4 = *pbVar13;
+            pbVar13 = (uint8_t*)(*puVar11)[2];
+            bVar5 = *pbVar13;
+            puVar11 = &pPVar10->field_12;
+            pcVar16 = (char*)(*puVar11)[0];
+            cVar6 = *pcVar16;
+            pcVar16 = (char*)(*puVar11)[1];
+            cVar7 = *pcVar16;
+            pcVar16 = (char*)(*puVar11)[2];
+            cVar8 = *pcVar16;
+            pbVar13 = (uint8_t*)(*local_38)[3];
+            *pbVar13 = cVar8 << 3 | cVar7 << 2 | cVar6 * '\x02' | bVar2 | bVar4 | bVar5;
             return;
         }
-        local_44 = fVar21;
-        /* WARNING: Subroutine does not return */
+        local_44 = fVar19;
         LogAssert("px >= 0 && pz >= 0",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/terrain/"
                   "TerrainPatch.cpp",
-                  558, (char*)0);
+                  558, nullptr);
     }
 
-    // 0x1007b66e0, 304 bytes, placed by class name
-    // TerrainPatch::AddVertexPos(TerrainVertex const&, int const*)
-    void TerrainPatch::AddVertexPos(TerrainVertex* param_1, int* param_2) {
-        Vector3T<short>* this_00;
-        undefined1 local_40[16];
+    // 0x1007b66e0
+    void TerrainPatch::AddVertexPos(const TerrainVertex& terrainVertex, const int* arg2) {
+        void result;
+        ReturnValue result;
+        uint8_t local_40[16];
         float local_30;
-        float local_2c;
 
-        this_00 = (Vector3T<short>*)(&field_13296)->push_back_uninitialized();
-        local_2c = (float)m_gridSize;
-        local_40._12_4_ = floor(*(float*)&param_1->field_40 - local_2c);
-        if (param_2 == (int*)0) {
-            local_30 = (float)floor(*(float*)&param_1->field_44);
+        &result = (ReturnValue*)field_13296.push_back_uninitialized();
+        float local_2c = (float)m_gridSize;
+        local_40._12_4_ = ::floor(*(float*)&terrainVertex.field_40 - local_2c);
+        if (arg2 == nullptr) {
+            local_30 = (float)::floor(*(float*)&terrainVertex.field_44);
         } else {
-            local_30 = (float)*param_2;
+            local_30 = (float)*arg2;
         }
-        local_2c = (float)floor(*(float*)&param_1->field_48 - local_2c);
+        local_2c = (float)::floor(*(float*)&terrainVertex.field_48 - local_2c);
         if ((0.0 <= (float)local_40._12_4_) && (0.0 <= local_2c)) {
-            this_00->Set((short)(int)((float)local_40._12_4_ + -16383.0), (short)(int)local_30,
-                         (short)(int)(local_2c + -16383.0));
+            result =
+                math::Vector3T<short>::Set((unsigned short)(int)((float)local_40._12_4_ - 16383.0),
+                                           (unsigned short)(int)local_30, (unsigned short)(int)(local_2c - 16383.0));
             new (local_40) math::ColourHSL((float)local_40._12_4_, local_30, local_2c);
-            (&m_aABB, (Vector3T*)local_40)->AddPoint();
+            m_aABB.AddPoint(*local_40);
             return;
         }
-        /* WARNING: Subroutine does not return */
         LogAssert("px >= 0 && pz >= 0",
                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/terrain/"
                   "TerrainPatch.cpp",
-                  619, (char*)0);
+                  619, nullptr);
     }
 
-    // 0x1007b6a00, 2112 bytes, placed by class name
-    // TerrainPatch::GatherDrawableElements(DrawableQueue&, RT7Core&, SceneViewData const&, EffectManager const&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&)
-    void TerrainPatch::GatherDrawableElements(DrawableQueue* param_1, RT7Core* param_2, SceneViewData* param_3,
-                                              EffectManager* param_4, fixed_vector* param_5) {
-        char cVar1;
-        int iVar2;
-        undefined4 uVar3;
-        RenderPassBitSet* pRVar4;
-        vector* pvVar5;
-        Matrix44T* pMVar6;
+    // 0x1007b6a00
+    void TerrainPatch::GatherDrawableElements(DrawableQueue& drawableQueue, RT7Core& rt7Core,
+                                              const SceneViewData& sceneViewData, const EffectManager& effectManager,
+                                              const eastl::fixed_vector<unsigned char, 256ul>& arg5) {
+        DrawableSortKey drawableSortKey;
+        DrawableSortKey drawableSortKey_00;
+        DrawableSortKey drawableSortKey_01;
+        DrawableSortKey drawableSortKey_02;
+        DrawableSortKey DVar1;
+        DrawableSortKey DVar2;
+        bool cVar3;
+        int iVar4;
+        RenderPassType renderPassType;
+        DrawableSortKeyType DVar5;
+        RenderPassBitSet* renderPassBitSet;
+        Vector3T<float>* pVVar6;
+        Matrix44T<float>* matrix44;
         float* pfVar7;
         long* plVar8;
-        undefined8 uVar9;
+        RT7Core* rt7Core_00;
+        TerrainPatch* pTVar9;
         Vector4T<float>* this_00;
         CommandLine* pCVar10;
         TerrainPatch_DE* pTVar11;
-        uint uVar12;
+        unsigned int uVar12;
         RenderMaterial* this_01;
-        undefined4 uVar14;
-        TerrainPatch* pTVar15;
-        TerrainPatch* pTVar16;
-        TerrainPatch* pTVar17;
-        TerrainPatch* pTVar18;
-        TerrainPatch* pTVar19;
-        TerrainPatch* pTVar20;
+        uint32_t uVar13;
+        float arg6;
+        float arg6_00;
+        float arg6_01;
+        float arg6_02;
+        float arg6_03;
+        float arg6_04;
+        RenderPassType in_stack_fffffffffffffec8;
+        uint32_t in_stack_fffffffffffffecc;
         AABB local_128;
         long* local_100;
-        undefined1* local_f8;
-        ulong local_f0;
-        undefined1* local_e8;
+        Drawable_vtbl* local_f8;
+        unsigned long local_f0;
+        Drawable_vtbl* local_e8;
         RenderMaterial* local_c8;
         TerrainPatch* local_c0;
-        undefined8 local_b8[2];
-        undefined1* local_a0[2];
-        uint local_90;
+        DrawableSortKey local_b8;
+        Drawable local_a0;
+        DrawableGroupType local_90;
         float local_8c;
         OBB local_88;
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if ((m_showPatches != '\0') && (iVar2 = GetVertexDataSize(this), iVar2 != 0)) {
-            pRVar4 = (RenderPassBitSet*)param_3->GetRenderPassBits();
-            cVar1 = (&m_material, pRVar4)->CanRenderInPasses();
-            if ((cVar1 != '\0') && (cVar1 = IsReadyToRender(this), cVar1 != '\0')) {
-                local_c8 = (RenderMaterial*)&m_material;
-                new (&local_88) math::OBB();
-                (&m_aABB, &local_88)->GetOBB();
-                local_88.Transform(field_13096);
+        if ((m_showPatches != '\0') && (iVar4 = GetVertexDataSize(), iVar4 != 0)) {
+            renderPassBitSet = sceneViewData.GetRenderPassBits();
+            cVar3 = m_material->CanRenderInPasses(*renderPassBitSet);
+            if ((cVar3) && (cVar3 = IsReadyToRender(), cVar3)) {
+                local_c8 = (RenderMaterial*)m_material;
+                local_88 = math::OBB();
+                m_aABB.GetOBB(local_88);
+                local_88.Transform(*field_13096);
                 uVar12 = 0;
                 local_90 = 0;
                 local_c0 = this;
                 if (*field_13104 <= 0.0 && *field_13104 != 0.0) {
-                    local_90 = param_4->IsEnabled(94);
+                    local_90 = effectManager.IsEnabled(94);
                 }
-                new (&local_128) math::AABB();
-                local_88.GetMinimumEnclosingAABB(&local_128);
-                pvVar5 = param_3->SSOBeginPtr((type*)&local_128);
-                local_a0[0] = (undefined1*)local_128.GetFurthestPoint(pvVar5);
-                pvVar5 = param_3->SSOBeginPtr(pvVar5);
-                local_b8[0] = math::operator-((Vector3T*)local_a0, (Vector3T*)pvVar5);
-                local_b8->LengthSq();
+                local_128 = math::AABB();
+                local_88.GetMinimumEnclosingAABB(local_128);
+                pVVar6 = (Vector3T<float>*)sceneViewData.SSOBeginPtr();
+                local_a0._vptr = (Drawable_vtbl*)local_128.GetFurthestPoint(*pVVar6);
+                pVVar6 = (Vector3T<float>*)sceneViewData.SSOBeginPtr();
+                local_b8[0] = (DrawableSortKey)local_a0 - *pVVar6;
+                local_b8.LengthSq();
                 local_8c = 3.4028235e+38;
                 do {
-                    local_b8[0] = local_128.GetCornerPos(uVar12);
-                    pMVar6 = (Matrix44T*)param_3->GetScreen();
-                    uVar14 = DstFromCameraPlane((Vector3T*)local_b8, pMVar6);
-                    local_a0[0] = (undefined1*)CONCAT44(local_a0[0]._4_4_, uVar14);
-                    pfVar7 = std::min<float>(&local_8c, (float*)local_a0);
+                    local_b8[0] = (DrawableSortKey)local_128.GetCornerPos(uVar12);
+                    matrix44 = (Matrix44T<float>*)sceneViewData.GetScreen();
+                    uVar13 = DstFromCameraPlane(&local_b8, matrix44);
+                    local_a0._vptr = (Drawable_vtbl*)(((uint64_t)local_a0._vptr._4_4_ << 32) | (uint32_t)uVar13);
+                    pfVar7 = std::min<float>(local_8c, local_a0);
                     local_8c = *pfVar7;
                     uVar12 = uVar12 + 1;
                 } while (uVar12 != 8);
-                plVar8 = (long*)(&param_3->field_520)->HeapBeginPtr();
-                local_100 = (long*)(&param_3->field_520)->end();
+                plVar8 = (long*)sceneViewData.field_520.HeapBeginPtr();
+                local_100 = (long*)sceneViewData.field_520.end();
                 if (plVar8 != local_100) {
-                    local_f0 = (ulong)(byte)local_90;
+                    local_f0 = (unsigned long)(uint8_t)(uint8_t)local_90;
                     local_90 = (local_90 & 255) * 3;
-                    local_e8 = &local_c0->field_13488;
-                    local_f8 = &local_c0->field_13680;
+                    local_e8 = (Drawable_vtbl*)&local_c0->field_13488;
+                    local_f8 = (Drawable_vtbl*)&local_c0->field_13680;
                     this_01 = local_c8;
                     do {
                         if (*plVar8 == 0) {
-                            /* WARNING: Subroutine does not return */
                             LogAssert("renderPass",
                                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/"
                                       "runetek7/terrain/TerrainPatch.cpp",
-                                      747, (char*)0);
+                                      747, nullptr);
                         }
-                        uVar14 = (*plVar8)->GetPos();
-                        uVar9 = this_01->GetRenderPassEffect(uVar14);
-                        new (local_b8) math::Vector2T<int>();
-                        uVar3 = (*plVar8)->GetPos();
-                        switch (uVar3) {
+                        renderPassType = (*plVar8)->GetPos();
+                        rt7Core_00 = (RT7Core*)this_01->GetRenderPassEffect(renderPassType);
+                        local_b8 = math::Vector2T();
+                        uVar13 = (*plVar8)->GetPos();
+                        switch (uVar13) {
                         case 0:
-                            cVar1 = local_c0->GetRenderFlag(1);
-                            if ((cVar1 != '\0') && (*PTR_m_enablePatchShadows_100ee69b0 != '\0')) {
-                                pCVar10 = (CommandLine*)param_1->GetDrawableGroup(uVar14, 0);
-                                pTVar15._0_4_ = (TerrainPatch*)pCVar10->GetPos();
-                                UpdateShadowPassEffect(pTVar15._0_4_, local_8c);
-                                pTVar15 = local_c0;
-                                local_a0[0] = local_f8;
+                            cVar3 = local_c0->GetRenderFlag(1);
+                            if ((cVar3) && (*PTR_m_enablePatchShadows_100ee69b0 != '\0')) {
+                                pTVar9 = (TerrainPatch*)drawableQueue.GetDrawableGroup(renderPassType, 0);
+                                DVar5 = pTVar9->GetPos();
+                                UpdateShadowPassEffect(pTVar9, &local_b8, DVar5, (RenderPassEffect*)rt7Core_00, rt7Core,
+                                                       effectManager, arg6, local_8c);
+                                pTVar9 = local_c0;
+                                local_a0._vptr = local_f8;
                                 pTVar11 = DrawableElementPool<TerrainPatch_DE>::Create<
-                                    TerrainPatch&,
-                                    eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&,
-                                    math::OBB&, float&, render::InputAssemblerState*>(
-                                    local_c0, param_5, &local_88, &local_8c, (InputAssemblerState**)local_a0);
-                                uVar9 = local_b8[0];
-                                std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                    (unique_ptr<DrawableElement, DrawableElementDeleter>*)local_a0,
-                                    (DrawableElement*)pTVar11);
-                                param_1->AddDrawable(uVar9, local_a0, pTVar15, 0, uVar14);
+                                    TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul> const&, math::OBB&, float&,
+                                    render::InputAssemblerState*>(*local_c0, arg5, local_88, local_8c, local_a0);
+                                DVar2 = local_b8[0];
+                                local_a0.unique_ptr<true, void>(pTVar11);
+                                drawableSortKey._4_4_ = in_stack_fffffffffffffecc;
+                                drawableSortKey._0_4_ = in_stack_fffffffffffffec8;
+                                drawableQueue.AddDrawable(drawableSortKey, *DVar2, &local_a0, (DrawableGroupType)pTVar9,
+                                                          0);
                                 break;
                             }
                             goto switchD_1007b6cda_caseD_c;
                         default:
-                            /* WARNING: Subroutine does not return */
                             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/"
                                             "graphics/runetek7/terrain/TerrainPatch.cpp",
                                             831, "Unsupported render pass");
                         case 2:
-                            pCVar10 = (CommandLine*)param_1->GetDrawableGroup(uVar14, local_90);
-                            uVar3 = pCVar10->GetPos();
-                            pTVar15 = local_c0;
-                            UpdateReflectionPassEffect(pTVar16._0_4_, local_8c, local_c0, local_b8, uVar3, uVar9,
-                                                       param_2, param_4, (int)local_f0);
-                            local_a0[0] = local_e8;
+                            pCVar10 = drawableQueue.GetDrawableGroup(renderPassType, local_90);
+                            uVar12 = pCVar10->GetPos();
+                            pTVar9 = local_c0;
+                            in_stack_fffffffffffffec8 = (RenderPassType)local_f0;
+                            UpdateReflectionPassEffect((DrawableSortKey*)local_c0, (DrawableSortKeyType)&local_b8,
+                                                       (RenderPassEffect*)(unsigned long)uVar12, rt7Core_00,
+                                                       (EffectManager*)rt7Core, arg6_00, local_8c,
+                                                       (uint8_t)effectManager);
+                            local_a0._vptr = local_e8;
                             pTVar11 = DrawableElementPool<TerrainPatch_DE>::Create<
-                                TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&,
-                                math::OBB&, float&, render::InputAssemblerState*>(
-                                pTVar15, param_5, &local_88, &local_8c, (InputAssemblerState**)local_a0);
-                            uVar9 = local_b8[0];
-                            std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                (unique_ptr<DrawableElement, DrawableElementDeleter>*)local_a0,
-                                (DrawableElement*)pTVar11);
-                            param_1->AddDrawable(uVar9, local_a0, pTVar15, local_90, uVar14);
+                                TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul> const&, math::OBB&, float&,
+                                render::InputAssemblerState*>(*pTVar9, arg5, local_88, local_8c, local_a0);
+                            DVar2 = local_b8[0];
+                            local_a0.unique_ptr<true, void>(pTVar11);
+                            drawableSortKey_00._4_4_ = in_stack_fffffffffffffecc;
+                            drawableSortKey_00._0_4_ = in_stack_fffffffffffffec8;
+                            drawableQueue.AddDrawable(drawableSortKey_00, *DVar2, &local_a0, (DrawableGroupType)pTVar9,
+                                                      local_90);
                             break;
                         case 3:
-                            pCVar10 = (CommandLine*)param_1->GetDrawableGroup(uVar14, local_90);
-                            uVar3 = pCVar10->GetPos();
-                            pTVar15 = local_c0;
-                            UpdateSimpleGeometryPassEffect(pTVar17._0_4_, local_8c, local_c0, local_b8, uVar3, uVar9,
-                                                           param_2, param_4, uVar14);
-                            local_a0[0] = local_e8;
+                            pCVar10 = drawableQueue.GetDrawableGroup(renderPassType, local_90);
+                            uVar12 = pCVar10->GetPos();
+                            pTVar9 = local_c0;
+                            UpdateSimpleGeometryPassEffect((DrawableSortKey*)local_c0, (DrawableSortKeyType)&local_b8,
+                                                           (RenderPassEffect*)(unsigned long)uVar12, rt7Core_00,
+                                                           (EffectManager*)rt7Core, arg6_01, local_8c,
+                                                           (RenderPassType)effectManager);
+                            local_a0._vptr = local_e8;
                             pTVar11 = DrawableElementPool<TerrainPatch_DE>::Create<
-                                TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&,
-                                math::OBB&, float&, render::InputAssemblerState*>(
-                                pTVar15, param_5, &local_88, &local_8c, (InputAssemblerState**)local_a0);
-                            uVar9 = local_b8[0];
-                            std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                (unique_ptr<DrawableElement, DrawableElementDeleter>*)local_a0,
-                                (DrawableElement*)pTVar11);
-                            param_1->AddDrawable(uVar9, local_a0, pTVar15, local_90, uVar14);
+                                TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul> const&, math::OBB&, float&,
+                                render::InputAssemblerState*>(*pTVar9, arg5, local_88, local_8c, local_a0);
+                            DVar2 = local_b8[0];
+                            local_a0.unique_ptr<true, void>(pTVar11);
+                            drawableSortKey_01._4_4_ = in_stack_fffffffffffffecc;
+                            drawableSortKey_01._0_4_ = renderPassType;
+                            drawableQueue.AddDrawable(drawableSortKey_01, *DVar2, &local_a0, (DrawableGroupType)pTVar9,
+                                                      local_90);
+                            in_stack_fffffffffffffec8 = renderPassType;
                             break;
                         case 4:
-                            pCVar10 = (CommandLine*)param_1->GetDrawableGroup(uVar14, local_90);
-                            uVar3 = pCVar10->GetPos();
-                            pTVar15 = local_c0;
-                            UpdateForwardPassEffect(pTVar18._0_4_, local_8c, local_c0, local_b8, uVar3, uVar9, param_2,
-                                                    param_4, (int)local_f0, &local_88);
-                            local_a0[0] = local_e8;
+                            pCVar10 = drawableQueue.GetDrawableGroup(renderPassType, local_90);
+                            DVar5 = pCVar10->GetPos();
+                            pTVar9 = local_c0;
+                            in_stack_fffffffffffffec8 = (RenderPassType)local_f0;
+                            UpdateForwardPassEffect(local_c0, &local_b8, DVar5, (RenderPassEffect*)rt7Core_00, rt7Core,
+                                                    effectManager, arg6_02, local_8c, (uint8_t)local_f0, &local_88);
+                            local_a0._vptr = local_e8;
                             pTVar11 = DrawableElementPool<TerrainPatch_DE>::Create<
-                                TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&,
-                                math::OBB&, float&, render::InputAssemblerState*>(
-                                pTVar15, param_5, &local_88, &local_8c, (InputAssemblerState**)local_a0);
-                            uVar9 = local_b8[0];
-                            std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                (unique_ptr<DrawableElement, DrawableElementDeleter>*)local_a0,
-                                (DrawableElement*)pTVar11);
-                            param_1->AddDrawable(uVar9, local_a0, pTVar15, local_90, uVar14);
+                                TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul> const&, math::OBB&, float&,
+                                render::InputAssemblerState*>(*pTVar9, arg5, local_88, local_8c, local_a0);
+                            DVar2 = local_b8[0];
+                            local_a0.unique_ptr<true, void>(pTVar11);
+                            drawableSortKey_02._4_4_ = in_stack_fffffffffffffecc;
+                            drawableSortKey_02._0_4_ = in_stack_fffffffffffffec8;
+                            drawableQueue.AddDrawable(drawableSortKey_02, *DVar2, &local_a0, (DrawableGroupType)pTVar9,
+                                                      local_90);
                             break;
                         case 5:
-                            pCVar10 = (CommandLine*)param_1->GetDrawableGroup(uVar14, 0);
-                            uVar3 = pCVar10->GetPos();
-                            pTVar15 = local_c0;
-                            UpdateMiniMapPassEffect(pTVar19._0_4_, local_8c, local_c0, local_b8, uVar3, uVar9, param_2,
-                                                    param_4);
-                            local_a0[0] = local_e8;
+                            pCVar10 = drawableQueue.GetDrawableGroup(renderPassType, 0);
+                            DVar5 = pCVar10->GetPos();
+                            pTVar9 = local_c0;
+                            UpdateMiniMapPassEffect(local_c0, &local_b8, DVar5, (RenderPassEffect*)rt7Core_00, rt7Core,
+                                                    effectManager, arg6_03, local_8c);
+                            local_a0._vptr = local_e8;
                             pTVar11 = DrawableElementPool<TerrainPatch_DE>::Create<
-                                TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&,
-                                math::OBB&, float&, render::InputAssemblerState*>(
-                                pTVar15, param_5, &local_88, &local_8c, (InputAssemblerState**)local_a0);
-                            this_00 = (Vector4T<float>*)math::Matrix44T<float>::operator[](
-                                (Matrix44T<float>*)pTVar11->field_112, 3);
-                            pfVar7 = (float*)math::Vector4T<float>::operator[](this_00, 1);
-                            uVar9 = local_b8[0];
+                                TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul> const&, math::OBB&, float&,
+                                render::InputAssemblerState*>(*pTVar9, arg5, local_88, local_8c, local_a0);
+                            this_00 = (Vector4T<float>*)(*pTVar11->field_112)[3];
+                            pfVar7 = (float*)(*this_00)[1];
+                            DVar2 = local_b8[0];
                             *pfVar7 = *pfVar7 + 100.0;
-                            std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                (unique_ptr<DrawableElement, DrawableElementDeleter>*)local_a0,
-                                (DrawableElement*)pTVar11);
-                            param_1->AddDrawable(uVar9, local_a0, local_c0, 0, uVar14);
+                            local_a0.unique_ptr<true, void>(pTVar11);
+                            DVar1._4_4_ = in_stack_fffffffffffffecc;
+                            DVar1._0_4_ = in_stack_fffffffffffffec8;
+                            drawableQueue.AddDrawable(DVar1, *DVar2, &local_a0, (DrawableGroupType)local_c0, 0);
                             break;
                         case 9:
-                            cVar1 = this_01->GetOption(13);
-                            if (cVar1 != '\0') {
-                                pCVar10 = (CommandLine*)param_1->GetDrawableGroup(uVar14, local_90);
-                                uVar3 = pCVar10->GetPos();
-                                pTVar15 = local_c0;
-                                UpdateSimpleGeometryPassEffect(pTVar20._0_4_, local_8c, local_c0, local_b8, uVar3,
-                                                               uVar9, param_2, param_4, uVar14);
-                                local_a0[0] = local_e8;
+                            cVar3 = this_01->GetOption(13);
+                            if (cVar3) {
+                                pCVar10 = drawableQueue.GetDrawableGroup(renderPassType, local_90);
+                                uVar12 = pCVar10->GetPos();
+                                pTVar9 = local_c0;
+                                UpdateSimpleGeometryPassEffect(
+                                    (DrawableSortKey*)local_c0, (DrawableSortKeyType)&local_b8,
+                                    (RenderPassEffect*)(unsigned long)uVar12, rt7Core_00, (EffectManager*)rt7Core,
+                                    arg6_04, local_8c, (RenderPassType)effectManager);
+                                local_a0._vptr = local_e8;
                                 pTVar11 = DrawableElementPool<TerrainPatch_DE>::Create<
-                                    TerrainPatch&,
-                                    eastl::fixed_vector<unsigned char, 256ul, true, eastl::allocator> const&,
-                                    math::OBB&, float&, render::InputAssemblerState*>(
-                                    pTVar15, param_5, &local_88, &local_8c, (InputAssemblerState**)local_a0);
-                                uVar9 = local_b8[0];
-                                std::unique_ptr<DrawableElement, DrawableElementDeleter>::unique_ptr<true, void>(
-                                    (unique_ptr<DrawableElement, DrawableElementDeleter>*)local_a0,
-                                    (DrawableElement*)pTVar11);
-                                param_1->AddDrawable(uVar9, local_a0, pTVar15, local_90, uVar14);
+                                    TerrainPatch&, eastl::fixed_vector<unsigned char, 256ul> const&, math::OBB&, float&,
+                                    render::InputAssemblerState*>(*pTVar9, arg5, local_88, local_8c, local_a0);
+                                DVar1 = local_b8[0];
+                                local_a0.unique_ptr<true, void>(pTVar11);
+                                DVar2._4_4_ = in_stack_fffffffffffffecc;
+                                DVar2._0_4_ = renderPassType;
+                                drawableQueue.AddDrawable(DVar2, *DVar1, &local_a0, (DrawableGroupType)pTVar9,
+                                                          local_90);
+                                in_stack_fffffffffffffec8 = renderPassType;
                                 break;
                             }
                         case 12:
                         case 14:
                             goto switchD_1007b6cda_caseD_c;
                         }
-                        local_a0->~unique_ptr();
                         this_01 = local_c8;
                     switchD_1007b6cda_caseD_c:
                         plVar8 = plVar8 + 1;
@@ -1657,29 +1336,20 @@ namespace jag::graphics {
                 }
             }
         }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
     }
 
-    // 0x1007b7270, 128 bytes, placed by class name
-    // TerrainPatch::IsReadyToRender() const
-    undefined8 TerrainPatch::IsReadyToRender() {
-        char cVar1;
-        int iVar2;
+    // 0x1007b7270
+    bool TerrainPatch::IsReadyToRender() const {
         TextureAtlasReference* this_00;
-        duration local_30[12];
-        undefined4 local_24;
+        type* arg2;
+        duration<long long, std::ratio<1l, 1l>> local_30;
 
-        cVar1 = (&field_13872)->valid();
-        if (cVar1 != '\0') {
-            local_24 = 0;
-            std::chrono::duration<long long, std::ratio<1l, 1l>>::duration<int>((int*)local_30, (type*)&local_24);
-            iVar2 = std::future<void>::wait_for<long long, std::ratio<1l, 1l>>((future<void>*)&field_13872, local_30);
-            if (iVar2 == 0) {
-                this_00 = (TextureAtlasReference*)(&m_material)->GetTextureAtlasReference();
-                if ((this_00 == (TextureAtlasReference*)0) || (cVar1 = this_00->CheckTexturesLoaded(), cVar1 != '\0')) {
+        bool cVar1 = field_13872.valid();
+        if (cVar1) {
+            local_30.duration<int>(0, arg2);
+            if (field_13872.wait_for<long long, std::ratio<1l, 1l>>(local_30) == 0) {
+                this_00 = (TextureAtlasReference*)m_material->GetTextureAtlasReference();
+                if ((this_00 == nullptr) || (cVar1 = this_00->CheckTexturesLoaded(), cVar1)) {
                     return 1;
                 }
             }
@@ -1687,591 +1357,645 @@ namespace jag::graphics {
         return 0;
     }
 
-    // 0x1007b73b0, 1504 bytes, placed by class name
-    // TerrainPatch::UpdateForwardPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&, EffectManager const&, float, float, bool, math::OBB const&)
-    void TerrainPatch::UpdateForwardPassEffect(undefined8 param_1_00, float param_2, TerrainPatch* this,
-                                               undefined8* param_1, uint param_5, RenderPassEffect* param_6,
-                                               RT7Core* param_7, EffectManager* param_8, byte param_9, OBB* param_10) {
-        undefined1* this_00;
-        char cVar1;
-        undefined1 uVar2;
-        bool bVar3;
-        byte bVar4;
-        int iVar5;
-        long lVar6;
-        shared_ptr* psVar7;
-        Sphere* pSVar8;
-        SunlightShadows* this_03;
-        DirLightCsmManager* this_04;
-        PointLightShadows* this_05;
-        Layout* this_06;
-        vector* pvVar9;
-        PostProcessController* this_07;
-        undefined8 uVar10;
-        undefined8 uVar11;
-        ulong uVar12;
-        ulong uVar13;
-        BucketAllocatorEASTL* pBVar14;
-        TerrainPatch* pTVar15;
-        BucketAllocatorEASTL* pBVar17;
-        float fVar18;
-        undefined1 auVar19[16];
-        Sphere local_b8[3];
-        undefined** local_78;
+    // 0x1007b73b0
+    void TerrainPatch::UpdateForwardPassEffect(DrawableSortKey& drawableSortKey,
+                                               DrawableSortKeyType drawableSortKeyType,
+                                               RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                               const EffectManager& effectManager, float arg6, float arg7, bool arg8,
+                                               const math::OBB& obb) {
+        uint8_t* objType;
+        uint8_t arg2;
+        uint8_t bVar4;
+        shared_ptr* pointLightIndicesEffect;
+        unsigned long uVar10;
+        PlayerDataComparator<oldscape::social::FriendChatUser>* playerDataComparator;
+        float fVar11;
+        uint8_t auVar12[16];
+        PointLightIndicesEffect_vtbl* local_78;
         float local_70;
-        undefined8* local_68;
-        TerrainPatch* local_50;
-        undefined4 local_40;
-        undefined4 local_3c;
-        char local_35;
+        uint32_t local_40;
+        uint32_t local_3c;
 
-        local_68 = param_1;
-        cVar1 = param_8->IsEnabled(29);
-        if (cVar1 == '\0') {
+        DrawableSortKey* local_68 = drawableSortKey;
+        bool bVar1 = (bool)effectManager.IsEnabled(29);
+        if (bVar1 == false) {
             local_40 = 0;
         } else {
-            local_40 = param_8->IsEnabled(48);
+            local_40 = effectManager.IsEnabled(48);
         }
-        local_35 = param_8->IsEnabled(26);
-        lVar6 = (&m_material)->GetTextureAtlasReference();
-        local_50 = this;
+        char local_35 = effectManager.IsEnabled(26);
+        long lVar6 = m_material->GetTextureAtlasReference();
+        TerrainPatch* local_50 = this;
         if (lVar6 == 0) {
             local_3c = 0;
         } else {
-            local_3c = param_8->IsEnabled(27);
+            local_3c = effectManager.IsEnabled(27);
         }
-        iVar5 = (&m_material)->GetEndPosition();
-        uVar2 = param_8->IsEnabled(39);
-        param_6->Set(29, cVar1);
-        param_6->Set(48, (undefined1)local_40);
-        param_6->Set(63, (undefined1)local_3c);
-        param_6->Set(54, iVar5 != -1);
-        param_6->Set(39, uVar2);
-        pTVar15 = local_50;
+        int iVar5 = m_material->GetEndPosition();
+        bool bVar2 = (bool)effectManager.IsEnabled(39);
+        renderPassEffect.Set(29, bVar1);
+        renderPassEffect.Set(48, local_40._0_1_);
+        renderPassEffect.Set(63, local_3c._0_1_);
+        renderPassEffect.Set(54, iVar5 != -1);
+        renderPassEffect.Set(39, bVar2);
+        TerrainPatch* vector3 = local_50;
         if (local_35 != '\0') {
-            this_00 = &local_50->field_13232;
-            bVar3 = operator==((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
-            if (bVar3) {
-                GetWorldTransform((TerrainPatch*)local_b8);
-                local_78 = (undefined**)local_b8->GetPos();
-                local_70 = param_2;
-                psVar7 = (shared_ptr*)local_78.GetEffect(pTVar15);
-                shared_ptr<PointLightIndicesEffect>::operator=((shared_ptr<PointLightIndicesEffect>*)this_00, psVar7);
+            objType = &local_50->field_13232;
+            bVar1 = *objType == nullptr;
+            if (bVar1) {
+                GetWorldTransform((TerrainPatch*)&local_b8);
+                local_78 = (PointLightIndicesEffect_vtbl*)local_b8.GetPos();
+                local_70 = arg7;
+                pointLightIndicesEffect = local_78.GetEffect(vector3);
+                *objType = *pointLightIndicesEffect;
             }
-            uVar2 = 0;
-            bVar3 = operator!=((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
-            if (bVar3) {
-                math::Sphere::Sphere(local_b8);
-                param_10->GetMinimumEnclosingSphere(local_b8);
-                pSVar8 = (Sphere*)shared_ptr<PointLightIndicesEffect>::operator->(
-                    (shared_ptr<PointLightIndicesEffect>*)this_00);
-                uVar2 = PointLightIndicesEffect::TestVisiblePointLightInfluence(pSVar8);
+            arg2 = false;
+            bVar1 = *objType != nullptr;
+            if (bVar1) {
+                local_b8 = math::Sphere();
+                obb.GetMinimumEnclosingSphere(local_b8);
+                arg2 = ((PointLightIndicesEffect*)(*objType).operator->())->TestVisiblePointLightInfluence(local_b8);
             }
-            param_6->Set(26, uVar2);
+            renderPassEffect.Set(26, (bool)arg2);
         }
-        this_03 = (SunlightShadows*)EffectManager::GetEffect<PlanarReflection>(param_8, 30);
-        this_04 = (DirLightCsmManager*)this_03->GetSunlightCsmManager();
-        cVar1 = param_8->IsEnabled(30);
-        if (cVar1 == '\0') {
-            bVar3 = false;
+        SunlightShadows* this_02 =
+            (SunlightShadows*)((EffectManager*)(ShaderManager*)effectManager)->GetEffect<PlanarReflection>(30);
+        auto this_03 = this_02->GetSunlightCsmManager();
+        bool cVar3 = ((EffectManager*)(ShaderManager*)effectManager)->IsEnabled(30);
+        if (!cVar3) {
+            bVar1 = false;
         } else {
-            fVar18 = (float)this_04->GetMaxShadowDistance();
-            bVar3 = param_2 < fVar18;
+            fVar11 = (float)this_03->GetMaxShadowDistance();
+            bVar1 = arg7 < fVar11;
         }
-        if (bVar3 == false) {
-            bVar4 = 0;
+        if (bVar1 == false) {
+            bVar2 = false;
         } else {
-            bVar4 = param_8->IsEnabled(28);
-            bVar4 = (param_9 ^ 1) & bVar4;
+            bVar4 = ((EffectManager*)(ShaderManager*)effectManager)->IsEnabled(28);
+            bVar2 = (bool)(!arg8 & bVar4);
         }
-        param_6->Set(28, bVar4);
-        param_6->Set(30, bVar3);
-        this_05 = (PointLightShadows*)EffectManager::GetEffect<PlanarReflection>(param_8, 35);
-        this_06 = (Layout*)this_05->GetPointLightSMManager();
-        cVar1 = param_8->IsEnabled(26);
-        if (cVar1 == '\0') {
+        renderPassEffect.Set(28, bVar2);
+        renderPassEffect.Set(30, bVar1);
+        PointLightShadows* this_04 =
+            (PointLightShadows*)((EffectManager*)(ShaderManager*)effectManager)->GetEffect<PlanarReflection>(35);
+        auto this_05 = this_04->GetPointLightSMManager();
+        cVar3 = ((EffectManager*)(ShaderManager*)effectManager)->IsEnabled(26);
+        if (!cVar3) {
         LAB_1007b7641:
-            bVar3 = false;
+            bVar1 = false;
         } else {
-            cVar1 = param_8->IsEnabled();
-            if (cVar1 == '\0')
+            cVar3 = ((EffectManager*)(ShaderManager*)effectManager)->IsEnabled(35);
+            if (!cVar3)
                 goto LAB_1007b7641;
-            pvVar9 = eastl::string::Layout::SSOBeginPtr(this_06, (type*)35);
-            bVar3 = param_2 < *(float*)(pvVar9 + 20);
+            lVar6 = this_05->SSOBeginPtr();
+            bVar1 = arg7 < *(float*)(lVar6 + 20);
         }
-        param_6->Set(35, bVar3);
-        auVar19 = param_8->BuildShaderEffectList(param_6);
-        param_6->field_16 = auVar19._0_8_;
-        param_6->field_24 = auVar19._8_8_;
-        this_07 = (PostProcessController*)param_7->GetPostProcessController();
-        lVar6 = this_07->GetCurrentConfig();
+        renderPassEffect.Set(35, bVar1);
+        auVar12 = ((EffectManager*)(ShaderManager*)effectManager)->BuildShaderEffectList(renderPassEffect);
+        renderPassEffect.field_16 = auVar12[0];
+        renderPassEffect.field_17 = auVar12[1];
+        renderPassEffect.field_18 = auVar12[2];
+        renderPassEffect.field_19 = auVar12[3];
+        renderPassEffect.field_20 = auVar12[4];
+        renderPassEffect.field_21 = auVar12._5_3_;
+        renderPassEffect.field_24 = auVar12._8_8_;
+        lVar6 = rt7Core.GetPostProcessController()->GetCurrentConfig();
         if (*(char*)(lVar6 + 468) == '\0') {
-            (&param_6->field_16, 64, 0)->Set();
+            renderPassEffect.field_16.Set(64, false);
         }
-        uVar10 = param_7->GetShaderManager();
-        uVar11 = TerrainPatchRenderer::GetVertexDecl();
-        param_6->UpdateShader(param_8, uVar10, 6, uVar11, 4, 3);
-        uVar12 = param_6->GetConstructedShaderId();
-        if (5 < param_5) {
-            /* WARNING: Subroutine does not return */
+        auto pSVar7 = rt7Core.GetShaderManager();
+        auto pVVar8 = TerrainPatchRenderer::GetVertexDecl();
+        RenderPassEffect::UpdateShader(renderPassEffect, effectManager, (ShaderType)pSVar7, *6, (RenderPassType)pVVar8,
+                                       '\x04');
+        unsigned long uVar9 = renderPassEffect.GetConstructedShaderId();
+        if (5 < drawableSortKeyType) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "renderer/DrawableSortKey.h",
                             177, "Unknown sort key type");
         }
-        bVar4 = (param_9 == 0) * '\x03' + 1;
-        switch (param_5) {
+        bVar4 = !arg8 * '\x03' + 1;
+        switch (drawableSortKeyType) {
         case 0:
-            fVar18 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            pBVar14 = (BucketAllocatorEASTL*)(long)fVar18;
-            pBVar17 =
-                (BucketAllocatorEASTL*)((((long)(fVar18 - 9.223372e+18) & (long)pBVar14 >> 63 | (ulong)pBVar14) << 24 |
-                                         (ulong)bVar4 << 56) +
-                                        (uVar12 & 65535) + 16711680);
+            fVar11 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar10 = (unsigned long)fVar11;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((((long)(fVar11 - 9.223372e+18) &
+                                                                                (long)uVar10 >> 63 |
+                                                                            uVar10)
+                                                                               << 24 |
+                                                                           (unsigned long)bVar4 << 56) +
+                                                                          (uVar9 & 65535) + 16711680);
             break;
         case 1:
-            fVar18 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar6 = (long)fVar18;
-            uVar13 = (ulong)((uint)lVar6 | (uint)(long)(fVar18 - 9.223372e+18) & (uint)(lVar6 >> 63));
-            uVar12 = uVar12 & 65535;
-            pBVar14 = (BucketAllocatorEASTL*)(uVar13 * 16777216);
-            uVar13 = uVar13 * -16777216 + 72057594021150720 & 72057594021150720 | (ulong)bVar4 << 56;
+            fVar11 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar6 = (long)fVar11;
+            uVar9 = uVar9 & 65535;
+            uVar10 = (unsigned long)((unsigned int)lVar6 |
+                                     (unsigned int)(long)(fVar11 - 9.223372e+18) & (unsigned int)(lVar6 >> 63)) *
+                                 -16777216 +
+                             72057594021150720 &
+                         72057594021150720 |
+                     (unsigned long)bVar4 << 56;
             goto LAB_1007b7887;
         case 2:
-            pBVar14 =
-                (BucketAllocatorEASTL*)(((long)(float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5)) & 4294967295U) *
-                                        256);
-            pBVar17 = pBVar14 + ((uVar12 & 65535) << 40 | (ulong)bVar4 << 56) + 255;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(float)(-(unsigned int)(0.0 < arg7) &
+                                                                                         (unsigned int)(arg7 + 0.5)) &
+                                                                           4294967295U) *
+                                                                              256 +
+                                                                          ((uVar9 & 65535) << 40 | (unsigned long)bVar4
+                                                                                                       << 56) +
+                                                                          255);
             break;
         case 3:
-            fVar18 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            pBVar14 = (BucketAllocatorEASTL*)(long)fVar18;
-            uVar12 = (uVar12 & 65535) << 40 | (ulong)bVar4 << 56;
-            uVar13 = ((long)(fVar18 - 9.223372e+18) & (long)pBVar14 >> 63 | (ulong)pBVar14) * -256 + 1099511627520;
+            fVar11 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar10 = (unsigned long)fVar11;
+            uVar9 = (uVar9 & 65535) << 40 | (unsigned long)bVar4 << 56;
+            uVar10 = ((long)(fVar11 - 9.223372e+18) & (long)uVar10 >> 63 | uVar10) * -256 + 1099511627520;
         LAB_1007b7887:
-            pBVar17 = (BucketAllocatorEASTL*)(uVar13 | uVar12);
+            playerDataComparator = (PlayerDataComparator<oldscape::social::FriendChatUser>*)(uVar10 | uVar9);
             break;
         case 4:
-            fVar18 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar6 = (long)fVar18;
-            pBVar14 =
-                (BucketAllocatorEASTL*)((ulong)((uint)lVar6 | (uint)(long)(fVar18 - 9.223372e+18) & (uint)(lVar6 >> 63))
-                                        << 32);
-            pBVar17 = (BucketAllocatorEASTL*)((uVar12 & 65535) + ((ulong)bVar4 << 24 | (ulong)pBVar14) + 16711680);
+            fVar11 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar6 = (long)fVar11;
+            playerDataComparator =
+                (PlayerDataComparator<
+                    oldscape::social::FriendChatUser>*)((uVar9 & 65535) +
+                                                        ((unsigned long)bVar4 << 24 |
+                                                         (unsigned long)((unsigned int)lVar6 |
+                                                                         (unsigned int)(long)(fVar11 - 9.223372e+18) &
+                                                                             (unsigned int)(lVar6 >> 63))
+                                                             << 32) +
+                                                        16711680);
             break;
         case 5:
-            fVar18 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar13 = (ulong)fVar18;
-            pBVar14 = (BucketAllocatorEASTL*)((long)uVar13 >> 63);
-            pBVar17 = (BucketAllocatorEASTL*)(((ulong)bVar4 << 24 |
-                                               ((long)(fVar18 - 9.223372e+18) & (ulong)pBVar14 | uVar13) * -4294967296 |
-                                               uVar12 & 65535) -
-                                              4294967296);
+            fVar11 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar10 = (unsigned long)fVar11;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((unsigned long)bVar4 << 24 |
+                                                                           ((long)(fVar11 - 9.223372e+18) &
+                                                                                (long)uVar10 >> 63 |
+                                                                            uVar10) *
+                                                                               -4294967296 |
+                                                                           uVar9 & 65535) -
+                                                                          4294967296);
         }
-        new (local_b8)
-            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(pBVar17, pBVar14);
-        *local_68 = local_b8[0]._0_8_;
+        DrawableSortKey local_b8(playerDataComparator);
+        *local_68 = local_b8;
     }
 
-    // 0x1007b7ac0, 928 bytes, placed by class name
-    // TerrainPatch::UpdateReflectionPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&, EffectManager const&, float, float, bool)
-    void TerrainPatch::UpdateReflectionPassEffect(undefined8 param_1_00, float param_2, TerrainPatch* this,
-                                                  undefined8* param_1, uint param_5, RenderPassEffect* param_6,
-                                                  RT7Core* param_7, EffectManager* param_8, char param_9) {
-        undefined1 uVar1;
-        int iVar2;
-        long lVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        ulong uVar6;
-        byte bVar7;
-        ulong uVar8;
-        BucketAllocatorEASTL* pBVar9;
-        BucketAllocatorEASTL* pBVar10;
-        float fVar11;
-        undefined1 auVar12[16];
-        undefined8 local_40;
-        undefined1 local_31;
+    // 0x1007b7ac0
+    void TerrainPatch::UpdateReflectionPassEffect(DrawableSortKey& drawableSortKey,
+                                                  DrawableSortKeyType drawableSortKeyType,
+                                                  RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                                  const EffectManager& effectManager, float arg6, float arg7,
+                                                  bool arg8) {
+        uint8_t arg2;
+        unsigned long uVar7;
+        uint32_t in_register_00000034;
+        PlayerDataComparator<oldscape::social::FriendChatUser>* playerDataComparator;
+        uint64_t in_register_00000089;
+        float fVar8;
+        uint8_t auVar9[16];
+        char in_stack_00000008;
+        uint64_t local_40;
 
-        local_31 = param_8->IsEnabled(29);
-        lVar3 = (&m_material)->GetTextureAtlasReference();
-        if (lVar3 == 0) {
-            uVar1 = 0;
+        ShaderManager* shaderManager = (ShaderManager*)(((uint64_t)in_register_00000089 << 8) | (uint8_t)arg8);
+        bool local_31 = (bool)shaderManager->IsEnabled(29);
+        long lVar2 = ((drawableSortKey + 6))->GetTextureAtlasReference();
+        if (lVar2 == 0) {
+            arg2 = false;
         } else {
-            uVar1 = param_8->IsEnabled(27);
+            arg2 = shaderManager->IsEnabled(27);
         }
-        iVar2 = (&m_material)->GetEndPosition();
-        param_6->Set(29, local_31);
-        param_6->Set(63, uVar1);
-        param_6->Set(54, iVar2 != -1);
-        auVar12 = param_8->BuildShaderEffectList(param_6);
-        param_6->field_16 = auVar12._0_8_;
-        param_6->field_24 = auVar12._8_8_;
-        uVar4 = param_7->GetShaderManager();
-        uVar5 = TerrainPatchRenderer::GetVertexDecl();
-        param_6->UpdateShader(param_8, uVar4, 6, uVar5, 2, 3);
-        uVar6 = param_6->GetConstructedShaderId();
-        if (5 < param_5) {
-            /* WARNING: Subroutine does not return */
+        int iVar1 = ((drawableSortKey + 6))->GetEndPosition();
+        rt7Core.Set(29, local_31);
+        rt7Core.Set(63, (bool)arg2);
+        rt7Core.Set(54, iVar1 != -1);
+        auVar9 = shaderManager->BuildShaderEffectList(rt7Core);
+        *(uint8_t(*)[16]) & rt7Core.field_16 = auVar9;
+        auto pSVar3 = effectManager.GetShaderManager();
+        auto pVVar4 = TerrainPatchRenderer::GetVertexDecl();
+        RenderPassEffect::UpdateShader(rt7Core, *shaderManager, (ShaderType)pSVar3, *6, (RenderPassType)pVVar4, '\x02');
+        unsigned long uVar5 = rt7Core.GetConstructedShaderId();
+        if (5 < (unsigned int)renderPassEffect) {
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "renderer/DrawableSortKey.h",
                             177, "Unknown sort key type");
         }
-        bVar7 = (param_9 == '\0') * '\x03' + 1;
-        switch (param_5) {
+        uint8_t bVar6 = (in_stack_00000008 == '\0') * '\x03' + 1;
+        switch ((unsigned long)renderPassEffect & 4294967295) {
         case 0:
-            fVar11 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            pBVar9 = (BucketAllocatorEASTL*)(long)fVar11;
-            pBVar10 =
-                (BucketAllocatorEASTL*)((((long)(fVar11 - 9.223372e+18) & (long)pBVar9 >> 63 | (ulong)pBVar9) << 24 |
-                                         (ulong)bVar7 << 56) +
-                                        (uVar6 & 65535) + 16711680);
+            fVar8 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar7 = (unsigned long)fVar8;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((((long)(fVar8 - 9.223372e+18) &
+                                                                                (long)uVar7 >> 63 |
+                                                                            uVar7)
+                                                                               << 24 |
+                                                                           (unsigned long)bVar6 << 56) +
+                                                                          (uVar5 & 65535) + 16711680);
             break;
         case 1:
-            fVar11 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar3 = (long)fVar11;
-            uVar8 = (ulong)((uint)lVar3 | (uint)(long)(fVar11 - 9.223372e+18) & (uint)(lVar3 >> 63));
-            uVar6 = uVar6 & 65535;
-            pBVar9 = (BucketAllocatorEASTL*)(uVar8 * 16777216);
-            uVar8 = uVar8 * -16777216 + 72057594021150720 & 72057594021150720 | (ulong)bVar7 << 56;
+            fVar8 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar2 = (long)fVar8;
+            uVar5 = uVar5 & 65535;
+            uVar7 = (unsigned long)((unsigned int)lVar2 |
+                                    (unsigned int)(long)(fVar8 - 9.223372e+18) & (unsigned int)(lVar2 >> 63)) *
+                                -16777216 +
+                            72057594021150720 &
+                        72057594021150720 |
+                    (unsigned long)bVar6 << 56;
             goto LAB_1007b7d67;
         case 2:
-            pBVar9 =
-                (BucketAllocatorEASTL*)(((long)(float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5)) & 4294967295U) *
-                                        256);
-            pBVar10 = pBVar9 + ((uVar6 & 65535) << 40 | (ulong)bVar7 << 56) + 255;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(float)(-(unsigned int)(0.0 < arg7) &
+                                                                                         (unsigned int)(arg7 + 0.5)) &
+                                                                           4294967295U) *
+                                                                              256 +
+                                                                          ((uVar5 & 65535) << 40 | (unsigned long)bVar6
+                                                                                                       << 56) +
+                                                                          255);
             break;
         case 3:
-            fVar11 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            pBVar9 = (BucketAllocatorEASTL*)(long)fVar11;
-            uVar6 = (uVar6 & 65535) << 40 | (ulong)bVar7 << 56;
-            uVar8 = ((long)(fVar11 - 9.223372e+18) & (long)pBVar9 >> 63 | (ulong)pBVar9) * -256 + 1099511627520;
+            fVar8 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar7 = (unsigned long)fVar8;
+            uVar5 = (uVar5 & 65535) << 40 | (unsigned long)bVar6 << 56;
+            uVar7 = ((long)(fVar8 - 9.223372e+18) & (long)uVar7 >> 63 | uVar7) * -256 + 1099511627520;
         LAB_1007b7d67:
-            pBVar10 = (BucketAllocatorEASTL*)(uVar8 | uVar6);
+            playerDataComparator = (PlayerDataComparator<oldscape::social::FriendChatUser>*)(uVar7 | uVar5);
             break;
         case 4:
-            fVar11 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar3 = (long)fVar11;
-            pBVar9 =
-                (BucketAllocatorEASTL*)((ulong)((uint)lVar3 | (uint)(long)(fVar11 - 9.223372e+18) & (uint)(lVar3 >> 63))
-                                        << 32);
-            pBVar10 = (BucketAllocatorEASTL*)((uVar6 & 65535) + ((ulong)bVar7 << 24 | (ulong)pBVar9) + 16711680);
+            fVar8 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar2 = (long)fVar8;
+            playerDataComparator =
+                (PlayerDataComparator<
+                    oldscape::social::FriendChatUser>*)((uVar5 & 65535) +
+                                                        ((unsigned long)bVar6 << 24 |
+                                                         (unsigned long)((unsigned int)lVar2 |
+                                                                         (unsigned int)(long)(fVar8 - 9.223372e+18) &
+                                                                             (unsigned int)(lVar2 >> 63))
+                                                             << 32) +
+                                                        16711680);
             break;
         case 5:
-            fVar11 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar8 = (ulong)fVar11;
-            pBVar9 = (BucketAllocatorEASTL*)((long)uVar8 >> 63);
-            pBVar10 = (BucketAllocatorEASTL*)(((ulong)bVar7 << 24 |
-                                               ((long)(fVar11 - 9.223372e+18) & (ulong)pBVar9 | uVar8) * -4294967296 |
-                                               uVar6 & 65535) -
-                                              4294967296);
+            fVar8 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar7 = (unsigned long)fVar8;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((unsigned long)bVar6 << 24 |
+                                                                           ((long)(fVar8 - 9.223372e+18) &
+                                                                                (long)uVar7 >> 63 |
+                                                                            uVar7) *
+                                                                               -4294967296 |
+                                                                           uVar5 & 65535) -
+                                                                          4294967296);
         }
         new (&local_40)
-            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(pBVar10, pBVar9);
-        *param_1 = local_40;
+            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(playerDataComparator);
+        *(uint64_t*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)drawableSortKeyType) = local_40;
     }
 
-    // 0x1007b7e60, 848 bytes, placed by class name
-    // TerrainPatch::UpdateSimpleGeometryPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&, EffectManager const&, float, float, RenderPassType)
-    void TerrainPatch::UpdateSimpleGeometryPassEffect(undefined8 param_1_00, float param_2, TerrainPatch* this,
-                                                      undefined8* param_1, undefined4 param_5,
-                                                      RenderPassEffect* param_6, RT7Core* param_7,
-                                                      EffectManager* param_8, undefined4 param_9) {
-        undefined1 uVar1;
-        long lVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        ulong uVar5;
-        ulong uVar6;
-        uint* puVar7;
-        EntityHighlight** ppEVar8;
-        float fVar9;
-        undefined1 auVar10[16];
-        undefined8 local_38;
+    // 0x1007b7e60
+    void TerrainPatch::UpdateSimpleGeometryPassEffect(DrawableSortKey& drawableSortKey,
+                                                      DrawableSortKeyType drawableSortKeyType,
+                                                      RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                                      const EffectManager& effectManager, float arg6, float arg7,
+                                                      RenderPassType renderPassType) {
+        uint8_t arg2;
+        unsigned long uVar5;
+        uint32_t in_register_00000034;
+        PlayerDataComparator<oldscape::social::FriendChatUser>* playerDataComparator;
+        uint32_t in_register_0000008c;
+        float fVar6;
+        uint8_t auVar7[16];
+        unsigned char in_stack_00000008;
+        uint64_t local_38;
 
-        lVar2 = (&m_material)->GetTextureAtlasReference();
-        if (lVar2 == 0) {
-            uVar1 = 0;
+        ShaderManager* shaderManager =
+            (ShaderManager*)(((uint64_t)in_register_0000008c << 32) | (uint32_t)renderPassType);
+        long lVar1 = ((drawableSortKey + 6))->GetTextureAtlasReference();
+        if (lVar1 == 0) {
+            arg2 = false;
         } else {
-            uVar1 = param_8->IsEnabled(27);
+            arg2 = shaderManager->IsEnabled(27);
         }
-        param_6->Set(63, uVar1);
-        auVar10 = param_8->BuildShaderEffectList(param_6);
-        param_6->field_16 = auVar10._0_8_;
-        param_6->field_24 = auVar10._8_8_;
-        uVar3 = param_7->GetShaderManager();
-        uVar4 = TerrainPatchRenderer::GetVertexDecl();
-        param_6->UpdateShader(param_8, uVar3, 7, uVar4, param_9, 3);
-        uVar5 = param_6->GetConstructedShaderId();
-        puVar7 = &switchD_1007b7f1b::switchdataD_1007b8194;
-        switch (param_5) {
+        rt7Core.Set(63, (bool)arg2);
+        auVar7 = shaderManager->BuildShaderEffectList(rt7Core);
+        *(uint8_t(*)[16]) & rt7Core.field_16 = auVar7;
+        auto pSVar2 = effectManager.GetShaderManager();
+        auto pVVar3 = TerrainPatchRenderer::GetVertexDecl();
+        RenderPassEffect::UpdateShader(rt7Core, *shaderManager, (ShaderType)pSVar2, *7, (RenderPassType)pVVar3,
+                                       in_stack_00000008);
+        unsigned long uVar4 = rt7Core.GetConstructedShaderId();
+        switch ((unsigned long)renderPassEffect & 4294967295) {
         case 0:
-            fVar9 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar6 = (ulong)fVar9;
-            puVar7 = (uint*)((long)uVar6 >> 63);
-            ppEVar8 = (EntityHighlight**)(((long)(fVar9 - 9.223372e+18) & (ulong)puVar7 | uVar6) << 24 | uVar5 & 65535 |
-                                          288230376168423424);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar5 = (unsigned long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(fVar6 - 9.223372e+18) &
+                                                                               (long)uVar5 >> 63 |
+                                                                           uVar5)
+                                                                              << 24 |
+                                                                          uVar4 & 65535 | 288230376168423424);
             break;
         case 1:
-            fVar9 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar2 = (long)fVar9;
-            puVar7 = (uint*)72057594021150720;
-            ppEVar8 =
-                (EntityHighlight**)((ulong)((uint)lVar2 | (uint)(long)(fVar9 - 9.223372e+18) & (uint)(lVar2 >> 63)) *
-                                                -16777216 +
-                                            72057594021150720 &
-                                        72057594021150720 |
-                                    uVar5 & 65535 | 288230376151711744);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar1 = (long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<
+                    oldscape::social::FriendChatUser>*)((unsigned long)((unsigned int)lVar1 |
+                                                                        (unsigned int)(long)(fVar6 - 9.223372e+18) &
+                                                                            (unsigned int)(lVar1 >> 63)) *
+                                                                    -16777216 +
+                                                                72057594021150720 &
+                                                            72057594021150720 |
+                                                        uVar4 & 65535 | 288230376151711744);
             break;
         case 2:
-            ppEVar8 = (EntityHighlight**)((((long)(float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5)) & 4294967295U)
-                                               << 8 |
-                                           (uVar5 & 65535) << 40) +
-                                          288230376151711999);
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((((long)(float)(-(unsigned int)(0.0 < arg7) &
+                                                                                          (unsigned int)(arg7 + 0.5)) &
+                                                                            4294967295U)
+                                                                               << 8 |
+                                                                           (uVar4 & 65535) << 40) +
+                                                                          288230376151711999);
             break;
         case 3:
-            fVar9 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar6 = (ulong)fVar9;
-            puVar7 = (uint*)((long)uVar6 >> 63);
-            ppEVar8 =
-                (EntityHighlight**)((uVar5 & 65535) << 40 | 288230376151711744 |
-                                    ((long)(fVar9 - 9.223372e+18) & (ulong)puVar7 | uVar6) * -256 + 1099511627520);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar5 = (unsigned long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((uVar4 & 65535) << 40 | 288230376151711744 |
+                                                                          ((long)(fVar6 - 9.223372e+18) &
+                                                                               (long)uVar5 >> 63 |
+                                                                           uVar5) *
+                                                                                  -256 +
+                                                                              1099511627520);
             break;
         case 4:
-            fVar9 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar2 = (long)fVar9;
-            puVar7 = (uint*)(lVar2 >> 63);
-            ppEVar8 =
-                (EntityHighlight**)(((ulong)((uint)lVar2 | (uint)(long)(fVar9 - 9.223372e+18) & (uint)(lVar2 >> 63))
-                                     << 32) +
-                                    (uVar5 & 65535) + 83820544);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar1 = (long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<
+                    oldscape::social::FriendChatUser>*)(((unsigned long)((unsigned int)lVar1 |
+                                                                         (unsigned int)(long)(fVar6 - 9.223372e+18) &
+                                                                             (unsigned int)(lVar1 >> 63))
+                                                         << 32) +
+                                                        (uVar4 & 65535) + 83820544);
             break;
         case 5:
-            fVar9 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar6 = (ulong)fVar9;
-            puVar7 = (uint*)((long)uVar6 >> 63);
-            ppEVar8 = (EntityHighlight**)((((long)(fVar9 - 9.223372e+18) & (ulong)puVar7 | uVar6) * -4294967296 |
-                                           uVar5 & 65535) -
-                                          4227858432);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar5 = (unsigned long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((((long)(fVar6 - 9.223372e+18) &
+                                                                                (long)uVar5 >> 63 |
+                                                                            uVar5) *
+                                                                               -4294967296 |
+                                                                           uVar4 & 65535) -
+                                                                          4227858432);
             break;
         default:
-            /* WARNING: Subroutine does not return */
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "renderer/DrawableSortKey.h",
                             177, "Unknown sort key type");
         }
         new (&local_38)
-            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(ppEVar8, puVar7);
-        *param_1 = local_38;
+            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(playerDataComparator);
+        *(uint64_t*)(((uint64_t)in_register_00000034 << 32) | (uint32_t)drawableSortKeyType) = local_38;
     }
 
-    // 0x1007b81e0, 800 bytes, placed by class name
-    // TerrainPatch::UpdateShadowPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&, EffectManager const&, float, float)
-    void TerrainPatch::UpdateShadowPassEffect(undefined8 param_1_00, float param_2, undefined8 param_3,
-                                              undefined8* param_1, undefined4 param_5, RenderPassEffect* param_6,
-                                              RT7Core* param_7, EffectManager* param_8) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        ulong uVar3;
+    // 0x1007b81e0
+    void TerrainPatch::UpdateShadowPassEffect(DrawableSortKey& drawableSortKey, DrawableSortKeyType drawableSortKeyType,
+                                              RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                              const EffectManager& effectManager, float arg6, float arg7) {
         long lVar4;
-        ulong uVar5;
-        uint* puVar6;
-        EntityHighlight** ppEVar7;
-        float fVar8;
-        undefined1 auVar9[16];
-        undefined8 local_38;
+        unsigned long uVar5;
+        PlayerDataComparator<oldscape::social::FriendChatUser>* playerDataComparator;
+        float fVar6;
+        uint8_t auVar7[16];
 
-        auVar9 = param_8->BuildShaderEffectList(param_6);
-        param_6->field_16 = auVar9._0_8_;
-        param_6->field_24 = auVar9._8_8_;
-        uVar1 = param_7->GetShaderManager();
-        uVar2 = TerrainPatchRenderer::GetVertexDeclPos();
-        param_6->UpdateShader(param_8, uVar1, 9, uVar2, 0, 3);
-        uVar3 = param_6->GetConstructedShaderId();
-        puVar6 = &switchD_1007b8267::switchdataD_1007b84dc;
-        switch (param_5) {
+        auVar7 = effectManager.BuildShaderEffectList(renderPassEffect);
+        renderPassEffect.field_16 = auVar7[0];
+        renderPassEffect.field_17 = auVar7[1];
+        renderPassEffect.field_18 = auVar7[2];
+        renderPassEffect.field_19 = auVar7[3];
+        renderPassEffect.field_20 = auVar7[4];
+        renderPassEffect.field_21 = auVar7._5_3_;
+        renderPassEffect.field_24 = auVar7._8_8_;
+        auto pSVar1 = rt7Core.GetShaderManager();
+        auto pVVar2 = TerrainPatchRenderer::GetVertexDeclPos();
+        RenderPassEffect::UpdateShader(renderPassEffect, effectManager, (ShaderType)pSVar1, *9, (RenderPassType)pVVar2,
+                                       '\0');
+        unsigned long uVar3 = renderPassEffect.GetConstructedShaderId();
+        switch (drawableSortKeyType) {
         case 0:
-            fVar8 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar5 = (ulong)fVar8;
-            puVar6 = (uint*)((long)uVar5 >> 63);
-            ppEVar7 = (EntityHighlight**)(((long)(fVar8 - 9.223372e+18) & (ulong)puVar6 | uVar5) << 24 | uVar3 & 65535 |
-                                          288230376168423424);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar5 = (unsigned long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(fVar6 - 9.223372e+18) &
+                                                                               (long)uVar5 >> 63 |
+                                                                           uVar5)
+                                                                              << 24 |
+                                                                          uVar3 & 65535 | 288230376168423424);
             break;
         case 1:
-            fVar8 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar4 = (long)fVar8;
-            puVar6 = (uint*)72057594021150720;
-            ppEVar7 =
-                (EntityHighlight**)((ulong)((uint)lVar4 | (uint)(long)(fVar8 - 9.223372e+18) & (uint)(lVar4 >> 63)) *
-                                                -16777216 +
-                                            72057594021150720 &
-                                        72057594021150720 |
-                                    uVar3 & 65535 | 288230376151711744);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar4 = (long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<
+                    oldscape::social::FriendChatUser>*)((unsigned long)((unsigned int)lVar4 |
+                                                                        (unsigned int)(long)(fVar6 - 9.223372e+18) &
+                                                                            (unsigned int)(lVar4 >> 63)) *
+                                                                    -16777216 +
+                                                                72057594021150720 &
+                                                            72057594021150720 |
+                                                        uVar3 & 65535 | 288230376151711744);
             break;
         case 2:
-            ppEVar7 = (EntityHighlight**)((((long)(float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5)) & 4294967295U)
-                                               << 8 |
-                                           (uVar3 & 65535) << 40) +
-                                          288230376151711999);
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((((long)(float)(-(unsigned int)(0.0 < arg7) &
+                                                                                          (unsigned int)(arg7 + 0.5)) &
+                                                                            4294967295U)
+                                                                               << 8 |
+                                                                           (uVar3 & 65535) << 40) +
+                                                                          288230376151711999);
             break;
         case 3:
-            fVar8 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar5 = (ulong)fVar8;
-            puVar6 = (uint*)((long)uVar5 >> 63);
-            ppEVar7 =
-                (EntityHighlight**)((uVar3 & 65535) << 40 | 288230376151711744 |
-                                    ((long)(fVar8 - 9.223372e+18) & (ulong)puVar6 | uVar5) * -256 + 1099511627520);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar5 = (unsigned long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((uVar3 & 65535) << 40 | 288230376151711744 |
+                                                                          ((long)(fVar6 - 9.223372e+18) &
+                                                                               (long)uVar5 >> 63 |
+                                                                           uVar5) *
+                                                                                  -256 +
+                                                                              1099511627520);
             break;
         case 4:
-            fVar8 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar4 = (long)fVar8;
-            puVar6 = (uint*)(lVar4 >> 63);
-            ppEVar7 =
-                (EntityHighlight**)(((ulong)((uint)lVar4 | (uint)(long)(fVar8 - 9.223372e+18) & (uint)(lVar4 >> 63))
-                                     << 32) +
-                                    (uVar3 & 65535) + 83820544);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar4 = (long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<
+                    oldscape::social::FriendChatUser>*)(((unsigned long)((unsigned int)lVar4 |
+                                                                         (unsigned int)(long)(fVar6 - 9.223372e+18) &
+                                                                             (unsigned int)(lVar4 >> 63))
+                                                         << 32) +
+                                                        (uVar3 & 65535) + 83820544);
             break;
         case 5:
-            fVar8 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar5 = (ulong)fVar8;
-            puVar6 = (uint*)((long)uVar5 >> 63);
-            ppEVar7 = (EntityHighlight**)((((long)(fVar8 - 9.223372e+18) & (ulong)puVar6 | uVar5) * -4294967296 |
-                                           uVar3 & 65535) -
-                                          4227858432);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar5 = (unsigned long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((((long)(fVar6 - 9.223372e+18) &
+                                                                                (long)uVar5 >> 63 |
+                                                                            uVar5) *
+                                                                               -4294967296 |
+                                                                           uVar3 & 65535) -
+                                                                          4227858432);
             break;
         default:
-            /* WARNING: Subroutine does not return */
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "renderer/DrawableSortKey.h",
                             177, "Unknown sort key type");
         }
-        new (&local_38)
-            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(ppEVar7, puVar6);
-        *param_1 = local_38;
+        DrawableSortKey local_38(playerDataComparator);
+        drawableSortKey = local_38;
     }
 
-    // 0x1007b8500, 880 bytes, placed by class name
-    // TerrainPatch::UpdateMiniMapPassEffect(DrawableSortKey&, DrawableSortKeyType, RenderPassEffect&, RT7Core&, EffectManager const&, float, float)
-    void TerrainPatch::UpdateMiniMapPassEffect(undefined8 param_1_00, float param_2, TerrainPatch* this,
-                                               undefined8* param_1, undefined4 param_5, RenderPassEffect* param_6,
-                                               RT7Core* param_7, EffectManager* param_8) {
-        undefined1 uVar1;
-        undefined1 uVar2;
-        long lVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        ulong uVar6;
-        ulong uVar7;
-        uint* puVar8;
-        EntityHighlight** ppEVar9;
-        float fVar10;
-        undefined1 auVar11[16];
-        undefined8 local_38;
+    // 0x1007b8500
+    void TerrainPatch::UpdateMiniMapPassEffect(DrawableSortKey& drawableSortKey,
+                                               DrawableSortKeyType drawableSortKeyType,
+                                               RenderPassEffect& renderPassEffect, RT7Core& rt7Core,
+                                               const EffectManager& effectManager, float arg6, float arg7) {
+        uint8_t arg2;
+        unsigned long uVar5;
+        PlayerDataComparator<oldscape::social::FriendChatUser>* playerDataComparator;
+        float fVar6;
+        uint8_t auVar7[16];
 
-        lVar3 = (&m_material)->GetTextureAtlasReference();
-        if (lVar3 == 0) {
-            uVar1 = 0;
+        long lVar1 = m_material->GetTextureAtlasReference();
+        if (lVar1 == 0) {
+            arg2 = false;
         } else {
-            uVar1 = param_8->IsEnabled(27);
+            arg2 = effectManager.IsEnabled(27);
         }
-        uVar2 = param_8->IsEnabled(29);
-        param_6->Set(29, uVar2);
-        param_6->Set(63, uVar1);
-        auVar11 = param_8->BuildShaderEffectList(param_6);
-        param_6->field_16 = auVar11._0_8_;
-        param_6->field_24 = auVar11._8_8_;
-        uVar4 = param_7->GetShaderManager();
-        uVar5 = TerrainPatchRenderer::GetVertexDecl();
-        param_6->UpdateShader(param_8, uVar4, 6, uVar5, 5, 1);
-        uVar6 = param_6->GetConstructedShaderId();
-        puVar8 = &switchD_1007b85dc::switchdataD_1007b8854;
-        switch (param_5) {
+        bool arg2_00 = (bool)effectManager.IsEnabled(29);
+        renderPassEffect.Set(29, arg2_00);
+        renderPassEffect.Set(63, (bool)arg2);
+        auVar7 = effectManager.BuildShaderEffectList(renderPassEffect);
+        renderPassEffect.field_16 = auVar7[0];
+        renderPassEffect.field_17 = auVar7[1];
+        renderPassEffect.field_18 = auVar7[2];
+        renderPassEffect.field_19 = auVar7[3];
+        renderPassEffect.field_20 = auVar7[4];
+        renderPassEffect.field_21 = auVar7._5_3_;
+        renderPassEffect.field_24 = auVar7._8_8_;
+        auto pSVar2 = rt7Core.GetShaderManager();
+        auto pVVar3 = TerrainPatchRenderer::GetVertexDecl();
+        RenderPassEffect::UpdateShader(renderPassEffect, effectManager, (ShaderType)pSVar2, *6, (RenderPassType)pVVar3,
+                                       '\x05');
+        unsigned long uVar4 = renderPassEffect.GetConstructedShaderId();
+        switch (drawableSortKeyType) {
         case 0:
-            fVar10 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar7 = (ulong)fVar10;
-            puVar8 = (uint*)((long)uVar7 >> 63);
-            ppEVar9 = (EntityHighlight**)(((long)(fVar10 - 9.223372e+18) & (ulong)puVar8 | uVar7) << 24 |
-                                          uVar6 & 65535 | 288230376168423424);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar5 = (unsigned long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)(((long)(fVar6 - 9.223372e+18) &
+                                                                               (long)uVar5 >> 63 |
+                                                                           uVar5)
+                                                                              << 24 |
+                                                                          uVar4 & 65535 | 288230376168423424);
             break;
         case 1:
-            fVar10 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar3 = (long)fVar10;
-            puVar8 = (uint*)72057594021150720;
-            ppEVar9 =
-                (EntityHighlight**)((ulong)((uint)lVar3 | (uint)(long)(fVar10 - 9.223372e+18) & (uint)(lVar3 >> 63)) *
-                                                -16777216 +
-                                            72057594021150720 &
-                                        72057594021150720 |
-                                    uVar6 & 65535 | 288230376151711744);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar1 = (long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<
+                    oldscape::social::FriendChatUser>*)((unsigned long)((unsigned int)lVar1 |
+                                                                        (unsigned int)(long)(fVar6 - 9.223372e+18) &
+                                                                            (unsigned int)(lVar1 >> 63)) *
+                                                                    -16777216 +
+                                                                72057594021150720 &
+                                                            72057594021150720 |
+                                                        uVar4 & 65535 | 288230376151711744);
             break;
         case 2:
-            ppEVar9 = (EntityHighlight**)((((long)(float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5)) & 4294967295U)
-                                               << 8 |
-                                           (uVar6 & 65535) << 40) +
-                                          288230376151711999);
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((((long)(float)(-(unsigned int)(0.0 < arg7) &
+                                                                                          (unsigned int)(arg7 + 0.5)) &
+                                                                            4294967295U)
+                                                                               << 8 |
+                                                                           (uVar4 & 65535) << 40) +
+                                                                          288230376151711999);
             break;
         case 3:
-            fVar10 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar7 = (ulong)fVar10;
-            puVar8 = (uint*)((long)uVar7 >> 63);
-            ppEVar9 =
-                (EntityHighlight**)((uVar6 & 65535) << 40 | 288230376151711744 |
-                                    ((long)(fVar10 - 9.223372e+18) & (ulong)puVar8 | uVar7) * -256 + 1099511627520);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar5 = (unsigned long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((uVar4 & 65535) << 40 | 288230376151711744 |
+                                                                          ((long)(fVar6 - 9.223372e+18) &
+                                                                               (long)uVar5 >> 63 |
+                                                                           uVar5) *
+                                                                                  -256 +
+                                                                              1099511627520);
             break;
         case 4:
-            fVar10 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            lVar3 = (long)fVar10;
-            puVar8 = (uint*)(lVar3 >> 63);
-            ppEVar9 =
-                (EntityHighlight**)(((ulong)((uint)lVar3 | (uint)(long)(fVar10 - 9.223372e+18) & (uint)(lVar3 >> 63))
-                                     << 32) +
-                                    (uVar6 & 65535) + 83820544);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            lVar1 = (long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<
+                    oldscape::social::FriendChatUser>*)(((unsigned long)((unsigned int)lVar1 |
+                                                                         (unsigned int)(long)(fVar6 - 9.223372e+18) &
+                                                                             (unsigned int)(lVar1 >> 63))
+                                                         << 32) +
+                                                        (uVar4 & 65535) + 83820544);
             break;
         case 5:
-            fVar10 = (float)(-(uint)(0.0 < param_2) & (uint)(param_2 + 0.5));
-            uVar7 = (ulong)fVar10;
-            puVar8 = (uint*)((long)uVar7 >> 63);
-            ppEVar9 = (EntityHighlight**)((((long)(fVar10 - 9.223372e+18) & (ulong)puVar8 | uVar7) * -4294967296 |
-                                           uVar6 & 65535) -
-                                          4227858432);
+            fVar6 = (float)(-(unsigned int)(0.0 < arg7) & (unsigned int)(arg7 + 0.5));
+            uVar5 = (unsigned long)fVar6;
+            playerDataComparator =
+                (PlayerDataComparator<oldscape::social::FriendChatUser>*)((((long)(fVar6 - 9.223372e+18) &
+                                                                                (long)uVar5 >> 63 |
+                                                                            uVar5) *
+                                                                               -4294967296 |
+                                                                           uVar4 & 65535) -
+                                                                          4227858432);
             break;
         default:
-            /* WARNING: Subroutine does not return */
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/runetek7/"
                             "renderer/DrawableSortKey.h",
                             177, "Unknown sort key type");
         }
-        new (&local_38)
-            eastl::compressed_pair<oldscape::dash3d::EntityHighlight**, BucketAllocatorEASTL>(ppEVar9, puVar8);
-        *param_1 = local_38;
+        DrawableSortKey local_38(playerDataComparator);
+        drawableSortKey = local_38;
     }
 
-    // 0x1007b8870, 176 bytes, placed by class name
-    // TerrainPatch::RenderDebug(RenderPassType, DrawableElement&) const
-    void TerrainPatch::RenderDebug(int param_2, long param_3) {
+    // 0x1007b8870
+    void TerrainPatch::RenderDebug(RenderPassType renderPassType, DrawableElement& drawableElement) const {
         long* plVar1;
-        Matrix44T* pMVar2;
+        Matrix44T<float>* matrix44;
+        Matrix44T<float>* this_00;
         AABB local_48;
 
-        if ((m_showWorldAABB != '\0') && (param_2 == 4)) {
-            pMVar2 = field_13096;
-            if (field_13096 == (Matrix44T*)0) {
-                pMVar2 = (Matrix44T*)PTR_IDENTITY_100ee6730;
+        if ((m_showWorldAABB != '\0') && (renderPassType == 4)) {
+            matrix44 = field_13096;
+            if (field_13096 == nullptr) {
+                matrix44 = (Matrix44T<float>*)PTR_IDENTITY_100ee6730;
             }
-            math::Matrix44T<float>::operator=((Matrix44T<float>*)(param_3 + 112), pMVar2);
-            new (&local_48) math::AABB((AABB*)&m_aABB);
-            local_48.Transform((Matrix44T*)(param_3 + 112));
-            plVar1 = (long*)DebugPrimitiveCollectorBasic::GetCollector("");
-            if (plVar1 != (long*)0) {
+            this_00 = (Matrix44T<float>*)((long)&drawableElement[1]._vptr + 4);
+            *this_00 = *matrix44;
+            local_48 = math::AABB(m_aABB);
+            local_48.Transform(*this_00);
+            plVar1 = DebugPrimitiveCollectorBasic::GetCollector("");
+            if (plVar1 != nullptr) {
                 new (&local_48.field_32) oldscape::sidebars::SideBarData(-1, 3);
-                (**(code**)(*plVar1 + 72))(plVar1, &local_48, &local_48.field_32);
+                (**(void (**)(...))(*plVar1 + 72))(plVar1, &local_48, &local_48.field_32);
             }
         }
     }
 
 } // namespace jag::graphics
 
-// 0x1007b6860, 16 bytes, placed by neighbouring functions
-// floor(float)
-void floor(float param_1) {
+// 0x1007b6860
+void floor(float arg1) {
     _floorf();
 }

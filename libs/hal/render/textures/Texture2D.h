@@ -1,6 +1,5 @@
 // libs/hal/render/textures/Texture2D.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -10,66 +9,49 @@ namespace jag::render {
         // virtual methods in vtable order
         virtual ~Texture2D();
         virtual void Destroy();
-        virtual void Update(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, Format, void const*);
-        Texture2D(char const*);
-        Create(Texture::Desc const&, ResourceDataT<unsigned char const> const*, unsigned int);
-        void UpdateOnCurrentThread(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, Format,
-                                   void const*);
-        void CreateSubLevelMips(unsigned int, ResourceDataT<unsigned char const> const*, unsigned int);
-        void BindExternalTexture(unsigned int, TextureType, Texture::Desc const&);
-        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> /* 16 bytes */ NullTexture;
+        virtual void Update(unsigned int arg1, unsigned int arg2, unsigned int arg3, unsigned int arg4,
+                            unsigned int arg5, Format format, const void* arg7);
+        Texture2D(const char* str);
+        uint32_t Create(const Texture::Desc& desc, const ResourceDataT<unsigned char const>* resourceData,
+                        unsigned int arg3);
+        void UpdateOnCurrentThread(unsigned int arg1, unsigned int arg2, unsigned int arg3, unsigned int arg4,
+                                   unsigned int arg5, Format format, const void* arg7);
+        void CreateSubLevelMips(unsigned int arg1, const ResourceDataT<unsigned char const>* resourceData,
+                                unsigned int arg3);
+        void BindExternalTexture(unsigned int arg1, TextureType textureType, const Texture::Desc& desc);
+        static shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>
+            NullTexture; // = shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>()
 
-        // data members, from how the methods use this: 504 bytes
-        undefined** field_0;    // offset 0, vtable pointer
-        RenderResource field_8; // offset 8
-        char _unknown_13[3];
-        int field_16; // offset 16
-        char _unknown_20[4];
-        uint field_24; // offset 24
-        uint field_28; // offset 28
-        uint field_32; // offset 32
-        uint field_36; // offset 36
-        char _unknown_40[51];
-        char field_91;       // offset 91
-        undefined1 field_92; // offset 92
-        char _unknown_93[171];
-        undefined4 field_264; // offset 264
-        char _unknown_268[4];
-        RadialHighlightState field_272; // offset 272
-        $_11 field_296;                 // offset 296
-        char _unknown_300[4];
-        SamplerState field_304; // offset 304
-        char _unknown_360[72];
-        undefined1 field_432; // offset 432
-        char _unknown_433[15];
-        SamplerState field_448; // offset 448
+    private:
+        RenderResource field_8;
+        uint8_t _unknown_13[3];
+        int field_16;
+        uint8_t _unknown_20[4];
+        unsigned int field_24;
+        unsigned int field_28;
+        unsigned int field_32;
+        unsigned int field_36;
+        uint8_t _unknown_40[48];
+        unsigned int field_88;
+        uint8_t field_92;
+        uint8_t _unknown_93[171];
+        uint32_t field_264;
+        uint8_t _unknown_268[4];
+        RadialHighlightState field_272;
+        int field_296;
+        uint8_t _unknown_300[132];
+        uint8_t field_432;
+        uint8_t _unknown_433[23];
     };
 
-    // 0x100bd13f0, 32 bytes, deleting destructor, inline, placed by class name and debug map
-    // Texture2D::~Texture2D()
-    void Texture2D::~Texture2D() {
-        ~Texture2D(this);
-        operator_delete(this);
-    }
-
-    // 0x100c26ba0, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // Texture2D::~Texture2D(): jumps straight to the base-object destructor
-
-    // 0x100c26d40, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // RenderContextStateCache::~RenderContextStateCache(): jumps straight to the base-object destructor
-
-    // 0x100c27570, 32 bytes, inline, placed by class name and debug map
-    // Texture2D::Destroy()
+    // 0x100c27570
     void Texture2D::Destroy() {
-        Texture::ReleaseNativeResources((char*)this);
+        Texture::ReleaseNativeResources(this);
     }
 
-    // 0x100c34c00, 64 bytes, base-object destructor, inline, placed by class name
-    // Texture2D::~Texture2D()
-    void Texture2D::~Texture2D() {
-        field_0 = &PTR__Texture2D_100f27c60;
-        Destroy(this);
-        ~Texture();
+    // 0x100c34c00
+    Texture2D::~Texture2D() {
+        Destroy();
     }
 
 } // namespace jag::render

@@ -1,6 +1,5 @@
 // libs/hal/render/buffers/ShaderConstBuffer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.render
@@ -8,245 +7,193 @@
 namespace jag::render {
     class ShaderConstBuffer {
     public:
-        IsRecyclable() const;
-        ShaderConstBuffer(ShaderConstBuffer&&);
+        bool IsRecyclable() const;
+        ShaderConstBuffer(ShaderConstBuffer&& shaderConstBuffer);
         ShaderConstBuffer();
         ~ShaderConstBuffer();
-        Create(unsigned int, unsigned int, void const*);
-        void Update(unsigned int, unsigned int, void const*, UpdateType);
+        uint64_t Create(unsigned int arg1, unsigned int arg2, const void* arg3);
+        void Update(unsigned int arg1, unsigned int arg2, const void* arg3, UpdateType updateType);
         void Destroy();
-        MapRead(LockType, unsigned int, unsigned int, unsigned int);
-        MapWrite(LockType, unsigned int, unsigned int, unsigned int);
+        auto MapRead(LockType lockType, unsigned int arg2, unsigned int arg3, unsigned int arg4);
+        auto MapWrite(LockType lockType, unsigned int arg2, unsigned int arg3, unsigned int arg4);
         void Unmap();
-        ShaderConstBuffer* operator=(ShaderConstBuffer&&);
-        static /* 8 bytes */ BUFFER_TYPE_NAME; // = "ShaderConstBuffer"
+        ShaderConstBuffer* operator=(ShaderConstBuffer&& vertexBuffer);
+        static const char* BUFFER_TYPE_NAME; // = "ShaderConstBuffer"
 
-        // data members, from how the methods use this: 80 bytes
-        uint field_0; // offset 0
-        char _unknown_4[4];
-        uint field_8; // offset 8
-        char _unknown_12[4];
-        long field_16;       // offset 16
-        int field_24;        // offset 24
-        uint field_28;       // offset 28
-        int field_32;        // offset 32
-        uint field_36;       // offset 36
-        uint field_40;       // offset 40
-        byte field_44;       // offset 44
-        undefined3 field_45; // offset 45
-        char _unknown_48[8];
-        GPUMemoryTrackingEntry field_56; // offset 56
+    private:
+        unsigned int field_0;
+        uint8_t _unknown_4[4];
+        unsigned int field_8;
+        uint8_t _unknown_12[4];
+        long field_16;
+        LockType field_24;
+        unsigned int field_28;
+        unsigned int field_32;
+        unsigned int field_36;
+        unsigned int field_40;
+        uint8_t field_44;
+        uint8_t field_45[3];
+        uint8_t _unknown_48[8];
+        GPUMemoryTrackingEntry field_56;
     };
 
     template <
         typename...> // 9 instantiations, e.g. <graphics::ClipPlaneShaderConsts>, <graphics::DirLightCsmManager::ShaderConsts>, <graphics::DirectionalLight::ShaderConsts>
     class TypedShaderConstBuffer {
     public:
-        void Update(unsigned int, graphics::DirectionalLight::ShaderConsts const*);
-        void Create(unsigned int, graphics::DirectionalLight::ShaderConsts const*);
-        void Update(unsigned int, graphics::PointLightSMPassEffect::ShaderConsts const*);
-        void Create(unsigned int, graphics::PointLightSMPassEffect::ShaderConsts const*);
+        void Update(unsigned int arg1, const graphics::DirectionalLight::ShaderConsts* shaderConsts);
+        void Create(unsigned int arg1, const graphics::DirectionalLight::ShaderConsts* shaderConsts);
+        void Update(unsigned int arg1, const graphics::PointLightSMPassEffect::ShaderConsts* shaderConsts);
+        void Create(unsigned int arg1, const graphics::PointLightSMPassEffect::ShaderConsts* shaderConsts);
         TypedShaderConstBuffer();
         ~TypedShaderConstBuffer();
-        void Update(unsigned int, graphics::PointLightShadows::ShaderConsts const*);
-        void Create(unsigned int, graphics::PointLightShadows::ShaderConsts const*);
-        void Update(unsigned int, graphics::DirLightCsmManager::ShaderConsts const*);
-        void Update(unsigned int, math::Matrix44T<float> const*);
-        void Create(unsigned int, graphics::DirLightCsmManager::ShaderConsts const*);
-        void Create(unsigned int, math::Matrix44T<float> const*);
-        void Update(unsigned int, graphics::ClipPlaneShaderConsts const*);
-        void Create(unsigned int, graphics::ClipPlaneShaderConsts const*);
-        void Update(unsigned int, graphics::ViewTransformsEffect::ShaderConsts const*);
-        void Create(unsigned int, graphics::ViewTransformsEffect::ShaderConsts const*);
-        void Create(unsigned int, graphics::WaterNormalMapsShaderEffect::SamplingConsts const*);
-        void Update(unsigned int, graphics::WaterNormalMapsShaderEffect::SamplingConsts const*);
-        void Update(unsigned int, graphics::FogShaderConsts const*);
-        void Create(unsigned int, graphics::FogShaderConsts const*);
+        void Update(unsigned int arg1, const graphics::PointLightShadows::ShaderConsts* shaderConsts);
+        void Create(unsigned int arg1, const graphics::PointLightShadows::ShaderConsts* shaderConsts);
+        void Update(unsigned int arg1, const graphics::DirLightCsmManager::ShaderConsts* shaderConsts);
+        void Update(unsigned int arg1, const math::Matrix44T<float>* matrix44);
+        void Create(unsigned int arg1, const graphics::DirLightCsmManager::ShaderConsts* shaderConsts);
+        void Create(unsigned int arg1, const math::Matrix44T<float>* matrix44);
+        void Update(unsigned int arg1, const graphics::ClipPlaneShaderConsts* clipPlaneShaderConsts);
+        void Create(unsigned int arg1, const graphics::ClipPlaneShaderConsts* clipPlaneShaderConsts);
+        void Update(unsigned int arg1, const graphics::ViewTransformsEffect::ShaderConsts* shaderConsts);
+        void Create(unsigned int arg1, const graphics::ViewTransformsEffect::ShaderConsts* shaderConsts);
+        void Create(unsigned int arg1, const graphics::WaterNormalMapsShaderEffect::SamplingConsts* samplingConsts);
+        void Update(unsigned int arg1, const graphics::WaterNormalMapsShaderEffect::SamplingConsts* samplingConsts);
+        void Update(unsigned int arg1, const graphics::FogShaderConsts* fogShaderConsts);
+        void Create(unsigned int arg1, const graphics::FogShaderConsts* fogShaderConsts);
     };
 
-    // 0x10002d860: the linker folded this into oldscape::option::Option<int>::IsValidValue(int const&) const, which has identical code
-    ShaderConstBuffer::IsRecyclable() const;
+    // 0x10002d860: ShaderConstBuffer::IsRecyclable() const has the same machine code as oldscape::option::Option<int>::IsValidValue(int const&) const
 
-    // 0x1009179a0, 32 bytes, inline, placed by debug map only (low confidence)
-    // TypedShaderConstBuffer<graphics::DirectionalLight::ShaderConsts>::Update(unsigned int, graphics::DirectionalLight::ShaderConsts const*)
-    /* TypedShaderConstBuffer<graphics::ViewportLookupScale::Data>::Update(unsigned
-   int, graphics::ViewportLookupScale::Data const*) */
-
-    void TypedShaderConstBuffer<graphics::ViewportLookupScale::Data>::Update(uint param_1, Data* param_2) {
-        Update(param_1, 48, param_2);
+    // 0x1009179a0
+    void TypedShaderConstBuffer<graphics::DirectionalLight::ShaderConsts>::Update(
+        unsigned int arg1, const graphics::DirectionalLight::ShaderConsts* shaderConsts) {
+        Update(arg1, 48, shaderConsts);
     }
 
-    // 0x100917c60, 32 bytes, inline, placed by debug map only (low confidence)
-    // TypedShaderConstBuffer<graphics::DirectionalLight::ShaderConsts>::Create(unsigned int, graphics::DirectionalLight::ShaderConsts const*)
-    /* TypedShaderConstBuffer<graphics::ViewportLookupScale::Data>::Create(unsigned
-   int, graphics::ViewportLookupScale::Data const*) */
-
-    void TypedShaderConstBuffer<graphics::ViewportLookupScale::Data>::Create(uint param_1, Data* param_2) {
-        Create(48, param_1, param_2);
+    // 0x100917c60
+    void TypedShaderConstBuffer<graphics::DirectionalLight::ShaderConsts>::Create(
+        unsigned int arg1, const graphics::DirectionalLight::ShaderConsts* shaderConsts) {
+        Create(48, arg1, shaderConsts);
     }
 
-    // 0x100918960, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::PointLightSMPassEffect::ShaderConsts>::Update(unsigned int, graphics::PointLightSMPassEffect::ShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::PointLightSMPassEffect::ShaderConsts>::Update(uint param_1,
-                                                                                        ShaderConsts* param_2) {
-        Update(param_1, 96, param_2);
+    // 0x100918960
+    void TypedShaderConstBuffer<graphics::PointLightSMPassEffect::ShaderConsts>::Update(
+        unsigned int arg1, const graphics::PointLightSMPassEffect::ShaderConsts* shaderConsts) {
+        Update(arg1, 96, shaderConsts);
     }
 
-    // 0x100918be0, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::PointLightSMPassEffect::ShaderConsts>::Create(unsigned int, graphics::PointLightSMPassEffect::ShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::PointLightSMPassEffect::ShaderConsts>::Create(uint param_1,
-                                                                                        ShaderConsts* param_2) {
-        Create(96, param_1, param_2);
+    // 0x100918be0
+    void TypedShaderConstBuffer<graphics::PointLightSMPassEffect::ShaderConsts>::Create(
+        unsigned int arg1, const graphics::PointLightSMPassEffect::ShaderConsts* shaderConsts) {
+        Create(96, arg1, shaderConsts);
     }
 
-    // 0x100918d50, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::PointLightShadows::ShaderConsts>::TypedShaderConstBuffer(): jumps straight to the base-object constructor
-
-    // 0x100918d60, 16 bytes, complete-object destructor, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::PointLightShadows::ShaderConsts>::~TypedShaderConstBuffer(): jumps straight to the base-object destructor
-
-    // 0x100918f40, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::PointLightShadows::ShaderConsts>::Update(unsigned int, graphics::PointLightShadows::ShaderConsts const*)
-    /* TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::TexCoordTransformConsts>::Update(unsigned
-   int, graphics::WaterNormalMapsShaderEffect::TexCoordTransformConsts const*) */
-
-    void render::TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::TexCoordTransformConsts>::Update(
-        uint param_1, TexCoordTransformConsts* param_2) {
-        Update(param_1, 576, param_2);
+    // 0x100918f40
+    void TypedShaderConstBuffer<graphics::PointLightShadows::ShaderConsts>::Update(
+        unsigned int arg1, const graphics::PointLightShadows::ShaderConsts* shaderConsts) {
+        Update(arg1, 576, shaderConsts);
     }
 
-    // 0x1009191a0, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::PointLightShadows::ShaderConsts>::Create(unsigned int, graphics::PointLightShadows::ShaderConsts const*)
-    /* TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::TexCoordTransformConsts>::Create(unsigned
-   int, graphics::WaterNormalMapsShaderEffect::TexCoordTransformConsts const*) */
-
-    void render::TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::TexCoordTransformConsts>::Create(
-        uint param_1, TexCoordTransformConsts* param_2) {
-        Create(576, param_1, param_2);
+    // 0x1009191a0
+    void TypedShaderConstBuffer<graphics::PointLightShadows::ShaderConsts>::Create(
+        unsigned int arg1, const graphics::PointLightShadows::ShaderConsts* shaderConsts) {
+        Create(576, arg1, shaderConsts);
     }
 
-    // 0x1009198c0, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::DirLightCsmManager::ShaderConsts>::Update(unsigned int, graphics::DirLightCsmManager::ShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::DirLightCsmManager::ShaderConsts>::Update(uint param_1,
-                                                                                    ShaderConsts* param_2) {
-        Update(param_1, 656, param_2);
+    // 0x1009198c0
+    void TypedShaderConstBuffer<graphics::DirLightCsmManager::ShaderConsts>::Update(
+        unsigned int arg1, const graphics::DirLightCsmManager::ShaderConsts* shaderConsts) {
+        Update(arg1, 656, shaderConsts);
     }
 
-    // 0x100919e70, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<math::Matrix44T<float> >::Update(unsigned int, math::Matrix44T<float> const*)
-    /* TypedShaderConstBuffer<graphics::SimpleScatteringParams>::Update(unsigned int,
-   graphics::SimpleScatteringParams const*) */
-
-    void TypedShaderConstBuffer<graphics::SimpleScatteringParams>::Update(uint param_1,
-                                                                          SimpleScatteringParams* param_2) {
-        Update(param_1, 64, param_2);
+    // 0x100919e70
+    void TypedShaderConstBuffer<math::Matrix44T<float>>::Update(unsigned int arg1,
+                                                                const math::Matrix44T<float>* matrix44) {
+        Update(arg1, 64, matrix44);
     }
 
-    // 0x100919ee0, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::DirLightCsmManager::ShaderConsts>::Create(unsigned int, graphics::DirLightCsmManager::ShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::DirLightCsmManager::ShaderConsts>::Create(uint param_1,
-                                                                                    ShaderConsts* param_2) {
-        Create(656, param_1, param_2);
+    // 0x100919ee0
+    void TypedShaderConstBuffer<graphics::DirLightCsmManager::ShaderConsts>::Create(
+        unsigned int arg1, const graphics::DirLightCsmManager::ShaderConsts* shaderConsts) {
+        Create(656, arg1, shaderConsts);
     }
 
-    // 0x100919f00, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<math::Matrix44T<float> >::Create(unsigned int, math::Matrix44T<float> const*)
-    /* TypedShaderConstBuffer<graphics::SimpleScatteringParams>::Create(unsigned int,
-   graphics::SimpleScatteringParams const*) */
-
-    void TypedShaderConstBuffer<graphics::SimpleScatteringParams>::Create(uint param_1,
-                                                                          SimpleScatteringParams* param_2) {
-        Create(64, param_1, param_2);
+    // 0x100919f00
+    void TypedShaderConstBuffer<math::Matrix44T<float>>::Create(unsigned int arg1,
+                                                                const math::Matrix44T<float>* matrix44) {
+        Create(64, arg1, matrix44);
     }
 
-    // 0x10091eda0, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::ClipPlaneShaderConsts>::Update(unsigned int, graphics::ClipPlaneShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::ClipPlaneShaderConsts>::Update(uint param_1, ClipPlaneShaderConsts* param_2) {
-        Update(param_1, 16, param_2);
+    // 0x10091eda0
+    void TypedShaderConstBuffer<graphics::ClipPlaneShaderConsts>::Update(
+        unsigned int arg1, const graphics::ClipPlaneShaderConsts* clipPlaneShaderConsts) {
+        Update(arg1, 16, clipPlaneShaderConsts);
     }
 
-    // 0x10091ee90, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::ClipPlaneShaderConsts>::Create(unsigned int, graphics::ClipPlaneShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::ClipPlaneShaderConsts>::Create(uint param_1, ClipPlaneShaderConsts* param_2) {
-        Create(16, param_1, param_2);
+    // 0x10091ee90
+    void TypedShaderConstBuffer<graphics::ClipPlaneShaderConsts>::Create(
+        unsigned int arg1, const graphics::ClipPlaneShaderConsts* clipPlaneShaderConsts) {
+        Create(16, arg1, clipPlaneShaderConsts);
     }
 
-    // 0x10091f010, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::ViewTransformsEffect::ShaderConsts>::Update(unsigned int, graphics::ViewTransformsEffect::ShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::ViewTransformsEffect::ShaderConsts>::Update(uint param_1,
-                                                                                      ShaderConsts* param_2) {
-        Update(param_1, 224, param_2);
+    // 0x10091f010
+    void TypedShaderConstBuffer<graphics::ViewTransformsEffect::ShaderConsts>::Update(
+        unsigned int arg1, const graphics::ViewTransformsEffect::ShaderConsts* shaderConsts) {
+        Update(arg1, 224, shaderConsts);
     }
 
-    // 0x10091f2f0, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::ViewTransformsEffect::ShaderConsts>::Create(unsigned int, graphics::ViewTransformsEffect::ShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::ViewTransformsEffect::ShaderConsts>::Create(uint param_1,
-                                                                                      ShaderConsts* param_2) {
-        Create(224, param_1, param_2);
+    // 0x10091f2f0
+    void TypedShaderConstBuffer<graphics::ViewTransformsEffect::ShaderConsts>::Create(
+        unsigned int arg1, const graphics::ViewTransformsEffect::ShaderConsts* shaderConsts) {
+        Create(224, arg1, shaderConsts);
     }
 
-    // 0x1009213f0, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::SamplingConsts>::Create(unsigned int, graphics::WaterNormalMapsShaderEffect::SamplingConsts const*)
-    void
-    TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::SamplingConsts>::Create(uint param_1,
-                                                                                          SamplingConsts* param_2) {
-        Create(112, param_1, param_2);
+    // 0x1009213f0
+    void TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::SamplingConsts>::Create(
+        unsigned int arg1, const graphics::WaterNormalMapsShaderEffect::SamplingConsts* samplingConsts) {
+        Create(112, arg1, samplingConsts);
     }
 
-    // 0x100921870, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::SamplingConsts>::Update(unsigned int, graphics::WaterNormalMapsShaderEffect::SamplingConsts const*)
-    void
-    TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::SamplingConsts>::Update(uint param_1,
-                                                                                          SamplingConsts* param_2) {
-        Update(param_1, 112, param_2);
+    // 0x100921870
+    void TypedShaderConstBuffer<graphics::WaterNormalMapsShaderEffect::SamplingConsts>::Update(
+        unsigned int arg1, const graphics::WaterNormalMapsShaderEffect::SamplingConsts* samplingConsts) {
+        Update(arg1, 112, samplingConsts);
     }
 
-    // 0x100936530, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::FogShaderConsts>::Update(unsigned int, graphics::FogShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::FogShaderConsts>::Update(uint param_1, FogShaderConsts* param_2) {
-        Update(param_1, 32, param_2);
+    // 0x100936530
+    void TypedShaderConstBuffer<graphics::FogShaderConsts>::Update(unsigned int arg1,
+                                                                   const graphics::FogShaderConsts* fogShaderConsts) {
+        Update(arg1, 32, fogShaderConsts);
     }
 
-    // 0x100936620, 32 bytes, inline, placed by class header (inline)
-    // TypedShaderConstBuffer<graphics::FogShaderConsts>::Create(unsigned int, graphics::FogShaderConsts const*)
-    void TypedShaderConstBuffer<graphics::FogShaderConsts>::Create(uint param_1, FogShaderConsts* param_2) {
-        Create(32, param_1, param_2);
+    // 0x100936620
+    void TypedShaderConstBuffer<graphics::FogShaderConsts>::Create(unsigned int arg1,
+                                                                   const graphics::FogShaderConsts* fogShaderConsts) {
+        Create(32, arg1, fogShaderConsts);
     }
 
-    // 0x100bfc010: the linker folded this into ShaderStorageBuffer::ShaderStorageBuffer(ShaderStorageBuffer&&), which has identical code
-    ShaderConstBuffer::ShaderConstBuffer(ShaderConstBuffer&&);
+    // 0x100bfc010: ShaderConstBuffer::ShaderConstBuffer(ShaderConstBuffer&&) has the same machine code as ShaderStorageBuffer::ShaderStorageBuffer(ShaderStorageBuffer&&)
 
-    // 0x100c15170, 16 bytes, complete-object constructor, placed by class name
-    // ShaderConstBuffer::ShaderConstBuffer(): jumps straight to the base-object constructor
-
-    // 0x100c15180, 16 bytes, complete-object destructor, placed by class name
-    // ShaderConstBuffer::~ShaderConstBuffer(): jumps straight to the base-object destructor
-
-    // 0x100c15190, 80 bytes, placed by class name
-    // ShaderConstBuffer::MapRead(LockType, unsigned int, unsigned int, unsigned int)
-    undefined8 ShaderConstBuffer::MapRead(undefined8 param_1, undefined8 param_2, undefined4 param_3,
-                                          undefined4 param_4, undefined4 param_5, undefined4 param_6) {
-        BufferInterface::MapReadBuffer(param_1, param_2, "ShaderConstBuffer", 35345, 35044, 35048, param_3, param_4,
-                                       param_5, param_6);
-        return param_1;
+    // 0x100c15190
+    auto ShaderConstBuffer::MapRead(LockType lockType, unsigned int arg2, unsigned int arg3, unsigned int arg4) {
+        auto result;
+        result.MapReadBuffer(this, 15049807, 35345, 35044, 35048, lockType, arg2, arg3);
+        return result;
     }
 
-    // 0x100c151e0, 80 bytes, placed by class name
-    // ShaderConstBuffer::MapWrite(LockType, unsigned int, unsigned int, unsigned int)
-    undefined8 ShaderConstBuffer::MapWrite(undefined8 param_1, undefined8 param_2, undefined4 param_3,
-                                           undefined4 param_4, undefined4 param_5, undefined4 param_6) {
-        BufferInterface::MapWriteBuffer(param_1, param_2, "ShaderConstBuffer", 35345, 35044, 35048, param_3, param_4,
-                                        param_5, param_6);
-        return param_1;
+    // 0x100c151e0
+    auto ShaderConstBuffer::MapWrite(LockType lockType, unsigned int arg2, unsigned int arg3, unsigned int arg4) {
+        auto result;
+        result.MapWriteBuffer(this, 15049807, 35345, 35044, 35048, lockType, arg2, arg3);
+        return result;
     }
 
-    // 0x100c15230, 32 bytes, placed by class name
-    // ShaderConstBuffer::Unmap()
+    // 0x100c15230
     void ShaderConstBuffer::Unmap() {
         UnmapBuffer("ShaderConstBuffer", 35345);
     }
 
-    // 0x100c3b2a0: the linker folded this into VertexBuffer::operator=(VertexBuffer&&), which has identical code
-    ShaderConstBuffer::operator=(ShaderConstBuffer&&);
+    // 0x100c3b2a0: ShaderConstBuffer::operator=(ShaderConstBuffer&&) has the same machine code as VertexBuffer::operator=(VertexBuffer&&)
 
 } // namespace jag::render

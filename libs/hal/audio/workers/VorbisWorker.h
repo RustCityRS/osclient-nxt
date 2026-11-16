@@ -1,266 +1,257 @@
 // libs/hal/audio/workers/VorbisWorker.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.hal.audio
 
 namespace jag::hal::audio::decoders::vorbis {
-    // 0x100b92aa0, 752 bytes, placed by debug map only (low confidence)
-    // vorbis_deinit(stb_vorbis*)
-    void vorbis_deinit(stb_vorbis* param_1) {
+    // 0x100b92aa0
+    void vorbis_deinit(stb_vorbis* stb_vorbis) {
         long lVar1;
         long* plVar2;
-        ulong uVar3;
-        void* pvVar4;
+        unsigned long uVar3;
+        void* arg2;
+        long lVar4;
         long lVar5;
         long lVar6;
 
-        if ((field_448 != (void*)0) && (0 < field_312)) {
+        if ((*(long*)(stb_vorbis + 448) != 0) && (0 < *(int*)(stb_vorbis + 312))) {
             lVar1 = 0;
             do {
-                pvVar4 = field_448;
-                lVar5 = lVar1 * 32;
-                if (*(long*)((long)pvVar4 + lVar5 + 16) != 0) {
-                    plVar2 = (long*)((long)pvVar4 + lVar5 + 16);
-                    if (0 < *(int*)((long)field_160 + (ulong) * (byte*)((long)pvVar4 + lVar5 + 13) * 2120 + 4)) {
-                        lVar6 = 0;
+                lVar6 = *(long*)(stb_vorbis + 448);
+                lVar4 = lVar1 * 32;
+                if (*(long*)(lVar6 + 16 + lVar4) != 0) {
+                    plVar2 = (long*)(lVar6 + lVar4 + 16);
+                    if (0 < *(int*)(*(long*)(stb_vorbis + 160) + 4 +
+                                    (unsigned long)*(uint8_t*)(lVar6 + 13 + lVar4) * 2120)) {
+                        lVar5 = 0;
                         do {
-                            setup_free((stb_vorbis*)this, *(void**)(*plVar2 + lVar6 * 8));
-                            lVar6 = lVar6 + 1;
-                        } while (lVar6 <
-                                 *(int*)((long)field_160 + (ulong) * (byte*)((long)pvVar4 + lVar5 + 13) * 2120 + 4));
+                            setup_free(stb_vorbis, *(void**)(*plVar2 + lVar5 * 8));
+                            lVar5 = lVar5 + 1;
+                        } while (lVar5 < *(int*)(*(long*)(stb_vorbis + 160) + 4 +
+                                                 (unsigned long)*(uint8_t*)(lVar6 + lVar4 + 13) * 2120));
                     }
-                    setup_free((stb_vorbis*)this, (void*)*plVar2);
+                    setup_free(stb_vorbis, (void*)*plVar2);
                 }
-                setup_free((stb_vorbis*)this, *(void**)((long)pvVar4 + lVar5 + 24));
+                setup_free(stb_vorbis, *(void**)(lVar6 + 24 + lVar4));
                 lVar1 = lVar1 + 1;
-            } while (lVar1 < field_312);
+            } while (lVar1 < *(int*)(stb_vorbis + 312));
         }
-        if (field_160 != (void*)0) {
-            if (0 < field_152) {
+        if (*(long*)(stb_vorbis + 160) != 0) {
+            if (0 < *(int*)(stb_vorbis + 152)) {
                 lVar1 = 8;
-                lVar5 = 0;
+                lVar6 = 0;
                 do {
-                    pvVar4 = field_160;
-                    setup_free((stb_vorbis*)this, *(void**)((long)pvVar4 + lVar1));
-                    setup_free((stb_vorbis*)this, *(void**)((long)pvVar4 + lVar1 + 24));
-                    setup_free((stb_vorbis*)this, *(void**)((long)pvVar4 + lVar1 + 32));
-                    setup_free((stb_vorbis*)this, *(void**)((long)pvVar4 + lVar1 + 2088));
-                    lVar6 = *(long*)((long)pvVar4 + lVar1 + 2096);
-                    pvVar4 = (void*)(lVar6 + -4);
-                    if (lVar6 == 0) {
-                        pvVar4 = (void*)0;
+                    lVar4 = *(long*)(stb_vorbis + 160);
+                    setup_free(stb_vorbis, *(void**)(lVar4 + lVar1));
+                    setup_free(stb_vorbis, *(void**)(lVar4 + 24 + lVar1));
+                    setup_free(stb_vorbis, *(void**)(lVar4 + 32 + lVar1));
+                    setup_free(stb_vorbis, *(void**)(lVar4 + 2088 + lVar1));
+                    lVar4 = *(long*)(lVar4 + 2096 + lVar1);
+                    arg2 = (void*)(lVar4 - 4);
+                    if (lVar4 == 0) {
+                        arg2 = nullptr;
                     }
-                    setup_free((stb_vorbis*)this, pvVar4);
-                    lVar5 = lVar5 + 1;
+                    setup_free(stb_vorbis, arg2);
+                    lVar6 = lVar6 + 1;
                     lVar1 = lVar1 + 2120;
-                } while (lVar5 < field_152);
+                } while (lVar6 < *(int*)(stb_vorbis + 152));
             }
-            setup_free((stb_vorbis*)this, field_160);
+            setup_free(stb_vorbis, *(void**)(stb_vorbis + 160));
         }
-        setup_free((stb_vorbis*)this, field_304);
-        setup_free((stb_vorbis*)this, field_448);
-        if (field_464 != (void*)0) {
-            if (0 < field_456) {
-                lVar5 = 8;
+        setup_free(stb_vorbis, *(void**)(stb_vorbis + 304));
+        setup_free(stb_vorbis, *(void**)(stb_vorbis + 448));
+        if (*(long*)(stb_vorbis + 464) != 0) {
+            if (0 < *(int*)(stb_vorbis + 456)) {
+                lVar6 = 8;
                 lVar1 = 0;
                 do {
-                    setup_free((stb_vorbis*)this, *(void**)((long)field_464 + lVar5));
+                    setup_free(stb_vorbis, *(void**)(*(long*)(stb_vorbis + 464) + lVar6));
                     lVar1 = lVar1 + 1;
-                    lVar5 = lVar5 + 48;
-                } while (lVar1 < field_456);
+                    lVar6 = lVar6 + 48;
+                } while (lVar1 < *(int*)(stb_vorbis + 456));
             }
-            setup_free((stb_vorbis*)this, field_464);
+            setup_free(stb_vorbis, *(void**)(stb_vorbis + 464));
         }
-        if (0 < (int)field_4) {
+        if (0 < *(int*)(stb_vorbis + 4)) {
             uVar3 = 0;
             do {
-                setup_free((stb_vorbis*)this, *(void**)(field_68 + uVar3 * 8 + 796));
-                setup_free((stb_vorbis*)this, *(void**)(field_1739 + uVar3 * 8 + -619));
-                setup_free((stb_vorbis*)this, *(void**)(field_1739 + uVar3 * 8 + -483));
+                setup_free(stb_vorbis, *(void**)(stb_vorbis + uVar3 * 8 + 864));
+                setup_free(stb_vorbis, *(void**)(stb_vorbis + uVar3 * 8 + 1120));
+                setup_free(stb_vorbis, *(void**)(stb_vorbis + uVar3 * 8 + 1256));
                 if (14 < uVar3)
                     break;
                 uVar3 = uVar3 + 1;
-            } while ((long)uVar3 < (long)(int)field_4);
+            } while ((long)uVar3 < (long)*(int*)(stb_vorbis + 4));
         }
         lVar1 = 182;
         do {
-            setup_free((stb_vorbis*)this, *(void**)(field_68 + lVar1 * 8 + -132));
-            setup_free((stb_vorbis*)this, *(void**)(field_68 + lVar1 * 8 + -116));
-            setup_free((stb_vorbis*)this, *(void**)(field_68 + lVar1 * 8 + -100));
-            setup_free((stb_vorbis*)this, *(void**)(field_68 + lVar1 * 8 + -84));
-            setup_free((stb_vorbis*)this, *(void**)(field_68 + lVar1 * 8 + -68));
+            setup_free(stb_vorbis, *(void**)(stb_vorbis + lVar1 * 8 - 64));
+            setup_free(stb_vorbis, *(void**)(stb_vorbis + lVar1 * 8 - 48));
+            setup_free(stb_vorbis, *(void**)(stb_vorbis + lVar1 * 8 - 32));
+            setup_free(stb_vorbis, *(void**)(stb_vorbis + lVar1 * 8 - 16));
+            setup_free(stb_vorbis, *(void**)(stb_vorbis + lVar1 * 8));
             lVar1 = lVar1 + 1;
         } while (lVar1 == 183);
-        if (field_36 != 0) {
-            _fclose(field_24);
+        if (*(int*)(stb_vorbis + 36) != 0) {
+            _fclose(*(FILE**)(stb_vorbis + 24));
         }
     }
 
-    // 0x100b92d90, 32 bytes, placed by debug map only (low confidence)
-    // setup_free(stb_vorbis*, void*)
-    void setup_free(stb_vorbis* param_1, void* param_2) {
-        if (*(long*)(param_1 + 104) == 0) {
-            _free(param_2);
+    // 0x100b92d90
+    void setup_free(stb_vorbis* stb_vorbis, void* arg2) {
+        if (*(long*)(stb_vorbis + 104) == 0) {
+            _free(arg2);
             return;
         }
     }
 
-    // 0x100b92df0, 16 bytes, placed by debug map only (low confidence)
-    // error(stb_vorbis*, STBVorbisError)
-    void error(long param_1, undefined4 param_2) {
-        *(undefined4*)(param_1 + 132) = param_2;
+    // 0x100b92df0
+    void error(stb_vorbis* stb_vorbis, STBVorbisError stbVorbisError) {
+        *(STBVorbisError*)(stb_vorbis + 132) = stbVorbisError;
     }
 
-    // 0x100b92e00, 800 bytes, placed by debug map only (low confidence)
-    // vorbis_search_for_page_pushdata(stb_vorbis*, unsigned char*, int)
-    int vorbis_search_for_page_pushdata(stb_vorbis* param_1, uchar* param_2, int param_3) {
-        stb_vorbis sVar1;
-        undefined8 uVar2;
-        uint uVar3;
-        undefined4 uVar4;
-        uint uVar5;
-        uint uVar6;
+    // 0x100b92e00
+    int vorbis_search_for_page_pushdata(stb_vorbis* stb_vorbis, unsigned char* arg2, int arg3) {
+        uint8_t bVar1;
+        uint64_t uVar2;
+        uint32_t uVar4;
+        unsigned int arg1;
+        long lVar5;
+        int iVar6;
         int iVar7;
-        int iVar8;
-        int iVar9;
-        uint uVar10;
-        long lVar11;
-        long lVar12;
-        stb_vorbis* psVar13;
-        ulong uVar14;
-        stb_vorbis* psVar15;
-        int iVar16;
+        unsigned int uVar8;
+        long lVar9;
+        unsigned char* puVar10;
+        unsigned long uVar11;
+        unsigned char* puVar12;
+        int iVar13;
 
-        iVar7 = (int)param_2;
-        uVar3 = field_1784;
+        unsigned int uVar3 = *(unsigned int*)(stb_vorbis + 1784);
         if (0 < (int)uVar3) {
-            lVar11 = 0;
+            lVar9 = 0;
             do {
-                *(undefined4*)(field_1740 + lVar11 + 60) = 0;
-                lVar11 = lVar11 + 20;
-            } while ((ulong)uVar3 * 20 != lVar11);
+                *(uint32_t*)(stb_vorbis + lVar9 + 1800) = 0;
+                lVar9 = lVar9 + 20;
+            } while ((unsigned long)uVar3 * 20 != lVar9);
         }
         if ((int)uVar3 < 4) {
-            if (iVar7 < 4) {
+            if (arg3 < 4) {
                 return 0;
             }
-            iVar8 = iVar7 + -3;
-            psVar13 = param_1 + 27;
-            lVar11 = 0;
-            psVar15 = param_1;
+            iVar6 = arg3 - 3;
+            puVar10 = arg2 + 27;
+            lVar9 = 0;
+            puVar12 = arg2;
             do {
-                if ((param_1[lVar11] == (stb_vorbis)79) && (*(int*)(param_1 + lVar11) == ogg_page_header._0_4_)) {
-                    iVar7 = (int)lVar11;
-                    if ((iVar8 <= iVar7 + 26) ||
-                        (sVar1 = param_1[lVar11 + 26], iVar8 <= (int)((uint)(byte)sVar1 + iVar7 + 27)))
+                if ((arg2[lVar9] == 'O') && (*(int*)(arg2 + lVar9) == ogg_page_header._0_4_)) {
+                    arg3 = (int)lVar9;
+                    if ((iVar6 <= arg3 + 26) ||
+                        (bVar1 = arg2[lVar9 + 26], iVar6 <= (int)((unsigned int)bVar1 + arg3 + 27)))
                         break;
-                    iVar16 = (byte)sVar1 + 27;
-                    if ((byte)sVar1 != 0) {
-                        uVar14 = 0;
+                    iVar13 = bVar1 + 27;
+                    if (bVar1 != 0) {
+                        uVar11 = 0;
                         do {
-                            iVar16 = iVar16 + (uint)(byte)psVar13[uVar14];
-                            uVar14 = uVar14 + 1;
-                        } while ((uint)(byte)sVar1 != uVar14);
+                            iVar13 = iVar13 + (unsigned int)puVar10[uVar11];
+                            uVar11 = uVar11 + 1;
+                        } while ((unsigned int)bVar1 != uVar11);
                     }
                     uVar3 = 0;
-                    lVar12 = -22;
+                    lVar5 = -22;
                     do {
-                        uVar3 = crc32_update(uVar3, (uchar)psVar15[lVar12 + 22]);
-                        lVar12 = lVar12 + 1;
-                    } while (lVar12 != 0);
-                    iVar9 = 4;
+                        uVar3 = crc32_update(uVar3, puVar12[lVar5 + 22]);
+                        lVar5 = lVar5 + 1;
+                    } while (lVar5 != 0);
+                    iVar7 = 4;
                     do {
                         uVar3 = crc32_update(uVar3, '\0');
-                        iVar9 = iVar9 + -1;
-                    } while (iVar9 != 0);
-                    lVar12 = (long)(int)field_1784;
-                    uVar6 = field_1784 + 1;
-                    field_1784 = uVar6;
-                    *(int*)(field_1740 + lVar12 * 20 + 52) = iVar16 + -26;
-                    *(uint*)(field_1740 + lVar12 * 20 + 56) = uVar3;
-                    *(undefined4*)(field_1740 + lVar12 * 20 + 48) = *(undefined4*)(param_1 + lVar11 + 22);
-                    if (param_1[(int)(iVar7 + 26 + (uint)(byte)param_1[lVar11 + 26])] == (stb_vorbis)255) {
+                        iVar7 = iVar7 - 1;
+                    } while (iVar7 != 0);
+                    lVar5 = (long)*(int*)(stb_vorbis + 1784);
+                    iVar7 = *(int*)(stb_vorbis + 1784) + 1;
+                    *(int*)(stb_vorbis + 1784) = iVar7;
+                    *(int*)(stb_vorbis + lVar5 * 20 + 1792) = iVar13 - 26;
+                    *(unsigned int*)(stb_vorbis + lVar5 * 20 + 1796) = uVar3;
+                    *(uint32_t*)(stb_vorbis + lVar5 * 20 + 1788) = *(uint32_t*)(arg2 + lVar9 + 22);
+                    if (arg2[(arg3 + 26 + (unsigned int)arg2[lVar9 + 26])] == 255) {
                         uVar4 = 4294967295;
                     } else {
-                        uVar4 = *(undefined4*)(param_1 + lVar11 + 6);
+                        uVar4 = *(uint32_t*)(arg2 + lVar9 + 6);
                     }
-                    *(undefined4*)(field_1740 + lVar12 * 20 + 64) = uVar4;
-                    *(int*)(field_1740 + lVar12 * 20 + 60) = iVar7 + 26;
-                    iVar7 = iVar8;
-                    if (uVar6 == 4)
+                    *(uint32_t*)(stb_vorbis + lVar5 * 20 + 1804) = uVar4;
+                    *(int*)(stb_vorbis + lVar5 * 20 + 1800) = arg3 + 26;
+                    arg3 = iVar6;
+                    if (iVar7 == 4)
                         break;
                 }
-                lVar11 = lVar11 + 1;
-                psVar13 = psVar13 + 1;
-                psVar15 = psVar15 + 1;
-                iVar7 = iVar8;
-            } while (lVar11 < iVar8);
+                lVar9 = lVar9 + 1;
+                puVar10 = puVar10 + 1;
+                puVar12 = puVar12 + 1;
+                arg3 = iVar6;
+            } while (lVar9 < iVar6);
         }
-        iVar8 = 0;
+        iVar6 = 0;
         while (true) {
             while (true) {
-                uVar3 = field_1784;
-                if ((int)uVar3 <= iVar8) {
-                    return iVar7;
+                iVar13 = *(int*)(stb_vorbis + 1784);
+                if (iVar13 <= iVar6) {
+                    return arg3;
                 }
-                lVar11 = (long)iVar8;
-                iVar16 = *(int*)(field_1740 + lVar11 * 20 + 60);
-                uVar6 = *(uint*)(field_1740 + lVar11 * 20 + 52);
-                uVar5 = *(uint*)(field_1740 + lVar11 * 20 + 56);
-                uVar10 = iVar7 - iVar16;
-                if ((int)uVar6 <= iVar7 - iVar16) {
-                    uVar10 = uVar6;
+                lVar9 = (long)iVar6;
+                iVar7 = *(int*)(stb_vorbis + lVar9 * 20 + 1800);
+                uVar3 = *(unsigned int*)(stb_vorbis + lVar9 * 20 + 1792);
+                arg1 = *(unsigned int*)(stb_vorbis + lVar9 * 20 + 1796);
+                uVar8 = arg3 - iVar7;
+                if ((int)uVar3 <= arg3 - iVar7) {
+                    uVar8 = uVar3;
                 }
-                if (0 < (int)uVar10) {
-                    uVar14 = 0;
+                if (0 < (int)uVar8) {
+                    uVar11 = 0;
                     do {
-                        uVar5 = crc32_update(uVar5, (uchar)param_1[uVar14 + (long)iVar16]);
-                        uVar14 = uVar14 + 1;
-                    } while (uVar10 != uVar14);
+                        arg1 = crc32_update(arg1, arg2[uVar11 + (long)iVar7]);
+                        uVar11 = uVar11 + 1;
+                    } while (uVar8 != uVar11);
                 }
-                *(uint*)(field_1740 + lVar11 * 20 + 52) = uVar6 - uVar10;
-                *(uint*)(field_1740 + lVar11 * 20 + 56) = uVar5;
-                if (uVar6 - uVar10 == 0)
+                *(unsigned int*)(stb_vorbis + lVar9 * 20 + 1792) = uVar3 - uVar8;
+                *(unsigned int*)(stb_vorbis + lVar9 * 20 + 1796) = arg1;
+                if (uVar3 - uVar8 == 0)
                     break;
-                iVar8 = iVar8 + 1;
+                iVar6 = iVar6 + 1;
             }
-            if (uVar5 == *(uint*)(field_1740 + lVar11 * 20 + 48))
+            if (arg1 == *(unsigned int*)(stb_vorbis + lVar9 * 20 + 1788))
                 break;
-            field_1784 = uVar3 - 1;
-            *(undefined4*)(field_1740 + lVar11 * 20 + 64) = *(undefined4*)(field_1740 + (long)(int)uVar3 * 20 + 44);
-            uVar2 = *(undefined8*)((long)(field_1740 + (long)(int)uVar3 * 20 + 28) + 8);
-            *(undefined8*)(field_1740 + lVar11 * 20 + 48) = *(undefined8*)(field_1740 + (long)(int)uVar3 * 20 + 28);
-            *(undefined8*)(field_1740 + lVar11 * 20 + 56) = uVar2;
+            lVar5 = (long)iVar13 - 1;
+            *(int*)(stb_vorbis + 1784) = (int)lVar5;
+            *(uint32_t*)(stb_vorbis + lVar9 * 20 + 1804) = *(uint32_t*)(stb_vorbis + lVar5 * 20 + 1804);
+            uVar2 = *(uint64_t*)(stb_vorbis + lVar5 * 20 + 1788 + 8);
+            *(uint64_t*)(stb_vorbis + lVar9 * 20 + 1788) = *(uint64_t*)(stb_vorbis + lVar5 * 20 + 1788);
+            *(uint64_t*)(stb_vorbis + lVar9 * 20 + 1796) = uVar2;
         }
-        field_1784 = 4294967295;
-        field_1248 = 0;
-        field_1744 = -1;
-        uVar3 = *(uint*)(field_1740 + lVar11 * 20 + 64);
-        field_1384 = uVar3;
-        field_1388 = (uint)(uVar3 != 4294967295);
-        return uVar10 + iVar16;
+        *(uint32_t*)(stb_vorbis + 1784) = 4294967295;
+        *(uint32_t*)(stb_vorbis + 1248) = 0;
+        *(uint32_t*)(stb_vorbis + 1744) = 4294967295;
+        iVar6 = *(int*)(stb_vorbis + lVar9 * 20 + 1804);
+        *(int*)(stb_vorbis + 1384) = iVar6;
+        *(unsigned int*)(stb_vorbis + 1388) = (unsigned int)(iVar6 != -1);
+        return uVar8 + iVar7;
     }
 
-    // 0x100b93120, 448 bytes, placed by debug map only (low confidence)
-    // is_whole_packet_present(stb_vorbis*, int)
-    undefined8 is_whole_packet_present(stb_vorbis* param_1, int param_2) {
-        byte bVar1;
+    // 0x100b93120
+    void is_whole_packet_present(stb_vorbis* stb_vorbis, int arg2) {
+        uint8_t bVar1;
         int* piVar2;
         bool bVar3;
         bool bVar4;
-        uint uVar5;
-        ulong uVar6;
+        unsigned int uVar5;
         int* piVar7;
         stb_vorbis* psVar8;
-        int* piVar9;
-        undefined8 uVar10;
-        uint uVar11;
-        ulong uVar12;
+        STBVorbisError SVar10;
+        unsigned int uVar11;
+        unsigned long uVar12;
 
-        uVar6 = (ulong) * (int*)(param_1 + 1744);
-        piVar9 = *(int**)(param_1 + 40);
+        unsigned long uVar6 = (unsigned long)*(int*)(stb_vorbis + 1744);
+        int* piVar9 = *(int**)(stb_vorbis + 40);
         if (uVar6 == 18446744073709551615) {
             bVar4 = true;
             uVar12 = 4294967295;
@@ -269,30 +260,30 @@ namespace jag::hal::audio::decoders::vorbis {
                 if ((int)uVar12 != -1) {
                     return 1;
                 }
-                piVar2 = *(int**)(param_1 + 56);
+                piVar2 = *(int**)(stb_vorbis + 56);
                 uVar12 = 4294967295;
-                uVar10 = 1;
+                SVar10 = 1;
                 piVar7 = piVar9;
                 if ((int*)((long)piVar9 + 26U) < piVar2) {
                     if ((*piVar9 != ogg_page_header._0_4_) || ((char)piVar9[1] != '\0')) {
-                        uVar10 = 21;
+                        SVar10 = 21;
                         goto LAB_100b93208;
                     }
                     if (!bVar4) {
-                        if ((*(byte*)((long)piVar9 + 5) & 1) != 0)
+                        if ((*(uint8_t*)((long)piVar9 + 5) & 1) != 0)
                             goto LAB_100b9324b;
-                        uVar10 = 21;
+                        SVar10 = 21;
                         bVar4 = false;
                         goto LAB_100b93208;
                     }
-                    if ((*(int*)(param_1 + 1248) != 0) && ((*(byte*)((long)piVar9 + 5) & 1) != 0)) {
-                        uVar10 = 21;
+                    if ((*(int*)(stb_vorbis + 1248) != 0) && ((*(uint8_t*)((long)piVar9 + 5) & 1) != 0)) {
+                        SVar10 = 21;
                         bVar4 = true;
                         goto LAB_100b93208;
                     }
                 LAB_100b9324b:
-                    bVar1 = *(byte*)((long)piVar9 + 26);
-                    piVar7 = (int*)((long)piVar9 + (ulong)bVar1 + 27);
+                    bVar1 = *(uint8_t*)((long)piVar9 + 26);
+                    piVar7 = (int*)((long)piVar9 + (unsigned long)bVar1 + 27);
                     if (piVar2 < piVar7) {
                     LAB_100b932b7:
                         goto LAB_100b93208;
@@ -302,18 +293,18 @@ namespace jag::hal::audio::decoders::vorbis {
                     } else {
                         uVar12 = 0;
                         do {
-                            uVar6 = (ulong) * (byte*)((long)piVar9 + uVar12 + 27);
+                            uVar6 = (unsigned long)*(uint8_t*)((long)piVar9 + uVar12 + 27);
                             piVar7 = (int*)((long)piVar7 + uVar6);
                             if (uVar6 != 255)
                                 goto LAB_100b93292;
                             uVar12 = uVar12 + 1;
                         } while (bVar1 != uVar12);
-                        uVar12 = (ulong)(uint)bVar1;
+                        uVar12 = (unsigned long)(unsigned int)bVar1;
                     }
                 LAB_100b93292:
-                    uVar11 = (uint)uVar12;
-                    if ((param_2 != 0) && ((int)uVar11 < (int)(bVar1 - 1))) {
-                        uVar10 = 21;
+                    uVar11 = (unsigned int)uVar12;
+                    if ((arg2 != 0) && ((int)uVar11 < (int)(bVar1 - 1))) {
+                        SVar10 = 21;
                         goto LAB_100b932b7;
                     }
                     uVar12 = uVar12 & 4294967295;
@@ -326,96 +317,86 @@ namespace jag::hal::audio::decoders::vorbis {
                     bVar4 = false;
                 } else {
                 LAB_100b93208:
-                    error(param_1, uVar10);
+                    error(stb_vorbis, SVar10);
                     bVar3 = false;
                 }
                 piVar9 = piVar7;
             } while (bVar3);
         } else {
-            uVar11 = *(uint*)(param_1 + 1480);
-            if (*(int*)(param_1 + 1744) < (int)uVar11) {
-                psVar8 = param_1 + uVar6 + 1484;
+            uVar11 = *(unsigned int*)(stb_vorbis + 1480);
+            if (*(int*)(stb_vorbis + 1744) < (int)uVar11) {
+                psVar8 = stb_vorbis + uVar6 + 1484;
                 do {
-                    piVar9 = (int*)((long)piVar9 + (ulong)(byte)*psVar8);
-                    if ((ulong)(byte)*psVar8 != 255)
+                    piVar9 = (int*)((long)piVar9 + (unsigned long)(uint8_t)*psVar8);
+                    if ((unsigned long)(uint8_t)*psVar8 != 255)
                         goto LAB_100b9317c;
                     uVar5 = (int)uVar6 + 1;
-                    uVar6 = (ulong)uVar5;
+                    uVar6 = (unsigned long)uVar5;
                     psVar8 = psVar8 + 1;
                 } while (uVar11 != uVar5);
-                uVar6 = (ulong)uVar11;
+                uVar6 = (unsigned long)uVar11;
             }
         LAB_100b9317c:
-            if ((param_2 == 0) || (uVar10 = 21, (int)(uVar11 - 1) <= (int)(uint)uVar6)) {
+            if ((arg2 == 0) || (SVar10 = 21, (int)(uVar11 - 1) <= (int)(unsigned int)uVar6)) {
                 uVar12 = 4294967295;
-                if ((uint)uVar6 != uVar11) {
+                if ((unsigned int)uVar6 != uVar11) {
                     uVar12 = uVar6 & 4294967295;
                 }
                 bVar4 = false;
-                uVar10 = 1;
-                if (piVar9 <= *(int**)(param_1 + 56))
+                SVar10 = 1;
+                if (piVar9 <= *(int**)(stb_vorbis + 56))
                     goto LAB_100b931d0;
             }
-            error(param_1, uVar10);
+            error(stb_vorbis, SVar10);
         }
         return 0;
     }
 
-    // 0x100b932e0, 128 bytes, placed by debug map only (low confidence)
-    // vorbis_decode_packet(stb_vorbis*, int*, int*, int*)
-    undefined8 vorbis_decode_packet(stb_vorbis* param_1, int* param_2, int* param_3, int* param_4) {
-        int iVar1;
-        undefined8 uVar2;
-        int* in_stack_ffffffffffffffb8;
-        int in_stack_ffffffffffffffc0;
-        int* in_stack_ffffffffffffffc8;
+    // 0x100b932e0
+    void vorbis_decode_packet(stb_vorbis* stb_vorbis, int* arg2, int* arg3, int* arg4) {
+        uint64_t uVar2;
+        int* in_stack_ffffffffffffffc0;
+        int local_34;
         int local_30;
         int local_2c;
 
-        iVar1 = vorbis_decode_initial(this, (stb_vorbis*)param_2, (int*)((long)register0x00000020 + -52), param_3,
-                                      &local_2c, &local_30, in_stack_ffffffffffffffb8);
-        if (iVar1 == 0) {
+        if (vorbis_decode_initial(stb_vorbis, arg3, &local_34, arg4, &local_2c, &local_30) == 0) {
             uVar2 = 0;
         } else {
-            uVar2 = vorbis_decode_packet_rest(this, param_1, (int*)(field_68 + (long)local_30 * 6 + 408),
-                                              (Mode*)(ulong)(uint)*param_2, *param_3, local_2c, (int)param_2,
-                                              in_stack_ffffffffffffffc0, in_stack_ffffffffffffffc8);
+            uVar2 = vorbis_decode_packet_rest(stb_vorbis, arg2, (Mode*)(stb_vorbis + (long)local_30 * 6 + 476), *arg3,
+                                              *arg4, local_2c, (int)arg3, in_stack_ffffffffffffffc0);
         }
         return uVar2;
     }
 
-    // 0x100b93360, 32 bytes, placed by debug map only (low confidence)
-    // get8_packet(stb_vorbis*)
-    void get8_packet(stb_vorbis* param_1) {
-        get8_packet_raw(param_1);
-        *(undefined4*)(param_1 + 1760) = 0;
+    // 0x100b93360
+    void get8_packet(stb_vorbis* stb_vorbis) {
+        get8_packet_raw(stb_vorbis);
+        *(uint32_t*)(stb_vorbis + 1760) = 0;
     }
 
-    // 0x100b93380, 352 bytes, placed by debug map only (low confidence)
-    // vorbis_finish_frame(stb_vorbis*, int, int, int)
-    int vorbis_finish_frame(stb_vorbis* param_1, int param_2, int param_3, int param_4) {
-        uint uVar1;
-        uint uVar2;
+    // 0x100b93380
+    int vorbis_finish_frame(stb_vorbis* stb_vorbis, int arg2, int arg3, int arg4) {
+        unsigned int uVar2;
         long lVar3;
         long lVar4;
-        uint uVar5;
+        unsigned int uVar5;
         long lVar6;
-        ulong uVar7;
-        ulong uVar8;
-        ulong uVar9;
+        unsigned long uVar8;
+        unsigned long uVar9;
         int iVar10;
 
-        uVar1 = field_1248;
-        uVar7 = (ulong)uVar1;
+        unsigned int uVar1 = *(unsigned int*)(stb_vorbis + 1248);
+        unsigned long uVar7 = (unsigned long)uVar1;
         if (uVar7 != 0) {
-            lVar4 = get_window((stb_vorbis*)this, uVar1);
-            uVar2 = field_4;
+            lVar4 = get_window(stb_vorbis, uVar1);
+            uVar2 = *(unsigned int*)(stb_vorbis + 4);
             if (0 < (int)uVar2) {
                 uVar9 = 0;
                 do {
                     if (0 < (int)uVar1) {
-                        lVar3 = *(long*)(field_1739 + uVar9 * 8 + -619);
-                        lVar6 = *(long*)(field_68 + uVar9 * 8 + 796) + (long)param_2 * 4;
+                        lVar3 = *(long*)(stb_vorbis + uVar9 * 8 + 1120);
+                        lVar6 = *(long*)(stb_vorbis + uVar9 * 8 + 864) + (long)arg3 * 4;
                         uVar8 = 0;
                         uVar5 = uVar1;
                         do {
@@ -430,20 +411,19 @@ namespace jag::hal::audio::decoders::vorbis {
                 } while (uVar9 != uVar2);
             }
         }
-        iVar10 = (int)param_1;
-        field_1248 = iVar10 - param_3;
-        uVar1 = field_4;
+        *(int*)(stb_vorbis + 1248) = arg2 - arg4;
+        uVar1 = *(unsigned int*)(stb_vorbis + 4);
         if (0 < (int)uVar1) {
             uVar9 = 0;
             do {
-                if (param_3 < iVar10) {
-                    lVar4 = *(long*)(field_1739 + uVar9 * 8 + -619);
-                    lVar3 = *(long*)(field_68 + uVar9 * 8 + 796);
+                if (arg4 < arg2) {
+                    lVar4 = *(long*)(stb_vorbis + uVar9 * 8 + 1120);
+                    lVar3 = *(long*)(stb_vorbis + uVar9 * 8 + 864);
                     uVar8 = 0;
                     do {
-                        *(undefined4*)(lVar4 + uVar8 * 4) = *(undefined4*)(lVar3 + (long)param_3 * 4 + uVar8 * 4);
+                        *(uint32_t*)(lVar4 + uVar8 * 4) = *(uint32_t*)(lVar3 + (long)arg4 * 4 + uVar8 * 4);
                         uVar8 = uVar8 + 1;
-                    } while ((uint)(iVar10 - param_3) != uVar8);
+                    } while ((unsigned int)(arg2 - arg4) != uVar8);
                 }
                 uVar9 = uVar9 + 1;
             } while (uVar9 != uVar1);
@@ -451,465 +431,463 @@ namespace jag::hal::audio::decoders::vorbis {
         if (uVar7 == 0) {
             iVar10 = 0;
         } else {
-            if (iVar10 < param_3) {
-                param_3 = iVar10;
+            if (arg2 < arg4) {
+                arg4 = arg2;
             }
-            iVar10 = param_3 - param_2;
-            field_1780 = field_1780 + iVar10;
+            iVar10 = arg4 - arg3;
+            *(int*)(stb_vorbis + 1780) = *(int*)(stb_vorbis + 1780) + iVar10;
         }
         return iVar10;
     }
 
-    // 0x100b934e0, 112 bytes, placed by debug map only (low confidence)
-    // vorbis_init(stb_vorbis*, stb_vorbis_alloc*)
-    void vorbis_init(stb_vorbis* param_1, stb_vorbis_alloc* param_2) {
-        undefined8 uVar1;
-        uint uVar2;
+    // 0x100b934e0
+    void vorbis_init(stb_vorbis* stb_vorbis, stb_vorbis_alloc* stb_vorbis_alloc) {
+        uint64_t uVar1;
+        unsigned int uVar2;
 
-        ___bzero(this, 1880);
-        if (param_1 != (stb_vorbis*)0) {
-            uVar1 = *(undefined8*)(param_1 + 8);
-            field_104 = *(long*)param_1;
-            *(undefined8*)&field_112 = uVar1;
-            uVar2 = field_112 + 3 & 4294967292;
-            field_112 = uVar2;
-            field_124 = uVar2;
+        ___bzero(stb_vorbis, 1880);
+        if (stb_vorbis_alloc != nullptr) {
+            uVar1 = *(uint64_t*)(stb_vorbis_alloc + 8);
+            *(uint64_t*)(stb_vorbis + 104) = *(uint64_t*)stb_vorbis_alloc;
+            *(uint64_t*)(stb_vorbis + 112) = uVar1;
+            uVar2 = *(int*)(stb_vorbis + 112) + 3U & 4294967292;
+            *(unsigned int*)(stb_vorbis + 112) = uVar2;
+            *(unsigned int*)(stb_vorbis + 124) = uVar2;
         }
-        field_128 = 0;
-        field_132 = 0;
-        field_40 = (byte*)0;
-        field_160 = (void*)0;
-        field_1784 = 4294967295;
-        field_36 = 0;
-        field_24 = (FILE*)0;
+        *(uint64_t*)(stb_vorbis + 128) = 0;
+        *(uint64_t*)(stb_vorbis + 40) = 0;
+        *(uint64_t*)(stb_vorbis + 160) = 0;
+        *(uint32_t*)(stb_vorbis + 1784) = 4294967295;
+        *(uint32_t*)(stb_vorbis + 36) = 0;
+        *(uint64_t*)(stb_vorbis + 24) = 0;
     }
 
-    // 0x100b93550, 7456 bytes, placed by debug map only (low confidence)
-    // start_decoder(stb_vorbis*)
-    undefined8 start_decoder(stb_vorbis* param_1) {
+    // 0x100b93550
+    void start_decoder(stb_vorbis* stb_vorbis) {
         Codebook* pCVar1;
         bool bVar2;
         char cVar3;
-        byte bVar4;
-        byte bVar5;
+        uint8_t bVar4;
+        uint8_t bVar5;
         char cVar7;
-        undefined1 uVar8;
-        stb_vorbis sVar9;
-        ushort uVar10;
+        uint8_t uVar8;
+        unsigned short uVar10;
         short sVar11;
-        undefined2 uVar12;
-        int iVar13;
-        uint uVar14;
+        uint16_t uVar12;
+        unsigned int uVar14;
         int iVar15;
-        uint uVar16;
-        undefined4 uVar17;
-        ulong uVar18;
+        unsigned int uVar16;
+        uint32_t uVar17;
+        unsigned long uVar18;
         void* pvVar19;
-        uint* puVar20;
-        undefined4* puVar21;
-        uint* puVar22;
-        uint uVar23;
-        long lVar24;
-        float* pfVar25;
-        long lVar26;
-        ulong uVar27;
-        stb_vorbis* psVar28;
-        undefined8 uVar29;
-        uchar* puVar30;
+        unsigned int* puVar20;
+        uint32_t* puVar21;
+        unsigned int* puVar22;
+        unsigned int uVar24;
+        long lVar25;
+        float* pfVar26;
+        long lVar27;
+        unsigned long uVar28;
+        stb_vorbis* psVar29;
+        STBVorbisError SVar30;
         long lVar31;
-        undefined8 uVar32;
-        int iVar33;
-        uint* puVar34;
-        ushort* puVar35;
-        int iVar36;
-        byte* pbVar37;
-        byte* pbVar38;
-        byte local_488[4];
-        byte local_484[4];
-        byte* local_480;
-        uchar local_476[6];
-        uint* local_470;
-        undefined8 local_468;
-        byte* local_460;
-        byte* local_458;
-        undefined8 local_450;
-        uint* local_448;
-        uint* local_440;
+        int iVar32;
+        unsigned int* puVar33;
+        unsigned short* arg1;
+        int iVar34;
+        uint8_t* pbVar35;
+        uint8_t* pbVar36;
+        uint8_t local_488[4];
+        uint8_t local_484[4];
+        uint8_t* local_480;
+        unsigned char local_476[6];
+        unsigned int* local_470;
+        uint64_t local_468;
+        uint8_t* local_460;
+        uint8_t* local_458;
+        uint64_t local_450;
+        unsigned int* local_448;
+        unsigned int* local_440;
         long local_438;
-        uint* local_430;
-        ushort local_428;
-        byte abStack_426[1006];
-        long local_38;
+        unsigned int* local_430;
+        unsigned short local_428;
+        uint8_t abStack_426[1006];
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        iVar13 = start_page(param_1);
-        uVar32 = 0;
+        int iVar13 = start_page(stb_vorbis);
+        uint64_t uVar23 = 0;
         if (iVar13 == 0)
             goto LAB_100b935f5;
-        sVar9 = param_1[1739];
-        if ((((((byte)sVar9 & 2) == 0) || (((byte)sVar9 & 4) != 0)) || (((byte)sVar9 & 1) != 0)) ||
-            (((*(int*)(param_1 + 1480) != 1 || (param_1[1484] != (stb_vorbis)30)) ||
-              (cVar3 = get8(param_1), cVar3 != '\x01')))) {
+        stb_vorbis sVar9 = stb_vorbis[1739];
+        if ((((((uint8_t)sVar9 & 2) == 0) || (((uint8_t)sVar9 & 4) != 0)) || (((uint8_t)sVar9 & 1) != 0)) ||
+            (((*(int*)(stb_vorbis + 1480) != 1 || (stb_vorbis[1484] != (stb_vorbis)30)) ||
+              (cVar3 = get8(stb_vorbis), cVar3 != '\x01')))) {
         LAB_100b935e8:
-            uVar29 = 34;
+            SVar30 = 34;
         } else {
-            puVar30 = local_476;
-            iVar13 = getn(param_1, puVar30, 6);
+            iVar13 = getn(stb_vorbis, local_476, 6);
             if (iVar13 != 0) {
-                iVar13 = vorbis_validate((vorbis*)local_476, puVar30);
-                if ((iVar13 != 0) && (iVar13 = get32(param_1), iVar13 == 0)) {
-                    bVar4 = get8(param_1);
-                    *(uint*)(param_1 + 4) = (uint)bVar4;
+                iVar13 = vorbis_validate(local_476);
+                if ((iVar13 != 0) && (iVar13 = get32(stb_vorbis), iVar13 == 0)) {
+                    bVar4 = get8(stb_vorbis);
+                    *(unsigned int*)(stb_vorbis + 4) = (unsigned int)bVar4;
                     if (bVar4 != 0) {
                         if (16 < bVar4) {
-                            uVar29 = 5;
+                            SVar30 = 5;
                             goto LAB_100b935f0;
                         }
-                        iVar13 = get32(param_1);
-                        *(int*)param_1 = iVar13;
+                        iVar13 = get32(stb_vorbis);
+                        *(int*)stb_vorbis = iVar13;
                         if (iVar13 != 0) {
-                            get32(param_1);
-                            get32(param_1);
-                            get32(param_1);
-                            bVar5 = get8(param_1);
-                            uVar23 = bVar5 & 15;
+                            get32(stb_vorbis);
+                            get32(stb_vorbis);
+                            get32(stb_vorbis);
+                            bVar5 = get8(stb_vorbis);
+                            uVar24 = bVar5 & 15;
                             bVar4 = bVar5 >> 4;
-                            *(int*)(param_1 + 144) = 1 << (sbyte)uVar23;
-                            *(int*)(param_1 + 148) = 1 << bVar4;
-                            if (((uVar23 - 6 < 8) && (-1 < (char)(bVar5 + 160))) &&
-                                (uVar23 < bVar4 || uVar23 == bVar4)) {
-                                uVar18 = get8(param_1);
+                            *(int*)(stb_vorbis + 144) = 1 << (int8_t)uVar24;
+                            *(int*)(stb_vorbis + 148) = 1 << bVar4;
+                            if (((uVar24 - 6 < 8) && (-1 < (char)(bVar5 + 160))) &&
+                                (uVar24 < bVar4 || uVar24 == bVar4)) {
+                                uVar18 = get8(stb_vorbis);
                                 if ((uVar18 & 1) == 0)
                                     goto LAB_100b935e8;
-                                iVar13 = start_page(param_1);
-                                if ((iVar13 == 0) || (iVar13 = start_packet(param_1), iVar13 == 0))
+                                iVar13 = start_page(stb_vorbis);
+                                if ((iVar13 == 0) || (iVar13 = start_packet(stb_vorbis), iVar13 == 0))
                                     goto LAB_100b935f5;
                                 do {
-                                    uVar23 = next_segment(param_1);
-                                    puVar30 = (uchar*)(ulong)uVar23;
-                                    skip(param_1, uVar23);
-                                    param_1[1740] = (stb_vorbis)0;
-                                } while (uVar23 != 0);
-                                iVar13 = start_packet(param_1);
+                                    iVar13 = next_segment(stb_vorbis);
+                                    skip(stb_vorbis, iVar13);
+                                    stb_vorbis[1740] = (stb_vorbis)0;
+                                } while (iVar13 != 0);
+                                iVar13 = start_packet(stb_vorbis);
                                 if (iVar13 == 0)
                                     goto LAB_100b935f5;
-                                if (param_1[68] != (stb_vorbis)0) {
-                                    puVar30 = &DAT_00000001;
-                                    iVar13 = is_whole_packet_present(param_1, 1);
-                                    if (iVar13 == 0) {
-                                        if (*(int*)(param_1 + 132) == 21) {
-                                            *(undefined4*)(param_1 + 132) = 20;
-                                        }
-                                        goto LAB_100b935f5;
+                                if ((stb_vorbis[68] != (stb_vorbis)0) &&
+                                    (iVar13 = is_whole_packet_present(stb_vorbis, 1), iVar13 == 0)) {
+                                    if (*(int*)(stb_vorbis + 132) == 21) {
+                                        *(uint32_t*)(stb_vorbis + 132) = 20;
                                     }
+                                    goto LAB_100b935f5;
                                 }
                                 crc32_init();
-                                iVar13 = get8_packet(param_1);
+                                iVar13 = get8_packet(stb_vorbis);
                                 if (iVar13 == 5) {
-                                    lVar24 = 0;
+                                    lVar25 = 0;
                                     do {
-                                        local_476[lVar24] = get8_packet(param_1);
-                                        lVar24 = lVar24 + 1;
-                                    } while (lVar24 != 6);
-                                    iVar13 = vorbis_validate((vorbis*)local_476, puVar30);
+                                        local_476[lVar25] = get8_packet(stb_vorbis);
+                                        lVar25 = lVar25 + 1;
+                                    } while (lVar25 != 6);
+                                    iVar13 = vorbis_validate(local_476);
                                     if (iVar13 == 0) {
                                     LAB_100b951c6:
-                                        uVar32 = 20;
+                                        SVar30 = 20;
                                     } else {
-                                        iVar13 = get_bits(param_1, 8);
-                                        *(int*)(param_1 + 152) = iVar13 + 1;
-                                        lVar24 = setup_malloc(param_1, (iVar13 + 1) * 2120);
-                                        *(long*)(param_1 + 160) = lVar24;
-                                        if (lVar24 != 0) {
-                                            ___bzero(lVar24, (long)*(int*)(param_1 + 152) * 2120);
-                                            if (0 < *(int*)(param_1 + 152)) {
-                                                local_458 = (byte*)0;
+                                        iVar13 = get_bits(stb_vorbis, 8);
+                                        *(int*)(stb_vorbis + 152) = iVar13 + 1;
+                                        lVar25 = setup_malloc(stb_vorbis, (iVar13 + 1) * 2120);
+                                        *(long*)(stb_vorbis + 160) = lVar25;
+                                        if (lVar25 != 0) {
+                                            ___bzero(lVar25, (long)*(int*)(stb_vorbis + 152) * 2120);
+                                            if (0 < *(int*)(stb_vorbis + 152)) {
+                                                local_458 = nullptr;
                                                 do {
-                                                    local_430 = *(uint**)(param_1 + 160);
-                                                    cVar3 = get_bits(param_1, 8);
+                                                    local_430 = *(unsigned int**)(stb_vorbis + 160);
+                                                    cVar3 = get_bits(stb_vorbis, 8);
                                                     if (((cVar3 == 'B') &&
-                                                         (cVar3 = get_bits(param_1, 8), cVar3 == 'C')) &&
-                                                        (cVar3 = get_bits(param_1, 8), puVar20 = local_430,
-                                                         pbVar37 = local_458, cVar3 == 'V')) {
-                                                        lVar24 = (long)local_458 * 2120;
+                                                         (cVar3 = get_bits(stb_vorbis, 8), cVar3 == 'C')) &&
+                                                        (cVar3 = get_bits(stb_vorbis, 8), puVar20 = local_430,
+                                                         pbVar35 = local_458, cVar3 == 'V')) {
+                                                        lVar25 = (long)local_458 * 2120;
                                                         pCVar1 = (Codebook*)(local_430 + (long)local_458 * 530);
-                                                        uVar23 = get_bits(param_1, 8);
-                                                        iVar13 = get_bits(param_1, 8);
-                                                        *(uint*)pCVar1 = uVar23 & 255 | iVar13 << 8;
+                                                        uVar24 = get_bits(stb_vorbis, 8);
+                                                        iVar13 = get_bits(stb_vorbis, 8);
+                                                        *(unsigned int*)pCVar1 = uVar24 & 255 | iVar13 << 8;
                                                         local_468 = pCVar1;
-                                                        uVar23 = get_bits(param_1, 8);
-                                                        uVar14 = get_bits(param_1, 8);
-                                                        iVar13 = get_bits(param_1, 8);
-                                                        puVar20[(long)pbVar37 * 530 + 1] =
-                                                            uVar23 & 255 | (uVar14 & 255) << 8 | iVar13 << 16;
-                                                        local_438 = lVar24;
-                                                        iVar13 = get_bits(param_1, 1);
+                                                        uVar24 = get_bits(stb_vorbis, 8);
+                                                        uVar14 = get_bits(stb_vorbis, 8);
+                                                        iVar13 = get_bits(stb_vorbis, 8);
+                                                        puVar20[pbVar35 * 530 + 1] =
+                                                            uVar24 & 255 | (uVar14 & 255) << 8 | iVar13 << 16;
+                                                        local_438 = lVar25;
+                                                        iVar13 = get_bits(stb_vorbis, 1);
                                                         bVar4 = 0;
                                                         if (iVar13 == 0) {
-                                                            bVar4 = get_bits(param_1, 1);
+                                                            bVar4 = get_bits(stb_vorbis, 1);
                                                         }
-                                                        local_448 = (uint*)((long)local_430 + local_438 + 4);
-                                                        *(byte*)((long)local_430 + local_438 + 27) = bVar4;
+                                                        local_448 = (unsigned int*)((long)local_430 + local_438 + 4);
+                                                        *(uint8_t*)((long)local_430 + local_438 + 27) = bVar4;
                                                         if (bVar4 == 0) {
-                                                            local_440 = (uint*)setup_malloc(param_1, *local_448);
-                                                            *(uint**)((long)local_430 + local_438 + 8) = local_440;
+                                                            local_440 =
+                                                                (unsigned int*)setup_malloc(stb_vorbis, *local_448);
+                                                            *(unsigned int**)((long)local_430 + local_438 + 8) =
+                                                                local_440;
                                                         } else {
-                                                            local_440 = (uint*)setup_temp_malloc(param_1, *local_448);
+                                                            local_440 = (unsigned int*)setup_temp_malloc(stb_vorbis,
+                                                                                                         *local_448);
                                                         }
-                                                        if (local_440 == (uint*)0)
+                                                        if (local_440 == nullptr)
                                                             goto LAB_100b93ec8;
-                                                        local_460 = (byte*)((long)local_430 + local_438 + 27);
+                                                        local_460 = (uint8_t*)((long)local_430 + local_438 + 27);
                                                         if (iVar13 != 0) {
-                                                            iVar15 = get_bits(param_1, 5);
+                                                            iVar15 = get_bits(stb_vorbis, 5);
                                                             iVar15 = iVar15 + 1;
                                                             local_450 = local_450 & 18446744069414584320;
                                                             iVar13 = 0;
                                                             do {
-                                                                iVar33 = *local_448 - iVar13;
-                                                                if (iVar33 == 0 || (int)*local_448 < iVar13)
+                                                                iVar32 = *local_448 - iVar13;
+                                                                if (iVar32 == 0 || (int)*local_448 < iVar13)
                                                                     goto LAB_100b93a86;
-                                                                iVar33 = ilog(iVar33);
-                                                                iVar33 = get_bits(param_1, iVar33);
-                                                                iVar36 = iVar33 + iVar13;
-                                                                uVar23 = *local_448;
-                                                                if ((int)uVar23 < iVar36) {
-                                                                    error(param_1, 20);
+                                                                iVar32 = ilog(iVar32);
+                                                                iVar32 = get_bits(stb_vorbis, iVar32);
+                                                                iVar34 = iVar32 + iVar13;
+                                                                uVar24 = *local_448;
+                                                                if ((int)uVar24 < iVar34) {
+                                                                    error(stb_vorbis, 20);
                                                                 } else {
-                                                                    _memset((byte*)((long)iVar13 + (long)local_440),
-                                                                            iVar15, (long)iVar33);
+                                                                    _memset((uint8_t*)((long)iVar13 + (long)local_440),
+                                                                            iVar15, (long)iVar32);
                                                                     iVar15 = iVar15 + 1;
-                                                                    iVar13 = iVar36;
+                                                                    iVar13 = iVar34;
                                                                 }
-                                                                iVar33 = 1;
-                                                            } while (iVar36 <= (int)uVar23);
+                                                                iVar32 = 1;
+                                                            } while (iVar34 <= (int)uVar24);
                                                             goto LAB_100b93efd;
                                                         }
                                                         if ((int)*local_448 < 1) {
-                                                            local_450 = (ulong)local_450._4_4_ << 32;
+                                                            local_450 = (unsigned long)local_450._4_4_ << 32;
                                                         } else {
-                                                            lVar24 = 0;
-                                                            local_450 = (ulong)local_450._4_4_ << 32;
+                                                            lVar25 = 0;
+                                                            local_450 = (unsigned long)local_450._4_4_ << 32;
                                                             do {
                                                                 if (*local_460 == 0) {
                                                                     iVar13 = 1;
                                                                 } else {
-                                                                    iVar13 = get_bits(param_1, 1);
+                                                                    iVar13 = get_bits(stb_vorbis, 1);
                                                                 }
                                                                 if (iVar13 == 0) {
-                                                                    *(byte*)((long)local_440 + lVar24) = 255;
+                                                                    *(uint8_t*)((long)local_440 + lVar25) = 255;
                                                                 } else {
-                                                                    cVar3 = get_bits(param_1, 5);
-                                                                    *(byte*)((long)local_440 + lVar24) = cVar3 + 1;
-                                                                    local_450 =
-                                                                        CONCAT44(local_450._4_4_, (int)local_450 + 1);
+                                                                    cVar3 = get_bits(stb_vorbis, 5);
+                                                                    *(uint8_t*)((long)local_440 + lVar25) = cVar3 + 1;
+                                                                    local_450 = (((uint64_t)local_450._4_4_ << 32) |
+                                                                                 (uint32_t)((int)local_450 + 1));
                                                                 }
-                                                                lVar24 = lVar24 + 1;
-                                                            } while (lVar24 < (int)*local_448);
+                                                                lVar25 = lVar25 + 1;
+                                                            } while (lVar25 < (int)*local_448);
                                                         }
                                                     LAB_100b93a86:
                                                         if (*local_460 != 0) {
-                                                            uVar23 = *local_448;
-                                                            if ((int)uVar23 >> 2 <= (int)local_450) {
-                                                                if (*(int*)(param_1 + 16) < (int)uVar23) {
-                                                                    *(uint*)(param_1 + 16) = uVar23;
+                                                            uVar24 = *local_448;
+                                                            if ((int)uVar24 >> 2 <= (int)local_450) {
+                                                                if (*(int*)(stb_vorbis + 16) < (int)uVar24) {
+                                                                    *(unsigned int*)(stb_vorbis + 16) = uVar24;
                                                                 }
-                                                                pvVar19 = (void*)setup_malloc(param_1, uVar23);
+                                                                pvVar19 = (void*)setup_malloc(stb_vorbis, uVar24);
                                                                 puVar22 = local_440;
                                                                 puVar20 = local_448;
                                                                 *(void**)((long)local_430 + local_438 + 8) = pvVar19;
-                                                                if (pvVar19 == (void*)0)
+                                                                if (pvVar19 == nullptr)
                                                                     goto LAB_100b93ec8;
-                                                                pbVar37 = (byte*)((long)local_430 + local_438 + 8);
+                                                                pbVar35 = (uint8_t*)((long)local_430 + local_438 + 8);
                                                                 _memcpy(pvVar19, local_440, (long)(int)*local_448);
-                                                                setup_temp_free(param_1, puVar22, *puVar20);
-                                                                local_440 = *(uint**)pbVar37;
+                                                                setup_temp_free(stb_vorbis, puVar22, *puVar20);
+                                                                local_440 = *(unsigned int**)pbVar35;
                                                                 *local_460 = 0;
                                                             }
                                                         }
                                                         bVar4 = *local_460;
                                                         if (bVar4 == 0) {
                                                             if ((int)*local_448 < 1) {
-                                                                local_450 = (ulong)local_450._4_4_ << 32;
+                                                                local_450 = (unsigned long)local_450._4_4_ << 32;
                                                             } else {
                                                                 uVar18 = 0;
-                                                                local_450 = (ulong)local_450._4_4_ << 32;
+                                                                local_450 = (unsigned long)local_450._4_4_ << 32;
                                                                 do {
-                                                                    local_450 = CONCAT44(
-                                                                        local_450._4_4_,
-                                                                        (int)local_450 +
-                                                                            (uint)((byte)(*(byte*)((long)local_440 +
-                                                                                                   uVar18) -
-                                                                                          11) < 244));
+                                                                    local_450 =
+                                                                        (((uint64_t)local_450._4_4_ << 32) |
+                                                                         (uint32_t)((int)local_450 +
+                                                                                    (unsigned int)((uint8_t)(*(uint8_t*)((long)
+                                                                                                                             local_440 +
+                                                                                                                         uVar18) -
+                                                                                                             11) <
+                                                                                                   244)));
                                                                     uVar18 = uVar18 + 1;
                                                                 } while (*local_448 != uVar18);
                                                             }
                                                         }
-                                                        local_470 = (uint*)((long)local_430 + local_438 + 2112);
+                                                        local_470 = (unsigned int*)((long)local_430 + local_438 + 2112);
                                                         *(int*)((long)local_430 + local_438 + 2112) = (int)local_450;
                                                         if (bVar4 == 0) {
-                                                            lVar24 = setup_malloc(param_1, *local_448 << 2);
-                                                            *(long*)((long)local_430 + local_438 + 40) = lVar24;
-                                                            if (lVar24 == 0)
+                                                            lVar25 = setup_malloc(stb_vorbis, *local_448 << 2);
+                                                            *(long*)((long)local_430 + local_438 + 40) = lVar25;
+                                                            if (lVar25 == 0)
                                                                 goto LAB_100b93ec8;
-                                                            puVar20 = (uint*)0;
+                                                            puVar20 = nullptr;
                                                         } else {
                                                             if ((int)local_450 == 0) {
-                                                                puVar20 = (uint*)0;
+                                                                puVar20 = nullptr;
                                                             LAB_100b93c7d:
-                                                                uVar23 = *local_470 * 8 + *local_448;
+                                                                uVar24 = *local_470 * 8 + *local_448;
                                                                 bVar2 = true;
-                                                                if (*(uint*)(param_1 + 16) < uVar23) {
-                                                                    *(uint*)(param_1 + 16) = uVar23;
+                                                                if (*(unsigned int*)(stb_vorbis + 16) < uVar24) {
+                                                                    *(unsigned int*)(stb_vorbis + 16) = uVar24;
                                                                 }
                                                             } else {
-                                                                lVar24 = setup_malloc(param_1, (int)local_450);
-                                                                *(long*)((long)local_430 + local_438 + 8) = lVar24;
-                                                                if (lVar24 != 0) {
-                                                                    lVar24 =
-                                                                        setup_temp_malloc(param_1, *local_470 << 2);
-                                                                    *(long*)((long)local_430 + local_438 + 40) = lVar24;
-                                                                    if ((lVar24 != 0) &&
-                                                                        (puVar20 = (uint*)setup_temp_malloc(
-                                                                             param_1, *local_470 << 2),
-                                                                         puVar20 != (uint*)0))
+                                                                lVar25 = setup_malloc(stb_vorbis, (int)local_450);
+                                                                *(long*)((long)local_430 + local_438 + 8) = lVar25;
+                                                                if (lVar25 != 0) {
+                                                                    lVar25 =
+                                                                        setup_temp_malloc(stb_vorbis, *local_470 << 2);
+                                                                    *(long*)((long)local_430 + local_438 + 40) = lVar25;
+                                                                    if ((lVar25 != 0) &&
+                                                                        (puVar20 = (unsigned int*)setup_temp_malloc(
+                                                                             stb_vorbis, *local_470 << 2),
+                                                                         puVar20 != nullptr))
                                                                         goto LAB_100b93c7d;
                                                                 }
-                                                                error(param_1, 3);
-                                                                puVar20 = (uint*)0;
+                                                                error(stb_vorbis, 3);
+                                                                puVar20 = nullptr;
                                                                 bVar2 = false;
                                                             }
-                                                            iVar33 = 1;
+                                                            iVar32 = 1;
                                                             if (!bVar2)
                                                                 goto LAB_100b93efd;
                                                         }
-                                                        iVar13 = compute_codewords(local_468, (uchar*)local_440,
+                                                        iVar13 = compute_codewords(local_468, (unsigned char*)local_440,
                                                                                    *local_448, puVar20);
                                                         if (iVar13 == 0) {
                                                             if (*local_460 != 0) {
-                                                                setup_temp_free(param_1, puVar20, 0);
+                                                                setup_temp_free(stb_vorbis, puVar20, 0);
                                                             }
                                                             goto LAB_100b93eeb;
                                                         }
                                                         if (*local_470 != 0) {
-                                                            lVar24 = setup_malloc(param_1, *local_470 * 4 + 4);
-                                                            *(long*)((long)local_430 + local_438 + 2096) = lVar24;
-                                                            if (lVar24 != 0) {
-                                                                puVar21 = (undefined4*)setup_malloc(param_1,
-                                                                                                    *local_470 * 4 + 4);
-                                                                *(undefined4**)((long)local_430 + local_438 + 2104) =
+                                                            lVar25 = setup_malloc(stb_vorbis, *local_470 * 4 + 4);
+                                                            *(long*)((long)local_430 + local_438 + 2096) = lVar25;
+                                                            if (lVar25 != 0) {
+                                                                puVar21 = (uint32_t*)setup_malloc(stb_vorbis,
+                                                                                                  *local_470 * 4 + 4);
+                                                                *(uint32_t**)((long)local_430 + local_438 + 2104) =
                                                                     puVar21;
-                                                                if (puVar21 != (undefined4*)0) {
-                                                                    *(undefined4**)((long)local_430 + local_438 +
-                                                                                    2104) = puVar21 + 1;
+                                                                if (puVar21 != nullptr) {
+                                                                    *(uint32_t**)((long)local_430 + local_438 + 2104) =
+                                                                        puVar21 + 1;
                                                                     *puVar21 = 4294967295;
-                                                                    compute_sorted_huffman(local_468, (uchar*)local_440,
-                                                                                           puVar20);
+                                                                    compute_sorted_huffman(
+                                                                        local_468, (unsigned char*)local_440, puVar20);
                                                                     goto LAB_100b93d86;
                                                                 }
                                                             }
                                                         LAB_100b93ec8:
-                                                            uVar32 = 3;
+                                                            SVar30 = 3;
                                                             goto LAB_100b93ef3;
                                                         }
                                                     LAB_100b93d86:
                                                         puVar22 = local_470;
                                                         if (*local_460 != 0) {
-                                                            setup_temp_free(param_1, puVar20, *local_470 << 2);
+                                                            setup_temp_free(stb_vorbis, puVar20, *local_470 << 2);
                                                             puVar20 = local_430;
-                                                            lVar24 = local_438;
-                                                            setup_temp_free(param_1,
+                                                            lVar25 = local_438;
+                                                            setup_temp_free(stb_vorbis,
                                                                             *(void**)((long)local_430 + local_438 + 40),
                                                                             *puVar22 << 2);
-                                                            setup_temp_free(param_1, local_440, *local_448);
-                                                            pbVar37 = (byte*)((long)puVar20 + lVar24 + 40);
-                                                            pbVar37[0] = 0;
-                                                            pbVar37[1] = 0;
-                                                            pbVar37[2] = 0;
-                                                            pbVar37[3] = 0;
-                                                            pbVar37[4] = 0;
-                                                            pbVar37[5] = 0;
-                                                            pbVar37[6] = 0;
-                                                            pbVar37[7] = 0;
+                                                            setup_temp_free(stb_vorbis, local_440, *local_448);
+                                                            pbVar35 = (uint8_t*)((long)puVar20 + lVar25 + 40);
+                                                            pbVar35[0] = 0;
+                                                            pbVar35[1] = 0;
+                                                            pbVar35[2] = 0;
+                                                            pbVar35[3] = 0;
+                                                            pbVar35[4] = 0;
+                                                            pbVar35[5] = 0;
+                                                            pbVar35[6] = 0;
+                                                            pbVar35[7] = 0;
                                                         }
                                                         compute_accelerated_huffman(local_468);
-                                                        bVar4 = get_bits(param_1, 4);
+                                                        bVar4 = get_bits(stb_vorbis, 4);
                                                         puVar20 = local_430;
-                                                        lVar24 = local_438;
-                                                        *(byte*)((long)local_430 + local_438 + 25) = bVar4;
+                                                        lVar25 = local_438;
+                                                        *(uint8_t*)((long)local_430 + local_438 + 25) = bVar4;
                                                         if (2 < bVar4)
                                                             goto LAB_100b93eeb;
                                                         if (bVar4 != 0) {
-                                                            pbVar37 = (byte*)((long)local_430 + local_438 + 25);
-                                                            uVar23 = get_bits(param_1, 32);
-                                                            uVar17 = float32_unpack(uVar23);
-                                                            *(undefined4*)((long)puVar20 + lVar24 + 16) = uVar17;
-                                                            uVar23 = get_bits(param_1, 32);
-                                                            uVar17 = float32_unpack(uVar23);
-                                                            *(undefined4*)((long)puVar20 + lVar24 + 20) = uVar17;
-                                                            cVar3 = get_bits(param_1, 4);
-                                                            *(byte*)((long)puVar20 + lVar24 + 24) = cVar3 + 1;
-                                                            bVar4 = get_bits(param_1, 1);
-                                                            *(byte*)((long)puVar20 + lVar24 + 26) = bVar4;
-                                                            local_480 = pbVar37;
-                                                            if (*pbVar37 == 1) {
-                                                                iVar13 = lookup1_values(*local_448, *(uint*)local_468);
+                                                            pbVar35 = (uint8_t*)((long)local_430 + local_438 + 25);
+                                                            uVar24 = get_bits(stb_vorbis, 32);
+                                                            uVar17 = float32_unpack(uVar24);
+                                                            *(uint32_t*)((long)puVar20 + lVar25 + 16) = uVar17;
+                                                            uVar24 = get_bits(stb_vorbis, 32);
+                                                            uVar17 = float32_unpack(uVar24);
+                                                            *(uint32_t*)((long)puVar20 + lVar25 + 20) = uVar17;
+                                                            cVar3 = get_bits(stb_vorbis, 4);
+                                                            *(uint8_t*)((long)puVar20 + lVar25 + 24) = cVar3 + 1;
+                                                            bVar4 = get_bits(stb_vorbis, 1);
+                                                            *(uint8_t*)((long)puVar20 + lVar25 + 26) = bVar4;
+                                                            local_480 = pbVar35;
+                                                            if (*pbVar35 == 1) {
+                                                                iVar13 = lookup1_values(*local_448,
+                                                                                        *(unsigned int*)local_468);
                                                             } else {
-                                                                iVar13 = *(uint*)local_468 * *local_448;
+                                                                iVar13 = *(unsigned int*)local_468 * *local_448;
                                                             }
                                                             *(int*)((long)local_430 + local_438 + 28) = iVar13;
-                                                            pvVar19 = (void*)setup_temp_malloc(param_1, iVar13 * 2);
-                                                            if (pvVar19 == (void*)0) {
+                                                            pvVar19 = (void*)setup_temp_malloc(stb_vorbis, iVar13 * 2);
+                                                            if (pvVar19 == nullptr) {
                                                             LAB_100b94216:
-                                                                error(param_1, 3);
+                                                                error(stb_vorbis, 3);
                                                             LAB_100b94223:
-                                                                iVar33 = 1;
+                                                                iVar32 = 1;
                                                             } else {
-                                                                local_440 = (uint*)((long)local_430 + local_438 + 28);
-                                                                uVar23 = *local_440;
-                                                                if (0 < (int)uVar23) {
-                                                                    pbVar37 = (byte*)((long)local_430 + local_438 + 24);
-                                                                    lVar24 = 0;
+                                                                local_440 =
+                                                                    (unsigned int*)((long)local_430 + local_438 + 28);
+                                                                uVar24 = *local_440;
+                                                                if (0 < (int)uVar24) {
+                                                                    pbVar35 =
+                                                                        (uint8_t*)((long)local_430 + local_438 + 24);
+                                                                    lVar25 = 0;
                                                                     do {
-                                                                        iVar13 = get_bits(param_1, (uint)*pbVar37);
+                                                                        iVar13 = get_bits(stb_vorbis,
+                                                                                          (unsigned int)*pbVar35);
                                                                         if (iVar13 == -1) {
-                                                                            setup_temp_free(param_1, pvVar19,
+                                                                            setup_temp_free(stb_vorbis, pvVar19,
                                                                                             *local_440 * 2);
-                                                                            error(param_1, 20);
+                                                                            error(stb_vorbis, 20);
                                                                             goto LAB_100b94223;
                                                                         }
-                                                                        *(short*)((long)pvVar19 + lVar24 * 2) =
+                                                                        *(short*)((long)pvVar19 + lVar25 * 2) =
                                                                             (short)iVar13;
-                                                                        lVar24 = lVar24 + 1;
-                                                                        uVar23 = *local_440;
-                                                                    } while (lVar24 < (int)uVar23);
+                                                                        lVar25 = lVar25 + 1;
+                                                                        uVar24 = *local_440;
+                                                                    } while (lVar25 < (int)uVar24);
                                                                 }
                                                                 puVar20 = local_430;
-                                                                lVar24 = local_438;
-                                                                pfVar25 = (float*)((long)local_430 + local_438 + 16);
+                                                                lVar25 = local_438;
+                                                                pfVar26 = (float*)((long)local_430 + local_438 + 16);
                                                                 if (*local_480 == 1) {
-                                                                    local_450 = CONCAT71(local_450._1_7_, *local_460);
+                                                                    local_450 = (((uint64_t)local_450._1_7_ << 8) |
+                                                                                 (uint8_t)(*local_460));
                                                                     if (*local_460 == 0) {
-                                                                        uVar23 = *local_448;
+                                                                        uVar24 = *local_448;
                                                                     LAB_100b940d0:
-                                                                        local_460 = (byte*)setup_malloc(
-                                                                            param_1, uVar23 * *(uint*)local_468 * 4);
-                                                                        *(byte**)((long)local_430 + local_438 + 32) =
+                                                                        local_460 = (uint8_t*)setup_malloc(
+                                                                            stb_vorbis,
+                                                                            uVar24 * *(unsigned int*)local_468 * 4);
+                                                                        *(uint8_t**)((long)local_430 + local_438 + 32) =
                                                                             local_460;
-                                                                        if (local_460 == (byte*)0) {
-                                                                            setup_temp_free(param_1, pvVar19,
+                                                                        if (local_460 == nullptr) {
+                                                                            setup_temp_free(stb_vorbis, pvVar19,
                                                                                             *local_440 * 2);
-                                                                            error(param_1, 3);
-                                                                            iVar33 = 1;
+                                                                            error(stb_vorbis, 3);
+                                                                            iVar32 = 1;
                                                                         } else {
                                                                             puVar22 = local_470;
                                                                             if ((char)local_450 == '\0') {
                                                                                 puVar22 = local_448;
                                                                             }
-                                                                            uVar23 = *puVar22;
-                                                                            if (0 < (int)uVar23) {
-                                                                                local_448 = (uint*)((long)local_430 +
+                                                                            uVar24 = *puVar22;
+                                                                            if (0 < (int)uVar24) {
+                                                                                local_448 =
+                                                                                    (unsigned int*)((long)local_430 +
                                                                                                     local_438 + 2104);
-                                                                                uVar14 = *(uint*)local_468;
+                                                                                uVar14 = *(unsigned int*)local_468;
                                                                                 iVar13 = 0;
                                                                                 uVar18 = 0;
                                                                                 do {
@@ -922,297 +900,304 @@ namespace jag::hal::audio::decoders::vorbis {
                                                                                     }
                                                                                     if (0 < (int)uVar14) {
                                                                                         uVar16 = *local_440;
-                                                                                        iVar33 = 1;
-                                                                                        uVar27 = 0;
+                                                                                        iVar32 = 1;
+                                                                                        uVar28 = 0;
                                                                                         do {
                                                                                             *(float*)(local_460 +
-                                                                                                      uVar27 * 4 +
+                                                                                                      uVar28 * 4 +
                                                                                                       (long)iVar13 *
                                                                                                           4) =
                                                                                                 (float)*(
-                                                                                                    ushort*)((long)
-                                                                                                                 pvVar19 +
-                                                                                                             (long)(int)(((long)iVar15 /
-                                                                                                                              (long)
-                                                                                                                                  iVar33 &
-                                                                                                                          4294967295U) %
-                                                                                                                         (ulong)
-                                                                                                                             uVar16) *
-                                                                                                                 2) *
+                                                                                                    unsigned short*)((long)
+                                                                                                                         pvVar19 +
+                                                                                                                     (long)(int)(((long)iVar15 /
+                                                                                                                                      (long)
+                                                                                                                                          iVar32 &
+                                                                                                                                  4294967295U) %
+                                                                                                                                 (unsigned long)
+                                                                                                                                     uVar16) *
+                                                                                                                         2) *
                                                                                                     *(float*)((long)
                                                                                                                   puVar20 +
-                                                                                                              lVar24 +
+                                                                                                              lVar25 +
                                                                                                               20) +
-                                                                                                *pfVar25;
-                                                                                            iVar33 = iVar33 * uVar16;
-                                                                                            uVar27 = uVar27 + 1;
-                                                                                        } while (uVar14 != uVar27);
+                                                                                                *pfVar26;
+                                                                                            iVar32 = iVar32 * uVar16;
+                                                                                            uVar28 = uVar28 + 1;
+                                                                                        } while (uVar14 != uVar28);
                                                                                     }
                                                                                     uVar18 = uVar18 + 1;
                                                                                     iVar13 = iVar13 + uVar14;
-                                                                                } while (uVar18 != uVar23);
+                                                                                } while (uVar18 != uVar24);
                                                                             }
-                                                                            setup_temp_free(param_1, pvVar19,
+                                                                            setup_temp_free(stb_vorbis, pvVar19,
                                                                                             *local_440 * 2);
                                                                             *local_480 = 2;
-                                                                            iVar33 = 0;
+                                                                            iVar32 = 0;
                                                                         }
                                                                     } else {
-                                                                        uVar23 = *local_470;
-                                                                        if (uVar23 != 0)
+                                                                        uVar24 = *local_470;
+                                                                        if (uVar24 != 0)
                                                                             goto LAB_100b940d0;
-                                                                        iVar33 = 21;
+                                                                        iVar32 = 21;
                                                                     }
-                                                                    if ((iVar33 != 0) && (iVar33 != 21))
+                                                                    if ((iVar32 != 0) && (iVar32 != 21))
                                                                         goto LAB_100b94228;
                                                                 } else {
-                                                                    lVar26 = setup_malloc(param_1, uVar23 << 2);
-                                                                    *(long*)((long)local_430 + local_438 + 32) = lVar26;
-                                                                    uVar23 = *local_440;
-                                                                    if (lVar26 == 0) {
-                                                                        setup_temp_free(param_1, pvVar19, uVar23 * 2);
+                                                                    lVar27 = setup_malloc(stb_vorbis, uVar24 << 2);
+                                                                    *(long*)((long)local_430 + local_438 + 32) = lVar27;
+                                                                    uVar24 = *local_440;
+                                                                    if (lVar27 == 0) {
+                                                                        setup_temp_free(stb_vorbis, pvVar19,
+                                                                                        uVar24 * 2);
                                                                         goto LAB_100b94216;
                                                                     }
-                                                                    if (0 < (int)uVar23) {
-                                                                        lVar26 =
+                                                                    if (0 < (int)uVar24) {
+                                                                        lVar27 =
                                                                             *(long*)((long)local_430 + local_438 + 32);
                                                                         uVar18 = 0;
                                                                         do {
-                                                                            *(float*)(lVar26 + uVar18 * 4) =
-                                                                                (float)*(ushort*)((long)pvVar19 +
-                                                                                                  uVar18 * 2) *
-                                                                                    *(float*)((long)puVar20 + lVar24 +
+                                                                            *(float*)(lVar27 + uVar18 * 4) =
+                                                                                (float)*(
+                                                                                    unsigned short*)((long)pvVar19 +
+                                                                                                     uVar18 * 2) *
+                                                                                    *(float*)((long)puVar20 + lVar25 +
                                                                                               20) +
-                                                                                *pfVar25;
+                                                                                *pfVar26;
                                                                             uVar18 = uVar18 + 1;
-                                                                        } while (uVar23 != uVar18);
+                                                                        } while (uVar24 != uVar18);
                                                                     }
-                                                                    setup_temp_free(param_1, pvVar19, uVar23 * 2);
+                                                                    setup_temp_free(stb_vorbis, pvVar19, uVar24 * 2);
                                                                 }
-                                                                iVar33 = 0;
+                                                                iVar32 = 0;
                                                                 if ((*local_480 == 2) &&
-                                                                    (pbVar37 =
-                                                                         (byte*)((long)local_430 + local_438 + 26),
-                                                                     *pbVar37 != 0)) {
-                                                                    uVar23 = *local_440;
-                                                                    if (1 < (int)uVar23) {
-                                                                        puVar21 = *(undefined4**)((long)local_430 +
-                                                                                                  local_438 + 32);
+                                                                    (pbVar35 =
+                                                                         (uint8_t*)((long)local_430 + local_438 + 26),
+                                                                     *pbVar35 != 0)) {
+                                                                    uVar24 = *local_440;
+                                                                    if (1 < (int)uVar24) {
+                                                                        puVar21 = *(uint32_t**)((long)local_430 +
+                                                                                                local_438 + 32);
                                                                         uVar17 = *puVar21;
                                                                         uVar18 = 1;
                                                                         do {
                                                                             puVar21[uVar18] = uVar17;
                                                                             uVar18 = uVar18 + 1;
-                                                                        } while (uVar23 != uVar18);
+                                                                        } while (uVar24 != uVar18);
                                                                     }
-                                                                    *pbVar37 = 0;
+                                                                    *pbVar35 = 0;
                                                                 }
                                                             }
                                                         LAB_100b94228:
-                                                            if (iVar33 != 0)
+                                                            if (iVar32 != 0)
                                                                 goto LAB_100b93efd;
                                                         }
-                                                        iVar33 = 0;
+                                                        iVar32 = 0;
                                                     } else {
                                                     LAB_100b93eeb:
-                                                        uVar32 = 20;
+                                                        SVar30 = 20;
                                                     LAB_100b93ef3:
-                                                        error(param_1, uVar32);
-                                                        iVar33 = 1;
+                                                        error(stb_vorbis, SVar30);
+                                                        iVar32 = 1;
                                                     }
                                                 LAB_100b93efd:
-                                                    if (iVar33 != 0)
+                                                    if (iVar32 != 0)
                                                         goto LAB_100b94f0c;
                                                     local_458 = local_458 + 1;
-                                                } while ((long)local_458 < (long)*(int*)(param_1 + 152));
+                                                } while ((long)local_458 < (long)*(int*)(stb_vorbis + 152));
                                             }
-                                            iVar13 = get_bits(param_1, 6);
-                                            for (uVar23 = iVar13 + 1U & 255; uVar23 != 0; uVar23 = uVar23 - 1) {
-                                                iVar13 = get_bits(param_1, 16);
+                                            iVar13 = get_bits(stb_vorbis, 6);
+                                            for (uVar24 = iVar13 + 1U & 255; uVar24 != 0; uVar24 = uVar24 - 1) {
+                                                iVar13 = get_bits(stb_vorbis, 16);
                                                 if (iVar13 != 0)
                                                     goto LAB_100b951c6;
                                             }
-                                            iVar13 = get_bits(param_1, 6);
-                                            *(int*)(param_1 + 168) = iVar13 + 1;
-                                            lVar24 = setup_malloc(param_1, (iVar13 + 1) * 1596);
-                                            *(long*)(param_1 + 304) = lVar24;
-                                            if (lVar24 != 0) {
-                                                if (0 < *(int*)(param_1 + 168)) {
+                                            iVar13 = get_bits(stb_vorbis, 6);
+                                            *(int*)(stb_vorbis + 168) = iVar13 + 1;
+                                            lVar25 = setup_malloc(stb_vorbis, (iVar13 + 1) * 1596);
+                                            *(long*)(stb_vorbis + 304) = lVar25;
+                                            if (lVar25 != 0) {
+                                                if (0 < *(int*)(stb_vorbis + 168)) {
                                                     local_450 = 0;
-                                                    local_468 = (Codebook*)((ulong)local_468._4_4_ << 32);
+                                                    local_468 = (Codebook*)((unsigned long)local_468._4_4_ << 32);
                                                 LAB_100b9437d:
-                                                    uVar10 = get_bits(param_1, 16);
-                                                    *(ushort*)(param_1 + local_450 * 2 + 172) = uVar10;
+                                                    uVar10 = get_bits(stb_vorbis, 16);
+                                                    *(unsigned short*)(stb_vorbis + local_450 * 2 + 172) = uVar10;
                                                     if (uVar10 < 2) {
                                                         if (uVar10 == 0) {
                                                             uVar18 = local_450 & 4294967295;
-                                                            lVar24 = *(long*)(param_1 + 304);
-                                                            uVar8 = get_bits(param_1, 8);
-                                                            lVar26 = uVar18 * 1596;
-                                                            *(undefined1*)(lVar24 + lVar26) = uVar8;
-                                                            uVar12 = get_bits(param_1, 16);
-                                                            *(undefined2*)(lVar24 + 2 + lVar26) = uVar12;
-                                                            uVar12 = get_bits(param_1, 16);
-                                                            *(undefined2*)(lVar24 + 4 + lVar26) = uVar12;
-                                                            uVar8 = get_bits(param_1, 6);
-                                                            *(undefined1*)(lVar24 + 6 + lVar26) = uVar8;
-                                                            uVar8 = get_bits(param_1, 8);
-                                                            *(undefined1*)(lVar24 + 7 + lVar26) = uVar8;
-                                                            cVar3 = get_bits(param_1, 4);
-                                                            *(char*)(lVar24 + 8 + lVar26) = cVar3 + '\x01';
+                                                            lVar25 = *(long*)(stb_vorbis + 304);
+                                                            uVar8 = get_bits(stb_vorbis, 8);
+                                                            lVar27 = uVar18 * 1596;
+                                                            *(uint8_t*)(lVar25 + lVar27) = uVar8;
+                                                            uVar12 = get_bits(stb_vorbis, 16);
+                                                            *(uint16_t*)(lVar25 + 2 + lVar27) = uVar12;
+                                                            uVar12 = get_bits(stb_vorbis, 16);
+                                                            *(uint16_t*)(lVar25 + 4 + lVar27) = uVar12;
+                                                            uVar8 = get_bits(stb_vorbis, 6);
+                                                            *(uint8_t*)(lVar25 + 6 + lVar27) = uVar8;
+                                                            uVar8 = get_bits(stb_vorbis, 8);
+                                                            *(uint8_t*)(lVar25 + 7 + lVar27) = uVar8;
+                                                            cVar3 = get_bits(stb_vorbis, 4);
+                                                            *(char*)(lVar25 + 8 + lVar27) = cVar3 + '\x01';
                                                             if ((char)(cVar3 + '\x01') != '\0') {
                                                                 lVar31 = local_450 * 1596;
                                                                 uVar18 = 0;
                                                                 do {
-                                                                    uVar8 = get_bits(param_1, 8);
-                                                                    *(undefined1*)(lVar24 + lVar31 + 9 + uVar18) =
-                                                                        uVar8;
+                                                                    uVar8 = get_bits(stb_vorbis, 8);
+                                                                    *(uint8_t*)(lVar25 + lVar31 + 9 + uVar18) = uVar8;
                                                                     uVar18 = uVar18 + 1;
-                                                                } while (uVar18 < *(byte*)(lVar24 + lVar26 + 8));
+                                                                } while (uVar18 < *(uint8_t*)(lVar25 + lVar27 + 8));
                                                             }
-                                                            uVar32 = 4;
+                                                            SVar30 = 4;
                                                             goto LAB_100b951d8;
                                                         }
-                                                        pbVar37 = *(byte**)(param_1 + 304);
-                                                        bVar4 = get_bits(param_1, 5);
+                                                        pbVar35 = *(uint8_t**)(stb_vorbis + 304);
+                                                        bVar4 = get_bits(stb_vorbis, 5);
                                                         local_438 = local_450 * 1596;
-                                                        local_458 = pbVar37 + local_438;
-                                                        pbVar37[local_438] = bVar4;
-                                                        local_460 = pbVar37;
+                                                        local_458 = pbVar35 + local_438;
+                                                        pbVar35[local_438] = bVar4;
+                                                        local_460 = pbVar35;
                                                         if (bVar4 == 0) {
-                                                            uVar23 = 4294967295;
+                                                            uVar24 = 4294967295;
                                                         } else {
-                                                            lVar24 = local_438 + 1;
-                                                            uVar23 = 4294967295;
+                                                            lVar25 = local_438 + 1;
+                                                            uVar24 = 4294967295;
                                                             uVar18 = 0;
                                                             do {
-                                                                bVar4 = get_bits(param_1, 4);
-                                                                if ((int)uVar23 < (int)(uint)bVar4) {
-                                                                    uVar23 = (uint)bVar4;
+                                                                bVar4 = get_bits(stb_vorbis, 4);
+                                                                if ((int)uVar24 < (int)(unsigned int)bVar4) {
+                                                                    uVar24 = (unsigned int)bVar4;
                                                                 }
-                                                                pbVar37[uVar18 + lVar24] = bVar4;
+                                                                pbVar35[uVar18 + lVar25] = bVar4;
                                                                 uVar18 = uVar18 + 1;
                                                             } while (uVar18 < *local_458);
                                                         }
-                                                        if (-1 < (int)uVar23) {
-                                                            pbVar37 = local_460 + local_438 + 82;
-                                                            local_448 = (uint*)0;
+                                                        if (-1 < (int)uVar24) {
+                                                            pbVar35 = local_460 + local_438 + 82;
+                                                            local_448 = nullptr;
                                                             do {
-                                                                cVar3 = get_bits(param_1, 3);
+                                                                cVar3 = get_bits(stb_vorbis, 3);
                                                                 puVar20 = local_448;
-                                                                pbVar38 = local_458;
-                                                                ((byte*)((long)local_448 + 33))[(long)local_458] =
+                                                                pbVar36 = local_458;
+                                                                ((uint8_t*)((long)local_448 + 33))[local_458] =
                                                                     cVar3 + 1;
-                                                                bVar4 = get_bits(param_1, 2);
-                                                                ((byte*)((long)puVar20 + 49))[(long)pbVar38] = bVar4;
+                                                                bVar4 = get_bits(stb_vorbis, 2);
+                                                                ((uint8_t*)((long)puVar20 + 49))[pbVar36] = bVar4;
                                                                 if (bVar4 != 0) {
-                                                                    bVar4 = get_bits(param_1, 8);
-                                                                    ((byte*)((long)local_448 + 65))[(long)local_458] =
+                                                                    bVar4 = get_bits(stb_vorbis, 8);
+                                                                    ((uint8_t*)((long)local_448 + 65))[local_458] =
                                                                         bVar4;
-                                                                    if (*(int*)(param_1 + 152) <= (int)(uint)bVar4) {
+                                                                    if (*(int*)(stb_vorbis + 152) <=
+                                                                        (int)(unsigned int)bVar4) {
                                                                     LAB_100b94550:
-                                                                        error(param_1, 20);
+                                                                        error(stb_vorbis, 20);
                                                                         bVar2 = false;
                                                                         goto LAB_100b947b8;
                                                                     }
                                                                 }
-                                                                pbVar38 = (byte*)((long)local_448 + (long)local_458);
-                                                                if (pbVar38[49] != 31) {
-                                                                    lVar24 = 0;
+                                                                pbVar36 = (uint8_t*)((long)local_448 + (long)local_458);
+                                                                if (pbVar36[49] != 31) {
+                                                                    lVar25 = 0;
                                                                     do {
-                                                                        sVar11 = get_bits(param_1, 8);
-                                                                        *(short*)(pbVar37 + lVar24 * 2) = sVar11 + -1;
-                                                                        if (*(int*)(param_1 + 152) <=
-                                                                            (int)(short)(sVar11 + -1))
+                                                                        sVar11 = get_bits(stb_vorbis, 8);
+                                                                        *(short*)(pbVar35 + lVar25 * 2) = sVar11 - 1;
+                                                                        if (*(int*)(stb_vorbis + 152) <=
+                                                                            (int)(short)(sVar11 - 1))
                                                                             goto LAB_100b94550;
-                                                                        lVar24 = lVar24 + 1;
-                                                                    } while (lVar24 < 1 << (pbVar38[49] & 31));
+                                                                        lVar25 = lVar25 + 1;
+                                                                    } while (lVar25 < 1 << (pbVar36[49] & 31));
                                                                 }
-                                                                local_448 = (uint*)((long)local_448 + 1);
-                                                                pbVar37 = pbVar37 + 16;
-                                                            } while (local_448 != (uint*)(ulong)(uVar23 + 1));
+                                                                local_448 = (unsigned int*)((long)local_448 + 1);
+                                                                pbVar35 = pbVar35 + 16;
+                                                            } while (local_448 !=
+                                                                     (unsigned int*)(unsigned long)(uVar24 + 1));
                                                         }
-                                                        cVar3 = get_bits(param_1, 2);
-                                                        lVar24 = local_438;
-                                                        pbVar37 = local_460;
+                                                        cVar3 = get_bits(stb_vorbis, 2);
+                                                        lVar25 = local_438;
+                                                        pbVar35 = local_460;
                                                         local_460[local_438 + 1588] = cVar3 + 1;
-                                                        bVar4 = get_bits(param_1, 4);
-                                                        pbVar37[lVar24 + 1589] = bVar4;
-                                                        (pbVar37 + lVar24 + 338)[0] = 0;
-                                                        (pbVar37 + lVar24 + 338)[1] = 0;
-                                                        *(short*)(pbVar37 + lVar24 + 340) = (short)(1 << (bVar4 & 31));
-                                                        local_430 = (uint*)(pbVar37 + lVar24 + 1592);
-                                                        pbVar37 = pbVar37 + lVar24 + 1592;
-                                                        pbVar37[0] = 2;
-                                                        pbVar37[1] = 0;
-                                                        pbVar37[2] = 0;
-                                                        pbVar37[3] = 0;
+                                                        bVar4 = get_bits(stb_vorbis, 4);
+                                                        pbVar35[lVar25 + 1589] = bVar4;
+                                                        (pbVar35 + lVar25 + 338)[0] = 0;
+                                                        (pbVar35 + lVar25 + 338)[1] = 0;
+                                                        *(short*)(pbVar35 + lVar25 + 340) = (short)(1 << (bVar4 & 31));
+                                                        local_430 = (unsigned int*)(pbVar35 + lVar25 + 1592);
+                                                        pbVar35 = pbVar35 + lVar25 + 1592;
+                                                        pbVar35[0] = 2;
+                                                        pbVar35[1] = 0;
+                                                        pbVar35[2] = 0;
+                                                        pbVar35[3] = 0;
                                                         if (*local_458 != 0) {
-                                                            local_448 = (uint*)(local_460 + local_438 + 1589);
-                                                            local_440 = (uint*)0;
+                                                            local_448 = (unsigned int*)(local_460 + local_438 + 1589);
+                                                            local_440 = nullptr;
                                                             do {
                                                                 puVar20 = local_430;
-                                                                pbVar37 = local_458;
-                                                                if (local_458[(ulong)((byte*)((long)local_440 +
-                                                                                              1))[(long)local_458] +
+                                                                pbVar35 = local_458;
+                                                                if (local_458[((uint8_t*)((long)local_440 +
+                                                                                          1))[local_458] +
                                                                               33] != 0) {
-                                                                    pbVar38 = local_458 +
-                                                                              (ulong)((byte*)((long)local_440 +
-                                                                                              1))[(long)local_458] +
-                                                                              33;
-                                                                    uVar23 = 0;
+                                                                    pbVar36 =
+                                                                        local_458 +
+                                                                        (unsigned long)((uint8_t*)((long)local_440 +
+                                                                                                   1))[local_458] +
+                                                                        33;
+                                                                    uVar24 = 0;
                                                                     do {
                                                                         uVar12 =
-                                                                            get_bits(param_1, (uint)(byte)*local_448);
+                                                                            get_bits(stb_vorbis,
+                                                                                     (unsigned int)(uint8_t)*local_448);
                                                                         uVar14 = *puVar20;
-                                                                        *(undefined2*)(pbVar37 + (long)(int)uVar14 * 2 +
-                                                                                       338) = uVar12;
+                                                                        *(uint16_t*)(pbVar35 + (long)(int)uVar14 * 2 +
+                                                                                     338) = uVar12;
                                                                         *puVar20 = uVar14 + 1;
-                                                                        uVar23 = uVar23 + 1;
-                                                                    } while (uVar23 < *pbVar38);
+                                                                        uVar24 = uVar24 + 1;
+                                                                    } while (uVar24 < *pbVar36);
                                                                 }
-                                                                local_440 = (uint*)((long)local_440 + 1);
-                                                            } while (local_440 < (uint*)(ulong)*pbVar37);
+                                                                local_440 = (unsigned int*)((long)local_440 + 1);
+                                                            } while (local_440 <
+                                                                     (unsigned int*)(unsigned long)*pbVar35);
                                                         }
-                                                        puVar35 = (ushort*)(local_460 + local_438 + 338);
-                                                        uVar23 = *local_430;
-                                                        if (0 < (int)uVar23) {
+                                                        arg1 = (unsigned short*)(local_460 + local_438 + 338);
+                                                        uVar24 = *local_430;
+                                                        if (0 < (int)uVar24) {
                                                             uVar18 = 0;
                                                             do {
-                                                                *(ushort*)(abStack_426 + uVar18 * 4 + -2) =
-                                                                    puVar35[uVar18];
+                                                                *(unsigned short*)(abStack_426 + uVar18 * 4 - 2) =
+                                                                    arg1[uVar18];
                                                                 *(short*)(abStack_426 + uVar18 * 4) = (short)uVar18;
                                                                 uVar18 = uVar18 + 1;
-                                                            } while (uVar23 != uVar18);
+                                                            } while (uVar24 != uVar18);
                                                         }
-                                                        _qsort(&local_428, (long)(int)uVar23, 4, (int*)point_compare);
+                                                        _qsort(&local_428, (long)(int)uVar24, 4, (int*)point_compare);
                                                         if (0 < (int)*local_430) {
-                                                            lVar24 = 0;
+                                                            lVar25 = 0;
                                                             do {
-                                                                local_460[lVar24 + local_438 + 838] =
-                                                                    abStack_426[lVar24 * 4];
-                                                                lVar24 = lVar24 + 1;
-                                                            } while (lVar24 < (int)*local_430);
+                                                                local_460[lVar25 + local_438 + 838] =
+                                                                    abStack_426[lVar25 * 4];
+                                                                lVar25 = lVar25 + 1;
+                                                            } while (lVar25 < (int)*local_430);
                                                         }
-                                                        uVar23 = *local_430;
-                                                        if (2 < (int)uVar23) {
-                                                            pbVar37 = local_460 + local_438 + 1093;
-                                                            lVar24 = 2;
+                                                        uVar24 = *local_430;
+                                                        if (2 < (int)uVar24) {
+                                                            pbVar35 = local_460 + local_438 + 1093;
+                                                            lVar25 = 2;
                                                             do {
-                                                                neighbors(puVar35, (int)lVar24, (int*)local_488,
+                                                                neighbors(arg1, (int)lVar25, (int*)local_488,
                                                                           (int*)local_484);
-                                                                pbVar37[-1] = local_488[0];
-                                                                *pbVar37 = local_484[0];
-                                                                lVar24 = lVar24 + 1;
-                                                                uVar23 = *local_430;
-                                                                pbVar37 = pbVar37 + 2;
-                                                            } while (lVar24 < (int)uVar23);
+                                                                pbVar35[-1] = local_488[0];
+                                                                *pbVar35 = local_484[0];
+                                                                lVar25 = lVar25 + 1;
+                                                                uVar24 = *local_430;
+                                                                pbVar35 = pbVar35 + 2;
+                                                            } while (lVar25 < (int)uVar24);
                                                         }
-                                                        uVar14 = (uint)local_468;
-                                                        if ((int)(uint)local_468 < (int)uVar23) {
-                                                            uVar14 = uVar23;
+                                                        uVar14 = (unsigned int)local_468;
+                                                        if ((int)(unsigned int)local_468 < (int)uVar24) {
+                                                            uVar14 = uVar24;
                                                         }
-                                                        local_468 = (Codebook*)CONCAT44(local_468._4_4_, uVar14);
+                                                        local_468 = (Codebook*)(((uint64_t)local_468._4_4_ << 32) |
+                                                                                (uint32_t)uVar14);
                                                         bVar2 = true;
                                                     LAB_100b947b8:
                                                         if (bVar2)
@@ -1221,1079 +1206,1043 @@ namespace jag::hal::audio::decoders::vorbis {
                                                     }
                                                     goto LAB_100b951c6;
                                                 }
-                                                local_468 = (Codebook*)((ulong)local_468._4_4_ << 32);
+                                                local_468 = (Codebook*)((unsigned long)local_468._4_4_ << 32);
                                             LAB_100b947f1:
-                                                iVar13 = get_bits(param_1, 6);
-                                                *(int*)(param_1 + 312) = iVar13 + 1;
-                                                lVar24 = setup_malloc(param_1, (iVar13 + 1) * 32);
-                                                *(long*)(param_1 + 448) = lVar24;
-                                                if (lVar24 != 0) {
-                                                    ___bzero(lVar24, (long)*(int*)(param_1 + 312) << 5);
-                                                    if (0 < *(int*)(param_1 + 312)) {
-                                                        local_430 = (uint*)0;
+                                                iVar13 = get_bits(stb_vorbis, 6);
+                                                *(int*)(stb_vorbis + 312) = iVar13 + 1;
+                                                lVar25 = setup_malloc(stb_vorbis, (iVar13 + 1) * 32);
+                                                *(long*)(stb_vorbis + 448) = lVar25;
+                                                if (lVar25 != 0) {
+                                                    ___bzero(lVar25, (long)*(int*)(stb_vorbis + 312) << 5);
+                                                    if (0 < *(int*)(stb_vorbis + 312)) {
+                                                        local_430 = nullptr;
                                                         do {
-                                                            local_440 = *(uint**)(param_1 + 448);
-                                                            uVar10 = get_bits(param_1, 16);
-                                                            *(ushort*)(param_1 + (long)local_430 * 2 + 316) = uVar10;
+                                                            local_440 = *(unsigned int**)(stb_vorbis + 448);
+                                                            uVar10 = get_bits(stb_vorbis, 16);
+                                                            *(unsigned short*)(stb_vorbis + (long)local_430 * 2 + 316) =
+                                                                uVar10;
                                                             if (2 < uVar10)
                                                                 goto LAB_100b951c6;
-                                                            uVar23 = get_bits(param_1, 24);
+                                                            uVar24 = get_bits(stb_vorbis, 24);
                                                             puVar22 = local_430;
                                                             puVar20 = local_440;
                                                             uVar18 = (long)local_430 * 32;
-                                                            local_440[(long)local_430 * 8] = uVar23;
-                                                            uVar23 = get_bits(param_1, 24);
-                                                            puVar20[(long)puVar22 * 8 + 1] = uVar23;
-                                                            iVar13 = get_bits(param_1, 24);
-                                                            puVar20[(long)puVar22 * 8 + 2] = iVar13 + 1;
-                                                            cVar3 = get_bits(param_1, 6);
-                                                            puVar34 = puVar20 + (long)puVar22 * 8 + 3;
-                                                            *(byte*)(puVar20 + (long)puVar22 * 8 + 3) = cVar3 + 1;
-                                                            bVar4 = get_bits(param_1, 8);
-                                                            *(byte*)((long)puVar20 + uVar18 + 13) = bVar4;
+                                                            local_440[local_430 * 8] = uVar24;
+                                                            uVar24 = get_bits(stb_vorbis, 24);
+                                                            puVar20[puVar22 * 8 + 1] = uVar24;
+                                                            iVar13 = get_bits(stb_vorbis, 24);
+                                                            puVar20[puVar22 * 8 + 2] = iVar13 + 1;
+                                                            cVar3 = get_bits(stb_vorbis, 6);
+                                                            puVar33 = puVar20 + (long)puVar22 * 8 + 3;
+                                                            *(uint8_t*)(puVar20 + (long)puVar22 * 8 + 3) = cVar3 + 1;
+                                                            bVar4 = get_bits(stb_vorbis, 8);
+                                                            *(uint8_t*)((long)puVar20 + uVar18 + 13) = bVar4;
                                                             bVar4 = 0;
                                                             local_450 = uVar18;
-                                                            if ((byte)puVar20[(long)puVar22 * 8 + 3] != 0) {
+                                                            if ((uint8_t)puVar20[puVar22 * 8 + 3] != 0) {
                                                                 uVar18 = 0;
                                                                 do {
-                                                                    cVar3 = get_bits(param_1, 3);
-                                                                    iVar13 = get_bits(param_1, 1);
+                                                                    cVar3 = get_bits(stb_vorbis, 3);
+                                                                    iVar13 = get_bits(stb_vorbis, 1);
                                                                     if (iVar13 == 0) {
                                                                         cVar7 = '\0';
                                                                     } else {
-                                                                        cVar7 = get_bits(param_1, 5);
+                                                                        cVar7 = get_bits(stb_vorbis, 5);
                                                                     }
                                                                     abStack_426[uVar18 - 2] = cVar3 + cVar7 * '\b';
                                                                     uVar18 = uVar18 + 1;
-                                                                    bVar4 = (byte)*puVar34;
+                                                                    bVar4 = (uint8_t)*puVar33;
                                                                 } while (uVar18 < bVar4);
                                                             }
-                                                            lVar24 = setup_malloc(param_1, (uint)bVar4 << 4);
-                                                            *(long*)((long)local_440 + local_450 + 24) = lVar24;
-                                                            if (lVar24 == 0)
+                                                            lVar25 = setup_malloc(stb_vorbis, (unsigned int)bVar4 << 4);
+                                                            *(long*)((long)local_440 + local_450 + 24) = lVar25;
+                                                            if (lVar25 == 0)
                                                                 goto LAB_100b951d0;
-                                                            if ((byte)*puVar34 != 0) {
-                                                                local_448 = (uint*)((long)local_440 + local_450 + 24);
-                                                                lVar24 = 0;
-                                                                local_458 = (byte*)0;
+                                                            if ((uint8_t)*puVar33 != 0) {
+                                                                local_448 =
+                                                                    (unsigned int*)((long)local_440 + local_450 + 24);
+                                                                lVar25 = 0;
+                                                                local_458 = nullptr;
                                                                 do {
                                                                     bVar4 =
-                                                                        *(byte*)((long)&local_428 + (long)local_458);
-                                                                    lVar26 = 0;
+                                                                        *(uint8_t*)((long)&local_428 + (long)local_458);
+                                                                    lVar27 = 0;
                                                                     do {
-                                                                        if ((bVar4 >> ((uint)lVar26 & 31) & 1) == 0) {
-                                                                            *(undefined2*)(*(long*)local_448 + lVar24 +
-                                                                                           lVar26 * 2) = 65535;
+                                                                        if ((bVar4 >> ((unsigned int)lVar27 & 31) &
+                                                                             1) == 0) {
+                                                                            *(uint16_t*)(*(long*)local_448 + lVar25 +
+                                                                                         lVar27 * 2) = 65535;
                                                                         } else {
-                                                                            sVar11 = get_bits(param_1, 8);
-                                                                            *(short*)(*(long*)local_448 + lVar24 +
-                                                                                      lVar26 * 2) = sVar11;
-                                                                            if (*(int*)(param_1 + 152) <= (int)sVar11)
+                                                                            sVar11 = get_bits(stb_vorbis, 8);
+                                                                            *(short*)(*(long*)local_448 + lVar25 +
+                                                                                      lVar27 * 2) = sVar11;
+                                                                            if (*(int*)(stb_vorbis + 152) <=
+                                                                                (int)sVar11)
                                                                                 goto LAB_100b951c6;
                                                                         }
-                                                                        lVar26 = lVar26 + 1;
-                                                                    } while (lVar26 != 8);
+                                                                        lVar27 = lVar27 + 1;
+                                                                    } while (lVar27 != 8);
                                                                     local_458 = local_458 + 1;
-                                                                    lVar24 = lVar24 + 16;
-                                                                } while (local_458 < (byte*)(ulong)(byte)*puVar34);
+                                                                    lVar25 = lVar25 + 16;
+                                                                } while (local_458 <
+                                                                         (uint8_t*)(unsigned long)(uint8_t)*puVar33);
                                                             }
                                                             puVar20 = local_440;
                                                             uVar18 = local_450;
-                                                            local_458 = (byte*)((long)local_440 + local_450 + 13);
-                                                            lVar24 = setup_malloc(param_1,
-                                                                                  *(int*)(*(long*)(param_1 + 160) + 4 +
-                                                                                          (ulong)*local_458 * 2120)
-                                                                                      << 3);
-                                                            pbVar37 = local_458;
-                                                            *(long*)((long)puVar20 + uVar18 + 16) = lVar24;
-                                                            if (lVar24 == 0)
+                                                            local_458 = (uint8_t*)((long)local_440 + local_450 + 13);
+                                                            lVar25 = setup_malloc(
+                                                                stb_vorbis, *(int*)(*(long*)(stb_vorbis + 160) + 4 +
+                                                                                    (unsigned long)*local_458 * 2120)
+                                                                                << 3);
+                                                            pbVar35 = local_458;
+                                                            *(long*)((long)puVar20 + uVar18 + 16) = lVar25;
+                                                            if (lVar25 == 0)
                                                                 goto LAB_100b951d0;
-                                                            ___bzero(lVar24, (long)*(int*)(*(long*)(param_1 + 160) + 4 +
-                                                                                           (ulong)*local_458 * 2120)
-                                                                                 << 3);
-                                                            lVar24 = *(long*)(param_1 + 160);
-                                                            uVar18 = (ulong)*pbVar37;
-                                                            if (0 < *(int*)(lVar24 + 4 + uVar18 * 2120)) {
-                                                                pbVar37 = (byte*)((long)local_440 + local_450 + 16);
-                                                                lVar26 = 0;
+                                                            ___bzero(lVar25,
+                                                                     (long)*(int*)(*(long*)(stb_vorbis + 160) + 4 +
+                                                                                   (unsigned long)*local_458 * 2120)
+                                                                         << 3);
+                                                            lVar25 = *(long*)(stb_vorbis + 160);
+                                                            uVar18 = (unsigned long)*pbVar35;
+                                                            if (0 < *(int*)(lVar25 + 4 + uVar18 * 2120)) {
+                                                                pbVar35 = (uint8_t*)((long)local_440 + local_450 + 16);
+                                                                lVar27 = 0;
                                                                 do {
-                                                                    iVar13 = *(int*)(lVar24 + uVar18 * 2120);
-                                                                    uVar32 = setup_malloc(param_1, iVar13);
-                                                                    *(undefined8*)(*(long*)pbVar37 + lVar26 * 8) =
-                                                                        uVar32;
-                                                                    local_448 = *(uint**)(*(long*)pbVar37 + lVar26 * 8);
-                                                                    if (local_448 == (uint*)0) {
-                                                                        error(param_1, 3);
+                                                                    iVar13 = *(int*)(lVar25 + uVar18 * 2120);
+                                                                    uVar23 = setup_malloc(stb_vorbis, iVar13);
+                                                                    *(uint64_t*)(*(long*)pbVar35 + lVar27 * 8) = uVar23;
+                                                                    local_448 =
+                                                                        *(unsigned int**)(*(long*)pbVar35 + lVar27 * 8);
+                                                                    if (local_448 == nullptr) {
+                                                                        error(stb_vorbis, 3);
                                                                     } else if (0 < iVar13) {
                                                                         lVar31 = (long)iVar13 + 1;
-                                                                        lVar24 = lVar26;
+                                                                        lVar25 = lVar27;
                                                                         do {
-                                                                            *(char*)(*(long*)(*(long*)pbVar37 +
-                                                                                              lVar26 * 8) +
-                                                                                     -2 + lVar31) =
-                                                                                (char)((int)lVar24 %
-                                                                                       (int)(uint)(byte)*puVar34);
-                                                                            lVar24 = (long)(int)lVar24 /
-                                                                                     (long)(int)(uint)(byte)*puVar34;
-                                                                            lVar31 = lVar31 + -1;
+                                                                            *(char*)(*(long*)(*(long*)pbVar35 +
+                                                                                              lVar27 * 8) -
+                                                                                     2 + lVar31) =
+                                                                                (char)((int)lVar25 %
+                                                                                       (int)(unsigned int)(uint8_t)*puVar33);
+                                                                            lVar25 =
+                                                                                (long)(int)lVar25 /
+                                                                                (long)(int)(unsigned int)(uint8_t)*puVar33;
+                                                                            lVar31 = lVar31 - 1;
                                                                         } while (1 < lVar31);
                                                                     }
-                                                                    if (local_448 == (uint*)0)
+                                                                    if (local_448 == nullptr)
                                                                         goto LAB_100b94f0c;
-                                                                    lVar26 = lVar26 + 1;
-                                                                    lVar24 = *(long*)(param_1 + 160);
-                                                                    uVar18 = (ulong)*local_458;
-                                                                } while (lVar26 < *(int*)(lVar24 + 4 + uVar18 * 2120));
+                                                                    lVar27 = lVar27 + 1;
+                                                                    lVar25 = *(long*)(stb_vorbis + 160);
+                                                                    uVar18 = (unsigned long)*local_458;
+                                                                } while (lVar27 < *(int*)(lVar25 + 4 + uVar18 * 2120));
                                                             }
-                                                            local_430 = (uint*)((long)local_430 + 1);
-                                                        } while ((long)local_430 < (long)*(int*)(param_1 + 312));
+                                                            local_430 = (unsigned int*)((long)local_430 + 1);
+                                                        } while ((long)local_430 < (long)*(int*)(stb_vorbis + 312));
                                                     }
-                                                    iVar13 = get_bits(param_1, 6);
-                                                    *(int*)(param_1 + 456) = iVar13 + 1;
-                                                    lVar24 = setup_malloc(param_1, (iVar13 + 1) * 48);
-                                                    *(long*)(param_1 + 464) = lVar24;
-                                                    if (lVar24 != 0) {
-                                                        ___bzero(lVar24, (long)*(int*)(param_1 + 456) * 48);
-                                                        if (0 < *(int*)(param_1 + 456)) {
-                                                            lVar24 = 0;
+                                                    iVar13 = get_bits(stb_vorbis, 6);
+                                                    *(int*)(stb_vorbis + 456) = iVar13 + 1;
+                                                    lVar25 = setup_malloc(stb_vorbis, (iVar13 + 1) * 48);
+                                                    *(long*)(stb_vorbis + 464) = lVar25;
+                                                    if (lVar25 != 0) {
+                                                        ___bzero(lVar25, (long)*(int*)(stb_vorbis + 456) * 48);
+                                                        if (0 < *(int*)(stb_vorbis + 456)) {
+                                                            lVar25 = 0;
                                                             do {
-                                                                local_458 = *(byte**)(param_1 + 464);
-                                                                iVar13 = get_bits(param_1, 16);
-                                                                local_448 = (uint*)CONCAT44(local_448._4_4_, 20);
+                                                                local_458 = *(uint8_t**)(stb_vorbis + 464);
+                                                                iVar13 = get_bits(stb_vorbis, 16);
+                                                                local_448 =
+                                                                    (unsigned int*)(((uint64_t)local_448._4_4_ << 32) |
+                                                                                    (uint32_t)20);
                                                                 if (iVar13 == 0) {
-                                                                    uVar18 = lVar24 * 48;
-                                                                    lVar26 =
-                                                                        setup_malloc(param_1, *(int*)(param_1 + 4) * 3);
-                                                                    *(long*)(local_458 + uVar18 + 8) = lVar26;
+                                                                    uVar18 = lVar25 * 48;
+                                                                    lVar27 = setup_malloc(stb_vorbis,
+                                                                                          *(int*)(stb_vorbis + 4) * 3);
+                                                                    *(long*)(local_458 + uVar18 + 8) = lVar27;
                                                                     local_450 = uVar18;
-                                                                    if (lVar26 == 0) {
-                                                                        local_448 = (uint*)CONCAT44(local_448._4_4_, 3);
+                                                                    if (lVar27 == 0) {
+                                                                        local_448 =
+                                                                            (unsigned int*)(((uint64_t)local_448._4_4_
+                                                                                             << 32) |
+                                                                                            (uint32_t)3);
                                                                         goto LAB_100b94c49;
                                                                     }
-                                                                    iVar13 = get_bits(param_1, 1);
+                                                                    iVar13 = get_bits(stb_vorbis, 1);
                                                                     if (iVar13 == 0) {
                                                                         bVar4 = 1;
                                                                     } else {
-                                                                        cVar3 = get_bits(param_1, 4);
+                                                                        cVar3 = get_bits(stb_vorbis, 4);
                                                                         bVar4 = cVar3 + 1;
                                                                     }
-                                                                    local_430 = (uint*)(local_458 + local_450);
-                                                                    local_440 = (uint*)(local_458 + local_450 + 8);
+                                                                    local_430 = (unsigned int*)(local_458 + local_450);
+                                                                    local_440 =
+                                                                        (unsigned int*)(local_458 + local_450 + 8);
                                                                     local_458[local_450 + 16] = bVar4;
-                                                                    iVar13 = get_bits(param_1, 1);
+                                                                    iVar13 = get_bits(stb_vorbis, 1);
                                                                     if (iVar13 == 0) {
-                                                                        *(ushort*)local_430 = 0;
+                                                                        *(unsigned short*)local_430 = 0;
                                                                     } else {
-                                                                        sVar11 = get_bits(param_1, 8);
-                                                                        *(ushort*)local_430 = sVar11 + 1U;
-                                                                        if ((ushort)(sVar11 + 1U) != 0) {
-                                                                            lVar26 = 0;
+                                                                        sVar11 = get_bits(stb_vorbis, 8);
+                                                                        *(unsigned short*)local_430 = sVar11 + 1U;
+                                                                        if ((unsigned short)(sVar11 + 1U) != 0) {
+                                                                            lVar27 = 0;
                                                                             uVar18 = 0;
                                                                             do {
                                                                                 iVar13 =
-                                                                                    ilog(*(int*)(param_1 + 4) + -1);
-                                                                                uVar8 = get_bits(param_1, iVar13);
+                                                                                    ilog(*(int*)(stb_vorbis + 4) - 1);
+                                                                                uVar8 = get_bits(stb_vorbis, iVar13);
                                                                                 puVar20 = local_440;
-                                                                                *(undefined1*)(*(long*)local_440 +
-                                                                                               lVar26) = uVar8;
+                                                                                *(uint8_t*)(*(long*)local_440 +
+                                                                                            lVar27) = uVar8;
                                                                                 iVar13 =
-                                                                                    ilog(*(int*)(param_1 + 4) + -1);
-                                                                                bVar5 = get_bits(param_1, iVar13);
+                                                                                    ilog(*(int*)(stb_vorbis + 4) - 1);
+                                                                                bVar5 = get_bits(stb_vorbis, iVar13);
                                                                                 lVar31 = *(long*)puVar20;
-                                                                                *(byte*)(lVar31 + 1 + lVar26) = bVar5;
-                                                                                bVar4 = *(byte*)(lVar31 + lVar26);
-                                                                                if (((*(int*)(param_1 + 4) <=
-                                                                                      (int)(uint)bVar4) ||
-                                                                                     (*(int*)(param_1 + 4) <=
-                                                                                      (int)(uint)bVar5)) ||
+                                                                                *(uint8_t*)(lVar31 + 1 + lVar27) =
+                                                                                    bVar5;
+                                                                                bVar4 = *(uint8_t*)(lVar31 + lVar27);
+                                                                                if (((*(int*)(stb_vorbis + 4) <=
+                                                                                      (int)(unsigned int)bVar4) ||
+                                                                                     (*(int*)(stb_vorbis + 4) <=
+                                                                                      (int)(unsigned int)bVar5)) ||
                                                                                     (bVar4 == bVar5))
                                                                                     goto LAB_100b94c49;
                                                                                 uVar18 = uVar18 + 1;
-                                                                                lVar26 = lVar26 + 3;
-                                                                            } while (uVar18 < (ushort)*local_430);
+                                                                                lVar27 = lVar27 + 3;
+                                                                            } while (uVar18 <
+                                                                                     (unsigned short)*local_430);
                                                                         }
                                                                     }
-                                                                    iVar13 = get_bits(param_1, 2);
+                                                                    iVar13 = get_bits(stb_vorbis, 2);
                                                                     if (iVar13 != 0)
                                                                         goto LAB_100b94c49;
-                                                                    local_430 = (uint*)(local_458 + local_450 + 16);
-                                                                    uVar23 = *(uint*)(param_1 + 4);
-                                                                    if ((byte)*local_430 < 2) {
-                                                                        if (0 < (int)uVar23) {
-                                                                            lVar26 = *(long*)local_440;
+                                                                    local_430 =
+                                                                        (unsigned int*)(local_458 + local_450 + 16);
+                                                                    uVar24 = *(unsigned int*)(stb_vorbis + 4);
+                                                                    if ((uint8_t)*local_430 < 2) {
+                                                                        if (0 < (int)uVar24) {
+                                                                            lVar27 = *(long*)local_440;
                                                                             lVar31 = 0;
                                                                             do {
-                                                                                *(undefined1*)(lVar26 + 2 + lVar31) = 0;
+                                                                                *(uint8_t*)(lVar27 + 2 + lVar31) = 0;
                                                                                 lVar31 = lVar31 + 3;
-                                                                            } while ((ulong)uVar23 * 3 != lVar31);
+                                                                            } while ((unsigned long)uVar24 * 3 !=
+                                                                                     lVar31);
                                                                         }
-                                                                    } else if (0 < (int)uVar23) {
+                                                                    } else if (0 < (int)uVar24) {
                                                                         lVar31 = 2;
-                                                                        lVar26 = 0;
+                                                                        lVar27 = 0;
                                                                         do {
-                                                                            bVar4 = get_bits(param_1, 4);
-                                                                            *(byte*)(*(long*)local_440 + lVar31) =
+                                                                            bVar4 = get_bits(stb_vorbis, 4);
+                                                                            *(uint8_t*)(*(long*)local_440 + lVar31) =
                                                                                 bVar4;
-                                                                            if ((byte)*local_430 <= bVar4)
+                                                                            if ((uint8_t)*local_430 <= bVar4)
                                                                                 goto LAB_100b94c49;
-                                                                            lVar26 = lVar26 + 1;
+                                                                            lVar27 = lVar27 + 1;
                                                                             lVar31 = lVar31 + 3;
-                                                                        } while (lVar26 < *(int*)(param_1 + 4));
+                                                                        } while (lVar27 < *(int*)(stb_vorbis + 4));
                                                                     }
                                                                     uVar18 = local_450;
-                                                                    pbVar37 = local_458;
+                                                                    pbVar35 = local_458;
                                                                     bVar2 = true;
-                                                                    if ((byte)*local_430 != 0) {
-                                                                        lVar26 = local_450 + 17;
-                                                                        uVar27 = 0;
+                                                                    if ((uint8_t)*local_430 != 0) {
+                                                                        lVar27 = local_450 + 17;
+                                                                        uVar28 = 0;
                                                                         do {
-                                                                            get_bits(param_1, 8);
-                                                                            bVar4 = get_bits(param_1, 8);
-                                                                            pbVar37[uVar27 + lVar26] = bVar4;
-                                                                            bVar4 = get_bits(param_1, 8);
-                                                                            pbVar37[uVar27 + uVar18 + 32] = bVar4;
-                                                                            if ((*(int*)(param_1 + 168) <=
-                                                                                 (int)(uint)pbVar37[uVar27 + lVar26]) ||
-                                                                                (*(int*)(param_1 + 312) <=
-                                                                                 (int)(uint)bVar4))
+                                                                            get_bits(stb_vorbis, 8);
+                                                                            bVar4 = get_bits(stb_vorbis, 8);
+                                                                            pbVar35[uVar28 + lVar27] = bVar4;
+                                                                            bVar4 = get_bits(stb_vorbis, 8);
+                                                                            pbVar35[uVar28 + uVar18 + 32] = bVar4;
+                                                                            if ((*(int*)(stb_vorbis + 168) <=
+                                                                                 (int)(unsigned int)
+                                                                                     pbVar35[uVar28 + lVar27]) ||
+                                                                                (*(int*)(stb_vorbis + 312) <=
+                                                                                 (int)(unsigned int)bVar4))
                                                                                 goto LAB_100b94c49;
-                                                                            uVar27 = uVar27 + 1;
-                                                                        } while (uVar27 < (byte)*local_430);
+                                                                            uVar28 = uVar28 + 1;
+                                                                        } while (uVar28 < (uint8_t)*local_430);
                                                                     }
                                                                 } else {
                                                                 LAB_100b94c49:
-                                                                    error(param_1, (ulong)local_448 & 4294967295);
+                                                                    error(stb_vorbis, (STBVorbisError)local_448);
                                                                     bVar2 = false;
                                                                 }
                                                                 if (!bVar2)
                                                                     goto LAB_100b94f0c;
-                                                                lVar24 = lVar24 + 1;
-                                                            } while (lVar24 < *(int*)(param_1 + 456));
+                                                                lVar25 = lVar25 + 1;
+                                                            } while (lVar25 < *(int*)(stb_vorbis + 456));
                                                         }
-                                                        uVar23 = get_bits(param_1, 6);
-                                                        *(uint*)(param_1 + 472) = uVar23 + 1;
-                                                        if (uVar23 < 2147483647) {
-                                                            psVar28 = param_1 + 480;
-                                                            lVar24 = 0;
+                                                        uVar24 = get_bits(stb_vorbis, 6);
+                                                        *(unsigned int*)(stb_vorbis + 472) = uVar24 + 1;
+                                                        if (uVar24 < 2147483647) {
+                                                            psVar29 = stb_vorbis + 480;
+                                                            lVar25 = 0;
                                                             do {
-                                                                sVar9 = (stb_vorbis)get_bits(param_1, 1);
-                                                                psVar28[-4] = sVar9;
-                                                                sVar11 = get_bits(param_1, 16);
-                                                                *(short*)(psVar28 + -2) = sVar11;
-                                                                sVar11 = get_bits(param_1, 16);
-                                                                *(short*)psVar28 = sVar11;
-                                                                sVar9 = (stb_vorbis)get_bits(param_1, 8);
-                                                                psVar28[-3] = sVar9;
-                                                                if (((*(short*)(psVar28 + -2) != 0) ||
-                                                                     (*(short*)psVar28 != 0)) ||
-                                                                    (*(int*)(param_1 + 456) <= (int)(uint)(byte)sVar9))
+                                                                sVar9 = (stb_vorbis)get_bits(stb_vorbis, 1);
+                                                                psVar29[-4] = sVar9;
+                                                                sVar11 = get_bits(stb_vorbis, 16);
+                                                                *(short*)(psVar29 - 2) = sVar11;
+                                                                sVar11 = get_bits(stb_vorbis, 16);
+                                                                *(short*)psVar29 = sVar11;
+                                                                sVar9 = (stb_vorbis)get_bits(stb_vorbis, 8);
+                                                                psVar29[-3] = sVar9;
+                                                                if (((*(short*)(psVar29 - 2) != 0) ||
+                                                                     (*(short*)psVar29 != 0)) ||
+                                                                    (*(int*)(stb_vorbis + 456) <=
+                                                                     (int)(unsigned int)(uint8_t)sVar9))
                                                                     goto LAB_100b951c6;
-                                                                lVar24 = lVar24 + 1;
-                                                                psVar28 = psVar28 + 6;
-                                                            } while (lVar24 < *(int*)(param_1 + 472));
+                                                                lVar25 = lVar25 + 1;
+                                                                psVar29 = psVar29 + 6;
+                                                            } while (lVar25 < *(int*)(stb_vorbis + 472));
                                                         }
-                                                        flush_packet(param_1);
-                                                        *(undefined4*)(param_1 + 1248) = 0;
-                                                        if (0 < *(int*)(param_1 + 4)) {
-                                                            local_468 = (Codebook*)CONCAT44(local_468._4_4_,
-                                                                                            (uint)local_468 * 2);
-                                                            lVar24 = 0;
+                                                        flush_packet(stb_vorbis);
+                                                        *(uint32_t*)(stb_vorbis + 1248) = 0;
+                                                        if (0 < *(int*)(stb_vorbis + 4)) {
+                                                            local_468 =
+                                                                (Codebook*)(((uint64_t)local_468._4_4_ << 32) |
+                                                                            (uint32_t)((unsigned int)local_468 * 2));
+                                                            lVar25 = 0;
                                                             do {
-                                                                uVar32 =
-                                                                    setup_malloc(param_1, *(int*)(param_1 + 148) << 2);
-                                                                *(undefined8*)(param_1 + lVar24 * 8 + 864) = uVar32;
-                                                                uVar32 =
-                                                                    setup_malloc(param_1, *(int*)(param_1 + 148) * 2);
-                                                                *(undefined8*)(param_1 + lVar24 * 8 + 1120) = uVar32;
-                                                                lVar26 = setup_malloc(param_1, (uint)local_468);
-                                                                *(long*)(param_1 + lVar24 * 8 + 1256) = lVar26;
-                                                                if (((*(long*)(param_1 + lVar24 * 8 + 864) == 0) ||
-                                                                     (*(long*)(param_1 + lVar24 * 8 + 1120) == 0)) ||
-                                                                    (lVar26 == 0))
+                                                                uVar23 = setup_malloc(stb_vorbis,
+                                                                                      *(int*)(stb_vorbis + 148) << 2);
+                                                                *(uint64_t*)(stb_vorbis + lVar25 * 8 + 864) = uVar23;
+                                                                uVar23 = setup_malloc(stb_vorbis,
+                                                                                      *(int*)(stb_vorbis + 148) * 2);
+                                                                *(uint64_t*)(stb_vorbis + lVar25 * 8 + 1120) = uVar23;
+                                                                lVar27 =
+                                                                    setup_malloc(stb_vorbis, (unsigned int)local_468);
+                                                                *(long*)(stb_vorbis + lVar25 * 8 + 1256) = lVar27;
+                                                                if (((*(long*)(stb_vorbis + lVar25 * 8 + 864) == 0) ||
+                                                                     (*(long*)(stb_vorbis + lVar25 * 8 + 1120) == 0)) ||
+                                                                    (lVar27 == 0))
                                                                     goto LAB_100b951d0;
-                                                                lVar24 = lVar24 + 1;
-                                                            } while (lVar24 < *(int*)(param_1 + 4));
+                                                                lVar25 = lVar25 + 1;
+                                                            } while (lVar25 < *(int*)(stb_vorbis + 4));
                                                         }
-                                                        uVar32 = 0;
-                                                        iVar13 = init_blocksize(param_1, 0, *(int*)(param_1 + 144));
-                                                        if ((iVar13 == 0) || (iVar13 = init_blocksize(
-                                                                                  param_1, 1, *(int*)(param_1 + 148)),
-                                                                              iVar13 == 0))
+                                                        uVar23 = 0;
+                                                        iVar13 =
+                                                            init_blocksize(stb_vorbis, 0, *(int*)(stb_vorbis + 144));
+                                                        if ((iVar13 == 0) ||
+                                                            (iVar13 = init_blocksize(stb_vorbis, 1,
+                                                                                     *(int*)(stb_vorbis + 148)),
+                                                             iVar13 == 0))
                                                             goto LAB_100b935f5;
-                                                        *(undefined4*)(param_1 + 136) = *(undefined4*)(param_1 + 144);
-                                                        *(int*)(param_1 + 140) = *(int*)(param_1 + 148);
-                                                        uVar23 = *(int*)(param_1 + 148) * 2;
-                                                        if ((int)*(uint*)(param_1 + 312) < 1) {
+                                                        *(uint32_t*)(stb_vorbis + 136) = *(uint32_t*)(stb_vorbis + 144);
+                                                        *(int*)(stb_vorbis + 140) = *(int*)(stb_vorbis + 148);
+                                                        uVar24 = *(int*)(stb_vorbis + 148) * 2;
+                                                        if ((int)*(unsigned int*)(stb_vorbis + 312) < 1) {
                                                             iVar13 = 8;
                                                         } else {
-                                                            lVar24 = *(long*)(param_1 + 448);
-                                                            lVar26 = 0;
+                                                            lVar25 = *(long*)(stb_vorbis + 448);
+                                                            lVar27 = 0;
                                                             uVar14 = 0;
                                                             do {
-                                                                uVar16 = (uint)(*(int*)(lVar24 + 4 + lVar26) -
-                                                                                *(int*)(lVar24 + lVar26)) /
-                                                                         *(uint*)(lVar24 + 8 + lVar26);
+                                                                uVar16 = (unsigned int)(*(int*)(lVar25 + 4 + lVar27) -
+                                                                                        *(int*)(lVar25 + lVar27)) /
+                                                                         *(unsigned int*)(lVar25 + 8 + lVar27);
                                                                 if ((int)uVar14 < (int)uVar16) {
                                                                     uVar14 = uVar16;
                                                                 }
-                                                                lVar26 = lVar26 + 32;
-                                                            } while ((ulong) * (uint*)(param_1 + 312) * 32 != lVar26);
+                                                                lVar27 = lVar27 + 32;
+                                                            } while ((unsigned long)*(unsigned int*)(stb_vorbis + 312) *
+                                                                         32 !=
+                                                                     lVar27);
                                                             iVar13 = uVar14 * 8 + 8;
                                                         }
-                                                        uVar14 = iVar13 * *(int*)(param_1 + 4);
-                                                        if ((uint)(iVar13 * *(int*)(param_1 + 4)) < uVar23) {
-                                                            uVar14 = uVar23;
+                                                        uVar14 = iVar13 * *(int*)(stb_vorbis + 4);
+                                                        if ((unsigned int)(iVar13 * *(int*)(stb_vorbis + 4)) < uVar24) {
+                                                            uVar14 = uVar24;
                                                         }
-                                                        *(uint*)(param_1 + 12) = uVar14;
-                                                        param_1[1741] = (stb_vorbis)1;
-                                                        if (*(long*)(param_1 + 104) != 0) {
-                                                            if (*(int*)(param_1 + 124) != *(int*)(param_1 + 112)) {
-                                                                /* WARNING: Subroutine does not return */
+                                                        *(unsigned int*)(stb_vorbis + 12) = uVar14;
+                                                        stb_vorbis[1741] = (stb_vorbis)1;
+                                                        if (*(long*)(stb_vorbis + 104) != 0) {
+                                                            if (*(int*)(stb_vorbis + 124) !=
+                                                                *(int*)(stb_vorbis + 112)) {
                                                                 LogAssert("f->temp_offset == "
                                                                           "f->alloc.alloc_buffer_length_in_bytes",
                                                                           "/Users/bamboo/bamboo-home-01/xml-data/"
                                                                           "build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                                                                           "workers/vorbis_std.code",
-                                                                          3839, (char*)0);
+                                                                          3839, nullptr);
                                                             }
-                                                            if ((ulong) * (uint*)(param_1 + 124) <
-                                                                (long)*(int*)(param_1 + 120) +
-                                                                    (ulong) * (uint*)(param_1 + 12) + 1880) {
-                                                                uVar29 = 3;
+                                                            if ((unsigned long)*(unsigned int*)(stb_vorbis + 124) <
+                                                                (long)*(int*)(stb_vorbis + 120) +
+                                                                    (unsigned long)*(unsigned int*)(stb_vorbis + 12) +
+                                                                    1880) {
+                                                                SVar30 = 3;
                                                                 goto LAB_100b935f0;
                                                             }
                                                         }
-                                                        uVar17 = _stb_vorbis_get_file_offset(param_1);
-                                                        *(undefined4*)(param_1 + 72) = uVar17;
-                                                        uVar32 = 1;
+                                                        uVar17 = _stb_vorbis_get_file_offset(stb_vorbis);
+                                                        *(uint32_t*)(stb_vorbis + 72) = uVar17;
+                                                        uVar23 = 1;
                                                         goto LAB_100b935f5;
                                                     }
                                                 }
                                             }
                                         }
                                     LAB_100b951d0:
-                                        uVar32 = 3;
+                                        SVar30 = 3;
                                     }
                                 LAB_100b951d8:
-                                    error(param_1, uVar32);
-                                    uVar32 = 0;
+                                    error(stb_vorbis, SVar30);
+                                    uVar23 = 0;
                                     goto LAB_100b935f5;
                                 }
                             }
-                            uVar29 = 20;
+                            SVar30 = 20;
                             goto LAB_100b935f0;
                         }
                     }
                 }
                 goto LAB_100b935e8;
             }
-            uVar29 = 10;
+            SVar30 = 10;
         }
     LAB_100b935f0:
-        uVar32 = 0;
-        error(param_1, uVar29);
+        uVar23 = 0;
+        error(stb_vorbis, SVar30);
     LAB_100b935f5:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar32;
+        return uVar23;
     code_r0x000100b947c0:
         local_450 = local_450 + 1;
-        if ((long)*(int*)(param_1 + 168) <= (long)local_450)
+        if ((long)*(int*)(stb_vorbis + 168) <= (long)local_450)
             goto LAB_100b947f1;
         goto LAB_100b9437d;
     LAB_100b94f0c:
-        uVar32 = 0;
+        uVar23 = 0;
         goto LAB_100b935f5;
     }
 
-    // 0x100b95270, 16 bytes, placed by debug map only (low confidence)
-    // vorbis_alloc(stb_vorbis*)
-    void vorbis_alloc(stb_vorbis* param_1) {
-        setup_malloc((stb_vorbis*)this, 1880);
+    // 0x100b95270
+    void vorbis_alloc(stb_vorbis* stb_vorbis) {
+        setup_malloc(stb_vorbis, 1880);
     }
 
-    // 0x100b95450, 1152 bytes, placed by debug map only (low confidence)
-    // seek_to_sample_coarse(stb_vorbis*, unsigned int)
-    undefined8 seek_to_sample_coarse(stb_vorbis* param_1, uint param_2) {
-        uint uVar1;
+    // 0x100b95450
+    void seek_to_sample_coarse(stb_vorbis* stb_vorbis, unsigned int arg2) {
         int iVar2;
-        ulong uVar3;
-        uint* puVar4;
-        uint uVar5;
-        ulong uVar6;
-        uint uVar7;
-        undefined8 uVar8;
-        stb_vorbis* psVar9;
-        uint uVar10;
-        double dVar11;
-        double dVar12;
+        unsigned long uVar3;
+        unsigned int uVar4;
+        unsigned long uVar5;
+        STBVorbisError stbVorbisError;
+        unsigned int uVar6;
+        double dVar8;
+        double dVar9;
         double local_70;
         double local_68;
-        uint local_5c;
-        uint local_54;
-        undefined8 local_50;
-        uint local_48;
-        uint local_40;
-        uint uStack_3c;
-        uint local_38;
+        unsigned int local_5c;
+        unsigned int local_54;
+        unsigned int local_40;
+        unsigned int uStack_3c;
+        unsigned int local_38;
 
-        uVar1 = _stb_vorbis_stream_length_in_samples();
+        unsigned int uVar1 = _stb_vorbis_stream_length_in_samples();
         if (uVar1 == 0) {
-            uVar8 = 7;
+            stbVorbisError = 7;
             goto LAB_100b954f2;
         }
-        if (uVar1 < param_2) {
-            uVar8 = 11;
+        if (uVar1 < arg2) {
+            stbVorbisError = 11;
             goto LAB_100b954f2;
         }
-        uVar1 = *(int*)(param_1 + 148) - *(int*)(param_1 + 144) >> 2;
-        puVar4 = (uint*)0;
-        uVar10 = param_2 - uVar1;
-        if (param_2 < uVar1) {
-            uVar10 = 0;
+        uVar1 = *(int*)(stb_vorbis + 148) - *(int*)(stb_vorbis + 144) >> 2;
+        unsigned int uVar7 = arg2 - uVar1;
+        if (arg2 < uVar1) {
+            uVar7 = 0;
         }
-        local_48 = *(uint*)(param_1 + 84);
-        local_50 = *(ulong*)(param_1 + 76);
+        unsigned int local_48 = *(unsigned int*)(stb_vorbis + 84);
+        uint64_t local_50 = *(unsigned long*)(stb_vorbis + 76);
         do {
             if (local_48 != 4294967295) {
-                uVar1 = *(uint*)(param_1 + 88);
-                local_54 = *(uint*)(param_1 + 92);
-                local_5c = *(uint*)(param_1 + 96);
+                uVar1 = *(unsigned int*)(stb_vorbis + 88);
+                local_54 = *(unsigned int*)(stb_vorbis + 92);
+                local_5c = *(unsigned int*)(stb_vorbis + 96);
                 if (local_5c == 4294967295) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("right.last_decoded_sample != ~0U",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                               "vorbis_std.code",
-                              4355, (char*)0);
+                              4355, nullptr);
                 }
-                if (uVar10 <= local_48) {
-                    _stb_vorbis_seek_start(param_1);
+                if (uVar7 <= local_48) {
+                    _stb_vorbis_seek_start(stb_vorbis);
                     return 1;
                 }
                 if (uVar1 == local_50._4_4_)
                     goto LAB_100b9553a;
-                uVar7 = 0;
+                uVar6 = 0;
                 goto LAB_100b95627;
             }
-            set_file_offset(param_1, local_50._4_4_);
-            iVar2 = get_seek_page_info(param_1, (ProbedPage*)&local_50);
+            set_file_offset(stb_vorbis, local_50._4_4_);
+            iVar2 = get_seek_page_info(stb_vorbis, (ProbedPage*)&local_50);
         } while (iVar2 != 0);
     LAB_100b954e2:
-        _stb_vorbis_seek_start(param_1);
+        _stb_vorbis_seek_start(stb_vorbis);
         goto LAB_100b954ea;
         while (true) {
-            if (uVar10 < local_38) {
+            if (uVar7 < local_38) {
                 local_54 = uStack_3c;
                 local_5c = local_38;
                 uVar1 = local_40;
             } else {
                 local_48 = local_38;
-                local_50 = CONCAT44(uStack_3c, local_40);
+                local_50 = (((uint64_t)uStack_3c << 32) | (uint32_t)local_40);
             }
-            uVar7 = uVar7 + 1;
+            uVar6 = uVar6 + 1;
             if (uVar1 == local_50._4_4_)
                 break;
         LAB_100b95627:
-            uVar5 = uVar1 - local_50._4_4_;
-            if (uVar1 < local_50._4_4_ || uVar5 == 0) {
-                /* WARNING: Subroutine does not return */
+            uVar4 = uVar1 - local_50._4_4_;
+            if (uVar1 < local_50._4_4_ || uVar4 == 0) {
                 LogAssert("left.page_end < right.page_start",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                           "vorbis_std.code",
-                          4364, (char*)0);
+                          4364, nullptr);
             }
-            if (uVar5 < 65537) {
-                set_file_offset(param_1, local_50._4_4_);
+            if (uVar4 < 65537) {
+                set_file_offset(stb_vorbis, local_50._4_4_);
             } else {
-                if (uVar7 < 2) {
-                    if (uVar7 == 0) {
-                        puVar4 = (uint*)(ulong)local_5c;
-                        local_68 = (double)(local_54 - (uint)local_50) / (double)(long)puVar4;
-                        dVar11 = (double)(uVar10 - local_48) * local_68 + (double)(local_50 & 4294967295);
+                if (uVar6 < 2) {
+                    if (uVar6 == 0) {
+                        local_68 = (double)(local_54 - (unsigned int)local_50) / (double)local_5c;
+                        dVar8 = (double)(uVar7 - local_48) * local_68 + (double)(local_50 & 4294967295);
                     } else {
-                        dVar12 = ((double)uVar10 - (double)local_38) * local_68;
-                        dVar11 = dVar12;
-                        if (dVar12 <= 8000.0) {
-                            dVar11 = 8000.0;
+                        dVar9 = ((double)uVar7 - (double)local_38) * local_68;
+                        dVar8 = dVar9;
+                        if (dVar9 <= 8000.0) {
+                            dVar8 = 8000.0;
                         }
-                        dVar11 = (double)(~-(ulong)(0.0 <= dVar12) & (ulong)dVar12 |
-                                          (ulong)dVar11 & -(ulong)(0.0 <= dVar12));
-                        dVar11 = (double)((-(ulong)(-8000.0 < dVar11) & 13893393744205447168 |
-                                           ~-(ulong)(-8000.0 < dVar11) & (ulong)(dVar11 + dVar11)) &
-                                              -(ulong)(dVar11 < 0.0) |
-                                          ~-(ulong)(dVar11 < 0.0) & (ulong)(dVar11 + dVar11)) +
-                                 local_70;
+                        dVar8 = (double)(~-(unsigned long)(0.0 <= dVar9) & (unsigned long)dVar9 |
+                                         (unsigned long)dVar8 & -(unsigned long)(0.0 <= dVar9));
+                        dVar8 = (double)((-(unsigned long)(-8000.0 < dVar8) & 13893393744205447168 |
+                                          ~-(unsigned long)(-8000.0 < dVar8) & (unsigned long)(dVar8 + dVar8)) &
+                                             -(unsigned long)(dVar8 < 0.0) |
+                                         ~-(unsigned long)(dVar8 < 0.0) & (unsigned long)(dVar8 + dVar8)) +
+                                local_70;
                     }
-                    dVar12 = (double)local_50._4_4_;
-                    if ((double)local_50._4_4_ <= dVar11) {
-                        dVar12 = dVar11;
+                    dVar9 = (double)local_50._4_4_;
+                    if ((double)local_50._4_4_ <= dVar8) {
+                        dVar9 = dVar8;
                     }
                     local_70 = (double)(uVar1 - 65536);
-                    if (dVar12 <= (double)(uVar1 - 65536)) {
-                        local_70 = dVar12;
+                    if (dVar9 <= (double)(uVar1 - 65536)) {
+                        local_70 = dVar9;
                     }
-                    uVar5 = (uint)(long)local_70;
+                    uVar4 = (unsigned int)(long)local_70;
                 } else {
-                    uVar5 = (local_50._4_4_ + (uVar5 >> 1)) - 32768;
+                    uVar4 = (local_50._4_4_ + (uVar4 >> 1)) - 32768;
                 }
-                set_file_offset(param_1, uVar5);
-                iVar2 = vorbis_find_page((vorbis*)param_1, (stb_vorbis*)0, (uint*)0, puVar4);
+                set_file_offset(stb_vorbis, uVar4);
+                iVar2 = vorbis_find_page(stb_vorbis, nullptr, nullptr);
                 if (iVar2 == 0)
                     goto LAB_100b954e2;
             }
             while (true) {
-                iVar2 = get_seek_page_info(param_1, (ProbedPage*)&local_40);
+                iVar2 = get_seek_page_info(stb_vorbis, (ProbedPage*)&local_40);
                 if (iVar2 == 0)
                     goto LAB_100b954e2;
-                puVar4 = (uint*)(ulong)local_38;
                 if (local_38 != 4294967295)
                     break;
-                set_file_offset(param_1, uStack_3c);
+                set_file_offset(stb_vorbis, uStack_3c);
                 if (uVar1 <= local_40) {
-                    /* WARNING: Subroutine does not return */
                     LogAssert("mid.page_start < right.page_start",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                               "vorbis_std.code",
-                              4409, (char*)0);
+                              4409, nullptr);
                 }
             }
             if (local_40 == uVar1)
                 break;
         }
     LAB_100b9553a:
-        uVar1 = (uint)local_50;
-        psVar9 = (stb_vorbis*)(local_50 & 4294967295);
-        set_file_offset(param_1, (uint)local_50);
-        iVar2 = start_page(param_1);
+        uVar1 = (unsigned int)local_50;
+        set_file_offset(stb_vorbis, (unsigned int)local_50);
+        iVar2 = start_page(stb_vorbis);
         if (iVar2 != 0) {
-            uVar10 = *(uint*)(param_1 + 1768);
-            if ((int)uVar10 < 0) {
-                /* WARNING: Subroutine does not return */
+            uVar7 = *(unsigned int*)(stb_vorbis + 1768);
+            if ((int)uVar7 < 0) {
                 LogAssert("end_pos >= 0",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                           "vorbis_std.code",
-                          4430, (char*)0);
+                          4430, nullptr);
             }
             do {
-                uVar6 = (ulong)uVar10;
-                while (uVar3 = uVar6, iVar2 = (int)uVar3, 0 < iVar2) {
-                    uVar6 = uVar3 - 1;
-                    if (param_1[uVar3 + 1483] != (stb_vorbis)255)
+                uVar5 = (unsigned long)uVar7;
+                while (uVar3 = uVar5, iVar2 = (int)uVar3, 0 < iVar2) {
+                    uVar5 = uVar3 - 1;
+                    if (stb_vorbis[uVar3 + 1483] != (stb_vorbis)255)
                         goto LAB_100b95850;
                 }
-                if (((byte)param_1[1739] & 1) == 0) {
+                if (((uint8_t)stb_vorbis[1739] & 1) == 0) {
                 LAB_100b95850:
-                    *(undefined4*)(param_1 + 1388) = 0;
-                    *(undefined4*)(param_1 + 1748) = 0;
-                    *(undefined8*)(param_1 + 1760) = 0;
-                    param_1[1740] = (stb_vorbis)0;
-                    *(undefined4*)(param_1 + 1248) = 0;
-                    *(int*)(param_1 + 1744) = iVar2;
+                    *(uint32_t*)(stb_vorbis + 1388) = 0;
+                    *(uint32_t*)(stb_vorbis + 1748) = 0;
+                    *(uint64_t*)(stb_vorbis + 1760) = 0;
+                    stb_vorbis[1740] = (stb_vorbis)0;
+                    *(uint32_t*)(stb_vorbis + 1248) = 0;
+                    *(int*)(stb_vorbis + 1744) = iVar2;
                     if (0 < iVar2) {
-                        uVar6 = 0;
+                        uVar5 = 0;
                         do {
-                            psVar9 = (stb_vorbis*)(ulong)(byte)param_1[uVar6 + 1484];
-                            skip(param_1, (uint)(byte)param_1[uVar6 + 1484]);
-                            uVar6 = uVar6 + 1;
-                        } while (uVar3 != uVar6);
+                            skip(stb_vorbis, (unsigned int)(uint8_t)stb_vorbis[uVar5 + 1484]);
+                            uVar5 = uVar5 + 1;
+                        } while (uVar3 != uVar5);
                     }
-                    vorbis_pump_first_frame((vorbis*)param_1, psVar9);
+                    vorbis_pump_first_frame(stb_vorbis);
                     return 1;
                 }
-                psVar9 = (stb_vorbis*)(ulong)uVar1;
-                iVar2 = go_to_page_before(param_1, uVar1);
+                iVar2 = go_to_page_before(stb_vorbis, uVar1);
                 if (iVar2 == 0)
                     goto LAB_100b954e2;
-                uVar1 = _stb_vorbis_get_file_offset(param_1);
-                iVar2 = start_page(param_1);
+                uVar1 = _stb_vorbis_get_file_offset(stb_vorbis);
+                iVar2 = start_page(stb_vorbis);
                 if (iVar2 == 0)
                     goto LAB_100b954e2;
-                uVar10 = *(int*)(param_1 + 1480) - 1;
+                uVar7 = *(int*)(stb_vorbis + 1480) - 1;
             } while (true);
         }
     LAB_100b954ea:
-        uVar8 = 37;
+        stbVorbisError = 37;
     LAB_100b954f2:
-        error(param_1, uVar8);
+        error(stb_vorbis, stbVorbisError);
         return 0;
     }
 
-    // 0x100b958d0, 160 bytes, placed by debug map only (low confidence)
-    // peek_decode_initial(stb_vorbis*, int*, int*, int*, int*, int*)
-    undefined8 peek_decode_initial(stb_vorbis* param_1, int* param_2, int* param_3, int* param_4, int* param_5,
-                                   int* param_6) {
-        int iVar1;
-        undefined8 uVar2;
+    // 0x100b958d0
+    void peek_decode_initial(stb_vorbis* stb_vorbis, int* arg2, int* arg3, int* arg4, int* arg5, int* arg6) {
+        uint64_t uVar2;
         int iVar3;
-        int* unaff_RBX;
 
-        iVar1 = vorbis_decode_initial((vorbis*)param_1, (stb_vorbis*)param_2, param_3, param_4, param_5, param_6,
-                                      unaff_RBX);
+        int iVar1 = vorbis_decode_initial(stb_vorbis, arg2, arg3, arg4, arg5, arg6);
         if (iVar1 == 0) {
             uVar2 = 0;
         } else {
-            iVar1 = ilog(*(int*)(param_1 + 472) + -1);
-            iVar3 = iVar1 + (uint)(param_1[(long)*param_6 * 6 + 476] != (stb_vorbis)0) * 2 + 8;
-            iVar1 = iVar1 + (uint)(param_1[(long)*param_6 * 6 + 476] != (stb_vorbis)0) * 2 + 15;
+            iVar1 = ilog(*(int*)(stb_vorbis + 472) - 1);
+            iVar3 = iVar1 + (unsigned int)(stb_vorbis[*arg6 * 6 + 476] != (stb_vorbis)0) * 2 + 8;
+            iVar1 = iVar1 + (unsigned int)(stb_vorbis[*arg6 * 6 + 476] != (stb_vorbis)0) * 2 + 15;
             if (-1 < iVar3) {
                 iVar1 = iVar3;
             }
             iVar1 = iVar1 >> 3;
-            param_1[1740] = (stb_vorbis)((char)param_1[1740] + (char)iVar1);
-            *(int*)(param_1 + 1764) = *(int*)(param_1 + 1764) - iVar1;
-            skip(param_1, -iVar1);
-            iVar1 = *(int*)(param_1 + 1744);
+            stb_vorbis[1740] = (stb_vorbis)((char)stb_vorbis[1740] + (char)iVar1);
+            *(int*)(stb_vorbis + 1764) = *(int*)(stb_vorbis + 1764) - iVar1;
+            skip(stb_vorbis, -iVar1);
+            iVar1 = *(int*)(stb_vorbis + 1744);
             if (iVar1 == -1) {
-                iVar1 = *(int*)(param_1 + 1480);
+                iVar1 = *(int*)(stb_vorbis + 1480);
             }
-            *(int*)(param_1 + 1744) = iVar1 + -1;
-            *(undefined4*)(param_1 + 1760) = 0;
+            *(int*)(stb_vorbis + 1744) = iVar1 - 1;
+            *(uint32_t*)(stb_vorbis + 1760) = 0;
             uVar2 = 1;
         }
         return uVar2;
     }
 
-    // 0x100b95970, 64 bytes, placed by debug map only (low confidence)
-    // vorbis_pump_first_frame(stb_vorbis*)
-    void vorbis_pump_first_frame(stb_vorbis* param_1) {
-        int extraout_EAX;
-        int in_R8D;
-        undefined4 in_register_00000084;
-        uint local_1c;
+    // 0x100b95970
+    void vorbis_pump_first_frame(stb_vorbis* stb_vorbis) {
+        int local_1c;
         int local_18;
         int local_14;
 
-        vorbis_decode_packet(this, (stb_vorbis*)&local_1c, &local_14, &local_18,
-                             (int*)CONCAT44(in_register_00000084, in_R8D));
-        if (extraout_EAX != 0) {
-            vorbis_finish_frame(this, (stb_vorbis*)(ulong)local_1c, local_14, local_18, in_R8D);
+        if (vorbis_decode_packet(stb_vorbis, &local_1c, &local_14, &local_18) != 0) {
+            vorbis_finish_frame(stb_vorbis, local_1c, local_14, local_18);
         }
     }
 
-    // 0x100b959b0, 176 bytes, placed by debug map only (low confidence)
-    // maybe_start_packet(stb_vorbis*)
-    undefined4 maybe_start_packet(stb_vorbis* param_1) {
-        char cVar1;
-        undefined8 uVar4;
+    // 0x100b959b0
+    void maybe_start_packet(stb_vorbis* stb_vorbis) {
+        STBVorbisError stbVorbisError;
 
-        if (*(int*)(param_1 + 1744) != -1) {
+        if (*(int*)(stb_vorbis + 1744) != -1) {
         LAB_100b959c3:
-            return start_packet(param_1);
+            return start_packet(stb_vorbis);
         }
-        cVar1 = get8(param_1);
-        if (*(int*)(param_1 + 128) != 0) {
+        char cVar1 = get8(stb_vorbis);
+        if (*(int*)(stb_vorbis + 128) != 0) {
             return 0;
         }
-        if ((((cVar1 == 'O') && (cVar1 = get8(param_1), cVar1 == 'g')) && (cVar1 = get8(param_1), cVar1 == 'g')) &&
-            (cVar1 = get8(param_1), cVar1 == 'S')) {
-            if (start_page_no_capturepattern(param_1) == 0) {
+        if ((((cVar1 == 'O') && (cVar1 = get8(stb_vorbis), cVar1 == 'g')) &&
+             (cVar1 = get8(stb_vorbis), cVar1 == 'g')) &&
+            (cVar1 = get8(stb_vorbis), cVar1 == 'S')) {
+            if (start_page_no_capturepattern(stb_vorbis) == 0) {
                 return 0;
             }
-            if (((byte)param_1[1739] & 1) == 0)
+            if (((uint8_t)stb_vorbis[1739] & 1) == 0)
                 goto LAB_100b959c3;
-            *(undefined4*)(param_1 + 1748) = 0;
-            param_1[1740] = (stb_vorbis)0;
-            uVar4 = 32;
+            *(uint32_t*)(stb_vorbis + 1748) = 0;
+            stb_vorbis[1740] = (stb_vorbis)0;
+            stbVorbisError = 32;
         } else {
-            uVar4 = 30;
+            stbVorbisError = 30;
         }
-        error(param_1, uVar4);
+        error(stb_vorbis, stbVorbisError);
         return 0;
     }
 
-    // 0x100b95a60, 48 bytes, placed by debug map only (low confidence)
-    // flush_packet(stb_vorbis*)
-    void flush_packet(stb_vorbis* param_1) {
+    // 0x100b95a60
+    void flush_packet(stb_vorbis* stb_vorbis) {
         int iVar1;
 
         do {
-            iVar1 = get8_packet_raw(param_1);
+            iVar1 = get8_packet_raw(stb_vorbis);
         } while (iVar1 != -1);
     }
 
-    // 0x100b95c80, 160 bytes, placed by debug map only (low confidence)
-    // set_file_offset(stb_vorbis*, unsigned int)
-    void set_file_offset(stb_vorbis* param_1, uint param_2) {
-        ulong uVar2;
+    // 0x100b95c80
+    void set_file_offset(stb_vorbis* stb_vorbis, unsigned int arg2) {
+        unsigned long uVar2;
 
-        if (param_1[68] == (stb_vorbis)0) {
-            *(undefined4*)(param_1 + 128) = 0;
-            if (*(long*)(param_1 + 40) == 0) {
-                if (((int)param_2 < 0) || (CARRY4(*(uint*)(param_1 + 32), param_2))) {
-                    *(undefined4*)(param_1 + 128) = 1;
+        if (stb_vorbis[68] == (stb_vorbis)0) {
+            *(uint32_t*)(stb_vorbis + 128) = 0;
+            if (*(long*)(stb_vorbis + 40) == 0) {
+                if (((int)arg2 < 0) || (CARRY4(*(unsigned int*)(stb_vorbis + 32), arg2))) {
+                    *(uint32_t*)(stb_vorbis + 128) = 1;
                     uVar2 = 2147483647;
                 } else {
-                    uVar2 = (ulong)(*(uint*)(param_1 + 32) + param_2);
+                    uVar2 = (unsigned long)(*(unsigned int*)(stb_vorbis + 32) + arg2);
                 }
-                if (_fseek(*(FILE**)(param_1 + 24), uVar2, 0) != 0) {
-                    *(undefined4*)(param_1 + 128) = 1;
-                    _fseek(*(FILE**)(param_1 + 24), (ulong) * (uint*)(param_1 + 32), 2);
+                if (_fseek(*(FILE**)(stb_vorbis + 24), uVar2, 0) != 0) {
+                    *(uint32_t*)(stb_vorbis + 128) = 1;
+                    _fseek(*(FILE**)(stb_vorbis + 24), (unsigned long)*(unsigned int*)(stb_vorbis + 32), 2);
                 }
-            } else if ((ulong)param_2 + *(long*)(param_1 + 48) < *(ulong*)(param_1 + 56)) {
-                *(ulong*)(param_1 + 40) = (ulong)param_2 + *(long*)(param_1 + 48);
+            } else if ((unsigned long)arg2 + *(long*)(stb_vorbis + 48) < *(unsigned long*)(stb_vorbis + 56)) {
+                *(unsigned long*)(stb_vorbis + 40) = (unsigned long)arg2 + *(long*)(stb_vorbis + 48);
             } else {
-                *(ulong*)(param_1 + 40) = *(ulong*)(param_1 + 56);
-                *(undefined4*)(param_1 + 128) = 1;
+                *(unsigned long*)(stb_vorbis + 40) = *(unsigned long*)(stb_vorbis + 56);
+                *(uint32_t*)(stb_vorbis + 128) = 1;
             }
         }
     }
 
-    // 0x100b95ec0, 672 bytes, placed by debug map only (low confidence)
-    // vorbis_find_page(stb_vorbis*, unsigned int*, unsigned int*)
-    undefined4 vorbis_find_page(stb_vorbis* param_1, uint* param_2, uint* param_3) {
-        uint uVar1;
+    // 0x100b95ec0
+    void vorbis_find_page(stb_vorbis* stb_vorbis, unsigned int* arg2, unsigned int* arg3) {
+        uint32_t uVar1;
         char cVar2;
-        uchar uVar3;
-        byte bVar4;
-        uint uVar5;
-        uint uVar6;
-        undefined4 uVar7;
-        undefined4 unaff_EBX;
-        int iVar8;
-        long lVar9;
-        int iVar10;
-        uint uVar11;
-        uchar local_58[5];
-        byte local_53;
-        uint local_42;
-        byte local_3e;
-        long local_38;
+        unsigned char uVar3;
+        uint8_t arg2_00;
+        unsigned int arg2_01;
+        unsigned int arg1;
+        unsigned int uVar4;
+        uint32_t unaff_EBX;
+        int iVar5;
+        long lVar6;
+        int iVar7;
+        unsigned int uVar8;
+        unsigned char local_58[5];
+        uint8_t local_53;
+        unsigned int local_42;
+        uint8_t local_3e;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         do {
-            if (field_128 == 0) {
-                cVar2 = get8((stb_vorbis*)this);
+            if (*(int*)(stb_vorbis + 128) == 0) {
+                cVar2 = get8(stb_vorbis);
                 if (cVar2 == 'O') {
-                    uVar5 = _stb_vorbis_get_file_offset(this);
-                    iVar10 = 1;
-                    uVar7 = 0;
-                    if (uVar5 - 25 <= field_64) {
-                        lVar9 = 1;
+                    arg2_01 = _stb_vorbis_get_file_offset(stb_vorbis);
+                    iVar7 = 1;
+                    uVar1 = 0;
+                    if (arg2_01 - 25 <= *(unsigned int*)(stb_vorbis + 64)) {
+                        lVar6 = 1;
                         do {
-                            cVar2 = get8((stb_vorbis*)this);
-                            if (cVar2 != ogg_page_header[lVar9])
+                            cVar2 = get8(stb_vorbis);
+                            if (cVar2 != ogg_page_header[lVar6])
                                 goto LAB_100b95f73;
-                            lVar9 = lVar9 + 1;
-                        } while (lVar9 != 4);
-                        lVar9 = 4;
+                            lVar6 = lVar6 + 1;
+                        } while (lVar6 != 4);
+                        lVar6 = 4;
                     LAB_100b95f73:
-                        if (field_128 == 0) {
-                            if ((int)lVar9 == 4) {
+                        if (*(int*)(stb_vorbis + 128) == 0) {
+                            if ((int)lVar6 == 4) {
                                 local_58[0] = ogg_page_header[0];
                                 local_58[1] = ogg_page_header[1];
                                 local_58[2] = ogg_page_header[2];
                                 local_58[3] = ogg_page_header[3];
-                                lVar9 = 4;
+                                lVar6 = 4;
                                 do {
-                                    uVar3 = get8((stb_vorbis*)this);
-                                    local_58[lVar9] = uVar3;
-                                    uVar1 = local_42;
-                                    lVar9 = lVar9 + 1;
-                                } while (lVar9 != 27);
-                                iVar10 = 1;
-                                uVar7 = 0;
-                                if (field_128 == 0) {
+                                    uVar3 = get8(stb_vorbis);
+                                    local_58[lVar6] = uVar3;
+                                    uVar4 = local_42;
+                                    lVar6 = lVar6 + 1;
+                                } while (lVar6 != 27);
+                                iVar7 = 1;
+                                uVar1 = 0;
+                                if (*(int*)(stb_vorbis + 128) == 0) {
                                     if (local_58[4] == '\0') {
                                         local_42 = 0;
-                                        lVar9 = 0;
-                                        uVar6 = 0;
+                                        lVar6 = 0;
+                                        arg1 = 0;
                                         do {
-                                            uVar6 = crc32_update(uVar6, local_58[lVar9]);
-                                            lVar9 = lVar9 + 1;
-                                        } while (lVar9 != 27);
-                                        uVar11 = (uint)local_3e;
-                                        iVar8 = 0;
+                                            arg1 = crc32_update(arg1, local_58[lVar6]);
+                                            lVar6 = lVar6 + 1;
+                                        } while (lVar6 != 27);
+                                        uVar8 = (unsigned int)local_3e;
+                                        iVar5 = 0;
                                         if (local_3e != 0) {
                                             do {
-                                                bVar4 = get8((stb_vorbis*)this);
-                                                uVar6 = crc32_update(uVar6, bVar4);
-                                                iVar8 = iVar8 + (uint)bVar4;
-                                                uVar11 = uVar11 - 1;
-                                            } while (uVar11 != 0);
+                                                arg2_00 = get8(stb_vorbis);
+                                                arg1 = crc32_update(arg1, arg2_00);
+                                                iVar5 = iVar5 + (unsigned int)arg2_00;
+                                                uVar8 = uVar8 - 1;
+                                            } while (uVar8 != 0);
                                         }
-                                        if (iVar8 != 0) {
-                                            uVar7 = 0;
-                                            if (field_128 != 0)
+                                        if (iVar5 != 0) {
+                                            uVar1 = 0;
+                                            if (*(int*)(stb_vorbis + 128) != 0)
                                                 goto LAB_100b95fd9;
                                             do {
-                                                uVar3 = get8((stb_vorbis*)this);
-                                                uVar6 = crc32_update(uVar6, uVar3);
-                                                iVar8 = iVar8 + -1;
-                                            } while (iVar8 != 0);
+                                                uVar3 = get8(stb_vorbis);
+                                                arg1 = crc32_update(arg1, uVar3);
+                                                iVar5 = iVar5 - 1;
+                                            } while (iVar5 != 0);
                                         }
-                                        iVar10 = 0;
-                                        uVar7 = unaff_EBX;
-                                        if (uVar6 == uVar1) {
-                                            if (param_1 != (stb_vorbis*)0) {
-                                                uVar7 = _stb_vorbis_get_file_offset(this);
-                                                *(undefined4*)param_1 = uVar7;
+                                        iVar7 = 0;
+                                        uVar1 = unaff_EBX;
+                                        if (arg1 == uVar4) {
+                                            if (arg2 != nullptr) {
+                                                uVar4 = _stb_vorbis_get_file_offset(stb_vorbis);
+                                                *arg2 = uVar4;
                                             }
-                                            if (param_2 != (uint*)0) {
-                                                *param_2 = local_53 >> 2 & 1;
+                                            if (arg3 != nullptr) {
+                                                *arg3 = local_53 >> 2 & 1;
                                             }
-                                            set_file_offset((stb_vorbis*)this, uVar5 - 1);
-                                            iVar10 = 1;
-                                            uVar7 = 1;
+                                            set_file_offset(stb_vorbis, arg2_01 - 1);
+                                            iVar7 = 1;
+                                            uVar1 = 1;
                                         }
                                     } else {
-                                        iVar10 = 13;
-                                        uVar7 = unaff_EBX;
+                                        iVar7 = 13;
+                                        uVar1 = unaff_EBX;
                                     }
                                 }
                             LAB_100b95fd9:
-                                unaff_EBX = uVar7;
-                                if ((iVar10 != 13) && (uVar7 = unaff_EBX, iVar10 != 0))
+                                unaff_EBX = uVar1;
+                                if ((iVar7 != 13) && (uVar1 = unaff_EBX, iVar7 != 0))
                                     goto LAB_100b96003;
                             }
-                            set_file_offset((stb_vorbis*)this, uVar5);
-                            iVar10 = 0;
-                            uVar7 = unaff_EBX;
+                            set_file_offset(stb_vorbis, arg2_01);
+                            iVar7 = 0;
+                            uVar1 = unaff_EBX;
                         }
                     }
                 LAB_100b96003:
-                    unaff_EBX = uVar7;
-                    if (iVar10 != 0)
+                    unaff_EBX = uVar1;
+                    if (iVar7 != 0)
                         goto LAB_100b95ef8;
                 }
-                iVar10 = 0;
+                iVar7 = 0;
             } else {
                 unaff_EBX = 0;
-                iVar10 = 1;
+                iVar7 = 1;
             }
         LAB_100b95ef8:
-            if (iVar10 != 0) {
-                if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-                    /* WARNING: Subroutine does not return */
-                    ___stack_chk_fail();
-                }
+            if (iVar7 != 0) {
                 return unaff_EBX;
             }
         } while (true);
     }
 
-    // 0x100b96160, 112 bytes, placed by debug map only (low confidence)
-    // getn(stb_vorbis*, unsigned char*, int)
-    undefined8 getn(stb_vorbis* param_1, uchar* param_2, int param_3) {
-        void* pvVar1;
-        size_t sVar2;
-
-        pvVar1 = *(void**)(param_1 + 40);
-        sVar2 = (size_t)param_3;
-        if (pvVar1 == (void*)0) {
-            sVar2 = _fread(param_2, sVar2, 1, *(FILE**)(param_1 + 24));
+    // 0x100b96160
+    void getn(stb_vorbis* stb_vorbis, unsigned char* arg2, int arg3) {
+        void* pvVar1 = *(void**)(stb_vorbis + 40);
+        size_t sVar2 = (size_t)arg3;
+        if (pvVar1 == nullptr) {
+            sVar2 = _fread(arg2, sVar2, 1, *(FILE**)(stb_vorbis + 24));
             if (sVar2 == 1) {
                 return 1;
             }
-        } else if ((long)pvVar1 + sVar2 <= *(ulong*)(param_1 + 56)) {
-            _memcpy(param_2, pvVar1, sVar2);
-            *(size_t*)(param_1 + 40) = *(long*)(param_1 + 40) + sVar2;
+        } else if ((long)pvVar1 + sVar2 <= *(unsigned long*)(stb_vorbis + 56)) {
+            _memcpy(arg2, pvVar1, sVar2);
+            *(size_t*)(stb_vorbis + 40) = *(long*)(stb_vorbis + 40) + sVar2;
             return 1;
         }
-        *(undefined4*)(param_1 + 128) = 1;
+        *(uint32_t*)(stb_vorbis + 128) = 1;
         return 0;
     }
 
-    // 0x100b961d0, 96 bytes, placed by debug map only (low confidence)
-    // get32(stb_vorbis*)
-    undefined4 get32(stb_vorbis* param_1) {
-        undefined1 uVar1;
-        undefined1 uVar2;
-        undefined1 uVar3;
-        undefined1 uVar4;
-
-        uVar1 = get8(param_1);
-        uVar2 = get8(param_1);
-        uVar3 = get8(param_1);
-        uVar4 = get8(param_1);
-        return CONCAT13(uVar4, CONCAT12(uVar3, CONCAT11(uVar2, uVar1)));
+    // 0x100b961d0
+    void get32(stb_vorbis* stb_vorbis) {
+        uint8_t uVar1 = get8(stb_vorbis);
+        uint8_t uVar2 = get8(stb_vorbis);
+        uint8_t uVar3 = get8(stb_vorbis);
+        uint8_t uVar4 = get8(stb_vorbis);
+        return (((uint32_t)uVar4 << 24) |
+                (uint32_t)((((uint32_t)uVar3 << 16) | (uint16_t)((((uint16_t)uVar2 << 8) | (uint8_t)uVar1)))));
     }
 
-    // 0x100b96580, 320 bytes, placed by debug map only (low confidence)
-    // convert_samples_short(int, short**, int, int, float**, int, int)
-    void convert_samples_short(int param_1, short** param_2, int param_3, int param_4, float** param_5, int param_6,
-                               int param_7) {
-        ulong uVar1;
+    // 0x100b96580
+    void convert_samples_short(int arg1, short** arg2, int arg3, int arg4, float** arg5, int arg6, int arg7) {
+        unsigned long uVar1;
 
-        if (((param_4 < 7) && (param_1 < 3)) && (param_1 != param_4)) {
-            if (0 < param_1) {
+        if (((arg4 < 7) && (arg1 < 3)) && (arg1 != arg4)) {
+            if (0 < arg1) {
                 uVar1 = 0;
                 do {
                     compute_samples(
                         *(int*)(&convert_samples_short(int, short**, int, int, float**, int, int)::channel_selector +
-                                uVar1 * 4 + (long)param_1 * 8),
-                        param_2[uVar1] + param_3, param_4, param_5, param_6, param_7);
+                                uVar1 * 4 + (long)arg1 * 8),
+                        arg2[uVar1] + arg3, arg4, arg5, arg6, arg7);
                     uVar1 = uVar1 + 1;
-                } while ((uint)param_1 != uVar1);
+                } while ((unsigned int)arg1 != uVar1);
             }
         } else {
-            if (param_1 < param_4) {
-                param_4 = param_1;
+            if (arg1 < arg4) {
+                arg4 = arg1;
             }
-            if (param_4 < 1) {
+            if (arg4 < 1) {
                 uVar1 = 0;
-                if (param_1 < 1) {
+                if (arg1 < 1) {
                     return;
                 }
             } else {
                 uVar1 = 0;
                 do {
-                    copy_samples(param_2[uVar1] + param_3, param_5[uVar1] + param_6, param_7);
+                    copy_samples(arg2[uVar1] + arg3, arg5[uVar1] + arg6, arg7);
                     uVar1 = uVar1 + 1;
-                } while ((uint)param_4 != uVar1);
-                if (param_1 <= (int)uVar1) {
+                } while ((unsigned int)arg4 != uVar1);
+                if (arg1 <= (int)uVar1) {
                     return;
                 }
             }
             uVar1 = uVar1 & 4294967295;
             do {
-                ___bzero(param_2[uVar1] + param_3, (long)param_7 * 2);
+                ___bzero(arg2[uVar1] + arg3, (long)arg7 * 2);
                 uVar1 = uVar1 + 1;
-            } while ((uint)param_1 != uVar1);
+            } while ((unsigned int)arg1 != uVar1);
         }
     }
 
-    // 0x100b96760, 384 bytes, placed by debug map only (low confidence)
-    // convert_channels_short_interleaved(int, short*, int, float**, int, int)
-    void convert_channels_short_interleaved(int param_1, short* param_2, int param_3, float** param_4, int param_5,
-                                            int param_6) {
+    // 0x100b96760
+    void convert_channels_short_interleaved(int arg1, short* arg2, int arg3, float** arg4, int arg5, int arg6) {
         int iVar1;
-        ulong uVar2;
-        ulong uVar3;
+        unsigned long uVar2;
+        unsigned long uVar3;
         float fVar4;
 
-        if (((param_3 < 7) && (param_1 < 3)) && (param_1 != param_3)) {
-            if (param_1 != 2) {
-                /* WARNING: Subroutine does not return */
+        if (((arg3 < 7) && (arg1 < 3)) && (arg1 != arg3)) {
+            if (arg1 != 2) {
                 LogAssert("buf_c == 2",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                           "vorbis_std.code",
-                          4887, (char*)0);
+                          4887, nullptr);
             }
             iVar1 = 2;
             do {
-                compute_stereo_samples(param_2, param_3, param_4, param_5, param_6);
-                iVar1 = iVar1 + -1;
+                compute_stereo_samples(arg2, arg3, arg4, arg5, arg6);
+                iVar1 = iVar1 - 1;
             } while (iVar1 != 0);
         } else {
-            if (param_1 < param_3) {
-                param_3 = param_1;
+            if (arg1 < arg3) {
+                arg3 = arg1;
             }
-            if (0 < param_6) {
+            if (0 < arg6) {
                 uVar3 = 0;
                 do {
-                    if (param_3 < 1) {
+                    if (arg3 < 1) {
                         uVar2 = 0;
                     } else {
                         uVar2 = 0;
                         do {
-                            fVar4 = param_4[uVar2][(long)param_5 + uVar3] + 384.0;
+                            fVar4 = arg4[uVar2][arg5 + uVar3] + 384.0;
                             if ((int)fVar4 < 1136623617) {
                                 fVar4 = 383.0;
                             }
                             if (1136689150 < (int)fVar4) {
                                 fVar4 = 4.59163e-41;
                             }
-                            *param_2 = SUB42(fVar4, 0);
-                            param_2 = param_2 + 1;
+                            *arg2 = (uint16_t)fVar4;
+                            arg2 = arg2 + 1;
                             uVar2 = uVar2 + 1;
-                        } while ((uint)param_3 != uVar2);
+                        } while ((unsigned int)arg3 != uVar2);
                     }
-                    if ((int)(uint)uVar2 < param_1) {
-                        uVar2 = (ulong)(~(uint)uVar2 + param_1);
-                        ___bzero(param_2, uVar2 * 2 + 2);
-                        param_2 = param_2 + uVar2 + 1;
+                    if ((int)(unsigned int)uVar2 < arg1) {
+                        uVar2 = (unsigned long)(~(unsigned int)uVar2 + arg1);
+                        ___bzero(arg2, uVar2 * 2 + 2);
+                        arg2 = arg2 + uVar2 + 1;
                     }
                     uVar3 = uVar3 + 1;
-                } while (uVar3 != (uint)param_6);
+                } while (uVar3 != (unsigned int)arg6);
             }
         }
     }
 
-    // 0x100b97de0, 48 bytes, inline, placed by debug map only (low confidence)
-    // VorbisDecoderPacket::PacketT(unsigned long)
-    void VorbisDecoderPacket::PacketT(ulong param_1) {
-        new (this) PacketT<Array<unsigned char, eastl::allocator>>(param_1);
-        new (this) MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>();
+    // 0x100b97de0
+    void VorbisDecoderPacket::PacketT(unsigned long arg1) {
+        new (this) PacketT(arg1);
+        new (this) MakeSharedPool<PacketT<Array<unsigned char>>, 8>();
     }
 
-    // 0x100b9a410, 32 bytes, placed by debug map only (low confidence)
-    // crc32_update(unsigned int, unsigned char)
-    uint crc32_update(uint param_1, uchar param_2) {
-        undefined3 in_register_00000031;
+    // 0x100b9a410
+    unsigned int crc32_update(unsigned int arg1, unsigned char arg2) {
+        uint32_t in_register_00000031;
 
-        return param_1 << 8 ^ (&crc_table)[param_1 >> 24 ^ CONCAT31(in_register_00000031, param_2)];
+        return arg1 << 8 ^ (&crc_table)[arg1 >> 24 ^ (((uint32_t)in_register_00000031 << 8) | (uint8_t)arg2)];
     }
 
-    // 0x100b9a430, 480 bytes, placed by debug map only (low confidence)
-    // vorbis_decode_initial(stb_vorbis*, int*, int*, int*, int*, int*)
-    undefined8 vorbis_decode_initial(stb_vorbis* param_1, int* param_2, int* param_3, int* param_4, int* param_5,
-                                     int* param_6) {
-        char cVar1;
+    // 0x100b9a430
+    void vorbis_decode_initial(stb_vorbis* stb_vorbis, int* arg2, int* arg3, int* arg4, int* arg5, int* arg6) {
+        stb_vorbis sVar1;
         int iVar2;
         int iVar3;
         int iVar4;
         int iVar5;
         bool bVar6;
 
-        field_1868 = 0;
-        if (field_128 == 0) {
-            while (iVar2 = maybe_start_packet((stb_vorbis*)this), iVar2 != 0) {
-                iVar2 = get_bits((stb_vorbis*)this, 1);
+        *(uint64_t*)(stb_vorbis + 1868) = 0;
+        if (*(int*)(stb_vorbis + 128) == 0) {
+            while (iVar2 = maybe_start_packet(stb_vorbis), iVar2 != 0) {
+                iVar2 = get_bits(stb_vorbis, 1);
                 if (iVar2 == 0) {
-                    if ((field_104 != 0) && (field_112 != field_124)) {
-                        /* WARNING: Subroutine does not return */
+                    if ((*(long*)(stb_vorbis + 104) != 0) && (*(int*)(stb_vorbis + 112) != *(int*)(stb_vorbis + 124))) {
                         LogAssert("f->alloc.alloc_buffer_length_in_bytes == f->temp_offset",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                                   "workers/vorbis_std.code",
-                                  2854, (char*)0);
+                                  2854, nullptr);
                     }
-                    iVar2 = ilog(field_472 + -1);
-                    iVar2 = get_bits((stb_vorbis*)this, iVar2);
+                    iVar2 = ilog(*(int*)(stb_vorbis + 472) - 1);
+                    iVar2 = get_bits(stb_vorbis, iVar2);
                     if (iVar2 == -1) {
                         return 0;
                     }
-                    if (field_472 <= iVar2) {
+                    if (*(int*)(stb_vorbis + 472) <= iVar2) {
                         return 0;
                     }
-                    *param_5 = iVar2;
-                    if (field_68[(long)iVar2 * 6 + 408] == '\0') {
-                        iVar5 = field_144;
+                    *arg6 = iVar2;
+                    if (stb_vorbis[iVar2 * 6 + 476] == (stb_vorbis)0) {
+                        iVar5 = *(int*)(stb_vorbis + 144);
                         bVar6 = false;
                         iVar4 = 0;
                     } else {
-                        iVar5 = field_148;
-                        iVar3 = get_bits((stb_vorbis*)this, 1);
-                        iVar4 = get_bits((stb_vorbis*)this, 1);
+                        iVar5 = *(int*)(stb_vorbis + 148);
+                        iVar3 = get_bits(stb_vorbis, 1);
+                        iVar4 = get_bits(stb_vorbis, 1);
                         bVar6 = iVar3 != 0;
                     }
-                    cVar1 = field_68[(long)iVar2 * 6 + 408];
-                    if ((cVar1 == '\0') || (bVar6)) {
-                        *(undefined4*)param_1 = 0;
+                    sVar1 = stb_vorbis[iVar2 * 6 + 476];
+                    if ((sVar1 == (stb_vorbis)0) || (bVar6)) {
+                        *arg2 = 0;
                         iVar2 = iVar5 >> 1;
                     } else {
-                        *(int*)param_1 = iVar5 - field_144 >> 2;
-                        iVar2 = field_144 + iVar5 >> 2;
+                        *arg2 = iVar5 - *(int*)(stb_vorbis + 144) >> 2;
+                        iVar2 = *(int*)(stb_vorbis + 144) + iVar5 >> 2;
                     }
-                    *param_2 = iVar2;
-                    if ((cVar1 == '\0') || (iVar4 != 0)) {
-                        *param_3 = iVar5 >> 1;
+                    *arg3 = iVar2;
+                    if ((sVar1 == (stb_vorbis)0) || (iVar4 != 0)) {
+                        *arg4 = iVar5 >> 1;
                     } else {
-                        *param_3 = iVar5 * 3 - field_144 >> 2;
-                        iVar5 = iVar5 * 3 + field_144 >> 2;
+                        *arg4 = iVar5 * 3 - *(int*)(stb_vorbis + 144) >> 2;
+                        iVar5 = iVar5 * 3 + *(int*)(stb_vorbis + 144) >> 2;
                     }
-                    *param_4 = iVar5;
+                    *arg5 = iVar5;
                     return 1;
                 }
-                if (field_68[0] != '\0') {
-                    error(this, 35);
+                if (stb_vorbis[68] != (stb_vorbis)0) {
+                    error(stb_vorbis, 35);
                     return 0;
                 }
                 do {
-                    iVar2 = get8_packet((stb_vorbis*)this);
+                    iVar2 = get8_packet(stb_vorbis);
                 } while (iVar2 != -1);
-                if (field_128 != 0) {
+                if (*(int*)(stb_vorbis + 128) != 0) {
                     return 0;
                 }
             }
@@ -2301,601 +2250,569 @@ namespace jag::hal::audio::decoders::vorbis {
         return 0;
     }
 
-    // 0x100b9a610, 2976 bytes, placed by debug map only (low confidence)
-    // vorbis_decode_packet_rest(stb_vorbis*, int*, Mode*, int, int, int, int, int*)
-    undefined8 vorbis_decode_packet_rest(stb_vorbis* param_1, int* param_2, Mode* param_3, int param_4, int param_5,
-                                         int param_6, int param_7, int* param_8) {
-        Mapping* pMVar1;
-        float fVar2;
-        byte bVar3;
-        Mapping MVar4;
-        byte bVar5;
-        byte bVar6;
-        char cVar7;
-        short sVar8;
-        ushort uVar9;
-        void* pvVar10;
-        void* pvVar11;
-        undefined2* puVar12;
-        void* pvVar13;
-        bool bVar14;
-        undefined2 uVar15;
-        int iVar16;
-        int iVar17;
-        uint uVar18;
-        long* plVar19;
-        undefined8 uVar20;
-        short sVar21;
+    // 0x100b9a610
+    void vorbis_decode_packet_rest(stb_vorbis* stb_vorbis, int* arg2, Mode* mode, int arg4, int arg5, int arg6,
+                                   int arg7, int* arg8) {
+        float fVar1;
+        uint8_t bVar2;
+        Mapping MVar3;
+        uint8_t bVar4;
+        uint8_t bVar5;
+        bool cVar6;
+        short sVar7;
+        unsigned short uVar8;
+        uint16_t* puVar9;
+        bool bVar10;
+        uint16_t uVar11;
+        int iVar12;
+        int iVar13;
+        unsigned int uVar14;
+        uint64_t uVar16;
+        short sVar17;
+        unsigned int uVar18;
+        long lVar19;
+        uint8_t* pbVar20;
+        unsigned long uVar21;
         int iVar22;
-        uint uVar23;
-        long lVar24;
-        byte* pbVar25;
-        ulong uVar26;
-        int iVar27;
-        int iVar28;
-        long lVar29;
-        ulong uVar30;
-        long lVar31;
-        float* pfVar32;
-        int iVar33;
-        ulong uVar34;
-        uint uVar35;
-        long lVar36;
-        long lVar37;
-        float fVar38;
-        float fVar39;
-        undefined4 in_stack_0000000c;
-        uchar* in_stack_fffffffffffff588;
+        int iVar23;
+        unsigned long uVar26;
+        long lVar27;
+        long lVar28;
+        float* pfVar29;
+        unsigned long uVar30;
+        unsigned int uVar31;
+        long lVar33;
+        long lVar34;
+        long lVar35;
+        float fVar36;
+        float fVar37;
+        uint32_t in_stack_0000000c;
+        unsigned char* in_stack_fffffffffffff588;
         int local_a00;
-        uint local_9d0;
-        uchar local_9b8[256];
+        unsigned int local_9d0;
+        unsigned char local_9b8[256];
         float* local_8b8[16];
-        undefined4 local_838;
+        uint32_t local_838;
         int local_438[256];
-        long local_38;
 
-        iVar22 = (int)param_3;
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        iVar28 = *(int*)(field_68 + (ulong)(byte)*param_2 * 4 + 68);
-        pvVar10 = field_464;
-        lVar29 = (ulong) * (byte*)((long)param_2 + 1) * 48;
-        pMVar1 = (Mapping*)((long)pvVar10 + lVar29);
-        plVar19 = (long*)((long)pvVar10 + lVar29 + 8);
-        if (0 < (int)field_4) {
-            lVar24 = 0;
+        int iVar24 = *(int*)(stb_vorbis + (unsigned long)(uint8_t)*mode * 4 + 136);
+        long lVar32 = *(long*)(stb_vorbis + 464);
+        long lVar25 = (unsigned long)(uint8_t)mode[1] * 48;
+        Mapping* mapping = (Mapping*)(lVar32 + lVar25);
+        long* plVar15 = (long*)(lVar32 + lVar25 + 8);
+        if (0 < *(int*)(stb_vorbis + 4)) {
+            lVar19 = 0;
             do {
-                bVar3 = *(byte*)(*plVar19 + 2 + lVar24 * 3);
-                local_438[lVar24] = 0;
-                MVar4 = pMVar1[(ulong)bVar3 + 17];
-                sVar8 = *(short*)(field_68 + (ulong)(byte)MVar4 * 2 + 104);
-                if (sVar8 == 0) {
-                    error(this, 21);
+                bVar2 = *(uint8_t*)(*plVar15 + 2 + lVar19 * 3);
+                local_438[lVar19] = 0;
+                MVar3 = mapping[bVar2 + 17];
+                sVar7 = *(short*)(stb_vorbis + (unsigned long)(uint8_t)MVar3 * 2 + 172);
+                if (sVar7 == 0) {
+                    error(stb_vorbis, 21);
                 } else {
-                    pvVar11 = field_304;
-                    iVar16 = get_bits((stb_vorbis*)this, 1);
-                    if (iVar16 != 0) {
-                        lVar36 = (ulong)(byte)MVar4 * 1596;
-                        pbVar25 = (byte*)((long)pvVar11 + lVar36);
-                        iVar16 = *(int*)(&DAT_100d6abcc + (ulong) * (byte*)((long)pvVar11 + lVar36 + 1588) * 4);
-                        puVar12 = *(undefined2**)(field_1739 + lVar24 * 8 + -483);
-                        iVar17 = ilog(iVar16);
-                        uVar15 = get_bits((stb_vorbis*)this, iVar17 + -1);
-                        *puVar12 = uVar15;
-                        uVar15 = get_bits((stb_vorbis*)this, iVar17 + -1);
-                        puVar12[1] = uVar15;
-                        if (*(char*)((long)pvVar11 + lVar36) != '\0') {
+                    lVar27 = *(long*)(stb_vorbis + 304);
+                    iVar12 = get_bits(stb_vorbis, 1);
+                    if (iVar12 != 0) {
+                        lVar33 = (unsigned long)(uint8_t)MVar3 * 1596;
+                        pbVar20 = (uint8_t*)(lVar27 + lVar33);
+                        iVar12 = *(int*)(&DAT_100d6abcc + (unsigned long)*(uint8_t*)(lVar27 + 1588 + lVar33) * 4);
+                        puVar9 = *(uint16_t**)(stb_vorbis + lVar19 * 8 + 1256);
+                        iVar13 = ilog(iVar12);
+                        uVar11 = get_bits(stb_vorbis, iVar13 - 1);
+                        *puVar9 = uVar11;
+                        uVar11 = get_bits(stb_vorbis, iVar13 - 1);
+                        puVar9[1] = uVar11;
+                        if (*(char*)(lVar27 + lVar33) != '\0') {
                             local_a00 = 2;
-                            uVar30 = 0;
+                            uVar26 = 0;
                             do {
-                                uVar34 = (ulong)pbVar25[uVar30 + 1];
-                                bVar3 = pbVar25[uVar34 + 33];
-                                bVar5 = pbVar25[uVar34 + 49];
-                                if (bVar5 == 0) {
-                                    uVar35 = 0;
+                                uVar30 = (unsigned long)pbVar20[uVar26 + 1];
+                                bVar2 = pbVar20[uVar30 + 33];
+                                bVar4 = pbVar20[uVar30 + 49];
+                                if (bVar4 == 0) {
+                                    uVar31 = 0;
                                 } else {
-                                    pvVar13 = field_160;
-                                    lVar31 = (ulong)pbVar25[uVar34 + 65] * 2120;
-                                    if ((int)field_1760 < 10) {
-                                        prep_huffman((stb_vorbis*)this);
+                                    lVar35 = *(long*)(stb_vorbis + 160);
+                                    lVar28 = (unsigned long)pbVar20[uVar30 + 65] * 2120;
+                                    if (*(int*)(stb_vorbis + 1760) < 10) {
+                                        prep_huffman(stb_vorbis);
                                     }
-                                    uVar35 = (uint) * (short*)((Codebook*)((long)pvVar13 + lVar31) +
-                                                               (ulong)(field_1756 & 1023) * 2 + 48);
-                                    if ((int)uVar35 < 0) {
-                                        uVar35 = codebook_decode_scalar_raw((stb_vorbis*)this,
-                                                                            (Codebook*)((long)pvVar13 + lVar31));
-                                        cVar7 = *(char*)((long)pvVar13 + lVar31 + 27);
+                                    uVar31 = (unsigned int)*(
+                                        short*)((Codebook*)(lVar35 + lVar28) +
+                                                (unsigned long)(*(unsigned int*)(stb_vorbis + 1756) & 1023) * 2 + 48);
+                                    if ((int)uVar31 < 0) {
+                                        uVar31 = codebook_decode_scalar_raw(stb_vorbis, (Codebook*)(lVar35 + lVar28));
+                                        cVar6 = *(char*)(lVar35 + 27 + lVar28);
                                     } else {
-                                        bVar6 = *(byte*)(*(long*)((long)pvVar13 + lVar31 + 8) + (long)(int)uVar35);
-                                        field_1756 = field_1756 >> (bVar6 & 31);
-                                        uVar18 = field_1760 - (uint)bVar6;
-                                        if ((int)uVar18 < 0) {
-                                            uVar18 = 0;
-                                            uVar35 = 4294967295;
+                                        bVar5 = *(uint8_t*)(*(long*)(lVar35 + 8 + lVar28) + (long)(int)uVar31);
+                                        *(unsigned int*)(stb_vorbis + 1756) =
+                                            *(unsigned int*)(stb_vorbis + 1756) >> (bVar5 & 31);
+                                        iVar13 = *(int*)(stb_vorbis + 1760) - (unsigned int)bVar5;
+                                        if (iVar13 < 0) {
+                                            iVar13 = 0;
+                                            uVar31 = 4294967295;
                                         }
-                                        field_1760 = uVar18;
-                                        cVar7 = *(char*)((long)pvVar13 + lVar31 + 27);
+                                        *(int*)(stb_vorbis + 1760) = iVar13;
+                                        cVar6 = *(char*)(lVar35 + 27 + lVar28);
                                     }
-                                    if (cVar7 != '\0') {
-                                        uVar35 =
-                                            *(uint*)(*(long*)((long)pvVar13 + lVar31 + 2104) + (long)(int)uVar35 * 4);
+                                    if (cVar6) {
+                                        uVar31 =
+                                            *(unsigned int*)(*(long*)(lVar35 + 2104 + lVar28) + (long)(int)uVar31 * 4);
                                     }
                                 }
-                                if (bVar3 != 0) {
-                                    lVar31 = 0;
+                                if (bVar2 != 0) {
+                                    lVar35 = 0;
                                     do {
-                                        uVar18 = uVar35 & ~(-1 << (bVar5 & 31));
-                                        uVar35 = (int)uVar35 >> (bVar5 & 31);
-                                        if ((long)*(short*)(pbVar25 + (long)(int)uVar18 * 2 + uVar34 * 16 + 82) < 0) {
-                                            iVar17 = 0;
+                                        uVar14 = uVar31 & ~(-1 << (bVar4 & 31));
+                                        uVar31 = (int)uVar31 >> (bVar4 & 31);
+                                        if ((long)*(short*)(pbVar20 + (long)(int)uVar14 * 2 + uVar30 * 16 + 82) < 0) {
+                                            iVar13 = 0;
                                         } else {
-                                            pvVar13 = field_160;
-                                            lVar37 =
-                                                (long)*(short*)(pbVar25 + (long)(int)uVar18 * 2 + uVar34 * 16 + 82) *
+                                            lVar28 = *(long*)(stb_vorbis + 160);
+                                            lVar34 =
+                                                (long)*(short*)(pbVar20 + (long)(int)uVar14 * 2 + uVar30 * 16 + 82) *
                                                 2120;
-                                            if ((int)field_1760 < 10) {
-                                                prep_huffman((stb_vorbis*)this);
+                                            if (*(int*)(stb_vorbis + 1760) < 10) {
+                                                prep_huffman(stb_vorbis);
                                             }
-                                            iVar17 = (int)*(short*)((Codebook*)((long)pvVar13 + lVar37) +
-                                                                    (ulong)(field_1756 & 1023) * 2 + 48);
-                                            if (iVar17 < 0) {
-                                                iVar17 = codebook_decode_scalar_raw(
-                                                    (stb_vorbis*)this, (Codebook*)((long)pvVar13 + lVar37));
-                                                cVar7 = *(char*)((long)pvVar13 + lVar37 + 27);
+                                            iVar13 = (int)*(
+                                                short*)((Codebook*)(lVar28 + lVar34) +
+                                                        (unsigned long)(*(unsigned int*)(stb_vorbis + 1756) & 1023) *
+                                                            2 +
+                                                        48);
+                                            if (iVar13 < 0) {
+                                                iVar13 = codebook_decode_scalar_raw(stb_vorbis,
+                                                                                    (Codebook*)(lVar28 + lVar34));
+                                                cVar6 = *(char*)(lVar28 + 27 + lVar34);
                                             } else {
-                                                bVar6 = *(byte*)(*(long*)((long)pvVar13 + lVar37 + 8) + (long)iVar17);
-                                                field_1756 = field_1756 >> (bVar6 & 31);
-                                                uVar18 = field_1760 - (uint)bVar6;
-                                                if ((int)uVar18 < 0) {
-                                                    uVar18 = 0;
-                                                    iVar17 = -1;
+                                                bVar5 = *(uint8_t*)(*(long*)(lVar28 + 8 + lVar34) + (long)iVar13);
+                                                *(unsigned int*)(stb_vorbis + 1756) =
+                                                    *(unsigned int*)(stb_vorbis + 1756) >> (bVar5 & 31);
+                                                iVar22 = *(int*)(stb_vorbis + 1760) - (unsigned int)bVar5;
+                                                if (iVar22 < 0) {
+                                                    iVar22 = 0;
+                                                    iVar13 = -1;
                                                 }
-                                                field_1760 = uVar18;
-                                                cVar7 = *(char*)((long)pvVar13 + lVar37 + 27);
+                                                *(int*)(stb_vorbis + 1760) = iVar22;
+                                                cVar6 = *(char*)(lVar28 + 27 + lVar34);
                                             }
-                                            if (cVar7 != '\0') {
-                                                iVar17 =
-                                                    *(int*)(*(long*)((long)pvVar13 + lVar37 + 2104) + (long)iVar17 * 4);
+                                            if (cVar6) {
+                                                iVar13 = *(int*)(*(long*)(lVar28 + 2104 + lVar34) + (long)iVar13 * 4);
                                             }
                                         }
-                                        puVar12[local_a00 + lVar31] = (short)iVar17;
-                                        lVar31 = lVar31 + 1;
-                                        local_9d0 = (uint)bVar3;
-                                    } while (local_9d0 != (uint)lVar31);
-                                    local_a00 = local_a00 + (uint)lVar31;
+                                        puVar9[local_a00 + lVar35] = (short)iVar13;
+                                        lVar35 = lVar35 + 1;
+                                        local_9d0 = (unsigned int)bVar2;
+                                    } while (local_9d0 != (unsigned int)lVar35);
+                                    local_a00 = local_a00 + (unsigned int)lVar35;
                                 }
-                                uVar30 = uVar30 + 1;
-                            } while (uVar30 < *pbVar25);
+                                uVar26 = uVar26 + 1;
+                            } while (uVar26 < *pbVar20);
                         }
-                        if (field_1760 != 4294967295) {
+                        if (*(int*)(stb_vorbis + 1760) != -1) {
                             local_838._0_2_ = 257;
-                            uVar35 = *(uint*)((long)pvVar11 + lVar36 + 1592);
-                            if (2 < (int)uVar35) {
-                                lVar31 = 0;
+                            uVar31 = *(unsigned int*)(lVar27 + 1592 + lVar33);
+                            if (2 < (int)uVar31) {
+                                lVar27 = lVar27 + lVar33;
+                                lVar33 = 0;
                                 do {
-                                    uVar30 = (ulong) * (byte*)((long)pvVar11 + lVar31 * 2 + lVar36 + 1092);
-                                    uVar34 = (ulong) * (byte*)((long)pvVar11 + lVar31 * 2 + lVar36 + 1093);
-                                    iVar17 =
-                                        predict_point((uint) * (ushort*)((long)pvVar11 + lVar31 * 2 + lVar36 + 342),
-                                                      (uint) * (ushort*)(pbVar25 + uVar30 * 2 + 338),
-                                                      (uint) * (ushort*)(pbVar25 + uVar34 * 2 + 338),
-                                                      (int)(short)puVar12[uVar30], (int)(short)puVar12[uVar34]);
-                                    uVar9 = puVar12[lVar31 + 2];
-                                    uVar18 = (uint)(short)uVar9;
-                                    if (uVar18 == 0) {
-                                        *(undefined1*)((long)local_8b8 + lVar31 + 130) = 0;
+                                    uVar26 = (unsigned long)*(uint8_t*)(lVar27 + 1092 + lVar33 * 2);
+                                    uVar30 = (unsigned long)*(uint8_t*)(lVar27 + 1093 + lVar33 * 2);
+                                    iVar13 = predict_point((unsigned int)*(unsigned short*)(lVar27 + 342 + lVar33 * 2),
+                                                           (unsigned int)*(unsigned short*)(pbVar20 + uVar26 * 2 + 338),
+                                                           (unsigned int)*(unsigned short*)(pbVar20 + uVar30 * 2 + 338),
+                                                           (int)(short)puVar9[uVar26], (int)(short)puVar9[uVar30]);
+                                    uVar8 = puVar9[lVar33 + 2];
+                                    uVar14 = (unsigned int)(short)uVar8;
+                                    if (uVar14 == 0) {
+                                        *(uint8_t*)((long)local_8b8 + lVar33 + 130) = 0;
                                     LAB_100b9aad8:
-                                        sVar21 = (short)iVar17;
+                                        sVar17 = (short)iVar13;
                                     LAB_100b9aae8:
-                                        puVar12[lVar31 + 2] = sVar21;
+                                        puVar9[lVar33 + 2] = sVar17;
                                     } else {
-                                        iVar27 = iVar16 - iVar17;
-                                        iVar33 = iVar17;
-                                        if (iVar27 < iVar17) {
-                                            iVar33 = iVar27;
+                                        iVar23 = iVar12 - iVar13;
+                                        iVar22 = iVar13;
+                                        if (iVar23 < iVar13) {
+                                            iVar22 = iVar23;
                                         }
-                                        *(undefined1*)((long)local_8b8 + uVar34 + 128) = 1;
-                                        *(undefined1*)((long)local_8b8 + uVar30 + 128) = 1;
-                                        *(undefined1*)((long)local_8b8 + lVar31 + 130) = 1;
-                                        if ((int)uVar18 < iVar33 * 2) {
-                                            if ((uVar18 & 1) != 0) {
-                                                iVar17 = iVar17 - (uVar18 + 1 >> 1);
+                                        *(uint8_t*)((long)local_8b8 + uVar30 + 128) = 1;
+                                        *(uint8_t*)((long)local_8b8 + uVar26 + 128) = 1;
+                                        *(uint8_t*)((long)local_8b8 + lVar33 + 130) = 1;
+                                        if ((int)uVar14 < iVar22 * 2) {
+                                            if ((uVar14 & 1) != 0) {
+                                                iVar13 = iVar13 - (uVar14 + 1 >> 1);
                                                 goto LAB_100b9aad8;
                                             }
-                                            sVar21 = (short)(uVar18 >> 1) + (short)iVar17;
+                                            sVar17 = (short)(uVar14 >> 1) + (short)iVar13;
                                             goto LAB_100b9aae8;
                                         }
-                                        if (iVar27 <= iVar17) {
-                                            sVar21 = ~uVar9 + (short)iVar16;
+                                        if (iVar23 <= iVar13) {
+                                            sVar17 = ~uVar8 + (short)iVar12;
                                             goto LAB_100b9aae8;
                                         }
                                     }
-                                    lVar31 = lVar31 + 1;
-                                } while ((ulong)uVar35 - 2 != lVar31);
+                                    lVar33 = lVar33 + 1;
+                                } while ((unsigned long)uVar31 - 2 != lVar33);
                             }
-                            if (0 < (int)uVar35) {
-                                uVar30 = 0;
+                            if (0 < (int)uVar31) {
+                                uVar26 = 0;
                                 do {
-                                    if (*(char*)((long)local_8b8 + uVar30 + 128) == '\0') {
-                                        puVar12[uVar30] = 65535;
+                                    if (*(char*)((long)local_8b8 + uVar26 + 128) == '\0') {
+                                        puVar9[uVar26] = 65535;
                                     }
-                                    uVar30 = uVar30 + 1;
-                                } while (uVar35 != uVar30);
+                                    uVar26 = uVar26 + 1;
+                                } while (uVar31 != uVar26);
                             }
                             goto LAB_100b9abfe;
                         }
                     }
-                    local_438[lVar24] = 1;
+                    local_438[lVar19] = 1;
                 }
             LAB_100b9abfe:
-                if (sVar8 == 0) {
-                    uVar20 = 0;
+                if (sVar7 == 0) {
+                    uVar16 = 0;
                     goto LAB_100b9b120;
                 }
-                lVar24 = lVar24 + 1;
-            } while (lVar24 < (int)field_4);
+                lVar19 = lVar19 + 1;
+            } while (lVar19 < *(int*)(stb_vorbis + 4));
         }
-        if ((field_104 != 0) && (field_112 != field_124)) {
-            /* WARNING: Subroutine does not return */
+        if ((*(long*)(stb_vorbis + 104) != 0) && (*(int*)(stb_vorbis + 112) != *(int*)(stb_vorbis + 124))) {
             LogAssert("f->alloc.alloc_buffer_length_in_bytes == f->temp_offset",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                       "vorbis_std.code",
-                      3008, (char*)0);
+                      3008, nullptr);
         }
-        _memcpy(&local_838, local_438, (long)(int)field_4 << 2);
-        uVar9 = *(ushort*)pMVar1;
-        if ((ulong)uVar9 != 0) {
-            lVar24 = *plVar19;
-            lVar36 = 0;
+        _memcpy(&local_838, local_438, (long)*(int*)(stb_vorbis + 4) << 2);
+        uVar8 = *(unsigned short*)mapping;
+        if ((unsigned long)uVar8 != 0) {
+            lVar19 = *plVar15;
+            lVar27 = 0;
             do {
-                bVar3 = *(byte*)(lVar24 + lVar36);
-                if ((local_438[bVar3] == 0) || (local_438[*(byte*)(lVar24 + 1 + lVar36)] == 0)) {
-                    local_438[*(byte*)(lVar24 + 1 + lVar36)] = 0;
-                    local_438[bVar3] = 0;
+                bVar2 = *(uint8_t*)(lVar19 + lVar27);
+                if ((local_438[bVar2] == 0) || (local_438[*(uint8_t*)(lVar19 + 1 + lVar27)] == 0)) {
+                    local_438[*(uint8_t*)(lVar19 + 1 + lVar27)] = 0;
+                    local_438[bVar2] = 0;
                 }
-                lVar36 = lVar36 + 3;
-            } while ((ulong)uVar9 * 3 != lVar36);
+                lVar27 = lVar27 + 3;
+            } while ((unsigned long)uVar8 * 3 != lVar27);
         }
-        uVar35 = iVar28 >> 1;
-        if (*(char*)((long)pvVar10 + lVar29 + 16) != '\0') {
-            uVar30 = 0;
+        uVar31 = iVar24 >> 1;
+        if (*(char*)(lVar32 + 16 + lVar25) != '\0') {
+            uVar26 = 0;
             do {
-                uVar18 = field_4;
-                iVar16 = 0;
-                if (0 < (int)uVar18) {
-                    pbVar25 = (byte*)(*plVar19 + 2);
-                    uVar34 = 0;
-                    iVar16 = 0;
+                uVar14 = *(unsigned int*)(stb_vorbis + 4);
+                iVar12 = 0;
+                if (0 < (int)uVar14) {
+                    pbVar20 = (uint8_t*)(*plVar15 + 2);
+                    uVar30 = 0;
+                    iVar12 = 0;
                     do {
-                        if (uVar30 == *pbVar25) {
-                            if (local_438[uVar34] == 0) {
-                                local_9b8[iVar16] = '\0';
-                                pfVar32 = *(float**)(field_68 + uVar34 * 8 + 796);
+                        if (uVar26 == *pbVar20) {
+                            if (local_438[uVar30] == 0) {
+                                local_9b8[iVar12] = '\0';
+                                pfVar29 = *(float**)(stb_vorbis + uVar30 * 8 + 864);
                             } else {
-                                local_9b8[iVar16] = '\x01';
-                                pfVar32 = (float*)0;
+                                local_9b8[iVar12] = '\x01';
+                                pfVar29 = nullptr;
                             }
-                            local_8b8[iVar16] = pfVar32;
-                            iVar16 = iVar16 + 1;
+                            local_8b8[iVar12] = pfVar29;
+                            iVar12 = iVar12 + 1;
                         }
-                        uVar34 = uVar34 + 1;
-                        pbVar25 = pbVar25 + 3;
-                    } while (uVar18 != uVar34);
+                        uVar30 = uVar30 + 1;
+                        pbVar20 = pbVar20 + 3;
+                    } while (uVar14 != uVar30);
                 }
-                decode_residue((stb_vorbis*)this, local_8b8, iVar16, uVar35, (uint)(byte)pMVar1[uVar30 + 32],
+                decode_residue(stb_vorbis, local_8b8, iVar12, uVar31, (unsigned int)(uint8_t)mapping[uVar26 + 32],
                                local_9b8);
-                uVar30 = uVar30 + 1;
-            } while (uVar30 < *(byte*)((long)pvVar10 + lVar29 + 16));
+                uVar26 = uVar26 + 1;
+            } while (uVar26 < *(uint8_t*)(lVar32 + lVar25 + 16));
         }
-        if ((field_104 != 0) && (field_112 != field_124)) {
-            /* WARNING: Subroutine does not return */
+        if ((*(long*)(stb_vorbis + 104) != 0) && (*(int*)(stb_vorbis + 112) != *(int*)(stb_vorbis + 124))) {
             LogAssert("f->alloc.alloc_buffer_length_in_bytes == f->temp_offset",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                       "vorbis_std.code",
-                      3041, (char*)0);
+                      3041, nullptr);
         }
-        uVar30 = (ulong) * (ushort*)pMVar1;
-        if (uVar30 != 0) {
-            lVar29 = *plVar19;
-            uVar34 = 1;
-            if (1 < (int)uVar35) {
-                uVar34 = (ulong)uVar35;
+        uVar26 = (unsigned long)*(unsigned short*)mapping;
+        if (uVar26 != 0) {
+            lVar32 = *plVar15;
+            uVar30 = 1;
+            if (1 < (int)uVar31) {
+                uVar30 = (unsigned long)uVar31;
             }
             do {
-                if (1 < iVar28) {
-                    lVar36 = (uVar30 - 1) * 3;
-                    lVar24 = *(long*)(field_68 + (ulong) * (byte*)(lVar29 + lVar36) * 8 + 796);
-                    lVar36 = *(long*)(field_68 + (ulong) * (byte*)(lVar29 + 1 + lVar36) * 8 + 796);
-                    uVar26 = 0;
+                if (1 < iVar24) {
+                    lVar19 = (uVar26 - 1) * 3;
+                    lVar25 = *(long*)(stb_vorbis + (unsigned long)*(uint8_t*)(lVar32 + lVar19) * 8 + 864);
+                    lVar19 = *(long*)(stb_vorbis + (unsigned long)*(uint8_t*)(lVar32 + 1 + lVar19) * 8 + 864);
+                    uVar21 = 0;
                     do {
-                        fVar39 = *(float*)(lVar24 + uVar26 * 4);
-                        fVar2 = *(float*)(lVar36 + uVar26 * 4);
-                        fVar38 = fVar39;
-                        if (fVar39 <= 0.0) {
-                            if (fVar2 <= 0.0) {
-                                fVar38 = fVar39 - fVar2;
+                        fVar37 = *(float*)(lVar25 + uVar21 * 4);
+                        fVar1 = *(float*)(lVar19 + uVar21 * 4);
+                        fVar36 = fVar37;
+                        if (fVar37 <= 0.0) {
+                            if (fVar1 <= 0.0) {
+                                fVar36 = fVar37 - fVar1;
                             } else {
-                                fVar39 = fVar2 + fVar39;
+                                fVar37 = fVar1 + fVar37;
                             }
-                        } else if (fVar2 <= 0.0) {
-                            fVar38 = fVar2 + fVar39;
+                        } else if (fVar1 <= 0.0) {
+                            fVar36 = fVar1 + fVar37;
                         } else {
-                            fVar39 = fVar39 - fVar2;
+                            fVar37 = fVar37 - fVar1;
                         }
-                        *(float*)(lVar24 + uVar26 * 4) = fVar38;
-                        *(float*)(lVar36 + uVar26 * 4) = fVar39;
-                        uVar26 = uVar26 + 1;
-                    } while (uVar34 != uVar26);
+                        *(float*)(lVar25 + uVar21 * 4) = fVar36;
+                        *(float*)(lVar19 + uVar21 * 4) = fVar37;
+                        uVar21 = uVar21 + 1;
+                    } while (uVar30 != uVar21);
                 }
-                bVar14 = 1 < (long)uVar30;
-                uVar30 = uVar30 - 1;
-            } while (bVar14);
+                bVar10 = 1 < (long)uVar26;
+                uVar26 = uVar26 - 1;
+            } while (bVar10);
         }
-        if (0 < (int)field_4) {
-            lVar29 = 0;
+        if (0 < *(int*)(stb_vorbis + 4)) {
+            lVar32 = 0;
             do {
-                if (*(int*)((long)local_8b8 + lVar29 * 4 + 128) == 0) {
-                    do_floor((stb_vorbis*)this, pMVar1, (int)lVar29, iVar28, *(float**)(field_68 + lVar29 * 8 + 796),
-                             *(short**)(field_1739 + lVar29 * 8 + -483), in_stack_fffffffffffff588);
+                if (*(int*)((long)local_8b8 + lVar32 * 4 + 128) == 0) {
+                    do_floor(stb_vorbis, mapping, (int)lVar32, iVar24, *(float**)(stb_vorbis + lVar32 * 8 + 864),
+                             *(short**)(stb_vorbis + lVar32 * 8 + 1256), in_stack_fffffffffffff588);
                 } else {
-                    ___bzero(*(undefined8*)(field_68 + lVar29 * 8 + 796), (long)(int)uVar35 << 2);
+                    ___bzero(*(uint64_t*)(stb_vorbis + lVar32 * 8 + 864), (long)(int)uVar31 << 2);
                 }
-                lVar29 = lVar29 + 1;
-            } while (lVar29 < (int)field_4);
+                lVar32 = lVar32 + 1;
+            } while (lVar32 < *(int*)(stb_vorbis + 4));
         }
-        if (0 < (int)field_4) {
-            lVar29 = 0;
+        if (0 < *(int*)(stb_vorbis + 4)) {
+            lVar32 = 0;
             do {
-                inverse_mdct(*(float**)(field_68 + lVar29 * 8 + 796), iVar28, (stb_vorbis*)this, (uint)(byte)*param_2);
-                lVar29 = lVar29 + 1;
-            } while (lVar29 < (int)field_4);
+                inverse_mdct(*(float**)(stb_vorbis + lVar32 * 8 + 864), iVar24, stb_vorbis,
+                             (unsigned int)(uint8_t)*mode);
+                lVar32 = lVar32 + 1;
+            } while (lVar32 < *(int*)(stb_vorbis + 4));
         }
-        flush_packet((stb_vorbis*)this);
-        if (field_1741 == '\0') {
-            iVar16 = field_1776;
-            if (iVar16 == 0)
-                goto LAB_100b9b031;
-            if (iVar16 < param_4 - iVar22) {
-                *(int*)CONCAT44(in_stack_0000000c, param_6) = iVar22 + iVar16;
-                field_1776 = 0;
-                iVar22 = iVar22 + iVar16;
-            } else {
-                field_1776 = iVar16 - (param_4 - iVar22);
-                *(int*)CONCAT44(in_stack_0000000c, param_6) = param_4;
-                iVar22 = param_4;
+        flush_packet(stb_vorbis);
+        if (stb_vorbis[1741] == (stb_vorbis)0) {
+            iVar12 = *(int*)(stb_vorbis + 1776);
+            if (iVar12 != 0) {
+                if (iVar12 < arg5 - arg4) {
+                    arg4 = arg4 + iVar12;
+                    *(int*)(((uint64_t)in_stack_0000000c << 32) | (uint32_t)arg7) = arg4;
+                    *(uint32_t*)(stb_vorbis + 1776) = 0;
+                } else {
+                    *(int*)(stb_vorbis + 1776) = iVar12 - (arg5 - arg4);
+                    *(int*)(((uint64_t)in_stack_0000000c << 32) | (uint32_t)arg7) = arg5;
+                    arg4 = arg5;
+                }
             }
         } else {
-            field_1384 = -uVar35;
-            field_1776 = iVar28 - param_5;
-            field_1388 = 1;
-            field_1741 = 0;
-        LAB_100b9b031:
+            *(unsigned int*)(stb_vorbis + 1384) = -uVar31;
+            *(int*)(stb_vorbis + 1776) = iVar24 - arg6;
+            *(uint32_t*)(stb_vorbis + 1388) = 1;
+            stb_vorbis[1741] = (stb_vorbis)0;
         }
-        if (field_1752 == field_1768) {
-            if ((field_1388 != 0) && ((field_1739[0] & 4) != 0)) {
-                uVar23 = (param_5 - iVar28) + field_1772;
-                uVar18 = field_1384;
-                uVar20 = 0;
-                if (uVar23 < uVar18 + param_5) {
-                    iVar28 = uVar23 - uVar18;
-                    if (uVar23 < uVar18) {
-                        iVar28 = 0;
+        if (*(int*)(stb_vorbis + 1752) == *(int*)(stb_vorbis + 1768)) {
+            if ((*(int*)(stb_vorbis + 1388) != 0) && (((uint8_t)stb_vorbis[1739] & 4) != 0)) {
+                uVar18 = (arg6 - iVar24) + *(int*)(stb_vorbis + 1772);
+                uVar14 = *(unsigned int*)(stb_vorbis + 1384);
+                uVar16 = 0;
+                if (uVar18 < uVar14 + arg6) {
+                    iVar24 = uVar18 - uVar14;
+                    if (uVar18 < uVar14) {
+                        iVar24 = 0;
                     }
-                    *(int*)param_1 = iVar28 + iVar22;
-                    field_1384 = field_1384 + iVar28 + iVar22;
-                    uVar20 = 1;
+                    *arg2 = iVar24 + arg4;
+                    *(int*)(stb_vorbis + 1384) = *(int*)(stb_vorbis + 1384) + iVar24 + arg4;
+                    uVar16 = 1;
                 }
-                if (uVar23 < uVar18 + param_5)
+                if (uVar18 < uVar14 + arg6)
                     goto LAB_100b9b120;
             }
-            field_1384 = (iVar22 - uVar35) + field_1772;
-            field_1388 = 1;
+            *(unsigned int*)(stb_vorbis + 1384) = (arg4 - uVar31) + *(int*)(stb_vorbis + 1772);
+            *(uint32_t*)(stb_vorbis + 1388) = 1;
         }
-        if (field_1388 != 0) {
-            field_1384 = field_1384 + (param_4 - iVar22);
+        if (*(int*)(stb_vorbis + 1388) != 0) {
+            *(int*)(stb_vorbis + 1384) = *(int*)(stb_vorbis + 1384) + (arg5 - arg4);
         }
-        if ((field_104 != 0) && (field_112 != field_124)) {
-            /* WARNING: Subroutine does not return */
+        if ((*(long*)(stb_vorbis + 104) != 0) && (*(int*)(stb_vorbis + 112) != *(int*)(stb_vorbis + 124))) {
             LogAssert("f->alloc.alloc_buffer_length_in_bytes == f->temp_offset",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                       "vorbis_std.code",
-                      3162, (char*)0);
+                      3162, nullptr);
         }
-        *(int*)param_1 = param_5;
-        uVar20 = 1;
+        *arg2 = arg6;
+        uVar16 = 1;
     LAB_100b9b120:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar20;
+        return uVar16;
     }
 
-    // 0x100b9b1b0, 256 bytes, placed by debug map only (low confidence)
-    // get_bits(stb_vorbis*, int)
-    uint get_bits(stb_vorbis* param_1, int param_2) {
-        int iVar1;
-        uint uVar3;
-
-        iVar1 = *(int*)(param_1 + 1760);
-        uVar3 = 0;
+    // 0x100b9b1b0
+    unsigned int get_bits(stb_vorbis* stb_vorbis, int arg2) {
+        int iVar1 = *(int*)(stb_vorbis + 1760);
+        unsigned int uVar3 = 0;
         if (-1 < iVar1) {
-            if (iVar1 < param_2) {
-                if (24 < param_2) {
-                    iVar1 = get_bits(param_1, 24);
-                    return get_bits(param_1, param_2 + -24) * 16777216 + iVar1;
+            if (iVar1 < arg2) {
+                if (24 < arg2) {
+                    iVar1 = get_bits(stb_vorbis, 24);
+                    return get_bits(stb_vorbis, arg2 - 24) * 16777216 + iVar1;
                 }
                 if (iVar1 == 0) {
-                    *(undefined4*)(param_1 + 1756) = 0;
-                    iVar1 = *(int*)(param_1 + 1760);
+                    *(uint32_t*)(stb_vorbis + 1756) = 0;
+                    iVar1 = *(int*)(stb_vorbis + 1760);
                 } else {
-                    iVar1 = *(int*)(param_1 + 1760);
+                    iVar1 = *(int*)(stb_vorbis + 1760);
                 }
-                while (iVar1 < param_2) {
-                    iVar1 = get8_packet_raw(param_1);
+                while (iVar1 < arg2) {
+                    iVar1 = get8_packet_raw(stb_vorbis);
                     if (iVar1 == -1) {
-                        *(undefined4*)(param_1 + 1760) = 4294967295;
+                        *(uint32_t*)(stb_vorbis + 1760) = 4294967295;
                         return 0;
                     }
-                    *(int*)(param_1 + 1756) =
-                        *(int*)(param_1 + 1756) + (iVar1 << ((byte) * (int*)(param_1 + 1760) & 31));
-                    iVar1 = *(int*)(param_1 + 1760) + 8;
-                    *(int*)(param_1 + 1760) = iVar1;
+                    *(int*)(stb_vorbis + 1756) =
+                        *(int*)(stb_vorbis + 1756) + (iVar1 << ((uint8_t)*(int*)(stb_vorbis + 1760) & 31));
+                    iVar1 = *(int*)(stb_vorbis + 1760) + 8;
+                    *(int*)(stb_vorbis + 1760) = iVar1;
                 }
             }
-            if (-1 < *(int*)(param_1 + 1760)) {
-                uVar3 = ~(-1 << ((byte)param_2 & 31)) & *(uint*)(param_1 + 1756);
-                *(uint*)(param_1 + 1756) = *(uint*)(param_1 + 1756) >> ((byte)param_2 & 31);
-                *(int*)(param_1 + 1760) = *(int*)(param_1 + 1760) - param_2;
+            if (-1 < *(int*)(stb_vorbis + 1760)) {
+                uVar3 = ~(-1 << ((uint8_t)arg2 & 31)) & *(unsigned int*)(stb_vorbis + 1756);
+                *(unsigned int*)(stb_vorbis + 1756) = *(unsigned int*)(stb_vorbis + 1756) >> ((uint8_t)arg2 & 31);
+                *(int*)(stb_vorbis + 1760) = *(int*)(stb_vorbis + 1760) - arg2;
             }
         }
         return uVar3;
     }
 
-    // 0x100b9b2b0, 176 bytes, placed by debug map only (low confidence)
-    // ilog(int)
-    int ilog(int param_1) {
+    // 0x100b9b2b0
+    int ilog(int arg1) {
         int iVar1;
 
-        if (16383 < param_1) {
-            if (16777215 < param_1) {
+        if (16383 < arg1) {
+            if (16777215 < arg1) {
                 iVar1 = 0;
-                if (param_1 < 536870912) {
-                    iVar1 = (char)(&ilog(int)::log2_4)[(uint)(param_1 >> 25)] + 25;
+                if (arg1 < 536870912) {
+                    iVar1 = (char)(&ilog(int)::log2_4)[(arg1 >> 25)] + 25;
                 }
                 return iVar1;
             }
-            if (param_1 < 524288) {
-                return (char)(&ilog(int)::log2_4)[(uint)(param_1 >> 15)] + 15;
+            if (arg1 < 524288) {
+                return (char)(&ilog(int)::log2_4)[(arg1 >> 15)] + 15;
             }
-            return (char)(&ilog(int)::log2_4)[(uint)(param_1 >> 20)] + 20;
+            return (char)(&ilog(int)::log2_4)[(arg1 >> 20)] + 20;
         }
-        if (param_1 < 16) {
-            return (int)(char)(&ilog(int)::log2_4)[param_1];
+        if (arg1 < 16) {
+            return (int)(char)(&ilog(int)::log2_4)[arg1];
         }
-        if (param_1 < 512) {
-            return (char)(&ilog(int)::log2_4)[(uint)(param_1 >> 5)] + 5;
+        if (arg1 < 512) {
+            return (char)(&ilog(int)::log2_4)[(arg1 >> 5)] + 5;
         }
-        return (char)(&ilog(int)::log2_4)[(uint)(param_1 >> 10)] + 10;
+        return (char)(&ilog(int)::log2_4)[(arg1 >> 10)] + 10;
     }
 
-    // 0x100b9b360, 128 bytes, placed by debug map only (low confidence)
-    // get8_packet_raw(stb_vorbis*)
-    ulong get8_packet_raw(stb_vorbis* param_1) {
-        byte bVar1;
-
-        if (param_1[1740] == (stb_vorbis)0) {
-            if (*(int*)(param_1 + 1748) != 0) {
+    // 0x100b9b360
+    unsigned long get8_packet_raw(stb_vorbis* stb_vorbis) {
+        if (stb_vorbis[1740] == (stb_vorbis)0) {
+            if (*(int*)(stb_vorbis + 1748) != 0) {
                 return 4294967295;
             }
-            if (next_segment(param_1) == 0) {
+            if (next_segment(stb_vorbis) == 0) {
                 return 4294967295;
             }
         }
-        if (param_1[1740] == (stb_vorbis)0) {
-            /* WARNING: Subroutine does not return */
+        if (stb_vorbis[1740] == (stb_vorbis)0) {
             LogAssert("f->bytes_in_seg > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                       "vorbis_std.code",
-                      1158, (char*)0);
+                      1158, nullptr);
         }
-        param_1[1740] = (stb_vorbis)((char)param_1[1740] + -1);
-        *(int*)(param_1 + 1764) = *(int*)(param_1 + 1764) + 1;
-        bVar1 = get8(param_1);
-        return (ulong)bVar1;
+        stb_vorbis[1740] = (stb_vorbis)((char)stb_vorbis[1740] - 1);
+        *(int*)(stb_vorbis + 1764) = *(int*)(stb_vorbis + 1764) + 1;
+        uint8_t bVar1 = get8(stb_vorbis);
+        return (unsigned long)bVar1;
     }
 
-    // 0x100b9b3e0, 224 bytes, placed by debug map only (low confidence)
-    // next_segment(stb_vorbis*)
-    stb_vorbis next_segment(stb_vorbis* param_1) {
-        stb_vorbis sVar1;
+    // 0x100b9b3e0
+    stb_vorbis next_segment(stb_vorbis* stb_vorbis) {
         int iVar2;
 
-        if (*(int*)(param_1 + 1748) != 0) {
+        if (*(int*)(stb_vorbis + 1748) != 0) {
             return (stb_vorbis)0;
         }
-        if (*(int*)(param_1 + 1744) == -1) {
-            *(int*)(param_1 + 1752) = *(int*)(param_1 + 1480) + -1;
-            iVar2 = start_page(param_1);
+        if (*(int*)(stb_vorbis + 1744) == -1) {
+            *(int*)(stb_vorbis + 1752) = *(int*)(stb_vorbis + 1480) - 1;
+            iVar2 = start_page(stb_vorbis);
             if (iVar2 == 0) {
-                *(undefined4*)(param_1 + 1748) = 1;
+                *(uint32_t*)(stb_vorbis + 1748) = 1;
                 return (stb_vorbis)0;
             }
-            if (((byte)param_1[1739] & 1) == 0) {
-                error(param_1, 32);
+            if (((uint8_t)stb_vorbis[1739] & 1) == 0) {
+                error(stb_vorbis, 32);
                 return (stb_vorbis)0;
             }
         }
-        iVar2 = *(int*)(param_1 + 1744);
-        *(int*)(param_1 + 1744) = iVar2 + 1;
-        sVar1 = param_1[(long)iVar2 + 1484];
+        iVar2 = *(int*)(stb_vorbis + 1744);
+        *(int*)(stb_vorbis + 1744) = iVar2 + 1;
+        stb_vorbis sVar1 = stb_vorbis[iVar2 + 1484];
         if (sVar1 != (stb_vorbis)255) {
-            *(undefined4*)(param_1 + 1748) = 1;
-            *(int*)(param_1 + 1752) = iVar2;
+            *(uint32_t*)(stb_vorbis + 1748) = 1;
+            *(int*)(stb_vorbis + 1752) = iVar2;
         }
-        if (*(int*)(param_1 + 1480) <= iVar2 + 1) {
-            *(undefined4*)(param_1 + 1744) = 4294967295;
+        if (*(int*)(stb_vorbis + 1480) <= iVar2 + 1) {
+            *(uint32_t*)(stb_vorbis + 1744) = 4294967295;
         }
-        if (param_1[1740] != (stb_vorbis)0) {
-            /* WARNING: Subroutine does not return */
+        if (stb_vorbis[1740] != (stb_vorbis)0) {
             LogAssert("f->bytes_in_seg == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                       "vorbis_std.code",
-                      1144, (char*)0);
+                      1144, nullptr);
         }
-        param_1[1740] = sVar1;
+        stb_vorbis[1740] = sVar1;
         return sVar1;
     }
 
-    // 0x100b9b4c0, 80 bytes, placed by debug map only (low confidence)
-    // get8(stb_vorbis*)
-    uint get8(stb_vorbis* param_1) {
-        byte* pbVar1;
-        uint uVar2;
+    // 0x100b9b4c0
+    unsigned int get8(stb_vorbis* stb_vorbis) {
+        unsigned int uVar2;
 
-        pbVar1 = *(byte**)(param_1 + 40);
-        if (pbVar1 == (byte*)0) {
-            uVar2 = _fgetc(*(FILE**)(param_1 + 24));
+        uint8_t* pbVar1 = *(uint8_t**)(stb_vorbis + 40);
+        if (pbVar1 == nullptr) {
+            uVar2 = _fgetc(*(FILE**)(stb_vorbis + 24));
             if (uVar2 != 4294967295)
                 goto LAB_100b9b4fe;
-        } else if (pbVar1 < *(byte**)(param_1 + 56)) {
-            *(byte**)(param_1 + 40) = pbVar1 + 1;
-            uVar2 = (uint)*pbVar1;
+        } else if (pbVar1 < *(uint8_t**)(stb_vorbis + 56)) {
+            *(uint8_t**)(stb_vorbis + 40) = pbVar1 + 1;
+            uVar2 = (unsigned int)*pbVar1;
             goto LAB_100b9b4fe;
         }
-        *(undefined4*)(param_1 + 128) = 1;
+        *(uint32_t*)(stb_vorbis + 128) = 1;
         uVar2 = 0;
     LAB_100b9b4fe:
         return uVar2 & 255;
     }
 
-    // 0x100b9b510, 48 bytes, placed by debug map only (low confidence)
-    // start_page(stb_vorbis*)
-    undefined8 start_page(stb_vorbis* param_1) {
-        undefined8 uVar2;
+    // 0x100b9b510
+    void start_page(stb_vorbis* stb_vorbis) {
+        uint64_t uVar2;
 
-        if (capture_pattern(param_1) == 0) {
-            error(param_1, 30);
+        if (capture_pattern(stb_vorbis) == 0) {
+            error(stb_vorbis, 30);
             uVar2 = 0;
         } else {
-            uVar2 = start_page_no_capturepattern(param_1);
+            uVar2 = start_page_no_capturepattern(stb_vorbis);
         }
         return uVar2;
     }
 
-    // 0x100b9b540, 80 bytes, placed by debug map only (low confidence)
-    // capture_pattern(stb_vorbis*)
-    bool capture_pattern(stb_vorbis* param_1) {
-        char cVar1;
-        bool bVar2;
-
-        cVar1 = get8(param_1);
-        bVar2 = false;
+    // 0x100b9b540
+    bool capture_pattern(stb_vorbis* stb_vorbis) {
+        char cVar1 = get8(stb_vorbis);
+        bool bVar2 = false;
         if (cVar1 == 'O') {
-            cVar1 = get8(param_1);
+            cVar1 = get8(stb_vorbis);
             if (cVar1 == 'g') {
-                cVar1 = get8(param_1);
+                cVar1 = get8(stb_vorbis);
                 if (cVar1 == 'g') {
-                    cVar1 = get8(param_1);
+                    cVar1 = get8(stb_vorbis);
                     bVar2 = cVar1 == 'S';
                 }
             }
@@ -2903,283 +2820,249 @@ namespace jag::hal::audio::decoders::vorbis {
         return bVar2;
     }
 
-    // 0x100b9b590, 336 bytes, placed by debug map only (low confidence)
-    // start_page_no_capturepattern(stb_vorbis*)
-    undefined8 start_page_no_capturepattern(stb_vorbis* param_1) {
+    // 0x100b9b590
+    void start_page_no_capturepattern(stb_vorbis* stb_vorbis) {
         long lVar1;
-        uint uVar2;
+        unsigned int uVar2;
         long lVar3;
-        byte bVar6;
+        uint8_t bVar6;
         int iVar7;
         int iVar8;
-        undefined4 uVar9;
+        uint32_t uVar9;
         long lVar11;
-        ulong uVar12;
-        undefined8 uVar13;
+        unsigned long uVar12;
+        STBVorbisError stbVorbisError;
 
-        if (get8(param_1) == '\0') {
-            param_1[1739] = (stb_vorbis)get8(param_1);
-            iVar7 = get32(param_1);
-            iVar8 = get32(param_1);
-            get32(param_1);
-            uVar9 = get32(param_1);
-            *(undefined4*)(param_1 + 1476) = uVar9;
-            get32(param_1);
-            bVar6 = get8(param_1);
-            *(uint*)(param_1 + 1480) = (uint)bVar6;
-            if (getn(param_1, (uchar*)(param_1 + 1484), (uint)bVar6) != 0) {
-                *(undefined4*)(param_1 + 1768) = 4294967294;
+        if (get8(stb_vorbis) == '\0') {
+            stb_vorbis[1739] = (stb_vorbis)get8(stb_vorbis);
+            iVar7 = get32(stb_vorbis);
+            iVar8 = get32(stb_vorbis);
+            get32(stb_vorbis);
+            uVar9 = get32(stb_vorbis);
+            *(uint32_t*)(stb_vorbis + 1476) = uVar9;
+            get32(stb_vorbis);
+            bVar6 = get8(stb_vorbis);
+            *(unsigned int*)(stb_vorbis + 1480) = (unsigned int)bVar6;
+            if (getn(stb_vorbis, (unsigned char*)(stb_vorbis + 1484), (unsigned int)bVar6) != 0) {
+                *(uint32_t*)(stb_vorbis + 1768) = 4294967294;
                 if ((iVar7 != -1) || (iVar8 != -1)) {
-                    lVar11 = (long)*(int*)(param_1 + 1480);
+                    lVar11 = (long)*(int*)(stb_vorbis + 1480);
                     do {
                         if (lVar11 < 1)
                             goto LAB_100b9b663;
-                        lVar1 = lVar11 + -1;
+                        lVar1 = lVar11 - 1;
                         lVar3 = lVar11 + 1483;
                         lVar11 = lVar1;
-                    } while (param_1[lVar3] == (stb_vorbis)255);
-                    *(int*)(param_1 + 1768) = (int)lVar1;
-                    *(int*)(param_1 + 1772) = iVar7;
+                    } while (stb_vorbis[lVar3] == (stb_vorbis)255);
+                    *(int*)(stb_vorbis + 1768) = (int)lVar1;
+                    *(int*)(stb_vorbis + 1772) = iVar7;
                 }
             LAB_100b9b663:
-                if (param_1[1741] != (stb_vorbis)0) {
-                    uVar2 = *(uint*)(param_1 + 1480);
+                if (stb_vorbis[1741] != (stb_vorbis)0) {
+                    uVar2 = *(unsigned int*)(stb_vorbis + 1480);
                     if ((int)uVar2 < 1) {
                         iVar8 = 27;
                     } else {
                         uVar12 = 0;
                         iVar8 = 0;
                         do {
-                            iVar8 = iVar8 + (uint)(byte)param_1[uVar12 + 1484];
+                            iVar8 = iVar8 + (unsigned int)(uint8_t)stb_vorbis[uVar12 + 1484];
                             uVar12 = uVar12 + 1;
                         } while (uVar2 != uVar12);
                         iVar8 = iVar8 + 27;
                     }
-                    *(int*)(param_1 + 76) = *(int*)(param_1 + 72);
-                    *(uint*)(param_1 + 80) = uVar2 + iVar8 + *(int*)(param_1 + 72);
-                    *(int*)(param_1 + 84) = iVar7;
+                    *(int*)(stb_vorbis + 76) = *(int*)(stb_vorbis + 72);
+                    *(unsigned int*)(stb_vorbis + 80) = uVar2 + iVar8 + *(int*)(stb_vorbis + 72);
+                    *(int*)(stb_vorbis + 84) = iVar7;
                 }
-                *(undefined4*)(param_1 + 1744) = 0;
+                *(uint32_t*)(stb_vorbis + 1744) = 0;
                 return 1;
             }
-            uVar13 = 10;
+            stbVorbisError = 10;
         } else {
-            uVar13 = 31;
+            stbVorbisError = 31;
         }
-        error(param_1, uVar13);
+        error(stb_vorbis, stbVorbisError);
         return 0;
     }
 
-    // 0x100b9b6e0, 128 bytes, placed by debug map only (low confidence)
-    // prep_huffman(stb_vorbis*)
-    void prep_huffman(stb_vorbis* param_1) {
+    // 0x100b9b6e0
+    void prep_huffman(stb_vorbis* stb_vorbis) {
         int iVar1;
         int iVar2;
 
-        if (*(int*)(param_1 + 1760) < 25) {
-            if (*(int*)(param_1 + 1760) == 0) {
-                *(undefined4*)(param_1 + 1756) = 0;
+        if (*(int*)(stb_vorbis + 1760) < 25) {
+            if (*(int*)(stb_vorbis + 1760) == 0) {
+                *(uint32_t*)(stb_vorbis + 1756) = 0;
             }
             do {
-                if ((*(int*)(param_1 + 1748) != 0) && (param_1[1740] == (stb_vorbis)0)) {
+                if ((*(int*)(stb_vorbis + 1748) != 0) && (stb_vorbis[1740] == (stb_vorbis)0)) {
                     return;
                 }
-                iVar2 = get8_packet_raw(param_1);
+                iVar2 = get8_packet_raw(stb_vorbis);
                 if (iVar2 == -1) {
                     return;
                 }
-                iVar1 = *(int*)(param_1 + 1760);
-                *(int*)(param_1 + 1756) = *(int*)(param_1 + 1756) + (iVar2 << ((byte)iVar1 & 31));
-                *(int*)(param_1 + 1760) = iVar1 + 8;
+                iVar1 = *(int*)(stb_vorbis + 1760);
+                *(int*)(stb_vorbis + 1756) = *(int*)(stb_vorbis + 1756) + (iVar2 << ((uint8_t)iVar1 & 31));
+                *(int*)(stb_vorbis + 1760) = iVar1 + 8;
             } while (iVar1 < 17);
         }
     }
 
-    // 0x100b9b760, 496 bytes, placed by debug map only (low confidence)
-    // codebook_decode_scalar_raw(stb_vorbis*, Codebook*)
-    ulong codebook_decode_scalar_raw(stb_vorbis* param_1, Codebook* param_2) {
-        byte bVar1;
-        uint uVar2;
-        long lVar3;
-        uint uVar4;
-        ulong uVar5;
-        uint uVar6;
+    // 0x100b9b760
+    unsigned long codebook_decode_scalar_raw(stb_vorbis* stb_vorbis, Codebook* codebook) {
+        uint8_t bVar1;
+        long lVar2;
+        unsigned long uVar4;
+        unsigned int uVar5;
         int iVar7;
-        int iVar8;
 
-        prep_huffman(param_1);
-        if ((*(long*)(param_2 + 2096) == 0) && (*(long*)(param_2 + 40) == 0)) {
-            /* WARNING: Subroutine does not return */
+        prep_huffman(stb_vorbis);
+        if ((*(long*)(codebook + 2096) == 0) && (*(long*)(codebook + 40) == 0)) {
             LogAssert("c->sorted_codewords || c->codewords",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                       "vorbis_std.code",
-                      1239, (char*)0);
+                      1239, nullptr);
         }
-        if (*(int*)(param_2 + 4) < 9) {
-            if (*(long*)(param_2 + 40) != 0)
+        if (*(int*)(codebook + 4) < 9) {
+            if (*(long*)(codebook + 40) != 0)
                 goto LAB_100b9b88c;
-        } else if (*(long*)(param_2 + 2096) == 0) {
+        } else if (*(long*)(codebook + 2096) == 0) {
         LAB_100b9b88c:
-            if (param_2[27] != (Codebook)0) {
-                /* WARNING: Subroutine does not return */
+            if (codebook[27] != (Codebook)0) {
                 LogAssert("!c->sparse",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                           "vorbis_std.code",
-                          1273, (char*)0);
+                          1273, nullptr);
             }
-            if (0 < (int)*(uint*)(param_2 + 4)) {
-                lVar3 = *(long*)(param_2 + 8);
-                uVar5 = 0;
+            if (0 < (int)*(unsigned int*)(codebook + 4)) {
+                lVar2 = *(long*)(codebook + 8);
+                uVar4 = 0;
                 do {
-                    bVar1 = *(byte*)(lVar3 + uVar5);
-                    if ((bVar1 != 255) && (*(uint*)(*(long*)(param_2 + 40) + uVar5 * 4) ==
-                                           (~(-1 << (bVar1 & 31)) & *(uint*)(param_1 + 1756)))) {
-                        if ((int)(uint)bVar1 <= *(int*)(param_1 + 1760)) {
-                            *(uint*)(param_1 + 1756) = *(uint*)(param_1 + 1756) >> (bVar1 & 31);
-                            *(uint*)(param_1 + 1760) = *(int*)(param_1 + 1760) - (uint) * (byte*)(lVar3 + uVar5);
-                            return uVar5;
+                    bVar1 = *(uint8_t*)(lVar2 + uVar4);
+                    if ((bVar1 != 255) && (*(unsigned int*)(*(long*)(codebook + 40) + uVar4 * 4) ==
+                                           (~(-1 << (bVar1 & 31)) & *(unsigned int*)(stb_vorbis + 1756)))) {
+                        if ((int)(unsigned int)bVar1 <= *(int*)(stb_vorbis + 1760)) {
+                            *(unsigned int*)(stb_vorbis + 1756) = *(unsigned int*)(stb_vorbis + 1756) >> (bVar1 & 31);
+                            *(unsigned int*)(stb_vorbis + 1760) =
+                                *(int*)(stb_vorbis + 1760) - (unsigned int)*(uint8_t*)(lVar2 + uVar4);
+                            return uVar4;
                         }
                         goto LAB_100b9b933;
                     }
-                    uVar5 = uVar5 + 1;
-                } while (*(uint*)(param_2 + 4) != uVar5);
+                    uVar4 = uVar4 + 1;
+                } while (*(unsigned int*)(codebook + 4) != uVar4);
             }
-            error(param_1, 21);
+            error(stb_vorbis, 21);
         LAB_100b9b933:
-            *(undefined4*)(param_1 + 1760) = 0;
+            *(uint32_t*)(stb_vorbis + 1760) = 0;
             return 4294967295;
         }
-        uVar2 = *(uint*)(param_1 + 1756);
-        uVar4 = bit_reverse(uVar2);
-        iVar7 = *(int*)(param_2 + 2112);
-        uVar5 = 0;
-        if (1 < iVar7) {
-            uVar6 = 0;
+        unsigned int arg1 = *(unsigned int*)(stb_vorbis + 1756);
+        unsigned int uVar3 = bit_reverse(arg1);
+        int iVar6 = *(int*)(codebook + 2112);
+        uVar4 = 0;
+        if (1 < iVar6) {
+            uVar5 = 0;
             do {
-                iVar8 = iVar7 >> 1;
-                if (uVar4 < *(uint*)(*(long*)(param_2 + 2096) + (long)(int)(iVar8 + uVar6) * 4)) {
-                    iVar7 = iVar8;
+                iVar7 = iVar6 >> 1;
+                if (uVar3 < *(unsigned int*)(*(long*)(codebook + 2096) + (long)(int)(iVar7 + uVar5) * 4)) {
+                    iVar6 = iVar7;
                 } else {
-                    iVar7 = iVar7 - iVar8;
-                    uVar6 = iVar8 + uVar6;
+                    iVar6 = iVar6 - iVar7;
+                    uVar5 = iVar7 + uVar5;
                 }
-                uVar5 = (ulong)uVar6;
-            } while (1 < iVar7);
+                uVar4 = (unsigned long)uVar5;
+            } while (1 < iVar6);
         }
-        if (param_2[27] == (Codebook)0) {
-            uVar5 = (ulong) * (uint*)(*(long*)(param_2 + 2104) + (long)(int)uVar5 * 4);
+        if (codebook[27] == (Codebook)0) {
+            uVar4 = (unsigned long)*(unsigned int*)(*(long*)(codebook + 2104) + (long)(int)uVar4 * 4);
         }
-        bVar1 = *(byte*)(*(long*)(param_2 + 8) + (long)(int)uVar5);
-        if (*(int*)(param_1 + 1760) < (int)(uint)bVar1) {
-            uVar5 = 4294967295;
-            *(undefined4*)(param_1 + 1760) = 0;
+        bVar1 = *(uint8_t*)(*(long*)(codebook + 8) + (long)(int)uVar4);
+        if (*(int*)(stb_vorbis + 1760) < (int)(unsigned int)bVar1) {
+            uVar4 = 4294967295;
+            *(uint32_t*)(stb_vorbis + 1760) = 0;
         } else {
-            *(uint*)(param_1 + 1756) = uVar2 >> (bVar1 & 31);
-            *(uint*)(param_1 + 1760) = *(int*)(param_1 + 1760) - (uint)bVar1;
+            *(unsigned int*)(stb_vorbis + 1756) = arg1 >> (bVar1 & 31);
+            *(unsigned int*)(stb_vorbis + 1760) = *(int*)(stb_vorbis + 1760) - (unsigned int)bVar1;
         }
-        return uVar5;
+        return uVar4;
     }
 
-    // 0x100b9b950, 48 bytes, placed by debug map only (low confidence)
-    // predict_point(int, int, int, int, int)
-    int predict_point(int param_1, int param_2, int param_3, int param_4, int param_5) {
-        int iVar1;
-        int iVar2;
-
-        iVar2 = param_5 - param_4;
-        iVar1 = -iVar2;
+    // 0x100b9b950
+    int predict_point(int arg1, int arg2, int arg3, int arg4, int arg5) {
+        int iVar2 = arg5 - arg4;
+        int iVar1 = -iVar2;
         if (-iVar2 < 0) {
             iVar1 = iVar2;
         }
-        iVar1 = (iVar1 * (param_1 - param_2)) / (param_3 - param_2);
+        iVar1 = (iVar1 * (arg1 - arg2)) / (arg3 - arg2);
         if (iVar2 < 0) {
             iVar1 = -iVar1;
         }
-        return iVar1 + param_4;
+        return iVar1 + arg4;
     }
 
-    // 0x100b9b980, 3168 bytes, placed by debug map only (low confidence)
-    // decode_residue(stb_vorbis*, float**, int, int, int, unsigned char*)
-    /* WARNING: Removing unreachable block (ram,4307142022) */
-    /* decode_residue(stb_vorbis*,
-   float**, int, int, int, unsigned char*) */
-
-    void decode_residue(stb_vorbis* param_1, float** param_2, int param_3, int param_4, int param_5, uchar* param_6) {
-        byte bVar1;
-        char cVar2;
-        uint uVar3;
+    // 0x100b9b980
+    void decode_residue(stb_vorbis* stb_vorbis, float** arg2, int arg3, int arg4, int arg5, unsigned char* arg6) {
+        uint8_t bVar1;
+        bool cVar2;
+        unsigned int uVar3;
         float* pfVar4;
         long lVar5;
         bool bVar6;
         float** ppfVar7;
         stb_vorbis* psVar8;
-        int iVar9;
         int iVar10;
-        uint uVar11;
         long* plVar12;
         long lVar13;
-        undefined4 in_register_0000000c;
-        int iVar14;
+        uint32_t in_register_0000000c;
         Codebook* pCVar15;
-        ulong uVar16;
         long lVar17;
         long* plVar18;
-        Codebook* pCVar19;
-        uchar* puVar20;
-        long lVar21;
-        long lVar22;
-        undefined8 uStack_b8;
-        uint local_b0;
+        uint64_t uStack_b8;
         int local_ac;
-        long* local_a0;
-        long* local_98;
-        long local_90;
-        long* local_88;
-        Codebook* local_78;
-        byte* local_70;
-        long* local_68;
-        uint local_60;
+        unsigned int local_60;
         int local_5c;
         long local_58;
-        uchar* local_50;
-        ulong local_48;
-        long local_38;
 
-        local_a0 = (long*)CONCAT44(in_register_0000000c, param_4);
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_68 = *(long**)(param_1 + 448);
-        lVar21 = (long)param_5;
-        local_b0 = (uint) * (ushort*)(param_1 + lVar21 * 2 + 316);
-        lVar22 = lVar21 * 32;
-        local_90 = (long)*(int*)(*(long*)(param_1 + 160) + (ulong) * (byte*)((long)local_68 + lVar22 + 13) * 2120);
-        uVar16 = (ulong)(uint)(*(int*)((long)local_68 + lVar22 + 4) - (int)local_68[lVar21 * 4]) / (ulong) *
-                 (uint*)(local_68 + lVar21 * 4 + 1);
-        uStack_b8._4_4_ = *(undefined4*)(param_1 + 124);
-        iVar14 = (int)uVar16;
-        local_50 = param_6;
-        if (*(long*)(param_1 + 104) == 0) {
+        long* local_a0 = (long*)(((uint64_t)in_register_0000000c << 32) | (uint32_t)arg4);
+        long* local_68 = *(long**)(stb_vorbis + 448);
+        long lVar21 = (long)arg5;
+        unsigned int local_b0 = (unsigned int)*(unsigned short*)(stb_vorbis + lVar21 * 2 + 316);
+        long lVar22 = lVar21 * 32;
+        long local_90 =
+            (long)*(int*)(*(long*)(stb_vorbis + 160) + (unsigned long)*(uint8_t*)((long)local_68 + lVar22 + 13) * 2120);
+        unsigned long uVar16 =
+            (unsigned long)(unsigned int)(*(int*)((long)local_68 + lVar22 + 4) - (int)local_68[lVar21 * 4]) /
+            (unsigned long)*(unsigned int*)(local_68 + lVar21 * 4 + 1);
+        uStack_b8._4_4_ = *(uint32_t*)(stb_vorbis + 124);
+        int iVar14 = (int)uVar16;
+        unsigned char* local_50 = arg6;
+        if (*(long*)(stb_vorbis + 104) == 0) {
             plVar18 = (long*)((long)&uStack_b8 -
-                              (((long)iVar14 * 8 + 8) * (long)*(int*)(param_1 + 4) + 15U & 18446744073709551600));
+                              (((long)iVar14 * 8 + 8) * (long)*(int*)(stb_vorbis + 4) + 15U & 18446744073709551600));
             plVar12 = plVar18;
         } else {
-            plVar12 = (long*)setup_temp_malloc(param_1, (iVar14 * 8 + 8) * *(int*)(param_1 + 4));
+            plVar12 = (long*)setup_temp_malloc(stb_vorbis, (iVar14 * 8 + 8) * *(int*)(stb_vorbis + 4));
             plVar18 = &uStack_b8;
         }
-        uVar11 = (uint)param_3;
-        pCVar19 = (Codebook*)(ulong)(uint)param_3;
-        iVar9 = *(int*)(param_1 + 4);
-        local_88 = plVar12;
-        local_48 = uVar16;
+        unsigned int uVar11 = (unsigned int)arg3;
+        Codebook* pCVar19 = (Codebook*)(unsigned long)(unsigned int)arg3;
+        int iVar9 = *(int*)(stb_vorbis + 4);
+        long* local_88 = plVar12;
+        unsigned long local_48 = uVar16;
         plVar18[-1] = 4307139196;
         make_block_array(plVar12, iVar9, iVar14 * 8);
         plVar12 = local_68;
-        local_78 = pCVar19;
-        puVar20 = local_50;
+        Codebook* local_78 = pCVar19;
+        unsigned char* puVar20 = local_50;
         if (0 < (int)uVar11) {
-            pCVar15 = (Codebook*)0;
+            pCVar15 = nullptr;
             do {
-                if (puVar20[(long)pCVar15] == '\0') {
-                    pfVar4 = param_2[(long)pCVar15];
+                if (puVar20[pCVar15] == '\0') {
+                    pfVar4 = arg2[pCVar15];
                     plVar18[-1] = 4307139266;
                     ___bzero(pfVar4);
                     puVar20 = local_50;
@@ -3188,59 +3071,60 @@ namespace jag::hal::audio::decoders::vorbis {
                 pCVar15 = pCVar15 + 1;
             } while (pCVar19 != pCVar15);
         }
-        local_70 = (byte*)((long)plVar12 + lVar22 + 13);
-        local_98 = plVar12 + lVar21 * 4;
-        if (((short)local_b0 == 2) && ((uint)param_3 != 1)) {
-            if ((int)(uint)param_3 < 1) {
-                pCVar19 = (Codebook*)0;
+        uint8_t* local_70 = (uint8_t*)((long)plVar12 + lVar22 + 13);
+        long* local_98 = plVar12 + lVar21 * 4;
+        if (((short)local_b0 == 2) && ((unsigned int)arg3 != 1)) {
+            if ((int)(unsigned int)arg3 < 1) {
+                pCVar19 = nullptr;
             } else {
-                pCVar15 = (Codebook*)0;
+                pCVar15 = nullptr;
                 do {
-                    if (puVar20[(long)pCVar15] == '\0') {
-                        uVar11 = (uint)pCVar15;
+                    if (puVar20[pCVar15] == '\0') {
+                        uVar11 = (unsigned int)pCVar15;
                         goto joined_r0x000100b9be34;
                     }
                     pCVar15 = pCVar15 + 1;
                 } while (pCVar19 != pCVar15);
             }
-            uVar11 = (uint)pCVar19;
+            uVar11 = (unsigned int)pCVar19;
         joined_r0x000100b9be34:
-            if (uVar11 != (uint)param_3) {
+            if (uVar11 != (unsigned int)arg3) {
                 local_68 = plVar12 + lVar21 * 4 + 2;
                 lVar21 = 0;
                 uVar16 = local_48;
                 do {
                     iVar14 = 0;
-                    puVar20 = (uchar*)0;
-                    if ((uint)param_3 == 2) {
+                    puVar20 = nullptr;
+                    if ((unsigned int)arg3 == 2) {
                         do {
-                            psVar8 = param_1;
+                            psVar8 = stb_vorbis;
                             if ((int)uVar16 <= (int)puVar20)
                                 goto LAB_100b9c594;
-                            uVar11 = *(int*)(local_70 + -5) * (int)puVar20 + (int)*local_98;
+                            uVar11 = *(int*)(local_70 - 5) * (int)puVar20 + (int)*local_98;
                             local_60 = uVar11 & 1;
                             local_5c = (int)uVar11 >> 1;
                             lVar22 = (long)iVar14;
-                            local_58 = CONCAT44(local_58._4_4_, iVar14);
+                            local_58 = (((uint64_t)local_58._4_4_ << 32) | (uint32_t)iVar14);
                             local_50 = puVar20;
                             if (lVar21 == 0) {
-                                lVar17 = *(long*)(param_1 + 160);
-                                lVar13 = (ulong)*local_70 * 2120;
+                                lVar17 = *(long*)(stb_vorbis + 160);
+                                lVar13 = (unsigned long)*local_70 * 2120;
                                 pCVar19 = (Codebook*)(lVar17 + lVar13);
-                                if (*(int*)(param_1 + 1760) < 10) {
+                                if (*(int*)(stb_vorbis + 1760) < 10) {
                                     local_78 = (Codebook*)(lVar17 + lVar13);
                                     plVar18[-1] = 4307141201;
                                     prep_huffman(psVar8);
                                     pCVar19 = local_78;
                                 }
-                                iVar9 = (int)*(short*)(pCVar19 + (ulong)(*(uint*)(psVar8 + 1756) & 1023) * 2 + 48);
+                                iVar9 = (int)*(
+                                    short*)(pCVar19 + (unsigned long)(*(unsigned int*)(psVar8 + 1756) & 1023) * 2 + 48);
                                 if (iVar9 < 0) {
                                     plVar18[-1] = 4307141309;
                                     iVar9 = codebook_decode_scalar_raw(psVar8, pCVar19);
                                 } else {
-                                    bVar1 = *(byte*)(*(long*)(lVar17 + 8 + lVar13) + (long)iVar9);
-                                    *(uint*)(psVar8 + 1756) = *(uint*)(psVar8 + 1756) >> (bVar1 & 31);
-                                    iVar14 = *(int*)(psVar8 + 1760) - (uint)bVar1;
+                                    bVar1 = *(uint8_t*)(*(long*)(lVar17 + 8 + lVar13) + (long)iVar9);
+                                    *(unsigned int*)(psVar8 + 1756) = *(unsigned int*)(psVar8 + 1756) >> (bVar1 & 31);
+                                    iVar14 = *(int*)(psVar8 + 1760) - (unsigned int)bVar1;
                                     if (iVar14 < 0) {
                                         iVar14 = 0;
                                         iVar9 = -1;
@@ -3256,35 +3140,35 @@ namespace jag::hal::audio::decoders::vorbis {
                                 if (iVar9 == -1) {
                                     bVar6 = true;
                                 } else {
-                                    *(undefined8*)(*local_88 + lVar22 * 8) =
-                                        *(undefined8*)(*local_68 + (long)iVar9 * 8);
+                                    *(uint64_t*)(*local_88 + lVar22 * 8) = *(uint64_t*)(*local_68 + (long)iVar9 * 8);
                                     bVar6 = false;
                                     if (iVar9 != -1)
                                         goto LAB_100b9c12c;
                                 }
                             } else {
                             LAB_100b9c12c:
-                                psVar8 = param_1;
+                                psVar8 = stb_vorbis;
                                 puVar20 = local_50;
                                 if (0 < (int)local_90) {
                                     iVar14 = (int)local_50;
                                     lVar17 = 1;
                                     do {
                                         plVar12 = local_a0;
-                                        ppfVar7 = param_2;
-                                        uVar11 = *(uint*)(local_70 + -5);
+                                        ppfVar7 = arg2;
+                                        uVar11 = *(unsigned int*)(local_70 - 5);
                                         lVar13 = (long)*(
-                                            short*)((ulong) * (byte*)(*(long*)(*local_88 + lVar22 * 8) + -1 + lVar17) *
+                                            short*)((unsigned long)*(uint8_t*)(*(long*)(*local_88 + lVar22 * 8) - 1 +
+                                                                               lVar17) *
                                                         16 +
                                                     local_68[1] + lVar21 * 2);
                                         iVar9 = (int)lVar17;
                                         if (lVar13 < 0) {
-                                            uVar11 = (iVar9 + iVar14 + -1) * uVar11 + uVar11 + (int)*local_98;
+                                            uVar11 = (iVar9 + iVar14 - 1) * uVar11 + uVar11 + (int)*local_98;
                                             local_60 = uVar11 & 1;
                                             local_5c = (int)uVar11 >> 1;
                                         } else {
                                             lVar5 = *(long*)(psVar8 + 160);
-                                            plVar18[-2] = (ulong)uVar11;
+                                            plVar18[-2] = (unsigned long)uVar11;
                                             plVar18[-3] = 4307141022;
                                             iVar10 = codebook_decode_deinterleave_repeat_2(
                                                 psVar8, (Codebook*)(lVar13 * 2120 + lVar5), ppfVar7, (int*)&local_60,
@@ -3292,7 +3176,7 @@ namespace jag::hal::audio::decoders::vorbis {
                                             if (iVar10 == 0) {
                                                 bVar6 = true;
                                                 uVar16 = local_48;
-                                                puVar20 = (uchar*)(ulong)(((int)local_50 + iVar9) - 1);
+                                                puVar20 = (unsigned char*)(unsigned long)(((int)local_50 + iVar9) - 1);
                                                 iVar14 = (int)local_58;
                                                 goto LAB_100b9c0e5;
                                             }
@@ -3302,7 +3186,7 @@ namespace jag::hal::audio::decoders::vorbis {
                                             break;
                                         lVar17 = lVar13;
                                     } while (iVar9 + iVar14 < (int)local_48);
-                                    puVar20 = (uchar*)(ulong)(((int)local_50 + (int)lVar13) - 1);
+                                    puVar20 = (unsigned char*)(unsigned long)(((int)local_50 + (int)lVar13) - 1);
                                     uVar16 = local_48;
                                     iVar14 = (int)local_58;
                                 }
@@ -3312,37 +3196,40 @@ namespace jag::hal::audio::decoders::vorbis {
                         LAB_100b9c0e5:
                         } while (!bVar6);
                     } else {
-                        uVar11 = (uint)param_3;
-                        if ((uint)param_3 == 1) {
+                        uVar11 = (unsigned int)arg3;
+                        if ((unsigned int)arg3 == 1) {
                             do {
-                                psVar8 = param_1;
+                                psVar8 = stb_vorbis;
                                 if ((int)uVar16 <= (int)puVar20) {
                                     bVar6 = false;
                                     break;
                                 }
                                 local_60 = 0;
-                                local_5c = *(int*)(local_70 + -5) * (int)puVar20 + (int)*local_98;
+                                local_5c = *(int*)(local_70 - 5) * (int)puVar20 + (int)*local_98;
                                 lVar22 = (long)iVar14;
-                                local_58 = CONCAT44(local_58._4_4_, iVar14);
+                                local_58 = (((uint64_t)local_58._4_4_ << 32) | (uint32_t)iVar14);
                                 local_50 = puVar20;
                                 if (lVar21 == 0) {
-                                    lVar17 = *(long*)(param_1 + 160);
-                                    lVar13 = (ulong)*local_70 * 2120;
+                                    lVar17 = *(long*)(stb_vorbis + 160);
+                                    lVar13 = (unsigned long)*local_70 * 2120;
                                     pCVar19 = (Codebook*)(lVar17 + lVar13);
-                                    if (*(int*)(param_1 + 1760) < 10) {
+                                    if (*(int*)(stb_vorbis + 1760) < 10) {
                                         local_78 = (Codebook*)(lVar17 + lVar13);
                                         plVar18[-1] = 4307141794;
                                         prep_huffman(psVar8);
                                         pCVar19 = local_78;
                                     }
-                                    iVar9 = (int)*(short*)(pCVar19 + (ulong)(*(uint*)(psVar8 + 1756) & 1023) * 2 + 48);
+                                    iVar9 = (int)*(short*)(pCVar19 +
+                                                           (unsigned long)(*(unsigned int*)(psVar8 + 1756) & 1023) * 2 +
+                                                           48);
                                     if (iVar9 < 0) {
                                         plVar18[-1] = 4307141901;
                                         iVar9 = codebook_decode_scalar_raw(psVar8, pCVar19);
                                     } else {
-                                        bVar1 = *(byte*)(*(long*)(lVar17 + 8 + lVar13) + (long)iVar9);
-                                        *(uint*)(psVar8 + 1756) = *(uint*)(psVar8 + 1756) >> (bVar1 & 31);
-                                        iVar14 = *(int*)(psVar8 + 1760) - (uint)bVar1;
+                                        bVar1 = *(uint8_t*)(*(long*)(lVar17 + 8 + lVar13) + (long)iVar9);
+                                        *(unsigned int*)(psVar8 + 1756) =
+                                            *(unsigned int*)(psVar8 + 1756) >> (bVar1 & 31);
+                                        iVar14 = *(int*)(psVar8 + 1760) - (unsigned int)bVar1;
                                         if (iVar14 < 0) {
                                             iVar14 = 0;
                                             iVar9 = -1;
@@ -3354,13 +3241,13 @@ namespace jag::hal::audio::decoders::vorbis {
                                     }
                                     uVar16 = local_48;
                                     puVar20 = local_50;
-                                    uVar11 = (uint)param_3;
+                                    uVar11 = (unsigned int)arg3;
                                     iVar14 = (int)local_58;
                                     if (iVar9 == -1) {
                                         bVar6 = true;
                                     } else {
-                                        *(undefined8*)(*local_88 + lVar22 * 8) =
-                                            *(undefined8*)(*local_68 + (long)iVar9 * 8);
+                                        *(uint64_t*)(*local_88 + lVar22 * 8) =
+                                            *(uint64_t*)(*local_68 + (long)iVar9 * 8);
                                         bVar6 = false;
                                         if (iVar9 != -1)
                                             goto LAB_100b9c385;
@@ -3372,21 +3259,21 @@ namespace jag::hal::audio::decoders::vorbis {
                                         iVar14 = (int)local_50;
                                         lVar17 = 1;
                                         do {
-                                            psVar8 = param_1;
-                                            ppfVar7 = param_2;
-                                            uVar3 = *(uint*)(local_70 + -5);
+                                            psVar8 = stb_vorbis;
+                                            ppfVar7 = arg2;
+                                            uVar3 = *(unsigned int*)(local_70 - 5);
                                             lVar13 = (long)*(
-                                                short*)((ulong) *
-                                                            (byte*)(*(long*)(*local_88 + lVar22 * 8) + -1 + lVar17) *
+                                                short*)((unsigned long)*(uint8_t*)(*(long*)(*local_88 + lVar22 * 8) -
+                                                                                   1 + lVar17) *
                                                             16 +
                                                         local_68[1] + lVar21 * 2);
                                             iVar9 = (int)lVar17;
                                             if (lVar13 < 0) {
                                                 local_60 = 0;
-                                                local_5c = (iVar9 + iVar14 + -1) * uVar3 + uVar3 + (int)*local_98;
+                                                local_5c = (iVar9 + iVar14 - 1) * uVar3 + uVar3 + (int)*local_98;
                                             } else {
-                                                lVar5 = *(long*)(param_1 + 160);
-                                                plVar18[-1] = (ulong)uVar3;
+                                                lVar5 = *(long*)(stb_vorbis + 160);
+                                                plVar18[-1] = (unsigned long)uVar3;
                                                 plVar18[-2] = (long)local_a0;
                                                 plVar18[-3] = 4307141629;
                                                 iVar10 = codebook_decode_deinterleave_repeat(
@@ -3395,7 +3282,8 @@ namespace jag::hal::audio::decoders::vorbis {
                                                 if (iVar10 == 0) {
                                                     bVar6 = true;
                                                     uVar16 = local_48;
-                                                    puVar20 = (uchar*)(ulong)(((int)local_50 + iVar9) - 1);
+                                                    puVar20 =
+                                                        (unsigned char*)(unsigned long)(((int)local_50 + iVar9) - 1);
                                                     iVar14 = (int)local_58;
                                                     goto LAB_100b9c345;
                                                 }
@@ -3405,7 +3293,7 @@ namespace jag::hal::audio::decoders::vorbis {
                                                 break;
                                             lVar17 = lVar13;
                                         } while (iVar9 + iVar14 < (int)local_48);
-                                        puVar20 = (uchar*)(ulong)(((int)local_50 + (int)lVar13) - 1);
+                                        puVar20 = (unsigned char*)(unsigned long)(((int)local_50 + (int)lVar13) - 1);
                                         uVar16 = local_48;
                                         iVar14 = (int)local_58;
                                     }
@@ -3416,26 +3304,28 @@ namespace jag::hal::audio::decoders::vorbis {
                             } while (!bVar6);
                         } else {
                             do {
-                                psVar8 = param_1;
+                                psVar8 = stb_vorbis;
                                 if ((int)uVar16 <= (int)puVar20)
                                     goto LAB_100b9c594;
-                                iVar9 = *(int*)(local_70 + -5) * (int)puVar20 + (int)*local_98;
-                                local_60 = iVar9 % (int)(uint)param_3;
-                                local_5c = iVar9 / (int)(uint)param_3;
+                                iVar9 = *(int*)(local_70 - 5) * (int)puVar20 + (int)*local_98;
+                                local_60 = iVar9 % (int)(unsigned int)arg3;
+                                local_5c = iVar9 / (int)(unsigned int)arg3;
                                 lVar22 = (long)iVar14;
-                                local_58 = CONCAT44(local_58._4_4_, iVar14);
+                                local_58 = (((uint64_t)local_58._4_4_ << 32) | (uint32_t)iVar14);
                                 local_50 = puVar20;
                                 if (lVar21 == 0) {
-                                    lVar17 = *(long*)(param_1 + 160);
-                                    lVar13 = (ulong)*local_70 * 2120;
+                                    lVar17 = *(long*)(stb_vorbis + 160);
+                                    lVar13 = (unsigned long)*local_70 * 2120;
                                     pCVar19 = (Codebook*)(lVar17 + lVar13);
-                                    if (*(int*)(param_1 + 1760) < 10) {
+                                    if (*(int*)(stb_vorbis + 1760) < 10) {
                                         local_78 = (Codebook*)(lVar17 + lVar13);
                                         plVar18[-1] = 4307140610;
                                         prep_huffman(psVar8);
                                         pCVar19 = local_78;
                                     }
-                                    iVar9 = (int)*(short*)(pCVar19 + (ulong)(*(uint*)(psVar8 + 1756) & 1023) * 2 + 48);
+                                    iVar9 = (int)*(short*)(pCVar19 +
+                                                           (unsigned long)(*(unsigned int*)(psVar8 + 1756) & 1023) * 2 +
+                                                           48);
                                     if (iVar9 < 0) {
                                         plVar18[-1] = 4307140776;
                                         iVar9 = codebook_decode_scalar_raw(psVar8, pCVar19);
@@ -3443,9 +3333,10 @@ namespace jag::hal::audio::decoders::vorbis {
                                         puVar20 = local_50;
                                         uVar16 = local_48;
                                     } else {
-                                        bVar1 = *(byte*)(*(long*)(lVar17 + 8 + lVar13) + (long)iVar9);
-                                        *(uint*)(psVar8 + 1756) = *(uint*)(psVar8 + 1756) >> (bVar1 & 31);
-                                        iVar14 = *(int*)(psVar8 + 1760) - (uint)bVar1;
+                                        bVar1 = *(uint8_t*)(*(long*)(lVar17 + 8 + lVar13) + (long)iVar9);
+                                        *(unsigned int*)(psVar8 + 1756) =
+                                            *(unsigned int*)(psVar8 + 1756) >> (bVar1 & 31);
+                                        iVar14 = *(int*)(psVar8 + 1760) - (unsigned int)bVar1;
                                         if (iVar14 < 0) {
                                             iVar14 = 0;
                                             iVar9 = -1;
@@ -3455,7 +3346,7 @@ namespace jag::hal::audio::decoders::vorbis {
                                         puVar20 = local_50;
                                         uVar16 = local_48;
                                     }
-                                    if (cVar2 != '\0') {
+                                    if (cVar2) {
                                         iVar9 = *(int*)(*(long*)(lVar17 + 2104 + lVar13) + (long)iVar9 * 4);
                                     }
                                     iVar14 = (int)local_58;
@@ -3464,8 +3355,8 @@ namespace jag::hal::audio::decoders::vorbis {
                                     if (iVar9 == -1) {
                                         bVar6 = true;
                                     } else {
-                                        *(undefined8*)(*local_88 + lVar22 * 8) =
-                                            *(undefined8*)(*local_68 + (long)iVar9 * 8);
+                                        *(uint64_t*)(*local_88 + lVar22 * 8) =
+                                            *(uint64_t*)(*local_68 + (long)iVar9 * 8);
                                         bVar6 = false;
                                         if (iVar9 != -1)
                                             goto LAB_100b9bee9;
@@ -3477,23 +3368,23 @@ namespace jag::hal::audio::decoders::vorbis {
                                         iVar14 = (int)local_50;
                                         lVar17 = 1;
                                         do {
-                                            uVar3 = (uint)param_3;
-                                            psVar8 = param_1;
-                                            ppfVar7 = param_2;
-                                            uVar11 = *(uint*)(local_70 + -5);
+                                            uVar3 = (unsigned int)arg3;
+                                            psVar8 = stb_vorbis;
+                                            ppfVar7 = arg2;
+                                            uVar11 = *(unsigned int*)(local_70 - 5);
                                             lVar13 = (long)*(
-                                                short*)((ulong) *
-                                                            (byte*)(*(long*)(*local_88 + lVar22 * 8) + -1 + lVar17) *
+                                                short*)((unsigned long)*(uint8_t*)(*(long*)(*local_88 + lVar22 * 8) -
+                                                                                   1 + lVar17) *
                                                             16 +
                                                         local_68[1] + lVar21 * 2);
                                             iVar9 = (int)lVar17;
                                             if (lVar13 < 0) {
-                                                iVar10 = (iVar14 + iVar9 + -1) * uVar11 + uVar11 + (int)*local_98;
-                                                local_60 = iVar10 % (int)(uint)param_3;
-                                                local_5c = iVar10 / (int)(uint)param_3;
+                                                iVar10 = (iVar14 + iVar9 - 1) * uVar11 + uVar11 + (int)*local_98;
+                                                local_60 = iVar10 % (int)(unsigned int)arg3;
+                                                local_5c = iVar10 / (int)(unsigned int)arg3;
                                             } else {
-                                                lVar5 = *(long*)(param_1 + 160);
-                                                plVar18[-1] = (ulong)uVar11;
+                                                lVar5 = *(long*)(stb_vorbis + 160);
+                                                plVar18[-1] = (unsigned long)uVar11;
                                                 plVar18[-2] = (long)local_a0;
                                                 plVar18[-3] = 4307140446;
                                                 iVar10 = codebook_decode_deinterleave_repeat(
@@ -3510,7 +3401,7 @@ namespace jag::hal::audio::decoders::vorbis {
                                                 break;
                                             lVar17 = lVar13;
                                         } while (iVar9 + iVar14 < (int)local_48);
-                                        puVar20 = (uchar*)(ulong)(((int)local_50 + (int)lVar13) - 1);
+                                        puVar20 = (unsigned char*)(unsigned long)(((int)local_50 + (int)lVar13) - 1);
                                         uVar16 = local_48;
                                         iVar14 = (int)local_58;
                                     }
@@ -3534,28 +3425,29 @@ namespace jag::hal::audio::decoders::vorbis {
             do {
                 iVar14 = 0;
                 if (0 < (int)uVar16) {
-                    local_68 = (long*)0;
+                    local_68 = nullptr;
                     iVar9 = 0;
                     plVar12 = local_88;
-                    uVar11 = (uint)param_3;
+                    uVar11 = (unsigned int)arg3;
                     do {
                         if ((local_58 == 0) && (0 < (int)uVar11)) {
-                            pCVar15 = (Codebook*)0;
+                            pCVar15 = nullptr;
                             local_ac = iVar9;
                             do {
-                                psVar8 = param_1;
-                                if (puVar20[(long)pCVar15] == '\0') {
-                                    lVar21 = *(long*)(param_1 + 160);
-                                    lVar22 = (ulong)*local_70 * 2120;
-                                    if (*(int*)(param_1 + 1760) < 10) {
+                                psVar8 = stb_vorbis;
+                                if (puVar20[pCVar15] == '\0') {
+                                    lVar21 = *(long*)(stb_vorbis + 160);
+                                    lVar22 = (unsigned long)*local_70 * 2120;
+                                    if (*(int*)(stb_vorbis + 1760) < 10) {
                                         plVar18[-1] = 4307139539;
                                         prep_huffman(psVar8);
                                         puVar20 = local_50;
                                         pCVar19 = local_78;
                                         iVar9 = local_ac;
                                     }
-                                    iVar10 = (int)*(short*)((Codebook*)(lVar21 + lVar22) +
-                                                            (ulong)(*(uint*)(psVar8 + 1756) & 1023) * 2 + 48);
+                                    iVar10 = (int)*(
+                                        short*)((Codebook*)(lVar21 + lVar22) +
+                                                (unsigned long)(*(unsigned int*)(psVar8 + 1756) & 1023) * 2 + 48);
                                     if (iVar10 < 0) {
                                         plVar18[-1] = 4307139643;
                                         iVar10 = codebook_decode_scalar_raw(psVar8, (Codebook*)(lVar21 + lVar22));
@@ -3563,9 +3455,10 @@ namespace jag::hal::audio::decoders::vorbis {
                                         pCVar19 = local_78;
                                         iVar9 = local_ac;
                                     } else {
-                                        bVar1 = *(byte*)(*(long*)(lVar21 + 8 + lVar22) + (long)iVar10);
-                                        *(uint*)(psVar8 + 1756) = *(uint*)(psVar8 + 1756) >> (bVar1 & 31);
-                                        iVar14 = *(int*)(psVar8 + 1760) - (uint)bVar1;
+                                        bVar1 = *(uint8_t*)(*(long*)(lVar21 + 8 + lVar22) + (long)iVar10);
+                                        *(unsigned int*)(psVar8 + 1756) =
+                                            *(unsigned int*)(psVar8 + 1756) >> (bVar1 & 31);
+                                        iVar14 = *(int*)(psVar8 + 1760) - (unsigned int)bVar1;
                                         if (iVar14 < 0) {
                                             iVar14 = 0;
                                             iVar10 = -1;
@@ -3580,11 +3473,11 @@ namespace jag::hal::audio::decoders::vorbis {
                                         iVar14 = 8;
                                         goto LAB_100b9bdf9;
                                     }
-                                    *(undefined8*)(local_88[(long)pCVar15] + (long)local_68 * 8) =
-                                        *(undefined8*)(*local_a0 + (long)iVar10 * 8);
+                                    *(uint64_t*)(local_88[pCVar15] + (long)local_68 * 8) =
+                                        *(uint64_t*)(*local_a0 + (long)iVar10 * 8);
                                     iVar14 = 0;
                                     plVar12 = local_88;
-                                    uVar11 = (uint)param_3;
+                                    uVar11 = (unsigned int)arg3;
                                     if (iVar10 == -1)
                                         goto LAB_100b9bdf9;
                                 }
@@ -3595,22 +3488,22 @@ namespace jag::hal::audio::decoders::vorbis {
                             lVar21 = 0;
                             do {
                                 if (0 < (int)uVar11) {
-                                    pCVar15 = (Codebook*)0;
+                                    pCVar15 = nullptr;
                                     do {
-                                        psVar8 = param_1;
+                                        psVar8 = stb_vorbis;
                                         uVar3 = local_b0;
-                                        if (puVar20[(long)pCVar15] == '\0') {
-                                            lVar22 = (long)*(short*)((ulong) *
-                                                                         (byte*)(*(long*)(plVar12[(long)pCVar15] +
-                                                                                          (long)local_68 * 8) +
-                                                                                 lVar21) *
-                                                                         16 +
-                                                                     local_a0[1] + local_58 * 2);
+                                        if (puVar20[pCVar15] == '\0') {
+                                            lVar22 = (long)*(
+                                                short*)((unsigned long)*(
+                                                            uint8_t*)(*(long*)(plVar12[pCVar15] + (long)local_68 * 8) +
+                                                                      lVar21) *
+                                                            16 +
+                                                        local_a0[1] + local_58 * 2);
                                             if (-1 < lVar22) {
-                                                iVar14 = *(int*)(local_70 + -5);
+                                                iVar14 = *(int*)(local_70 - 5);
                                                 lVar13 = *local_98;
-                                                pfVar4 = param_2[(long)pCVar15];
-                                                lVar17 = *(long*)(param_1 + 160);
+                                                pfVar4 = arg2[pCVar15];
+                                                lVar17 = *(long*)(stb_vorbis + 160);
                                                 plVar18[-1] = 4307139951;
                                                 iVar14 =
                                                     residue_decode(psVar8, (Codebook*)(lVar22 * 2120 + lVar17), pfVar4,
@@ -3639,93 +3532,79 @@ namespace jag::hal::audio::decoders::vorbis {
             LAB_100b9bdf9:
             } while ((iVar14 == 0) && (local_58 = local_58 + 1, local_58 != 8));
         }
-        *(undefined4*)(param_1 + 124) = uStack_b8._4_4_;
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            plVar18[-1] = (long)&UNK_100b9c5d3;
-            ___stack_chk_fail();
-        }
+        *(uint32_t*)(stb_vorbis + 124) = uStack_b8._4_4_;
     }
 
-    // 0x100b9c5e0, 336 bytes, placed by debug map only (low confidence)
-    // do_floor(stb_vorbis*, Mapping*, int, int, float*, short*, unsigned char*)
-    void do_floor(stb_vorbis* param_1, Mapping* param_2, int param_3, int param_4, float* param_5, short* param_6,
-                  uchar* param_7) {
+    // 0x100b9c5e0
+    void do_floor(stb_vorbis* stb_vorbis, Mapping* mapping, int arg3, int arg4, float* arg5, short* arg6,
+                  unsigned char* arg7) {
         float fVar1;
         long lVar2;
-        ulong uVar3;
+        unsigned long uVar3;
         long lVar4;
-        int iVar5;
-        int iVar6;
-        uint uVar7;
-        long lVar8;
-        long lVar9;
-        uint uVar10;
-        int iVar11;
+        int arg3_00;
+        int arg5_00;
+        unsigned int arg2;
+        long lVar5;
+        long lVar6;
+        unsigned int arg4_00;
+        int arg6_00;
 
-        if (*(short*)(param_1 +
-                      (ulong)(byte)param_2[(ulong) * (byte*)(*(long*)(param_2 + 8) + 2 + (long)param_3 * 3) + 17] * 2 +
+        if (*(short*)(stb_vorbis +
+                      (unsigned long)(uint8_t)mapping[*(uint8_t*)(*(long*)(mapping + 8) + 2 + (long)arg3 * 3) + 17] *
+                          2 +
                       172) == 0) {
-            error(param_1, 21);
+            error(stb_vorbis, 21);
         } else {
-            iVar11 = param_4 >> 1;
-            lVar4 = *(long*)(param_1 + 304);
-            lVar2 = (ulong)(byte)param_2[(ulong) * (byte*)(*(long*)(param_2 + 8) + 2 + (long)param_3 * 3) + 17] * 1596;
-            iVar5 = (uint) * (byte*)(lVar4 + 1588 + lVar2) * (int)*param_6;
-            uVar10 = 0;
+            arg6_00 = arg4 >> 1;
+            lVar4 = *(long*)(stb_vorbis + 304);
+            lVar2 =
+                (unsigned long)(uint8_t)mapping[*(uint8_t*)(*(long*)(mapping + 8) + 2 + (long)arg3 * 3) + 17] * 1596;
+            arg3_00 = (unsigned int)*(uint8_t*)(lVar4 + 1588 + lVar2) * (int)*arg6;
+            arg4_00 = 0;
             if (1 < *(int*)(lVar4 + 1592 + lVar2)) {
-                lVar9 = 839;
-                uVar7 = 0;
+                lVar6 = 839;
+                arg2 = 0;
                 do {
-                    uVar3 = (ulong) * (byte*)(lVar4 + lVar2 + lVar9);
-                    if (param_6[uVar3] < 0) {
-                        uVar10 = uVar7;
-                        iVar6 = iVar5;
+                    uVar3 = (unsigned long)*(uint8_t*)(lVar4 + lVar2 + lVar6);
+                    if (arg6[uVar3] < 0) {
+                        arg4_00 = arg2;
+                        arg5_00 = arg3_00;
                     } else {
-                        iVar6 = (uint) * (byte*)(lVar4 + lVar2 + 1588) * (int)param_6[uVar3];
-                        uVar10 = (uint) * (ushort*)(lVar4 + lVar2 + 338 + uVar3 * 2);
-                        if (uVar7 != uVar10) {
-                            draw_line(param_5, uVar7, iVar5, uVar10, iVar6, iVar11);
+                        arg5_00 = (unsigned int)*(uint8_t*)(lVar4 + lVar2 + 1588) * (int)arg6[uVar3];
+                        arg4_00 = (unsigned int)*(unsigned short*)(lVar4 + lVar2 + 338 + uVar3 * 2);
+                        if (arg2 != arg4_00) {
+                            draw_line(arg5, arg2, arg3_00, arg4_00, arg5_00, arg6_00);
                         }
                     }
-                    iVar5 = iVar6;
-                    lVar8 = lVar9 + -837;
-                    lVar9 = lVar9 + 1;
-                    uVar7 = uVar10;
-                } while (lVar8 < *(int*)(lVar4 + lVar2 + 1592));
+                    arg3_00 = arg5_00;
+                    lVar5 = lVar6 - 837;
+                    lVar6 = lVar6 + 1;
+                    arg2 = arg4_00;
+                } while (lVar5 < *(int*)(lVar4 + lVar2 + 1592));
             }
-            if ((int)uVar10 < iVar11) {
-                fVar1 = *(float*)(&inverse_db_table + (long)iVar5 * 4);
-                lVar4 = (long)(int)uVar10;
+            if ((int)arg4_00 < arg6_00) {
+                fVar1 = *(float*)(&inverse_db_table + (long)arg3_00 * 4);
+                lVar4 = (long)(int)arg4_00;
                 do {
-                    param_5[lVar4] = param_5[lVar4] * fVar1;
+                    arg5[lVar4] = arg5[lVar4] * fVar1;
                     lVar4 = lVar4 + 1;
-                } while (iVar11 != lVar4);
+                } while (arg6_00 != lVar4);
             }
         }
     }
 
-    // 0x100b9c730, 2304 bytes, placed by debug map only (low confidence)
-    // inverse_mdct(float*, int, stb_vorbis*, int)
-    void inverse_mdct(float* param_1, int param_2, stb_vorbis* param_3, int param_4) {
-        byte bVar1;
-        ulong uVar2;
+    // 0x100b9c730
+    void inverse_mdct(float* arg1, int arg2, stb_vorbis* stb_vorbis, int arg4) {
+        uint8_t bVar1;
+        unsigned long uVar2;
         float* pfVar3;
-        uint uVar4;
-        float* pfVar5;
-        ushort* puVar6;
+        unsigned short* puVar6;
         float* pfVar7;
-        ulong uVar8;
+        unsigned long uVar8;
         float* pfVar9;
-        int iVar10;
         long lVar11;
-        float* pfVar12;
         long lVar13;
-        int iVar14;
-        long lVar15;
-        uint uVar16;
-        int iVar17;
-        float* pfVar18;
         float fVar19;
         float fVar20;
         float fVar21;
@@ -3734,169 +3613,158 @@ namespace jag::hal::audio::decoders::vorbis {
         float fVar24;
         float fVar25;
         float afStack_b8[2];
-        long local_a8;
-        float* local_a0;
-        long local_90;
-        undefined4 local_88;
-        int local_84;
         long local_80;
-        float* local_70;
-        ulong local_68;
-        ulong local_60;
         int local_58;
         int local_54;
-        ulong local_50;
-        ulong local_48;
-        long local_38;
+        unsigned long local_48;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        uVar4 = param_2 >> 1;
-        local_88 = *(undefined4*)(param_3 + 124);
-        lVar15 = (long)(int)uVar4;
-        local_68 = (ulong)uVar4;
-        if (*(long*)(param_3 + 104) == 0) {
+        unsigned int uVar4 = arg2 >> 1;
+        uint32_t local_88 = *(uint32_t*)(stb_vorbis + 124);
+        long lVar15 = (long)(int)uVar4;
+        unsigned long local_68 = (unsigned long)uVar4;
+        if (*(long*)(stb_vorbis + 104) == 0) {
             pfVar3 = (float*)((long)afStack_b8 - (lVar15 * 4 + 15U & 18446744073709551600));
             pfVar9 = pfVar3;
         } else {
-            pfVar3 = (float*)setup_temp_malloc(param_3, uVar4 * 4);
+            pfVar3 = (float*)setup_temp_malloc(stb_vorbis, uVar4 * 4);
             pfVar9 = afStack_b8;
         }
-        pfVar18 = *(float**)(param_3 + (long)param_4 * 8 + 1392);
-        pfVar12 = pfVar3 + lVar15 + -2;
-        pfVar5 = pfVar18;
-        if (1 < (uint)param_2) {
-            pfVar7 = param_1;
+        float* pfVar18 = *(float**)(stb_vorbis + (long)arg4 * 8 + 1392);
+        float* pfVar12 = pfVar3 + lVar15 - 2;
+        float* pfVar5 = pfVar18;
+        if (1 < (unsigned int)arg2) {
+            pfVar7 = arg1;
             do {
                 pfVar12[1] = *pfVar5 * *pfVar7 - pfVar5[1] * pfVar7[2];
                 *pfVar12 = *pfVar5 * pfVar7[2] + pfVar5[1] * *pfVar7;
-                pfVar12 = pfVar12 + -2;
+                pfVar12 = pfVar12 - 2;
                 pfVar5 = pfVar5 + 2;
                 pfVar7 = pfVar7 + 4;
-            } while (pfVar7 != param_1 + lVar15);
+            } while (pfVar7 != arg1 + lVar15);
         }
-        iVar10 = (int)(uint)param_2 >> 2;
+        int iVar10 = (int)(unsigned int)arg2 >> 2;
         if (pfVar3 <= pfVar12) {
-            pfVar7 = param_1 + lVar15 + -1;
+            pfVar7 = arg1 + lVar15 - 1;
             do {
                 pfVar12[1] = pfVar5[1] * pfVar7[-2] - *pfVar5 * *pfVar7;
                 *pfVar12 = -pfVar7[-2] * *pfVar5 - pfVar5[1] * *pfVar7;
-                pfVar12 = pfVar12 + -2;
-                pfVar7 = pfVar7 + -4;
+                pfVar12 = pfVar12 - 2;
+                pfVar7 = pfVar7 - 4;
                 pfVar5 = pfVar5 + 2;
             } while (pfVar3 <= pfVar12);
         }
-        uVar4 = (uint)param_2;
-        uVar16 = (int)(uint)param_2 >> 3;
-        local_48 = CONCAT44(local_48._4_4_, iVar10);
-        local_90 = (long)iVar10;
-        if (15 < (int)(uint)param_2) {
-            pfVar5 = pfVar18 + lVar15 + -8;
+        uVar4 = (unsigned int)arg2;
+        unsigned int uVar16 = (int)(unsigned int)arg2 >> 3;
+        local_48 = (((uint64_t)local_48._4_4_ << 32) | (uint32_t)iVar10);
+        long local_90 = (long)iVar10;
+        if (15 < (int)(unsigned int)arg2) {
+            pfVar5 = pfVar18 + lVar15 - 8;
             lVar11 = 0;
             do {
                 fVar20 = *(float*)((long)pfVar3 + lVar11 + local_90 * 4 + 4);
                 fVar21 = *(float*)((long)pfVar3 + lVar11 + 4);
                 fVar22 = fVar20 - fVar21;
                 fVar19 = *(float*)((long)pfVar3 + lVar11 + local_90 * 4) - *(float*)((long)pfVar3 + lVar11);
-                *(float*)((long)param_1 + lVar11 + local_90 * 4 + 4) = fVar21 + fVar20;
-                *(float*)((long)param_1 + lVar11 + local_90 * 4) =
+                *(float*)((long)arg1 + lVar11 + local_90 * 4 + 4) = fVar21 + fVar20;
+                *(float*)((long)arg1 + lVar11 + local_90 * 4) =
                     *(float*)((long)pfVar3 + lVar11) + *(float*)((long)pfVar3 + lVar11 + local_90 * 4);
-                *(float*)((long)param_1 + lVar11 + 4) = pfVar5[4] * fVar22 - pfVar5[5] * fVar19;
-                *(float*)((long)param_1 + lVar11) = fVar22 * pfVar5[5] + fVar19 * pfVar5[4];
+                *(float*)((long)arg1 + lVar11 + 4) = pfVar5[4] * fVar22 - pfVar5[5] * fVar19;
+                *(float*)((long)arg1 + lVar11) = fVar22 * pfVar5[5] + fVar19 * pfVar5[4];
                 fVar20 = *(float*)((long)pfVar3 + lVar11 + local_90 * 4 + 12);
                 fVar21 = *(float*)((long)pfVar3 + lVar11 + 12);
                 fVar22 = fVar20 - fVar21;
                 fVar19 = *(float*)((long)pfVar3 + lVar11 + local_90 * 4 + 8) - *(float*)((long)pfVar3 + lVar11 + 8);
-                *(float*)((long)param_1 + lVar11 + local_90 * 4 + 12) = fVar21 + fVar20;
-                *(float*)((long)param_1 + lVar11 + local_90 * 4 + 8) =
+                *(float*)((long)arg1 + lVar11 + local_90 * 4 + 12) = fVar21 + fVar20;
+                *(float*)((long)arg1 + lVar11 + local_90 * 4 + 8) =
                     *(float*)((long)pfVar3 + lVar11 + 8) + *(float*)((long)pfVar3 + lVar11 + local_90 * 4 + 8);
-                *(float*)((long)param_1 + lVar11 + 12) = *pfVar5 * fVar22 - pfVar5[1] * fVar19;
-                *(float*)((long)param_1 + lVar11 + 8) = fVar22 * pfVar5[1] + fVar19 * *pfVar5;
-                pfVar5 = pfVar5 + -8;
+                *(float*)((long)arg1 + lVar11 + 12) = *pfVar5 * fVar22 - pfVar5[1] * fVar19;
+                *(float*)((long)arg1 + lVar11 + 8) = fVar22 * pfVar5[1] + fVar19 * *pfVar5;
+                pfVar5 = pfVar5 - 8;
                 lVar11 = lVar11 + 16;
             } while (pfVar18 <= pfVar5);
         }
-        local_a8 = lVar15;
-        local_a0 = pfVar3;
-        local_70 = pfVar18;
+        long local_a8 = lVar15;
+        float* local_a0 = pfVar3;
+        float* local_70 = pfVar18;
         pfVar9[-2] = 1.7061948e-38;
         pfVar9[-1] = 1.4013e-45;
-        local_60 = ilog(uVar4);
-        iVar14 = (int)uVar4 >> 4;
+        unsigned long local_60 = ilog(uVar4);
+        int iVar14 = (int)uVar4 >> 4;
         uVar4 = (int)local_68 - 1;
-        iVar17 = -uVar16;
-        local_50 = (ulong)uVar16;
+        int iVar17 = -uVar16;
+        unsigned long local_50 = (unsigned long)uVar16;
         pfVar9[-2] = 1.7062008e-38;
         pfVar9[-1] = 1.4013e-45;
-        imdct_step3_iter0_loop(iVar14, param_1, uVar4, iVar17, pfVar18);
+        imdct_step3_iter0_loop(iVar14, arg1, uVar4, iVar17, pfVar18);
         iVar10 = uVar4 - (int)local_48;
         pfVar9[-2] = 1.706204e-38;
         pfVar9[-1] = 1.4013e-45;
-        imdct_step3_iter0_loop(iVar14, param_1, iVar10, iVar17, pfVar18);
-        iVar17 = (int)(uint)param_2 >> 5;
+        imdct_step3_iter0_loop(iVar14, arg1, iVar10, iVar17, pfVar18);
+        iVar17 = (int)(unsigned int)arg2 >> 5;
         iVar14 = -iVar14;
         pfVar9[-2] = 1.7062092e-38;
         pfVar9[-1] = 1.4013e-45;
-        imdct_step3_inner_r_loop(iVar17, param_1, uVar4, iVar14, pfVar18, 16);
+        imdct_step3_inner_r_loop(iVar17, arg1, uVar4, iVar14, pfVar18, 16);
         pfVar3 = local_70;
         iVar10 = (int)local_50;
         pfVar9[-2] = 1.706214e-38;
         pfVar9[-1] = 1.4013e-45;
-        imdct_step3_inner_r_loop(iVar17, param_1, uVar4 - iVar10, iVar14, pfVar3, 16);
+        imdct_step3_inner_r_loop(iVar17, arg1, uVar4 - iVar10, iVar14, pfVar3, 16);
         pfVar3 = local_70;
         pfVar9[-2] = 1.706219e-38;
         pfVar9[-1] = 1.4013e-45;
-        imdct_step3_inner_r_loop(iVar17, param_1, uVar4 + iVar10 * -2, iVar14, pfVar3, 16);
+        imdct_step3_inner_r_loop(iVar17, arg1, uVar4 + iVar10 * -2, iVar14, pfVar3, 16);
         iVar10 = (int)local_50;
-        local_84 = iVar17;
-        local_68 = (ulong)uVar4;
+        int local_84 = iVar17;
+        local_68 = (unsigned long)uVar4;
         pfVar9[-2] = 1.7062256e-38;
         pfVar9[-1] = 1.4013e-45;
-        imdct_step3_inner_r_loop(iVar17, param_1, uVar4 + iVar10 * -3, iVar14, pfVar3, 16);
+        imdct_step3_inner_r_loop(iVar17, arg1, uVar4 + iVar10 * -3, iVar14, pfVar3, 16);
         pfVar18 = local_70;
-        pfVar3 = param_1;
+        pfVar3 = arg1;
         iVar10 = 2;
         if (9 < (int)local_60) {
-            iVar14 = (int)local_60 + -4 >> 1;
+            iVar14 = (int)local_60 - 4 >> 1;
             iVar10 = 3;
             if (3 < iVar14) {
                 iVar10 = iVar14;
             }
-            local_80 = CONCAT44(local_80._4_4_, iVar10);
+            local_80 = (((uint64_t)local_80._4_4_ << 32) | (uint32_t)iVar10);
             local_54 = 2;
             do {
-                bVar1 = (byte)local_54;
-                iVar14 = (int)(uint)param_2 >> (bVar1 + 2 & 31);
-                local_48 = CONCAT44(local_48._4_4_, iVar14);
+                bVar1 = (uint8_t)local_54;
+                iVar14 = (int)(unsigned int)arg2 >> (bVar1 + 2 & 31);
+                local_48 = (((uint64_t)local_48._4_4_ << 32) | (uint32_t)iVar14);
                 local_54 = local_54 + 1;
                 iVar10 = 2 << (bVar1 & 31);
-                iVar17 = (int)(uint)param_2 >> (bVar1 + 4 & 31);
+                iVar17 = (int)(unsigned int)arg2 >> (bVar1 + 4 & 31);
                 if (0 < iVar10) {
                     local_58 = -(iVar14 >> 1);
                     uVar8 = local_68 & 4294967295;
                     do {
                         iVar14 = local_58;
-                        local_50 = CONCAT44(local_50._4_4_, iVar10);
+                        local_50 = (((uint64_t)local_50._4_4_ << 32) | (uint32_t)iVar10);
                         pfVar9[-2] = 1.7062492e-38;
                         pfVar9[-1] = 1.4013e-45;
                         imdct_step3_inner_r_loop(iVar17, pfVar3, (int)uVar8, iVar14, pfVar18, 8 << (bVar1 & 31));
-                        uVar8 = (ulong)(uint)((int)uVar8 - (int)local_48);
-                        iVar10 = (int)local_50 + -1;
+                        uVar8 = (unsigned long)(unsigned int)((int)uVar8 - (int)local_48);
+                        iVar10 = (int)local_50 - 1;
                     } while (iVar10 != 0);
                 }
                 iVar10 = local_54;
             } while (local_54 != (int)local_80);
         }
-        pfVar3 = param_1;
+        pfVar3 = arg1;
         uVar4 = (int)local_60 - 7;
-        local_60 = (ulong)uVar4;
+        local_60 = (unsigned long)uVar4;
         if (iVar10 < (int)uVar4) {
             do {
-                bVar1 = (byte)iVar10;
-                uVar4 = (int)(uint)param_2 >> (bVar1 + 2 & 31);
-                local_50 = (ulong)uVar4;
+                bVar1 = (uint8_t)iVar10;
+                uVar4 = (int)(unsigned int)arg2 >> (bVar1 + 2 & 31);
+                local_50 = (unsigned long)uVar4;
                 uVar16 = 8 << (bVar1 & 31);
-                local_48 = (ulong)uVar16;
-                iVar14 = (int)(uint)param_2 >> (bVar1 + 6 & 31);
+                local_48 = (unsigned long)uVar16;
+                iVar14 = (int)(unsigned int)arg2 >> (bVar1 + 6 & 31);
                 local_54 = iVar10 + 1;
                 if (0 < iVar14) {
                     local_58 = -((int)uVar4 >> 1);
@@ -3907,50 +3775,50 @@ namespace jag::hal::audio::decoders::vorbis {
                     do {
                         uVar2 = local_48;
                         iVar10 = local_58;
-                        *(ulong*)(pfVar9 + -4) = local_50;
+                        *(unsigned long*)(pfVar9 - 4) = local_50;
                         pfVar9[-6] = 1.7062769e-38;
                         pfVar9[-5] = 1.4013e-45;
                         imdct_step3_inner_s_loop(2 << (bVar1 & 31), pfVar3, (int)uVar8, iVar10, pfVar18, (int)uVar2,
                                                  (int)pfVar9[-4]);
-                        uVar8 = (ulong)((int)uVar8 - 8);
+                        uVar8 = (unsigned long)((int)uVar8 - 8);
                         pfVar18 = (float*)((long)pfVar18 + local_80);
-                        iVar14 = iVar14 + -1;
+                        iVar14 = iVar14 - 1;
                     } while (1 < iVar14);
                 }
                 iVar10 = local_54;
             } while (local_54 != (int)local_60);
         }
-        uVar4 = (uint)param_2;
+        uVar4 = (unsigned int)arg2;
         uVar8 = local_68;
         pfVar18 = local_70;
-        pfVar3 = param_1;
+        pfVar3 = arg1;
         iVar10 = local_84;
         pfVar9[-2] = 1.7062845e-38;
         pfVar9[-1] = 1.4013e-45;
         imdct_step3_inner_s_loop_ld654(iVar10, pfVar3, (int)uVar8, pfVar18, uVar4);
-        pfVar18 = local_a0 + local_90 + -4;
+        pfVar18 = local_a0 + local_90 - 4;
         if (local_a0 <= pfVar18) {
-            puVar6 = *(ushort**)(param_3 + (long)param_4 * 8 + 1456);
-            pfVar5 = local_a0 + local_a8 + -1;
+            puVar6 = *(unsigned short**)(stb_vorbis + (long)arg4 * 8 + 1456);
+            pfVar5 = local_a0 + local_a8 - 1;
             do {
-                uVar8 = (ulong)*puVar6;
+                uVar8 = (unsigned long)*puVar6;
                 *pfVar5 = pfVar3[uVar8];
                 pfVar5[-1] = pfVar3[uVar8 + 1];
                 pfVar18[3] = pfVar3[uVar8 + 2];
                 pfVar18[2] = pfVar3[uVar8 + 3];
-                uVar8 = (ulong)puVar6[1];
+                uVar8 = (unsigned long)puVar6[1];
                 pfVar5[-2] = pfVar3[uVar8];
                 pfVar5[-3] = pfVar3[uVar8 + 1];
                 pfVar18[1] = pfVar3[uVar8 + 2];
                 *pfVar18 = pfVar3[uVar8 + 3];
-                pfVar18 = pfVar18 + -4;
-                pfVar5 = pfVar5 + -4;
+                pfVar18 = pfVar18 - 4;
+                pfVar5 = pfVar5 - 4;
                 puVar6 = puVar6 + 2;
             } while (local_a0 <= pfVar18);
         }
-        pfVar18 = local_a0 + local_a8 + -4;
+        pfVar18 = local_a0 + local_a8 - 4;
         if (local_a0 < pfVar18) {
-            lVar15 = *(long*)(param_3 + (long)param_4 * 8 + 1424);
+            lVar15 = *(long*)(stb_vorbis + (long)arg4 * 8 + 1424);
             lVar11 = 0;
             do {
                 fVar20 = *(float*)((long)local_a0 + lVar11 + 4);
@@ -3979,186 +3847,170 @@ namespace jag::hal::audio::decoders::vorbis {
                 *(float*)((long)local_a0 + lVar11 + 12) = fVar19 + fVar21;
                 *pfVar18 = fVar20 - fVar25;
                 pfVar18[1] = fVar19 - fVar21;
-                pfVar18 = pfVar18 + -4;
+                pfVar18 = pfVar18 - 4;
                 lVar13 = lVar11 + 16;
                 lVar11 = lVar11 + 16;
             } while ((float*)((long)local_a0 + lVar13) < pfVar18);
         }
-        if (local_a0 <= local_a0 + local_a8 + -8) {
-            lVar13 = (long)(int)((uint)param_2 - 4);
+        if (local_a0 <= local_a0 + local_a8 - 8) {
+            lVar13 = (long)(int)((unsigned int)arg2 - 4);
             lVar11 = local_a8 * 4;
-            pfVar18 = local_a0 + -1;
-            lVar15 = *(long*)(param_3 + (long)param_4 * 8 + 1408) + -4;
+            pfVar18 = local_a0 - 1;
+            lVar15 = *(long*)(stb_vorbis + (long)arg4 * 8 + 1408) - 4;
             pfVar5 = pfVar3 + 3;
             pfVar12 = local_a0;
             do {
-                pfVar12 = pfVar12 + -8;
-                fVar20 = *(float*)(lVar15 + -4 + lVar11);
-                fVar21 = *(float*)(lVar15 + lVar11) * pfVar18[local_a8 + -1] - fVar20 * pfVar18[local_a8];
-                fVar20 = -pfVar18[local_a8 + -1] * fVar20 - pfVar18[local_a8] * *(float*)(lVar15 + lVar11);
+                pfVar12 = pfVar12 - 8;
+                fVar20 = *(float*)(lVar15 - 4 + lVar11);
+                fVar21 = *(float*)(lVar15 + lVar11) * pfVar18[local_a8 - 1] - fVar20 * pfVar18[local_a8];
+                fVar20 = -pfVar18[local_a8 - 1] * fVar20 - pfVar18[local_a8] * *(float*)(lVar15 + lVar11);
                 pfVar5[-3] = fVar21;
-                pfVar3[local_a8 + -1] = -fVar21;
-                pfVar5[local_a8 + -3] = fVar20;
+                pfVar3[local_a8 - 1] = -fVar21;
+                pfVar5[local_a8 - 3] = fVar20;
                 pfVar3[lVar13 + 3] = fVar20;
-                fVar20 = *(float*)(lVar15 + -12 + lVar11);
-                fVar21 = *(float*)(lVar15 + -8 + lVar11);
-                fVar19 = fVar21 * pfVar18[local_a8 + -3] - fVar20 * pfVar18[local_a8 + -2];
-                fVar20 = -pfVar18[local_a8 + -3] * fVar20 - pfVar18[local_a8 + -2] * fVar21;
+                fVar20 = *(float*)(lVar15 - 12 + lVar11);
+                fVar21 = *(float*)(lVar15 - 8 + lVar11);
+                fVar19 = fVar21 * pfVar18[local_a8 - 3] - fVar20 * pfVar18[local_a8 - 2];
+                fVar20 = -pfVar18[local_a8 - 3] * fVar20 - pfVar18[local_a8 - 2] * fVar21;
                 pfVar5[-2] = fVar19;
-                pfVar3[local_a8 + -2] = -fVar19;
-                pfVar5[local_a8 + -2] = fVar20;
+                pfVar3[local_a8 - 2] = -fVar19;
+                pfVar5[local_a8 - 2] = fVar20;
                 pfVar3[lVar13 + 2] = fVar20;
-                fVar20 = *(float*)(lVar15 + -20 + lVar11);
-                fVar21 = *(float*)(lVar15 + -16 + lVar11);
-                fVar19 = fVar21 * pfVar18[local_a8 + -5] - fVar20 * pfVar18[local_a8 + -4];
-                fVar20 = -pfVar18[local_a8 + -5] * fVar20 - pfVar18[local_a8 + -4] * fVar21;
+                fVar20 = *(float*)(lVar15 - 20 + lVar11);
+                fVar21 = *(float*)(lVar15 - 16 + lVar11);
+                fVar19 = fVar21 * pfVar18[local_a8 - 5] - fVar20 * pfVar18[local_a8 - 4];
+                fVar20 = -pfVar18[local_a8 - 5] * fVar20 - pfVar18[local_a8 - 4] * fVar21;
                 pfVar5[-1] = fVar19;
-                pfVar3[local_a8 + -3] = -fVar19;
-                pfVar5[local_a8 + -1] = fVar20;
+                pfVar3[local_a8 - 3] = -fVar19;
+                pfVar5[local_a8 - 1] = fVar20;
                 pfVar3[lVar13 + 1] = fVar20;
-                fVar20 = *(float*)(lVar15 + -28 + lVar11);
-                fVar21 = *(float*)(lVar15 + -24 + lVar11);
-                fVar19 = fVar21 * pfVar18[local_a8 + -7] - fVar20 * pfVar18[local_a8 + -6];
-                fVar20 = -pfVar18[local_a8 + -7] * fVar20 - pfVar18[local_a8 + -6] * fVar21;
+                fVar20 = *(float*)(lVar15 - 28 + lVar11);
+                fVar21 = *(float*)(lVar15 - 24 + lVar11);
+                fVar19 = fVar21 * pfVar18[local_a8 - 7] - fVar20 * pfVar18[local_a8 - 6];
+                fVar20 = -pfVar18[local_a8 - 7] * fVar20 - pfVar18[local_a8 - 6] * fVar21;
                 *pfVar5 = fVar19;
-                pfVar3[local_a8 + -4] = -fVar19;
+                pfVar3[local_a8 - 4] = -fVar19;
                 pfVar5[local_a8] = fVar20;
                 pfVar3[lVar13] = fVar20;
-                pfVar18 = pfVar18 + -8;
-                lVar15 = lVar15 + -32;
-                pfVar3 = pfVar3 + -4;
+                pfVar18 = pfVar18 - 8;
+                lVar15 = lVar15 - 32;
+                pfVar3 = pfVar3 - 4;
                 pfVar5 = pfVar5 + 4;
-            } while (local_a0 <= pfVar12 + local_a8 + -8);
+            } while (local_a0 <= pfVar12 + local_a8 - 8);
         }
-        *(undefined4*)(param_3 + 124) = local_88;
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            *(undefined**)(pfVar9 + -2) = &UNK_100b9d023;
-            ___stack_chk_fail();
-        }
+        *(uint32_t*)(stb_vorbis + 124) = local_88;
     }
 
-    // 0x100b9d030, 80 bytes, placed by debug map only (low confidence)
-    // bit_reverse(unsigned int)
-    int bit_reverse(uint param_1) {
-        uint uVar1;
-
-        uVar1 = param_1 >> 24 | (param_1 & 16711680) >> 8 | (param_1 & 65280) << 8 | param_1 << 24;
+    // 0x100b9d030
+    int bit_reverse(unsigned int arg1) {
+        unsigned int uVar1 = arg1 >> 24 | (arg1 & 16711680) >> 8 | (arg1 & 65280) << 8 | arg1 << 24;
         uVar1 = uVar1 >> 4 & 252645135 | (uVar1 & 252645135) << 4;
         uVar1 = (uVar1 >> 2 & 858993459) + (uVar1 & 858993459) * 4;
         return (uVar1 >> 1 & 1431655765) + (uVar1 & 1431655765) * 2;
     }
 
-    // 0x100b9d080, 64 bytes, placed by debug map only (low confidence)
-    // make_block_array(void*, int, int)
-    void make_block_array(void* param_1, int param_2, int param_3) {
+    // 0x100b9d080
+    void make_block_array(void* arg1, int arg2, int arg3) {
         void* pvVar1;
-        ulong uVar2;
+        unsigned long uVar2;
 
-        if (0 < param_2) {
-            pvVar1 = (void*)((long)param_1 + (long)param_2 * 8);
-            uVar2 = (ulong)(uint)param_2;
+        if (0 < arg2) {
+            pvVar1 = (void*)((long)arg1 + (long)arg2 * 8);
+            uVar2 = (unsigned long)(unsigned int)arg2;
             do {
-                *(void**)param_1 = pvVar1;
-                pvVar1 = (void*)((long)pvVar1 + (long)param_3);
-                param_1 = (void*)((long)param_1 + 8);
+                *(void**)arg1 = pvVar1;
+                pvVar1 = (void*)((long)pvVar1 + (long)arg3);
+                arg1 = (void*)((long)arg1 + 8);
                 uVar2 = uVar2 - 1;
             } while (uVar2 != 0);
         }
     }
 
-    // 0x100b9d0c0, 64 bytes, placed by debug map only (low confidence)
-    // setup_temp_malloc(stb_vorbis*, int)
-    void* setup_temp_malloc(stb_vorbis* param_1, int param_2) {
-        ulong uVar2;
-        int iVar3;
-        long lVar4;
-
-        uVar2 = (long)param_2 + 3U & 18446744073709551612;
-        if (*(long*)(param_1 + 104) == 0) {
+    // 0x100b9d0c0
+    void* setup_temp_malloc(stb_vorbis* stb_vorbis, int arg2) {
+        unsigned long uVar2 = (long)arg2 + 3U & 18446744073709551612;
+        if (*(long*)(stb_vorbis + 104) == 0) {
             return _malloc((long)(int)uVar2);
         }
-        lVar4 = (long)*(int*)(param_1 + 124) - uVar2;
-        iVar3 = (int)lVar4;
-        if (iVar3 < *(int*)(param_1 + 120)) {
-            return (void*)0;
+        long lVar4 = (long)*(int*)(stb_vorbis + 124) - uVar2;
+        int iVar3 = (int)lVar4;
+        if (iVar3 < *(int*)(stb_vorbis + 120)) {
+            return nullptr;
         }
-        *(int*)(param_1 + 124) = iVar3;
-        return (void*)(*(long*)(param_1 + 104) + lVar4);
+        *(int*)(stb_vorbis + 124) = iVar3;
+        return (void*)(*(long*)(stb_vorbis + 104) + lVar4);
     }
 
-    // 0x100b9d100, 784 bytes, placed by debug map only (low confidence)
-    // codebook_decode_deinterleave_repeat_2(stb_vorbis*, Codebook*, float**, int*, int*, int, int)
-    undefined8 codebook_decode_deinterleave_repeat_2(stb_vorbis* param_1, Codebook* param_2, float** param_3,
-                                                     int* param_4, int* param_5, int param_6, int param_7) {
-        byte bVar1;
+    // 0x100b9d100
+    void codebook_decode_deinterleave_repeat_2(stb_vorbis* stb_vorbis, Codebook* codebook, float** arg3, int* arg4,
+                                               int* arg5, int arg6, int arg7) {
+        uint8_t bVar1;
         float* pfVar2;
         float* pfVar3;
         bool bVar4;
         int iVar5;
         long lVar6;
         int iVar7;
-        uint uVar8;
+        unsigned int uVar8;
         long lVar9;
-        ulong uVar10;
+        unsigned long uVar10;
         long lVar11;
-        uint uVar12;
+        unsigned int uVar12;
         int iVar13;
         int iVar14;
         int iVar15;
         float fVar16;
 
-        if (param_2[25] == (Codebook)0) {
-            error(param_1, 21);
+        if (codebook[25] == (Codebook)0) {
+            error(stb_vorbis, 21);
         } else {
-            uVar8 = *(uint*)param_2;
-            iVar15 = *param_5;
-            iVar14 = *param_4;
+            uVar8 = *(unsigned int*)codebook;
+            iVar15 = *arg5;
+            iVar14 = *arg4;
             do {
-                if (param_7 < 1) {
-                    *param_4 = iVar14;
-                    *param_5 = iVar15;
+                if (arg7 < 1) {
+                    *arg4 = iVar14;
+                    *arg5 = iVar15;
                     return 1;
                 }
-                if (*(int*)(param_1 + 1760) < 10) {
-                    prep_huffman(param_1);
+                if (*(int*)(stb_vorbis + 1760) < 10) {
+                    prep_huffman(stb_vorbis);
                 }
-                iVar5 = (int)*(short*)(param_2 + (ulong)(*(uint*)(param_1 + 1756) & 1023) * 2 + 48);
+                iVar5 = (int)*(short*)(codebook + (unsigned long)(*(unsigned int*)(stb_vorbis + 1756) & 1023) * 2 + 48);
                 if (iVar5 < 0) {
-                    iVar5 = codebook_decode_scalar_raw(param_1, param_2);
+                    iVar5 = codebook_decode_scalar_raw(stb_vorbis, codebook);
                     if (iVar5 < 0)
                         goto LAB_100b9d29c;
                 LAB_100b9d1da:
-                    uVar12 = param_6 * 2 + iVar15 * -2 + iVar14;
-                    if ((int)(uVar8 + iVar15 * 2 + iVar14) <= param_6 * 2) {
+                    uVar12 = arg6 * 2 + iVar15 * -2 + iVar14;
+                    if ((int)(uVar8 + iVar15 * 2 + iVar14) <= arg6 * 2) {
                         uVar12 = uVar8;
                     }
-                    iVar7 = *(int*)param_2;
-                    if (param_2[26] == (Codebook)0) {
+                    iVar7 = *(int*)codebook;
+                    if (codebook[26] == (Codebook)0) {
                         uVar8 = 0;
                         iVar5 = (int)((long)iVar5 * (long)iVar7);
                         if (iVar14 == 1) {
-                            pfVar2 = param_3[1];
-                            if (pfVar2 != (float*)0) {
-                                pfVar2[iVar15] = pfVar2[iVar15] + *(float*)(*(long*)(param_2 + 32) + (long)iVar5 * 4);
+                            pfVar2 = arg3[1];
+                            if (pfVar2 != nullptr) {
+                                pfVar2[iVar15] = pfVar2[iVar15] + *(float*)(*(long*)(codebook + 32) + (long)iVar5 * 4);
                             }
                             iVar15 = iVar15 + 1;
                             iVar14 = 0;
                             uVar8 = 1;
                         }
                         if ((int)(uVar8 + 1) < (int)uVar12) {
-                            pfVar2 = *param_3;
-                            pfVar3 = param_3[1];
-                            lVar11 = (long)iVar5 * 4 + *(long*)(param_2 + 32);
-                            lVar9 = (ulong)uVar8 + 1;
+                            pfVar2 = *arg3;
+                            pfVar3 = arg3[1];
+                            lVar11 = (long)iVar5 * 4 + *(long*)(codebook + 32);
+                            lVar9 = (unsigned long)uVar8 + 1;
                             lVar6 = 0;
                             do {
                                 fVar16 = *(float*)(lVar11 + lVar9 * 4);
-                                if (pfVar2 != (float*)0) {
-                                    pfVar2[iVar15 + lVar6] =
-                                        pfVar2[iVar15 + lVar6] + *(float*)(lVar11 + -4 + lVar9 * 4);
+                                if (pfVar2 != nullptr) {
+                                    pfVar2[iVar15 + lVar6] = pfVar2[iVar15 + lVar6] + *(float*)(lVar11 - 4 + lVar9 * 4);
                                 }
-                                if (pfVar3 != (float*)0) {
+                                if (pfVar3 != nullptr) {
                                     pfVar3[iVar15 + lVar6] = fVar16 + pfVar3[iVar15 + lVar6];
                                 }
                                 lVar9 = lVar9 + 2;
@@ -4168,21 +4020,21 @@ namespace jag::hal::audio::decoders::vorbis {
                             iVar15 = iVar15 + (int)lVar6;
                         }
                         if ((int)uVar8 < (int)uVar12) {
-                            pfVar2 = param_3[iVar14];
-                            if (pfVar2 != (float*)0) {
-                                pfVar2[iVar15] =
-                                    pfVar2[iVar15] + *(float*)(*(long*)(param_2 + 32) + (long)(int)(uVar8 + iVar5) * 4);
+                            pfVar2 = arg3[iVar14];
+                            if (pfVar2 != nullptr) {
+                                pfVar2[iVar15] = pfVar2[iVar15] +
+                                                 *(float*)(*(long*)(codebook + 32) + (long)(int)(uVar8 + iVar5) * 4);
                             }
                             iVar14 = iVar14 + 1;
                         }
                     } else if (0 < (int)uVar12) {
-                        lVar6 = *(long*)(param_2 + 32);
+                        lVar6 = *(long*)(codebook + 32);
                         fVar16 = 0.0;
                         uVar10 = 0;
                         do {
                             fVar16 = fVar16 + *(float*)((long)iVar5 * (long)iVar7 * 4 + lVar6 + uVar10 * 4);
-                            pfVar2 = param_3[iVar14];
-                            if (pfVar2 != (float*)0) {
+                            pfVar2 = arg3[iVar14];
+                            if (pfVar2 != nullptr) {
                                 pfVar2[iVar15] = pfVar2[iVar15] + fVar16;
                             }
                             iVar13 = iVar14 + 1;
@@ -4190,27 +4042,27 @@ namespace jag::hal::audio::decoders::vorbis {
                             if (iVar13 == 2) {
                                 iVar14 = 0;
                             }
-                            iVar15 = iVar15 + (uint)(iVar13 == 2);
+                            iVar15 = iVar15 + (unsigned int)(iVar13 == 2);
                             uVar10 = uVar10 + 1;
                         } while (uVar12 != uVar10);
                     }
-                    param_7 = param_7 - uVar12;
+                    arg7 = arg7 - uVar12;
                     bVar4 = true;
                     uVar8 = uVar12;
                 } else {
-                    bVar1 = *(byte*)(*(long*)(param_2 + 8) + (long)iVar5);
-                    *(uint*)(param_1 + 1756) = *(uint*)(param_1 + 1756) >> (bVar1 & 31);
-                    iVar7 = *(int*)(param_1 + 1760) - (uint)bVar1;
+                    bVar1 = *(uint8_t*)(*(long*)(codebook + 8) + (long)iVar5);
+                    *(unsigned int*)(stb_vorbis + 1756) = *(unsigned int*)(stb_vorbis + 1756) >> (bVar1 & 31);
+                    iVar7 = *(int*)(stb_vorbis + 1760) - (unsigned int)bVar1;
                     if (iVar7 < 0) {
                         iVar5 = -1;
                         iVar7 = 0;
                     }
-                    *(int*)(param_1 + 1760) = iVar7;
+                    *(int*)(stb_vorbis + 1760) = iVar7;
                     if (-1 < iVar5)
                         goto LAB_100b9d1da;
                 LAB_100b9d29c:
-                    if ((param_1[1740] != (stb_vorbis)0) || (*(int*)(param_1 + 1748) == 0)) {
-                        error(param_1, 21);
+                    if ((stb_vorbis[1740] != (stb_vorbis)0) || (*(int*)(stb_vorbis + 1748) == 0)) {
+                        error(stb_vorbis, 21);
                     }
                     bVar4 = false;
                 }
@@ -4219,259 +4071,251 @@ namespace jag::hal::audio::decoders::vorbis {
         return 0;
     }
 
-    // 0x100b9d410, 720 bytes, placed by debug map only (low confidence)
-    // codebook_decode_deinterleave_repeat(stb_vorbis*, Codebook*, float**, int, int*, int*, int, int)
-    undefined8 codebook_decode_deinterleave_repeat(stb_vorbis* param_1, Codebook* param_2, float** param_3, int param_4,
-                                                   int* param_5, int* param_6, int param_7, int param_8) {
-        byte bVar1;
+    // 0x100b9d410
+    void codebook_decode_deinterleave_repeat(stb_vorbis* stb_vorbis, Codebook* codebook, float** arg3, int arg4,
+                                             int* arg5, int* arg6, int arg7, int arg8) {
+        uint8_t bVar1;
         float* pfVar2;
         int iVar3;
         long lVar4;
-        undefined8 uVar5;
-        ulong uVar6;
+        uint64_t uVar5;
+        unsigned long uVar6;
         int iVar7;
         int iVar8;
         int iVar9;
         int iVar10;
         int iVar11;
         float fVar12;
-        ulong local_50;
+        unsigned long local_50;
 
-        if (param_2[25] == (Codebook)0) {
-            error(param_1, 21);
+        if (codebook[25] == (Codebook)0) {
+            error(stb_vorbis, 21);
             uVar5 = 0;
         } else {
-            local_50 = (ulong) * (uint*)param_2;
-            iVar8 = *param_6;
-            iVar9 = *param_5;
-            for (; 0 < param_8; param_8 = param_8 - iVar7) {
-                if (*(int*)(param_1 + 1760) < 10) {
-                    prep_huffman(param_1);
+            local_50 = (unsigned long)*(unsigned int*)codebook;
+            iVar8 = *arg6;
+            iVar9 = *arg5;
+            for (; 0 < arg8; arg8 = arg8 - iVar7) {
+                if (*(int*)(stb_vorbis + 1760) < 10) {
+                    prep_huffman(stb_vorbis);
                 }
-                iVar11 = (int)*(short*)(param_2 + (ulong)(*(uint*)(param_1 + 1756) & 1023) * 2 + 48);
+                iVar11 =
+                    (int)*(short*)(codebook + (unsigned long)(*(unsigned int*)(stb_vorbis + 1756) & 1023) * 2 + 48);
                 if (iVar11 < 0) {
-                    iVar11 = codebook_decode_scalar_raw(param_1, param_2);
+                    iVar11 = codebook_decode_scalar_raw(stb_vorbis, codebook);
                 } else {
-                    bVar1 = *(byte*)(*(long*)(param_2 + 8) + (long)iVar11);
-                    *(uint*)(param_1 + 1756) = *(uint*)(param_1 + 1756) >> (bVar1 & 31);
-                    iVar3 = *(int*)(param_1 + 1760) - (uint)bVar1;
+                    bVar1 = *(uint8_t*)(*(long*)(codebook + 8) + (long)iVar11);
+                    *(unsigned int*)(stb_vorbis + 1756) = *(unsigned int*)(stb_vorbis + 1756) >> (bVar1 & 31);
+                    iVar3 = *(int*)(stb_vorbis + 1760) - (unsigned int)bVar1;
                     if (iVar3 < 0) {
                         iVar11 = -1;
                         iVar3 = 0;
                     }
-                    *(int*)(param_1 + 1760) = iVar3;
+                    *(int*)(stb_vorbis + 1760) = iVar3;
                 }
-                if ((param_2[27] != (Codebook)0) && (*(int*)(param_2 + 2112) <= iVar11)) {
-                    /* WARNING: Subroutine does not return */
+                if ((codebook[27] != (Codebook)0) && (*(int*)(codebook + 2112) <= iVar11)) {
                     LogAssert("!c->sparse || z < c->sorted_entries",
                               "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                               "vorbis_std.code",
-                              1462, (char*)0);
+                              1462, nullptr);
                 }
                 if (iVar11 < 0) {
-                    if ((param_1[1740] != (stb_vorbis)0) || (*(int*)(param_1 + 1748) == 0)) {
-                        error(param_1, 21);
+                    if ((stb_vorbis[1740] != (stb_vorbis)0) || (*(int*)(stb_vorbis + 1748) == 0)) {
+                        error(stb_vorbis, 21);
                     }
                     return 0;
                 }
-                if (param_7 * param_4 < (int)local_50 + iVar8 * param_4 + iVar9) {
-                    local_50 = (ulong)(uint)((param_7 * param_4 - iVar8 * param_4) + iVar9);
+                if (arg7 * arg4 < (int)local_50 + iVar8 * arg4 + iVar9) {
+                    local_50 = (unsigned long)(unsigned int)((arg7 * arg4 - iVar8 * arg4) + iVar9);
                 }
-                iVar3 = *(int*)param_2;
+                iVar3 = *(int*)codebook;
                 iVar7 = (int)local_50;
-                if (param_2[26] == (Codebook)0) {
+                if (codebook[26] == (Codebook)0) {
                     if (0 < iVar7) {
                         lVar4 = (long)(int)((long)iVar11 * (long)iVar3);
                         uVar6 = local_50;
                         do {
-                            pfVar2 = param_3[iVar9];
-                            if (pfVar2 != (float*)0) {
-                                pfVar2[iVar8] = pfVar2[iVar8] + *(float*)(*(long*)(param_2 + 32) + lVar4 * 4);
+                            pfVar2 = arg3[iVar9];
+                            if (pfVar2 != nullptr) {
+                                pfVar2[iVar8] = pfVar2[iVar8] + *(float*)(*(long*)(codebook + 32) + lVar4 * 4);
                             }
                             iVar11 = iVar9 + 1;
                             iVar9 = iVar11;
-                            if (iVar11 == param_4) {
+                            if (iVar11 == arg4) {
                                 iVar9 = 0;
                             }
-                            iVar8 = iVar8 + (uint)(iVar11 == param_4);
+                            iVar8 = iVar8 + (unsigned int)(iVar11 == arg4);
                             lVar4 = lVar4 + 1;
                             uVar6 = uVar6 - 1;
                         } while (uVar6 != 0);
                     }
                 } else if (0 < iVar7) {
-                    lVar4 = *(long*)(param_2 + 32);
+                    lVar4 = *(long*)(codebook + 32);
                     fVar12 = 0.0;
                     uVar6 = 0;
                     do {
                         fVar12 = fVar12 + *(float*)((long)iVar11 * (long)iVar3 * 4 + lVar4 + uVar6 * 4);
-                        pfVar2 = param_3[iVar9];
-                        if (pfVar2 != (float*)0) {
+                        pfVar2 = arg3[iVar9];
+                        if (pfVar2 != nullptr) {
                             pfVar2[iVar8] = pfVar2[iVar8] + fVar12;
                         }
                         iVar10 = iVar9 + 1;
                         iVar9 = iVar10;
-                        if (iVar10 == param_4) {
+                        if (iVar10 == arg4) {
                             iVar9 = 0;
                         }
-                        iVar8 = iVar8 + (uint)(iVar10 == param_4);
+                        iVar8 = iVar8 + (unsigned int)(iVar10 == arg4);
                         uVar6 = uVar6 + 1;
                     } while (local_50 != uVar6);
                 }
             }
-            *param_5 = iVar9;
-            *param_6 = iVar8;
+            *arg5 = iVar9;
+            *arg6 = iVar8;
             uVar5 = 1;
         }
         return uVar5;
     }
 
-    // 0x100b9d6e0, 224 bytes, placed by debug map only (low confidence)
-    // residue_decode(stb_vorbis*, Codebook*, float*, int, int, int)
-    undefined8 residue_decode(stb_vorbis* param_1, Codebook* param_2, float* param_3, int param_4, int param_5,
-                              int param_6) {
+    // 0x100b9d6e0
+    void residue_decode(stb_vorbis* stb_vorbis, Codebook* codebook, float* arg3, int arg4, int arg5, int arg6) {
         int iVar1;
         int iVar3;
         long lVar4;
-        float* pfVar5;
+        float* arg3_00;
 
-        if (param_6 == 0) {
-            iVar3 = *(int*)param_2;
-            iVar1 = (int)((long)param_5 / (long)iVar3);
+        if (arg6 == 0) {
+            iVar3 = *(int*)codebook;
+            iVar1 = (int)((long)arg5 / (long)iVar3);
             if (0 < iVar1) {
-                pfVar5 = param_3 + param_4;
+                arg3_00 = arg3 + arg4;
                 lVar4 = 0;
                 do {
-                    if (codebook_decode_step(param_1, param_2, pfVar5, (int)lVar4 + (param_5 - param_4), iVar1) == 0) {
+                    if (codebook_decode_step(stb_vorbis, codebook, arg3_00, (int)lVar4 + (arg5 - arg4), iVar1) == 0) {
                         return 0;
                     }
-                    lVar4 = lVar4 + -1;
-                    pfVar5 = pfVar5 + 1;
-                } while (((long)param_5 / (long)iVar3 & 4294967295U) + lVar4 != 0);
+                    lVar4 = lVar4 - 1;
+                    arg3_00 = arg3_00 + 1;
+                } while (((long)arg5 / (long)iVar3 & 4294967295U) + lVar4 != 0);
             }
-        } else if (0 < param_5) {
+        } else if (0 < arg5) {
             iVar3 = 0;
             do {
-                iVar1 = codebook_decode(param_1, param_2, param_3 + param_4, param_5 - iVar3);
+                iVar1 = codebook_decode(stb_vorbis, codebook, arg3 + arg4, arg5 - iVar3);
                 if (iVar1 == 0) {
                     return 0;
                 }
-                iVar3 = iVar3 + *(int*)param_2;
-                param_4 = param_4 + *(int*)param_2;
-            } while (iVar3 < param_5);
+                iVar3 = iVar3 + *(int*)codebook;
+                arg4 = arg4 + *(int*)codebook;
+            } while (iVar3 < arg5);
         }
         return 1;
     }
 
-    // 0x100b9d7c0, 160 bytes, placed by debug map only (low confidence)
-    // codebook_decode_step(stb_vorbis*, Codebook*, float*, int, int)
-    undefined8 codebook_decode_step(stb_vorbis* param_1, Codebook* param_2, float* param_3, int param_4, int param_5) {
+    // 0x100b9d7c0
+    void codebook_decode_step(stb_vorbis* stb_vorbis, Codebook* codebook, float* arg3, int arg4, int arg5) {
         Codebook CVar1;
-        uint uVar2;
+        unsigned int uVar2;
         long lVar3;
-        int iVar4;
-        undefined8 uVar5;
-        ulong uVar6;
+        uint64_t uVar5;
+        unsigned long uVar6;
         float fVar7;
         float fVar8;
 
-        iVar4 = codebook_decode_start(param_1, param_2);
+        int iVar4 = codebook_decode_start(stb_vorbis, codebook);
         if (iVar4 < 0) {
             uVar5 = 0;
         } else {
-            uVar2 = *(uint*)param_2;
-            if ((int)uVar2 < param_4) {
-                param_4 = uVar2;
+            uVar2 = *(unsigned int*)codebook;
+            if ((int)uVar2 < arg4) {
+                arg4 = uVar2;
             }
             uVar5 = 1;
-            if (0 < param_4) {
-                CVar1 = param_2[26];
-                lVar3 = *(long*)(param_2 + 32);
+            if (0 < arg4) {
+                CVar1 = codebook[26];
+                lVar3 = *(long*)(codebook + 32);
                 fVar7 = 0.0;
                 uVar6 = 0;
                 do {
                     fVar8 = *(float*)((long)(int)(uVar2 * iVar4) * 4 + lVar3 + uVar6 * 4) + fVar7;
-                    *param_3 = *param_3 + fVar8;
+                    *arg3 = *arg3 + fVar8;
                     if (CVar1 != (Codebook)0) {
                         fVar7 = fVar8;
                     }
                     uVar6 = uVar6 + 1;
-                    param_3 = param_3 + param_5;
-                } while ((uint)param_4 != uVar6);
+                    arg3 = arg3 + arg5;
+                } while ((unsigned int)arg4 != uVar6);
             }
         }
         return uVar5;
     }
 
-    // 0x100b9d860, 208 bytes, placed by debug map only (low confidence)
-    // codebook_decode(stb_vorbis*, Codebook*, float*, int)
-    undefined8 codebook_decode(stb_vorbis* param_1, Codebook* param_2, float* param_3, int param_4) {
-        uint uVar1;
+    // 0x100b9d860
+    void codebook_decode(stb_vorbis* stb_vorbis, Codebook* codebook, float* arg3, int arg4) {
+        unsigned int uVar1;
         long lVar2;
-        int iVar3;
-        undefined8 uVar4;
-        ulong uVar5;
+        uint64_t uVar4;
+        unsigned long uVar5;
         float fVar6;
 
-        iVar3 = codebook_decode_start(param_1, param_2);
+        int iVar3 = codebook_decode_start(stb_vorbis, codebook);
         if (iVar3 < 0) {
             uVar4 = 0;
         } else {
-            uVar1 = *(uint*)param_2;
-            if ((int)uVar1 < param_4) {
-                param_4 = uVar1;
+            uVar1 = *(unsigned int*)codebook;
+            if ((int)uVar1 < arg4) {
+                arg4 = uVar1;
             }
-            if (param_2[26] == (Codebook)0) {
+            if (codebook[26] == (Codebook)0) {
                 uVar4 = 1;
-                if (0 < param_4) {
-                    lVar2 = *(long*)(param_2 + 32);
+                if (0 < arg4) {
+                    lVar2 = *(long*)(codebook + 32);
                     uVar5 = 0;
                     do {
-                        param_3[uVar5] = param_3[uVar5] + *(float*)((long)(int)(iVar3 * uVar1) * 4 + lVar2 + uVar5 * 4);
+                        arg3[uVar5] = arg3[uVar5] + *(float*)((long)(int)(iVar3 * uVar1) * 4 + lVar2 + uVar5 * 4);
                         uVar5 = uVar5 + 1;
-                    } while ((uint)param_4 != uVar5);
+                    } while ((unsigned int)arg4 != uVar5);
                 }
             } else {
                 uVar4 = 1;
-                if (0 < param_4) {
-                    lVar2 = *(long*)(param_2 + 32);
+                if (0 < arg4) {
+                    lVar2 = *(long*)(codebook + 32);
                     fVar6 = 0.0;
                     uVar5 = 0;
                     do {
                         fVar6 = fVar6 + *(float*)((long)(int)(iVar3 * uVar1) * 4 + lVar2 + uVar5 * 4);
-                        param_3[uVar5] = param_3[uVar5] + fVar6;
-                        fVar6 = fVar6 + *(float*)(param_2 + 16);
+                        arg3[uVar5] = arg3[uVar5] + fVar6;
+                        fVar6 = fVar6 + *(float*)(codebook + 16);
                         uVar5 = uVar5 + 1;
-                    } while ((uint)param_4 != uVar5);
+                    } while ((unsigned int)arg4 != uVar5);
                 }
             }
         }
         return uVar4;
     }
 
-    // 0x100b9d930, 256 bytes, placed by debug map only (low confidence)
-    // codebook_decode_start(stb_vorbis*, Codebook*)
-    int codebook_decode_start(stb_vorbis* param_1, Codebook* param_2) {
-        byte bVar1;
+    // 0x100b9d930
+    int codebook_decode_start(stb_vorbis* stb_vorbis, Codebook* codebook) {
+        uint8_t bVar1;
         Codebook CVar2;
         int iVar3;
         int iVar4;
         int iVar5;
         bool bVar6;
 
-        if (param_2[25] == (Codebook)0) {
+        if (codebook[25] == (Codebook)0) {
             iVar4 = -1;
         } else {
-            if (*(int*)(param_1 + 1760) < 10) {
-                prep_huffman(param_1);
+            if (*(int*)(stb_vorbis + 1760) < 10) {
+                prep_huffman(stb_vorbis);
             }
-            iVar3 = (int)*(short*)(param_2 + (ulong)(*(uint*)(param_1 + 1756) & 1023) * 2 + 48);
+            iVar3 = (int)*(short*)(codebook + (unsigned long)(*(unsigned int*)(stb_vorbis + 1756) & 1023) * 2 + 48);
             if (iVar3 < 0) {
-                iVar4 = codebook_decode_scalar_raw(param_1, param_2);
-                CVar2 = param_2[27];
+                iVar4 = codebook_decode_scalar_raw(stb_vorbis, codebook);
+                CVar2 = codebook[27];
             } else {
-                bVar1 = *(byte*)(*(long*)(param_2 + 8) + (long)iVar3);
-                *(uint*)(param_1 + 1756) = *(uint*)(param_1 + 1756) >> (bVar1 & 31);
-                iVar5 = *(int*)(param_1 + 1760) - (uint)bVar1;
+                bVar1 = *(uint8_t*)(*(long*)(codebook + 8) + (long)iVar3);
+                *(unsigned int*)(stb_vorbis + 1756) = *(unsigned int*)(stb_vorbis + 1756) >> (bVar1 & 31);
+                iVar5 = *(int*)(stb_vorbis + 1760) - (unsigned int)bVar1;
                 bVar6 = iVar5 < 0;
                 if (bVar6) {
                     iVar5 = 0;
@@ -4480,58 +4324,50 @@ namespace jag::hal::audio::decoders::vorbis {
                 if (!bVar6) {
                     iVar4 = iVar3;
                 }
-                *(int*)(param_1 + 1760) = iVar5;
-                CVar2 = param_2[27];
+                *(int*)(stb_vorbis + 1760) = iVar5;
+                CVar2 = codebook[27];
             }
-            if ((CVar2 != (Codebook)0) && (*(int*)(param_2 + 2112) <= iVar4)) {
-                /* WARNING: Subroutine does not return */
+            if ((CVar2 != (Codebook)0) && (*(int*)(codebook + 2112) <= iVar4)) {
                 LogAssert("z < c->sorted_entries",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                           "vorbis_std.code",
-                          1367, (char*)0);
+                          1367, nullptr);
             }
             if (-1 < iVar4) {
                 return iVar4;
             }
-            if ((param_1[1740] == (stb_vorbis)0) && (*(int*)(param_1 + 1748) != 0)) {
+            if ((stb_vorbis[1740] == (stb_vorbis)0) && (*(int*)(stb_vorbis + 1748) != 0)) {
                 return iVar4;
             }
         }
-        error(param_1, 21);
+        error(stb_vorbis, 21);
         return iVar4;
     }
 
-    // 0x100b9da30, 208 bytes, placed by debug map only (low confidence)
-    // draw_line(float*, int, int, int, int, int)
-    void draw_line(float* param_1, int param_2, int param_3, int param_4, int param_5, int param_6) {
-        int iVar1;
+    // 0x100b9da30
+    void draw_line(float* arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
         long lVar2;
-        int iVar3;
         int iVar4;
         int iVar5;
-        uint uVar6;
-        int iVar7;
-        int iVar8;
-        int iVar9;
-        int iVar10;
+        unsigned int uVar6;
 
-        iVar7 = param_5 - param_3;
-        iVar8 = param_4 - param_2;
-        iVar10 = -iVar7;
+        int iVar7 = arg5 - arg3;
+        int iVar8 = arg4 - arg2;
+        int iVar10 = -iVar7;
         if (-iVar7 < 0) {
             iVar10 = iVar7;
         }
-        iVar1 = iVar7 / iVar8;
-        iVar9 = -iVar1;
+        int iVar1 = iVar7 / iVar8;
+        int iVar9 = -iVar1;
         if (-iVar1 < 0) {
             iVar9 = iVar1;
         }
-        if (param_6 < param_4) {
-            param_4 = param_6;
+        if (arg6 < arg4) {
+            arg4 = arg6;
         }
-        param_1[param_2] = param_1[param_2] * *(float*)(&inverse_db_table + (long)param_3 * 4);
-        iVar3 = param_2 + 1;
-        if (iVar3 < param_4) {
+        arg1[arg2] = arg1[arg2] * *(float*)(&inverse_db_table + (long)arg3 * 4);
+        int iVar3 = arg2 + 1;
+        if (iVar3 < arg4) {
             lVar2 = 0;
             iVar4 = 0;
             do {
@@ -4542,115 +4378,106 @@ namespace jag::hal::audio::decoders::vorbis {
                     uVar6 = iVar7 >> 31 | 1;
                     iVar5 = iVar8;
                 }
-                param_3 = param_3 + iVar1 + uVar6;
+                arg3 = arg3 + iVar1 + uVar6;
                 iVar4 = iVar4 - iVar5;
-                param_1[iVar3 + lVar2] = param_1[iVar3 + lVar2] * *(float*)(&inverse_db_table + (long)param_3 * 4);
+                arg1[iVar3 + lVar2] = arg1[iVar3 + lVar2] * *(float*)(&inverse_db_table + (long)arg3 * 4);
                 lVar2 = lVar2 + 1;
-            } while (~param_2 + param_4 != (int)lVar2);
+            } while (~arg2 + arg4 != (int)lVar2);
         }
     }
 
-    // 0x100b9db00, 528 bytes, placed by debug map only (low confidence)
-    // imdct_step3_iter0_loop(int, float*, int, int, float*)
-    void imdct_step3_iter0_loop(int param_1, float* param_2, int param_3, int param_4, float* param_5) {
+    // 0x100b9db00
+    void imdct_step3_iter0_loop(int arg1, float* arg2, int arg3, int arg4, float* arg5) {
         float* pfVar1;
         int iVar3;
         float fVar4;
         float fVar5;
 
-        if ((param_1 & 3U) != 0) {
-            /* WARNING: Subroutine does not return */
+        if ((arg1 & 3U) != 0) {
             LogAssert("(n & 3) == 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                       "vorbis_std.code",
-                      2127, (char*)0);
+                      2127, nullptr);
         }
-        if (3 < param_1) {
-            pfVar1 = param_2 + param_3;
-            iVar3 = (param_1 >> 2) + 1;
+        if (3 < arg1) {
+            pfVar1 = arg2 + arg3;
+            iVar3 = (arg1 >> 2) + 1;
             do {
-                fVar4 = *pfVar1 - pfVar1[(long)param_4];
-                fVar5 = pfVar1[-1] - pfVar1[(long)param_4 + -1];
-                *pfVar1 = pfVar1[(long)param_4] + *pfVar1;
-                pfVar1[-1] = pfVar1[-1] + pfVar1[(long)param_4 + -1];
-                pfVar1[(long)param_4] = *param_5 * fVar4 - param_5[1] * fVar5;
-                pfVar1[(long)param_4 + -1] = fVar4 * param_5[1] + fVar5 * *param_5;
-                fVar4 = pfVar1[-2] - pfVar1[(long)param_4 + -2];
-                fVar5 = pfVar1[-3] - pfVar1[(long)param_4 + -3];
-                pfVar1[-2] = pfVar1[(long)param_4 + -2] + pfVar1[-2];
-                pfVar1[-3] = pfVar1[-3] + pfVar1[(long)param_4 + -3];
-                pfVar1[(long)param_4 + -2] = param_5[8] * fVar4 - param_5[9] * fVar5;
-                pfVar1[(long)param_4 + -3] = fVar4 * param_5[9] + fVar5 * param_5[8];
-                fVar4 = pfVar1[-4] - pfVar1[(long)param_4 + -4];
-                fVar5 = pfVar1[-5] - pfVar1[(long)param_4 + -5];
-                pfVar1[-4] = pfVar1[(long)param_4 + -4] + pfVar1[-4];
-                pfVar1[-5] = pfVar1[-5] + pfVar1[(long)param_4 + -5];
-                pfVar1[(long)param_4 + -4] = param_5[16] * fVar4 - param_5[17] * fVar5;
-                pfVar1[(long)param_4 + -5] = fVar4 * param_5[17] + fVar5 * param_5[16];
-                fVar4 = pfVar1[-6] - pfVar1[(long)param_4 + -6];
-                fVar5 = pfVar1[-7] - pfVar1[(long)param_4 + -7];
-                pfVar1[-6] = pfVar1[(long)param_4 + -6] + pfVar1[-6];
-                pfVar1[-7] = pfVar1[-7] + pfVar1[(long)param_4 + -7];
-                pfVar1[(long)param_4 + -6] = param_5[24] * fVar4 - param_5[25] * fVar5;
-                pfVar1[(long)param_4 + -7] = fVar4 * param_5[25] + fVar5 * param_5[24];
-                pfVar1 = pfVar1 + -8;
-                iVar3 = iVar3 + -1;
-                param_5 = param_5 + 32;
+                fVar4 = *pfVar1 - pfVar1[(long)arg4];
+                fVar5 = pfVar1[-1] - pfVar1[(long)arg4 - 1];
+                *pfVar1 = pfVar1[(long)arg4] + *pfVar1;
+                pfVar1[-1] = pfVar1[-1] + pfVar1[(long)arg4 - 1];
+                pfVar1[(long)arg4] = *arg5 * fVar4 - arg5[1] * fVar5;
+                pfVar1[(long)arg4 - 1] = fVar4 * arg5[1] + fVar5 * *arg5;
+                fVar4 = pfVar1[-2] - pfVar1[(long)arg4 - 2];
+                fVar5 = pfVar1[-3] - pfVar1[(long)arg4 - 3];
+                pfVar1[-2] = pfVar1[(long)arg4 - 2] + pfVar1[-2];
+                pfVar1[-3] = pfVar1[-3] + pfVar1[(long)arg4 - 3];
+                pfVar1[(long)arg4 - 2] = arg5[8] * fVar4 - arg5[9] * fVar5;
+                pfVar1[(long)arg4 - 3] = fVar4 * arg5[9] + fVar5 * arg5[8];
+                fVar4 = pfVar1[-4] - pfVar1[(long)arg4 - 4];
+                fVar5 = pfVar1[-5] - pfVar1[(long)arg4 - 5];
+                pfVar1[-4] = pfVar1[(long)arg4 - 4] + pfVar1[-4];
+                pfVar1[-5] = pfVar1[-5] + pfVar1[(long)arg4 - 5];
+                pfVar1[(long)arg4 - 4] = arg5[16] * fVar4 - arg5[17] * fVar5;
+                pfVar1[(long)arg4 - 5] = fVar4 * arg5[17] + fVar5 * arg5[16];
+                fVar4 = pfVar1[-6] - pfVar1[(long)arg4 - 6];
+                fVar5 = pfVar1[-7] - pfVar1[(long)arg4 - 7];
+                pfVar1[-6] = pfVar1[(long)arg4 - 6] + pfVar1[-6];
+                pfVar1[-7] = pfVar1[-7] + pfVar1[(long)arg4 - 7];
+                pfVar1[(long)arg4 - 6] = arg5[24] * fVar4 - arg5[25] * fVar5;
+                pfVar1[(long)arg4 - 7] = fVar4 * arg5[25] + fVar5 * arg5[24];
+                pfVar1 = pfVar1 - 8;
+                iVar3 = iVar3 - 1;
+                arg5 = arg5 + 32;
             } while (1 < iVar3);
         }
     }
 
-    // 0x100b9dd10, 496 bytes, placed by debug map only (low confidence)
-    // imdct_step3_inner_r_loop(int, float*, int, int, float*, int)
-    void imdct_step3_inner_r_loop(int param_1, float* param_2, int param_3, int param_4, float* param_5, int param_6) {
+    // 0x100b9dd10
+    void imdct_step3_inner_r_loop(int arg1, float* arg2, int arg3, int arg4, float* arg5, int arg6) {
         float* pfVar1;
         int iVar4;
         float fVar5;
         float fVar6;
 
-        if (3 < param_1) {
-            pfVar1 = param_2 + param_3;
-            iVar4 = (param_1 >> 2) + 1;
+        if (3 < arg1) {
+            pfVar1 = arg2 + arg3;
+            iVar4 = (arg1 >> 2) + 1;
             do {
-                fVar5 = *pfVar1 - pfVar1[(long)param_4];
-                fVar6 = pfVar1[-1] - pfVar1[(long)param_4 + -1];
-                *pfVar1 = pfVar1[(long)param_4] + *pfVar1;
-                pfVar1[-1] = pfVar1[-1] + pfVar1[(long)param_4 + -1];
-                pfVar1[(long)param_4] = *param_5 * fVar5 - param_5[1] * fVar6;
-                pfVar1[(long)param_4 + -1] = fVar5 * param_5[1] + fVar6 * *param_5;
-                fVar5 = pfVar1[-2] - pfVar1[(long)param_4 + -2];
-                fVar6 = pfVar1[-3] - pfVar1[(long)param_4 + -3];
-                pfVar1[-2] = pfVar1[(long)param_4 + -2] + pfVar1[-2];
-                pfVar1[-3] = pfVar1[-3] + pfVar1[(long)param_4 + -3];
-                pfVar1[(long)param_4 + -2] = param_5[(long)param_6] * fVar5 - param_5[(long)param_6 + 1] * fVar6;
-                pfVar1[(long)param_4 + -3] = fVar5 * param_5[(long)param_6 + 1] + fVar6 * param_5[(long)param_6];
-                fVar5 = pfVar1[-4] - pfVar1[(long)param_4 + -4];
-                fVar6 = pfVar1[-5] - pfVar1[(long)param_4 + -5];
-                pfVar1[-4] = pfVar1[(long)param_4 + -4] + pfVar1[-4];
-                pfVar1[-5] = pfVar1[-5] + pfVar1[(long)param_4 + -5];
-                pfVar1[(long)param_4 + -4] =
-                    param_5[(long)param_6 * 2] * fVar5 - param_5[(long)param_6 * 2 + 1] * fVar6;
-                pfVar1[(long)param_4 + -5] =
-                    fVar5 * param_5[(long)param_6 * 2 + 1] + fVar6 * param_5[(long)param_6 * 2];
-                fVar5 = pfVar1[-6] - pfVar1[(long)param_4 + -6];
-                fVar6 = pfVar1[-7] - pfVar1[(long)param_4 + -7];
-                pfVar1[-6] = pfVar1[(long)param_4 + -6] + pfVar1[-6];
-                pfVar1[-7] = pfVar1[-7] + pfVar1[(long)param_4 + -7];
-                pfVar1[(long)param_4 + -6] =
-                    param_5[(long)param_6 * 3] * fVar5 - param_5[(long)param_6 * 3 + 1] * fVar6;
-                pfVar1[(long)param_4 + -7] =
-                    fVar5 * param_5[(long)param_6 * 3 + 1] + fVar6 * param_5[(long)param_6 * 3];
-                pfVar1 = pfVar1 + -8;
-                iVar4 = iVar4 + -1;
-                param_5 = param_5 + (long)param_6 * 4;
+                fVar5 = *pfVar1 - pfVar1[(long)arg4];
+                fVar6 = pfVar1[-1] - pfVar1[(long)arg4 - 1];
+                *pfVar1 = pfVar1[(long)arg4] + *pfVar1;
+                pfVar1[-1] = pfVar1[-1] + pfVar1[(long)arg4 - 1];
+                pfVar1[(long)arg4] = *arg5 * fVar5 - arg5[1] * fVar6;
+                pfVar1[(long)arg4 - 1] = fVar5 * arg5[1] + fVar6 * *arg5;
+                fVar5 = pfVar1[-2] - pfVar1[(long)arg4 - 2];
+                fVar6 = pfVar1[-3] - pfVar1[(long)arg4 - 3];
+                pfVar1[-2] = pfVar1[(long)arg4 - 2] + pfVar1[-2];
+                pfVar1[-3] = pfVar1[-3] + pfVar1[(long)arg4 - 3];
+                pfVar1[(long)arg4 - 2] = arg5[(long)arg6] * fVar5 - arg5[(long)arg6 + 1] * fVar6;
+                pfVar1[(long)arg4 - 3] = fVar5 * arg5[(long)arg6 + 1] + fVar6 * arg5[(long)arg6];
+                fVar5 = pfVar1[-4] - pfVar1[(long)arg4 - 4];
+                fVar6 = pfVar1[-5] - pfVar1[(long)arg4 - 5];
+                pfVar1[-4] = pfVar1[(long)arg4 - 4] + pfVar1[-4];
+                pfVar1[-5] = pfVar1[-5] + pfVar1[(long)arg4 - 5];
+                pfVar1[(long)arg4 - 4] = arg5[(long)arg6 * 2] * fVar5 - arg5[(long)arg6 * 2 + 1] * fVar6;
+                pfVar1[(long)arg4 - 5] = fVar5 * arg5[(long)arg6 * 2 + 1] + fVar6 * arg5[(long)arg6 * 2];
+                fVar5 = pfVar1[-6] - pfVar1[(long)arg4 - 6];
+                fVar6 = pfVar1[-7] - pfVar1[(long)arg4 - 7];
+                pfVar1[-6] = pfVar1[(long)arg4 - 6] + pfVar1[-6];
+                pfVar1[-7] = pfVar1[-7] + pfVar1[(long)arg4 - 7];
+                pfVar1[(long)arg4 - 6] = arg5[(long)arg6 * 3] * fVar5 - arg5[(long)arg6 * 3 + 1] * fVar6;
+                pfVar1[(long)arg4 - 7] = fVar5 * arg5[(long)arg6 * 3 + 1] + fVar6 * arg5[(long)arg6 * 3];
+                pfVar1 = pfVar1 - 8;
+                iVar4 = iVar4 - 1;
+                arg5 = arg5 + (long)arg6 * 4;
             } while (1 < iVar4);
         }
     }
 
-    // 0x100b9df00, 512 bytes, placed by debug map only (low confidence)
-    // imdct_step3_inner_s_loop(int, float*, int, int, float*, int, int)
-    void imdct_step3_inner_s_loop(int param_1, float* param_2, int param_3, int param_4, float* param_5, int param_6,
-                                  int param_7) {
+    // 0x100b9df00
+    void imdct_step3_inner_s_loop(int arg1, float* arg2, int arg3, int arg4, float* arg5, int arg6, int arg7) {
         float fVar1;
         float fVar2;
         float fVar3;
@@ -4664,259 +4491,235 @@ namespace jag::hal::audio::decoders::vorbis {
         float fVar12;
         float fVar13;
 
-        if (0 < param_1) {
-            fVar1 = *param_5;
-            fVar2 = param_5[1];
-            fVar3 = param_5[param_6];
-            fVar4 = param_5[(long)param_6 + 1];
-            fVar5 = param_5[param_6 * 2];
-            fVar6 = param_5[param_6 * 2 + 1];
-            fVar7 = param_5[param_6 * 3];
-            fVar8 = param_5[(long)(param_6 * 3) + 1];
-            pfVar10 = param_2 + param_3;
-            iVar11 = param_1 + 1;
+        if (0 < arg1) {
+            fVar1 = *arg5;
+            fVar2 = arg5[1];
+            fVar3 = arg5[arg6];
+            fVar4 = arg5[arg6 + 1];
+            fVar5 = arg5[arg6 * 2];
+            fVar6 = arg5[arg6 * 2 + 1];
+            fVar7 = arg5[arg6 * 3];
+            fVar8 = arg5[(arg6 * 3) + 1];
+            pfVar10 = arg2 + arg3;
+            iVar11 = arg1 + 1;
             do {
-                fVar13 = *pfVar10 - pfVar10[(long)param_4];
-                fVar12 = pfVar10[-1] - pfVar10[(long)param_4 + -1];
-                *pfVar10 = pfVar10[(long)param_4] + *pfVar10;
-                pfVar10[-1] = pfVar10[-1] + pfVar10[(long)param_4 + -1];
-                pfVar10[(long)param_4] = fVar13 * fVar1 - fVar12 * fVar2;
-                pfVar10[(long)param_4 + -1] = fVar13 * fVar2 + fVar12 * fVar1;
-                fVar12 = pfVar10[-2] - pfVar10[(long)param_4 + -2];
-                fVar13 = pfVar10[-3] - pfVar10[(long)param_4 + -3];
-                pfVar10[-2] = pfVar10[(long)param_4 + -2] + pfVar10[-2];
-                pfVar10[-3] = pfVar10[-3] + pfVar10[(long)param_4 + -3];
-                pfVar10[(long)param_4 + -2] = fVar12 * fVar3 - fVar13 * fVar4;
-                pfVar10[(long)param_4 + -3] = fVar12 * fVar4 + fVar13 * fVar3;
-                fVar12 = pfVar10[-4] - pfVar10[(long)param_4 + -4];
-                fVar13 = pfVar10[-5] - pfVar10[(long)param_4 + -5];
-                pfVar10[-4] = pfVar10[(long)param_4 + -4] + pfVar10[-4];
-                pfVar10[-5] = pfVar10[-5] + pfVar10[(long)param_4 + -5];
-                pfVar10[(long)param_4 + -4] = fVar12 * fVar5 - fVar13 * fVar6;
-                pfVar10[(long)param_4 + -5] = fVar12 * fVar6 + fVar13 * fVar5;
-                fVar12 = pfVar10[-6] - pfVar10[(long)param_4 + -6];
-                fVar13 = pfVar10[-7] - pfVar10[(long)param_4 + -7];
-                pfVar10[-6] = pfVar10[(long)param_4 + -6] + pfVar10[-6];
-                pfVar10[-7] = pfVar10[-7] + pfVar10[(long)param_4 + -7];
-                pfVar10[(long)param_4 + -6] = fVar12 * fVar7 - fVar13 * fVar8;
-                pfVar10[(long)param_4 + -7] = fVar12 * fVar8 + fVar13 * fVar7;
-                pfVar10 = pfVar10 + -(long)param_7;
-                iVar11 = iVar11 + -1;
+                fVar13 = *pfVar10 - pfVar10[(long)arg4];
+                fVar12 = pfVar10[-1] - pfVar10[(long)arg4 - 1];
+                *pfVar10 = pfVar10[(long)arg4] + *pfVar10;
+                pfVar10[-1] = pfVar10[-1] + pfVar10[(long)arg4 - 1];
+                pfVar10[(long)arg4] = fVar13 * fVar1 - fVar12 * fVar2;
+                pfVar10[(long)arg4 - 1] = fVar13 * fVar2 + fVar12 * fVar1;
+                fVar12 = pfVar10[-2] - pfVar10[(long)arg4 - 2];
+                fVar13 = pfVar10[-3] - pfVar10[(long)arg4 - 3];
+                pfVar10[-2] = pfVar10[(long)arg4 - 2] + pfVar10[-2];
+                pfVar10[-3] = pfVar10[-3] + pfVar10[(long)arg4 - 3];
+                pfVar10[(long)arg4 - 2] = fVar12 * fVar3 - fVar13 * fVar4;
+                pfVar10[(long)arg4 - 3] = fVar12 * fVar4 + fVar13 * fVar3;
+                fVar12 = pfVar10[-4] - pfVar10[(long)arg4 - 4];
+                fVar13 = pfVar10[-5] - pfVar10[(long)arg4 - 5];
+                pfVar10[-4] = pfVar10[(long)arg4 - 4] + pfVar10[-4];
+                pfVar10[-5] = pfVar10[-5] + pfVar10[(long)arg4 - 5];
+                pfVar10[(long)arg4 - 4] = fVar12 * fVar5 - fVar13 * fVar6;
+                pfVar10[(long)arg4 - 5] = fVar12 * fVar6 + fVar13 * fVar5;
+                fVar12 = pfVar10[-6] - pfVar10[(long)arg4 - 6];
+                fVar13 = pfVar10[-7] - pfVar10[(long)arg4 - 7];
+                pfVar10[-6] = pfVar10[(long)arg4 - 6] + pfVar10[-6];
+                pfVar10[-7] = pfVar10[-7] + pfVar10[(long)arg4 - 7];
+                pfVar10[(long)arg4 - 6] = fVar12 * fVar7 - fVar13 * fVar8;
+                pfVar10[(long)arg4 - 7] = fVar12 * fVar8 + fVar13 * fVar7;
+                pfVar10 = pfVar10 + -(long)arg7;
+                iVar11 = iVar11 - 1;
             } while (1 < iVar11);
         }
     }
 
-    // 0x100b9e100, 400 bytes, placed by debug map only (low confidence)
-    // imdct_step3_inner_s_loop_ld654(int, float*, int, float*, int)
-    void imdct_step3_inner_s_loop_ld654(int param_1, float* param_2, int param_3, float* param_4, int param_5) {
+    // 0x100b9e100
+    void imdct_step3_inner_s_loop_ld654(int arg1, float* arg2, int arg3, float* arg4, int arg5) {
         float fVar1;
         float fVar2;
+        float* arg1_00;
         float* pfVar3;
-        float* pfVar4;
+        float fVar4;
         float fVar5;
-        float fVar6;
 
-        if (0 < param_1) {
-            fVar1 = param_4[param_5 >> 3];
-            pfVar3 = param_2 + param_3;
-            pfVar4 = pfVar3 + -(long)(param_1 << 4);
+        if (0 < arg1) {
+            fVar1 = arg4[arg5 >> 3];
+            arg1_00 = arg2 + arg3;
+            pfVar3 = arg1_00 + -(long)(arg1 << 4);
             do {
-                fVar5 = *pfVar3;
-                fVar6 = pfVar3[-1];
-                *pfVar3 = pfVar3[-8] + fVar5;
-                pfVar3[-1] = pfVar3[-9] + fVar6;
-                pfVar3[-8] = fVar5 - pfVar3[-8];
-                pfVar3[-9] = fVar6 - pfVar3[-9];
-                fVar5 = pfVar3[-2] - pfVar3[-10];
-                fVar6 = pfVar3[-3] - pfVar3[-11];
-                pfVar3[-2] = pfVar3[-10] + pfVar3[-2];
-                pfVar3[-3] = pfVar3[-11] + pfVar3[-3];
-                pfVar3[-10] = (fVar6 + fVar5) * fVar1;
-                pfVar3[-11] = (fVar6 - fVar5) * fVar1;
-                fVar5 = pfVar3[-12];
-                fVar6 = pfVar3[-4];
-                fVar2 = pfVar3[-5];
-                pfVar3[-4] = fVar6 + fVar5;
-                pfVar3[-5] = pfVar3[-13] + fVar2;
-                pfVar3[-12] = fVar2 - pfVar3[-13];
-                pfVar3[-13] = fVar5 - fVar6;
-                fVar5 = pfVar3[-14] - pfVar3[-6];
-                fVar6 = pfVar3[-7] - pfVar3[-15];
-                pfVar3[-6] = pfVar3[-6] + pfVar3[-14];
-                pfVar3[-7] = pfVar3[-15] + pfVar3[-7];
-                pfVar3[-14] = (fVar6 + fVar5) * fVar1;
-                pfVar3[-15] = (fVar5 - fVar6) * fVar1;
-                iter_54(pfVar3);
-                iter_54(pfVar3 + -8);
-                pfVar3 = pfVar3 + -16;
-            } while (pfVar4 < pfVar3);
+                fVar4 = *arg1_00;
+                fVar5 = arg1_00[-1];
+                *arg1_00 = arg1_00[-8] + fVar4;
+                arg1_00[-1] = arg1_00[-9] + fVar5;
+                arg1_00[-8] = fVar4 - arg1_00[-8];
+                arg1_00[-9] = fVar5 - arg1_00[-9];
+                fVar4 = arg1_00[-2] - arg1_00[-10];
+                fVar5 = arg1_00[-3] - arg1_00[-11];
+                arg1_00[-2] = arg1_00[-10] + arg1_00[-2];
+                arg1_00[-3] = arg1_00[-11] + arg1_00[-3];
+                arg1_00[-10] = (fVar5 + fVar4) * fVar1;
+                arg1_00[-11] = (fVar5 - fVar4) * fVar1;
+                fVar4 = arg1_00[-12];
+                fVar5 = arg1_00[-4];
+                fVar2 = arg1_00[-5];
+                arg1_00[-4] = fVar5 + fVar4;
+                arg1_00[-5] = arg1_00[-13] + fVar2;
+                arg1_00[-12] = fVar2 - arg1_00[-13];
+                arg1_00[-13] = fVar4 - fVar5;
+                fVar4 = arg1_00[-14] - arg1_00[-6];
+                fVar5 = arg1_00[-7] - arg1_00[-15];
+                arg1_00[-6] = arg1_00[-6] + arg1_00[-14];
+                arg1_00[-7] = arg1_00[-15] + arg1_00[-7];
+                arg1_00[-14] = (fVar5 + fVar4) * fVar1;
+                arg1_00[-15] = (fVar4 - fVar5) * fVar1;
+                iter_54(arg1_00);
+                iter_54(arg1_00 - 8);
+                arg1_00 = arg1_00 - 16;
+            } while (pfVar3 < arg1_00);
         }
     }
 
-    // 0x100b9e290, 176 bytes, placed by debug map only (low confidence)
-    // iter_54(float*)
-    void iter_54(float* param_1) {
-        float fVar1;
-        float fVar2;
-        float fVar3;
-        float fVar4;
-
-        fVar3 = *param_1 - param_1[-4];
-        fVar2 = param_1[-4] + *param_1;
-        fVar4 = param_1[-6] + param_1[-2];
-        fVar1 = param_1[-2] - param_1[-6];
-        *param_1 = fVar4 + fVar2;
-        param_1[-2] = fVar2 - fVar4;
-        fVar2 = param_1[-3] - param_1[-7];
-        param_1[-4] = fVar2 + fVar3;
-        param_1[-6] = fVar3 - fVar2;
-        fVar4 = param_1[-1] - param_1[-5];
-        fVar3 = param_1[-5] + param_1[-1];
-        fVar2 = param_1[-7] + param_1[-3];
-        param_1[-1] = fVar3 + fVar2;
-        param_1[-3] = fVar3 - fVar2;
-        param_1[-5] = fVar4 - fVar1;
-        param_1[-7] = fVar4 + fVar1;
+    // 0x100b9e290
+    void iter_54(float* arg1) {
+        float fVar3 = *arg1 - arg1[-4];
+        float fVar2 = arg1[-4] + *arg1;
+        float fVar4 = arg1[-6] + arg1[-2];
+        float fVar1 = arg1[-2] - arg1[-6];
+        *arg1 = fVar4 + fVar2;
+        arg1[-2] = fVar2 - fVar4;
+        fVar2 = arg1[-3] - arg1[-7];
+        arg1[-4] = fVar2 + fVar3;
+        arg1[-6] = fVar3 - fVar2;
+        fVar4 = arg1[-1] - arg1[-5];
+        fVar3 = arg1[-5] + arg1[-1];
+        fVar2 = arg1[-7] + arg1[-3];
+        arg1[-1] = fVar3 + fVar2;
+        arg1[-3] = fVar3 - fVar2;
+        arg1[-5] = fVar4 - fVar1;
+        arg1[-7] = fVar4 + fVar1;
     }
 
-    // 0x100b9e340, 48 bytes, placed by debug map only (low confidence)
-    // get_window(stb_vorbis*, int)
-    undefined8 get_window(stb_vorbis* param_1, int param_2) {
+    // 0x100b9e340
+    void get_window(stb_vorbis* stb_vorbis, int arg2) {
         stb_vorbis* psVar1;
 
-        if (param_2 * 2 == *(int*)(param_1 + 144)) {
-            psVar1 = param_1 + 1440;
+        if (arg2 * 2 == *(int*)(stb_vorbis + 144)) {
+            psVar1 = stb_vorbis + 1440;
         } else {
-            if (param_2 * 2 != *(int*)(param_1 + 148)) {
+            if (arg2 * 2 != *(int*)(stb_vorbis + 148)) {
                 return 0;
             }
-            psVar1 = param_1 + 1448;
+            psVar1 = stb_vorbis + 1448;
         }
-        return *(undefined8*)psVar1;
+        return *(uint64_t*)psVar1;
     }
 
-    // 0x100b9e370, 48 bytes, placed by debug map only (low confidence)
-    // vorbis_validate(unsigned char*)
-    bool vorbis_validate(uchar* param_1) {
-        return (short)field_4 == ogg_page_header._8_2_ && field_0 == ogg_page_header._4_4_;
+    // 0x100b9e370
+    bool vorbis_validate(unsigned char* arg1) {
+        return *(short*)(arg1 + 4) == ogg_page_header._8_2_ && *(int*)arg1 == ogg_page_header._4_4_;
     }
 
-    // 0x100b9e3a0, 112 bytes, placed by debug map only (low confidence)
-    // start_packet(stb_vorbis*)
-    undefined8 start_packet(stb_vorbis* param_1) {
+    // 0x100b9e3a0
+    void start_packet(stb_vorbis* stb_vorbis) {
         while (true) {
-            if (*(int*)(param_1 + 1744) != -1) {
-                *(undefined4*)(param_1 + 1748) = 0;
-                *(undefined8*)(param_1 + 1760) = 0;
-                param_1[1740] = (stb_vorbis)0;
+            if (*(int*)(stb_vorbis + 1744) != -1) {
+                *(uint32_t*)(stb_vorbis + 1748) = 0;
+                *(uint64_t*)(stb_vorbis + 1760) = 0;
+                stb_vorbis[1740] = (stb_vorbis)0;
                 return 1;
             }
-            if (start_page(param_1) == 0)
+            if (start_page(stb_vorbis) == 0)
                 break;
-            if (((byte)param_1[1739] & 1) != 0) {
-                error(param_1, 32);
+            if (((uint8_t)stb_vorbis[1739] & 1) != 0) {
+                error(stb_vorbis, 32);
                 return 0;
             }
         }
         return 0;
     }
 
-    // 0x100b9e410, 96 bytes, placed by debug map only (low confidence)
-    // skip(stb_vorbis*, int)
-    void skip(stb_vorbis* param_1, int param_2) {
-        ulong uVar1;
+    // 0x100b9e410
+    void skip(stb_vorbis* stb_vorbis, int arg2) {
+        unsigned long uVar1;
         long lVar2;
 
-        if (*(long*)(param_1 + 40) == 0) {
-            lVar2 = _ftell(*(FILE**)(param_1 + 24));
-            _fseek(*(FILE**)(param_1 + 24), param_2 + lVar2, 0);
+        if (*(long*)(stb_vorbis + 40) == 0) {
+            lVar2 = _ftell(*(FILE**)(stb_vorbis + 24));
+            _fseek(*(FILE**)(stb_vorbis + 24), arg2 + lVar2, 0);
         } else {
-            uVar1 = *(long*)(param_1 + 40) + (long)param_2;
-            *(ulong*)(param_1 + 40) = uVar1;
-            if (*(ulong*)(param_1 + 56) <= uVar1) {
-                *(undefined4*)(param_1 + 128) = 1;
+            uVar1 = *(long*)(stb_vorbis + 40) + (long)arg2;
+            *(unsigned long*)(stb_vorbis + 40) = uVar1;
+            if (*(unsigned long*)(stb_vorbis + 56) <= uVar1) {
+                *(uint32_t*)(stb_vorbis + 128) = 1;
             }
         }
     }
 
-    // 0x100b9e470, 80 bytes, placed by debug map only (low confidence)
-    // crc32_init()
+    // 0x100b9e470
     void crc32_init() {
-        long lVar1;
-        uint uVar2;
+        unsigned int uVar2;
         int iVar3;
 
-        lVar1 = 0;
+        long lVar1 = 0;
         do {
             uVar2 = (int)lVar1 << 24;
             iVar3 = 8;
             do {
                 uVar2 = (int)uVar2 >> 31 & 79764919U ^ uVar2 * 2;
-                iVar3 = iVar3 + -1;
+                iVar3 = iVar3 - 1;
             } while (iVar3 != 0);
             (&crc_table)[lVar1] = uVar2;
             lVar1 = lVar1 + 1;
         } while (lVar1 != 256);
     }
 
-    // 0x100b9e4c0, 64 bytes, placed by debug map only (low confidence)
-    // setup_malloc(stb_vorbis*, int)
-    void* setup_malloc(stb_vorbis* param_1, int param_2) {
+    // 0x100b9e4c0
+    void* setup_malloc(stb_vorbis* stb_vorbis, int arg2) {
         int iVar1;
-        uint uVar3;
         int iVar4;
 
-        uVar3 = param_2 + 3U & 4294967292;
-        *(uint*)(param_1 + 8) = *(int*)(param_1 + 8) + uVar3;
-        if (*(long*)(param_1 + 104) == 0) {
+        unsigned int uVar3 = arg2 + 3U & 4294967292;
+        *(unsigned int*)(stb_vorbis + 8) = *(int*)(stb_vorbis + 8) + uVar3;
+        if (*(long*)(stb_vorbis + 104) == 0) {
             if (uVar3 != 0) {
                 return _malloc((long)(int)uVar3);
             }
         } else {
-            iVar1 = *(int*)(param_1 + 120);
+            iVar1 = *(int*)(stb_vorbis + 120);
             iVar4 = uVar3 + iVar1;
-            if (iVar4 <= *(int*)(param_1 + 124)) {
-                *(int*)(param_1 + 120) = iVar4;
-                return (void*)(*(long*)(param_1 + 104) + (long)iVar1);
+            if (iVar4 <= *(int*)(stb_vorbis + 124)) {
+                *(int*)(stb_vorbis + 120) = iVar4;
+                return (void*)(*(long*)(stb_vorbis + 104) + (long)iVar1);
             }
         }
-        return (void*)0;
+        return nullptr;
     }
 
-    // 0x100b9e500, 32 bytes, placed by debug map only (low confidence)
-    // setup_temp_free(stb_vorbis*, void*, int)
-    void setup_temp_free(stb_vorbis* param_1, void* param_2, int param_3) {
-        if (*(long*)(param_1 + 104) == 0) {
-            _free(param_2);
+    // 0x100b9e500
+    void setup_temp_free(stb_vorbis* stb_vorbis, void* arg2, int arg3) {
+        if (*(long*)(stb_vorbis + 104) == 0) {
+            _free(arg2);
             return;
         }
-        *(uint*)(param_1 + 124) = *(int*)(param_1 + 124) + (param_3 + 3U & 4294967292);
+        *(unsigned int*)(stb_vorbis + 124) = *(int*)(stb_vorbis + 124) + (arg3 + 3U & 4294967292);
     }
 
-    // 0x100b9e520, 848 bytes, placed by debug map only (low confidence)
-    // compute_codewords(Codebook*, unsigned char*, int, unsigned int*)
-    /* WARNING: Removing unreachable block (ram,4307150794) */
-    /* WARNING: Removing unreachable block (ram,4307150834) */
-    /* compute_codewords(Codebook*,
-   unsigned char*, int, unsigned int*) */
+    // 0x100b9e520
+    void compute_codewords(Codebook* codebook, unsigned char* arg2, int arg3, unsigned int* arg4) {
+        uint8_t bVar1;
+        unsigned int arg1;
+        bool bVar2;
+        unsigned int arg2_00;
+        unsigned long uVar3;
+        uint8_t bVar4;
+        int iVar5;
+        int arg4_00;
+        int iVar6;
+        unsigned long uVar7;
+        long lVar8;
+        uint32_t uVar9;
+        unsigned int local_b8[32];
 
-    undefined4 compute_codewords(Codebook* param_1, uchar* param_2, int param_3, uint* param_4) {
-        byte bVar1;
-        uint uVar2;
-        bool bVar3;
-        uint uVar4;
-        ulong uVar5;
-        byte bVar6;
-        int iVar7;
-        int iVar8;
-        int iVar9;
-        ulong uVar10;
-        long lVar11;
-        undefined4 uVar12;
-        uint local_b8[32];
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         local_b8[28] = 0;
         local_b8[29] = 0;
         local_b8[30] = 0;
@@ -4949,253 +4752,238 @@ namespace jag::hal::audio::decoders::vorbis {
         local_b8[1] = 0;
         local_b8[2] = 0;
         local_b8[3] = 0;
-        if (param_3 < 1) {
-            uVar10 = 0;
+        if (arg3 < 1) {
+            uVar7 = 0;
         } else {
-            uVar10 = (ulong)(uint)param_3;
-            uVar5 = 0;
+            uVar7 = (unsigned long)(unsigned int)arg3;
+            uVar3 = 0;
             do {
-                if (param_2[uVar5] != 255) {
-                    uVar10 = uVar5 & 4294967295;
-                    iVar9 = (int)uVar5;
+                if (arg2[uVar3] != 255) {
+                    uVar7 = uVar3 & 4294967295;
+                    iVar6 = (int)uVar3;
                     goto joined_r0x000100b9e5ea;
                 }
-                uVar5 = uVar5 + 1;
-            } while (uVar10 != uVar5);
+                uVar3 = uVar3 + 1;
+            } while (uVar7 != uVar3);
         }
-        iVar9 = (int)uVar10;
+        iVar6 = (int)uVar7;
     joined_r0x000100b9e5ea:
-        if (iVar9 == param_3) {
-            uVar12 = 1;
-            if (*(int*)(param_1 + 2112) != 0) {
-                /* WARNING: Subroutine does not return */
+        if (iVar6 == arg3) {
+            uVar9 = 1;
+            if (*(int*)(codebook + 2112) != 0) {
                 LogAssert("c->sorted_entries == 0",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                           "vorbis_std.code",
-                          682, (char*)0);
+                          682, nullptr);
             }
         } else {
-            add_entry(param_1, 0, (int)uVar10, 0, (uint)param_2[uVar10], param_4);
-            bVar1 = param_2[uVar10];
-            if ((ulong)bVar1 != 0) {
-                bVar6 = 31;
-                uVar5 = 0;
+            add_entry(codebook, 0, (int)uVar7, 0, (unsigned int)arg2[uVar7], arg4);
+            bVar1 = arg2[uVar7];
+            if ((unsigned long)bVar1 != 0) {
+                bVar4 = 31;
+                uVar3 = 0;
                 do {
-                    local_b8[uVar5 + 1] = 1 << (bVar6 & 31);
-                    uVar5 = uVar5 + 1;
-                    bVar6 = bVar6 - 1;
-                } while (bVar1 != uVar5);
+                    local_b8[uVar3 + 1] = 1 << (bVar4 & 31);
+                    uVar3 = uVar3 + 1;
+                    bVar4 = bVar4 - 1;
+                } while (bVar1 != uVar3);
             }
-            iVar9 = (int)uVar10 + 1;
-            uVar12 = 1;
-            if (iVar9 < param_3) {
-                iVar8 = 1;
+            iVar6 = (int)uVar7 + 1;
+            uVar9 = 1;
+            if (iVar6 < arg3) {
+                arg4_00 = 1;
                 do {
-                    bVar1 = param_2[uVar10 + 1];
-                    uVar10 = uVar10 + 1;
+                    bVar1 = arg2[uVar7 + 1];
+                    uVar7 = uVar7 + 1;
                     if (bVar1 != 255) {
-                        uVar5 = (ulong)(uint)bVar1;
+                        uVar3 = (unsigned long)(unsigned int)bVar1;
                         if (bVar1 != 0) {
-                            uVar5 = (ulong)(uint)bVar1;
+                            uVar3 = (unsigned long)(unsigned int)bVar1;
                             do {
-                                if (local_b8[uVar5] != 0)
+                                if (local_b8[uVar3] != 0)
                                     goto LAB_100b9e6c9;
-                                bVar3 = 1 < (long)uVar5;
-                                uVar5 = uVar5 - 1;
-                            } while (bVar3);
-                            uVar5 = 0;
+                                bVar2 = 1 < (long)uVar3;
+                                uVar3 = uVar3 - 1;
+                            } while (bVar2);
+                            uVar3 = 0;
                         }
                     LAB_100b9e6c9:
-                        iVar7 = (int)uVar5;
-                        if (iVar7 == 0) {
-                            bVar3 = true;
+                        iVar5 = (int)uVar3;
+                        if (iVar5 == 0) {
+                            bVar2 = true;
                         } else {
-                            lVar11 = (long)iVar7;
-                            uVar2 = local_b8[lVar11];
-                            local_b8[lVar11] = 0;
-                            uVar4 = bit_reverse(uVar2);
-                            add_entry(param_1, uVar4, (int)uVar10, iVar8, (uint)bVar1, param_4);
-                            bVar1 = param_2[uVar10];
-                            bVar3 = false;
-                            if (iVar7 < (int)(uint)bVar1) {
-                                uVar5 = (ulong)(uint)bVar1;
-                                iVar7 = 32 - (uint)bVar1;
+                            lVar8 = (long)iVar5;
+                            arg1 = local_b8[lVar8];
+                            local_b8[lVar8] = 0;
+                            arg2_00 = bit_reverse(arg1);
+                            add_entry(codebook, arg2_00, (int)uVar7, arg4_00, (unsigned int)bVar1, arg4);
+                            bVar1 = arg2[uVar7];
+                            bVar2 = false;
+                            if (iVar5 < (int)(unsigned int)bVar1) {
+                                uVar3 = (unsigned long)(unsigned int)bVar1;
+                                iVar5 = 32 - (unsigned int)bVar1;
                                 do {
-                                    if (local_b8[uVar5] != 0) {
-                                        /* WARNING: Subroutine does not return */
+                                    if (local_b8[uVar3] != 0) {
                                         LogAssert("available[y] == 0",
                                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/"
                                                   "libs/hal/audio/workers/vorbis_std.code",
-                                                  710, (char*)0);
+                                                  710, nullptr);
                                     }
-                                    local_b8[uVar5] = (1 << ((byte)iVar7 & 31)) + uVar2;
-                                    uVar5 = uVar5 - 1;
-                                    iVar7 = iVar7 + 1;
-                                } while (lVar11 < (long)uVar5);
-                                bVar3 = false;
-                                iVar8 = iVar8 + 1;
+                                    local_b8[uVar3] = (1 << ((uint8_t)iVar5 & 31)) + arg1;
+                                    uVar3 = uVar3 - 1;
+                                    iVar5 = iVar5 + 1;
+                                } while (lVar8 < (long)uVar3);
+                                bVar2 = false;
+                                arg4_00 = arg4_00 + 1;
                             } else {
-                                iVar8 = iVar8 + 1;
+                                arg4_00 = arg4_00 + 1;
                             }
                         }
-                        if (bVar3) {
-                            uVar12 = 0;
+                        if (bVar2) {
+                            uVar9 = 0;
                             goto LAB_100b9e83d;
                         }
                     }
-                    iVar9 = iVar9 + 1;
-                } while (iVar9 != param_3);
-                uVar12 = 1;
+                    iVar6 = iVar6 + 1;
+                } while (iVar6 != arg3);
+                uVar9 = 1;
             }
         }
     LAB_100b9e83d:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return uVar12;
+        return uVar9;
     }
 
-    // 0x100b9e870, 592 bytes, placed by debug map only (low confidence)
-    // compute_sorted_huffman(Codebook*, unsigned char*, unsigned int*)
-    void compute_sorted_huffman(Codebook* param_1, uchar* param_2, uint* param_3) {
-        uchar uVar1;
-        uint uVar2;
-        undefined4 uVar3;
+    // 0x100b9e870
+    void compute_sorted_huffman(Codebook* codebook, unsigned char* arg2, unsigned int* arg3) {
+        unsigned char arg2_00;
+        uint32_t uVar2;
+        int iVar3;
         int iVar4;
-        int iVar5;
-        uint uVar6;
+        unsigned int uVar5;
+        long lVar6;
         long lVar7;
-        long lVar8;
-        Codebook* pCVar9;
-        long lVar10;
-        int iVar11;
-        ulong uVar12;
+        long lVar9;
+        int iVar10;
+        unsigned long uVar11;
 
-        if (param_1[27] == (Codebook)0) {
-            if (*(int*)(param_1 + 4) < 1) {
-                iVar5 = 0;
+        if (codebook[27] == (Codebook)0) {
+            if (*(int*)(codebook + 4) < 1) {
+                iVar4 = 0;
             } else {
-                lVar10 = 0;
-                iVar5 = 0;
+                lVar9 = 0;
+                iVar4 = 0;
                 do {
-                    iVar4 = include_in_sort(param_1, param_2[lVar10]);
-                    if (iVar4 != 0) {
-                        uVar3 = bit_reverse(*(uint*)(*(long*)(param_1 + 40) + lVar10 * 4));
-                        lVar7 = (long)iVar5;
-                        iVar5 = iVar5 + 1;
-                        *(undefined4*)(*(long*)(param_1 + 2096) + lVar7 * 4) = uVar3;
+                    iVar3 = include_in_sort(codebook, arg2[lVar9]);
+                    if (iVar3 != 0) {
+                        uVar2 = bit_reverse(*(unsigned int*)(*(long*)(codebook + 40) + lVar9 * 4));
+                        lVar6 = (long)iVar4;
+                        iVar4 = iVar4 + 1;
+                        *(uint32_t*)(*(long*)(codebook + 2096) + lVar6 * 4) = uVar2;
                     }
-                    lVar10 = lVar10 + 1;
-                } while (lVar10 < *(int*)(param_1 + 4));
+                    lVar9 = lVar9 + 1;
+                } while (lVar9 < *(int*)(codebook + 4));
             }
-            if (iVar5 != *(int*)(param_1 + 2112)) {
-                /* WARNING: Subroutine does not return */
+            if (iVar4 != *(int*)(codebook + 2112)) {
                 LogAssert("k == c->sorted_entries",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                           "vorbis_std.code",
-                          777, (char*)0);
+                          777, nullptr);
             }
-        } else if (0 < *(int*)(param_1 + 2112)) {
-            lVar10 = *(long*)(param_1 + 40);
-            lVar7 = *(long*)(param_1 + 2096);
-            lVar8 = 0;
+        } else if (0 < *(int*)(codebook + 2112)) {
+            lVar9 = *(long*)(codebook + 40);
+            lVar6 = *(long*)(codebook + 2096);
+            lVar7 = 0;
             do {
-                uVar3 = bit_reverse(*(uint*)(lVar10 + lVar8 * 4));
-                *(undefined4*)(lVar7 + lVar8 * 4) = uVar3;
-                lVar8 = lVar8 + 1;
-            } while (lVar8 < *(int*)(param_1 + 2112));
+                uVar2 = bit_reverse(*(unsigned int*)(lVar9 + lVar7 * 4));
+                *(uint32_t*)(lVar6 + lVar7 * 4) = uVar2;
+                lVar7 = lVar7 + 1;
+            } while (lVar7 < *(int*)(codebook + 2112));
         }
-        _qsort(*(void**)(param_1 + 2096), (long)*(int*)(param_1 + 2112), 4, (int*)uint32_compare);
-        *(undefined4*)(*(long*)(param_1 + 2096) + (long)*(int*)(param_1 + 2112) * 4) = 4294967295;
-        pCVar9 = param_1 + 2112;
-        if (param_1[27] == (Codebook)0) {
-            pCVar9 = param_1 + 4;
+        _qsort(*(void**)(codebook + 2096), (long)*(int*)(codebook + 2112), 4, (int*)uint32_compare);
+        *(uint32_t*)(*(long*)(codebook + 2096) + (long)*(int*)(codebook + 2112) * 4) = 4294967295;
+        Codebook* pCVar8 = codebook + 2112;
+        if (codebook[27] == (Codebook)0) {
+            pCVar8 = codebook + 4;
         }
-        uVar2 = *(uint*)pCVar9;
-        if (0 < (int)uVar2) {
-            uVar12 = 0;
+        unsigned int uVar1 = *(unsigned int*)pCVar8;
+        if (0 < (int)uVar1) {
+            uVar11 = 0;
             do {
-                uVar6 = (uint)uVar12;
-                if (param_1[27] != (Codebook)0) {
-                    uVar6 = param_3[uVar12];
+                uVar5 = (unsigned int)uVar11;
+                if (codebook[27] != (Codebook)0) {
+                    uVar5 = arg3[uVar11];
                 }
-                uVar1 = param_2[uVar6];
-                iVar5 = include_in_sort(param_1, uVar1);
-                if (iVar5 != 0) {
-                    uVar6 = bit_reverse(*(uint*)(*(long*)(param_1 + 40) + uVar12 * 4));
-                    iVar5 = *(int*)(param_1 + 2112);
-                    iVar4 = 0;
-                    if (1 < iVar5) {
-                        iVar4 = 0;
+                arg2_00 = arg2[uVar5];
+                iVar4 = include_in_sort(codebook, arg2_00);
+                if (iVar4 != 0) {
+                    uVar5 = bit_reverse(*(unsigned int*)(*(long*)(codebook + 40) + uVar11 * 4));
+                    iVar4 = *(int*)(codebook + 2112);
+                    iVar3 = 0;
+                    if (1 < iVar4) {
+                        iVar3 = 0;
                         do {
-                            iVar11 = iVar5 >> 1;
-                            if (uVar6 < *(uint*)(*(long*)(param_1 + 2096) + (long)(iVar11 + iVar4) * 4)) {
-                                iVar5 = iVar11;
+                            iVar10 = iVar4 >> 1;
+                            if (uVar5 < *(unsigned int*)(*(long*)(codebook + 2096) + (long)(iVar10 + iVar3) * 4)) {
+                                iVar4 = iVar10;
                             } else {
-                                iVar5 = iVar5 - iVar11;
-                                iVar4 = iVar11 + iVar4;
+                                iVar4 = iVar4 - iVar10;
+                                iVar3 = iVar10 + iVar3;
                             }
-                        } while (1 < iVar5);
+                        } while (1 < iVar4);
                     }
-                    lVar10 = (long)iVar4;
-                    if (*(uint*)(*(long*)(param_1 + 2096) + lVar10 * 4) != uVar6) {
-                        /* WARNING: Subroutine does not return */
+                    lVar9 = (long)iVar3;
+                    if (*(unsigned int*)(*(long*)(codebook + 2096) + lVar9 * 4) != uVar5) {
                         LogAssert("c->sorted_codewords[x] == code",
                                   "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                                   "workers/vorbis_std.code",
-                                  809, (char*)0);
+                                  809, nullptr);
                     }
-                    if (param_1[27] == (Codebook)0) {
-                        *(uint*)(*(long*)(param_1 + 2104) + lVar10 * 4) = (uint)uVar12;
+                    if (codebook[27] == (Codebook)0) {
+                        *(unsigned int*)(*(long*)(codebook + 2104) + lVar9 * 4) = (unsigned int)uVar11;
                     } else {
-                        *(uint*)(*(long*)(param_1 + 2104) + lVar10 * 4) = param_3[uVar12];
-                        *(uchar*)(*(long*)(param_1 + 8) + lVar10) = uVar1;
+                        *(unsigned int*)(*(long*)(codebook + 2104) + lVar9 * 4) = arg3[uVar11];
+                        *(unsigned char*)(*(long*)(codebook + 8) + lVar9) = arg2_00;
                     }
                 }
-                uVar12 = uVar12 + 1;
-            } while (uVar12 != uVar2);
+                uVar11 = uVar11 + 1;
+            } while (uVar11 != uVar1);
         }
     }
 
-    // 0x100b9eac0, 224 bytes, placed by debug map only (low confidence)
-    // compute_accelerated_huffman(Codebook*)
-    void compute_accelerated_huffman(Codebook* param_1) {
-        Codebook CVar1;
+    // 0x100b9eac0
+    void compute_accelerated_huffman(Codebook* codebook) {
         long lVar2;
-        uint uVar3;
-        Codebook* pCVar4;
-        ulong uVar5;
-        uint uVar6;
-        ulong uVar7;
+        unsigned long uVar5;
+        unsigned int uVar6;
+        unsigned long uVar7;
 
-        _memset(param_1 + 48, 255, 2048);
-        CVar1 = param_1[27];
-        pCVar4 = param_1 + 4;
+        _memset(codebook + 48, 255, 2048);
+        Codebook CVar1 = codebook[27];
+        Codebook* pCVar4 = codebook + 4;
         if (CVar1 != (Codebook)0) {
-            pCVar4 = param_1 + 2112;
+            pCVar4 = codebook + 2112;
         }
-        uVar3 = *(uint*)pCVar4;
+        unsigned int uVar3 = *(unsigned int*)pCVar4;
         if (0 < (int)uVar3) {
             uVar6 = 32767;
             if ((int)uVar3 < 32767) {
                 uVar6 = uVar3;
             }
-            lVar2 = *(long*)(param_1 + 8);
-            uVar7 = (ulong)uVar6;
+            lVar2 = *(long*)(codebook + 8);
+            uVar7 = (unsigned long)uVar6;
             if ((int)uVar6 < 2) {
                 uVar7 = 1;
             }
             uVar5 = 0;
             do {
-                if (*(byte*)(lVar2 + uVar5) < 11) {
+                if (*(uint8_t*)(lVar2 + uVar5) < 11) {
                     if (CVar1 == (Codebook)0) {
-                        uVar3 = *(uint*)(*(long*)(param_1 + 40) + uVar5 * 4);
+                        uVar3 = *(unsigned int*)(*(long*)(codebook + 40) + uVar5 * 4);
                     } else {
-                        uVar3 = bit_reverse(*(uint*)(*(long*)(param_1 + 2096) + uVar5 * 4));
+                        uVar3 = bit_reverse(*(unsigned int*)(*(long*)(codebook + 2096) + uVar5 * 4));
                     }
-                    for (; uVar3 < 1024; uVar3 = uVar3 + (1 << (*(byte*)(lVar2 + uVar5) & 31))) {
-                        *(short*)(param_1 + (ulong)uVar3 * 2 + 48) = (short)uVar5;
+                    for (; uVar3 < 1024; uVar3 = uVar3 + (1 << (*(uint8_t*)(lVar2 + uVar5) & 31))) {
+                        *(short*)(codebook + (unsigned long)uVar3 * 2 + 48) = (short)uVar5;
                     }
                 }
                 uVar5 = uVar5 + 1;
@@ -5203,181 +4991,155 @@ namespace jag::hal::audio::decoders::vorbis {
         }
     }
 
-    // 0x100b9eba0, 64 bytes, placed by debug map only (low confidence)
-    // float32_unpack(unsigned int)
-    void float32_unpack(uint param_1) {
-        float fVar1;
-
-        fVar1 = (float)(param_1 & 2097151);
-        if ((int)param_1 < 0) {
-            fVar1 = -fVar1;
+    // 0x100b9eba0
+    void float32_unpack(unsigned int arg1) {
+        float arg1_00 = (float)(arg1 & 2097151);
+        if ((int)arg1 < 0) {
+            arg1_00 = -arg1_00;
         }
-        ldexp(fVar1, (param_1 >> 21 & 1023) - 788);
+        ldexp(arg1_00, (arg1 >> 21 & 1023) - 788);
     }
 
-    // 0x100b9ebe0, 256 bytes, placed by debug map only (low confidence)
-    // lookup1_values(int, int)
-    int lookup1_values(int param_1, int param_2) {
-        int iVar1;
-        float fVar2;
-        double dVar3;
-
-        fVar2 = (float)log((float)param_1);
-        fVar2 = (float)exp(fVar2 / (float)param_2);
-        fVar2 = (float)floor(fVar2);
-        pow<float, int>((float)(int)fVar2 + 1.0, param_2);
-        dVar3 = (double)_floor();
-        iVar1 = (uint)((int)dVar3 <= param_1) + (int)fVar2;
+    // 0x100b9ebe0
+    int lookup1_values(int arg1, int arg2) {
+        float fVar2 = (float)log((float)arg1);
+        fVar2 = (float)exp(fVar2 / (float)arg2);
+        fVar2 = (float)::floor(fVar2);
+        pow<float, int>((float)(int)fVar2 + 1.0, arg2);
+        double dVar3 = (double)_floor();
+        int iVar1 = (unsigned int)((int)dVar3 <= arg1) + (int)fVar2;
         fVar2 = (float)iVar1;
-        dVar3 = (double)pow<float, int>(fVar2 + 1.0, param_2);
-        if (dVar3 <= (double)param_1) {
-            /* WARNING: Subroutine does not return */
+        dVar3 = (double)pow<float, int>(fVar2 + 1.0, arg2);
+        if (dVar3 <= (double)arg1) {
             LogAssert("pow((float)r + 1, dim) > entries",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                       "vorbis_std.code",
-                      835, (char*)0);
+                      835, nullptr);
         }
-        pow<float, int>(fVar2, param_2);
+        pow<float, int>(fVar2, arg2);
         dVar3 = (double)_floor();
-        if (param_1 < (int)dVar3) {
-            /* WARNING: Subroutine does not return */
+        if (arg1 < (int)dVar3) {
             LogAssert("(int)floor(pow((float)r, dim)) <= entries",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                       "vorbis_std.code",
-                      836, (char*)0);
+                      836, nullptr);
         }
         return iVar1;
     }
 
-    // 0x100b9ece0, 32 bytes, placed by debug map only (low confidence)
-    // point_compare(void const*, void const*)
-    ulong point_compare(void* param_1, void* param_2) {
-        ulong uVar1;
-
-        uVar1 = 4294967295;
-        if (*(ushort*)param_2 <= *(ushort*)param_1) {
-            uVar1 = (ulong)(*(ushort*)param_2 < *(ushort*)param_1);
+    // 0x100b9ece0
+    unsigned long point_compare(const void* arg1, const void* arg2) {
+        unsigned long uVar1 = 4294967295;
+        if (*(unsigned short*)arg2 <= *(unsigned short*)arg1) {
+            uVar1 = (unsigned long)(*(unsigned short*)arg2 < *(unsigned short*)arg1);
         }
         return uVar1;
     }
 
-    // 0x100b9ed00, 96 bytes, placed by debug map only (low confidence)
-    // neighbors(unsigned short*, int, int*, int*)
-    void neighbors(ushort* param_1, int param_2, int* param_3, int* param_4) {
-        ushort uVar1;
-        ulong uVar2;
-        uint uVar3;
-        uint uVar4;
-        uint uVar5;
+    // 0x100b9ed00
+    void neighbors(unsigned short* arg1, int arg2, int* arg3, int* arg4) {
+        unsigned short uVar1;
+        unsigned long uVar2;
+        unsigned int uVar3;
+        unsigned int uVar4;
+        unsigned int uVar5;
 
-        if (0 < param_2) {
+        if (0 < arg2) {
             uVar4 = 4294967295;
             uVar5 = 65536;
             uVar2 = 0;
             do {
-                uVar1 = param_1[uVar2];
-                uVar3 = (uint)uVar1;
-                if (((int)uVar4 < (int)(uint)uVar1) && (uVar1 < param_1[param_2])) {
-                    *param_3 = (int)uVar2;
+                uVar1 = arg1[uVar2];
+                uVar3 = (unsigned int)uVar1;
+                if (((int)uVar4 < (int)(unsigned int)uVar1) && (uVar1 < arg1[arg2])) {
+                    *arg3 = (int)uVar2;
                     uVar4 = uVar3;
                 }
-                if ((uVar3 < uVar5) && (param_1[param_2] < uVar1)) {
-                    *param_4 = (int)uVar2;
+                if ((uVar3 < uVar5) && (arg1[arg2] < uVar1)) {
+                    *arg4 = (int)uVar2;
                     uVar5 = uVar3;
                 }
                 uVar2 = uVar2 + 1;
-            } while ((uint)param_2 != uVar2);
+            } while ((unsigned int)arg2 != uVar2);
         }
     }
 
-    // 0x100b9ed60, 256 bytes, placed by debug map only (low confidence)
-    // init_blocksize(stb_vorbis*, int, int)
-    undefined8 init_blocksize(stb_vorbis* param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        float* pfVar2;
-        ushort* puVar3;
-        ulong uVar4;
-        uint uVar5;
+    // 0x100b9ed60
+    void init_blocksize(stb_vorbis* stb_vorbis, int arg2, int arg3) {
+        unsigned short* arg2_00;
 
-        uVar5 = param_3 * 2 & 4294967292;
-        uVar1 = setup_malloc(param_1, uVar5);
-        uVar4 = (ulong)(uint)param_2;
-        *(undefined8*)(param_1 + uVar4 * 8 + 1392) = uVar1;
-        uVar1 = setup_malloc(param_1, uVar5);
-        *(undefined8*)(param_1 + uVar4 * 8 + 1408) = uVar1;
-        pfVar2 = (float*)setup_malloc(param_1, param_3 & 4294967292);
-        *(float**)(param_1 + uVar4 * 8 + 1424) = pfVar2;
-        if (((*(float**)(param_1 + uVar4 * 8 + 1392) != (float*)0) &&
-             (*(float**)(param_1 + uVar4 * 8 + 1408) != (float*)0)) &&
-            (pfVar2 != (float*)0)) {
-            compute_twiddle_factors(param_3, *(float**)(param_1 + uVar4 * 8 + 1392),
-                                    *(float**)(param_1 + uVar4 * 8 + 1408), pfVar2);
-            pfVar2 = (float*)setup_malloc(param_1, uVar5);
-            *(float**)(param_1 + uVar4 * 8 + 1440) = pfVar2;
-            if (pfVar2 != (float*)0) {
-                compute_window(param_3, pfVar2);
-                puVar3 = (ushort*)setup_malloc(param_1, param_3 >> 2 & 4294967294);
-                *(ushort**)(param_1 + uVar4 * 8 + 1456) = puVar3;
-                if (puVar3 != (ushort*)0) {
-                    compute_bitreverse(param_3, puVar3);
+        unsigned int arg2_01 = arg3 * 2 & 4294967292;
+        uint64_t uVar1 = setup_malloc(stb_vorbis, arg2_01);
+        unsigned long uVar3 = (unsigned long)(unsigned int)arg2;
+        *(uint64_t*)(stb_vorbis + uVar3 * 8 + 1392) = uVar1;
+        uVar1 = setup_malloc(stb_vorbis, arg2_01);
+        *(uint64_t*)(stb_vorbis + uVar3 * 8 + 1408) = uVar1;
+        auto pfVar2 = setup_malloc(stb_vorbis, arg3 & 4294967292);
+        *(float**)(stb_vorbis + uVar3 * 8 + 1424) = pfVar2;
+        if (((*(float**)(stb_vorbis + uVar3 * 8 + 1392) != nullptr) &&
+             (*(float**)(stb_vorbis + uVar3 * 8 + 1408) != nullptr)) &&
+            (pfVar2 != nullptr)) {
+            compute_twiddle_factors(arg3, *(float**)(stb_vorbis + uVar3 * 8 + 1392),
+                                    *(float**)(stb_vorbis + uVar3 * 8 + 1408), pfVar2);
+            pfVar2 = (float*)setup_malloc(stb_vorbis, arg2_01);
+            *(float**)(stb_vorbis + uVar3 * 8 + 1440) = pfVar2;
+            if (pfVar2 != nullptr) {
+                compute_window(arg3, pfVar2);
+                arg2_00 = (unsigned short*)setup_malloc(stb_vorbis, arg3 >> 2 & 4294967294);
+                *(unsigned short**)(stb_vorbis + uVar3 * 8 + 1456) = arg2_00;
+                if (arg2_00 != nullptr) {
+                    compute_bitreverse(arg3, arg2_00);
                     return 1;
                 }
             }
         }
-        error(param_1, 3);
+        error(stb_vorbis, 3);
         return 0;
     }
 
-    // 0x100b9ee60, 48 bytes, placed by debug map only (low confidence)
-    // add_entry(Codebook*, unsigned int, int, int, int, unsigned int*)
-    void add_entry(Codebook* param_1, uint param_2, int param_3, int param_4, int param_5, uint* param_6) {
-        if (param_1[27] == (Codebook)0) {
-            *(uint*)(*(long*)(param_1 + 40) + (long)param_3 * 4) = param_2;
+    // 0x100b9ee60
+    void add_entry(Codebook* codebook, unsigned int arg2, int arg3, int arg4, int arg5, unsigned int* arg6) {
+        if (codebook[27] == (Codebook)0) {
+            *(unsigned int*)(*(long*)(codebook + 40) + (long)arg3 * 4) = arg2;
             return;
         }
-        *(uint*)(*(long*)(param_1 + 40) + (long)param_4 * 4) = param_2;
-        *(char*)(*(long*)(param_1 + 8) + (long)param_4) = (char)param_5;
-        param_6[(long)param_4] = param_3;
+        *(unsigned int*)(*(long*)(codebook + 40) + (long)arg4 * 4) = arg2;
+        *(char*)(*(long*)(codebook + 8) + (long)arg4) = (char)arg5;
+        arg6[(long)arg4] = arg3;
     }
 
-    // 0x100b9ee90, 80 bytes, placed by debug map only (low confidence)
-    // include_in_sort(Codebook*, unsigned char)
-    bool include_in_sort(Codebook* param_1, uchar param_2) {
+    // 0x100b9ee90
+    bool include_in_sort(Codebook* codebook, unsigned char arg2) {
         bool bVar1;
 
-        if (param_1[27] == (Codebook)0) {
+        if (codebook[27] == (Codebook)0) {
             bVar1 = false;
-            if (param_2 != 255) {
-                bVar1 = 10 < param_2;
+            if (arg2 != 255) {
+                bVar1 = 10 < arg2;
             }
         } else {
             bVar1 = true;
-            if (param_2 == 255) {
-                /* WARNING: Subroutine does not return */
+            if (arg2 == 255) {
                 LogAssert("len != NO_CODE",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/"
                           "vorbis_std.code",
-                          757, (char*)0);
+                          757, nullptr);
             }
         }
         return bVar1;
     }
 
-    // 0x100b9eee0, 32 bytes, placed by debug map only (low confidence)
-    // uint32_compare(void const*, void const*)
-    ulong uint32_compare(void* param_1, void* param_2) {
-        ulong uVar1;
-
-        uVar1 = 4294967295;
-        if (*(uint*)param_2 <= *(uint*)param_1) {
-            uVar1 = (ulong)(*(uint*)param_2 < *(uint*)param_1);
+    // 0x100b9eee0
+    unsigned long uint32_compare(const void* arg1, const void* arg2) {
+        unsigned long uVar1 = 4294967295;
+        if (*(unsigned int*)arg2 <= *(unsigned int*)arg1) {
+            uVar1 = (unsigned long)(*(unsigned int*)arg2 < *(unsigned int*)arg1);
         }
         return uVar1;
     }
 
-    // 0x100b9ef40, 384 bytes, placed by debug map only (low confidence)
-    // compute_twiddle_factors(int, float*, float*, float*)
-    void compute_twiddle_factors(int param_1, float* param_2, float* param_3, float* param_4) {
+    // 0x100b9ef40
+    void compute_twiddle_factors(int arg1, float* arg2, float* arg3, float* arg4) {
         int iVar1;
         int iVar2;
         long lVar3;
@@ -5385,56 +5147,57 @@ namespace jag::hal::audio::decoders::vorbis {
         double dVar6;
         double in_XMM1_Qa;
 
-        if (3 < param_1) {
+        if (3 < arg1) {
             iVar2 = 1;
-            if (1 < param_1 >> 2) {
-                iVar2 = param_1 >> 2;
+            if (1 < arg1 >> 2) {
+                iVar2 = arg1 >> 2;
             }
             lVar3 = 1;
             iVar1 = 0;
             do {
-                dVar5 = (double)___sincos_stret((double)iVar1 * 3.141592653589793 * (1.0 / (double)param_1));
-                dVar6 = (double)CONCAT44((int)((ulong)in_XMM1_Qa >> 32), (float)in_XMM1_Qa);
-                param_2[lVar3 + -1] = (float)in_XMM1_Qa;
-                param_2[lVar3] = -(float)dVar5;
-                dVar5 = (double)___sincos_stret((double)(int)lVar3 * 1.5707963267948966 * (1.0 / (double)param_1));
-                in_XMM1_Qa = (double)CONCAT44((int)((ulong)dVar6 >> 32), (float)dVar6 * 0.5);
-                param_3[lVar3 + -1] = (float)dVar6 * 0.5;
-                param_3[lVar3] = (float)dVar5 * 0.5;
+                dVar5 = (double)___sincos_stret((double)iVar1 * 3.141592653589793 * (1.0 / (double)arg1));
+                dVar6 = (double)(((uint64_t)((int)((unsigned long)in_XMM1_Qa >> 32)) << 32) |
+                                 (uint32_t)((float)in_XMM1_Qa));
+                arg2[lVar3 - 1] = (float)in_XMM1_Qa;
+                arg2[lVar3] = -(float)dVar5;
+                dVar5 = (double)___sincos_stret((double)(int)lVar3 * 1.5707963267948966 * (1.0 / (double)arg1));
+                in_XMM1_Qa =
+                    (double)(((uint64_t)((int)((unsigned long)dVar6 >> 32)) << 32) | (uint32_t)((float)dVar6 * 0.5));
+                arg3[lVar3 - 1] = (float)dVar6 * 0.5;
+                arg3[lVar3] = (float)dVar5 * 0.5;
                 lVar3 = lVar3 + 2;
                 iVar1 = iVar1 + 4;
             } while (iVar2 << 2 != iVar1);
         }
-        if (7 < param_1) {
+        if (7 < arg1) {
             iVar2 = 1;
-            if (1 < param_1 >> 3) {
-                iVar2 = param_1 >> 3;
+            if (1 < arg1 >> 3) {
+                iVar2 = arg1 >> 3;
             }
             lVar3 = 0;
             do {
-                dVar5 = (double)param_1;
-                dVar6 = (double)___sincos_stret(((double)((int)lVar3 + 2) * 3.141592653589793) / (double)param_1);
-                *(float*)((long)param_4 + lVar3 * 2) = (float)dVar5;
-                *(float*)((long)param_4 + lVar3 * 2 + 4) = -(float)dVar6;
+                dVar5 = (double)arg1;
+                dVar6 = (double)___sincos_stret(((double)((int)lVar3 + 2) * 3.141592653589793) / (double)arg1);
+                *(float*)((long)arg4 + lVar3 * 2) = (float)dVar5;
+                *(float*)((long)arg4 + lVar3 * 2 + 4) = -(float)dVar6;
                 lVar3 = lVar3 + 4;
             } while (iVar2 << 2 != (int)lVar3);
         }
     }
 
-    // 0x100b9f0c0, 144 bytes, placed by debug map only (low confidence)
-    // compute_window(int, float*)
-    void compute_window(int param_1, float* param_2) {
-        ulong uVar1;
-        uint uVar2;
-        ulong uVar3;
+    // 0x100b9f0c0
+    void compute_window(int arg1, float* arg2) {
+        unsigned long uVar1;
+        unsigned int uVar2;
+        unsigned long uVar3;
         float fVar4;
         double dVar5;
 
-        if (1 < param_1) {
-            uVar2 = param_1 >> 1;
+        if (1 < arg1) {
+            uVar2 = arg1 >> 1;
             uVar3 = 1;
             if (1 < (int)uVar2) {
-                uVar3 = (ulong)uVar2;
+                uVar3 = (unsigned long)uVar2;
             }
             uVar1 = 0;
             do {
@@ -5442,135 +5205,117 @@ namespace jag::hal::audio::decoders::vorbis {
                     (double)_sin(((double)(int)uVar1 * 1.5707963267948966 + 0.7853981633974483) / (double)(int)uVar2);
                 fVar4 = (float)square((float)dVar5);
                 dVar5 = (double)_sin((double)fVar4 * 1.5707963267948966);
-                param_2[uVar1] = (float)dVar5;
+                arg2[uVar1] = (float)dVar5;
                 uVar1 = uVar1 + 1;
             } while (uVar3 != uVar1);
         }
     }
 
-    // 0x100b9f150, 112 bytes, placed by debug map only (low confidence)
-    // compute_bitreverse(int, unsigned short*)
-    void compute_bitreverse(int param_1, ushort* param_2) {
-        char cVar1;
-        uint uVar2;
-        ulong uVar3;
-        ulong uVar4;
+    // 0x100b9f150
+    void compute_bitreverse(int arg1, unsigned short* arg2) {
+        unsigned int uVar2;
+        unsigned long uVar3;
+        unsigned long uVar4;
 
-        cVar1 = ilog(param_1);
-        if (7 < param_1) {
+        char cVar1 = ilog(arg1);
+        if (7 < arg1) {
             uVar4 = 1;
-            if (1 < param_1 >> 3) {
-                uVar4 = (ulong)(uint)(param_1 >> 3);
+            if (1 < arg1 >> 3) {
+                uVar4 = (unsigned long)(unsigned int)(arg1 >> 3);
             }
             uVar3 = 0;
             do {
-                uVar2 = bit_reverse((uint)uVar3);
-                param_2[uVar3] = (ushort)((uVar2 >> (36U - cVar1 & 31)) << 2);
+                uVar2 = bit_reverse((unsigned int)uVar3);
+                arg2[uVar3] = (unsigned short)((uVar2 >> (36U - cVar1 & 31)) << 2);
                 uVar3 = uVar3 + 1;
             } while (uVar4 != uVar3);
         }
     }
 
-    // 0x100b9f1c0, 16 bytes, placed by debug map only (low confidence)
-    // square(float)
-    float square(float param_1) {
-        return param_1 * param_1;
+    // 0x100b9f1c0
+    float square(float arg1) {
+        return arg1 * arg1;
     }
 
-    // 0x100b9f1d0, 224 bytes, placed by debug map only (low confidence)
-    // get_seek_page_info(stb_vorbis*, ProbedPage*)
-    undefined8 get_seek_page_info(stb_vorbis* param_1, ProbedPage* param_2) {
-        undefined4 uVar1;
+    // 0x100b9f1d0
+    void get_seek_page_info(stb_vorbis* stb_vorbis, ProbedPage* probedPage) {
         int iVar2;
-        undefined8 uVar3;
-        uint uVar4;
-        ulong uVar5;
-        byte local_148[256];
-        uchar local_48;
+        unsigned int arg3;
+        unsigned long uVar4;
+        uint8_t local_148[256];
+        unsigned char local_48;
         char local_47;
         char local_46;
         char local_45;
-        undefined4 local_42;
-        byte local_2e;
-        long local_28;
+        uint32_t local_42;
+        uint8_t local_2e;
 
-        local_28 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        uVar1 = _stb_vorbis_get_file_offset();
-        *(undefined4*)param_2 = uVar1;
-        getn(param_1, &local_48, 27);
-        uVar3 = 0;
+        uint32_t uVar1 = _stb_vorbis_get_file_offset();
+        *(uint32_t*)probedPage = uVar1;
+        getn(stb_vorbis, &local_48, 27);
+        uint64_t uVar3 = 0;
         if ((((local_48 == 'O') && (local_47 == 'g')) && (local_46 == 'g')) && (local_45 == 'S')) {
-            uVar4 = (uint)local_2e;
-            getn(param_1, local_148, uVar4);
+            arg3 = (unsigned int)local_2e;
+            getn(stb_vorbis, local_148, arg3);
             if (local_2e == 0) {
                 iVar2 = 0;
             } else {
-                uVar5 = 0;
+                uVar4 = 0;
                 iVar2 = 0;
                 do {
-                    iVar2 = iVar2 + (uint)local_148[uVar5];
-                    uVar5 = uVar5 + 1;
-                } while (uVar4 != uVar5);
+                    iVar2 = iVar2 + (unsigned int)local_148[uVar4];
+                    uVar4 = uVar4 + 1;
+                } while (arg3 != uVar4);
             }
-            *(uint*)(param_2 + 4) = *(uint*)param_2 + uVar4 + iVar2 + 27;
-            *(undefined4*)(param_2 + 8) = local_42;
-            set_file_offset(param_1, *(uint*)param_2);
+            *(unsigned int*)(probedPage + 4) = *(unsigned int*)probedPage + arg3 + iVar2 + 27;
+            *(uint32_t*)(probedPage + 8) = local_42;
+            set_file_offset(stb_vorbis, *(unsigned int*)probedPage);
             uVar3 = 1;
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_28) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
         return uVar3;
     }
 
-    // 0x100b9f2b0, 176 bytes, placed by debug map only (low confidence)
-    // go_to_page_before(stb_vorbis*, unsigned int)
-    undefined8 go_to_page_before(stb_vorbis* param_1, uint param_2) {
-        int iVar1;
-        uint uVar2;
-        uint* in_RCX;
-        uint local_2c;
+    // 0x100b9f2b0
+    void go_to_page_before(stb_vorbis* stb_vorbis, unsigned int arg2) {
+        unsigned int uVar2;
+        unsigned int local_2c;
 
-        if ((param_2 < 65536) || (uVar2 = param_2 - 65536, uVar2 < *(uint*)(param_1 + 72))) {
-            uVar2 = *(uint*)(param_1 + 72);
+        if ((arg2 < 65536) || (uVar2 = arg2 - 65536, uVar2 < *(unsigned int*)(stb_vorbis + 72))) {
+            uVar2 = *(unsigned int*)(stb_vorbis + 72);
         }
-        set_file_offset(param_1, uVar2);
-        iVar1 = vorbis_find_page((vorbis*)param_1, (stb_vorbis*)&local_2c, (uint*)0, in_RCX);
+        set_file_offset(stb_vorbis, uVar2);
+        int iVar1 = vorbis_find_page(stb_vorbis, &local_2c, nullptr);
         if (iVar1 != 0) {
             do {
-                if ((param_2 <= local_2c) && (uVar2 = _stb_vorbis_get_file_offset(param_1), uVar2 < param_2)) {
+                if ((arg2 <= local_2c) && (uVar2 = _stb_vorbis_get_file_offset(stb_vorbis), uVar2 < arg2)) {
                     return 1;
                 }
-                set_file_offset(param_1, local_2c);
-                iVar1 = vorbis_find_page((vorbis*)param_1, (stb_vorbis*)&local_2c, (uint*)0, in_RCX);
+                set_file_offset(stb_vorbis, local_2c);
+                iVar1 = vorbis_find_page(stb_vorbis, &local_2c, nullptr);
             } while (iVar1 != 0);
         }
         return 0;
     }
 
-    // 0x100b9f360, 464 bytes, placed by debug map only (low confidence)
-    // compute_samples(int, short*, int, float**, int, int)
-    void compute_samples(int param_1, short* param_2, int param_3, float** param_4, int param_5, int param_6) {
+    // 0x100b9f360
+    void compute_samples(int arg1, short* arg2, int arg3, float** arg4, int arg5, int arg6) {
         float* pfVar1;
         int iVar2;
-        ulong uVar3;
+        unsigned long uVar3;
         long lVar4;
         long lVar5;
         long lVar6;
         int iVar7;
         float fVar8;
         float local_b8[32];
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (0 < param_6) {
-            lVar4 = (long)param_5;
+        if (0 < arg6) {
+            lVar4 = (long)arg5;
             iVar7 = 32;
             lVar5 = 0;
             do {
-                iVar2 = param_6 - (int)lVar5;
-                if (iVar7 + (int)lVar5 <= param_6) {
+                iVar2 = arg6 - (int)lVar5;
+                if (iVar7 + (int)lVar5 <= arg6) {
                     iVar2 = iVar7;
                 }
                 iVar7 = iVar2;
@@ -5606,11 +5351,11 @@ namespace jag::hal::audio::decoders::vorbis {
                 local_b8[1] = 0.0;
                 local_b8[2] = 0.0;
                 local_b8[3] = 0.0;
-                if (0 < param_3) {
+                if (0 < arg3) {
                     uVar3 = 0;
                     do {
-                        if ((((char)(&channel_position)[uVar3 + (long)param_3 * 6] & param_1) != 0) && (0 < iVar7)) {
-                            pfVar1 = param_4[uVar3];
+                        if ((((char)(&channel_position)[uVar3 + (long)arg3 * 6] & arg1) != 0) && (0 < iVar7)) {
+                            pfVar1 = arg4[uVar3];
                             lVar6 = 0;
                             do {
                                 local_b8[lVar6] = local_b8[lVar6] + pfVar1[lVar4 + lVar6];
@@ -5618,7 +5363,7 @@ namespace jag::hal::audio::decoders::vorbis {
                             } while (lVar6 < iVar7);
                         }
                         uVar3 = uVar3 + 1;
-                    } while (uVar3 != (uint)param_3);
+                    } while (uVar3 != (unsigned int)arg3);
                 }
                 if (0 < iVar7) {
                     lVar6 = 0;
@@ -5630,69 +5375,61 @@ namespace jag::hal::audio::decoders::vorbis {
                         if (1136689150 < (int)fVar8) {
                             fVar8 = 4.59163e-41;
                         }
-                        param_2[lVar6] = SUB42(fVar8, 0);
+                        arg2[lVar6] = (uint16_t)fVar8;
                         lVar6 = lVar6 + 1;
                     } while (lVar6 < iVar7);
                 }
                 lVar5 = lVar5 + 32;
                 lVar4 = lVar4 + 32;
-                param_2 = param_2 + 32;
-            } while (lVar5 < param_6);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                arg2 = arg2 + 32;
+            } while (lVar5 < arg6);
         }
     }
 
-    // 0x100b9f530, 96 bytes, placed by debug map only (low confidence)
-    // copy_samples(short*, float*, int)
-    void copy_samples(short* param_1, float* param_2, int param_3) {
-        ulong uVar1;
+    // 0x100b9f530
+    void copy_samples(short* arg1, float* arg2, int arg3) {
+        unsigned long uVar1;
         float fVar2;
 
-        if (0 < param_3) {
+        if (0 < arg3) {
             uVar1 = 0;
             do {
-                fVar2 = param_2[uVar1] + 384.0;
+                fVar2 = arg2[uVar1] + 384.0;
                 if ((int)fVar2 < 1136623617) {
                     fVar2 = 383.0;
                 }
                 if (1136689150 < (int)fVar2) {
                     fVar2 = 4.59163e-41;
                 }
-                param_1[uVar1] = SUB42(fVar2, 0);
+                arg1[uVar1] = (uint16_t)fVar2;
                 uVar1 = uVar1 + 1;
-            } while ((uint)param_3 != uVar1);
+            } while ((unsigned int)arg3 != uVar1);
         }
     }
 
-    // 0x100b9f590, 672 bytes, placed by debug map only (low confidence)
-    // compute_stereo_samples(short*, int, float**, int, int)
-    void compute_stereo_samples(short* param_1, int param_2, float** param_3, int param_4, int param_5) {
+    // 0x100b9f590
+    void compute_stereo_samples(short* arg1, int arg2, float** arg3, int arg4, int arg5) {
         float* pfVar1;
         int iVar2;
-        byte bVar3;
+        uint8_t bVar3;
         long lVar4;
         long lVar5;
-        ulong uVar6;
+        unsigned long uVar6;
         int iVar7;
         int iVar8;
         long lVar9;
         long lVar10;
         float fVar11;
         float local_b8[32];
-        long local_38;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (0 < param_5) {
-            lVar10 = (long)param_4;
+        if (0 < arg5) {
+            lVar10 = (long)arg4;
             iVar8 = 16;
             iVar7 = 0;
             lVar9 = 0;
             do {
-                iVar2 = param_5 - (int)lVar9;
-                if ((int)lVar9 + iVar8 <= param_5) {
+                iVar2 = arg5 - (int)lVar9;
+                if ((int)lVar9 + iVar8 <= arg5) {
                     iVar2 = iVar8;
                 }
                 iVar8 = iVar2;
@@ -5728,14 +5465,14 @@ namespace jag::hal::audio::decoders::vorbis {
                 local_b8[1] = 0.0;
                 local_b8[2] = 0.0;
                 local_b8[3] = 0.0;
-                if (0 < param_2) {
+                if (0 < arg2) {
                     lVar5 = (long)iVar8;
                     uVar6 = 0;
                     do {
-                        bVar3 = (&channel_position)[uVar6 + (long)param_2 * 6] & 6;
+                        bVar3 = (&channel_position)[uVar6 + (long)arg2 * 6] & 6;
                         if (bVar3 == 2) {
                             if (0 < iVar8) {
-                                pfVar1 = param_3[uVar6];
+                                pfVar1 = arg3[uVar6];
                                 lVar4 = 0;
                                 do {
                                     local_b8[lVar4 * 2] = local_b8[lVar4 * 2] + pfVar1[lVar10 + lVar4];
@@ -5744,7 +5481,7 @@ namespace jag::hal::audio::decoders::vorbis {
                             }
                         } else if (bVar3 == 6) {
                             if (0 < iVar8) {
-                                pfVar1 = param_3[uVar6];
+                                pfVar1 = arg3[uVar6];
                                 lVar4 = 0;
                                 do {
                                     fVar11 = pfVar1[lVar10 + lVar4];
@@ -5754,7 +5491,7 @@ namespace jag::hal::audio::decoders::vorbis {
                                 } while (lVar4 < lVar5);
                             }
                         } else if ((bVar3 == 4) && (0 < iVar8)) {
-                            pfVar1 = param_3[uVar6];
+                            pfVar1 = arg3[uVar6];
                             lVar4 = 0;
                             do {
                                 local_b8[lVar4 * 2 + 1] = local_b8[lVar4 * 2 + 1] + pfVar1[lVar10 + lVar4];
@@ -5762,7 +5499,7 @@ namespace jag::hal::audio::decoders::vorbis {
                             } while (lVar4 < lVar5);
                         }
                         uVar6 = uVar6 + 1;
-                    } while (uVar6 != (uint)param_2);
+                    } while (uVar6 != (unsigned int)arg2);
                 }
                 if (0 < iVar8 * 2) {
                     lVar5 = 0;
@@ -5774,388 +5511,41 @@ namespace jag::hal::audio::decoders::vorbis {
                         if (1136689150 < (int)fVar11) {
                             fVar11 = 4.59163e-41;
                         }
-                        param_1[iVar7 + lVar5] = SUB42(fVar11, 0);
+                        arg1[iVar7 + lVar5] = (uint16_t)fVar11;
                         lVar5 = lVar5 + 1;
                     } while (lVar5 < iVar8 * 2);
                 }
                 lVar9 = lVar9 + 16;
                 lVar10 = lVar10 + 16;
                 iVar7 = iVar7 + 32;
-            } while (lVar9 < param_5);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+            } while (lVar9 < arg5);
         }
     }
 
 } // namespace jag::hal::audio::decoders::vorbis
 
-namespace jag {
-    // 0x100b92a90, 16 bytes, inline, placed by debug map only (low confidence)
-    // PacketT<Array<unsigned char, eastl::allocator> >::pFloatPlatformEndian(float)
-    void PacketT<Array<unsigned char, eastl::allocator>>::pFloatPlatformEndian(
-        PacketT<Array<unsigned char, eastl::allocator>>* this, float param_1) {
-        pTPE<float>(this, param_1);
-    }
-
-    // 0x100ba0000, 32 bytes, inline, placed by debug map only (low confidence)
-    // hal::audio::osx::OSXAudioRenderer* placement_new<hal::audio::osx::OSXAudioRenderer>(void*)
-    OSXAudioRenderer* placement_new<hal::audio::osx::OSXAudioRenderer>(void* param_1) {
-        hal::audio::osx::OSXAudioRenderer::OSXAudioRenderer(param_1);
-        return param_1;
-    }
-
-    // 0x100ba0020, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::osx::OSXAudioRenderer>* placement_new<ref_counter_shared<hal::audio::osx::OSXAudioRenderer>, int, hal::audio::osx::OSXAudioRenderer*&>(void*, int&&, hal::audio::osx::OSXAudioRenderer*&)
-    ref_counter_shared*
-    jag::placement_new<ref_counter_shared<hal::audio::osx::OSXAudioRenderer>, int, hal::audio::osx::OSXAudioRenderer*&>(
-        void* param_1, int* param_2, OSXAudioRenderer** param_3) {
-        ref_counter_shared<hal::audio::osx::OSXAudioRenderer>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x100ba0040, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::osx::OSXAudioRenderer>::ref_counter_shared(unsigned long, hal::audio::osx::OSXAudioRenderer*): jumps straight to the base-object constructor
-
-    // 0x100ba0050, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::osx::OSXAudioRenderer>::ref_counter_shared(unsigned long, hal::audio::osx::OSXAudioRenderer*)
-    void ref_counter_shared<hal::audio::osx::OSXAudioRenderer>::ref_counter_shared(ulong param_1,
-                                                                                   OSXAudioRenderer* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee72e0 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(OSXAudioRenderer**)(this + 24) = param_2;
-    }
-
-    // 0x100ba0340, 48 bytes, inline, placed by debug map only (low confidence)
-    // hal::audio::AudioBuss* placement_new<hal::audio::AudioBuss, hal::audio::BussType, unsigned int const&, int, float, unsigned int const&, bool>(void*, hal::audio::BussType&&, unsigned int const&, int&&, float&&, unsigned int const&, bool&&)
-    AudioBuss* jag::placement_new<hal::audio::AudioBuss, hal::audio::BussType, unsigned int const&, int, float,
-                                  unsigned int const&, bool>(void* param_1, BussType* param_2, uint* param_3,
-                                                             int* param_4, float* param_5, uint* param_6,
-                                                             bool* param_7) {
-        /* WARNING: Load size is inaccurate */
-        hal::audio::AudioBuss::AudioBuss(*(AudioBuss**)param_5, param_1, *(undefined4*)param_2, *param_3, *param_4,
-                                         *param_6, *param_7);
-        return param_1;
-    }
-
-    // 0x100ba0370, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBuss>* placement_new<ref_counter_shared<hal::audio::AudioBuss>, int, hal::audio::AudioBuss*&>(void*, int&&, hal::audio::AudioBuss*&)
-    ref_counter_shared* jag::placement_new<ref_counter_shared<hal::audio::AudioBuss>, int, hal::audio::AudioBuss*&>(
-        void* param_1, int* param_2, AudioBuss** param_3) {
-        ref_counter_shared<hal::audio::AudioBuss>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x100ba0390, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBuss>::ref_counter_shared(unsigned long, hal::audio::AudioBuss*): jumps straight to the base-object constructor
-
-    // 0x100ba03a0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBuss>::ref_counter_shared(unsigned long, hal::audio::AudioBuss*)
-    void ref_counter_shared<hal::audio::AudioBuss>::ref_counter_shared(ulong param_1, AudioBuss* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee72e8 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(AudioBuss**)(this + 24) = param_2;
-    }
-
-    // 0x100ba03e0, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBuss>::DeleteData()
-    void ref_counter_shared<hal::audio::AudioBuss>::DeleteData() {
-        long lVar1;
-        ulong uVar2;
-
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
-                lVar1 = 0;
-                uVar2 = 0;
-                do {
-                    (*(code*)**(undefined8**)(*(long*)(this + 24) + lVar1))(*(long*)(this + 24) + lVar1);
-                    uVar2 = uVar2 + 1;
-                    lVar1 = lVar1 + 112;
-                } while (uVar2 < *(ulong*)(this + 16));
-            }
-            *(undefined8*)(this + 24) = 0;
-        }
-    }
-
-    // 0x100ba0430, 32 bytes, inline, placed by debug map only (low confidence)
-    // MixerWorker* placement_new<MixerWorker>(void*)
-    MixerWorker* placement_new<MixerWorker>(void* param_1) {
-        MixerWorker::MixerWorker(param_1);
-        return param_1;
-    }
-
-    // 0x100ba0450, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<MixerWorker>* placement_new<ref_counter_shared<MixerWorker>, int, MixerWorker*&>(void*, int&&, MixerWorker*&)
-    ref_counter_shared* placement_new<ref_counter_shared<MixerWorker>, int, MixerWorker*&>(void* param_1, int* param_2,
-                                                                                           MixerWorker** param_3) {
-        ref_counter_shared<MixerWorker>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x100ba0470, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<MixerWorker>::ref_counter_shared(unsigned long, MixerWorker*): jumps straight to the base-object constructor
-
-    // 0x100ba0480, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<MixerWorker>::ref_counter_shared(unsigned long, MixerWorker*)
-    void ref_counter_shared<MixerWorker>::ref_counter_shared(ulong param_1, MixerWorker* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7180 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(MixerWorker**)(this + 24) = param_2;
-    }
-
-    // 0x100ba0670, 48 bytes, inline, placed by debug map only (low confidence)
-    // hal::audio::AudioBuss* placement_new<hal::audio::AudioBuss, hal::audio::BussType&, unsigned int&, unsigned int&, float&, unsigned int&>(void*, hal::audio::BussType&, unsigned int&, unsigned int&, float&, unsigned int&)
-    AudioBuss* jag::placement_new<hal::audio::AudioBuss, hal::audio::BussType&, unsigned int&, unsigned int&, float&,
-                                  unsigned int&>(void* param_1, BussType* param_2, uint* param_3, uint* param_4,
-                                                 float* param_5, uint* param_6) {
-        /* WARNING: Load size is inaccurate */
-        hal::audio::AudioBuss::AudioBuss(*(AudioBuss**)param_5, param_1, *(undefined4*)param_2, *param_3, *param_4,
-                                         *param_6, 0);
-        return param_1;
-    }
-
-    // 0x100ba1460, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBuffer>* placement_new<ref_counter_shared<hal::audio::AudioBuffer>, int, hal::audio::AudioBuffer*&>(void*, int&&, hal::audio::AudioBuffer*&)
-    ref_counter_shared* jag::placement_new<ref_counter_shared<hal::audio::AudioBuffer>, int, hal::audio::AudioBuffer*&>(
-        void* param_1, int* param_2, AudioBuffer** param_3) {
-        ref_counter_shared<hal::audio::AudioBuffer>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x100ba1480, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBuffer>::ref_counter_shared(unsigned long, hal::audio::AudioBuffer*): jumps straight to the base-object constructor
-
-    // 0x100ba1490, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBuffer>::ref_counter_shared(unsigned long, hal::audio::AudioBuffer*)
-    void ref_counter_shared<hal::audio::AudioBuffer>::ref_counter_shared(ulong param_1, AudioBuffer* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee72d0 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(AudioBuffer**)(this + 24) = param_2;
-    }
-
-    // 0x100ba14d0, 96 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBuffer>::DeleteData()
-    void ref_counter_shared<hal::audio::AudioBuffer>::DeleteData() {
-        long lVar1;
-        ulong uVar2;
-
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
-                lVar1 = 0;
-                uVar2 = 0;
-                do {
-                    (*(code*)**(undefined8**)(*(long*)(this + 24) + lVar1))(*(long*)(this + 24) + lVar1);
-                    uVar2 = uVar2 + 1;
-                    lVar1 = lVar1 + 216;
-                } while (uVar2 < *(ulong*)(this + 16));
-            }
-            *(undefined8*)(this + 24) = 0;
-        }
-    }
-
-    // 0x100ba2170, 32 bytes, inline, placed by debug map only (low confidence)
-    // hal::audio::AudioBufferHandler* placement_new<hal::audio::AudioBufferHandler, unsigned int&, shared_ptr<hal::audio::AudioBuffer>&>(void*, unsigned int&, shared_ptr<hal::audio::AudioBuffer>&)
-    AudioBufferHandler*
-    jag::placement_new<hal::audio::AudioBufferHandler, unsigned int&, shared_ptr<hal::audio::AudioBuffer>&>(
-        void* param_1, uint* param_2, shared_ptr* param_3) {
-        hal::audio::AudioBufferHandler::AudioBufferHandler(param_1, *param_2, param_3);
-        return param_1;
-    }
-
-    // 0x100ba2190, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBufferHandler>* placement_new<ref_counter_shared<hal::audio::AudioBufferHandler>, int, hal::audio::AudioBufferHandler*&>(void*, int&&, hal::audio::AudioBufferHandler*&)
-    ref_counter_shared*
-    jag::placement_new<ref_counter_shared<hal::audio::AudioBufferHandler>, int, hal::audio::AudioBufferHandler*&>(
-        void* param_1, int* param_2, AudioBufferHandler** param_3) {
-        ref_counter_shared<hal::audio::AudioBufferHandler>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x100ba21b0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBufferHandler>::ref_counter_shared(unsigned long, hal::audio::AudioBufferHandler*): jumps straight to the base-object constructor
-
-    // 0x100ba21c0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<hal::audio::AudioBufferHandler>::ref_counter_shared(unsigned long, hal::audio::AudioBufferHandler*)
-    void ref_counter_shared<hal::audio::AudioBufferHandler>::ref_counter_shared(ulong param_1,
-                                                                                AudioBufferHandler* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee72d8 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(AudioBufferHandler**)(this + 24) = param_2;
-    }
-
-    // 0x100ba24f0, 32 bytes, inline, placed by debug map only (low confidence)
-    // VorbisWorker* placement_new<VorbisWorker>(void*)
-    VorbisWorker* placement_new<VorbisWorker>(void* param_1) {
-        VorbisWorker::VorbisWorker(param_1);
-        return param_1;
-    }
-
-    // 0x100ba2510, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<VorbisWorker>* placement_new<ref_counter_shared<VorbisWorker>, int, VorbisWorker*&>(void*, int&&, VorbisWorker*&)
-    ref_counter_shared* placement_new<ref_counter_shared<VorbisWorker>, int, VorbisWorker*&>(void* param_1,
-                                                                                             int* param_2,
-                                                                                             VorbisWorker** param_3) {
-        ref_counter_shared<VorbisWorker>::ref_counter_shared(param_1, (long)*param_2, *param_3);
-        return param_1;
-    }
-
-    // 0x100ba2530, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<VorbisWorker>::ref_counter_shared(unsigned long, VorbisWorker*): jumps straight to the base-object constructor
-
-    // 0x100ba2540, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<VorbisWorker>::ref_counter_shared(unsigned long, VorbisWorker*)
-    void ref_counter_shared<VorbisWorker>::ref_counter_shared(ulong param_1, VorbisWorker* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7188 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(VorbisWorker**)(this + 24) = param_2;
-    }
-
-    // 0x100ba2580, 96 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<VorbisWorker>::DeleteData()
-    void ref_counter_shared<VorbisWorker>::DeleteData() {
-        long lVar1;
-        ulong uVar2;
-
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
-                lVar1 = 0;
-                uVar2 = 0;
-                do {
-                    (*(code*)**(undefined8**)(*(long*)(this + 24) + lVar1))(*(long*)(this + 24) + lVar1);
-                    uVar2 = uVar2 + 1;
-                    lVar1 = lVar1 + 880;
-                } while (uVar2 < *(ulong*)(this + 16));
-            }
-            *(undefined8*)(this + 24) = 0;
-        }
-    }
-
-    // 0x100ba2720, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8> >* placement_new<MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8>::RefCounterAndData*&, PacketT<Array<unsigned char, eastl::allocator> >*>(void*, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8>::RefCounterAndData*&, PacketT<Array<unsigned char, eastl::allocator> >*&&)
-    MakeSharedPoolRefCounter*
-    jag::placement_new<MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                                MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>>,
-                       MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::RefCounterAndData*&,
-                       PacketT<Array<unsigned char, eastl::allocator>>*>(void* param_1, RefCounterAndData** param_2,
-                                                                         PacketT** param_3) {
-        MakeSharedPoolRefCounter<
-            PacketT<Array<unsigned char, eastl::allocator>>,
-            MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>>::MakeSharedPoolRefCounter(param_1,
-                                                                                                          *param_2,
-                                                                                                          *param_3);
-        return param_1;
-    }
-
-    // 0x100ba27a0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8> >::MakeSharedPoolRefCounter(void*, PacketT<Array<unsigned char, eastl::allocator> >*): jumps straight to the base-object constructor
-
-    // 0x100ba27b0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8> >::MakeSharedPoolRefCounter(void*, PacketT<Array<unsigned char, eastl::allocator> >*)
-    void jag::MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                       MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>>::
-        MakeSharedPoolRefCounter(
-            MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                     MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>>* this,
-            void* param_1, PacketT* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7b88 + 16;
-        *(void**)(this + 16) = param_1;
-        *(PacketT**)(this + 24) = param_2;
-    }
-
-    // 0x100ba27f0, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 8> >::DeleteSelf()
-    void jag::MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                       MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>>::
-        DeleteSelf(MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                            MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 8>::deallocate(pvVar1);
-    }
-
-    // 0x100ba3450, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048> >* placement_new<MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048>::RefCounterAndData*&, PacketT<Array<unsigned char, eastl::allocator> >*>(void*, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048>::RefCounterAndData*&, PacketT<Array<unsigned char, eastl::allocator> >*&&)
-    MakeSharedPoolRefCounter*
-    jag::placement_new<MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                                MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>>,
-                       MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::RefCounterAndData*&,
-                       PacketT<Array<unsigned char, eastl::allocator>>*>(void* param_1, RefCounterAndData** param_2,
-                                                                         PacketT** param_3) {
-        MakeSharedPoolRefCounter<
-            PacketT<Array<unsigned char, eastl::allocator>>,
-            MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>>::MakeSharedPoolRefCounter(param_1,
-                                                                                                             *param_2,
-                                                                                                             *param_3);
-        return param_1;
-    }
-
-    // 0x100ba34d0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048> >::MakeSharedPoolRefCounter(void*, PacketT<Array<unsigned char, eastl::allocator> >*): jumps straight to the base-object constructor
-
-    // 0x100ba34e0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048> >::MakeSharedPoolRefCounter(void*, PacketT<Array<unsigned char, eastl::allocator> >*)
-    void jag::MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                       MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>>::
-        MakeSharedPoolRefCounter(
-            MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                     MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>>* this,
-            void* param_1, PacketT* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee7b80 + 16;
-        *(void**)(this + 16) = param_1;
-        *(PacketT**)(this + 24) = param_2;
-    }
-
-    // 0x100ba3520, 32 bytes, inline, placed by debug map only (low confidence)
-    // MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator> >, MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator> >, 2048> >::DeleteSelf()
-    void jag::MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                       MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>>::
-        DeleteSelf(
-            MakeSharedPoolRefCounter<PacketT<Array<unsigned char, eastl::allocator>>,
-                                     MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>>* this) {
-        void* pvVar1;
-
-        pvVar1 = *(void**)(this + 16);
-        (*(code*)**(undefined8**)this)();
-        MakeSharedPool<PacketT<Array<unsigned char, eastl::allocator>>, 2048>::deallocate(pvVar1);
-    }
-
-} // namespace jag
-
 class VorbisWorker {
 public:
     // virtual methods in vtable order
     virtual ~VorbisWorker();
-    virtual void OnInterval(float, unsigned long long);
-    virtual void OnMessage(jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&);
-    virtual void OnResponse(jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&);
-    void SetWorkerOnResponse(std::function<void(jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&)> const&);
+    virtual void OnInterval(float arg1, unsigned long long arg2);
+    virtual void OnMessage(jag::PacketT<jag::Array<unsigned char>>& arg1);
+    virtual void OnResponse(jag::PacketT<jag::Array<unsigned char>>& arg1);
+    void SetWorkerOnResponse(std::function<void(jag::PacketT<jag::Array<unsigned char>>&)> const& callback);
     VorbisWorker();
 };
 
 class VorbisWorkerPacket {
 public:
-    void PacketT(unsigned long);
+    void PacketT(unsigned long arg1);
 };
 
-// 0x100b92a50, 16 bytes, inline, placed by debug map only (low confidence)
-// VorbisWorkerPacket::PacketT(unsigned long)
-void VorbisWorkerPacket::PacketT(ulong param_1) {
-    PacketT(this, param_1);
+// 0x100b92a50
+void VorbisWorkerPacket::PacketT(unsigned long arg1) {
+    PacketT(arg1);
 }
 
-// 0x100b92a60, 48 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_info
+// 0x100b92a60
 undefined4* _stb_vorbis_get_info(undefined4* param_1, undefined4* param_2) {
     param_1[1] = param_2[1];
     *param_1 = *param_2;
@@ -6166,32 +5556,26 @@ undefined4* _stb_vorbis_get_info(undefined4* param_1, undefined4* param_2) {
     return param_1;
 }
 
-// 0x100b92db0, 32 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_sample_offset
+// 0x100b92db0
 undefined4 _stb_vorbis_get_sample_offset(long param_1) {
     if (*(int*)(param_1 + 1388) == 0) {
         return 4294967295;
     }
-    return *(undefined4*)(param_1 + 1384);
+    return *(uint32_t*)(param_1 + 1384);
 }
 
-// 0x100b92dd0, 32 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_error
+// 0x100b92dd0
 undefined4 _stb_vorbis_get_error(long param_1) {
-    undefined4 uVar1;
-
-    uVar1 = *(undefined4*)(param_1 + 132);
-    *(undefined4*)(param_1 + 132) = 0;
+    uint32_t uVar1 = *(uint32_t*)(param_1 + 132);
+    *(uint32_t*)(param_1 + 132) = 0;
     return uVar1;
 }
 
-// 0x100b95280, 64 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_file_offset
+// 0x100b95280
 int _stb_vorbis_get_file_offset(long param_1) {
-    int iVar1;
     long lVar2;
 
-    iVar1 = 0;
+    int iVar1 = 0;
     if (*(char*)(param_1 + 68) == '\0') {
         if (*(long*)(param_1 + 40) == 0) {
             lVar2 = _ftell(*(FILE**)(param_1 + 24));
@@ -6203,70 +5587,64 @@ int _stb_vorbis_get_file_offset(long param_1) {
     return iVar1;
 }
 
-// 0x100b952c0, 400 bytes, placed by debug map only (low confidence)
-// stb_vorbis_seek_frame
-undefined4 _stb_vorbis_seek_frame(vorbis* param_1, uint param_2) {
+// 0x100b952c0
+undefined4 _stb_vorbis_seek_frame(stb_vorbis* param_1, uint param_2) {
     int iVar1;
     bool bVar2;
     int iVar3;
-    int iVar4;
-    uint uVar5;
-    undefined4 unaff_R15D;
+    unsigned int uVar5;
+    uint32_t unaff_R15D;
     int local_44;
     int local_40;
     int local_3c;
     int local_38;
     int local_34;
 
-    if (param_1->field_68[0] == '\0') {
-        iVar3 = jag::hal::audio::decoders::vorbis::seek_to_sample_coarse((stb_vorbis*)param_1, param_2);
+    if (param_1[68] == (stb_vorbis)0) {
+        iVar3 = jag::hal::audio::decoders::vorbis::seek_to_sample_coarse(param_1, param_2);
         if (iVar3 != 0) {
-            if (param_1->field_1388 == 0) {
-                /* WARNING: Subroutine does not return */
+            if (*(int*)(param_1 + 1388) == 0) {
                 jag::LogAssert("f->current_loc_valid",
                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                                "workers/vorbis_std.code",
-                               4509, (char*)0);
+                               4509, nullptr);
             }
-            if (param_2 < param_1->field_1384) {
-                /* WARNING: Subroutine does not return */
+            if (param_2 < *(unsigned int*)(param_1 + 1384)) {
                 jag::LogAssert("f->current_loc <= sample_number",
                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                                "workers/vorbis_std.code",
-                               4510, (char*)0);
+                               4510, nullptr);
             }
-            iVar3 = param_1->field_148;
-            iVar1 = param_1->field_144;
+            iVar3 = *(int*)(param_1 + 148);
+            iVar1 = *(int*)(param_1 + 144);
             do {
-                if (param_2 <= param_1->field_1384) {
-                    if (param_1->field_1384 != param_2) {
-                        /* WARNING: Subroutine does not return */
+                if (param_2 <= *(unsigned int*)(param_1 + 1384)) {
+                    if (*(unsigned int*)(param_1 + 1384) != param_2) {
                         jag::LogAssert("f->current_loc == sample_number",
                                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/"
                                        "audio/workers/vorbis_std.code",
-                                       4536, (char*)0);
+                                       4536, nullptr);
                     }
                     return 1;
                 }
-                iVar4 = jag::hal::audio::decoders::vorbis::peek_decode_initial(
-                    (stb_vorbis*)param_1, (int*)(stb_vorbis*)&local_38, &local_44, &local_34, &local_40, &local_3c);
-                if (iVar4 == 0) {
+                if (jag::hal::audio::decoders::vorbis::peek_decode_initial(param_1, &local_38, &local_44, &local_34,
+                                                                           &local_40, &local_3c) == 0) {
                     jag::hal::audio::decoders::vorbis::error(param_1, 37);
                     bVar2 = false;
                     unaff_R15D = 0;
                 } else {
-                    uVar5 = (local_34 - local_38) + param_1->field_1384;
+                    uVar5 = (local_34 - local_38) + *(int*)(param_1 + 1384);
                     if (param_2 < uVar5) {
                         unaff_R15D = 1;
                         bVar2 = false;
                     } else {
                         if (param_2 < uVar5 + (iVar3 * 3 - iVar1 >> 2)) {
-                            param_1->vorbis_pump_first_frame((stb_vorbis*)&local_38);
+                            jag::hal::audio::decoders::vorbis::vorbis_pump_first_frame(param_1);
                         } else {
-                            param_1->field_1384 = uVar5;
-                            param_1->field_1248 = 0;
-                            jag::hal::audio::decoders::vorbis::maybe_start_packet((stb_vorbis*)param_1);
-                            jag::hal::audio::decoders::vorbis::flush_packet((stb_vorbis*)param_1);
+                            *(unsigned int*)(param_1 + 1384) = uVar5;
+                            *(uint32_t*)(param_1 + 1248) = 0;
+                            jag::hal::audio::decoders::vorbis::maybe_start_packet(param_1);
+                            jag::hal::audio::decoders::vorbis::flush_packet(param_1);
                         }
                         bVar2 = true;
                     }
@@ -6280,33 +5658,30 @@ undefined4 _stb_vorbis_seek_frame(vorbis* param_1, uint param_2) {
     return 0;
 }
 
-// 0x100b95a90, 176 bytes, placed by debug map only (low confidence)
-// stb_vorbis_seek
+// 0x100b95a90
 undefined8 _stb_vorbis_seek(long param_1, uint param_2) {
-    uint uVar1;
-    undefined8 uVar3;
-    undefined1 local_2c[4];
+    unsigned int uVar1;
+    uint64_t uVar3;
+    uint8_t local_2c[4];
 
     if (_stb_vorbis_seek_frame() == 0) {
         uVar3 = 0;
     } else {
-        uVar1 = *(uint*)(param_1 + 1384);
+        uVar1 = *(unsigned int*)(param_1 + 1384);
         uVar3 = 1;
         if (uVar1 != param_2) {
             _stb_vorbis_get_frame_float(param_1, local_2c, 0);
             if (param_2 <= uVar1) {
-                /* WARNING: Subroutine does not return */
                 jag::LogAssert("sample_number > frame_start",
                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                                "workers/vorbis_std.code",
-                               4549, (char*)0);
+                               4549, nullptr);
             }
             if (*(int*)(param_1 + 1872) < (int)(*(int*)(param_1 + 1868) + (param_2 - uVar1))) {
-                /* WARNING: Subroutine does not return */
                 jag::LogAssert("f->channel_buffer_start + (int)(sample_number - frame_start) <= f->channel_buffer_end",
                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/"
                                "workers/vorbis_std.code",
-                               4550, (char*)0);
+                               4550, nullptr);
             }
             *(int*)(param_1 + 1868) = *(int*)(param_1 + 1868) + (param_2 - uVar1);
         }
@@ -6314,201 +5689,174 @@ undefined8 _stb_vorbis_seek(long param_1, uint param_2) {
     return uVar3;
 }
 
-// 0x100b95b40, 224 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_frame_float
-undefined8 _stb_vorbis_get_frame_float(vorbis* param_1, uint* param_2, long* param_3, undefined8 param_4,
-                                       int* param_5) {
-    uint uVar1;
-    int iVar2;
-    undefined8 uVar3;
-    ulong uVar4;
+// 0x100b95b40
+undefined8 _stb_vorbis_get_frame_float(stb_vorbis* param_1, uint* param_2, long* param_3) {
+    unsigned int uVar1;
+    uint64_t uVar3;
+    unsigned long uVar4;
     int local_34;
     int local_30;
-    uint local_2c;
+    int local_2c;
 
-    if (param_1->field_68[0] == '\0') {
-        iVar2 = param_1->vorbis_decode_packet((stb_vorbis*)&local_2c, &local_30, &local_34, param_5);
-        if (iVar2 != 0) {
-            uVar3 = param_1->vorbis_finish_frame((stb_vorbis*)(ulong)local_2c, local_30, local_34, (int)param_5);
-            uVar1 = param_1->field_4;
+    if (param_1[68] == (stb_vorbis)0) {
+        if (jag::hal::audio::decoders::vorbis::vorbis_decode_packet(param_1, &local_2c, &local_30, &local_34) != 0) {
+            uVar3 = jag::hal::audio::decoders::vorbis::vorbis_finish_frame(param_1, local_2c, local_30, local_34);
+            uVar1 = *(unsigned int*)(param_1 + 4);
             if (0 < (int)uVar1) {
                 uVar4 = 0;
                 do {
-                    *(long*)(param_1->field_1739 + uVar4 * 8 + -747) =
-                        *(long*)(param_1->field_68 + uVar4 * 8 + 796) + (long)local_30 * 4;
+                    *(long*)(param_1 + uVar4 * 8 + 992) = *(long*)(param_1 + uVar4 * 8 + 864) + (long)local_30 * 4;
                     uVar4 = uVar4 + 1;
                 } while (uVar1 != uVar4);
             }
-            *(int*)&param_1->field_1868 = local_30;
-            *(int*)((long)&param_1->field_1868 + 4) = local_30 + (int)uVar3;
-            if (param_2 != (uint*)0) {
+            *(int*)(param_1 + 1868) = local_30;
+            *(int*)(param_1 + 1872) = local_30 + (int)uVar3;
+            if (param_2 != nullptr) {
                 *param_2 = uVar1;
             }
-            if (param_3 == (long*)0) {
+            if (param_3 == nullptr) {
                 return uVar3;
             }
-            *param_3 = (long)&param_1->field_992;
+            *param_3 = (long)(param_1 + 992);
             return uVar3;
         }
-        param_1->field_1868 = 0;
+        *(uint64_t*)(param_1 + 1868) = 0;
     } else {
         jag::hal::audio::decoders::vorbis::error(param_1, 2);
     }
     return 0;
 }
 
-// 0x100b95c20, 96 bytes, placed by debug map only (low confidence)
-// stb_vorbis_seek_start
-void _stb_vorbis_seek_start(vorbis* param_1) {
-    stb_vorbis* psVar1;
-
-    if (param_1->field_68[0] == '\0') {
-        psVar1 = (stb_vorbis*)(ulong) * (uint*)&param_1->field_72;
-        jag::hal::audio::decoders::vorbis::set_file_offset((stb_vorbis*)param_1, *(uint*)&param_1->field_72);
-        param_1->field_1248 = 0;
-        param_1->field_1741 = 1;
-        param_1->field_1744 = -1;
-        param_1->vorbis_pump_first_frame(psVar1);
+// 0x100b95c20
+void _stb_vorbis_seek_start(stb_vorbis* param_1) {
+    if (param_1[68] == (stb_vorbis)0) {
+        jag::hal::audio::decoders::vorbis::set_file_offset(param_1, *(unsigned int*)(param_1 + 72));
+        *(uint32_t*)(param_1 + 1248) = 0;
+        param_1[1741] = (stb_vorbis)1;
+        *(uint32_t*)(param_1 + 1744) = 4294967295;
+        jag::hal::audio::decoders::vorbis::vorbis_pump_first_frame(param_1);
     } else {
         jag::hal::audio::decoders::vorbis::error(param_1, 2);
     }
 }
 
-// 0x100b95d20, 416 bytes, placed by debug map only (low confidence)
-// stb_vorbis_stream_length_in_samples
-int _stb_vorbis_stream_length_in_samples(vorbis* param_1, undefined8 param_2, undefined8 param_3, uint* param_4) {
-    uint uVar1;
+// 0x100b95d20
+int _stb_vorbis_stream_length_in_samples(stb_vorbis* param_1) {
     int iVar2;
     int iVar3;
-    int iVar4;
-    uint uVar5;
-    uchar local_3e[6];
-    uint local_38;
-    uint local_34;
+    unsigned int uVar4;
+    unsigned char local_3e[6];
+    unsigned int local_38;
+    unsigned int local_34;
 
-    if (param_1->field_68[0] != '\0') {
+    if (param_1[68] != (stb_vorbis)0) {
         jag::hal::audio::decoders::vorbis::error(param_1, 2);
         return 0;
     }
-    if (*(int*)&param_1->field_860 != 0)
+    if (*(int*)(param_1 + 860) != 0)
         goto LAB_100b95e29;
-    uVar1 = _stb_vorbis_get_file_offset(param_1);
-    if ((param_1->field_64 < 65536) || (uVar5 = param_1->field_64 - 65536, uVar5 < *(uint*)&param_1->field_72)) {
-        uVar5 = *(uint*)&param_1->field_72;
+    unsigned int arg2 = _stb_vorbis_get_file_offset(param_1);
+    if ((*(unsigned int*)(param_1 + 64) < 65536) ||
+        (uVar4 = *(unsigned int*)(param_1 + 64) - 65536, uVar4 < *(unsigned int*)(param_1 + 72))) {
+        uVar4 = *(unsigned int*)(param_1 + 72);
     }
-    jag::hal::audio::decoders::vorbis::set_file_offset((stb_vorbis*)param_1, uVar5);
-    iVar2 = param_1->vorbis_find_page((stb_vorbis*)&local_34, &local_38, param_4);
-    if (iVar2 == 0) {
+    jag::hal::audio::decoders::vorbis::set_file_offset(param_1, uVar4);
+    int iVar1 = jag::hal::audio::decoders::vorbis::vorbis_find_page(param_1, &local_34, &local_38);
+    if (iVar1 == 0) {
     LAB_100b95dea:
-        param_1->field_132 = 36;
-        *(undefined4*)&param_1->field_860 = 4294967295;
+        *(uint32_t*)(param_1 + 132) = 36;
+        *(uint32_t*)(param_1 + 860) = 4294967295;
     } else {
-        uVar5 = _stb_vorbis_get_file_offset(param_1);
+        uVar4 = _stb_vorbis_get_file_offset(param_1);
         if (local_38 == 0) {
-            jag::hal::audio::decoders::vorbis::set_file_offset((stb_vorbis*)param_1, local_34);
-            iVar2 = param_1->vorbis_find_page((stb_vorbis*)&local_34, &local_38, param_4);
-            if (iVar2 != 0) {
+            jag::hal::audio::decoders::vorbis::set_file_offset(param_1, local_34);
+            iVar1 = jag::hal::audio::decoders::vorbis::vorbis_find_page(param_1, &local_34, &local_38);
+            if (iVar1 != 0) {
                 do {
-                    uVar5 = _stb_vorbis_get_file_offset(param_1);
+                    uVar4 = _stb_vorbis_get_file_offset(param_1);
                     if (local_38 != 0)
                         break;
-                    jag::hal::audio::decoders::vorbis::set_file_offset((stb_vorbis*)param_1, local_34);
-                    iVar2 = param_1->vorbis_find_page((stb_vorbis*)&local_34, &local_38, param_4);
-                } while (iVar2 != 0);
+                    jag::hal::audio::decoders::vorbis::set_file_offset(param_1, local_34);
+                    iVar1 = jag::hal::audio::decoders::vorbis::vorbis_find_page(param_1, &local_34, &local_38);
+                } while (iVar1 != 0);
             }
         }
-        jag::hal::audio::decoders::vorbis::set_file_offset((stb_vorbis*)param_1, uVar5);
-        jag::hal::audio::decoders::vorbis::getn((stb_vorbis*)param_1, local_3e, 6);
-        iVar2 = jag::hal::audio::decoders::vorbis::get32((stb_vorbis*)param_1);
-        iVar3 = jag::hal::audio::decoders::vorbis::get32((stb_vorbis*)param_1);
-        if ((iVar2 == -1) && (iVar3 == -1))
+        jag::hal::audio::decoders::vorbis::set_file_offset(param_1, uVar4);
+        jag::hal::audio::decoders::vorbis::getn(param_1, local_3e, 6);
+        iVar1 = jag::hal::audio::decoders::vorbis::get32(param_1);
+        iVar2 = jag::hal::audio::decoders::vorbis::get32(param_1);
+        if ((iVar1 == -1) && (iVar2 == -1))
             goto LAB_100b95dea;
-        iVar4 = -2;
-        if (iVar3 == 0) {
-            iVar4 = iVar2;
+        iVar3 = -2;
+        if (iVar2 == 0) {
+            iVar3 = iVar1;
         }
-        *(int*)&param_1->field_860 = iVar4;
-        *(uint*)&param_1->field_88 = uVar5;
-        *(uint*)&param_1->field_92 = local_34;
-        *(int*)&param_1->field_96 = iVar4;
+        *(int*)(param_1 + 860) = iVar3;
+        *(unsigned int*)(param_1 + 88) = uVar4;
+        *(unsigned int*)(param_1 + 92) = local_34;
+        *(int*)(param_1 + 96) = iVar3;
     }
-    jag::hal::audio::decoders::vorbis::set_file_offset((stb_vorbis*)param_1, uVar1);
+    jag::hal::audio::decoders::vorbis::set_file_offset(param_1, arg2);
 LAB_100b95e29:
-    iVar2 = 0;
-    if (*(int*)&param_1->field_860 != -1) {
-        iVar2 = *(int*)&param_1->field_860;
+    iVar1 = 0;
+    if (*(int*)(param_1 + 860) != -1) {
+        iVar1 = *(int*)(param_1 + 860);
     }
-    return iVar2;
+    return iVar1;
 }
 
-// 0x100b96230, 48 bytes, placed by debug map only (low confidence)
-// stb_vorbis_stream_length_in_seconds
+// 0x100b96230
 float _stb_vorbis_stream_length_in_seconds(uint* param_1) {
-    uint uVar1;
-
-    uVar1 = _stb_vorbis_stream_length_in_samples();
+    unsigned int uVar1 = _stb_vorbis_stream_length_in_samples();
     return (float)uVar1 / (float)*param_1;
 }
 
-// 0x100b96260, 240 bytes, placed by debug map only (low confidence)
-// stb_vorbis_open_file_section
-vorbis* _stb_vorbis_open_file_section(FILE* param_1, int param_2, stb_vorbis_alloc* param_3, stb_vorbis* param_4,
-                                      uint param_5) {
-    long lVar2;
-    vorbis* this;
-    vorbis local_790;
-    long local_38;
+// 0x100b96260
+stb_vorbis* _stb_vorbis_open_file_section(FILE* param_1, undefined4 param_2, undefined4* param_3,
+                                          stb_vorbis_alloc* param_4, undefined4 param_5) {
+    stb_vorbis* stb_vorbis;
+    stb_vorbis local_790;
+    uint32_t local_70c;
 
-    local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-    local_790.vorbis_init(param_4, param_3);
-    local_790.field_24 = param_1;
-    lVar2 = _ftell(param_1);
-    local_790.field_32 = (uint)lVar2;
-    local_790.field_36 = param_2;
-    local_790.field_64 = param_5;
-    if (jag::hal::audio::decoders::vorbis::start_decoder((stb_vorbis*)&local_790) != 0) {
-        this = (vorbis*)local_790.vorbis_alloc(param_4);
-        if (this != (vorbis*)0) {
-            _memcpy(this, &local_790, 1880);
-            vorbis_pump_first_frame((stb_vorbis*)&local_790);
+    jag::hal::audio::decoders::vorbis::vorbis_init(&local_790, param_4);
+    FILE* local_778 = param_1;
+    long lVar2 = _ftell(param_1);
+    uint32_t local_770 = (uint32_t)lVar2;
+    uint32_t local_76c = param_2;
+    uint32_t local_750 = param_5;
+    if (jag::hal::audio::decoders::vorbis::start_decoder(&local_790) != 0) {
+        stb_vorbis = (stb_vorbis*)jag::hal::audio::decoders::vorbis::vorbis_alloc(&local_790);
+        if (stb_vorbis != nullptr) {
+            _memcpy(stb_vorbis, &local_790, 1880);
+            jag::hal::audio::decoders::vorbis::vorbis_pump_first_frame(stb_vorbis);
             goto LAB_100b9631d;
         }
     }
-    if (param_3 != (stb_vorbis_alloc*)0) {
-        *(undefined4*)param_3 = local_790.field_132;
+    if (param_3 != nullptr) {
+        *param_3 = local_70c;
     }
-    local_790.vorbis_deinit(param_4);
-    this = (vorbis*)0;
+    jag::hal::audio::decoders::vorbis::vorbis_deinit(&local_790);
+    stb_vorbis = nullptr;
 LAB_100b9631d:
-    if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-        /* WARNING: Subroutine does not return */
-        ___stack_chk_fail();
-    }
-    return this;
+    return stb_vorbis;
 }
 
-// 0x100b96350, 128 bytes, placed by debug map only (low confidence)
-// stb_vorbis_open_file
+// 0x100b96350
 void _stb_vorbis_open_file(FILE* param_1, undefined4 param_2, undefined8 param_3, undefined8 param_4) {
-    ulong uVar1;
-    long lVar2;
-
-    uVar1 = _ftell(param_1);
+    unsigned long uVar1 = _ftell(param_1);
     _fseek(param_1, 0, 2);
-    lVar2 = _ftell(param_1);
+    long lVar2 = _ftell(param_1);
     _fseek(param_1, uVar1 & 4294967295, 0);
     _stb_vorbis_open_file_section(param_1, param_2, param_3, param_4, (int)lVar2 - (int)uVar1);
 }
 
-// 0x100b963d0, 80 bytes, placed by debug map only (low confidence)
-// stb_vorbis_open_filename
+// 0x100b963d0
 undefined8 _stb_vorbis_open_filename(char* param_1, undefined4* param_2, undefined8 param_3) {
-    FILE* pFVar1;
-    undefined8 uVar2;
+    uint64_t uVar2;
 
-    pFVar1 = _fopen(param_1, "rb");
-    if (pFVar1 == (FILE*)0) {
-        if (param_2 != (undefined4*)0) {
+    auto pFVar1 = _fopen(param_1, "rb");
+    if (pFVar1 == nullptr) {
+        if (param_2 != nullptr) {
             *param_2 = 6;
         }
         uVar2 = 0;
@@ -6518,77 +5866,72 @@ undefined8 _stb_vorbis_open_filename(char* param_1, undefined4* param_2, undefin
     return uVar2;
 }
 
-// 0x100b96420, 240 bytes, placed by debug map only (low confidence)
-// stb_vorbis_open_memory
-vorbis* _stb_vorbis_open_memory(byte* param_1, uint param_2, stb_vorbis_alloc* param_3, stb_vorbis* param_4) {
-    vorbis* this;
-    vorbis local_788;
-    long local_30;
+// 0x100b96420
+stb_vorbis* _stb_vorbis_open_memory(long param_1, int param_2, undefined4* param_3, stb_vorbis_alloc* param_4) {
+    stb_vorbis* stb_vorbis;
+    stb_vorbis local_788;
+    long local_760;
+    long local_758;
+    long local_750;
+    int local_748;
+    uint8_t local_744;
+    uint32_t local_704;
 
-    local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-    if (param_1 != (byte*)0) {
-        local_788.vorbis_init(param_4, param_3);
-        local_788.field_56 = param_1 + (int)param_2;
-        local_788.field_68[0] = 0;
-        local_788.field_40 = param_1;
-        local_788.field_48 = (long)param_1;
-        local_788.field_64 = param_2;
-        if (jag::hal::audio::decoders::vorbis::start_decoder((stb_vorbis*)&local_788) != 0) {
-            this = (vorbis*)local_788.vorbis_alloc(param_4);
-            if (this != (vorbis*)0) {
-                _memcpy(this, &local_788, 1880);
-                vorbis_pump_first_frame((stb_vorbis*)&local_788);
+    if (param_1 != 0) {
+        jag::hal::audio::decoders::vorbis::vorbis_init(&local_788, param_4);
+        local_750 = param_1 + param_2;
+        local_744 = 0;
+        local_760 = param_1;
+        local_758 = param_1;
+        local_748 = param_2;
+        if (jag::hal::audio::decoders::vorbis::start_decoder(&local_788) != 0) {
+            stb_vorbis = (stb_vorbis*)jag::hal::audio::decoders::vorbis::vorbis_alloc(&local_788);
+            if (stb_vorbis != nullptr) {
+                _memcpy(stb_vorbis, &local_788, 1880);
+                jag::hal::audio::decoders::vorbis::vorbis_pump_first_frame(stb_vorbis);
                 goto LAB_100b964e7;
             }
         }
-        if (param_3 != (stb_vorbis_alloc*)0) {
-            *(undefined4*)param_3 = local_788.field_132;
+        if (param_3 != nullptr) {
+            *param_3 = local_704;
         }
-        local_788.vorbis_deinit(param_4);
+        jag::hal::audio::decoders::vorbis::vorbis_deinit(&local_788);
     }
-    this = (vorbis*)0;
+    stb_vorbis = nullptr;
 LAB_100b964e7:
-    if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-        /* WARNING: Subroutine does not return */
-        ___stack_chk_fail();
-    }
-    return this;
+    return stb_vorbis;
 }
 
-// 0x100b96510, 112 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_frame_short
+// 0x100b96510
 int _stb_vorbis_get_frame_short(long param_1, int param_2, short** param_3, int param_4) {
-    int iVar1;
     float** local_38;
 
-    iVar1 = _stb_vorbis_get_frame_float(param_1, 0, &local_38);
-    if (param_4 < iVar1) {
-        iVar1 = param_4;
+    int arg7 = _stb_vorbis_get_frame_float(param_1, 0, &local_38);
+    if (param_4 < arg7) {
+        arg7 = param_4;
     }
-    if (iVar1 != 0) {
+    if (arg7 != 0) {
         jag::hal::audio::decoders::vorbis::convert_samples_short(param_2, param_3, 0, *(int*)(param_1 + 4), local_38, 0,
-                                                                 iVar1);
+                                                                 arg7);
     }
-    return iVar1;
+    return arg7;
 }
 
-// 0x100b966c0, 160 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_frame_short_interleaved
+// 0x100b966c0
 ulong _stb_vorbis_get_frame_short_interleaved(long param_1, int param_2, short* param_3, int param_4) {
-    uint uVar1;
-    ulong uVar2;
-    short* local_48;
+    unsigned int uVar1;
+    unsigned long uVar2;
     float** local_40;
 
-    local_48 = param_3;
+    short* local_48 = param_3;
     if (param_2 == 1) {
         uVar1 = _stb_vorbis_get_frame_short(param_1, 1, &local_48);
-        uVar2 = (ulong)uVar1;
+        uVar2 = (unsigned long)uVar1;
     } else {
         uVar2 = 0;
         uVar1 = _stb_vorbis_get_frame_float(param_1, 0, &local_40);
         if (uVar1 != 0) {
-            uVar2 = (ulong)uVar1;
+            uVar2 = (unsigned long)uVar1;
             if (param_4 < (int)(uVar1 * param_2)) {
                 uVar2 = (long)param_4 / (long)param_2 & 4294967295;
             }
@@ -6599,18 +5942,15 @@ ulong _stb_vorbis_get_frame_short_interleaved(long param_1, int param_2, short* 
     return uVar2;
 }
 
-// 0x100b968e0, 176 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_samples_short_interleaved
+// 0x100b968e0
 int _stb_vorbis_get_samples_short_interleaved(long param_1, int param_2, short* param_3, int param_4) {
     int iVar1;
     int iVar2;
-    int iVar3;
-    undefined1 local_48[8];
-    float** local_40;
+    uint8_t local_48[8];
 
     param_4 = param_4 / param_2;
-    local_40 = (float**)(param_1 + 864);
-    iVar3 = 0;
+    float** local_40 = (float**)(param_1 + 864);
+    int iVar3 = 0;
     while (true) {
         if (param_4 - iVar3 == 0 || param_4 < iVar3) {
             return iVar3;
@@ -6637,69 +5977,64 @@ int _stb_vorbis_get_samples_short_interleaved(long param_1, int param_2, short* 
     return iVar3;
 }
 
-// 0x100b96990, 176 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_samples_short
+// 0x100b96990
 int _stb_vorbis_get_samples_short(long param_1, int param_2, short** param_3, int param_4) {
     int iVar1;
     int iVar2;
-    int iVar3;
-    undefined1 local_48[8];
+    uint8_t local_48[8];
 
-    iVar3 = 0;
+    int arg3 = 0;
     while (true) {
-        if (param_4 <= iVar3) {
-            return iVar3;
+        if (param_4 <= arg3) {
+            return arg3;
         }
         iVar1 = *(int*)(param_1 + 1872) - *(int*)(param_1 + 1868);
-        iVar2 = param_4 - iVar3;
-        if (iVar1 + iVar3 < param_4) {
+        iVar2 = param_4 - arg3;
+        if (iVar1 + arg3 < param_4) {
             iVar2 = iVar1;
         }
         if (iVar2 != 0) {
-            jag::hal::audio::decoders::vorbis::convert_samples_short(param_2, param_3, iVar3, *(int*)(param_1 + 4),
-                                                                     (float**)(param_1 + 864), *(int*)(param_1 + 1868),
-                                                                     iVar2);
+            jag::hal::audio::decoders::vorbis::convert_samples_short(param_2, param_3, arg3, *(int*)(param_1 + 4),
+                                                                     (param_1 + 864), *(int*)(param_1 + 1868), iVar2);
         }
-        iVar3 = iVar3 + iVar2;
+        arg3 = arg3 + iVar2;
         *(int*)(param_1 + 1868) = *(int*)(param_1 + 1868) + iVar2;
-        if (iVar3 == param_4)
+        if (arg3 == param_4)
             break;
         iVar2 = _stb_vorbis_get_frame_float(param_1, 0, local_48);
         if (iVar2 == 0) {
-            return iVar3;
+            return arg3;
         }
     }
-    return iVar3;
+    return arg3;
 }
 
-// 0x100b96a40, 352 bytes, placed by debug map only (low confidence)
-// stb_vorbis_decode_filename
+// 0x100b96a40
 int _stb_vorbis_decode_filename(undefined8 param_1, int* param_2, undefined4* param_3, undefined8* param_4) {
     int iVar1;
-    undefined4* puVar2;
     void* pvVar3;
     void* pvVar4;
-    ulong uVar5;
+    unsigned long uVar5;
     int iVar6;
-    ulong uVar7;
+    unsigned long uVar7;
     int iVar8;
-    undefined1 local_4c[4];
-    ulong local_48;
-    undefined8* local_40;
+    uint8_t local_4c[4];
+    unsigned long local_48;
+    uint64_t* local_40;
     int local_34;
 
-    puVar2 = (undefined4*)_stb_vorbis_open_filename(param_1, local_4c, 0);
-    if (puVar2 == (undefined4*)0) {
+    auto puVar2 = _stb_vorbis_open_filename(param_1, local_4c, 0);
+    if (puVar2 == nullptr) {
         iVar8 = -1;
     } else {
         iVar8 = puVar2[1];
         *param_2 = iVar8;
         uVar5 = (long)iVar8 * 4096;
-        if (param_3 != (undefined4*)0) {
+        if (param_3 != nullptr) {
             *param_3 = *puVar2;
         }
         pvVar3 = _malloc((long)iVar8 * 8192);
-        if (pvVar3 == (void*)0) {
+        if (pvVar3 == nullptr) {
             iVar8 = -2;
         } else {
             iVar8 = 0;
@@ -6718,13 +6053,13 @@ int _stb_vorbis_decode_filename(undefined8 param_1, int* param_2, undefined4* pa
                     iVar8 = puVar2[1] * iVar1 + iVar8;
                     pvVar4 = pvVar3;
                     if (iVar6 < (int)local_48 + iVar8) {
-                        uVar7 = (ulong)(uint)(iVar6 * 2);
+                        uVar7 = (unsigned long)(unsigned int)(iVar6 * 2);
                         pvVar4 = _realloc(pvVar3, (long)(iVar6 * 2) * 2);
-                        if (pvVar4 == (void*)0) {
+                        if (pvVar4 == nullptr) {
                             _free(pvVar3);
                             _stb_vorbis_close(puVar2);
                             pvVar4 = pvVar3;
-                        } else if (pvVar4 != (void*)0)
+                        } else if (pvVar4 != nullptr)
                             goto LAB_100b96ac0;
                         iVar1 = 1;
                         pvVar3 = pvVar4;
@@ -6746,34 +6081,32 @@ int _stb_vorbis_decode_filename(undefined8 param_1, int* param_2, undefined4* pa
     return iVar8;
 }
 
-// 0x100b96ba0, 352 bytes, placed by debug map only (low confidence)
-// stb_vorbis_decode_memory
+// 0x100b96ba0
 int _stb_vorbis_decode_memory(undefined8 param_1, undefined8 param_2, int* param_3, undefined4* param_4,
                               undefined8* param_5) {
     int iVar1;
-    undefined4* puVar2;
     void* pvVar3;
     void* pvVar4;
     int iVar5;
-    ulong uVar6;
+    unsigned long uVar6;
     int iVar7;
-    undefined1 local_4c[4];
-    ulong local_48;
-    undefined8* local_40;
+    uint8_t local_4c[4];
+    unsigned long local_48;
+    uint64_t* local_40;
     int local_34;
 
-    puVar2 = (undefined4*)_stb_vorbis_open_memory(param_1, param_2, local_4c, 0);
-    if (puVar2 == (undefined4*)0) {
+    auto puVar2 = _stb_vorbis_open_memory(param_1, param_2, local_4c, 0);
+    if (puVar2 == nullptr) {
         iVar7 = -1;
     } else {
         iVar7 = puVar2[1];
         *param_3 = iVar7;
         uVar6 = (long)iVar7 * 4096;
-        if (param_4 != (undefined4*)0) {
+        if (param_4 != nullptr) {
             *param_4 = *puVar2;
         }
         pvVar3 = _malloc((long)iVar7 * 8192);
-        if (pvVar3 == (void*)0) {
+        if (pvVar3 == nullptr) {
             iVar7 = -2;
         } else {
             iVar7 = 0;
@@ -6791,13 +6124,13 @@ int _stb_vorbis_decode_memory(undefined8 param_1, undefined8 param_2, int* param
                     iVar7 = puVar2[1] * iVar1 + iVar7;
                     pvVar4 = pvVar3;
                     if (iVar5 < (int)local_48 + iVar7) {
-                        uVar6 = (ulong)(uint)(iVar5 * 2);
+                        uVar6 = (unsigned long)(unsigned int)(iVar5 * 2);
                         pvVar4 = _realloc(pvVar3, (long)(iVar5 * 2) * 2);
-                        if (pvVar4 == (void*)0) {
+                        if (pvVar4 == nullptr) {
                             _free(pvVar3);
                             _stb_vorbis_close(puVar2);
                             pvVar4 = pvVar3;
-                        } else if (pvVar4 != (void*)0)
+                        } else if (pvVar4 != nullptr)
                             goto LAB_100b96c20;
                         iVar1 = 1;
                         pvVar3 = pvVar4;
@@ -6819,30 +6152,26 @@ int _stb_vorbis_decode_memory(undefined8 param_1, undefined8 param_2, int* param
     return iVar7;
 }
 
-// 0x100b96d00, 352 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_samples_float_interleaved
+// 0x100b96d00
 ulong _stb_vorbis_get_samples_float_interleaved(long param_1, uint param_2, undefined4* param_3, int param_4) {
-    uint uVar1;
     int iVar2;
     int iVar3;
     long lVar4;
     int iVar5;
-    ulong uVar6;
-    uint uVar7;
+    unsigned int uVar7;
     long lVar8;
-    undefined1 local_60[8];
+    uint8_t local_60[8];
     long local_58;
-    ulong local_50;
+    unsigned long local_50;
     long local_48;
     int local_3c;
-    uint local_34;
 
-    local_34 = param_4 / (int)param_2;
-    uVar1 = *(uint*)(param_1 + 4);
-    if ((int)param_2 < (int)*(uint*)(param_1 + 4)) {
+    unsigned int local_34 = param_4 / (int)param_2;
+    unsigned int uVar1 = *(unsigned int*)(param_1 + 4);
+    if ((int)param_2 < (int)*(unsigned int*)(param_1 + 4)) {
         uVar1 = param_2;
     }
-    uVar6 = 0;
+    unsigned long uVar6 = 0;
     do {
         iVar3 = (int)uVar6;
         if (local_34 - iVar3 == 0 || (int)local_34 < iVar3) {
@@ -6869,13 +6198,13 @@ ulong _stb_vorbis_get_samples_float_interleaved(long param_1, uint param_2, unde
                 } else {
                     uVar6 = 0;
                     do {
-                        *param_3 = *(undefined4*)(*(long*)(param_1 + 864 + uVar6 * 8) + (local_48 + lVar8) * 4);
+                        *param_3 = *(uint32_t*)(*(long*)(param_1 + 864 + uVar6 * 8) + (local_48 + lVar8) * 4);
                         param_3 = param_3 + 1;
                         uVar6 = uVar6 + 1;
                     } while (uVar1 != uVar6);
                     if ((int)uVar6 < (int)uVar7) {
                     LAB_100b96dd8:
-                        uVar6 = (ulong)(~(uint)uVar6 + uVar7);
+                        uVar6 = (unsigned long)(~(unsigned int)uVar6 + uVar7);
                         ___bzero(param_3, uVar6 * 4 + 4);
                         param_3 = param_3 + uVar6 + 1;
                         lVar4 = local_58;
@@ -6887,7 +6216,7 @@ ulong _stb_vorbis_get_samples_float_interleaved(long param_1, uint param_2, unde
             } while (lVar8 < lVar4);
         }
         uVar7 = (int)local_50 + iVar5;
-        uVar6 = (ulong)uVar7;
+        uVar6 = (unsigned long)uVar7;
         *(int*)(param_1 + 1868) = (int)local_48 + iVar5;
         if (uVar7 == local_34) {
             return uVar6;
@@ -6899,31 +6228,25 @@ ulong _stb_vorbis_get_samples_float_interleaved(long param_1, uint param_2, unde
     } while (true);
 }
 
-// 0x100b96e60, 336 bytes, placed by debug map only (low confidence)
-// stb_vorbis_get_samples_float
+// 0x100b96e60
 ulong _stb_vorbis_get_samples_float(long param_1, uint param_2, long param_3, uint param_4) {
-    ulong uVar1;
+    unsigned long uVar1;
     long lVar2;
     int iVar3;
     int iVar4;
-    uint uVar5;
-    ulong uVar6;
     long lVar7;
-    undefined1 local_70[8];
-    ulong local_68;
-    ulong local_58;
-    long local_50;
-    uint local_48;
+    uint8_t local_70[8];
+    unsigned long local_58;
     int local_34;
 
-    uVar5 = *(uint*)(param_1 + 4);
-    if ((int)param_2 < (int)*(uint*)(param_1 + 4)) {
+    unsigned int uVar5 = *(unsigned int*)(param_1 + 4);
+    if ((int)param_2 < (int)*(unsigned int*)(param_1 + 4)) {
         uVar5 = param_2;
     }
-    local_68 = (ulong)uVar5;
-    uVar6 = 0;
-    local_50 = param_1;
-    local_48 = param_4;
+    unsigned long local_68 = (unsigned long)uVar5;
+    unsigned long uVar6 = 0;
+    long local_50 = param_1;
+    unsigned int local_48 = param_4;
     while (true) {
         lVar2 = local_50;
         uVar1 = local_68;
@@ -6947,7 +6270,7 @@ ulong _stb_vorbis_get_samples_float(long param_1, uint param_2, long param_3, ui
                     uVar6 = uVar6 + 1;
                 } while (uVar1 != uVar6);
             }
-            uVar1 = (ulong)param_2;
+            uVar1 = (unsigned long)param_2;
             if ((int)uVar6 < (int)param_2) {
                 uVar6 = uVar6 & 4294967295;
                 do {
@@ -6959,7 +6282,7 @@ ulong _stb_vorbis_get_samples_float(long param_1, uint param_2, long param_3, ui
         param_4 = local_48;
         param_1 = local_50;
         uVar5 = (int)local_58 + local_34;
-        uVar6 = (ulong)uVar5;
+        uVar6 = (unsigned long)uVar5;
         *(int*)(local_50 + 1868) = *(int*)(local_50 + 1868) + local_34;
         if (uVar5 == local_48)
             break;
@@ -6971,49 +6294,286 @@ ulong _stb_vorbis_get_samples_float(long param_1, uint param_2, long param_3, ui
     return uVar6;
 }
 
-// 0x100b971a0, 160 bytes, inline, placed by class name and debug map
-// VorbisWorker::OnResponse(jag::PacketT<jag::Array<unsigned char, eastl::allocator> >&)
-void VorbisWorker::OnResponse(PacketT* param_1) {
-    undefined4 uVar2;
-    undefined8 uVar3;
-    scoped_lock<std::mutex> local_20[8];
+// 0x100b971a0
+void VorbisWorker::OnResponse(jag::PacketT<jag::Array<unsigned char>>& arg1) {
+    uint32_t uVar2;
+    Logger* this_00;
 
-    std::scoped_lock<std::mutex>::scoped_lock(local_20, (mutex*)(this + 816));
-    if (((this + 464))->operator_cast_to_bool()) {
-        std::function<void(jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&)>::operator()(
-            (function<void(jag::PacketT<jag::Array<unsigned char, eastl::allocator>>&)>*)(this + 464), param_1);
-    } else {
-        uVar3 = jag::logger::default_logger();
-        uVar2 = param_1->GetTextureAtlas();
-        jag::logger::Logger::Log(
-            uVar3, 0, 2,
+    scoped_lock<std::mutex> local_20(*((this + 102)));
+    if (((this + 58))->operator_cast_to_bool() == '\0') {
+        this_00 = jag::logger::default_logger();
+        uVar2 = arg1.GetTextureAtlas();
+        this_00->Log(
+            false, 2,
             "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/audio/workers/VorbisWorker.h",
             55, "No callback in m_WorkerOnMessage for %u bytes", uVar2);
+    } else {
+        std::function<void(jag::PacketT<jag::Array<unsigned char>>&)>::operator()(
+            (function<void(jag::PacketT<jag::Array<unsigned char>>&)>*)(this + 58), arg1);
     }
-    std::scoped_lock<std::mutex>::~scoped_lock(local_20);
 }
 
-// 0x100b992a0, 48 bytes, inline, placed by debug map only (low confidence)
-// VorbisWorkerPacket::PacketT(unsigned long)
-void VorbisWorkerPacket::PacketT(ulong param_1) {
-    new (this) jag::PacketT<jag::Array<unsigned char, eastl::allocator>>(param_1);
-    new (this) jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char, eastl::allocator>>, 2048>();
+// 0x100b992a0
+void VorbisWorkerPacket::PacketT(unsigned long arg1) {
+    new (this) jag::PacketT(arg1);
+    new (this) jag::MakeSharedPool<jag::PacketT<jag::Array<unsigned char>>, 2048>();
 }
 
-// 0x100b9ef00, 16 bytes, placed by debug map only (low confidence)
-// ldexp(float, int)
-void ldexp(float param_1, int param_2) {
+// 0x100b9ef00
+void ldexp(float arg1, int arg2) {
     _ldexpf();
 }
 
-// 0x100b9ef10, 16 bytes, placed by debug map only (low confidence)
-// exp(float)
-void exp(float param_1) {
+// 0x100b9ef10
+void exp(float arg1) {
     _expf();
 }
 
-// 0x100b9ef20, 16 bytes, placed by debug map only (low confidence)
-// log(float)
-void log(float param_1) {
+// 0x100b9ef20
+void log(float arg1) {
     _logf();
 }
+
+namespace jag {
+    // 0x100b92a90
+    void PacketT<Array<unsigned char>>::pFloatPlatformEndian(float arg1) {
+        pTPE<float>(this, arg1);
+    }
+
+    // 0x100ba0000
+    hal::audio::osx::OSXAudioRenderer* placement_new<hal::audio::osx::OSXAudioRenderer>(void* arg1) {
+        new (arg1) hal::audio::osx::OSXAudioRenderer();
+        return arg1;
+    }
+
+    // 0x100ba0020
+    ref_counter_shared<hal::audio::osx::OSXAudioRenderer>*
+    placement_new<ref_counter_shared<hal::audio::osx::OSXAudioRenderer>, int, hal::audio::osx::OSXAudioRenderer*&>(
+        void* arg1, int&& arg2, hal::audio::osx::OSXAudioRenderer*& arg3) {
+        new (arg1) ref_counter_shared<hal::audio::osx::OSXAudioRenderer>((long)*arg2, arg3);
+        return arg1;
+    }
+
+    // 0x100ba0050
+    ref_counter_shared<hal::audio::osx::OSXAudioRenderer>::ref_counter_shared(
+        unsigned long arg1, hal::audio::osx::OSXAudioRenderer* osxAudioRenderer)
+        : ref_counter_base() {}
+
+    // 0x100ba0340
+    hal::audio::AudioBuss* placement_new<hal::audio::AudioBuss, hal::audio::BussType, unsigned int const&, int, float,
+                                         unsigned int const&, bool>(void* arg1, hal::audio::BussType&& bussType,
+                                                                    const unsigned int& arg3, int&& arg4, float&& arg5,
+                                                                    const unsigned int& arg6, bool&& arg7) {
+        new (arg1) hal::audio::AudioBuss(bussType, arg3, arg4, arg5, arg6, arg7);
+        return arg1;
+    }
+
+    // 0x100ba0370
+    ref_counter_shared<hal::audio::AudioBuss>*
+    placement_new<ref_counter_shared<hal::audio::AudioBuss>, int, hal::audio::AudioBuss*&>(
+        void* arg1, int&& arg2, hal::audio::AudioBuss*& arg3) {
+        new (arg1) ref_counter_shared<hal::audio::AudioBuss>((long)*arg2, arg3);
+        return arg1;
+    }
+
+    // 0x100ba03a0
+    ref_counter_shared<hal::audio::AudioBuss>::ref_counter_shared(unsigned long arg1, hal::audio::AudioBuss* audioBuss)
+        : ref_counter_base() {}
+
+    // 0x100ba03e0
+    void ref_counter_shared<hal::audio::AudioBuss>::DeleteData() {
+        long lVar1;
+        ref_counter_shared<hal::audio::AudioBuss> _vtbl* prVar2;
+
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
+                lVar1 = 0;
+                prVar2 = nullptr;
+                do {
+                    (*(void (*)(...)) *
+                     *(uint64_t**)((long)&(this[3]._vptr)->_dtor + lVar1))((long)&(this[3]._vptr)->_dtor + lVar1);
+                    prVar2 = (ref_counter_shared<hal::audio::AudioBuss> _vtbl*)((long)&prVar2->_dtor + 1);
+                    lVar1 = lVar1 + 112;
+                } while (prVar2 < this[2]._vptr);
+            }
+            this[3]._vptr = nullptr;
+        }
+    }
+
+    // 0x100ba0430
+    MixerWorker* placement_new<MixerWorker>(void* arg1) {
+        new (arg1) MixerWorker();
+        return arg1;
+    }
+
+    // 0x100ba0450
+    ref_counter_shared<MixerWorker>*
+    placement_new<ref_counter_shared<MixerWorker>, int, MixerWorker*&>(void* arg1, int&& arg2, MixerWorker*& arg3) {
+        new (arg1) ref_counter_shared<MixerWorker>((long)*arg2, arg3);
+        return arg1;
+    }
+
+    // 0x100ba0480
+    ref_counter_shared<MixerWorker>::ref_counter_shared(unsigned long arg1, MixerWorker* mixerWorker)
+        : ref_counter_base() {}
+
+    // 0x100ba0670
+    hal::audio::AudioBuss*
+    placement_new<hal::audio::AudioBuss, hal::audio::BussType&, unsigned int&, unsigned int&, float&, unsigned int&>(
+        void* arg1, hal::audio::BussType& bussType, unsigned int& arg3, unsigned int& arg4, float& arg5,
+        unsigned int& arg6) {
+        new (arg1) hal::audio::AudioBuss(bussType, arg3, arg4, arg5, arg6, false);
+        return arg1;
+    }
+
+    // 0x100ba1460
+    ref_counter_shared<hal::audio::AudioBuffer>*
+    placement_new<ref_counter_shared<hal::audio::AudioBuffer>, int, hal::audio::AudioBuffer*&>(
+        void* arg1, int&& arg2, hal::audio::AudioBuffer*& arg3) {
+        new (arg1) ref_counter_shared<hal::audio::AudioBuffer>((long)*arg2, arg3);
+        return arg1;
+    }
+
+    // 0x100ba1490
+    ref_counter_shared<hal::audio::AudioBuffer>::ref_counter_shared(unsigned long arg1,
+                                                                    hal::audio::AudioBuffer* audioBuffer)
+        : ref_counter_base() {}
+
+    // 0x100ba14d0
+    void ref_counter_shared<hal::audio::AudioBuffer>::DeleteData() {
+        long lVar1;
+        ref_counter_shared<hal::audio::AudioBuffer> _vtbl* prVar2;
+
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
+                lVar1 = 0;
+                prVar2 = nullptr;
+                do {
+                    (*(void (*)(...)) *
+                     *(uint64_t**)((long)&(this[3]._vptr)->_dtor + lVar1))((long)&(this[3]._vptr)->_dtor + lVar1);
+                    prVar2 = (ref_counter_shared<hal::audio::AudioBuffer> _vtbl*)((long)&prVar2->_dtor + 1);
+                    lVar1 = lVar1 + 216;
+                } while (prVar2 < this[2]._vptr);
+            }
+            this[3]._vptr = nullptr;
+        }
+    }
+
+    // 0x100ba2170
+    hal::audio::AudioBufferHandler*
+    placement_new<hal::audio::AudioBufferHandler, unsigned int&, shared_ptr<hal::audio::AudioBuffer>&>(
+        void* arg1, unsigned int& arg2, shared_ptr<hal::audio::AudioBuffer>& audioBuffer) {
+        new (arg1) hal::audio::AudioBufferHandler(arg2, audioBuffer);
+        return arg1;
+    }
+
+    // 0x100ba2190
+    ref_counter_shared<hal::audio::AudioBufferHandler>*
+    placement_new<ref_counter_shared<hal::audio::AudioBufferHandler>, int, hal::audio::AudioBufferHandler*&>(
+        void* arg1, int&& arg2, hal::audio::AudioBufferHandler*& arg3) {
+        new (arg1) ref_counter_shared<hal::audio::AudioBufferHandler>((long)*arg2, arg3);
+        return arg1;
+    }
+
+    // 0x100ba21c0
+    ref_counter_shared<hal::audio::AudioBufferHandler>::ref_counter_shared(
+        unsigned long arg1, hal::audio::AudioBufferHandler* audioBufferHandler)
+        : ref_counter_base() {}
+
+    // 0x100ba24f0
+    VorbisWorker* placement_new<VorbisWorker>(void* arg1) {
+        new (arg1) VorbisWorker();
+        return arg1;
+    }
+
+    // 0x100ba2510
+    ref_counter_shared<VorbisWorker>*
+    placement_new<ref_counter_shared<VorbisWorker>, int, VorbisWorker*&>(void* arg1, int&& arg2, VorbisWorker*& arg3) {
+        new (arg1) ref_counter_shared<VorbisWorker>((long)*arg2, arg3);
+        return arg1;
+    }
+
+    // 0x100ba2540
+    ref_counter_shared<VorbisWorker>::ref_counter_shared(unsigned long arg1, VorbisWorker* vorbisWorker)
+        : ref_counter_base() {}
+
+    // 0x100ba2580
+    void ref_counter_shared<VorbisWorker>::DeleteData() {
+        long lVar1;
+        ref_counter_shared<VorbisWorker> _vtbl* prVar2;
+
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
+                lVar1 = 0;
+                prVar2 = nullptr;
+                do {
+                    (*(void (*)(...)) *
+                     *(uint64_t**)((long)&(this[3]._vptr)->_dtor + lVar1))((long)&(this[3]._vptr)->_dtor + lVar1);
+                    prVar2 = (ref_counter_shared<VorbisWorker> _vtbl*)((long)&prVar2->_dtor + 1);
+                    lVar1 = lVar1 + 880;
+                } while (prVar2 < this[2]._vptr);
+            }
+            this[3]._vptr = nullptr;
+        }
+    }
+
+    // 0x100ba2720
+    MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>, MakeSharedPool<PacketT<Array<unsigned char>>, 8>>*
+    placement_new<
+        MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>, MakeSharedPool<PacketT<Array<unsigned char>>, 8>>,
+        MakeSharedPool<PacketT<Array<unsigned char>>, 8>::RefCounterAndData*&, PacketT<Array<unsigned char>>*>(
+        void* arg1, MakeSharedPool<PacketT<Array<unsigned char>>, 8>::RefCounterAndData*& arg2,
+        PacketT<Array<unsigned char>>*&& arg3) {
+        new (arg1)
+            MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>, MakeSharedPool<PacketT<Array<unsigned char>>, 8>>(
+                arg2, arg3);
+        return arg1;
+    }
+
+    // 0x100ba27b0
+    MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>, MakeSharedPool<PacketT<Array<unsigned char>>, 8>>::
+        MakeSharedPoolRefCounter(void* arg1, PacketT<Array<unsigned char>>* arg2)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7b88 + 16;
+        *(void**)(this + 16) = arg1;
+        *(PacketT<Array<unsigned char> _>**)(this + 24) = arg2;
+    }
+
+    // 0x100ba27f0
+    void MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>,
+                                  MakeSharedPool<PacketT<Array<unsigned char>>, 8>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<PacketT<Array<unsigned char>>, 8>::deallocate(arg1);
+    }
+
+    // 0x100ba3450
+    MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>, MakeSharedPool<PacketT<Array<unsigned char>>, 2048>>*
+    placement_new<
+        MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>, MakeSharedPool<PacketT<Array<unsigned char>>, 2048>>,
+        MakeSharedPool<PacketT<Array<unsigned char>>, 2048>::RefCounterAndData*&, PacketT<Array<unsigned char>>*>(
+        void* arg1, MakeSharedPool<PacketT<Array<unsigned char>>, 2048>::RefCounterAndData*& arg2,
+        PacketT<Array<unsigned char>>*&& arg3) {
+        new (arg1) MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>,
+                                            MakeSharedPool<PacketT<Array<unsigned char>>, 2048>>(arg2, arg3);
+        return arg1;
+    }
+
+    // 0x100ba34e0
+    MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>, MakeSharedPool<PacketT<Array<unsigned char>>, 2048>>::
+        MakeSharedPoolRefCounter(void* arg1, PacketT<Array<unsigned char>>* arg2)
+        : ref_counter_base() {
+        *(uint8_t**)this = PTR_vtable_100ee7b80 + 16;
+        *(void**)(this + 16) = arg1;
+        *(PacketT<Array<unsigned char> _>**)(this + 24) = arg2;
+    }
+
+    // 0x100ba3520
+    void MakeSharedPoolRefCounter<PacketT<Array<unsigned char>>,
+                                  MakeSharedPool<PacketT<Array<unsigned char>>, 2048>>::DeleteSelf() {
+        void* arg1 = *(void**)(this + 16);
+        (*(void (*)(...)) * *(uint64_t**)this)();
+        MakeSharedPool<PacketT<Array<unsigned char>>, 2048>::deallocate(arg1);
+    }
+
+} // namespace jag

@@ -1,6 +1,5 @@
 // libs/jtl/Algorithms.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,54 +7,40 @@ namespace jag {
     class Algorithms {
     public:
         int CountMapOverlap<unsigned short, unsigned short, unsigned short>(
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&,
-            eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator,
-                              eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator>> const&);
-        void QuickSortParallel(Array<int, eastl::allocator>&, Array<int, eastl::allocator>&, int, int);
+            const eastl::vector_map<unsigned short, unsigned short>& arg1,
+            const eastl::vector_map<unsigned short, unsigned short>& arg2);
+        void QuickSortParallel(Array<int>& arg1, Array<int>& arg2, int arg3, int arg4);
     };
 
-    // 0x1007e2fc0, 304 bytes, inline, placed by debug map only (low confidence)
-    // std::pair<graphics::DrawableElementInfo*, graphics::DrawableElementInfo*> remove_multi_if<graphics::DrawableElementInfo*, graphics::DrawableQueue::FilterMulti(graphics::DrawableGroupType, graphics::RenderPassType, graphics::RenderPassType, std::function<bool (graphics::Drawable*, std::unique_ptr<graphics::DrawableElement, graphics::DrawableElementDeleter> const&)> const&)::$_22>(graphics::DrawableElementInfo*, graphics::DrawableElementInfo*, graphics::DrawableElementInfo*, graphics::DrawableElementInfo*, graphics::DrawableQueue::FilterMulti(graphics::DrawableGroupType, graphics::RenderPassType, graphics::RenderPassType, std::function<bool (graphics::Drawable*, std::unique_ptr<graphics::DrawableElement, graphics::DrawableElementDeleter> const&)> const&)::$_22)
-    /* std::pair<graphics::DrawableElementInfo*, graphics::DrawableElementInfo*>
-   remove_multi_if<graphics::DrawableElementInfo*,
-   graphics::DrawableQueue::FilterMulti(graphics::DrawableGroupType,
-   graphics::RenderPassType, graphics::RenderPassType, std::function<bool
-   (graphics::Drawable*, std::unique_ptr<graphics::DrawableElement,
-   graphics::DrawableElementDeleter> const&)>
-   const&)::$_22>(graphics::DrawableElementInfo*, graphics::DrawableElementInfo*,
-   graphics::DrawableElementInfo*, graphics::DrawableElementInfo*,
-   graphics::DrawableQueue::FilterMulti(graphics::DrawableGroupType,
-   graphics::RenderPassType, graphics::RenderPassType, std::function<bool
-   (graphics::Drawable*, std::unique_ptr<graphics::DrawableElement,
-   graphics::DrawableElementDeleter> const&)> const&)::$_22) */
-
-    undefined8 jag::remove_multi_if<
-        graphics::DrawableElementInfo*,
+    // 0x1007e2fc0
+    std::pair<graphics::DrawableElementInfo*, graphics::DrawableElementInfo*>
+    remove_multi_if<graphics::DrawableElementInfo*,
+                    graphics::DrawableQueue::FilterMulti(
+                        graphics::DrawableGroupType, graphics::RenderPassType, graphics::RenderPassType,
+                        std::function<bool(graphics::Drawable*,
+                                           std::unique_ptr<graphics::DrawableElement,
+                                                           graphics::DrawableElementDeleter> const&)> const&)::$_22>(
+        graphics::DrawableElementInfo* drawableElementInfo1, graphics::DrawableElementInfo* drawableElementInfo2,
+        graphics::DrawableElementInfo* drawableElementInfo3, graphics::DrawableElementInfo* drawableElementInfo4,
         graphics::DrawableQueue::FilterMulti(
             graphics::DrawableGroupType, graphics::RenderPassType, graphics::RenderPassType,
-            std::function<bool(
-                graphics::Drawable*,
-                std::unique_ptr<graphics::DrawableElement, graphics::DrawableElementDeleter> const&)> const&)::__22>(
-        DrawableElementInfo* param_1, long param_2, DrawableElementInfo* param_3, __22* param_4) {
-        undefined1 auVar1[16];
-        undefined1 local_b8[16];
-        undefined1 local_a8[8];
-        DrawableElementInfo* local_a0;
-        __22 local_98[48];
-        __22 local_68[48];
-        long local_38;
+            std::function<bool(graphics::Drawable*,
+                               std::unique_ptr<graphics::DrawableElement,
+                                               graphics::DrawableElementDeleter> const&)> const&)::$_22 arg5) {
+        uint8_t auVar1[16];
+        uint8_t local_b8[16];
+        uint8_t local_a8[8];
+        DrawableElementInfo local_98;
+        DrawableElementInfo local_68;
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_a8 = (undefined1[8])param_1;
-        local_a0 = param_3;
+        local_a8 = (uint8_t[8])drawableElementInfo1;
         (graphics::DrawableGroupType)
             ->FilterMulti(
                 graphics::RenderPassType, graphics::RenderPassType,
                 std::function<bool(
                     graphics::Drawable*,
                     std::unique_ptr<graphics::DrawableElement, graphics::DrawableElementDeleter> const&)> const&)::
-                $_22::__22(local_68, param_4);
+                $_22::__22(&local_68, (__22*)drawableElementInfo4);
         auVar1 = internal::_find_multi_if<
             graphics::DrawableElementInfo*,
             (graphics::DrawableGroupType)
@@ -64,19 +49,18 @@ namespace jag {
                     std::function<bool(graphics::Drawable*,
                                        std::unique_ptr<graphics::DrawableElement,
                                                        graphics::DrawableElementDeleter> const&)> const&)::__22>(
-            param_1, param_2, param_3, local_68);
+            drawableElementInfo1, drawableElementInfo2, drawableElementInfo3, &local_68, arg5);
         (graphics::DrawableGroupType)
-            ->FilterMulti(graphics::RenderPassType, graphics::RenderPassType,
-                          std::function<bool(
-                              graphics::Drawable*,
-                              std::unique_ptr<graphics::DrawableElement,
-                                              graphics::DrawableElementDeleter> const&)> const&)::$_22::~__22(local_68);
+            ->FilterMulti(
+                graphics::RenderPassType, graphics::RenderPassType,
+                std::function<bool(
+                    graphics::Drawable*,
+                    std::unique_ptr<graphics::DrawableElement, graphics::DrawableElementDeleter> const&)> const&)::
+                $_22::~__22(&local_68);
         _local_a8 = auVar1;
-        if (auVar1._0_8_ == param_2) {
-            std::pair<graphics::DrawableElementInfo*, graphics::DrawableElementInfo*>::pair<
-                graphics::DrawableElementInfo*&, graphics::DrawableElementInfo*&, false>(
-                (pair<graphics::DrawableElementInfo*, graphics::DrawableElementInfo*>*)local_b8,
-                (DrawableElementInfo**)local_a8, &local_a0);
+        if (auVar1._0_8_ == drawableElementInfo2) {
+            local_b8->pair<graphics::DrawableElementInfo*&, graphics::DrawableElementInfo*&, false>(
+                *local_a8, drawableElementInfo3);
         } else {
             (graphics::DrawableGroupType)
                 ->FilterMulti(
@@ -84,7 +68,7 @@ namespace jag {
                     std::function<bool(
                         graphics::Drawable*,
                         std::unique_ptr<graphics::DrawableElement, graphics::DrawableElementDeleter> const&)> const&)::
-                    $_22::__22(local_98, param_4);
+                    $_22::__22(&local_98, (__22*)drawableElementInfo4);
             local_b8 = internal::_remove_multi_if<
                 graphics::DrawableElementInfo*,
                 (graphics::DrawableGroupType)
@@ -93,37 +77,27 @@ namespace jag {
                         std::function<bool(graphics::Drawable*,
                                            std::unique_ptr<graphics::DrawableElement,
                                                            graphics::DrawableElementDeleter> const&)> const&)::__22>(
-                auVar1._0_8_, param_2, auVar1._8_8_, local_98);
+                auVar1._0_8_, drawableElementInfo2, auVar1._8_8_, &local_98, arg5);
             (graphics::DrawableGroupType)
                 ->FilterMulti(
                     graphics::RenderPassType, graphics::RenderPassType,
                     std::function<bool(
                         graphics::Drawable*,
                         std::unique_ptr<graphics::DrawableElement, graphics::DrawableElementDeleter> const&)> const&)::
-                    $_22::~__22(local_98);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+                    $_22::~__22(&local_98);
         }
         return local_b8._0_8_;
     }
 
-    // 0x10080faf0, 160 bytes, inline, placed by class name
-    // int Algorithms::CountMapOverlap<unsigned short, unsigned short, unsigned short>(eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&, eastl::vector_map<unsigned short, unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<eastl::pair<unsigned short, unsigned short>, eastl::allocator> > const&)
-    int Algorithms::CountMapOverlap<unsigned short, unsigned short, unsigned short>(vector_map* param_1,
-                                                                                    vector_map* param_2) {
-        int iVar1;
-        ushort* puVar2;
-        ushort* puVar3;
-        ushort* puVar4;
-        ushort* puVar5;
-
-        puVar2 = (ushort*)param_1->HeapBeginPtr();
-        puVar3 = (ushort*)param_2->HeapBeginPtr();
-        puVar4 = (ushort*)param_1->end();
-        puVar5 = (ushort*)param_2->end();
-        iVar1 = 0;
+    // 0x10080faf0
+    int Algorithms::CountMapOverlap<unsigned short, unsigned short, unsigned short>(
+        const eastl::vector_map<unsigned short, unsigned short>& arg1,
+        const eastl::vector_map<unsigned short, unsigned short>& arg2) {
+        auto puVar2 = arg1.HeapBeginPtr();
+        auto puVar3 = arg2.HeapBeginPtr();
+        auto puVar4 = arg1.end();
+        auto puVar5 = arg2.end();
+        int iVar1 = 0;
         if ((puVar2 != puVar4) && (puVar3 != puVar5)) {
             iVar1 = 0;
             do {

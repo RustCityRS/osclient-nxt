@@ -1,43 +1,32 @@
 // libs/game/runetek5/config/defaults/WorldMapDefaults.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::game {
     class WorldMapDefaults {
     public:
-        uint GetF2POutlineColourRGBA() const;
-        uint GetF2PLayerColourRGBA() const;
-        uint GetF2PLayerMapID() const;
-        uint GetDropShadowColourRGBA() const;
-        WorldMapDefaults(PacketT<Array<unsigned char, eastl::allocator>>&);
-        GetFontID(int, int) const;
+        unsigned int GetF2POutlineColourRGBA() const;
+        unsigned int GetF2PLayerColourRGBA() const;
+        unsigned int GetF2PLayerMapID() const;
+        unsigned int GetDropShadowColourRGBA() const;
+        WorldMapDefaults(PacketT<Array<unsigned char>>& arg1);
+        uint32_t GetFontID(int arg1, int arg2) const;
 
-        // data members, from how the methods use this: 32 bytes
-        uint m_f2PLayerMapID;        // offset 0
-        uint m_f2PLayerColourRGBA;   // offset 4
-        uint m_f2POutlineColourRGBA; // offset 8
-        uint field_12;               // offset 12
-        uint field_16;               // offset 16
-        undefined4 field_20;         // offset 20
-        uint m_dropShadowColourRGBA; // offset 24
-        char _unknown_28[4];
+    private:
+        unsigned int m_f2PLayerMapID;
+        unsigned int m_f2PLayerColourRGBA;
+        unsigned int m_f2POutlineColourRGBA;
+        unsigned int field_12;
+        unsigned int field_16;
+        uint32_t field_20;
+        unsigned int m_dropShadowColourRGBA;
+        uint8_t _unknown_28[4];
     };
 
-    // 0x1003cf2a0, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // WorldMapDefaults::GetDropShadowColourRGBA() const
-    /* option::Option<option::EnumBrightness>::GetValue() const */
-
-    undefined4 option::Option<option::EnumBrightness>::GetValue() {
-        return *(undefined4*)(this + 24);
+    // 0x1003cf2a0
+    unsigned int WorldMapDefaults::GetDropShadowColourRGBA() const {
+        return *(uint32_t*)&this[3]._vptr;
     }
-
-    // 0x1003cfcd0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // OpObjValue::OpObjValue(): jumps straight to the base-object constructor
-
-    // 0x1003cfce0, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // OpObjValue::~OpObjValue(): jumps straight to the base-object destructor
 
 } // namespace jag::game

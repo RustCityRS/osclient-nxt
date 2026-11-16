@@ -1,135 +1,125 @@
 // libs/graphics/runetek7/animation/AnimationHelper.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
     class AnimationHelper {
     public:
-        ApplyBoneTransform(AnimTransform, Array<unsigned short, eastl::allocator> const&, math::Vector3T<float> const&,
-                           math::Vector3T<float> const&, math::QuaternionT<float> const&, bool, math::Vector3T<float>&,
-                           WrapArray<math::Matrix43T<float>>&);
-        ApplyBillboardTransform(AnimTransform, Array<unsigned short, eastl::allocator> const&,
-                                math::Vector3T<float> const&, WrapArray<float>&);
-        ApplyColourTransform(AnimTransform, Array<unsigned short, eastl::allocator> const&,
-                             math::Vector3T<float> const&, WrapArray<float>&, bool);
-        void ApplyOriginTransform(AnimTransform, shared_ptr<AnimBase> const&, Array<LabelData, eastl::allocator> const&,
-                                  WrapArray<math::Matrix43T<float>> const&, unsigned int, int,
-                                  math::Vector3T<float> const&, math::Vector3T<float>&);
-        CalculateCentreOfLabels(Array<LabelData, eastl::allocator> const&,
-                                Array<unsigned short, eastl::allocator> const&,
-                                WrapArray<math::Matrix43T<float>> const&);
-        void InterpolateRT5FrameTransforms(WrapArray<math::Matrix43T<float>>&, WrapArray<float>&, WrapArray<float>&,
-                                           AnimationFrameRT5 const&, AnimationFrameRT5 const&, float,
-                                           Array<LabelData, eastl::allocator> const&,
-                                           shared_ptr<WalkMergeDataProvider> const&, bool, bool);
-        AnimationHelper* VectorArryFromLabelDeltas(WrapArray<float> const&);
+        uint64_t ApplyBoneTransform(AnimTransform animTransform, const Array<unsigned short>& arg2,
+                                    const math::Vector3T<float>& vector31, const math::Vector3T<float>& vector32,
+                                    const math::QuaternionT<float>& quaternion, bool arg6,
+                                    math::Vector3T<float>& vector33, WrapArray<math::Matrix43T<float>>& wrapArray);
+        void ApplyBillboardTransform(AnimTransform animTransform, const Array<unsigned short>& arg2,
+                                     const math::Vector3T<float>& vector3, WrapArray<float>& wrapArray);
+        void ApplyColourTransform(AnimTransform animTransform, const Array<unsigned short>& arg2,
+                                  const math::Vector3T<float>& vector3, WrapArray<float>& wrapArray, bool arg5);
+        void ApplyOriginTransform(AnimTransform animTransform, const shared_ptr<AnimBase>& animBase,
+                                  const Array<LabelData>& labelDatas,
+                                  const WrapArray<math::Matrix43T<float>>& wrapArray, unsigned int arg5, int arg6,
+                                  const math::Vector3T<float>& vector31, math::Vector3T<float>& vector32);
+        void CalculateCentreOfLabels(const Array<LabelData>& labelDatas, const Array<unsigned short>& arg2,
+                                     const WrapArray<math::Matrix43T<float>>& wrapArray);
+        void InterpolateRT5FrameTransforms(WrapArray<math::Matrix43T<float>>& wrapArray1, WrapArray<float>& wrapArray2,
+                                           WrapArray<float>& wrapArray3, const AnimationFrameRT5& animationFrameRT51,
+                                           const AnimationFrameRT5& animationFrameRT52, float arg6,
+                                           const Array<LabelData>& labelDatas,
+                                           const shared_ptr<WalkMergeDataProvider>& walkMergeDataProvider, bool arg9,
+                                           bool arg10);
+        auto VectorArryFromLabelDeltas(const WrapArray<float>& wrapArray);
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
-    // 0x100984790, 688 bytes, placed by class name and debug map
-    // AnimationHelper::ApplyBoneTransform(AnimTransform, Array<unsigned short, eastl::allocator> const&, math::Vector3T<float> const&, math::Vector3T<float> const&, math::QuaternionT<float> const&, bool, math::Vector3T<float>&, WrapArray<math::Matrix43T<float> >&)
-    undefined8 AnimationHelper::ApplyBoneTransform(
-        undefined8 param_1, float param_2, char param_3,
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* param_4,
-        Vector3T* param_5, Vector3T* param_6, QuaternionT* param_7, char param_8, math* param_9, Layout* param_10) {
-        ushort uVar1;
-        ushort* puVar2;
-        ushort* puVar3;
-        ulong uVar4;
+    // 0x100984790
+    uint64_t AnimationHelper::ApplyBoneTransform(AnimTransform animTransform, const Array<unsigned short>& arg2,
+                                                 const math::Vector3T<float>& vector31,
+                                                 const math::Vector3T<float>& vector32,
+                                                 const math::QuaternionT<float>& quaternion, bool arg6,
+                                                 math::Vector3T<float>& vector33,
+                                                 WrapArray<math::Matrix43T<float>>& wrapArray) {
+        unsigned short uVar1;
+        unsigned short* puVar2;
+        unsigned short* puVar3;
+        unsigned long uVar4;
         Matrix43T<float>* pMVar5;
-        Vector3T<float>* this;
+        Vector3T<float>* this_00;
         long lVar6;
-        Vector3T* pVVar7;
-        Vector3T* pVVar8;
-        float fVar9;
-        ColourHSL local_98[3];
-        Vector3T local_60[8];
+        uint32_t in_register_00000034;
+        unsigned long uVar8;
+        float arg2_00;
+        uint64_t in_stack_00000009;
+        ColourHSL local_98;
+        uint64_t local_60;
         float local_58;
+        Vector3T<float>* local_38;
 
-        if (param_3 == '\x03') {
-            fVar9 = *(float*)(param_5 + 4);
-            math::ColourHSL::ColourHSL(local_98, *(float*)param_5, fVar9, *(float*)(param_5 + 8));
-            puVar2 = (ushort*)param_4->data();
-            puVar3 = (ushort*)param_4->end();
+        Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>* this_01 =
+            (Array<std::unique_ptr<LoadingScreenScript::AnimLayer>>*)(((uint64_t)in_register_00000034 << 32) |
+                                                                      (uint32_t)animTransform);
+        if ((char)this == '\x03') {
+            arg2_00 = *(float*)(arg2 + 4);
+            local_98 = math::ColourHSL(*(float*)arg2, arg2_00, *(float*)(arg2 + 8));
+            puVar2 = (unsigned short*)this_01->data();
+            puVar3 = (unsigned short*)this_01->end();
             for (; puVar2 != puVar3; puVar2 = puVar2 + 1) {
-                pVVar8 = (Vector3T*)(ulong)*puVar2;
-                pVVar7 = (Vector3T*)eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                        eastl::allocator>>::Layout::HeapBeginPtr(param_10);
-                if (pVVar8 < pVVar7) {
-                    pVVar7 = pVVar8;
-                    pMVar5 = (Matrix43T<float>*)WrapArray<math::Matrix43T<float>>::operator[](
-                        (WrapArray<math::Matrix43T<float>>*)param_10, (ulong)pVVar8);
-                    local_60 = (Vector3T[8])math::operator-(param_9, pVVar7);
-                    local_58 = fVar9;
+                uVar8 = (unsigned long)*puVar2;
+                uVar4 = vector33.HeapBeginPtr();
+                if (uVar8 < uVar4) {
+                    pMVar5 = &vector33[uVar8];
+                    local_60 = math::operator-((Vector3T<float>*)(((uint64_t)in_stack_00000009 << 8) | (uint8_t)arg6));
+                    local_58 = arg2_00;
                     pMVar5->Translate(local_60);
-                    this = (Vector3T<float>*)WrapArray<math::Matrix43T<float>>::operator[](
-                        (WrapArray<math::Matrix43T<float>>*)param_10, (ulong)pVVar8);
-                    math::Vector3T<float>::operator*=(this, (Vector3T*)local_98);
-                    lVar6 = WrapArray<math::Matrix43T<float>>::operator[]((WrapArray<math::Matrix43T<float>>*)param_10,
-                                                                          (ulong)pVVar8);
-                    math::Vector3T<float>::operator*=((Vector3T<float>*)(lVar6 + 12), (Vector3T*)local_98);
-                    lVar6 = WrapArray<math::Matrix43T<float>>::operator[]((WrapArray<math::Matrix43T<float>>*)param_10,
-                                                                          (ulong)pVVar8);
-                    math::Vector3T<float>::operator*=((Vector3T<float>*)(lVar6 + 24), (Vector3T*)local_98);
-                    lVar6 = WrapArray<math::Matrix43T<float>>::operator[]((WrapArray<math::Matrix43T<float>>*)param_10,
-                                                                          (ulong)pVVar8);
-                    math::Vector3T<float>::operator*=((Vector3T<float>*)(lVar6 + 36), (Vector3T*)local_98);
-                    pMVar5 = (Matrix43T<float>*)WrapArray<math::Matrix43T<float>>::operator[](
-                        (WrapArray<math::Matrix43T<float>>*)param_10, (ulong)pVVar8);
-                    pMVar5->Translate(param_9);
+                    this_00 = &vector33[uVar8];
+                    *this_00 *= &local_98;
+                    lVar6 = vector33[uVar8];
+                    (*((lVar6 + 12))) *= &local_98;
+                    lVar6 = vector33[uVar8];
+                    (*((lVar6 + 24))) *= &local_98;
+                    lVar6 = vector33[uVar8];
+                    (*((lVar6 + 36))) *= &local_98;
+                    pMVar5 = &vector33[uVar8];
+                    pMVar5->Translate(*((Vector3T<float>*)(((uint64_t)in_stack_00000009 << 8) | (uint8_t)arg6)));
                 }
             }
-        } else if (param_3 == '\x02') {
-            new (local_98) math::Matrix43T<float>();
-            if (param_8 == '\0') {
-                math::Matrix33RotationSinCos<float>((math*)local_60, param_5, param_6);
-                local_98->Set(local_60, param_9);
+        } else if ((char)this == '\x02') {
+            local_38 = vector31;
+            local_98 = math::Matrix43T<float>();
+            if ((char)quaternion == '\0') {
+                math::Matrix33RotationSinCos<float>(local_60, arg2);
+                local_98 = math::Matrix43T<float>::Set(
+                    local_60, *((Vector3T<float>*)(((uint64_t)in_stack_00000009 << 8) | (uint8_t)arg6)));
             } else {
-                local_98->Set(param_7, param_9);
+                local_98 = math::Matrix43T<float>::Set(
+                    vector32, *((Vector3T<float>*)(((uint64_t)in_stack_00000009 << 8) | (uint8_t)arg6)));
             }
-            puVar2 = (ushort*)param_4->data();
-            puVar3 = (ushort*)param_4->end();
+            puVar2 = (unsigned short*)this_01->data();
+            puVar3 = (unsigned short*)this_01->end();
             for (; puVar2 != puVar3; puVar2 = puVar2 + 1) {
-                pVVar8 = (Vector3T*)(ulong)*puVar2;
-                pVVar7 = (Vector3T*)eastl::basic_string<
-                    char, eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                        eastl::allocator>>::Layout::HeapBeginPtr(param_10);
-                if (pVVar8 < pVVar7) {
-                    pVVar7 = pVVar8;
-                    pMVar5 = (Matrix43T<float>*)WrapArray<math::Matrix43T<float>>::operator[](
-                        (WrapArray<math::Matrix43T<float>>*)param_10, (ulong)pVVar8);
-                    local_60 = (Vector3T[8])math::operator-(param_9, pVVar7);
-                    local_58 = param_2;
+                uVar8 = (unsigned long)*puVar2;
+                uVar4 = vector33.HeapBeginPtr();
+                if (uVar8 < uVar4) {
+                    pMVar5 = &vector33[uVar8];
+                    local_60 = math::operator-((Vector3T<float>*)(((uint64_t)in_stack_00000009 << 8) | (uint8_t)arg6));
                     pMVar5->Translate(local_60);
-                    pMVar5 = (Matrix43T<float>*)WrapArray<math::Matrix43T<float>>::operator[](
-                        (WrapArray<math::Matrix43T<float>>*)param_10, (ulong)pVVar8);
-                    math::Matrix43T<float>::operator*=(pMVar5, (Matrix43T*)local_98);
+                    pMVar5 = &vector33[uVar8];
+                    *pMVar5 *= local_98;
                 }
             }
         } else {
-            if (param_3 != '\x01') {
+            if ((char)this != '\x01') {
                 return 0;
             }
-            puVar2 = (ushort*)param_4->data();
-            puVar3 = (ushort*)param_4->end();
+            puVar2 = (unsigned short*)this_01->data();
+            puVar3 = (unsigned short*)this_01->end();
             if (puVar2 == puVar3) {
                 return 1;
             }
             do {
                 uVar1 = *puVar2;
-                uVar4 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true, eastl::allocator>>::
-                        Layout::HeapBeginPtr(param_10);
+                uVar4 = vector33.HeapBeginPtr();
                 if (uVar1 < uVar4) {
-                    pMVar5 = (Matrix43T<float>*)WrapArray<math::Matrix43T<float>>::operator[](
-                        (WrapArray<math::Matrix43T<float>>*)param_10, (ulong)uVar1);
-                    pMVar5->Translate(param_5);
+                    pMVar5 = &vector33[(unsigned long)uVar1];
+                    pMVar5->Translate(arg2);
                 }
                 puVar2 = puVar2 + 1;
             } while (puVar2 != puVar3);
@@ -137,69 +127,65 @@ namespace jag::graphics {
         return 1;
     }
 
-    // 0x100984a40, 528 bytes, placed by class name and debug map
-    // AnimationHelper::ApplyBillboardTransform(AnimTransform, Array<unsigned short, eastl::allocator> const&, math::Vector3T<float> const&, WrapArray<float>&)
-    undefined8 AnimationHelper::ApplyBillboardTransform(
-        char param_1,
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* param_2,
-        Vector3T<float>* param_3, WrapArray<float>* param_4) {
+    // 0x100984a40
+    void AnimationHelper::ApplyBillboardTransform(AnimTransform animTransform, const Array<unsigned short>& arg2,
+                                                  const math::Vector3T<float>& vector3, WrapArray<float>& wrapArray) {
         float fVar1;
-        ushort uVar2;
-        ushort* puVar3;
-        ushort* puVar4;
+        unsigned short uVar2;
+        unsigned short* puVar3;
+        unsigned short* puVar4;
         float* pfVar5;
 
-        if (param_1 == '\n') {
-            puVar3 = (ushort*)param_2->data();
-            puVar4 = (ushort*)param_2->end();
+        if ((char)animTransform == '\n') {
+            puVar3 = (unsigned short*)arg2.data();
+            puVar4 = (unsigned short*)arg2.end();
             if (puVar3 == puVar4) {
                 return 1;
             }
             do {
                 uVar2 = *puVar3;
-                pfVar5 = (float*)math::Vector3T<float>::operator[](param_3, 0);
+                pfVar5 = &vector3[0];
                 fVar1 = *pfVar5;
-                pfVar5 = (float*)WrapArray<float>::operator[](param_4, (ulong)uVar2 * 8 + 2);
+                pfVar5 = &wrapArray[(unsigned long)uVar2 * 8 + 2];
                 *pfVar5 = fVar1 * *pfVar5;
-                pfVar5 = (float*)math::Vector3T<float>::operator[](param_3, 1);
+                pfVar5 = &vector3[1];
                 fVar1 = *pfVar5;
-                pfVar5 = (float*)WrapArray<float>::operator[](param_4, (ulong)((uint)uVar2 * 8 | 3));
+                pfVar5 = &wrapArray[(unsigned long)((unsigned int)uVar2 * 8 | 3)];
                 *pfVar5 = fVar1 * *pfVar5;
                 puVar3 = puVar3 + 1;
             } while (puVar3 != puVar4);
-        } else if (param_1 == '\t') {
-            puVar3 = (ushort*)param_2->data();
-            puVar4 = (ushort*)param_2->end();
+        } else if ((char)animTransform == '\t') {
+            puVar3 = (unsigned short*)arg2.data();
+            puVar4 = (unsigned short*)arg2.end();
             if (puVar3 == puVar4) {
                 return 1;
             }
             do {
                 uVar2 = *puVar3;
-                pfVar5 = (float*)math::Vector3T<float>::operator[](param_3, 0);
+                pfVar5 = &vector3[0];
                 fVar1 = *pfVar5;
-                pfVar5 = (float*)WrapArray<float>::operator[](param_4, (ulong)uVar2 * 8 + 4);
+                pfVar5 = &wrapArray[(unsigned long)uVar2 * 8 + 4];
                 *pfVar5 = fVar1 + *pfVar5;
                 puVar3 = puVar3 + 1;
             } while (puVar3 != puVar4);
         } else {
-            if (param_1 != '\b') {
+            if ((char)animTransform != '\b') {
                 return 0;
             }
-            puVar3 = (ushort*)param_2->data();
-            puVar4 = (ushort*)param_2->end();
+            puVar3 = (unsigned short*)arg2.data();
+            puVar4 = (unsigned short*)arg2.end();
             if (puVar3 == puVar4) {
                 return 1;
             }
             do {
                 uVar2 = *puVar3;
-                pfVar5 = (float*)math::Vector3T<float>::operator[](param_3, 0);
+                pfVar5 = &vector3[0];
                 fVar1 = *pfVar5;
-                pfVar5 = (float*)WrapArray<float>::operator[](param_4, (ulong)uVar2 * 8);
+                pfVar5 = &wrapArray[(unsigned long)uVar2 * 8];
                 *pfVar5 = fVar1 + *pfVar5;
-                pfVar5 = (float*)math::Vector3T<float>::operator[](param_3, 1);
+                pfVar5 = &vector3[1];
                 fVar1 = *pfVar5;
-                pfVar5 = (float*)WrapArray<float>::operator[](param_4, (ulong)((int)((ulong)uVar2 * 8) + 1));
+                pfVar5 = (float*)wrapArray[(unsigned long)((int)((unsigned long)uVar2 * 8) + 1)];
                 *pfVar5 = fVar1 + *pfVar5;
                 puVar3 = puVar3 + 1;
             } while (puVar3 != puVar4);
@@ -207,84 +193,74 @@ namespace jag::graphics {
         return 1;
     }
 
-    // 0x100984c50, 512 bytes, placed by class name and debug map
-    // AnimationHelper::ApplyColourTransform(AnimTransform, Array<unsigned short, eastl::allocator> const&, math::Vector3T<float> const&, WrapArray<float>&, bool)
-    undefined8 AnimationHelper::ApplyColourTransform(
-        char param_1,
-        Array<std::unique_ptr<LoadingScreenScript::AnimLayer, std::default_delete<LoadingScreenScript::AnimLayer>>,
-              eastl::allocator>* param_2,
-        Vector3T<float>* param_3, Layout* param_4, char param_5) {
-        ulong uVar1;
+    // 0x100984c50
+    void AnimationHelper::ApplyColourTransform(AnimTransform animTransform, const Array<unsigned short>& arg2,
+                                               const math::Vector3T<float>& vector3, WrapArray<float>& wrapArray,
+                                               bool arg5) {
+        unsigned long uVar1;
         float fVar2;
         float fVar3;
         float fVar4;
-        ushort uVar5;
+        unsigned short uVar5;
         float* pfVar6;
-        ushort* puVar7;
-        ushort* puVar8;
-        ulong uVar9;
+        unsigned short* puVar7;
+        unsigned short* puVar8;
+        unsigned long uVar9;
         float fVar10;
         float local_34;
 
-        if (param_1 == '\a') {
-            pfVar6 = (float*)math::Vector3T<float>::operator[](param_3, 0);
-            local_34 = 0.003921569;
-            fVar10 = 0.003921569;
-            if (param_5 == '\0') {
-                fVar10 = 0.015625;
-                local_34 = 0.00390625;
+        if ((char)animTransform == '\a') {
+            pfVar6 = &vector3[0];
+            local_34 = 0.003921569f;
+            fVar10 = 0.003921569f;
+            if (!arg5) {
+                fVar10 = 0.015625f;
+                local_34 = 0.00390625f;
             }
             fVar2 = *pfVar6;
-            pfVar6 = (float*)math::Vector3T<float>::operator[](param_3, 1);
+            pfVar6 = &vector3[1];
             fVar3 = *pfVar6;
-            pfVar6 = (float*)math::Vector3T<float>::operator[](param_3, 2);
+            pfVar6 = &vector3[2];
             fVar4 = *pfVar6;
-            puVar7 = (ushort*)param_2->data();
-            puVar8 = (ushort*)param_2->end();
+            puVar7 = (unsigned short*)arg2.data();
+            puVar8 = (unsigned short*)arg2.end();
             if (puVar7 == puVar8) {
                 return 1;
             }
             do {
                 uVar5 = *puVar7;
-                uVar1 = (ulong)uVar5 * 4 + 2;
-                uVar9 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(param_4);
+                uVar1 = (unsigned long)uVar5 * 4 + 2;
+                uVar9 = wrapArray.HeapBeginPtr();
                 if ((uVar1 & 65535) < uVar9) {
-                    pfVar6 = (float*)WrapArray<float>::operator[]((WrapArray<float>*)param_4, (ulong)uVar5 << 2);
+                    pfVar6 = &wrapArray[(unsigned long)uVar5 << 2];
                     *pfVar6 = *pfVar6 + fVar2 * fVar10;
-                    pfVar6 =
-                        (float*)WrapArray<float>::operator[]((WrapArray<float>*)param_4, (ulong)((uint)uVar5 << 2 | 1));
+                    pfVar6 = &wrapArray[(unsigned long)((unsigned int)uVar5 << 2 | 1)];
                     *pfVar6 = *pfVar6 + fVar10 * fVar3;
-                    pfVar6 = (float*)WrapArray<float>::operator[]((WrapArray<float>*)param_4, uVar1);
+                    pfVar6 = &wrapArray[uVar1];
                     *pfVar6 = *pfVar6 + local_34 * fVar4;
                 }
                 puVar7 = puVar7 + 1;
             } while (puVar7 != puVar8);
         } else {
-            if (param_1 != '\x05') {
+            if ((char)animTransform != '\x05') {
                 return 0;
             }
-            pfVar6 = (float*)math::Vector3T<float>::operator[](param_3, 0);
-            if (param_5 == '\0') {
-                fVar10 = *pfVar6 * 0.03137255;
-            } else {
+            pfVar6 = &vector3[0];
+            if (arg5) {
                 fVar10 = 1.0 - *pfVar6;
+            } else {
+                fVar10 = *pfVar6 * 0.03137255f;
             }
-            puVar7 = (ushort*)param_2->data();
-            puVar8 = (ushort*)param_2->end();
+            puVar7 = (unsigned short*)arg2.data();
+            puVar8 = (unsigned short*)arg2.end();
             if (puVar7 == puVar8) {
                 return 1;
             }
             do {
-                uVar1 = (ulong)*puVar7 * 4 + 3;
-                uVar9 =
-                    eastl::basic_string<char,
-                                        eastl::fixed_vector_allocator<1ul, 64ul, 1ul, 0ul, true,
-                                                                      eastl::allocator>>::Layout::HeapBeginPtr(param_4);
+                uVar1 = (unsigned long)*puVar7 * 4 + 3;
+                uVar9 = wrapArray.HeapBeginPtr();
                 if ((uVar1 & 65535) < uVar9) {
-                    pfVar6 = (float*)WrapArray<float>::operator[]((WrapArray<float>*)param_4, uVar1);
+                    pfVar6 = &wrapArray[uVar1];
                     *pfVar6 = *pfVar6 - fVar10;
                 }
                 puVar7 = puVar7 + 1;
@@ -293,238 +269,236 @@ namespace jag::graphics {
         return 1;
     }
 
-    // 0x1009883b0, 144 bytes, placed by class name
-    // AnimationHelper::ApplyOriginTransform(AnimTransform, shared_ptr<AnimBase> const&, Array<LabelData, eastl::allocator> const&, WrapArray<math::Matrix43T<float> > const&, unsigned int, int, math::Vector3T<float> const&, math::Vector3T<float>&)
-    void AnimationHelper::ApplyOriginTransform(undefined8 param_1, undefined4 param_2, int param_3,
-                                               shared_ptr<AnimBase>* param_4, Array* param_5, WrapArray* param_6,
-                                               uint param_7, uint param_8, Vector3T* param_9,
-                                               Vector4T<float>* param_10) {
-        AnimBase* this;
-        Array* pAVar1;
-        undefined8 local_40;
-        undefined4 local_38;
+    // 0x1009883b0
+    void AnimationHelper::ApplyOriginTransform(AnimTransform animTransform, const shared_ptr<AnimBase>& animBase,
+                                               const Array<LabelData>& labelDatas,
+                                               const WrapArray<math::Matrix43T<float>>& wrapArray, unsigned int arg5,
+                                               int arg6, const math::Vector3T<float>& vector31,
+                                               math::Vector3T<float>& vector32) {
+        AnimBase* this_00;
+        Array<unsigned short>* arg2;
+        unsigned int arg1;
+        uint32_t in_register_00000034;
+        uint32_t in_stack_0000000c;
+        uint64_t local_40[2];
 
-        if ((param_3 == 0) || (param_8 != 4294967295)) {
-            if (param_8 != 4294967295) {
-                param_7 = param_8;
+        if (((int)this == 0) || (arg5 != 4294967295)) {
+            arg1 = (unsigned int)wrapArray;
+            if (arg5 != 4294967295) {
+                arg1 = arg5;
             }
-            this = (AnimBase*)shared_ptr<AnimBase>::operator->(param_4);
-            pAVar1 = (Array*)GetTransformLabels(param_7);
-            local_40 = CalculateCentreOfLabels(param_5, pAVar1, param_6);
-            local_38 = param_2;
-            math::Vector4T<float>::SetXYZ(param_10, (Vector3T*)&local_40);
-            if ((char)param_3 == '\0') {
-                math::Vector3T<float>::operator+=((Vector3T<float>*)param_10, param_9);
+            this_00 = (AnimBase*)(*((shared_ptr<AnimBase>*)(((uint64_t)in_register_00000034 << 32) |
+                                                            (uint32_t)animTransform)))
+                          .operator->();
+            arg2 = (Array<unsigned short>*)this_00->GetTransformLabels(arg1);
+            local_40[0] = CalculateCentreOfLabels((Array<LabelData>*)animBase, arg2,
+                                                  (WrapArray<math::Matrix43T<float> _>*)labelDatas);
+            vector31.SetXYZ(*local_40);
+            if ((char)this == '\0') {
+                vector31 += (*((Vector3T<float>*)(((uint64_t)in_stack_0000000c << 32) | (uint32_t)arg6)));
             }
         }
     }
 
-    // 0x100988e20, 352 bytes, placed by class name
-    // AnimationHelper::CalculateCentreOfLabels(Array<LabelData, eastl::allocator> const&, Array<unsigned short, eastl::allocator> const&, WrapArray<math::Matrix43T<float> > const&)
-    undefined8 AnimationHelper::CalculateCentreOfLabels(Array* param_1, Array* param_2, WrapArray* param_3) {
-        ushort uVar1;
-        ulong uVar2;
-        char cVar3;
-        ulong* puVar4;
-        ushort* puVar5;
-        ushort* puVar6;
-        Vector3T* pVVar7;
-        Matrix43T* pMVar8;
-        uint uVar9;
-        uint uVar10;
-        ulong local_68[2];
-        ulong local_58[2];
-        uint local_48;
-        uint local_44;
-        undefined8 local_40;
-        undefined4 local_38;
+    // 0x100988e20
+    void AnimationHelper::CalculateCentreOfLabels(const Array<LabelData>& labelDatas, const Array<unsigned short>& arg2,
+                                                  const WrapArray<math::Matrix43T<float>>& wrapArray) {
+        unsigned short uVar1;
+        unsigned long uVar2;
+        unsigned long* puVar4;
+        unsigned short* puVar5;
+        unsigned short* puVar6;
+        Vector3T<float>* vector3;
+        Matrix43T<float>* matrix43;
+        unsigned int uVar7;
+        unsigned int uVar8;
+        unsigned long local_68[2];
+        unsigned long local_58[2];
+        unsigned int local_48;
+        unsigned int local_44;
 
-        local_38 = *(undefined4*)(PTR_ZERO_100ee66e8 + 8);
-        local_40 = *(undefined8*)PTR_ZERO_100ee66e8;
-        cVar3 = param_2->empty();
-        if (cVar3 == '\0') {
-            cVar3 = param_1->empty();
-            if (cVar3 == '\0') {
-                local_68[0] = param_3->HeapBeginPtr();
-                local_58[0] = param_1->end();
-                puVar4 = std::min<unsigned long>(local_68, local_58);
+        uint32_t local_38 = *(uint32_t*)(PTR_ZERO_100ee66e8 + 8);
+        return local_40 = *(uint64_t*)PTR_ZERO_100ee66e8;
+        if (!(arg2.empty())) {
+            if (!(labelDatas.empty())) {
+                local_68[0] = wrapArray.HeapBeginPtr();
+                local_58[0] = labelDatas.end();
+                puVar4 = std::min<unsigned long>(*local_68, *local_58);
                 uVar2 = *puVar4;
-                uVar10 = (uint)(ushort)uVar2;
-                puVar5 = (ushort*)param_2->data();
-                puVar6 = (ushort*)param_2->end();
-                uVar9 = 0;
+                uVar8 = (unsigned int)(unsigned short)uVar2;
+                puVar5 = (unsigned short*)arg2.data();
+                puVar6 = (unsigned short*)arg2.end();
+                uVar7 = 0;
                 if (puVar5 != puVar6) {
-                    local_44 = (uint)(ushort)uVar2;
+                    local_44 = (unsigned int)(unsigned short)uVar2;
                     do {
                         uVar1 = *puVar5;
-                        if (uVar1 < uVar10) {
-                            local_48 = uVar9;
-                            pVVar7 = (Vector3T*)Array<LabelData, eastl::allocator>::operator[](
-                                (Array<LabelData, eastl::allocator>*)param_1, (ulong)uVar1);
-                            pMVar8 = (Matrix43T*)WrapArray<math::Matrix43T<float>>::operator[](
-                                (WrapArray<math::Matrix43T<float>>*)param_3, (ulong)uVar1);
-                            local_58[0] = math::operator*(pVVar7, pMVar8);
-                            local_68[0] = math::operator*((Vector3T*)local_58, (float)*(int*)(pVVar7 + 12));
-                            math::Vector3T<float>::operator+=((Vector3T<float>*)&local_40, (Vector3T*)local_68);
-                            uVar9 = local_48 + *(int*)(pVVar7 + 12);
-                            uVar10 = local_44;
+                        if (uVar1 < uVar8) {
+                            local_48 = uVar7;
+                            vector3 = &labelDatas[(unsigned long)uVar1];
+                            matrix43 = &wrapArray[(unsigned long)uVar1];
+                            local_58[0] = *vector3 * *matrix43;
+                            local_68[0] = (*((float)*(int*)(vector3 + 12))) * *local_58;
+                            local_40 += *local_68;
+                            uVar7 = local_48 + *(int*)(vector3 + 12);
+                            uVar8 = local_44;
                         }
                         puVar5 = puVar5 + 1;
                     } while (puVar5 != puVar6);
                 }
-                if (uVar9 != 0) {
-                    math::Vector3T<float>::operator/=((Vector3T<float>*)&local_40, (float)uVar9);
+                if (uVar7 != 0) {
+                    local_40 /= ((float)uVar7);
                 }
             }
         }
         return local_40;
     }
 
-    // 0x100989070, 768 bytes, placed by class name
-    // AnimationHelper::InterpolateRT5FrameTransforms(WrapArray<math::Matrix43T<float> >&, WrapArray<float>&, WrapArray<float>&, AnimationFrameRT5 const&, AnimationFrameRT5 const&, float, Array<LabelData, eastl::allocator> const&, shared_ptr<WalkMergeDataProvider> const&, bool, bool)
-    void AnimationHelper::InterpolateRT5FrameTransforms(WrapArray* param_1, WrapArray* param_2, WrapArray* param_3,
-                                                        AnimationFrameRT5* param_4, AnimationFrameRT5* param_5,
-                                                        float param_6, Array* param_7, shared_ptr* param_8,
-                                                        bool param_9, bool param_10) {
-        undefined8 uVar1;
-        byte bVar2;
-        byte bVar3;
-        char cVar5;
-        ushort uVar7;
-        shared_ptr<AnimBase>* this;
-        AnimBase* pAVar8;
-        long* plVar9;
-        Array<bool, eastl::allocator>* this_00;
-        char* pcVar10;
-        AnimationFrameRT5Transform* pAVar11;
-        AnimationFrameRT5Transform* pAVar12;
-        uint uVar13;
-        ulong uVar14;
-        undefined1 local_120[68];
-        undefined1 local_dc[12];
-        undefined1 local_d0[24];
-        undefined1 local_b8[20];
-        undefined4 local_a4;
-        Vector3T<int> local_88[16];
-        undefined8 local_78;
+    // 0x100989070
+    void AnimationHelper::InterpolateRT5FrameTransforms(WrapArray<math::Matrix43T<float>>& wrapArray1,
+                                                        WrapArray<float>& wrapArray2, WrapArray<float>& wrapArray3,
+                                                        const AnimationFrameRT5& animationFrameRT51,
+                                                        const AnimationFrameRT5& animationFrameRT52, float arg6,
+                                                        const Array<LabelData>& labelDatas,
+                                                        const shared_ptr<WalkMergeDataProvider>& walkMergeDataProvider,
+                                                        bool arg9, bool arg10) {
+        Array<unsigned short>* arg2;
+        AnimTransform animTransform;
+        uint8_t bVar1;
+        uint8_t bVar2;
+        bool cVar4;
+        unsigned short uVar6;
+        long* plVar8;
+        Array<bool>* this_01;
+        char* pcVar9;
+        AnimationFrameRT5Transform* animationFrameRT5Transform2;
+        AnimationFrameRT5Transform* this_02;
+        unsigned int uVar10;
+        unsigned long arg1;
+        Vector3T<float>* in_stack_fffffffffffffed8;
+        uint8_t local_120[68];
+        Array<unsigned short> local_dc;
+        Vector3T<float> local_d0;
+        Vector3T<float> local_b8;
+        unsigned int local_a4;
+        Array<unsigned short>* local_78;
         AnimationFrameRT5* local_70;
         AnimationFrameRT5* local_60;
-        uint local_58;
-        undefined1 local_54[12];
-        ulong local_48;
-        ulong local_40;
-        byte local_31;
+        AnimTransform local_58;
+        shared_ptr<AnimBase>* local_50;
+        unsigned long local_48;
+        unsigned long local_40;
+        uint8_t local_31;
 
-        local_54._0_4_ = param_6;
-        this = (shared_ptr<AnimBase>*)param_4->second();
-        math::Vector3T<int>::Vector3T(local_88);
-        pAVar8 = (AnimBase*)shared_ptr<AnimBase>::operator->(this);
-        if (pAVar8->GetTransformCount() != 0) {
-            uVar14 = 0;
+        auto this_00 = wrapArray3.second();
+        Vector3T<int> local_88;
+        AnimBase* pAVar7 = (AnimBase*)(*this_00).operator->();
+        if (pAVar7->GetTransformCount() != 0) {
+            arg1 = 0;
             local_48 = 0;
             local_40 = 0;
-            local_70 = param_5;
-            local_60 = param_4;
-            local_54._4_8_ = this;
+            local_70 = animationFrameRT51;
+            local_60 = (AnimationFrameRT5*)wrapArray3;
+            local_50 = this_00;
             do {
-                pAVar8 = (AnimBase*)shared_ptr<AnimBase>::operator->(this);
-                uVar13 = (uint)uVar14;
-                local_31 = pAVar8->GetTransformType(uVar13);
-                pAVar8 = (AnimBase*)shared_ptr<AnimBase>::operator->(this);
-                local_78 = pAVar8->GetTransformLabels(uVar13);
-                bVar2 = param_4->HasBaseTransformInSlot((uint)local_48, uVar13);
-                bVar3 = param_5->HasBaseTransformInSlot((uint)local_40, uVar13);
-                if ((bVar2 == 0) && (bVar3 == 0)) {
-                    this = (shared_ptr<AnimBase>*)local_54._4_8_;
+                pAVar7 = (AnimBase*)(*this_00).operator->();
+                uVar10 = (unsigned int)arg1;
+                local_31 = pAVar7->GetTransformType(uVar10);
+                pAVar7 = (AnimBase*)(*this_00).operator->();
+                local_78 = (Array<unsigned short>*)pAVar7->GetTransformLabels(uVar10);
+                bVar1 = wrapArray3.HasBaseTransformInSlot((unsigned int)local_48, uVar10);
+                bVar2 = animationFrameRT51.HasBaseTransformInSlot((unsigned int)local_40, uVar10);
+                if ((bVar1 == 0) && (bVar2 == 0)) {
+                    this_00 = local_50;
                 } else {
-                    if (operator!=(param_8, (_func_decltype_nullptr*)0)) {
-                        plVar9 = (long*)shared_ptr<WalkMergeDataProvider>::operator->(
-                            (shared_ptr<WalkMergeDataProvider>*)param_8);
-                        this_00 = (Array<bool, eastl::allocator>*)(**(code**)(*plVar9 + 16))(plVar9);
-                        pcVar10 = (char*)Array<bool, eastl::allocator>::operator[](this_00, uVar14);
-                        if (((bool)*pcVar10 != param_9) && (local_31 != 0)) {
-                            local_48 = (ulong)((int)local_48 + (uint)bVar2);
-                            local_40 = (ulong)((int)local_40 + (uint)bVar3);
-                            this = (shared_ptr<AnimBase>*)local_54._4_8_;
+                    if (labelDatas != nullptr) {
+                        plVar8 = (long*)labelDatas.operator->();
+                        this_01 = (Array<bool>*)(**(void (**)(...))(*plVar8 + 16))(plVar8);
+                        pcVar9 = (char*)(*this_01)[arg1];
+                        if ((*pcVar9 != (char)walkMergeDataProvider) && (local_31 != 0)) {
+                            local_48 = (unsigned long)((int)local_48 + (unsigned int)bVar1);
+                            local_40 = (unsigned long)((int)local_40 + (unsigned int)bVar2);
+                            this_00 = local_50;
                             goto LAB_100989104;
                         }
                     }
-                    pAVar12 = (AnimationFrameRT5Transform*)local_120;
-                    local_58 = (uint)local_31;
-                    AnimationFrameRT5Transform::AnimationFrameRT5Transform(pAVar12, local_31, uVar14 & 4294967295);
-                    if (bVar2 == 0) {
-                        pAVar11 = pAVar12;
-                        if (bVar3 != 0)
+                    this_02 = (AnimationFrameRT5Transform*)local_120;
+                    local_58 = (AnimTransform)local_31;
+                    new (this_02) AnimationFrameRT5Transform(local_58, uVar10);
+                    if (bVar1 == 0) {
+                        animationFrameRT5Transform2 = this_02;
+                        if (bVar2 != 0)
                             goto LAB_100989238;
                     } else {
-                        uVar13 = (uint)local_48;
-                        pAVar11 = (AnimationFrameRT5Transform*)param_4->GetTransform(uVar13);
-                        local_48 = (ulong)(uVar13 + 1);
-                        if (bVar3 != 0) {
+                        uVar10 = (unsigned int)local_48;
+                        animationFrameRT5Transform2 = wrapArray3.GetTransform(uVar10);
+                        local_48 = (unsigned long)(uVar10 + 1);
+                        if (bVar2 != 0) {
                         LAB_100989238:
-                            uVar13 = (uint)local_40;
-                            pAVar12 = (AnimationFrameRT5Transform*)local_70->GetTransform(uVar13);
-                            local_40 = (ulong)(uVar13 + 1);
+                            uVar10 = (unsigned int)local_40;
+                            this_02 = local_70->GetTransform(uVar10);
+                            local_40 = (unsigned long)(uVar10 + 1);
                         }
                     }
-                    param_4 = local_60;
+                    wrapArray3 = (WrapArray<float>*)local_60;
                     new ((local_120 + 64)) AnimationFrameRT5Transform();
-                    uVar13 = local_58;
-                    local_54._0_4_->Lerp((AnimationFrameRT5Transform*)(local_120 + 64), pAVar11, pAVar12, local_58);
-                    this = (shared_ptr<AnimBase>*)local_54._4_8_;
-                    if (param_10) {
-                        local_88->SetXYZ((Vector3T*)((long)&pAVar12->field_24 + 4));
-                        this = (shared_ptr<AnimBase>*)local_54._4_8_;
+                    animTransform = local_58;
+                    AnimationFrameRT5Transform::Lerp(*((local_120 + 64)), *animationFrameRT5Transform2, *this_02,
+                                                     local_58, arg6);
+                    this_00 = local_50;
+                    if (arg9) {
+                        local_88.SetXYZ(*((Vector3T<float>*)((long)&this_02->field_24 + 4)));
+                        this_00 = local_50;
                     } else {
-                        ApplyOriginTransform(uVar13, local_54._4_8_, param_7, param_1, uVar14 & 4294967295, local_a4,
-                                             local_dc, local_88);
+                        ApplyOriginTransform((AnimationHelper*)(unsigned long)animTransform, (AnimTransform)local_50,
+                                             (shared_ptr<AnimBase>*)animationFrameRT52, (Array<LabelData>*)this,
+                                             (WrapArray<math::Matrix43T<float> _>*)(arg1 & 4294967295), local_a4,
+                                             (int)&local_dc, &local_88, in_stack_fffffffffffffed8);
                     }
-                    uVar1 = local_78;
-                    if (((local_31 != 0) && (cVar5 = ApplyBoneTransform(uVar13, local_78, local_dc, local_d0, local_b8,
-                                                                        1, local_88, param_1),
-                                             cVar5 == '\0')) &&
-                        (cVar5 = ApplyColourTransform(uVar13, uVar1, local_dc, param_2, param_10), cVar5 == '\0')) {
-                        ApplyBillboardTransform(uVar13, uVar1, local_dc, param_3);
+                    arg2 = local_78;
+                    if (((local_31 != 0) &&
+                         (cVar4 = ApplyBoneTransform(
+                              (AnimationHelper*)(unsigned long)animTransform, (AnimTransform)local_78, &local_dc,
+                              &local_d0, &local_b8, (QuaternionT<float>*)&DAT_00000001, (uint8_t)&local_88,
+                              (Vector3T<float>*)this, (WrapArray<math::Matrix43T<float> _>*)in_stack_fffffffffffffed8),
+                          !cVar4)) &&
+                        (cVar4 =
+                             ApplyColourTransform(animTransform, arg2, &local_dc, (WrapArray<float>*)wrapArray1, arg9),
+                         !cVar4)) {
+                        ApplyBillboardTransform(animTransform, arg2, &local_dc, wrapArray2);
                     }
-                    param_5 = local_70;
+                    animationFrameRT51 = local_70;
                 }
             LAB_100989104:
-                uVar14 = uVar14 + 1;
-                pAVar8 = (AnimBase*)shared_ptr<AnimBase>::operator->(this);
-                uVar7 = pAVar8->GetTransformCount();
-            } while (uVar14 < uVar7);
+                arg1 = arg1 + 1;
+                pAVar7 = (AnimBase*)(*this_00).operator->();
+                uVar6 = pAVar7->GetTransformCount();
+            } while (arg1 < uVar6);
         }
     }
 
-    // 0x100989400, 80 bytes, placed by class name
-    // AnimationHelper::VectorArryFromLabelDeltas(WrapArray<float> const&)
-    AnimationHelper* AnimationHelper::VectorArryFromLabelDeltas(WrapArray* param_1) {
-        uchar* puVar1;
-        ulong uVar2;
-
-        puVar1 = (uchar*)param_1->end();
-        uVar2 = param_1->HeapBeginPtr();
-        new (this) WrapArray<unsigned char>(puVar1, uVar2 >> 2);
-        return this;
+    // 0x100989400
+    auto AnimationHelper::VectorArryFromLabelDeltas(const WrapArray<float>& wrapArray) {
+        auto particle = wrapArray.end();
+        unsigned long uVar1 = wrapArray.HeapBeginPtr();
+        return auto(particle, uVar1 >> 2);
     }
 
 } // namespace jag::graphics
 
 namespace jag::math {
-    // 0x100986020, 80 bytes, inline, placed by debug map only (low confidence)
-    // Matrix44T<float> Matrix44Identity<float>()
-    Matrix44T* Matrix44Identity<float>(Matrix44T* __return_storage_ptr__, math* this) {
-        new (__return_storage_ptr__)
-            Matrix44T<float>(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
-        return __return_storage_ptr__;
+    // 0x100986020
+    Matrix44T<float> Matrix44Identity<float>() {
+        Matrix44T<float>* in_RDI;
+
+        new (in_RDI) Matrix44T<float>(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
     }
 
 } // namespace jag::math
 
-// 0x100986380, 16 bytes, placed by debug map only (low confidence)
-// abs(float)
-ulong abs(float param_1) {
-    undefined4 in_XMM0_Db;
+// 0x100986380
+unsigned long abs(float arg1) {
+    uint32_t in_XMM0_Db;
 
-    return CONCAT44(in_XMM0_Db, param_1) & 9223372034707292159;
+    return (((uint64_t)in_XMM0_Db << 32) | (uint32_t)arg1) & 9223372034707292159;
 }

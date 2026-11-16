@@ -1,6 +1,5 @@
 // libs/jtl/multibuffer/SwappingDoubleBuffer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -11,144 +10,103 @@ namespace jag {
         // virtual methods in vtable order
         virtual ~SwappingDoubleBuffer();
         virtual void ConsumerLockBuffer();
-        virtual ConsumerTryLockBuffer();
+        virtual uint64_t ConsumerTryLockBuffer();
         virtual void ProducerLockBuffer();
         virtual void ProducerUnlockBuffer();
         virtual void PreemptConsumer();
-        virtual void GetBufferUnsafe(unsigned long);
+        virtual void GetBufferUnsafe(unsigned long arg1);
         virtual void Terminate();
         SwappingDoubleBuffer();
     };
 
-    // 0x100c3e730, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // SwappingDoubleBuffer<render::DeferredFrameData>::SwappingDoubleBuffer(): jumps straight to the base-object constructor
+    // 0x100c3e750
+    SwappingDoubleBuffer<render::DeferredFrameData>::SwappingDoubleBuffer() : MultiBuffer<render::DeferredFrameData>() {
+        DefaultBarrierCompletionFunction defaultBarrierCompletionFunction;
 
-    // 0x100c3e750, 128 bytes, base-object constructor, inline, placed by class name and debug map
-    // SwappingDoubleBuffer<render::DeferredFrameData>::SwappingDoubleBuffer()
-    void SwappingDoubleBuffer<render::DeferredFrameData>::SwappingDoubleBuffer() {
-        new (this) MultiBuffer<render::DeferredFrameData>();
-        *(undefined**)this = PTR_vtable_100ee79a8 + 16;
-        new ((this + 8)) std::array<render::DeferredFrameData, 2ul>();
-        new ((this + 840)) BarrierWithCompletion<DefaultBarrierCompletionFunction>(2);
-        *(undefined8*)(this + 992) = 1;
-        *(undefined4*)(this + 999) = 0;
+        new ((this + 1)) std::array<render::DeferredFrameData, 2ul>();
+        new ((this + 105)) BarrierWithCompletion<DefaultBarrierCompletionFunction>(2, defaultBarrierCompletionFunction);
+        *(uint32_t*)((long)&this[124]._vptr + 7) = 0;
     }
 
-    // 0x100c3e820, 16 bytes, complete-object destructor, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::~SwappingDoubleBuffer(): jumps straight to the base-object destructor
-
-    // 0x100c3e830, 32 bytes, deleting destructor, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::~SwappingDoubleBuffer()
-    void SwappingDoubleBuffer<render::DeferredFrameData>::~SwappingDoubleBuffer() {
-        ~SwappingDoubleBuffer(this);
-        operator_delete(this);
-    }
-
-    // 0x100c3e850, 112 bytes, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::ConsumerLockBuffer()
+    // 0x100c3e850
     void SwappingDoubleBuffer<render::DeferredFrameData>::ConsumerLockBuffer() {
-        bool bVar1;
 
-        bVar1 = ((this + 1000))->operator_cast_to_bool();
-        if (!bVar1) {
-            ((this + 840))->Wait();
-            bVar1 = ((this + 1000))->operator_cast_to_bool();
-            if (!bVar1) {
-                this[1002] = (SwappingDoubleBuffer<render::DeferredFrameData>)1;
-                ((this + 840))->Wait();
+        if (!(((this + 125))->operator_cast_to_bool())) {
+            ((this + 105))->Wait();
+            if (!(((this + 125))->operator_cast_to_bool())) {
+                *(uint8_t*)((long)&this[125]._vptr + 2) = 1;
+                ((this + 105))->Wait();
             }
         }
-        std::array<render::DeferredFrameData, 2ul>::operator[]((array<render::DeferredFrameData, 2ul>*)(this + 8),
-                                                               (long)*(int*)(this + 992));
+        (*((this + 1)))[(long)*(int*)&this[124]._vptr];
     }
 
-    // 0x100c3e8c0, 144 bytes, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::ConsumerTryLockBuffer()
-    undefined8 SwappingDoubleBuffer<render::DeferredFrameData>::ConsumerTryLockBuffer() {
+    // 0x100c3e8c0
+    uint64_t SwappingDoubleBuffer<render::DeferredFrameData>::ConsumerTryLockBuffer() {
         BarrierWithCompletion<DefaultBarrierCompletionFunction>* this_00;
-        bool bVar1;
-        undefined8 uVar2;
 
-        bVar1 = ((this + 1000))->operator_cast_to_bool();
-        if (!bVar1) {
-            this_00 = (BarrierWithCompletion<DefaultBarrierCompletionFunction>*)(this + 840);
+        bool cVar1 = ((this + 125))->operator_cast_to_bool();
+        if (!cVar1) {
+            this_00 = (BarrierWithCompletion<DefaultBarrierCompletionFunction>*)(this + 105);
             this_00->Wait();
-            this[1002] = (SwappingDoubleBuffer<render::DeferredFrameData>)0;
-            if ((this[1001] == (SwappingDoubleBuffer<render::DeferredFrameData>)0) &&
-                (bVar1 = ((this + 1000))->operator_cast_to_bool(), !bVar1)) {
+            *(uint8_t*)((long)&this[125]._vptr + 2) = 0;
+            if ((*(char*)((long)&this[125]._vptr + 1) == '\0') &&
+                (cVar1 = ((this + 125))->operator_cast_to_bool(), !cVar1)) {
                 this_00->Wait();
-                uVar2 = std::array<render::DeferredFrameData, 2ul>::operator[](
-                    (array<render::DeferredFrameData, 2ul>*)(this + 8), (long)*(int*)(this + 992));
-                return uVar2;
+                return (*((this + 1)))[(long)*(int*)&this[124]._vptr];
             }
             this_00->Wait();
         }
         return 0;
     }
 
-    // 0x100c3e950, 32 bytes, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::ProducerLockBuffer()
+    // 0x100c3e950
     void SwappingDoubleBuffer<render::DeferredFrameData>::ProducerLockBuffer() {
-        std::array<render::DeferredFrameData, 2ul>::operator[]((array<render::DeferredFrameData, 2ul>*)(this + 8),
-                                                               (long)*(int*)(this + 996));
+        (*((this + 1)))[(long)*(int*)((long)&this[124]._vptr + 4)];
     }
 
-    // 0x100c3e970, 112 bytes, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::ProducerUnlockBuffer()
+    // 0x100c3e970
     void SwappingDoubleBuffer<render::DeferredFrameData>::ProducerUnlockBuffer() {
-        bool bVar1;
 
-        bVar1 = ((this + 1000))->operator_cast_to_bool();
-        if (!bVar1) {
-            ((this + 840))->Wait();
-            eastl::swap<unsigned int>((uint*)(this + 996), (uint*)(this + 992));
-            bVar1 = ((this + 1000))->operator_cast_to_bool();
-            if (!bVar1) {
-                ((this + 840))->Wait();
+        if (!(((this + 125))->operator_cast_to_bool())) {
+            ((this + 105))->Wait();
+            eastl::swap<unsigned int>(*((int*)((long)&this[124]._vptr + 4)), *((this + 124)));
+            if (!(((this + 125))->operator_cast_to_bool())) {
+                ((this + 105))->Wait();
             }
         }
     }
 
-    // 0x100c3e9e0, 112 bytes, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::PreemptConsumer()
+    // 0x100c3e9e0
     void SwappingDoubleBuffer<render::DeferredFrameData>::PreemptConsumer() {
-        bool bVar1;
 
-        if (this[1002] == (SwappingDoubleBuffer<render::DeferredFrameData>)0) {
-            bVar1 = ((this + 1000))->operator_cast_to_bool();
-            if (!bVar1) {
-                this[1001] = (SwappingDoubleBuffer<render::DeferredFrameData>)1;
-                ((this + 840))->Wait();
-                bVar1 = ((this + 1000))->operator_cast_to_bool();
-                if (!bVar1) {
-                    ((this + 840))->Wait();
-                    this[1001] = (SwappingDoubleBuffer<render::DeferredFrameData>)0;
+        if (*(char*)((long)&this[125]._vptr + 2) == '\0') {
+            if (!(((this + 125))->operator_cast_to_bool())) {
+                *(uint8_t*)((long)&this[125]._vptr + 1) = 1;
+                ((this + 105))->Wait();
+                if (!(((this + 125))->operator_cast_to_bool())) {
+                    ((this + 105))->Wait();
+                    *(uint8_t*)((long)&this[125]._vptr + 1) = 0;
                 }
             }
         }
     }
 
-    // 0x100c3ea50, 16 bytes, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::GetBufferUnsafe(unsigned long)
-    void SwappingDoubleBuffer<render::DeferredFrameData>::GetBufferUnsafe(ulong param_1) {
-        std::array<render::DeferredFrameData, 2ul>::operator[]((array<render::DeferredFrameData, 2ul>*)(this + 8),
-                                                               param_1);
+    // 0x100c3ea50
+    void SwappingDoubleBuffer<render::DeferredFrameData>::GetBufferUnsafe(unsigned long arg1) {
+        (*((this + 1)))[arg1];
     }
 
-    // 0x100c3ea60, 48 bytes, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::Terminate()
+    // 0x100c3ea60
     void SwappingDoubleBuffer<render::DeferredFrameData>::Terminate() {
-        std::atomic<bool>::operator=((atomic<bool>*)(this + 1000), true);
-        ((this + 840))->ForceOpen();
+        (*((this + 125))) = true;
+        ((this + 105))->ForceOpen();
     }
 
-    // 0x100c3ec00, 64 bytes, base-object destructor, inline, placed by class name
-    // SwappingDoubleBuffer<render::DeferredFrameData>::~SwappingDoubleBuffer()
-    void SwappingDoubleBuffer<render::DeferredFrameData>::~SwappingDoubleBuffer() {
-        *(undefined**)this = PTR_vtable_100ee79a8 + 16;
-        ((this + 840))->~BarrierWithCompletion();
-        ((this + 8))->~array();
-        ~AutoSingleton();
+    // 0x100c3ec00
+    SwappingDoubleBuffer<render::DeferredFrameData>::~SwappingDoubleBuffer() {
+        ((this + 105))->~BarrierWithCompletion();
+        ((this + 1))->~array();
     }
 
 } // namespace jag

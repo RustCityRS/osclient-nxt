@@ -1,23 +1,22 @@
 // _unplaced/libs/graphics/unity_2.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics
 
 namespace jag::graphics {
-    // 0x100d4ba90, 36 bytes, __const
-    SHCoefsDefaults::SHDefaultRedCoefs = {1068123463,  -1092358029, 1017038163, 1035971141, -1123834066,
-                                          -1133870803, 1036651893,  1025099073, 1049558599};
+    // 0x100d4ba90
+    int32_t SHCoefsDefaults::SHDefaultRedCoefs[9] = {1068123463,  -1092358029, 1017038163, 1035971141, -1123834066,
+                                                     -1133870803, 1036651893,  1025099073, 1049558599};
 
-    // 0x100d4bab4, 36 bytes, __const
-    SHCoefsDefaults::SHDefaultGreenCoefs = {1073450805, -1087258058, 1006157460, 1041492696, -1118872856,
-                                            1013359150, 1044916529,  1019929937, 1057315386};
+    // 0x100d4bab4
+    int32_t SHCoefsDefaults::SHDefaultGreenCoefs[9] = {1073450805, -1087258058, 1006157460, 1041492696, -1118872856,
+                                                       1013359150, 1044916529,  1019929937, 1057315386};
 
-    // 0x100d4bad8, 36 bytes, __const
-    SHCoefsDefaults::SHDefaultBlueCoefs = {1076114927, -1080702077, 1029051772,  1031184627, 1032649779,
-                                           1028404473, 1048201088,  -1134269870, 1058486533};
+    // 0x100d4bad8
+    int32_t SHCoefsDefaults::SHDefaultBlueCoefs[9] = {1076114927, -1080702077, 1029051772,  1031184627, 1032649779,
+                                                      1028404473, 1048201088,  -1134269870, 1058486533};
 
-    // 0x100d4bb00, 16384 bytes, __const
-    BlueNoise::Values = {
+    // 0x100d4bb00
+    int32_t BlueNoise::Values[4096] = {
         -996167330,  608556815,   1217658486,  -1303262562, 1052871146,  1204323108,  1899505660,  -128468474,
         -669889150,  -891403643,  -242663769,  -664950253,  -935138639,  2134465705,  -425437997,  -1712205639,
         147832860,   -1944553314, 175323478,   967804615,   1620451267,  -1309880314, -1696312214, 394853443,
@@ -532,17 +531,17 @@ namespace jag::graphics {
         1172934899,  -394527034,  905579560,   -962172206,  -1573809139, -1461602550, -1148531609, 817922114,
     };
 
-    // 0x100d4fb0c, 4 bytes, __const
-    DEF_SCATTERING_DENSITY = 925353388;
+    // 0x100d4fb0c
+    int32_t DEF_SCATTERING_DENSITY = 925353388;
 
-    // 0x100d4fb10, 4 bytes, __const
+    // 0x100d4fb10
     float DEF_SCATTERING_START_DISTANCE = 17500.0f;
 
-    // 0x100d4fb14, 4 bytes, __const
+    // 0x100d4fb14
     float DEF_SCATTERING_OBJECT_FALLOFF = 8.0f;
 
-    // 0x100d4fb18, 184 bytes, __const
-    DEF_SCATTERING_HORIZON_FALLOFF = {
+    // 0x100d4fb18
+    int32_t DEF_SCATTERING_HORIZON_FALLOFF[46] = {
         1069547520, 0,          21,          -1,         0,           -1,         0,         2,
         3,          0,          3,           1,          -1114141280, 1182792704, 947913216, 947782140,
         1182859522, 986731861,  -1160751787, 994650368,  1065353217,  1023443073, 0,         0,
@@ -551,8 +550,8 @@ namespace jag::graphics {
         1065353216, 1065353216, 0,           0,          0,           0,
     };
 
-    // 0x100f44680, 968 bytes, __data
-    EffectTypeStrings = {
+    // 0x100f44680
+    const void* EffectTypeStrings[121] = {
         "DEBUG_WIREFRAME",
         "DEBUG_ALBEDO",
         "DEBUG_NORMALS",
@@ -676,41 +675,37 @@ namespace jag::graphics {
         "DEBUG_VERTEX_DEPTH_BIAS",
     };
 
-    // 0x103bc082c, 12 bytes, __common; set at startup by ___cxx_global_var_init.224
+    // 0x103bc082c, set at startup by ___cxx_global_var_init.224
     math::ColourHSL DEF_OUTSCATTERING_AMOUNT = ColourHSL(0.3, 0.3, 0.3);
 
-    // 0x103bc0838, 12 bytes, __common; set at startup by ___cxx_global_var_init.225
+    // 0x103bc0838, set at startup by ___cxx_global_var_init.225
     math::ColourHSL DEF_INSCATTERING_AMOUNT = ColourHSL(0.3, 0.3, 0.5);
 
-    // 0x103bc0844, 12 bytes, __common; set at startup by ___cxx_global_var_init.226
+    // 0x103bc0844, set at startup by ___cxx_global_var_init.226
     math::ColourHSL DEF_SCATTERING_TINT = ColourHSL(0.6, 0.6, 0.6);
 
-    // 0x104232d90, 64 bytes, __bss; zero-initialised
-    MAYA_ANIM_INVERT_MATRIX;
+    // 0x104232d90
+    uint8_t MAYA_ANIM_INVERT_MATRIX[64];
 
-    // 0x104232dd0, 16 bytes, __bss; zero-initialised
-    WORLD_ORTHOGONAL;
+    // 0x104232dd0
+    uint8_t WORLD_ORTHOGONAL[16];
 
-    // 0x10094ce20, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.37
-    void ___cxx_global_var_init_37() {
-        undefined1 local_50[40];
-        Vector3T<int> local_28[16];
+    // 0x10094ce20
+    void ___cxx_global_var_init_37(void) {
+        Matrix33T<float> local_50;
 
-        math::Matrix33Scaling<float>((math*)local_50, 1.0, 1.0, -1.0);
-        math::Vector3T<int>::Vector3T(local_28);
-        new (&MAYA_ANIM_INVERT_MATRIX) math::Matrix44T<float>(local_50, local_28);
+        math::Matrix33Scaling<float>(1.0, 1.0, -1.0);
+        Vector3T<int> local_28;
+        new ((Matrix44T<float>*)&MAYA_ANIM_INVERT_MATRIX) math::Matrix44T<float>(local_50, local_28);
     }
 
-    // 0x10094ce80, 32 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.38
-    void ___cxx_global_var_init_38() {
-        new (&WORLD_ORTHOGONAL) math::ColourHSL(-1.5707964, -1.5707964, 0.0);
+    // 0x10094ce80
+    void ___cxx_global_var_init_38(void) {
+        new ((ColourHSL*)&WORLD_ORTHOGONAL) math::ColourHSL(-1.5707964, -1.5707964, 0.0);
     }
 
-    // 0x10094cea0, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.40
-    void ___cxx_global_var_init_40() {
+    // 0x10094cea0
+    void ___cxx_global_var_init_40(void) {
         if (*PTR_VIEWRT_LUMINANCE_ADAPTED_100ee4048 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_ADAPTED_100ee4048) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_ADAPTED_100ee5578) HashedString("LUMINANCE_ADAPTED");
@@ -719,9 +714,8 @@ namespace jag::graphics {
         }
     }
 
-    // 0x10094cf00, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.42
-    void ___cxx_global_var_init_42() {
+    // 0x10094cf00
+    void ___cxx_global_var_init_42(void) {
         if (*PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee4058 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee4058) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_ADAPTED_PREVIOUS_100ee5588) HashedString("LUMINANCE_ADAPTED_PREVIOUS");
@@ -730,9 +724,8 @@ namespace jag::graphics {
         }
     }
 
-    // 0x10094cf60, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.44
-    void ___cxx_global_var_init_44() {
+    // 0x10094cf60
+    void ___cxx_global_var_init_44(void) {
         if (*PTR_VIEWRT_LUMINANCE_AVERAGE_100ee4050 == '\0') {
             if (___cxa_guard_acquire(PTR_VIEWRT_LUMINANCE_AVERAGE_100ee4050) != 0) {
                 new (PTR_VIEWRT_LUMINANCE_AVERAGE_100ee5580) HashedString("VIEWRT_LUMINANCE_AVERAGE");
@@ -741,203 +734,136 @@ namespace jag::graphics {
         }
     }
 
-    // 0x10094d0a0, 32 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.224
-    void ___cxx_global_var_init_224() {
-        new (&DEF_OUTSCATTERING_AMOUNT) math::ColourHSL(0.3, 0.3, 0.3);
-    }
-
-    // 0x10094d0c0, 48 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.225
-    void ___cxx_global_var_init_225() {
-        new (&DEF_INSCATTERING_AMOUNT) math::ColourHSL(0.3, 0.3, 0.5);
-    }
-
-    // 0x10094d0f0, 32 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.226
-    void ___cxx_global_var_init_226() {
-        new (&DEF_SCATTERING_TINT) math::ColourHSL(0.6, 0.6, 0.6);
-    }
-
-    // 0x10094d160, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.300
-    void ___cxx_global_var_init_300() {
-        new (&PointLightIndicesEffect::s_effectMap) eastl::fixed_map<int, shared_ptr<PointLightIndicesEffect>, 25ul,
-                                                                     true, eastl::less<int>, eastl::allocator>();
+    // 0x10094d160
+    void ___cxx_global_var_init_300(void) {
+        new ((fixed_map<int, shared_ptr<PointLightIndicesEffect>, 25ul>*)&PointLightIndicesEffect::s_effectMap)
+            eastl::fixed_map<int, shared_ptr<PointLightIndicesEffect>, 25ul>();
         ___cxa_atexit(PTR__fixed_map_100ee6e28, &PointLightIndicesEffect::s_effectMap, 4294967296);
     }
 
-    // 0x10094d1e0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.311
-    void ___cxx_global_var_init_311() {
-        undefined* puVar1;
-
-        puVar1 = PTR_LOOK_100ee47d8;
+    // 0x10094d1e0
+    void ___cxx_global_var_init_311(void) {
+        uint8_t* puVar1 = PTR_LOOK_100ee47d8;
         if (*PTR_LOOK_100ee47d8 == '\0') {
             new (PTR_LOOK_100ee66e0) math::ColourHSL(0.0, 0.0, 1.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d220, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.312
-    void ___cxx_global_var_init_312() {
-        undefined* puVar1;
-
-        puVar1 = PTR_UP_100ee47c8;
+    // 0x10094d220
+    void ___cxx_global_var_init_312(void) {
+        uint8_t* puVar1 = PTR_UP_100ee47c8;
         if (*PTR_UP_100ee47c8 == '\0') {
             new (PTR_UP_100ee66d0) math::ColourHSL(0.0, 1.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d260, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.313
-    void ___cxx_global_var_init_313() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee4298;
+    // 0x10094d260
+    void ___cxx_global_var_init_313(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee4298;
         if (*PTR_m_pSingleton_100ee4298 == '\0') {
-            ___cxa_atexit(std::unique_ptr<ThreadPoolSingleton, std::default_delete<ThreadPoolSingleton>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee5948, 4294967296);
+            ___cxa_atexit(std::unique_ptr<ThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5948, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d2a0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.314
-    void ___cxx_global_var_init_314() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee42a0;
+    // 0x10094d2a0
+    void ___cxx_global_var_init_314(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee42a0;
         if (*PTR_m_pSingleton_100ee42a0 == '\0') {
-            ___cxa_atexit(
-                std::unique_ptr<ShaderThreadPoolSingleton, std::default_delete<ShaderThreadPoolSingleton>>::~unique_ptr,
-                PTR_m_pSingleton_100ee5950, 4294967296);
+            ___cxa_atexit(std::unique_ptr<ShaderThreadPoolSingleton>::~unique_ptr, PTR_m_pSingleton_100ee5950,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d2e0, 48 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.315
-    void ___cxx_global_var_init_315() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee4790;
+    // 0x10094d2e0
+    void ___cxx_global_var_init_315(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee4790;
         if (*PTR_ZERO_100ee4790 == '\0') {
-            new (PTR_ZERO_100ee6698) math::Point<float>(0.0, 0.0);
+            new (PTR_ZERO_100ee6698) math::Point(0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d310, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.316
-    void ___cxx_global_var_init_316() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4518;
+    // 0x10094d310
+    void ___cxx_global_var_init_316(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4518;
         if (*PTR_m_mutex_100ee4518 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5df0, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d350, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.317
-    void ___cxx_global_var_init_317() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee4800;
+    // 0x10094d350
+    void ___cxx_global_var_init_317(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee4800;
         if (*PTR_ZERO_100ee4800 == '\0') {
             new (PTR_ZERO_100ee6708) ImVec4(0.0, 0.0, 0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d390, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.318
-    void ___cxx_global_var_init_318() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49c8;
+    // 0x10094d390
+    void ___cxx_global_var_init_318(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49c8;
         if (*PTR_m_pSingleton_100ee49c8 == '\0') {
-            ___cxa_atexit(std::unique_ptr<render::ShaderProgramManager,
-                                          std::default_delete<render::ShaderProgramManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c38, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::ShaderProgramManager>::~unique_ptr, PTR_m_pSingleton_100ee6c38,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d3d0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.319
-    void ___cxx_global_var_init_319() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49d0;
+    // 0x10094d3d0
+    void ___cxx_global_var_init_319(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49d0;
         if (*PTR_m_pSingleton_100ee49d0 == '\0') {
-            ___cxa_atexit(std::unique_ptr<render::VertexDeclarationManager,
-                                          std::default_delete<render::VertexDeclarationManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c40, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::VertexDeclarationManager>::~unique_ptr, PTR_m_pSingleton_100ee6c40,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d410, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.320
-    void ___cxx_global_var_init_320() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49d8;
+    // 0x10094d410
+    void ___cxx_global_var_init_320(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49d8;
         if (*PTR_m_pSingleton_100ee49d8 == '\0') {
-            ___cxa_atexit(std::unique_ptr<AnimationManager, std::default_delete<AnimationManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c48, 4294967296);
+            ___cxa_atexit(std::unique_ptr<AnimationManager>::~unique_ptr, PTR_m_pSingleton_100ee6c48, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d450, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.321
-    void ___cxx_global_var_init_321() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49a0;
+    // 0x10094d450
+    void ___cxx_global_var_init_321(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49a0;
         if (*PTR_m_pSingleton_100ee49a0 == '\0') {
-            ___cxa_atexit(std::unique_ptr<render::RenderDevice, std::default_delete<render::RenderDevice>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee6c10, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::RenderDevice>::~unique_ptr, PTR_m_pSingleton_100ee6c10, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d490, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.322
-    void ___cxx_global_var_init_322() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee45b0;
+    // 0x10094d490
+    void ___cxx_global_var_init_322(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee45b0;
         if (*PTR_m_mutex_100ee45b0 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5f20, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d4d0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.323
-    void ___cxx_global_var_init_323() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee47e0;
+    // 0x10094d4d0
+    void ___cxx_global_var_init_323(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee47e0;
         if (*PTR_ZERO_100ee47e0 == '\0') {
             new (PTR_ZERO_100ee66e8) math::ColourHSL(0.0, 0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d510, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.324
-    void ___cxx_global_var_init_324() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee4820;
+    // 0x10094d510
+    void ___cxx_global_var_init_324(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee4820;
         if (*PTR_ZERO_100ee4820 == '\0') {
             new (PTR_ZERO_100ee6728)
                 math::Matrix44T<float>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
@@ -945,24 +871,18 @@ namespace jag::graphics {
         }
     }
 
-    // 0x10094d570, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.325
-    void ___cxx_global_var_init_325() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee45d8;
+    // 0x10094d570
+    void ___cxx_global_var_init_325(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee45d8;
         if (*PTR_m_mutex_100ee45d8 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5f70, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d5b0, 96 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.326
-    void ___cxx_global_var_init_326() {
-        undefined* puVar1;
-
-        puVar1 = PTR_IDENTITY_100ee4828;
+    // 0x10094d5b0
+    void ___cxx_global_var_init_326(void) {
+        uint8_t* puVar1 = PTR_IDENTITY_100ee4828;
         if (*PTR_IDENTITY_100ee4828 == '\0') {
             new (PTR_IDENTITY_100ee6730)
                 math::Matrix44T<float>(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0);
@@ -970,124 +890,91 @@ namespace jag::graphics {
         }
     }
 
-    // 0x10094d610, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.327
-    void ___cxx_global_var_init_327() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee4590;
+    // 0x10094d610
+    void ___cxx_global_var_init_327(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee4590;
         if (*PTR_m_mutex_100ee4590 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5ee0, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d650, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.328
-    void ___cxx_global_var_init_328() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee4290;
+    // 0x10094d650
+    void ___cxx_global_var_init_328(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee4290;
         if (*PTR_m_pSingleton_100ee4290 == '\0') {
-            ___cxa_atexit(std::unique_ptr<graphicutils::BatchDestroyManager,
-                                          std::default_delete<graphicutils::BatchDestroyManager>>::~unique_ptr,
-                          PTR_m_pSingleton_100ee5940, 4294967296);
+            ___cxa_atexit(std::unique_ptr<graphicutils::BatchDestroyManager>::~unique_ptr, PTR_m_pSingleton_100ee5940,
+                          4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d690, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.329
-    void ___cxx_global_var_init_329() {
-        undefined* puVar1;
-
-        puVar1 = PTR_RIGHT_100ee47e8;
+    // 0x10094d690
+    void ___cxx_global_var_init_329(void) {
+        uint8_t* puVar1 = PTR_RIGHT_100ee47e8;
         if (*PTR_RIGHT_100ee47e8 == '\0') {
             new (PTR_RIGHT_100ee66f0) math::ColourHSL(1.0, 0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d6d0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.330
-    void ___cxx_global_var_init_330() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ONE_100ee4798;
+    // 0x10094d6d0
+    void ___cxx_global_var_init_330(void) {
+        uint8_t* puVar1 = PTR_ONE_100ee4798;
         if (*PTR_ONE_100ee4798 == '\0') {
-            new (PTR_ONE_100ee66a0) math::Point<float>(1.0, 1.0);
+            new (PTR_ONE_100ee66a0) math::Point(1.0, 1.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d710, 48 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.331
-    void ___cxx_global_var_init_331() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ZERO_100ee47a0;
+    // 0x10094d710
+    void ___cxx_global_var_init_331(void) {
+        uint8_t* puVar1 = PTR_ZERO_100ee47a0;
         if (*PTR_ZERO_100ee47a0 == '\0') {
-            new (PTR_ZERO_100ee66a8) math::Point<float>(0.0, 0.0);
+            new (PTR_ZERO_100ee66a8) math::Point(0.0, 0.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d740, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.332
-    void ___cxx_global_var_init_332() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ONE_100ee47f8;
+    // 0x10094d740
+    void ___cxx_global_var_init_332(void) {
+        uint8_t* puVar1 = PTR_ONE_100ee47f8;
         if (*PTR_ONE_100ee47f8 == '\0') {
             new (PTR_ONE_100ee6700) ImVec4(1.0, 1.0, 1.0, 1.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d780, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.333
-    void ___cxx_global_var_init_333() {
-        undefined* puVar1;
-
-        puVar1 = PTR_ONE_100ee47d0;
+    // 0x10094d780
+    void ___cxx_global_var_init_333(void) {
+        uint8_t* puVar1 = PTR_ONE_100ee47d0;
         if (*PTR_ONE_100ee47d0 == '\0') {
             new (PTR_ONE_100ee66d8) math::ColourHSL(1.0, 1.0, 1.0);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d7c0, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.334
-    void ___cxx_global_var_init_334() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_pSingleton_100ee49a8;
+    // 0x10094d7c0
+    void ___cxx_global_var_init_334(void) {
+        uint8_t* puVar1 = PTR_m_pSingleton_100ee49a8;
         if (*PTR_m_pSingleton_100ee49a8 == '\0') {
-            ___cxa_atexit(
-                std::unique_ptr<render::BuiltinStates, std::default_delete<render::BuiltinStates>>::~unique_ptr,
-                PTR_m_pSingleton_100ee6c18, 4294967296);
+            ___cxa_atexit(std::unique_ptr<render::BuiltinStates>::~unique_ptr, PTR_m_pSingleton_100ee6c18, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d800, 64 bytes, placed by nothing (unplaced)
-    // ___cxx_global_var_init.335
-    void ___cxx_global_var_init_335() {
-        undefined* puVar1;
-
-        puVar1 = PTR_m_mutex_100ee45b8;
+    // 0x10094d800
+    void ___cxx_global_var_init_335(void) {
+        uint8_t* puVar1 = PTR_m_mutex_100ee45b8;
         if (*PTR_m_mutex_100ee45b8 == '\0') {
             ___cxa_atexit(PTR__mutex_100ee6ef8, PTR_m_mutex_100ee5f30, 4294967296);
             *puVar1 = 1;
         }
     }
 
-    // 0x10094d840, 114 bytes, placed by nothing (unplaced)
-    // __GLOBAL__sub_I_unity_2_cxx.cxx
-    void __GLOBAL__sub_I_unity_2_cxx_cxx() {
-        undefined8 uVar1;
-
-        uVar1 = _objc_autoreleasePoolPush();
+    // 0x10094d840
+    void __GLOBAL__sub_I_unity_2_cxx_cxx(void) {
+        uint64_t uVar1 = _objc_autoreleasePoolPush();
         ___cxx_global_var_init();
         ___cxx_global_var_init_6();
         ___cxx_global_var_init_16();

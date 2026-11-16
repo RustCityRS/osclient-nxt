@@ -1,134 +1,116 @@
 // libs/oldscape/jagex3/dash3d/Pix3D.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "Pix3D.h"
 
 namespace jag::oldscape::dash3d {
-    // 0x103936078, 16 bytes, __common; set at startup by ___cxx_global_var_init.129
-    shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> Pix3D::m_textureProvider;
+    // 0x103936078, set at startup by ___cxx_global_var_init.129
+    shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> Pix3D::m_textureProvider =
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
 
-    // 0x10394be70, 2048 bytes, __common; zero-initialised
-    Pix3D::m_divTable;
+    // 0x10394be70
+    uint8_t Pix3D::m_divTable[2048];
 
-    // 0x10394c670, 8192 bytes, __common; zero-initialised
-    Pix3D::m_divTable2;
+    // 0x10394c670
+    std::array<int, 2048ul> Pix3D::m_divTable2;
 
-    // 0x10394e670, 8192 bytes, __common; zero-initialised
-    Pix3D::m_sinTable;
+    // 0x10394e670
+    std::array<int, 2048ul> Pix3D::m_sinTable;
 
-    // 0x103950670, 8192 bytes, __common; zero-initialised
-    Pix3D::m_cosTable;
+    // 0x103950670
+    std::array<int, 2048ul> Pix3D::m_cosTable;
 
-    // 0x103952670, 262144 bytes, __common; zero-initialised
-    Pix3D::m_colourTable;
+    // 0x103952670
+    std::array<int, _65536ul> Pix3D::m_colourTable;
 
-    // 0x100344ce0, 16 bytes, placed by class name and debug map
-    // Pix3D::GetColourTable()
-    undefined1* Pix3D::GetColourTable() {
-        return &m_colourTable;
+    // 0x100344ce0
+    array<int, _65536ul>* Pix3D::GetColourTable() {
+        return (array<int, _65536ul>*)&m_colourTable;
     }
 
-    // 0x100345590, 16 bytes, placed by class name and debug map
-    // Pix3D::GetCosTable()
-    undefined1* Pix3D::GetCosTable() {
-        return &m_cosTable;
+    // 0x100345590
+    array<int, _2048ul>* Pix3D::GetCosTable() {
+        return (array<int, _2048ul>*)&m_cosTable;
     }
 
-    // 0x10034dea0, 16 bytes, placed by class name
-    // Pix3D::GetSinTable()
-    undefined1* Pix3D::GetSinTable() {
-        return &m_sinTable;
+    // 0x10034dea0
+    array<int, _2048ul>* Pix3D::GetSinTable() {
+        return (array<int, _2048ul>*)&m_sinTable;
     }
 
-    // 0x10034deb0, 32 bytes, placed by class name
-    // Pix3D::RotateXAroundY(int, int, int, int)
-    int Pix3D::RotateXAroundY(int param_1, int param_2, int param_3, int param_4) {
-        return param_2 * param_4 + param_1 * param_3 >> 16;
+    // 0x10034deb0
+    int Pix3D::RotateXAroundY(int arg1, int arg2, int arg3, int arg4) {
+        return arg2 * arg4 + arg1 * arg3 >> 16;
     }
 
-    // 0x10034ded0, 32 bytes, placed by class name
-    // Pix3D::RotateZAroundY(int, int, int, int)
-    int Pix3D::RotateZAroundY(int param_1, int param_2, int param_3, int param_4) {
-        return param_2 * param_3 - param_1 * param_4 >> 16;
+    // 0x10034ded0
+    int Pix3D::RotateZAroundY(int arg1, int arg2, int arg3, int arg4) {
+        return arg2 * arg3 - arg1 * arg4 >> 16;
     }
 
-    // 0x10035fb00, 16 bytes, placed by class name
-    // Pix3D::GetRenderDepth() const
-    int Pix3D::GetRenderDepth() {
+    // 0x10035fb00
+    int Pix3D::GetRenderDepth() const {
         return m_renderDepth;
     }
 
-    // 0x10035fb10, 32 bytes, placed by class name
-    // Pix3D::InvRotateYAroundX(int, int, int, int)
-    int Pix3D::InvRotateYAroundX(int param_1, int param_2, int param_3, int param_4) {
-        return param_2 * param_4 + param_1 * param_3 >> 16;
+    // 0x10035fb10
+    int Pix3D::InvRotateYAroundX(int arg1, int arg2, int arg3, int arg4) {
+        return arg2 * arg4 + arg1 * arg3 >> 16;
     }
 
-    // 0x10035fb30, 32 bytes, placed by class name
-    // Pix3D::InvRotateZAroundX(int, int, int, int)
-    int Pix3D::InvRotateZAroundX(int param_1, int param_2, int param_3, int param_4) {
-        return param_2 * param_3 - param_1 * param_4 >> 16;
+    // 0x10035fb30
+    int Pix3D::InvRotateZAroundX(int arg1, int arg2, int arg3, int arg4) {
+        return arg2 * arg3 - arg1 * arg4 >> 16;
     }
 
-    // 0x10035fb50, 32 bytes, placed by class name
-    // Pix3D::InvRotateXAroundY(int, int, int, int)
-    int Pix3D::InvRotateXAroundY(int param_1, int param_2, int param_3, int param_4) {
-        return param_1 * param_3 - param_2 * param_4 >> 16;
+    // 0x10035fb50
+    int Pix3D::InvRotateXAroundY(int arg1, int arg2, int arg3, int arg4) {
+        return arg1 * arg3 - arg2 * arg4 >> 16;
     }
 
-    // 0x10035fb70, 32 bytes, placed by class name
-    // Pix3D::InvRotateZAroundY(int, int, int, int)
-    int Pix3D::InvRotateZAroundY(int param_1, int param_2, int param_3, int param_4) {
-        return param_2 * param_3 + param_1 * param_4 >> 16;
+    // 0x10035fb70
+    int Pix3D::InvRotateZAroundY(int arg1, int arg2, int arg3, int arg4) {
+        return arg2 * arg3 + arg1 * arg4 >> 16;
     }
 
-    // 0x100365660, 16 bytes, placed by class name
-    // Pix3D::GetDivTable2()
-    undefined1* Pix3D::GetDivTable2() {
+    // 0x100365660
+    void Pix3D::GetDivTable2() {
         return &m_divTable2;
     }
 
-    // 0x100366480, 144 bytes, placed by class name
-    // Pix3D::SetRenderClipping(int, int, int, int)
-    void Pix3D::SetRenderClipping(int param_1, int param_2, int param_3, int param_4) {
-        undefined1* this_00;
-        int iVar1;
-        int* piVar2;
-        ulong uVar3;
+    // 0x100366480
+    void Pix3D::SetRenderClipping(int arg1, int arg2, int arg3, int arg4) {
+        unsigned int uVar2;
+        int* piVar3;
+        unsigned long arg1_00;
 
-        m_xClip3 = param_3 - param_1;
-        field_32 = param_4 - param_2;
-        (*(code*)field_0[4])();
-        this_00 = &field_56;
-        iVar1 = this_00->size();
+        m_xClip3 = arg3 - arg1;
+        field_32 = arg4 - arg2;
+        ResetOrigin();
+        uint8_t* this_00 = &field_56;
+        int iVar1 = this_00->size();
         if (iVar1 < (int)field_32) {
-            jag::math::NearestPowerOf2GreaterOrEqual(field_32);
-            eastl::vector<int, eastl::allocator>::resize((ulong)this_00);
+            uVar2 = jag::math::NearestPowerOf2GreaterOrEqual(field_32);
+            this_00->resize((unsigned long)uVar2);
         }
         if (0 < (int)field_32) {
-            iVar1 = param_2 * m_width + param_1;
-            uVar3 = 0;
+            iVar1 = arg2 * m_width + arg1;
+            arg1_00 = 0;
             do {
-                piVar2 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)this_00,
-                                                                                uVar3);
-                *piVar2 = iVar1;
+                piVar3 = (int*)(*this_00)[arg1_00];
+                *piVar3 = iVar1;
                 iVar1 = iVar1 + m_width;
-                uVar3 = uVar3 + 1;
-            } while ((long)uVar3 < (long)(int)field_32);
+                arg1_00 = arg1_00 + 1;
+            } while ((long)arg1_00 < (long)(int)field_32);
         }
     }
 
-    // 0x1003665e0, 64 bytes, placed by class name
-    // Pix3D::ResetOrigin()
+    // 0x1003665e0
     void Pix3D::ResetOrigin() {
-        int iVar1;
-        int iVar2;
-
-        iVar1 = m_xClip3 / 2;
+        int iVar1 = m_xClip3 / 2;
         m_xOrigin = iVar1;
-        iVar2 = (int)field_32 / 2;
+        int iVar2 = (int)field_32 / 2;
         m_yOrigin = iVar2;
         m_boundLeft = -iVar1;
         m_boundRight = m_xClip3 - iVar1;
@@ -136,28 +118,21 @@ namespace jag::oldscape::dash3d {
         m_boundBottom = field_32 - iVar2;
     }
 
-    // 0x100366650, 16 bytes, placed by class name
-    // Pix3D::SetRenderZoom(int, int)
-    void Pix3D::SetRenderZoom(int param_1, int param_2) {
-        SetZoom(this, param_1);
+    // 0x100366650
+    void Pix3D::SetRenderZoom(int arg1, int arg2) {
+        SetZoom(arg1);
     }
 
-    // 0x100366670, 32 bytes, placed by class name
-    // Pix3D::CalculateRenderDepth(int)
-    void Pix3D::CalculateRenderDepth(int param_1) {
-        SetRenderDepth(this, param_1 * 140);
+    // 0x100366670
+    void Pix3D::CalculateRenderDepth(int arg1) {
+        SetRenderDepth(arg1 * 140);
     }
 
-    // 0x100366760, 64 bytes, placed by class name
-    // Pix3D::TextureLightColour(int, int)
-    int Pix3D::TextureLightColour(int param_1, int param_2) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-
-        iVar1 = (param_1 & 127U) * param_2;
-        iVar2 = iVar1 >> 7;
-        iVar3 = 126;
+    // 0x100366760
+    int Pix3D::TextureLightColour(int arg1, int arg2) {
+        int iVar1 = (arg1 & 127U) * arg2;
+        int iVar2 = iVar1 >> 7;
+        int iVar3 = 126;
         if (iVar2 < 126) {
             iVar3 = iVar2;
         }
@@ -165,66 +140,63 @@ namespace jag::oldscape::dash3d {
         if (255 < iVar1) {
             iVar2 = iVar3;
         }
-        return iVar2 + (param_1 & 65408U);
+        return iVar2 + (arg1 & 65408U);
     }
 
-    // 0x1003671a0, 32 bytes, placed by class name
-    // Pix3D::InitColourTable(double)
-    void Pix3D::InitColourTable(double param_1) {
-        InitColourTable(param_1, 0, 512);
+    // 0x1003671a0
+    void Pix3D::InitColourTable(double arg1) {
+        InitColourTable(arg1, 0, 512);
     }
 
-    // 0x1003703f0, 16 bytes, placed by class name
-    // Pix3D::GetDivTable()
-    undefined1* Pix3D::GetDivTable() {
+    // 0x1003703f0
+    void Pix3D::GetDivTable() {
         return &m_divTable;
     }
 
-    // 0x100370400, 272 bytes, placed by class name
-    // Pix3D::InitTables()
+    // 0x100370400
     void Pix3D::InitTables() {
-        undefined4* puVar1;
+        uint32_t* puVar1;
         int* piVar2;
-        ulong uVar3;
+        unsigned long in_RSI;
         double dVar4;
         double in_XMM1_Qa;
 
-        uVar3 = 1;
+        array<int, 512ul>* this_00 = (array<int, 512ul>*)&DAT_00000001;
         do {
-            puVar1 = (undefined4*)std::array<int, 512ul>::operator[](uVar3);
-            *puVar1 = (int)(32768 / (uVar3 & 4294967295));
-            uVar3 = uVar3 + 1;
-        } while (uVar3 != 512);
-        uVar3 = 1;
+            puVar1 = (uint32_t*)(*this_00)[in_RSI];
+            *puVar1 = (int)(32768 / ((unsigned long)this_00 & 4294967295));
+            this_00 = this_00 + 1;
+        } while (this_00 != (array<int, 512ul>*)512);
+        unsigned long uVar3 = 1;
         do {
-            puVar1 = (undefined4*)std::array<int, 2048ul>::operator[]((array<int, 2048ul>*)&m_divTable2, uVar3);
+            puVar1 = &m_divTable2[uVar3];
             *puVar1 = (int)(65536 / (uVar3 & 4294967295));
             uVar3 = uVar3 + 1;
         } while (uVar3 != 2048);
         uVar3 = 0;
         do {
             dVar4 = (double)___sincos_stret((double)(int)uVar3 * 0.0030679615);
-            piVar2 = (int*)std::array<int, 2048ul>::operator[]((array<int, 2048ul>*)&m_sinTable, uVar3);
+            piVar2 = &m_sinTable[uVar3];
             *piVar2 = (int)(dVar4 * 65536.0);
-            piVar2 = (int*)std::array<int, 2048ul>::operator[]((array<int, 2048ul>*)&m_cosTable, uVar3);
+            piVar2 = &m_cosTable[uVar3];
             *piVar2 = (int)(in_XMM1_Qa * 65536.0);
             uVar3 = uVar3 + 1;
             in_XMM1_Qa = 65536.0;
         } while (uVar3 != 2048);
     }
 
-    // 0x100370540, 1168 bytes, placed by class name
-    // Pix3D::InitColourTable(double, int, int)
-    void Pix3D::InitColourTable(double param_1, int param_2, int param_3) {
+    // 0x100370540
+    void Pix3D::InitColourTable(double arg1, int arg2, int arg3) {
         double dVar1;
         double dVar2;
         int iVar3;
-        int* piVar4;
-        int iVar5;
+        int* extraout_RAX;
+        int iVar4;
+        uint32_t in_register_00000034;
         int iVar6;
-        ulong uVar7;
-        ulong uVar8;
-        float fVar9;
+        array<int, 65536ul>* array;
+        unsigned long uVar7;
+        double dVar9;
         double dVar10;
         double dVar11;
         double dVar12;
@@ -236,224 +208,199 @@ namespace jag::oldscape::dash3d {
         double dVar18;
         double dVar19;
         double dVar20;
-        double dVar21;
 
-        fVar9 = (float)(&jag::math::g_Rand)->FRand(0.03);
-        if (param_2 < param_3) {
-            iVar5 = param_2 << 7;
+        float fVar8 = (float)((Random*)&jag::math::g_Rand)->FRand(0.03);
+        if (arg2 < arg3) {
+            iVar4 = arg2 << 7;
             do {
-                dVar10 = (double)(param_2 >> 3) * 0.015625;
-                dVar21 = dVar10 + 0.0078125;
-                dVar1 = (double)(param_2 & 7) * 0.125;
-                dVar19 = dVar1 + 0.0625;
-                uVar7 = -(ulong)(1.0 < dVar10 + 0.3411458333333333);
-                dVar2 = (double)(~uVar7 & (ulong)(dVar10 + 0.3411458333333333) |
-                                 (ulong)(dVar10 + -0.6588541666666667) & uVar7);
-                uVar7 = -(ulong)(dVar10 + -0.3255208333333333 < 0.0);
-                dVar10 = (double)(~uVar7 & (ulong)(dVar10 + -0.3255208333333333) |
-                                  (ulong)(dVar10 + 0.6744791666666667) & uVar7);
-                dVar15 = dVar2 * 6.0;
-                dVar16 = dVar21 * 6.0;
-                dVar17 = dVar10 * 6.0;
+                dVar9 = (double)(arg2 >> 3) * 0.015625f;
+                dVar20 = dVar9 + 0.0078125f;
+                dVar1 = (double)(arg2 & 7) * 0.125;
+                dVar18 = dVar1 + 0.0625;
+                uVar7 = -(unsigned long)(1.0 < dVar9 + 0.3411458333333333);
+                dVar2 = (double)(~uVar7 & (unsigned long)(dVar9 + 0.3411458333333333) |
+                                 (unsigned long)(dVar9 - 0.6588541666666667) & uVar7);
+                uVar7 = -(unsigned long)(dVar9 - 0.3255208333333333 < 0.0);
+                dVar9 = (double)(~uVar7 & (unsigned long)(dVar9 - 0.3255208333333333) |
+                                 (unsigned long)(dVar9 + 0.6744791666666667) & uVar7);
+                dVar14 = dVar2 * 6.0;
+                dVar15 = dVar20 * 6.0;
+                dVar16 = dVar9 * 6.0;
                 iVar6 = 0;
-                dVar20 = 0.0;
-                uVar7 = (long)iVar5;
+                dVar19 = 0.0;
+                array = (array<int, 65536ul>*)(long)iVar4;
                 do {
-                    dVar11 = dVar20 * 0.0078125;
-                    if (dVar19 == 0.0) {
-                        dVar13 = dVar11;
-                        dVar18 = dVar11;
+                    dVar10 = dVar19 * 0.0078125f;
+                    if (dVar18 == 0.0) {
+                        dVar12 = dVar10;
+                        dVar17 = dVar10;
                     } else {
-                        dVar12 = (double)(-(ulong)(dVar11 < 0.5) & (ulong)(dVar11 * (dVar1 + 1.0625)) |
-                                          ~-(ulong)(dVar11 < 0.5) & (ulong)((dVar11 + dVar19) - dVar11 * dVar19));
-                        dVar14 = dVar20 * 0.015625 - dVar12;
-                        if (1.0 <= dVar15) {
-                            uVar8 = -(ulong)(dVar2 + dVar2 < 1.0);
-                            dVar11 = (double)(~uVar8 & (ulong)dVar14 | uVar8 & (ulong)dVar12);
+                        dVar11 = (double)(-(unsigned long)(dVar10 < 0.5) & (unsigned long)(dVar10 * (dVar1 + 1.0625)) |
+                                          ~-(unsigned long)(dVar10 < 0.5) &
+                                              (unsigned long)((dVar10 + dVar18) - dVar10 * dVar18));
+                        dVar13 = dVar19 * 0.015625f - dVar11;
+                        if (1.0 <= dVar14) {
+                            uVar7 = -(unsigned long)(dVar2 + dVar2 < 1.0);
+                            dVar10 = (double)(~uVar7 & (unsigned long)dVar13 | uVar7 & (unsigned long)dVar11);
                             if (dVar2 + dVar2 < 1.0)
                                 goto LAB_1003708f0;
                             if (dVar2 * 3.0 < 2.0) {
-                                dVar11 = (dVar12 - dVar14) * (4.0 - dVar15) + dVar14;
+                                dVar10 = (dVar11 - dVar13) * (4.0 - dVar14) + dVar13;
                             }
-                            if (dVar16 < 1.0)
+                            if (dVar15 < 1.0)
                                 goto LAB_1003708d6;
                         LAB_100370900:
-                            uVar8 = -(ulong)(dVar21 + dVar21 < 1.0);
-                            dVar13 = (double)(~uVar8 & (ulong)dVar14 | uVar8 & (ulong)dVar12);
-                            if ((1.0 <= dVar21 + dVar21) && (dVar21 * 3.0 < 2.0)) {
-                                dVar13 = (dVar12 - dVar14) * ((double)(param_2 >> 3) * -0.09375 + 3.953125);
+                            uVar7 = -(unsigned long)(dVar20 + dVar20 < 1.0);
+                            dVar12 = (double)(~uVar7 & (unsigned long)dVar13 | uVar7 & (unsigned long)dVar11);
+                            if ((1.0 <= dVar20 + dVar20) && (dVar20 * 3.0 < 2.0)) {
+                                dVar12 = (dVar11 - dVar13) * ((double)(arg2 >> 3) * -0.09375f + 3.953125f);
                                 goto LAB_10037093f;
                             }
                         } else {
-                            dVar11 = (dVar12 - dVar14) * dVar15 + dVar14;
+                            dVar10 = (dVar11 - dVar13) * dVar14 + dVar13;
                         LAB_1003708f0:
-                            if (1.0 <= dVar16)
+                            if (1.0 <= dVar15)
                                 goto LAB_100370900;
                         LAB_1003708d6:
-                            dVar13 = (dVar12 - dVar14) * dVar16;
+                            dVar12 = (dVar11 - dVar13) * dVar15;
                         LAB_10037093f:
-                            dVar13 = dVar13 + dVar14;
+                            dVar12 = dVar12 + dVar13;
                         }
-                        if (1.0 <= dVar17) {
-                            uVar8 = -(ulong)(dVar10 + dVar10 < 1.0);
-                            dVar18 = (double)(~uVar8 & (ulong)dVar14 | uVar8 & (ulong)dVar12);
-                            if ((dVar10 + dVar10 < 1.0) || (2.0 <= dVar10 * 3.0))
+                        if (1.0 <= dVar16) {
+                            uVar7 = -(unsigned long)(dVar9 + dVar9 < 1.0);
+                            dVar17 = (double)(~uVar7 & (unsigned long)dVar13 | uVar7 & (unsigned long)dVar11);
+                            if ((dVar9 + dVar9 < 1.0) || (2.0 <= dVar9 * 3.0))
                                 goto LAB_100370768;
-                            dVar18 = (dVar12 - dVar14) * (4.0 - dVar17);
+                            dVar17 = (dVar11 - dVar13) * (4.0 - dVar16);
                         } else {
-                            dVar18 = (dVar12 - dVar14) * dVar17;
+                            dVar17 = (dVar11 - dVar13) * dVar16;
                         }
-                        dVar18 = dVar18 + dVar14;
+                        dVar17 = dVar17 + dVar13;
                     }
                 LAB_100370768:
-                    iVar3 = jag::math::RunetekColour::GammaCorrectOSRS(((int)(dVar11 * 256.0) * 65536 +
-                                                                        (int)(long)(dVar13 * 256.0) * 256 +
-                                                                        (int)(long)(dVar18 * 256.0)) -
+                    iVar3 = jag::math::RunetekColour::GammaCorrectOSRS(((int)(dVar10 * 256.0) * 65536 +
+                                                                        (int)(long)(dVar12 * 256.0) * 256 +
+                                                                        (int)(long)(dVar17 * 256.0)) -
                                                                            16777216,
-                                                                       (double)(fVar9 + -0.015) + param_1);
+                                                                       (double)(fVar8 - 0.015) + arg1);
                     if (iVar3 == 0) {
                         iVar3 = 1;
                     }
-                    piVar4 = (int*)std::array<int, 65536ul>::operator[](uVar7);
-                    *piVar4 = iVar3;
-                    dVar20 = dVar20 + 1.0;
-                    iVar6 = iVar6 + -1;
-                    uVar7 = uVar7 + 1;
+                    (*array)[(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg3)];
+                    *extraout_RAX = iVar3;
+                    dVar19 = dVar19 + 1.0;
+                    iVar6 = iVar6 - 1;
+                    array = array + 1;
                 } while (iVar6 != -128);
-                iVar5 = iVar5 + 128;
-                param_2 = param_2 + 1;
-            } while (param_2 != param_3);
+                iVar4 = iVar4 + 128;
+                arg2 = arg2 + 1;
+            } while (arg2 != arg3);
         }
     }
 
-    // 0x1003709f0, 32 bytes, placed by class name
-    // Pix3D::SetTextures(shared_ptr<TextureProvider>)
-    void Pix3D::SetTextures(shared_ptr param_1) {
-        shared_ptr* in_RDI;
-
-        shared_ptr<TextureProvider>::operator=((shared_ptr<TextureProvider>*)&m_textureProvider, in_RDI);
+    // 0x1003709f0
+    void Pix3D::SetTextures(shared_ptr<TextureProvider> textureProvider) {
+        m_textureProvider = *textureProvider;
     }
 
-    // 0x100370a50, 16 bytes, placed by class name
-    // Pix3D::SetZoom(int)
-    void Pix3D::SetZoom(int param_1) {
-        m_zoom = param_1;
+    // 0x100370a50
+    void Pix3D::SetZoom(int arg1) {
+        m_zoom = arg1;
     }
 
-    // 0x100370a60, 16 bytes, placed by class name
-    // Pix3D::GetZoom()
+    // 0x100370a60
     int Pix3D::GetZoom() {
         return m_zoom;
     }
 
-    // 0x100370a70, 16 bytes, placed by class name
-    // Pix3D::GetXOrigin()
+    // 0x100370a70
     int Pix3D::GetXOrigin() {
         return m_xOrigin;
     }
 
-    // 0x100370a80, 16 bytes, placed by class name
-    // Pix3D::GetYOrigin()
+    // 0x100370a80
     int Pix3D::GetYOrigin() {
         return m_yOrigin;
     }
 
-    // 0x100370a90, 16 bytes, placed by class name
-    // Pix3D::GetXClip3()
+    // 0x100370a90
     int Pix3D::GetXClip3() {
         return m_xClip3;
     }
 
-    // 0x100370aa0, 16 bytes, placed by class name
-    // Pix3D::GetBoundLeft()
+    // 0x100370aa0
     int Pix3D::GetBoundLeft() {
         return m_boundLeft;
     }
 
-    // 0x100370ab0, 16 bytes, placed by class name
-    // Pix3D::GetBoundRight()
+    // 0x100370ab0
     int Pix3D::GetBoundRight() {
         return m_boundRight;
     }
 
-    // 0x100370ac0, 16 bytes, placed by class name
-    // Pix3D::GetBoundTop()
+    // 0x100370ac0
     int Pix3D::GetBoundTop() {
         return m_boundTop;
     }
 
-    // 0x100370ad0, 16 bytes, placed by class name
-    // Pix3D::GetBoundBottom()
-    uint Pix3D::GetBoundBottom() {
+    // 0x100370ad0
+    unsigned int Pix3D::GetBoundBottom() {
         return m_boundBottom;
     }
 
-    // 0x100370ae0, 16 bytes, placed by class name
-    // Pix3D::SetTrans(int)
-    void Pix3D::SetTrans(int param_1) {
-        m_trans = param_1;
+    // 0x100370ae0
+    void Pix3D::SetTrans(int arg1) {
+        m_trans = arg1;
     }
 
-    // 0x100370af0, 16 bytes, placed by class name
-    // Pix3D::GetTrans()
+    // 0x100370af0
     int Pix3D::GetTrans() {
         return m_trans;
     }
 
-    // 0x100370b00, 16 bytes, placed by class name
-    // Pix3D::SetHClip(bool)
-    void Pix3D::SetHClip(bool param_1) {
-        m_hClip = param_1;
+    // 0x100370b00
+    void Pix3D::SetHClip(bool arg1) {
+        m_hClip = arg1;
     }
 
-    // 0x100370b10, 16 bytes, placed by class name
-    // Pix3D::SetLowDetail(bool)
-    void Pix3D::SetLowDetail(bool param_1) {
-        m_lowDetail = param_1;
+    // 0x100370b10
+    void Pix3D::SetLowDetail(bool arg1) {
+        m_lowDetail = arg1;
     }
 
-    // 0x100370b20, 64 bytes, placed by class name
-    // Pix3D::SetClipping(int, int, int, int)
-    void Pix3D::SetClipping(int param_1, int param_2, int param_3, int param_4) {
-        int iVar1;
-
-        if (m_width < param_3) {
-            param_3 = m_width;
+    // 0x100370b20
+    void Pix3D::SetClipping(int arg1, int arg2, int arg3, int arg4) {
+        if (m_width < arg3) {
+            arg3 = m_width;
         }
-        if (m_height < param_4) {
-            param_4 = m_height;
+        if (m_height < arg4) {
+            arg4 = m_height;
         }
-        if (param_2 < 0) {
-            param_2 = 0;
+        if (arg2 < 0) {
+            arg2 = 0;
         }
-        iVar1 = 0;
-        if (-1 < param_1) {
-            iVar1 = param_1;
+        int iVar1 = 0;
+        if (-1 < arg1) {
+            iVar1 = arg1;
         }
         field_96 = iVar1;
-        field_88 = param_2;
-        field_100 = param_3;
-        field_92 = param_4;
+        field_88 = arg2;
+        field_100 = arg3;
+        field_92 = arg4;
     }
 
-    // 0x100370b60, 32 bytes, placed by class name
-    // Pix3D::SetRenderClipping()
+    // 0x100370b60
     void Pix3D::SetRenderClipping() {
-        (*(code*)field_0[3])(this, field_96, field_88, field_100, field_92);
+        SetRenderClipping((int)this, field_96, field_88, field_100);
     }
 
-    // 0x100370bc0, 112 bytes, placed by class name
-    // Pix3D::SetOrigin(int, int)
-    void Pix3D::SetOrigin(int param_1, int param_2) {
-        int iVar1;
-        int* piVar2;
-        int iVar3;
-
-        piVar2 = (int*)eastl::vector<int, eastl::allocator>::operator[]((vector<int, eastl::allocator>*)&field_56, 0);
-        iVar1 = *piVar2 / m_width;
-        iVar3 = (m_width * iVar1 - *piVar2) + param_1;
+    // 0x100370bc0
+    void Pix3D::SetOrigin(int arg1, int arg2) {
+        int* piVar2 = &field_56[0];
+        int iVar1 = *piVar2 / m_width;
+        int iVar3 = (m_width * iVar1 - *piVar2) + arg1;
         m_xOrigin = iVar3;
-        iVar1 = param_2 - iVar1;
+        iVar1 = arg2 - iVar1;
         m_yOrigin = iVar1;
         m_boundLeft = -iVar3;
         m_boundRight = m_xClip3 - iVar3;
@@ -461,154 +408,132 @@ namespace jag::oldscape::dash3d {
         m_boundBottom = field_32 - iVar1;
     }
 
-    // 0x100370c30, 48 bytes, placed by class name
-    // Pix3D::SetHClip(int, int, int)
-    void Pix3D::SetHClip(int param_1, int param_2, int param_3) {
+    // 0x100370c30
+    void Pix3D::SetHClip(int arg1, int arg2, int arg3) {
         int iVar1;
-        bool bVar2;
 
-        bVar2 = true;
-        if ((((-1 < param_1) && (iVar1 = m_xClip3, param_1 <= iVar1)) && (-1 < param_2)) &&
-            ((param_2 <= iVar1 && (-1 < param_3)))) {
-            bVar2 = iVar1 < param_3;
+        bool bVar2 = true;
+        if ((((-1 < arg1) && (iVar1 = m_xClip3, arg1 <= iVar1)) && (-1 < arg2)) && ((arg2 <= iVar1 && (-1 < arg3)))) {
+            bVar2 = iVar1 < arg3;
         }
         m_hClip = bVar2;
     }
 
-    // 0x100370c60, 16 bytes, placed by class name
-    // Pix3D::GetWidth()
+    // 0x100370c60
     int Pix3D::GetWidth() {
         return m_width;
     }
 
-    // 0x100370c70, 16 bytes, placed by class name
-    // Pix3D::GetHeight()
+    // 0x100370c70
     int Pix3D::GetHeight() {
         return m_height;
     }
 
-    // 0x100370c80, 16 bytes, placed by class name
-    // Pix3D::SetRenderDepth(int)
-    void Pix3D::SetRenderDepth(int param_1) {
-        m_renderDepth = param_1;
+    // 0x100370c80
+    void Pix3D::SetRenderDepth(int arg1) {
+        m_renderDepth = arg1;
     }
 
-    // 0x100370c90, 32 bytes, placed by class name
-    // Pix3D::RotateYAroundX(int, int, int, int)
-    int Pix3D::RotateYAroundX(int param_1, int param_2, int param_3, int param_4) {
-        return param_1 * param_3 - param_2 * param_4 >> 16;
+    // 0x100370c90
+    int Pix3D::RotateYAroundX(int arg1, int arg2, int arg3, int arg4) {
+        return arg1 * arg3 - arg2 * arg4 >> 16;
     }
 
-    // 0x100370cb0, 32 bytes, placed by class name
-    // Pix3D::RotateZAroundX(int, int, int, int)
-    int Pix3D::RotateZAroundX(int param_1, int param_2, int param_3, int param_4) {
-        return param_1 * param_4 + param_2 * param_3 >> 16;
+    // 0x100370cb0
+    int Pix3D::RotateZAroundX(int arg1, int arg2, int arg3, int arg4) {
+        return arg1 * arg4 + arg2 * arg3 >> 16;
     }
 
-    // 0x10038f980, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.129
-    void ___cxx_global_var_init_129(undefined8 param_1, _func_decltype_nullptr* param_2) {
-        new (&Pix3D::m_textureProvider) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(param_2);
-        ___cxa_atexit(PTR__shared_ptr_100ee54e8, &Pix3D::m_textureProvider, 4294967296);
-    }
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    Pix3D::~Pix3D();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    Pix3D::~Pix3D();
+    // 0x100c92b50: Pix3D::~Pix3D() has the same machine code as InlineFatalBreak()
 
 } // namespace jag::oldscape::dash3d
 
 namespace jag {
-    // 0x100347490, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientLocAnim>::type make_shared<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int const&, bool&, decltype(nullptr), int&>(int&, int&&, int&, int&, int&, int&, int const&, bool&, decltype(nullptr)&&, int&)
-    jag* jag::make_shared<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int const&, bool&,
-                          decltype(nullptr), int&>(int* param_1, int* param_2, int* param_3, int* param_4, int* param_5,
-                                                   int* param_6, int* param_7, bool* param_8,
-                                                   _func_decltype_nullptr** param_9, int* param_10) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100347490
+    shared_ptr_if_not_array<oldscape::ClientLocAnim>::type
+    make_shared<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int const&, bool&, decltype(nullptr), int&>(
+        int& arg1, int&& arg2, int& arg3, int& arg4, int& arg5, int& arg6, const int& arg7, bool& arg8,
+        decltype(nullptr)&& arg9, int& arg10) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000028;
         int local_44;
         ClientLocAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(96, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] =
                 placement_new<oldscape::ClientLocAnim, int&, int, int&, int&, int&, int&, int const&, bool&,
-                              decltype(nullptr), int&>((void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4,
-                                                       param_5, param_6, param_7, param_8, param_9, param_10);
+                              decltype(nullptr), int&>((void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7,
+                                                       (int*)arg8, (bool*)arg9, (void**)arg10, in_stack_00000028);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x100347570, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientLocAnim>::type make_shared<oldscape::ClientLocAnim, int&, int&, int&, int&, int&, int&, int const&, bool&, decltype(nullptr), int&>(int&, int&, int&, int&, int&, int&, int const&, bool&, decltype(nullptr)&&, int&)
-    jag* jag::make_shared<oldscape::ClientLocAnim, int&, int&, int&, int&, int&, int&, int const&, bool&,
-                          decltype(nullptr), int&>(int* param_1, int* param_2, int* param_3, int* param_4, int* param_5,
-                                                   int* param_6, int* param_7, bool* param_8,
-                                                   _func_decltype_nullptr** param_9, int* param_10) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100347570
+    shared_ptr_if_not_array<oldscape::ClientLocAnim>::type
+    make_shared<oldscape::ClientLocAnim, int&, int&, int&, int&, int&, int&, int const&, bool&, decltype(nullptr),
+                int&>(int& arg1, int& arg2, int& arg3, int& arg4, int& arg5, int& arg6, const int& arg7, bool& arg8,
+                      decltype(nullptr)&& arg9, int& arg10) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000028;
         int local_44;
         ClientLocAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(96, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] =
                 placement_new<oldscape::ClientLocAnim, int&, int&, int&, int&, int&, int&, int const&, bool&,
-                              decltype(nullptr), int&>((void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4,
-                                                       param_5, param_6, param_7, param_8, param_9, param_10);
+                              decltype(nullptr), int&>((void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7,
+                                                       (int*)arg8, (bool*)arg9, (void**)arg10, in_stack_00000028);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
-    // 0x100347650, 224 bytes, inline, placed by debug map only (low confidence)
-    // shared_ptr_if_not_array<oldscape::ClientLocAnim>::type make_shared<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int const&, bool&, decltype(nullptr), int&>(int&, int&&, int&&, int&, int&, int&, int const&, bool&, decltype(nullptr)&&, int&)
-    jag* jag::make_shared<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int const&, bool&,
-                          decltype(nullptr), int&>(int* param_1, int* param_2, int* param_3, int* param_4, int* param_5,
-                                                   int* param_6, int* param_7, bool* param_8,
-                                                   _func_decltype_nullptr** param_9, int* param_10) {
-        void* pvVar1;
-        ref_counter_shared* prVar2;
+    // 0x100347650
+    shared_ptr_if_not_array<oldscape::ClientLocAnim>::type
+    make_shared<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int const&, bool&, decltype(nullptr), int&>(
+        int& arg1, int&& arg2, int&& arg3, int& arg4, int& arg5, int& arg6, const int& arg7, bool& arg8,
+        decltype(nullptr)&& arg9, int& arg10) {
+        AutoSingleton<ShaderThreadPoolSingleton>* autoSingleton;
+        int* in_stack_00000028;
         int local_44;
         ClientLocAnim* local_40[2];
 
-        pvVar1 = (void*)aligned_alloc(96, 8);
-        if (pvVar1 == (void*)0) {
-            new (this) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(8);
+        auto arg1_00 = aligned_alloc(96, 8);
+        if (arg1_00 == nullptr) {
+            new (arg1) shared_ptr();
         } else {
             local_40[0] =
                 placement_new<oldscape::ClientLocAnim, int&, int, int, int&, int&, int&, int const&, bool&,
-                              decltype(nullptr), int&>((void*)((long)pvVar1 + 32), param_1, param_2, param_3, param_4,
-                                                       param_5, param_6, param_7, param_8, param_9, param_10);
+                              decltype(nullptr), int&>((void*)((long)arg1_00 + 32), arg2, arg3, arg4, arg5, arg6, arg7,
+                                                       (int*)arg8, (bool*)arg9, (void**)arg10, in_stack_00000028);
             local_44 = 1;
-            prVar2 = placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
-                pvVar1, &local_44, local_40);
-            prVar2->~AutoSingleton(local_40[0]);
-            prVar2->~AutoSingleton(local_40[0]);
-            new (this)
-                eastl::hashtable_iterator<eastl::pair<int const, unsigned int>, false, false>(prVar2, local_40[0]);
+            autoSingleton = (AutoSingleton<ShaderThreadPoolSingleton>*)
+                placement_new<ref_counter_shared<oldscape::ClientLocAnim>, int, oldscape::ClientLocAnim*&>(
+                    arg1_00, &local_44, local_40);
+            autoSingleton->~AutoSingleton();
+            autoSingleton->~AutoSingleton();
+            new (arg1) eastl::hashtable_iterator(autoSingleton, (unsigned long)local_40[0]);
         }
-        return this;
+        return arg1;
     }
 
 } // namespace jag

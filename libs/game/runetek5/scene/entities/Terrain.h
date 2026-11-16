@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/entities/Terrain.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,141 +8,132 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~Terrain();
-        virtual void MainLogic(graphics::RT7Core&, unsigned int, math::Matrix44T<float> const&);
-        virtual void GatherDrawableElements(graphics::DrawableQueue&, graphics::RT7Core&, math::Matrix44T<float> const&,
-                                            graphics::SceneViewData const&, graphics::EffectManager const&);
+        virtual void MainLogic(graphics::RT7Core& rt7Core, unsigned int arg2, const math::Matrix44T<float>& matrix44);
+        virtual void GatherDrawableElements(graphics::DrawableQueue& drawableQueue, graphics::RT7Core& rt7Core,
+                                            const math::Matrix44T<float>& matrix44,
+                                            const graphics::SceneViewData& sceneViewData,
+                                            const graphics::EffectManager& effectManager);
         virtual void Destruct();
         virtual bool CanRender() const;
         shared_ptr GetWaterHeights() const;
-        GetWaterPatches() const;
-        GetAABB() const;
-        GetHasFade() const;
-        GetLightProbe();
-        Terrain(graphics::GraphNode*, shared_ptr<World> const&, TerrainInputData&, graphics::RT7Core*);
-        void Build(AssetBuilder*, int, ConfigProvider*);
-        ulong BuildTerrain(AssetBuilder*, int, ConfigProvider*);
+        uint8_t* GetWaterPatches() const;
+        uint8_t* GetAABB() const;
+        uint8_t GetHasFade() const;
+        uint8_t* GetLightProbe();
+        Terrain(graphics::GraphNode* graphNode, const shared_ptr<World>& world, TerrainInputData& terrainInputData,
+                graphics::RT7Core* rt7Core);
+        void Build(AssetBuilder* assetBuilder, int arg2, ConfigProvider* configProvider);
+        unsigned long BuildTerrain(AssetBuilder* assetBuilder, int arg2, ConfigProvider* configProvider);
         void CreateCombinedLocalAABB();
-        GetTileHeight(int&, int, int, int, bool, HeightOffsetType) const;
-        GetTerrainData(shared_ptr<PacketT<Array<unsigned char, eastl::allocator>>>&, Js5ResourceProvider*, int, int);
+        uint8_t* GetTileHeight(int& arg1, int arg2, int arg3, int arg4, bool arg5,
+                               HeightOffsetType heightOffsetType) const;
+        void GetTerrainData(shared_ptr<PacketT<Array<unsigned char>>>& arg1, Js5ResourceProvider* js5ResourceProvider,
+                            int arg3, int arg4);
         void PreventFadeIn();
         void UpdateIrradiance();
-        CalculateRemoveRoofChunks(bool&, bool&, graphics::TerrainPatch&, bool, bool, bool, bool, int, int, World&, int);
-        void DebugShowPrimitiveTerrainPatchWhole(bool, bool, graphics::TerrainPatch&, int);
-        void AllocateLocationHeightOffsets(int);
-        void ImportHeightAdjustments(Terrain const&);
-        void AddLocationHeightOffset(int, int, int, int, int, int, int);
-        void RemoveLocationHeightOffset(int, int, int, int, int, int, int);
-        int GetLocationHeightOffset(int, int, int, HeightOffsetType) const;
-        GetFineHeight(int&, int, int, int, bool, HeightOffsetType) const;
-        int GetFineWaterDepth(int, int, int) const;
-        uint CalculatePrimaryWaterHeightNearTile(int, int) const;
-        byte HasWater() const;
-        ulong GetTileRoofLinkInner(
-            eastl::fixed_vector<
-                shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>, 4ul, true,
-                eastl::allocator> const&,
-            int, int, int) const;
-        bool LinkMapValidPos(int, int, int) const;
-        ulong IsReadyToRender() const;
-        ulong DebugShowPrimitiveTerrainPatch(bool, graphics::TerrainPatch&,
-                                             eastl::pair<int, graphics::RenderChunk> const&, int, int,
-                                             math::Rect<int> const&, int, int, int, int, bool);
-        void GetTileLink(int, int, int) const;
-        void GetRemoveRoofID(int, int, int) const;
-        GetUnderworldData(int, int) const;
-        void GetHeightMap(int) const;
-        void SetHideTerrain(bool);
-        IsHeightZero() const;
-        static /* 8 bytes */ m_debugPrimitiveText;
+        Terrain* CalculateRemoveRoofChunks(bool& arg1, bool& arg2, graphics::TerrainPatch& terrainPatch, bool arg4,
+                                           bool arg5, bool arg6, bool arg7, int arg8, int arg9, World& world,
+                                           int arg11);
+        void DebugShowPrimitiveTerrainPatchWhole(bool arg1, bool arg2, graphics::TerrainPatch& terrainPatch, int arg4);
+        void AllocateLocationHeightOffsets(int arg1);
+        void ImportHeightAdjustments(const Terrain& terrain);
+        void AddLocationHeightOffset(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7);
+        void RemoveLocationHeightOffset(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7);
+        int GetLocationHeightOffset(int arg1, int arg2, int arg3, HeightOffsetType heightOffsetType) const;
+        uint8_t* GetFineHeight(int& arg1, int arg2, int arg3, int arg4, bool arg5,
+                               HeightOffsetType heightOffsetType) const;
+        int GetFineWaterDepth(int arg1, int arg2, int arg3) const;
+        unsigned int CalculatePrimaryWaterHeightNearTile(int arg1, int arg2) const;
+        bool HasWater() const;
+        unsigned long GetTileRoofLinkInner(
+            const eastl::fixed_vector<shared_ptr<eastl::vector<eastl::vector<unsigned char>>>, 4ul>& arg1, int arg2,
+            int arg3, int arg4) const;
+        bool LinkMapValidPos(int arg1, int arg2, int arg3) const;
+        unsigned long IsReadyToRender() const;
+        unsigned long DebugShowPrimitiveTerrainPatch(bool arg1, graphics::TerrainPatch& terrainPatch,
+                                                     const eastl::pair<int, graphics::RenderChunk>& arg3, int arg4,
+                                                     int arg5, const math::Rect<int>& rect, int arg7, int arg8,
+                                                     int arg9, int arg10, bool arg11);
+        void GetTileLink(int arg1, int arg2, int arg3) const;
+        void GetRemoveRoofID(int arg1, int arg2, int arg3) const;
+        uint8_t GetUnderworldData(int arg1, int arg2) const;
+        void GetHeightMap(int arg1) const;
+        void SetHideTerrain(bool arg1);
+        bool IsHeightZero() const;
+        static int64_t m_debugPrimitiveText;
 
-        // data members, from how the methods use this: 1688 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined** field_8; // offset 8
-        char _unknown_16[49];
-        byte field_65; // offset 65
-        byte field_66; // offset 66
-        char _unknown_67[221];
-        undefined4 field_288; // offset 288
-        undefined4 field_292; // offset 292
-        char _unknown_296[152];
-        TerrainInputData field_448; // offset 448
-        undefined1 m_heightZero;    // offset 449
-        char _unknown_450[134];
-        shared_ptr m_waterHeights; // offset 584
-        char _unknown_600[224];
-        undefined8 field_824; // offset 824
-        shared_ptr field_832; // offset 832
-        byte field_848;       // offset 848
-        undefined1 m_hasFade; // offset 849
-        char _unknown_850[2];
-        float field_852;    // offset 852
-        bool m_hideTerrain; // offset 856
-        char _unknown_857[823];
-        RT7Core* field_1680; // offset 1680
+    private:
+        uint8_t** field_8;
+        uint8_t _unknown_16[48];
+        char field_64;
+        uint8_t field_65;
+        uint8_t field_66;
+        uint8_t field_67;
+        int field_68;
+        uint32_t field_72;
+        uint8_t _unknown_76[40];
+        uint32_t field_116;
+        uint8_t _unknown_120[168];
+        uint32_t field_288;
+        uint32_t field_292;
+        uint8_t _unknown_296[152];
+        TerrainInputData field_448;
+        uint8_t m_heightZero;
+        uint8_t _unknown_450[134];
+        shared_ptr m_waterHeights;
+        uint8_t _unknown_600[224];
+        uint64_t field_824;
+        shared_ptr field_832;
+        uint8_t field_848;
+        uint8_t m_hasFade;
+        uint8_t _unknown_850[2];
+        float field_852;
+        bool m_hideTerrain;
+        uint8_t _unknown_857[823];
+        RT7Core* field_1680;
     };
 
-    // 0x1003c1280, 16 bytes, inline, placed by class name and debug map
-    // Terrain::GetHasFade() const
-    undefined1 Terrain::GetHasFade() {
+    // 0x1003c1280
+    uint8_t Terrain::GetHasFade() const {
         return m_hasFade;
     }
 
-    // 0x1004133b0, 32 bytes, inline, placed by class name
-    // Terrain::GetTileLink(int, int, int) const
-    void Terrain::GetTileLink(int param_1, int param_2, int param_3) {
-        GetTileRoofLinkInner(this, (fixed_vector*)&field_600, param_1, param_2, param_3);
+    // 0x1004133b0
+    void Terrain::GetTileLink(int arg1, int arg2, int arg3) const {
+        GetTileRoofLinkInner(field_600, arg1, arg2, arg3);
     }
 
-    // 0x100413470, 32 bytes, inline, placed by class name
-    // Terrain::GetRemoveRoofID(int, int, int) const
-    void Terrain::GetRemoveRoofID(int param_1, int param_2, int param_3) {
-        GetTileRoofLinkInner(this, (fixed_vector*)&field_704, param_1, param_2, param_3);
+    // 0x100413470
+    void Terrain::GetRemoveRoofID(int arg1, int arg2, int arg3) const {
+        GetTileRoofLinkInner(field_704, arg1, arg2, arg3);
     }
 
-    // 0x100413520, 64 bytes, inline, placed by class name
-    // Terrain::GetUnderworldData(int, int) const
-    undefined1 Terrain::GetUnderworldData(int param_1, int param_2) {
-        vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>* this_00;
-        vector<unsigned char, eastl::allocator>* this_01;
-        undefined1* puVar1;
-
-        this_00 = (vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>*)
-            shared_ptr<eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>::operator*(
-                (shared_ptr<
-                    eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>>*)&field_808);
-        this_01 = (vector<unsigned char, eastl::allocator>*)
-            eastl::vector<eastl::vector<unsigned char, eastl::allocator>, eastl::allocator>::operator[](
-                this_00, (long)(param_1 + 1));
-        puVar1 = (undefined1*)eastl::vector<unsigned char, eastl::allocator>::operator[](this_01, (long)(param_2 + 1));
+    // 0x100413520
+    uint8_t Terrain::GetUnderworldData(int arg1, int arg2) const {
+        vector<eastl::vector<unsigned char>>* this_00 = (vector<eastl::vector<unsigned char>>*)*field_808;
+        vector<unsigned char>* this_01 = (vector<unsigned char>*)(*this_00)[(long)(arg1 + 1)];
+        uint8_t* puVar1 = (uint8_t*)(*this_01)[(long)(arg2 + 1)];
         return *puVar1;
     }
 
-    // 0x1004135f0, 80 bytes, inline, placed by class name
-    // Terrain::GetHeightMap(int) const
-    void Terrain::GetHeightMap(int param_1) {
-        if (4 < (uint)param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x1004135f0
+    void Terrain::GetHeightMap(int arg1) const {
+        if (4 < (unsigned int)arg1) {
             LogAssert("level >= 0 && level <= constants::MapConstants::LEVELS",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/scene/"
                       "entities/Terrain.h",
-                      127, (char*)0);
+                      127, nullptr);
         }
-        eastl::vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                      eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>::
-        operator[]((vector<shared_ptr<eastl::vector<eastl::vector<int, eastl::allocator>, eastl::allocator>>,
-                           eastl::fixed_vector_allocator<16ul, 4ul, 8ul, 0ul, true, eastl::allocator>>*)&field_456,
-                   (long)param_1);
+        field_456[(long)arg1];
     }
 
-    // 0x1004144c0, 16 bytes, inline, placed by class name
-    // Terrain::SetHideTerrain(bool)
-    void Terrain::SetHideTerrain(bool param_1) {
-        m_hideTerrain = param_1;
+    // 0x1004144c0
+    void Terrain::SetHideTerrain(bool arg1) {
+        m_hideTerrain = arg1;
     }
 
-    // 0x100491bf0, 16 bytes, inline, placed by class name
-    // Terrain::IsHeightZero() const
-    undefined1 Terrain::IsHeightZero() {
+    // 0x100491bf0
+    bool Terrain::IsHeightZero() const {
         return m_heightZero;
     }
 
@@ -159,23 +149,17 @@ namespace jag::graphics {
     public:
         TerrainTriangle();
 
-        // data members, from how the methods use this: 41 bytes
-        undefined4 field_0; // offset 0
-        undefined2 field_4; // offset 4
-        char _unknown_6[2];
-        undefined4 field_8;  // offset 8
-        undefined8 field_12; // offset 12
-        undefined8 field_20; // offset 20
-        undefined1 field_28; // offset 28
-        char _unknown_29[3];
-        undefined8 field_32; // offset 32
-        undefined1 field_40; // offset 40
+    private:
+        uint32_t field_0;
+        uint16_t field_4;
+        uint8_t _unknown_6[2];
+        uint32_t field_8;
+        uint64_t field_12;
+        uint64_t field_20;
+        uint8_t field_28;
+        uint8_t _unknown_29[3];
+        uint64_t field_32;
+        uint8_t field_40;
     };
-
-    // 0x1003c1290, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // SunlightEffectSaveRestore::SunlightEffectSaveRestore(SunlightDirectLighting&, DirectionalLight const&): jumps straight to the base-object constructor
-
-    // 0x1007b3e50, 16 bytes, complete-object constructor, inline, placed by class header (inline)
-    // TerrainTriangle::TerrainTriangle(): jumps straight to the base-object constructor
 
 } // namespace jag::graphics

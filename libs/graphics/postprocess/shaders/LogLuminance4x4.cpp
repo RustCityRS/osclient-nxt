@@ -1,30 +1,24 @@
 // libs/graphics/postprocess/shaders/LogLuminance4x4.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics.postprocess
 
 namespace jag::postprocess {
     class LogLuminance4x4 {
     public:
-        LogLuminance4x4* BuildFSFragment(LuminanceShaderOutputFormat, bool);
-
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        auto BuildFSFragment(LuminanceShaderOutputFormat luminanceShaderOutputFormat, bool arg2);
     };
 
-    // 0x1009b79c0, 272 bytes, placed by class name and debug map
-    // LogLuminance4x4::BuildFSFragment(LuminanceShaderOutputFormat, bool)
-    LogLuminance4x4* LogLuminance4x4::BuildFSFragment(undefined4 param_2, char param_3) {
-        ostream* poVar1;
-        undefined1 local_150[280];
-        LuminanceUtils local_38[24];
+    // 0x1009b79c0
+    auto LogLuminance4x4::BuildFSFragment(LuminanceShaderOutputFormat luminanceShaderOutputFormat, bool arg2) {
+        basic_ostream<char, std::char_traits<char> _>* basic_ostream;
+        uint8_t local_150[280];
 
         new (local_150) render::PixelShaderSourceStream(1, 1, 1, 1, 1, 1, 24);
-        local_38->BuildFragment(param_2);
-        poVar1 = (ostream*)(local_150 + 16);
-        std::operator<<(poVar1, (basic_string*)local_38);
-        local_38->~basic_string();
-        std::operator<<(poVar1,
+        auto local_38 = LuminanceUtils::BuildFragment(luminanceShaderOutputFormat);
+        basic_ostream = (basic_ostream<char, std::char_traits<char> _>*)(local_150 + 16);
+        std::operator<<(basic_ostream,
+                        (basic_string<char, std::char_traits<char>, BucketAllocatorSTL<char> _>*)&local_38);
+        std::operator<<(basic_ostream,
                         "\nuniform highp vec4 uSampleOffsets4x4[8];\n\nin vec2 vTexCoord;\n\nuniform highp sampler2D "
                         "sLogLumTex;\n\nvoid main()\n{\n   // Sample & box-filter 16 taps\n   highp float avgLuminance "
                         "= UnpackLuminanceLogFloat(texture2DLodCompat(sLogLumTex, vTexCoord + uSampleOffsets4x4[0].xy, "
@@ -52,15 +46,14 @@ namespace jag::postprocess {
                         "0.0));\n   avgLuminance += UnpackLuminanceLogFloat(texture2DLodCompat(sLogLumTex, vTexCoord + "
                         "uSampleOffsets4x4[7].zw, 0.0));\n ..." /* TRUNCATED STRING LITERAL */
         );
-        if (param_3 == '\0') {
-            std::operator<<(poVar1, "   OutputLuminanceLogFloat(avgLuminance);\n");
+        if (arg2) {
+            std::operator<<(basic_ostream, "   OutputLuminanceExpFloat(exp(avgLuminance));\n");
         } else {
-            std::operator<<(poVar1, "   OutputLuminanceExpFloat(exp(avgLuminance));\n");
+            std::operator<<(basic_ostream, "   OutputLuminanceLogFloat(avgLuminance);\n");
         }
-        std::operator<<(poVar1, "}\n");
-        str();
-        local_150->~PixelShaderSourceStream();
-        return this;
+        std::operator<<(basic_ostream, "}\n");
+        auto result = local_150->str();
+        return result;
     }
 
 } // namespace jag::postprocess

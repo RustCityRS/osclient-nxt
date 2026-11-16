@@ -1,6 +1,5 @@
 // _unplaced/projects/osclient/unity_4.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "libs/clientstream/standard/standard_ClientStream_impl.h"
@@ -30,109 +29,88 @@
 #include "projects/osclient/minimenu/Minimenu.h"
 
 namespace jag {
-    // 0x1000296e0, 48 bytes, inline, placed by nothing (unplaced)
-    // bool operator==<oldscape::rs2lib::worldmap::WorldmapAreaMetadata, oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> const&, shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> const&)
-    /* bool TEMPNAMEPLACEHOLDERVALUE(shared_ptr<oldscape::rs2lib::IfType> const&,
-   shared_ptr<oldscape::rs2lib::IfType> const&) */
-
-    bool operator==(shared_ptr* param_1, shared_ptr* param_2) {
-        long lVar1;
-        long lVar2;
-
-        lVar1 = end();
-        lVar2 = param_1->end();
+    // 0x1000296e0
+    bool operator==
+        <oldscape::rs2lib::worldmap::WorldmapAreaMetadata, oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(
+            const shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>& midiRequest1,
+            const shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>& midiRequest2) {
+        long lVar1 = midiRequest1.end();
+        long lVar2 = midiRequest2.end();
         return lVar1 == lVar2;
     }
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    BucketManager::StaticDestructor::StaticDestructor();
+    // 0x10002a770: BucketManager::StaticDestructor::StaticDestructor() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    BucketManager::SafeStaticDestructor::SafeStaticDestructor();
+    // 0x10002a770: BucketManager::SafeStaticDestructor::SafeStaticDestructor() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    LoadingScreenScript::SpriteLayer::~SpriteLayer();
+    // 0x10002a770: LoadingScreenScript::SpriteLayer::~SpriteLayer() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    LoadingScreenScript::ChildAnimLayer::~ChildAnimLayer();
+    // 0x10002a770: LoadingScreenScript::ChildAnimLayer::~ChildAnimLayer() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    LoadingScreenScript::RectLayer::~RectLayer();
+    // 0x10002a770: LoadingScreenScript::RectLayer::~RectLayer() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    BucketAllocatorEASTL::BucketAllocatorEASTL(char const*);
+    // 0x10002a770: BucketAllocatorEASTL::BucketAllocatorEASTL(char const*) has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    SafeBucketAllocatorEASTL::SafeBucketAllocatorEASTL(char const*);
+    // 0x10002a770: SafeBucketAllocatorEASTL::SafeBucketAllocatorEASTL(char const*) has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x100057990, 80 bytes, inline, placed by nothing (unplaced)
-    // oldscape::rs2lib::worldmap::WorldmapAreaMetadata* placement_new<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(void*)
-    WorldmapAreaMetadata* placement_new<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(void* param_1) {
-        *(undefined8*)((long)param_1 + 128) = 0;
-        *(undefined8*)((long)param_1 + 136) = 0;
-        *(undefined8*)((long)param_1 + 112) = 0;
-        *(undefined8*)((long)param_1 + 120) = 0;
-        *(undefined8*)((long)param_1 + 96) = 0;
-        *(undefined8*)((long)param_1 + 104) = 0;
-        *(undefined8*)((long)param_1 + 80) = 0;
-        *(undefined8*)((long)param_1 + 88) = 0;
-        *(undefined8*)((long)param_1 + 64) = 0;
-        *(undefined8*)((long)param_1 + 72) = 0;
-        *(undefined8*)((long)param_1 + 48) = 0;
-        *(undefined8*)((long)param_1 + 56) = 0;
-        *(undefined8*)((long)param_1 + 32) = 0;
-        *(undefined8*)((long)param_1 + 40) = 0;
-        *(undefined8*)((long)param_1 + 16) = 0;
-        *(undefined8*)((long)param_1 + 24) = 0;
-        *(undefined8*)param_1 = 0;
-        *(undefined8*)((long)param_1 + 8) = 0;
-        oldscape::rs2lib::worldmap::WorldmapAreaMetadata::WorldmapAreaMetadata(param_1);
-        return param_1;
+    // 0x100057990
+    oldscape::rs2lib::worldmap::WorldmapAreaMetadata*
+    placement_new<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(void* arg1) {
+        *(uint64_t*)((long)arg1 + 128) = 0;
+        *(uint64_t*)((long)arg1 + 136) = 0;
+        *(uint64_t*)((long)arg1 + 112) = 0;
+        *(uint64_t*)((long)arg1 + 120) = 0;
+        *(uint64_t*)((long)arg1 + 96) = 0;
+        *(uint64_t*)((long)arg1 + 104) = 0;
+        *(uint64_t*)((long)arg1 + 80) = 0;
+        *(uint64_t*)((long)arg1 + 88) = 0;
+        *(uint64_t*)((long)arg1 + 64) = 0;
+        *(uint64_t*)((long)arg1 + 72) = 0;
+        *(uint64_t*)((long)arg1 + 48) = 0;
+        *(uint64_t*)((long)arg1 + 56) = 0;
+        *(uint64_t*)((long)arg1 + 32) = 0;
+        *(uint64_t*)((long)arg1 + 40) = 0;
+        *(uint64_t*)((long)arg1 + 16) = 0;
+        *(uint64_t*)((long)arg1 + 24) = 0;
+        *(uint64_t*)arg1 = 0;
+        *(uint64_t*)((long)arg1 + 8) = 0;
+        new (arg1) oldscape::rs2lib::worldmap::WorldmapAreaMetadata();
+        return arg1;
     }
 
-    // 0x1000579e0, 32 bytes, inline, placed by nothing (unplaced)
-    // ref_counter_shared<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>* placement_new<ref_counter_shared<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>, int, oldscape::rs2lib::worldmap::WorldmapAreaMetadata*&>(void*, int&&, oldscape::rs2lib::worldmap::WorldmapAreaMetadata*&)
-    ref_counter_shared*
-    jag::placement_new<ref_counter_shared<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>, int,
-                       oldscape::rs2lib::worldmap::WorldmapAreaMetadata*&>(void* param_1, int* param_2,
-                                                                           WorldmapAreaMetadata** param_3) {
-        ref_counter_shared<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>::ref_counter_shared(
-            param_1, (long)*param_2, *param_3);
-        return param_1;
+    // 0x1000579e0
+    ref_counter_shared<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>*
+    placement_new<ref_counter_shared<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>, int,
+                  oldscape::rs2lib::worldmap::WorldmapAreaMetadata*&>(
+        void* arg1, int&& arg2, oldscape::rs2lib::worldmap::WorldmapAreaMetadata*& arg3) {
+        new (arg1) ref_counter_shared<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>((long)*arg2, arg3);
+        return arg1;
     }
 
 } // namespace jag
 
 namespace jag::game {
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    BaseVarTypeLong::~BaseVarTypeLong();
+    // 0x10002a770: BaseVarTypeLong::~BaseVarTypeLong() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    DelayedVariable::DelayedVariable();
+    // 0x10002a770: DelayedVariable::DelayedVariable() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    BaseVarTypeString::~BaseVarTypeString();
+    // 0x10002a770: BaseVarTypeString::~BaseVarTypeString() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    BaseVarTypeInteger::~BaseVarTypeInteger();
+    // 0x10002a770: BaseVarTypeInteger::~BaseVarTypeInteger() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    VarDomainTypeNormal::~VarDomainTypeNormal();
+    // 0x10002a770: VarDomainTypeNormal::~VarDomainTypeNormal() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    BaseVarTypeCoordFine::~BaseVarTypeCoordFine();
+    // 0x10002a770: BaseVarTypeCoordFine::~BaseVarTypeCoordFine() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x100049400: the linker folded this into std::__tuple_leaf<1ul, eastl::fixed_string<char, 256, true, eastl::allocator>, false>::~__tuple_leaf(), which has identical code
-    Cutscene2DAudioElement::~Cutscene2DAudioElement();
+    // 0x100049400: Cutscene2DAudioElement::~Cutscene2DAudioElement() has the same machine code as std::__tuple_leaf<1ul, eastl::fixed_string<char, 256>, false>::~__tuple_leaf()
 
-    // 0x100049400: the linker folded this into std::__tuple_leaf<1ul, eastl::fixed_string<char, 256, true, eastl::allocator>, false>::~__tuple_leaf(), which has identical code
-    Cutscene2DSubtitleElement::~Cutscene2DSubtitleElement();
+    // 0x100049400: Cutscene2DSubtitleElement::~Cutscene2DSubtitleElement() has the same machine code as std::__tuple_leaf<1ul, eastl::fixed_string<char, 256>, false>::~__tuple_leaf()
 
 } // namespace jag::game
 
 namespace jag::anim_ns {
-    // 0x100f30f20, 272 bytes, __data
-    bend1_imgdata = {
+    // 0x100f30f20
+    int32_t bend1_imgdata[68] = {
         1196314761,  169478669,  218103808,   1380206665,  419430400,   268435456,   1544,        -723066112,
         171,         1094994391, 1674262612,  -1741512608, -812752,     -15983643,   -127869137,  -955358401,
         101058175,   1516905990, -98409888,   1005967839,  862830492,   768934679,   49827209,    -868409497,
@@ -144,8 +122,8 @@ namespace jag::anim_ns {
         -272880417,  0,          1145980233,  -2107620690,
     };
 
-    // 0x100f31030, 384 bytes, __data
-    ne32_imgdata = {
+    // 0x100f31030
+    int32_t ne32_imgdata[96] = {
         1196314761,  169478669,   218103808,   1380206665,  369098752,   536870912,   1544,        -2003364352,
         139,         1196122630,  16711748,    -1593900801, 9676733,     1227751680,  1213481284,  1003793863,
         273728110,   -720777211,  303533888,   453420603,   184881398,   848594038,   -31429870,   918555428,
@@ -160,8 +138,8 @@ namespace jag::anim_ns {
         2079178138,  -1532405313, -221123479,  64,          1313163520,  1614982724,  130,         0,
     };
 
-    // 0x100f311b0, 320 bytes, __data
-    bend2_imgdata = {
+    // 0x100f311b0
+    int32_t bend2_imgdata[80] = {
         1196314761,  169478669,   218103808,   1380206665,  503316480,   301989888,   1544,        1861372928,
         16777433,    1094994183,  -976795564,  -1039516271, 1736773696,  -1651940027, 616815760,   1151323846,
         -1979649701, 2015584386,  1299909415,  -785381470,  1327172434,  -2111265951, 275478064,   -1001793028,
@@ -174,8 +152,8 @@ namespace jag::anim_ns {
         2065239715,  -191313859,  1000800169,  -2074638856, -1810864873, 0,           1145980233,  -2107620690,
     };
 
-    // 0x100f312f0, 320 bytes, __data
-    bend2b_imgdata = {
+    // 0x100f312f0
+    int32_t bend2b_imgdata[80] = {
         1196314761,  169478669,   218103808,   1380206665,  503316480,   301989888,   1544,        1861372928,
         217,         1094994428,  1674004564,  403906656,   -1073837925, -1912503428, -24902915,   -1986026861,
         -480015524,  1205452991,  1815113871,  -1852903206, -1734666522, 1987575432,  1877413629,  -1304048421,
@@ -188,16 +166,16 @@ namespace jag::anim_ns {
         1431481600,  -1700762939, 130,         1313163520,  1614982724,  130,         0,           0,
     };
 
-    // 0x100f31430, 128 bytes, __data
-    we32_imgdata = {
+    // 0x100f31430
+    int32_t we32_imgdata[32] = {
         1196314761, 169478669,  218103808,  1380206665,  536870912,   100663296,   1544,       -1668308480,
         223,        1094994233, 1674520660, -1067444128, -887527240,  -1573604737, -683075472, 2092634883,
         1090511235, 1087570054, -590675641, 90500313,    -1671775701, 820421034,   1952258194, -1502019581,
         1699237126, 40838,      1162412032, 1118717006,  33376,       0,           0,          0,
     };
 
-    // 0x100f314b0, 1760 bytes, __data
-    fill_imgdata = {
+    // 0x100f314b0
+    int32_t fill_imgdata[440] = {
         1196314761,  169478669,   218103808,   1380206665,  469827584,   -33554432,   1544,        -1173362688,
         100663517,   1094994333,  -304449452,  477213149,   -788197327,  -1853713349, -1593574205, 1260678307,
         1573499989,  494459648,   -2093778688, -244727813,  -169346563,  2091484663,  1841135356,  -35771039,
@@ -258,131 +236,108 @@ namespace jag::anim_ns {
 } // namespace jag::anim_ns
 
 namespace jag::oldscape::highlight {
-    // 0x100015cb0, 80 bytes, inline, placed by nothing (unplaced)
-    // bool IsNumber<eastl::string >(eastl::string const&)
-    bool IsNumber<eastl::string>(basic_string* param_1) {
-        undefined8 uVar2;
-        undefined8 uVar3;
-        char* pcVar4;
-        char* pcVar5;
-        bool bVar6;
+    // 0x100015cb0
+    bool IsNumber<eastl::string>(const eastl::string& str) {
+        char* pcVar2;
+        char* pcVar3;
+        bool bVar4;
+        uint8_t auVar5[16];
 
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() ==
-            '\0') {
-            uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::end();
-            pcVar4 =
-                std::find_if<char const*, IsNumber<eastl::string>(eastl::stringconst&)::_lambda(unsigned char) _1_>(
-                    uVar2, uVar3);
-            pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
-            bVar6 = pcVar4 == pcVar5;
+        if (str.empty() == '\0') {
+            pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            auVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::end();
+            pcVar2 =
+                std::find_if<char const*, IsNumber<eastl::string>(*(eastl::stringconst&))::_lambda(unsigned char) _1_>(
+                    pcVar2, auVar5._0_8_, auVar5._8_8_);
+            pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+            bVar4 = pcVar2 == pcVar3;
         } else {
-            bVar6 = false;
+            bVar4 = false;
         }
-        return bVar6;
+        return bVar4;
     }
 
-    // 0x100015e70, 96 bytes, inline, placed by nothing (unplaced)
-    // bool IsNumber<std::string >(std::string const&)
-    /* bool IsNumber<std::string >(std::string const&) */
-
-    bool IsNumber<std::string>(string* param_1) {
+    // 0x100015e70
+    bool IsNumber<std::string>(const std::string& str) {
         bool bVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 local_28;
-        undefined8 local_20;
+        __wrap_iter<char const*>* wrap_iter1;
+        uint8_t auVar3[16];
+        uint64_t local_28;
+        uint64_t local_20;
 
-        if (std::string::empty(param_1) == '\0') {
-            uVar3 = std::string::begin(param_1);
-            uVar4 = std::string::end(param_1);
-            local_28 =
-                std::find_if<std::__wrap_iter<char const*>,
-                             IsNumber<std::string>(std::string_const&)::_lambda(unsigned char) _1_>(uVar3, uVar4);
-            local_20 = std::string::end(param_1);
-            bVar2 = std::operator==((__wrap_iter*)&local_28, (__wrap_iter*)&local_20);
+        if (str.empty() == '\0') {
+            wrap_iter1 = (__wrap_iter<char const*>*)str.begin();
+            auVar3 = str.end();
+            local_28 = std::find_if<std::__wrap_iter<char const*>,
+                                    IsNumber<std::string>(std::string const&)::_lambda(unsigned char) _1_>(
+                wrap_iter1, auVar3._0_8_, auVar3._8_8_);
+            local_20 = str.end();
+            bVar2 = &local_28 == &local_20;
         } else {
             bVar2 = false;
         }
         return bVar2;
     }
 
-    // 0x100016230, 80 bytes, inline, placed by nothing (unplaced)
-    // bool IsNumber<eastl::basic_string<char, BucketAllocatorEASTL> >(eastl::basic_string<char, BucketAllocatorEASTL> const&)
-    bool IsNumber<eastl::basic_string<char, BucketAllocatorEASTL>>(basic_string* param_1) {
-        undefined8 uVar2;
-        undefined8 uVar3;
-        char* pcVar4;
-        char* pcVar5;
-        bool bVar6;
+    // 0x100016230
+    bool IsNumber<eastl::basic_string<char, BucketAllocatorEASTL>>(
+        const eastl::basic_string<char, BucketAllocatorEASTL>& str) {
+        char* pcVar2;
+        char* pcVar3;
+        bool bVar4;
+        uint8_t auVar5[16];
 
-        if (eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty() ==
-            '\0') {
-            uVar2 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar3 = eastl::basic_string<char, BucketAllocatorEASTL>::end();
-            pcVar4 =
+        if (str.empty() == '\0') {
+            pcVar2 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            auVar5 = eastl::basic_string<char, BucketAllocatorEASTL>::end();
+            pcVar2 =
                 std::find_if<char const*,
-                             IsNumber<eastl::basic_string<char, BucketAllocatorEASTL>>(
-                                 eastl::basic_string<char, BucketAllocatorEASTL> const&)::_lambda(unsigned char) _1_>(
-                    uVar2, uVar3);
-            pcVar5 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
-            bVar6 = pcVar4 == pcVar5;
+                             IsNumber<eastl::basic_string<char, BucketAllocatorEASTL>>(*(
+                                 eastl::basic_string<char, BucketAllocatorEASTL> const&))::_lambda(unsigned char) _1_>(
+                    pcVar2, auVar5._0_8_, auVar5._8_8_);
+            pcVar3 = (char*)eastl::basic_string<char, BucketAllocatorEASTL>::end();
+            bVar4 = pcVar2 == pcVar3;
         } else {
-            bVar6 = false;
+            bVar4 = false;
         }
-        return bVar6;
+        return bVar4;
     }
 
-    // 0x100016cc0, 48 bytes, inline, placed by nothing (unplaced)
-    // GetMapSquareIndex(rs2lib::CoordMapSquare const&)
-    void GetMapSquareIndex(CoordMapSquare* param_1) {
-        int iVar1;
-        int iVar2;
-
-        iVar1 = param_1->GetX();
-        iVar2 = param_1->GetZ();
-        GetMapSquareIndex(iVar1, iVar2);
+    // 0x100016cc0
+    void GetMapSquareIndex(const rs2lib::CoordMapSquare& coordMapSquare) {
+        int arg1 = coordMapSquare.GetX();
+        int arg2 = coordMapSquare.GetZ();
+        GetMapSquareIndex(arg1, arg2);
     }
 
-    // 0x100039190, 32 bytes, inline, placed by nothing (unplaced)
-    // IsNumber<eastl::string >(eastl::string const&)::{lambda(unsigned char)#1}::operator()(unsigned char) const
-    /* IsNumber<std::string >(std::string const&)::{lambda(unsigned
-   char)#1}::TEMPNAMEPLACEHOLDERVALUE(unsigned char) const */
-
-    bool IsNumber<std::string>(std::string_const&)::{
+    // 0x100039190
+    bool IsNumber<eastl::string>(eastl::string const&)::{
         lambda(unsigned char) #1
     }
-    ::operator()(uchar param_1) {
-        undefined3 in_register_00000031;
+    ::operator()(unsigned char arg1) const {
+        uint32_t in_register_00000031;
 
-        return isdigit(CONCAT31(in_register_00000031, param_1)) == 0;
+        return isdigit((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1)) == 0;
     }
 
 } // namespace jag::oldscape::highlight
 
 namespace jag::oldscape::dash3d {
-    // 0x10002a770: the linker folded this into void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*), which has identical code
-    UniqueModelSource::~UniqueModelSource();
+    // 0x10002a770: UniqueModelSource::~UniqueModelSource() has the same machine code as void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*), which has identical code
-    DeferredModelHighlight::~DeferredModelHighlight();
+    // 0x10002a770: DeferredModelHighlight::~DeferredModelHighlight() has the same machine code as void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*), which has identical code
-    DeferredGroundFineHighlight::~DeferredGroundFineHighlight();
+    // 0x10002a770: DeferredGroundFineHighlight::~DeferredGroundFineHighlight() has the same machine code as void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*), which has identical code
-    DeferredGroundGridHighlight::~DeferredGroundGridHighlight();
+    // 0x10002a770: DeferredGroundGridHighlight::~DeferredGroundGridHighlight() has the same machine code as void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*)
 
-    // 0x10002afb0: the linker folded this into highlight::NpcUID::NpcUID(int, int), which has identical code
-    AnimateBaseOperation::SeparatedIndexCount::SeparatedIndexCount(unsigned long, unsigned long);
+    // 0x10002afb0: AnimateBaseOperation::SeparatedIndexCount::SeparatedIndexCount(unsigned long, unsigned long) has the same machine code as highlight::NpcUID::NpcUID(int, int)
 
 } // namespace jag::oldscape::dash3d
 
 namespace jag::spinner_ns {
-    // 0x100f31b90, 528 bytes, __data
-    SpinBg_imgdata = {
+    // 0x100f31b90
+    int32_t SpinBg_imgdata[132] = {
         1196314761,  169478669,   218103808,   1380206665,  1073741824,  1073741824,  1544,        1902750208,
         16777438,    1094994387,  -304449452,  1284489177,  -238675887,  911842767,   -1571536463, 1458079153,
         153752084,   -1861615362, -1589361528, 1128992019,  303277735,   1250098949,  631382358,   580156964,
@@ -402,8 +357,8 @@ namespace jag::spinner_ns {
         0,           1145980233,  -2107620690, 0,
     };
 
-    // 0x100f31da0, 256 bytes, __data
-    Spin1_imgdata = {
+    // 0x100f31da0
+    int32_t Spin1_imgdata[64] = {
         1196314761,  169478669,  218103808,  1380206665,  1073741824,  1073741824,  1544,       1902750208,
         222,         1094994373, -304449452, 1091449301,  -511700927,  -1606711937, -964143453, -586525687,
         -2110205045, 2055471556, 928653359,  -1422645040, 586434896,   626944482,   197491361,  653154303,
@@ -414,8 +369,8 @@ namespace jag::spinner_ns {
         -1840700270, -191739612, 612174805,  -1459982301, 11631,       1162412032,  1118717006, 33376,
     };
 
-    // 0x100f31ea0, 288 bytes, __data
-    Spin2_imgdata = {
+    // 0x100f31ea0
+    int32_t Spin2_imgdata[72] = {
         1196314761,  169478669,   218103808,   1380206665,  1073741824,  1073741824, 1544,       1902750208,
         222,         1094994401,  -304449452,  1129193942,  -511700927,  1531059071, 326251852,  -1428127212,
         1032489338,  -2145474560, 596271243,   1364754561,  467229017,   -163035104, 579347462,  -1709658104,
@@ -427,8 +382,8 @@ namespace jag::spinner_ns {
         1263683876,  557842685,   -988823252,  36495,       1162412032,  1118717006, 33376,      0,
     };
 
-    // 0x100f31fc0, 256 bytes, __data
-    Spin3_imgdata = {
+    // 0x100f31fc0
+    int32_t Spin3_imgdata[64] = {
         1196314761, 169478669,   218103808,  1380206665,  1073741824, 1073741824,  1544,        1902750208,
         222,        1094994372,  -304449452, -1039293994, -242805696, 214650287,   638636600,   -1018419168,
         62562306,   -2137515618, 302037545,  1348472899,  20792344,   -1709660283, -200078028,  -876896322,
@@ -444,56 +399,47 @@ namespace jag::spinner_ns {
 namespace jag::internal {
     class PThreadStart {
     public:
-        PThreadStart(void* (*)(void*), void*);
+        PThreadStart(void* (*arg1)(void*), void* arg2);
     };
 
-    // 0x10002e210: the linker folded this into eastl::hashtable_iterator_base<eastl::string, false>::hashtable_iterator_base(eastl::hash_node<eastl::string, false>*, eastl::hash_node<eastl::string, false>**), which has identical code
-    PThreadStart::PThreadStart(void* (*)(void*), void*);
+    // 0x10002e210: PThreadStart::PThreadStart(void* (*)(void*), void*) has the same machine code as eastl::hashtable_iterator_base<eastl::string, false>::hashtable_iterator_base(eastl::hash_node<eastl::string, false>*, eastl::hash_node<eastl::string, false>**)
 
-    // 0x1000302e0: the linker folded this into eastl::hashtable_iterator<eastl::pair<int const, oldscape::graphics::Pix32>, false, false>::hashtable_iterator(eastl::hash_node<eastl::pair<int const, oldscape::graphics::Pix32>, false>*, eastl::hash_node<eastl::pair<int const, oldscape::graphics::Pix32>, false>**), which has identical code
-    PThreadStart::PThreadStart(void* (*)(void*), void*);
+    // 0x1000302e0: PThreadStart::PThreadStart(void* (*)(void*), void*) has the same machine code as eastl::hashtable_iterator<eastl::pair<int const, oldscape::graphics::Pix32>, false, false>::hashtable_iterator(eastl::hash_node<eastl::pair<int const, oldscape::graphics::Pix32>, false>*, eastl::hash_node<eastl::pair<int const, oldscape::graphics::Pix32>, false>**)
 
 } // namespace jag::internal
 
 namespace jag::graphics {
-    // 0x103c04b60, 64 bytes, __bss; zero-initialised
-    MAYA_ANIM_INVERT_MATRIX;
+    // 0x103c04b60
+    uint8_t MAYA_ANIM_INVERT_MATRIX[64];
 
-    // 0x103c04ba0, 12 bytes, __bss; zero-initialised
-    WORLD_ORTHOGONAL;
+    // 0x103c04ba0
+    uint8_t WORLD_ORTHOGONAL[12];
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    DrawableBatchRenderer::~DrawableBatchRenderer();
+    // 0x10002a770: DrawableBatchRenderer::~DrawableBatchRenderer() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
 } // namespace jag::graphics
 
 namespace jag::ui {
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    ComponentMultiValueMixin::~ComponentMultiValueMixin();
+    // 0x10002a770: ComponentMultiValueMixin::~ComponentMultiValueMixin() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    ComponentSingleValueMixin::~ComponentSingleValueMixin();
+    // 0x10002a770: ComponentSingleValueMixin::~ComponentSingleValueMixin() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    ComponentSingleValueMultiOptionMixin::~ComponentSingleValueMultiOptionMixin();
+    // 0x10002a770: ComponentSingleValueMultiOptionMixin::~ComponentSingleValueMultiOptionMixin() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
 } // namespace jag::ui
 
 namespace jag::graphics::particlemodules {
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    Flow::~Flow();
+    // 0x10002a770: Flow::~Flow() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    Flipbook::~Flipbook();
+    // 0x10002a770: Flipbook::~Flipbook() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    Lighting::~Lighting();
+    // 0x10002a770: Lighting::~Lighting() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
 } // namespace jag::graphics::particlemodules
 
 namespace jag::font_ns {
-    // 0x100f320c0, 19728 bytes, __data
-    font_sprite = {
+    // 0x100f320c0
+    int32_t font_sprite[4932] = {
         0,         0,         0,         0,         0,         0,         0,         0,         16842752,  16843009,
         16843009,  16843009,  257,       16843009,  257,       65792,     16843008,  16777217,  257,       65792,
         16843008,  16777217,  1,         65536,     16777216,  0,         256,       65536,     16777216,  0,
@@ -990,8 +936,8 @@ namespace jag::font_ns {
         251661824, 69120,
     };
 
-    // 0x100f36dd0, 272 bytes, __data
-    font_metrics = {
+    // 0x100f36dd0
+    int32_t font_metrics[68] = {
         0,         0,         0,         0,         0,         0,         0,         0,         218760196, 67965707,
         185141256, 168036102, 185272331, 185273100, 100928267, 151718667, 185273358, 201984524, 201918476, 218893834,
         185404683, 269159434, 118098955, 218892042, 151652869, 168233482, 185009162, 168431620, 151521802, 235538952,
@@ -1004,53 +950,43 @@ namespace jag::font_ns {
 } // namespace jag::font_ns
 
 namespace jag::auth {
-    // 0x100024070: the linker folded this into eastl::pair<eastl::string, oldscape::option::IOption*>::~pair(), which has identical code
-    GameTokenResult::~GameTokenResult();
+    // 0x100024070: GameTokenResult::~GameTokenResult() has the same machine code as eastl::pair<eastl::string, oldscape::option::IOption*>::~pair()
 
-    // 0x10002dfe0: the linker folded this into eastl::hash_node<eastl::string, false>::~hash_node(), which has identical code
-    GameTokenResult::~GameTokenResult();
+    // 0x10002dfe0: GameTokenResult::~GameTokenResult() has the same machine code as eastl::hash_node<eastl::string, false>::~hash_node()
 
 } // namespace jag::auth
 
 namespace jag::oldscape::loottracker {
-    // 0x100024070: the linker folded this into eastl::pair<eastl::string, option::IOption*>::~pair(), which has identical code
-    SourceItem::~SourceItem();
+    // 0x100024070: SourceItem::~SourceItem() has the same machine code as eastl::pair<eastl::string, option::IOption*>::~pair()
 
-    // 0x10002dfe0: the linker folded this into eastl::hash_node<eastl::string, false>::~hash_node(), which has identical code
-    SourceItem::~SourceItem();
+    // 0x10002dfe0: SourceItem::~SourceItem() has the same machine code as eastl::hash_node<eastl::string, false>::~hash_node()
 
 } // namespace jag::oldscape::loottracker
 
 namespace jag::oldscape::minimenu {
-    // 0x100024070: the linker folded this into eastl::pair<eastl::string, option::IOption*>::~pair(), which has identical code
-    MinimenuGlobalEntryData::~MinimenuGlobalEntryData();
+    // 0x100024070: MinimenuGlobalEntryData::~MinimenuGlobalEntryData() has the same machine code as eastl::pair<eastl::string, option::IOption*>::~pair()
 
-    // 0x10002dfe0: the linker folded this into eastl::hash_node<eastl::string, false>::~hash_node(), which has identical code
-    MinimenuGlobalEntryData::~MinimenuGlobalEntryData();
+    // 0x10002dfe0: MinimenuGlobalEntryData::~MinimenuGlobalEntryData() has the same machine code as eastl::hash_node<eastl::string, false>::~hash_node()
 
 } // namespace jag::oldscape::minimenu
 
 namespace jag::render {
-    // 0x1000296e0: the linker folded this into bool operator==<oldscape::rs2lib::worldmap::WorldmapAreaMetadata, oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> const&, shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> const&), which has identical code
-    KeepAliveSharedPtrAndOwner::operator==(KeepAliveSharedPtrAndOwner const&) const;
+    // 0x1000296e0: KeepAliveSharedPtrAndOwner::operator==(KeepAliveSharedPtrAndOwner const&) const has the same machine code as bool operator==<oldscape::rs2lib::worldmap::WorldmapAreaMetadata, oldscape::rs2lib::worldmap::WorldmapAreaMetadata>(shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> const&, shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata> const&)
 
-    // 0x10002a630: the linker folded this into eastl::fixed_vector_allocator<8ul, 20ul, 4ul, 0ul, true, eastl::allocator>::set_name(char const*), which has identical code
-    ZoneObjectMemory::ZoneObjectMemory(unsigned long long);
+    // 0x10002a630: ZoneObjectMemory::ZoneObjectMemory(unsigned long long) has the same machine code as eastl::fixed_vector_allocator<8ul, 20ul, 4ul, 0ul, true>::set_name(char const*)
 
 } // namespace jag::render
 
 namespace jag::console {
-    // 0x10002a630: the linker folded this into eastl::fixed_vector_allocator<8ul, 20ul, 4ul, 0ul, true, eastl::allocator>::set_name(char const*), which has identical code
-    RegisteredCommand::RegisteredCommand(CommandData&);
+    // 0x10002a630: RegisteredCommand::RegisteredCommand(CommandData&) has the same machine code as eastl::fixed_vector_allocator<8ul, 20ul, 4ul, 0ul, true>::set_name(char const*)
 
-    // 0x100049400: the linker folded this into std::__tuple_leaf<1ul, eastl::fixed_string<char, 256, true, eastl::allocator>, false>::~__tuple_leaf(), which has identical code
-    VarAny::~VarAny();
+    // 0x100049400: VarAny::~VarAny() has the same machine code as std::__tuple_leaf<1ul, eastl::fixed_string<char, 256>, false>::~__tuple_leaf()
 
 } // namespace jag::console
 
 namespace jag::root_ns {
-    // 0x100f309c0, 1376 bytes, __data
-    x_imgdata = {
+    // 0x100f309c0
+    int32_t x_imgdata[344] = {
         1196314761,  169478669,   218103808,   1380206665,  1174405120,  1174405120,  1544,        -500272896,
         83886212,    1094994209,  -304449452,  1449680795,  1070012533,  424328175,   168233902,   1172826899,
         -1257945628, 1095898693,  -49065606,   -1128102207, 1412022608,  -1674025658, 1957890987,  -2093798109,
@@ -1099,37 +1035,33 @@ namespace jag::root_ns {
 } // namespace jag::root_ns
 
 namespace jag::oldscape::defaults {
-    // 0x103c04bac, 4 bytes, __bss; zero-initialised
-    DefaultsGroup::GRAPHICS;
+    // 0x103c04bac
+    int32_t DefaultsGroup::GRAPHICS;
 
 } // namespace jag::oldscape::defaults
 
 namespace jag::oldscape {
-    // 0x103c04bb0, 24 bytes, __bss; zero-initialised
-    AllFonts;
+    // 0x103c04bb0
+    uint8_t AllFonts[24];
 
 } // namespace jag::oldscape
 
 namespace jag::testframework {
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    GaiaConsoleSink::~GaiaConsoleSink();
+    // 0x10002a770: GaiaConsoleSink::~GaiaConsoleSink() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
 } // namespace jag::testframework
 
 namespace jag::logger {
-    // 0x10002a770: the linker folded this into void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*), which has identical code
-    DebugOutputSink::~DebugOutputSink();
+    // 0x10002a770: DebugOutputSink::~DebugOutputSink() has the same machine code as void eastl::destruct<oldscape::rs2lib::CoordMapSquare*>(oldscape::rs2lib::CoordMapSquare*, oldscape::rs2lib::CoordMapSquare*)
 
 } // namespace jag::logger
 
 namespace jag::oldscape::sound {
-    // 0x10002a770: the linker folded this into void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*), which has identical code
-    NXTPCMPlayerFactory::~NXTPCMPlayerFactory();
+    // 0x10002a770: NXTPCMPlayerFactory::~NXTPCMPlayerFactory() has the same machine code as void eastl::destruct<rs2lib::CoordMapSquare*>(rs2lib::CoordMapSquare*, rs2lib::CoordMapSquare*)
 
 } // namespace jag::oldscape::sound
 
 namespace jag::oldscape::rs2lib::worldmap {
-    // 0x10002a770: the linker folded this into void eastl::destruct<CoordMapSquare*>(CoordMapSquare*, CoordMapSquare*), which has identical code
-    RenderBounds::RenderBounds();
+    // 0x10002a770: RenderBounds::RenderBounds() has the same machine code as void eastl::destruct<CoordMapSquare*>(CoordMapSquare*, CoordMapSquare*)
 
 } // namespace jag::oldscape::rs2lib::worldmap

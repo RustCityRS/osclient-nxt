@@ -1,39 +1,27 @@
 // projects/osclient/ui/InputFieldRenderer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::oldscape {
     class InputFieldRenderer {
     public:
-        void Draw(InputFieldLayoutParams const&, InputFieldColourParams const&, jag::graphics::TextRun const&,
-                  shared_ptr<jstring::PixfontGeneric> const&, graphics::Pix2D&);
+        void Draw(const InputFieldLayoutParams& inputFieldLayoutParams,
+                  const InputFieldColourParams& inputFieldColourParams, const jag::graphics::TextRun& textRun,
+                  const shared_ptr<jstring::PixfontGeneric>& pixfontGeneric, graphics::Pix2D& pix2D);
     };
 
-    // 0x100102f10, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // InputFieldLayoutParams::InputFieldLayoutParams(): jumps straight to the base-object constructor
-
-    // 0x100104cf0, 16 bytes, inline, placed by debug map only (low confidence)
-    // CoordType<UICoordSpecializer>::operator+=(CoordType<UICoordSpecializer>)
-    /* CoordType<UICoordSpecializer>::TEMPNAMEPLACEHOLDERVALUE(CoordType<UICoordSpecializer>)
-    */
-
-    CoordType<UICoordSpecializer>* CoordType<UICoordSpecializer>::operator+=(int param_2) {
-        *(int*)this = *(int*)this + param_2;
+    // 0x100104cf0
+    CoordType<UICoordSpecializer>* CoordType<UICoordSpecializer>::operator+=(CoordType<UICoordSpecializer> coordType) {
+        *(int*)this = *(int*)this + (int)coordType;
         return this;
     }
 
-    // 0x100104d00, 32 bytes, inline, placed by debug map only (low confidence)
-    // CoordType<UICoordSpecializer>::operator*(int) const
-    /* CoordType<UICoordSpecializer>::TEMPNAMEPLACEHOLDERVALUE(int) const
-    */
+    // 0x100104d00
+    uint32_t CoordType<UICoordSpecializer>::operator*(int arg1) const {
+        return local_10;
 
-    undefined4 CoordType<UICoordSpecializer>::operator*(int param_1) {
-        undefined4 local_10[2];
-
-        graphics::XPlotBlender<graphics::XPlot_NormalAlpha>::XPlotBlender<int>(
-            (XPlotBlender<graphics::XPlot_NormalAlpha>*)local_10, param_1 * *(int*)this);
+        local_10.XPlotBlender<int>(arg1 * *(int*)this);
         return local_10[0];
     }
 

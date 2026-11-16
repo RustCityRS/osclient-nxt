@@ -1,6 +1,5 @@
 // libs/oldscape/rs2lib/util/StringVector.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,67 +7,49 @@ namespace jag::oldscape::rs2lib {
     class StringVector {
     public:
         ~StringVector();
-        IsDirty() const;
-        MarkClean();
+        void IsDirty() const;
+        void MarkClean();
         StringVector();
-        StringVector* operator=(StringVector const&);
-        StringVector(StringVector const&);
-        void Append(eastl::string const&);
-        void Append(eastl::string&&);
-        void AppendUnique(eastl::string const&);
-        ulong Contains(eastl::string const&, bool) const;
-        void AppendUnique(eastl::string&&);
-        void AppendUniqueCaseInsensitive(eastl::string const&);
-        ulong ContainsCaseInsensitive(eastl::string const&, bool) const;
-        void AppendUniqueCaseInsensitive(eastl::string&&);
-        void Insert(int, eastl::string const&);
-        void Insert(int, eastl::string&&);
-        void SetIndex(int, eastl::string const&);
-        void SetIndex(int, eastl::string&&);
-        GetIndex(int) const;
+        StringVector* operator=(const StringVector& stringVector);
+        StringVector(const StringVector& stringVector);
+        void Append(const eastl::string& str);
+        void Append(eastl::string&& str);
+        void AppendUnique(const eastl::string& str);
+        unsigned long Contains(const eastl::string& str, bool arg2) const;
+        void AppendUnique(eastl::string&& str);
+        void AppendUniqueCaseInsensitive(const eastl::string& str);
+        unsigned long ContainsCaseInsensitive(const eastl::string& str, bool arg2) const;
+        void AppendUniqueCaseInsensitive(eastl::string&& str);
+        void Insert(int arg1, const eastl::string& str);
+        void Insert(int arg1, eastl::string&& str);
+        void SetIndex(int arg1, const eastl::string& str);
+        void SetIndex(int arg1, eastl::string&& str);
+        auto GetIndex(int arg1) const;
         void Size() const;
-        void Erase(eastl::string const&);
-        void EraseCaseInsensitive(eastl::string const&);
-        void EraseIndex(int);
+        void Erase(const eastl::string& str);
+        void EraseCaseInsensitive(const eastl::string& str);
+        void EraseIndex(int arg1);
         void Clear();
 
-        // data members, from how the methods use this: 33 bytes
-        basic_string* field_0;  // offset 0
-        eastl::string* field_8; // offset 8
-        char _unknown_16[16];
-        undefined1 field_32; // offset 32
+    private:
+        eastl::string* field_0;
+        eastl::string* field_8;
+        uint8_t _unknown_16[16];
+        uint8_t field_32;
     };
 
-    // 0x1001838f0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // StringVector::StringVector(): jumps straight to the base-object constructor
-
-    // 0x1001839c0, 48 bytes, inline, placed by class name and debug map
-    // StringVector::operator=(StringVector const&)
-    /* StringVector::TEMPNAMEPLACEHOLDERVALUE(StringVector
-   const&) */
-
-    StringVector* StringVector::operator=(StringVector* param_1) {
-        eastl::vector<eastl::string, eastl::allocator>::operator=((vector<eastl::string, eastl::allocator>*)this,
-                                                                  (vector*)param_1);
-        field_32 = param_1->field_32;
+    // 0x1001839c0
+    StringVector* StringVector::operator=(const StringVector& stringVector) {
+        *this = stringVector;
+        field_32 = stringVector.field_32;
         return this;
     }
 
-    // 0x100197ec0, 16 bytes, complete-object constructor, inline, placed by class name
-    // StringVector::StringVector(StringVector const&): jumps straight to the base-object constructor
+    // 0x100197ed0
+    StringVector::StringVector(const StringVector& stringVector)
+        : eastl::vector<eastl::string>(stringVector), field_32(stringVector.field_32) {}
 
-    // 0x100197ed0, 32 bytes, base-object constructor, inline, placed by class name
-    // StringVector::StringVector(StringVector const&)
-    void StringVector::StringVector(StringVector* param_1) {
-        new (this) eastl::vector<eastl::string, eastl::allocator>(param_1);
-        field_32 = param_1->field_32;
-    }
-
-    // 0x1001981d0, 32 bytes, base-object constructor, inline, placed by class name
-    // StringVector::StringVector()
-    void StringVector::StringVector() {
-        new (this) eastl::vector<eastl::string, eastl::allocator>();
-        field_32 = 0;
-    }
+    // 0x1001981d0
+    StringVector::StringVector() : eastl::vector<eastl::string>(), field_32(0) {}
 
 } // namespace jag::oldscape::rs2lib

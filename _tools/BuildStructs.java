@@ -1,4 +1,4 @@
-// Recovers class layouts for the jag:: classes: applies __thiscall where rebuild.py chose it, sizes classes from
+// Recovers class layouts for the jag:: classes: applies __thiscall to the listed functions (may be empty), sizes classes from
 // allocation sites, fills each class structure from how its methods use `this`, names fields from accessors and
 // exports the layouts. Script args: <thiscall list> <class sizes tsv> <layouts out tsv> [threads]
 //@category osclient
@@ -22,6 +22,7 @@ import ghidra.program.model.data.Structure;
 import ghidra.program.model.listing.Function;
 import ghidra.program.model.listing.FunctionIterator;
 import ghidra.program.model.listing.GhidraClass;
+import ghidra.program.model.listing.Parameter;
 import ghidra.program.model.listing.VariableUtilities;
 import ghidra.program.model.pcode.HighFunction;
 import ghidra.program.model.pcode.HighSymbol;
@@ -94,7 +95,7 @@ public class BuildStructs extends GhidraScript {
 		while (it.hasNext()) {
 			Function f = it.next();
 			Namespace ns = f.getParentNamespace();
-			if (ns instanceof GhidraClass cls && "__thiscall".equals(f.getCallingConventionName())
+			if (ns instanceof GhidraClass cls && hasThis(f)
 					&& cls.getName(true).startsWith("jag::") && !cls.getName(true).contains("<")) {
 				members.computeIfAbsent(cls, k -> new ArrayList<>()).add(f);
 			}
@@ -247,9 +248,27 @@ public class BuildStructs extends GhidraScript {
 		if (hf == null || hf.getLocalSymbolMap().getNumParams() == 0) {
 			return null;
 		}
-		HighSymbol p = hf.getLocalSymbolMap().getParamSymbol(0);
-		HighVariable v = p == null ? null : p.getHighVariable();
-		return v != null && DecompilerUtils.isThisParameter(v, f) ? v : null;
+		for (int i = 0; i < hf.getLocalSymbolMap().getNumParams(); i++) {
+			HighSymbol p = hf.getLocalSymbolMap().getParamSymbol(i);
+			HighVariable v = p == null ? null : p.getHighVariable();
+			if (v != null && (DecompilerUtils.isThisParameter(v, f) || "this".equals(p.getName()))) {
+				return v;
+			}
+		}
+		return null;
+	}
+
+	/** A member function: __thiscall, or an explicit this after a by-value return buffer or before a VTT. */
+	private static boolean hasThis(Function f) {
+		if ("__thiscall".equals(f.getCallingConventionName())) {
+			return true;
+		}
+		for (Parameter p : f.getParameters()) {
+			if ("this".equals(p.getName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/terrain/TerrainOverlayShape.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,22 +8,17 @@ namespace jag::graphics {
     public:
         // virtual methods in vtable order
         virtual ~TerrainOverlayShape();
-        GetID() const;
-        TerrainOverlayShape(TerrainOverlayShapeType);
-        void GetShape(TerrainOverlayShapeType);
+        char GetID() const;
+        TerrainOverlayShape(TerrainOverlayShapeType terrainOverlayShapeType);
+        void GetShape(TerrainOverlayShapeType terrainOverlayShapeType);
 
-        // data members, from how the methods use this: 24 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        undefined1 m_iD;     // offset 8
-        char _unknown_9[15];
+    private:
+        char m_iD;
+        uint8_t _unknown_9[15];
     };
 
-    // 0x10062dc60, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // TerrainOverlayShape::GetID() const
-    /* TextProperties::GetHorizontalAlignment() const */
-
-    undefined1 TextProperties::GetHorizontalAlignment() {
+    // 0x10062dc60
+    char TerrainOverlayShape::GetID() const {
         return m_horizontalAlignment;
     }
 

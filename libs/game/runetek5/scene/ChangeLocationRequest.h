@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/ChangeLocationRequest.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,164 +8,110 @@ namespace jag::game {
     public:
         // virtual methods in vtable order
         virtual ~ChangeLocationRequest();
-        GetSeqID() const;
-        GetCoordGrid() const;
-        GetLevel() const;
-        uint GetServerGridZ() const;
-        GetSourceServerCycle() const;
-        GetServerGridX() const;
-        GetLocTypeCustomisation() const;
-        GetSeqDelay() const;
-        uint GetLocationID() const;
-        OverrideTransform() const;
-        SetLocationID(int);
-        GetSourceLogicTick() const;
-        ChangeLocationRequest(ChangeLocationRequest const&);
+        uint32_t GetSeqID() const;
+        void GetCoordGrid() const;
+        EnumOptionToggle GetLevel() const;
+        unsigned int GetServerGridZ() const;
+        uint32_t GetSourceServerCycle() const;
+        uint64_t GetServerGridX() const;
+        uint8_t* GetLocTypeCustomisation() const;
+        uint32_t GetSeqDelay() const;
+        unsigned int GetLocationID() const;
+        uint8_t OverrideTransform() const;
+        void SetLocationID(int arg1);
+        AnimationLoopBehaviour GetSourceLogicTick() const;
+        ChangeLocationRequest(const ChangeLocationRequest& changeLocationRequest);
         LocData GetLocData() const;
-        ChangeLocationRequest(ChangeLocationRequestType, int, int, CoordGrid const&, LocData const&, bool);
-        ChangeLocationRequest(ChangeLocationRequestType, int, int, int, int, int, LocData const&);
+        ChangeLocationRequest(ChangeLocationRequestType arg1, int arg2, int arg3, const CoordGrid& arg4,
+                              const LocData& arg5, bool arg6);
+        ChangeLocationRequest(ChangeLocationRequestType arg1, int arg2, int arg3, int arg4, int arg5, int arg6,
+                              const LocData& arg7);
         void Destruct();
-        ActionRequest(LocationContainer&);
+        uint64_t ActionRequest(LocationContainer& locationContainer);
 
-        // data members, from how the methods use this: 120 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        undefined8 m_level; // offset 8
-        uint m_serverGridZ; // offset 16
-        LocData m_locData;  // offset 20
-        char _unknown_52[20];
-        undefined1 field_72; // offset 72
-        char _unknown_73[3];
-        uint m_locationID; // offset 76
-        char _unknown_80[16];
-        undefined4 m_seqID;    // offset 96
-        undefined4 m_seqDelay; // offset 100
-        undefined4 field_104;  // offset 104
-        char _unknown_108[1];
-        undefined8 field_109; // offset 109
-        char _unknown_117[3];
+    private:
+        uint64_t m_level;
+        unsigned int m_serverGridZ;
+        LocData m_locData;
+        uint8_t _unknown_52[20];
+        uint8_t field_72;
+        uint8_t _unknown_73[3];
+        unsigned int m_locationID;
+        uint8_t _unknown_80[16];
+        uint32_t m_seqID;
+        uint32_t m_seqDelay;
+        uint32_t field_104;
+        uint8_t _unknown_108[1];
+        uint64_t field_109;
+        uint8_t _unknown_117[3];
     };
 
-    // 0x10040f290, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // ChangeLocationRequest::SetLocationID(int)
-    /* graphics::ModelParticleSource::SetSourceModelExternalID(int) */
-
-    void graphics::ModelParticleSource::SetSourceModelExternalID(int param_1) {
-        m_sourceModelExternalID = param_1;
+    // 0x10040f290
+    void ChangeLocationRequest::SetLocationID(int arg1) {
+        m_sourceModelExternalID = arg1;
     }
 
-    // 0x100410520, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // ChangeLocationRequest::GetSourceLogicTick() const
-    /* graphics::AnimationParameters::GetLoopBehaviour() const */
-
-    int graphics::AnimationParameters::GetLoopBehaviour() {
+    // 0x100410520
+    AnimationLoopBehaviour ChangeLocationRequest::GetSourceLogicTick() const {
         return m_loopBehaviour;
     }
 
-    // 0x100410530, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // ChangeLocationRequest::ChangeLocationRequest(ChangeLocationRequest const&): jumps straight to the base-object constructor
-
-    // 0x10041cb80, 112 bytes, base-object constructor, inline, placed by class name
-    // ChangeLocationRequest::ChangeLocationRequest(ChangeLocationRequest const&)
-    void ChangeLocationRequest::ChangeLocationRequest(ChangeLocationRequest* param_1) {
-        undefined8 uVar1;
-        undefined3 uVar2;
-        uint uVar3;
-        undefined4 uVar4;
-
-        field_0 = PTR_vtable_100ee8000 + 16;
-        m_level = param_1->m_level;
-        m_serverGridZ = param_1->m_serverGridZ;
-        new (m_locData, (LocData*)param_1->m_locData) LocData();
-        uVar2 = *(undefined3*)&param_1->field_73;
-        uVar3 = param_1->m_locationID;
-        field_72 = param_1->field_72;
-        *(undefined3*)&field_73 = uVar2;
+    // 0x10041cb80
+    ChangeLocationRequest::ChangeLocationRequest(const ChangeLocationRequest& changeLocationRequest)
+        : m_level(changeLocationRequest.m_level), m_serverGridZ(changeLocationRequest.m_serverGridZ),
+          m_locData(changeLocationRequest.m_locData) {
+        uint32_t uVar2 = *(uint32_t*)&changeLocationRequest.field_73;
+        unsigned int uVar3 = changeLocationRequest.m_locationID;
+        field_72 = changeLocationRequest.field_72;
+        *(uint32_t*)&field_73 = uVar2;
         m_locationID = uVar3;
-        new (&field_80, (shared_ptr*)&param_1->field_80) shared_ptr<oldscape::dash3d::Decor>();
-        field_109 = param_1->field_109;
-        uVar4 = param_1->m_seqDelay;
-        uVar1 = *(undefined8*)&param_1->field_104;
-        m_seqID = param_1->m_seqID;
+        new (&field_80) shared_ptr(&changeLocationRequest.field_80);
+        field_109 = changeLocationRequest.field_109;
+        uint32_t uVar4 = changeLocationRequest.m_seqDelay;
+        uint64_t uVar1 = *(uint64_t*)&changeLocationRequest.field_104;
+        m_seqID = changeLocationRequest.m_seqID;
         m_seqDelay = uVar4;
-        *(undefined8*)&field_104 = uVar1;
+        *(uint64_t*)&field_104 = uVar1;
     }
 
-    // 0x10042e380, 16 bytes, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // ChangeLocationRequest::GetLocData() const
-    /* ObjAppearanceData::GetOffset() const */
-
-    undefined1* ObjAppearanceData::GetOffset() {
+    // 0x10042e380
+    LocData ChangeLocationRequest::GetLocData() const {
         return &field_20;
     }
 
-    // 0x100438760, 16 bytes, complete-object destructor, inline, placed by class name
-    // ChangeLocationRequest::~ChangeLocationRequest(): jumps straight to the base-object destructor
-
-    // 0x100438770, 32 bytes, base-object destructor, inline, placed by class name
-    // ChangeLocationRequest::~ChangeLocationRequest()
-    void ChangeLocationRequest::~ChangeLocationRequest() {
-        field_0 = PTR_vtable_100ee8000 + 16;
-        (&field_80)->~shared_ptr();
+    // 0x100438770
+    ChangeLocationRequest::~ChangeLocationRequest() {
+        field_80.~shared_ptr();
     }
 
-    // 0x100438790, 32 bytes, deleting destructor, inline, placed by class name
-    // ChangeLocationRequest::~ChangeLocationRequest()
-    void ChangeLocationRequest::~ChangeLocationRequest() {
-        ~ChangeLocationRequest(this);
-        operator_delete(this);
-    }
-
-    // 0x100438970, 32 bytes, complete-object constructor, inline, placed by class name
-    // ChangeLocationRequest::ChangeLocationRequest(ChangeLocationRequestType, int, int, CoordGrid const&, LocData const&, bool)
-    void ChangeLocationRequest::ChangeLocationRequest() {
-        ChangeLocationRequest();
-    }
-
-    // 0x100438990, 144 bytes, base-object constructor, inline, placed by class name
-    // ChangeLocationRequest::ChangeLocationRequest(ChangeLocationRequestType, int, int, CoordGrid const&, LocData const&, bool)
-    void ChangeLocationRequest::ChangeLocationRequest(undefined4 param_2, uint param_3, undefined4 param_4,
-                                                      undefined8* param_5, LocData* param_6, undefined1 param_7) {
-        new (this) MakeSharedPool<ChangeLocationRequest, 128>();
-        field_0 = PTR_vtable_100ee8000 + 16;
+    // 0x100438990
+    ChangeLocationRequest::ChangeLocationRequest(ChangeLocationRequestType arg1, int arg2, int arg3,
+                                                 const CoordGrid& arg4, const LocData& arg5, bool arg6)
+        : MakeSharedPool<ChangeLocationRequest, 128>() {
         m_level = *param_5;
-        m_serverGridZ = *(uint*)(param_5 + 1);
-        new (m_locData, param_6) LocData();
+        m_serverGridZ = *(unsigned int*)(param_5 + 1);
+        new (m_locData) LocData(*param_6);
         field_72 = param_7;
         m_locationID = param_3;
-        new (&field_80, (_func_decltype_nullptr*)param_6)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+        new (&field_80) shared_ptr();
         m_seqID = param_4;
         m_seqDelay = 0;
         field_104 = param_2;
-        *(undefined8*)&field_108 = 0;
-        *(undefined1*)((long)&field_109 + 7) = 1;
+        *(uint64_t*)&field_108 = 0;
+        *(uint8_t*)((long)&field_109 + 7) = 1;
     }
 
-    // 0x100444ad0, 32 bytes, complete-object constructor, inline, placed by class name
-    // ChangeLocationRequest::ChangeLocationRequest(ChangeLocationRequestType, int, int, int, int, int, LocData const&)
-    void ChangeLocationRequest::ChangeLocationRequest() {
-        ChangeLocationRequest();
-    }
-
-    // 0x10044cba0, 144 bytes, base-object constructor, inline, placed by class name
-    // ChangeLocationRequest::ChangeLocationRequest(ChangeLocationRequestType, int, int, int, int, int, LocData const&)
-    void ChangeLocationRequest::ChangeLocationRequest(undefined4 param_2, uint param_3, undefined4 param_4, int param_5,
-                                                      int param_6, int param_7, LocData* param_8) {
-        new (this) MakeSharedPool<ChangeLocationRequest, 128>();
-        field_0 = PTR_vtable_100ee8000 + 16;
-        new (&m_level, param_5, param_6, param_7) oldscape::rs2lib::worldmap::LocationData();
-        new (m_locData, param_8) LocData();
-        m_locationID = param_3;
-        new (&field_80, (_func_decltype_nullptr*)param_8)
-            shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x10044cba0
+    ChangeLocationRequest::ChangeLocationRequest(ChangeLocationRequestType arg1, int arg2, int arg3, int arg4, int arg5,
+                                                 int arg6, const LocData& arg7)
+        : MakeSharedPool<ChangeLocationRequest, 128>(), m_level(param_5, param_6, param_7), m_locData(*param_8),
+          m_locationID(param_3) {
+        new (&field_80) shared_ptr();
         m_seqID = param_4;
         m_seqDelay = 0;
         field_104 = param_2;
-        *(undefined8*)&field_108 = 0;
-        *(undefined1*)((long)&field_109 + 7) = 1;
+        *(uint64_t*)&field_108 = 0;
+        *(uint8_t*)((long)&field_109 + 7) = 1;
     }
 
 } // namespace jag::game

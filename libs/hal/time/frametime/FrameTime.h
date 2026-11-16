@@ -1,57 +1,50 @@
 // libs/hal/time/frametime/FrameTime.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class FrameTime {
     public:
-        GetFrameDelta();
-        GetFrameDeltaD();
-        GetCurrentTimeMS();
-        GetCurrentTimeNS();
-        GetSecondsSinceProgramStart();
+        void GetFrameDelta();
+        void GetFrameDeltaD();
+        void GetCurrentTimeMS();
+        void GetCurrentTimeNS();
+        void GetSecondsSinceProgramStart();
         void NewFrame();
-        static /* 8 bytes */ m_currentTimeMS;
-        static /* 8 bytes */ m_startTimeMS;
-        static /* 8 bytes */ m_frameDeltaSecs;
-        static /* 8 bytes */ m_currentTimeNS;
-        static /* 8 bytes */ m_startTimeNS;
-        static /* 8 bytes */ m_frameDeltaNS;
-        static /* 8 bytes */ m_secondsSinceStart;
+        static int64_t m_currentTimeMS;
+        static int64_t m_startTimeMS;
+        static int64_t m_frameDeltaSecs;
+        static int64_t m_currentTimeNS;
+        static int64_t m_startTimeNS;
+        static int64_t m_frameDeltaNS;
+        static int64_t m_secondsSinceStart;
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
-    // 0x1000dd4d0, 32 bytes, inline, placed by class name and debug map
-    // FrameTime::GetFrameDelta()
-    undefined8 FrameTime::GetFrameDelta() {
-        return CONCAT44((int)((ulong)m_frameDeltaSecs >> 32), (float)m_frameDeltaSecs);
+    // 0x1000dd4d0
+    void FrameTime::GetFrameDelta() {
+        return (((uint64_t)((int)((unsigned long)m_frameDeltaSecs >> 32)) << 32) | (uint32_t)((float)m_frameDeltaSecs));
     }
 
-    // 0x1006169e0, 32 bytes, inline, placed by class name
-    // FrameTime::GetFrameDeltaD()
-    undefined8 FrameTime::GetFrameDeltaD() {
+    // 0x1006169e0
+    void FrameTime::GetFrameDeltaD() {
         return m_frameDeltaSecs;
     }
 
-    // 0x1009e9240, 16 bytes, inline, placed by class name
-    // FrameTime::GetCurrentTimeMS()
-    undefined8 FrameTime::GetCurrentTimeMS() {
+    // 0x1009e9240
+    void FrameTime::GetCurrentTimeMS() {
         return m_currentTimeMS;
     }
 
-    // 0x100b04f10, 16 bytes, inline, placed by class name
-    // FrameTime::GetCurrentTimeNS()
-    undefined8 FrameTime::GetCurrentTimeNS() {
+    // 0x100b04f10
+    void FrameTime::GetCurrentTimeNS() {
         return m_currentTimeNS;
     }
 
-    // 0x100c27700, 32 bytes, inline, placed by class name
-    // FrameTime::GetSecondsSinceProgramStart()
-    undefined4 FrameTime::GetSecondsSinceProgramStart() {
+    // 0x100c27700
+    void FrameTime::GetSecondsSinceProgramStart() {
         return m_secondsSinceStart;
     }
 

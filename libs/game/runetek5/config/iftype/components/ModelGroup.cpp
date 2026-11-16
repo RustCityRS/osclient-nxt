@@ -1,510 +1,367 @@
 // libs/game/runetek5/config/iftype/components/ModelGroup.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.game.runetek5
 
 #include "ModelGroup.h"
 
 namespace jag::game {
-    // 0x100f3ca70, 4 bytes, __data
+    // 0x100f3ca70
     float ModelGroup::CameraInfo::DEFAULT_CLIP_PLANE_NEAR = 10.0f;
 
-    // 0x100f3ca74, 4 bytes, __data
+    // 0x100f3ca74
     float ModelGroup::CameraInfo::DEFAULT_CLIP_PLANE_FAR = 10000.0f;
 
-    // 0x100f3ca78, 4 bytes, __data
+    // 0x100f3ca78
     float ModelGroup::CameraInfo::DEFAULT_FOV = 90.0f;
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    ModelGroup::SetScrollPos(int, int);
+    // 0x100009e70: ModelGroup::SetScrollPos(int, int) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    ModelGroup::SetScrollSize(int, int);
+    // 0x100009e70: ModelGroup::SetScrollSize(int, int) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x100023b60: the linker folded this into hal::Haptics::SetEnabled(bool), which has identical code
-    ModelGroup::CameraInfo::SetUseLookAt(bool);
+    // 0x100023b60: ModelGroup::CameraInfo::SetUseLookAt(bool) has the same machine code as hal::Haptics::SetEnabled(bool)
 
-    // 0x100029ea0: the linker folded this into oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long), which has identical code
-    ModelGroup::SupportsScrolling() const;
+    // 0x100029ea0: ModelGroup::SupportsScrolling() const has the same machine code as oldscape::InputFieldKeyboardHandler::PointerPress(int, int, int, int, unsigned long long)
 
-    // 0x1000c46d0: the linker folded this into oldscape::javapal::GameShell::GetClientType(), which has identical code
-    ModelGroup::GetType() const;
+    // 0x1000c46d0: ModelGroup::GetType() const has the same machine code as oldscape::javapal::GameShell::GetClientType()
 
-    // 0x100536930, 656 bytes, placed by class name and debug map
-    // ModelGroup::DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator> >&, int)
-    void ModelGroup::DecodeTypedComponentProperties(PacketT* param_1, int param_2) {
-        char cVar1;
-        byte bVar2;
-        ushort uVar3;
+    // 0x100536930
+    void ModelGroup::DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2) {
+        bool cVar1;
         int iVar4;
         int iVar5;
-        uint uVar6;
         CameraInfo* this_00;
-        undefined4 in_register_00000014;
-        CameraInfo* this_01;
-        undefined1 auVar7[12];
+        uint32_t in_register_00000014;
+        rbtree<int, eastl::pair<int const, ModelGroup::CameraInfo>, eastl::less<int>, eastl::allocator,
+               eastl::use_first<eastl::pair<int const, ModelGroup::CameraInfo>>, true, true>* this_01;
+        uint8_t auVar6[12];
         CameraInfo local_158;
-        Vector3T<int> local_68[16];
-        CameraInfo* local_58;
-        undefined1 local_50[12];
-        uint local_38;
-        int local_34;
+        Vector3T<int> local_68;
+        rbtree<int, eastl::pair<int const, ModelGroup::CameraInfo>, eastl::less<int>, eastl::allocator,
+               eastl::use_first<eastl::pair<int const, ModelGroup::CameraInfo>>, true, true>* local_58;
+        uint8_t local_50[12];
+        unsigned int local_38;
 
-        if (DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int)::flipY == '\0') {
-            iVar4 = ___cxa_guard_acquire(
-                &DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int)::flipY, param_1,
-                CONCAT44(in_register_00000014, param_2));
+        ModelGroup* local_40 = this;
+        if (DecodeTypedComponentProperties(PacketT<Array<unsigned char>>&, int)::flipY == '\0') {
+            iVar4 = ___cxa_guard_acquire(&DecodeTypedComponentProperties(PacketT<Array<unsigned char>>&, int)::flipY,
+                                         arg1, (((uint64_t)in_register_00000014 << 32) | (uint32_t)arg2));
             if (iVar4 != 0) {
-                new (&DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int)::flipY)
-                    oldscape::rs2lib::worldmap::LocationData(1, -1, 1);
-                ___cxa_guard_release(
-                    &DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int)::flipY);
+                new ((LocationData*)&DecodeTypedComponentProperties(PacketT<Array<unsigned char>>&, int)::flipY)
+                    oldscape::rs2lib::worldmap::LocationData(1, 4294967295, 1);
+                ___cxa_guard_release(&DecodeTypedComponentProperties(PacketT<Array<unsigned char>>&, int)::flipY);
             }
         }
-        uVar3 = param_1->g2();
-        local_34 = 0;
+        unsigned short uVar3 = arg1.g2();
+        int local_34 = 0;
         if (uVar3 != 0) {
-            local_38 = (uint)uVar3;
-            this_01 = (CameraInfo*)((ModelGroup*)this)->field_592;
+            local_38 = (unsigned int)uVar3;
+            this_01 = (rbtree<int, eastl::pair<int const, ModelGroup::CameraInfo>, eastl::less<int>, eastl::allocator,
+                              eastl::use_first<eastl::pair<int const, ModelGroup::CameraInfo>>, true, true>*)&local_40
+                          ->field_592;
             local_58 = this_01;
             do {
-                new (&local_158) CameraInfo();
-                eastl::rbtree<int, eastl::pair<int const, ModelGroup::CameraInfo>, eastl::less<int>, eastl::allocator,
-                              eastl::use_first<eastl::pair<int const, ModelGroup::CameraInfo>>, true,
-                              true>::emplace<int&, ModelGroup::CameraInfo>((int*)local_50, this_01);
-                local_158.~CameraInfo();
-                this_00 = (CameraInfo*)
-                    eastl::map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>::operator[](
-                        (map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>*)this_01, &local_34);
-                math::Vector3T<int>::Vector3T(local_68, param_1, false);
-                auVar7 = math::operator*((Vector3T*)local_68,
-                                         (Vector3T*)&DecodeTypedComponentProperties(
-                                             PacketT<Array<unsigned char, eastl::allocator>>&, int)::flipY);
-                local_50 = auVar7;
-                math::Vector3T<float>::Vector3T<int>((Vector3T<float>*)&local_158, (Vector3T*)local_50);
-                this_00->SetPosition((Vector3T*)&local_158, 0);
-                cVar1 = param_1->g1();
-                new (this_00) std::__cxx_atomic_base_impl<bool>(cVar1 != '\0');
-                math::Vector3T<int>::Vector3T(local_68, param_1, false);
-                auVar7 = math::operator*((Vector3T*)local_68,
-                                         (Vector3T*)&DecodeTypedComponentProperties(
-                                             PacketT<Array<unsigned char, eastl::allocator>>&, int)::flipY);
-                local_50 = auVar7;
-                math::Vector3T<float>::Vector3T<int>((Vector3T<float>*)&local_158, (Vector3T*)local_50);
-                this_00->SetLookAt((Vector3T*)&local_158, 0);
-                new (local_50) math::Vector3T<int>(param_1, false);
-                math::Vector3T<float>::Vector3T<int>((Vector3T<float>*)&local_158, (Vector3T*)local_50);
-                this_00->SetYawPitchRoll((Vector3T*)&local_158, 0);
-                uVar3 = param_1->g2();
+                local_158 = CameraInfo();
+                *local_50 = this_01->emplace<int&, ModelGroup::CameraInfo>(local_34, local_158);
+                this_00 = (CameraInfo*)(*this_01)[local_34];
+                local_68 = math::Vector3T(arg1, false);
+                auVar6 =
+                    local_68 *
+                    (*((Vector3T<int>*)&DecodeTypedComponentProperties(PacketT<Array<unsigned char>>&, int)::flipY));
+                local_50 = auVar6;
+                local_158.Vector3T<int>(*local_50);
+                this_00->SetPosition(local_158, 0);
+                cVar1 = arg1.g1();
+                new (this_00) std::__cxx_atomic_base_impl(cVar1);
+                local_68 = math::Vector3T(arg1, false);
+                auVar6 =
+                    local_68 *
+                    (*((Vector3T<int>*)&DecodeTypedComponentProperties(PacketT<Array<unsigned char>>&, int)::flipY));
+                local_50 = auVar6;
+                local_158.Vector3T<int>(*local_50);
+                this_00->SetLookAt(local_158, 0);
+                new (local_50) math::Vector3T(arg1, false);
+                local_158.Vector3T<int>(*local_50);
+                this_00->SetYawPitchRoll(local_158, 0);
+                uVar3 = arg1.g2();
                 this_00->SetFOV((float)uVar3, 0);
-                iVar4 = param_1->g4();
-                iVar5 = param_1->g4();
+                iVar4 = arg1.g4();
+                iVar5 = arg1.g4();
                 this_01 = local_58;
                 this_00->SetClipPlanes((float)iVar4, (float)iVar5);
-                uVar6 = param_1->g4();
-                math::Colour4FromA8R8G8B8(uVar6);
+                math::Colour4FromA8R8G8B8(arg1.g4());
                 CameraInfo::SetClearColour(this_00);
-                cVar1 = param_1->g1();
-                this_00->SetSortByComponentOrder(cVar1 != '\0');
+                cVar1 = arg1.g1();
+                this_00->SetSortByComponentOrder(cVar1);
                 local_34 = local_34 + 1;
             } while (local_34 < (int)local_38);
         }
-        bVar2 = param_1->g1();
-        ((ModelGroup*)this)->field_584 = (uint)bVar2;
-        ((ModelGroup*)this)->field_588 = -1;
+        uint8_t bVar2 = arg1.g1();
+        local_40->field_584 = (unsigned int)bVar2;
+        local_40->field_588 = -1;
     }
 
-    // 0x100536e40, 144 bytes, placed by class name
-    // ModelGroup::OnDeviceLost()
+    // 0x100536e40
     void ModelGroup::OnDeviceLost() {
-        long lVar1;
-        bool bVar2;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        eastl local_30[8];
-        hashtable_iterator_base local_28[8];
+        long lVar2;
+        rbtree<unsigned int, eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>,
+               eastl::less<unsigned int>, eastl::allocator,
+               eastl::use_first<eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe>>>, true,
+               true>
+            local_28;
 
-        eastl::vector<unsigned long,
-                      eastl::fixed_vector_allocator<8ul, 64ul, 8ul, 0ul, true, eastl::allocator>>::rbegin();
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar2 = eastl::operator!=(local_30, local_28, extraout_RDX);
-        if (bVar2) {
+        auto local_30 = field_592.rbegin();
+        local_28.end();
+        bool cVar1 = local_30 != local_28;
+        if (cVar1) {
             do {
-                lVar1 = eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator*(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_30);
-                ((lVar1 + 16))->ResetTextures();
-                eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator++(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_30);
-                bVar2 = eastl::operator!=(local_30, local_28, extraout_RDX_00);
-            } while (bVar2);
+                lVar2 = *local_30;
+                ((lVar2 + 16))->ResetTextures();
+                ++local_30;
+                cVar1 = local_30 != local_28;
+            } while (cVar1);
         }
     }
 
-    // 0x100536ed0, 48 bytes, placed by class name
-    // ModelGroup::CameraInfo::ResetTextures()
+    // 0x100536ed0
     void ModelGroup::CameraInfo::ResetTextures() {
-        if ((&field_24)->operator_cast_to_bool()) {
-            (&field_24, (Texture2D*)0)->reset();
+        if ((&field_24)->operator_cast_to_bool() != '\0') {
+            field_24.reset(nullptr);
         }
     }
 
-    // 0x100536f20, 192 bytes, placed by class name
-    // ModelGroup::UpdateCameraTransition()
+    // 0x100536f20
     void ModelGroup::UpdateCameraTransition() {
-        int* piVar1;
-        undefined1* this_00;
-        char cVar2;
-        CameraInfo* pCVar3;
+        int* arg1;
+        uint8_t* this_00;
+        CameraInfo* pCVar2;
 
         if (-1 < field_588) {
-            piVar1 = &field_588;
-            this_00 = field_592;
-            pCVar3 =
-                (CameraInfo*)eastl::map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>::operator[](
-                    (map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>*)this_00, piVar1);
-            cVar2 = pCVar3->IsTransitioning();
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            arg1 = &field_588;
+            this_00 = &field_592;
+            pCVar2 = (CameraInfo*)(*this_00)[*arg1];
+            if (!(pCVar2->IsTransitioning())) {
                 LogAssert("m_cameras[m_pendingCameraIndex].IsTransitioning()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                           "iftype/components/ModelGroup.cpp",
-                          58, (char*)0);
+                          58, nullptr);
             }
             if (field_584 != -1) {
-                pCVar3 = (CameraInfo*)
-                    eastl::map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>::operator[](
-                        (map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>*)this_00, piVar1);
-                cVar2 = pCVar3->IsTransitionComplete();
-                if (cVar2 == '\0') {
+                pCVar2 = (CameraInfo*)(*this_00)[*arg1];
+                if (!(pCVar2->IsTransitionComplete())) {
                     return;
                 }
             }
-            pCVar3 =
-                (CameraInfo*)eastl::map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>::operator[](
-                    (map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>*)this_00, piVar1);
-            pCVar3->ClearTransition();
+            pCVar2 = (CameraInfo*)(*this_00)[*arg1];
+            pCVar2->ClearTransition();
             field_584 = field_588;
             field_588 = -1;
         }
     }
 
-    // 0x100537020, 32 bytes, placed by class name
-    // ModelGroup::CameraInfo::ClearTransition()
+    // 0x100537020
     void ModelGroup::CameraInfo::ClearTransition() {
         field_32 = 0;
         field_40 = 0;
         field_8 = -1;
-        (&field_24, (Texture2D*)0)->reset();
+        field_24.reset(nullptr);
     }
 
-    // 0x100537040, 288 bytes, placed by class name
-    // ModelGroup::AddCamera()
+    // 0x100537040
     int ModelGroup::AddCamera() {
-        bool bVar1;
-        long lVar2;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        CameraInfo local_138;
-        hashtable_iterator_base local_48[20];
-        int local_34;
-
-        local_34 = 0;
-        eastl::rbtree<int, eastl::pair<int const, ModelGroup::CameraInfo>, eastl::less<int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<int const, ModelGroup::CameraInfo>>, true,
-                      true>::find((int*)&local_138);
-        eastl::rbtree<unsigned int,
-                      eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                      eastl::less<unsigned int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<unsigned int const,
-                                                   eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                      true, true>::end();
-        bVar1 = eastl::operator!=((eastl*)&local_138, local_48, extraout_RDX);
-        if (bVar1) {
+        uint8_t* this_00 = &field_592;
+        return local_34 = 0;
+        CameraInfo local_138 = this_00->find(local_34);
+        local_48.end();
+        bool cVar1 = local_138 != local_48;
+        if (cVar1) {
             do {
                 local_34 = local_34 + 1;
-                eastl::rbtree<int, eastl::pair<int const, ModelGroup::CameraInfo>, eastl::less<int>, eastl::allocator,
-                              eastl::use_first<eastl::pair<int const, ModelGroup::CameraInfo>>, true,
-                              true>::find((int*)&local_138);
-                eastl::rbtree<
-                    unsigned int,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::less<unsigned int>, eastl::allocator,
-                    eastl::use_first<eastl::pair<unsigned int const,
-                                                 eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>>,
-                    true, true>::end();
-                bVar1 = eastl::operator!=((eastl*)&local_138, local_48, extraout_RDX_00);
-            } while (bVar1);
+                local_138 = this_00->find(local_34);
+                local_48.end();
+                cVar1 = local_138 != local_48;
+            } while (cVar1);
         }
-        new (&local_138) CameraInfo();
-        eastl::rbtree<int, eastl::pair<int const, ModelGroup::CameraInfo>, eastl::less<int>, eastl::allocator,
-                      eastl::use_first<eastl::pair<int const, ModelGroup::CameraInfo>>, true,
-                      true>::emplace<int&, ModelGroup::CameraInfo>((int*)local_48, (CameraInfo*)field_592);
-        local_138.~CameraInfo();
-        lVar2 = field_592->capacity();
-        if (lVar2 == 1) {
-            SetActiveCamera(this, local_34, 0, 4294967295, 0);
+        local_138 = CameraInfo();
+        auto local_48 = this_00->emplace<int&, ModelGroup::CameraInfo>(local_34, local_138);
+        if (this_00->capacity() == 1) {
+            SetActiveCamera(local_34, 0, -1, 0);
         }
         return local_34;
     }
 
-    // 0x100537240, 256 bytes, placed by class name
-    // ModelGroup::SetActiveCamera(int, ModelGroup::TransitionType, int, unsigned int)
-    void ModelGroup::SetActiveCamera(int param_1, int param_3, undefined4 param_4, undefined4 param_5) {
+    // 0x100537240
+    void ModelGroup::SetActiveCamera(int arg1, ModelGroup::TransitionType transitionType, int arg3, unsigned int arg4) {
         int iVar1;
         CameraInfo* pCVar2;
 
-        if (param_1 == -1) {
+        if (arg1 == -1) {
             if (-1 < field_588) {
-                pCVar2 = (CameraInfo*)
-                    eastl::map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>::operator[](
-                        (map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>*)field_592, &field_588);
+                pCVar2 = &field_592[field_588];
                 pCVar2->ClearTransition();
                 field_588 = -1;
             }
             field_584 = -1;
         } else {
             iVar1 = field_588;
-            if (param_3 == 0) {
+            if (transitionType == 0) {
                 if (-1 < iVar1) {
-                    pCVar2 = (CameraInfo*)
-                        eastl::map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>::operator[](
-                            (map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>*)field_592,
-                            &field_588);
+                    pCVar2 = &field_592[field_588];
                     pCVar2->ClearTransition();
                     field_588 = -1;
                 }
-                field_584 = param_1;
-            } else if ((iVar1 != param_1) && ((field_584 != param_1 || (iVar1 != -1)))) {
+                field_584 = arg1;
+            } else if ((iVar1 != arg1) && ((field_584 != arg1 || (iVar1 != -1)))) {
                 if (-1 < iVar1) {
                     field_584 = iVar1;
                 }
-                field_588 = param_1;
-                pCVar2 = (CameraInfo*)
-                    eastl::map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>::operator[](
-                        (map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>*)field_592, &field_588);
-                pCVar2->StartTransition(param_3, param_4, param_5);
+                field_588 = arg1;
+                pCVar2 = &field_592[field_588];
+                pCVar2->StartTransition(transitionType, arg3, arg4);
             }
         }
     }
 
-    // 0x100537340, 96 bytes, placed by class name
-    // ModelGroup::DeleteCamera(int)
-    void ModelGroup::DeleteCamera(int param_1) {
-        int iVar1;
-        int iVar2;
-
-        eastl::map<int, ModelGroup::CameraInfo, eastl::less<int>, eastl::allocator>::erase((int*)field_592);
-        iVar1 = field_584;
-        iVar2 = field_588;
-        if (iVar1 == param_1) {
+    // 0x100537340
+    void ModelGroup::DeleteCamera(int arg1) {
+        field_592.erase(arg1);
+        int iVar1 = field_584;
+        int iVar2 = field_588;
+        if (iVar1 == arg1) {
             iVar1 = -1;
         }
         field_584 = iVar1;
-        if (iVar2 == param_1) {
+        if (iVar2 == arg1) {
             iVar2 = -1;
         }
         field_588 = iVar2;
-        UpdateCameraTransition(this);
+        UpdateCameraTransition();
     }
 
-    // 0x100537420, 64 bytes, placed by class name
-    // ModelGroup::CameraInfo::StartTransition(ModelGroup::TransitionType, int, unsigned int)
-    void ModelGroup::CameraInfo::StartTransition(undefined4 param_2, int param_3, uint param_4) {
-        long lVar1;
-
-        field_4 = param_2;
-        if (field_8 != param_3) {
-            field_8 = param_3;
-            (&field_24, (Texture2D*)0)->reset();
+    // 0x100537420
+    void ModelGroup::CameraInfo::StartTransition(ModelGroup::TransitionType transitionType, int arg2,
+                                                 unsigned int arg3) {
+        field_4 = transitionType;
+        if (field_8 != arg2) {
+            field_8 = arg2;
+            field_24.reset(nullptr);
         }
-        lVar1 = FrameTime::GetCurrentTimeMS();
+        long lVar1 = FrameTime::GetCurrentTimeMS();
         field_32 = lVar1;
-        field_40 = (ulong)param_4 + lVar1;
+        field_40 = (unsigned long)arg3 + lVar1;
     }
 
-    // 0x1005374b0, 272 bytes, base-object constructor, placed by class name
-    // ModelGroup::CameraInfo::CameraInfo(ModelGroup::CameraInfo&&)
-    void ModelGroup::CameraInfo::CameraInfo(CameraInfo* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-
-        field_0 = param_1->field_0;
-        m_sortByComponentOrder = param_1->m_sortByComponentOrder;
-        field_4 = param_1->field_4;
-        field_8 = param_1->field_8;
-        m_clipPlanes = param_1->m_clipPlanes;
-        field_16 = param_1->field_16;
-        std::unique_ptr<render::Texture2D, std::default_delete<render::Texture2D>>::unique_ptr<true, void>(
-            (unique_ptr<render::Texture2D, std::default_delete<render::Texture2D>>*)&field_24);
-        field_32 = param_1->field_32;
-        field_40 = param_1->field_40;
-        uVar1 = param_1->field_56;
-        field_48 = param_1->field_48;
+    // 0x1005374b0
+    ModelGroup::CameraInfo::CameraInfo(ModelGroup::CameraInfo&& cameraInfo)
+        : field_0(cameraInfo.field_0), m_sortByComponentOrder(cameraInfo.m_sortByComponentOrder),
+          field_4(cameraInfo.field_4), field_8(cameraInfo.field_8), m_clipPlanes(cameraInfo.m_clipPlanes),
+          field_16(cameraInfo.field_16) {
+        field_24.unique_ptr<true, void>();
+        field_32 = cameraInfo.field_32;
+        field_40 = cameraInfo.field_40;
+        uint64_t uVar1 = cameraInfo.field_56;
+        field_48 = cameraInfo.field_48;
         field_56 = uVar1;
-        uVar1 = param_1->field_64;
-        uVar2 = param_1->field_72;
-        uVar3 = param_1->field_88;
-        field_80 = param_1->field_80;
+        uVar1 = cameraInfo.field_64;
+        uint64_t uVar2 = cameraInfo.field_72;
+        uint64_t uVar3 = cameraInfo.field_88;
+        field_80 = cameraInfo.field_80;
         field_88 = uVar3;
         field_64 = uVar1;
         field_72 = uVar2;
-        uVar1 = param_1->field_96;
-        uVar2 = param_1->field_104;
-        uVar3 = param_1->field_112;
-        uVar4 = param_1->field_120;
-        uVar5 = param_1->field_136;
-        field_128 = param_1->field_128;
+        uVar1 = cameraInfo.field_96;
+        uVar2 = cameraInfo.field_104;
+        uVar3 = cameraInfo.field_112;
+        uint64_t uVar4 = cameraInfo.field_120;
+        uint64_t uVar5 = cameraInfo.field_136;
+        field_128 = cameraInfo.field_128;
         field_136 = uVar5;
         field_112 = uVar3;
         field_120 = uVar4;
         field_96 = uVar1;
         field_104 = uVar2;
-        uVar1 = param_1->field_144;
-        uVar2 = param_1->field_152;
-        uVar3 = param_1->field_168;
-        uVar4 = param_1->field_176;
-        uVar5 = param_1->field_184;
-        field_160 = param_1->field_160;
+        uVar1 = cameraInfo.field_144;
+        uVar2 = cameraInfo.field_152;
+        uVar3 = cameraInfo.field_168;
+        uVar4 = cameraInfo.field_176;
+        uVar5 = cameraInfo.field_184;
+        field_160 = cameraInfo.field_160;
         field_168 = uVar3;
         field_144 = uVar1;
         field_152 = uVar2;
         field_176 = uVar4;
         field_184 = uVar5;
-        uVar1 = param_1->field_192;
-        uVar2 = param_1->field_200;
-        uVar3 = param_1->field_216;
-        uVar4 = param_1->field_224;
-        uVar5 = param_1->field_232;
-        field_208 = param_1->field_208;
+        uVar1 = cameraInfo.field_192;
+        uVar2 = cameraInfo.field_200;
+        uVar3 = cameraInfo.field_216;
+        uVar4 = cameraInfo.field_224;
+        uVar5 = cameraInfo.field_232;
+        field_208 = cameraInfo.field_208;
         field_216 = uVar3;
         field_224 = uVar4;
         field_232 = uVar5;
         field_192 = uVar1;
         field_200 = uVar2;
-        eastl::swap<std::unique_ptr<render::Texture2D, std::default_delete<render::Texture2D>>>(
-            (unique_ptr*)&field_24, (unique_ptr*)&param_1->field_24);
+        eastl::swap<std::unique_ptr<render::Texture2D>>(field_24, cameraInfo.field_24);
     }
 
-    // 0x100537630, 16 bytes, complete-object constructor, placed by class name
-    // ModelGroup::CameraInfo::CameraInfo(ModelGroup::CameraInfo&&): jumps straight to the base-object constructor
-
-    // 0x100537640, 160 bytes, placed by class name
-    // ModelGroup::CameraInfo::GetTransitionRatio() const
-    float ModelGroup::CameraInfo::GetTransitionRatio() {
-        long lVar2;
-        float local_1c;
-        float local_18;
-        float local_14;
-
-        if (IsTransitioning(this) == '\0') {
+    // 0x100537640
+    float ModelGroup::CameraInfo::GetTransitionRatio() const {
+        if (IsTransitioning() == '\0') {
             return 1.0;
         }
-        lVar2 = FrameTime::GetCurrentTimeMS();
-        local_1c = (float)(ulong)(lVar2 - field_32) / (float)(field_40 - field_32);
-        local_18 = 0.0;
-        local_14 = 1.0;
-        return math::Clamp<float>(&local_1c, &local_18, &local_14);
+        long lVar2 = FrameTime::GetCurrentTimeMS();
+        float local_1c = (float)(unsigned long)(lVar2 - field_32) / (float)(field_40 - field_32);
+        return math::Clamp<float>(local_1c, 0.0, 1.0);
     }
 
-    // 0x1005376e0, 560 bytes, placed by class name
-    // ModelGroup::CameraInfo::GetTransitionMaskTexture(Js5ResourceProvider&)
-    undefined1* ModelGroup::CameraInfo::GetTransitionMaskTexture(Js5ResourceProvider* param_1) {
-        undefined1* this_00;
-        int iVar1;
-        bool bVar2;
-        undefined* puVar3;
-        uchar* puVar4;
-        Texture2D* this_01;
-        long* plVar5;
-        long lVar6;
+    // 0x1005376e0
+    uint8_t* ModelGroup::CameraInfo::GetTransitionMaskTexture(Js5ResourceProvider& js5ResourceProvider) {
+        unsigned char* arg1;
+        long* plVar4;
+        long lVar5;
         Singleton<render::BuiltinStates>* this_02;
-        undefined1 local_110[104];
-        ResourceDataT<unsigned char const> local_a8[24];
-        unique_ptr local_90[8];
+        uint8_t local_110[104];
+        ResourceDataT<unsigned char const> local_a8;
+        unique_ptr<render::Texture2D, std::default_delete<render::Texture2D> _> local_90;
         RGBAImage local_88;
-        long local_30;
 
-        local_30 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        iVar1 = field_8;
-        this_00 = &field_24;
-        bVar2 = this_00->operator_cast_to_bool();
+        int iVar1 = field_8;
+        uint8_t* this_00 = &field_24;
+        bool cVar2 = this_00->operator_cast_to_bool();
         if (iVar1 < 0) {
-            if (bVar2) {
-                /* WARNING: Subroutine does not return */
+            if (cVar2) {
                 LogAssert("!m_transitionMaskTexture",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/game/runetek5/config/"
                           "iftype/components/ModelGroup.cpp",
-                          235, (char*)0);
+                          235, nullptr);
             }
-        } else if (!bVar2) {
+        } else if (!cVar2) {
             new ((local_110 + 64)) PacketView();
-            puVar3 = (undefined*)param_1->GetFile((PacketView*)(local_110 + 64), Js5Archive::JS5_SPRITES, field_8, 0,
-                                                  (Priority*)Priority::HIGHEST, true, false, true);
-            if (puVar3 == DataStatus::READY) {
-                new (&local_88) RGBAImage();
-                RAWDecoder::LoadSingle(&local_88, (PacketView*)(local_110 + 64));
-                puVar4 = (uchar*)local_88.GetColourDataPtr();
-                render::ResourceDataT<unsigned char const>::ResourceDataT(local_a8, puVar4, 0, 0, false);
+            if ((uint8_t*)js5ResourceProvider.GetFile(*((local_110 + 64)), *(Js5Archive::JS5_SPRITES), field_8, 0,
+                                                      (Priority*)Priority::HIGHEST, true, false,
+                                                      true) == DataStatus::READY) {
+                local_88 = RGBAImage();
+                RAWDecoder::LoadSingle(local_88, *((local_110 + 64)));
+                arg1 = (unsigned char*)local_88.GetColourDataPtr();
+                local_a8 = render::ResourceDataT(arg1, 0, 0, false);
                 new (local_110) render::Texture::Desc();
                 local_110._0_4_ = local_88.GetX();
                 local_110._4_4_ = local_88.GetZ();
                 local_110[32] = 0;
                 local_110._12_4_ = 7;
-                std::make_unique<render::Texture2D, char const(&)[30]>((char*)local_90);
-                std::unique_ptr<render::Texture2D, std::default_delete<render::Texture2D>>::operator=(
-                    (unique_ptr<render::Texture2D, std::default_delete<render::Texture2D>>*)this_00, local_90);
-                local_90->~unique_ptr();
-                this_01 =
-                    (Texture2D*)std::unique_ptr<render::Texture2D, std::default_delete<render::Texture2D>>::operator->(
-                        (unique_ptr<render::Texture2D, std::default_delete<render::Texture2D>>*)this_00);
-                this_01->Create(local_110, local_a8, 0);
+                std::make_unique<render::Texture2D, char const(&)[30]>(&local_90);
+                *this_00 = local_90;
+                ((Texture2D*)(*this_00).operator->())->Create(*local_110, &local_a8, 0);
                 this_02 = (Singleton<render::BuiltinStates>*)this_00;
-                plVar5 = (long*)std::unique_ptr<render::Texture2D, std::default_delete<render::Texture2D>>::operator->(
-                    (unique_ptr<render::Texture2D, std::default_delete<render::Texture2D>>*)this_00);
-                lVar6 = this_02->Instance();
-                (**(code**)(*plVar5 + 24))(plVar5, lVar6 + 208, 1);
-                local_a8->~ResourceDataT();
-                local_88.~RGBAImage();
+                plVar4 = (long*)(*this_00).operator->();
+                lVar5 = this_02->Instance();
+                (**(void (**)(...))(*plVar4 + 24))(plVar4, lVar5 + 208, 1);
             }
             ((local_110 + 64))->~PacketView();
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_30) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
         }
         return this_00;
     }
 
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    ModelGroup::~ModelGroup();
-
-    // 0x100c92b50: the linker folded this into InlineFatalBreak(), which has identical code
-    ModelGroup::~ModelGroup();
+    // 0x100c92b50: ModelGroup::~ModelGroup() has the same machine code as InlineFatalBreak()
 
 } // namespace jag::game

@@ -1,40 +1,37 @@
 // libs/oldscape/rs2lib/constants/ModeVariant.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 namespace jag::oldscape::constants {
-    // 0x1002646e0, 208 bytes, placed by debug map only (low confidence)
-    // ModeVariantGetByString(eastl::string const&)
-    undefined8 ModeVariantGetByString(basic_string* param_1) {
-        int iVar1;
-        undefined8 uVar2;
+    // 0x1002646e0
+    void ModeVariantGetByString(const eastl::string& str) {
+        uint64_t uVar2;
 
-        iVar1 = param_1->comparei("BETA");
+        int iVar1 = str.comparei("BETA");
         if (iVar1 == 0) {
             uVar2 = 1;
         } else {
-            iVar1 = param_1->comparei("DEADMAN");
+            iVar1 = str.comparei("DEADMAN");
             if (iVar1 == 0) {
                 uVar2 = 2;
             } else {
-                iVar1 = param_1->comparei("SEASONAL");
+                iVar1 = str.comparei("SEASONAL");
                 if (iVar1 == 0) {
                     uVar2 = 3;
                 } else {
-                    iVar1 = param_1->comparei("ALTSEASONAL");
+                    iVar1 = str.comparei("ALTSEASONAL");
                     if (iVar1 == 0) {
                         uVar2 = 4;
                     } else {
-                        iVar1 = param_1->comparei("TOURNAMENT");
+                        iVar1 = str.comparei("TOURNAMENT");
                         if (iVar1 == 0) {
                             uVar2 = 5;
                         } else {
-                            iVar1 = param_1->comparei("PVPARENA");
+                            iVar1 = str.comparei("PVPARENA");
                             if (iVar1 == 0) {
                                 uVar2 = 6;
                             } else {
-                                iVar1 = param_1->comparei("SPEEDRUN");
+                                iVar1 = str.comparei("SPEEDRUN");
                                 uVar2 = 7;
                                 if (iVar1 != 0) {
                                     uVar2 = 0;
@@ -48,15 +45,14 @@ namespace jag::oldscape::constants {
         return uVar2;
     }
 
-    // 0x1002647b0, 48 bytes, placed by debug map only (low confidence)
-    // ModeVariantInternalName(ModeVariant)
-    char* ModeVariantInternalName(int param_1) {
-        char* pcVar1;
-        undefined8* puVar2;
+    // 0x1002647b0
+    char* ModeVariantInternalName(ModeVariant modeVariant) {
+        uint64_t* puVar2;
+        unsigned long in_RSI;
 
-        pcVar1 = "INVALID";
-        if ((-2 < param_1) && (param_1 + 1U < 8)) {
-            puVar2 = (undefined8*)std::array<char const*, 8ul>::operator[]((long)(int)(param_1 + 1U));
+        char* pcVar1 = "INVALID";
+        if ((-2 < (int)modeVariant) && (modeVariant + 1 < 8)) {
+            puVar2 = (uint64_t*)(*((array<char const*, 8ul>*)(long)(int)(modeVariant + 1)))[in_RSI];
             pcVar1 = (char*)*puVar2;
         }
         return pcVar1;

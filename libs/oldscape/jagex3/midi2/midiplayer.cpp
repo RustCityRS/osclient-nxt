@@ -1,2179 +1,1680 @@
 // libs/oldscape/jagex3/midi2/midiplayer.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "midiplayer.h"
 
 namespace jag::oldscape::midi2 {
-    // 0x1002cedc0, 304 bytes, placed by class name and debug map
-    // MidiPlayer::UpdateStreamlessNote(MidiNote&)
-    ulong MidiPlayer::UpdateStreamlessNote(MidiNote* param_1) {
+    // 0x1002cedc0
+    unsigned long MidiPlayer::UpdateStreamlessNote(MidiNote& midiNote) {
         int iVar1;
-        undefined8 uVar2;
-        char cVar3;
-        bool bVar4;
-        undefined8 uVar5;
-        undefined7 extraout_var;
-        array<shared_ptr<MidiNote>, 128ul>* paVar6;
+        array<shared_ptr<MidiNote>, 128ul>* paVar4;
         vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
-        MidiNote* pMVar7;
         shared_ptr<MidiNote>* this_01;
-        shared_ptr local_40;
-        __thread_id local_30[8];
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> local_40;
+        __thread_id* local_30;
 
-        uVar5 = std::this_thread::get_id();
-        uVar2 = sound::g_idWorkerThread;
-        cVar3 = std::operator==(uVar5);
-        if (cVar3 == '\0') {
-            std::__thread_id::__thread_id(local_30);
-            cVar3 = std::operator==(uVar2);
-            if (cVar3 == '\0') {
-                /* WARNING: Subroutine does not return */
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
+            new (&local_30) std::__thread_id();
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          1085, (char*)0);
+                          1085, nullptr);
             }
         }
-        bVar4 = operator==((shared_ptr*)&param_1->field_152, (_func_decltype_nullptr*)0);
-        if ((bVar4) && (-1 < *(int*)&param_1->field_132)) {
-            iVar1 = *(int*)&param_1->field_88;
+        bool bVar3 = midiNote.field_152 == nullptr;
+        if ((bVar3) && (-1 < *(int*)&midiNote.field_132)) {
+            iVar1 = *(int*)&midiNote.field_88;
             if (0 < (long)iVar1) {
-                paVar6 = (array<shared_ptr<MidiNote>, 128ul>*)
-                    std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                        (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_34280,
-                        (long)(int)param_1->field_32);
-                this_00 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                    std::array<shared_ptr<MidiNote>, 128ul>::operator[](paVar6, (long)iVar1);
-                pMVar7 = (MidiNote*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this_00);
-                if (pMVar7 == param_1) {
-                    new (&local_40) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    paVar6 = (array<shared_ptr<MidiNote>, 128ul>*)
-                        std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                            (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_34280,
-                            (long)(int)param_1->field_32);
-                    this_01 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                        paVar6, (long)*(int*)&param_1->field_88);
-                    shared_ptr<MidiNote>::operator=(this_01, &local_40);
-                    local_40.~shared_ptr();
+                paVar4 = &field_34280[(long)(int)midiNote.field_32];
+                this_00 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(*paVar4)[(long)iVar1];
+                if ((MidiNote*)this_00->end() == midiNote) {
+                    local_40 = shared_ptr();
+                    paVar4 = &field_34280[(long)(int)midiNote.field_32];
+                    this_01 = (shared_ptr<MidiNote>*)(*paVar4)[(long)*(int*)&midiNote.field_88];
+                    *this_01 = local_40;
                 }
             }
-            param_1->Unlink();
+            midiNote.Unlink();
         }
-        return CONCAT71(extraout_var, bVar4) & 4294967295;
+        return bVar3 & 4294967295;
     }
 
-    // 0x1002cf380, 1584 bytes, placed by class name and debug map
-    // MidiPlayer::UpdateNote(MidiNote&, Array<int, eastl::allocator>&, int, int)
-    bool MidiPlayer::UpdateNote(MidiNote* param_1, Array* param_2, int param_3, int param_4) {
-        undefined8 uVar1;
-        shared_ptr* this_00;
-        char cVar3;
-        int iVar5;
-        uint uVar6;
-        int iVar7;
-        undefined8 uVar8;
-        WaveStream* pWVar9;
-        array<shared_ptr<MidiNote>, 128ul>* paVar10;
-        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar11;
-        MidiNote* pMVar12;
-        shared_ptr<MidiNote>* psVar13;
-        int* piVar14;
-        Array<game::VarValue, eastl::allocator>* this_01;
-        byte* pbVar15;
-        char* pcVar16;
-        long* plVar17;
-        long lVar18;
-        int iVar19;
-        undefined1* puVar20;
-        Array<game::VarValue, eastl::allocator>* pAVar21;
-        double dVar22;
-        __thread_id local_78[8];
-        shared_ptr* local_68;
-        ulong local_60;
-        double local_50;
-        shared_ptr local_48;
-        uint local_34;
+    // 0x1002cf380
+    bool MidiPlayer::UpdateNote(MidiNote& midiNote, Array<int>& arg2, int arg3, int arg4) {
+        int iVar4;
+        unsigned int uVar5;
+        int arg3_00;
+        WaveStream* pWVar6;
+        array<shared_ptr<MidiNote>, 128ul>* paVar7;
+        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar8;
+        MidiNote* pMVar9;
+        shared_ptr<MidiNote>* psVar10;
+        int* piVar11;
+        uint8_t* pbVar12;
+        char* pcVar13;
+        long* plVar14;
+        long lVar15;
+        int iVar16;
+        uint8_t* puVar17;
+        double dVar19;
+        __thread_id* local_78;
+        unsigned long local_60;
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> local_48;
+        unsigned int local_34;
 
-        uVar8 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar3 = std::operator==(uVar8);
-        if (cVar3 == '\0') {
-            std::__thread_id::__thread_id(local_78);
-            cVar3 = std::operator==(uVar1);
-            if (cVar3 == '\0') {
-                /* WARNING: Subroutine does not return */
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        bool cVar2 = thread_id1_00 == (sound::g_idWorkerThread);
+        if (!cVar2) {
+            new (&local_78) std::__thread_id();
+            cVar2 = thread_id1 == local_78;
+            if (!cVar2) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          1171, (char*)0);
+                          1171, nullptr);
             }
         }
-        *(int*)&param_1->field_168 = sound::PCMPlayer::m_frequency / 100;
-        if (-1 < *(int*)&param_1->field_132) {
-            if (operator==((shared_ptr*)&param_1->field_152, (_func_decltype_nullptr*)0)) {
+        *(int*)&midiNote.field_168 = sound::PCMPlayer::m_frequency / 100;
+        if (-1 < *(int*)&midiNote.field_132) {
+            if (midiNote.field_152 == nullptr) {
             LAB_1002cf459:
-                param_1->~AutoSingleton();
-                iVar19 = *(int*)&param_1->field_88;
-                if (0 < (long)iVar19) {
-                    paVar10 = (array<shared_ptr<MidiNote>, 128ul>*)
-                        std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                            (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_34280,
-                            (long)(int)param_1->field_32);
-                    pvVar11 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                        std::array<shared_ptr<MidiNote>, 128ul>::operator[](paVar10, (long)iVar19);
-                    pMVar12 = (MidiNote*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar11);
-                    if (pMVar12 == param_1) {
-                        new (&local_48) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                        paVar10 = (array<shared_ptr<MidiNote>, 128ul>*)
-                            std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                                (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_34280,
-                                (long)(int)param_1->field_32);
-                        psVar13 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                            paVar10, (long)*(int*)&param_1->field_88);
-                        shared_ptr<MidiNote>::operator=(psVar13, &local_48);
-                        local_48.~shared_ptr();
+                midiNote.~AutoSingleton();
+                iVar16 = *(int*)&midiNote.field_88;
+                if (0 < (long)iVar16) {
+                    paVar7 = &field_34280[(long)(int)midiNote.field_32];
+                    pvVar8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(*paVar7)[(long)iVar16];
+                    pMVar9 = (MidiNote*)pvVar8->end();
+                    if (pMVar9 == midiNote) {
+                        local_48 = shared_ptr();
+                        paVar7 = &field_34280[(long)(int)midiNote.field_32];
+                        psVar10 = (shared_ptr<MidiNote>*)(*paVar7)[(long)*(int*)&midiNote.field_88];
+                        *psVar10 = local_48;
                     }
                 }
-                param_1->Unlink();
+                midiNote.Unlink();
                 return true;
             }
-            pWVar9 = (WaveStream*)shared_ptr<sound::WaveStream>::operator->(
-                (shared_ptr<sound::WaveStream>*)&param_1->field_152);
-            cVar3 = pWVar9->Isfinished();
-            if (cVar3 != '\0')
+            pWVar6 = (WaveStream*)midiNote.field_152.operator->();
+            cVar2 = pWVar6->Isfinished();
+            if (cVar2)
                 goto LAB_1002cf459;
         }
-        iVar19 = *(int*)((long)&param_1->field_112 + 4);
-        if (0 < iVar19) {
-            puVar20 = &field_940;
-            piVar14 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)puVar20, (long)(int)param_1->field_32);
-            dVar22 = (double)pow<int, double>((int)puVar20, (double)*piVar14 * 0.0004921259842519685);
-            iVar19 = iVar19 - (int)(dVar22 * 16.0 + 0.5);
-            if (iVar19 < 0) {
-                iVar19 = 0;
+        iVar16 = *(int*)((long)&midiNote.field_112 + 4);
+        if (0 < iVar16) {
+            puVar17 = &field_940;
+            piVar11 = (int*)(*puVar17)[(long)(int)midiNote.field_32];
+            dVar19 = (double)pow<int, double>((int)puVar17, (double)*piVar11 * 0.0004921259842519685);
+            iVar16 = iVar16 - (int)(dVar19 * 16.0 + 0.5);
+            if (iVar16 < 0) {
+                iVar16 = 0;
             }
-            *(int*)((long)&param_1->field_112 + 4) = iVar19;
+            *(int*)((long)&midiNote.field_112 + 4) = iVar16;
         }
-        local_68 = (shared_ptr*)&param_1->field_152;
-        pWVar9 = (WaveStream*)shared_ptr<sound::WaveStream>::operator->((shared_ptr<sound::WaveStream>*)local_68);
-        iVar19 = GetRateRaw(this, param_1);
-        pWVar9->SetRateRaw(iVar19);
-        puVar20 = &param_1->field_72;
-        this_01 = (Array<game::VarValue, eastl::allocator>*)shared_ptr<EnvelopeSet>::operator*(
-            (shared_ptr<EnvelopeSet>*)puVar20);
-        *(int*)&param_1->field_140 = *(int*)&param_1->field_140 + 1;
-        piVar14 = (int*)((long)&param_1->field_140 + 4);
-        *piVar14 = *piVar14 + *(int*)(this_01 + 68);
-        local_50 = (double)(*(int*)((long)&param_1->field_88 + 4) * 256 +
-                            (*(int*)((long)&param_1->field_112 + 4) * *(int*)&param_1->field_112 >> 12) + -15360) *
-                   5.086263020833333e-06;
+        shared_ptr<sound::WaveStream>* local_68 = (shared_ptr<sound::WaveStream>*)&midiNote.field_152;
+        pWVar6 = (WaveStream*)(*local_68).operator->();
+        iVar16 = GetRateRaw(midiNote);
+        pWVar6->SetRateRaw(iVar16);
+        puVar17 = &midiNote.field_72;
+        Array<game::VarValue>* this_01 = (Array<game::VarValue>*)**puVar17;
+        *(int*)&midiNote.field_140 = *(int*)&midiNote.field_140 + 1;
+        piVar11 = (int*)((long)&midiNote.field_140 + 4);
+        *piVar11 = *piVar11 + *(int*)(this_01 + 68);
+        double local_50 =
+            (double)(*(int*)((long)&midiNote.field_88 + 4) * 256 +
+                     (*(int*)((long)&midiNote.field_112 + 4) * *(int*)&midiNote.field_112 >> 12) - 15360) *
+            5.086263020833333e-06;
         if (0 < *(int*)(this_01 + 48)) {
             if (*(int*)(this_01 + 60) < 1) {
-                iVar19 = 128;
+                iVar16 = 128;
             } else {
-                dVar22 = (double)pow<int, double>((int)puVar20, (double)*(int*)(this_01 + 60) * local_50);
-                iVar19 = (int)(dVar22 * 128.0 + 0.5);
+                dVar19 = (double)pow<int, double>((int)puVar17, (double)*(int*)(this_01 + 60) * local_50);
+                iVar16 = (int)(dVar19 * 128.0 + 0.5);
             }
-            *(int*)&param_1->field_120 = *(int*)&param_1->field_120 + iVar19;
+            *(int*)&midiNote.field_120 = *(int*)&midiNote.field_120 + iVar16;
         }
-        pAVar21 = this_01;
-        cVar3 = this_01->empty();
-        if (cVar3 == '\0') {
+        Array<game::VarValue>* pAVar18 = this_01;
+        cVar2 = this_01->empty();
+        if (!cVar2) {
             if (*(int*)(this_01 + 52) < 1) {
-                iVar19 = 128;
+                iVar16 = 128;
             } else {
-                dVar22 = (double)pow<int, double>((int)pAVar21, (double)*(int*)(this_01 + 52) * local_50);
-                iVar19 = (int)(dVar22 * 128.0 + 0.5);
+                dVar19 = (double)pow<int, double>((int)pAVar18, (double)*(int*)(this_01 + 52) * local_50);
+                iVar16 = (int)(dVar19 * 128.0 + 0.5);
             }
-            piVar14 = (int*)((long)&param_1->field_120 + 4);
-            *piVar14 = *piVar14 + iVar19;
-            iVar19 = *(int*)&param_1->field_128;
-            while ((iVar5 = this_01->end(),
-                    iVar19 < iVar5 + -2 &&
-                        (iVar19 = *(int*)((long)&param_1->field_120 + 4),
-                         pbVar15 = (byte*)Array<signed char, eastl::allocator>::operator[](
-                             (Array<signed char, eastl::allocator>*)this_01, (long)*(int*)&param_1->field_128 + 2),
-                         (int)((uint)*pbVar15 * 256) < iVar19))) {
-                iVar19 = *(int*)&param_1->field_128 + 2;
-                *(int*)&param_1->field_128 = iVar19;
+            piVar11 = (int*)((long)&midiNote.field_120 + 4);
+            *piVar11 = *piVar11 + iVar16;
+            iVar16 = *(int*)&midiNote.field_128;
+            while ((iVar4 = this_01->end(),
+                    iVar16 < iVar4 - 2 && (iVar16 = *(int*)((long)&midiNote.field_120 + 4),
+                                           pbVar12 = (uint8_t*)(*this_01)[(long)*(int*)&midiNote.field_128 + 2],
+                                           (int)((unsigned int)*pbVar12 * 256) < iVar16))) {
+                iVar16 = *(int*)&midiNote.field_128 + 2;
+                *(int*)&midiNote.field_128 = iVar16;
             }
-            iVar19 = *(int*)&param_1->field_128;
-            iVar5 = this_01->end();
-            if (iVar19 != iVar5 + -2)
+            iVar16 = *(int*)&midiNote.field_128;
+            iVar4 = this_01->end();
+            if (iVar16 != iVar4 - 2)
                 goto LAB_1002cf6bd;
-            pcVar16 = (char*)Array<signed char, eastl::allocator>::operator[](
-                (Array<signed char, eastl::allocator>*)this_01, (long)*(int*)&param_1->field_128 + 1);
-            local_34 = (uint)CONCAT71((int7)((ulong)pcVar16 >> 8), *pcVar16 == '\0');
+            pcVar13 = (char*)(*this_01)[(long)*(int*)&midiNote.field_128 + 1];
+            local_34 =
+                (unsigned int)(((uint64_t)((int64_t)((unsigned long)pcVar13 >> 8)) << 8) | (uint8_t)(*pcVar13 == '\0'));
         } else {
         LAB_1002cf6bd:
             local_34 = 0;
         }
-        if (-1 < *(int*)&param_1->field_132) {
-            pAVar21 = this_01 + 24;
-            cVar3 = pAVar21->empty();
-            if (cVar3 == '\0') {
-                puVar20 = &field_104;
-                iVar19 = param_1->field_32;
-                pbVar15 = (byte*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)puVar20, (long)iVar19);
-                iVar5 = (int)puVar20;
-                if ((*pbVar15 & 1) == 0) {
-                    if (-1 < (long)*(int*)&param_1->field_88) {
-                        local_60 = (long)*(int*)&param_1->field_88;
-                        paVar10 = (array<shared_ptr<MidiNote>, 128ul>*)
-                            std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                                (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_34280, (long)iVar19);
-                        pvVar11 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                            std::array<shared_ptr<MidiNote>, 128ul>::operator[](paVar10, local_60);
-                        pMVar12 =
-                            (MidiNote*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar11);
-                        iVar5 = (int)pvVar11;
-                        if (pMVar12 == param_1)
+        if (-1 < *(int*)&midiNote.field_132) {
+            pAVar18 = this_01 + 24;
+            cVar2 = pAVar18->empty();
+            if (!cVar2) {
+                puVar17 = &field_104;
+                iVar16 = midiNote.field_32;
+                pbVar12 = (uint8_t*)(*puVar17)[(long)iVar16];
+                iVar4 = (int)puVar17;
+                if ((*pbVar12 & 1) == 0) {
+                    if (-1 < (long)*(int*)&midiNote.field_88) {
+                        local_60 = (long)*(int*)&midiNote.field_88;
+                        paVar7 = &field_34280[(long)iVar16];
+                        pvVar8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(*paVar7)[local_60];
+                        pMVar9 = (MidiNote*)pvVar8->end();
+                        iVar4 = (int)pvVar8;
+                        if (pMVar9 == midiNote)
                             goto LAB_1002cf7fe;
                     }
                     if (*(int*)(this_01 + 56) < 1) {
-                        iVar19 = 128;
+                        iVar16 = 128;
                     } else {
-                        dVar22 = (double)pow<int, double>(iVar5, local_50 * (double)*(int*)(this_01 + 56));
-                        iVar19 = (int)(dVar22 * 128.0 + 0.5);
+                        dVar19 = (double)pow<int, double>(iVar4, local_50 * (double)*(int*)(this_01 + 56));
+                        iVar16 = (int)(dVar19 * 128.0 + 0.5);
                     }
-                    *(int*)&param_1->field_132 = *(int*)&param_1->field_132 + iVar19;
-                    iVar19 = *(int*)((long)&param_1->field_132 + 4);
-                    while ((iVar5 = pAVar21->end(),
-                            iVar19 < iVar5 + -2 && (iVar19 = *(int*)&param_1->field_132,
-                                                    pbVar15 = (byte*)Array<signed char, eastl::allocator>::operator[](
-                                                        (Array<signed char, eastl::allocator>*)pAVar21,
-                                                        (long)*(int*)((long)&param_1->field_132 + 4) + 2),
-                                                    (int)((uint)*pbVar15 * 256) < iVar19))) {
-                        iVar19 = *(int*)((long)&param_1->field_132 + 4) + 2;
-                        *(int*)((long)&param_1->field_132 + 4) = iVar19;
+                    *(int*)&midiNote.field_132 = *(int*)&midiNote.field_132 + iVar16;
+                    iVar16 = *(int*)((long)&midiNote.field_132 + 4);
+                    while ((iVar4 = pAVar18->end(),
+                            iVar16 < iVar4 - 2 &&
+                                (iVar16 = *(int*)&midiNote.field_132,
+                                 pbVar12 = (uint8_t*)(*pAVar18)[(long)*(int*)((long)&midiNote.field_132 + 4) + 2],
+                                 (int)((unsigned int)*pbVar12 * 256) < iVar16))) {
+                        iVar16 = *(int*)((long)&midiNote.field_132 + 4) + 2;
+                        *(int*)((long)&midiNote.field_132 + 4) = iVar16;
                     }
-                    iVar19 = *(int*)((long)&param_1->field_132 + 4);
-                    iVar5 = pAVar21->end();
-                    uVar6 = local_34 & 255;
+                    iVar16 = *(int*)((long)&midiNote.field_132 + 4);
+                    iVar4 = pAVar18->end();
+                    uVar5 = local_34 & 255;
                     local_34 = 1;
-                    if (iVar19 != iVar5 + -2) {
-                        local_34 = uVar6;
+                    if (iVar16 != iVar4 - 2) {
+                        local_34 = uVar5;
                     }
                 }
             }
         }
     LAB_1002cf7fe:
-        this_00 = local_68;
-        pWVar9 = (WaveStream*)shared_ptr<sound::WaveStream>::operator->((shared_ptr<sound::WaveStream>*)local_68);
-        iVar19 = *(int*)&param_1->field_168;
+        shared_ptr<sound::WaveStream>* this_00 = local_68;
+        pWVar6 = (WaveStream*)(*local_68).operator->();
+        iVar16 = *(int*)&midiNote.field_168;
         if ((char)local_34 == '\0') {
-            iVar5 = GetVolume(this, param_1);
-            iVar7 = GetPan(this, param_1);
-            pWVar9->RampVolPanFine(iVar19, iVar5, iVar7);
+            iVar4 = GetVolume(midiNote);
+            arg3_00 = GetPan(midiNote);
+            pWVar6->RampVolPanFine(iVar16, iVar4, arg3_00);
         } else {
-            pWVar9->RampOut(iVar19);
-            cVar3 = param_2->empty();
-            plVar17 = (long*)shared_ptr<sound::WaveStream>::operator->((shared_ptr<sound::WaveStream>*)this_00);
-            if (cVar3 == '\0') {
-                (**(code**)(*plVar17 + 40))(plVar17, param_2, param_3, param_4);
+            pWVar6->RampOut(iVar16);
+            cVar2 = arg2.empty();
+            plVar14 = (long*)(*this_00).operator->();
+            if (!cVar2) {
+                (**(void (**)(...))(*plVar14 + 40))(plVar14, arg2, arg3, arg4);
             } else {
-                (**(code**)(*plVar17 + 48))(plVar17, param_4);
+                (**(void (**)(...))(*plVar14 + 48))(plVar14, arg4);
             }
-            pWVar9 = (WaveStream*)shared_ptr<sound::WaveStream>::operator->((shared_ptr<sound::WaveStream>*)this_00);
-            cVar3 = pWVar9->Isramping();
-            if (cVar3 != '\0') {
-                lVar18 = shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)&field_67264);
-                new (&local_48) shared_ptr<dash3d::Decor>(this_00);
-                ((lVar18 + 96))->PlayStream(&local_48);
-                local_48.~shared_ptr();
+            pWVar6 = (WaveStream*)(*this_00).operator->();
+            cVar2 = pWVar6->Isramping();
+            if (cVar2) {
+                lVar15 = field_67264.operator->();
+                local_48 = shared_ptr(this_00);
+                ((lVar15 + 96))->PlayStream(local_48);
             }
-            param_1->~AutoSingleton();
-            if (-1 < *(int*)&param_1->field_132) {
-                iVar19 = *(int*)&param_1->field_88;
-                if (0 < (long)iVar19) {
-                    paVar10 = (array<shared_ptr<MidiNote>, 128ul>*)
-                        std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                            (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_34280,
-                            (long)(int)param_1->field_32);
-                    pvVar11 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                        std::array<shared_ptr<MidiNote>, 128ul>::operator[](paVar10, (long)iVar19);
-                    pMVar12 = (MidiNote*)eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar11);
-                    if (pMVar12 == param_1) {
-                        new (&local_48) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                        paVar10 = (array<shared_ptr<MidiNote>, 128ul>*)
-                            std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                                (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_34280,
-                                (long)(int)param_1->field_32);
-                        psVar13 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                            paVar10, (long)*(int*)&param_1->field_88);
-                        shared_ptr<MidiNote>::operator=(psVar13, &local_48);
-                        local_48.~shared_ptr();
+            midiNote.~AutoSingleton();
+            if (-1 < *(int*)&midiNote.field_132) {
+                iVar16 = *(int*)&midiNote.field_88;
+                if (0 < (long)iVar16) {
+                    paVar7 = &field_34280[(long)(int)midiNote.field_32];
+                    pvVar8 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)(*paVar7)[(long)iVar16];
+                    pMVar9 = (MidiNote*)pvVar8->end();
+                    if (pMVar9 == midiNote) {
+                        local_48 = shared_ptr();
+                        paVar7 = &field_34280[(long)(int)midiNote.field_32];
+                        psVar10 = (shared_ptr<MidiNote>*)(*paVar7)[(long)*(int*)&midiNote.field_88];
+                        *psVar10 = local_48;
                     }
                 }
-                param_1->Unlink();
+                midiNote.Unlink();
             }
         }
         return (char)local_34 != '\0';
     }
 
-    // 0x1002cff40, 336 bytes, placed by class name and debug map
-    // MidiPlayer::SetSampleOffset(MidiNote const&, bool)
-    void MidiPlayer::SetSampleOffset(MidiNote* param_1, bool param_2) {
-        undefined1* this_00;
+    // 0x1002cff40
+    void MidiPlayer::SetSampleOffset(const MidiNote& midiNote, bool arg2) {
         int iVar1;
-        undefined8 uVar2;
-        char cVar3;
-        undefined8 in_RAX;
-        undefined8 uVar4;
-        long lVar5;
-        long lVar6;
-        int* piVar7;
-        WaveStream* pWVar8;
-        ulong uVar9;
-        undefined8 local_38;
+        __thread_id* in_RAX;
+        long lVar4;
+        int* piVar5;
+        WaveStream* pWVar6;
+        unsigned long uVar7;
 
-        local_38 = in_RAX;
-        uVar4 = std::this_thread::get_id();
-        uVar2 = sound::g_idWorkerThread;
-        cVar3 = std::operator==(uVar4, sound::g_idWorkerThread);
-        if (cVar3 == '\0') {
+        __thread_id* local_38 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_38) std::__thread_id();
-            cVar3 = std::operator==(uVar2, local_38);
-            if (cVar3 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_38)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          362, (char*)0);
+                          362, nullptr);
             }
         }
-        this_00 = &param_1->field_56;
-        lVar5 = shared_ptr<sound::Wave>::operator->((shared_ptr<sound::Wave>*)this_00);
-        lVar5 = ((lVar5 + 8))->end();
-        if (param_2) {
-            lVar6 = shared_ptr<sound::Wave>::operator->((shared_ptr<sound::Wave>*)this_00);
-            if (*(char*)(lVar6 + 40) != '\0') {
-                lVar6 = shared_ptr<sound::Wave>::operator->((shared_ptr<sound::Wave>*)this_00);
-                iVar1 = *(int*)(lVar6 + 32);
-                piVar7 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_168,
-                                                                 (long)(int)param_1->field_32);
-                uVar9 = (ulong)((long)*piVar7 * (lVar5 * 2 - (long)iVar1)) >> 6;
-                if ((ulong)(lVar5 << 8) <= uVar9) {
-                    uVar9 = ~uVar9 + lVar5 * 512;
-                    pWVar8 = (WaveStream*)shared_ptr<sound::WaveStream>::operator->(
-                        (shared_ptr<sound::WaveStream>*)&param_1->field_152);
-                    pWVar8->SetReverse(true);
+        uint8_t* this_00 = &midiNote.field_56;
+        long lVar3 = (*this_00).operator->();
+        lVar3 = ((lVar3 + 8))->end();
+        if (arg2) {
+            lVar4 = (*this_00).operator->();
+            if (*(char*)(lVar4 + 40) != '\0') {
+                lVar4 = (*this_00).operator->();
+                iVar1 = *(int*)(lVar4 + 32);
+                piVar5 = &field_168[(long)(int)midiNote.field_32];
+                uVar7 = (unsigned long)((long)*piVar5 * (lVar3 * 2 - (long)iVar1)) >> 6;
+                if ((unsigned long)(lVar3 << 8) <= uVar7) {
+                    uVar7 = ~uVar7 + lVar3 * 512;
+                    pWVar6 = (WaveStream*)midiNote.field_152.operator->();
+                    pWVar6->SetReverse(true);
                 }
                 goto LAB_1002d005e;
             }
         }
-        piVar7 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_168, (long)(int)param_1->field_32);
-        uVar9 = (ulong)(int)((ulong)(lVar5 * *piVar7) >> 6);
+        piVar5 = (int*)field_168[(long)(int)midiNote.field_32];
+        uVar7 = (unsigned long)(int)((unsigned long)(lVar3 * *piVar5) >> 6);
     LAB_1002d005e:
-        pWVar8 =
-            (WaveStream*)shared_ptr<sound::WaveStream>::operator->((shared_ptr<sound::WaveStream>*)&param_1->field_152);
-        pWVar8->SetPositionFine((int)uVar9);
+        pWVar6 = (WaveStream*)midiNote.field_152.operator->();
+        pWVar6->SetPositionFine((int)uVar7);
     }
 
-    // 0x1002d10c0, 960 bytes, base-object constructor, placed by class name
-    // MidiPlayer::MidiPlayer()
-    void MidiPlayer::MidiPlayer() {
-        undefined8 uVar2;
-        undefined8* puVar3;
-        shared_ptr local_48;
+    // 0x1002d10c0
+    MidiPlayer::MidiPlayer() : sound::PCMStream() {
+        ReturnValue local_48;
 
-        new (this) sound::PCMStream();
-        new (&field_72) MidiPlayerMainThread();
-        field_0 = &PTR__MidiPlayer_100efa1a0;
-        field_72 = &PTR_QueueSetGlobalVolume_100efa248;
-        new (&local_48) eastl::allocator("EASTL hash_map");
-        new (field_296, (allocator*)&local_48)
-            eastl::hash_map<int, shared_ptr<Patch>, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator, false>();
+        *(uint8_t***)&field_72 = &PTR_QueueSetGlobalVolume_100efa248;
+        new (&field_296) eastl::hash_map<int, shared_ptr<Patch>>(local_48);
         new (&field_352) std::mutex();
         field_416 = 256;
         field_420 = 1000000;
         field_424 = false;
-        new (&m_globalVolume) ThreadStateTransfer();
+        new (m_globalVolume) ThreadStateTransfer();
         new (&field_1448) std::mutex();
-        std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::array();
-        std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::array();
+        new (&field_1512) std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>();
+        new (&field_34280) std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>();
         new (field_67048) MidiParser();
-        new (&field_67264, (_func_decltype_nullptr*)&local_48) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
-        uVar2 = std::this_thread::get_id();
-        if (std::operator==(uVar2, sound::g_idMainThread) == '\0') {
-            /* WARNING: Subroutine does not return */
+        new (&field_67264) shared_ptr();
+        if (std::this_thread::get_id() == (sound::g_idMainThread) == '\0') {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      26, (char*)0);
+                      26, nullptr);
         }
-        puVar3 = (undefined8*)(&field_428)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_492)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_556)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_620)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_684)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_748)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_812)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_876)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_940)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_104)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_168)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_232)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_1004)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_1068)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        puVar3 = (undefined8*)(&field_1132)->data();
-        *puVar3 = 0;
-        puVar3[1] = 0;
-        puVar3[2] = 0;
-        puVar3[3] = 0;
-        puVar3[4] = 0;
-        puVar3[5] = 0;
-        puVar3[6] = 0;
-        puVar3[7] = 0;
-        make_shared<MidiMixer, MidiPlayer&>((jag*)&local_48, this);
-        shared_ptr<MidiMixer>::operator=((shared_ptr<MidiMixer>*)&field_67264, &local_48);
-        local_48.~shared_ptr();
-        Reset2(this);
+        auto puVar2 = field_428.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_492.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_556.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_620.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_684.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_748.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_812.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_876.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_940.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_104.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_168.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_232.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_1004.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_1068.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        puVar2 = (uint64_t*)field_1132.data();
+        *puVar2 = 0;
+        puVar2[1] = 0;
+        puVar2[2] = 0;
+        puVar2[3] = 0;
+        puVar2[4] = 0;
+        puVar2[5] = 0;
+        puVar2[6] = 0;
+        puVar2[7] = 0;
+        make_shared<MidiMixer, MidiPlayer&>(&local_48, this);
+        field_67264 = local_48;
+        Reset2();
     }
 
-    // 0x1002d15e0, 256 bytes, placed by class name
-    // MidiPlayer::Reset2()
+    // 0x1002d15e0
     void MidiPlayer::Reset2() {
-        undefined4 uVar1;
-        uint uVar2;
-        undefined8 uVar3;
-        char cVar4;
-        undefined8 in_RAX;
-        undefined8 uVar5;
-        undefined4* puVar6;
-        uint* puVar7;
-        ulong uVar8;
-        undefined8 local_38;
+        uint32_t uVar1;
+        unsigned int uVar2;
+        __thread_id* in_RAX;
+        uint32_t* puVar4;
+        unsigned int* puVar5;
 
-        local_38 = in_RAX;
-        uVar5 = std::this_thread::get_id();
-        uVar3 = sound::g_idWorkerThread;
-        cVar4 = std::operator==(uVar5, sound::g_idWorkerThread);
-        if (cVar4 == '\0') {
+        __thread_id* local_38 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_38) std::__thread_id();
-            cVar4 = std::operator==(uVar3, local_38);
-            if (cVar4 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_38)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          626, (char*)0);
+                          626, nullptr);
             }
         }
-        AllSoundOff2(this, -1);
-        AllControllersOff2(this, -1);
-        uVar8 = 0;
+        AllSoundOff2(-1);
+        AllControllersOff2(-1);
+        unsigned long uVar6 = 0;
         do {
-            puVar6 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_620, uVar8);
-            uVar1 = *puVar6;
-            puVar6 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_684, uVar8);
-            *puVar6 = uVar1;
-            uVar8 = uVar8 + 1;
-        } while (uVar8 != 16);
-        uVar8 = 0;
+            puVar4 = &field_620[uVar6];
+            uVar1 = *puVar4;
+            puVar4 = &field_684[uVar6];
+            *puVar4 = uVar1;
+            uVar6 = uVar6 + 1;
+        } while (uVar6 != 16);
+        uVar6 = 0;
         do {
-            puVar7 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_620, uVar8);
-            uVar2 = *puVar7;
-            puVar7 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_748, uVar8);
-            *puVar7 = uVar2 & 4294967168;
-            uVar8 = uVar8 + 1;
-        } while (uVar8 != 16);
+            puVar5 = &field_620[uVar6];
+            uVar2 = *puVar5;
+            puVar5 = &field_748[uVar6];
+            *puVar5 = uVar2 & 4294967168;
+            uVar6 = uVar6 + 1;
+        } while (uVar6 != 16);
     }
 
-    // 0x1002d1730, 16 bytes, complete-object constructor, placed by class name
-    // MidiPlayer::MidiPlayer(): jumps straight to the base-object constructor
-
-    // 0x1002d1740, 64 bytes, placed by class name
-    // MidiPlayer::SetTempoFactor(int)
-    void MidiPlayer::SetTempoFactor(int param_1) {
-        /* WARNING: Subroutine does not return */
+    // 0x1002d1740
+    void MidiPlayer::SetTempoFactor(int arg1) {
         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                         "midiplayer.cpp",
                         57, "didn\'t think this was used");
     }
 
-    // 0x1002d1780, 64 bytes, placed by class name
-    // MidiPlayer::GetTempoFactor()
+    // 0x1002d1780
     void MidiPlayer::GetTempoFactor() {
-        /* WARNING: Subroutine does not return */
         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                         "midiplayer.cpp",
                         63, "didn\'t think this was used");
     }
 
-    // 0x1002d17c0, 800 bytes, placed by class name
-    // MidiPlayer::LoadAndQueuePatches(MidiFile&, jagex3::Js5&, sound::WaveCache&, eastl::priority_queue<MidiPlayerMainThread::QueuedLazyWave, eastl::vector<MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>, eastl::less<MidiPlayerMainThread::QueuedLazyWave> >*, ErrorCapture&)
-    byte MidiPlayer::LoadAndQueuePatches(MidiFile* param_1, Js5* param_2, WaveCache* param_3, priority_queue* param_4,
-                                         ErrorCapture* param_5) {
-        char cVar1;
+    // 0x1002d17c0
+    uint8_t MidiPlayer::LoadAndQueuePatches(
+        MidiFile& midiFile, jagex3::Js5& js5, sound::WaveCache& waveCache,
+        eastl::priority_queue<MidiPlayerMainThread::QueuedLazyWave,
+                              eastl::vector<MidiPlayerMainThread::QueuedLazyWave>>* priority_queue,
+        ErrorCapture& errorCapture) {
         bool bVar2;
-        undefined8 uVar3;
-        undefined8* puVar4;
+        ReturnValue* pRVar3;
+        uint64_t* puVar4;
         shared_ptr<Patch>* psVar5;
         Patch* pPVar6;
         long lVar7;
-        OperationBuffer* pOVar8;
-        OperationBuffer* pOVar9;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* phVar10;
-        hashtable_iterator_base* extraout_RDX_00;
-        uint uVar11;
-        Js5* pJVar12;
-        undefined1* this_00;
-        undefined1 auVar13[16];
-        hashtable_iterator_base local_c8[16];
-        undefined8 local_b8;
-        undefined8 uStack_b0;
-        undefined8 local_a8;
-        undefined8 uStack_a0;
+        LazyWave* lazyWave;
+        LazyWave* pLVar8;
+        unsigned int uVar9;
+        uint8_t* this_00;
+        ReturnValue local_c8;
+        uint64_t local_b8;
+        uint64_t uStack_b0;
+        uint64_t local_a8;
+        uint64_t uStack_a0;
         QueuedLazyWave local_98;
-        hashtable_iterator_base local_80[16];
-        eastl local_70[16];
-        WaveCache* local_60;
-        Js5* local_58;
-        scoped_lock<std::mutex> local_50[8];
-        unique_ptr<Patch, std::default_delete<Patch>> local_48[8];
-        ErrorCapture* local_40;
-        undefined4 local_38;
+        ReturnValue local_80;
+        ReturnValue local_70;
+        scoped_lock<std::mutex> local_50;
+        ReturnValue local_48;
+        uint32_t local_38;
         int local_34;
 
-        local_60 = param_3;
-        local_58 = param_2;
-        local_40 = param_5;
-        uVar3 = std::this_thread::get_id();
-        cVar1 = std::operator==(uVar3, sound::g_idMainThread);
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = std::this_thread::get_id() == (sound::g_idMainThread);
+        if (!cVar1) {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      69, (char*)0);
+                      69, nullptr);
         }
-        cVar1 = local_40->IsRaised();
-        if (cVar1 == '\0') {
-            std::scoped_lock<std::mutex>::scoped_lock(local_50, (mutex*)&field_352);
-            eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                             eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                             eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                             eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-            auVar13 =
-                eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                                 eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-            phVar10 = auVar13._8_8_;
-            this_00 = field_296;
-            local_38 = (undefined4)CONCAT71(auVar13._1_7_, 1);
+        cVar1 = errorCapture.IsRaised();
+        if (!cVar1) {
+            local_50 = std::scoped_lock(field_352);
+            local_70 = midiFile.begin();
+            pRVar3 = local_c8 = midiFile.end();
+            this_00 = &field_296;
+            local_38 = (uint32_t)(((uint64_t)((int64_t)((unsigned long)pRVar3 >> 8)) << 8) | (uint8_t)1);
             while (true) {
-                bVar2 = eastl::operator!=(local_70, local_c8, phVar10);
-                if (!bVar2)
+                cVar1 = local_70 != local_c8;
+                if (!cVar1)
                     break;
-                puVar4 = (undefined8*)local_70->HeapBeginPtr();
+                puVar4 = (uint64_t*)local_70.HeapBeginPtr();
                 local_b8 = *puVar4;
                 uStack_b0 = puVar4[1];
                 local_a8 = puVar4[2];
                 uStack_a0 = puVar4[3];
                 local_34 = (int)local_b8;
-                eastl::hashtable<int, eastl::pair<int const, shared_ptr<ChatLine>>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, shared_ptr<ChatLine>>>, eastl::equal_to<int>,
-                                 eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                                 eastl::prime_rehash_policy, false, true, true>::find((int*)&local_98);
-                eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                                 eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>,
-                                 eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                 eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::end();
-                bVar2 = eastl::operator==((eastl*)&local_98, local_80, extraout_RDX_00);
-                if (bVar2) {
-                    pJVar12 = local_58;
-                    local_48->Load(local_58, local_34);
-                    bVar2 = std::operator==((unique_ptr*)local_48, (_func_decltype_nullptr*)pJVar12);
-                    if (bVar2) {
-                        uVar11 = 3;
-                        local_38 = 0;
-                    } else {
-                        pPVar6 = (Patch*)std::unique_ptr<Patch, std::default_delete<Patch>>::release(local_48);
-                        shared_ptr<Patch>::shared_ptr<Patch, void>((shared_ptr<Patch>*)local_80, pPVar6);
-                        eastl::hashtable<int, eastl::pair<int const, shared_ptr<Patch>>, eastl::allocator,
-                                         eastl::use_first<eastl::pair<int const, shared_ptr<Patch>>>,
-                                         eastl::equal_to<int>, eastl::hash<int>, eastl::mod_range_hashing,
-                                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true,
-                                         true>::emplace<int&, shared_ptr<Patch>>((int*)&local_98, (shared_ptr*)this_00);
-                        local_80->~shared_ptr();
-                        uVar11 = 0;
-                    }
-                    std::unique_ptr<Patch, std::default_delete<Patch>>::~unique_ptr(local_48);
-                    if (!bVar2)
-                        goto LAB_1002d1972;
-                } else {
+                local_98 = this_00->find(local_34);
+                local_80 = this_00->end();
+                cVar1 = local_98 == local_80;
+                if (!cVar1) {
                 LAB_1002d1972:
-                    psVar5 = (shared_ptr<Patch>*)eastl::hash_map<
-                        int, shared_ptr<Patch>, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator,
-                        false>::operator[]((hash_map<int, shared_ptr<Patch>, eastl::hash<int>, eastl::equal_to<int>,
-                                                     eastl::allocator, false>*)this_00,
-                                           &local_34);
-                    pPVar6 = (Patch*)shared_ptr<Patch>::operator->(psVar5);
-                    cVar1 = pPVar6->LoadWaves(local_60, (bitset*)&local_a8, local_40);
-                    if (cVar1 == '\0') {
-                        cVar1 = local_40->IsRaised();
-                        uVar11 = 1;
-                        if (cVar1 != '\0')
+                    psVar5 = (shared_ptr<Patch>*)(*this_00)[local_34];
+                    pPVar6 = (Patch*)(*psVar5).operator->();
+                    cVar1 = pPVar6->LoadWaves(waveCache, local_a8, errorCapture);
+                    if (!cVar1) {
+                        cVar1 = errorCapture.IsRaised();
+                        uVar9 = 1;
+                        if (cVar1)
                             goto LAB_1002d1a4b;
                         local_38 = 0;
-                    } else if (param_4 != (priority_queue*)0) {
-                        psVar5 = (shared_ptr<Patch>*)eastl::hash_map<
-                            int, shared_ptr<Patch>, eastl::hash<int>, eastl::equal_to<int>, eastl::allocator,
-                            false>::operator[]((hash_map<int, shared_ptr<Patch>, eastl::hash<int>, eastl::equal_to<int>,
-                                                         eastl::allocator, false>*)this_00,
-                                               &local_34);
-                        lVar7 = shared_ptr<Patch>::operator->(psVar5);
-                        pOVar8 = (OperationBuffer*)((lVar7 + 152))->HeapBeginPtr();
-                        pOVar9 = (OperationBuffer*)((lVar7 + 152))->end();
-                        for (; pOVar8 != pOVar9; pOVar8 = pOVar8 + 1) {
-                            local_98.field_0 = (undefined4)uStack_b0;
-                            new (local_98.field_8) dash3d::OperationBuffer(pOVar8);
-                            param_4->push(&local_98);
-                            local_98.~pair();
+                    } else if (priority_queue != nullptr) {
+                        psVar5 = (shared_ptr<Patch>*)(*this_00)[local_34];
+                        lVar7 = (*psVar5).operator->();
+                        lazyWave = (LazyWave*)((lVar7 + 152))->HeapBeginPtr();
+                        pLVar8 = (LazyWave*)((lVar7 + 152))->end();
+                        for (; lazyWave != pLVar8; lazyWave = lazyWave + 1) {
+                            local_98.field_0 = (uint32_t)uStack_b0;
+                            new (local_98.field_8) dash3d::OperationBuffer(*lazyWave);
+                            priority_queue->push(local_98);
                         }
                     }
-                    uVar11 = 0;
+                    uVar9 = 0;
+                } else {
+                    local_48 = Patch::Load(js5, local_34);
+                    bVar2 = &local_48 == js5;
+                    if (bVar2) {
+                        uVar9 = 3;
+                        local_38 = 0;
+                    } else {
+                        pPVar6 = (Patch*)std::unique_ptr<Patch>::release();
+                        local_80.shared_ptr<Patch, void>(pPVar6);
+                        local_98 = this_00->emplace<int&, shared_ptr<Patch>>(local_34, local_80);
+                        uVar9 = 0;
+                    }
+                    if (!bVar2)
+                        goto LAB_1002d1972;
                 }
             LAB_1002d1a4b:
-                if ((uVar11 != 3) && (uVar11 != 0))
+                if ((uVar9 != 3) && (uVar9 != 0))
                     goto LAB_1002d1a63;
-                eastl::hashtable_iterator<eastl::pair<int const, MidiFile::PatchNoteSet>, false, false>::operator++(
-                    (hashtable_iterator<eastl::pair<int const, MidiFile::PatchNoteSet>, false, false>*)local_70);
-                phVar10 = extraout_RDX;
+                ++local_70;
             }
-            uVar11 = 0;
+            uVar9 = 0;
         LAB_1002d1a63:
-            std::scoped_lock<std::mutex>::~scoped_lock(local_50);
-            local_38._0_1_ = (uVar11 & 1) == 0 & (byte)local_38;
+            local_38._0_1_ = (uVar9 & 1) == 0 & (uint8_t)local_38;
         } else {
             local_38._0_1_ = 0;
         }
-        return (byte)local_38;
+        return (uint8_t)local_38;
     }
 
-    // 0x1002d1ff0, 272 bytes, placed by class name
-    // MidiPlayer::SpawnWaveLoadingTask(shared_ptr<eastl::priority_queue<MidiPlayerMainThread::QueuedLazyWave, eastl::vector<MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>, eastl::less<MidiPlayerMainThread::QueuedLazyWave> > >&&)
-    void MidiPlayer::SpawnWaveLoadingTask(shared_ptr* param_1) {
-        undefined8 uVar2;
-        Layout* this_00;
-        vector* pvVar3;
-        type* this_01;
-        future<void> local_58[8];
-        shared_ptr local_50;
-        shared_ptr<dash3d::Decor> local_40[16];
-        shared_ptr local_30;
+    // 0x1002d1ff0
+    void MidiPlayer::SpawnWaveLoadingTask(
+        shared_ptr<eastl::priority_queue<MidiPlayerMainThread::QueuedLazyWave,
+                                         eastl::vector<MidiPlayerMainThread::QueuedLazyWave>>>&& priority_queue) {
+        uint8_t auVar3[12];
+        ReturnValue local_58;
 
-        this_01 = (type*)field_88;
-        if (this_01->operator_cast_to_bool()) {
-            uVar2 = shared_ptr<std::atomic<bool>>::operator->((shared_ptr<std::atomic<bool>>*)this_01);
-            std::__atomic_base<bool, false>::store(uVar2);
+        uint8_t* this_01 = field_88;
+        if (this_01->operator_cast_to_bool() != '\0') {
+            auVar3 = (*this_01).operator->();
+            auVar3._0_8_->store((bool)(uint8_t)priority_queue, auVar3._8_4_);
         }
-        local_30._0_1_ = 0;
-        make_shared<std::atomic<bool>, bool>((jag*)&local_50, (bool*)&local_30);
-        shared_ptr<std::atomic<bool>>::operator=((shared_ptr<std::atomic<bool>>*)this_01, &local_50);
-        local_50.~shared_ptr();
-        new (&local_30) shared_ptr<dash3d::Decor>(this_01);
-        this_00 = (Layout*)local_30.Instance();
-        pvVar3 = eastl::string::Layout::SSOBeginPtr(this_00, this_01);
-        new (&local_50) shared_ptr<dash3d::Decor>(param_1);
-        shared_ptr<dash3d::Decor>::shared_ptr(local_40, &local_30);
+        local_30[0] = (shared_ptr<dash3d::Decor>)0;
+        make_shared<std::atomic<bool>, bool>(&local_50, &local_30);
+        *this_01 = local_50;
+        shared_ptr<dash3d::Decor> local_30(this_01);
+        auto this_00 = &local_30->Instance();
+        auto str = this_00->SSOBeginPtr();
+        shared_ptr local_50(priority_queue);
+        shared_ptr<dash3d::Decor> local_40(&local_30);
         ThreadPool::AddTask<MidiPlayer::SpawnWaveLoadingTask(
             shared_ptr<eastl::priority_queue<MidiPlayerMainThread::QueuedLazyWave,
-                                             eastl::vector<MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>,
-                                             eastl::less<MidiPlayerMainThread::QueuedLazyWave>>>&&)::__3>(
-            (ThreadPool*)local_58, (char*)pvVar3, (__3*)&local_50);
-        std::future<void>::~future(local_58);
+                                             eastl::vector<MidiPlayerMainThread::QueuedLazyWave>>>&&)::__3>(
+            &local_58, str, &local_50);
         SpawnWaveLoadingTask(
-            shared_ptr<eastl::priority_queue<MidiPlayerMainThread::QueuedLazyWave,
-                                             eastl::vector<MidiPlayerMainThread::QueuedLazyWave, eastl::allocator>,
-                                             eastl::less<MidiPlayerMainThread::QueuedLazyWave>>>&&)::$_3::
-            ~__3((__3*)&local_50);
-        local_30.~shared_ptr();
+            shared_ptr<
+                eastl::priority_queue<MidiPlayerMainThread::QueuedLazyWave,
+                                      eastl::vector<MidiPlayerMainThread::QueuedLazyWave>>>&&)::$_3::~__3(&local_50);
     }
 
-    // 0x1002d2400, 144 bytes, placed by class name
-    // MidiPlayer::InjectPatch(shared_ptr<Patch>&, int)
-    void MidiPlayer::InjectPatch(shared_ptr* param_1, int param_2) {
-        /* WARNING: Subroutine does not return */
+    // 0x1002d2400
+    void MidiPlayer::InjectPatch(shared_ptr<Patch>& patch, int arg2) {
         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                         "midiplayer.cpp",
                         140, "didn\'t think this was used");
     }
 
-    // 0x1002d2490, 176 bytes, placed by class name
-    // MidiPlayer::DropPatch(int)
-    void MidiPlayer::DropPatch(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        undefined8 local_30;
-        scoped_lock<std::mutex> local_28[12];
-        int local_1c;
+    // 0x1002d2490
+    void MidiPlayer::DropPatch(int arg1) {
+        __thread_id* local_30;
 
-        local_1c = param_1;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          170, (char*)0);
+                          170, nullptr);
             }
         }
-        std::scoped_lock<std::mutex>::scoped_lock(local_28, (mutex*)&field_352);
-        (field_296, &local_1c)->erase();
-        std::scoped_lock<std::mutex>::~scoped_lock(local_28);
+        scoped_lock<std::mutex> local_28(field_352);
+        field_296.erase(arg1);
     }
 
-    // 0x1002d2590, 224 bytes, placed by class name
-    // MidiPlayer::QueueDropWaveIds()
+    // 0x1002d2590
     void MidiPlayer::QueueDropWaveIds() {
-        undefined8 uVar3;
-        long lVar4;
-        Patch* this_00;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* phVar5;
-        hashtable_iterator_base* extraout_RDX_00;
-        eastl local_48[16];
-        hashtable_iterator_base local_38[16];
-        scoped_lock<std::mutex> local_28[8];
+        long lVar2;
 
-        uVar3 = std::this_thread::get_id();
-        if (std::operator==(uVar3, sound::g_idMainThread) == '\0') {
-            /* WARNING: Subroutine does not return */
+        bool cVar1 = std::this_thread::get_id() == (sound::g_idMainThread);
+        if (!cVar1) {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      156, (char*)0);
+                      156, nullptr);
         }
-        std::scoped_lock<std::mutex>::scoped_lock(local_28, (mutex*)&field_352);
-        eastl::hashtable<eastl::string, eastl::pair<eastl::stringconst, unsigned int>, eastl::allocator,
-                         eastl::use_first<eastl::pair<eastl::stringconst, unsigned int>>,
-                         eastl::equal_to<eastl::string>, eastl::hash<eastl::string>, eastl::mod_range_hashing,
-                         eastl::default_ranged_hash, eastl::prime_rehash_policy, false, true, true>::begin();
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        phVar5 = extraout_RDX;
+        scoped_lock<std::mutex> local_28(field_352);
+        auto local_48 = field_296.begin();
+        auto local_38 = field_296.end();
         while (true) {
-            if (!eastl::operator!=(local_48, local_38, phVar5))
+            cVar1 = local_48 != local_38;
+            if (!cVar1)
                 break;
-            lVar4 = local_48->HeapBeginPtr();
-            this_00 = (Patch*)shared_ptr<Patch>::operator->((shared_ptr<Patch>*)(lVar4 + 8));
-            this_00->DropWaveIds();
-            eastl::hashtable_iterator<
-                eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>>, true, false>::
-            operator++(
-                (hashtable_iterator<eastl::pair<int const, shared_ptr<PacketJ<Array<unsigned char, eastl::allocator>>>>,
-                                    true, false>*)local_48);
-            phVar5 = extraout_RDX_00;
+            lVar2 = local_48.HeapBeginPtr();
+            ((Patch*)(*((lVar2 + 8))).operator->())->DropWaveIds();
+            ++local_48;
         }
-        std::scoped_lock<std::mutex>::~scoped_lock(local_28);
     }
 
-    // 0x1002d26a0, 144 bytes, placed by class name
-    // MidiPlayer::QueueDropPatches()
+    // 0x1002d26a0
     void MidiPlayer::QueueDropPatches() {
-        undefined8 uVar2;
-        scoped_lock<std::mutex> local_18[8];
 
-        uVar2 = std::this_thread::get_id();
-        if (std::operator==(uVar2, sound::g_idMainThread) == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (std::this_thread::get_id() == (sound::g_idMainThread) == '\0') {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      181, (char*)0);
+                      181, nullptr);
         }
-        std::scoped_lock<std::mutex>::scoped_lock(local_18, (mutex*)&field_352);
-        field_296->clear();
-        std::scoped_lock<std::mutex>::~scoped_lock(local_18);
+        scoped_lock<std::mutex> local_18(field_352);
+        field_296.clear();
     }
 
-    // 0x1002d2740, 224 bytes, placed by class name
-    // MidiPlayer::QueuePlayFile(MidiFile&, bool, ErrorCapture&)
-    void MidiPlayer::QueuePlayFile(MidiFile* param_1, bool param_2, ErrorCapture* param_3) {
-        char cVar1;
-        undefined8 uVar2;
-        scoped_lock<std::mutex> local_30[8];
+    // 0x1002d2740
+    void MidiPlayer::QueuePlayFile(MidiFile& midiFile, bool arg2, ErrorCapture& errorCapture) {
 
-        uVar2 = std::this_thread::get_id();
-        cVar1 = std::operator==(uVar2, sound::g_idMainThread);
-        if (cVar1 == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (!(std::this_thread::get_id() == (sound::g_idMainThread))) {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      189, (char*)0);
+                      189, nullptr);
         }
-        std::scoped_lock<std::mutex>::scoped_lock(local_30, (mutex*)&field_1448);
-        (field_1216, (Array*)&param_1->field_56, param_3)->SetMidi();
-        cVar1 = param_3->IsRaised();
-        if (cVar1 == '\0') {
-            field_1208 = 1;
-            field_1404 = 0;
-            field_1400 = param_2;
-            field_1440 = 1;
+        scoped_lock<std::mutex> local_30(field_1448);
+        ((m_globalVolume + 16))->SetMidi(midiFile.field_56, errorCapture);
+        if (!(errorCapture.IsRaised())) {
+            *(uint32_t*)(m_globalVolume + 8) = 1;
+            *(uint32_t*)(m_globalVolume + 204) = 0;
+            m_globalVolume[200] = arg2;
+            *(uint32_t*)(m_globalVolume + 240) = 1;
         }
-        std::scoped_lock<std::mutex>::~scoped_lock(local_30);
     }
 
-    // 0x1002d2830, 96 bytes, placed by class name
-    // MidiPlayer::QueueStopFile()
+    // 0x1002d2830
     void MidiPlayer::QueueStopFile() {
-        undefined8 uVar2;
-
-        uVar2 = std::this_thread::get_id();
-        if (std::operator==(uVar2, sound::g_idMainThread) == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (std::this_thread::get_id() == (sound::g_idMainThread) == '\0') {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      205, (char*)0);
+                      205, nullptr);
         }
-        field_1404 = 1;
-        field_1440 = 0;
+        *(uint32_t*)(m_globalVolume + 204) = 1;
+        *(uint32_t*)(m_globalVolume + 240) = 0;
     }
 
-    // 0x1002d28a0, 96 bytes, placed by class name
-    // MidiPlayer::IsPlayingFile()
+    // 0x1002d28a0
     bool MidiPlayer::IsPlayingFile() {
-        undefined8 uVar2;
-
-        uVar2 = std::this_thread::get_id();
-        if (std::operator==(uVar2, sound::g_idMainThread) == '\0') {
-            /* WARNING: Subroutine does not return */
+        if (std::this_thread::get_id() == (sound::g_idMainThread) == '\0') {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      214, (char*)0);
+                      214, nullptr);
         }
-        return field_1440 != 0;
+        return *(int*)(m_globalVolume + 240) != 0;
     }
 
-    // 0x1002d2910, 96 bytes, placed by class name
-    // MidiPlayer::HasPatchesLoaded()
-    ulong MidiPlayer::HasPatchesLoaded() {
-        undefined8 uVar2;
-        ulong uVar3;
-
-        uVar2 = std::this_thread::get_id();
-        if (std::operator==(uVar2, sound::g_idMainThread) == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x1002d2910
+    unsigned long MidiPlayer::HasPatchesLoaded() {
+        if (std::this_thread::get_id() == (sound::g_idMainThread) == '\0') {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      221, (char*)0);
+                      221, nullptr);
         }
-        uVar3 = field_296->empty();
-        return uVar3 ^ 1;
+        return field_296.empty() ^ 1;
     }
 
-    // 0x1002d2980, 512 bytes, placed by class name
-    // MidiPlayer::PullXferStateIntoWorker()
+    // 0x1002d2980
     void MidiPlayer::PullXferStateIntoWorker() {
-        undefined1* this_00;
+        uint8_t* this_00;
+        Layout* this_01;
         int iVar1;
         int* piVar3;
         int* piVar4;
-        int iVar5;
-        scoped_lock<std::mutex> local_30[8];
+        int arg1;
+        scoped_lock<std::mutex> local_30;
 
-        field_416 = m_globalVolume;
-        field_424 = field_1204 != 0;
-        if (((field_1208 != 0) || (field_1404 != 0)) || (field_1408 != 0)) {
-            std::scoped_lock<std::mutex>::scoped_lock(local_30, (mutex*)&field_1448);
-            if (field_1404 == 0) {
-                if (field_1208 != 0) {
-                    field_1208 = 0;
+        field_416 = *(int*)m_globalVolume;
+        field_424 = *(int*)(m_globalVolume + 4) != 0;
+        if (((*(int*)(m_globalVolume + 8) != 0) || (*(int*)(m_globalVolume + 204) != 0)) ||
+            (*(int*)(m_globalVolume + 208) != 0)) {
+            local_30 = std::scoped_lock(field_1448);
+            if (*(int*)(m_globalVolume + 204) == 0) {
+                if (*(int*)(m_globalVolume + 8) != 0) {
+                    *(uint32_t*)(m_globalVolume + 8) = 0;
                     this_00 = field_67048;
                     this_00->DropMidi();
-                    Reset2(this);
-                    std::swap<MidiParser>((MidiParser*)this_00, (MidiParser*)field_1216);
-                    field_67232 = field_1400;
+                    Reset2();
+                    std::swap<MidiParser>(*this_00, *((m_globalVolume + 16)));
+                    field_67232 = m_globalVolume[200];
                     field_67248 = 0;
                     iVar1 = this_00->NumTracks();
                     if (0 < iVar1) {
-                        iVar5 = 0;
+                        arg1 = 0;
                         do {
-                            this_00->SetTrack(iVar5);
-                            this_00->ProcessDeltaTime(iVar5);
-                            this_00->UnsetTrack(iVar5);
-                            iVar5 = iVar5 + 1;
-                        } while (iVar1 != iVar5);
+                            this_00->SetTrack(arg1);
+                            this_00->ProcessDeltaTime(arg1);
+                            this_00->UnsetTrack(arg1);
+                            arg1 = arg1 + 1;
+                        } while (iVar1 != arg1);
                     }
                     iVar1 = this_00->NextTrackToPlay();
                     field_67236 = iVar1;
-                    piVar3 = (int*)Array<int, eastl::allocator>::operator[](
-                        (Array<int, eastl::allocator>*)(field_67048 + 40), (long)iVar1);
+                    piVar3 = (int*)(*((field_67048 + 40)))[(long)iVar1];
                     iVar1 = *piVar3;
                     field_67240 = iVar1;
                     field_67256 = this_00->TimeFromTick(iVar1);
                 }
             } else {
                 field_67048->DropMidi();
-                Reset2(this);
-                field_1208 = 0;
-                field_1404 = 0;
+                Reset2();
+                *(uint32_t*)(m_globalVolume + 8) = 0;
+                *(uint32_t*)(m_globalVolume + 204) = 0;
             }
-            if (field_1408 != 0) {
-                piVar3 = (int*)(&field_1416)->HeapBeginPtr();
-                piVar4 = (int*)(&field_1416)->end();
+            if (*(int*)(m_globalVolume + 208) != 0) {
+                this_01 = (Layout*)(m_globalVolume + 216);
+                piVar3 = (int*)this_01->HeapBeginPtr();
+                piVar4 = (int*)this_01->end();
                 for (; piVar3 != piVar4; piVar3 = piVar3 + 2) {
-                    SetDefInst2(this, *piVar3, piVar3[1]);
+                    SetDefInst2(*piVar3, piVar3[1]);
                 }
-                eastl::vector<eastl::pair<int, int>, eastl::allocator>::clear();
-                field_1408 = 0;
+                this_01->clear();
+                *(uint32_t*)(m_globalVolume + 208) = 0;
             }
-            std::scoped_lock<std::mutex>::~scoped_lock(local_30);
         }
     }
 
-    // 0x1002d2bf0, 192 bytes, placed by class name
-    // MidiPlayer::SetDefInst2(int, int)
-    void MidiPlayer::SetDefInst2(int param_1, int param_2) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        int* piVar4;
-        uint* puVar5;
-        undefined8 local_30;
+    // 0x1002d2bf0
+    void MidiPlayer::SetDefInst2(int arg1, int arg2) {
+        __thread_id* local_30;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          384, (char*)0);
+                          384, nullptr);
             }
         }
-        piVar4 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_620, (long)param_1);
-        *piVar4 = param_2;
-        puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_748, (long)param_1);
-        *puVar5 = param_2 & 4294967168;
-        SetInst2(this, param_1, param_2);
+        int* piVar2 = (int*)field_620[(long)arg1];
+        *piVar2 = arg2;
+        unsigned int* puVar3 = &field_748[(long)arg1];
+        *puVar3 = arg2 & 4294967168;
+        SetInst2(arg1, arg2);
     }
 
-    // 0x1002d2cb0, 192 bytes, placed by class name
-    // MidiPlayer::QueueSetDefInst(int, int)
-    void MidiPlayer::QueueSetDefInst(int param_1, int param_2) {
-        int iVar2;
-        undefined8 uVar3;
-        undefined8 local_30;
-        scoped_lock<std::mutex> local_28[8];
-        int local_20;
-        int local_1c;
-
-        local_20 = param_1;
-        local_1c = param_2;
-        uVar3 = std::this_thread::get_id();
-        if (std::operator==(uVar3, sound::g_idMainThread) == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x1002d2cb0
+    void MidiPlayer::QueueSetDefInst(int arg1, int arg2) {
+        if (std::this_thread::get_id() == (sound::g_idMainThread) == '\0') {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      277, (char*)0);
+                      277, nullptr);
         }
-        std::scoped_lock<std::mutex>::scoped_lock(local_28, (mutex*)&field_1448);
-        local_30 = std::make_pair<int&, int&>(&local_20, &local_1c);
-        (&field_1416, (pair*)&local_30)->push_back();
-        iVar2 = (&field_1416)->size();
-        field_1408 = iVar2;
-        std::scoped_lock<std::mutex>::~scoped_lock(local_28);
+        scoped_lock<std::mutex> local_28(field_1448);
+        uint64_t local_30 = std::make_pair<int&, int&>(arg1, arg2);
+        ((m_globalVolume + 216))->push_back(local_30);
+        uint32_t uVar2 = ((m_globalVolume + 216))->size();
+        *(uint32_t*)(m_globalVolume + 208) = uVar2;
     }
 
-    // 0x1002d2e10, 176 bytes, placed by class name
-    // MidiPlayer::SetInst(int, int)
-    void MidiPlayer::SetInst(int param_1, int param_2) {
-        /* WARNING: Subroutine does not return */
+    // 0x1002d2e10
+    void MidiPlayer::SetInst(int arg1, int arg2) {
         LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                         "midiplayer.cpp",
                         285, "didn\'t think this was used");
     }
 
-    // 0x1002d2ec0, 272 bytes, placed by class name
-    // MidiPlayer::SetInst2(int, int)
-    void MidiPlayer::SetInst2(int param_1, int param_2) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        int* piVar4;
+    // 0x1002d2ec0
+    void MidiPlayer::SetInst2(int arg1, int arg2) {
         array<shared_ptr<MidiNote>, 128ul>* this_00;
         shared_ptr<MidiNote>* this_01;
-        ulong uVar5;
-        shared_ptr local_40;
-        undefined8 local_30;
+        unsigned long arg1_00;
+        shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata> local_40;
+        __thread_id* local_30;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          392, (char*)0);
+                          392, nullptr);
             }
         }
-        piVar4 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_684, (long)param_1);
-        if (*piVar4 != param_2) {
-            *piVar4 = param_2;
-            uVar5 = 0;
+        int* piVar2 = (int*)field_684[(long)arg1];
+        if (*piVar2 != arg2) {
+            *piVar2 = arg2;
+            arg1_00 = 0;
             do {
-                new (&local_40) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                this_00 = (array<shared_ptr<MidiNote>, 128ul>*)
-                    std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                        (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_34280, (long)param_1);
-                this_01 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](this_00, uVar5);
-                shared_ptr<MidiNote>::operator=(this_01, &local_40);
-                local_40.~shared_ptr();
-                uVar5 = uVar5 + 1;
-            } while (uVar5 != 128);
+                local_40 = shared_ptr();
+                this_00 = &field_34280[(long)arg1];
+                this_01 = (shared_ptr<MidiNote>*)(*this_00)[arg1_00];
+                *this_01 = local_40;
+                arg1_00 = arg1_00 + 1;
+            } while (arg1_00 != 128);
         }
     }
 
-    // 0x1002d2fd0, 144 bytes, placed by class name
-    // MidiPlayer::PlayNote(int, int, int)
-    void MidiPlayer::PlayNote(int param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uVar3;
-        undefined8 local_38;
+    // 0x1002d2fd0
+    void MidiPlayer::PlayNote(int arg1, int arg2, int arg3) {
+        __thread_id* in_RAX;
 
-        local_38 = in_RAX;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_38 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_38) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_38);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_38)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          293, (char*)0);
+                          293, nullptr);
             }
         }
-        PlayNote2(this, param_1, param_2, param_3);
+        PlayNote2(arg1, arg2, arg3);
     }
 
-    // 0x1002d3060, 1616 bytes, placed by class name
-    // MidiPlayer::PlayNote2(int, int, int)
-    void MidiPlayer::PlayNote2(int param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        char cVar2;
-        bool bVar3;
-        int iVar4;
+    // 0x1002d3060
+    void MidiPlayer::PlayNote2(int arg1, int arg2, int arg3) {
+        uint8_t bVar2;
         int iVar5;
-        undefined8 uVar6;
-        byte* pbVar7;
-        long lVar8;
-        shared_ptr* psVar9;
-        array<shared_ptr<MidiNote>, 128ul>* paVar10;
-        shared_ptr<MidiNote>* psVar11;
-        int* piVar12;
-        MidiNote* pMVar13;
-        char* pcVar14;
-        ushort* puVar15;
-        WaveStream* pWVar16;
-        undefined2* puVar17;
-        short* psVar18;
-        array<shared_ptr<MidiNote>, 128ul>* this_00;
-        int iVar19;
-        hashtable_iterator_base* extraout_RDX;
-        hashtable_iterator_base* extraout_RDX_00;
-        ulong uVar20;
-        Array<short, eastl::allocator>* this_01;
-        undefined1 auVar21[16];
-        undefined8 local_98;
-        undefined1 local_90[16];
-        shared_ptr local_80;
-        shared_ptr local_70;
-        shared_ptr local_58;
-        ulong local_40;
+        long lVar7;
+        ReturnValue* pRVar8;
+        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* this_00;
+        array<shared_ptr<MidiNote>, 128ul>* paVar9;
+        shared_ptr<MidiNote>* psVar10;
+        MidiNote* midiNote;
+        shared_ptr<EnvelopeSet>* envelopeSet;
+        char* pcVar12;
+        unsigned short* puVar13;
+        WaveStream* pWVar14;
+        uint16_t* puVar15;
+        short* psVar16;
+        shared_ptr<MidiPlayerMainThread>* midiPlayerMainThread;
+        array<shared_ptr<MidiNote>, 128ul>* this_02;
+        int iVar17;
+        Array<short>* this_03;
+        __thread_id* local_98;
+        uint8_t local_90[16];
+        ReturnValue local_70;
+        ReturnValue local_58;
+        unsigned long local_40;
         MidiPlayer* local_38;
 
-        uVar6 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar6, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_98) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_98);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_98)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          406, (char*)0);
+                          406, nullptr);
             }
         }
-        iVar4 = param_1;
-        StopNote2((int)this, param_1, param_2);
-        uVar20 = (ulong)iVar4;
-        pbVar7 = (byte*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_104, uVar20);
-        if ((*pbVar7 & 2) != 0) {
-            local_40 = uVar20;
+        int iVar4 = arg1;
+        StopNote2((int)this, arg1, arg2);
+        unsigned long arg1_00 = (unsigned long)iVar4;
+        uint8_t* pbVar6 = &field_104[arg1_00];
+        if ((*pbVar6 & 2) != 0) {
+            local_40 = arg1_00;
             local_38 = this;
-            lVar8 = shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)&field_67264);
-            local_90 = ((lVar8 + 72))->ptrs();
-            local_70._0_8_ = local_90->begin();
-            auVar21 = local_90->second();
-            local_58._0_8_ = *auVar21._0_8_;
-            bVar3 = eastl::operator!=((eastl*)&local_70, (hashtable_iterator_base*)&local_58, auVar21._8_8_);
-            if (bVar3) {
+            lVar7 = field_67264.operator->();
+            local_90 = ((lVar7 + 72))->ptrs();
+            local_70[0] = (ReturnValue)local_90->begin();
+            pRVar8 = (ReturnValue*)local_90->second();
+            local_58[0] = *pRVar8;
+            bVar2 = local_70 != local_58;
+            if (bVar2 != 0) {
                 do {
-                    psVar9 = (shared_ptr*)SharedPtrList<MidiNote>::ptr_iterator::operator*((ptr_iterator*)&local_70);
-                    lVar8 = psVar9->end();
-                    if ((*(int*)(lVar8 + 32) == param_1) && (*(int*)(lVar8 + 132) < 0)) {
-                        new (&local_80) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                        paVar10 = (array<shared_ptr<MidiNote>, 128ul>*)
-                            std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                                (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&local_38->field_1512, local_40);
-                        psVar11 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                            paVar10, (long)*(int*)(lVar8 + 92));
-                        shared_ptr<MidiNote>::operator=(psVar11, &local_80);
-                        local_80.~shared_ptr();
-                        iVar5 = param_2;
-                        psVar11 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                            paVar10, (long)param_2);
-                        shared_ptr<MidiNote>::operator=(psVar11, psVar9);
-                        iVar4 = *(int*)(lVar8 + 108);
-                        iVar19 = (iVar5 - *(int*)(lVar8 + 92)) * 256 + iVar4;
-                        *(int*)(lVar8 + 108) = iVar19;
-                        *(int*)(lVar8 + 112) = ((*(int*)(lVar8 + 116) * *(int*)(lVar8 + 112) >> 12) + iVar4) - iVar19;
-                        *(undefined4*)(lVar8 + 116) = 4096;
-                        *(int*)(lVar8 + 92) = iVar5;
-                        return;
+                    this_00 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)*local_70;
+                    lVar7 = this_00->end();
+                    if ((*(int*)(lVar7 + 32) == arg1) && (*(int*)(lVar7 + 132) < 0)) {
+                        local_80 = shared_ptr();
+                        paVar9 = &local_38->field_1512[local_40];
+                        psVar10 = (shared_ptr<MidiNote>*)(*paVar9)[(long)*(int*)(lVar7 + 92)];
+                        *psVar10 = local_80;
+                        iVar5 = arg2;
+                        psVar10 = (shared_ptr<MidiNote>*)(*paVar9)[(long)arg2];
+                        *psVar10 = *this_00;
+                        iVar4 = *(int*)(lVar7 + 108);
+                        iVar17 = (iVar5 - *(int*)(lVar7 + 92)) * 256 + iVar4;
+                        *(int*)(lVar7 + 108) = iVar17;
+                        *(int*)(lVar7 + 112) = ((*(int*)(lVar7 + 116) * *(int*)(lVar7 + 112) >> 12) + iVar4) - iVar17;
+                        *(uint32_t*)(lVar7 + 116) = 4096;
+                        *(int*)(lVar7 + 92) = iVar5;
+                        this = local_38;
+                        arg1_00 = local_40;
+                        if ((bVar2 & 1) != 0) {
+                            return;
+                        }
+                        goto LAB_1002d3273;
                     }
-                    SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>::obj_iterator::operator++(
-                        (obj_iterator*)&local_70);
-                    bVar3 = eastl::operator!=((eastl*)&local_70, (hashtable_iterator_base*)&local_58, extraout_RDX);
-                } while (bVar3);
+                    ++local_70;
+                    bVar2 = local_70 != local_58;
+                } while (bVar2 != 0);
             }
             this = local_38;
-            uVar20 = local_40;
+            arg1_00 = local_40;
         }
-        std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_684, uVar20);
-        eastl::hashtable<int, eastl::pair<int const, shared_ptr<ChatLine>>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, shared_ptr<ChatLine>>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::find((int*)local_90);
-        eastl::hashtable<int, eastl::pair<int const, highlight::HighlightedGroup>, eastl::allocator,
-                         eastl::use_first<eastl::pair<int const, highlight::HighlightedGroup>>, eastl::equal_to<int>,
-                         eastl::hash<int>, eastl::mod_range_hashing, eastl::default_ranged_hash,
-                         eastl::prime_rehash_policy, false, true, true>::end();
-        bVar3 = eastl::operator==((eastl*)local_90, (hashtable_iterator_base*)&local_80, extraout_RDX_00);
-        if (!bVar3) {
-            lVar8 = local_90->HeapBeginPtr();
-            piVar12 = (int*)shared_ptr<Patch>::operator*((shared_ptr<Patch>*)(lVar8 + 8));
-            iVar4 = param_2;
-            local_38 = (MidiPlayer*)(long)param_2;
-            Array<sound::LazyWave, eastl::allocator>::operator[](
-                (Array<sound::LazyWave, eastl::allocator>*)(piVar12 + 2), (ulong)local_38);
-            local_80.Get();
-            bVar3 = operator==(&local_80, (_func_decltype_nullptr*)0);
-            if (!bVar3) {
-                local_40 = uVar20;
-                make_shared<MidiNote>((jag*)&local_70);
-                pMVar13 = (MidiNote*)local_70.end();
-                pMVar13->field_32 = param_1;
-                lVar8 = local_90->HeapBeginPtr();
-                shared_ptr<Patch>::operator=((shared_ptr<Patch>*)&pMVar13->field_40, (shared_ptr*)(lVar8 + 8));
-                shared_ptr<sound::Wave>::operator=((shared_ptr<sound::Wave>*)&pMVar13->field_56, &local_80);
-                psVar9 = (shared_ptr*)Array<shared_ptr<EnvelopeSet>, eastl::allocator>::operator[](
-                    (Array<shared_ptr<EnvelopeSet>, eastl::allocator>*)(piVar12 + 26), (ulong)local_38);
-                shared_ptr<EnvelopeSet>::operator=((shared_ptr<EnvelopeSet>*)&pMVar13->field_72, psVar9);
-                pcVar14 = (char*)Array<signed char, eastl::allocator>::operator[](
-                    (Array<signed char, eastl::allocator>*)(piVar12 + 32), (ulong)local_38);
-                *(int*)&pMVar13->field_88 = (int)*pcVar14;
-                *(int*)((long)&pMVar13->field_88 + 4) = iVar4;
-                *(int*)&pMVar13->field_96 = param_3;
-                iVar5 = *piVar12;
-                pcVar14 = (char*)Array<signed char, eastl::allocator>::operator[](
-                    (Array<signed char, eastl::allocator>*)(piVar12 + 14), (ulong)local_38);
-                *(int*)((long)&pMVar13->field_96 + 4) = (int)*pcVar14 * param_3 * param_3 * iVar5 + 1024 >> 11;
-                pbVar7 = (byte*)Array<signed char, eastl::allocator>::operator[](
-                    (Array<signed char, eastl::allocator>*)(piVar12 + 20), (ulong)local_38);
-                *(uint*)&pMVar13->field_104 = (uint)*pbVar7;
-                this_01 = (Array<short, eastl::allocator>*)(piVar12 + 8);
-                puVar15 = (ushort*)Array<short, eastl::allocator>::operator[](this_01, (ulong)local_38);
-                *(uint*)((long)&pMVar13->field_104 + 4) = iVar4 * 256 - (*puVar15 & 32767);
-                pMVar13->field_120 = 0;
-                *(undefined8*)&pMVar13->field_128 = 18446744069414584320;
-                *(undefined4*)((long)&pMVar13->field_132 + 4) = 0;
-                piVar12 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_168, local_40);
-                if (*piVar12 == 0) {
-                    iVar4 = GetRateRaw(this, pMVar13);
-                    iVar5 = GetVolume(this, pMVar13);
-                    iVar19 = GetPan(this, pMVar13);
-                    local_58.NewRateRawFineVolPan(&local_80, iVar4, iVar5, iVar19);
-                    pWVar16 = (WaveStream*)local_58.release();
-                    shared_ptr<sound::WaveStream>::reset<sound::WaveStream, void>(
-                        (shared_ptr<sound::WaveStream>*)&pMVar13->field_152, pWVar16);
-                    local_58.~unique_ptr();
+    LAB_1002d3273:
+        int* piVar11 = &field_684[arg1_00];
+        *local_90 = field_296.find(*piVar11);
+        auto local_80 = field_296.end();
+        if (!(*local_90 == local_80)) {
+            lVar7 = local_90->HeapBeginPtr();
+            piVar11 = (int*)*(*((lVar7 + 8)));
+            iVar4 = arg2;
+            local_38 = (MidiPlayer*)(long)arg2;
+            local_80 = ((LazyWave*)(*((piVar11 + 2)))[(unsigned long)local_38])->Get();
+            if (!(local_80 == nullptr)) {
+                local_40 = arg1_00;
+                make_shared<MidiNote>(&local_70);
+                midiNote = (MidiNote*)local_70.end();
+                midiNote->field_32 = arg1;
+                lVar7 = local_90->HeapBeginPtr();
+                midiNote->field_40 = (*((lVar7 + 8)));
+                midiNote->field_56 = local_80;
+                envelopeSet = (shared_ptr<EnvelopeSet>*)(*((piVar11 + 26)))[(unsigned long)local_38];
+                midiNote->field_72 = *envelopeSet;
+                pcVar12 = (char*)(*((piVar11 + 32)))[(unsigned long)local_38];
+                *(int*)&midiNote->field_88 = (int)*pcVar12;
+                *(int*)((long)&midiNote->field_88 + 4) = iVar4;
+                *(int*)&midiNote->field_96 = arg3;
+                iVar5 = *piVar11;
+                pcVar12 = (char*)(*((piVar11 + 14)))[(unsigned long)local_38];
+                *(int*)((long)&midiNote->field_96 + 4) = (int)*pcVar12 * arg3 * arg3 * iVar5 + 1024 >> 11;
+                pbVar6 = (uint8_t*)(*((piVar11 + 20)))[(unsigned long)local_38];
+                *(unsigned int*)&midiNote->field_104 = (unsigned int)*pbVar6;
+                this_03 = (Array<short>*)(piVar11 + 8);
+                puVar13 = (unsigned short*)(*this_03)[(unsigned long)local_38];
+                *(unsigned int*)((long)&midiNote->field_104 + 4) = iVar4 * 256 - (*puVar13 & 32767);
+                midiNote->field_120 = 0;
+                *(uint64_t*)&midiNote->field_128 = 18446744069414584320;
+                *(uint32_t*)((long)&midiNote->field_132 + 4) = 0;
+                piVar11 = &field_168[local_40];
+                if (*piVar11 == 0) {
+                    iVar4 = GetRateRaw(*midiNote);
+                    iVar5 = GetVolume(*midiNote);
+                    iVar17 = GetPan(*midiNote);
+                    local_58 = sound::WaveStream::NewRateRawFineVolPan(local_80, iVar4, iVar5, iVar17);
+                    pWVar14 = (WaveStream*)std::unique_ptr<sound::WaveStream>::release();
+                    midiNote->field_152.reset<sound::WaveStream, void>(pWVar14);
                 } else {
-                    iVar4 = GetRateRaw(this, pMVar13);
-                    iVar5 = GetPan(this, pMVar13);
-                    local_58.NewRateRawFineVolPan(&local_80, iVar4, 0, iVar5);
-                    pWVar16 = (WaveStream*)local_58.release();
-                    shared_ptr<sound::WaveStream>::reset<sound::WaveStream, void>(
-                        (shared_ptr<sound::WaveStream>*)&pMVar13->field_152, pWVar16);
-                    puVar17 = (undefined2*)Array<short, eastl::allocator>::operator[](this_01, (ulong)local_38);
-                    SetSampleOffset(this, pMVar13, SUB21((ushort)*puVar17 >> 15, 0));
-                    local_58.~unique_ptr();
+                    iVar4 = GetRateRaw(*midiNote);
+                    iVar5 = GetPan(*midiNote);
+                    local_58 = sound::WaveStream::NewRateRawFineVolPan(local_80, iVar4, 0, iVar5);
+                    pWVar14 = (WaveStream*)std::unique_ptr<sound::WaveStream>::release();
+                    midiNote->field_152.reset<sound::WaveStream, void>(pWVar14);
+                    puVar15 = (uint16_t*)(*this_03)[(unsigned long)local_38];
+                    SetSampleOffset(*midiNote, (uint8_t)((unsigned short)*puVar15 >> 15));
                 }
-                psVar18 = (short*)Array<short, eastl::allocator>::operator[](this_01, (ulong)local_38);
-                if (*psVar18 < 0) {
-                    pWVar16 = (WaveStream*)shared_ptr<sound::WaveStream>::operator->(
-                        (shared_ptr<sound::WaveStream>*)&pMVar13->field_152);
-                    pWVar16->SetLoopCount(-1);
+                psVar16 = (short*)(*this_03)[(unsigned long)local_38];
+                if (*psVar16 < 0) {
+                    pWVar14 = (WaveStream*)midiNote->field_152.operator->();
+                    pWVar14->SetLoopCount(-1);
                 }
-                iVar4 = *(int*)&pMVar13->field_88;
+                iVar4 = *(int*)&midiNote->field_88;
                 if (-1 < (long)iVar4) {
-                    paVar10 = (array<shared_ptr<MidiNote>, 128ul>*)
-                        std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                            (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_34280, local_40);
-                    psVar9 = (shared_ptr*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](paVar10, (long)iVar4);
-                    bVar3 = operator!=(psVar9, (_func_decltype_nullptr*)0);
-                    if (bVar3) {
-                        lVar8 = shared_ptr<MidiNote>::operator->((shared_ptr<MidiNote>*)psVar9);
-                        if (*(int*)(lVar8 + 132) < 0) {
-                            new (&local_58) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                            lVar8 = shared_ptr<MidiNote>::operator->((shared_ptr<MidiNote>*)psVar9);
-                            this_00 = (array<shared_ptr<MidiNote>, 128ul>*)
-                                std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                                    (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_1512, local_40);
-                            psVar11 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                                this_00, (long)*(int*)(lVar8 + 92));
-                            shared_ptr<MidiNote>::operator=(psVar11, &local_58);
-                            local_58.~shared_ptr();
-                            lVar8 = shared_ptr<MidiNote>::operator->((shared_ptr<MidiNote>*)psVar9);
-                            *(undefined4*)(lVar8 + 132) = 0;
+                    paVar9 = &field_34280[local_40];
+                    midiPlayerMainThread = (shared_ptr<MidiPlayerMainThread>*)(*paVar9)[(long)iVar4];
+                    if (*midiPlayerMainThread != nullptr) {
+                        lVar7 = (*midiPlayerMainThread).operator->();
+                        if (*(int*)(lVar7 + 132) < 0) {
+                            local_58 = shared_ptr();
+                            lVar7 = (*midiPlayerMainThread).operator->();
+                            this_02 = &field_1512[local_40];
+                            psVar10 = (shared_ptr<MidiNote>*)(*this_02)[(long)*(int*)(lVar7 + 92)];
+                            *psVar10 = local_58;
+                            lVar7 = (*midiPlayerMainThread).operator->();
+                            *(uint32_t*)(lVar7 + 132) = 0;
                         }
                     }
-                    psVar11 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                        paVar10, (long)*(int*)&pMVar13->field_88);
-                    shared_ptr<MidiNote>::operator=(psVar11, &local_70);
+                    psVar10 = (shared_ptr<MidiNote>*)(*paVar9)[(long)*(int*)&midiNote->field_88];
+                    *psVar10 = local_70;
                 }
-                lVar8 = shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)&field_67264);
-                ((lVar8 + 72))->push_back(&local_70);
-                paVar10 = (array<shared_ptr<MidiNote>, 128ul>*)
-                    std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                        (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)&field_1512, local_40);
-                psVar11 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](paVar10,
-                                                                                                     (ulong)local_38);
-                shared_ptr<MidiNote>::operator=(psVar11, &local_70);
-                local_70.~shared_ptr();
+                lVar7 = field_67264.operator->();
+                ((lVar7 + 72))->push_back(local_70);
+                paVar9 = &field_1512[local_40];
+                psVar10 = (shared_ptr<MidiNote>*)(*paVar9)[(unsigned long)local_38];
+                *psVar10 = local_70;
             }
-            local_80.~shared_ptr();
         }
     }
 
-    // 0x1002d36b0, 144 bytes, placed by class name
-    // MidiPlayer::StopNote(int, int, int)
-    void MidiPlayer::StopNote(int param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        undefined8 local_30;
+    // 0x1002d36b0
+    void MidiPlayer::StopNote(int arg1, int arg2, int arg3) {
+        __thread_id* local_30;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          300, (char*)0);
+                          300, nullptr);
             }
         }
-        StopNote2(param_1, param_2, param_3);
+        StopNote2(arg1, arg2, arg3);
     }
 
-    // 0x1002d3740, 464 bytes, placed by class name
-    // MidiPlayer::StopNote2(int, int, int)
-    void MidiPlayer::StopNote2(int param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        char cVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        array<shared_ptr<MidiNote>, 128ul>* this;
-        shared_ptr* this_00;
-        long lVar5;
-        byte* pbVar6;
-        long lVar7;
-        hashtable_iterator_base* extraout_RDX;
-        undefined4 in_register_0000003c;
-        undefined1 auVar8[16];
-        undefined8 local_60;
-        shared_ptr local_58;
-        undefined8 local_48;
-        shared_ptr local_40;
+    // 0x1002d3740
+    void MidiPlayer::StopNote2(int arg1, int arg2, int arg3) {
+        array<shared_ptr<MidiNote>, 128ul>* array;
+        long lVar3;
+        uint8_t* pbVar4;
+        uint32_t in_register_0000003c;
+        __thread_id* local_60;
+        uint64_t local_48;
+        uint64_t local_40[2];
 
-        lVar7 = CONCAT44(in_register_0000003c, param_1);
-        uVar4 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar4, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        long lVar5 = (((uint64_t)in_register_0000003c << 32) | (uint32_t)arg1);
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        bool cVar1 = thread_id1_00 == (sound::g_idWorkerThread);
+        if (!cVar1) {
             new (&local_60) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_60);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_60;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          501, (char*)0);
+                          501, nullptr);
             }
         }
-        this =
-            (array<shared_ptr<MidiNote>, 128ul>*)std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)(lVar7 + 1512), (long)param_2);
-        this_00 = (shared_ptr*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](this, (long)param_3);
-        new (&local_58) shared_ptr<dash3d::Decor>(this_00);
-        bVar3 = operator==(&local_58, (_func_decltype_nullptr*)0);
-        if (!bVar3) {
-            lVar5 = local_58.end();
-            new (&local_40) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-            shared_ptr<MidiNote>::operator=((shared_ptr<MidiNote>*)this_00, &local_40);
-            local_40.~shared_ptr();
-            pbVar6 = (byte*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)(lVar7 + 104), (long)param_2);
-            if ((*pbVar6 & 2) == 0) {
+        array = (array<shared_ptr<MidiNote>, 128ul>*)(*((lVar5 + 1512)))[(long)arg2];
+        shared_ptr<dash3d::GroundDecor>* groundDecor = (shared_ptr<dash3d::GroundDecor>*)(*array)[(long)arg3];
+        shared_ptr<dash3d::Decor> local_58(groundDecor);
+        if (!local_58 == nullptr) {
+            lVar3 = local_58.end();
+            new (local_40) shared_ptr();
+            *groundDecor = *local_40;
+            pbVar4 = (uint8_t*)(*((lVar5 + 104)))[(long)arg2];
+            if ((*pbVar4 & 2) == 0) {
             LAB_1002d38b6:
-                *(undefined4*)(lVar5 + 132) = 0;
+                *(uint32_t*)(lVar3 + 132) = 0;
             } else {
-                lVar7 = shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)(lVar7 + 67264));
-                local_40._0_8_ = ((lVar7 + 72))->begin_ptrs();
-                auVar8 = ((lVar7 + 72))->end();
-                local_48 = auVar8._0_8_;
-                bVar3 = eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_48, auVar8._8_8_);
-                if (bVar3) {
+                lVar5 = (*((lVar5 + 67264))).operator->();
+                local_40[0] = ((lVar5 + 72))->begin_ptrs();
+                local_48 = ((lVar5 + 72))->end();
+                cVar1 = *local_40 != local_48;
+                if (cVar1) {
                     do {
-                        lVar7 = local_40.HeapBeginPtr();
-                        if (((*(int*)(lVar7 + 32) == *(int*)(lVar5 + 32)) && (*(int*)(lVar7 + 132) < 0)) &&
-                            (lVar7 != lVar5))
+                        lVar5 = local_40->HeapBeginPtr();
+                        if (((*(int*)(lVar5 + 32) == *(int*)(lVar3 + 32)) && (*(int*)(lVar5 + 132) < 0)) &&
+                            (lVar5 != lVar3))
                             goto LAB_1002d38b6;
-                        SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>::obj_iterator::
-                        operator++((obj_iterator*)&local_40);
-                        bVar3 = eastl::operator!=((eastl*)&local_40, (hashtable_iterator_base*)&local_48, extraout_RDX);
-                    } while (bVar3);
+                        ++*local_40;
+                        cVar1 = *local_40 != local_48;
+                    } while (cVar1);
                 }
             }
         }
-        local_58.~shared_ptr();
     }
 
-    // 0x1002d3910, 112 bytes, placed by class name
-    // MidiPlayer::AfterTouch(int, int, int)
-    void MidiPlayer::AfterTouch(int param_1, int param_2, int param_3) {
-        char cVar1;
-        int in_EAX;
-        int iVar2;
+    // 0x1002d3910
+    void MidiPlayer::AfterTouch(int arg1, int arg2, int arg3) {
+        __thread_id* in_RAX;
         int extraout_EDX;
         int extraout_EDX_00;
-        int iVar3;
-        int iVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        int local_18[2];
 
-        local_18[0] = in_EAX;
-        iVar2 = std::this_thread::get_id();
-        uVar6 = sound::g_idWorkerThread;
-        uVar5 = sound::g_idWorkerThread;
-        cVar1 = std::operator==();
-        iVar4 = (int)uVar5;
-        iVar3 = extraout_EDX;
-        if (cVar1 == '\0') {
-            new (local_18) std::__thread_id();
-            iVar4 = local_18[0];
-            cVar1 = std::operator==();
-            iVar2 = (int)uVar6;
-            iVar3 = extraout_EDX_00;
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
-                LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
-                          "std::thread::id()",
-                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
-                          "midiplayer.cpp",
-                          307, (char*)0);
-            }
-        }
-        AfterTouch2(iVar2, iVar4, iVar3);
-    }
-
-    // 0x1002d3980, 112 bytes, placed by class name
-    // MidiPlayer::AfterTouch2(int, int, int)
-    void MidiPlayer::AfterTouch2(int param_1, int param_2, int param_3) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uVar3;
-        undefined8 local_18;
-
-        local_18 = in_RAX;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_18 = in_RAX;
+        auto this_00 = std::this_thread::get_id();
+        MidiPlayer* thread_id1 = sound::g_idWorkerThread;
+        MidiPlayer* pMVar2 = sound::g_idWorkerThread;
+        bool cVar1 = this_00 == ((__thread_id*)sound::g_idWorkerThread);
+        int arg1_00 = (int)pMVar2;
+        int arg2_00 = extraout_EDX;
+        if (!cVar1) {
             new (&local_18) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_18);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_18;
+            arg1_00 = (int)local_18;
+            this_00 = thread_id1;
+            arg2_00 = extraout_EDX_00;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          534, (char*)0);
+                          307, nullptr);
             }
         }
+        AfterTouch2(this_00, arg1_00, arg2_00, 23862176);
     }
 
-    // 0x1002d39f0, 112 bytes, placed by class name
-    // MidiPlayer::ChannelPressure(int, int)
-    void MidiPlayer::ChannelPressure(int param_1, int param_2) {
-        char cVar1;
-        int in_EAX;
-        int iVar2;
-        int iVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        int local_18[2];
+    // 0x1002d3980
+    void MidiPlayer::AfterTouch2(int arg1, int arg2, int arg3) {
+        __thread_id* in_RAX;
 
-        local_18[0] = in_EAX;
-        iVar2 = std::this_thread::get_id();
-        uVar5 = sound::g_idWorkerThread;
-        uVar4 = sound::g_idWorkerThread;
-        cVar1 = std::operator==();
-        iVar3 = (int)uVar4;
-        if (cVar1 == '\0') {
-            new (local_18) std::__thread_id();
-            iVar3 = local_18[0];
-            cVar1 = std::operator==();
-            iVar2 = (int)uVar5;
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
-                LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
-                          "std::thread::id()",
-                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
-                          "midiplayer.cpp",
-                          314, (char*)0);
-            }
-        }
-        ChannelPressure2(iVar2, iVar3);
-    }
-
-    // 0x1002d3a60, 112 bytes, placed by class name
-    // MidiPlayer::ChannelPressure2(int, int)
-    void MidiPlayer::ChannelPressure2(int param_1, int param_2) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uVar3;
-        undefined8 local_18;
-
-        local_18 = in_RAX;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_18 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_18) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_18);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_18)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          540, (char*)0);
+                          534, nullptr);
             }
         }
     }
 
-    // 0x1002d3ad0, 144 bytes, placed by class name
-    // MidiPlayer::PitchWheel(int, int)
-    void MidiPlayer::PitchWheel(int param_1, int param_2) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        undefined8 local_30;
+    // 0x1002d39f0
+    void MidiPlayer::ChannelPressure(int arg1, int arg2) {
+        __thread_id* in_RAX;
+        int extraout_EDX;
+        int extraout_EDX_00;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_18 = in_RAX;
+        auto this_00 = std::this_thread::get_id();
+        MidiPlayer* thread_id1 = sound::g_idWorkerThread;
+        MidiPlayer* pMVar2 = sound::g_idWorkerThread;
+        bool cVar1 = this_00 == ((__thread_id*)sound::g_idWorkerThread);
+        int arg1_00 = (int)pMVar2;
+        int arg2_00 = extraout_EDX;
+        if (!cVar1) {
+            new (&local_18) std::__thread_id();
+            cVar1 = thread_id1 == local_18;
+            arg1_00 = (int)local_18;
+            this_00 = thread_id1;
+            arg2_00 = extraout_EDX_00;
+            if (!cVar1) {
+                LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
+                          "std::thread::id()",
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
+                          "midiplayer.cpp",
+                          314, nullptr);
+            }
+        }
+        ChannelPressure2(this_00, arg1_00, arg2_00);
+    }
+
+    // 0x1002d3a60
+    void MidiPlayer::ChannelPressure2(int arg1, int arg2) {
+        __thread_id* in_RAX;
+
+        __thread_id* local_18 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
+            new (&local_18) std::__thread_id();
+            if (!(thread_id1 == local_18)) {
+                LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
+                          "std::thread::id()",
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
+                          "midiplayer.cpp",
+                          540, nullptr);
+            }
+        }
+    }
+
+    // 0x1002d3ad0
+    void MidiPlayer::PitchWheel(int arg1, int arg2) {
+        __thread_id* local_30;
+
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          321, (char*)0);
+                          321, nullptr);
             }
         }
-        PitchWheel2(this, param_1, param_2);
+        PitchWheel2(arg1, arg2);
     }
 
-    // 0x1002d3b60, 144 bytes, placed by class name
-    // MidiPlayer::PitchWheel2(int, int)
-    void MidiPlayer::PitchWheel2(int param_1, int param_2) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        int* piVar4;
-        undefined8 local_30;
+    // 0x1002d3b60
+    void MidiPlayer::PitchWheel2(int arg1, int arg2) {
+        __thread_id* local_30;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          546, (char*)0);
+                          546, nullptr);
             }
         }
-        piVar4 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_812, (long)param_1);
-        *piVar4 = param_2;
+        int* piVar2 = (int*)field_812[(long)arg1];
+        *piVar2 = arg2;
     }
 
-    // 0x1002d3bf0, 128 bytes, placed by class name
-    // MidiPlayer::AllSoundOff(int)
-    void MidiPlayer::AllSoundOff(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uVar3;
-        undefined8 local_28;
+    // 0x1002d3bf0
+    void MidiPlayer::AllSoundOff(int arg1) {
+        __thread_id* in_RAX;
 
-        local_28 = in_RAX;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_28 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_28) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_28);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_28)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          328, (char*)0);
+                          328, nullptr);
             }
         }
-        AllSoundOff2(this, param_1);
+        AllSoundOff2(arg1);
     }
 
-    // 0x1002d3c70, 624 bytes, placed by class name
-    // MidiPlayer::AllSoundOff2(int)
-    void MidiPlayer::AllSoundOff2(int param_1) {
-        undefined1* this_00;
-        undefined8 uVar1;
-        char cVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        long lVar5;
-        Linkable<MidiNote>* this_01;
-        WaveStream* pWVar6;
+    // 0x1002d3c70
+    void MidiPlayer::AllSoundOff2(int arg1) {
+        AutoSingleton<ShaderThreadPoolSingleton>* this_01;
+        WaveStream* pWVar4;
         array<shared_ptr<MidiNote>, 128ul>* this_02;
         shared_ptr<MidiNote>* this_03;
-        hashtable_iterator_base* extraout_RDX;
-        shared_ptr* this_04;
-        undefined1 auVar7[16];
-        undefined8 local_80;
-        Vector2T<int> local_78[8];
-        shared_ptr local_70;
+        shared_ptr<MidiPlayerMainThread>* midiPlayerMainThread;
+        __thread_id* local_80;
+        uint64_t local_70[2];
         Mixer* local_60;
-        shared_ptr<MidiMixer>* local_58;
-        undefined8 local_50;
-        undefined8 local_48;
-        MidiPlayer* local_40;
 
-        local_40 = this;
-        uVar4 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar4, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        MidiPlayer* local_40 = this;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        bool cVar1 = thread_id1_00 == (sound::g_idWorkerThread);
+        if (!cVar1) {
             new (&local_80) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_80);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_80;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          552, (char*)0);
+                          552, nullptr);
             }
         }
-        this_00 = &local_40->field_67264;
-        lVar5 = shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)this_00);
-        local_50 = ((lVar5 + 72))->begin_ptrs();
-        jag::math::Vector2T<int>::Vector2T(local_78);
-        local_58 = (shared_ptr<MidiMixer>*)this_00;
-        lVar5 = shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)this_00);
-        auVar7 = ((lVar5 + 72))->end();
-        local_48 = auVar7._0_8_;
-        bVar3 = eastl::operator!=((eastl*)&local_50, (hashtable_iterator_base*)&local_48, auVar7._8_8_);
-        if (bVar3) {
+        uint8_t* this_00 = &local_40->field_67264;
+        long lVar3 = (*this_00).operator->();
+        uint64_t local_50 = ((lVar3 + 72))->begin_ptrs();
+        Vector2T<int> local_78;
+        shared_ptr<MidiMixer>* local_58 = (shared_ptr<MidiMixer>*)this_00;
+        lVar3 = (*this_00).operator->();
+        uint64_t local_48 = ((lVar3 + 72))->end();
+        cVar1 = local_50 != local_48;
+        if (cVar1) {
             local_40 = (MidiPlayer*)&local_40->field_1512;
             do {
-                local_70._0_8_ = local_50.next();
-                eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator=(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)local_78,
-                    (rbtree_iterator*)&local_70);
-                this_01 = (Linkable<MidiNote>*)local_50.HeapBeginPtr();
-                if ((param_1 < 0) || (*(int*)(this_01 + 32) == param_1)) {
-                    this_04 = (shared_ptr*)(this_01 + 152);
-                    bVar3 = operator!=(this_04, (_func_decltype_nullptr*)0);
-                    if (bVar3) {
-                        pWVar6 = (WaveStream*)shared_ptr<sound::WaveStream>::operator->(
-                            (shared_ptr<sound::WaveStream>*)this_04);
-                        pWVar6->RampOut(sound::PCMPlayer::m_frequency / 100);
-                        pWVar6 = (WaveStream*)shared_ptr<sound::WaveStream>::operator->(
-                            (shared_ptr<sound::WaveStream>*)this_04);
-                        cVar2 = pWVar6->Isramping();
-                        if (cVar2 != '\0') {
-                            lVar5 = shared_ptr<MidiMixer>::operator->(local_58);
-                            local_60 = (Mixer*)(lVar5 + 96);
-                            new (&local_70) shared_ptr<dash3d::Decor>(this_04);
-                            local_60->PlayStream(&local_70);
-                            local_70.~shared_ptr();
+                local_70[0] = local_50.next();
+                local_78 = *local_70;
+                this_01 = (AutoSingleton<ShaderThreadPoolSingleton>*)local_50.HeapBeginPtr();
+                if ((arg1 < 0) || (*(int*)(this_01 + 32) == arg1)) {
+                    midiPlayerMainThread = (shared_ptr<MidiPlayerMainThread>*)(this_01 + 152);
+                    if (*midiPlayerMainThread != nullptr) {
+                        pWVar4 = (WaveStream*)(*midiPlayerMainThread).operator->();
+                        pWVar4->RampOut(sound::PCMPlayer::m_frequency / 100);
+                        pWVar4 = (WaveStream*)(*midiPlayerMainThread).operator->();
+                        cVar1 = pWVar4->Isramping();
+                        if (cVar1) {
+                            lVar3 = (*local_58).operator->();
+                            local_60 = (Mixer*)(lVar3 + 96);
+                            new (local_70) shared_ptr(midiPlayerMainThread);
+                            local_60->PlayStream(*local_70);
                         }
                         this_01->~AutoSingleton();
                     }
                     if (*(int*)(this_01 + 132) < 0) {
-                        new (&local_70) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                        this_02 = (array<shared_ptr<MidiNote>, 128ul>*)
-                            std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                                (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)local_40,
-                                (long)*(int*)(this_01 + 32));
-                        this_03 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                            this_02, (long)*(int*)(this_01 + 92));
-                        shared_ptr<MidiNote>::operator=(this_03, &local_70);
-                        local_70.~shared_ptr();
+                        new (local_70) shared_ptr();
+                        this_02 = (array<shared_ptr<MidiNote>, 128ul>*)(*local_40)[(long)*(int*)(this_01 + 32)];
+                        this_03 = (shared_ptr<MidiNote>*)(*this_02)[(long)*(int*)(this_01 + 92)];
+                        *this_03 = *local_70;
                     }
                     this_01->Unlink();
                 }
-                eastl::rbtree_iterator<
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                    eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>::
-                operator=(
-                    (rbtree_iterator<
-                        eastl::pair<unsigned int const, eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>*,
-                        eastl::pair<unsigned int const,
-                                    eastl::vector<LoadingScreenScript::Keyframe, eastl::allocator>>&>*)&local_50,
-                    (rbtree_iterator*)local_78);
-                bVar3 = eastl::operator!=((eastl*)&local_50, (hashtable_iterator_base*)&local_48, extraout_RDX);
-            } while (bVar3);
+                local_50 = local_78;
+                cVar1 = local_50 != local_48;
+            } while (cVar1);
         }
     }
 
-    // 0x1002d3ee0, 128 bytes, placed by class name
-    // MidiPlayer::AllControllersOff(int)
-    void MidiPlayer::AllControllersOff(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uVar3;
-        undefined8 local_28;
+    // 0x1002d3ee0
+    void MidiPlayer::AllControllersOff(int arg1) {
+        __thread_id* in_RAX;
 
-        local_28 = in_RAX;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_28 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_28) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_28);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_28)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          335, (char*)0);
+                          335, nullptr);
             }
         }
-        AllControllersOff2(this, param_1);
+        AllControllersOff2(arg1);
     }
 
-    // 0x1002d3f60, 416 bytes, placed by class name
-    // MidiPlayer::AllControllersOff2(int)
-    void MidiPlayer::AllControllersOff2(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        undefined4* puVar4;
-        int iVar5;
-        undefined8 local_30;
+    // 0x1002d3f60
+    void MidiPlayer::AllControllersOff2(int arg1) {
+        uint32_t* puVar2;
+        int arg1_00;
+        __thread_id* local_30;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          580, (char*)0);
+                          580, nullptr);
             }
         }
-        if (param_1 < 0) {
-            iVar5 = 0;
+        if (arg1 < 0) {
+            arg1_00 = 0;
             do {
-                AllControllersOff2(this, iVar5);
-                iVar5 = iVar5 + 1;
-            } while (iVar5 != 16);
+                AllControllersOff2(arg1_00);
+                arg1_00 = arg1_00 + 1;
+            } while (arg1_00 != 16);
         } else {
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_428, (ulong)param_1);
-            *puVar4 = 12800;
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_492, (ulong)param_1);
-            *puVar4 = 8192;
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_556, (ulong)param_1);
-            *puVar4 = 16383;
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_812, (ulong)param_1);
-            *puVar4 = 8192;
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_876, (ulong)param_1);
-            *puVar4 = 0;
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_940, (ulong)param_1);
-            *puVar4 = 8192;
-            CleanPorta(this, param_1);
-            CleanRetrig(this, param_1);
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_104, (ulong)param_1);
-            *puVar4 = 0;
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1004, (ulong)param_1);
-            *puVar4 = 32767;
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1068, (ulong)param_1);
-            *puVar4 = 256;
-            puVar4 = (undefined4*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_168, (ulong)param_1);
-            *puVar4 = 0;
-            SetRetrigRate(this, param_1, 8192);
+            puVar2 = &field_428[(unsigned long)arg1];
+            *puVar2 = 12800;
+            puVar2 = &field_492[(unsigned long)arg1];
+            *puVar2 = 8192;
+            puVar2 = &field_556[(unsigned long)arg1];
+            *puVar2 = 16383;
+            puVar2 = &field_812[(unsigned long)arg1];
+            *puVar2 = 8192;
+            puVar2 = &field_876[(unsigned long)arg1];
+            *puVar2 = 0;
+            puVar2 = &field_940[(unsigned long)arg1];
+            *puVar2 = 8192;
+            CleanPorta(arg1);
+            CleanRetrig(arg1);
+            puVar2 = &field_104[(unsigned long)arg1];
+            *puVar2 = 0;
+            puVar2 = &field_1004[(unsigned long)arg1];
+            *puVar2 = 32767;
+            puVar2 = &field_1068[(unsigned long)arg1];
+            *puVar2 = 256;
+            puVar2 = &field_168[(unsigned long)arg1];
+            *puVar2 = 0;
+            SetRetrigRate(arg1, 8192);
         }
     }
 
-    // 0x1002d4100, 128 bytes, placed by class name
-    // MidiPlayer::AllNotesOff(int)
-    void MidiPlayer::AllNotesOff(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uVar3;
-        undefined8 local_28;
+    // 0x1002d4100
+    void MidiPlayer::AllNotesOff(int arg1) {
+        __thread_id* in_RAX;
 
-        local_28 = in_RAX;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_28 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_28) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_28);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_28)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          342, (char*)0);
+                          342, nullptr);
             }
         }
-        AllNotesOff2(this, param_1);
+        AllNotesOff2(arg1);
     }
 
-    // 0x1002d4180, 432 bytes, placed by class name
-    // MidiPlayer::AllNotesOff2(int)
-    void MidiPlayer::AllNotesOff2(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        long lVar5;
-        MidiNote* pMVar6;
+    // 0x1002d4180
+    void MidiPlayer::AllNotesOff2(int arg1) {
+        MidiNote* midiNote;
         array<shared_ptr<MidiNote>, 128ul>* this_00;
         shared_ptr<MidiNote>* this_01;
-        hashtable_iterator_base* extraout_RDX;
-        undefined1 auVar7[16];
         MidiNote local_110;
-        shared_ptr local_60;
-        undefined8 local_50;
-        undefined8 local_48;
-        undefined8 local_40;
-        MidiPlayer* local_38;
+        shared_ptr<RSevenDebugPresetProvider> local_60;
+        __thread_id* local_50;
 
-        local_38 = this;
-        uVar4 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar4, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        MidiPlayer* local_38 = this;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        bool cVar1 = thread_id1_00 == (sound::g_idWorkerThread);
+        if (!cVar1) {
             new (&local_50) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_50);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_50;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          607, (char*)0);
+                          607, nullptr);
             }
         }
-        lVar5 = shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)&local_38->field_67264);
-        local_48 = ((lVar5 + 72))->begin_ptrs();
-        auVar7 = ((lVar5 + 72))->end();
-        local_40 = auVar7._0_8_;
-        bVar3 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_40, auVar7._8_8_);
-        if (bVar3) {
+        long lVar2 = local_38->field_67264.operator->();
+        uint64_t local_48 = ((lVar2 + 72))->begin_ptrs();
+        uint64_t local_40 = ((lVar2 + 72))->end();
+        cVar1 = local_48 != local_40;
+        if (cVar1) {
             local_38 = (MidiPlayer*)&local_38->field_1512;
             do {
-                pMVar6 = (MidiNote*)local_48.HeapBeginPtr();
-                new (&local_110) MidiNote(pMVar6);
-                if (((param_1 < 0) || (local_110.field_32 == param_1)) && ((int)local_110.field_132 < 0)) {
-                    new (&local_60) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
-                    this_00 = (array<shared_ptr<MidiNote>, 128ul>*)
-                        std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                            (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)local_38, (long)local_110.field_32);
-                    this_01 = (shared_ptr<MidiNote>*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                        this_00, (long)local_110.field_88._4_4_);
-                    shared_ptr<MidiNote>::operator=(this_01, &local_60);
-                    local_60.~shared_ptr();
+                midiNote = (MidiNote*)local_48.HeapBeginPtr();
+                local_110 = MidiNote(*midiNote);
+                if (((arg1 < 0) || (local_110.field_32 == arg1)) && ((int)local_110.field_132 < 0)) {
+                    local_60 = shared_ptr();
+                    this_00 = (array<shared_ptr<MidiNote>, 128ul>*)(*local_38)[(long)local_110.field_32];
+                    this_01 = (shared_ptr<MidiNote>*)(*this_00)[(long)local_110.field_88._4_4_];
+                    *this_01 = local_60;
                     local_110.field_132._0_4_ = 0;
                 }
-                local_110.~MidiNote();
-                SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>::obj_iterator::operator++(
-                    (obj_iterator*)&local_48);
-                bVar3 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_40, extraout_RDX);
-            } while (bVar3);
+                ++local_48;
+                cVar1 = local_48 != local_40;
+            } while (cVar1);
         }
     }
 
-    // 0x1002d4330, 128 bytes, placed by class name
-    // MidiPlayer::Reset()
+    // 0x1002d4330
     void MidiPlayer::Reset() {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        undefined8 local_20;
+        __thread_id* local_20;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_20) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_20);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_20)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          349, (char*)0);
+                          349, nullptr);
             }
         }
-        Reset2(this);
+        Reset2();
     }
 
-    // 0x1002d43b0, 128 bytes, placed by class name
-    // MidiPlayer::ProcessMidi(int)
-    void MidiPlayer::ProcessMidi(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uVar3;
-        undefined8 local_28;
+    // 0x1002d43b0
+    void MidiPlayer::ProcessMidi(int arg1) {
+        __thread_id* in_RAX;
 
-        local_28 = in_RAX;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_28 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_28) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_28);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_28)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          356, (char*)0);
+                          356, nullptr);
             }
         }
-        ProcessMidi2(this, param_1);
+        ProcessMidi2(arg1);
     }
 
-    // 0x1002d4430, 4992 bytes, placed by class name
-    // MidiPlayer::ProcessMidi2(int)
-    void MidiPlayer::ProcessMidi2(int param_1) {
-        char cVar1;
-        int in_EAX;
-        int iVar2;
-        int* piVar3;
-        byte* pbVar4;
-        uint* puVar5;
+    // 0x1002d4430
+    void MidiPlayer::ProcessMidi2(int arg1) {
+        __thread_id* in_RAX;
+        int* piVar2;
+        uint8_t* pbVar3;
+        unsigned int* puVar4;
         int extraout_EDX;
         int extraout_EDX_00;
-        int iVar6;
-        uint uVar7;
-        int iVar8;
-        undefined8 uVar9;
-        undefined8 uVar10;
-        array<int, 16ul>* paVar11;
-        uint uVar12;
-        uint uVar13;
-        int local_38[2];
+        unsigned int uVar5;
+        array<int, 16ul>* paVar7;
+        unsigned int uVar8;
+        unsigned int arg1_01;
 
-        local_38[0] = in_EAX;
-        iVar2 = std::this_thread::get_id();
-        uVar10 = sound::g_idWorkerThread;
-        uVar9 = sound::g_idWorkerThread;
-        cVar1 = std::operator==();
-        iVar8 = (int)uVar9;
-        iVar6 = extraout_EDX;
-        if (cVar1 == '\0') {
-            new (local_38) std::__thread_id();
-            iVar8 = local_38[0];
-            cVar1 = std::operator==();
-            iVar2 = (int)uVar10;
-            iVar6 = extraout_EDX_00;
-            if (cVar1 == '\0') {
-                /* WARNING: Subroutine does not return */
+        __thread_id* local_38 = in_RAX;
+        auto this_00 = std::this_thread::get_id();
+        MidiPlayer* thread_id1 = sound::g_idWorkerThread;
+        MidiPlayer* pMVar6 = sound::g_idWorkerThread;
+        bool cVar1 = this_00 == ((__thread_id*)sound::g_idWorkerThread);
+        int arg1_00 = (int)pMVar6;
+        int arg2 = extraout_EDX;
+        if (!cVar1) {
+            new (&local_38) std::__thread_id();
+            cVar1 = thread_id1 == local_38;
+            arg1_00 = (int)local_38;
+            this_00 = thread_id1;
+            arg2 = extraout_EDX_00;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          675, (char*)0);
+                          675, nullptr);
             }
         }
-        switch ((param_1 & 240U) - 128 >> 4) {
+        switch ((arg1 & 240U) - 128 >> 4) {
         case 0:
-            StopNote2((int)this, param_1 & 15, (uint)param_1 >> 8 & 127);
+            StopNote2((int)this, arg1 & 15, (unsigned int)arg1 >> 8 & 127);
             break;
         case 1:
-            uVar7 = (uint)param_1 >> 8 & 127;
-            uVar12 = (uint)param_1 >> 16 & 127;
-            if (uVar12 == 0) {
-                StopNote2((int)this, param_1 & 15U, uVar7);
+            uVar5 = (unsigned int)arg1 >> 8 & 127;
+            uVar8 = (unsigned int)arg1 >> 16 & 127;
+            if (uVar8 == 0) {
+                StopNote2((int)this, arg1 & 15U, uVar5);
             } else {
-                PlayNote2(this, param_1 & 15U, uVar7, uVar12);
+                PlayNote2(arg1 & 15U, uVar5, uVar8);
             }
             break;
         case 2:
-            AfterTouch2(iVar2, iVar8, iVar6);
+            AfterTouch2(this_00, arg1_00, arg2, 2968304);
             break;
         case 3:
-            uVar7 = (uint)param_1 >> 8 & 127;
-            if (123 < uVar7) {
+            uVar5 = (unsigned int)arg1 >> 8 & 127;
+            if (123 < uVar5) {
                 return;
             }
-            uVar13 = param_1 & 15;
-            uVar12 = (uint)param_1 >> 16 & 127;
-            switch (uVar7) {
+            arg1_01 = arg1 & 15;
+            uVar8 = (unsigned int)arg1 >> 16 & 127;
+            switch (uVar5) {
             case 0:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_748, (ulong)uVar13);
-                uVar7 = *puVar5 & 4292886527;
-                uVar12 = uVar12 << 14;
+                puVar4 = &field_748[(unsigned long)arg1_01];
+                uVar5 = *puVar4 & 4292886527;
+                uVar8 = uVar8 << 14;
                 goto LAB_1002d468b;
             case 1:
-                paVar11 = (array<int, 16ul>*)&field_876;
+                paVar7 = (array<int, 16ul>*)&field_876;
                 goto LAB_1002d4675;
             case 5:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_940, (ulong)uVar13);
-                *puVar5 = uVar12 << 7 | *puVar5 & 4294951039;
+                puVar4 = &field_940[(unsigned long)arg1_01];
+                *puVar4 = uVar8 << 7 | *puVar4 & 4294951039;
                 goto LAB_1002d4a85;
             case 6:
                 goto switchD_1002d4557_caseD_6;
             case 7:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_428, (ulong)uVar13);
-                *puVar5 = uVar12 << 7 | *puVar5 & 4294951039;
+                puVar4 = &field_428[(unsigned long)arg1_01];
+                *puVar4 = uVar8 << 7 | *puVar4 & 4294951039;
                 goto LAB_1002d49dd;
             case 10:
-                paVar11 = (array<int, 16ul>*)&field_492;
+                paVar7 = (array<int, 16ul>*)&field_492;
                 goto LAB_1002d4650;
             case 11:
-                paVar11 = (array<int, 16ul>*)&field_556;
+                paVar7 = (array<int, 16ul>*)&field_556;
             LAB_1002d4650:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[](paVar11, (ulong)uVar13);
-                *puVar5 = uVar12 << 7 | *puVar5 & 4294951039;
+                puVar4 = (unsigned int*)(*paVar7)[(unsigned long)arg1_01];
+                *puVar4 = uVar8 << 7 | *puVar4 & 4294951039;
             LAB_1002d4938:
-                switch (uVar7) {
+                switch (uVar5) {
                 case 6:
                 switchD_1002d4557_caseD_6:
-                    piVar3 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1004, (ulong)uVar13);
-                    if (*piVar3 == 16384) {
-                        puVar5 =
-                            (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1068, (ulong)uVar13);
-                        *puVar5 = uVar12 << 7 | *puVar5 & 4294951039;
+                    piVar2 = &field_1004[(unsigned long)arg1_01];
+                    if (*piVar2 == 16384) {
+                        puVar4 = &field_1068[(unsigned long)arg1_01];
+                        *puVar4 = uVar8 << 7 | *puVar4 & 4294951039;
                     }
                 LAB_1002d498e:
-                    switch (uVar7) {
+                    switch (uVar5) {
                     case 16:
                         goto switchD_1002d4557_caseD_10;
                     case 17:
@@ -2258,35 +1759,34 @@ namespace jag::oldscape::midi2 {
                     goto switchD_1002d4557_caseD_2;
                 case 16:
                 switchD_1002d4557_caseD_10:
-                    puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_168, (ulong)uVar13);
-                    *puVar5 = uVar12 << 7 | *puVar5 & 4294951039;
+                    puVar4 = &field_168[(unsigned long)arg1_01];
+                    *puVar4 = uVar8 << 7 | *puVar4 & 4294951039;
                 LAB_1002d4a15:
-                    if (48 < uVar7)
+                    if (48 < uVar5)
                         goto LAB_1002d4a46;
-                    if (uVar7 != 17) {
-                        if (uVar7 != 48) {
+                    if (uVar5 != 17) {
+                        if (uVar5 != 48) {
                             return;
                         }
                         goto switchD_1002d4557_caseD_30;
                     }
                 case 17:
                 switchD_1002d4557_caseD_11:
-                    puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1132, (ulong)uVar13);
-                    SetRetrigRate(this, uVar13, uVar12 << 7 | *puVar5 & 4294951039);
-                    if (uVar7 != 49) {
+                    puVar4 = &field_1132[(unsigned long)arg1_01];
+                    SetRetrigRate(arg1_01, uVar8 << 7 | *puVar4 & 4294951039);
+                    if (uVar5 != 49) {
                         return;
                     }
                     break;
                 case 38:
                 switchD_1002d4557_caseD_26:
-                    piVar3 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1004, (ulong)uVar13);
-                    if (*piVar3 == 16384) {
-                        puVar5 =
-                            (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1068, (ulong)uVar13);
-                        *puVar5 = *puVar5 & 4294967168 | uVar12;
+                    piVar2 = &field_1004[(unsigned long)arg1_01];
+                    if (*piVar2 == 16384) {
+                        puVar4 = &field_1068[(unsigned long)arg1_01];
+                        *puVar4 = *puVar4 & 4294967168 | uVar8;
                     }
                 LAB_1002d49dd:
-                    switch (uVar7) {
+                    switch (uVar5) {
                     case 16:
                         goto switchD_1002d4557_caseD_10;
                     case 17:
@@ -2331,33 +1831,33 @@ namespace jag::oldscape::midi2 {
                     }
                 case 48:
                 switchD_1002d4557_caseD_30:
-                    puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_168, (ulong)uVar13);
-                    *puVar5 = *puVar5 & 4294967168 | uVar12;
-                    if (uVar7 == 17)
+                    puVar4 = &field_168[(unsigned long)arg1_01];
+                    *puVar4 = *puVar4 & 4294967168 | uVar8;
+                    if (uVar5 == 17)
                         goto switchD_1002d4557_caseD_11;
                 LAB_1002d4a46:
-                    if (uVar7 != 49)
+                    if (uVar5 != 49)
                         goto switchD_1002d4952_default;
                     break;
                 case 49:
                     break;
                 default:
                 switchD_1002d4952_default:
-                    if (uVar7 != 81) {
+                    if (uVar5 != 81) {
                         return;
                     }
                 switchD_1002d4557_caseD_51:
-                    if (uVar12 < 64) {
-                        CleanRetrig(this, uVar13);
-                        pbVar4 = (byte*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_104, (ulong)uVar13);
-                        *pbVar4 = *pbVar4 & 251;
+                    if (uVar8 < 64) {
+                        CleanRetrig(arg1_01);
+                        pbVar3 = &field_104[(unsigned long)arg1_01];
+                        *pbVar3 = *pbVar3 & 251;
                     } else {
-                        pbVar4 = (byte*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_104, (ulong)uVar13);
-                        *pbVar4 = *pbVar4 | 4;
+                        pbVar3 = &field_104[(unsigned long)arg1_01];
+                        *pbVar3 = *pbVar3 | 4;
                     }
                 LAB_1002d4a85:
-                    if (uVar7 != 49) {
-                        if (uVar7 != 17) {
+                    if (uVar5 != 49) {
+                        if (uVar5 != 17) {
                             return;
                         }
                         goto switchD_1002d4557_caseD_11;
@@ -2365,61 +1865,61 @@ namespace jag::oldscape::midi2 {
                 }
             case 49:
             switchD_1002d4557_caseD_31:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1132, (ulong)uVar13);
-                SetRetrigRate(this, uVar13, *puVar5 & 4294967168 | uVar12);
+                puVar4 = &field_1132[(unsigned long)arg1_01];
+                SetRetrigRate(arg1_01, *puVar4 & 4294967168 | uVar8);
                 break;
             case 16:
                 goto switchD_1002d4557_caseD_10;
             case 17:
                 goto switchD_1002d4557_caseD_11;
             case 32:
-                paVar11 = (array<int, 16ul>*)&field_748;
+                paVar7 = (array<int, 16ul>*)&field_748;
             LAB_1002d4675:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[](paVar11, (ulong)uVar13);
-                uVar7 = *puVar5 & 4294951039;
-                uVar12 = uVar12 << 7;
+                puVar4 = (unsigned int*)(*paVar7)[(unsigned long)arg1_01];
+                uVar5 = *puVar4 & 4294951039;
+                uVar8 = uVar8 << 7;
             LAB_1002d468b:
-                *puVar5 = uVar12 | uVar7;
+                *puVar4 = uVar8 | uVar5;
                 break;
             case 33:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_876, (ulong)uVar13);
-                *puVar5 = *puVar5 & 4294967168 | uVar12;
+                puVar4 = &field_876[(unsigned long)arg1_01];
+                *puVar4 = *puVar4 & 4294967168 | uVar8;
                 break;
             case 37:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_940, (ulong)uVar13);
-                *puVar5 = *puVar5 & 4294967168 | uVar12;
+                puVar4 = &field_940[(unsigned long)arg1_01];
+                *puVar4 = *puVar4 & 4294967168 | uVar8;
                 goto LAB_1002d4a15;
             case 38:
                 goto switchD_1002d4557_caseD_26;
             case 39:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_428, (ulong)uVar13);
-                *puVar5 = *puVar5 & 4294967168 | uVar12;
+                puVar4 = &field_428[(unsigned long)arg1_01];
+                *puVar4 = *puVar4 & 4294967168 | uVar8;
                 goto LAB_1002d498e;
             case 42:
-                paVar11 = (array<int, 16ul>*)&field_492;
+                paVar7 = (array<int, 16ul>*)&field_492;
                 goto LAB_1002d4703;
             case 43:
-                paVar11 = (array<int, 16ul>*)&field_556;
+                paVar7 = (array<int, 16ul>*)&field_556;
             LAB_1002d4703:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[](paVar11, (ulong)uVar13);
-                *puVar5 = *puVar5 & 4294967168 | uVar12;
+                puVar4 = (unsigned int*)(*paVar7)[(unsigned long)arg1_01];
+                *puVar4 = *puVar4 & 4294967168 | uVar8;
                 goto LAB_1002d4938;
             case 48:
                 goto switchD_1002d4557_caseD_30;
             case 64:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_104, (ulong)uVar13);
-                *puVar5 = (uint)(63 < uVar12) | *puVar5 & 4294967294;
+                puVar4 = &field_104[(unsigned long)arg1_01];
+                *puVar4 = (unsigned int)(63 < uVar8) | *puVar4 & 4294967294;
                 break;
             case 65:
-                if (uVar12 < 64) {
-                    CleanPorta(this, uVar13);
-                    pbVar4 = (byte*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_104, (ulong)uVar13);
-                    *pbVar4 = *pbVar4 & 253;
+                if (uVar8 < 64) {
+                    CleanPorta(arg1_01);
+                    pbVar3 = &field_104[(unsigned long)arg1_01];
+                    *pbVar3 = *pbVar3 & 253;
                 } else {
-                    pbVar4 = (byte*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_104, (ulong)uVar13);
-                    *pbVar4 = *pbVar4 | 2;
+                    pbVar3 = &field_104[(unsigned long)arg1_01];
+                    *pbVar3 = *pbVar3 | 2;
                 }
-                switch (uVar7) {
+                switch (uVar5) {
                 case 6:
                     goto switchD_1002d4557_caseD_6;
                 default:
@@ -2455,9 +1955,9 @@ namespace jag::oldscape::midi2 {
                 goto switchD_1002d4557_caseD_51;
             case 98:
             switchD_1002d4557_caseD_62:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1004, (ulong)uVar13);
-                *puVar5 = *puVar5 & 16256 | uVar12;
-                switch (uVar7) {
+                puVar4 = &field_1004[(unsigned long)arg1_01];
+                *puVar4 = *puVar4 & 16256 | uVar8;
+                switch (uVar5) {
                 case 6:
                     goto switchD_1002d4557_caseD_6;
                 default:
@@ -2487,9 +1987,9 @@ namespace jag::oldscape::midi2 {
                 }
             case 99:
             switchD_1002d4557_caseD_63:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1004, (ulong)uVar13);
-                *puVar5 = uVar12 << 7 | *puVar5 & 127;
-                switch (uVar7) {
+                puVar4 = &field_1004[(unsigned long)arg1_01];
+                *puVar4 = uVar8 << 7 | *puVar4 & 127;
+                switch (uVar5) {
                 case 6:
                     goto switchD_1002d4557_caseD_6;
                 default:
@@ -2521,10 +2021,10 @@ namespace jag::oldscape::midi2 {
                 }
             case 100:
             switchD_1002d4557_caseD_64:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1004, (ulong)uVar13);
-                *puVar5 = (*puVar5 & 16256) + uVar12 + 16384;
-                if (uVar7 < 81) {
-                    switch (uVar7) {
+                puVar4 = &field_1004[(unsigned long)arg1_01];
+                *puVar4 = (*puVar4 & 16256) + uVar8 + 16384;
+                if (uVar5 < 81) {
+                    switch (uVar5) {
                     case 6:
                         goto switchD_1002d4557_caseD_6;
                     default:
@@ -2541,30 +2041,30 @@ namespace jag::oldscape::midi2 {
                         goto switchD_1002d4557_caseD_31;
                     }
                 }
-                if (uVar7 < 121) {
-                    if (uVar7 != 81) {
-                        if (uVar7 != 120) {
+                if (uVar5 < 121) {
+                    if (uVar5 != 81) {
+                        if (uVar5 != 120) {
                             return;
                         }
                         goto switchD_1002d4557_caseD_78;
                     }
                     goto switchD_1002d4557_caseD_51;
                 }
-                if (uVar7 == 121)
+                if (uVar5 == 121)
                     goto switchD_1002d4557_caseD_79;
             LAB_1002d4924:
-                if (uVar7 != 123) {
+                if (uVar5 != 123) {
                     return;
                 }
             case 123:
             switchD_1002d4557_caseD_7b:
-                AllNotesOff2(this, uVar13);
+                AllNotesOff2(arg1_01);
                 goto LAB_1002d4938;
             case 101:
             switchD_1002d4557_caseD_65:
-                puVar5 = (uint*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1004, (ulong)uVar13);
-                *puVar5 = (*puVar5 & 127) + uVar12 * 128 + 16384;
-                switch (uVar7) {
+                puVar4 = &field_1004[(unsigned long)arg1_01];
+                *puVar4 = (*puVar4 & 127) + uVar8 * 128 + 16384;
+                switch (uVar5) {
                 case 6:
                     goto switchD_1002d4557_caseD_6;
                 case 7:
@@ -2617,7 +2117,7 @@ namespace jag::oldscape::midi2 {
                 case 49:
                     goto switchD_1002d4557_caseD_31;
                 default:
-                    switch (uVar7) {
+                    switch (uVar5) {
                     case 81:
                         goto switchD_1002d4557_caseD_51;
                     default:
@@ -2634,9 +2134,9 @@ namespace jag::oldscape::midi2 {
                 }
             case 120:
             switchD_1002d4557_caseD_78:
-                AllSoundOff2(this, uVar13);
-                if (uVar7 < 81) {
-                    switch (uVar7) {
+                AllSoundOff2(arg1_01);
+                if (uVar5 < 81) {
+                    switch (uVar5) {
                     case 6:
                         goto switchD_1002d4557_caseD_6;
                     default:
@@ -2653,9 +2153,9 @@ namespace jag::oldscape::midi2 {
                         goto switchD_1002d4557_caseD_31;
                     }
                 }
-                if (uVar7 != 81) {
-                    if (uVar7 != 123) {
-                        if (uVar7 != 121) {
+                if (uVar5 != 81) {
+                    if (uVar5 != 123) {
+                        if (uVar5 != 121) {
                             return;
                         }
                         goto switchD_1002d4557_caseD_79;
@@ -2665,8 +2165,8 @@ namespace jag::oldscape::midi2 {
                 goto switchD_1002d4557_caseD_51;
             case 121:
             switchD_1002d4557_caseD_79:
-                AllControllersOff2(this, uVar13);
-                switch (uVar7) {
+                AllControllersOff2(arg1_01);
+                switch (uVar5) {
                 case 6:
                     goto switchD_1002d4557_caseD_6;
                 case 7:
@@ -2719,601 +2219,479 @@ namespace jag::oldscape::midi2 {
                 case 49:
                     goto switchD_1002d4557_caseD_31;
                 default:
-                    if (uVar7 != 81)
+                    if (uVar5 != 81)
                         goto LAB_1002d4924;
                     goto switchD_1002d4557_caseD_51;
                 }
             }
             break;
         case 4:
-            piVar3 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_748, (ulong)(param_1 & 15U));
-            SetInst2(this, param_1 & 15U, ((uint)param_1 >> 8 & 127) + *piVar3);
+            piVar2 = &field_748[(unsigned long)(arg1 & 15U)];
+            SetInst2(arg1 & 15U, ((unsigned int)arg1 >> 8 & 127) + *piVar2);
             break;
         case 5:
-            ChannelPressure2(iVar2, iVar8);
+            ChannelPressure2(this_00, arg1_00, arg2);
             break;
         case 6:
-            PitchWheel2(this, param_1 & 15, (uint)param_1 >> 8 & 127 | (uint)param_1 >> 9 & 16256);
+            PitchWheel2(arg1 & 15, (unsigned int)arg1 >> 8 & 127 | (unsigned int)arg1 >> 9 & 16256);
             break;
         default:
-            if ((char)param_1 == -1) {
-                Reset2(this);
+            if ((char)arg1 == -1) {
+                Reset2();
             }
         }
     switchD_1002d4557_caseD_2:
     }
 
-    // 0x1002d5b70, 464 bytes, placed by class name
-    // MidiPlayer::GetRateRaw(MidiNote const&)
-    int MidiPlayer::GetRateRaw(MidiNote* param_1) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-        undefined8 uVar4;
-        char cVar5;
-        undefined8 uVar6;
-        int* piVar7;
-        long lVar8;
-        undefined1* this_00;
-        int iVar9;
-        int iVar10;
-        float fVar11;
-        double dVar12;
-        undefined8 local_40;
-        double local_38;
+    // 0x1002d5b70
+    int MidiPlayer::GetRateRaw(const MidiNote& midiNote) {
+        float fVar9;
+        __thread_id* local_40;
 
-        uVar6 = std::this_thread::get_id();
-        uVar4 = sound::g_idWorkerThread;
-        cVar5 = std::operator==(uVar6, sound::g_idWorkerThread);
-        if (cVar5 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_40) std::__thread_id();
-            cVar5 = std::operator==(uVar4, local_40);
-            if (cVar5 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_40)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          914, (char*)0);
+                          914, nullptr);
             }
         }
-        iVar9 = *(int*)((long)&param_1->field_112 + 4);
-        iVar10 = *(int*)&param_1->field_112;
-        iVar1 = *(int*)((long)&param_1->field_104 + 4);
-        iVar2 = param_1->field_32;
-        piVar7 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_812, (long)iVar2);
-        iVar3 = *piVar7;
-        piVar7 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_1068, (long)iVar2);
-        iVar9 = ((iVar3 + -8192) * *piVar7 >> 12) + (iVar9 * iVar10 >> 12) + iVar1;
-        lVar8 = shared_ptr<EnvelopeSet>::operator*((shared_ptr<EnvelopeSet>*)&param_1->field_72);
-        if (0 < *(int*)(lVar8 + 68)) {
-            iVar10 = *(int*)(lVar8 + 64);
-            if (iVar10 < 1) {
-                piVar7 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_876,
-                                                                 (long)(int)param_1->field_32);
-                if (*piVar7 < 1)
+        int iVar7 = *(int*)((long)&midiNote.field_112 + 4);
+        int iVar8 = *(int*)&midiNote.field_112;
+        int iVar1 = *(int*)((long)&midiNote.field_104 + 4);
+        int iVar2 = midiNote.field_32;
+        int* piVar5 = &field_812[(long)iVar2];
+        int iVar3 = *piVar5;
+        piVar5 = &field_1068[(long)iVar2];
+        iVar7 = ((iVar3 - 8192) * *piVar5 >> 12) + (iVar7 * iVar8 >> 12) + iVar1;
+        long lVar6 = midiNote.field_72;
+        if (0 < *(int*)(lVar6 + 68)) {
+            iVar8 = *(int*)(lVar6 + 64);
+            if (iVar8 < 1) {
+                piVar5 = &field_876[(long)(int)midiNote.field_32];
+                if (*piVar5 < 1)
                     goto LAB_1002d5cc8;
             }
-            iVar10 = iVar10 * 4;
-            iVar1 = *(int*)(lVar8 + 72) * 2;
-            if (*(int*)&param_1->field_140 < iVar1) {
-                iVar10 = (*(int*)&param_1->field_140 * iVar10) / iVar1;
+            iVar8 = iVar8 * 4;
+            iVar1 = *(int*)(lVar6 + 72) * 2;
+            if (*(int*)&midiNote.field_140 < iVar1) {
+                iVar8 = (*(int*)&midiNote.field_140 * iVar8) / iVar1;
             }
-            piVar7 =
-                (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_876, (long)(int)param_1->field_32);
-            iVar1 = *piVar7;
-            fVar11 = (float)::sin((float)(*(uint*)((long)&param_1->field_140 + 4) & 511) * 0.012271847);
-            iVar9 = iVar9 + (int)((float)((iVar1 >> 7) + iVar10) * fVar11);
+            piVar5 = &field_876[(long)(int)midiNote.field_32];
+            iVar1 = *piVar5;
+            fVar9 = (float)::sin((float)(*(unsigned int*)((long)&midiNote.field_140 + 4) & 511) * 0.012271847f);
+            iVar7 = iVar7 + (int)((float)((iVar1 >> 7) + iVar8) * fVar9);
         }
     LAB_1002d5cc8:
-        this_00 = &param_1->field_56;
-        lVar8 = shared_ptr<sound::Wave>::operator->((shared_ptr<sound::Wave>*)this_00);
-        local_38 = (double)(*(int*)(lVar8 + 4) << 8);
-        dVar12 = (double)pow<int, double>((int)this_00, (double)iVar9 * 0.0003255208333333333);
-        iVar10 = (int)((dVar12 * local_38) / (double)sound::PCMPlayer::m_frequency + 0.5);
-        iVar9 = 1;
-        if (0 < iVar10) {
-            iVar9 = iVar10;
+        uint8_t* this_00 = &midiNote.field_56;
+        lVar6 = (*this_00).operator->();
+        double local_38 = (double)(*(int*)(lVar6 + 4) << 8);
+        double dVar10 = (double)pow<int, double>((int)this_00, (double)iVar7 * 0.0003255208333333333);
+        iVar8 = (int)((dVar10 * local_38) / (double)sound::PCMPlayer::m_frequency + 0.5);
+        iVar7 = 1;
+        if (0 < iVar8) {
+            iVar7 = iVar8;
+        }
+        return iVar7;
+    }
+
+    // 0x1002d5d40
+    int MidiPlayer::GetVolume(const MidiNote& midiNote) {
+        uint8_t bVar1;
+        int iVar4;
+        char* pcVar7;
+        uint8_t* pbVar8;
+        int iVar10;
+        double dVar11;
+        __thread_id* local_48;
+        unsigned int local_3c;
+        double local_38;
+
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
+            new (&local_48) std::__thread_id();
+            if (!(thread_id1 == local_48)) {
+                LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
+                          "std::thread::id()",
+                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
+                          "midiplayer.cpp",
+                          945, nullptr);
+            }
+        }
+        Array<game::VarValue>* pAVar5 = (Array<game::VarValue>*)midiNote.field_72;
+        int iVar9 = midiNote.field_32;
+        int* piVar6 = &field_428[(long)iVar9];
+        int iVar2 = *piVar6;
+        piVar6 = &field_556[(long)iVar9];
+        iVar9 = iVar2 * *piVar6 + 4096 >> 13;
+        iVar9 =
+            ((int)((iVar9 * iVar9 + 16384U >> 15) * *(int*)((long)&midiNote.field_96 + 4) + 16384) >> 15) * field_416 +
+                128 >>
+            8;
+        if (0 < *(int*)(pAVar5 + 48)) {
+            local_38 = (double)iVar9;
+            dVar11 = (double)_exp2((double)*(int*)(pAVar5 + 48) * -1.953125e-05 * (double)*(int*)&midiNote.field_120);
+            iVar9 = (int)(dVar11 * local_38 + 0.5);
+        }
+        if (!(pAVar5->empty())) {
+            local_38 =
+                (double)(((uint64_t)local_38._4_4_ << 32) | (uint32_t)(*(uint32_t*)((long)&midiNote.field_120 + 4)));
+            pcVar7 = (char*)(*pAVar5)[(long)*(int*)&midiNote.field_128 + 1];
+            iVar10 = (int)*pcVar7;
+            iVar2 = *(int*)&midiNote.field_128;
+            iVar4 = pAVar5->end();
+            if (iVar2 < iVar4 - 2) {
+                pbVar8 = (uint8_t*)(*pAVar5)[(long)*(int*)&midiNote.field_128];
+                local_3c = (unsigned int)*pbVar8;
+                local_38 = (double)(((uint64_t)local_38._4_4_ << 32) |
+                                    (uint32_t)(local_38._0_4_ + (unsigned int)*pbVar8 * -256));
+                pbVar8 = (uint8_t*)(*pAVar5)[(long)*(int*)&midiNote.field_128 + 2];
+                bVar1 = *pbVar8;
+                pcVar7 = (char*)(*pAVar5)[(long)*(int*)&midiNote.field_128 + 3];
+                iVar10 = iVar10 + ((*pcVar7 - iVar10) * local_38._0_4_) / (int)((bVar1 - local_3c) * 256);
+            }
+            iVar9 = iVar10 * iVar9 + 32 >> 6;
+        }
+        if (0 < *(int*)&midiNote.field_132) {
+            pAVar5 = pAVar5 + 24;
+            if (!(pAVar5->empty())) {
+                local_38._0_4_ = *(int*)&midiNote.field_132;
+                pcVar7 = (char*)(*pAVar5)[(long)*(int*)((long)&midiNote.field_132 + 4) + 1];
+                iVar10 = (int)*pcVar7;
+                iVar2 = *(int*)((long)&midiNote.field_132 + 4);
+                iVar4 = pAVar5->end();
+                if (iVar2 < iVar4 - 2) {
+                    pbVar8 = (uint8_t*)(*pAVar5)[(long)*(int*)((long)&midiNote.field_132 + 4)];
+                    local_3c = (unsigned int)*pbVar8;
+                    local_38 = (double)(((uint64_t)local_38._4_4_ << 32) |
+                                        (uint32_t)(local_38._0_4_ + (unsigned int)*pbVar8 * -256));
+                    pbVar8 = (uint8_t*)(*pAVar5)[(long)*(int*)((long)&midiNote.field_132 + 4) + 2];
+                    bVar1 = *pbVar8;
+                    pcVar7 = (char*)(*pAVar5)[(long)*(int*)((long)&midiNote.field_132 + 4) + 3];
+                    iVar10 = iVar10 + ((*pcVar7 - iVar10) * local_38._0_4_) / (int)((bVar1 - local_3c) * 256);
+                }
+                iVar9 = iVar10 * iVar9 + 32 >> 6;
+            }
         }
         return iVar9;
     }
 
-    // 0x1002d5d40, 672 bytes, placed by class name
-    // MidiPlayer::GetVolume(MidiNote const&)
-    int MidiPlayer::GetVolume(MidiNote* param_1) {
-        byte bVar1;
-        int iVar2;
-        undefined8 uVar3;
-        char cVar4;
-        int iVar5;
-        undefined8 uVar6;
-        Array<game::VarValue, eastl::allocator>* pAVar7;
-        int* piVar8;
-        char* pcVar9;
-        byte* pbVar10;
-        int iVar11;
-        int iVar12;
-        double dVar13;
-        undefined8 local_48;
-        uint local_3c;
-        double local_38;
+    // 0x1002d5fe0
+    int MidiPlayer::GetPan(const MidiNote& midiNote) {
+        __thread_id* in_RAX;
 
-        uVar6 = std::this_thread::get_id();
-        uVar3 = sound::g_idWorkerThread;
-        cVar4 = std::operator==(uVar6, sound::g_idWorkerThread);
-        if (cVar4 == '\0') {
-            new (&local_48) std::__thread_id();
-            cVar4 = std::operator==(uVar3, local_48);
-            if (cVar4 == '\0') {
-                /* WARNING: Subroutine does not return */
-                LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
-                          "std::thread::id()",
-                          "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
-                          "midiplayer.cpp",
-                          945, (char*)0);
-            }
-        }
-        pAVar7 = (Array<game::VarValue, eastl::allocator>*)shared_ptr<EnvelopeSet>::operator*(
-            (shared_ptr<EnvelopeSet>*)&param_1->field_72);
-        iVar11 = param_1->field_32;
-        piVar8 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_428, (long)iVar11);
-        iVar2 = *piVar8;
-        piVar8 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_556, (long)iVar11);
-        iVar11 = iVar2 * *piVar8 + 4096 >> 13;
-        iVar11 = ((int)((iVar11 * iVar11 + 16384U >> 15) * *(int*)((long)&param_1->field_96 + 4) + 16384) >> 15) *
-                         field_416 +
-                     128 >>
-                 8;
-        if (0 < *(int*)(pAVar7 + 48)) {
-            local_38 = (double)iVar11;
-            dVar13 = (double)_exp2((double)*(int*)(pAVar7 + 48) * -1.953125e-05 * (double)*(int*)&param_1->field_120);
-            iVar11 = (int)(dVar13 * local_38 + 0.5);
-        }
-        cVar4 = pAVar7->empty();
-        if (cVar4 == '\0') {
-            local_38 = (double)CONCAT44(local_38._4_4_, *(undefined4*)((long)&param_1->field_120 + 4));
-            pcVar9 = (char*)Array<signed char, eastl::allocator>::operator[](
-                (Array<signed char, eastl::allocator>*)pAVar7, (long)*(int*)&param_1->field_128 + 1);
-            iVar12 = (int)*pcVar9;
-            iVar2 = *(int*)&param_1->field_128;
-            iVar5 = pAVar7->end();
-            if (iVar2 < iVar5 + -2) {
-                pbVar10 = (byte*)Array<signed char, eastl::allocator>::operator[](
-                    (Array<signed char, eastl::allocator>*)pAVar7, (long)*(int*)&param_1->field_128);
-                local_3c = (uint)*pbVar10;
-                local_38 = (double)CONCAT44(local_38._4_4_, local_38._0_4_ + (uint)*pbVar10 * -256);
-                pbVar10 = (byte*)Array<signed char, eastl::allocator>::operator[](
-                    (Array<signed char, eastl::allocator>*)pAVar7, (long)*(int*)&param_1->field_128 + 2);
-                bVar1 = *pbVar10;
-                pcVar9 = (char*)Array<signed char, eastl::allocator>::operator[](
-                    (Array<signed char, eastl::allocator>*)pAVar7, (long)*(int*)&param_1->field_128 + 3);
-                iVar12 = iVar12 + ((*pcVar9 - iVar12) * local_38._0_4_) / (int)((bVar1 - local_3c) * 256);
-            }
-            iVar11 = iVar12 * iVar11 + 32 >> 6;
-        }
-        if (0 < *(int*)&param_1->field_132) {
-            pAVar7 = pAVar7 + 24;
-            cVar4 = pAVar7->empty();
-            if (cVar4 == '\0') {
-                local_38._0_4_ = *(int*)&param_1->field_132;
-                pcVar9 = (char*)Array<signed char, eastl::allocator>::operator[](
-                    (Array<signed char, eastl::allocator>*)pAVar7, (long)*(int*)((long)&param_1->field_132 + 4) + 1);
-                iVar12 = (int)*pcVar9;
-                iVar2 = *(int*)((long)&param_1->field_132 + 4);
-                iVar5 = pAVar7->end();
-                if (iVar2 < iVar5 + -2) {
-                    pbVar10 = (byte*)Array<signed char, eastl::allocator>::operator[](
-                        (Array<signed char, eastl::allocator>*)pAVar7, (long)*(int*)((long)&param_1->field_132 + 4));
-                    local_3c = (uint)*pbVar10;
-                    local_38 = (double)CONCAT44(local_38._4_4_, local_38._0_4_ + (uint)*pbVar10 * -256);
-                    pbVar10 = (byte*)Array<signed char, eastl::allocator>::operator[](
-                        (Array<signed char, eastl::allocator>*)pAVar7,
-                        (long)*(int*)((long)&param_1->field_132 + 4) + 2);
-                    bVar1 = *pbVar10;
-                    pcVar9 = (char*)Array<signed char, eastl::allocator>::operator[](
-                        (Array<signed char, eastl::allocator>*)pAVar7,
-                        (long)*(int*)((long)&param_1->field_132 + 4) + 3);
-                    iVar12 = iVar12 + ((*pcVar9 - iVar12) * local_38._0_4_) / (int)((bVar1 - local_3c) * 256);
-                }
-                iVar11 = iVar12 * iVar11 + 32 >> 6;
-            }
-        }
-        return iVar11;
-    }
-
-    // 0x1002d5fe0, 192 bytes, placed by class name
-    // MidiPlayer::GetPan(MidiNote const&)
-    int MidiPlayer::GetPan(MidiNote* param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        int iVar3;
-        undefined8 in_RAX;
-        undefined8 uVar4;
-        int* piVar5;
-        undefined8 local_28;
-
-        local_28 = in_RAX;
-        uVar4 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar4, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_28 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_28) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_28);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_28)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          995, (char*)0);
+                          995, nullptr);
             }
         }
-        piVar5 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_492, (long)(int)param_1->field_32);
-        iVar3 = *piVar5;
-        if (iVar3 < 8192) {
-            iVar3 = iVar3 * *(int*)&param_1->field_104 + 32 >> 6;
+        int* piVar3 = &field_492[(long)(int)midiNote.field_32];
+        int iVar2 = *piVar3;
+        if (iVar2 < 8192) {
+            iVar2 = iVar2 * *(int*)&midiNote.field_104 + 32 >> 6;
         } else {
-            iVar3 = 16384 - ((128 - *(int*)&param_1->field_104) * (16384 - iVar3) + 32 >> 6);
+            iVar2 = 16384 - ((128 - *(int*)&midiNote.field_104) * (16384 - iVar2) + 32 >> 6);
         }
-        return iVar3;
+        return iVar2;
     }
 
-    // 0x1002d6130, 384 bytes, placed by class name
-    // MidiPlayer::CleanPorta(int)
-    void MidiPlayer::CleanPorta(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        byte* pbVar5;
-        long lVar6;
-        MidiNote* pMVar7;
+    // 0x1002d6130
+    void MidiPlayer::CleanPorta(int arg1) {
+        long lVar4;
+        MidiNote* midiNote;
         array<shared_ptr<MidiNote>, 128ul>* this_00;
-        shared_ptr* psVar8;
-        hashtable_iterator_base* extraout_RDX;
-        undefined1 auVar9[16];
+        shared_ptr<configdecoder::ObjType>* objType;
         MidiNote local_100;
-        undefined8 local_50;
-        undefined8 local_48;
-        undefined8 local_40;
+        __thread_id* local_50;
+        uint64_t local_48;
+        uint64_t local_40;
         MidiPlayer* local_38;
 
-        uVar4 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar4, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        bool cVar1 = thread_id1_00 == (sound::g_idWorkerThread);
+        if (!cVar1) {
             new (&local_50) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_50);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_50;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          641, (char*)0);
+                          641, nullptr);
             }
         }
-        pbVar5 = (byte*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_104, (long)param_1);
-        if ((*pbVar5 & 2) != 0) {
+        uint8_t* pbVar3 = (uint8_t*)field_104[(long)arg1];
+        if ((*pbVar3 & 2) != 0) {
             local_38 = this;
-            lVar6 = shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)&field_67264);
-            local_48 = ((lVar6 + 72))->begin_ptrs();
-            auVar9 = ((lVar6 + 72))->end();
-            local_40 = auVar9._0_8_;
-            bVar3 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_40, auVar9._8_8_);
-            if (bVar3) {
+            lVar4 = field_67264.operator->();
+            local_48 = ((lVar4 + 72))->begin_ptrs();
+            local_40 = ((lVar4 + 72))->end();
+            cVar1 = local_48 != local_40;
+            if (cVar1) {
                 local_38 = (MidiPlayer*)&local_38->field_1512;
                 do {
-                    pMVar7 = (MidiNote*)local_48.HeapBeginPtr();
-                    new (&local_100) MidiNote(pMVar7);
-                    if (local_100.field_32 == param_1) {
-                        this_00 = (array<shared_ptr<MidiNote>, 128ul>*)
-                            std::array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>::operator[](
-                                (array<std::array<shared_ptr<MidiNote>, 128ul>, 16ul>*)local_38, (long)param_1);
-                        psVar8 = (shared_ptr*)std::array<shared_ptr<MidiNote>, 128ul>::operator[](
-                            this_00, (long)local_100.field_88._4_4_);
-                        bVar3 = operator==(psVar8, (_func_decltype_nullptr*)0);
-                        if ((bVar3) && ((int)local_100.field_132 < 0)) {
+                    midiNote = (MidiNote*)local_48.HeapBeginPtr();
+                    local_100 = MidiNote(*midiNote);
+                    if (local_100.field_32 == arg1) {
+                        this_00 = (array<shared_ptr<MidiNote>, 128ul>*)(*local_38)[(long)arg1];
+                        objType = (shared_ptr<configdecoder::ObjType>*)(*this_00)[(long)local_100.field_88._4_4_];
+                        if ((*objType == nullptr) && ((int)local_100.field_132 < 0)) {
                             local_100.field_132._0_4_ = 0;
                         }
                     }
-                    local_100.~MidiNote();
-                    SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>::obj_iterator::operator++(
-                        (obj_iterator*)&local_48);
-                    bVar3 = eastl::operator!=((eastl*)&local_48, (hashtable_iterator_base*)&local_40, extraout_RDX);
-                } while (bVar3);
+                    ++local_48;
+                    cVar1 = local_48 != local_40;
+                } while (cVar1);
             }
         }
     }
 
-    // 0x1002d62b0, 320 bytes, placed by class name
-    // MidiPlayer::CleanRetrig(int)
-    void MidiPlayer::CleanRetrig(int param_1) {
-        undefined8 uVar1;
-        char cVar2;
-        bool bVar3;
-        undefined8 uVar4;
-        byte* pbVar5;
-        long lVar6;
-        MidiNote* pMVar7;
-        hashtable_iterator_base* extraout_RDX;
-        undefined1 auVar8[16];
+    // 0x1002d62b0
+    void MidiPlayer::CleanRetrig(int arg1) {
+        long lVar3;
+        MidiNote* midiNote;
         MidiNote local_f0;
-        undefined8 local_40;
-        undefined8 local_38;
-        undefined8 local_30;
+        __thread_id* local_40;
+        uint64_t local_38;
+        uint64_t local_30;
 
-        uVar4 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar4, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        bool cVar1 = thread_id1_00 == (sound::g_idWorkerThread);
+        if (!cVar1) {
             new (&local_40) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_40);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar1 = thread_id1 == local_40;
+            if (!cVar1) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          660, (char*)0);
+                          660, nullptr);
             }
         }
-        pbVar5 = (byte*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_104, (long)param_1);
-        if ((*pbVar5 & 4) != 0) {
-            lVar6 = shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)&field_67264);
-            local_38 = ((lVar6 + 72))->begin_ptrs();
-            auVar8 = ((lVar6 + 72))->end();
-            local_30 = auVar8._0_8_;
-            bVar3 = eastl::operator!=((eastl*)&local_38, (hashtable_iterator_base*)&local_30, auVar8._8_8_);
-            if (bVar3) {
+        uint8_t* pbVar2 = (uint8_t*)field_104[(long)arg1];
+        if ((*pbVar2 & 4) != 0) {
+            lVar3 = field_67264.operator->();
+            local_38 = ((lVar3 + 72))->begin_ptrs();
+            local_30 = ((lVar3 + 72))->end();
+            cVar1 = local_38 != local_30;
+            if (cVar1) {
                 do {
-                    pMVar7 = (MidiNote*)local_38.HeapBeginPtr();
-                    new (&local_f0) MidiNote(pMVar7);
-                    if (local_f0.field_32 == param_1) {
+                    midiNote = (MidiNote*)local_38.HeapBeginPtr();
+                    local_f0 = MidiNote(*midiNote);
+                    if (local_f0.field_32 == arg1) {
                         local_f0.field_168._4_4_ = 0;
                     }
-                    local_f0.~MidiNote();
-                    SharedPtrList<rs2lib::social::ClanSettingsDelta::ClanSettingsDeltaEntry>::obj_iterator::operator++(
-                        (obj_iterator*)&local_38);
-                    bVar3 = eastl::operator!=((eastl*)&local_38, (hashtable_iterator_base*)&local_30, extraout_RDX);
-                } while (bVar3);
+                    ++local_38;
+                    cVar1 = local_38 != local_30;
+                } while (cVar1);
             }
         }
     }
 
-    // 0x1002d63f0, 208 bytes, placed by class name
-    // MidiPlayer::SetRetrigRate(int, int)
-    void MidiPlayer::SetRetrigRate(int param_1, int param_2) {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 uVar3;
-        int* piVar4;
-        undefined1* this_00;
-        double dVar5;
-        undefined8 local_30;
+    // 0x1002d63f0
+    void MidiPlayer::SetRetrigRate(int arg1, int arg2) {
+        __thread_id* local_30;
 
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_30) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_30);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_30)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          904, (char*)0);
+                          904, nullptr);
             }
         }
-        this_00 = &field_1132;
-        piVar4 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)this_00, (long)param_1);
-        *piVar4 = param_2;
-        dVar5 = (double)pow<int, double>((int)this_00, (double)param_2 * 0.00054931640625);
-        piVar4 = (int*)std::array<int, 16ul>::operator[]((array<int, 16ul>*)&field_232, (long)param_1);
-        *piVar4 = (int)(dVar5 * 2097152.0 + 0.5);
+        uint8_t* this_00 = &field_1132;
+        int* piVar2 = (int*)(*this_00)[(long)arg1];
+        *piVar2 = arg2;
+        double dVar3 = (double)pow<int, double>((int)this_00, (double)arg2 * 0.0005493164f);
+        piVar2 = &field_232[(long)arg1];
+        *piVar2 = (int)(dVar3 * 2097152.0 + 0.5);
     }
 
-    // 0x1002d6530, 144 bytes, placed by class name
-    // MidiPlayer::SubstreamStart()
-    MidiPlayer* MidiPlayer::SubstreamStart() {
-        undefined8 uVar1;
-        char cVar2;
-        undefined8 in_RAX;
-        undefined8 uVar3;
-        long in_RSI;
-        undefined8 local_28;
+    // 0x1002d6530
+    auto MidiPlayer::SubstreamStart() {
+        __thread_id* in_RAX;
 
-        local_28 = in_RAX;
-        uVar3 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar2 = std::operator==(uVar3, sound::g_idWorkerThread);
-        if (cVar2 == '\0') {
+        __thread_id* local_28 = in_RAX;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        if (!(thread_id1_00 == (sound::g_idWorkerThread))) {
             new (&local_28) std::__thread_id();
-            cVar2 = std::operator==(uVar1, local_28);
-            if (cVar2 == '\0') {
-                /* WARNING: Subroutine does not return */
+            if (!(thread_id1 == local_28)) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          1010, (char*)0);
+                          1010, nullptr);
             }
         }
-        new (this) shared_ptr<dash3d::Decor>((shared_ptr*)(in_RSI + 67264));
-        return this;
+        return auto(&field_67264);
     }
 
-    // 0x1002d65c0, 32 bytes, placed by class name
-    // MidiPlayer::SubstreamNext()
+    // 0x1002d65c0
     MidiPlayer* MidiPlayer::SubstreamNext() {
-        new (this) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>(0);
+        new (this) shared_ptr();
         return this;
     }
 
-    // 0x1002d65e0, 16 bytes, placed by class name
-    // MidiPlayer::SelfMixCost()
-    undefined8 MidiPlayer::SelfMixCost() {
+    // 0x1002d65e0
+    uint64_t MidiPlayer::SelfMixCost() {
         return 0;
     }
 
-    // 0x1002d65f0, 432 bytes, placed by class name
-    // MidiPlayer::DoMix(Array<int, eastl::allocator>&, int, int)
-    void MidiPlayer::DoMix(Array* param_1, int param_2, int param_3) {
-        ulong uVar1;
-        undefined8 uVar2;
-        int iVar3;
-        char cVar4;
-        byte bVar5;
-        int iVar6;
-        undefined8 uVar7;
-        ulong uVar8;
-        long* plVar9;
-        undefined8 local_60;
-        MidiParser* local_58;
+    // 0x1002d65f0
+    void MidiPlayer::DoMix(Array<int>& arg1, int arg2, int arg3) {
+        unsigned long uVar1;
+        int iVar2;
+        uint8_t bVar4;
+        int iVar5;
+        unsigned long uVar6;
+        long* plVar7;
+        __thread_id* local_60;
         long local_50;
         shared_ptr<MidiMixer>* local_48;
-        int local_34;
 
-        local_34 = param_2;
-        uVar7 = std::this_thread::get_id();
-        uVar2 = sound::g_idWorkerThread;
-        cVar4 = std::operator==(uVar7, sound::g_idWorkerThread);
-        if (cVar4 == '\0') {
+        int local_34 = arg2;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        bool cVar3 = thread_id1_00 == (sound::g_idWorkerThread);
+        if (!cVar3) {
             new (&local_60) std::__thread_id();
-            cVar4 = std::operator==(uVar2, local_60);
-            if (cVar4 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar3 = thread_id1 == local_60;
+            if (!cVar3) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          1025, (char*)0);
+                          1025, nullptr);
             }
         }
-        PullXferStateIntoWorker(this);
-        local_58 = (MidiParser*)field_67048;
-        cVar4 = local_58->GotMidi();
-        if ((cVar4 != '\0') && (field_424 == false)) {
+        PullXferStateIntoWorker();
+        MidiParser* local_58 = (MidiParser*)field_67048;
+        cVar3 = local_58->GotMidi();
+        if ((cVar3) && (field_424 == false)) {
             local_50 = (long)((*(int*)(field_67048 + 32) * field_420) / sound::PCMPlayer::m_frequency);
             local_48 = (shared_ptr<MidiMixer>*)&field_67264;
             do {
                 uVar1 = field_67248;
-                uVar8 = param_3 * local_50 + uVar1;
-                if ((long)uVar8 <= (long)field_67256) {
-                    field_67248 = uVar8;
+                uVar6 = arg3 * local_50 + uVar1;
+                if ((long)uVar6 <= (long)field_67256) {
+                    field_67248 = uVar6;
                     break;
                 }
-                uVar8 = (long)(~uVar1 + local_50 + field_67256) / local_50;
-                iVar6 = (int)uVar8;
-                field_67248 = iVar6 * local_50 + uVar1;
-                plVar9 = (long*)shared_ptr<MidiMixer>::operator->(local_48);
-                iVar3 = local_34;
-                (**(code**)(*plVar9 + 40))(plVar9, param_1, local_34, uVar8 & 4294967295);
-                local_34 = iVar3 + iVar6;
-                param_3 = param_3 - iVar6;
-                UpdateMidi(this);
-                bVar5 = local_58->GotMidi();
-            } while ((uint)(bVar5 ^ 1) * 3 == 0);
+                uVar6 = (long)(~uVar1 + local_50 + field_67256) / local_50;
+                iVar5 = (int)uVar6;
+                field_67248 = iVar5 * local_50 + uVar1;
+                plVar7 = (long*)(*local_48).operator->();
+                iVar2 = local_34;
+                (**(void (**)(...))(*plVar7 + 40))(plVar7, arg1, local_34, uVar6 & 4294967295);
+                local_34 = iVar2 + iVar5;
+                arg3 = arg3 - iVar5;
+                UpdateMidi();
+                bVar4 = local_58->GotMidi();
+            } while ((unsigned int)(bVar4 ^ 1) * 3 == 0);
         }
-        plVar9 = (long*)shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)&field_67264);
-        (**(code**)(*plVar9 + 40))(plVar9, param_1, local_34, param_3);
+        plVar7 = (long*)field_67264.operator->();
+        (**(void (**)(...))(*plVar7 + 40))(plVar7, arg1, local_34, arg3);
     }
 
-    // 0x1002d67a0, 592 bytes, placed by class name
-    // MidiPlayer::UpdateMidi()
+    // 0x1002d67a0
     void MidiPlayer::UpdateMidi() {
-        undefined1* this_00;
-        undefined8 uVar1;
-        MidiPlayer* pMVar2;
-        char cVar3;
-        int iVar4;
-        int iVar5;
-        undefined8 uVar6;
-        int* piVar7;
-        int iVar8;
-        undefined8 local_68;
-        scoped_lock<std::mutex> local_60[8];
-        mutex* local_58;
-        Array<int, eastl::allocator>* local_50;
-        undefined1* local_48;
-        longlong local_40;
-        MidiPlayer* local_38;
+        int iVar3;
+        int* piVar4;
+        __thread_id* local_68;
+        scoped_lock<std::mutex> local_60;
 
-        local_38 = this;
-        uVar6 = std::this_thread::get_id();
-        uVar1 = sound::g_idWorkerThread;
-        cVar3 = std::operator==(uVar6, sound::g_idWorkerThread);
-        if (cVar3 == '\0') {
+        MidiPlayer* local_38 = this;
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        bool cVar2 = thread_id1_00 == (sound::g_idWorkerThread);
+        if (!cVar2) {
             new (&local_68) std::__thread_id();
-            cVar3 = std::operator==(uVar1, local_68);
-            if (cVar3 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar2 = thread_id1 == local_68;
+            if (!cVar2) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          1104, (char*)0);
+                          1104, nullptr);
             }
         }
-        pMVar2 = local_38;
-        local_48 = &local_38->field_352;
+        MidiPlayer* pMVar1 = local_38;
+        uint8_t* local_48 = &local_38->field_352;
         std::mutex::lock();
-        iVar5 = pMVar2->field_67236;
-        iVar8 = pMVar2->field_67240;
-        local_40 = pMVar2->field_67256;
-        this_00 = pMVar2->field_67048;
-        local_50 = (Array<int, eastl::allocator>*)(pMVar2->field_67048 + 40);
-        local_58 = (mutex*)&pMVar2->field_1448;
+        int arg1 = pMVar1->field_67236;
+        int arg1_00 = pMVar1->field_67240;
+        long long local_40 = pMVar1->field_67256;
+        uint8_t* this_00 = pMVar1->field_67048;
+        Array<int>* local_50 = (Array<int>*)(pMVar1->field_67048 + 40);
+        mutex* local_58 = (mutex*)&pMVar1->field_1448;
         do {
             do {
-                piVar7 = (int*)Array<int, eastl::allocator>::operator[](local_50, (long)iVar5);
-                if (*piVar7 != iVar8)
+                piVar4 = (int*)(*local_50)[(long)arg1];
+                if (*piVar4 != arg1_00)
                     goto LAB_1002d6976;
-                this_00->SetTrack(iVar5);
-                iVar4 = this_00->GetEvent(iVar5);
-                if (iVar4 == 1) {
+                this_00->SetTrack(arg1);
+                iVar3 = this_00->GetEvent(arg1);
+                if (iVar3 == 1) {
                     this_00->FinishTrack();
-                    this_00->UnsetTrack(iVar5);
-                    cVar3 = this_00->AllTracksFinished();
-                    pMVar2 = local_38;
-                    iVar4 = 5;
-                    if (cVar3 != '\0') {
-                        if ((local_38->field_67232 == false) || (iVar8 == 0)) {
+                    this_00->UnsetTrack(arg1);
+                    cVar2 = this_00->AllTracksFinished();
+                    pMVar1 = local_38;
+                    iVar3 = 5;
+                    if (cVar2) {
+                        if ((local_38->field_67232 == '\0') || (arg1_00 == 0)) {
                             Reset2(local_38);
                             this_00->DropMidi();
                             std::mutex::unlock();
-                            std::scoped_lock<std::mutex>::scoped_lock(local_60, local_58);
-                            if (pMVar2->field_1208 == 0) {
-                                local_38->field_1440 = 0;
+                            local_60 = std::scoped_lock(*local_58);
+                            if (*(int*)(pMVar1->m_globalVolume + 8) == 0) {
+                                *(uint32_t*)(local_38->m_globalVolume + 240) = 0;
                             }
-                            std::scoped_lock<std::mutex>::~scoped_lock(local_60);
-                            iVar4 = 1;
+                            iVar3 = 1;
                         } else {
                             this_00->Restart(local_40);
                         }
                     }
                 } else {
-                    if ((char)iVar4 < '\0') {
-                        ProcessMidi2(local_38, iVar4);
+                    if ((char)iVar3 < '\0') {
+                        ProcessMidi2(local_38, iVar3);
                     }
-                    this_00->ProcessDeltaTime(iVar5);
-                    this_00->UnsetTrack(iVar5);
-                    iVar4 = 0;
+                    this_00->ProcessDeltaTime(arg1);
+                    this_00->UnsetTrack(arg1);
+                    iVar3 = 0;
                 }
-            } while (iVar4 == 0);
-            if (iVar4 != 5) {
+            } while (iVar3 == 0);
+            if (iVar3 != 5) {
                 return;
             }
         LAB_1002d6976:
-            iVar5 = this_00->NextTrackToPlay();
-            piVar7 = (int*)Array<int, eastl::allocator>::operator[](local_50, (long)iVar5);
-            iVar8 = *piVar7;
-            local_40 = this_00->TimeFromTick(iVar8);
-            if (iVar8 != local_38->field_67240) {
-                local_38->field_67236 = iVar5;
-                local_38->field_67240 = iVar8;
+            arg1 = this_00->NextTrackToPlay();
+            piVar4 = (int*)(*local_50)[(long)arg1];
+            arg1_00 = *piVar4;
+            local_40 = this_00->TimeFromTick(arg1_00);
+            if (arg1_00 != local_38->field_67240) {
+                local_38->field_67236 = arg1;
+                local_38->field_67240 = arg1_00;
                 local_38->field_67256 = local_40;
                 std::mutex::unlock();
                 return;
@@ -3321,76 +2699,66 @@ namespace jag::oldscape::midi2 {
         } while (true);
     }
 
-    // 0x1002d69f0, 384 bytes, placed by class name
-    // MidiPlayer::PretendToMix(int)
-    void MidiPlayer::PretendToMix(int param_1) {
-        ulong uVar1;
-        undefined8 uVar2;
-        char cVar3;
-        byte bVar4;
-        int iVar5;
-        undefined8 uVar6;
-        ulong uVar7;
-        long* plVar8;
-        long lVar9;
-        undefined8 local_40;
+    // 0x1002d69f0
+    void MidiPlayer::PretendToMix(int arg1) {
+        unsigned long uVar1;
+        uint8_t bVar3;
+        int iVar4;
+        unsigned long uVar5;
+        long* plVar6;
+        long lVar7;
+        __thread_id* local_40;
         shared_ptr<MidiMixer>* local_38;
 
-        uVar6 = std::this_thread::get_id();
-        uVar2 = sound::g_idWorkerThread;
-        cVar3 = std::operator==(uVar6, sound::g_idWorkerThread);
-        if (cVar3 == '\0') {
+        auto thread_id1_00 = std::this_thread::get_id();
+        __thread_id* thread_id1 = sound::g_idWorkerThread;
+        bool cVar2 = thread_id1_00 == (sound::g_idWorkerThread);
+        if (!cVar2) {
             new (&local_40) std::__thread_id();
-            cVar3 = std::operator==(uVar2, local_40);
-            if (cVar3 == '\0') {
-                /* WARNING: Subroutine does not return */
+            cVar2 = thread_id1 == local_40;
+            if (!cVar2) {
                 LogAssert("std::this_thread::get_id() == sound::g_idWorkerThread || sound::g_idWorkerThread == "
                           "std::thread::id()",
                           "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                           "midiplayer.cpp",
-                          1056, (char*)0);
+                          1056, nullptr);
             }
         }
-        PullXferStateIntoWorker(this);
-        cVar3 = field_67048->GotMidi();
-        if ((cVar3 != '\0') && (field_424 == false)) {
-            lVar9 = (long)((*(int*)(field_67048 + 32) * field_420) / sound::PCMPlayer::m_frequency);
+        PullXferStateIntoWorker();
+        cVar2 = field_67048->GotMidi();
+        if ((cVar2) && (field_424 == false)) {
+            lVar7 = (long)((*(int*)(field_67048 + 32) * field_420) / sound::PCMPlayer::m_frequency);
             local_38 = (shared_ptr<MidiMixer>*)&field_67264;
             do {
                 uVar1 = field_67248;
-                uVar7 = param_1 * lVar9 + uVar1;
-                if ((long)uVar7 <= (long)field_67256) {
-                    field_67248 = uVar7;
+                uVar5 = arg1 * lVar7 + uVar1;
+                if ((long)uVar5 <= (long)field_67256) {
+                    field_67248 = uVar5;
                     break;
                 }
-                uVar7 = (long)(~uVar1 + lVar9 + field_67256) / lVar9;
-                iVar5 = (int)uVar7;
-                field_67248 = iVar5 * lVar9 + uVar1;
-                plVar8 = (long*)shared_ptr<MidiMixer>::operator->(local_38);
-                (**(code**)(*plVar8 + 48))(plVar8, uVar7 & 4294967295);
-                param_1 = param_1 - iVar5;
-                UpdateMidi(this);
-                bVar4 = field_67048->GotMidi();
-            } while ((uint)(bVar4 ^ 1) * 3 == 0);
+                uVar5 = (long)(~uVar1 + lVar7 + field_67256) / lVar7;
+                iVar4 = (int)uVar5;
+                field_67248 = iVar4 * lVar7 + uVar1;
+                plVar6 = (long*)(*local_38).operator->();
+                (**(void (**)(...))(*plVar6 + 48))(plVar6, uVar5 & 4294967295);
+                arg1 = arg1 - iVar4;
+                UpdateMidi();
+                bVar3 = field_67048->GotMidi();
+            } while ((unsigned int)(bVar3 ^ 1) * 3 == 0);
         }
-        plVar8 = (long*)shared_ptr<MidiMixer>::operator->((shared_ptr<MidiMixer>*)&field_67264);
-        (**(code**)(*plVar8 + 48))(plVar8, param_1);
+        plVar6 = (long*)field_67264.operator->();
+        (**(void (**)(...))(*plVar6 + 48))(plVar6, arg1);
     }
 
-    // 0x1002d6b70, 96 bytes, placed by class name
-    // MidiPlayer::QueuePause(bool)
-    void MidiPlayer::QueuePause(bool param_1) {
-        undefined8 uVar2;
-
-        uVar2 = std::this_thread::get_id();
-        if (std::operator==(uVar2, sound::g_idMainThread) == '\0') {
-            /* WARNING: Subroutine does not return */
+    // 0x1002d6b70
+    void MidiPlayer::QueuePause(bool arg1) {
+        if (std::this_thread::get_id() == (sound::g_idMainThread) == '\0') {
             LogAssert("std::this_thread::get_id() == sound::g_idMainThread",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/oldscape/jagex3/midi2/"
                       "midiplayer.cpp",
-                      1303, (char*)0);
+                      1303, nullptr);
         }
-        field_1204 = (uint)param_1;
+        *(unsigned int*)(m_globalVolume + 4) = (unsigned int)arg1;
     }
 
 } // namespace jag::oldscape::midi2

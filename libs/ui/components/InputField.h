@@ -1,6 +1,5 @@
 // libs/ui/components/InputField.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,214 +8,187 @@ namespace jag::ui {
     public:
         // virtual methods in vtable order
         virtual ~InputField();
-        virtual GetType() const;
-        virtual ShouldBlockInput(int, int) const;
-        virtual void SetEnabled(bool);
-        virtual void MainLogic(ComponentDependencies const&, int, int, bool, bool, bool, bool);
-        virtual void MainDraw(ComponentDependencies const&, int, int, float);
-        virtual DrawFocus(ComponentDependencies const&);
-        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char, eastl::allocator>>&, int);
-        virtual IsKeyReceiver() const;
-        virtual void SetMargin(Component::MarginType, Margin);
-        virtual Margin GetMargin(Component::MarginType) const;
-        virtual SupportsMargin(Component::MarginType) const;
-        virtual void LoadStyleSheetVisuals(StyleSheet const&);
-        virtual InputField* GetAssociatedComponent();
-        virtual bool IsAssociatedComponent(shared_ptr<Component> const&) const;
-        virtual void LogicFocus(ComponentDependencies const&, bool);
+        virtual uint64_t GetType() const;
+        virtual bool ShouldBlockInput(int arg1, int arg2) const;
+        virtual void SetEnabled(bool arg1);
+        virtual void MainLogic(const ComponentDependencies& componentDependencies, int arg2, int arg3, bool arg4,
+                               bool arg5, bool arg6, bool arg7);
+        virtual void MainDraw(const ComponentDependencies& componentDependencies, int arg2, int arg3, float arg4);
+        virtual void DrawFocus(const ComponentDependencies& arg1);
+        virtual void DecodeTypedComponentProperties(PacketT<Array<unsigned char>>& arg1, int arg2);
+        virtual bool IsKeyReceiver() const;
+        virtual void SetMargin(Component::MarginType marginType, Margin margin);
+        virtual Margin GetMargin(Component::MarginType marginType) const;
+        virtual bool SupportsMargin(Component::MarginType optionClient) const;
+        virtual void LoadStyleSheetVisuals(const StyleSheet& styleSheet);
+        virtual auto GetAssociatedComponent();
+        virtual bool IsAssociatedComponent(const shared_ptr<Component>& component) const;
+        virtual void LogicFocus(const ComponentDependencies& componentDependencies, bool arg2);
         virtual void CancelFocus();
-        virtual HandleKeyInput(int, int, unsigned int);
-        virtual ulong NotifyFocusGain();
-        InputField(InterfaceManager*);
-        shared_ptr* UpdateTextRunSettings(graphics::FontManager*);
+        virtual uint64_t HandleKeyInput(int arg1, int arg2, unsigned int arg3);
+        virtual unsigned long NotifyFocusGain();
+        InputField(InterfaceManager* interfaceManager);
+        shared_ptr* UpdateTextRunSettings(graphics::FontManager* fontManager);
         bool IsMultiline() const;
-        int ApplyScroll(int);
+        int ApplyScroll(int arg1);
         void EnsureCaretVisible();
-        void UpdateCaretBlink(float);
-        void Init(graphics::TextContentVisibility, FilterMode, unsigned long);
-        void SetContents(eastl::basic_string<char, BucketAllocatorEASTL> const&);
-        GetContents() const;
+        void UpdateCaretBlink(float arg1);
+        void Init(graphics::TextContentVisibility textContentVisibility, FilterMode filterMode, unsigned long arg3);
+        void SetContents(const eastl::string& str);
+        uint8_t* GetContents() const;
         void ClearInternal();
-        ulong AddContents(char const*, char const*, bool, bool);
+        unsigned long AddContents(const char* str1, const char* str2, bool arg3, bool arg4);
         void Clear();
-        ShouldIgnoreInput(int, unsigned int) const;
+        bool ShouldIgnoreInput(int arg1, unsigned int arg2) const;
         void CopySelection();
         void PasteFromClipboard();
-        void AddCharacter(unsigned int, bool);
+        void AddCharacter(unsigned int arg1, bool arg2);
         void ValidateQuantityInput();
-        HandleQuantityInput(unsigned int);
+        uint64_t HandleQuantityInput(unsigned int arg1);
         void UpdateCachedString() const;
-        IsCodepointAllowed(FilterMode, unsigned int);
-        IsUnitQuantityCodepoint(unsigned int);
-        GetQuantityInput() const;
-        GetSoftKeyboardType() const;
+        void IsCodepointAllowed(FilterMode filterMode, unsigned int arg2);
+        void IsUnitQuantityCodepoint(unsigned int arg1);
+        eastl::optional<int> GetQuantityInput() const;
+        uint8_t GetSoftKeyboardType() const;
 
-        // data members, from how the methods use this: 6516304 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        ushort field_8;      // offset 8
-        ushort field_10;     // offset 10
-        ushort field_12;     // offset 12
-        ushort field_14;     // offset 14
-        char _unknown_16[32];
-        uchar field_48; // offset 48
-        char _unknown_49[1];
-        char field_50; // offset 50
-        char field_51; // offset 51
-        char field_52; // offset 52
-        char field_53; // offset 53
-        char field_54; // offset 54
-        char _unknown_55[1];
-        int field_56;        // offset 56
-        int field_60;        // offset 60
-        int field_64;        // offset 64
-        int field_68;        // offset 68
-        int field_72;        // offset 72
-        int field_76;        // offset 76
-        int field_80;        // offset 80
-        int field_84;        // offset 84
-        int field_88;        // offset 88
-        int field_92;        // offset 92
-        undefined4 field_96; // offset 96
-        byte field_100;      // offset 100
-        char _unknown_101[1];
-        short field_102; // offset 102
-        char _unknown_104[160];
-        VisibleShadowCastingLightInfo field_264; // offset 264
-        ComponentSwipeConfig field_288;          // offset 288
-        char _unknown_293[59];
-        undefined1 field_352; // offset 352
-        char _unknown_353[3];
-        undefined4 field_356; // offset 356
-        char _unknown_360[48];
-        undefined** field_408; // offset 408
-        char _unknown_416[48];
-        TcpConnectionMessageBase field_464; // offset 464
-        char _unknown_512[16];
-        uint field_528; // offset 528
-        uint field_532; // offset 532
-        uint field_536; // offset 536
-        char _unknown_540[4];
-        ulong field_544; // offset 544
-        ulong field_552; // offset 552
-        char _unknown_560[28];
-        uint field_588; // offset 588
-        uint field_592; // offset 592
-        uint field_596; // offset 596
-        char _unknown_600[168];
-        undefined4 field_768; // offset 768
-        char _unknown_772[4];
-        TextRun field_776; // offset 776
-        char _unknown_856[24];
-        char field_880; // offset 880
-        char _unknown_881[1];
-        undefined1 field_882; // offset 882
-        char _unknown_883[1];
-        undefined2 field_884; // offset 884
-        char _unknown_886[2];
-        undefined8 field_888; // offset 888
-        ulong field_896;      // offset 896
-        uint field_904;       // offset 904
-        undefined1 field_908; // offset 908
-        char _unknown_909[3];
-        float field_912;      // offset 912
-        int field_916;        // offset 916
-        undefined4 field_920; // offset 920
-        char _unknown_924[4];
-        InterfaceManager* field_928; // offset 928
-        char _unknown_936[6515368];
+    private:
+        unsigned short field_8;
+        unsigned short field_10;
+        unsigned short field_12;
+        unsigned short field_14;
+        uint8_t _unknown_16[32];
+        unsigned char field_48;
+        uint8_t _unknown_49[1];
+        uint8_t field_50;
+        uint8_t field_51;
+        uint8_t field_52;
+        uint8_t field_53;
+        char field_54;
+        uint8_t _unknown_55[1];
+        int field_56;
+        int field_60;
+        int field_64;
+        int field_68;
+        int field_72;
+        int field_76;
+        int field_80;
+        int field_84;
+        unsigned int field_88;
+        int field_92;
+        uint32_t field_96;
+        uint8_t field_100;
+        uint8_t _unknown_101[1];
+        short field_102;
+        uint8_t _unknown_104[160];
+        VisibleShadowCastingLightInfo field_264;
+        ComponentSwipeConfig field_288;
+        uint8_t _unknown_293[59];
+        uint8_t field_352;
+        uint8_t _unknown_353[3];
+        uint32_t field_356;
+        uint8_t _unknown_360[48];
+        uint8_t** field_408;
+        uint8_t _unknown_416[48];
+        TcpConnectionMessageBase field_464;
+        uint8_t _unknown_512[16];
+        unsigned int field_528;
+        FilterMode field_532;
+        TextContentVisibility field_536;
+        uint8_t _unknown_540[4];
+        unsigned long field_544;
+        function<bool(unsigned int), 64ul, 16ul, (fixedfunction::Methods)0>* field_552;
+        uint8_t _unknown_560[28];
+        unsigned int field_588;
+        unsigned int field_592;
+        unsigned int field_596;
+        uint8_t _unknown_600[168];
+        Margin field_768;
+        uint8_t _unknown_772[4];
+        TextRun field_776;
+        uint8_t _unknown_856[24];
+        char field_880;
+        uint8_t _unknown_881[1];
+        uint8_t field_882;
+        uint8_t _unknown_883[1];
+        uint16_t field_884;
+        uint8_t _unknown_886[2];
+        uint64_t field_888;
+        function<bool(unsigned int), 64ul, 16ul, (fixedfunction::Methods)0>* field_896;
+        unsigned int field_904;
+        uint8_t field_908;
+        uint8_t _unknown_909[3];
+        float field_912;
+        int field_916;
+        uint32_t field_920;
+        uint8_t _unknown_924[4];
+        InterfaceManager* field_928;
+        uint8_t _unknown_936[6515368];
     };
 
-    // 0x100698f40, 32 bytes, inline, placed by class name and debug map
-    // InputField::IsMultiline() const
-    bool InputField::IsMultiline() {
-        byte bVar1;
-
-        bVar1 = field_464->GetTextMaxLines();
+    // 0x100698f40
+    bool InputField::IsMultiline() const {
+        uint8_t bVar1 = field_464->GetTextMaxLines();
         return 1 < bVar1;
     }
 
-    // 0x100699f40, 32 bytes, inline, placed by class name and debug map
-    // InputField::GetContents() const
-    undefined1* InputField::GetContents() {
-        UpdateCachedString(this);
+    // 0x100699f40
+    uint8_t* InputField::GetContents() const {
+        UpdateCachedString();
         return &field_856;
     }
 
-    // 0x10069b390, 48 bytes, inline, placed by class name and debug map
-    // InputField::IsUnitQuantityCodepoint(unsigned int)
-    undefined8 InputField::IsUnitQuantityCodepoint(uint param_1) {
-        return CONCAT71(83886080, (21474836485U >> ((ulong)(param_1 - 75) & 63) & 1) != 0 && param_1 - 75 < 35);
+    // 0x10069b390
+    void InputField::IsUnitQuantityCodepoint(unsigned int arg1) {
+        return (21474836485U >> ((unsigned long)(arg1 - 75) & 63) & 1) != 0 && arg1 - 75 < 35;
     }
 
-    // 0x1006ad7c0, 16 bytes, complete-object destructor, inline, placed by class name
-    // InputField::~InputField(): jumps straight to the base-object destructor
-
-    // 0x1006ad7d0, 32 bytes, deleting destructor, inline, placed by class name
-    // InputField::~InputField()
-    void InputField::~InputField() {
-        ~InputField(this);
-        operator_delete(this);
-    }
-
-    // 0x1006ad7f0, 32 bytes, inline, placed by class name
-    // InputField::SetMargin(Component::MarginType, Margin)
-    void InputField::SetMargin(int param_2, undefined4 param_3) {
-        if (param_2 == 0) {
-            field_768 = param_3;
+    // 0x1006ad7f0
+    void InputField::SetMargin(Component::MarginType marginType, Margin margin) {
+        if (marginType == 0) {
+            field_768[0] = margin.field_0;
+            field_768[1] = margin.field_1;
+            field_768[2] = margin.field_2;
+            field_768[3] = margin.field_3;
             return;
         }
     }
 
-    // 0x1006ad810, 48 bytes, inline, placed by class name
-    // InputField::GetMargin(Component::MarginType) const
-    Margin InputField::GetMargin(int param_2) {
+    // 0x1006ad810
+    Margin InputField::GetMargin(Component::MarginType marginType) const {
         Margin local_c;
 
-        if (param_2 == 0) {
-            local_c = (Margin)field_768;
+        if (marginType == 0) {
+            local_c.field_0 = field_768[0];
+            local_c.field_1 = field_768[1];
+            local_c.field_2 = field_768[2];
+            local_c.field_3 = field_768[3];
         } else {
-            new (&local_c) Margin();
+            local_c = Margin();
         }
         return local_c;
     }
 
-    // 0x1006ad840, 96 bytes, inline, placed by class name
-    // InputField::GetAssociatedComponent()
-    InputField* InputField::GetAssociatedComponent() {
-        shared_ptr* extraout_RDX;
-        enable_shared_from_this<PathingEntity> local_28[16];
+    // 0x1006ad840
+    auto InputField::GetAssociatedComponent() {
+        auto result;
+        enable_shared_from_this<PathingEntity> local_28;
 
-        local_28->shared_from_this();
-        static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>((shared_ptr*)this, (jag*)local_28,
-                                                                                     extraout_RDX);
-        local_28->~shared_ptr();
-        return this;
+        local_28.shared_from_this();
+        static_pointer_cast<oldscape::ClientEntity, shared_ptr<oldscape::ClientNpc>>(&result);
+        return result;
     }
 
-    // 0x1006b2e10, 272 bytes, base-object destructor, inline, placed by class name
-    // InputField::~InputField()
-    void InputField::~InputField() {
-        field_0 = &PTR__InputField_100f0ef40;
+    // 0x1006b2e10
+    InputField::~InputField() {
         field_408 = &PTR__InputField_100f0f098;
-        CancelFocus(this);
-        (&field_856)->~basic_string();
+        CancelFocus();
+        field_856.~basic_string();
         field_776->~TextRun();
-        (&field_600)->~ScrollBar();
-        (&field_560)->~basic_string();
+        field_600.~ScrollBar();
+        field_560.~basic_string();
         field_464->~TextData();
-        (&field_416)->~Sprite();
-        (&field_408)->~AutoSingleton();
-        (&field_392)->~enable_shared_from_this();
-        ~Component();
+        field_416.~Sprite();
+        field_392.~enable_shared_from_this();
     }
 
 } // namespace jag::ui
-
-namespace jag::fixedfunction {
-    // 0x10069b2d0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // function<bool (unsigned int), 64ul, 16ul, (Methods)0>::function<ui::InputField::AddCharacter(unsigned int, bool)::$_51&, void>(ui::InputField::AddCharacter(unsigned int, bool)::$_51&): jumps straight to the base-object constructor
-
-    // 0x10069b2f0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // function<bool (unsigned int), 64ul, 16ul, (Methods)0>::function<ui::InputField::AddContents(char const*, char const*, bool, bool)::$_52&, void>(ui::InputField::AddContents(char const*, char const*, bool, bool)::$_52&): jumps straight to the base-object constructor
-
-} // namespace jag::fixedfunction

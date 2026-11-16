@@ -1,1143 +1,765 @@
 // libs/oldscape/rs2lib/util/playermodel.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.rs2lib
 
 #include "playermodel.h"
 
 namespace jag::oldscape::rs2lib {
-    // 0x100d3fc90, 28 bytes, __const
-    PlayerModel::m_basePartMap = {8, 11, 4, 6, 9, 7, 10};
+    // 0x100d3fc90
+    int32_t PlayerModel::m_basePartMap[7] = {8, 11, 4, 6, 9, 7, 10};
 
-    // 0x100fcf998, 16 bytes, __common; zero-initialised
-    PlayerModel::m_recol1s;
+    // 0x100fcf998
+    std::array<short, 5ul> PlayerModel::m_recol1s;
 
-    // 0x100fcf9a8, 120 bytes, __common; set at startup by ___cxx_global_var_init.81
-    std::array<Array<short, eastl::allocator>, 5ul> PlayerModel::m_recol1d =
-        array<Array<short, eastl::allocator>, 5ul>();
+    // 0x100fcf9a8, set at startup by ___cxx_global_var_init.81
+    std::array<Array<short>, 5ul> PlayerModel::m_recol1d = array<Array<short>, 5ul>();
 
-    // 0x100fcfa20, 16 bytes, __common; zero-initialised
-    PlayerModel::m_recol2s;
+    // 0x100fcfa20
+    std::array<short, 5ul> PlayerModel::m_recol2s;
 
-    // 0x100fcfa30, 120 bytes, __common; set at startup by ___cxx_global_var_init.82
-    std::array<Array<short, eastl::allocator>, 5ul> PlayerModel::m_recol2d =
-        array<Array<short, eastl::allocator>, 5ul>();
+    // 0x100fcfa30, set at startup by ___cxx_global_var_init.82
+    std::array<Array<short>, 5ul> PlayerModel::m_recol2d = array<Array<short>, 5ul>();
 
-    // 0x100fcfaa8, 21056 bytes, __common; zero-initialised
-    PlayerModel::m_modelCache;
+    // 0x100fcfaa8
+    LRUHashCache<dash3d::ModelLit, 260ul, 261ul, false, unsigned long long> PlayerModel::m_modelCache;
 
-    // 0x100fd4ce8, 1536 bytes, __common; set at startup by ___cxx_global_var_init.85
+    // 0x100fd4ce8, set at startup by ___cxx_global_var_init.85
     LRUHashCache<int, 16ul, 17ul, false, unsigned long long> PlayerModel::m_headModelHashToModelCacheID =
         LRUHashCache<int, 16ul, 17ul, false, unsigned long long>(16, "LRUHashCache");
 
-    // 0x100fd52e8, 8 bytes, __common; zero-initialised
-    PlayerModel::m_nextHeadModelCacheID;
+    // 0x100fd52e8
+    int64_t PlayerModel::m_nextHeadModelCacheID;
 
-    // 0x1000baea0: the linker folded this into HiscoresManager::SetDataSource(HiscoresDataSource), which has identical code
-    PlayerModel::SetBodytype(int);
+    // 0x1000baea0: PlayerModel::SetBodytype(int) has the same machine code as HiscoresManager::SetDataSource(HiscoresDataSource)
 
-    // 0x1001fe750, 48 bytes, placed by class name and debug map
-    // PlayerModel::RefreshAppearance()
+    // 0x1001fe750
     void PlayerModel::RefreshAppearance() {
-        SetAppearance(this, (fixed_vector*)&field_88, (fixed_vector*)this, (fixed_vector*)&field_176, m_bodytype,
-                      field_240);
+        SetAppearance(this, (fixed_vector<int, _12ul>*)&field_88, (fixed_vector<int, _12ul>*)this,
+                      (fixed_vector<int, _5ul>*)&field_176, m_bodytype, field_240);
     }
 
-    // 0x1001feb70, 224 bytes, placed by class name and debug map
-    // PlayerModel::SetDefaultTypeForIdkSlot(int, eastl::fixed_vector<int, 12ul, true, eastl::allocator>&, int)
-    void PlayerModel::SetDefaultTypeForIdkSlot(int param_1, fixed_vector* param_2, int param_3) {
+    // 0x1001feb70
+    void PlayerModel::SetDefaultTypeForIdkSlot(int arg1, eastl::fixed_vector<int, 12ul>& arg2, int arg3) {
         long lVar2;
         int* piVar3;
         int iVar4;
         int iVar5;
-        int iVar6;
-        shared_ptr<RSevenDebugPresetProvider> local_48[16];
+        ReturnValue local_48;
 
-        iVar6 = param_3 + 7;
-        if (param_1 != 1) {
-            iVar6 = param_3;
+        int iVar6 = arg3 + 7;
+        if (arg1 != 1) {
+            iVar6 = arg3;
         }
         if (0 < configdecoder::IdkType::m_numDefinitions) {
             iVar5 = 256;
             do {
-                local_48->List(iVar5 + -256);
-                if (((operator!=((shared_ptr*)local_48, (_func_decltype_nullptr*)0)) &&
-                     (lVar2 =
-                          shared_ptr<configdecoder::IdkType>::operator->((shared_ptr<configdecoder::IdkType>*)local_48),
-                      *(char*)(lVar2 + 148) == '\0')) &&
-                    (piVar3 = (int*)shared_ptr<configdecoder::IdkType>::operator->(
-                         (shared_ptr<configdecoder::IdkType>*)local_48),
-                     *piVar3 == iVar6)) {
-                    piVar3 = (int*)std::array<int, 7ul>::operator[]((long)param_3);
-                    piVar3 = (int*)
-                        eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                param_2,
-                            (long)*piVar3);
+                local_48 = configdecoder::IdkType::List(iVar5 - 256);
+                if (((local_48 != nullptr) && (lVar2 = local_48.operator->(), *(char*)(lVar2 + 148) == '\0')) &&
+                    (piVar3 = (int*)local_48.operator->(), *piVar3 == iVar6)) {
+                    piVar3 = (int*)(*((array<int, 7ul>*)(long)arg3))[0];
+                    piVar3 = &arg2[(long)*piVar3];
                     *piVar3 = iVar5;
-                    local_48->~shared_ptr();
                     return;
                 }
-                local_48->~shared_ptr();
-                iVar4 = iVar5 + -255;
+                iVar4 = iVar5 - 255;
                 iVar5 = iVar5 + 1;
             } while (iVar4 < configdecoder::IdkType::m_numDefinitions);
         }
     }
 
-    // 0x100202b70, 1136 bytes, placed by class name
-    // PlayerModel::GetHeadModel() const
-    PlayerModel* PlayerModel::GetHeadModel() {
+    // 0x100202b70
+    auto PlayerModel::GetHeadModel() const {
+        auto result;
         short sVar1;
-        uint uVar2;
+        unsigned int uVar2;
         bool bVar3;
-        char cVar4;
+        bool cVar4;
         bool bVar5;
         int iVar6;
         int iVar7;
-        NPCTypeCustomisation* pNVar8;
-        IdkType* this_00;
-        ObjType* this_01;
-        uint* puVar9;
-        shared_ptr<dash3d::ModelUnlit>* psVar10;
-        int* piVar11;
-        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar12;
-        long* plVar13;
-        short* psVar14;
-        NpcUID* extraout_RDX;
-        NpcUID* pNVar15;
-        NpcUID* extraout_RDX_00;
-        vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>* in_RSI;
-        vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>* this_02;
-        vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>* this_03;
-        ulong uVar16;
-        undefined1 auVar17[16];
-        undefined1 local_88[16];
-        ulong local_78;
-        shared_ptr<RSevenDebugPresetProvider> local_68[24];
-        undefined1 local_50[28];
+        NpcType* this_00;
+        unsigned int* puVar8;
+        shared_ptr<dash3d::ModelUnlit>* psVar9;
+        int* piVar10;
+        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar11;
+        long* plVar12;
+        short* psVar13;
+        PlayerModel* this_03;
+        uint8_t* this_04;
+        unsigned long uVar14;
+        ReturnValue local_88;
+        unsigned long local_78;
+        ReturnValue* local_70;
+        ReturnValue local_68;
+        uint8_t local_50[28];
         int local_34;
 
-        if (*(int*)(in_RSI + 240) == -1) {
-            uVar16 = 0;
+        if (field_240 == 4294967295) {
+            uVar14 = 0;
             bVar3 = false;
             bVar5 = false;
-            local_50._16_8_ = in_RSI;
+            local_70 = &result;
+            local_50._16_8_ = this;
             do {
-                auVar17 = eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                            local_50._16_8_,
-                        uVar16);
-                pNVar15 = auVar17._8_8_;
-                uVar2 = *auVar17._0_8_;
+                puVar8 = (unsigned int*)(*local_50._16_8_)[uVar14];
+                uVar2 = *puVar8;
                 if ((uVar2 & 4294967040) == 256) {
-                    local_68->List(uVar2 - 256);
-                    this_00 = (IdkType*)shared_ptr<configdecoder::IdkType>::operator->(
-                        (shared_ptr<configdecoder::IdkType>*)local_68);
-                    cVar4 = this_00->CheckHead();
-                    local_68->~shared_ptr();
-                    pNVar15 = extraout_RDX_00;
+                    local_68 = configdecoder::IdkType::List(uVar2 - 256);
+                    cVar4 = ((IdkType*)local_68.operator->())->CheckHead();
                     bVar3 = bVar5;
-                    if (cVar4 == '\0') {
+                    if (!cVar4) {
                         bVar3 = true;
                         bVar5 = true;
                     }
                 }
                 if (511 < (int)uVar2) {
-                    local_68->List(uVar2 - 512);
-                    this_01 = (ObjType*)shared_ptr<configdecoder::ObjType>::operator->(
-                        (shared_ptr<configdecoder::ObjType>*)local_68);
-                    cVar4 = this_01->CheckHeadModel(*(int*)(local_50._16_8_ + 296));
-                    local_68->~shared_ptr();
-                    pNVar15 = extraout_RDX;
+                    local_68 = configdecoder::ObjType::List(uVar2 - 512);
+                    cVar4 = ((ObjType*)local_68.operator->())
+                                ->CheckHeadModel(*(HiscoresDataSource*)(local_50._16_8_ + 296));
                     bVar5 = bVar3;
-                    if (cVar4 == '\0') {
+                    if (!cVar4) {
                         bVar5 = true;
                         bVar3 = true;
                     }
                 }
-                this = (PlayerModel*)this;
-                uVar16 = uVar16 + 1;
-            } while (uVar16 != 12);
+                &result = local_70;
+                uVar14 = uVar14 + 1;
+            } while (uVar14 != 12);
             if (bVar5) {
-                new ((PlayerModel*)this) shared_ptr<worldmap::WorldmapAreaMetadata>(0);
+                new (local_70) shared_ptr();
             } else {
-                eastl::destruct<highlight::NpcUID*>((eastl*)local_50, (NpcUID*)"EASTL vector", pNVar15);
-                new (local_68) eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>(12, local_50);
-                uVar16 = 0;
+                local_50->destruct<highlight::NpcUID*>();
+                local_68 = eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>(12, *local_50);
+                uVar14 = 0;
                 local_34 = 0;
-                this_02 = (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                              local_50._16_8_;
+                this_03 = (PlayerModel*)local_50._16_8_;
                 do {
-                    local_78 = uVar16;
-                    puVar9 =
-                        (uint*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true,
-                                                                                eastl::allocator>>::operator[](this_02,
-                                                                                                               uVar16);
-                    uVar2 = *puVar9;
+                    local_78 = uVar14;
+                    puVar8 = (unsigned int*)(*this_03)[uVar14];
+                    uVar2 = *puVar8;
                     if ((uVar2 & 4294967040) == 256) {
-                        local_88->List(uVar2 - 256);
-                        shared_ptr<configdecoder::IdkType>::operator->((shared_ptr<configdecoder::IdkType>*)local_88);
+                        local_88 = configdecoder::IdkType::List(uVar2 - 256);
+                        local_88.operator->();
                         local_50->GetHeadNoCheck();
-                        local_88->~shared_ptr();
-                        bVar5 = operator!=((shared_ptr*)local_50, (_func_decltype_nullptr*)0);
+                        bVar5 = *local_50 != nullptr;
                         if (bVar5) {
-                            psVar10 = (shared_ptr<dash3d::ModelUnlit>*)
-                                eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>::operator[](
-                                    (vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>*)local_68,
-                                    (long)local_34);
-                            shared_ptr<dash3d::ModelUnlit>::operator=(psVar10, (shared_ptr*)local_50);
+                            psVar9 = &local_68[(long)local_34];
+                            *psVar9 = *local_50;
                             local_34 = local_34 + 1;
                         }
-                        local_50->~shared_ptr();
                     }
                     if ((int)uVar2 < 512) {
-                        this_02 =
-                            (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                local_50._16_8_;
+                        this_03 = (PlayerModel*)local_50._16_8_;
                     } else {
-                        local_88->List(uVar2 - 512);
-                        iVar6 = shared_ptr<configdecoder::ObjType>::operator->(
-                            (shared_ptr<configdecoder::ObjType>*)local_88);
-                        this_02 =
-                            (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                local_50._16_8_;
+                        local_88 = configdecoder::ObjType::List(uVar2 - 512);
+                        iVar6 = local_88.operator->();
+                        this_03 = (PlayerModel*)local_50._16_8_;
                         local_50->GetHeadModelNoCheck(iVar6);
-                        local_88->~shared_ptr();
-                        bVar5 = operator!=((shared_ptr*)local_50, (_func_decltype_nullptr*)0);
+                        bVar5 = *local_50 != nullptr;
                         if (bVar5) {
-                            psVar10 = (shared_ptr<dash3d::ModelUnlit>*)
-                                eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>::operator[](
-                                    (vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>*)local_68,
-                                    (long)local_34);
-                            shared_ptr<dash3d::ModelUnlit>::operator=(psVar10, (shared_ptr*)local_50);
+                            psVar9 = &local_68[(long)local_34];
+                            *psVar9 = *local_50;
                             local_34 = local_34 + 1;
                         }
-                        local_50->~shared_ptr();
                     }
-                    uVar16 = local_78 + 1;
-                } while (uVar16 != 12);
+                    uVar14 = local_78 + 1;
+                } while (uVar14 != 12);
                 local_50->Combine(local_68);
-                this_03 =
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)(this_02 +
-                                                                                                              176);
-                uVar16 = 0;
+                this_04 = &this_03->field_176;
+                uVar14 = 0;
                 do {
-                    piVar11 =
-                        (int*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true,
-                                                                               eastl::allocator>>::operator[](this_03,
-                                                                                                              uVar16);
-                    iVar6 = *piVar11;
-                    pvVar12 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                        std::array<Array<short, eastl::allocator>, 5ul>::operator[](
-                            (array<Array<short, eastl::allocator>, 5ul>*)&m_recol1d, uVar16);
-                    iVar7 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar12);
+                    piVar10 = (int*)(*this_04)[uVar14];
+                    iVar6 = *piVar10;
+                    pvVar11 = &m_recol1d[uVar14];
+                    iVar7 = pvVar11->end();
                     if (iVar6 < iVar7) {
-                        plVar13 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->(
-                            (shared_ptr<dash3d::ModelUnlit>*)local_50);
-                        psVar14 = (short*)std::array<short, 5ul>::operator[]((array<short, 5ul>*)&m_recol1s, uVar16);
-                        sVar1 = *psVar14;
-                        piVar11 = (int*)
-                            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true,
-                                                                             eastl::allocator>>::operator[](this_03,
-                                                                                                            uVar16);
-                        psVar14 = (short*)Array<short, eastl::allocator>::operator[](
-                            (Array<short, eastl::allocator>*)pvVar12, (long)*piVar11);
-                        (**(code**)(*plVar13 + 160))(plVar13, (int)sVar1, (int)*psVar14);
+                        plVar12 = (long*)(*local_50).operator->();
+                        psVar13 = &m_recol1s[uVar14];
+                        sVar1 = *psVar13;
+                        piVar10 = (int*)(*this_04)[uVar14];
+                        psVar13 = (short*)(*pvVar11)[(long)*piVar10];
+                        (**(void (**)(...))(*plVar12 + 160))(plVar12, (int)sVar1, (int)*psVar13);
                     }
-                    piVar11 =
-                        (int*)eastl::vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true,
-                                                                               eastl::allocator>>::operator[](this_03,
-                                                                                                              uVar16);
-                    iVar6 = *piVar11;
-                    pvVar12 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                        std::array<Array<short, eastl::allocator>, 5ul>::operator[](
-                            (array<Array<short, eastl::allocator>, 5ul>*)&m_recol2d, uVar16);
-                    iVar7 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar12);
+                    piVar10 = (int*)(*this_04)[uVar14];
+                    iVar6 = *piVar10;
+                    pvVar11 = &m_recol2d[uVar14];
+                    iVar7 = pvVar11->end();
                     if (iVar6 < iVar7) {
-                        plVar13 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->(
-                            (shared_ptr<dash3d::ModelUnlit>*)local_50);
-                        psVar14 = (short*)std::array<short, 5ul>::operator[]((array<short, 5ul>*)&m_recol2s, uVar16);
-                        sVar1 = *psVar14;
-                        piVar11 = (int*)
-                            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true,
-                                                                             eastl::allocator>>::operator[](this_03,
-                                                                                                            uVar16);
-                        psVar14 = (short*)Array<short, eastl::allocator>::operator[](
-                            (Array<short, eastl::allocator>*)pvVar12, (long)*piVar11);
-                        (**(code**)(*plVar13 + 160))(plVar13, (int)sVar1, (int)*psVar14);
+                        plVar12 = (long*)(*local_50).operator->();
+                        psVar13 = &m_recol2s[uVar14];
+                        sVar1 = *psVar13;
+                        piVar10 = (int*)(*this_04)[uVar14];
+                        psVar13 = (short*)(*pvVar11)[(long)*piVar10];
+                        (**(void (**)(...))(*plVar12 + 160))(plVar12, (int)sVar1, (int)*psVar13);
                     }
-                    this = (PlayerModel*)this;
-                    uVar16 = uVar16 + 1;
-                } while (uVar16 != 5);
-                shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-                    (shared_ptr<RSevenDebugPresetProvider>*)(PlayerModel*)this, (shared_ptr*)local_50);
-                local_50->~shared_ptr();
-                local_68->~vector();
+                    &result = local_70;
+                    uVar14 = uVar14 + 1;
+                } while (uVar14 != 5);
+                local_70->shared_ptr<FileRSevenDebugPresetProvider, void>(*local_50);
             }
         } else {
-            local_68->List(*(int*)(in_RSI + 240));
-            pNVar8 = (NPCTypeCustomisation*)shared_ptr<configdecoder::NpcType>::operator->(
-                (shared_ptr<configdecoder::NpcType>*)local_68);
-            GetHead(pNVar8);
-            local_68->~shared_ptr();
+            local_68 = configdecoder::NpcType::List(field_240);
+            this_00 = (NpcType*)local_68.operator->();
+            result = this_00->GetHead(nullptr);
         }
-        return this;
+        return result;
     }
 
-    // 0x100204890, 144 bytes, base-object constructor, placed by class name
-    // PlayerModel::PlayerModel()
-    void PlayerModel::PlayerModel() {
-        new (this) eastl::fixed_vector<int, 12ul, true, eastl::allocator>();
-        new (&field_88) eastl::fixed_vector<int, 12ul, true, eastl::allocator>();
-        new (&field_176) eastl::fixed_vector<int, 5ul, true, eastl::allocator>();
-        new (&field_264) Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>();
-        field_288 = 0;
-        m_pronoun = 4294967295;
-        m_bodytype = 0;
+    // 0x100204890
+    PlayerModel::PlayerModel() : eastl::fixed_vector<int, 12ul>(), field_288(false), m_pronoun(-1), m_bodytype(0) {}
+
+    // 0x100204940
+    PlayerModel::PlayerModel(PlayerModel& playerModel)
+        : eastl::fixed_vector<int, 12ul>(), field_288(false), m_pronoun(-1), m_bodytype(0) {
+        SetAppearance(this, (fixed_vector<int, _12ul>*)&playerModel.field_88, (fixed_vector<int, _12ul>*)playerModel,
+                      (fixed_vector<int, _5ul>*)&playerModel.field_176, playerModel.m_bodytype, playerModel.field_240);
     }
 
-    // 0x100204930, 16 bytes, complete-object constructor, placed by class name
-    // PlayerModel::PlayerModel(): jumps straight to the base-object constructor
+    // 0x100204a10
+    void PlayerModel::SetAppearance(const eastl::fixed_vector<int, 12ul>& arg1,
+                                    const eastl::fixed_vector<int, 12ul>& arg2,
+                                    const eastl::fixed_vector<int, 5ul>& arg3, int arg4, int arg5) {
+        ReturnValue local_90;
 
-    // 0x100204940, 208 bytes, base-object constructor, placed by class name
-    // PlayerModel::PlayerModel(PlayerModel&)
-    void PlayerModel::PlayerModel(PlayerModel* param_1) {
-        new (this) eastl::fixed_vector<int, 12ul, true, eastl::allocator>();
-        new (&field_88) eastl::fixed_vector<int, 12ul, true, eastl::allocator>();
-        new (&field_176) eastl::fixed_vector<int, 5ul, true, eastl::allocator>();
-        new (&field_264) Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>();
-        field_288 = 0;
-        m_pronoun = 4294967295;
-        m_bodytype = 0;
-        SetAppearance(this, (fixed_vector*)&param_1->field_88, (fixed_vector*)param_1,
-                      (fixed_vector*)&param_1->field_176, param_1->m_bodytype, param_1->field_240);
-    }
-
-    // 0x100204a10, 304 bytes, placed by class name
-    // PlayerModel::SetAppearance(eastl::fixed_vector<int, 12ul, true, eastl::allocator> const&, eastl::fixed_vector<int, 12ul, true, eastl::allocator> const&, eastl::fixed_vector<int, 5ul, true, eastl::allocator> const&, int, int)
-    void PlayerModel::SetAppearance(fixed_vector* param_1, fixed_vector* param_2, fixed_vector* param_3, int param_4,
-                                    int param_5) {
-        char cVar1;
-        int iVar2;
-        PlayerModel* this_00;
-        fixed_vector<int, 12ul, true, eastl::allocator> local_90[88];
-        long local_38;
-
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        cVar1 = param_1->empty();
-        if (cVar1 == '\0') {
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::operator=(
-                (fixed_vector<int, 12ul, true, eastl::allocator>*)&field_88, param_1);
-            iVar2 = (int)param_1;
+        PlayerModel* this_00 = (PlayerModel*)arg1;
+        if (!(arg1.empty())) {
+            field_88 = arg1;
         } else {
-            this_00 = (PlayerModel*)local_90;
-            BuildDefaultAppearance(this_00, (int)param_1);
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::operator=(
-                (fixed_vector<int, 12ul, true, eastl::allocator>*)&field_88, (fixed_vector*)this_00);
-            iVar2 = (int)this_00;
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::~fixed_vector(local_90);
+            arg1 = &local_90;
+            BuildDefaultAppearance((ReturnValue*)arg1, this_00, arg4);
+            field_88 = arg1;
         }
-        cVar1 = param_2->empty();
-        if (cVar1 == '\0') {
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::operator=(
-                (fixed_vector<int, 12ul, true, eastl::allocator>*)this, param_2);
+        if (!(arg2.empty())) {
+            *this = arg2;
         } else {
-            BuildDefaultAppearance((PlayerModel*)local_90, iVar2);
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::operator=(
-                (fixed_vector<int, 12ul, true, eastl::allocator>*)this, (fixed_vector*)local_90);
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::~fixed_vector(local_90);
+            BuildDefaultAppearance(&local_90, (PlayerModel*)arg1, arg4);
+            *this = local_90;
         }
-        eastl::fixed_vector<int, 5ul, true, eastl::allocator>::operator=(
-            (fixed_vector<int, 5ul, true, eastl::allocator>*)&field_176, param_3);
-        m_bodytype = param_4;
-        field_240 = param_5;
-        CalcBaseId(this);
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
+        field_176 = arg3;
+        m_bodytype = arg4;
+        field_240 = arg5;
+        CalcBaseId();
     }
 
-    // 0x100204b40, 16 bytes, complete-object constructor, placed by class name
-    // PlayerModel::PlayerModel(PlayerModel&): jumps straight to the base-object constructor
-
-    // 0x100204b50, 96 bytes, placed by class name
-    // PlayerModel::BuildDefaultAppearance(int)
-    PlayerModel* PlayerModel::BuildDefaultAppearance(int param_1) {
-        int in_EDX;
-        int iVar1;
-
-        eastl::fixed_vector<int, 12ul, true, eastl::allocator>::fixed_vector((ulong)this);
-        iVar1 = 0;
+    // 0x100204b50
+    auto PlayerModel::BuildDefaultAppearance(int arg1) {
+        auto result(12);
+        int arg3 = 0;
         do {
-            SetDefaultTypeForIdkSlot(in_EDX, (fixed_vector*)this, iVar1);
-            iVar1 = iVar1 + 1;
-        } while (iVar1 != 7);
-        return this;
+            SetDefaultTypeForIdkSlot(arg1, &result, arg3);
+            arg3 = arg3 + 1;
+        } while (arg3 != 7);
+        return result;
     }
 
-    // 0x100204c60, 464 bytes, placed by class name
-    // PlayerModel::CalcBaseId()
+    // 0x100204c60
     void PlayerModel::CalcBaseId() {
-        undefined4 uVar1;
-        undefined4 uVar2;
-        ulong uVar3;
-        undefined4* puVar4;
-        int* piVar5;
-        ulong uVar6;
-        ulong uVar7;
+        int* piVar4;
+        long lVar5;
 
-        uVar3 = field_248;
-        puVar4 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 5);
-        uVar1 = *puVar4;
-        puVar4 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 9);
-        uVar2 = *puVar4;
-        puVar4 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 5);
-        *puVar4 = uVar2;
-        puVar4 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 9);
-        *puVar4 = uVar1;
-        field_248 = 0;
-        uVar7 = 0;
+        unsigned long long local_38 = *(unsigned long long*)field_248;
+        uint32_t* puVar3 = (uint32_t*)(*this)[5];
+        uint32_t uVar1 = *puVar3;
+        puVar3 = (uint32_t*)(*this)[9];
+        uint32_t uVar2 = *puVar3;
+        puVar3 = (uint32_t*)(*this)[5];
+        *puVar3 = uVar2;
+        puVar3 = (uint32_t*)(*this)[9];
+        *puVar3 = uVar1;
+        *(uint64_t*)field_248 = 0;
+        unsigned long uVar6 = 0;
         do {
-            field_248 = field_248 << 4;
-            piVar5 = (int*)eastl::
-                vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                    uVar7);
-            if (255 < *piVar5) {
-                piVar5 = (int*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                        uVar7);
-                field_248 = ((long)*piVar5 + field_248) - 256;
+            *(long*)field_248 = *(long*)field_248 << 4;
+            piVar4 = (int*)(*this)[uVar6];
+            if (255 < *piVar4) {
+                piVar4 = (int*)(*this)[uVar6];
+                *(long*)field_248 = (long)*piVar4 + *(long*)field_248 - 256;
             }
-            uVar7 = uVar7 + 1;
-        } while (uVar7 != 12);
-        piVar5 = (int*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 0);
-        if (255 < *piVar5) {
-            piVar5 = (int*)eastl::
-                vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 0);
-            field_248 = field_248 + (long)(*piVar5 + -256 >> 4);
+            uVar6 = uVar6 + 1;
+        } while (uVar6 != 12);
+        piVar4 = (int*)(*this)[0];
+        if (255 < *piVar4) {
+            piVar4 = (int*)(*this)[0];
+            *(long*)field_248 = *(long*)field_248 + (long)(*piVar4 - 256 >> 4);
         }
-        piVar5 = (int*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 1);
-        if (255 < *piVar5) {
-            piVar5 = (int*)eastl::
-                vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 1);
-            field_248 = field_248 + (long)(*piVar5 + -256 >> 8);
+        piVar4 = (int*)(*this)[1];
+        if (255 < *piVar4) {
+            piVar4 = (int*)(*this)[1];
+            *(long*)field_248 = *(long*)field_248 + (long)(*piVar4 - 256 >> 8);
         }
-        uVar7 = 0;
+        uVar6 = 0;
         do {
-            field_248 = field_248 << 3;
-            piVar5 = (int*)eastl::
-                vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)&field_176,
-                    uVar7);
-            uVar6 = (long)*piVar5 + field_248;
-            field_248 = uVar6;
-            uVar7 = uVar7 + 1;
-        } while (uVar7 != 5);
-        field_248 = (long)m_bodytype + uVar6 * 2;
-        puVar4 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 5);
-        *puVar4 = uVar1;
-        puVar4 = (undefined4*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this, 9);
-        *puVar4 = uVar2;
-        if (((uVar3 != 0) && (uVar3 != field_248)) || (field_288 != '\0')) {
-            LRUHashCache<DBTableIndex, 32ul, 33ul, false, unsigned long long>::Remove((ulonglong*)&m_modelCache);
+            *(long*)field_248 = *(long*)field_248 << 3;
+            piVar4 = &field_176[uVar6];
+            lVar5 = (long)*piVar4 + *(long*)field_248;
+            *(long*)field_248 = lVar5;
+            uVar6 = uVar6 + 1;
+        } while (uVar6 != 5);
+        *(long*)field_248 = (long)(int)m_bodytype + lVar5 * 2;
+        puVar3 = (uint32_t*)(*this)[5];
+        *puVar3 = uVar1;
+        puVar3 = (uint32_t*)(*this)[9];
+        *puVar3 = uVar2;
+        if (((local_38 != 0) && (local_38 != *(unsigned long long*)field_248)) || (field_288 != false)) {
+            m_modelCache.Remove(local_38);
         }
     }
 
-    // 0x100204e70, 304 bytes, placed by class name
-    // PlayerModel::IdkChangePart(int, bool)
-    void PlayerModel::IdkChangePart(int param_1, bool param_2) {
-        int* piVar2;
+    // 0x100204e70
+    void PlayerModel::IdkChangePart(int arg1, bool arg2) {
         long lVar3;
         int iVar4;
-        int iVar5;
-        shared_ptr<RSevenDebugPresetProvider> local_58[16];
-        ulong local_48;
-        int* local_40;
+        uint32_t in_register_00000034;
+        ReturnValue local_58;
 
-        local_40 = (int*)std::array<int, 7ul>::operator[]((long)param_1);
-        piVar2 = (int*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                (long)*local_40);
+        int* local_40 =
+            (int*)(*((array<int, 7ul>*)(long)arg1))[(((uint64_t)in_register_00000034 << 32) | (uint32_t)arg1)];
+        int* piVar2 = (int*)(*this)[(long)*local_40];
         if (*piVar2 == 0) {
             return;
         }
-        iVar5 = *piVar2 + -256;
-        local_48 = (ulong)(uint)param_1;
+        int arg1_00 = *piVar2 - 256;
+        unsigned long local_48 = (unsigned long)(unsigned int)arg1;
         do {
-            if (param_2) {
-                iVar5 = iVar5 + 1;
-                if (configdecoder::IdkType::m_numDefinitions <= iVar5) {
-                    iVar5 = 0;
+            if (arg2) {
+                arg1_00 = arg1_00 + 1;
+                if (configdecoder::IdkType::m_numDefinitions <= arg1_00) {
+                    arg1_00 = 0;
                 }
             } else {
-                if (iVar5 < 1) {
-                    iVar5 = configdecoder::IdkType::m_numDefinitions;
+                if (arg1_00 < 1) {
+                    arg1_00 = configdecoder::IdkType::m_numDefinitions;
                 }
-                iVar5 = iVar5 + -1;
+                arg1_00 = arg1_00 - 1;
             }
-            local_58->List(iVar5);
-            if ((operator!=((shared_ptr*)local_58, (_func_decltype_nullptr*)0)) &&
-                (lVar3 = shared_ptr<configdecoder::IdkType>::operator->((shared_ptr<configdecoder::IdkType>*)local_58),
-                 *(char*)(lVar3 + 148) == '\0')) {
-                piVar2 =
-                    (int*)shared_ptr<configdecoder::IdkType>::operator->((shared_ptr<configdecoder::IdkType>*)local_58);
-                iVar4 = param_1 + 7;
-                if (((PlayerModel*)this)->m_bodytype != 1) {
+            local_58 = configdecoder::IdkType::List(arg1_00);
+            if ((local_58 != nullptr) && (lVar3 = local_58.operator->(), *(char*)(lVar3 + 148) == '\0')) {
+                piVar2 = (int*)local_58.operator->();
+                iVar4 = arg1 + 7;
+                if (m_bodytype != 1) {
                     iVar4 = (int)local_48;
                 }
                 if (*piVar2 == iVar4) {
-                    local_58->~shared_ptr();
-                    piVar2 = (int*)
-                        eastl::vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                        operator[]((vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true,
-                                                                              eastl::allocator>>*)(PlayerModel*)this,
-                                   (long)*local_40);
-                    *piVar2 = iVar5 + 256;
-                    CalcBaseId((PlayerModel*)this);
+                    piVar2 = (int*)(*this)[(long)*local_40];
+                    *piVar2 = arg1_00 + 256;
+                    CalcBaseId();
                     return;
                 }
             }
-            local_58->~shared_ptr();
         } while (true);
     }
 
-    // 0x100204fa0, 208 bytes, placed by class name
-    // PlayerModel::IdkChangeColour(int, bool)
-    void PlayerModel::IdkChangeColour(int param_1, bool param_2) {
-        int* piVar1;
+    // 0x100204fa0
+    void PlayerModel::IdkChangeColour(int arg1, bool arg2) {
         vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar2;
-        char cVar3;
-        int iVar4;
-        undefined3 in_register_00000011;
-        int iVar5;
+        bool cVar3;
+        uint32_t in_register_00000011;
 
-        piVar1 = (int*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)&field_176,
-                (ulong)param_1);
-        iVar5 = *piVar1;
-        if (CONCAT31(in_register_00000011, param_2) == 0) {
+        int* piVar1 = &field_176[(unsigned long)arg1];
+        int arg2_00 = *piVar1;
+        if ((((uint32_t)in_register_00000011 << 8) | (uint8_t)arg2) == 0) {
             do {
-                if (iVar5 < 1) {
-                    pvVar2 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                        std::array<Array<short, eastl::allocator>, 5ul>::operator[](
-                            (array<Array<short, eastl::allocator>, 5ul>*)&m_recol1d, (ulong)param_1);
-                    iVar5 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar2);
+                if (arg2_00 < 1) {
+                    pvVar2 = &m_recol1d[(unsigned long)arg1];
+                    arg2_00 = pvVar2->end();
                 }
-                iVar5 = iVar5 + -1;
-                cVar3 = RecolsRunescape::IsRecolSelectable(param_1, iVar5);
-            } while (cVar3 == '\0');
+                arg2_00 = arg2_00 - 1;
+                cVar3 = RecolsRunescape::IsRecolSelectable(arg1, arg2_00);
+            } while (!cVar3);
         } else {
-            pvVar2 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                std::array<Array<short, eastl::allocator>, 5ul>::operator[](
-                    (array<Array<short, eastl::allocator>, 5ul>*)&m_recol1d, (ulong)param_1);
+            pvVar2 = &m_recol1d[(unsigned long)arg1];
             do {
-                iVar5 = iVar5 + 1;
-                iVar4 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar2);
-                if (iVar4 <= iVar5) {
-                    iVar5 = 0;
+                arg2_00 = arg2_00 + 1;
+                if (pvVar2->end() <= arg2_00) {
+                    arg2_00 = 0;
                 }
-                cVar3 = RecolsRunescape::IsRecolSelectable(param_1, iVar5);
-            } while (cVar3 == '\0');
+                cVar3 = RecolsRunescape::IsRecolSelectable(arg1, arg2_00);
+            } while (!cVar3);
         }
-        piVar1 = (int*)
-            eastl::vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                (vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)&field_176,
-                (ulong)param_1);
-        *piVar1 = iVar5;
-        CalcBaseId(this);
+        piVar1 = &field_176[(unsigned long)arg1];
+        *piVar1 = arg2_00;
+        CalcBaseId();
     }
 
-    // 0x1002050a0, 192 bytes, placed by class name
-    // PlayerModel::IdkChangeBodytype(int)
-    void PlayerModel::IdkChangeBodytype(int param_1) {
-        fixed_vector<int, 12ul, true, eastl::allocator> local_d0[88];
-        fixed_vector<int, 12ul, true, eastl::allocator> local_78[88];
-        long local_20;
+    // 0x1002050a0
+    void PlayerModel::IdkChangeBodytype(int arg1) {
+        fixed_vector<int, 12ul> local_d0;
+        fixed_vector<int, 12ul> local_78;
 
-        local_20 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        if (m_bodytype != param_1) {
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::fixed_vector(local_78);
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::fixed_vector(local_d0);
-            SetAppearance(this, (fixed_vector*)local_78, (fixed_vector*)local_d0, (fixed_vector*)&field_176, param_1,
-                          -1);
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::~fixed_vector(local_d0);
-            eastl::fixed_vector<int, 12ul, true, eastl::allocator>::~fixed_vector(local_78);
-        }
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_20) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
+        if (m_bodytype != arg1) {
+            local_78 = eastl::fixed_vector<int, 12ul>();
+            local_d0 = eastl::fixed_vector<int, 12ul>();
+            SetAppearance(this, &local_78, &local_d0, (fixed_vector<int, _5ul>*)&field_176, arg1, -1);
         }
     }
 
-    // 0x100205160, 160 bytes, placed by class name
-    // PlayerModel::IdkSaveDesign(PacketJ<Array<unsigned char, BucketAllocatorEASTL> >&)
-    void PlayerModel::IdkSaveDesign(PacketJ* param_1) {
+    // 0x100205160
+    void PlayerModel::IdkSaveDesign(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>& packetJ) {
         int* piVar1;
-        undefined4* puVar2;
-        ulong uVar3;
+        PublishingPlatformType* pPVar2;
+        PublishingPlatformType publishingPlatformType;
 
-        PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-            (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, m_bodytype);
+        unsigned long uVar3 = (unsigned long)m_bodytype;
+        packetJ.p1<shared::LoginProt::ID>(m_bodytype);
+        array<int, 7ul>* this_00 = nullptr;
+        do {
+            piVar1 = (int*)(*this_00)[uVar3];
+            piVar1 = (int*)(*this)[(long)*piVar1];
+            publishingPlatformType = -(unsigned int)(*piVar1 == 0) | *piVar1 - 256;
+            uVar3 = (unsigned long)publishingPlatformType;
+            packetJ.p1<shared::LoginProt::ID>(publishingPlatformType);
+            this_00 = this_00 + 1;
+        } while (this_00 != (array<int, 7ul>*)7);
         uVar3 = 0;
         do {
-            piVar1 = (int*)std::array<int, 7ul>::operator[](uVar3);
-            piVar1 = (int*)eastl::
-                vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)this,
-                    (long)*piVar1);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, -(uint)(*piVar1 == 0) | *piVar1 - 256U);
-            uVar3 = uVar3 + 1;
-        } while (uVar3 != 7);
-        uVar3 = 0;
-        do {
-            puVar2 = (undefined4*)eastl::
-                vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                    (vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)&field_176,
-                    uVar3);
-            PacketT<Array<unsigned char, BucketAllocatorEASTL>>::p1<shared::LoginProt::ID>(
-                (PacketT<Array<unsigned char, BucketAllocatorEASTL>>*)param_1, *puVar2);
+            pPVar2 = &field_176[uVar3];
+            packetJ.p1<shared::LoginProt::ID>(*pPVar2);
             uVar3 = uVar3 + 1;
         } while (uVar3 != 5);
     }
 
-    // 0x100205200, 3200 bytes, placed by class name
-    // PlayerModel::GetTempModel(configdecoder::SeqType*, int, configdecoder::SeqType*, int)
-    PlayerModel* PlayerModel::GetTempModel(SeqType* param_1, int param_2, SeqType* param_3, int param_4) {
-        undefined1* this_00;
-        short sVar1;
-        uint uVar2;
-        bool bVar3;
-        char cVar4;
-        int iVar5;
-        SeqType* pSVar6;
-        undefined4* puVar7;
-        int* piVar8;
-        shared_ptr* psVar9;
-        long* plVar10;
-        uint* puVar11;
-        IdkType* this_01;
-        ObjType* this_02;
-        shared_ptr<dash3d::ModelUnlit>* psVar12;
-        shared_ptr<configdecoder::ObjTypeCustomisation>* this_03;
-        long lVar13;
-        long lVar14;
-        ulong uVar15;
-        short* psVar16;
-        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar17;
-        undefined4 in_register_00000014;
-        ModelLit* pMVar18;
-        NpcUID* extraout_RDX;
-        ulong uVar19;
-        ulong uVar20;
-        undefined4 in_register_00000084;
-        uint in_R9D;
-        long lVar21;
-        int iVar22;
-        undefined8 in_stack_fffffffffffffed8;
-        undefined4 uVar23;
-        shared_ptr local_100;
-        ModelLit* local_f0;
-        shared_ptr local_e8;
-        uint local_cc;
-        ModelLit* local_c8;
-        Array<game::VarValue, eastl::allocator>* local_c0;
-        shared_ptr local_b8;
-        SeqType* local_a8;
-        undefined1 local_a0[104];
-        long local_38;
+    // 0x100205200
+    auto PlayerModel::GetTempModel(configdecoder::SeqType* seqType1, int arg2, configdecoder::SeqType* seqType2,
+                                   int arg4) {
+        uint8_t* puVar1;
+        short sVar2;
+        unsigned int uVar3;
+        unsigned int uVar4;
+        PlayerModel* pPVar5;
+        bool cVar7;
+        int iVar8;
+        SeqType* pSVar9;
+        uint32_t* puVar10;
+        int* piVar11;
+        unsigned int* puVar12;
+        long* plVar13;
+        IdkType* pIVar14;
+        ObjType* pOVar15;
+        shared_ptr<dash3d::ModelLit>* modelLit;
+        shared_ptr<dash3d::ModelUnlit>* psVar16;
+        shared_ptr<midi2::MidiPlayerMainThread>* midiPlayerMainThread;
+        shared_ptr<configdecoder::ObjTypeCustomisation>* this_00;
+        long lVar17;
+        long lVar18;
+        unsigned long uVar19;
+        short* psVar20;
+        vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>* pvVar21;
+        ModelLit* pMVar22;
+        unsigned long uVar23;
+        unsigned long uVar24;
+        int iVar26;
+        uint64_t in_stack_fffffffffffffed8;
+        uint32_t uVar27;
+        ReturnValue local_100;
+        ReturnValue local_e8;
+        Array<game::VarValue>* local_c0;
+        uint8_t local_a0[16];
 
-        local_f0 = (ModelLit*)CONCAT44(in_register_00000084, param_4);
-        pMVar18 = (ModelLit*)CONCAT44(in_register_00000014, param_2);
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
-        local_cc = in_R9D;
-        if (param_1->field_240 != 4294967295) {
-            ((local_a0 + 16))->List(param_1->field_240);
-            pSVar6 = (SeqType*)shared_ptr<configdecoder::NpcType>::operator->(
-                (shared_ptr<configdecoder::NpcType>*)(local_a0 + 16));
-            GetTempModel(pSVar6, param_2, (SeqType*)(ulong)(uint)param_3, (int)local_f0,
-                         (NPCTypeCustomisation*)(ulong)local_cc);
+        if (field_240 != 4294967295) {
+            *((local_a0 + 16)) = configdecoder::NpcType::List(field_240);
+            pSVar9 = (SeqType*)(*((local_a0 + 16))).operator->();
+            result = configdecoder::NpcType::GetTempModel(pSVar9, (int)seqType1,
+                                                          (SeqType*)(unsigned long)(unsigned int)arg2, (int)seqType2,
+                                                          (NPCTypeCustomisation*)(unsigned long)(unsigned int)arg4);
             ((local_a0 + 16))->~shared_ptr();
             goto LAB_100205cf5;
         }
-        lVar21 = *(long*)&param_1->field_248;
-        new ((local_a0 + 16)) eastl::fixed_vector<int, 12ul, true, eastl::allocator>(param_1);
-        local_c8 = pMVar18;
-        local_a8 = param_1;
-        if ((pMVar18 != (ModelLit*)0) &&
-            ((-1 < *(int*)((long)&pMVar18[13].field_8 + 3) || (-1 < *(int*)((long)&pMVar18[13].field_8 + 7))))) {
-            uVar19 = 0;
+        ReturnValue RVar25 = *(ReturnValue*)field_248;
+        new ((local_a0 + 16)) eastl::fixed_vector<int, 12ul>(this);
+        PlayerModel* local_a8 = this;
+        if ((seqType1 != nullptr) && ((-1 < (int)seqType1->field_232 || (-1 < (int)seqType1->field_236)))) {
+            uVar23 = 0;
             do {
-                puVar7 = (undefined4*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                            local_a8,
-                        uVar19);
-                uVar23 = *puVar7;
-                puVar7 = (undefined4*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int,
-                                eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)(local_a0 +
-                                                                                                              16),
-                        uVar19);
-                *puVar7 = uVar23;
-                uVar19 = uVar19 + 1;
-            } while (uVar19 != 12);
-            iVar22 = *(int*)((long)&local_c8[13].field_8 + 3);
-            if (-1 < iVar22) {
-                piVar8 = (int*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                            local_a8,
-                        5);
-                iVar5 = *piVar8;
-                uVar23 = *(undefined4*)((long)&local_c8[13].field_8 + 3);
-                puVar7 = (undefined4*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int,
-                                eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)(local_a0 +
-                                                                                                              16),
-                        5);
-                lVar21 = lVar21 + ((ulong)(uint)(iVar22 - iVar5) << 40);
-                *puVar7 = uVar23;
+                puVar10 = (uint32_t*)(*local_a8)[uVar23];
+                uVar27 = *puVar10;
+                puVar10 = (uint32_t*)(*((local_a0 + 16)))[uVar23];
+                *puVar10 = uVar27;
+                uVar23 = uVar23 + 1;
+            } while (uVar23 != 12);
+            uVar3 = seqType1->field_232;
+            if (-1 < (int)uVar3) {
+                piVar11 = (int*)(*local_a8)[5];
+                iVar26 = *piVar11;
+                uVar4 = seqType1->field_232;
+                puVar12 = (unsigned int*)(*((local_a0 + 16)))[5];
+                RVar25 = (ReturnValue)((long)RVar25 + ((unsigned long)(uVar3 - iVar26) << 40));
+                *puVar12 = uVar4;
             }
-            iVar22 = *(int*)((long)&local_c8[13].field_8 + 7);
-            if (-1 < iVar22) {
-                piVar8 = (int*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)
-                            local_a8,
-                        3);
-                iVar5 = *piVar8;
-                uVar23 = *(undefined4*)((long)&local_c8[13].field_8 + 7);
-                puVar7 = (undefined4*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int,
-                                eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)(local_a0 +
-                                                                                                              16),
-                        3);
-                lVar21 = lVar21 + ((ulong)(uint)(iVar22 - iVar5) << 48);
-                *puVar7 = uVar23;
+            uVar3 = seqType1->field_236;
+            if (-1 < (int)uVar3) {
+                piVar11 = (int*)(*local_a8)[3];
+                iVar26 = *piVar11;
+                uVar4 = seqType1->field_236;
+                puVar12 = (unsigned int*)(*((local_a0 + 16)))[3];
+                RVar25 = (ReturnValue)((long)RVar25 + ((unsigned long)(uVar3 - iVar26) << 48));
+                *puVar12 = uVar4;
             }
         }
-        pMVar18 = local_c8;
-        local_e8._0_8_ = lVar21;
-        psVar9 = (shared_ptr*)LRUHashCache<dash3d::ModelLit, 260ul, 261ul, false, unsigned long long>::Find(
-            (ulonglong*)&m_modelCache);
-        new (&local_b8) shared_ptr<dash3d::Decor>(psVar9);
-        bVar3 = operator!=(&local_b8, (_func_decltype_nullptr*)0);
-        if (bVar3) {
-            plVar10 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_b8);
-            cVar4 = (**(code**)(*plVar10 + 56))(plVar10);
-            if (dash3d::g_usingRSeven != cVar4) {
-                shared_ptr<dash3d::ModelLit>::reset();
+        pSVar9 = seqType1;
+        local_e8[0] = RVar25;
+        auto groundDecor = m_modelCache.Find(local_e8);
+        shared_ptr<dash3d::Decor> local_b8(groundDecor);
+        bool bVar6 = local_b8 != nullptr;
+        if (bVar6) {
+            plVar13 = (long*)local_b8.operator->();
+            cVar7 = (**(void (**)(...))(*plVar13 + 56))(plVar13);
+            if (dash3d::g_usingRSeven != cVar7) {
+                local_b8.reset();
             }
         }
-        psVar9 = (shared_ptr*)0;
-        bVar3 = operator==(&local_b8, (_func_decltype_nullptr*)0);
-        if (bVar3) {
-            uVar19 = 0;
-            bVar3 = false;
+        bVar6 = local_b8 == nullptr;
+        if (bVar6) {
+            uVar23 = 0;
+            bVar6 = false;
             do {
-                puVar11 = (uint*)eastl::
-                    vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::operator[](
-                        (vector<int,
-                                eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>*)(local_a0 +
-                                                                                                              16),
-                        uVar19);
-                uVar2 = *puVar11;
-                if ((uVar2 & 4294967040) == 256) {
-                    local_e8.List(uVar2 - 256);
-                    this_01 = (IdkType*)shared_ptr<configdecoder::IdkType>::operator->(
-                        (shared_ptr<configdecoder::IdkType>*)&local_e8);
-                    cVar4 = this_01->CheckModel();
-                    local_e8.~shared_ptr();
-                    if (cVar4 == '\0') {
-                        bVar3 = true;
+                puVar12 = (unsigned int*)(*((local_a0 + 16)))[uVar23];
+                uVar3 = *puVar12;
+                if ((uVar3 & 4294967040) == 256) {
+                    local_e8 = configdecoder::IdkType::List(uVar3 - 256);
+                    pIVar14 = (IdkType*)local_e8.operator->();
+                    cVar7 = pIVar14->CheckModel();
+                    if (!cVar7) {
+                        bVar6 = true;
                     }
-                    pMVar18 = local_c8;
+                    pSVar9 = seqType1;
                 }
-                if (511 < (int)uVar2) {
-                    local_e8.List(uVar2 - 512);
-                    this_02 = (ObjType*)shared_ptr<configdecoder::ObjType>::operator->(
-                        (shared_ptr<configdecoder::ObjType>*)&local_e8);
-                    cVar4 = this_02->CheckWearModel(*(int*)&local_a8[1].field_32);
-                    local_e8.~shared_ptr();
-                    if (cVar4 == '\0') {
-                        bVar3 = true;
+                if (511 < (int)uVar3) {
+                    local_e8 = configdecoder::ObjType::List(uVar3 - 512);
+                    pOVar15 = (ObjType*)local_e8.operator->();
+                    cVar7 = pOVar15->CheckWearModel(local_a8->m_bodytype);
+                    if (!cVar7) {
+                        bVar6 = true;
                     }
                 }
-                pSVar6 = local_a8;
-                uVar19 = uVar19 + 1;
-            } while (uVar19 != 12);
-            if (!bVar3) {
+                pPVar5 = local_a8;
+                uVar23 = uVar23 + 1;
+            } while (uVar23 != 12);
+            if (!bVar6) {
             LAB_1002055da:
-                psVar9 = (shared_ptr*)0;
-                bVar3 = operator==(&local_b8, (_func_decltype_nullptr*)0);
-                if (bVar3) {
-                    eastl::destruct<highlight::NpcUID*>((eastl*)local_a0, (NpcUID*)"EASTL vector", extraout_RDX);
-                    new (&local_e8) eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>(12, local_a0);
-                    pSVar6 = pSVar6 + 1;
-                    uVar19 = 0;
-                    iVar22 = 0;
+                bVar6 = local_b8 == nullptr;
+                if (bVar6) {
+                    local_a0->destruct<highlight::NpcUID*>();
+                    local_e8 = eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>(12, *local_a0);
+                    puVar1 = &pPVar5->field_264;
+                    uVar23 = 0;
+                    iVar26 = 0;
                     do {
-                        puVar11 = (uint*)eastl::vector<
-                            int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true, eastl::allocator>>::
-                        operator[]((vector<int, eastl::fixed_vector_allocator<4ul, 12ul, 4ul, 0ul, true,
-                                                                              eastl::allocator>>*)(local_a0 + 16),
-                                   uVar19);
-                        uVar2 = *puVar11;
-                        if ((uVar2 & 4294967040) == 256) {
-                            local_100.List(uVar2 - 256);
-                            shared_ptr<configdecoder::IdkType>::operator->(
-                                (shared_ptr<configdecoder::IdkType>*)&local_100);
-                            local_a0->GetModelNoCheck();
-                            local_100.~shared_ptr();
-                            bVar3 = operator!=((shared_ptr*)local_a0, (_func_decltype_nullptr*)0);
-                            if (bVar3) {
-                                psVar12 = (shared_ptr<dash3d::ModelUnlit>*)
-                                    eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>::operator[](
-                                        (vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>*)&local_e8,
-                                        (long)iVar22);
-                                shared_ptr<dash3d::ModelUnlit>::operator=(psVar12, (shared_ptr*)local_a0);
-                                iVar22 = iVar22 + 1;
+                        puVar12 = (unsigned int*)(*((local_a0 + 16)))[uVar23];
+                        uVar3 = *puVar12;
+                        if ((uVar3 & 4294967040) == 256) {
+                            local_100 = configdecoder::IdkType::List(uVar3 - 256);
+                            pIVar14 = (IdkType*)local_100.operator->();
+                            *local_a0 = pIVar14->GetModelNoCheck();
+                            bVar6 = *local_a0 != nullptr;
+                            if (bVar6) {
+                                psVar16 = &local_e8[(long)iVar26];
+                                *psVar16 = *local_a0;
+                                iVar26 = iVar26 + 1;
                             }
-                            local_a0->~shared_ptr();
                         }
-                        if (511 < (int)uVar2) {
-                            local_a0->List(uVar2 - 512);
-                            iVar5 = shared_ptr<configdecoder::ObjType>::operator->(
-                                (shared_ptr<configdecoder::ObjType>*)local_a0);
-                            local_100.GetWearModelNoCheck(iVar5);
-                            bVar3 = operator!=(&local_100, (_func_decltype_nullptr*)0);
-                            if ((bVar3) && (cVar4 = pSVar6->empty(), cVar4 == '\0')) {
-                                psVar9 = (shared_ptr*)
-                                    Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>::
-                                    operator[](
-                                        (Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>*)
-                                            pSVar6,
-                                        uVar19);
-                                bVar3 = operator!=(psVar9, (_func_decltype_nullptr*)0);
-                                if (bVar3) {
-                                    this_03 = (shared_ptr<configdecoder::ObjTypeCustomisation>*)
-                                        Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>::
-                                        operator[](
-                                            (Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>*)
-                                                pSVar6,
-                                            uVar19);
-                                    local_c0 = (Array<game::VarValue, eastl::allocator>*)
-                                        shared_ptr<configdecoder::ObjTypeCustomisation>::operator*(this_03);
-                                    cVar4 = local_c0->empty();
-                                    if (cVar4 == '\0') {
-                                        lVar13 = shared_ptr<configdecoder::ObjType>::operator->(
-                                            (shared_ptr<configdecoder::ObjType>*)local_a0);
-                                        cVar4 = ((lVar13 + 80))->empty();
-                                        if (cVar4 == '\0') {
-                                            lVar13 = shared_ptr<configdecoder::ObjType>::operator->(
-                                                (shared_ptr<configdecoder::ObjType>*)local_a0);
-                                            lVar13 = ((lVar13 + 104))->end();
-                                            lVar14 = local_c0->end();
-                                            if (lVar13 == lVar14) {
-                                                uVar20 = 0;
+                        if (511 < (int)uVar3) {
+                            *local_a0 = configdecoder::ObjType::List(uVar3 - 512);
+                            pOVar15 = (ObjType*)(*local_a0).operator->();
+                            local_100 = pOVar15->GetWearModelNoCheck(local_a8->m_bodytype);
+                            bVar6 = local_100 != nullptr;
+                            if ((bVar6) && (cVar7 = puVar1->empty(), !cVar7)) {
+                                midiPlayerMainThread = (shared_ptr<midi2::MidiPlayerMainThread>*)(*puVar1)[uVar23];
+                                bVar6 = *midiPlayerMainThread != nullptr;
+                                if (bVar6) {
+                                    this_00 = (shared_ptr<configdecoder::ObjTypeCustomisation>*)(*puVar1)[uVar23];
+                                    local_c0 = (Array<game::VarValue>*)**this_00;
+                                    cVar7 = local_c0->empty();
+                                    if (!cVar7) {
+                                        lVar17 = (*local_a0).operator->();
+                                        cVar7 = ((lVar17 + 80))->empty();
+                                        if (!cVar7) {
+                                            lVar17 = (*local_a0).operator->();
+                                            lVar17 = ((lVar17 + 104))->end();
+                                            lVar18 = local_c0->end();
+                                            if (lVar17 == lVar18) {
+                                                uVar24 = 0;
                                                 while (true) {
-                                                    lVar13 = shared_ptr<configdecoder::ObjType>::operator->(
-                                                        (shared_ptr<configdecoder::ObjType>*)local_a0);
-                                                    uVar15 = ((lVar13 + 80))->end();
-                                                    if (uVar15 <= uVar20)
+                                                    lVar17 = (*local_a0).operator->();
+                                                    uVar19 = ((lVar17 + 80))->end();
+                                                    if (uVar19 <= uVar24)
                                                         break;
-                                                    plVar10 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->(
-                                                        (shared_ptr<dash3d::ModelUnlit>*)&local_100);
-                                                    lVar13 = shared_ptr<configdecoder::ObjType>::operator->(
-                                                        (shared_ptr<configdecoder::ObjType>*)local_a0);
-                                                    psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                                                        (Array<short, eastl::allocator>*)(lVar13 + 104), uVar20);
-                                                    sVar1 = *psVar16;
-                                                    psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                                                        (Array<short, eastl::allocator>*)local_c0, uVar20);
-                                                    (**(code**)(*plVar10 + 160))(plVar10, (int)sVar1, (int)*psVar16);
-                                                    uVar20 = uVar20 + 1;
+                                                    plVar13 = (long*)local_100.operator->();
+                                                    lVar17 = (*local_a0).operator->();
+                                                    psVar20 = (short*)(*((lVar17 + 104)))[uVar24];
+                                                    sVar2 = *psVar20;
+                                                    psVar20 = (short*)(*local_c0)[uVar24];
+                                                    (**(void (**)(...))(*plVar13 + 160))(plVar13, (int)sVar2,
+                                                                                         (int)*psVar20);
+                                                    uVar24 = uVar24 + 1;
                                                 }
                                             }
                                         }
                                     }
                                     local_c0 = local_c0 + 24;
-                                    cVar4 = local_c0->empty();
-                                    if (cVar4 == '\0') {
-                                        lVar13 = shared_ptr<configdecoder::ObjType>::operator->(
-                                            (shared_ptr<configdecoder::ObjType>*)local_a0);
-                                        cVar4 = ((lVar13 + 128))->empty();
-                                        if (cVar4 == '\0') {
-                                            lVar13 = shared_ptr<configdecoder::ObjType>::operator->(
-                                                (shared_ptr<configdecoder::ObjType>*)local_a0);
-                                            lVar13 = ((lVar13 + 152))->end();
-                                            lVar14 = local_c0->end();
-                                            if (lVar13 == lVar14) {
-                                                uVar20 = 0;
+                                    cVar7 = local_c0->empty();
+                                    if (!cVar7) {
+                                        lVar17 = (*local_a0).operator->();
+                                        cVar7 = ((lVar17 + 128))->empty();
+                                        if (!cVar7) {
+                                            lVar17 = (*local_a0).operator->();
+                                            lVar17 = ((lVar17 + 152))->end();
+                                            lVar18 = local_c0->end();
+                                            if (lVar17 == lVar18) {
+                                                uVar24 = 0;
                                                 while (true) {
-                                                    lVar13 = shared_ptr<configdecoder::ObjType>::operator->(
-                                                        (shared_ptr<configdecoder::ObjType>*)local_a0);
-                                                    uVar15 = ((lVar13 + 128))->end();
-                                                    if (uVar15 <= uVar20)
+                                                    lVar17 = (*local_a0).operator->();
+                                                    uVar19 = ((lVar17 + 128))->end();
+                                                    if (uVar19 <= uVar24)
                                                         break;
-                                                    plVar10 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->(
-                                                        (shared_ptr<dash3d::ModelUnlit>*)&local_100);
-                                                    lVar13 = shared_ptr<configdecoder::ObjType>::operator->(
-                                                        (shared_ptr<configdecoder::ObjType>*)local_a0);
-                                                    psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                                                        (Array<short, eastl::allocator>*)(lVar13 + 152), uVar20);
-                                                    sVar1 = *psVar16;
-                                                    psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                                                        (Array<short, eastl::allocator>*)local_c0, uVar20);
-                                                    (**(code**)(*plVar10 + 168))(plVar10, (int)sVar1, (int)*psVar16);
-                                                    uVar20 = uVar20 + 1;
+                                                    plVar13 = (long*)local_100.operator->();
+                                                    lVar17 = (*local_a0).operator->();
+                                                    psVar20 = (short*)(*((lVar17 + 152)))[uVar24];
+                                                    sVar2 = *psVar20;
+                                                    psVar20 = (short*)(*local_c0)[uVar24];
+                                                    (**(void (**)(...))(*plVar13 + 168))(plVar13, (int)sVar2,
+                                                                                         (int)*psVar20);
+                                                    uVar24 = uVar24 + 1;
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
-                            psVar12 = (shared_ptr<dash3d::ModelUnlit>*)
-                                eastl::vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>::operator[](
-                                    (vector<shared_ptr<dash3d::ModelUnlit>, BucketAllocatorEASTL>*)&local_e8,
-                                    (long)iVar22);
-                            shared_ptr<dash3d::ModelUnlit>::operator=(psVar12, &local_100);
-                            iVar22 = iVar22 + 1;
-                            local_100.~shared_ptr();
-                            local_a0->~shared_ptr();
+                            psVar16 = &local_e8[(long)iVar26];
+                            *psVar16 = local_100;
+                            iVar26 = iVar26 + 1;
                         }
-                        uVar19 = uVar19 + 1;
-                    } while (uVar19 != 12);
-                    local_a0->Combine((vector*)&local_e8);
-                    this_00 = &local_a8->field_176;
-                    uVar19 = 0;
+                        uVar23 = uVar23 + 1;
+                    } while (uVar23 != 12);
+                    local_a0->Combine(local_e8);
+                    puVar1 = &local_a8->field_176;
+                    uVar23 = 0;
                     do {
-                        piVar8 = (int*)eastl::vector<
-                            int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                this_00,
-                            uVar19);
-                        iVar22 = *piVar8;
-                        pvVar17 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                            std::array<Array<short, eastl::allocator>, 5ul>::operator[](
-                                (array<Array<short, eastl::allocator>, 5ul>*)&m_recol1d, uVar19);
-                        iVar5 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar17);
-                        if (iVar22 < iVar5) {
-                            plVar10 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->(
-                                (shared_ptr<dash3d::ModelUnlit>*)local_a0);
-                            psVar16 =
-                                (short*)std::array<short, 5ul>::operator[]((array<short, 5ul>*)&m_recol1s, uVar19);
-                            sVar1 = *psVar16;
-                            piVar8 = (int*)eastl::vector<
-                                int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::
-                            operator[](
-                                (vector<int,
-                                        eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                    this_00,
-                                uVar19);
-                            psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                                (Array<short, eastl::allocator>*)pvVar17, (long)*piVar8);
-                            (**(code**)(*plVar10 + 160))(plVar10, (int)sVar1, (int)*psVar16);
+                        piVar11 = (int*)(*puVar1)[uVar23];
+                        iVar26 = *piVar11;
+                        pvVar21 = &m_recol1d[uVar23];
+                        iVar8 = pvVar21->end();
+                        if (iVar26 < iVar8) {
+                            plVar13 = (long*)(*local_a0).operator->();
+                            psVar20 = &m_recol1s[uVar23];
+                            sVar2 = *psVar20;
+                            piVar11 = (int*)(*puVar1)[uVar23];
+                            psVar20 = (short*)(*pvVar21)[(long)*piVar11];
+                            (**(void (**)(...))(*plVar13 + 160))(plVar13, (int)sVar2, (int)*psVar20);
                         }
-                        piVar8 = (int*)eastl::vector<
-                            int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::
-                        operator[](
-                            (vector<int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                this_00,
-                            uVar19);
-                        iVar22 = *piVar8;
-                        pvVar17 = (vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>*)
-                            std::array<Array<short, eastl::allocator>, 5ul>::operator[](
-                                (array<Array<short, eastl::allocator>, 5ul>*)&m_recol2d, uVar19);
-                        iVar5 = eastl::vector<dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(pvVar17);
-                        if (iVar22 < iVar5) {
-                            plVar10 = (long*)shared_ptr<dash3d::ModelUnlit>::operator->(
-                                (shared_ptr<dash3d::ModelUnlit>*)local_a0);
-                            psVar16 =
-                                (short*)std::array<short, 5ul>::operator[]((array<short, 5ul>*)&m_recol2s, uVar19);
-                            sVar1 = *psVar16;
-                            piVar8 = (int*)eastl::vector<
-                                int, eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>::
-                            operator[](
-                                (vector<int,
-                                        eastl::fixed_vector_allocator<4ul, 5ul, 4ul, 0ul, true, eastl::allocator>>*)
-                                    this_00,
-                                uVar19);
-                            psVar16 = (short*)Array<short, eastl::allocator>::operator[](
-                                (Array<short, eastl::allocator>*)pvVar17, (long)*piVar8);
-                            (**(code**)(*plVar10 + 160))(plVar10, (int)sVar1, (int)*psVar16);
+                        piVar11 = (int*)(*puVar1)[uVar23];
+                        iVar26 = *piVar11;
+                        pvVar21 = &m_recol2d[uVar23];
+                        iVar8 = pvVar21->end();
+                        if (iVar26 < iVar8) {
+                            plVar13 = (long*)(*local_a0).operator->();
+                            psVar20 = &m_recol2s[uVar23];
+                            sVar2 = *psVar20;
+                            piVar11 = (int*)(*puVar1)[uVar23];
+                            psVar20 = (short*)(*pvVar21)[(long)*piVar11];
+                            (**(void (**)(...))(*plVar13 + 160))(plVar13, (int)sVar2, (int)*psVar20);
                         }
-                        uVar23 = (undefined4)((ulong)in_stack_fffffffffffffed8 >> 32);
-                        uVar19 = uVar19 + 1;
-                    } while (uVar19 != 5);
-                    plVar10 =
-                        (long*)shared_ptr<dash3d::ModelUnlit>::operator->((shared_ptr<dash3d::ModelUnlit>*)local_a0);
-                    (**(code**)(*plVar10 + 72))(&local_100, plVar10, 64, 850, 4294967266, 4294967246,
-                                                CONCAT44(uVar23, 4294967266));
-                    shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_b8, &local_100);
-                    pSVar6 = local_a8;
-                    pMVar18 = local_c8;
-                    local_100.~shared_ptr();
-                    psVar9 = &local_b8;
-                    local_100._0_8_ = lVar21;
-                    m_modelCache.Put(psVar9, 1, (ulonglong*)&local_100);
-                    *(long*)&pSVar6->field_256 = lVar21;
-                    local_a0->~shared_ptr();
-                    local_e8.~vector();
+                        uVar27 = (uint32_t)((unsigned long)in_stack_fffffffffffffed8 >> 32);
+                        uVar23 = uVar23 + 1;
+                    } while (uVar23 != 5);
+                    plVar13 = (long*)(*local_a0).operator->();
+                    (**(void (**)(...))(*plVar13 + 72))(&local_100, plVar13, 64, 850, 4294967266, 4294967246,
+                                                        (((uint64_t)uVar27 << 32) | (uint32_t)4294967266));
+                    local_b8 = local_100;
+                    pPVar5 = local_a8;
+                    pSVar9 = seqType1;
+                    local_100[0] = RVar25;
+                    m_modelCache.Put(local_b8, 1, local_100);
+                    *(ReturnValue*)&pPVar5->field_256 = RVar25;
                 }
                 goto LAB_100205b7e;
             }
-            if (*(long*)&local_a8->field_256 != -1) {
-                local_e8._0_8_ = *(long*)&local_a8->field_256;
-                psVar9 = (shared_ptr*)LRUHashCache<dash3d::ModelLit, 260ul, 261ul, false, unsigned long long>::Find(
-                    (ulonglong*)&m_modelCache);
-                shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_b8, psVar9);
-                bVar3 = operator!=(&local_b8, (_func_decltype_nullptr*)0);
-                if (bVar3) {
-                    plVar10 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_b8);
-                    cVar4 = (**(code**)(*plVar10 + 56))(plVar10);
-                    if (dash3d::g_usingRSeven != cVar4) {
-                        shared_ptr<dash3d::ModelLit>::reset();
+            if (*(ReturnValue*)&local_a8->field_256 != (ReturnValue)18446744073709551615) {
+                local_e8[0] = *(ReturnValue*)&local_a8->field_256;
+                modelLit = (shared_ptr<dash3d::ModelLit>*)m_modelCache.Find(local_e8);
+                local_b8 = *modelLit;
+                bVar6 = local_b8 != nullptr;
+                if (bVar6) {
+                    plVar13 = (long*)local_b8.operator->();
+                    cVar7 = (**(void (**)(...))(*plVar13 + 56))(plVar13);
+                    if (dash3d::g_usingRSeven != cVar7) {
+                        local_b8.reset();
                     }
                 }
             }
-            bVar3 = operator==(&local_b8, (_func_decltype_nullptr*)0);
-            if (!bVar3)
+            bVar6 = local_b8 == nullptr;
+            if (!bVar6)
                 goto LAB_1002055da;
-            new (this) shared_ptr<worldmap::WorldmapAreaMetadata>(0);
+            auto result;
         } else {
         LAB_100205b7e:
-            new (&local_e8) shared_ptr<worldmap::WorldmapAreaMetadata>(psVar9);
-            if (pMVar18 == (ModelLit*)0 && local_f0 == (ModelLit*)0) {
-                plVar10 = (long*)shared_ptr<dash3d::ModelLit>::operator->((shared_ptr<dash3d::ModelLit>*)&local_b8);
-                (**(code**)(*plVar10 + 80))(local_a0, plVar10, 1, 1);
-                shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_e8,
-                                                        (shared_ptr*)local_a0);
-            } else if ((pMVar18 == (ModelLit*)0) || (local_f0 == (ModelLit*)0)) {
-                if (pMVar18 == (ModelLit*)0) {
-                    iVar22 = shared_ptr<dash3d::ModelLit>::operator*((shared_ptr<dash3d::ModelLit>*)&local_b8);
-                    local_a0->AnimateModel(local_f0, iVar22, local_cc);
-                    shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_e8,
-                                                            (shared_ptr*)local_a0);
+            local_e8 = shared_ptr();
+            if (pSVar9 == nullptr && seqType2 == nullptr) {
+                plVar13 = (long*)local_b8.operator->();
+                (**(void (**)(...))(*plVar13 + 80))(local_a0, plVar13, 1, 1);
+                local_e8 = *local_a0;
+            } else if ((pSVar9 == nullptr) || (seqType2 == nullptr)) {
+                if (pSVar9 == nullptr) {
+                    pMVar22 = (ModelLit*)*local_b8;
+                    *local_a0 = seqType2->AnimateModel(*pMVar22, (unsigned int)arg4, 1);
+                    local_e8 = *local_a0;
                 } else {
-                    iVar22 = shared_ptr<dash3d::ModelLit>::operator*((shared_ptr<dash3d::ModelLit>*)&local_b8);
-                    local_a0->AnimateModel(pMVar18, iVar22, (uint)param_3);
-                    shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_e8,
-                                                            (shared_ptr*)local_a0);
+                    pMVar22 = (ModelLit*)*local_b8;
+                    *local_a0 = pSVar9->AnimateModel(*pMVar22, (unsigned int)arg2, 1);
+                    local_e8 = *local_a0;
                 }
             } else {
-                iVar22 = shared_ptr<dash3d::ModelLit>::operator*((shared_ptr<dash3d::ModelLit>*)&local_b8);
-                local_a0->SplitAnimateModel(pMVar18, iVar22, (SeqType*)(ulong)(uint)param_3, (int)local_f0);
-                shared_ptr<dash3d::ModelLit>::operator=((shared_ptr<dash3d::ModelLit>*)&local_e8,
-                                                        (shared_ptr*)local_a0);
+                iVar26 = *local_b8;
+                local_a0->SplitAnimateModel(*pSVar9, iVar26, *((SeqType*)(unsigned long)(unsigned int)arg2),
+                                            (int)seqType2);
+                local_e8 = *local_a0;
             }
-            local_a0->~shared_ptr();
-            shared_ptr<RSevenDebugPresetProvider>::shared_ptr<FileRSevenDebugPresetProvider, void>(
-                (shared_ptr<RSevenDebugPresetProvider>*)this, &local_e8);
-            local_e8.~shared_ptr();
+            result.shared_ptr<FileRSevenDebugPresetProvider, void>(local_e8);
         }
-        local_b8.~shared_ptr();
         ((local_a0 + 16))->~fixed_vector();
     LAB_100205cf5:
-        if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-            /* WARNING: Subroutine does not return */
-            ___stack_chk_fail();
-        }
-        return this;
+        return result;
     }
 
-    // 0x1002061d0, 240 bytes, placed by class name
-    // PlayerModel::GetHeadModelCacheId()
+    // 0x1002061d0
     int PlayerModel::GetHeadModelCacheId() {
-        shared_ptr* this_00;
         int* piVar2;
-        shared_ptr local_30;
-        ulong local_20;
+        ReturnValue local_30;
         int local_14;
 
-        local_20 = field_248;
-        if ((ulong)field_240 != 4294967295) {
-            local_20 = (ulong)field_240 | 18446744073709486080;
+        unsigned long local_20 = *(unsigned long*)field_248;
+        if ((unsigned long)field_240 != 4294967295) {
+            local_20 = (unsigned long)field_240 | 18446744073709486080;
         }
-        this_00 = (shared_ptr*)LRUHashCache<int, 16ul, 17ul, false, unsigned long long>::Find(
-            (ulonglong*)&m_headModelHashToModelCacheID);
-        if (operator==(this_00, (_func_decltype_nullptr*)0)) {
+        auto objType = m_headModelHashToModelCacheID.Find(local_20);
+        if (*objType == nullptr) {
             local_14 = m_nextHeadModelCacheID;
             m_nextHeadModelCacheID = m_nextHeadModelCacheID + 1;
-            make_shared<int, int&>((jag*)&local_30, &local_14);
-            m_headModelHashToModelCacheID.Put(&local_30, 1, &local_20);
-            local_30.~shared_ptr();
+            make_shared<int, int&>(&local_30, &local_14);
+            m_headModelHashToModelCacheID.Put(local_30, 1, local_20);
             m_nextHeadModelCacheID = m_nextHeadModelCacheID % 65535;
         } else {
-            piVar2 = (int*)shared_ptr<int>::operator*((shared_ptr<int>*)this_00);
+            piVar2 = (int*)**objType;
             local_14 = *piVar2;
         }
         return local_14;
     }
 
-    // 0x100206530, 32 bytes, placed by class name
-    // PlayerModel::ResetCache()
+    // 0x100206530
     void PlayerModel::ResetCache() {
         m_modelCache.Reset();
     }
 
-    // 0x100206590, 112 bytes, placed by class name
-    // PlayerModel::SetAppearance(eastl::fixed_vector<int, 12ul, true, eastl::allocator> const&, eastl::fixed_vector<int, 12ul, true, eastl::allocator> const&, Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>, bool, eastl::fixed_vector<int, 5ul, true, eastl::allocator> const&, int, int, int)
-    void PlayerModel::SetAppearance(fixed_vector* param_1, fixed_vector* param_2, Array* param_4, undefined1 param_5,
-                                    fixed_vector* param_6, int param_7, int param_8, undefined4 param_9) {
-        Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>::operator=(
-            (Array<shared_ptr<configdecoder::ObjTypeCustomisation>, eastl::allocator>*)&field_264, param_4);
-        field_288 = param_5;
-        m_pronoun = param_9;
-        SetAppearance(this, param_1, param_2, param_6, param_7, param_8);
-    }
-
-    // 0x100226de0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.81
-    void ___cxx_global_var_init_81() {
-        new (&PlayerModel::m_recol1d) std::array<Array<short, eastl::allocator>, 5ul>();
-        ___cxa_atexit(PTR__array_100ee6ea8, &PlayerModel::m_recol1d, 4294967296);
-    }
-
-    // 0x100226e20, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.82
-    void ___cxx_global_var_init_82() {
-        new (&PlayerModel::m_recol2d) std::array<Array<short, eastl::allocator>, 5ul>();
-        ___cxa_atexit(PTR__array_100ee6ea8, &PlayerModel::m_recol2d, 4294967296);
-    }
-
-    // 0x100226ea0, 64 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.85
-    void ___cxx_global_var_init_85() {
-        new (&PlayerModel::m_headModelHashToModelCacheID)
-            LRUHashCache<int, 16ul, 17ul, false, unsigned long long>(16, "LRUHashCache");
-        ___cxa_atexit(PTR__LRUHashCache_100ee5918, &PlayerModel::m_headModelHashToModelCacheID, 4294967296);
+    // 0x100206590
+    void PlayerModel::SetAppearance(const eastl::fixed_vector<int, 12ul>& arg1,
+                                    const eastl::fixed_vector<int, 12ul>& arg2,
+                                    Array<shared_ptr<configdecoder::ObjTypeCustomisation>> objTypeCustomisations,
+                                    bool arg4, const eastl::fixed_vector<int, 5ul>& arg5, int arg6, int arg7,
+                                    int arg8) {
+        field_264 = *objTypeCustomisations;
+        field_288 = arg4;
+        m_pronoun = arg8;
+        SetAppearance(this, arg1, arg2, arg5, arg6, arg7);
     }
 
 } // namespace jag::oldscape::rs2lib

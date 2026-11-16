@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/LinkMap.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,68 +7,58 @@ namespace jag::game {
     class LinkMap {
     public:
         LinkMap();
-        void IsLinkBelow(CoordGrid const&) const;
-        void GetTileLinkZero(CoordGrid const&) const;
-        int GetTileLinkZero(int, int, int) const;
-        void IsRemoveRoof(CoordGrid const&) const;
-        void Setup(eastl::vector<eastl::vector<MapSquareStatus, eastl::allocator>, eastl::allocator>*, int, int, int,
-                   int);
-        GetTileLink(int, int, int) const;
-        GetRemoveRoofID(int, int, int) const;
-        byte IsLinkBelow(int, int) const;
-        byte IsRemoveRoof(int, int, int) const;
-        bool IsVisibleFromLevel(int, int, int, int) const;
+        void IsLinkBelow(const CoordGrid& coordGrid) const;
+        void GetTileLinkZero(const CoordGrid& coordGrid) const;
+        int GetTileLinkZero(int arg1, int arg2, int arg3) const;
+        void IsRemoveRoof(const CoordGrid& coordGrid) const;
+        void Setup(eastl::vector<eastl::vector<MapSquareStatus>>* mapSquareStatusss, int arg2, int arg3, int arg4,
+                   int arg5);
+        uint32_t GetTileLink(int arg1, int arg2, int arg3) const;
+        uint32_t GetRemoveRoofID(int arg1, int arg2, int arg3) const;
+        bool IsLinkBelow(int arg1, int arg2) const;
+        bool IsRemoveRoof(int arg1, int arg2, int arg3) const;
+        bool IsVisibleFromLevel(int arg1, int arg2, int arg3, int arg4) const;
 
-        // data members, from how the methods use this: 28 bytes
-        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true, eastl::allocator>>* field_0; // offset 0
-        int field_8;                                                                                     // offset 8
-        int field_12;                                                                                    // offset 12
-        int field_16;                                                                                    // offset 16
-        int field_20;                                                                                    // offset 20
-        char _unknown_24[4];
+    private:
+        vector<int, eastl::fixed_vector_allocator<4ul, 8ul, 4ul, 0ul, true>>* field_0;
+        int field_8;
+        int field_12;
+        int field_16;
+        int field_20;
+        uint8_t _unknown_24[4];
     };
 
-    // 0x1003f5dc0, 32 bytes, inline, placed by class name and debug map
-    // LinkMap::IsLinkBelow(CoordGrid const&) const
-    void LinkMap::IsLinkBelow(CoordGrid* param_1) {
-        IsLinkBelow(this, param_1->field_4, param_1->field_8);
+    // 0x1003f5dc0
+    void LinkMap::IsLinkBelow(const CoordGrid& coordGrid) const {
+        IsLinkBelow(coordGrid.field_4, coordGrid.field_8);
     }
 
-    // 0x100430ae0, 32 bytes, inline, placed by class name
-    // LinkMap::GetTileLinkZero(CoordGrid const&) const
-    void LinkMap::GetTileLinkZero(CoordGrid* param_1) {
-        GetTileLinkZero(this, param_1->field_0, param_1->field_4, param_1->field_8);
+    // 0x100430ae0
+    void LinkMap::GetTileLinkZero(const CoordGrid& coordGrid) const {
+        GetTileLinkZero(coordGrid.field_0, coordGrid.field_4, coordGrid.field_8);
     }
 
-    // 0x100430b10, 32 bytes, inline, placed by class name
-    // LinkMap::GetTileLinkZero(int, int, int) const
-    int LinkMap::GetTileLinkZero(int param_1, int param_2, int param_3) {
-        int iVar1;
-
-        iVar1 = GetTileLink(this, param_1, param_2, param_3);
+    // 0x100430b10
+    int LinkMap::GetTileLinkZero(int arg1, int arg2, int arg3) const {
+        int iVar1 = GetTileLink(arg1, arg2, arg3);
         if (iVar1 == -1) {
             iVar1 = 0;
         }
         return iVar1;
     }
 
-    // 0x100443f30, 32 bytes, inline, placed by class name
-    // LinkMap::IsRemoveRoof(CoordGrid const&) const
-    void LinkMap::IsRemoveRoof(CoordGrid* param_1) {
-        IsRemoveRoof(this, param_1->field_0, param_1->field_4, param_1->field_8);
+    // 0x100443f30
+    void LinkMap::IsRemoveRoof(const CoordGrid& coordGrid) const {
+        IsRemoveRoof(coordGrid.field_0, coordGrid.field_4, coordGrid.field_8);
     }
 
 } // namespace jag::game
 
 namespace jag::math {
-    // 0x1003f64a0, 48 bytes, inline, placed by debug map only (low confidence)
-    // bool operator==<double>(Vector3T<double> const&, Vector3T<double> const&)
-    /* bool TEMPNAMEPLACEHOLDERVALUE(Vector3T<double> const&,
-   Vector3T<double> const&) */
-
-    bool operator==(Vector3T* param_1, Vector3T* param_2) {
-        if ((*(double*)param_1 == *(double*)param_2) && (*(double*)(param_1 + 8) == *(double*)(param_2 + 8))) {
-            return *(double*)(param_1 + 16) == *(double*)(param_2 + 16);
+    // 0x1003f64a0
+    bool operator== <double>(const Vector3T<double>& vector31, const Vector3T<double>& vector32) {
+        if ((*(double*)vector31 == *(double*)vector32) && (*(double*)(vector31 + 8) == *(double*)(vector32 + 8))) {
+            return *(double*)(vector31 + 16) == *(double*)(vector32 + 16);
         }
         return false;
     }

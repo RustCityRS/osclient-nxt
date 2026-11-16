@@ -1,74 +1,60 @@
 // libs/hal/audio/AudioSend.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.audio
 
 #include "AudioSend.h"
 
 namespace jag::hal::audio {
-    // 0x100009ca0: the linker folded this into eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first(), which has identical code
-    AudioSend::GetDestinationBuss() const;
+    // 0x100009ca0: AudioSend::GetDestinationBuss() const has the same machine code as eastl::compressed_pair_imp<eastl::string::Layout, eastl::allocator, 0>::first()
 
-    // 0x1001e0d50: the linker folded this into AudioAPI::~AudioAPI(), which has identical code
-    AudioSend::~AudioSend();
+    // 0x1001e0d60: AudioSend::~AudioSend() has the same machine code as AudioAPI::~AudioAPI()
 
-    // 0x1001e0d60: the linker folded this into AudioAPI::~AudioAPI(), which has identical code
-    AudioSend::~AudioSend();
+    // 0x10037b8d0: AudioSend::Resume() has the same machine code as eastl::Internal::optional_storage<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<unsigned short>>, false>::optional_storage()
 
-    // 0x10037b8d0: the linker folded this into eastl::Internal::optional_storage<eastl::vector_set<unsigned short, eastl::less<unsigned short>, eastl::allocator, eastl::vector<unsigned short, eastl::allocator> >, false>::optional_storage(), which has identical code
-    AudioSend::Resume();
-
-    // 0x100b8fe70, 336 bytes, placed by class name and debug map
-    // AudioSend::Mix(AudioBuffer*, bool)
-    uint AudioSend::Mix(AudioBuffer* param_1, bool param_2) {
-        bool bVar1;
-        char cVar2;
-        uint uVar3;
-        AudioBuss* pAVar4;
-        shared_ptr* psVar5;
+    // 0x100b8fe70
+    unsigned int AudioSend::Mix(AudioBuffer* audioBuffer, bool arg2) {
+        bool cVar1;
+        AudioBuss* pAVar2;
+        shared_ptr<oldscape::dash3d::GroundDecor>* groundDecor;
         shared_ptr<AudioBufferHandler>* this_00;
-        AudioBufferHandler* this_01;
-        float fVar6;
-        shared_ptr local_48;
+        float fVar3;
+        shared_ptr<oldscape::dash3d::Decor> local_48;
         float local_34;
 
-        uVar3 = 0;
+        unsigned int arg1 = 0;
         if (field_40 == '\0') {
-            bVar1 = operator_cast_to_bool();
-            if (bVar1) {
-                bVar1 = field_16->operator_cast_to_bool();
-                if (bVar1) {
-                    pAVar4 = (AudioBuss*)shared_ptr<AudioBuss>::operator->((shared_ptr<AudioBuss>*)this);
-                    local_34 = (float)pAVar4->GetTotalGainOfChain();
-                    fVar6 = (float)field_32->GetGain();
-                    local_34 = fVar6 * local_34;
-                    (field_32, param_2)->NotifyDebugRegistration();
-                    cVar2 = field_32->IsEncoded();
-                    pAVar4 = (AudioBuss*)shared_ptr<AudioBuss>::operator->((shared_ptr<AudioBuss>*)field_16);
-                    if (cVar2 == '\0') {
-                        psVar5 = (shared_ptr*)field_32->GetLogStreams();
-                        new (&local_48) shared_ptr<oldscape::dash3d::Decor>(psVar5);
-                        fVar6 = (float)field_32->GetMainRenderTargetScaleFactor();
-                        uVar3 = pAVar4->MixFromBufferWithResample(&local_48, param_2, local_34, fVar6);
-                        local_48.~shared_ptr();
+            cVar1 = operator_cast_to_bool();
+            if (cVar1) {
+                cVar1 = field_16->operator_cast_to_bool();
+                if (cVar1) {
+                    pAVar2 = (AudioBuss*)(*this).operator->();
+                    local_34 = (float)pAVar2->GetTotalGainOfChain();
+                    fVar3 = (float)field_32->GetGain();
+                    local_34 = fVar3 * local_34;
+                    field_32->NotifyDebugRegistration(arg2);
+                    cVar1 = field_32->IsEncoded();
+                    pAVar2 = (AudioBuss*)(*field_16).operator->();
+                    if (!cVar1) {
+                        groundDecor = (shared_ptr<oldscape::dash3d::GroundDecor>*)field_32->GetLogStreams();
+                        local_48 = shared_ptr(groundDecor);
+                        fVar3 = (float)field_32->GetMainRenderTargetScaleFactor();
+                        arg1 = pAVar2->MixFromBufferWithResample(local_48, arg2, local_34, fVar3);
                         this_00 = (shared_ptr<AudioBufferHandler>*)field_32->GetLogStreams();
-                        this_01 = (AudioBufferHandler*)shared_ptr<AudioBufferHandler>::operator->(this_00);
-                        this_01->ConsumedSamples(uVar3);
+                        ((AudioBufferHandler*)(*this_00).operator->())->ConsumedSamples(arg1);
                     } else {
-                        uVar3 = pAVar4->MixFromBuffer(param_1, param_2, local_34);
-                        param_1->ConsumedSamples(uVar3, true);
+                        arg1 = pAVar2->MixFromBuffer(audioBuffer, arg2, local_34);
+                        audioBuffer->ConsumedSamples(arg1, true);
                     }
                 }
             }
         }
-        return uVar3;
+        return arg1;
     }
 
-    // 0x100b90030, 16 bytes, placed by class name
-    // AudioSend::Free()
+    // 0x100b90030
     void AudioSend::Free() {
         field_40 = 0;
-        shared_ptr<AudioBuss>::reset();
+        reset();
     }
 
 } // namespace jag::hal::audio

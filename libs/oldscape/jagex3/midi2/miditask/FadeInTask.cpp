@@ -1,85 +1,71 @@
 // libs/oldscape/jagex3/midi2/miditask/FadeInTask.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "FadeInTask.h"
 
 namespace jag::oldscape::midi2 {
-    // 0x1002d9670, 112 bytes, base-object constructor, placed by class name and debug map
-    // FadeInTask::FadeInTask(shared_ptr<MidiTask> const&, shared_ptr<MidiRequest> const&, int)
-    void FadeInTask::FadeInTask(shared_ptr* param_1, shared_ptr* param_2, int param_3) {
-        new (this) MidiTask(param_1);
-        field_0 = &PTR__FadeInTask_100efa378;
-        new (field_96, param_2) shared_ptr<dash3d::Decor>();
-        field_112 = param_3;
-        (&field_56, "FadeInTask")->assign();
+    // 0x1002d9670
+    FadeInTask::FadeInTask(const shared_ptr<MidiTask>& midiTask, const shared_ptr<MidiRequest>& midiRequest, int arg3)
+        : MidiTask(midiTask), field_96(midiRequest), field_112(arg3) {
+        (&field_56)->assign("FadeInTask");
     }
 
-    // 0x1002d96e0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // FadeInTask::FadeInTask(shared_ptr<MidiTask> const&, shared_ptr<MidiRequest> const&, int): jumps straight to the base-object constructor
-
-    // 0x1002d96f0, 400 bytes, placed by class name and debug map
-    // FadeInTask::Execute()
-    ulong FadeInTask::Execute() {
-        undefined1* this_00;
+    // 0x1002d96f0
+    unsigned long FadeInTask::Execute() {
         int iVar1;
-        bool bVar2;
         long lVar4;
         long* plVar5;
-        undefined8* puVar6;
-        undefined8 unaff_R15;
-        ulong uVar7;
+        uint64_t* puVar6;
+        uint64_t unaff_R15;
         float fVar8;
 
-        this_00 = field_96;
-        bVar2 = operator==((shared_ptr*)this_00, (_func_decltype_nullptr*)0);
-        uVar7 = CONCAT71((int7)((ulong)unaff_R15 >> 8), 1);
+        uint8_t* objType = &field_96;
+        bool bVar2 = *objType == nullptr;
+        unsigned long uVar7 = (((uint64_t)((int64_t)((unsigned long)unaff_R15 >> 8)) << 8) | (uint8_t)1);
         if (!bVar2) {
-            lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
-            bVar2 = operator==((shared_ptr*)(lVar4 + 32), (_func_decltype_nullptr*)0);
+            lVar4 = (*objType).operator->();
+            bVar2 = (*((lVar4 + 32))) == nullptr;
             if (!bVar2) {
-                lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
-                *(undefined1*)(lVar4 + 27) = 1;
-                lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
+                lVar4 = (*objType).operator->();
+                *(uint8_t*)(lVar4 + 27) = 1;
+                lVar4 = (*objType).operator->();
                 fVar8 = *(float*)(lVar4 + 20);
-                lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
+                lVar4 = (*objType).operator->();
                 if (fVar8 < (float)*(int*)(lVar4 + 16)) {
-                    lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
-                    plVar5 = (long*)shared_ptr<MidiPlayerMainThread>::operator->(
-                        (shared_ptr<MidiPlayerMainThread>*)(lVar4 + 32));
-                    if ((**(code**)(*plVar5 + 32))(plVar5) != '\0') {
+                    lVar4 = (*objType).operator->();
+                    plVar5 = (long*)(*((lVar4 + 32))).operator->();
+                    if ((**(void (**)(...))(*plVar5 + 32))(plVar5) != '\0') {
                         fVar8 = 0.0;
                         if (field_112 != 0) {
-                            lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
+                            lVar4 = (*objType).operator->();
                             fVar8 = (float)*(int*)(lVar4 + 16) / (float)field_112;
                         }
                         if (fVar8 == 0.0) {
-                            lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
+                            lVar4 = (*objType).operator->();
                             fVar8 = (float)*(int*)(lVar4 + 16);
                         }
-                        lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
+                        lVar4 = (*objType).operator->();
                         *(float*)(lVar4 + 20) = fVar8 + *(float*)(lVar4 + 20);
-                        lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
+                        lVar4 = (*objType).operator->();
                         fVar8 = *(float*)(lVar4 + 20);
-                        lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
+                        lVar4 = (*objType).operator->();
                         if ((float)*(int*)(lVar4 + 16) < fVar8) {
-                            lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
+                            lVar4 = (*objType).operator->();
                             iVar1 = *(int*)(lVar4 + 16);
-                            lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
+                            lVar4 = (*objType).operator->();
                             *(float*)(lVar4 + 20) = (float)iVar1;
                         }
-                        lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
-                        puVar6 = (undefined8*)shared_ptr<MidiPlayerMainThread>::operator->(
-                            (shared_ptr<MidiPlayerMainThread>*)(lVar4 + 32));
-                        lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
-                        (**(code**)*puVar6)(puVar6, (int)*(float*)(lVar4 + 20));
+                        lVar4 = (*objType).operator->();
+                        puVar6 = (uint64_t*)(*((lVar4 + 32))).operator->();
+                        lVar4 = (*objType).operator->();
+                        (**(void (**)(...))*puVar6)(puVar6, (int)*(float*)(lVar4 + 20));
                         uVar7 = 0;
                         goto LAB_1002d9872;
                     }
                 }
-                lVar4 = shared_ptr<MidiRequest>::operator->((shared_ptr<MidiRequest>*)this_00);
-                *(undefined1*)(lVar4 + 27) = 0;
+                lVar4 = (*objType).operator->();
+                *(uint8_t*)(lVar4 + 27) = 0;
             }
         }
     LAB_1002d9872:

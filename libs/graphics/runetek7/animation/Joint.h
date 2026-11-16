@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/animation/Joint.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: osclient
@@ -8,265 +7,210 @@
 namespace jag::graphics {
     class Joint {
     public:
-        GetWorldBindInverse() const;
-        Joint(PacketT<Array<unsigned char, eastl::allocator>>&, short);
+        auto GetWorldBindInverse() const;
+        Joint(PacketT<Array<unsigned char>>& arg1, short arg2);
         void CalculateWorldBind();
-        Joint* operator=(Joint&&);
-        void SetParentJointID(short);
+        Joint* operator=(Joint&& joint);
+        void SetParentJointID(short arg1);
         int GetParentJointID() const;
-        void SetParentJoint(Joint*);
-        GetWorldBind() const;
-        GetParentJoint() const;
-        GetLocalBindTranslate() const;
-        GetLocalBindInverse() const;
-        GetLocalBindRotate() const;
-        GetLocalBindScale() const;
+        void SetParentJoint(Joint* joint);
+        auto GetWorldBind() const;
+        Joint* GetParentJoint() const;
+        uint64_t GetLocalBindTranslate() const;
+        auto GetLocalBindInverse() const;
+        uint64_t GetLocalBindRotate() const;
+        uint64_t GetLocalBindScale() const;
         Joint();
 
-        // data members, from how the methods use this: 320 bytes
-        undefined8 field_0;   // offset 0
-        undefined8 field_8;   // offset 8
-        undefined8 field_16;  // offset 16
-        undefined8 field_24;  // offset 24
-        undefined8 field_32;  // offset 32
-        undefined8 field_40;  // offset 40
-        undefined8 field_48;  // offset 48
-        undefined8 field_56;  // offset 56
-        undefined8 field_64;  // offset 64
-        undefined8 field_72;  // offset 72
-        undefined8 field_80;  // offset 80
-        undefined8 field_88;  // offset 88
-        undefined8 field_96;  // offset 96
-        undefined8 field_104; // offset 104
-        undefined8 field_112; // offset 112
-        undefined8 field_120; // offset 120
-        undefined8 field_128; // offset 128
-        undefined8 field_136; // offset 136
-        undefined8 field_144; // offset 144
-        undefined8 field_152; // offset 152
-        undefined8 field_160; // offset 160
-        undefined8 field_168; // offset 168
-        undefined8 field_176; // offset 176
-        undefined8 field_184; // offset 184
-        undefined8 field_192; // offset 192
-        undefined8 field_200; // offset 200
-        undefined8 field_208; // offset 208
-        undefined8 field_216; // offset 216
-        undefined8 field_224; // offset 224
-        undefined8 field_232; // offset 232
-        undefined8 field_240; // offset 240
-        undefined8 field_248; // offset 248
-        undefined8 field_256; // offset 256
-        undefined4 field_264; // offset 264
-        char _unknown_268[4];
-        uint field_272; // offset 272
-        char _unknown_276[4];
-        undefined8 m_localBindTranslate; // offset 280
-        char _unknown_288[4];
-        undefined8 m_localBindScale; // offset 292
-        char _unknown_300[4];
-        undefined* m_pParentJoint; // offset 304
-        short m_parentJointID;     // offset 312
-        char _unknown_314[6];
+    private:
+        uint64_t field_0;
+        uint64_t field_8;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint64_t field_32;
+        uint64_t field_40;
+        uint64_t field_48;
+        uint64_t field_56;
+        ReturnValue field_64;
+        ReturnValue field_72;
+        ReturnValue field_80;
+        ReturnValue field_88;
+        ReturnValue field_96;
+        ReturnValue field_104;
+        ReturnValue field_112;
+        ReturnValue field_120;
+        ReturnValue field_128;
+        ReturnValue field_136;
+        ReturnValue field_144;
+        ReturnValue field_152;
+        ReturnValue field_160;
+        ReturnValue field_168;
+        ReturnValue field_176;
+        ReturnValue field_184;
+        ReturnValue field_192;
+        ReturnValue field_200;
+        ReturnValue field_208;
+        ReturnValue field_216;
+        ReturnValue field_224;
+        ReturnValue field_232;
+        ReturnValue field_240;
+        ReturnValue field_248;
+        uint64_t field_256;
+        uint32_t field_264;
+        uint8_t _unknown_268[4];
+        unsigned int field_272;
+        uint8_t _unknown_276[4];
+        uint64_t m_localBindTranslate;
+        uint8_t _unknown_288[4];
+        uint64_t m_localBindScale;
+        uint8_t _unknown_300[4];
+        uint8_t* m_pParentJoint;
+        short m_parentJointID;
+        uint8_t _unknown_314[6];
     };
 
-    // 0x104232ee0, 64 bytes, __bss; set at startup by ___cxx_global_var_init
+    // 0x104232ee0, set at startup by ___cxx_global_var_init
     math::Matrix44T<float> MAYA_ANIM_INVERT_MATRIX;
 
-    // 0x104232f20, 16 bytes, __bss; set at startup by ___cxx_global_var_init.1
+    // 0x104232f20, set at startup by ___cxx_global_var_init.1
     math::ColourHSL WORLD_ORTHOGONAL = ColourHSL(-1.5707964, -1.5707964, 0.0);
 
-    // 0x1000591d0, 96 bytes, placed by the data it initialises
-    // ___cxx_global_var_init
-    void ___cxx_global_var_init() {
-        undefined1 local_50[40];
-        Vector3T<int> local_28[16];
+    // 0x1000591d0
+    void ___cxx_global_var_init(void) {
+        Matrix33T<float> local_50;
 
-        math::Matrix33Scaling<float>((math*)local_50, 1.0, 1.0, -1.0);
-        math::Vector3T<int>::Vector3T(local_28);
-        new (&MAYA_ANIM_INVERT_MATRIX) math::Matrix44T<float>(local_50, local_28);
+        math::Matrix33Scaling<float>(1.0, 1.0, -1.0);
+        Vector3T<int> local_28;
+        new ((Matrix44T<float>*)&MAYA_ANIM_INVERT_MATRIX) math::Matrix44T<float>(local_50, local_28);
     }
 
-    // 0x100059230, 32 bytes, placed by the data it initialises
-    // ___cxx_global_var_init.1
-    void ___cxx_global_var_init_1() {
-        new (&WORLD_ORTHOGONAL) math::ColourHSL(-1.5707964, -1.5707964, 0.0);
+    // 0x10094de40
+    auto Joint::GetWorldBindInverse() const {
+        auto result;
+
+        ReturnValue RVar1 = *(ReturnValue*)field_192;
+        ReturnValue RVar2 = *(ReturnValue*)field_200;
+        ReturnValue RVar3 = *(ReturnValue*)field_208;
+        ReturnValue RVar4 = *(ReturnValue*)field_216;
+        ReturnValue RVar5 = *(ReturnValue*)field_224;
+        ReturnValue RVar6 = *(ReturnValue*)field_232;
+        ReturnValue RVar7 = *(ReturnValue*)field_248;
+        &result[6] = *(ReturnValue*)field_240;
+        &result[7] = RVar7;
+        &result[4] = RVar5;
+        &result[5] = RVar6;
+        &result[2] = RVar3;
+        &result[3] = RVar4;
+        result = RVar1;
+        &result[1] = RVar2;
+        return result;
     }
 
-    // 0x10094de40, 64 bytes, inline, placed by class name
-    // Joint::GetWorldBindInverse() const
-    Joint* Joint::GetWorldBindInverse() {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        long in_RSI;
-
-        uVar1 = *(undefined8*)(in_RSI + 192);
-        uVar2 = *(undefined8*)(in_RSI + 200);
-        uVar3 = *(undefined8*)(in_RSI + 208);
-        uVar4 = *(undefined8*)(in_RSI + 216);
-        uVar5 = *(undefined8*)(in_RSI + 224);
-        uVar6 = *(undefined8*)(in_RSI + 232);
-        uVar7 = *(undefined8*)(in_RSI + 248);
-        field_48 = *(undefined8*)(in_RSI + 240);
-        field_56 = uVar7;
-        field_32 = uVar5;
-        field_40 = uVar6;
-        field_16 = uVar3;
-        field_24 = uVar4;
-        field_0 = uVar1;
-        field_8 = uVar2;
+    // 0x100977ae0
+    Joint* Joint::operator=(Joint&& joint) {
+        *this = joint;
+        *field_64 = joint.field_64;
+        *field_128 = joint.field_128;
+        *field_192 = joint.field_192;
+        field_256.SetXYZ(joint.field_256);
+        field_268.SetXYZ(joint.field_268);
+        m_localBindTranslate.SetXYZ(joint.m_localBindTranslate);
+        m_localBindScale.SetXYZ(joint.m_localBindScale);
+        m_pParentJoint = joint.m_pParentJoint;
+        m_parentJointID = joint.m_parentJointID;
         return this;
     }
 
-    // 0x100977ae0, 192 bytes, inline, placed by class name
-    // Joint::operator=(Joint&&)
-    /* Joint::TEMPNAMEPLACEHOLDERVALUE(Joint&&) */
-
-    Joint* Joint::operator=(Joint* param_1) {
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)this, (Matrix44T*)param_1);
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_64, (Matrix44T*)&param_1->field_64);
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_128, (Matrix44T*)&param_1->field_128);
-        math::Matrix44T<float>::operator=((Matrix44T<float>*)&field_192, (Matrix44T*)&param_1->field_192);
-        (&field_256, (Vector3T*)&param_1->field_256)->SetXYZ();
-        (&field_268, (Vector3T*)&param_1->field_268)->SetXYZ();
-        (&m_localBindTranslate, (Vector3T*)&param_1->m_localBindTranslate)->SetXYZ();
-        (&m_localBindScale, (Vector3T*)&param_1->m_localBindScale)->SetXYZ();
-        m_pParentJoint = param_1->m_pParentJoint;
-        m_parentJointID = param_1->m_parentJointID;
-        return this;
+    // 0x100977e60
+    void Joint::SetParentJointID(short arg1) {
+        m_parentJointID = arg1;
     }
 
-    // 0x100977e60, 16 bytes, inline, placed by class name
-    // Joint::SetParentJointID(short)
-    void Joint::SetParentJointID(short param_1) {
-        m_parentJointID = param_1;
-    }
-
-    // 0x100977f30, 16 bytes, inline, placed by class name
-    // Joint::GetParentJointID() const
-    int Joint::GetParentJointID() {
+    // 0x100977f30
+    int Joint::GetParentJointID() const {
         return (int)m_parentJointID;
     }
 
-    // 0x100978350, 16 bytes, inline, placed by class name
-    // Joint::SetParentJoint(Joint*)
-    void Joint::SetParentJoint(Joint* param_1) {
-        m_pParentJoint = (undefined*)param_1;
+    // 0x100978350
+    void Joint::SetParentJoint(Joint* joint) {
+        m_pParentJoint = (uint8_t*)joint;
     }
 
-    // 0x100978670, 64 bytes, inline, placed by class name
-    // Joint::GetWorldBind() const
-    Joint* Joint::GetWorldBind() {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        long in_RSI;
+    // 0x100978670
+    auto Joint::GetWorldBind() const {
+        auto result;
 
-        uVar1 = *(undefined8*)(in_RSI + 128);
-        uVar2 = *(undefined8*)(in_RSI + 136);
-        uVar3 = *(undefined8*)(in_RSI + 144);
-        uVar4 = *(undefined8*)(in_RSI + 152);
-        uVar5 = *(undefined8*)(in_RSI + 160);
-        uVar6 = *(undefined8*)(in_RSI + 168);
-        uVar7 = *(undefined8*)(in_RSI + 184);
-        field_48 = *(undefined8*)(in_RSI + 176);
-        field_56 = uVar7;
-        field_32 = uVar5;
-        field_40 = uVar6;
-        field_16 = uVar3;
-        field_24 = uVar4;
-        field_0 = uVar1;
-        field_8 = uVar2;
-        return this;
+        ReturnValue RVar1 = *(ReturnValue*)field_128;
+        ReturnValue RVar2 = *(ReturnValue*)field_136;
+        ReturnValue RVar3 = *(ReturnValue*)field_144;
+        ReturnValue RVar4 = *(ReturnValue*)field_152;
+        ReturnValue RVar5 = *(ReturnValue*)field_160;
+        ReturnValue RVar6 = *(ReturnValue*)field_168;
+        ReturnValue RVar7 = *(ReturnValue*)field_184;
+        &result[6] = *(ReturnValue*)field_176;
+        &result[7] = RVar7;
+        &result[4] = RVar5;
+        &result[5] = RVar6;
+        &result[2] = RVar3;
+        &result[3] = RVar4;
+        result = RVar1;
+        &result[1] = RVar2;
+        return result;
     }
 
-    // 0x1009786b0, 16 bytes, inline, placed by class name
-    // Joint::GetParentJoint() const
-    undefined* Joint::GetParentJoint() {
-        return m_pParentJoint;
+    // 0x1009786b0
+    Joint* Joint::GetParentJoint() const {
+        return (Joint*)m_pParentJoint;
     }
 
-    // 0x100979e40, 32 bytes, inline, placed by class name
-    // Joint::GetLocalBindTranslate() const
-    undefined8 Joint::GetLocalBindTranslate() {
+    // 0x100979e40
+    uint64_t Joint::GetLocalBindTranslate() const {
         return m_localBindTranslate;
     }
 
-    // 0x100979e70, 48 bytes, inline, placed by class name
-    // Joint::GetLocalBindInverse() const
-    Joint* Joint::GetLocalBindInverse() {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        long in_RSI;
+    // 0x100979e70
+    auto Joint::GetLocalBindInverse() const {
+        auto result;
 
-        uVar1 = *(undefined8*)(in_RSI + 64);
-        uVar2 = *(undefined8*)(in_RSI + 72);
-        uVar3 = *(undefined8*)(in_RSI + 80);
-        uVar4 = *(undefined8*)(in_RSI + 88);
-        uVar5 = *(undefined8*)(in_RSI + 96);
-        uVar6 = *(undefined8*)(in_RSI + 104);
-        uVar7 = *(undefined8*)(in_RSI + 120);
-        field_48 = *(undefined8*)(in_RSI + 112);
-        field_56 = uVar7;
-        field_32 = uVar5;
-        field_40 = uVar6;
-        field_16 = uVar3;
-        field_24 = uVar4;
-        field_0 = uVar1;
-        field_8 = uVar2;
-        return this;
+        ReturnValue RVar1 = *(ReturnValue*)field_64;
+        ReturnValue RVar2 = *(ReturnValue*)field_72;
+        ReturnValue RVar3 = *(ReturnValue*)field_80;
+        ReturnValue RVar4 = *(ReturnValue*)field_88;
+        ReturnValue RVar5 = *(ReturnValue*)field_96;
+        ReturnValue RVar6 = *(ReturnValue*)field_104;
+        ReturnValue RVar7 = *(ReturnValue*)field_120;
+        &result[6] = *(ReturnValue*)field_112;
+        &result[7] = RVar7;
+        &result[4] = RVar5;
+        &result[5] = RVar6;
+        &result[2] = RVar3;
+        &result[3] = RVar4;
+        result = RVar1;
+        &result[1] = RVar2;
+        return result;
     }
 
-    // 0x10097a0b0, 32 bytes, inline, placed by class name
-    // Joint::GetLocalBindRotate() const
-    undefined8 Joint::GetLocalBindRotate() {
-        return *(undefined8*)&field_268;
+    // 0x10097a0b0
+    uint64_t Joint::GetLocalBindRotate() const {
+        return *(uint64_t*)&field_268;
     }
 
-    // 0x100984f00, 32 bytes, inline, placed by class name
-    // Joint::GetLocalBindScale() const
-    undefined8 Joint::GetLocalBindScale() {
+    // 0x100984f00
+    uint64_t Joint::GetLocalBindScale() const {
         return m_localBindScale;
     }
 
-    // 0x100994770, 16 bytes, complete-object constructor, inline, placed by class name
-    // Joint::Joint(): jumps straight to the base-object constructor
-
-    // 0x100994780, 256 bytes, base-object constructor, inline, placed by class name
-    // Joint::Joint()
-    void Joint::Joint() {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined8 uVar6;
-        undefined8 uVar7;
-        undefined* puVar8;
-
-        puVar8 = PTR_ZERO_100ee6728;
-        uVar1 = *(undefined8*)PTR_ZERO_100ee6728;
-        uVar2 = *(undefined8*)(PTR_ZERO_100ee6728 + 8);
-        uVar3 = *(undefined8*)(PTR_ZERO_100ee6728 + 16);
-        uVar4 = *(undefined8*)(PTR_ZERO_100ee6728 + 24);
-        uVar5 = *(undefined8*)(PTR_ZERO_100ee6728 + 32);
-        uVar6 = *(undefined8*)(PTR_ZERO_100ee6728 + 40);
-        uVar7 = *(undefined8*)(PTR_ZERO_100ee6728 + 56);
-        field_48 = *(undefined8*)(PTR_ZERO_100ee6728 + 48);
+    // 0x100994780
+    Joint::Joint() {
+        uint8_t* puVar8 = PTR_ZERO_100ee6728;
+        uint64_t uVar1 = *(uint64_t*)PTR_ZERO_100ee6728;
+        uint64_t uVar2 = *(uint64_t*)(PTR_ZERO_100ee6728 + 8);
+        uint64_t uVar3 = *(uint64_t*)(PTR_ZERO_100ee6728 + 16);
+        uint64_t uVar4 = *(uint64_t*)(PTR_ZERO_100ee6728 + 24);
+        uint64_t uVar5 = *(uint64_t*)(PTR_ZERO_100ee6728 + 32);
+        uint64_t uVar6 = *(uint64_t*)(PTR_ZERO_100ee6728 + 40);
+        uint64_t uVar7 = *(uint64_t*)(PTR_ZERO_100ee6728 + 56);
+        field_48 = *(uint64_t*)(PTR_ZERO_100ee6728 + 48);
         field_56 = uVar7;
         field_32 = uVar5;
         field_40 = uVar6;
@@ -274,58 +218,58 @@ namespace jag::graphics {
         field_24 = uVar4;
         field_0 = uVar1;
         field_8 = uVar2;
-        uVar1 = *(undefined8*)puVar8;
-        uVar2 = *(undefined8*)(puVar8 + 8);
-        uVar3 = *(undefined8*)(puVar8 + 16);
-        uVar4 = *(undefined8*)(puVar8 + 24);
-        uVar5 = *(undefined8*)(puVar8 + 32);
-        uVar6 = *(undefined8*)(puVar8 + 40);
-        uVar7 = *(undefined8*)(puVar8 + 56);
-        field_112 = *(undefined8*)(puVar8 + 48);
-        field_120 = uVar7;
-        field_96 = uVar5;
-        field_104 = uVar6;
-        field_80 = uVar3;
-        field_88 = uVar4;
-        field_64 = uVar1;
-        field_72 = uVar2;
-        uVar1 = *(undefined8*)(puVar8 + 8);
-        uVar2 = *(undefined8*)(puVar8 + 16);
-        uVar3 = *(undefined8*)(puVar8 + 24);
-        uVar4 = *(undefined8*)(puVar8 + 32);
-        uVar5 = *(undefined8*)(puVar8 + 40);
-        uVar6 = *(undefined8*)(puVar8 + 48);
-        uVar7 = *(undefined8*)(puVar8 + 56);
-        field_128 = *(undefined8*)puVar8;
-        field_136 = uVar1;
-        field_144 = uVar2;
-        field_152 = uVar3;
-        field_160 = uVar4;
-        field_168 = uVar5;
-        field_176 = uVar6;
-        field_184 = uVar7;
-        uVar1 = *(undefined8*)(puVar8 + 8);
-        uVar2 = *(undefined8*)(puVar8 + 16);
-        uVar3 = *(undefined8*)(puVar8 + 24);
-        uVar4 = *(undefined8*)(puVar8 + 32);
-        uVar5 = *(undefined8*)(puVar8 + 40);
-        uVar6 = *(undefined8*)(puVar8 + 48);
-        uVar7 = *(undefined8*)(puVar8 + 56);
-        field_192 = *(undefined8*)puVar8;
-        field_200 = uVar1;
-        field_208 = uVar2;
-        field_216 = uVar3;
-        field_224 = uVar4;
-        field_232 = uVar5;
-        field_240 = uVar6;
-        field_248 = uVar7;
+        uVar1 = *(uint64_t*)puVar8;
+        uVar2 = *(uint64_t*)(puVar8 + 8);
+        uVar3 = *(uint64_t*)(puVar8 + 16);
+        uVar4 = *(uint64_t*)(puVar8 + 24);
+        uVar5 = *(uint64_t*)(puVar8 + 32);
+        uVar6 = *(uint64_t*)(puVar8 + 40);
+        uVar7 = *(uint64_t*)(puVar8 + 56);
+        *(uint64_t*)field_112 = *(uint64_t*)(puVar8 + 48);
+        *(uint64_t*)field_120 = uVar7;
+        *(uint64_t*)field_96 = uVar5;
+        *(uint64_t*)field_104 = uVar6;
+        *(uint64_t*)field_80 = uVar3;
+        *(uint64_t*)field_88 = uVar4;
+        *(uint64_t*)field_64 = uVar1;
+        *(uint64_t*)field_72 = uVar2;
+        uVar1 = *(uint64_t*)(puVar8 + 8);
+        uVar2 = *(uint64_t*)(puVar8 + 16);
+        uVar3 = *(uint64_t*)(puVar8 + 24);
+        uVar4 = *(uint64_t*)(puVar8 + 32);
+        uVar5 = *(uint64_t*)(puVar8 + 40);
+        uVar6 = *(uint64_t*)(puVar8 + 48);
+        uVar7 = *(uint64_t*)(puVar8 + 56);
+        *(uint64_t*)field_128 = *(uint64_t*)puVar8;
+        *(uint64_t*)field_136 = uVar1;
+        *(uint64_t*)field_144 = uVar2;
+        *(uint64_t*)field_152 = uVar3;
+        *(uint64_t*)field_160 = uVar4;
+        *(uint64_t*)field_168 = uVar5;
+        *(uint64_t*)field_176 = uVar6;
+        *(uint64_t*)field_184 = uVar7;
+        uVar1 = *(uint64_t*)(puVar8 + 8);
+        uVar2 = *(uint64_t*)(puVar8 + 16);
+        uVar3 = *(uint64_t*)(puVar8 + 24);
+        uVar4 = *(uint64_t*)(puVar8 + 32);
+        uVar5 = *(uint64_t*)(puVar8 + 40);
+        uVar6 = *(uint64_t*)(puVar8 + 48);
+        uVar7 = *(uint64_t*)(puVar8 + 56);
+        *(uint64_t*)field_192 = *(uint64_t*)puVar8;
+        *(uint64_t*)field_200 = uVar1;
+        *(uint64_t*)field_208 = uVar2;
+        *(uint64_t*)field_216 = uVar3;
+        *(uint64_t*)field_224 = uVar4;
+        *(uint64_t*)field_232 = uVar5;
+        *(uint64_t*)field_240 = uVar6;
+        *(uint64_t*)field_248 = uVar7;
         puVar8 = PTR_ZERO_100ee66e8;
-        field_256 = *(undefined8*)PTR_ZERO_100ee66e8;
-        field_264 = *(undefined4*)(puVar8 + 8);
-        new (&field_268) math::Vector3T<int>();
-        new (&m_localBindTranslate) math::Vector3T<int>();
-        new (&m_localBindScale) math::Vector3T<int>();
-        m_pParentJoint = (undefined*)0;
+        field_256 = *(uint64_t*)PTR_ZERO_100ee66e8;
+        field_264 = *(uint32_t*)(puVar8 + 8);
+        new (&field_268) math::Vector3T();
+        new (&m_localBindTranslate) math::Vector3T();
+        new (&m_localBindScale) math::Vector3T();
+        m_pParentJoint = nullptr;
         m_parentJointID = -1;
     }
 

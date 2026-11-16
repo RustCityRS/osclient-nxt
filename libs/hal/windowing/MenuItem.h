@@ -1,112 +1,79 @@
 // libs/hal/windowing/MenuItem.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag {
     class MenuItem {
     public:
-        GetChildren();
-        GetChildren() const;
-        GetCommandIndex() const;
-        MenuItem* FindByCommandID(unsigned int) const;
-        void AddChildMenuItems(NSMenu*, unsigned int&, MenuItem&, Window const&);
-        void AddSingleMenuItem(NSMenu*, unsigned int&, MenuItem&, Window const&);
+        void GetChildren();
+        void GetChildren() const;
+        AuthSDKTokenResponse GetCommandIndex() const;
+        MenuItem* FindByCommandID(unsigned int arg1) const;
+        void AddChildMenuItems(NSMenu* nsMenu, unsigned int& arg2, MenuItem& menuItem, const Window& window);
+        void AddSingleMenuItem(NSMenu* nsMenu, unsigned int& arg2, MenuItem& menuItem, const Window& window);
         void GetText() const;
-        byte IsSubMenu() const;
-        IsSeparator() const;
-        IsEmpty() const;
-        SetCommandIndex(unsigned int);
-        void Setup(Window const&);
-        void Destroy(Window const&);
+        bool IsSubMenu() const;
+        bool IsSeparator() const;
+        bool IsEmpty() const;
+        void SetCommandIndex(unsigned int arg1);
+        void Setup(const Window& window);
+        void Destroy(const Window& window);
         MenuItem();
         ~MenuItem();
         void Run() const;
 
-        // data members, from how the methods use this: 136 bytes
-        long field_0; // offset 0
-        long field_8; // offset 8
-        char _unknown_16[16];
-        undefined4 m_commandIndex; // offset 32
-        char _unknown_36[92];
-        undefined8 field_128; // offset 128
+    private:
+        long field_0;
+        long field_8;
+        uint8_t _unknown_16[16];
+        uint32_t m_commandIndex;
+        uint8_t _unknown_36[92];
+        uint64_t field_128;
     };
 
-    // 0x1003a23d0, 16 bytes, inline, placed by class name and debug map
-    // MenuItem::GetText() const
-    void MenuItem::GetText() {
+    // 0x1003a23d0
+    void MenuItem::GetText() const {
         eastl::basic_string<char, BucketAllocatorEASTL>::begin();
     }
 
-    // 0x1003a23e0, 16 bytes, inline, placed by class name and debug map
-    // MenuItem::IsSubMenu() const
-    byte MenuItem::IsSubMenu() {
-        byte bVar1;
-
-        bVar1 = empty();
-        return bVar1 ^ 1;
+    // 0x1003a23e0
+    bool MenuItem::IsSubMenu() const {
+        return empty() ^ 1;
     }
 
-    // 0x1003a23f0, 48 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MenuItem::IsSeparator() const
-    /* MenuItem::IsEmpty() const */
+    // 0x1003a23f0
+    bool MenuItem::IsSeparator() const {
+        uint64_t uVar2;
 
-    undefined8 MenuItem::IsEmpty() {
-        char cVar1;
-        undefined8 uVar2;
-
-        cVar1 = empty();
-        if (cVar1 == '\0') {
+        if (empty() == '\0') {
             uVar2 = 0;
         } else {
-            uVar2 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
+            uVar2 = field_40.empty();
         }
         return uVar2;
     }
 
-    // 0x1003a2420, 16 bytes, inline, placed by class name and debug map
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // MenuItem::SetCommandIndex(unsigned int)
-    /* hal::audio::VoiceInstance::SetLoopIterations(int) */
-
-    void hal::audio::VoiceInstance::SetLoopIterations(int param_1) {
-        m_loopIterations = param_1;
+    // 0x1003a2420
+    void MenuItem::SetCommandIndex(unsigned int arg1) {
+        m_loopIterations = arg1;
     }
 
-    // 0x1003a4f70, 16 bytes, complete-object constructor, inline, placed by class name
-    // MenuItem::MenuItem(): jumps straight to the base-object constructor
-
-    // 0x1003a5930, 16 bytes, complete-object destructor, inline, placed by class name
-    // MenuItem::~MenuItem(): jumps straight to the base-object destructor
-
-    // 0x1003a64b0, 48 bytes, inline, placed by class name
-    // MenuItem::Run() const
-    void MenuItem::Run() {
-        if ((&field_80)->operator_cast_to_bool()) {
+    // 0x1003a64b0
+    void MenuItem::Run() const {
+        if ((&field_80)->operator_cast_to_bool() != '\0') {
             std::function<void()>::operator()((function<void()>*)&field_80);
         }
     }
 
-    // 0x1003a7150, 80 bytes, base-object constructor, inline, placed by class name
-    // MenuItem::MenuItem()
-    void MenuItem::MenuItem() {
-        new (this) eastl::vector<MenuItem, eastl::allocator>();
-        m_commandIndex = 0;
-        new (&field_40) eastl::string();
-        std::function<void()>::function((function<void()>*)&field_80);
-        field_128 = 0;
-    }
+    // 0x1003a7150
+    MenuItem::MenuItem() : eastl::vector<MenuItem>(), m_commandIndex(0), field_128(0) {}
 
-    // 0x1003a72b0, 64 bytes, base-object destructor, inline, placed by class name
-    // MenuItem::~MenuItem()
-    void MenuItem::~MenuItem() {
-        (*(code*)PTR__objc_release_100ee9e60)(field_128);
-        std::function<void()>::~function((function<void()>*)&field_80);
-        (&field_40)->~basic_string();
-        ~vector();
+    // 0x1003a72b0
+    MenuItem::~MenuItem() {
+        (*(void (*)(...))PTR__objc_release_100ee9e60)(field_128);
+        field_80.~function();
+        field_40.~basic_string();
     }
 
 } // namespace jag

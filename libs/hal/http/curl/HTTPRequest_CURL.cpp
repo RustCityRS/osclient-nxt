@@ -1,6 +1,5 @@
 // libs/hal/http/curl/HTTPRequest_CURL.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.hal.http
 
 #include "libs/hal/http/HTTPRequest.h"
@@ -11,428 +10,333 @@ namespace jag::http {
         HTTPGlobalState();
         ~HTTPGlobalState();
 
-        // data members, from how the methods use this: 1 bytes
-        char _unknown_0[1];
+        uint8_t _unknown_0[1];
     };
 
-    // 0x100ad9580, 16 bytes, base-object constructor, placed by debug map only (low confidence)
-    // HTTPGlobalState::HTTPGlobalState()
-    void HTTPGlobalState::HTTPGlobalState() {
+    // 0x100ad9580
+    HTTPGlobalState::HTTPGlobalState() {
         _curl_global_init(3);
     }
 
-    // 0x100ad9590, 16 bytes, complete-object constructor, placed by debug map only (low confidence)
-    // HTTPGlobalState::HTTPGlobalState(): jumps straight to the base-object constructor
-
-    // 0x100ad95a0, 16 bytes, base-object destructor, placed by debug map only (low confidence)
-    // HTTPGlobalState::~HTTPGlobalState()
-    void HTTPGlobalState::~HTTPGlobalState() {
+    // 0x100ad95a0
+    HTTPGlobalState::~HTTPGlobalState() {
         _curl_global_cleanup();
     }
 
-    // 0x100ad95b0, 16 bytes, complete-object destructor, placed by debug map only (low confidence)
-    // HTTPGlobalState::~HTTPGlobalState(): jumps straight to the base-object destructor
+    // 0x100ad95c0
+    HTTPRequest::HTTPRequest(unsigned long arg1)
+        : std::atomic<HTTPRequestState>((HTTPRequestState)arg1), field_192(arg1), field_560(0), field_568(0),
+          field_576(0), m_totalTimeoutSeconds(10), m_hasTimedOut(0), m_followRedirects(true), field_592(0),
+          m_aborted(0), m_responseCode(0), m_errorCode(0) {}
 
-    // 0x100ad95c0, 464 bytes, base-object constructor, placed by class name and debug map
-    // HTTPRequest::HTTPRequest(unsigned long)
-    void HTTPRequest::HTTPRequest(ulong param_1) {
-        std::atomic<HTTPRequestState>::atomic();
-        new (&field_8) eastl::string();
-        new (&field_40) eastl::string();
-        new (&field_72) eastl::string();
-        new (&field_104) eastl::vector<eastl::string, eastl::allocator>();
-        new (m_pData) Array<unsigned char, eastl::allocator>();
-        new (&field_160) eastl::vector<unsigned char, eastl::allocator>();
-        field_192 = param_1;
-        new (&field_200) eastl::string();
-        new (&field_232) eastl::string();
-        new (&field_264) eastl::fixed_string<char, 256, true, eastl::allocator>();
-        field_560 = 0;
-        field_568 = 0;
-        field_576 = 0;
-        m_totalTimeoutSeconds = 10;
-        m_hasTimedOut = 0;
-        m_followRedirects = true;
-        field_592 = 0;
-        m_aborted = 0;
-        m_responseCode = 0;
-        m_errorCode = 0;
-        new (&field_624) std::future<void>();
-        new (&field_632) eastl::string();
-    }
-
-    // 0x100ad97c0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // HTTPRequest::HTTPRequest(unsigned long): jumps straight to the base-object constructor
-
-    // 0x100ad97d0, 352 bytes, base-object destructor, placed by class name and debug map
-    // HTTPRequest::~HTTPRequest()
-    void HTTPRequest::~HTTPRequest() {
-        if ((&field_624)->valid() != '\0') {
-            std::future<void>::wait();
+    // 0x100ad97d0
+    HTTPRequest::~HTTPRequest() {
+        uint8_t* this_00 = &field_624;
+        if (this_00->valid() != '\0') {
+            this_00->wait();
         }
         if (operator_cast_to_HTTPRequestState() == 3) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_state != HTTPRequestState::WAITING",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                       "HTTPRequest_CURL.cpp",
-                      102, (char*)0);
+                      102, nullptr);
         }
-        (&field_632)->~basic_string();
-        (&field_624)->~future();
-        /* WARNING: Subroutine does not return */
-        (&field_264)->~fixed_string();
+        field_632.~basic_string();
+        this_00->~future();
+        field_264.~fixed_string();
     }
 
-    // 0x100ad9960, 16 bytes, complete-object destructor, placed by class name and debug map
-    // HTTPRequest::~HTTPRequest(): jumps straight to the base-object destructor
-
-    // 0x100ad9970, 96 bytes, placed by debug map only (low confidence)
-    // CurlWriteDataCallback(unsigned char*, unsigned long, unsigned long, void*)
-    ulong CurlWriteDataCallback(uchar* param_1, ulong param_2, ulong param_3, void* param_4) {
-        if (param_4 == (void*)0) {
-            /* WARNING: Subroutine does not return */
+    // 0x100ad9970
+    unsigned long CurlWriteDataCallback(unsigned char* arg1, unsigned long arg2, unsigned long arg3, void* arg4) {
+        if (arg4 == nullptr) {
             LogAssert("userdata != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                       "HTTPRequest_CURL.cpp",
-                      107, (char*)0);
+                      107, nullptr);
         }
-        param_4->CopyData(param_1, param_3 * param_2);
-        return param_3 * param_2;
+        arg4->CopyData(arg1, arg3 * arg2);
+        return arg3 * arg2;
     }
 
-    // 0x100ad99d0, 96 bytes, placed by debug map only (low confidence)
-    // CurlWriteHeaderDataCallback(unsigned char*, unsigned long, unsigned long, void*)
-    ulong CurlWriteHeaderDataCallback(uchar* param_1, ulong param_2, ulong param_3, void* param_4) {
-        if (param_4 == (void*)0) {
-            /* WARNING: Subroutine does not return */
+    // 0x100ad99d0
+    unsigned long CurlWriteHeaderDataCallback(unsigned char* arg1, unsigned long arg2, unsigned long arg3, void* arg4) {
+        if (arg4 == nullptr) {
             LogAssert("userdata != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                       "HTTPRequest_CURL.cpp",
-                      114, (char*)0);
+                      114, nullptr);
         }
-        param_4->CopyHeader(param_1, param_3 * param_2);
-        return param_3 * param_2;
+        arg4->CopyHeader(arg1, arg3 * arg2);
+        return arg3 * arg2;
     }
 
-    // 0x100ad9a30, 96 bytes, placed by debug map only (low confidence)
-    // CurlXFerInfoCallback(void*, unsigned long, unsigned long, unsigned long, unsigned long)
-    undefined1 CurlXFerInfoCallback(void* param_1, ulong param_2, ulong param_3, ulong param_4, ulong param_5) {
-        if (param_1 == (void*)0) {
-            /* WARNING: Subroutine does not return */
+    // 0x100ad9a30
+    void CurlXFerInfoCallback(void* arg1, unsigned long arg2, unsigned long arg3, unsigned long arg4,
+                              unsigned long arg5) {
+        if (arg1 == nullptr) {
             LogAssert("requestData != nullptr",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                       "HTTPRequest_CURL.cpp",
-                      122, (char*)0);
+                      122, nullptr);
         }
-        param_1->SetProgress(param_3, param_2);
-        return param_1->IsAborted();
+        arg1->SetProgress(arg3, arg2);
+        return arg1->IsAborted();
     }
 
-    // 0x100ad9aa0, 80 bytes, placed by neighbouring functions
-    // CurlProgressCallback(void*, double, double, double, double)
-    void CurlProgressCallback(void* param_1, double param_2, double param_3, double param_4, double param_5) {
-        CurlXFerInfoCallback(param_1, (long)param_2 >> 63 & (long)(param_2 - 9.223372036854776e+18) | (long)param_2,
-                             (long)(ulong)param_3 >> 63 & (long)(param_3 - 9.223372036854776e+18) | (ulong)param_3,
-                             (ulong)param_3, (long)(param_3 - 9.223372036854776e+18));
+    // 0x100ad9aa0
+    void CurlProgressCallback(void* arg1, double arg2, double arg3, double arg4, double arg5) {
+        CurlXFerInfoCallback(arg1, (long)arg2 >> 63 & (long)(arg2 - 9.223372036854776e+18) | (long)arg2,
+                             (long)(unsigned long)arg3 >> 63 & (long)(arg3 - 9.223372036854776e+18) |
+                                 (unsigned long)arg3,
+                             (unsigned long)arg3, (long)(arg3 - 9.223372036854776e+18));
     }
 
-    // 0x100ad9af0, 32 bytes, placed by class name and debug map
-    // HTTPRequest::Get(char const*)
-    void HTTPRequest::Get(char* param_1) {
-        Post(this, param_1, "");
+    // 0x100ad9af0
+    void HTTPRequest::Get(const char* str) {
+        Post(str, "");
     }
 
-    // 0x100ad9b10, 256 bytes, placed by class name and debug map
-    // HTTPRequest::Post(char const*, char const*)
-    void HTTPRequest::Post(char* param_1, char* param_2) {
-        undefined1* this_00;
-        char cVar1;
-        Layout* this_01;
-        vector* pvVar4;
-        char* pcVar5;
-        AutoSingleton<ThreadPoolSingleton>* this_02;
-        undefined1 local_38[8];
-        HTTPRequest* local_30;
+    // 0x100ad9b10
+    void HTTPRequest::Post(const char* str1, const char* str2) {
+        ReturnValue local_38;
 
-        if (std::__atomic_base<HTTPRequestState, false>::exchange() != 0) {
-            /* WARNING: Subroutine does not return */
+        if (exchange((HTTPRequestState)str1, (memory_order)str2) != 0) {
             LogAssert("oldState == HTTPRequestState::NOTSENT",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                       "HTTPRequest_CURL.cpp",
-                      149, (char*)0);
+                      149, nullptr);
         }
-        (&field_8, param_1)->assign();
-        (&field_632, param_2)->assign();
-        cVar1 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        this_00 = &field_624;
-        this_02 = (AutoSingleton<ThreadPoolSingleton>*)this_00;
+        (&field_8)->assign(str1);
+        (&field_632)->assign(str2);
+        bool cVar1 = field_632.empty();
+        uint8_t* this_00 = &field_624;
+        AutoSingleton<ThreadPoolSingleton>* this_03 = (AutoSingleton<ThreadPoolSingleton>*)this_00;
         if (this_00->valid() != '\0') {
-            /* WARNING: Subroutine does not return */
             LogAssert("!m_future.valid()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                       "HTTPRequest_CURL.cpp",
-                      160, (char*)0);
+                      160, nullptr);
         }
-        pcVar5 = "cURL-POST";
-        if (cVar1 != '\0') {
-            pcVar5 = "cURL-GET";
+        char* str = "cURL-POST";
+        if (cVar1) {
+            str = "cURL-GET";
         }
-        this_01 = (Layout*)this_02->Instance();
-        pvVar4 = eastl::string::Layout::SSOBeginPtr(this_01, (type*)param_2);
-        local_30 = this;
-        ThreadPool::AddTask<HTTPRequest::Post(char const*, char const*)::__0>((ThreadPool*)local_38, (char*)pvVar4,
-                                                                              (__0*)pcVar5);
-        std::future<void>::operator=((future<void>*)this_00, (future*)local_38);
-        local_38->~future();
+        auto this_01 = this_03->Instance();
+        auto this_02 = this_01->SSOBeginPtr();
+        HTTPRequest* local_30 = this;
+        ThreadPool::AddTask<HTTPRequest::Post(char const*, char const*)::__0>(&local_38, this_02, str, (__0*)&local_30);
+        *this_00 = local_38;
     }
 
-    // 0x100ad9c10, 32 bytes, placed by class name and debug map
-    // HTTPRequest::GetSync(char const*)
-    void HTTPRequest::GetSync(char* param_1) {
-        PostSync(this, param_1, "");
+    // 0x100ad9c10
+    void HTTPRequest::GetSync(const char* str) {
+        PostSync(str, "");
     }
 
-    // 0x100ad9c30, 160 bytes, placed by class name and debug map
-    // HTTPRequest::PostSync(char const*, char const*)
-    void HTTPRequest::PostSync(char* param_1, char* param_2) {
-        if (std::__atomic_base<HTTPRequestState, false>::exchange() != 0) {
-            /* WARNING: Subroutine does not return */
+    // 0x100ad9c30
+    void HTTPRequest::PostSync(const char* str1, const char* str2) {
+        if (exchange((HTTPRequestState)str1, (memory_order)str2) != 0) {
             LogAssert("oldState == HTTPRequestState::NOTSENT",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                       "HTTPRequest_CURL.cpp",
-                      182, (char*)0);
+                      182, nullptr);
         }
-        (&field_8, param_1)->assign();
-        (&field_632, param_2)->assign();
-        if ((&field_624)->valid() != '\0') {
-            /* WARNING: Subroutine does not return */
+        (&field_8)->assign(str1);
+        (&field_632)->assign(str2);
+        if (field_624.valid() != '\0') {
             LogAssert("!m_future.valid()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                       "HTTPRequest_CURL.cpp",
-                      187, (char*)0);
+                      187, nullptr);
         }
-        CurlRequest(this);
+        CurlRequest();
     }
 
-    // 0x100ad9ea0, 1600 bytes, placed by class name and debug map
-    // HTTPRequest::CurlRequest()
+    // 0x100ad9ea0
     void HTTPRequest::CurlRequest() {
-        undefined1* this_00;
-        undefined8* puVar1;
-        char cVar2;
-        int iVar3;
-        undefined8 uVar4;
-        long lVar5;
-        long lVar6;
-        long lVar7;
-        undefined8 uVar8;
-        char* pcVar10;
-        undefined8 uVar11;
-        undefined* puVar12;
-        undefined4 uVar13;
-        undefined8 in_stack_fffffffffffffc70;
-        undefined1 local_380[8];
-        undefined1* local_378;
-        undefined* local_370;
+        uint64_t* puVar2;
+        Logger* pLVar5;
+        long lVar8;
+        long lVar9;
+        uint64_t uVar10;
+        char* str;
+        uint8_t* puVar12;
+        HTTPRequestState httpRequestState;
+        uint64_t in_stack_fffffffffffffc70;
+        uint8_t local_380[8];
+        uint8_t* local_370;
         char* local_368;
-        fixed_string<char, 512, true, eastl::allocator> local_360[552];
-        undefined1 local_138[256];
-        long local_38;
+        uint8_t local_138[256];
 
-        local_38 = *(long*)PTR____stack_chk_guard_100ee9d98;
         m_responseCode = 0;
         m_errorCode = 0;
-        cVar2 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        if (cVar2 != '\0') {
-            uVar4 = logger::default_logger();
-            logger::Logger::Log(uVar4, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
-                                "HTTPRequest_CURL.cpp",
-                                218, "No URL provided for curl request.");
-            std::atomic<HTTPRequestState>::operator=((atomic<HTTPRequestState>*)this, 2);
-            if (*(long*)PTR____stack_chk_guard_100ee9d98 != local_38) {
-                /* WARNING: Subroutine does not return */
-                ___stack_chk_fail();
-            }
+        uint8_t* puVar1 = &field_8;
+        bool cVar3 = puVar1->empty();
+        if (cVar3) {
+            pLVar5 = logger::default_logger();
+            pLVar5->Log(false, 2,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
+                        "HTTPRequest_CURL.cpp",
+                        218, "No URL provided for curl request.");
+            *this = 2;
             return;
         }
-        lVar5 = _curl_easy_init();
-        if (lVar5 == 0) {
-            uVar4 = logger::default_logger();
-            logger::Logger::Log(uVar4, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
-                                "HTTPRequest_CURL.cpp",
-                                230, "curl_easy_init() failed to initialise.");
-            /* WARNING: Subroutine does not return */
+        long lVar6 = _curl_easy_init();
+        if (lVar6 == 0) {
+            pLVar5 = logger::default_logger();
+            pLVar5->Log(false, 2,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
+                        "HTTPRequest_CURL.cpp",
+                        230, "curl_easy_init() failed to initialise.");
             LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                             "HTTPRequest_CURL.cpp",
-                            231, (char*)0);
+                            231, nullptr);
         }
         local_138[0] = 0;
-        uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-        _curl_easy_setopt(lVar5, 10002, uVar4);
-        cVar2 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        if (cVar2 == '\0') {
-            uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            _curl_easy_setopt(lVar5, 10015, uVar4);
+        uint64_t uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+        _curl_easy_setopt(lVar6, 10002, uVar7);
+        cVar3 = field_632.empty();
+        if (!cVar3) {
+            uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            _curl_easy_setopt(lVar6, 10015, uVar7);
         }
-        _curl_easy_setopt(lVar5, 10010, local_138);
-        _curl_easy_setopt(lVar5, 43, 0);
-        _curl_easy_setopt(lVar5, 20219, CurlXFerInfoCallback);
-        _curl_easy_setopt(lVar5, 10057, this);
-        _curl_easy_setopt(lVar5, 20056, CurlProgressCallback);
-        _curl_easy_setopt(lVar5, 10057, this);
-        _curl_easy_setopt(lVar5, 99, 1);
-        _curl_easy_setopt(lVar5, 20094, CurlDebugPrintFunction);
-        _curl_easy_setopt(lVar5, 41, 0);
-        _curl_easy_setopt(lVar5, 64, 0);
-        _curl_easy_setopt(lVar5, 20011, CurlWriteDataCallback);
-        _curl_easy_setopt(lVar5, 10001, this);
-        _curl_easy_setopt(lVar5, 20079, CurlWriteHeaderDataCallback);
-        _curl_easy_setopt(lVar5, 10029, this);
-        _curl_easy_setopt(lVar5, 52, m_followRedirects);
-        _curl_easy_setopt(lVar5, 13, m_totalTimeoutSeconds);
-        eastl::fixed_string<char, 512, true, eastl::allocator>::fixed_string(local_360);
-        cVar2 =
-            eastl::basic_string<char,
-                                eastl::fixed_vector_allocator<1ul, 256ul, 1ul, 0ul, true, eastl::allocator>>::empty();
-        local_378 = &field_8;
-        if (cVar2 == '\0') {
-            uVar4 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            uVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-            eastl::basic_string<char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::
-                sprintf((char*)local_360, "%s:%s", uVar4, uVar8);
-            uVar4 = eastl::basic_string<
-                char, eastl::fixed_vector_allocator<1ul, 512ul, 1ul, 0ul, true, eastl::allocator>>::begin();
-            _curl_easy_setopt(lVar5, 10006, uVar4);
+        _curl_easy_setopt(lVar6, 10010, local_138);
+        _curl_easy_setopt(lVar6, 43, 0);
+        _curl_easy_setopt(lVar6, 20219, CurlXFerInfoCallback);
+        _curl_easy_setopt(lVar6, 10057, this);
+        _curl_easy_setopt(lVar6, 20056, CurlProgressCallback);
+        _curl_easy_setopt(lVar6, 10057, this);
+        _curl_easy_setopt(lVar6, 99, 1);
+        _curl_easy_setopt(lVar6, 20094, CurlDebugPrintFunction);
+        _curl_easy_setopt(lVar6, 41, 0);
+        _curl_easy_setopt(lVar6, 64, 0);
+        _curl_easy_setopt(lVar6, 20011, CurlWriteDataCallback);
+        _curl_easy_setopt(lVar6, 10001, this);
+        _curl_easy_setopt(lVar6, 20079, CurlWriteHeaderDataCallback);
+        _curl_easy_setopt(lVar6, 10029, this);
+        _curl_easy_setopt(lVar6, 52, m_followRedirects);
+        _curl_easy_setopt(lVar6, 13, m_totalTimeoutSeconds);
+        fixed_string<char, 512> local_360;
+        cVar3 = field_40.empty();
+        uint8_t* local_378 = puVar1;
+        if (!cVar3) {
+            uVar7 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            uVar10 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            local_360.sprintf("%s:%s", uVar7, uVar10);
+            uVar7 = local_360.begin();
+            _curl_easy_setopt(lVar6, 10006, uVar7);
         } else {
-            _curl_easy_setopt(lVar5, 10004, "");
+            _curl_easy_setopt(lVar6, 10004, "");
         }
-        this_00 = &field_104;
-        cVar2 = this_00->empty();
-        uVar13 = (undefined4)((ulong)in_stack_fffffffffffffc70 >> 32);
-        if (cVar2 == '\0') {
-            lVar6 = this_00->HeapBeginPtr();
-            lVar7 = this_00->end();
-            uVar13 = (undefined4)((ulong)in_stack_fffffffffffffc70 >> 32);
-            if (lVar6 == lVar7)
+        puVar1 = &field_104;
+        cVar3 = puVar1->empty();
+        uint32_t uVar13 = (uint32_t)((unsigned long)in_stack_fffffffffffffc70 >> 32);
+        if (!cVar3) {
+            lVar8 = puVar1->HeapBeginPtr();
+            lVar9 = puVar1->end();
+            uVar13 = (uint32_t)((unsigned long)in_stack_fffffffffffffc70 >> 32);
+            if (lVar8 == lVar9)
                 goto LAB_100ada1f1;
-            uVar4 = 0;
+            uVar7 = 0;
             do {
-                uVar8 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
-                uVar4 = _curl_slist_append(uVar4, uVar8);
-                uVar13 = (undefined4)((ulong)in_stack_fffffffffffffc70 >> 32);
-                lVar6 = lVar6 + 32;
-            } while (lVar6 != lVar7);
+                uVar10 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+                uVar7 = _curl_slist_append(uVar7, uVar10);
+                uVar13 = (uint32_t)((unsigned long)in_stack_fffffffffffffc70 >> 32);
+                lVar8 = lVar8 + 32;
+            } while (lVar8 != lVar9);
         } else {
         LAB_100ada1f1:
-            uVar4 = 0;
+            uVar7 = 0;
         }
-        _curl_easy_setopt(lVar5, 10023, uVar4);
+        _curl_easy_setopt(lVar6, 10023, uVar7);
         field_592 = _clock();
-        iVar3 = _curl_easy_perform(lVar5);
-        m_errorCode = iVar3;
-        if (iVar3 == 0) {
-            local_370 = (undefined*)0;
-            _curl_easy_getinfo(lVar5, 1048577, &local_370);
-            _curl_easy_getinfo(lVar5, 2097174, local_380);
-            puVar1 = &m_responseCode;
-            iVar3 = _curl_easy_getinfo(lVar5, 2097154, puVar1);
-            if (iVar3 != 0) {
-                /* WARNING: Subroutine does not return */
+        int iVar4 = _curl_easy_perform(lVar6);
+        m_errorCode = iVar4;
+        if (iVar4 == 0) {
+            local_370 = nullptr;
+            _curl_easy_getinfo(lVar6, 1048577, &local_370);
+            _curl_easy_getinfo(lVar6, 2097174, local_380);
+            puVar2 = &m_responseCode;
+            iVar4 = _curl_easy_getinfo(lVar6, 2097154, puVar2);
+            if (iVar4 != 0) {
                 LogAssertAlways("/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
                                 "HTTPRequest_CURL.cpp",
-                                353, (char*)0);
+                                353, nullptr);
             }
-            if (*puVar1 - 200 < 100) {
-                local_368 = (char*)0;
-                iVar3 = _curl_easy_getinfo(lVar5, 1048594, &local_368);
-                uVar13 = 2;
-                if ((iVar3 == 0) && (uVar13 = 1, local_368 != (char*)0)) {
-                    (&field_200, local_368)->assign();
-                    AddFooter(this);
+            if (*puVar2 - 200 < 100) {
+                local_368 = nullptr;
+                iVar4 = _curl_easy_getinfo(lVar6, 1048594, &local_368);
+                httpRequestState = 2;
+                if ((iVar4 == 0) && (httpRequestState = 1, local_368 != nullptr)) {
+                    (&field_200)->assign(local_368);
+                    AddFooter();
                 }
                 goto LAB_100ada2fe;
             }
-            if (*puVar1 - 300 < 100) {
-                local_368 = (char*)0;
-                iVar3 = _curl_easy_getinfo(lVar5, 1048607, &local_368);
-                uVar13 = 2;
-                if ((iVar3 == 0) && (uVar13 = 1, local_368 != (char*)0)) {
-                    (&field_232, local_368)->assign();
+            if (*puVar2 - 300 < 100) {
+                local_368 = nullptr;
+                iVar4 = _curl_easy_getinfo(lVar6, 1048607, &local_368);
+                httpRequestState = 2;
+                if ((iVar4 == 0) && (httpRequestState = 1, local_368 != nullptr)) {
+                    (&field_232)->assign(local_368);
                 }
                 goto LAB_100ada2fe;
             }
-            uVar8 = logger::default_logger();
-            uVar4 = *puVar1;
-            uVar11 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
+            pLVar5 = logger::default_logger();
+            uVar7 = *puVar2;
+            uVar10 = eastl::basic_string<char, BucketAllocatorEASTL>::begin();
             puVar12 = &DAT_100e3aa9a;
-            if (local_370 != (undefined*)0) {
+            if (local_370 != nullptr) {
                 puVar12 = local_370;
             }
-            logger::Logger::Log(uVar8, 0, 3,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
-                                "HTTPRequest_CURL.cpp",
-                                398, "HTTP request error, http error code: %d\nURL: %s\nEffective URL: %s", uVar4,
-                                uVar11, puVar12);
-            cVar2 = m_pData->empty();
-            if (cVar2 == '\0') {
-                uVar4 = logger::default_logger();
-                uVar8 = m_pData->data();
-                logger::Logger::Log(uVar4, 0, 7,
-                                    "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/"
-                                    "curl/HTTPRequest_CURL.cpp",
-                                    401, "Result: %s\n", uVar8, uVar11, puVar12);
+            pLVar5->Log(false, 3,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
+                        "HTTPRequest_CURL.cpp",
+                        398, "HTTP request error, http error code: %d\nURL: %s\nEffective URL: %s", uVar7, uVar10,
+                        puVar12);
+            cVar3 = m_pData->empty();
+            if (!cVar3) {
+                pLVar5 = logger::default_logger();
+                uVar7 = m_pData->data();
+                pLVar5->Log(false, 7,
+                            "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
+                            "HTTPRequest_CURL.cpp",
+                            401, "Result: %s\n", uVar7, uVar10, puVar12);
             }
         } else {
-            pcVar10 = (char*)_curl_easy_strerror(iVar3);
-            uVar4 = logger::default_logger();
-            logger::Logger::Log(uVar4, 0, 2,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
-                                "HTTPRequest_CURL.cpp",
-                                331, "curl_easy_perform: %s (%i)", pcVar10, CONCAT44(uVar13, iVar3));
-            if (pcVar10 != (char*)0) {
-                eastl::fixed_string<char, 16, true, eastl::allocator>::operator=(
-                    (fixed_string<char, 16, true, eastl::allocator>*)&field_264, pcVar10);
+            str = (char*)_curl_easy_strerror(iVar4);
+            pLVar5 = logger::default_logger();
+            pLVar5->Log(false, 2,
+                        "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
+                        "HTTPRequest_CURL.cpp",
+                        331, "curl_easy_perform: %s (%i)", str, (((uint64_t)uVar13 << 32) | (uint32_t)iVar4));
+            if (str != nullptr) {
+                field_264 = str;
             }
-            if (iVar3 == 28) {
+            if (iVar4 == 28) {
                 m_hasTimedOut = 1;
             }
         }
-        uVar13 = 2;
+        httpRequestState = 2;
     LAB_100ada2fe:
-        std::atomic<HTTPRequestState>::operator=((atomic<HTTPRequestState>*)this, uVar13);
-        _curl_easy_cleanup(lVar5);
-        /* WARNING: Subroutine does not return */
-        local_360->~fixed_string();
+        *this = httpRequestState;
+        _curl_easy_cleanup(lVar6);
     }
 
-    // 0x100ada4f0, 80 bytes, placed by debug map only (low confidence)
-    // CurlDebugPrintFunction(void*, curl_infotype, char*, unsigned long, void*)
-    undefined8 CurlDebugPrintFunction(undefined8 param_1, int param_2, long param_3) {
-        undefined8 uVar1;
-
-        if ((param_2 == 0) && (param_3 != 0)) {
-            uVar1 = logger::default_logger();
-            logger::Logger::Log(uVar1, 0, 8,
-                                "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
-                                "HTTPRequest_CURL.cpp",
-                                198, "cURL: %s", param_3);
+    // 0x100ada4f0
+    void CurlDebugPrintFunction(void* arg1, curl_infotype curl_infotype, char* str, unsigned long arg4, void* arg5) {
+        if ((curl_infotype == 0) && (str != nullptr)) {
+            (logger::default_logger())
+                ->Log(false, 8,
+                      "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/hal/http/curl/"
+                      "HTTPRequest_CURL.cpp",
+                      198, "cURL: %s", str);
         }
         return 0;
     }
 
-    // 0x100ade320, 16 bytes, placed by class name and debug map
-    // HTTPRequest::Post(char const*, char const*)::$_0::operator()() const
-    /* HTTPRequest::Post(char const*, char const*)::$_0::TEMPNAMEPLACEHOLDERVALUE() const */
-
-    void HTTPRequest::Post(char const*, char const*)::$_0::operator()() {
+    // 0x100ade320
+    void HTTPRequest::Post(char const*, char const*)::$_0::operator()() const {
         CurlRequest(field_0);
     }
 

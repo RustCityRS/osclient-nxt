@@ -1,50 +1,39 @@
 // libs/game/runetek5/config/iftype/components/ObjTypeHelpers.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::math {
-    // 0x10053a0c0, 64 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<int>::operator[](unsigned int) const
-    Vector3T<int>* Vector3T<int>::operator[](uint param_1) {
-        if (2 < param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10053a0c0
+    Vector3T<int>* Vector3T<int>::operator[](unsigned int arg1) const {
+        if (2 < arg1) {
             LogAssert("index < N",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/math/colour/../vector/"
                       "Vector3.inl",
-                      203, (char*)0);
+                      203, nullptr);
         }
-        return this + (ulong)param_1 * 4;
+        return this + (unsigned long)arg1 * 4;
     }
 
-    // 0x10053a100, 64 bytes, inline, placed by debug map only (low confidence)
-    // Vector3T<short>::operator[](unsigned int) const
-    Vector3T<short>* Vector3T<short>::operator[](uint param_1) {
-        if (2 < param_1) {
-            /* WARNING: Subroutine does not return */
+    // 0x10053a100
+    Vector3T<short>* Vector3T<short>::operator[](unsigned int arg1) const {
+        if (2 < arg1) {
             LogAssert("index < N",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/math/colour/../vector/"
                       "Vector3.inl",
-                      203, (char*)0);
+                      203, nullptr);
         }
-        return this + (ulong)param_1 * 2;
+        return this + (unsigned long)arg1 * 2;
     }
 
-    // 0x10053a140, 224 bytes, inline, placed by debug map only (low confidence)
-    // Matrix44T<float>& Matrix44JagexPerspective<float>(Matrix44T<float>&, float, float, float, float, float, float, float, float)
-    Matrix44T* Matrix44JagexPerspective<float>(Matrix44T* param_1, float param_2, float param_3, float param_4,
-                                               float param_5, float param_6, float param_7, float param_8,
-                                               float param_9) {
-        float fVar1;
-        float fVar2;
-
-        fVar1 = 1.0 / param_8 + 1.0 / param_8;
-        fVar2 = 1.0 / param_9 + 1.0 / param_9;
-        param_1->Set(param_4 * fVar1, 0.0, 0.0, 0.0, 0.0, param_5 * fVar2, 0.0, 0.0, fVar1 * param_2 + -1.0,
-                     1.0 - fVar2 * param_3, (param_7 + param_6) / (param_7 - param_6), 1.0, 0.0, 0.0,
-                     ((param_7 + param_7) * param_6) / (param_6 - param_7), 0.0);
-        return param_1;
+    // 0x10053a140
+    Matrix44T<float>& Matrix44JagexPerspective<float>(Matrix44T<float>& matrix44, float arg2, float arg3, float arg4,
+                                                      float arg5, float arg6, float arg7, float arg8, float arg9) {
+        float fVar1 = 1.0 / arg8 + 1.0 / arg8;
+        float fVar2 = 1.0 / arg9 + 1.0 / arg9;
+        matrix44.Set(arg4 * fVar1, 0.0, 0.0, 0.0, 0.0, arg5 * fVar2, 0.0, 0.0, fVar1 * arg2 - 1.0, 1.0 - fVar2 * arg3,
+                     (arg7 + arg6) / (arg7 - arg6), 1.0, 0.0, 0.0, ((arg7 + arg7) * arg6) / (arg6 - arg7), 0.0);
+        return matrix44;
     }
 
 } // namespace jag::math
@@ -52,33 +41,29 @@ namespace jag::math {
 namespace jag::game {
     class ObjSpriteBuilder {
     public:
-        ulong GetObjSpriteCacheKey(int, bool, bool, unsigned int, unsigned int);
-        BuildObjectSprite(ui::SpriteData&, int, unsigned long long, graphics::RT7Core&, AssetBuilder&, ConfigProvider*,
-                          PlayerModel const*, int, int, bool&);
-        void CreateObjectSpriteRT(graphics::RT7Core&, int, unsigned int, unsigned int);
-        RenderObjectSpriteModel(graphics::RT7Core&, ObjType const*, shared_ptr<graphics::Model> const&, int, int, int,
-                                unsigned int, unsigned int, bool, shared_ptr<render::RenderTargets>&, bool);
+        unsigned long GetObjSpriteCacheKey(int arg1, bool arg2, bool arg3, unsigned int arg4, unsigned int arg5);
+        uint8_t* BuildObjectSprite(ui::SpriteData& spriteData, int arg2, unsigned long long arg3,
+                                   graphics::RT7Core& rt7Core, AssetBuilder& assetBuilder,
+                                   ConfigProvider* configProvider, const PlayerModel* playerModel, int arg8, int arg9,
+                                   bool& arg10);
+        void CreateObjectSpriteRT(graphics::RT7Core& rt7Core, int arg2, unsigned int arg3, unsigned int arg4);
+        uint32_t RenderObjectSpriteModel(graphics::RT7Core& rt7Core, const ObjType* objType,
+                                         const shared_ptr<graphics::Model>& model, int arg4, int arg5, int arg6,
+                                         unsigned int arg7, unsigned int arg8, bool arg9,
+                                         shared_ptr<render::RenderTargets>& renderTargets, bool arg11);
         void ClearCache();
-        static math::ColourHSL /* 16 bytes */ m_ambientColour;  // = ColourHSL(1.0, 1.0, 1.0)
-        static math::ColourHSL /* 16 bytes */ m_sunlightColour; // = ColourHSL(1.25, 1.25, 1.25)
-        static /* 16 bytes */ m_lightDirection;                 // = { 0, 0, 0, 0 }
-        static math::ColourHSL /* 16 bytes */ m_cameraOffset;   // = ColourHSL(-6.0, 0.0, 0.0)
+        static math::ColourHSL m_ambientColour;  // = ColourHSL(1.0, 1.0, 1.0)
+        static math::ColourHSL m_sunlightColour; // = ColourHSL(1.25, 1.25, 1.25)
+        static float m_lightDirection[4];        // = { 0, 0, 0, 0 }
+        static math::ColourHSL m_cameraOffset;   // = ColourHSL(-6.0, 0.0, 0.0)
 
-        // data members, from how the methods use this: 40 bytes
-        char _unknown_0[40];
+        uint8_t _unknown_0[40];
     };
 
-    // 0x10053a050, 48 bytes, inline, placed by debug map only (low confidence)
-    // ObjSpriteBuilder::ClearCache()
+    // 0x10053a050
     void ObjSpriteBuilder::ClearCache() {
         Clear();
-        (&field_32)->Clear();
+        field_32.Clear();
     }
 
 } // namespace jag::game
-
-namespace jag::graphics {
-    // 0x10053a080, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // SunlightEffectSaveRestore::~SunlightEffectSaveRestore(): jumps straight to the base-object destructor
-
-} // namespace jag::graphics

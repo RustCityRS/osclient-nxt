@@ -1,6 +1,5 @@
 // libs/game/runetek5/scene/ServerSyncing.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,70 +7,61 @@ namespace jag::game {
     class ServerSyncing {
     public:
         ServerSyncing();
-        void Reset(int);
+        void Reset(int arg1);
         void NewCycle();
         void CheckForStaleCycles();
-        void RemoveCycle(unsigned int);
-        void Add(ServerSyncingUser&);
-        ServerSyncingCycle* GetSyncFrame(unsigned int);
-        uint GetCurrentCycle() const;
-        void Add(ServerSyncingUser&, unsigned int);
-        void Remove(ServerSyncingUser&);
-        byte CanBuild(ServerSyncingUser const&);
-        void SetReady(ServerSyncingUser const&, bool);
-        ulong IsSynced(ServerSyncingUser const&);
-        ulong IsReady(unsigned int, ServerSyncingUser const&);
+        void RemoveCycle(unsigned int arg1);
+        void Add(ServerSyncingUser& serverSyncingUser);
+        ServerSyncingCycle* GetSyncFrame(unsigned int arg1);
+        unsigned int GetCurrentCycle() const;
+        void Add(ServerSyncingUser& serverSyncingUser, unsigned int arg2);
+        void Remove(ServerSyncingUser& serverSyncingUser);
+        bool CanBuild(const ServerSyncingUser& serverSyncingUser);
+        void SetReady(const ServerSyncingUser& serverSyncingUser, bool arg2);
+        unsigned long IsSynced(const ServerSyncingUser& serverSyncingUser);
+        unsigned long IsReady(unsigned int arg1, const ServerSyncingUser& serverSyncingUser);
         ~ServerSyncing();
 
-        // data members, from how the methods use this: 56588 bytes
-        char _unknown_0[72];
-        long field_72; // offset 72
-        char _unknown_80[56496];
-        uint m_currentCycle;    // offset 56576
-        undefined4 field_56580; // offset 56580
-        char _unknown_56584[4];
+    private:
+        uint8_t _unknown_0[72];
+        long field_72;
+        uint8_t _unknown_80[56496];
+        unsigned int m_currentCycle;
+        uint32_t field_56580;
+        uint8_t _unknown_56584[4];
     };
 
     class ServerSyncingCycle {
     public:
-        uint GetCycle() const;
-        ulong AllReady() const;
-        void Add(ServerSyncingUser&);
-        void Remove(ServerSyncingUser&);
-        ulong CanBuild(ServerSyncingUser const&);
-        void SetReady(ServerSyncingUser const&, bool);
-        void IsSynced(ServerSyncingUser const&);
-        bool IsReady(unsigned int, ServerSyncingPriority) const;
-        ServerSyncingCycle(unsigned int);
-        operator==(ServerSyncingCycle const&) const;
-        ServerSyncingCycle(ServerSyncingCycle&&);
-        ServerSyncingCycle* operator=(ServerSyncingCycle&&);
+        unsigned int GetCycle() const;
+        unsigned int AllReady() const;
+        void Add(ServerSyncingUser& serverSyncingUser);
+        void Remove(ServerSyncingUser& serverSyncingUser);
+        bool CanBuild(const ServerSyncingUser& serverSyncingUser);
+        void SetReady(const ServerSyncingUser& serverSyncingUser, bool arg2);
+        void IsSynced(const ServerSyncingUser& serverSyncingUser);
+        bool IsReady(unsigned int arg1, ServerSyncingPriority serverSyncingPriority) const;
+        ServerSyncingCycle(unsigned int arg1);
+        uint32_t operator==(const ServerSyncingCycle& serverSyncingCycle) const;
+        ServerSyncingCycle(ServerSyncingCycle&& serverSyncingCycle);
+        ServerSyncingCycle* operator=(ServerSyncingCycle&& serverSyncingCycle);
         ~ServerSyncingCycle();
 
-        // data members, from how the methods use this: 1700 bytes
-        uint m_cycle;       // offset 0
-        int field_4;        // offset 4
-        undefined1 field_8; // offset 8
-        char _unknown_9[1679];
-        int field_1688;  // offset 1688
-        uint field_1692; // offset 1692
-        char _unknown_1696[4];
+    private:
+        unsigned int m_cycle;
+        int field_4;
+        uint8_t _unknown_8[1680];
+        ServerSyncingPriority field_1688;
+        unsigned int field_1692;
+        uint8_t _unknown_1696[4];
     };
 
-    // 0x100469cf0, 16 bytes, inline, placed by class name and debug map
-    // ServerSyncing::GetCurrentCycle() const
-    uint ServerSyncing::GetCurrentCycle() {
+    // 0x100469cf0
+    unsigned int ServerSyncing::GetCurrentCycle() const {
         return m_currentCycle;
     }
 
-    // 0x100570770, 16 bytes, complete-object destructor, inline, placed by class name
-    // ServerSyncing::~ServerSyncing(): jumps straight to the base-object destructor
-
-    // 0x100570780, 32 bytes, base-object destructor, inline, placed by class name
-    // ServerSyncing::~ServerSyncing()
-    void ServerSyncing::~ServerSyncing() {
-        ~fixed_list();
-        ~AutoSingleton();
-    }
+    // 0x100570780
+    ServerSyncing::~ServerSyncing() {}
 
 } // namespace jag::game

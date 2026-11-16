@@ -1,164 +1,108 @@
 // libs/ui/components/ComponentContainer.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
 namespace jag::ui {
     class ComponentContainer {
     public:
-        GetComponent() const;
+        void GetComponent() const;
         bool GetHidden() const;
-        SetHiddenUnsafe(bool);
+        void SetHiddenUnsafe(bool arg1);
         ~ComponentContainer();
-        get() const;
-        operator->() const;
+        void get() const;
+        void operator->() const;
         ComponentContainer();
-        bool ContainerDynamicIdInOrder(ComponentContainer const&, int);
-        ComponentContainer(shared_ptr<Component> const&, bool);
-        ComponentContainer* operator=(ComponentContainer&&);
-        bool ContainerDynamicIdEquals(ComponentContainer const&, int);
-        bool ContainerStaticIdInOrder(ComponentContainer const&, int);
-        void ContainerEquals(ComponentContainer const&, shared_ptr<Component> const&);
-        ComponentContainer(shared_ptr<Component> const&);
-        bool ContainerPtrEquals(ComponentContainer const&, Component const*);
-        ComponentContainer(ComponentContainer const&);
-        ComponentContainer(ComponentContainer&&);
-        ComponentContainer* operator=(ComponentContainer const&);
+        bool ContainerDynamicIdInOrder(const ComponentContainer& componentContainer, int arg2);
+        ComponentContainer(const shared_ptr<Component>& component, bool arg2);
+        ComponentContainer* operator=(ComponentContainer&& componentContainer);
+        bool ContainerDynamicIdEquals(const ComponentContainer& componentContainer, int arg2);
+        bool ContainerStaticIdInOrder(const ComponentContainer& componentContainer, int arg2);
+        void ContainerEquals(const ComponentContainer& componentContainer, const shared_ptr<Component>& component);
+        ComponentContainer(const shared_ptr<Component>& component);
+        bool ContainerPtrEquals(const ComponentContainer& componentContainer, const Component* component);
+        ComponentContainer(const ComponentContainer& componentContainer);
+        ComponentContainer(ComponentContainer&& componentContainer);
+        ComponentContainer* operator=(const ComponentContainer& componentContainer);
 
-        // data members, from how the methods use this: 16 bytes
-        bool m_hidden; // offset 0
-        char _unknown_1[15];
+    private:
+        bool m_hidden;
+        uint8_t _unknown_1[15];
     };
 
     class ComponentUtils {
     public:
-        void SetHiddenInStaticList(int, eastl::vector<ComponentContainer, eastl::allocator>&, bool);
-        void SetHiddenInDynamicList(int, eastl::vector<ComponentContainer, eastl::allocator>&, bool);
-        ulong GetHiddenInDynamicList(int, eastl::vector<ComponentContainer, eastl::allocator> const&);
+        void SetHiddenInStaticList(int arg1, eastl::vector<ComponentContainer>& componentContainers, bool arg3);
+        void SetHiddenInDynamicList(int arg1, eastl::vector<ComponentContainer>& componentContainers, bool arg3);
+        unsigned long GetHiddenInDynamicList(int arg1, const eastl::vector<ComponentContainer>& componentContainers);
     };
 
-    // 0x10067d540, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // ComponentContainer::ComponentContainer(): jumps straight to the base-object constructor
+    // 0x10067d550
+    ComponentContainer::ComponentContainer() : m_hidden(true) {}
 
-    // 0x10067d550, 32 bytes, base-object constructor, inline, placed by class name and debug map
-    // ComponentContainer::ComponentContainer()
-    void ComponentContainer::ComponentContainer() {
-        _func_decltype_nullptr* in_RSI;
-
-        m_hidden = true;
-        new (&field_8, in_RSI) shared_ptr<oldscape::rs2lib::worldmap::WorldmapAreaMetadata>();
+    // 0x100694a30
+    bool ComponentContainer::ContainerDynamicIdInOrder(const ComponentContainer& componentContainer, int arg2) {
+        return ((Component*)componentContainer.data())->GetDynamicID() < arg2;
     }
 
-    // 0x100694a30, 48 bytes, inline, placed by class name
-    // ComponentContainer::ContainerDynamicIdInOrder(ComponentContainer const&, int)
-    bool ComponentContainer::ContainerDynamicIdInOrder(ComponentContainer* param_1, int param_2) {
-        Component* this;
-
-        this = (Component*)param_1->data();
-        return GetDynamicID() < param_2;
-    }
-
-    // 0x100694a80, 16 bytes, complete-object constructor, inline, placed by class name
-    // ComponentContainer::ComponentContainer(shared_ptr<Component> const&, bool): jumps straight to the base-object constructor
-
-    // 0x100694a90, 48 bytes, inline, placed by class name
-    // ComponentContainer::operator=(ComponentContainer&&)
-    /* ComponentContainer::TEMPNAMEPLACEHOLDERVALUE(ComponentContainer&&) */
-
-    ComponentContainer* ComponentContainer::operator=(ComponentContainer* param_1) {
-        m_hidden = param_1->m_hidden;
-        shared_ptr<Component>::operator=((shared_ptr<Component>*)&field_8, (shared_ptr*)&param_1->field_8);
+    // 0x100694a90
+    ComponentContainer* ComponentContainer::operator=(ComponentContainer&& componentContainer) {
+        m_hidden = componentContainer.m_hidden;
+        field_8 = componentContainer.field_8;
         return this;
     }
 
-    // 0x100694b10, 48 bytes, inline, placed by class name
-    // ComponentContainer::ContainerDynamicIdEquals(ComponentContainer const&, int)
-    bool ComponentContainer::ContainerDynamicIdEquals(ComponentContainer* param_1, int param_2) {
-        Component* this;
-
-        this = (Component*)param_1->data();
-        return GetDynamicID() == param_2;
+    // 0x100694b10
+    bool ComponentContainer::ContainerDynamicIdEquals(const ComponentContainer& componentContainer, int arg2) {
+        return ((Component*)componentContainer.data())->GetDynamicID() == arg2;
     }
 
-    // 0x100695370, 48 bytes, inline, placed by class name
-    // ComponentContainer::ContainerStaticIdInOrder(ComponentContainer const&, int)
-    bool ComponentContainer::ContainerStaticIdInOrder(ComponentContainer* param_1, int param_2) {
-        Component* this;
-
-        this = (Component*)param_1->data();
-        return GetStaticID() < param_2;
+    // 0x100695370
+    bool ComponentContainer::ContainerStaticIdInOrder(const ComponentContainer& componentContainer, int arg2) {
+        return ((Component*)componentContainer.data())->GetStaticID() < arg2;
     }
 
-    // 0x1006954e0, 32 bytes, inline, placed by class name
-    // ComponentContainer::ContainerEquals(ComponentContainer const&, shared_ptr<Component> const&)
-    void ComponentContainer::ContainerEquals(ComponentContainer* param_1, shared_ptr* param_2) {
-        jag* this;
-        shared_ptr* extraout_RDX;
-
-        this = (jag*)param_1->second();
-        operator==(this, param_2, extraout_RDX);
+    // 0x1006954e0
+    void ComponentContainer::ContainerEquals(const ComponentContainer& componentContainer,
+                                             const shared_ptr<Component>& component) {
+        auto midiRequest1 = componentContainer.second();
+        *midiRequest1 == component;
     }
 
-    // 0x1006a3770, 16 bytes, complete-object constructor, inline, placed by class name
-    // ComponentContainer::ComponentContainer(shared_ptr<Component> const&): jumps straight to the base-object constructor
-
-    // 0x1006a3a90, 48 bytes, inline, placed by class name
-    // ComponentContainer::ContainerPtrEquals(ComponentContainer const&, Component const*)
-    bool ComponentContainer::ContainerPtrEquals(ComponentContainer* param_1, Component* param_2) {
+    // 0x1006a3a90
+    bool ComponentContainer::ContainerPtrEquals(const ComponentContainer& componentContainer,
+                                                const Component* component) {
         vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>* this;
-        Component* pCVar1;
 
-        this = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)param_1->second();
-        pCVar1 = (Component*)eastl::vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>::end(this);
-        return pCVar1 == param_2;
+        this = (vector<oldscape::dash3d::EntityHighlight*, BucketAllocatorEASTL>*)componentContainer.second();
+        return (Component*)end() == component;
     }
 
-    // 0x1006b22c0, 32 bytes, base-object constructor, inline, placed by class name
-    // ComponentContainer::ComponentContainer(shared_ptr<Component> const&, bool)
-    void ComponentContainer::ComponentContainer(shared_ptr* param_1, bool param_2) {
-        m_hidden = param_2;
-        new (&field_8, param_1) shared_ptr<oldscape::dash3d::Decor>();
-    }
+    // 0x1006b22c0
+    ComponentContainer::ComponentContainer(const shared_ptr<Component>& component, bool arg2)
+        : m_hidden(arg2), field_8(component) {}
 
-    // 0x1006b2650, 64 bytes, base-object constructor, inline, placed by class name
-    // ComponentContainer::ComponentContainer(shared_ptr<Component> const&)
-    void ComponentContainer::ComponentContainer(shared_ptr* param_1) {
-        Component* this_00;
-
-        this_00 = (Component*)shared_ptr<Component>::operator->((shared_ptr<Component>*)param_1);
+    // 0x1006b2650
+    ComponentContainer::ComponentContainer(const shared_ptr<Component>& component) {
+        auto this_00 = component.operator->();
         m_hidden = (bool)this_00->IsInitiallyHidden();
-        new (&field_8, param_1) shared_ptr<oldscape::dash3d::Decor>();
+        new (&field_8) shared_ptr(component);
     }
 
-    // 0x1006cf630, 16 bytes, complete-object constructor, inline, placed by class name
-    // ComponentContainer::ComponentContainer(ComponentContainer const&): jumps straight to the base-object constructor
+    // 0x1006cf720
+    ComponentContainer::ComponentContainer(const ComponentContainer& componentContainer)
+        : m_hidden(componentContainer.m_hidden), field_8(&componentContainer.field_8) {}
 
-    // 0x1006cf720, 32 bytes, base-object constructor, inline, placed by class name
-    // ComponentContainer::ComponentContainer(ComponentContainer const&)
-    void ComponentContainer::ComponentContainer(ComponentContainer* param_1) {
-        m_hidden = param_1->m_hidden;
-        new (&field_8, (shared_ptr*)&param_1->field_8) shared_ptr<oldscape::dash3d::Decor>();
+    // 0x1006cf8e0
+    ComponentContainer::ComponentContainer(ComponentContainer&& componentContainer)
+        : m_hidden(componentContainer.m_hidden) {
+        field_8.shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(componentContainer.field_8);
     }
 
-    // 0x1006cf8d0, 16 bytes, complete-object constructor, inline, placed by class name
-    // ComponentContainer::ComponentContainer(ComponentContainer&&): jumps straight to the base-object constructor
-
-    // 0x1006cf8e0, 32 bytes, base-object constructor, inline, placed by class name
-    // ComponentContainer::ComponentContainer(ComponentContainer&&)
-    void ComponentContainer::ComponentContainer(ComponentContainer* param_1) {
-        m_hidden = param_1->m_hidden;
-        shared_ptr<oldscape::RSevenDebugPresetProvider>::shared_ptr<oldscape::FileRSevenDebugPresetProvider, void>(
-            (shared_ptr<oldscape::RSevenDebugPresetProvider>*)&field_8, (shared_ptr*)&param_1->field_8);
-    }
-
-    // 0x1006d03e0, 48 bytes, inline, placed by class name
-    // ComponentContainer::operator=(ComponentContainer const&)
-    /* ComponentContainer::TEMPNAMEPLACEHOLDERVALUE(ComponentContainer const&) */
-
-    ComponentContainer* ComponentContainer::operator=(ComponentContainer* param_1) {
-        m_hidden = param_1->m_hidden;
-        shared_ptr<Component>::operator=((shared_ptr<Component>*)&field_8, (shared_ptr*)&param_1->field_8);
+    // 0x1006d03e0
+    ComponentContainer* ComponentContainer::operator=(const ComponentContainer& componentContainer) {
+        m_hidden = componentContainer.m_hidden;
+        field_8 = componentContainer.field_8;
         return this;
     }
 

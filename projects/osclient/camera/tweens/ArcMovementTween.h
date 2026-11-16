@@ -1,6 +1,5 @@
 // projects/osclient/camera/tweens/ArcMovementTween.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -12,21 +11,21 @@ namespace jag::oldscape {
         virtual int GetValueX() const;
         virtual int GetValueZ() const;
         virtual int GetValueHeight() const;
-        ArcMovementTween(int, int, int, int, int, int, int, int, int, CinemaCameraTween::Easing);
+        ArcMovementTween(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9,
+                         CinemaCameraTween::Easing easing);
 
-        // data members, from how the methods use this: 80 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[8];
-        undefined8 field_16; // offset 16
-        char _unknown_24[4];
-        undefined4 field_28; // offset 28
-        undefined4 field_32; // offset 32
-        char _unknown_36[4];
-        double field_40; // offset 40
-        double field_48; // offset 48
-        double field_56; // offset 56
-        double field_64; // offset 64
-        double field_72; // offset 72
+    private:
+        uint8_t _unknown_8[8];
+        uint64_t field_16;
+        uint8_t _unknown_24[4];
+        int field_28;
+        int field_32;
+        uint8_t _unknown_36[4];
+        double field_40;
+        double field_48;
+        double field_56;
+        double field_64;
+        double field_72;
     };
 
 } // namespace jag::oldscape

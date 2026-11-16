@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/lighting/shadowmapping/PointLightSMManager.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,86 +7,85 @@ namespace jag::graphics {
     class PointLightSMManager {
     public:
         class Config;
-        GetConfig() const;
+        void GetConfig() const;
         RenderToTextureHelper* GetRenderToTexture();
         shared_ptr GetShadowCubeMapAtlasRT() const;
         RenderTargetsManager* GetRenderTargetsManager();
-        GetShadowCubeMapAtlasPacker() const;
-        GetActivePointLightSM() const;
-        bool IsActive(PointLightSM*) const;
-        void FreePointLightSM(PointLightSM*);
-        PointLightSMManager(render::RenderTargetsManager*, graphicutils::RenderToTextureHelper*);
-        Init(Config const&);
-        ulong CreateRenderingResources(unsigned int);
+        uint8_t* GetShadowCubeMapAtlasPacker() const;
+        uint8_t* GetActivePointLightSM() const;
+        bool IsActive(PointLightSM* pointLightSM) const;
+        void FreePointLightSM(PointLightSM* pointLightSM);
+        PointLightSMManager(render::RenderTargetsManager* renderTargetsManager,
+                            graphicutils::RenderToTextureHelper* renderToTextureHelper);
+        uint32_t Init(const Config& config);
+        uint32_t CreateRenderingResources(unsigned int arg1);
         void Destroy();
         void DestroyRenderingResources();
         PointLightSM* AllocPointLightSM();
         void ResetActivePointLightSMPasses();
-        void RegisterTweaks(tweak::ContainerGroup&, eastl::string const&);
+        void RegisterTweaks(tweak::ContainerGroup& containerGroup, const eastl::string& str);
         void RenderDebug() const;
         ~PointLightSMManager();
-        static /* 4 bytes */ m_ClearShadowMapDepthAtlas;               // = 1
-        static float /* 4 bytes */ m_occludedShadowCasterFrustumScale; // = 50.0f
-        static /* 1 bytes */ m_ShowShadowMapDepthAtlas;
-        static /* 1 bytes */ m_showPointLightFaceCameraFrustums;
-        static /* 1 bytes */ m_showShadowCastingLights;
-        static /* 1 bytes */ m_showShadowCastingLightDst;
-        static /* 1 bytes */ m_cullOccludedShadowCasters;
-        static /* 1 bytes */ m_showOccludedShadowCasterFrustums;
-        static /* 2 bytes */ m_enableForcedUpdates;
+        static int32_t m_ClearShadowMapDepthAtlas;       // = 1
+        static float m_occludedShadowCasterFrustumScale; // = 50.0f
+        static bool m_ShowShadowMapDepthAtlas;
+        static bool m_showPointLightFaceCameraFrustums;
+        static bool m_showShadowCastingLights;
+        static bool m_showShadowCastingLightDst;
+        static bool m_cullOccludedShadowCasters;
+        static bool m_showOccludedShadowCasterFrustums;
+        static bool m_enableForcedUpdates;
 
-        // data members, from how the methods use this: 232 bytes
-        undefined8 field_0;  // offset 0
-        undefined8 field_8;  // offset 8
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined8 field_32; // offset 32
-        undefined8 field_40; // offset 40
-        undefined8 field_48; // offset 48
-        char _unknown_56[4];
-        undefined8 field_60; // offset 60
-        undefined8 field_68; // offset 68
-        char _unknown_76[4];
-        RenderTargetsManager* m_pRenderTargetsManager; // offset 80
-        RenderToTextureHelper* m_pRenderToTexture;     // offset 88
-        shared_ptr m_shadowCubeMapAtlasRT;             // offset 96
-        char _unknown_112[120];
+    private:
+        int field_0;
+        int field_4;
+        unsigned int field_8;
+        uint32_t field_12;
+        uint64_t field_16;
+        uint64_t field_24;
+        uint32_t field_32;
+        uint32_t field_36;
+        uint64_t field_40;
+        uint64_t field_48;
+        uint8_t _unknown_56[4];
+        uint32_t field_60;
+        uint8_t field_64;
+        uint8_t field_65[3];
+        uint64_t field_68;
+        uint8_t _unknown_76[4];
+        RenderTargetsManager* m_pRenderTargetsManager;
+        RenderToTextureHelper* m_pRenderToTexture;
+        shared_ptr m_shadowCubeMapAtlasRT;
+        uint8_t _unknown_112[120];
     };
 
     class PointLightSMManager::Config {
     public:
-        uint GetMinShadowCubeMapFaceResolution() const;
-        int GetShadowCubeMapAtlasSlotCount(unsigned int) const;
+        unsigned int GetMinShadowCubeMapFaceResolution() const;
+        int GetShadowCubeMapAtlasSlotCount(unsigned int arg1) const;
         Config();
 
-        // data members, from how the methods use this: 76 bytes
-        int field_0;  // offset 0
-        int field_4;  // offset 4
-        uint field_8; // offset 8
-        char _unknown_12[4];
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
-        undefined4 field_32; // offset 32
-        char _unknown_36[16];
-        undefined8 field_52; // offset 52
-        undefined4 field_60; // offset 60
-        undefined1 field_64; // offset 64
-        char _unknown_65[3];
-        undefined8 field_68; // offset 68
+    private:
+        int field_0;
+        int field_4;
+        unsigned int field_8;
+        uint8_t _unknown_12[4];
+        uint64_t field_16;
+        uint64_t field_24;
+        uint32_t field_32;
+        uint8_t _unknown_36[16];
+        uint64_t field_52;
+        uint32_t field_60;
+        uint8_t field_64;
+        uint8_t _unknown_65[3];
+        uint64_t field_68;
     };
 
-    // 0x1008ae5c0, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // PointLightSMManager::Config::Config(): jumps straight to the base-object constructor
-
-    // 0x1008ccfa0, 208 bytes, base-object constructor, inline, placed by class name
-    // PointLightSMManager::Config::Config()
-    void PointLightSMManager::Config::Config() {
+    // 0x1008ccfa0
+    PointLightSMManager::Config::Config() : field_0(4), field_4(4) {
         float* pfVar1;
-        ulong uVar2;
 
-        field_0 = 4;
-        field_4 = 4;
-        *(undefined8*)&field_8 = 68719477760;
+        *(uint64_t*)&field_8 = 68719477760;
         field_16 = 5099007165106592154;
         field_24 = 13676531350393257984;
         field_32 = 3259498496;
@@ -95,35 +93,30 @@ namespace jag::graphics {
         field_60 = 1065353216;
         field_64 = 0;
         field_68 = 4575657221408423940;
-        uVar2 = 0;
+        unsigned long arg1 = 0;
         do {
-            pfVar1 = (float*)std::array<float, 4ul>::operator[]((array<float, 4ul>*)&field_36, uVar2);
-            *pfVar1 = (float)uVar2 * -0.005 + -0.0045;
-            uVar2 = uVar2 + 1;
-        } while (uVar2 != 4);
+            pfVar1 = &field_36[arg1];
+            *pfVar1 = (float)arg1 * -0.005 - 0.0045;
+            arg1 = arg1 + 1;
+        } while (arg1 != 4);
     }
 
-    // 0x100923420, 16 bytes, complete-object destructor, inline, placed by class name
-    // PointLightSMManager::~PointLightSMManager(): jumps straight to the base-object destructor
-
-    // 0x100923430, 176 bytes, base-object destructor, inline, placed by class name
-    // PointLightSMManager::~PointLightSMManager()
-    void PointLightSMManager::~PointLightSMManager() {
-        Destroy(this);
-        (&field_224)->~stack();
-        (&field_192)->~vector();
+    // 0x100923430
+    PointLightSMManager::~PointLightSMManager() {
+        Destroy();
+        field_224.~stack();
+        field_192.~vector();
         (&field_128)->~mutex();
-        (&field_120)->~unique_ptr();
-        (&field_112)->~unique_ptr();
+        field_120.~unique_ptr();
+        field_112.~unique_ptr();
         m_shadowCubeMapAtlasRT->~shared_ptr();
     }
 
 } // namespace jag::graphics
 
 namespace jag::render {
-    // 0x1008b01f0, 32 bytes, inline, placed by debug map only (low confidence)
-    // Viewport::GetViewAspectRatio() const
-    float Viewport::GetViewAspectRatio() {
+    // 0x1008b01f0
+    float Viewport::GetViewAspectRatio() const {
         return (float)field_8 / (float)field_12;
     }
 

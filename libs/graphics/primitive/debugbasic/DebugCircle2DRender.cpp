@@ -1,318 +1,247 @@
 // libs/graphics/primitive/debugbasic/DebugCircle2DRender.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.graphics.primitive.debugbasic
 
 #include "DebugCircle2DRender.h"
 
 namespace jag {
-    // 0x1009bfdf0, 224 bytes, base-object constructor, placed by class name and debug map
-    // DebugCircle2DRender::DebugCircle2DRender(int)
-    void DebugCircle2DRender::DebugCircle2DRender(int param_1) {
-        new (this) Array<PrimVertPosCol, eastl::allocator>();
-        field_24 = param_1;
-        field_28 = 0;
-        new (&field_32) render::DynamicBuffer<render::VertexBuffer>();
-        new (&field_120) render::IndexBuffer();
-        new (field_208) render::InputAssemblerState();
-        new (&field_400) Array<math::Point<float>, eastl::allocator>();
+    // 0x1009bfdf0
+    DebugCircle2DRender::DebugCircle2DRender(int arg1) : Array<PrimVertPosCol>(), field_24(arg1), field_28(0) {
         set_max_size((long)field_24 * 17, 0);
-        CreateRenderingResources(this);
+        CreateRenderingResources();
     }
 
-    // 0x1009bfee0, 1168 bytes, placed by class name and debug map
-    // DebugCircle2DRender::CreateRenderingResources()
-    undefined8 DebugCircle2DRender::CreateRenderingResources() {
+    // 0x1009bfee0
+    uint64_t DebugCircle2DRender::CreateRenderingResources() {
         short sVar1;
         short* psVar2;
-        undefined2* puVar3;
-        ulong uVar4;
-        undefined8 uVar5;
-        Point<float>* pPVar6;
-        short sVar7;
-        undefined8 in_RCX;
-        uint uVar8;
-        ulong uVar9;
-        ulong uVar10;
-        undefined1* puVar11;
+        uint16_t* puVar3;
+        unsigned long uVar4;
+        short sVar6;
+        uint64_t in_RCX;
+        unsigned int uVar7;
+        unsigned long uVar8;
         int iVar12;
-        int iVar13;
-        Array<unsigned short, eastl::allocator> local_70[24];
-        ulong local_58;
+        unsigned long local_58;
         long local_48;
         int local_3c;
         int local_38;
         int local_34;
 
         if (field_24 < 1) {
-            /* WARNING: Subroutine does not return */
             LogAssert("m_MaxCircles > 0",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/primitive/"
                       "debugbasic/DebugCircle2DRender.cpp",
-                      23, (char*)0);
+                      23, nullptr);
         }
-        iVar12 = field_24;
-        Array<unsigned short, eastl::allocator>::Array(local_70, (long)iVar12 * 48);
-        uVar10 = 0;
+        int iVar11 = field_24;
+        Array<unsigned short> local_70((long)iVar11 * 48);
+        unsigned long uVar9 = 0;
         if (0 < field_24) {
-            uVar4 = CONCAT62((int6)((ulong)in_RCX >> 16), 2);
-            uVar9 = 0;
-            local_48 = (long)iVar12;
+            uVar4 = (((uint64_t)((int64_t)((unsigned long)in_RCX >> 16)) << 16) | (uint16_t)2);
+            uVar8 = 0;
+            local_48 = (long)iVar11;
             do {
-                iVar12 = (int)uVar10;
-                sVar1 = (short)uVar9 * 17;
-                local_3c = (int)uVar9 * 17 + 1;
-                local_38 = (int)uVar9 * 17 + 16;
-                iVar13 = 0;
+                iVar11 = (int)uVar9;
+                sVar1 = (short)uVar8 * 17;
+                local_3c = (int)uVar8 * 17 + 1;
+                local_38 = (int)uVar8 * 17 + 16;
+                iVar12 = 0;
                 local_34 = (int)uVar4;
                 uVar4 = uVar4 & 4294967295;
-                local_58 = uVar9;
+                local_58 = uVar8;
                 do {
-                    if ((short)iVar13 == 45) {
-                        psVar2 = (short*)Array<unsigned short, eastl::allocator>::operator[](
-                            local_70, (ulong)(uint)(iVar12 + iVar13));
+                    if ((short)iVar12 == 45) {
+                        psVar2 = &local_70[(unsigned long)(unsigned int)(iVar11 + iVar12)];
                         *psVar2 = sVar1;
-                        puVar3 = (undefined2*)Array<unsigned short, eastl::allocator>::operator[](
-                            local_70, (ulong)(iVar12 + iVar13 + 1));
+                        puVar3 = &local_70[(unsigned long)(iVar11 + iVar12 + 1)];
                         *puVar3 = (short)local_3c;
-                        psVar2 = (short*)Array<unsigned short, eastl::allocator>::operator[](
-                            local_70, (ulong)(iVar12 + iVar13 + 2));
-                        sVar7 = (short)local_38;
+                        psVar2 = &local_70[(unsigned long)(iVar11 + iVar12 + 2)];
+                        sVar6 = (short)local_38;
                     } else {
-                        psVar2 = (short*)Array<unsigned short, eastl::allocator>::operator[](
-                            local_70, (ulong)(uint)(iVar12 + iVar13));
+                        psVar2 = &local_70[(unsigned long)(unsigned int)(iVar11 + iVar12)];
                         *psVar2 = sVar1;
-                        psVar2 = (short*)Array<unsigned short, eastl::allocator>::operator[](
-                            local_70, (ulong)(iVar12 + iVar13 + 1));
+                        psVar2 = &local_70[(unsigned long)(iVar11 + iVar12 + 1)];
                         *psVar2 = (short)uVar4;
-                        psVar2 = (short*)Array<unsigned short, eastl::allocator>::operator[](
-                            local_70, (ulong)(iVar12 + iVar13 + 2));
-                        sVar7 = (short)uVar4 + -1;
+                        psVar2 = &local_70[(unsigned long)(iVar11 + iVar12 + 2)];
+                        sVar6 = (short)uVar4 - 1;
                     }
-                    *psVar2 = sVar7;
-                    iVar13 = iVar13 + 3;
-                    uVar4 = (ulong)((int)uVar4 + 1);
-                } while ((short)iVar13 != 48);
-                uVar8 = (int)local_58 + 1;
-                uVar9 = (ulong)uVar8;
-                uVar4 = (ulong)(local_34 + 17);
-                uVar10 = (ulong)(uint)(iVar12 + iVar13);
-            } while ((int)(uVar8 & 65535) < ((DebugCircle2DRender*)this)->field_24);
-            uVar10 = (ulong)(uint)(iVar12 + iVar13);
-            iVar12 = (int)local_48;
-            this = (DebugCircle2DRender*)this;
+                    *psVar2 = sVar6;
+                    iVar12 = iVar12 + 3;
+                    uVar4 = (unsigned long)((int)uVar4 + 1);
+                } while ((short)iVar12 != 48);
+                uVar7 = (int)local_58 + 1;
+                uVar8 = (unsigned long)uVar7;
+                uVar4 = (unsigned long)(local_34 + 17);
+                uVar9 = (unsigned long)(unsigned int)(iVar11 + iVar12);
+            } while ((int)(uVar7 & 65535) < field_24);
+            uVar9 = (unsigned long)(unsigned int)(iVar11 + iVar12);
+            iVar11 = (int)local_48;
+            this = this;
         }
-        uVar4 = local_70->end();
-        if (uVar4 != uVar10) {
-            /* WARNING: Subroutine does not return */
+        uVar4 = local_70.end();
+        if (uVar4 != uVar9) {
             LogAssert("shortOffset == circleIndexData.size()",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/primitive/"
                       "debugbasic/DebugCircle2DRender.cpp",
-                      49, (char*)0);
+                      49, nullptr);
         }
-        uVar5 = local_70->data();
-        (&field_120, iVar12 * 96, 0, uVar5, 5123)->Create();
-        local_70->~Array();
-        puVar11 = &field_400;
-        puVar11->set_max_size(17, 0);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 0);
-        math::Point<float>::Point(pPVar6, 0.0, 0.0);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 1);
-        math::Point<float>::Point(pPVar6, 0.0, 1.0);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 2);
-        math::Point<float>::Point(pPVar6, 0.383, 0.924);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 3);
-        math::Point<float>::Point(pPVar6, 0.707, 0.707);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 4);
-        math::Point<float>::Point(pPVar6, 0.924, 0.383);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 5);
-        math::Point<float>::Point(pPVar6, 1.0, 0.0);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 6);
-        math::Point<float>::Point(pPVar6, 0.924, -0.383);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 7);
-        math::Point<float>::Point(pPVar6, 0.707, -0.707);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 8);
-        math::Point<float>::Point(pPVar6, 0.383, -0.924);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 9);
-        math::Point<float>::Point(pPVar6, 0.0, -1.0);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 10);
-        math::Point<float>::Point(pPVar6, -0.383, -0.924);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 11);
-        math::Point<float>::Point(pPVar6, -0.707, -0.707);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 12);
-        math::Point<float>::Point(pPVar6, -0.924, -0.383);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 13);
-        math::Point<float>::Point(pPVar6, -1.0, 0.0);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 14);
-        math::Point<float>::Point(pPVar6, -0.924, 0.383);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 15);
-        math::Point<float>::Point(pPVar6, -0.707, 0.707);
-        pPVar6 = (Point<float>*)Array<math::Point<float>, eastl::allocator>::operator[](
-            (Array<math::Point<float>, eastl::allocator>*)puVar11, 16);
-        math::Point<float>::Point(pPVar6, -0.383, 0.924);
-        puVar11 = field_208;
-        new (puVar11) std::__cxx_atomic_base_impl<oldscape::FolderSelection::FolderPathRequestStatus>(4);
-        render::InputAssemblerState::SetIndexBuffer((IndexBuffer*)puVar11, (uint)&field_120);
-        puVar11->SetFlags(1);
+        auto arg3 = local_70.data();
+        field_120.Create(iVar11 * 96, 0, arg3, 5123);
+        uint8_t* puVar10 = &field_400;
+        puVar10->set_max_size(17, 0);
+        Point<float>* pPVar5 = (Point<float>*)(*puVar10)[0];
+        new (pPVar5) math::Point(0.0, 0.0);
+        pPVar5 = (Point<float>*)(*puVar10)[1];
+        new (pPVar5) math::Point(0.0, 1.0);
+        pPVar5 = (Point<float>*)(*puVar10)[2];
+        new (pPVar5) math::Point(0.383, 0.924);
+        pPVar5 = (Point<float>*)(*puVar10)[3];
+        new (pPVar5) math::Point(0.707, 0.707);
+        pPVar5 = (Point<float>*)(*puVar10)[4];
+        new (pPVar5) math::Point(0.924, 0.383);
+        pPVar5 = (Point<float>*)(*puVar10)[5];
+        new (pPVar5) math::Point(1.0, 0.0);
+        pPVar5 = (Point<float>*)(*puVar10)[6];
+        new (pPVar5) math::Point(0.924, -0.383);
+        pPVar5 = (Point<float>*)(*puVar10)[7];
+        new (pPVar5) math::Point(0.707, -0.707);
+        pPVar5 = (Point<float>*)(*puVar10)[8];
+        new (pPVar5) math::Point(0.383, -0.924);
+        pPVar5 = (Point<float>*)(*puVar10)[9];
+        new (pPVar5) math::Point(0.0, -1.0);
+        pPVar5 = (Point<float>*)(*puVar10)[10];
+        new (pPVar5) math::Point(-0.383, -0.924);
+        pPVar5 = (Point<float>*)(*puVar10)[11];
+        new (pPVar5) math::Point(-0.707, -0.707);
+        pPVar5 = (Point<float>*)(*puVar10)[12];
+        new (pPVar5) math::Point(-0.924, -0.383);
+        pPVar5 = (Point<float>*)(*puVar10)[13];
+        new (pPVar5) math::Point(-1.0, 0.0);
+        pPVar5 = (Point<float>*)(*puVar10)[14];
+        new (pPVar5) math::Point(-0.924, 0.383);
+        pPVar5 = (Point<float>*)(*puVar10)[15];
+        new (pPVar5) math::Point(-0.707, 0.707);
+        pPVar5 = (Point<float>*)(*puVar10)[16];
+        new (pPVar5) math::Point(-0.383, 0.924);
+        puVar10 = field_208;
+        new (puVar10) std::__cxx_atomic_base_impl(4);
+        render::InputAssemblerState::SetIndexBuffer(puVar10, (unsigned int)&field_120);
+        puVar10->SetFlags(1);
         return 1;
     }
 
-    // 0x1009c0380, 16 bytes, complete-object constructor, placed by class name and debug map
-    // DebugCircle2DRender::DebugCircle2DRender(int): jumps straight to the base-object constructor
-
-    // 0x1009c0550, 64 bytes, placed by class name and debug map
-    // DebugCircle2DRender::DestroyRenderingResources()
+    // 0x1009c0550
     void DebugCircle2DRender::DestroyRenderingResources() {
-        (&field_32)->Destroy();
-        (&field_120)->Destroy();
+        field_32.Destroy();
+        field_120.Destroy();
         field_208->Destroy();
     }
 
-    // 0x1009c0590, 560 bytes, placed by class name and debug map
-    // DebugCircle2DRender::RenderCircle2DGroup(render::RenderContext&, render::DrawCallState const&, unsigned int, unsigned int, render::Viewport const&, math::Matrix44T<float> const&, eastl::vector<eastl::pair<DebugCircle2D<DebugDataBasic> const*, float>, eastl::allocator> const&)
-    void DebugCircle2DRender::RenderCircle2DGroup(RenderContext* param_1, DrawCallState* param_2, uint param_3,
-                                                  uint param_4, Viewport* param_5, Matrix44T* param_6,
-                                                  vector* param_7) {
-        undefined1* this_00;
-        char cVar2;
+    // 0x1009c0590
+    void DebugCircle2DRender::RenderCircle2DGroup(
+        render::RenderContext& renderContext, const render::DrawCallState& drawCallState, unsigned int arg3,
+        unsigned int arg4, const render::Viewport& viewport, const math::Matrix44T<float>& matrix44,
+        eastl::vector<eastl::pair<DebugCircle2D<DebugDataBasic> const*, float>> const& pairs) {
+        uint8_t* this_00;
         int iVar3;
         long* plVar4;
         float* pfVar5;
         PrimVertPosCol* this_01;
-        vector* pvVar6;
         Layout* this_02;
         Vector2T<int>* this_03;
-        type* ptVar7;
-        type* ptVar8;
-        undefined8 local_88;
+        unsigned long arg1;
+        uint64_t local_88;
         long* local_80;
         long* local_78;
-        undefined1* local_68;
+        uint8_t* local_68;
         float local_44;
-        uint local_40;
+        unsigned int local_40;
         float local_38;
         float local_34;
 
-        cVar2 = param_7->empty();
-        if (cVar2 == '\0') {
+        if (pairs.empty() == '\0') {
             field_28 = 0;
-            plVar4 = (long*)param_7->HeapBeginPtr();
-            local_78 = (long*)param_7->end();
+            plVar4 = (long*)pairs.HeapBeginPtr();
+            local_78 = (long*)pairs.end();
             if (plVar4 != local_78) {
                 this_00 = &field_400;
                 local_68 = this_00;
                 do {
-                    local_40 = *(uint*)(*plVar4 + 16);
-                    local_88 = *(undefined8*)*plVar4;
+                    local_40 = *(unsigned int*)(*plVar4 + 16);
+                    local_88 = *(uint64_t*)*plVar4;
                     local_38 = *(float*)(*plVar4 + 8);
                     local_80 = plVar4;
                     if (*(char*)(*plVar4 + 12) != '\0') {
                         pfVar5 = (float*)local_88.y();
-                        local_34 = (float)param_4 - *pfVar5;
+                        local_34 = (float)arg4 - *pfVar5;
                         pfVar5 = (float*)local_88.y();
                         *pfVar5 = local_34;
                     }
-                    ptVar8 = (type*)0;
+                    arg1 = 0;
                     do {
-                        ptVar7 = (type*)(long)(((DebugCircle2DRender*)this)->field_28 * 17 + (int)ptVar8);
-                        this_01 = (PrimVertPosCol*)Array<PrimVertPosCol, eastl::allocator>::operator[](
-                            (Array<PrimVertPosCol, eastl::allocator>*)(DebugCircle2DRender*)this, (ulong)ptVar7);
-                        pvVar6 = local_88.SSOBeginPtr(ptVar7);
-                        local_34 = *(float*)pvVar6;
-                        ptVar7 = ptVar8;
-                        this_02 = (Layout*)Array<math::Point<float>, eastl::allocator>::operator[](
-                            (Array<math::Point<float>, eastl::allocator>*)this_00, (ulong)ptVar8);
-                        pvVar6 = eastl::string::Layout::SSOBeginPtr(this_02, ptVar7);
-                        local_34 = (float)param_5->field_0 + local_34 + *(float*)pvVar6 * local_38;
+                        this_01 = (PrimVertPosCol*)(*this)[(long)(field_28 * 17 + (int)arg1)];
+                        pfVar5 = (float*)local_88.SSOBeginPtr();
+                        local_34 = *pfVar5;
+                        this_02 = (Layout*)(*this_00)[arg1];
+                        pfVar5 = (float*)this_02->SSOBeginPtr();
+                        local_34 = (float)viewport.field_0 + local_34 + *pfVar5 * local_38;
                         pfVar5 = (float*)local_88.y();
                         local_44 = *pfVar5;
-                        this_03 = (Vector2T<int>*)Array<math::Point<float>, eastl::allocator>::operator[](
-                            (Array<math::Point<float>, eastl::allocator>*)this_00, (ulong)ptVar8);
+                        this_03 = (Vector2T<int>*)(*this_00)[arg1];
                         pfVar5 = (float*)this_03->y();
-                        this_01->Set(local_34, (float)param_5->field_4 + local_44 + *pfVar5 * local_38, 1.0, local_40);
-                        this = (DebugCircle2DRender*)this;
-                        ptVar8 = ptVar8 + 1;
-                    } while (ptVar8 != (type*)17);
-                    iVar3 = ((DebugCircle2DRender*)this)->field_28 + 1;
-                    ((DebugCircle2DRender*)this)->field_28 = iVar3;
-                    if (iVar3 == ((DebugCircle2DRender*)this)->field_24) {
-                        RenderBatch((DebugCircle2DRender*)this, param_1, param_2, param_6,
-                                    (long)((DebugCircle2DRender*)this)->field_24);
+                        this_01->Set(local_34, (float)viewport.field_4 + local_44 + *pfVar5 * local_38, 1.0, local_40);
+                        this = this;
+                        arg1 = arg1 + 1;
+                    } while (arg1 != 17);
+                    iVar3 = field_28 + 1;
+                    field_28 = iVar3;
+                    if (iVar3 == field_24) {
+                        RenderBatch(renderContext, drawCallState, matrix44, (long)field_24);
                         field_28 = 0;
                     }
                     plVar4 = local_80 + 2;
                 } while (plVar4 != local_78);
             }
             if (0 < (long)field_28) {
-                RenderBatch(this, param_1, param_2, param_6, (long)field_28);
+                RenderBatch(renderContext, drawCallState, matrix44, (long)field_28);
                 field_28 = 0;
             }
         }
     }
 
-    // 0x1009c0810, 400 bytes, placed by class name
-    // DebugCircle2DRender::RenderBatch(render::RenderContext&, render::DrawCallState const&, math::Matrix44T<float> const&, unsigned long)
-    void DebugCircle2DRender::RenderBatch(RenderContext* param_1, DrawCallState* param_2, Matrix44T* param_3,
-                                          ulong param_4) {
-        undefined4 uVar1;
-        void* pvVar2;
-        PrimitiveShaderFamily* pPVar3;
-        ShaderProgram* this_00;
-        RenderPipelineState* this_01;
-        VertexDeclaration* pVVar4;
-        VertexBuffer* pVVar5;
-        CoordMapSquare* this_02;
-        DrawCallState local_80;
-        HashedString local_50;
+    // 0x1009c0810
+    void DebugCircle2DRender::RenderBatch(render::RenderContext& renderContext,
+                                          const render::DrawCallState& drawCallState,
+                                          const math::Matrix44T<float>& matrix44, unsigned long arg4) {
+        VertexDeclaration* vertexDeclaration;
 
-        if ((ulong)(long)field_24 < param_4) {
-            /* WARNING: Subroutine does not return */
+        if ((unsigned long)(long)field_24 < arg4) {
             LogAssert("numCircles <= (size_t)m_MaxCircles",
                       "/Users/bamboo/bamboo-home-01/xml-data/build-dir/OSRS-OS1669-BOXR/libs/graphics/primitive/"
                       "debugbasic/DebugCircle2DRender.cpp",
-                      151, (char*)0);
+                      151, nullptr);
         }
-        pvVar2 = (void*)data();
-        (&field_32, 0, (int)param_4 * 476, pvVar2)->Update();
-        new (&local_80) render::DrawCallState(param_2);
-        pPVar3 = (PrimitiveShaderFamily*)local_80.Instance();
-        this_00 = (ShaderProgram*)pPVar3->GetShaderProgram(1);
-        this_01 = (RenderPipelineState*)local_80.GetRenderPipelineState();
-        this_01->SetShaderProgram(this_00);
-        new (&local_50) HashedString("uWorldMat");
-        this_00->SetShaderConstMatrix4(&local_50, 1, PTR_IDENTITY_100ee6730, 1);
-        new (&local_50) HashedString("uViewProjMat");
-        this_00->SetShaderConstMatrix4(&local_50, 1, param_3, 1);
-        pVVar4 = (VertexDeclaration*)this_00->second();
-        pVVar5 = (VertexBuffer*)(&field_32)->CurrentBuffer();
-        (field_208, pVVar4, pVVar5)->SetVertexStreamData();
+        auto arg3 = data();
+        field_32.Update(0, (int)arg4 * 476, arg3);
+        DrawCallState local_80(drawCallState);
+        ShaderProgram* this_01 = ((PrimitiveShaderFamily*)local_80.Instance())->GetShaderProgram(1);
+        ((RenderPipelineState*)local_80.GetRenderPipelineState())->SetShaderProgram(this_01);
+        HashedString local_50("uWorldMat");
+        this_01->SetShaderConstMatrix4(&local_50, 1, PTR_IDENTITY_100ee6730, 1);
+        local_50 = HashedString("uViewProjMat");
+        this_01->SetShaderConstMatrix4(&local_50, 1, matrix44, 1);
+        vertexDeclaration = (VertexDeclaration*)this_01->second();
+        auto vertexBuffer = field_32.CurrentBuffer();
+        field_208->SetVertexStreamData(vertexDeclaration, vertexBuffer);
         local_80.SetInputAssemblerState(field_208);
-        this_02 = (CoordMapSquare*)local_80.GetInputAssemblerState();
-        uVar1 = this_02->GetX();
-        param_1->DrawIndexedPrimitives(&local_80, uVar1, (int)param_4 * 48, 0);
-        local_80.~DrawCallState();
+        PrimitiveType primitiveType = ((CoordMapSquare*)local_80.GetInputAssemblerState())->GetX();
+        renderContext.DrawIndexedPrimitives(&local_80, primitiveType, (int)arg4 * 48, 0);
     }
 
-    // 0x1009c09a0, 16 bytes, placed by class name
-    // DebugCircle2DRender::OnEndFrame()
+    // 0x1009c09a0
     void DebugCircle2DRender::OnEndFrame() {
-        (&field_32)->RotateBuffers();
+        field_32.RotateBuffers();
     }
 
 } // namespace jag

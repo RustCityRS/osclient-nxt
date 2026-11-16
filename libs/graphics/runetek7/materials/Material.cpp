@@ -1,99 +1,71 @@
 // libs/graphics/runetek7/materials/Material.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: osclient
 
 #include "Material.h"
 
 namespace jag::graphics {
-    // 0x100009720: the linker folded this into BaseApp::GetExitCode(), which has identical code
-    Material::GetEnvironmentMaterialID() const;
+    // 0x100009720: Material::GetEnvironmentMaterialID() const has the same machine code as BaseApp::GetExitCode()
 
-    // 0x100023af0: the linker folded this into hal::Haptics::GetEnabled() const, which has identical code
-    Material::IsValid() const;
+    // 0x100023af0: Material::IsValid() const has the same machine code as hal::Haptics::GetEnabled() const
 
-    // 0x100024170: the linker folded this into oldscape::option::IScriptOption::GetId() const, which has identical code
-    uint Material::GetSize() const;
+    // 0x100024170: Material::GetSize() const has the same machine code as oldscape::option::IScriptOption::GetId() const
 
-    // 0x100061e30: the linker folded this into render::RenderStats::GetTriangleCount() const, which has identical code
-    Material::GetMetalnessRoughnessMapSize() const;
+    // 0x100061e30: Material::GetMetalnessRoughnessMapSize() const has the same machine code as render::RenderStats::GetTriangleCount() const
 
-    // 0x100064240: the linker folded this into SunlightOptions::GetSunIntensity() const, which has identical code
-    float Material::GetSpecularExponent() const;
+    // 0x100064240: Material::GetSpecularExponent() const has the same machine code as SunlightOptions::GetSunIntensity() const
 
-    // 0x100073980: the linker folded this into math::Rect<int>::MinY() const, which has identical code
-    uint Material::GetID() const;
+    // 0x100073980: Material::GetID() const has the same machine code as math::Rect<int>::MinY() const
 
-    // 0x1000b9a40: the linker folded this into oldscape::configdecoder::DBRowType::GetDbTableId() const, which has identical code
-    Material::GetMetalnessRoughnessMapID() const;
+    // 0x1000b9a40: Material::GetMetalnessRoughnessMapID() const has the same machine code as oldscape::configdecoder::DBRowType::GetDbTableId() const
 
-    // 0x100102f90: the linker folded this into oldscape::rs2lib::InputField::GetCaretIndex() const, which has identical code
-    Material::GetWrapV() const;
+    // 0x100102f90: Material::GetWrapV() const has the same machine code as oldscape::rs2lib::InputField::GetCaretIndex() const
 
-    // 0x1001117e0: the linker folded this into oldscape::jagex3::Js5::GetIndexCrc() const, which has identical code
-    Material::GetDiffuseMapID() const;
+    // 0x1001117e0: Material::GetDiffuseMapID() const has the same machine code as oldscape::jagex3::Js5::GetIndexCrc() const
 
-    // 0x100159b70: the linker folded this into oldscape::rs2lib::InputField::GetEnterAction() const, which has identical code
-    int Material::GetAlphaTestThreshold() const;
+    // 0x100159b70: Material::GetAlphaTestThreshold() const has the same machine code as oldscape::rs2lib::InputField::GetEnterAction() const
 
-    // 0x10016b490: the linker folded this into oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetMinMapZ() const, which has identical code
-    Material::GetViewportMapID() const;
+    // 0x10016b490: Material::GetViewportMapID() const has the same machine code as oldscape::rs2lib::worldmap::WorldmapAreaMetadata::GetMinMapZ() const
 
-    // 0x1001b8a60: the linker folded this into oldscape::OSRenderCore_RenderThread_Common::GetConstRenderStateNXT() const, which has identical code
-    Material::GetHideFacesMode() const;
+    // 0x1001b8a60, the same machine code as oldscape::OSRenderCore_RenderThread_Common::GetConstRenderStateNXT() const
+    uint8_t* Material::GetHideFacesMode() const {
+        return m_pHideFacesMode;
+    }
 
-    // 0x1001be5d0: the linker folded this into SunlightOptions::GetShadowQuality() const, which has identical code
-    Material::GetNormalEmissiveMapSize() const;
+    // 0x1001be5d0: Material::GetNormalEmissiveMapSize() const has the same machine code as SunlightOptions::GetShadowQuality() const
 
-    // 0x1001c21e0: the linker folded this into oldscape::MutationTracked<EffectList>::IsDirty() const, which has identical code
-    Material::HasCubemap() const;
+    // 0x1001c21e0: Material::HasCubemap() const has the same machine code as oldscape::MutationTracked<EffectList>::IsDirty() const
 
-    // 0x1001c4630: the linker folded this into oldscape::dash3d::NXTRenderCanvas::Get2DOnlyFrame() const, which has identical code
-    Material::HasHighlighting() const;
+    // 0x1001c4630: Material::HasHighlighting() const has the same machine code as oldscape::dash3d::NXTRenderCanvas::Get2DOnlyFrame() const
 
-    // 0x1001fb280: the linker folded this into http::CRMData::GetActionInfo() const, which has identical code
-    Material::GetViewportMapUVScaleAndAnim() const;
+    // 0x1001fb280: Material::GetViewportMapUVScaleAndAnim() const has the same machine code as http::CRMData::GetActionInfo() const
 
-    // 0x100293ee0: the linker folded this into hal::audio::AudioRenderer::GetState() const, which has identical code
-    int Material::GetDiffuseAlphaMapID() const;
+    // 0x100293ee0: Material::GetDiffuseAlphaMapID() const has the same machine code as hal::audio::AudioRenderer::GetState() const
 
-    // 0x1003cf2a0: the linker folded this into game::WorldMapDefaults::GetDropShadowColourRGBA() const, which has identical code
-    Material::GetHDRNormalMapID() const;
+    // 0x1003cf2a0: Material::GetHDRNormalMapID() const has the same machine code as game::WorldMapDefaults::GetDropShadowColourRGBA() const
 
-    // 0x100429880: the linker folded this into Headbar::GetDuration() const, which has identical code
-    Material::GetDiffuseAlphaMapSize() const;
+    // 0x100429880: Material::GetDiffuseAlphaMapSize() const has the same machine code as Headbar::GetDuration() const
 
-    // 0x100429b10: the linker folded this into game::StaticPointLight::GetRGB() const, which has identical code
-    int Material::GetEmissiveSourceColourARGB() const;
+    // 0x100429b10: Material::GetEmissiveSourceColourARGB() const has the same machine code as game::StaticPointLight::GetRGB() const
 
-    // 0x100429c00: the linker folded this into game::StaticPointLight::GetShadowStrength() const, which has identical code
-    Material::GetMaterialAnimationH() const;
+    // 0x100429c00: Material::GetMaterialAnimationH() const has the same machine code as game::StaticPointLight::GetShadowStrength() const
 
-    // 0x100445750: the linker folded this into FaceGroupRenderMasks::HasCustomisationMask() const, which has identical code
-    Material::IsRT7() const;
+    // 0x100445750: Material::IsRT7() const has the same machine code as FaceGroupRenderMasks::HasCustomisationMask() const
 
-    // 0x1004491e0: the linker folded this into math::Sphere2D::IsValid() const, which has identical code
-    char Material::HasDiffuseMap() const;
+    // 0x1004491e0: Material::HasDiffuseMap() const has the same machine code as math::Sphere2D::IsValid() const
 
-    // 0x1004c67a0: the linker folded this into game::WaterType::GetFoamMaterialScale() const, which has identical code
-    float Material::GetFresnelExponent() const;
+    // 0x1004c67a0: Material::GetFresnelExponent() const has the same machine code as game::WaterType::GetFoamMaterialScale() const
 
-    // 0x10053c040: the linker folded this into game::Cutscene2D::Scene::GetPlaybackEnd() const, which has identical code
-    Material::GetDefaultNonMetalSpecular() const;
+    // 0x10053c040: Material::GetDefaultNonMetalSpecular() const has the same machine code as game::Cutscene2D::Scene::GetPlaybackEnd() const
 
-    // 0x10064c760: the linker folded this into game::LocationContainer::GetConfigProvider() const, which has identical code
-    Material::GetWrapU() const;
+    // 0x10064c760: Material::GetWrapU() const has the same machine code as game::LocationContainer::GetConfigProvider() const
 
-    // 0x100828750: the linker folded this into ModularParticleEmitterTemplate::GetWarmupTime() const, which has identical code
-    Material::GetEmissiveScale() const;
+    // 0x100828750: Material::GetEmissiveScale() const has the same machine code as ModularParticleEmitterTemplate::GetWarmupTime() const
 
-    // 0x10082a9b0: the linker folded this into ModularParticleSystemTemplate::GetRenderPassBits() const, which has identical code
-    Material::GetNormalEmissiveMapID() const;
+    // 0x10082a9b0: Material::GetNormalEmissiveMapID() const has the same machine code as ModularParticleSystemTemplate::GetRenderPassBits() const
 
-    // 0x1008c6c40, 128 bytes, base-object constructor, placed by class name and debug map
-    // Material::Material()
-    void Material::Material() {
-        m_valid = 0;
+    // 0x1008c6c40
+    Material::Material() : m_valid(0) {
         field_1 = '\0';
         m_specularExponent = 0.0;
         m_diffuseAlphaMapID = -1;
@@ -108,101 +80,94 @@ namespace jag::graphics {
         m_defaultNonMetalSpecular = 0;
         field_80 = 1.0;
         m_pHideFacesMode = HideFacesMode::NEVER;
-        new (&field_112, 0.0, 0.0, 0.0, 0.0) ImVec4();
+        new (&field_112) ImVec4(0.0, 0.0, 0.0, 0.0);
         m_refractionAmount = 0;
         m_refractionIndex = 0;
         m_refractionDepthBias = 0;
     }
 
-    // 0x1008c6cc0, 16 bytes, complete-object constructor, placed by class name and debug map
-    // Material::Material(): jumps straight to the base-object constructor
-
-    // 0x1008c6cd0, 688 bytes, placed by class name and debug map
-    // Material::Initialise(int, MaterialRaw const&)
-    void Material::Initialise(int param_1, MaterialRaw* param_2) {
+    // 0x1008c6cd0
+    void Material::Initialise(int arg1, const MaterialRaw& materialRaw) {
         bool bVar1;
         int iVar2;
-        char cVar3;
 
         m_valid = 1;
-        field_1 = param_2->field_8;
-        m_iD = param_1;
-        cVar3 = IsRT7(this);
-        if (cVar3 == '\0') {
-            m_size = param_2->field_12;
-            m_hasDiffuseMap = param_2->field_16;
-            m_hasNormalMap = param_2->field_17;
-            field_14 = param_2->field_18;
-            m_hasHDRMap = param_2->field_19;
-            cVar3 = param_2->field_20;
+        field_1 = materialRaw.field_8;
+        m_iD = arg1;
+        char cVar3 = IsRT7();
+        if (!cVar3) {
+            m_size = materialRaw.field_12;
+            m_hasDiffuseMap = materialRaw.field_16;
+            m_hasNormalMap = materialRaw.field_17;
+            field_14 = materialRaw.field_18;
+            m_hasHDRMap = materialRaw.field_19;
+            cVar3 = materialRaw.field_20;
             field_16 = cVar3;
-            iVar2 = param_2->field_44;
+            iVar2 = materialRaw.field_44;
             m_hasEmissiveMap = iVar2 == 6;
             m_hasSpecularMap = iVar2 == 1;
-            m_diffuseMapID = param_2->field_24;
-            m_hDRNormalMapID = param_2->field_28;
-            m_globalEnvironmentMapped = param_2->field_32;
-            field_29 = param_2->field_33;
-            m_specularExponent = (float)param_2->field_36;
-            m_hasForcedTextures = param_2->field_65 ^ 1;
-            m_legacyMaterial = param_2->field_40;
-            m_legacyWhiteness = param_2->field_67;
-            m_legacyBrightness = param_2->field_66;
-            bVar1 = param_2->field_64;
+            m_diffuseMapID = materialRaw.field_24;
+            m_hDRNormalMapID = materialRaw.field_28;
+            m_globalEnvironmentMapped = materialRaw.field_32;
+            field_29 = materialRaw.field_33;
+            m_specularExponent = (float)materialRaw.field_36;
+            m_hasForcedTextures = materialRaw.field_65 ^ 1;
+            m_legacyMaterial = materialRaw.field_40;
+            m_legacyWhiteness = materialRaw.field_67;
+            m_legacyBrightness = materialRaw.field_66;
+            bVar1 = materialRaw.field_64;
             field_39 = bVar1;
             if (bVar1 != false) {
                 m_pHideFacesMode = HideFacesMode::TEXTURES_ON;
             }
-            if ((m_alphaMode != AlphaMode::ALPHA_OPAQUE) && ((iVar2 == 1 || (cVar3 != '\0')))) {
+            if ((m_alphaMode != AlphaMode::ALPHA_OPAQUE) && ((iVar2 == 1 || (cVar3)))) {
                 m_alphaMode = AlphaMode::ALPHA_OPAQUE;
             }
         } else {
-            m_diffuseAlphaMapID = param_2->field_76;
-            m_normalEmissiveMapID = param_2->field_80;
-            m_metalnessRoughnessMapID = param_2->field_84;
-            m_diffuseAlphaMapSize = param_2->field_88;
-            m_normalEmissiveMapSize = param_2->field_92;
-            m_metalnessRoughnessMapSize = param_2->field_96;
-            m_emissiveSourceColourARGB = param_2->field_104;
-            m_emissiveScale = param_2->field_108;
-            m_specularScale = param_2->field_164;
-            m_fresnelExponent = (float)param_2->field_112;
-            m_defaultNonMetalSpecular = param_2->field_116;
-            field_80 = (float)param_2->field_100;
-            m_pHideFacesMode = param_2->field_120;
-            m_hasForcedTextures = param_2->field_72;
+            m_diffuseAlphaMapID = materialRaw.field_76;
+            m_normalEmissiveMapID = materialRaw.field_80;
+            m_metalnessRoughnessMapID = materialRaw.field_84;
+            m_diffuseAlphaMapSize = materialRaw.field_88;
+            m_normalEmissiveMapSize = materialRaw.field_92;
+            m_metalnessRoughnessMapSize = materialRaw.field_96;
+            m_emissiveSourceColourARGB = materialRaw.field_104;
+            m_emissiveScale = materialRaw.field_108;
+            m_specularScale = materialRaw.field_164;
+            m_fresnelExponent = (float)materialRaw.field_112;
+            m_defaultNonMetalSpecular = materialRaw.field_116;
+            field_80 = (float)materialRaw.field_100;
+            m_pHideFacesMode = materialRaw.field_120;
+            m_hasForcedTextures = materialRaw.field_72;
         }
-        m_materialAnimationH = param_2->field_128;
-        m_materialAnimationV = param_2->field_132;
-        m_environmentMaterialID = param_2->field_136;
-        m_viewportMapID = param_2->field_140;
-        math::Rect<float>::operator=((Rect<float>*)&field_112, (Rect*)&param_2->field_144);
-        m_unlit = param_2->field_160;
-        m_shadowCaster = param_2->field_161;
-        m_shadowReceiver = param_2->field_162;
-        m_specularScale = param_2->field_164;
-        m_normalScale = param_2->field_168;
-        m_refractionAmount = param_2->field_172;
-        m_refractionIndex = param_2->field_176;
-        m_refractionDepthBias = param_2->field_180;
-        m_blendMode = param_2->field_184;
-        m_alphaMode = param_2->field_192;
-        m_alphaTestThreshold = param_2->field_200;
-        m_pWrapU = param_2->field_208;
-        m_pWrapV = param_2->field_216;
-        m_hasHighlighting = param_2->field_226;
-        m_hasTransparencyCutout = param_2->field_227;
-        field_208 = math::RunetekColour::HSLToRGB(param_2->field_224);
+        m_materialAnimationH = materialRaw.field_128;
+        m_materialAnimationV = materialRaw.field_132;
+        m_environmentMaterialID = materialRaw.field_136;
+        m_viewportMapID = materialRaw.field_140;
+        field_112 = materialRaw.field_144;
+        m_unlit = materialRaw.field_160;
+        m_shadowCaster = materialRaw.field_161;
+        m_shadowReceiver = materialRaw.field_162;
+        m_specularScale = materialRaw.field_164;
+        m_normalScale = materialRaw.field_168;
+        m_refractionAmount = materialRaw.field_172;
+        m_refractionIndex = materialRaw.field_176;
+        m_refractionDepthBias = materialRaw.field_180;
+        m_blendMode = materialRaw.field_184;
+        m_alphaMode = materialRaw.field_192;
+        m_alphaTestThreshold = materialRaw.field_200;
+        m_pWrapU = materialRaw.field_208;
+        m_pWrapV = materialRaw.field_216;
+        m_hasHighlighting = materialRaw.field_226;
+        m_hasTransparencyCutout = materialRaw.field_227;
+        field_208 = math::RunetekColour::HSLToRGB(materialRaw.field_224);
     }
 
-    // 0x1008c6f80, 304 bytes, placed by class name and debug map
-    // Material::InitialiseDummy(bool)
-    void Material::InitialiseDummy(bool param_1) {
-        undefined* puVar1;
-        undefined3 in_register_00000031;
+    // 0x1008c6f80
+    void Material::InitialiseDummy(bool arg1) {
+        uint32_t in_register_00000031;
 
         m_valid = 1;
-        if (CONCAT31(in_register_00000031, param_1) == 0) {
+        if ((((uint32_t)in_register_00000031 << 8) | (uint8_t)arg1) == 0) {
             m_iD = 4294967295;
             m_size = 8;
             field_1 = '\0';
@@ -241,7 +206,7 @@ namespace jag::graphics {
         m_viewportMapID = 4294967295;
         m_materialAnimationH = 0;
         m_materialAnimationV = 0;
-        *(undefined4*)((long)&m_materialAnimationV + 3) = 0;
+        *(uint32_t*)((long)&m_materialAnimationV + 3) = 0;
         m_specularScale = 1065353216;
         m_normalScale = 1065353216;
         m_refractionAmount = 0;
@@ -250,7 +215,7 @@ namespace jag::graphics {
         m_blendMode = BlendMode::NORMAL;
         m_alphaMode = AlphaMode::ALPHA_OPAQUE;
         m_alphaTestThreshold = 255;
-        puVar1 = graphicutils::TextureWrapMode::CLAMP;
+        uint8_t* puVar1 = graphicutils::TextureWrapMode::CLAMP;
         m_pWrapU = graphicutils::TextureWrapMode::CLAMP;
         m_pWrapV = puVar1;
         m_pHideFacesMode = HideFacesMode::NEVER;
@@ -260,11 +225,10 @@ namespace jag::graphics {
         m_hasTransparencyCutout = 0;
     }
 
-    // 0x1008c70b0, 48 bytes, placed by class name and debug map
-    // Material::InitialiseLoading(bool)
-    void Material::InitialiseLoading(bool param_1) {
-        InitialiseDummy(this, param_1);
-        m_iD = (uint)(byte)~param_1 * 2 | 4294967292;
+    // 0x1008c70b0
+    void Material::InitialiseLoading(bool arg1) {
+        InitialiseDummy(arg1);
+        m_iD = (unsigned int)(uint8_t)~arg1 * 2 | 4294967292;
         m_diffuseMapID = 4294967292;
     }
 

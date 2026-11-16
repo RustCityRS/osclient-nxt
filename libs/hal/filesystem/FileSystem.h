@@ -1,6 +1,5 @@
 // libs/hal/filesystem/FileSystem.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,97 +7,85 @@ namespace jag {
     class FileSystem {
     public:
         // virtual methods in vtable order
-        virtual void OnCacheFolderChanged(Filename const&, Filename const&);
-        virtual void OnUserFolderChanged(Filename const&, Filename const&);
+        virtual void OnCacheFolderChanged(const Filename& filename1, const Filename& filename2);
+        virtual void OnUserFolderChanged(const Filename& filename1, const Filename& filename2);
         virtual ~FileSystem();
-        SetIndexUpdateCallback(std::function<Array<unsigned char, eastl::allocator>*(int)> const&);
-        int GetScope() const;
+        uint64_t SetIndexUpdateCallback(std::function<Array<unsigned char>*(int)> const& arg1);
+        Scope GetScope() const;
         void Service();
-        FileSystem(Filename const&, Scope, char const*, bool);
+        FileSystem(const Filename& filename, Scope scope, const char* str, bool arg4);
         void ProcessAllQueuedRequests();
-        IsReady() const;
-        void ProcessRequest(filesystem::QueueItem&&);
-        void ProcessQueuedRequest(filesystem::QueueItem const&);
-        void ProcessResponse(filesystem::QueueItem&);
-        void FinishedRequest(filesystem::QueueItem const&);
-        void SetDiskState(filesystem::QueueItem const&, filesystem::RequestType);
+        bool IsReady() const;
+        void ProcessRequest(filesystem::QueueItem&& queueItem);
+        void ProcessQueuedRequest(const filesystem::QueueItem& queueItem);
+        void ProcessResponse(filesystem::QueueItem& queueItem);
+        void FinishedRequest(const filesystem::QueueItem& queueItem);
+        void SetDiskState(const filesystem::QueueItem& queueItem, filesystem::RequestType requestType);
         void ResetDiskState();
-        void SetDiskState(Filename const&, filesystem::RequestType);
-        GetDiskState(Filename const&) const;
-        GetFileStatus(Filename const&);
-        ulong FileHasScheduledAction(Filename const&, filesystem::RequestType) const;
-        void PushQuery(filesystem::QueueItem&&);
-        void RemoveQuery(filesystem::QueueItem const&);
+        void SetDiskState(const Filename& filename, filesystem::RequestType requestType);
+        uint32_t GetDiskState(const Filename& filename) const;
+        uint64_t GetFileStatus(const Filename& filename);
+        unsigned long FileHasScheduledAction(const Filename& filename, filesystem::RequestType requestType) const;
+        void PushQuery(filesystem::QueueItem&& queueItem);
+        void RemoveQuery(const filesystem::QueueItem& queueItem);
         void BeginTransaction();
         void EndTransaction();
-        void WriteFile(Filename const&, Array<unsigned char, eastl::allocator> const&, bool,
-                       std::function<void(Filename const&)> const&,
-                       std::function<void(Filename const&, int, eastl::string const&)> const&);
-        void WriteFile(Filename const&, Array<unsigned char, eastl::allocator>&&, bool,
-                       std::function<void(Filename const&)> const&,
-                       std::function<void(Filename const&, int, eastl::string const&)> const&);
-        void WriteFile(Filename const&, Array<unsigned char, BucketAllocatorEASTL>&&, bool,
-                       std::function<void(Filename const&)> const&,
-                       std::function<void(Filename const&, int, eastl::string const&)> const&);
-        void WriteFile(Filename const&, Array<unsigned char, SafeBucketAllocatorEASTL>&&, bool,
-                       std::function<void(Filename const&)> const&,
-                       std::function<void(Filename const&, int, eastl::string const&)> const&);
-        void ReadFile(Filename const&,
-                      std::function<void(Filename const&, Array<unsigned char, eastl::allocator> const&)> const&,
-                      std::function<void(Filename const&, int, eastl::string const&)> const&);
-        void DeleteFile(Filename const&, std::function<void(Filename const&)> const&,
-                        std::function<void(Filename const&, int, eastl::string const&)> const&);
-        void Reset(std::function<void()> const&,
-                   std::function<void(Filename const&, int, eastl::string const&)> const&);
-        int DeleteDirectory(Filename const&);
-        int GetFileList(Filename const&, eastl::list<filesystem::FileListContents, eastl::allocator>&, bool,
-                        Filename const*);
-        long GetFolderSizeBytes(Filename const&, bool);
-        FileSystem* NewFileSystem(Filename const&, Scope, char const*, bool);
-        IsSettingsStyle() const;
-        static eastl::list<weak_ptr<FileSystem>, eastl::allocator> /* 32 bytes */
-            m_FileSystemList;                                      // = list<weak_ptr<FileSystem>,eastl::allocator>()
-        static /* 1 bytes */ m_resetPending;
-        static /* 1 bytes */ m_runningReset;
-        static /* 6 bytes */ ms_diskThreadQuit;
-        static /* 8 bytes */ m_cacheFolderUsage;
-        static /* 8 bytes */ m_userFolderUsage;
-        static /* 8 bytes */ m_notificationHandler;
+        void WriteFile(const Filename& filename, const Array<unsigned char>& arg2, bool arg3,
+                       std::function<void(Filename const&)> const& callback1,
+                       std::function<void(Filename const&, int, eastl::string const&)> const& callback2);
+        void WriteFile(const Filename& filename, Array<unsigned char>&& arg2, bool arg3,
+                       std::function<void(Filename const&)> const& callback1,
+                       std::function<void(Filename const&, int, eastl::string const&)> const& callback2);
+        void WriteFile(const Filename& filename, Array<unsigned char>&& arg2, bool arg3,
+                       std::function<void(Filename const&)> const& callback1,
+                       std::function<void(Filename const&, int, eastl::string const&)> const& callback2);
+        void WriteFile(const Filename& filename, Array<unsigned char, SafeBucketAllocatorEASTL>&& arg2, bool arg3,
+                       std::function<void(Filename const&)> const& callback1,
+                       std::function<void(Filename const&, int, eastl::string const&)> const& callback2);
+        void ReadFile(const Filename& filename,
+                      std::function<void(Filename const&, Array<unsigned char> const&)> const& callback1,
+                      std::function<void(Filename const&, int, eastl::string const&)> const& callback2);
+        void DeleteFile(const Filename& filename, std::function<void(Filename const&)> const& callback1,
+                        std::function<void(Filename const&, int, eastl::string const&)> const& callback2);
+        void Reset(const std::function<void()>& callback1,
+                   std::function<void(Filename const&, int, eastl::string const&)> const& callback2);
+        int DeleteDirectory(const Filename& filename);
+        int GetFileList(const Filename& filename1, eastl::list<filesystem::FileListContents>& fileListContentss,
+                        bool arg3, const Filename* filename2);
+        long GetFolderSizeBytes(const Filename& filename, bool arg2);
+        auto NewFileSystem(const Filename& filename, Scope scope, const char* str, bool arg4);
+        bool IsSettingsStyle() const;
+        static eastl::list<weak_ptr<FileSystem>> m_FileSystemList; // = list<weak_ptr<FileSystem>>()
+        static bool m_resetPending;
+        static bool m_runningReset;
+        static int16_t ms_diskThreadQuit;
+        static int64_t m_cacheFolderUsage;
+        static int64_t m_userFolderUsage;
+        static int64_t m_notificationHandler;
 
-        // data members, from how the methods use this: 913 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        Filename field_8;    // offset 8
-        char _unknown_24[288];
-        Filename field_312; // offset 312
-        char _unknown_328[288];
-        int m_scope; // offset 616
-        char _unknown_620[36];
-        undefined1 m_ready; // offset 656
-        char _unknown_657[1];
-        undefined1 m_settingsStyle; // offset 658
-        char _unknown_659[69];
-        uint field_728; // offset 728
-        char _unknown_732[156];
-        undefined1 field_888; // offset 888
-        char _unknown_889[23];
-        undefined1 field_912; // offset 912
+    private:
+        uint8_t _unknown_8[608];
+        Scope m_scope;
+        uint8_t _unknown_620[36];
+        uint8_t m_ready;
+        uint8_t _unknown_657[1];
+        bool m_settingsStyle;
+        uint8_t _unknown_659[253];
+        uint8_t field_912;
     };
 
-    // 0x100b1d2e0, 16 bytes, inline, placed by class name and debug map
-    // FileSystem::IsReady() const
-    undefined1 FileSystem::IsReady() {
+    // 0x100b1d2e0
+    bool FileSystem::IsReady() const {
         return m_ready;
     }
 
-    // 0x100b1da80, 16 bytes, inline, placed by class name and debug map
-    // FileSystem::SetDiskState(filesystem::QueueItem const&, filesystem::RequestType)
-    void FileSystem::SetDiskState(FileSystem* param_1, long param_2) {
-        SetDiskState(param_1, param_2 + 8);
+    // 0x100b1da80
+    void FileSystem::SetDiskState(const filesystem::QueueItem& queueItem, filesystem::RequestType requestType) {
+        SetDiskState(queueItem.field_8, requestType);
     }
 
-    // 0x100b1f7b0, 16 bytes, inline, placed by class name
-    // FileSystem::IsSettingsStyle() const
-    undefined1 FileSystem::IsSettingsStyle() {
+    // 0x100b1f7b0
+    bool FileSystem::IsSettingsStyle() const {
         return m_settingsStyle;
     }
 
@@ -108,44 +95,31 @@ namespace jag::filesystem {
     class QueueItem {
     public:
         QueueItem();
-        void swap(QueueItem&);
+        void swap(QueueItem& queueItem);
         ~QueueItem();
-        QueueItem(QueueItem const&);
-        QueueItem(QueueItem&&);
+        QueueItem(const QueueItem& queueItem);
+        QueueItem(QueueItem&& queueItem);
 
-        // data members, from how the methods use this: 552 bytes
-        uint field_0; // offset 0
-        char _unknown_4[4];
-        Filename field_8; // offset 8
-        char _unknown_24[312];
-        undefined1 field_336; // offset 336
-        char _unknown_337[207];
-        Error field_544; // offset 544
-        char _unknown_548[4];
+    private:
+        int field_0;
+        uint8_t _unknown_4[332];
+        uint8_t field_336;
+        uint8_t _unknown_337[207];
+        Error field_544;
+        uint8_t _unknown_548[4];
     };
 
-    // 0x100b1d300, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // QueueItem::QueueItem(): jumps straight to the base-object constructor
-
-    // 0x100b1d310, 176 bytes, inline, placed by debug map only (low confidence)
-    // QueueItem::swap(QueueItem&)
-    void QueueItem::swap(QueueItem* param_1) {
-        eastl::swap<unsigned int>(&field_0, &param_1->field_0);
-        (field_8, (Filename*)param_1->field_8)->swap();
-        (&field_312, (Array*)&param_1->field_312)->swap();
-        eastl::swap<signed char>((signed*)&field_336, (signed*)&param_1->field_336);
-        std::function<void()>::swap((function<void()>*)&field_352, (function*)&param_1->field_352);
-        std::function<void(Filename_const&)>::swap((function<void(Filename_const&)>*)&field_400,
-                                                   (function*)&param_1->field_400);
-        std::function<void(Filename_const&, Array<unsigned char, eastl::allocator> const&)>::swap(
-            (function<void(Filename_const&, Array<unsigned char, eastl::allocator> const&)>*)&field_448,
-            (function*)&param_1->field_448);
-        std::function<void(Filename_const&, int, eastl::stringconst&)>::swap(
-            (function<void(Filename_const&, int, eastl::stringconst&)>*)&field_496, (function*)&param_1->field_496);
-        eastl::swap<Error>((Error*)field_544, (Error*)param_1->field_544);
+    // 0x100b1d310
+    void QueueItem::swap(QueueItem& queueItem) {
+        eastl::swap<unsigned int>(field_0, queueItem.field_0);
+        field_8.swap(queueItem.field_8);
+        field_312.swap(queueItem.field_312);
+        eastl::swap<signed char>(field_336, queueItem.field_336);
+        field_352.swap(queueItem.field_352);
+        field_400.swap(queueItem.field_400);
+        field_448.swap(queueItem.field_448);
+        field_496.swap(queueItem.field_496);
+        eastl::swap<Error>(*field_544, queueItem.field_544);
     }
-
-    // 0x100b1d540, 16 bytes, complete-object destructor, inline, placed by debug map only (low confidence)
-    // QueueItem::~QueueItem(): jumps straight to the base-object destructor
 
 } // namespace jag::filesystem

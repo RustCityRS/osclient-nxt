@@ -1,6 +1,5 @@
 // libs/oldscape/rs2lib/social/clanchat/ClanChannelDelta.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 // target: libs.oldscape.rs2lib
@@ -15,42 +14,42 @@ namespace jag::oldscape::rs2lib::social {
         class UpdateUserDetails;
         class UpdateUserDetailsV2;
         ~ClanChannelDelta();
-        ClanChannelDelta(ClanChannel&);
-        ClanChannelDelta(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        void Decode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        void AddUserToEntryList(long long, eastl::string, int, signed char, long long);
-        void DeleteUserInEntryList(int, int, long long);
-        void UpdateUserDetailsInEntryList(int, signed char, int, long long, eastl::string, bool);
-        void UpdateBaseSettingsInEntryList(eastl::string, bool, signed char, signed char);
-        void Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, bool, bool);
-        void ApplyToClanChannel(ClanChannel&);
+        ClanChannelDelta(ClanChannel& clanChannel);
+        ClanChannelDelta(PacketJ<Array<unsigned char>>& packetJ);
+        void Decode(PacketJ<Array<unsigned char>>& packetJ);
+        void AddUserToEntryList(long long arg1, eastl::string str, int arg3, signed char arg4, long long arg5);
+        void DeleteUserInEntryList(int arg1, int arg2, long long arg3);
+        void UpdateUserDetailsInEntryList(int arg1, signed char arg2, int arg3, long long arg4, eastl::string str,
+                                          bool arg6);
+        void UpdateBaseSettingsInEntryList(eastl::string str, bool arg2, signed char arg3, signed char arg4);
+        void Encode(PacketJ<Array<unsigned char>>& packetJ, bool arg2, bool arg3);
+        void ApplyToClanChannel(ClanChannel& clanChannel);
 
-        // data members, from how the methods use this: 32 bytes
-        char _unknown_0[16];
-        undefined8 field_16; // offset 16
-        undefined8 field_24; // offset 24
+    private:
+        uint8_t _unknown_0[16];
+        uint64_t field_16;
+        uint64_t field_24;
     };
 
     class ClanChannelDelta::AddUser {
     public:
         // virtual methods in vtable order
         virtual ~AddUser();
-        virtual GetID() const;
-        virtual void Decode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        virtual void Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, bool, bool);
-        virtual void Apply(ClanChannel&);
-        AddUser(long long, eastl::string, int, signed char, long long);
+        virtual uint64_t GetID() const;
+        virtual void Decode(PacketJ<Array<unsigned char>>& packetJ);
+        virtual void Encode(PacketJ<Array<unsigned char>>& packetJ, bool arg2, bool arg3);
+        virtual void Apply(ClanChannel& clanChannel);
+        AddUser(long long arg1, eastl::string str, int arg3, signed char arg4, long long arg5);
         AddUser();
 
-        // data members, from how the methods use this: 88 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[24];
-        long field_32; // offset 32
-        char _unknown_40[32];
-        uint field_72; // offset 72
-        char field_76; // offset 76
-        char _unknown_77[3];
-        undefined8 field_80; // offset 80
+    private:
+        uint8_t _unknown_8[24];
+        long long field_32;
+        uint8_t _unknown_40[32];
+        unsigned int field_72;
+        bool field_76;
+        uint8_t _unknown_77[3];
+        long long field_80;
     };
 
     class ClanChannelDelta::ClanChannelDeltaEntry {
@@ -59,389 +58,232 @@ namespace jag::oldscape::rs2lib::social {
         virtual ~ClanChannelDeltaEntry();
         ClanChannelDeltaEntry();
 
-        // data members, from how the methods use this: 32 bytes
-        undefined* field_0; // offset 0, vtable pointer
-        char _unknown_8[16];
-        undefined8 field_24; // offset 24
+    private:
+        uint8_t _unknown_8[16];
+        uint64_t field_24;
     };
 
     class ClanChannelDelta::DeleteUser {
     public:
         // virtual methods in vtable order
         virtual ~DeleteUser();
-        virtual GetID() const;
-        virtual void Decode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        virtual void Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, bool, bool);
-        virtual void Apply(ClanChannel&);
-        DeleteUser(int, int, long long);
+        virtual uint64_t GetID() const;
+        virtual void Decode(PacketJ<Array<unsigned char>>& packetJ);
+        virtual void Encode(PacketJ<Array<unsigned char>>& packetJ, bool arg2, bool arg3);
+        virtual void Apply(ClanChannel& clanChannel);
+        DeleteUser(int arg1, int arg2, long long arg3);
         DeleteUser();
 
-        // data members, from how the methods use this: 48 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[24];
-        uint field_32;     // offset 32
-        uint field_36;     // offset 36
-        longlong field_40; // offset 40
+    private:
+        uint8_t _unknown_8[24];
+        unsigned int field_32;
+        unsigned int field_36;
+        long long field_40;
     };
 
     class ClanChannelDelta::UpdateClanChannelBaseSettings {
     public:
         // virtual methods in vtable order
         virtual ~UpdateClanChannelBaseSettings();
-        virtual GetID() const;
-        virtual void Decode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        virtual void Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, bool, bool);
-        virtual void Apply(ClanChannel&);
-        UpdateClanChannelBaseSettings(eastl::string, bool, signed char, signed char);
+        virtual uint64_t GetID() const;
+        virtual void Decode(PacketJ<Array<unsigned char>>& packetJ);
+        virtual void Encode(PacketJ<Array<unsigned char>>& packetJ, bool arg2, bool arg3);
+        virtual void Apply(ClanChannel& clanChannel);
+        UpdateClanChannelBaseSettings(eastl::string str, bool arg2, signed char arg3, signed char arg4);
         UpdateClanChannelBaseSettings();
 
-        // data members, from how the methods use this: 74 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[56];
-        bool field_64; // offset 64
-        char field_65; // offset 65
-        char field_66; // offset 66
-        char _unknown_67[7];
+    private:
+        uint8_t _unknown_8[56];
+        bool field_64;
+        bool field_65;
+        bool field_66;
+        uint8_t _unknown_67[7];
     };
 
     class ClanChannelDelta::UpdateUserDetails {
     public:
         // virtual methods in vtable order
         virtual ~UpdateUserDetails();
-        virtual GetID() const;
-        virtual void Decode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        virtual void Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, bool, bool);
-        virtual void Apply(ClanChannel&);
-        UpdateUserDetails(int, signed char, int, long long, eastl::string);
+        virtual uint64_t GetID() const;
+        virtual void Decode(PacketJ<Array<unsigned char>>& packetJ);
+        virtual void Encode(PacketJ<Array<unsigned char>>& packetJ, bool arg2, bool arg3);
+        virtual void Apply(ClanChannel& clanChannel);
+        UpdateUserDetails(int arg1, signed char arg2, int arg3, long long arg4, eastl::string str);
         UpdateUserDetails();
 
-        // data members, from how the methods use this: 64 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[24];
-        uint field_32; // offset 32
-        char field_36; // offset 36
-        char _unknown_37[3];
-        uint field_40; // offset 40
-        char _unknown_44[4];
-        undefined8 field_48; // offset 48
-        char _unknown_56[8];
+    private:
+        uint8_t _unknown_8[24];
+        unsigned int field_32;
+        bool field_36;
+        uint8_t _unknown_37[3];
+        unsigned int field_40;
+        uint8_t _unknown_44[4];
+        long long field_48;
+        uint8_t _unknown_56[8];
     };
 
     class ClanChannelDelta::UpdateUserDetailsV2 {
     public:
         // virtual methods in vtable order
         virtual ~UpdateUserDetailsV2();
-        virtual GetID() const;
-        virtual void Decode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&);
-        virtual void Encode(PacketJ<Array<unsigned char, BucketAllocatorEASTL>>&, bool, bool);
-        virtual void Apply(ClanChannel&);
-        UpdateUserDetailsV2(int, signed char, int, long long, eastl::string, bool);
+        virtual uint64_t GetID() const;
+        virtual void Decode(PacketJ<Array<unsigned char>>& packetJ);
+        virtual void Encode(PacketJ<Array<unsigned char>>& packetJ, bool arg2, bool arg3);
+        virtual void Apply(ClanChannel& clanChannel);
+        UpdateUserDetailsV2(int arg1, signed char arg2, int arg3, long long arg4, eastl::string str, bool arg6);
         UpdateUserDetailsV2();
 
-        // data members, from how the methods use this: 89 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[24];
-        uint field_32; // offset 32
-        char field_36; // offset 36
-        char _unknown_37[3];
-        uint field_40; // offset 40
-        char _unknown_44[4];
-        undefined8 field_48; // offset 48
-        char _unknown_56[32];
-        bool field_88; // offset 88
+    private:
+        uint8_t _unknown_8[24];
+        unsigned int field_32;
+        bool field_36;
+        uint8_t _unknown_37[3];
+        unsigned int field_40;
+        uint8_t _unknown_44[4];
+        long long field_48;
+        uint8_t _unknown_56[32];
+        bool field_88;
     };
 
-    // 0x100152220, 16 bytes, complete-object destructor, inline, placed by class name and debug map
-    // ClanChannelDelta::~ClanChannelDelta(): jumps straight to the base-object destructor
+    // 0x100152230
+    ClanChannelDelta::~ClanChannelDelta() {}
 
-    // 0x100152230, 16 bytes, base-object destructor, inline, placed by class name and debug map
-    // ClanChannelDelta::~ClanChannelDelta()
-    void ClanChannelDelta::~ClanChannelDelta() {
-        ~SharedPtrList();
-    }
+    // 0x10025b3b0
+    ClanChannelDelta::ClanChannelDeltaEntry::ClanChannelDeltaEntry()
+        : Linkable<ClanChannelDelta::ClanChannelDeltaEntry>() {}
 
-    // 0x10025b3b0, 48 bytes, base-object constructor, inline, placed by class name
-    // ClanChannelDelta::ClanChannelDeltaEntry::ClanChannelDeltaEntry()
-    void ClanChannelDelta::ClanChannelDeltaEntry::ClanChannelDeltaEntry() {
-        new (this) Linkable<ClanChannelDelta::ClanChannelDeltaEntry>();
-        field_0 = PTR_vtable_100ee8ac0 + 16;
-    }
-
-    // 0x10025b3e0, 16 bytes, base-object destructor, inline, placed by class name
-    // the linker folded identical functions into this address; Ghidra decompiled it under another of its names, so the signature below names that function
-    // ClanChannelDelta::ClanChannelDeltaEntry::~ClanChannelDeltaEntry()
-    /* Linkable<ClanChannelDelta::ClanChannelDeltaEntry>::~Linkable()
-    */
-
-    void Linkable<ClanChannelDelta::ClanChannelDeltaEntry>::~Linkable() {
+    // 0x10025b3e0
+    ClanChannelDelta::ClanChannelDeltaEntry::~ClanChannelDeltaEntry() {
         ~Linkable(this);
     }
 
-    // 0x100269930, 16 bytes, complete-object destructor, inline, placed by class name
-    // ClanChannelDelta::AddUser::~AddUser(): jumps straight to the base-object destructor
-
-    // 0x100269940, 32 bytes, deleting destructor, inline, placed by class name
-    // ClanChannelDelta::AddUser::~AddUser()
-    void ClanChannelDelta::AddUser::~AddUser() {
-        ~AddUser(this);
-        operator_delete(this);
-    }
-
-    // 0x100269960, 16 bytes, inline, placed by class name
-    // ClanChannelDelta::AddUser::GetID() const
-    /* ClanSettingsDelta::AddMemberOldV1::GetID() const */
-
-    undefined8 ClanSettingsDelta::AddMemberOldV1::GetID() {
+    // 0x100269960
+    uint64_t ClanChannelDelta::AddUser::GetID() const {
         return 1;
     }
 
-    // 0x100269970, 16 bytes, complete-object destructor, inline, placed by class name
-    // ClanChannelDelta::DeleteUser::~DeleteUser(): jumps straight to the base-object destructor
-
-    // 0x100269980, 32 bytes, deleting destructor, inline, placed by class name
-    // ClanChannelDelta::DeleteUser::~DeleteUser()
-    void ClanChannelDelta::DeleteUser::~DeleteUser() {
-        ~DeleteUser(this);
-        operator_delete(this);
-    }
-
-    // 0x1002699a0, 16 bytes, inline, placed by class name
-    // ClanChannelDelta::DeleteUser::GetID() const
-    /* ClanSettingsDelta::AddBanned::GetID() const */
-
-    undefined8 ClanSettingsDelta::AddBanned::GetID() {
+    // 0x1002699a0
+    uint64_t ClanChannelDelta::DeleteUser::GetID() const {
         return 3;
     }
 
-    // 0x1002699b0, 16 bytes, complete-object destructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetails::~UpdateUserDetails(): jumps straight to the base-object destructor
-
-    // 0x1002699c0, 32 bytes, deleting destructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetails::~UpdateUserDetails()
-    void ClanChannelDelta::UpdateUserDetails::~UpdateUserDetails() {
-        ~UpdateUserDetails(this);
-        operator_delete(this);
-    }
-
-    // 0x1002699e0, 16 bytes, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetails::GetID() const
-    /* ClanSettingsDelta::SetMemberRank::GetID() const */
-
-    undefined8 ClanSettingsDelta::SetMemberRank::GetID() {
+    // 0x1002699e0
+    uint64_t ClanChannelDelta::UpdateUserDetails::GetID() const {
         return 2;
     }
 
-    // 0x1002699f0, 16 bytes, complete-object destructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetailsV2::~UpdateUserDetailsV2(): jumps straight to the base-object destructor
-
-    // 0x100269a00, 32 bytes, deleting destructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetailsV2::~UpdateUserDetailsV2()
-    void ClanChannelDelta::UpdateUserDetailsV2::~UpdateUserDetailsV2() {
-        ~UpdateUserDetailsV2(this);
-        operator_delete(this);
-    }
-
-    // 0x100269a20, 16 bytes, complete-object destructor, inline, placed by class name
-    // ClanChannelDelta::UpdateClanChannelBaseSettings::~UpdateClanChannelBaseSettings(): jumps straight to the base-object destructor
-
-    // 0x100269a30, 32 bytes, deleting destructor, inline, placed by class name
-    // ClanChannelDelta::UpdateClanChannelBaseSettings::~UpdateClanChannelBaseSettings()
-    void ClanChannelDelta::UpdateClanChannelBaseSettings::~UpdateClanChannelBaseSettings() {
-        ~UpdateClanChannelBaseSettings(this);
-        operator_delete(this);
-    }
-
-    // 0x100269a50, 16 bytes, inline, placed by class name
-    // ClanChannelDelta::UpdateClanChannelBaseSettings::GetID() const
-    /* ClanSettingsDelta::UpdateClanSettingsBaseSettings::GetID() const
-    */
-
-    undefined8 ClanSettingsDelta::UpdateClanSettingsBaseSettings::GetID() {
+    // 0x100269a50
+    uint64_t ClanChannelDelta::UpdateClanChannelBaseSettings::GetID() const {
         return 4;
     }
 
-    // 0x100269f30, 48 bytes, base-object destructor, inline, placed by class name
-    // ClanChannelDelta::AddUser::~AddUser()
-    void ClanChannelDelta::AddUser::~AddUser() {
-        field_0 = &PTR__AddUser_100ef8210;
-        (&field_40)->~basic_string();
-        ~Linkable();
+    // 0x100269f30
+    ClanChannelDelta::AddUser::~AddUser() {
+        field_40.~basic_string();
     }
 
-    // 0x100269f60, 16 bytes, base-object destructor, inline, placed by class name
-    // ClanChannelDelta::DeleteUser::~DeleteUser()
-    void ClanChannelDelta::DeleteUser::~DeleteUser() {
-        ~Linkable();
+    // 0x100269f60
+    ClanChannelDelta::DeleteUser::~DeleteUser() {}
+
+    // 0x100269f70
+    ClanChannelDelta::UpdateUserDetails::~UpdateUserDetails() {
+        field_56.~basic_string();
     }
 
-    // 0x100269f70, 48 bytes, base-object destructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetails::~UpdateUserDetails()
-    void ClanChannelDelta::UpdateUserDetails::~UpdateUserDetails() {
-        field_0 = &PTR__UpdateUserDetails_100ef8290;
-        (&field_56)->~basic_string();
-        ~Linkable();
+    // 0x100269fa0
+    ClanChannelDelta::UpdateUserDetailsV2::~UpdateUserDetailsV2() {
+        field_56.~basic_string();
     }
 
-    // 0x100269fa0, 48 bytes, base-object destructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetailsV2::~UpdateUserDetailsV2()
-    void ClanChannelDelta::UpdateUserDetailsV2::~UpdateUserDetailsV2() {
-        field_0 = &PTR__UpdateUserDetailsV2_100ef82d0;
-        (&field_56)->~basic_string();
-        ~Linkable();
+    // 0x100269fd0
+    ClanChannelDelta::UpdateClanChannelBaseSettings::~UpdateClanChannelBaseSettings() {
+        field_32.~basic_string();
     }
 
-    // 0x100269fd0, 48 bytes, base-object destructor, inline, placed by class name
-    // ClanChannelDelta::UpdateClanChannelBaseSettings::~UpdateClanChannelBaseSettings()
-    void ClanChannelDelta::UpdateClanChannelBaseSettings::~UpdateClanChannelBaseSettings() {
-        field_0 = &PTR__UpdateClanChannelBaseSettings_100ef8310;
-        (&field_32)->~basic_string();
-        ~Linkable();
-    }
+    // 0x10026bf50
+    ClanChannelDelta::AddUser::AddUser() : ClanChannelDeltaEntry(), field_32(-1) {}
 
-    // 0x10026bf40, 16 bytes, complete-object constructor, inline, placed by class name
-    // ClanChannelDelta::AddUser::AddUser(): jumps straight to the base-object constructor
+    // 0x10026c050
+    ClanChannelDelta::UpdateClanChannelBaseSettings::UpdateClanChannelBaseSettings() : ClanChannelDeltaEntry() {}
 
-    // 0x10026bf50, 80 bytes, base-object constructor, inline, placed by class name
-    // ClanChannelDelta::AddUser::AddUser()
-    void ClanChannelDelta::AddUser::AddUser() {
-        new (this) ClanChannelDeltaEntry();
-        field_0 = &PTR__AddUser_100ef8210;
-        field_32 = -1;
-        new (&field_40) eastl::string();
-    }
+    // 0x10026c0c0
+    ClanChannelDelta::DeleteUser::DeleteUser() : ClanChannelDeltaEntry(), field_32(4294967295) {}
 
-    // 0x10026c040, 16 bytes, complete-object constructor, inline, placed by class name
-    // ClanChannelDelta::UpdateClanChannelBaseSettings::UpdateClanChannelBaseSettings(): jumps straight to the base-object constructor
+    // 0x10026c140
+    ClanChannelDelta::UpdateUserDetails::UpdateUserDetails() : ClanChannelDeltaEntry(), field_32(4294967295) {}
 
-    // 0x10026c050, 64 bytes, base-object constructor, inline, placed by class name
-    // ClanChannelDelta::UpdateClanChannelBaseSettings::UpdateClanChannelBaseSettings()
-    void ClanChannelDelta::UpdateClanChannelBaseSettings::UpdateClanChannelBaseSettings() {
-        new (this) ClanChannelDeltaEntry();
-        field_0 = &PTR__UpdateClanChannelBaseSettings_100ef8310;
-        new (&field_32) eastl::string();
-    }
-
-    // 0x10026c0b0, 16 bytes, complete-object constructor, inline, placed by class name
-    // ClanChannelDelta::DeleteUser::DeleteUser(): jumps straight to the base-object constructor
-
-    // 0x10026c0c0, 48 bytes, base-object constructor, inline, placed by class name
-    // ClanChannelDelta::DeleteUser::DeleteUser()
-    void ClanChannelDelta::DeleteUser::DeleteUser() {
-        new (this) ClanChannelDeltaEntry();
-        field_0 = &PTR__DeleteUser_100ef8250;
-        field_32 = 4294967295;
-    }
-
-    // 0x10026c130, 16 bytes, complete-object constructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetails::UpdateUserDetails(): jumps straight to the base-object constructor
-
-    // 0x10026c140, 80 bytes, base-object constructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetails::UpdateUserDetails()
-    void ClanChannelDelta::UpdateUserDetails::UpdateUserDetails() {
-        new (this) ClanChannelDeltaEntry();
-        field_0 = &PTR__UpdateUserDetails_100ef8290;
-        field_32 = 4294967295;
-        new (&field_56) eastl::string();
-    }
-
-    // 0x10026c200, 16 bytes, complete-object constructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetailsV2::UpdateUserDetailsV2(): jumps straight to the base-object constructor
-
-    // 0x10026c210, 80 bytes, base-object constructor, inline, placed by class name
-    // ClanChannelDelta::UpdateUserDetailsV2::UpdateUserDetailsV2()
-    void ClanChannelDelta::UpdateUserDetailsV2::UpdateUserDetailsV2() {
-        new (this) ClanChannelDeltaEntry();
-        field_0 = &PTR__UpdateUserDetailsV2_100ef82d0;
-        field_32 = 4294967295;
-        new (&field_56) eastl::string();
-    }
+    // 0x10026c210
+    ClanChannelDelta::UpdateUserDetailsV2::UpdateUserDetailsV2() : ClanChannelDeltaEntry(), field_32(4294967295) {}
 
 } // namespace jag::oldscape::rs2lib::social
 
 namespace jag {
-    // 0x100152490, 32 bytes, inline, placed by debug map only (low confidence)
-    // oldscape::rs2lib::social::ClanSettingsDelta* placement_new<oldscape::rs2lib::social::ClanSettingsDelta, oldscape::core::SuperPacket&>(void*, oldscape::core::SuperPacket&)
-    ClanSettingsDelta* jag::placement_new<oldscape::rs2lib::social::ClanSettingsDelta, oldscape::core::SuperPacket&>(
-        void* param_1, SuperPacket* param_2) {
-        oldscape::rs2lib::social::ClanSettingsDelta::ClanSettingsDelta(param_1, (PacketJ*)param_2);
-        return param_1;
+    // 0x100152490
+    oldscape::rs2lib::social::ClanSettingsDelta*
+    placement_new<oldscape::rs2lib::social::ClanSettingsDelta, oldscape::core::SuperPacket&>(
+        void* arg1, oldscape::core::SuperPacket& superPacket) {
+        new (arg1) oldscape::rs2lib::social::ClanSettingsDelta(superPacket);
+        return arg1;
     }
 
-    // 0x1001524b0, 32 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>* placement_new<ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>, int, oldscape::rs2lib::social::ClanSettingsDelta*&>(void*, int&&, oldscape::rs2lib::social::ClanSettingsDelta*&)
-    ref_counter_shared* jag::placement_new<ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>, int,
-                                           oldscape::rs2lib::social::ClanSettingsDelta*&>(void* param_1, int* param_2,
-                                                                                          ClanSettingsDelta** param_3) {
-        ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>::ref_counter_shared(param_1, (long)*param_2,
-                                                                                            *param_3);
-        return param_1;
+    // 0x1001524b0
+    ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>*
+    placement_new<ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>, int,
+                  oldscape::rs2lib::social::ClanSettingsDelta*&>(void* arg1, int&& arg2,
+                                                                 oldscape::rs2lib::social::ClanSettingsDelta*& arg3) {
+        new (arg1) ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>((long)*arg2, arg3);
+        return arg1;
     }
 
-    // 0x1001524d0, 16 bytes, complete-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>::ref_counter_shared(unsigned long, oldscape::rs2lib::social::ClanSettingsDelta*): jumps straight to the base-object constructor
+    // 0x1001524e0
+    ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>::ref_counter_shared(
+        unsigned long arg1, oldscape::rs2lib::social::ClanSettingsDelta* clanSettingsDelta)
+        : ref_counter_base() {}
 
-    // 0x1001524e0, 64 bytes, base-object constructor, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>::ref_counter_shared(unsigned long, oldscape::rs2lib::social::ClanSettingsDelta*)
-    void
-    ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>::ref_counter_shared(ulong param_1,
-                                                                                        ClanSettingsDelta* param_2) {
-        new (this) ref_counter_base();
-        *(undefined**)this = PTR_vtable_100ee78f8 + 16;
-        *(ulong*)(this + 16) = param_1;
-        *(ClanSettingsDelta**)(this + 24) = param_2;
-    }
-
-    // 0x100152520, 80 bytes, inline, placed by debug map only (low confidence)
-    // ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>::DeleteData()
+    // 0x100152520
     void ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta>::DeleteData() {
-        ulong uVar1;
+        ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta> _vtbl* prVar1;
         long lVar2;
 
-        if (*(long*)(this + 24) != 0) {
-            if (*(long*)(this + 16) != 0) {
+        if (this[3]._vptr != nullptr) {
+            if (this[2]._vptr != nullptr) {
                 lVar2 = 0;
-                uVar1 = 0;
+                prVar1 = nullptr;
                 do {
-                    ((*(long*)(this + 24) + lVar2))->~ClanSettingsDelta();
-                    uVar1 = uVar1 + 1;
+                    ((ClanSettingsDelta*)((long)&(this[3]._vptr)->_dtor + lVar2))->~ClanSettingsDelta();
+                    prVar1 =
+                        (ref_counter_shared<oldscape::rs2lib::social::ClanSettingsDelta> _vtbl*)((long)&prVar1->_dtor +
+                                                                                                 1);
                     lVar2 = lVar2 + 32;
-                } while (uVar1 < *(ulong*)(this + 16));
+                } while (prVar1 < this[2]._vptr);
             }
-            *(undefined8*)(this + 24) = 0;
+            this[3]._vptr = nullptr;
         }
     }
 
 } // namespace jag
 
 namespace jag::ui {
-    // 0x100269960: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const, which has identical code
-    ComponentSingleValueMixin::GetValueRepresentationType() const;
+    // 0x100269960: ComponentSingleValueMixin::GetValueRepresentationType() const has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const
 
-    // 0x1002699a0: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::DeleteUser::GetID() const, which has identical code
-    ComponentMultiValueMixin::GetValueRepresentationType() const;
+    // 0x1002699a0: ComponentMultiValueMixin::GetValueRepresentationType() const has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::DeleteUser::GetID() const
 
-    // 0x1002699e0: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::UpdateUserDetails::GetID() const, which has identical code
-    ComponentSingleValueMultiOptionMixin::GetValueRepresentationType() const;
+    // 0x1002699e0: ComponentSingleValueMultiOptionMixin::GetValueRepresentationType() const has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::UpdateUserDetails::GetID() const
 
 } // namespace jag::ui
 
 namespace jag::game {
-    // 0x100269960: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const, which has identical code
-    BaseVarTypeLong::GetSerialID() const;
+    // 0x100269960: BaseVarTypeLong::GetSerialID() const has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const
 
-    // 0x1002699a0: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::DeleteUser::GetID() const, which has identical code
-    BaseVarTypeCoordFine::GetSerialID() const;
+    // 0x1002699a0: BaseVarTypeCoordFine::GetSerialID() const has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::DeleteUser::GetID() const
 
-    // 0x1002699e0: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::UpdateUserDetails::GetID() const, which has identical code
-    BaseVarTypeString::GetSerialID() const;
+    // 0x1002699e0: BaseVarTypeString::GetSerialID() const has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::UpdateUserDetails::GetID() const
 
 } // namespace jag::game
 
 namespace jag::game::option {
-    // 0x100269960: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const, which has identical code
-    LightingQuality::GetDefault();
+    // 0x100269960: LightingQuality::GetDefault() has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const
 
-    // 0x100269960: the linker folded this into oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const, which has identical code
-    AntialiasingQuality::GetDefault();
+    // 0x100269960: AntialiasingQuality::GetDefault() has the same machine code as oldscape::rs2lib::social::ClanChannelDelta::AddUser::GetID() const
 
 } // namespace jag::game::option

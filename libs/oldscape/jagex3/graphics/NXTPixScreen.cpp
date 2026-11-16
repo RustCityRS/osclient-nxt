@@ -1,301 +1,235 @@
 // libs/oldscape/jagex3/graphics/NXTPixScreen.cpp
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 // target: libs.oldscape.jagex3
 
 #include "NXTPixScreen.h"
 
 namespace jag::oldscape::graphics {
-    // 0x100009720: the linker folded this into BaseApp::GetExitCode(), which has identical code
-    NXTPixScreen::GetUIHeight() const;
+    // 0x100009720: NXTPixScreen::GetUIHeight() const has the same machine code as BaseApp::GetExitCode()
 
-    // 0x100009e70: the linker folded this into AutoSingleton<ThreadPoolSingleton>::~AutoSingleton(), which has identical code
-    NXTPixScreen::Render(int, int, int, int);
+    // 0x100009e70: NXTPixScreen::Render(int, int, int, int) has the same machine code as AutoSingleton<ThreadPoolSingleton>::~AutoSingleton()
 
-    // 0x10031ae00, 224 bytes, base-object constructor, placed by class name and debug map
-    // NXTPixScreen::NXTPixScreen(int, int, int, int)
-    void NXTPixScreen::NXTPixScreen(int param_1, int param_2, int param_3, int param_4) {
-        NpcUID* extraout_RDX;
-        NpcUID* extraout_RDX_00;
-        undefined4 in_register_00000034;
-        NpcUID* pNVar2;
-
-        pNVar2 = (NpcUID*)CONCAT44(in_register_00000034, param_1);
-        new (this) PixScreen();
-        new (&field_48) dash3d::NXTRenderable();
-        field_0 = &PTR_Resize_100efad28;
+    // 0x10031ae00
+    NXTPixScreen::NXTPixScreen(int arg1, int arg2, int arg3, int arg4) : PixScreen() {
         field_48 = &PTR_GetCurrentRenderCanvas_100efad68;
-        m_pCurrentRenderCanvas = (NXTRenderCanvas*)0;
-        m_viewportPosition = 0;
+        m_pCurrentRenderCanvas = nullptr;
+        m_viewportX = 0;
         field_76 = 0;
         m_clientWindowSize = 0;
         field_84 = 0;
         m_clampedZoomValue = 1.0;
-        eastl::destruct<highlight::NpcUID*>((eastl*)&m_uIWidth, pNVar2, extraout_RDX);
-        eastl::destruct<highlight::NpcUID*>((eastl*)&m_uIHeight, pNVar2, extraout_RDX_00);
-        new (&field_100, (_func_decltype_nullptr*)pNVar2) shared_ptr<rs2lib::worldmap::WorldmapAreaMetadata>();
+        (&m_uIWidth)->destruct<highlight::NpcUID*>();
+        (&m_uIHeight)->destruct<highlight::NpcUID*>();
+        new (&field_100) shared_ptr();
         m_zoomValue = 1.0;
-        new (&field_128) jag::math::Vector4T<float>();
-        m_minSize = param_3;
-        field_156 = param_4;
+        new (&field_128) jag::math::Vector4T();
+        m_minSize = arg3;
+        field_156 = arg4;
         field_56 = (ObjType*)dash3d::NXTRenderer::GetInstancePtr();
-        m_clientWindowSize = param_1;
-        field_84 = param_2;
-        Resize(this, param_3, param_4);
+        m_clientWindowSize = arg1;
+        field_84 = arg2;
+        Resize(arg3, arg4);
     }
 
-    // 0x10031af40, 208 bytes, placed by class name
-    // NXTPixScreen::Resize(int, int)
-    void NXTPixScreen::Resize(int param_1, int param_2) {
-        int iVar1;
-        int iVar2;
-        NXTRenderCanvas* pNVar3;
-        SharedArray* pSVar4;
-        undefined4 uVar5;
-        undefined4 uVar6;
-        undefined1 local_40[16];
+    // 0x10031af40
+    void NXTPixScreen::Resize(int arg1, int arg2) {
+        NXTRenderCanvas* pNVar1;
+        uint8_t local_40[16];
 
-        m_width = param_1;
-        m_height = param_2;
-        new (local_40) dash3d::GridRect(0, 0, param_1, param_2);
-        SetSafeArea(this, (Rect*)local_40);
-        if (m_pCurrentRenderCanvas == (NXTRenderCanvas*)0) {
-            pNVar3 = (NXTRenderCanvas*)field_56->GetCost();
-            m_pCurrentRenderCanvas = pNVar3;
+        m_width = arg1;
+        m_height = arg2;
+        new (local_40) dash3d::GridRect(0, 0, arg1, arg2);
+        SetSafeArea(*local_40);
+        if (m_pCurrentRenderCanvas == nullptr) {
+            pNVar1 = (NXTRenderCanvas*)field_56->GetCost();
+            m_pCurrentRenderCanvas = pNVar1;
         }
-        (m_pCurrentRenderCanvas, m_viewportPosition, field_76, m_width, m_height)->SetRenderRect();
-        pNVar3 = m_pCurrentRenderCanvas;
-        iVar1 = m_viewportPosition;
-        iVar2 = field_76;
-        uVar5 = GetMinMapX();
-        uVar6 = GetUIHeight(this);
-        pNVar3->SetUIRect(iVar1, iVar2, uVar5, uVar6);
-        (m_pCurrentRenderCanvas, m_width, m_height)->SetScreenSize();
-        pSVar4 = (SharedArray*)m_pCurrentRenderCanvas->GetPixelBuffer();
-        (&field_8, pSVar4)->ref_assign();
+        m_pCurrentRenderCanvas->SetRenderRect(m_viewportX, field_76, m_width, m_height);
+        pNVar1 = m_pCurrentRenderCanvas;
+        int arg1_00 = m_viewportX;
+        int arg2_00 = field_76;
+        unsigned int uVar2 = GetMinMapX();
+        unsigned int uVar3 = GetUIHeight();
+        pNVar1->SetUIRect(arg1_00, arg2_00, (CoordType<UICoordSpecializer>*)(unsigned long)uVar2,
+                          (CoordType<UICoordSpecializer>*)(unsigned long)uVar3);
+        m_pCurrentRenderCanvas->SetScreenSize(m_width, m_height);
+        auto sharedArray = m_pCurrentRenderCanvas->GetPixelBuffer();
+        field_8.ref_assign(*sharedArray);
     }
 
-    // 0x10031b030, 16 bytes, complete-object constructor, placed by class name
-    // NXTPixScreen::NXTPixScreen(int, int, int, int): jumps straight to the base-object constructor
-
-    // 0x10031b040, 16 bytes, placed by class name
-    // NXTPixScreen::SetViewportPosition(int, int)
-    void NXTPixScreen::SetViewportPosition(int param_1, int param_2) {
-        m_viewportPosition = param_1;
-        field_76 = param_2;
+    // 0x10031b040
+    void NXTPixScreen::SetViewportPosition(int arg1, int arg2) {
+        m_viewportX = arg1;
+        field_76 = arg2;
     }
 
-    // 0x10031b050, 16 bytes, placed by class name
-    // NXTPixScreen::SetClientWindowSize(int, int)
-    void NXTPixScreen::SetClientWindowSize(int param_1, int param_2) {
-        m_clientWindowSize = param_1;
-        field_84 = param_2;
+    // 0x10031b050
+    void NXTPixScreen::SetClientWindowSize(int arg1, int arg2) {
+        m_clientWindowSize = arg1;
+        field_84 = arg2;
     }
 
-    // 0x10031b060, 32 bytes, placed by class name
-    // NXTPixScreen::SetMinSize(int, int)
-    void NXTPixScreen::SetMinSize(int param_1, int param_2) {
-        m_minSize = param_1;
-        field_156 = param_2;
+    // 0x10031b060
+    void NXTPixScreen::SetMinSize(int arg1, int arg2) {
+        m_minSize = arg1;
+        field_156 = arg2;
     }
 
-    // 0x10031b080, 48 bytes, placed by class name
-    // NXTPixScreen::SetSafeArea(jag::math::Rect<int> const&)
-    void NXTPixScreen::SetSafeArea(Rect* param_1) {
-        jag::math::Rect<unsigned int>::operator=((Rect<unsigned int>*)&field_100, param_1);
-        CalculateUIRect(this);
+    // 0x10031b080
+    void NXTPixScreen::SetSafeArea(const jag::math::Rect<int>& rect) {
+        field_100 = rect;
+        CalculateUIRect();
     }
 
-    // 0x10031b0c0, 80 bytes, placed by class name
-    // NXTPixScreen::ZoomUI(float)
-    void NXTPixScreen::ZoomUI(float param_1) {
-        float local_1c;
-        float local_18;
-        float local_14;
-
-        local_18 = 1.0;
-        local_14 = 5.0;
-        local_1c = param_1;
-        m_zoomValue = jag::math::Clamp<float>(&local_1c, &local_18, &local_14);
-        CalculateUIRect(this);
+    // 0x10031b0c0
+    void NXTPixScreen::ZoomUI(float arg1) {
+        m_zoomValue = jag::math::Clamp<float>(arg1, 1.0, 5.0);
+        CalculateUIRect();
     }
 
-    // 0x10031b110, 368 bytes, placed by class name
-    // NXTPixScreen::CalculateUIRect()
+    // 0x10031b110
     void NXTPixScreen::CalculateUIRect() {
-        int iVar1;
-        int iVar2;
-        int* piVar3;
-        int iVar4;
-        int iVar5;
-        float fVar6;
-        float fVar7;
         int local_40[2];
-        undefined4 local_38;
-        float local_34;
+        uint32_t local_38;
 
-        local_34 = (float)m_width * (float)m_minSize;
-        piVar3 = (int*)(&field_100)->second();
-        fVar6 = (float)floor(local_34 / (float)*piVar3);
-        iVar5 = (int)fVar6;
+        float local_34 = (float)m_width * (float)m_minSize;
+        auto piVar3 = field_100.second();
+        float fVar5 = (float)::floor(local_34 / (float)*piVar3);
+        ResultType RVar4 = (ResultType)fVar5;
         local_34 = (float)m_height * (float)field_156;
-        piVar3 = (int*)(&field_100)->qw();
-        fVar6 = (float)floor(local_34 / (float)*piVar3);
-        local_34 = (float)(int)fVar6;
-        iVar1 = m_width;
-        fVar7 = 1.0 / m_zoomValue;
-        fVar6 = (float)floor((float)iVar1 * fVar7);
-        iVar4 = (int)fVar6;
-        iVar2 = m_height;
-        fVar6 = (float)floor((float)iVar2 * fVar7);
-        if (iVar4 < iVar5) {
-            fVar6 = (float)((iVar1 / 2 + iVar2 * iVar5) / iVar1);
-            iVar4 = iVar5;
+        piVar3 = (int*)field_100.qw();
+        fVar5 = (float)::floor(local_34 / (float)*piVar3);
+        local_34 = (float)(int)fVar5;
+        int iVar1 = m_width;
+        float fVar6 = 1.0 / m_zoomValue;
+        fVar5 = (float)::floor((float)iVar1 * fVar6);
+        ResultType resultType = (ResultType)fVar5;
+        int iVar2 = m_height;
+        fVar5 = (float)::floor((float)iVar2 * fVar6);
+        if ((int)resultType < (int)RVar4) {
+            fVar5 = (float)((int)(iVar1 / 2 + iVar2 * RVar4) / iVar1);
+            resultType = RVar4;
         } else {
-            fVar6 = (float)(int)fVar6;
+            fVar5 = (float)(int)fVar5;
         }
-        if ((int)fVar6 < (int)local_34) {
-            iVar4 = (iVar2 / 2 + iVar1 * (int)local_34) / iVar2;
-            fVar6 = local_34;
+        if ((int)fVar5 < (int)local_34) {
+            resultType = (iVar2 / 2 + iVar1 * (int)local_34) / iVar2;
+            fVar5 = local_34;
         }
-        XPlotBlender<XPlot_NormalAlpha>::XPlotBlender<int>((XPlotBlender<XPlot_NormalAlpha>*)local_40, iVar4);
+        local_40->XPlotBlender<int>(resultType);
         m_uIWidth = local_40[0];
-        XPlotBlender<XPlot_NormalAlpha>::XPlotBlender<int>((XPlotBlender<XPlot_NormalAlpha>*)&local_38, (int)fVar6);
+        local_38.XPlotBlender<int>((ResultType)fVar5);
         m_uIHeight = local_38;
-        m_clampedZoomValue = (float)m_width / (float)iVar4;
+        m_clampedZoomValue = (float)m_width / (float)(int)resultType;
     }
 
-    // 0x10031b280, 160 bytes, placed by class name
-    // NXTPixScreen::UICoordFromViewportCoord(int, int, int&, int&) const
-    void NXTPixScreen::UICoordFromViewportCoord(int param_1, int param_2, int* param_3, int* param_4) {
-        int iVar1;
+    // 0x10031b280
+    void NXTPixScreen::UICoordFromViewportCoord(int arg1, int arg2, int& arg3, int& arg4) const {
         CoordMapSquare local_38;
-        float local_2c;
 
-        local_2c = (float)param_1;
+        float local_2c = (float)arg1;
         local_38.m_x = GetMinMapX();
-        iVar1 = local_38.GetX();
+        int iVar1 = local_38.GetX();
         iVar1 = jag::math::RoundFloatToInt(((float)iVar1 * local_2c) / (float)m_width);
-        *param_3 = iVar1;
-        local_2c = (float)param_2;
-        local_38._8_4_ = GetUIHeight(this);
+        arg3 = iVar1;
+        local_2c = (float)arg2;
+        local_38._8_4_ = GetUIHeight();
         iVar1 = local_38.field_8.GetX();
         iVar1 = jag::math::RoundFloatToInt(((float)iVar1 * local_2c) / (float)m_height);
-        *param_4 = iVar1;
+        arg4 = iVar1;
     }
 
-    // 0x10031b320, 208 bytes, placed by class name
-    // NXTPixScreen::UICoordFromWindowCoord(int, int, CoordType<UICoordSpecializer>&, CoordType<UICoordSpecializer>&) const
-    void NXTPixScreen::UICoordFromWindowCoord(int param_1, int param_2, CoordType* param_3, CoordType* param_4) {
-        int iVar1;
-        int iVar2;
-        int iVar3;
-        undefined4 local_38[2];
-        uint local_30[2];
+    // 0x10031b320
+    void NXTPixScreen::UICoordFromWindowCoord(int arg1, int arg2, CoordType<UICoordSpecializer>& coordType1,
+                                              CoordType<UICoordSpecializer>& coordType2) const {
+        uint32_t local_38[2];
+        unsigned int local_30[2];
 
-        iVar3 = m_viewportPosition;
-        iVar1 = field_76;
+        int iVar4 = m_viewportX;
+        int iVar1 = field_76;
         local_30[0] = GetMinMapX();
-        iVar2 = local_30->GetX();
-        iVar3 = jag::math::RoundFloatToInt(((float)iVar2 * (float)(param_1 - iVar3)) / (float)m_width);
-        XPlotBlender<XPlot_NormalAlpha>::XPlotBlender<int>((XPlotBlender<XPlot_NormalAlpha>*)local_38, iVar3);
-        *(undefined4*)param_3 = local_38[0];
-        local_30[0] = GetUIHeight(this);
-        iVar3 = local_30->GetX();
-        iVar3 = jag::math::RoundFloatToInt(((float)iVar3 * (float)(param_2 - iVar1)) / (float)m_height);
-        XPlotBlender<XPlot_NormalAlpha>::XPlotBlender<int>((XPlotBlender<XPlot_NormalAlpha>*)local_38, iVar3);
-        *(undefined4*)param_4 = local_38[0];
+        int iVar2 = local_30->GetX();
+        auto RVar3 = jag::math::RoundFloatToInt(((float)iVar2 * (float)(arg1 - iVar4)) / (float)m_width);
+        local_38->XPlotBlender<int>(RVar3);
+        *(uint32_t*)coordType1 = local_38[0];
+        local_30[0] = GetUIHeight();
+        iVar4 = local_30->GetX();
+        RVar3 = jag::math::RoundFloatToInt(((float)iVar4 * (float)(arg2 - iVar1)) / (float)m_height);
+        local_38->XPlotBlender<int>(RVar3);
+        *(uint32_t*)coordType2 = local_38[0];
     }
 
-    // 0x10031b3f0, 192 bytes, placed by class name
-    // NXTPixScreen::CalculateCanvasCoords(CoordType<UICoordSpecializer>, CoordType<UICoordSpecializer>, int&, int&) const
-    void NXTPixScreen::CalculateCanvasCoords(uint param_2, undefined4 param_3, undefined4* param_4,
-                                             undefined4* param_5) {
-        int iVar1;
-        undefined4 uVar2;
-        undefined1 local_38[12];
-        float local_2c;
-        uint local_28[2];
+    // 0x10031b3f0
+    void NXTPixScreen::CalculateCanvasCoords(CoordType<UICoordSpecializer> coordType1,
+                                             CoordType<UICoordSpecializer> coordType2, int& arg3, int& arg4) const {
+        uint8_t local_38[12];
+        unsigned int local_28[2];
 
-        local_38._0_4_ = param_2;
-        local_38._8_4_ = param_3;
-        iVar1 = local_38->GetX();
-        local_2c = (float)m_width * (float)iVar1;
+        local_38._0_4_ = (uint32_t)coordType1;
+        local_38._8_4_ = (uint32_t)coordType2;
+        int iVar1 = local_38->GetX();
+        float local_2c = (float)m_width * (float)iVar1;
         local_28[0] = GetMinMapX();
         iVar1 = local_28->GetX();
-        uVar2 = jag::math::RoundFloatToInt(local_2c / (float)iVar1);
-        *param_4 = uVar2;
+        iVar1 = jag::math::RoundFloatToInt(local_2c / (float)iVar1);
+        arg3 = iVar1;
         iVar1 = ((local_38 + 8))->GetX();
         local_2c = (float)m_height * (float)iVar1;
-        local_28[0] = GetUIHeight(this);
+        local_28[0] = GetUIHeight();
         iVar1 = local_28->GetX();
-        uVar2 = jag::math::RoundFloatToInt(local_2c / (float)iVar1);
-        *param_5 = uVar2;
+        iVar1 = jag::math::RoundFloatToInt(local_2c / (float)iVar1);
+        arg4 = iVar1;
     }
 
-    // 0x10031b4b0, 48 bytes, placed by class name
-    // NXTPixScreen::SetSkyboxColour(jag::math::Vector4T<float>)
-    void NXTPixScreen::SetSkyboxColour(undefined8 param_1, undefined8 param_2, long param_3) {
-        undefined8 local_18;
-        undefined8 uStack_10;
+    // 0x10031b4b0
+    void NXTPixScreen::SetSkyboxColour(jag::math::Vector4T<float> vector4) {
+        QuaternionT<float> local_18;
 
-        local_18 = param_1;
-        uStack_10 = param_2;
-        jag::math::Rect<float>::operator=((Rect<float>*)(param_3 + 128), (Rect*)&local_18);
+        (*((vector4 + 128))) = local_18;
     }
 
-    // 0x10031b4e0, 32 bytes, placed by class name
-    // NXTPixScreen::SetFogParams(float, float)
-    void NXTPixScreen::SetFogParams(float param_1, float param_2) {
-        m_fogParams = param_1;
-        field_148 = param_2;
+    // 0x10031b4e0
+    void NXTPixScreen::SetFogParams(float arg1, float arg2) {
+        m_fogParams = arg1;
+        field_148 = arg2;
     }
 
-    // 0x10031b500, 16 bytes, placed by class name
-    // NXTPixScreen::SetScaledUIQuality(ScaledUIQuality)
-    void NXTPixScreen::SetScaledUIQuality(undefined4 param_2) {
-        m_scaledUIQuality = param_2;
+    // 0x10031b500
+    void NXTPixScreen::SetScaledUIQuality(ScaledUIQuality scaledUIQuality) {
+        m_scaledUIQuality = scaledUIQuality;
     }
 
-    // 0x10031b510, 16 bytes, placed by class name
-    // NXTPixScreen::GetCurrentRenderCanvas()
+    // 0x10031b510
     NXTRenderCanvas* NXTPixScreen::GetCurrentRenderCanvas() {
         return m_pCurrentRenderCanvas;
     }
 
-    // 0x10031b530, 224 bytes, placed by class name
-    // NXTPixScreen::UpdateCurrentRenderCanvas(dash3d::NXTRenderCanvas*)
-    void NXTPixScreen::UpdateCurrentRenderCanvas(NXTRenderCanvas* param_1) {
-        int iVar1;
-        int iVar2;
-        SharedArray* pSVar3;
-        undefined4 uVar4;
-        undefined4 uVar5;
-
-        m_pCurrentRenderCanvas = param_1;
-        iVar1 = m_viewportPosition;
-        iVar2 = field_76;
-        uVar4 = GetMinMapX();
-        uVar5 = GetUIHeight(this);
-        param_1->SetUIRect(iVar1, iVar2, uVar4, uVar5);
-        (m_pCurrentRenderCanvas, m_width, m_height)->SetScreenSize();
-        (m_pCurrentRenderCanvas, field_40)->ShowUI();
-        (m_pCurrentRenderCanvas, m_scaledUIQuality)->SetScaledUIQuality();
-        (m_pCurrentRenderCanvas, field_41)->ShowSkybox();
-        dash3d::NXTRenderCanvas::SetSkyboxColour(field_128, field_136, m_pCurrentRenderCanvas);
-        (m_pCurrentRenderCanvas, m_fogParams, field_148)->SetFogParams();
-        (m_pCurrentRenderCanvas, field_42)->SetDepthBufferEnabled();
-        pSVar3 = (SharedArray*)m_pCurrentRenderCanvas->GetPixelBuffer();
-        (&field_8, pSVar3)->ref_assign();
+    // 0x10031b530
+    void NXTPixScreen::UpdateCurrentRenderCanvas(dash3d::NXTRenderCanvas* nxtRenderCanvas) {
+        m_pCurrentRenderCanvas = nxtRenderCanvas;
+        int arg1 = m_viewportX;
+        int arg2 = field_76;
+        unsigned int uVar1 = GetMinMapX();
+        unsigned int uVar2 = GetUIHeight();
+        nxtRenderCanvas->SetUIRect(arg1, arg2, (CoordType<UICoordSpecializer>*)(unsigned long)uVar1,
+                                   (CoordType<UICoordSpecializer>*)(unsigned long)uVar2);
+        m_pCurrentRenderCanvas->SetScreenSize(m_width, m_height);
+        m_pCurrentRenderCanvas->ShowUI(field_40);
+        m_pCurrentRenderCanvas->SetScaledUIQuality(m_scaledUIQuality);
+        m_pCurrentRenderCanvas->ShowSkybox(field_41);
+        dash3d::NXTRenderCanvas::SetSkyboxColour(m_pCurrentRenderCanvas);
+        m_pCurrentRenderCanvas->SetFogParams(m_fogParams, field_148);
+        m_pCurrentRenderCanvas->SetDepthBufferEnabled(field_42);
+        auto sharedArray = m_pCurrentRenderCanvas->GetPixelBuffer();
+        field_8.ref_assign(*sharedArray);
     }
 
-    // 0x10031b620, 48 bytes, placed by class name
-    // NXTPixScreen::Render(int, int)
-    void NXTPixScreen::Render(int param_1, int param_2) {
-        NXTRenderCanvas* pNVar1;
+    // 0x10031b620
+    void NXTPixScreen::Render(int arg1, int arg2) {
+        NXTRenderCanvas* nxtRenderCanvas;
 
-        pNVar1 = (NXTRenderCanvas*)dash3d::NXTRenderer::PresentFrontBuffer((NXTRenderCanvas*)field_56);
-        UpdateCurrentRenderCanvas(this, pNVar1);
+        nxtRenderCanvas = (NXTRenderCanvas*)dash3d::NXTRenderer::PresentFrontBuffer(field_56);
+        UpdateCurrentRenderCanvas(nxtRenderCanvas);
     }
 
 } // namespace jag::oldscape::graphics

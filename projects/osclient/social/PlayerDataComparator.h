@@ -1,6 +1,5 @@
 // projects/osclient/social/PlayerDataComparator.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -13,22 +12,13 @@ namespace jag::oldscape::social {
         PlayerDataComparator();
     };
 
-    // 0x1001702b0, 32 bytes, base-object constructor, inline, placed by class name and debug map
-    // PlayerDataComparator<FriendData>::PlayerDataComparator()
-    void PlayerDataComparator<FriendData>::PlayerDataComparator() {
-        *(undefined**)this = PTR_vtable_100ee8b58 + 16;
-    }
+    // 0x1001702b0
+    PlayerDataComparator<FriendData>::PlayerDataComparator() {}
 
-    // 0x100172ef0, 32 bytes, base-object constructor, inline, placed by class name
-    // PlayerDataComparator<IgnoreData>::PlayerDataComparator()
-    void PlayerDataComparator<IgnoreData>::PlayerDataComparator() {
-        *(undefined**)this = PTR_vtable_100ee8b60 + 16;
-    }
+    // 0x100172ef0
+    PlayerDataComparator<IgnoreData>::PlayerDataComparator() {}
 
-    // 0x100174a00, 32 bytes, base-object constructor, inline, placed by class name
-    // PlayerDataComparator<FriendChatUser>::PlayerDataComparator()
-    void PlayerDataComparator<FriendChatUser>::PlayerDataComparator() {
-        *(undefined**)this = PTR_vtable_100ee8b68 + 16;
-    }
+    // 0x100174a00
+    PlayerDataComparator<FriendChatUser>::PlayerDataComparator() {}
 
 } // namespace jag::oldscape::social

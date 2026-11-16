@@ -1,6 +1,5 @@
 // libs/hal/render/shaders/Shader.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -9,79 +8,77 @@ namespace jag::render {
     public:
         // virtual methods in vtable order
         virtual ~Shader();
-        int GetNativeShader() const;
+        TextWrapMode GetNativeShader() const;
         Shader();
         void Destroy();
         bool IsReady() const;
-        PrepareForReuse(char const*, char const*, unsigned char);
+        uint32_t PrepareForReuse(const char* str1, const char* str2, unsigned char arg3);
         void WaitForAsyncCompile() const;
         bool IsCreatedFromBinary() const;
-        bool CreateFromSourceString(char const*, char const*, unsigned char);
+        bool CreateFromSourceString(const char* str1, const char* str2, unsigned char arg3);
         bool IsCreated() const;
         void ReleaseNativeResources();
-        CreateFromBinary(char const*, unsigned long);
+        uint64_t CreateFromBinary(const char* str, unsigned long arg2);
 
-        // data members, from how the methods use this: 88 bytes
-        undefined** field_0; // offset 0, vtable pointer
-        char _unknown_8[32];
-        undefined1 field_40; // offset 40
-        uchar field_41;      // offset 41
-        char _unknown_42[6];
-        RadialHighlightState field_48; // offset 48
-        int m_nativeShader;            // offset 72
-        char _unknown_76[12];
+    private:
+        uint8_t _unknown_8[33];
+        unsigned char field_41;
+        uint8_t _unknown_42[6];
+        RadialHighlightState field_48;
+        TextWrapMode m_nativeShader;
+        uint8_t _unknown_76[12];
     };
 
     class ShaderPrecisionProfile {
     public:
-        ShaderPrecisionProfile(ShaderVariablePrecision, ShaderVariablePrecision, ShaderVariablePrecision,
-                               ShaderVariablePrecision, ShaderVariablePrecision, ShaderVariablePrecision);
+        ShaderPrecisionProfile(ShaderVariablePrecision arg1, ShaderVariablePrecision arg2, ShaderVariablePrecision arg3,
+                               ShaderVariablePrecision arg4, ShaderVariablePrecision arg5,
+                               ShaderVariablePrecision arg6);
 
-        // data members, from how the methods use this: 28 bytes
-        int field_0;  // offset 0
-        int field_4;  // offset 4
-        uint field_8; // offset 8
-        int field_12; // offset 12
-        int field_16; // offset 16
-        int field_20; // offset 20
-        char _unknown_24[4];
+    private:
+        int field_0;
+        int field_4;
+        int field_8;
+        int field_12;
+        int field_16;
+        int field_20;
+        uint8_t _unknown_24[4];
     };
 
     class ShaderTextureImageData {
     public:
-        ShaderTextureImageData(unsigned int, Texture const*, Access);
-        operator==(ShaderTextureImageData const&) const;
+        ShaderTextureImageData(unsigned int arg1, const Texture* texture, Access access);
+        uint32_t operator==(const ShaderTextureImageData& shaderTextureImageData) const;
 
-        // data members, from how the methods use this: 20 bytes
-        undefined8 field_0;  // offset 0
-        undefined4 field_8;  // offset 8
-        undefined4 field_12; // offset 12
-        char _unknown_16[4];
+    private:
+        Texture* field_0;
+        unsigned int field_8;
+        Access field_12;
+        uint8_t _unknown_16[4];
     };
 
     class ShaderTextureSamplerData {
     public:
-        ShaderTextureSamplerData(unsigned int, Texture const*, int, SamplerState const*, bool);
-        operator==(ShaderTextureSamplerData const&) const;
+        ShaderTextureSamplerData(unsigned int arg1, const Texture* texture, int arg3, const SamplerState* samplerState,
+                                 bool arg5);
+        uint64_t operator==(const ShaderTextureSamplerData& shaderTextureSamplerData) const;
 
-        // data members, from how the methods use this: 28 bytes
-        Texture* field_0;      // offset 0
-        SamplerState* field_8; // offset 8
-        uint field_16;         // offset 16
-        int field_20;          // offset 20
-        bool field_24;         // offset 24
-        char _unknown_25[3];
+    private:
+        Texture* field_0;
+        SamplerState* field_8;
+        unsigned int field_16;
+        int field_20;
+        bool field_24;
+        uint8_t _unknown_25[3];
     };
 
-    // 0x100be8b10, 16 bytes, inline, placed by class name
-    // Shader::IsCreatedFromBinary() const
-    bool Shader::IsCreatedFromBinary() {
-        return m_nativeShader == -1;
+    // 0x100be8b10
+    bool Shader::IsCreatedFromBinary() const {
+        return m_nativeShader == 4294967295;
     }
 
-    // 0x100be8c20, 16 bytes, inline, placed by class name
-    // Shader::IsCreated() const
-    bool Shader::IsCreated() {
+    // 0x100be8c20
+    bool Shader::IsCreated() const {
         return m_nativeShader != 0;
     }
 

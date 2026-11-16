@@ -1,6 +1,5 @@
 // libs/graphics/runetek7/postprocess/PostProcessController.h
-// Reconstructed from the OSRS macOS client (osclient build OS1669). Names, signatures, file
-// placement, inheritance and virtual order come from the binary; see RECONSTRUCTION.md.
+// Reconstructed from the OSRS macOS client (osclient build OS1669); the comment above each definition is its address.
 
 #pragma once
 
@@ -8,123 +7,91 @@ namespace jag::graphics {
     class PostProcessController {
     public:
         class Config;
-        SetRT7Core(RT7Core*);
-        void SetPostProcessManager(postprocess::PostProcessManager*);
-        void PushConfig(Config const&);
-        void Update(float);
-        void ApplyConfig(Config const&);
+        void SetRT7Core(RT7Core* arg1);
+        void SetPostProcessManager(postprocess::PostProcessManager* postProcessManager);
+        void PushConfig(const Config& config);
+        void Update(float arg1);
+        void ApplyConfig(const Config& config);
         void PopConfig();
-        void RegisterTweaks(tweak::ContainerGroup&);
+        void RegisterTweaks(tweak::ContainerGroup& containerGroup);
         void GetCurrentConfig();
         PostProcessController();
         ~PostProcessController();
-        static /* 80 bytes */ m_Operators__;                   // initialised in its definition
-        static /* 64 bytes */ m_fxaaQuality__;                 // initialised in its definition
-        static /* 96 bytes */ m_kawaseKernelSize__;            // initialised in its definition
-        static /* 80 bytes */ m_dualFilteringBlurKernelSize__; // initialised in its definition
-        static /* 60 bytes */ m_bloomQuality__;                // initialised in its definition
-        static StringEnum /* 16 bytes */ m_Operators;          // = StringEnum((StringEnumEntry *)&m_Operators__, 5)
-        static StringEnum /* 16 bytes */ m_fxaaQuality;        // = StringEnum((StringEnumEntry *)&m_fxaaQuality__, 4)
-        static StringEnum                                      /* 16 bytes */
-            m_kawaseKernelSize;            // = StringEnum((StringEnumEntry *)&m_kawaseKernelSize__, 6)
-        static StringEnum                  /* 16 bytes */
+        static int32_t m_Operators__[20];                   // initialised in its definition
+        static int32_t m_fxaaQuality__[16];                 // initialised in its definition
+        static int32_t m_kawaseKernelSize__[24];            // initialised in its definition
+        static int32_t m_dualFilteringBlurKernelSize__[20]; // initialised in its definition
+        static int32_t m_bloomQuality__[15];                // initialised in its definition
+        static StringEnum m_Operators;                      // = StringEnum((StringEnumEntry *)&m_Operators__, 5)
+        static StringEnum m_fxaaQuality;                    // = StringEnum((StringEnumEntry *)&m_fxaaQuality__, 4)
+        static StringEnum m_kawaseKernelSize;               // = StringEnum((StringEnumEntry *)&m_kawaseKernelSize__, 6)
+        static StringEnum
             m_dualFilteringBlurKernelSize; // = StringEnum((StringEnumEntry *) &m_dualFilteringBlurKernelSize__, 5)
-        static StringEnum /* 16 bytes */ m_bloomQuality; // = StringEnum((StringEnumEntry *)&m_bloomQuality__, 3)
+        static StringEnum m_bloomQuality;  // = StringEnum((StringEnumEntry *)&m_bloomQuality__, 3)
 
-        // data members, from how the methods use this: 640 bytes
-        PostProcessManager* field_0; // offset 0
-        undefined8 field_8;          // offset 8
-        Config field_16;             // offset 16
+    private:
+        PostProcessManager* field_0;
+        uint64_t field_8;
+        uint8_t _unknown_16[8];
     };
 
     class PostProcessController::Config {
     public:
         Config();
         ~Config();
-        Config* operator=(Config const&);
-        Config(Config const&);
-        Config(Config&&);
+        Config* operator=(const Config& config);
+        Config(const Config& config);
+        Config(Config&& config);
 
-        // data members, from how the methods use this: 624 bytes
-        undefined1 field_0; // offset 0
-        char _unknown_1[527];
-        undefined1 field_528; // offset 528
-        undefined3 field_529; // offset 529
-        undefined4 field_532; // offset 532
-        undefined1 field_536; // offset 536
-        undefined7 field_537; // offset 537
-        undefined8 field_544; // offset 544
-        undefined2 field_552; // offset 552
-        undefined6 field_554; // offset 554
-        undefined8 field_560; // offset 560
-        undefined8 field_568; // offset 568
-        undefined8 field_576; // offset 576
-        undefined8 field_584; // offset 584
-        undefined8 field_592; // offset 592
-        undefined8 field_600; // offset 600
-        undefined8 field_608; // offset 608
-        undefined8 field_616; // offset 616
+    private:
+        uint8_t field_0;
+        uint8_t _unknown_1[527];
+        uint8_t field_528;
+        uint8_t field_529[3];
+        uint32_t field_532;
+        uint8_t field_536;
+        uint8_t field_537[7];
+        uint64_t field_544;
+        uint16_t field_552;
+        uint8_t field_554[6];
+        uint64_t field_560;
+        uint64_t field_568;
+        uint64_t field_576;
+        uint64_t field_584;
+        uint64_t field_592;
+        uint64_t field_600;
+        uint64_t field_608;
+        uint64_t field_616;
     };
 
-    // 0x1001d4a40, 16 bytes, complete-object constructor, inline, placed by class name and debug map
-    // PostProcessController::Config::Config(): jumps straight to the base-object constructor
-
-    // 0x1001d4a90, 16 bytes, complete-object destructor, inline, placed by class name
-    // PostProcessController::Config::~Config(): jumps straight to the base-object destructor
-
-    // 0x1001d4ac0, 112 bytes, base-object constructor, inline, placed by class name
-    // PostProcessController::Config::Config()
-    void PostProcessController::Config::Config() {
-        field_0 = 1;
-        new (&field_8) postprocess::PostProcessParams();
-        new (&field_208) postprocess::ColourGradingBloomEffectConfig();
-        field_528 = 0;
-        field_532 = 1;
-        field_536 = 0;
-        new (((long)&field_537 + 3)) postprocess::OutlineAndShadowEffectConfig();
+    // 0x1001d4ac0
+    PostProcessController::Config::Config() : field_0(1), field_528(0), field_532(1), field_536(0) {
+        new ((OutlineAndShadowEffectConfig*)((long)&field_537 + 3)) postprocess::OutlineAndShadowEffectConfig();
         field_552 = 0;
-        new (((long)&field_554 + 2)) postprocess::DepthOfFieldEffectConfig();
+        new ((DepthOfFieldEffectConfig*)((long)&field_554 + 2)) postprocess::DepthOfFieldEffectConfig();
     }
 
-    // 0x1001d52e0, 32 bytes, base-object destructor, inline, placed by class name
-    // PostProcessController::Config::~Config()
-    void PostProcessController::Config::~Config() {
-        (&field_208)->~ColourGradingBloomEffectConfig();
+    // 0x1001d52e0
+    PostProcessController::Config::~Config() {
+        field_208.~ColourGradingBloomEffectConfig();
     }
 
-    // 0x1001d9ab0, 144 bytes, inline, placed by class name
-    // PostProcessController::Config::operator=(PostProcessController::Config const&)
-    /* PostProcessController::Config::TEMPNAMEPLACEHOLDERVALUE(PostProcessController::Config
-   const&) */
-
-    Config* PostProcessController::Config::operator=(Config* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined8 uVar5;
-        undefined3 uVar6;
-        undefined4 uVar7;
-        undefined1 uVar8;
-        undefined7 uVar9;
-        undefined2 uVar10;
-        undefined6 uVar11;
-
-        _memcpy(this, param_1, 201);
-        postprocess::ColourGradingBloomEffectConfig::operator=((ColourGradingBloomEffectConfig*)&field_208,
-                                                               (ColourGradingBloomEffectConfig*)&param_1->field_208);
-        uVar6 = param_1->field_529;
-        uVar7 = param_1->field_532;
-        uVar8 = param_1->field_536;
-        uVar9 = param_1->field_537;
-        uVar1 = param_1->field_544;
-        uVar10 = param_1->field_552;
-        uVar11 = param_1->field_554;
-        uVar2 = param_1->field_560;
-        uVar3 = param_1->field_568;
-        uVar4 = param_1->field_576;
-        uVar5 = param_1->field_584;
-        field_528 = param_1->field_528;
+    // 0x1001d9ab0
+    Config* PostProcessController::Config::operator=(const PostProcessController::Config& config) {
+        _memcpy(this, config, 201);
+        field_208 = config.field_208;
+        uint32_t uVar6 = config.field_529;
+        uint32_t uVar7 = config.field_532;
+        uint8_t uVar8 = config.field_536;
+        uint64_t uVar9 = config.field_537;
+        uint64_t uVar1 = config.field_544;
+        uint16_t uVar10 = config.field_552;
+        uint64_t uVar11 = config.field_554;
+        uint64_t uVar2 = config.field_560;
+        uint64_t uVar3 = config.field_568;
+        uint64_t uVar4 = config.field_576;
+        uint64_t uVar5 = config.field_584;
+        field_528 = config.field_528;
         field_529 = uVar6;
         field_532 = uVar7;
         field_536 = uVar8;
@@ -136,54 +103,37 @@ namespace jag::graphics {
         field_568 = uVar3;
         field_576 = uVar4;
         field_584 = uVar5;
-        uVar1 = param_1->field_600;
-        field_592 = param_1->field_592;
+        uVar1 = config.field_600;
+        field_592 = config.field_592;
         field_600 = uVar1;
-        uVar1 = param_1->field_616;
-        field_608 = param_1->field_608;
+        uVar1 = config.field_616;
+        field_608 = config.field_608;
         field_616 = uVar1;
         return this;
     }
 
-    // 0x1007e0bb0, 16 bytes, complete-object constructor, inline, placed by class name
-    // PostProcessController::Config::Config(PostProcessController::Config const&): jumps straight to the base-object constructor
-
-    // 0x1007e7f70, 144 bytes, base-object constructor, inline, placed by class name
-    // PostProcessController::Config::Config(PostProcessController::Config const&)
-    void PostProcessController::Config::Config(Config* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined2 uVar5;
-        undefined6 uVar6;
-        undefined1 uVar7;
-        undefined3 uVar8;
-        undefined4 uVar9;
-        undefined1 uVar10;
-        undefined7 uVar11;
-
-        _memcpy(this, param_1, 201);
-        new (&field_208, (ColourGradingBloomEffectConfig*)&param_1->field_208)
-            postprocess::ColourGradingBloomEffectConfig();
-        uVar1 = param_1->field_616;
-        field_608 = param_1->field_608;
+    // 0x1007e7f70
+    PostProcessController::Config::Config(const PostProcessController::Config& config) {
+        _memcpy(this, config, 201);
+        new (&field_208) postprocess::ColourGradingBloomEffectConfig(config.field_208);
+        uint64_t uVar1 = config.field_616;
+        field_608 = config.field_608;
         field_616 = uVar1;
-        uVar1 = param_1->field_600;
-        field_592 = param_1->field_592;
+        uVar1 = config.field_600;
+        field_592 = config.field_592;
         field_600 = uVar1;
-        uVar7 = param_1->field_528;
-        uVar8 = param_1->field_529;
-        uVar9 = param_1->field_532;
-        uVar10 = param_1->field_536;
-        uVar11 = param_1->field_537;
-        uVar1 = param_1->field_544;
-        uVar5 = param_1->field_552;
-        uVar6 = param_1->field_554;
-        uVar2 = param_1->field_560;
-        uVar3 = param_1->field_568;
-        uVar4 = param_1->field_584;
-        field_576 = param_1->field_576;
+        uint8_t uVar7 = config.field_528;
+        uint32_t uVar8 = config.field_529;
+        uint32_t uVar9 = config.field_532;
+        uint8_t uVar10 = config.field_536;
+        uint64_t uVar11 = config.field_537;
+        uVar1 = config.field_544;
+        uint16_t uVar5 = config.field_552;
+        uint64_t uVar6 = config.field_554;
+        uint64_t uVar2 = config.field_560;
+        uint64_t uVar3 = config.field_568;
+        uint64_t uVar4 = config.field_584;
+        field_576 = config.field_576;
         field_584 = uVar4;
         field_560 = uVar2;
         field_568 = uVar3;
@@ -197,45 +147,28 @@ namespace jag::graphics {
         field_537 = uVar11;
     }
 
-    // 0x1007fe040, 16 bytes, complete-object constructor, inline, placed by class name
-    // PostProcessController::Config::Config(PostProcessController::Config&&): jumps straight to the base-object constructor
-
-    // 0x1007fe060, 144 bytes, base-object constructor, inline, placed by class name
-    // PostProcessController::Config::Config(PostProcessController::Config&&)
-    void PostProcessController::Config::Config(Config* param_1) {
-        undefined8 uVar1;
-        undefined8 uVar2;
-        undefined8 uVar3;
-        undefined8 uVar4;
-        undefined2 uVar5;
-        undefined6 uVar6;
-        undefined1 uVar7;
-        undefined3 uVar8;
-        undefined4 uVar9;
-        undefined1 uVar10;
-        undefined7 uVar11;
-
-        _memcpy(this, param_1, 201);
-        new (&field_208, (ColourGradingBloomEffectConfig*)&param_1->field_208)
-            postprocess::ColourGradingBloomEffectConfig();
-        uVar1 = param_1->field_616;
-        field_608 = param_1->field_608;
+    // 0x1007fe060
+    PostProcessController::Config::Config(PostProcessController::Config&& config) {
+        _memcpy(this, config, 201);
+        new (&field_208) postprocess::ColourGradingBloomEffectConfig(config.field_208);
+        uint64_t uVar1 = config.field_616;
+        field_608 = config.field_608;
         field_616 = uVar1;
-        uVar1 = param_1->field_600;
-        field_592 = param_1->field_592;
+        uVar1 = config.field_600;
+        field_592 = config.field_592;
         field_600 = uVar1;
-        uVar7 = param_1->field_528;
-        uVar8 = param_1->field_529;
-        uVar9 = param_1->field_532;
-        uVar10 = param_1->field_536;
-        uVar11 = param_1->field_537;
-        uVar1 = param_1->field_544;
-        uVar5 = param_1->field_552;
-        uVar6 = param_1->field_554;
-        uVar2 = param_1->field_560;
-        uVar3 = param_1->field_568;
-        uVar4 = param_1->field_584;
-        field_576 = param_1->field_576;
+        uint8_t uVar7 = config.field_528;
+        uint32_t uVar8 = config.field_529;
+        uint32_t uVar9 = config.field_532;
+        uint8_t uVar10 = config.field_536;
+        uint64_t uVar11 = config.field_537;
+        uVar1 = config.field_544;
+        uint16_t uVar5 = config.field_552;
+        uint64_t uVar6 = config.field_554;
+        uint64_t uVar2 = config.field_560;
+        uint64_t uVar3 = config.field_568;
+        uint64_t uVar4 = config.field_584;
+        field_576 = config.field_576;
         field_584 = uVar4;
         field_560 = uVar2;
         field_568 = uVar3;
@@ -249,30 +182,17 @@ namespace jag::graphics {
         field_537 = uVar11;
     }
 
-    // 0x10092c6a0, 16 bytes, inline, placed by class name
-    // PostProcessController::GetCurrentConfig()
+    // 0x10092c6a0
     void PostProcessController::GetCurrentConfig() {
-        field_16->top();
+        eastl::stack<PostProcessController::Config, eastl::fixed_vector<PostProcessController::Config, 2ul>>::top();
     }
 
-    // 0x10097ed10, 16 bytes, complete-object constructor, inline, placed by class name
-    // PostProcessController::PostProcessController(): jumps straight to the base-object constructor
+    // 0x10098dfe0
+    PostProcessController::PostProcessController() : field_0(nullptr), field_8(0) {}
 
-    // 0x10097ee90, 16 bytes, complete-object destructor, inline, placed by class name
-    // PostProcessController::~PostProcessController(): jumps straight to the base-object destructor
-
-    // 0x10098dfe0, 32 bytes, base-object constructor, inline, placed by class name
-    // PostProcessController::PostProcessController()
-    void PostProcessController::PostProcessController() {
-        field_0 = (PostProcessManager*)0;
-        field_8 = 0;
-        new (field_16) eastl::fixed_stack<PostProcessController::Config, 2ul, true>();
-    }
-
-    // 0x100991240, 16 bytes, base-object destructor, inline, placed by class name
-    // PostProcessController::~PostProcessController()
-    void PostProcessController::~PostProcessController() {
-        field_16->~fixed_stack();
+    // 0x100991240
+    PostProcessController::~PostProcessController() {
+        field_16.~fixed_stack();
     }
 
 } // namespace jag::graphics
